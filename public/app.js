@@ -7,7 +7,7 @@ async function init() {
   fuse = new Fuse(rows, {
     threshold: 0.35,
     ignoreLocation: true,
-    keys: ['대학', '학과', '핵심과목', '권장과목', '전형변화2028']
+    keys: ['대학', '학과']
   });
 
   const q = document.getElementById('q');
