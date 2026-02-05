@@ -4,7 +4,6 @@ let fuse = null;
 async function init() {
   const res = await fetch('./univ_info.json', { cache: 'no-store' });
   rows = await res.json();
-
   fuse = new Fuse(rows, {
     threshold: 0.35,
     ignoreLocation: true,
@@ -35,5 +34,5 @@ function render(keyword) {
 }
 
 init().catch(() => {
-  document.getElementById('list').textContent = '데이터 로딩 실패: univ_info.json 확인 필요';
+ document.getElementById('list').textContent = '데이터 로딩 실패: univ_info.json 확인 필요';
 });
