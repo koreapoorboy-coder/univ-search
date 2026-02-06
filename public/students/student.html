@@ -48,9 +48,18 @@
       return list.find(x => x.id === id);
     }
 
-    async function loadScores(id){
-      const res = await fetch(`./data/${id}.json`, { cache:"no-store" });
-      return await res.json();
+   async function loadScores(id){
+  const res = await fetch("./scores.json", { cache:"no-store" });
+  const all = await res.json();
+
+  // scores.json이 배열이거나 {scores:[...]} 둘 다 대응
+  const rows = Array.isArray(all) ? all : (all.scores || []);
+
+  // id 또는 studentId 둘 다 대응
+  return rows.filter(r => (r.id || r.studentId) === id);
+}
+
+
     }
 
     function renderHeader(meta, id){
@@ -115,8 +124,7 @@
       const meta = await loadStudentMeta(id);
       renderHeader(meta, id);
 
-      const data = await loadScores(id);
-      const scores = (data.scores || []).slice().sort((a,b)=>a.round-b.round);
+      const scores = (await loadScores(id)).slice().sort((a,b)=>a.round-b.round);
 
       renderTable(scores);
       renderChart(scores);
