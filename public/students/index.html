@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>학생 목록</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
+    h1{margin:0 0 14px}
+    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
+    .name{font-weight:800}
+    .meta{opacity:.8;margin-top:6px;line-height:1.6}
+    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
+  </style>
+</head>
+<body>
+  <h1>학생 목록</h1>
+  <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형" />
+
+  <div id="list"></div>
+
+  <script>
+    let students = [];
+
+    async function init(){
+      const res = await fetch('./students.json', { cache:'no-store' });
+      students = await res.json();
+      render('');
+      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim()));
+    }
+
+    function render(keyword){
+      const list = document.getElementById('list');
+      const k = keyword.toLowerCase();
+
+      const items = students.filter(s => {
+        const hay = `${s.school||''} ${s.studentName||''} ${s.career||''} ${s.admission||''}`.toLowerCase();
+        return !k || hay.includes(k);
+      });
+
+      list.innerHTML = items.map(s => `
+        <div class="card">
+          <div class="name">${s.studentName} <span style="opacity:.6">(${s.id})</span></div>
+          <div class="meta">
+            학교: ${s.school || '-'}<br/>
+            진로: ${s.career || '-'}<br/>
+            전형: ${s.admission || '-'}
+          </div>
+          <a class="btn" href="./student.html?id=${encodeURIComponent(s.id)}">성적/그래프 보기</a>
+        </div>
+      `).join('') || '<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>';
+    }
+
+    init().catch(()=>{ document.getElementById('list').textContent='students.json 로딩 실패'; });
+  </script>
+</body>
+</html>
