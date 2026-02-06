@@ -35,106 +35,110 @@
   </div>
 
   <script>
-    const SUBJECTS = ["국어","수학","영어","생윤","사문"];
+  const SUBJECTS = ["국어","수학","영어","생윤","사문"];
 
-    function getId(){
-      const u = new URL(location.href);
-      return u.searchParams.get("id");
-    }
+  function getId(){
+    const u = new URL(location.href);
+    return u.searchParams.get("id");
+  }
 
-    async function loadStudentMeta(id){
-      const res = await fetch("./students.json", { cache:"no-store" });
-      const list = await res.json();
-      return list.find(x => x.id === id);
-    }
+  async function loadStudentMeta(id){
+    const res = await fetch("./students.json", { cache:"no-store" });
+    const list = await res.json();
+    return list.find(x => x.id === id);
+  }
 
-   async function loadScores(id){
-  const res = await fetch("./scores.json", { cache:"no-store" });
-  const all = await res.json();
+  async function loadScores(id){
+    const res = await fetch("./scores.json", { cache:"no-store" });
+    const all = await res.json();
 
-  // scores.json이 배열이거나 {scores:[...]} 둘 다 대응
-  const rows = Array.isArray(all) ? all : (all.scores || []);
+    // scores.json이 배열이거나 {scores:[...]} 둘 다 대응
+    const rows = Array.isArray(all) ? all : (all.scores || []);
 
-  // id 또는 studentId 둘 다 대응
-  return rows.filter(r => (r.id || r.studentId) === id);
-}
+    // id 또는 studentId 둘 다 대응
+    return rows.filter(r => (r.id || r.studentId) === id);
+  }
 
+  function renderHeader(meta, id){
+    const el = document.getElementById("header");
+    el.innerHTML = `
+      <div class="title">${meta?.studentName || meta?.name || id}</div>
+      <div class="sub">
+        학교: ${meta?.school || "-"} · 진로: ${meta?.career || "-"} · 전형: ${meta?.admission || "-"}
+      </div>
+      <div style="opacity:.8">데이터 파일: <b>students/scores.json</b> (id=${id})</div>
+    `;
+  }
 
-    }
+  function renderTable(scores){
+    const rows = scores.map(r => `
+      <tr>
+        <td>${r.round}</td>
+        <td>${r.date || "-"}</td>
+        ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
+      </tr>
+    `).join("");
 
-    function renderHeader(meta, id){
-      const el = document.getElementById("header");
-      el.innerHTML = `
-        <div class="title">${meta?.studentName || id}</div>
-        <div class="sub">
-          학교: ${meta?.school || "-"} · 진로: ${meta?.career || "-"} · 전형: ${meta?.admission || "-"}
-        </div>
-        <div style="opacity:.8">데이터 파일: <b>students/data/${id}.json</b></div>
-      `;
-    }
+    document.getElementById("table").innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>회차</th><th>날짜</th>
+            ${SUBJECTS.map(s=>`<th>${s}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
 
-    function renderTable(scores){
-      const rows = scores.map(r => `
-        <tr>
-          <td>${r.round}</td>
-          <td>${r.date || "-"}</td>
-          ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
-        </tr>
-      `).join("");
+  function renderChart(scores){
+    const labels = scores.map(r => `${r.round}회`);
+    const datasets = SUBJECTS.map(s => ({
+      label: s,
+      data: scores.map(r => r[s] ?? null),
+      tension: 0.25
+    }));
 
-      document.getElementById("table").innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>회차</th><th>날짜</th>
-              ${SUBJECTS.map(s=>`<th>${s}</th>`).join("")}
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    }
-
-    function renderChart(scores){
-      const labels = scores.map(r => `${r.round}회`);
-      const datasets = SUBJECTS.map(s => ({
-        label: s,
-        data: scores.map(r => r[s] ?? null),
-        tension: 0.25
-      }));
-
-      const ctx = document.getElementById("chart");
-      new Chart(ctx, {
-        type: "line",
-        data: { labels, datasets },
-        options: {
-          responsive: true,
-          plugins: { legend: { position: "bottom" } },
-          scales: { y: { beginAtZero: true, suggestedMax: 100 } }
-        }
-      });
-    }
-
-    async function init(){
-      const id = getId();
-      if(!id){
-        document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
-        return;
+    const ctx = document.getElementById("chart");
+    new Chart(ctx, {
+      type: "line",
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: "bottom" } },
+        scales: { y: { beginAtZero: true, suggestedMax: 100 } }
       }
-      const meta = await loadStudentMeta(id);
-      renderHeader(meta, id);
+    });
+  }
 
-      const scores = (await loadScores(id)).slice().sort((a,b)=>a.round-b.round);
-
-      renderTable(scores);
-      renderChart(scores);
+  async function init(){
+    const id = getId();
+    if(!id){
+      document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
+      return;
     }
 
-    init().catch(err=>{
-      document.getElementById("header").textContent =
-        "로딩 실패: students.json 또는 data/{id}.json 파일 확인 필요";
-      console.error(err);
-    });
-  </script>
+    const meta = await loadStudentMeta(id);
+    renderHeader(meta, id);
+
+    const scores = (await loadScores(id)).slice().sort((a,b)=>a.round-b.round);
+
+    if(!scores.length){
+      document.getElementById("table").innerHTML =
+        `<div style="opacity:.7">점수 데이터가 없습니다. scores.json에서 id="${id}"가 있는지 확인하세요.</div>`;
+      return;
+    }
+
+    renderTable(scores);
+    renderChart(scores);
+  }
+
+  init().catch(err=>{
+    document.getElementById("header").textContent =
+      "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
+    console.error(err);
+  });
+</script>
 </body>
 </html>
