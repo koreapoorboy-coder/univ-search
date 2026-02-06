@@ -20,9 +20,8 @@
 <body>
   <div class="wrap">
     <a href="./">← 학생 목록으로</a>
-    <div id="header" class="box">
-      로딩 중...
-    </div>
+
+    <div id="header" class="box">로딩 중...</div>
 
     <div class="box">
       <canvas id="chart" height="120"></canvas>
@@ -35,134 +34,193 @@
   </div>
 
   <script>
-  const SUBJECTS = ["국어","수학","영어","생윤","사문"];
+    const SUBJECTS = ["국어","수학","영어","생윤","사문"];
+    let chartInstance = null;
 
-  function getId(){
-    const u = new URL(location.href);
-    return u.searchParams.get("id");
-  }
+    function getId(){
+      const u = new URL(location.href);
+      return u.searchParams.get("id");
+    }
 
-  async function loadStudentMeta(id){
-    const res = await fetch("./students.json", { cache:"no-store" });
-    const list = await res.json();
-    return list.find(x => x.id === id);
-  }
+    async function loadStudentMeta(id){
+      const res = await fetch("./students.json", { cache:"no-store" });
+      const list = await res.json();
+      // id가 정확히 매칭되는 학생
+      return list.find(x => x.id === id);
+    }
 
-  async function loadScores(id){
-  const res = await fetch("./scores.json", { cache:"no-store" });
-  const all = await res.json();
+    async function loadScores(id){
+      const res = await fetch("./scores.json", { cache:"no-store" });
+      const all = await res.json();
 
-  // 1) scores.json이 [ ... ] 또는 {scores:[ ... ]} 모두 대응
-  const rows = Array.isArray(all) ? all : (all.scores || []);
+      // 1) scores.json이 [ ... ] 또는 {scores:[ ... ]} 모두 대응
+      const rows = Array.isArray(all) ? all : (all.scores || []);
 
-  // 2) id 키가 id / studentId / 학생ID / 학생id 등일 수 있어서 폭넓게 대응
-  const getId = (r) => r.id ?? r.studentId ?? r["학생ID"] ?? r["학생id"] ?? r["학생Id"] ?? r["학생ID "] ?? null;
+      // 2) id 키가 id / studentId / 학생ID ... 등일 수 있어 폭넓게 대응
+      const getRowId = (r) => r.id ?? r.studentId ?? r["학생ID"] ?? r["학생id"] ?? r["학생Id"] ?? r["학생ID "] ?? null;
 
-  // 3) 과목명 표준화(공백/괄호 제거)
-  const clean = (s) => String(s ?? "").replace(/\s+/g,"").replace(/[()]/g,"");
+      // 3) 과목명 표준화(공백/괄호 제거)
+      const clean = (s) => String(s ?? "").replace(/\s+/g,"").replace(/[()]/g,"");
 
-  const SUBJECT_ALIASES = {
-    "국어": ["국어","국","KOR","korean","국어점수","국어 점수"],
-    "수학": ["수학","수","MATH","math","수학점수","수학 점수"],
-    "영어": ["영어","영","ENG","english","영어점수","영어 점수"],
-    "생윤": ["생윤","생명윤리","윤리","ETHICS","ethics","생명윤리점수","생윤점수"],
-    "사문": ["사문","사회문화","SOC","society","사회문화점수","사문점수"]
-  };
+      const SUBJECT_ALIASES = {
+        "국어": ["국어","국","KOR","korean","국어점수","국어 점수"],
+        "수학": ["수학","수","MATH","math","수학점수","수학 점수"],
+        "영어": ["영어","영","ENG","english","영어점수","영어 점수"],
+        "생윤": ["생윤","생명윤리","윤리","ETHICS","ethics","생명윤리점수","생윤점수"],
+        "사문": ["사문","사회문화","SOC","society","사회문화점수","사문점수"]
+      };
 
-  function normSubject(name){
-    const n = clean(name);
-    for (const std of Object.keys(SUBJECT_ALIASES)){
-      for (const a of SUBJECT_ALIASES[std]){
-        if (clean(a) === n) return std;
+      function normSubject(name){
+        const n = clean(name);
+        for (const std of Object.keys(SUBJECT_ALIASES)){
+          for (const a of SUBJECT_ALIASES[std]){
+            if (clean(a) === n) return std;
+          }
+        }
+        return null;
       }
-    }
-    return null;
-  }
 
-  function toNum(v){
-    if (v === null || v === undefined || v === "") return null;
-    const n = Number(String(v).replace(/[^\d.-]/g,""));
-    return Number.isFinite(n) ? n : null;
-  }
-
-  // 4) 해당 학생만 필터
-  const mine = rows.filter(r => getId(r) === id);
-
-  if (!mine.length) return [];
-
-  // 5) "세로형" 데이터(과목/점수)인지 감지해서 → "가로형"으로 피벗
-  //    예: {id, round, date, subject(or 과목), score(or 점수)}
-  const hasLong =
-    ("subject" in mine[0]) || ("과목" in mine[0]) || ("score" in mine[0]) || ("점수" in mine[0]);
-
-  if (hasLong){
-    const map = new Map(); // round -> row
-    for (const r of mine){
-      const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
-      const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
-      const subjRaw = r.subject ?? r["과목"];
-      const scRaw   = r.score ?? r["점수"];
-
-      const subj = normSubject(subjRaw);
-      if (!round) continue;
-
-      if (!map.has(round)) map.set(round, { round, date });
-      if (subj) map.get(round)[subj] = toNum(scRaw);
-    }
-    return Array.from(map.values());
-  }
-
-  // 6) 이미 "가로형"인 경우: 키가 살짝 달라도 표준키로 복사해서 맞춤
-  return mine.map(r => {
-    const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
-    const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
-
-    // 중첩 scores:{국어:..} 형태도 지원
-    const bag = r.scores ?? r["scores"] ?? r;
-
-    const out = { round, date };
-    for (const std of Object.keys(SUBJECT_ALIASES)){
-      let v = null;
-      for (const a of SUBJECT_ALIASES[std]){
-        if (bag[a] !== undefined) { v = bag[a]; break; }
-        // 키에 공백 들어간 케이스까지 대응
-        const kk = Object.keys(bag).find(k => clean(k) === clean(a));
-        if (kk && bag[kk] !== undefined) { v = bag[kk]; break; }
+      function toNum(v){
+        if (v === null || v === undefined || v === "") return null;
+        const n = Number(String(v).replace(/[^\d.-]/g,""));
+        return Number.isFinite(n) ? n : null;
       }
-      out[std] = toNum(v);
+
+      // 4) 해당 학생만 필터
+      const mine = rows.filter(r => getRowId(r) === id);
+      if (!mine.length) return [];
+
+      // 5) "세로형" 데이터(과목/점수)인지 감지 → "가로형"으로 피벗
+      // 예: {id, round, date, subject(or 과목), score(or 점수)}
+      const hasLong =
+        ("subject" in mine[0]) || ("과목" in mine[0]) || ("score" in mine[0]) || ("점수" in mine[0]);
+
+      if (hasLong){
+        const map = new Map(); // round -> row
+        for (const r of mine){
+          const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
+          const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
+          const subjRaw = r.subject ?? r["과목"];
+          const scRaw   = r.score ?? r["점수"];
+
+          const subj = normSubject(subjRaw);
+          if (!round) continue;
+
+          if (!map.has(round)) map.set(round, { round, date });
+          if (subj) map.get(round)[subj] = toNum(scRaw);
+        }
+        return Array.from(map.values());
+      }
+
+      // 6) 이미 "가로형"인 경우: 키가 살짝 달라도 표준키로 복사
+      return mine.map(r => {
+        const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
+        const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
+
+        // 중첩 scores:{국어:..} 형태도 지원
+        const bag = r.scores ?? r["scores"] ?? r;
+
+        const out = { round, date };
+        for (const std of Object.keys(SUBJECT_ALIASES)){
+          let v = null;
+          for (const a of SUBJECT_ALIASES[std]){
+            if (bag[a] !== undefined) { v = bag[a]; break; }
+            const kk = Object.keys(bag).find(k => clean(k) === clean(a));
+            if (kk && bag[kk] !== undefined) { v = bag[kk]; break; }
+          }
+          out[std] = toNum(v);
+        }
+        return out;
+      });
     }
-    return out;
-  });
-}
 
+    function renderHeader(meta, id){
+      const el = document.getElementById("header");
+      const name = meta?.studentName ?? meta?.name ?? meta?.["학생명"] ?? meta?.["이름"] ?? id;
 
-  async function init(){
-    const id = getId();
-    if(!id){
-      document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
-      return;
+      el.innerHTML = `
+        <div class="title">${name} <span style="opacity:.6;font-weight:700">(${id})</span></div>
+        <div class="sub">
+          학교: ${meta?.school || "-"} · 진로: ${meta?.career || "-"} · 전형: ${meta?.admission || "-"}
+        </div>
+        <div style="opacity:.8">데이터 파일: <b>students/scores.json</b> (id=${id})</div>
+      `;
     }
 
-    const meta = await loadStudentMeta(id);
-    renderHeader(meta, id);
+    function renderTable(scores){
+      const rows = scores.map(r => `
+        <tr>
+          <td>${r.round ?? "-"}</td>
+          <td>${r.date || "-"}</td>
+          ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
+        </tr>
+      `).join("");
 
-    const scores = (await loadScores(id)).slice().sort((a,b)=>a.round-b.round);
-
-    if(!scores.length){
-      document.getElementById("table").innerHTML =
-        `<div style="opacity:.7">점수 데이터가 없습니다. scores.json에서 id="${id}"가 있는지 확인하세요.</div>`;
-      return;
+      document.getElementById("table").innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>회차</th><th>날짜</th>
+              ${SUBJECTS.map(s=>`<th>${s}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
     }
 
-    renderTable(scores);
-    renderChart(scores);
-  }
+    function renderChart(scores){
+      const labels = scores.map(r => `${r.round}회`);
+      const datasets = SUBJECTS.map(s => ({
+        label: s,
+        data: scores.map(r => (r[s] ?? null)),
+        tension: 0.25
+      }));
 
-  init().catch(err=>{
-    document.getElementById("header").textContent =
-      "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
-    console.error(err);
-  });
-</script>
+      const ctx = document.getElementById("chart");
+
+      // 재진입(다른 학생 클릭) 대비: 기존 차트 제거
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: "line",
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom" } },
+          scales: { y: { beginAtZero: true, suggestedMax: 100 } }
+        }
+      });
+    }
+
+    async function init(){
+      const id = getId();
+      if(!id){
+        document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
+        return;
+      }
+
+      const meta = await loadStudentMeta(id);
+      renderHeader(meta, id);
+
+      const raw = await loadScores(id);
+      const scores = (raw || []).slice().sort((a,b)=>(a.round||0)-(b.round||0));
+
+      if(!scores.length){
+        document.getElementById("table").innerHTML =
+          `<div style="opacity:.7">점수 데이터가 없습니다. <b>scores.json</b>에서 id="${id}"가 있는지 확인하세요.</div>`;
+        return;
+      }
+
+      renderTable(scores);
+      renderChart(scores);
+    }
+
+    init().catch(err=>{
+      document.getElementById("header").textContent =
+        "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
+      console.error(err);
+    });
+  </script>
 </body>
 </html>
