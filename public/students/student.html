@@ -13,6 +13,13 @@
     h1 { margin:0; font-size:22px; }
     .meta { color:#555; font-size:13px; }
 
+    .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin: 10px 0 8px; }
+    .toggle {
+      border:1px solid #ddd; background:#fff; border-radius:999px;
+      padding:8px 12px; font-size:13px; cursor:pointer;
+    }
+    .toggle.active { border-color:#111; font-weight:800; }
+
     .tabs {
       display:flex; gap:8px;
       overflow-x:auto; padding:8px 0;
@@ -30,10 +37,17 @@
       cursor:pointer;
       white-space:nowrap;
     }
-    .tab.active { border-color:#111; font-weight:700; }
+    .tab.active { border-color:#111; font-weight:800; }
 
     .chartWrap { max-width: 900px; }
     canvas { width: 100% !important; height: 320px !important; }
+
+    .grid { max-width: 900px; display:grid; grid-template-columns: 1fr; gap:12px; }
+    .panel {
+      border:1px solid #eee; border-radius:12px; padding:12px;
+      background:#fff;
+    }
+    .panel h3 { margin:0 0 8px; font-size:14px; }
 
     .summary {
       margin-top: 14px;
@@ -45,8 +59,8 @@
     .summary h2 { margin:0 0 8px; font-size:16px; }
     table { width:100%; border-collapse:collapse; font-size:13px; }
     th, td { padding:8px; border-bottom:1px solid #f0f0f0; text-align:left; }
-    .ok { color:#0a7; font-weight:700; }
-    .bad { color:#d33; font-weight:700; }
+    .ok { color:#0a7; font-weight:800; }
+    .bad { color:#d33; font-weight:800; }
     .small { color:#666; font-size:12px; }
 
     @media (max-width: 480px) {
@@ -62,32 +76,67 @@
     <div id="meta" class="meta"></div>
   </div>
 
-  <div class="tabs" id="tabs"></div>
-
-  <div class="chartWrap">
-    <canvas id="chart"></canvas>
+  <div class="bar">
+    <button id="btnSingle" class="toggle">단일 과목</button>
+    <button id="btnAll" class="toggle">전체 보기</button>
+    <span class="small" id="hint"></span>
   </div>
 
+  <div class="tabs" id="tabs"></div>
+
+  <!-- 단일 과목 모드 -->
+  <div class="chartWrap" id="singleWrap">
+    <canvas id="chartSingle"></canvas>
+  </div>
+
+  <!-- 전체 보기 모드 -->
+  <div class="grid" id="allWrap" style="display:none;"></div>
+
   <div class="summary">
-    <h2 id="sumTitle">회차별 요약</h2>
+    <h2 id="sumTitle">요약</h2>
     <div class="small" id="sumHint"></div>
     <table id="sumTable"></table>
   </div>
 
 <script>
-  // ✅ 기본 만점 규칙: 국/수/영 100, 탐구(생윤/사문 등) 50
+  // ---- util ----
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+
+  const titleEl = document.getElementById("title");
+  const metaEl  = document.getElementById("meta");
+  const tabsEl  = document.getElementById("tabs");
+
+  const btnSingle = document.getElementById("btnSingle");
+  const btnAll = document.getElementById("btnAll");
+  const hintEl = document.getElementById("hint");
+
+  const singleWrap = document.getElementById("singleWrap");
+  const allWrap = document.getElementById("allWrap");
+
+  const sumTitleEl = document.getElementById("sumTitle");
+  const sumHintEl  = document.getElementById("sumHint");
+  const sumTableEl = document.getElementById("sumTable");
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
+  );
+
+  function safeNum(v){
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  // 탐구 50점 만점(필요하면 여기에 과목 추가)
   function getMaxScore(subjectKey) {
-    const 탐구50 = ["생윤","사문","윤리","정치","경제","사회문화","세계지리","한국지리","생활과윤리"];
+    const 탐구50 = ["생윤","사문"];
     return 탐구50.includes(subjectKey) ? 50 : 100;
   }
 
-  // ✅ 점수 데이터에서 과목 자동 탐지
-  // - id, round, date 제외
-  // - '컷'으로 끝나는 키는 컷키이므로 제외
-  function detectSubjects(records) {
+  function detectSubjects(records){
     const set = new Set();
-    for (const r of records) {
-      for (const k of Object.keys(r)) {
+    for (const r of records){
+      for (const k of Object.keys(r)){
         if (k === "id" || k === "round" || k === "date") continue;
         if (k.endsWith("컷")) continue;
         const v = r[k];
@@ -95,9 +144,8 @@
         if (Number.isFinite(Number(v))) set.add(k);
       }
     }
-    // 정렬: 국어/수학/영어 우선, 나머지 가나다
     const priority = ["국어","수학","영어"];
-    return Array.from(set).sort((a,b) => {
+    return Array.from(set).sort((a,b)=>{
       const ia = priority.indexOf(a);
       const ib = priority.indexOf(b);
       if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
@@ -105,42 +153,58 @@
     });
   }
 
-  function safeNum(v) {
-    const n = Number(v);
-    return Number.isFinite(n) ? n : null;
+  function byRound(a,b){
+    return (safeNum(a.round) ?? 0) - (safeNum(b.round) ?? 0);
   }
 
-  function byRound(a, b) {
-    const ra = safeNum(a.round) ?? 0;
-    const rb = safeNum(b.round) ?? 0;
-    return ra - rb;
+  function latestForSubject(records, sub){
+    for (let i = records.length - 1; i >= 0; i--){
+      const r = records[i];
+      if (r[sub] !== undefined && r[sub] !== null && r[sub] !== "") return r;
+    }
+    return null;
   }
 
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
-
-  const titleEl = document.getElementById("title");
-  const metaEl  = document.getElementById("meta");
-  const tabsEl  = document.getElementById("tabs");
-  const sumTitleEl = document.getElementById("sumTitle");
-  const sumHintEl  = document.getElementById("sumHint");
-  const sumTableEl = document.getElementById("sumTable");
-
-  let chart;
-  let myScores = [];
+  // ---- state ----
   let studentMeta = null;
-
+  let myScores = [];
   let subjects = [];
   let activeSubject = null;
 
-  function renderHeader() {
-    if (!id) {
+  let mode = "single"; // single | all
+  let singleChart = null;
+  const allCharts = new Map(); // subject -> Chart instance
+
+  function setMode(next){
+    mode = next;
+    btnSingle.classList.toggle("active", mode === "single");
+    btnAll.classList.toggle("active", mode === "all");
+
+    tabsEl.style.display = (mode === "single") ? "flex" : "none";
+    singleWrap.style.display = (mode === "single") ? "block" : "none";
+    allWrap.style.display = (mode === "all") ? "grid" : "none";
+
+    hintEl.textContent = (mode === "single")
+      ? "모바일 추천: 한 과목씩 보기"
+      : "PC 추천: 전체 과목 한 번에 보기";
+
+    if (mode === "single") {
+      renderTabs();
+      renderSingleChart();
+      renderSummary();
+    } else {
+      renderAllCharts();
+      renderSummary();
+    }
+  }
+
+  function renderHeader(){
+    if (!id){
       titleEl.textContent = "id가 없습니다.";
       metaEl.textContent = "student.html?id=shstudy01 형태로 접근하세요.";
       return false;
     }
-
-    if (studentMeta) {
+    if (studentMeta){
       titleEl.textContent = studentMeta.studentname;
       metaEl.textContent = `${studentMeta.school} · ${studentMeta.career} · ${studentMeta.admission}  (id: ${studentMeta.id})`;
     } else {
@@ -150,168 +214,217 @@
     return true;
   }
 
-  function makeTabs() {
+  function renderTabs(){
     tabsEl.innerHTML = "";
-
-    if (!subjects.length) {
-      const msg = document.createElement("div");
-      msg.className = "small";
-      msg.textContent = "표시할 과목이 없습니다.";
-      tabsEl.appendChild(msg);
-      return;
-    }
-
     subjects.forEach(subKey => {
       const btn = document.createElement("button");
       btn.className = "tab" + (subKey === activeSubject ? " active" : "");
       btn.textContent = subKey;
-
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", ()=>{
         activeSubject = subKey;
-        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
         btn.classList.add("active");
-        renderChart();
-        renderSummaryTable();
+        renderSingleChart();
+        renderSummary();
       });
-
       tabsEl.appendChild(btn);
     });
   }
 
-  function renderChart() {
-    if (!activeSubject) return;
-
-    const maxScore = getMaxScore(activeSubject);
-    const cutKey = activeSubject + "컷";
-
-    // ✅ 이 과목 점수가 있는 회차만 사용(섞임 방지)
-    const rows = myScores.filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "");
+  function buildDataset(rows, sub){
+    const maxScore = getMaxScore(sub);
+    const cutKey = sub + "컷";
 
     const labels = rows.map(r => `#${r.round} (${r.date})`);
-    const scoreData = rows.map(r => safeNum(r[activeSubject]));
+    const scoreData = rows.map(r => safeNum(r[sub]));
     const cutData   = rows.map(r => safeNum(r[cutKey]));
 
     const datasets = [{
-      label: `${activeSubject} 점수`,
+      label: `${sub} 점수`,
       data: scoreData,
       borderWidth: 2,
       tension: 0.25,
       pointRadius: 3
     }];
 
-    // ✅ 컷이 있는 경우에만 컷선 표시
     const hasCut = cutData.some(v => v != null);
     if (hasCut) {
       datasets.push({
-        label: `${activeSubject} 컷`,
+        label: `${sub} 컷`,
         data: cutData,
         borderWidth: 2,
-        borderDash: [6, 6],
+        borderDash: [6,6],
         tension: 0.1,
         pointRadius: 0
       });
     }
 
-    if (chart) chart.destroy();
-    chart = new Chart(document.getElementById("chart"), {
+    return { labels, datasets, maxScore };
+  }
+
+  function renderSingleChart(){
+    if (!activeSubject) return;
+
+    const rows = myScores
+      .filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "");
+
+    const built = buildDataset(rows, activeSubject);
+
+    if (singleChart) singleChart.destroy();
+    singleChart = new Chart(document.getElementById("chartSingle"), {
       type: "line",
-      data: { labels, datasets },
+      data: { labels: built.labels, datasets: built.datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
           y: {
             min: 0,
-            max: maxScore,
-            ticks: { stepSize: (maxScore === 50 ? 5 : 10) }
-          }
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              afterBody: (items) => {
-                const idx = items?.[0]?.dataIndex ?? 0;
-                const s = scoreData[idx];
-                const c = cutData[idx];
-                if (s == null || c == null) return "";
-                const diff = s - c;
-                return `컷 대비: ${diff >= 0 ? "+" : ""}${diff}`;
-              }
-            }
+            max: built.maxScore,
+            ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) }
           }
         }
       }
     });
   }
 
-  function renderSummaryTable() {
-    if (!activeSubject) return;
+  function renderAllCharts(){
+    // 정리
+    for (const ch of allCharts.values()) ch.destroy();
+    allCharts.clear();
+    allWrap.innerHTML = "";
 
-    const cutKey = activeSubject + "컷";
-    sumTitleEl.textContent = `회차별 요약 (${activeSubject})`;
-    sumHintEl.textContent = `점수 / 컷 / 컷 대비(±)`;
+    subjects.forEach(sub => {
+      const rows = myScores
+        .filter(r => r[sub] !== undefined && r[sub] !== null && r[sub] !== "");
 
-    const rows = myScores
-      .filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "")
-      .map(r => {
-        const score = safeNum(r[activeSubject]);
-        const cut   = safeNum(r[cutKey]);
-        const diff  = (score != null && cut != null) ? (score - cut) : null;
-        const cls   = (diff != null && diff >= 0) ? "ok" : "bad";
+      const panel = document.createElement("div");
+      panel.className = "panel";
+      panel.innerHTML = `<h3>${esc(sub)}</h3><canvas></canvas>`;
+      allWrap.appendChild(panel);
 
-        return `
-          <tr>
-            <td>#${r.round}<div class="small">${r.date}</div></td>
-            <td>${score ?? "-"}</td>
-            <td>${cut ?? "-"}</td>
-            <td class="${diff == null ? "" : cls}">
-              ${diff == null ? "-" : (diff >= 0 ? "+" : "") + diff}
-            </td>
-          </tr>`;
-      }).join("");
+      const canvas = panel.querySelector("canvas");
+      const built = buildDataset(rows, sub);
+
+      const ch = new Chart(canvas, {
+        type: "line",
+        data: { labels: built.labels, datasets: built.datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              min: 0,
+              max: built.maxScore,
+              ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) }
+            }
+          }
+        }
+      });
+
+      allCharts.set(sub, ch);
+    });
+  }
+
+  function renderSummary(){
+    if (!subjects.length) {
+      sumTitleEl.textContent = "요약";
+      sumHintEl.textContent = "";
+      sumTableEl.innerHTML = `<tbody><tr><td>표시할 과목이 없습니다.</td></tr></tbody>`;
+      return;
+    }
+
+    if (mode === "single") {
+      const sub = activeSubject;
+      const cutKey = sub + "컷";
+      sumTitleEl.textContent = `회차별 요약 (${sub})`;
+      sumHintEl.textContent = "점수 / 컷 / 컷 대비(±)";
+
+      const body = myScores
+        .filter(r => r[sub] !== undefined && r[sub] !== null && r[sub] !== "")
+        .map(r => {
+          const score = safeNum(r[sub]);
+          const cut = safeNum(r[cutKey]);
+          const diff = (score != null && cut != null) ? (score - cut) : null;
+          const cls = (diff != null && diff >= 0) ? "ok" : "bad";
+          return `
+            <tr>
+              <td>#${esc(r.round)}<div class="small">${esc(r.date)}</div></td>
+              <td>${score ?? "-"}</td>
+              <td>${cut ?? "-"}</td>
+              <td class="${diff == null ? "" : cls}">
+                ${diff == null ? "-" : (diff >= 0 ? "+" : "") + diff}
+              </td>
+            </tr>
+          `;
+        }).join("");
+
+      sumTableEl.innerHTML = `
+        <thead><tr><th>회차</th><th>점수</th><th>컷</th><th>컷 대비</th></tr></thead>
+        <tbody>${body || `<tr><td colspan="4">데이터 없음</td></tr>`}</tbody>
+      `;
+      return;
+    }
+
+    // mode === "all"
+    sumTitleEl.textContent = "최근 회차 요약 (과목별)";
+    sumHintEl.textContent = "과목 / 최근 점수 / 컷 / 컷 대비(±)";
+
+    const rows = subjects.map(sub => {
+      const rec = latestForSubject(myScores, sub);
+      if (!rec) return null;
+
+      const score = safeNum(rec[sub]);
+      const cut = safeNum(rec[sub + "컷"]);
+      const diff = (score != null && cut != null) ? (score - cut) : null;
+      const cls = (diff != null && diff >= 0) ? "ok" : "bad";
+
+      return `
+        <tr>
+          <td>${esc(sub)}<div class="small">#${esc(rec.round)} · ${esc(rec.date)}</div></td>
+          <td>${score ?? "-"}</td>
+          <td>${cut ?? "-"}</td>
+          <td class="${diff == null ? "" : cls}">
+            ${diff == null ? "-" : (diff >= 0 ? "+" : "") + diff}
+          </td>
+        </tr>
+      `;
+    }).filter(Boolean).join("");
 
     sumTableEl.innerHTML = `
-      <thead>
-        <tr>
-          <th>회차</th>
-          <th>점수</th>
-          <th>컷</th>
-          <th>컷 대비</th>
-        </tr>
-      </thead>
-      <tbody>${rows || `<tr><td colspan="4">해당 과목 데이터가 없습니다.</td></tr>`}</tbody>
+      <thead><tr><th>과목</th><th>최근 점수</th><th>컷</th><th>컷 대비</th></tr></thead>
+      <tbody>${rows || `<tr><td colspan="4">데이터 없음</td></tr>`}</tbody>
     `;
   }
 
+  btnSingle.addEventListener("click", ()=>setMode("single"));
+  btnAll.addEventListener("click", ()=>setMode("all"));
+
   Promise.all([
-    fetch("./students.json").then(r => r.json()),
-    fetch("./scores.json").then(r => r.json())
+    fetch("./students.json", { cache:"no-store" }).then(r => r.json()),
+    fetch("./scores.json", { cache:"no-store" }).then(r => r.json())
   ]).then(([students, scores]) => {
     studentMeta = (students || []).find(s => s.id === id) || null;
-
-    myScores = (scores || [])
-      .filter(x => x.id === id)
-      .sort(byRound);
+    myScores = (scores || []).filter(x => x.id === id).sort(byRound);
 
     if (!renderHeader()) return;
 
     if (!myScores.length) {
       subjects = [];
       activeSubject = null;
-      makeTabs();
+      tabsEl.innerHTML = "";
       sumTitleEl.textContent = "데이터 없음";
       sumHintEl.textContent = "";
-      sumTableEl.innerHTML = `<tbody><tr><td>scores.json에 id=${id} 기록이 없습니다.</td></tr></tbody>`;
+      sumTableEl.innerHTML = `<tbody><tr><td>scores.json에 id=${esc(id)} 기록이 없습니다.</td></tr></tbody>`;
       return;
     }
 
-    // ✅ 학생별 과목 자동탐지
     subjects = detectSubjects(myScores);
     activeSubject = subjects[0] || null;
 
-    makeTabs();
-    renderChart();
-    renderSummaryTable();
+    // ✅ 모바일 기본: 단일 과목 / 데스크탑 기본: 전체 보기
+    const isMobile = window.matchMedia("(max-width: 520px)").matches;
+    setMode(isMobile ? "single" : "all");
   }).catch(err => {
     titleEl.textContent = "로드 실패";
     metaEl.textContent = String(err);
