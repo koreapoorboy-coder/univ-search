@@ -7,37 +7,36 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
-    a{color:#111}
-    .wrap{max-width:900px}
+    a{color:#111;text-decoration:none}
+    .wrap{max-width:980px}
     .title{font-size:22px;font-weight:900;margin:10px 0}
-    .sub{opacity:.75;margin-bottom:14px}
+    .sub{opacity:.75;margin-bottom:10px;line-height:1.6}
     .box{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0}
-
-    /* ✅ 차트 박스: 모바일에서 찌그러짐 방지 */
-    .chartBox{position:relative;height:380px}
-
-    /* ✅ 과목 선택 버튼 */
-    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
-    .tab{
-      border:1px solid #111;border-radius:999px;padding:8px 12px;
-      background:#fff;cursor:pointer;font-weight:700;font-size:14px
-    }
-    .tab.active{background:#111;color:#fff}
-
-    /* ✅ 표는 모바일에서 가로 스크롤 */
-    .tableWrap{overflow-x:auto}
-    table{width:100%;border-collapse:collapse;min-width:700px}
-    th,td{border-bottom:1px solid #eee;padding:8px;text-align:center}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #eee;padding:8px;text-align:center;white-space:nowrap}
     th{background:#fafafa}
+
+    /* ✅ 모바일에서 그래프가 뭉치지 않게: 높이 고정 + 가로 스크롤 */
+    .chartWrap{position:relative;width:100%;height:340px}
+    .chipRow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+    .chip{
+      border:1px solid #111;border-radius:999px;padding:8px 12px;
+      font-weight:800;background:#fff;cursor:pointer;
+      user-select:none;
+    }
+    .chip.on{background:#111;color:#fff}
+    .hint{opacity:.75;font-size:13px;line-height:1.5}
+    .metaLine{margin-top:8px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    .badge{border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-size:13px;opacity:.85}
 
     @media (max-width:600px){
       body{margin:14px}
-      .chartBox{height:260px}
-      .title{font-size:20px}
-      .tab{padding:8px 10px;font-size:13px}
+      .chartWrap{height:260px}
+      th,td{font-size:13px}
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <a href="./">← 학생 목록으로</a>
@@ -45,140 +44,175 @@
     <div id="header" class="box">로딩 중...</div>
 
     <div class="box">
-      <div id="tabs" class="tabs"></div>
-      <div class="chartBox">
+      <div class="chipRow" id="chips"></div>
+
+      <div class="hint">
+        • 생윤/사문은 50점 만점, 나머지는 100점 만점 기준<br/>
+        • “1등급 컷”은 <b>scores.json에 과목별 컷 점수(예: 국어컷)</b>로 같이 업로드하면 자동 표시됩니다.
+      </div>
+
+      <div class="metaLine" id="metaLine"></div>
+
+      <div class="chartWrap">
         <canvas id="chart"></canvas>
       </div>
     </div>
 
     <div class="box">
-      <div style="font-weight:800;margin-bottom:8px">회차별 점수</div>
-      <div class="tableWrap">
-        <div id="table"></div>
-      </div>
+      <div style="font-weight:900;margin-bottom:8px">회차별 점수</div>
+      <div id="table"></div>
     </div>
   </div>
 
-  <script>
-    const SUBJECTS = ["국어","수학","영어","생윤","사문"];
-    const TAB_ITEMS = ["평균", ...SUBJECTS, "전체"];   // ✅ 모바일 친화: 기본은 '평균'
-    let chartInstance = null;
-    let currentTab = "평균";
-    let cachedScores = [];
+<script>
+  // ✅ 과목/만점(축) 설정
+  const SUBJECTS = ["국어","수학","영어","생윤","사문"];
+  const MAX_SCORE = { "국어":100, "수학":100, "영어":100, "생윤":50, "사문":50 };
 
-    function isMobile(){
-      return window.matchMedia("(max-width:600px)").matches;
+  let chartInstance = null;
+  let currentSubject = "국어";
+  let cachedScores = [];
+
+  function getId(){
+    const u = new URL(location.href);
+    return u.searchParams.get("id");
+  }
+
+  function clean(s){
+    return String(s ?? "").replace(/\s+/g,"").replace(/[()]/g,"");
+  }
+  function toNum(v){
+    if (v === null || v === undefined || v === "") return null;
+    const n = Number(String(v).replace(/[^\d.-]/g,""));
+    return Number.isFinite(n) ? n : null;
+  }
+
+  async function loadStudentMeta(id){
+    const res = await fetch("./students.json", { cache:"no-store" });
+    const list = await res.json();
+    return list.find(x => x.id === id);
+  }
+
+  async function loadScores(id){
+    const res = await fetch("./scores.json", { cache:"no-store" });
+    const all = await res.json();
+    const rows = Array.isArray(all) ? all : (all.scores || []);
+
+    // id 키 폭넓게
+    const getRowId = (r) => r.id ?? r.studentId ?? r["학생ID"] ?? r["학생id"] ?? r["학생Id"] ?? r["학생ID "] ?? null;
+
+    // 과목 alias (혹시 키가 다를 때)
+    const SUBJECT_ALIASES = {
+      "국어": ["국어","국","KOR","korean","국어점수","국어 점수"],
+      "수학": ["수학","수","MATH","math","수학점수","수학 점수"],
+      "영어": ["영어","영","ENG","english","영어점수","영어 점수"],
+      "생윤": ["생윤","생명윤리","ETHICS","ethics","생명윤리점수","생윤점수"],
+      "사문": ["사문","사회문화","SOC","society","사회문화점수","사문점수"]
+    };
+
+    // 컷 alias (업로드 시 추천: 국어컷/수학컷...)
+    const CUT_ALIASES = {
+      "국어": ["국어컷","국어 컷","국어1컷","국어1등급컷","국어_컷","국어cut"],
+      "수학": ["수학컷","수학 컷","수학1컷","수학1등급컷","수학_컷","수학cut"],
+      "영어": ["영어컷","영어 컷","영어1컷","영어1등급컷","영어_컷","영어cut"],
+      "생윤": ["생윤컷","생윤 컷","생윤1컷","생윤1등급컷","생윤_컷","생윤cut","생명윤리컷"],
+      "사문": ["사문컷","사문 컷","사문1컷","사문1등급컷","사문_컷","사문cut","사회문화컷"]
+    };
+
+    function pickValue(bag, candidates){
+      for (const a of candidates){
+        if (bag[a] !== undefined) return bag[a];
+        const kk = Object.keys(bag).find(k => clean(k) === clean(a));
+        if (kk && bag[kk] !== undefined) return bag[kk];
+      }
+      return undefined;
     }
 
-    function getId(){
-      const u = new URL(location.href);
-      return u.searchParams.get("id");
-    }
+    // 내 학생만 필터
+    const mine = rows.filter(r => getRowId(r) === id);
+    if (!mine.length) return [];
 
-    async function loadStudentMeta(id){
-      const res = await fetch("./students.json", { cache:"no-store" });
-      const list = await res.json();
-      return list.find(x => x.id === id);
-    }
+    // 가로형만 지원(현재 구조 기준)
+    return mine.map(r => {
+      const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
+      const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
 
-    async function loadScores(id){
-      const res = await fetch("./scores.json", { cache:"no-store" });
-      const all = await res.json();
+      const out = { round, date, cut:{} };
 
-      const rows = Array.isArray(all) ? all : (all.scores || []);
-      const getRowId = (r) => r.id ?? r.studentId ?? r["학생ID"] ?? r["학생id"] ?? r["학생Id"] ?? r["학생ID "] ?? null;
-
-      const clean = (s) => String(s ?? "").replace(/\s+/g,"").replace(/[()]/g,"");
-
-      const SUBJECT_ALIASES = {
-        "국어": ["국어","국","KOR","korean","국어점수","국어 점수"],
-        "수학": ["수학","수","MATH","math","수학점수","수학 점수"],
-        "영어": ["영어","영","ENG","english","영어점수","영어 점수"],
-        "생윤": ["생윤","생명윤리","윤리","ETHICS","ethics","생명윤리점수","생윤점수"],
-        "사문": ["사문","사회문화","SOC","society","사회문화점수","사문점수"]
-      };
-
-      function normSubject(name){
-        const n = clean(name);
-        for (const std of Object.keys(SUBJECT_ALIASES)){
-          for (const a of SUBJECT_ALIASES[std]){
-            if (clean(a) === n) return std;
-          }
-        }
-        return null;
+      // 점수
+      for (const std of SUBJECTS){
+        const v = pickValue(r, SUBJECT_ALIASES[std]);
+        out[std] = toNum(v);
       }
 
-      function toNum(v){
-        if (v === null || v === undefined || v === "") return null;
-        const n = Number(String(v).replace(/[^\d.-]/g,""));
-        return Number.isFinite(n) ? n : null;
+      // 1등급 컷
+      for (const std of SUBJECTS){
+        const cv = pickValue(r, CUT_ALIASES[std]);
+        out.cut[std] = toNum(cv);
       }
 
-      const mine = rows.filter(r => getRowId(r) === id);
-      if (!mine.length) return [];
+      return out;
+    });
+  }
 
-      const hasLong =
-        ("subject" in mine[0]) || ("과목" in mine[0]) || ("score" in mine[0]) || ("점수" in mine[0]);
+  function renderHeader(meta, id){
+    const el = document.getElementById("header");
+    const name = meta?.studentName ?? meta?.name ?? meta?.["학생명"] ?? meta?.["이름"] ?? id;
 
-      if (hasLong){
-        const map = new Map(); // round -> row
-        for (const r of mine){
-          const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
-          const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
-          const subjRaw = r.subject ?? r["과목"];
-          const scRaw   = r.score ?? r["점수"];
+    el.innerHTML = `
+      <div class="title">${name} <span style="opacity:.6;font-weight:800">(${id})</span></div>
+      <div class="sub">
+        학교: ${meta?.school || "-"} · 진로: ${meta?.career || "-"} · 전형: ${meta?.admission || "-"}
+      </div>
+      <div class="hint">데이터 파일: <b>students/scores.json</b> (id=${id})</div>
+    `;
+  }
 
-          const subj = normSubject(subjRaw);
-          if (!round) continue;
+  function renderChips(){
+    const wrap = document.getElementById("chips");
+    wrap.innerHTML = SUBJECTS.map(s => `
+      <button type="button" class="chip ${s===currentSubject?'on':''}" data-sub="${s}">${s}</button>
+    `).join("");
 
-          if (!map.has(round)) map.set(round, { round, date });
-          if (subj) map.get(round)[subj] = toNum(scRaw);
-        }
-        return Array.from(map.values());
-      }
-
-      return mine.map(r => {
-        const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
-        const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
-        const bag = r.scores ?? r["scores"] ?? r;
-
-        const out = { round, date };
-        for (const std of Object.keys(SUBJECT_ALIASES)){
-          let v = null;
-          for (const a of SUBJECT_ALIASES[std]){
-            if (bag[a] !== undefined) { v = bag[a]; break; }
-            const kk = Object.keys(bag).find(k => clean(k) === clean(a));
-            if (kk && bag[kk] !== undefined) { v = bag[kk]; break; }
-          }
-          out[std] = toNum(v);
-        }
-        return out;
+    // ✅ 클릭 즉시 반영 (추가 화면 클릭 필요 없음)
+    wrap.querySelectorAll(".chip").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        currentSubject = btn.dataset.sub;
+        renderChips();
+        renderMetaLine(cachedScores);
+        renderChart(cachedScores);
       });
-    }
+    });
+  }
 
-    function renderHeader(meta, id){
-      const el = document.getElementById("header");
-      const name = meta?.studentName ?? meta?.name ?? meta?.["학생명"] ?? meta?.["이름"] ?? id;
+  function renderMetaLine(scores){
+    const line = document.getElementById("metaLine");
+    const max = MAX_SCORE[currentSubject] ?? 100;
 
-      el.innerHTML = `
-        <div class="title">${name} <span style="opacity:.6;font-weight:700">(${id})</span></div>
-        <div class="sub">
-          학교: ${meta?.school || "-"} · 진로: ${meta?.career || "-"} · 전형: ${meta?.admission || "-"}
-        </div>
-        <div style="opacity:.8">데이터 파일: <b>students/scores.json</b> (id=${id})</div>
-      `;
-    }
+    const latest = scores.length ? scores[scores.length-1] : null;
+    const latestScore = latest ? latest[currentSubject] : null;
+    const latestCut   = latest?.cut ? latest.cut[currentSubject] : null;
 
-    function renderTable(scores){
-      const rows = scores.map(r => `
-        <tr>
-          <td>${r.round ?? "-"}</td>
-          <td>${r.date || "-"}</td>
-          ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
-        </tr>
-      `).join("");
+    line.innerHTML = `
+      <span class="badge">선택 과목: <b>${currentSubject}</b></span>
+      <span class="badge">만점: <b>${max}</b>점</span>
+      <span class="badge">최근 점수: <b>${latestScore ?? "-"}</b></span>
+      <span class="badge">1등급 컷: <b>${latestCut ?? "-"}</b></span>
+    `;
+  }
 
-      document.getElementById("table").innerHTML = `
+  function renderTable(scores){
+    const rows = scores.map(r => `
+      <tr>
+        <td>${r.round ?? "-"}</td>
+        <td>${r.date || "-"}</td>
+        ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
+      </tr>
+    `).join("");
+
+    document.getElementById("table").innerHTML = `
+      <div style="overflow:auto">
         <table>
           <thead>
             <tr>
@@ -188,134 +222,95 @@
           </thead>
           <tbody>${rows}</tbody>
         </table>
-      `;
-    }
+      </div>
+    `;
+  }
 
-    function calcAvgRow(r){
-      const vals = SUBJECTS.map(s => r[s]).filter(v => typeof v === "number");
-      if (!vals.length) return null;
-      return Math.round((vals.reduce((a,b)=>a+b,0)/vals.length) * 10)/10;
-    }
+  function renderChart(scores){
+    const labels = scores.map(r => `${r.round}회`);
+    const max = MAX_SCORE[currentSubject] ?? 100;
 
-    function buildTabs(){
-      const tabs = document.getElementById("tabs");
-      tabs.innerHTML = TAB_ITEMS.map(t => `
-        <button class="tab ${t===currentTab?'active':''}" data-tab="${t}">${t}</button>
-      `).join("");
+    const scoreSeries = scores.map(r => r[currentSubject] ?? null);
+    const cutSeries   = scores.map(r => (r.cut ? r.cut[currentSubject] : null));
 
-      tabs.querySelectorAll(".tab").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          currentTab = btn.dataset.tab;
-          buildTabs();
-          renderChart(cachedScores);
-        });
-      });
-    }
+    const ctx = document.getElementById("chart");
+    if (chartInstance) chartInstance.destroy();
 
-    function renderChart(scores){
-      const labels = scores.map(r => `${r.round}회`);
-
-      const mobile = isMobile();
-      const tab = currentTab;
-
-      let datasets = [];
-
-      if (tab === "전체" && !mobile){
-        // ✅ PC에서는 전체 5과목도 허용
-        datasets = SUBJECTS.map(s => ({
-          label: s,
-          data: scores.map(r => (r[s] ?? null)),
-          tension: 0.25,
-          pointRadius: 0,
-          pointHoverRadius: 4
-        }));
-      } else if (tab === "전체" && mobile){
-        // ✅ 모바일에서 "전체"는 너무 복잡해서 평균으로 대체 (사용자 경험)
-        datasets = [{
-          label: "평균",
-          data: scores.map(r => calcAvgRow(r)),
-          tension: 0.25,
-          pointRadius: 0,
-          pointHoverRadius: 4
-        }];
-      } else if (tab === "평균"){
-        datasets = [{
-          label: "평균",
-          data: scores.map(r => calcAvgRow(r)),
-          tension: 0.25,
-          pointRadius: 0,
-          pointHoverRadius: 4
-        }];
-      } else {
-        datasets = [{
-          label: tab,
-          data: scores.map(r => (r[tab] ?? null)),
-          tension: 0.25,
-          pointRadius: 0,
-          pointHoverRadius: 4
-        }];
-      }
-
-      const ctx = document.getElementById("chart");
-
-      if (chartInstance) chartInstance.destroy();
-
-      chartInstance = new Chart(ctx, {
-        type: "line",
-        data: { labels, datasets },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,  // ✅ 높이 고정용
-          interaction: { mode: "index", intersect: false },
-          plugins: {
-            legend: {
-              display: (!mobile && tab === "전체"), // ✅ 모바일은 범례 숨김
-              position: "bottom"
-            }
+    chartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: `${currentSubject} 점수`,
+            data: scoreSeries,
+            tension: 0.25,
+            pointRadius: 4,
+            pointHitRadius: 18
           },
-          scales: {
-            y: { beginAtZero: true, suggestedMax: 100 },
-            x: { ticks: { autoSkip: true, maxRotation: 0 } }
+          {
+            label: "1등급 컷",
+            data: cutSeries,
+            tension: 0,
+            pointRadius: 0,
+            borderDash: [6,4]
           }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,   // ✅ 모바일 뭉침 방지 핵심
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { position: "bottom" },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const v = ctx.parsed.y;
+                return `${ctx.dataset.label}: ${v ?? "-"}`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, suggestedMax: max, max: max }
         }
-      });
-    }
-
-    async function init(){
-      const id = getId();
-      if(!id){
-        document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
-        return;
       }
-
-      const meta = await loadStudentMeta(id);
-      renderHeader(meta, id);
-
-      const raw = await loadScores(id);
-      const scores = (raw || []).slice().sort((a,b)=>(a.round||0)-(b.round||0));
-      cachedScores = scores;
-
-      if(!scores.length){
-        document.getElementById("table").innerHTML =
-          `<div style="opacity:.7">점수 데이터가 없습니다. <b>scores.json</b>에서 id="${id}"가 있는지 확인하세요.</div>`;
-        return;
-      }
-
-      buildTabs();
-      renderTable(scores);
-      renderChart(scores);
-
-      // ✅ 화면 회전/리사이즈 대응
-      window.addEventListener("resize", ()=>{
-        renderChart(cachedScores);
-      });
-    }
-
-    init().catch(err=>{
-      document.getElementById("header").textContent =
-        "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
-      console.error(err);
     });
-  </script>
+  }
+
+  async function init(){
+    const id = getId();
+    if(!id){
+      document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
+      return;
+    }
+
+    const meta = await loadStudentMeta(id);
+    renderHeader(meta, id);
+
+    const raw = await loadScores(id);
+    const scores = (raw || []).slice().sort((a,b)=>(a.round||0)-(b.round||0));
+
+    if(!scores.length){
+      document.getElementById("table").innerHTML =
+        `<div style="opacity:.7">점수 데이터가 없습니다. <b>scores.json</b>에서 id="${id}"가 있는지 확인하세요.</div>`;
+      return;
+    }
+
+    cachedScores = scores;
+
+    renderChips();
+    renderMetaLine(scores);
+    renderTable(scores);
+    renderChart(scores);
+  }
+
+  init().catch(err=>{
+    document.getElementById("header").textContent =
+      "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
+    console.error(err);
+  });
+</script>
 </body>
 </html>
