@@ -13,18 +13,29 @@
     .sub{opacity:.75;margin-bottom:14px}
     .box{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0}
 
-    /* ✅ 모바일 그래프 안정화 */
-    .chartBox{width:100%;height:340px}
-    @media (max-width: 480px){
-      body{margin:16px}
-      .chartBox{height:420px} /* 모바일에서 더 크게 */
-    }
+    /* ✅ 차트 박스: 모바일에서 찌그러짐 방지 */
+    .chartBox{position:relative;height:380px}
 
-    /* ✅ 표 모바일 가로스크롤 */
-    .tableWrap{overflow:auto}
-    table{width:100%;border-collapse:collapse;min-width:620px}
-    th,td{border-bottom:1px solid #eee;padding:8px;text-align:center;white-space:nowrap}
+    /* ✅ 과목 선택 버튼 */
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+    .tab{
+      border:1px solid #111;border-radius:999px;padding:8px 12px;
+      background:#fff;cursor:pointer;font-weight:700;font-size:14px
+    }
+    .tab.active{background:#111;color:#fff}
+
+    /* ✅ 표는 모바일에서 가로 스크롤 */
+    .tableWrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;min-width:700px}
+    th,td{border-bottom:1px solid #eee;padding:8px;text-align:center}
     th{background:#fafafa}
+
+    @media (max-width:600px){
+      body{margin:14px}
+      .chartBox{height:260px}
+      .title{font-size:20px}
+      .tab{padding:8px 10px;font-size:13px}
+    }
   </style>
 </head>
 <body>
@@ -34,6 +45,7 @@
     <div id="header" class="box">로딩 중...</div>
 
     <div class="box">
+      <div id="tabs" class="tabs"></div>
       <div class="chartBox">
         <canvas id="chart"></canvas>
       </div>
@@ -41,13 +53,22 @@
 
     <div class="box">
       <div style="font-weight:800;margin-bottom:8px">회차별 점수</div>
-      <div id="table"></div>
+      <div class="tableWrap">
+        <div id="table"></div>
+      </div>
     </div>
   </div>
 
   <script>
     const SUBJECTS = ["국어","수학","영어","생윤","사문"];
+    const TAB_ITEMS = ["평균", ...SUBJECTS, "전체"];   // ✅ 모바일 친화: 기본은 '평균'
     let chartInstance = null;
+    let currentTab = "평균";
+    let cachedScores = [];
+
+    function isMobile(){
+      return window.matchMedia("(max-width:600px)").matches;
+    }
 
     function getId(){
       const u = new URL(location.href);
@@ -64,13 +85,9 @@
       const res = await fetch("./scores.json", { cache:"no-store" });
       const all = await res.json();
 
-      // 1) scores.json이 [ ... ] 또는 {scores:[ ... ]} 모두 대응
       const rows = Array.isArray(all) ? all : (all.scores || []);
-
-      // 2) id 키가 id / studentId / 학생ID ... 등일 수 있어 폭넓게 대응
       const getRowId = (r) => r.id ?? r.studentId ?? r["학생ID"] ?? r["학생id"] ?? r["학생Id"] ?? r["학생ID "] ?? null;
 
-      // 3) 과목명 표준화(공백/괄호 제거)
       const clean = (s) => String(s ?? "").replace(/\s+/g,"").replace(/[()]/g,"");
 
       const SUBJECT_ALIASES = {
@@ -97,11 +114,9 @@
         return Number.isFinite(n) ? n : null;
       }
 
-      // 4) 해당 학생만 필터
       const mine = rows.filter(r => getRowId(r) === id);
       if (!mine.length) return [];
 
-      // 5) "세로형" 데이터(과목/점수)인지 감지 → "가로형"으로 피벗
       const hasLong =
         ("subject" in mine[0]) || ("과목" in mine[0]) || ("score" in mine[0]) || ("점수" in mine[0]);
 
@@ -122,14 +137,12 @@
         return Array.from(map.values());
       }
 
-      // 6) 이미 "가로형"인 경우: 키가 살짝 달라도 표준키로 복사
       return mine.map(r => {
         const round = Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0);
         const date  = r.date ?? r["날짜"] ?? r["시험일"] ?? "";
-
         const bag = r.scores ?? r["scores"] ?? r;
-        const out = { round, date };
 
+        const out = { round, date };
         for (const std of Object.keys(SUBJECT_ALIASES)){
           let v = null;
           for (const a of SUBJECT_ALIASES[std]){
@@ -166,31 +179,82 @@
       `).join("");
 
       document.getElementById("table").innerHTML = `
-        <div class="tableWrap">
-          <table>
-            <thead>
-              <tr>
-                <th>회차</th><th>날짜</th>
-                ${SUBJECTS.map(s=>`<th>${s}</th>`).join("")}
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>회차</th><th>날짜</th>
+              ${SUBJECTS.map(s=>`<th>${s}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
       `;
+    }
+
+    function calcAvgRow(r){
+      const vals = SUBJECTS.map(s => r[s]).filter(v => typeof v === "number");
+      if (!vals.length) return null;
+      return Math.round((vals.reduce((a,b)=>a+b,0)/vals.length) * 10)/10;
+    }
+
+    function buildTabs(){
+      const tabs = document.getElementById("tabs");
+      tabs.innerHTML = TAB_ITEMS.map(t => `
+        <button class="tab ${t===currentTab?'active':''}" data-tab="${t}">${t}</button>
+      `).join("");
+
+      tabs.querySelectorAll(".tab").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          currentTab = btn.dataset.tab;
+          buildTabs();
+          renderChart(cachedScores);
+        });
+      });
     }
 
     function renderChart(scores){
       const labels = scores.map(r => `${r.round}회`);
 
-      const datasets = SUBJECTS.map(s => ({
-        label: s,
-        data: scores.map(r => (r[s] ?? null)),
-        tension: 0.25,
-        pointRadius: 2,
-        pointHitRadius: 10,
-        borderWidth: 2
-      }));
+      const mobile = isMobile();
+      const tab = currentTab;
+
+      let datasets = [];
+
+      if (tab === "전체" && !mobile){
+        // ✅ PC에서는 전체 5과목도 허용
+        datasets = SUBJECTS.map(s => ({
+          label: s,
+          data: scores.map(r => (r[s] ?? null)),
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 4
+        }));
+      } else if (tab === "전체" && mobile){
+        // ✅ 모바일에서 "전체"는 너무 복잡해서 평균으로 대체 (사용자 경험)
+        datasets = [{
+          label: "평균",
+          data: scores.map(r => calcAvgRow(r)),
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 4
+        }];
+      } else if (tab === "평균"){
+        datasets = [{
+          label: "평균",
+          data: scores.map(r => calcAvgRow(r)),
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 4
+        }];
+      } else {
+        datasets = [{
+          label: tab,
+          data: scores.map(r => (r[tab] ?? null)),
+          tension: 0.25,
+          pointRadius: 0,
+          pointHoverRadius: 4
+        }];
+      }
 
       const ctx = document.getElementById("chart");
 
@@ -201,18 +265,17 @@
         data: { labels, datasets },
         options: {
           responsive: true,
-          maintainAspectRatio: false,     // ✅ 모바일 핵심
+          maintainAspectRatio: false,  // ✅ 높이 고정용
           interaction: { mode: "index", intersect: false },
           plugins: {
             legend: {
-              position: "top",            // ✅ 아래보다 훨씬 안정적
-              labels: { boxWidth: 10, padding: 10 }
-            },
-            tooltip: { enabled: true }
+              display: (!mobile && tab === "전체"), // ✅ 모바일은 범례 숨김
+              position: "bottom"
+            }
           },
           scales: {
-            x: { ticks: { maxRotation: 0, autoSkip: true } },
-            y: { beginAtZero: true, suggestedMax: 100 }
+            y: { beginAtZero: true, suggestedMax: 100 },
+            x: { ticks: { autoSkip: true, maxRotation: 0 } }
           }
         }
       });
@@ -230,6 +293,7 @@
 
       const raw = await loadScores(id);
       const scores = (raw || []).slice().sort((a,b)=>(a.round||0)-(b.round||0));
+      cachedScores = scores;
 
       if(!scores.length){
         document.getElementById("table").innerHTML =
@@ -237,8 +301,14 @@
         return;
       }
 
+      buildTabs();
       renderTable(scores);
       renderChart(scores);
+
+      // ✅ 화면 회전/리사이즈 대응
+      window.addEventListener("resize", ()=>{
+        renderChart(cachedScores);
+      });
     }
 
     init().catch(err=>{
