@@ -2,296 +2,321 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>학생 성적</title>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:18px}
-    a{color:#111;text-decoration:none}
-    .wrap{max-width:920px;margin:0 auto}
-    .title{font-size:22px;font-weight:900;margin:10px 0}
-    .sub{opacity:.75;margin-bottom:8px;line-height:1.5}
-    .box{border:1px solid #ddd;border-radius:14px;padding:14px;margin:12px 0}
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-    .tabs button{
-      appearance:none;border:1px solid #111;background:#fff;border-radius:999px;
-      padding:8px 12px;font-weight:800;cursor:pointer;
-      touch-action:manipulation;
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif; margin: 16px; }
+    .top { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+    h1 { margin:0; font-size:22px; }
+    .meta { color:#555; font-size:13px; }
+
+    .tabs {
+      display:flex; gap:8px;
+      overflow-x:auto; padding:8px 0;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
     }
-    .tabs button.active{background:#111;color:#fff}
-    .hint{opacity:.8;font-size:13px;margin:6px 0 0}
-    .chartBox{position:relative;width:100%;height:280px}
-    @media (max-width:520px){
-      body{margin:14px}
-      .chartBox{height:240px}
+    .tab {
+      flex:0 0 auto;
+      padding:8px 12px;
+      border:1px solid #ddd;
+      border-radius:999px;
+      background:#fff;
+      font-size:13px;
+      cursor:pointer;
+      white-space:nowrap;
     }
-    table{width:100%;border-collapse:collapse;min-width:640px}
-    th,td{border-bottom:1px solid #eee;padding:8px;text-align:center}
-    th{background:#fafafa}
-    .tableWrap{overflow:auto;-webkit-overflow-scrolling:touch}
+    .tab.active { border-color:#111; font-weight:700; }
+
+    .chartWrap { max-width: 900px; }
+    canvas { width: 100% !important; height: 320px !important; }
+
+    .summary {
+      margin-top: 14px;
+      border:1px solid #eee;
+      border-radius:12px;
+      padding:12px;
+      max-width: 900px;
+    }
+    .summary h2 { margin:0 0 8px; font-size:16px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { padding:8px; border-bottom:1px solid #f0f0f0; text-align:left; }
+    .ok { color:#0a7; font-weight:700; }
+    .bad { color:#d33; font-weight:700; }
+    .small { color:#666; font-size:12px; }
+
+    @media (max-width: 480px) {
+      canvas { height: 280px !important; }
+      h1 { font-size:20px; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <a href="./">← 학생 목록으로</a>
-
-    <div id="header" class="box">로딩 중...</div>
-
-    <div class="box">
-      <div class="tabs" id="tabs"></div>
-      <div class="hint" id="hint"></div>
-      <div class="chartBox">
-        <canvas id="chart"></canvas>
-      </div>
-    </div>
-
-    <div class="box">
-      <div style="font-weight:900;margin-bottom:8px">회차별 점수</div>
-      <div class="tableWrap"><div id="table"></div></div>
-    </div>
+  <div class="top">
+    <h1 id="title">로딩중…</h1>
+    <div id="meta" class="meta"></div>
   </div>
 
-  <script>
-    const SUBJECTS = ["국어","수학","영어","생윤","사문"];
-    const MAX_SCORE = (s) => (s === "생윤" || s === "사문") ? 50 : 100;
+  <div class="tabs" id="tabs"></div>
 
-    let chartInstance = null;
-    let currentView = "수학";
-    let allScores = [];
-    let meta = null;
+  <div class="chartWrap">
+    <canvas id="chart"></canvas>
+  </div>
 
-    function getId(){
-      const u = new URL(location.href);
-      return u.searchParams.get("id");
+  <div class="summary">
+    <h2 id="sumTitle">회차별 요약</h2>
+    <div class="small" id="sumHint"></div>
+    <table id="sumTable"></table>
+  </div>
+
+<script>
+  // ✅ 기본 만점 규칙: 국/수/영 100, 탐구(생윤/사문 등) 50
+  function getMaxScore(subjectKey) {
+    const 탐구50 = ["생윤","사문","윤리","정치","경제","사회문화","세계지리","한국지리","생활과윤리"];
+    return 탐구50.includes(subjectKey) ? 50 : 100;
+  }
+
+  // ✅ 점수 데이터에서 과목 자동 탐지
+  // - id, round, date 제외
+  // - '컷'으로 끝나는 키는 컷키이므로 제외
+  function detectSubjects(records) {
+    const set = new Set();
+    for (const r of records) {
+      for (const k of Object.keys(r)) {
+        if (k === "id" || k === "round" || k === "date") continue;
+        if (k.endsWith("컷")) continue;
+        const v = r[k];
+        if (v === undefined || v === null || v === "") continue;
+        if (Number.isFinite(Number(v))) set.add(k);
+      }
+    }
+    // 정렬: 국어/수학/영어 우선, 나머지 가나다
+    const priority = ["국어","수학","영어"];
+    return Array.from(set).sort((a,b) => {
+      const ia = priority.indexOf(a);
+      const ib = priority.indexOf(b);
+      if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+      return a.localeCompare(b, "ko");
+    });
+  }
+
+  function safeNum(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function byRound(a, b) {
+    const ra = safeNum(a.round) ?? 0;
+    const rb = safeNum(b.round) ?? 0;
+    return ra - rb;
+  }
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+
+  const titleEl = document.getElementById("title");
+  const metaEl  = document.getElementById("meta");
+  const tabsEl  = document.getElementById("tabs");
+  const sumTitleEl = document.getElementById("sumTitle");
+  const sumHintEl  = document.getElementById("sumHint");
+  const sumTableEl = document.getElementById("sumTable");
+
+  let chart;
+  let myScores = [];
+  let studentMeta = null;
+
+  let subjects = [];
+  let activeSubject = null;
+
+  function renderHeader() {
+    if (!id) {
+      titleEl.textContent = "id가 없습니다.";
+      metaEl.textContent = "student.html?id=shstudy01 형태로 접근하세요.";
+      return false;
     }
 
-    function pickName(m, id){
-      return m?.studentName ?? m?.studentname ?? m?.name ?? m?.["학생명"] ?? m?.["이름"] ?? m?.["성명"] ?? id;
+    if (studentMeta) {
+      titleEl.textContent = studentMeta.studentname;
+      metaEl.textContent = `${studentMeta.school} · ${studentMeta.career} · ${studentMeta.admission}  (id: ${studentMeta.id})`;
+    } else {
+      titleEl.textContent = "(학생명 미등록)";
+      metaEl.textContent = `students.json에 id=${id}가 없습니다. (id: ${id})`;
+    }
+    return true;
+  }
+
+  function makeTabs() {
+    tabsEl.innerHTML = "";
+
+    if (!subjects.length) {
+      const msg = document.createElement("div");
+      msg.className = "small";
+      msg.textContent = "표시할 과목이 없습니다.";
+      tabsEl.appendChild(msg);
+      return;
     }
 
-    function toNum(v){
-      if (v === null || v === undefined || v === "") return null;
-      const n = Number(String(v).replace(/[^\d.-]/g,""));
-      return Number.isFinite(n) ? n : null;
-    }
+    subjects.forEach(subKey => {
+      const btn = document.createElement("button");
+      btn.className = "tab" + (subKey === activeSubject ? " active" : "");
+      btn.textContent = subKey;
 
-    async function loadStudentMeta(id){
-      const res = await fetch("./students.json", { cache:"no-store" });
-      const list = await res.json();
-      return list.find(x => String(x.id) === String(id));
-    }
+      btn.addEventListener("click", () => {
+        activeSubject = subKey;
+        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        btn.classList.add("active");
+        renderChart();
+        renderSummaryTable();
+      });
 
-    async function loadScores(id){
-      const res = await fetch("./scores.json", { cache:"no-store" });
-      const all = await res.json();
+      tabsEl.appendChild(btn);
+    });
+  }
 
-      // ✅ scores.json이 배열 / {scores:[...]} / 단일객체 {...} 모두 대응
-      const rows =
-        Array.isArray(all) ? all :
-        (Array.isArray(all?.scores) ? all.scores :
-        (all && all.id ? [all] : []));
+  function renderChart() {
+    if (!activeSubject) return;
 
-      const mine = rows.filter(r => String(r.id ?? r.studentId ?? r["학생ID"] ?? "") === String(id));
+    const maxScore = getMaxScore(activeSubject);
+    const cutKey = activeSubject + "컷";
 
-      // 표준화(숫자 변환 + 컷 포함)
-      return mine.map(r => {
-        const out = {
-          id: r.id ?? r.studentId ?? r["학생ID"] ?? id,
-          round: Number(r.round ?? r["회차"] ?? r["차수"] ?? r["주차"] ?? 0),
-          date: r.date ?? r["날짜"] ?? r["시험일"] ?? ""
-        };
-        SUBJECTS.forEach(s => {
-          out[s] = toNum(r[s]);
-          out[`${s}컷`] = toNum(r[`${s}컷`] ?? r[`${s} 컷`]);
-        });
-        return out;
-      }).filter(r => r.round); // round 없는 줄 제거
-    }
+    // ✅ 이 과목 점수가 있는 회차만 사용(섞임 방지)
+    const rows = myScores.filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "");
 
-    function renderHeader(m, id){
-      const el = document.getElementById("header");
-      const name = pickName(m, id);
+    const labels = rows.map(r => `#${r.round} (${r.date})`);
+    const scoreData = rows.map(r => safeNum(r[activeSubject]));
+    const cutData   = rows.map(r => safeNum(r[cutKey]));
 
-      el.innerHTML = `
-        <div class="title">${name} <span style="opacity:.6;font-weight:800">(${id})</span></div>
-        <div class="sub">
-          학교: ${m?.school || "-"} · 진로: ${m?.career || "-"} · 전형: ${m?.admission || "-"}
-        </div>
-        <div style="opacity:.8">데이터 파일: <b>students/scores.json</b> (id=${id})</div>
-      `;
-    }
+    const datasets = [{
+      label: `${activeSubject} 점수`,
+      data: scoreData,
+      borderWidth: 2,
+      tension: 0.25,
+      pointRadius: 3
+    }];
 
-    function renderTabs(){
-      const el = document.getElementById("tabs");
-      const views = [...SUBJECTS, "전체(정규화)"];
-
-      el.innerHTML = views.map(v => `
-        <button type="button" data-view="${v}" class="${v===currentView ? "active":""}">
-          ${v}
-        </button>
-      `).join("");
-
-      el.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => {
-          currentView = btn.dataset.view;
-          renderTabs();
-          renderChart();
-          renderHint();
-        });
+    // ✅ 컷이 있는 경우에만 컷선 표시
+    const hasCut = cutData.some(v => v != null);
+    if (hasCut) {
+      datasets.push({
+        label: `${activeSubject} 컷`,
+        data: cutData,
+        borderWidth: 2,
+        borderDash: [6, 6],
+        tension: 0.1,
+        pointRadius: 0
       });
     }
 
-    function buildSeries(view){
-      const labels = allScores.map(r => `${r.round}회`);
-
-      if (view === "전체(정규화)"){
-        // 50점 과목은 x2 해서 100점 스케일로 맞춘 뒤 평균
-        const series = allScores.map(r => {
-          const vals = SUBJECTS.map(s => {
-            const v = r[s];
-            if (v == null) return null;
-            return (s==="생윤" || s==="사문") ? v*2 : v;
-          }).filter(v => v != null);
-          return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-        });
-
-        const cutSeries = allScores.map(r => {
-          const vals = SUBJECTS.map(s => {
-            const v = r[`${s}컷`];
-            if (v == null) return null;
-            return (s==="생윤" || s==="사문") ? v*2 : v;
-          }).filter(v => v != null);
-          return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
-        });
-
-        return { labels, series, cutSeries, max: 100, label:"전체(정규화)" };
-      }
-
-      const max = MAX_SCORE(view);
-      const series = allScores.map(r => r[view] ?? null);
-      const cutSeries = allScores.map(r => r[`${view}컷`] ?? null);
-      return { labels, series, cutSeries, max, label:view };
-    }
-
-    function renderHint(){
-      const el = document.getElementById("hint");
-      const v = currentView;
-
-      if (v === "전체(정규화)"){
-        el.textContent = "※ 전체(정규화): 생윤/사문(50점)을 100점 스케일로 환산(x2)하여 평균. 점선은 1등급 컷(있을 때만 표시).";
-        return;
-      }
-
-      const max = MAX_SCORE(v);
-      // 마지막 회차 컷을 보여주되, 없으면 안내만
-      const last = allScores[allScores.length - 1];
-      const cut = last?.[`${v}컷`];
-
-      el.textContent = (cut != null)
-        ? `만점 ${max}점 · 1등급 컷(점선): ${cut}`
-        : `만점 ${max}점 · 1등급 컷 데이터가 없으면 점선이 표시되지 않습니다.`;
-    }
-
-    function renderChart(){
-      const { labels, series, cutSeries, max, label } = buildSeries(currentView);
-      const ctx = document.getElementById("chart");
-
-      if (chartInstance) chartInstance.destroy();
-
-      const hasCut = cutSeries.some(v => v != null);
-
-      const datasets = [
-        {
-          label: label,
-          data: series,
-          tension: 0.25
-        }
-      ];
-
-      if (hasCut){
-        datasets.push({
-          label: "1등급 컷",
-          data: cutSeries,
-          tension: 0,
-          pointRadius: 0,
-          borderDash: [6,6]
-        });
-      }
-
-      const isMobile = window.matchMedia("(max-width:520px)").matches;
-
-      chartInstance = new Chart(ctx, {
-        type: "line",
-        data: { labels, datasets },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode:"index", intersect:false },
-          plugins: {
-            legend: { position: "bottom" },
-            tooltip: { enabled:true }
-          },
-          scales: {
-            y: { beginAtZero:true, suggestedMax: max },
-            x: {
-              ticks: { autoSkip:true, maxTicksLimit: isMobile ? 5 : 10 }
+    if (chart) chart.destroy();
+    chart = new Chart(document.getElementById("chart"), {
+      type: "line",
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            min: 0,
+            max: maxScore,
+            ticks: { stepSize: (maxScore === 50 ? 5 : 10) }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              afterBody: (items) => {
+                const idx = items?.[0]?.dataIndex ?? 0;
+                const s = scoreData[idx];
+                const c = cutData[idx];
+                if (s == null || c == null) return "";
+                const diff = s - c;
+                return `컷 대비: ${diff >= 0 ? "+" : ""}${diff}`;
+              }
             }
           }
         }
-      });
-    }
-
-    function renderTable(){
-      const rows = allScores.map(r => `
-        <tr>
-          <td>${r.round}</td>
-          <td>${r.date || "-"}</td>
-          ${SUBJECTS.map(s => `<td>${(r[s] ?? "-")}</td>`).join("")}
-        </tr>
-      `).join("");
-
-      document.getElementById("table").innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>회차</th><th>날짜</th>
-              <th>국어(100)</th><th>수학(100)</th><th>영어(100)</th><th>생윤(50)</th><th>사문(50)</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    }
-
-    async function init(){
-      const id = getId();
-      if(!id){
-        document.getElementById("header").textContent = "id가 없습니다. 목록에서 다시 들어오세요.";
-        return;
       }
-
-      meta = await loadStudentMeta(id);
-      renderHeader(meta, id);
-
-      allScores = (await loadScores(id)).slice().sort((a,b)=>(a.round||0)-(b.round||0));
-
-      if(!allScores.length){
-        document.getElementById("table").innerHTML =
-          `<div style="opacity:.7">점수 데이터가 없습니다. <b>scores.json</b>에서 id="${id}"가 있는지 확인하세요.</div>`;
-        return;
-      }
-
-      renderTabs();
-      renderHint();
-      renderTable();
-      renderChart();
-    }
-
-    init().catch(err=>{
-      document.getElementById("header").textContent =
-        "로딩 실패: students.json 또는 scores.json 파일 확인 필요";
-      console.error(err);
     });
-  </script>
+  }
+
+  function renderSummaryTable() {
+    if (!activeSubject) return;
+
+    const cutKey = activeSubject + "컷";
+    sumTitleEl.textContent = `회차별 요약 (${activeSubject})`;
+    sumHintEl.textContent = `점수 / 컷 / 컷 대비(±)`;
+
+    const rows = myScores
+      .filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "")
+      .map(r => {
+        const score = safeNum(r[activeSubject]);
+        const cut   = safeNum(r[cutKey]);
+        const diff  = (score != null && cut != null) ? (score - cut) : null;
+        const cls   = (diff != null && diff >= 0) ? "ok" : "bad";
+
+        return `
+          <tr>
+            <td>#${r.round}<div class="small">${r.date}</div></td>
+            <td>${score ?? "-"}</td>
+            <td>${cut ?? "-"}</td>
+            <td class="${diff == null ? "" : cls}">
+              ${diff == null ? "-" : (diff >= 0 ? "+" : "") + diff}
+            </td>
+          </tr>`;
+      }).join("");
+
+    sumTableEl.innerHTML = `
+      <thead>
+        <tr>
+          <th>회차</th>
+          <th>점수</th>
+          <th>컷</th>
+          <th>컷 대비</th>
+        </tr>
+      </thead>
+      <tbody>${rows || `<tr><td colspan="4">해당 과목 데이터가 없습니다.</td></tr>`}</tbody>
+    `;
+  }
+
+  Promise.all([
+    fetch("./students.json").then(r => r.json()),
+    fetch("./scores.json").then(r => r.json())
+  ]).then(([students, scores]) => {
+    studentMeta = (students || []).find(s => s.id === id) || null;
+
+    myScores = (scores || [])
+      .filter(x => x.id === id)
+      .sort(byRound);
+
+    if (!renderHeader()) return;
+
+    if (!myScores.length) {
+      subjects = [];
+      activeSubject = null;
+      makeTabs();
+      sumTitleEl.textContent = "데이터 없음";
+      sumHintEl.textContent = "";
+      sumTableEl.innerHTML = `<tbody><tr><td>scores.json에 id=${id} 기록이 없습니다.</td></tr></tbody>`;
+      return;
+    }
+
+    // ✅ 학생별 과목 자동탐지
+    subjects = detectSubjects(myScores);
+    activeSubject = subjects[0] || null;
+
+    makeTabs();
+    renderChart();
+    renderSummaryTable();
+  }).catch(err => {
+    titleEl.textContent = "로드 실패";
+    metaEl.textContent = String(err);
+  });
+</script>
+
 </body>
 </html>
