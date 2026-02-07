@@ -9,9 +9,15 @@
     h1{margin:0 0 14px}
     .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
     .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
-    .name{font-weight:800}
-    .meta{opacity:.8;margin-top:6px;line-height:1.6}
-    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
+    .name{font-weight:900;font-size:18px}
+    .meta{opacity:.85;margin-top:8px;line-height:1.7}
+    a.btn{display:inline-block;margin-top:12px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:10px}
+    .muted{opacity:.7}
+    @media (max-width:600px){
+      body{margin:14px}
+      .name{font-size:17px}
+      a.btn{width:100%;text-align:center}
+    }
   </style>
 </head>
 <body>
@@ -23,36 +29,56 @@
   <script>
     let students = [];
 
+    function getName(s){
+      return s.studentName ?? s.name ?? s["학생명"] ?? s["이름"] ?? s.id ?? "(이름없음)";
+    }
+
+    function safe(v){
+      return (v === null || v === undefined || v === "") ? "-" : String(v);
+    }
+
     async function init(){
       const res = await fetch('./students.json', { cache:'no-store' });
       students = await res.json();
+
       render('');
-      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim()));
+
+      document.getElementById('q').addEventListener('input', (e)=>{
+        render(e.target.value.trim());
+      });
     }
 
     function render(keyword){
       const list = document.getElementById('list');
-      const k = keyword.toLowerCase();
+      const k = (keyword || "").toLowerCase();
 
       const items = students.filter(s => {
-        const hay = `${s.school||''} ${s.studentName||''} ${s.career||''} ${s.admission||''}`.toLowerCase();
+        const hay = `
+          ${safe(s.school)} ${safe(getName(s))} ${safe(s.career)} ${safe(s.admission)} ${safe(s.id)}
+        `.toLowerCase();
         return !k || hay.includes(k);
       });
 
-      list.innerHTML = items.map(s => `
-        <div class="card">
-          <div class="name">${s.studentName} <span style="opacity:.6">(${s.id})</span></div>
-          <div class="meta">
-            학교: ${s.school || '-'}<br/>
-            진로: ${s.career || '-'}<br/>
-            전형: ${s.admission || '-'}
+      list.innerHTML = items.map(s => {
+        const name = getName(s);
+        const id = safe(s.id);
+        return `
+          <div class="card">
+            <div class="name">${name} <span class="muted">(${id})</span></div>
+            <div class="meta">
+              학교: ${safe(s.school)}<br/>
+              진로: ${safe(s.career)}<br/>
+              전형: ${safe(s.admission)}
+            </div>
+            <a class="btn" href="./student.html?id=${encodeURIComponent(s.id)}">성적/그래프 보기</a>
           </div>
-          <a class="btn" href="./student.html?id=${encodeURIComponent(s.id)}">성적/그래프 보기</a>
-        </div>
-      `).join('') || '<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>';
+        `;
+      }).join('') || '<div class="muted" style="margin-top:12px">검색 결과가 없습니다.</div>';
     }
 
-    init().catch(()=>{ document.getElementById('list').textContent='students.json 로딩 실패'; });
+    init().catch(()=>{
+      document.getElementById('list').textContent = 'students.json 로딩 실패 (파일 경로/형식 확인 필요)';
+    });
   </script>
 </body>
 </html>
