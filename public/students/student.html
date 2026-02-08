@@ -12,10 +12,7 @@
     .meta { color:#555; font-size:13px; }
 
     .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin: 10px 0 8px; max-width: 920px; }
-    .toggle {
-      border:1px solid #ddd; background:#fff; border-radius:999px;
-      padding:8px 12px; font-size:13px; cursor:pointer;
-    }
+    .toggle { border:1px solid #ddd; background:#fff; border-radius:999px; padding:8px 12px; font-size:13px; cursor:pointer; }
     .toggle.active { border-color:#111; font-weight:800; }
     .small { color:#666; font-size:12px; }
 
@@ -28,14 +25,8 @@
       max-width: 920px;
     }
     .tab {
-      flex:0 0 auto;
-      padding:8px 12px;
-      border:1px solid #ddd;
-      border-radius:999px;
-      background:#fff;
-      font-size:13px;
-      cursor:pointer;
-      white-space:nowrap;
+      flex:0 0 auto; padding:8px 12px; border:1px solid #ddd; border-radius:999px;
+      background:#fff; font-size:13px; cursor:pointer; white-space:nowrap;
     }
     .tab.active { border-color:#111; font-weight:800; }
 
@@ -43,20 +34,10 @@
     canvas { width: 100% !important; height: 320px !important; }
 
     .grid { max-width: 920px; display:grid; grid-template-columns: 1fr; gap:12px; }
-    .panel {
-      border:1px solid #eee; border-radius:12px; padding:12px;
-      background:#fff;
-    }
+    .panel { border:1px solid #eee; border-radius:12px; padding:12px; background:#fff; }
     .panel h3 { margin:0 0 8px; font-size:14px; }
 
-    .box {
-      margin-top: 12px;
-      border:1px solid #eee;
-      border-radius:12px;
-      padding:12px;
-      max-width: 920px;
-      background:#fff;
-    }
+    .box { margin-top: 12px; border:1px solid #eee; border-radius:12px; padding:12px; max-width: 920px; background:#fff; }
     .box h2 { margin:0 0 8px; font-size:16px; }
 
     table { width:100%; border-collapse:collapse; font-size:13px; }
@@ -64,12 +45,7 @@
     .ok { color:#0a7; font-weight:800; }
     .bad { color:#d33; font-weight:800; }
 
-    .timelineItem{
-      margin:10px 0;
-      padding:10px;
-      border:1px solid #eee;
-      border-radius:10px;
-    }
+    .timelineItem{ margin:10px 0; padding:10px; border:1px solid #eee; border-radius:10px; }
     .timelineHead{ font-weight:900; }
     .timelineBody{ margin-top:6px; line-height:1.65; }
 
@@ -94,22 +70,18 @@
 
   <div class="tabs" id="tabs"></div>
 
-  <!-- 단일 과목 모드 -->
   <div class="chartWrap" id="singleWrap">
     <canvas id="chartSingle"></canvas>
   </div>
 
-  <!-- 전체 보기 모드 -->
   <div class="grid" id="allWrap" style="display:none;"></div>
 
-  <!-- 점수 요약 -->
   <div class="box">
     <h2 id="sumTitle">요약</h2>
     <div class="small" id="sumHint"></div>
     <table id="sumTable"></table>
   </div>
 
-  <!-- 진도 타임라인 -->
   <div class="box">
     <h2>진도 타임라인</h2>
     <div class="small" id="progressHint"></div>
@@ -117,7 +89,6 @@
   </div>
 
 <script>
-  // ---- util ----
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
 
@@ -148,7 +119,6 @@
     return Number.isFinite(n) ? n : null;
   }
 
-  // 탐구 50점 만점(필요시 추가)
   function getMaxScore(subjectKey) {
     const 탐구50 = ["생윤","사문"];
     return 탐구50.includes(subjectKey) ? 50 : 100;
@@ -194,7 +164,6 @@
     return { subj, term, topic, memo };
   }
 
-  // ---- state ----
   let studentMeta = null;
   let myScores = [];
   let subjects = [];
@@ -202,9 +171,9 @@
 
   let myProgress = [];
 
-  let mode = "single"; // single | all
+  let mode = "single";
   let singleChart = null;
-  const allCharts = new Map(); // subject -> Chart instance
+  const allCharts = new Map();
 
   function setMode(next){
     mode = next;
@@ -295,10 +264,7 @@
 
   function renderSingleChart(){
     if (!activeSubject) return;
-
-    const rows = myScores
-      .filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "");
-
+    const rows = myScores.filter(r => r[activeSubject] !== undefined && r[activeSubject] !== null && r[activeSubject] !== "");
     const built = buildDataset(rows, activeSubject);
 
     if (singleChart) singleChart.destroy();
@@ -309,11 +275,7 @@
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          y: {
-            min: 0,
-            max: built.maxScore,
-            ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) }
-          }
+          y: { min: 0, max: built.maxScore, ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) } }
         }
       }
     });
@@ -325,9 +287,7 @@
     allWrap.innerHTML = "";
 
     subjects.forEach(sub => {
-      const rows = myScores
-        .filter(r => r[sub] !== undefined && r[sub] !== null && r[sub] !== "");
-
+      const rows = myScores.filter(r => r[sub] !== undefined && r[sub] !== null && r[sub] !== "");
       const panel = document.createElement("div");
       panel.className = "panel";
       panel.innerHTML = `<h3>${esc(sub)}</h3><canvas></canvas>`;
@@ -343,11 +303,7 @@
           responsive: true,
           maintainAspectRatio: false,
           scales: {
-            y: {
-              min: 0,
-              max: built.maxScore,
-              ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) }
-            }
+            y: { min: 0, max: built.maxScore, ticks: { stepSize: (built.maxScore === 50 ? 5 : 10) } }
           }
         }
       });
@@ -396,7 +352,6 @@
       return;
     }
 
-    // mode === all
     sumTitleEl.textContent = "최근 회차 요약 (과목별)";
     sumHintEl.textContent = "과목 / 최근 점수 / 컷 / 컷 대비(±)";
 
@@ -434,7 +389,6 @@
       return;
     }
 
-    // round별 그룹
     const by = new Map();
     for (const p of myProgress){
       const r = safeNum(p.round) ?? 0;
@@ -446,7 +400,7 @@
     const latestR = rounds[rounds.length - 1];
     const latestItems = by.get(latestR) || [];
     const latestDate = latestItems[0]?.date || "";
-    progressHintEl.textContent = `최근 진도: #${latestR}${latestDate ? " · " + latestDate : ""} (한 주에 여러 과목 가능)`;
+    progressHintEl.textContent = `최근 진도: #${latestR}${latestDate ? " · " + latestDate : ""} (입력된 만큼 전부 표시)`;
 
     progressBoxEl.innerHTML = rounds.map(r=>{
       const items = by.get(r) || [];
@@ -492,8 +446,6 @@
     } else {
       subjects = detectSubjects(myScores);
       activeSubject = subjects[0] || null;
-
-      // 모바일 기본: 단일 / PC 기본: 전체
       const isMobile = window.matchMedia("(max-width: 520px)").matches;
       setMode(isMobile ? "single" : "all");
     }
