@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>학생 성적</title>
-
+  <title>학생 성적/진도</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif; margin: 16px; }
-    .top { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+    .top { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; max-width: 920px; }
     h1 { margin:0; font-size:22px; }
     .meta { color:#555; font-size:13px; }
 
-    .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin: 10px 0 8px; }
+    .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin: 10px 0 8px; max-width: 920px; }
     .toggle {
       border:1px solid #ddd; background:#fff; border-radius:999px;
       padding:8px 12px; font-size:13px; cursor:pointer;
     }
     .toggle.active { border-color:#111; font-weight:800; }
+    .small { color:#666; font-size:12px; }
 
     .tabs {
       display:flex; gap:8px;
@@ -26,6 +25,7 @@
       -webkit-overflow-scrolling: touch;
       border-bottom: 1px solid #eee;
       margin-bottom: 10px;
+      max-width: 920px;
     }
     .tab {
       flex:0 0 auto;
@@ -39,29 +39,39 @@
     }
     .tab.active { border-color:#111; font-weight:800; }
 
-    .chartWrap { max-width: 900px; }
+    .chartWrap { max-width: 920px; }
     canvas { width: 100% !important; height: 320px !important; }
 
-    .grid { max-width: 900px; display:grid; grid-template-columns: 1fr; gap:12px; }
+    .grid { max-width: 920px; display:grid; grid-template-columns: 1fr; gap:12px; }
     .panel {
       border:1px solid #eee; border-radius:12px; padding:12px;
       background:#fff;
     }
     .panel h3 { margin:0 0 8px; font-size:14px; }
 
-    .summary {
-      margin-top: 14px;
+    .box {
+      margin-top: 12px;
       border:1px solid #eee;
       border-radius:12px;
       padding:12px;
-      max-width: 900px;
+      max-width: 920px;
+      background:#fff;
     }
-    .summary h2 { margin:0 0 8px; font-size:16px; }
+    .box h2 { margin:0 0 8px; font-size:16px; }
+
     table { width:100%; border-collapse:collapse; font-size:13px; }
-    th, td { padding:8px; border-bottom:1px solid #f0f0f0; text-align:left; }
+    th, td { padding:8px; border-bottom:1px solid #f0f0f0; text-align:left; vertical-align:top; }
     .ok { color:#0a7; font-weight:800; }
     .bad { color:#d33; font-weight:800; }
-    .small { color:#666; font-size:12px; }
+
+    .timelineItem{
+      margin:10px 0;
+      padding:10px;
+      border:1px solid #eee;
+      border-radius:10px;
+    }
+    .timelineHead{ font-weight:900; }
+    .timelineBody{ margin-top:6px; line-height:1.65; }
 
     @media (max-width: 480px) {
       canvas { height: 280px !important; }
@@ -92,10 +102,18 @@
   <!-- 전체 보기 모드 -->
   <div class="grid" id="allWrap" style="display:none;"></div>
 
-  <div class="summary">
+  <!-- 점수 요약 -->
+  <div class="box">
     <h2 id="sumTitle">요약</h2>
     <div class="small" id="sumHint"></div>
     <table id="sumTable"></table>
+  </div>
+
+  <!-- 진도 타임라인 -->
+  <div class="box">
+    <h2>진도 타임라인</h2>
+    <div class="small" id="progressHint"></div>
+    <div id="progressBox" class="small">로딩중…</div>
   </div>
 
 <script>
@@ -118,6 +136,9 @@
   const sumHintEl  = document.getElementById("sumHint");
   const sumTableEl = document.getElementById("sumTable");
 
+  const progressHintEl = document.getElementById("progressHint");
+  const progressBoxEl = document.getElementById("progressBox");
+
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
   );
@@ -127,7 +148,7 @@
     return Number.isFinite(n) ? n : null;
   }
 
-  // 탐구 50점 만점(필요하면 여기에 과목 추가)
+  // 탐구 50점 만점(필요시 추가)
   function getMaxScore(subjectKey) {
     const 탐구50 = ["생윤","사문"];
     return 탐구50.includes(subjectKey) ? 50 : 100;
@@ -165,11 +186,21 @@
     return null;
   }
 
+  function normalizeProgressItem(p){
+    const subj = (p["과목"] ?? p.subject ?? "").toString().trim();
+    const term = (p["학년학기"] ?? p.term ?? "").toString().trim();
+    const topic = (p["진도"] ?? p["진도(단원/주제)"] ?? p.topic ?? "").toString().trim();
+    const memo = (p["메모"] ?? p.memo ?? "").toString().trim();
+    return { subj, term, topic, memo };
+  }
+
   // ---- state ----
   let studentMeta = null;
   let myScores = [];
   let subjects = [];
   let activeSubject = null;
+
+  let myProgress = [];
 
   let mode = "single"; // single | all
   let singleChart = null;
@@ -205,8 +236,8 @@
       return false;
     }
     if (studentMeta){
-      titleEl.textContent = studentMeta.studentname;
-      metaEl.textContent = `${studentMeta.school} · ${studentMeta.career} · ${studentMeta.admission}  (id: ${studentMeta.id})`;
+      titleEl.textContent = studentMeta.studentname || "(학생명 없음)";
+      metaEl.textContent = `${studentMeta.school || "-"} · ${studentMeta.career || "-"} · ${studentMeta.admission || "-"}  (id: ${studentMeta.id})`;
     } else {
       titleEl.textContent = "(학생명 미등록)";
       metaEl.textContent = `students.json에 id=${id}가 없습니다. (id: ${id})`;
@@ -289,7 +320,6 @@
   }
 
   function renderAllCharts(){
-    // 정리
     for (const ch of allCharts.values()) ch.destroy();
     allCharts.clear();
     allWrap.innerHTML = "";
@@ -366,7 +396,7 @@
       return;
     }
 
-    // mode === "all"
+    // mode === all
     sumTitleEl.textContent = "최근 회차 요약 (과목별)";
     sumHintEl.textContent = "과목 / 최근 점수 / 컷 / 컷 대비(±)";
 
@@ -397,15 +427,58 @@
     `;
   }
 
+  function renderProgress(){
+    if (!myProgress.length){
+      progressHintEl.textContent = "";
+      progressBoxEl.textContent = "진도 기록이 없습니다.";
+      return;
+    }
+
+    // round별 그룹
+    const by = new Map();
+    for (const p of myProgress){
+      const r = safeNum(p.round) ?? 0;
+      if (!by.has(r)) by.set(r, []);
+      by.get(r).push(p);
+    }
+    const rounds = Array.from(by.keys()).sort((a,b)=>a-b);
+
+    const latestR = rounds[rounds.length - 1];
+    const latestItems = by.get(latestR) || [];
+    const latestDate = latestItems[0]?.date || "";
+    progressHintEl.textContent = `최근 진도: #${latestR}${latestDate ? " · " + latestDate : ""} (한 주에 여러 과목 가능)`;
+
+    progressBoxEl.innerHTML = rounds.map(r=>{
+      const items = by.get(r) || [];
+      const d = items[0]?.date || "";
+      const lines = items.map(x=>{
+        const n = normalizeProgressItem(x);
+        const head = `${n.subj}${n.term ? `(${n.term})` : ""}`.trim();
+        const topic = n.topic ? `: ${n.topic}` : "";
+        const memo = n.memo ? ` — <span style="opacity:.75">${esc(n.memo)}</span>` : "";
+        return `<div>• <b>${esc(head)}</b>${esc(topic)}${memo}</div>`;
+      }).join("");
+
+      return `
+        <div class="timelineItem">
+          <div class="timelineHead">#${esc(r)} ${d ? `· ${esc(d)}` : ""}</div>
+          <div class="timelineBody">${lines || "내용 없음"}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
   btnSingle.addEventListener("click", ()=>setMode("single"));
   btnAll.addEventListener("click", ()=>setMode("all"));
 
   Promise.all([
     fetch("./students.json", { cache:"no-store" }).then(r => r.json()),
-    fetch("./scores.json", { cache:"no-store" }).then(r => r.json())
-  ]).then(([students, scores]) => {
+    fetch("./scores.json",   { cache:"no-store" }).then(r => r.json()),
+    fetch("./progress.json", { cache:"no-store" }).then(r => r.json()).catch(()=>[])
+  ]).then(([students, scores, progress]) => {
     studentMeta = (students || []).find(s => s.id === id) || null;
     myScores = (scores || []).filter(x => x.id === id).sort(byRound);
+    myProgress = (progress || []).filter(p => p.id === id).sort((a,b)=>(safeNum(a.round)??0)-(safeNum(b.round)??0));
 
     if (!renderHeader()) return;
 
@@ -413,21 +486,23 @@
       subjects = [];
       activeSubject = null;
       tabsEl.innerHTML = "";
-      sumTitleEl.textContent = "데이터 없음";
+      sumTitleEl.textContent = "점수 데이터 없음";
       sumHintEl.textContent = "";
       sumTableEl.innerHTML = `<tbody><tr><td>scores.json에 id=${esc(id)} 기록이 없습니다.</td></tr></tbody>`;
-      return;
+    } else {
+      subjects = detectSubjects(myScores);
+      activeSubject = subjects[0] || null;
+
+      // 모바일 기본: 단일 / PC 기본: 전체
+      const isMobile = window.matchMedia("(max-width: 520px)").matches;
+      setMode(isMobile ? "single" : "all");
     }
 
-    subjects = detectSubjects(myScores);
-    activeSubject = subjects[0] || null;
-
-    // ✅ 모바일 기본: 단일 과목 / 데스크탑 기본: 전체 보기
-    const isMobile = window.matchMedia("(max-width: 520px)").matches;
-    setMode(isMobile ? "single" : "all");
+    renderProgress();
   }).catch(err => {
     titleEl.textContent = "로드 실패";
     metaEl.textContent = String(err);
+    progressBoxEl.textContent = "진도 로드 실패";
   });
 </script>
 
