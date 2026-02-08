@@ -7,31 +7,35 @@
   <style>
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
     h1{margin:0 0 14px}
-    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
-    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
+    .search{width:100%;max-width:820px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .wrap{max-width:820px}
+    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0}
     .name{font-weight:900;font-size:18px}
     .meta{opacity:.85;margin-top:6px;line-height:1.6}
     .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-    .chip{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;opacity:.9}
-    .chip.bold{border-color:#111;font-weight:800}
+    .chip{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;opacity:.95}
+    .chip.bold{border-color:#111;font-weight:900}
     a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
-    .warn{max-width:720px;background:#fff7e6;border:1px solid #ffd28a;padding:10px;border-radius:10px;margin:10px 0}
+    .warn{background:#fff7e6;border:1px solid #ffd28a;padding:10px;border-radius:10px;margin:10px 0}
     .small{font-size:12px;opacity:.75}
   </style>
 </head>
 <body>
-  <h1>학생 목록</h1>
-  <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / 과목" />
-  <div id="warn"></div>
-  <div id="list"></div>
+  <div class="wrap">
+    <h1>학생 목록</h1>
+    <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / 과목 / 진도" />
+    <div id="warn"></div>
+    <div id="list"></div>
+  </div>
 
   <script>
-    const SHOW_ID = false; // ✅ 화면에 id를 보여주고 싶으면 true
+    const SHOW_ID = false; // 화면에 id 표기 원하면 true
 
     let students = [];
     let scores = [];
+    let progress = [];
 
-    // -------- util --------
+    // ---------- util ----------
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m =>
       ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
     );
@@ -45,9 +49,6 @@
       return Number.isFinite(n) ? n : null;
     }
 
-    // 점수 키에서 과목 자동 탐지:
-    // - id/round/date 제외
-    // - '컷'으로 끝나는 키 제외
     function detectSubjects(records){
       const set = new Set();
       for (const r of records){
@@ -59,7 +60,6 @@
           if (Number.isFinite(Number(v))) set.add(k);
         }
       }
-      // 정렬: 국/수/영 우선 + 나머지 가나다
       const priority = ["국어","수학","영어"];
       return Array.from(set).sort((a,b)=>{
         const ia = priority.indexOf(a);
@@ -70,7 +70,6 @@
     }
 
     function latestRecord(records){
-      // round가 있으면 round 기준, 없으면 date 기준
       let best = null;
       for (const r of records){
         if (!best) { best = r; continue; }
@@ -79,7 +78,6 @@
         if (rr != null && br != null) {
           if (rr > br) best = r;
         } else {
-          // date 비교(문자열 YYYY-MM-DD 가정)
           const rd = String(r.date ?? "");
           const bd = String(best.date ?? "");
           if (rd > bd) best = r;
@@ -89,7 +87,6 @@
     }
 
     function passCount(rec, subjects){
-      // 컷 키가 있는 과목만 계산
       let known = 0, pass = 0;
       for (const sub of subjects){
         const s = safeNum(rec[sub]);
@@ -101,12 +98,24 @@
       return { pass, known };
     }
 
-    // -------- data map --------
+    function normalizeProgressItem(p){
+      // 허용 키: 과목/subject, 학년학기/term, 진도/topic, 메모/memo
+      const subj = (p["과목"] ?? p.subject ?? "").toString().trim();
+      const term = (p["학년학기"] ?? p.term ?? "").toString().trim();
+      const topic = (p["진도"] ?? p["진도(단원/주제)"] ?? p.topic ?? "").toString().trim();
+      const memo = (p["메모"] ?? p.memo ?? "").toString().trim();
+      return { subj, term, topic, memo };
+    }
+
+    // ---------- maps ----------
     let scoreMap = new Map();      // id -> records[]
     let subjectMap = new Map();    // id -> subjects[]
-    let latestMap = new Map();     // id -> latestRecord
+    let latestMap = new Map();     // id -> latestScoreRecord
+    let progMap = new Map();       // id -> progressRecords[]
+    let latestProgMap = new Map(); // id -> {round,date,items[]}
 
     function buildMaps(){
+      // scores
       scoreMap = new Map();
       subjectMap = new Map();
       latestMap = new Map();
@@ -116,17 +125,35 @@
         if (!scoreMap.has(r.id)) scoreMap.set(r.id, []);
         scoreMap.get(r.id).push(r);
       }
-
       for (const [id, arr] of scoreMap.entries()){
-        // 회차 정렬
         arr.sort((a,b)=>(safeNum(a.round)??0)-(safeNum(b.round)??0));
         const subs = detectSubjects(arr);
         subjectMap.set(id, subs);
         latestMap.set(id, latestRecord(arr));
       }
+
+      // progress
+      progMap = new Map();
+      latestProgMap = new Map();
+
+      for (const p of (progress || [])){
+        if (!p || !p.id) continue;
+        if (!progMap.has(p.id)) progMap.set(p.id, []);
+        progMap.get(p.id).push(p);
+      }
+
+      for (const [id, arr] of progMap.entries()){
+        // sort by round asc
+        arr.sort((a,b)=>(safeNum(a.round)??0)-(safeNum(b.round)??0));
+        const lastRound = arr.length ? arr[arr.length-1].round : null;
+        if (lastRound == null) continue;
+        const items = arr.filter(x => x.round === lastRound);
+        const date = items[0]?.date ?? "";
+        latestProgMap.set(id, { round:lastRound, date, items });
+      }
     }
 
-    // -------- render --------
+    // ---------- render ----------
     function render(keyword){
       const list = document.getElementById('list');
       const k = (keyword || '').toLowerCase();
@@ -137,7 +164,17 @@
         const subs = subjectMap.get(id) || [];
         const subsText = subs.join(" ");
 
-        const hay = `${s.school||''} ${name||''} ${s.career||''} ${s.admission||''} ${id} ${subsText}`.toLowerCase();
+        // progress text
+        const lp = latestProgMap.get(id);
+        let progText = "";
+        if (lp){
+          progText = lp.items.map(p=>{
+            const n = normalizeProgressItem(p);
+            return `${n.subj} ${n.term} ${n.topic} ${n.memo}`.trim();
+          }).join(" ");
+        }
+
+        const hay = `${s.school||''} ${name||''} ${s.career||''} ${s.admission||''} ${id} ${subsText} ${progText}`.toLowerCase();
         return !k || hay.includes(k);
       });
 
@@ -150,12 +187,35 @@
         let latestInfo = `<span class="small">점수 기록 없음</span>`;
         if (latest){
           const pc = passCount(latest, subs);
-          // 컷 데이터가 없는 경우 known=0이 될 수 있음
           const passText = pc.known ? `컷 통과 ${pc.pass}/${pc.known}` : `컷 데이터 없음`;
-          latestInfo = `<span class="small">최근: #${esc(latest.round)} (${esc(latest.date)}) · ${passText}</span>`;
+          latestInfo = `<span class="small">최근 점수: #${esc(latest.round)} (${esc(latest.date)}) · ${passText}</span>`;
         }
 
-        const chips = subs.length
+        // progress chips
+        const lp = latestProgMap.get(id);
+        let progressHtml = `<div class="chips"><span class="chip bold">이번 주 진도</span><span class="chip">기록 없음</span></div>`;
+        if (lp){
+          const lines = lp.items.map(p=>{
+            const n = normalizeProgressItem(p);
+            const left = `${n.subj}${n.term ? `(${n.term})` : ""}`.trim();
+            const mid = n.topic ? `: ${n.topic}` : "";
+            return (left + mid).trim();
+          }).filter(Boolean);
+
+          const shown = lines.slice(0, 3);
+          const more = lines.length - shown.length;
+
+          progressHtml = `
+            <div class="chips">
+              <span class="chip bold">이번 주 진도</span>
+              <span class="chip">#${esc(lp.round)}${lp.date ? ` · ${esc(lp.date)}` : ""}</span>
+              ${shown.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}
+              ${more > 0 ? `<span class="chip">+${more}개</span>` : ``}
+            </div>
+          `;
+        }
+
+        const subjectChips = subs.length
           ? subs.map(x => `<span class="chip">${esc(x)}</span>`).join("")
           : `<span class="chip">과목 미확인</span>`;
 
@@ -166,54 +226,69 @@
               ${SHOW_ID ? `<span class="small"> (${esc(id)})</span>` : ``}
             </div>
             <div class="meta">
-              학교: ${esc(s.school || '-') }<br/>
-              진로: ${esc(s.career || '-') }<br/>
-              전형: ${esc(s.admission || '-') }<br/>
+              학교: ${esc(s.school || '-')}<br/>
+              진로: ${esc(s.career || '-')}<br/>
+              전형: ${esc(s.admission || '-')}<br/>
               ${latestInfo}
             </div>
-            <div class="chips">
+
+            ${progressHtml}
+
+            <div class="chips" style="margin-top:8px">
               <span class="chip bold">응시 과목</span>
-              ${chips}
+              ${subjectChips}
             </div>
-            <a class="btn" href="./student.html?id=${encodeURIComponent(id)}">성적/그래프 보기</a>
+
+            <a class="btn" href="./student.html?id=${encodeURIComponent(id)}">성적/그래프/진도 보기</a>
           </div>
         `;
       }).join('') || '<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>';
     }
 
     async function init(){
-      const [resS, resC] = await Promise.all([
-        fetch('./students.json', { cache:'no-store' }),
-        fetch('./scores.json',   { cache:'no-store' })
-      ]);
-      students = await resS.json();
-      scores = await resC.json();
-
-      buildMaps();
-
-      // ✅ scores에만 있고 students에 없는 id 경고(예: shstudy09, shstudy10)
       const warnEl = document.getElementById("warn");
-      const studentIds = new Set(students.map(s => s.id).filter(Boolean));
-      const scoreOnly = Array.from(scoreMap.keys()).filter(id => !studentIds.has(id));
-      if (scoreOnly.length){
-        warnEl.innerHTML = `
-          <div class="warn">
-            <div><b>주의:</b> scores.json에는 있는데 students.json에는 없는 id가 있어요.</div>
-            <div class="small">목록에 이름이 안 뜨고 student.html에서 “학생명 미등록”으로 표시됩니다.</div>
-            <div class="small">누락 id: ${scoreOnly.map(esc).join(", ")}</div>
-          </div>
-        `;
-      } else {
-        warnEl.innerHTML = "";
-      }
 
-      render('');
-      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim()));
+      try{
+        const [resS, resC, resP] = await Promise.all([
+          fetch('./students.json', { cache:'no-store' }),
+          fetch('./scores.json',   { cache:'no-store' }),
+          fetch('./progress.json', { cache:'no-store' }).catch(()=>null)
+        ]);
+
+        students = await resS.json();
+        scores = await resC.json();
+        progress = resP ? await resP.json() : [];
+
+        buildMaps();
+
+        // warnings: ids mismatch
+        const studentIds = new Set(students.map(s => s.id).filter(Boolean));
+        const scoreIds = new Set(Array.from(scoreMap.keys()));
+        const progIds  = new Set(Array.from(progMap.keys()));
+
+        const scoreOnly = Array.from(scoreIds).filter(id => !studentIds.has(id));
+        const progOnly  = Array.from(progIds).filter(id => !studentIds.has(id));
+
+        let html = "";
+        if (scoreOnly.length){
+          html += `<div class="warn"><b>주의:</b> scores.json에는 있는데 students.json에는 없는 id: <span class="small">${scoreOnly.map(esc).join(", ")}</span></div>`;
+        }
+        if (progOnly.length){
+          html += `<div class="warn"><b>주의:</b> progress.json에는 있는데 students.json에는 없는 id: <span class="small">${progOnly.map(esc).join(", ")}</span></div>`;
+        }
+        if (!resP){
+          html += `<div class="warn"><b>알림:</b> progress.json을 못 불러왔어요. (진도 표시 없음)</div>`;
+        }
+        warnEl.innerHTML = html;
+
+        render('');
+        document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim()));
+      }catch(e){
+        document.getElementById('list').textContent = 'students.json / scores.json / progress.json 로딩 실패';
+      }
     }
 
-    init().catch(()=>{
-      document.getElementById('list').textContent = 'students.json / scores.json 로딩 실패';
-    });
+    init();
   </script>
 </body>
 </html>
