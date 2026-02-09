@@ -17,8 +17,7 @@
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
-    /* ✅ 1단계 목표: "학부모/학생용 링크" 박스가 있으면 무조건 숨김
-       - (현재 HTML에는 없지만) student.js가 만들어도 안 보이게 강제 */
+    /* ✅ "학부모/학생용 링크" 박스가 혹시라도 생성되면 무조건 숨김 */
     #shareCard,#shareBox,#shareLinks,#shareArea,
     .share-card,.shareBox,.share-area,.share-links,
     .parent-links,.parentLinks,.student-links,.studentLinks {
@@ -40,7 +39,7 @@
     <div id="links" class="row"></div>
   </div>
 
-  <!-- 실제 그래프/상세는 기존 student.js가 있다면 그대로 이용 -->
+  <!-- student.js가 여기에 성적/그래프를 렌더링 -->
   <div id="detail"></div>
 </div>
 
@@ -51,11 +50,14 @@
   const qs = new URLSearchParams(location.search);
   const admin = qs.get("admin");
   const idParam = qs.get("id");
-  const tParam = qs.get("t");        // 학부모/학생용 토큰
-  const tokenParam = qs.get("token");// (혹시 쓰는 경우 대비)
+  const tParam = qs.get("t");
+  const tokenParam = qs.get("token"); // 백업
+
+  const isAdmin = (admin === ADMIN_TOKEN);
+  const isStudentMode = (!!tParam || !!tokenParam);
 
   function escapeHtml(s){
-    return String(s??'').replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+    return String(s ?? '').replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
   }
 
   function pickName(s){
@@ -70,34 +72,37 @@
 
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path+" load failed");
+    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
     return r.json();
+  }
+
+  function setError(title, html){
+    document.getElementById("hdr").textContent = title;
+    document.getElementById("meta").innerHTML = html;
   }
 
   async function main(){
     const students = await loadJson("./students.json");
 
-    // ✅ 1) id로 들어온 경우: id로 찾기
+    // ✅ 학생 찾기: id 우선 → t(token) → token(backup)
     let student = null;
+
     if(idParam){
       student = students.find(s => String(pickId(s)) === String(idParam));
     }
-
-    // ✅ 2) t(토큰)로 들어온 경우: 토큰으로 찾기
     if(!student && tParam){
       student = students.find(s => String(pickToken(s)) === String(tParam));
     }
-
-    // ✅ 3) token 파라미터로 들어온 경우(백업)
     if(!student && tokenParam){
       student = students.find(s => String(pickToken(s)) === String(tokenParam));
     }
 
     if(!student){
-      document.getElementById("hdr").textContent = "접근 불가";
-      document.getElementById("meta").innerHTML =
+      setError(
+        "접근 불가",
         `<div class="warn">학생 정보를 찾을 수 없습니다.</div>
-         <div class="muted">접속 방법: student.html?id=학생ID 또는 student.html?t=개별토큰</div>`;
+         <div class="muted">접속 방법: student.html?id=학생ID 또는 student.html?t=개별토큰</div>`
+      );
       return;
     }
 
@@ -105,7 +110,7 @@
     const sid = pickId(student);
     const stok = pickToken(student);
 
-    // ✅ 헤더: "이름 (id)" 형태로 표기
+    // ✅ 헤더: "이름 (id)" 형태
     document.getElementById("hdr").textContent = sid ? `${name} (${sid})` : `${name}`;
 
     document.getElementById("meta").innerHTML = `
@@ -114,11 +119,8 @@
       전형: ${escapeHtml(student.admission || "-")}
     `;
 
+    // ✅ 상단 모드 표시
     const msg = document.getElementById("msg");
-
-    const isAdmin = (admin === ADMIN_TOKEN);
-    const isStudentMode = (!!tParam || !!tokenParam);
-
     if(isAdmin){
       msg.innerHTML = `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`;
     }else if(isStudentMode){
@@ -127,22 +129,17 @@
       msg.innerHTML = `<span class="warn">토큰/관리자 파라미터가 없습니다.</span>`;
     }
 
-    // ✅ 링크 버튼(관리자 토큰 노출 방지!)
+    // ✅ 하단 버튼(관리자 토큰 노출 방지)
     const links = document.getElementById("links");
 
-    // 대학 리스트
-    const univHref =
-      isAdmin
-        ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-        : `./univ_list.html?t=${encodeURIComponent(stok)}`;
+    const univHref = isAdmin
+      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
-    // 진도 상세
-    const progHref =
-      isAdmin
-        ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-        : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+    const progHref = isAdmin
+      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
 
-    // 목록 버튼은 관리자에게만 보이게(학생에게 관리자 토큰 노출 X)
     const backBtn = isAdmin
       ? `<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">← 학생 목록</a>`
       : ``;
@@ -153,27 +150,29 @@
       <a class="btn" href="${progHref}">진도 상세 보기</a>
     `;
 
-    // ✅ student.js 연동을 위해 id 파라미터를 내부적으로 통일(주소창에 id를 붙여도 토큰은 숨김 유지 가능)
-    // - student.js가 id 기반으로 scores.json 렌더링한다면 그대로 작동
-    // - student.js가 토큰 기반이면, 기존 로직 유지 + 아래는 큰 영향 없음
+    // ✅ student.js가 id 기반으로 scores.json을 읽으므로,
+    //    토큰 접근일 때도 내부적으로 id를 붙여서 렌더링 동작 통일
+    // ✅ 단, "학생/학부모용 링크"에서 토큰이 주소창에 남아도 문제 없게
+    //    (원하면 다음 단계에서 토큰을 URL에서 제거하는 방식으로 더 강화 가능)
     const url = new URL(location.href);
     if(!url.searchParams.get("id") && sid){
       url.searchParams.set("id", sid);
       history.replaceState(null, "", url.toString());
     }
 
-    // student.js가 있으면 실행(없으면 무시)
+    // ✅ student.js 로드 (캐시 이슈 방지용 버전 파라미터)
     const s = document.createElement("script");
-    s.src = "./student.js";
+    s.src = new URL("./student.js?v=20260210", location.href).toString();
     s.defer = true;
-    s.onload = ()=>{};
-    s.onerror = ()=>{};
     document.body.appendChild(s);
   }
 
   main().catch(err=>{
-    document.getElementById("hdr").textContent = "오류";
-    document.getElementById("meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${escapeHtml(err.message)}</div>`;
+    setError(
+      "오류",
+      `<div class="warn">로딩 오류</div>
+       <div class="muted">${escapeHtml(err.message)}</div>`
+    );
   });
 </script>
 </body>
