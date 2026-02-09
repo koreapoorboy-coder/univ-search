@@ -1,239 +1,156 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>진도 상세</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
     .wrap{max-width:920px}
-    .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-    h1{margin:0;font-size:22px}
-    .meta{opacity:.8;line-height:1.6;margin-top:6px}
-    .btns{display:flex;gap:8px;flex-wrap:wrap}
-    a.btn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
-    .card{border:1px solid #eee;border-radius:12px;padding:12px;margin-top:12px;background:#fff}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .tag{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;background:#fff}
-    .tag.bold{border-color:#111;font-weight:900}
-    .k{font-weight:900}
-    .ok{color:#0a7;font-weight:900}
-    .warn{color:#b86b00;font-weight:900}
-    .bad{color:#d33;font-weight:900}
-    .hint{font-size:12px;opacity:.7;margin-top:6px}
-    canvas{width:100%!important;height:320px!important}
-    @media (max-width:480px){ canvas{height:280px!important} }
-    .boxTitle{font-weight:900;margin-bottom:8px}
-    .pre{white-space:pre-wrap;line-height:1.6}
+    .card{border:1px solid #ddd;border-radius:16px;padding:16px;background:#fff}
+    h1{margin:0 0 10px}
+    .meta{color:#555;line-height:1.8}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
+    .badge{font-weight:900;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:3px 8px;background:#f7f7f7}
+    .ok{color:#0a7;border-color:#0a7;background:#f1fff9}
+    .mid{color:#555}
+    .up{color:#b86b00;border-color:#b86b00;background:#fff8ee}
+    .bad{color:#b00020;border-color:#b00020;background:#fff1f3}
+    .btn{display:inline-block;text-decoration:none;border:2px solid #111;padding:10px 14px;border-radius:14px;font-weight:900;background:#fff}
+    .btn:hover{background:#111;color:#fff}
+    .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fafafa;margin-top:10px;line-height:1.8}
+    .small{font-size:12px;opacity:.75;line-height:1.6}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div>
-        <h1 id="title">로딩중…</h1>
-        <div class="meta" id="meta"></div>
-      </div>
-      <div class="btns">
-        <a class="btn" id="toList" href="./index.html">목록</a>
-        <a class="btn" id="toStudent" href="./student.html">학생 상세</a>
-      </div>
+<div class="wrap">
+  <div class="card">
+    <h1 id="title">로딩중…</h1>
+    <div class="meta" id="meta"></div>
+
+    <div class="row" style="margin-top:14px">
+      <span class="pill">평가</span>
+      <span id="statusBadge" class="badge mid">미평가</span>
     </div>
 
-    <div class="card">
-      <div class="boxTitle">선택한 진도</div>
-      <div class="row" id="chips"></div>
-      <div class="hint">※ 이 페이지는 “진도 칩 클릭”으로 열리는 상세 페이지입니다.</div>
-    </div>
+    <div class="box" id="detailBox"></div>
 
-    <div class="card">
-      <div class="boxTitle">진도 평가/문제/처방</div>
-      <div id="noteBox" class="pre">로딩중…</div>
-      <div class="hint">※ 내용은 progress_notes.json에서 가져옵니다. (없으면 “미등록”으로 표시)</div>
+    <div class="row" style="margin-top:14px">
+      <a class="btn" id="backBtn" href="#">학생 화면으로</a>
+      <a class="btn" href="javascript:window.close()">창 닫기</a>
     </div>
-
-    <div class="card">
-      <div class="boxTitle">관련 점수(있으면 자동 표시)</div>
-      <div id="scoreSummary" class="pre"></div>
-      <canvas id="chart"></canvas>
-      <div class="hint">※ 점수는 scores.json의 과목 키와 “과목명”이 같을 때만 표시됩니다. (예: 수학/영어/생윤/사문)</div>
-    </div>
+    <div class="small">※ 이 페이지는 선생님이 입력한 “문제/원인”을 바탕으로 상담용으로 쓰기 좋게 구성되어 있습니다.</div>
   </div>
+</div>
 
 <script>
   const qs = new URLSearchParams(location.search);
-  const id = qs.get("id") || "";
-  const round = qs.get("round") || "";
-  const subject = (qs.get("subject") || "").trim();
-  const term = (qs.get("term") || "").trim();
-  const topic = (qs.get("topic") || "").trim();
+  const studentId = qs.get("id")||"";
+  const token = qs.get("t")||"";
+  const round = qs.get("round")||"";
+  const subjectQ = qs.get("subject")||"";
+  const topicQ = qs.get("topic")||"";
 
-  const titleEl = document.getElementById("title");
-  const metaEl = document.getElementById("meta");
-  const chipsEl = document.getElementById("chips");
-  const noteBox = document.getElementById("noteBox");
-  const toStudent = document.getElementById("toStudent");
+  const esc = (s)=> String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const norm = (s)=> String(s ?? "").trim().toLowerCase();
 
-  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
-  );
-  const safeNum = (v) => {
-    const n = Number(v);
-    return Number.isFinite(n) ? n : null;
-  };
-
-  function getMaxScore(sub){
-    return (["생윤","사문"].includes(sub)) ? 50 : 100;
+  async function fetchJSON(path){
+    const r = await fetch(path,{cache:"no-store"});
+    if(!r.ok) throw new Error("fetch fail "+path);
+    return await r.json();
   }
 
-  function normalizeProgressItem(p){
-    const subj = (p["과목"] ?? p.subject ?? "").toString().trim();
-    const t = (p["학년학기"] ?? p.term ?? "").toString().trim();
-    const tp = (p["진도"] ?? p["진도(단원/주제)"] ?? p.topic ?? "").toString().trim();
-    const memo = (p["메모"] ?? p.memo ?? "").toString().trim();
-    return { subj, term:t, topic:tp, memo };
-  }
-  function normalizeNote(n){
-    const subj = (n["과목"] ?? n.subject ?? "").toString().trim();
-    const t = (n["학년학기"] ?? n.term ?? "").toString().trim();
-    const tp = (n["진도"] ?? n["진도(단원/주제)"] ?? n.topic ?? "").toString().trim();
-    return { subj, term:t, topic:tp };
+  function statusClass(status){
+    const s = String(status||"").trim();
+    if (!s) return "mid";
+    if (s.includes("잘")) return "ok";
+    if (s.includes("보통")) return "mid";
+    if (s.includes("보완") || s.includes("위험")) return "bad";
+    return "up";
   }
 
-  function statusClass(s){
-    const v = (s||"").trim();
-    if (v === "잘함") return "ok";
-    if (v === "보통") return "warn";
-    if (v === "보완") return "warn";
-    if (v === "위험") return "bad";
-    return "";
+  function getNoteFields(n){
+    return {
+      subject: n.subject ?? n["과목"] ?? "",
+      topic: n.topic ?? n["진도"] ?? n["진도(단원/주제)"] ?? "",
+      status: n.status ?? n["평가"] ?? "",
+      summary: n.summary ?? n["문제요약"] ?? n["문제요약(한줄)"] ?? "",
+      cause: n.cause ?? n["원인"] ?? "",
+      action: n.action ?? n["보완전략"] ?? n["개선방향"] ?? ""
+    };
   }
 
-  let chart = null;
+  async function requireAuth(){
+    if(!studentId || !token){
+      document.body.innerHTML = "<h2>접근 권한이 없습니다.</h2>";
+      throw new Error("unauthorized");
+    }
+    const students = await fetchJSON("./students.json");
+    const st = (students||[]).find(x=>x.id===studentId);
+    if(!st || String(st.token||"") !== String(token)){
+      document.body.innerHTML = "<h2>접근 권한이 없습니다.</h2>";
+      throw new Error("unauthorized");
+    }
+    return st;
+  }
 
-  Promise.all([
-    fetch("./students.json", {cache:"no-store"}).then(r=>r.json()),
-    fetch("./scores.json", {cache:"no-store"}).then(r=>r.json()),
-    fetch("./progress.json", {cache:"no-store"}).then(r=>r.json()).catch(()=>[]),
-    fetch("./progress_notes.json", {cache:"no-store"}).then(r=>r.json()).catch(()=>[])
-  ]).then(([students, scores, progress, notes]) => {
+  async function main(){
+    const st = await requireAuth();
+    document.getElementById("backBtn").href = `./student.html?id=${encodeURIComponent(studentId)}&t=${encodeURIComponent(token)}&round=${encodeURIComponent(round)}`;
 
-    // header
-    const st = (students||[]).find(x => x.id === id) || null;
-    titleEl.textContent = st?.studentname ? `${st.studentname} · 진도 상세` : `진도 상세 (id: ${id})`;
-    metaEl.innerHTML = st ? `
-      학교: ${esc(st.school||"-")}<br/>
-      진로: ${esc(st.career||"-")}<br/>
-      전형: ${esc(st.admission||"-")}<br/>
-      <span style="opacity:.75">id: ${esc(id)}</span>
-    ` : `<span style="opacity:.75">students.json에 id가 없습니다: ${esc(id)}</span>`;
+    const notes = await fetchJSON("./progress_notes.json").catch(()=>[]);
+    const cand = (notes||[]).filter(n => String(n.id)===String(studentId) && String(n.round)===String(round));
 
-    toStudent.href = `./student.html?id=${encodeURIComponent(id)}`;
+    // subject+topic 최대한 매칭
+    const sKey = norm(subjectQ), tKey = norm(topicQ);
+    let pick = null;
 
-    // selected progress chip
-    const chipParts = [];
-    chipParts.push(`<span class="tag bold">진도</span>`);
-    if (round) chipParts.push(`<span class="tag">#${esc(round)}</span>`);
-    if (subject) chipParts.push(`<span class="tag">${esc(subject)}</span>`);
-    if (term) chipParts.push(`<span class="tag">${esc(term)}</span>`);
-    if (topic) chipParts.push(`<span class="tag">${esc(topic)}</span>`);
-    chipsEl.innerHTML = chipParts.join("");
-
-    // find progress item
-    const rNum = safeNum(round);
-    const myProg = (progress||[]).filter(p => p.id === id && (rNum == null || safeNum(p.round) === rNum));
-    const matchedProg = myProg.find(p=>{
-      const n = normalizeProgressItem(p);
-      return (!subject || n.subj === subject) && (!term || n.term === term) && (!topic || n.topic === topic);
-    }) || null;
-
-    // find note
-    const myNotes = (notes||[]).filter(n => n.id === id && (rNum == null || safeNum(n.round) === rNum));
-    const matchedNote = myNotes.find(n=>{
-      const x = normalizeNote(n);
-      return (!subject || x.subj === subject) && (!term || x.term === term) && (!topic || x.topic === topic);
-    }) || null;
-
-    if (!matchedNote){
-      noteBox.innerHTML =
-        `미등록\n\n` +
-        `→ progress_notes.json에 아래 키로 항목을 추가해 주세요.\n` +
-        `id=${id}, round=${round}, 과목=${subject}, 학년학기=${term}, 진도=${topic}\n`;
-    } else {
-      const st = (matchedNote["평가"] ?? matchedNote.status ?? "").toString().trim();
-      const cls = statusClass(st);
-      noteBox.innerHTML =
-        `평가: <span class="${cls}">${esc(st||"미입력")}</span>\n\n` +
-        `문제요약: ${esc(matchedNote["문제요약"] ?? matchedNote.summary ?? "미입력")}\n` +
-        `원인: ${esc(matchedNote["원인"] ?? matchedNote.cause ?? "미입력")}\n` +
-        `근거: ${esc(matchedNote["근거"] ?? matchedNote.evidence ?? "미입력")}\n\n` +
-        `처방(다음수업): ${esc(matchedNote["처방"] ?? matchedNote.next ?? "미입력")}\n` +
-        `과제: ${esc(matchedNote["과제"] ?? matchedNote.homework ?? "미입력")}\n`;
+    for(const n of cand){
+      const f = getNoteFields(n);
+      if(norm(f.subject)===sKey && (norm(f.topic)===tKey || norm(f.topic).includes(tKey) || tKey.includes(norm(f.topic)))) { pick=n; break; }
+    }
+    if(!pick){
+      for(const n of cand){
+        const f = getNoteFields(n);
+        if(norm(f.subject)===sKey) { pick=n; break; }
+      }
     }
 
-    // score / chart
-    const myScores = (scores||[]).filter(s => s.id === id).sort((a,b)=>(safeNum(a.round)||0)-(safeNum(b.round)||0));
-    const subKey = subject;                 // scores.json의 키와 동일해야 함
-    const cutKey = subject ? subject + "컷" : "";
+    const title = `${subjectQ || "진도"} · #${round}`;
+    document.getElementById("title").textContent = title;
+    document.getElementById("meta").innerHTML =
+      `학생: <b>${esc(st.studentname||st.studentName||st.name||st.id||"-")}</b><br/>학교: <b>${esc(st.school||"-")}</b><br/>진도: <b>${esc(topicQ||"-")}</b>`;
 
-    const rows = myScores.filter(r => subKey && r[subKey] !== undefined && r[subKey] !== null && r[subKey] !== "");
-    const scoreSummary = document.getElementById("scoreSummary");
+    const badge = document.getElementById("statusBadge");
+    const box = document.getElementById("detailBox");
 
-    if (!rows.length){
-      scoreSummary.textContent = "해당 과목 점수 데이터가 없습니다. (progress의 과목명이 scores.json 키와 같아야 표시됩니다.)";
-      document.getElementById("chart").style.display = "none";
+    if(!pick){
+      badge.textContent = "미평가";
+      badge.className = "badge mid";
+      box.innerHTML = `
+        <b>아직 평가/메모가 없습니다.</b><br/>
+        - progress_notes.json에 (id, round, 과목, 진도) 기준으로 평가/문제요약/원인을 입력하면 이 화면에 표시됩니다.
+      `;
       return;
     }
 
-    const last = rows[rows.length-1];
-    const s = safeNum(last[subKey]);
-    const c = safeNum(last[cutKey]);
-    const diff = (s!=null && c!=null) ? s-c : null;
+    const f = getNoteFields(pick);
+    const cls = statusClass(f.status);
+    badge.textContent = f.status || "미평가";
+    badge.className = `badge ${cls}`;
 
-    let msg = `최근 점수: #${last.round} (${last.date})\n점수: ${s ?? "-"} / 컷: ${c ?? "-"} / 컷 대비: ${diff==null?"-":(diff>=0?"+":"")+diff}`;
-    scoreSummary.textContent = msg;
+    box.innerHTML = `
+      <b>문제 요약</b><br/>
+      ${esc(f.summary || "—")}<br/><br/>
+      <b>원인(왜 막혔나)</b><br/>
+      ${esc(f.cause || "—")}<br/><br/>
+      <b>보완/다음 액션</b><br/>
+      ${esc(f.action || "—")}
+    `;
+  }
 
-    const labels = rows.map(r=>`#${r.round} (${r.date})`);
-    const dataScore = rows.map(r=>safeNum(r[subKey]));
-    const dataCut = rows.map(r=>safeNum(r[cutKey]));
-
-    const ds = [{
-      label: `${subKey} 점수`,
-      data: dataScore,
-      borderWidth: 2,
-      tension: 0.25,
-      pointRadius: 3
-    }];
-
-    if (dataCut.some(v=>v!=null)){
-      ds.push({
-        label: `${subKey} 컷`,
-        data: dataCut,
-        borderWidth: 2,
-        borderDash: [6,6],
-        tension: 0.1,
-        pointRadius: 0
-      });
-    }
-
-    const maxScore = getMaxScore(subKey);
-    chart = new Chart(document.getElementById("chart"), {
-      type:"line",
-      data:{labels, datasets:ds},
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        scales:{ y:{min:0, max:maxScore, ticks:{ stepSize: (maxScore===50?5:10) } } }
-      }
-    });
-
-  }).catch(err=>{
-    titleEl.textContent = "로드 실패";
-    metaEl.textContent = String(err);
-    noteBox.textContent = "progress_notes.json 로딩 실패";
-  });
+  main().catch(()=>{});
 </script>
 </body>
 </html>
-
