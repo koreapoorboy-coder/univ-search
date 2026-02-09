@@ -7,46 +7,102 @@
   <style>
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
     h1{margin:0 0 14px}
-    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
-    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
-    .name{font-weight:900}
-    .meta{opacity:.85;margin-top:6px;line-height:1.6}
-    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
-    a.btn + a.btn{margin-left:8px}
-    .warn{color:#b00020;font-weight:900;margin-top:8px}
+    .search{width:100%;max-width:920px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .wrap{max-width:980px}
+    .card{border:1px solid #ddd;border-radius:16px;padding:16px;margin:12px 0;background:#fff}
+    .row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+    .left{min-width:260px;flex:1}
+    .right{min-width:260px;max-width:420px;flex:1}
+    .name{font-weight:900;font-size:22px}
     .muted{opacity:.7}
+    .meta{opacity:.85;margin-top:6px;line-height:1.7}
+    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:12px}
+    a.btn + a.btn{margin-left:8px}
+    .pill{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:6px 10px;margin:6px 6px 0 0;background:#fafafa}
+    .warn{color:#b00020;font-weight:900;margin-top:10px;line-height:1.6}
+    .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fcfcfc}
+    .box h3{margin:0 0 8px;font-size:14px}
+    .copy{border:1px solid #111;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+    .copy + .copy{margin-left:8px}
+    .small{font-size:13px;opacity:.85;line-height:1.6}
+    @media (max-width:720px){
+      body{margin:16px}
+      .right{max-width:100%}
+      a.btn{display:block}
+      a.btn + a.btn{margin-left:0}
+    }
   </style>
 </head>
 <body>
-  <h1>학생 목록</h1>
-  <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
-  <div id="list"></div>
+  <div class="wrap">
+    <h1>학생 목록</h1>
+    <div id="gate" class="warn" style="display:none"></div>
+
+    <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
+    <div id="list"></div>
+  </div>
 
   <script>
+    // ✅ 여기만 바꾸면 됨 (관리자 토큰)
+    const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+
     let students = [];
+
+    function qs(name){
+      return new URLSearchParams(location.search).get(name);
+    }
 
     function pickName(s){
       return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? s["학생ID"] ?? "-";
     }
 
-    // ✅ 핵심: id가 어떤 키로 와도 잡아내기
     function pickId(s){
       return s.id ?? s.studentId ?? s.studentID ?? s["id"] ?? s["ID"] ?? s["학생ID"] ?? s["학생 아이디"] ?? s["학번"] ?? null;
     }
 
-    // 토큰도 다양한 키로 대응
     function pickToken(s){
       return s.token ?? s.accessToken ?? s.key ?? s.pass ?? s.pw ?? s["token"] ?? s["토큰"] ?? null;
     }
 
-    async function init(){
-      const res = await fetch('./students.json', { cache:'no-store' });
-      students = await res.json();
-      render('');
-      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim()));
+    function gateKeep(){
+      const admin = qs("admin");
+      if(!admin || admin !== ADMIN_TOKEN){
+        const g = document.getElementById("gate");
+        g.style.display = "block";
+        g.innerHTML = `
+          이 페이지는 <b>관리자 토큰</b>으로만 볼 수 있습니다.<br/>
+          ✅ 관리자: <span class="muted">index.html?admin=관리자토큰</span><br/>
+          예) <span class="muted">.../public/students/index.html?admin=${ADMIN_TOKEN}</span>
+        `;
+        document.getElementById("q").style.display = "none";
+        document.getElementById("list").innerHTML = "";
+        return null;
+      }
+      return admin;
     }
 
-    function render(keyword){
+    async function init(){
+      const admin = gateKeep();
+      if(!admin) return;
+
+      const url = new URL("./students.json", location.href).toString();
+      const res = await fetch(url, { cache:'no-store' });
+      if(!res.ok) throw new Error("students.json fetch failed: " + res.status);
+      students = await res.json();
+
+      render("", admin);
+      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim(), admin));
+    }
+
+    function copyText(text){
+      navigator.clipboard.writeText(text).then(()=>{
+        alert("복사 완료!");
+      }).catch(()=>{
+        prompt("복사가 막혀있어요. 아래를 복사하세요:", text);
+      });
+    }
+
+    function render(keyword, admin){
       const list = document.getElementById('list');
       const k = (keyword || '').toLowerCase();
 
@@ -62,42 +118,76 @@
         const id = pickId(s);
         const token = pickToken(s);
 
-        // ✅ 상세 링크(반드시 id 붙임)
-        const baseStudent = "./student.html";
-        const baseUniv = "./univ_list.html";
+        if(!id){
+          return `
+            <div class="card">
+              <div class="name">${name} <span class="muted">(ID없음)</span></div>
+              <div class="meta">학교: ${s.school||'-'}<br/>진로: ${s.career||'-'}<br/>전형: ${s.admission||'-'}</div>
+              <div class="warn">⚠ students.json에 이 학생의 ID가 없습니다. (id/학생ID/ID 중 하나 필요)</div>
+            </div>
+          `;
+        }
 
-        const studentHref = id
-          ? `${baseStudent}?id=${encodeURIComponent(id)}${token ? `&token=${encodeURIComponent(token)}` : ''}`
-          : null;
+        // ✅ 관리자 모드: id + admin 으로 고정 (여기서 절대 t/token 쓰지 않음)
+        const studentAdminHref = `./student.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
+        const univAdminHref    = `./univ_list.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
 
-        const univHref = id
-          ? `${baseUniv}?id=${encodeURIComponent(id)}${token ? `&token=${encodeURIComponent(token)}` : ''}`
-          : null;
+        // ✅ 학부모/학생 링크(있으면 제공) : t=토큰
+        const studentPublicHref = token ? `./student.html?t=${encodeURIComponent(token)}` : null;
+        const univPublicHref    = token ? `./univ_list.html?t=${encodeURIComponent(token)}` : null;
 
         return `
           <div class="card">
-            <div class="name">${name} <span class="muted">(${id ?? 'ID없음'})</span></div>
-            <div class="meta">
-              학교: ${s.school || '-'}<br/>
-              진로: ${s.career || '-'}<br/>
-              전형: ${s.admission || '-'}
-            </div>
+            <div class="row">
+              <div class="left">
+                <div class="name">${name} <span class="muted">(${id})</span></div>
+                <div class="meta">
+                  학교: ${s.school || '-'}<br/>
+                  진로: ${s.career || '-'}<br/>
+                  전형: ${s.admission || '-'}
+                </div>
 
-            ${
-              id
-              ? `
-                <a class="btn" href="${studentHref}">성적/그래프/진도 보기</a>
-                <a class="btn" href="${univHref}">대학 상향/적정 보기</a>
-              `
-              : `<div class="warn">⚠ 이 학생은 students.json에 ID가 없어서 상세로 못 들어갑니다. (id/학생ID/ID 중 하나 필요)</div>`
-            }
+                <a class="btn" href="${studentAdminHref}">성적/그래프/진도 보기</a>
+                <a class="btn" href="${univAdminHref}">대학 상향/적정 보기</a>
+              </div>
+
+              <div class="right">
+                <div class="box">
+                  <h3>학부모/학생용 링크</h3>
+                  ${
+                    token
+                    ? `
+                      <div class="small">학생에게는 아래 링크만 보내는 것을 권장합니다.</div>
+                      <div style="margin-top:10px">
+                        <button class="copy" onclick="copyText('${studentPublicHref}')">성적 링크 복사</button>
+                        <button class="copy" onclick="copyText('${univPublicHref}')">대학 링크 복사</button>
+                      </div>
+                      <div class="small" style="margin-top:10px">
+                        성적: <span class="muted">${studentPublicHref}</span><br/>
+                        대학: <span class="muted">${univPublicHref}</span>
+                      </div>
+                    `
+                    : `
+                      <div class="warn" style="margin:0">
+                        ⚠ 이 학생은 students.json에 token(토큰)이 없어서<br/>
+                        학부모/학생 링크를 만들 수 없습니다.
+                      </div>
+                      <div class="small" style="margin-top:8px">
+                        students.json에 <span class="muted">"token":"임의문자열"</span>을 추가하면 생성됩니다.
+                      </div>
+                    `
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         `;
       }).join('') || '<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>';
     }
 
-    init().catch(()=>{
-      document.getElementById('list').textContent = 'students.json 로딩 실패';
+    init().catch((e)=>{
+      document.getElementById('list').innerHTML =
+        `<div class="warn">students.json 로딩 실패<br/><span class="muted">${String(e)}</span></div>`;
     });
   </script>
 </body>
