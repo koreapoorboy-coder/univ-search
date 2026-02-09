@@ -3,428 +3,663 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>학생 상세</title>
+  <title>학생 성적</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;background:#fff;color:#111}
-    .wrap{max-width:1100px}
-    .card{border:1px solid #ddd;border-radius:18px;padding:18px;margin:12px 0;background:#fff}
-    .top{display:flex;gap:16px;align-items:stretch;justify-content:space-between;flex-wrap:wrap}
-    .left{flex:1;min-width:320px}
-    .right{width:340px;min-width:280px}
-    .name{font-weight:900;font-size:28px;margin:0 0 10px}
-    .meta{opacity:.85;line-height:1.8;margin-bottom:10px}
-    .small{opacity:.7}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
-    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;white-space:nowrap;text-decoration:none;color:inherit}
+    :root{
+      --bd:#e7e7e7; --bd2:#d9d9d9; --tx:#111; --sub:#666;
+      --card:#fff; --bg:#fff; --pill:#fff;
+    }
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;color:var(--tx);background:var(--bg)}
+    a{color:inherit}
+    .wrap{max-width:1040px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--bd2);padding:8px 12px;border-radius:12px;background:#fff}
+    .small{font-size:12px;color:var(--sub)}
+    .card{border:1px solid var(--bd);border-radius:18px;padding:18px;background:var(--card)}
+    .grid2{display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start}
+    @media (max-width:900px){ .grid2{grid-template-columns:1fr} }
+
+    h1{margin:0 0 6px;font-size:28px}
+    .meta{line-height:1.7;color:#111}
+    .meta b{font-weight:900}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:var(--pill);white-space:nowrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd2);border-radius:999px;padding:8px 12px;background:#fff;white-space:nowrap}
+    .chip a{text-decoration:none}
     .chip:hover{background:#fafafa}
-    .badge{font-weight:900;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:3px 8px;opacity:.85}
-    .btn{display:inline-block;text-decoration:none;border:2px solid #111;border-radius:14px;padding:12px 14px;font-weight:900;background:#fff}
+    .btn{display:inline-block;text-decoration:none;border:2px solid #111;padding:12px 16px;border-radius:14px;font-weight:900}
     .btn:hover{background:#fafafa}
-    .btn.primary{background:#111;color:#fff}
-    .btn.primary:hover{opacity:.92}
-    .panelTitle{font-weight:900;margin:0 0 10px}
-    .box{border:1px solid #ddd;border-radius:16px;padding:14px}
-    .two{display:flex;gap:10px}
-    .two a{flex:1;text-align:center}
-    .hr{height:1px;background:#eee;margin:14px 0}
-    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px}
-    .tab{border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;font-weight:900;cursor:pointer;white-space:nowrap}
-    .tab.active{border-color:#111}
-    .chartWrap{margin-top:12px}
-    canvas{width:100%;height:240px;border:1px solid #eee;border-radius:16px}
-    .hint{opacity:.75;margin-top:8px;line-height:1.6}
-    .err{color:#b00020;font-weight:900}
+
+    .panel{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
+    .panel h3{margin:0 0 10px;font-size:16px}
+    .urow{display:flex;gap:10px;flex-wrap:wrap}
+    .ubtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd2);border-radius:12px;padding:10px 12px;text-decoration:none;background:#fff;font-weight:900}
+    .ubtn:hover{background:#fafafa}
+    .badge{display:inline-flex;align-items:center;border:1px solid var(--bd2);border-radius:999px;padding:4px 10px;font-size:12px;color:#333;background:#fff}
+
+    .section{margin-top:16px}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}
+    .tab{border:1px solid var(--bd2);border-radius:999px;padding:10px 14px;background:#fff;font-weight:900;cursor:pointer}
+    .tab.active{border:2px solid #111}
+    .chartCard{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
+    .chartTitle{font-size:22px;font-weight:900;margin:0 0 10px}
+    .canvasWrap{border:1px solid var(--bd);border-radius:18px;padding:10px;overflow:hidden}
+    canvas{width:100%;height:320px;display:block}
+    @media (max-width:520px){ canvas{height:280px} }
+
+    .recentLine{margin-top:10px;color:#333;font-size:18px}
+    .pass{color:#0a7a2f;font-weight:900}
+    .fail{color:#b00020;font-weight:900}
+
+    table{width:100%;border-collapse:separate;border-spacing:0;margin-top:12px;overflow:hidden;border:1px solid var(--bd);border-radius:14px}
+    th,td{padding:10px 12px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px}
+    th{background:#fafafa;font-weight:900}
+    tr:last-child td{border-bottom:none}
+
+    .error{border:1px solid #ffb3b3;background:#fff5f5;padding:14px;border-radius:14px}
+    .muted{color:var(--sub)}
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div id="app" class="card">로딩 중...</div>
-</div>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="back" href="./index.html">← 학생 목록</a>
+      <div class="small" id="buildInfo"></div>
+    </div>
+
+    <div id="root" class="card">
+      로딩 중...
+    </div>
+
+    <div class="section" id="charts" style="display:none;">
+      <div class="tabs" id="tabs"></div>
+
+      <div class="chartCard">
+        <div class="chartTitle" id="chartTitle">성적 그래프</div>
+        <div class="canvasWrap">
+          <canvas id="cv"></canvas>
+        </div>
+
+        <div class="recentLine" id="recentLine"></div>
+
+        <div id="tableWrap"></div>
+      </div>
+    </div>
+  </div>
 
 <script>
-  // ============================
-  // 설정: 관리자 토큰(원하면 바꿔)
-  // ============================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+/** ===============================
+ *  Utils
+ * =============================== */
+function qs(name){
+  const u = new URL(location.href);
+  return u.searchParams.get(name);
+}
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function pickName(s){
+  return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
+}
+async function loadJson(path){
+  const res = await fetch(path, { cache:'no-store' });
+  if(!res.ok) throw new Error(path + ' ' + res.status);
+  return await res.json();
+}
+function fmtDate(iso){
+  if(!iso) return '-';
+  return String(iso);
+}
 
-  const qs = new URLSearchParams(location.search);
-  const q = (k) => qs.get(k) || "";
+/** ===============================
+ *  Subject settings
+ * =============================== */
+const SUBJECT_LABEL = {
+  "국어":"국어",
+  "수학":"수학",
+  "영어":"영어",
+  "생윤":"생윤",
+  "사문":"사문",
+};
 
-  async function fetchJSON(url){
-    const bust = url.includes("?") ? "&" : "?";
-    const res = await fetch(url + bust + "v=" + Date.now(), {cache:"no-store"});
-    if(!res.ok) throw new Error(url + " HTTP " + res.status);
-    return await res.json();
-  }
+function maxScoreOf(subj){
+  // 생윤/사문 50점 만점
+  if(subj === "생윤" || subj === "사문") return 50;
+  return 100;
+}
+function cutKeyOf(subj){
+  // scores.json에서 "국어컷" 형태
+  return subj + "컷";
+}
 
-  function pickName(s){
-    return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
-  }
-  function tokenOfStudent(s){
-    return s.token ?? s.t ?? s.accessToken ?? s.access_token ?? "";
-  }
-  function escapeHtml(str){
-    return (str ?? "").toString()
-      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;").replaceAll("'","&#39;");
-  }
-  function isNumber(x){ return typeof x === "number" && Number.isFinite(x); }
+/** ===============================
+ *  Chart renderer (with labels)
+ * =============================== */
+function drawLineChart(canvas, points, cutPoints, maxY){
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = Math.floor(w * dpr);
+  canvas.height = Math.floor(h * dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
 
-  function getSubjectsFromScoreRow(row){
-    if(!row) return [];
-    const ignore = new Set(["id","round","date"]);
-    const subs = [];
-    for(const [k,v] of Object.entries(row)){
-      if(ignore.has(k)) continue;
-      if(k.endsWith("컷")) continue;
-      if(isNumber(v)) subs.push(k);
-    }
-    return subs;
-  }
-  function maxScoreOf(subject){
-    if(subject === "생윤" || subject === "사문") return 50;
-    return 100;
-  }
-  function cutKeyOf(subject){ return subject + "컷"; }
+  ctx.clearRect(0,0,w,h);
 
-  function latestByRoundOrDate(list){
-    const arr = [...list];
-    arr.sort((a,b)=>{
-      const ra = Number(a.round ?? -1), rb = Number(b.round ?? -1);
-      if(ra !== rb) return ra - rb;
-      const da = (a.date ?? ""), db = (b.date ?? "");
-      return da.localeCompare(db);
-    });
-    return arr.length ? arr[arr.length-1] : null;
-  }
+  const padL=44, padR=14, padT=14, padB=34;
+  const plotW = w - padL - padR;
+  const plotH = h - padT - padB;
 
-  function extractProgressItems(entry){
-    if(!entry) return [];
-    if(Array.isArray(entry.items)){
-      return entry.items.map(x=>{
-        if(typeof x === "string") return x.trim();
-        if(x && typeof x === "object"){
-          const a = x.subject ? `${x.subject}` : "";
-          const b = x.level ? `(${x.level})` : "";
-          const c = x.topic ? `: ${x.topic}` : "";
-          return (a+b+c).trim();
-        }
-        return "";
-      }).filter(Boolean);
-    }
-    const out = [];
-    for(const [k,v] of Object.entries(entry)){
-      if(typeof v !== "string") continue;
-      if(!v.trim()) continue;
-      if(v.includes(":") || v.includes("(")) out.push(v.trim());
-    }
-    return out;
-  }
+  // axis
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#e5e5e5";
+  ctx.beginPath();
+  ctx.moveTo(padL, padT);
+  ctx.lineTo(padL, padT+plotH);
+  ctx.lineTo(padL+plotW, padT+plotH);
+  ctx.stroke();
 
-  // mini chart
-  function drawLineChart(canvas, points, cutPoints, maxY){
-    const ctx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    ctx.scale(dpr, dpr);
-    ctx.clearRect(0,0,w,h);
-
-    const padL=44, padR=14, padT=14, padB=34;
-    const plotW = w - padL - padR;
-    const plotH = h - padT - padB;
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#e5e5e5";
+  // grid + y labels
+  ctx.fillStyle = "#777";
+  ctx.font = "12px system-ui";
+  const ticks = 4;
+  for(let i=0;i<=ticks;i++){
+    const yVal = Math.round((maxY*(ticks-i))/ticks);
+    const y = padT + (plotH*i)/ticks;
+    ctx.strokeStyle = "#f0f0f0";
     ctx.beginPath();
-    ctx.moveTo(padL, padT);
-    ctx.lineTo(padL, padT+plotH);
-    ctx.lineTo(padL+plotW, padT+plotH);
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL+plotW, y);
     ctx.stroke();
+    ctx.fillText(String(yVal), 8, y+4);
+  }
 
-    ctx.fillStyle = "#777";
-    ctx.font = "12px system-ui";
-    const ticks = 4;
-    for(let i=0;i<=ticks;i++){
-      const yVal = Math.round((maxY*(ticks-i))/ticks);
-      const y = padT + (plotH*i)/ticks;
-      ctx.strokeStyle = "#f0f0f0";
-      ctx.beginPath();
-      ctx.moveTo(padL, y);
-      ctx.lineTo(padL+plotW, y);
-      ctx.stroke();
-      ctx.fillText(String(yVal), 8, y+4);
-    }
+  if(!points.length) return;
 
-    if(!points.length) return;
-    const n = points.length;
-    const xAt = (i)=> padL + (plotW*(n===1?0.5:i/(n-1)));
-    const yAt = (val)=>{
-      const v = Math.max(0, Math.min(maxY, val));
-      return padT + plotH * (1 - (v/maxY));
-    };
+  const n = points.length;
+  const xAt = (i)=> padL + (plotW*(n===1?0.5:i/(n-1)));
+  const yAt = (val)=>{
+    const v = Math.max(0, Math.min(maxY, Number(val)));
+    return padT + plotH * (1 - (v/maxY));
+  };
 
-    if(cutPoints && cutPoints.length){
-      ctx.strokeStyle = "#bdbdbd";
-      ctx.setLineDash([6,4]);
-      ctx.beginPath();
-      cutPoints.forEach((p,i)=>{
-        const x = xAt(i);
-        const y = yAt(p.y);
-        if(i===0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
-      });
-      ctx.stroke();
-      ctx.setLineDash([]);
-    }
-
-    ctx.strokeStyle = "#111";
+  // cut dashed (only where exists)
+  if(Array.isArray(cutPoints) && cutPoints.length){
+    ctx.strokeStyle = "#bdbdbd";
     ctx.lineWidth = 2;
+    ctx.setLineDash([6,4]);
+
+    let started = false;
     ctx.beginPath();
-    points.forEach((p,i)=>{
+    for(let i=0;i<cutPoints.length;i++){
+      const cp = cutPoints[i];
+      if(!cp || cp.y === null || cp.y === undefined || Number.isNaN(Number(cp.y))){
+        started = false;
+        continue;
+      }
       const x = xAt(i);
-      const y = yAt(p.y);
-      if(i===0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-    });
+      const y = yAt(cp.y);
+      if(!started){
+        ctx.moveTo(x,y);
+        started = true;
+      }else{
+        ctx.lineTo(x,y);
+      }
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // student line
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  points.forEach((p,i)=>{
+    const x = xAt(i);
+    const y = yAt(p.y);
+    if(i===0) ctx.moveTo(x,y);
+    else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // dots
+  ctx.fillStyle = "#111";
+  points.forEach((p,i)=>{
+    const x = xAt(i);
+    const y = yAt(p.y);
+    ctx.beginPath();
+    ctx.arc(x,y,3.8,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  // x labels
+  ctx.fillStyle="#777";
+  ctx.font="12px system-ui";
+  points.forEach((p,i)=>{
+    const x = xAt(i);
+    const label = p.xLabel || "";
+    const tx = Math.max(padL, Math.min(w-30, x-10));
+    ctx.fillText(label, tx, padT+plotH+22);
+  });
+
+  // numeric labels (score + cut)
+  const startIdx = (n <= 12) ? 0 : (n - 12);
+  ctx.font = "12px system-ui";
+  for(let i=startIdx;i<n;i++){
+    const p = points[i];
+    const x = xAt(i);
+    const y = yAt(p.y);
+
+    let cutVal = null;
+    if(Array.isArray(cutPoints) && cutPoints[i] && cutPoints[i].y !== null && cutPoints[i].y !== undefined){
+      const v = Number(cutPoints[i].y);
+      if(Number.isFinite(v)) cutVal = v;
+    }
+
+    const scoreTxt = `점수 ${Math.round(Number(p.y))}`;
+    const cutTxt = (cutVal===null) ? "" : `컷 ${Math.round(cutVal)}`;
+    const txt = cutTxt ? `${scoreTxt} · ${cutTxt}` : scoreTxt;
+
+    const padX = 6, padY = 4;
+    const textW = ctx.measureText(txt).width;
+    const boxW = textW + padX*2;
+    const boxH = 18;
+
+    let bx = x - boxW/2;
+    let by = y - boxH - 10;
+
+    if(bx < padL) bx = padL;
+    if(bx + boxW > padL + plotW) bx = padL + plotW - boxW;
+    if(by < padT) by = y + 10;
+
+    ctx.fillStyle = "rgba(255,255,255,0.92)";
+    ctx.strokeStyle = "#e5e5e5";
+    ctx.lineWidth = 1;
+
+    const r = 8;
+    ctx.beginPath();
+    ctx.moveTo(bx+r, by);
+    ctx.arcTo(bx+boxW, by, bx+boxW, by+boxH, r);
+    ctx.arcTo(bx+boxW, by+boxH, bx, by+boxH, r);
+    ctx.arcTo(bx, by+boxH, bx, by, r);
+    ctx.arcTo(bx, by, bx+boxW, by, r);
+    ctx.closePath();
+    ctx.fill();
     ctx.stroke();
 
     ctx.fillStyle = "#111";
-    points.forEach((p,i)=>{
-      const x = xAt(i);
-      const y = yAt(p.y);
-      ctx.beginPath();
-      ctx.arc(x,y,3.5,0,Math.PI*2);
-      ctx.fill();
-    });
+    ctx.fillText(txt, bx+padX, by+13);
+  }
+}
 
-    ctx.fillStyle="#777";
-    ctx.font="12px system-ui";
-    points.forEach((p,i)=>{
-      const x = xAt(i);
-      const label = p.xLabel || "";
-      const tx = Math.max(padL, Math.min(w-30, x-10));
-      ctx.fillText(label, tx, padT+plotH+22);
+/** ===============================
+ *  Main
+ * =============================== */
+let students = [];
+let scoresAll = [];
+let progressAll = [];
+let progressNotes = [];
+
+let student = null;
+let studentScores = [];
+let availableSubjects = [];
+let activeSubject = null;
+
+function validateToken(studentObj){
+  // students.json에 token(또는 유사 키)이 있으면 해당 값과 URL token이 일치해야 접근 가능
+  const tokenInStudent =
+    studentObj.token ?? studentObj.accessToken ?? studentObj.key ?? studentObj.pass ?? studentObj.pw ?? null;
+
+  if(!tokenInStudent) return { ok:true, reason:"(토큰 미설정)" }; // 토큰이 없으면 통과(관리자용)
+  const t = qs("token");
+  if(!t) return { ok:false, reason:"token이 없습니다" };
+  if(String(t) !== String(tokenInStudent)) return { ok:false, reason:"token이 일치하지 않습니다" };
+  return { ok:true, reason:"ok" };
+}
+
+function buildHeaderHtml(stu, lastRow){
+  const name = pickName(stu);
+  const school = stu.school || "-";
+  const career = stu.career || "-";
+  const admission = stu.admission || "-";
+
+  // 최근 컷 통과 개수
+  let passCount = 0, totalCount = 0;
+  if(lastRow){
+    const subjects = availableSubjects.slice();
+    subjects.forEach(sub=>{
+      const s = Number(lastRow[sub]);
+      const ck = cutKeyOf(sub);
+      const c = Number(lastRow[ck]);
+      if(Number.isFinite(s)){
+        totalCount += 1;
+        if(Number.isFinite(c)){
+          if(s >= c) passCount += 1;
+        }else{
+          // 컷이 없으면 통과/미달 판단 불가 -> totalCount에는 포함하되 passCount는 안 올림
+        }
+      }
     });
   }
 
-  async function main(){
-    const app = document.getElementById("app");
-    const students = await fetchJSON("./students.json");
+  // 이번 주 진도(최신 1개)
+  const p = getLatestProgressForStudent(stu.id);
+  const progChips = renderProgressChips(p, stu);
 
-    const t = q("t") || q("token") || "";
-    const idParam = q("id") || "";
-    const admin = (q("admin") === ADMIN_TOKEN);
+  // 응시 과목 칩
+  const subjChips = availableSubjects.map(s=>`<span class="chip">${escapeHtml(SUBJECT_LABEL[s]||s)}</span>`).join("");
 
-    let student = null;
+  return `
+    <div class="grid2">
+      <div>
+        <h1>${escapeHtml(name)}</h1>
+        <div class="meta">
+          학교: ${escapeHtml(school)}<br/>
+          진로: ${escapeHtml(career)}<br/>
+          전형: ${escapeHtml(admission)}<br/>
+          <span class="muted">최근 점수:</span>
+          ${lastRow ? `#${escapeHtml(lastRow.round)} (${escapeHtml(lastRow.date)}) · 컷 통과 ${passCount}/${totalCount}` : `-`}
+        </div>
 
-    // 1) 토큰으로 학생 찾기 (학생/학부모용)
-    if(t){
-      student = students.find(s => tokenOfStudent(s) && tokenOfStudent(s) === t) || null;
-    }
+        <div class="row">
+          <span class="pill">이번 주 진도</span>
+          ${progChips || `<span class="chip muted">진도 데이터 없음</span>`}
+        </div>
 
-    // 2) 관리자면 id로도 접근 가능
-    if(!student && admin && idParam){
-      student = students.find(x => x.id === idParam) || null;
-    }
+        <div class="row">
+          <span class="pill">응시 과목</span>
+          ${subjChips || `<span class="chip muted">점수 데이터 없음</span>`}
+        </div>
 
-    if(!student){
-      app.innerHTML = `<div class="err">접근 권한이 없습니다. (토큰/ID 확인)</div>
-      <div class="hint">학생/학부모에게는 <b>.../student.html?t=토큰</b> 링크만 보내주세요.</div>`;
-      return;
-    }
+        <div class="row">
+          <a class="btn" href="#charts">성적/그래프/진도 보기</a>
+          <a class="btn" href="./univ_list.html?id=${encodeURIComponent(stu.id)}${qs("token")?`&token=${encodeURIComponent(qs("token"))}`:''}">대학 상향/적정 보기</a>
+        </div>
+      </div>
 
-    const name = pickName(student);
-    const sid = student.id;
-    const tokenToUse = t || tokenOfStudent(student) || "";
+      <div class="panel">
+        <h3>대학 비교(정시)</h3>
+        <div class="urow">
+          <a class="ubtn" href="./univ_list.html?id=${encodeURIComponent(stu.id)}${qs("token")?`&token=${encodeURIComponent(qs("token"))}`:''}">
+            상향/적정 목록 →
+          </a>
+          <span class="badge">영어: 등급컷 / 나머지: 백분위(예정)</span>
+        </div>
+        <div class="small" style="margin-top:10px;">
+          ※ 대학 비교는 <b>univ_percentile.json</b> 기준으로 동작합니다.
+        </div>
+      </div>
+    </div>
+  `;
+}
 
-    const allScores = await fetchJSON("./scores.json");
-    const myScores = allScores.filter(x => x.id === sid);
-    const latest = latestByRoundOrDate(myScores);
+function getLatestProgressForStudent(studentId){
+  // progress.json 구조가 어떤 형태든 “해당 id의 최신 1개”를 최대한 찾아서 반환
+  // 1) 배열 [{id,date,items:[...]}] 형태
+  const rows = (Array.isArray(progressAll) ? progressAll : []).filter(r => String(r.id) === String(studentId));
+  if(!rows.length) return null;
 
-    const subjects = latest ? getSubjectsFromScoreRow(latest) : [];
-    let pass = 0;
-    if(latest){
-      subjects.forEach(sub=>{
-        const v = latest[sub];
-        const cv = latest[cutKeyOf(sub)];
-        if(isNumber(v) && isNumber(cv) && v >= cv) pass++;
+  rows.sort((a,b)=>{
+    const da = String(a.date||"");
+    const db = String(b.date||"");
+    return da < db ? 1 : (da > db ? -1 : 0);
+  });
+  return rows[0];
+}
+
+function renderProgressChips(progressRow, stu){
+  if(!progressRow) return "";
+
+  // 다양한 구조 대응:
+  // A) items: [{subject,grade,topic}] 또는 문자열 배열
+  // B) 진도1~진도5 같은 컬럼
+  let items = [];
+
+  if(Array.isArray(progressRow.items)){
+    items = progressRow.items.slice();
+  }else{
+    // key 스캔: 진도1, 진도2... 또는 progress1...
+    const keys = Object.keys(progressRow || {});
+    const cand = keys
+      .filter(k => /^진도\d+$/i.test(k) || /^progress\d+$/i.test(k))
+      .sort((a,b)=>{
+        const na = Number(String(a).match(/\d+/)?.[0]||0);
+        const nb = Number(String(b).match(/\d+/)?.[0]||0);
+        return na-nb;
       });
-    }
-
-    let progressEntry = null;
-    let progressItems = [];
-    try{
-      const progress = await fetchJSON("./progress.json");
-      const mine = Array.isArray(progress) ? progress.filter(p => p.id === sid) : [];
-      progressEntry = latestByRoundOrDate(mine);
-      progressItems = extractProgressItems(progressEntry);
-    }catch(e){}
-
-    const latestLine = latest
-      ? `최근 점수: #${escapeHtml(latest.round)} (${escapeHtml(latest.date)}) · 컷 통과 ${pass}/${subjects.length}`
-      : `최근 점수: 데이터 없음`;
-
-    const progressChips = progressItems.length
-      ? progressItems.map(item=>{
-          const topic = (item.includes(":") ? item.split(":").slice(1).join(":").trim() : item.trim());
-          const href = `./progress_detail.html?id=${encodeURIComponent(sid)}&topic=${encodeURIComponent(topic)}&t=${encodeURIComponent(tokenToUse)}`;
-          return `<a class="chip" href="${href}" target="_blank" rel="noopener">${escapeHtml(item)} <span class="badge">확인</span></a>`;
-        }).join("")
-      : `<span class="small">이번 주 진도 데이터가 없습니다.</span>`;
-
-    const subjChips = subjects.length
-      ? subjects.map(s=>`<span class="chip"><b>${escapeHtml(s)}</b> <span class="small">/ ${maxScoreOf(s)}점</span></span>`).join("")
-      : `<span class="small">응시 과목 데이터 없음</span>`;
-
-    const reachUrl = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tokenToUse)}#reach`;
-    const fitUrl   = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tokenToUse)}#fit`;
-
-    app.innerHTML = `
-      <div class="top">
-        <div class="left">
-          <div class="name">${escapeHtml(name)}</div>
-          <div class="meta">
-            학교: ${escapeHtml(student.school || "-")}<br/>
-            진로: ${escapeHtml(student.career || "-")}<br/>
-            전형: ${escapeHtml(student.admission || "-")}<br/>
-            <span class="small">${escapeHtml(latestLine)}</span>
-          </div>
-
-          <div class="row">
-            <span class="pill">이번 주 진도</span>
-            ${progressEntry?.round ? `<span class="chip"><b>#${escapeHtml(progressEntry.round)}</b> · ${escapeHtml(progressEntry.date||"")}</span>` : ``}
-            ${progressChips}
-          </div>
-
-          <div class="row" style="margin-top:12px">
-            <span class="pill">응시 과목</span>
-            ${subjChips}
-          </div>
-
-          <div class="row" style="margin-top:14px">
-            <a class="btn primary" href="#scores">성적 그래프 보기</a>
-            ${admin ? `<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">목록으로</a>` : ``}
-          </div>
-        </div>
-
-        <div class="right">
-          <div class="box">
-            <div class="panelTitle">대학 추천</div>
-            <div class="two">
-              <a class="btn" href="${reachUrl}" target="_blank" rel="noopener">상향</a>
-              <a class="btn" href="${fitUrl}" target="_blank" rel="noopener">적정</a>
-            </div>
-            <div class="hint">
-              * 영어는 절대평가(등급컷), 나머지는 백분위 기준(설정대로).
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hr"></div>
-
-      <div id="scores">
-        <div style="font-weight:900;font-size:18px;margin-bottom:10px">성적 그래프</div>
-        <div id="scoreArea"></div>
-      </div>
-    `;
-
-    const scoreArea = document.getElementById("scoreArea");
-    if(!myScores.length){
-      scoreArea.innerHTML = `<div class="small">scores.json에 해당 학생(${escapeHtml(sid)}) 기록이 없습니다.</div>`;
-      return;
-    }
-
-    myScores.sort((a,b)=>{
-      const ra = Number(a.round ?? -1), rb = Number(b.round ?? -1);
-      if(ra !== rb) return ra - rb;
-      return (a.date||"").localeCompare(b.date||"");
+    cand.forEach(k=>{
+      if(progressRow[k]) items.push(progressRow[k]);
     });
+  }
 
-    const subs = subjects.length ? subjects : getSubjectsFromScoreRow(myScores[myScores.length-1]);
-    if(!subs.length){
-      scoreArea.innerHTML = `<div class="small">과목을 판별할 수 없습니다.</div>`;
-      return;
-    }
+  if(!items.length) return "";
 
-    scoreArea.innerHTML = `
-      <div class="tabs" id="tabs"></div>
-      <div class="chartWrap">
-        <div id="chartTitle" style="font-weight:900;margin-bottom:8px"></div>
-        <canvas id="cv"></canvas>
-        <div class="hint" id="chartHint"></div>
+  const tokenParam = qs("token") ? `&token=${encodeURIComponent(qs("token"))}` : "";
+
+  // 표시: 날짜 + 항목들
+  const dateChip = `<span class="chip"><b>${escapeHtml(progressRow.round ? `#${progressRow.round}` : '')}</b> ${escapeHtml(progressRow.date||'')}</span>`;
+
+  const chips = items.map(it=>{
+    const label = (typeof it === "string")
+      ? it
+      : `${it.subject||''}${it.grade?`(${it.grade})`:''}: ${it.topic||it.unit||it.name||''}`.trim();
+
+    // progress_detail.html로 클릭 이동(가능한 정보만 넘김)
+    const href = `./progress_detail.html?id=${encodeURIComponent(stu.id)}&date=${encodeURIComponent(progressRow.date||'')}&topic=${encodeURIComponent(label)}${tokenParam}`;
+    return `<span class="chip"><a href="${href}">${escapeHtml(label)}</a></span>`;
+  }).join("");
+
+  return dateChip + chips;
+}
+
+function extractAvailableSubjects(scoreRows){
+  // scoreRows에서 실제로 숫자가 있는 과목만 추출
+  const candidates = ["국어","수학","영어","생윤","사문"];
+  const has = (subj)=>{
+    return scoreRows.some(r => Number.isFinite(Number(r[subj])));
+  };
+  const list = candidates.filter(has);
+
+  // 혹시 다른 과목이 들어올 수도 있으니(확장 대비)
+  // id/round/date/컷 제외한 숫자 필드도 추가
+  const extras = new Set();
+  scoreRows.forEach(r=>{
+    Object.keys(r||{}).forEach(k=>{
+      if(k==="id"||k==="round"||k==="date") return;
+      if(String(k).endsWith("컷")) return;
+      const v = r[k];
+      if(Number.isFinite(Number(v)) && !candidates.includes(k)){
+        extras.add(k);
+      }
+    });
+  });
+
+  return list.concat(Array.from(extras));
+}
+
+function buildTabs(){
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = availableSubjects.map(s=>{
+    const active = (s===activeSubject) ? "active" : "";
+    return `<button class="tab ${active}" data-subj="${escapeHtml(s)}">${escapeHtml(SUBJECT_LABEL[s]||s)}</button>`;
+  }).join("");
+
+  tabs.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      activeSubject = btn.getAttribute("data-subj");
+      renderChart();
+      buildTabs();
+    });
+  });
+}
+
+function renderChart(){
+  if(!activeSubject) return;
+
+  const sub = activeSubject;
+  const maxY = maxScoreOf(sub);
+
+  const pts = studentScores
+    .filter(r => Number.isFinite(Number(r[sub])))
+    .map(r => ({ xLabel:`#${r.round}`, y:Number(r[sub]), round:r.round, date:r.date }));
+
+  const cuts = studentScores.map(r=>{
+    const ck = cutKeyOf(sub);
+    const y = (typeof r[ck] === "number" && Number.isFinite(r[ck])) ? r[ck] : null;
+    // json에서 숫자가 문자열이면 숫자로 변환
+    const y2 = (y===null ? null : Number(y));
+    return { xLabel:`#${r.round}`, y: (Number.isFinite(y2) ? y2 : null), round:r.round, date:r.date };
+  });
+
+  // title
+  document.getElementById("chartTitle").textContent = `${SUBJECT_LABEL[sub]||sub} 추이`;
+
+  // draw
+  const cv = document.getElementById("cv");
+  drawLineChart(cv, pts, cuts, maxY);
+
+  // recent line
+  const last = [...studentScores].sort((a,b)=>Number(a.round)-Number(b.round)).slice(-1)[0];
+  if(last){
+    const score = Number(last[sub]);
+    const cut = Number(last[cutKeyOf(sub)]);
+    const hasCut = Number.isFinite(cut);
+    const pass = (Number.isFinite(score) && hasCut) ? (score >= cut) : null;
+
+    document.getElementById("recentLine").innerHTML =
+      `최근: <b>#${escapeHtml(last.round)}</b> (${escapeHtml(last.date)}) · 점수 <b>${Number.isFinite(score)?score:'-'}</b> / ${maxY}` +
+      (hasCut ? ` · 1등급컷 <b>${cut}</b> · ` + (pass ? `<span class="pass">컷 통과</span>` : `<span class="fail">컷 미달</span>`) : ` · <span class="muted">컷 없음</span>`);
+  }else{
+    document.getElementById("recentLine").textContent = "";
+  }
+
+  // table
+  const rows = studentScores.slice().sort((a,b)=>Number(a.round)-Number(b.round));
+  const ck = cutKeyOf(sub);
+
+  const tableHtml = `
+    <table>
+      <thead>
+        <tr>
+          <th style="width:90px">회차</th>
+          <th style="width:130px">날짜</th>
+          <th>점수</th>
+          <th>1등급컷</th>
+          <th style="width:110px">판정</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${
+          rows.map(r=>{
+            const sc = Number(r[sub]);
+            const cut = Number(r[ck]);
+            const hasSc = Number.isFinite(sc);
+            const hasCut = Number.isFinite(cut);
+            let judge = `<span class="muted">-</span>`;
+            if(hasSc && hasCut){
+              judge = (sc>=cut) ? `<span class="pass">통과</span>` : `<span class="fail">미달</span>`;
+            }else if(hasSc && !hasCut){
+              judge = `<span class="muted">컷없음</span>`;
+            }else{
+              judge = `<span class="muted">미응시</span>`;
+            }
+            return `
+              <tr>
+                <td>#${escapeHtml(r.round)}</td>
+                <td>${escapeHtml(fmtDate(r.date))}</td>
+                <td>${hasSc ? escapeHtml(sc) : `<span class="muted">-</span>`}</td>
+                <td>${hasCut ? escapeHtml(cut) : `<span class="muted">-</span>`}</td>
+                <td>${judge}</td>
+              </tr>
+            `;
+          }).join("")
+        }
+      </tbody>
+    </table>
+  `;
+  document.getElementById("tableWrap").innerHTML = tableHtml;
+}
+
+function debounce(fn, ms=200){
+  let t=null;
+  return (...args)=>{
+    clearTimeout(t);
+    t=setTimeout(()=>fn(...args), ms);
+  };
+}
+
+async function init(){
+  const id = qs("id");
+  if(!id){
+    document.getElementById("root").innerHTML = `<div class="error">id 파라미터가 없습니다. (예: student.html?id=shstudy01)</div>`;
+    return;
+  }
+
+  // 파일 로드
+  try{
+    const [st, sc, pr, pn] = await Promise.all([
+      loadJson("./students.json"),
+      loadJson("./scores.json"),
+      loadJson("./progress.json").catch(()=>[]),
+      loadJson("./progress_notes.json").catch(()=>[])
+    ]);
+    students = st;
+    scoresAll = sc;
+    progressAll = pr;
+    progressNotes = pn;
+  }catch(e){
+    document.getElementById("root").innerHTML = `<div class="error">데이터 로딩 실패: ${escapeHtml(e.message)}</div>`;
+    return;
+  }
+
+  student = students.find(s => String(s.id) === String(id));
+  if(!student){
+    document.getElementById("root").innerHTML = `<div class="error">students.json 에서 id=${escapeHtml(id)} 학생을 찾지 못했습니다.</div>`;
+    return;
+  }
+
+  // 토큰 검증
+  const v = validateToken(student);
+  if(!v.ok){
+    document.getElementById("root").innerHTML = `
+      <div class="error">
+        <b>접근 권한이 없습니다.</b><br/>
+        이유: ${escapeHtml(v.reason)}<br/><br/>
+        링크에 <b>&token=...</b> 이 포함되어 있는지 확인하세요.
       </div>
     `;
+    return;
+  }
 
-    const tabs = document.getElementById("tabs");
-    const cv = document.getElementById("cv");
-    const chartTitle = document.getElementById("chartTitle");
-    const chartHint = document.getElementById("chartHint");
+  // 점수 필터
+  studentScores = (Array.isArray(scoresAll) ? scoresAll : []).filter(r => String(r.id) === String(id));
+  // round 정렬 안전 처리
+  studentScores.sort((a,b)=>Number(a.round)-Number(b.round));
 
-    let active = subs[0];
+  availableSubjects = extractAvailableSubjects(studentScores);
+  activeSubject = availableSubjects[0] || null;
 
-    function renderTabs(){
-      tabs.innerHTML = subs.map(s=>{
-        const cls = (s === active) ? "tab active" : "tab";
-        return `<button class="${cls}" data-sub="${escapeHtml(s)}">${escapeHtml(s)}</button>`;
-      }).join("");
-      tabs.querySelectorAll("button").forEach(btn=>{
-        btn.addEventListener("click", ()=>{
-          active = btn.getAttribute("data-sub");
-          renderChart();
-          renderTabs();
-        });
-      });
-    }
+  const lastRow = studentScores.length ? studentScores[studentScores.length-1] : null;
 
-    function renderChart(){
-      const maxY = maxScoreOf(active);
-      const pts = myScores.map(r=>{
-        const xLabel = `#${r.round}`;
-        return {xLabel, y: Number(r[active] ?? 0)};
-      });
-      const cuts = myScores.map(r=>{
-        const ck = cutKeyOf(active);
-        const y = isNumber(r[ck]) ? Number(r[ck]) : null;
-        return {xLabel:`#${r.round}`, y};
-      }).filter(x => x.y !== null);
+  // 상단 카드 렌더
+  document.getElementById("root").innerHTML = buildHeaderHtml(student, lastRow);
 
-      drawLineChart(cv, pts, (cuts.length===pts.length ? cuts : null), maxY);
-
-      const last = myScores[myScores.length-1];
-      const v = last[active];
-      const ck = cutKeyOf(active);
-      const cvv = last[ck];
-      const passTxt = (isNumber(v) && isNumber(cvv)) ? (v >= cvv ? "컷 통과" : "컷 미달") : "컷 정보 없음";
-
-      chartTitle.textContent = `${active} 추이`;
-      chartHint.textContent = `최근: #${last.round} (${last.date}) · 점수 ${v ?? "-"} / ${maxY} · ${passTxt}`;
-    }
-
-    renderTabs();
+  // 그래프 영역
+  if(availableSubjects.length){
+    document.getElementById("charts").style.display = "block";
+    buildTabs();
     renderChart();
 
-    let tmr=null;
-    window.addEventListener("resize", ()=>{
-      clearTimeout(tmr);
-      tmr=setTimeout(()=>renderChart(),150);
-    });
+    // resize redraw
+    window.addEventListener("resize", debounce(()=>renderChart(), 200));
+  }else{
+    document.getElementById("charts").style.display = "none";
   }
 
-  main().catch(err=>{
-    document.getElementById("app").innerHTML =
-      `<div class="err">로딩 실패</div>
-       <div class="hint">${escapeHtml(err.message || String(err))}</div>
-       <div class="hint">
-         아래 주소를 직접 열었을 때 JSON이 보이는지 확인하세요.<br/>
-         - ./students.json<br/>
-         - ./scores.json<br/>
-         - ./progress.json (있으면)
-       </div>`;
-  });
+  // build info
+  document.getElementById("buildInfo").textContent = `id=${id}${qs("token") ? " · token=ON" : ""}`;
+}
+
+init();
 </script>
 </body>
 </html>
