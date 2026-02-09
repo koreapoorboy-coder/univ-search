@@ -1,1 +1,240 @@
 
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>정시 대학 리스트</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
+    .wrap{max-width:980px}
+    h1{margin:0 0 8px;font-size:22px}
+    .meta{opacity:.8;line-height:1.6;margin-bottom:10px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+    a.btn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
+    input.search{flex:1;min-width:220px;padding:10px;border:1px solid #ccc;border-radius:10px}
+    .card{border:1px solid #ddd;border-radius:12px;padding:12px;margin:10px 0}
+    .title{font-weight:900}
+    .small{font-size:12px;opacity:.75}
+    .tag{display:inline-block;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;margin-right:6px}
+    .ok{color:#0a7;font-weight:900}
+    .warn{color:#b86b00;font-weight:900}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="h">로딩중…</h1>
+  <div class="meta" id="meta"></div>
+
+  <div class="toolbar">
+    <a class="btn" id="toStudent" href="./student.html">학생 상세로</a>
+    <a class="btn" id="toIndex" href="./index.html">목록</a>
+    <input id="q" class="search" placeholder="대학/학과 검색" />
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<script>
+  const qs = new URLSearchParams(location.search);
+  const id = qs.get("id") || "";
+  const bucket = qs.get("bucket") || "fit"; // fit or up
+  const round = qs.get("round") || "";
+
+  const UP_MARGIN = 5.0;  // 상향: 컷-5 ~ 컷 미만
+  const FIT_MARGIN = 2.0; // 적정: 컷 이상(영어조건 충족) → 여기선 단순화
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
+  );
+  const num = (v)=> {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  };
+
+  function pickName(s){
+    return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
+  }
+
+  function getPct(rec, subject){
+    // subject: "국어","수학","생윤" ...
+    const key = subject + "백분위";
+    const v = rec?.[key];
+    const n = num(v);
+    return n;
+  }
+
+  function getEnglishGrade(rec){
+    const n = num(rec?.["영어등급"]);
+    return n == null ? null : n;
+  }
+
+  function 탐구Candidates(rec){
+    const out = [];
+    for (const k of Object.keys(rec||{})){
+      if (!k.endsWith("백분위")) continue;
+      const base = k.replace("백분위","");
+      if (base === "국어" || base === "수학") continue;
+      // 영어는 등급으로 처리하므로 영어백분위가 있어도 제외
+      if (base === "영어") continue;
+      const v = num(rec[k]);
+      if (v != null) out.push({subject: base, pct: v});
+    }
+    out.sort((a,b)=>b.pct - a.pct);
+    return out;
+  }
+
+  function computeStudentAvgPct(scoreRec, ruleSubjects){
+    // ruleSubjects: ["국어","수학","탐구2"] 등
+    const used = [];
+    for (const s of ruleSubjects){
+      const t = (s||"").trim();
+      if (!t) continue;
+
+      if (t === "탐구2" || t === "탐구"){
+        const cand = 탐구Candidates(scoreRec);
+        if (cand.length < 2) return { ok:false, reason:"탐구 2과목 백분위가 부족" };
+        used.push(cand[0], cand[1]);
+        continue;
+      }
+
+      if (t === "영어"){
+        // 영어는 등급조건으로만 쓰고 평균에서 제외(원하면 포함도 가능)
+        continue;
+      }
+
+      const p = getPct(scoreRec, t);
+      if (p == null) return { ok:false, reason:`${t} 백분위 없음` };
+      used.push({subject:t, pct:p});
+    }
+
+    if (!used.length) return { ok:false, reason:"평균 계산 과목이 없음" };
+    const avg = used.reduce((a,x)=>a+x.pct,0) / used.length;
+    return { ok:true, avg, used };
+  }
+
+  function classify(studentAvg, cutPct){
+    // 영어 조건은 밖에서 통과했다고 가정
+    const diff = studentAvg - cutPct;
+    if (diff >= 0) return "fit";
+    if (diff >= -UP_MARGIN) return "up";
+    return "none";
+  }
+
+  async function main(){
+    const [students, scores, univs] = await Promise.all([
+      fetch("./students.json",{cache:"no-store"}).then(r=>r.json()),
+      fetch("./scores.json",{cache:"no-store"}).then(r=>r.json()),
+      fetch("./univ_percentile.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>[])
+    ]);
+
+    const st = (students||[]).find(x=>x.id===id) || null;
+    const myScores = (scores||[]).filter(x=>x.id===id).sort((a,b)=>(num(a.round)||0)-(num(b.round)||0));
+    if (!myScores.length){
+      document.getElementById("h").textContent="점수 데이터 없음";
+      document.getElementById("meta").textContent="scores.json에 해당 id가 없습니다.";
+      return;
+    }
+
+    const latest = myScores[myScores.length-1];
+    const currentRound = round ? String(round) : String(latest.round ?? "");
+    // optionally pick specific round
+    const scoreRec = round ? (myScores.find(x=>String(x.round)===String(round)) || latest) : latest;
+
+    const eng = getEnglishGrade(scoreRec);
+
+    document.getElementById("h").textContent = bucket==="up" ? "상향 대학(정시)" : "적정 대학(정시)";
+    document.getElementById("meta").innerHTML = `
+      학생: <b>${esc(st ? pickName(st) : id)}</b> · 회차: <b>#${esc(currentRound)}</b><br/>
+      기준: 백분위 평균 + 영어 등급 컷(절대평가)
+      ${eng!=null ? `<br/>영어등급: <b>${esc(eng)}</b>` : `<br/><span class="small">영어등급 미입력(영어컷 필터가 제대로 동작하지 않을 수 있음)</span>`}
+    `;
+
+    document.getElementById("toStudent").href = `./student.html?id=${encodeURIComponent(id)}`;
+    const q = document.getElementById("q");
+    const list = document.getElementById("list");
+
+    // compute and filter
+    const rows = [];
+    for (const u of (univs||[])){
+      const cut = num(u.cut_pct);
+      if (cut==null) continue;
+
+      const ruleSubs = (u.rule?.subjects || []);
+      const calc = computeStudentAvgPct(scoreRec, ruleSubs);
+      if (!calc.ok) continue;
+
+      // english cut
+      const engMax = num(u.eng_max_grade);
+      if (engMax!=null){
+        if (eng==null) continue; // 영어등급 없으면 비교 불가 → 제외
+        if (eng > engMax) continue; // 컷 미충족 → 제외
+      }
+
+      const cls = classify(calc.avg, cut);
+      if (cls==="none") continue;
+      if (cls !== bucket) continue;
+
+      rows.push({
+        ...u,
+        student_avg: calc.avg,
+        diff: calc.avg - cut,
+        used: calc.used
+      });
+    }
+
+    // sort: 적정은 diff 큰 순(여유), 상향은 diff 작은 순(덜 부족)
+    rows.sort((a,b)=>{
+      if (bucket==="fit") return (b.diff - a.diff);
+      return (b.diff - a.diff); // -0.5 > -4 (덜 부족)
+    });
+
+    function render(){
+      const kw = (q.value||"").trim().toLowerCase();
+      const filtered = !kw ? rows : rows.filter(r=>{
+        const hay = `${r.univ} ${r.major} ${r.group||""} ${r.note||""}`.toLowerCase();
+        return hay.includes(kw);
+      });
+
+      list.innerHTML = filtered.map(r=>{
+        const diff = r.diff;
+        const diffTxt = (diff>=0?"+":"") + diff.toFixed(2);
+        const tag = bucket==="fit"
+          ? `<span class="tag ok">적정</span>`
+          : `<span class="tag warn">상향</span>`;
+
+        const engMax = num(r.eng_max_grade);
+        const engTxt = engMax!=null ? `영어 ≤ ${engMax}등급` : "영어조건 없음";
+
+        const detailUrl = new URL("./univ_detail.html", location.href);
+        detailUrl.searchParams.set("id", id);
+        detailUrl.searchParams.set("round", String(scoreRec.round ?? ""));
+        detailUrl.searchParams.set("univ", r.univ);
+        detailUrl.searchParams.set("major", r.major);
+
+        return `
+          <div class="card">
+            <div class="title">
+              ${tag} ${esc(r.univ)} · ${esc(r.major)}
+            </div>
+            <div class="small">
+              컷(평균 백분위): <b>${esc(r.cut_pct)}</b> / 내 평균: <b>${r.student_avg.toFixed(2)}</b> / 차이: <b>${diffTxt}</b><br/>
+              반영: ${esc((r.rule?.subjects||[]).join(", "))} / ${esc(engTxt)}
+            </div>
+            <a class="btn" href="${esc(detailUrl.toString())}" target="_blank" rel="noopener">자세히 보기</a>
+          </div>
+        `;
+      }).join("") || `<div class="small">해당 조건의 대학이 없습니다.</div>`;
+    }
+
+    q.addEventListener("input", render);
+    render();
+  }
+
+  main().catch(err=>{
+    document.getElementById("h").textContent="로드 실패";
+    document.getElementById("meta").textContent=String(err);
+  });
+</script>
+</body>
+</html>
