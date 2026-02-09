@@ -13,9 +13,14 @@
     .name{font-weight:900;font-size:18px}
     .meta{opacity:.85;margin-top:6px;line-height:1.6}
     .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-    .chip{font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;opacity:.95;background:#fff}
+    .chip{
+      font-size:12px;border:1px solid #ddd;border-radius:999px;padding:4px 8px;
+      opacity:.95;background:#fff; display:inline-flex; align-items:center;
+    }
     .chip.bold{border-color:#111;font-weight:900}
     .chipbtn{cursor:pointer}
+    .chiplink{cursor:pointer;text-decoration:none;color:inherit}
+    .chiplink:hover{border-color:#111}
     a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px}
     .warn{background:#fff7e6;border:1px solid #ffd28a;padding:10px;border-radius:10px;margin:10px 0}
     .small{font-size:12px;opacity:.75}
@@ -30,8 +35,10 @@
   </div>
 
   <script>
-    const SHOW_ID = false;      // 화면에 id도 보이게 = true
-    const DEFAULT_SHOW = 4;     // 목록에서 기본으로 펼쳐 보여줄 진도 개수 (0이면 전부 펼침)
+    // ===== 설정 =====
+    const SHOW_ID = false;      // 이름 옆에 (id) 표시 = true
+    const DEFAULT_SHOW = 4;     // 목록에서 진도 기본 노출 개수(0이면 전부 펼침)
+    const OPEN_IN_NEW_TAB = true; // 진도 클릭 시 새 창(탭) = true
 
     let students = [];
     let scores = [];
@@ -106,6 +113,16 @@
       const topic = (p["진도"] ?? p["진도(단원/주제)"] ?? p.topic ?? "").toString().trim();
       const memo = (p["메모"] ?? p.memo ?? "").toString().trim();
       return { subj, term, topic, memo };
+    }
+
+    function makeProgressDetailUrl({id, round, subj, term, topic}){
+      const u = new URL("./progress_detail.html", location.href);
+      u.searchParams.set("id", id);
+      u.searchParams.set("round", String(round ?? ""));
+      if (subj) u.searchParams.set("subject", subj);
+      if (term) u.searchParams.set("term", term);
+      if (topic) u.searchParams.set("topic", topic);
+      return u.toString();
     }
 
     // ---------- maps ----------
@@ -186,7 +203,7 @@
           latestInfo = `<span class="small">최근 점수: #${esc(latest.round)} (${esc(latest.date)}) · ${passText}</span>`;
         }
 
-        // progress (입력된 만큼만 표시 + 더보기/접기)
+        // progress (입력된 만큼만 표시 + 더보기/접기 + 클릭 시 상세)
         const lp = latestProgMap.get(id);
 
         let progressHtml = `
@@ -197,28 +214,40 @@
         `;
 
         if (lp){
-          const lines = lp.items.map(p=>{
+          // 각 항목을 링크로 만들어야 하므로 문자열이 아니라 "아이템 객체"로 처리
+          const allItems = lp.items.map(p => {
             const n = normalizeProgressItem(p);
-            const head = `${n.subj}${n.term ? `(${n.term})` : ""}`.trim();
-            const topic = n.topic ? `: ${n.topic}` : "";
-            return (head + topic).trim();
-          }).filter(Boolean);
+            const label = `${n.subj}${n.term ? `(${n.term})` : ""}${n.topic ? `: ${n.topic}` : ""}`.trim();
+            return { ...n, label };
+          }).filter(x => x.label);
 
-          const shown = (DEFAULT_SHOW <= 0) ? lines : lines.slice(0, DEFAULT_SHOW);
-          const rest  = (DEFAULT_SHOW <= 0) ? []    : lines.slice(DEFAULT_SHOW);
+          const shownItems = (DEFAULT_SHOW <= 0) ? allItems : allItems.slice(0, DEFAULT_SHOW);
+          const restItems  = (DEFAULT_SHOW <= 0) ? []      : allItems.slice(DEFAULT_SHOW);
 
           const key = `p_${id}`;
+
+          const makeChipLink = (it) => {
+            const url = makeProgressDetailUrl({
+              id,
+              round: lp.round,
+              subj: it.subj,
+              term: it.term,
+              topic: it.topic
+            });
+            const target = OPEN_IN_NEW_TAB ? ` target="_blank" rel="noopener"` : "";
+            return `<a class="chip chiplink" href="${esc(url)}"${target}>${esc(it.label)}</a>`;
+          };
 
           progressHtml = `
             <div class="chips">
               <span class="chip bold">이번 주 진도</span>
               <span class="chip">#${esc(lp.round)}${lp.date ? ` · ${esc(lp.date)}` : ""}</span>
-              ${shown.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}
-              ${rest.length ? `<button class="chip chipbtn" data-action="showMore" data-key="${esc(key)}">+${rest.length} 더보기</button>` : ``}
+              ${shownItems.map(makeChipLink).join("")}
+              ${restItems.length ? `<button class="chip chipbtn" data-action="showMore" data-key="${esc(key)}">+${restItems.length} 더보기</button>` : ``}
             </div>
-            ${rest.length ? `
+            ${restItems.length ? `
               <div class="chips" data-morebox="${esc(key)}" style="display:none;margin-top:6px">
-                ${rest.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}
+                ${restItems.map(makeChipLink).join("")}
                 <button class="chip chipbtn" data-action="hideMore" data-key="${esc(key)}">접기</button>
               </div>
             ` : ``}
@@ -262,6 +291,7 @@
 
       const action = btn.dataset.action;
       const key = btn.dataset.key;
+
       const moreBox = document.querySelector(`[data-morebox="${CSS.escape(key)}"]`);
       const showBtn = document.querySelector(`button[data-action="showMore"][data-key="${CSS.escape(key)}"]`);
 
