@@ -1,1 +1,307 @@
 
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>학생 목록</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
+    h1{margin:0 0 10px}
+    .wrap{max-width:1100px}
+    .search{width:100%;max-width:980px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .hint{opacity:.75;line-height:1.6;margin-top:10px}
+    .err{color:#b00020;font-weight:900;margin-top:12px}
+
+    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
+    .rowTop{display:flex;gap:14px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+    .left{flex:1;min-width:320px}
+    .right{width:320px;min-width:260px}
+    .name{font-weight:900;font-size:24px;margin-bottom:8px}
+    .meta{opacity:.85;line-height:1.7}
+    .small{opacity:.7}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;white-space:nowrap;text-decoration:none;color:inherit}
+    .chip:hover{background:#fafafa}
+    .badge{font-weight:900;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:3px 8px;opacity:.85}
+
+    .btn{display:inline-block;text-decoration:none;border:2px solid #111;border-radius:14px;padding:10px 12px;font-weight:900;background:#fff}
+    .btn:hover{background:#fafafa}
+    .btn.primary{background:#111;color:#fff}
+    .btn.primary:hover{opacity:.92}
+
+    .panelTitle{font-weight:900;margin:0 0 10px}
+    .box{border:1px solid #ddd;border-radius:16px;padding:14px}
+    .two{display:flex;gap:10px}
+    .two a{flex:1;text-align:center}
+
+    .copy{cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>학생 목록</h1>
+
+    <div id="gate"></div>
+
+    <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형" style="display:none" />
+    <div id="list"></div>
+
+    <div class="hint" style="margin-top:14px">
+      ✅ 학부모/학생에게는 <b>student.html?t=개별토큰</b> 링크만 보내는 걸 권장합니다.<br/>
+      (GitHub Pages는 정적 사이트라 “완전한 비공개”는 불가하고, UI에서만 분리하는 방식입니다.)
+    </div>
+  </div>
+
+<script>
+  // ============================
+  // 설정: 관리자 토큰(원하면 바꿔)
+  // ============================
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+
+  const qs = new URLSearchParams(location.search);
+  const t = qs.get("t") || "";                 // 학생 토큰
+  const admin = (qs.get("admin") || "") === ADMIN_TOKEN;
+
+  let students = [];
+  let scores = [];
+  let progress = [];
+
+  function pickName(s){
+    return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
+  }
+  function tokenOfStudent(s){
+    return s.token ?? s.t ?? s.accessToken ?? s.access_token ?? "";
+  }
+  function isNumber(x){ return typeof x === "number" && Number.isFinite(x); }
+
+  function getSubjectsFromScoreRow(row){
+    if(!row) return [];
+    const ignore = new Set(["id","round","date"]);
+    const subs = [];
+    for(const [k,v] of Object.entries(row)){
+      if(ignore.has(k)) continue;
+      if(k.endsWith("컷")) continue;
+      if(isNumber(v)) subs.push(k);
+    }
+    return subs;
+  }
+  function latestByRoundOrDate(list){
+    const arr = [...list];
+    arr.sort((a,b)=>{
+      const ra = Number(a.round ?? -1), rb = Number(b.round ?? -1);
+      if(ra !== rb) return ra - rb;
+      const da = (a.date ?? ""), db = (b.date ?? "");
+      return da.localeCompare(db);
+    });
+    return arr.length ? arr[arr.length-1] : null;
+  }
+  function cutKeyOf(subject){ return subject + "컷"; }
+  function maxScoreOf(subject){
+    if(subject === "생윤" || subject === "사문") return 50;
+    return 100;
+  }
+  function extractProgressItems(entry){
+    if(!entry) return [];
+    if(Array.isArray(entry.items)){
+      return entry.items.map(x=>{
+        if(typeof x==="string") return x.trim();
+        if(x && typeof x==="object"){
+          const a = x.subject ? `${x.subject}` : "";
+          const b = x.level ? `(${x.level})` : "";
+          const c = x.topic ? `: ${x.topic}` : "";
+          return (a+b+c).trim();
+        }
+        return "";
+      }).filter(Boolean);
+    }
+    const out = [];
+    for(const [k,v] of Object.entries(entry)){
+      if(typeof v !== "string") continue;
+      if(!v.trim()) continue;
+      if(v.includes(":") || v.includes("(")) out.push(v.trim());
+    }
+    return out;
+  }
+  function esc(str){
+    return (str ?? "").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;").replaceAll("'","&#39;");
+  }
+
+  async function fetchJSON(url){
+    const bust = url.includes("?") ? "&" : "?";
+    const res = await fetch(url + bust + "v=" + Date.now(), { cache:"no-store" });
+    if(!res.ok) throw new Error(url + " HTTP " + res.status);
+    return await res.json();
+  }
+
+  function shareUrlForStudent(stu){
+    const base = location.origin + location.pathname.replace(/\/index\.html$/,"/"); // .../public/students/
+    const tok = tokenOfStudent(stu);
+    return base + "student.html?t=" + encodeURIComponent(tok);
+  }
+
+  async function init(){
+    students = await fetchJSON("./students.json");
+    scores = await fetchJSON("./scores.json");
+    try { progress = await fetchJSON("./progress.json"); } catch(e){ progress = []; }
+
+    const gate = document.getElementById("gate");
+    const qEl = document.getElementById("q");
+
+    // 1) 학생 토큰으로 들어온 경우: 해당 학생 1명만 보여줌
+    if(t){
+      const stu = students.find(s => tokenOfStudent(s) === t);
+      if(!stu){
+        gate.innerHTML = `<div class="err">토큰이 맞지 않아 학생을 찾지 못했습니다.</div>`;
+        return;
+      }
+      gate.innerHTML = `<div class="hint">학생 전용 보기 (토큰 적용됨)</div>`;
+      qEl.style.display = "none";
+      render("", [stu]);
+      return;
+    }
+
+    // 2) 관리자면 전체 보기
+    if(admin){
+      gate.innerHTML = `<div class="hint">관리자 모드 (전체 학생 목록)</div>`;
+      qEl.style.display = "block";
+      render("");
+      qEl.addEventListener("input", (e)=>render(e.target.value.trim()));
+      return;
+    }
+
+    // 3) 아무 토큰도 없으면: 안내만 띄움 (전체 목록 노출 방지)
+    gate.innerHTML = `
+      <div class="err">이 페이지는 관리자/학생용 토큰 링크로만 볼 수 있습니다.</div>
+      <div class="hint">
+        - 학부모/학생: 받은 링크(<b>student.html?t=토큰</b>)로 접속하세요.<br/>
+        - 관리자: <b>index.html?admin=관리자토큰</b> 으로 접속하세요.
+      </div>
+      <div class="hint" style="margin-top:8px">
+        예) <span class="small">.../public/students/index.html?admin=${esc(ADMIN_TOKEN)}</span>
+      </div>
+    `;
+    qEl.style.display = "none";
+    document.getElementById("list").innerHTML = "";
+  }
+
+  function render(keyword, forcedList=null){
+    const list = document.getElementById('list');
+    const k = (keyword || '').toLowerCase();
+
+    const items = forcedList ? forcedList : students.filter(s => {
+      const name = pickName(s);
+      const hay = `${s.school||''} ${name||''} ${s.career||''} ${s.admission||''} ${s.id||''}`.toLowerCase();
+      return !k || hay.includes(k);
+    });
+
+    list.innerHTML = items.map(stu => {
+      const name = pickName(stu);
+      const sid = stu.id;
+      const tok = tokenOfStudent(stu);
+
+      const myScores = scores.filter(x => x.id === sid);
+      const latest = latestByRoundOrDate(myScores);
+      const subs = latest ? getSubjectsFromScoreRow(latest) : [];
+      let pass=0;
+      if(latest){
+        subs.forEach(sub=>{
+          const v = latest[sub];
+          const cv = latest[cutKeyOf(sub)];
+          if(isNumber(v) && isNumber(cv) && v >= cv) pass++;
+        });
+      }
+
+      const myProg = Array.isArray(progress) ? progress.filter(p=>p.id===sid) : [];
+      const latestProg = latestByRoundOrDate(myProg);
+      const progItems = extractProgressItems(latestProg);
+
+      const progChips = progItems.length
+        ? progItems.map(x=>`<span class="chip">${esc(x)} <span class="badge">확인</span></span>`).join("")
+        : `<span class="small">진도 데이터 없음</span>`;
+
+      const subjChips = subs.length
+        ? subs.map(s=>`<span class="chip"><b>${esc(s)}</b> <span class="small">/ ${maxScoreOf(s)}점</span></span>`).join("")
+        : `<span class="small">응시 과목 없음</span>`;
+
+      const studentUrl = `./student.html?t=${encodeURIComponent(tok)}`;
+      const reachUrl = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tok)}#reach`;
+      const fitUrl   = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tok)}#fit`;
+
+      return `
+        <div class="card">
+          <div class="rowTop">
+            <div class="left">
+              <div class="name">${esc(name)} <span class="small">(${esc(sid)})</span></div>
+              <div class="meta">
+                학교: ${esc(stu.school || '-')}<br/>
+                진로: ${esc(stu.career || '-')}<br/>
+                전형: ${esc(stu.admission || '-')}<br/>
+                <span class="small">${latest ? `최근: #${esc(latest.round)} (${esc(latest.date)}) · 컷 통과 ${pass}/${subs.length}` : `최근 점수: 없음`}</span>
+              </div>
+
+              <div class="row">
+                <span class="pill">이번 주 진도</span>
+                ${latestProg?.round ? `<span class="chip"><b>#${esc(latestProg.round)}</b> · ${esc(latestProg.date||"")}</span>` : ``}
+                ${progChips}
+              </div>
+
+              <div class="row" style="margin-top:10px">
+                <span class="pill">응시 과목</span>
+                ${subjChips}
+              </div>
+
+              <div class="row" style="margin-top:12px">
+                <a class="btn primary" href="${studentUrl}">성적/그래프/진도 보기</a>
+                <a class="btn copy" data-copy="${esc(shareUrlForStudent(stu))}">학생 링크 복사</a>
+              </div>
+            </div>
+
+            <div class="right">
+              <div class="box">
+                <div class="panelTitle">대학 추천</div>
+                <div class="two">
+                  <a class="btn" href="${reachUrl}" target="_blank" rel="noopener">상향</a>
+                  <a class="btn" href="${fitUrl}" target="_blank" rel="noopener">적정</a>
+                </div>
+                <div class="hint">
+                  * 영어는 등급컷 / 나머지는 백분위 기준(설정대로).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('') || '<div class="hint">표시할 학생이 없습니다.</div>';
+
+    // copy
+    document.querySelectorAll(".copy").forEach(btn=>{
+      btn.addEventListener("click", async ()=>{
+        const url = btn.getAttribute("data-copy");
+        try{
+          await navigator.clipboard.writeText(url);
+          btn.textContent = "복사됨!";
+          setTimeout(()=>btn.textContent="학생 링크 복사", 900);
+        }catch(e){
+          alert("복사 실패. 이 링크를 수동으로 복사하세요:\n" + url);
+        }
+      });
+    });
+  }
+
+  init().catch(err=>{
+    document.getElementById("list").innerHTML =
+      `<div class="err">로딩 실패: ${esc(err.message || String(err))}</div>
+       <div class="hint">
+         아래 주소를 직접 열었을 때 JSON이 보이는지 확인하세요.<br/>
+         - ./students.json<br/>
+         - ./scores.json<br/>
+         - ./progress.json (있으면)
+       </div>`;
+  });
+</script>
+</body>
+</html>
