@@ -8,10 +8,10 @@
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
     h1{margin:0 0 14px}
 
-    .search{width:100%;max-width:900px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
-    .wrap{max-width:980px}
+    .search{width:100%;max-width:980px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .wrap{max-width:1040px}
 
-    .card{border:1px solid #ddd;border-radius:16px;padding:16px;margin:12px 0}
+    .card{border:1px solid #ddd;border-radius:16px;padding:16px;margin:12px 0;background:#fff}
     .name{font-weight:900;font-size:26px;margin-bottom:8px}
     .meta{opacity:.85;line-height:1.7;margin-bottom:12px}
 
@@ -35,6 +35,18 @@
     .kline{font-size:13px;opacity:.9;line-height:1.7}
     .kline b{font-weight:900}
 
+    /* ✅ 카드 내부 좌/우 레이아웃 */
+    .cardGrid{display:grid;grid-template-columns:1fr 280px;gap:14px;align-items:start}
+    @media (max-width:900px){.cardGrid{grid-template-columns:1fr}}
+
+    .side{border:1px solid #eee;border-radius:14px;padding:12px;background:#fafafa}
+    .sideTitle{font-weight:900;margin-bottom:8px}
+    .sideBtns{display:flex;gap:8px;flex-wrap:wrap}
+    .sideBtn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:12px;font-weight:900;background:#fff}
+    .sideBtn:hover{background:#111;color:#fff}
+    .sideBtn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+    .sideSmall{font-size:12px;opacity:.75;line-height:1.5;margin-top:8px}
+
     @media (max-width:520px){
       .name{font-size:22px}
       .chip{padding:7px 10px}
@@ -53,12 +65,11 @@
   // ---------- util ----------
   const esc = (s)=> String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const num = (v)=> { const n = Number(v); return Number.isFinite(n) ? n : null; };
+  const norm = (s)=> String(s ?? '').trim().toLowerCase();
 
   function pickName(s){
     return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
   }
-
-  function norm(s){ return String(s ?? '').trim().toLowerCase(); }
 
   function getProgressFields(p){
     return {
@@ -120,23 +131,161 @@
     return {pass,total};
   }
 
+  // ---------- 정시(백분위+영어등급) 계산 ----------
+  const UP_MARGIN = 5.0;
+
+  function getEnglishGrade(scoreRec){
+    const g = num(scoreRec?.["영어등급"]);
+    return g==null ? null : g;
+  }
+
+  function getPct(scoreRec, subject){
+    const key1 = subject + "백분위";
+    const key2 = subject + " 백분위";
+    const v = scoreRec?.[key1] ?? scoreRec?.[key2];
+    const p = num(v);
+    return p;
+  }
+
+  function 탐구Candidates(scoreRec){
+    // "탐구2"용 후보(백분위가 있는 과목 중 국/수/영 제외)
+    const out = [];
+    for (const k of Object.keys(scoreRec||{})){
+      if (!k.endsWith("백분위") && !k.endsWith(" 백분위")) continue;
+      const base = k.replace("백분위","").replace(" 백분위","").trim();
+      if (base==="국어"||base==="수학"||base==="영어") continue;
+      const v = num(scoreRec[k]);
+      if (v!=null) out.push({subject: base, pct: v});
+    }
+    out.sort((a,b)=>b.pct-a.pct);
+    return out;
+  }
+
+  function computeStudentAvgPct(scoreRec, ruleSubjects){
+    const used = [];
+    for (const raw of (ruleSubjects||[])){
+      const t = String(raw||"").trim();
+      if (!t) continue;
+
+      if (t==="탐구2" || t==="탐구"){
+        const cand = 탐구Candidates(scoreRec);
+        if (cand.length < 2) return {ok:false};
+        used.push(cand[0], cand[1]);
+        continue;
+      }
+      if (t==="영어"){
+        // 영어는 등급조건으로만 (평균 제외)
+        continue;
+      }
+      const p = getPct(scoreRec, t);
+      if (p==null) return {ok:false};
+      used.push({subject:t, pct:p});
+    }
+    if (!used.length) return {ok:false};
+    const avg = used.reduce((a,x)=>a+x.pct,0)/used.length;
+    return {ok:true, avg};
+  }
+
+  function computeUnivCounts(univs, scoreRec){
+    if (!Array.isArray(univs) || !univs.length) return null;
+
+    const eng = getEnglishGrade(scoreRec);
+    const hasAnyPct = Object.keys(scoreRec||{}).some(k => String(k).includes("백분위"));
+    if (!hasAnyPct) return {fit:null, up:null, reason:"백분위 없음"};
+    // 영어등급이 없으면 영어컷 있는 대학은 자동 제외되므로 계산은 가능
+
+    let fit=0, up=0, usable=0;
+    for (const u of univs){
+      const cut = num(u.cut_pct);
+      if (cut==null) continue;
+
+      // 영어컷
+      const engMax = num(u.eng_max_grade);
+      if (engMax!=null){
+        if (eng==null) continue;
+        if (eng > engMax) continue;
+      }
+
+      const calc = computeStudentAvgPct(scoreRec, u.rule?.subjects || []);
+      if (!calc.ok) continue;
+
+      usable++;
+      const diff = calc.avg - cut;
+      if (diff >= 0) fit++;
+      else if (diff >= -UP_MARGIN) up++;
+    }
+    return {fit, up, usable};
+  }
+
+  function renderUnivSide(id, round, scoreRec){
+    const sid = encodeURIComponent(id);
+    const r = (round!=null) ? encodeURIComponent(String(round)) : "";
+
+    const fitUrl = `./univ_list.html?id=${sid}&bucket=fit${r?`&round=${r}`:""}`;
+    const upUrl  = `./univ_list.html?id=${sid}&bucket=up${r?`&round=${r}`:""}`;
+
+    if (!univs || !Array.isArray(univs) || !univs.length){
+      return `
+        <div class="sideBtns">
+          <a class="sideBtn" aria-disabled="true">적정</a>
+          <a class="sideBtn" aria-disabled="true">상향</a>
+        </div>
+        <div class="sideSmall">univ_percentile.json 없음/비어있음</div>
+      `;
+    }
+
+    if (!scoreRec){
+      return `
+        <div class="sideBtns">
+          <a class="sideBtn" aria-disabled="true">적정</a>
+          <a class="sideBtn" aria-disabled="true">상향</a>
+        </div>
+        <div class="sideSmall">점수 데이터 없음</div>
+      `;
+    }
+
+    const counts = computeUnivCounts(univs, scoreRec);
+    if (!counts || counts.fit===null){
+      return `
+        <div class="sideBtns">
+          <a class="sideBtn" href="${fitUrl}" target="_blank" rel="noopener">적정</a>
+          <a class="sideBtn" href="${upUrl}" target="_blank" rel="noopener">상향</a>
+        </div>
+        <div class="sideSmall">백분위 데이터가 없어서 개수 계산은 불가<br/>버튼 클릭은 가능</div>
+      `;
+    }
+
+    return `
+      <div class="sideBtns">
+        <a class="sideBtn" href="${fitUrl}" target="_blank" rel="noopener">적정 (${counts.fit})</a>
+        <a class="sideBtn" href="${upUrl}" target="_blank" rel="noopener">상향 (${counts.up})</a>
+      </div>
+      <div class="sideSmall">
+        기준: 백분위 평균 + 영어등급 컷<br/>
+        (해당 회차: #${esc(round ?? "-")})
+      </div>
+    `;
+  }
+
   // ---------- data ----------
-  let students=[], scores=[], progress=[], notes=[];
+  let students=[], scores=[], progress=[], notes=[], univs=null;
   let latestById = new Map(); // id -> latest score record
 
   async function init(){
     // cache no-store to see updates immediately
-    const [st, sc, pr, nt] = await Promise.all([
+    const [st, sc, pr, nt, uv] = await Promise.all([
       fetch("./students.json",{cache:"no-store"}).then(r=>r.json()),
       fetch("./scores.json",{cache:"no-store"}).then(r=>r.json()),
       fetch("./progress.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>[]),
-      fetch("./progress_notes.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>[])
+      fetch("./progress_notes.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>[]),
+      fetch("./univ_percentile.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>null),
     ]);
 
     students = Array.isArray(st)? st: [];
     scores = Array.isArray(sc)? sc: [];
     progress = Array.isArray(pr)? pr: [];
     notes = Array.isArray(nt)? nt: [];
+    univs = Array.isArray(uv)? uv: null;
 
     // latest score per id
     const grouped = new Map();
@@ -156,21 +305,18 @@
   }
 
   function findNote(id, round, subject, topic){
-    // 1) subject+topic 최대한 정확히 매칭
     const sKey = norm(subject);
     const tKey = norm(topic);
 
     const cand = notes.filter(n => String(n.id)===String(id) && String(n.round)===String(round));
     if (!cand.length) return null;
 
-    // exact subject + topic 포함 매칭 우선
     for (const n of cand){
       const f = getNoteFields(n);
       if (norm(f.subject)===sKey && (norm(f.topic)===tKey || norm(f.topic).includes(tKey) || tKey.includes(norm(f.topic)))) {
         return n;
       }
     }
-    // subject만 맞는 것
     for (const n of cand){
       const f = getNoteFields(n);
       if (norm(f.subject)===sKey) return n;
@@ -249,7 +395,6 @@
           const nf = getNoteFields(n);
           if (!nf.status) continue;
 
-          // 보완/위험/보통만 요약 우선(잘함은 굳이 안 띄우고 싶으면 여기서 제외 가능)
           const cls = statusClass(nf.status);
           const headline = `${nf.status} · ${f.subject}: ${f.topic}`;
           const detail = `${nf.summary ? `문제: ${nf.summary}` : ''}${nf.cause ? (nf.summary? ` / ` : '') + `원인: ${nf.cause}` : ''}`.trim();
@@ -267,35 +412,52 @@
       }
     }
 
+    // ✅ 우측 대학 패널
+    const sideHTML = renderUnivSide(id, round, last);
+
     return `
       <div class="card">
-        <div class="name">${esc(name)}</div>
-        <div class="meta">
-          학교: ${esc(s.school || '-')}<br/>
-          진로: ${esc(s.career || '-')}<br/>
-          전형: ${esc(s.admission || '-')}<br/>
-          ${lastLine}
-        </div>
+        <div class="cardGrid">
 
-        <div class="row">
-          <span class="pill">이번 주 진도</span>
-          <div class="row" style="margin:0">${progHTML}</div>
-        </div>
-        <div>${progHint}</div>
-        ${noteSummaryLines}
+          <!-- 왼쪽 -->
+          <div>
+            <div class="name">${esc(name)}</div>
+            <div class="meta">
+              학교: ${esc(s.school || '-')}<br/>
+              진로: ${esc(s.career || '-')}<br/>
+              전형: ${esc(s.admission || '-')}<br/>
+              ${lastLine}
+            </div>
 
-        <div class="row" style="margin-top:14px">
-          <span class="pill">응시 과목</span>
-          <div class="row" style="margin:0">${subjChips}</div>
-        </div>
+            <div class="row">
+              <span class="pill">이번 주 진도</span>
+              <div class="row" style="margin:0">${progHTML}</div>
+            </div>
+            <div>${progHint}</div>
+            ${noteSummaryLines}
 
-        <a class="btn" href="./student.html?id=${encodeURIComponent(id)}">성적/그래프/진도 보기</a>
+            <div class="row" style="margin-top:14px">
+              <span class="pill">응시 과목</span>
+              <div class="row" style="margin:0">${subjChips}</div>
+            </div>
+
+            <a class="btn" href="./student.html?id=${encodeURIComponent(id)}">성적/그래프/진도 보기</a>
+          </div>
+
+          <!-- 오른쪽 -->
+          <div class="side">
+            <div class="sideTitle">정시 대학</div>
+            ${sideHTML}
+          </div>
+
+        </div>
       </div>
     `;
   }
 
   init().catch(()=>{
-    document.getElementById('list').textContent = '데이터 로딩 실패 (students.json / scores.json / progress.json / progress_notes.json 확인)';
+    document.getElementById('list').textContent =
+      '데이터 로딩 실패 (students.json / scores.json / progress.json / progress_notes.json 확인)';
   });
 </script>
 </body>
