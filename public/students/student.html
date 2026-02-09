@@ -5,22 +5,69 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 성적</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;background:#fff}
+    body{
+      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      margin:16px;background:#fff
+    }
     .wrap{max-width:1100px;margin:0 auto}
     .card{border:1px solid #ddd;border-radius:18px;padding:18px;margin:14px 0;background:#fff}
-    .title{font-size:34px;font-weight:900;margin:0 0 10px}
-    .meta{opacity:.85;line-height:1.8}
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
-    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
-    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111}
+
+    /* ✅ 상단 카드 재배치 */
+    .top{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media(min-width: 860px){
+      .top{grid-template-columns: 1.2fr .8fr;}
+    }
+
+    .title{font-size:34px;font-weight:900;margin:0 0 10px;line-height:1.15}
+    .meta{opacity:.9}
+    .kv{
+      display:grid;
+      grid-template-columns: 72px 1fr;
+      column-gap:10px;
+      row-gap:8px;
+      line-height:1.5;
+      margin-top:6px;
+    }
+    .k{opacity:.65;font-weight:800}
+    .v{font-weight:700}
+
+    .right{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:2px solid #111;border-radius:999px;
+      padding:7px 12px;font-weight:900;background:#fff
+    }
+    .subpill{
+      display:inline-flex;align-items:center;
+      border:1px solid #ddd;border-radius:999px;
+      padding:7px 10px;font-weight:800;background:#fff;opacity:.85
+    }
+
+    .btn{
+      display:inline-block;border:1px solid #111;border-radius:12px;
+      padding:10px 14px;text-decoration:none;color:#111;background:#fff
+    }
     .btn:hover{background:#fafafa}
+
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
     /* ✅ "학부모/학생용 링크" 박스가 혹시라도 생성되면 무조건 숨김 */
     #shareCard,#shareBox,#shareLinks,#shareArea,
     .share-card,.shareBox,.share-area,.share-links,
-    .parent-links,.parentLinks,.student-links,.studentLinks {
+    .parent-links,.parentLinks,.student-links,.studentLinks{
       display:none !important;
       visibility:hidden !important;
       height:0 !important;
@@ -32,11 +79,22 @@
 </head>
 <body>
 <div class="wrap">
+
+  <!-- ✅ 상단 카드(재배치) -->
   <div class="card">
-    <div id="hdr" class="title">학생</div>
-    <div id="meta" class="meta"></div>
-    <div id="msg" class="row"></div>
-    <div id="links" class="row"></div>
+    <div class="top">
+      <!-- 왼쪽: 학생 정보 -->
+      <div>
+        <div id="hdr" class="title">학생</div>
+        <div id="meta" class="meta"></div>
+      </div>
+
+      <!-- 오른쪽: 모드 + 버튼 -->
+      <div class="right">
+        <div id="msg" class="row"></div>
+        <div id="links" class="row"></div>
+      </div>
+    </div>
   </div>
 
   <!-- student.js가 여기에 성적/그래프를 렌더링 -->
@@ -44,14 +102,13 @@
 </div>
 
 <script>
-  // ✅ 관리자 토큰(기존과 동일)
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
   const qs = new URLSearchParams(location.search);
   const admin = qs.get("admin");
   const idParam = qs.get("id");
   const tParam = qs.get("t");
-  const tokenParam = qs.get("token"); // 백업
+  const tokenParam = qs.get("token");
 
   const isAdmin = (admin === ADMIN_TOKEN);
   const isStudentMode = (!!tParam || !!tokenParam);
@@ -59,7 +116,6 @@
   function escapeHtml(s){
     return String(s ?? '').replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
   }
-
   function pickName(s){
     return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
   }
@@ -84,9 +140,7 @@
   async function main(){
     const students = await loadJson("./students.json");
 
-    // ✅ 학생 찾기: id 우선 → t(token) → token(backup)
     let student = null;
-
     if(idParam){
       student = students.find(s => String(pickId(s)) === String(idParam));
     }
@@ -110,26 +164,28 @@
     const sid = pickId(student);
     const stok = pickToken(student);
 
-    // ✅ 헤더: "이름 (id)" 형태
     document.getElementById("hdr").textContent = sid ? `${name} (${sid})` : `${name}`;
 
+    // ✅ 왼쪽 메타: 키/값 형태로 정렬
     document.getElementById("meta").innerHTML = `
-      학교: ${escapeHtml(student.school || "-")}<br/>
-      진로: ${escapeHtml(student.career || "-")}<br/>
-      전형: ${escapeHtml(student.admission || "-")}
+      <div class="kv">
+        <div class="k">학교</div><div class="v">${escapeHtml(student.school || "-")}</div>
+        <div class="k">진로</div><div class="v">${escapeHtml(student.career || "-")}</div>
+        <div class="k">전형</div><div class="v">${escapeHtml(student.admission || "-")}</div>
+      </div>
     `;
 
-    // ✅ 상단 모드 표시
+    // ✅ 오른쪽: 모드 표시
     const msg = document.getElementById("msg");
     if(isAdmin){
-      msg.innerHTML = `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`;
+      msg.innerHTML = `<span class="pill">관리자 모드</span><span class="subpill">id로 접근</span>`;
     }else if(isStudentMode){
-      msg.innerHTML = `<span class="pill">학부모/학생 모드</span><span class="muted">개별 토큰 접근</span>`;
+      msg.innerHTML = `<span class="pill">학부모/학생</span><span class="subpill">토큰 접근</span>`;
     }else{
       msg.innerHTML = `<span class="warn">토큰/관리자 파라미터가 없습니다.</span>`;
     }
 
-    // ✅ 하단 버튼(관리자 토큰 노출 방지)
+    // ✅ 버튼: 관리자 토큰 노출 방지
     const links = document.getElementById("links");
 
     const univHref = isAdmin
@@ -150,19 +206,16 @@
       <a class="btn" href="${progHref}">진도 상세 보기</a>
     `;
 
-    // ✅ student.js가 id 기반으로 scores.json을 읽으므로,
-    //    토큰 접근일 때도 내부적으로 id를 붙여서 렌더링 동작 통일
-    // ✅ 단, "학생/학부모용 링크"에서 토큰이 주소창에 남아도 문제 없게
-    //    (원하면 다음 단계에서 토큰을 URL에서 제거하는 방식으로 더 강화 가능)
+    // ✅ student.js가 id로 scores.json을 읽으므로, 내부적으로 id를 통일
     const url = new URL(location.href);
     if(!url.searchParams.get("id") && sid){
       url.searchParams.set("id", sid);
       history.replaceState(null, "", url.toString());
     }
 
-    // ✅ student.js 로드 (캐시 이슈 방지용 버전 파라미터)
+    // ✅ student.js 로드 (캐시 깨기)
     const s = document.createElement("script");
-    s.src = new URL("./student.js?v=20260210", location.href).toString();
+    s.src = new URL("./student.js?v=20260210_2", location.href).toString();
     s.defer = true;
     document.body.appendChild(s);
   }
