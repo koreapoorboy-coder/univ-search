@@ -5,18 +5,30 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 성적</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;background:#fff}
     .wrap{max-width:1100px;margin:0 auto}
     .card{border:1px solid #ddd;border-radius:18px;padding:18px;margin:14px 0;background:#fff}
     .title{font-size:34px;font-weight:900;margin:0 0 10px}
     .meta{opacity:.85;line-height:1.8}
     .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
     .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
-    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;white-space:nowrap}
-    .chip:hover{background:#fafafa}
-    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111}
+    .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
+
+    /* ✅ 1단계 목표: "학부모/학생용 링크" 박스가 있으면 무조건 숨김
+       - (현재 HTML에는 없지만) student.js가 만들어도 안 보이게 강제 */
+    #shareCard,#shareBox,#shareLinks,#shareArea,
+    .share-card,.shareBox,.share-area,.share-links,
+    .parent-links,.parentLinks,.student-links,.studentLinks {
+      display:none !important;
+      visibility:hidden !important;
+      height:0 !important;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+    }
   </style>
 </head>
 <body>
@@ -33,7 +45,7 @@
 </div>
 
 <script>
-  // ✅ 여기 토큰은 현재 네가 쓰는 값 그대로
+  // ✅ 관리자 토큰(기존과 동일)
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
   const qs = new URLSearchParams(location.search);
@@ -93,59 +105,60 @@
     const sid = pickId(student);
     const stok = pickToken(student);
 
-    document.getElementById("hdr").textContent = name;
+    // ✅ 헤더: "이름 (id)" 형태로 표기
+    document.getElementById("hdr").textContent = sid ? `${name} (${sid})` : `${name}`;
+
     document.getElementById("meta").innerHTML = `
       학교: ${escapeHtml(student.school || "-")}<br/>
       진로: ${escapeHtml(student.career || "-")}<br/>
-      전형: ${escapeHtml(student.admission || "-")}<br/>
-      <span class="muted">학생ID: ${escapeHtml(sid || "-")}</span>
+      전형: ${escapeHtml(student.admission || "-")}
     `;
 
     const msg = document.getElementById("msg");
 
-    // ✅ 관리자면 안내
-    if(admin === ADMIN_TOKEN){
-      msg.innerHTML = `<span class="pill">관리자 모드</span><span class="muted">id로 접근 가능</span>`;
-    }else if(tParam || tokenParam){
+    const isAdmin = (admin === ADMIN_TOKEN);
+    const isStudentMode = (!!tParam || !!tokenParam);
+
+    if(isAdmin){
+      msg.innerHTML = `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`;
+    }else if(isStudentMode){
       msg.innerHTML = `<span class="pill">학부모/학생 모드</span><span class="muted">개별 토큰 접근</span>`;
     }else{
       msg.innerHTML = `<span class="warn">토큰/관리자 파라미터가 없습니다.</span>`;
     }
 
-    // ✅ 링크 버튼(기존 파일들과 연결)
+    // ✅ 링크 버튼(관리자 토큰 노출 방지!)
     const links = document.getElementById("links");
-
-    // 관리자면 index로 돌아가기
-    const backHref = `./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}`;
 
     // 대학 리스트
     const univHref =
-      (admin === ADMIN_TOKEN)
+      isAdmin
         ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
         : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
     // 진도 상세
     const progHref =
-      (admin === ADMIN_TOKEN)
+      isAdmin
         ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
         : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
 
+    // 목록 버튼은 관리자에게만 보이게(학생에게 관리자 토큰 노출 X)
+    const backBtn = isAdmin
+      ? `<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">← 학생 목록</a>`
+      : ``;
+
     links.innerHTML = `
-      <a class="btn" href="${backHref}">← 학생 목록</a>
-      <a class="btn" href="${univHref}">대학 상향/적정</a>
-      <a class="btn" href="${progHref}">진도 상세</a>
+      ${backBtn}
+      <a class="btn" href="${univHref}">대학 상향/적정 보기</a>
+      <a class="btn" href="${progHref}">진도 상세 보기</a>
     `;
 
-    // ✅ 여기서부터 아래는 "기존 그래프/성적 로직"을 네 student.js가 처리한다면 연결만 해주면 됨
-    //    (student.js가 id를 읽어서 scores.json을 렌더링하는 구조라면,
-    //     아래처럼 querystring을 id로 통일해 유지해도 됨)
-    //
-    // 관리자면 id로, 학부모면 id를 내부적으로 붙여서 student.js가 작동하게 만들기
-    const effectiveId = sid;
+    // ✅ student.js 연동을 위해 id 파라미터를 내부적으로 통일(주소창에 id를 붙여도 토큰은 숨김 유지 가능)
+    // - student.js가 id 기반으로 scores.json 렌더링한다면 그대로 작동
+    // - student.js가 토큰 기반이면, 기존 로직 유지 + 아래는 큰 영향 없음
     const url = new URL(location.href);
-
-    if(!url.searchParams.get("id") && effectiveId){
-      url.searchParams.set("id", effectiveId);
+    if(!url.searchParams.get("id") && sid){
+      url.searchParams.set("id", sid);
       history.replaceState(null, "", url.toString());
     }
 
