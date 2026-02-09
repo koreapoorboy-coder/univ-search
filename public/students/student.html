@@ -19,9 +19,6 @@
     .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;white-space:nowrap;text-decoration:none;color:inherit}
     .chip:hover{background:#fafafa}
     .badge{font-weight:900;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:3px 8px;opacity:.85}
-    .badge.good{border-color:#b7e4c7}
-    .badge.ok{border-color:#ffd6a5}
-    .badge.bad{border-color:#ffadad}
     .btn{display:inline-block;text-decoration:none;border:2px solid #111;border-radius:14px;padding:12px 14px;font-weight:900;background:#fff}
     .btn:hover{background:#fafafa}
     .btn.primary{background:#111;color:#fff}
@@ -46,14 +43,17 @@
 </div>
 
 <script>
-  // -----------------------------
-  // Utils
-  // -----------------------------
+  // ============================
+  // 설정: 관리자 토큰(원하면 바꿔)
+  // ============================
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+
   const qs = new URLSearchParams(location.search);
   const q = (k) => qs.get(k) || "";
 
   async function fetchJSON(url){
-    const res = await fetch(url, {cache:"no-store"});
+    const bust = url.includes("?") ? "&" : "?";
+    const res = await fetch(url + bust + "v=" + Date.now(), {cache:"no-store"});
     if(!res.ok) throw new Error(url + " HTTP " + res.status);
     return await res.json();
   }
@@ -61,20 +61,15 @@
   function pickName(s){
     return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
   }
-
   function tokenOfStudent(s){
     return s.token ?? s.t ?? s.accessToken ?? s.access_token ?? "";
   }
-
   function escapeHtml(str){
     return (str ?? "").toString()
       .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
       .replaceAll('"',"&quot;").replaceAll("'","&#39;");
   }
-
-  function isNumber(x){
-    return typeof x === "number" && Number.isFinite(x);
-  }
+  function isNumber(x){ return typeof x === "number" && Number.isFinite(x); }
 
   function getSubjectsFromScoreRow(row){
     if(!row) return [];
@@ -87,16 +82,11 @@
     }
     return subs;
   }
-
   function maxScoreOf(subject){
-    // 기본: 100, 생윤/사문은 50
     if(subject === "생윤" || subject === "사문") return 50;
     return 100;
   }
-
-  function cutKeyOf(subject){
-    return subject + "컷";
-  }
+  function cutKeyOf(subject){ return subject + "컷"; }
 
   function latestByRoundOrDate(list){
     const arr = [...list];
@@ -109,71 +99,43 @@
     return arr.length ? arr[arr.length-1] : null;
   }
 
-  function badgeForStatus(status){
-    // status: "good"|"ok"|"bad"
-    if(status === "good") return {cls:"good", text:"잘함"};
-    if(status === "ok") return {cls:"ok", text:"보통"};
-    if(status === "bad") return {cls:"bad", text:"미흡"};
-    return null;
-  }
-
-  // progress.json: 다양한 형태를 최대한 흡수해서 "문자열 목록"으로 뽑음
   function extractProgressItems(entry){
     if(!entry) return [];
-    // 1) items 배열
     if(Array.isArray(entry.items)){
-      return entry.items
-        .map(x => {
-          if(typeof x === "string") return x.trim();
-          if(x && typeof x === "object"){
-            // {subject, level, topic} 형태 등
-            const a = x.subject ? `${x.subject}` : "";
-            const b = x.level ? `(${x.level})` : "";
-            const c = x.topic ? `: ${x.topic}` : "";
-            const out = (a + b + c).trim();
-            return out || "";
-          }
-          return "";
-        })
-        .filter(Boolean);
+      return entry.items.map(x=>{
+        if(typeof x === "string") return x.trim();
+        if(x && typeof x === "object"){
+          const a = x.subject ? `${x.subject}` : "";
+          const b = x.level ? `(${x.level})` : "";
+          const c = x.topic ? `: ${x.topic}` : "";
+          return (a+b+c).trim();
+        }
+        return "";
+      }).filter(Boolean);
     }
-    // 2) 진도1~진도N 같은 컬럼
     const out = [];
     for(const [k,v] of Object.entries(entry)){
       if(typeof v !== "string") continue;
       if(!v.trim()) continue;
-      // 너무 광범위하게 잡지 않도록 ":" 또는 "(" 가 포함된 문자열만 채택
       if(v.includes(":") || v.includes("(")) out.push(v.trim());
     }
     return out;
   }
 
-  // progress_notes.json에서 (id, topic)로 상태/문제점 매칭 (있으면)
-  function findProgressNote(notes, id, topic){
-    if(!Array.isArray(notes)) return null;
-    const t = (topic || "").trim();
-    return notes.find(n => (n.id === id) && ((n.topic||"").trim() === t)) || null;
-  }
-
-  // -----------------------------
-  // Mini chart (canvas)
-  // -----------------------------
+  // mini chart
   function drawLineChart(canvas, points, cutPoints, maxY){
-    // points: [{xLabel, y}]
     const ctx = canvas.getContext("2d");
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.clientWidth, h = canvas.clientHeight;
     canvas.width = Math.floor(w * dpr);
     canvas.height = Math.floor(h * dpr);
     ctx.scale(dpr, dpr);
-
     ctx.clearRect(0,0,w,h);
 
     const padL=44, padR=14, padT=14, padB=34;
     const plotW = w - padL - padR;
     const plotH = h - padT - padB;
 
-    // axis
     ctx.lineWidth = 1;
     ctx.strokeStyle = "#e5e5e5";
     ctx.beginPath();
@@ -182,7 +144,6 @@
     ctx.lineTo(padL+plotW, padT+plotH);
     ctx.stroke();
 
-    // y ticks
     ctx.fillStyle = "#777";
     ctx.font = "12px system-ui";
     const ticks = 4;
@@ -198,16 +159,13 @@
     }
 
     if(!points.length) return;
-
     const n = points.length;
     const xAt = (i)=> padL + (plotW*(n===1?0.5:i/(n-1)));
-
     const yAt = (val)=>{
       const v = Math.max(0, Math.min(maxY, val));
       return padT + plotH * (1 - (v/maxY));
     };
 
-    // cut dashed line
     if(cutPoints && cutPoints.length){
       ctx.strokeStyle = "#bdbdbd";
       ctx.setLineDash([6,4]);
@@ -220,11 +178,8 @@
       });
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle="#777";
-      ctx.fillText("컷", padL+4, yAt(cutPoints[cutPoints.length-1].y)-6);
     }
 
-    // line
     ctx.strokeStyle = "#111";
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -236,7 +191,6 @@
     });
     ctx.stroke();
 
-    // dots
     ctx.fillStyle = "#111";
     points.forEach((p,i)=>{
       const x = xAt(i);
@@ -246,7 +200,6 @@
       ctx.fill();
     });
 
-    // x labels
     ctx.fillStyle="#777";
     ctx.font="12px system-ui";
     points.forEach((p,i)=>{
@@ -257,63 +210,50 @@
     });
   }
 
-  // -----------------------------
-  // App
-  // -----------------------------
   async function main(){
     const app = document.getElementById("app");
-
-    // 1) load students
     const students = await fetchJSON("./students.json");
+
     const t = q("t") || q("token") || "";
     const idParam = q("id") || "";
+    const admin = (q("admin") === ADMIN_TOKEN);
 
-    // token만 들어오면 token으로 학생 찾기
     let student = null;
+
+    // 1) 토큰으로 학생 찾기 (학생/학부모용)
     if(t){
       student = students.find(s => tokenOfStudent(s) && tokenOfStudent(s) === t) || null;
     }
-    // id가 있으면 id로 찾기(단, token이 설정된 학생이면 token도 맞아야 함)
-    if(!student && idParam){
-      const s = students.find(x => x.id === idParam) || null;
-      if(s){
-        const st = tokenOfStudent(s);
-        if(st && st !== t){
-          app.innerHTML = `<div class="err">접근 권한이 없습니다. (토큰 불일치)</div>`;
-          return;
-        }
-        student = s;
-      }
+
+    // 2) 관리자면 id로도 접근 가능
+    if(!student && admin && idParam){
+      student = students.find(x => x.id === idParam) || null;
     }
 
     if(!student){
-      app.innerHTML = `<div class="err">학생을 찾을 수 없습니다. (토큰/ID 확인)</div>
+      app.innerHTML = `<div class="err">접근 권한이 없습니다. (토큰/ID 확인)</div>
       <div class="hint">학생/학부모에게는 <b>.../student.html?t=토큰</b> 링크만 보내주세요.</div>`;
       return;
     }
 
     const name = pickName(student);
     const sid = student.id;
+    const tokenToUse = t || tokenOfStudent(student) || "";
 
-    // 2) scores
     const allScores = await fetchJSON("./scores.json");
     const myScores = allScores.filter(x => x.id === sid);
     const latest = latestByRoundOrDate(myScores);
 
-    // subjects + pass count
     const subjects = latest ? getSubjectsFromScoreRow(latest) : [];
     let pass = 0;
     if(latest){
       subjects.forEach(sub=>{
         const v = latest[sub];
-        const ck = cutKeyOf(sub);
-        const cv = latest[ck];
+        const cv = latest[cutKeyOf(sub)];
         if(isNumber(v) && isNumber(cv) && v >= cv) pass++;
       });
     }
-    const total = subjects.length;
 
-    // 3) progress
     let progressEntry = null;
     let progressItems = [];
     try{
@@ -321,30 +261,17 @@
       const mine = Array.isArray(progress) ? progress.filter(p => p.id === sid) : [];
       progressEntry = latestByRoundOrDate(mine);
       progressItems = extractProgressItems(progressEntry);
-    }catch(e){
-      // progress.json 없거나 로딩 실패면 그냥 비움
-    }
-
-    // progress notes(평가/문제점)
-    let progressNotes = [];
-    try{
-      progressNotes = await fetchJSON("./progress_notes.json");
     }catch(e){}
 
-    // 4) build UI
     const latestLine = latest
-      ? `최근 점수: #${escapeHtml(latest.round)} (${escapeHtml(latest.date)}) · 컷 통과 ${pass}/${total}`
+      ? `최근 점수: #${escapeHtml(latest.round)} (${escapeHtml(latest.date)}) · 컷 통과 ${pass}/${subjects.length}`
       : `최근 점수: 데이터 없음`;
 
     const progressChips = progressItems.length
       ? progressItems.map(item=>{
-          // notes 매칭은 topic만 일단 " : 뒤"로 추출해서 맞추는 방식 지원
           const topic = (item.includes(":") ? item.split(":").slice(1).join(":").trim() : item.trim());
-          const note = findProgressNote(progressNotes, sid, topic);
-          const b = note && badgeForStatus(note.status);
-          const badge = b ? `<span class="badge ${b.cls}">${b.text}</span>` : `<span class="badge">확인</span>`;
-          const href = `./progress_detail.html?id=${encodeURIComponent(sid)}&topic=${encodeURIComponent(topic)}&t=${encodeURIComponent(t || tokenOfStudent(student) || "")}`;
-          return `<a class="chip" href="${href}" target="_blank" rel="noopener">${escapeHtml(item)} ${badge}</a>`;
+          const href = `./progress_detail.html?id=${encodeURIComponent(sid)}&topic=${encodeURIComponent(topic)}&t=${encodeURIComponent(tokenToUse)}`;
+          return `<a class="chip" href="${href}" target="_blank" rel="noopener">${escapeHtml(item)} <span class="badge">확인</span></a>`;
         }).join("")
       : `<span class="small">이번 주 진도 데이터가 없습니다.</span>`;
 
@@ -352,10 +279,6 @@
       ? subjects.map(s=>`<span class="chip"><b>${escapeHtml(s)}</b> <span class="small">/ ${maxScoreOf(s)}점</span></span>`).join("")
       : `<span class="small">응시 과목 데이터 없음</span>`;
 
-    // 대학 패널 링크(상향/적정)
-    // univ_list.html이 어떤 파라미터를 쓰든 최소한 id/t는 넘겨두고,
-    // 상향/적정은 hash로 구분(#reach, #fit)해서 나중에 univ_list에서 읽으면 됩니다.
-    const tokenToUse = t || tokenOfStudent(student) || "";
     const reachUrl = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tokenToUse)}#reach`;
     const fitUrl   = `./univ_list.html?id=${encodeURIComponent(sid)}&t=${encodeURIComponent(tokenToUse)}#fit`;
 
@@ -383,7 +306,7 @@
 
           <div class="row" style="margin-top:14px">
             <a class="btn primary" href="#scores">성적 그래프 보기</a>
-            <a class="btn" href="./index.html">목록으로</a>
+            ${admin ? `<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">목록으로</a>` : ``}
           </div>
         </div>
 
@@ -395,8 +318,7 @@
               <a class="btn" href="${fitUrl}" target="_blank" rel="noopener">적정</a>
             </div>
             <div class="hint">
-              * 영어는 절대평가(등급컷), 나머지는 백분위 기준으로 비교하는 구조에 맞게<br/>
-              <b>univ_list.html</b>에서 계산/표시하도록 연결되어 있습니다.
+              * 영어는 절대평가(등급컷), 나머지는 백분위 기준(설정대로).
             </div>
           </div>
         </div>
@@ -410,14 +332,12 @@
       </div>
     `;
 
-    // 5) Score chart area
     const scoreArea = document.getElementById("scoreArea");
     if(!myScores.length){
       scoreArea.innerHTML = `<div class="small">scores.json에 해당 학생(${escapeHtml(sid)}) 기록이 없습니다.</div>`;
       return;
     }
 
-    // sort
     myScores.sort((a,b)=>{
       const ra = Number(a.round ?? -1), rb = Number(b.round ?? -1);
       if(ra !== rb) return ra - rb;
@@ -430,7 +350,6 @@
       return;
     }
 
-    // tabs + canvas
     scoreArea.innerHTML = `
       <div class="tabs" id="tabs"></div>
       <div class="chartWrap">
@@ -473,8 +392,6 @@
         return {xLabel:`#${r.round}`, y};
       }).filter(x => x.y !== null);
 
-      // cuts는 일부 회차만 있을 수 있어도, 길이를 맞추기 위해 "존재하는 값만" 그립니다
-      // (대부분 매회 컷이 있으니 문제 없음)
       drawLineChart(cv, pts, (cuts.length===pts.length ? cuts : null), maxY);
 
       const last = myScores[myScores.length-1];
@@ -490,19 +407,23 @@
     renderTabs();
     renderChart();
 
-    // resize redraw
-    let tmr = null;
+    let tmr=null;
     window.addEventListener("resize", ()=>{
       clearTimeout(tmr);
-      tmr = setTimeout(()=>renderChart(), 150);
+      tmr=setTimeout(()=>renderChart(),150);
     });
   }
 
   main().catch(err=>{
     document.getElementById("app").innerHTML =
-      `<div class="err">로딩 실패</div><div class="hint">${escapeHtml(err.message || String(err))}</div>
-       <div class="hint">특히 GitHub Pages에서는 파일 경로/대소문자/커밋 여부 때문에 404가 자주 납니다.<br/>
-       <b>students.json</b>을 주소창에서 직접 열어 JSON이 보이는지 먼저 확인하세요.</div>`;
+      `<div class="err">로딩 실패</div>
+       <div class="hint">${escapeHtml(err.message || String(err))}</div>
+       <div class="hint">
+         아래 주소를 직접 열었을 때 JSON이 보이는지 확인하세요.<br/>
+         - ./students.json<br/>
+         - ./scores.json<br/>
+         - ./progress.json (있으면)
+       </div>`;
   });
 </script>
 </body>
