@@ -1,11 +1,103 @@
 [
-  {"id":"shstudy01","round":1,"date":"2026-02-07","과목":"수학","학년학기":"중1-1","진도":"소인수분해","메모":"약수/배수 복습"},
-  {"id":"shstudy01","round":1,"date":"2026-02-07","과목":"영어","학년학기":"중2-1","진도":"시제(현재/과거)","메모":"오답 10문장"},
-  {"id":"shstudy01","round":1,"date":"2026-02-07","과목":"국어","학년학기":"중2-1","진도":"비문학 구조독해","메모":""},
-
-  {"id":"shstudy03","round":1,"date":"2026-02-07","과목":"국어","학년학기":"고3","진도":"독서-구조 분석","메모":""},
-  {"id":"shstudy03","round":1,"date":"2026-02-07","과목":"수학","학년학기":"고3","진도":"미적-수열의 극한","메모":"킬러 3문항"},
-  {"id":"shstudy03","round":1,"date":"2026-02-07","과목":"영어","학년학기":"고3","진도":"빈칸 추론","메모":"오답 20문장"},
-  {"id":"shstudy03","round":1,"date":"2026-02-07","과목":"생윤","학년학기":"고3","진도":"칸트 vs 공리주의","메모":"개념+기출"},
-  {"id":"shstudy03","round":1,"date":"2026-02-07","과목":"사문","학년학기":"고3","진도":"계층/불평등 도표","메모":"도표 10개"}
+  {
+    "id": "shstudy01",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"소인수분해","status":"보통"},
+      {"subject":"수학","unit":"일차방정식","status":"부족"},
+      {"subject":"수학","unit":"함수(기초)","status":"보통"},
+      {"subject":"영어","unit":"어휘(빈출)","status":"보통"},
+      {"subject":"영어","unit":"문장구조(5형식)","status":"부족"},
+      {"subject":"국어","unit":"비문학-정보구조","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy02",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"수열(기초)","status":"부족"},
+      {"subject":"수학","unit":"확률(기초)","status":"보통"},
+      {"subject":"영어","unit":"독해-주제/요지","status":"보통"},
+      {"subject":"영어","unit":"독해-빈칸추론","status":"부족"},
+      {"subject":"국어","unit":"문학-서사 분석","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy03",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"미분(기초)","status":"보통"},
+      {"subject":"수학","unit":"적분(기초)","status":"부족"},
+      {"subject":"영어","unit":"독해-순서/삽입","status":"보통"},
+      {"subject":"국어","unit":"비문학-추론","status":"부족"}
+    ]
+  },
+  {
+    "id": "shstudy04",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"이차함수","status":"부족"},
+      {"subject":"수학","unit":"도형의 성질","status":"보통"},
+      {"subject":"영어","unit":"어법-시제/태","status":"부족"},
+      {"subject":"국어","unit":"문법-품사/문장성분","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy05",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"삼각함수","status":"보통"},
+      {"subject":"수학","unit":"수열-점화식","status":"부족"},
+      {"subject":"영어","unit":"독해-문장삽입","status":"보통"},
+      {"subject":"국어","unit":"비문학-근거찾기","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy06",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"지수/로그","status":"보통"},
+      {"subject":"수학","unit":"함수의 극한","status":"부족"},
+      {"subject":"영어","unit":"어휘-파생어/어근","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy07",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"일차함수 그래프","status":"부족"},
+      {"subject":"수학","unit":"연립방정식","status":"부족"},
+      {"subject":"영어","unit":"독해-요약문","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy08",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"확률과 통계-기초","status":"보통"},
+      {"subject":"수학","unit":"경우의 수","status":"부족"},
+      {"subject":"영어","unit":"독해-제목","status":"보통"},
+      {"subject":"국어","unit":"문학-고전시가","status":"부족"}
+    ]
+  },
+  {
+    "id": "shstudy09",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"미적분-개념정리","status":"보통"},
+      {"subject":"수학","unit":"미적분-기출적용","status":"부족"},
+      {"subject":"영어","unit":"독해-빈칸추론","status":"보통"},
+      {"subject":"국어","unit":"비문학-논리구조","status":"보통"}
+    ]
+  },
+  {
+    "id": "shstudy10",
+    "updated": "2026-02-10",
+    "progress": [
+      {"subject":"수학","unit":"수열-등비/등차","status":"보통"},
+      {"subject":"수학","unit":"수열-활용","status":"부족"},
+      {"subject":"영어","unit":"어법-관계사","status":"부족"},
+      {"subject":"국어","unit":"문학-현대시","status":"보통"}
+    ]
+  }
 ]
