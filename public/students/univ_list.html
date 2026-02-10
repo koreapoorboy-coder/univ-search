@@ -38,9 +38,8 @@
     .num{text-align:right}
 
     .status{font-weight:900}
-    .st-safe{color:#1f7a1f}
-    .st-fit{color:#0b57d0}
-    .st-up{color:#b26a00}
+    .st-fit{color:#0b57d0}  /* 적정 */
+    .st-up{color:#b26a00}   /* 상향 */
     .st-bad{color:#b00020}
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
@@ -188,11 +187,11 @@
     box.innerHTML = `<div class="badge">DEBUG ON</div><pre>${esc(JSON.stringify(obj, null, 2))}</pre>`;
   }
 
+  /* ✅ 판정 문구를 2종으로 단순화: 적정(=fit/safe) / 상향(=up/bad) */
   function resultLabel(code){
-    if(code==="safe") return {t:"확보", cls:"st-safe"};
-    if(code==="fit")  return {t:"적정", cls:"st-fit"};
-    if(code==="up")   return {t:"상향", cls:"st-up"};
-    return {t:"부족", cls:"st-bad"};
+    if(code==="fit" || code==="safe") return {t:"적정", cls:"st-fit"};
+    if(code==="up"  || code==="bad")  return {t:"상향", cls:"st-up"};
+    return {t:"-", cls:"st-bad"};
   }
 
   function calcStudentSnapshot(latestRow){
@@ -420,16 +419,14 @@
 
     renderDebug({ sid, latest: roundLabel(latest), snap, univCount: univs.length });
 
-    // 5) 탭
+    // 5) ✅ 탭 3개: 적정(적정+확보) / 상향(상향+부족) / 전체
     const tabs = $("#tabs");
     const tabDefs = [
-      {key:"fit",  label:"적정"},
-      {key:"up",   label:"상향"},
-      {key:"safe", label:"확보"},
-      {key:"bad",  label:"부족"},
-      {key:"all",  label:"전체"},
+      {key:"fitplus", label:"적정"},  // fit + safe
+      {key:"upplus",  label:"상향"},  // up + bad
+      {key:"all",     label:"전체"},
     ];
-    let activeTab = "fit";
+    let activeTab = "fitplus";
 
     tabs.innerHTML = "";
     tabDefs.forEach((tdef)=>{
@@ -456,9 +453,15 @@
 
       let arr = evaluated.slice();
 
-      if(activeTab!=="all"){
-        arr = arr.filter(x=>x._code===activeTab);
+      // ✅ 탭 3개 필터
+      if(activeTab !== "all"){
+        if(activeTab === "fitplus"){
+          arr = arr.filter(x => x._code === "fit" || x._code === "safe");
+        }else if(activeTab === "upplus"){
+          arr = arr.filter(x => x._code === "up" || x._code === "bad");
+        }
       }
+
       if(g!=="__all__"){
         arr = arr.filter(x=>String(x.group)===String(g));
       }
