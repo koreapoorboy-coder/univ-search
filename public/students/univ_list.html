@@ -40,7 +40,6 @@
     .status{font-weight:900}
     .st-fit{color:#0b57d0}  /* 적정 */
     .st-up{color:#b26a00}   /* 상향 */
-    .st-bad{color:#b00020}
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
 
@@ -105,6 +104,10 @@
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
+
+  // ✅ ID/토큰 비교는 대/소문자 차이로 깨지지 않게(특히 SHSTUDY01 문제 방지)
+  const normId = (v) => String(v ?? "").trim().toLowerCase();
+  const normTok = (v) => String(v ?? "").trim().toLowerCase();
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
@@ -187,11 +190,11 @@
     box.innerHTML = `<div class="badge">DEBUG ON</div><pre>${esc(JSON.stringify(obj, null, 2))}</pre>`;
   }
 
-  /* ✅ 판정 문구를 2종으로 단순화: 적정(=fit/safe) / 상향(=up/bad) */
-  function resultLabel(code){
-    if(code==="fit" || code==="safe") return {t:"적정", cls:"st-fit"};
-    if(code==="up"  || code==="bad")  return {t:"상향", cls:"st-up"};
-    return {t:"-", cls:"st-bad"};
+  // ✅ 4단계(확보/적정/상향/부족)를 2단계(적정/상향)로 합침
+  function status2(code){
+    // safe/fit => 적정, up/bad => 상향
+    if(code==="safe" || code==="fit") return {t:"적정", cls:"st-fit"};
+    return {t:"상향", cls:"st-up"};
   }
 
   function calcStudentSnapshot(latestRow){
@@ -238,7 +241,7 @@
     return { ok:true, avg, used, reason:null };
   }
 
-  function classify(avg, cut){
+  function classify4(avg, cut){
     if(avg==null) return "bad";
     const diff = avg - cut;
     if(diff >= 3) return "safe";
@@ -277,11 +280,14 @@
     }
 
     let student = null;
+
+    // ✅ 관리자: id + admin
     if(isAdmin && idParam){
-      student = students.find(s => norm(pickId(s)) === norm(idParam));
+      student = students.find(s => normId(pickId(s)) === normId(idParam));
     }
+    // ✅ 학생/학부모: token
     if(!student && tParam){
-      student = students.find(s => norm(pickToken(s)) === norm(tParam));
+      student = students.find(s => normTok(pickToken(s)) === normTok(tParam));
     }
 
     if(!student){
@@ -294,11 +300,13 @@
       return;
     }
 
-    const sid = norm(pickId(student));
-    const stok = norm(pickToken(student));
+    const sidRaw = pickId(student);
+    const sid = normId(sidRaw); // 내부 비교용(소문자)
+    const sidShow = String(sidRaw ?? "");
+    const stok = String(pickToken(student) ?? "");
     const name = pickName(student);
 
-    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)}) <span class="badge muted">v2026-02-10</span>`;
+    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sidShow)}) <span class="badge muted">v2026-02-10</span>`;
     $("#meta").innerHTML = `
       학교: ${esc(student.school||"-")}<br>
       진로: ${esc(student.career||"-")}<br>
@@ -309,7 +317,7 @@
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
     const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./student.html?id=${encodeURIComponent(sidShow)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 상세로</a>`);
@@ -332,7 +340,7 @@
     }
 
     const rows = scores
-      .filter(r => norm(pickId(r)) === sid)
+      .filter(r => normId(pickId(r)) === sid)
       .sort((a,b)=>{
         const ra = pickRound(a), rb = pickRound(b);
         if(ra!=null && rb!=null) return ra-rb;
@@ -345,7 +353,7 @@
       $("#content").innerHTML = `
         <div class="card">
           <div class="warn">성적 데이터 없음</div>
-          <div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
+          <div class="muted">scores.json에서 id=${esc(sidShow)} 데이터를 찾지 못했습니다.</div>
         </div>
       `;
       return;
@@ -390,7 +398,7 @@
     $("#controls").style.display = "flex";
     $("#tabs").style.display = "flex";
 
-    // 4) 판정 계산
+    // 4) 판정 계산(4단계 내부 계산은 유지)
     const evaluated = univs.map(u=>{
       const rule = u.rule || {};
       const cut = toNum(u.cut_pct);
@@ -402,7 +410,7 @@
       const engGrade = snap.engGrade;
       const okEng = (engMax==null || engGrade==null) ? true : (engGrade <= engMax);
 
-      const code = (rv.ok && cut!=null && okEng) ? classify(avg, cut) : "bad";
+      const code4 = (rv.ok && cut!=null && okEng) ? classify4(avg, cut) : "bad";
 
       return {
         ...u,
@@ -413,20 +421,20 @@
         _engGrade: engGrade,
         _engMax: engMax,
         _okEng: okEng,
-        _code: code
+        _code4: code4
       };
     });
 
-    renderDebug({ sid, latest: roundLabel(latest), snap, univCount: univs.length });
+    renderDebug({ sidShow, latest: roundLabel(latest), snap, univCount: univs.length });
 
-    // 5) ✅ 탭 3개: 적정(적정+확보) / 상향(상향+부족) / 전체
+    // 5) 탭: ✅ 적정 / 상향 / 전체
     const tabs = $("#tabs");
     const tabDefs = [
-      {key:"fitplus", label:"적정"},  // fit + safe
-      {key:"upplus",  label:"상향"},  // up + bad
-      {key:"all",     label:"전체"},
+      {key:"fit",  label:"적정"}, // = fit+safe
+      {key:"up",   label:"상향"}, // = up+bad
+      {key:"all",  label:"전체"},
     ];
-    let activeTab = "fitplus";
+    let activeTab = "fit";
 
     tabs.innerHTML = "";
     tabDefs.forEach((tdef)=>{
@@ -446,6 +454,13 @@
 
     const qInput = $("#q");
 
+    function inTab(code4){
+      if(activeTab==="all") return true;
+      if(activeTab==="fit") return (code4==="fit" || code4==="safe");
+      if(activeTab==="up")  return (code4==="up"  || code4==="bad");
+      return true;
+    }
+
     function render(){
       const q = norm(qInput.value).toLowerCase();
       const g = groupSel.value;
@@ -453,14 +468,7 @@
 
       let arr = evaluated.slice();
 
-      // ✅ 탭 3개 필터
-      if(activeTab !== "all"){
-        if(activeTab === "fitplus"){
-          arr = arr.filter(x => x._code === "fit" || x._code === "safe");
-        }else if(activeTab === "upplus"){
-          arr = arr.filter(x => x._code === "up" || x._code === "bad");
-        }
-      }
+      arr = arr.filter(x => inTab(x._code4));
 
       if(g!=="__all__"){
         arr = arr.filter(x=>String(x.group)===String(g));
@@ -487,12 +495,14 @@
         const cut = toNum(u.cut_pct);
         const avg = u._avg;
         const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
-        const rl = resultLabel(u._code);
+
+        const st = status2(u._code4);
+
         const usedText = (u._used||[]).map(x=>`${x.name}:${(x.value?.toFixed?x.value.toFixed(1):x.value)}`).join(" / ");
 
         return `
           <tr>
-            <td class="status ${rl.cls}">${esc(rl.t)}</td>
+            <td class="status ${st.cls}">${esc(st.t)}</td>
             <td>${esc(u.year)}</td>
             <td>${esc(u.univ||"-")}</td>
             <td>${esc(u.major||"-")}</td>
@@ -513,7 +523,8 @@
         const cut = toNum(u.cut_pct);
         const avg = u._avg;
         const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
-        const rl = resultLabel(u._code);
+
+        const st = status2(u._code4);
 
         const diffText = diff==null ? "-" : (diff>0?`+${diff.toFixed(1)}`:diff.toFixed(1));
         const ruleStr = ruleText(u.rule);
@@ -525,7 +536,7 @@
                 <div class="mobile-title">${esc(u.univ||"-")} · ${esc(u.major||"-")}</div>
                 <div class="mobile-sub">${esc(u.year)} · ${esc(u.group||"-")} · ${esc(ruleStr)}</div>
               </div>
-              <div class="status ${rl.cls}" style="white-space:nowrap">${esc(rl.t)}</div>
+              <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
             </div>
 
             <hr class="sep"/>
