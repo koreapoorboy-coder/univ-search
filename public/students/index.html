@@ -64,6 +64,17 @@
       return s.token ?? s.accessToken ?? s.key ?? s.pass ?? s.pw ?? s["token"] ?? s["토큰"] ?? null;
     }
 
+    // ✅ 상대경로가 아니라 "전체 URL" 생성
+    // - index.html이 있는 폴더(./) 기준으로 student.html 절대주소 생성
+    function absUrl(fileName, params){
+      const base = new URL(".", location.href);      // .../public/students/
+      const u = new URL(fileName, base);             // .../public/students/student.html
+      for(const [k,v] of Object.entries(params||{})){
+        if(v!=null && String(v).length) u.searchParams.set(k, v);
+      }
+      return u.toString();
+    }
+
     function gateKeep(){
       const admin = qs("admin");
       if(!admin || admin !== ADMIN_TOKEN){
@@ -132,9 +143,9 @@
         const studentAdminHref = `./student.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
         const univAdminHref    = `./univ_list.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
 
-        // ✅ 학부모/학생 링크(있으면 제공) : t=토큰
-        const studentPublicHref = token ? `./student.html?t=${encodeURIComponent(token)}` : null;
-        const univPublicHref    = token ? `./univ_list.html?t=${encodeURIComponent(token)}` : null;
+        // ✅ 학부모/학생 링크: "성적 링크만"
+        // - 전체 URL로 보여주기/복사하기
+        const studentPublicAbs = token ? absUrl("student.html", { t: token }) : null;
 
         return `
           <div class="card">
@@ -157,14 +168,12 @@
                   ${
                     token
                     ? `
-                      <div class="small">학생에게는 아래 링크만 보내는 것을 권장합니다.</div>
+                      <div class="small">학생에게는 아래 <b>성적 링크</b>만 보내는 것을 권장합니다.</div>
                       <div style="margin-top:10px">
-                        <button class="copy" onclick="copyText('${studentPublicHref}')">성적 링크 복사</button>
-                        <button class="copy" onclick="copyText('${univPublicHref}')">대학 링크 복사</button>
+                        <button class="copy" onclick="copyText('${studentPublicAbs}')">성적 링크 복사</button>
                       </div>
                       <div class="small" style="margin-top:10px">
-                        성적: <span class="muted">${studentPublicHref}</span><br/>
-                        대학: <span class="muted">${univPublicHref}</span>
+                        성적: <span class="muted">${studentPublicAbs}</span>
                       </div>
                     `
                     : `
