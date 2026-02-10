@@ -1,156 +1,330 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>진도 상세</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px}
-    .wrap{max-width:920px}
-    .card{border:1px solid #ddd;border-radius:16px;padding:16px;background:#fff}
-    h1{margin:0 0 10px}
-    .meta{color:#555;line-height:1.8}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
-    .pill{display:inline-block;border:2px solid #111;border-radius:999px;padding:8px 14px;font-weight:900;background:#fff}
-    .badge{font-weight:900;font-size:12px;border:1px solid #ddd;border-radius:999px;padding:3px 8px;background:#f7f7f7}
-    .ok{color:#0a7;border-color:#0a7;background:#f1fff9}
-    .mid{color:#555}
-    .up{color:#b86b00;border-color:#b86b00;background:#fff8ee}
-    .bad{color:#b00020;border-color:#b00020;background:#fff1f3}
-    .btn{display:inline-block;text-decoration:none;border:2px solid #111;padding:10px 14px;border-radius:14px;font-weight:900;background:#fff}
-    .btn:hover{background:#111;color:#fff}
-    .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fafafa;margin-top:10px;line-height:1.8}
-    .small{font-size:12px;opacity:.75;line-height:1.6}
+    html,body{width:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;background:#fff;color:#111}
+    .wrap{max-width:1100px;margin:0 auto}
+    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:14px 0;background:#fff}
+    .title{font-size:22px;font-weight:900;margin:0 0 10px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .meta{opacity:.85;line-height:1.7}
+    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
+    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:800;background:#fff}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .btn:hover{background:#fafafa}
+    .warn{color:#b00020;font-weight:900}
+    .muted{opacity:.7}
+
+    /* filters */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    select{border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700}
+    option{font-weight:700}
+
+    /* list */
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+    @media(min-width:860px){.grid{grid-template-columns:1fr 1fr}}
+    .grid > *{min-width:0}
+
+    .group{border:1px solid #eee;border-radius:16px;padding:12px}
+    .group h3{margin:0 0 10px;font-size:16px;font-weight:900}
+    .item{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid #eee;border-radius:14px;padding:10px 12px;margin:8px 0;cursor:pointer}
+    .item:hover{background:#fafafa}
+    .left{min-width:0}
+    .unit{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    .status{flex:0 0 auto}
+    .s-good{border-color:#1f7a1f}
+    .s-mid{border-color:#666}
+    .s-bad{border-color:#b00020}
+
+    /* modal */
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(0,0,0,.45);
+      display:none;align-items:center;justify-content:center;padding:16px;z-index:9999;
+    }
+    .modal{
+      width:min(720px, 100%);
+      background:#fff;border-radius:18px;border:1px solid #ddd;
+      padding:14px;
+    }
+    .modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+    .modal-title{font-size:16px;font-weight:900;min-width:0}
+    .xbtn{border:1px solid #111;border-radius:12px;background:#fff;padding:8px 10px;cursor:pointer;font-weight:900}
+    .xbtn:hover{background:#fafafa}
+    .kv{margin-top:10px;border-top:1px solid #eee;padding-top:10px;line-height:1.7}
+    .kv b{display:block;margin-top:8px}
+    .hr{height:1px;background:#eee;margin:10px 0}
   </style>
 </head>
 <body>
 <div class="wrap">
+
   <div class="card">
-    <h1 id="title">로딩중…</h1>
+    <div class="title" id="hdr">진도 상세</div>
     <div class="meta" id="meta"></div>
 
-    <div class="row" style="margin-top:14px">
-      <span class="pill">평가</span>
-      <span id="statusBadge" class="badge mid">미평가</span>
-    </div>
+    <div class="row" id="modeRow" style="margin-top:10px;"></div>
 
-    <div class="box" id="detailBox"></div>
+    <div class="row" id="navRow" style="margin-top:10px;"></div>
 
-    <div class="row" style="margin-top:14px">
-      <a class="btn" id="backBtn" href="#">학생 화면으로</a>
-      <a class="btn" href="javascript:window.close()">창 닫기</a>
+    <div class="filters" id="filters" style="display:none;">
+      <select id="subjectFilter">
+        <option value="__all__">전체 과목</option>
+      </select>
+      <select id="statusFilter">
+        <option value="__all__">전체 상태</option>
+        <option value="잘함">잘함</option>
+        <option value="보통">보통</option>
+        <option value="부족">부족</option>
+      </select>
     </div>
-    <div class="small">※ 이 페이지는 선생님이 입력한 “문제/원인”을 바탕으로 상담용으로 쓰기 좋게 구성되어 있습니다.</div>
+  </div>
+
+  <div id="content"></div>
+
+</div>
+
+<!-- modal -->
+<div class="modal-backdrop" id="backdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-title" id="mTitle"></div>
+      <button class="xbtn" id="mClose">닫기</button>
+    </div>
+    <div class="hr"></div>
+    <div id="mBody" class="kv"></div>
   </div>
 </div>
 
 <script>
+(() => {
+  // ✅ student.html 과 동일하게 맞춰야 함
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+
   const qs = new URLSearchParams(location.search);
-  const studentId = qs.get("id")||"";
-  const token = qs.get("t")||"";
-  const round = qs.get("round")||"";
-  const subjectQ = qs.get("subject")||"";
-  const topicQ = qs.get("topic")||"";
+  const admin = qs.get("admin");
+  const idParam = qs.get("id");
+  const tParam = qs.get("t") || qs.get("token");
 
-  const esc = (s)=> String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  const norm = (s)=> String(s ?? "").trim().toLowerCase();
+  const $ = (s)=>document.querySelector(s);
+  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
 
-  async function fetchJSON(path){
-    const r = await fetch(path,{cache:"no-store"});
-    if(!r.ok) throw new Error("fetch fail "+path);
-    return await r.json();
+  async function loadJson(path){
+    const r = await fetch(path, { cache:"no-store" });
+    if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
+    return r.json();
   }
 
-  function statusClass(status){
-    const s = String(status||"").trim();
-    if (!s) return "mid";
-    if (s.includes("잘")) return "ok";
-    if (s.includes("보통")) return "mid";
-    if (s.includes("보완") || s.includes("위험")) return "bad";
-    return "up";
+  function pickName(s){
+    return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
+  }
+  function pickId(s){
+    return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null;
+  }
+  function pickToken(s){
+    return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null;
   }
 
-  function getNoteFields(n){
-    return {
-      subject: n.subject ?? n["과목"] ?? "",
-      topic: n.topic ?? n["진도"] ?? n["진도(단원/주제)"] ?? "",
-      status: n.status ?? n["평가"] ?? "",
-      summary: n.summary ?? n["문제요약"] ?? n["문제요약(한줄)"] ?? "",
-      cause: n.cause ?? n["원인"] ?? "",
-      action: n.action ?? n["보완전략"] ?? n["개선방향"] ?? ""
-    };
+  function statusClass(st){
+    if(st==="잘함") return "s-good";
+    if(st==="부족") return "s-bad";
+    return "s-mid";
   }
 
-  async function requireAuth(){
-    if(!studentId || !token){
-      document.body.innerHTML = "<h2>접근 권한이 없습니다.</h2>";
-      throw new Error("unauthorized");
-    }
-    const students = await fetchJSON("./students.json");
-    const st = (students||[]).find(x=>x.id===studentId);
-    if(!st || String(st.token||"") !== String(token)){
-      document.body.innerHTML = "<h2>접근 권한이 없습니다.</h2>";
-      throw new Error("unauthorized");
-    }
-    return st;
+  // modal
+  const backdrop = $("#backdrop");
+  const mTitle = $("#mTitle");
+  const mBody = $("#mBody");
+  $("#mClose").addEventListener("click", ()=> backdrop.style.display="none");
+  backdrop.addEventListener("click", (e)=>{ if(e.target===backdrop) backdrop.style.display="none"; });
+
+  function openModal(title, html){
+    mTitle.textContent = title;
+    mBody.innerHTML = html;
+    backdrop.style.display = "flex";
   }
 
   async function main(){
-    const st = await requireAuth();
-    document.getElementById("backBtn").href = `./student.html?id=${encodeURIComponent(studentId)}&t=${encodeURIComponent(token)}&round=${encodeURIComponent(round)}`;
+    // 1) 학생 식별: admin+id 또는 t(token)
+    const students = await loadJson("./students.json");
 
-    const notes = await fetchJSON("./progress_notes.json").catch(()=>[]);
-    const cand = (notes||[]).filter(n => String(n.id)===String(studentId) && String(n.round)===String(round));
+    const isAdmin = (admin === ADMIN_TOKEN);
 
-    // subject+topic 최대한 매칭
-    const sKey = norm(subjectQ), tKey = norm(topicQ);
-    let pick = null;
-
-    for(const n of cand){
-      const f = getNoteFields(n);
-      if(norm(f.subject)===sKey && (norm(f.topic)===tKey || norm(f.topic).includes(tKey) || tKey.includes(norm(f.topic)))) { pick=n; break; }
+    let student = null;
+    if(isAdmin && idParam){
+      student = students.find(s => String(pickId(s)) === String(idParam));
     }
-    if(!pick){
-      for(const n of cand){
-        const f = getNoteFields(n);
-        if(norm(f.subject)===sKey) { pick=n; break; }
-      }
+    if(!student && tParam){
+      student = students.find(s => String(pickToken(s)) === String(tParam));
     }
 
-    const title = `${subjectQ || "진도"} · #${round}`;
-    document.getElementById("title").textContent = title;
-    document.getElementById("meta").innerHTML =
-      `학생: <b>${esc(st.studentname||st.studentName||st.name||st.id||"-")}</b><br/>학교: <b>${esc(st.school||"-")}</b><br/>진도: <b>${esc(topicQ||"-")}</b>`;
-
-    const badge = document.getElementById("statusBadge");
-    const box = document.getElementById("detailBox");
-
-    if(!pick){
-      badge.textContent = "미평가";
-      badge.className = "badge mid";
-      box.innerHTML = `
-        <b>아직 평가/메모가 없습니다.</b><br/>
-        - progress_notes.json에 (id, round, 과목, 진도) 기준으로 평가/문제요약/원인을 입력하면 이 화면에 표시됩니다.
+    if(!student){
+      $("#hdr").textContent = "접근 권한이 없습니다.";
+      $("#meta").innerHTML = `
+        <div class="warn">학생을 찾을 수 없습니다.</div>
+        <div class="muted">관리자: progress_detail.html?id=학생ID&admin=관리자토큰 / 학생: progress_detail.html?t=개별토큰</div>
       `;
       return;
     }
 
-    const f = getNoteFields(pick);
-    const cls = statusClass(f.status);
-    badge.textContent = f.status || "미평가";
-    badge.className = `badge ${cls}`;
+    const sid = pickId(student);
+    const stok = pickToken(student);
+    const name = pickName(student);
 
-    box.innerHTML = `
-      <b>문제 요약</b><br/>
-      ${esc(f.summary || "—")}<br/><br/>
-      <b>원인(왜 막혔나)</b><br/>
-      ${esc(f.cause || "—")}<br/><br/>
-      <b>보완/다음 액션</b><br/>
-      ${esc(f.action || "—")}
+    // header
+    $("#hdr").textContent = `진도 상세 · ${name}${sid ? " ("+sid+")" : ""}`;
+    $("#meta").innerHTML = `
+      학교: ${esc(student.school||"-")}<br>
+      진로: ${esc(student.career||"-")}<br>
+      전형: ${esc(student.admission||"-")}
     `;
+
+    // mode pill
+    $("#modeRow").innerHTML = isAdmin
+      ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
+      : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
+
+    // nav buttons
+    const studentHref = isAdmin
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./student.html?t=${encodeURIComponent(stok)}`;
+
+    const nav = [];
+    nav.push(`<a class="btn" href="${studentHref}">← 학생 상세로</a>`);
+    if(isAdmin){
+      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+    }
+    $("#navRow").innerHTML = nav.join("");
+
+    // 2) progress / notes 로딩
+    const progressAll = await loadJson("./progress.json");
+    const notesAll = await loadJson("./progress_notes.json");
+
+    const rec = (Array.isArray(progressAll) ? progressAll : []).find(x => String(x.id)===String(sid));
+    const items = rec?.progress || [];
+    const updated = rec?.updated || "-";
+
+    if(!items.length){
+      $("#content").innerHTML = `
+        <div class="card">
+          <div class="warn">진도 데이터가 없습니다.</div>
+          <div class="muted">progress.json에 id=${esc(sid)} 항목이 있는지 확인하세요.</div>
+        </div>
+      `;
+      return;
+    }
+
+    // filters show
+    $("#filters").style.display = "flex";
+
+    // subject list
+    const subjects = [...new Set(items.map(x=>x.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ko"));
+    const subjSel = $("#subjectFilter");
+    subjects.forEach(s=>{
+      const o = document.createElement("option");
+      o.value = s; o.textContent = s;
+      subjSel.appendChild(o);
+    });
+
+    const statusSel = $("#statusFilter");
+
+    // group rendering
+    function render(){
+      const subj = subjSel.value;
+      const st = statusSel.value;
+
+      const filtered = items.filter(x=>{
+        const okSubj = (subj==="__all__" ? true : x.subject===subj);
+        const okSt = (st==="__all__" ? true : x.status===st);
+        return okSubj && okSt;
+      });
+
+      const bySubject = {};
+      filtered.forEach(x=>{
+        bySubject[x.subject] = bySubject[x.subject] || [];
+        bySubject[x.subject].push(x);
+      });
+
+      const content = $("#content");
+      content.innerHTML = `
+        <div class="card">
+          <div class="row">
+            <span class="badge">업데이트: ${esc(updated)}</span>
+            <span class="badge muted">표시 항목: ${filtered.length}개</span>
+          </div>
+          <div class="muted">단원을 클릭하면 “잘함/부족/문제점/개선” 코멘트를 팝업으로 봅니다.</div>
+        </div>
+      `;
+
+      const grid = document.createElement("div");
+      grid.className = "grid";
+
+      Object.keys(bySubject).sort((a,b)=>a.localeCompare(b,"ko")).forEach(sub=>{
+        const group = document.createElement("div");
+        group.className = "group";
+        group.innerHTML = `<h3>${esc(sub)}</h3>`;
+
+        bySubject[sub].forEach(it=>{
+          const unit = it.unit || "-";
+          const status = it.status || "보통";
+
+          const row = document.createElement("div");
+          row.className = "item";
+          row.innerHTML = `
+            <div class="left">
+              <div class="unit">${esc(unit)}</div>
+              <div class="muted" style="font-size:12px;">상태: ${esc(status)}</div>
+            </div>
+            <div class="badge status ${statusClass(status)}">${esc(status)}</div>
+          `;
+
+          row.addEventListener("click", ()=>{
+            const note = (Array.isArray(notesAll)?notesAll:[]).find(n =>
+              String(n.id)===String(sid) &&
+              String(n.subject)===String(sub) &&
+              String(n.unit)===String(unit)
+            );
+
+            if(note){
+              openModal(`${sub} · ${unit}`, `
+                <div><span class="badge ${statusClass(note.level||status)}">${esc(note.level||status)}</span></div>
+                <b>잘한 점</b><div>${esc(note.good||"-")}</div>
+                <b>부족한 점</b><div>${esc(note.bad||"-")}</div>
+                <b>개선 방법</b><div>${esc(note.fix||"-")}</div>
+              `);
+            }else{
+              openModal(`${sub} · ${unit}`, `
+                <div><span class="badge ${statusClass(status)}">${esc(status)}</span></div>
+                <b>코멘트</b>
+                <div class="muted">등록된 코멘트가 없습니다. (progress_notes.json에 추가하면 여기에 표시됩니다.)</div>
+              `);
+            }
+          });
+
+          group.appendChild(row);
+        });
+
+        grid.appendChild(group);
+      });
+
+      content.appendChild(grid);
+    }
+
+    subjSel.addEventListener("change", render);
+    statusSel.addEventListener("change", render);
+
+    render();
   }
 
-  main().catch(()=>{});
+  main().catch(err=>{
+    $("#hdr").textContent = "오류";
+    $("#meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
+  });
+})();
 </script>
 </body>
 </html>
