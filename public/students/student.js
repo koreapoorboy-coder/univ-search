@@ -1,3 +1,13 @@
+/* public/students/student.js
+   - 학생 상세: 회차별 점수 + 컷 점수(있는 경우) 그래프/표 표시
+   - 학생마다 과목 구성이 달라도 "있는 과목만" 탭/그래프 표시
+   - ✅ 모바일에서 그래프/표가 화면 밖으로 나가는 문제 해결:
+     1) grid item min-width:0
+     2) tablebox overflow-x:auto + max-width:100%
+     3) html/body overflow-x:hidden
+   - ✅ 모바일 x축 라벨 짧게(#1 형태) 표시
+*/
+
 (() => {
   const $ = (sel) => document.querySelector(sel);
   const esc = (s) =>
@@ -10,15 +20,17 @@
     }[m]));
 
   const qs = new URLSearchParams(location.search);
-  const id = qs.get("id");
+  const id = qs.get("id"); // student.html이 내부적으로 id를 붙여주므로 보통 존재
   const t = qs.get("t") || qs.get("token");
 
+  // ---------- helpers: JSON load ----------
   async function loadJson(path) {
     const r = await fetch(path, { cache: "no-store" });
     if (!r.ok) throw new Error(`${path} load failed (${r.status})`);
     return r.json();
   }
 
+  // ---------- helpers: flexible field picking ----------
   function pickId(x) {
     return x?.id ?? x?.studentId ?? x?.studentID ?? x?.["학생ID"] ?? x?.["ID"] ?? null;
   }
@@ -30,6 +42,7 @@
     return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null;
   }
 
+  // 점수키 후보에서 제외할 키들
   const META_KEYS = new Set([
     "id", "studentId", "studentID", "ID", "학생ID",
     "name", "학생명", "이름", "성명",
@@ -37,20 +50,29 @@
     "date", "Date", "날짜", "일자",
   ]);
 
+  // 컷 키 탐색: "국어컷", "국어_cut", "국어Cut", "cut_국어" 등
   function findCutKey(obj, subjectKey) {
     const keys = Object.keys(obj || {});
     const s = subjectKey;
 
     const candidates = [
-      `${s}컷`, `${s}_cut`, `${s}Cut`, `${s}cut`,
-      `cut_${s}`, `Cut_${s}`, `CUT_${s}`,
-      `${s}_컷`, `${s}기준`, `${s}기준점`,
+      `${s}컷`,
+      `${s}_cut`,
+      `${s}Cut`,
+      `${s}cut`,
+      `cut_${s}`,
+      `Cut_${s}`,
+      `CUT_${s}`,
+      `${s}_컷`,
+      `${s}기준`,
+      `${s}기준점`,
     ];
 
     for (const c of candidates) {
       if (keys.includes(c)) return c;
     }
 
+    // 느슨한 탐색(포함)
     const loose = keys.find(
       (k) => k !== s && k.includes(s) && (k.includes("컷") || k.toLowerCase().includes("cut"))
     );
@@ -63,6 +85,7 @@
     return Number.isFinite(n) ? n : null;
   }
 
+  // ---------- Chart.js loader ----------
   function ensureChartJs() {
     return new Promise((resolve) => {
       if (window.Chart) return resolve(true);
@@ -74,9 +97,14 @@
     });
   }
 
+  // ---------- UI ----------
   function injectStyles() {
     const st = document.createElement("style");
     st.textContent = `
+      /* ✅ 모바일 오버플로(가로 밀림) 원천 차단 */
+      html, body { width:100%; overflow-x:hidden; }
+      *, *::before, *::after { box-sizing:border-box; }
+
       .score-card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:14px 0;background:#fff}
       .score-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
       .score-title{font-size:18px;font-weight:900}
@@ -86,38 +114,35 @@
       .panel{display:none}
       .panel.active{display:block}
 
-      /* ✅ 2열 레이아웃 */
+      /* ✅ 2열 레이아웃(모바일 1열) */
       .grid{
         display:grid;
         grid-template-columns: 1fr;
         gap:12px;
-        align-items:start; /* 표 높이에 맞춰 그래프가 늘어나는 것 방지 */
+        align-items:start;
       }
-      grid > * { min-width: 0; }
+      .grid > * { min-width:0; } /* ✅ 핵심: 그리드 아이템이 줄어들 수 있게 */
       @media(min-width: 860px){ .grid{grid-template-columns: 1.1fr .9fr} }
-      tablebox{
-  border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;
-  min-width:0;}
 
-      /* ✅ 핵심: 차트 박스 자체 높이를 고정(이러면 절대 무한히 늘지 않음) */
+      /* ✅ 차트 박스 높이 고정(표 길어져도 그래프는 고정 높이) */
       .chartbox{
         border:1px solid #eee;border-radius:14px;padding:12px;
-        height:340px;                 /* ← 여기로 고정 */
+        height:340px;
         display:flex;flex-direction:column;
+        max-width:100%;
       }
-      .chart-area{
-        flex:1;                       /* 남은 공간 채움 */
-        min-height:0;                 /* flex에서 overflow 계산 안정 */
-      }
-      .chart-area canvas{
-        width:100% !important;
-        height:100% !important;
-        display:block;
-      }
+      .chart-area{flex:1;min-height:0;}
+      .chart-area canvas{width:100% !important;height:100% !important;display:block;}
 
-      .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto}
+      /* ✅ 표는 카드 내부에서만 가로 스크롤 */
+      .tablebox{
+        border:1px solid #eee;border-radius:14px;padding:12px;
+        overflow-x:auto; overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        width:100%; max-width:100%;
+      }
       table{border-collapse:collapse;width:100%;min-width:520px}
-      th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px}
+      th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
       th{background:#fafafa;font-weight:900;position:sticky;top:0}
       .num{text-align:right}
       .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:800;background:#fff}
@@ -147,8 +172,16 @@
     return `회차`;
   }
 
+  function shortRoundLabel(row) {
+    const r = pickRound(row);
+    if (r != null) return `#${r}`;
+    const d = pickDate(row);
+    return d ? String(d) : `회차`;
+  }
+
+  // 과목명 정렬(국/수/영 우선 + 그 외 가나다)
   function sortSubjects(arr) {
-    const priority = ["국어", "수학", "영어", "한국사", "통합사회", "통합과학", "사문", "생윤"];
+    const priority = ["국어", "수학", "영어", "한국사", "통합사회", "통합과학", "사문", "생윤", "물리", "화학", "생명", "지구"];
     return arr.slice().sort((a, b) => {
       const ia = priority.findIndex(p => a.includes(p));
       const ib = priority.findIndex(p => b.includes(p));
@@ -163,8 +196,8 @@
     for (const row of rows) {
       for (const k of Object.keys(row || {})) {
         if (META_KEYS.has(k)) continue;
+        // 컷 키는 과목으로 취급하지 않음(본점수 키만 과목)
         if (k.includes("컷") || k.toLowerCase().includes("cut")) continue;
-
         const v = toNum(row[k]);
         if (v != null) subjects.add(k);
       }
@@ -181,14 +214,16 @@
         const cut = cutKey ? toNum(row[cutKey]) : null;
 
         points.push({
-          label: roundLabel(row),
+          label: roundLabel(row),       // "#1 (2026-02-07)"
+          short: shortRoundLabel(row),  // "#1"
           score,
           cut,
         });
       }
-      if (points.some(p => p.score != null || p.cut != null)) series[sub] = points;
+      if (points.some(p => p.score != null || p.cut != null)) {
+        series[sub] = points;
+      }
     }
-
     return series;
   }
 
@@ -268,7 +303,9 @@
   }
 
   function drawChart(canvas, points) {
-    const labels = points.map(p => p.label);
+    const isMobile = window.matchMedia("(max-width: 520px)").matches;
+
+    const labels = points.map(p => (isMobile ? p.short : p.label));
     const studentData = points.map(p => (p.score == null ? null : p.score));
     const cutData = points.map(p => (p.cut == null ? null : p.cut));
 
@@ -292,10 +329,16 @@
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false, // chartbox 고정 높이를 그대로 사용
+        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             callbacks: {
+              title: (items) => {
+                const idx = items?.[0]?.dataIndex;
+                if (idx == null) return "";
+                // 모바일에서도 툴팁은 상세 라벨로
+                return points[idx].label;
+              },
               afterBody: (items) => {
                 const idx = items?.[0]?.dataIndex;
                 if (idx == null) return "";
@@ -309,6 +352,13 @@
           }
         },
         scales: {
+          x: {
+            ticks: {
+              autoSkip: true,
+              maxRotation: 0,
+              minRotation: 0,
+            }
+          },
           y: { suggestedMin: yMin, suggestedMax: yMax, ticks: { stepSize: 5 } }
         }
       }
@@ -326,6 +376,7 @@
       return;
     }
 
+    // scores.json 로딩
     let scores;
     try {
       scores = await loadJson("./scores.json");
@@ -339,6 +390,7 @@
       return;
     }
 
+    // 해당 학생 레코드 필터링
     const rows = scores
       .filter(r => String(pickId(r)) === String(id))
       .map(r => ({ ...r }))
@@ -360,6 +412,12 @@
     const series = buildSubjectSeries(rows);
     const subjects = Object.keys(series);
 
+    if (!subjects.length) {
+      renderError(detail, "표시할 과목 없음", "scores.json에 숫자 점수 데이터가 없습니다.");
+      return;
+    }
+
+    // 상단 요약
     const latest = rows[rows.length - 1];
     const topCard = document.createElement("div");
     topCard.className = "score-card";
@@ -373,6 +431,7 @@
     `;
     detail.appendChild(topCard);
 
+    // 탭 + 패널
     const card = document.createElement("div");
     card.className = "score-card";
     detail.appendChild(card);
