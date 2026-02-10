@@ -93,7 +93,11 @@
         gap:12px;
         align-items:start; /* 표 높이에 맞춰 그래프가 늘어나는 것 방지 */
       }
+      grid > * { min-width: 0; }
       @media(min-width: 860px){ .grid{grid-template-columns: 1.1fr .9fr} }
+      tablebox{
+  border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;
+  min-width:0;}
 
       /* ✅ 핵심: 차트 박스 자체 높이를 고정(이러면 절대 무한히 늘지 않음) */
       .chartbox{
