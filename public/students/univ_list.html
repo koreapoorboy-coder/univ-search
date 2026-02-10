@@ -20,11 +20,26 @@
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    input, select{
+      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;
+      width:min(340px, 100%);
+    }
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
+    .tab[aria-selected="true"]{background:#111;color:#fff}
+
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
-    table{border-collapse:collapse;width:100%;min-width:680px}
+    table{border-collapse:collapse;width:100%;min-width:860px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
     th{background:#fafafa;font-weight:900;position:sticky;top:0}
     .num{text-align:right}
+    .status{font-weight:900}
+    .st-safe{color:#1f7a1f}
+    .st-fit{color:#0b57d0}
+    .st-up{color:#b26a00}
+    .st-bad{color:#b00020}
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
   </style>
@@ -36,6 +51,19 @@
     <div class="meta" id="meta"></div>
     <div class="row" id="modeRow"></div>
     <div class="row" id="navRow"></div>
+
+    <div class="controls" id="controls" style="display:none;">
+      <input id="q" placeholder="대학/학과 검색 (예: 샘플대, 컴퓨터)" />
+      <select id="groupSel">
+        <option value="__all__">전체 계열</option>
+      </select>
+      <select id="yearSel">
+        <option value="__all__">전체 연도</option>
+      </select>
+    </div>
+
+    <div class="tabs" id="tabs" style="display:none;"></div>
+
     <div id="debugBox" style="display:none;margin-top:10px;"></div>
   </div>
 
@@ -46,11 +74,10 @@
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
+  const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
   const debug = qs.get("debug") === "1";
-
-  const norm = (v) => String(v ?? "").trim();
 
   const adminParam = qs.get("admin");
   const adminSaved = localStorage.getItem(LS_KEY);
@@ -75,6 +102,47 @@
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
+  function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; return v==null?null:Number(v); }
+  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
+
+  const META_KEYS = new Set(["id","studentId","studentID","ID","학생ID","name","학생명","이름","성명","round","Round","회차","차수","date","Date","날짜","일자"]);
+
+  function toNum(v){
+    if(v==null || v==="") return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  // 컷 키 찾기 (영어컷 등)
+  function findCutKey(obj, subjectKey){
+    const keys = Object.keys(obj||{});
+    const s = subjectKey;
+    const candidates = [`${s}컷`,`${s}_cut`,`${s}Cut`,`${s}cut`,`cut_${s}`,`CUT_${s}`,`${s}_컷`];
+    for(const c of candidates){ if(keys.includes(c)) return c; }
+    const loose = keys.find(k => k !== s && k.includes(s) && (k.includes("컷") || k.toLowerCase().includes("cut")));
+    return loose || null;
+  }
+
+  // 영어 등급: (데모용) 1등급 컷 기준으로 간단 추정
+  function guessGradeFromCut(score, cut1){
+    if(score==null) return null;
+    if(cut1==null){
+      // fallback
+      if(score>=90) return 1;
+      if(score>=80) return 2;
+      if(score>=70) return 3;
+      if(score>=60) return 4;
+      return 5;
+    }
+    // 컷에서 -5씩 떨어질 때마다 등급 1단계 증가(데모)
+    if(score>=cut1) return 1;
+    if(score>=cut1-5) return 2;
+    if(score>=cut1-10) return 3;
+    if(score>=cut1-15) return 4;
+    if(score>=cut1-20) return 5;
+    return 6;
+  }
+
   function showDenied(extra){
     $("#hdr").innerHTML = `접근 권한이 없습니다. <span class="badge muted">v2026-02-10</span>`;
     $("#meta").innerHTML = `
@@ -91,35 +159,107 @@
     box.innerHTML = `<div class="badge">DEBUG ON</div><pre>${esc(JSON.stringify(obj, null, 2))}</pre>`;
   }
 
-  // ✅ 대학 데이터는 형식이 사람마다 다를 수 있어서 “그냥 표로 보여주는” 안전 모드
-  function toArray(x){
-    if(Array.isArray(x)) return x;
-    if(x && typeof x === "object") return Object.values(x);
-    return [];
+  function resultLabel(code){
+    // code: safe / fit / up / bad
+    if(code==="safe") return {t:"확보", cls:"st-safe"};
+    if(code==="fit")  return {t:"적정", cls:"st-fit"};
+    if(code==="up")   return {t:"상향", cls:"st-up"};
+    return {t:"부족", cls:"st-bad"};
   }
-  function getCols(arr){
-    const keys = new Set();
-    arr.slice(0, 50).forEach(o=>{
-      if(o && typeof o === "object") Object.keys(o).forEach(k=>keys.add(k));
-    });
-    return [...keys];
+
+  function calcStudentSnapshot(latestRow){
+    // 기본 과목
+    const k = {
+      국어: toNum(latestRow["국어"]),
+      수학: toNum(latestRow["수학"]),
+      영어: toNum(latestRow["영어"]),
+    };
+
+    // 탐구 후보: 메타키 제외 + 컷키 제외 + 국/수/영 제외
+    const 탐구점수 = [];
+    for(const key of Object.keys(latestRow||{})){
+      if(META_KEYS.has(key)) continue;
+      if(key.includes("컷") || key.toLowerCase().includes("cut")) continue;
+      if(key==="국어"||key==="수학"||key==="영어") continue;
+      const v = toNum(latestRow[key]);
+      if(v!=null) 탐구점수.push({key, v});
+    }
+    탐구점수.sort((a,b)=>b.v-a.v); // 높은 점수 2개
+    const best = 탐구점수.slice(0,2);
+    const 탐구2 = best.length ? best.reduce((s,x)=>s+x.v,0)/best.length : null;
+
+    // 영어 등급
+    const engCutKey = findCutKey(latestRow, "영어");
+    const engCut1 = engCutKey ? toNum(latestRow[engCutKey]) : null;
+    const engGrade = guessGradeFromCut(k.영어, engCut1);
+
+    return {
+      scores: k,
+      탐구Best: best,
+      탐구2,
+      engGrade,
+      engCut1
+    };
+  }
+
+  function computeRuleValue(rule, snap){
+    // rule.type: avg_pct
+    if(!rule || rule.type!=="avg_pct") return { ok:false, avg:null, used:[], reason:"지원하지 않는 rule.type" };
+
+    const used = [];
+    for(const s of (rule.subjects||[])){
+      if(s==="탐구2"){
+        if(snap.탐구2==null) return { ok:false, avg:null, used, reason:"탐구2 데이터 없음" };
+        used.push({name:"탐구2", value:snap.탐구2});
+      }else{
+        const v = snap.scores[s];
+        if(v==null) return { ok:false, avg:null, used, reason:`${s} 점수 없음` };
+        used.push({name:s, value:v});
+      }
+    }
+    const avg = used.reduce((a,x)=>a+x.value,0) / used.length;
+    return { ok:true, avg, used, reason:null };
+  }
+
+  function classify(avg, cut){
+    if(avg==null) return "bad";
+    const diff = avg - cut;
+    if(diff >= 3) return "safe";
+    if(diff >= 0) return "fit";
+    if(diff >= -3) return "up";
+    return "bad";
+  }
+
+  function ruleText(rule){
+    if(!rule) return "-";
+    if(rule.type==="avg_pct"){
+      return `평균(${(rule.subjects||[]).join(",")})`;
+    }
+    return rule.type || "-";
+  }
+
+  function roundLabel(row){
+    const r = pickRound(row);
+    const d = pickDate(row);
+    if(r!=null && d) return `#${r} (${d})`;
+    if(r!=null) return `#${r}`;
+    if(d) return String(d);
+    return "-";
   }
 
   async function main(){
-    // 1) students.json 로딩
+    // 1) 학생 찾기
     let students = [];
     try{
       students = await loadJson("./students.json");
       if(!Array.isArray(students)) throw new Error("students.json is not an array");
     }catch(e){
-      renderDebug({ step:"load students.json failed", error:e.message, url:location.href });
+      renderDebug({ step:"load students.json failed", error:e.message });
       showDenied(`<div class="warn">students.json 로딩 실패: ${esc(e.message)}</div>`);
       return;
     }
 
-    // 2) student 찾기(✅ admin+id 또는 t)
     let student = null;
-
     if(isAdmin && idParam){
       student = students.find(s => norm(pickId(s)) === norm(idParam));
     }
@@ -127,22 +267,12 @@
       student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
 
-    renderDebug({
-      url: location.href,
-      adminParam,
-      adminSaved,
-      adminUsed: admin,
-      ADMIN_TOKEN,
-      isAdmin,
-      idParam,
-      tParam,
-      studentsCount: students.length,
-      sampleIds: students.slice(0,5).map(s=>pickId(s)),
-      studentFound: !!student,
-      studentId: student ? pickId(student) : null
-    });
-
     if(!student){
+      renderDebug({
+        url: location.href, isAdmin, idParam, tParam,
+        studentsCount: students.length,
+        sampleIds: students.slice(0,5).map(s=>pickId(s)),
+      });
       showDenied();
       return;
     }
@@ -151,31 +281,67 @@
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)}${sid ? " ("+esc(sid)+")" : ""} <span class="badge muted">v2026-02-10</span>`;
+    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)}) <span class="badge muted">v2026-02-10</span>`;
     $("#meta").innerHTML = `
       학교: ${esc(student.school||"-")}<br>
       진로: ${esc(student.career||"-")}<br>
       전형: ${esc(student.admission||"-")}
     `;
-
     $("#modeRow").innerHTML = isAdmin
       ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
-    // 3) 네비 버튼
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
-
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 상세로</a>`);
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 4) univ_percentile.json 로딩(일단 표로 “무조건 표시”)
-    let raw = null;
+    // 2) scores.json에서 최신 회차 스냅샷 만들기
+    let scores = [];
     try{
-      raw = await loadJson("./univ_percentile.json");
+      scores = await loadJson("./scores.json");
+      if(!Array.isArray(scores)) throw new Error("scores.json is not an array");
+    }catch(e){
+      $("#content").innerHTML = `
+        <div class="card">
+          <div class="warn">scores.json 로딩 실패</div>
+          <div class="muted">${esc(e.message)}</div>
+        </div>
+      `;
+      return;
+    }
+
+    const rows = scores
+      .filter(r => norm(pickId(r)) === sid)
+      .sort((a,b)=>{
+        const ra = pickRound(a), rb = pickRound(b);
+        if(ra!=null && rb!=null) return ra-rb;
+        const da = pickDate(a), db = pickDate(b);
+        if(da && db) return String(da).localeCompare(String(db));
+        return 0;
+      });
+
+    if(!rows.length){
+      $("#content").innerHTML = `
+        <div class="card">
+          <div class="warn">성적 데이터 없음</div>
+          <div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
+        </div>
+      `;
+      return;
+    }
+
+    const latest = rows[rows.length-1];
+    const snap = calcStudentSnapshot(latest);
+
+    // 3) univ_percentile.json 로딩
+    let univs = [];
+    try{
+      univs = await loadJson("./univ_percentile.json");
+      if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
     }catch(e){
       $("#content").innerHTML = `
         <div class="card">
@@ -186,39 +352,193 @@
       return;
     }
 
-    const arr = toArray(raw);
-    if(!arr.length){
+    // filters data
+    const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
+    const years = [...new Set(univs.map(x=>x.year).filter(Boolean))].sort((a,b)=>a-b);
+
+    const groupSel = $("#groupSel");
+    groups.forEach(g=>{
+      const o=document.createElement("option");
+      o.value=String(g); o.textContent=String(g);
+      groupSel.appendChild(o);
+    });
+
+    const yearSel = $("#yearSel");
+    years.forEach(y=>{
+      const o=document.createElement("option");
+      o.value=String(y); o.textContent=String(y);
+      yearSel.appendChild(o);
+    });
+
+    $("#controls").style.display = "flex";
+    $("#tabs").style.display = "flex";
+
+    // 4) 판정 계산
+    const evaluated = univs.map(u=>{
+      const rule = u.rule || {};
+      const cut = toNum(u.cut_pct);
+      const engMax = toNum(u.eng_max_grade);
+
+      const rv = computeRuleValue(rule, snap);
+      let okRule = rv.ok ? rv.avg : null;
+
+      const engGrade = snap.engGrade;
+      const okEng = (engMax==null || engGrade==null) ? true : (engGrade <= engMax);
+
+      const code = (rv.ok && cut!=null && okEng) ? classify(okRule, cut) : "bad";
+
+      return {
+        ...u,
+        _avg: okRule,
+        _used: rv.used,
+        _ruleOk: rv.ok,
+        _ruleReason: rv.reason,
+        _engGrade: engGrade,
+        _engMax: engMax,
+        _okEng: okEng,
+        _code: code
+      };
+    });
+
+    renderDebug({
+      sid, latest: roundLabel(latest),
+      snap,
+      univCount: univs.length,
+      sample: evaluated.slice(0,3)
+    });
+
+    // 5) 탭 구성
+    const tabs = $("#tabs");
+    const tabDefs = [
+      {key:"fit",  label:"적정"},
+      {key:"up",   label:"상향"},
+      {key:"safe", label:"확보"},
+      {key:"bad",  label:"부족"},
+      {key:"all",  label:"전체"},
+    ];
+    let activeTab = "fit";
+
+    tabs.innerHTML = "";
+    tabDefs.forEach((t, idx)=>{
+      const b=document.createElement("button");
+      b.type="button";
+      b.className="tab";
+      b.textContent=t.label;
+      b.setAttribute("aria-selected", t.key===activeTab ? "true":"false");
+      b.addEventListener("click", ()=>{
+        activeTab = t.key;
+        tabs.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+        b.setAttribute("aria-selected","true");
+        render();
+      });
+      tabs.appendChild(b);
+    });
+
+    const qInput = $("#q");
+
+    function render(){
+      const q = norm(qInput.value).toLowerCase();
+      const g = groupSel.value;
+      const y = yearSel.value;
+
+      let arr = evaluated.slice();
+
+      if(activeTab!=="all"){
+        arr = arr.filter(x=>x._code===activeTab);
+      }
+
+      if(g!=="__all__"){
+        arr = arr.filter(x=>String(x.group)===String(g));
+      }
+
+      if(y!=="__all__"){
+        arr = arr.filter(x=>String(x.year)===String(y));
+      }
+
+      if(q){
+        arr = arr.filter(x =>
+          String(x.univ||"").toLowerCase().includes(q) ||
+          String(x.major||"").toLowerCase().includes(q)
+        );
+      }
+
+      // 정렬: (적정/상향/확보는 avg 높은순, 부족은 avg 낮은순)
+      arr.sort((a,b)=>{
+        const av = a._avg ?? -999;
+        const bv = b._avg ?? -999;
+        return bv - av;
+      });
+
+      const rowsHtml = arr.map(u=>{
+        const cut = toNum(u.cut_pct);
+        const avg = u._avg;
+        const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
+
+        const rl = resultLabel(u._code);
+        const usedText = (u._used||[]).map(x=>`${x.name}:${x.value.toFixed ? x.value.toFixed(1) : x.value}`).join(" / ");
+
+        return `
+          <tr>
+            <td class="status ${rl.cls}">${esc(rl.t)}</td>
+            <td>${esc(u.year)}</td>
+            <td>${esc(u.univ||"-")}</td>
+            <td>${esc(u.major||"-")}</td>
+            <td>${esc(u.group||"-")}</td>
+            <td>${esc(ruleText(u.rule))}</td>
+            <td class="num">${avg==null ? "-" : avg.toFixed(1)}</td>
+            <td class="num">${cut==null ? "-" : Number(cut).toFixed(1)}</td>
+            <td class="num">${diff==null ? "-" : diff.toFixed(1)}</td>
+            <td class="num">${u._engGrade==null ? "-" : u._engGrade}</td>
+            <td class="num">${u._engMax==null ? "-" : u._engMax}</td>
+            <td>${esc(u.note||usedText||"-")}</td>
+          </tr>
+        `;
+      }).join("");
+
       $("#content").innerHTML = `
         <div class="card">
-          <div class="warn">대학 데이터가 비어있습니다.</div>
-          <div class="muted">univ_percentile.json 내용이 배열/객체인지 확인하세요.</div>
+          <div class="row">
+            <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
+            <span class="badge muted">국어:${snap.scores.국어 ?? "-"} · 수학:${snap.scores.수학 ?? "-"} · 영어:${snap.scores.영어 ?? "-"}</span>
+            <span class="badge muted">탐구2:${snap.탐구2==null ? "-" : snap.탐구2.toFixed(1)} (${snap.탐구Best.map(x=>x.key).join(", ")||"-"})</span>
+            <span class="badge muted">영어등급(추정): ${snap.engGrade ?? "-"}</span>
+          </div>
+          <div class="muted">
+            ※ 현재는 “데모 판정”입니다. (탐구2=탐구 점수 상위 2개 평균 / 영어등급=영어컷 기준 단순 추정)
+          </div>
+        </div>
+
+        <div class="card tablebox">
+          <table>
+            <thead>
+              <tr>
+                <th>판정</th>
+                <th>연도</th>
+                <th>대학</th>
+                <th>학과</th>
+                <th>계열</th>
+                <th>규칙</th>
+                <th class="num">학생 평균</th>
+                <th class="num">컷</th>
+                <th class="num">차이</th>
+                <th class="num">영어등급</th>
+                <th class="num">영어기준</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml || `<tr><td colspan="12" class="muted">표시할 데이터가 없습니다.</td></tr>`}
+            </tbody>
+          </table>
         </div>
       `;
-      return;
     }
 
-    const cols = getCols(arr);
-    const thead = cols.map(c=>`<th>${esc(c)}</th>`).join("");
-    const rows = arr.slice(0, 200).map(o=>{
-      const tds = cols.map(c=>`<td>${esc(o?.[c])}</td>`).join("");
-      return `<tr>${tds}</tr>`;
-    }).join("");
+    qInput.addEventListener("input", render);
+    groupSel.addEventListener("change", render);
+    yearSel.addEventListener("change", render);
 
-    $("#content").innerHTML = `
-      <div class="card">
-        <div class="row">
-          <span class="badge">대학 데이터 로드 OK</span>
-          <span class="badge muted">표시: ${Math.min(arr.length,200)} / ${arr.length}</span>
-        </div>
-        <div class="muted">현재는 “접근/연동 확인용 표”로 보여주고, 다음 단계에서 상향/적정 로직을 붙이면 됩니다.</div>
-      </div>
-      <div class="card tablebox">
-        <table>
-          <thead><tr>${thead}</tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    `;
+    render();
   }
 
   main().catch(err=>{
