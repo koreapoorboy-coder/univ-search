@@ -30,11 +30,13 @@
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
     .tab[aria-selected="true"]{background:#111;color:#fff}
 
+    /* PC 표 */
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
     table{border-collapse:collapse;width:100%;min-width:860px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
     th{background:#fafafa;font-weight:900;position:sticky;top:0}
     .num{text-align:right}
+
     .status{font-weight:900}
     .st-safe{color:#1f7a1f}
     .st-fit{color:#0b57d0}
@@ -42,6 +44,36 @@
     .st-bad{color:#b00020}
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
+
+    /* ✅ 모바일 카드 리스트(A안) */
+    .mobile-list{display:none; gap:12px; flex-direction:column;}
+    .mobile-card{
+      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff
+    }
+    .mobile-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .mobile-title{font-weight:900;font-size:16px;line-height:1.25}
+    .mobile-sub{opacity:.7;margin-top:4px;font-size:13px}
+    .kv{display:grid;grid-template-columns:92px 1fr;gap:6px 10px;margin-top:10px;font-size:14px}
+    .kv .k{opacity:.7}
+    .kv .v{font-weight:800}
+    hr.sep{border:0;border-top:1px solid #f0f0f0;margin:10px 0}
+
+    /* ✅ 모바일에선 표 숨기고 카드 표시 */
+    @media(max-width: 720px){
+      .tablebox{display:none;}
+      .mobile-list{display:flex;}
+    }
+
+    /* ✅ 모바일: 탭/필터 상단 고정 + 탭 가로 스크롤 */
+    @media(max-width: 720px){
+      #controls,#tabs{
+        position:sticky; top:0; z-index:5;
+        background:#fff; padding-top:10px; padding-bottom:10px;
+        border-bottom:1px solid #eee;
+      }
+      #tabs{flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch}
+      #tabs::-webkit-scrollbar{display:none}
+    }
   </style>
 </head>
 <body>
@@ -113,7 +145,6 @@
     return Number.isFinite(n) ? n : null;
   }
 
-  // 컷 키 찾기 (영어컷 등)
   function findCutKey(obj, subjectKey){
     const keys = Object.keys(obj||{});
     const s = subjectKey;
@@ -123,18 +154,16 @@
     return loose || null;
   }
 
-  // 영어 등급: (데모용) 1등급 컷 기준으로 간단 추정
+  // 데모용 영어등급 추정
   function guessGradeFromCut(score, cut1){
     if(score==null) return null;
     if(cut1==null){
-      // fallback
       if(score>=90) return 1;
       if(score>=80) return 2;
       if(score>=70) return 3;
       if(score>=60) return 4;
       return 5;
     }
-    // 컷에서 -5씩 떨어질 때마다 등급 1단계 증가(데모)
     if(score>=cut1) return 1;
     if(score>=cut1-5) return 2;
     if(score>=cut1-10) return 3;
@@ -160,7 +189,6 @@
   }
 
   function resultLabel(code){
-    // code: safe / fit / up / bad
     if(code==="safe") return {t:"확보", cls:"st-safe"};
     if(code==="fit")  return {t:"적정", cls:"st-fit"};
     if(code==="up")   return {t:"상향", cls:"st-up"};
@@ -168,14 +196,12 @@
   }
 
   function calcStudentSnapshot(latestRow){
-    // 기본 과목
     const k = {
       국어: toNum(latestRow["국어"]),
       수학: toNum(latestRow["수학"]),
       영어: toNum(latestRow["영어"]),
     };
 
-    // 탐구 후보: 메타키 제외 + 컷키 제외 + 국/수/영 제외
     const 탐구점수 = [];
     for(const key of Object.keys(latestRow||{})){
       if(META_KEYS.has(key)) continue;
@@ -184,26 +210,18 @@
       const v = toNum(latestRow[key]);
       if(v!=null) 탐구점수.push({key, v});
     }
-    탐구점수.sort((a,b)=>b.v-a.v); // 높은 점수 2개
+    탐구점수.sort((a,b)=>b.v-a.v);
     const best = 탐구점수.slice(0,2);
     const 탐구2 = best.length ? best.reduce((s,x)=>s+x.v,0)/best.length : null;
 
-    // 영어 등급
     const engCutKey = findCutKey(latestRow, "영어");
     const engCut1 = engCutKey ? toNum(latestRow[engCutKey]) : null;
     const engGrade = guessGradeFromCut(k.영어, engCut1);
 
-    return {
-      scores: k,
-      탐구Best: best,
-      탐구2,
-      engGrade,
-      engCut1
-    };
+    return { scores: k, 탐구Best: best, 탐구2, engGrade, engCut1 };
   }
 
   function computeRuleValue(rule, snap){
-    // rule.type: avg_pct
     if(!rule || rule.type!=="avg_pct") return { ok:false, avg:null, used:[], reason:"지원하지 않는 rule.type" };
 
     const used = [];
@@ -299,7 +317,7 @@
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) scores.json에서 최신 회차 스냅샷 만들기
+    // 2) scores.json 최신 스냅샷
     let scores = [];
     try{
       scores = await loadJson("./scores.json");
@@ -352,7 +370,7 @@
       return;
     }
 
-    // filters data
+    // 필터 옵션
     const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
     const years = [...new Set(univs.map(x=>x.year).filter(Boolean))].sort((a,b)=>a-b);
 
@@ -380,16 +398,16 @@
       const engMax = toNum(u.eng_max_grade);
 
       const rv = computeRuleValue(rule, snap);
-      let okRule = rv.ok ? rv.avg : null;
+      const avg = rv.ok ? rv.avg : null;
 
       const engGrade = snap.engGrade;
       const okEng = (engMax==null || engGrade==null) ? true : (engGrade <= engMax);
 
-      const code = (rv.ok && cut!=null && okEng) ? classify(okRule, cut) : "bad";
+      const code = (rv.ok && cut!=null && okEng) ? classify(avg, cut) : "bad";
 
       return {
         ...u,
-        _avg: okRule,
+        _avg: avg,
         _used: rv.used,
         _ruleOk: rv.ok,
         _ruleReason: rv.reason,
@@ -400,14 +418,9 @@
       };
     });
 
-    renderDebug({
-      sid, latest: roundLabel(latest),
-      snap,
-      univCount: univs.length,
-      sample: evaluated.slice(0,3)
-    });
+    renderDebug({ sid, latest: roundLabel(latest), snap, univCount: univs.length });
 
-    // 5) 탭 구성
+    // 5) 탭
     const tabs = $("#tabs");
     const tabDefs = [
       {key:"fit",  label:"적정"},
@@ -419,14 +432,14 @@
     let activeTab = "fit";
 
     tabs.innerHTML = "";
-    tabDefs.forEach((t, idx)=>{
+    tabDefs.forEach((tdef)=>{
       const b=document.createElement("button");
       b.type="button";
       b.className="tab";
-      b.textContent=t.label;
-      b.setAttribute("aria-selected", t.key===activeTab ? "true":"false");
+      b.textContent=tdef.label;
+      b.setAttribute("aria-selected", tdef.key===activeTab ? "true":"false");
       b.addEventListener("click", ()=>{
-        activeTab = t.key;
+        activeTab = tdef.key;
         tabs.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
         b.setAttribute("aria-selected","true");
         render();
@@ -446,15 +459,12 @@
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._code===activeTab);
       }
-
       if(g!=="__all__"){
         arr = arr.filter(x=>String(x.group)===String(g));
       }
-
       if(y!=="__all__"){
         arr = arr.filter(x=>String(x.year)===String(y));
       }
-
       if(q){
         arr = arr.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
@@ -462,20 +472,20 @@
         );
       }
 
-      // 정렬: (적정/상향/확보는 avg 높은순, 부족은 avg 낮은순)
+      // 정렬: 평균 높은 순
       arr.sort((a,b)=>{
         const av = a._avg ?? -999;
         const bv = b._avg ?? -999;
         return bv - av;
       });
 
+      // PC 표
       const rowsHtml = arr.map(u=>{
         const cut = toNum(u.cut_pct);
         const avg = u._avg;
         const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
-
         const rl = resultLabel(u._code);
-        const usedText = (u._used||[]).map(x=>`${x.name}:${x.value.toFixed ? x.value.toFixed(1) : x.value}`).join(" / ");
+        const usedText = (u._used||[]).map(x=>`${x.name}:${(x.value?.toFixed?x.value.toFixed(1):x.value)}`).join(" / ");
 
         return `
           <tr>
@@ -495,6 +505,40 @@
         `;
       }).join("");
 
+      // 모바일 카드(A안)
+      const cardsHtml = arr.map(u=>{
+        const cut = toNum(u.cut_pct);
+        const avg = u._avg;
+        const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
+        const rl = resultLabel(u._code);
+
+        const diffText = diff==null ? "-" : (diff>0?`+${diff.toFixed(1)}`:diff.toFixed(1));
+        const ruleStr = ruleText(u.rule);
+
+        return `
+          <div class="mobile-card">
+            <div class="mobile-top">
+              <div>
+                <div class="mobile-title">${esc(u.univ||"-")} · ${esc(u.major||"-")}</div>
+                <div class="mobile-sub">${esc(u.year)} · ${esc(u.group||"-")} · ${esc(ruleStr)}</div>
+              </div>
+              <div class="status ${rl.cls}" style="white-space:nowrap">${esc(rl.t)}</div>
+            </div>
+
+            <hr class="sep"/>
+
+            <div class="kv">
+              <div class="k">학생 평균</div><div class="v">${avg==null?"-":avg.toFixed(1)}</div>
+              <div class="k">컷</div><div class="v">${cut==null?"-":Number(cut).toFixed(1)}</div>
+              <div class="k">차이</div><div class="v">${diffText}</div>
+              <div class="k">영어</div><div class="v">${u._engGrade==null?"-":u._engGrade}등급 / 기준 ${u._engMax==null?"-":u._engMax}등급</div>
+            </div>
+
+            ${u.note ? `<div class="muted" style="margin-top:10px;">${esc(u.note)}</div>` : ``}
+          </div>
+        `;
+      }).join("");
+
       $("#content").innerHTML = `
         <div class="card">
           <div class="row">
@@ -508,6 +552,12 @@
           </div>
         </div>
 
+        <!-- ✅ 모바일 카드 리스트(A안) -->
+        <div class="card mobile-list">
+          ${cardsHtml || `<div class="muted">표시할 데이터가 없습니다.</div>`}
+        </div>
+
+        <!-- ✅ PC 표 -->
         <div class="card tablebox">
           <table>
             <thead>
