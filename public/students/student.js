@@ -6,6 +6,10 @@
      2) tablebox overflow-x:auto + max-width:100%
      3) html/body overflow-x:hidden
    - ✅ 모바일 x축 라벨 짧게(#1 형태) 표시
+   - ✅ 모바일 표에서 "회차" 폭 과다 문제 해결:
+     - 모바일: 회차는 "#n" + 날짜는 아래 작은 글씨
+     - 모바일: table min-width 강제 해제
+     - 회차 열 폭 고정
 */
 
 (() => {
@@ -121,10 +125,10 @@
         gap:12px;
         align-items:start;
       }
-      .grid > * { min-width:0; } /* ✅ 핵심: 그리드 아이템이 줄어들 수 있게 */
+      .grid > * { min-width:0; } /* ✅ 핵심 */
       @media(min-width: 860px){ .grid{grid-template-columns: 1.1fr .9fr} }
 
-      /* ✅ 차트 박스 높이 고정(표 길어져도 그래프는 고정 높이) */
+      /* ✅ 차트 박스 높이 고정 */
       .chartbox{
         border:1px solid #eee;border-radius:14px;padding:12px;
         height:340px;
@@ -134,13 +138,14 @@
       .chart-area{flex:1;min-height:0;}
       .chart-area canvas{width:100% !important;height:100% !important;display:block;}
 
-      /* ✅ 표는 카드 내부에서만 가로 스크롤 */
+      /* ✅ 표는 카드 내부에서만 스크롤 */
       .tablebox{
         border:1px solid #eee;border-radius:14px;padding:12px;
         overflow-x:auto; overflow-y:auto;
         -webkit-overflow-scrolling:touch;
         width:100%; max-width:100%;
       }
+
       table{border-collapse:collapse;width:100%;min-width:520px}
       th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
       th{background:#fafafa;font-weight:900;position:sticky;top:0}
@@ -148,6 +153,18 @@
       .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:800;background:#fff}
       .muted{opacity:.7}
       .warn{color:#b00020;font-weight:900}
+
+      /* ✅ 회차 열 폭(기본: PC) */
+      th.col-round, td.col-round{ width:140px; }
+
+      /* ✅ 모바일: 폭 줄이기 + 회차는 2줄 형태로 */
+      @media (max-width: 520px){
+        table{ min-width:0; } /* ✅ 강제 폭 해제 */
+        th,td{ font-size:13px; padding:8px; }
+        th.col-round, td.col-round{ width:92px; }
+        td.col-round{ white-space:normal; } /* 회차 셀만 줄바꿈 허용 */
+        .roundSub{ font-size:12px; opacity:.65; margin-top:2px; }
+      }
     `;
     document.head.appendChild(st);
   }
@@ -196,7 +213,6 @@
     for (const row of rows) {
       for (const k of Object.keys(row || {})) {
         if (META_KEYS.has(k)) continue;
-        // 컷 키는 과목으로 취급하지 않음(본점수 키만 과목)
         if (k.includes("컷") || k.toLowerCase().includes("cut")) continue;
         const v = toNum(row[k]);
         if (v != null) subjects.add(k);
@@ -216,7 +232,7 @@
         points.push({
           label: roundLabel(row),       // "#1 (2026-02-07)"
           short: shortRoundLabel(row),  // "#1"
-          date: pickDate(row) || null,
+          date: pickDate(row) || null,  // ✅ 표에서 2줄 표시용
           score,
           cut,
         });
@@ -262,13 +278,20 @@
   }
 
   function renderTable(points) {
+    const isMobile = window.matchMedia("(max-width: 520px)").matches;
+
     const rowsHtml = points.map((p) => {
       const s = p.score == null ? "" : p.score;
       const c = p.cut == null ? "" : p.cut;
       const gap = (p.score != null && p.cut != null) ? (p.score - p.cut) : "";
+
+      const roundCell = isMobile
+        ? `<div>${esc(p.short)}</div>${p.date ? `<div class="roundSub">${esc(p.date)}</div>` : ""}`
+        : esc(p.label);
+
       return `
         <tr>
-          <td>${esc(p.label)}</td>
+          <td class="col-round">${roundCell}</td>
           <td class="num">${esc(s)}</td>
           <td class="num">${esc(c)}</td>
           <td class="num">${esc(gap)}</td>
@@ -281,7 +304,7 @@
         <table>
           <thead>
             <tr>
-              <th>회차</th>
+              <th class="col-round">회차</th>
               <th class="num">학생 점수</th>
               <th class="num">컷 점수</th>
               <th class="num">차이(학생-컷)</th>
@@ -337,8 +360,7 @@
               title: (items) => {
                 const idx = items?.[0]?.dataIndex;
                 if (idx == null) return "";
-                // 모바일에서도 툴팁은 상세 라벨로
-                return points[idx].label;
+                return points[idx].label; // 툴팁은 상세
               },
               afterBody: (items) => {
                 const idx = items?.[0]?.dataIndex;
