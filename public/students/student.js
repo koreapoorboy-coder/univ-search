@@ -216,6 +216,7 @@
         points.push({
           label: roundLabel(row),       // "#1 (2026-02-07)"
           short: shortRoundLabel(row),  // "#1"
+          date: pickDate(row) || null,
           score,
           cut,
         });
