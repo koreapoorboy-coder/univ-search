@@ -42,11 +42,11 @@
     .st-up{color:#b26a00}    /* 상향 */
     .st-na{color:#777}       /* 데이터없음 */
 
-    /* 과목칩 */
-    .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    /* 과목칩 (모바일에서도 줄바꿈되게) */
+    .chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     .chip{
       display:inline-flex;gap:8px;align-items:center;
-      border:1px solid #ddd;border-radius:999px;padding:6px 10px;background:#fff;font-weight:900;
+      border:1px solid #ddd;border-radius:999px;padding:8px 12px;background:#fff;font-weight:900;
       font-size:13px;
     }
     .chip .k{opacity:.7;font-weight:900}
@@ -60,32 +60,44 @@
     .chip.ng .s{color:#b26a00}
     .chip.na .s{color:#777}
 
-    pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
+    /* ✅ 모바일 카드(접힘/펼침) */
+    .mobile-only{display:none;}
+    .desktop-only{display:block;}
 
-    /* ✅ 모바일 카드 리스트(A안) */
-    .mobile-list{display:none; gap:12px; flex-direction:column;}
-    .mobile-card{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
-    .mobile-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .mobile-title{font-weight:900;font-size:16px;line-height:1.25}
-    .mobile-sub{opacity:.7;margin-top:4px;font-size:13px}
-    hr.sep{border:0;border-top:1px solid #f0f0f0;margin:10px 0}
-    .chiprow{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
-    .chiprow::-webkit-scrollbar{display:none}
+    .m-list{display:flex;flex-direction:column;gap:12px;}
+    details.mcard{
+      border:1px solid #eee;border-radius:16px;background:#fff;
+      overflow:hidden;
+    }
+    details.mcard summary{
+      list-style:none; cursor:pointer; padding:14px;
+    }
+    details.mcard summary::-webkit-details-marker{display:none}
+    .mhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .mname{font-weight:900;font-size:16px;line-height:1.3}
+    .msub{opacity:.75;margin-top:6px;font-size:13px;line-height:1.4}
+    .mbody{padding:0 14px 14px}
+    .mnote{margin-top:10px;opacity:.8;font-size:13px;line-height:1.5}
+    .mdivider{border:0;border-top:1px solid #f0f0f0;margin:12px 0}
 
-    @media(max-width: 720px){
-      .tablebox{display:none;}
-      .mobile-list{display:flex;}
+    /* ✅ 모바일/태블릿에서는 카드로 강제(기준 980px) */
+    @media(max-width: 980px){
+      .desktop-only{display:none;}
+      .mobile-only{display:block;}
+      table{min-width:900px} /* 혹시라도 보여야 하는 상황 대비 */
     }
 
-    /* ✅ 모바일: 탭/필터 상단 고정 + 탭 가로 스크롤 */
-    @media(max-width: 720px){
-      #controls,#tabs{
-        position:sticky; top:0; z-index:5;
-        background:#fff; padding-top:10px; padding-bottom:10px;
+    /* ✅ sticky는 “한 덩어리”로만 */
+    @media(max-width: 980px){
+      #stickyBar{
+        position:sticky; top:0; z-index:10;
+        background:#fff;
+        padding:10px 0;
         border-bottom:1px solid #eee;
       }
-      #tabs{flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch}
-      #tabs::-webkit-scrollbar{display:none}
+      #stickyBar .controls{margin-top:0}
+      #stickyBar .tabs{margin-top:10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      #stickyBar .tabs::-webkit-scrollbar{display:none}
     }
   </style>
 </head>
@@ -97,17 +109,19 @@
     <div class="row" id="modeRow"></div>
     <div class="row" id="navRow"></div>
 
-    <div class="controls" id="controls" style="display:none;">
-      <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
-      <select id="groupSel">
-        <option value="__all__">전체 계열</option>
-      </select>
-      <select id="yearSel">
-        <option value="__all__">전체 연도</option>
-      </select>
+    <!-- ✅ stickyBar로 controls+tabs를 한 번에 고정 -->
+    <div id="stickyBar">
+      <div class="controls" id="controls" style="display:none;">
+        <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
+        <select id="groupSel">
+          <option value="__all__">전체 계열</option>
+        </select>
+        <select id="yearSel">
+          <option value="__all__">전체 연도</option>
+        </select>
+      </div>
+      <div class="tabs" id="tabs" style="display:none;"></div>
     </div>
-
-    <div class="tabs" id="tabs" style="display:none;"></div>
   </div>
 
   <div id="content"></div>
@@ -172,7 +186,7 @@
     return "-";
   }
 
-  // --- (수정) 학생 최신 회차에서 과목별 백분위 맵 만들기 (부분응시 + 탐구 과목명 추론) ---
+  // 학생 최신 회차 과목 맵(부분응시 + 탐구 추론)
   function buildStudentMap(latestRow){
     const get = (...keys) => {
       for(const k of keys){
@@ -191,7 +205,6 @@
       "한국사": get("한국사","한"),
     };
 
-    // ✅ 탐1/탐2가 없고, 생윤/사문 같은 “개별 탐구과목”으로 들어오는 경우 자동 추론
     if(map["탐1"]==null || map["탐2"]==null){
       const keys = Object.keys(latestRow||{});
       const cand = [];
@@ -203,19 +216,16 @@
         if(v==null) continue;
         cand.push(k);
       }
-      // cand는 최신Row의 key 순서 유지. 앞 2개를 탐1/탐2로 사용
       if(map["탐1"]==null && cand[0]) map["탐1"] = toNum(latestRow[cand[0]]);
       if(map["탐2"]==null && cand[1]) map["탐2"] = toNum(latestRow[cand[1]]);
     }
-
     return map;
   }
 
-  // --- (수정) 대학 row에서 과목별 컷 가져오기: cuts / cut_kor / 직접키(국어/수학/...) 모두 지원 ---
+  // 대학 컷 읽기: cuts / cut_kor / 직접키(국어/수학/...) 모두 지원
   function getUnivCuts(u){
     const out = {};
 
-    // 1) cuts 객체 방식
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const v = toNum(u.cuts[k]);
@@ -223,7 +233,6 @@
       }
     }
 
-    // 2) 컬럼 방식
     const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
     const math = toNum(u.cut_math ?? u.math_cut);
     const eng = toNum(u.cut_eng ?? u.eng_cut);
@@ -235,7 +244,6 @@
     if(inq1!=null) out["탐1"]=inq1;
     if(inq2!=null) out["탐2"]=inq2;
 
-    // 3) ✅ 직접 과목키 방식 (가장 흔한 형태)
     const dKor = toNum(u["국어"] ?? u["국"]);
     const dMath = toNum(u["수학"] ?? u["수"]);
     const dEng = toNum(u["영어"] ?? u["영"]);
@@ -250,59 +258,36 @@
     return out;
   }
 
-  function judgeText(state){
-    if(state==="ok") return "적정";
-    if(state==="ng") return "상향";
-    return "데이터없음";
-  }
-
-  // --- (수정) 과목별 판정 기반으로 전체 판정 생성 ---
   function evalRow(u, stuMap){
     const cuts = getUnivCuts(u);
-    const keys = ["국어","수학","탐1","탐2","영어"]; // 표시 순서
+    const keys = ["국어","수학","탐1","탐2","영어"];
 
     let sumDiff = 0;
     let cnt = 0;
-    let minDiff = null;
-    let maxDiff = null;
-
     let hasNg = false;
-    let hasOk = false;
 
     const per = keys.map(k=>{
       const s = stuMap[k];
       const c = cuts[k];
-
       if(s==null || c==null){
-        return { k, s, c, diff:null, state:"na", judge:"데이터없음" };
+        return { k, s, c, diff:null, state:"na" };
       }
-
       const diff = s - c;
       sumDiff += diff;
       cnt += 1;
-
-      if(minDiff==null || diff < minDiff) minDiff = diff;
-      if(maxDiff==null || diff > maxDiff) maxDiff = diff;
-
       const state = diff>=0 ? "ok" : "ng";
-      if(state==="ok") hasOk = true;
       if(state==="ng") hasNg = true;
-
-      return { k, s, c, diff, state, judge: (state==="ok" ? "적정" : "상향") };
+      return { k, s, c, diff, state };
     });
 
     const avgDiff = cnt ? (sumDiff / cnt) : null;
 
-    // ✅ 전체 판정(탭 필터용)
-    // - 응시한 과목 중 하나라도 상향이면 -> 상향
-    // - 응시한 과목이 있고 모두 적정이면 -> 적정
-    // - 응시한 과목이 하나도 없으면 -> 데이터없음
     let code = "na";
     if(cnt === 0) code = "na";
     else if(hasNg) code = "up";
     else code = "fit";
 
-    return { cuts, per, avgDiff, minDiff, maxDiff, cnt, code };
+    return { per, avgDiff, cnt, code };
   }
 
   function statusLabel(code){
@@ -311,8 +296,7 @@
     return { t:"데이터없음", cls:"st-na" };
   }
 
-  function chipsHtml(per, mobile=false){
-    const wrapCls = mobile ? "chiprow" : "chips";
+  function chipsHtml(per){
     const items = per.map(p=>{
       const vText = (p.s==null) ? "미응시" : `${p.s}`;
       const cText = (p.c==null) ? "-" : `${p.c}`;
@@ -320,7 +304,6 @@
       const cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
       const judge = (p.state==="ok") ? "적정" : (p.state==="ng" ? "상향" : "없음");
 
-      // ✅ 칩 안에 과목별 판정이 글자로 보이게
       return `<span class="${cls}">
         <span class="k">${esc(p.k)}</span>
         <span class="s">${esc(judge)}</span>
@@ -328,11 +311,12 @@
         <span class="d">/ ${esc(cText)} ${esc(dText)}</span>
       </span>`;
     }).join("");
-    return `<div class="${wrapCls}">${items}</div>`;
+
+    return `<div class="chips">${items}</div>`;
   }
 
   async function main(){
-    // 1) 학생 찾기
+    // 학생 찾기
     let students = [];
     try{
       students = await loadJson("./students.json");
@@ -349,11 +333,7 @@
     if(!student && tParam){
       student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
-
-    if(!student){
-      showDenied();
-      return;
-    }
+    if(!student){ showDenied(); return; }
 
     const sid = norm(pickId(student));
     const stok = norm(pickToken(student));
@@ -377,18 +357,13 @@
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) scores.json 최신 스냅샷
+    // scores 최신
     let scores = [];
     try{
       scores = await loadJson("./scores.json");
       if(!Array.isArray(scores)) throw new Error("scores.json is not an array");
     }catch(e){
-      $("#content").innerHTML = `
-        <div class="card">
-          <div class="warn">scores.json 로딩 실패</div>
-          <div class="muted">${esc(e.message)}</div>
-        </div>
-      `;
+      $("#content").innerHTML = `<div class="card"><div class="warn">scores.json 로딩 실패</div><div class="muted">${esc(e.message)}</div></div>`;
       return;
     }
 
@@ -403,30 +378,20 @@
       });
 
     if(!rows.length){
-      $("#content").innerHTML = `
-        <div class="card">
-          <div class="warn">성적 데이터 없음</div>
-          <div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
-        </div>
-      `;
+      $("#content").innerHTML = `<div class="card"><div class="warn">성적 데이터 없음</div><div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div></div>`;
       return;
     }
 
     const latest = rows[rows.length-1];
     const stuMap = buildStudentMap(latest);
 
-    // 3) univ_percentile.json 로딩
+    // univ 데이터
     let univs = [];
     try{
       univs = await loadJson("./univ_percentile.json");
       if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
     }catch(e){
-      $("#content").innerHTML = `
-        <div class="card">
-          <div class="warn">univ_percentile.json 로딩 실패</div>
-          <div class="muted">${esc(e.message)}</div>
-        </div>
-      `;
+      $("#content").innerHTML = `<div class="card"><div class="warn">univ_percentile.json 로딩 실패</div><div class="muted">${esc(e.message)}</div></div>`;
       return;
     }
 
@@ -451,13 +416,12 @@
     $("#controls").style.display = "flex";
     $("#tabs").style.display = "flex";
 
-    // 4) 과목별 평가
     const evaluated = univs.map(u=>{
       const ev = evalRow(u, stuMap);
       return { ...u, _ev: ev };
     });
 
-    // 5) 탭 (적정/상향/전체) — 데이터없음은 "전체"에서만 보임
+    // 탭
     const tabs = $("#tabs");
     const tabDefs = [
       {key:"fit", label:"적정"},
@@ -507,26 +471,54 @@
         );
       }
 
-      // ✅ 정렬
-      // - 적정: "가장 약한 과목(minDiff)" 여유가 큰 순
-      // - 상향: "가장 근접(maxDiff)"(덜 마이너스) 순
-      // - 전체: 적정 먼저 + 위 기준 혼합
+      // 정렬: 적정은 avgDiff 큰 순, 상향은 avgDiff 덜 마이너스 순, 데이터없음은 아래
       arr.sort((a,b)=>{
-        const ac = a._ev.code, bc = b._ev.code;
-        if(activeTab==="all" && ac!==bc){
-          const order = {fit:0, up:1, na:2};
-          return (order[ac]??9) - (order[bc]??9);
-        }
-        if(a._ev.code==="fit"){
-          const av = a._ev.minDiff ?? -9999;
-          const bv = b._ev.minDiff ?? -9999;
-          return bv - av;
-        }else{
-          const av = a._ev.maxDiff ?? -9999;
-          const bv = b._ev.maxDiff ?? -9999;
-          return bv - av;
-        }
+        const order = {fit:0, up:1, na:2};
+        const ao = order[a._ev.code] ?? 9;
+        const bo = order[b._ev.code] ?? 9;
+        if(ao !== bo) return ao - bo;
+        const av = a._ev.avgDiff ?? -9999;
+        const bv = b._ev.avgDiff ?? -9999;
+        return bv - av;
       });
+
+      const headerCard = `
+        <div class="card">
+          <div class="row">
+            <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
+            <span class="badge muted">국:${stuMap["국어"] ?? "-"} · 수:${stuMap["수학"] ?? "-"} · 영:${stuMap["영어"] ?? "-"}</span>
+            <span class="badge muted">탐1:${stuMap["탐1"] ?? "-"} · 탐2:${stuMap["탐2"] ?? "-"}</span>
+          </div>
+          <div class="muted">
+            ※ 모바일은 <b>카드(펼치기)</b>로 표시됩니다. 과목별 “적정/상향/없음”이 칩에 바로 보입니다.
+          </div>
+        </div>
+      `;
+
+      // ✅ 모바일 카드(펼치기)
+      const mobileCards = arr.map(u=>{
+        const ev = u._ev;
+        const st = statusLabel(ev.code);
+        const avgDiffText = ev.avgDiff==null ? "-" : (ev.avgDiff>=0 ? `+${ev.avgDiff.toFixed(1)}` : `${ev.avgDiff.toFixed(1)}`);
+        const covered = `${ev.cnt}/5`;
+
+        return `
+          <details class="mcard">
+            <summary>
+              <div class="mhead">
+                <div class="mname">${esc(u.univ||u.대학||"-")} · ${esc(u.major||u.dept||u.학과||"-")}</div>
+                <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
+              </div>
+              <div class="msub">${esc(u.year ?? "-")} · ${esc(u.group||"-")} · 응시 ${esc(covered)} · 평균차이 ${esc(avgDiffText)}</div>
+            </summary>
+            <div class="mbody">
+              <hr class="mdivider"/>
+              ${chipsHtml(ev.per)}
+              ${u.note ? `<div class="mnote">${esc(u.note)}</div>` : ``}
+            </div>
+          </details>
+        `;
+      }).join("");
 
       // PC 표
       const rowsHtml = arr.map(u=>{
@@ -542,7 +534,7 @@
             <td>${esc(u.univ||u.대학||"-")}</td>
             <td>${esc(u.major||u.dept||u.학과||"-")}</td>
             <td>${esc(u.group||"-")}</td>
-            <td>${chipsHtml(ev.per, false)}</td>
+            <td>${chipsHtml(ev.per)}</td>
             <td class="num">${esc(covered)}</td>
             <td class="num">${esc(avgDiffText)}</td>
             <td>${esc(u.note||"-")}</td>
@@ -550,47 +542,16 @@
         `;
       }).join("");
 
-      // 모바일 카드(A안)
-      const cardsHtml = arr.map(u=>{
-        const ev = u._ev;
-        const st = statusLabel(ev.code);
-        const avgDiffText = ev.avgDiff==null ? "-" : (ev.avgDiff>=0 ? `+${ev.avgDiff.toFixed(1)}` : `${ev.avgDiff.toFixed(1)}`);
-        const covered = `${ev.cnt}/5`;
-
-        return `
-          <div class="mobile-card">
-            <div class="mobile-top">
-              <div>
-                <div class="mobile-title">${esc(u.univ||u.대학||"-")} · ${esc(u.major||u.dept||u.학과||"-")}</div>
-                <div class="mobile-sub">${esc(u.year ?? "-")} · ${esc(u.group||"-")} · 응시 ${esc(covered)} · 평균차이 ${esc(avgDiffText)}</div>
-              </div>
-              <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
-            </div>
-            <hr class="sep"/>
-            ${chipsHtml(ev.per, true)}
-            ${u.note ? `<div class="muted" style="margin-top:10px;">${esc(u.note)}</div>` : ``}
-          </div>
-        `;
-      }).join("");
-
       $("#content").innerHTML = `
-        <div class="card">
-          <div class="row">
-            <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
-            <span class="badge muted">국:${stuMap["국어"] ?? "-"} · 수:${stuMap["수학"] ?? "-"} · 영:${stuMap["영어"] ?? "-"}</span>
-            <span class="badge muted">탐1:${stuMap["탐1"] ?? "-"} · 탐2:${stuMap["탐2"] ?? "-"}</span>
-          </div>
-          <div class="muted">
-            ※ <b>과목별 컷(백분위)</b>로 비교합니다. 일부 과목만 응시해도 칩/판정이 표시됩니다.<br>
-            ※ <b>전체 판정(탭 기준)</b>: 응시한 과목 중 하나라도 “상향”이면 <b>상향</b>, 모두 “적정”이면 <b>적정</b>, 전부 데이터 없으면 <b>데이터없음</b>.
+        ${headerCard}
+
+        <div class="mobile-only">
+          <div class="m-list">
+            ${mobileCards || `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`}
           </div>
         </div>
 
-        <div class="card mobile-list">
-          ${cardsHtml || `<div class="muted">표시할 데이터가 없습니다.</div>`}
-        </div>
-
-        <div class="card tablebox">
+        <div class="card tablebox desktop-only">
           <table>
             <thead>
               <tr>
