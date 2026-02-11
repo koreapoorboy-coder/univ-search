@@ -5,67 +5,110 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 목록</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
+    html,body{width:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;background:#fff;color:#111}
     h1{margin:0 0 14px}
-    .search{width:100%;max-width:920px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
     .wrap{max-width:980px}
+
+    /* 상단 검색 바(모바일 스티키) */
+    .topbar{position:sticky;top:0;background:#fff;padding:10px 0;z-index:10;border-bottom:1px solid #eee;margin-bottom:10px}
+    .search{width:100%;max-width:920px;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px}
+
     .card{border:1px solid #ddd;border-radius:16px;padding:16px;margin:12px 0;background:#fff}
     .row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
     .left{min-width:260px;flex:1}
     .right{min-width:260px;max-width:420px;flex:1}
+
     .name{font-weight:900;font-size:22px}
     .muted{opacity:.7}
     .meta{opacity:.85;margin-top:6px;line-height:1.7}
 
-    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:12px}
+    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:12px;color:#111;background:#fff}
     a.btn + a.btn{margin-left:8px}
+    a.btn:hover{background:#fafafa}
 
     .warn{color:#b00020;font-weight:900;margin-top:10px;line-height:1.6}
 
     .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fcfcfc}
     .box h3{margin:0 0 8px;font-size:14px}
-    .copy{border:1px solid #111;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
-    .small{font-size:13px;opacity:.85;line-height:1.6}
 
-    /* ✅ 모바일 전용: 링크 버튼을 '메인 버튼'처럼 노출 */
-    .mobileLinkRow{display:none;margin-top:10px}
-    .mobileCopyBtn{
-      width:100%;
-      border:1px solid #111;
-      background:#111;
-      color:#fff;
-      border-radius:12px;
-      padding:11px 12px;
-      cursor:pointer;
-      font-weight:900;
-      text-align:center;
+    /* 링크 섹션 */
+    .linkTitle{font-weight:900;margin:10px 0 8px}
+    .linkRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .actionBtn{
+      border:1px solid #111;background:#fff;border-radius:12px;padding:9px 12px;
+      cursor:pointer;font-weight:900
     }
-    .mobileCopyBtn:active{transform:translateY(1px)}
-    .mobileHint{margin-top:6px;font-size:12px;opacity:.7;line-height:1.4}
+    .actionBtn.primary{background:#111;color:#fff}
+    .actionBtn:hover{background:#fafafa}
+    .actionBtn.primary:hover{background:#111;filter:brightness(.95)}
+
+    .urlBox{
+      margin-top:8px;
+      border:1px solid #e8e8e8;
+      background:#fff;
+      border-radius:12px;
+      padding:10px 10px;
+    }
+    .urlInput{
+      width:100%;
+      border:0;
+      outline:none;
+      font-size:13px;
+      line-height:1.5;
+      color:#111;
+      background:transparent;
+      padding:0;
+      /* 긴 URL 줄바꿈 */
+      white-space:normal;
+      word-break:break-all;
+    }
+    .hint{margin-top:6px;font-size:12px;opacity:.7;line-height:1.4}
+
+    /* 토스트 */
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background:#111;color:#fff;border-radius:999px;padding:10px 14px;
+      font-weight:900;font-size:13px;opacity:0;pointer-events:none;
+      transition:opacity .18s ease, transform .18s ease;
+      z-index:9999;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-2px);}
+
+    /* 관리자 게이트 메시지 */
+    #gate{display:none}
 
     @media (max-width:720px){
       body{margin:16px}
-      .right{display:none;}           /* ✅ 모바일에서는 우측 박스 제거 */
-      .mobileLinkRow{display:block;} /* ✅ 모바일에서는 복사 버튼만 */
+      .right{display:none;} /* 모바일 우측 박스 숨김 */
       a.btn{display:block}
       a.btn + a.btn{margin-left:0}
+      .topbar{padding:8px 0}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>학생 목록</h1>
-    <div id="gate" class="warn" style="display:none"></div>
+    <div id="gate" class="warn"></div>
 
-    <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
+    <div class="topbar">
+      <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
+    </div>
+
     <div id="list"></div>
   </div>
+
+  <div id="toast" class="toast">복사됨</div>
 
   <script>
     // ✅ 여기만 바꾸면 됨 (관리자 토큰)
     const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
     let students = [];
+
+    const $ = (s) => document.querySelector(s);
 
     function qs(name){
       return new URLSearchParams(location.search).get(name);
@@ -85,26 +128,62 @@
 
     // ✅ 절대 URL 생성 (학생에게 그대로 보내기 좋게)
     function absUrl(fileName, params){
-      const base = new URL(".", location.href);   // .../public/students/
-      const u = new URL(fileName, base);          // .../public/students/student.html
+      const base = new URL(".", location.href); // .../public/students/
+      const u = new URL(fileName, base);        // .../public/students/student.html
       for(const [k,v] of Object.entries(params||{})){
         if(v!=null && String(v).length) u.searchParams.set(k, v);
       }
       return u.toString();
     }
 
+    function showToast(text){
+      const t = $("#toast");
+      t.textContent = text || "완료";
+      t.classList.add("show");
+      clearTimeout(showToast._tm);
+      showToast._tm = setTimeout(()=>t.classList.remove("show"), 1200);
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("링크 복사됨");
+      }catch(e){
+        // 클립보드가 막힌 환경이면 prompt fallback
+        prompt("복사가 막혀있어요. 아래를 복사하세요:", text);
+      }
+    }
+
+    async function shareText(url){
+      if(navigator.share){
+        try{
+          await navigator.share({ title:"성적 링크", text:"성적 확인 링크", url });
+          showToast("공유창 열림");
+        }catch(e){
+          // 사용자가 취소해도 조용히
+        }
+      }else{
+        // share 미지원이면 복사로 대체
+        await copyText(url);
+      }
+    }
+
+    function openUrl(url){
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
     function gateKeep(){
       const admin = qs("admin");
       if(!admin || admin !== ADMIN_TOKEN){
-        const g = document.getElementById("gate");
+        const g = $("#gate");
         g.style.display = "block";
         g.innerHTML = `
           이 페이지는 <b>관리자 토큰</b>으로만 볼 수 있습니다.<br/>
           ✅ 관리자: <span class="muted">index.html?admin=관리자토큰</span><br/>
           예) <span class="muted">.../public/students/index.html?admin=${ADMIN_TOKEN}</span>
         `;
-        document.getElementById("q").style.display = "none";
-        document.getElementById("list").innerHTML = "";
+        $("#q").style.display = "none";
+        $("#list").innerHTML = "";
         return null;
       }
       return admin;
@@ -120,20 +199,34 @@
       students = await res.json();
 
       render("", admin);
-      document.getElementById('q').addEventListener('input', (e)=>render(e.target.value.trim(), admin));
-    }
+      $("#q").addEventListener("input", (e)=>render(e.target.value.trim(), admin));
 
-    function copyText(text){
-      navigator.clipboard.writeText(text).then(()=>{
-        alert("복사 완료!");
-      }).catch(()=>{
-        prompt("복사가 막혀있어요. 아래를 복사하세요:", text);
+      // 이벤트 위임(복사/공유/열기)
+      $("#list").addEventListener("click", async (e)=>{
+        const btn = e.target.closest("[data-action]");
+        if(!btn) return;
+        const action = btn.dataset.action;
+        const url = btn.dataset.url;
+        if(!url) return;
+
+        if(action === "copy") return copyText(url);
+        if(action === "share") return shareText(url);
+        if(action === "open") return openUrl(url);
+      });
+
+      // URL 클릭 시 전체 선택
+      $("#list").addEventListener("focusin", (e)=>{
+        const inp = e.target.closest(".urlInput");
+        if(inp) inp.select?.();
+      });
+      $("#list").addEventListener("click", (e)=>{
+        const inp = e.target.closest(".urlInput");
+        if(inp) inp.select?.();
       });
     }
-    window.copyText = copyText;
 
     function render(keyword, admin){
-      const list = document.getElementById('list');
+      const list = $("#list");
       const k = (keyword || '').toLowerCase();
 
       const items = students.filter(s => {
@@ -158,12 +251,28 @@
           `;
         }
 
-        // ✅ 관리자 링크(내부 관리용)
+        // 관리자 링크(내부 확인용)
         const studentAdminHref = `./student.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
         const univAdminHref    = `./univ_list.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
 
-        // ✅ 학생에게 줄 링크: 성적 링크만 (절대주소)
+        // ✅ 학생에게 줄 링크: 성적 링크만(절대주소)
         const studentPublicAbs = token ? absUrl("student.html", { t: token }) : null;
+
+        const linkSection = token ? `
+          <div class="linkTitle">학생에게 보낼 성적 링크</div>
+          <div class="linkRow">
+            <button class="actionBtn primary" type="button" data-action="copy" data-url="${studentPublicAbs}">복사</button>
+            <button class="actionBtn" type="button" data-action="share" data-url="${studentPublicAbs}">공유</button>
+            <button class="actionBtn" type="button" data-action="open" data-url="${studentPublicAbs}">열기</button>
+          </div>
+          <div class="urlBox">
+            <input class="urlInput" readonly value="${studentPublicAbs}" />
+          </div>
+          <div class="hint">복사 후 카톡/문자에 붙여넣기만 하면 됩니다.</div>
+        ` : `
+          <div class="warn" style="margin-top:10px">⚠ token이 없어 학생 링크 생성 불가</div>
+          <div class="hint">students.json에 해당 학생의 "token"을 넣으면 자동 생성됩니다.</div>
+        `;
 
         return `
           <div class="card">
@@ -179,57 +288,20 @@
                 <a class="btn" href="${studentAdminHref}">성적/그래프/진도 보기</a>
                 <a class="btn" href="${univAdminHref}">대학 상향/적정 보기</a>
 
-                <!-- ✅ 모바일: 링크 박스 대신 복사 버튼 하나만 -->
-                <div class="mobileLinkRow">
-                  ${
-                    token
-                      ? `
-                        <button class="mobileCopyBtn" type="button"
-                          onclick="copyText(${JSON.stringify(studentPublicAbs)})">
-                          성적 링크 복사
-                        </button>
-                        <div class="mobileHint">
-                          학생에게는 이 링크만 보내세요.<br/>
-                          (복사 후 카톡/문자에 붙여넣기)
-                        </div>
-                      `
-                      : `
-                        <div class="warn" style="margin-top:10px">
-                          ⚠ token이 없어 학생 링크 생성 불가
-                        </div>
-                      `
-                  }
-                </div>
+                <!-- ✅ 모바일/PC 공통: 카드 내부에 성적 링크 섹션 -->
+                ${linkSection}
               </div>
 
-              <!-- ✅ PC에서만 우측 박스 표시 -->
+              <!-- ✅ PC에서만 우측 정보 박스를 별도로 보여주고 싶으면 유지(모바일 숨김) -->
               <div class="right">
                 <div class="box">
-                  <h3>학부모/학생용 링크</h3>
-                  ${
-                    token
-                      ? `
-                        <div class="small">학생에게는 아래 <b>성적 링크</b>만 보내는 것을 권장합니다.</div>
-                        <div style="margin-top:10px">
-                          <button class="copy" type="button" onclick="copyText(${JSON.stringify(studentPublicAbs)})">성적 링크 복사</button>
-                        </div>
-                        <div class="small" style="margin-top:10px">
-                          성적: <span class="muted">${studentPublicAbs}</span>
-                        </div>
-                      `
-                      : `
-                        <div class="warn" style="margin:0">
-                          ⚠ 이 학생은 students.json에 token(토큰)이 없어서<br/>
-                          학부모/학생 링크를 만들 수 없습니다.
-                        </div>
-                        <div class="small" style="margin-top:8px">
-                          students.json에 <span class="muted">"token":"임의문자열"</span>을 추가하면 생성됩니다.
-                        </div>
-                      `
-                  }
+                  <h3>메모</h3>
+                  <div class="small">
+                    - 학생에게는 <b>성적 링크만</b> 전달 권장<br/>
+                    - 공유 버튼은 기기에서 지원되면 공유창이 뜹니다.
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         `;
@@ -237,7 +309,7 @@
     }
 
     init().catch((e)=>{
-      document.getElementById('list').innerHTML =
+      $("#list").innerHTML =
         `<div class="warn">students.json 로딩 실패<br/><span class="muted">${String(e)}</span></div>`;
     });
   </script>
