@@ -40,20 +40,25 @@
     .status{font-weight:900}
     .st-fit{color:#0b57d0}   /* 적정 */
     .st-up{color:#b26a00}    /* 상향 */
+    .st-na{color:#777}       /* 데이터없음 */
 
     /* 과목칩 */
     .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
     .chip{
-      display:inline-flex;gap:6px;align-items:center;
+      display:inline-flex;gap:8px;align-items:center;
       border:1px solid #ddd;border-radius:999px;padding:6px 10px;background:#fff;font-weight:900;
       font-size:13px;
     }
     .chip .k{opacity:.7;font-weight:900}
+    .chip .s{font-weight:900}
     .chip .v{font-weight:900}
+    .chip .d{opacity:.7;font-weight:800}
     .chip.ok{border-color:#0b57d0}
     .chip.ng{border-color:#b26a00}
     .chip.na{border-color:#ddd;opacity:.7}
-    .chip .d{opacity:.7;font-weight:800}
+    .chip.ok .s{color:#0b57d0}
+    .chip.ng .s{color:#b26a00}
+    .chip.na .s{color:#777}
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
 
@@ -167,7 +172,7 @@
     return "-";
   }
 
-  // --- 학생 최신 회차에서 과목별 백분위 맵 만들기 (부분응시 허용) ---
+  // --- (수정) 학생 최신 회차에서 과목별 백분위 맵 만들기 (부분응시 + 탐구 과목명 추론) ---
   function buildStudentMap(latestRow){
     const get = (...keys) => {
       for(const k of keys){
@@ -177,36 +182,48 @@
       return null;
     };
 
-    // 탐구는 탐1/탐2, 탐구1/탐구2 둘 다 지원
     const map = {
       "국어": get("국어","국"),
       "수학": get("수학","수"),
       "영어": get("영어","영"),
       "탐1": get("탐1","탐구1","탐_1","탐구_1"),
       "탐2": get("탐2","탐구2","탐_2","탐구_2"),
-      // 필요하면 한국사도 확장 가능
       "한국사": get("한국사","한"),
     };
 
-    // 추가 과목(사문/생윤 등)이 들어오는 경우도 “탐1/탐2” 대신 쓰고 싶으면 여기서 확장하면 됨.
+    // ✅ 탐1/탐2가 없고, 생윤/사문 같은 “개별 탐구과목”으로 들어오는 경우 자동 추론
+    if(map["탐1"]==null || map["탐2"]==null){
+      const keys = Object.keys(latestRow||{});
+      const cand = [];
+      for(const k of keys){
+        if(META_KEYS.has(k)) continue;
+        if(String(k).endsWith("컷")) continue;
+        if(["국어","국","수학","수","영어","영","한국사","한","탐1","탐2","탐구1","탐구2","탐_1","탐_2","탐구_1","탐구_2"].includes(k)) continue;
+        const v = toNum(latestRow[k]);
+        if(v==null) continue;
+        cand.push(k);
+      }
+      // cand는 최신Row의 key 순서 유지. 앞 2개를 탐1/탐2로 사용
+      if(map["탐1"]==null && cand[0]) map["탐1"] = toNum(latestRow[cand[0]]);
+      if(map["탐2"]==null && cand[1]) map["탐2"] = toNum(latestRow[cand[1]]);
+    }
+
     return map;
   }
 
-  // --- 대학 row에서 과목별 컷 가져오기 ---
+  // --- (수정) 대학 row에서 과목별 컷 가져오기: cuts / cut_kor / 직접키(국어/수학/...) 모두 지원 ---
   function getUnivCuts(u){
+    const out = {};
+
     // 1) cuts 객체 방식
     if(u && typeof u.cuts === "object" && u.cuts){
-      const out = {};
       for(const k of Object.keys(u.cuts)){
         const v = toNum(u.cuts[k]);
         if(v!=null) out[k] = v;
       }
-      return out;
     }
 
-    // 2) 컬럼 방식(엑셀에서 변환된 경우)
-    // 예: cut_kor / cut_math / cut_eng / cut_inq1 / cut_inq2
-    const out = {};
+    // 2) 컬럼 방식
     const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
     const math = toNum(u.cut_math ?? u.math_cut);
     const eng = toNum(u.cut_eng ?? u.eng_cut);
@@ -217,42 +234,81 @@
     if(eng!=null) out["영어"]=eng;
     if(inq1!=null) out["탐1"]=inq1;
     if(inq2!=null) out["탐2"]=inq2;
+
+    // 3) ✅ 직접 과목키 방식 (가장 흔한 형태)
+    const dKor = toNum(u["국어"] ?? u["국"]);
+    const dMath = toNum(u["수학"] ?? u["수"]);
+    const dEng = toNum(u["영어"] ?? u["영"]);
+    const dInq1 = toNum(u["탐1"] ?? u["탐구1"]);
+    const dInq2 = toNum(u["탐2"] ?? u["탐구2"]);
+    if(dKor!=null) out["국어"]=dKor;
+    if(dMath!=null) out["수학"]=dMath;
+    if(dEng!=null) out["영어"]=dEng;
+    if(dInq1!=null) out["탐1"]=dInq1;
+    if(dInq2!=null) out["탐2"]=dInq2;
+
     return out;
   }
 
-  // --- 과목별 비교 -> 칩 / 평균차이 / 판정(적정/상향) ---
+  function judgeText(state){
+    if(state==="ok") return "적정";
+    if(state==="ng") return "상향";
+    return "데이터없음";
+  }
+
+  // --- (수정) 과목별 판정 기반으로 전체 판정 생성 ---
   function evalRow(u, stuMap){
     const cuts = getUnivCuts(u);
-    const keys = ["국어","수학","탐1","탐2","영어"]; // 보여줄 순서
+    const keys = ["국어","수학","탐1","탐2","영어"]; // 표시 순서
 
     let sumDiff = 0;
     let cnt = 0;
+    let minDiff = null;
+    let maxDiff = null;
+
+    let hasNg = false;
+    let hasOk = false;
 
     const per = keys.map(k=>{
       const s = stuMap[k];
       const c = cuts[k];
+
       if(s==null || c==null){
-        return { k, s, c, diff:null, state:"na" };
+        return { k, s, c, diff:null, state:"na", judge:"데이터없음" };
       }
+
       const diff = s - c;
       sumDiff += diff;
       cnt += 1;
-      return { k, s, c, diff, state: diff>=0 ? "ok" : "ng" };
+
+      if(minDiff==null || diff < minDiff) minDiff = diff;
+      if(maxDiff==null || diff > maxDiff) maxDiff = diff;
+
+      const state = diff>=0 ? "ok" : "ng";
+      if(state==="ok") hasOk = true;
+      if(state==="ng") hasNg = true;
+
+      return { k, s, c, diff, state, judge: (state==="ok" ? "적정" : "상향") };
     });
 
     const avgDiff = cnt ? (sumDiff / cnt) : null;
 
-    // ✅ 탭은 3개만: 적정/상향/전체
-    // - "적정": 평균차이 >= 0
-    // - "상향": 평균차이 < 0 OR 데이터 부족(응시 과목이 너무 적음)도 일단 상향으로
-    const code = (avgDiff!=null && avgDiff>=0) ? "fit" : "up";
+    // ✅ 전체 판정(탭 필터용)
+    // - 응시한 과목 중 하나라도 상향이면 -> 상향
+    // - 응시한 과목이 있고 모두 적정이면 -> 적정
+    // - 응시한 과목이 하나도 없으면 -> 데이터없음
+    let code = "na";
+    if(cnt === 0) code = "na";
+    else if(hasNg) code = "up";
+    else code = "fit";
 
-    return { cuts, per, avgDiff, cnt, code };
+    return { cuts, per, avgDiff, minDiff, maxDiff, cnt, code };
   }
 
   function statusLabel(code){
     if(code==="fit") return { t:"적정", cls:"st-fit" };
-    return { t:"상향", cls:"st-up" };
+    if(code==="up")  return { t:"상향", cls:"st-up" };
+    return { t:"데이터없음", cls:"st-na" };
   }
 
   function chipsHtml(per, mobile=false){
@@ -260,9 +316,17 @@
     const items = per.map(p=>{
       const vText = (p.s==null) ? "미응시" : `${p.s}`;
       const cText = (p.c==null) ? "-" : `${p.c}`;
-      const dText = (p.diff==null) ? "" : (p.diff>=0 ? `+${p.diff.toFixed(1)}` : `${p.diff.toFixed(1)}`);
+      const dText = (p.diff==null) ? "" : (p.diff>=0 ? `(+${p.diff.toFixed(1)})` : `(${p.diff.toFixed(1)})`);
       const cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
-      return `<span class="${cls}"><span class="k">${esc(p.k)}</span><span class="v">${esc(vText)}</span><span class="d">/ ${esc(cText)} ${esc(dText)}</span></span>`;
+      const judge = (p.state==="ok") ? "적정" : (p.state==="ng" ? "상향" : "없음");
+
+      // ✅ 칩 안에 과목별 판정이 글자로 보이게
+      return `<span class="${cls}">
+        <span class="k">${esc(p.k)}</span>
+        <span class="s">${esc(judge)}</span>
+        <span class="v">${esc(vText)}</span>
+        <span class="d">/ ${esc(cText)} ${esc(dText)}</span>
+      </span>`;
     }).join("");
     return `<div class="${wrapCls}">${items}</div>`;
   }
@@ -393,7 +457,7 @@
       return { ...u, _ev: ev };
     });
 
-    // 5) 탭 (적정/상향/전체)
+    // 5) 탭 (적정/상향/전체) — 데이터없음은 "전체"에서만 보임
     const tabs = $("#tabs");
     const tabDefs = [
       {key:"fit", label:"적정"},
@@ -438,16 +502,30 @@
       }
       if(q){
         arr = arr.filter(x =>
-          String(x.univ||"").toLowerCase().includes(q) ||
-          String(x.major||"").toLowerCase().includes(q)
+          String(x.univ||x.대학||"").toLowerCase().includes(q) ||
+          String(x.major||x.dept||x.학과||"").toLowerCase().includes(q)
         );
       }
 
-      // 정렬: 평균차이 큰 순(적정 우선 보이게)
+      // ✅ 정렬
+      // - 적정: "가장 약한 과목(minDiff)" 여유가 큰 순
+      // - 상향: "가장 근접(maxDiff)"(덜 마이너스) 순
+      // - 전체: 적정 먼저 + 위 기준 혼합
       arr.sort((a,b)=>{
-        const av = a._ev.avgDiff ?? -999;
-        const bv = b._ev.avgDiff ?? -999;
-        return bv - av;
+        const ac = a._ev.code, bc = b._ev.code;
+        if(activeTab==="all" && ac!==bc){
+          const order = {fit:0, up:1, na:2};
+          return (order[ac]??9) - (order[bc]??9);
+        }
+        if(a._ev.code==="fit"){
+          const av = a._ev.minDiff ?? -9999;
+          const bv = b._ev.minDiff ?? -9999;
+          return bv - av;
+        }else{
+          const av = a._ev.maxDiff ?? -9999;
+          const bv = b._ev.maxDiff ?? -9999;
+          return bv - av;
+        }
       });
 
       // PC 표
@@ -461,8 +539,8 @@
           <tr>
             <td class="status ${st.cls}">${esc(st.t)}</td>
             <td>${esc(u.year ?? "-")}</td>
-            <td>${esc(u.univ||"-")}</td>
-            <td>${esc(u.major||"-")}</td>
+            <td>${esc(u.univ||u.대학||"-")}</td>
+            <td>${esc(u.major||u.dept||u.학과||"-")}</td>
             <td>${esc(u.group||"-")}</td>
             <td>${chipsHtml(ev.per, false)}</td>
             <td class="num">${esc(covered)}</td>
@@ -483,7 +561,7 @@
           <div class="mobile-card">
             <div class="mobile-top">
               <div>
-                <div class="mobile-title">${esc(u.univ||"-")} · ${esc(u.major||"-")}</div>
+                <div class="mobile-title">${esc(u.univ||u.대학||"-")} · ${esc(u.major||u.dept||u.학과||"-")}</div>
                 <div class="mobile-sub">${esc(u.year ?? "-")} · ${esc(u.group||"-")} · 응시 ${esc(covered)} · 평균차이 ${esc(avgDiffText)}</div>
               </div>
               <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
@@ -503,8 +581,8 @@
             <span class="badge muted">탐1:${stuMap["탐1"] ?? "-"} · 탐2:${stuMap["탐2"] ?? "-"}</span>
           </div>
           <div class="muted">
-            ※ 과목별 컷(백분위)로 비교합니다. 일부 과목만 응시한 경우에도 “응시한 과목” 기준으로 칩이 표시됩니다.
-            판정은 (응시된 과목들의 평균차이 기준) 평균차이 ≥ 0이면 <b>적정</b>, 그 외는 <b>상향</b>으로 표시합니다.
+            ※ <b>과목별 컷(백분위)</b>로 비교합니다. 일부 과목만 응시해도 칩/판정이 표시됩니다.<br>
+            ※ <b>전체 판정(탭 기준)</b>: 응시한 과목 중 하나라도 “상향”이면 <b>상향</b>, 모두 “적정”이면 <b>적정</b>, 전부 데이터 없으면 <b>데이터없음</b>.
           </div>
         </div>
 
@@ -521,7 +599,7 @@
                 <th>대학</th>
                 <th>학과</th>
                 <th>계열</th>
-                <th>과목별 비교 (학생/컷/차이)</th>
+                <th>과목별 비교 (판정/학생/컷/차이)</th>
                 <th class="num">응시</th>
                 <th class="num">평균차이</th>
                 <th>비고</th>
