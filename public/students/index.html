@@ -7,24 +7,44 @@
   <style>
     html,body{width:100%;overflow-x:hidden}
     *{box-sizing:border-box}
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;background:#fff;color:#111}
-    h1{margin:0 0 14px}
+    body{
+      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      margin:24px;background:#fff;color:#111
+    }
+    h1{margin:0 0 12px}
     .wrap{max-width:980px}
 
-    /* 상단 검색 바(모바일 스티키) */
-    .topbar{position:sticky;top:0;background:#fff;padding:10px 0;z-index:10;border-bottom:1px solid #eee;margin-bottom:10px}
-    .search{width:100%;max-width:920px;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px}
+    /* 상단 컨트롤 */
+    .topbar{
+      position:sticky;top:0;z-index:10;
+      background:#fff;padding:10px 0 12px;border-bottom:1px solid #eee;
+      margin-bottom:10px
+    }
+    .controls{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      max-width:980px
+    }
+    .search{
+      width:min(520px,100%);padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px
+    }
+    select{
+      border:1px solid #ddd;border-radius:12px;padding:12px 12px;background:#fff;font-weight:800
+    }
+    .summary{margin-top:8px;opacity:.75;font-size:13px}
 
+    /* 카드 */
     .card{border:1px solid #ddd;border-radius:16px;padding:16px;margin:12px 0;background:#fff}
     .row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
     .left{min-width:260px;flex:1}
     .right{min-width:260px;max-width:420px;flex:1}
-
     .name{font-weight:900;font-size:22px}
     .muted{opacity:.7}
     .meta{opacity:.85;margin-top:6px;line-height:1.7}
 
-    a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:12px;color:#111;background:#fff}
+    a.btn{
+      display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;
+      padding:9px 12px;border-radius:12px;color:#111;background:#fff
+    }
     a.btn + a.btn{margin-left:8px}
     a.btn:hover{background:#fafafa}
 
@@ -33,8 +53,21 @@
     .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fcfcfc}
     .box h3{margin:0 0 8px;font-size:14px}
 
-    /* 링크 섹션 */
-    .linkTitle{font-weight:900;margin:10px 0 8px}
+    /* 공유(학생 링크) 섹션: 기본 접힘 */
+    details.shareDetails{
+      margin-top:12px;border:1px solid #eee;border-radius:14px;background:#fcfcfc;overflow:hidden
+    }
+    details.shareDetails > summary{
+      list-style:none;cursor:pointer;
+      padding:12px 12px;font-weight:900;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      user-select:none
+    }
+    details.shareDetails > summary::-webkit-details-marker{display:none}
+    .caret{opacity:.7;font-weight:900}
+    details.shareDetails[open] .caret{transform:rotate(180deg)}
+    .shareBody{padding:12px;border-top:1px solid #eee;background:#fff}
+
     .linkRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .actionBtn{
       border:1px solid #111;background:#fff;border-radius:12px;padding:9px 12px;
@@ -42,29 +75,36 @@
     }
     .actionBtn.primary{background:#111;color:#fff}
     .actionBtn:hover{background:#fafafa}
-    .actionBtn.primary:hover{background:#111;filter:brightness(.95)}
+    .actionBtn.primary:hover{filter:brightness(.95)}
+    .actionBtn.kakao{
+      border-color:#111;
+    }
 
     .urlBox{
-      margin-top:8px;
-      border:1px solid #e8e8e8;
-      background:#fff;
-      border-radius:12px;
-      padding:10px 10px;
+      margin-top:10px;border:1px solid #e8e8e8;background:#fff;border-radius:12px;padding:10px
     }
     .urlInput{
-      width:100%;
-      border:0;
-      outline:none;
-      font-size:13px;
-      line-height:1.5;
-      color:#111;
-      background:transparent;
-      padding:0;
-      /* 긴 URL 줄바꿈 */
-      white-space:normal;
-      word-break:break-all;
+      width:100%;border:0;outline:none;font-size:13px;line-height:1.5;
+      background:transparent;color:#111;
+      white-space:normal;word-break:break-all
     }
     .hint{margin-top:6px;font-size:12px;opacity:.7;line-height:1.4}
+
+    /* 페이지네이션 */
+    .pager{
+      display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+      margin:10px 0 6px
+    }
+    .pbtn{
+      border:1px solid #111;background:#fff;border-radius:12px;padding:8px 10px;
+      cursor:pointer;font-weight:900
+    }
+    .pbtn:disabled{opacity:.35;cursor:not-allowed}
+    .pageinfo{font-weight:900}
+    .pill{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:6px 10px;background:#fafafa;font-weight:900;font-size:12px
+    }
 
     /* 토스트 */
     .toast{
@@ -81,10 +121,12 @@
 
     @media (max-width:720px){
       body{margin:16px}
-      .right{display:none;} /* 모바일 우측 박스 숨김 */
+      .right{display:none} /* 모바일 우측 박스 숨김 */
       a.btn{display:block}
       a.btn + a.btn{margin-left:0}
-      .topbar{padding:8px 0}
+      .search{width:100%}
+      .controls{gap:8px}
+      select{width:min(220px,100%)}
     }
   </style>
 </head>
@@ -94,7 +136,25 @@
     <div id="gate" class="warn"></div>
 
     <div class="topbar">
-      <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
+      <div class="controls">
+        <input id="q" class="search" placeholder="검색: 학생명 / 학교 / 진로 / 전형 / ID" />
+        <select id="sortSel">
+          <option value="name_asc">정렬: 이름 ↑</option>
+          <option value="name_desc">정렬: 이름 ↓</option>
+          <option value="school_asc">정렬: 학교 ↑</option>
+          <option value="school_desc">정렬: 학교 ↓</option>
+          <option value="id_asc">정렬: ID ↑</option>
+          <option value="id_desc">정렬: ID ↓</option>
+        </select>
+        <select id="pageSizeSel">
+          <option value="10">페이지당 10명</option>
+          <option value="20" selected>페이지당 20명</option>
+          <option value="50">페이지당 50명</option>
+        </select>
+      </div>
+
+      <div class="pager" id="pager" style="display:none"></div>
+      <div class="summary" id="summary"></div>
     </div>
 
     <div id="list"></div>
@@ -141,7 +201,7 @@
       t.textContent = text || "완료";
       t.classList.add("show");
       clearTimeout(showToast._tm);
-      showToast._tm = setTimeout(()=>t.classList.remove("show"), 1200);
+      showToast._tm = setTimeout(()=>t.classList.remove("show"), 1300);
     }
 
     async function copyText(text){
@@ -149,23 +209,26 @@
         await navigator.clipboard.writeText(text);
         showToast("링크 복사됨");
       }catch(e){
-        // 클립보드가 막힌 환경이면 prompt fallback
         prompt("복사가 막혀있어요. 아래를 복사하세요:", text);
       }
     }
 
-    async function shareText(url){
+    // ✅ “카톡 느낌” 공유: 모바일에서는 공유 시트 → 카카오톡 선택 가능
+    // (PC/공유 미지원이면 복사로 대체 + 안내 토스트)
+    async function kakaoShare(url, studentName){
+      const title = `${studentName} 성적 링크`;
+      const text = `성적 확인 링크입니다.\n${url}`;
       if(navigator.share){
         try{
-          await navigator.share({ title:"성적 링크", text:"성적 확인 링크", url });
+          await navigator.share({ title, text, url });
           showToast("공유창 열림");
+          return;
         }catch(e){
           // 사용자가 취소해도 조용히
         }
-      }else{
-        // share 미지원이면 복사로 대체
-        await copyText(url);
       }
+      await copyText(url);
+      showToast("복사됨 · 카톡에 붙여넣기");
     }
 
     function openUrl(url){
@@ -183,10 +246,79 @@
           예) <span class="muted">.../public/students/index.html?admin=${ADMIN_TOKEN}</span>
         `;
         $("#q").style.display = "none";
+        $("#sortSel").style.display = "none";
+        $("#pageSizeSel").style.display = "none";
+        $("#pager").style.display = "none";
         $("#list").innerHTML = "";
         return null;
       }
       return admin;
+    }
+
+    // ---------- 상태(페이지/정렬) ----------
+    let state = {
+      keyword: "",
+      sort: "name_asc",
+      page: 1,
+      pageSize: 20,
+    };
+
+    function norm(v){ return String(v ?? "").trim().toLowerCase(); }
+
+    function sortItems(arr, sortKey){
+      const getName = (x)=>norm(pickName(x));
+      const getSchool = (x)=>norm(x.school || "");
+      const getId = (x)=>norm(pickId(x) || "");
+
+      const cmp = (a,b)=> (a>b?1:(a<b?-1:0));
+
+      const baseSort = {
+        name_asc:  (a,b)=>cmp(getName(a), getName(b)),
+        name_desc: (a,b)=>cmp(getName(b), getName(a)),
+        school_asc:(a,b)=>cmp(getSchool(a), getSchool(b)) || cmp(getName(a), getName(b)),
+        school_desc:(a,b)=>cmp(getSchool(b), getSchool(a)) || cmp(getName(a), getName(b)),
+        id_asc:    (a,b)=>cmp(getId(a), getId(b)),
+        id_desc:   (a,b)=>cmp(getId(b), getId(a)),
+      }[sortKey] || ((a,b)=>0);
+
+      return arr.slice().sort(baseSort);
+    }
+
+    function filterItems(arr, keyword){
+      const k = norm(keyword);
+      if(!k) return arr.slice();
+      return arr.filter(s=>{
+        const name = pickName(s);
+        const id = pickId(s) || "";
+        const hay = `${s.school||""} ${name||""} ${s.career||""} ${s.admission||""} ${id}`.toLowerCase();
+        return hay.includes(k);
+      });
+    }
+
+    function renderPager(total, page, pageSize){
+      const pager = $("#pager");
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      pager.style.display = "flex";
+
+      const clampPage = Math.min(Math.max(1, page), totalPages);
+      state.page = clampPage;
+
+      const prevDisabled = clampPage <= 1;
+      const nextDisabled = clampPage >= totalPages;
+
+      pager.innerHTML = `
+        <button class="pbtn" type="button" data-page="first" ${prevDisabled?'disabled':''}>처음</button>
+        <button class="pbtn" type="button" data-page="prev" ${prevDisabled?'disabled':''}>이전</button>
+        <span class="pageinfo">페이지 ${clampPage} / ${totalPages}</span>
+        <button class="pbtn" type="button" data-page="next" ${nextDisabled?'disabled':''}>다음</button>
+        <button class="pbtn" type="button" data-page="last" ${nextDisabled?'disabled':''}>끝</button>
+        <span class="pill">총 ${total}명</span>
+      `;
+    }
+
+    function slicePage(arr, page, pageSize){
+      const start = (page-1)*pageSize;
+      return arr.slice(start, start + pageSize);
     }
 
     async function init(){
@@ -198,45 +330,92 @@
       if(!res.ok) throw new Error("students.json fetch failed: " + res.status);
       students = await res.json();
 
-      render("", admin);
-      $("#q").addEventListener("input", (e)=>render(e.target.value.trim(), admin));
+      // 초기 렌더
+      rerender(admin);
 
-      // 이벤트 위임(복사/공유/열기)
+      // 입력 이벤트
+      $("#q").addEventListener("input", (e)=>{
+        state.keyword = e.target.value.trim();
+        state.page = 1;
+        rerender(admin);
+      });
+      $("#sortSel").addEventListener("change", (e)=>{
+        state.sort = e.target.value;
+        state.page = 1;
+        rerender(admin);
+      });
+      $("#pageSizeSel").addEventListener("change", (e)=>{
+        state.pageSize = Number(e.target.value) || 20;
+        state.page = 1;
+        rerender(admin);
+      });
+
+      // 페이지 버튼
+      $("#pager").addEventListener("click", (e)=>{
+        const b = e.target.closest("[data-page]");
+        if(!b) return;
+        const mode = b.dataset.page;
+        const total = state._totalFiltered || 0;
+        const totalPages = Math.max(1, Math.ceil(total / state.pageSize));
+        if(mode==="first") state.page = 1;
+        if(mode==="prev") state.page = Math.max(1, state.page-1);
+        if(mode==="next") state.page = Math.min(totalPages, state.page+1);
+        if(mode==="last") state.page = totalPages;
+        rerender(admin);
+      });
+
+      // 카드 내부 버튼들(복사/카톡/열기) 이벤트 위임
       $("#list").addEventListener("click", async (e)=>{
         const btn = e.target.closest("[data-action]");
         if(!btn) return;
+
         const action = btn.dataset.action;
         const url = btn.dataset.url;
+        const studentName = btn.dataset.name || "학생";
+
         if(!url) return;
 
-        if(action === "copy") return copyText(url);
-        if(action === "share") return shareText(url);
-        if(action === "open") return openUrl(url);
+        if(action==="copy") return copyText(url);
+        if(action==="kakao") return kakaoShare(url, studentName);
+        if(action==="open") return openUrl(url);
       });
 
       // URL 클릭 시 전체 선택
-      $("#list").addEventListener("focusin", (e)=>{
-        const inp = e.target.closest(".urlInput");
-        if(inp) inp.select?.();
-      });
       $("#list").addEventListener("click", (e)=>{
         const inp = e.target.closest(".urlInput");
         if(inp) inp.select?.();
       });
+
+      // details 열림 상태 저장(선택)
+      $("#list").addEventListener("toggle", (e)=>{
+        const d = e.target.closest("details.shareDetails");
+        if(!d) return;
+        const sid = d.dataset.sid;
+        if(!sid) return;
+        try{
+          localStorage.setItem("__shareOpen__"+sid, d.open ? "1":"0");
+        }catch(_){}
+      });
     }
 
-    function render(keyword, admin){
+    function rerender(admin){
       const list = $("#list");
-      const k = (keyword || '').toLowerCase();
 
-      const items = students.filter(s => {
-        const name = pickName(s);
-        const id = pickId(s) || '';
-        const hay = `${s.school||''} ${name||''} ${s.career||''} ${s.admission||''} ${id}`.toLowerCase();
-        return !k || hay.includes(k);
-      });
+      // 1) 필터
+      let arr = filterItems(students, state.keyword);
 
-      list.innerHTML = items.map(s => {
+      // 2) 정렬
+      arr = sortItems(arr, state.sort);
+
+      // 3) 페이지
+      state._totalFiltered = arr.length;
+      renderPager(arr.length, state.page, state.pageSize);
+      const pageItems = slicePage(arr, state.page, state.pageSize);
+
+      // summary
+      $("#summary").textContent = `표시: ${pageItems.length}명 / 검색결과: ${arr.length}명`;
+
+      list.innerHTML = pageItems.map(s=>{
         const name = pickName(s);
         const id = pickId(s);
         const token = pickToken(s);
@@ -255,23 +434,58 @@
         const studentAdminHref = `./student.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
         const univAdminHref    = `./univ_list.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
 
-        // ✅ 학생에게 줄 링크: 성적 링크만(절대주소)
+        // ✅ 학생에게 보낼 링크(성적 링크만, 절대주소)
         const studentPublicAbs = token ? absUrl("student.html", { t: token }) : null;
 
-        const linkSection = token ? `
-          <div class="linkTitle">학생에게 보낼 성적 링크</div>
-          <div class="linkRow">
-            <button class="actionBtn primary" type="button" data-action="copy" data-url="${studentPublicAbs}">복사</button>
-            <button class="actionBtn" type="button" data-action="share" data-url="${studentPublicAbs}">공유</button>
-            <button class="actionBtn" type="button" data-action="open" data-url="${studentPublicAbs}">열기</button>
-          </div>
-          <div class="urlBox">
-            <input class="urlInput" readonly value="${studentPublicAbs}" />
-          </div>
-          <div class="hint">복사 후 카톡/문자에 붙여넣기만 하면 됩니다.</div>
+        // details 기본 닫힘(저장된 상태가 있으면 복원)
+        let openAttr = "";
+        try{
+          const saved = localStorage.getItem("__shareOpen__"+id);
+          if(saved==="1") openAttr = " open";
+        }catch(_){}
+
+        const shareBlock = token ? `
+          <details class="shareDetails"${openAttr} data-sid="${id}">
+            <summary>
+              <span>학생에게 보낼 성적 링크</span>
+              <span class="caret">▼</span>
+            </summary>
+            <div class="shareBody">
+              <div class="linkRow">
+                <button class="actionBtn primary" type="button"
+                  data-action="copy" data-url="${studentPublicAbs}" data-name="${String(name).replace(/"/g,'&quot;')}">
+                  복사
+                </button>
+                <button class="actionBtn kakao" type="button"
+                  data-action="kakao" data-url="${studentPublicAbs}" data-name="${String(name).replace(/"/g,'&quot;')}">
+                  카톡으로 보내기
+                </button>
+                <button class="actionBtn" type="button"
+                  data-action="open" data-url="${studentPublicAbs}" data-name="${String(name).replace(/"/g,'&quot;')}">
+                  열기
+                </button>
+              </div>
+
+              <div class="urlBox">
+                <input class="urlInput" readonly value="${studentPublicAbs}">
+              </div>
+              <div class="hint">
+                • 모바일: “카톡으로 보내기” → 공유창에서 카카오톡 선택<br/>
+                • PC/공유 미지원: 자동으로 복사되며, 카톡에 붙여넣으면 됩니다.
+              </div>
+            </div>
+          </details>
         ` : `
-          <div class="warn" style="margin-top:10px">⚠ token이 없어 학생 링크 생성 불가</div>
-          <div class="hint">students.json에 해당 학생의 "token"을 넣으면 자동 생성됩니다.</div>
+          <details class="shareDetails" data-sid="${id}">
+            <summary>
+              <span>학생에게 보낼 성적 링크</span>
+              <span class="caret">▼</span>
+            </summary>
+            <div class="shareBody">
+              <div class="warn" style="margin:0">⚠ token이 없어 학생 링크 생성 불가</div>
+              <div class="hint">students.json에 해당 학생의 "token"을 넣으면 자동 생성됩니다.</div>
+            </div>
+          </details>
         `;
 
         return `
@@ -288,29 +502,26 @@
                 <a class="btn" href="${studentAdminHref}">성적/그래프/진도 보기</a>
                 <a class="btn" href="${univAdminHref}">대학 상향/적정 보기</a>
 
-                <!-- ✅ 모바일/PC 공통: 카드 내부에 성적 링크 섹션 -->
-                ${linkSection}
+                ${shareBlock}
               </div>
 
-              <!-- ✅ PC에서만 우측 정보 박스를 별도로 보여주고 싶으면 유지(모바일 숨김) -->
               <div class="right">
                 <div class="box">
-                  <h3>메모</h3>
-                  <div class="small">
+                  <h3>안내</h3>
+                  <div class="muted" style="font-size:13px;line-height:1.6">
                     - 학생에게는 <b>성적 링크만</b> 전달 권장<br/>
-                    - 공유 버튼은 기기에서 지원되면 공유창이 뜹니다.
+                    - “카톡으로 보내기”는 기기 공유창을 활용합니다.
                   </div>
                 </div>
               </div>
             </div>
           </div>
         `;
-      }).join('') || '<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>';
+      }).join("") || `<div style="opacity:.7;margin-top:12px">검색 결과가 없습니다.</div>`;
     }
 
     init().catch((e)=>{
-      $("#list").innerHTML =
-        `<div class="warn">students.json 로딩 실패<br/><span class="muted">${String(e)}</span></div>`;
+      $("#list").innerHTML = `<div class="warn">students.json 로딩 실패<br/><span class="muted">${String(e)}</span></div>`;
     });
   </script>
 </body>
