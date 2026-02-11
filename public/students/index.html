@@ -16,37 +16,39 @@
     .name{font-weight:900;font-size:22px}
     .muted{opacity:.7}
     .meta{opacity:.85;margin-top:6px;line-height:1.7}
+
     a.btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:9px 12px;border-radius:12px}
     a.btn + a.btn{margin-left:8px}
+
     .warn{color:#b00020;font-weight:900;margin-top:10px;line-height:1.6}
+
     .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fcfcfc}
     .box h3{margin:0 0 8px;font-size:14px}
     .copy{border:1px solid #111;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
     .small{font-size:13px;opacity:.85;line-height:1.6}
 
-    /* ✅ 모바일: 오른쪽 박스는 접기/펼치기 */
-    .toggleLink{
-      display:none;
+    /* ✅ 모바일 전용: 링크 버튼을 '메인 버튼'처럼 노출 */
+    .mobileLinkRow{display:none;margin-top:10px}
+    .mobileCopyBtn{
       width:100%;
       border:1px solid #111;
-      background:#fff;
+      background:#111;
+      color:#fff;
       border-radius:12px;
-      padding:10px 12px;
+      padding:11px 12px;
       cursor:pointer;
       font-weight:900;
-      text-align:left;
+      text-align:center;
     }
-    .linkBody{display:block;}
+    .mobileCopyBtn:active{transform:translateY(1px)}
+    .mobileHint{margin-top:6px;font-size:12px;opacity:.7;line-height:1.4}
 
     @media (max-width:720px){
       body{margin:16px}
-      .right{max-width:100%}
+      .right{display:none;}           /* ✅ 모바일에서는 우측 박스 제거 */
+      .mobileLinkRow{display:block;} /* ✅ 모바일에서는 복사 버튼만 */
       a.btn{display:block}
       a.btn + a.btn{margin-left:0}
-
-      .toggleLink{display:block;}
-      .linkBody{display:none;}
-      .box[data-open="true"] .linkBody{display:block;}
     }
   </style>
 </head>
@@ -81,7 +83,7 @@
       return s.token ?? s.accessToken ?? s.key ?? s.pass ?? s.pw ?? s["token"] ?? s["토큰"] ?? null;
     }
 
-    // ✅ index.html이 있는 폴더 기준으로 student.html "절대주소" 만들기
+    // ✅ 절대 URL 생성 (학생에게 그대로 보내기 좋게)
     function absUrl(fileName, params){
       const base = new URL(".", location.href);   // .../public/students/
       const u = new URL(fileName, base);          // .../public/students/student.html
@@ -128,19 +130,6 @@
         prompt("복사가 막혀있어요. 아래를 복사하세요:", text);
       });
     }
-
-    // ✅ 모바일 링크 박스 토글
-    function toggleLinkBox(boxId){
-      const box = document.getElementById(boxId);
-      if(!box) return;
-      const isOpen = box.getAttribute("data-open") === "true";
-      box.setAttribute("data-open", isOpen ? "false" : "true");
-      const btn = box.querySelector(".toggleLink");
-      if(btn){
-        btn.textContent = isOpen ? "성적 링크 보기" : "성적 링크 숨기기";
-      }
-    }
-    window.toggleLinkBox = toggleLinkBox;
     window.copyText = copyText;
 
     function render(keyword, admin){
@@ -176,9 +165,6 @@
         // ✅ 학생에게 줄 링크: 성적 링크만 (절대주소)
         const studentPublicAbs = token ? absUrl("student.html", { t: token }) : null;
 
-        // 토글 박스 id (학생별 고유)
-        const boxId = `linkbox_${String(id).replace(/[^a-zA-Z0-9_-]/g, "_")}`;
-
         return `
           <div class="card">
             <div class="row">
@@ -192,19 +178,37 @@
 
                 <a class="btn" href="${studentAdminHref}">성적/그래프/진도 보기</a>
                 <a class="btn" href="${univAdminHref}">대학 상향/적정 보기</a>
-              </div>
 
-              <div class="right">
-                <div class="box" id="${boxId}" data-open="false">
-                  <h3>학부모/학생용 링크</h3>
-
+                <!-- ✅ 모바일: 링크 박스 대신 복사 버튼 하나만 -->
+                <div class="mobileLinkRow">
                   ${
                     token
-                    ? `
-                      <!-- ✅ 모바일에서 접기/펼치기 버튼 -->
-                      <button class="toggleLink" type="button" onclick="toggleLinkBox('${boxId}')">성적 링크 보기</button>
+                      ? `
+                        <button class="mobileCopyBtn" type="button"
+                          onclick="copyText(${JSON.stringify(studentPublicAbs)})">
+                          성적 링크 복사
+                        </button>
+                        <div class="mobileHint">
+                          학생에게는 이 링크만 보내세요.<br/>
+                          (복사 후 카톡/문자에 붙여넣기)
+                        </div>
+                      `
+                      : `
+                        <div class="warn" style="margin-top:10px">
+                          ⚠ token이 없어 학생 링크 생성 불가
+                        </div>
+                      `
+                  }
+                </div>
+              </div>
 
-                      <div class="linkBody">
+              <!-- ✅ PC에서만 우측 박스 표시 -->
+              <div class="right">
+                <div class="box">
+                  <h3>학부모/학생용 링크</h3>
+                  ${
+                    token
+                      ? `
                         <div class="small">학생에게는 아래 <b>성적 링크</b>만 보내는 것을 권장합니다.</div>
                         <div style="margin-top:10px">
                           <button class="copy" type="button" onclick="copyText(${JSON.stringify(studentPublicAbs)})">성적 링크 복사</button>
@@ -212,20 +216,20 @@
                         <div class="small" style="margin-top:10px">
                           성적: <span class="muted">${studentPublicAbs}</span>
                         </div>
-                      </div>
-                    `
-                    : `
-                      <div class="warn" style="margin:0">
-                        ⚠ 이 학생은 students.json에 token(토큰)이 없어서<br/>
-                        학부모/학생 링크를 만들 수 없습니다.
-                      </div>
-                      <div class="small" style="margin-top:8px">
-                        students.json에 <span class="muted">"token":"임의문자열"</span>을 추가하면 생성됩니다.
-                      </div>
-                    `
+                      `
+                      : `
+                        <div class="warn" style="margin:0">
+                          ⚠ 이 학생은 students.json에 token(토큰)이 없어서<br/>
+                          학부모/학생 링크를 만들 수 없습니다.
+                        </div>
+                        <div class="small" style="margin-top:8px">
+                          students.json에 <span class="muted">"token":"임의문자열"</span>을 추가하면 생성됩니다.
+                        </div>
+                      `
                   }
                 </div>
               </div>
+
             </div>
           </div>
         `;
