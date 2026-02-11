@@ -32,22 +32,22 @@
 
     /* PC 표 */
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
-    table{border-collapse:collapse;width:100%;min-width:860px}
+    table{border-collapse:collapse;width:100%;min-width:900px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
     th{background:#fafafa;font-weight:900;position:sticky;top:0}
     .num{text-align:right}
 
     .status{font-weight:900}
-    .st-fit{color:#0b57d0}  /* 적정 */
-    .st-up{color:#b26a00}   /* 상향 */
+    .st-fit{color:#0b57d0}     /* 적정 */
+    .st-up{color:#b26a00}      /* 상향 */
+    .st-bad{color:#b00020}     /* 부족 */
+    .partial{opacity:.75}      /* 부분판정 표시 */
 
     pre{white-space:pre-wrap;word-break:break-word;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px}
 
     /* ✅ 모바일 카드 리스트(A안) */
     .mobile-list{display:none; gap:12px; flex-direction:column;}
-    .mobile-card{
-      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff
-    }
+    .mobile-card{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
     .mobile-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
     .mobile-title{font-weight:900;font-size:16px;line-height:1.25}
     .mobile-sub{opacity:.7;margin-top:4px;font-size:13px}
@@ -83,7 +83,7 @@
     <div class="row" id="navRow"></div>
 
     <div class="controls" id="controls" style="display:none;">
-      <input id="q" placeholder="대학/학과 검색 (예: 샘플대, 컴퓨터)" />
+      <input id="q" placeholder="대학/학과 검색 (예: 연세대, 컴퓨터)" />
       <select id="groupSel">
         <option value="__all__">전체 계열</option>
       </select>
@@ -104,10 +104,6 @@
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
-
-  // ✅ ID/토큰 비교는 대/소문자 차이로 깨지지 않게(특히 SHSTUDY01 문제 방지)
-  const normId = (v) => String(v ?? "").trim().toLowerCase();
-  const normTok = (v) => String(v ?? "").trim().toLowerCase();
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
@@ -190,11 +186,12 @@
     box.innerHTML = `<div class="badge">DEBUG ON</div><pre>${esc(JSON.stringify(obj, null, 2))}</pre>`;
   }
 
-  // ✅ 4단계(확보/적정/상향/부족)를 2단계(적정/상향)로 합침
-  function status2(code){
-    // safe/fit => 적정, up/bad => 상향
-    if(code==="safe" || code==="fit") return {t:"적정", cls:"st-fit"};
-    return {t:"상향", cls:"st-up"};
+  // ✅ 탭을 "적정/상향/전체"만
+  function resultLabel(code, isPartial){
+    const suffix = isPartial ? ` <span class="badge muted" style="margin-left:6px;">부분</span>` : "";
+    if(code==="fit")  return {t:`적정${suffix}`, cls:"st-fit"};
+    if(code==="up")   return {t:`상향${suffix}`, cls:"st-up"};
+    return {t:`부족${suffix}`, cls:"st-bad"};
   }
 
   function calcStudentSnapshot(latestRow){
@@ -223,38 +220,53 @@
     return { scores: k, 탐구Best: best, 탐구2, engGrade, engCut1 };
   }
 
+  // ✅ (핵심) 과목이 일부만 있어도 "부분(참고) 판정"을 만들기
   function computeRuleValue(rule, snap){
-    if(!rule || rule.type!=="avg_pct") return { ok:false, avg:null, used:[], reason:"지원하지 않는 rule.type" };
+    if(!rule || rule.type!=="avg_pct"){
+      return { state:"none", avg:null, used:[], missing:[], reason:"지원하지 않는 rule.type" };
+    }
 
     const used = [];
+    const missing = [];
+
     for(const s of (rule.subjects||[])){
       if(s==="탐구2"){
-        if(snap.탐구2==null) return { ok:false, avg:null, used, reason:"탐구2 데이터 없음" };
-        used.push({name:"탐구2", value:snap.탐구2});
+        if(snap.탐구2==null) missing.push("탐구2");
+        else used.push({name:"탐구2", value:snap.탐구2});
       }else{
         const v = snap.scores[s];
-        if(v==null) return { ok:false, avg:null, used, reason:`${s} 점수 없음` };
-        used.push({name:s, value:v});
+        if(v==null) missing.push(s);
+        else used.push({name:s, value:v});
       }
     }
+
+    if(used.length===0){
+      return { state:"none", avg:null, used, missing, reason:"해당 대학 규칙에 필요한 과목이 모두 미응시" };
+    }
+
     const avg = used.reduce((a,x)=>a+x.value,0) / used.length;
-    return { ok:true, avg, used, reason:null };
+    const state = (missing.length>0) ? "partial" : "full";
+    return { state, avg, used, missing, reason:null };
   }
 
-  function classify4(avg, cut){
-    if(avg==null) return "bad";
+  function classify(avg, cut){
+    if(avg==null || cut==null) return "bad";
     const diff = avg - cut;
-    if(diff >= 3) return "safe";
-    if(diff >= 0) return "fit";
-    if(diff >= -3) return "up";
+    if(diff >= 0) return "fit";   // 컷 이상 = 적정
+    if(diff >= -3) return "up";   // 컷 -3 이내 = 상향(근접)
+    return "bad";
+  }
+
+  // ✅ 부분판정은 과대평가 방지로 한 단계 보수적 다운그레이드
+  function downgrade(code){
+    if(code==="fit") return "up";
+    if(code==="up") return "bad";
     return "bad";
   }
 
   function ruleText(rule){
     if(!rule) return "-";
-    if(rule.type==="avg_pct"){
-      return `평균(${(rule.subjects||[]).join(",")})`;
-    }
+    if(rule.type==="avg_pct") return `평균(${(rule.subjects||[]).join(",")})`;
     return rule.type || "-";
   }
 
@@ -280,14 +292,11 @@
     }
 
     let student = null;
-
-    // ✅ 관리자: id + admin
     if(isAdmin && idParam){
-      student = students.find(s => normId(pickId(s)) === normId(idParam));
+      student = students.find(s => norm(pickId(s)) === norm(idParam));
     }
-    // ✅ 학생/학부모: token
     if(!student && tParam){
-      student = students.find(s => normTok(pickToken(s)) === normTok(tParam));
+      student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
 
     if(!student){
@@ -300,13 +309,11 @@
       return;
     }
 
-    const sidRaw = pickId(student);
-    const sid = normId(sidRaw); // 내부 비교용(소문자)
-    const sidShow = String(sidRaw ?? "");
-    const stok = String(pickToken(student) ?? "");
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sidShow)}) <span class="badge muted">v2026-02-10</span>`;
+    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)}) <span class="badge muted">v2026-02-10</span>`;
     $("#meta").innerHTML = `
       학교: ${esc(student.school||"-")}<br>
       진로: ${esc(student.career||"-")}<br>
@@ -317,7 +324,7 @@
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
     const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sidShow)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 상세로</a>`);
@@ -340,7 +347,7 @@
     }
 
     const rows = scores
-      .filter(r => normId(pickId(r)) === sid)
+      .filter(r => norm(pickId(r)) === sid)
       .sort((a,b)=>{
         const ra = pickRound(a), rb = pickRound(b);
         if(ra!=null && rb!=null) return ra-rb;
@@ -353,7 +360,7 @@
       $("#content").innerHTML = `
         <div class="card">
           <div class="warn">성적 데이터 없음</div>
-          <div class="muted">scores.json에서 id=${esc(sidShow)} 데이터를 찾지 못했습니다.</div>
+          <div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
         </div>
       `;
       return;
@@ -398,40 +405,60 @@
     $("#controls").style.display = "flex";
     $("#tabs").style.display = "flex";
 
-    // 4) 판정 계산(4단계 내부 계산은 유지)
+    // 4) 판정 계산(부분판정 포함)
     const evaluated = univs.map(u=>{
       const rule = u.rule || {};
       const cut = toNum(u.cut_pct);
+
+      const rv = computeRuleValue(rule, snap);   // full/partial/none
+      const avg = (rv.state!=="none") ? rv.avg : null;
+
+      // 영어 조건은(데모) : 데이터 있으면 적용, 영어 미응시는 "부분"으로만 표시
       const engMax = toNum(u.eng_max_grade);
-
-      const rv = computeRuleValue(rule, snap);
-      const avg = rv.ok ? rv.avg : null;
-
       const engGrade = snap.engGrade;
-      const okEng = (engMax==null || engGrade==null) ? true : (engGrade <= engMax);
+      let okEng = true;
+      let engPartial = false;
+      let engNote = null;
 
-      const code4 = (rv.ok && cut!=null && okEng) ? classify4(avg, cut) : "bad";
+      if(engMax!=null){
+        if(engGrade==null){
+          engPartial = true;
+          engNote = "영어 미응시(조건 미확인)";
+          okEng = true; // 완전 탈락 처리 대신 '부분판정'으로 남김
+        }else{
+          okEng = (engGrade <= engMax);
+          if(!okEng) engNote = `영어 조건 불만족(${engGrade}등급 > 기준 ${engMax})`;
+        }
+      }
+
+      const baseCode = (avg!=null && cut!=null && okEng) ? classify(avg, cut) : "bad";
+      const isPartial = (rv.state==="partial") || engPartial;
+
+      // 부분판정은 한 단계 보수적으로
+      const code = isPartial ? downgrade(baseCode) : baseCode;
 
       return {
         ...u,
         _avg: avg,
         _used: rv.used,
-        _ruleOk: rv.ok,
+        _missing: rv.missing,
+        _state: rv.state,
         _ruleReason: rv.reason,
         _engGrade: engGrade,
         _engMax: engMax,
-        _okEng: okEng,
-        _code4: code4
+        _engNote: engNote,
+        _partial: isPartial,
+        _code: code
       };
     });
 
-    renderDebug({ sidShow, latest: roundLabel(latest), snap, univCount: univs.length });
+    renderDebug({ sid, latest: roundLabel(latest), snap, univCount: univs.length });
 
-    // 5) 탭: ✅ 적정 / 상향 / 전체
+    // 5) 탭: 적정/상향/전체
     const tabs = $("#tabs");
     const tabDefs = [
-      {key:"fit",  label:"적정"}, // = fit+safe
-      {key:"up",   label:"상향"}, // = up+bad
+      {key:"fit",  label:"적정"},
+      {key:"up",   label:"상향"},
       {key:"all",  label:"전체"},
     ];
     let activeTab = "fit";
@@ -454,11 +481,12 @@
 
     const qInput = $("#q");
 
-    function inTab(code4){
-      if(activeTab==="all") return true;
-      if(activeTab==="fit") return (code4==="fit" || code4==="safe");
-      if(activeTab==="up")  return (code4==="up"  || code4==="bad");
-      return true;
+    function usedText(u){
+      const used = (u._used||[]).map(x=>`${x.name}:${(x.value?.toFixed?x.value.toFixed(1):x.value)}`).join(" / ");
+      const miss = (u._missing||[]).join(", ");
+      const missText = miss ? ` · 누락: ${miss}` : "";
+      const engText = u._engNote ? ` · ${u._engNote}` : "";
+      return `${used || "-"}` + missText + engText;
     }
 
     function render(){
@@ -468,8 +496,9 @@
 
       let arr = evaluated.slice();
 
-      arr = arr.filter(x => inTab(x._code4));
-
+      if(activeTab!=="all"){
+        arr = arr.filter(x=>x._code===activeTab);
+      }
       if(g!=="__all__"){
         arr = arr.filter(x=>String(x.group)===String(g));
       }
@@ -483,26 +512,25 @@
         );
       }
 
-      // 정렬: 평균 높은 순
+      // 정렬: (1) full 먼저 (2) 평균 높은 순
       arr.sort((a,b)=>{
+        if(a._partial !== b._partial) return a._partial ? 1 : -1;
         const av = a._avg ?? -999;
         const bv = b._avg ?? -999;
         return bv - av;
       });
 
-      // PC 표
       const rowsHtml = arr.map(u=>{
         const cut = toNum(u.cut_pct);
         const avg = u._avg;
         const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
 
-        const st = status2(u._code4);
-
-        const usedText = (u._used||[]).map(x=>`${x.name}:${(x.value?.toFixed?x.value.toFixed(1):x.value)}`).join(" / ");
+        const rl = resultLabel(u._code, u._partial);
+        const partialCls = u._partial ? "partial" : "";
 
         return `
-          <tr>
-            <td class="status ${st.cls}">${esc(st.t)}</td>
+          <tr class="${partialCls}">
+            <td class="status ${rl.cls}">${rl.t}</td>
             <td>${esc(u.year)}</td>
             <td>${esc(u.univ||"-")}</td>
             <td>${esc(u.major||"-")}</td>
@@ -511,32 +539,27 @@
             <td class="num">${avg==null ? "-" : avg.toFixed(1)}</td>
             <td class="num">${cut==null ? "-" : Number(cut).toFixed(1)}</td>
             <td class="num">${diff==null ? "-" : diff.toFixed(1)}</td>
-            <td class="num">${u._engGrade==null ? "-" : u._engGrade}</td>
-            <td class="num">${u._engMax==null ? "-" : u._engMax}</td>
-            <td>${esc(u.note||usedText||"-")}</td>
+            <td>${esc(usedText(u))}</td>
           </tr>
         `;
       }).join("");
 
-      // 모바일 카드(A안)
       const cardsHtml = arr.map(u=>{
         const cut = toNum(u.cut_pct);
         const avg = u._avg;
         const diff = (avg!=null && cut!=null) ? (avg - cut) : null;
 
-        const st = status2(u._code4);
-
+        const rl = resultLabel(u._code, u._partial);
         const diffText = diff==null ? "-" : (diff>0?`+${diff.toFixed(1)}`:diff.toFixed(1));
-        const ruleStr = ruleText(u.rule);
 
         return `
-          <div class="mobile-card">
+          <div class="mobile-card ${u._partial ? "partial" : ""}">
             <div class="mobile-top">
               <div>
                 <div class="mobile-title">${esc(u.univ||"-")} · ${esc(u.major||"-")}</div>
-                <div class="mobile-sub">${esc(u.year)} · ${esc(u.group||"-")} · ${esc(ruleStr)}</div>
+                <div class="mobile-sub">${esc(u.year)} · ${esc(u.group||"-")} · ${esc(ruleText(u.rule))}</div>
               </div>
-              <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
+              <div class="status ${rl.cls}" style="white-space:nowrap">${rl.t}</div>
             </div>
 
             <hr class="sep"/>
@@ -545,7 +568,7 @@
               <div class="k">학생 평균</div><div class="v">${avg==null?"-":avg.toFixed(1)}</div>
               <div class="k">컷</div><div class="v">${cut==null?"-":Number(cut).toFixed(1)}</div>
               <div class="k">차이</div><div class="v">${diffText}</div>
-              <div class="k">영어</div><div class="v">${u._engGrade==null?"-":u._engGrade}등급 / 기준 ${u._engMax==null?"-":u._engMax}등급</div>
+              <div class="k">사용/누락</div><div class="v">${esc(usedText(u))}</div>
             </div>
 
             ${u.note ? `<div class="muted" style="margin-top:10px;">${esc(u.note)}</div>` : ``}
@@ -559,19 +582,17 @@
             <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
             <span class="badge muted">국어:${snap.scores.국어 ?? "-"} · 수학:${snap.scores.수학 ?? "-"} · 영어:${snap.scores.영어 ?? "-"}</span>
             <span class="badge muted">탐구2:${snap.탐구2==null ? "-" : snap.탐구2.toFixed(1)} (${snap.탐구Best.map(x=>x.key).join(", ")||"-"})</span>
-            <span class="badge muted">영어등급(추정): ${snap.engGrade ?? "-"}</span>
+            <span class="badge muted">부분판정: 누락 과목이 있으면 “부분”으로 표시(보수적으로 1단계 낮춰 판정)</span>
           </div>
           <div class="muted">
-            ※ 현재는 “데모 판정”입니다. (탐구2=탐구 점수 상위 2개 평균 / 영어등급=영어컷 기준 단순 추정)
+            ※ “부분”은 참고용입니다. (예: 탐구 미응시 → 국/수만으로 평균 계산 후 판정)
           </div>
         </div>
 
-        <!-- ✅ 모바일 카드 리스트(A안) -->
         <div class="card mobile-list">
           ${cardsHtml || `<div class="muted">표시할 데이터가 없습니다.</div>`}
         </div>
 
-        <!-- ✅ PC 표 -->
         <div class="card tablebox">
           <table>
             <thead>
@@ -585,13 +606,11 @@
                 <th class="num">학생 평균</th>
                 <th class="num">컷</th>
                 <th class="num">차이</th>
-                <th class="num">영어등급</th>
-                <th class="num">영어기준</th>
-                <th>비고</th>
+                <th>사용/누락(근거)</th>
               </tr>
             </thead>
             <tbody>
-              ${rowsHtml || `<tr><td colspan="12" class="muted">표시할 데이터가 없습니다.</td></tr>`}
+              ${rowsHtml || `<tr><td colspan="10" class="muted">표시할 데이터가 없습니다.</td></tr>`}
             </tbody>
           </table>
         </div>
