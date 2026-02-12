@@ -20,7 +20,6 @@
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
-    /* filters */
     .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;
@@ -28,7 +27,6 @@
     }
     option{font-weight:700}
 
-    /* list */
     .grid{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
     @media(min-width:860px){.grid{grid-template-columns:1fr 1fr}}
     .grid > *{min-width:0}
@@ -50,7 +48,6 @@
     .s-mid{border-color:#666}
     .s-bad{border-color:#b00020}
 
-    /* modal */
     .modal-backdrop{
       position:fixed;inset:0;background:rgba(0,0,0,.45);
       display:none;align-items:center;justify-content:center;padding:16px;z-index:9999;
@@ -71,11 +68,9 @@
 </head>
 <body>
 <div class="wrap">
-
   <div class="card">
     <div class="title" id="hdr">진도 상세</div>
     <div class="meta" id="meta"></div>
-
     <div class="row" id="modeRow" style="margin-top:10px;"></div>
     <div class="row" id="navRow" style="margin-top:10px;"></div>
 
@@ -93,10 +88,8 @@
   </div>
 
   <div id="content"></div>
-
 </div>
 
-<!-- modal -->
 <div class="modal-backdrop" id="backdrop">
   <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-head">
@@ -176,22 +169,22 @@
   function maxDateStr(arr, key){
     const vals = arr.map(x=>norm(x?.[key])).filter(Boolean);
     if(!vals.length) return "-";
-    vals.sort(); // YYYY-MM-DD이면 문자열 정렬로도 OK
+    vals.sort();
     return vals[vals.length-1];
   }
 
   function getProgressItems(progressAll, sid){
     const all = Array.isArray(progressAll) ? progressAll : [];
 
-    // 1) wrapped: [{id, updated, progress:[...]}]
+    // wrapped schema
     const wrapped = all.find(x => norm(x?.id) === norm(sid) && Array.isArray(x?.progress));
     if(wrapped){
       const items = Array.isArray(wrapped.progress) ? wrapped.progress : [];
       const updated = norm(wrapped.updated) || maxDateStr(items, "last_update") || "-";
-      return { items, updated, schema: "wrapped" };
+      return { items, updated };
     }
 
-    // 2) flat: [{id, subject, unit, topic, status, comment, last_update}, ...]
+    // flat schema
     const flatRows = all.filter(x => norm(x?.id) === norm(sid));
     const items = flatRows.map(x=>({
       subject: x.subject ?? x["과목"] ?? "-",
@@ -202,30 +195,36 @@
       last_update: x.last_update ?? x["업데이트"] ?? ""
     }));
     const updated = maxDateStr(flatRows, "last_update") || "-";
-    return { items, updated, schema: "flat" };
+    return { items, updated };
   }
 
+  // ✅ notes 매칭 강화: note.unit이 item.unit 또는 item.topic 모두 매칭되도록
   function findNote(notesAll, sid, subject, unit, topic){
     const notes = Array.isArray(notesAll) ? notesAll : [];
-    // 1) topic까지 있는 경우
-    let n = notes.find(x =>
-      norm(x.id)===norm(sid) &&
-      norm(x.subject)===norm(subject) &&
-      norm(x.unit)===norm(unit) &&
-      norm(x.topic)===norm(topic)
-    );
+    const id = norm(sid), sub = norm(subject), u = norm(unit), t = norm(topic);
+
+    const sameBase = (n)=> norm(n.id)===id && norm(n.subject)===sub;
+
+    // 1) topic까지 있는 notes schema를 대비한 exact
+    let n = notes.find(n => sameBase(n) && norm(n.unit)===u && (("topic" in n) ? norm(n.topic)===t : true));
     if(n) return n;
-    // 2) 기존처럼 topic 없이 unit까지만
-    n = notes.find(x =>
-      norm(x.id)===norm(sid) &&
-      norm(x.subject)===norm(subject) &&
-      norm(x.unit)===norm(unit)
-    );
+
+    // 2) 일반 케이스: unit 매칭
+    n = notes.find(n => sameBase(n) && norm(n.unit)===u);
+    if(n) return n;
+
+    // 3) 네 데이터 케이스: notes.unit == item.topic (주제를 unit에 적어둔 경우)
+    if(t){
+      n = notes.find(n => sameBase(n) && norm(n.unit)===t);
+      if(n) return n;
+    }
+
+    // 4) 마지막 안전망(너무 과하지 않게): 부분 포함
+    n = notes.find(n => sameBase(n) && (u && norm(n.unit) && (u.includes(norm(n.unit)) || norm(n.unit).includes(u) || (t && (t.includes(norm(n.unit)) || norm(n.unit).includes(t))))));
     return n || null;
   }
 
   async function main(){
-    // 1) 학생 로딩/식별
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -272,9 +271,8 @@
     }
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) progress / notes 로딩
     const progressAll = await loadJson("./progress.json");
-    const notesAll = await loadJsonOptional("./progress_notes.json"); // 없어도 OK
+    const notesAll = await loadJsonOptional("./progress_notes.json");
 
     const { items, updated } = getProgressItems(progressAll, sid);
 
@@ -290,7 +288,6 @@
 
     $("#filters").style.display = "flex";
 
-    // subject list
     const subjects = [...new Set(items.map(x=>x.subject).filter(Boolean))]
       .sort((a,b)=>String(a).localeCompare(String(b),"ko"));
     const subjSel = $("#subjectFilter");
@@ -299,7 +296,6 @@
       o.value = s; o.textContent = s;
       subjSel.appendChild(o);
     });
-
     const statusSel = $("#statusFilter");
 
     function render(){
