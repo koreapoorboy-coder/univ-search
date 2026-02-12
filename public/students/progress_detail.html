@@ -22,7 +22,10 @@
 
     /* filters */
     .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    select{border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700}
+    select{
+      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;
+      width:min(260px, 100%);
+    }
     option{font-weight:700}
 
     /* list */
@@ -32,10 +35,16 @@
 
     .group{border:1px solid #eee;border-radius:16px;padding:12px}
     .group h3{margin:0 0 10px;font-size:16px;font-weight:900}
-    .item{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid #eee;border-radius:14px;padding:10px 12px;margin:8px 0;cursor:pointer}
+
+    .item{
+      display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+      border:1px solid #eee;border-radius:14px;padding:10px 12px;margin:8px 0;cursor:pointer
+    }
     .item:hover{background:#fafafa}
     .left{min-width:0}
     .unit{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    .topic{margin-top:4px;font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+    .when{margin-top:4px;font-size:12px;opacity:.7}
     .status{flex:0 0 auto}
     .s-good{border-color:#1f7a1f}
     .s-mid{border-color:#666}
@@ -68,7 +77,6 @@
     <div class="meta" id="meta"></div>
 
     <div class="row" id="modeRow" style="margin-top:10px;"></div>
-
     <div class="row" id="navRow" style="margin-top:10px;"></div>
 
     <div class="filters" id="filters" style="display:none;">
@@ -102,13 +110,20 @@
 
 <script>
 (() => {
-  // ✅ student.html 과 동일하게 맞춰야 함
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  const LS_KEY = "__ADMIN_TOKEN__";
+  const norm = (v)=>String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
-  const admin = qs.get("admin");
+  const adminParam = qs.get("admin");
+  const adminSaved = localStorage.getItem(LS_KEY);
+  const admin = adminParam || adminSaved;
+
   const idParam = qs.get("id");
   const tParam = qs.get("t") || qs.get("token");
+
+  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
+  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
 
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
@@ -117,6 +132,16 @@
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
     return r.json();
+  }
+  async function loadJsonOptional(path){
+    try{
+      const r = await fetch(path, { cache:"no-store" });
+      if(!r.ok) return [];
+      const j = await r.json();
+      return Array.isArray(j) ? j : [];
+    }catch(e){
+      return [];
+    }
   }
 
   function pickName(s){
@@ -148,18 +173,68 @@
     backdrop.style.display = "flex";
   }
 
-  async function main(){
-    // 1) 학생 식별: admin+id 또는 t(token)
-    const students = await loadJson("./students.json");
+  function maxDateStr(arr, key){
+    const vals = arr.map(x=>norm(x?.[key])).filter(Boolean);
+    if(!vals.length) return "-";
+    vals.sort(); // YYYY-MM-DD이면 문자열 정렬로도 OK
+    return vals[vals.length-1];
+  }
 
-    const isAdmin = (admin === ADMIN_TOKEN);
+  function getProgressItems(progressAll, sid){
+    const all = Array.isArray(progressAll) ? progressAll : [];
+
+    // 1) wrapped: [{id, updated, progress:[...]}]
+    const wrapped = all.find(x => norm(x?.id) === norm(sid) && Array.isArray(x?.progress));
+    if(wrapped){
+      const items = Array.isArray(wrapped.progress) ? wrapped.progress : [];
+      const updated = norm(wrapped.updated) || maxDateStr(items, "last_update") || "-";
+      return { items, updated, schema: "wrapped" };
+    }
+
+    // 2) flat: [{id, subject, unit, topic, status, comment, last_update}, ...]
+    const flatRows = all.filter(x => norm(x?.id) === norm(sid));
+    const items = flatRows.map(x=>({
+      subject: x.subject ?? x["과목"] ?? "-",
+      unit: x.unit ?? x["단원"] ?? "-",
+      topic: x.topic ?? x["주제"] ?? "",
+      status: x.status ?? x["상태"] ?? "보통",
+      comment: x.comment ?? x["코멘트"] ?? "",
+      last_update: x.last_update ?? x["업데이트"] ?? ""
+    }));
+    const updated = maxDateStr(flatRows, "last_update") || "-";
+    return { items, updated, schema: "flat" };
+  }
+
+  function findNote(notesAll, sid, subject, unit, topic){
+    const notes = Array.isArray(notesAll) ? notesAll : [];
+    // 1) topic까지 있는 경우
+    let n = notes.find(x =>
+      norm(x.id)===norm(sid) &&
+      norm(x.subject)===norm(subject) &&
+      norm(x.unit)===norm(unit) &&
+      norm(x.topic)===norm(topic)
+    );
+    if(n) return n;
+    // 2) 기존처럼 topic 없이 unit까지만
+    n = notes.find(x =>
+      norm(x.id)===norm(sid) &&
+      norm(x.subject)===norm(subject) &&
+      norm(x.unit)===norm(unit)
+    );
+    return n || null;
+  }
+
+  async function main(){
+    // 1) 학생 로딩/식별
+    const students = await loadJson("./students.json");
+    if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
     let student = null;
     if(isAdmin && idParam){
-      student = students.find(s => String(pickId(s)) === String(idParam));
+      student = students.find(s => norm(pickId(s)) === norm(idParam));
     }
     if(!student && tParam){
-      student = students.find(s => String(pickToken(s)) === String(tParam));
+      student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
 
     if(!student){
@@ -171,11 +246,10 @@
       return;
     }
 
-    const sid = pickId(student);
-    const stok = pickToken(student);
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    // header
     $("#hdr").textContent = `진도 상세 · ${name}${sid ? " ("+sid+")" : ""}`;
     $("#meta").innerHTML = `
       학교: ${esc(student.school||"-")}<br>
@@ -183,12 +257,10 @@
       전형: ${esc(student.admission||"-")}
     `;
 
-    // mode pill
     $("#modeRow").innerHTML = isAdmin
       ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
-    // nav buttons
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
@@ -202,27 +274,25 @@
 
     // 2) progress / notes 로딩
     const progressAll = await loadJson("./progress.json");
-    const notesAll = await loadJson("./progress_notes.json");
+    const notesAll = await loadJsonOptional("./progress_notes.json"); // 없어도 OK
 
-    const rec = (Array.isArray(progressAll) ? progressAll : []).find(x => String(x.id)===String(sid));
-    const items = rec?.progress || [];
-    const updated = rec?.updated || "-";
+    const { items, updated } = getProgressItems(progressAll, sid);
 
     if(!items.length){
       $("#content").innerHTML = `
         <div class="card">
           <div class="warn">진도 데이터가 없습니다.</div>
-          <div class="muted">progress.json에 id=${esc(sid)} 항목이 있는지 확인하세요.</div>
+          <div class="muted">progress.json에 id=${esc(sid)} 데이터가 있는지 확인하세요.</div>
         </div>
       `;
       return;
     }
 
-    // filters show
     $("#filters").style.display = "flex";
 
     // subject list
-    const subjects = [...new Set(items.map(x=>x.subject).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ko"));
+    const subjects = [...new Set(items.map(x=>x.subject).filter(Boolean))]
+      .sort((a,b)=>String(a).localeCompare(String(b),"ko"));
     const subjSel = $("#subjectFilter");
     subjects.forEach(s=>{
       const o = document.createElement("option");
@@ -232,7 +302,6 @@
 
     const statusSel = $("#statusFilter");
 
-    // group rendering
     function render(){
       const subj = subjSel.value;
       const st = statusSel.value;
@@ -245,8 +314,9 @@
 
       const bySubject = {};
       filtered.forEach(x=>{
-        bySubject[x.subject] = bySubject[x.subject] || [];
-        bySubject[x.subject].push(x);
+        const key = x.subject || "-";
+        bySubject[key] = bySubject[key] || [];
+        bySubject[key].push(x);
       });
 
       const content = $("#content");
@@ -256,7 +326,7 @@
             <span class="badge">업데이트: ${esc(updated)}</span>
             <span class="badge muted">표시 항목: ${filtered.length}개</span>
           </div>
-          <div class="muted">단원을 클릭하면 “잘함/부족/문제점/개선” 코멘트를 팝업으로 봅니다.</div>
+          <div class="muted">항목을 클릭하면 상세 코멘트를 팝업으로 봅니다.</div>
         </div>
       `;
 
@@ -270,37 +340,39 @@
 
         bySubject[sub].forEach(it=>{
           const unit = it.unit || "-";
+          const topic = it.topic || "";
           const status = it.status || "보통";
+          const when = it.last_update || "";
 
           const row = document.createElement("div");
           row.className = "item";
           row.innerHTML = `
             <div class="left">
               <div class="unit">${esc(unit)}</div>
-              <div class="muted" style="font-size:12px;">상태: ${esc(status)}</div>
+              ${topic ? `<div class="topic">${esc(topic)}</div>` : ``}
+              ${when ? `<div class="when">업데이트: ${esc(when)}</div>` : ``}
             </div>
             <div class="badge status ${statusClass(status)}">${esc(status)}</div>
           `;
 
           row.addEventListener("click", ()=>{
-            const note = (Array.isArray(notesAll)?notesAll:[]).find(n =>
-              String(n.id)===String(sid) &&
-              String(n.subject)===String(sub) &&
-              String(n.unit)===String(unit)
-            );
+            const note = findNote(notesAll, sid, sub, unit, topic);
 
             if(note){
-              openModal(`${sub} · ${unit}`, `
+              openModal(`${sub} · ${unit}${topic ? " · "+topic : ""}`, `
                 <div><span class="badge ${statusClass(note.level||status)}">${esc(note.level||status)}</span></div>
                 <b>잘한 점</b><div>${esc(note.good||"-")}</div>
                 <b>부족한 점</b><div>${esc(note.bad||"-")}</div>
                 <b>개선 방법</b><div>${esc(note.fix||"-")}</div>
               `);
             }else{
-              openModal(`${sub} · ${unit}`, `
+              const comment = it.comment || "";
+              openModal(`${sub} · ${unit}${topic ? " · "+topic : ""}`, `
                 <div><span class="badge ${statusClass(status)}">${esc(status)}</span></div>
-                <b>코멘트</b>
-                <div class="muted">등록된 코멘트가 없습니다. (progress_notes.json에 추가하면 여기에 표시됩니다.)</div>
+                ${comment ? `<b>코멘트</b><div>${esc(comment)}</div>` : `
+                  <b>코멘트</b>
+                  <div class="muted">등록된 코멘트가 없습니다. (progress_notes.json 또는 progress.json의 comment에 추가하면 표시됩니다.)</div>
+                `}
               `);
             }
           });
@@ -316,7 +388,6 @@
 
     subjSel.addEventListener("change", render);
     statusSel.addEventListener("change", render);
-
     render();
   }
 
