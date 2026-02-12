@@ -25,10 +25,17 @@
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:700;
       width:min(260px, 100%);
     }
-    /* 모바일에서 셀렉트 폭 튀는 것 방지 */
     @media(max-width: 720px){
       input,select{width:100%}
     }
+
+    .toggle{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid #ddd;border-radius:999px;padding:10px 12px;
+      font-weight:900;background:#fff;
+      user-select:none;
+    }
+    .toggle input{width:18px;height:18px;margin:0}
 
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
@@ -67,7 +74,7 @@
     .mobile-sub{opacity:.7;margin-top:4px;font-size:13px;overflow-wrap:anywhere;word-break:break-word}
     hr.sep{border:0;border-top:1px solid #f0f0f0;margin:10px 0}
 
-    /* ✅ 모바일 과목 비교: 세로 리스트(미니표) */
+    /* ✅ 모바일 과목 비교: 세로 미니표 */
     .mgrid{display:flex;flex-direction:column;gap:8px}
     .mrow{
       display:grid;
@@ -148,6 +155,12 @@
         <option value="120">상위 120개</option>
         <option value="9999">전체 표시</option>
       </select>
+
+      <!-- ✅ 토글: 전체 탭도 학교당 5개 제한 -->
+      <label class="toggle" for="capAll">
+        <input type="checkbox" id="capAll" />
+        전체 탭도 학교당 5개
+      </label>
     </div>
 
     <div class="tabs" id="tabs" style="display:none;"></div>
@@ -160,6 +173,7 @@
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
+  const LS_CAP_ALL = "__CAP_ALL__";
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
@@ -213,6 +227,20 @@
     return "-";
   }
 
+  // ✅ 학교(대학)별 Top N 학과만 남기기
+  function capPerUnivTopN(list, cap=5){
+    const cnt = new Map();
+    const out = [];
+    for(const x of list){
+      const key = String(x.univ ?? "");
+      const c = cnt.get(key) || 0;
+      if(c >= cap) continue;
+      cnt.set(key, c + 1);
+      out.push(x);
+    }
+    return out;
+  }
+
   // --- 학생 최신 회차에서 과목별 백분위 맵 만들기 (부분응시 허용) ---
   function buildStudentMap(latestRow){
     const get = (...keys) => {
@@ -232,7 +260,7 @@
       "한국사": get("한국사","한"),
     };
 
-    // ✅ 현재 scores.json에 생윤/사문이 있는 경우 임시로 탐1/탐2에 매핑 (탐1/탐2가 있으면 그게 우선)
+    // ✅ 현재 scores.json이 생윤/사문 구조면 임시로 탐1/탐2에 매핑(탐1/탐2가 있으면 그게 우선)
     if(map["탐1"]==null) map["탐1"] = get("생윤","윤리","생활과윤리","사탐1","과탐1");
     if(map["탐2"]==null) map["탐2"] = get("사문","사회문화","사탐2","과탐2");
 
@@ -243,7 +271,7 @@
   function getUnivCuts(u){
     const out = {};
 
-    // 1) 최신 권장 구조: rule.cuts
+    // 1) 권장 구조: rule.cuts
     const ruleCuts = u?.rule?.cuts;
     if(ruleCuts && typeof ruleCuts === "object"){
       for(const k of Object.keys(ruleCuts)){
@@ -256,7 +284,7 @@
       return out;
     }
 
-    // 2) (구버전) u.cuts 직접
+    // 2) (구버전) u.cuts
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const v = toNum(u.cuts[k]);
@@ -350,7 +378,6 @@
       return `<div class="mgrid">${rows}</div>`;
     }
 
-    // PC 칩
     const items = per.map(p=>{
       let verdict = "없음";
       if(p.c==null) verdict = "컷없음";
@@ -492,6 +519,10 @@
     $("#controls").style.display = "flex";
     $("#tabs").style.display = "flex";
 
+    // ✅ 토글 초기값(저장)
+    const capAll = $("#capAll");
+    capAll.checked = (localStorage.getItem(LS_CAP_ALL) === "1");
+
     // 4) 평가
     const evaluated = univs.map(u=>{
       const ev = evalRow(u, stuMap);
@@ -532,8 +563,8 @@
       const g = groupSel.value;
       const y = yearSel.value;
 
-      const minCnt = Number(minCntSel.value || "2");   // ✅ 기본 2과목 이상 비교
-      const limit = Number(limitSel.value || "50");     // ✅ 기본 상위 50개만
+      const minCnt = Number(minCntSel.value || "2");
+      const limit = Number(limitSel.value || "50");
 
       let arr = evaluated.slice();
 
@@ -557,7 +588,7 @@
 
       // 정렬
       if(activeTab === "all"){
-        // 전체 탭은 적정 먼저, 그 다음 평균차이 큰 순
+        // 전체 탭: 적정 먼저, 그 다음 평균차이 큰 순
         arr.sort((a,b)=>{
           const aFit = a._ev.code==="fit" ? 1 : 0;
           const bFit = b._ev.code==="fit" ? 1 : 0;
@@ -567,7 +598,7 @@
           return bv - av;
         });
       }else{
-        // 적정/상향은 평균차이 큰 순(상향은 “덜 상향(근접)”이 위로 옴)
+        // 적정/상향: 평균차이 큰 순(상향은 근접 상향이 위로)
         arr.sort((a,b)=>{
           const av = a._ev.avgDiff ?? -999;
           const bv = b._ev.avgDiff ?? -999;
@@ -575,7 +606,13 @@
         });
       }
 
-      const totalAfter = arr.length;
+      // ✅ 학교별 5학과 제한 적용
+      const filteredCount = arr.length;
+      const shouldCap = (activeTab !== "all") || capAll.checked; // 적정/상향은 무조건, 전체는 토글
+      if(shouldCap){
+        arr = capPerUnivTopN(arr, 5);
+      }
+      const cappedCount = arr.length;
 
       // ✅ 선별 2: 상위 N개만 표시
       const shown = (limit>=9999) ? arr : arr.slice(0, limit);
@@ -635,11 +672,13 @@
 
           <div class="row" style="margin-top:10px">
             <span class="badge">선별: 비교 ${esc(minCnt)}과목+ · ${esc(limit>=9999 ? "전체 표시" : "상위 "+limit+"개")}</span>
-            <span class="badge muted">필터 적용 후 ${esc(totalAfter)}개 중 ${esc(shown.length)}개 표시</span>
+            <span class="badge muted">
+              필터 ${esc(filteredCount)}개 → ${shouldCap ? "학교당 5개 제한 적용" : "제한 없음"} → ${esc(cappedCount)}개 중 ${esc(shown.length)}개 표시
+            </span>
           </div>
 
           <div class="muted" style="margin-top:8px">
-            ※ “전체” 탭은 원래 데이터가 많아 전부 나오기 쉬워서, 기본으로 <b>비교 과목 수</b>와 <b>상위 N개</b>로 선별합니다.
+            ※ <b>적정/상향</b> 탭은 항상 “학교(대학)별 최대 5학과”만 보여줍니다. <b>전체</b> 탭은 토글로 켜고 끌 수 있습니다.
           </div>
         </div>
 
@@ -675,6 +714,11 @@
     yearSel.addEventListener("change", render);
     minCntSel.addEventListener("change", render);
     limitSel.addEventListener("change", render);
+
+    capAll.addEventListener("change", ()=>{
+      localStorage.setItem(LS_CAP_ALL, capAll.checked ? "1" : "0");
+      render();
+    });
 
     render();
   }
