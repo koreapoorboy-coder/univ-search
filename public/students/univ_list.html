@@ -19,7 +19,9 @@
     .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
+    .spacer{flex:1}
 
+    /* controls */
     .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
     input, select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:800;
@@ -36,6 +38,7 @@
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
     .tab[aria-selected="true"]{background:#111;color:#fff}
 
+    /* PC table */
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
     table{border-collapse:collapse;width:100%;min-width:980px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap;vertical-align:top}
@@ -43,10 +46,11 @@
     .num{text-align:right}
 
     .status{font-weight:900}
-    .st-fit{color:#0b57d0}
-    .st-up{color:#b26a00}
-    .st-na{color:#666}
+    .st-fit{color:#0b57d0}   /* 적정 */
+    .st-up{color:#b26a00}    /* 상향 */
+    .st-na{color:#666}       /* 비교불가 */
 
+    /* chips (PC) */
     .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;white-space:normal}
     .chip{
       display:inline-flex;gap:6px;align-items:center;
@@ -58,6 +62,7 @@
     .chip.ng{border-color:#b26a00}
     .chip.na{border-color:#ddd;opacity:.75}
 
+    /* Mobile cards */
     .mobile-list{display:none}
     .mcard{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;margin:12px 0}
     .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
@@ -65,6 +70,7 @@
     .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
     .divider{height:1px;background:#f0f0f0;margin:10px 0}
 
+    /* subject grid (mobile) */
     .subgrid{
       display:grid;
       grid-template-columns: 58px 1fr 1fr 1fr;
@@ -79,12 +85,15 @@
     .sg-ng{border-color:#b26a00}
     .sg-na{opacity:.6}
 
+    /* Mobile: show cards only */
     @media(max-width: 860px){
       .tablebox{display:none;}
       .mobile-list{display:block;}
       .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
       .tabs::-webkit-scrollbar{display:none}
     }
+
+    /* sticky controls on mobile */
     @media(max-width: 860px){
       #stickyBar{
         position:sticky; top:0; z-index:5;
@@ -92,6 +101,17 @@
         border-bottom:1px solid #eee;
       }
     }
+
+    /* ✅ summary collapse */
+    details.summaryBox{margin-top:10px}
+    summary.summaryBtn{
+      cursor:pointer; user-select:none;
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid #ddd; border-radius:12px;
+      padding:8px 10px; background:#fff; font-weight:900;
+      list-style:none;
+    }
+    summary.summaryBtn::-webkit-details-marker{display:none}
   </style>
 </head>
 <body>
@@ -247,6 +267,7 @@
 
   function evalRow(u, stuMap, mode, singleSub){
     const cuts = getUnivCuts(u);
+
     let used = [];
     let mainDiff = null;
     let cnt = 0;
@@ -370,7 +391,6 @@
   let tabsEl;
 
   async function main(){
-    // 1) 학생 찾기
     let students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -412,7 +432,6 @@
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) scores.json 최신
     let scores = await loadJson("./scores.json");
     if(!Array.isArray(scores)) throw new Error("scores.json is not an array");
 
@@ -439,24 +458,9 @@
     const latest = rows[rows.length-1];
     const stuMap = buildStudentMap(latest);
 
-    // 3) 대학 데이터 로딩 (✅ fallback 포함)
-    let univs = null;
-    let univSrc = "./univ_percentile.json";
-    try{
-      univs = await loadJson(univSrc);
-    }catch(e1){
-      // 엑셀 변환본을 쓰는 경우 대비
-      const fallback = "./univ_percentile_from_excel.json";
-      try{
-        univs = await loadJson(fallback);
-        univSrc = fallback;
-      }catch(e2){
-        throw e1;
-      }
-    }
-    if(!Array.isArray(univs)) throw new Error(univSrc+" is not an array");
+    let univs = await loadJson("./univ_percentile.json");
+    if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
 
-    // 4) 필터 옵션
     const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
     const years = [...new Set(univs.map(x=>x.year).filter(Boolean))].sort((a,b)=>a-b);
 
@@ -530,22 +534,23 @@
         return { ...u, _ev: ev };
       });
 
-      // ✅ 전체 데이터 기준 카운트(원인 즉시 확인용)
-      const cntFit = evaluated.filter(x=>x._ev.code==="fit").length;
-      const cntUp  = evaluated.filter(x=>x._ev.code==="up").length;
-      const cntNa  = evaluated.filter(x=>x._ev.code==="na").length;
-
-      let arr = evaluated.slice();
-
-      if(g!=="__all__") arr = arr.filter(x=>String(x.group)===String(g));
-      if(y!=="__all__") arr = arr.filter(x=>String(x.year)===String(y));
-
+      // (탭 제외) 필터 상태에서의 카운트 계산용
+      let base = evaluated.slice();
+      if(g!=="__all__") base = base.filter(x=>String(x.group)===String(g));
+      if(y!=="__all__") base = base.filter(x=>String(x.year)===String(y));
       if(q){
-        arr = arr.filter(x =>
+        base = base.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
           String(x.major||"").toLowerCase().includes(q)
         );
       }
+
+      const cntFit = base.filter(x=>x._ev.code==="fit").length;
+      const cntUp  = base.filter(x=>x._ev.code==="up").length;
+      const cntNa  = base.filter(x=>x._ev.code==="na").length;
+
+      // 실제 표시 배열
+      let arr = base.slice();
 
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
@@ -573,21 +578,26 @@
         });
       }
 
-      const summaryBadges = `
-        <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
-        <span class="badge muted">국:${esc(stuMap["국어"] ?? "-")} · 수:${esc(stuMap["수학"] ?? "-")} · 영:${esc(stuMap["영어"] ?? "-")}</span>
-        <span class="badge muted">탐1:${esc(stuMap["탐1"] ?? "-")} · 탐2:${esc(stuMap["탐2"] ?? "-")}</span>
-        <span class="badge">대학데이터: ${esc(univSrc)} (${evaluated.length}개)</span>
-        <span class="badge muted">적정 ${cntFit} · 상향 ${cntUp} · 비교불가 ${cntNa}</span>
-      `;
-
-      const help = `
-        <div class="muted" style="margin-top:8px;line-height:1.55">
-          - 판정 기준=자동: <b>컷이 있는 응시 과목들</b>만 평균차이로 판정<br>
-          - 판정 기준=단일 과목: 선택 과목 컷이 있는 대학만 <b>적정/상향</b>, 없으면 <b>비교불가</b><br>
-          - <b>검색</b>하면 자동으로 <b>전체</b> 탭에서 모든 대학/학과가 검색됩니다. (검색 중엔 5학과 제한 해제)
-          ${cntUp===0 ? `<br><span class="warn">※ 현재 대학데이터 기준 상향이 0개입니다. (학생 점수보다 컷이 높은 대학을 추가하면 상향이 생깁니다.)</span>` : ``}
+      // ✅ 요약: “최신 성적”만 기본 노출 + 나머지는 접기
+      const summaryTop = `
+        <div class="row">
+          <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
         </div>
+
+        <details class="summaryBox">
+          <summary class="summaryBtn">상세 보기</summary>
+          <div class="row">
+            <span class="badge muted">국:${esc(stuMap["국어"] ?? "-")} · 수:${esc(stuMap["수학"] ?? "-")} · 영:${esc(stuMap["영어"] ?? "-")}</span>
+            <span class="badge muted">탐1:${esc(stuMap["탐1"] ?? "-")} · 탐2:${esc(stuMap["탐2"] ?? "-")}</span>
+            <span class="badge">적정 ${cntFit} · 상향 ${cntUp} · 비교불가 ${cntNa}</span>
+            <span class="badge muted">대학데이터: ./univ_percentile.json (${evaluated.length}개)</span>
+          </div>
+          <div class="muted" style="margin-top:8px;line-height:1.55">
+            - 판정 기준=자동: <b>컷이 있는 응시 과목들</b>만 평균차이로 판정<br>
+            - 판정 기준=단일 과목: 선택 과목 컷이 있는 대학만 <b>적정/상향</b>, 없으면 <b>비교불가</b><br>
+            - <b>검색</b>하면 자동으로 <b>전체</b> 탭에서 모든 대학/학과가 검색됩니다. (검색 중엔 5학과 제한 해제)
+          </div>
+        </details>
       `;
 
       const rowsHtml = arr.map(u=>{
@@ -635,8 +645,7 @@
 
       $("#content").innerHTML = `
         <div class="card">
-          <div class="row">${summaryBadges}</div>
-          ${help}
+          ${summaryTop}
         </div>
 
         <div class="mobile-list">
