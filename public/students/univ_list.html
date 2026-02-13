@@ -68,7 +68,6 @@
     .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
     .mtitle{font-weight:900;font-size:16px;line-height:1.25;white-space:normal}
     .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
-    .mbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
     .divider{height:1px;background:#f0f0f0;margin:10px 0}
 
     /* subject grid (mobile) */
@@ -111,6 +110,29 @@
       background:#fff;
     }
 
+    /* ✅ 모바일: 검색/필터 접기 토글 */
+    details.ctlWrap{
+      margin-top:12px;
+      border:1px solid #eee;
+      border-radius:14px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    details.ctlWrap summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid #111;
+      border-radius:12px;
+      padding:8px 12px;
+      background:#fff;
+    }
+    details.ctlWrap summary::-webkit-details-marker{display:none}
+
     /* Mobile: show cards only */
     @media(max-width: 860px){
       .tablebox{display:none;}
@@ -127,6 +149,17 @@
         border-bottom:1px solid #eee;
       }
     }
+
+    /* Desktop: 필터 토글 summary 숨기고(열린 상태로 처리), 박스 스타일 제거 */
+    @media(min-width: 861px){
+      details.ctlWrap{
+        border:none;
+        padding:0;
+        margin-top:12px;
+      }
+      details.ctlWrap summary{display:none;}
+      /* JS에서 open=true로 강제해서 항상 펼쳐진 상태 유지 */
+    }
   </style>
 </head>
 <body>
@@ -138,32 +171,36 @@
     <div class="row" id="navRow"></div>
 
     <div id="stickyBar">
-      <div class="controls" id="controls" style="display:none;">
-        <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
-        <select id="groupSel">
-          <option value="__all__">전체 계열</option>
-        </select>
-        <select id="yearSel">
-          <option value="__all__">전체 연도</option>
-        </select>
+      <!-- ✅ 모바일에서는 summary로 접고/펼치기 -->
+      <details id="ctlWrap" class="ctlWrap">
+        <summary>검색/필터</summary>
+        <div class="controls" id="controls" style="display:none;">
+          <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
+          <select id="groupSel">
+            <option value="__all__">전체 계열</option>
+          </select>
+          <select id="yearSel">
+            <option value="__all__">전체 연도</option>
+          </select>
 
-        <select id="judgeMode">
-          <option value="auto">판정 기준: 자동(응시과목 평균)</option>
-          <option value="single">판정 기준: 단일 과목</option>
-        </select>
-        <select id="singleSub" style="display:none;">
-          <option value="국어">국어</option>
-          <option value="수학">수학</option>
-          <option value="탐1">탐1</option>
-          <option value="탐2">탐2</option>
-          <option value="영어">영어</option>
-        </select>
+          <select id="judgeMode">
+            <option value="auto">판정 기준: 자동(응시과목 평균)</option>
+            <option value="single">판정 기준: 단일 과목</option>
+          </select>
+          <select id="singleSub" style="display:none;">
+            <option value="국어">국어</option>
+            <option value="수학">수학</option>
+            <option value="탐1">탐1</option>
+            <option value="탐2">탐2</option>
+            <option value="영어">영어</option>
+          </select>
 
-        <label class="toggle" title="적정/상향 탭에서만 대학별 상위 5개 학과로 제한합니다. (검색 중엔 자동 해제)">
-          <input type="checkbox" id="limit5" checked />
-          학교별 5학과만
-        </label>
-      </div>
+          <label class="toggle" title="적정/상향 탭에서만 대학별 상위 5개 학과로 제한합니다. (검색 중엔 자동 해제)">
+            <input type="checkbox" id="limit5" checked />
+            학교별 5학과만
+          </label>
+        </div>
+      </details>
 
       <div class="tabs" id="tabs" style="display:none;"></div>
     </div>
@@ -499,10 +536,20 @@
       yearSel.appendChild(o);
     });
 
+    // show controls/tabs
     $("#controls").style.display = "flex";
     tabsEl = $("#tabs");
     tabsEl.style.display = "flex";
 
+    // ✅ 데스크톱에서는 필터 토글 항상 펼침
+    const ctlWrap = $("#ctlWrap");
+    if(window.matchMedia("(min-width: 861px)").matches){
+      ctlWrap.open = true;
+    }else{
+      ctlWrap.open = false;
+    }
+
+    // tab buttons
     const tabDefs = [
       {key:"fit", label:"적정"},
       {key:"up",  label:"상향"},
@@ -556,7 +603,6 @@
         return { ...u, _ev: ev };
       });
 
-      // 전체 데이터 기준 카운트(상단 상세보기용)
       const cntFit = evaluated.filter(x=>x._ev.code==="fit").length;
       const cntUp  = evaluated.filter(x=>x._ev.code==="up").length;
       const cntNa  = evaluated.filter(x=>x._ev.code==="na").length;
@@ -599,7 +645,7 @@
         });
       }
 
-      // ✅ 상단: 최신 성적 + 점수는 항상 노출
+      // ✅ 상단: 최신 성적 + 점수만 기본 노출
       const scoreLine = [
         stuMap["국어"]!=null ? `국:${stuMap["국어"]}` : null,
         stuMap["수학"]!=null ? `수:${stuMap["수학"]}` : null,
