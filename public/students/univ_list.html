@@ -68,6 +68,7 @@
     .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
     .mtitle{font-weight:900;font-size:16px;line-height:1.25;white-space:normal}
     .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
+    .mbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
     .divider{height:1px;background:#f0f0f0;margin:10px 0}
 
     /* subject grid (mobile) */
@@ -85,6 +86,31 @@
     .sg-ng{border-color:#b26a00}
     .sg-na{opacity:.6}
 
+    /* details(상세보기) */
+    details.summaryBox{
+      margin-top:10px;
+      border:1px solid #eee;
+      border-radius:14px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    details.summaryBox summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
+      user-select:none;
+    }
+    details.summaryBox summary::-webkit-details-marker{display:none}
+    .summaryBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid #111;
+      border-radius:12px;
+      padding:8px 12px;
+      background:#fff;
+    }
+
     /* Mobile: show cards only */
     @media(max-width: 860px){
       .tablebox{display:none;}
@@ -101,17 +127,6 @@
         border-bottom:1px solid #eee;
       }
     }
-
-    /* ✅ summary collapse */
-    details.summaryBox{margin-top:10px}
-    summary.summaryBtn{
-      cursor:pointer; user-select:none;
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid #ddd; border-radius:12px;
-      padding:8px 10px; background:#fff; font-weight:900;
-      list-style:none;
-    }
-    summary.summaryBtn::-webkit-details-marker{display:none}
   </style>
 </head>
 <body>
@@ -212,8 +227,10 @@
     if(s==="국") return "국어";
     if(s==="수") return "수학";
     if(s==="영") return "영어";
+
     if(s==="탐1" || s==="탐구1" || s==="탐_1" || s==="탐구_1") return "탐1";
     if(s==="탐2" || s==="탐구2" || s==="탐_2" || s==="탐구_2") return "탐2";
+
     if(s==="탐구") return "탐1";
     if(SUBS.includes(s)) return s;
     return null;
@@ -238,6 +255,7 @@
 
   function getUnivCuts(u){
     const out = {};
+
     if(u && u.rule && typeof u.rule === "object" && u.rule.cuts){
       for(const k of Object.keys(u.rule.cuts)){
         const nk = normSubKey(k);
@@ -245,6 +263,7 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
+
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const nk = normSubKey(k);
@@ -252,6 +271,7 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
+
     const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
     const math = toNum(u.cut_math ?? u.math_cut);
     const eng = toNum(u.cut_eng ?? u.eng_cut);
@@ -262,6 +282,7 @@
     if(eng!=null) out["영어"]=eng;
     if(inq1!=null) out["탐1"]=inq1;
     if(inq2!=null) out["탐2"]=inq2;
+
     return out;
   }
 
@@ -313,6 +334,7 @@
     if(cnt>0){
       code = (mainDiff>=0) ? "fit" : "up";
     }
+
     return { cuts, per, mainDiff, cnt, used, code };
   }
 
@@ -534,23 +556,22 @@
         return { ...u, _ev: ev };
       });
 
-      // (탭 제외) 필터 상태에서의 카운트 계산용
-      let base = evaluated.slice();
-      if(g!=="__all__") base = base.filter(x=>String(x.group)===String(g));
-      if(y!=="__all__") base = base.filter(x=>String(x.year)===String(y));
+      // 전체 데이터 기준 카운트(상단 상세보기용)
+      const cntFit = evaluated.filter(x=>x._ev.code==="fit").length;
+      const cntUp  = evaluated.filter(x=>x._ev.code==="up").length;
+      const cntNa  = evaluated.filter(x=>x._ev.code==="na").length;
+
+      let arr = evaluated.slice();
+
+      if(g!=="__all__") arr = arr.filter(x=>String(x.group)===String(g));
+      if(y!=="__all__") arr = arr.filter(x=>String(x.year)===String(y));
+
       if(q){
-        base = base.filter(x =>
+        arr = arr.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
           String(x.major||"").toLowerCase().includes(q)
         );
       }
-
-      const cntFit = base.filter(x=>x._ev.code==="fit").length;
-      const cntUp  = base.filter(x=>x._ev.code==="up").length;
-      const cntNa  = base.filter(x=>x._ev.code==="na").length;
-
-      // 실제 표시 배열
-      let arr = base.slice();
 
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
@@ -578,17 +599,24 @@
         });
       }
 
-      // ✅ 요약: “최신 성적”만 기본 노출 + 나머지는 접기
+      // ✅ 상단: 최신 성적 + 점수는 항상 노출
+      const scoreLine = [
+        stuMap["국어"]!=null ? `국:${stuMap["국어"]}` : null,
+        stuMap["수학"]!=null ? `수:${stuMap["수학"]}` : null,
+        stuMap["영어"]!=null ? `영:${stuMap["영어"]}` : null,
+        stuMap["탐1"]!=null ? `탐1:${stuMap["탐1"]}` : null,
+        stuMap["탐2"]!=null ? `탐2:${stuMap["탐2"]}` : null,
+      ].filter(Boolean).join(" · ");
+
       const summaryTop = `
         <div class="row">
           <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
+          <span class="badge muted">${esc(scoreLine || "-")}</span>
         </div>
 
         <details class="summaryBox">
-          <summary class="summaryBtn">상세 보기</summary>
-          <div class="row">
-            <span class="badge muted">국:${esc(stuMap["국어"] ?? "-")} · 수:${esc(stuMap["수학"] ?? "-")} · 영:${esc(stuMap["영어"] ?? "-")}</span>
-            <span class="badge muted">탐1:${esc(stuMap["탐1"] ?? "-")} · 탐2:${esc(stuMap["탐2"] ?? "-")}</span>
+          <summary><span class="summaryBtn">상세 보기</span></summary>
+          <div class="row" style="margin-top:10px">
             <span class="badge">적정 ${cntFit} · 상향 ${cntUp} · 비교불가 ${cntNa}</span>
             <span class="badge muted">대학데이터: ./univ_percentile.json (${evaluated.length}개)</span>
           </div>
