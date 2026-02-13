@@ -19,9 +19,7 @@
     .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
-    .spacer{flex:1}
 
-    /* controls */
     .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
     input, select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:800;
@@ -38,7 +36,6 @@
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
     .tab[aria-selected="true"]{background:#111;color:#fff}
 
-    /* PC table */
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
     table{border-collapse:collapse;width:100%;min-width:980px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap;vertical-align:top}
@@ -46,11 +43,10 @@
     .num{text-align:right}
 
     .status{font-weight:900}
-    .st-fit{color:#0b57d0}   /* 적정 */
-    .st-up{color:#b26a00}    /* 상향 */
-    .st-na{color:#666}       /* 비교불가 */
+    .st-fit{color:#0b57d0}
+    .st-up{color:#b26a00}
+    .st-na{color:#666}
 
-    /* chips (PC) */
     .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;white-space:normal}
     .chip{
       display:inline-flex;gap:6px;align-items:center;
@@ -62,16 +58,13 @@
     .chip.ng{border-color:#b26a00}
     .chip.na{border-color:#ddd;opacity:.75}
 
-    /* Mobile cards */
     .mobile-list{display:none}
     .mcard{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;margin:12px 0}
     .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
     .mtitle{font-weight:900;font-size:16px;line-height:1.25;white-space:normal}
     .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
-    .mbadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
     .divider{height:1px;background:#f0f0f0;margin:10px 0}
 
-    /* subject grid (mobile) */
     .subgrid{
       display:grid;
       grid-template-columns: 58px 1fr 1fr 1fr;
@@ -86,15 +79,12 @@
     .sg-ng{border-color:#b26a00}
     .sg-na{opacity:.6}
 
-    /* Mobile: show cards only */
     @media(max-width: 860px){
       .tablebox{display:none;}
       .mobile-list{display:block;}
       .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
       .tabs::-webkit-scrollbar{display:none}
     }
-
-    /* sticky controls on mobile */
     @media(max-width: 860px){
       #stickyBar{
         position:sticky; top:0; z-index:5;
@@ -194,7 +184,6 @@
     return "-";
   }
 
-  // ====== SUBJECT NORMALIZATION ======
   const SUBS = ["국어","수학","탐1","탐2","영어"];
 
   function normSubKey(k){
@@ -203,18 +192,13 @@
     if(s==="국") return "국어";
     if(s==="수") return "수학";
     if(s==="영") return "영어";
-
     if(s==="탐1" || s==="탐구1" || s==="탐_1" || s==="탐구_1") return "탐1";
     if(s==="탐2" || s==="탐구2" || s==="탐_2" || s==="탐구_2") return "탐2";
-
-    // 혹시 대학 데이터가 "탐구"만 주는 경우(비권장) → 탐1로 취급(최소한 비교 가능)
     if(s==="탐구") return "탐1";
-
     if(SUBS.includes(s)) return s;
     return null;
   }
 
-  // --- 학생 최신 회차: 과목별 점수 맵 (부분응시 허용) ---
   function buildStudentMap(latestRow){
     const get = (...keys) => {
       for(const k of keys){
@@ -223,23 +207,17 @@
       }
       return null;
     };
-
-    // ✅ 현재 scores.json이 생윤/사문이면 탐1/탐2로 자동 매핑(당분간 호환)
-    const map = {
+    return {
       "국어": get("국어","국"),
       "수학": get("수학","수"),
       "영어": get("영어","영"),
       "탐1": get("탐1","탐구1","탐_1","탐구_1","생윤"),
       "탐2": get("탐2","탐구2","탐_2","탐구_2","사문"),
     };
-    return map;
   }
 
-  // --- 대학 row에서 과목별 컷 가져오기 (rule.cuts 우선 지원) ---
   function getUnivCuts(u){
     const out = {};
-
-    // 1) rule.cuts (최신)
     if(u && u.rule && typeof u.rule === "object" && u.rule.cuts){
       for(const k of Object.keys(u.rule.cuts)){
         const nk = normSubKey(k);
@@ -247,8 +225,6 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
-
-    // 2) cuts 객체 (구버전)
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const nk = normSubKey(k);
@@ -256,8 +232,6 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
-
-    // 3) 컬럼 방식
     const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
     const math = toNum(u.cut_math ?? u.math_cut);
     const eng = toNum(u.cut_eng ?? u.eng_cut);
@@ -268,19 +242,15 @@
     if(eng!=null) out["영어"]=eng;
     if(inq1!=null) out["탐1"]=inq1;
     if(inq2!=null) out["탐2"]=inq2;
-
     return out;
   }
 
-  // --- 평가(자동/단일과목) ---
   function evalRow(u, stuMap, mode, singleSub){
     const cuts = getUnivCuts(u);
-
     let used = [];
-    let mainDiff = null; // auto=avgDiff, single=that diff
+    let mainDiff = null;
     let cnt = 0;
 
-    // per-subject detail (표시용)
     const per = SUBS.map(k=>{
       const s = stuMap[k];
       const c = cuts[k];
@@ -305,7 +275,6 @@
         used = [k];
       }
     }else{
-      // auto
       let sum = 0;
       SUBS.forEach(k=>{
         const s = stuMap[k];
@@ -323,7 +292,6 @@
     if(cnt>0){
       code = (mainDiff>=0) ? "fit" : "up";
     }
-
     return { cuts, per, mainDiff, cnt, used, code };
   }
 
@@ -372,7 +340,6 @@
   }
 
   function groupLimitTop5(arr){
-    // 대학별로 mainDiff 높은 순(= 상향도 덜 음수인 순) 5개만
     const map = new Map();
     arr.forEach(x=>{
       const key = String(x.univ||"-");
@@ -399,7 +366,6 @@
     });
   }
 
-  // ====== MAIN ======
   let activeTab = "fit";
   let tabsEl;
 
@@ -473,9 +439,22 @@
     const latest = rows[rows.length-1];
     const stuMap = buildStudentMap(latest);
 
-    // 3) 대학 데이터 로딩
-    let univs = await loadJson("./univ_percentile.json");
-    if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
+    // 3) 대학 데이터 로딩 (✅ fallback 포함)
+    let univs = null;
+    let univSrc = "./univ_percentile.json";
+    try{
+      univs = await loadJson(univSrc);
+    }catch(e1){
+      // 엑셀 변환본을 쓰는 경우 대비
+      const fallback = "./univ_percentile_from_excel.json";
+      try{
+        univs = await loadJson(fallback);
+        univSrc = fallback;
+      }catch(e2){
+        throw e1;
+      }
+    }
+    if(!Array.isArray(univs)) throw new Error(univSrc+" is not an array");
 
     // 4) 필터 옵션
     const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
@@ -494,12 +473,10 @@
       yearSel.appendChild(o);
     });
 
-    // show controls/tabs
     $("#controls").style.display = "flex";
     tabsEl = $("#tabs");
     tabsEl.style.display = "flex";
 
-    // tab buttons
     const tabDefs = [
       {key:"fit", label:"적정"},
       {key:"up",  label:"상향"},
@@ -533,7 +510,6 @@
     limit5.addEventListener("change", render);
 
     qInput.addEventListener("input", ()=>{
-      // ✅ 검색하면 자동으로 "전체" 탭
       if(norm(qInput.value) && activeTab!=="all"){
         setActiveTab("all");
       }
@@ -546,16 +522,19 @@
       const q = norm(qInput.value).toLowerCase();
       const g = groupSel.value;
       const y = yearSel.value;
-      const mode = judgeMode.value;               // auto | single
-      const one = singleSub.value || "수학";      // single subject
+      const mode = judgeMode.value;
+      const one = singleSub.value || "수학";
 
-      // 평가
       const evaluated = univs.map(u=>{
         const ev = evalRow(u, stuMap, mode, one);
         return { ...u, _ev: ev };
       });
 
-      // ✅ 필터(계열/연도/검색)
+      // ✅ 전체 데이터 기준 카운트(원인 즉시 확인용)
+      const cntFit = evaluated.filter(x=>x._ev.code==="fit").length;
+      const cntUp  = evaluated.filter(x=>x._ev.code==="up").length;
+      const cntNa  = evaluated.filter(x=>x._ev.code==="na").length;
+
       let arr = evaluated.slice();
 
       if(g!=="__all__") arr = arr.filter(x=>String(x.group)===String(g));
@@ -568,20 +547,16 @@
         );
       }
 
-      // ✅ 탭 필터 (전체는 전부 보여줌)
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
       }
 
-      // ✅ “학교별 5학과만”은 적정/상향 탭에서만 적용 + 검색 중엔 자동 해제
       const shouldLimit = limit5.checked && !q && (activeTab==="fit" || activeTab==="up");
       if(shouldLimit){
         arr = groupLimitTop5(arr);
       }
 
-      // 정렬
       if(activeTab==="all"){
-        // 전체: 적정 -> 상향 -> 비교불가 순 + 차이 큰 순
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
           const ra = rank(a._ev.code), rb = rank(b._ev.code);
@@ -598,11 +573,12 @@
         });
       }
 
-      // summary badges
       const summaryBadges = `
         <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
         <span class="badge muted">국:${esc(stuMap["국어"] ?? "-")} · 수:${esc(stuMap["수학"] ?? "-")} · 영:${esc(stuMap["영어"] ?? "-")}</span>
         <span class="badge muted">탐1:${esc(stuMap["탐1"] ?? "-")} · 탐2:${esc(stuMap["탐2"] ?? "-")}</span>
+        <span class="badge">대학데이터: ${esc(univSrc)} (${evaluated.length}개)</span>
+        <span class="badge muted">적정 ${cntFit} · 상향 ${cntUp} · 비교불가 ${cntNa}</span>
       `;
 
       const help = `
@@ -610,10 +586,10 @@
           - 판정 기준=자동: <b>컷이 있는 응시 과목들</b>만 평균차이로 판정<br>
           - 판정 기준=단일 과목: 선택 과목 컷이 있는 대학만 <b>적정/상향</b>, 없으면 <b>비교불가</b><br>
           - <b>검색</b>하면 자동으로 <b>전체</b> 탭에서 모든 대학/학과가 검색됩니다. (검색 중엔 5학과 제한 해제)
+          ${cntUp===0 ? `<br><span class="warn">※ 현재 대학데이터 기준 상향이 0개입니다. (학생 점수보다 컷이 높은 대학을 추가하면 상향이 생깁니다.)</span>` : ``}
         </div>
       `;
 
-      // PC rows
       const rowsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -635,7 +611,6 @@
         `;
       }).join("");
 
-      // Mobile cards
       const cardsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
