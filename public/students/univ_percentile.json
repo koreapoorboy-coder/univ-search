@@ -18,9 +18,10 @@
         "탐1": 92,
         "탐2": 92
       },
-      "mode": "each_subject_meets_cut"
+      "mode": "avg_diff"
     },
-    "note": "예시: 국/수/탐 필수, 영어 컷은 선택",
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
     "cut_kor": 97,
     "cut_math": 93,
     "cut_inq1": 92,
@@ -28,59 +29,3194 @@
   },
   {
     "year": 2026,
-    "univ": "한양대",
-    "major": "기계공학부",
-    "group": "공학",
+    "univ": "연세대",
+    "major": "수학과",
+    "group": "자연",
     "cuts": {
-      "국어": 90,
-      "수학": 92,
+      "국어": 86,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 86,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "물리학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 95,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 95,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 95,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "화학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "지구시스템과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 97,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 97,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 97,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "천문우주학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 97,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 97,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89,
+    "cut_math": 97,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "대기과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "화공생명공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 88,
+      "수학": 98,
+      "탐1": 93,
+      "탐2": 93
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 88,
+        "수학": 98,
+        "탐1": 93,
+        "탐2": 93
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 88,
+    "cut_math": 98,
+    "cut_inq1": 93,
+    "cut_inq2": 93
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "전기전자공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "건축공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 88,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 88,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 88,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "도시공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 86,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 86,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "사회환경시스템공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 85,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 85,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 85,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "기계공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "신소재공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 97,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 97,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89,
+    "cut_math": 97,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "산업공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "시스템반도체공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 98,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 98,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 98,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "디스플레이융합공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 97,
+      "탐1": 98,
+      "탐2": 98
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 97,
+        "탐1": 98,
+        "탐2": 98
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 97,
+    "cut_inq1": 98,
+    "cut_inq2": 98
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "생명과학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 88,
+      "수학": 96,
+      "탐1": 93,
+      "탐2": 93
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 88,
+        "수학": 96,
+        "탐1": 93,
+        "탐2": 93
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 88,
+    "cut_math": 96,
+    "cut_inq1": 93,
+    "cut_inq2": 93
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "생명공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 97,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 97,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 97,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "첨단컴퓨팅학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 97,
+      "탐1": 92,
+      "탐2": 92
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 97,
+        "탐1": 92,
+        "탐2": 92
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 97,
+    "cut_inq1": 92,
+    "cut_inq2": 92
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "IT융합공학전공",
+    "group": "자연",
+    "cuts": {
+      "국어": 85,
+      "수학": 98,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 85,
+        "수학": 98,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 85,
+    "cut_math": 98,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "지능형 반도체전공",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 97,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 97,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 97,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "융합과학공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 97,
+      "탐1": 77,
+      "탐2": 77
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 97,
+        "탐1": 77,
+        "탐2": 77
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 97,
+    "cut_math": 97,
+    "cut_inq1": 77,
+    "cut_inq2": 77
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "의예과",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 100,
+      "탐1": 100,
+      "탐2": 100
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 100,
+        "탐1": 100,
+        "탐2": 100
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 99,
+    "cut_math": 100,
+    "cut_inq1": 100,
+    "cut_inq2": 100
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "치의예과",
+    "group": "자연",
+    "cuts": {
+      "국어": 96,
+      "수학": 99,
+      "탐1": 97,
+      "탐2": 97
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 96,
+        "수학": 99,
+        "탐1": 97,
+        "탐2": 97
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 96,
+    "cut_math": 99,
+    "cut_inq1": 97,
+    "cut_inq2": 97
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "간호학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 95,
+      "탐1": 83,
+      "탐2": 83
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 95,
+        "탐1": 83,
+        "탐2": 83
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 97,
+    "cut_math": 95,
+    "cut_inq1": 83,
+    "cut_inq2": 83
+  },
+  {
+    "year": 2026,
+    "univ": "연세대",
+    "major": "약학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 99,
+      "탐1": 98,
+      "탐2": 98
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 99,
+        "탐1": 98,
+        "탐2": 98
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 99,
+    "cut_inq1": 98,
+    "cut_inq2": 98
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "생명과학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 97,
+      "탐1": 91.2,
+      "탐2": 91.2
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 97,
+        "탐1": 91.2,
+        "탐2": 91.2
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 97,
+    "cut_inq1": 91.2,
+    "cut_inq2": 91.2
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "생명공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 98,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 98,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 98,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "식품공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 95,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 95,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 95,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "환경생태공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 90,
+      "탐2": 90
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 90,
+        "탐2": 90
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 90,
+    "cut_inq2": 90
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "식품자원경제학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 96.2,
+      "탐1": 91.2,
+      "탐2": 91.2
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 96.2,
+        "탐1": 91.2,
+        "탐2": 91.2
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 96.2,
+    "cut_inq1": 91.2,
+    "cut_inq2": 91.2
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "통계학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "수학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92.9,
+      "수학": 98,
+      "탐1": 93.7,
+      "탐2": 93.7
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92.9,
+        "수학": 98,
+        "탐1": 93.7,
+        "탐2": 93.7
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92.9,
+    "cut_math": 98,
+    "cut_inq1": 93.7,
+    "cut_inq2": 93.7
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "물리학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 91.5,
+      "수학": 97,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91.5,
+        "수학": 97,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91.5,
+    "cut_math": 97,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "화학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 96,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 96,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 96,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "지구환경과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 89.8,
+      "수학": 98,
+      "탐1": 88.8,
+      "탐2": 88.8
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89.8,
+        "수학": 98,
+        "탐1": 88.8,
+        "탐2": 88.8
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89.8,
+    "cut_math": 98,
+    "cut_inq1": 88.8,
+    "cut_inq2": 88.8
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "화공생명공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92.9,
+      "수학": 97.9,
+      "탐1": 90.9,
+      "탐2": 90.9
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92.9,
+        "수학": 97.9,
+        "탐1": 90.9,
+        "탐2": 90.9
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92.9,
+    "cut_math": 97.9,
+    "cut_inq1": 90.9,
+    "cut_inq2": 90.9
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "신소재공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 97,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 97,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 97,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "건축사회환경공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 92.4,
+      "수학": 97,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92.4,
+        "수학": 97,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92.4,
+    "cut_math": 97,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "건축학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 97,
+      "탐1": 90.1,
+      "탐2": 90.1
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 97,
+        "탐1": 90.1,
+        "탐2": 90.1
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 97,
+    "cut_inq1": 90.1,
+    "cut_inq2": 90.1
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "기계공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 97,
+      "탐1": 90.8,
+      "탐2": 90.8
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 97,
+        "탐1": 90.8,
+        "탐2": 90.8
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 97,
+    "cut_inq1": 90.8,
+    "cut_inq2": 90.8
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "산업경영공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 92.7,
       "탐1": 85,
       "탐2": 85
     },
     "rule": {
       "type": "subject_cuts_pct",
       "cuts": {
-        "국어": 90,
-        "수학": 92,
+        "국어": 92,
+        "수학": 92.7,
         "탐1": 85,
         "탐2": 85
       },
-      "mode": "each_subject_meets_cut"
+      "mode": "avg_diff"
     },
-    "note": "예시: 탐1/탐2 모두 컷 입력",
-    "cut_kor": 90,
-    "cut_math": 92,
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 92.7,
     "cut_inq1": 85,
     "cut_inq2": 85
   },
   {
     "year": 2026,
-    "univ": "중앙대",
-    "major": "경영학부",
-    "group": "사회",
+    "univ": "고려대",
+    "major": "전기전자공학부",
+    "group": "자연",
     "cuts": {
-      "국어": 90,
-      "수학": 80,
-      "탐1": 43,
-      "탐2": 43,
-      "영어": 82
+      "국어": 93.3,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
     },
     "rule": {
       "type": "subject_cuts_pct",
       "cuts": {
-        "국어": 90,
-        "수학": 80,
-        "탐1": 43,
-        "탐2": 43,
-        "영어": 82
+        "국어": 93.3,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
       },
       "mode": "avg_diff"
     },
-    "note": "예시: 평균차이 방식(참고용)",
-    "cut_kor": 90,
-    "cut_math": 80,
-    "cut_inq1": 43,
-    "cut_inq2": 43,
-    "cut_eng": 82
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93.3,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "반도체공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 98,
+      "탐1": 83,
+      "탐2": 83
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 98,
+        "탐1": 83,
+        "탐2": 83
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 98,
+    "cut_inq1": 83,
+    "cut_inq2": 83
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "융합에너지공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92.3,
+      "수학": 97,
+      "탐1": 94.2,
+      "탐2": 94.2
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92.3,
+        "수학": 97,
+        "탐1": 94.2,
+        "탐2": 94.2
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92.3,
+    "cut_math": 97,
+    "cut_inq1": 94.2,
+    "cut_inq2": 94.2
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "차세대통신학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "의과대학",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 99,
+      "탐1": 98.4,
+      "탐2": 98.4
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 99,
+        "탐1": 98.4,
+        "탐2": 98.4
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 99,
+    "cut_math": 99,
+    "cut_inq1": 98.4,
+    "cut_inq2": 98.4
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "간호대학",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 93,
+      "탐1": 90.6,
+      "탐2": 90.6
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 93,
+        "탐1": 90.6,
+        "탐2": 90.6
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 93,
+    "cut_inq1": 90.6,
+    "cut_inq2": 90.6
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "컴퓨터학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97.3,
+      "탐1": 91.9,
+      "탐2": 91.9
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97.3,
+        "탐1": 91.9,
+        "탐2": 91.9
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 97.3,
+    "cut_inq1": 91.9,
+    "cut_inq2": 91.9
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "데이터과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 90,
+      "탐2": 90
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 90,
+        "탐2": 90
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 90,
+    "cut_inq2": 90
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "인공지능학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 97,
+      "탐1": 93,
+      "탐2": 93
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 97,
+        "탐1": 93,
+        "탐2": 93
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 97,
+    "cut_inq1": 93,
+    "cut_inq2": 93
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "바이오공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "바이오시스템의과학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 97,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 97,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 97,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "보건환경융합과학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 95,
+      "탐1": 92.4,
+      "탐2": 92.4
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 95,
+        "탐1": 92.4,
+        "탐2": 92.4
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 95,
+    "cut_inq1": 92.4,
+    "cut_inq2": 92.4
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "자유공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 96.6,
+      "수학": 97,
+      "탐1": 89.2,
+      "탐2": 89.2
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 96.6,
+        "수학": 97,
+        "탐1": 89.2,
+        "탐2": 89.2
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 96.6,
+    "cut_math": 97,
+    "cut_inq1": 89.2,
+    "cut_inq2": 89.2
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "사이버국방학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 97.5,
+      "탐1": 89,
+      "탐2": 89
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 97.5,
+        "탐1": 89,
+        "탐2": 89
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 91,
+    "cut_math": 97.5,
+    "cut_inq1": 89,
+    "cut_inq2": 89
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "스마트모빌리티학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 98,
+      "탐1": 94,
+      "탐2": 94
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 98,
+        "탐1": 94,
+        "탐2": 94
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 1등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 98,
+    "cut_inq1": 94,
+    "cut_inq2": 94
+  },
+  {
+    "year": 2026,
+    "univ": "고려대",
+    "major": "학부대학",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 98,
+      "탐1": 92.8,
+      "탐2": 92.8
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 98,
+        "탐1": 92.8,
+        "탐2": 92.8
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 98,
+    "cut_inq1": 92.8,
+    "cut_inq2": 92.8
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "약학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 98,
+      "탐1": 97,
+      "탐2": 97
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 98,
+        "탐1": 97,
+        "탐2": 97
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 99,
+    "cut_math": 98,
+    "cut_inq1": 97,
+    "cut_inq2": 97
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "의예과",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 100,
+      "탐1": 97.5,
+      "탐2": 97.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 100,
+        "탐1": 97.5,
+        "탐2": 97.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 98,
+    "cut_math": 100,
+    "cut_inq1": 97.5,
+    "cut_inq2": 97.5
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "자연과학계열",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 96,
+      "탐1": 89,
+      "탐2": 89
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 96,
+        "탐1": 89,
+        "탐2": 89
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 95,
+    "cut_math": 96,
+    "cut_inq1": 89,
+    "cut_inq2": 89
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "자유전공계열",
+    "group": "자연",
+    "cuts": {
+      "국어": 86,
+      "수학": 97,
+      "탐1": 95,
+      "탐2": 95
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 97,
+        "탐1": 95,
+        "탐2": 95
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 86,
+    "cut_math": 97,
+    "cut_inq1": 95,
+    "cut_inq2": 95
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "지능형 소프트웨어학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 98,
+      "탐1": 92,
+      "탐2": 92
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 98,
+        "탐1": 92,
+        "탐2": 92
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 97,
+    "cut_math": 98,
+    "cut_inq1": 92,
+    "cut_inq2": 92
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "컴퓨터 교육과",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 95,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 95,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 89,
+    "cut_math": 95,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "건설환경공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 93,
+      "탐1": 99,
+      "탐2": 99
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 93,
+        "탐1": 99,
+        "탐2": 99
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 89,
+    "cut_math": 93,
+    "cut_inq1": 99,
+    "cut_inq2": 99
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "공학계열",
+    "group": "자연",
+    "cuts": {
+      "국어": 86,
+      "수학": 97,
+      "탐1": 95,
+      "탐2": 95
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 97,
+        "탐1": 95,
+        "탐2": 95
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 86,
+    "cut_math": 97,
+    "cut_inq1": 95,
+    "cut_inq2": 95
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "소프트웨어학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 97,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 97,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 89,
+    "cut_math": 97,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "수학교육과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 95,
+      "탐1": 95,
+      "탐2": 95
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 95,
+        "탐1": 95,
+        "탐2": 95
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 94,
+    "cut_math": 95,
+    "cut_inq1": 95,
+    "cut_inq2": 95
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "전자전기공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 82,
+      "수학": 98,
+      "탐1": 91,
+      "탐2": 91
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 82,
+        "수학": 98,
+        "탐1": 91,
+        "탐2": 91
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 82,
+    "cut_math": 98,
+    "cut_inq1": 91,
+    "cut_inq2": 91
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "글로벌바이오메디컬공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 83,
+      "수학": 98,
+      "탐1": 96,
+      "탐2": 96
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 83,
+        "수학": 98,
+        "탐1": 96,
+        "탐2": 96
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 83,
+    "cut_math": 98,
+    "cut_inq1": 96,
+    "cut_inq2": 96
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "반도체융합공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 98,
+      "탐1": 97,
+      "탐2": 97
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 98,
+        "탐1": 97,
+        "탐2": 97
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 93,
+    "cut_math": 98,
+    "cut_inq1": 97,
+    "cut_inq2": 97
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "양자정보공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 98,
+      "탐1": 97,
+      "탐2": 97
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 98,
+        "탐1": 97,
+        "탐2": 97
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 94,
+    "cut_math": 98,
+    "cut_inq1": 97,
+    "cut_inq2": 97
+  },
+  {
+    "year": 2026,
+    "univ": "성균관대",
+    "major": "에너지학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 86,
+      "수학": 98,
+      "탐1": 99,
+      "탐2": 99
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 98,
+        "탐1": 99,
+        "탐2": 99
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 86,
+    "cut_math": 98,
+    "cut_inq1": 99,
+    "cut_inq2": 99
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "수학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 86,
+      "탐2": 86
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 86,
+        "탐2": 86
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 86,
+    "cut_inq2": 86
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "물리학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 99,
+      "탐1": 77.5,
+      "탐2": 77.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 99,
+        "탐1": 77.5,
+        "탐2": 77.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 94,
+    "cut_math": 99,
+    "cut_inq1": 77.5,
+    "cut_inq2": 77.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "화학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 96,
+      "수학": 97,
+      "탐1": 81,
+      "탐2": 81
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 96,
+        "수학": 97,
+        "탐1": 81,
+        "탐2": 81
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 96,
+    "cut_math": 97,
+    "cut_inq1": 81,
+    "cut_inq2": 81
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "생명과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 98,
+      "탐1": 73.5,
+      "탐2": 73.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 98,
+        "탐1": 73.5,
+        "탐2": 73.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 97,
+    "cut_math": 98,
+    "cut_inq1": 73.5,
+    "cut_inq2": 73.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "science기반 자유전공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 95,
+      "탐1": 89.5,
+      "탐2": 89.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 95,
+        "탐1": 89.5,
+        "탐2": 89.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 4,
+    "cut_kor": 98,
+    "cut_math": 95,
+    "cut_inq1": 89.5,
+    "cut_inq2": 89.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "전자공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 100,
+      "수학": 90,
+      "탐1": 82.5,
+      "탐2": 82.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 100,
+        "수학": 90,
+        "탐1": 82.5,
+        "탐2": 82.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 100,
+    "cut_math": 90,
+    "cut_inq1": 82.5,
+    "cut_inq2": 82.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "화공생명공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 97,
+      "탐1": 81.5,
+      "탐2": 81.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 97,
+        "탐1": 81.5,
+        "탐2": 81.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 97,
+    "cut_math": 97,
+    "cut_inq1": 81.5,
+    "cut_inq2": 81.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "기계공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 90,
+      "탐1": 89,
+      "탐2": 89
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 90,
+        "탐1": 89,
+        "탐2": 89
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 99,
+    "cut_math": 90,
+    "cut_inq1": 89,
+    "cut_inq2": 89
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "컴퓨터 공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 98,
+      "탐1": 77.5,
+      "탐2": 77.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 98,
+        "탐1": 77.5,
+        "탐2": 77.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 98,
+    "cut_inq1": 77.5,
+    "cut_inq2": 77.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "인공지능학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 93,
+      "탐1": 89.5,
+      "탐2": 89.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 93,
+        "탐1": 89.5,
+        "탐2": 89.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 98,
+    "cut_math": 93,
+    "cut_inq1": 89.5,
+    "cut_inq2": 89.5
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "시스템반도체공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 100,
+      "탐1": 88,
+      "탐2": 88
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 100,
+        "탐1": 88,
+        "탐2": 88
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 93,
+    "cut_math": 100,
+    "cut_inq1": 88,
+    "cut_inq2": 88
+  },
+  {
+    "year": 2026,
+    "univ": "서강대",
+    "major": "AI기반 자유전공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 89.5,
+      "탐2": 89.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 89.5,
+        "탐2": 89.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 89.5,
+    "cut_inq2": 89.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "건축학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 88,
+      "수학": 99,
+      "탐1": 81.5,
+      "탐2": 81.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 88,
+        "수학": 99,
+        "탐1": 81.5,
+        "탐2": 81.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 88,
+    "cut_math": 99,
+    "cut_inq1": 81.5,
+    "cut_inq2": 81.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "건축공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 96,
+      "수학": 97,
+      "탐1": 81,
+      "탐2": 81
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 96,
+        "수학": 97,
+        "탐1": 81,
+        "탐2": 81
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 96,
+    "cut_math": 97,
+    "cut_inq1": 81,
+    "cut_inq2": 81
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "건설환경공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 95,
+      "탐1": 95,
+      "탐2": 95
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 95,
+        "탐1": 95,
+        "탐2": 95
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 4,
+    "cut_kor": 97,
+    "cut_math": 95,
+    "cut_inq1": 95,
+    "cut_inq2": 95
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "도시공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 97,
+      "탐1": 87.5,
+      "탐2": 87.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 97,
+        "탐1": 87.5,
+        "탐2": 87.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 95,
+    "cut_math": 97,
+    "cut_inq1": 87.5,
+    "cut_inq2": 87.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "자원환경공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 95,
+      "탐1": 88,
+      "탐2": 88
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 95,
+        "탐1": 88,
+        "탐2": 88
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 97,
+    "cut_math": 95,
+    "cut_inq1": 88,
+    "cut_inq2": 88
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "융합전자공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 99,
+      "탐1": 79,
+      "탐2": 79
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 99,
+        "탐1": 79,
+        "탐2": 79
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 95,
+    "cut_math": 99,
+    "cut_inq1": 79,
+    "cut_inq2": 79
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "컴퓨터소프트웨어학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 98,
+      "탐1": 92,
+      "탐2": 92
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 98,
+        "탐1": 92,
+        "탐2": 92
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 99,
+    "cut_math": 98,
+    "cut_inq1": 92,
+    "cut_inq2": 92
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "전기공학전공",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 98,
+      "탐1": 79,
+      "탐2": 79
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 98,
+        "탐1": 79,
+        "탐2": 79
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 98,
+    "cut_math": 98,
+    "cut_inq1": 79,
+    "cut_inq2": 79
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "바이오메디컬공학전공",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 97,
+      "탐1": 81.5,
+      "탐2": 81.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 97,
+        "탐1": 81.5,
+        "탐2": 81.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 98,
+    "cut_math": 97,
+    "cut_inq1": 81.5,
+    "cut_inq2": 81.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "유기나노공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 99,
+      "탐1": 93.5,
+      "탐2": 93.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 99,
+        "탐1": 93.5,
+        "탐2": 93.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 97,
+    "cut_math": 99,
+    "cut_inq1": 93.5,
+    "cut_inq2": 93.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "기계공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 99,
+      "수학": 97,
+      "탐1": 95,
+      "탐2": 95
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 99,
+        "수학": 97,
+        "탐1": 95,
+        "탐2": 95
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 99,
+    "cut_math": 97,
+    "cut_inq1": 95,
+    "cut_inq2": 95
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "원자력공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 97,
+      "수학": 97,
+      "탐1": 81,
+      "탐2": 81
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 97,
+        "수학": 97,
+        "탐1": 81,
+        "탐2": 81
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 97,
+    "cut_math": 97,
+    "cut_inq1": 81,
+    "cut_inq2": 81
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "산업공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 83,
+      "수학": 98,
+      "탐1": 98,
+      "탐2": 98
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 83,
+        "수학": 98,
+        "탐1": 98,
+        "탐2": 98
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 83,
+    "cut_math": 98,
+    "cut_inq1": 98,
+    "cut_inq2": 98
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "의예과",
+    "group": "자연",
+    "cuts": {
+      "국어": 100,
+      "수학": 100,
+      "탐1": 90,
+      "탐2": 90
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 100,
+        "수학": 100,
+        "탐1": 90,
+        "탐2": 90
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 100,
+    "cut_math": 100,
+    "cut_inq1": 90,
+    "cut_inq2": 90
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "간호학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 86,
+      "수학": 98,
+      "탐1": 83.5,
+      "탐2": 83.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 86,
+        "수학": 98,
+        "탐1": 83.5,
+        "탐2": 83.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 86,
+    "cut_math": 98,
+    "cut_inq1": 83.5,
+    "cut_inq2": 83.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "물리학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 92,
+      "수학": 98,
+      "탐1": 81,
+      "탐2": 81
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 92,
+        "수학": 98,
+        "탐1": 81,
+        "탐2": 81
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 1,
+    "cut_kor": 92,
+    "cut_math": 98,
+    "cut_inq1": 81,
+    "cut_inq2": 81
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "화학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 88,
+      "수학": 98,
+      "탐1": 81.5,
+      "탐2": 81.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 88,
+        "수학": 98,
+        "탐1": 81.5,
+        "탐2": 81.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 88,
+    "cut_math": 98,
+    "cut_inq1": 81.5,
+    "cut_inq2": 81.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "수학교육과",
+    "group": "자연",
+    "cuts": {
+      "국어": 83,
+      "수학": 92,
+      "탐1": 86,
+      "탐2": 86
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 83,
+        "수학": 92,
+        "탐1": 86,
+        "탐2": 86
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 83,
+    "cut_math": 92,
+    "cut_inq1": 86,
+    "cut_inq2": 86
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "식품영양학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 98,
+      "수학": 95,
+      "탐1": 83,
+      "탐2": 83
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 98,
+        "수학": 95,
+        "탐1": 83,
+        "탐2": 83
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 98,
+    "cut_math": 95,
+    "cut_inq1": 83,
+    "cut_inq2": 83
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "신소재공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 85,
+      "수학": 99,
+      "탐1": 83.5,
+      "탐2": 83.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 85,
+        "수학": 99,
+        "탐1": 83.5,
+        "탐2": 83.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 85,
+    "cut_math": 99,
+    "cut_inq1": 83.5,
+    "cut_inq2": 83.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "화학공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 97,
+      "탐1": 92,
+      "탐2": 92
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 97,
+        "탐1": 92,
+        "탐2": 92
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 93,
+    "cut_math": 97,
+    "cut_inq1": 92,
+    "cut_inq2": 92
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "생명공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 94,
+      "수학": 97,
+      "탐1": 86.5,
+      "탐2": 86.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 94,
+        "수학": 97,
+        "탐1": 86.5,
+        "탐2": 86.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 94,
+    "cut_math": 97,
+    "cut_inq1": 86.5,
+    "cut_inq2": 86.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "에너지공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 93,
+      "수학": 98,
+      "탐1": 82.5,
+      "탐2": 82.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 93,
+        "수학": 98,
+        "탐1": 82.5,
+        "탐2": 82.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 93,
+    "cut_math": 98,
+    "cut_inq1": 82.5,
+    "cut_inq2": 82.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "미래자동차공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 82,
+      "수학": 98,
+      "탐1": 97,
+      "탐2": 97
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 82,
+        "수학": 98,
+        "탐1": 97,
+        "탐2": 97
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 82,
+    "cut_math": 98,
+    "cut_inq1": 97,
+    "cut_inq2": 97
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "데이터사이언스학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 89,
+      "수학": 98,
+      "탐1": 93,
+      "탐2": 93
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 89,
+        "수학": 98,
+        "탐1": 93,
+        "탐2": 93
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 3,
+    "cut_kor": 89,
+    "cut_math": 98,
+    "cut_inq1": 93,
+    "cut_inq2": 93
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "반도체공학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 95,
+      "수학": 100,
+      "탐1": 80,
+      "탐2": 80
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 95,
+        "수학": 100,
+        "탐1": 80,
+        "탐2": 80
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 95,
+    "cut_math": 100,
+    "cut_inq1": 80,
+    "cut_inq2": 80
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "수학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 97,
+      "탐1": 90.5,
+      "탐2": 90.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 97,
+        "탐1": 90.5,
+        "탐2": 90.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 91,
+    "cut_math": 97,
+    "cut_inq1": 90.5,
+    "cut_inq2": 90.5
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "생명과학과",
+    "group": "자연",
+    "cuts": {
+      "국어": 91,
+      "수학": 92,
+      "탐1": 89,
+      "탐2": 89
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 91,
+        "수학": 92,
+        "탐1": 89,
+        "탐2": 89
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 91,
+    "cut_math": 92,
+    "cut_inq1": 89,
+    "cut_inq2": 89
+  },
+  {
+    "year": 2026,
+    "univ": "한양대",
+    "major": "자유전공학부",
+    "group": "자연",
+    "cuts": {
+      "국어": 100,
+      "수학": 95,
+      "탐1": 80.5,
+      "탐2": 80.5
+    },
+    "rule": {
+      "type": "subject_cuts_pct",
+      "cuts": {
+        "국어": 100,
+        "수학": 95,
+        "탐1": 80.5,
+        "탐2": 80.5
+      },
+      "mode": "avg_diff"
+    },
+    "note": "국/수/탐 각각 컷 + 영어 2등급 이내",
+    "eng_max_grade": 2,
+    "cut_kor": 100,
+    "cut_math": 95,
+    "cut_inq1": 80.5,
+    "cut_inq2": 80.5
   }
 ]
