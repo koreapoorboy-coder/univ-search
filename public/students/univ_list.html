@@ -189,12 +189,10 @@
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
 
-    // 흔한 래핑 키
     for(const k of ["records","rows","items","data","scores"]){
       if(Array.isArray(x[k])) return x[k].slice();
     }
 
-    // ID별 배열/객체 형태: { shstudy01:[...], shstudy02:[...] } 또는 { shstudy01:{...} }
     const out = [];
     for(const [k,v] of Object.entries(x)){
       if(Array.isArray(v)){
@@ -230,15 +228,15 @@
         pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"]
       },
       "탐1": {
-        // ✅ 생윤/윤리 등 과목명을 탐1로 임시 매핑(호환)
-        raw:["탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
+        /* ✅✅ FIX: 탐1_raw 추가 (네 scores.json 포맷 대응) */
+        raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
              "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
         pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
              "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
       },
       "탐2": {
-        // ✅ 사문/사회 등 과목명을 탐2로 임시 매핑(호환)
-        raw:["탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
+        /* ✅✅ FIX: 탐2_raw 추가 (네 scores.json 포맷 대응) */
+        raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
              "사문","사문점","사문점수","사회","사회점수","사회점"],
         pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
              "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
@@ -293,7 +291,7 @@
     const cuts = getUnivCuts(u);
 
     let used = [];
-    let mainDiff = null; // 평균 차이(p)
+    let mainDiff = null;
     let cnt = 0;
 
     const per = SUBS.map(k=>{
@@ -350,7 +348,6 @@
       const dTxt   = (p.diff==null) ? "" : diffText(p.diff);
 
       const cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
-      // 예: 국어 86점/96p / 83p +13.0p
       return `<span class="${cls}">
         <span class="k">${esc(p.k)}</span>
         ${esc(rawTxt)}/${esc(spTxt)} / ${esc(cTxt)} ${esc(dTxt)}
@@ -387,7 +384,6 @@
   }
 
   function groupLimitTop5(arr){
-    // 대학별로 mainDiff 높은 순 5개만 (기본 적용: 적정/상향 탭에서만, 검색 없을 때)
     const map = new Map();
     arr.forEach(x=>{
       const key = String(x.univ||"-");
@@ -418,7 +414,6 @@
   let tabsEl;
 
   async function main(){
-    // 1) 학생 찾기
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -460,7 +455,7 @@
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) scores.json 최신 (배열/비배열 모두 허용)
+    // scores.json 최신 (배열/비배열 모두 허용)
     const rawScores = await loadJson("./scores.json");
     const scores = normalizeArrayish(rawScores);
 
@@ -487,7 +482,7 @@
     const latest = rows[rows.length-1];
     const { raw:stuRaw, pct:stuPct } = buildStudentMaps(latest);
 
-    // 3) 대학 데이터 (파일명 변경 대비: 실패 시 v6 파일로 재시도)
+    // 대학 데이터 (파일명 변경 대비: 실패 시 v6 파일로 재시도)
     let univs = null;
     try{
       univs = await loadJson("./univ_percentile.json");
@@ -524,7 +519,6 @@
 
     const qInput = $("#q");
     qInput.addEventListener("input", ()=>{
-      // 검색하면 자동 전체 탭
       if(norm(qInput.value) && activeTab!=="all"){
         setActiveTab("all");
       }
@@ -534,7 +528,6 @@
     function render(){
       const q = norm(qInput.value).toLowerCase();
 
-      // 평가
       const evaluated = univs.map(u=>{
         const ev = evalRow(u, stuPct);
         return { ...u, _ev: ev };
@@ -542,7 +535,6 @@
 
       let arr = evaluated.slice();
 
-      // 검색 필터
       if(q){
         arr = arr.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
@@ -550,18 +542,15 @@
         );
       }
 
-      // 탭 필터
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
       }
 
-      // ✅ fit/up 탭에서만(검색 없을 때) 대학별 상위 5개 학과 제한
       const shouldLimit = (!q && (activeTab==="fit" || activeTab==="up"));
       if(shouldLimit){
         arr = groupLimitTop5(arr);
       }
 
-      // 정렬
       if(activeTab==="all"){
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
@@ -579,7 +568,6 @@
         });
       }
 
-      // ✅ 학부모/학생용: 점수(원점수+백분위)만 간단히 표시
       const scorePair = (k)=>{
         const r = stuRaw[k];
         const p = stuPct[k];
@@ -593,7 +581,6 @@
         </span>
       `;
 
-      // PC rows (✅ 비고 컬럼 제거)
       const rowsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -614,7 +601,6 @@
         `;
       }).join("");
 
-      // Mobile cards (✅ 비고 제거)
       const cardsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
