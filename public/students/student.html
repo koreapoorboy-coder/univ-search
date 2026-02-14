@@ -104,6 +104,70 @@
 <script>
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
+  // =========================
+  // ✅✅ PATCH #2 (student.js 수정 없이 적용)
+  // - scores.json 이 배열이 아니어도 항상 "배열"로 변환해서 student.js에 전달
+  // =========================
+  function normalizeToArray(x){
+    if(Array.isArray(x)) return x;
+    if(!x) return [];
+
+    // {scores:[...]} / {rows:[...]} / {data:[...]} 지원
+    if(Array.isArray(x.scores)) return x.scores;
+    if(Array.isArray(x.rows)) return x.rows;
+    if(Array.isArray(x.data)) return x.data;
+
+    // { "shstudy01":[...], "shstudy02":[...] } 같은 형태 지원
+    if(typeof x === "object"){
+      const entries = Object.entries(x);
+      const allArrays = entries.length && entries.every(([,v]) => Array.isArray(v));
+      if(allArrays){
+        const out = [];
+        for(const [key, arr] of entries){
+          for(const row of arr){
+            if(row && typeof row === "object"){
+              out.push({ ...row, id: row.id ?? key });
+            }else{
+              out.push({ id: key, value: row });
+            }
+          }
+        }
+        return out;
+      }
+      // 단일 객체면 1개짜리 배열로 감싸기
+      return [x];
+    }
+    return [];
+  }
+
+  // fetch 가로채기: scores.json 만 json() 결과를 정규화
+  (function patchFetchForScores(){
+    const _fetch = window.fetch.bind(window);
+
+    function isScoresRequest(input){
+      try{
+        const url = (input instanceof Request) ? input.url : String(input || "");
+        // scores.json / scores.json?ver=... 모두 커버
+        return url.includes("scores.json");
+      }catch(e){
+        return false;
+      }
+    }
+
+    window.fetch = async function(input, init){
+      const res = await _fetch(input, init);
+      if(!isScoresRequest(input)) return res;
+
+      // Response.json()을 덮어써서 student.js가 항상 배열을 받게 함
+      const origJson = res.json.bind(res);
+      res.json = async () => {
+        const raw = await origJson();
+        return normalizeToArray(raw);
+      };
+      return res;
+    };
+  })();
+
   const qs = new URLSearchParams(location.search);
   const admin = qs.get("admin");
   const idParam = qs.get("id");
