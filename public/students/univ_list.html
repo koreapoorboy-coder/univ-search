@@ -25,14 +25,10 @@
     .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
     input, select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:800;
-      width:min(320px, 100%);
+      width:min(520px, 100%);
     }
-    .toggle{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
-      user-select:none;
-    }
-    .toggle input{width:auto}
+    /* ✅ 검색만 보이게 */
+    #groupSel, #yearSel, #judgeMode, #singleSub, #limit5Wrap { display:none !important; }
 
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
@@ -85,54 +81,6 @@
     .sg-ng{border-color:#b26a00}
     .sg-na{opacity:.6}
 
-    /* details(상세보기) */
-    details.summaryBox{
-      margin-top:10px;
-      border:1px solid #eee;
-      border-radius:14px;
-      padding:10px 12px;
-      background:#fff;
-    }
-    details.summaryBox summary{
-      cursor:pointer;
-      list-style:none;
-      font-weight:900;
-      user-select:none;
-    }
-    details.summaryBox summary::-webkit-details-marker{display:none}
-    .summaryBtn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid #111;
-      border-radius:12px;
-      padding:8px 12px;
-      background:#fff;
-    }
-
-    /* ✅ 모바일: 검색/필터 접기 토글 */
-    details.ctlWrap{
-      margin-top:12px;
-      border:1px solid #eee;
-      border-radius:14px;
-      padding:10px 12px;
-      background:#fff;
-    }
-    details.ctlWrap summary{
-      cursor:pointer;
-      list-style:none;
-      font-weight:900;
-      user-select:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid #111;
-      border-radius:12px;
-      padding:8px 12px;
-      background:#fff;
-    }
-    details.ctlWrap summary::-webkit-details-marker{display:none}
-
     /* Mobile: show cards only */
     @media(max-width: 860px){
       .tablebox{display:none;}
@@ -149,17 +97,6 @@
         border-bottom:1px solid #eee;
       }
     }
-
-    /* Desktop: 필터 토글 summary 숨기고(열린 상태로 처리), 박스 스타일 제거 */
-    @media(min-width: 861px){
-      details.ctlWrap{
-        border:none;
-        padding:0;
-        margin-top:12px;
-      }
-      details.ctlWrap summary{display:none;}
-      /* JS에서 open=true로 강제해서 항상 펼쳐진 상태 유지 */
-    }
   </style>
 </head>
 <body>
@@ -171,36 +108,33 @@
     <div class="row" id="navRow"></div>
 
     <div id="stickyBar">
-      <!-- ✅ 모바일에서는 summary로 접고/펼치기 -->
-      <details id="ctlWrap" class="ctlWrap">
-        <summary>검색/필터</summary>
-        <div class="controls" id="controls" style="display:none;">
-          <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
-          <select id="groupSel">
-            <option value="__all__">전체 계열</option>
-          </select>
-          <select id="yearSel">
-            <option value="__all__">전체 연도</option>
-          </select>
+      <div class="controls" id="controls" style="display:none;">
+        <!-- ✅ 검색만 노출 -->
+        <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" aria-label="대학/학과 검색" />
 
-          <select id="judgeMode">
-            <option value="auto">판정 기준: 자동(응시과목 평균)</option>
-            <option value="single">판정 기준: 단일 과목</option>
-          </select>
-          <select id="singleSub" style="display:none;">
-            <option value="국어">국어</option>
-            <option value="수학">수학</option>
-            <option value="탐1">탐1</option>
-            <option value="탐2">탐2</option>
-            <option value="영어">영어</option>
-          </select>
+        <!-- (숨김 유지: JS 호환용) -->
+        <select id="groupSel"><option value="__all__">전체 계열</option></select>
+        <select id="yearSel"><option value="__all__">전체 연도</option></select>
 
+        <select id="judgeMode">
+          <option value="auto">판정 기준: 자동(응시과목 평균)</option>
+          <option value="single">판정 기준: 단일 과목</option>
+        </select>
+        <select id="singleSub" style="display:none;">
+          <option value="국어">국어</option>
+          <option value="수학">수학</option>
+          <option value="탐1">탐1</option>
+          <option value="탐2">탐2</option>
+          <option value="영어">영어</option>
+        </select>
+
+        <span id="limit5Wrap">
           <label class="toggle" title="적정/상향 탭에서만 대학별 상위 5개 학과로 제한합니다. (검색 중엔 자동 해제)">
             <input type="checkbox" id="limit5" checked />
             학교별 5학과만
           </label>
-        </div>
-      </details>
+        </span>
+      </div>
 
       <div class="tabs" id="tabs" style="display:none;"></div>
     </div>
@@ -234,6 +168,14 @@
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
     return r.json();
   }
+  async function loadJsonFirst(paths){
+    let lastErr = null;
+    for(const p of paths){
+      try { return { data: await loadJson(p), path: p }; }
+      catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("No data file found");
+  }
 
   function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
@@ -264,10 +206,8 @@
     if(s==="국") return "국어";
     if(s==="수") return "수학";
     if(s==="영") return "영어";
-
     if(s==="탐1" || s==="탐구1" || s==="탐_1" || s==="탐구_1") return "탐1";
     if(s==="탐2" || s==="탐구2" || s==="탐_2" || s==="탐구_2") return "탐2";
-
     if(s==="탐구") return "탐1";
     if(SUBS.includes(s)) return s;
     return null;
@@ -292,7 +232,6 @@
 
   function getUnivCuts(u){
     const out = {};
-
     if(u && u.rule && typeof u.rule === "object" && u.rule.cuts){
       for(const k of Object.keys(u.rule.cuts)){
         const nk = normSubKey(k);
@@ -300,7 +239,6 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
-
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const nk = normSubKey(k);
@@ -308,7 +246,6 @@
         if(nk && v!=null) out[nk] = v;
       }
     }
-
     const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
     const math = toNum(u.cut_math ?? u.math_cut);
     const eng = toNum(u.cut_eng ?? u.eng_cut);
@@ -319,13 +256,11 @@
     if(eng!=null) out["영어"]=eng;
     if(inq1!=null) out["탐1"]=inq1;
     if(inq2!=null) out["탐2"]=inq2;
-
     return out;
   }
 
   function evalRow(u, stuMap, mode, singleSub){
     const cuts = getUnivCuts(u);
-
     let used = [];
     let mainDiff = null;
     let cnt = 0;
@@ -371,7 +306,6 @@
     if(cnt>0){
       code = (mainDiff>=0) ? "fit" : "up";
     }
-
     return { cuts, per, mainDiff, cnt, used, code };
   }
 
@@ -426,7 +360,6 @@
       if(!map.has(key)) map.set(key, []);
       map.get(key).push(x);
     });
-
     const out = [];
     for(const [k, list] of map.entries()){
       list.sort((a,b)=>{
@@ -517,8 +450,13 @@
     const latest = rows[rows.length-1];
     const stuMap = buildStudentMap(latest);
 
-    let univs = await loadJson("./univ_percentile.json");
-    if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
+    // ✅ 데이터 파일 후보: v6 있으면 그거 우선, 없으면 기존 파일
+    const univLoad = await loadJsonFirst([
+      "./univ_percentile_v6_subject_cuts.json",
+      "./univ_percentile.json"
+    ]);
+    let univs = univLoad.data;
+    if(!Array.isArray(univs)) throw new Error("univ data is not an array");
 
     const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
     const years = [...new Set(univs.map(x=>x.year).filter(Boolean))].sort((a,b)=>a-b);
@@ -536,20 +474,10 @@
       yearSel.appendChild(o);
     });
 
-    // show controls/tabs
     $("#controls").style.display = "flex";
     tabsEl = $("#tabs");
     tabsEl.style.display = "flex";
 
-    // ✅ 데스크톱에서는 필터 토글 항상 펼침
-    const ctlWrap = $("#ctlWrap");
-    if(window.matchMedia("(min-width: 861px)").matches){
-      ctlWrap.open = true;
-    }else{
-      ctlWrap.open = false;
-    }
-
-    // tab buttons
     const tabDefs = [
       {key:"fit", label:"적정"},
       {key:"up",  label:"상향"},
@@ -574,6 +502,11 @@
     const judgeMode = $("#judgeMode");
     const singleSub = $("#singleSub");
     const limit5 = $("#limit5");
+
+    // 기본값 유지(숨김이지만 작동)
+    judgeMode.value = "auto";
+    singleSub.value = "수학";
+    limit5.checked = true;
 
     judgeMode.addEventListener("change", ()=>{
       singleSub.style.display = (judgeMode.value==="single") ? "block" : "none";
@@ -603,12 +536,7 @@
         return { ...u, _ev: ev };
       });
 
-      const cntFit = evaluated.filter(x=>x._ev.code==="fit").length;
-      const cntUp  = evaluated.filter(x=>x._ev.code==="up").length;
-      const cntNa  = evaluated.filter(x=>x._ev.code==="na").length;
-
       let arr = evaluated.slice();
-
       if(g!=="__all__") arr = arr.filter(x=>String(x.group)===String(g));
       if(y!=="__all__") arr = arr.filter(x=>String(x.year)===String(y));
 
@@ -645,33 +573,10 @@
         });
       }
 
-      // ✅ 상단: 최신 성적 + 점수만 기본 노출
-      const scoreLine = [
-        stuMap["국어"]!=null ? `국:${stuMap["국어"]}` : null,
-        stuMap["수학"]!=null ? `수:${stuMap["수학"]}` : null,
-        stuMap["영어"]!=null ? `영:${stuMap["영어"]}` : null,
-        stuMap["탐1"]!=null ? `탐1:${stuMap["탐1"]}` : null,
-        stuMap["탐2"]!=null ? `탐2:${stuMap["탐2"]}` : null,
-      ].filter(Boolean).join(" · ");
-
-      const summaryTop = `
-        <div class="row">
-          <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
-          <span class="badge muted">${esc(scoreLine || "-")}</span>
-        </div>
-
-        <details class="summaryBox">
-          <summary><span class="summaryBtn">상세 보기</span></summary>
-          <div class="row" style="margin-top:10px">
-            <span class="badge">적정 ${cntFit} · 상향 ${cntUp} · 비교불가 ${cntNa}</span>
-            <span class="badge muted">대학데이터: ./univ_percentile.json (${evaluated.length}개)</span>
-          </div>
-          <div class="muted" style="margin-top:8px;line-height:1.55">
-            - 판정 기준=자동: <b>컷이 있는 응시 과목들</b>만 평균차이로 판정<br>
-            - 판정 기준=단일 과목: 선택 과목 컷이 있는 대학만 <b>적정/상향</b>, 없으면 <b>비교불가</b><br>
-            - <b>검색</b>하면 자동으로 <b>전체</b> 탭에서 모든 대학/학과가 검색됩니다. (검색 중엔 5학과 제한 해제)
-          </div>
-        </details>
+      const summaryBadges = `
+        <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
+        <span class="badge muted">국:${esc(stuMap["국어"] ?? "-")} · 수:${esc(stuMap["수학"] ?? "-")} · 영:${esc(stuMap["영어"] ?? "-")}</span>
+        <span class="badge muted">탐1:${esc(stuMap["탐1"] ?? "-")} · 탐2:${esc(stuMap["탐2"] ?? "-")}</span>
       `;
 
       const rowsHtml = arr.map(u=>{
@@ -679,7 +584,6 @@
         const st = statusLabel(ev.code);
         const covered = (judgeMode.value==="single") ? (ev.cnt? "1/1":"0/1") : `${ev.cnt}/5`;
         const main = diffText(ev.mainDiff);
-
         return `
           <tr>
             <td class="status ${st.cls}">${esc(st.t)}</td>
@@ -700,7 +604,6 @@
         const st = statusLabel(ev.code);
         const covered = (judgeMode.value==="single") ? (ev.cnt? "1/1":"0/1") : `${ev.cnt}/5`;
         const main = diffText(ev.mainDiff);
-
         return `
           <div class="mcard">
             <div class="mtop">
@@ -719,7 +622,7 @@
 
       $("#content").innerHTML = `
         <div class="card">
-          ${summaryTop}
+          <div class="row">${summaryBadges}</div>
         </div>
 
         <div class="mobile-list">
