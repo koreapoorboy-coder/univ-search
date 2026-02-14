@@ -14,22 +14,19 @@
     .meta{opacity:.85;line-height:1.7}
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
     .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
-    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:800;background:#fff}
+    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
     .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
     .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
     /* controls */
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
-    input, select{
-      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:800;
-      width:min(320px, 100%);
+    #stickyBar{margin-top:12px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    input{
+      border:1px solid #ddd;border-radius:12px;padding:12px 14px;background:#fff;font-weight:900;
+      width:min(520px, 100%);
     }
-
-    /* ✅ 검색창만 노출 */
-    #q{width:min(720px, 100%);flex:1 1 420px;}
-    #groupSel,#yearSel,#judgeMode,#singleSub,#limit5Wrap{display:none !important;}
 
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
@@ -37,16 +34,17 @@
 
     /* PC table */
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
-    table{border-collapse:collapse;width:100%;min-width:920px}
+    table{border-collapse:collapse;width:100%;min-width:980px}
     th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap;vertical-align:top}
     th{background:#fafafa;font-weight:900;position:sticky;top:0}
     .num{text-align:right}
 
     .status{font-weight:900}
-    .st-fit{color:#0b57d0}
-    .st-up{color:#b26a00}
-    .st-na{color:#666}
+    .st-fit{color:#0b57d0}   /* 적정 */
+    .st-up{color:#b26a00}    /* 상향 */
+    .st-na{color:#666}       /* 비교불가 */
 
+    /* chips (PC) */
     .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center;white-space:normal}
     .chip{
       display:inline-flex;gap:6px;align-items:center;
@@ -58,6 +56,7 @@
     .chip.ng{border-color:#b26a00}
     .chip.na{border-color:#ddd;opacity:.75}
 
+    /* Mobile cards */
     .mobile-list{display:none}
     .mcard{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;margin:12px 0}
     .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
@@ -65,6 +64,7 @@
     .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
     .divider{height:1px;background:#f0f0f0;margin:10px 0}
 
+    /* subject grid (mobile) */
     .subgrid{
       display:grid;
       grid-template-columns: 58px 1fr 1fr 1fr;
@@ -104,26 +104,9 @@
     <div class="row" id="navRow"></div>
 
     <div id="stickyBar">
+      <!-- ✅ 검색만 노출 -->
       <div class="controls" id="controls" style="display:none;">
         <input id="q" placeholder="대학/학과 검색 (예: 경희, 컴퓨터)" />
-
-        <!-- 숨김 컨트롤(기본값 유지용) -->
-        <select id="groupSel"><option value="__all__">전체 계열</option></select>
-        <select id="yearSel"><option value="__all__">전체 연도</option></select>
-        <select id="judgeMode">
-          <option value="auto" selected>판정 기준: 자동(응시과목 평균)</option>
-          <option value="single">판정 기준: 단일 과목</option>
-        </select>
-        <select id="singleSub" style="display:none;">
-          <option value="국어">국어</option>
-          <option value="수학" selected>수학</option>
-          <option value="탐1">탐1</option>
-          <option value="탐2">탐2</option>
-          <option value="영어">영어</option>
-        </select>
-        <span id="limit5Wrap">
-          <label class="toggle"><input type="checkbox" id="limit5" checked /> 학교별 5학과만</label>
-        </span>
       </div>
 
       <div class="tabs" id="tabs" style="display:none;"></div>
@@ -159,79 +142,35 @@
     return r.json();
   }
 
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.student_name ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
+  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickTokenRaw(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
-
-  // ✅ token이 없으면 id를 임시 토큰으로 사용(운영 편의용)
-  function effectiveToken(s){
-    const t = pickTokenRaw(s);
-    const tt = norm(t);
-    if(!tt || tt.toLowerCase()==="null" || tt.toLowerCase()==="undefined"){
-      return pickId(s);
-    }
-    return t;
-  }
-
+  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
   function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; return v==null?null:Number(v); }
   function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
 
+  // ✅ 숫자 파서: "96p", "96%", " 96 " 모두 허용
   function toNum(v){
     if(v==null || v==="") return null;
-    if(typeof v==="number" && Number.isFinite(v)) return v;
+    if(typeof v==="number") return Number.isFinite(v) ? v : null;
     const s = String(v).trim();
     if(!s) return null;
-    const m = s.match(/-?\d+(\.\d+)?/);
-    if(!m) return null;
-    const n = Number(m[0]);
+    const cleaned = s.replace(/[^0-9.+-]/g,"");
+    if(!cleaned) return null;
+    const n = Number(cleaned);
     return Number.isFinite(n) ? n : null;
   }
 
-  function normalizeScoresJson(data){
-    if(Array.isArray(data)) return data;
-    if(data && typeof data==="object"){
-      const cand = data.records || data.items || data.data;
-      if(Array.isArray(cand)) return cand;
-
-      const out = [];
-      for(const [k,v] of Object.entries(data)){
-        if(Array.isArray(v)){
-          v.forEach(row=>{
-            if(row && typeof row==="object"){
-              if(row.id==null) row.id = k;
-              out.push(row);
-            }
-          });
-        }else if(v && typeof v==="object" && (v.round!=null || v.date!=null || v.id!=null)){
-          if(v.id==null) v.id = k;
-          out.push(v);
-        }
-      }
-      if(out.length) return out;
-
-      if(data.id!=null || data.round!=null || data.date!=null){
-        return [data];
-      }
-    }
-    return [];
-  }
-
-  function parseRawPctPair(v){
-    if(v==null) return { raw:null, pct:null };
-    if(typeof v==="number") return { raw:v, pct:null };
-    const s = String(v).trim();
-    if(!s) return { raw:null, pct:null };
-    const nums = s.match(/-?\d+(\.\d+)?/g);
-    if(!nums || !nums.length) return { raw:null, pct:null };
-    const raw = Number(nums[0]);
-    const pct = (nums.length>=2) ? Number(nums[1]) : null;
-    return {
-      raw: Number.isFinite(raw) ? raw : null,
-      pct: (pct!=null && Number.isFinite(pct)) ? pct : null
-    };
+  function roundLabel(row){
+    const r = pickRound(row);
+    const d = pickDate(row);
+    if(r!=null && d) return `#${r} (${d})`;
+    if(r!=null) return `#${r}`;
+    if(d) return String(d);
+    return "-";
   }
 
   const SUBS = ["국어","수학","탐1","탐2","영어"];
+
   function normSubKey(k){
     const s = String(k||"").replace(/\s+/g,"");
     if(!s) return null;
@@ -245,70 +184,93 @@
     return null;
   }
 
-  function buildStudentScoreMaps(latestRow){
-    const getAny = (...keys) => {
+  // ✅ scores.json이 배열이 아니어도 최대한 펼쳐서 배열로 만들기 (2번 패치)
+  function normalizeArrayish(x){
+    if(Array.isArray(x)) return x.slice();
+    if(!x || typeof x!=="object") return [];
+
+    // 흔한 래핑 키
+    for(const k of ["records","rows","items","data","scores"]){
+      if(Array.isArray(x[k])) return x[k].slice();
+    }
+
+    // ID별 배열/객체 형태: { shstudy01:[...], shstudy02:[...] } 또는 { shstudy01:{...} }
+    const out = [];
+    for(const [k,v] of Object.entries(x)){
+      if(Array.isArray(v)){
+        out.push(...v.map(r => ({...r, id: (r?.id ?? k)})));
+      }else if(v && typeof v==="object"){
+        out.push({...v, id:(v?.id ?? k)});
+      }
+    }
+    return out;
+  }
+
+  // ✅ 학생 점수(원점수) + 백분위(p) 둘 다 뽑기
+  function buildStudentMaps(latestRow){
+    const getFirst = (keys) => {
       for(const k of keys){
-        if(latestRow && Object.prototype.hasOwnProperty.call(latestRow, k)) return latestRow[k];
+        const v = toNum(latestRow?.[k]);
+        if(v!=null) return v;
       }
       return null;
     };
 
-    const rawKeyMap = {
-      "국어": ["국어","국"],
-      "수학": ["수학","수"],
-      "영어": ["영어","영"],
-      "탐1": ["탐1","탐구1","탐_1","탐구_1","생윤"],
-      "탐2": ["탐2","탐구2","탐_2","탐구_2","사문"],
-    };
-    const pctKeyMap = {
-      "국어": ["국어p","국p","국어_pct","국어Pct","국어백분위","국어퍼센타일"],
-      "수학": ["수학p","수p","수학_pct","수학Pct","수학백분위","수학퍼센타일"],
-      "영어": ["영어p","영p","영어_pct","영어Pct","영어백분위","영어퍼센타일"],
-      "탐1": ["탐1p","탐구1p","탐_1p","탐1_pct","탐1Pct","생윤p","생윤_pct","생윤Pct"],
-      "탐2": ["탐2p","탐구2p","탐_2p","탐2_pct","탐2Pct","사문p","사문_pct","사문Pct"],
+    const KEYS = {
+      "국어": {
+        raw:["국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean","국어_raw"],
+        pct:["국어p","국어P","국어_pct","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"]
+      },
+      "수학": {
+        raw:["수학","수","수학점","수학점수","수학 원점수","수학원점수","math","수학_raw"],
+        pct:["수학p","수학P","수학_pct","수학백분위","수학 백분위","math_p","math_pct"]
+      },
+      "영어": {
+        raw:["영어","영","영어점","영어점수","영어 원점수","영어원점수","eng","english","영어_raw"],
+        pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"]
+      },
+      "탐1": {
+        // ✅ 생윤/윤리 등 과목명을 탐1로 임시 매핑(호환)
+        raw:["탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
+             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
+        pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
+             "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
+      },
+      "탐2": {
+        // ✅ 사문/사회 등 과목명을 탐2로 임시 매핑(호환)
+        raw:["탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
+             "사문","사문점","사문점수","사회","사회점수","사회점"],
+        pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
+             "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
+      },
     };
 
     const raw = {};
     const pct = {};
-    SUBS.forEach(sub=>{
-      const rawVal = getAny(...rawKeyMap[sub]);
-      const pctVal = getAny(...pctKeyMap[sub]);
-
-      let rawNum = toNum(rawVal);
-      let pctNum = toNum(pctVal);
-
-      if((rawNum==null || pctNum==null) && typeof rawVal==="string"){
-        const pair = parseRawPctPair(rawVal);
-        if(rawNum==null) rawNum = pair.raw;
-        if(pctNum==null) pctNum = pair.pct;
-      }
-      if((rawNum==null || pctNum==null) && typeof pctVal==="string"){
-        const pair = parseRawPctPair(pctVal);
-        if(rawNum==null) rawNum = pair.raw;
-        if(pctNum==null) pctNum = pair.pct;
-      }
-
-      raw[sub]=rawNum;
-      pct[sub]=pctNum;
-    });
-
+    for(const k of SUBS){
+      raw[k] = getFirst(KEYS[k].raw);
+      pct[k] = getFirst(KEYS[k].pct);
+    }
     return { raw, pct };
   }
 
+  // --- 대학 row에서 과목별 컷(백분위) 가져오기 ---
   function getUnivCuts(u){
     const out = {};
-    if(u && u.rule && typeof u.rule==="object" && u.rule.cuts){
+
+    if(u && u.rule && typeof u.rule === "object" && u.rule.cuts){
       for(const k of Object.keys(u.rule.cuts)){
         const nk = normSubKey(k);
         const v = toNum(u.rule.cuts[k]);
-        if(nk && v!=null) out[nk]=v;
+        if(nk && v!=null) out[nk] = v;
       }
     }
-    if(u && typeof u.cuts==="object" && u.cuts){
+
+    if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
         const nk = normSubKey(k);
         const v = toNum(u.cuts[k]);
-        if(nk && v!=null) out[nk]=v;
+        if(nk && v!=null) out[nk] = v;
       }
     }
 
@@ -326,82 +288,98 @@
     return out;
   }
 
-  function evalRow(u, stuPctMap, mode, singleSub, stuRawMap){
+  // ✅ 판정은 "백분위(p)"만 사용
+  function evalRow(u, stuPctMap){
     const cuts = getUnivCuts(u);
-    let used=[], mainDiff=null, cnt=0;
+
+    let used = [];
+    let mainDiff = null; // 평균 차이(p)
+    let cnt = 0;
 
     const per = SUBS.map(k=>{
-      const sPct = stuPctMap[k];
-      const sRaw = (stuRawMap||{})[k];
-      const cPct = cuts[k];
-      if(sPct==null && cPct==null) return {k,sRaw,sPct,cPct,diff:null,state:"na"};
-      if(sPct==null) return {k,sRaw,sPct,cPct,diff:null,state:"na"};
-      if(cPct==null) return {k,sRaw,sPct,cPct,diff:null,state:"na"};
-      const diff = sPct - cPct;
-      return {k,sRaw,sPct,cPct,diff,state: diff>=0 ? "ok" : "ng"};
+      const sp = stuPctMap[k];
+      const c = cuts[k];
+      if(sp==null && c==null) return { k, sp, c, diff:null, state:"na" };
+      if(sp==null) return { k, sp, c, diff:null, state:"na" };
+      if(c==null) return { k, sp, c, diff:null, state:"na" };
+      const diff = sp - c;
+      return { k, sp, c, diff, state: diff>=0 ? "ok" : "ng" };
     });
 
-    if(mode==="single"){
-      const k = singleSub || "수학";
-      const s = stuPctMap[k], c = cuts[k];
-      if(s!=null && c!=null){ mainDiff=s-c; cnt=1; used=[k]; }
-      else { mainDiff=null; cnt=0; used=[k]; }
-    }else{
-      let sum=0;
-      SUBS.forEach(k=>{
-        const s=stuPctMap[k], c=cuts[k];
-        if(s!=null && c!=null){ sum += (s-c); cnt += 1; used.push(k); }
-      });
-      mainDiff = cnt ? (sum/cnt) : null;
+    let sum = 0;
+    SUBS.forEach(k=>{
+      const sp = stuPctMap[k];
+      const c = cuts[k];
+      if(sp!=null && c!=null){
+        sum += (sp - c);
+        cnt += 1;
+        used.push(k);
+      }
+    });
+    mainDiff = cnt ? (sum / cnt) : null;
+
+    let code = "na";
+    if(cnt>0){
+      code = (mainDiff>=0) ? "fit" : "up";
     }
 
-    let code="na";
-    if(cnt>0) code = (mainDiff>=0) ? "fit" : "up";
     return { cuts, per, mainDiff, cnt, used, code };
   }
 
   function statusLabel(code){
-    if(code==="fit") return {t:"적정", cls:"st-fit"};
-    if(code==="up") return {t:"상향", cls:"st-up"};
-    return {t:"비교불가", cls:"st-na"};
+    if(code==="fit") return { t:"적정", cls:"st-fit" };
+    if(code==="up") return { t:"상향", cls:"st-up" };
+    return { t:"비교불가", cls:"st-na" };
   }
 
   function diffText(v){
     if(v==null) return "-";
-    return (v>=0 ? `+${v.toFixed(1)}` : `${v.toFixed(1)}`);
+    return (v>=0 ? `+${v.toFixed(1)}p` : `${v.toFixed(1)}p`);
   }
 
-  function chipsHtml(per){
+  // ✅ 과목칩: "원점수+백분위" 표시 (컷은 백분위만)
+  function chipsHtml(per, stuRawMap){
     const items = per.map(p=>{
-      const sRawTxt = (p.sRaw==null) ? "-" : `${p.sRaw}`;
-      const sPctTxt = (p.sPct==null) ? "-" : `${p.sPct}`;
-      const sTxt = (p.sRaw==null && p.sPct==null) ? "미응시" : `${sRawTxt}점/${sPctTxt}p`;
-      const cTxt = (p.cPct==null) ? "-" : `${p.cPct}p`;
-      const dTxt = (p.diff==null) ? "" : (p.diff>=0 ? `+${p.diff.toFixed(1)}p` : `${p.diff.toFixed(1)}p`);
+      const raw = stuRawMap[p.k];
+      const sp = p.sp;
+      const c  = p.c;
+
+      const rawTxt = (raw==null) ? "-" : `${raw}점`;
+      const spTxt  = (sp==null) ? "-" : `${sp}p`;
+      const cTxt   = (c==null)  ? "-" : `${c}p`;
+      const dTxt   = (p.diff==null) ? "" : diffText(p.diff);
+
       const cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
-      return `<span class="${cls}"><span class="k">${esc(p.k)}</span>${esc(sTxt)} / ${esc(cTxt)} ${esc(dTxt)}</span>`;
+      // 예: 국어 86점/96p / 83p +13.0p
+      return `<span class="${cls}">
+        <span class="k">${esc(p.k)}</span>
+        ${esc(rawTxt)}/${esc(spTxt)} / ${esc(cTxt)} ${esc(dTxt)}
+      </span>`;
     }).join("");
     return `<div class="chips">${items}</div>`;
   }
 
-  function mobileSubgrid(per){
+  function mobileSubgrid(per, stuRawMap){
     const header = `
       <div class="sg-h">과목</div>
       <div class="sg-h">학생</div>
-      <div class="sg-h">컷(p)</div>
-      <div class="sg-h">차이(p)</div>
+      <div class="sg-h">컷</div>
+      <div class="sg-h">차이</div>
     `;
     const rows = per.map(p=>{
-      const sRawTxt = (p.sRaw==null) ? "-" : `${p.sRaw}`;
-      const sPctTxt = (p.sPct==null) ? "-" : `${p.sPct}`;
-      const sTxt = (p.sRaw==null && p.sPct==null) ? "-" : `${sRawTxt}/${sPctTxt}`;
-      const cTxt = (p.cPct==null) ? "-" : `${p.cPct}`;
+      const raw = stuRawMap[p.k];
+      const sp  = p.sp;
+      const c   = p.c;
+
+      const sTxt = `${raw==null?'-':raw}점/${sp==null?'-':sp}p`;
+      const cTxt = `${c==null?'-':c}p`;
       const dTxt = (p.diff==null) ? "-" : diffText(p.diff);
+
       const cls = (p.diff==null) ? "sg-v sg-na" : (p.diff>=0 ? "sg-v sg-ok" : "sg-v sg-ng");
       return `
         <div class="sg-k">${esc(p.k)}</div>
-        <div class="${(p.sPct==null && p.sRaw==null) ? "sg-v sg-na" : "sg-v"}">${esc(sTxt)}</div>
-        <div class="${(p.cPct==null) ? "sg-v sg-na" : "sg-v"}">${esc(cTxt)}</div>
+        <div class="${(sp==null && raw==null) ? "sg-v sg-na" : "sg-v"}">${esc(sTxt)}</div>
+        <div class="${(c==null) ? "sg-v sg-na" : "sg-v"}">${esc(cTxt)}</div>
         <div class="${cls}">${esc(dTxt)}</div>
       `;
     }).join("");
@@ -409,59 +387,59 @@
   }
 
   function groupLimitTop5(arr){
+    // 대학별로 mainDiff 높은 순 5개만 (기본 적용: 적정/상향 탭에서만, 검색 없을 때)
     const map = new Map();
     arr.forEach(x=>{
       const key = String(x.univ||"-");
       if(!map.has(key)) map.set(key, []);
       map.get(key).push(x);
     });
+
     const out = [];
-    for(const [k,list] of map.entries()){
-      list.sort((a,b)=> (b._ev.mainDiff ?? -999999) - (a._ev.mainDiff ?? -999999));
+    for(const [k, list] of map.entries()){
+      list.sort((a,b)=>{
+        const av = a._ev.mainDiff ?? -999999;
+        const bv = b._ev.mainDiff ?? -999999;
+        return bv - av;
+      });
       out.push(...list.slice(0,5));
     }
     return out;
   }
 
-  function roundLabel(row){
-    const r = pickRound(row);
-    const d = pickDate(row);
-    if(r!=null && d) return `#${r} (${d})`;
-    if(r!=null) return `#${r}`;
-    if(d) return String(d);
-    return "-";
+  function setActiveTab(key){
+    activeTab = key;
+    tabsEl.querySelectorAll(".tab").forEach(btn=>{
+      btn.setAttribute("aria-selected", btn.dataset.key===key ? "true" : "false");
+    });
   }
 
-  let activeTab="fit";
+  let activeTab = "fit";
   let tabsEl;
 
   async function main(){
+    // 1) 학생 찾기
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
-    let student=null;
-
-    // 관리자: id로
+    let student = null;
     if(isAdmin && idParam){
       student = students.find(s => norm(pickId(s)) === norm(idParam));
     }
-
-    // 학부모/학생: token이 있으면 token, 없으면 id로도 접근 가능
     if(!student && tParam){
-      student = students.find(s => norm(effectiveToken(s)) === norm(tParam));
+      student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
-
     if(!student){
-      $("#hdr").textContent="접근 권한이 없습니다.";
-      $("#meta").innerHTML=`
+      $("#hdr").textContent = "접근 권한이 없습니다.";
+      $("#meta").innerHTML = `
         <div class="warn">학생을 찾을 수 없습니다.</div>
-        <div class="muted">관리자: univ_list.html?id=학생ID&admin=관리자토큰 / 학생: univ_list.html?t=토큰(없으면 id)</div>
+        <div class="muted">관리자: univ_list.html?id=학생ID&admin=관리자토큰 / 학생: univ_list.html?t=개별토큰</div>
       `;
       return;
     }
 
     const sid = norm(pickId(student));
-    const stok = norm(effectiveToken(student)); // ✅ token 없으면 id
+    const stok = norm(pickToken(student));
     const name = pickName(student);
 
     $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)})`;
@@ -472,20 +450,19 @@
     `;
     $("#modeRow").innerHTML = isAdmin
       ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
-      : `<span class="pill">학부모/학생 모드</span><span class="muted">${norm(pickTokenRaw(student))? "토큰 접근" : "임시(id) 접근"}</span>`;
+      : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
-
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 상세로</a>`);
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // scores.json 최신
-    const scoresRaw = await loadJson("./scores.json");
-    const scores = normalizeScoresJson(scoresRaw);
+    // 2) scores.json 최신 (배열/비배열 모두 허용)
+    const rawScores = await loadJson("./scores.json");
+    const scores = normalizeArrayish(rawScores);
 
     const rows = scores
       .filter(r => norm(pickId(r)) === sid)
@@ -508,77 +485,64 @@
     }
 
     const latest = rows[rows.length-1];
-    const { raw: stuRawMap, pct: stuPctMap } = buildStudentScoreMaps(latest);
+    const { raw:stuRaw, pct:stuPct } = buildStudentMaps(latest);
 
-    // 대학 데이터
-    const univs = await loadJson("./univ_percentile.json");
+    // 3) 대학 데이터 (파일명 변경 대비: 실패 시 v6 파일로 재시도)
+    let univs = null;
+    try{
+      univs = await loadJson("./univ_percentile.json");
+    }catch(e){
+      univs = await loadJson("./univ_percentile_v6_subject_cuts.json");
+    }
     if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
 
-    // 숨김 옵션 채움(필요시만)
-    const groups = [...new Set(univs.map(x=>x.group).filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),"ko"));
-    const years  = [...new Set(univs.map(x=>x.year).filter(Boolean))].sort((a,b)=>a-b);
+    // show controls/tabs
+    $("#controls").style.display = "flex";
+    tabsEl = $("#tabs");
+    tabsEl.style.display = "flex";
 
-    const groupSel=$("#groupSel");
-    groups.forEach(g=>{ const o=document.createElement("option"); o.value=String(g); o.textContent=String(g); groupSel.appendChild(o); });
-
-    const yearSel=$("#yearSel");
-    years.forEach(y=>{ const o=document.createElement("option"); o.value=String(y); o.textContent=String(y); yearSel.appendChild(o); });
-
-    $("#controls").style.display="flex";
-    tabsEl=$("#tabs"); tabsEl.style.display="flex";
-
-    const tabDefs=[{key:"fit",label:"적정"},{key:"up",label:"상향"},{key:"all",label:"전체"}];
-    tabsEl.innerHTML="";
+    // tab buttons
+    const tabDefs = [
+      {key:"fit", label:"적정"},
+      {key:"up",  label:"상향"},
+      {key:"all", label:"전체"},
+    ];
+    tabsEl.innerHTML = "";
     tabDefs.forEach(tdef=>{
       const b=document.createElement("button");
       b.type="button";
       b.className="tab";
-      b.dataset.key=tdef.key;
+      b.dataset.key = tdef.key;
       b.textContent=tdef.label;
       b.setAttribute("aria-selected", tdef.key===activeTab ? "true":"false");
-      b.addEventListener("click", ()=>{ activeTab=tdef.key; render(); });
+      b.addEventListener("click", ()=>{
+        setActiveTab(tdef.key);
+        render();
+      });
       tabsEl.appendChild(b);
     });
 
-    const qInput=$("#q");
-    const judgeMode=$("#judgeMode");
-    const singleSub=$("#singleSub");
-    const limit5=$("#limit5");
-
+    const qInput = $("#q");
     qInput.addEventListener("input", ()=>{
+      // 검색하면 자동 전체 탭
       if(norm(qInput.value) && activeTab!=="all"){
-        activeTab="all";
-        tabsEl.querySelectorAll(".tab").forEach(btn=>{
-          btn.setAttribute("aria-selected", btn.dataset.key===activeTab ? "true":"false");
-        });
+        setActiveTab("all");
       }
       render();
     });
 
-    function fmtSubLine(k){
-      const r=stuRawMap[k], p=stuPctMap[k];
-      const rTxt=(r==null)?"-":`${r}점`;
-      const pTxt=(p==null)?"-":`${p}p`;
-      return `${k}:${rTxt}/${pTxt}`;
-    }
-
     function render(){
       const q = norm(qInput.value).toLowerCase();
-      const g = groupSel.value;
-      const y = yearSel.value;
-      const mode = judgeMode.value;
-      const one = singleSub.value || "수학";
 
+      // 평가
       const evaluated = univs.map(u=>{
-        const ev = evalRow(u, stuPctMap, mode, one, stuRawMap);
+        const ev = evalRow(u, stuPct);
         return { ...u, _ev: ev };
       });
 
       let arr = evaluated.slice();
 
-      if(g!=="__all__") arr = arr.filter(x=>String(x.group)===String(g));
-      if(y!=="__all__") arr = arr.filter(x=>String(x.year)===String(y));
-
+      // 검색 필터
       if(q){
         arr = arr.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
@@ -586,40 +550,56 @@
         );
       }
 
+      // 탭 필터
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
       }
 
-      const shouldLimit = limit5.checked && !q && (activeTab==="fit" || activeTab==="up");
+      // ✅ fit/up 탭에서만(검색 없을 때) 대학별 상위 5개 학과 제한
+      const shouldLimit = (!q && (activeTab==="fit" || activeTab==="up"));
       if(shouldLimit){
         arr = groupLimitTop5(arr);
       }
 
-      const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
+      // 정렬
       if(activeTab==="all"){
+        const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
-          const ra=rank(a._ev.code), rb=rank(b._ev.code);
+          const ra = rank(a._ev.code), rb = rank(b._ev.code);
           if(rb!==ra) return rb-ra;
-          return (b._ev.mainDiff ?? -999999) - (a._ev.mainDiff ?? -999999);
+          const av = a._ev.mainDiff ?? -999999;
+          const bv = b._ev.mainDiff ?? -999999;
+          return bv - av;
         });
       }else{
-        arr.sort((a,b)=> (b._ev.mainDiff ?? -999999) - (a._ev.mainDiff ?? -999999));
+        arr.sort((a,b)=>{
+          const av = a._ev.mainDiff ?? -999999;
+          const bv = b._ev.mainDiff ?? -999999;
+          return bv - av;
+        });
       }
 
-      // ✅ 상단: 점수만
-      const summaryBadges = `
-        <span class="badge">최신 성적: ${esc(roundLabel(latest))}</span>
-        <span class="badge muted">
-          ${esc(fmtSubLine("국어"))} · ${esc(fmtSubLine("수학"))} · ${esc(fmtSubLine("영어"))} ·
-          ${esc(fmtSubLine("탐1"))} · ${esc(fmtSubLine("탐2"))}
+      // ✅ 학부모/학생용: 점수(원점수+백분위)만 간단히 표시
+      const scorePair = (k)=>{
+        const r = stuRaw[k];
+        const p = stuPct[k];
+        return `${k}:${r==null?'-':r}점/${p==null?'-':p}p`;
+      };
+
+      const scoreBadge = `
+        <span class="badge">최신 성적: ${esc(roundLabel(latest))} ·
+          ${esc(scorePair("국어"))} · ${esc(scorePair("수학"))} · ${esc(scorePair("영어"))} ·
+          ${esc(scorePair("탐1"))} · ${esc(scorePair("탐2"))}
         </span>
       `;
 
+      // PC rows (✅ 비고 컬럼 제거)
       const rowsHtml = arr.map(u=>{
-        const ev=u._ev;
-        const st=statusLabel(ev.code);
-        const covered = (judgeMode.value==="single") ? (ev.cnt? "1/1":"0/1") : `${ev.cnt}/5`;
-        const main=diffText(ev.mainDiff);
+        const ev = u._ev;
+        const st = statusLabel(ev.code);
+        const covered = `${ev.cnt}/5`;
+        const main = diffText(ev.mainDiff);
+
         return `
           <tr>
             <td class="status ${st.cls}">${esc(st.t)}</td>
@@ -627,36 +607,38 @@
             <td>${esc(u.univ||"-")}</td>
             <td>${esc(u.major||"-")}</td>
             <td>${esc(u.group||"-")}</td>
-            <td>${chipsHtml(ev.per)}</td>
+            <td>${chipsHtml(ev.per, stuRaw)}</td>
             <td class="num">${esc(covered)}</td>
             <td class="num">${esc(main)}</td>
           </tr>
         `;
       }).join("");
 
+      // Mobile cards (✅ 비고 제거)
       const cardsHtml = arr.map(u=>{
-        const ev=u._ev;
-        const st=statusLabel(ev.code);
-        const covered = (judgeMode.value==="single") ? (ev.cnt? "1/1":"0/1") : `${ev.cnt}/5`;
-        const main=diffText(ev.mainDiff);
+        const ev = u._ev;
+        const st = statusLabel(ev.code);
+        const covered = `${ev.cnt}/5`;
+        const main = diffText(ev.mainDiff);
+
         return `
           <div class="mcard">
             <div class="mtop">
               <div style="min-width:0">
                 <div class="mtitle">${esc(u.univ||"-")} · ${esc(u.major||"-")}</div>
-                <div class="msub">${esc(u.year ?? "-")} · ${esc(u.group||"-")} · 비교 ${esc(covered)} · 차이 ${esc(main)}p</div>
+                <div class="msub">${esc(u.year ?? "-")} · ${esc(u.group||"-")} · 비교 ${esc(covered)} · 차이 ${esc(main)}</div>
               </div>
               <div class="status ${st.cls}" style="white-space:nowrap">${esc(st.t)}</div>
             </div>
             <div class="divider"></div>
-            ${mobileSubgrid(ev.per)}
+            ${mobileSubgrid(ev.per, stuRaw)}
           </div>
         `;
       }).join("");
 
       $("#content").innerHTML = `
         <div class="card">
-          <div class="row">${summaryBadges}</div>
+          <div class="row">${scoreBadge}</div>
         </div>
 
         <div class="mobile-list">
@@ -683,18 +665,13 @@
           </table>
         </div>
       `;
-
-      // 탭 aria 갱신
-      tabsEl.querySelectorAll(".tab").forEach(btn=>{
-        btn.setAttribute("aria-selected", btn.dataset.key===activeTab ? "true":"false");
-      });
     }
 
     render();
   }
 
   main().catch(err=>{
-    $("#hdr").textContent="오류";
+    $("#hdr").textContent = "오류";
     $("#meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
   });
 })();
