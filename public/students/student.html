@@ -5,115 +5,172 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 성적</title>
   <style>
-    :root{--bd:#e7e7e7;--tx:#111;--muted:rgba(0,0,0,.62);--bg:#fff}
-    *{box-sizing:border-box}
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:var(--bg);color:var(--tx)}
-    .wrap{max-width:980px;margin:0 auto}
-    .topAdmin{display:none}
-    body.is-admin .topAdmin{display:block}
-    .card{border:1px solid var(--bd);border-radius:18px;padding:16px;margin:12px 0;background:#fff}
-    .title{font-size:22px;font-weight:900;margin:0 0 8px;line-height:1.2}
-    .meta{color:var(--muted);line-height:1.65}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
-    .btn:hover{background:#fafafa}
+    :root{--pad:16px}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:#fff;color:#111}
+    .wrap{max-width:980px;margin:0 auto;padding:var(--pad)}
 
-    .scoreHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:2px 2px 10px 2px}
-    .hLeft{min-width:0}
-    .hName{font-size:18px;font-weight:900;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .hSub{margin-top:4px;color:var(--muted);font-weight:800}
-    .hRight{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);border-radius:999px;padding:8px 12px;font-weight:900;background:#fff;white-space:nowrap}
+    .card{border:1px solid #e6e6e6;border-radius:16px;padding:14px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+    .card + .card{margin-top:12px}
 
-    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-    @media(min-width:760px){.cards{grid-template-columns:repeat(5,1fr)}}
-    .scard{border:1px solid var(--bd);border-radius:16px;padding:12px 12px 10px;background:#fff;min-width:0}
-    .scTop{display:flex;justify-content:space-between;align-items:center;gap:8px}
-    .sub{font-weight:900}
-    .pct{font-weight:900;color:var(--muted)}
-    .raw{margin-top:10px;font-size:26px;font-weight:1000;letter-spacing:-.5px;line-height:1}
-    .raw small{font-size:14px;font-weight:900;color:var(--muted)}
-    .hint{margin-top:6px;color:var(--muted);font-weight:800;font-size:12px}
+    .hdr{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+    .hdr-left{min-width:0}
+    .title{font-size:20px;font-weight:900;line-height:1.25;word-break:keep-all}
+    .meta{margin-top:8px}
 
-    table{border-collapse:collapse;width:100%}
-    th,td{border-bottom:1px solid #f0f0f0;padding:10px;text-align:left;font-size:13px;vertical-align:middle}
-    th{background:#fafafa;position:sticky;top:0;z-index:1;font-weight:1000}
-    .num{text-align:right;font-variant-numeric:tabular-nums}
-    .cell{display:flex;gap:8px;align-items:baseline;justify-content:flex-end}
-    .cell .r{font-weight:1000}
-    .cell .p{color:var(--muted);font-weight:900}
-    .muted{color:var(--muted);font-weight:800}
+    .kv{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;font-size:13px;color:#333}
+    .kv .k{opacity:.75}
+    .kv .v{font-weight:700;min-width:0}
 
-    .tablebox{border:1px solid var(--bd);border-radius:16px;overflow:auto;-webkit-overflow-scrolling:touch;background:#fff}
+    .badges{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #111;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px}
+    .subpill{display:inline-flex;align-items:center;border:1px solid #ddd;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px;color:#444}
 
-    details{border:1px solid var(--bd);border-radius:16px;padding:12px;background:#fff}
-    details>summary{cursor:pointer;list-style:none;font-weight:1000;display:flex;justify-content:space-between;align-items:center}
-    details>summary::-webkit-details-marker{display:none}
-    .tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 0}
-    select{border:1px solid var(--bd);border-radius:12px;padding:10px 12px;font-weight:900;background:#fff;max-width:100%}
+    .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #111;padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap}
+    .btn.ghost{border-color:#ddd;color:#111}
 
-    #shareCard,#shareBox,#shareLinks,#shareArea,.share-card,.shareBox,.share-area,.share-links{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;border:0!important}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .sectionTitle h2{margin:0;font-size:15px;font-weight:900}
+    .muted{color:#666;font-size:12px}
+    .warn{color:#b00020;font-weight:900;font-size:13px}
+
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .scard{border:1px solid #eee;border-radius:14px;padding:12px}
+    .sc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .sc-name{font-size:16px;font-weight:900}
+    .sc-pct{font-size:14px;font-weight:900;color:#666}
+    .sc-raw{margin-top:8px;font-size:34px;font-weight:1000;letter-spacing:-0.5px}
+
+    .note{margin-top:10px;font-size:12px;color:#666}
+
+    details{border:1px solid #eee;border-radius:14px;padding:10px;background:#fafafa}
+    details + details{margin-top:10px}
+    summary{cursor:pointer;font-weight:900;list-style:none}
+    summary::-webkit-details-marker{display:none}
+
+    .tableWrap{margin-top:10px;overflow:auto;border-radius:12px;border:1px solid #eee;background:#fff}
+    table{border-collapse:collapse;width:100%;min-width:560px}
+    th,td{padding:10px 12px;border-bottom:1px solid #eee;text-align:center;font-size:13px}
+    th{background:#f7f7f7;font-weight:900;position:sticky;top:0}
+    td.round{text-align:left;font-weight:900;white-space:nowrap}
+    .p{color:#666;font-weight:900;margin-left:6px;white-space:nowrap}
+
+    .jump{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+    select{padding:10px 12px;border:1px solid #ddd;border-radius:12px;font-weight:900}
+
+    @media (min-width:520px){
+      .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .title{font-size:22px}
+    }
+    @media (min-width:900px){
+      .cards{grid-template-columns:repeat(5,minmax(0,1fr))}
+    }
+    @media (max-width:520px){
+      /* 5과목이면 마지막 카드(탐2)가 혼자 남을 수 있어 전체 폭 사용 */
+      .cards .scard:last-child{grid-column:1 / -1}
+      .hdr{flex-direction:column}
+      .btns{justify-content:flex-start}
+    }
   </style>
 </head>
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-  <div class="card topAdmin" id="adminTop">
-    <div class="title" id="adminHdr">학생</div>
-    <div class="meta" id="adminMeta"></div>
-    <div class="row" id="adminLinks"></div>
-  </div>
-
-  <div class="card">
-    <div class="scoreHeader">
-      <div class="hLeft">
-        <div class="hName" id="nameLine">-</div>
-        <div class="hSub" id="latestLine">최신 성적: -</div>
+    <!-- 상단: 학생 정보 + 바로가기(항상 노출) -->
+    <div class="card">
+      <div class="hdr">
+        <div class="hdr-left">
+          <div class="title" id="hdrName">학생</div>
+          <div class="meta" id="hdrMeta"></div>
+          <div class="badges" id="modeBadge"></div>
+        </div>
+        <div class="btns" id="hdrButtons"></div>
       </div>
-      <div class="hRight" id="badges"></div>
     </div>
 
-    <div class="cards" id="cards"></div>
-
-    <div style="height:12px"></div>
-
-    <div class="tablebox" id="recentBox" style="max-height:380px"></div>
-
-    <div style="height:12px"></div>
-
-    <details id="allDetails">
-      <summary><span>전체 회차 보기</span><span class="muted">펼치기</span></summary>
-      <div class="tools">
-        <label class="muted">회차 빠른 이동</label>
-        <select id="jumpSel"></select>
+    <!-- 최신 성적: 기본 화면에는 이것만 보이게 -->
+    <div class="card" id="main">
+      <div class="sectionTitle">
+        <h2 id="latestLabel">최신 성적</h2>
+        <div class="muted">원점수 + 백분위(p)</div>
       </div>
-      <div style="height:10px"></div>
-      <div class="tablebox" id="allBox" style="max-height:520px"></div>
-    </details>
+
+      <div class="cards" id="cards"></div>
+      <div class="note">※ 학부모/학생이 같이 볼 수 있도록 <b>원점수</b>와 <b>백분위(p)</b>를 함께 표시합니다.</div>
+
+      <details style="margin-top:12px">
+        <summary>이전 성적 보기</summary>
+
+        <div class="sectionTitle" style="margin-top:10px">
+          <h2 id="historyHint">이전 성적(최근 3회)</h2>
+          <div class="muted">필요하면 전체 회차를 펼쳐서 확인</div>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left">회차</th>
+                <th>국어</th>
+                <th>수학</th>
+                <th>영어</th>
+                <th>탐1</th>
+                <th>탐2</th>
+              </tr>
+            </thead>
+            <tbody id="recentTbody"></tbody>
+          </table>
+        </div>
+
+        <details style="margin-top:10px">
+          <summary>전체 회차 보기</summary>
+          <div class="jump">
+            <div class="muted" style="font-weight:900">회차 선택</div>
+            <select id="jumpSel"></select>
+          </div>
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align:left">회차</th>
+                  <th>국어</th>
+                  <th>수학</th>
+                  <th>영어</th>
+                  <th>탐1</th>
+                  <th>탐2</th>
+                </tr>
+              </thead>
+              <tbody id="allTbody"></tbody>
+            </table>
+          </div>
+        </details>
+      </details>
+    </div>
+
   </div>
 
-</div>
+  <script>
+    // student.html → student.js 에 전달할 컨텍스트
+    // - 학생/학부모: student.html?t=토큰
+    // - 관리자:      student.html?id=shstudy01&admin=CHANGE_ME_ADMIN
+    (function(){
+      const q = new URLSearchParams(location.search);
+      const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 여기를 관리자 토큰으로 바꾸세요
+      const adminParam = q.get('admin');
+      const idParam = q.get('id');
+      const tokenParam = q.get('t');
+      const isAdmin = adminParam && adminParam === ADMIN_TOKEN;
 
-<script>
-(() => {
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const qs = new URLSearchParams(location.search);
-  const admin = qs.get("admin");
-  const isAdmin = (String(admin||"").trim() === String(ADMIN_TOKEN).trim());
-  if(isAdmin) document.body.classList.add("is-admin");
+      window.__STUDENT_CTX__ = {
+        ADMIN_TOKEN,
+        isAdmin,
+        idParam,
+        tokenParam
+      };
 
-  window.__STUDENT_CTX__ = {
-    isAdmin,
-    idParam: qs.get("id"),
-    tParam: qs.get("t") || qs.get("token"),
-    ADMIN_TOKEN
-  };
-
-  const s = document.createElement("script");
-  s.src = new URL("./student.js?v=20260215_scores_only_v2", location.href).toString();
-  s.defer = true;
-  document.body.appendChild(s);
-})();
-</script>
+      if(isAdmin) document.body.classList.add('is-admin');
+    })();
+  </script>
+  <script src="./student.js"></script>
 </body>
 </html>
