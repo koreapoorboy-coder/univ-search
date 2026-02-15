@@ -79,6 +79,39 @@
     .sg-ng{border-color:#b26a00}
     .sg-na{opacity:.6}
 
+    /* ✅ 최신 성적 표시(모바일 가독성) */
+    .scorebar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-top:8px;
+    }
+    .scoreTag{
+      display:inline-flex;align-items:center;
+      border:1px solid #ddd;border-radius:999px;
+      padding:8px 12px;font-weight:900;background:#fff;
+      max-width:100%;
+    }
+    .scoreTag strong{margin-right:8px}
+    .scorePills{
+      display:flex;gap:8px;flex-wrap:wrap;
+      align-items:center;
+      width:100%;
+    }
+    .scorePill{
+      display:inline-flex;gap:8px;align-items:center;
+      border:1px solid #eee;border-radius:14px;
+      padding:8px 10px;background:#fff;font-weight:900;
+      font-size:14px;
+    }
+    .scorePill .k{opacity:.75}
+    .scorePill .v{font-weight:900}
+    @media(max-width: 520px){
+      .scorePills{flex-direction:column;align-items:stretch}
+      .scorePill{justify-content:space-between}
+    }
+
     @media(max-width: 860px){
       .tablebox{display:none;}
       .mobile-list{display:block;}
@@ -92,29 +125,6 @@
         background:#fff; padding-top:10px; padding-bottom:10px;
         border-bottom:1px solid #eee;
       }
-    }
-
-    /* ✅ 최신 성적(모바일 가독성 개선) */
-    .scorebar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-    }
-    .badge.head{flex:1 1 100%;}
-    .badge.small{
-      padding:7px 10px;
-      font-size:13px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-    @media(max-width: 520px){
-      .scorebar{
-        display:grid;
-        grid-template-columns: 1fr 1fr;
-        gap:8px;
-      }
-      .badge.head{grid-column: 1 / -1;}
     }
   </style>
 </head>
@@ -207,15 +217,17 @@
     return null;
   }
 
-  // ✅ scores.json이 배열이 아니어도 최대한 펼쳐서 배열로 만들기
+  // ✅ scores.json이 배열이 아니어도 최대한 펼쳐서 배열로 만들기 (2번 패치)
   function normalizeArrayish(x){
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
 
+    // 흔한 래핑 키
     for(const k of ["records","rows","items","data","scores"]){
       if(Array.isArray(x[k])) return x[k].slice();
     }
 
+    // ID별 배열/객체 형태: { shstudy01:[...], shstudy02:[...] } 또는 { shstudy01:{...} }
     const out = [];
     for(const [k,v] of Object.entries(x)){
       if(Array.isArray(v)){
@@ -240,7 +252,7 @@
     const KEYS = {
       "국어": {
         raw:["국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean","국어_raw"],
-        pct:["국어p","국어P","국어_pct","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"]
+        pct:["국어p","국어P","국어_pct","국어백분위","국어 백분위","kor_p","kor_pct"]
       },
       "수학": {
         raw:["수학","수","수학점","수학점수","수학 원점수","수학원점수","math","수학_raw"],
@@ -251,28 +263,18 @@
         pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"]
       },
       "탐1": {
-        raw:[
-          "탐1_raw","탐구1_raw",
-          "탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
-          "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"
-        ],
-        pct:[
-          "탐1_pct","탐구1_pct",
-          "탐1p","탐구1p","탐1백분위","탐1 백분위",
-          "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"
-        ]
+        // ✅ 핵심: 탐1_raw / 탐1_pct 지원 (이게 빠져서 원점수 안 나오던 문제 발생)
+        raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
+             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
+        pct:["탐1_pct","탐1p","탐구1p","탐1백분위","탐1 백분위",
+             "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
       },
       "탐2": {
-        raw:[
-          "탐2_raw","탐구2_raw",
-          "탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
-          "사문","사문점","사문점수","사회","사회점수","사회점"
-        ],
-        pct:[
-          "탐2_pct","탐구2_pct",
-          "탐2p","탐구2p","탐2백분위","탐2 백분위",
-          "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"
-        ]
+        // ✅ 핵심: 탐2_raw / 탐2_pct 지원
+        raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
+             "사문","사문점","사문점수","사회","사회점수","사회점"],
+        pct:["탐2_pct","탐2p","탐구2p","탐2백분위","탐2 백분위",
+             "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
       },
     };
 
@@ -323,7 +325,8 @@
   function evalRow(u, stuPctMap){
     const cuts = getUnivCuts(u);
 
-    let mainDiff = null;
+    let used = [];
+    let mainDiff = null; // 평균 차이(p)
     let cnt = 0;
 
     const per = SUBS.map(k=>{
@@ -343,6 +346,7 @@
       if(sp!=null && c!=null){
         sum += (sp - c);
         cnt += 1;
+        used.push(k);
       }
     });
     mainDiff = cnt ? (sum / cnt) : null;
@@ -352,7 +356,7 @@
       code = (mainDiff>=0) ? "fit" : "up";
     }
 
-    return { cuts, per, mainDiff, cnt, code };
+    return { cuts, per, mainDiff, cnt, used, code };
   }
 
   function statusLabel(code){
@@ -415,6 +419,7 @@
   }
 
   function groupLimitTop5(arr){
+    // 대학별로 mainDiff 높은 순 5개만 (fit/up 탭에서만, 검색 없을 때)
     const map = new Map();
     arr.forEach(x=>{
       const key = String(x.univ||"-");
@@ -423,7 +428,7 @@
     });
 
     const out = [];
-    for(const [k, list] of map.entries()){
+    for(const [, list] of map.entries()){
       list.sort((a,b)=>{
         const av = a._ev.mainDiff ?? -999999;
         const bv = b._ev.mainDiff ?? -999999;
@@ -557,6 +562,19 @@
       render();
     });
 
+    function scorePill(k){
+      const r = stuRaw[k];
+      const p = stuPct[k];
+      const rr = (r==null) ? "-" : `${r}점`;
+      const pp = (p==null) ? "-" : `${p}p`;
+      return `
+        <div class="scorePill">
+          <span class="k">${esc(k)}</span>
+          <span class="v">${esc(rr)} · ${esc(pp)}</span>
+        </div>
+      `;
+    }
+
     function render(){
       const q = norm(qInput.value).toLowerCase();
 
@@ -605,27 +623,23 @@
         });
       }
 
-      // ✅ 최신 성적: 모바일 가독성 좋게 "헤더 + 과목칩" 구조
-      const scoreChip = (k, label) => {
-        const r = stuRaw[k];
-        const p = stuPct[k];
-        const rTxt = (r==null) ? "-" : `${r}점`;
-        const pTxt = (p==null) ? "-" : `${p}p`;
-        return `<span class="badge small">${esc(label)} ${esc(rTxt)}·${esc(pTxt)}</span>`;
-      };
-
-      const scoreBar = `
-        <div class="scorebar">
-          <span class="badge head">최신 성적: ${esc(roundLabel(latest))}</span>
-          ${scoreChip("국어","국")}
-          ${scoreChip("수학","수")}
-          ${scoreChip("영어","영")}
-          ${scoreChip("탐1","탐1")}
-          ${scoreChip("탐2","탐2")}
+      // ✅ 상단 요약: "최신 성적"만 깔끔하게
+      const summaryHtml = `
+        <div class="card">
+          <div class="scorebar">
+            <div class="scoreTag"><strong>최신 성적</strong>${esc(roundLabel(latest))}</div>
+            <div class="scorePills">
+              ${scorePill("국어")}
+              ${scorePill("수학")}
+              ${scorePill("영어")}
+              ${scorePill("탐1")}
+              ${scorePill("탐2")}
+            </div>
+          </div>
         </div>
       `;
 
-      // PC rows (✅ 비고 컬럼 제거)
+      // PC rows (비고 제거)
       const rowsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -646,7 +660,7 @@
         `;
       }).join("");
 
-      // Mobile cards (✅ 비고 제거)
+      // Mobile cards (비고 제거)
       const cardsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -669,9 +683,7 @@
       }).join("");
 
       $("#content").innerHTML = `
-        <div class="card">
-          <div class="row">${scoreBar}</div>
-        </div>
+        ${summaryHtml}
 
         <div class="mobile-list">
           ${cardsHtml || `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`}
