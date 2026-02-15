@@ -93,6 +93,29 @@
         border-bottom:1px solid #eee;
       }
     }
+
+    /* ✅ 최신 성적(모바일 가독성 개선) */
+    .scorebar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+    }
+    .badge.head{flex:1 1 100%;}
+    .badge.small{
+      padding:7px 10px;
+      font-size:13px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    @media(max-width: 520px){
+      .scorebar{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:8px;
+      }
+      .badge.head{grid-column: 1 / -1;}
+    }
   </style>
 </head>
 <body>
@@ -184,7 +207,7 @@
     return null;
   }
 
-  // ✅ scores.json이 배열이 아니어도 최대한 펼쳐서 배열로 만들기 (2번 패치)
+  // ✅ scores.json이 배열이 아니어도 최대한 펼쳐서 배열로 만들기
   function normalizeArrayish(x){
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
@@ -228,18 +251,28 @@
         pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"]
       },
       "탐1": {
-        /* ✅✅ FIX: 탐1_raw 추가 (네 scores.json 포맷 대응) */
-        raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
-             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
-        pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
-             "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
+        raw:[
+          "탐1_raw","탐구1_raw",
+          "탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
+          "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"
+        ],
+        pct:[
+          "탐1_pct","탐구1_pct",
+          "탐1p","탐구1p","탐1백분위","탐1 백분위",
+          "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"
+        ]
       },
       "탐2": {
-        /* ✅✅ FIX: 탐2_raw 추가 (네 scores.json 포맷 대응) */
-        raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
-             "사문","사문점","사문점수","사회","사회점수","사회점"],
-        pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
-             "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
+        raw:[
+          "탐2_raw","탐구2_raw",
+          "탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
+          "사문","사문점","사문점수","사회","사회점수","사회점"
+        ],
+        pct:[
+          "탐2_pct","탐구2_pct",
+          "탐2p","탐구2p","탐2백분위","탐2 백분위",
+          "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"
+        ]
       },
     };
 
@@ -290,7 +323,6 @@
   function evalRow(u, stuPctMap){
     const cuts = getUnivCuts(u);
 
-    let used = [];
     let mainDiff = null;
     let cnt = 0;
 
@@ -311,7 +343,6 @@
       if(sp!=null && c!=null){
         sum += (sp - c);
         cnt += 1;
-        used.push(k);
       }
     });
     mainDiff = cnt ? (sum / cnt) : null;
@@ -321,7 +352,7 @@
       code = (mainDiff>=0) ? "fit" : "up";
     }
 
-    return { cuts, per, mainDiff, cnt, used, code };
+    return { cuts, per, mainDiff, cnt, code };
   }
 
   function statusLabel(code){
@@ -414,6 +445,7 @@
   let tabsEl;
 
   async function main(){
+    // 1) 학생 찾기
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -455,7 +487,7 @@
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // scores.json 최신 (배열/비배열 모두 허용)
+    // 2) scores.json 최신 (배열/비배열 모두 허용)
     const rawScores = await loadJson("./scores.json");
     const scores = normalizeArrayish(rawScores);
 
@@ -482,7 +514,7 @@
     const latest = rows[rows.length-1];
     const { raw:stuRaw, pct:stuPct } = buildStudentMaps(latest);
 
-    // 대학 데이터 (파일명 변경 대비: 실패 시 v6 파일로 재시도)
+    // 3) 대학 데이터 (파일명 변경 대비: 실패 시 v6 파일로 재시도)
     let univs = null;
     try{
       univs = await loadJson("./univ_percentile.json");
@@ -528,6 +560,7 @@
     function render(){
       const q = norm(qInput.value).toLowerCase();
 
+      // 평가
       const evaluated = univs.map(u=>{
         const ev = evalRow(u, stuPct);
         return { ...u, _ev: ev };
@@ -535,6 +568,7 @@
 
       let arr = evaluated.slice();
 
+      // 검색 필터
       if(q){
         arr = arr.filter(x =>
           String(x.univ||"").toLowerCase().includes(q) ||
@@ -542,15 +576,18 @@
         );
       }
 
+      // 탭 필터
       if(activeTab!=="all"){
         arr = arr.filter(x=>x._ev.code===activeTab);
       }
 
+      // fit/up 탭에서만(검색 없을 때) 대학별 상위 5개 학과 제한
       const shouldLimit = (!q && (activeTab==="fit" || activeTab==="up"));
       if(shouldLimit){
         arr = groupLimitTop5(arr);
       }
 
+      // 정렬
       if(activeTab==="all"){
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
@@ -568,19 +605,27 @@
         });
       }
 
-      const scorePair = (k)=>{
+      // ✅ 최신 성적: 모바일 가독성 좋게 "헤더 + 과목칩" 구조
+      const scoreChip = (k, label) => {
         const r = stuRaw[k];
         const p = stuPct[k];
-        return `${k}:${r==null?'-':r}점/${p==null?'-':p}p`;
+        const rTxt = (r==null) ? "-" : `${r}점`;
+        const pTxt = (p==null) ? "-" : `${p}p`;
+        return `<span class="badge small">${esc(label)} ${esc(rTxt)}·${esc(pTxt)}</span>`;
       };
 
-      const scoreBadge = `
-        <span class="badge">최신 성적: ${esc(roundLabel(latest))} ·
-          ${esc(scorePair("국어"))} · ${esc(scorePair("수학"))} · ${esc(scorePair("영어"))} ·
-          ${esc(scorePair("탐1"))} · ${esc(scorePair("탐2"))}
-        </span>
+      const scoreBar = `
+        <div class="scorebar">
+          <span class="badge head">최신 성적: ${esc(roundLabel(latest))}</span>
+          ${scoreChip("국어","국")}
+          ${scoreChip("수학","수")}
+          ${scoreChip("영어","영")}
+          ${scoreChip("탐1","탐1")}
+          ${scoreChip("탐2","탐2")}
+        </div>
       `;
 
+      // PC rows (✅ 비고 컬럼 제거)
       const rowsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -601,6 +646,7 @@
         `;
       }).join("");
 
+      // Mobile cards (✅ 비고 제거)
       const cardsHtml = arr.map(u=>{
         const ev = u._ev;
         const st = statusLabel(ev.code);
@@ -624,7 +670,7 @@
 
       $("#content").innerHTML = `
         <div class="card">
-          <div class="row">${scoreBadge}</div>
+          <div class="row">${scoreBar}</div>
         </div>
 
         <div class="mobile-list">
