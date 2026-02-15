@@ -5,168 +5,115 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 성적</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:16px;background:#fff}
-    .wrap{max-width:1100px;margin:0 auto}
-    .card{border:1px solid #ddd;border-radius:18px;padding:18px;margin:14px 0;background:#fff}
-    .top{display:grid;grid-template-columns:1fr;gap:16px;align-items:start;}
-    @media(min-width: 860px){.top{grid-template-columns:1.2fr .8fr;}}
-    .title{font-size:34px;font-weight:900;margin:0 0 10px;line-height:1.15}
-    .meta{opacity:.9}
-    .kv{display:grid;grid-template-columns:72px 1fr;column-gap:10px;row-gap:8px;line-height:1.5;margin-top:6px;}
-    .k{opacity:.65;font-weight:800}
-    .v{font-weight:700}
-    .right{display:flex;flex-direction:column;gap:12px;align-items:flex-start;}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900;background:#fff}
-    .subpill{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:7px 10px;font-weight:800;background:#fff;opacity:.85}
+    :root{--bd:#e7e7e7;--tx:#111;--muted:rgba(0,0,0,.62);--bg:#fff}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:var(--bg);color:var(--tx)}
+    .wrap{max-width:980px;margin:0 auto}
+    .topAdmin{display:none}
+    body.is-admin .topAdmin{display:block}
+    .card{border:1px solid var(--bd);border-radius:18px;padding:16px;margin:12px 0;background:#fff}
+    .title{font-size:22px;font-weight:900;margin:0 0 8px;line-height:1.2}
+    .meta{color:var(--muted);line-height:1.65}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
     .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
     .btn:hover{background:#fafafa}
-    .warn{color:#b00020;font-weight:900}
-    .muted{opacity:.7}
+
+    .scoreHeader{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:2px 2px 10px 2px}
+    .hLeft{min-width:0}
+    .hName{font-size:18px;font-weight:900;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .hSub{margin-top:4px;color:var(--muted);font-weight:800}
+    .hRight{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);border-radius:999px;padding:8px 12px;font-weight:900;background:#fff;white-space:nowrap}
+
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+    @media(min-width:760px){.cards{grid-template-columns:repeat(5,1fr)}}
+    .scard{border:1px solid var(--bd);border-radius:16px;padding:12px 12px 10px;background:#fff;min-width:0}
+    .scTop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .sub{font-weight:900}
+    .pct{font-weight:900;color:var(--muted)}
+    .raw{margin-top:10px;font-size:26px;font-weight:1000;letter-spacing:-.5px;line-height:1}
+    .raw small{font-size:14px;font-weight:900;color:var(--muted)}
+    .hint{margin-top:6px;color:var(--muted);font-weight:800;font-size:12px}
+
+    table{border-collapse:collapse;width:100%}
+    th,td{border-bottom:1px solid #f0f0f0;padding:10px;text-align:left;font-size:13px;vertical-align:middle}
+    th{background:#fafafa;position:sticky;top:0;z-index:1;font-weight:1000}
+    .num{text-align:right;font-variant-numeric:tabular-nums}
+    .cell{display:flex;gap:8px;align-items:baseline;justify-content:flex-end}
+    .cell .r{font-weight:1000}
+    .cell .p{color:var(--muted);font-weight:900}
+    .muted{color:var(--muted);font-weight:800}
+
+    .tablebox{border:1px solid var(--bd);border-radius:16px;overflow:auto;-webkit-overflow-scrolling:touch;background:#fff}
+
+    details{border:1px solid var(--bd);border-radius:16px;padding:12px;background:#fff}
+    details>summary{cursor:pointer;list-style:none;font-weight:1000;display:flex;justify-content:space-between;align-items:center}
+    details>summary::-webkit-details-marker{display:none}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 0}
+    select{border:1px solid var(--bd);border-radius:12px;padding:10px 12px;font-weight:900;background:#fff;max-width:100%}
+
+    #shareCard,#shareBox,#shareLinks,#shareArea,.share-card,.shareBox,.share-area,.share-links{display:none!important;visibility:hidden!important;height:0!important;margin:0!important;padding:0!important;border:0!important}
   </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="card">
-    <div class="top">
-      <div>
-        <div id="hdr" class="title">학생</div>
-        <div id="meta" class="meta"></div>
-      </div>
-      <div class="right">
-        <div id="msg" class="row"></div>
-        <div id="links" class="row"></div>
-      </div>
-    </div>
+
+  <div class="card topAdmin" id="adminTop">
+    <div class="title" id="adminHdr">학생</div>
+    <div class="meta" id="adminMeta"></div>
+    <div class="row" id="adminLinks"></div>
   </div>
-  <div id="detail"></div>
+
+  <div class="card">
+    <div class="scoreHeader">
+      <div class="hLeft">
+        <div class="hName" id="nameLine">-</div>
+        <div class="hSub" id="latestLine">최신 성적: -</div>
+      </div>
+      <div class="hRight" id="badges"></div>
+    </div>
+
+    <div class="cards" id="cards"></div>
+
+    <div style="height:12px"></div>
+
+    <div class="tablebox" id="recentBox" style="max-height:380px"></div>
+
+    <div style="height:12px"></div>
+
+    <details id="allDetails">
+      <summary><span>전체 회차 보기</span><span class="muted">펼치기</span></summary>
+      <div class="tools">
+        <label class="muted">회차 빠른 이동</label>
+        <select id="jumpSel"></select>
+      </div>
+      <div style="height:10px"></div>
+      <div class="tablebox" id="allBox" style="max-height:520px"></div>
+    </details>
+  </div>
+
 </div>
 
 <script>
+(() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-
   const qs = new URLSearchParams(location.search);
   const admin = qs.get("admin");
-  const idParam = qs.get("id");
-  const tParam = qs.get("t");
-  const tokenParam = qs.get("token");
+  const isAdmin = (String(admin||"").trim() === String(ADMIN_TOKEN).trim());
+  if(isAdmin) document.body.classList.add("is-admin");
 
-  const isAdmin = (admin === ADMIN_TOKEN);
-  const isStudentMode = (!!tParam || !!tokenParam);
+  window.__STUDENT_CTX__ = {
+    isAdmin,
+    idParam: qs.get("id"),
+    tParam: qs.get("t") || qs.get("token"),
+    ADMIN_TOKEN
+  };
 
-  function escapeHtml(s){
-    return String(s ?? '').replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-  }
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.student_name ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
-  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickTokenRaw(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
-  function effectiveToken(s){
-    const t = String(pickTokenRaw(s) ?? "").trim();
-    if(!t || t.toLowerCase()==="null" || t.toLowerCase()==="undefined"){
-      return pickId(s);
-    }
-    return t;
-  }
-
-  async function loadJson(path){
-    const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
-    return r.json();
-  }
-
-  function setError(title, html){
-    document.getElementById("hdr").textContent = title;
-    document.getElementById("meta").innerHTML = html;
-  }
-
-  async function main(){
-    const students = await loadJson("./students.json");
-
-    let student = null;
-
-    // 관리자: id로
-    if(idParam){
-      student = students.find(s => String(pickId(s)) === String(idParam));
-    }
-
-    // 학부모/학생: token 있으면 token, 없으면 id(t=shstudy03)로도 가능
-    const t = tParam || tokenParam;
-    if(!student && t){
-      student = students.find(s => String(effectiveToken(s)) === String(t));
-    }
-
-    if(!student){
-      setError(
-        "접근 불가",
-        `<div class="warn">학생 정보를 찾을 수 없습니다.</div>
-         <div class="muted">접속 방법: student.html?id=학생ID 또는 student.html?t=토큰(없으면 id)</div>`
-      );
-      return;
-    }
-
-    const name = pickName(student);
-    const sid = pickId(student);
-    const stok = effectiveToken(student);
-
-    document.getElementById("hdr").textContent = sid ? `${name} (${sid})` : `${name}`;
-
-    document.getElementById("meta").innerHTML = `
-      <div class="kv">
-        <div class="k">학교</div><div class="v">${escapeHtml(student.school || "-")}</div>
-        <div class="k">진로</div><div class="v">${escapeHtml(student.career || "-")}</div>
-        <div class="k">전형</div><div class="v">${escapeHtml(student.admission || "-")}</div>
-      </div>
-    `;
-
-    const msg = document.getElementById("msg");
-    if(isAdmin){
-      msg.innerHTML = `<span class="pill">관리자 모드</span><span class="subpill">id로 접근</span>`;
-    }else if(isStudentMode){
-      msg.innerHTML = `<span class="pill">학부모/학생</span><span class="subpill">${String(pickTokenRaw(student)??"").trim()? "토큰 접근":"임시(id) 접근"}</span>`;
-    }else{
-      msg.innerHTML = `<span class="warn">토큰/관리자 파라미터가 없습니다.</span>`;
-    }
-
-    const links = document.getElementById("links");
-
-    const univHref = isAdmin
-      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
-
-    const progHref = isAdmin
-      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
-
-    const backBtn = isAdmin
-      ? `<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">← 학생 목록</a>`
-      : ``;
-
-    links.innerHTML = `
-      ${backBtn}
-      <a class="btn" href="${univHref}">대학 상향/적정 보기</a>
-      <a class="btn" href="${progHref}">진도 상세 보기</a>
-    `;
-
-    // ✅ student.js가 id 기준으로 scores를 찾는 구조면 id를 URL에 강제 세팅
-    const url = new URL(location.href);
-    if(!url.searchParams.get("id") && sid){
-      url.searchParams.set("id", sid);
-      history.replaceState(null, "", url.toString());
-    }
-
-    const s = document.createElement("script");
-    s.src = new URL("./student.js?v=20260214_tokenfix", location.href).toString();
-    s.defer = true;
-    document.body.appendChild(s);
-  }
-
-  main().catch(err=>{
-    setError(
-      "오류",
-      `<div class="warn">로딩 오류</div>
-       <div class="muted">${escapeHtml(err.message)}</div>`
-    );
-  });
+  const s = document.createElement("script");
+  s.src = new URL("./student.js?v=20260215_scores_only_v2", location.href).toString();
+  s.defer = true;
+  document.body.appendChild(s);
+})();
 </script>
 </body>
 </html>
