@@ -1,4 +1,4 @@
-/* student.js (Option #2: 국/수/영 기본 + 탐구 더보기) */
+/* student.js (Option #2 + Table: 최근3/전체/회차선택, 원점수 우선 표기 + 백분위 병기) */
 (() => {
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (m) => ({
@@ -174,18 +174,44 @@
       @media(max-width: 860px){ .grid{grid-template-columns:1fr} }
 
       .box{border:1px solid #eee;border-radius:16px;padding:14px}
-      table{border-collapse:collapse;width:100%;min-width:520px}
-      th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap}
+      table{border-collapse:collapse;width:100%;min-width:560px}
+      th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap;vertical-align:top}
       th{background:#fafafa;font-weight:900}
       .num{text-align:right}
+
+      /* 표 셀(원점수 크게 + 백분위 작게) */
+      .cell2{display:flex;flex-direction:column;gap:2px;line-height:1.1}
+      .big{font-weight:900}
+      .small{font-size:12px;opacity:.7;font-weight:900}
+
+      .tableCtl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:10px}
+      .leftCtl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+      select{
+        border:1px solid #ddd;border-radius:12px;padding:8px 10px;background:#fff;font-weight:900;
+      }
     `;
     document.head.appendChild(st);
   }
 
-  function fmtPair(raw, pct) {
+  function fmtPairRawPct(raw, pct) {
     const r = (raw == null) ? "-" : `${raw}점`;
     const p = (pct == null) ? "-" : `${pct}p`;
-    return `${r} · ${p}`;
+    return { r, p };
+  }
+
+  function fmtDiffPair(sr, sp, cr, cp) {
+    // 원점수 차이 / 백분위 차이 둘 다
+    const dr = (sr != null && cr != null) ? (sr - cr) : null;
+    const dp = (sp != null && cp != null) ? (sp - cp) : null;
+
+    const drTxt = dr == null ? "-" : ((dr >= 0 ? "+" : "") + dr.toFixed(1) + "점");
+    const dpTxt = dp == null ? "-" : ((dp >= 0 ? "+" : "") + dp.toFixed(1) + "p");
+
+    // 둘 다 있으면 같이, 아니면 있는 것만
+    if (dr != null && dp != null) return `${drTxt} / ${dpTxt}`;
+    if (dr != null) return drTxt;
+    if (dp != null) return dpTxt;
+    return "-";
   }
 
   function makeBtn(label, selected, cls, onClick) {
@@ -212,7 +238,7 @@
     const rawScores = await loadJson("./scores.json");
     const scores = normalizeArrayish(rawScores);
 
-    const rows = scores
+    const rowsAsc = scores
       .filter(r => String(pickId(r) ?? "") === String(sid))
       .sort((a, b) => {
         const ra = pickRound(a), rb = pickRound(b);
@@ -222,17 +248,20 @@
         return 0;
       });
 
-    if (!rows.length) {
+    if (!rowsAsc.length) {
       root.innerHTML = `<div class="card"><div style="color:#b00020;font-weight:900">성적 데이터 없음</div><div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div></div>`;
       return;
     }
 
-    const latest = rows[rows.length - 1];
+    const rowsDesc = rowsAsc.slice().reverse(); // ✅ 표는 최신순이 더 직관적
+    const latest = rowsDesc[0];
 
     // state
-    let showInq = false;        // ✅ 탐구 더보기
-    let activeSub = "수학";      // 기본 수학
-    let metric = "pct";         // 그래프 기준(p 기본)
+    let showInq = false;                 // ✅ 탐구 더보기
+    let activeSub = "수학";               // 기본 수학
+    let metric = "raw";                  // ✅ 학부모 기준: 그래프 기본은 원점수
+    let tableMode = "recent3";           // recent3 | all | one
+    let selectedLabel = "";              // tableMode=one일 때
 
     // skeleton
     root.innerHTML = `
@@ -247,9 +276,15 @@
       const visibleSubs = showInq ? ALL_SUBS : CORE_SUBS;
 
       const pills = visibleSubs.map(sub => {
-        const r = pickStudentRaw(latest, sub);
-        const p = pickStudentPct(latest, sub);
-        return `<div class="scorePill"><span class="k">${esc(sub)}</span><span class="v">${esc(fmtPair(r,p))}</span></div>`;
+        const rr = pickStudentRaw(latest, sub);
+        const pp = pickStudentPct(latest, sub);
+        const { r, p } = fmtPairRawPct(rr, pp);
+        return `
+          <div class="scorePill">
+            <span class="k">${esc(sub)}</span>
+            <span class="v">${esc(r)} <span style="opacity:.6;font-weight:900">(${esc(p)})</span></span>
+          </div>
+        `;
       }).join("");
 
       scoreCard.innerHTML = `
@@ -266,11 +301,7 @@
 
       $("#toggleInqBtn").addEventListener("click", () => {
         showInq = !showInq;
-
-        // 탐구 숨길 때 탐구 탭이 선택돼 있으면 수학으로 복귀
-        if (!showInq && (activeSub === "탐1" || activeSub === "탐2")) {
-          activeSub = "수학";
-        }
+        if (!showInq && (activeSub === "탐1" || activeSub === "탐2")) activeSub = "수학";
         renderAll();
       });
     }
@@ -283,7 +314,6 @@
       tabs.style.marginTop = "12px";
 
       const visibleTabs = showInq ? ALL_SUBS : CORE_SUBS;
-
       visibleTabs.forEach(sub => {
         tabs.appendChild(makeBtn(sub, sub === activeSub, "pillBtn", () => {
           activeSub = sub;
@@ -295,8 +325,8 @@
       toggles.className = "row";
       toggles.style.marginTop = "10px";
       toggles.innerHTML = `<span class="muted" style="font-weight:900">그래프 기준</span>`;
-      toggles.appendChild(makeBtn("백분위(p)", metric === "pct", "subBtn", () => { metric = "pct"; renderAll(); }));
       toggles.appendChild(makeBtn("원점수", metric === "raw", "subBtn", () => { metric = "raw"; renderAll(); }));
+      toggles.appendChild(makeBtn("백분위(p)", metric === "pct", "subBtn", () => { metric = "pct"; renderAll(); }));
 
       viewCard.innerHTML = "";
       viewCard.appendChild(tabs);
@@ -306,36 +336,57 @@
       grid.className = "grid";
       grid.innerHTML = `
         <div class="box">
-          <div style="font-weight:900;margin-bottom:10px">그래프 (학생 vs 컷) · ${esc(activeSub)} · ${metric === "pct" ? "백분위(p)" : "원점수"}</div>
+          <div style="font-weight:900;margin-bottom:10px">
+            그래프 (학생 vs 컷) · ${esc(activeSub)} · ${metric === "pct" ? "백분위(p)" : "원점수"}
+          </div>
           <canvas id="scoreChart" height="120"></canvas>
           <div class="muted" style="margin-top:10px">
-            ※ 표에서는 항상 <b>원점수·백분위</b>가 같이 표시됩니다.
+            ※ 표/툴팁에서는 항상 <b>원점수 + 백분위</b>가 같이 표시됩니다.
           </div>
         </div>
         <div class="box">
-          <div style="font-weight:900;margin-bottom:10px">회차별 표</div>
+          <div class="tableCtl">
+            <div class="leftCtl" id="tableBtns"></div>
+            <div class="leftCtl" id="roundPick"></div>
+          </div>
           <div id="tblArea"></div>
         </div>
       `;
       viewCard.appendChild(grid);
     }
 
+    function buildRoundOptions() {
+      const labels = rowsDesc.map(r => roundLabel(r));
+      const uniq = Array.from(new Set(labels));
+      return uniq;
+    }
+
+    function getTableRows() {
+      if (tableMode === "all") return rowsDesc;
+      if (tableMode === "one") {
+        const lab = selectedLabel;
+        return rowsDesc.filter(r => roundLabel(r) === lab);
+      }
+      // recent3
+      return rowsDesc.slice(0, 3);
+    }
+
     async function renderChartAndTable() {
       await ensureChartJs();
 
-      const labels = rows.map(r => roundLabel(r));
+      // ---- chart uses all rows (상세 추세 보이게) ----
+      const labels = rowsAsc.map(r => roundLabel(r)); // chart는 시간순이 자연스러움
 
-      const stuRawArr = rows.map(r => pickStudentRaw(r, activeSub));
-      const stuPctArr = rows.map(r => pickStudentPct(r, activeSub));
-      const cutRawArr = rows.map(r => pickCutRaw(r, activeSub));
-      const cutPctArr = rows.map(r => pickCutPct(r, activeSub));
+      const stuRawArr = rowsAsc.map(r => pickStudentRaw(r, activeSub));
+      const stuPctArr = rowsAsc.map(r => pickStudentPct(r, activeSub));
+      const cutRawArr = rowsAsc.map(r => pickCutRaw(r, activeSub));
+      const cutPctArr = rowsAsc.map(r => pickCutPct(r, activeSub));
 
       const stuSeries = (metric === "pct") ? stuPctArr : stuRawArr;
       const cutSeries = (metric === "pct") ? cutPctArr : cutRawArr;
 
       const hasAnyCut = cutSeries.some(v => v != null);
 
-      // chart
       const ctx = $("#scoreChart");
       if (chart) chart.destroy();
 
@@ -359,9 +410,11 @@
                   const i = items?.[0]?.dataIndex ?? 0;
                   const sr = stuRawArr[i], sp = stuPctArr[i];
                   const cr = cutRawArr[i], cp = cutPctArr[i];
+                  const s = fmtPairRawPct(sr, sp);
+                  const c = fmtPairRawPct(cr, cp);
                   return [
-                    `학생: ${fmtPair(sr, sp)}`,
-                    `컷: ${fmtPair(cr, cp)}`
+                    `학생: ${s.r} (${s.p})`,
+                    `컷: ${c.r} (${c.p})`
                   ];
                 }
               }
@@ -370,41 +423,84 @@
         }
       });
 
-      // table (항상 원점수·백분위 같이)
-      const tbody = rows.map((r, idx) => {
-        const sr = stuRawArr[idx], sp = stuPctArr[idx];
-        const cr = cutRawArr[idx], cp = cutPctArr[idx];
+      // ---- table controls ----
+      const btnWrap = $("#tableBtns");
+      const pickWrap = $("#roundPick");
+      btnWrap.innerHTML = "";
+      pickWrap.innerHTML = "";
 
-        const sv = (metric === "pct") ? sp : sr;
-        const cv = (metric === "pct") ? cp : cr;
-        const diff = (sv != null && cv != null) ? (sv - cv) : null;
+      btnWrap.appendChild(makeBtn("최근 3회", tableMode === "recent3", "subBtn", () => { tableMode = "recent3"; selectedLabel = ""; renderAll(); }));
+      btnWrap.appendChild(makeBtn("전체", tableMode === "all", "subBtn", () => { tableMode = "all"; selectedLabel = ""; renderAll(); }));
 
-        const unit = (metric === "pct") ? "p" : "점";
-        const diffTxt = diff == null ? "-" : ((diff >= 0 ? "+" : "") + diff.toFixed(1) + unit);
+      const opts = buildRoundOptions();
+      const sel = document.createElement("select");
+      sel.innerHTML = `
+        <option value="">회차 선택(해당 회차만)</option>
+        ${opts.map(x => `<option value="${esc(x)}"${(tableMode==="one" && selectedLabel===x) ? " selected" : ""}>${esc(x)}</option>`).join("")}
+      `;
+      sel.addEventListener("change", () => {
+        const v = sel.value;
+        if (!v) {
+          if (tableMode === "one") { tableMode = "recent3"; selectedLabel = ""; }
+        } else {
+          tableMode = "one";
+          selectedLabel = v;
+        }
+        renderAll();
+      });
+      pickWrap.appendChild(sel);
+
+      // ---- table rows ----
+      const tRows = getTableRows(); // 최신순 기준(표)
+      const tbody = tRows.map((r) => {
+        const sr = pickStudentRaw(r, activeSub);
+        const sp = pickStudentPct(r, activeSub);
+        const cr = pickCutRaw(r, activeSub);
+        const cp = pickCutPct(r, activeSub);
+
+        const s = fmtPairRawPct(sr, sp);
+        const c = fmtPairRawPct(cr, cp);
+
+        const diffTxt = fmtDiffPair(sr, sp, cr, cp);
 
         return `
           <tr>
             <td>${esc(roundLabel(r))}</td>
-            <td>${esc(fmtPair(sr, sp))}</td>
-            <td>${esc(fmtPair(cr, cp))}</td>
-            <td class="num">${esc(diffTxt)}</td>
+            <td>
+              <div class="cell2">
+                <div class="big">${esc(s.r)}</div>
+                <div class="small">${esc(s.p)}</div>
+              </div>
+            </td>
+            <td>
+              <div class="cell2">
+                <div class="big">${esc(c.r)}</div>
+                <div class="small">${esc(c.p)}</div>
+              </div>
+            </td>
+            <td class="num" style="font-weight:900">${esc(diffTxt)}</td>
           </tr>
         `;
       }).join("");
 
       $("#tblArea").innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>회차</th>
-              <th>학생 (원점수 · 백분위)</th>
-              <th>컷 (원점수 · 백분위)</th>
-              <th class="num">차이</th>
-            </tr>
-          </thead>
-          <tbody>${tbody}</tbody>
-        </table>
-        ${hasAnyCut ? "" : `<div class="muted" style="margin-top:10px">※ 현재 회차에 컷 데이터가 없어서 컷 라인이 숨겨질 수 있어요.</div>`}
+        <div class="muted" style="margin-bottom:8px">
+          표는 <b>원점수(점)</b>와 <b>백분위(p)</b>를 함께 보여줍니다.
+        </div>
+        <div style="overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid #eee;border-radius:14px">
+          <table>
+            <thead>
+              <tr>
+                <th>회차</th>
+                <th>학생 (원점수)</th>
+                <th>컷 (원점수)</th>
+                <th class="num">차이(점/p)</th>
+              </tr>
+            </thead>
+            <tbody>${tbody || `<tr><td colspan="4" class="muted">표시할 데이터가 없습니다.</td></tr>`}</tbody>
+          </table>
+        </div>
+        ${hasAnyCut ? "" : `<div class="muted" style="margin-top:10px">※ 현재 회차들에 컷 데이터가 없으면 컷이 "-"로 보일 수 있어요.</div>`}
       `;
     }
 
