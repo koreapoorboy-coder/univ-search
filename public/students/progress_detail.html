@@ -7,51 +7,82 @@
   <style>
     html,body{width:100%;overflow-x:hidden}
     *{box-sizing:border-box}
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    body{
+      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      margin:14px;background:#fff;color:#111;
+    }
     .wrap{max-width:1100px;margin:0 auto}
-
     .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
-    .title{font-size:22px;font-weight:900;margin:0 0 10px}
+    .title{font-size:20px;font-weight:900;margin:0 0 8px}
     .meta{opacity:.85;line-height:1.7}
-
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .spacer{flex:1}
     .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
-    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
-    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .btn{
+      display:inline-block;border:1px solid #111;border-radius:12px;
+      padding:10px 14px;text-decoration:none;color:#111;background:#fff
+    }
     .btn:hover{background:#fafafa}
+    .badge{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:8px 12px;font-weight:900;background:#fff
+    }
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
-    /* selector */
-    .selWrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    /* ===== Portfolio-like layout ===== */
+    .topbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between
+    }
+    .leftgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+    /* round selector */
     select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
-      width:min(360px, 100%);
+      max-width: 100%;
     }
 
-    /* subject cards */
-    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
-    .pbox{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
-    .ptop{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
-    .ptitle{font-weight:900;font-size:16px;line-height:1.25}
+    /* subject cards grid */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media(max-width: 860px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .pbox{
+      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;
+    }
+    .ptop{
+      display:flex;gap:10px;justify-content:space-between;align-items:flex-start;
+    }
+    .ptitle{font-weight:900;font-size:16px;line-height:1.25;white-space:normal}
     .psub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
-    .tag{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;background:#fff;white-space:nowrap}
-    .tag.g{border-color:#0b57d0;color:#0b57d0}
-    .tag.m{border-color:#666;color:#333}
-    .tag.b{border-color:#b00020;color:#b00020}
 
-    .kv{display:grid;grid-template-columns:86px 1fr;gap:8px;margin-top:10px;line-height:1.5}
-    .k{opacity:.7;font-weight:900}
-    .v{font-weight:800;white-space:pre-wrap}
-
-    @media(max-width:860px){
-      body{margin:12px}
-      .title{font-size:20px}
-      .badge{padding:8px 10px}
-      .btn{padding:9px 12px}
-      .kv{grid-template-columns:74px 1fr}
+    .tag{
+      display:inline-flex;align-items:center;white-space:nowrap;
+      border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;
+      background:#fff;
     }
+    .t-good{border-color:#0b57d0;color:#0b57d0}
+    .t-mid{border-color:#b26a00;color:#b26a00}
+    .t-bad{border-color:#b00020;color:#b00020}
+
+    .kv{
+      display:grid;
+      grid-template-columns: 78px 1fr;
+      gap:8px 10px;
+      margin-top:12px;
+      line-height:1.55;
+    }
+    .k{opacity:.65;font-weight:900}
+    .v{font-weight:800;white-space:pre-line}
+
+    /* hide blocks completely when empty (JS will not render, but keep safe) */
+    .kv:empty{display:none}
   </style>
 </head>
 <body>
@@ -59,17 +90,17 @@
   <div class="card">
     <div class="title" id="hdr">진도 · 상담 메모</div>
     <div class="meta" id="meta"></div>
-    <div class="row" id="modeRow"></div>
-    <div class="row" id="navRow"></div>
-  </div>
 
-  <div class="card" id="selectorCard" style="display:none;">
-    <div class="row" style="margin-top:0">
-      <span class="badge" id="scoreHint">선택한 회차의 상담/피드백만 표시됩니다.</span>
-      <div class="spacer"></div>
-      <div class="selWrap">
-        <span class="muted" style="font-weight:900">회차 선택</span>
-        <select id="roundSel"></select>
+    <div class="row" id="modeRow"></div>
+
+    <div class="topbar" style="margin-top:10px">
+      <div class="leftgroup" id="navRow"></div>
+
+      <div class="rightgroup">
+        <div id="roundWrap" style="display:none; gap:8px; align-items:center;">
+          <span class="badge">회차/날짜</span>
+          <select id="roundSel"></select>
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +120,7 @@
   const admin = adminParam || adminSaved;
 
   const idParam = qs.get("id");
-  const tParam = qs.get("t") || qs.get("token");
+  const tParam  = qs.get("t") || qs.get("token");
 
   const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
   if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
@@ -107,112 +138,125 @@
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  // --- array-ish normalize (객체/래핑 모두 지원)
+  // 빈값 처리: 공백/undefined/null이면 "" 반환
+  const pickText = (...vals) => {
+    for(const v of vals){
+      const s = String(v ?? "").trim();
+      if(s) return s;
+    }
+    return "";
+  };
+
+  // 배열/객체 모두 대응
   function normalizeArrayish(x){
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
-    for(const k of ["records","rows","items","data","notes","progress","progressNotes"]){
+    for(const k of ["records","rows","items","data","notes","progress"]){
       if(Array.isArray(x[k])) return x[k].slice();
     }
     const out = [];
     for(const [k,v] of Object.entries(x)){
-      if(Array.isArray(v)){
-        out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
-      }else if(v && typeof v==="object"){
-        out.push({...v, id:(v?.id ?? k)});
-      }
+      if(Array.isArray(v)) out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
+      else if(v && typeof v==="object") out.push({...v, id:(v?.id ?? k)});
     }
     return out;
   }
 
-  function toNum(v){
-    if(v==null || v==="") return null;
-    if(typeof v==="number") return Number.isFinite(v)?v:null;
-    const s=String(v).trim();
-    if(!s) return null;
-    const cleaned = s.replace(/[^0-9.+-]/g,"");
-    if(!cleaned) return null;
-    const n=Number(cleaned);
-    return Number.isFinite(n)?n:null;
-  }
-
-  // round/date pick
-  function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; const n = toNum(v); return n==null?null:Number(n); }
-  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? x?.["상담일"] ?? null; }
-
-  function labelRound(r, d){
-    if(r!=null && d) return `#${r} (${d})`;
-    if(r!=null) return `#${r}`;
-    if(d) return String(d);
-    return "기록";
+  // round/date 키 구성 (없으면 "미지정")
+  function roundKeyOf(n){
+    const r = pickText(n.round, n.Round, n["회차"], n["차수"]);
+    const d = pickText(n.date, n.Date, n["날짜"], n["일자"]);
+    if(r && d) return `#${r} (${d})`;
+    if(r) return `#${r}`;
+    if(d) return `${d}`;
+    return "미지정";
   }
 
   function levelTag(level){
     const s = String(level||"").trim();
-    if(!s) return {text:"-", cls:"tag m"};
-    const key = s.toLowerCase();
-    if(key.includes("양호") || key.includes("good") || key.includes("상")) return {text:s, cls:"tag g"};
-    if(key.includes("부족") || key.includes("bad") || key.includes("하")) return {text:s, cls:"tag b"};
-    return {text:s, cls:"tag m"};
+    if(!s) return null; // ✅ 레벨이 없으면 태그 자체 숨김
+    const low = s.toLowerCase();
+    if(low.includes("잘") || low.includes("우수") || low.includes("좋") || low.includes("강점"))
+      return { text:s, cls:"tag t-good" };
+    if(low.includes("보통") || low.includes("중") || low.includes("가능"))
+      return { text:s, cls:"tag t-mid" };
+    if(low.includes("부족") || low.includes("약") || low.includes("미흡"))
+      return { text:s, cls:"tag t-bad" };
+    return { text:s, cls:"tag" };
   }
 
-  // ----- render selected round -----
-  function renderRound(roundKey, byRound){
-    const list = byRound.get(roundKey) || [];
+  // 과목 순서 고정(5과목 우선, 그 외는 뒤로)
+  function subjectOrder(subject){
+    const s = String(subject||"");
+    const map = {"국어":1,"수학":2,"영어":3,"탐1":4,"탐2":5,"탐구1":4,"탐구2":5};
+    return map[s] ?? 99;
+  }
+
+  function renderRound(key, byRound){
+    const list = byRound.get(key) || [];
     if(!list.length){
       $("#content").innerHTML = `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`;
       return;
     }
 
-    // subject sort: 국어/수학/영어/탐1/탐2 우선, 그 외 가나다
-    const order = {"국어":1,"수학":2,"영어":3,"탐1":4,"탐2":5};
+    // ✅ 정렬: 과목 우선순위 → 과목명
     list.sort((a,b)=>{
-      const sa=String(a.subject||a["과목"]||"");
-      const sb=String(b.subject||b["과목"]||"");
-      const oa=order[sa] ?? 99;
-      const ob=order[sb] ?? 99;
+      const sa = pickText(a.subject, a["과목"]);
+      const sb = pickText(b.subject, b["과목"]);
+      const oa = subjectOrder(sa);
+      const ob = subjectOrder(sb);
       if(oa!==ob) return oa-ob;
       return sa.localeCompare(sb,"ko");
     });
 
     const cards = list.map(n=>{
-      const subject = n.subject ?? n["과목"] ?? "-";
-      const unit = n.unit ?? n["단원"] ?? n["파트"] ?? "";
-      const lvl = n.level ?? n["수준"] ?? n["상태"] ?? "";
-      const tag = levelTag(lvl);
+      const subject = pickText(n.subject, n["과목"]);
+      if(!subject) return ""; // ✅ 과목명이 없으면 카드 생성 자체를 안 함
 
+      const unit  = pickText(n.unit, n["단원"], n["파트"]);
+      const lvl   = pickText(n.level, n["수준"], n["상태"]);
+      const tag   = levelTag(lvl);
+
+      const good = pickText(n.good, n["잘한점"], n["강점"]);
+      const bad  = pickText(n.bad,  n["아쉬운점"], n["약점"]);
+      const fix  = pickText(n.fix,  n["피드백"], n["보완"]);
+      const memo = pickText(n.memo, n["상담메모"], n["메모"]);
+
+      // ✅ 값 있는 항목만 kv로 출력
       const rows = [];
-      const good = n.good ?? n["잘한점"] ?? "";
-      const bad  = n.bad  ?? n["아쉬운점"] ?? "";
-      const fix  = n.fix  ?? n["피드백"] ?? n["보완"] ?? "";
-      const memo = n.memo ?? n["상담메모"] ?? n["메모"] ?? "";
-
       if(good) rows.push(`<div class="k">강점</div><div class="v">${esc(good)}</div>`);
       if(bad)  rows.push(`<div class="k">약점</div><div class="v">${esc(bad)}</div>`);
       if(fix)  rows.push(`<div class="k">피드백</div><div class="v">${esc(fix)}</div>`);
       if(memo) rows.push(`<div class="k">상담 메모</div><div class="v">${esc(memo)}</div>`);
 
-      const kv = rows.length ? `<div class="kv">${rows.join("")}</div>` : `<div class="muted" style="margin-top:10px">내용 없음</div>`;
+      const kv = rows.length ? `<div class="kv">${rows.join("")}</div>` : "";
 
       return `
         <div class="pbox">
           <div class="ptop">
             <div style="min-width:0">
               <div class="ptitle">${esc(subject)}</div>
-              <div class="psub">${unit ? `단원: ${esc(unit)}` : ``}</div>
+              ${unit ? `<div class="psub">단원: ${esc(unit)}</div>` : ``}
             </div>
-            <span class="${tag.cls}">${esc(tag.text)}</span>
+            ${tag ? `<span class="${tag.cls}">${esc(tag.text)}</span>` : ``}
           </div>
           ${kv}
         </div>
       `;
     }).join("");
 
-    $("#content").innerHTML = `<div class="grid">${cards}</div>`;
+    $("#content").innerHTML = `
+      <div class="card">
+        <div class="badge">표시 기준: 입력된 항목만 노출 (빈값 자동 숨김)</div>
+      </div>
+      <div class="grid">
+        ${cards || `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`}
+      </div>
+    `;
   }
 
   async function main(){
-    // 1) 학생 확인
+    // 1) 학생 찾기
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -232,21 +276,27 @@
       return;
     }
 
-    const sid = norm(pickId(student));
+    const sid  = norm(pickId(student));
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").innerHTML = `진도 · 상담 메모 · ${esc(name)} (${esc(sid)})`;
-    $("#meta").innerHTML = `
-      학교: ${esc(student.school||"-")}<br>
-      진로: ${esc(student.career||"-")}<br>
-      전형: ${esc(student.admission||"-")}
-    `;
+    $("#hdr").textContent = `진도 · 상담 메모 · ${name}${sid?` (${sid})`:``}`;
+
+    // ✅ 학생 메타도 "입력된 것만" 표시
+    const metaRows = [];
+    const school = pickText(student.school, student["학교"]);
+    const career = pickText(student.career, student["진로"]);
+    const adm    = pickText(student.admission, student["전형"]);
+    if(school) metaRows.push(`학교: ${esc(school)}`);
+    if(career) metaRows.push(`진로: ${esc(career)}`);
+    if(adm)    metaRows.push(`전형: ${esc(adm)}`);
+    $("#meta").innerHTML = metaRows.length ? metaRows.join("<br>") : `<span class="muted">학생 메타 정보 없음</span>`;
 
     $("#modeRow").innerHTML = isAdmin
       ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
+    // 2) 네비 버튼
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
@@ -258,68 +308,70 @@
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 성적 보기</a>`);
     nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
-    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+    if(isAdmin){
+      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+    }
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) 진도/상담 데이터
-    const rawNotes = await loadJson("./progress_notes.json");
-    const notes = normalizeArrayish(rawNotes).filter(r => norm(pickId(r)) === sid);
+    // 3) 진도/메모 데이터 로딩 (notes 우선)
+    let rawNotes = null;
+
+    // progress_notes.json 필수(현재 GitHub에 이 파일만 있다 했으니 우선)
+    try{
+      rawNotes = await loadJson("./progress_notes.json");
+    }catch(e){
+      // fallback: progress.json (있으면)
+      try{
+        rawNotes = await loadJson("./progress.json");
+      }catch(e2){
+        rawNotes = [];
+      }
+    }
+
+    const notes = normalizeArrayish(rawNotes)
+      .filter(n => norm(n?.id) === sid);
 
     if(!notes.length){
-      $("#selectorCard").style.display = "none";
       $("#content").innerHTML = `
         <div class="card">
-          <div class="warn">진도/상담 데이터 없음</div>
-          <div class="muted">progress_notes.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
+          <div class="warn">진도/상담 메모 데이터 없음</div>
+          <div class="muted">progress_notes.json(또는 progress.json)에 id=${esc(sid)} 데이터가 없습니다.</div>
         </div>
       `;
       return;
     }
 
-    // 3) round/date 기준으로 묶기
+    // 4) roundKey로 그룹핑
     const byRound = new Map();
-    notes.forEach(n=>{
-      const r = pickRound(n);
-      const d = pickDate(n);
-      const key = `${r==null?"_":r}|${d||""}`;
+    for(const n of notes){
+      const key = roundKeyOf(n);
       if(!byRound.has(key)) byRound.set(key, []);
       byRound.get(key).push(n);
+    }
+
+    // 5) round 목록 정렬 (미지정은 뒤로)
+    const keys = [...byRound.keys()];
+    keys.sort((a,b)=>{
+      if(a==="미지정" && b!=="미지정") return 1;
+      if(b==="미지정" && a!=="미지정") return -1;
+      return a.localeCompare(b,"ko");
     });
 
-    // 정렬된 round list
-    const roundKeys = [...byRound.keys()].sort((a,b)=>{
-      const [ra,da] = a.split("|");
-      const [rb,db] = b.split("|");
-      const na = (ra==="_") ? -1 : Number(ra);
-      const nb = (rb==="_") ? -1 : Number(rb);
-      if(na!==nb) return na-nb;
-      return String(da||"").localeCompare(String(db||""));
-    });
-
-    // latest = last
-    const latestKey = roundKeys[roundKeys.length-1];
-
-    // selector
-    const sel = $("#roundSel");
-    sel.innerHTML = "";
-    roundKeys.forEach(k=>{
-      const [r,d] = k.split("|");
-      const rr = (r==="_") ? null : Number(r);
-      const label = labelRound(rr, d||null);
-      const o=document.createElement("option");
-      o.value=k; o.textContent=label;
-      sel.appendChild(o);
-    });
-    sel.value = latestKey;
-
-    $("#selectorCard").style.display = "block";
-
-    // render
-    renderRound(latestKey, byRound);
-
-    sel.addEventListener("change", ()=>{
-      renderRound(sel.value, byRound);
-    });
+    // 6) selector: 2개 이상일 때만 노출
+    const roundWrap = $("#roundWrap");
+    const roundSel = $("#roundSel");
+    if(keys.length >= 2){
+      roundWrap.style.display = "inline-flex";
+      roundSel.innerHTML = keys.map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join("");
+      // 최신을 마지막으로 보고 싶으면 아래 한 줄로 변경 가능:
+      // roundSel.value = keys[keys.length - 1];
+      roundSel.value = keys[0];
+      roundSel.addEventListener("change", ()=> renderRound(roundSel.value, byRound));
+      renderRound(roundSel.value, byRound);
+    }else{
+      roundWrap.style.display = "none";
+      renderRound(keys[0], byRound);
+    }
   }
 
   main().catch(err=>{
