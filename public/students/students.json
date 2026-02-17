@@ -1,66 +1,40 @@
 [
   {
-    "id": "shstudy01",
-    "studentname": "이현우",
-    "school": "덕소고",
-    "career": "보건&공학",
-    "admission": "학생부종합&정시",
-    "token": "a9c4f18e2d6b43c88f10e8a0f2cb1a7d"
+    "id":"shstudy01",
+    "date":"2026-03-01",
+    "subject":"수학",
+    "type":"진도",
+    "title":"미분(기본) - 부호/정의역 체크",
+    "status":"진행중",
+    "note":"부호 실수 2회. 정의역 조건 누락 1회.",
+    "action":"유형 20문제(부호/정의역) + 오답노트",
+    "next":"다음 시간: 합성함수 미분"
   },
   {
-    "id": "shstudy02",
-    "studentname": "지윤후",
-    "school": "배재고",
-    "career": "자유전공",
-    "admission": "정시",
-    "token": "1f2bd6a9c7e54d0a9c1a2e5b8f7d31c4"
+    "id":"shstudy01",
+    "date":"2026-03-02",
+    "subject":"공통",
+    "type":"상담",
+    "title":"3월 1주 학습 루틴 점검",
+    "diagnosis":"수학은 ‘검산 루틴’이 없어서 실수가 누적됨",
+    "note":"평일: 60분 집중 블록 2개(수학/국어). 주말: 실전 모의 1회.",
+    "action":"매일 ‘풀이 체크리스트(조건/부호/단위)’ 3줄 기록",
+    "next":"2026-03-09 재점검",
+    "evidence":[
+      {"label":"루틴 체크리스트(문서)","url":"https://example.com/doc"}
+    ]
   },
   {
-    "id": "shstudy03",
-    "studentname": "최지후",
-    "school": "보인고",
-    "career": "자유전공",
-    "admission": "정시",
-    "token": "c16979d2c75c452c98c7642ef1e563a2"
-  },
-  {
-    "id": "shstudy04",
-    "studentname": "정지우",
-    "school": "상현고",
-    "career": "간호학과",
-    "admission": "학생부종합&정시",
-    "token": "89f6057a209b412f95d5528ba4fb1033"
-  },
-  {
-    "id": "shstudy05",
-    "studentname": "조민서",
-    "school": "수도여고",
-    "career": "자유전공",
-    "admission": "학생부종합&정시",
-    "token": "1eb1b0842652454baaeb3d4318c694eb"
-  },
-  {
-    "id": "shstudy06",
-    "studentname": "한서영",
-    "school": "대방중",
-    "career": "자유전공",
-    "admission": "학생부종합&교과",
-    "token": "a1ad9f1b8f464858a27bfb9084e35e2c"
-  },
-  {
-    "id": "shstudy07",
-    "studentname": "최지나",
-    "school": "광남중",
-    "career": "보건",
-    "admission": "학생부종합&교과",
-    "token": "f9bc9405ea5b4bd795e61a822eb228af"
-  },
-  {
-    "id": "shstudy08",
-    "studentname": "조민솔",
-    "school": "대방중",
-    "career": "보건",
-    "admission": "학생부종합&교과",
-    "token": "c0eeeb122d1d49b1ad607e22e5146a2b"
+    "id":"shstudy01",
+    "date":"2026-03-03",
+    "subject":"국어",
+    "type":"피드백",
+    "title":"비문학 - 근거문장 위치 추적",
+    "feedback":"선지 판단 전에 ‘근거문장’ 표시가 빠져 오답 발생",
+    "note":"문단별 1문장 요약 후 선지로 이동하도록 순서 고정",
+    "action":"비문학 10지문: 근거표시→요약→선지(순서 유지)",
+    "evidence":[
+      {"label":"오답노트 사진","url":"https://example.com/photo"}
+    ]
   }
 ]
