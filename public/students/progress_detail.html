@@ -5,133 +5,557 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>진도 상세</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:#fff;color:#111}
+    :root{
+      --bd:#e7e7e7;
+      --bd2:#f0f0f0;
+      --txt:#111;
+      --mut:#666;
+      --bg:#fff;
+      --chip:#fafafa;
+    }
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:var(--bg);color:var(--txt)}
     .wrap{max-width:980px;margin:0 auto;padding:16px}
-    .card{border:1px solid #e6e6e6;border-radius:16px;padding:14px;background:#fff}
-    .title{font-size:20px;font-weight:1000;line-height:1.25}
-    .muted{color:#666;font-size:12px}
-    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #111;padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap}
-    .btn.ghost{border-color:#ddd;color:#111}
-    .grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
-    .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fafafa}
-    .box h3{margin:0 0 6px;font-size:14px;font-weight:1000}
-    .box ul{margin:0;padding-left:18px}
-    .box li{margin:4px 0}
+    .card{border:1px solid var(--bd);border-radius:18px;padding:14px;background:#fff}
+    .title{font-size:20px;font-weight:1000;line-height:1.25;margin:0}
+    .meta{margin-top:8px;line-height:1.7;color:var(--txt);opacity:.9}
+    .muted{color:var(--mut);font-size:12px}
+    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid #111;
+      padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap;background:#fff;color:#111;
+    }
+    .btn.ghost{border-color:#ddd}
+    .btn:hover{background:#fafafa}
+
+    .section{margin-top:12px}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px}
+    .box{border:1px solid var(--bd2);border-radius:16px;padding:14px;background:#fff}
+    .box.hint{background:#fafafa}
+    .h3{margin:0 0 6px;font-size:14px;font-weight:1000}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--bd);border-radius:999px;
+      padding:8px 12px;font-weight:1000;background:#fff;
+    }
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--bd);border-radius:12px;
+      padding:8px 10px;font-weight:900;background:var(--chip);
+    }
+    .kv{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;margin-top:8px}
+    .k{color:var(--mut);font-weight:1000}
+    .v{font-weight:900}
+
+    /* subject tabs */
+    .tabs{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:12px
+    }
+    .tab{
+      border:1px solid #111;border-radius:999px;
+      padding:10px 12px;background:#fff;cursor:pointer;font-weight:1000;
+    }
+    .tab[aria-selected="true"]{background:#111;color:#fff}
+    @media(max-width:860px){
+      .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .tabs::-webkit-scrollbar{display:none}
+    }
+
+    /* latest card */
+    .latest{
+      border:1px solid var(--bd);border-radius:16px;padding:14px;background:#fff
+    }
+    .latestTop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+    .latestTitle{font-size:16px;font-weight:1000;line-height:1.25}
+    .badge{
+      border:1px solid var(--bd);border-radius:999px;
+      padding:8px 10px;font-weight:1000;background:#fff;white-space:nowrap
+    }
+    .badge.ok{border-color:#0b57d0}
+    .badge.ng{border-color:#b26a00}
+    .badge.na{opacity:.75}
+    .divider{height:1px;background:var(--bd2);margin:10px 0}
+    .lines{display:grid;gap:8px}
+    .line{padding:10px;border:1px solid var(--bd2);border-radius:14px;background:#fafafa}
+    .line b{font-weight:1000}
+    .line .muted{display:block;margin-top:4px}
+
+    /* list/table */
+    table{border-collapse:collapse;width:100%}
+    th,td{border-bottom:1px solid var(--bd2);padding:10px;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#fafafa;font-weight:1000}
+    .nowrap{white-space:nowrap}
+    .right{text-align:right}
+    .small{font-size:12px;color:var(--mut)}
+    details{border:1px solid var(--bd2);border-radius:16px;padding:10px;background:#fff}
+    summary{cursor:pointer;font-weight:1000;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    .sumrow{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .sumrow span{font-weight:1000}
+    .sumrow .small{font-weight:900}
+
+    .warn{color:#b00020;font-weight:1000}
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="title" id="hdr">진도 상세</div>
-      <div class="muted" id="sub">진도 데이터가 있으면 여기서 바로 확인할 수 있어요.</div>
-      <div class="btns" id="btns"></div>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="card">
+    <h1 class="title" id="hdr">진도 상세</h1>
+    <div class="meta" id="meta"></div>
+
+    <div class="btns" id="btns"></div>
+
+    <div class="section" id="summaryBox" style="display:none;">
+      <div class="row">
+        <span class="pill" id="sumSubjects">과목</span>
+        <span class="pill" id="sumItems">기록</span>
+        <span class="pill" id="sumLatest">최신</span>
+      </div>
     </div>
 
-    <div class="grid" id="content"></div>
+    <div class="tabs" id="tabs" style="display:none;"></div>
   </div>
 
-  <script>
-    const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
-    const norm = (v)=>String(v??"").trim();
+  <!-- Content -->
+  <div class="section grid" id="content"></div>
+</div>
 
-    const q = new URLSearchParams(location.search);
-    const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // student.html 과 동일하게 맞추세요
-    const isAdmin = (q.get('admin') && q.get('admin')===ADMIN_TOKEN);
-    const idParam = q.get('id');
-    const tokenParam = q.get('t');
+<script>
+(() => {
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  const LS_KEY = "__ADMIN_TOKEN__";
 
-    async function loadJson(path){
-      const r = await fetch(path, { cache:"no-store" });
-      if(!r.ok) return null;
-      return r.json();
+  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  const norm = (v)=>String(v??"").trim();
+
+  const qs = new URLSearchParams(location.search);
+  const adminParam = qs.get("admin");
+  const adminSaved = localStorage.getItem(LS_KEY);
+  const admin = adminParam || adminSaved;
+
+  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
+  if(adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
+
+  const idParam = qs.get("id");
+  const tParam = qs.get("t") || qs.get("token");
+
+  const $ = (s)=>document.querySelector(s);
+
+  async function loadJson(path){
+    const r = await fetch(path, { cache:"no-store" });
+    if(!r.ok) return null;
+    return r.json();
+  }
+
+  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["학생ID"] ?? s["학번"] ?? null; }
+  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["토큰"] ?? null; }
+  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["이름"] ?? s["학생명"] ?? s.id ?? "-"; }
+
+  // --- progress normalize (배열/객체 모두) ---
+  function normalizeProgress(x){
+    if(Array.isArray(x)) return x.slice();
+    if(!x || typeof x!=="object") return [];
+
+    // 흔한 래핑 키
+    for(const k of ["records","rows","items","data","progress"]){
+      if(Array.isArray(x[k])) return x[k].slice();
     }
 
-    function pickId(s){
-      return s.id ?? s.studentId ?? s.studentID ?? s["학생ID"] ?? null;
-    }
-    function pickToken(s){
-      return s.token ?? s.accessToken ?? s.key ?? null;
-    }
-    function pickName(s){
-      return s.studentName ?? s.studentname ?? s.name ?? s["이름"] ?? s.id ?? "-";
-    }
-
-    (async function(){
-      const students = await loadJson('./students.json') || [];
-      let student = null;
-      if(isAdmin && idParam) student = students.find(s=>norm(pickId(s))===norm(idParam));
-      if(!student && tokenParam) student = students.find(s=>norm(pickToken(s))===norm(tokenParam));
-
-      const sid = student ? norm(pickId(student)) : null;
-      const stok = student ? norm(pickToken(student)) : null;
-
-      // 헤더
-      if(student){
-        document.getElementById('hdr').textContent = `진도 상세: ${pickName(student)}${sid?` (${sid})`:''}`;
-      } else {
-        document.getElementById('hdr').textContent = '접근 권한이 없습니다';
-        document.getElementById('sub').textContent = '학생 정보를 찾을 수 없습니다.';
+    // ID별: { shstudy01:[...], shstudy02:[...] }
+    const out = [];
+    for(const [k,v] of Object.entries(x)){
+      if(Array.isArray(v)){
+        out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
+        continue;
       }
+      if(v && typeof v==="object"){
+        // ID별 + 과목별: { shstudy01: { 수학:[...], 국어:[...] } }
+        const maybeSubjects = v;
+        const subjectKeys = Object.keys(maybeSubjects);
+        let expanded = false;
 
-      // 버튼
-      const btns = [];
-      if(student){
-        const backHref = isAdmin
-          ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-          : `./student.html?t=${encodeURIComponent(stok)}`;
-        const univHref = isAdmin
-          ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-          : `./univ_list.html?t=${encodeURIComponent(stok)}`;
-        btns.push(`<a class="btn ghost" href="${backHref}">성적 화면</a>`);
-        btns.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
+        for(const sk of subjectKeys){
+          const sv = maybeSubjects[sk];
+          if(Array.isArray(sv)){
+            expanded = true;
+            out.push(...sv.map(r=>({ ...r, id:(r?.id ?? k), subject:(r?.subject ?? r?.과목 ?? sk) })));
+          }
+        }
+        if(expanded) continue;
+
+        // 그냥 객체 1개
+        out.push({ ...v, id:(v?.id ?? k) });
       }
-      document.getElementById('btns').innerHTML = btns.join('');
+    }
+    return out;
+  }
 
-      // 내용(진도)
-      const content = document.getElementById('content');
-      if(!student){
-        content.innerHTML = `<div class="box"><h3>안내</h3><div class="muted">관리자는 id+admin, 학생/학부모는 t(토큰)으로 접속해야 합니다.</div></div>`;
-        return;
-      }
+  // progress row pickers
+  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
+  function pickSubject(x){
+    const s = x?.subject ?? x?.subj ?? x?.["과목"] ?? x?.["subject"] ?? null;
+    if(s) return String(s).trim();
 
-      // progress.json(선택) : 없으면 안내만
-      // 권장 형식 예시:
-      // [{"id":"shstudy01","date":"2026-03-01","title":"수학 미분 단원","status":"완료","note":"오답: 절댓값 케이스"}, ...]
-      const progress = await loadJson('./progress.json');
-      const items = Array.isArray(progress) ? progress.filter(x=>norm(x.id)===sid) : [];
+    // title에서 "수학: ..." 형태면 추출
+    const t = String(x?.title ?? x?.unit ?? x?.topic ?? x?.["단원"] ?? x?.["제목"] ?? "").trim();
+    const m = t.match(/^([가-힣A-Za-z0-9]+)\s*[:：]/);
+    if(m && m[1]) return m[1].trim();
 
-      if(!items.length){
-        content.innerHTML = `
-          <div class="box">
-            <h3>진도 데이터가 아직 없습니다</h3>
-            <div class="muted">progress.json 파일을 추가하면, 여기에서 날짜/단원/상태/메모를 자동으로 보여줍니다.</div>
+    return "기타";
+  }
+  function pickTitle(x){
+    return x?.title ?? x?.unit ?? x?.topic ?? x?.["단원"] ?? x?.["제목"] ?? "-";
+  }
+  function pickStatus(x){
+    return x?.status ?? x?.state ?? x?.["상태"] ?? x?.["진행"] ?? "";
+  }
+  function pickNote(x){
+    return x?.note ?? x?.memo ?? x?.["메모"] ?? x?.["상담"] ?? x?.["내용"] ?? "";
+  }
+  function pickHomework(x){
+    return x?.homework ?? x?.hw ?? x?.["과제"] ?? x?.["숙제"] ?? "";
+  }
+  function pickNext(x){
+    return x?.next ?? x?.plan ?? x?.["다음"] ?? x?.["다음계획"] ?? "";
+  }
+  function pickLink(x){
+    return x?.link ?? x?.url ?? x?.["링크"] ?? "";
+  }
+
+  function sortByDateDesc(a,b){
+    const da = String(pickDate(a)||"");
+    const db = String(pickDate(b)||"");
+    return db.localeCompare(da);
+  }
+
+  function uniq(arr){
+    return Array.from(new Set(arr));
+  }
+
+  function subjectOrder(subjects){
+    const pref = ["국어","수학","영어","탐1","탐2"];
+    const sset = new Set(subjects);
+    const ordered = [];
+    pref.forEach(p=>{ if(sset.has(p)) ordered.push(p); });
+
+    const rest = subjects.filter(s=>!pref.includes(s)).slice().sort((a,b)=>String(a).localeCompare(String(b)));
+    return ordered.concat(rest);
+  }
+
+  function statusBadge(status){
+    const s = String(status||"").trim();
+    if(!s) return `<span class="badge na">상태: -</span>`;
+    // 약간의 색만
+    const okWords = ["완료","ok","OK","끝","마침"];
+    const ngWords = ["보완","미흡","재학습","주의","필요"];
+    const cls = okWords.some(w=>s.includes(w)) ? "ok" : (ngWords.some(w=>s.includes(w)) ? "ng" : "na");
+    return `<span class="badge ${cls}">${esc(s)}</span>`;
+  }
+
+  function renderLatestCard(latest){
+    const date = pickDate(latest) || "-";
+    const title = pickTitle(latest);
+    const status = pickStatus(latest);
+    const note = pickNote(latest);
+    const hw = pickHomework(latest);
+    const nx = pickNext(latest);
+    const link = pickLink(latest);
+
+    const lines = [];
+    if(note) lines.push(`<div class="line"><b>메모</b><span class="muted">${esc(note)}</span></div>`);
+    if(hw)   lines.push(`<div class="line"><b>과제</b><span class="muted">${esc(hw)}</span></div>`);
+    if(nx)   lines.push(`<div class="line"><b>다음</b><span class="muted">${esc(nx)}</span></div>`);
+    if(link) lines.push(`<div class="line"><b>링크</b><span class="muted"><a href="${esc(link)}" target="_blank" rel="noopener">열기</a></span></div>`);
+
+    return `
+      <div class="latest">
+        <div class="latestTop">
+          <div style="min-width:0">
+            <div class="latestTitle">${esc(title)}</div>
+            <div class="small">${esc(date)}</div>
           </div>
-          <div class="box">
-            <h3>progress.json 예시</h3>
-            <div class="muted">(배열 형태)</div>
-            <pre style="white-space:pre-wrap;margin:8px 0 0;font-size:12px;line-height:1.5">[
-  {"id":"shstudy01","date":"2026-03-01","title":"수학: 미분(기본)","status":"완료","note":"개념은 OK, 부호 실수 2회"},
-  {"id":"shstudy01","date":"2026-03-08","title":"국어: 비문학(근거문장 찾기)","status":"진행중","note":"문단 요약 훈련 필요"}
-]</pre>
-          </div>
-        `;
-        return;
-      }
+          ${statusBadge(status)}
+        </div>
+        ${lines.length ? `<div class="divider"></div><div class="lines">${lines.join("")}</div>` : ""}
+      </div>
+    `;
+  }
 
-      const li = items
-        .slice()
-        .sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')))
-        .map(x=>`<li><b>${esc(x.date||'-')}</b> · ${esc(x.title||'-')} · <b>${esc(x.status||'-')}</b><div class="muted">${esc(x.note||'')}</div></li>`)
-        .join('');
+  function renderRecentTable(items){
+    const rows = items.map(x=>{
+      const d = pickDate(x) || "-";
+      const t = pickTitle(x);
+      const st = pickStatus(x) || "-";
+      const note = pickNote(x);
+      const hw = pickHomework(x);
+      const nx = pickNext(x);
 
-      content.innerHTML = `
+      // 입력된 것만 짧게 요약
+      const parts = [];
+      if(note) parts.push(`메모: ${note}`);
+      if(hw) parts.push(`과제: ${hw}`);
+      if(nx) parts.push(`다음: ${nx}`);
+      const detail = parts.join(" / ");
+
+      return `
+        <tr>
+          <td class="nowrap">${esc(d)}</td>
+          <td>${esc(t)}</td>
+          <td class="nowrap">${esc(st)}</td>
+          <td>${detail ? esc(detail) : `<span class="small">-</span>`}</td>
+        </tr>
+      `;
+    }).join("");
+
+    return `
+      <div class="box">
+        <div class="h3">최근 기록</div>
+        <div class="muted">최근 3회만 기본 표시됩니다.</div>
+        <div style="margin-top:8px;overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th class="nowrap">날짜</th>
+                <th>내용</th>
+                <th class="nowrap">상태</th>
+                <th>요약</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderAllToggle(allItems){
+    if(allItems.length <= 3) return "";
+
+    const rows = allItems.map(x=>{
+      const d = pickDate(x) || "-";
+      const t = pickTitle(x);
+      const st = pickStatus(x) || "-";
+
+      const note = pickNote(x);
+      const hw = pickHomework(x);
+      const nx = pickNext(x);
+      const link = pickLink(x);
+
+      const parts = [];
+      if(note) parts.push(`<div class="small"><b>메모</b> · ${esc(note)}</div>`);
+      if(hw) parts.push(`<div class="small"><b>과제</b> · ${esc(hw)}</div>`);
+      if(nx) parts.push(`<div class="small"><b>다음</b> · ${esc(nx)}</div>`);
+      if(link) parts.push(`<div class="small"><b>링크</b> · <a href="${esc(link)}" target="_blank" rel="noopener">열기</a></div>`);
+
+      return `
+        <tr>
+          <td class="nowrap">${esc(d)}</td>
+          <td>
+            <div style="font-weight:1000">${esc(t)}</div>
+            ${parts.length ? parts.join("") : `<div class="small">-</div>`}
+          </td>
+          <td class="nowrap">${esc(st)}</td>
+        </tr>
+      `;
+    }).join("");
+
+    return `
+      <details style="margin-top:10px">
+        <summary class="sumrow">
+          <span>전체 기록 펼치기</span>
+          <span class="small">총 ${allItems.length}개</span>
+        </summary>
+        <div style="margin-top:10px;overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th class="nowrap">날짜</th>
+                <th>내용</th>
+                <th class="nowrap">상태</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>
+    `;
+  }
+
+  let activeSubject = null;
+  let grouped = null;
+
+  function renderSubject(subject){
+    activeSubject = subject;
+    $("#tabs").querySelectorAll(".tab").forEach(b=>{
+      b.setAttribute("aria-selected", b.dataset.subject===subject ? "true" : "false");
+    });
+
+    const items = (grouped?.get(subject) || []).slice().sort(sortByDateDesc);
+    const latest = items[0];
+    const recent3 = items.slice(0,3);
+
+    const content = $("#content");
+    content.innerHTML = `
+      <div class="box hint">
+        <div class="row">
+          <span class="pill">과목: <b>${esc(subject)}</b></span>
+          <span class="pill">기록: <b>${items.length}</b></span>
+          <span class="pill">최신: <b>${esc(pickDate(latest)||"-")}</b></span>
+        </div>
+        <div class="muted" style="margin-top:8px;">※ 입력한 항목만 표시됩니다(메모/과제/다음/링크 등).</div>
+      </div>
+
+      <div class="box">
+        <div class="h3">최신 기록</div>
+        ${latest ? renderLatestCard(latest) : `<div class="muted">기록이 없습니다.</div>`}
+      </div>
+
+      ${recent3.length ? renderRecentTable(recent3) : ""}
+
+      ${renderAllToggle(items)}
+    `;
+  }
+
+  async function main(){
+    // 1) 학생 확인
+    const students = await loadJson("./students.json");
+    if(!Array.isArray(students)){
+      $("#hdr").textContent = "오류";
+      $("#meta").innerHTML = `<div class="warn">students.json을 읽을 수 없습니다.</div>`;
+      return;
+    }
+
+    let student = null;
+    if(isAdmin && idParam){
+      student = students.find(s => norm(pickId(s)) === norm(idParam));
+    }
+    if(!student && tParam){
+      student = students.find(s => norm(pickToken(s)) === norm(tParam));
+    }
+
+    if(!student){
+      $("#hdr").textContent = "접근 권한이 없습니다";
+      $("#meta").innerHTML = `
+        <div class="warn">학생 정보를 찾을 수 없습니다.</div>
+        <div class="muted">관리자: progress_detail.html?id=학생ID&admin=관리자토큰 / 학생: progress_detail.html?t=개별토큰</div>
+      `;
+      $("#content").innerHTML = `<div class="box"><div class="muted">올바른 링크로 접속해 주세요.</div></div>`;
+      return;
+    }
+
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
+    const name = pickName(student);
+
+    $("#hdr").textContent = `진도 상세 · ${name}${sid?` (${sid})`:``}`;
+    $("#meta").innerHTML = `
+      <div class="kv">
+        <div class="k">학교</div><div class="v">${esc(student.school||"-")}</div>
+        <div class="k">진로</div><div class="v">${esc(student.career||"-")}</div>
+        <div class="k">전형</div><div class="v">${esc(student.admission||"-")}</div>
+      </div>
+      <div class="muted" style="margin-top:8px;">학생마다 과목 구성이 달라도, 입력된 과목만 자동으로 보여줍니다.</div>
+    `;
+
+    // 2) 버튼
+    const studentHref = isAdmin
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./student.html?t=${encodeURIComponent(stok)}`;
+    const univHref = isAdmin
+      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
+
+    const btns = [];
+    btns.push(`<a class="btn ghost" href="${studentHref}">성적 보기</a>`);
+    btns.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
+    if(isAdmin){
+      btns.push(`<a class="btn ghost" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+    }
+    $("#btns").innerHTML = btns.join("");
+
+    // 3) progress.json 로드
+    const raw = await loadJson("./progress.json");
+    const all = normalizeProgress(raw);
+
+    const mine = all
+      .filter(x => norm(x?.id) === sid)
+      .map(x => ({
+        ...x,
+        id: sid,
+        subject: pickSubject(x),
+        date: pickDate(x),
+        title: pickTitle(x),
+        status: pickStatus(x),
+        note: pickNote(x),
+        homework: pickHomework(x),
+        next: pickNext(x),
+        link: pickLink(x),
+      }))
+      .filter(x => x.subject && (x.date || x.title)); // 최소 정보 필터
+
+    if(!mine.length){
+      $("#summaryBox").style.display = "none";
+      $("#tabs").style.display = "none";
+      $("#content").innerHTML = `
+        <div class="box hint">
+          <div class="h3">진도 데이터가 아직 없습니다</div>
+          <div class="muted">progress.json에 이 학생(id=${esc(sid)}) 기록을 넣으면, 과목별로 자동 정리됩니다.</div>
+        </div>
         <div class="box">
-          <h3>진도/상담 메모</h3>
-          <ul>${li}</ul>
+          <div class="h3">progress.json 권장 형식(예시)</div>
+          <pre style="white-space:pre-wrap;margin:8px 0 0;font-size:12px;line-height:1.55">[
+  {"id":"shstudy01","date":"2026-03-01","subject":"수학","title":"미분(기본)","status":"완료","note":"부호 실수 2회","homework":"유형 20문제","next":"오답 재풀이"},
+  {"id":"shstudy01","date":"2026-03-03","subject":"국어","title":"비문학 근거문장 찾기","status":"진행중","note":"문단 요약 훈련"}
+]</pre>
+          <div class="muted" style="margin-top:8px;">※ note/homework/next/link는 선택(있는 것만 표시).</div>
         </div>
       `;
-    })();
-  </script>
+      return;
+    }
+
+    // 4) 과목별 그룹
+    const subjects = subjectOrder(uniq(mine.map(x=>x.subject)));
+    grouped = new Map();
+    for(const s of subjects) grouped.set(s, []);
+    mine.forEach(x=>{
+      if(!grouped.has(x.subject)) grouped.set(x.subject, []);
+      grouped.get(x.subject).push(x);
+    });
+
+    // 5) 요약
+    const latestOverall = mine.slice().sort(sortByDateDesc)[0];
+    $("#summaryBox").style.display = "block";
+    $("#sumSubjects").innerHTML = `과목 <b>${subjects.length}</b>`;
+    $("#sumItems").innerHTML = `기록 <b>${mine.length}</b>`;
+    $("#sumLatest").innerHTML = `최신 <b>${esc(pickDate(latestOverall)||"-")}</b>`;
+
+    // 6) 탭 생성
+    const tabs = $("#tabs");
+    tabs.style.display = "flex";
+    tabs.innerHTML = subjects.map((s,i)=>(
+      `<button type="button" class="tab" data-subject="${esc(s)}" aria-selected="${i===0?'true':'false'}">${esc(s)}</button>`
+    )).join("");
+
+    tabs.querySelectorAll(".tab").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        renderSubject(btn.dataset.subject);
+      });
+    });
+
+    // 7) 첫 과목 렌더
+    renderSubject(subjects[0]);
+  }
+
+  main().catch(err=>{
+    $("#hdr").textContent = "오류";
+    $("#meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
+  });
+})();
+</script>
 </body>
 </html>
