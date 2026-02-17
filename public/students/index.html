@@ -4,173 +4,131 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 목록</title>
-  <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;background:#fff;color:#111}
-    .wrap{max-width:980px;margin:0 auto}
-    h1{margin:0 0 14px;font-size:28px}
-    .toprow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 18px}
-    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px;font-weight:700}
-    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
-    .muted{opacity:.7}
-    .warn{color:#b00020;font-weight:900}
 
-    .card{border:1px solid #ddd;border-radius:14px;padding:14px;margin:10px 0;background:#fff}
+  <!-- ✅ 관리자 전용 잠금: admin 파라미터가 없거나 틀리면 목록을 절대 렌더링하지 않음 -->
+  <script>
+  (() => {
+    const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+    const qs = new URLSearchParams(location.search);
+    const admin = (qs.get("admin") || "").trim();
+    if (admin !== ADMIN_TOKEN) {
+      document.documentElement.innerHTML = `
+        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>접근 불가</title>
+        <style>
+          body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
+          .card{border:1px solid #ddd;border-radius:14px;padding:16px;max-width:720px}
+          .warn{color:#b00020;font-weight:900}
+          .muted{opacity:.7;line-height:1.6}
+          code{background:#f6f6f6;border:1px solid #eee;padding:2px 6px;border-radius:8px}
+        </style></head>
+        <body>
+          <div class="card">
+            <div class="warn">접근 불가</div>
+            <p class="muted">
+              이 페이지는 <b>관리자 전용</b>입니다.<br/>
+              올바른 주소 예시: <code>index.html?admin=관리자토큰</code>
+            </p>
+          </div>
+        </body>`;
+      throw new Error("FORBIDDEN");
+    }
+  })();
+  </script>
+
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
+    h1{margin:0 0 14px}
+    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
+    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
     .name{font-weight:900;font-size:18px}
     .meta{opacity:.85;margin-top:6px;line-height:1.6}
-    .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    a.btn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px;color:#111;background:#fff;font-weight:900}
+    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    a.btn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px;color:#111}
     a.btn:hover{background:#fafafa}
-    button.btn{border:1px solid #111;padding:8px 10px;border-radius:10px;background:#fff;font-weight:900;cursor:pointer}
-    button.btn:hover{background:#fafafa}
-
-    .small{font-size:12px;opacity:.75;margin-top:8px;line-height:1.45}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px}
+    .muted{opacity:.7}
   </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>학생 목록</h1>
-  <div class="toprow">
-    <span id="modePill" class="pill">모드 확인중…</span>
-    <input id="q" class="search" placeholder="검색 (이름/학교/진로/전형/id)" />
-  </div>
-  <div id="list"></div>
-</div>
+  <h1>학생 목록 (관리자)</h1>
+  <input class="search" id="q" placeholder="검색: 이름 / 학교 / 진로 / 전형 / ID" />
+  <div id="list" class="muted" style="margin-top:12px;">로딩 중…</div>
 
 <script>
-(() => {
+(async () => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
-  const norm = (v)=>String(v??"").trim();
-
   const qs = new URLSearchParams(location.search);
-  const adminParam = qs.get("admin");
-  const adminSaved = localStorage.getItem(LS_KEY);
-  const admin = adminParam || adminSaved;
+  const admin = (qs.get("admin") || "").trim();
 
-  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
-  if(adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
-
-  const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  const norm = (v)=>String(v??"").trim().toLowerCase();
 
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
     return r.json();
   }
-
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.student_name ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
+  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickTokenRaw(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  // ✅ token 없으면 id를 임시 토큰으로 사용 (univ_list/student.html과 동일 규칙)
-  function effectiveToken(s){
-    const t = norm(pickTokenRaw(s));
-    if(!t || t.toLowerCase()==="null" || t.toLowerCase()==="undefined"){
-      return pickId(s);
-    }
-    return t;
-  }
+  const students = await loadJson("./students.json");
+  if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
-  function copyText(txt){
-    if(!txt) return;
-    navigator.clipboard?.writeText(txt).then(()=>alert("복사 완료")).catch(()=>alert("복사 실패(브라우저 권한 확인)"));
-  }
+  const q = document.getElementById("q");
+  const list = document.getElementById("list");
 
-  function render(students){
-    const q = norm($("#q").value).toLowerCase();
+  function render(){
+    const keyword = norm(q.value);
+    const filtered = !keyword ? students : students.filter(s => {
+      const blob = [
+        pickName(s), pickId(s),
+        s.school, s.career, s.admission
+      ].map(v=>norm(v)).join(" ");
+      return blob.includes(keyword);
+    });
 
-    let arr = students.slice();
-    if(q){
-      arr = arr.filter(s=>{
-        const hay = [
-          pickName(s),
-          pickId(s),
-          s.school, s.career, s.admission,
-          pickTokenRaw(s)
-        ].map(x=>String(x??"").toLowerCase()).join(" ");
-        return hay.includes(q);
-      });
+    if(!filtered.length){
+      list.innerHTML = '<div class="muted">검색 결과가 없습니다.</div>';
+      return;
     }
 
-    const baseUrl = location.origin + location.pathname.replace(/\/[^\/]*$/, "/");
-
-    $("#list").innerHTML = arr.map(s=>{
+    list.innerHTML = filtered.map(s=>{
       const name = pickName(s);
-      const sid  = pickId(s);
-      const tokRaw = pickTokenRaw(s);
-      const tokEff = effectiveToken(s);
+      const id = pickId(s);
+      const school = s.school || "-";
+      const career = s.career || "-";
+      const admission = s.admission || "-";
+      const sid = encodeURIComponent(id || "");
+      const adminQ = encodeURIComponent(admin);
 
-      const studentHref = isAdmin
-        ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-        : `./student.html?t=${encodeURIComponent(tokEff)}`;
-
-      const univHref = isAdmin
-        ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-        : `./univ_list.html?t=${encodeURIComponent(tokEff)}`;
-
-      // ✅ 학부모/학생 공유 링크(토큰 없으면 t=id 형태로도 작동)
-      const shareStudent = `${baseUrl}student.html?t=${encodeURIComponent(tokEff)}`;
-      const shareUniv    = `${baseUrl}univ_list.html?t=${encodeURIComponent(tokEff)}`;
-
-      const tokenStatus = norm(tokRaw) ? "token" : "id(임시)";
+      const hrefStudent = `./student.html?id=${sid}&admin=${adminQ}`;
+      const hrefUniv = `./univ_list.html?id=${sid}&admin=${adminQ}`;
+      const hrefProg = `./progress_detail.html?id=${sid}&admin=${adminQ}`;
 
       return `
         <div class="card">
-          <div class="name">${esc(name)} <span class="muted">(${esc(sid)})</span></div>
+          <div class="name">${esc(name)} ${id?`<span class="muted">(${esc(id)})</span>`:""}</div>
           <div class="meta">
-            학교: ${esc(s.school||"-")}<br>
-            진로: ${esc(s.career||"-")}<br>
-            전형: ${esc(s.admission||"-")}<br>
-            접근키: <b>${esc(tokenStatus)}</b>
+            학교: ${esc(school)}<br/>
+            진로: ${esc(career)}<br/>
+            전형: ${esc(admission)}
           </div>
-
-          <div class="btnrow">
-            <a class="btn" href="${studentHref}">학생 성적 보기</a>
-            <a class="btn" href="${univHref}">대학 상향/적정</a>
-            <button class="btn" type="button" data-copy="${esc(shareStudent)}">성적 링크 복사</button>
-            <button class="btn" type="button" data-copy="${esc(shareUniv)}">대학링크 복사</button>
-          </div>
-
-          <div class="small">
-            성적 링크: <code>${esc(shareStudent)}</code><br>
-            대학 링크: <code>${esc(shareUniv)}</code>
+          <div class="btns">
+            <a class="btn" href="${hrefStudent}">학생 성적</a>
+            <a class="btn" href="${hrefUniv}">대학 상향/적정</a>
+            <a class="btn" href="${hrefProg}">진도 상세</a>
           </div>
         </div>
       `;
-    }).join("") || `<div class="card"><div class="muted">검색 결과가 없습니다.</div></div>`;
-
-    // copy buttons
-    document.querySelectorAll("button[data-copy]").forEach(btn=>{
-      btn.onclick = ()=>copyText(btn.getAttribute("data-copy"));
-    });
+    }).join("\n");
   }
 
-  async function main(){
-    $("#modePill").textContent = isAdmin ? "관리자 모드" : "배부(학부모/학생) 모드";
-    if(!isAdmin){
-      $("#modePill").classList.add("warn");
-      $("#modePill").textContent = "관리자 토큰이 없습니다 (목록 접근은 관리자용 권장)";
-    }
-
-    const students = await loadJson("./students.json");
-    if(!Array.isArray(students)) throw new Error("students.json is not an array");
-
-    $("#q").addEventListener("input", ()=>render(students));
-    render(students);
-  }
-
-  main().catch(err=>{
-    $("#modePill").textContent = "오류";
-    $("#list").innerHTML = `
-      <div class="card">
-        <div class="warn">로딩 오류</div>
-        <div class="muted">${esc(err.message)}</div>
-      </div>
-    `;
-  });
-})();
+  q.addEventListener("input", render);
+  render();
+})().catch(err=>{
+  const list = document.getElementById('list');
+  list.innerHTML = `<div style="color:#b00020;font-weight:900">오류</div><div class="muted">${err.message}</div>`;
+});
 </script>
 </body>
 </html>
