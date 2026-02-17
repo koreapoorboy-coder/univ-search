@@ -7,111 +7,74 @@
   <style>
     html,body{width:100%;overflow-x:hidden}
     *{box-sizing:border-box}
-    body{
-      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
-      margin:14px;background:#fff;color:#111
-    }
-    .wrap{max-width:980px;margin:0 auto}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    .wrap{max-width:1100px;margin:0 auto}
+
     .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
-    .title{font-size:20px;font-weight:900;margin:0 0 8px}
-    .meta{opacity:.85;line-height:1.55}
+    .title{font-size:22px;font-weight:900;margin:0 0 10px}
+    .meta{opacity:.85;line-height:1.7}
+
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .btn{
-      display:inline-block;border:1px solid #111;border-radius:12px;
-      padding:10px 14px;text-decoration:none;color:#111;background:#fff;font-weight:900
-    }
-    .btn:hover{background:#fafafa}
+    .spacer{flex:1}
     .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
     .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
-    .spacer{flex:1}
 
-    /* ---- Subject Sections ---- */
-    .sec{border-top:1px solid #eee;margin-top:14px;padding-top:14px}
-    .sec:first-child{border-top:0;margin-top:0;padding-top:0}
-    .secHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .secTitle{font-weight:900;font-size:18px}
-    .secSub{opacity:.75;font-weight:800}
-    .grid2{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-    @media(min-width:860px){ .grid2{grid-template-columns:1fr 1fr;} }
-
-    .box{border:1px solid #eee;border-radius:14px;padding:12px;background:#fff}
-    .k{opacity:.65;font-weight:900}
-    .v{font-weight:800;line-height:1.55}
-    .kv{display:grid;grid-template-columns: 86px 1fr;gap:8px 10px}
-
-    .lvl{display:inline-flex;align-items:center;border-radius:999px;padding:6px 10px;font-weight:900;border:1px solid #ddd;background:#fff}
-    .lvl.low{border-color:#b00020;color:#b00020}
-    .lvl.mid{border-color:#b26a00;color:#b26a00}
-    .lvl.ok{border-color:#0b57d0;color:#0b57d0}
-
-    /* evidence */
-    .evi{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .evi a{font-weight:900}
-    .thumb{
-      width:76px;height:76px;border-radius:12px;border:1px solid #eee;
-      object-fit:cover;cursor:pointer;background:#fafafa
+    /* selector */
+    .selWrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    select{
+      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
+      width:min(360px, 100%);
     }
 
-    /* collapsible */
-    details{border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff}
-    summary{cursor:pointer;font-weight:900;list-style:none}
-    summary::-webkit-details-marker{display:none}
-    .tablebox{border:1px solid #eee;border-radius:14px;padding:10px;overflow:auto;margin-top:10px}
-    table{border-collapse:collapse;width:100%;min-width:760px}
-    th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;white-space:nowrap;vertical-align:top}
-    th{background:#fafafa;font-weight:900;position:sticky;top:0}
+    /* subject cards */
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+    .pbox{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
+    .ptop{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+    .ptitle{font-weight:900;font-size:16px;line-height:1.25}
+    .psub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
+    .tag{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;background:#fff;white-space:nowrap}
+    .tag.g{border-color:#0b57d0;color:#0b57d0}
+    .tag.m{border-color:#666;color:#333}
+    .tag.b{border-color:#b00020;color:#b00020}
 
-    /* Mobile: make it simple */
+    .kv{display:grid;grid-template-columns:86px 1fr;gap:8px;margin-top:10px;line-height:1.5}
+    .k{opacity:.7;font-weight:900}
+    .v{font-weight:800;white-space:pre-wrap}
+
     @media(max-width:860px){
-      table{min-width:0}
-      th,td{white-space:normal}
-      .kv{grid-template-columns: 78px 1fr}
-      .thumb{width:64px;height:64px}
-    }
-
-    /* modal */
-    #imgModal{
-      position:fixed;inset:0;background:rgba(0,0,0,.72);
-      display:none;align-items:center;justify-content:center;z-index:9999;padding:18px
-    }
-    #imgModal .inner{
-      max-width:min(920px, 100%);max-height:min(92vh, 100%);
-      background:#fff;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.25)
-    }
-    #imgModal img{display:block;max-width:100%;max-height:92vh}
-    #imgModal .bar{
-      display:flex;gap:10px;align-items:center;justify-content:space-between;
-      padding:10px 12px;border-bottom:1px solid #eee
-    }
-    #imgModal .bar b{font-size:14px}
-    #imgModal .x{
-      border:1px solid #111;border-radius:10px;padding:6px 10px;background:#fff;font-weight:900;cursor:pointer
+      body{margin:12px}
+      .title{font-size:20px}
+      .badge{padding:8px 10px}
+      .btn{padding:9px 12px}
+      .kv{grid-template-columns:74px 1fr}
     }
   </style>
 </head>
 <body>
 <div class="wrap">
-
   <div class="card">
     <div class="title" id="hdr">진도 · 상담 메모</div>
     <div class="meta" id="meta"></div>
+    <div class="row" id="modeRow"></div>
     <div class="row" id="navRow"></div>
   </div>
 
-  <div id="content"></div>
-</div>
-
-<!-- image modal -->
-<div id="imgModal" role="dialog" aria-modal="true">
-  <div class="inner">
-    <div class="bar">
-      <b id="imgTitle">증빙</b>
-      <button class="x" id="imgClose">닫기</button>
+  <div class="card" id="selectorCard" style="display:none;">
+    <div class="row" style="margin-top:0">
+      <span class="badge" id="scoreHint">선택한 회차의 상담/피드백만 표시됩니다.</span>
+      <div class="spacer"></div>
+      <div class="selWrap">
+        <span class="muted" style="font-weight:900">회차 선택</span>
+        <select id="roundSel"></select>
+      </div>
     </div>
-    <img id="imgView" alt="evidence" />
   </div>
+
+  <div id="content"></div>
 </div>
 
 <script>
@@ -144,49 +107,112 @@
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; return v==null?null:Number(v); }
-  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
+  // --- array-ish normalize (객체/래핑 모두 지원)
+  function normalizeArrayish(x){
+    if(Array.isArray(x)) return x.slice();
+    if(!x || typeof x!=="object") return [];
+    for(const k of ["records","rows","items","data","notes","progress","progressNotes"]){
+      if(Array.isArray(x[k])) return x[k].slice();
+    }
+    const out = [];
+    for(const [k,v] of Object.entries(x)){
+      if(Array.isArray(v)){
+        out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
+      }else if(v && typeof v==="object"){
+        out.push({...v, id:(v?.id ?? k)});
+      }
+    }
+    return out;
+  }
 
-  function roundLabel(x){
-    const r = pickRound(x);
-    const d = pickDate(x);
+  function toNum(v){
+    if(v==null || v==="") return null;
+    if(typeof v==="number") return Number.isFinite(v)?v:null;
+    const s=String(v).trim();
+    if(!s) return null;
+    const cleaned = s.replace(/[^0-9.+-]/g,"");
+    if(!cleaned) return null;
+    const n=Number(cleaned);
+    return Number.isFinite(n)?n:null;
+  }
+
+  // round/date pick
+  function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; const n = toNum(v); return n==null?null:Number(n); }
+  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? x?.["상담일"] ?? null; }
+
+  function labelRound(r, d){
     if(r!=null && d) return `#${r} (${d})`;
     if(r!=null) return `#${r}`;
     if(d) return String(d);
-    return "-";
+    return "기록";
   }
 
-  function levelClass(v){
-    const s = String(v||"").toLowerCase();
-    if(s.includes("부족") || s.includes("낮") || s.includes("하")) return "low";
-    if(s.includes("보통") || s.includes("중")) return "mid";
-    if(s.includes("양호") || s.includes("충분") || s.includes("상") || s.includes("좋")) return "ok";
-    return "mid";
+  function levelTag(level){
+    const s = String(level||"").trim();
+    if(!s) return {text:"-", cls:"tag m"};
+    const key = s.toLowerCase();
+    if(key.includes("양호") || key.includes("good") || key.includes("상")) return {text:s, cls:"tag g"};
+    if(key.includes("부족") || key.includes("bad") || key.includes("하")) return {text:s, cls:"tag b"};
+    return {text:s, cls:"tag m"};
   }
 
-  function isImageUrl(url){
-    const u = String(url||"").toLowerCase();
-    return /\.(png|jpg|jpeg|webp|gif)(\?|#|$)/.test(u);
-  }
+  // ----- render selected round -----
+  function renderRound(roundKey, byRound){
+    const list = byRound.get(roundKey) || [];
+    if(!list.length){
+      $("#content").innerHTML = `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`;
+      return;
+    }
 
-  function openImg(title, url){
-    $("#imgTitle").textContent = title || "증빙";
-    $("#imgView").src = url;
-    $("#imgModal").style.display = "flex";
-  }
+    // subject sort: 국어/수학/영어/탐1/탐2 우선, 그 외 가나다
+    const order = {"국어":1,"수학":2,"영어":3,"탐1":4,"탐2":5};
+    list.sort((a,b)=>{
+      const sa=String(a.subject||a["과목"]||"");
+      const sb=String(b.subject||b["과목"]||"");
+      const oa=order[sa] ?? 99;
+      const ob=order[sb] ?? 99;
+      if(oa!==ob) return oa-ob;
+      return sa.localeCompare(sb,"ko");
+    });
 
-  function closeImg(){
-    $("#imgModal").style.display = "none";
-    $("#imgView").src = "";
-  }
+    const cards = list.map(n=>{
+      const subject = n.subject ?? n["과목"] ?? "-";
+      const unit = n.unit ?? n["단원"] ?? n["파트"] ?? "";
+      const lvl = n.level ?? n["수준"] ?? n["상태"] ?? "";
+      const tag = levelTag(lvl);
 
-  $("#imgClose").addEventListener("click", closeImg);
-  $("#imgModal").addEventListener("click", (e)=>{
-    if(e.target === $("#imgModal")) closeImg();
-  });
+      const rows = [];
+      const good = n.good ?? n["잘한점"] ?? "";
+      const bad  = n.bad  ?? n["아쉬운점"] ?? "";
+      const fix  = n.fix  ?? n["피드백"] ?? n["보완"] ?? "";
+      const memo = n.memo ?? n["상담메모"] ?? n["메모"] ?? "";
+
+      if(good) rows.push(`<div class="k">강점</div><div class="v">${esc(good)}</div>`);
+      if(bad)  rows.push(`<div class="k">약점</div><div class="v">${esc(bad)}</div>`);
+      if(fix)  rows.push(`<div class="k">피드백</div><div class="v">${esc(fix)}</div>`);
+      if(memo) rows.push(`<div class="k">상담 메모</div><div class="v">${esc(memo)}</div>`);
+
+      const kv = rows.length ? `<div class="kv">${rows.join("")}</div>` : `<div class="muted" style="margin-top:10px">내용 없음</div>`;
+
+      return `
+        <div class="pbox">
+          <div class="ptop">
+            <div style="min-width:0">
+              <div class="ptitle">${esc(subject)}</div>
+              <div class="psub">${unit ? `단원: ${esc(unit)}` : ``}</div>
+            </div>
+            <span class="${tag.cls}">${esc(tag.text)}</span>
+          </div>
+          ${kv}
+        </div>
+      `;
+    }).join("");
+
+    $("#content").innerHTML = `<div class="grid">${cards}</div>`;
+  }
 
   async function main(){
-    // 1) 학생 찾기
+    // 1) 학생 확인
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -217,175 +243,82 @@
       전형: ${esc(student.admission||"-")}
     `;
 
-    // nav
-    const nav = [];
+    $("#modeRow").innerHTML = isAdmin
+      ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
+      : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
+
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
+
     const univHref = isAdmin
       ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
+    const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 성적 보기</a>`);
     nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
-    if(isAdmin) nav.push(`<span class="spacer"></span><span class="pill">관리자 모드</span>`);
+    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
-    // 2) 진도/메모 로딩
-    const raw = await loadJson("./progress_notes.json");
-    const notes = Array.isArray(raw) ? raw : (raw?.records || raw?.rows || raw?.items || raw?.data || []);
-    if(!Array.isArray(notes)) throw new Error("progress_notes.json is not an array");
+    // 2) 진도/상담 데이터
+    const rawNotes = await loadJson("./progress_notes.json");
+    const notes = normalizeArrayish(rawNotes).filter(r => norm(pickId(r)) === sid);
 
-    const mine = notes.filter(x => norm(x?.id) === sid);
-    if(!mine.length){
+    if(!notes.length){
+      $("#selectorCard").style.display = "none";
       $("#content").innerHTML = `
         <div class="card">
-          <div class="warn">진도/상담 기록이 없습니다.</div>
-          <div class="muted">progress_notes.json에 id=${esc(sid)} 기록을 추가하세요.</div>
+          <div class="warn">진도/상담 데이터 없음</div>
+          <div class="muted">progress_notes.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
         </div>
       `;
       return;
     }
 
-    // 과목별 그룹
-    const bySub = new Map();
-    mine.forEach(x=>{
-      const sub = String(x.subject || x["과목"] || "-");
-      if(!bySub.has(sub)) bySub.set(sub, []);
-      bySub.get(sub).push(x);
+    // 3) round/date 기준으로 묶기
+    const byRound = new Map();
+    notes.forEach(n=>{
+      const r = pickRound(n);
+      const d = pickDate(n);
+      const key = `${r==null?"_":r}|${d||""}`;
+      if(!byRound.has(key)) byRound.set(key, []);
+      byRound.get(key).push(n);
     });
 
-    // 정렬: 국어/수학/영어/탐1/탐2 우선
-    const order = ["국어","수학","영어","탐1","탐2","탐구1","탐구2"];
-    const entries = [...bySub.entries()];
-    entries.sort((a,b)=>{
-      const ai = order.indexOf(a[0]); const bi = order.indexOf(b[0]);
-      const av = ai===-1 ? 999 : ai;
-      const bv = bi===-1 ? 999 : bi;
-      if(av!==bv) return av-bv;
-      return String(a[0]).localeCompare(String(b[0]), "ko");
+    // 정렬된 round list
+    const roundKeys = [...byRound.keys()].sort((a,b)=>{
+      const [ra,da] = a.split("|");
+      const [rb,db] = b.split("|");
+      const na = (ra==="_") ? -1 : Number(ra);
+      const nb = (rb==="_") ? -1 : Number(rb);
+      if(na!==nb) return na-nb;
+      return String(da||"").localeCompare(String(db||""));
     });
 
-    const makeSection = (sub, list) => {
-      list = list.slice().sort((a,b)=>{
-        const ra = pickRound(a), rb = pickRound(b);
-        if(ra!=null && rb!=null) return rb-ra;
-        const da = pickDate(a), db = pickDate(b);
-        if(da && db) return String(db).localeCompare(String(da));
-        return 0;
-      });
+    // latest = last
+    const latestKey = roundKeys[roundKeys.length-1];
 
-      const latest = list[0];
-      const older = list.slice(1);
+    // selector
+    const sel = $("#roundSel");
+    sel.innerHTML = "";
+    roundKeys.forEach(k=>{
+      const [r,d] = k.split("|");
+      const rr = (r==="_") ? null : Number(r);
+      const label = labelRound(rr, d||null);
+      const o=document.createElement("option");
+      o.value=k; o.textContent=label;
+      sel.appendChild(o);
+    });
+    sel.value = latestKey;
 
-      const lvlText = String(latest.level ?? latest["수준"] ?? "-");
-      const unit = String(latest.unit ?? latest["단원"] ?? "-");
-      const memo = String(latest.memo ?? latest["상담메모"] ?? latest["피드백"] ?? latest["메모"] ?? "").trim();
+    $("#selectorCard").style.display = "block";
 
-      const evid = Array.isArray(latest.evidence) ? latest.evidence : (latest.evidence ? [latest.evidence] : []);
-      const eviHtml = evid.map((e,idx)=>{
-        const title = e?.title ?? e?.name ?? e?.label ?? `증빙 ${idx+1}`;
-        const url = e?.url ?? e?.link ?? e?.href;
-        if(!url) return "";
-        const thumb = e?.thumb || e?.thumbnail || (isImageUrl(url) ? url : null);
+    // render
+    renderRound(latestKey, byRound);
 
-        const a = `<a class="btn" target="_blank" rel="noopener" href="${esc(url)}">증빙: ${esc(title)}</a>`;
-        const img = thumb ? `<img class="thumb" src="${esc(thumb)}" alt="thumb" data-title="${esc(title)}" data-url="${esc(url)}" />` : "";
-        return `<div class="evi">${a}${img}</div>`;
-      }).join("");
-
-      const latestBox = `
-        <div class="box">
-          <div class="row" style="margin-top:0">
-            <span class="badge">${esc(roundLabel(latest))}</span>
-            <span class="lvl ${levelClass(lvlText)}">${esc(lvlText)}</span>
-            <span class="badge">단원: ${esc(unit)}</span>
-          </div>
-
-          <div class="grid2">
-            <div class="box" style="margin:0">
-              <div class="kv">
-                <div class="k">강점</div><div class="v">${esc(latest.good ?? latest["잘한점"] ?? "-")}</div>
-                <div class="k">취약</div><div class="v">${esc(latest.bad ?? latest["문제"] ?? "-")}</div>
-                <div class="k">교정</div><div class="v">${esc(latest.fix ?? latest["개선"] ?? "-")}</div>
-              </div>
-            </div>
-            <div class="box" style="margin:0">
-              <div class="k" style="margin-bottom:6px">상담/피드백 메모</div>
-              <div class="v">${memo ? esc(memo) : `<span class="muted">메모 없음</span>`}</div>
-            </div>
-          </div>
-
-          ${eviHtml ? `<div style="margin-top:10px">${eviHtml}</div>` : ``}
-        </div>
-      `;
-
-      const olderRows = older.map(x=>{
-        const lvl = String(x.level ?? x["수준"] ?? "-");
-        const u = String(x.unit ?? x["단원"] ?? "-");
-        const g = String(x.good ?? x["잘한점"] ?? "-");
-        const b = String(x.bad ?? x["문제"] ?? "-");
-        const f = String(x.fix ?? x["개선"] ?? "-");
-        const m = String(x.memo ?? x["상담메모"] ?? x["피드백"] ?? x["메모"] ?? "-");
-        return `
-          <tr>
-            <td>${esc(roundLabel(x))}</td>
-            <td>${esc(u)}</td>
-            <td>${esc(lvl)}</td>
-            <td>${esc(g)}</td>
-            <td>${esc(b)}</td>
-            <td>${esc(f)}</td>
-            <td>${esc(m)}</td>
-          </tr>
-        `;
-      }).join("");
-
-      const olderBox = older.length ? `
-        <details style="margin-top:12px">
-          <summary>이전 기록 보기 (${older.length}개)</summary>
-          <div class="tablebox">
-            <table>
-              <thead>
-                <tr>
-                  <th>회차/날짜</th>
-                  <th>단원</th>
-                  <th>수준</th>
-                  <th>강점</th>
-                  <th>취약</th>
-                  <th>교정</th>
-                  <th>메모</th>
-                </tr>
-              </thead>
-              <tbody>${olderRows}</tbody>
-            </table>
-          </div>
-        </details>
-      ` : ``;
-
-      return `
-        <div class="card sec">
-          <div class="secHead">
-            <div class="secTitle">${esc(sub)}</div>
-            <div class="secSub">최신 1건만 기본 노출 · 이전은 접기</div>
-          </div>
-          ${latestBox}
-          ${olderBox}
-        </div>
-      `;
-    };
-
-    let html = "";
-    for(const [sub, list] of entries){
-      html += makeSection(sub, list);
-    }
-
-    $("#content").innerHTML = html || `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`;
-
-    // thumbnails click -> modal
-    document.querySelectorAll("img.thumb").forEach(img=>{
-      img.addEventListener("click", ()=>{
-        openImg(img.dataset.title || "증빙", img.dataset.url || img.src);
-      });
+    sel.addEventListener("change", ()=>{
+      renderRound(sel.value, byRound);
     });
   }
 
