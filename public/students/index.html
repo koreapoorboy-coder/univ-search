@@ -3,132 +3,216 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>학생 목록</title>
-
-  <!-- ✅ 관리자 전용 잠금: admin 파라미터가 없거나 틀리면 목록을 절대 렌더링하지 않음 -->
-  <script>
-  (() => {
-    const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-    const qs = new URLSearchParams(location.search);
-    const admin = (qs.get("admin") || "").trim();
-    if (admin !== ADMIN_TOKEN) {
-      document.documentElement.innerHTML = `
-        <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>접근 불가</title>
-        <style>
-          body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
-          .card{border:1px solid #ddd;border-radius:14px;padding:16px;max-width:720px}
-          .warn{color:#b00020;font-weight:900}
-          .muted{opacity:.7;line-height:1.6}
-          code{background:#f6f6f6;border:1px solid #eee;padding:2px 6px;border-radius:8px}
-        </style></head>
-        <body>
-          <div class="card">
-            <div class="warn">접근 불가</div>
-            <p class="muted">
-              이 페이지는 <b>관리자 전용</b>입니다.<br/>
-              올바른 주소 예시: <code>index.html?admin=관리자토큰</code>
-            </p>
-          </div>
-        </body>`;
-      throw new Error("FORBIDDEN");
-    }
-  })();
-  </script>
-
+  <title>학생 목록(관리자)</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;background:#fff;color:#111}
+    .wrap{max-width:980px;margin:0 auto}
     h1{margin:0 0 14px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
     .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
-    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;max-width:720px}
+    .card{border:1px solid #ddd;border-radius:14px;padding:14px;margin:10px 0;background:#fff}
     .name{font-weight:900;font-size:18px}
     .meta{opacity:.85;margin-top:6px;line-height:1.6}
-    .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    a.btn{display:inline-block;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px;color:#111}
-    a.btn:hover{background:#fafafa}
+
+    .btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px;color:#111;background:#fff}
+    .btn:hover{background:#fafafa}
+    .btn:active{transform:translateY(1px)}
+    .btn + .btn{margin-left:8px}
+
+    .pill{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;background:#fff}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+
+    .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
+
+    /* 작은 토스트 */
+    #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+      background:#111;color:#fff;padding:10px 12px;border-radius:999px;
+      font-weight:900;opacity:0;pointer-events:none;transition:opacity .18s ease}
+    #toast.show{opacity:1}
+
+    @media(max-width:560px){
+      body{margin:16px}
+      .btn{display:inline-flex;justify-content:center;gap:6px}
+      .btn + .btn{margin-left:6px}
+    }
   </style>
 </head>
 <body>
-  <h1>학생 목록 (관리자)</h1>
-  <input class="search" id="q" placeholder="검색: 이름 / 학교 / 진로 / 전형 / ID" />
-  <div id="list" class="muted" style="margin-top:12px;">로딩 중…</div>
+<div class="wrap">
+  <div class="row" style="justify-content:space-between;align-items:flex-end">
+    <div>
+      <h1>학생 목록</h1>
+      <div class="muted">※ 이 화면은 <b>관리자 토큰</b>이 있어야 열립니다. 학생/학부모에게는 <b>토큰 링크</b>(t=...)만 보내세요.</div>
+    </div>
+    <div class="row">
+      <span class="pill">관리자 모드</span>
+    </div>
+  </div>
+
+  <input id="q" class="search" placeholder="이름/학교/진로/전형/ID 검색" />
+
+  <div id="list"></div>
+</div>
+
+<div id="toast">복사됨</div>
 
 <script>
-(async () => {
+(() => {
+  // ✅ 모든 페이지( index / student / univ_list / progress )에서 같은 값으로 맞춰주세요.
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  const LS_KEY = "__ADMIN_TOKEN__";
+
   const qs = new URLSearchParams(location.search);
-  const admin = (qs.get("admin") || "").trim();
+  const adminParam = (qs.get('admin') || '').trim();
+  const adminSaved = (localStorage.getItem(LS_KEY) || '').trim();
+  const admin = adminParam || adminSaved;
 
-  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-  const norm = (v)=>String(v??"").trim().toLowerCase();
+  const isAdmin = (admin === ADMIN_TOKEN);
+  if(adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
 
-  async function loadJson(path){
-    const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
-    return r.json();
-  }
+  const $ = (s)=>document.querySelector(s);
+  const esc = (s)=>String(s??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+
   function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
+  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  const students = await loadJson("./students.json");
-  if(!Array.isArray(students)) throw new Error("students.json is not an array");
+  async function loadJson(path){
+    const r = await fetch(path, { cache:'no-store' });
+    if(!r.ok) throw new Error(path + ' load failed (' + r.status + ')');
+    return r.json();
+  }
 
-  const q = document.getElementById("q");
-  const list = document.getElementById("list");
+  function toast(msg){
+    const t = $('#toast');
+    t.textContent = msg || '복사됨';
+    t.classList.add('show');
+    clearTimeout(toast._tm);
+    toast._tm = setTimeout(()=>t.classList.remove('show'), 1200);
+  }
 
-  function render(){
-    const keyword = norm(q.value);
-    const filtered = !keyword ? students : students.filter(s => {
-      const blob = [
-        pickName(s), pickId(s),
-        s.school, s.career, s.admission
-      ].map(v=>norm(v)).join(" ");
-      return blob.includes(keyword);
-    });
+  async function copyText(text){
+    try{
+      await navigator.clipboard.writeText(text);
+      toast('링크 복사됨');
+    }catch(e){
+      // iOS/구형 브라우저 fallback
+      window.prompt('아래 링크를 복사하세요', text);
+    }
+  }
 
-    if(!filtered.length){
-      list.innerHTML = '<div class="muted">검색 결과가 없습니다.</div>';
+  function baseUrl(){
+    // 현재 폴더 기준 URL
+    return new URL('.', location.href).toString();
+  }
+
+  async function main(){
+    if(!isAdmin){
+      document.body.innerHTML = `
+        <div class="wrap">
+          <h1>접근 불가</h1>
+          <div class="warn">관리자 토큰이 없습니다.</div>
+          <div class="muted" style="margin-top:8px">접속: index.html?admin=관리자토큰</div>
+        </div>
+      `;
       return;
     }
 
-    list.innerHTML = filtered.map(s=>{
-      const name = pickName(s);
-      const id = pickId(s);
-      const school = s.school || "-";
-      const career = s.career || "-";
-      const admission = s.admission || "-";
-      const sid = encodeURIComponent(id || "");
-      const adminQ = encodeURIComponent(admin);
+    const students = await loadJson('./students.json');
+    if(!Array.isArray(students)) throw new Error('students.json is not an array');
 
-      const hrefStudent = `./student.html?id=${sid}&admin=${adminQ}`;
-      const hrefUniv = `./univ_list.html?id=${sid}&admin=${adminQ}`;
-      const hrefProg = `./progress_detail.html?id=${sid}&admin=${adminQ}`;
+    const listEl = $('#list');
+    const qEl = $('#q');
 
-      return `
-        <div class="card">
-          <div class="name">${esc(name)} ${id?`<span class="muted">(${esc(id)})</span>`:""}</div>
-          <div class="meta">
-            학교: ${esc(school)}<br/>
-            진로: ${esc(career)}<br/>
-            전형: ${esc(admission)}
+    function render(){
+      const q = (qEl.value || '').trim().toLowerCase();
+      const arr = students
+        .map(s => ({
+          s,
+          name: String(pickName(s) || ''),
+          id: String(pickId(s) || ''),
+          token: String(pickToken(s) || ''),
+          school: String(s.school || ''),
+          career: String(s.career || ''),
+          admission: String(s.admission || ''),
+        }))
+        .filter(x => {
+          if(!q) return true;
+          return (
+            x.name.toLowerCase().includes(q) ||
+            x.id.toLowerCase().includes(q) ||
+            x.token.toLowerCase().includes(q) ||
+            x.school.toLowerCase().includes(q) ||
+            x.career.toLowerCase().includes(q) ||
+            x.admission.toLowerCase().includes(q)
+          );
+        });
+
+      if(!arr.length){
+        listEl.innerHTML = `<div class="card"><div class="muted">검색 결과가 없습니다.</div></div>`;
+        return;
+      }
+
+      const base = baseUrl();
+
+      listEl.innerHTML = arr.map(x => {
+        const sid = x.id;
+        const tok = x.token || '';
+
+        const adminStudent = `${base}student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
+        const adminUniv    = `${base}univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
+
+        const tokenStudent = tok ? `${base}student.html?t=${encodeURIComponent(tok)}` : '';
+        const tokenUniv    = tok ? `${base}univ_list.html?t=${encodeURIComponent(tok)}` : '';
+        const tokenProg    = tok ? `${base}progress_detail.html?t=${encodeURIComponent(tok)}` : '';
+
+        const tokenLine = tok
+          ? `<div class="meta"><span class="pill">토큰</span> <span class="mono">${esc(tok)}</span></div>`
+          : `<div class="meta"><span class="warn">토큰 없음</span> <span class="muted">(students.json에 token 입력 필요)</span></div>`;
+
+        const tokenBtns = tok ? `
+          <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
+          <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
+          <button class="btn" type="button" data-copy="${esc(tokenStudent)}">학생 링크 복사</button>
+          <button class="btn" type="button" data-copy="${esc(tokenUniv)}">상향/적정 링크 복사</button>
+          <button class="btn" type="button" data-copy="${esc(tokenProg)}">진도 링크 복사</button>
+        ` : `
+          <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
+          <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
+        `;
+
+        return `
+          <div class="card">
+            <div class="name">${esc(x.name)} <span class="muted">(${esc(sid)})</span></div>
+            <div class="meta">
+              학교: ${esc(x.school || '-') }<br>
+              진로: ${esc(x.career || '-') }<br>
+              전형: ${esc(x.admission || '-') }
+            </div>
+            ${tokenLine}
+            <div class="row" style="margin-top:12px">
+              ${tokenBtns}
+            </div>
           </div>
-          <div class="btns">
-            <a class="btn" href="${hrefStudent}">학생 성적</a>
-            <a class="btn" href="${hrefUniv}">대학 상향/적정</a>
-            <a class="btn" href="${hrefProg}">진도 상세</a>
-          </div>
-        </div>
-      `;
-    }).join("\n");
+        `;
+      }).join('');
+
+      // bind copy buttons
+      listEl.querySelectorAll('button[data-copy]').forEach(btn => {
+        btn.addEventListener('click', () => copyText(btn.getAttribute('data-copy')));
+      });
+    }
+
+    qEl.addEventListener('input', render);
+    render();
   }
 
-  q.addEventListener("input", render);
-  render();
-})().catch(err=>{
-  const list = document.getElementById('list');
-  list.innerHTML = `<div style="color:#b00020;font-weight:900">오류</div><div class="muted">${err.message}</div>`;
-});
+  main().catch(err => {
+    document.body.innerHTML = `<div class="wrap"><h1>오류</h1><div class="warn">${esc(err.message)}</div></div>`;
+  });
+})();
 </script>
 </body>
 </html>
