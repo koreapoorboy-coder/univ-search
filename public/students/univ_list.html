@@ -20,6 +20,21 @@
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
+
+    /* ✅ 최신 성적(모바일 가독성) */
+    .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .scoreHead .h{font-size:16px;font-weight:900}
+    .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
+    .scoreGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+    .scoreItem{border:1px solid #eee;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;min-width:0;background:#fff}
+    .scoreItem .k{font-weight:900}
+    .scoreItem .v{font-weight:900;white-space:nowrap}
+    .scoreItem .v .p{opacity:.7;font-weight:900;margin-left:6px}
+    @media(min-width: 860px){
+      .scoreGrid{grid-template-columns:repeat(5,minmax(0,1fr));}
+    }
+
+
     #stickyBar{margin-top:12px}
     .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     input{
@@ -218,13 +233,17 @@
       },
       "탐1": {
         raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
-             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
+             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점",
+             "탐구1_raw",
+             "tam1_raw"],
         pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
              "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
       },
       "탐2": {
         raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
-             "사문","사문점","사문점수","사회","사회점수","사회점"],
+             "사문","사문점","사문점수","사회","사회점수","사회점",
+             "탐구2_raw",
+             "tam2_raw"],
         pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
              "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
       },
@@ -380,9 +399,11 @@
 
   let activeTab = "fit";
   let tabsEl;
+  let fallbackOnce = false;
 
   function setActiveTab(key){
     activeTab = key;
+    fallbackOnce = false;
     tabsEl.querySelectorAll(".tab").forEach(btn=>{
       btn.setAttribute("aria-selected", btn.dataset.key===key ? "true" : "false");
     });
@@ -425,8 +446,15 @@
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
+
+    // ✅ 진도(포트폴리오) 화면으로 이동
+    const progHref = isAdmin
+      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 성적으로</a>`);
+    nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
     if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
@@ -522,6 +550,14 @@
         arr = groupLimitTop5(arr);
       }
 
+      // ✅ 결과가 없으면 자동으로 '전체'로 전환 (데이터 확인을 쉽게)
+      if(!q && arr.length===0 && activeTab!=="all" && !fallbackOnce){
+        fallbackOnce = true;
+        setActiveTab("all");
+        render();
+        return;
+      }
+
       if(activeTab==="all"){
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
@@ -539,17 +575,23 @@
         });
       }
 
-      const scorePair = (k)=>{
-        const r = stuRaw[k];
-        const p = stuPct[k];
-        return `${k}:${r==null?'-':r}점/${p==null?'-':p}p`;
-      };
-
-      const scoreBadge = `
-        <span class="badge">최신 성적: ${esc(roundLabel(latest))} ·
-          ${esc(scorePair("국어"))} · ${esc(scorePair("수학"))} · ${esc(scorePair("영어"))} ·
-          ${esc(scorePair("탐1"))} · ${esc(scorePair("탐2"))}
-        </span>
+      const scorePanel = `
+        <div class="scoreHead">
+          <div class="h">최신 성적</div>
+          <div class="r">${esc(roundLabel(latest))}</div>
+        </div>
+        <div class="scoreGrid">
+          ${SUBS.map(k=>{
+            const r = stuRaw[k];
+            const p = stuPct[k];
+            const rTxt = (r==null?'-':r) + '점';
+            const pTxt = (p==null?'-':p) + 'p';
+            return `<div class="scoreItem">
+              <div class="k">${esc(k)}</div>
+              <div class="v">${esc(rTxt)}<span class="p">${esc(pTxt)}</span></div>
+            </div>`;
+          }).join("")}
+        </div>
       `;
 
       const rowsHtml = arr.map(u=>{
@@ -595,7 +637,7 @@
 
       $("#content").innerHTML = `
         <div class="card">
-          <div class="row">${scoreBadge}</div>
+          ${scorePanel}
         </div>
 
         <div class="mobile-list">
