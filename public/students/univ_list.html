@@ -127,20 +127,16 @@
 <script>
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
   const adminParam = qs.get("admin");
-  const adminSaved = localStorage.getItem(LS_KEY);
-  const admin = adminParam || adminSaved;
-
   const idParam = qs.get("id");
   const tParam = qs.get("t") || qs.get("token");
 
-  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
-  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
-
+  // ✅ 보안: 관리자 토큰을 localStorage에 저장/복원하지 않습니다.
+  // (한 번이라도 관리자 링크를 열었던 기기에서는 이후 학생 링크도 관리자 모드로 보이는 문제가 발생)
+  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
 
