@@ -3,31 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>진도 상세</title>
+  <title>진도 · 상담 · 피드백</title>
   <style>
-    :root{
-      --bd:#e7e7e7;
-      --bd2:#f0f0f0;
-      --txt:#111;
-      --mut:#666;
-      --bg:#fff;
-      --chip:#fafafa;
-    }
+    :root{--bd:#e7e7e7;--bd2:#f0f0f0;--txt:#111;--mut:#666;--bg:#fff;--chip:#fafafa}
     *{box-sizing:border-box}
     body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:var(--bg);color:var(--txt)}
     .wrap{max-width:980px;margin:0 auto;padding:16px}
     .card{border:1px solid var(--bd);border-radius:18px;padding:14px;background:#fff}
     .title{font-size:20px;font-weight:1000;line-height:1.25;margin:0}
-    .meta{margin-top:8px;line-height:1.7;color:var(--txt);opacity:.9}
+    .meta{margin-top:8px;line-height:1.7;opacity:.92}
     .muted{color:var(--mut);font-size:12px}
+    .warn{color:#b00020;font-weight:1000}
     .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      text-decoration:none;border:1px solid #111;
-      padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap;background:#fff;color:#111;
-    }
+    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #111;padding:10px 12px;border-radius:12px;font-weight:900;background:#fff;color:#111}
     .btn.ghost{border-color:#ddd}
     .btn:hover{background:#fafafa}
+
+    .kv{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;margin-top:8px}
+    .k{color:var(--mut);font-weight:900}
+    .v{font-weight:900}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .tab{border:1px solid #111;border-radius:999px;padding:10px 12px;background:#fff;cursor:pointer;font-weight:1000}
+    .tab[aria-selected="true"]{background:#111;color:#fff}
+    @media(max-width:860px){.tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}.tabs::-webkit-scrollbar{display:none}}
+
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .fbtn{border:1px solid var(--bd);border-radius:999px;padding:9px 12px;background:#fff;cursor:pointer;font-weight:1000}
+    .fbtn[aria-selected="true"]{border-color:#111;background:#111;color:#fff}
 
     .section{margin-top:12px}
     .grid{display:grid;grid-template-columns:1fr;gap:10px}
@@ -35,79 +38,40 @@
     .box.hint{background:#fafafa}
     .h3{margin:0 0 6px;font-size:14px;font-weight:1000}
     .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid var(--bd);border-radius:999px;
-      padding:8px 12px;font-weight:1000;background:#fff;
-    }
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;
-      border:1px solid var(--bd);border-radius:12px;
-      padding:8px 10px;font-weight:900;background:var(--chip);
-    }
-    .kv{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;margin-top:8px}
-    .k{color:var(--mut);font-weight:1000}
-    .v{font-weight:900}
 
-    /* subject tabs */
-    .tabs{
-      display:flex;gap:8px;flex-wrap:wrap;margin-top:12px
-    }
-    .tab{
-      border:1px solid #111;border-radius:999px;
-      padding:10px 12px;background:#fff;cursor:pointer;font-weight:1000;
-    }
-    .tab[aria-selected="true"]{background:#111;color:#fff}
-    @media(max-width:860px){
-      .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
-      .tabs::-webkit-scrollbar{display:none}
-    }
-
-    /* latest card */
-    .latest{
-      border:1px solid var(--bd);border-radius:16px;padding:14px;background:#fff
-    }
-    .latestTop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
-    .latestTitle{font-size:16px;font-weight:1000;line-height:1.25}
-    .badge{
-      border:1px solid var(--bd);border-radius:999px;
-      padding:8px 10px;font-weight:1000;background:#fff;white-space:nowrap
-    }
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);border-radius:999px;padding:8px 12px;font-weight:1000;background:#fff}
+    .badge{border:1px solid var(--bd);border-radius:999px;padding:8px 10px;font-weight:1000;background:#fff;white-space:nowrap}
     .badge.ok{border-color:#0b57d0}
     .badge.ng{border-color:#b26a00}
     .badge.na{opacity:.75}
+
+    .latest{border:1px solid var(--bd);border-radius:16px;padding:14px;background:#fff}
+    .latestTop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+    .latestTitle{font-size:16px;font-weight:1000;line-height:1.25}
+    .small{font-size:12px;color:var(--mut)}
     .divider{height:1px;background:var(--bd2);margin:10px 0}
+
     .lines{display:grid;gap:8px}
     .line{padding:10px;border:1px solid var(--bd2);border-radius:14px;background:#fafafa}
-    .line b{font-weight:1000}
-    .line .muted{display:block;margin-top:4px}
+    .line b{font-weight:1000;display:block;margin-bottom:4px}
 
-    /* list/table */
-    table{border-collapse:collapse;width:100%}
-    th,td{border-bottom:1px solid var(--bd2);padding:10px;text-align:left;font-size:14px;vertical-align:top}
-    th{background:#fafafa;font-weight:1000}
-    .nowrap{white-space:nowrap}
-    .right{text-align:right}
-    .small{font-size:12px;color:var(--mut)}
     details{border:1px solid var(--bd2);border-radius:16px;padding:10px;background:#fff}
     summary{cursor:pointer;font-weight:1000;list-style:none}
     summary::-webkit-details-marker{display:none}
     .sumrow{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .sumrow span{font-weight:1000}
-    .sumrow .small{font-weight:900}
 
-    .warn{color:#b00020;font-weight:1000}
+    table{border-collapse:collapse;width:100%}
+    th,td{border-bottom:1px solid var(--bd2);padding:10px;text-align:left;font-size:14px;vertical-align:top}
+    th{background:#fafafa;font-weight:1000}
+    .nowrap{white-space:nowrap}
   </style>
 </head>
 
 <body>
 <div class="wrap">
-
-  <!-- Header -->
   <div class="card">
-    <h1 class="title" id="hdr">진도 상세</h1>
+    <h1 class="title" id="hdr">진도 · 상담 · 피드백</h1>
     <div class="meta" id="meta"></div>
-
     <div class="btns" id="btns"></div>
 
     <div class="section" id="summaryBox" style="display:none;">
@@ -119,9 +83,9 @@
     </div>
 
     <div class="tabs" id="tabs" style="display:none;"></div>
+    <div class="filters" id="filters" style="display:none;"></div>
   </div>
 
-  <!-- Content -->
   <div class="section grid" id="content"></div>
 </div>
 
@@ -132,6 +96,7 @@
 
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
   const norm = (v)=>String(v??"").trim();
+  const $ = (s)=>document.querySelector(s);
 
   const qs = new URLSearchParams(location.search);
   const adminParam = qs.get("admin");
@@ -144,8 +109,6 @@
   const idParam = qs.get("id");
   const tParam = qs.get("t") || qs.get("token");
 
-  const $ = (s)=>document.querySelector(s);
-
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) return null;
@@ -156,17 +119,12 @@
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["토큰"] ?? null; }
   function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["이름"] ?? s["학생명"] ?? s.id ?? "-"; }
 
-  // --- progress normalize (배열/객체 모두) ---
   function normalizeProgress(x){
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
-
-    // 흔한 래핑 키
     for(const k of ["records","rows","items","data","progress"]){
       if(Array.isArray(x[k])) return x[k].slice();
     }
-
-    // ID별: { shstudy01:[...], shstudy02:[...] }
     const out = [];
     for(const [k,v] of Object.entries(x)){
       if(Array.isArray(v)){
@@ -174,57 +132,50 @@
         continue;
       }
       if(v && typeof v==="object"){
-        // ID별 + 과목별: { shstudy01: { 수학:[...], 국어:[...] } }
-        const maybeSubjects = v;
-        const subjectKeys = Object.keys(maybeSubjects);
-        let expanded = false;
-
-        for(const sk of subjectKeys){
-          const sv = maybeSubjects[sk];
-          if(Array.isArray(sv)){
-            expanded = true;
-            out.push(...sv.map(r=>({ ...r, id:(r?.id ?? k), subject:(r?.subject ?? r?.과목 ?? sk) })));
+        let expanded=false;
+        for(const sk of Object.keys(v)){
+          if(Array.isArray(v[sk])){
+            expanded=true;
+            out.push(...v[sk].map(r=>({ ...r, id:(r?.id ?? k), subject:(r?.subject ?? r?.과목 ?? sk) })));
           }
         }
         if(expanded) continue;
-
-        // 그냥 객체 1개
         out.push({ ...v, id:(v?.id ?? k) });
       }
     }
     return out;
   }
 
-  // progress row pickers
   function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
   function pickSubject(x){
     const s = x?.subject ?? x?.subj ?? x?.["과목"] ?? x?.["subject"] ?? null;
     if(s) return String(s).trim();
+    return "공통";
+  }
+  function pickType(x){
+    const t = x?.type ?? x?.kind ?? x?.category ?? x?.["유형"] ?? "";
+    const v = String(t||"").trim();
+    if(!v) return "진도";
+    if(v.includes("상담")) return "상담";
+    if(v.includes("피드")) return "피드백";
+    if(v.includes("진도")) return "진도";
+    return v; // 기타도 허용
+  }
+  function pickTitle(x){ return x?.title ?? x?.unit ?? x?.topic ?? x?.["단원"] ?? x?.["제목"] ?? "-"; }
+  function pickStatus(x){ return x?.status ?? x?.state ?? x?.["상태"] ?? x?.["진행"] ?? ""; }
 
-    // title에서 "수학: ..." 형태면 추출
-    const t = String(x?.title ?? x?.unit ?? x?.topic ?? x?.["단원"] ?? x?.["제목"] ?? "").trim();
-    const m = t.match(/^([가-힣A-Za-z0-9]+)\s*[:：]/);
-    if(m && m[1]) return m[1].trim();
+  function pickNote(x){ return x?.note ?? x?.memo ?? x?.["메모"] ?? x?.["내용"] ?? ""; }
+  function pickDiagnosis(x){ return x?.diagnosis ?? x?.["진단"] ?? ""; }
+  function pickFeedback(x){ return x?.feedback ?? x?.["피드백"] ?? ""; }
+  function pickAction(x){ return x?.action ?? x?.homework ?? x?.hw ?? x?.["과제"] ?? x?.["숙제"] ?? ""; }
+  function pickNext(x){ return x?.next ?? x?.plan ?? x?.["다음"] ?? x?.["다음계획"] ?? ""; }
 
-    return "기타";
-  }
-  function pickTitle(x){
-    return x?.title ?? x?.unit ?? x?.topic ?? x?.["단원"] ?? x?.["제목"] ?? "-";
-  }
-  function pickStatus(x){
-    return x?.status ?? x?.state ?? x?.["상태"] ?? x?.["진행"] ?? "";
-  }
-  function pickNote(x){
-    return x?.note ?? x?.memo ?? x?.["메모"] ?? x?.["상담"] ?? x?.["내용"] ?? "";
-  }
-  function pickHomework(x){
-    return x?.homework ?? x?.hw ?? x?.["과제"] ?? x?.["숙제"] ?? "";
-  }
-  function pickNext(x){
-    return x?.next ?? x?.plan ?? x?.["다음"] ?? x?.["다음계획"] ?? "";
-  }
-  function pickLink(x){
-    return x?.link ?? x?.url ?? x?.["링크"] ?? "";
+  function pickEvidence(x){
+    const ev = x?.evidence ?? x?.links ?? x?.["증빙"] ?? null;
+    if(!ev) return [];
+    if(Array.isArray(ev)) return ev;
+    if(typeof ev==="string") return [{label:"링크", url:ev}];
+    return [];
   }
 
   function sortByDateDesc(a,b){
@@ -233,53 +184,73 @@
     return db.localeCompare(da);
   }
 
-  function uniq(arr){
-    return Array.from(new Set(arr));
-  }
-
+  function uniq(arr){ return Array.from(new Set(arr)); }
   function subjectOrder(subjects){
-    const pref = ["국어","수학","영어","탐1","탐2"];
+    const pref = ["국어","수학","영어","탐1","탐2","공통"];
     const sset = new Set(subjects);
     const ordered = [];
     pref.forEach(p=>{ if(sset.has(p)) ordered.push(p); });
-
     const rest = subjects.filter(s=>!pref.includes(s)).slice().sort((a,b)=>String(a).localeCompare(String(b)));
     return ordered.concat(rest);
   }
 
+  function badgeType(t){
+    if(t==="진도") return `<span class="badge ok">진도</span>`;
+    if(t==="상담") return `<span class="badge ng">상담</span>`;
+    if(t==="피드백") return `<span class="badge na">피드백</span>`;
+    return `<span class="badge na">${esc(t)}</span>`;
+  }
+
   function statusBadge(status){
     const s = String(status||"").trim();
-    if(!s) return `<span class="badge na">상태: -</span>`;
-    // 약간의 색만
-    const okWords = ["완료","ok","OK","끝","마침"];
-    const ngWords = ["보완","미흡","재학습","주의","필요"];
+    if(!s) return ``;
+    const okWords = ["완료","ok","끝","마침"];
+    const ngWords = ["보완","미흡","재학습","필요"];
     const cls = okWords.some(w=>s.includes(w)) ? "ok" : (ngWords.some(w=>s.includes(w)) ? "ng" : "na");
     return `<span class="badge ${cls}">${esc(s)}</span>`;
   }
 
-  function renderLatestCard(latest){
-    const date = pickDate(latest) || "-";
-    const title = pickTitle(latest);
-    const status = pickStatus(latest);
-    const note = pickNote(latest);
-    const hw = pickHomework(latest);
-    const nx = pickNext(latest);
-    const link = pickLink(latest);
+  function renderLatestCard(item){
+    const date = pickDate(item) || "-";
+    const subject = pickSubject(item);
+    const type = pickType(item);
+    const title = pickTitle(item);
+    const status = pickStatus(item);
+
+    const note = pickNote(item);
+    const diag = pickDiagnosis(item);
+    const fb = pickFeedback(item);
+    const act = pickAction(item);
+    const nx = pickNext(item);
+    const evid = pickEvidence(item);
 
     const lines = [];
-    if(note) lines.push(`<div class="line"><b>메모</b><span class="muted">${esc(note)}</span></div>`);
-    if(hw)   lines.push(`<div class="line"><b>과제</b><span class="muted">${esc(hw)}</span></div>`);
-    if(nx)   lines.push(`<div class="line"><b>다음</b><span class="muted">${esc(nx)}</span></div>`);
-    if(link) lines.push(`<div class="line"><b>링크</b><span class="muted"><a href="${esc(link)}" target="_blank" rel="noopener">열기</a></span></div>`);
+    if(diag) lines.push(`<div class="line"><b>핵심 진단</b>${esc(diag)}</div>`);
+    if(fb)   lines.push(`<div class="line"><b>피드백</b>${esc(fb)}</div>`);
+    if(note) lines.push(`<div class="line"><b>메모</b>${esc(note)}</div>`);
+    if(act)  lines.push(`<div class="line"><b>실행 과제</b>${esc(act)}</div>`);
+    if(nx)   lines.push(`<div class="line"><b>다음</b>${esc(nx)}</div>`);
+    if(evid.length){
+      const links = evid.map(x=>{
+        const label = esc(x?.label || "증빙");
+        const url = esc(x?.url || "");
+        if(!url) return "";
+        return `<div class="line"><b>${label}</b><a href="${url}" target="_blank" rel="noopener">열기</a></div>`;
+      }).filter(Boolean).join("");
+      if(links) lines.push(links);
+    }
 
     return `
       <div class="latest">
         <div class="latestTop">
           <div style="min-width:0">
             <div class="latestTitle">${esc(title)}</div>
-            <div class="small">${esc(date)}</div>
+            <div class="small">${esc(date)} · ${esc(subject)}</div>
           </div>
-          ${statusBadge(status)}
+          <div class="row" style="justify-content:flex-end">
+            ${badgeType(type)}
+            ${statusBadge(status)}
+          </div>
         </div>
         ${lines.length ? `<div class="divider"></div><div class="lines">${lines.join("")}</div>` : ""}
       </div>
@@ -290,21 +261,20 @@
     const rows = items.map(x=>{
       const d = pickDate(x) || "-";
       const t = pickTitle(x);
+      const ty = pickType(x);
       const st = pickStatus(x) || "-";
-      const note = pickNote(x);
-      const hw = pickHomework(x);
-      const nx = pickNext(x);
-
-      // 입력된 것만 짧게 요약
       const parts = [];
-      if(note) parts.push(`메모: ${note}`);
-      if(hw) parts.push(`과제: ${hw}`);
-      if(nx) parts.push(`다음: ${nx}`);
+      const diag = pickDiagnosis(x); if(diag) parts.push(`진단: ${diag}`);
+      const fb = pickFeedback(x); if(fb) parts.push(`피드백: ${fb}`);
+      const note = pickNote(x); if(note) parts.push(`메모: ${note}`);
+      const act = pickAction(x); if(act) parts.push(`과제: ${act}`);
+      const nx = pickNext(x); if(nx) parts.push(`다음: ${nx}`);
       const detail = parts.join(" / ");
 
       return `
         <tr>
           <td class="nowrap">${esc(d)}</td>
+          <td class="nowrap">${esc(ty)}</td>
           <td>${esc(t)}</td>
           <td class="nowrap">${esc(st)}</td>
           <td>${detail ? esc(detail) : `<span class="small">-</span>`}</td>
@@ -315,13 +285,14 @@
     return `
       <div class="box">
         <div class="h3">최근 기록</div>
-        <div class="muted">최근 3회만 기본 표시됩니다.</div>
+        <div class="muted">최근 3개만 기본 표시됩니다.</div>
         <div style="margin-top:8px;overflow:auto">
           <table>
             <thead>
               <tr>
                 <th class="nowrap">날짜</th>
-                <th>내용</th>
+                <th class="nowrap">유형</th>
+                <th>제목</th>
                 <th class="nowrap">상태</th>
                 <th>요약</th>
               </tr>
@@ -335,26 +306,36 @@
 
   function renderAllToggle(allItems){
     if(allItems.length <= 3) return "";
-
     const rows = allItems.map(x=>{
       const d = pickDate(x) || "-";
+      const ty = pickType(x);
       const t = pickTitle(x);
       const st = pickStatus(x) || "-";
 
+      const diag = pickDiagnosis(x);
+      const fb = pickFeedback(x);
       const note = pickNote(x);
-      const hw = pickHomework(x);
+      const act = pickAction(x);
       const nx = pickNext(x);
-      const link = pickLink(x);
+      const evid = pickEvidence(x);
 
       const parts = [];
+      if(diag) parts.push(`<div class="small"><b>진단</b> · ${esc(diag)}</div>`);
+      if(fb) parts.push(`<div class="small"><b>피드백</b> · ${esc(fb)}</div>`);
       if(note) parts.push(`<div class="small"><b>메모</b> · ${esc(note)}</div>`);
-      if(hw) parts.push(`<div class="small"><b>과제</b> · ${esc(hw)}</div>`);
+      if(act) parts.push(`<div class="small"><b>과제</b> · ${esc(act)}</div>`);
       if(nx) parts.push(`<div class="small"><b>다음</b> · ${esc(nx)}</div>`);
-      if(link) parts.push(`<div class="small"><b>링크</b> · <a href="${esc(link)}" target="_blank" rel="noopener">열기</a></div>`);
+      if(evid.length){
+        evid.forEach(e=>{
+          const url = e?.url; if(!url) return;
+          parts.push(`<div class="small"><b>증빙</b> · <a href="${esc(url)}" target="_blank" rel="noopener">${esc(e?.label||"열기")}</a></div>`);
+        });
+      }
 
       return `
         <tr>
           <td class="nowrap">${esc(d)}</td>
+          <td class="nowrap">${esc(ty)}</td>
           <td>
             <div style="font-weight:1000">${esc(t)}</div>
             ${parts.length ? parts.join("") : `<div class="small">-</div>`}
@@ -375,6 +356,7 @@
             <thead>
               <tr>
                 <th class="nowrap">날짜</th>
+                <th class="nowrap">유형</th>
                 <th>내용</th>
                 <th class="nowrap">상태</th>
               </tr>
@@ -387,32 +369,43 @@
   }
 
   let activeSubject = null;
+  let activeFilter = "전체";
   let grouped = null;
 
   function renderSubject(subject){
     activeSubject = subject;
+
+    // tab selected
     $("#tabs").querySelectorAll(".tab").forEach(b=>{
       b.setAttribute("aria-selected", b.dataset.subject===subject ? "true" : "false");
     });
 
-    const items = (grouped?.get(subject) || []).slice().sort(sortByDateDesc);
+    // filter selected
+    $("#filters").querySelectorAll(".fbtn").forEach(b=>{
+      b.setAttribute("aria-selected", b.dataset.filter===activeFilter ? "true" : "false");
+    });
+
+    let items = (grouped?.get(subject) || []).slice().sort(sortByDateDesc);
+    if(activeFilter !== "전체"){
+      items = items.filter(x => pickType(x) === activeFilter);
+    }
+
     const latest = items[0];
     const recent3 = items.slice(0,3);
 
-    const content = $("#content");
-    content.innerHTML = `
+    $("#content").innerHTML = `
       <div class="box hint">
         <div class="row">
           <span class="pill">과목: <b>${esc(subject)}</b></span>
+          <span class="pill">유형: <b>${esc(activeFilter)}</b></span>
           <span class="pill">기록: <b>${items.length}</b></span>
-          <span class="pill">최신: <b>${esc(pickDate(latest)||"-")}</b></span>
         </div>
-        <div class="muted" style="margin-top:8px;">※ 입력한 항목만 표시됩니다(메모/과제/다음/링크 등).</div>
+        <div class="muted" style="margin-top:8px;">※ 진도/상담/피드백을 한 화면에 ‘포트폴리오 기록’처럼 누적합니다.</div>
       </div>
 
       <div class="box">
         <div class="h3">최신 기록</div>
-        ${latest ? renderLatestCard(latest) : `<div class="muted">기록이 없습니다.</div>`}
+        ${latest ? renderLatestCard(latest) : `<div class="muted">해당 조건의 기록이 없습니다.</div>`}
       </div>
 
       ${recent3.length ? renderRecentTable(recent3) : ""}
@@ -422,7 +415,7 @@
   }
 
   async function main(){
-    // 1) 학생 확인
+    // 학생 찾기
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)){
       $("#hdr").textContent = "오류";
@@ -430,20 +423,13 @@
       return;
     }
 
-    let student = null;
-    if(isAdmin && idParam){
-      student = students.find(s => norm(pickId(s)) === norm(idParam));
-    }
-    if(!student && tParam){
-      student = students.find(s => norm(pickToken(s)) === norm(tParam));
-    }
+    let student=null;
+    if(isAdmin && idParam) student = students.find(s=> norm(pickId(s))===norm(idParam));
+    if(!student && tParam) student = students.find(s=> norm(pickToken(s))===norm(tParam));
 
     if(!student){
       $("#hdr").textContent = "접근 권한이 없습니다";
-      $("#meta").innerHTML = `
-        <div class="warn">학생 정보를 찾을 수 없습니다.</div>
-        <div class="muted">관리자: progress_detail.html?id=학생ID&admin=관리자토큰 / 학생: progress_detail.html?t=개별토큰</div>
-      `;
+      $("#meta").innerHTML = `<div class="warn">학생 정보를 찾지 못했습니다.</div>`;
       $("#content").innerHTML = `<div class="box"><div class="muted">올바른 링크로 접속해 주세요.</div></div>`;
       return;
     }
@@ -452,17 +438,17 @@
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").textContent = `진도 상세 · ${name}${sid?` (${sid})`:``}`;
+    $("#hdr").textContent = `포트폴리오 기록 · ${name}${sid?` (${sid})`:``}`;
     $("#meta").innerHTML = `
       <div class="kv">
         <div class="k">학교</div><div class="v">${esc(student.school||"-")}</div>
         <div class="k">진로</div><div class="v">${esc(student.career||"-")}</div>
         <div class="k">전형</div><div class="v">${esc(student.admission||"-")}</div>
       </div>
-      <div class="muted" style="margin-top:8px;">학생마다 과목 구성이 달라도, 입력된 과목만 자동으로 보여줍니다.</div>
+      <div class="muted" style="margin-top:8px;">진도 + 상담 + 피드백을 누적해 “포트폴리오”처럼 관리합니다.</div>
     `;
 
-    // 2) 버튼
+    // 버튼
     const studentHref = isAdmin
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
@@ -470,15 +456,13 @@
       ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
       : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
-    const btns = [];
+    const btns=[];
     btns.push(`<a class="btn ghost" href="${studentHref}">성적 보기</a>`);
     btns.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
-    if(isAdmin){
-      btns.push(`<a class="btn ghost" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
-    }
+    if(isAdmin) btns.push(`<a class="btn ghost" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
     $("#btns").innerHTML = btns.join("");
 
-    // 3) progress.json 로드
+    // progress.json
     const raw = await loadJson("./progress.json");
     const all = normalizeProgress(raw);
 
@@ -487,73 +471,78 @@
       .map(x => ({
         ...x,
         id: sid,
-        subject: pickSubject(x),
         date: pickDate(x),
-        title: pickTitle(x),
-        status: pickStatus(x),
-        note: pickNote(x),
-        homework: pickHomework(x),
-        next: pickNext(x),
-        link: pickLink(x),
+        subject: pickSubject(x),
+        type: pickType(x),
+        title: pickTitle(x)
       }))
-      .filter(x => x.subject && (x.date || x.title)); // 최소 정보 필터
+      .filter(x => x.subject && (x.date || x.title));
 
     if(!mine.length){
-      $("#summaryBox").style.display = "none";
-      $("#tabs").style.display = "none";
+      $("#summaryBox").style.display="none";
+      $("#tabs").style.display="none";
+      $("#filters").style.display="none";
       $("#content").innerHTML = `
         <div class="box hint">
-          <div class="h3">진도 데이터가 아직 없습니다</div>
-          <div class="muted">progress.json에 이 학생(id=${esc(sid)}) 기록을 넣으면, 과목별로 자동 정리됩니다.</div>
-        </div>
-        <div class="box">
-          <div class="h3">progress.json 권장 형식(예시)</div>
-          <pre style="white-space:pre-wrap;margin:8px 0 0;font-size:12px;line-height:1.55">[
-  {"id":"shstudy01","date":"2026-03-01","subject":"수학","title":"미분(기본)","status":"완료","note":"부호 실수 2회","homework":"유형 20문제","next":"오답 재풀이"},
-  {"id":"shstudy01","date":"2026-03-03","subject":"국어","title":"비문학 근거문장 찾기","status":"진행중","note":"문단 요약 훈련"}
-]</pre>
-          <div class="muted" style="margin-top:8px;">※ note/homework/next/link는 선택(있는 것만 표시).</div>
+          <div class="h3">기록이 아직 없습니다</div>
+          <div class="muted">progress.json에 진도/상담/피드백 기록을 추가하면 자동으로 포트폴리오 화면이 구성됩니다.</div>
         </div>
       `;
       return;
     }
 
-    // 4) 과목별 그룹
-    const subjects = subjectOrder(uniq(mine.map(x=>x.subject)));
+    // 그룹(과목)
+    const subjects = subjectOrder(uniq(mine.map(x=>pickSubject(x))));
     grouped = new Map();
-    for(const s of subjects) grouped.set(s, []);
+    subjects.forEach(s=>grouped.set(s, []));
     mine.forEach(x=>{
-      if(!grouped.has(x.subject)) grouped.set(x.subject, []);
-      grouped.get(x.subject).push(x);
+      const s = pickSubject(x);
+      if(!grouped.has(s)) grouped.set(s, []);
+      grouped.get(s).push(x);
     });
 
-    // 5) 요약
+    // 요약
     const latestOverall = mine.slice().sort(sortByDateDesc)[0];
-    $("#summaryBox").style.display = "block";
+    $("#summaryBox").style.display="block";
     $("#sumSubjects").innerHTML = `과목 <b>${subjects.length}</b>`;
     $("#sumItems").innerHTML = `기록 <b>${mine.length}</b>`;
     $("#sumLatest").innerHTML = `최신 <b>${esc(pickDate(latestOverall)||"-")}</b>`;
 
-    // 6) 탭 생성
+    // 탭 생성
     const tabs = $("#tabs");
-    tabs.style.display = "flex";
+    tabs.style.display="flex";
     tabs.innerHTML = subjects.map((s,i)=>(
       `<button type="button" class="tab" data-subject="${esc(s)}" aria-selected="${i===0?'true':'false'}">${esc(s)}</button>`
     )).join("");
 
     tabs.querySelectorAll(".tab").forEach(btn=>{
+      btn.addEventListener("click", ()=> renderSubject(btn.dataset.subject));
+    });
+
+    // 필터(유형)
+    const typeSet = new Set(mine.map(x=>pickType(x)));
+    const baseFilters = ["전체","진도","상담","피드백"].filter(x=> x==="전체" || typeSet.has(x));
+    const filters = $("#filters");
+    filters.style.display="flex";
+    filters.innerHTML = baseFilters.map((f,i)=>(
+      `<button type="button" class="fbtn" data-filter="${esc(f)}" aria-selected="${f===activeFilter?'true':'false'}">${esc(f)}</button>`
+    )).join("");
+
+    filters.querySelectorAll(".fbtn").forEach(btn=>{
       btn.addEventListener("click", ()=>{
-        renderSubject(btn.dataset.subject);
+        activeFilter = btn.dataset.filter;
+        renderSubject(activeSubject || subjects[0]);
       });
     });
 
-    // 7) 첫 과목 렌더
+    // 초기 렌더
+    activeSubject = subjects[0];
     renderSubject(subjects[0]);
   }
 
   main().catch(err=>{
-    $("#hdr").textContent = "오류";
-    $("#meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
+    $("#hdr").textContent="오류";
+    $("#meta").innerHTML=`<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
   });
 })();
 </script>
