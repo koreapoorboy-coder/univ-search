@@ -1,24 +1,401 @@
 [
   {
     "id": "shstudy01",
-    "updated": "2026-02-11",
-    "progress": [
-      {
-        "subject": "수학",
-        "unit": "미적분",
-        "topic": "적분파트",
-        "status": "보통",
-        "comment": "개념유형",
-        "last_update": "2026-02-11"
-      },
-      {
-        "subject": "영어",
-        "unit": "수능영어",
-        "topic": "수능특강",
-        "status": "보통",
-        "comment": "데일리 진행",
-        "last_update": null
-      }
+    "date": "2026-02-15",
+    "subject": "국어",
+    "type": "진도",
+    "title": "비문학: 근거문장 찾기(문장-선지 매칭)",
+    "status": "진행중",
+    "note": "선지 판단 전에 근거문장 체크가 누락되어 오답 발생. 지문당 근거 2곳 표시 루틴 도입.",
+    "action": "비문학 6지문: 근거표시→요약 1문장→선지(순서 고정)",
+    "next": "2026-02-22: 구조도(문단 기능) 적용",
+    "evidence": [
+      { "label": "오답노트 사진", "url": "https://example.com/shstudy01/kor/round1_wrongnote" },
+      { "label": "지문 풀이 체크리스트", "url": "https://example.com/shstudy01/kor/round1_checklist" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-15",
+    "subject": "수학",
+    "type": "진도",
+    "title": "미적분: 도함수 부호/증감 판단",
+    "status": "보완필요",
+    "note": "부호표 작성은 했으나 임계점 정렬 실수 2회. 구간 나누기 기준을 재확인.",
+    "action": "부호표 15문제(임계점 정렬/구간 표기) + 오답 재풀이 1회",
+    "next": "2026-02-22: 극대/극소 조건 서술형 정리",
+    "evidence": [
+      { "label": "부호표 오답모음", "url": "https://example.com/shstudy01/math/round1_signchart" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-15",
+    "subject": "영어",
+    "type": "진도",
+    "title": "빈칸 추론: 연결어/대명사 지시 추적",
+    "status": "진행중",
+    "note": "문장 구조 파악은 가능하나 지시어(They/This) 연결이 느림. 2문항 시간 초과.",
+    "action": "지시어 추적 10문항: 지시대상 표시→문장재구성→빈칸 선택",
+    "next": "2026-02-22: 문단 주제문-근거문 연결",
+    "evidence": [
+      { "label": "지시어 추적 예시(문서)", "url": "https://example.com/shstudy01/eng/round1_pronoun" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-15",
+    "subject": "탐구1",
+    "type": "진도",
+    "title": "탐구1(생윤 가정): 개념 구분(의무/결과/덕 윤리)",
+    "status": "보완필요",
+    "note": "선지에서 ‘의무론 vs 공리주의’ 구분은 되나 적용 사례에서 흔들림.",
+    "action": "사례형 20문항: 적용 근거 1줄 서술 후 선지 선택",
+    "next": "2026-02-22: 기출 사례 분류표 만들기",
+    "evidence": [
+      { "label": "사례형 분류표 템플릿", "url": "https://example.com/shstudy01/in1/round1_casesheet" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-15",
+    "subject": "탐구2",
+    "type": "진도",
+    "title": "탐구2(사문 가정): 사회 조사 방법(표본/타당도)",
+    "status": "진행중",
+    "note": "표본 편향/비표본오차 구분은 가능. 타당도-신뢰도 문장화가 약함.",
+    "action": "개념 문장화 10개 + 보기형 15문항",
+    "next": "2026-02-22: 그래프 해석(상관/인과 구분)",
+    "evidence": [
+      { "label": "개념 문장화 노트", "url": "https://example.com/shstudy01/in2/round1_conceptwriting" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-02-16",
+    "subject": "공통",
+    "type": "상담",
+    "title": "2월 3주 학습 루틴 점검(시간/오답관리)",
+    "status": "진행중",
+    "diagnosis": "오답의 원인이 ‘조건 누락’과 ‘근거 표시 생략’으로 반복됨. 루틴화 필요.",
+    "note": "평일: 수학(60)→국어(50)→탐구(40) 블록. 주말: 실전 1회 + 오답 정리 90분.",
+    "action": "매일 ‘풀이 체크 3줄(조건/근거/검산)’ 기록 + 오답 3개만 깊게",
+    "next": "2026-02-23: 루틴 유지 여부 체크",
+    "evidence": [
+      { "label": "루틴 체크리스트(문서)", "url": "https://example.com/shstudy01/common/routine_check" },
+      { "label": "오답 분류표(시트)", "url": "https://example.com/shstudy01/common/wrong_sheet" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-02-22",
+    "subject": "국어",
+    "type": "피드백",
+    "title": "비문학: 문단 기능 표시 후 선지 제거",
+    "status": "진행중",
+    "feedback": "문단 기능(정의/비교/원인/결과)을 먼저 표시하면 오답률이 내려감. 근거표시 후 선지 제거가 핵심.",
+    "note": "오답 4개 중 3개가 ‘근거 미표시’에서 발생. 표시 루틴 유지 필요.",
+    "action": "비문학 8지문: 문단 기능 1단어 표시 + 근거 2곳 표시",
+    "next": "2026-03-01: 과학지문 집중",
+    "evidence": [
+      { "label": "문단 기능 라벨링 예시", "url": "https://example.com/shstudy01/kor/round2_paragraph" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-22",
+    "subject": "수학",
+    "type": "피드백",
+    "title": "미적분: 임계점 정렬 실수 수정(체크리스트 도입)",
+    "status": "보완필요",
+    "feedback": "임계점 정렬 실수는 ‘대입 확인’이 아니라 ‘정렬 후 구간 재확인’ 단계에서 막아야 함.",
+    "note": "정렬: 작은값→큰값. 구간: (-∞,a),(a,b),(b,∞) 표기 고정.",
+    "action": "부호표 12문제: 정렬 체크 박스 포함해서 풀이",
+    "next": "2026-03-01: 극값 조건 서술형",
+    "evidence": [
+      { "label": "체크리스트(이미지)", "url": "https://example.com/shstudy01/math/round2_checklist" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-22",
+    "subject": "영어",
+    "type": "피드백",
+    "title": "빈칸: 연결사 단서 우선순위 설정",
+    "status": "진행중",
+    "feedback": "역접/인과 연결사가 보이면 먼저 문장 관계를 확정한 뒤, 지시어로 디테일을 채움.",
+    "note": "시간 초과는 관계 확정이 늦어서 발생.",
+    "action": "연결사 패턴 15문항(However/Therefore/Moreover)",
+    "next": "2026-03-01: 문단 요지/주제",
+    "evidence": [
+      { "label": "연결사 패턴 정리", "url": "https://example.com/shstudy01/eng/round2_connectors" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-22",
+    "subject": "탐구1",
+    "type": "피드백",
+    "title": "탐구1(생윤): 사례형 근거 1줄 서술 훈련",
+    "status": "진행중",
+    "feedback": "정답은 맞아도 근거를 말로 못하면 실전에서 흔들림. 1줄 근거를 강제하면 안정화됨.",
+    "note": "오답은 ‘개념은 맞는데 적용 문장화 실패’에서 발생.",
+    "action": "사례형 15문항: 근거 1줄(키워드 2개 포함) 작성",
+    "next": "2026-03-01: 기출 사례 분류표 완성",
+    "evidence": [
+      { "label": "근거 1줄 템플릿", "url": "https://example.com/shstudy01/in1/round2_reason" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-02-22",
+    "subject": "탐구2",
+    "type": "피드백",
+    "title": "탐구2(사문): 타당도/신뢰도 문장화 보강",
+    "status": "보완필요",
+    "feedback": "정의는 외웠지만 ‘보기 상황’에 맞게 문장화가 안 되면 선지에서 헷갈림.",
+    "note": "타당도=재는 것이 맞는가 / 신뢰도=반복해도 같은가를 보기 상황으로 말하는 연습 필요.",
+    "action": "보기형 20문항: 각 선지에 문장화 1줄",
+    "next": "2026-03-01: 상관/인과 그래프 해석",
+    "evidence": [
+      { "label": "문장화 예시 모음", "url": "https://example.com/shstudy01/in2/round2_sentence" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-03-01",
+    "subject": "국어",
+    "type": "진도",
+    "title": "과학지문: 개념 정의-예시 연결",
+    "status": "진행중",
+    "note": "정의문과 예시문 연결은 가능. 반례/제한 조건 표시가 약함.",
+    "action": "과학지문 5개: 제한조건 표시(단, 오직, 항상) 체크",
+    "next": "2026-03-08: 기술지문 구조도",
+    "evidence": [
+      { "label": "과학지문 표시 규칙", "url": "https://example.com/shstudy01/kor/round3_science_rules" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-01",
+    "subject": "수학",
+    "type": "진도",
+    "title": "극값 조건 서술형(조건 누락 방지)",
+    "status": "진행중",
+    "note": "연속/미분가능 조건을 글로 명시하는 습관 부족.",
+    "action": "서술형 8문제: 조건 문장 먼저 쓰고 풀이 시작",
+    "next": "2026-03-08: 함수의 그래프 해석",
+    "evidence": [
+      { "label": "서술형 조건 체크카드", "url": "https://example.com/shstudy01/math/round3_written" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-01",
+    "subject": "영어",
+    "type": "진도",
+    "title": "요지/주제: 문단별 키워드 3개 추출",
+    "status": "진행중",
+    "note": "키워드 추출은 되지만 최종 요지 문장화가 길어짐.",
+    "action": "요지 10문항: 키워드 3개→요지 1문장(15단어 내)",
+    "next": "2026-03-08: 요약문 빈칸",
+    "evidence": [
+      { "label": "요지 1문장 규칙", "url": "https://example.com/shstudy01/eng/round3_summary_rule" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-01",
+    "subject": "탐구1",
+    "type": "진도",
+    "title": "탐구1(생윤): 기출 사례 분류표 1차 완성",
+    "status": "진행중",
+    "note": "유형 분류는 잘 됨. 유사 개념(의무/권리/정의) 경계 보완 필요.",
+    "action": "유사 개념 비교표 1장 작성 + 기출 10문항 적용",
+    "next": "2026-03-08: 실전 1회",
+    "evidence": [
+      { "label": "기출 사례 분류표", "url": "https://example.com/shstudy01/in1/round3_casesheet" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-01",
+    "subject": "탐구2",
+    "type": "진도",
+    "title": "탐구2(사문): 상관/인과 그래프 해석",
+    "status": "진행중",
+    "note": "상관=함께 변함, 인과=원인-결과임을 보기에서 분리하는 훈련 필요.",
+    "action": "그래프 12문항: 상관/인과 근거 1줄 작성",
+    "next": "2026-03-08: 실전 1회",
+    "evidence": [
+      { "label": "그래프 해석 체크리스트", "url": "https://example.com/shstudy01/in2/round3_graph" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-03-08",
+    "subject": "국어",
+    "type": "피드백",
+    "title": "기술지문: 구조도(정의-원리-장단점) 적용",
+    "status": "진행중",
+    "feedback": "구조도를 먼저 그리면 지문 길이가 길어도 흔들림이 줄어듦.",
+    "note": "제한조건 표시가 개선되어 오답 1개 감소.",
+    "action": "기술지문 6개: 구조도 1장 + 근거 표시",
+    "next": "2026-03-15: 실전 타임어택",
+    "evidence": [
+      { "label": "구조도 예시", "url": "https://example.com/shstudy01/kor/round4_structure" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-08",
+    "subject": "수학",
+    "type": "피드백",
+    "title": "그래프 해석: 조건 읽기 순서 고정",
+    "status": "진행중",
+    "feedback": "문제 조건을 ‘정의역→연속/미분→특수값’ 순으로 읽으면 누락이 줄어듦.",
+    "note": "조건 누락 2회 → 0회로 개선(체크리스트 효과).",
+    "action": "그래프 10문항: 조건 읽기 순서 체크박스 포함",
+    "next": "2026-03-15: 실전 1회",
+    "evidence": [
+      { "label": "조건 읽기 순서 카드", "url": "https://example.com/shstudy01/math/round4_order" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-08",
+    "subject": "영어",
+    "type": "피드백",
+    "title": "요약문 빈칸: 키워드-동의어 매칭",
+    "status": "진행중",
+    "feedback": "키워드가 동의어로 바뀌는 구간에서 막힘. 동의어 매칭표를 만들면 속도 개선.",
+    "note": "요지 문장 길이 제한을 지켜서 선택지가 명확해짐.",
+    "action": "동의어 매칭 30개 + 요약빈칸 10문항",
+    "next": "2026-03-15: 시간 제한 실전",
+    "evidence": [
+      { "label": "동의어 매칭표", "url": "https://example.com/shstudy01/eng/round4_synonyms" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-08",
+    "subject": "탐구1",
+    "type": "피드백",
+    "title": "탐구1(생윤): 유사 개념 경계(정의/정의론/분배)",
+    "status": "보완필요",
+    "feedback": "정의(Justice) 파트에서 개념 경계가 흐리면 사례형에서 계속 흔들림.",
+    "note": "분배 정의 3유형을 ‘기준-사례-오답포인트’로 고정 정리 필요.",
+    "action": "정의 파트 요약 1장 + 사례형 12문항 적용",
+    "next": "2026-03-15: 실전 1회",
+    "evidence": [
+      { "label": "정의 파트 요약 템플릿", "url": "https://example.com/shstudy01/in1/round4_justice" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-08",
+    "subject": "탐구2",
+    "type": "피드백",
+    "title": "탐구2(사문): 표/그래프 함정 선지 제거",
+    "status": "진행중",
+    "feedback": "축/단위/범례 확인을 먼저 하면 함정 선지를 빠르게 제거 가능.",
+    "note": "단위 확인 누락 1회 발생 → 체크리스트로 방지 필요.",
+    "action": "표/그래프 15문항: 축/단위/범례 체크 후 선지 제거",
+    "next": "2026-03-15: 실전 1회",
+    "evidence": [
+      { "label": "그래프 함정 체크리스트", "url": "https://example.com/shstudy01/in2/round4_trapcheck" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "공통",
+    "type": "상담",
+    "title": "실전 대비 운영(시간 배분/실수 차단)",
+    "status": "진행중",
+    "diagnosis": "국어/수학은 실수 차단 루틴이 자리 잡는 중. 탐구는 ‘근거 1줄’이 아직 불안정.",
+    "note": "실전 1회 후 오답은 3개만 깊게(원인-재발방지-재풀이).",
+    "action": "주 2회: 실전 1회 + 오답 90분 / 탐구는 근거 1줄 강제",
+    "next": "2026-03-22: 모의 2회차 후 비교",
+    "evidence": [
+      { "label": "실전 시간표(문서)", "url": "https://example.com/shstudy01/common/exam_schedule" },
+      { "label": "오답 분석 포맷", "url": "https://example.com/shstudy01/common/wrong_format" }
+    ]
+  },
+
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "국어",
+    "type": "진도",
+    "title": "실전 타임어택: 비문학 3지문(시간 제한)",
+    "status": "진행중",
+    "note": "근거표시 루틴 유지 시 정확도↑, 단 속도는 아직 보완 필요.",
+    "action": "3지문 2세트: 지문당 10분 제한",
+    "next": "2026-03-22: 9분 제한",
+    "evidence": [
+      { "label": "실전 기록표", "url": "https://example.com/shstudy01/kor/round5_timeattack" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "수학",
+    "type": "진도",
+    "title": "실전: 미적분 혼합 12문항(검산 루틴 포함)",
+    "status": "진행중",
+    "note": "검산 루틴(대입/부호/정의역) 적용 시 실수 감소.",
+    "action": "혼합 12문항 2세트 + 오답 재풀이 1회",
+    "next": "2026-03-22: 난도 상 문항 추가",
+    "evidence": [
+      { "label": "검산 체크리스트", "url": "https://example.com/shstudy01/math/round5_verify" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "영어",
+    "type": "진도",
+    "title": "시간 제한: 요약빈칸 8문항",
+    "status": "진행중",
+    "note": "동의어 매칭표 사용 시 선택 속도 개선. 지시어 추적은 유지.",
+    "action": "요약빈칸 8문항: 문항당 2분 제한",
+    "next": "2026-03-22: 문항당 1분 40초",
+    "evidence": [
+      { "label": "시간 제한 기록표", "url": "https://example.com/shstudy01/eng/round5_timer" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "탐구1",
+    "type": "진도",
+    "title": "탐구1(생윤): 실전 1회(사례형 중심)",
+    "status": "진행중",
+    "note": "근거 1줄 작성이 일부 누락. 시간 압박 시 누락되는 경향.",
+    "action": "실전 1회 + 오답 10문항: 근거 1줄 강제",
+    "next": "2026-03-22: 근거 1줄 누락 0회 목표",
+    "evidence": [
+      { "label": "실전 오답 기록", "url": "https://example.com/shstudy01/in1/round5_mock" }
+    ]
+  },
+  {
+    "id": "shstudy01",
+    "date": "2026-03-15",
+    "subject": "탐구2",
+    "type": "진도",
+    "title": "탐구2(사문): 실전 1회(자료해석)",
+    "status": "진행중",
+    "note": "축/단위 확인 누락 0회 달성. 함정 제거 속도는 개선 중.",
+    "action": "실전 1회 + 자료해석 10문항 추가",
+    "next": "2026-03-22: 시간 단축 목표",
+    "evidence": [
+      { "label": "자료해석 추가 문제", "url": "https://example.com/shstudy01/in2/round5_data" }
     ]
   }
 ]
