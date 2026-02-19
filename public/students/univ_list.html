@@ -25,6 +25,9 @@
     .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .scoreHead .h{font-size:16px;font-weight:900}
     .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
+    .roundPick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 6px}
+    .roundPick select{padding:8px 10px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:14px}
+    
     .scoreGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
     .scoreItem{border:1px solid #eee;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;min-width:0;background:#fff}
     .scoreItem .k{font-weight:900}
@@ -127,23 +130,17 @@
 <script>
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
-  const SS_T = "__STU_TOKEN__";
-  const SS_ID = "__STU_ID__";
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
   const adminParam = qs.get("admin");
-  const adminSaved = localStorage.getItem(LS_KEY);
-  const admin = adminParam || adminSaved;
 
-  const idParam = qs.get("id") || sessionStorage.getItem(SS_ID);
+  const idParam = qs.get("id");
+  const tParam = qs.get("t") || qs.get("token");
 
-  // 학생/학부모 모드 토큰: URL > 세션저장(같은 브라우저에서 페이지 이동 시 유지)
-  const tParam = qs.get("t") || qs.get("token") || sessionStorage.getItem(SS_T);
+  // ✅ 보안: URL에 admin 토큰이 있을 때만 관리자 모드로 동작합니다(로컬저장 X).
+  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
 
-  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
-  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
 
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
@@ -435,11 +432,6 @@
 
     const sid = norm(pickId(student));
     const stok = norm(pickToken(student));
-
-    try{
-      if(sid) sessionStorage.setItem(SS_ID, sid);
-      if(stok) sessionStorage.setItem(SS_T, stok);
-    }catch(e){}
     const name = pickName(student);
 
     $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)})`;
@@ -453,18 +445,18 @@
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
     const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
 
     // ✅ 진도(포트폴리오) 화면으로 이동
     const progHref = isAdmin
-      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
 
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 성적으로</a>`);
     nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
-    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
     $("#navRow").innerHTML = nav.join("");
 
     const rawScores = await loadJson("./scores.json");
@@ -490,8 +482,7 @@
       return;
     }
 
-    const latest = rows[rows.length-1];
-    const { raw:stuRaw, pct:stuPct } = buildStudentMaps(latest);
+    let selIdx = rows.length - 1; // 기본: 최신 회차
 
     let univs = null;
     try{
@@ -535,6 +526,11 @@
 
     function render(){
       const q = norm(qInput.value).toLowerCase();
+
+      const selRow = rows[selIdx];
+      const isLatest = (selIdx === rows.length - 1);
+      const headTitle = isLatest ? "최신 성적" : "선택 성적";
+      const { raw:stuRaw, pct:stuPct } = buildStudentMaps(selRow);
 
       const evaluated = univs.map(u=>{
         const ev = evalRow(u, stuPct);
@@ -584,11 +580,19 @@
         });
       }
 
+      const roundOptions = rows.length > 1
+        ? rows.map((r,i)=>`<option value="${i}" ${i===selIdx?'selected':''}>${esc(roundLabel(r))}</option>`).join("")
+        : "";
+      const roundPick = rows.length > 1
+        ? `<div class="roundPick"><span class="muted">회차</span><select id="roundSel">${roundOptions}</select></div>`
+        : "";
+
       const scorePanel = `
         <div class="scoreHead">
-          <div class="h">최신 성적</div>
-          <div class="r">${esc(roundLabel(latest))}</div>
+          <div class="h">${esc(headTitle)}</div>
+          <div class="r">${esc(roundLabel(selRow))}</div>
         </div>
+        ${roundPick}
         <div class="scoreGrid">
           ${SUBS.map(k=>{
             const r = stuRaw[k];
@@ -600,6 +604,9 @@
               <div class="v">${esc(rTxt)}<span class="p">${esc(pTxt)}</span></div>
             </div>`;
           }).join("")}
+        </div>
+      `;
+}).join("")}
         </div>
       `;
 
@@ -672,6 +679,16 @@
             </tbody>
           </table>
         </div>
+      const rs = document.getElementById("roundSel");
+      if (rs) {
+        rs.onchange = () => {
+          const v = parseInt(rs.value, 10);
+          if (!Number.isNaN(v)) selIdx = v;
+          fallbackOnce = false;
+          render();
+        };
+      }
+
       `;
     }
 
