@@ -124,8 +124,10 @@
             <div class="sc-name">${esc(k)}</div>
             <div class="sc-pct">${esc(p)}</div>
           </div>
-          <div class="sc-raw">${esc(r)}</div>
-          ${g?`<div class="sc-grade">${esc(g)}</div>`:""}
+          <div class="sc-mid">
+            <div class="sc-raw">${esc(r)}</div>
+            ${g?`<div class="sc-grade">${esc(g)}</div>`:""}
+          </div>
         </div>
       `;
     }).join("");
