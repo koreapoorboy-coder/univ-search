@@ -113,11 +113,11 @@
     return { r, p };
   }
 
-  function renderLatestCards(latest, stuRaw, stuPct){
+  function renderLatestCards(latest, stuRaw, stuPct, stuGrade){
     $("#latestLabel").textContent = `최신 성적: ${roundLabel(latest)}`;
 
     const cards = SUBS.map(k=>{
-      const {r,p} = fmtScore(stuRaw[k], stuPct[k]);
+      const {r,p,g} = fmtScore(stuRaw[k], stuPct[k], stuGrade?.[k]);
       return `
         <div class="scard">
           <div class="sc-top">
@@ -125,6 +125,7 @@
             <div class="sc-pct">${esc(p)}</div>
           </div>
           <div class="sc-raw">${esc(r)}</div>
+          ${g?`<div class="sc-grade">${esc(g)}</div>`:""}
         </div>
       `;
     }).join("");
@@ -154,11 +155,11 @@
       return `
         <tr>
           <td class="round">${esc(roundLabel(r))}</td>
-          <td>${tdScore(m.raw["국어"], m.pct["국어"])}</td>
-          <td>${tdScore(m.raw["수학"], m.pct["수학"])}</td>
-          <td>${tdScore(m.raw["영어"], m.pct["영어"])}</td>
-          <td>${tdScore(m.raw["탐1"], m.pct["탐1"])}</td>
-          <td>${tdScore(m.raw["탐2"], m.pct["탐2"])}</td>
+          <td>${tdScore(m.raw["국어"], m.pct["국어"], m.grade["국어"])}</td>
+          <td>${tdScore(m.raw["수학"], m.pct["수학"], m.grade["수학"])}</td>
+          <td>${tdScore(m.raw["영어"], m.pct["영어"], m.grade["영어"])}</td>
+          <td>${tdScore(m.raw["탐1"], m.pct["탐1"], m.grade["탐1"])}</td>
+          <td>${tdScore(m.raw["탐2"], m.pct["탐2"], m.grade["탐2"])}</td>
         </tr>
       `;
     }).join("") || `<tr><td colspan="6" class="muted">표시할 데이터가 없습니다.</td></tr>`;
@@ -175,11 +176,11 @@
       $("#allTbody").innerHTML = `
         <tr>
           <td class="round">${esc(roundLabel(r))}</td>
-          <td>${tdScore(m.raw["국어"], m.pct["국어"])}</td>
-          <td>${tdScore(m.raw["수학"], m.pct["수학"])}</td>
-          <td>${tdScore(m.raw["영어"], m.pct["영어"])}</td>
-          <td>${tdScore(m.raw["탐1"], m.pct["탐1"])}</td>
-          <td>${tdScore(m.raw["탐2"], m.pct["탐2"])}</td>
+          <td>${tdScore(m.raw["국어"], m.pct["국어"], m.grade["국어"])}</td>
+          <td>${tdScore(m.raw["수학"], m.pct["수학"], m.grade["수학"])}</td>
+          <td>${tdScore(m.raw["영어"], m.pct["영어"], m.grade["영어"])}</td>
+          <td>${tdScore(m.raw["탐1"], m.pct["탐1"], m.grade["탐1"])}</td>
+          <td>${tdScore(m.raw["탐2"], m.pct["탐2"], m.grade["탐2"])}</td>
         </tr>
       `;
     }
