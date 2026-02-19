@@ -18,10 +18,6 @@
   const idParam = CTX.idParam || null;
   const tokenParam = CTX.tokenParam || null;
 
-  // 세션 키(학생/학부모 모드에서 URL 파라미터가 빠져도 복구)
-  const SS_T = \"__STU_TOKEN__\";
-  const SS_ID = \"__STU_ID__\";
-
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
@@ -252,13 +248,6 @@ function fmtScore(raw, pct, grade){
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    // 세션에 저장 (페이지 이동 시 파라미터 누락 대비)
-    try{
-      if(sid) sessionStorage.setItem(SS_ID, sid);
-      const tokToStore = norm(tokenParam) || stok;
-      if(tokToStore) sessionStorage.setItem(SS_T, tokToStore);
-    }catch(e){}
-
     // 2) 헤더
     $("#hdrName").textContent = sid ? `${name} (${sid})` : `${name}`;
     $("#hdrMeta").innerHTML = `
@@ -273,10 +262,9 @@ function fmtScore(raw, pct, grade){
       : `<span class="pill">학생/학부모</span><span class="subpill">토큰 접속</span>`;
 
     // 3) 버튼(항상 노출)
-    const tokForLink = norm(tokenParam) || stok;
     const univHref = isAdmin
       ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
-      : `./univ_list.html?t=${encodeURIComponent(tokForLink)}`;
+      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
     const progHref = isAdmin
       ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
