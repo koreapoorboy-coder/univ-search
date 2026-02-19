@@ -80,38 +80,68 @@
   }
 
   const SUBS = ["국어","수학","영어","탐1","탐2"]; // ✅ 화면은 5과목만
-
-  // ✅ 학생 점수(원점수) + 백분위(p) 둘 다 뽑기
-  function buildStudentMaps(row){
-    const getFirst = (keys) => {
-      for(const k of keys){
-        const v = toNum(row?.[k]);
-        if(v!=null) return v;
-      }
-      return null;
-    };
-
-    const KEYS = {
-      "국어": { raw:["국어_raw","국어","국","국어점","국어점수"], pct:["국어_pct","국어p","국어P","국어백분위","국어 백분위"] },
-      "수학": { raw:["수학_raw","수학","수","수학점","수학점수"], pct:["수학_pct","수학p","수학P","수학백분위","수학 백분위"] },
-      "영어": { raw:["영어_raw","영어","영","영어점","영어점수"], pct:["영어_pct","영어p","영어P","영어백분위","영어 백분위"] },
-      "탐1": { raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","생윤","윤리"], pct:["탐1_pct","탐1p","탐구1p","생윤_pct","생윤p","윤리_pct","윤리p"] },
-      "탐2": { raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","사문","사회"], pct:["탐2_pct","탐2p","탐구2p","사문_pct","사문p","사회_pct","사회p"] },
-    };
-
-    const raw = {}; const pct = {};
-    for(const k of SUBS){
-      raw[k] = getFirst(KEYS[k].raw);
-      pct[k] = getFirst(KEYS[k].pct);
+// ✅ 학생 점수(원점수) + 백분위(p) + 등급(grade) 뽑기
+function buildStudentMaps(row){
+  const getFirst = (keys) => {
+    for(const k of keys){
+      const v = toNum(row?.[k]);
+      if(v!=null) return v;
     }
-    return { raw, pct };
-  }
+    return null;
+  };
 
-  function fmtScore(raw, pct){
-    const r = (raw==null) ? "-" : `${raw}점`;
-    const p = (pct==null) ? "-" : `${pct}p`;
-    return { r, p };
+  const KEYS = {
+    "국어": {
+      raw:["국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean","국어_raw"],
+      pct:["국어p","국어P","국어_pct","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"],
+      grade:["국어g","국어G","국어_grade","국어등급","국어 등급","kor_g","kor_grade"]
+    },
+    "수학": {
+      raw:["수학","수","수학점","수학점수","수학 원점수","수학원점수","math","수학_raw"],
+      pct:["수학p","수학P","수학_pct","수학백분위","수학 백분위","math_p","math_pct"],
+      grade:["수학g","수학G","수학_grade","수학등급","수학 등급","math_g","math_grade"]
+    },
+    "영어": {
+      raw:["영어","영","영어점","영어점수","영어 원점수","영어원점수","eng","english","영어_raw"],
+      pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"],
+      grade:["영어g","영어G","영어_grade","영어등급","영어 등급","eng_g","eng_grade"]
+    },
+    "탐1": {
+      raw:["탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수","탐1_raw",
+           "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점"],
+      pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위","탐구1_pct",
+           "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"],
+      grade:["탐1g","탐1G","탐1_grade","탐1등급","탐1 등급","탐구1등급","탐구1_grade","탐구1 등급",
+             "생윤g","생윤_grade","생윤등급","윤리g","윤리_grade","윤리등급"]
+    },
+    "탐2": {
+      raw:["탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수","탐2_raw",
+           "사문","사문점","사문점수","사회","사회점수","사회점"],
+      pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위","탐구2_pct",
+           "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"],
+      grade:["탐2g","탐2G","탐2_grade","탐2등급","탐2 등급","탐구2등급","탐구2_grade","탐구2 등급",
+             "사문g","사문_grade","사문등급","사회g","사회_grade","사회등급"]
+    },
+  };
+
+  const raw = {};
+  const pct = {};
+  const grade = {};
+  for(const k of SUBS){
+    raw[k] = getFirst(KEYS[k].raw);
+    pct[k] = getFirst(KEYS[k].pct);
+    grade[k] = getFirst(KEYS[k].grade);
   }
+  return { raw, pct, grade };
+}
+
+function fmtScore(raw, pct, grade){
+  const r = (raw==null) ? "-" : `${raw}점`;
+  const p = (pct==null) ? "-" : `${pct}p`;
+  const gNum = toNum(grade);
+  const g = (gNum==null) ? null : `${gNum}등급`;
+  return {r,p,g};
+}
 
   function renderLatestCards(latest, stuRaw, stuPct, stuGrade){
     $("#latestLabel").textContent = `최신 성적: ${roundLabel(latest)}`;
@@ -271,7 +301,7 @@
     const latest = rows[rows.length-1];
     const maps = buildStudentMaps(latest);
 
-    renderLatestCards(latest, maps.raw, maps.pct);
+    renderLatestCards(latest, maps.raw, maps.pct, maps.grade);
     renderHistory(rows);
   }
 
