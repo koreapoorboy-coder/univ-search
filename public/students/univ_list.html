@@ -20,7 +20,6 @@
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
 
-
     /* ✅ 최신 성적(모바일 가독성) */
     .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .scoreHead .h{font-size:16px;font-weight:900}
@@ -36,7 +35,6 @@
     @media(min-width: 860px){
       .scoreGrid{grid-template-columns:repeat(5,minmax(0,1fr));}
     }
-
 
     #stickyBar{margin-top:12px}
     .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
@@ -138,9 +136,7 @@
   const idParam = qs.get("id");
   const tParam = qs.get("t") || qs.get("token");
 
-  // ✅ 보안: URL에 admin 토큰이 있을 때만 관리자 모드로 동작합니다(로컬저장 X).
   const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
-
 
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
@@ -209,7 +205,6 @@
     return out;
   }
 
-  // ✅ 탐1/탐2 원점수 키 추가(핵심 수정)
   function buildStudentMaps(latestRow){
     const getFirst = (keys) => {
       for(const k of keys){
@@ -235,16 +230,14 @@
       "탐1": {
         raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
              "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점",
-             "탐구1_raw",
-             "tam1_raw"],
+             "탐구1_raw","tam1_raw"],
         pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
              "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
       },
       "탐2": {
         raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
              "사문","사문점","사문점수","사회","사회점수","사회점",
-             "탐구2_raw",
-             "tam2_raw"],
+             "탐구2_raw","tam2_raw"],
         pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
              "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
       },
@@ -295,7 +288,6 @@
   function evalRow(u, stuPctMap){
     const cuts = getUnivCuts(u);
 
-    let mainDiff = null;
     let cnt = 0;
     const per = SUBS.map(k=>{
       const sp = stuPctMap[k];
@@ -314,7 +306,7 @@
         cnt += 1;
       }
     });
-    mainDiff = cnt ? (sum / cnt) : null;
+    const mainDiff = cnt ? (sum / cnt) : null;
     let code = "na";
     if(cnt>0) code = (mainDiff>=0) ? "fit" : "up";
     return { cuts, per, mainDiff, cnt, code };
@@ -448,7 +440,6 @@
       ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
 
-    // ✅ 진도(포트폴리오) 화면으로 이동
     const progHref = isAdmin
       ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
@@ -490,7 +481,7 @@
     }catch(e){
       univs = await loadJson("./univ_percentile_v6_subject_cuts.json");
     }
-    if(!Array.isArray(univs)) throw new Error("univ_percentile.json is not an array");
+    if(!Array.isArray(univs)) throw new Error("univ_percentile json is not an array");
 
     $("#controls").style.display = "flex";
     tabsEl = $("#tabs");
@@ -555,7 +546,6 @@
         arr = groupLimitTop5(arr);
       }
 
-      // ✅ 결과가 없으면 자동으로 '전체'로 전환 (데이터 확인을 쉽게)
       if(!q && arr.length===0 && activeTab!=="all" && !fallbackOnce){
         fallbackOnce = true;
         setActiveTab("all");
@@ -604,9 +594,6 @@
               <div class="v">${esc(rTxt)}<span class="p">${esc(pTxt)}</span></div>
             </div>`;
           }).join("")}
-        </div>
-      `;
-}).join("")}
         </div>
       `;
 
@@ -679,6 +666,9 @@
             </tbody>
           </table>
         </div>
+      `;
+
+      // ✅ (중요) innerHTML 렌더 후에 이벤트 연결
       const rs = document.getElementById("roundSel");
       if (rs) {
         rs.onchange = () => {
@@ -688,8 +678,6 @@
           render();
         };
       }
-
-      `;
     }
 
     render();
