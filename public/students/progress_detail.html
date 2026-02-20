@@ -36,13 +36,11 @@
     .leftgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     .rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-    /* round selector */
     select{
       border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
       max-width: 100%;
     }
 
-    /* subject cards grid */
     .grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -73,7 +71,7 @@
 
     .kv{
       display:grid;
-      grid-template-columns: 78px 1fr;
+      grid-template-columns: 88px 1fr;
       gap:8px 10px;
       margin-top:12px;
       line-height:1.55;
@@ -81,8 +79,14 @@
     .k{opacity:.65;font-weight:900}
     .v{font-weight:800;white-space:pre-line}
 
-    /* hide blocks completely when empty (JS will not render, but keep safe) */
-    .kv:empty{display:none}
+    .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .alink{
+      display:inline-flex;align-items:center;gap:6px;
+      border:1px solid #ddd;border-radius:999px;padding:7px 10px;
+      text-decoration:none;color:#111;background:#fff;font-weight:900;font-size:12px;
+      max-width:100%;
+    }
+    .alink:hover{background:#fafafa}
   </style>
 </head>
 <body>
@@ -111,19 +115,14 @@
 <script>
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
   const norm = (v) => String(v ?? "").trim();
 
   const qs = new URLSearchParams(location.search);
-  const adminParam = qs.get("admin");
-  const adminSaved = localStorage.getItem(LS_KEY);
-  const admin = adminParam || adminSaved;
-
+  const adminParam = qs.get("admin");          // ✅ URL에 있을 때만 관리자
   const idParam = qs.get("id");
   const tParam  = qs.get("t") || qs.get("token");
 
-  const isAdmin = (norm(admin) === norm(ADMIN_TOKEN));
-  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
+  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
 
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
@@ -138,7 +137,6 @@
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  // 빈값 처리: 공백/undefined/null이면 "" 반환
   const pickText = (...vals) => {
     for(const v of vals){
       const s = String(v ?? "").trim();
@@ -147,7 +145,6 @@
     return "";
   };
 
-  // 배열/객체 모두 대응
   function normalizeArrayish(x){
     if(Array.isArray(x)) return x.slice();
     if(!x || typeof x!=="object") return [];
@@ -162,7 +159,7 @@
     return out;
   }
 
-  // round/date 키 구성 (없으면 "미지정")
+  // progress_notes.json(지금 네 데이터)의 날짜 기반 그룹 키
   function roundKeyOf(n){
     const r = pickText(n.round, n.Round, n["회차"], n["차수"]);
     const d = pickText(n.date, n.Date, n["날짜"], n["일자"]);
@@ -172,75 +169,111 @@
     return "미지정";
   }
 
-  function levelTag(level){
-    const s = String(level||"").trim();
-    if(!s) return null; // ✅ 레벨이 없으면 태그 자체 숨김
-    const low = s.toLowerCase();
-    if(low.includes("잘") || low.includes("우수") || low.includes("좋") || low.includes("강점"))
-      return { text:s, cls:"tag t-good" };
-    if(low.includes("보통") || low.includes("중") || low.includes("가능"))
-      return { text:s, cls:"tag t-mid" };
-    if(low.includes("부족") || low.includes("약") || low.includes("미흡"))
-      return { text:s, cls:"tag t-bad" };
-    return { text:s, cls:"tag" };
+  function tagFromStatusOrType(n){
+    const status = pickText(n.status, n["상태"]);
+    const type   = pickText(n.type, n["유형"]);
+    const text = status || type;
+    if(!text) return null;
+
+    const low = text.toLowerCase();
+    // 상태 기반 추천 색
+    if(low.includes("완료") || low.includes("완") || low.includes("good") || low.includes("ok"))
+      return { text, cls:"tag t-good" };
+    if(low.includes("진행") || low.includes("중") || low.includes("대기"))
+      return { text, cls:"tag t-mid" };
+    if(low.includes("보류") || low.includes("미흡") || low.includes("경고") || low.includes("문제"))
+      return { text, cls:"tag t-bad" };
+
+    // 유형은 기본 tag
+    return { text, cls:"tag" };
   }
 
-  // 과목 순서 고정(5과목 우선, 그 외는 뒤로)
   function subjectOrder(subject){
     const s = String(subject||"");
-    const map = {"국어":1,"수학":2,"영어":3,"탐1":4,"탐2":5,"탐구1":4,"탐구2":5};
+    const map = {"국어":1,"수학":2,"영어":3,"탐1":4,"탐2":5,"탐구1":4,"탐구2":5,"공통":6};
     return map[s] ?? 99;
   }
 
+  function parseDateValue(key){
+    // key가 YYYY-MM-DD면 날짜로 비교, 아니면 문자열
+    const m = String(key).match(/\d{4}-\d{2}-\d{2}/);
+    if(!m) return null;
+    const t = Date.parse(m[0]);
+    return Number.isFinite(t) ? t : null;
+  }
+
   function renderRound(key, byRound){
-    const list = byRound.get(key) || [];
+    const list = (byRound.get(key) || []).slice();
     if(!list.length){
       $("#content").innerHTML = `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`;
       return;
     }
 
-    // ✅ 정렬: 과목 우선순위 → 과목명
     list.sort((a,b)=>{
       const sa = pickText(a.subject, a["과목"]);
       const sb = pickText(b.subject, b["과목"]);
       const oa = subjectOrder(sa);
       const ob = subjectOrder(sb);
       if(oa!==ob) return oa-ob;
-      return sa.localeCompare(sb,"ko");
+      // 같은 과목이면 유형/제목으로 정렬
+      const ta = pickText(a.type, a["유형"]);
+      const tb = pickText(b.type, b["유형"]);
+      if(ta !== tb) return ta.localeCompare(tb,"ko");
+      const xa = pickText(a.title, a["제목"]);
+      const xb = pickText(b.title, b["제목"]);
+      return xa.localeCompare(xb,"ko");
     });
 
     const cards = list.map(n=>{
       const subject = pickText(n.subject, n["과목"]);
-      if(!subject) return ""; // ✅ 과목명이 없으면 카드 생성 자체를 안 함
+      if(!subject) return "";
 
-      const unit  = pickText(n.unit, n["단원"], n["파트"]);
-      const lvl   = pickText(n.level, n["수준"], n["상태"]);
-      const tag   = levelTag(lvl);
+      const type   = pickText(n.type, n["유형"]);
+      const title  = pickText(n.title, n["제목"]);
+      const date   = pickText(n.date, n["날짜"]);
+      const tag    = tagFromStatusOrType(n);
 
-      const good = pickText(n.good, n["잘한점"], n["강점"]);
-      const bad  = pickText(n.bad,  n["아쉬운점"], n["약점"]);
-      const fix  = pickText(n.fix,  n["피드백"], n["보완"]);
-      const memo = pickText(n.memo, n["상담메모"], n["메모"]);
+      // 네 데이터 필드들(빈값은 자동 숨김)
+      const diagnosis = pickText(n.diagnosis, n["진단"]);
+      const feedback  = pickText(n.feedback, n["피드백"]);
+      const note      = pickText(n.note, n["메모"]);
+      const action    = pickText(n.action, n["액션"], n["과제"]);
+      const next      = pickText(n.next, n["다음"]);
 
-      // ✅ 값 있는 항목만 kv로 출력
       const rows = [];
-      if(good) rows.push(`<div class="k">강점</div><div class="v">${esc(good)}</div>`);
-      if(bad)  rows.push(`<div class="k">약점</div><div class="v">${esc(bad)}</div>`);
-      if(fix)  rows.push(`<div class="k">피드백</div><div class="v">${esc(fix)}</div>`);
-      if(memo) rows.push(`<div class="k">상담 메모</div><div class="v">${esc(memo)}</div>`);
+      if(type)      rows.push(`<div class="k">유형</div><div class="v">${esc(type)}</div>`);
+      if(title)     rows.push(`<div class="k">제목</div><div class="v">${esc(title)}</div>`);
+      if(diagnosis) rows.push(`<div class="k">진단</div><div class="v">${esc(diagnosis)}</div>`);
+      if(feedback)  rows.push(`<div class="k">피드백</div><div class="v">${esc(feedback)}</div>`);
+      if(note)      rows.push(`<div class="k">메모</div><div class="v">${esc(note)}</div>`);
+      if(action)    rows.push(`<div class="k">실행</div><div class="v">${esc(action)}</div>`);
+      if(next)      rows.push(`<div class="k">다음</div><div class="v">${esc(next)}</div>`);
 
       const kv = rows.length ? `<div class="kv">${rows.join("")}</div>` : "";
+
+      // evidence 링크
+      const ev = Array.isArray(n.evidence) ? n.evidence : [];
+      const links = ev
+        .filter(x => x && x.url)
+        .map(x => {
+          const label = pickText(x.label, x.title, "자료");
+          return `<a class="alink" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(label)}</a>`;
+        })
+        .join("");
+
+      const linkBox = links ? `<div class="links">${links}</div>` : "";
 
       return `
         <div class="pbox">
           <div class="ptop">
             <div style="min-width:0">
               <div class="ptitle">${esc(subject)}</div>
-              ${unit ? `<div class="psub">단원: ${esc(unit)}</div>` : ``}
+              <div class="psub">${date ? `날짜: ${esc(date)} · ` : ``}${title ? esc(title) : ``}</div>
             </div>
             ${tag ? `<span class="${tag.cls}">${esc(tag.text)}</span>` : ``}
           </div>
           ${kv}
+          ${linkBox}
         </div>
       `;
     }).join("");
@@ -256,7 +289,7 @@
   }
 
   async function main(){
-    // 1) 학생 찾기
+    // 1) 학생 찾기 (학생 모드는 token만 / 관리자만 id 허용)
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -282,7 +315,7 @@
 
     $("#hdr").textContent = `진도 · 상담 메모 · ${name}${sid?` (${sid})`:``}`;
 
-    // ✅ 학생 메타도 "입력된 것만" 표시
+    // 학생 메타도 "입력된 것만" 표시
     const metaRows = [];
     const school = pickText(student.school, student["학교"]);
     const career = pickText(student.career, student["진로"]);
@@ -296,31 +329,28 @@
       ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
       : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
-    // 2) 네비 버튼
+    // 2) 네비 버튼 (관리자는 adminParam을 그대로 유지)
     const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./student.html?t=${encodeURIComponent(stok)}`;
 
     const univHref = isAdmin
-      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`
+      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
       : `./univ_list.html?t=${encodeURIComponent(stok)}`;
 
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 성적 보기</a>`);
     nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
     if(isAdmin){
-      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(ADMIN_TOKEN)}">학생 목록</a>`);
+      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
     }
     $("#navRow").innerHTML = nav.join("");
 
-    // 3) 진도/메모 데이터 로딩 (notes 우선)
+    // 3) 진도/메모 데이터 로딩
     let rawNotes = null;
-
-    // progress_notes.json 필수(현재 GitHub에 이 파일만 있다 했으니 우선)
     try{
       rawNotes = await loadJson("./progress_notes.json");
     }catch(e){
-      // fallback: progress.json (있으면)
       try{
         rawNotes = await loadJson("./progress.json");
       }catch(e2){
@@ -341,7 +371,7 @@
       return;
     }
 
-    // 4) roundKey로 그룹핑
+    // 4) 그룹핑
     const byRound = new Map();
     for(const n of notes){
       const key = roundKeyOf(n);
@@ -349,23 +379,24 @@
       byRound.get(key).push(n);
     }
 
-    // 5) round 목록 정렬 (미지정은 뒤로)
+    // 5) 키 정렬: 최신 날짜 우선(내림차순), 미지정은 맨 뒤
     const keys = [...byRound.keys()];
     keys.sort((a,b)=>{
       if(a==="미지정" && b!=="미지정") return 1;
       if(b==="미지정" && a!=="미지정") return -1;
-      return a.localeCompare(b,"ko");
+      const da = parseDateValue(a);
+      const db = parseDateValue(b);
+      if(da!=null && db!=null) return db - da; // 최신 먼저
+      return String(b).localeCompare(String(a),"ko"); // fallback: 역순
     });
 
-    // 6) selector: 2개 이상일 때만 노출
+    // 6) selector
     const roundWrap = $("#roundWrap");
     const roundSel = $("#roundSel");
     if(keys.length >= 2){
       roundWrap.style.display = "inline-flex";
       roundSel.innerHTML = keys.map(k => `<option value="${esc(k)}">${esc(k)}</option>`).join("");
-      // 최신을 마지막으로 보고 싶으면 아래 한 줄로 변경 가능:
-      // roundSel.value = keys[keys.length - 1];
-      roundSel.value = keys[0];
+      roundSel.value = keys[0]; // ✅ 최신 기본
       roundSel.addEventListener("change", ()=> renderRound(roundSel.value, byRound));
       renderRound(roundSel.value, byRound);
     }else{
