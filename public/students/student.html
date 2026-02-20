@@ -5,175 +5,82 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>학생 성적</title>
   <style>
-    :root{--pad:16px}
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:#fff;color:#111}
-    .wrap{max-width:980px;margin:0 auto;padding:var(--pad)}
+    html,body{width:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    .wrap{max-width:1100px;margin:0 auto}
+    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
+    .title{font-size:22px;font-weight:900;margin:0 0 10px}
+    .meta{opacity:.85;line-height:1.7}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .btn:hover{background:#fafafa}
+    .muted{opacity:.7}
+    .warn{color:#b00020;font-weight:900}
 
-    .card{border:1px solid #e6e6e6;border-radius:16px;padding:14px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-    .card + .card{margin-top:12px}
+    /* 최신 성적 카드 */
+    .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .scoreHead .h{font-size:16px;font-weight:900}
+    .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
 
-    .hdr{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
-    .hdr-left{min-width:0}
-    .title{font-size:20px;font-weight:900;line-height:1.25;word-break:keep-all}
-    .meta{margin-top:8px}
+    .scoreGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+    @media(min-width: 860px){ .scoreGrid{grid-template-columns:repeat(5,minmax(0,1fr));} }
 
-    .kv{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;font-size:13px;color:#333}
-    .kv .k{opacity:.75}
-    .kv .v{font-weight:700;min-width:0}
+    .scoreItem{border:1px solid #eee;border-radius:14px;padding:12px 14px;min-width:0;background:#fff;display:flex;flex-direction:column;gap:6px}
+    .scoreTop{display:flex;justify-content:space-between;align-items:center}
+    .scoreTop .k{font-weight:900}
+    .pct{font-weight:900;opacity:.75}
+    .bigline{display:flex;align-items:baseline;gap:10px;min-width:0}
+    .big{font-weight:900;font-size:34px;letter-spacing:-0.5px}
+    .unit{font-weight:900;font-size:18px;margin-left:2px}
+    .grade{font-weight:900;font-size:14px;opacity:.8;white-space:nowrap}
 
-    .badges{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #111;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px}
-    .subpill{display:inline-flex;align-items:center;border:1px solid #ddd;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px;color:#444}
-
-    .btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid #111;padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap}
-    .btn.ghost{border-color:#ddd;color:#111}
-
-    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-    .sectionTitle h2{margin:0;font-size:15px;font-weight:900}
-    .muted{color:#666;font-size:12px}
-    .warn{color:#b00020;font-weight:900;font-size:13px}
-
-    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .scard{border:1px solid #eee;border-radius:14px;padding:12px}
-    .sc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .sc-name{font-size:16px;font-weight:900}
-    .sc-pct{font-size:14px;font-weight:900;color:#666}
-    /* ✅ 점수(좌) + 등급(우) 한 줄 */
-    .sc-mid{margin-top:8px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
-    .sc-raw{font-size:34px;font-weight:1000;letter-spacing:-0.5px;line-height:1}
-    .sc-grade{font-size:14px;font-weight:1000;color:#666;white-space:nowrap}
-
-    .note{margin-top:10px;font-size:12px;color:#666}
-
-    details{border:1px solid #eee;border-radius:14px;padding:10px;background:#fafafa}
-    details + details{margin-top:10px}
-    summary{cursor:pointer;font-weight:900;list-style:none}
-    summary::-webkit-details-marker{display:none}
-
-    .tableWrap{margin-top:10px;overflow:auto;border-radius:12px;border:1px solid #eee;background:#fff}
-    table{border-collapse:collapse;width:100%;min-width:560px}
-    th,td{padding:10px 12px;border-bottom:1px solid #eee;text-align:center;font-size:13px}
-    th{background:#f7f7f7;font-weight:900;position:sticky;top:0}
-    td.round{text-align:left;font-weight:900;white-space:nowrap}
-    .p{color:#666;font-weight:900;margin-left:6px;white-space:nowrap}
-
-    .jump{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
-    select{padding:10px 12px;border:1px solid #ddd;border-radius:12px;font-weight:900}
-
-    @media (min-width:520px){
-      .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .title{font-size:22px}
-    }
-    @media (min-width:900px){
-      .cards{grid-template-columns:repeat(5,minmax(0,1fr))}
-    }
-    @media (max-width:520px){
-      /* 5과목이면 마지막 카드(탐2)가 혼자 남을 수 있어 전체 폭 사용 */
-      .cards .scard:last-child{grid-column:1 / -1}
-      .hdr{flex-direction:column}
-      .btns{justify-content:flex-start}
-    }
+    details{border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff}
+    summary{cursor:pointer;font-weight:900}
+    .pastList{margin-top:10px;display:grid;gap:8px}
+    .pastRow{border:1px solid #eee;border-radius:12px;padding:10px 12px}
+    .pastRow .r{font-weight:900}
+    .pastRow .g{margin-top:6px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    @media(min-width: 860px){ .pastRow .g{grid-template-columns:repeat(5,minmax(0,1fr));} }
+    .pastChip{border:1px solid #f0f0f0;border-radius:10px;padding:8px 10px;font-weight:900;display:flex;justify-content:space-between;gap:10px}
+    .pastChip .p{opacity:.75;white-space:nowrap}
   </style>
 </head>
 <body>
-  <div class="wrap">
-
-    <!-- 상단: 학생 정보 + 바로가기(항상 노출) -->
-    <div class="card">
-      <div class="hdr">
-        <div class="hdr-left">
-          <div class="title" id="hdrName">학생</div>
-          <div class="meta" id="hdrMeta"></div>
-          <div class="badges" id="modeBadge"></div>
-        </div>
-        <div class="btns" id="hdrButtons"></div>
-      </div>
-    </div>
-
-    <!-- 최신 성적: 기본 화면에는 이것만 보이게 -->
-    <div class="card" id="main">
-      <div class="sectionTitle">
-        <h2 id="latestLabel">최신 성적</h2>
-        <div class="muted">원점수 + 백분위(p)</div>
-      </div>
-
-      <div class="cards" id="cards"></div>
-      <div class="note">※ 학부모/학생이 같이 볼 수 있도록 <b>원점수</b>와 <b>백분위(p)</b>를 함께 표시합니다.</div>
-
-      <details style="margin-top:12px">
-        <summary>이전 성적 보기</summary>
-
-        <div class="sectionTitle" style="margin-top:10px">
-          <h2 id="historyHint">이전 성적(최근 3회)</h2>
-          <div class="muted">필요하면 전체 회차를 펼쳐서 확인</div>
-        </div>
-
-        <div class="tableWrap">
-          <table>
-            <thead>
-              <tr>
-                <th style="text-align:left">회차</th>
-                <th>국어</th>
-                <th>수학</th>
-                <th>영어</th>
-                <th>탐1</th>
-                <th>탐2</th>
-              </tr>
-            </thead>
-            <tbody id="recentTbody"></tbody>
-          </table>
-        </div>
-
-        <details style="margin-top:10px">
-          <summary>전체 회차 보기</summary>
-          <div class="jump">
-            <div class="muted" style="font-weight:900">회차 선택</div>
-            <select id="jumpSel"></select>
-          </div>
-          <div class="tableWrap">
-            <table>
-              <thead>
-                <tr>
-                  <th style="text-align:left">회차</th>
-                  <th>국어</th>
-                  <th>수학</th>
-                  <th>영어</th>
-                  <th>탐1</th>
-                  <th>탐2</th>
-                </tr>
-              </thead>
-              <tbody id="allTbody"></tbody>
-            </table>
-          </div>
-        </details>
-      </details>
-    </div>
-
+<div class="wrap">
+  <div class="card">
+    <div class="title" id="hdr">학생 성적</div>
+    <div class="meta" id="meta"></div>
+    <div class="row" id="modeRow"></div>
+    <div class="row" id="navRow"></div>
   </div>
 
-  <script>
-    // student.html → student.js 에 전달할 컨텍스트
-    // - 학생/학부모: student.html?t=토큰
-    // - 관리자:      student.html?id=shstudy01&admin=CHANGE_ME_ADMIN
-    (function(){
-      const q = new URLSearchParams(location.search);
-      const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 여기를 관리자 토큰으로 바꾸세요
-      const adminParam = q.get('admin');
-      const idParam = q.get('id');
-      const tokenParam = q.get('t');
-      const isAdmin = adminParam && adminParam === ADMIN_TOKEN;
+  <div class="card" id="scoreCard" style="display:none;">
+    <div class="scoreHead">
+      <div class="h" id="scoreTitle">최신 성적</div>
+      <div class="r" id="scoreRound">-</div>
+      <div class="muted" style="margin-left:auto">원점수 + 백분위(p)</div>
+    </div>
 
-      window.__STUDENT_CTX__ = {
-        ADMIN_TOKEN,
-        isAdmin,
-        idParam,
-        tokenParam
-      };
+    <div class="scoreGrid" id="latestGrid"></div>
 
-      if(isAdmin) document.body.classList.add('is-admin');
-    })();
-  </script>
-  <script src="./student.js"></script>
+    <div class="muted" style="margin-top:10px">※ 학부모/학생이 같이 볼 수 있도록 원점수와 백분위(p)를 함께 표시합니다.</div>
+
+    <div style="margin-top:12px">
+      <details id="pastBox" style="display:none;">
+        <summary>이전 성적 보기</summary>
+        <div class="pastList" id="pastList"></div>
+      </details>
+    </div>
+  </div>
+
+  <div class="card" id="errCard" style="display:none;">
+    <div class="warn" id="errTitle">오류</div>
+    <div class="muted" id="errMsg"></div>
+  </div>
+</div>
+
+<script src="./student.js"></script>
 </body>
 </html>
