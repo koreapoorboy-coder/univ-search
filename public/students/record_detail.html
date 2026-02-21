@@ -1,1 +1,356 @@
 
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>생활기록부 · 포트폴리오</title>
+  <style>
+    html,body{width:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    .wrap{max-width:1100px;margin:0 auto}
+    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
+    .title{font-size:22px;font-weight:900;margin:0 0 10px}
+    .meta{opacity:.85;line-height:1.7}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
+    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .btn:hover{background:#fafafa}
+    .warn{color:#b00020;font-weight:900}
+    .muted{opacity:.7}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
+    .tab[aria-selected="true"]{background:#111;color:#fff}
+    @media(max-width:860px){
+      .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .tabs::-webkit-scrollbar{display:none}
+    }
+
+    .select{border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+
+    .box{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
+    .h{font-weight:900;margin:0 0 6px}
+    .p{white-space:pre-line;line-height:1.6}
+
+    .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;gap:6px;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;background:#fff;font-weight:900;font-size:13px}
+    .chip .k{opacity:.7}
+
+    details{border:1px solid #eee;border-radius:16px;padding:12px;background:#fff}
+    summary{cursor:pointer;font-weight:900}
+    .dlist{margin-top:10px;display:grid;gap:10px}
+    .dcard{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
+    .dt{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+    .dt .t{font-weight:900;font-size:16px}
+    .dt .s{opacity:.75;font-weight:900}
+    .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .alink{display:inline-flex;align-items:center;gap:6px;border:1px solid #ddd;border-radius:999px;padding:7px 10px;text-decoration:none;color:#111;background:#fff;font-weight:900;font-size:12px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="title" id="hdr">생활기록부 · 포트폴리오</div>
+    <div class="meta" id="meta"></div>
+    <div class="row" id="modeRow"></div>
+    <div class="row" id="navRow"></div>
+
+    <div class="row" style="margin-top:12px; gap:8px; align-items:center;">
+      <span class="badge">학기</span>
+      <select class="select" id="termSel" style="min-width:220px"></select>
+      <span class="muted" id="modeHint"></span>
+    </div>
+
+    <div class="tabs" id="tabs" style="margin-top:12px"></div>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<script>
+(() => {
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  const norm = (v) => String(v ?? "").trim();
+
+  const qs = new URLSearchParams(location.search);
+  const adminParam = qs.get("admin");
+  const idParam = qs.get("id");
+  const tParam  = qs.get("t") || qs.get("token");
+  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
+
+  const $ = (s)=>document.querySelector(s);
+  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+
+  async function loadJson(path){
+    const r = await fetch(path, { cache:"no-store" });
+    if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
+    return r.json();
+  }
+
+  function safeUrl(u){
+    try{
+      const url = new URL(String(u), location.href);
+      if(url.protocol==="http:" || url.protocol==="https:") return url.href;
+      return "";
+    }catch(e){ return ""; }
+  }
+
+  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
+  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
+  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
+
+  function splitKeywords(s){
+    const x = String(s||"").trim();
+    if(!x) return [];
+    return x.split(/[,
+/|]/).map(v=>v.trim()).filter(Boolean).slice(0,20);
+  }
+
+  let activeTab = "summary";
+  function setTab(k){
+    activeTab = k;
+    $("#tabs").querySelectorAll(".tab").forEach(b=>{
+      b.setAttribute("aria-selected", b.dataset.key===k ? "true":"false");
+    });
+    render();
+  }
+
+  let student=null, flags=null, summary=[], details=[], termKeys=[], currentKey="";
+
+  function render(){
+    const selKey = $("#termSel").value || currentKey;
+    const sum = summary.find(x=>x._key===selKey) || null;
+    const det = details.filter(x=>x._key===selKey);
+
+    const mode = (flags?.displayMode) || "summary_only";
+    $("#modeHint").textContent = (mode==="full") ? "상세 포함(관리/내부용 가능)" : "요약 중심(권장)";
+
+    // Tabs
+    const showDetails = (mode==="full");
+    const tabs = [
+      {key:"summary", label:"요약"},
+      {key:"subject", label:"교과/세특"},
+      {key:"etc", label:"창체/진로/행특"}
+    ];
+    $("#tabs").innerHTML = "";
+    tabs.forEach(t=>{
+      const b=document.createElement("button");
+      b.type="button";
+      b.className="tab";
+      b.dataset.key=t.key;
+      b.textContent=t.label;
+      b.setAttribute("aria-selected", t.key===activeTab ? "true":"false");
+      b.addEventListener("click", ()=>setTab(t.key));
+      $("#tabs").appendChild(b);
+    });
+
+    // Summary block
+    const sumHtml = sum ? `
+      <div class="grid2">
+        <div class="box">
+          <div class="h">강점</div>
+          <div class="p">${esc(sum.overall_strength||"") || '<span class="muted">-</span>'}</div>
+        </div>
+        <div class="box">
+          <div class="h">보완점</div>
+          <div class="p">${esc(sum.overall_weakness||"") || '<span class="muted">-</span>'}</div>
+        </div>
+        <div class="box">
+          <div class="h">전공적합 키워드</div>
+          <div class="chips">${
+            splitKeywords(sum.subject_fit_keywords).map(k=>`<span class="chip"><span class="k">#</span>${esc(k)}</span>`).join("")
+            || '<span class="muted">-</span>'
+          }</div>
+        </div>
+        <div class="box">
+          <div class="h">다음 액션</div>
+          <div class="p">${esc(sum.next_action||"") || '<span class="muted">-</span>'}</div>
+        </div>
+      </div>
+      ${sum.notes ? `<div class="box" style="margin-top:12px"><div class="h">메모</div><div class="p">${esc(sum.notes)}</div></div>` : ``}
+    ` : `<div class="card"><div class="muted">선택 학기 요약 데이터가 없습니다.</div></div>`;
+
+    // Details grouping
+    const byCat = new Map();
+    det.forEach(d=>{
+      const cat = d.category || "기타";
+      if(!byCat.has(cat)) byCat.set(cat, []);
+      byCat.get(cat).push(d);
+    });
+
+    function renderDetailCards(list){
+      return list.map(d=>{
+        const kw = splitKeywords(d.keywords);
+        const link = safeUrl(d.evidence_link);
+        const linkBox = link ? `<div class="links"><a class="alink" href="${esc(link)}" target="_blank" rel="noopener noreferrer">🔗 자료</a></div>` : "";
+        const coach = d.coach_summary || "";
+        const original = d.original_text || "";
+        const showOriginal = (mode==="full" && original);
+
+        return `
+          <div class="dcard">
+            <div class="dt">
+              <div>
+                <div class="t">${esc(d.subject||"-")}${d.activity_title?` · ${esc(d.activity_title)}`:""}</div>
+                <div class="s">${esc(d.category||"-")} · ${esc(d.grade||"-")} · ${esc(d.term||"-")}</div>
+              </div>
+            </div>
+
+            ${kw.length ? `<div class="chips" style="margin-top:10px">${kw.map(k=>`<span class="chip"><span class="k">#</span>${esc(k)}</span>`).join("")}</div>` : ""}
+
+            ${coach ? `<div class="box" style="margin-top:10px"><div class="h">요약</div><div class="p">${esc(coach)}</div></div>` : ""}
+
+            ${d.strength_comment ? `<div class="box" style="margin-top:10px"><div class="h">강점 코멘트</div><div class="p">${esc(d.strength_comment)}</div></div>` : ""}
+
+            ${d.supplement_comment ? `<div class="box" style="margin-top:10px"><div class="h">보완 코멘트</div><div class="p">${esc(d.supplement_comment)}</div></div>` : ""}
+
+            ${showOriginal ? `<details style="margin-top:10px"><summary>원문 보기</summary><div class="p" style="margin-top:8px">${esc(original)}</div></details>` : ""}
+
+            ${linkBox}
+          </div>
+        `;
+      }).join("");
+    }
+
+    let detailsHtml = "";
+    if(activeTab==="subject"){
+      const list = (byCat.get("교과세특")||[]).slice().sort((a,b)=>String(a.subject||"").localeCompare(String(b.subject||""),"ko"));
+      detailsHtml = list.length ? `<div class="dlist">${renderDetailCards(list)}</div>` : `<div class="card"><div class="muted">교과/세특 데이터가 없습니다.</div></div>`;
+    }else if(activeTab==="etc"){
+      const etcList = det.filter(d=>d.category!=="교과세특");
+      detailsHtml = etcList.length ? `<div class="dlist">${renderDetailCards(etcList)}</div>` : `<div class="card"><div class="muted">창체/진로/행특 데이터가 없습니다.</div></div>`;
+    }
+
+    $("#content").innerHTML = `
+      <div class="card">
+        <div class="badge">선택 학기: ${esc(selKey || "-")}</div>
+      </div>
+      ${activeTab==="summary" ? `<div class="card">${sumHtml}</div>` : `<div class="card">${detailsHtml}</div>`}
+    `;
+  }
+
+  async function main(){
+    // 학생 인증(토큰/관리자)
+    const students = await loadJson("./students.json");
+    if(!Array.isArray(students)) throw new Error("students.json is not an array");
+
+    let st = null;
+    if(isAdmin && idParam) st = students.find(s => norm(pickId(s)) === norm(idParam));
+    if(!st && tParam) st = students.find(s => norm(pickToken(s)) === norm(tParam));
+    if(!st){
+      $("#hdr").textContent = "접근 권한이 없습니다.";
+      $("#meta").innerHTML = `<div class="warn">학생을 찾을 수 없습니다.</div>`;
+      return;
+    }
+    student = st;
+
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
+    const name = pickName(student);
+
+    $("#hdr").textContent = `생활기록부 · ${name}${sid?` (${sid})`:``}`;
+    $("#meta").innerHTML = [
+      `학교: ${esc(student.school||"-")}`,
+      `진로: ${esc(student.career||"-")}`,
+      `전형: ${esc(student.admission||"-")}`,
+    ].join("<br>");
+
+    $("#modeRow").innerHTML = isAdmin
+      ? `<span class="pill">관리자</span><span class="muted">id로 접근</span>`
+      : `<span class="pill">학생/학부모</span><span class="muted">토큰 접근</span>`;
+
+    const scoreHref = isAdmin
+      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
+      : `./student.html?t=${encodeURIComponent(stok)}`;
+    const univHref = isAdmin
+      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
+      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
+    const progHref = isAdmin
+      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
+      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+
+    const nav=[];
+    nav.push(`<a class="btn" href="${scoreHref}">← 성적 보기</a>`);
+    nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
+    nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
+    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
+    $("#navRow").innerHTML = nav.join("");
+
+    // flags
+    const flagsList = await loadJson("./school_record_flags.json");
+    const f = Array.isArray(flagsList) ? flagsList.find(x=>norm(x?.id)===sid) : null;
+    flags = f || { id:sid, recordEnabled:"Y", displayMode:"summary_only" };
+
+    if(String(flags.recordEnabled||"Y").toUpperCase()!=="Y"){
+      $("#content").innerHTML = `
+        <div class="card">
+          <div class="warn">생활기록부 비활성</div>
+          <div class="muted">이 학생은 생활기록부 등록/표시가 꺼져 있습니다. (${esc(flags.reason||"")})</div>
+        </div>
+      `;
+      return;
+    }
+
+    // summary + detail
+    const sumList = await loadJson("./school_record_summary.json");
+    summary = Array.isArray(sumList) ? sumList.filter(x=>norm(x?.id)===sid) : [];
+
+    const detList = await loadJson("./school_record_detail.json");
+    details = Array.isArray(detList) ? detList.filter(x=>norm(x?.id)===sid) : [];
+
+    // build term keys
+    function keyOf(x){
+      const g = String(x.grade||"").trim();
+      const t = String(x.term||"").trim();
+      if(g && t) return `${g} ${t}`;
+      if(g) return g;
+      if(t) return t;
+      return "미지정";
+    }
+    summary.forEach(x=>x._key = keyOf(x));
+    details.forEach(x=>x._key = keyOf(x));
+
+    const keySet = new Set();
+    summary.forEach(x=>keySet.add(x._key));
+    details.forEach(x=>keySet.add(x._key));
+    termKeys = [...keySet].filter(Boolean);
+    if(!termKeys.length) termKeys = ["미지정"];
+
+    // sort: 고1→고2→고3, 1학기→2학기
+    const gradeRank = (k)=> k.includes("고1")?1 : k.includes("고2")?2 : k.includes("고3")?3 : 99;
+    const termRank = (k)=> k.includes("1학기")?1 : k.includes("2학기")?2 : 99;
+    termKeys.sort((a,b)=>{
+      const ga=gradeRank(a), gb=gradeRank(b);
+      if(ga!==gb) return ga-gb;
+      const ta=termRank(a), tb=termRank(b);
+      if(ta!==tb) return ta-tb;
+      return String(a).localeCompare(String(b),"ko");
+    });
+
+    currentKey = termKeys[termKeys.length-1]; // 최신 기본: 마지막
+
+    const sel = $("#termSel");
+    sel.innerHTML = termKeys.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join("");
+    sel.value = currentKey;
+    sel.addEventListener("change", render);
+
+    // initial
+    const mode = (flags?.displayMode)||"summary_only";
+    if(mode!=="full") activeTab="summary";
+    $("#tabs").innerHTML = "";
+    setTab(activeTab);
+  }
+
+  main().catch(err=>{
+    $("#hdr").textContent = "오류";
+    $("#content").innerHTML = `<div class="card"><div class="warn">로딩 오류</div><div class="muted">${esc(err.message||String(err))}</div></div>`;
+  });
+})();
+</script>
+</body>
+</html>
