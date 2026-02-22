@@ -7,889 +7,570 @@
   <style>
     html,body{width:100%;overflow-x:hidden}
     *{box-sizing:border-box}
-    body{
-      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
-      margin:14px;background:#fff;color:#111;
-    }
-    .wrap{max-width:1100px;margin:0 auto}
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    .wrap{max-width:1200px;margin:0 auto}
     .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
     .title{font-size:20px;font-weight:900;margin:0 0 8px}
     .meta{opacity:.85;line-height:1.7}
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .pill{
-      display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;
-      padding:7px 12px;font-weight:900;background:#fff
-    }
-    .badge{
-      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
-      padding:8px 12px;font-weight:900;background:#fff
-    }
-    .btn{
-      display:inline-block;border:1px solid #111;border-radius:12px;
-      padding:10px 14px;text-decoration:none;color:#111;background:#fff
-    }
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px}
+    .leftgroup,.rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
+    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
+    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
     .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 
-    .topbar{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between
-    }
-    .leftgroup,.rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    select{border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;max-width:100%}
 
-    select{
-      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
-      max-width:100%;
-    }
+    .chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;gap:6px;align-items:center;border:1px solid #ddd;border-radius:999px;padding:7px 10px;background:#fff;font-weight:900;font-size:12px}
+    .chip .k{opacity:.6;font-weight:900}
+    .chip.ok{border-color:#0b57d0;color:#0b57d0}
+    .chip.mid{border-color:#b26a00;color:#b26a00}
+    .chip.bad{border-color:#b00020;color:#b00020}
 
-    .sectionTitle{
-      font-size:17px;font-weight:900;margin:0 0 10px;
-      display:flex;gap:8px;align-items:center;flex-wrap:wrap;
-    }
+    .section-title{font-weight:900;font-size:16px;margin:0 0 10px}
+    .subnote{font-size:13px;opacity:.75}
 
-    .kv{
-      display:grid;
-      grid-template-columns: 110px 1fr;
-      gap:8px 10px;
-      line-height:1.55;
-      margin-top:10px;
-    }
-    .k{opacity:.65;font-weight:900}
-    .v{font-weight:800;white-space:pre-line}
-    .kv:empty{display:none}
+    .diagbox{border:1px solid #eee;border-radius:14px;padding:14px;background:#fff}
+    .diaggrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+    @media(max-width:860px){ .diaggrid{grid-template-columns:1fr} }
+    .diagitem{border:1px solid #f0f0f0;border-radius:12px;padding:12px;background:#fff}
+    .diagitem h4{margin:0 0 8px;font-size:14px}
+    .diagitem p{margin:0;line-height:1.6;font-weight:800;white-space:pre-line}
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    @media(max-width:860px){
-      .grid{grid-template-columns:1fr}
-      .kv{grid-template-columns:92px 1fr}
-    }
-
-    .pbox{
-      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;
-    }
-    .ptop{
-      display:flex;gap:10px;justify-content:space-between;align-items:flex-start;
-    }
-    .ptitle{font-weight:900;font-size:16px;line-height:1.25}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    @media(max-width:860px){ .grid{grid-template-columns:1fr} }
+    .pbox{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff}
+    .ptop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+    .ptitle{font-weight:900;font-size:16px;line-height:1.25;white-space:normal}
     .psub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
-
-    .tag{
-      display:inline-flex;align-items:center;white-space:nowrap;
-      border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;
-      background:#fff;
-    }
+    .tag{display:inline-flex;align-items:center;white-space:nowrap;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;background:#fff}
     .t-good{border-color:#0b57d0;color:#0b57d0}
     .t-mid{border-color:#b26a00;color:#b26a00}
     .t-bad{border-color:#b00020;color:#b00020}
 
-    .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .alink{
-      display:inline-flex;align-items:center;gap:6px;
-      border:1px solid #ddd;border-radius:999px;padding:7px 10px;
-      text-decoration:none;color:#111;background:#fff;font-weight:900;font-size:12px;
-      max-width:100%;
-    }
-    .alink:hover{background:#fafafa}
+    .kv{display:grid;grid-template-columns:94px 1fr;gap:8px 10px;margin-top:12px;line-height:1.55}
+    .kv .k{opacity:.65;font-weight:900}
+    .kv .v{font-weight:800;white-space:pre-line}
 
-    .divider{height:1px;background:#eee;margin:10px 0}
-    .small{font-size:12px}
-    .hidden{display:none !important}
+    .list{display:grid;gap:10px}
+    .item{border:1px solid #eee;border-radius:14px;padding:12px;background:#fff}
+    .item .head{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+    .item .head .t{font-weight:900}
+    .item .head .s{opacity:.75;font-size:13px;margin-top:3px}
+    .item .body{margin-top:10px}
+    .item .body .rowline{display:grid;grid-template-columns:100px 1fr;gap:8px 10px;line-height:1.55}
+    .item .body .rowline .rk{opacity:.65;font-weight:900}
+    .item .body .rowline .rv{font-weight:800;white-space:pre-line}
 
-    /* summary highlight blocks */
-    .sumGrid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:10px;
-    }
-    @media(max-width:860px){ .sumGrid{grid-template-columns:1fr} }
-
-    .sumBox{
-      border:1px solid #eee;border-radius:14px;padding:12px;background:#fff;
-    }
-    .sumBox h4{
-      margin:0 0 6px;font-size:14px;font-weight:900;
-      display:flex;align-items:center;gap:6px;
-    }
-    .sumText{line-height:1.6;font-weight:700;white-space:pre-line}
-    .listInline{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .chip{
-      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
-      padding:6px 10px;background:#fff;font-weight:900;font-size:12px;
-    }
-
-    details.debug{margin-top:10px}
-    details.debug summary{cursor:pointer;font-weight:900}
-    pre{
-      background:#fafafa;border:1px solid #eee;border-radius:12px;padding:10px;
-      overflow:auto;font-size:12px;line-height:1.45
-    }
+    .debug{background:#fafafa;border:1px dashed #ddd;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;white-space:pre-wrap;overflow:auto}
   </style>
 </head>
 <body>
 <div class="wrap">
-  <!-- Header -->
   <div class="card">
     <div class="title" id="hdr">생활기록부 · 포트폴리오</div>
     <div class="meta" id="meta"></div>
-
     <div class="row" id="modeRow"></div>
 
-    <div class="topbar" style="margin-top:10px">
+    <div class="topbar">
       <div class="leftgroup" id="navRow"></div>
-
       <div class="rightgroup">
-        <div id="semWrap" style="display:none; gap:8px; align-items:center;">
-          <span class="badge">학기</span>
-          <select id="semSel"></select>
+        <div id="termWrap" style="display:none;gap:8px;align-items:center;">
+          <span class="badge">학기 선택</span>
+          <select id="termSel"></select>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Status -->
-  <div id="status"></div>
-
-  <!-- Summary -->
-  <div id="summary"></div>
-
-  <!-- Detail -->
-  <div id="detail"></div>
-
-  <!-- Debug -->
-  <div id="debugBox" class="hidden"></div>
+  <div id="content"></div>
 </div>
 
 <script>
 (() => {
-  // ✅ index / student / univ_list / progress_detail 와 동일값으로 맞추기
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
-
+  const norm = (v) => String(v ?? "").trim();
   const qs = new URLSearchParams(location.search);
-  const adminParam = (qs.get("admin") || "").trim();
-  const adminSaved = (localStorage.getItem(LS_KEY) || "").trim();
-  const admin = adminParam || adminSaved;
-
+  const adminParam = qs.get("admin");
   const idParam = qs.get("id");
-  const tParam  = qs.get("t") || qs.get("token");
-  const debugOn = ["1","true","yes","y"].includes(String(qs.get("debug") || "").toLowerCase());
-
-  const isAdmin = (admin === ADMIN_TOKEN);
-  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
+  const tParam = qs.get("t") || qs.get("token");
+  const debugOn = qs.get("debug") === "1";
+  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
 
   const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-  const norm = (v)=>String(v ?? "").trim();
+  const esc = (s)=>String(s??"").replace(/[&<>\"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;","'":"&#39;"}[m]));
 
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
+    if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
     return r.json();
   }
 
-  // ---------- student field helpers ----------
-  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
-  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
+  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
+  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
+  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
 
-  function pickText(...vals){
+  const pickText = (...vals) => {
     for(const v of vals){
       const s = String(v ?? "").trim();
       if(s) return s;
     }
     return "";
-  }
+  };
 
   function normalizeArrayish(x){
     if(Array.isArray(x)) return x.slice();
-    if(!x || typeof x !== "object") return [];
-    for(const k of ["records","rows","items","data","notes","progress","list"]){
+    if(!x || typeof x!=="object") return [];
+    for(const k of ["records","rows","items","data","flags","summary","detail"]){
       if(Array.isArray(x[k])) return x[k].slice();
     }
     const out = [];
     for(const [k,v] of Object.entries(x)){
       if(Array.isArray(v)) out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
-      else if(v && typeof v === "object") out.push({...v, id:(v?.id ?? k)});
+      else if(v && typeof v==="object") out.push({...v, id:(v?.id ?? k)});
     }
     return out;
   }
 
-  // ---------- semester helpers ----------
-  function pickGrade(r){
-    return pickText(r?.grade, r?.["학년"], r?.school_grade, r?.year_label, r?.grade_label);
-  }
-  function pickTerm(r){
-    return pickText(r?.term, r?.["학기"], r?.semester, r?.semester_label, r?.half);
-  }
-  function semKeyFrom(grade, term){
-    const g = pickText(grade), t = pickText(term);
-    if(g && t) return `${g} · ${t}`;
-    if(g) return g;
-    if(t) return t;
-    return "";
-  }
-  function semKeyOf(r){
-    return semKeyFrom(pickGrade(r), pickTerm(r));
-  }
-
-  function rowMatchesSem(r, sem){
-    if(!r || !sem) return false;
-    const key = semKeyOf(r);
-    if(!key) return false;
-    return key === sem.key;
-  }
-
-  // ✅ grade/term 없는 flags는 전역 설정(모든 학기 적용)
-  function rowMatchesSemOrGlobal(r, sem){
-    if(!r || !sem) return false;
-    const key = semKeyOf(r);
-    if(!key) return true;
-    return key === sem.key;
-  }
-
-  function parseGradeTermOrder(sem){
-    // 고1, 고2, 고3 / 1학기, 2학기
-    const gtxt = String(sem?.grade || "");
-    const ttxt = String(sem?.term || "");
-    const gm = gtxt.match(/(\d+)/);
-    const tm = ttxt.match(/(\d+)/);
-    const g = gm ? Number(gm[1]) : 99;
-    const t = tm ? Number(tm[1]) : 99;
-    return [g, t];
-  }
-
-  function sortSemesters(arr){
-    return arr.sort((a,b)=>{
-      const [ga,ta] = parseGradeTermOrder(a);
-      const [gb,tb] = parseGradeTermOrder(b);
-      if(ga !== gb) return ga - gb;
-      if(ta !== tb) return ta - tb;
-      return String(a.key).localeCompare(String(b.key), "ko");
-    });
-  }
-
-  // ---------- flags helpers ----------
-  function boolYN(v, def=true){
-    const s = String(v ?? "").trim().toLowerCase();
-    if(!s) return def;
-    if(["y","yes","true","1","on"].includes(s)) return true;
-    if(["n","no","false","0","off"].includes(s)) return false;
-    return def;
-  }
-
-  function isPublishedStatus(v){
-    const s = String(v ?? "").trim().toLowerCase();
-    if(!s) return true; // 비어있으면 공개로 간주(운영 편의)
-    return ["published","public","open","ok","done","완료","공개"].includes(s);
-  }
-
-  function getDisplayMode(flag){
-    return pickText(flag?.displayMode, flag?.display_mode, flag?.mode, flag?.["표시모드"]).toLowerCase();
-  }
-
-  function tagFromReviewStatus(flag){
-    const rs = pickText(flag?.review_status, flag?.reviewStatus, flag?.status, flag?.["검토상태"]);
-    if(!rs) return null;
-    const low = rs.toLowerCase();
-    if(low.includes("publish") || low.includes("공개") || low.includes("완료")) return {text:rs, cls:"tag t-good"};
-    if(low.includes("review") || low.includes("검토") || low.includes("대기")) return {text:rs, cls:"tag t-mid"};
-    if(low.includes("hold") || low.includes("보류") || low.includes("hide")) return {text:rs, cls:"tag t-bad"};
-    return {text:rs, cls:"tag"};
-  }
-
-  // ---------- rendering helpers ----------
-  function renderKV(rows){
-    const safe = rows.filter(r => r && norm(r.v));
-    if(!safe.length) return "";
-    return `<div class="kv">${
-      safe.map(r => `<div class="k">${esc(r.k)}</div><div class="v">${esc(r.v)}</div>`).join("")
-    }</div>`;
-  }
-
-  function renderLinks(items){
-    if(!Array.isArray(items)) return "";
-    const links = items
-      .filter(x => x && x.url)
-      .map(x => {
-        const label = pickText(x.label, x.title, "자료");
-        return `<a class="alink" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(label)}</a>`;
-      }).join("");
-    return links ? `<div class="links">${links}</div>` : "";
-  }
-
   function splitKeywords(s){
-    const raw = String(s ?? "").trim();
-    if(!raw) return [];
-    return raw.split(/[,\n/|]+/).map(v => v.trim()).filter(Boolean);
+    return String(s||"")
+      .split(/[#,\/|,·ㆍ\n]+/)
+      .map(x=>x.trim())
+      .filter(Boolean);
   }
 
-  function cardMessage(html){
-    return `<div class="card">${html}</div>`;
+  function dedupe(arr){
+    const seen = new Set();
+    const out = [];
+    for(const x of arr){
+      const k = String(x).trim();
+      if(!k) continue;
+      const nk = k.toLowerCase();
+      if(seen.has(nk)) continue;
+      seen.add(nk); out.push(k);
+    }
+    return out;
   }
 
-  function safeJson(obj){
-    try{ return JSON.stringify(obj, null, 2); }catch(e){ return String(obj); }
+  function parseGradeTermRank(grade, term){
+    const gtxt = String(grade||"");
+    const ttxt = String(term||"");
+    let g = null;
+    const gm = gtxt.match(/(\d+)/);
+    if(gm) g = Number(gm[1]);
+    else if(gtxt.includes("고1")) g = 1;
+    else if(gtxt.includes("고2")) g = 2;
+    else if(gtxt.includes("고3")) g = 3;
+    let t = null;
+    const tm = ttxt.match(/(\d+)/);
+    if(tm) t = Number(tm[1]);
+    return { g: g ?? 99, t: t ?? 99 };
   }
 
-  // ---------- app state ----------
-  const STATE = {
-    student: null,
-    students: [],
-    flagsRows: [],
-    summaryRows: [],
-    detailRows: [],
-    semesters: [],
-    currentSem: null,
-  };
-
-  function findStudent(students){
-    let student = null;
-    if(isAdmin && idParam){
-      student = students.find(s => norm(pickId(s)) === norm(idParam));
-    }
-    if(!student && tParam){
-      student = students.find(s => norm(pickToken(s)) === norm(tParam));
-    }
-    return student || null;
+  function termKeyOf(row){
+    const grade = pickText(row?.grade, row?.["학년"], row?.["grade_label"]);
+    const term  = pickText(row?.term, row?.["학기"], row?.["semester"]);
+    if(grade && term) return `${grade} · ${term}`;
+    if(grade) return grade;
+    if(term) return term;
+    return "미지정";
   }
 
-  function buildSemesters(summaryRows, detailRows, flagsRows){
-    const map = new Map();
-
-    function addRow(r, source){
-      const grade = pickGrade(r);
-      const term = pickTerm(r);
-      const key = semKeyFrom(grade, term);
-      if(!key) return;
-      if(!map.has(key)) map.set(key, { key, grade, term, sources:{} });
-      map.get(key).sources[source] = true;
-    }
-
-    summaryRows.forEach(r => addRow(r, "summary"));
-    detailRows.forEach(r => addRow(r, "detail"));
-    // flags는 grade/term 있는 경우만 학기 소스로 포함 (전역 flags 제외)
-    flagsRows.forEach(r => { if(semKeyOf(r)) addRow(r, "flags"); });
-
-    return sortSemesters([...map.values()]);
+  function parseTermKey(key){
+    const [a,b] = String(key||"").split("·").map(s=>s.trim());
+    if(b) return { grade:a, term:b };
+    return { grade:a||"", term:"" };
   }
 
-  function getFlagForSem(sem){
-    // 우선순위: 학기 일치 flags -> 전역 flags
-    const exact = STATE.flagsRows.find(r => rowMatchesSem(r, sem));
-    if(exact) return exact;
-    const global = STATE.flagsRows.find(r => !semKeyOf(r));
-    return global || null;
+  function statusTag(text){
+    const s = String(text||"").trim();
+    if(!s) return null;
+    const low = s.toLowerCase();
+    if(low.includes("완료") || low.includes("review") || low.includes("ok")) return {text:s, cls:"tag t-good"};
+    if(low.includes("진행") || low.includes("대기") || low.includes("summary") ) return {text:s, cls:"tag t-mid"};
+    if(low.includes("보류") || low.includes("경고") || low.includes("미흡")) return {text:s, cls:"tag t-bad"};
+    return {text:s, cls:"tag"};
   }
 
-  function canViewSemInCurrentMode(sem){
-    const flag = getFlagForSem(sem);
-    if(!flag) return true; // flags 없으면 일단 보여줌(운영 편의)
-    const enabled = boolYN(pickText(flag.recordEnabled, flag.record_enabled, flag.enabled, flag["표시여부"]), true);
-
-    if(isAdmin){
-      return true; // 관리자는 항상 볼 수 있게
-    }else{
-      if(!enabled) return false;
-      const rs = pickText(flag.review_status, flag.reviewStatus, flag.status);
-      return isPublishedStatus(rs);
-    }
+  function sourceTag(type){
+    const t = String(type||"").trim();
+    if(!t) return null;
+    if(t.includes("세특") || t.includes("교과")) return {text:t, cls:"tag t-good"};
+    if(t.includes("자율") || t.includes("동아리") || t.includes("진로")) return {text:t, cls:"tag t-mid"};
+    return {text:t, cls:"tag"};
   }
 
-  function renderStatusSection(sem){
-    const root = $("#status");
-    const flag = sem ? getFlagForSem(sem) : null;
+  function renderFlags(globalFlag, termFlag){
+    const useFlag = termFlag || globalFlag || null;
+    const rows = [];
+    const enabled = pickText(useFlag?.recordEnabled, useFlag?.["recordEnabled"]);
+    const mode = pickText(useFlag?.displayMode, useFlag?.["displayMode"]);
+    const reviewed = pickText(useFlag?.last_reviewed, useFlag?.["last_reviewed"]);
+    const status = pickText(useFlag?.review_status, useFlag?.["review_status"]);
+    const reason = pickText(useFlag?.reason, useFlag?.["reason"]);
+    if(enabled) rows.push(`<span class="chip ${enabled.toUpperCase()==='Y'?'ok':'bad'}"><span class="k">기록표시</span>${esc(enabled)}</span>`);
+    if(mode) rows.push(`<span class="chip"><span class="k">표시모드</span>${esc(mode)}</span>`);
+    if(status) rows.push(`<span class="chip mid"><span class="k">검토상태</span>${esc(status)}</span>`);
+    if(reviewed) rows.push(`<span class="chip"><span class="k">검토일</span>${esc(reviewed)}</span>`);
+    if(reason) rows.push(`<span class="chip"><span class="k">비고</span>${esc(reason)}</span>`);
 
-    const chunks = [];
-
-    if(!sem){
-      root.innerHTML = cardMessage(`<div class="warn">표시할 학기를 찾지 못했습니다.</div>`);
-      return;
+    if(!rows.length){
+      return `<div class="card"><div class="section-title">표시 설정</div><div class="muted">설정 데이터가 없습니다. (school_record_flags.json은 학생 단위로만 있어도 정상입니다)</div></div>`;
     }
 
-    // 표시 설정 카드
-    let rows = [];
-    if(flag){
-      rows = [
-        {k:"표시여부", v: pickText(flag.recordEnabled, flag.record_enabled, flag.enabled, flag["표시여부"]) || "Y(기본)"},
-        {k:"표시모드", v: pickText(flag.displayMode, flag.display_mode, flag.mode, flag["표시모드"]) || "기본(both)"},
-        {k:"검토상태", v: pickText(flag.review_status, flag.reviewStatus, flag.status, flag["검토상태"]) || "미지정"},
-        {k:"검토일", v: pickText(flag.last_reviewed, flag.lastReviewed, flag.updated_at, flag["검토일"])},
-        {k:"비고", v: pickText(flag.reason, flag.note, flag.notes, flag["사유"])}
-      ];
-      const t = tagFromReviewStatus(flag);
-      chunks.push(`
-        <div class="card">
-          <div class="sectionTitle">
-            표시 설정
-            ${t ? `<span class="${t.cls}">${esc(t.text)}</span>` : ``}
-            ${!semKeyOf(flag) ? `<span class="badge small">전역 설정</span>` : ``}
-          </div>
-          ${renderKV(rows)}
-        </div>
-      `);
-    }else{
-      chunks.push(cardMessage(`
-        <div class="sectionTitle">표시 설정</div>
-        <div class="muted">선택한 학기의 flags 데이터가 없습니다. (전역/학기 flags 없음)</div>
-      `));
-    }
-
-    // 학생/학부모 차단 안내
-    if(!isAdmin && !canViewSemInCurrentMode(sem)){
-      chunks.push(cardMessage(`
-        <div class="warn">이 학기는 아직 공개되지 않았습니다.</div>
-        <div class="muted" style="margin-top:6px">관리자 검토 후 공개 상태로 전환되면 학생/학부모 링크에서 확인할 수 있습니다.</div>
-      `));
-    }
-
-    root.innerHTML = chunks.join("");
-  }
-
-  function renderSummarySection(sem){
-    const root = $("#summary");
-    root.innerHTML = "";
-
-    if(!sem){
-      root.innerHTML = cardMessage(`<div class="muted">학기 선택 정보가 없습니다.</div>`);
-      return;
-    }
-
-    if(!canViewSemInCurrentMode(sem) && !isAdmin){
-      root.innerHTML = "";
-      return;
-    }
-
-    const row = STATE.summaryRows.find(r => rowMatchesSem(r, sem));
-    if(!row){
-      root.innerHTML = cardMessage(`
-        <div class="sectionTitle">학기 요약</div>
-        <div class="muted">선택한 학기의 요약 데이터가 없습니다. (school_record_summary.json 확인)</div>
-      `);
-      return;
-    }
-
-    // ✅ 현재 JSON 키 매핑 반영
-    const strength = pickText(row.overall_strength, row.strength, row["강점"]);
-    const weakness = pickText(row.overall_weakness, row.weakness, row["보완점"], row["약점"]);
-    const nextAction = pickText(row.next_action, row.strategy, row.next_plan, row["다음액션"], row["전략"]);
-    const fitKeywords = pickText(row.subject_fit_keywords, row.fit_keywords, row.keywords, row["키워드"]);
-    const updatedAt = pickText(row.updated_at, row.updatedAt, row["업데이트일"]);
-    const notes = pickText(row.notes, row.note, row.memo, row["메모"]);
-
-    const extraRows = [];
-    // 이미 주요 필드로 표시한 키는 제외
-    const usedKeys = new Set([
-      "id","grade","term",
-      "overall_strength","strength","강점",
-      "overall_weakness","weakness","보완점","약점",
-      "next_action","strategy","next_plan","다음액션","전략",
-      "subject_fit_keywords","fit_keywords","keywords","키워드",
-      "updated_at","updatedAt","업데이트일",
-      "notes","note","memo","메모"
-    ]);
-
-    for(const [k,v] of Object.entries(row)){
-      if(usedKeys.has(k)) continue;
-      if(norm(v)) extraRows.push({k, v});
-    }
-
-    const chips = splitKeywords(fitKeywords)
-      .map(k => `<span class="chip">${esc(k)}</span>`).join("");
-
-    root.innerHTML = `
+    return `
       <div class="card">
-        <div class="sectionTitle">학기 요약</div>
-
-        <div class="sumGrid">
-          ${strength ? `
-            <div class="sumBox">
-              <h4>✅ 강점</h4>
-              <div class="sumText">${esc(strength)}</div>
-            </div>
-          ` : ``}
-
-          ${weakness ? `
-            <div class="sumBox">
-              <h4>🛠 보완점</h4>
-              <div class="sumText">${esc(weakness)}</div>
-            </div>
-          ` : ``}
-
-          ${nextAction ? `
-            <div class="sumBox" style="${(strength||weakness)?'grid-column:1/-1':''}">
-              <h4>🎯 다음 액션</h4>
-              <div class="sumText">${esc(nextAction)}</div>
-            </div>
-          ` : ``}
-        </div>
-
-        ${chips ? `
-          <div class="divider"></div>
-          <div class="sectionTitle" style="font-size:15px;margin:0 0 6px">적합 키워드</div>
-          <div class="listInline">${chips}</div>
-        ` : ``}
-
-        ${updatedAt || notes ? `
-          <div class="divider"></div>
-          ${renderKV([
-            {k:"업데이트일", v:updatedAt},
-            {k:"메모", v:notes},
-          ])}
-        ` : ``}
-
-        ${extraRows.length ? `
-          <div class="divider"></div>
-          <div class="sectionTitle" style="font-size:15px;margin:0 0 6px">기타 요약 필드</div>
-          ${renderKV(extraRows)}
-        ` : ``}
+        <div class="section-title">표시 설정</div>
+        <div class="chips">${rows.join("")}</div>
+        ${termFlag ? `<div class="subnote" style="margin-top:8px">학기별 설정 사용</div>` : (globalFlag ? `<div class="subnote" style="margin-top:8px">학생 공통 설정 사용</div>` : ``)}
       </div>
     `;
   }
 
-  function displayModeForSem(sem){
-    const flag = getFlagForSem(sem);
-    return getDisplayMode(flag);
-  }
-
-  function shouldShowSummary(sem){
-    const m = displayModeForSem(sem);
-    if(!m) return true;
-    if(["detail_only","details_only","hide_summary"].includes(m)) return false;
-    return true;
-  }
-
-  function shouldShowDetail(sem){
-    const m = displayModeForSem(sem);
-    if(!m) return true;
-    if(["summary_only","hide_detail"].includes(m)) return false;
-    return true;
-  }
-
-  function detailTagFromCategory(r){
-    const cat = pickText(r.category, r["구분"], r["카테고리"]);
-    if(!cat) return null;
-    const low = cat.toLowerCase();
-    if(low.includes("세특") || low.includes("교과")) return {text:cat, cls:"tag t-good"};
-    if(low.includes("창체") || low.includes("동아리")) return {text:cat, cls:"tag t-mid"};
-    if(low.includes("진로")) return {text:cat, cls:"tag t-good"};
-    return {text:cat, cls:"tag"};
-  }
-
-  function detailSubjectOrder(s){
-    const x = String(s||"");
-    const map = {"국어":1,"수학":2,"영어":3,"통합과학":4,"과학":5,"통합사회":6,"사회":7};
-    return map[x] ?? 99;
-  }
-
-  function renderDetailSection(sem){
-    const root = $("#detail");
-    root.innerHTML = "";
-
-    if(!sem){
-      root.innerHTML = cardMessage(`<div class="muted">학기 선택 정보가 없습니다.</div>`);
-      return;
+  function renderSummary(summaryRow, termDetails){
+    if(!summaryRow && !termDetails.length){
+      return `<div class="card"><div class="section-title">학기 종합 진단</div><div class="muted">요약/세부 데이터가 없습니다.</div></div>`;
     }
 
-    if(!canViewSemInCurrentMode(sem) && !isAdmin){
-      root.innerHTML = "";
-      return;
-    }
+    const overallStrength = pickText(summaryRow?.overall_strength, summaryRow?.["overall_strength"], summaryRow?.strength, summaryRow?.["강점"]);
+    const overallWeakness = pickText(summaryRow?.overall_weakness, summaryRow?.["overall_weakness"], summaryRow?.weakness, summaryRow?.["약점"]);
+    const nextAction = pickText(summaryRow?.next_action, summaryRow?.["next_action"], summaryRow?.action, summaryRow?.["다음액션"]);
+    const updatedAt = pickText(summaryRow?.updated_at, summaryRow?.["updated_at"]);
+    const analystNote = pickText(summaryRow?.notes, summaryRow?.["notes"], summaryRow?.coach_note, summaryRow?.["coach_note"]);
 
-    const rows = STATE.detailRows.filter(r => rowMatchesSem(r, sem));
-    if(!rows.length){
-      root.innerHTML = cardMessage(`
-        <div class="sectionTitle">세부 기록</div>
-        <div class="muted">선택한 학기의 세부 기록 데이터가 없습니다. (school_record_detail.json 확인)</div>
-      `);
-      return;
-    }
+    const kwFromSummary = splitKeywords(pickText(summaryRow?.subject_fit_keywords, summaryRow?.["subject_fit_keywords"], summaryRow?.keywords, summaryRow?.["키워드"]));
+    const kwFromDetail = termDetails.flatMap(d => splitKeywords(pickText(d.keywords, d["keywords"], d.keyword, d["키워드"])));
+    const kwAll = dedupe([...kwFromSummary, ...kwFromDetail]);
 
-    rows.sort((a,b)=>{
-      const ca = pickText(a.category, a["카테고리"], a["구분"]);
-      const cb = pickText(b.category, b["카테고리"], b["구분"]);
-      if(ca !== cb) return ca.localeCompare(cb,"ko");
-      const sa = pickText(a.subject, a["과목"]);
-      const sb = pickText(b.subject, b["과목"]);
-      const oa = detailSubjectOrder(sa), ob = detailSubjectOrder(sb);
-      if(oa !== ob) return oa - ob;
-      if(sa !== sb) return sa.localeCompare(sb,"ko");
-      const ta = pickText(a.activity_title, a.title, a["제목"]);
-      const tb = pickText(b.activity_title, b.title, a["제목"]);
-      return ta.localeCompare(tb,"ko");
-    });
+    const boxes = [];
+    if(overallStrength) boxes.push(`<div class="diagitem"><h4>강점 정리</h4><p>${esc(overallStrength)}</p></div>`);
+    if(overallWeakness) boxes.push(`<div class="diagitem"><h4>보완 포인트</h4><p>${esc(overallWeakness)}</p></div>`);
+    if(nextAction)      boxes.push(`<div class="diagitem"><h4>다음 단계</h4><p>${esc(nextAction)}</p></div>`);
+    if(analystNote)     boxes.push(`<div class="diagitem"><h4>추가 메모</h4><p>${esc(analystNote)}</p></div>`);
 
-    const cards = rows.map(r=>{
-      // ✅ 현재 JSON 키 매핑 반영
-      const category = pickText(r.category, r["카테고리"], r["구분"]);
-      const subject = pickText(r.subject, r["과목"], "미지정");
-      const tag = detailTagFromCategory(r);
-
-      const activityTitle = pickText(r.activity_title, r.title, r["제목"]);
-      const originalText = pickText(r.original_text, r.original, r.content, r["원문"], r["내용"]);
-      const coachSummary = pickText(r.coach_summary, r.summary, r["코치요약"], r["요약"]);
-      const keywords = pickText(r.keywords, r["키워드"]);
-      const strengthComment = pickText(r.strength_comment, r["강점코멘트"], r["강점"]);
-      const supplementComment = pickText(r.supplement_comment, r["보완코멘트"], r["보완점"]);
-      const evidenceLink = pickText(r.evidence_link, r.evidence_url, r["증빙링크"]);
-
-      const rowsKV = [
-        {k:"제목", v:activityTitle},
-        {k:"원문", v:originalText},
-        {k:"코치 요약", v:coachSummary},
-        {k:"키워드", v:keywords},
-        {k:"강점 코멘트", v:strengthComment},
-        {k:"보완 코멘트", v:supplementComment},
-      ];
-
-      const extraRows = [];
-      const usedKeys = new Set([
-        "id","grade","term","category","subject",
-        "activity_title","title","제목",
-        "original_text","original","content","원문","내용",
-        "coach_summary","summary","코치요약","요약",
-        "keywords","키워드",
-        "strength_comment","강점코멘트","강점",
-        "supplement_comment","보완코멘트","보완점",
-        "evidence_link","evidence_url","증빙링크"
-      ]);
-      for(const [k,v] of Object.entries(r)){
-        if(usedKeys.has(k)) continue;
-        if(norm(v)) extraRows.push({k,v});
+    const misc = [];
+    if(updatedAt) misc.push(`<span class="chip"><span class="k">업데이트</span>${esc(updatedAt)}</span>`);
+    if(summaryRow){
+      const other = Object.entries(summaryRow)
+        .filter(([k,v]) => !["id","grade","term","updated_at","overall_strength","overall_weakness","subject_fit_keywords","next_action","notes","keywords"].includes(k))
+        .filter(([_,v]) => String(v ?? "").trim()!=="");
+      if(other.length){
+        misc.push(`<span class="chip"><span class="k">추가필드</span>${other.length}개</span>`);
       }
+    }
 
-      let evHtml = "";
-      if(evidenceLink){
-        evHtml += `<div class="links"><a class="alink" href="${esc(evidenceLink)}" target="_blank" rel="noopener noreferrer">🔗 증빙 링크</a></div>`;
-      }
-      // evidence 배열이 들어와도 대응
-      if(Array.isArray(r.evidence)) evHtml += renderLinks(r.evidence);
+    return `
+      <div class="card">
+        <div class="section-title">학기 종합 진단</div>
+        <div class="subnote">생활기록부 분석 내용을 정리한 뒤, 확인용 키워드를 함께 붙였습니다.</div>
+        ${misc.length ? `<div class="chips" style="margin-top:10px">${misc.join("")}</div>` : ``}
+        ${boxes.length ? `<div class="diaggrid">${boxes.join("")}</div>` : `<div class="muted" style="margin-top:10px">종합 진단 텍스트가 아직 없습니다.</div>`}
+        <div style="margin-top:12px">
+          <div class="subnote" style="margin-bottom:8px">추출 키워드 (요약 + 세부기록 통합)</div>
+          ${kwAll.length ? `<div class="chips">${kwAll.map(k=>`<span class="chip">${esc(k)}</span>`).join("")}</div>` : `<div class="muted">키워드 데이터 없음</div>`}
+        </div>
+      </div>
+    `;
+  }
 
-      const keywordChips = splitKeywords(keywords).map(k=>`<span class="chip">${esc(k)}</span>`).join("");
+  function groupBySubject(details){
+    const m = new Map();
+    for(const d of details){
+      const subject = pickText(d.subject, d["subject"], d["과목"], d.category, d["category"], "미분류");
+      if(!m.has(subject)) m.set(subject, []);
+      m.get(subject).push(d);
+    }
+    const order = {"국어":1,"수학":2,"영어":3,"통합과학":4,"과학":5,"통합사회":6,"한국사":7};
+    return [...m.entries()].sort((a,b)=>(order[a[0]]??99)-(order[b[0]]??99) || a[0].localeCompare(b[0],"ko"));
+  }
+
+  function renderSubjectCards(details){
+    if(!details.length){
+      return `<div class="card"><div class="section-title">과목별 핵심 분석</div><div class="muted">세부 기록이 없어 과목별 분석을 표시할 수 없습니다.</div></div>`;
+    }
+
+    const groups = groupBySubject(details);
+    const cards = groups.map(([subject, rows]) => {
+      const allKw = dedupe(rows.flatMap(r => splitKeywords(pickText(r.keywords, r["keywords"], r.keyword, r["키워드"]))))
+        .slice(0, 10);
+      const strengths = dedupe(rows.map(r => pickText(r.strength_comment, r["strength_comment"], r.strength, r["강점코멘트"])) .filter(Boolean)).slice(0,3);
+      const supplements = dedupe(rows.map(r => pickText(r.supplement_comment, r["supplement_comment"], r.supplement, r["보완코멘트"])) .filter(Boolean)).slice(0,3);
+      const coach = dedupe(rows.map(r => pickText(r.coach_summary, r["coach_summary"], r.summary, r["요약"])) .filter(Boolean)).slice(0,2);
+
+      const tagRows = [];
+      tagRows.push(`<span class="chip"><span class="k">기록수</span>${rows.length}개</span>`);
+      if(allKw.length) tagRows.push(...allKw.map(k=>`<span class="chip">${esc(k)}</span>`));
+
+      const kv = [];
+      if(coach.length) kv.push(`<div class="k">핵심 해석</div><div class="v">${esc(coach.join("\n• ")).replace(/^/,'• ')}</div>`);
+      if(strengths.length) kv.push(`<div class="k">강점</div><div class="v">${esc(strengths.join("\n• ")).replace(/^/,'• ')}</div>`);
+      if(supplements.length) kv.push(`<div class="k">보완</div><div class="v">${esc(supplements.join("\n• ")).replace(/^/,'• ')}</div>`);
 
       return `
         <div class="pbox">
           <div class="ptop">
             <div style="min-width:0">
               <div class="ptitle">${esc(subject)}</div>
-              <div class="psub">
-                ${category ? `구분: ${esc(category)}` : ``}
-                ${activityTitle ? `${category ? " · " : ""}${esc(activityTitle)}` : ``}
-              </div>
+              <div class="psub">세부 기록 ${rows.length}개 기반 요약</div>
             </div>
-            ${tag ? `<span class="${tag.cls}">${esc(tag.text)}</span>` : ``}
+            <span class="tag">과목별 분석</span>
           </div>
-
-          ${renderKV(rowsKV)}
-
-          ${keywordChips ? `<div class="listInline" style="margin-top:10px">${keywordChips}</div>` : ``}
-          ${evHtml}
-
-          ${extraRows.length ? `
-            <div class="divider"></div>
-            <div class="sectionTitle" style="font-size:14px;margin:0 0 6px">기타 필드</div>
-            ${renderKV(extraRows)}
-          ` : ``}
+          <div class="chips" style="margin-top:10px">${tagRows.join("")}</div>
+          ${kv.length ? `<div class="kv">${kv.join("")}</div>` : `<div class="muted" style="margin-top:10px">요약 코멘트가 아직 없습니다.</div>`}
         </div>
       `;
     }).join("");
 
-    root.innerHTML = `
+    return `
       <div class="card">
-        <div class="sectionTitle">세부 기록</div>
-        <div class="muted">입력된 항목만 노출됩니다.</div>
+        <div class="section-title">과목별 핵심 분석</div>
+        <div class="subnote">세부 기록을 과목 기준으로 묶어 확인할 수 있습니다.</div>
+        <div class="grid">${cards}</div>
       </div>
-      <div class="grid">${cards}</div>
     `;
   }
 
-  function renderDebug(sem){
-    const box = $("#debugBox");
-    if(!debugOn){ box.classList.add("hidden"); box.innerHTML = ""; return; }
+  function renderDetailList(details){
+    if(!details.length){
+      return `<div class="card"><div class="section-title">세부 기록</div><div class="muted">입력된 세부 기록이 없습니다.</div></div>`;
+    }
+    const items = details.map(d => {
+      const category = pickText(d.category, d["category"], d.type, d["유형"]);
+      const subject  = pickText(d.subject, d["subject"], d["과목"]);
+      const title    = pickText(d.activity_title, d["activity_title"], d.title, d["제목"]);
+      const original = pickText(d.original_text, d["original_text"], d.original, d["원문"]);
+      const coach    = pickText(d.coach_summary, d["coach_summary"], d.summary, d["요약"]);
+      const keywords = dedupe(splitKeywords(pickText(d.keywords, d["keywords"], d.keyword, d["키워드"])));
+      const strength = pickText(d.strength_comment, d["strength_comment"], d.strength, d["강점코멘트"]);
+      const supple   = pickText(d.supplement_comment, d["supplement_comment"], d.supplement, d["보완코멘트"]);
+      const link     = pickText(d.evidence_link, d["evidence_link"], d.link, d["링크"]);
 
-    const sid = norm(pickId(STATE.student));
-    const flagsMine = STATE.flagsRows.filter(r => norm(r?.id) === sid);
-    const summaryMine = STATE.summaryRows.filter(r => norm(r?.id) === sid);
-    const detailMine = STATE.detailRows.filter(r => norm(r?.id) === sid);
+      const tag1 = sourceTag(category);
+      const tag2 = subject ? { text: subject, cls: "tag" } : null;
 
-    const debugObj = {
-      student: {
-        id: sid,
-        name: pickName(STATE.student),
-        tokenExists: !!pickToken(STATE.student)
-      },
-      sample_flags: flagsMine.slice(0,2),
-      sample_summary: summaryMine.slice(0,2),
-      sample_detail: detailMine.slice(0,2),
-      semesters: STATE.semesters
-    };
+      const rowlines = [];
+      if(title) rowlines.push(`<div class="rowline"><div class="rk">활동명</div><div class="rv">${esc(title)}</div></div>`);
+      if(original) rowlines.push(`<div class="rowline"><div class="rk">원문</div><div class="rv">${esc(original)}</div></div>`);
+      if(coach) rowlines.push(`<div class="rowline"><div class="rk">분석 요약</div><div class="rv">${esc(coach)}</div></div>`);
+      if(strength) rowlines.push(`<div class="rowline"><div class="rk">강점 코멘트</div><div class="rv">${esc(strength)}</div></div>`);
+      if(supple) rowlines.push(`<div class="rowline"><div class="rk">보완 코멘트</div><div class="rv">${esc(supple)}</div></div>`);
+      if(keywords.length) rowlines.push(`<div class="rowline"><div class="rk">키워드</div><div class="rv">${keywords.map(esc).join(', ')}</div></div>`);
+      if(link) rowlines.push(`<div class="rowline"><div class="rk">근거 링크</div><div class="rv"><a class="btn" style="padding:6px 10px;border-radius:999px" href="${esc(link)}" target="_blank" rel="noopener noreferrer">열기</a></div></div>`);
 
-    box.classList.remove("hidden");
-    box.innerHTML = `
-      <div class="card">
-        <details class="debug" open>
-          <summary>디버그 상태</summary>
-          <div class="kv" style="margin-top:10px">
-            <div class="k">학생 매칭</div><div class="v">성공: ${esc(pickName(STATE.student))} (${esc(sid)})</div>
-            <div class="k">접근 모드</div><div class="v">${isAdmin ? "관리자(id)" : "학생/학부모(token)"}</div>
-            <div class="k">students.json 수</div><div class="v">${STATE.students.length}</div>
-            <div class="k">flags 전체/학생</div><div class="v">${STATE.flagsRows.length} / ${flagsMine.length}</div>
-            <div class="k">summary 전체/학생</div><div class="v">${STATE.summaryRows.length} / ${summaryMine.length}</div>
-            <div class="k">detail 전체/학생</div><div class="v">${STATE.detailRows.length} / ${detailMine.length}</div>
-            <div class="k">추출 학기 수</div><div class="v">${STATE.semesters.length}</div>
-            <div class="k">학기 목록</div><div class="v">${STATE.semesters.map(s=>s.key).join(", ") || "-"}</div>
+      return `
+        <div class="item">
+          <div class="head">
+            <div style="min-width:0">
+              <div class="t">${esc(subject || '미분류')}</div>
+              <div class="s">${esc(title || category || '세부 기록')}</div>
+            </div>
+            <div class="row" style="margin-top:0;justify-content:flex-end">
+              ${tag1 ? `<span class="${tag1.cls}">${esc(tag1.text)}</span>` : ``}
+              ${tag2 ? `<span class="${tag2.cls}">${esc(tag2.text)}</span>` : ``}
+            </div>
           </div>
-          <pre>${esc(safeJson(debugObj))}</pre>
-          ${sem ? `<div class="muted small">현재 선택 학기: ${esc(sem.key)}</div>` : ``}
-        </details>
+          <div class="body">${rowlines.join('')}</div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <div class="card">
+        <div class="section-title">세부 기록</div>
+        <div class="subnote">입력된 항목만 표시됩니다.</div>
+        <div class="list" style="margin-top:10px">${items}</div>
       </div>
     `;
   }
 
-  function renderAll(){
-    const sem = STATE.currentSem;
-    renderStatusSection(sem);
+  function renderContent(ctx){
+    const { selectedKey, globalFlag, termFlag, summaryRow, termDetails, effectiveDisplayMode, debug } = ctx;
 
-    if(sem && shouldShowSummary(sem)) renderSummarySection(sem);
-    else $("#summary").innerHTML = sem ? cardMessage(`<div class="sectionTitle">학기 요약</div><div class="muted">표시모드 설정으로 요약이 숨겨져 있습니다.</div>`) : "";
+    const blocks = [];
+    blocks.push(renderFlags(globalFlag, termFlag));
+    blocks.push(renderSummary(summaryRow, termDetails));
+    blocks.push(renderSubjectCards(termDetails));
 
-    if(sem && shouldShowDetail(sem)) renderDetailSection(sem);
-    else $("#detail").innerHTML = sem ? cardMessage(`<div class="sectionTitle">세부 기록</div><div class="muted">표시모드 설정으로 세부 기록이 숨겨져 있습니다.</div>`) : "";
+    const summaryOnly = String(effectiveDisplayMode||"").toLowerCase() === "summary_only";
+    if(summaryOnly && !isAdmin){
+      blocks.push(`<div class="card"><div class="section-title">세부 기록</div><div class="muted">학생/학부모 모드에서는 요약 전용으로 설정되어 세부 기록이 숨겨집니다.</div></div>`);
+    } else {
+      blocks.push(renderDetailList(termDetails));
+    }
 
-    renderDebug(sem);
+    if(debugOn){
+      blocks.unshift(`
+        <div class="card">
+          <div class="section-title">디버그 상태</div>
+          <div class="debug">${esc(JSON.stringify(debug, null, 2))}</div>
+        </div>
+      `);
+    }
+
+    $("#content").innerHTML = blocks.join("");
   }
 
   async function main(){
-    // 1) 학생 찾기
-    const students = await loadJson("./students.json");
-    if(!Array.isArray(students)) throw new Error("students.json is not an array");
+    // 1) 학생 매칭
+    const students = await loadJson('./students.json');
+    if(!Array.isArray(students)) throw new Error('students.json is not an array');
 
-    STATE.students = students.slice();
-    const student = findStudent(students);
-
+    let student = null;
+    let accessMode = '';
+    if(isAdmin && idParam){
+      student = students.find(s => norm(pickId(s)) === norm(idParam));
+      accessMode = '관리자(id)';
+    }
+    if(!student && tParam){
+      student = students.find(s => norm(pickToken(s)) === norm(tParam));
+      accessMode = '학생토큰(t)';
+    }
     if(!student){
-      $("#hdr").textContent = "접근 권한이 없습니다.";
-      $("#meta").innerHTML = `
+      $('#hdr').textContent = '접근 권한이 없습니다.';
+      $('#meta').innerHTML = `
         <div class="warn">학생을 찾을 수 없습니다.</div>
         <div class="muted">관리자: record_detail.html?id=학생ID&admin=관리자토큰 / 학생: record_detail.html?t=개별토큰</div>
       `;
       return;
     }
-    STATE.student = student;
 
-    const sid  = norm(pickId(student));
+    const sid = norm(pickId(student));
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").textContent = `생활기록부 · 포트폴리오 · ${name}${sid ? ` (${sid})` : ""}`;
-
-    // 학생 메타
+    $('#hdr').textContent = `생활기록부 · 포트폴리오 · ${name}${sid?` (${sid})`:''}`;
     const metaRows = [];
-    const school = pickText(student.school, student["학교"]);
-    const career = pickText(student.career, student["진로"]);
-    const adm    = pickText(student.admission, student["전형"]);
+    const school = pickText(student.school, student['학교']);
+    const career = pickText(student.career, student['진로']);
+    const adm = pickText(student.admission, student['전형']);
     if(school) metaRows.push(`학교: ${esc(school)}`);
     if(career) metaRows.push(`진로: ${esc(career)}`);
-    if(adm)    metaRows.push(`전형: ${esc(adm)}`);
-    $("#meta").innerHTML = metaRows.length ? metaRows.join("<br>") : `<span class="muted">학생 메타 정보 없음</span>`;
+    if(adm) metaRows.push(`전형: ${esc(adm)}`);
+    $('#meta').innerHTML = metaRows.length ? metaRows.join('<br>') : `<span class="muted">학생 메타 정보 없음</span>`;
 
-    $("#modeRow").innerHTML = isAdmin
+    $('#modeRow').innerHTML = isAdmin
       ? `<span class="pill">관리자 모드</span><span class="muted">id 접근</span>`
-      : `<span class="pill">학생/학부모 모드</span><span class="muted">토큰 접근</span>`;
+      : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
-    // 네비 버튼
-    const adminTokenForLink = adminParam || admin; // 관리자 링크 유지
-    const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminTokenForLink)}`
-      : `./student.html?t=${encodeURIComponent(stok)}`;
-
-    const univHref = isAdmin
-      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminTokenForLink)}`
-      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
-
-    const progHref = isAdmin
-      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminTokenForLink)}`
-      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+    // 2) 네비
+    const studentHref = isAdmin ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}` : `./student.html?t=${encodeURIComponent(stok)}`;
+    const univHref = isAdmin ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}` : `./univ_list.html?t=${encodeURIComponent(stok)}`;
+    const progHref = isAdmin ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}` : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+    const rawHref = isAdmin ? `./record_raw_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}` : `./record_raw_detail.html?t=${encodeURIComponent(stok)}`;
 
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">학생 성적</a>`);
     nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
     nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
-    if(isAdmin){
-      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminTokenForLink)}">학생 목록</a>`);
-    }
-    $("#navRow").innerHTML = nav.join("");
+    nav.push(`<a class="btn" href="${rawHref}">생기부 원문 전체 보기</a>`);
+    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
+    $('#navRow').innerHTML = nav.join('');
 
-    // 2) 레코드 JSON 로딩
-    let rawFlags = [], rawSummary = [], rawDetail = [];
-    try { rawFlags = await loadJson("./school_record_flags.json"); } catch(e){ rawFlags = []; }
-    try { rawSummary = await loadJson("./school_record_summary.json"); } catch(e){ rawSummary = []; }
-    try { rawDetail = await loadJson("./school_record_detail.json"); } catch(e){ rawDetail = []; }
+    // 3) 데이터 로딩
+    let flagsAll = [], summaryAll = [], detailAll = [];
+    try { flagsAll = normalizeArrayish(await loadJson('./school_record_flags.json')); } catch(e){ flagsAll = []; }
+    try { summaryAll = normalizeArrayish(await loadJson('./school_record_summary.json')); } catch(e){ summaryAll = []; }
+    try { detailAll = normalizeArrayish(await loadJson('./school_record_detail.json')); } catch(e){ detailAll = []; }
 
-    STATE.flagsRows = normalizeArrayish(rawFlags).filter(r => norm(r?.id) === sid);
-    STATE.summaryRows = normalizeArrayish(rawSummary).filter(r => norm(r?.id) === sid);
-    STATE.detailRows = normalizeArrayish(rawDetail).filter(r => norm(r?.id) === sid);
+    const flagsByStudent = flagsAll.filter(r => norm(r?.id) === sid);
+    const summaryByStudent = summaryAll.filter(r => norm(r?.id) === sid);
+    const detailByStudent = detailAll.filter(r => norm(r?.id) === sid);
 
-    // 3) 학기 추출
-    STATE.semesters = buildSemesters(STATE.summaryRows, STATE.detailRows, STATE.flagsRows);
-
-    // 학기 자체가 없는 경우
-    if(!STATE.semesters.length){
-      $("#status").innerHTML = cardMessage(`
-        <div class="warn">생활기록부 데이터가 없습니다.</div>
-        <div class="muted" style="margin-top:6px">
-          school_record_summary.json 또는 school_record_detail.json에
-          <span class="mono">id=${esc(sid)}</span> + <b>grade/term</b> 데이터가 필요합니다.
+    if(!summaryByStudent.length && !detailByStudent.length){
+      $('#content').innerHTML = `
+        <div class="card">
+          <div class="warn">생활기록부 데이터 없음</div>
+          <div class="muted">school_record_summary.json / school_record_detail.json에 id=${esc(sid)} 데이터가 없습니다.</div>
         </div>
-      `);
-      renderDebug(null);
+      `;
       return;
     }
 
-    // 4) 학생/학부모 모드에서는 공개 가능한 학기만 남김
-    if(!isAdmin){
-      const visible = STATE.semesters.filter(sem => canViewSemInCurrentMode(sem));
-      if(visible.length) STATE.semesters = visible;
-      // 전부 비공개면 일단 첫 학기 표시하되 내용 차단 안내 나오게
+    // 4) 학기 목록 구성 (summary + detail union)
+    const termMap = new Map();
+    for(const r of [...summaryByStudent, ...detailByStudent]){
+      const key = termKeyOf(r);
+      if(!termMap.has(key)) termMap.set(key, parseTermKey(key));
     }
+    if(!termMap.size) termMap.set('미지정', {grade:'',term:''});
 
-    // 5) selector 세팅
-    const semWrap = $("#semWrap");
-    const semSel = $("#semSel");
-    const keys = STATE.semesters.map(s => s.key);
+    const keys = [...termMap.keys()];
+    keys.sort((a,b)=>{
+      if(a==='미지정' && b!=='미지정') return 1;
+      if(b==='미지정' && a!=='미지정') return -1;
+      const pa = parseTermKey(a), pb = parseTermKey(b);
+      const ra = parseGradeTermRank(pa.grade, pa.term);
+      const rb = parseGradeTermRank(pb.grade, pb.term);
+      if(ra.g !== rb.g) return ra.g - rb.g; // 고1 -> 고2 -> 고3
+      if(ra.t !== rb.t) return ra.t - rb.t;
+      return a.localeCompare(b,'ko');
+    });
 
+    let selectedKey = keys[keys.length - 1]; // 최신 학기(고학년/후학기) 기본
+
+    const termWrap = $('#termWrap');
+    const termSel = $('#termSel');
     if(keys.length >= 2){
-      semWrap.style.display = "inline-flex";
-      semSel.innerHTML = STATE.semesters.map(s =>
-        `<option value="${esc(s.key)}">${esc(s.key)}</option>`
-      ).join("");
-      // 최신(마지막) 기본 선택
-      const defaultSem = STATE.semesters[STATE.semesters.length - 1];
-      semSel.value = defaultSem.key;
-      STATE.currentSem = defaultSem;
-
-      semSel.addEventListener("change", ()=>{
-        STATE.currentSem = STATE.semesters.find(s => s.key === semSel.value) || STATE.semesters[0];
-        renderAll();
-      });
-    }else{
-      semWrap.style.display = "none";
-      STATE.currentSem = STATE.semesters[0];
+      termWrap.style.display = 'inline-flex';
+      termSel.innerHTML = keys.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('');
+      termSel.value = selectedKey;
+    } else {
+      termWrap.style.display = 'none';
     }
 
-    // 6) 렌더
-    renderAll();
+    const globalFlag = flagsByStudent[0] || null;
+
+    function redraw(){
+      selectedKey = (termSel && termWrap.style.display !== 'none') ? termSel.value : selectedKey;
+      const {grade, term} = parseTermKey(selectedKey);
+
+      const termSummaryCandidates = summaryByStudent.filter(r => termKeyOf(r) === selectedKey);
+      const summaryRow = termSummaryCandidates[0] || null;
+      const termDetails = detailByStudent.filter(r => termKeyOf(r) === selectedKey);
+
+      // 학기별 flags가 있을 수도 있으니 우선 시도, 없으면 학생 공통 flags 사용
+      const termFlag = flagsByStudent.find(f => {
+        const fk = termKeyOf(f);
+        return fk !== '미지정' && fk === selectedKey;
+      }) || null;
+
+      const effectiveDisplayMode = pickText(termFlag?.displayMode, globalFlag?.displayMode);
+
+      const debug = {
+        student: { id:sid, name, tokenExists: !!stok },
+        accessMode,
+        students_count: students.length,
+        flags_total: flagsAll.length,
+        flags_student: flagsByStudent.length,
+        summary_total: summaryAll.length,
+        summary_student: summaryByStudent.length,
+        detail_total: detailAll.length,
+        detail_student: detailByStudent.length,
+        term_keys: keys,
+        selected_key: selectedKey,
+        selected_summary_count: termSummaryCandidates.length,
+        selected_detail_count: termDetails.length,
+        selected_term_flag_found: !!termFlag,
+        global_flag: globalFlag,
+        term_flag: termFlag,
+        summary_sample: summaryRow,
+        detail_sample: termDetails.slice(0,1)
+      };
+
+      renderContent({ selectedKey, globalFlag, termFlag, summaryRow, termDetails, effectiveDisplayMode, debug });
+    }
+
+    if(termSel){ termSel.addEventListener('change', redraw); }
+    redraw();
   }
 
-  main().catch(err=>{
-    $("#hdr").textContent = "오류";
-    $("#meta").innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
+  main().catch(err => {
+    $('#hdr').textContent = '오류';
+    $('#meta').innerHTML = `<div class="warn">로딩 오류</div><div class="muted">${esc(err.message)}</div>`;
   });
 })();
 </script>
