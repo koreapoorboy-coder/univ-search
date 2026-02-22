@@ -1,34 +1,103 @@
-[
-  {
-    "id": "shstudy01",
-    "grade": "고1",
-    "term": "1학기",
-    "updated_at": "2026-07-15",
-
-    "homeroom_teacher_comment": "성실하게 수업에 참여하며 ...",
-    "behavior_comment": "책임감이 있고 ...",
-
-    "sections": [
-      {
-        "category": "교과세특",
-        "subject": "과학",
-        "original_text": "감염병 확산 그래프를 보고 변곡점 원인을 추론하고, 추가 자료를 찾아 비교함."
-      },
-      {
-        "category": "교과세특",
-        "subject": "수학",
-        "original_text": "함수 그래프 해석에서 ..."
-      },
-      {
-        "category": "자율활동",
-        "subject": "",
-        "original_text": "학급 행사 기획 및 운영 ..."
-      },
-      {
-        "category": "진로활동",
-        "subject": "",
-        "original_text": "보건/공학 계열 진로 탐색 ..."
-      }
-    ]
-  }
-]
+{
+  "meta": [
+    {
+      "id": "shstudy01",
+      "grade": "고1",
+      "term": "1학기",
+      "updated_at": "2026-07-15",
+      "homeroom_teacher_comment": "성실하게 수업에 참여하며, 발표 시 근거를 들어 설명하려는 태도가 좋음.",
+      "behavior_comment": "책임감이 강하고 과제 제출이 안정적이며 협업 시 조율이 원활함.",
+      "overall_raw_notes": "원문은 예시이며 실제 입력 시 줄바꿈 그대로 붙여넣기 권장.",
+      "visibility": "admin_only",
+      "source": "직접입력",
+      "sem_key": "고1 · 1학기"
+    },
+    {
+      "id": "shstudy02",
+      "grade": "고2",
+      "term": "1학기",
+      "updated_at": "2026-07-18",
+      "homeroom_teacher_comment": "수업 중 질문을 통해 이해를 점검하고, 글로 정리하는 습관이 있음.",
+      "behavior_comment": "학급 활동 참여도가 높고 역할 수행이 성실함.",
+      "visibility": "token_visible",
+      "source": "직접입력",
+      "sem_key": "고2 · 1학기"
+    },
+    {
+      "id": "shstudy03",
+      "grade": "고3",
+      "term": "1학기",
+      "updated_at": "2026-07-20",
+      "homeroom_teacher_comment": "진로 방향이 명확하고 관련 활동을 꾸준히 수행함.",
+      "behavior_comment": "일정이 촘촘한 시기에는 산출물 정리가 필요함.",
+      "visibility": "token_visible",
+      "source": "직접입력",
+      "sem_key": "고3 · 1학기"
+    }
+  ],
+  "sections": [
+    {
+      "id": "shstudy01",
+      "grade": "고1",
+      "term": "1학기",
+      "category": "교과세특",
+      "subject": "과학",
+      "activity_title": "감염병 데이터 해석",
+      "raw_text": "감염병 확산 그래프를 보고 변곡점 원인을 추론하고, 추가 자료를 찾아 비교함.\n자료 간 차이를 설명하며 한계점도 함께 언급함.",
+      "visibility": "inherit",
+      "source": "직접입력",
+      "sem_key": "고1 · 1학기",
+      "raw_len": 70
+    },
+    {
+      "id": "shstudy01",
+      "grade": "고1",
+      "term": "1학기",
+      "category": "자율활동",
+      "activity_title": "학급 행사 기획",
+      "raw_text": "학급 행사에서 역할을 맡아 일정과 업무를 조율하고, 구성원의 의견을 수렴하여 실행 계획을 수립함.",
+      "visibility": "inherit",
+      "source": "직접입력",
+      "sem_key": "고1 · 1학기",
+      "raw_len": 54
+    },
+    {
+      "id": "shstudy02",
+      "grade": "고2",
+      "term": "1학기",
+      "category": "교과세특",
+      "subject": "국어",
+      "activity_title": "비문학 근거표시",
+      "raw_text": "선지 판단 전 근거문장을 표시하는 과정이 일부 누락되어 오답이 발생함. 근거표시→요약→선지 순서를 고정하면 정확도가 안정됨.",
+      "visibility": "inherit",
+      "source": "직접입력",
+      "sem_key": "고2 · 1학기",
+      "raw_len": 69
+    },
+    {
+      "id": "shstudy02",
+      "grade": "고2",
+      "term": "1학기",
+      "category": "동아리",
+      "activity_title": "독서토론 활동",
+      "raw_text": "독서토론에서 주장-근거 구조를 명확히 하며, 반론에 대해 자료를 근거로 응답함.",
+      "visibility": "token_visible",
+      "source": "직접입력",
+      "sem_key": "고2 · 1학기",
+      "raw_len": 44
+    },
+    {
+      "id": "shstudy03",
+      "grade": "고3",
+      "term": "1학기",
+      "category": "진로활동",
+      "activity_title": "데이터 기반 경제 이슈 분석",
+      "raw_text": "경제 지표를 비교해 정책 효과를 설명하고, 보완 데이터를 제시함. 전공 적합 키워드가 일관되며 산출물로 정리할 가치가 있음.",
+      "evidence_link": "https://example.com/evidence",
+      "visibility": "inherit",
+      "source": "직접입력",
+      "sem_key": "고3 · 1학기",
+      "raw_len": 69
+    }
+  ]
+}
