@@ -15,7 +15,10 @@
     .name{font-weight:900;font-size:18px}
     .meta{opacity:.85;margin-top:6px;line-height:1.6}
 
-    .btn{display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;padding:8px 10px;border-radius:10px;color:#111;background:#fff}
+    .btn{
+      display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;
+      padding:8px 10px;border-radius:10px;color:#111;background:#fff;cursor:pointer;
+    }
     .btn:hover{background:#fafafa}
     .btn:active{transform:translateY(1px)}
     .btn + .btn{margin-left:8px}
@@ -27,9 +30,11 @@
     .muted{opacity:.7}
 
     /* 작은 토스트 */
-    #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+    #toast{
+      position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
       background:#111;color:#fff;padding:10px 12px;border-radius:999px;
-      font-weight:900;opacity:0;pointer-events:none;transition:opacity .18s ease}
+      font-weight:900;opacity:0;pointer-events:none;transition:opacity .18s ease
+    }
     #toast.show{opacity:1}
 
     @media(max-width:560px){
@@ -60,7 +65,7 @@
 
 <script>
 (() => {
-  // ✅ 모든 페이지( index / student / univ_list / progress )에서 같은 값으로 맞춰주세요.
+  // ✅ 모든 페이지(index / student / univ_list / progress_detail / record_detail)에서 동일하게 맞추세요.
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
 
@@ -70,7 +75,7 @@
   const admin = adminParam || adminSaved;
 
   const isAdmin = (admin === ADMIN_TOKEN);
-  if(adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
+  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
 
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -98,7 +103,7 @@
       await navigator.clipboard.writeText(text);
       toast('링크 복사됨');
     }catch(e){
-      // iOS/구형 브라우저 fallback
+      // fallback
       window.prompt('아래 링크를 복사하세요', text);
     }
   }
@@ -128,6 +133,7 @@
 
     function render(){
       const q = (qEl.value || '').trim().toLowerCase();
+
       const arr = students
         .map(s => ({
           s,
@@ -161,45 +167,56 @@
         const sid = x.id;
         const tok = x.token || '';
 
+        // 관리자 링크
         const adminStudent = `${base}student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
         const adminUniv    = `${base}univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
+        const adminProg    = `${base}progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
+        const adminRecord  = `${base}record_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
 
+        // 학생/학부모용 토큰 링크
         const tokenStudent = tok ? `${base}student.html?t=${encodeURIComponent(tok)}` : '';
         const tokenUniv    = tok ? `${base}univ_list.html?t=${encodeURIComponent(tok)}` : '';
         const tokenProg    = tok ? `${base}progress_detail.html?t=${encodeURIComponent(tok)}` : '';
+        const tokenRecord  = tok ? `${base}record_detail.html?t=${encodeURIComponent(tok)}` : '';
 
         const tokenLine = tok
           ? `<div class="meta"><span class="pill">토큰</span> <span class="mono">${esc(tok)}</span></div>`
           : `<div class="meta"><span class="warn">토큰 없음</span> <span class="muted">(students.json에 token 입력 필요)</span></div>`;
 
-        const tokenBtns = tok ? `
+        const buttons = tok ? `
           <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
           <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
+          <a class="btn" href="${esc(adminProg)}">관리자: 진도 보기</a>
+          <a class="btn" href="${esc(adminRecord)}">관리자: 생기부 보기</a>
+
           <button class="btn" type="button" data-copy="${esc(tokenStudent)}">학생 링크 복사</button>
           <button class="btn" type="button" data-copy="${esc(tokenUniv)}">상향/적정 링크 복사</button>
           <button class="btn" type="button" data-copy="${esc(tokenProg)}">진도 링크 복사</button>
+          <button class="btn" type="button" data-copy="${esc(tokenRecord)}">생기부 링크 복사</button>
         ` : `
           <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
           <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
+          <a class="btn" href="${esc(adminProg)}">관리자: 진도 보기</a>
+          <a class="btn" href="${esc(adminRecord)}">관리자: 생기부 보기</a>
         `;
 
         return `
           <div class="card">
             <div class="name">${esc(x.name)} <span class="muted">(${esc(sid)})</span></div>
             <div class="meta">
-              학교: ${esc(x.school || '-') }<br>
-              진로: ${esc(x.career || '-') }<br>
-              전형: ${esc(x.admission || '-') }
+              학교: ${esc(x.school || '-')}<br>
+              진로: ${esc(x.career || '-')}<br>
+              전형: ${esc(x.admission || '-')}
             </div>
             ${tokenLine}
             <div class="row" style="margin-top:12px">
-              ${tokenBtns}
+              ${buttons}
             </div>
           </div>
         `;
       }).join('');
 
-      // bind copy buttons
+      // 복사 버튼 이벤트
       listEl.querySelectorAll('button[data-copy]').forEach(btn => {
         btn.addEventListener('click', () => copyText(btn.getAttribute('data-copy')));
       });
