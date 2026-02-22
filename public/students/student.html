@@ -7,220 +7,413 @@
   <style>
     html,body{width:100%;overflow-x:hidden}
     *{box-sizing:border-box}
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:14px;background:#fff;color:#111}
+    body{
+      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      margin:14px;background:#fff;color:#111;
+    }
     .wrap{max-width:1100px;margin:0 auto}
     .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
-    .title{font-size:22px;font-weight:900;margin:0 0 10px}
-    .meta{opacity:.85;line-height:1.7}
+    .title{font-size:20px;font-weight:900;margin:0 0 8px}
+    .meta{opacity:.9;line-height:1.7}
     .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .pill{display:inline-flex;align-items:center;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:900}
-    .badge{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;background:#fff}
-    .btn{display:inline-block;border:1px solid #111;border-radius:12px;padding:10px 14px;text-decoration:none;color:#111;background:#fff}
+    .pill{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:7px 12px;font-weight:900;background:#fff
+    }
+    .pill.mode{border:2px solid #111}
+    .btn{
+      display:inline-block;border:1px solid #111;border-radius:12px;
+      padding:10px 14px;text-decoration:none;color:#111;background:#fff;font-weight:900
+    }
     .btn:hover{background:#fafafa}
+    .badge{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:6px 10px;font-weight:900;background:#fff
+    }
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 
-    .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .scoreHead .h{font-size:16px;font-weight:900}
-    .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
-    .hint{margin-top:10px;font-size:13px;opacity:.8}
+    .topbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between
+    }
+    .leftgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-    .scoreGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
-    @media(min-width: 860px){ .scoreGrid{grid-template-columns:repeat(5,minmax(0,1fr));} }
-    .scoreItem{border:1px solid #eee;border-radius:14px;padding:10px 12px;min-width:0;background:#fff}
-    .scoreTop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-    .scoreTop .k{font-weight:900}
-    .scoreTop .p{font-weight:900;opacity:.75;white-space:nowrap}
-    .scoreVal{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:8px}
-    .scoreVal .raw{font-weight:900;font-size:34px;line-height:1}
-    .scoreVal .grade{font-weight:900;opacity:.8;white-space:nowrap}
-    .scoreVal .grade:empty{display:none}
+    .subject-grid{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media(max-width: 980px){ .subject-grid{grid-template-columns: repeat(3, minmax(0, 1fr));} }
+    @media(max-width: 680px){ .subject-grid{grid-template-columns: repeat(2, minmax(0, 1fr));} }
+    @media(max-width: 460px){ .subject-grid{grid-template-columns: 1fr;} }
 
-    details{border:1px solid #eee;border-radius:14px;padding:12px}
-    summary{cursor:pointer;font-weight:900}
-    .pastList{margin-top:10px;display:grid;gap:10px}
-    .pastItem{border:1px solid #eee;border-radius:14px;padding:12px}
-    .pastHdr{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
-    .pastHdr .l{font-weight:900}
-    .pastHdr .r{opacity:.8;font-weight:900}
-    .miniGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
-    @media(min-width: 860px){ .miniGrid{grid-template-columns:repeat(5,minmax(0,1fr));} }
-    .mini{border:1px solid #f0f0f0;border-radius:12px;padding:8px 10px;background:#fff}
+    .score-box{
+      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;
+      min-height:84px;
+    }
+    .score-head{
+      display:flex;justify-content:space-between;gap:8px;align-items:flex-start;
+      font-weight:900
+    }
+    .score-subj{font-size:16px}
+    .score-p{opacity:.75;font-weight:900;white-space:nowrap}
+    .score-main{
+      margin-top:6px;display:flex;justify-content:space-between;gap:8px;align-items:flex-end
+    }
+    .score-point{font-size:24px;font-weight:900;line-height:1}
+    .score-grade{font-size:14px;font-weight:900;opacity:.8;white-space:nowrap}
+    .score-grade.hidden{display:none}
+
+    .inline-note{margin-top:8px;color:#444;font-size:13px}
+
+    details.rounds{
+      margin-top:12px;border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff;
+    }
+    details.rounds > summary{
+      cursor:pointer;font-weight:900;list-style:none;
+    }
+    details.rounds > summary::-webkit-details-marker{display:none}
+    .round-list{margin-top:10px;display:grid;gap:10px}
+    .round-item{
+      border:1px solid #eee;border-radius:12px;padding:10px;background:#fff
+    }
+    .round-head{
+      display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap
+    }
+    .round-title{font-weight:900}
+    .round-meta{opacity:.75;font-size:13px}
+    .mini-grid{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap:8px;
+      margin-top:8px;
+    }
+    @media(max-width:980px){ .mini-grid{grid-template-columns: repeat(3, minmax(0,1fr));} }
+    @media(max-width:680px){ .mini-grid{grid-template-columns: repeat(2, minmax(0,1fr));} }
+    @media(max-width:460px){ .mini-grid{grid-template-columns: 1fr;} }
+
+    .mini{
+      border:1px solid #eee;border-radius:10px;padding:8px 10px;
+      display:flex;justify-content:space-between;gap:8px;align-items:center
+    }
     .mini .k{font-weight:900}
-    .mini .v{margin-top:4px;font-weight:900;opacity:.9}
-    .mini .g{margin-left:8px;opacity:.8;font-weight:900}
-    .mini .p{opacity:.75;font-weight:900;margin-left:6px}
+    .mini .v{font-weight:900}
+    .mini .g{font-size:12px;opacity:.75;font-weight:900}
 
-    .errbox{border:1px solid #ffd2d2;background:#fff5f5}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+    select{
+      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
+      max-width:100%;
+    }
+
+    .spacer{height:2px}
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
-    <div class="title" id="hdr">학생 성적</div>
-    <div class="meta" id="meta"></div>
-    <div class="row" id="modeRow"></div>
+    <div class="topbar">
+      <div>
+        <div class="title" id="hdr">학생 성적</div>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="rightgroup" id="modeRow"></div>
+    </div>
+
     <div class="row" id="navRow"></div>
   </div>
 
-  <div id="content"></div>
+  <div class="card">
+    <div class="topbar">
+      <div class="leftgroup">
+        <div class="title" style="font-size:16px;margin:0">최신 성적: <span id="latestRoundLabel">-</span></div>
+      </div>
+      <div class="rightgroup">
+        <span class="muted">원점수 + 백분위(p) + 등급(컷)</span>
+      </div>
+    </div>
+
+    <div class="subject-grid" id="scoreGrid"></div>
+    <div class="inline-note">※ 등급은 해당 회차의 과목별 컷(원점수) 기준으로 계산됩니다. 컷 데이터가 없으면 백분위 기준으로 보정 표시합니다.</div>
+
+    <details class="rounds" id="prevWrap">
+      <summary>이전 성적 보기</summary>
+      <div class="round-list" id="prevRounds"></div>
+    </details>
+  </div>
 </div>
 
 <script>
 (() => {
-  // ✅ 관리자 토큰을 실제 값으로 바꿔주세요
+  // ✅ 다른 페이지(index / univ_list / progress_detail / record_detail / record_raw_detail)와 동일하게 맞추세요.
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const norm = (v) => String(v ?? "").trim();
+  const LS_KEY = "__ADMIN_TOKEN__";
+
+  const SUBJECTS = ["국어","수학","영어","탐1","탐2"];
+
   const qs = new URLSearchParams(location.search);
-  const adminParam = qs.get("admin");
   const idParam = qs.get("id");
   const tParam  = qs.get("t") || qs.get("token");
-  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
+  const adminParam = (qs.get("admin") || "").trim();
+  const adminSaved = (localStorage.getItem(LS_KEY) || "").trim();
+  const admin = adminParam || adminSaved;
+
+  const isAdmin = (admin === ADMIN_TOKEN);
+  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
 
   const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
-
-  const SUBS = ["국어","수학","영어","탐1","탐2"];
-
-  async function loadJson(path){
-    const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) {
-      const e = new Error(path+" load failed ("+r.status+")");
-      e._status = r.status;
-      e._path = path;
-      throw e;
-    }
-    return r.json();
-  }
+  const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+  const norm = (v)=>String(v ?? "").trim();
 
   function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
   function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
   function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
-  function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; return v==null?null:Number(v); }
-  function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
 
-  function toNum(v){
-    if(v==null || v==="") return null;
-    if(typeof v==="number") return Number.isFinite(v) ? v : null;
-    const s = String(v).trim();
-    if(!s) return null;
-    const cleaned = s.replace(/[^0-9.+-]/g,"");
-    if(!cleaned) return null;
-    const n = Number(cleaned);
+  function pickText(...vals){
+    for(const v of vals){
+      const s = String(v ?? "").trim();
+      if(s) return s;
+    }
+    return "";
+  }
+
+  async function loadJson(path){
+    const r = await fetch(path, { cache:"no-store" });
+    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
+    return r.json();
+  }
+
+  function parseNum(v){
+    if(v === null || v === undefined || v === "") return null;
+    const n = Number(String(v).replace(/[^\d.-]/g,""));
     return Number.isFinite(n) ? n : null;
   }
 
-  function normalizeArrayish(x){
-    if(Array.isArray(x)) return x.slice();
-    if(!x || typeof x!=="object") return [];
-    for(const k of ["records","rows","items","data","scores"]){
-      if(Array.isArray(x[k])) return x[k].slice();
+  function scoreOf(row, subj){
+    return parseNum(
+      row[subj],
+      row[`${subj}점수`],
+      row[`${subj}_score`],
+      row[`${subj}Score`]
+    );
+  }
+
+  function percentileOf(row, subj){
+    // 다양한 형태 허용
+    return parseNum(
+      row[`${subj}p`], row[`${subj}P`],
+      row[`${subj}백분위`], row[`${subj}_percentile`], row[`${subj}percentile`]
+    );
+  }
+
+  function explicitGradeOf(row, subj){
+    const v = pickText(
+      row[`${subj}등급`],
+      row[`${subj}_grade`],
+      row[`${subj}grade`]
+    );
+    if(!v) return null;
+    const n = parseNum(v);
+    return n ? `${n}등급` : v;
+  }
+
+  function cutAt(row, subj, grade){
+    // 우선순위: 과목컷1~9 → 과목_컷_1 → cuts 객체
+    let v = row[`${subj}컷${grade}`];
+    if(v == null) v = row[`${subj}_컷_${grade}`];
+    if(v == null && row.cuts && row.cuts[subj] && row.cuts[subj][grade] != null) v = row.cuts[subj][grade];
+
+    // 레거시: `${subj}컷` 만 있는 경우 = 1등급 컷으로 간주
+    if(v == null && grade === 1) v = row[`${subj}컷`];
+
+    return parseNum(v);
+  }
+
+  function gradeByCuts(row, subj){
+    const score = scoreOf(row, subj);
+    if(score == null) return null;
+
+    const cuts = [];
+    for(let g=1; g<=9; g++){
+      const c = cutAt(row, subj, g);
+      if(c != null) cuts.push({ g, c });
     }
-    const out = [];
-    for(const [k,v] of Object.entries(x)){
-      if(Array.isArray(v)) out.push(...v.map(r => ({...r, id:(r?.id ?? k)})));
-      else if(v && typeof v==="object") out.push({...v, id:(v?.id ?? k)});
+    if(!cuts.length) return null;
+
+    // 컷이 모두 있을 수도, 일부만 있을 수도 있음. "해당 점수 이상인 가장 높은 등급" 계산
+    // 기준: 낮은 등급 숫자가 더 좋은 등급
+    cuts.sort((a,b) => a.g - b.g); // 1,2,3...
+    for(const x of cuts){
+      if(score >= x.c) return `${x.g}등급`;
     }
-    return out;
+
+    // 어떤 컷에도 못 미치면 최대 +1 또는 9등급 처리
+    const maxG = Math.max(...cuts.map(x => x.g));
+    return `${Math.min(9, maxG + 1)}등급`;
   }
 
-  function roundLabel(row){
-    const r = pickRound(row);
-    const d = pickDate(row);
-    if(r!=null && d) return `#${r} (${d})`;
-    if(r!=null) return `#${r}`;
-    if(d) return String(d);
-    return "-";
+  function gradeByPercentile(row, subj){
+    const p = percentileOf(row, subj);
+    if(p == null) return null;
+
+    // 표준 9등급 누적 백분위 근사 기준 (상위%가 낮을수록 유리)
+    // 여기 p가 "백분위 점수(높을수록 좋음)"인지, "상위% (낮을수록 좋음)"인지 혼재 가능
+    // 화면 예시가 99p, 92p 형태여서 "높을수록 좋음"으로 가정
+    const pp = Number(p);
+
+    // 백분위 점수 기준 근사 (많이 쓰는 분기)
+    if(pp >= 96) return "1등급";
+    if(pp >= 89) return "2등급";
+    if(pp >= 77) return "3등급";
+    if(pp >= 60) return "4등급";
+    if(pp >= 40) return "5등급";
+    if(pp >= 23) return "6등급";
+    if(pp >= 11) return "7등급";
+    if(pp >= 4)  return "8등급";
+    return "9등급";
   }
 
-  function getFirst(row, keys){
-    for(const k of keys){
-      const v = toNum(row?.[k]);
-      if(v!=null) return v;
+  function gradeLabel(row, subj){
+    return (
+      explicitGradeOf(row, subj) ||
+      gradeByCuts(row, subj) ||
+      gradeByPercentile(row, subj)
+    );
+  }
+
+  function roundNumOf(r){
+    return parseNum(r.round ?? r.Round ?? r["회차"] ?? r["차수"]);
+  }
+  function dateOf(r){
+    return pickText(r.date, r.Date, r["날짜"], r["일자"]);
+  }
+  function roundKey(r){
+    const rn = roundNumOf(r);
+    const d = dateOf(r);
+    if(rn != null && d) return `#${rn} (${d})`;
+    if(rn != null) return `#${rn}`;
+    if(d) return d;
+    return "회차 미지정";
+  }
+
+  function sortScores(rows){
+    return rows.slice().sort((a,b)=>{
+      const ra = roundNumOf(a), rb = roundNumOf(b);
+      if(ra != null && rb != null && ra !== rb) return rb - ra; // 최신 회차 먼저
+
+      const da = Date.parse(dateOf(a) || "");
+      const db = Date.parse(dateOf(b) || "");
+      const aOk = Number.isFinite(da), bOk = Number.isFinite(db);
+      if(aOk && bOk && da !== db) return db - da;
+
+      return 0;
+    });
+  }
+
+  function renderStudentMeta(student){
+    const sid = norm(pickId(student));
+    const name = pickName(student);
+    const school = pickText(student.school, student["학교"]);
+    const career = pickText(student.career, student["진로"]);
+    const adm = pickText(student.admission, student["전형"]);
+
+    $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
+    $("#meta").innerHTML = `
+      학교&nbsp;&nbsp;&nbsp;&nbsp;${esc(school || "-")}<br>
+      진로&nbsp;&nbsp;&nbsp;&nbsp;${esc(career || "-")}<br>
+      전형&nbsp;&nbsp;&nbsp;&nbsp;${esc(adm || "-")}
+    `;
+
+    $("#modeRow").innerHTML = isAdmin
+      ? `<span class="pill mode">관리자</span><span class="pill">id 접속</span>`
+      : `<span class="pill mode">학생/학부모</span><span class="pill">token 접속</span>`;
+  }
+
+  function renderNav(student){
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
+    const nav = [];
+
+    if(isAdmin){
+      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(admin)}">학생 목록</a>`);
+      nav.push(`<a class="btn" href="./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(admin)}">대학 상향/적정</a>`);
+      nav.push(`<a class="btn" href="./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(admin)}">진도 보기</a>`);
+      nav.push(`<a class="btn" href="./record_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(admin)}">생기부 분석 보기</a>`);
+      nav.push(`<a class="btn" href="./record_raw_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(admin)}">생기부 원문 보기</a>`);
+    } else {
+      // ✅ 핵심 수정: token 모드에도 생기부 2개 버튼 표시
+      nav.push(`<a class="btn" href="./univ_list.html?t=${encodeURIComponent(stok)}">대학 상향/적정</a>`);
+      nav.push(`<a class="btn" href="./progress_detail.html?t=${encodeURIComponent(stok)}">진도 보기</a>`);
+      nav.push(`<a class="btn" href="./record_detail.html?t=${encodeURIComponent(stok)}">생기부 분석 보기</a>`);
+      nav.push(`<a class="btn" href="./record_raw_detail.html?t=${encodeURIComponent(stok)}">생기부 원문 보기</a>`);
     }
-    return null;
+
+    $("#navRow").innerHTML = nav.join("");
   }
 
-  function buildMaps(row){
-    const KEYS = {
-      "국어": { raw:["국어","국","국어점수","국어_raw"], pct:["국어p","국어_pct","국어백분위","kor_pct","kor_p"] },
-      "수학": { raw:["수학","수","수학점수","수학_raw"], pct:["수학p","수학_pct","수학백분위","math_pct","math_p"] },
-      "영어": { raw:["영어","영","영어점수","영어_raw"], pct:["영어p","영어_pct","영어백분위","eng_pct","eng_p"] },
-      "탐1": { raw:["탐1_raw","탐1","탐구1","탐구1_raw","생윤","윤리","tam1_raw"], pct:["탐1p","탐1_pct","탐1백분위","생윤p","생윤_pct","tam1_pct"] },
-      "탐2": { raw:["탐2_raw","탐2","탐구2","탐구2_raw","사문","사회","tam2_raw"], pct:["탐2p","탐2_pct","탐2백분위","사문p","사문_pct","tam2_pct"] },
-    };
-    const raw = {}, pct = {};
-    for(const k of SUBS){
-      raw[k] = getFirst(row, KEYS[k].raw);
-      pct[k] = getFirst(row, KEYS[k].pct);
-    }
-    return {raw, pct};
-  }
+  function scoreBoxHtml(subj, row){
+    const sc = scoreOf(row, subj);
+    const p  = percentileOf(row, subj);
+    const g  = gradeLabel(row, subj);
 
-  function buildCuts(row){
-    const CUT_KEYS = {
-      "국어":["국어컷","국어_cut","cut_kor","kor_cut","국어1컷"],
-      "수학":["수학컷","수학_cut","cut_math","math_cut","수학1컷"],
-      "영어":["영어컷","영어_cut","cut_eng","eng_cut","영어1컷"],
-      "탐1":["탐1컷","탐1_cut","탐구1컷","탐구1_cut","생윤컷","생윤_cut","cut_inq1","inq1_cut"],
-      "탐2":["탐2컷","탐2_cut","탐구2컷","탐구2_cut","사문컷","사문_cut","cut_inq2","inq2_cut"],
-    };
-    const cuts = {};
-    for(const k of SUBS){
-      cuts[k] = getFirst(row, CUT_KEYS[k]);
-    }
-    return cuts;
-  }
-
-  function gradeOf(raw, cut){
-    if(raw==null || cut==null) return "";
-    return (raw >= cut) ? "1등급" : "2등급";
-  }
-
-  function scoreCard(sub, raw, pct, grade){
-    const rawTxt = (raw==null? "-": raw) + "점";
-    const pctTxt = (pct==null? "-": pct) + "p";
     return `
-      <div class="scoreItem">
-        <div class="scoreTop">
-          <div class="k">${esc(sub)}</div>
-          <div class="p">${esc(pctTxt)}</div>
+      <div class="score-box">
+        <div class="score-head">
+          <div class="score-subj">${esc(subj)}</div>
+          <div class="score-p">${p != null ? `${esc(p)}p` : `-`}</div>
         </div>
-        <div class="scoreVal">
-          <div class="raw">${esc(rawTxt)}</div>
-          <div class="grade">${esc(grade)}</div>
+        <div class="score-main">
+          <div class="score-point">${sc != null ? `${esc(sc)}점` : `-`}</div>
+          <div class="score-grade ${g ? "" : "hidden"}">${g ? esc(g) : ""}</div>
         </div>
       </div>
     `;
   }
 
-  function miniCard(sub, raw, pct, grade){
-    const rawTxt = (raw==null? "-": raw) + "점";
-    const pctTxt = (pct==null? "-": pct) + "p";
-    const g = grade ? ` <span class="g">${esc(grade)}</span>` : "";
+  function renderLatest(row){
+    $("#latestRoundLabel").textContent = roundKey(row);
+    $("#scoreGrid").innerHTML = SUBJECTS.map(s => scoreBoxHtml(s, row)).join("");
+  }
+
+  function miniRow(subj, row){
+    const sc = scoreOf(row, subj);
+    const p = percentileOf(row, subj);
+    const g = gradeLabel(row, subj);
     return `
       <div class="mini">
-        <div class="k">${esc(sub)}</div>
-        <div class="v">${esc(rawTxt)}<span class="p">${esc(pctTxt)}</span>${g}</div>
+        <div class="k">${esc(subj)}</div>
+        <div style="text-align:right">
+          <div class="v">${sc != null ? `${esc(sc)}점` : "-"}</div>
+          <div class="g">${p != null ? `${esc(p)}p` : "-"}${g ? ` · ${esc(g)}` : ""}</div>
+        </div>
       </div>
     `;
   }
 
-  function showError(err){
-    const msg = err?.message ? esc(err.message) : "알 수 없는 오류";
-    $("#content").innerHTML = `
-      <div class="card errbox">
-        <div class="warn">로딩 오류</div>
-        <div class="muted" style="margin-top:8px">${msg}</div>
-        <div class="muted" style="margin-top:10px; line-height:1.6">
-          아래 주소를 직접 열어 <b>404 여부</b>를 확인하면 원인이 바로 잡힙니다:<br>
-          <code>.../students.json</code><br>
-          <code>.../scores.json</code><br>
-          (또는 파일명이 대소문자/확장자까지 정확한지 확인)
+  function renderPrevious(rows){
+    const prev = rows.slice(1);
+    const wrap = $("#prevWrap");
+    const list = $("#prevRounds");
+
+    if(!prev.length){
+      wrap.open = false;
+      list.innerHTML = `<div class="muted">이전 성적이 없습니다.</div>`;
+      return;
+    }
+
+    list.innerHTML = prev.map(r => `
+      <div class="round-item">
+        <div class="round-head">
+          <div class="round-title">${esc(roundKey(r))}</div>
+          <div class="round-meta">${esc(pickText(r.memo, r.note, r["메모"]) || "")}</div>
+        </div>
+        <div class="mini-grid">
+          ${SUBJECTS.map(s => miniRow(s, r)).join("")}
         </div>
       </div>
-    `;
+    `).join("");
   }
 
   async function main(){
@@ -234,110 +427,63 @@
     if(!student && tParam){
       student = students.find(s => norm(pickToken(s)) === norm(tParam));
     }
+
     if(!student){
-      $("#hdr").textContent = "접근 권한이 없습니다.";
-      $("#meta").innerHTML = `
-        <div class="warn">학생을 찾을 수 없습니다.</div>
-        <div class="muted">관리자: student.html?id=학생ID&admin=관리자토큰 / 학생: student.html?t=개별토큰</div>
+      $(".wrap").innerHTML = `
+        <div class="card">
+          <div class="title">접근 권한이 없습니다.</div>
+          <div class="warn">학생을 찾을 수 없습니다.</div>
+          <div class="muted" style="margin-top:8px">
+            관리자: student.html?id=학생ID&admin=관리자토큰 / 학생·학부모: student.html?t=개별토큰
+          </div>
+        </div>
       `;
       return;
     }
+
+    renderStudentMeta(student);
+    renderNav(student);
 
     const sid = norm(pickId(student));
-    const stok = norm(pickToken(student));
-    const name = pickName(student);
 
-    $("#hdr").innerHTML = `${esc(name)} (${esc(sid)})`;
-    $("#meta").innerHTML = `
-      학교&nbsp;&nbsp;&nbsp;&nbsp;${esc(student.school||"-")}<br>
-      진로&nbsp;&nbsp;&nbsp;&nbsp;${esc(student.career||"-")}<br>
-      전형&nbsp;&nbsp;&nbsp;&nbsp;${esc(student.admission||"-")}
-    `;
-    $("#modeRow").innerHTML = isAdmin
-      ? `<span class="pill">관리자</span><span class="badge">id 접속</span>`
-      : `<span class="pill">학생/학부모</span><span class="badge">token 접속</span>`;
+    let scoresRaw = [];
+    try{
+      scoresRaw = await loadJson("./scores.json");
+    }catch(e){
+      // scores.json 없을 때도 페이지는 열리게
+      scoresRaw = [];
+    }
 
-    const univHref = isAdmin
-      ? `./univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
-      : `./univ_list.html?t=${encodeURIComponent(stok)}`;
-
-    const progHref = isAdmin
-      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
-      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
-
-    const nav = [];
-    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
-    nav.push(`<a class="btn" href="${univHref}">대학 상향/적정</a>`);
-    nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
-    $("#navRow").innerHTML = nav.join("");
-
-    const rawScores = await loadJson("./scores.json");
-    const scores = normalizeArrayish(rawScores);
-
-    const rows = scores
-      .filter(r => norm(pickId(r)) === sid)
-      .sort((a,b)=>{
-        const ra = pickRound(a), rb = pickRound(b);
-        if(ra!=null && rb!=null) return ra-rb;
-        const da = pickDate(a), db = pickDate(b);
-        if(da && db) return String(da).localeCompare(String(db));
-        return 0;
-      });
+    let rows = Array.isArray(scoresRaw) ? scoresRaw : [];
+    rows = rows.filter(r => norm(r?.id) === sid);
+    rows = sortScores(rows);
 
     if(!rows.length){
-      $("#content").innerHTML = `
-        <div class="card">
-          <div class="warn">성적 데이터 없음</div>
-          <div class="muted">scores.json에서 id=${esc(sid)} 데이터를 찾지 못했습니다.</div>
+      $("#latestRoundLabel").textContent = "-";
+      $("#scoreGrid").innerHTML = SUBJECTS.map(s => `
+        <div class="score-box">
+          <div class="score-head"><div class="score-subj">${esc(s)}</div><div class="score-p">-</div></div>
+          <div class="score-main"><div class="score-point">-</div><div class="score-grade hidden"></div></div>
         </div>
-      `;
+      `).join("");
+      $("#prevWrap").open = false;
+      $("#prevRounds").innerHTML = `<div class="muted">성적 데이터가 없습니다. (scores.json 확인)</div>`;
       return;
     }
 
-    const latest = rows[rows.length-1];
-    const {raw:rawMap, pct:pctMap} = buildMaps(latest);
-    const cuts = buildCuts(latest);
-
-    const latestGrid = SUBS.map(k => scoreCard(k, rawMap[k], pctMap[k], gradeOf(rawMap[k], cuts[k]))).join("");
-
-    const past = rows.slice(0, -1).reverse();
-    const pastHtml = past.map(r=>{
-      const m = buildMaps(r);
-      const c = buildCuts(r);
-      const mg = SUBS.map(k => miniCard(k, m.raw[k], m.pct[k], gradeOf(m.raw[k], c[k]))).join("");
-      return `
-        <div class="pastItem">
-          <div class="pastHdr">
-            <div class="l">${esc(roundLabel(r))}</div>
-            <div class="r muted">원점수 + 백분위(p) + 등급(컷 기반)</div>
-          </div>
-          <div class="miniGrid">${mg}</div>
-        </div>
-      `;
-    }).join("");
-
-    const pastBlock = (past.length)
-      ? `<details style="margin-top:12px">
-           <summary>이전 성적 보기</summary>
-           <div class="pastList">${pastHtml}</div>
-         </details>`
-      : `<div class="muted" style="margin-top:12px">이전 성적이 없습니다.</div>`;
-
-    $("#content").innerHTML = `
-      <div class="card">
-        <div class="scoreHead">
-          <div class="h">최신 성적</div>
-          <div class="r">${esc(roundLabel(latest))}</div>
-          <div class="muted" style="margin-left:auto">원점수 + 백분위(p) + 등급(컷)</div>
-        </div>
-        <div class="scoreGrid">${latestGrid}</div>
-        <div class="hint">※ 등급은 해당 회차의 과목별 “컷(원점수)”을 기준으로 계산됩니다. 컷이 비어있으면 등급은 숨김 처리됩니다.</div>
-        ${pastBlock}
-      </div>
-    `;
+    renderLatest(rows[0]);
+    renderPrevious(rows);
   }
 
-  main().catch(showError);
+  main().catch(err => {
+    $(".wrap").innerHTML = `
+      <div class="card">
+        <div class="title">오류</div>
+        <div class="warn">로딩 오류</div>
+        <div class="muted" style="margin-top:8px">${esc(err.message)}</div>
+      </div>
+    `;
+  });
 })();
 </script>
 </body>
