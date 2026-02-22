@@ -238,47 +238,90 @@
     `;
   }
 
+
   function renderSummary(summaryRow, termDetails){
     if(!summaryRow && !termDetails.length){
-      return `<div class="card"><div class="section-title">학기 종합 진단</div><div class="muted">요약/세부 데이터가 없습니다.</div></div>`;
+      return `<div class="card"><div class="section-title">생기부 키워드</div><div class="muted">요약/세부 데이터가 없어 키워드를 표시할 수 없습니다.</div></div>`;
     }
 
-    const overallStrength = pickText(summaryRow?.overall_strength, summaryRow?.["overall_strength"], summaryRow?.strength, summaryRow?.["강점"]);
-    const overallWeakness = pickText(summaryRow?.overall_weakness, summaryRow?.["overall_weakness"], summaryRow?.weakness, summaryRow?.["약점"]);
-    const nextAction = pickText(summaryRow?.next_action, summaryRow?.["next_action"], summaryRow?.action, summaryRow?.["다음액션"]);
     const updatedAt = pickText(summaryRow?.updated_at, summaryRow?.["updated_at"]);
-    const analystNote = pickText(summaryRow?.notes, summaryRow?.["notes"], summaryRow?.coach_note, summaryRow?.["coach_note"]);
-
     const kwFromSummary = splitKeywords(pickText(summaryRow?.subject_fit_keywords, summaryRow?.["subject_fit_keywords"], summaryRow?.keywords, summaryRow?.["키워드"]));
-    const kwFromDetail = termDetails.flatMap(d => splitKeywords(pickText(d.keywords, d["keywords"], d.keyword, d["키워드"])));
+
+    const bySubject = new Map();
+    for(const d of termDetails){
+      const subject = pickText(d.subject, d["subject"], d["과목"], d.category, d["category"], "미분류");
+      const kws = splitKeywords(pickText(d.keywords, d["keywords"], d.keyword, d["키워드"]));
+      if(!kws.length) continue;
+      if(!bySubject.has(subject)) bySubject.set(subject, []);
+      bySubject.get(subject).push(...kws);
+    }
+
+    const subjectRows = [...bySubject.entries()].map(([subject, arr]) => ({
+      subject,
+      keywords: dedupe(arr)
+    })).sort((a,b)=>a.subject.localeCompare(b.subject, "ko"));
+
+    const kwFromDetail = subjectRows.flatMap(x => x.keywords);
     const kwAll = dedupe([...kwFromSummary, ...kwFromDetail]);
 
-    const boxes = [];
-    if(overallStrength) boxes.push(`<div class="diagitem"><h4>강점 정리</h4><p>${esc(overallStrength)}</p></div>`);
-    if(overallWeakness) boxes.push(`<div class="diagitem"><h4>보완 포인트</h4><p>${esc(overallWeakness)}</p></div>`);
-    if(nextAction)      boxes.push(`<div class="diagitem"><h4>다음 단계</h4><p>${esc(nextAction)}</p></div>`);
-    if(analystNote)     boxes.push(`<div class="diagitem"><h4>추가 메모</h4><p>${esc(analystNote)}</p></div>`);
+    const detailCount = termDetails.length;
+    const subjectCount = new Set(termDetails.map(d => pickText(d.subject, d["subject"], d["과목"], d.category, d["category"], "미분류"))).size;
 
     const misc = [];
     if(updatedAt) misc.push(`<span class="chip"><span class="k">업데이트</span>${esc(updatedAt)}</span>`);
-    if(summaryRow){
-      const other = Object.entries(summaryRow)
-        .filter(([k,v]) => !["id","grade","term","updated_at","overall_strength","overall_weakness","subject_fit_keywords","next_action","notes","keywords"].includes(k))
-        .filter(([_,v]) => String(v ?? "").trim()!=="");
-      if(other.length){
-        misc.push(`<span class="chip"><span class="k">추가필드</span>${other.length}개</span>`);
-      }
-    }
+    if(detailCount) misc.push(`<span class="chip"><span class="k">기록수</span>${detailCount}개</span>`);
+    if(subjectCount) misc.push(`<span class="chip"><span class="k">과목수</span>${subjectCount}개</span>`);
+    if(kwFromSummary.length) misc.push(`<span class="chip"><span class="k">요약 키워드</span>${kwFromSummary.length}개</span>`);
 
     return `
       <div class="card">
-        <div class="section-title">학기 종합 진단</div>
-        <div class="subnote">생활기록부 분석 내용을 정리한 뒤, 확인용 키워드를 함께 붙였습니다.</div>
+        <div class="section-title">생기부 키워드</div>
+        <div class="subnote">학기 종합진단 대신, 입력된 생활기록부(요약/세부기록)에서 추출한 키워드를 먼저 확인하는 화면입니다.</div>
         ${misc.length ? `<div class="chips" style="margin-top:10px">${misc.join("")}</div>` : ``}
-        ${boxes.length ? `<div class="diaggrid">${boxes.join("")}</div>` : `<div class="muted" style="margin-top:10px">종합 진단 텍스트가 아직 없습니다.</div>`}
+
         <div style="margin-top:12px">
-          <div class="subnote" style="margin-bottom:8px">추출 키워드 (요약 + 세부기록 통합)</div>
+          <div class="subnote" style="margin-bottom:8px">전체 추출 키워드</div>
           ${kwAll.length ? `<div class="chips">${kwAll.map(k=>`<span class="chip">${esc(k)}</span>`).join("")}</div>` : `<div class="muted">키워드 데이터 없음</div>`}
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="subnote" style="margin-bottom:8px">과목별 키워드</div>
+          ${
+            subjectRows.length
+              ? `<div class="diaggrid">${
+                  subjectRows.map(r => `
+                    <div class="diagitem">
+                      <h4>${esc(r.subject)}</h4>
+                      ${r.keywords.length
+                        ? `<div class="chips">${r.keywords.map(k=>`<span class="chip">${esc(k)}</span>`).join("")}</div>`
+                        : `<div class="muted">키워드 없음</div>`}
+                    </div>
+                  `).join("")
+                }</div>`
+              : `<div class="muted">세부 기록 키워드가 없어 과목별 키워드를 표시할 수 없습니다.</div>`
+          }
+        </div>
+      </div>
+    `;
+  }
+
+  function renderRawShortcut(student, selKey, termDetails){
+    const sid = norm(pickId(student));
+    const stok = norm(pickToken(student));
+    const href = isAdmin
+      ? `./record_raw_detail.html?id=${encodeURIComponent(sid)}${adminParam ? `&admin=${encodeURIComponent(adminParam)}` : ``}`
+      : `./record_raw_detail.html?t=${encodeURIComponent(stok)}`;
+
+    return `
+      <div class="card">
+        <div class="section-title">생기부 원본 확인</div>
+        <div class="subnote">이 페이지에서는 세부 기록 목록을 숨기고, 핵심 분석 확인 후 원본 페이지에서 전체 문장을 검토하는 구조로 운영합니다.</div>
+        <div class="chips" style="margin-top:10px">
+          <span class="chip"><span class="k">현재 학기</span>${esc(selKey || "-")}</span>
+          <span class="chip"><span class="k">원본 항목수</span>${termDetails.length}개</span>
+        </div>
+        <div class="btnrow" style="margin-top:12px">
+          <a class="btn" href="${esc(href)}">생기부 원본 페이지 열기</a>
         </div>
       </div>
     `;
