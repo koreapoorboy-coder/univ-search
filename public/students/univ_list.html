@@ -19,6 +19,7 @@
     .btn:hover{background:#fafafa}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 
     /* ✅ 최신 성적(모바일 가독성) */
     .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -26,7 +27,7 @@
     .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
     .roundPick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 6px}
     .roundPick select{padding:8px 10px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:14px}
-    
+
     .scoreGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
     .scoreItem{border:1px solid #eee;border-radius:14px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;min-width:0;background:#fff}
     .scoreItem .k{font-weight:900}
@@ -44,7 +45,10 @@
     }
 
     .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
+    .tab{
+      border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;
+      cursor:pointer;font-weight:900
+    }
     .tab[aria-selected="true"]{background:#111;color:#fff}
 
     .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
@@ -127,31 +131,74 @@
 
 <script>
 (() => {
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const norm = (v) => String(v ?? "").trim();
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 변경
 
-  const qs = new URLSearchParams(location.search);
-  const adminParam = qs.get("admin");
-
-  const idParam = qs.get("id");
-  const tParam = qs.get("t") || qs.get("token");
-
-  const isAdmin = (norm(adminParam) === norm(ADMIN_TOKEN));
-
+  // -------------------------
+  // 공통 유틸 / 보안 (t 우선)
+  // -------------------------
   const $ = (s)=>document.querySelector(s);
+  const norm = (v) => String(v ?? "").trim();
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
 
+  function getQS(){ return new URLSearchParams(location.search); }
+  function safeStr(v){ return (v == null) ? "" : String(v); }
+
+  function getAuthContext() {
+    const qs = getQS();
+    const t = safeStr(qs.get("t") || qs.get("token")).trim();
+    const id = safeStr(qs.get("id")).trim();
+    const admin = safeStr(qs.get("admin")).trim();
+
+    // 🔒 t가 있으면 무조건 학생모드 (id/admin 무시)
+    if (t) {
+      return { mode:"student", token:t, id:"", admin:"", isAdmin:false };
+    }
+
+    if (id && admin) {
+      return { mode:"admin", token:"", id, admin, isAdmin:false };
+    }
+
+    return { mode:"guest", token:"", id:"", admin:"", isAdmin:false };
+  }
+
+  function buildPageLink(page, auth, student){
+    if (auth && auth.mode === "student") {
+      return `${page}?t=${encodeURIComponent(auth.token)}`;
+    }
+    if (auth && auth.mode === "admin" && auth.isAdmin) {
+      const sid = pickId(student) || auth.id;
+      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+    }
+    return page;
+  }
+
+  // -------------------------
+  // 데이터 유틸
+  // -------------------------
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
     return r.json();
   }
 
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
-  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
+  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
+  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
   function pickRound(x){ const v = x?.round ?? x?.Round ?? x?.["회차"] ?? x?.["차수"]; return v==null?null:Number(v); }
   function pickDate(x){ return x?.date ?? x?.Date ?? x?.["날짜"] ?? x?.["일자"] ?? null; }
+
+  function resolveStudentByAuth(students, auth){
+    if (!Array.isArray(students)) return null;
+
+    if (auth.mode === "student") {
+      // 🔒 학생모드는 token으로만 매칭
+      return students.find(s => norm(pickToken(s)) === norm(auth.token)) || null;
+    }
+    if (auth.mode === "admin" && auth.isAdmin) {
+      return students.find(s => norm(pickId(s)) === norm(auth.id)) || null;
+    }
+    return null;
+  }
 
   function toNum(v){
     if(v==null || v==="") return null;
@@ -216,29 +263,29 @@
 
     const KEYS = {
       "국어": {
-        raw:["국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean","국어_raw"],
-        pct:["국어p","국어P","국어_pct","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"]
+        raw:["국어_raw","국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean"],
+        pct:["국어_pct","국어p","국어P","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"]
       },
       "수학": {
-        raw:["수학","수","수학점","수학점수","수학 원점수","수학원점수","math","수학_raw"],
-        pct:["수학p","수학P","수학_pct","수학백분위","수학 백분위","math_p","math_pct"]
+        raw:["수학_raw","수학","수","수학점","수학점수","수학 원점수","수학원점수","math"],
+        pct:["수학_pct","수학p","수학P","수학백분위","수학 백분위","math_p","math_pct"]
       },
       "영어": {
-        raw:["영어","영","영어점","영어점수","영어 원점수","영어원점수","eng","english","영어_raw"],
-        pct:["영어p","영어P","영어_pct","영어백분위","영어 백분위","eng_p","eng_pct"]
+        raw:["영어_raw","영어","영","영어점","영어점수","영어 원점수","영어원점수","eng","english"],
+        pct:["영어_pct","영어p","영어P","영어백분위","영어 백분위","eng_p","eng_pct"]
       },
       "탐1": {
         raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
              "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점",
              "탐구1_raw","tam1_raw"],
-        pct:["탐1p","탐구1p","탐1_pct","탐1백분위","탐1 백분위",
+        pct:["탐1_pct","탐1p","탐구1p","탐1백분위","탐1 백분위",
              "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
       },
       "탐2": {
         raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
              "사문","사문점","사문점수","사회","사회점수","사회점",
              "탐구2_raw","tam2_raw"],
-        pct:["탐2p","탐구2p","탐2_pct","탐2백분위","탐2 백분위",
+        pct:["탐2_pct","탐2p","탐구2p","탐2백분위","탐2 백분위",
              "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
       },
     };
@@ -379,7 +426,7 @@
     });
 
     const out = [];
-    for(const [k, list] of map.entries()){
+    for(const [, list] of map.entries()){
       list.sort((a,b)=>{
         const av = a._ev.mainDiff ?? -999999;
         const bv = b._ev.mainDiff ?? -999999;
@@ -392,33 +439,50 @@
 
   let activeTab = "fit";
   let tabsEl;
-  let fallbackOnce = false;
 
   function setActiveTab(key){
     activeTab = key;
-    fallbackOnce = false;
+    if (!tabsEl) return;
     tabsEl.querySelectorAll(".tab").forEach(btn=>{
       btn.setAttribute("aria-selected", btn.dataset.key===key ? "true" : "false");
     });
   }
 
+  function renderAccessDenied(msg){
+    $("#hdr").textContent = "접근 권한이 없습니다.";
+    $("#meta").innerHTML = `
+      <div class="warn">${esc(msg || "학생을 찾을 수 없습니다.")}</div>
+      <div class="muted">관리자: univ_list.html?id=학생ID&admin=관리자토큰 / 학생: univ_list.html?t=개별토큰</div>
+    `;
+    $("#modeRow").innerHTML = "";
+    $("#navRow").innerHTML = "";
+    $("#content").innerHTML = "";
+  }
+
   async function main(){
+    const auth = getAuthContext();
+
+    // 관리자모드라면 관리자토큰 검증
+    if (auth.mode === "admin") {
+      auth.isAdmin = (norm(auth.admin) === norm(ADMIN_TOKEN));
+      if (!auth.isAdmin) {
+        renderAccessDenied("관리자 토큰이 올바르지 않습니다.");
+        return;
+      }
+    }
+
+    // guest 차단
+    if (auth.mode === "guest") {
+      renderAccessDenied("접근 파라미터가 없습니다.");
+      return;
+    }
+
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
-    let student = null;
-    if(isAdmin && idParam){
-      student = students.find(s => norm(pickId(s)) === norm(idParam));
-    }
-    if(!student && tParam){
-      student = students.find(s => norm(pickToken(s)) === norm(tParam));
-    }
+    const student = resolveStudentByAuth(students, auth);
     if(!student){
-      $("#hdr").textContent = "접근 권한이 없습니다.";
-      $("#meta").innerHTML = `
-        <div class="warn">학생을 찾을 수 없습니다.</div>
-        <div class="muted">관리자: univ_list.html?id=학생ID&admin=관리자토큰 / 학생: univ_list.html?t=개별토큰</div>
-      `;
+      renderAccessDenied("학생을 찾을 수 없습니다.");
       return;
     }
 
@@ -426,28 +490,27 @@
     const stok = norm(pickToken(student));
     const name = pickName(student);
 
-    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} (${esc(sid)})`;
+    $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} <span class="mono">(${esc(sid)})</span>`;
     $("#meta").innerHTML = `
       학교: ${esc(student.school||"-")}<br>
       진로: ${esc(student.career||"-")}<br>
       전형: ${esc(student.admission||"-")}
     `;
-    $("#modeRow").innerHTML = isAdmin
-      ? `<span class="pill">관리자 모드</span><span class="muted">id로 접근</span>`
-      : `<span class="pill">학부모/학생 모드</span><span class="muted">토큰 접근</span>`;
 
-    const studentHref = isAdmin
-      ? `./student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
-      : `./student.html?t=${encodeURIComponent(stok)}`;
+    $("#modeRow").innerHTML = auth.isAdmin
+      ? `<span class="pill">관리자 모드</span><span class="muted">id 접속</span>`
+      : `<span class="pill">학생/학부모 모드</span><span class="muted">token 접속</span>`;
 
-    const progHref = isAdmin
-      ? `./progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(adminParam)}`
-      : `./progress_detail.html?t=${encodeURIComponent(stok)}`;
+    // 🔒 학생모드는 끝까지 t=token 유지
+    const studentHref = buildPageLink("./student.html", auth, student);
+    const progHref   = buildPageLink("./progress_detail.html", auth, student);
 
     const nav = [];
     nav.push(`<a class="btn" href="${studentHref}">← 학생 성적으로</a>`);
     nav.push(`<a class="btn" href="${progHref}">진도 보기</a>`);
-    if(isAdmin) nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(adminParam)}">학생 목록</a>`);
+    if(auth.isAdmin){
+      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(auth.admin)}">학생 목록</a>`);
+    }
     $("#navRow").innerHTML = nav.join("");
 
     const rawScores = await loadJson("./scores.json");
@@ -457,7 +520,7 @@
       .filter(r => norm(pickId(r)) === sid)
       .sort((a,b)=>{
         const ra = pickRound(a), rb = pickRound(b);
-        if(ra!=null && rb!=null) return ra-rb;
+        if(ra!=null && rb!=null) return ra-rb; // 오름차순 → 마지막이 최신
         const da = pickDate(a), db = pickDate(b);
         if(da && db) return String(da).localeCompare(String(db));
         return 0;
@@ -492,6 +555,7 @@
       {key:"up",  label:"상향"},
       {key:"all", label:"전체"},
     ];
+
     tabsEl.innerHTML = "";
     tabDefs.forEach(tdef=>{
       const b=document.createElement("button");
@@ -546,13 +610,7 @@
         arr = groupLimitTop5(arr);
       }
 
-      if(!q && arr.length===0 && activeTab!=="all" && !fallbackOnce){
-        fallbackOnce = true;
-        setActiveTab("all");
-        render();
-        return;
-      }
-
+      // ✅ 자동 fallback 제거: 적정/상향 결과가 0개면 그대로 "없음" 메시지 표시
       if(activeTab==="all"){
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
@@ -570,9 +628,17 @@
         });
       }
 
+      const emptyMsg = (() => {
+        if (q) return "검색 결과가 없습니다.";
+        if (activeTab === "fit") return "적정 가능한 대학이 없습니다.";
+        if (activeTab === "up")  return "상향 가능한 대학이 없습니다.";
+        return "표시할 데이터가 없습니다.";
+      })();
+
       const roundOptions = rows.length > 1
         ? rows.map((r,i)=>`<option value="${i}" ${i===selIdx?'selected':''}>${esc(roundLabel(r))}</option>`).join("")
         : "";
+
       const roundPick = rows.length > 1
         ? `<div class="roundPick"><span class="muted">회차</span><select id="roundSel">${roundOptions}</select></div>`
         : "";
@@ -644,7 +710,7 @@
         </div>
 
         <div class="mobile-list">
-          ${cardsHtml || `<div class="card"><div class="muted">표시할 데이터가 없습니다.</div></div>`}
+          ${cardsHtml || `<div class="card"><div class="muted">${esc(emptyMsg)}</div></div>`}
         </div>
 
         <div class="card tablebox">
@@ -662,19 +728,18 @@
               </tr>
             </thead>
             <tbody>
-              ${rowsHtml || `<tr><td colspan="8" class="muted">표시할 데이터가 없습니다.</td></tr>`}
+              ${rowsHtml || `<tr><td colspan="8" class="muted">${esc(emptyMsg)}</td></tr>`}
             </tbody>
           </table>
         </div>
       `;
 
-      // ✅ (중요) innerHTML 렌더 후에 이벤트 연결
+      // ✅ innerHTML 렌더 후 이벤트 연결
       const rs = document.getElementById("roundSel");
       if (rs) {
         rs.onchange = () => {
           const v = parseInt(rs.value, 10);
           if (!Number.isNaN(v)) selIdx = v;
-          fallbackOnce = false;
           render();
         };
       }
