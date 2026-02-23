@@ -31,7 +31,6 @@
       padding:10px 14px;text-decoration:none;color:#111;background:#fff;font-weight:900
     }
     .btn:hover{background:#fafafa}
-    .btn.secondary{border-color:#ddd}
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
@@ -43,107 +42,70 @@
       width:8px;height:8px;border-radius:999px;background:#111;display:inline-block
     }
 
-    .summary-grid{
+    .kv-grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:10px;
-      margin-top:10px;
+      grid-template-columns: 180px 1fr;
+      gap:8px 12px;
+      align-items:start;
     }
-    @media(max-width: 820px){ .summary-grid{grid-template-columns: 1fr;} }
-
-    .summary-item{
-      border:1px solid #eee;border-radius:14px;padding:12px;background:#fff;
-    }
-    .summary-item .k{font-size:12px;font-weight:900;opacity:.7}
-    .summary-item .v{font-size:14px;font-weight:900;margin-top:4px;word-break:break-word}
-
-    .json-wrap{
-      border:1px solid #eee;border-radius:16px;background:#fff;
-      padding:12px;
+    @media(max-width: 760px){
+      .kv-grid{grid-template-columns:1fr}
     }
 
-    .node{
-      border-left:2px solid #f0f0f0;
-      margin-left:8px;
-      padding-left:10px;
-      margin-top:8px;
-    }
-
-    .entry{
-      border:1px solid #eee;border-radius:12px;padding:10px;margin-top:8px;background:#fff;
-    }
-
-    .entry-head{
-      display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;
-      margin-bottom:6px;
-    }
-
-    .entry-key{
+    .kv-k{
       font-weight:900;
-      word-break:break-word;
-      overflow-wrap:anywhere;
+      color:#222;
+      padding-top:2px;
     }
-
-    .entry-meta{
-      display:flex;gap:6px;flex-wrap:wrap;align-items:center;
-    }
-
-    .mini-badge{
-      display:inline-flex;align-items:center;
-      border:1px solid #ddd;border-radius:999px;padding:3px 8px;
-      font-size:11px;font-weight:900;background:#fff;
-    }
-    .mini-badge.hidden{
-      border-color:#f3c6cc;color:#b00020;background:#fff5f6;
-    }
-
-    .value-box{
-      border:1px solid #f1f1f1;border-radius:10px;
-      background:#fafafa;
-      padding:10px;
+    .kv-v{
+      line-height:1.6;
       white-space:pre-wrap;
       word-break:break-word;
       overflow-wrap:anywhere;
-      line-height:1.55;
+      color:#111;
+    }
+
+    .raw-block{
+      border:1px solid #eee;border-radius:14px;padding:14px;background:#fff;
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+      line-height:1.65;
       font-size:14px;
     }
 
-    .list{
-      display:grid;
-      gap:8px;
+    .item-list{display:grid;gap:10px}
+    .item-card{
+      border:1px solid #eee;border-radius:14px;padding:12px;background:#fff;
+    }
+    .item-head{
+      display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;
+      margin-bottom:8px;
+    }
+    .item-title{
+      font-weight:900;font-size:14px;line-height:1.4;
+    }
+    .item-badge{
+      border:1px solid #ddd;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900;
     }
 
-    .collapsed-note{
-      font-size:12px;color:#666;margin-top:4px;
+    details.section{
+      border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff;
     }
-
-    details.block{
-      border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff;margin-top:10px;
-    }
-    details.block > summary{
+    details.section > summary{
       cursor:pointer;font-weight:900;list-style:none;
-      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
     }
-    details.block > summary::-webkit-details-marker{display:none}
+    details.section > summary::-webkit-details-marker{display:none}
+    .summary-right{font-size:12px;opacity:.7;font-weight:900}
+    .details-body{margin-top:10px}
 
     .empty{
-      border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;color:#555;
+      border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;color:#555
     }
 
-    .hidden-placeholder{
-      border:1px dashed #f0c9ce;border-radius:10px;padding:10px;
-      background:#fff7f8;color:#9a3c46;
-      font-size:13px;font-weight:900;
-    }
-
-    pre.code{
-      margin:0;
-      white-space:pre-wrap;
-      word-break:break-word;
-      overflow-wrap:anywhere;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-      font-size:12px; line-height:1.5;
-      background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px;
+    .hidden-note{
+      font-size:12px;color:#666;margin-top:8px;
     }
   </style>
 </head>
@@ -163,35 +125,31 @@
   <div class="card">
     <div class="topbar">
       <div class="leftgroup">
-        <div class="subttl">원문 데이터 요약</div>
+        <div class="subttl">원문 메타 정보</div>
       </div>
       <div class="rightgroup">
-        <span class="muted">학생모드에서는 숨김 정책 반영</span>
+        <span class="muted">학생/학부모 모드에서는 비공개 항목이 숨김 처리될 수 있습니다.</span>
       </div>
     </div>
-
-    <div class="summary-grid" id="summaryGrid">
-      <div class="summary-item"><div class="k">원문 상태</div><div class="v" id="sumStatus">-</div></div>
-      <div class="summary-item"><div class="k">업데이트 일시</div><div class="v" id="sumUpdatedAt">-</div></div>
-      <div class="summary-item"><div class="k">표시 정책</div><div class="v" id="sumVisibility">-</div></div>
-    </div>
+    <div id="metaArea" style="margin-top:12px;"></div>
   </div>
 
   <div class="card">
-    <div class="section-title"><span class="dot"></span>생기부 원문 전체</div>
-    <div id="rawRoot"></div>
+    <div class="section-title"><span class="dot"></span>전체 원문</div>
+    <div id="fullRawArea"></div>
   </div>
 
   <div class="card">
-    <details class="block" id="debugWrap">
-      <summary>
-        <span>디버그(JSON 원문 확인)</span>
-        <span class="muted" style="font-size:12px;">필요할 때만 열기</span>
-      </summary>
-      <div style="margin-top:10px;">
-        <pre class="code" id="debugJson">-</pre>
+    <div class="topbar">
+      <div class="leftgroup">
+        <div class="subttl">항목별 원문</div>
+        <span class="pill" id="itemCountPill">항목 0개</span>
       </div>
-    </details>
+      <div class="rightgroup">
+        <span class="muted">원문/메타/항목별 기록 확인용</span>
+      </div>
+    </div>
+    <div id="itemArea" style="margin-top:12px;"></div>
   </div>
 </div>
 
@@ -201,59 +159,10 @@
   // 설정값
   // =========================
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 변경
+  const LS_KEY = "__ADMIN_TOKEN__";
 
   // =========================
-  // 공통 유틸 / 보안 분기
-  // =========================
-  function getQS() {
-    return new URLSearchParams(location.search);
-  }
-
-  function safeStr(v) {
-    return (v == null) ? "" : String(v);
-  }
-
-  function getAuthContext() {
-    const qs = getQS();
-    const t = safeStr(qs.get("t") || qs.get("token")).trim();
-    const id = safeStr(qs.get("id")).trim();
-    const admin = safeStr(qs.get("admin")).trim();
-
-    // 🔒 t 우선 규칙
-    if (t) {
-      return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
-    }
-    if (id && admin) {
-      return { mode: "admin", token: "", id, admin, isAdmin: false };
-    }
-    return { mode: "guest", token: "", id: "", admin: "", isAdmin: false };
-  }
-
-  function buildPageLink(page, auth, student) {
-    if (auth && auth.mode === "student") {
-      return `${page}?t=${encodeURIComponent(auth.token)}`;
-    }
-    if (auth && auth.mode === "admin" && auth.isAdmin) {
-      const sid = pickId(student) || auth.id;
-      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
-    }
-    return page;
-  }
-
-  function resolveStudentByAuth(students, auth) {
-    if (!Array.isArray(students)) return null;
-
-    if (auth.mode === "student") {
-      return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
-    }
-    if (auth.mode === "admin" && auth.isAdmin) {
-      return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
-    }
-    return null;
-  }
-
-  // =========================
-  // DOM 유틸
+  // DOM / 공통 유틸
   // =========================
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
@@ -261,9 +170,13 @@
   }[m]));
   const norm = (v)=>String(v ?? "").trim();
 
-  // =========================
-  // 데이터 키 유틸
-  // =========================
+  function getQS() {
+    return new URLSearchParams(location.search);
+  }
+  function safeStr(v) {
+    return (v == null) ? "" : String(v);
+  }
+
   function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
   function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
   function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
@@ -271,20 +184,14 @@
   function pickText(...vals){
     for(const v of vals){
       const s = String(v ?? "").trim();
-      if(s) return s;
+      if (s) return s;
     }
     return "";
   }
 
-  function parseNum(v){
-    if(v === null || v === undefined || v === "") return null;
-    const n = Number(String(v).replace(/[^\d.-]/g,""));
-    return Number.isFinite(n) ? n : null;
-  }
-
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
+    if (!r.ok) throw new Error(path + " load failed (" + r.status + ")");
     return r.json();
   }
 
@@ -297,17 +204,75 @@
   }
 
   // =========================
-  // labelizeKey (오류 재발 방지)
+  // 보안: auth 컨텍스트 (t 우선)
   // =========================
-  function labelizeKey(key) {
-    const s = String(key ?? "").trim();
-    if (!s) return "-";
-    // snake_case / camelCase / kebab-case 정리
-    return s
-      .replace(/[_-]+/g, " ")
-      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
-      .replace(/\s+/g, " ")
-      .trim();
+  function getAuthContext() {
+    const qs = getQS();
+
+    const t = safeStr(qs.get("t") || qs.get("token")).trim();
+    const id = safeStr(qs.get("id")).trim();
+    const adminParam = safeStr(qs.get("admin")).trim();
+    const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
+    const admin = adminParam || adminSaved;
+
+    // 🔒 t가 있으면 학생모드 우선
+    if (t) {
+      return {
+        mode: "student",
+        token: t,
+        id: "",
+        admin: "",
+        isAdmin: false
+      };
+    }
+
+    // 관리자 후보
+    if (id && admin) {
+      const ok = (admin === ADMIN_TOKEN);
+      if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
+
+      return {
+        mode: "admin",
+        token: "",
+        id,
+        admin,
+        isAdmin: ok
+      };
+    }
+
+    return {
+      mode: "guest",
+      token: "",
+      id: "",
+      admin: "",
+      isAdmin: false
+    };
+  }
+
+  function buildPageLink(page, auth, student) {
+    if (auth?.mode === "student") {
+      return `${page}?t=${encodeURIComponent(auth.token)}`;
+    }
+    if (auth?.mode === "admin" && auth.isAdmin) {
+      const sid = norm(pickId(student) || auth.id);
+      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+    }
+    return page;
+  }
+
+  function resolveStudentByAuth(students, auth) {
+    if (!Array.isArray(students)) return null;
+
+    if (auth.mode === "student") {
+      // 🔒 학생모드는 token으로만 찾기
+      return students.find(s => norm(pickToken(s)) === auth.token) || null;
+    }
+
+    if (auth.mode === "admin" && auth.isAdmin) {
+      return students.find(s => norm(pickId(s)) === auth.id) || null;
+    }
+
+    return null;
   }
 
   // =========================
@@ -321,15 +286,6 @@
     return flags[studentId] || {};
   }
 
-  function canViewRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true;
-    if (flag.recordEnabled === false) return false;
-
-    const visibility = String(flag.visibility || "student").toLowerCase();
-    if (visibility === "admin_only") return !!auth.isAdmin;
-    return true;
-  }
-
   function canViewRawRecord(flag, auth) {
     if (!flag || Object.keys(flag).length === 0) return true;
     if (flag.recordEnabled === false) return false;
@@ -340,7 +296,7 @@
   }
 
   // =========================
-  // school_record_raw 파싱 (유연 대응)
+  // school_record_raw.json 파싱 (유연 대응)
   // =========================
   function getRawRecord(rawData, studentId) {
     if (!rawData) return null;
@@ -350,7 +306,7 @@
       return rawData.find(x => String(x?.id) === String(studentId)) || null;
     }
 
-    // 객체형 {"학생ID": {...}}
+    // 객체형 {"shstudy01": {...}}
     if (rawData[studentId]) return rawData[studentId];
 
     // 래퍼형
@@ -371,55 +327,226 @@
       record.record ||
       record.payload ||
       record.data ||
-      record.content ||
+      record.detail ||
       record
     );
   }
 
-  // =========================
-  // field visibility (학생모드에서 필드 단위 숨김)
-  // =========================
-  function isHiddenForStudentByMeta(obj) {
-    if (!obj || typeof obj !== "object") return false;
+  function isObject(v){
+    return !!v && typeof v === "object" && !Array.isArray(v);
+  }
 
-    // 다양한 표현 허용
-    if (obj.adminOnly === true) return true;
-    if (obj.studentVisible === false) return true;
-    if (obj.visible === false) return true;
+  function toPrettyString(v){
+    if (v == null) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "number" || typeof v === "boolean") return String(v);
+    try{
+      return JSON.stringify(v, null, 2);
+    }catch(_e){
+      return String(v);
+    }
+  }
 
-    const vis = String(obj.visibility ?? "").toLowerCase().trim();
-    if (vis === "admin_only" || vis === "hidden" || vis === "private") return true;
+  // ✅ labelizeKey 오류 방지용 핵심 함수
+  function labelizeKey(key) {
+    const s = String(key ?? "").trim();
+    if (!s) return "항목";
+
+    // snake_case, camelCase, kebab-case -> 보기 좋게
+    let t = s
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    // 흔한 키 한글화(필요한 것만)
+    const lower = t.toLowerCase();
+    const map = {
+      "id": "ID",
+      "student id": "학생 ID",
+      "studentid": "학생 ID",
+      "student name": "학생명",
+      "studentname": "학생명",
+      "school": "학교",
+      "grade": "학년",
+      "semester": "학기",
+      "year": "연도",
+      "source": "출처",
+      "note": "메모",
+      "memo": "메모",
+      "raw text": "전체 원문",
+      "rawtext": "전체 원문",
+      "full text": "전체 원문",
+      "fulltext": "전체 원문",
+      "text": "원문",
+      "content": "내용",
+      "visibility": "공개 범위",
+      "record enabled": "기록 사용 여부",
+      "review status": "검토 상태",
+      "created at": "생성일시",
+      "updated at": "수정일시"
+    };
+    if (map[lower]) return map[lower];
+
+    return t;
+  }
+
+  // =========================
+  // 필드 visibility 필터 (학생모드에서 admin_only 숨김)
+  // =========================
+  function isAdminOnlyValue(v) {
+    if (!isObject(v)) return false;
+
+    const vis = String(
+      v.visibility ?? v.view ?? v.access ?? ""
+    ).toLowerCase();
+
+    if (vis === "admin_only") return true;
+    if (v.adminOnly === true) return true;
+    if (v.isAdminOnly === true) return true;
 
     return false;
   }
 
-  function isPrimitive(v) {
-    return v == null || ["string","number","boolean"].includes(typeof v);
+  function filterObjectByVisibility(obj, auth) {
+    if (!isObject(obj)) return obj;
+    if (auth.isAdmin) return obj;
+
+    const out = {};
+    for (const [k, v] of Object.entries(obj)) {
+      if (isAdminOnlyValue(v)) continue;
+      out[k] = v;
+    }
+    return out;
   }
 
-  function looksLikeFieldWrapper(obj) {
-    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return false;
-    // { value, visibility } 류 wrapper 감지
-    if ("value" in obj && (
-      "visibility" in obj || "studentVisible" in obj || "adminOnly" in obj || "visible" in obj || "type" in obj || "label" in obj
-    )) return true;
-    return false;
-  }
+  function filterArrayItemsByVisibility(arr, auth) {
+    if (!Array.isArray(arr)) return [];
+    if (auth.isAdmin) return arr;
 
-  function formatPrimitive(v) {
-    if (v === null) return "null";
-    if (v === undefined) return "undefined";
-    if (typeof v === "boolean") return v ? "true" : "false";
-    return String(v);
-  }
-
-  function prettyJson(v) {
-    try { return JSON.stringify(v, null, 2); }
-    catch(_e){ return String(v); }
+    return arr.filter(item => !isAdminOnlyValue(item));
   }
 
   // =========================
-  // 렌더링 유틸
+  // raw payload 정규화
+  // =========================
+  function normalizeRawPayload(payload, auth) {
+    const p = payload || {};
+
+    // 전체 원문 후보
+    let fullText = pickText(
+      p.fullRawText, p.rawText, p.full_text, p.text, p.content,
+      p.전체원문, p.원문전체, p.원문, p.raw
+    );
+
+    // 메타 후보
+    let metaObj = null;
+    if (isObject(p.meta)) metaObj = p.meta;
+    else if (isObject(p.metadata)) metaObj = p.metadata;
+    else if (isObject(p.기본정보)) metaObj = p.기본정보;
+    else if (isObject(p.rawMeta)) metaObj = p.rawMeta;
+
+    metaObj = filterObjectByVisibility(metaObj || {}, auth);
+
+    // 항목 배열 후보
+    let items = null;
+    const arrCandidates = [
+      p.items, p.records, p.entries, p.sections, p.rawItems, p.항목들, p.세부항목, p.기록목록
+    ];
+    for (const a of arrCandidates) {
+      if (Array.isArray(a)) { items = a; break; }
+    }
+    items = filterArrayItemsByVisibility(items || [], auth);
+
+    // 항목 배열이 없으면 payload 내부 객체들을 항목화
+    if (!items.length) {
+      const blacklist = new Set([
+        "id","studentId","studentID","학생ID","name","studentName",
+        "fullRawText","rawText","full_text","text","content","원문","전체원문","원문전체",
+        "meta","metadata","기본정보","rawMeta",
+        "items","records","entries","sections","rawItems","항목들","세부항목","기록목록",
+        "visibility","adminOnly","isAdminOnly"
+      ]);
+
+      const entries = Object.entries(filterObjectByVisibility(p, auth)).filter(([k,v]) => {
+        if (blacklist.has(k)) return false;
+        return v != null;
+      });
+
+      items = entries.map(([k,v]) => {
+        if (isObject(v)) {
+          const vv = { ...v };
+          const title = pickText(vv.title, vv.name, vv.label, vv.항목명, vv.제목, k) || k;
+          const content = pickText(vv.text, vv.content, vv.raw, vv.원문, vv.value, "");
+          const meta = isObject(vv.meta) ? filterObjectByVisibility(vv.meta, auth) : null;
+
+          return {
+            title,
+            content: content || toPrettyString(vv),
+            meta
+          };
+        }
+
+        return {
+          title: k,
+          content: toPrettyString(v)
+        };
+      });
+    } else {
+      // 배열형 항목 정규화
+      items = items.map((it, idx) => {
+        const x = isObject(it) ? it : { value: it };
+
+        const title = pickText(
+          x.title, x.name, x.label, x.key, x.subject, x.항목명, x.제목,
+          `항목 ${idx + 1}`
+        );
+
+        const content = pickText(
+          x.text, x.content, x.raw, x.value, x.원문, x.내용
+        ) || toPrettyString(x);
+
+        const meta = filterObjectByVisibility(
+          isObject(x.meta) ? x.meta : (isObject(x.metadata) ? x.metadata : {}),
+          auth
+        );
+
+        return { title, content, meta };
+      });
+    }
+
+    // fullText가 비어 있으면 items를 합쳐서 임시 생성
+    if (!fullText && items.length) {
+      fullText = items.map(it => {
+        const t = String(it.title || "항목").trim();
+        const c = String(it.content || "").trim();
+        return `[${t}]\n${c}`;
+      }).join("\n\n");
+    }
+
+    // metaObj가 비어 있으면 payload 상위 primitive들로 구성
+    if (!Object.keys(metaObj || {}).length) {
+      const fallbackMeta = {};
+      const sourceObj = filterObjectByVisibility(p, auth);
+
+      for (const [k,v] of Object.entries(sourceObj)) {
+        if (v == null) continue;
+        if (Array.isArray(v) || isObject(v)) continue;
+
+        // 원문으로 쓰인 텍스트는 메타에서 제외
+        if (["fullRawText","rawText","full_text","text","content","원문","전체원문","원문전체"].includes(k)) continue;
+
+        fallbackMeta[k] = v;
+      }
+
+      metaObj = fallbackMeta;
+    }
+
+    return { fullText, metaObj, items };
+  }
+
+  // =========================
+  // 렌더링
   // =========================
   function renderError(title, message){
     const app = $("#app") || document.body;
@@ -447,9 +574,9 @@
   function renderStudentMeta(student, auth){
     const sid = norm(pickId(student));
     const name = pickName(student);
-    const school = pickText(student.school, student["학교"]);
-    const career = pickText(student.career, student["진로"]);
-    const adm = pickText(student.admission, student["전형"]);
+    const school = pickText(student?.school, student?.["학교"]);
+    const career = pickText(student?.career, student?.["진로"]);
+    const adm = pickText(student?.admission, student?.["전형"]);
 
     $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
     $("#meta").innerHTML = `
@@ -463,7 +590,7 @@
       : `<span class="pill mode">학생/학부모</span><span class="pill">token 접속</span>`;
   }
 
-  function renderNav(student, auth, recordFlag){
+  function renderNav(student, auth){
     const nav = [];
 
     if (auth.isAdmin) {
@@ -473,292 +600,117 @@
     nav.push(`<a class="btn" href="${buildPageLink("./student.html", auth, student)}">학생 성적</a>`);
     nav.push(`<a class="btn" href="${buildPageLink("./univ_list.html", auth, student)}">대학 상향/적정</a>`);
     nav.push(`<a class="btn" href="${buildPageLink("./progress_detail.html", auth, student)}">진도 보기</a>`);
-
-    if (canViewRecord(recordFlag, auth)) {
-      nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
-    }
+    nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
 
     $("#navRow").innerHTML = nav.join("");
   }
 
-  function setSummary(rawRecord, payload, flag, auth){
-    const status = pickText(
-      rawRecord?.status, rawRecord?.recordStatus, rawRecord?.["상태"],
-      payload?.status, payload?.["상태"]
-    ) || "정상";
+  function renderMetaArea(metaObj, hiddenCount) {
+    const root = $("#metaArea");
+    if (!root) return;
 
-    const updated = pickText(
-      rawRecord?.updatedAt, rawRecord?.updated_at, rawRecord?.["수정일시"], rawRecord?.["업데이트일시"],
-      payload?.updatedAt, payload?.updated_at
-    ) || "-";
+    const entries = Object.entries(metaObj || {}).filter(([_,v]) => {
+      return v != null && String(v).trim() !== "";
+    });
 
-    let visibilityText = "학생 표시";
-    if (flag && Object.keys(flag).length) {
-      const vis = String(flag.visibility || "student");
-      visibilityText = vis;
-      if (flag.recordEnabled === false) visibilityText = "비활성";
-    }
-    if (auth.isAdmin) visibilityText += " (관리자 전체 표시)";
-
-    $("#sumStatus").textContent = status;
-    $("#sumUpdatedAt").textContent = updated;
-    $("#sumVisibility").textContent = visibilityText;
-  }
-
-  function countVisibleHidden(obj, auth) {
-    let visible = 0;
-    let hidden = 0;
-
-    function walk(node) {
-      if (isPrimitive(node)) return;
-
-      if (Array.isArray(node)) {
-        for (const v of node) walk(v);
-        return;
-      }
-
-      if (looksLikeFieldWrapper(node)) {
-        const hiddenForStudent = isHiddenForStudentByMeta(node);
-        if (auth.isAdmin || !hiddenForStudent) visible++;
-        else hidden++;
-        walk(node.value);
-        return;
-      }
-
-      for (const [k, v] of Object.entries(node)) {
-        if (!auth.isAdmin && v && typeof v === "object" && isHiddenForStudentByMeta(v) && looksLikeFieldWrapper(v)) {
-          hidden++;
-          continue;
-        }
-        walk(v);
-      }
+    if (!entries.length) {
+      root.innerHTML = `<div class="empty">메타 정보가 없습니다.</div>`;
+      return;
     }
 
-    walk(obj);
-    return { visible, hidden };
-  }
-
-  // =========================
-  // 재귀 렌더 (원문 전체)
-  // =========================
-  function renderNode(node, keyPath, auth, depth = 0) {
-    // primitive
-    if (isPrimitive(node)) {
-      return `
-        <div class="entry">
-          <div class="entry-head">
-            <div class="entry-key">${esc(labelizeKey(lastKey(keyPath)))}</div>
-            <div class="entry-meta"><span class="mini-badge">${esc(typeName(node))}</span></div>
-          </div>
-          <div class="value-box">${esc(formatPrimitive(node))}</div>
-        </div>
-      `;
-    }
-
-    // array
-    if (Array.isArray(node)) {
-      if (!node.length) {
-        return `
-          <div class="entry">
-            <div class="entry-head">
-              <div class="entry-key">${esc(labelizeKey(lastKey(keyPath)))}</div>
-              <div class="entry-meta"><span class="mini-badge">array(0)</span></div>
-            </div>
-            <div class="value-box">[]</div>
-          </div>
-        `;
-      }
-
-      const items = node.map((item, idx) => {
-        if (isPrimitive(item)) {
-          return `
-            <div class="entry">
-              <div class="entry-head">
-                <div class="entry-key">[${idx}]</div>
-                <div class="entry-meta"><span class="mini-badge">${esc(typeName(item))}</span></div>
-              </div>
-              <div class="value-box">${esc(formatPrimitive(item))}</div>
-            </div>
-          `;
-        }
-        return `
-          <details class="block" ${depth < 1 ? "open" : ""}>
-            <summary><span>[${idx}]</span><span class="muted" style="font-size:12px;">펼치기</span></summary>
-            <div class="node">
-              ${renderObjectLike(item, keyPath.concat(String(idx)), auth, depth + 1)}
-            </div>
-          </details>
-        `;
-      }).join("");
-
-      return `
-        <div class="entry">
-          <div class="entry-head">
-            <div class="entry-key">${esc(labelizeKey(lastKey(keyPath)))}</div>
-            <div class="entry-meta"><span class="mini-badge">array(${node.length})</span></div>
-          </div>
-          <div class="list">${items}</div>
-        </div>
-      `;
-    }
-
-    // field wrapper
-    if (looksLikeFieldWrapper(node)) {
-      const label = pickText(node.label, node.name, node.key, lastKey(keyPath));
-      const hiddenForStudent = isHiddenForStudentByMeta(node);
-
-      if (!auth.isAdmin && hiddenForStudent) {
-        return `
-          <div class="entry">
-            <div class="entry-head">
-              <div class="entry-key">${esc(labelizeKey(label))}</div>
-              <div class="entry-meta">
-                <span class="mini-badge hidden">숨김</span>
-                ${node.type ? `<span class="mini-badge">${esc(String(node.type))}</span>` : ""}
-              </div>
-            </div>
-            <div class="hidden-placeholder">학생/학부모 모드에서는 숨김 처리된 항목입니다.</div>
-          </div>
-        `;
-      }
-
-      const val = node.value;
-      const valueHtml = isPrimitive(val)
-        ? `<div class="value-box">${esc(formatPrimitive(val))}</div>`
-        : `<div class="node">${renderObjectLike(val, keyPath.concat("value"), auth, depth + 1)}</div>`;
-
-      return `
-        <div class="entry">
-          <div class="entry-head">
-            <div class="entry-key">${esc(labelizeKey(label))}</div>
-            <div class="entry-meta">
-              ${node.visibility != null ? `<span class="mini-badge">${esc(String(node.visibility))}</span>` : ""}
-              ${node.type ? `<span class="mini-badge">${esc(String(node.type))}</span>` : `<span class="mini-badge">${esc(typeName(val))}</span>`}
-            </div>
-          </div>
-          ${valueHtml}
-        </div>
-      `;
-    }
-
-    // object
-    return `
-      <details class="block" ${depth < 1 ? "open" : ""}>
-        <summary>
-          <span>${esc(labelizeKey(lastKey(keyPath)))}</span>
-          <span class="muted" style="font-size:12px;">object</span>
-        </summary>
-        <div class="node">
-          ${renderObjectLike(node, keyPath, auth, depth + 1)}
-        </div>
-      </details>
+    root.innerHTML = `
+      <div class="kv-grid">
+        ${entries.map(([k,v]) => `
+          <div class="kv-k">${esc(labelizeKey(k))}</div>
+          <div class="kv-v">${esc(toPrettyString(v))}</div>
+        `).join("")}
+      </div>
+      ${hiddenCount > 0 ? `<div class="hidden-note">※ 학생/학부모 모드에서 비공개 메타 ${hiddenCount}개 항목이 숨김 처리되었습니다.</div>` : ``}
     `;
   }
 
-  function renderObjectLike(obj, keyPath, auth, depth = 0) {
-    if (obj == null) {
-      return `<div class="value-box">null</div>`;
+  function renderFullRawArea(fullText) {
+    const root = $("#fullRawArea");
+    if (!root) return;
+
+    const txt = String(fullText || "").trim();
+    if (!txt) {
+      root.innerHTML = `<div class="empty">전체 원문 데이터가 없습니다.</div>`;
+      return;
     }
 
-    if (isPrimitive(obj) || Array.isArray(obj) || looksLikeFieldWrapper(obj)) {
-      return renderNode(obj, keyPath, auth, depth);
-    }
-
-    const entries = Object.entries(obj);
-    if (!entries.length) {
-      return `<div class="value-box">{}</div>`;
-    }
-
-    // 메타/원문 순서 정리 (가독성 개선)
-    const preferredFirst = ["summary","요약","학적","인적사항","교과학습발달상황","창의적체험활동상황","세부능력및특기사항","진로활동","독서활동상황"];
-    entries.sort((a,b) => {
-      const ai = preferredFirst.indexOf(a[0]);
-      const bi = preferredFirst.indexOf(b[0]);
-      if (ai !== -1 || bi !== -1) {
-        if (ai === -1) return 1;
-        if (bi === -1) return -1;
-        return ai - bi;
-      }
-      return String(a[0]).localeCompare(String(b[0]), "ko");
-    });
-
-    return entries.map(([k, v]) => {
-      // 학생모드에서 field-wrapper 형태 숨김 처리
-      if (!auth.isAdmin && looksLikeFieldWrapper(v) && isHiddenForStudentByMeta(v)) {
-        return `
-          <div class="entry">
-            <div class="entry-head">
-              <div class="entry-key">${esc(labelizeKey(k))}</div>
-              <div class="entry-meta"><span class="mini-badge hidden">숨김</span></div>
-            </div>
-            <div class="hidden-placeholder">학생/학부모 모드에서는 숨김 처리된 항목입니다.</div>
-          </div>
-        `;
-      }
-
-      // 일반 key-value
-      if (isPrimitive(v)) {
-        return `
-          <div class="entry">
-            <div class="entry-head">
-              <div class="entry-key">${esc(labelizeKey(k))}</div>
-              <div class="entry-meta"><span class="mini-badge">${esc(typeName(v))}</span></div>
-            </div>
-            <div class="value-box">${esc(formatPrimitive(v))}</div>
-          </div>
-        `;
-      }
-
-      if (Array.isArray(v)) {
-        return renderNode(v, keyPath.concat(k), auth, depth);
-      }
-
-      if (looksLikeFieldWrapper(v)) {
-        return renderNode({ ...v, key: v.key || k }, keyPath.concat(k), auth, depth);
-      }
-
-      // 일반 object
-      return `
-        <details class="block" ${depth < 1 ? "open" : ""}>
-          <summary>
-            <span>${esc(labelizeKey(k))}</span>
-            <span class="muted" style="font-size:12px;">object</span>
-          </summary>
-          <div class="node">
-            ${renderObjectLike(v, keyPath.concat(k), auth, depth + 1)}
-          </div>
-        </details>
-      `;
-    }).join("");
+    root.innerHTML = `<div class="raw-block">${esc(txt)}</div>`;
   }
 
-  function lastKey(pathArr) {
-    if (!Array.isArray(pathArr) || !pathArr.length) return "원문";
-    return pathArr[pathArr.length - 1];
-  }
+  function renderItemArea(items, hiddenItemCount) {
+    const root = $("#itemArea");
+    const pill = $("#itemCountPill");
+    if (!root) return;
 
-  function typeName(v) {
-    if (v === null) return "null";
-    if (Array.isArray(v)) return "array";
-    return typeof v;
+    const list = Array.isArray(items) ? items : [];
+    if (pill) pill.textContent = `항목 ${list.length}개`;
+
+    if (!list.length) {
+      root.innerHTML = `<div class="empty">항목별 원문 데이터가 없습니다.</div>`;
+      return;
+    }
+
+    root.innerHTML = `
+      <div class="item-list">
+        ${list.map((item, idx) => {
+          const metaEntries = Object.entries(item.meta || {}).filter(([_,v]) => v != null && String(v).trim() !== "");
+          const contentText = String(item.content || "").trim();
+
+          return `
+            <details class="section" ${idx < 2 ? "open" : ""}>
+              <summary>
+                <span>${esc(item.title || `항목 ${idx+1}`)}</span>
+                <span class="summary-right">${metaEntries.length ? `메타 ${metaEntries.length}개` : `원문`}</span>
+              </summary>
+              <div class="details-body">
+                <div class="item-card">
+                  <div class="item-head">
+                    <div class="item-title">${esc(item.title || `항목 ${idx+1}`)}</div>
+                    <div class="item-badge">원문</div>
+                  </div>
+                  <div class="kv-v">${contentText ? esc(contentText) : `<span class="muted">내용 없음</span>`}</div>
+                </div>
+
+                ${
+                  metaEntries.length ? `
+                    <div class="item-card" style="margin-top:8px;">
+                      <div class="item-head">
+                        <div class="item-title">메타 정보</div>
+                        <div class="item-badge">부가 정보</div>
+                      </div>
+                      <div class="kv-grid">
+                        ${metaEntries.map(([k,v]) => `
+                          <div class="kv-k">${esc(labelizeKey(k))}</div>
+                          <div class="kv-v">${esc(toPrettyString(v))}</div>
+                        `).join("")}
+                      </div>
+                    </div>
+                  ` : ""
+                }
+              </div>
+            </details>
+          `;
+        }).join("")}
+      </div>
+      ${hiddenItemCount > 0 ? `<div class="hidden-note">※ 학생/학부모 모드에서 비공개 항목 ${hiddenItemCount}개가 숨김 처리되었습니다.</div>` : ``}
+    `;
   }
 
   // =========================
   // 메인
   // =========================
   async function main() {
-    // 1) auth 확정
     const auth = getAuthContext();
 
-    // 2) 관리자 토큰 검증
-    if (auth.mode === "admin") {
-      auth.isAdmin = (auth.admin === ADMIN_TOKEN);
-      if (!auth.isAdmin) {
-        return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
-      }
+    if (auth.mode === "admin" && !auth.isAdmin) {
+      return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
-    // 3) 학생 조회
     const students = await loadJson("./students.json");
     if (!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -769,7 +721,7 @@
 
     const sid = norm(pickId(student));
 
-    // 4) flags 로드 / 권한 체크
+    // flags 체크
     const flagsData = await loadJsonSafe("./school_record_flags.json", null);
     const recordFlag = getRecordFlag(flagsData, sid);
 
@@ -777,49 +729,57 @@
       return renderNoAccess("생기부 원문 페이지 접근 권한이 없습니다.");
     }
 
-    // 5) 상단 렌더
     renderStudentMeta(student, auth);
-    renderNav(student, auth, recordFlag);
+    renderNav(student, auth);
 
-    // 6) raw 데이터 로드
+    // raw 데이터 로드
     const rawData = await loadJsonSafe("./school_record_raw.json", null);
     if (!rawData) {
-      $("#rawRoot").innerHTML = `<div class="empty">school_record_raw.json 파일을 불러오지 못했습니다.</div>`;
-      $("#debugJson").textContent = "-";
+      renderMetaArea({}, 0);
+      renderFullRawArea("");
+      renderItemArea([], 0);
       return;
     }
 
-    const rawRecord = getRawRecord(rawData, sid);
-    if (!rawRecord) {
-      $("#rawRoot").innerHTML = `<div class="empty">해당 학생의 원문 데이터가 없습니다. <span class="muted">(school_record_raw.json에서 id 매칭 확인)</span></div>`;
-      $("#debugJson").textContent = "-";
+    const rec = getRawRecord(rawData, sid);
+    if (!rec) {
+      renderMetaArea({}, 0);
+      renderFullRawArea("");
+      renderItemArea([], 0);
       return;
     }
 
-    const payload = unwrapRawPayload(rawRecord);
-    setSummary(rawRecord, payload, recordFlag, auth);
+    const payload = unwrapRawPayload(rec);
 
-    // 가시성 요약 보강
-    const count = countVisibleHidden(payload, auth);
-    const curVis = $("#sumVisibility");
-    if (curVis) {
-      const base = curVis.textContent || "";
-      curVis.textContent = `${base} / 표시 ${count.visible} · 숨김 ${count.hidden}`;
+    // 숨김 카운트(학생모드 안내용)
+    let hiddenMetaCount = 0;
+    let hiddenItemCount = 0;
+
+    if (!auth.isAdmin && payload && typeof payload === "object") {
+      // 메타 후보 숨김 수 추정
+      const metaCandidate = (payload.meta && typeof payload.meta === "object" && !Array.isArray(payload.meta)) ? payload.meta
+                        : (payload.metadata && typeof payload.metadata === "object" && !Array.isArray(payload.metadata)) ? payload.metadata
+                        : (payload.기본정보 && typeof payload.기본정보 === "object" && !Array.isArray(payload.기본정보)) ? payload.기본정보
+                        : null;
+
+      if (metaCandidate) {
+        hiddenMetaCount = Object.values(metaCandidate).filter(v => isAdminOnlyValue(v)).length;
+      }
+
+      // 항목 배열 숨김 수 추정
+      const arrCandidate = [payload.items, payload.records, payload.entries, payload.sections, payload.rawItems, payload.항목들, payload.세부항목, payload.기록목록]
+        .find(v => Array.isArray(v));
+
+      if (Array.isArray(arrCandidate)) {
+        hiddenItemCount = arrCandidate.filter(it => isAdminOnlyValue(it)).length;
+      }
     }
 
-    // 원문 렌더
-    if (payload == null) {
-      $("#rawRoot").innerHTML = `<div class="empty">원문 payload가 비어 있습니다.</div>`;
-    } else {
-      $("#rawRoot").innerHTML = renderObjectLike(payload, ["원문"], auth, 0);
-    }
+    const normalized = normalizeRawPayload(payload, auth);
 
-    // 디버그 JSON
-    try {
-      $("#debugJson").textContent = JSON.stringify(rawRecord, null, 2);
-    } catch(_e) {
-      $("#debugJson").textContent = String(rawRecord);
-    }
+    renderMetaArea(normalized.metaObj, hiddenMetaCount);
+    renderFullRawArea(normalized.fullText);
+    renderItemArea(normalized.items, hiddenItemCount);
   }
 
   main().catch(err => {
