@@ -3,231 +3,540 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>학생 목록(관리자)</title>
+  <title>학생 목록 (관리자)</title>
   <style>
-    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;background:#fff;color:#111}
-    .wrap{max-width:980px;margin:0 auto}
-    h1{margin:0 0 14px}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
-    .search{width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:16px}
-    .card{border:1px solid #ddd;border-radius:14px;padding:14px;margin:10px 0;background:#fff}
-    .name{font-weight:900;font-size:18px}
-    .meta{opacity:.85;margin-top:6px;line-height:1.6}
-
-    .btn{
-      display:inline-block;margin-top:10px;text-decoration:none;border:1px solid #111;
-      padding:8px 10px;border-radius:10px;color:#111;background:#fff;cursor:pointer;
+    html,body{width:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
+    body{
+      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
+      margin:14px;background:#fff;color:#111;
     }
-    .btn:hover{background:#fafafa}
-    .btn:active{transform:translateY(1px)}
-    .btn + .btn{margin-left:8px}
-
-    .pill{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;background:#fff}
+    .wrap{max-width:1180px;margin:0 auto}
+    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
+    .title{font-size:20px;font-weight:900;margin:0 0 8px}
+    .subttl{font-size:16px;font-weight:900;margin:0}
+    .meta{opacity:.9;line-height:1.65}
+    .muted{opacity:.7}
+    .warn{color:#b00020;font-weight:900}
+    .ok{color:#0b7a22;font-weight:900}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 
-    .warn{color:#b00020;font-weight:900}
-    .muted{opacity:.7}
-
-    /* 작은 토스트 */
-    #toast{
-      position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
-      background:#111;color:#fff;padding:10px 12px;border-radius:999px;
-      font-weight:900;opacity:0;pointer-events:none;transition:opacity .18s ease
+    .topbar{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
     }
-    #toast.show{opacity:1}
+    .leftgroup,.rightgroup{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    }
 
-    @media(max-width:560px){
-      body{margin:16px}
-      .btn{display:inline-flex;justify-content:center;gap:6px}
-      .btn + .btn{margin-left:6px}
+    .pill{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:7px 12px;font-weight:900;background:#fff;
+    }
+    .pill.mode{border:2px solid #111}
+    .pill.draft{border-color:#f0b400}
+    .pill.done{border-color:#0b7a22}
+    .pill.disabled{border-color:#bbb;opacity:.7}
+
+    .btn{
+      display:inline-block;border:1px solid #111;border-radius:12px;
+      padding:9px 12px;text-decoration:none;color:#111;background:#fff;font-weight:900;
+      cursor:pointer;
+    }
+    .btn:hover{background:#fafafa}
+    .btn.secondary{border-color:#ddd}
+    .btn.ghost{border-color:#ddd;color:#333}
+    .btn[disabled], .btn.disabled{
+      pointer-events:none;opacity:.45;background:#f8f8f8;border-color:#ddd;color:#666;
+    }
+
+    .search{
+      width:100%;max-width:720px;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:15px;
+    }
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .list{display:grid;gap:12px}
+    .student-card{
+      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;
+    }
+    .student-head{
+      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;
+    }
+    .student-name{
+      font-weight:900;font-size:17px;line-height:1.25;
+    }
+    .student-id{
+      margin-top:4px;font-size:12px;opacity:.75;
+    }
+    .student-meta{
+      margin-top:8px;line-height:1.65;font-size:14px;
+    }
+
+    .badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .actions .divider{
+      width:1px;background:#eee;align-self:stretch;margin:0 2px;
+    }
+
+    .count-line{
+      font-weight:900;
+    }
+
+    .empty{
+      border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;color:#555;
+    }
+
+    .footer-note{
+      font-size:12px;color:#555;line-height:1.55;
+    }
+
+    .tiny{
+      font-size:12px;opacity:.8;
+    }
+
+    .grid-2{
+      display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+    }
+    @media(max-width: 760px){
+      .grid-2{grid-template-columns:1fr}
+      .topbar{align-items:flex-start}
     }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="row" style="justify-content:space-between;align-items:flex-end">
-    <div>
-      <h1>학생 목록</h1>
-      <div class="muted">※ 이 화면은 <b>관리자 토큰</b>이 있어야 열립니다. 학생/학부모에게는 <b>토큰 링크</b>(t=...)만 보내세요.</div>
+<div class="wrap" id="app">
+  <div class="card">
+    <div class="topbar">
+      <div>
+        <div class="title">학생 목록 <span class="muted">(관리자)</span></div>
+        <div class="meta" id="adminMeta">관리자 인증 확인 중...</div>
+      </div>
+      <div class="rightgroup" id="authPills"></div>
     </div>
-    <div class="row">
-      <span class="pill">관리자 모드</span>
+
+    <div class="row" style="margin-top:10px">
+      <input id="searchInput" class="search" type="text" placeholder="이름 / ID / 학교 / 진로 / 전형 검색" />
+      <button id="refreshBtn" class="btn secondary" type="button">새로고침</button>
+      <button id="copyAdminUrlBtn" class="btn ghost" type="button">현재 관리자 링크 복사</button>
     </div>
   </div>
 
-  <input id="q" class="search" placeholder="이름/학교/진로/전형/ID 검색" />
+  <div class="card">
+    <div class="topbar">
+      <div class="leftgroup">
+        <div class="subttl">학생 목록</div>
+        <span class="pill" id="countPill">0명</span>
+      </div>
+      <div class="rightgroup">
+        <span class="muted">학생모드 링크는 <span class="mono">t=token</span>만 사용</span>
+      </div>
+    </div>
+    <div class="tiny" id="summaryLine" style="margin-top:8px;"></div>
+    <div class="list" id="studentList" style="margin-top:12px;"></div>
+  </div>
 
-  <div id="list"></div>
+  <div class="card">
+    <div class="subttl" style="margin-bottom:8px;">운영 체크 포인트</div>
+    <div class="footer-note">
+      • 학생/학부모에게 전달하는 링크는 반드시 <span class="mono">student.html?t=개별토큰</span> 형식 사용<br>
+      • 관리자 페이지 버튼은 <span class="mono">id=학생ID&admin=관리자토큰</span> 형식 유지<br>
+      • 토큰이 없는 학생은 학생모드 열기/복사 버튼 비활성 처리
+    </div>
+  </div>
 </div>
-
-<div id="toast">복사됨</div>
 
 <script>
 (() => {
-  // ✅ 모든 페이지(index / student / univ_list / progress_detail / record_detail)에서 동일하게 맞추세요.
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  // =========================
+  // 설정
+  // =========================
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 교체
   const LS_KEY = "__ADMIN_TOKEN__";
 
-  const qs = new URLSearchParams(location.search);
-  const adminParam = (qs.get('admin') || '').trim();
-  const adminSaved = (localStorage.getItem(LS_KEY) || '').trim();
-  const admin = adminParam || adminSaved;
+  // =========================
+  // 공통 유틸
+  // =========================
+  const $ = (s) => document.querySelector(s);
 
-  const isAdmin = (admin === ADMIN_TOKEN);
-  if (adminParam && isAdmin) localStorage.setItem(LS_KEY, adminParam);
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[m]));
+  }
 
-  const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s??'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  function norm(v){ return String(v ?? "").trim(); }
 
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
-  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
+  function pickText(...vals){
+    for(const v of vals){
+      const s = String(v ?? "").trim();
+      if(s) return s;
+    }
+    return "";
+  }
+
+  function parseNum(v){
+    if(v == null || v === "") return null;
+    const n = Number(String(v).replace(/[^\d.-]/g,""));
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function getQS(){
+    return new URLSearchParams(location.search);
+  }
 
   async function loadJson(path){
-    const r = await fetch(path, { cache:'no-store' });
-    if(!r.ok) throw new Error(path + ' load failed (' + r.status + ')');
+    const r = await fetch(path, { cache: "no-store" });
+    if(!r.ok) throw new Error(`${path} load failed (${r.status})`);
     return r.json();
   }
 
-  function toast(msg){
-    const t = $('#toast');
-    t.textContent = msg || '복사됨';
-    t.classList.add('show');
-    clearTimeout(toast._tm);
-    toast._tm = setTimeout(()=>t.classList.remove('show'), 1200);
+  async function loadJsonSafe(path, fallback){
+    try{ return await loadJson(path); } catch(_e){ return fallback; }
   }
 
   async function copyText(text){
     try{
       await navigator.clipboard.writeText(text);
-      toast('링크 복사됨');
-    }catch(e){
-      // fallback
-      window.prompt('아래 링크를 복사하세요', text);
+      return true;
+    }catch(_e){
+      try{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        ta.remove();
+        return !!ok;
+      }catch(e2){
+        return false;
+      }
     }
   }
 
-  function baseUrl(){
-    // 현재 폴더 기준 URL
-    return new URL('.', location.href).toString();
+  // =========================
+  // 학생 데이터 키 호환
+  // =========================
+  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
+  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
+  function pickSchool(s){ return s?.school ?? s?.["학교"] ?? ""; }
+  function pickCareer(s){ return s?.career ?? s?.["진로"] ?? ""; }
+  function pickAdmission(s){ return s?.admission ?? s?.["전형"] ?? ""; }
+  function pickNote(s){ return s?.note ?? s?.["비고"] ?? ""; }
+
+  // =========================
+  // 보안 링크 규칙
+  // =========================
+  function adminLink(page, studentId, adminToken){
+    return `${page}?id=${encodeURIComponent(studentId)}&admin=${encodeURIComponent(adminToken)}`;
+  }
+
+  function studentLink(page, token){
+    return `${page}?t=${encodeURIComponent(token)}`;
+  }
+
+  // =========================
+  // flags / scores 헬퍼
+  // =========================
+  function getRecordFlag(flagsData, sid){
+    if (!flagsData) return {};
+    if (Array.isArray(flagsData)) {
+      return flagsData.find(x => norm(x?.id) === norm(sid)) || {};
+    }
+    return flagsData[sid] || {};
+  }
+
+  function roundNumOf(r){
+    return parseNum(r?.round ?? r?.Round ?? r?.["회차"] ?? r?.["차수"]);
+  }
+  function dateOf(r){
+    return pickText(r?.date, r?.Date, r?.["날짜"], r?.["일자"]);
+  }
+  function sortScores(rows){
+    return rows.slice().sort((a,b)=>{
+      const ra = roundNumOf(a), rb = roundNumOf(b);
+      if(ra != null && rb != null && ra !== rb) return rb - ra;
+      const da = Date.parse(dateOf(a) || "");
+      const db = Date.parse(dateOf(b) || "");
+      const aOk = Number.isFinite(da), bOk = Number.isFinite(db);
+      if(aOk && bOk && da !== db) return db - da;
+      return 0;
+    });
+  }
+
+  function getLatestScoreRow(scoresById, sid){
+    const arr = scoresById.get(norm(sid)) || [];
+    if(!arr.length) return null;
+    return sortScores(arr)[0] || null;
+  }
+
+  function latestScoreLabel(row){
+    if(!row) return "성적 없음";
+    const rn = roundNumOf(row);
+    const dt = dateOf(row);
+    if(rn != null && dt) return `최신 성적: ${rn}회차 (${dt})`;
+    if(rn != null) return `최신 성적: ${rn}회차`;
+    if(dt) return `최신 성적: ${dt}`;
+    return "성적 있음";
+  }
+
+  // =========================
+  // 렌더링
+  // =========================
+  function renderNoAccess(message){
+    $("#app").innerHTML = `
+      <div class="card">
+        <div class="title">관리자 접근 필요</div>
+        <div class="warn">${esc(message || "접근 권한이 없습니다.")}</div>
+        <div class="meta" style="margin-top:8px">
+          접속 형식: <span class="mono">index.html?admin=관리자토큰</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function badgeHtml(flag){
+    const enabled = flag?.recordEnabled !== false;
+    const visibility = String(flag?.visibility || "student").toLowerCase();
+    const review = String(flag?.reviewStatus || "").toLowerCase();
+
+    const list = [];
+    if(enabled){
+      list.push(`<span class="pill">생기부 ON</span>`);
+    }else{
+      list.push(`<span class="pill disabled">생기부 OFF</span>`);
+    }
+
+    if(visibility === "admin_only"){
+      list.push(`<span class="pill">원문/분석 관리자전용</span>`);
+    }else{
+      list.push(`<span class="pill">학생열람 허용</span>`);
+    }
+
+    if(review === "done"){
+      list.push(`<span class="pill done">검토완료</span>`);
+    }else if(review){
+      list.push(`<span class="pill draft">${esc(review)}</span>`);
+    }
+
+    return list.join("");
+  }
+
+  function disabledBtn(label){
+    return `<span class="btn disabled" aria-disabled="true">${esc(label)}</span>`;
+  }
+
+  function studentCardHtml(student, admin, flagsData, scoresById){
+    const sid = norm(pickId(student));
+    const sname = pickName(student);
+    const token = norm(pickToken(student));
+    const school = pickSchool(student);
+    const career = pickCareer(student);
+    const admission = pickAdmission(student);
+    const note = pickNote(student);
+
+    const flag = getRecordFlag(flagsData, sid);
+    const latestRow = getLatestScoreRow(scoresById, sid);
+
+    const recordEnabled = flag?.recordEnabled !== false;
+
+    const aStudent = adminLink("./student.html", sid, admin);
+    const aUniv = adminLink("./univ_list.html", sid, admin);
+    const aProg = adminLink("./progress_detail.html", sid, admin);
+    const aRecD = adminLink("./record_detail.html", sid, admin);
+    const aRecR = adminLink("./record_raw_detail.html", sid, admin);
+
+    const tStudent = token ? studentLink("./student.html", token) : "";
+    const tRecD = token ? studentLink("./record_detail.html", token) : "";
+    const tRecR = token ? studentLink("./record_raw_detail.html", token) : "";
+
+    return `
+      <div class="student-card" data-search="${esc([
+        sname, sid, school, career, admission, note
+      ].join(" ").toLowerCase())}">
+        <div class="student-head">
+          <div>
+            <div class="student-name">${esc(sname)}</div>
+            <div class="student-id mono">${esc(sid)}</div>
+            <div class="student-meta">
+              학교&nbsp;&nbsp;${esc(school || "-")}<br>
+              진로&nbsp;&nbsp;${esc(career || "-")}<br>
+              전형&nbsp;&nbsp;${esc(admission || "-")}<br>
+              성적&nbsp;&nbsp;${esc(latestScoreLabel(latestRow))}
+              ${note ? `<br>비고&nbsp;&nbsp;${esc(note)}` : ""}
+            </div>
+          </div>
+          <div class="badges">
+            ${badgeHtml(flag)}
+            ${token ? `<span class="pill">토큰 있음</span>` : `<span class="pill disabled">토큰 없음</span>`}
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="${esc(aStudent)}">학생 성적</a>
+          <a class="btn" href="${esc(aUniv)}">대학 상향/적정</a>
+          <a class="btn" href="${esc(aProg)}">진도 보기</a>
+
+          <span class="divider" aria-hidden="true"></span>
+
+          ${
+            recordEnabled
+              ? `<a class="btn" href="${esc(aRecD)}">생기부 분석</a>
+                 <a class="btn" href="${esc(aRecR)}">생기부 원문</a>`
+              : `${disabledBtn("생기부 분석")} ${disabledBtn("생기부 원문")}`
+          }
+
+          <span class="divider" aria-hidden="true"></span>
+
+          ${
+            token
+              ? `<a class="btn secondary" href="${esc(tStudent)}" target="_blank" rel="noopener">학생모드 열기</a>`
+              : disabledBtn("학생모드 열기")
+          }
+
+          ${
+            token
+              ? `<button class="btn secondary js-copy-student-link" type="button" data-link="${esc(tStudent)}">학생 링크 복사</button>`
+              : disabledBtn("학생 링크 복사")
+          }
+
+          ${
+            token && recordEnabled
+              ? `<button class="btn ghost js-copy-record-link" type="button" data-link="${esc(tRecD)}">생기부분석 링크 복사</button>`
+              : disabledBtn("생기부분석 링크 복사")
+          }
+
+          ${
+            token && recordEnabled
+              ? `<button class="btn ghost js-copy-raw-link" type="button" data-link="${esc(tRecR)}">생기부원문 링크 복사</button>`
+              : disabledBtn("생기부원문 링크 복사")
+          }
+        </div>
+      </div>
+    `;
+  }
+
+  function bindCopyButtons(){
+    document.querySelectorAll(".js-copy-student-link, .js-copy-record-link, .js-copy-raw-link").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const link = btn.getAttribute("data-link") || "";
+        if(!link) return;
+        const abs = new URL(link, location.href).href;
+        const original = btn.textContent;
+        const ok = await copyText(abs);
+        btn.textContent = ok ? "복사됨!" : "복사 실패";
+        setTimeout(() => { btn.textContent = original; }, 1200);
+      });
+    });
+  }
+
+  function applyFilter(){
+    const q = norm($("#searchInput")?.value).toLowerCase();
+    const cards = [...document.querySelectorAll(".student-card")];
+    let visible = 0;
+    for(const card of cards){
+      const hay = (card.getAttribute("data-search") || "").toLowerCase();
+      const show = !q || hay.includes(q);
+      card.style.display = show ? "" : "none";
+      if(show) visible++;
+    }
+    $("#countPill").textContent = `${visible}명`;
   }
 
   async function main(){
+    const qs = getQS();
+    const adminParam = norm(qs.get("admin"));
+    const savedAdmin = norm(localStorage.getItem(LS_KEY));
+    const admin = adminParam || savedAdmin;
+
+    const isAdmin = (admin && admin === ADMIN_TOKEN);
+
+    if(adminParam && isAdmin){
+      localStorage.setItem(LS_KEY, adminParam);
+    }
+
     if(!isAdmin){
-      document.body.innerHTML = `
-        <div class="wrap">
-          <h1>접근 불가</h1>
-          <div class="warn">관리자 토큰이 없습니다.</div>
-          <div class="muted" style="margin-top:8px">접속: index.html?admin=관리자토큰</div>
-        </div>
-      `;
-      return;
+      return renderNoAccess("관리자 토큰이 없거나 올바르지 않습니다.");
     }
 
-    const students = await loadJson('./students.json');
-    if(!Array.isArray(students)) throw new Error('students.json is not an array');
+    $("#authPills").innerHTML = `
+      <span class="pill mode">관리자</span>
+      <span class="pill">목록 페이지</span>
+    `;
+    $("#adminMeta").innerHTML = `
+      관리자 인증 완료 · 학생모드 링크는 <span class="mono">t=token</span>만 복사/사용 ·
+      관리자 이동은 <span class="mono">id+admin</span> 사용
+    `;
 
-    const listEl = $('#list');
-    const qEl = $('#q');
+    const [studentsRaw, scoresRaw, flagsData] = await Promise.all([
+      loadJson("./students.json"),
+      loadJsonSafe("./scores.json", []),
+      loadJsonSafe("./school_record_flags.json", null)
+    ]);
 
-    function render(){
-      const q = (qEl.value || '').trim().toLowerCase();
+    if(!Array.isArray(studentsRaw)){
+      throw new Error("students.json is not an array");
+    }
 
-      const arr = students
-        .map(s => ({
-          s,
-          name: String(pickName(s) || ''),
-          id: String(pickId(s) || ''),
-          token: String(pickToken(s) || ''),
-          school: String(s.school || ''),
-          career: String(s.career || ''),
-          admission: String(s.admission || ''),
-        }))
-        .filter(x => {
-          if(!q) return true;
-          return (
-            x.name.toLowerCase().includes(q) ||
-            x.id.toLowerCase().includes(q) ||
-            x.token.toLowerCase().includes(q) ||
-            x.school.toLowerCase().includes(q) ||
-            x.career.toLowerCase().includes(q) ||
-            x.admission.toLowerCase().includes(q)
-          );
-        });
+    const students = studentsRaw.slice();
 
-      if(!arr.length){
-        listEl.innerHTML = `<div class="card"><div class="muted">검색 결과가 없습니다.</div></div>`;
-        return;
+    // scores 인덱싱
+    const scoresById = new Map();
+    if(Array.isArray(scoresRaw)){
+      for(const r of scoresRaw){
+        const sid = norm(r?.id ?? r?.studentId ?? r?.["학생ID"]);
+        if(!sid) continue;
+        if(!scoresById.has(sid)) scoresById.set(sid, []);
+        scoresById.get(sid).push(r);
       }
-
-      const base = baseUrl();
-
-      listEl.innerHTML = arr.map(x => {
-        const sid = x.id;
-        const tok = x.token || '';
-
-        // 관리자 링크
-        const adminStudent = `${base}student.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
-        const adminUniv    = `${base}univ_list.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
-        const adminProg    = `${base}progress_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
-        const adminRecord  = `${base}record_detail.html?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(ADMIN_TOKEN)}`;
-
-        // 학생/학부모용 토큰 링크
-        const tokenStudent = tok ? `${base}student.html?t=${encodeURIComponent(tok)}` : '';
-        const tokenUniv    = tok ? `${base}univ_list.html?t=${encodeURIComponent(tok)}` : '';
-        const tokenProg    = tok ? `${base}progress_detail.html?t=${encodeURIComponent(tok)}` : '';
-        const tokenRecord  = tok ? `${base}record_detail.html?t=${encodeURIComponent(tok)}` : '';
-
-        const tokenLine = tok
-          ? `<div class="meta"><span class="pill">토큰</span> <span class="mono">${esc(tok)}</span></div>`
-          : `<div class="meta"><span class="warn">토큰 없음</span> <span class="muted">(students.json에 token 입력 필요)</span></div>`;
-
-        const buttons = tok ? `
-          <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
-          <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
-          <a class="btn" href="${esc(adminProg)}">관리자: 진도 보기</a>
-          <a class="btn" href="${esc(adminRecord)}">관리자: 생기부 보기</a>
-
-          <button class="btn" type="button" data-copy="${esc(tokenStudent)}">학생 링크 복사</button>
-          <button class="btn" type="button" data-copy="${esc(tokenUniv)}">상향/적정 링크 복사</button>
-          <button class="btn" type="button" data-copy="${esc(tokenProg)}">진도 링크 복사</button>
-          <button class="btn" type="button" data-copy="${esc(tokenRecord)}">생기부 링크 복사</button>
-        ` : `
-          <a class="btn" href="${esc(adminStudent)}">관리자: 성적 보기</a>
-          <a class="btn" href="${esc(adminUniv)}">관리자: 상향/적정</a>
-          <a class="btn" href="${esc(adminProg)}">관리자: 진도 보기</a>
-          <a class="btn" href="${esc(adminRecord)}">관리자: 생기부 보기</a>
-        `;
-
-        return `
-          <div class="card">
-            <div class="name">${esc(x.name)} <span class="muted">(${esc(sid)})</span></div>
-            <div class="meta">
-              학교: ${esc(x.school || '-')}<br>
-              진로: ${esc(x.career || '-')}<br>
-              전형: ${esc(x.admission || '-')}
-            </div>
-            ${tokenLine}
-            <div class="row" style="margin-top:12px">
-              ${buttons}
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // 복사 버튼 이벤트
-      listEl.querySelectorAll('button[data-copy]').forEach(btn => {
-        btn.addEventListener('click', () => copyText(btn.getAttribute('data-copy')));
-      });
     }
 
-    qEl.addEventListener('input', render);
-    render();
+    // 요약 라인
+    const total = students.length;
+    const tokenCount = students.filter(s => !!norm(pickToken(s))).length;
+    const recordOffCount = students.filter(s => {
+      const sid = norm(pickId(s));
+      const f = getRecordFlag(flagsData, sid);
+      return f?.recordEnabled === false;
+    }).length;
+
+    $("#summaryLine").innerHTML = `
+      총 ${total}명 · 토큰 보유 ${tokenCount}명 · 생기부 OFF ${recordOffCount}명
+    `;
+
+    const listHtml = students.map(s => studentCardHtml(s, admin, flagsData, scoresById)).join("");
+    $("#studentList").innerHTML = listHtml || `<div class="empty">학생 데이터가 없습니다.</div>`;
+
+    bindCopyButtons();
+    applyFilter();
+
+    // 이벤트
+    $("#searchInput")?.addEventListener("input", applyFilter);
+
+    $("#refreshBtn")?.addEventListener("click", () => {
+      location.reload();
+    });
+
+    $("#copyAdminUrlBtn")?.addEventListener("click", async () => {
+      const url = new URL(location.href);
+      url.searchParams.set("admin", admin);
+      const ok = await copyText(url.toString());
+      const btn = $("#copyAdminUrlBtn");
+      const old = btn.textContent;
+      btn.textContent = ok ? "복사됨!" : "복사 실패";
+      setTimeout(() => btn.textContent = old, 1200);
+    });
   }
 
   main().catch(err => {
-    document.body.innerHTML = `<div class="wrap"><h1>오류</h1><div class="warn">${esc(err.message)}</div></div>`;
+    $("#app").innerHTML = `
+      <div class="card">
+        <div class="title">오류</div>
+        <div class="warn">로딩 오류</div>
+        <div class="muted" style="margin-top:8px">${esc(err.message)}</div>
+      </div>
+    `;
   });
 })();
 </script>
