@@ -102,13 +102,6 @@
     .mini .k{font-weight:900}
     .mini .v{font-weight:900}
     .mini .g{font-size:12px;opacity:.75;font-weight:900}
-
-    select{
-      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
-      max-width:100%;
-    }
-
-    .spacer{height:2px}
   </style>
 </head>
 <body>
@@ -131,12 +124,12 @@
         <div class="title" style="font-size:16px;margin:0">최신 성적: <span id="latestRoundLabel">-</span></div>
       </div>
       <div class="rightgroup">
-        <span class="muted">원점수 + 백분위(p) + 등급(컷)</span>
+        <span class="muted">원점수 + 백분위(p) + 등급(컷/백분위)</span>
       </div>
     </div>
 
     <div class="subject-grid" id="scoreGrid"></div>
-    <div class="inline-note">※ 등급은 해당 회차의 과목별 컷(원점수) 기준으로 계산됩니다. 컷 데이터가 없으면 백분위 기준으로 보정 표시합니다.</div>
+    <div class="inline-note">※ 등급은 과목별 컷 데이터가 충분하면 컷 기준, 컷이 1개만 있거나 없으면 백분위 기준으로 표시됩니다.</div>
 
     <details class="rounds" id="prevWrap">
       <summary>이전 성적 보기</summary>
@@ -150,94 +143,12 @@
   // =========================
   // 설정값
   // =========================
-  // ✅ 실제 관리자 토큰으로 변경
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 값으로 바꿔도 됨
+  const LS_KEY = "__ADMIN_TOKEN__";
   const SUBJECTS = ["국어","수학","영어","탐1","탐2"];
 
   // =========================
-  // 공통 유틸 / 보안 분기
-  // =========================
-  function getQS() {
-    return new URLSearchParams(location.search);
-  }
-
-  function safeStr(v) {
-    return (v == null) ? "" : String(v);
-  }
-
-  function getAuthContext() {
-    const qs = getQS();
-
-    // 원본 파라미터
-    const t = safeStr(qs.get("t") || qs.get("token")).trim();
-    const id = safeStr(qs.get("id")).trim();
-    const admin = safeStr(qs.get("admin")).trim();
-
-    // 🔒 우선순위 규칙: t가 있으면 무조건 학생모드 (id/admin 무시)
-    if (t) {
-      return {
-        mode: "student",
-        token: t,
-        id: "",
-        admin: "",
-        isAdmin: false
-      };
-    }
-
-    // 관리자 모드 후보 (실제 토큰 검증은 아래에서)
-    if (id && admin) {
-      return {
-        mode: "admin",
-        token: "",
-        id,
-        admin,
-        isAdmin: false
-      };
-    }
-
-    return {
-      mode: "guest",
-      token: "",
-      id: "",
-      admin: "",
-      isAdmin: false
-    };
-  }
-
-  function buildPageLink(page, auth, student) {
-    // 🔒 학생모드면 절대 id/admin 링크 만들지 않음
-    if (auth && auth.mode === "student") {
-      return `${page}?t=${encodeURIComponent(auth.token)}`;
-    }
-
-    // 관리자모드
-    if (auth && auth.mode === "admin" && auth.isAdmin) {
-      const sid = student && pickId(student) ? pickId(student) : auth.id;
-      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
-    }
-
-    // guest fallback
-    return page;
-  }
-
-  function resolveStudentByAuth(students, auth) {
-    if (!Array.isArray(students)) return null;
-
-    if (auth.mode === "student") {
-      // 🔒 학생모드에서는 token으로만 매칭
-      return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
-    }
-
-    if (auth.mode === "admin" && auth.isAdmin) {
-      // 관리자모드에서만 id 매칭 허용
-      return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
-    }
-
-    return null;
-  }
-
-  // =========================
-  // DOM 유틸
+  // 공통 유틸
   // =========================
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
@@ -245,12 +156,16 @@
   }[m]));
   const norm = (v)=>String(v ?? "").trim();
 
-  // =========================
-  // 데이터 키 유틸
-  // =========================
-  function pickName(s){ return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-"; }
-  function pickId(s){ return s.id ?? s.studentId ?? s.studentID ?? s["ID"] ?? s["학생ID"] ?? s["학번"] ?? null; }
-  function pickToken(s){ return s.token ?? s.accessToken ?? s.key ?? s["token"] ?? s["토큰"] ?? null; }
+  function getQS(){
+    return new URLSearchParams(location.search);
+  }
+  function safeStr(v){
+    return (v == null) ? "" : String(v);
+  }
+
+  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
+  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
 
   function pickText(...vals){
     for(const v of vals){
@@ -274,45 +189,157 @@
     }
   }
 
-  // =========================
-  // 점수/등급 계산 유틸
-  // =========================
   function parseNum(v){
     if(v === null || v === undefined || v === "") return null;
     const n = Number(String(v).replace(/[^\d.-]/g,""));
     return Number.isFinite(n) ? n : null;
   }
 
-  function firstNum(...vals){
-    for (const v of vals){
-      const n = parseNum(v);
-      if (n != null) return n;
+  function pickNumFromKeys(row, keys){
+    for(const k of keys){
+      if(!k) continue;
+      const n = parseNum(row?.[k]);
+      if(n != null) return n;
     }
     return null;
   }
 
+  // =========================
+  // 보안: t 우선 / 관리자 검증
+  // =========================
+  function getAuthContext() {
+    const qs = getQS();
+
+    const t = safeStr(qs.get("t") || qs.get("token")).trim();
+    const id = safeStr(qs.get("id")).trim();
+    const adminParam = safeStr(qs.get("admin")).trim();
+    const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
+    const admin = adminParam || adminSaved;
+
+    // 🔒 t가 있으면 무조건 학생모드 (id/admin 무시)
+    if (t) {
+      return {
+        mode: "student",
+        token: t,
+        id: "",
+        admin: "",
+        isAdmin: false
+      };
+    }
+
+    // 관리자 후보
+    if (id && admin) {
+      const ok = (admin === ADMIN_TOKEN);
+      if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
+
+      return {
+        mode: "admin",
+        token: "",
+        id,
+        admin,
+        isAdmin: ok
+      };
+    }
+
+    return {
+      mode: "guest",
+      token: "",
+      id: "",
+      admin: "",
+      isAdmin: false
+    };
+  }
+
+  function buildPageLink(page, auth, student) {
+    // 🔒 학생모드면 절대 id/admin 링크 금지
+    if (auth?.mode === "student") {
+      return `${page}?t=${encodeURIComponent(auth.token)}`;
+    }
+
+    // 관리자모드(검증된 경우만)
+    if (auth?.mode === "admin" && auth.isAdmin) {
+      const sid = norm(pickId(student) || auth.id);
+      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+    }
+
+    // guest fallback
+    return page;
+  }
+
+  function resolveStudentByAuth(students, auth) {
+    if (!Array.isArray(students)) return null;
+
+    if (auth.mode === "student") {
+      // 🔒 학생모드에서는 token으로만 매칭
+      return students.find(s => norm(pickToken(s)) === auth.token) || null;
+    }
+
+    if (auth.mode === "admin" && auth.isAdmin) {
+      // 관리자모드에서만 id 매칭 허용
+      return students.find(s => norm(pickId(s)) === auth.id) || null;
+    }
+
+    return null;
+  }
+
+  // =========================
+  // flags (선택)
+  // =========================
+  function getRecordFlag(flags, studentId) {
+    if (!flags) return {};
+    if (Array.isArray(flags)) {
+      return flags.find(x => String(x?.id) === String(studentId)) || {};
+    }
+    return flags[studentId] || {};
+  }
+
+  function canViewRecord(flag, auth) {
+    if (!flag || Object.keys(flag).length === 0) return true;
+    if (flag.recordEnabled === false) return false;
+    const visibility = String(flag.visibility || "student").toLowerCase();
+    if (visibility === "admin_only") return !!auth.isAdmin;
+    return true;
+  }
+
+  function canViewRawRecord(flag, auth) {
+    if (!flag || Object.keys(flag).length === 0) return true;
+    if (flag.recordEnabled === false) return false;
+    const visibility = String(flag.visibility || "student").toLowerCase();
+    if (visibility === "admin_only") return !!auth.isAdmin;
+    return true;
+  }
+
+  // =========================
+  // 성적 파서 (네 JSON 형식 대응)
+  // =========================
   function scoreOf(row, subj){
-    return firstNum(
-      row[subj],
-      row[`${subj}점수`],
-      row[`${subj}_score`],
-      row[`${subj}Score`]
-    );
+    // 지원: 국어_raw / 국어 / 국어점수 / 국어_score ...
+    return pickNumFromKeys(row, [
+      `${subj}_raw`,
+      subj,
+      `${subj}점수`,
+      `${subj}_score`,
+      `${subj}Score`
+    ]);
   }
 
   function percentileOf(row, subj){
-    // 다양한 형태 허용
-    return firstNum(
-      row[`${subj}p`], row[`${subj}P`],
-      row[`${subj}백분위`], row[`${subj}_percentile`], row[`${subj}percentile`]
-    );
+    // 지원: 국어_pct / 국어p / 국어백분위 / 국어_percentile ...
+    return pickNumFromKeys(row, [
+      `${subj}_pct`,
+      `${subj}p`,
+      `${subj}P`,
+      `${subj}백분위`,
+      `${subj}_percentile`,
+      `${subj}percentile`
+    ]);
   }
 
   function explicitGradeOf(row, subj){
     const v = pickText(
-      row[`${subj}등급`],
-      row[`${subj}_grade`],
-      row[`${subj}grade`]
+      row?.[`${subj}등급`],
+      row?.[`${subj}_grade`],
+      row?.[`${subj}grade`]
     );
     if(!v) return null;
     const n = parseNum(v);
@@ -320,13 +347,15 @@
   }
 
   function cutAt(row, subj, grade){
-    // 우선순위: 과목컷1~9 → 과목_컷_1 → cuts 객체
-    let v = row[`${subj}컷${grade}`];
-    if(v == null) v = row[`${subj}_컷_${grade}`];
-    if(v == null && row.cuts && row.cuts[subj] && row.cuts[subj][grade] != null) v = row.cuts[subj][grade];
+    let v = row?.[`${subj}컷${grade}`];
+    if(v == null) v = row?.[`${subj}_컷_${grade}`];
+    if(v == null && row?.cuts && row.cuts[subj] && row.cuts[subj][grade] != null) v = row.cuts[subj][grade];
 
-    // 레거시: `${subj}컷` 만 있는 경우 = 1등급 컷으로 간주
-    if(v == null && grade === 1) v = row[`${subj}컷`];
+    // 레거시 1등급 컷
+    if(v == null && grade === 1) v = row?.[`${subj}컷`];
+
+    // ✅ 네 데이터 형식 지원: 국어_cut
+    if(v == null && grade === 1) v = row?.[`${subj}_cut`];
 
     return parseNum(v);
   }
@@ -342,8 +371,11 @@
     }
     if(!cuts.length) return null;
 
-    // "해당 점수 이상인 가장 높은 등급"
-    cuts.sort((a,b) => a.g - b.g); // 1,2,3...
+    // 컷이 1개뿐이면 정확 등급 계산 불가 → 백분위로 넘김
+    if(cuts.length < 2) return null;
+
+    cuts.sort((a,b) => a.g - b.g);
+
     for(const x of cuts){
       if(score >= x.c) return `${x.g}등급`;
     }
@@ -358,6 +390,7 @@
 
     // 백분위 점수(높을수록 좋음) 기준 근사
     const pp = Number(p);
+
     if(pp >= 96) return "1등급";
     if(pp >= 89) return "2등급";
     if(pp >= 77) return "3등급";
@@ -378,11 +411,13 @@
   }
 
   function roundNumOf(r){
-    return parseNum(r.round ?? r.Round ?? r["회차"] ?? r["차수"]);
+    return parseNum(r?.round ?? r?.Round ?? r?.["회차"] ?? r?.["차수"]);
   }
+
   function dateOf(r){
-    return pickText(r.date, r.Date, r["날짜"], r["일자"]);
+    return pickText(r?.date, r?.Date, r?.["날짜"], r?.["일자"]);
   }
+
   function roundKey(r){
     const rn = roundNumOf(r);
     const d = dateOf(r);
@@ -395,7 +430,7 @@
   function sortScores(rows){
     return rows.slice().sort((a,b)=>{
       const ra = roundNumOf(a), rb = roundNumOf(b);
-      if(ra != null && rb != null && ra !== rb) return rb - ra; // 최신 회차 먼저
+      if(ra != null && rb != null && ra !== rb) return rb - ra;
 
       const da = Date.parse(dateOf(a) || "");
       const db = Date.parse(dateOf(b) || "");
@@ -407,43 +442,14 @@
   }
 
   // =========================
-  // 생기부 버튼 노출 정책 (옵션)
-  // =========================
-  function getRecordFlag(flags, studentId) {
-    if (!flags) return {};
-    if (Array.isArray(flags)) {
-      return flags.find(x => String(x?.id) === String(studentId)) || {};
-    }
-    return flags[studentId] || {};
-  }
-
-  function canViewRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true; // flags 없으면 기본 허용
-    if (flag.recordEnabled === false) return false;
-
-    const visibility = String(flag.visibility || "student").toLowerCase();
-    if (visibility === "admin_only") return !!auth.isAdmin;
-    return true;
-  }
-
-  function canViewRawRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true;
-    if (flag.recordEnabled === false) return false;
-
-    const visibility = String(flag.visibility || "student").toLowerCase();
-    if (visibility === "admin_only") return !!auth.isAdmin;
-    return true;
-  }
-
-  // =========================
   // 렌더링
   // =========================
   function renderStudentMeta(student, auth){
     const sid = norm(pickId(student));
     const name = pickName(student);
-    const school = pickText(student.school, student["학교"]);
-    const career = pickText(student.career, student["진로"]);
-    const adm = pickText(student.admission, student["전형"]);
+    const school = pickText(student?.school, student?.["학교"]);
+    const career = pickText(student?.career, student?.["진로"]);
+    const adm = pickText(student?.admission, student?.["전형"]);
 
     $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
     $("#meta").innerHTML = `
@@ -460,16 +466,14 @@
   function renderNav(student, auth, recordFlag){
     const nav = [];
 
-    // 관리자 전용 버튼
     if(auth.isAdmin){
       nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(auth.admin)}">학생 목록</a>`);
     }
 
-    // 공통 버튼 (🔒 buildPageLink 사용)
     nav.push(`<a class="btn" href="${buildPageLink("./univ_list.html", auth, student)}">대학 상향/적정</a>`);
     nav.push(`<a class="btn" href="${buildPageLink("./progress_detail.html", auth, student)}">진도 보기</a>`);
 
-    // 생기부 버튼 (flags 정책 반영)
+    // flags 없으면 기본 표시
     if (canViewRecord(recordFlag, auth)) {
       nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
     }
@@ -534,7 +538,7 @@
       <div class="round-item">
         <div class="round-head">
           <div class="round-title">${esc(roundKey(r))}</div>
-          <div class="round-meta">${esc(pickText(r.memo, r.note, r["메모"]) || "")}</div>
+          <div class="round-meta">${esc(pickText(r?.memo, r?.note, r?.["메모"]) || "")}</div>
         </div>
         <div class="mini-grid">
           ${SUBJECTS.map(s => miniRow(s, r)).join("")}
@@ -543,11 +547,11 @@
     `).join("");
   }
 
-  function renderNoAccess(message){
+  function renderNoAccess(msg){
     $(".wrap").innerHTML = `
       <div class="card">
         <div class="title">접근 권한이 없습니다.</div>
-        <div class="warn">${esc(message || "학생을 찾을 수 없습니다.")}</div>
+        <div class="warn">${esc(msg || "학생을 찾을 수 없습니다.")}</div>
         <div class="muted" style="margin-top:8px">
           관리자: student.html?id=학생ID&admin=관리자토큰 / 학생·학부모: student.html?t=개별토큰
         </div>
@@ -559,40 +563,38 @@
   // 메인
   // =========================
   async function main(){
-    // 1) URL 기준 auth 확정
     const auth = getAuthContext();
 
-    // 2) 관리자 토큰 검증 (학생모드는 이미 t 우선이므로 영향 없음)
-    if (auth.mode === "admin") {
-      auth.isAdmin = (auth.admin === ADMIN_TOKEN);
-      if (!auth.isAdmin) {
-        return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
-      }
+    // 관리자 모드인데 토큰 틀린 경우
+    if (auth.mode === "admin" && !auth.isAdmin) {
+      return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
     const students = await loadJson("./students.json");
     if(!Array.isArray(students)) throw new Error("students.json is not an array");
 
-    // 🔒 보안 핵심: auth 기준으로만 학생 찾기 (student=token / admin=id)
     const student = resolveStudentByAuth(students, auth);
-
     if(!student){
       return renderNoAccess("학생을 찾을 수 없습니다.");
     }
 
-    const sid = norm(pickId(student));
-
-    // flags (없어도 동작)
-    const flagsData = await loadJsonSafe("./school_record_flags.json", null);
-    const recordFlag = getRecordFlag(flagsData, sid);
-
     renderStudentMeta(student, auth);
+
+    // flags는 선택 파일 (없어도 동작)
+    const flagsData = await loadJsonSafe("./school_record_flags.json", null);
+    const recordFlag = getRecordFlag(flagsData, norm(pickId(student)));
     renderNav(student, auth, recordFlag);
 
-    let scoresRaw = await loadJsonSafe("./scores.json", []);
-    let rows = Array.isArray(scoresRaw) ? scoresRaw : [];
+    // scores.json 로드
+    let scoresRaw = [];
+    try{
+      scoresRaw = await loadJson("./scores.json");
+    }catch(_e){
+      scoresRaw = [];
+    }
 
-    // id 기준 필터 (scores.json은 id 기반이라고 가정)
+    let rows = Array.isArray(scoresRaw) ? scoresRaw : [];
+    const sid = norm(pickId(student));
     rows = rows.filter(r => norm(r?.id) === sid);
     rows = sortScores(rows);
 
