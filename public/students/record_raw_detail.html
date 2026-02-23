@@ -21,16 +21,23 @@
       display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between
     }
     .leftgroup,.rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
     .pill{
       display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
       padding:7px 12px;font-weight:900;background:#fff
     }
     .pill.mode{border:2px solid #111}
+    .pill.soft{border-color:#eee}
+    .pill.ok{border-color:#0b7a22}
+    .pill.warn{border-color:#b00020;color:#b00020}
+
     .btn{
       display:inline-block;border:1px solid #111;border-radius:12px;
       padding:10px 14px;text-decoration:none;color:#111;background:#fff;font-weight:900
     }
     .btn:hover{background:#fafafa}
+    .btn.disabled{pointer-events:none;opacity:.45;background:#f8f8f8;border-color:#ddd;color:#666}
+
     .warn{color:#b00020;font-weight:900}
     .muted{opacity:.7}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
@@ -42,71 +49,111 @@
       width:8px;height:8px;border-radius:999px;background:#111;display:inline-block
     }
 
-    .kv-grid{
+    .grid-2{
       display:grid;
-      grid-template-columns: 180px 1fr;
-      gap:8px 12px;
-      align-items:start;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
     }
-    @media(max-width: 760px){
-      .kv-grid{grid-template-columns:1fr}
-    }
+    @media(max-width: 820px){ .grid-2{grid-template-columns:1fr;} }
 
-    .kv-k{
-      font-weight:900;
-      color:#222;
-      padding-top:2px;
+    .info-box{
+      border:1px solid #eee;border-radius:14px;padding:12px;background:#fff
     }
-    .kv-v{
-      line-height:1.6;
+    .info-label{font-size:12px;font-weight:900;opacity:.75;margin-bottom:4px}
+    .info-value{
+      font-size:14px;line-height:1.5;
       white-space:pre-wrap;
       word-break:break-word;
       overflow-wrap:anywhere;
-      color:#111;
     }
 
     .raw-block{
-      border:1px solid #eee;border-radius:14px;padding:14px;background:#fff;
+      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff
+    }
+    .raw-head{
+      display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap
+    }
+    .raw-name{font-weight:900;font-size:15px;line-height:1.3}
+    .raw-tag{
+      border:1px solid #ddd;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900
+    }
+
+    .raw-text{
+      margin-top:10px;
       white-space:pre-wrap;
       word-break:break-word;
       overflow-wrap:anywhere;
       line-height:1.65;
       font-size:14px;
+      background:#fff;
     }
 
-    .item-list{display:grid;gap:10px}
-    .item-card{
-      border:1px solid #eee;border-radius:14px;padding:12px;background:#fff;
-    }
-    .item-head{
-      display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;
-      margin-bottom:8px;
-    }
-    .item-title{
-      font-weight:900;font-size:14px;line-height:1.4;
-    }
-    .item-badge{
-      border:1px solid #ddd;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900;
+    .raw-text.mono{
+      font-size:12px;
+      line-height:1.55;
+      background:#fafafa;
+      border:1px solid #eee;
+      border-radius:12px;
+      padding:10px;
+      overflow:auto;
     }
 
-    details.section{
-      border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff;
+    .kv-grid{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      gap:8px 10px;
+      margin-top:10px;
+      align-items:start;
     }
-    details.section > summary{
-      cursor:pointer;font-weight:900;list-style:none;
-      display:flex;justify-content:space-between;gap:10px;align-items:center;
+    @media(max-width: 680px){
+      .kv-grid{grid-template-columns: 1fr;}
     }
-    details.section > summary::-webkit-details-marker{display:none}
-    .summary-right{font-size:12px;opacity:.7;font-weight:900}
-    .details-body{margin-top:10px}
+    .kv-k{
+      font-size:12px;font-weight:900;opacity:.75;
+      border:1px solid #eee;border-radius:10px;padding:8px;background:#fff;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+    }
+    .kv-v{
+      border:1px solid #eee;border-radius:10px;padding:8px;background:#fff;
+      min-width:0;
+    }
+    .kv-v .text{
+      white-space:pre-wrap;
+      word-break:break-word;
+      overflow-wrap:anywhere;
+      line-height:1.55;
+      font-size:13px;
+    }
 
+    .stack{display:grid;gap:10px}
     .empty{
-      border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;color:#555
+      border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;
+      color:#555
     }
 
-    .hidden-note{
-      font-size:12px;color:#666;margin-top:8px;
+    details.fold{
+      border:1px solid #eee;border-radius:14px;padding:10px 12px;background:#fff;
+      margin-top:10px;
     }
+    details.fold > summary{
+      cursor:pointer;font-weight:900;list-style:none;
+    }
+    details.fold > summary::-webkit-details-marker{display:none}
+
+    .chip-row{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
+      padding:5px 9px;font-size:12px;font-weight:900;background:#fff
+    }
+
+    .list-block{display:grid;gap:10px;margin-top:10px}
+    .list-item{
+      border:1px solid #eee;border-radius:12px;padding:12px;background:#fff
+    }
+    .list-item-title{font-weight:900;font-size:14px;margin-bottom:8px}
+
+    .tiny{font-size:12px;opacity:.8}
   </style>
 </head>
 <body>
@@ -125,31 +172,28 @@
   <div class="card">
     <div class="topbar">
       <div class="leftgroup">
-        <div class="subttl">원문 메타 정보</div>
+        <div class="subttl">원문 표시 상태</div>
       </div>
-      <div class="rightgroup">
-        <span class="muted">학생/학부모 모드에서는 비공개 항목이 숨김 처리될 수 있습니다.</span>
-      </div>
+      <div class="rightgroup" id="flagRow"></div>
     </div>
-    <div id="metaArea" style="margin-top:12px;"></div>
+    <div class="grid-2" id="flagInfoGrid" style="margin-top:12px;"></div>
   </div>
 
   <div class="card">
-    <div class="section-title"><span class="dot"></span>전체 원문</div>
-    <div id="fullRawArea"></div>
+    <div class="section-title"><span class="dot"></span>원문 전체 텍스트</div>
+    <div id="fullTextArea"></div>
   </div>
 
   <div class="card">
-    <div class="topbar">
-      <div class="leftgroup">
-        <div class="subttl">항목별 원문</div>
-        <span class="pill" id="itemCountPill">항목 0개</span>
-      </div>
-      <div class="rightgroup">
-        <span class="muted">원문/메타/항목별 기록 확인용</span>
-      </div>
-    </div>
-    <div id="itemArea" style="margin-top:12px;"></div>
+    <div class="section-title"><span class="dot"></span>항목별 원문</div>
+    <div id="sectionArea" class="stack"></div>
+  </div>
+
+  <div class="card">
+    <details class="fold" id="debugFold">
+      <summary>원문 JSON 구조 보기 (디버깅용)</summary>
+      <div id="debugJsonArea" style="margin-top:10px;"></div>
+    </details>
   </div>
 </div>
 
@@ -158,105 +202,48 @@
   // =========================
   // 설정값
   // =========================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 변경
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 교체
   const LS_KEY = "__ADMIN_TOKEN__";
 
   // =========================
-  // DOM / 공통 유틸
+  // 공통 유틸 / 보안 분기
   // =========================
-  const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[m]));
-  const norm = (v)=>String(v ?? "").trim();
-
   function getQS() {
     return new URLSearchParams(location.search);
   }
+
   function safeStr(v) {
     return (v == null) ? "" : String(v);
   }
 
-  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
-  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
-
-  function pickText(...vals){
-    for(const v of vals){
-      const s = String(v ?? "").trim();
-      if (s) return s;
-    }
-    return "";
-  }
-
-  async function loadJson(path){
-    const r = await fetch(path, { cache:"no-store" });
-    if (!r.ok) throw new Error(path + " load failed (" + r.status + ")");
-    return r.json();
-  }
-
-  async function loadJsonSafe(path, fallback){
-    try{
-      return await loadJson(path);
-    }catch(_e){
-      return fallback;
-    }
-  }
-
-  // =========================
-  // 보안: auth 컨텍스트 (t 우선)
-  // =========================
   function getAuthContext() {
     const qs = getQS();
-
     const t = safeStr(qs.get("t") || qs.get("token")).trim();
     const id = safeStr(qs.get("id")).trim();
-    const adminParam = safeStr(qs.get("admin")).trim();
-    const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
-    const admin = adminParam || adminSaved;
+    const admin = safeStr(qs.get("admin")).trim() || safeStr(localStorage.getItem(LS_KEY)).trim();
 
-    // 🔒 t가 있으면 학생모드 우선
+    // 🔒 t 우선 규칙
     if (t) {
-      return {
-        mode: "student",
-        token: t,
-        id: "",
-        admin: "",
-        isAdmin: false
-      };
+      return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
     }
-
-    // 관리자 후보
     if (id && admin) {
-      const ok = (admin === ADMIN_TOKEN);
-      if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
-
-      return {
-        mode: "admin",
-        token: "",
-        id,
-        admin,
-        isAdmin: ok
-      };
+      return { mode: "admin", token: "", id, admin, isAdmin: false };
     }
-
-    return {
-      mode: "guest",
-      token: "",
-      id: "",
-      admin: "",
-      isAdmin: false
-    };
+    return { mode: "guest", token: "", id: "", admin: "", isAdmin: false };
   }
 
   function buildPageLink(page, auth, student) {
-    if (auth?.mode === "student") {
+    // 🔒 학생모드면 절대 id/admin 링크 만들지 않음
+    if (auth && auth.mode === "student") {
       return `${page}?t=${encodeURIComponent(auth.token)}`;
     }
-    if (auth?.mode === "admin" && auth.isAdmin) {
-      const sid = norm(pickId(student) || auth.id);
+
+    // 관리자모드
+    if (auth && auth.mode === "admin" && auth.isAdmin) {
+      const sid = pickId(student) || auth.id;
       return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
     }
+
     return page;
   }
 
@@ -264,16 +251,111 @@
     if (!Array.isArray(students)) return null;
 
     if (auth.mode === "student") {
-      // 🔒 학생모드는 token으로만 찾기
-      return students.find(s => norm(pickToken(s)) === auth.token) || null;
+      return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
     }
 
     if (auth.mode === "admin" && auth.isAdmin) {
-      return students.find(s => norm(pickId(s)) === auth.id) || null;
+      return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
     }
 
     return null;
   }
+
+  // =========================
+  // DOM / 유틸
+  // =========================
+  const $ = (s)=>document.querySelector(s);
+  const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+  const norm = (v)=>String(v ?? "").trim();
+
+  function pickText(...vals){
+    for(const v of vals){
+      const s = String(v ?? "").trim();
+      if(s) return s;
+    }
+    return "";
+  }
+
+  function parseNum(v){
+    if(v == null || v === "") return null;
+    const n = Number(String(v).replace(/[^\d.-]/g,""));
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function isPlainObject(v){
+    return !!v && typeof v === "object" && !Array.isArray(v);
+  }
+
+  function isPrimitive(v){
+    return v == null || ["string","number","boolean"].includes(typeof v);
+  }
+
+  async function loadJson(path){
+    const r = await fetch(path, { cache:"no-store" });
+    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
+    return r.json();
+  }
+
+  async function loadJsonSafe(path, fallback){
+    try{ return await loadJson(path); }catch(_e){ return fallback; }
+  }
+
+  // ✅ labelizeKey 오류 방지용(명시적으로 정의)
+  function labelizeKey(key){
+    const k = String(key ?? "").trim();
+    if (!k) return "-";
+
+    const map = {
+      id: "학생 ID",
+      studentId: "학생 ID",
+      studentID: "학생 ID",
+      studentName: "학생명",
+      name: "학생명",
+      date: "날짜",
+      term: "학기",
+      semester: "학기",
+      year: "학년도",
+      title: "제목",
+      label: "라벨",
+      type: "유형",
+      category: "분류",
+      text: "텍스트",
+      rawText: "원문 텍스트",
+      fullText: "원문 전체 텍스트",
+      content: "내용",
+      memo: "메모",
+      note: "비고",
+      source: "출처",
+      visibility: "공개범위",
+      reviewStatus: "검토상태",
+      updatedAt: "수정일시",
+      createdAt: "생성일시"
+    };
+    if (map[k]) return map[k];
+
+    // snake_case / camelCase 가독화
+    return k
+      .replace(/_/g, " ")
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function prettyTypeTag(v){
+    if (Array.isArray(v)) return `배열 (${v.length})`;
+    if (isPlainObject(v)) return "객체";
+    if (v == null) return "빈값";
+    return typeof v;
+  }
+
+  // =========================
+  // 학생 데이터 키 유틸
+  // =========================
+  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
+  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
 
   // =========================
   // flags / 접근 정책
@@ -286,7 +368,18 @@
     return flags[studentId] || {};
   }
 
-  function canViewRawRecord(flag, auth) {
+  function getRawVisibility(flag){
+    // raw 전용 키가 있으면 우선 사용, 없으면 visibility 사용
+    return String(
+      flag?.rawVisibility ??
+      flag?.raw_visibility ??
+      flag?.rawRecordVisibility ??
+      flag?.visibility ??
+      "student"
+    ).toLowerCase();
+  }
+
+  function canViewRecord(flag, auth) {
     if (!flag || Object.keys(flag).length === 0) return true;
     if (flag.recordEnabled === false) return false;
 
@@ -295,272 +388,199 @@
     return true;
   }
 
+  function canViewRawRecord(flag, auth) {
+    if (!flag || Object.keys(flag).length === 0) return true;
+    if (flag.recordEnabled === false) return false;
+
+    const visibility = getRawVisibility(flag);
+    if (visibility === "admin_only") return !!auth.isAdmin;
+    return true;
+  }
+
+  function nodeVisibleForAuth(node, auth){
+    if (!isPlainObject(node)) return true;
+
+    const vis = String(
+      node.visibility ??
+      node._visibility ??
+      node.rawVisibility ??
+      ""
+    ).toLowerCase();
+
+    const adminOnly = node.adminOnly === true || node.admin_only === true;
+
+    if (adminOnly && !auth.isAdmin) return false;
+    if (vis === "admin_only" && !auth.isAdmin) return false;
+    return true;
+  }
+
   // =========================
-  // school_record_raw.json 파싱 (유연 대응)
+  // raw 데이터 파싱
   // =========================
   function getRawRecord(rawData, studentId) {
     if (!rawData) return null;
 
-    // 배열형 [{id, ...}]
+    // 배열형 [{id, ...}, ...]
     if (Array.isArray(rawData)) {
-      return rawData.find(x => String(x?.id) === String(studentId)) || null;
+      return rawData.find(x =>
+        String(x?.id ?? x?.studentId ?? x?.studentID ?? x?.["학생ID"]) === String(studentId)
+      ) || null;
     }
 
-    // 객체형 {"shstudy01": {...}}
+    // 객체형 { "학생ID": {...} }
     if (rawData[studentId]) return rawData[studentId];
 
     // 래퍼형
     if (Array.isArray(rawData.items)) {
-      return rawData.items.find(x => String(x?.id) === String(studentId)) || null;
+      return rawData.items.find(x =>
+        String(x?.id ?? x?.studentId ?? x?.studentID ?? x?.["학생ID"]) === String(studentId)
+      ) || null;
     }
     if (Array.isArray(rawData.data)) {
-      return rawData.data.find(x => String(x?.id) === String(studentId)) || null;
+      return rawData.data.find(x =>
+        String(x?.id ?? x?.studentId ?? x?.studentID ?? x?.["학생ID"]) === String(studentId)
+      ) || null;
     }
 
     return null;
   }
 
-  function unwrapRawPayload(record) {
+  function unwrapRawPayload(record){
     if (!record) return null;
     return (
       record.raw ||
-      record.record ||
+      record.original ||
       record.payload ||
+      record.record ||
       record.data ||
-      record.detail ||
+      record.raw_record ||
       record
     );
   }
 
-  function isObject(v){
-    return !!v && typeof v === "object" && !Array.isArray(v);
-  }
+  function pickFullText(payload){
+    if (!payload) return "";
 
-  function toPrettyString(v){
-    if (v == null) return "";
-    if (typeof v === "string") return v;
-    if (typeof v === "number" || typeof v === "boolean") return String(v);
-    try{
-      return JSON.stringify(v, null, 2);
-    }catch(_e){
-      return String(v);
+    const candidates = [
+      payload.fullText, payload.rawText, payload.originalText, payload.text, payload.content,
+      payload["원문전체"], payload["원문 전체"], payload["원문텍스트"], payload["원문 텍스트"]
+    ];
+
+    for (const v of candidates) {
+      const s = String(v ?? "").trim();
+      if (s) return s;
     }
+
+    // sections/items 안에서 text만 모아야 하는 케이스는 여기서 억지로 합치지 않음
+    return "";
   }
 
-  // ✅ labelizeKey 오류 방지용 핵심 함수
-  function labelizeKey(key) {
-    const s = String(key ?? "").trim();
-    if (!s) return "항목";
+  function collectSectionEntries(payload){
+    if (!payload) return [];
 
-    // snake_case, camelCase, kebab-case -> 보기 좋게
-    let t = s
-      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
-      .replace(/[_-]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+    // 1) 대표 배열 필드 후보
+    const arrCandidate =
+      (Array.isArray(payload.sections) && payload.sections) ||
+      (Array.isArray(payload.items) && payload.items) ||
+      (Array.isArray(payload.records) && payload.records) ||
+      (Array.isArray(payload.entries) && payload.entries) ||
+      (Array.isArray(payload.rawItems) && payload.rawItems) ||
+      (Array.isArray(payload["항목"]) && payload["항목"]) ||
+      null;
 
-    // 흔한 키 한글화(필요한 것만)
-    const lower = t.toLowerCase();
-    const map = {
-      "id": "ID",
-      "student id": "학생 ID",
-      "studentid": "학생 ID",
-      "student name": "학생명",
-      "studentname": "학생명",
-      "school": "학교",
-      "grade": "학년",
-      "semester": "학기",
-      "year": "연도",
-      "source": "출처",
-      "note": "메모",
-      "memo": "메모",
-      "raw text": "전체 원문",
-      "rawtext": "전체 원문",
-      "full text": "전체 원문",
-      "fulltext": "전체 원문",
-      "text": "원문",
-      "content": "내용",
-      "visibility": "공개 범위",
-      "record enabled": "기록 사용 여부",
-      "review status": "검토 상태",
-      "created at": "생성일시",
-      "updated at": "수정일시"
-    };
-    if (map[lower]) return map[lower];
-
-    return t;
-  }
-
-  // =========================
-  // 필드 visibility 필터 (학생모드에서 admin_only 숨김)
-  // =========================
-  function isAdminOnlyValue(v) {
-    if (!isObject(v)) return false;
-
-    const vis = String(
-      v.visibility ?? v.view ?? v.access ?? ""
-    ).toLowerCase();
-
-    if (vis === "admin_only") return true;
-    if (v.adminOnly === true) return true;
-    if (v.isAdminOnly === true) return true;
-
-    return false;
-  }
-
-  function filterObjectByVisibility(obj, auth) {
-    if (!isObject(obj)) return obj;
-    if (auth.isAdmin) return obj;
-
-    const out = {};
-    for (const [k, v] of Object.entries(obj)) {
-      if (isAdminOnlyValue(v)) continue;
-      out[k] = v;
+    if (arrCandidate) {
+      return arrCandidate.map((x, i) => normalizeSectionEntry(x, `항목 ${i+1}`));
     }
-    return out;
+
+    // 2) 객체형 sections {키:{...}}
+    const objCandidate =
+      (isPlainObject(payload.sections) && payload.sections) ||
+      (isPlainObject(payload.items) && payload.items) ||
+      (isPlainObject(payload["항목"]) && payload["항목"]) ||
+      null;
+
+    if (objCandidate) {
+      return Object.entries(objCandidate).map(([k,v]) => normalizeSectionEntry(v, k));
+    }
+
+    // 3) payload 자체에서 객체 필드들을 항목으로 간주 (명백한 메타 키 제외)
+    const blacklist = new Set([
+      "id","studentId","studentID","학생ID","studentName","name",
+      "fullText","rawText","originalText","text","content",
+      "summary","요약","meta","metadata","createdAt","updatedAt"
+    ]);
+
+    const entries = Object.entries(payload).filter(([k,v]) => !blacklist.has(k) && (Array.isArray(v) || isPlainObject(v)));
+    if (entries.length) {
+      return entries.map(([k,v]) => normalizeSectionEntry(v, k));
+    }
+
+    return [];
   }
 
-  function filterArrayItemsByVisibility(arr, auth) {
-    if (!Array.isArray(arr)) return [];
-    if (auth.isAdmin) return arr;
+  function normalizeSectionEntry(entry, fallbackName){
+    // entry가 primitive면 text로 래핑
+    if (isPrimitive(entry)) {
+      return {
+        title: fallbackName || "항목",
+        tag: prettyTypeTag(entry),
+        text: String(entry ?? ""),
+        fields: {},
+        raw: entry
+      };
+    }
 
-    return arr.filter(item => !isAdminOnlyValue(item));
-  }
+    if (Array.isArray(entry)) {
+      return {
+        title: fallbackName || "항목",
+        tag: `배열 (${entry.length})`,
+        text: "",
+        fields: { items: entry },
+        raw: entry
+      };
+    }
 
-  // =========================
-  // raw payload 정규화
-  // =========================
-  function normalizeRawPayload(payload, auth) {
-    const p = payload || {};
+    const e = entry || {};
 
-    // 전체 원문 후보
-    let fullText = pickText(
-      p.fullRawText, p.rawText, p.full_text, p.text, p.content,
-      p.전체원문, p.원문전체, p.원문, p.raw
+    const title = pickText(
+      e.title, e.label, e.name, e.subject, e.type, e.category,
+      e["제목"], e["라벨"], e["항목명"], e["과목"], e["분류"],
+      fallbackName
+    ) || "항목";
+
+    const text = pickText(
+      e.rawText, e.originalText, e.text, e.content, e.body, e.memo, e.note,
+      e["원문"], e["원문텍스트"], e["내용"], e["본문"], e["메모"]
     );
 
-    // 메타 후보
-    let metaObj = null;
-    if (isObject(p.meta)) metaObj = p.meta;
-    else if (isObject(p.metadata)) metaObj = p.metadata;
-    else if (isObject(p.기본정보)) metaObj = p.기본정보;
-    else if (isObject(p.rawMeta)) metaObj = p.rawMeta;
+    // 표시용 fields 구성 (중복 텍스트 필드/메타 제외)
+    const omitKeys = new Set([
+      "title","label","name","subject","type","category",
+      "제목","라벨","항목명","과목","분류",
+      "rawText","originalText","text","content","body","memo","note",
+      "원문","원문텍스트","내용","본문","메모"
+    ]);
 
-    metaObj = filterObjectByVisibility(metaObj || {}, auth);
-
-    // 항목 배열 후보
-    let items = null;
-    const arrCandidates = [
-      p.items, p.records, p.entries, p.sections, p.rawItems, p.항목들, p.세부항목, p.기록목록
-    ];
-    for (const a of arrCandidates) {
-      if (Array.isArray(a)) { items = a; break; }
-    }
-    items = filterArrayItemsByVisibility(items || [], auth);
-
-    // 항목 배열이 없으면 payload 내부 객체들을 항목화
-    if (!items.length) {
-      const blacklist = new Set([
-        "id","studentId","studentID","학생ID","name","studentName",
-        "fullRawText","rawText","full_text","text","content","원문","전체원문","원문전체",
-        "meta","metadata","기본정보","rawMeta",
-        "items","records","entries","sections","rawItems","항목들","세부항목","기록목록",
-        "visibility","adminOnly","isAdminOnly"
-      ]);
-
-      const entries = Object.entries(filterObjectByVisibility(p, auth)).filter(([k,v]) => {
-        if (blacklist.has(k)) return false;
-        return v != null;
-      });
-
-      items = entries.map(([k,v]) => {
-        if (isObject(v)) {
-          const vv = { ...v };
-          const title = pickText(vv.title, vv.name, vv.label, vv.항목명, vv.제목, k) || k;
-          const content = pickText(vv.text, vv.content, vv.raw, vv.원문, vv.value, "");
-          const meta = isObject(vv.meta) ? filterObjectByVisibility(vv.meta, auth) : null;
-
-          return {
-            title,
-            content: content || toPrettyString(vv),
-            meta
-          };
-        }
-
-        return {
-          title: k,
-          content: toPrettyString(v)
-        };
-      });
-    } else {
-      // 배열형 항목 정규화
-      items = items.map((it, idx) => {
-        const x = isObject(it) ? it : { value: it };
-
-        const title = pickText(
-          x.title, x.name, x.label, x.key, x.subject, x.항목명, x.제목,
-          `항목 ${idx + 1}`
-        );
-
-        const content = pickText(
-          x.text, x.content, x.raw, x.value, x.원문, x.내용
-        ) || toPrettyString(x);
-
-        const meta = filterObjectByVisibility(
-          isObject(x.meta) ? x.meta : (isObject(x.metadata) ? x.metadata : {}),
-          auth
-        );
-
-        return { title, content, meta };
-      });
+    const fields = {};
+    for (const [k,v] of Object.entries(e)) {
+      if (omitKeys.has(k)) continue;
+      fields[k] = v;
     }
 
-    // fullText가 비어 있으면 items를 합쳐서 임시 생성
-    if (!fullText && items.length) {
-      fullText = items.map(it => {
-        const t = String(it.title || "항목").trim();
-        const c = String(it.content || "").trim();
-        return `[${t}]\n${c}`;
-      }).join("\n\n");
-    }
-
-    // metaObj가 비어 있으면 payload 상위 primitive들로 구성
-    if (!Object.keys(metaObj || {}).length) {
-      const fallbackMeta = {};
-      const sourceObj = filterObjectByVisibility(p, auth);
-
-      for (const [k,v] of Object.entries(sourceObj)) {
-        if (v == null) continue;
-        if (Array.isArray(v) || isObject(v)) continue;
-
-        // 원문으로 쓰인 텍스트는 메타에서 제외
-        if (["fullRawText","rawText","full_text","text","content","원문","전체원문","원문전체"].includes(k)) continue;
-
-        fallbackMeta[k] = v;
-      }
-
-      metaObj = fallbackMeta;
-    }
-
-    return { fullText, metaObj, items };
+    return {
+      title,
+      tag: prettyTypeTag(e),
+      text,
+      fields,
+      raw: e
+    };
   }
 
   // =========================
-  // 렌더링
+  // 렌더링 공통
   // =========================
-  function renderError(title, message){
-    const app = $("#app") || document.body;
-    app.innerHTML = `
-      <div class="card">
-        <div class="title">${esc(title || "오류")}</div>
-        <div class="warn">${esc(message || "문제가 발생했습니다.")}</div>
-      </div>
-    `;
-  }
-
   function renderNoAccess(message){
-    const app = $("#app") || document.body;
-    app.innerHTML = `
+    $("#app").innerHTML = `
       <div class="card">
         <div class="title">접근 권한이 없습니다.</div>
         <div class="warn">${esc(message || "생기부 원문 페이지 접근 권한이 없습니다.")}</div>
@@ -571,12 +591,21 @@
     `;
   }
 
+  function renderError(title, message){
+    $("#app").innerHTML = `
+      <div class="card">
+        <div class="title">${esc(title || "오류")}</div>
+        <div class="warn">${esc(message || "문제가 발생했습니다.")}</div>
+      </div>
+    `;
+  }
+
   function renderStudentMeta(student, auth){
     const sid = norm(pickId(student));
     const name = pickName(student);
-    const school = pickText(student?.school, student?.["학교"]);
-    const career = pickText(student?.career, student?.["진로"]);
-    const adm = pickText(student?.admission, student?.["전형"]);
+    const school = pickText(student.school, student["학교"]);
+    const career = pickText(student.career, student["진로"]);
+    const adm = pickText(student.admission, student["전형"]);
 
     $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
     $("#meta").innerHTML = `
@@ -590,7 +619,7 @@
       : `<span class="pill mode">학생/학부모</span><span class="pill">token 접속</span>`;
   }
 
-  function renderNav(student, auth){
+  function renderNav(student, auth, recordFlag){
     const nav = [];
 
     if (auth.isAdmin) {
@@ -600,117 +629,286 @@
     nav.push(`<a class="btn" href="${buildPageLink("./student.html", auth, student)}">학생 성적</a>`);
     nav.push(`<a class="btn" href="${buildPageLink("./univ_list.html", auth, student)}">대학 상향/적정</a>`);
     nav.push(`<a class="btn" href="${buildPageLink("./progress_detail.html", auth, student)}">진도 보기</a>`);
-    nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
+
+    if (canViewRecord(recordFlag, auth)) {
+      nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
+    } else {
+      nav.push(`<span class="btn disabled">생기부 분석 보기</span>`);
+    }
 
     $("#navRow").innerHTML = nav.join("");
   }
 
-  function renderMetaArea(metaObj, hiddenCount) {
-    const root = $("#metaArea");
-    if (!root) return;
+  function renderFlagInfo(flag, auth){
+    const row = $("#flagRow");
+    const grid = $("#flagInfoGrid");
 
-    const entries = Object.entries(metaObj || {}).filter(([_,v]) => {
-      return v != null && String(v).trim() !== "";
-    });
+    if (!flag || Object.keys(flag).length === 0) {
+      row.innerHTML = `<span class="pill soft">flags 없음 (기본 허용)</span>`;
+      grid.innerHTML = `
+        <div class="info-box">
+          <div class="info-label">recordEnabled</div>
+          <div class="info-value">기본값(허용)</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">raw visibility</div>
+          <div class="info-value">student (기본값)</div>
+        </div>
+      `;
+      return;
+    }
 
-    if (!entries.length) {
-      root.innerHTML = `<div class="empty">메타 정보가 없습니다.</div>`;
+    const enabled = (flag.recordEnabled !== false);
+    const rawVis = getRawVisibility(flag);
+    const reviewStatus = pickText(flag.reviewStatus, flag.status, flag["검토상태"], flag["상태"]);
+    const modeText = auth.isAdmin ? "관리자 확인 중" : "학생/학부모 열람";
+
+    row.innerHTML = [
+      enabled ? `<span class="pill ok">recordEnabled: ON</span>` : `<span class="pill warn">recordEnabled: OFF</span>`,
+      `<span class="pill soft">raw visibility: ${esc(rawVis)}</span>`,
+      reviewStatus ? `<span class="pill soft">검토상태: ${esc(reviewStatus)}</span>` : "",
+      `<span class="pill soft">${esc(modeText)}</span>`
+    ].join("");
+
+    const items = [
+      ["recordEnabled", enabled ? "true" : "false"],
+      ["visibility", String(flag.visibility ?? "student")],
+      ["raw visibility", rawVis],
+      ["reviewStatus", reviewStatus || "-"],
+      ["updatedAt", pickText(flag.updatedAt, flag["수정일시"]) || "-"]
+    ];
+
+    grid.innerHTML = items.map(([k,v]) => `
+      <div class="info-box">
+        <div class="info-label">${esc(k)}</div>
+        <div class="info-value">${esc(v)}</div>
+      </div>
+    `).join("");
+  }
+
+  function renderFullText(fullText){
+    const root = $("#fullTextArea");
+
+    if (!String(fullText || "").trim()) {
+      root.innerHTML = `<div class="empty">원문 전체 텍스트 필드가 없습니다. <span class="muted">(항목별 원문 또는 JSON 구조를 확인하세요)</span></div>`;
       return;
     }
 
     root.innerHTML = `
+      <div class="raw-block">
+        <div class="raw-head">
+          <div class="raw-name">원문 전체</div>
+          <div class="raw-tag">텍스트</div>
+        </div>
+        <div class="raw-text">${esc(fullText)}</div>
+      </div>
+    `;
+  }
+
+  function renderPrimitiveValue(v){
+    if (v == null) return `<div class="text muted">-</div>`;
+    if (typeof v === "boolean") return `<div class="text">${v ? "true" : "false"}</div>`;
+    return `<div class="text">${esc(String(v))}</div>`;
+  }
+
+  function renderArrayValue(arr, auth){
+    if (!Array.isArray(arr) || arr.length === 0) {
+      return `<div class="text muted">빈 배열</div>`;
+    }
+
+    // primitive 배열이면 줄바꿈 텍스트로
+    if (arr.every(isPrimitive)) {
+      return `<div class="text">${esc(arr.map(v => String(v ?? "")).join("\n"))}</div>`;
+    }
+
+    // 객체 배열이면 간단 리스트 카드로
+    return `
+      <div class="list-block">
+        ${arr.map((item, idx) => {
+          if (!nodeVisibleForAuth(item, auth)) {
+            return "";
+          }
+          const title = isPlainObject(item)
+            ? pickText(item.title, item.label, item.name, item.subject, item["제목"], item["항목명"]) || `항목 ${idx+1}`
+            : `항목 ${idx+1}`;
+
+          return `
+            <div class="list-item">
+              <div class="list-item-title">${esc(title)}</div>
+              ${renderAnyValue(item, auth, 1)}
+            </div>
+          `;
+        }).join("") || `<div class="text muted">표시 가능한 항목이 없습니다.</div>`}
+      </div>
+    `;
+  }
+
+  function renderObjectValue(obj, auth, depth=0){
+    if (!isPlainObject(obj)) return renderPrimitiveValue(obj);
+
+    const entries = Object.entries(obj).filter(([k,v]) => {
+      // 내부 표시제어 메타 키 숨김
+      if (["visibility","_visibility","adminOnly","admin_only"].includes(k)) return false;
+      // 학생모드에서 admin_only 노드 숨김
+      if (isPlainObject(v) && !nodeVisibleForAuth(v, auth)) return false;
+      return true;
+    });
+
+    if (!entries.length) return `<div class="text muted">표시할 필드가 없습니다.</div>`;
+
+    return `
       <div class="kv-grid">
         ${entries.map(([k,v]) => `
           <div class="kv-k">${esc(labelizeKey(k))}</div>
-          <div class="kv-v">${esc(toPrettyString(v))}</div>
+          <div class="kv-v">${renderAnyValue(v, auth, depth+1)}</div>
         `).join("")}
       </div>
-      ${hiddenCount > 0 ? `<div class="hidden-note">※ 학생/학부모 모드에서 비공개 메타 ${hiddenCount}개 항목이 숨김 처리되었습니다.</div>` : ``}
     `;
   }
 
-  function renderFullRawArea(fullText) {
-    const root = $("#fullRawArea");
-    if (!root) return;
+  function renderAnyValue(v, auth, depth=0){
+    if (v == null) return `<div class="text muted">-</div>`;
 
-    const txt = String(fullText || "").trim();
-    if (!txt) {
-      root.innerHTML = `<div class="empty">전체 원문 데이터가 없습니다.</div>`;
+    if (typeof v === "string" || typeof v === "number" || typeof v === "boolean") {
+      return renderPrimitiveValue(v);
+    }
+
+    if (Array.isArray(v)) {
+      if (depth >= 3) {
+        return `<div class="text muted">배열 (${v.length})</div>`;
+      }
+      return renderArrayValue(v, auth);
+    }
+
+    if (isPlainObject(v)) {
+      if (!nodeVisibleForAuth(v, auth)) {
+        return `<div class="text muted">권한 제한 항목</div>`;
+      }
+      if (depth >= 3) {
+        return `<div class="text muted">객체</div>`;
+      }
+      return renderObjectValue(v, auth, depth);
+    }
+
+    return `<div class="text">${esc(String(v))}</div>`;
+  }
+
+  function sectionCardHtml(sec, auth, idx){
+    const hasText = !!norm(sec.text);
+    const fieldEntries = isPlainObject(sec.fields) ? Object.entries(sec.fields) : [];
+    const visibleFieldEntries = fieldEntries.filter(([_,v]) => {
+      if (isPlainObject(v) && !nodeVisibleForAuth(v, auth)) return false;
+      return true;
+    });
+
+    return `
+      <div class="raw-block">
+        <div class="raw-head">
+          <div class="raw-name">${esc(sec.title || `항목 ${idx+1}`)}</div>
+          <div class="raw-tag">${esc(sec.tag || "항목")}</div>
+        </div>
+
+        ${hasText ? `<div class="raw-text">${esc(sec.text)}</div>` : ""}
+
+        ${visibleFieldEntries.length ? `
+          <details class="fold" ${hasText ? "" : "open"}>
+            <summary>항목 세부 필드 보기 (${visibleFieldEntries.length})</summary>
+            <div style="margin-top:10px;">
+              ${renderObjectValue(Object.fromEntries(visibleFieldEntries), auth)}
+            </div>
+          </details>
+        ` : (!hasText ? `<div class="raw-text muted">표시할 텍스트/필드가 없습니다.</div>` : "")}
+      </div>
+    `;
+  }
+
+  function renderSections(sections, auth){
+    const root = $("#sectionArea");
+    const list = Array.isArray(sections) ? sections : [];
+
+    if (!list.length) {
+      root.innerHTML = `<div class="empty">항목별 원문 데이터가 없습니다. <span class="muted">(school_record_raw.json 구조 확인)</span></div>`;
       return;
     }
 
-    root.innerHTML = `<div class="raw-block">${esc(txt)}</div>`;
+    root.innerHTML = list
+      .filter(sec => nodeVisibleForAuth(sec.raw, auth))
+      .map((sec, idx) => sectionCardHtml(sec, auth, idx))
+      .join("") || `<div class="empty">표시 가능한 항목별 원문이 없습니다.</div>`;
   }
 
-  function renderItemArea(items, hiddenItemCount) {
-    const root = $("#itemArea");
-    const pill = $("#itemCountPill");
-    if (!root) return;
+  function renderDebugJson(payload, auth){
+    const root = $("#debugJsonArea");
+    const debugFold = $("#debugFold");
 
-    const list = Array.isArray(items) ? items : [];
-    if (pill) pill.textContent = `항목 ${list.length}개`;
+    // 학생모드에서는 디버그 접기 닫힘 유지
+    if (!auth.isAdmin) debugFold.open = false;
 
-    if (!list.length) {
-      root.innerHTML = `<div class="empty">항목별 원문 데이터가 없습니다.</div>`;
-      return;
+    let safePayload = payload;
+
+    // 학생모드에서 admin_only 노드 제거(간단 shallow+recursive clone)
+    if (!auth.isAdmin) {
+      safePayload = stripAdminOnly(payload);
+    }
+
+    let pretty = "";
+    try {
+      pretty = JSON.stringify(safePayload, null, 2);
+    } catch (e) {
+      pretty = String(e?.message || "JSON stringify 실패");
     }
 
     root.innerHTML = `
-      <div class="item-list">
-        ${list.map((item, idx) => {
-          const metaEntries = Object.entries(item.meta || {}).filter(([_,v]) => v != null && String(v).trim() !== "");
-          const contentText = String(item.content || "").trim();
-
-          return `
-            <details class="section" ${idx < 2 ? "open" : ""}>
-              <summary>
-                <span>${esc(item.title || `항목 ${idx+1}`)}</span>
-                <span class="summary-right">${metaEntries.length ? `메타 ${metaEntries.length}개` : `원문`}</span>
-              </summary>
-              <div class="details-body">
-                <div class="item-card">
-                  <div class="item-head">
-                    <div class="item-title">${esc(item.title || `항목 ${idx+1}`)}</div>
-                    <div class="item-badge">원문</div>
-                  </div>
-                  <div class="kv-v">${contentText ? esc(contentText) : `<span class="muted">내용 없음</span>`}</div>
-                </div>
-
-                ${
-                  metaEntries.length ? `
-                    <div class="item-card" style="margin-top:8px;">
-                      <div class="item-head">
-                        <div class="item-title">메타 정보</div>
-                        <div class="item-badge">부가 정보</div>
-                      </div>
-                      <div class="kv-grid">
-                        ${metaEntries.map(([k,v]) => `
-                          <div class="kv-k">${esc(labelizeKey(k))}</div>
-                          <div class="kv-v">${esc(toPrettyString(v))}</div>
-                        `).join("")}
-                      </div>
-                    </div>
-                  ` : ""
-                }
-              </div>
-            </details>
-          `;
-        }).join("")}
+      <div class="raw-block">
+        <div class="raw-head">
+          <div class="raw-name">JSON 구조</div>
+          <div class="raw-tag">디버깅용</div>
+        </div>
+        <div class="raw-text mono">${esc(pretty)}</div>
       </div>
-      ${hiddenItemCount > 0 ? `<div class="hidden-note">※ 학생/학부모 모드에서 비공개 항목 ${hiddenItemCount}개가 숨김 처리되었습니다.</div>` : ``}
     `;
+  }
+
+  function stripAdminOnly(v){
+    if (isPrimitive(v)) return v;
+    if (Array.isArray(v)) {
+      return v
+        .filter(item => {
+          if (isPlainObject(item)) return nodeVisibleForAuth(item, { isAdmin:false });
+          return true;
+        })
+        .map(stripAdminOnly);
+    }
+    if (isPlainObject(v)) {
+      if (!nodeVisibleForAuth(v, { isAdmin:false })) return undefined;
+      const out = {};
+      for (const [k,val] of Object.entries(v)) {
+        if (["visibility","_visibility","adminOnly","admin_only"].includes(k)) continue;
+        const next = stripAdminOnly(val);
+        if (next !== undefined) out[k] = next;
+      }
+      return out;
+    }
+    return v;
   }
 
   // =========================
   // 메인
   // =========================
   async function main() {
+    // 1) auth
     const auth = getAuthContext();
 
-    if (auth.mode === "admin" && !auth.isAdmin) {
-      return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
+    // 2) 관리자 토큰 검증
+    if (auth.mode === "admin") {
+      auth.isAdmin = (auth.admin === ADMIN_TOKEN);
+      if (!auth.isAdmin) {
+        return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
+      }
+      try { localStorage.setItem(LS_KEY, auth.admin); } catch(_e) {}
     }
 
+    // 3) 학생 조회
     const students = await loadJson("./students.json");
     if (!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -721,7 +919,7 @@
 
     const sid = norm(pickId(student));
 
-    // flags 체크
+    // 4) flags / 권한 체크
     const flagsData = await loadJsonSafe("./school_record_flags.json", null);
     const recordFlag = getRecordFlag(flagsData, sid);
 
@@ -729,57 +927,35 @@
       return renderNoAccess("생기부 원문 페이지 접근 권한이 없습니다.");
     }
 
+    // 5) 상단 렌더
     renderStudentMeta(student, auth);
-    renderNav(student, auth);
+    renderNav(student, auth, recordFlag);
+    renderFlagInfo(recordFlag, auth);
 
-    // raw 데이터 로드
+    // 6) raw 데이터 로드
     const rawData = await loadJsonSafe("./school_record_raw.json", null);
     if (!rawData) {
-      renderMetaArea({}, 0);
-      renderFullRawArea("");
-      renderItemArea([], 0);
+      renderFullText("");
+      renderSections([], auth);
+      renderDebugJson({ message: "school_record_raw.json 없음" }, auth);
       return;
     }
 
-    const rec = getRawRecord(rawData, sid);
-    if (!rec) {
-      renderMetaArea({}, 0);
-      renderFullRawArea("");
-      renderItemArea([], 0);
+    const rawRecord = getRawRecord(rawData, sid);
+    if (!rawRecord) {
+      renderFullText("");
+      renderSections([], auth);
+      renderDebugJson({ message: `학생(${sid}) raw record 없음` }, auth);
       return;
     }
 
-    const payload = unwrapRawPayload(rec);
+    const payload = unwrapRawPayload(rawRecord);
+    const fullText = pickFullText(payload);
+    const sections = collectSectionEntries(payload);
 
-    // 숨김 카운트(학생모드 안내용)
-    let hiddenMetaCount = 0;
-    let hiddenItemCount = 0;
-
-    if (!auth.isAdmin && payload && typeof payload === "object") {
-      // 메타 후보 숨김 수 추정
-      const metaCandidate = (payload.meta && typeof payload.meta === "object" && !Array.isArray(payload.meta)) ? payload.meta
-                        : (payload.metadata && typeof payload.metadata === "object" && !Array.isArray(payload.metadata)) ? payload.metadata
-                        : (payload.기본정보 && typeof payload.기본정보 === "object" && !Array.isArray(payload.기본정보)) ? payload.기본정보
-                        : null;
-
-      if (metaCandidate) {
-        hiddenMetaCount = Object.values(metaCandidate).filter(v => isAdminOnlyValue(v)).length;
-      }
-
-      // 항목 배열 숨김 수 추정
-      const arrCandidate = [payload.items, payload.records, payload.entries, payload.sections, payload.rawItems, payload.항목들, payload.세부항목, payload.기록목록]
-        .find(v => Array.isArray(v));
-
-      if (Array.isArray(arrCandidate)) {
-        hiddenItemCount = arrCandidate.filter(it => isAdminOnlyValue(it)).length;
-      }
-    }
-
-    const normalized = normalizeRawPayload(payload, auth);
-
-    renderMetaArea(normalized.metaObj, hiddenMetaCount);
-    renderFullRawArea(normalized.fullText);
-    renderItemArea(normalized.items, hiddenItemCount);
+    renderFullText(fullText);
+    renderSections(sections, auth);
+    renderDebugJson(payload, auth);
   }
 
   main().catch(err => {
