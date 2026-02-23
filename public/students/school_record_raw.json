@@ -1,103 +1,180 @@
-{
-  "meta": [
-    {
-      "id": "shstudy01",
-      "grade": "고1",
-      "term": "1학기",
-      "updated_at": "2026-07-15",
-      "homeroom_teacher_comment": "성실하게 수업에 참여하며, 발표 시 근거를 들어 설명하려는 태도가 좋음.",
-      "behavior_comment": "책임감이 강하고 과제 제출이 안정적이며 협업 시 조율이 원활함.",
-      "overall_raw_notes": "원문은 예시이며 실제 입력 시 줄바꿈 그대로 붙여넣기 권장.",
-      "visibility": "admin_only",
-      "source": "직접입력",
-      "sem_key": "고1 · 1학기"
-    },
-    {
-      "id": "shstudy02",
-      "grade": "고2",
-      "term": "1학기",
-      "updated_at": "2026-07-18",
-      "homeroom_teacher_comment": "수업 중 질문을 통해 이해를 점검하고, 글로 정리하는 습관이 있음.",
-      "behavior_comment": "학급 활동 참여도가 높고 역할 수행이 성실함.",
-      "visibility": "token_visible",
-      "source": "직접입력",
-      "sem_key": "고2 · 1학기"
-    },
-    {
-      "id": "shstudy03",
-      "grade": "고3",
-      "term": "1학기",
-      "updated_at": "2026-07-20",
-      "homeroom_teacher_comment": "진로 방향이 명확하고 관련 활동을 꾸준히 수행함.",
-      "behavior_comment": "일정이 촘촘한 시기에는 산출물 정리가 필요함.",
-      "visibility": "token_visible",
-      "source": "직접입력",
-      "sem_key": "고3 · 1학기"
+[
+  {
+    "id": "shstudy01",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "1학년",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "done",
+        "internalMemo": {
+          "visibility": "admin_only",
+          "value": "상담 시 배터리/에너지 탐구 확장 우선 제안"
+        }
+      },
+      "fullRawText": "공통국어: 자료의 주장과 근거를 비교하며 비판적으로 독해함. 실험 설계 논증 활동에서 근거를 바탕으로 의견을 정리함.\n\n공통수학1: 삼각함수와 복소수 개념을 그래프와 패턴 중심으로 정리하고 과학 맥락과 연결하려는 시도를 보임.\n\n공통영어: 문장 구조와 문맥 단서를 활용해 내용을 해석하고, 어근/접두어 분석을 통해 어휘 학습을 확장함.\n\n통합과학: 측정 단위와 오차 사례를 조사해 발표하고, 세포막 물질 이동 및 탐사체 궤도 관련 주제를 탐구함.",
+      "items": [
+        {
+          "title": "공통국어 세특 원문",
+          "text": "자료의 핵심 주장과 근거를 구분하여 읽고, 근거의 타당성을 비교·평가하는 활동에 적극적으로 참여함. 실험 설계 논증 활동에서 자료를 바탕으로 자기 의견을 논리적으로 정리함.",
+          "meta": {
+            "category": "세특",
+            "subject": "공통국어",
+            "teacherComment": "근거 중심 서술 역량 양호"
+          }
+        },
+        {
+          "title": "공통수학1 세특 원문",
+          "text": "삼각함수와 복소수 단원을 학습하며 그래프와 수식의 대응 관계를 정리하고, 과학 현상과의 연결 가능성을 탐색하는 태도를 보임.",
+          "meta": {
+            "category": "세특",
+            "subject": "공통수학1"
+          }
+        },
+        {
+          "title": "통합과학 탐구 활동",
+          "text": "측정 단위 오류 사례를 조사하여 발표 자료를 구성하고, 탐사체 궤도 계획 및 세포막 약물 운반과 관련된 주제에 관심을 보이며 자료조사를 수행함.",
+          "meta": {
+            "category": "세특",
+            "subject": "통합과학",
+            "privateNote": {
+              "visibility": "admin_only",
+              "value": "다음 상담에서 탐구 보고서 형식으로 재구성 권장"
+            }
+          }
+        }
+      ]
     }
-  ],
-  "sections": [
-    {
-      "id": "shstudy01",
-      "grade": "고1",
-      "term": "1학기",
-      "category": "교과세특",
-      "subject": "과학",
-      "activity_title": "감염병 데이터 해석",
-      "raw_text": "감염병 확산 그래프를 보고 변곡점 원인을 추론하고, 추가 자료를 찾아 비교함.\n자료 간 차이를 설명하며 한계점도 함께 언급함.",
-      "visibility": "inherit",
-      "source": "직접입력",
-      "sem_key": "고1 · 1학기",
-      "raw_len": 70
-    },
-    {
-      "id": "shstudy01",
-      "grade": "고1",
-      "term": "1학기",
-      "category": "자율활동",
-      "activity_title": "학급 행사 기획",
-      "raw_text": "학급 행사에서 역할을 맡아 일정과 업무를 조율하고, 구성원의 의견을 수렴하여 실행 계획을 수립함.",
-      "visibility": "inherit",
-      "source": "직접입력",
-      "sem_key": "고1 · 1학기",
-      "raw_len": 54
-    },
-    {
-      "id": "shstudy02",
-      "grade": "고2",
-      "term": "1학기",
-      "category": "교과세특",
-      "subject": "국어",
-      "activity_title": "비문학 근거표시",
-      "raw_text": "선지 판단 전 근거문장을 표시하는 과정이 일부 누락되어 오답이 발생함. 근거표시→요약→선지 순서를 고정하면 정확도가 안정됨.",
-      "visibility": "inherit",
-      "source": "직접입력",
-      "sem_key": "고2 · 1학기",
-      "raw_len": 69
-    },
-    {
-      "id": "shstudy02",
-      "grade": "고2",
-      "term": "1학기",
-      "category": "동아리",
-      "activity_title": "독서토론 활동",
-      "raw_text": "독서토론에서 주장-근거 구조를 명확히 하며, 반론에 대해 자료를 근거로 응답함.",
-      "visibility": "token_visible",
-      "source": "직접입력",
-      "sem_key": "고2 · 1학기",
-      "raw_len": 44
-    },
-    {
-      "id": "shstudy03",
-      "grade": "고3",
-      "term": "1학기",
-      "category": "진로활동",
-      "activity_title": "데이터 기반 경제 이슈 분석",
-      "raw_text": "경제 지표를 비교해 정책 효과를 설명하고, 보완 데이터를 제시함. 전공 적합 키워드가 일관되며 산출물로 정리할 가치가 있음.",
-      "evidence_link": "https://example.com/evidence",
-      "visibility": "inherit",
-      "source": "직접입력",
-      "sem_key": "고3 · 1학기",
-      "raw_len": 69
+  },
+  {
+    "id": "shstudy02",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "1학년",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "done"
+      },
+      "fullRawText": "공통국어와 공통수학1 중심으로 핵심 개념 정리 및 문제풀이 기록이 정리되어 있음.",
+      "items": [
+        {
+          "title": "공통국어 세특 원문",
+          "text": "핵심어 추출 및 요약 활동에서 지문의 중심 내용을 파악하여 정리하는 태도를 보임.",
+          "meta": { "category": "세특", "subject": "공통국어" }
+        },
+        {
+          "title": "공통수학1 세특 원문",
+          "text": "함수와 그래프 단원에서 기본 개념을 정리하고 문제 조건을 식으로 나타내는 연습을 수행함.",
+          "meta": { "category": "세특", "subject": "공통수학1" }
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "id": "shstudy03",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "1학년",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "done"
+      },
+      "fullRawText": "국어·수학 중심으로 개념 이해와 적용 활동 기록이 정리되어 있음.",
+      "items": [
+        {
+          "title": "공통국어 세특 원문",
+          "text": "근거를 중심으로 글을 읽고 필자의 관점을 비교하는 활동에 성실히 참여함.",
+          "meta": { "category": "세특", "subject": "공통국어" }
+        },
+        {
+          "title": "공통수학1 세특 원문",
+          "text": "함수와 그래프 관련 개념을 정리하고 조건에 따른 해를 구분하는 연습을 수행함.",
+          "meta": { "category": "세특", "subject": "공통수학1" }
+        }
+      ]
+    }
+  },
+  {
+    "id": "shstudy04",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "1학년",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "draft"
+      },
+      "fullRawText": "공통국어 중심 원문 정리(초안).",
+      "items": [
+        {
+          "title": "공통국어 세특 원문",
+          "text": "문단 구조를 바탕으로 핵심 내용을 정리하는 활동에 참여함.",
+          "meta": { "category": "세특", "subject": "공통국어" }
+        }
+      ]
+    }
+  },
+  {
+    "id": "shstudy05",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "중학교",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "draft"
+      },
+      "fullRawText": "수학 학습 기록 중심 원문 정리(초안).",
+      "items": [
+        {
+          "title": "수학 학습기록",
+          "text": "기초 계산 및 식 정리 중심으로 반복 학습을 진행함.",
+          "meta": { "category": "학습기록", "subject": "수학" }
+        }
+      ]
+    }
+  },
+  {
+    "id": "shstudy06",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "중학교",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "draft"
+      },
+      "fullRawText": "과학 탐구 관찰 기록 중심 원문 정리(초안).",
+      "items": [
+        {
+          "title": "과학 활동 기록",
+          "text": "실험 관찰 결과를 기록하고 그래프로 정리하는 활동에 참여함.",
+          "meta": { "category": "활동기록", "subject": "과학" }
+        }
+      ]
+    }
+  },
+  {
+    "id": "shstudy07",
+    "raw": {
+      "meta": {
+        "year": "2026",
+        "grade": "중학교",
+        "semester": "1학기",
+        "source": "생활기록부 정리본",
+        "reviewStatus": "draft"
+      },
+      "fullRawText": "영어 중심 학습 기록 원문 정리(초안).",
+      "items": [
+        {
+          "title": "영어 학습기록",
+          "text": "문맥을 바탕으로 어휘 의미를 추론하고 핵심 정보를 찾는 활동을 수행함.",
+          "meta": { "category": "학습기록", "subject": "영어" }
+        }
+      ]
+    }
+  }
+]
