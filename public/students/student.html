@@ -146,6 +146,91 @@
 </div>
 
 <script>
+  <script>
+function getQS() {
+  return new URLSearchParams(location.search);
+}
+
+function safeStr(v) {
+  return (v == null) ? "" : String(v);
+}
+
+function getAuthContext() {
+  const qs = getQS();
+
+  // 원본 파라미터
+  const t = safeStr(qs.get("t")).trim();
+  const id = safeStr(qs.get("id")).trim();
+  const admin = safeStr(qs.get("admin")).trim();
+
+  // 🔒 우선순위 규칙: t가 있으면 무조건 학생모드 (id/admin 무시)
+  if (t) {
+    return {
+      mode: "student",
+      token: t,
+      id: "",
+      admin: "",
+      isAdmin: false
+    };
+  }
+
+  // 관리자 모드
+  if (id && admin) {
+    return {
+      mode: "admin",
+      token: "",
+      id,
+      admin,
+      isAdmin: true
+    };
+  }
+
+  return {
+    mode: "guest",
+    token: "",
+    id: "",
+    admin: "",
+    isAdmin: false
+  };
+}
+
+function buildPageLink(page, auth, student) {
+  // 🔒 학생모드면 절대 id/admin 링크 만들지 않음
+  if (auth && auth.mode === "student") {
+    return `${page}?t=${encodeURIComponent(auth.token)}`;
+  }
+
+  // 관리자모드
+  if (auth && auth.mode === "admin") {
+    const sid = student && student.id ? student.id : auth.id;
+    return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+  }
+
+  // guest fallback (가능하면 사용 안 함)
+  return page;
+}
+
+function resolveStudentByAuth(students, auth) {
+  if (!Array.isArray(students)) return null;
+
+  if (auth.mode === "student") {
+    // 🔒 학생모드에서는 token으로만 매칭
+    return students.find(s => safeStr(s.token).trim() === auth.token) || null;
+  }
+
+  if (auth.mode === "admin") {
+    // 관리자모드에서만 id 매칭 허용
+    return students.find(s => safeStr(s.id).trim() === auth.id) || null;
+  }
+
+  return null;
+}
+
+function setLinkByMode(anchorEl, page, auth, student) {
+  if (!anchorEl) return;
+  anchorEl.href = buildPageLink(page, auth, student);
+}
+</script>
 (() => {
   // ✅ 다른 페이지(index / univ_list / progress_detail / record_detail / record_raw_detail)와 동일하게 맞추세요.
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
