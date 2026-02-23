@@ -90,7 +90,6 @@
       color:#555
     }
 
-    /* 숨김 처리 대상(요청사항 반영) */
     .force-hidden{display:none !important;}
   </style>
 </head>
@@ -107,7 +106,7 @@
     <div class="row" id="navRow"></div>
   </div>
 
-  <!-- (호환용) 기존 페이지에서 쓰던 영역 ID를 유지해두고 숨길 수 있게 배치 -->
+  <!-- 호환용 패널: 요청사항에 따라 숨김 -->
   <div class="card" id="panelDisplaySetting" style="display:none;">
     <div class="section-title"><span class="dot"></span>표시 설정</div>
     <div class="muted">요청사항에 따라 숨김 처리됩니다.</div>
@@ -154,62 +153,11 @@
   // =========================
   // 설정값
   // =========================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 바꾸기
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";   // ✅ 실제 토큰으로 변경
+  const LS_KEY = "__ADMIN_TOKEN__";        // 관리자 토큰 저장 키 (페이지 이동 편의)
 
   // =========================
-  // 공통 유틸 / 보안 분기
-  // =========================
-  function getQS() {
-    return new URLSearchParams(location.search);
-  }
-
-  function safeStr(v) {
-    return (v == null) ? "" : String(v);
-  }
-
-  function getAuthContext() {
-    const qs = getQS();
-    const t = safeStr(qs.get("t") || qs.get("token")).trim();
-    const id = safeStr(qs.get("id")).trim();
-    const admin = safeStr(qs.get("admin")).trim();
-
-    // 🔒 t 우선 규칙
-    if (t) {
-      return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
-    }
-
-    if (id && admin) {
-      return { mode: "admin", token: "", id, admin, isAdmin: false };
-    }
-
-    return { mode: "guest", token: "", id: "", admin: "", isAdmin: false };
-  }
-
-  function buildPageLink(page, auth, student) {
-    if (auth && auth.mode === "student") {
-      return `${page}?t=${encodeURIComponent(auth.token)}`;
-    }
-    if (auth && auth.mode === "admin" && auth.isAdmin) {
-      const sid = pickId(student) || auth.id;
-      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
-    }
-    return page;
-  }
-
-  function resolveStudentByAuth(students, auth) {
-    if (!Array.isArray(students)) return null;
-
-    if (auth.mode === "student") {
-      return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
-    }
-    if (auth.mode === "admin" && auth.isAdmin) {
-      return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
-    }
-    return null;
-  }
-
-  // =========================
-  // DOM 유틸
+  // DOM / 공통 유틸
   // =========================
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
@@ -217,14 +165,17 @@
   }[m]));
   const norm = (v)=>String(v ?? "").trim();
 
+  function getQS() {
+    return new URLSearchParams(location.search);
+  }
+  function safeStr(v) {
+    return (v == null) ? "" : String(v);
+  }
   function hideIfExists(id){
     const el = document.getElementById(id);
-    if(el) el.style.display = "none";
+    if (el) el.style.display = "none";
   }
 
-  // =========================
-  // 데이터 키 유틸
-  // =========================
   function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
   function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
   function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
@@ -232,14 +183,14 @@
   function pickText(...vals){
     for(const v of vals){
       const s = String(v ?? "").trim();
-      if(s) return s;
+      if (s) return s;
     }
     return "";
   }
 
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
+    if (!r.ok) throw new Error(path + " load failed (" + r.status + ")");
     return r.json();
   }
 
@@ -249,6 +200,84 @@
     }catch(_e){
       return fallback;
     }
+  }
+
+  // =========================
+  // 보안: auth 컨텍스트 (t 우선)
+  // =========================
+  function getAuthContext() {
+    const qs = getQS();
+
+    const t = safeStr(qs.get("t") || qs.get("token")).trim();
+    const id = safeStr(qs.get("id")).trim();
+    const adminParam = safeStr(qs.get("admin")).trim();
+    const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
+    const admin = adminParam || adminSaved;
+
+    // 🔒 t가 있으면 무조건 학생모드 (id/admin 무시)
+    if (t) {
+      return {
+        mode: "student",
+        token: t,
+        id: "",
+        admin: "",
+        isAdmin: false
+      };
+    }
+
+    // 관리자 후보 (검증 포함)
+    if (id && admin) {
+      const ok = (admin === ADMIN_TOKEN);
+      if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
+
+      return {
+        mode: "admin",
+        token: "",
+        id,
+        admin,
+        isAdmin: ok
+      };
+    }
+
+    return {
+      mode: "guest",
+      token: "",
+      id: "",
+      admin: "",
+      isAdmin: false
+    };
+  }
+
+  function buildPageLink(page, auth, student) {
+    // 🔒 학생모드면 절대 id/admin 링크 만들지 않음
+    if (auth?.mode === "student") {
+      return `${page}?t=${encodeURIComponent(auth.token)}`;
+    }
+
+    // 관리자모드(검증된 경우만)
+    if (auth?.mode === "admin" && auth.isAdmin) {
+      const sid = norm(pickId(student) || auth.id);
+      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+    }
+
+    // guest fallback
+    return page;
+  }
+
+  function resolveStudentByAuth(students, auth) {
+    if (!Array.isArray(students)) return null;
+
+    if (auth.mode === "student") {
+      // 🔒 학생모드에서는 token으로만 매칭
+      return students.find(s => norm(pickToken(s)) === auth.token) || null;
+    }
+
+    if (auth.mode === "admin" && auth.isAdmin) {
+      // 관리자모드에서만 id 매칭 허용
+      return students.find(s => norm(pickId(s)) === auth.id) || null;
+    }
+
+    return null;
   }
 
   // =========================
@@ -281,12 +310,12 @@
   }
 
   // =========================
-  // school_record_detail 파싱 (유연 대응)
+  // school_record_detail.json 파싱 (유연 대응)
   // =========================
   function getRecordDetail(detailData, studentId) {
     if (!detailData) return null;
 
-    // 배열형 [{id, ...}, ...]
+    // 배열형 [{id, ...}]
     if (Array.isArray(detailData)) {
       return detailData.find(x => String(x?.id) === String(studentId)) || null;
     }
@@ -294,7 +323,7 @@
     // 객체형 { "학생ID": {...} }
     if (detailData[studentId]) return detailData[studentId];
 
-    // 래퍼 가능성들
+    // 래퍼형
     if (Array.isArray(detailData.items)) {
       return detailData.items.find(x => String(x?.id) === String(studentId)) || null;
     }
@@ -307,7 +336,6 @@
 
   function unwrapRecordPayload(record) {
     if (!record) return null;
-    // id를 포함한 래퍼일 수 있으니 내부 후보들을 우선 탐색
     return (
       record.detail ||
       record.record ||
@@ -318,20 +346,15 @@
     );
   }
 
-  function toArray(v) {
-    if (Array.isArray(v)) return v;
-    if (v == null) return [];
-    return [v];
-  }
-
   function normalizeKeywords(v) {
     if (Array.isArray(v)) {
-      return v.map(x => String(x ?? "").trim()).filter(Boolean);
+      return [...new Set(v.map(x => String(x ?? "").trim()).filter(Boolean))];
     }
     const s = String(v ?? "").trim();
     if (!s) return [];
-    // 쉼표/줄바꿈/슬래시/중점 등 폭넓게 분리
-    return s.split(/[,\/·\n|]/g).map(x => x.trim()).filter(Boolean);
+    return [...new Set(
+      s.split(/[,\/·\n|]/g).map(x => x.trim()).filter(Boolean)
+    )];
   }
 
   function pickFirst(...vals) {
@@ -349,7 +372,6 @@
       e.subject, e.name, e.course, e.과목, e.과목명, fallbackName
     ) || "과목";
 
-    // 키워드
     const keywords = normalizeKeywords(
       pickFirst(
         e.keywords, e.keywordList, e.keyword_list,
@@ -357,10 +379,9 @@
       )
     );
 
-    // 핵심 분석
     const core = pickText(
       e.coreAnalysis, e.core, e.core_summary, e.analysis,
-      e.핵심해석, e.핵심분석, e.핵심 분석
+      e.핵심해석, e.핵심분석, e["핵심 분석"]
     );
 
     const strength = pickText(
@@ -383,7 +404,7 @@
   function collectSubjectsFromPayload(payload) {
     if (!payload) return [];
 
-    // 1) 가장 흔한 배열 필드 후보
+    // 1) 배열 필드 후보
     const arrCandidate = pickFirst(
       Array.isArray(payload.subjects) ? payload.subjects : null,
       Array.isArray(payload.items) ? payload.items : null,
@@ -396,7 +417,7 @@
       return arrCandidate.map((x, i) => normalizeSubjectEntry(x, `과목 ${i+1}`));
     }
 
-    // 2) 중첩 객체 후보 (예: payload.subjects = {국어:{...}, 수학:{...}})
+    // 2) 객체형 과목 맵
     const objCandidate = pickFirst(
       (payload.subjects && !Array.isArray(payload.subjects) && typeof payload.subjects === "object") ? payload.subjects : null,
       (payload.과목 && !Array.isArray(payload.과목) && typeof payload.과목 === "object") ? payload.과목 : null
@@ -405,13 +426,17 @@
       return Object.entries(objCandidate).map(([k, v]) => normalizeSubjectEntry(v, k));
     }
 
-    // 3) payload 자체가 과목명 키 객체일 가능성
-    // (메타 키들 제외하고 객체값만 수집)
-    const blacklist = new Set(["id","studentId","studentID","학생ID","name","studentName","summary","요약","meta","metadata"]);
+    // 3) payload 자체가 과목명 키 객체
+    const blacklist = new Set([
+      "id","studentId","studentID","학생ID","name","studentName",
+      "summary","요약","meta","metadata","createdAt","updatedAt"
+    ]);
+
     const objectLikeEntries = Object.entries(payload).filter(([k,v]) => {
       if (blacklist.has(k)) return false;
-      return v && typeof v === "object";
+      return v && typeof v === "object" && !Array.isArray(v);
     });
+
     if (objectLikeEntries.length) {
       return objectLikeEntries.map(([k,v]) => normalizeSubjectEntry(v, k));
     }
@@ -448,9 +473,9 @@
   function renderStudentMeta(student, auth){
     const sid = norm(pickId(student));
     const name = pickName(student);
-    const school = pickText(student.school, student["학교"]);
-    const career = pickText(student.career, student["진로"]);
-    const adm = pickText(student.admission, student["전형"]);
+    const school = pickText(student?.school, student?.["학교"]);
+    const career = pickText(student?.career, student?.["진로"]);
+    const adm = pickText(student?.admission, student?.["전형"]);
 
     $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
     $("#meta").innerHTML = `
@@ -478,6 +503,7 @@
     if (canViewRawRecord(recordFlag, auth)) {
       nav.push(`<a class="btn" href="${buildPageLink("./record_raw_detail.html", auth, student)}">생기부 원문 보기</a>`);
     }
+
     $("#navRow").innerHTML = nav.join("");
   }
 
@@ -491,8 +517,8 @@
         </div>
         ${
           keywords.length
-          ? `<div class="chips">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
-          : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`
+            ? `<div class="chips">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
+            : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`
         }
       </div>
     `;
@@ -513,24 +539,27 @@
             <div class="analysis-block">
               ${
                 sub.core ? `
-                <div class="analysis-item">
-                  <div class="analysis-label">핵심 해석</div>
-                  <div class="analysis-text">${esc(sub.core)}</div>
-                </div>` : ""
+                  <div class="analysis-item">
+                    <div class="analysis-label">핵심 해석</div>
+                    <div class="analysis-text">${esc(sub.core)}</div>
+                  </div>
+                ` : ""
               }
               ${
                 sub.strength ? `
-                <div class="analysis-item">
-                  <div class="analysis-label">강점</div>
-                  <div class="analysis-text">${esc(sub.strength)}</div>
-                </div>` : ""
+                  <div class="analysis-item">
+                    <div class="analysis-label">강점</div>
+                    <div class="analysis-text">${esc(sub.strength)}</div>
+                  </div>
+                ` : ""
               }
               ${
                 sub.improve ? `
-                <div class="analysis-item">
-                  <div class="analysis-label">보완</div>
-                  <div class="analysis-text">${esc(sub.improve)}</div>
-                </div>` : ""
+                  <div class="analysis-item">
+                    <div class="analysis-label">보완</div>
+                    <div class="analysis-text">${esc(sub.improve)}</div>
+                  </div>
+                ` : ""
               }
             </div>
           ` : `<div class="muted" style="margin-top:10px;">핵심 분석 데이터가 없습니다.</div>`
@@ -572,18 +601,14 @@
   // 메인
   // =========================
   async function main() {
-    // 1) auth 확정
     const auth = getAuthContext();
 
-    // 2) 관리자 토큰 검증
-    if (auth.mode === "admin") {
-      auth.isAdmin = (auth.admin === ADMIN_TOKEN);
-      if (!auth.isAdmin) {
-        return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
-      }
+    // 관리자 모드인데 토큰 틀린 경우
+    if (auth.mode === "admin" && !auth.isAdmin) {
+      return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
-    // 3) 학생 조회
+    // 학생 로드
     const students = await loadJson("./students.json");
     if (!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -594,7 +619,7 @@
 
     const sid = norm(pickId(student));
 
-    // 4) flags 로드 / 권한 체크
+    // flags 로드 / 권한 체크
     const flagsData = await loadJsonSafe("./school_record_flags.json", null);
     const recordFlag = getRecordFlag(flagsData, sid);
 
@@ -602,16 +627,16 @@
       return renderNoAccess("생기부 분석 페이지 접근 권한이 없습니다.");
     }
 
-    // 5) 상단 렌더
+    // 상단 렌더
     renderStudentMeta(student, auth);
     renderNav(student, auth, recordFlag);
 
-    // 6) 요청사항에 따라 숨김 강제 적용
+    // 요청사항: 표시 설정 / 전체 키워드 / 세부 기록 숨김
     hideIfExists("panelDisplaySetting");
     hideIfExists("panelAllKeywords");
     hideIfExists("panelDetailRecords");
 
-    // 7) detail 데이터 로드
+    // detail 데이터 로드
     const detailData = await loadJsonSafe("./school_record_detail.json", null);
     if (!detailData) {
       renderSubjectKeywordCards([]);
