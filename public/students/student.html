@@ -124,12 +124,12 @@
         <div class="title" style="font-size:16px;margin:0">최신 성적: <span id="latestRoundLabel">-</span></div>
       </div>
       <div class="rightgroup">
-        <span class="muted">원점수 + 백분위(p) + 등급(컷/백분위)</span>
+        <span class="muted">원점수 + 백분위(p) + 등급(컷/백분위/직접입력)</span>
       </div>
     </div>
 
     <div class="subject-grid" id="scoreGrid"></div>
-    <div class="inline-note">※ 등급은 과목별 컷 데이터가 충분하면 컷 기준, 컷이 1개만 있거나 없으면 백분위 기준으로 표시됩니다.</div>
+    <div class="inline-note">※ 등급은 과목별 직접입력값이 있으면 우선 사용하고, 없으면 컷 기준 → 백분위 기준 순서로 표시됩니다.</div>
 
     <details class="rounds" id="prevWrap">
       <summary>이전 성적 보기</summary>
@@ -191,7 +191,12 @@
 
   function parseNum(v){
     if(v === null || v === undefined || v === "") return null;
-    const n = Number(String(v).replace(/[^\d.-]/g,""));
+    if(typeof v === "number") return Number.isFinite(v) ? v : null;
+    const s = String(v).trim();
+    if(!s) return null;
+    const cleaned = s.replace(/[^\d.-]/g,"");
+    if(!cleaned) return null;
+    const n = Number(cleaned);
     return Number.isFinite(n) ? n : null;
   }
 
@@ -202,6 +207,23 @@
       if(n != null) return n;
     }
     return null;
+  }
+
+  function normalizeArrayish(x){
+    if(Array.isArray(x)) return x.slice();
+    if(!x || typeof x !== "object") return [];
+    for(const k of ["records","rows","items","data","scores"]){
+      if(Array.isArray(x[k])) return x[k].slice();
+    }
+    const out = [];
+    for(const [k,v] of Object.entries(x)){
+      if(Array.isArray(v)){
+        out.push(...v.map(r => ({ ...r, id: (r?.id ?? k) })));
+      }else if(v && typeof v === "object"){
+        out.push({ ...v, id: (v?.id ?? k) });
+      }
+    }
+    return out;
   }
 
   // =========================
@@ -310,10 +332,12 @@
   }
 
   // =========================
-  // 성적 파서 (네 JSON 형식 대응)
+  // 성적 파서 (기존 + *_raw/*_pct/*_grade/*_cut 호환)
   // =========================
   function scoreOf(row, subj){
-    // 지원: 국어_raw / 국어 / 국어점수 / 국어_score ...
+    // 지원 예:
+    // - 국어_raw (신규 템플릿)
+    // - 국어 / 국어점수 / 국어_score (기존/레거시)
     return pickNumFromKeys(row, [
       `${subj}_raw`,
       subj,
@@ -324,7 +348,9 @@
   }
 
   function percentileOf(row, subj){
-    // 지원: 국어_pct / 국어p / 국어백분위 / 국어_percentile ...
+    // 지원 예:
+    // - 국어_pct (신규 템플릿)
+    // - 국어p / 국어백분위 / 국어_percentile (기존/레거시)
     return pickNumFromKeys(row, [
       `${subj}_pct`,
       `${subj}p`,
@@ -336,14 +362,17 @@
   }
 
   function explicitGradeOf(row, subj){
-    const v = pickText(
-      row?.[`${subj}등급`],
+    // 등급 직접입력 우선 (예: 국어_grade)
+    const raw = pickText(
       row?.[`${subj}_grade`],
+      row?.[`${subj}등급`],
       row?.[`${subj}grade`]
     );
-    if(!v) return null;
-    const n = parseNum(v);
-    return n ? `${n}등급` : v;
+    if(!raw) return null;
+
+    const n = parseNum(raw);
+    if(n != null) return `${n}등급`;
+    return raw;
   }
 
   function cutAt(row, subj, grade){
@@ -354,7 +383,7 @@
     // 레거시 1등급 컷
     if(v == null && grade === 1) v = row?.[`${subj}컷`];
 
-    // ✅ 네 데이터 형식 지원: 국어_cut
+    // 신규 형식 1등급 컷 (예: 국어_cut)
     if(v == null && grade === 1) v = row?.[`${subj}_cut`];
 
     return parseNum(v);
@@ -371,7 +400,7 @@
     }
     if(!cuts.length) return null;
 
-    // 컷이 1개뿐이면 정확 등급 계산 불가 → 백분위로 넘김
+    // 컷이 1개뿐이면 정확 등급 계산 불가 → 백분위/직접입력으로 넘김
     if(cuts.length < 2) return null;
 
     cuts.sort((a,b) => a.g - b.g);
@@ -388,7 +417,7 @@
     const p = percentileOf(row, subj);
     if(p == null) return null;
 
-    // 백분위 점수(높을수록 좋음) 기준 근사
+    // 백분위 기준 근사 등급 (높을수록 좋음)
     const pp = Number(p);
 
     if(pp >= 96) return "1등급";
@@ -559,6 +588,18 @@
     `;
   }
 
+  function renderEmptyScores(){
+    $("#latestRoundLabel").textContent = "-";
+    $("#scoreGrid").innerHTML = SUBJECTS.map(s => `
+      <div class="score-box">
+        <div class="score-head"><div class="score-subj">${esc(s)}</div><div class="score-p">-</div></div>
+        <div class="score-main"><div class="score-point">-</div><div class="score-grade hidden"></div></div>
+      </div>
+    `).join("");
+    $("#prevWrap").open = false;
+    $("#prevRounds").innerHTML = `<div class="muted">성적 데이터가 없습니다. (scores.json 확인)</div>`;
+  }
+
   // =========================
   // 메인
   // =========================
@@ -585,7 +626,7 @@
     const recordFlag = getRecordFlag(flagsData, norm(pickId(student)));
     renderNav(student, auth, recordFlag);
 
-    // scores.json 로드
+    // scores.json 로드 (배열/객체 래퍼 모두 대응)
     let scoresRaw = [];
     try{
       scoresRaw = await loadJson("./scores.json");
@@ -593,21 +634,14 @@
       scoresRaw = [];
     }
 
-    let rows = Array.isArray(scoresRaw) ? scoresRaw : [];
+    let rows = normalizeArrayish(scoresRaw);
     const sid = norm(pickId(student));
-    rows = rows.filter(r => norm(r?.id) === sid);
+
+    rows = rows.filter(r => norm(r?.id ?? r?.studentId ?? r?.studentID ?? r?.["ID"] ?? r?.["학생ID"]) === sid);
     rows = sortScores(rows);
 
     if(!rows.length){
-      $("#latestRoundLabel").textContent = "-";
-      $("#scoreGrid").innerHTML = SUBJECTS.map(s => `
-        <div class="score-box">
-          <div class="score-head"><div class="score-subj">${esc(s)}</div><div class="score-p">-</div></div>
-          <div class="score-main"><div class="score-point">-</div><div class="score-grade hidden"></div></div>
-        </div>
-      `).join("");
-      $("#prevWrap").open = false;
-      $("#prevRounds").innerHTML = `<div class="muted">성적 데이터가 없습니다. (scores.json 확인)</div>`;
+      renderEmptyScores();
       return;
     }
 
