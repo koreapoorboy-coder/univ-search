@@ -90,7 +90,6 @@
       color:#555
     }
 
-    /* ===== 독서록 섹션 ===== */
     .reading-grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -117,9 +116,6 @@
     }
     .reading-meta .chip{margin-top:0}
     .reading-meta .chip .k{opacity:.7;margin-right:4px}
-
-    /* 숨김 처리 대상(요청사항 반영) */
-    .force-hidden{display:none !important;}
   </style>
 </head>
 <body>
@@ -135,7 +131,6 @@
     <div class="row" id="navRow"></div>
   </div>
 
-  <!-- (호환용) 기존 페이지에서 쓰던 영역 ID를 유지해두고 숨길 수 있게 배치 -->
   <div class="card" id="panelDisplaySetting" style="display:none;">
     <div class="section-title"><span class="dot"></span>표시 설정</div>
     <div class="muted">요청사항에 따라 숨김 처리됩니다.</div>
@@ -171,7 +166,6 @@
     <div class="subject-grid" id="subjectAnalysisArea" style="margin-top:12px;"></div>
   </div>
 
-  <!-- ✅ 독서록 섹션 추가 -->
   <div class="card" id="panelReading">
     <div class="topbar">
       <div class="leftgroup">
@@ -193,14 +187,8 @@
 
 <script>
 (() => {
-  // =========================
-  // 설정값
-  // =========================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 바꾸기
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
-  // =========================
-  // 공통 유틸 / 보안 분기
-  // =========================
   function getQS() {
     return new URLSearchParams(location.search);
   }
@@ -215,7 +203,6 @@
     const id = safeStr(qs.get("id")).trim();
     const admin = safeStr(qs.get("admin")).trim();
 
-    // 🔒 t 우선 규칙
     if (t) {
       return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
     }
@@ -250,9 +237,6 @@
     return null;
   }
 
-  // =========================
-  // DOM 유틸
-  // =========================
   const $ = (s)=>document.querySelector(s);
   const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -264,9 +248,6 @@
     if(el) el.style.display = "none";
   }
 
-  // =========================
-  // 데이터 키 유틸
-  // =========================
   function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
   function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
   function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
@@ -293,9 +274,6 @@
     }
   }
 
-  // =========================
-  // flags / 접근 정책
-  // =========================
   function getRecordFlag(flags, studentId) {
     if (!flags) return {};
     if (Array.isArray(flags)) {
@@ -305,7 +283,7 @@
   }
 
   function canViewRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true; // flags 없으면 기본 허용
+    if (!flag || Object.keys(flag).length === 0) return true;
     if (flag.recordEnabled === false) return false;
 
     const visibility = String(flag.visibility || "student").toLowerCase();
@@ -322,21 +300,15 @@
     return true;
   }
 
-  // =========================
-  // school_record_detail 파싱 (유연 대응)
-  // =========================
   function getRecordDetail(detailData, studentId) {
     if (!detailData) return null;
 
-    // 배열형 [{id, ...}, ...]
     if (Array.isArray(detailData)) {
       return detailData.find(x => String(x?.id) === String(studentId)) || null;
     }
 
-    // 객체형 { "학생ID": {...} }
     if (detailData[studentId]) return detailData[studentId];
 
-    // 래퍼 가능성들
     if (Array.isArray(detailData.items)) {
       return detailData.items.find(x => String(x?.id) === String(studentId)) || null;
     }
@@ -349,7 +321,6 @@
 
   function unwrapRecordPayload(record) {
     if (!record) return null;
-    // id를 포함한 래퍼일 수 있으니 내부 후보들을 우선 탐색
     return (
       record.detail ||
       record.record ||
@@ -360,19 +331,12 @@
     );
   }
 
-  function toArray(v) {
-    if (Array.isArray(v)) return v;
-    if (v == null) return [];
-    return [v];
-  }
-
   function normalizeKeywords(v) {
     if (Array.isArray(v)) {
       return v.map(x => String(x ?? "").trim()).filter(Boolean);
     }
     const s = String(v ?? "").trim();
     if (!s) return [];
-    // 쉼표/줄바꿈/슬래시/중점 등 폭넓게 분리
     return s.split(/[,\/·\n|]/g).map(x => x.trim()).filter(Boolean);
   }
 
@@ -391,7 +355,6 @@
       e.subject, e.name, e.course, e.과목, e.과목명, fallbackName
     ) || "과목";
 
-    // 키워드
     const keywords = normalizeKeywords(
       pickFirst(
         e.keywords, e.keywordList, e.keyword_list,
@@ -399,10 +362,9 @@
       )
     );
 
-    // 핵심 분석
     const core = pickText(
       e.coreAnalysis, e.core, e.core_summary, e.analysis,
-      e.핵심해석, e.핵심분석, e.핵심 분석
+      e.핵심해석, e.핵심분석, e["핵심 분석"]
     );
 
     const strength = pickText(
@@ -425,7 +387,6 @@
   function collectSubjectsFromPayload(payload) {
     if (!payload) return [];
 
-    // 1) 가장 흔한 배열 필드 후보
     const arrCandidate = pickFirst(
       Array.isArray(payload.subjects) ? payload.subjects : null,
       Array.isArray(payload.items) ? payload.items : null,
@@ -438,7 +399,6 @@
       return arrCandidate.map((x, i) => normalizeSubjectEntry(x, `과목 ${i+1}`));
     }
 
-    // 2) 중첩 객체 후보 (예: payload.subjects = {국어:{...}, 수학:{...}})
     const objCandidate = pickFirst(
       (payload.subjects && !Array.isArray(payload.subjects) && typeof payload.subjects === "object") ? payload.subjects : null,
       (payload.과목 && !Array.isArray(payload.과목) && typeof payload.과목 === "object") ? payload.과목 : null
@@ -447,8 +407,6 @@
       return Object.entries(objCandidate).map(([k, v]) => normalizeSubjectEntry(v, k));
     }
 
-    // 3) payload 자체가 과목명 키 객체일 가능성
-    // (메타 키들 제외하고 객체값만 수집)
     const blacklist = new Set(["id","studentId","studentID","학생ID","name","studentName","summary","요약","meta","metadata"]);
     const objectLikeEntries = Object.entries(payload).filter(([k,v]) => {
       if (blacklist.has(k)) return false;
@@ -461,9 +419,6 @@
     return [];
   }
 
-  // =========================
-  // 독서록 파싱 (school_record_reading.json + payload fallback)
-  // =========================
   function normalizeReadingEntry(entry, fallbackTitle) {
     const e = entry || {};
 
@@ -478,26 +433,27 @@
 
     const subjectLink = pickText(
       e.subject, e.linkedSubject, e.subjectLink,
-      e.연계과목, e.관련과목, e.교과연계
+      e.연계과목, e.관련과목, e.교과연계, e.portfolioLink
     );
 
     const period = pickText(
       e.period, e.term, e.date, e.readDate,
-      e.학기, e.시기, e.일자
+      e.학기, e.시기, e.일자, e.readPeriod
     );
 
     const summary = pickText(
-      e.summary, e.bookSummary, e.요약, e.내용요약, e.핵심내용
+      e.summary, e.bookSummary, e.요약, e.내용요약, e.핵심내용, e.oneLineSummary
     );
 
     const reflection = pickText(
       e.reflection, e.feeling, e.thought, e.review,
-      e.소감, e.느낀점, e.감상, e.비평, e.의미
+      e.소감, e.느낀점, e.감상, e.비평, e.의미, e.insight
     );
 
     const portfolioPoint = pickText(
       e.portfolioPoint, e.connectPoint, e.application,
-      e.포트폴리오포인트, e.연결포인트, e.세특연결, e.탐구연결
+      e.포트폴리오포인트, e.연결포인트, e.세특연결, e.탐구연결,
+      e.portfolioUse, e.discussion
     );
 
     const keywords = normalizeKeywords(
@@ -522,7 +478,6 @@
   function collectReadingFromPayload(payload) {
     if (!payload || typeof payload !== "object") return [];
 
-    // 1) 배열 필드 후보
     const arrCandidate = pickFirst(
       Array.isArray(payload.reading) ? payload.reading : null,
       Array.isArray(payload.readings) ? payload.readings : null,
@@ -536,7 +491,6 @@
       return arrCandidate.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
     }
 
-    // 2) 객체형 reading / 독서
     const objCandidate = pickFirst(
       (payload.reading && !Array.isArray(payload.reading) && typeof payload.reading === "object") ? payload.reading : null,
       (payload.독서 && !Array.isArray(payload.독서) && typeof payload.독서 === "object") ? payload.독서 : null
@@ -554,11 +508,9 @@
   function getReadingRecords(readingData, studentId) {
     if (!readingData) return [];
 
-    // A) 배열형
     if (Array.isArray(readingData)) {
       const sidRows = readingData.filter(x => String(x?.id) === String(studentId));
 
-      // 개별행 저장형 [{id, title, author, ...}, ...]
       const directRows = sidRows.filter(x =>
         x && (x.title || x.bookTitle || x.도서명 || x.책제목)
       );
@@ -566,7 +518,6 @@
         return directRows.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
       }
 
-      // 번들형 [{id, reading:[...]}, ...]
       for (const row of sidRows) {
         let arr = collectReadingFromPayload(row);
         if (arr.length) return arr;
@@ -577,7 +528,6 @@
       return [];
     }
 
-    // B) 객체형 { "shstudy01": ... }
     if (typeof readingData === "object") {
       const byId = readingData[studentId];
       if (byId) {
@@ -586,7 +536,6 @@
         if (arr.length) return arr;
       }
 
-      // C) 래퍼형 {items:[...]} / {data:[...]}
       const wrappers = [];
       if (Array.isArray(readingData.items)) wrappers.push(...readingData.items);
       if (Array.isArray(readingData.data)) wrappers.push(...readingData.data);
@@ -614,9 +563,6 @@
     return [];
   }
 
-  // =========================
-  // 렌더링
-  // =========================
   function renderError(title, message){
     const app = $("#app") || document.body;
     app.innerHTML = `
@@ -837,14 +783,9 @@
     root.innerHTML = list.map(readingCardHtml).join("");
   }
 
-  // =========================
-  // 메인
-  // =========================
   async function main() {
-    // 1) auth 확정
     const auth = getAuthContext();
 
-    // 2) 관리자 토큰 검증
     if (auth.mode === "admin") {
       auth.isAdmin = (auth.admin === ADMIN_TOKEN);
       if (!auth.isAdmin) {
@@ -852,7 +793,6 @@
       }
     }
 
-    // 3) 학생 조회
     const students = await loadJson("./students.json");
     if (!Array.isArray(students)) throw new Error("students.json is not an array");
 
@@ -863,7 +803,6 @@
 
     const sid = norm(pickId(student));
 
-    // 4) flags 로드 / 권한 체크
     const flagsData = await loadJsonSafe("./school_record_flags.json", null);
     const recordFlag = getRecordFlag(flagsData, sid);
 
@@ -871,16 +810,13 @@
       return renderNoAccess("생기부 분석 페이지 접근 권한이 없습니다.");
     }
 
-    // 5) 상단 렌더
     renderStudentMeta(student, auth);
     renderNav(student, auth, recordFlag);
 
-    // 6) 요청사항에 따라 숨김 강제 적용
     hideIfExists("panelDisplaySetting");
     hideIfExists("panelAllKeywords");
     hideIfExists("panelDetailRecords");
 
-    // 7) detail 데이터 로드
     const detailData = await loadJsonSafe("./school_record_detail.json", null);
 
     let payload = null;
@@ -897,7 +833,6 @@
     renderSubjectKeywordCards(subjects);
     renderSubjectCoreAnalysis(subjects);
 
-    // 8) 독서 데이터 로드 (별도 파일 우선 + detail payload fallback)
     const readingData = await loadJsonSafe("./school_record_reading.json", null);
     let readings = getReadingRecords(readingData, sid);
 
