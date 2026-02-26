@@ -1,348 +1,52 @@
-# convert_school_record_excel_to_json.py
-# -*- coding: utf-8 -*-
-
-from openpyxl import load_workbook
-from pathlib import Path
-from collections import defaultdict
-import json
-import datetime
-import re
-import math
-
-# =========================
-# 설정
-# =========================
-INPUT_XLSX = "포트폴리오_생활기록부(독서포함).xlsx"   # 변환할 엑셀 파일명
-OUTPUT_DIR = "."                                    # JSON 저장 폴더 (예: "." 또는 "./data")
-ONLY_PUBLISHED = False                              # True면 status가 published/공개/게시인 행만 내보냄
-
-# =========================
-# 공통 유틸
-# =========================
-PUBLISHED_SET = {"published", "publish", "공개", "게시"}
-SEM_ORDER = {"1학기": 1, "2학기": 2}
-
-def to_iso(v):
-    if v is None or v == "":
-        return None
-    if isinstance(v, datetime.datetime):
-        return v.strftime("%Y-%m-%d")
-    if isinstance(v, datetime.date):
-        return v.strftime("%Y-%m-%d")
-    return str(v).strip()
-
-def to_bool(v):
-    if v is None or v == "":
-        return None
-    if isinstance(v, bool):
-        return v
-    s = str(v).strip().lower()
-    if s in {"true","1","y","yes","예","사용","on"}:
-        return True
-    if s in {"false","0","n","no","아니오","미사용","off"}:
-        return False
-    return None
-
-def to_int(v):
-    if v is None or v == "":
-        return None
-    if isinstance(v, bool):
-        return int(v)
-    if isinstance(v, (int, float)):
-        if isinstance(v, float) and not math.isfinite(v):
-            return None
-        return int(v)
-    s = str(v).strip()
-    if not s:
-        return None
-    try:
-        return int(float(s))
-    except Exception:
-        return None
-
-def clean(v):
-    if v is None:
-        return None
-    if isinstance(v, (datetime.datetime, datetime.date)):
-        return to_iso(v)
-    if isinstance(v, bool):
-        return v
-    if isinstance(v, (int, float)):
-        if isinstance(v, float) and v.is_integer():
-            return int(v)
-        return v
-    s = str(v).strip()
-    return s if s != "" else None
-
-def normalize_status(v):
-    s = str(v).strip().lower() if v is not None else ""
-    return s or None
-
-def include_row(row, status_field="status", only_published=False):
-    status = normalize_status(row.get(status_field))
-    if only_published and status and status not in PUBLISHED_SET:
-        return False
-    return True
-
-def parse_keywords(v):
-    if v is None:
-        return []
-    s = str(v).strip()
-    if not s:
-        return []
-    # 쉼표, 줄바꿈, 슬래시, |, · 기준 분리
-    parts = re.split(r"[,\n/|·]+", s)
-    return [p.strip() for p in parts if p.strip()]
-
-def read_sheet_rows(ws):
-    headers = []
-    for c in range(1, ws.max_column + 1):
-        hv = ws.cell(1, c).value
-        headers.append(str(hv).strip() if hv is not None else "")
-
-    rows = []
-    for r in range(2, ws.max_row + 1):
-        values = [ws.cell(r, c).value for c in range(1, ws.max_column + 1)]
-        if not any(v not in (None, "") for v in values):
-            continue
-        row = {}
-        for h, v in zip(headers, values):
-            if not h:
-                continue
-            row[h] = v
-        rows.append(row)
-    return headers, rows
-
-def dump_json(path: Path, data):
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-
-# =========================
-# 변환 메인
-# =========================
-def convert_excel_to_json(input_xlsx: str, output_dir: str = ".", only_published: bool = False):
-    input_path = Path(input_xlsx)
-    out_dir = Path(output_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    if not input_path.exists():
-        raise FileNotFoundError(f"엑셀 파일을 찾을 수 없습니다: {input_path}")
-
-    wb = load_workbook(input_path, data_only=True)
-
-    required_sheets = ["Flags", "Summary", "Detail", "Raw", "Reading"]
-    missing = [s for s in required_sheets if s not in wb.sheetnames]
-    if missing:
-        raise ValueError(f"필수 시트가 없습니다: {missing} / 현재 시트: {wb.sheetnames}")
-
-    # -------------------------
-    # 1) Flags -> school_record_flags.json
-    # -------------------------
-    flags_out = {}
-    _, flags_rows = read_sheet_rows(wb["Flags"])
-
-    for row in flags_rows:
-        sid = clean(row.get("id"))
-        if not sid:
-            continue
-
-        record_enabled = to_bool(row.get("recordEnabled"))
-        if record_enabled is None:
-            record_enabled = True  # 빈칸이면 기본 true
-
-        flags_out[sid] = {
-            "id": sid,
-            "recordEnabled": record_enabled,
-            "visibility": clean(row.get("visibility")) or "student",
-            "rawVisibility": clean(row.get("rawVisibility")) or "student",
-            "reviewStatus": clean(row.get("reviewStatus")) or "draft",
-            "note": clean(row.get("note")) or "",
-            "updatedAt": to_iso(row.get("updatedAt")),
-        }
-
-    # -------------------------
-    # 2) Summary -> school_record_summary.json
-    # -------------------------
-    summary_out = {}
-    _, summary_rows = read_sheet_rows(wb["Summary"])
-
-    for row in summary_rows:
-        sid = clean(row.get("id"))
-        if not sid:
-            continue
-        if not include_row(row, "status", only_published):
-            continue
-
-        summary_out[sid] = {
-            "studentName": clean(row.get("studentName")),
-            "school": clean(row.get("school")),
-            "gradeLevel": clean(row.get("gradeLevel")),
-            "track": clean(row.get("track")),
-            "summaryLine1": clean(row.get("summaryLine1")),
-            "summaryLine2": clean(row.get("summaryLine2")),
-            "summaryLine3": clean(row.get("summaryLine3")),
-            "overallStrength": clean(row.get("overallStrength")),
-            "overallImprove": clean(row.get("overallImprove")),
-            "status": clean(row.get("status")) or "draft",
-            "visibility": clean(row.get("visibility")) or "student",
-            "updatedAt": to_iso(row.get("updatedAt")),
-        }
-
-    # -------------------------
-    # 3) Detail -> school_record_detail.json
-    #    (id별 과목 세특 묶음)
-    # -------------------------
-    detail_group = defaultdict(list)
-    _, detail_rows = read_sheet_rows(wb["Detail"])
-
-    for row in detail_rows:
-        sid = clean(row.get("id"))
-        if not sid:
-            continue
-        if not include_row(row, "status", only_published):
-            continue
-
-        item = {
-            "subject": clean(row.get("subject")) or "과목",
-            "keywords": parse_keywords(row.get("keywords")),
-            "coreAnalysis": clean(row.get("coreAnalysis")) or "",
-            "strength": clean(row.get("strength")) or "",
-            "improve": clean(row.get("improve")) or "",
-            "status": clean(row.get("status")) or "draft",
-            "visibility": clean(row.get("visibility")) or "student",
-            "sortOrder": to_int(row.get("sortOrder")) or 9999,
-            "updatedAt": to_iso(row.get("updatedAt")),
-        }
-        detail_group[sid].append(item)
-
-    detail_out = {}
-    for sid, items in detail_group.items():
-        items.sort(key=lambda x: (x.get("sortOrder", 9999), x.get("subject", "")))
-        updated_list = [x.get("updatedAt") for x in items if x.get("updatedAt")]
-
-        # ✅ 기존 페이지 호환 위해 direct object 형태 유지
-        detail_out[sid] = {
-            "updatedAt": max(updated_list) if updated_list else None,
-            "summary": summary_out.get(sid),  # 있어도 되고 없어도 됨 (호환성 영향 없음)
-            "subjects": items
-        }
-
-    # -------------------------
-    # 4) Raw -> school_record_raw.json
-    #    (id > raw > section > field 구조)
-    # -------------------------
-    raw_group = defaultdict(lambda: defaultdict(list))
-    _, raw_rows = read_sheet_rows(wb["Raw"])
-
-    for row in raw_rows:
-        sid = clean(row.get("id"))
-        if not sid:
-            continue
-
-        row_status = clean(row.get("status")) or "draft"
-        if only_published and str(row_status).strip().lower() not in PUBLISHED_SET:
-            continue
-
-        section = clean(row.get("section")) or "기타"
-        field = clean(row.get("field")) or f"field_{len(raw_group[sid][section]) + 1}"
-
-        raw_group[sid][section].append({
-            "field": field,
-            "value": clean(row.get("value")) or "",
-            "visibility": clean(row.get("visibility")) or "student",
-            "type": clean(row.get("type")) or "text",
-            "order": to_int(row.get("order")) or 9999,
-            "status": row_status,
-            "updatedAt": to_iso(row.get("updatedAt")),
-        })
-
-    raw_out = {}
-    for sid, section_map in raw_group.items():
-        all_dates = []
-        raw_obj = {}
-
-        for section, items in section_map.items():
-            items.sort(key=lambda x: (x.get("order", 9999), x.get("field", "")))
-            section_obj = {}
-
-            for item in items:
-                field = item.pop("field")
-                section_obj[field] = item
-                if item.get("updatedAt"):
-                    all_dates.append(item["updatedAt"])
-
-            raw_obj[section] = section_obj
-
-        raw_out[sid] = {
-            "updatedAt": max(all_dates) if all_dates else None,
-            "raw": raw_obj
-        }
-
-    # -------------------------
-    # 5) Reading -> school_record_reading.json (신규)
-    #    (중학생 독서록/독서활동 포트폴리오용)
-    # -------------------------
-    reading_group = defaultdict(list)
-    _, reading_rows = read_sheet_rows(wb["Reading"])
-
-    for row in reading_rows:
-        sid = clean(row.get("id"))
-        if not sid:
-            continue
-
-        row_status = clean(row.get("status")) or "draft"
-        if only_published and str(row_status).strip().lower() not in PUBLISHED_SET:
-            continue
-
-        item = {
-            "title": clean(row.get("title")) or "",
-            "author": clean(row.get("author")) or "",
-            "category": clean(row.get("category")) or "",
-            "activityType": clean(row.get("activityType")) or "",
-            "year": to_int(row.get("year")),
-            "semester": clean(row.get("semester")) or "",
-            "oneLineSummary": clean(row.get("oneLineSummary")) or "",
-            "impression": clean(row.get("impression")) or "",
-            "connectionToPortfolio": clean(row.get("connectionToPortfolio")) or "",
-            "evidenceKeyword": parse_keywords(row.get("evidenceKeyword")),
-            "status": row_status,
-            "visibility": clean(row.get("visibility")) or "student",
-            "sortOrder": to_int(row.get("sortOrder")) or 9999,
-            "memo": clean(row.get("memo")) or "",
-            "updatedAt": to_iso(row.get("updatedAt")),
-        }
-        reading_group[sid].append(item)
-
-    reading_out = {}
-    for sid, items in reading_group.items():
-        items.sort(key=lambda x: (
-            x.get("year") if x.get("year") is not None else 9999,
-            SEM_ORDER.get(x.get("semester"), 9),
-            x.get("sortOrder", 9999),
-            x.get("title", "")
-        ))
-        all_dates = [x.get("updatedAt") for x in items if x.get("updatedAt")]
-        reading_out[sid] = {
-            "updatedAt": max(all_dates) if all_dates else None,
-            "items": items
-        }
-
-    # -------------------------
-    # 저장
-    # -------------------------
-    dump_json(out_dir / "school_record_flags.json", flags_out)
-    dump_json(out_dir / "school_record_summary.json", summary_out)
-    dump_json(out_dir / "school_record_detail.json", detail_out)
-    dump_json(out_dir / "school_record_raw.json", raw_out)
-    dump_json(out_dir / "school_record_reading.json", reading_out)
-
-    # 간단 로그
-    print("✅ 변환 완료")
-    print(f"- Flags   : {len(flags_out)}명")
-    print(f"- Summary : {len(summary_out)}명")
-    print(f"- Detail  : {len(detail_out)}명")
-    print(f"- Raw     : {len(raw_out)}명")
-    print(f"- Reading : {len(reading_out)}명")
-    print(f"- 저장 폴더: {out_dir.resolve()}")
-
-if __name__ == "__main__":
-    convert_excel_to_json(INPUT_XLSX, OUTPUT_DIR, ONLY_PUBLISHED)
+[
+  {
+    "id": "shstudy05",
+    "reading": [
+      {
+        "term": "1-1",
+        "seq": 1,
+        "bookTitle": "생태적 전환, 슬기로운 지구 생활을 위하여",
+        "author": "",
+        "category": "교과연계",
+        "theme": "환경/기후",
+        "readPeriod": "2026-1학기",
+        "summary": "인간 중심적 사고를 넘어 다양한 생명체를 삶의 주체로 인정하는 관점을 다룸.",
+        "insight": "기후 위기를 삶의 방식 전환 문제로 이해하게 됨.",
+        "discussion": "탄소중립 찬반 토론에서 기후 대응의 필요성과 공동체 책임 관점으로 연결함.",
+        "portfolioLink": "공통국어 토론·비평 활동과 연계",
+        "keywords": [
+          "기후위기",
+          "탄소중립",
+          "생태전환",
+          "생태감수성"
+        ],
+        "status": "draft",
+        "visibility": "student",
+        "memo": ""
+      },
+      {
+        "term": "1-1",
+        "seq": 2,
+        "bookTitle": "모든 생명은 아름답다. 너도 그래",
+        "author": "",
+        "category": "자율독서",
+        "theme": "다양성/존중",
+        "readPeriod": "2026-1학기",
+        "summary": "다름을 틀림이 아닌 소중한 특성으로 바라보는 관점을 제시함.",
+        "insight": "자기와 타인을 있는 그대로 받아들이는 태도의 중요성을 성찰함.",
+        "discussion": "",
+        "portfolioLink": "인성/공동체 역량 포트폴리오에 반영",
+        "keywords": [
+          "다양성",
+          "존중",
+          "자기이해",
+          "공감"
+        ],
+        "status": "review",
+        "visibility": "student",
+        "memo": ""
+      }
+    ],
+    "updatedAt": ""
+  }
+]
