@@ -68,6 +68,22 @@
     .cutgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
     .cutitem{border:1px solid #ececf0;border-radius:12px;padding:8px 10px;display:flex;justify-content:space-between;gap:10px}
 
+    .u-link{
+      border:none;background:none;padding:0;margin:0;
+      font:inherit;font-weight:900;color:#0b57d0;cursor:pointer;
+      text-decoration:underline;text-underline-offset:2px;
+    }
+    .u-link:hover{opacity:.8}
+
+    .filter-chip{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid #111;border-radius:999px;padding:7px 12px;background:#fff;font-weight:900
+    }
+    .filter-chip button{
+      border:none;background:none;padding:0;margin:0;cursor:pointer;
+      font:inherit;font-weight:900;color:#b00020;
+    }
+
     @media(max-width:980px){
       .grid{grid-template-columns:1fr 1fr}
       .scoreGrid{grid-template-columns:1fr 1fr}
@@ -129,7 +145,8 @@
         • 국어/수학/탐1/탐2는 <b>학생 백분위 - 대학 컷</b>으로 비교합니다.<br/>
         • 영어는 <b>학생 영어등급 ≤ 대학 영어컷등급</b>이면 충족입니다.<br/>
         • 기본 판정: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b><br/>
-        • 영어가 1등급 부족하면 판정을 1단계 낮추고, 2등급 이상 부족하면 <b>도전</b>으로 처리합니다.
+        • 영어가 1등급 부족하면 판정을 1단계 낮추고, 2등급 이상 부족하면 <b>도전</b>으로 처리합니다.<br/>
+        • 아래 결과에서 <b>대학명을 누르면 해당 대학만 바로 모아서</b> 볼 수 있습니다.
       </div>
     </div>
 
@@ -147,6 +164,7 @@
       <div class="chips">
         <span class="badge" id="countBadge">0건</span>
         <span class="badge" id="dataBadge">데이터 로딩중</span>
+        <span id="activeUnivChipWrap"></span>
       </div>
       <button id="resetBtn" class="btn">필터 초기화</button>
     </div>
@@ -194,7 +212,7 @@
 let DATA = [];
 let DATA_READY = false;
 
-const STORAGE_KEY = "univ_search_student_mixed_state_v2";
+const STORAGE_KEY = "univ_search_student_mixed_state_v3";
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -327,6 +345,40 @@ function uniqueSorted(key) {
 function fillSelect(id, items, placeholder) {
   const el = $(id);
   el.innerHTML = `<option value="">${placeholder}</option>` + items.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
+}
+
+function setUniversityFilter(univName) {
+  state.univ = String(univName || "");
+  $("#univ").value = state.univ;
+  render();
+}
+
+function clearUniversityFilter() {
+  state.univ = "";
+  $("#univ").value = "";
+  render();
+}
+
+function renderActiveUnivChip() {
+  const wrap = $("#activeUnivChipWrap");
+  if (!wrap) return;
+
+  if (!state.univ) {
+    wrap.innerHTML = "";
+    return;
+  }
+
+  wrap.innerHTML = `
+    <span class="filter-chip">
+      대학 필터: ${esc(state.univ)}
+      <button type="button" id="clearUnivChipBtn">삭제</button>
+    </span>
+  `;
+
+  const btn = document.getElementById("clearUnivChipBtn");
+  if (btn) {
+    btn.onclick = clearUniversityFilter;
+  }
 }
 
 function initTabs() {
@@ -585,12 +637,21 @@ function getEmptyMessage() {
   return "조건에 맞는 데이터가 없습니다.";
 }
 
+function bindUniversityLinks() {
+  document.querySelectorAll(".u-link[data-univ]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      setUniversityFilter(btn.dataset.univ);
+    });
+  });
+}
+
 function render() {
   if (!DATA_READY) return;
 
   const { baseRows, rows } = filteredRows();
   updateTabCounts(baseRows);
   syncTabs();
+  renderActiveUnivChip();
 
   $("#countBadge").textContent = `${rows.length}건`;
 
@@ -611,7 +672,7 @@ function render() {
       <tr>
         <td>${esc(x.year)}</td>
         <td>${esc(x.group)}</td>
-        <td>${esc(x.univ)}</td>
+        <td><button type="button" class="u-link" data-univ="${esc(x.univ)}">${esc(x.univ)}</button></td>
         <td>${esc(x.major)}</td>
         <td>${esc(ruleLabel(x.ruleMode))}</td>
         <td class="num">${esc(numText(x.cut_kor))}</td>
@@ -634,7 +695,7 @@ function render() {
 
     return `
       <div class="mcard">
-        <div class="mtitle">${esc(x.univ)} · ${esc(x.major)}</div>
+        <div class="mtitle"><button type="button" class="u-link" data-univ="${esc(x.univ)}">${esc(x.univ)}</button> · ${esc(x.major)}</div>
         <div class="msub">${esc(x.year)} · ${esc(x.group)} · ${esc(ruleLabel(x.ruleMode))}</div>
         <div style="margin-top:10px" class="chips">
           <span class="${judgeToChip(judgeText)}">${esc(judgeText)}</span>
@@ -651,6 +712,8 @@ function render() {
       </div>
     `;
   }).join("");
+
+  bindUniversityLinks();
 }
 
 loadData();
