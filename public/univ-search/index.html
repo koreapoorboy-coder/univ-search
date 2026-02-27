@@ -27,7 +27,7 @@
 
     .panel{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:16px;margin-top:14px}
     .tablebox{overflow:auto}
-    table{width:100%;min-width:1160px;border-collapse:collapse}
+    table{width:100%;min-width:1180px;border-collapse:collapse}
     th,td{padding:12px 10px;border-bottom:1px solid #efeff2;text-align:left;font-size:14px;vertical-align:top;white-space:nowrap}
     th{position:sticky;top:0;background:#fafafb;font-weight:900;z-index:1}
     .num{text-align:right}
@@ -87,11 +87,11 @@
 <div class="wrap">
   <div class="hero">
     <h1 class="title">대학 정시 검색기</h1>
-    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/방식 필터와 학생 백분위 비교 판정을 함께 볼 수 있습니다.</div>
+    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/방식 필터와 학생 백분위/영어등급 비교 판정을 함께 볼 수 있습니다.</div>
 
     <div class="section">
       <div class="rowbar">
-        <div class="sectionTitle">학생 백분위 입력 (비교/판정)</div>
+        <div class="sectionTitle">학생 입력 (국·수·탐 = 백분위 / 영어 = 등급)</div>
         <label class="toggle"><input type="checkbox" id="compareOn" checked /> 비교 켜기</label>
       </div>
 
@@ -100,23 +100,36 @@
         <input id="s_math" class="control" inputmode="decimal" placeholder="수학 백분위" />
         <input id="s_inq1" class="control" inputmode="decimal" placeholder="탐1 백분위" />
         <input id="s_inq2" class="control" inputmode="decimal" placeholder="탐2 백분위" />
-        <input id="s_eng" class="control" inputmode="decimal" placeholder="영어 백분위" />
+        <select id="s_eng_grade" class="control">
+          <option value="">영어 등급</option>
+          <option value="1">1등급</option>
+          <option value="2">2등급</option>
+          <option value="3">3등급</option>
+          <option value="4">4등급</option>
+          <option value="5">5등급</option>
+          <option value="6">6등급</option>
+          <option value="7">7등급</option>
+          <option value="8">8등급</option>
+          <option value="9">9등급</option>
+        </select>
       </div>
 
       <div class="rowbar">
         <div class="chips">
-          <span class="badge" id="studentBadge">학생 백분위: 미입력</span>
-          <span class="badge">판정 기준: 최소 여유(학생 백분위-대학 컷)</span>
+          <span class="badge" id="studentBadge">학생 입력: 미입력</span>
+          <span class="badge">판정 기준: 국수탐 최소 여유 + 영어 등급 반영</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button id="applyStudent" class="btn">적용</button>
-          <button id="resetStudent" class="btn">학생 백분위 초기화</button>
+          <button id="resetStudent" class="btn">학생 입력 초기화</button>
         </div>
       </div>
 
       <div class="hint">
-        기준: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b>, 입력 또는 데이터 부족 = <b>판정 보류</b><br/>
-        ※ 현재 대학 컷 데이터는 백분위 기준으로 비교됩니다.
+        • 국어/수학/탐1/탐2는 <b>학생 백분위 - 대학 컷</b>으로 비교합니다.<br/>
+        • 영어는 <b>학생 영어등급 ≤ 대학 영어컷등급</b>이면 충족입니다.<br/>
+        • 기본 판정: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b><br/>
+        • 영어가 1등급 부족하면 판정을 1단계 낮추고, 2등급 이상 부족하면 <b>도전</b>으로 처리합니다.
       </div>
     </div>
 
@@ -181,7 +194,7 @@
 let DATA = [];
 let DATA_READY = false;
 
-const STORAGE_KEY = "univ_search_student_percentile_state_v1";
+const STORAGE_KEY = "univ_search_student_mixed_state_v2";
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -199,7 +212,7 @@ const state = {
   rule: "",
   compareOn: true,
   tab: "all",
-  student: { kor:null, math:null, inq1:null, inq2:null, eng:null }
+  student: { kor:null, math:null, inq1:null, inq2:null, engGrade:null }
 };
 
 const TAB_DEFS = [
@@ -219,7 +232,7 @@ function saveStudentState() {
       math: state.student.math,
       inq1: state.student.inq1,
       inq2: state.student.inq2,
-      eng: state.student.eng
+      engGrade: state.student.engGrade
     }
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -229,7 +242,6 @@ function loadStudentState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
-
     const saved = JSON.parse(raw);
     state.compareOn = !!saved.compareOn;
 
@@ -238,7 +250,7 @@ function loadStudentState() {
       state.student.math = toNum(saved.student.math);
       state.student.inq1 = toNum(saved.student.inq1);
       state.student.inq2 = toNum(saved.student.inq2);
-      state.student.eng = toNum(saved.student.eng);
+      state.student.engGrade = toNum(saved.student.engGrade);
     }
   } catch (_err) {}
 }
@@ -249,7 +261,7 @@ function syncStudentInputsFromState() {
   $("#s_math").value = state.student.math ?? "";
   $("#s_inq1").value = state.student.inq1 ?? "";
   $("#s_inq2").value = state.student.inq2 ?? "";
-  $("#s_eng").value = state.student.eng ?? "";
+  $("#s_eng_grade").value = state.student.engGrade ?? "";
 }
 
 async function loadData() {
@@ -299,12 +311,12 @@ function judgeToChip(j) {
 
 function updateStudentBadge() {
   const s = state.student;
-  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
+  const filled = [s.kor, s.math, s.inq1, s.inq2, s.engGrade].every(v => v !== null);
   if (!filled) {
-    $("#studentBadge").textContent = "학생 백분위: 미입력";
+    $("#studentBadge").textContent = "학생 입력: 미입력";
     return;
   }
-  $("#studentBadge").textContent = `학생 백분위: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.eng}`;
+  $("#studentBadge").textContent = `학생 입력: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.engGrade}등급`;
 }
 
 function uniqueSorted(key) {
@@ -391,7 +403,7 @@ function initFilters() {
     state.student.math = toNum($("#s_math").value);
     state.student.inq1 = toNum($("#s_inq1").value);
     state.student.inq2 = toNum($("#s_inq2").value);
-    state.student.eng = toNum($("#s_eng").value);
+    state.student.engGrade = toNum($("#s_eng_grade").value);
     updateStudentBadge();
     saveStudentState();
     render();
@@ -402,9 +414,9 @@ function initFilters() {
     $("#s_math").value = "";
     $("#s_inq1").value = "";
     $("#s_inq2").value = "";
-    $("#s_eng").value = "";
+    $("#s_eng_grade").value = "";
 
-    state.student = { kor:null, math:null, inq1:null, inq2:null, eng:null };
+    state.student = { kor:null, math:null, inq1:null, inq2:null, engGrade:null };
 
     if (state.tab !== "all") {
       state.tab = "all";
@@ -435,34 +447,41 @@ function initFilters() {
   });
 }
 
+function downgradeJudge(baseJudge, steps) {
+  const ladder = ["안정", "적정", "상향", "도전"];
+  let idx = ladder.indexOf(baseJudge);
+  if (idx < 0) return "판정 보류";
+  idx = Math.min(ladder.length - 1, idx + steps);
+  return ladder[idx];
+}
+
 function judgeRow(row) {
-  if (!state.compareOn) return { judge: "-", minMargin: null, reason: "비교 꺼짐" };
+  if (!state.compareOn) return { judge: "-", minMargin: null, engGap: null, reason: "비교 꺼짐" };
 
   const s = state.student;
-  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
-  if (!filled) return { judge: "판정 보류", minMargin: null, reason: "학생 백분위 미입력" };
+  const filled = [s.kor, s.math, s.inq1, s.inq2, s.engGrade].every(v => v !== null);
+  if (!filled) return { judge: "판정 보류", minMargin: null, engGap: null, reason: "학생 입력 부족" };
 
   const ck = toNum(row.cut_kor);
   const cm = toNum(row.cut_math);
   const c1 = toNum(row.cut_inq1);
   const c2 = toNum(row.cut_inq2);
-  const ce = toNum(row.cut_eng);
+  const ceg = toNum(row.cut_eng_grade);
 
-  if ([ck,cm,c1,c2,ce].some(v => v === null)) {
-    return { judge: "판정 보류", minMargin: null, reason: "컷 데이터 부족" };
+  if ([ck, cm, c1, c2, ceg].some(v => v === null)) {
+    return { judge: "판정 보류", minMargin: null, engGap: null, reason: "컷 데이터 부족" };
   }
 
   const rm = String(row.ruleMode || "");
   if (rm && rm !== "each_subject_meets_cut") {
-    return { judge: "판정 보류", minMargin: null, reason: "미지원 방식" };
+    return { judge: "판정 보류", minMargin: null, engGap: null, reason: "미지원 방식" };
   }
 
   const margins = [
     s.kor - ck,
     s.math - cm,
     s.inq1 - c1,
-    s.inq2 - c2,
-    s.eng - ce
+    s.inq2 - c2
   ];
   const minMargin = Math.min(...margins);
 
@@ -472,7 +491,17 @@ function judgeRow(row) {
   else if (minMargin > -2) judge = "상향";
   else judge = "도전";
 
-  return { judge, minMargin };
+  const engGap = s.engGrade - ceg;
+
+  if (engGap <= 0) {
+    return { judge, minMargin, engGap, reason: "영어 충족" };
+  }
+
+  if (engGap === 1) {
+    return { judge: downgradeJudge(judge, 1), minMargin, engGap, reason: "영어 1등급 부족" };
+  }
+
+  return { judge: "도전", minMargin, engGap, reason: "영어 2등급 이상 부족" };
 }
 
 function getBaseFilteredRows() {
@@ -576,6 +605,7 @@ function render() {
     const j = judgeRow(x);
     const judgeText = j.judge || "판정 보류";
     const minMarginText = (j.minMargin === null || j.minMargin === undefined) ? "-" : (Math.round(j.minMargin * 10) / 10);
+    const engCutText = (x.cut_eng_grade == null || x.cut_eng_grade === "") ? "-" : `${x.cut_eng_grade}등급`;
 
     return `
       <tr>
@@ -588,7 +618,7 @@ function render() {
         <td class="num">${esc(numText(x.cut_math))}</td>
         <td class="num">${esc(numText(x.cut_inq1))}</td>
         <td class="num">${esc(numText(x.cut_inq2))}</td>
-        <td class="num">${esc(numText(x.cut_eng))}</td>
+        <td class="num">${esc(engCutText)}</td>
         <td><span class="${judgeToChip(judgeText)}">${esc(judgeText)}</span></td>
         <td class="num">${esc(minMarginText)}</td>
         <td style="white-space:normal">${esc(x.note || "-")}</td>
@@ -600,6 +630,7 @@ function render() {
     const j = judgeRow(x);
     const judgeText = j.judge || "판정 보류";
     const minMarginText = (j.minMargin === null || j.minMargin === undefined) ? "-" : (Math.round(j.minMargin * 10) / 10);
+    const engCutText = (x.cut_eng_grade == null || x.cut_eng_grade === "") ? "-" : `${x.cut_eng_grade}등급`;
 
     return `
       <div class="mcard">
@@ -614,7 +645,7 @@ function render() {
           <div class="cutitem"><span>수학컷</span><strong>${esc(numText(x.cut_math))}</strong></div>
           <div class="cutitem"><span>탐1컷</span><strong>${esc(numText(x.cut_inq1))}</strong></div>
           <div class="cutitem"><span>탐2컷</span><strong>${esc(numText(x.cut_inq2))}</strong></div>
-          <div class="cutitem"><span>영어컷</span><strong>${esc(numText(x.cut_eng))}</strong></div>
+          <div class="cutitem"><span>영어컷</span><strong>${esc(engCutText)}</strong></div>
         </div>
         ${x.note ? `<div class="msub" style="margin-top:10px">${esc(x.note)}</div>` : ""}
       </div>
