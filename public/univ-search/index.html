@@ -87,35 +87,36 @@
 <div class="wrap">
   <div class="hero">
     <h1 class="title">대학 정시 검색기</h1>
-    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/방식 필터와 학생 점수 비교 판정을 함께 볼 수 있습니다.</div>
+    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/방식 필터와 학생 백분위 비교 판정을 함께 볼 수 있습니다.</div>
 
     <div class="section">
       <div class="rowbar">
-        <div class="sectionTitle">학생 점수 입력 (비교/판정)</div>
+        <div class="sectionTitle">학생 백분위 입력 (비교/판정)</div>
         <label class="toggle"><input type="checkbox" id="compareOn" checked /> 비교 켜기</label>
       </div>
 
       <div class="scoreGrid">
-        <input id="s_kor" class="control" inputmode="decimal" placeholder="국어 점수" />
-        <input id="s_math" class="control" inputmode="decimal" placeholder="수학 점수" />
-        <input id="s_inq1" class="control" inputmode="decimal" placeholder="탐1 점수" />
-        <input id="s_inq2" class="control" inputmode="decimal" placeholder="탐2 점수" />
-        <input id="s_eng" class="control" inputmode="decimal" placeholder="영어 점수" />
+        <input id="s_kor" class="control" inputmode="decimal" placeholder="국어 백분위" />
+        <input id="s_math" class="control" inputmode="decimal" placeholder="수학 백분위" />
+        <input id="s_inq1" class="control" inputmode="decimal" placeholder="탐1 백분위" />
+        <input id="s_inq2" class="control" inputmode="decimal" placeholder="탐2 백분위" />
+        <input id="s_eng" class="control" inputmode="decimal" placeholder="영어 백분위" />
       </div>
 
       <div class="rowbar">
         <div class="chips">
-          <span class="badge" id="studentBadge">학생 점수: 미입력</span>
-          <span class="badge">판정 기준: 최소 여유(학생점수-컷)</span>
+          <span class="badge" id="studentBadge">학생 백분위: 미입력</span>
+          <span class="badge">판정 기준: 최소 여유(학생 백분위-대학 컷)</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button id="applyStudent" class="btn">적용</button>
-          <button id="resetStudent" class="btn">학생 점수 초기화</button>
+          <button id="resetStudent" class="btn">학생 백분위 초기화</button>
         </div>
       </div>
 
       <div class="hint">
-        기준: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b>, 입력 또는 데이터 부족 = <b>판정 보류</b>
+        기준: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b>, 입력 또는 데이터 부족 = <b>판정 보류</b><br/>
+        ※ 현재 대학 컷 데이터는 백분위 기준으로 비교됩니다.
       </div>
     </div>
 
@@ -180,7 +181,7 @@
 let DATA = [];
 let DATA_READY = false;
 
-const STORAGE_KEY = "univ_search_student_state_v1";
+const STORAGE_KEY = "univ_search_student_percentile_state_v1";
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -239,9 +240,7 @@ function loadStudentState() {
       state.student.inq2 = toNum(saved.student.inq2);
       state.student.eng = toNum(saved.student.eng);
     }
-  } catch (_err) {
-    // 저장값이 깨졌으면 무시
-  }
+  } catch (_err) {}
 }
 
 function syncStudentInputsFromState() {
@@ -302,10 +301,10 @@ function updateStudentBadge() {
   const s = state.student;
   const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
   if (!filled) {
-    $("#studentBadge").textContent = "학생 점수: 미입력";
+    $("#studentBadge").textContent = "학생 백분위: 미입력";
     return;
   }
-  $("#studentBadge").textContent = `학생 점수: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.eng}`;
+  $("#studentBadge").textContent = `학생 백분위: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.eng}`;
 }
 
 function uniqueSorted(key) {
@@ -441,7 +440,7 @@ function judgeRow(row) {
 
   const s = state.student;
   const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
-  if (!filled) return { judge: "판정 보류", minMargin: null, reason: "학생 점수 미입력" };
+  if (!filled) return { judge: "판정 보류", minMargin: null, reason: "학생 백분위 미입력" };
 
   const ck = toNum(row.cut_kor);
   const cm = toNum(row.cut_math);
