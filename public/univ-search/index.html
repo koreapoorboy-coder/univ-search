@@ -180,6 +180,8 @@
 let DATA = [];
 let DATA_READY = false;
 
+const STORAGE_KEY = "univ_search_student_state_v1";
+
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const toNum = (v) => {
@@ -207,6 +209,49 @@ const TAB_DEFS = [
   { key: "도전", label: "도전" },
   { key: "판정 보류", label: "판정 보류" }
 ];
+
+function saveStudentState() {
+  const payload = {
+    compareOn: !!state.compareOn,
+    student: {
+      kor: state.student.kor,
+      math: state.student.math,
+      inq1: state.student.inq1,
+      inq2: state.student.inq2,
+      eng: state.student.eng
+    }
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+}
+
+function loadStudentState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+
+    const saved = JSON.parse(raw);
+    state.compareOn = !!saved.compareOn;
+
+    if (saved.student && typeof saved.student === "object") {
+      state.student.kor = toNum(saved.student.kor);
+      state.student.math = toNum(saved.student.math);
+      state.student.inq1 = toNum(saved.student.inq1);
+      state.student.inq2 = toNum(saved.student.inq2);
+      state.student.eng = toNum(saved.student.eng);
+    }
+  } catch (_err) {
+    // 저장값이 깨졌으면 무시
+  }
+}
+
+function syncStudentInputsFromState() {
+  $("#compareOn").checked = !!state.compareOn;
+  $("#s_kor").value = state.student.kor ?? "";
+  $("#s_math").value = state.student.math ?? "";
+  $("#s_inq1").value = state.student.inq1 ?? "";
+  $("#s_inq2").value = state.student.inq2 ?? "";
+  $("#s_eng").value = state.student.eng ?? "";
+}
 
 async function loadData() {
   try {
@@ -303,22 +348,30 @@ function initFilters() {
   fillSelect("#rule", uniqueSorted("ruleMode"), "전체 방식");
   initTabs();
 
+  loadStudentState();
+  syncStudentInputsFromState();
+  updateStudentBadge();
+
   $("#q").addEventListener("input", (e) => {
     state.q = e.target.value.trim().toLowerCase();
     render();
   });
+
   $("#year").addEventListener("change", (e) => {
     state.year = e.target.value;
     render();
   });
+
   $("#group").addEventListener("change", (e) => {
     state.group = e.target.value;
     render();
   });
+
   $("#univ").addEventListener("change", (e) => {
     state.univ = e.target.value;
     render();
   });
+
   $("#rule").addEventListener("change", (e) => {
     state.rule = e.target.value;
     render();
@@ -330,6 +383,7 @@ function initFilters() {
       state.tab = "all";
       syncTabs();
     }
+    saveStudentState();
     render();
   });
 
@@ -340,6 +394,7 @@ function initFilters() {
     state.student.inq2 = toNum($("#s_inq2").value);
     state.student.eng = toNum($("#s_eng").value);
     updateStudentBadge();
+    saveStudentState();
     render();
   });
 
@@ -349,12 +404,16 @@ function initFilters() {
     $("#s_inq1").value = "";
     $("#s_inq2").value = "";
     $("#s_eng").value = "";
+
     state.student = { kor:null, math:null, inq1:null, inq2:null, eng:null };
+
     if (state.tab !== "all") {
       state.tab = "all";
       syncTabs();
     }
+
     updateStudentBadge();
+    saveStudentState();
     render();
   });
 
@@ -375,8 +434,6 @@ function initFilters() {
     syncTabs();
     render();
   });
-
-  updateStudentBadge();
 }
 
 function judgeRow(row) {
