@@ -7,46 +7,29 @@
   <style>
     html,body{margin:0;padding:0;background:#f7f7f8;color:#111;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
     *{box-sizing:border-box}
-    .wrap{max-width:1280px;margin:0 auto;padding:20px}
+    .wrap{max-width:1200px;margin:0 auto;padding:20px}
     .hero{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:20px 20px 16px}
     .title{font-size:28px;font-weight:900;margin:0 0 8px}
     .sub{opacity:.72;line-height:1.6}
-
     .grid{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
-    .score-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
     .control{width:100%;padding:12px 14px;border:1px solid #d9d9de;border-radius:14px;background:#fff;font-size:14px}
     .bar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px}
     .badge{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:7px 12px;background:#fff;font-weight:800}
     .btn{border:1px solid #111;border-radius:12px;padding:10px 14px;background:#fff;font-weight:900;cursor:pointer}
-    .btn:hover{background:#fafafa}
-
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .tab{border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900}
-    .tab.active{background:#111;color:#fff}
-
     .panel{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:16px;margin-top:14px}
-    .section-title{font-size:16px;font-weight:900;margin:0 0 6px}
-    .section-sub{font-size:13px;opacity:.68}
-
     .tablebox{overflow:auto}
-    table{width:100%;min-width:1280px;border-collapse:collapse}
+    table{width:100%;min-width:1120px;border-collapse:collapse}
     th,td{padding:12px 10px;border-bottom:1px solid #efeff2;text-align:left;font-size:14px;vertical-align:top;white-space:nowrap}
-    th{position:sticky;top:0;background:#fafafb;font-weight:900}
+    th{position:sticky;top:0;background:#fafafb;font-weight:900;z-index:1}
     .num{text-align:right}
     .muted{opacity:.62}
-    .chips{display:flex;gap:6px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;background:#fff}
-    .chip.ok{border-color:#0b57d0;color:#0b57d0}
-    .chip.ng{border-color:#b26a00;color:#b26a00}
-    .chip.na{opacity:.6}
-
-    .status{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;border:1px solid #ddd;background:#fff}
-    .status.safe{border-color:#0a7f3f;color:#0a7f3f}
-    .status.fit{border-color:#0b57d0;color:#0b57d0}
-    .status.up{border-color:#b26a00;color:#b26a00}
-    .status.challenge{border-color:#b00020;color:#b00020}
-    .status.hold{border-color:#888;color:#666}
-
+    .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;background:#fff}
+    .chip.ok{border-color:#cfe7d4;background:#f4fbf6}
+    .chip.mid{border-color:#d6e6ff;background:#f3f8ff}
+    .chip.warn{border-color:#ffe4b5;background:#fff8ec}
+    .chip.bad{border-color:#ffd0d0;background:#fff4f4}
+    .chip.hold{border-color:#e3e3ea;background:#f8f8fb}
     .mobile-list{display:none}
     .mcard{border:1px solid #ececf0;border-radius:18px;padding:14px;margin-top:12px}
     .mtitle{font-size:16px;font-weight:900;line-height:1.35}
@@ -54,20 +37,28 @@
     .cutgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
     .cutitem{border:1px solid #ececf0;border-radius:12px;padding:8px 10px;display:flex;justify-content:space-between;gap:10px}
     .empty{padding:22px;border:1px dashed #d9d9de;border-radius:18px;color:#555;background:#fff}
-
+    .section{margin-top:14px}
+    .sectionTitle{font-weight:900;margin:0 0 10px;font-size:16px}
+    .scoreGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .hint{font-size:13px;opacity:.7;line-height:1.5;margin-top:8px}
+    .rowbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px}
+    .toggle{display:flex;align-items:center;gap:8px;font-weight:900}
+    .toggle input{width:18px;height:18px}
+    .loading{display:flex;gap:10px;align-items:center}
+    .dot{width:10px;height:10px;border-radius:999px;background:#111;opacity:.15;animation:pulse 1.2s infinite}
+    .dot:nth-child(2){animation-delay:.2s}
+    .dot:nth-child(3){animation-delay:.4s}
+    @keyframes pulse{0%,100%{opacity:.15}50%{opacity:.5}}
     @media(max-width:980px){
       .grid{grid-template-columns:1fr 1fr}
-      .score-grid{grid-template-columns:1fr 1fr 1fr}
+      .scoreGrid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:760px){
       .grid{grid-template-columns:1fr}
-      .score-grid{grid-template-columns:1fr 1fr}
       .tablebox{display:none}
       .mobile-list{display:block}
       .title{font-size:24px}
-    }
-    @media(max-width:520px){
-      .score-grid{grid-template-columns:1fr}
+      .scoreGrid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -75,8 +66,40 @@
 <div class="wrap">
   <div class="hero">
     <h1 class="title">대학 정시 검색기</h1>
-    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색과 학생 백분위 비교를 함께 사용할 수 있습니다.</div>
+    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/판정방식 필터로 찾을 수 있어요.</div>
 
+    <!-- 학생 점수 비교 -->
+    <div class="section" style="margin-top:16px">
+      <div class="rowbar">
+        <div class="sectionTitle">학생 점수 입력 (비교/판정)</div>
+        <label class="toggle"><input type="checkbox" id="compareOn" checked /> 비교 켜기</label>
+      </div>
+
+      <div class="scoreGrid">
+        <input id="s_kor" class="control" inputmode="decimal" placeholder="국어 점수" />
+        <input id="s_math" class="control" inputmode="decimal" placeholder="수학 점수" />
+        <input id="s_inq1" class="control" inputmode="decimal" placeholder="탐1 점수" />
+        <input id="s_inq2" class="control" inputmode="decimal" placeholder="탐2 점수" />
+        <input id="s_eng" class="control" inputmode="decimal" placeholder="영어 점수" />
+      </div>
+
+      <div class="rowbar">
+        <div class="chips">
+          <span class="badge" id="studentBadge">학생 점수: 미입력</span>
+          <span class="badge muted" id="judgeRuleHint">판정 기준: 컷 대비 여유(점) 기반</span>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button id="applyStudent" class="btn">적용</button>
+          <button id="resetStudent" class="btn">학생 점수 초기화</button>
+        </div>
+      </div>
+      <div class="hint">
+        • 판정은 각 과목 컷과 비교하여 <b>가장 불리한 과목(최소 여유)</b>을 기준으로 산정합니다.<br/>
+        • 기준(기본값): 최소 여유 ≥ +5 → <b>안정</b>, 0~+4.9 → <b>적정</b>, -2~-0.1 → <b>상향</b>, ≤ -2 → <b>도전</b>, 입력/데이터 부족 → <b>판정 보류</b>
+      </div>
+    </div>
+
+    <!-- 검색/필터 -->
     <div class="grid">
       <input id="q" class="control" placeholder="대학명 / 학과명 / 메모 검색" />
       <select id="year" class="control"><option value="">전체 연도</option></select>
@@ -85,289 +108,197 @@
       <select id="rule" class="control"><option value="">전체 방식</option></select>
     </div>
 
-    <div class="panel" style="margin-top:16px;padding:14px">
-      <div class="section-title">학생 백분위 입력</div>
-      <div class="section-sub">2과목 이상 입력하면 더 정확하게 비교됩니다.</div>
-
-      <div class="score-grid">
-        <input id="s_kor" class="control" type="number" step="0.1" placeholder="국어 백분위" />
-        <input id="s_math" class="control" type="number" step="0.1" placeholder="수학 백분위" />
-        <input id="s_inq1" class="control" type="number" step="0.1" placeholder="탐1 백분위" />
-        <input id="s_inq2" class="control" type="number" step="0.1" placeholder="탐2 백분위" />
-        <input id="s_eng" class="control" type="number" step="0.1" placeholder="영어 백분위" />
-      </div>
-
-      <div class="bar">
-        <div class="chips">
-          <span class="badge" id="studentInputBadge">학생 점수 미입력</span>
-        </div>
-        <button id="resetScoreBtn" class="btn" type="button">학생 점수 초기화</button>
-      </div>
-
-      <div class="tabs" id="compareTabs">
-        <button class="tab active" data-tab="all" type="button">전체</button>
-        <button class="tab" data-tab="safe" type="button">안정</button>
-        <button class="tab" data-tab="fit" type="button">적정</button>
-        <button class="tab" data-tab="up" type="button">상향</button>
-        <button class="tab" data-tab="challenge" type="button">도전</button>
-        <button class="tab" data-tab="hold" type="button">판정 보류</button>
-      </div>
-    </div>
-
     <div class="bar">
       <div class="chips">
         <span class="badge" id="countBadge">0건</span>
-        <span class="badge">학생 입력 + 검색 동시 지원</span>
+        <span class="badge" id="dataBadge">데이터 로딩중</span>
       </div>
-      <button id="resetBtn" class="btn" type="button">필터 초기화</button>
+      <button id="resetBtn" class="btn">필터 초기화</button>
     </div>
   </div>
 
   <div class="panel" id="resultPanel">
-    <div class="tablebox">
+    <div id="statusBox" class="empty">
+      <div class="loading">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div><b>데이터를 불러오는 중</b>입니다…</div>
+      </div>
+      <div class="hint" style="margin-top:10px">
+        같은 폴더에 <code>univ_search_data.json</code> 파일이 있어야 합니다. (예: <code>univ-search/univ_search_data.json</code>)
+      </div>
+    </div>
+
+    <div class="tablebox" id="tableBox" style="display:none">
       <table>
         <thead>
           <tr>
-            <th>판정</th>
             <th>연도</th>
             <th>계열</th>
             <th>대학</th>
             <th>학과</th>
             <th>방식</th>
-            <th>과목별 비교</th>
-            <th class="num">비교 과목수</th>
-            <th class="num">평균 차이</th>
+            <th class="num">국어컷</th>
+            <th class="num">수학컷</th>
+            <th class="num">탐1컷</th>
+            <th class="num">탐2컷</th>
+            <th class="num">영어컷</th>
+            <th>판정</th>
+            <th class="num">최소여유</th>
             <th>메모</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <div class="mobile-list" id="mobileList"></div>
+
+    <div class="mobile-list" id="mobileList" style="display:none"></div>
   </div>
 </div>
 
 <script>
-const DATA = [
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "응용통계학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 93, "cut_inq1": 87, "cut_inq2": 92, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "지구시스템과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "천문우주학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "대기과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "화공생명공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 93, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "전기전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "건축공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "도시공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "사회환경시스템공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 91, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "산업공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "시스템반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "디스플레이융합공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "연세대", "major": "생명과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 96, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "첨단컴퓨팅학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 91, "cut_inq2": 92, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "IT융합공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "지능형 반도체전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "연세대", "major": "융합과학공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 77, "cut_inq2": 77, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "연세대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 100, "cut_inq1": 99, "cut_inq2": 100, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "연세대", "major": "치의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "연세대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 77, "cut_inq2": 83, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "연세대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "생명과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 93.6, "cut_inq2": 91.2, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "생명공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "식품공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 91.6, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "환경생태공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 97, "cut_inq2": 90, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "식품자원경제학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 96.2, "cut_inq1": 86, "cut_inq2": 91.2, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "통계학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.9, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 93.7, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91.5, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 96, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "고려대", "major": "지구환경과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89.8, "cut_math": 98, "cut_inq1": 91.2, "cut_inq2": 88.8, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "화공생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.9, "cut_math": 97.9, "cut_inq1": 94, "cut_inq2": 90.9, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "건축사회환경공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.4, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "건축학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 87.9, "cut_inq2": 90.1, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 90.8, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "산업경영공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 92.7, "cut_inq1": 85.2, "cut_inq2": 85, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "전기전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93.3, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "융합에너지공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.3, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 94.2, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "차세대통신학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 88, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "고려대", "major": "의과대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 99, "cut_inq1": 98, "cut_inq2": 98.4, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "고려대", "major": "간호대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 93, "cut_inq1": 93.6, "cut_inq2": 90.6, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "컴퓨터학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97.3, "cut_inq1": 93, "cut_inq2": 91.9, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "데이터과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "인공지능학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "바이오공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "바이오시스템의과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "보건환경융합과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 92.4, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "기타", "univ": "고려대", "major": "자유공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96.6, "cut_math": 97, "cut_inq1": 88, "cut_inq2": 91, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "기타", "univ": "고려대", "major": "사이버국방학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97.5, "cut_inq1": 90, "cut_inq2": 89, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "스마트모빌리티학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "고려대", "major": "학부대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 98, "cut_inq1": 83.9, "cut_inq2": 92.8, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "성균관대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 98, "cut_inq1": 100, "cut_inq2": 94, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "성균관대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 100, "cut_inq1": 98, "cut_inq2": 100, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "성균관대", "major": "자연과학계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 96, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "자유전공계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 99, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "지능형 소프트웨어학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 98, "cut_inq1": 87, "cut_inq2": 97, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "컴퓨터 교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "건설환경공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 93, "cut_inq1": 99, "cut_inq2": 99, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "공학계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 100, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "소프트웨어학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 99, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "성균관대", "major": "수학교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "전자전기공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "글로벌바이오메디컬공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "반도체융합공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "양자정보공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "에너지학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 96, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "서강대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "서강대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 99, "cut_inq1": 72, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "서강대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 97, "cut_inq1": 79, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "서강대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 98, "cut_inq1": 85, "cut_inq2": 62, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공하", "univ": "서강대", "major": "science기반 자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 95, "cut_inq1": 88, "cut_inq2": 91, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "전자공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 75, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "화공생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 75, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "기계공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "컴퓨터 공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 98, "cut_inq1": 75, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "인공지능학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 93, "cut_inq1": 81, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "시스템반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 100, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "서강대", "major": "AI기반 자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건축학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 99, "cut_inq1": 69, "cut_inq2": 94, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건축공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 97, "cut_inq1": 72, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건설환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 99, "cut_inq2": 93, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "도시공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "자원환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "융합전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 99, "cut_inq1": 83, "cut_inq2": 75, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "컴퓨터소프트웨어학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "전기공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 98, "cut_inq1": 81, "cut_inq2": 77, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "바이오메디컬공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "유기나노공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 99, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "원자력공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 81, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "산업공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 98, "cut_inq1": 99, "cut_inq2": 97, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "한양대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 100, "cut_inq1": 84, "cut_inq2": 96, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "한양대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 69, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 98, "cut_inq1": 77, "cut_inq2": 77, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 98, "cut_inq1": 64, "cut_inq2": 64, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "수학교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 100, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "식품영양학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 81, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 99, "cut_inq1": 96, "cut_inq2": 71, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 79, "cut_inq2": 94, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "에너지공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 75, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "미래자동차공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "데이터사이언스학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 98, "cut_inq1": 96, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 100, "cut_inq1": 77, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 98, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "한양대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 92, "cut_inq1": 99, "cut_inq2": 79, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "한양대", "major": "자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 95, "cut_inq1": 81, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 85, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 90, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 99, "cut_inq2": 98, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "AI학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 97, "cut_inq1": 98, "cut_inq2": 77, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "약학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 95, "cut_inq1": 100, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "간호학과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 75, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "생명자원공학부(동물)", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 66, "cut_inq1": 75, "cut_inq2": 81, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "생명자원공학부(식물)", "ruleMode": "each_subject_meets_cut", "cut_kor": 65, "cut_math": 78, "cut_inq1": 77, "cut_inq2": 75, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "식품공학부(식품공학)", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 81, "cut_inq1": 83, "cut_inq2": 77, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "식품공학부(식품영양)", "ruleMode": "each_subject_meets_cut", "cut_kor": 67, "cut_math": 87, "cut_inq1": 85, "cut_inq2": 83, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "시스템생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 59, "cut_inq1": 85, "cut_inq2": 47, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 75, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 98, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "사회기반시스템공학부(도시시스템)", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 70, "cut_inq1": 92, "cut_inq2": 92, "cut_eng": 60, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "사회기반시스템공학부(건설환경)", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "공ㄴ학", "univ": "중앙대", "major": "건축학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 93, "cut_inq1": 97, "cut_inq2": 90, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "에너지시스템공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 90, "cut_inq1": 99, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "응용통계학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 94, "cut_eng": 60, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "산업보안학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 78, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "의학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 100, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "간호학과(인문)", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 93, "cut_inq1": 98, "cut_inq2": 78, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "첨단소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 65, "cut_math": 92, "cut_inq1": 75, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "창의ICT공과대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 85, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 70, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "소프트웨어학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 93, "cut_inq1": 98, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "자율전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 85, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "빅데이터응용학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 85, "cut_inq1": 90, "cut_inq2": 92, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "식품영양학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "경희대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "경희대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "경희대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "경희대", "major": "생물학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 93, "cut_inq1": 87, "cut_inq2": 87, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "자연", "univ": "경희대", "major": "지리학과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 81, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "미래정보디스플레이학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 80, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "전자정보공학부 전자공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "전자정보공학부 반도체공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "생체의공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 90, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "컴퓨터공학부 컴퓨터공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "컴퓨터공학부 인공지능학", "ruleMode": "each_subject_meets_cut", "cut_kor": 80, "cut_math": 93, "cut_inq1": 84, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "소프트웨어융합학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 96, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "약과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한의예과(인문)", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 96, "cut_inq1": 99, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "기계공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 92, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "산업경영공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 92, "cut_inq1": 85, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "원자력공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 90, "cut_inq1": 88, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "신소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "사회기반시스템공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 79, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "건축공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "환경학및 환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 84, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "건축학과(5년제)", "ruleMode": "each_subject_meets_cut", "cut_kor": 77, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 93, "cut_inq1": 79, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 81, "cut_inq2": 85, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "우주과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 80, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "유전생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "식품생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 87, "cut_inq2": 91, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "융합바이오 신소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 83, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "공학", "univ": "경희대", "major": "스마트팜과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 92, "cut_inq1": 85, "cut_inq2": 88, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 100, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한의예과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 96, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "치의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 80, "note": ""},
-  {"year": 2026, "group": "보건", "univ": "경희대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 96, "cut_eng": 80, "note": ""}
-];
+/** -----------------------------
+ *  0) 데이터 로딩 (외부 JSON)
+ * ----------------------------- */
+let DATA = [];       // 실제 데이터
+let DATA_READY = false;
 
+async function loadData() {
+  try {
+    // GitHub Pages 캐시로 "업데이트했는데 옛 데이터" 보이는 걸 방지
+    const url = "./univ_search_data.json?ts=" + Date.now();
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
+    if (!Array.isArray(json)) throw new Error("JSON 배열 형식이 아닙니다.");
+    DATA = json;
+    DATA_READY = true;
+
+    $("#statusBox").style.display = "none";
+    $("#tableBox").style.display = "";
+    $("#mobileList").style.display = "";
+
+    $("#dataBadge").textContent = `데이터 ${DATA.length}건`;
+    initFilters();
+    render();
+  } catch (err) {
+    $("#statusBox").innerHTML = `
+      <b>데이터를 불러오지 못했습니다.</b><br/>
+      <div class="hint" style="margin-top:10px">
+        • 같은 폴더에 <code>univ_search_data.json</code>이 있는지 확인해 주세요.<br/>
+        • 파일명이 대/소문자까지 정확히 일치해야 합니다.<br/>
+        • 오류: <code>${esc(err.message || err)}</code>
+      </div>
+    `;
+    $("#dataBadge").textContent = "데이터 오류";
+  }
+}
+
+/** -----------------------------
+ *  1) 유틸
+ * ----------------------------- */
 const $ = (s) => document.querySelector(s);
-const $$ = (s) => document.querySelectorAll(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const toNum = (v) => {
+  const x = parseFloat(String(v).replace(/,/g,"").trim());
+  return Number.isFinite(x) ? x : null;
+};
 const numText = (v) => (v === null || v === undefined || v === "") ? "-" : String(v);
 
+/** -----------------------------
+ *  2) 상태
+ * ----------------------------- */
 const state = {
   q: "",
   year: "",
   group: "",
   univ: "",
   rule: "",
-  compareTab: "all"
+  compareOn: true,
+  student: { kor:null, math:null, inq1:null, inq2:null, eng:null }
 };
 
-function parseNum(v){
-  if(v === null || v === undefined || v === "") return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
+function updateStudentBadge() {
+  const s = state.student;
+  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
+  if (!filled) {
+    $("#studentBadge").textContent = "학생 점수: 미입력";
+    return;
+  }
+  $("#studentBadge").textContent = `학생 점수: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.eng}`;
 }
 
-function getStudentScores(){
-  return {
-    kor: parseNum($("#s_kor").value),
-    math: parseNum($("#s_math").value),
-    inq1: parseNum($("#s_inq1").value),
-    inq2: parseNum($("#s_inq2").value),
-    eng: parseNum($("#s_eng").value)
-  };
+function ruleLabel(ruleMode) {
+  const m = String(ruleMode || "");
+  if (m === "each_subject_meets_cut") return "과목별 컷 충족";
+  if (m === "total_meets_cut") return "총점 컷";
+  if (!m) return "-";
+  return m; // 혹시 다른 값이 들어오면 원문 그대로 보여줌
 }
 
-function hasStudentScores(scores){
-  return Object.values(scores).some(v => v !== null);
+function judgeToChip(j) {
+  if (j === "안정") return "chip ok";
+  if (j === "적정") return "chip mid";
+  if (j === "상향") return "chip warn";
+  if (j === "도전") return "chip bad";
+  return "chip hold"; // 판정 보류
 }
 
+/** -----------------------------
+ *  3) 판정 로직
+ *  - 최소 여유(minMargin) 기준
+ * ----------------------------- */
+function judgeRow(row) {
+  if (!state.compareOn) return { judge:"-", minMargin:null };
+
+  const s = state.student;
+  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
+  if (!filled) return { judge:"판정 보류", minMargin:null, reason:"학생 점수 미입력" };
+
+  // row 컷 값
+  const ck = toNum(row.cut_kor);
+  const cm = toNum(row.cut_math);
+  const c1 = toNum(row.cut_inq1);
+  const c2 = toNum(row.cut_inq2);
+  const ce = toNum(row.cut_eng);
+
+  // 컷 데이터 부족
+  if ([ck,cm,c1,c2,ce].some(v => v === null)) {
+    return { judge:"판정 보류", minMargin:null, reason:"컷 데이터 부족" };
+  }
+
+  // 현재는 ruleMode가 each_subject_meets_cut일 때를 기본 지원
+  // 다른 ruleMode는 일단 보류 처리(추후 확장)
+  const rm = String(row.ruleMode || "");
+  if (rm && rm !== "each_subject_meets_cut") {
+    return { judge:"판정 보류", minMargin:null, reason:"미지원 방식" };
+  }
+
+  // 여유 계산 (학생-컷)
+  const margins = [
+    s.kor - ck,
+    s.math - cm,
+    s.inq1 - c1,
+    s.inq2 - c2,
+    s.eng - ce
+  ];
+  const minMargin = Math.min(...margins);
+
+  // 기준(기본값)
+  let judge = "판정 보류";
+  if (minMargin >= 5) judge = "안정";
+  else if (minMargin >= 0) judge = "적정";
+  else if (minMargin > -2) judge = "상향";
+  else judge = "도전";
+
+  return { judge, minMargin };
+}
+
+/** -----------------------------
+ *  4) 필터
+ * ----------------------------- */
 function uniqueSorted(key) {
-  return [...new Set(DATA.map(x => x[key]).filter(Boolean))].sort((a,b) => String(a).localeCompare(String(b), "ko"));
+  return [...new Set(DATA.map(x => x[key]).filter(v => v !== null && v !== undefined && v !== ""))]
+    .sort((a,b) => String(a).localeCompare(String(b), "ko"));
 }
 
 function fillSelect(id, items, placeholder) {
@@ -375,274 +306,170 @@ function fillSelect(id, items, placeholder) {
   el.innerHTML = `<option value="">${placeholder}</option>` + items.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
 }
 
-function compareRow(row, scores){
-  const subjectDefs = [
-    { label:"국어", student:scores.kor, cut:parseNum(row.cut_kor) },
-    { label:"수학", student:scores.math, cut:parseNum(row.cut_math) },
-    { label:"탐1", student:scores.inq1, cut:parseNum(row.cut_inq1) },
-    { label:"탐2", student:scores.inq2, cut:parseNum(row.cut_inq2) },
-    { label:"영어", student:scores.eng, cut:parseNum(row.cut_eng) }
-  ];
-
-  let compared = 0;
-  let diffSum = 0;
-  let missCount = 0;
-
-  const details = subjectDefs.map(x => {
-    if(x.student === null || x.cut === null){
-      return { ...x, diff:null, state:"na" };
-    }
-
-    const diff = x.student - x.cut;
-    compared += 1;
-    diffSum += diff;
-    if(diff < 0) missCount += 1;
-
-    return {
-      ...x,
-      diff,
-      state: diff >= 0 ? "ok" : "ng"
-    };
-  });
-
-  const avgDiff = compared ? (diffSum / compared) : null;
-
-  let code = "hold";
-
-  if (compared < 2) {
-    code = "hold";
-  } else if (missCount >= 2 || avgDiff < -3) {
-    code = "challenge";
-  } else if (missCount >= 1 || avgDiff < 0) {
-    code = "up";
-  } else if (avgDiff >= 3) {
-    code = "safe";
-  } else {
-    code = "fit";
-  }
-
-  return {
-    code,
-    details,
-    compared,
-    missCount,
-    avgDiff
-  };
-}
-
-function statusHtml(code){
-  if(code === "safe") return `<span class="status safe">안정</span>`;
-  if(code === "fit") return `<span class="status fit">적정</span>`;
-  if(code === "up") return `<span class="status up">상향</span>`;
-  if(code === "challenge") return `<span class="status challenge">도전</span>`;
-  return `<span class="status hold">판정 보류</span>`;
-}
-
-function diffText(v){
-  if(v === null || v === undefined) return "-";
-  return v >= 0 ? `+${v.toFixed(1)}` : `${v.toFixed(1)}`;
-}
-
-function compareChipsHtml(comp){
-  return `<div class="chips">` + comp.details.map(d => {
-    const cls = d.state === "ok" ? "chip ok" : (d.state === "ng" ? "chip ng" : "chip na");
-    const text = (d.student === null || d.cut === null)
-      ? `${d.label} 보류`
-      : `${d.label} ${d.student} / 컷 ${d.cut} / ${diffText(d.diff)}`;
-    return `<span class="${cls}">${esc(text)}</span>`;
-  }).join("") + `</div>`;
-}
-
-function updateStudentBadge(scores){
-  const badge = $("#studentInputBadge");
-  if(!hasStudentScores(scores)){
-    badge.textContent = "학생 점수 미입력";
-    return;
-  }
-  const filled = [];
-  if(scores.kor !== null) filled.push(`국어 ${scores.kor}`);
-  if(scores.math !== null) filled.push(`수학 ${scores.math}`);
-  if(scores.inq1 !== null) filled.push(`탐1 ${scores.inq1}`);
-  if(scores.inq2 !== null) filled.push(`탐2 ${scores.inq2}`);
-  if(scores.eng !== null) filled.push(`영어 ${scores.eng}`);
-  badge.textContent = filled.join(" · ");
-}
-
 function initFilters() {
   fillSelect("#year", uniqueSorted("year"), "전체 연도");
   fillSelect("#group", uniqueSorted("group"), "전체 계열");
   fillSelect("#univ", uniqueSorted("univ"), "전체 대학");
-  fillSelect("#rule", uniqueSorted("ruleMode"), "전체 방식");
+  fillSelect("#rule", uniqueSorted("ruleMode").map(x => x || "-"), "전체 방식");
 
   $("#q").addEventListener("input", (e) => {
     state.q = e.target.value.trim().toLowerCase();
     render();
   });
-  $("#year").addEventListener("change", (e) => {
-    state.year = e.target.value;
-    render();
-  });
-  $("#group").addEventListener("change", (e) => {
-    state.group = e.target.value;
-    render();
-  });
-  $("#univ").addEventListener("change", (e) => {
-    state.univ = e.target.value;
-    render();
-  });
+  $("#year").addEventListener("change", (e) => { state.year = e.target.value; render(); });
+  $("#group").addEventListener("change", (e) => { state.group = e.target.value; render(); });
+  $("#univ").addEventListener("change", (e) => { state.univ = e.target.value; render(); });
   $("#rule").addEventListener("change", (e) => {
     state.rule = e.target.value;
+    if (state.rule === "-") state.rule = ""; // '-'는 실제 필터로 쓰지 않음(빈값 처리)
     render();
-  });
-
-  ["#s_kor","#s_math","#s_inq1","#s_inq2","#s_eng"].forEach(id => {
-    $(id).addEventListener("input", render);
   });
 
   $("#resetBtn").addEventListener("click", () => {
-    state.q = "";
-    state.year = "";
-    state.group = "";
-    state.univ = "";
-    state.rule = "";
-    $("#q").value = "";
-    $("#year").value = "";
-    $("#group").value = "";
-    $("#univ").value = "";
-    $("#rule").value = "";
+    state.q = ""; state.year = ""; state.group = ""; state.univ = ""; state.rule = "";
+    $("#q").value = ""; $("#year").value = ""; $("#group").value = ""; $("#univ").value = ""; $("#rule").value = "";
     render();
   });
 
-  $("#resetScoreBtn").addEventListener("click", () => {
+  // 비교 토글
+  $("#compareOn").addEventListener("change", (e) => {
+    state.compareOn = !!e.target.checked;
+    render();
+  });
+
+  // 학생 점수 적용
+  $("#applyStudent").addEventListener("click", () => {
+    state.student.kor  = toNum($("#s_kor").value);
+    state.student.math = toNum($("#s_math").value);
+    state.student.inq1 = toNum($("#s_inq1").value);
+    state.student.inq2 = toNum($("#s_inq2").value);
+    state.student.eng  = toNum($("#s_eng").value);
+    updateStudentBadge();
+    render();
+  });
+
+  // 학생 점수 초기화
+  $("#resetStudent").addEventListener("click", () => {
     $("#s_kor").value = "";
     $("#s_math").value = "";
     $("#s_inq1").value = "";
     $("#s_inq2").value = "";
     $("#s_eng").value = "";
-    state.compareTab = "all";
-    syncTabs();
+    state.student = { kor:null, math:null, inq1:null, inq2:null, eng:null };
+    updateStudentBadge();
     render();
   });
 
-  $$("#compareTabs .tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      state.compareTab = btn.dataset.tab;
-      syncTabs();
-      render();
-    });
-  });
+  updateStudentBadge();
 }
 
-function syncTabs(){
-  $$("#compareTabs .tab").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.tab === state.compareTab);
-  });
-}
-
+/** -----------------------------
+ *  5) 필터링/정렬
+ * ----------------------------- */
 function filteredRows() {
-  const scores = getStudentScores();
-  const scoreMode = hasStudentScores(scores);
-
-  let rows = DATA.filter(x => {
+  const rows = DATA.filter(x => {
     if (state.year && String(x.year) !== state.year) return false;
-    if (state.group && x.group !== state.group) return false;
-    if (state.univ && x.univ !== state.univ) return false;
-    if (state.rule && x.ruleMode !== state.rule) return false;
+    if (state.group && String(x.group) !== state.group) return false;
+    if (state.univ && String(x.univ) !== state.univ) return false;
+    if (state.rule && String(x.ruleMode) !== state.rule) return false;
+
     if (state.q) {
       const blob = [x.univ, x.major, x.note, x.group, x.ruleMode].join(" ").toLowerCase();
       if (!blob.includes(state.q)) return false;
     }
     return true;
-  }).map(x => {
-    const comp = compareRow(x, scores);
-    return { ...x, _comp: comp };
   });
 
-  if(scoreMode && state.compareTab !== "all"){
-    rows = rows.filter(x => x._comp.code === state.compareTab);
-  }
+  // 판정 우선순위(정렬용)
+  const order = {"안정":0,"적정":1,"상향":2,"도전":3,"판정 보류":4,"-":5};
 
-  rows.sort((a,b) => {
-    const order = {
-      safe: 4,
-      fit: 3,
-      up: 2,
-      challenge: 1,
-      hold: 0
-    };
+  return rows.sort((a,b) => {
+    // 1) 연도 최신 우선
+    const y = (toNum(b.year) || 0) - (toNum(a.year) || 0);
+    if (y !== 0) return y;
 
-    if(scoreMode){
-      const oa = order[a._comp.code] ?? 0;
-      const ob = order[b._comp.code] ?? 0;
-      if(ob !== oa) return ob - oa;
-
-      const da = a._comp.avgDiff ?? -9999;
-      const db = b._comp.avgDiff ?? -9999;
-      if(db !== da) return db - da;
+    // 2) 비교 켜져 있으면 판정 좋은 순
+    if (state.compareOn) {
+      const ja = judgeRow(a).judge;
+      const jb = judgeRow(b).judge;
+      const d = (order[ja] ?? 9) - (order[jb] ?? 9);
+      if (d !== 0) return d;
     }
 
-    const y = (b.year || 0) - (a.year || 0);
-    if (y !== 0) return y;
-    const u = String(a.univ).localeCompare(String(b.univ), "ko");
+    // 3) 대학/학과 가나다
+    const u = String(a.univ||"").localeCompare(String(b.univ||""), "ko");
     if (u !== 0) return u;
-    return String(a.major).localeCompare(String(b.major), "ko");
+    return String(a.major||"").localeCompare(String(b.major||""), "ko");
   });
-
-  return rows;
 }
 
+/** -----------------------------
+ *  6) 렌더
+ * ----------------------------- */
 function render() {
-  const scores = getStudentScores();
-  updateStudentBadge(scores);
+  if (!DATA_READY) return;
 
   const rows = filteredRows();
   $("#countBadge").textContent = `${rows.length}건`;
 
   if (!rows.length) {
-    $("#tbody").innerHTML = `<tr><td colspan="10"><div class="empty">조건에 맞는 데이터가 없습니다.</div></td></tr>`;
+    $("#tbody").innerHTML = `<tr><td colspan="13"><div class="empty">조건에 맞는 데이터가 없습니다.</div></td></tr>`;
     $("#mobileList").innerHTML = `<div class="empty">조건에 맞는 데이터가 없습니다.</div>`;
     return;
   }
 
-  $("#tbody").innerHTML = rows.map(x => `
-    <tr>
-      <td>${statusHtml(x._comp.code)}</td>
-      <td>${esc(x.year)}</td>
-      <td>${esc(x.group)}</td>
-      <td>${esc(x.univ)}</td>
-      <td>${esc(x.major)}</td>
-      <td>${esc(x.ruleMode)}</td>
-      <td>${compareChipsHtml(x._comp)}</td>
-      <td class="num">${esc(x._comp.compared)}</td>
-      <td class="num">${esc(diffText(x._comp.avgDiff))}</td>
-      <td style="white-space:normal">${esc(x.note || "-")}</td>
-    </tr>
-  `).join("");
+  $("#tbody").innerHTML = rows.map(x => {
+    const j = judgeRow(x);
+    const judgeText = j.judge || "판정 보류";
+    const minMarginText = (j.minMargin === null || j.minMargin === undefined) ? "-" : (Math.round(j.minMargin * 10) / 10);
 
-  $("#mobileList").innerHTML = rows.map(x => `
-    <div class="mcard">
-      <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-        <div>
-          <div class="mtitle">${esc(x.univ)} · ${esc(x.major)}</div>
-          <div class="msub">${esc(x.year)} · ${esc(x.group)} · ${esc(x.ruleMode)}</div>
+    return `
+      <tr>
+        <td>${esc(x.year)}</td>
+        <td>${esc(x.group)}</td>
+        <td>${esc(x.univ)}</td>
+        <td>${esc(x.major)}</td>
+        <td>${esc(ruleLabel(x.ruleMode))}</td>
+        <td class="num">${esc(numText(x.cut_kor))}</td>
+        <td class="num">${esc(numText(x.cut_math))}</td>
+        <td class="num">${esc(numText(x.cut_inq1))}</td>
+        <td class="num">${esc(numText(x.cut_inq2))}</td>
+        <td class="num">${esc(numText(x.cut_eng))}</td>
+        <td><span class="${judgeToChip(judgeText)}">${esc(judgeText)}</span></td>
+        <td class="num">${esc(minMarginText)}</td>
+        <td style="white-space:normal">${esc(x.note || "-")}</td>
+      </tr>
+    `;
+  }).join("");
+
+  $("#mobileList").innerHTML = rows.map(x => {
+    const j = judgeRow(x);
+    const judgeText = j.judge || "판정 보류";
+    const minMarginText = (j.minMargin === null || j.minMargin === undefined) ? "-" : (Math.round(j.minMargin * 10) / 10);
+
+    return `
+      <div class="mcard">
+        <div class="mtitle">${esc(x.univ)} · ${esc(x.major)}</div>
+        <div class="msub">${esc(x.year)} · ${esc(x.group)} · ${esc(ruleLabel(x.ruleMode))}</div>
+        <div style="margin-top:10px">
+          <span class="${judgeToChip(judgeText)}">${esc(judgeText)}</span>
+          <span class="chip hold">최소여유 ${esc(minMarginText)}</span>
         </div>
-        <div>${statusHtml(x._comp.code)}</div>
+        <div class="cutgrid">
+          <div class="cutitem"><span>국어컷</span><strong>${esc(numText(x.cut_kor))}</strong></div>
+          <div class="cutitem"><span>수학컷</span><strong>${esc(numText(x.cut_math))}</strong></div>
+          <div class="cutitem"><span>탐1컷</span><strong>${esc(numText(x.cut_inq1))}</strong></div>
+          <div class="cutitem"><span>탐2컷</span><strong>${esc(numText(x.cut_inq2))}</strong></div>
+          <div class="cutitem"><span>영어컷</span><strong>${esc(numText(x.cut_eng))}</strong></div>
+        </div>
+        ${x.note ? `<div class="msub" style="margin-top:10px">${esc(x.note)}</div>` : ""}
       </div>
-
-      <div class="msub" style="margin-top:10px">비교 과목 ${esc(x._comp.compared)}개 · 평균차이 ${esc(diffText(x._comp.avgDiff))}</div>
-
-      <div style="margin-top:10px">
-        ${compareChipsHtml(x._comp)}
-      </div>
-
-      ${x.note ? `<div class="msub" style="margin-top:10px">${esc(x.note)}</div>` : ""}
-    </div>
-  `).join("");
+    `;
+  }).join("");
 }
 
-initFilters();
-syncTabs();
-render();
+// 시작
+loadData();
 </script>
 </body>
 </html>
