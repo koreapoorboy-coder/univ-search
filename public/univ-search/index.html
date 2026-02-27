@@ -11,18 +11,30 @@
     .hero{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:20px 20px 16px}
     .title{font-size:28px;font-weight:900;margin:0 0 8px}
     .sub{opacity:.72;line-height:1.6}
+
+    .section{margin-top:16px}
+    .sectionTitle{font-weight:900;margin:0 0 10px;font-size:16px}
+
     .grid{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+    .scoreGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
     .control{width:100%;padding:12px 14px;border:1px solid #d9d9de;border-radius:14px;background:#fff;font-size:14px}
     .bar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px}
+    .rowbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+
     .badge{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:7px 12px;background:#fff;font-weight:800}
     .btn{border:1px solid #111;border-radius:12px;padding:10px 14px;background:#fff;font-weight:900;cursor:pointer}
+    .btn:hover{background:#fafafa}
+
     .panel{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:16px;margin-top:14px}
     .tablebox{overflow:auto}
-    table{width:100%;min-width:1120px;border-collapse:collapse}
+    table{width:100%;min-width:1160px;border-collapse:collapse}
     th,td{padding:12px 10px;border-bottom:1px solid #efeff2;text-align:left;font-size:14px;vertical-align:top;white-space:nowrap}
     th{position:sticky;top:0;background:#fafafb;font-weight:900;z-index:1}
     .num{text-align:right}
+
     .muted{opacity:.62}
+    .hint{font-size:13px;opacity:.72;line-height:1.55;margin-top:8px}
+
     .chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
     .chip{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;background:#fff}
     .chip.ok{border-color:#cfe7d4;background:#f4fbf6}
@@ -30,35 +42,44 @@
     .chip.warn{border-color:#ffe4b5;background:#fff8ec}
     .chip.bad{border-color:#ffd0d0;background:#fff4f4}
     .chip.hold{border-color:#e3e3ea;background:#f8f8fb}
-    .mobile-list{display:none}
-    .mcard{border:1px solid #ececf0;border-radius:18px;padding:14px;margin-top:12px}
-    .mtitle{font-size:16px;font-weight:900;line-height:1.35}
-    .msub{margin-top:4px;font-size:13px;opacity:.7;line-height:1.5}
-    .cutgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
-    .cutitem{border:1px solid #ececf0;border-radius:12px;padding:8px 10px;display:flex;justify-content:space-between;gap:10px}
-    .empty{padding:22px;border:1px dashed #d9d9de;border-radius:18px;color:#555;background:#fff}
-    .section{margin-top:14px}
-    .sectionTitle{font-weight:900;margin:0 0 10px;font-size:16px}
-    .scoreGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-    .hint{font-size:13px;opacity:.7;line-height:1.5;margin-top:8px}
-    .rowbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:10px}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .tab{
+      border:1px solid #d9d9de;border-radius:999px;padding:9px 13px;background:#fff;
+      font-weight:900;cursor:pointer
+    }
+    .tab.active{border-color:#111;background:#111;color:#fff}
+    .tab small{font-size:12px;opacity:.85;margin-left:4px}
+
     .toggle{display:flex;align-items:center;gap:8px;font-weight:900}
     .toggle input{width:18px;height:18px}
+
+    .empty{padding:22px;border:1px dashed #d9d9de;border-radius:18px;color:#555;background:#fff}
     .loading{display:flex;gap:10px;align-items:center}
     .dot{width:10px;height:10px;border-radius:999px;background:#111;opacity:.15;animation:pulse 1.2s infinite}
     .dot:nth-child(2){animation-delay:.2s}
     .dot:nth-child(3){animation-delay:.4s}
     @keyframes pulse{0%,100%{opacity:.15}50%{opacity:.5}}
+
+    .mobile-list{display:none}
+    .mcard{border:1px solid #ececf0;border-radius:18px;padding:14px;margin-top:12px;background:#fff}
+    .mtitle{font-size:16px;font-weight:900;line-height:1.35}
+    .msub{margin-top:4px;font-size:13px;opacity:.7;line-height:1.5}
+    .cutgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+    .cutitem{border:1px solid #ececf0;border-radius:12px;padding:8px 10px;display:flex;justify-content:space-between;gap:10px}
+
     @media(max-width:980px){
       .grid{grid-template-columns:1fr 1fr}
       .scoreGrid{grid-template-columns:1fr 1fr}
     }
     @media(max-width:760px){
       .grid{grid-template-columns:1fr}
+      .scoreGrid{grid-template-columns:1fr}
       .tablebox{display:none}
       .mobile-list{display:block}
       .title{font-size:24px}
-      .scoreGrid{grid-template-columns:1fr}
+      .tabs{overflow-x:auto;flex-wrap:nowrap}
+      .tabs::-webkit-scrollbar{display:none}
     }
   </style>
 </head>
@@ -66,10 +87,9 @@
 <div class="wrap">
   <div class="hero">
     <h1 class="title">대학 정시 검색기</h1>
-    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/판정방식 필터로 찾을 수 있어요.</div>
+    <div class="sub">배부용 조회 전용 화면입니다. 대학명·학과명 검색, 연도/계열/대학/방식 필터와 학생 점수 비교 판정을 함께 볼 수 있습니다.</div>
 
-    <!-- 학생 점수 비교 -->
-    <div class="section" style="margin-top:16px">
+    <div class="section">
       <div class="rowbar">
         <div class="sectionTitle">학생 점수 입력 (비교/판정)</div>
         <label class="toggle"><input type="checkbox" id="compareOn" checked /> 비교 켜기</label>
@@ -86,20 +106,19 @@
       <div class="rowbar">
         <div class="chips">
           <span class="badge" id="studentBadge">학생 점수: 미입력</span>
-          <span class="badge muted" id="judgeRuleHint">판정 기준: 컷 대비 여유(점) 기반</span>
+          <span class="badge">판정 기준: 최소 여유(학생점수-컷)</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button id="applyStudent" class="btn">적용</button>
           <button id="resetStudent" class="btn">학생 점수 초기화</button>
         </div>
       </div>
+
       <div class="hint">
-        • 판정은 각 과목 컷과 비교하여 <b>가장 불리한 과목(최소 여유)</b>을 기준으로 산정합니다.<br/>
-        • 기준(기본값): 최소 여유 ≥ +5 → <b>안정</b>, 0~+4.9 → <b>적정</b>, -2~-0.1 → <b>상향</b>, ≤ -2 → <b>도전</b>, 입력/데이터 부족 → <b>판정 보류</b>
+        기준: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b>, 입력 또는 데이터 부족 = <b>판정 보류</b>
       </div>
     </div>
 
-    <!-- 검색/필터 -->
     <div class="grid">
       <input id="q" class="control" placeholder="대학명 / 학과명 / 메모 검색" />
       <select id="year" class="control"><option value="">전체 연도</option></select>
@@ -107,6 +126,8 @@
       <select id="univ" class="control"><option value="">전체 대학</option></select>
       <select id="rule" class="control"><option value="">전체 방식</option></select>
     </div>
+
+    <div class="tabs" id="judgeTabs"></div>
 
     <div class="bar">
       <div class="chips">
@@ -124,7 +145,7 @@
         <div><b>데이터를 불러오는 중</b>입니다…</div>
       </div>
       <div class="hint" style="margin-top:10px">
-        같은 폴더에 <code>univ_search_data.json</code> 파일이 있어야 합니다. (예: <code>univ-search/univ_search_data.json</code>)
+        같은 폴더에 <code>univ_search_data.json</code> 파일이 있어야 합니다.
       </div>
     </div>
 
@@ -156,15 +177,39 @@
 </div>
 
 <script>
-/** -----------------------------
- *  0) 데이터 로딩 (외부 JSON)
- * ----------------------------- */
-let DATA = [];       // 실제 데이터
+let DATA = [];
 let DATA_READY = false;
+
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const toNum = (v) => {
+  const x = parseFloat(String(v ?? "").replace(/,/g, "").trim());
+  return Number.isFinite(x) ? x : null;
+};
+const numText = (v) => (v === null || v === undefined || v === "") ? "-" : String(v);
+
+const state = {
+  q: "",
+  year: "",
+  group: "",
+  univ: "",
+  rule: "",
+  compareOn: true,
+  tab: "all",
+  student: { kor:null, math:null, inq1:null, inq2:null, eng:null }
+};
+
+const TAB_DEFS = [
+  { key: "all", label: "전체" },
+  { key: "안정", label: "안정" },
+  { key: "적정", label: "적정" },
+  { key: "상향", label: "상향" },
+  { key: "도전", label: "도전" },
+  { key: "판정 보류", label: "판정 보류" }
+];
 
 async function loadData() {
   try {
-    // GitHub Pages 캐시로 "업데이트했는데 옛 데이터" 보이는 걸 방지
     const url = "./univ_search_data.json?ts=" + Date.now();
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error("HTTP " + res.status);
@@ -176,8 +221,8 @@ async function loadData() {
     $("#statusBox").style.display = "none";
     $("#tableBox").style.display = "";
     $("#mobileList").style.display = "";
-
     $("#dataBadge").textContent = `데이터 ${DATA.length}건`;
+
     initFilters();
     render();
   } catch (err) {
@@ -185,7 +230,6 @@ async function loadData() {
       <b>데이터를 불러오지 못했습니다.</b><br/>
       <div class="hint" style="margin-top:10px">
         • 같은 폴더에 <code>univ_search_data.json</code>이 있는지 확인해 주세요.<br/>
-        • 파일명이 대/소문자까지 정확히 일치해야 합니다.<br/>
         • 오류: <code>${esc(err.message || err)}</code>
       </div>
     `;
@@ -193,29 +237,21 @@ async function loadData() {
   }
 }
 
-/** -----------------------------
- *  1) 유틸
- * ----------------------------- */
-const $ = (s) => document.querySelector(s);
-const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const toNum = (v) => {
-  const x = parseFloat(String(v).replace(/,/g,"").trim());
-  return Number.isFinite(x) ? x : null;
-};
-const numText = (v) => (v === null || v === undefined || v === "") ? "-" : String(v);
+function ruleLabel(ruleMode) {
+  const m = String(ruleMode || "");
+  if (m === "each_subject_meets_cut") return "과목별 컷 충족";
+  if (m === "total_meets_cut") return "총점 컷";
+  return m || "-";
+}
 
-/** -----------------------------
- *  2) 상태
- * ----------------------------- */
-const state = {
-  q: "",
-  year: "",
-  group: "",
-  univ: "",
-  rule: "",
-  compareOn: true,
-  student: { kor:null, math:null, inq1:null, inq2:null, eng:null }
-};
+function judgeToChip(j) {
+  if (j === "안정") return "chip ok";
+  if (j === "적정") return "chip mid";
+  if (j === "상향") return "chip warn";
+  if (j === "도전") return "chip bad";
+  if (j === "-") return "chip hold";
+  return "chip hold";
+}
 
 function updateStudentBadge() {
   const s = state.student;
@@ -227,75 +263,6 @@ function updateStudentBadge() {
   $("#studentBadge").textContent = `학생 점수: 국${s.kor} 수${s.math} 탐1${s.inq1} 탐2${s.inq2} 영${s.eng}`;
 }
 
-function ruleLabel(ruleMode) {
-  const m = String(ruleMode || "");
-  if (m === "each_subject_meets_cut") return "과목별 컷 충족";
-  if (m === "total_meets_cut") return "총점 컷";
-  if (!m) return "-";
-  return m; // 혹시 다른 값이 들어오면 원문 그대로 보여줌
-}
-
-function judgeToChip(j) {
-  if (j === "안정") return "chip ok";
-  if (j === "적정") return "chip mid";
-  if (j === "상향") return "chip warn";
-  if (j === "도전") return "chip bad";
-  return "chip hold"; // 판정 보류
-}
-
-/** -----------------------------
- *  3) 판정 로직
- *  - 최소 여유(minMargin) 기준
- * ----------------------------- */
-function judgeRow(row) {
-  if (!state.compareOn) return { judge:"-", minMargin:null };
-
-  const s = state.student;
-  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
-  if (!filled) return { judge:"판정 보류", minMargin:null, reason:"학생 점수 미입력" };
-
-  // row 컷 값
-  const ck = toNum(row.cut_kor);
-  const cm = toNum(row.cut_math);
-  const c1 = toNum(row.cut_inq1);
-  const c2 = toNum(row.cut_inq2);
-  const ce = toNum(row.cut_eng);
-
-  // 컷 데이터 부족
-  if ([ck,cm,c1,c2,ce].some(v => v === null)) {
-    return { judge:"판정 보류", minMargin:null, reason:"컷 데이터 부족" };
-  }
-
-  // 현재는 ruleMode가 each_subject_meets_cut일 때를 기본 지원
-  // 다른 ruleMode는 일단 보류 처리(추후 확장)
-  const rm = String(row.ruleMode || "");
-  if (rm && rm !== "each_subject_meets_cut") {
-    return { judge:"판정 보류", minMargin:null, reason:"미지원 방식" };
-  }
-
-  // 여유 계산 (학생-컷)
-  const margins = [
-    s.kor - ck,
-    s.math - cm,
-    s.inq1 - c1,
-    s.inq2 - c2,
-    s.eng - ce
-  ];
-  const minMargin = Math.min(...margins);
-
-  // 기준(기본값)
-  let judge = "판정 보류";
-  if (minMargin >= 5) judge = "안정";
-  else if (minMargin >= 0) judge = "적정";
-  else if (minMargin > -2) judge = "상향";
-  else judge = "도전";
-
-  return { judge, minMargin };
-}
-
-/** -----------------------------
- *  4) 필터
- * ----------------------------- */
 function uniqueSorted(key) {
   return [...new Set(DATA.map(x => x[key]).filter(v => v !== null && v !== undefined && v !== ""))]
     .sort((a,b) => String(a).localeCompare(String(b), "ko"));
@@ -306,49 +273,76 @@ function fillSelect(id, items, placeholder) {
   el.innerHTML = `<option value="">${placeholder}</option>` + items.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
 }
 
+function initTabs() {
+  const root = $("#judgeTabs");
+  root.innerHTML = TAB_DEFS.map(tab => `
+    <button class="tab ${state.tab === tab.key ? "active" : ""}" data-tab="${esc(tab.key)}">
+      ${esc(tab.label)} <small id="tab_count_${esc(tab.key)}">0</small>
+    </button>
+  `).join("");
+
+  root.querySelectorAll(".tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.tab = btn.dataset.tab;
+      syncTabs();
+      render();
+    });
+  });
+}
+
+function syncTabs() {
+  $("#judgeTabs").querySelectorAll(".tab").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === state.tab);
+  });
+}
+
 function initFilters() {
   fillSelect("#year", uniqueSorted("year"), "전체 연도");
   fillSelect("#group", uniqueSorted("group"), "전체 계열");
   fillSelect("#univ", uniqueSorted("univ"), "전체 대학");
-  fillSelect("#rule", uniqueSorted("ruleMode").map(x => x || "-"), "전체 방식");
+  fillSelect("#rule", uniqueSorted("ruleMode"), "전체 방식");
+  initTabs();
 
   $("#q").addEventListener("input", (e) => {
     state.q = e.target.value.trim().toLowerCase();
     render();
   });
-  $("#year").addEventListener("change", (e) => { state.year = e.target.value; render(); });
-  $("#group").addEventListener("change", (e) => { state.group = e.target.value; render(); });
-  $("#univ").addEventListener("change", (e) => { state.univ = e.target.value; render(); });
+  $("#year").addEventListener("change", (e) => {
+    state.year = e.target.value;
+    render();
+  });
+  $("#group").addEventListener("change", (e) => {
+    state.group = e.target.value;
+    render();
+  });
+  $("#univ").addEventListener("change", (e) => {
+    state.univ = e.target.value;
+    render();
+  });
   $("#rule").addEventListener("change", (e) => {
     state.rule = e.target.value;
-    if (state.rule === "-") state.rule = ""; // '-'는 실제 필터로 쓰지 않음(빈값 처리)
     render();
   });
 
-  $("#resetBtn").addEventListener("click", () => {
-    state.q = ""; state.year = ""; state.group = ""; state.univ = ""; state.rule = "";
-    $("#q").value = ""; $("#year").value = ""; $("#group").value = ""; $("#univ").value = ""; $("#rule").value = "";
-    render();
-  });
-
-  // 비교 토글
   $("#compareOn").addEventListener("change", (e) => {
     state.compareOn = !!e.target.checked;
+    if (!state.compareOn && state.tab !== "all") {
+      state.tab = "all";
+      syncTabs();
+    }
     render();
   });
 
-  // 학생 점수 적용
   $("#applyStudent").addEventListener("click", () => {
-    state.student.kor  = toNum($("#s_kor").value);
+    state.student.kor = toNum($("#s_kor").value);
     state.student.math = toNum($("#s_math").value);
     state.student.inq1 = toNum($("#s_inq1").value);
     state.student.inq2 = toNum($("#s_inq2").value);
-    state.student.eng  = toNum($("#s_eng").value);
+    state.student.eng = toNum($("#s_eng").value);
     updateStudentBadge();
     render();
   });
 
-  // 학생 점수 초기화
   $("#resetStudent").addEventListener("click", () => {
     $("#s_kor").value = "";
     $("#s_math").value = "";
@@ -356,18 +350,77 @@ function initFilters() {
     $("#s_inq2").value = "";
     $("#s_eng").value = "";
     state.student = { kor:null, math:null, inq1:null, inq2:null, eng:null };
+    if (state.tab !== "all") {
+      state.tab = "all";
+      syncTabs();
+    }
     updateStudentBadge();
+    render();
+  });
+
+  $("#resetBtn").addEventListener("click", () => {
+    state.q = "";
+    state.year = "";
+    state.group = "";
+    state.univ = "";
+    state.rule = "";
+    state.tab = "all";
+
+    $("#q").value = "";
+    $("#year").value = "";
+    $("#group").value = "";
+    $("#univ").value = "";
+    $("#rule").value = "";
+
+    syncTabs();
     render();
   });
 
   updateStudentBadge();
 }
 
-/** -----------------------------
- *  5) 필터링/정렬
- * ----------------------------- */
-function filteredRows() {
-  const rows = DATA.filter(x => {
+function judgeRow(row) {
+  if (!state.compareOn) return { judge: "-", minMargin: null, reason: "비교 꺼짐" };
+
+  const s = state.student;
+  const filled = [s.kor,s.math,s.inq1,s.inq2,s.eng].every(v => v !== null);
+  if (!filled) return { judge: "판정 보류", minMargin: null, reason: "학생 점수 미입력" };
+
+  const ck = toNum(row.cut_kor);
+  const cm = toNum(row.cut_math);
+  const c1 = toNum(row.cut_inq1);
+  const c2 = toNum(row.cut_inq2);
+  const ce = toNum(row.cut_eng);
+
+  if ([ck,cm,c1,c2,ce].some(v => v === null)) {
+    return { judge: "판정 보류", minMargin: null, reason: "컷 데이터 부족" };
+  }
+
+  const rm = String(row.ruleMode || "");
+  if (rm && rm !== "each_subject_meets_cut") {
+    return { judge: "판정 보류", minMargin: null, reason: "미지원 방식" };
+  }
+
+  const margins = [
+    s.kor - ck,
+    s.math - cm,
+    s.inq1 - c1,
+    s.inq2 - c2,
+    s.eng - ce
+  ];
+  const minMargin = Math.min(...margins);
+
+  let judge = "판정 보류";
+  if (minMargin >= 5) judge = "안정";
+  else if (minMargin >= 0) judge = "적정";
+  else if (minMargin > -2) judge = "상향";
+  else judge = "도전";
+
+  return { judge, minMargin };
+}
+
+function getBaseFilteredRows() {
+  return DATA.filter(x => {
     if (state.year && String(x.year) !== state.year) return false;
     if (state.group && String(x.group) !== state.group) return false;
     if (state.univ && String(x.univ) !== state.univ) return false;
@@ -379,42 +432,87 @@ function filteredRows() {
     }
     return true;
   });
+}
 
-  // 판정 우선순위(정렬용)
+function getTabCounts(baseRows) {
+  const counts = {
+    all: baseRows.length,
+    "안정": 0,
+    "적정": 0,
+    "상향": 0,
+    "도전": 0,
+    "판정 보류": 0
+  };
+
+  baseRows.forEach(row => {
+    const j = judgeRow(row).judge;
+    if (counts[j] != null) counts[j] += 1;
+  });
+
+  return counts;
+}
+
+function filteredRows() {
+  const baseRows = getBaseFilteredRows();
+
+  const rows = baseRows.filter(row => {
+    if (state.tab === "all") return true;
+    return judgeRow(row).judge === state.tab;
+  });
+
   const order = {"안정":0,"적정":1,"상향":2,"도전":3,"판정 보류":4,"-":5};
 
-  return rows.sort((a,b) => {
-    // 1) 연도 최신 우선
+  rows.sort((a,b) => {
     const y = (toNum(b.year) || 0) - (toNum(a.year) || 0);
     if (y !== 0) return y;
 
-    // 2) 비교 켜져 있으면 판정 좋은 순
-    if (state.compareOn) {
-      const ja = judgeRow(a).judge;
-      const jb = judgeRow(b).judge;
-      const d = (order[ja] ?? 9) - (order[jb] ?? 9);
-      if (d !== 0) return d;
-    }
+    const ja = judgeRow(a).judge;
+    const jb = judgeRow(b).judge;
+    const jd = (order[ja] ?? 9) - (order[jb] ?? 9);
+    if (jd !== 0) return jd;
 
-    // 3) 대학/학과 가나다
-    const u = String(a.univ||"").localeCompare(String(b.univ||""), "ko");
+    const ua = String(a.univ || "");
+    const ub = String(b.univ || "");
+    const u = ua.localeCompare(ub, "ko");
     if (u !== 0) return u;
-    return String(a.major||"").localeCompare(String(b.major||""), "ko");
+
+    return String(a.major || "").localeCompare(String(b.major || ""), "ko");
+  });
+
+  return { baseRows, rows };
+}
+
+function updateTabCounts(baseRows) {
+  const counts = getTabCounts(baseRows);
+  TAB_DEFS.forEach(tab => {
+    const el = document.getElementById(`tab_count_${tab.key}`);
+    if (!el) return;
+    el.textContent = counts[tab.key] ?? 0;
   });
 }
 
-/** -----------------------------
- *  6) 렌더
- * ----------------------------- */
+function getEmptyMessage() {
+  if (state.tab === "안정") return "안정에 해당하는 대학이 없습니다.";
+  if (state.tab === "적정") return "적정에 해당하는 대학이 없습니다.";
+  if (state.tab === "상향") return "상향에 해당하는 대학이 없습니다.";
+  if (state.tab === "도전") return "도전에 해당하는 대학이 없습니다.";
+  if (state.tab === "판정 보류") return "판정 보류에 해당하는 대학이 없습니다.";
+  return "조건에 맞는 데이터가 없습니다.";
+}
+
 function render() {
   if (!DATA_READY) return;
 
-  const rows = filteredRows();
+  const { baseRows, rows } = filteredRows();
+  updateTabCounts(baseRows);
+  syncTabs();
+
   $("#countBadge").textContent = `${rows.length}건`;
 
   if (!rows.length) {
-    $("#tbody").innerHTML = `<tr><td colspan="13"><div class="empty">조건에 맞는 데이터가 없습니다.</div></td></tr>`;
-    $("#mobileList").innerHTML = `<div class="empty">조건에 맞는 데이터가 없습니다.</div>`;
+    const msg = getEmptyMessage();
+    $("#tbody").innerHTML = `<tr><td colspan="13"><div class="empty">${esc(msg)}</div></td></tr>`;
+    $("#mobileList").innerHTML = `<div class="empty">${esc(msg)}</div>`;
     return;
   }
 
@@ -451,7 +549,7 @@ function render() {
       <div class="mcard">
         <div class="mtitle">${esc(x.univ)} · ${esc(x.major)}</div>
         <div class="msub">${esc(x.year)} · ${esc(x.group)} · ${esc(ruleLabel(x.ruleMode))}</div>
-        <div style="margin-top:10px">
+        <div style="margin-top:10px" class="chips">
           <span class="${judgeToChip(judgeText)}">${esc(judgeText)}</span>
           <span class="chip hold">최소여유 ${esc(minMarginText)}</span>
         </div>
@@ -468,7 +566,6 @@ function render() {
   }).join("");
 }
 
-// 시작
 loadData();
 </script>
 </body>
