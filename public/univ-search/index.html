@@ -24,6 +24,8 @@
     .badge{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:7px 12px;background:#fff;font-weight:800}
     .btn{border:1px solid #111;border-radius:12px;padding:10px 14px;background:#fff;font-weight:900;cursor:pointer}
     .btn:hover{background:#fafafa}
+    .btn.small{padding:7px 10px;font-size:12px}
+    .btn.danger{border-color:#b00020;color:#b00020}
 
     .panel{background:#fff;border:1px solid #e6e6e8;border-radius:22px;padding:16px;margin-top:14px}
     .tablebox{overflow:auto}
@@ -91,6 +93,60 @@
     }
     .viewTab.active{border-color:#111;background:#111;color:#fff}
 
+    .shareWrap{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:10px;
+      align-items:center;
+    }
+    .shareInput{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid #d9d9de;
+      border-radius:14px;
+      background:#fafafb;
+      font-size:13px;
+    }
+
+    .presetGrid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    .presetCard{
+      border:1px solid #e6e6e8;
+      border-radius:16px;
+      padding:12px;
+      background:#fff;
+      min-height:128px;
+    }
+    .presetHead{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:flex-start;
+    }
+    .presetTitle{
+      font-weight:900;
+      line-height:1.35;
+      word-break:break-word;
+    }
+    .presetMeta{
+      margin-top:8px;
+      font-size:12px;
+      line-height:1.5;
+      color:#444;
+      word-break:break-word;
+    }
+    .presetBtns{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
     .groupWrap{display:grid;gap:14px}
     .univCard{
       border:1px solid #e6e6e8;border-radius:20px;padding:16px;background:#fff;
@@ -147,6 +203,8 @@
     @media(max-width:980px){
       .grid{grid-template-columns:1fr 1fr}
       .scoreGrid{grid-template-columns:1fr 1fr}
+      .shareWrap{grid-template-columns:1fr}
+      .presetGrid{grid-template-columns:1fr 1fr}
     }
 
     @media(max-width:760px){
@@ -161,6 +219,7 @@
       .majorTable{display:none}
       .mobile-group-list{display:block;margin-top:12px}
       .univTitle{font-size:18px}
+      .presetGrid{grid-template-columns:1fr}
     }
 
     @media(min-width:761px){
@@ -210,12 +269,27 @@
         </div>
       </div>
 
+      <div class="shareWrap">
+        <input id="shareUrl" class="shareInput" readonly value="" />
+        <button id="copyShareBtn" class="btn">공유 링크 복사</button>
+        <button id="openShareBtn" class="btn">링크 열기</button>
+      </div>
+
       <div class="hint">
         • 국어/수학/탐1/탐2는 <b>학생 백분위 - 대학 컷</b>으로 비교합니다.<br/>
         • 영어는 <b>학생 영어등급 ≤ 대학 영어컷등급</b>이면 충족입니다.<br/>
         • 기본 판정: 최소 여유가 <b>+5 이상 = 안정</b>, <b>0 이상 = 적정</b>, <b>-2 초과 = 상향</b>, <b>-2 이하 = 도전</b><br/>
-        • 영어가 1등급 부족하면 판정을 1단계 낮추고, 2등급 이상 부족하면 <b>도전</b>으로 처리합니다.
+        • 영어가 1등급 부족하면 판정을 1단계 낮추고, 2등급 이상 부족하면 <b>도전</b>으로 처리합니다.<br/>
+        • 현재 학생 입력과 필터 상태는 자동으로 URL에 저장됩니다.
       </div>
+    </div>
+
+    <div class="section">
+      <div class="rowbar">
+        <div class="sectionTitle">학생 입력 저장 슬롯</div>
+        <span class="badge">5개 슬롯 저장</span>
+      </div>
+      <div id="presetArea" class="presetGrid"></div>
     </div>
 
     <div class="grid">
@@ -287,7 +361,8 @@
 let DATA = [];
 let DATA_READY = false;
 
-const STORAGE_KEY = "univ_search_student_mixed_state_v5";
+const STORAGE_KEY = "univ_search_student_mixed_state_v7";
+const PRESET_KEY = "univ_search_student_presets_v1";
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -309,6 +384,14 @@ const state = {
   view: "group",
   student: { kor:null, math:null, inq1:null, inq2:null, engGrade:null }
 };
+
+let presets = [
+  { label:"슬롯 1", data:null },
+  { label:"슬롯 2", data:null },
+  { label:"슬롯 3", data:null },
+  { label:"슬롯 4", data:null },
+  { label:"슬롯 5", data:null }
+];
 
 const TAB_DEFS = [
   { key: "all", label: "전체" },
@@ -352,6 +435,164 @@ function loadStudentState() {
   } catch (_err) {}
 }
 
+function loadPresets() {
+  try {
+    const raw = localStorage.getItem(PRESET_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length === 5) {
+      presets = parsed.map((x, idx) => ({
+        label: x?.label || `슬롯 ${idx+1}`,
+        data: x?.data || null
+      }));
+    }
+  } catch (_err) {}
+}
+
+function savePresets() {
+  localStorage.setItem(PRESET_KEY, JSON.stringify(presets));
+}
+
+function renderPresets() {
+  const root = $("#presetArea");
+  root.innerHTML = presets.map((slot, idx) => {
+    const d = slot.data;
+    const meta = d
+      ? `국 ${numText(d.kor)} / 수 ${numText(d.math)} / 탐1 ${numText(d.inq1)} / 탐2 ${numText(d.inq2)} / 영 ${numText(d.engGrade)}등급`
+      : `저장된 데이터 없음`;
+
+    return `
+      <div class="presetCard">
+        <div class="presetHead">
+          <div class="presetTitle">${esc(slot.label || `슬롯 ${idx+1}`)}</div>
+          <span class="chip ${d ? "mid" : "hold"}">${d ? "저장됨" : "비어있음"}</span>
+        </div>
+        <div class="presetMeta">${esc(meta)}</div>
+        <div class="presetBtns">
+          <button class="btn small" data-action="save-slot" data-idx="${idx}">현재값 저장</button>
+          <button class="btn small" data-action="load-slot" data-idx="${idx}">불러오기</button>
+          <button class="btn small danger" data-action="clear-slot" data-idx="${idx}">삭제</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  root.querySelectorAll("button[data-action]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = Number(btn.dataset.idx);
+      const action = btn.dataset.action;
+      if (action === "save-slot") saveToSlot(idx);
+      if (action === "load-slot") loadFromSlot(idx);
+      if (action === "clear-slot") clearSlot(idx);
+    });
+  });
+}
+
+function getCurrentStudentInput() {
+  return {
+    kor: toNum($("#s_kor").value),
+    math: toNum($("#s_math").value),
+    inq1: toNum($("#s_inq1").value),
+    inq2: toNum($("#s_inq2").value),
+    engGrade: toNum($("#s_eng_grade").value)
+  };
+}
+
+function saveToSlot(idx) {
+  const current = getCurrentStudentInput();
+  const filled = [current.kor, current.math, current.inq1, current.inq2, current.engGrade].every(v => v !== null);
+
+  if (!filled) {
+    alert("학생 입력 5칸을 먼저 모두 넣어주세요.");
+    return;
+  }
+
+  const newLabel = prompt("슬롯 이름을 입력하세요.", presets[idx]?.label || `슬롯 ${idx+1}`);
+  if (newLabel === null) return;
+
+  presets[idx] = {
+    label: String(newLabel).trim() || `슬롯 ${idx+1}`,
+    data: { ...current, compareOn: !!$("#compareOn").checked }
+  };
+
+  savePresets();
+  renderPresets();
+  alert("저장되었습니다.");
+}
+
+function loadFromSlot(idx) {
+  const slot = presets[idx];
+  if (!slot || !slot.data) {
+    alert("저장된 데이터가 없습니다.");
+    return;
+  }
+
+  $("#s_kor").value = slot.data.kor ?? "";
+  $("#s_math").value = slot.data.math ?? "";
+  $("#s_inq1").value = slot.data.inq1 ?? "";
+  $("#s_inq2").value = slot.data.inq2 ?? "";
+  $("#s_eng_grade").value = slot.data.engGrade ?? "";
+  $("#compareOn").checked = !!slot.data.compareOn;
+
+  state.student.kor = toNum($("#s_kor").value);
+  state.student.math = toNum($("#s_math").value);
+  state.student.inq1 = toNum($("#s_inq1").value);
+  state.student.inq2 = toNum($("#s_inq2").value);
+  state.student.engGrade = toNum($("#s_eng_grade").value);
+  state.compareOn = !!$("#compareOn").checked;
+
+  if (!state.compareOn && state.tab !== "all") {
+    state.tab = "all";
+    syncTabs();
+  }
+
+  saveStudentState();
+  render();
+}
+
+function clearSlot(idx) {
+  if (!confirm("이 슬롯을 삭제할까요?")) return;
+  presets[idx] = {
+    label: `슬롯 ${idx+1}`,
+    data: null
+  };
+  savePresets();
+  renderPresets();
+}
+
+function applyStateFromUrl() {
+  const qs = new URLSearchParams(location.search);
+
+  if (qs.has("q")) state.q = qs.get("q") || "";
+  if (qs.has("year")) state.year = qs.get("year") || "";
+  if (qs.has("group")) state.group = qs.get("group") || "";
+  if (qs.has("univ")) state.univ = qs.get("univ") || "";
+  if (qs.has("major")) state.major = qs.get("major") || "";
+  if (qs.has("rule")) state.rule = qs.get("rule") || "";
+
+  const tab = qs.get("tab");
+  if (TAB_DEFS.some(x => x.key === tab)) state.tab = tab;
+
+  const view = qs.get("view");
+  if (view === "group" || view === "list") state.view = view;
+
+  const compare = qs.get("compare");
+  if (compare === "1") state.compareOn = true;
+  if (compare === "0") state.compareOn = false;
+
+  const kor = toNum(qs.get("kor"));
+  const math = toNum(qs.get("math"));
+  const inq1 = toNum(qs.get("inq1"));
+  const inq2 = toNum(qs.get("inq2"));
+  const eng = toNum(qs.get("eng"));
+
+  if (kor !== null) state.student.kor = kor;
+  if (math !== null) state.student.math = math;
+  if (inq1 !== null) state.student.inq1 = inq1;
+  if (inq2 !== null) state.student.inq2 = inq2;
+  if (eng !== null) state.student.engGrade = eng;
+}
+
 function syncStudentInputsFromState() {
   $("#compareOn").checked = !!state.compareOn;
   $("#s_kor").value = state.student.kor ?? "";
@@ -359,6 +600,57 @@ function syncStudentInputsFromState() {
   $("#s_inq1").value = state.student.inq1 ?? "";
   $("#s_inq2").value = state.student.inq2 ?? "";
   $("#s_eng_grade").value = state.student.engGrade ?? "";
+}
+
+function syncFilterInputsFromState() {
+  $("#q").value = state.q || "";
+  $("#year").value = state.year || "";
+  $("#group").value = state.group || "";
+  $("#univ").value = state.univ || "";
+  $("#rule").value = state.rule || "";
+}
+
+function buildShareUrl() {
+  const params = new URLSearchParams();
+
+  if (state.q) params.set("q", state.q);
+  if (state.year) params.set("year", state.year);
+  if (state.group) params.set("group", state.group);
+  if (state.univ) params.set("univ", state.univ);
+  if (state.major) params.set("major", state.major);
+  if (state.rule) params.set("rule", state.rule);
+  if (state.tab && state.tab !== "all") params.set("tab", state.tab);
+  if (state.view && state.view !== "group") params.set("view", state.view);
+  if (!state.compareOn) params.set("compare", "0");
+  else params.set("compare", "1");
+
+  if (state.student.kor !== null) params.set("kor", state.student.kor);
+  if (state.student.math !== null) params.set("math", state.student.math);
+  if (state.student.inq1 !== null) params.set("inq1", state.student.inq1);
+  if (state.student.inq2 !== null) params.set("inq2", state.student.inq2);
+  if (state.student.engGrade !== null) params.set("eng", state.student.engGrade);
+
+  const base = location.origin + location.pathname;
+  const qs = params.toString();
+  return qs ? `${base}?${qs}` : base;
+}
+
+function updateShareUrl() {
+  const url = buildShareUrl();
+  $("#shareUrl").value = url;
+  history.replaceState(null, "", url);
+}
+
+async function copyShareUrl() {
+  const url = $("#shareUrl").value || buildShareUrl();
+  try {
+    await navigator.clipboard.writeText(url);
+    alert("공유 링크가 복사되었습니다.");
+  } catch (_err) {
+    $("#shareUrl").focus();
+    $("#shareUrl").select();
+    alert("링크를 수동으로 복사해 주세요.");
+  }
 }
 
 async function loadData() {
@@ -521,8 +813,14 @@ function initFilters() {
   initTabs();
 
   loadStudentState();
+  loadPresets();
+  applyStateFromUrl();
+
   syncStudentInputsFromState();
+  syncFilterInputsFromState();
   updateStudentBadge();
+  renderPresets();
+
   initViewTabs();
   document.querySelectorAll(".viewTab").forEach(btn => btn.classList.toggle("active", btn.dataset.view === state.view));
 
@@ -608,6 +906,12 @@ function initFilters() {
 
     syncTabs();
     render();
+  });
+
+  $("#copyShareBtn").addEventListener("click", copyShareUrl);
+  $("#openShareBtn").addEventListener("click", () => {
+    const url = $("#shareUrl").value || buildShareUrl();
+    window.open(url, "_blank");
   });
 }
 
@@ -941,6 +1245,9 @@ function render() {
   updateTabCounts(baseRows);
   syncTabs();
   renderActiveFilterChips();
+  updateStudentBadge();
+  updateShareUrl();
+  renderPresets();
 
   $("#countBadge").textContent = `${rows.length}건`;
 
