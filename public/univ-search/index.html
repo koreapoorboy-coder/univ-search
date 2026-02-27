@@ -36,14 +36,16 @@
     .muted{opacity:.62}
     .chips{display:flex;gap:6px;flex-wrap:wrap}
     .chip{display:inline-flex;align-items:center;border:1px solid #d9d9de;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;background:#fff}
-    .chip.ok{border-color:#0b57d0}
-    .chip.ng{border-color:#b26a00}
+    .chip.ok{border-color:#0b57d0;color:#0b57d0}
+    .chip.ng{border-color:#b26a00;color:#b26a00}
     .chip.na{opacity:.6}
 
     .status{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;border:1px solid #ddd;background:#fff}
+    .status.safe{border-color:#0a7f3f;color:#0a7f3f}
     .status.fit{border-color:#0b57d0;color:#0b57d0}
     .status.up{border-color:#b26a00;color:#b26a00}
-    .status.na{border-color:#bbb;color:#666}
+    .status.challenge{border-color:#b00020;color:#b00020}
+    .status.hold{border-color:#888;color:#666}
 
     .mobile-list{display:none}
     .mcard{border:1px solid #ececf0;border-radius:18px;padding:14px;margin-top:12px}
@@ -85,7 +87,7 @@
 
     <div class="panel" style="margin-top:16px;padding:14px">
       <div class="section-title">학생 백분위 입력</div>
-      <div class="section-sub">현재 컷 데이터가 백분위 기준이라서, 여기에는 학생의 과목별 백분위를 넣으면 됩니다.</div>
+      <div class="section-sub">2과목 이상 입력하면 더 정확하게 비교됩니다.</div>
 
       <div class="score-grid">
         <input id="s_kor" class="control" type="number" step="0.1" placeholder="국어 백분위" />
@@ -104,14 +106,18 @@
 
       <div class="tabs" id="compareTabs">
         <button class="tab active" data-tab="all" type="button">전체</button>
+        <button class="tab" data-tab="safe" type="button">안정</button>
         <button class="tab" data-tab="fit" type="button">적정</button>
         <button class="tab" data-tab="up" type="button">상향</button>
+        <button class="tab" data-tab="challenge" type="button">도전</button>
+        <button class="tab" data-tab="hold" type="button">판정 보류</button>
       </div>
     </div>
 
     <div class="bar">
       <div class="chips">
         <span class="badge" id="countBadge">0건</span>
+        <span class="badge">학생 입력 + 검색 동시 지원</span>
       </div>
       <button id="resetBtn" class="btn" type="button">필터 초기화</button>
     </div>
@@ -129,8 +135,8 @@
             <th>학과</th>
             <th>방식</th>
             <th>과목별 비교</th>
-            <th class="num">비교</th>
-            <th class="num">평균차이</th>
+            <th class="num">비교 과목수</th>
+            <th class="num">평균 차이</th>
             <th>메모</th>
           </tr>
         </thead>
@@ -142,11 +148,189 @@
 </div>
 
 <script>
-/* 기존 DATA 붙여넣기 시작 */
 const DATA = [
-  /* 여기에 지금 코치님 index.html 안에 있는 기존 const DATA = [ ... ] 전체를 그대로 붙여넣기 */
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "응용통계학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 93, "cut_inq1": 87, "cut_inq2": 92, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "지구시스템과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "천문우주학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "대기과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "화공생명공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 93, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "전기전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "건축공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "도시공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "사회환경시스템공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 91, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "산업공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "시스템반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "디스플레이융합공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "연세대", "major": "생명과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 96, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "첨단컴퓨팅학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 91, "cut_inq2": 92, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "IT융합공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "지능형 반도체전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "연세대", "major": "융합과학공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 77, "cut_inq2": 77, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "연세대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 100, "cut_inq1": 99, "cut_inq2": 100, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "연세대", "major": "치의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "연세대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 77, "cut_inq2": 83, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "연세대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "생명과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 93.6, "cut_inq2": 91.2, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "생명공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "식품공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 91.6, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "환경생태공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 97, "cut_inq2": 90, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "식품자원경제학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 96.2, "cut_inq1": 86, "cut_inq2": 91.2, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "통계학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.9, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 93.7, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91.5, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 96, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "고려대", "major": "지구환경과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89.8, "cut_math": 98, "cut_inq1": 91.2, "cut_inq2": 88.8, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "화공생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.9, "cut_math": 97.9, "cut_inq1": 94, "cut_inq2": 90.9, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "건축사회환경공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.4, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "건축학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 87.9, "cut_inq2": 90.1, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 90.8, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "산업경영공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 92.7, "cut_inq1": 85.2, "cut_inq2": 85, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "전기전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 93.3, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "융합에너지공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92.3, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 94.2, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "차세대통신학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 88, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "고려대", "major": "의과대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 99, "cut_inq1": 98, "cut_inq2": 98.4, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "고려대", "major": "간호대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 93, "cut_inq1": 93.6, "cut_inq2": 90.6, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "컴퓨터학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97.3, "cut_inq1": 93, "cut_inq2": 91.9, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "데이터과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "인공지능학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "바이오공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "바이오시스템의과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "보건환경융합과학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 92.4, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "기타", "univ": "고려대", "major": "자유공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96.6, "cut_math": 97, "cut_inq1": 88, "cut_inq2": 91, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "기타", "univ": "고려대", "major": "사이버국방학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97.5, "cut_inq1": 90, "cut_inq2": 89, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "스마트모빌리티학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "고려대", "major": "학부대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 98, "cut_inq1": 83.9, "cut_inq2": 92.8, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "성균관대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 98, "cut_inq1": 100, "cut_inq2": 94, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "성균관대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 100, "cut_inq1": 98, "cut_inq2": 100, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "성균관대", "major": "자연과학계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 96, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "자유전공계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 93, "cut_inq2": 99, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "지능형 소프트웨어학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 98, "cut_inq1": 87, "cut_inq2": 97, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "컴퓨터 교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "건설환경공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 93, "cut_inq1": 99, "cut_inq2": 99, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "공학계열", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 100, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "소프트웨어학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 97, "cut_inq1": 94, "cut_inq2": 99, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "성균관대", "major": "수학교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "전자전기공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "글로벌바이오메디컬공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "반도체융합공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "양자정보공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 98, "cut_inq1": 97, "cut_inq2": 97, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "성균관대", "major": "에너지학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 96, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "서강대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "서강대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 99, "cut_inq1": 72, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "서강대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 97, "cut_inq1": 79, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "서강대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 98, "cut_inq1": 85, "cut_inq2": 62, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공하", "univ": "서강대", "major": "science기반 자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 95, "cut_inq1": 88, "cut_inq2": 91, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "전자공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 75, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "화공생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 75, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "기계공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "컴퓨터 공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 98, "cut_inq1": 75, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "인공지능학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 93, "cut_inq1": 81, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "시스템반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 100, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "서강대", "major": "AI기반 자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건축학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 99, "cut_inq1": 69, "cut_inq2": 94, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건축공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 97, "cut_inq1": 72, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "건설환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 99, "cut_inq2": 93, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "도시공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "자원환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "융합전자공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 99, "cut_inq1": 83, "cut_inq2": 75, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "컴퓨터소프트웨어학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 98, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "전기공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 98, "cut_inq1": 81, "cut_inq2": 77, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "바이오메디컬공학전공", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "유기나노공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 99, "cut_inq1": 93, "cut_inq2": 94, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "원자력공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 97, "cut_inq1": 81, "cut_inq2": 81, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "산업공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 98, "cut_inq1": 99, "cut_inq2": 97, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "한양대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 100, "cut_inq1": 84, "cut_inq2": 96, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "한양대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 98, "cut_inq1": 69, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 98, "cut_inq1": 77, "cut_inq2": 77, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 98, "cut_inq1": 64, "cut_inq2": 64, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "수학교육과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 100, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "식품영양학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 98, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 81, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "신소재공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 99, "cut_inq1": 96, "cut_inq2": 71, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 97, "cut_inq1": 90, "cut_inq2": 94, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 97, "cut_inq1": 79, "cut_inq2": 94, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "에너지공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 98, "cut_inq1": 90, "cut_inq2": 75, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "미래자동차공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "데이터사이언스학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 98, "cut_inq1": 96, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "반도체공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 95, "cut_math": 100, "cut_inq1": 77, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 97, "cut_inq1": 98, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "한양대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 92, "cut_inq1": 99, "cut_inq2": 79, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "한양대", "major": "자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 95, "cut_inq1": 81, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 85, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 90, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "기계공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 99, "cut_inq2": 98, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "AI학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 97, "cut_inq1": 98, "cut_inq2": 77, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "약학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 95, "cut_inq1": 100, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "간호학과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 95, "cut_inq1": 94, "cut_inq2": 75, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "생명자원공학부(동물)", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 66, "cut_inq1": 75, "cut_inq2": 81, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "생명자원공학부(식물)", "ruleMode": "each_subject_meets_cut", "cut_kor": 65, "cut_math": 78, "cut_inq1": 77, "cut_inq2": 75, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "식품공학부(식품공학)", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 81, "cut_inq1": 83, "cut_inq2": 77, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "식품공학부(식품영양)", "ruleMode": "each_subject_meets_cut", "cut_kor": 67, "cut_math": 87, "cut_inq1": 85, "cut_inq2": 83, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "시스템생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 59, "cut_inq1": 85, "cut_inq2": 47, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 75, "cut_math": 97, "cut_inq1": 96, "cut_inq2": 98, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "생명과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "사회기반시스템공학부(도시시스템)", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 70, "cut_inq1": 92, "cut_inq2": 92, "cut_eng": 60, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "사회기반시스템공학부(건설환경)", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 94, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "공ㄴ학", "univ": "중앙대", "major": "건축학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 93, "cut_inq1": 97, "cut_inq2": 90, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "에너지시스템공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 90, "cut_inq1": 99, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "중앙대", "major": "응용통계학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 98, "cut_inq1": 98, "cut_inq2": 94, "cut_eng": 60, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "산업보안학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 78, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "의학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 100, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "중앙대", "major": "간호학과(인문)", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 93, "cut_inq1": 98, "cut_inq2": 78, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "첨단소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 65, "cut_math": 92, "cut_inq1": 75, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "창의ICT공과대학", "ruleMode": "each_subject_meets_cut", "cut_kor": 99, "cut_math": 85, "cut_inq1": 94, "cut_inq2": 96, "cut_eng": 70, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "중앙대", "major": "소프트웨어학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 96, "cut_math": 93, "cut_inq1": 98, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "자율전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 92, "cut_math": 85, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "자유전공학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 91, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "빅데이터응용학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 85, "cut_inq1": 90, "cut_inq2": 92, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "식품영양학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "경희대", "major": "수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "경희대", "major": "물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "경희대", "major": "화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "경희대", "major": "생물학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 93, "cut_inq1": 87, "cut_inq2": 87, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "자연", "univ": "경희대", "major": "지리학과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 81, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "미래정보디스플레이학부", "ruleMode": "each_subject_meets_cut", "cut_kor": 80, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "전자정보공학부 전자공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 93, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "전자정보공학부 반도체공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 82, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "생체의공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 90, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "컴퓨터공학부 컴퓨터공학", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "컴퓨터공학부 인공지능학", "ruleMode": "each_subject_meets_cut", "cut_kor": 80, "cut_math": 93, "cut_inq1": 84, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "소프트웨어융합학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 96, "cut_inq1": 94, "cut_inq2": 93, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "약과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 90, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "간호학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 87, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한의예과(인문)", "ruleMode": "each_subject_meets_cut", "cut_kor": 100, "cut_math": 96, "cut_inq1": 99, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "기계공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 92, "cut_inq1": 83, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "산업경영공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 92, "cut_inq1": 85, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "원자력공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 90, "cut_inq1": 88, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "화학공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "신소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "사회기반시스템공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 79, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "건축공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 90, "cut_inq1": 90, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "환경학및 환경공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 92, "cut_inq1": 84, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "건축학과(5년제)", "ruleMode": "each_subject_meets_cut", "cut_kor": 77, "cut_math": 92, "cut_inq1": 88, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용수학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용물리학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 93, "cut_inq1": 79, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "응용화학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 95, "cut_inq1": 81, "cut_inq2": 85, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "우주과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 83, "cut_math": 93, "cut_inq1": 83, "cut_inq2": 80, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "유전생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 88, "cut_math": 92, "cut_inq1": 94, "cut_inq2": 90, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "식품생명공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 86, "cut_math": 95, "cut_inq1": 87, "cut_inq2": 91, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "융합바이오 신소재공학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 85, "cut_math": 95, "cut_inq1": 85, "cut_inq2": 83, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "공학", "univ": "경희대", "major": "스마트팜과학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 89, "cut_math": 92, "cut_inq1": 85, "cut_inq2": 88, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 97, "cut_math": 100, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 90, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "한의예과(자연)", "ruleMode": "each_subject_meets_cut", "cut_kor": 93, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 96, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "치의예과", "ruleMode": "each_subject_meets_cut", "cut_kor": 94, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 98, "cut_eng": 80, "note": ""},
+  {"year": 2026, "group": "보건", "univ": "경희대", "major": "약학과", "ruleMode": "each_subject_meets_cut", "cut_kor": 91, "cut_math": 99, "cut_inq1": 97, "cut_inq2": 96, "cut_eng": 80, "note": ""}
 ];
-/* 기존 DATA 붙여넣기 끝 */
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
@@ -201,38 +385,57 @@ function compareRow(row, scores){
   ];
 
   let compared = 0;
-  let okCount = 0;
   let diffSum = 0;
+  let missCount = 0;
 
   const details = subjectDefs.map(x => {
     if(x.student === null || x.cut === null){
       return { ...x, diff:null, state:"na" };
     }
+
     const diff = x.student - x.cut;
     compared += 1;
     diffSum += diff;
-    if(diff >= 0) okCount += 1;
-    return { ...x, diff, state: diff >= 0 ? "ok" : "ng" };
+    if(diff < 0) missCount += 1;
+
+    return {
+      ...x,
+      diff,
+      state: diff >= 0 ? "ok" : "ng"
+    };
   });
 
-  let code = "na";
-  if(compared > 0){
-    code = (okCount === compared) ? "fit" : "up";
+  const avgDiff = compared ? (diffSum / compared) : null;
+
+  let code = "hold";
+
+  if (compared < 2) {
+    code = "hold";
+  } else if (missCount >= 2 || avgDiff < -3) {
+    code = "challenge";
+  } else if (missCount >= 1 || avgDiff < 0) {
+    code = "up";
+  } else if (avgDiff >= 3) {
+    code = "safe";
+  } else {
+    code = "fit";
   }
 
   return {
     code,
     details,
     compared,
-    okCount,
-    avgDiff: compared ? (diffSum / compared) : null
+    missCount,
+    avgDiff
   };
 }
 
 function statusHtml(code){
+  if(code === "safe") return `<span class="status safe">안정</span>`;
   if(code === "fit") return `<span class="status fit">적정</span>`;
   if(code === "up") return `<span class="status up">상향</span>`;
-  return `<span class="status na">비교불가</span>`;
+  if(code === "challenge") return `<span class="status challenge">도전</span>`;
+  return `<span class="status hold">판정 보류</span>`;
 }
 
 function diffText(v){
@@ -244,7 +447,7 @@ function compareChipsHtml(comp){
   return `<div class="chips">` + comp.details.map(d => {
     const cls = d.state === "ok" ? "chip ok" : (d.state === "ng" ? "chip ng" : "chip na");
     const text = (d.student === null || d.cut === null)
-      ? `${d.label} 비교불가`
+      ? `${d.label} 보류`
       : `${d.label} ${d.student} / 컷 ${d.cut} / ${diffText(d.diff)}`;
     return `<span class="${cls}">${esc(text)}</span>`;
   }).join("") + `</div>`;
@@ -360,7 +563,14 @@ function filteredRows() {
   }
 
   rows.sort((a,b) => {
-    const order = { fit: 2, up: 1, na: 0 };
+    const order = {
+      safe: 4,
+      fit: 3,
+      up: 2,
+      challenge: 1,
+      hold: 0
+    };
+
     if(scoreMode){
       const oa = order[a._comp.code] ?? 0;
       const ob = order[b._comp.code] ?? 0;
