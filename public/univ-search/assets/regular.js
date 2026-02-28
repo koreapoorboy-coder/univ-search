@@ -53,6 +53,14 @@ function englishDiff(studentGrade, cutGrade) {
   return Number(cutGrade) - Number(studentGrade);
 }
 
+function formatDiff(diff, type) {
+  if (diff == null) return "비교 불가";
+  if (type === "grade") {
+    return diff >= 0 ? `${diff}등급 여유` : `${Math.abs(diff)}등급 부족`;
+  }
+  return diff >= 0 ? `${diff.toFixed(1)}p 여유` : `${Math.abs(diff).toFixed(1)}p 부족`;
+}
+
 function analyzeRegular(item, student) {
   const subjects = [
     {
@@ -102,15 +110,12 @@ function analyzeRegular(item, student) {
     return {
       judgement: "판정 보류",
       subjects,
-      shortageText: "입력된 점수와 비교할 수 있는 과목이 없습니다."
+      shortageText: "입력된 점수와 비교할 수 있는 과목이 없습니다.",
+      shortageCount: 99
     };
   }
 
-  const scoreDiffs = used.map(s => {
-    if (s.type === "grade") return s.diff * 2;
-    return s.diff;
-  });
-
+  const scoreDiffs = used.map(s => (s.type === "grade" ? s.diff * 2 : s.diff));
   const minDiff = Math.min(...scoreDiffs);
   const avgDiff = scoreDiffs.reduce((a, b) => a + b, 0) / scoreDiffs.length;
 
@@ -127,20 +132,18 @@ function analyzeRegular(item, student) {
   let shortageText = "";
 
   if (!shortages.length) {
-    shortageText = "전 입력 과목이 기준 이상입니다.";
+    shortageText = "전 과목 충족";
   } else {
-    shortageText = shortages.map(s => {
-      if (s.type === "grade") {
-        return `${s.label} ${Math.abs(s.diff)}등급 부족`;
-      }
-      return `${s.label} ${Math.abs(s.diff).toFixed(1)}p 부족`;
-    }).join(", ");
+    shortageText = shortages
+      .map(s => `${s.label} ${formatDiff(s.diff, s.type).replace(" 부족", "")} 부족`)
+      .join(", ");
   }
 
   return {
     judgement,
     subjects,
-    shortageText
+    shortageText,
+    shortageCount: shortages.length
   };
 }
 
@@ -170,41 +173,9 @@ function badgeClass(label) {
   }
 }
 
-function subjectStatusClass(diff) {
+function subchipClass(diff) {
   if (diff == null) return "subchip";
-  if (diff >= 0) return "subchip is-pass";
-  return "subchip is-fail";
-}
-
-function formatSubjectLine(s) {
-  if (s.student == null || s.cut == null || s.cut === "") {
-    return `
-      <div class="subject-row">
-        <span class="subject-name">${escapeHtml(s.label)}</span>
-        <span class="subject-score">입력 없음</span>
-        <span class="subject-cut">컷 ${escapeHtml(safeValue(s.cut))}</span>
-        <span class="subchip">비교 불가</span>
-      </div>
-    `;
-  }
-
-  let diffText = "";
-  if (s.type === "grade") {
-    if (s.diff >= 0) diffText = `${s.diff}등급 여유`;
-    else diffText = `${Math.abs(s.diff)}등급 부족`;
-  } else {
-    if (s.diff >= 0) diffText = `${s.diff.toFixed(1)}p 여유`;
-    else diffText = `${Math.abs(s.diff).toFixed(1)}p 부족`;
-  }
-
-  return `
-    <div class="subject-row">
-      <span class="subject-name">${escapeHtml(s.label)}</span>
-      <span class="subject-score">내 점수 ${escapeHtml(s.student)}</span>
-      <span class="subject-cut">컷 ${escapeHtml(s.cut)}</span>
-      <span class="${subjectStatusClass(s.diff)}">${escapeHtml(diffText)}</span>
-    </div>
-  `;
+  return diff >= 0 ? "subchip is-pass" : "subchip is-fail";
 }
 
 function fillSelectOptions() {
@@ -223,33 +194,53 @@ function fillSelectOptions() {
     methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
 }
 
-function makeCard(item) {
+function makeSubjectDetailRow(s) {
+  const studentText = s.student == null ? "입력 없음" : s.student;
+  const cutText = safeValue(s.cut);
+  const diffText = formatDiff(s.diff, s.type);
+
+  return `
+    <div class="detail-row">
+      <div class="detail-subject">${escapeHtml(s.label)}</div>
+      <div class="detail-val">내 점수 ${escapeHtml(studentText)}</div>
+      <div class="detail-val">컷 ${escapeHtml(cutText)}</div>
+      <div class="${subchipClass(s.diff)}">${escapeHtml(diffText)}</div>
+    </div>
+  `;
+}
+
+function makeCard(item, index) {
   const univName = getUnivName(item);
   const methodName = getMethodName(item);
   const analysis = item.analysis;
+  const detailId = `detail-${index}`;
 
   return `
-    <article class="result-card">
-      <div class="row-top">
-        <div>
-          <h3>${escapeHtml(univName)}</h3>
-          <div class="major-line">${escapeHtml(safeValue(item.major))}</div>
-          <div class="small-line">${escapeHtml(safeValue(item.group))} · ${escapeHtml(methodName)} · ${escapeHtml(safeValue(item.year))}</div>
+    <article class="compact-card">
+      <div class="compact-top">
+        <div class="compact-main">
+          <span class="${badgeClass(analysis.judgement)}">${escapeHtml(analysis.judgement)}</span>
+          <div class="compact-title-wrap">
+            <div class="compact-title">${escapeHtml(univName)} ${escapeHtml(safeValue(item.major))}</div>
+            <div class="compact-meta">${escapeHtml(safeValue(item.group))} · ${escapeHtml(methodName)} · ${escapeHtml(safeValue(item.year))}</div>
+          </div>
         </div>
-        <span class="${badgeClass(analysis.judgement)}">${escapeHtml(analysis.judgement)}</span>
+
+        <button type="button" class="detail-toggle" data-target="${detailId}">
+          상세보기
+        </button>
       </div>
 
-      <div class="shortage-box">
-        <strong>부족/충족 요약</strong>
-        <div>${escapeHtml(analysis.shortageText)}</div>
+      <div class="compact-summary">
+        <div class="summary-line"><strong>요약</strong> ${escapeHtml(analysis.shortageText)}</div>
+        <div class="summary-side">영어 컷 ${escapeHtml(safeValue(item.cut_eng_grade))}</div>
       </div>
 
-      <div class="subject-list">
-        ${analysis.subjects.map(formatSubjectLine).join("")}
-      </div>
-
-      <div class="note-line">
-        <strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}
+      <div class="detail-panel" id="${detailId}" hidden>
+        <div class="detail-grid">
+          ${analysis.subjects.map(makeSubjectDetailRow).join("")}
+        </div>
+        <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
       </div>
     </article>
   `;
@@ -263,7 +254,23 @@ function renderResults(list) {
     return;
   }
 
-  $("resultList").innerHTML = list.map(makeCard).join("");
+  $("resultList").innerHTML = list.map((item, idx) => makeCard(item, idx)).join("");
+
+  document.querySelectorAll(".detail-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-target");
+      const panel = document.getElementById(targetId);
+      const isHidden = panel.hasAttribute("hidden");
+
+      if (isHidden) {
+        panel.removeAttribute("hidden");
+        btn.textContent = "상세닫기";
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.textContent = "상세보기";
+      }
+    });
+  });
 }
 
 function searchResults() {
@@ -316,6 +323,10 @@ function searchResults() {
   list.sort((a, b) => {
     const rankDiff = judgementRank(a.analysis.judgement) - judgementRank(b.analysis.judgement);
     if (rankDiff !== 0) return rankDiff;
+
+    const shortageDiff = a.analysis.shortageCount - b.analysis.shortageCount;
+    if (shortageDiff !== 0) return shortageDiff;
+
     return String(getUnivName(a) || "").localeCompare(String(getUnivName(b) || ""), "ko");
   });
 
