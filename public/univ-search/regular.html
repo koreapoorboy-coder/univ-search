@@ -1,1 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>정시 판독기</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="top">
+      <a class="back-link" href="index.html">← 메인으로</a>
+      <h1>정시 판독기</h1>
+      <p class="sub">국어 · 수학 · 탐구 백분위와 영어 등급 기준으로 지원 가능 대학을 조회합니다.</p>
+    </header>
 
+    <section class="panel">
+      <h2>학생 입력</h2>
+
+      <div class="form-grid">
+        <label>
+          <span>학생 이름 / 메모</span>
+          <input type="text" id="studentName" placeholder="예: 고3 자연 / 6월 모평 기준" />
+        </label>
+
+        <label>
+          <span>계열</span>
+          <select id="groupFilter">
+            <option value="all">전체</option>
+            <option value="인문">인문</option>
+            <option value="자연">자연</option>
+            <option value="예체능">예체능</option>
+          </select>
+        </label>
+
+        <label>
+          <span>국어 백분위</span>
+          <input type="number" id="kor" min="0" max="100" step="1" placeholder="예: 92" />
+        </label>
+
+        <label>
+          <span>수학 백분위</span>
+          <input type="number" id="math" min="0" max="100" step="1" placeholder="예: 94" />
+        </label>
+
+        <label>
+          <span>탐구 1 백분위</span>
+          <input type="number" id="inq1" min="0" max="100" step="1" placeholder="예: 89" />
+        </label>
+
+        <label>
+          <span>탐구 2 백분위</span>
+          <input type="number" id="inq2" min="0" max="100" step="1" placeholder="예: 90" />
+        </label>
+
+        <label>
+          <span>영어 등급</span>
+          <select id="engGrade">
+            <option value="">선택</option>
+            <option value="1">1등급</option>
+            <option value="2">2등급</option>
+            <option value="3">3등급</option>
+            <option value="4">4등급</option>
+            <option value="5">5등급</option>
+            <option value="6">6등급</option>
+            <option value="7">7등급</option>
+            <option value="8">8등급</option>
+            <option value="9">9등급</option>
+          </select>
+        </label>
+
+        <label>
+          <span>연도</span>
+          <select id="yearFilter">
+            <option value="all">전체</option>
+          </select>
+        </label>
+
+        <label>
+          <span>지역</span>
+          <select id="regionFilter">
+            <option value="all">전체</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="수도권">수도권</option>
+            <option value="지방">지방</option>
+          </select>
+        </label>
+
+        <label>
+          <span>전형 방식</span>
+          <select id="methodFilter">
+            <option value="all">전체</option>
+          </select>
+        </label>
+
+        <label class="full">
+          <span>대학 / 학과 검색</span>
+          <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학 / 일반전형" />
+        </label>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" id="btnSearch">판정 보기</button>
+        <button type="button" id="btnReset" class="secondary">초기화</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="result-head">
+        <h2>조회 결과</h2>
+        <div id="resultCount" class="meta-text">결과 없음</div>
+      </div>
+
+      <div id="resultList" class="result-list">
+        <div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/regular.js"></script>
+</body>
+</html>
