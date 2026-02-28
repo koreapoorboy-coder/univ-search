@@ -278,6 +278,7 @@ function searchResults() {
   const groupFilter = getValue("groupFilter");
   const yearFilter = getValue("yearFilter");
   const methodFilter = getValue("methodFilter");
+  const judgementFilter = getValue("judgementFilter");
 
   const kor = parseNum(getValue("kor"));
   const math = parseNum(getValue("math"));
@@ -320,6 +321,14 @@ function searchResults() {
     analysis: analyzeRegular(item, student)
   }));
 
+  if (judgementFilter === "핵심") {
+    list = list.filter(item =>
+      ["안정", "적정", "상향"].includes(item.analysis.judgement)
+    );
+  } else if (judgementFilter !== "all") {
+    list = list.filter(item => item.analysis.judgement === judgementFilter);
+  }
+
   list.sort((a, b) => {
     const rankDiff = judgementRank(a.analysis.judgement) - judgementRank(b.analysis.judgement);
     if (rankDiff !== 0) return rankDiff;
@@ -342,6 +351,7 @@ function resetForm() {
   $("inq2").value = "";
   $("engGrade").value = "";
   $("yearFilter").value = "all";
+  $("judgementFilter").value = "핵심";
   $("methodFilter").value = "all";
   $("keyword").value = "";
   $("resultCount").textContent = "결과 없음";
