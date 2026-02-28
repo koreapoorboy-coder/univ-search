@@ -29,6 +29,22 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function safeValue(v, fallback = "-") {
+  return v === undefined || v === null || v === "" ? fallback : v;
+}
+
+function getUnivName(item) {
+  return item.university ?? item.univ ?? "";
+}
+
+function getMethodName(item) {
+  return item.method ?? item.ruleMode ?? "";
+}
+
+function getRegionName(item) {
+  return item.region ?? "";
+}
+
 function percentileDiff(student, cut) {
   if (student == null || cut == null || cut === "") return null;
   return Number(student) - Number(cut);
@@ -53,7 +69,7 @@ function evaluateRegular(item, student) {
   if (inq1Diff != null) diffs.push(inq1Diff);
   if (inq2Diff != null) diffs.push(inq2Diff);
 
-  // 영어는 등급 차이이므로 영향력을 조금 작게 반영
+  // 영어는 등급 차이 영향 반영
   if (engDiff != null) diffs.push(engDiff * 2);
 
   if (!diffs.length) return "판정 보류";
@@ -61,7 +77,6 @@ function evaluateRegular(item, student) {
   const minDiff = Math.min(...diffs);
   const avgDiff = diffs.reduce((a, b) => a + b, 0) / diffs.length;
 
-  // 한 과목이라도 크게 부족하면 보수적으로 판정
   if (minDiff <= -8) return "판정 보류";
   if (minDiff <= -5) return "도전";
 
@@ -98,32 +113,34 @@ function badgeClass(label) {
   }
 }
 
-function safeValue(v, fallback = "-") {
-  return v === undefined || v === null || v === "" ? fallback : v;
-}
-
 function fillSelectOptions() {
   const yearSelect = $("yearFilter");
   const methodSelect = $("methodFilter");
 
   const years = [...new Set(REGULAR_DATA.map(item => item.year).filter(Boolean))].sort((a, b) => b - a);
-  const methods = [...new Set(REGULAR_DATA.map(item => item.method).filter(Boolean))].sort();
+  const methods = [...new Set(REGULAR_DATA.map(item => getMethodName(item)).filter(Boolean))].sort();
 
-  yearSelect.innerHTML = `<option value="all">전체</option>` +
+  yearSelect.innerHTML =
+    `<option value="all">전체</option>` +
     years.map(y => `<option value="${escapeHtml(y)}">${escapeHtml(y)}</option>`).join("");
 
-  methodSelect.innerHTML = `<option value="all">전체</option>` +
+  methodSelect.innerHTML =
+    `<option value="all">전체</option>` +
     methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
 }
 
 function makeCard(item) {
+  const univName = getUnivName(item);
+  const methodName = getMethodName(item);
+  const regionName = getRegionName(item);
+
   return `
     <article class="result-card">
       <div class="row-top">
         <div>
-          <h3>${escapeHtml(item.university)} ${escapeHtml(item.major)}</h3>
+          <h3>${escapeHtml(univName)} ${escapeHtml(safeValue(item.major))}</h3>
           <div class="small-line">
-            ${escapeHtml(safeValue(item.method))} · ${escapeHtml(safeValue(item.group))} · ${escapeHtml(safeValue(item.region))}
+            ${escapeHtml(safeValue(methodName, "기준 미표기"))} · ${escapeHtml(safeValue(item.group))}${regionName ? ` · ${escapeHtml(regionName)}` : ""}
           </div>
         </div>
         <span class="${badgeClass(item.judgement)}">${escapeHtml(item.judgement)}</span>
@@ -131,7 +148,7 @@ function makeCard(item) {
 
       <div class="meta-grid">
         <div><strong>모집년도</strong> ${escapeHtml(safeValue(item.year))}</div>
-        <div><strong>전형방식</strong> ${escapeHtml(safeValue(item.method))}</div>
+        <div><strong>판정 방식</strong> ${escapeHtml(safeValue(methodName, "없음"))}</div>
         <div><strong>국어 컷</strong> ${escapeHtml(safeValue(item.cut_kor))}</div>
         <div><strong>수학 컷</strong> ${escapeHtml(safeValue(item.cut_math))}</div>
         <div><strong>탐1 컷</strong> ${escapeHtml(safeValue(item.cut_inq1))}</div>
@@ -178,9 +195,9 @@ function searchResults() {
 
   if (keyword) {
     list = list.filter(item => {
-      const univ = String(item.university || "").toLowerCase();
+      const univ = String(getUnivName(item) || "").toLowerCase();
       const major = String(item.major || "").toLowerCase();
-      const method = String(item.method || "").toLowerCase();
+      const method = String(getMethodName(item) || "").toLowerCase();
       return univ.includes(keyword) || major.includes(keyword) || method.includes(keyword);
     });
   }
@@ -189,8 +206,12 @@ function searchResults() {
     list = list.filter(item => item.group === groupFilter);
   }
 
+  // region 필드는 현재 데이터에 없으므로, region 있는 경우에만 필터 적용
   if (regionFilter !== "all") {
-    list = list.filter(item => item.region === regionFilter);
+    list = list.filter(item => {
+      const region = getRegionName(item);
+      return region && region === regionFilter;
+    });
   }
 
   if (yearFilter !== "all") {
@@ -198,7 +219,7 @@ function searchResults() {
   }
 
   if (methodFilter !== "all") {
-    list = list.filter(item => item.method === methodFilter);
+    list = list.filter(item => getMethodName(item) === methodFilter);
   }
 
   list = list.map(item => ({
@@ -209,7 +230,7 @@ function searchResults() {
   list.sort((a, b) => {
     const rankDiff = judgementRank(a.judgement) - judgementRank(b.judgement);
     if (rankDiff !== 0) return rankDiff;
-    return String(a.university || "").localeCompare(String(b.university || ""), "ko");
+    return String(getUnivName(a) || "").localeCompare(String(getUnivName(b) || ""), "ko");
   });
 
   renderResults(list);
