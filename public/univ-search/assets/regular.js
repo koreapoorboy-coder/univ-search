@@ -1,4 +1,8 @@
 let REGULAR_DATA = [];
+const PAGE_SIZE = 5;
+
+let LAST_RESULTS = [];
+let visibleCount = PAGE_SIZE;
 
 async function loadData() {
   const res = await fetch("univ_search_data.json", { cache: "no-store" });
@@ -106,12 +110,15 @@ function analyzeRegular(item, student) {
   ];
 
   const used = subjects.filter(s => s.student != null && s.cut != null && s.cut !== "");
+
   if (!used.length) {
     return {
       judgement: "판정 보류",
       subjects,
       shortageText: "입력된 점수와 비교할 수 있는 과목이 없습니다.",
-      shortageCount: 99
+      shortageCount: 99,
+      avgDiff: -999,
+      relevanceScore: 9999
     };
   }
 
@@ -139,11 +146,20 @@ function analyzeRegular(item, student) {
       .join(", ");
   }
 
+  const shortageMagnitude = shortages.reduce((sum, s) => {
+    if (s.type === "grade") return sum + Math.abs(s.diff) * 2;
+    return sum + Math.abs(s.diff);
+  }, 0);
+
+  const relevanceScore = Math.abs(avgDiff) + shortageMagnitude + shortages.length * 1.5;
+
   return {
     judgement,
     subjects,
     shortageText,
-    shortageCount: shortages.length
+    shortageCount: shortages.length,
+    avgDiff,
+    relevanceScore
   };
 }
 
@@ -246,16 +262,7 @@ function makeCard(item, index) {
   `;
 }
 
-function renderResults(list) {
-  $("resultCount").textContent = `조회 결과 ${list.length}건`;
-
-  if (!list.length) {
-    $("resultList").innerHTML = `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
-    return;
-  }
-
-  $("resultList").innerHTML = list.map((item, idx) => makeCard(item, idx)).join("");
-
+function bindDetailToggles() {
   document.querySelectorAll(".detail-toggle").forEach(btn => {
     btn.addEventListener("click", () => {
       const targetId = btn.getAttribute("data-target");
@@ -271,6 +278,43 @@ function renderResults(list) {
       }
     });
   });
+}
+
+function renderCurrentResults() {
+  const total = LAST_RESULTS.length;
+  const shown = Math.min(visibleCount, total);
+
+  $("resultCount").textContent = `조회 결과 ${total}건 · 현재 ${shown}건 표시`;
+
+  if (!total) {
+    $("resultList").innerHTML = `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
+    return;
+  }
+
+  const visibleItems = LAST_RESULTS.slice(0, shown);
+  let html = visibleItems.map((item, idx) => makeCard(item, idx)).join("");
+
+  if (shown < total) {
+    html += `
+      <div class="load-more-wrap">
+        <button type="button" id="btnLoadMore" class="secondary load-more-btn">
+          더 보기 (${shown}/${total})
+        </button>
+      </div>
+    `;
+  }
+
+  $("resultList").innerHTML = html;
+
+  bindDetailToggles();
+
+  const loadMoreBtn = $("btnLoadMore");
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      visibleCount += PAGE_SIZE;
+      renderCurrentResults();
+    });
+  }
 }
 
 function searchResults() {
@@ -333,13 +377,18 @@ function searchResults() {
     const rankDiff = judgementRank(a.analysis.judgement) - judgementRank(b.analysis.judgement);
     if (rankDiff !== 0) return rankDiff;
 
+    const relevanceDiff = a.analysis.relevanceScore - b.analysis.relevanceScore;
+    if (relevanceDiff !== 0) return relevanceDiff;
+
     const shortageDiff = a.analysis.shortageCount - b.analysis.shortageCount;
     if (shortageDiff !== 0) return shortageDiff;
 
     return String(getUnivName(a) || "").localeCompare(String(getUnivName(b) || ""), "ko");
   });
 
-  renderResults(list);
+  LAST_RESULTS = list;
+  visibleCount = PAGE_SIZE;
+  renderCurrentResults();
 }
 
 function resetForm() {
@@ -354,6 +403,8 @@ function resetForm() {
   $("judgementFilter").value = "핵심";
   $("methodFilter").value = "all";
   $("keyword").value = "";
+  LAST_RESULTS = [];
+  visibleCount = PAGE_SIZE;
   $("resultCount").textContent = "결과 없음";
   $("resultList").innerHTML = `<div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
 }
