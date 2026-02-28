@@ -227,3 +227,77 @@ button.secondary {
     align-items: stretch;
   }
 }
+.major-line {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.shortage-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid #ececec;
+}
+
+.shortage-box strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.subject-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.subject-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.subject-name {
+  font-weight: 700;
+}
+
+.subject-score,
+.subject-cut {
+  color: #444;
+  font-size: 14px;
+}
+
+.subchip {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.subchip.is-pass {
+  background: #e8f7ee;
+}
+
+.subchip.is-fail {
+  background: #fdeeee;
+}
+
+.note-line {
+  margin-top: 12px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .subject-row {
+    grid-template-columns: 1fr;
+  }
+}
