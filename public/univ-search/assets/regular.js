@@ -151,26 +151,22 @@ function analyzeRegular(item, student) {
 
   let judgement = "판정 보류";
 
-  // 핵심 판정 로직
-  // 1) 전 과목 컷 이상이면 최소 적정
+  // 전 과목 컷 이상이면 최소 적정
   if (allMeet) {
-    // 충분한 여유가 있으면 안정
     if (avgDiff >= 2.5 && minDiff >= 1) {
       judgement = "안정";
     } else {
       judgement = "적정";
     }
   }
-  // 2) 1과목만 소폭 부족하면 상향
+  // 1과목만 소폭 부족
   else if (shortageCount === 1 && minDiff >= -2) {
     judgement = "상향";
   }
-  // 3) 1~2과목 부족인데 차이가 과도하지 않으면 도전
+  // 1~2과목 부족, 차이가 아주 크진 않음
   else if (shortageCount <= 2 && minDiff >= -5) {
     judgement = "도전";
-  }
-  // 4) 그 외는 판정 보류
-  else {
+  } else {
     judgement = "판정 보류";
   }
 
@@ -179,8 +175,6 @@ function analyzeRegular(item, student) {
     return sum + Math.abs(s.diff);
   }, 0);
 
-  // 정렬용 관련도 점수
-  // 전 과목 충족이면 avgDiff가 0에 가까울수록 현실권(적정)에 가까움
   const relevanceScore = allMeet
     ? Math.abs(avgDiff)
     : Math.abs(avgDiff) + shortageMagnitude + shortageCount * 1.5;
@@ -242,6 +236,78 @@ function fillSelectOptions() {
     methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
 }
 
+function buildGroupKey(item) {
+  return [
+    getUnivName(item),
+    item.major || "",
+    item.group || "",
+    getMethodName(item)
+  ].join("||");
+}
+
+function summarizeGroupJudgement(yearItems) {
+  if (!yearItems.length) return "판정 보류";
+  if (yearItems.length === 1) return yearItems[0].analysis.judgement;
+
+  const counts = {
+    안정: yearItems.filter(x => x.analysis.judgement === "안정").length,
+    적정: yearItems.filter(x => x.analysis.judgement === "적정").length,
+    상향: yearItems.filter(x => x.analysis.judgement === "상향").length,
+    도전: yearItems.filter(x => x.analysis.judgement === "도전").length
+  };
+
+  if (counts.안정 >= 2) return "안정";
+  if (counts.안정 + counts.적정 >= 2) return "적정";
+  if (counts.상향 >= 1 || counts.적정 >= 1) return "상향";
+  if (counts.도전 >= 1) return "도전";
+  return "판정 보류";
+}
+
+function buildGroupedResults(analyzedList) {
+  const map = new Map();
+
+  analyzedList.forEach(item => {
+    const key = buildGroupKey(item);
+    if (!map.has(key)) {
+      map.set(key, {
+        key,
+        univ: getUnivName(item),
+        major: item.major || "",
+        group: item.group || "",
+        method: getMethodName(item),
+        years: []
+      });
+    }
+    map.get(key).years.push(item);
+  });
+
+  return Array.from(map.values()).map(group => {
+    group.years.sort((a, b) => Number(b.year) - Number(a.year));
+
+    const latest = group.years[0];
+    const summaryJudgement = summarizeGroupJudgement(group.years);
+
+    const trendText = group.years
+      .slice(0, 3)
+      .map(item => `${item.year} ${item.analysis.judgement}`)
+      .join(" / ");
+
+    const summaryText = latest.analysis.shortageText;
+
+    const avgRelevance =
+      group.years.reduce((sum, item) => sum + item.analysis.relevanceScore, 0) / group.years.length;
+
+    return {
+      ...group,
+      latest,
+      summaryJudgement,
+      trendText,
+      summaryText,
+      relevanceScore: avgRelevance
+    };
+  });
+}
+
 function makeSubjectDetailRow(s) {
   const studentText = s.student == null ? "입력 없음" : s.student;
   const cutText = safeValue(s.cut);
@@ -257,20 +323,34 @@ function makeSubjectDetailRow(s) {
   `;
 }
 
-function makeCard(item, index) {
-  const univName = getUnivName(item);
-  const methodName = getMethodName(item);
-  const analysis = item.analysis;
-  const detailId = `detail-${index}`;
+function makeYearBlock(item, index, groupIndex) {
+  return `
+    <div class="year-block">
+      <div class="year-block-head">
+        <div class="year-title">${escapeHtml(item.year)}</div>
+        <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
+      </div>
+      <div class="year-summary">${escapeHtml(item.analysis.shortageText)}</div>
+      <div class="detail-grid">
+        ${item.analysis.subjects.map(makeSubjectDetailRow).join("")}
+      </div>
+      <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
+    </div>
+  `;
+}
+
+function makeCard(group, index) {
+  const detailId = `group-detail-${index}`;
+  const latestYear = group.latest?.year ?? "-";
 
   return `
     <article class="compact-card">
       <div class="compact-top">
         <div class="compact-main">
-          <span class="${badgeClass(analysis.judgement)}">${escapeHtml(analysis.judgement)}</span>
+          <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
           <div class="compact-title-wrap">
-            <div class="compact-title">${escapeHtml(univName)} ${escapeHtml(safeValue(item.major))}</div>
-            <div class="compact-meta">${escapeHtml(safeValue(item.group))} · ${escapeHtml(methodName)} · ${escapeHtml(safeValue(item.year))}</div>
+            <div class="compact-title">${escapeHtml(group.univ)} ${escapeHtml(group.major)}</div>
+            <div class="compact-meta">${escapeHtml(group.group)} · ${escapeHtml(group.method)} · 최근 기준 ${escapeHtml(latestYear)}</div>
           </div>
         </div>
 
@@ -280,15 +360,22 @@ function makeCard(item, index) {
       </div>
 
       <div class="compact-summary">
-        <div class="summary-line"><strong>요약</strong> ${escapeHtml(analysis.shortageText)}</div>
-        <div class="summary-side">영어 컷 ${escapeHtml(safeValue(item.cut_eng_grade))}</div>
+        <div class="summary-line"><strong>3개년 흐름</strong> ${escapeHtml(group.trendText || "데이터 없음")}</div>
+        <div class="summary-side">${escapeHtml(group.summaryText || "")}</div>
+      </div>
+
+      <div class="year-chip-row">
+        ${group.years.map(item => `
+          <span class="year-chip ${badgeClass(item.analysis.judgement)}">
+            ${escapeHtml(item.year)} ${escapeHtml(item.analysis.judgement)}
+          </span>
+        `).join("")}
       </div>
 
       <div class="detail-panel" id="${detailId}" hidden>
-        <div class="detail-grid">
-          ${analysis.subjects.map(makeSubjectDetailRow).join("")}
+        <div class="year-block-list">
+          ${group.years.map((item, yearIdx) => makeYearBlock(item, yearIdx, index)).join("")}
         </div>
-        <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
       </div>
     </article>
   `;
@@ -312,18 +399,18 @@ function bindDetailToggles() {
   });
 }
 
-function renderStats(allAnalyzed) {
+function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
 
-  if (!allAnalyzed.length) {
+  if (!groupedList.length) {
     statsBox.innerHTML = "";
     return;
   }
 
-  const safe = allAnalyzed.filter(item => item.analysis.judgement === "안정").length;
-  const fit = allAnalyzed.filter(item => item.analysis.judgement === "적정").length;
-  const up = allAnalyzed.filter(item => item.analysis.judgement === "상향").length;
+  const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
+  const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
+  const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
   const totalCore = safe + fit + up;
 
   statsBox.innerHTML = `
@@ -338,7 +425,7 @@ function renderCurrentResults() {
   const total = LAST_RESULTS.length;
   const shown = Math.min(visibleCount, total);
 
-  $("resultCount").textContent = `조회 결과 ${total}건 · 현재 ${shown}건 표시`;
+  $("resultCount").textContent = `조회 결과 ${total}개 학과 · 현재 ${shown}개 표시`;
 
   if (!total) {
     $("resultList").innerHTML = `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
@@ -346,7 +433,7 @@ function renderCurrentResults() {
   }
 
   const visibleItems = LAST_RESULTS.slice(0, shown);
-  let html = visibleItems.map((item, idx) => makeCard(item, idx)).join("");
+  let html = visibleItems.map((group, idx) => makeCard(group, idx)).join("");
 
   if (shown < total) {
     html += `
@@ -438,32 +525,29 @@ function searchResults() {
     analysis: analyzeRegular(item, student)
   }));
 
-  renderStats(analyzedList);
+  let groupedList = buildGroupedResults(analyzedList);
 
-  let list = [...analyzedList];
+  renderStats(groupedList);
 
   if (judgementFilter === "핵심") {
-    list = list.filter(item =>
-      ["안정", "적정", "상향"].includes(item.analysis.judgement)
+    groupedList = groupedList.filter(item =>
+      ["안정", "적정", "상향"].includes(item.summaryJudgement)
     );
   } else if (judgementFilter !== "all") {
-    list = list.filter(item => item.analysis.judgement === judgementFilter);
+    groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
   }
 
-  list.sort((a, b) => {
-    const rankDiff = judgementRank(a.analysis.judgement) - judgementRank(b.analysis.judgement);
+  groupedList.sort((a, b) => {
+    const rankDiff = judgementRank(a.summaryJudgement) - judgementRank(b.summaryJudgement);
     if (rankDiff !== 0) return rankDiff;
 
-    const relevanceDiff = a.analysis.relevanceScore - b.analysis.relevanceScore;
+    const relevanceDiff = a.relevanceScore - b.relevanceScore;
     if (relevanceDiff !== 0) return relevanceDiff;
 
-    const shortageDiff = a.analysis.shortageCount - b.analysis.shortageCount;
-    if (shortageDiff !== 0) return shortageDiff;
-
-    return String(getUnivName(a) || "").localeCompare(String(getUnivName(b) || ""), "ko");
+    return String(a.univ || "").localeCompare(String(b.univ || ""), "ko");
   });
 
-  LAST_RESULTS = list;
+  LAST_RESULTS = groupedList;
   visibleCount = PAGE_SIZE;
   renderCurrentResults();
 }
