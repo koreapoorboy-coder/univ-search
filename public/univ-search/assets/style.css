@@ -602,3 +602,31 @@ button.secondary {
   min-width: 140px;
   padding: 10px 16px;
 }
+.result-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.stat-chip {
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stat-chip.stat-safe {
+  background: #e8f7ee;
+}
+
+.stat-chip.stat-fit {
+  background: #eef4ff;
+}
+
+.stat-chip.stat-up {
+  background: #fff5e8;
+}
