@@ -102,6 +102,7 @@ function setJudgementFilter(value) {
     btn.classList.toggle("is-active", btn.getAttribute("data-filter") === value);
   });
 }
+}
 
 function analyzeRegular(item, student) {
   const subjects = [
@@ -447,14 +448,18 @@ function bindYearToggles() {
 
 function bindStatChips() {
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
       const filterValue = btn.getAttribute("data-filter");
       setJudgementFilter(filterValue);
+
       if (hasAnyStudentInput()) {
         searchResults();
       }
     });
   });
+}
 }
 
 function renderStats(groupedList) {
