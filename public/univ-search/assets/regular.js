@@ -3,19 +3,11 @@ let REGULAR_DATA = [];
 const DESKTOP_PAGE_SIZE = 5;
 const MOBILE_PAGE_SIZE = 3;
 
-function getPageSize() {
-  return window.innerWidth <= 768 ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
-}
-
 let LAST_RESULTS = [];
 let visibleCount = getPageSize();
 
-async function loadData() {
-  const res = await fetch("univ_search_data.json", { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error("정시 데이터 파일을 불러오지 못했습니다.");
-  }
-  REGULAR_DATA = await res.json();
+function getPageSize() {
+  return window.innerWidth <= 768 ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
 }
 
 function $(id) {
@@ -27,7 +19,9 @@ function getValue(id) {
 }
 
 function parseNum(value) {
-  const n = parseFloat(value);
+  if (value === null || value === undefined || value === "") return null;
+  const cleaned = String(value).replace(/,/g, "").trim();
+  const n = parseFloat(cleaned);
   return Number.isFinite(n) ? n : null;
 }
 
@@ -46,9 +40,94 @@ function safeValue(v, fallback = "-") {
 function normalizeText(value) {
   return String(value || "")
     .replace(/\s+/g, "")
-    .replace(/[()]/g, "")
+    .replace(/[()[\]{}]/g, "")
     .trim()
     .toLowerCase();
+}
+
+function canonicalFilterValue(value) {
+  const v = normalizeText(value);
+
+  if (!v) return "핵심";
+  if (["all", "전체"].includes(v)) return "all";
+  if (["안정", "stable", "safe"].includes(v)) return "안정";
+  if (["적정", "fit", "match"].includes(v)) return "적정";
+  if (["상향", "reach", "up"].includes(v)) return "상향";
+  if (["도전", "challenge"].includes(v)) return "도전";
+  if (["핵심", "핵심합", "core"].includes(v)) return "핵심";
+
+  return value;
+}
+
+function getRawValue(obj, keys, fallback = "") {
+  for (const key of keys) {
+    if (obj && obj[key] !== undefined && obj[key] !== null && obj[key] !== "") {
+      return obj[key];
+    }
+  }
+  return fallback;
+}
+
+function getRawNum(obj, keys) {
+  return parseNum(getRawValue(obj, keys, null));
+}
+
+function normalizeRegularItem(item, index) {
+  const normalized = {
+    __index: index,
+    id: getRawValue(item, ["id", "ID"], `row-${index + 1}`),
+
+    year: String(getRawValue(item, ["year", "연도", "년도"], "")).trim(),
+    univ: String(getRawValue(item, ["univ", "university", "대학", "학교명"], "")).trim(),
+    major: String(getRawValue(item, ["major", "department", "학과", "모집단위"], "")).trim(),
+    group: String(getRawValue(item, ["group", "군", "모집군"], "")).trim(),
+
+    ruleMode: String(getRawValue(item, ["ruleMode", "rule_mode", "판정방식"], "")).trim(),
+    method: String(getRawValue(item, ["method", "전형방법", "기준"], "")).trim(),
+    note: String(getRawValue(item, ["note", "비고", "remark"], "")).trim(),
+
+    cut_kor: getRawNum(item, ["cut_kor", "kor_cut", "korCut", "국어컷", "cut_korean"]),
+    cut_math: getRawNum(item, ["cut_math", "math_cut", "mathCut", "수학컷"]),
+    cut_inq1: getRawNum(item, ["cut_inq1", "inq1_cut", "inq1Cut", "탐1컷", "탐구1컷"]),
+    cut_inq2: getRawNum(item, ["cut_inq2", "inq2_cut", "inq2Cut", "탐2컷", "탐구2컷"]),
+    cut_eng_grade: getRawNum(item, ["cut_eng_grade", "eng_grade_cut", "engGradeCut", "영어컷", "영어등급컷"]),
+
+    raw: item
+  };
+
+  return normalized;
+}
+
+async function loadData() {
+  const dataUrl = new URL("univ_search_data.json", window.location.href).toString();
+  const res = await fetch(dataUrl, { cache: "no-store" });
+
+  if (!res.ok) {
+    throw new Error(`정시 데이터 파일을 불러오지 못했습니다. (${res.status}) ${dataUrl}`);
+  }
+
+  const json = await res.json();
+  const rows = Array.isArray(json)
+    ? json
+    : Array.isArray(json?.data)
+      ? json.data
+      : Array.isArray(json?.items)
+        ? json.items
+        : null;
+
+  if (!Array.isArray(rows)) {
+    throw new Error("정시 데이터 형식이 올바르지 않습니다. 배열(Array) 또는 { data: [] } 형식이어야 합니다.");
+  }
+
+  REGULAR_DATA = rows
+    .map((item, index) => normalizeRegularItem(item, index))
+    .filter(item => item.univ || item.major);
+
+  console.log("[regular] loaded rows:", REGULAR_DATA.length, REGULAR_DATA.slice(0, 5));
+
+  if (!REGULAR_DATA.length) {
+    throw new Error("정시 데이터는 불러왔지만 실제 행(row)이 0개입니다.");
+  }
 }
 
 function getUnivName(item) {
@@ -56,9 +135,12 @@ function getUnivName(item) {
 }
 
 function getMethodName(item) {
-  const raw = item.ruleMode ?? item.method ?? "";
+  const raw = item.ruleMode || item.method || "";
+
+  if (!raw) return "기준 미표기";
   if (raw === "each_subject_meets_cut") return "과목별 컷 충족";
-  return raw || "기준 미표기";
+
+  return String(raw).trim();
 }
 
 function percentileDiff(student, cut) {
@@ -73,9 +155,11 @@ function englishDiff(studentGrade, cutGrade) {
 
 function formatDiff(diff, type) {
   if (diff == null) return "비교 불가";
+
   if (type === "grade") {
     return diff >= 0 ? `${diff}등급 여유` : `${Math.abs(diff)}등급 부족`;
   }
+
   return diff >= 0 ? `${diff.toFixed(1)}p 여유` : `${Math.abs(diff).toFixed(1)}p 부족`;
 }
 
@@ -90,18 +174,25 @@ function hasAnyStudentInput() {
 }
 
 function setJudgementFilter(value) {
-  const finalValue = value || "핵심";
+  const finalValue = canonicalFilterValue(value || "핵심");
 
   if ($("judgementFilter")) {
     $("judgementFilter").value = finalValue;
   }
 
   document.querySelectorAll(".judge-tab").forEach(btn => {
-    btn.classList.toggle("is-active", btn.getAttribute("data-value") === finalValue);
+    const tabValue = canonicalFilterValue(
+      btn.getAttribute("data-value") ||
+      btn.getAttribute("data-filter") ||
+      btn.getAttribute("data-judge") ||
+      ""
+    );
+    btn.classList.toggle("is-active", tabValue === finalValue);
   });
 
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
-    btn.classList.toggle("is-active", btn.getAttribute("data-filter") === finalValue);
+    const chipValue = canonicalFilterValue(btn.getAttribute("data-filter") || "");
+    btn.classList.toggle("is-active", chipValue === finalValue);
   });
 }
 
@@ -181,7 +272,6 @@ function analyzeRegular(item, student) {
 
   let judgement = "판정 보류";
 
-  // 전 과목 컷 이상이면 최소 적정
   if (allMeet) {
     if (avgDiff >= 2.5 && minDiff >= 1) {
       judgement = "안정";
@@ -226,19 +316,24 @@ function judgementRank(label) {
   return map[label] ?? 99;
 }
 
-function badgeClass(label) {
+function judgementToneClass(label) {
   switch (label) {
     case "안정":
-      return "badge is-safe";
+      return "is-safe";
     case "적정":
-      return "badge is-fit";
+      return "is-fit";
     case "상향":
-      return "badge is-up";
+      return "is-up";
     case "도전":
-      return "badge is-challenge";
+      return "is-challenge";
     default:
-      return "badge";
+      return "";
   }
+}
+
+function badgeClass(label) {
+  const tone = judgementToneClass(label);
+  return tone ? `badge ${tone}` : "badge";
 }
 
 function subchipClass(diff) {
@@ -247,21 +342,31 @@ function subchipClass(diff) {
 }
 
 function fillSelectOptions() {
+  const groupSelect = $("groupFilter");
   const yearSelect = $("yearFilter");
   const methodSelect = $("methodFilter");
 
-  if (!yearSelect || !methodSelect) return;
+  const groups = [...new Set(REGULAR_DATA.map(item => item.group).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+  const years = [...new Set(REGULAR_DATA.map(item => item.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a));
+  const methods = [...new Set(REGULAR_DATA.map(item => getMethodName(item)).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
 
-  const years = [...new Set(REGULAR_DATA.map(item => item.year).filter(Boolean))].sort((a, b) => b - a);
-  const methods = [...new Set(REGULAR_DATA.map(item => getMethodName(item)).filter(Boolean))].sort();
+  if (groupSelect) {
+    groupSelect.innerHTML =
+      `<option value="all">전체</option>` +
+      groups.map(g => `<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join("");
+  }
 
-  yearSelect.innerHTML =
-    `<option value="all">전체</option>` +
-    years.map(y => `<option value="${escapeHtml(y)}">${escapeHtml(y)}</option>`).join("");
+  if (yearSelect) {
+    yearSelect.innerHTML =
+      `<option value="all">전체</option>` +
+      years.map(y => `<option value="${escapeHtml(y)}">${escapeHtml(y)}</option>`).join("");
+  }
 
-  methodSelect.innerHTML =
-    `<option value="all">전체</option>` +
-    methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
+  if (methodSelect) {
+    methodSelect.innerHTML =
+      `<option value="all">전체</option>` +
+      methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
+  }
 }
 
 function buildGroupKey(item) {
@@ -308,7 +413,7 @@ function buildGroupedResults(analyzedList) {
   });
 
   return Array.from(map.values()).map(group => {
-    group.years.sort((a, b) => Number(b.year) - Number(a.year));
+    group.years.sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
 
     const latest = group.years[0];
     const summaryJudgement = summarizeGroupJudgement(group.years);
@@ -318,7 +423,7 @@ function buildGroupedResults(analyzedList) {
       .map(item => `${item.year} ${item.analysis.judgement}`)
       .join(" / ");
 
-    const summaryText = latest.analysis.shortageText;
+    const summaryText = latest?.analysis?.shortageText || "";
 
     const avgRelevance =
       group.years.reduce((sum, item) => sum + item.analysis.relevanceScore, 0) / group.years.length;
@@ -326,8 +431,8 @@ function buildGroupedResults(analyzedList) {
     return {
       ...group,
       latest,
-      groupLabel: latest.group || "",
-      methodLabel: getMethodName(latest),
+      groupLabel: latest?.group || "",
+      methodLabel: getMethodName(latest || {}),
       summaryJudgement,
       trendText,
       summaryText,
@@ -385,7 +490,7 @@ function makeCard(group, index) {
           <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
           <div class="compact-title-wrap">
             <div class="compact-title">${escapeHtml(group.univ)} ${escapeHtml(group.major)}</div>
-            <div class="compact-meta">${escapeHtml(group.groupLabel)} · ${escapeHtml(group.methodLabel)} · 최근 기준 ${escapeHtml(latestYear)}</div>
+            <div class="compact-meta">${escapeHtml(group.groupLabel || "군 미표기")} · ${escapeHtml(group.methodLabel)} · 최근 기준 ${escapeHtml(latestYear)}</div>
           </div>
         </div>
 
@@ -401,7 +506,7 @@ function makeCard(group, index) {
 
       <div class="year-chip-row">
         ${group.years.map(item => `
-          <span class="year-chip ${badgeClass(item.analysis.judgement)}">
+          <span class="year-chip ${judgementToneClass(item.analysis.judgement)}">
             ${escapeHtml(item.year)} ${escapeHtml(item.analysis.judgement)}
           </span>
         `).join("")}
@@ -418,7 +523,7 @@ function makeCard(group, index) {
 
 function bindDetailToggles() {
   document.querySelectorAll(".detail-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       const targetId = btn.getAttribute("data-target");
       const panel = document.getElementById(targetId);
       if (!panel) return;
@@ -432,39 +537,37 @@ function bindDetailToggles() {
         panel.setAttribute("hidden", "");
         btn.textContent = "연도보기";
       }
-    });
+    };
   });
 }
 
 function bindYearToggles() {
   document.querySelectorAll(".year-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       const targetId = btn.getAttribute("data-target");
       const panel = document.getElementById(targetId);
       if (!panel) return;
 
-      const isHidden = panel.hasAttribute("hidden");
-
-      if (isHidden) {
+      if (panel.hasAttribute("hidden")) {
         panel.removeAttribute("hidden");
       } else {
         panel.setAttribute("hidden", "");
       }
-    });
+    };
   });
 }
 
 function bindStatChips() {
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+    btn.onclick = (e) => {
       e.preventDefault();
-      const filterValue = btn.getAttribute("data-filter") || "핵심";
+      const filterValue = canonicalFilterValue(btn.getAttribute("data-filter") || "핵심");
       setJudgementFilter(filterValue);
 
       if (hasAnyStudentInput()) {
-        searchResults();
+        searchResults({ silent: true });
       }
-    });
+    };
   });
 }
 
@@ -472,7 +575,7 @@ function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
 
-  const currentFilter = getValue("judgementFilter") || "핵심";
+  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
 
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
@@ -526,33 +629,40 @@ function renderCurrentResults() {
 
   const loadMoreBtn = $("btnLoadMore");
   if (loadMoreBtn) {
-    loadMoreBtn.addEventListener("click", () => {
+    loadMoreBtn.onclick = () => {
       visibleCount += getPageSize();
       renderCurrentResults();
-    });
+    };
   }
 }
 
 function bindJudgementTabs() {
-  const tabs = document.querySelectorAll(".judge-tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      const value = tab.getAttribute("data-value") || "핵심";
+  document.querySelectorAll(".judge-tab").forEach(tab => {
+    tab.onclick = () => {
+      const value = canonicalFilterValue(
+        tab.getAttribute("data-value") ||
+        tab.getAttribute("data-filter") ||
+        tab.getAttribute("data-judge") ||
+        "핵심"
+      );
+
       setJudgementFilter(value);
 
       if (hasAnyStudentInput()) {
-        searchResults();
+        searchResults({ silent: true });
       }
-    });
+    };
   });
 }
 
-function searchResults() {
+function searchResults(options = {}) {
+  const { silent = false } = options;
+
   const keyword = getValue("keyword").toLowerCase();
-  const groupFilter = getValue("groupFilter");
-  const yearFilter = getValue("yearFilter");
-  const methodFilter = getValue("methodFilter");
-  const judgementFilter = getValue("judgementFilter") || "핵심";
+  const groupFilter = getValue("groupFilter") || "all";
+  const yearFilter = getValue("yearFilter") || "all";
+  const methodFilter = getValue("methodFilter") || "all";
+  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
 
   const kor = parseNum(getValue("kor"));
   const math = parseNum(getValue("math"));
@@ -562,8 +672,19 @@ function searchResults() {
 
   const student = { kor, math, inq1, inq2, engGrade };
 
-  if (kor == null && math == null && inq1 == null && inq2 == null && engGrade == null) {
-    alert("국어/수학/탐구/영어 중 최소 1개 이상 입력해주세요.");
+  if (!hasAnyStudentInput()) {
+    LAST_RESULTS = [];
+    visibleCount = getPageSize();
+    renderStats([]);
+
+    if ($("resultCount")) $("resultCount").textContent = "결과 없음";
+    if ($("resultList")) {
+      $("resultList").innerHTML = `<div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력해주세요.</div>`;
+    }
+
+    if (!silent) {
+      alert("국어/수학/탐구/영어 중 최소 1개 이상 입력해주세요.");
+    }
     return;
   }
 
@@ -579,7 +700,7 @@ function searchResults() {
   }
 
   if (groupFilter !== "all") {
-    baseList = baseList.filter(item => item.group === groupFilter);
+    baseList = baseList.filter(item => String(item.group) === String(groupFilter));
   }
 
   if (yearFilter !== "all") {
@@ -616,6 +737,9 @@ function searchResults() {
     const relevanceDiff = a.relevanceScore - b.relevanceScore;
     if (relevanceDiff !== 0) return relevanceDiff;
 
+    const yearDiff = Number(b.latest?.year || 0) - Number(a.latest?.year || 0);
+    if (yearDiff !== 0) return yearDiff;
+
     return String(a.univ || "").localeCompare(String(b.univ || ""), "ko");
   });
 
@@ -641,8 +765,9 @@ function resetForm() {
   LAST_RESULTS = [];
   visibleCount = getPageSize();
 
+  renderStats([]);
+
   if ($("resultCount")) $("resultCount").textContent = "결과 없음";
-  if ($("resultStats")) $("resultStats").innerHTML = "";
   if ($("resultList")) {
     $("resultList").innerHTML = `<div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
   }
@@ -654,45 +779,61 @@ async function init() {
     fillSelectOptions();
     setJudgementFilter("핵심");
     bindJudgementTabs();
+    resetForm();
 
-    if ($("btnSearch")) $("btnSearch").addEventListener("click", searchResults);
-    if ($("btnReset")) $("btnReset").addEventListener("click", resetForm);
+    if ($("btnSearch")) {
+      $("btnSearch").addEventListener("click", () => searchResults({ silent: false }));
+    }
+
+    if ($("btnReset")) {
+      $("btnReset").addEventListener("click", resetForm);
+    }
 
     ["keyword", "kor", "math", "inq1", "inq2"].forEach(id => {
       if ($(id)) {
         $(id).addEventListener("keydown", (e) => {
-          if (e.key === "Enter") searchResults();
+          if (e.key === "Enter") searchResults({ silent: false });
         });
       }
     });
 
     if ($("engGrade")) {
       $("engGrade").addEventListener("change", () => {
-        if (hasAnyStudentInput()) searchResults();
+        if (hasAnyStudentInput()) searchResults({ silent: true });
       });
     }
 
     ["groupFilter", "yearFilter", "methodFilter"].forEach(id => {
       if ($(id)) {
         $(id).addEventListener("change", () => {
-          if (hasAnyStudentInput()) searchResults();
+          if (hasAnyStudentInput()) searchResults({ silent: true });
         });
       }
     });
 
     window.addEventListener("resize", () => {
       if (!LAST_RESULTS.length) return;
+
       if (visibleCount < getPageSize()) {
         visibleCount = getPageSize();
       }
+
       renderCurrentResults();
     });
   } catch (err) {
-    console.error(err);
+    console.error("[regular init error]", err);
+
     if ($("resultCount")) $("resultCount").textContent = "데이터 오류";
     if ($("resultStats")) $("resultStats").innerHTML = "";
+
     if ($("resultList")) {
-      $("resultList").innerHTML = `<div class="empty">정시 데이터 파일을 불러오지 못했습니다. 경로와 파일명을 확인해주세요.</div>`;
+      $("resultList").innerHTML = `
+        <div class="empty">
+          정시 데이터 파일을 불러오지 못했습니다.<br>
+          경로/파일명/JSON 구조를 확인해주세요.<br><br>
+          <small>${escapeHtml(err.message || "알 수 없는 오류")}</small>
+        </div>
+      `;
     }
   }
 }
