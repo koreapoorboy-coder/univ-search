@@ -89,6 +89,20 @@ function hasAnyStudentInput() {
   ].some(v => v != null);
 }
 
+function setJudgementFilter(value) {
+  if ($("judgementFilter")) {
+    $("judgementFilter").value = value;
+  }
+
+  document.querySelectorAll(".judge-tab").forEach(btn => {
+    btn.classList.toggle("is-active", btn.getAttribute("data-value") === value);
+  });
+
+  document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
+    btn.classList.toggle("is-active", btn.getAttribute("data-filter") === value);
+  });
+}
+
 function analyzeRegular(item, student) {
   const subjects = [
     {
@@ -431,6 +445,18 @@ function bindYearToggles() {
   });
 }
 
+function bindStatChips() {
+  document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filterValue = btn.getAttribute("data-filter");
+      setJudgementFilter(filterValue);
+      if (hasAnyStudentInput()) {
+        searchResults();
+      }
+    });
+  });
+}
+
 function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
@@ -440,17 +466,21 @@ function renderStats(groupedList) {
     return;
   }
 
+  const currentFilter = getValue("judgementFilter") || "핵심";
+
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
   const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
   const totalCore = safe + fit + up;
 
   statsBox.innerHTML = `
-    <div class="stat-chip stat-safe">안정 ${safe}</div>
-    <div class="stat-chip stat-fit">적정 ${fit}</div>
-    <div class="stat-chip stat-up">상향 ${up}</div>
-    <div class="stat-chip">핵심합 ${totalCore}</div>
+    <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
+    <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
+    <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
+    <button type="button" class="stat-chip is-clickable ${currentFilter === "핵심" ? "is-active" : ""}" data-filter="핵심">핵심합 ${totalCore}</button>
   `;
+
+  bindStatChips();
 }
 
 function renderCurrentResults() {
@@ -496,12 +526,7 @@ function bindJudgementTabs() {
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       const value = tab.getAttribute("data-value");
-      if ($("judgementFilter")) {
-        $("judgementFilter").value = value;
-      }
-
-      tabs.forEach(btn => btn.classList.remove("is-active"));
-      tab.classList.add("is-active");
+      setJudgementFilter(value);
 
       if (hasAnyStudentInput()) {
         searchResults();
@@ -594,16 +619,10 @@ function resetForm() {
   $("inq2").value = "";
   $("engGrade").value = "";
   $("yearFilter").value = "all";
-  if ($("judgementFilter")) $("judgementFilter").value = "핵심";
   $("methodFilter").value = "all";
   $("keyword").value = "";
 
-  document.querySelectorAll(".judge-tab").forEach(btn => {
-    btn.classList.remove("is-active");
-    if (btn.getAttribute("data-value") === "핵심") {
-      btn.classList.add("is-active");
-    }
-  });
+  setJudgementFilter("핵심");
 
   LAST_RESULTS = [];
   visibleCount = getPageSize();
@@ -617,6 +636,7 @@ async function init() {
   try {
     await loadData();
     fillSelectOptions();
+    setJudgementFilter("핵심");
     bindJudgementTabs();
 
     $("btnSearch").addEventListener("click", searchResults);
