@@ -1,8 +1,14 @@
 let REGULAR_DATA = [];
-const PAGE_SIZE = 5;
+
+const DESKTOP_PAGE_SIZE = 5;
+const MOBILE_PAGE_SIZE = 3;
+
+function getPageSize() {
+  return window.innerWidth <= 768 ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
+}
 
 let LAST_RESULTS = [];
-let visibleCount = PAGE_SIZE;
+let visibleCount = getPageSize();
 
 async function loadData() {
   const res = await fetch("univ_search_data.json", { cache: "no-store" });
@@ -159,20 +165,15 @@ function analyzeRegular(item, student) {
 
   let judgement = "판정 보류";
 
-  // 전 과목 컷 이상이면 최소 적정
   if (allMeet) {
     if (avgDiff >= 2.5 && minDiff >= 1) {
       judgement = "안정";
     } else {
       judgement = "적정";
     }
-  }
-  // 1과목만 소폭 부족
-  else if (shortageCount === 1 && minDiff >= -2) {
+  } else if (shortageCount === 1 && minDiff >= -2) {
     judgement = "상향";
-  }
-  // 1~2과목 부족, 차이가 아주 크지 않음
-  else if (shortageCount <= 2 && minDiff >= -5) {
+  } else if (shortageCount <= 2 && minDiff >= -5) {
     judgement = "도전";
   } else {
     judgement = "판정 보류";
@@ -324,25 +325,32 @@ function makeSubjectDetailRow(s) {
   return `
     <div class="detail-row">
       <div class="detail-subject">${escapeHtml(s.label)}</div>
-      <div class="detail-val">내 점수 ${escapeHtml(studentText)}</div>
+      <div class="detail-val">내 ${escapeHtml(studentText)}</div>
       <div class="detail-val">컷 ${escapeHtml(cutText)}</div>
       <div class="${subchipClass(s.diff)}">${escapeHtml(diffText)}</div>
     </div>
   `;
 }
 
-function makeYearBlock(item) {
+function makeYearBlock(item, groupIndex, yearIndex) {
+  const yearDetailId = `year-detail-${groupIndex}-${yearIndex}`;
+
   return `
     <div class="year-block">
-      <div class="year-block-head">
-        <div class="year-title">${escapeHtml(item.year)}</div>
-        <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
+      <button type="button" class="year-toggle" data-target="${yearDetailId}">
+        <span class="year-toggle-top">
+          <span class="year-title">${escapeHtml(item.year)}</span>
+          <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
+        </span>
+        <span class="year-toggle-summary">${escapeHtml(item.analysis.shortageText)}</span>
+      </button>
+
+      <div class="year-body" id="${yearDetailId}" hidden>
+        <div class="detail-grid">
+          ${item.analysis.subjects.map(makeSubjectDetailRow).join("")}
+        </div>
+        <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
       </div>
-      <div class="year-summary">${escapeHtml(item.analysis.shortageText)}</div>
-      <div class="detail-grid">
-        ${item.analysis.subjects.map(makeSubjectDetailRow).join("")}
-      </div>
-      <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
     </div>
   `;
 }
@@ -363,7 +371,7 @@ function makeCard(group, index) {
         </div>
 
         <button type="button" class="detail-toggle" data-target="${detailId}">
-          상세보기
+          연도보기
         </button>
       </div>
 
@@ -382,7 +390,7 @@ function makeCard(group, index) {
 
       <div class="detail-panel" id="${detailId}" hidden>
         <div class="year-block-list">
-          ${group.years.map(item => makeYearBlock(item)).join("")}
+          ${group.years.map((item, yearIndex) => makeYearBlock(item, index, yearIndex)).join("")}
         </div>
       </div>
     </article>
@@ -398,10 +406,26 @@ function bindDetailToggles() {
 
       if (isHidden) {
         panel.removeAttribute("hidden");
-        btn.textContent = "상세닫기";
+        btn.textContent = "연도닫기";
       } else {
         panel.setAttribute("hidden", "");
-        btn.textContent = "상세보기";
+        btn.textContent = "연도보기";
+      }
+    });
+  });
+}
+
+function bindYearToggles() {
+  document.querySelectorAll(".year-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-target");
+      const panel = document.getElementById(targetId);
+      const isHidden = panel.hasAttribute("hidden");
+
+      if (isHidden) {
+        panel.removeAttribute("hidden");
+      } else {
+        panel.setAttribute("hidden", "");
       }
     });
   });
@@ -456,11 +480,12 @@ function renderCurrentResults() {
   $("resultList").innerHTML = html;
 
   bindDetailToggles();
+  bindYearToggles();
 
   const loadMoreBtn = $("btnLoadMore");
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener("click", () => {
-      visibleCount += PAGE_SIZE;
+      visibleCount += getPageSize();
       renderCurrentResults();
     });
   }
@@ -556,7 +581,7 @@ function searchResults() {
   });
 
   LAST_RESULTS = groupedList;
-  visibleCount = PAGE_SIZE;
+  visibleCount = getPageSize();
   renderCurrentResults();
 }
 
@@ -581,7 +606,7 @@ function resetForm() {
   });
 
   LAST_RESULTS = [];
-  visibleCount = PAGE_SIZE;
+  visibleCount = getPageSize();
 
   $("resultCount").textContent = "결과 없음";
   if ($("resultStats")) $("resultStats").innerHTML = "";
@@ -617,6 +642,14 @@ async function init() {
           if (hasAnyStudentInput()) searchResults();
         });
       }
+    });
+
+    window.addEventListener("resize", () => {
+      if (!LAST_RESULTS.length) return;
+      if (visibleCount < getPageSize()) {
+        visibleCount = getPageSize();
+      }
+      renderCurrentResults();
     });
   } catch (err) {
     console.error(err);
