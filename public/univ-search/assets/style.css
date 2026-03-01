@@ -4,22 +4,24 @@
   padding: 24px;
 }
 
+/* 헤더 */
 .top {
   margin-bottom: 24px;
 }
 
 .sub {
-  color: #666;
   margin-top: 8px;
+  color: #666;
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 10px;
-  text-decoration: none;
   color: #333;
+  text-decoration: none;
 }
 
+/* 메인 카드 */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -31,15 +33,15 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 16px;
-  text-decoration: none;
-  color: inherit;
   background: #fff;
+  color: inherit;
+  text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .menu-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .menu-card.is-disabled {
@@ -50,28 +52,31 @@
 .tag {
   display: inline-block;
   margin-top: 10px;
-  font-size: 13px;
   padding: 4px 8px;
   border-radius: 999px;
   background: #f1f3f5;
+  font-size: 13px;
 }
 
-.notice-box {
-  margin-top: 24px;
-  padding: 18px 20px;
+/* 안내/패널 */
+.notice-box,
+.panel {
   border: 1px solid #e5e5e5;
   border-radius: 16px;
   background: #fff;
 }
 
-.panel {
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
+.notice-box {
+  margin-top: 24px;
+  padding: 18px 20px;
 }
 
+.panel {
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+/* 폼 */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -82,7 +87,8 @@
   grid-column: 1 / -1;
 }
 
-label span {
+label span,
+.filter-label {
   display: block;
   margin-bottom: 6px;
   font-weight: 700;
@@ -91,11 +97,11 @@ label span {
 input,
 select,
 button {
+  box-sizing: border-box;
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  box-sizing: border-box;
   font: inherit;
 }
 
@@ -107,17 +113,49 @@ button {
 
 button {
   cursor: pointer;
+  border-color: #111;
   background: #111;
   color: #fff;
-  border-color: #111;
 }
 
 button.secondary {
+  border-color: #d9d9d9;
   background: #f8f9fa;
   color: #222;
-  border-color: #d9d9d9;
 }
 
+/* 판정 필터 탭 */
+.judge-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.judge-tab {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 72px;
+  padding: 9px 14px;
+  border: 1px solid #d8d8d8;
+  border-radius: 999px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.judge-tab:hover {
+  background: #f8f9fa;
+}
+
+.judge-tab.is-active {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+/* 결과 헤더 */
 .result-head {
   display: flex;
   justify-content: space-between;
@@ -130,43 +168,58 @@ button.secondary {
   font-size: 14px;
 }
 
+.result-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.stat-chip {
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stat-chip.stat-safe {
+  background: #e8f7ee;
+}
+
+.stat-chip.stat-fit {
+  background: #eef4ff;
+}
+
+.stat-chip.stat-up {
+  background: #fff5e8;
+}
+
+/* 결과 리스트 */
 .result-list {
   display: grid;
   gap: 14px;
   margin-top: 14px;
 }
 
-.result-card {
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  padding: 16px;
-  background: #fff;
-}
-
-.row-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.row-top h3 {
-  margin: 0;
-}
-
-.small-line {
-  margin-top: 6px;
+.empty {
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 12px;
+  background: #fafafa;
   color: #666;
-  font-size: 14px;
 }
 
+/* 공통 배지 */
 .badge {
   display: inline-block;
   padding: 6px 10px;
   border-radius: 999px;
   background: #f1f3f5;
-  font-size: 13px;
   white-space: nowrap;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -190,6 +243,37 @@ button.secondary {
   background: #fff1f1;
 }
 
+/* 예전 카드형 결과 호환 */
+.result-card {
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.row-top h3 {
+  margin: 0;
+}
+
+.small-line {
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+.major-line {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .meta-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -197,48 +281,19 @@ button.secondary {
   margin-top: 12px;
 }
 
-.memo {
+.memo,
+.note-line {
   margin-top: 10px;
   color: #666;
 }
 
-.empty {
-  padding: 20px;
-  border: 1px dashed #ccc;
-  border-radius: 12px;
-  color: #666;
-  background: #fafafa;
-}
-
-@media (max-width: 768px) {
-  .page {
-    padding: 16px;
-  }
-
-  .form-grid,
-  .meta-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .btn-row,
-  .result-head,
-  .row-top {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-.major-line {
-  margin-top: 4px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
+/* 예전 상세 분석형 결과 호환 */
 .shortage-box {
   margin-top: 14px;
   padding: 12px 14px;
+  border: 1px solid #ececec;
   border-radius: 12px;
   background: #f8f9fa;
-  border: 1px solid #ececec;
 }
 
 .shortage-box strong {
@@ -273,38 +328,11 @@ button.secondary {
   font-size: 14px;
 }
 
-.subchip {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: #f1f3f5;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.subchip.is-pass {
-  background: #e8f7ee;
-}
-
-.subchip.is-fail {
-  background: #fdeeee;
-}
-
-.note-line {
-  margin-top: 12px;
-  color: #666;
-}
-
-@media (max-width: 768px) {
-  .subject-row {
-    grid-template-columns: 1fr;
-  }
-}
+/* 현재 압축형 정시 결과 카드 */
 .compact-card {
+  padding: 14px 16px;
   border: 1px solid #e5e5e5;
   border-radius: 14px;
-  padding: 14px 16px;
   background: #fff;
 }
 
@@ -355,21 +383,21 @@ button.secondary {
 
 .summary-side {
   color: #666;
-  font-size: 14px;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .detail-toggle {
+  flex: 0 0 auto;
   width: auto;
   min-width: 92px;
   padding: 8px 12px;
-  border-radius: 10px;
   border: 1px solid #d8d8d8;
+  border-radius: 10px;
   background: #fff;
   color: #222;
   font-size: 14px;
   font-weight: 700;
-  cursor: pointer;
 }
 
 .detail-toggle:hover {
@@ -403,8 +431,8 @@ button.secondary {
 }
 
 .detail-val {
-  font-size: 14px;
   color: #444;
+  font-size: 14px;
 }
 
 .detail-note {
@@ -413,14 +441,15 @@ button.secondary {
   font-size: 14px;
 }
 
+/* 과목 상태칩 */
 .subchip {
   display: inline-block;
   padding: 5px 9px;
   border-radius: 999px;
   background: #f1f3f5;
+  white-space: nowrap;
   font-size: 12px;
   font-weight: 700;
-  white-space: nowrap;
 }
 
 .subchip.is-pass {
@@ -431,166 +460,7 @@ button.secondary {
   background: #fdeeee;
 }
 
-@media (max-width: 768px) {
-  .compact-top,
-  .compact-summary {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .detail-row {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-side {
-    white-space: normal;
-  }
-}
-.compact-card {
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  padding: 14px 16px;
-  background: #fff;
-}
-
-.compact-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.compact-main {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  min-width: 0;
-}
-
-.compact-title-wrap {
-  min-width: 0;
-}
-
-.compact-title {
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.3;
-  word-break: keep-all;
-}
-
-.compact-meta {
-  margin-top: 4px;
-  color: #666;
-  font-size: 14px;
-}
-
-.compact-summary {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.summary-line {
-  color: #333;
-  font-size: 14px;
-}
-
-.summary-side {
-  color: #666;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-.detail-toggle {
-  width: auto;
-  min-width: 92px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid #d8d8d8;
-  background: #fff;
-  color: #222;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.detail-toggle:hover {
-  background: #f8f9fa;
-}
-
-.detail-panel {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px dashed #e5e5e5;
-}
-
-.detail-grid {
-  display: grid;
-  gap: 8px;
-}
-
-.detail-row {
-  display: grid;
-  grid-template-columns: 70px 1fr 1fr auto;
-  gap: 8px;
-  align-items: center;
-  padding: 10px 12px;
-  border: 1px solid #ececec;
-  border-radius: 10px;
-  background: #fafafa;
-}
-
-.detail-subject {
-  font-weight: 800;
-}
-
-.detail-val {
-  font-size: 14px;
-  color: #444;
-}
-
-.detail-note {
-  margin-top: 12px;
-  color: #666;
-  font-size: 14px;
-}
-
-.subchip {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: #f1f3f5;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.subchip.is-pass {
-  background: #e8f7ee;
-}
-
-.subchip.is-fail {
-  background: #fdeeee;
-}
-
-@media (max-width: 768px) {
-  .compact-top,
-  .compact-summary {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .detail-row {
-    grid-template-columns: 1fr;
-  }
-
-  .summary-side {
-    white-space: normal;
-  }
-}
+/* 더 보기 */
 .load-more-wrap {
   display: flex;
   justify-content: center;
@@ -598,35 +468,44 @@ button.secondary {
 }
 
 .load-more-btn {
+  flex: 0 0 auto;
   width: auto;
   min-width: 140px;
   padding: 10px 16px;
 }
-.result-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-  margin-bottom: 6px;
-}
 
-.stat-chip {
-  display: inline-block;
-  padding: 7px 10px;
-  border-radius: 999px;
-  background: #f1f3f5;
-  font-size: 13px;
-  font-weight: 700;
-}
+/* 반응형 */
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
 
-.stat-chip.stat-safe {
-  background: #e8f7ee;
-}
+  .form-grid,
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
 
-.stat-chip.stat-fit {
-  background: #eef4ff;
-}
+  .btn-row,
+  .result-head,
+  .row-top,
+  .compact-top,
+  .compact-summary {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.stat-chip.stat-up {
-  background: #fff5e8;
+  .subject-row,
+  .detail-row {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-side {
+    white-space: normal;
+  }
+
+  .judge-tab {
+    min-width: 68px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }
