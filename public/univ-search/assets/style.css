@@ -1,3 +1,25 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f7f8fa;
+  color: #222;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
 .page {
   max-width: 1100px;
   margin: 0 auto;
@@ -7,6 +29,12 @@
 /* 헤더 */
 .top {
   margin-bottom: 24px;
+}
+
+.top h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.25;
 }
 
 .sub {
@@ -19,6 +47,10 @@
   margin-bottom: 10px;
   color: #333;
   text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
 }
 
 /* 메인 카드 */
@@ -74,6 +106,13 @@
 .panel {
   margin-bottom: 20px;
   padding: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 22px;
 }
 
 /* 폼 */
@@ -95,13 +134,25 @@ label span,
 }
 
 input,
-select,
-button {
-  box-sizing: border-box;
+select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  background: #fff;
+  color: #222;
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: 2px solid rgba(17, 17, 17, 0.15);
+  outline-offset: 1px;
+}
+
+/* 기본 버튼 */
+button {
   font: inherit;
 }
 
@@ -111,14 +162,19 @@ button {
   margin-top: 16px;
 }
 
-button {
-  cursor: pointer;
-  border-color: #111;
+.btn-row > button,
+.load-more-btn {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #111;
+  border-radius: 10px;
   background: #111;
   color: #fff;
+  cursor: pointer;
 }
 
-button.secondary {
+.btn-row > button.secondary,
+.load-more-btn.secondary {
   border-color: #d9d9d9;
   background: #f8f9fa;
   color: #222;
@@ -132,17 +188,19 @@ button.secondary {
 }
 
 .judge-tab {
+  appearance: none;
   flex: 0 0 auto;
-  width: auto !important;
+  width: auto;
   min-width: 72px;
   padding: 9px 14px;
   border: 1px solid #d8d8d8;
   border-radius: 999px;
   background: #fff;
-  color: #333 !important;
+  color: #333;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
+  cursor: pointer;
 }
 
 .judge-tab:hover {
@@ -152,7 +210,7 @@ button.secondary {
 .judge-tab.is-active {
   border-color: #111;
   background: #111;
-  color: #fff !important;
+  color: #fff;
 }
 
 /* 결과 헤더 */
@@ -176,14 +234,15 @@ button.secondary {
   margin-bottom: 6px;
 }
 
-button.stat-chip {
-  width: auto !important;
+.stat-chip {
+  appearance: none;
+  width: auto;
   min-width: 84px;
   padding: 8px 12px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: #f1f3f5;
-  color: #222 !important;
+  color: #222;
   font-size: 13px;
   font-weight: 700;
   line-height: 1.1;
@@ -194,21 +253,24 @@ button.stat-chip {
   flex: 0 0 auto;
 }
 
-button.stat-chip.stat-safe {
+.stat-chip.stat-safe {
   background: #e8f7ee;
+  color: #1d5a2f;
 }
 
-button.stat-chip.stat-fit {
+.stat-chip.stat-fit {
   background: #eef4ff;
+  color: #294d93;
 }
 
-button.stat-chip.stat-up {
+.stat-chip.stat-up {
   background: #fff5e8;
+  color: #8a5a13;
 }
 
-button.stat-chip.is-active {
-  outline: 2px solid #111;
-  outline-offset: 1px;
+.stat-chip.is-active {
+  border-color: #111;
+  box-shadow: inset 0 0 0 1px #111;
 }
 
 /* 결과 리스트 */
@@ -228,13 +290,16 @@ button.stat-chip.is-active {
 
 /* 공통 배지 */
 .badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 10px;
   border-radius: 999px;
   background: #f1f3f5;
   white-space: nowrap;
   font-size: 13px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .badge.is-safe {
@@ -259,6 +324,7 @@ button.stat-chip.is-active {
 
 .badge.is-risk {
   background: #fff1f1;
+  color: #922f2f;
 }
 
 /* 압축형 카드 */
@@ -281,6 +347,7 @@ button.stat-chip.is-active {
   align-items: flex-start;
   gap: 10px;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .compact-title-wrap {
@@ -321,16 +388,18 @@ button.stat-chip.is-active {
 }
 
 .detail-toggle {
+  appearance: none;
   flex: 0 0 auto;
-  width: auto !important;
+  width: auto;
   min-width: 92px;
   padding: 8px 12px;
   border: 1px solid #d8d8d8;
   border-radius: 10px;
   background: #fff;
-  color: #222 !important;
+  color: #222;
   font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .detail-toggle:hover {
@@ -376,7 +445,9 @@ button.stat-chip.is-active {
 
 /* 과목 상태칩 */
 .subchip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px 9px;
   border-radius: 999px;
   background: #f1f3f5;
@@ -405,9 +476,10 @@ button.stat-chip.is-active {
 
 .load-more-btn {
   flex: 0 0 auto;
-  width: auto !important;
+  width: auto;
   min-width: 140px;
   padding: 10px 16px;
+  cursor: pointer;
 }
 
 /* 3개년 관련 */
@@ -419,12 +491,36 @@ button.stat-chip.is-active {
 }
 
 .year-chip {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
+  background: #f1f3f5;
+  color: #222;
+}
+
+.year-chip.is-safe {
+  background: #e8f7ee;
+  color: #1d5a2f;
+}
+
+.year-chip.is-fit {
+  background: #eef4ff;
+  color: #294d93;
+}
+
+.year-chip.is-up {
+  background: #fff5e8;
+  color: #8a5a13;
+}
+
+.year-chip.is-challenge {
+  background: #fdeeee;
+  color: #922f2f;
 }
 
 .year-block-list {
@@ -440,13 +536,15 @@ button.stat-chip.is-active {
 }
 
 .year-toggle {
+  appearance: none;
   width: 100%;
   padding: 12px;
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: #222 !important;
+  color: #222;
   text-align: left;
+  cursor: pointer;
 }
 
 .year-toggle-top {
@@ -477,6 +575,10 @@ button.stat-chip.is-active {
 @media (max-width: 768px) {
   .page {
     padding: 16px;
+  }
+
+  .top h1 {
+    font-size: 28px;
   }
 
   .form-grid {
@@ -512,6 +614,10 @@ button.stat-chip.is-active {
     gap: 6px;
   }
 
+  .summary-side {
+    white-space: normal;
+  }
+
   .detail-row {
     grid-template-columns: 56px 1fr auto;
     gap: 6px;
@@ -541,13 +647,13 @@ button.stat-chip.is-active {
     font-size: 13px;
   }
 
-  button.stat-chip {
+  .stat-chip {
     min-width: 72px;
     padding: 7px 10px;
     font-size: 12px;
   }
 
-  button.stat-chip.is-active {
-    outline-width: 1px;
+  .result-head h2 {
+    margin-bottom: 0;
   }
 }
