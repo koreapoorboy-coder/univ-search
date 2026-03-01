@@ -78,22 +78,23 @@
         </label>
 
         <label>
-          <span>판정 필터</span>
-          <select id="judgementFilter">
-            <option value="핵심">핵심만(안정/적정/상향)</option>
-            <option value="all">전체</option>
-            <option value="안정">안정만</option>
-            <option value="적정">적정만</option>
-            <option value="상향">상향만</option>
-          </select>
-        </label>
-
-        <label>
           <span>전형 방식</span>
           <select id="methodFilter">
             <option value="all">전체</option>
           </select>
         </label>
+
+        <div class="full">
+          <span class="filter-label">판정 필터</span>
+          <div class="judge-tabs" id="judgementTabs">
+            <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
+            <button type="button" class="judge-tab" data-value="안정">안정</button>
+            <button type="button" class="judge-tab" data-value="적정">적정</button>
+            <button type="button" class="judge-tab" data-value="상향">상향</button>
+            <button type="button" class="judge-tab" data-value="all">전체</button>
+          </div>
+          <input type="hidden" id="judgementFilter" value="핵심" />
+        </div>
 
         <label class="full">
           <span>대학 / 학과 검색</span>
@@ -108,14 +109,19 @@
     </section>
 
     <section class="panel">
-  <div class="result-head">
-    <h2>조회 결과</h2>
-    <div id="resultCount" class="meta-text">결과 없음</div>
-  </div>
+      <div class="result-head">
+        <h2>조회 결과</h2>
+        <div id="resultCount" class="meta-text">결과 없음</div>
+      </div>
 
-  <div id="resultStats" class="result-stats"></div>
+      <div id="resultStats" class="result-stats"></div>
 
-  <div id="resultList" class="result-list">
-    <div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>
-  </div>
-</section>
+      <div id="resultList" class="result-list">
+        <div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/regular.js"></script>
+</body>
+</html>
