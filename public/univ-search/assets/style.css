@@ -10,7 +10,7 @@
 }
 
 .sub {
-  margin-top: 8px;F
+  margin-top: 8px;
   color: #666;
 }
 
@@ -133,13 +133,13 @@ button.secondary {
 
 .judge-tab {
   flex: 0 0 auto;
-  width: auto;
+  width: auto !important;
   min-width: 72px;
   padding: 9px 14px;
   border: 1px solid #d8d8d8;
   border-radius: 999px;
   background: #fff;
-  color: #333;
+  color: #333 !important;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
@@ -152,7 +152,7 @@ button.secondary {
 .judge-tab.is-active {
   border-color: #111;
   background: #111;
-  color: #fff;
+  color: #fff !important;
 }
 
 /* 결과 헤더 */
@@ -211,17 +211,6 @@ button.stat-chip.is-active {
   outline-offset: 1px;
 }
 
-@media (max-width: 768px) {
-  button.stat-chip {
-    min-width: 72px;
-    padding: 7px 10px;
-    font-size: 12px;
-  }
-
-  button.stat-chip.is-active {
-    outline-width: 1px;
-  }
-}
 /* 결과 리스트 */
 .result-list {
   display: grid;
@@ -250,110 +239,29 @@ button.stat-chip.is-active {
 
 .badge.is-safe {
   background: #e8f7ee;
+  color: #1d5a2f;
 }
 
 .badge.is-fit {
   background: #eef4ff;
+  color: #294d93;
 }
 
 .badge.is-up {
   background: #fff5e8;
+  color: #8a5a13;
 }
 
 .badge.is-challenge {
   background: #fdeeee;
+  color: #922f2f;
 }
 
 .badge.is-risk {
   background: #fff1f1;
 }
 
-/* 예전 카드형 결과 호환 */
-.result-card {
-  padding: 16px;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  background: #fff;
-}
-
-.row-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.row-top h3 {
-  margin: 0;
-}
-
-.small-line {
-  margin-top: 6px;
-  color: #666;
-  font-size: 14px;
-}
-
-.major-line {
-  margin-top: 4px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.meta-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 14px;
-  margin-top: 12px;
-}
-
-.memo,
-.note-line {
-  margin-top: 10px;
-  color: #666;
-}
-
-/* 예전 상세 분석형 결과 호환 */
-.shortage-box {
-  margin-top: 14px;
-  padding: 12px 14px;
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #f8f9fa;
-}
-
-.shortage-box strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.subject-list {
-  display: grid;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.subject-row {
-  display: grid;
-  grid-template-columns: 80px 1fr 1fr auto;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 12px;
-  border: 1px solid #ececec;
-  border-radius: 10px;
-  background: #fff;
-}
-
-.subject-name {
-  font-weight: 700;
-}
-
-.subject-score,
-.subject-cut {
-  color: #444;
-  font-size: 14px;
-}
-
-/* 현재 압축형 정시 결과 카드 */
+/* 압축형 카드 */
 .compact-card {
   padding: 14px 16px;
   border: 1px solid #e5e5e5;
@@ -414,13 +322,13 @@ button.stat-chip.is-active {
 
 .detail-toggle {
   flex: 0 0 auto;
-  width: auto;
+  width: auto !important;
   min-width: 92px;
   padding: 8px 12px;
   border: 1px solid #d8d8d8;
   border-radius: 10px;
   background: #fff;
-  color: #222;
+  color: #222 !important;
   font-size: 14px;
   font-weight: 700;
 }
@@ -475,14 +383,17 @@ button.stat-chip.is-active {
   white-space: nowrap;
   font-size: 12px;
   font-weight: 700;
+  color: #222;
 }
 
 .subchip.is-pass {
   background: #e8f7ee;
+  color: #1d5a2f;
 }
 
 .subchip.is-fail {
   background: #fdeeee;
+  color: #922f2f;
 }
 
 /* 더 보기 */
@@ -494,9 +405,72 @@ button.stat-chip.is-active {
 
 .load-more-btn {
   flex: 0 0 auto;
-  width: auto;
+  width: auto !important;
   min-width: 140px;
   padding: 10px 16px;
+}
+
+/* 3개년 관련 */
+.year-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.year-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.year-block-list {
+  display: grid;
+  gap: 10px;
+}
+
+.year-block {
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.year-toggle {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #222 !important;
+  text-align: left;
+}
+
+.year-toggle-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.year-toggle-summary {
+  display: block;
+  margin-top: 8px;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.year-title {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.year-body {
+  padding: 0 12px 12px;
 }
 
 /* 반응형 */
@@ -505,27 +479,60 @@ button.stat-chip.is-active {
     padding: 16px;
   }
 
-  .form-grid,
-  .meta-grid {
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
   .btn-row,
   .result-head,
-  .row-top,
   .compact-top,
   .compact-summary {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .subject-row,
-  .detail-row {
-    grid-template-columns: 1fr;
+  .compact-card {
+    padding: 12px 14px;
   }
 
-  .summary-side {
-    white-space: normal;
+  .compact-title {
+    font-size: 16px;
+  }
+
+  .compact-meta,
+  .summary-line,
+  .summary-side,
+  .year-toggle-summary,
+  .detail-val,
+  .detail-note {
+    font-size: 13px;
+  }
+
+  .compact-summary {
+    gap: 6px;
+  }
+
+  .detail-row {
+    grid-template-columns: 56px 1fr auto;
+    gap: 6px;
+    padding: 9px 10px;
+  }
+
+  .detail-row .detail-val:nth-child(3) {
+    grid-column: 2 / 3;
+  }
+
+  .subchip {
+    justify-self: end;
+  }
+
+  .year-toggle-top {
+    align-items: flex-start;
+  }
+
+  .year-chip {
+    font-size: 11px;
+    padding: 5px 8px;
   }
 
   .judge-tab {
@@ -533,332 +540,14 @@ button.stat-chip.is-active {
     padding: 8px 12px;
     font-size: 13px;
   }
-}
-.year-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
 
-.year-chip {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.year-block-list {
-  display: grid;
-  gap: 14px;
-}
-
-.year-block {
-  padding: 12px;
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #fafafa;
-}
-
-.year-block-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.year-title {
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.year-summary {
-  margin-bottom: 10px;
-  color: #444;
-  font-size: 14px;
-}
-
-@media (max-width: 768px) {
-  .year-block-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-.year-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.year-chip {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.year-block-list {
-  display: grid;
-  gap: 14px;
-}
-
-.year-block {
-  padding: 12px;
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #fafafa;
-}
-
-.year-block-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.year-title {
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.year-summary {
-  margin-bottom: 10px;
-  color: #444;
-  font-size: 14px;
-}
-
-@media (max-width: 768px) {
-  .year-block-head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-.year-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.year-chip {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.year-block-list {
-  display: grid;
-  gap: 10px;
-}
-
-.year-block {
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #fafafa;
-  overflow: hidden;
-}
-
-.year-toggle {
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-}
-
-.year-toggle-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.year-toggle-summary {
-  display: block;
-  margin-top: 8px;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.year-title {
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.year-body {
-  padding: 0 12px 12px;
-}
-
-@media (max-width: 768px) {
-  .compact-card {
-    padding: 12px 14px;
+  button.stat-chip {
+    min-width: 72px;
+    padding: 7px 10px;
+    font-size: 12px;
   }
 
-  .compact-title {
-    font-size: 16px;
-  }
-
-  .compact-meta,
-  .summary-line,
-  .summary-side,
-  .year-toggle-summary,
-  .detail-val,
-  .detail-note {
-    font-size: 13px;
-  }
-
-  .compact-summary {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-  }
-
-  .detail-row {
-    grid-template-columns: 56px 1fr auto;
-    gap: 6px;
-    padding: 9px 10px;
-  }
-
-  .detail-row .detail-val:nth-child(3) {
-    grid-column: 2 / 3;
-  }
-
-  .subchip {
-    justify-self: end;
-  }
-
-  .year-toggle-top {
-    align-items: flex-start;
-  }
-}
-.stat-chip.is-clickable {
-  border: 0;
-  cursor: pointer;
-}
-
-.stat-chip.is-clickable.is-active {
-  outline: 2px solid #111;
-  outline-offset: 1px;
-}
-
-.year-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.year-chip {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.year-block-list {
-  display: grid;
-  gap: 10px;
-}
-
-.year-block {
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #fafafa;
-  overflow: hidden;
-}
-
-.year-toggle {
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: inherit;
-  text-align: left;
-}
-
-.year-toggle-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.year-toggle-summary {
-  display: block;
-  margin-top: 8px;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.year-title {
-  font-size: 16px;
-  font-weight: 800;
-}
-
-.year-body {
-  padding: 0 12px 12px;
-}
-
-@media (max-width: 768px) {
-  .compact-card {
-    padding: 12px 14px;
-  }
-
-  .compact-title {
-    font-size: 16px;
-  }
-
-  .compact-meta,
-  .summary-line,
-  .summary-side,
-  .year-toggle-summary,
-  .detail-val,
-  .detail-note {
-    font-size: 13px;
-  }
-
-  .compact-summary {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-  }
-
-  .detail-row {
-    grid-template-columns: 56px 1fr auto;
-    gap: 6px;
-    padding: 9px 10px;
-  }
-
-  .detail-row .detail-val:nth-child(3) {
-    grid-column: 2 / 3;
-  }
-
-  .subchip {
-    justify-self: end;
-  }
-
-  .year-toggle-top {
-    align-items: flex-start;
-  }
-
-  .stat-chip.is-clickable.is-active {
+  button.stat-chip.is-active {
     outline-width: 1px;
   }
 }
