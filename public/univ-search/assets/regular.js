@@ -37,6 +37,14 @@ function safeValue(v, fallback = "-") {
   return v === undefined || v === null || v === "" ? fallback : v;
 }
 
+function normalizeText(value) {
+  return String(value || "")
+    .replace(/\s+/g, "")
+    .replace(/[()]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
 function getUnivName(item) {
   return item.univ ?? item.university ?? "";
 }
@@ -163,7 +171,7 @@ function analyzeRegular(item, student) {
   else if (shortageCount === 1 && minDiff >= -2) {
     judgement = "상향";
   }
-  // 1~2과목 부족, 차이가 아주 크진 않음
+  // 1~2과목 부족, 차이가 아주 크지 않음
   else if (shortageCount <= 2 && minDiff >= -5) {
     judgement = "도전";
   } else {
@@ -238,10 +246,8 @@ function fillSelectOptions() {
 
 function buildGroupKey(item) {
   return [
-    getUnivName(item),
-    item.major || "",
-    item.group || "",
-    getMethodName(item)
+    normalizeText(getUnivName(item)),
+    normalizeText(item.major)
   ].join("||");
 }
 
@@ -268,16 +274,16 @@ function buildGroupedResults(analyzedList) {
 
   analyzedList.forEach(item => {
     const key = buildGroupKey(item);
+
     if (!map.has(key)) {
       map.set(key, {
         key,
         univ: getUnivName(item),
         major: item.major || "",
-        group: item.group || "",
-        method: getMethodName(item),
         years: []
       });
     }
+
     map.get(key).years.push(item);
   });
 
@@ -300,6 +306,8 @@ function buildGroupedResults(analyzedList) {
     return {
       ...group,
       latest,
+      groupLabel: latest.group || "",
+      methodLabel: getMethodName(latest),
       summaryJudgement,
       trendText,
       summaryText,
@@ -323,7 +331,7 @@ function makeSubjectDetailRow(s) {
   `;
 }
 
-function makeYearBlock(item, index, groupIndex) {
+function makeYearBlock(item) {
   return `
     <div class="year-block">
       <div class="year-block-head">
@@ -350,7 +358,7 @@ function makeCard(group, index) {
           <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
           <div class="compact-title-wrap">
             <div class="compact-title">${escapeHtml(group.univ)} ${escapeHtml(group.major)}</div>
-            <div class="compact-meta">${escapeHtml(group.group)} · ${escapeHtml(group.method)} · 최근 기준 ${escapeHtml(latestYear)}</div>
+            <div class="compact-meta">${escapeHtml(group.groupLabel)} · ${escapeHtml(group.methodLabel)} · 최근 기준 ${escapeHtml(latestYear)}</div>
           </div>
         </div>
 
@@ -374,7 +382,7 @@ function makeCard(group, index) {
 
       <div class="detail-panel" id="${detailId}" hidden>
         <div class="year-block-list">
-          ${group.years.map((item, yearIdx) => makeYearBlock(item, yearIdx, index)).join("")}
+          ${group.years.map(item => makeYearBlock(item)).join("")}
         </div>
       </div>
     </article>
