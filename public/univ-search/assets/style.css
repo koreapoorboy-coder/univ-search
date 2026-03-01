@@ -387,6 +387,33 @@ button {
   font-size: 14px;
 }
 
+.meta-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.year-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #333;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .detail-toggle {
   appearance: none;
   flex: 0 0 auto;
@@ -616,6 +643,11 @@ button {
 
   .summary-side {
     white-space: normal;
+  }
+
+  .meta-chip {
+    font-size: 11px;
+    padding: 5px 8px;
   }
 
   .detail-row {
