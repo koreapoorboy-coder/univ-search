@@ -72,19 +72,41 @@ function getRawNum(obj, keys) {
   return parseNum(getRawValue(obj, keys, null));
 }
 
+function formatCompetitionRate(value) {
+  if (value === undefined || value === null || value === "") return "-";
+  const text = String(value).trim();
+  if (!text) return "-";
+  return text.includes(":") ? text : `${text}:1`;
+}
+
+function formatAddAdmitCount(value) {
+  if (value === undefined || value === null || value === "") return "-";
+  return `${value}명`;
+}
+
 function normalizeRegularItem(item, index) {
-  const normalized = {
+  return {
     __index: index,
     id: getRawValue(item, ["id", "ID"], `row-${index + 1}`),
 
     year: String(getRawValue(item, ["year", "연도", "년도"], "")).trim(),
     univ: String(getRawValue(item, ["univ", "university", "대학", "학교명"], "")).trim(),
     major: String(getRawValue(item, ["major", "department", "학과", "모집단위"], "")).trim(),
-    group: String(getRawValue(item, ["group", "군", "모집군"], "")).trim(),
+    group: String(getRawValue(item, ["group", "군", "모집군", "계열"], "")).trim(),
 
     ruleMode: String(getRawValue(item, ["ruleMode", "rule_mode", "판정방식"], "")).trim(),
     method: String(getRawValue(item, ["method", "전형방법", "기준"], "")).trim(),
     note: String(getRawValue(item, ["note", "비고", "remark"], "")).trim(),
+
+    competition_rate: String(
+      getRawValue(item, ["competition_rate", "competitionRate", "경쟁률"], "")
+    ).trim(),
+
+    add_admit_count: getRawValue(
+      item,
+      ["add_admit_count", "addAdmitCount", "추가합격", "추가합격인원", "추합인원", "충원인원"],
+      ""
+    ),
 
     cut_kor: getRawNum(item, ["cut_kor", "kor_cut", "korCut", "국어컷", "cut_korean"]),
     cut_math: getRawNum(item, ["cut_math", "math_cut", "mathCut", "수학컷"]),
@@ -94,8 +116,6 @@ function normalizeRegularItem(item, index) {
 
     raw: item
   };
-
-  return normalized;
 }
 
 async function loadData() {
@@ -136,10 +156,8 @@ function getUnivName(item) {
 
 function getMethodName(item) {
   const raw = item.ruleMode || item.method || "";
-
   if (!raw) return "기준 미표기";
   if (raw === "each_subject_meets_cut") return "과목별 컷 충족";
-
   return String(raw).trim();
 }
 
@@ -458,6 +476,8 @@ function makeSubjectDetailRow(s) {
 
 function makeYearBlock(item, groupIndex, yearIndex) {
   const yearDetailId = `year-detail-${groupIndex}-${yearIndex}`;
+  const competitionText = formatCompetitionRate(item.competition_rate);
+  const addAdmitText = formatAddAdmitCount(item.add_admit_count);
 
   return `
     <div class="year-block">
@@ -470,9 +490,15 @@ function makeYearBlock(item, groupIndex, yearIndex) {
       </button>
 
       <div class="year-body" id="${yearDetailId}" hidden>
+        <div class="year-meta-row">
+          <span class="meta-chip">경쟁률 ${escapeHtml(competitionText)}</span>
+          <span class="meta-chip">추가합격 ${escapeHtml(addAdmitText)}</span>
+        </div>
+
         <div class="detail-grid">
           ${item.analysis.subjects.map(makeSubjectDetailRow).join("")}
         </div>
+
         <div class="detail-note"><strong>비고</strong> ${escapeHtml(safeValue(item.note, "없음"))}</div>
       </div>
     </div>
@@ -482,6 +508,8 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 function makeCard(group, index) {
   const detailId = `group-detail-${index}`;
   const latestYear = group.latest?.year ?? "-";
+  const latestCompetition = formatCompetitionRate(group.latest?.competition_rate);
+  const latestAddAdmit = formatAddAdmitCount(group.latest?.add_admit_count);
 
   return `
     <article class="compact-card">
@@ -502,6 +530,11 @@ function makeCard(group, index) {
       <div class="compact-summary">
         <div class="summary-line"><strong>3개년 흐름</strong> ${escapeHtml(group.trendText || "데이터 없음")}</div>
         <div class="summary-side">${escapeHtml(group.summaryText || "")}</div>
+      </div>
+
+      <div class="meta-chip-row">
+        <span class="meta-chip">최근 경쟁률 ${escapeHtml(latestCompetition)}</span>
+        <span class="meta-chip">최근 추가합격 ${escapeHtml(latestAddAdmit)}</span>
       </div>
 
       <div class="year-chip-row">
