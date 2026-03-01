@@ -65,6 +65,16 @@ function formatDiff(diff, type) {
   return diff >= 0 ? `${diff.toFixed(1)}p 여유` : `${Math.abs(diff).toFixed(1)}p 부족`;
 }
 
+function hasAnyStudentInput() {
+  return [
+    parseNum(getValue("kor")),
+    parseNum(getValue("math")),
+    parseNum(getValue("inq1")),
+    parseNum(getValue("inq2")),
+    parseNum(getValue("engGrade"))
+  ].some(v => v != null);
+}
+
 function analyzeRegular(item, student) {
   const subjects = [
     {
@@ -280,6 +290,28 @@ function bindDetailToggles() {
   });
 }
 
+function renderStats(allAnalyzed) {
+  const statsBox = $("resultStats");
+  if (!statsBox) return;
+
+  if (!allAnalyzed.length) {
+    statsBox.innerHTML = "";
+    return;
+  }
+
+  const safe = allAnalyzed.filter(item => item.analysis.judgement === "안정").length;
+  const fit = allAnalyzed.filter(item => item.analysis.judgement === "적정").length;
+  const up = allAnalyzed.filter(item => item.analysis.judgement === "상향").length;
+  const totalCore = safe + fit + up;
+
+  statsBox.innerHTML = `
+    <div class="stat-chip stat-safe">안정 ${safe}</div>
+    <div class="stat-chip stat-fit">적정 ${fit}</div>
+    <div class="stat-chip stat-up">상향 ${up}</div>
+    <div class="stat-chip">핵심합 ${totalCore}</div>
+  `;
+}
+
 function renderCurrentResults() {
   const total = LAST_RESULTS.length;
   const shown = Math.min(visibleCount, total);
@@ -317,6 +349,23 @@ function renderCurrentResults() {
   }
 }
 
+function bindJudgementTabs() {
+  const tabs = document.querySelectorAll(".judge-tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const value = tab.getAttribute("data-value");
+      $("judgementFilter").value = value;
+
+      tabs.forEach(btn => btn.classList.remove("is-active"));
+      tab.classList.add("is-active");
+
+      if (hasAnyStudentInput()) {
+        searchResults();
+      }
+    });
+  });
+}
+
 function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter");
@@ -337,10 +386,10 @@ function searchResults() {
     return;
   }
 
-  let list = [...REGULAR_DATA];
+  let baseList = [...REGULAR_DATA];
 
   if (keyword) {
-    list = list.filter(item => {
+    baseList = baseList.filter(item => {
       const univ = String(getUnivName(item) || "").toLowerCase();
       const major = String(item.major || "").toLowerCase();
       const method = String(getMethodName(item) || "").toLowerCase();
@@ -349,21 +398,25 @@ function searchResults() {
   }
 
   if (groupFilter !== "all") {
-    list = list.filter(item => item.group === groupFilter);
+    baseList = baseList.filter(item => item.group === groupFilter);
   }
 
   if (yearFilter !== "all") {
-    list = list.filter(item => String(item.year) === String(yearFilter));
+    baseList = baseList.filter(item => String(item.year) === String(yearFilter));
   }
 
   if (methodFilter !== "all") {
-    list = list.filter(item => getMethodName(item) === methodFilter);
+    baseList = baseList.filter(item => getMethodName(item) === methodFilter);
   }
 
-  list = list.map(item => ({
+  const analyzedList = baseList.map(item => ({
     ...item,
     analysis: analyzeRegular(item, student)
   }));
+
+  renderStats(analyzedList);
+
+  let list = [...analyzedList];
 
   if (judgementFilter === "핵심") {
     list = list.filter(item =>
@@ -403,9 +456,18 @@ function resetForm() {
   $("judgementFilter").value = "핵심";
   $("methodFilter").value = "all";
   $("keyword").value = "";
+
+  document.querySelectorAll(".judge-tab").forEach(btn => {
+    btn.classList.remove("is-active");
+    if (btn.getAttribute("data-value") === "핵심") {
+      btn.classList.add("is-active");
+    }
+  });
+
   LAST_RESULTS = [];
   visibleCount = PAGE_SIZE;
   $("resultCount").textContent = "결과 없음";
+  $("resultStats").innerHTML = "";
   $("resultList").innerHTML = `<div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
 }
 
@@ -413,6 +475,7 @@ async function init() {
   try {
     await loadData();
     fillSelectOptions();
+    bindJudgementTabs();
 
     $("btnSearch").addEventListener("click", searchResults);
     $("btnReset").addEventListener("click", resetForm);
@@ -421,6 +484,20 @@ async function init() {
       if ($(id)) {
         $(id).addEventListener("keydown", (e) => {
           if (e.key === "Enter") searchResults();
+        });
+      }
+    });
+
+    if ($("engGrade")) {
+      $("engGrade").addEventListener("change", () => {
+        if (hasAnyStudentInput() && LAST_RESULTS.length) searchResults();
+      });
+    }
+
+    ["groupFilter", "yearFilter", "methodFilter"].forEach(id => {
+      if ($(id)) {
+        $(id).addEventListener("change", () => {
+          if (hasAnyStudentInput() && LAST_RESULTS.length) searchResults();
         });
       }
     });
