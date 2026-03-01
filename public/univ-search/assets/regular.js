@@ -136,18 +136,11 @@ function analyzeRegular(item, student) {
   const minDiff = Math.min(...scoreDiffs);
   const avgDiff = scoreDiffs.reduce((a, b) => a + b, 0) / scoreDiffs.length;
 
-  let judgement = "판정 보류";
-  if (minDiff <= -8) judgement = "판정 보류";
-  else if (minDiff <= -5) judgement = "도전";
-  else if (avgDiff >= 4 && minDiff >= 1) judgement = "안정";
-  else if (avgDiff >= 1.5 && minDiff >= -1) judgement = "적정";
-  else if (avgDiff >= -1.5 && minDiff >= -3) judgement = "상향";
-  else if (avgDiff >= -4) judgement = "도전";
-  else judgement = "판정 보류";
-
   const shortages = used.filter(s => s.diff < 0);
-  let shortageText = "";
+  const shortageCount = shortages.length;
+  const allMeet = used.every(s => s.diff >= 0);
 
+  let shortageText = "";
   if (!shortages.length) {
     shortageText = "전 과목 충족";
   } else {
@@ -156,18 +149,47 @@ function analyzeRegular(item, student) {
       .join(", ");
   }
 
+  let judgement = "판정 보류";
+
+  // 핵심 판정 로직
+  // 1) 전 과목 컷 이상이면 최소 적정
+  if (allMeet) {
+    // 충분한 여유가 있으면 안정
+    if (avgDiff >= 2.5 && minDiff >= 1) {
+      judgement = "안정";
+    } else {
+      judgement = "적정";
+    }
+  }
+  // 2) 1과목만 소폭 부족하면 상향
+  else if (shortageCount === 1 && minDiff >= -2) {
+    judgement = "상향";
+  }
+  // 3) 1~2과목 부족인데 차이가 과도하지 않으면 도전
+  else if (shortageCount <= 2 && minDiff >= -5) {
+    judgement = "도전";
+  }
+  // 4) 그 외는 판정 보류
+  else {
+    judgement = "판정 보류";
+  }
+
   const shortageMagnitude = shortages.reduce((sum, s) => {
     if (s.type === "grade") return sum + Math.abs(s.diff) * 2;
     return sum + Math.abs(s.diff);
   }, 0);
 
-  const relevanceScore = Math.abs(avgDiff) + shortageMagnitude + shortages.length * 1.5;
+  // 정렬용 관련도 점수
+  // 전 과목 충족이면 avgDiff가 0에 가까울수록 현실권(적정)에 가까움
+  const relevanceScore = allMeet
+    ? Math.abs(avgDiff)
+    : Math.abs(avgDiff) + shortageMagnitude + shortageCount * 1.5;
 
   return {
     judgement,
     subjects,
     shortageText,
-    shortageCount: shortages.length,
+    shortageCount,
     avgDiff,
     relevanceScore
   };
@@ -354,7 +376,9 @@ function bindJudgementTabs() {
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       const value = tab.getAttribute("data-value");
-      $("judgementFilter").value = value;
+      if ($("judgementFilter")) {
+        $("judgementFilter").value = value;
+      }
 
       tabs.forEach(btn => btn.classList.remove("is-active"));
       tab.classList.add("is-active");
@@ -371,7 +395,7 @@ function searchResults() {
   const groupFilter = getValue("groupFilter");
   const yearFilter = getValue("yearFilter");
   const methodFilter = getValue("methodFilter");
-  const judgementFilter = getValue("judgementFilter");
+  const judgementFilter = getValue("judgementFilter") || "핵심";
 
   const kor = parseNum(getValue("kor"));
   const math = parseNum(getValue("math"));
@@ -453,7 +477,7 @@ function resetForm() {
   $("inq2").value = "";
   $("engGrade").value = "";
   $("yearFilter").value = "all";
-  $("judgementFilter").value = "핵심";
+  if ($("judgementFilter")) $("judgementFilter").value = "핵심";
   $("methodFilter").value = "all";
   $("keyword").value = "";
 
@@ -466,8 +490,9 @@ function resetForm() {
 
   LAST_RESULTS = [];
   visibleCount = PAGE_SIZE;
+
   $("resultCount").textContent = "결과 없음";
-  $("resultStats").innerHTML = "";
+  if ($("resultStats")) $("resultStats").innerHTML = "";
   $("resultList").innerHTML = `<div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
 }
 
@@ -490,20 +515,21 @@ async function init() {
 
     if ($("engGrade")) {
       $("engGrade").addEventListener("change", () => {
-        if (hasAnyStudentInput() && LAST_RESULTS.length) searchResults();
+        if (hasAnyStudentInput()) searchResults();
       });
     }
 
     ["groupFilter", "yearFilter", "methodFilter"].forEach(id => {
       if ($(id)) {
         $(id).addEventListener("change", () => {
-          if (hasAnyStudentInput() && LAST_RESULTS.length) searchResults();
+          if (hasAnyStudentInput()) searchResults();
         });
       }
     });
   } catch (err) {
     console.error(err);
     $("resultCount").textContent = "데이터 오류";
+    if ($("resultStats")) $("resultStats").innerHTML = "";
     $("resultList").innerHTML = `<div class="empty">정시 데이터 파일을 불러오지 못했습니다. 경로와 파일명을 확인해주세요.</div>`;
   }
 }
