@@ -509,3 +509,56 @@ button.secondary {
     font-size: 13px;
   }
 }
+.year-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.year-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.year-block-list {
+  display: grid;
+  gap: 14px;
+}
+
+.year-block {
+  padding: 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.year-block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.year-title {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.year-summary {
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .year-block-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
