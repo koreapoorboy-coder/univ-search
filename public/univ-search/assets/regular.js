@@ -153,8 +153,6 @@ async function loadData() {
     .map((item, index) => normalizeRegularItem(item, index))
     .filter(item => item.univ || item.major);
 
-  console.log("[regular] loaded rows:", REGULAR_DATA.length, REGULAR_DATA.slice(0, 5));
-
   if (!REGULAR_DATA.length) {
     throw new Error("정시 데이터는 불러왔지만 실제 행(row)이 0개입니다.");
   }
@@ -463,6 +461,28 @@ function buildGroupedResults(analyzedList) {
   });
 }
 
+function buildStudentFallbackResults(groupedList) {
+  return groupedList
+    .slice()
+    .sort((a, b) => {
+      const relevanceDiff = a.relevanceScore - b.relevanceScore;
+      if (relevanceDiff !== 0) return relevanceDiff;
+
+      const yearDiff = Number(b.latest?.year || 0) - Number(a.latest?.year || 0);
+      if (yearDiff !== 0) return yearDiff;
+
+      return String(a.univ || "").localeCompare(String(b.univ || ""), "ko");
+    })
+    .slice(0, 20)
+    .map(item => ({
+      ...item,
+      summaryJudgement: "도전",
+      summaryText: item.summaryText
+        ? `${item.summaryText} · 입력 과목 기준 참고용`
+        : "입력 과목 기준 참고용"
+    }));
+}
+
 function makeSubjectDetailRow(s) {
   const studentText = s.student == null ? "입력 없음" : s.student;
   const cutText = safeValue(s.cut);
@@ -617,12 +637,16 @@ function renderStats(groupedList) {
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
   const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
-  const totalCore = safe + fit + up;
+  const challenge = groupedList.filter(item => item.summaryJudgement === "도전").length;
+  const totalCore = isStudentLinkedMode()
+    ? safe + fit + up + challenge
+    : safe + fit + up;
 
   statsBox.innerHTML = `
     <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
     <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
     <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
+    <button type="button" class="stat-chip is-clickable ${currentFilter === "도전" ? "is-active" : ""}" data-filter="도전">도전 ${challenge}</button>
     <button type="button" class="stat-chip is-clickable ${currentFilter === "핵심" ? "is-active" : ""}" data-filter="핵심">핵심합 ${totalCore}</button>
   `;
 
@@ -747,17 +771,28 @@ function searchResults() {
   }));
 
   const allGroupedList = buildGroupedResults(analyzedList);
-  renderStats(allGroupedList);
 
   let groupedList = [...allGroupedList];
+  let statsSource = allGroupedList;
 
   if (isStudentLinkedMode()) {
-    groupedList = groupedList.filter(item => item.summaryJudgement !== "판정 보류");
+    const nonHoldList = groupedList.filter(item => item.summaryJudgement !== "판정 보류");
+
+    if (nonHoldList.length > 0) {
+      groupedList = nonHoldList;
+      statsSource = nonHoldList;
+    } else {
+      const fallbackList = buildStudentFallbackResults(allGroupedList);
+      groupedList = fallbackList;
+      statsSource = fallbackList;
+    }
   }
+
+  renderStats(statsSource);
 
   if (judgementFilter === "핵심") {
     groupedList = groupedList.filter(item =>
-      ["안정", "적정", "상향"].includes(item.summaryJudgement)
+      ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
     );
   } else if (judgementFilter !== "all") {
     groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
