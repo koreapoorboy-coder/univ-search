@@ -15,110 +15,114 @@
     </header>
 
     <section class="panel">
-      <div class="form-grid compact-form">
-        <label>
-          <span>계열</span>
-          <select id="groupFilter">
-            <option value="all">전체</option>
-            <option value="인문">인문</option>
-            <option value="자연">자연</option>
-          </select>
-        </label>
+      <div class="search-layout">
+        <div class="row row-top">
+          <label class="field field-group">
+            <span>계열</span>
+            <select id="groupFilter">
+              <option value="all">전체</option>
+              <option value="인문">인문</option>
+              <option value="자연">자연</option>
+            </select>
+          </label>
 
-        <label class="span-3">
-          <span>대학 / 학과 검색</span>
-          <input
-            type="text"
-            id="keyword"
-            autocomplete="off"
-            placeholder="예: 경희대 / 전자공학 / 일반전형"
-          />
-        </label>
+          <label class="field field-keyword">
+            <span>대학 / 학과 검색</span>
+            <input
+              type="text"
+              id="keyword"
+              autocomplete="off"
+              placeholder="예: 경희대 / 전자공학 / 일반전형"
+            />
+          </label>
+        </div>
 
-        <label>
-          <span>영어 등급</span>
-          <select id="engGrade">
-            <option value="">선택</option>
-            <option value="1">1등급</option>
-            <option value="2">2등급</option>
-            <option value="3">3등급</option>
-            <option value="4">4등급</option>
-            <option value="5">5등급</option>
-            <option value="6">6등급</option>
-            <option value="7">7등급</option>
-            <option value="8">8등급</option>
-            <option value="9">9등급</option>
-          </select>
-        </label>
+        <div class="row row-score-1">
+          <label class="field">
+            <span>영어 등급</span>
+            <select id="engGrade">
+              <option value="">선택</option>
+              <option value="1">1등급</option>
+              <option value="2">2등급</option>
+              <option value="3">3등급</option>
+              <option value="4">4등급</option>
+              <option value="5">5등급</option>
+              <option value="6">6등급</option>
+              <option value="7">7등급</option>
+              <option value="8">8등급</option>
+              <option value="9">9등급</option>
+            </select>
+          </label>
 
-        <div class="placeholder-cell" aria-hidden="true"></div>
-        <div class="placeholder-cell" aria-hidden="true"></div>
-        <div class="placeholder-cell" aria-hidden="true"></div>
+          <label class="field">
+            <span>국어 백분위</span>
+            <input
+              type="number"
+              id="kor"
+              min="0"
+              max="100"
+              step="1"
+              inputmode="numeric"
+              placeholder="예: 92"
+            />
+          </label>
 
-        <label>
-          <span>국어 백분위</span>
-          <input
-            type="number"
-            id="kor"
-            min="0"
-            max="100"
-            step="1"
-            inputmode="numeric"
-            placeholder="예: 92"
-          />
-        </label>
+          <label class="field">
+            <span>수학 백분위</span>
+            <input
+              type="number"
+              id="math"
+              min="0"
+              max="100"
+              step="1"
+              inputmode="numeric"
+              placeholder="예: 94"
+            />
+          </label>
+        </div>
 
-        <label>
-          <span>수학 백분위</span>
-          <input
-            type="number"
-            id="math"
-            min="0"
-            max="100"
-            step="1"
-            inputmode="numeric"
-            placeholder="예: 94"
-          />
-        </label>
+        <div class="row row-score-2">
+          <label class="field">
+            <span>탐구 1 백분위</span>
+            <input
+              type="number"
+              id="inq1"
+              min="0"
+              max="100"
+              step="1"
+              inputmode="numeric"
+              placeholder="예: 89"
+            />
+          </label>
 
-        <label>
-          <span>탐구 1 백분위</span>
-          <input
-            type="number"
-            id="inq1"
-            min="0"
-            max="100"
-            step="1"
-            inputmode="numeric"
-            placeholder="예: 89"
-          />
-        </label>
+          <label class="field">
+            <span>탐구 2 백분위</span>
+            <input
+              type="number"
+              id="inq2"
+              min="0"
+              max="100"
+              step="1"
+              inputmode="numeric"
+              placeholder="예: 90"
+            />
+          </label>
+        </div>
 
-        <label>
-          <span>탐구 2 백분위</span>
-          <input
-            type="number"
-            id="inq2"
-            min="0"
-            max="100"
-            step="1"
-            inputmode="numeric"
-            placeholder="예: 90"
-          />
-        </label>
+        <div class="row row-filter">
+          <div class="field full-width">
+            <span class="filter-label">판정 필터</span>
 
-        <div class="full">
-          <span class="filter-label">판정 필터</span>
+            <div class="judge-tabs" id="judgementTabs">
+              <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
+              <button type="button" class="judge-tab" data-value="안정">안정</button>
+              <button type="button" class="judge-tab" data-value="적정">적정</button>
+              <button type="button" class="judge-tab" data-value="상향">상향</button>
+              <button type="button" class="judge-tab" data-value="all">전체</button>
+            </div>
 
-          <div class="judge-tabs" id="judgementTabs">
-            <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
-            <button type="button" class="judge-tab" data-value="안정">안정</button>
-            <button type="button" class="judge-tab" data-value="적정">적정</button>
-            <button type="button" class="judge-tab" data-value="상향">상향</button>
-            <button type="button" class="judge-tab" data-value="all">전체</button>
+            <input type="hidden" id="judgementFilter" value="핵심" />
           </div>
-
-          <input type="hidden" id="judgementFilter" value="핵심" />
         </div>
 
         <!-- JS 호환용 숨김 필드 -->
