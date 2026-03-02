@@ -21,7 +21,6 @@
     .muted{opacity:.7}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
 
-    /* ✅ 최신 성적(모바일 가독성) */
     .scoreHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .scoreHead .h{font-size:16px;font-weight:900}
     .scoreHead .r{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;padding:6px 10px;font-weight:900;opacity:.85}
@@ -131,11 +130,8 @@
 
 <script>
 (() => {
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 변경
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
-  // -------------------------
-  // 공통 유틸 / 보안 (t 우선)
-  // -------------------------
   const $ = (s)=>document.querySelector(s);
   const norm = (v) => String(v ?? "").trim();
   const esc = (s)=>String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
@@ -149,7 +145,6 @@
     const id = safeStr(qs.get("id")).trim();
     const admin = safeStr(qs.get("admin")).trim();
 
-    // 🔒 t가 있으면 무조건 학생모드 (id/admin 무시)
     if (t) {
       return { mode:"student", token:t, id:"", admin:"", isAdmin:false };
     }
@@ -172,9 +167,6 @@
     return page;
   }
 
-  // -------------------------
-  // 데이터 유틸
-  // -------------------------
   async function loadJson(path){
     const r = await fetch(path, { cache:"no-store" });
     if(!r.ok) throw new Error(path+" load failed ("+r.status+")");
@@ -191,7 +183,6 @@
     if (!Array.isArray(students)) return null;
 
     if (auth.mode === "student") {
-      // 🔒 학생모드는 token으로만 매칭
       return students.find(s => norm(pickToken(s)) === norm(auth.token)) || null;
     }
     if (auth.mode === "admin" && auth.isAdmin) {
@@ -253,7 +244,7 @@
   }
 
   function buildStudentMaps(latestRow){
-    const getFirst = (keys) => {
+    const getFirstNum = (keys) => {
       for(const k of keys){
         const v = toNum(latestRow?.[k]);
         if(v!=null) return v;
@@ -264,99 +255,187 @@
     const KEYS = {
       "국어": {
         raw:["국어_raw","국어","국","국어점","국어점수","국어 원점수","국어원점수","kor","korean"],
-        pct:["국어_pct","국어p","국어P","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"]
+        pct:["국어_pct","국어p","국어P","국어백분위","국어 백분위","국어퍼센타일","국어percentile","kor_p","kor_pct"],
+        grade:["국어_grade","국어등급","국어 등급","kor_grade"]
       },
       "수학": {
         raw:["수학_raw","수학","수","수학점","수학점수","수학 원점수","수학원점수","math"],
-        pct:["수학_pct","수학p","수학P","수학백분위","수학 백분위","math_p","math_pct"]
+        pct:["수학_pct","수학p","수학P","수학백분위","수학 백분위","math_p","math_pct"],
+        grade:["수학_grade","수학등급","수학 등급","math_grade"]
       },
       "영어": {
         raw:["영어_raw","영어","영","영어점","영어점수","영어 원점수","영어원점수","eng","english"],
-        pct:["영어_pct","영어p","영어P","영어백분위","영어 백분위","eng_p","eng_pct"]
+        pct:["영어_pct","영어p","영어P","영어백분위","영어 백분위","eng_p","eng_pct"],
+        grade:["영어_grade","영어등급","영어 등급","eng_grade","english_grade"]
       },
       "탐1": {
-        raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수",
-             "생윤","생윤점","생윤점수","윤리","윤리점수","윤리점",
-             "탐구1_raw","tam1_raw"],
-        pct:["탐1_pct","탐1p","탐구1p","탐1백분위","탐1 백분위",
-             "생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"]
+        raw:["탐1_raw","탐1","탐구1","탐_1","탐구_1","탐1점","탐1점수","탐1 원점수","탐1원점수","생윤","생윤점","생윤점수","윤리","윤리점수","윤리점","탐구1_raw","tam1_raw"],
+        pct:["탐1_pct","탐1p","탐구1p","탐1백분위","탐1 백분위","생윤p","생윤P","생윤_pct","생윤백분위","윤리p","윤리_pct"],
+        grade:["탐1_grade","탐1등급","탐구1_grade","생윤_grade","윤리_grade"]
       },
       "탐2": {
-        raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수",
-             "사문","사문점","사문점수","사회","사회점수","사회점",
-             "탐구2_raw","tam2_raw"],
-        pct:["탐2_pct","탐2p","탐구2p","탐2백분위","탐2 백분위",
-             "사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"]
+        raw:["탐2_raw","탐2","탐구2","탐_2","탐구_2","탐2점","탐2점수","탐2 원점수","탐2원점수","사문","사문점","사문점수","사회","사회점수","사회점","탐구2_raw","tam2_raw"],
+        pct:["탐2_pct","탐2p","탐구2p","탐2백분위","탐2 백분위","사문p","사문P","사문_pct","사문백분위","사회p","사회_pct"],
+        grade:["탐2_grade","탐2등급","탐구2_grade","사문_grade","사회_grade"]
       },
     };
 
     const raw = {};
     const pct = {};
+    const grade = {};
+
     for(const k of SUBS){
-      raw[k] = getFirst(KEYS[k].raw);
-      pct[k] = getFirst(KEYS[k].pct);
+      raw[k] = getFirstNum(KEYS[k].raw);
+      pct[k] = getFirstNum(KEYS[k].pct);
+      grade[k] = getFirstNum(KEYS[k].grade);
     }
-    return { raw, pct };
+
+    return { raw, pct, grade };
   }
 
-  function getUnivCuts(u){
-    const out = {};
+  function getUnivCutMaps(u){
+    const pctCuts = {};
+    const gradeCuts = {};
+
+    const applyCut = (subj, value) => {
+      const nk = normSubKey(subj);
+      const v = toNum(value);
+      if(!nk || v == null) return;
+
+      if(nk === "영어"){
+        if(v <= 9){
+          gradeCuts[nk] = v;
+        }else{
+          pctCuts[nk] = v;
+        }
+        return;
+      }
+
+      pctCuts[nk] = v;
+    };
 
     if(u && u.rule && typeof u.rule === "object" && u.rule.cuts){
       for(const k of Object.keys(u.rule.cuts)){
-        const nk = normSubKey(k);
-        const v = toNum(u.rule.cuts[k]);
-        if(nk && v!=null) out[nk] = v;
+        applyCut(k, u.rule.cuts[k]);
       }
     }
 
     if(u && typeof u.cuts === "object" && u.cuts){
       for(const k of Object.keys(u.cuts)){
-        const nk = normSubKey(k);
-        const v = toNum(u.cuts[k]);
-        if(nk && v!=null) out[nk] = v;
+        applyCut(k, u.cuts[k]);
       }
     }
 
-    const kor = toNum(u.cut_kor ?? u.kor_cut ?? u.cut_korean);
-    const math = toNum(u.cut_math ?? u.math_cut);
-    const eng = toNum(u.cut_eng ?? u.eng_cut);
-    const inq1 = toNum(u.cut_inq1 ?? u.cut_tam1 ?? u.inq1_cut ?? u.cut_q1);
-    const inq2 = toNum(u.cut_inq2 ?? u.cut_tam2 ?? u.inq2_cut ?? u.cut_q2);
-    if(kor!=null) out["국어"]=kor;
-    if(math!=null) out["수학"]=math;
-    if(eng!=null) out["영어"]=eng;
-    if(inq1!=null) out["탐1"]=inq1;
-    if(inq2!=null) out["탐2"]=inq2;
+    applyCut("국어", u.cut_kor ?? u.kor_cut ?? u.cut_korean);
+    applyCut("수학", u.cut_math ?? u.math_cut);
+    applyCut("탐1", u.cut_inq1 ?? u.cut_tam1 ?? u.inq1_cut ?? u.cut_q1);
+    applyCut("탐2", u.cut_inq2 ?? u.cut_tam2 ?? u.inq2_cut ?? u.cut_q2);
 
-    return out;
+    const engGradeCut = toNum(
+      u.cut_eng_grade ??
+      u.eng_grade_cut ??
+      u.engGradeCut ??
+      u["영어등급컷"] ??
+      u["영어등급"] ??
+      u["영어 컷 등급"]
+    );
+    if(engGradeCut != null){
+      gradeCuts["영어"] = engGradeCut;
+    }
+
+    const engPctCut = toNum(
+      u.cut_eng ??
+      u.eng_cut ??
+      u["영어백분위컷"] ??
+      u["영어 백분위 컷"] ??
+      u["영어percentile컷"]
+    );
+    if(engPctCut != null && gradeCuts["영어"] == null){
+      pctCuts["영어"] = engPctCut;
+    }
+
+    return { pctCuts, gradeCuts };
   }
 
-  function evalRow(u, stuPctMap){
-    const cuts = getUnivCuts(u);
+  function evalRow(u, stuPctMap, stuGradeMap){
+    const { pctCuts, gradeCuts } = getUnivCutMaps(u);
 
     let cnt = 0;
+    let sum = 0;
+
     const per = SUBS.map(k=>{
+      const rawStudent = null;
+
+      if(k === "영어"){
+        const sg = stuGradeMap[k];
+        const cg = gradeCuts[k];
+
+        if(sg != null && cg != null){
+          const diff = cg - sg;
+          const scaledDiff = diff * 2;
+          cnt += 1;
+          sum += scaledDiff;
+
+          return {
+            k,
+            studentValue: sg,
+            cutValue: cg,
+            diff,
+            scaledDiff,
+            state: diff >= 0 ? "ok" : "ng",
+            type: "grade"
+          };
+        }
+
+        const sp = stuPctMap[k];
+        const cp = pctCuts[k];
+
+        if(sp == null || cp == null){
+          return { k, studentValue: sp, cutValue: cp, diff:null, scaledDiff:null, state:"na", type:"pct" };
+        }
+
+        const diff = sp - cp;
+        cnt += 1;
+        sum += diff;
+
+        return {
+          k,
+          studentValue: sp,
+          cutValue: cp,
+          diff,
+          scaledDiff: diff,
+          state: diff >= 0 ? "ok" : "ng",
+          type: "pct"
+        };
+      }
+
       const sp = stuPctMap[k];
-      const c = cuts[k];
-      if(sp==null || c==null) return { k, sp, c, diff:null, state:"na" };
-      const diff = sp - c;
-      return { k, sp, c, diff, state: diff>=0 ? "ok" : "ng" };
+      const cp = pctCuts[k];
+
+      if(sp == null || cp == null){
+        return { k, studentValue: sp, cutValue: cp, diff:null, scaledDiff:null, state:"na", type:"pct" };
+      }
+
+      const diff = sp - cp;
+      cnt += 1;
+      sum += diff;
+
+      return {
+        k,
+        studentValue: sp,
+        cutValue: cp,
+        diff,
+        scaledDiff: diff,
+        state: diff >= 0 ? "ok" : "ng",
+        type: "pct"
+      };
     });
 
-    let sum = 0;
-    SUBS.forEach(k=>{
-      const sp = stuPctMap[k];
-      const c = cuts[k];
-      if(sp!=null && c!=null){
-        sum += (sp - c);
-        cnt += 1;
-      }
-    });
     const mainDiff = cnt ? (sum / cnt) : null;
     let code = "na";
-    if(cnt>0) code = (mainDiff>=0) ? "fit" : "up";
-    return { cuts, per, mainDiff, cnt, code };
+    if(cnt > 0) code = (mainDiff >= 0) ? "fit" : "up";
+
+    return { pctCuts, gradeCuts, per, mainDiff, cnt, code };
   }
 
   function statusLabel(code){
@@ -370,23 +449,39 @@
     return (v>=0 ? `+${v.toFixed(1)}p` : `${v.toFixed(1)}p`);
   }
 
+  function diffGradeText(v){
+    if(v==null) return "-";
+    const abs = Math.abs(v);
+    const num = Number.isInteger(abs) ? abs.toFixed(0) : abs.toFixed(1);
+    return v >= 0 ? `+${num}등급` : `-${num}등급`;
+  }
+
   function chipsHtml(per, stuRawMap){
     const items = per.map(p=>{
       const raw = stuRawMap[p.k];
-      const sp = p.sp;
-      const c  = p.c;
-
       const rawTxt = (raw==null) ? "-" : `${raw}점`;
-      const spTxt  = (sp==null) ? "-" : `${sp}p`;
-      const cTxt   = (c==null)  ? "-" : `${c}p`;
-      const dTxt   = (p.diff==null) ? "" : diffText(p.diff);
 
-      const cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
+      let studentTxt = "-";
+      let cutTxt = "-";
+      let dTxt = "";
+      let cls = p.state==="ok" ? "chip ok" : (p.state==="ng" ? "chip ng" : "chip na");
+
+      if(p.type === "grade"){
+        studentTxt = `${rawTxt}/${p.studentValue==null ? "-" : `${p.studentValue}등급`}`;
+        cutTxt = p.cutValue==null ? "-" : `${p.cutValue}등급`;
+        dTxt = (p.diff==null) ? "" : diffGradeText(p.diff);
+      }else{
+        studentTxt = `${rawTxt}/${p.studentValue==null ? "-" : `${p.studentValue}p`}`;
+        cutTxt = p.cutValue==null ? "-" : `${p.cutValue}p`;
+        dTxt = (p.diff==null) ? "" : diffText(p.diff);
+      }
+
       return `<span class="${cls}">
         <span class="k">${esc(p.k)}</span>
-        ${esc(rawTxt)}/${esc(spTxt)} / ${esc(cTxt)} ${esc(dTxt)}
+        ${esc(studentTxt)} / ${esc(cutTxt)} ${esc(dTxt)}
       </span>`;
     }).join("");
+
     return `<div class="chips">${items}</div>`;
   }
 
@@ -397,23 +492,35 @@
       <div class="sg-h">컷</div>
       <div class="sg-h">차이</div>
     `;
+
     const rows = per.map(p=>{
       const raw = stuRawMap[p.k];
-      const sp  = p.sp;
-      const c   = p.c;
+      const rawTxt = (raw==null) ? "-" : `${raw}점`;
 
-      const sTxt = `${raw==null?'-':raw}점/${sp==null?'-':sp}p`;
-      const cTxt = `${c==null?'-':c}p`;
-      const dTxt = (p.diff==null) ? "-" : diffText(p.diff);
+      let studentTxt = "-";
+      let cutTxt = "-";
+      let dTxt = "-";
+
+      if(p.type === "grade"){
+        studentTxt = `${rawTxt}/${p.studentValue==null ? "-" : `${p.studentValue}등급`}`;
+        cutTxt = p.cutValue==null ? "-" : `${p.cutValue}등급`;
+        dTxt = p.diff==null ? "-" : diffGradeText(p.diff);
+      }else{
+        studentTxt = `${rawTxt}/${p.studentValue==null ? "-" : `${p.studentValue}p`}`;
+        cutTxt = p.cutValue==null ? "-" : `${p.cutValue}p`;
+        dTxt = p.diff==null ? "-" : diffText(p.diff);
+      }
 
       const cls = (p.diff==null) ? "sg-v sg-na" : (p.diff>=0 ? "sg-v sg-ok" : "sg-v sg-ng");
+
       return `
         <div class="sg-k">${esc(p.k)}</div>
-        <div class="${(sp==null && raw==null) ? "sg-v sg-na" : "sg-v"}">${esc(sTxt)}</div>
-        <div class="${(c==null) ? "sg-v sg-na" : "sg-v"}">${esc(cTxt)}</div>
+        <div class="${p.studentValue==null && raw==null ? "sg-v sg-na" : "sg-v"}">${esc(studentTxt)}</div>
+        <div class="${p.cutValue==null ? "sg-v sg-na" : "sg-v"}">${esc(cutTxt)}</div>
         <div class="${cls}">${esc(dTxt)}</div>
       `;
     }).join("");
+
     return `<div class="subgrid">${header}${rows}</div>`;
   }
 
@@ -462,7 +569,6 @@
   async function main(){
     const auth = getAuthContext();
 
-    // 관리자모드라면 관리자토큰 검증
     if (auth.mode === "admin") {
       auth.isAdmin = (norm(auth.admin) === norm(ADMIN_TOKEN));
       if (!auth.isAdmin) {
@@ -471,7 +577,6 @@
       }
     }
 
-    // guest 차단
     if (auth.mode === "guest") {
       renderAccessDenied("접근 파라미터가 없습니다.");
       return;
@@ -487,7 +592,6 @@
     }
 
     const sid = norm(pickId(student));
-    const stok = norm(pickToken(student));
     const name = pickName(student);
 
     $("#hdr").innerHTML = `대학 상향/적정 · ${esc(name)} <span class="mono">(${esc(sid)})</span>`;
@@ -501,7 +605,6 @@
       ? `<span class="pill">관리자 모드</span><span class="muted">id 접속</span>`
       : `<span class="pill">학생/학부모 모드</span><span class="muted">token 접속</span>`;
 
-    // 🔒 학생모드는 끝까지 t=token 유지
     const studentHref = buildPageLink("./student.html", auth, student);
     const progHref   = buildPageLink("./progress_detail.html", auth, student);
 
@@ -520,7 +623,7 @@
       .filter(r => norm(pickId(r)) === sid)
       .sort((a,b)=>{
         const ra = pickRound(a), rb = pickRound(b);
-        if(ra!=null && rb!=null) return ra-rb; // 오름차순 → 마지막이 최신
+        if(ra!=null && rb!=null) return ra-rb;
         const da = pickDate(a), db = pickDate(b);
         if(da && db) return String(da).localeCompare(String(db));
         return 0;
@@ -536,7 +639,7 @@
       return;
     }
 
-    let selIdx = rows.length - 1; // 기본: 최신 회차
+    let selIdx = rows.length - 1;
 
     let univs = null;
     try{
@@ -585,10 +688,10 @@
       const selRow = rows[selIdx];
       const isLatest = (selIdx === rows.length - 1);
       const headTitle = isLatest ? "최신 성적" : "선택 성적";
-      const { raw:stuRaw, pct:stuPct } = buildStudentMaps(selRow);
+      const { raw:stuRaw, pct:stuPct, grade:stuGrade } = buildStudentMaps(selRow);
 
       const evaluated = univs.map(u=>{
-        const ev = evalRow(u, stuPct);
+        const ev = evalRow(u, stuPct, stuGrade);
         return { ...u, _ev: ev };
       });
 
@@ -610,7 +713,6 @@
         arr = groupLimitTop5(arr);
       }
 
-      // ✅ 자동 fallback 제거: 적정/상향 결과가 0개면 그대로 "없음" 메시지 표시
       if(activeTab==="all"){
         const rank = (c)=> (c==="fit"?2 : c==="up"?1 : 0);
         arr.sort((a,b)=>{
@@ -653,11 +755,20 @@
           ${SUBS.map(k=>{
             const r = stuRaw[k];
             const p = stuPct[k];
+            const g = stuGrade[k];
+
             const rTxt = (r==null?'-':r) + '점';
-            const pTxt = (p==null?'-':p) + 'p';
+            let sideTxt = '-';
+
+            if(k === "영어"){
+              sideTxt = g==null ? '-' : `${g}등급`;
+            }else{
+              sideTxt = (p==null?'-':p) + 'p';
+            }
+
             return `<div class="scoreItem">
               <div class="k">${esc(k)}</div>
-              <div class="v">${esc(rTxt)}<span class="p">${esc(pTxt)}</span></div>
+              <div class="v">${esc(rTxt)}<span class="p">${esc(sideTxt)}</span></div>
             </div>`;
           }).join("")}
         </div>
@@ -722,7 +833,7 @@
                 <th>대학</th>
                 <th>학과</th>
                 <th>계열</th>
-                <th>과목별 비교 (학생:원점수/백분위p · 컷:p · 차이:p)</th>
+                <th>과목별 비교 (학생:원점수/백분위·영어 등급 · 컷 · 차이)</th>
                 <th class="num">비교</th>
                 <th class="num">차이(p)</th>
               </tr>
@@ -734,7 +845,6 @@
         </div>
       `;
 
-      // ✅ innerHTML 렌더 후 이벤트 연결
       const rs = document.getElementById("roundSel");
       if (rs) {
         rs.onchange = () => {
