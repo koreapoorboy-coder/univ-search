@@ -72,6 +72,8 @@ function getRawNum(obj, keys) {
 }
 
 function normalizeSchoolItem(item, index) {
+  const cut70 = getRawNum(item, ["cut_70", "grade_cut", "70컷", "70%컷", "기준컷", "교과컷"]);
+
   return {
     __index: index,
     year: String(getRawValue(item, ["year", "연도", "년도"], "")).trim(),
@@ -85,12 +87,11 @@ function normalizeSchoolItem(item, index) {
     group: String(getRawValue(item, ["group", "계열"], "")).trim(),
     region: String(getRawValue(item, ["region", "지역"], "")).trim(),
 
-    grade_cut: getRawNum(item, ["grade_cut", "교과컷", "cut"]),
-    grade_cut_range_min: getRawNum(item, ["grade_cut_range_min", "합격권최저", "range_min"]),
-    grade_cut_range_max: getRawNum(item, ["grade_cut_range_max", "합격권최고", "range_max"]),
+    cut_50: getRawNum(item, ["cut_50", "50컷", "50%컷"]),
+    cut_70: cut70,
+    cut_90: getRawNum(item, ["cut_90", "90컷", "90%컷"]),
 
     subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
-    school_year_rule: String(getRawValue(item, ["school_year_rule", "학년별반영"], "")).trim(),
 
     csat_min_required: boolValue(getRawValue(item, ["csat_min_required", "수능최저필수"], false)),
     csat_min_rule: String(getRawValue(item, ["csat_min_rule", "수능최저"], "")).trim(),
@@ -100,7 +101,8 @@ function normalizeSchoolItem(item, index) {
 
     competition_rate: String(getRawValue(item, ["competition_rate", "경쟁률"], "")).trim(),
     registered_count: getRawValue(item, ["registered_count", "모집인원"], ""),
-    high_school_type: String(getRawValue(item, ["high_school_type", "지원학교유형"], "")).trim(),
+    add_admit_count: getRawValue(item, ["add_admit_count", "추합인원", "추가합격", "충원인원"], ""),
+
     selection_note: String(getRawValue(item, ["selection_note", "전형주의사항"], "")).trim(),
     notes: String(getRawValue(item, ["notes", "비고", "메모"], "")).trim()
   };
@@ -163,12 +165,12 @@ function setJudgementFilter(value) {
 }
 
 function evaluateSchoolRecord(studentGrade, item, csatExpected) {
-  const cut = item.grade_cut;
+  const cut = item.cut_70;
   if (studentGrade == null || cut == null) {
     return {
       judgement: "판정 보류",
       diff: null,
-      summaryText: "학생 내신 또는 교과 컷 정보가 없습니다."
+      summaryText: "학생 내신 또는 70%컷 정보가 없습니다."
     };
   }
 
@@ -198,7 +200,7 @@ function evaluateSchoolRecord(studentGrade, item, csatExpected) {
     else judgement = "판정 보류";
   }
 
-  const summaryText = `내신 ${studentGrade.toFixed(2)} / 교과 컷 ${cut.toFixed(2)} / ${diff <= 0 ? `${Math.abs(diff).toFixed(2)}등급 여유` : `${diff.toFixed(2)}등급 부족`}`;
+  const summaryText = `내신 ${studentGrade.toFixed(2)} / 70%컷 ${cut.toFixed(2)} / ${diff <= 0 ? `${Math.abs(diff).toFixed(2)}등급 여유` : `${diff.toFixed(2)}등급 부족`}`;
 
   return {
     judgement,
@@ -299,10 +301,6 @@ function buildGroupedResults(analyzedList) {
       .map(item => `${item.year} ${item.analysis.judgement}`)
       .join(" / ");
 
-    const latestCut = latest.grade_cut != null ? latest.grade_cut.toFixed(2) : "-";
-    const latestRangeMin = latest.grade_cut_range_min != null ? latest.grade_cut_range_min.toFixed(2) : "-";
-    const latestRangeMax = latest.grade_cut_range_max != null ? latest.grade_cut_range_max.toFixed(2) : "-";
-
     const relevanceScore = group.years.reduce((sum, item) => {
       return sum + (item.analysis.diff == null ? 999 : Math.abs(item.analysis.diff));
     }, 0) / group.years.length;
@@ -313,9 +311,6 @@ function buildGroupedResults(analyzedList) {
       summaryJudgement,
       trendText,
       summaryText: latest.analysis.summaryText,
-      latestCut,
-      latestRangeMin,
-      latestRangeMax,
       relevanceScore
     };
   });
@@ -382,15 +377,6 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 
   const interviewText = item.interview ? "있음" : "없음";
   const recommendText = item.recommendation_required ? "필요" : "불필요";
-  const competitionText = safeValue(item.competition_rate);
-  const registeredText = safeValue(item.registered_count, "-");
-  const schoolTypeText = safeValue(item.high_school_type);
-  const selectionText = safeValue(item.selection_note);
-
-  const rangeText =
-    item.grade_cut_range_min != null && item.grade_cut_range_max != null
-      ? `${item.grade_cut_range_min.toFixed(2)} ~ ${item.grade_cut_range_max.toFixed(2)}`
-      : "-";
 
   return `
     <div class="year-block">
@@ -404,19 +390,19 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 
       <div class="year-body" id="${yearDetailId}" hidden>
         <div class="school-info-grid">
-          ${makeInfoCard("교과 컷", item.grade_cut != null ? item.grade_cut.toFixed(2) : "-")}
-          ${makeInfoCard("합격권 범위", rangeText)}
+          ${makeInfoCard("50%컷", item.cut_50 != null ? item.cut_50.toFixed(2) : "-")}
+          ${makeInfoCard("70%컷", item.cut_70 != null ? item.cut_70.toFixed(2) : "-")}
+          ${makeInfoCard("90%컷", item.cut_90 != null ? item.cut_90.toFixed(2) : "-")}
           ${makeInfoCard("반영교과", item.subject_rule)}
-          ${makeInfoCard("학년별 반영", item.school_year_rule)}
           ${makeInfoCard("수능최저", csatText)}
           ${makeInfoCard("면접", interviewText)}
           ${makeInfoCard("추천 필요", recommendText)}
-          ${makeInfoCard("경쟁률", competitionText)}
-          ${makeInfoCard("모집인원", registeredText)}
-          ${makeInfoCard("지원 학교유형", schoolTypeText)}
+          ${makeInfoCard("경쟁률", item.competition_rate)}
+          ${makeInfoCard("모집인원", safeValue(item.registered_count, "-"))}
+          ${makeInfoCard("추합인원", safeValue(item.add_admit_count, "-"))}
         </div>
 
-        ${selectionText !== "-" ? `<div class="detail-note"><strong>전형 주의사항</strong> ${escapeHtml(selectionText)}</div>` : ""}
+        ${safeValue(item.selection_note) !== "-" ? `<div class="detail-note"><strong>전형 주의사항</strong> ${escapeHtml(item.selection_note)}</div>` : ""}
         ${item.notes ? `<div class="detail-note"><strong>비고</strong> ${escapeHtml(item.notes)}</div>` : ""}
       </div>
     </div>
@@ -453,11 +439,12 @@ function makeCard(group, index) {
       </div>
 
       <div class="meta-chip-row">
-        <span class="meta-chip">최근 교과 컷 ${escapeHtml(group.latestCut)}</span>
-        <span class="meta-chip">합격권 ${escapeHtml(group.latestRangeMin)} ~ ${escapeHtml(group.latestRangeMax)}</span>
+        <span class="meta-chip">최근 50%컷 ${escapeHtml(latest.cut_50 != null ? latest.cut_50.toFixed(2) : "-")}</span>
+        <span class="meta-chip">최근 70%컷 ${escapeHtml(latest.cut_70 != null ? latest.cut_70.toFixed(2) : "-")}</span>
+        <span class="meta-chip">최근 90%컷 ${escapeHtml(latest.cut_90 != null ? latest.cut_90.toFixed(2) : "-")}</span>
         <span class="meta-chip">수능최저 ${escapeHtml(latestCsat)}</span>
         <span class="meta-chip">경쟁률 ${escapeHtml(safeValue(latest.competition_rate))}</span>
-        <span class="meta-chip">모집인원 ${escapeHtml(safeValue(latest.registered_count, "-"))}</span>
+        <span class="meta-chip">추합인원 ${escapeHtml(safeValue(latest.add_admit_count, "-"))}</span>
       </div>
 
       <div class="year-chip-row">
