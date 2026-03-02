@@ -105,6 +105,16 @@ input[type="number"] {
   min-width: 0;
 }
 
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
 label span,
 .filter-label {
   display: block;
@@ -134,6 +144,24 @@ button:focus {
 
 button {
   font: inherit;
+  box-sizing: border-box;
+  border: 1px solid #111;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.secondary {
+  border-color: #d9d9d9;
+  background: #f8f9fa;
+  color: #222;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 /* 판정 필터 */
@@ -281,6 +309,11 @@ button {
   color: #922f2f;
 }
 
+.badge.is-risk {
+  background: #fff1f1;
+  color: #9c2f2f;
+}
+
 /* 카드 */
 .compact-card {
   padding: 14px 16px;
@@ -423,6 +456,7 @@ button {
   margin-top: 10px;
   color: #666;
   font-size: 13px;
+  line-height: 1.55;
 }
 
 /* 과목 상태칩 */
@@ -509,6 +543,11 @@ button {
   color: #922f2f;
 }
 
+.year-chip.is-risk {
+  background: #fff1f1;
+  color: #9c2f2f;
+}
+
 .year-block-list {
   display: grid;
   gap: 10px;
@@ -557,6 +596,39 @@ button {
   padding: 0 12px 12px;
 }
 
+/* 수시교과 전용 */
+.school-card .compact-summary {
+  align-items: flex-start;
+}
+
+.school-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.school-info-card {
+  padding: 10px 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.school-info-label {
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.school-info-value {
+  color: #222;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
 /* 반응형 */
 @media (max-width: 900px) {
   .row-top,
@@ -565,6 +637,11 @@ button {
   }
 
   .row-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid,
+  .school-info-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -599,11 +676,13 @@ button {
     gap: 10px;
   }
 
-  .row {
+  .row,
+  .form-grid {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
+  .btn-row,
   .result-head,
   .compact-top,
   .compact-summary {
@@ -624,7 +703,8 @@ button {
   .summary-side,
   .year-toggle-summary,
   .detail-val,
-  .detail-note {
+  .detail-note,
+  .school-info-value {
     font-size: 12px;
   }
 
