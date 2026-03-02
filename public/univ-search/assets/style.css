@@ -23,7 +23,7 @@ body {
 .page {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 18px;
 }
 
 /* 숫자 입력 스피너 제거 */
@@ -40,7 +40,7 @@ input[type="number"] {
 
 /* 헤더 */
 .top {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .top h1 {
@@ -72,20 +72,20 @@ input[type="number"] {
   border-radius: 16px;
   background: #fff;
   margin-bottom: 16px;
-  padding: 16px;
+  padding: 14px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .panel h2 {
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-size: 20px;
 }
 
 /* 폼 */
 .search-layout {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .row {
@@ -97,20 +97,12 @@ input[type="number"] {
   grid-template-columns: minmax(180px, 0.9fr) minmax(0, 2.1fr);
 }
 
-.row-score-1 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.row-score-2 {
+.row-two {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .field {
   min-width: 0;
-}
-
-.full-width {
-  width: 100%;
 }
 
 label span,
@@ -144,19 +136,21 @@ button {
   font: inherit;
 }
 
-/* 판정 필터 탭 */
+/* 판정 필터 */
 .judge-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  min-height: 42px;
+  align-items: center;
 }
 
 .judge-tab {
   appearance: none;
   flex: 0 0 auto;
   width: auto;
-  min-width: 72px;
-  padding: 8px 13px;
+  min-width: 66px;
+  padding: 8px 12px;
   border: 1px solid #d8d8d8;
   border-radius: 999px;
   background: #fff;
@@ -566,8 +560,11 @@ button {
 /* 반응형 */
 @media (max-width: 900px) {
   .row-top,
-  .row-score-1,
-  .row-score-2 {
+  .row-two {
+    grid-template-columns: 1fr;
+  }
+
+  .row-bottom {
     grid-template-columns: 1fr;
   }
 }
