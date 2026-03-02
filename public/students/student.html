@@ -124,12 +124,12 @@
         <div class="title" style="font-size:16px;margin:0">최신 성적: <span id="latestRoundLabel">-</span></div>
       </div>
       <div class="rightgroup">
-        <span class="muted">원점수 + 백분위(p) + 등급(컷/백분위/직접입력)</span>
+        <span class="muted">원점수 + 백분위(p) + 등급(영어는 등급만 표시)</span>
       </div>
     </div>
 
     <div class="subject-grid" id="scoreGrid"></div>
-    <div class="inline-note">※ 등급은 과목별 직접입력값이 있으면 우선 사용하고, 없으면 컷 기준 → 백분위 기준 순서로 표시됩니다.</div>
+    <div class="inline-note">※ 등급은 과목별 직접입력값이 있으면 우선 사용하고, 없으면 컷 기준 → 백분위 기준 순서로 표시됩니다. 영어는 등급만 표시됩니다.</div>
 
     <details class="rounds" id="prevWrap">
       <summary>이전 성적 보기</summary>
@@ -505,14 +505,14 @@
 
   function scoreBoxHtml(subj, row){
     const sc = scoreOf(row, subj);
-    const p  = percentileOf(row, subj);
+    const p  = subj === "영어" ? null : percentileOf(row, subj);
     const g  = gradeLabel(row, subj);
 
     return `
       <div class="score-box">
         <div class="score-head">
           <div class="score-subj">${esc(subj)}</div>
-          <div class="score-p">${p != null ? `${esc(p)}p` : `-`}</div>
+          ${subj === "영어" ? "" : `<div class="score-p">${p != null ? `${esc(p)}p` : `-`}</div>`}
         </div>
         <div class="score-main">
           <div class="score-point">${sc != null ? `${esc(sc)}점` : `-`}</div>
@@ -529,14 +529,19 @@
 
   function miniRow(subj, row){
     const sc = scoreOf(row, subj);
-    const p = percentileOf(row, subj);
+    const p = subj === "영어" ? null : percentileOf(row, subj);
     const g = gradeLabel(row, subj);
+
+    const subText = subj === "영어"
+      ? (g ? esc(g) : "-")
+      : `${p != null ? `${esc(p)}p` : "-"}${g ? ` · ${esc(g)}` : ""}`;
+
     return `
       <div class="mini">
         <div class="k">${esc(subj)}</div>
         <div style="text-align:right">
           <div class="v">${sc != null ? `${esc(sc)}점` : "-"}</div>
-          <div class="g">${p != null ? `${esc(p)}p` : "-"}${g ? ` · ${esc(g)}` : ""}</div>
+          <div class="g">${subText}</div>
         </div>
       </div>
     `;
@@ -582,7 +587,10 @@
     $("#latestRoundLabel").textContent = "-";
     $("#scoreGrid").innerHTML = SUBJECTS.map(s => `
       <div class="score-box">
-        <div class="score-head"><div class="score-subj">${esc(s)}</div><div class="score-p">-</div></div>
+        <div class="score-head">
+          <div class="score-subj">${esc(s)}</div>
+          ${s === "영어" ? "" : `<div class="score-p">-</div>`}
+        </div>
         <div class="score-main"><div class="score-point">-</div><div class="score-grade hidden"></div></div>
       </div>
     `).join("");
