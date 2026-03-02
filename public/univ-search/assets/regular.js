@@ -593,7 +593,7 @@ function bindStatChips() {
       setJudgementFilter(filterValue);
 
       if (hasAnyStudentInput()) {
-        searchResults({ silent: true });
+        searchResults();
       }
     };
   });
@@ -677,7 +677,7 @@ function bindJudgementTabs() {
       setJudgementFilter(value);
 
       if (hasAnyStudentInput()) {
-        searchResults({ silent: true });
+        searchResults();
       }
     };
   });
@@ -817,6 +817,41 @@ function resetForm() {
   }
 }
 
+function applyQueryPrefill() {
+  const qs = new URLSearchParams(window.location.search);
+
+  const kor = parseNum(qs.get("kor"));
+  const math = parseNum(qs.get("math"));
+  const inq1 = parseNum(qs.get("inq1"));
+  const inq2 = parseNum(qs.get("inq2"));
+  const engGrade = parseNum(qs.get("engGrade") || qs.get("eng"));
+
+  const keyword = (qs.get("keyword") || "").trim();
+  const group = (qs.get("group") || "").trim();
+  const judgement = (qs.get("judgement") || "").trim();
+
+  if (kor != null && $("kor")) $("kor").value = String(kor);
+  if (math != null && $("math")) $("math").value = String(math);
+  if (inq1 != null && $("inq1")) $("inq1").value = String(inq1);
+  if (inq2 != null && $("inq2")) $("inq2").value = String(inq2);
+  if (engGrade != null && $("engGrade")) $("engGrade").value = String(engGrade);
+
+  if (keyword && $("keyword")) $("keyword").value = keyword;
+
+  if (group && $("groupFilter")) {
+    const options = Array.from($("groupFilter").options).map(o => o.value);
+    if (options.includes(group)) {
+      $("groupFilter").value = group;
+    }
+  }
+
+  if (judgement) {
+    setJudgementFilter(judgement);
+  }
+
+  return [kor, math, inq1, inq2, engGrade].some(v => v != null) || !!keyword;
+}
+
 async function init() {
   try {
     await loadData();
@@ -825,6 +860,8 @@ async function init() {
     bindJudgementTabs();
     resetForm();
     preventNumberInputSideEffects();
+
+    const hasPrefill = applyQueryPrefill();
 
     ["kor", "math", "inq1", "inq2", "keyword"].forEach(id => {
       if ($(id)) {
@@ -851,6 +888,10 @@ async function init() {
 
       renderCurrentResults();
     });
+
+    if (hasPrefill) {
+      searchResults();
+    }
   } catch (err) {
     console.error("[regular init error]", err);
 
