@@ -28,13 +28,6 @@
         </label>
 
         <label>
-          <span>연도</span>
-          <select id="yearFilter">
-            <option value="all">전체</option>
-          </select>
-        </label>
-
-        <label>
           <span>전형 방식</span>
           <select id="methodFilter">
             <option value="all">전체</option>
@@ -57,6 +50,8 @@
           </select>
         </label>
 
+        <div class="placeholder-cell" aria-hidden="true"></div>
+
         <label>
           <span>국어 백분위</span>
           <input
@@ -64,8 +59,8 @@
             id="kor"
             min="0"
             max="100"
-            step="0.1"
-            inputmode="decimal"
+            step="1"
+            inputmode="numeric"
             placeholder="예: 92"
           />
         </label>
@@ -77,8 +72,8 @@
             id="math"
             min="0"
             max="100"
-            step="0.1"
-            inputmode="decimal"
+            step="1"
+            inputmode="numeric"
             placeholder="예: 94"
           />
         </label>
@@ -90,8 +85,8 @@
             id="inq1"
             min="0"
             max="100"
-            step="0.1"
-            inputmode="decimal"
+            step="1"
+            inputmode="numeric"
             placeholder="예: 89"
           />
         </label>
@@ -103,8 +98,8 @@
             id="inq2"
             min="0"
             max="100"
-            step="0.1"
-            inputmode="decimal"
+            step="1"
+            inputmode="numeric"
             placeholder="예: 90"
           />
         </label>
