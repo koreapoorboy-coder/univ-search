@@ -26,6 +26,18 @@ body {
   padding: 20px;
 }
 
+/* 숫자 입력 스피너 제거 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
 /* 헤더 */
 .top {
   margin-bottom: 18px;
@@ -55,14 +67,10 @@ body {
 }
 
 /* 패널 */
-.notice-box,
 .panel {
   border: 1px solid #e5e5e5;
   border-radius: 16px;
   background: #fff;
-}
-
-.panel {
   margin-bottom: 16px;
   padding: 16px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
@@ -87,6 +95,10 @@ body {
 
 .form-grid .full {
   grid-column: 1 / -1;
+}
+
+.placeholder-cell {
+  visibility: hidden;
 }
 
 label span,
@@ -260,11 +272,6 @@ button {
 
 .badge.is-challenge {
   background: #fdeeee;
-  color: #922f2f;
-}
-
-.badge.is-risk {
-  background: #fff1f1;
   color: #922f2f;
 }
 
@@ -548,6 +555,10 @@ button {
 @media (max-width: 900px) {
   .form-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .placeholder-cell {
+    display: none;
   }
 }
 
