@@ -5,6 +5,7 @@ const MOBILE_PAGE_SIZE = 3;
 
 let LAST_RESULTS = [];
 let visibleCount = getPageSize();
+let autoSearchTimer = null;
 
 function getPageSize() {
   return window.innerWidth <= 768 ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
@@ -361,23 +362,17 @@ function subchipClass(diff) {
 
 function fillSelectOptions() {
   const groupSelect = $("groupFilter");
-  const yearSelect = $("yearFilter");
   const methodSelect = $("methodFilter");
 
-  const groups = [...new Set(REGULAR_DATA.map(item => item.group).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
-  const years = [...new Set(REGULAR_DATA.map(item => item.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a));
-  const methods = [...new Set(REGULAR_DATA.map(item => getMethodName(item)).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+  const methods = [...new Set(REGULAR_DATA.map(item => getMethodName(item)).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, "ko"));
 
   if (groupSelect) {
-    groupSelect.innerHTML =
-      `<option value="all">전체</option>` +
-      groups.map(g => `<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join("");
-  }
-
-  if (yearSelect) {
-    yearSelect.innerHTML =
-      `<option value="all">전체</option>` +
-      years.map(y => `<option value="${escapeHtml(y)}">${escapeHtml(y)}</option>`).join("");
+    groupSelect.innerHTML = `
+      <option value="all">전체</option>
+      <option value="인문">인문</option>
+      <option value="자연">자연</option>
+    `;
   }
 
   if (methodSelect) {
@@ -688,12 +683,9 @@ function bindJudgementTabs() {
   });
 }
 
-function searchResults(options = {}) {
-  const { silent = false } = options;
-
+function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter") || "all";
-  const yearFilter = getValue("yearFilter") || "all";
   const methodFilter = getValue("methodFilter") || "all";
   const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
 
@@ -712,11 +704,7 @@ function searchResults(options = {}) {
 
     if ($("resultCount")) $("resultCount").textContent = "결과 없음";
     if ($("resultList")) {
-      $("resultList").innerHTML = `<div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력해주세요.</div>`;
-    }
-
-    if (!silent) {
-      alert("국어/수학/탐구/영어 중 최소 1개 이상 입력해주세요.");
+      $("resultList").innerHTML = `<div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력하면 자동으로 결과가 표시됩니다.</div>`;
     }
     return;
   }
@@ -736,10 +724,6 @@ function searchResults(options = {}) {
     baseList = baseList.filter(item => String(item.group) === String(groupFilter));
   }
 
-  if (yearFilter !== "all") {
-    baseList = baseList.filter(item => String(item.year) === String(yearFilter));
-  }
-
   if (methodFilter !== "all") {
     baseList = baseList.filter(item => getMethodName(item) === methodFilter);
   }
@@ -750,7 +734,6 @@ function searchResults(options = {}) {
   }));
 
   const allGroupedList = buildGroupedResults(analyzedList);
-
   renderStats(allGroupedList);
 
   let groupedList = [...allGroupedList];
@@ -781,15 +764,43 @@ function searchResults(options = {}) {
   renderCurrentResults();
 }
 
+function scheduleAutoSearch() {
+  if (autoSearchTimer) {
+    clearTimeout(autoSearchTimer);
+  }
+
+  autoSearchTimer = setTimeout(() => {
+    searchResults();
+  }, 180);
+}
+
+function preventNumberInputSideEffects() {
+  ["kor", "math", "inq1", "inq2"].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+
+    el.addEventListener("wheel", (e) => {
+      if (document.activeElement === el) {
+        e.preventDefault();
+        el.blur();
+      }
+    }, { passive: false });
+
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+  });
+}
+
 function resetForm() {
-  if ($("studentName")) $("studentName").value = "";
   if ($("groupFilter")) $("groupFilter").value = "all";
   if ($("kor")) $("kor").value = "";
   if ($("math")) $("math").value = "";
   if ($("inq1")) $("inq1").value = "";
   if ($("inq2")) $("inq2").value = "";
   if ($("engGrade")) $("engGrade").value = "";
-  if ($("yearFilter")) $("yearFilter").value = "all";
   if ($("methodFilter")) $("methodFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
@@ -802,7 +813,7 @@ function resetForm() {
 
   if ($("resultCount")) $("resultCount").textContent = "결과 없음";
   if ($("resultList")) {
-    $("resultList").innerHTML = `<div class="empty">점수를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
+    $("resultList").innerHTML = `<div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력하면 자동으로 결과가 표시됩니다.</div>`;
   }
 }
 
@@ -813,34 +824,21 @@ async function init() {
     setJudgementFilter("핵심");
     bindJudgementTabs();
     resetForm();
+    preventNumberInputSideEffects();
 
-    if ($("btnSearch")) {
-      $("btnSearch").addEventListener("click", () => searchResults({ silent: false }));
-    }
-
-    if ($("btnReset")) {
-      $("btnReset").addEventListener("click", resetForm);
-    }
-
-    ["keyword", "kor", "math", "inq1", "inq2"].forEach(id => {
+    ["kor", "math", "inq1", "inq2", "keyword"].forEach(id => {
       if ($(id)) {
-        $(id).addEventListener("keydown", (e) => {
-          if (e.key === "Enter") searchResults({ silent: false });
-        });
+        $(id).addEventListener("input", scheduleAutoSearch);
       }
     });
 
     if ($("engGrade")) {
-      $("engGrade").addEventListener("change", () => {
-        if (hasAnyStudentInput()) searchResults({ silent: true });
-      });
+      $("engGrade").addEventListener("change", scheduleAutoSearch);
     }
 
-    ["groupFilter", "yearFilter", "methodFilter"].forEach(id => {
+    ["groupFilter", "methodFilter"].forEach(id => {
       if ($(id)) {
-        $(id).addEventListener("change", () => {
-          if (hasAnyStudentInput()) searchResults({ silent: true });
-        });
+        $(id).addEventListener("change", scheduleAutoSearch);
       }
     });
 
