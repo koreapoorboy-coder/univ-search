@@ -60,6 +60,15 @@ function canonicalFilterValue(value) {
   return value;
 }
 
+function isStudentLinkedMode() {
+  const qs = new URLSearchParams(window.location.search);
+  return normalizeText(qs.get("source")) === "student";
+}
+
+function getDefaultJudgementFilter() {
+  return isStudentLinkedMode() ? "all" : "핵심";
+}
+
 function getRawValue(obj, keys, fallback = "") {
   for (const key of keys) {
     if (obj && obj[key] !== undefined && obj[key] !== null && obj[key] !== "") {
@@ -193,7 +202,7 @@ function hasAnyStudentInput() {
 }
 
 function setJudgementFilter(value) {
-  const finalValue = canonicalFilterValue(value || "핵심");
+  const finalValue = canonicalFilterValue(value || getDefaultJudgementFilter());
 
   if ($("judgementFilter")) {
     $("judgementFilter").value = finalValue;
@@ -589,7 +598,7 @@ function bindStatChips() {
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
     btn.onclick = (e) => {
       e.preventDefault();
-      const filterValue = canonicalFilterValue(btn.getAttribute("data-filter") || "핵심");
+      const filterValue = canonicalFilterValue(btn.getAttribute("data-filter") || getDefaultJudgementFilter());
       setJudgementFilter(filterValue);
 
       if (hasAnyStudentInput()) {
@@ -603,7 +612,7 @@ function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
 
-  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || getDefaultJudgementFilter());
 
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
@@ -630,7 +639,11 @@ function renderCurrentResults() {
 
   if (!total) {
     if ($("resultList")) {
-      $("resultList").innerHTML = `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
+      const emptyMsg = isStudentLinkedMode()
+        ? "입력된 과목 기준으로 표시 가능한 결과가 없습니다."
+        : "조건에 맞는 결과가 없습니다.";
+
+      $("resultList").innerHTML = `<div class="empty">${emptyMsg}</div>`;
     }
     return;
   }
@@ -671,7 +684,7 @@ function bindJudgementTabs() {
         tab.getAttribute("data-value") ||
         tab.getAttribute("data-filter") ||
         tab.getAttribute("data-judge") ||
-        "핵심"
+        getDefaultJudgementFilter()
       );
 
       setJudgementFilter(value);
@@ -687,7 +700,7 @@ function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter") || "all";
   const methodFilter = getValue("methodFilter") || "all";
-  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || getDefaultJudgementFilter());
 
   const kor = parseNum(getValue("kor"));
   const math = parseNum(getValue("math"));
@@ -737,6 +750,10 @@ function searchResults() {
   renderStats(allGroupedList);
 
   let groupedList = [...allGroupedList];
+
+  if (isStudentLinkedMode()) {
+    groupedList = groupedList.filter(item => item.summaryJudgement !== "판정 보류");
+  }
 
   if (judgementFilter === "핵심") {
     groupedList = groupedList.filter(item =>
@@ -804,7 +821,7 @@ function resetForm() {
   if ($("methodFilter")) $("methodFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
-  setJudgementFilter("핵심");
+  setJudgementFilter(getDefaultJudgementFilter());
 
   LAST_RESULTS = [];
   visibleCount = getPageSize();
@@ -856,7 +873,7 @@ async function init() {
   try {
     await loadData();
     fillSelectOptions();
-    setJudgementFilter("핵심");
+    setJudgementFilter(getDefaultJudgementFilter());
     bindJudgementTabs();
     resetForm();
     preventNumberInputSideEffects();
