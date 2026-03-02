@@ -83,24 +83,34 @@ input[type="number"] {
 }
 
 /* 폼 */
-.form-grid {
+.search-layout {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
-.compact-form {
-  gap: 10px;
+.row {
+  display: grid;
+  gap: 12px;
 }
 
-.form-grid .full {
-  grid-column: 1 / -1;
+.row-top {
+  grid-template-columns: minmax(180px, 0.9fr) minmax(0, 2.1fr);
 }
-.form-grid .span-3 {
-  grid-column: span 3;
+
+.row-score-1 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.placeholder-cell {
-  visibility: hidden;
+
+.row-score-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  min-width: 0;
+}
+
+.full-width {
+  width: 100%;
 }
 
 label span,
@@ -555,12 +565,10 @@ button {
 
 /* 반응형 */
 @media (max-width: 900px) {
-  .form-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .placeholder-cell {
-    display: none;
+  .row-top,
+  .row-score-1,
+  .row-score-2 {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -590,7 +598,11 @@ button {
     margin-bottom: 10px;
   }
 
-  .form-grid {
+  .search-layout {
+    gap: 10px;
+  }
+
+  .row {
     grid-template-columns: 1fr;
     gap: 10px;
   }
