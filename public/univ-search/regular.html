@@ -15,8 +15,6 @@
     </header>
 
     <section class="panel">
-      <h2>학생 입력</h2>
-
       <div class="form-grid compact-form">
         <label>
           <span>계열</span>
@@ -27,11 +25,14 @@
           </select>
         </label>
 
-        <label>
-          <span>전형 방식</span>
-          <select id="methodFilter">
-            <option value="all">전체</option>
-          </select>
+        <label class="span-3">
+          <span>대학 / 학과 검색</span>
+          <input
+            type="text"
+            id="keyword"
+            autocomplete="off"
+            placeholder="예: 경희대 / 전자공학 / 일반전형"
+          />
         </label>
 
         <label>
@@ -50,6 +51,8 @@
           </select>
         </label>
 
+        <div class="placeholder-cell" aria-hidden="true"></div>
+        <div class="placeholder-cell" aria-hidden="true"></div>
         <div class="placeholder-cell" aria-hidden="true"></div>
 
         <label>
@@ -118,15 +121,8 @@
           <input type="hidden" id="judgementFilter" value="핵심" />
         </div>
 
-        <label class="full">
-          <span>대학 / 학과 검색</span>
-          <input
-            type="text"
-            id="keyword"
-            autocomplete="off"
-            placeholder="예: 경희대 / 전자공학 / 일반전형"
-          />
-        </label>
+        <!-- JS 호환용 숨김 필드 -->
+        <input type="hidden" id="methodFilter" value="all" />
       </div>
     </section>
 
