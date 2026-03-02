@@ -410,24 +410,24 @@
   }
 
   function buildRegularLink(latestRow){
-    const base = "./univ-search/regular.html";
+    const base = "../univ-search/regular.html";
     const params = new URLSearchParams();
 
     params.set("source", "student");
 
-    if(!latestRow) return `${base}?${params.toString()}`;
+    if(latestRow){
+      const kor = percentileOf(latestRow, "국어");
+      const math = percentileOf(latestRow, "수학");
+      const inq1 = percentileOf(latestRow, "탐1");
+      const inq2 = percentileOf(latestRow, "탐2");
+      const eng = parseGradeNumber(explicitGradeOf(latestRow, "영어") || gradeLabel(latestRow, "영어"));
 
-    const kor = percentileOf(latestRow, "국어");
-    const math = percentileOf(latestRow, "수학");
-    const inq1 = percentileOf(latestRow, "탐1");
-    const inq2 = percentileOf(latestRow, "탐2");
-    const eng = parseGradeNumber(explicitGradeOf(latestRow, "영어") || gradeLabel(latestRow, "영어"));
-
-    if(kor != null) params.set("kor", String(kor));
-    if(math != null) params.set("math", String(math));
-    if(inq1 != null) params.set("inq1", String(inq1));
-    if(inq2 != null) params.set("inq2", String(inq2));
-    if(eng != null) params.set("engGrade", String(eng));
+      if(kor != null) params.set("kor", String(kor));
+      if(math != null) params.set("math", String(math));
+      if(inq1 != null) params.set("inq1", String(inq1));
+      if(inq2 != null) params.set("inq2", String(inq2));
+      if(eng != null) params.set("engGrade", String(eng));
+    }
 
     return `${base}?${params.toString()}`;
   }
