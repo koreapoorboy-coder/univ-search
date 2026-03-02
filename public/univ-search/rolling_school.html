@@ -11,7 +11,7 @@
     <header class="top">
       <a class="back-link" href="rolling.html">← 수시 메인</a>
       <h1>학생부교과 판독기</h1>
-      <p class="sub">내신과 수능최저를 기준으로 지원 가능 전형을 조회합니다.</p>
+      <p class="sub">내신과 수능최저를 기준으로 3개년 묶음형 전형을 조회합니다.</p>
     </header>
 
     <section class="panel">
@@ -63,6 +63,20 @@
           </select>
         </label>
 
+        <div class="full">
+          <span class="filter-label">판정 필터</span>
+          <div class="judge-tabs" id="judgementTabs">
+            <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
+            <button type="button" class="judge-tab" data-value="안정">안정</button>
+            <button type="button" class="judge-tab" data-value="적정">적정</button>
+            <button type="button" class="judge-tab" data-value="상향">상향</button>
+            <button type="button" class="judge-tab" data-value="도전">도전</button>
+            <button type="button" class="judge-tab" data-value="최저 위험">최저 위험</button>
+            <button type="button" class="judge-tab" data-value="all">전체</button>
+          </div>
+          <input type="hidden" id="judgementFilter" value="핵심" />
+        </div>
+
         <label class="full">
           <span>대학 / 학과 / 전형명 검색</span>
           <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학 / 학교추천" />
@@ -80,6 +94,8 @@
         <h2>조회 결과</h2>
         <div id="resultCount" class="meta-text">결과 없음</div>
       </div>
+
+      <div id="resultStats" class="result-stats"></div>
 
       <div id="resultList" class="result-list">
         <div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>
