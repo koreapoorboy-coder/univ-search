@@ -29,6 +29,10 @@ function safeValue(v, fallback = "-") {
   return v === undefined || v === null || v === "" ? fallback : v;
 }
 
+function hasValue(v) {
+  return !(v === undefined || v === null || v === "");
+}
+
 function normalizeText(value) {
   return String(value || "")
     .replace(/\s+/g, "")
@@ -40,14 +44,11 @@ function normalizeText(value) {
 function canonicalFilterValue(value) {
   const v = normalizeText(value);
 
-  if (!v) return "핵심";
-  if (["all", "전체"].includes(v)) return "all";
+  if (!v) return "안정";
   if (["안정", "safe", "stable"].includes(v)) return "안정";
   if (["적정", "fit", "match"].includes(v)) return "적정";
   if (["상향", "up", "reach"].includes(v)) return "상향";
   if (["도전", "challenge"].includes(v)) return "도전";
-  if (["최저위험", "risk"].includes(v)) return "최저 위험";
-  if (["핵심", "핵심만", "core"].includes(v)) return "핵심";
 
   return value;
 }
@@ -147,7 +148,7 @@ function hasAnyStudentInput() {
 }
 
 function setJudgementFilter(value) {
-  const finalValue = canonicalFilterValue(value || "핵심");
+  const finalValue = canonicalFilterValue(value || "안정");
 
   if ($("judgementFilter")) {
     $("judgementFilter").value = finalValue;
@@ -164,25 +165,36 @@ function setJudgementFilter(value) {
   });
 }
 
-function evaluateSchoolRecord(studentGrade, item) {
-  const cut = item.cut_70;
+function getPreferredCutInfo(item) {
+  if (item.cut_70 != null) return { label: "70%컷", value: item.cut_70 };
+  if (item.cut_50 != null) return { label: "50%컷", value: item.cut_50 };
+  if (item.cut_90 != null) return { label: "90%컷", value: item.cut_90 };
+  return null;
+}
 
-  if (studentGrade == null || cut == null) {
+function evaluateSchoolRecord(studentGrade, item) {
+  const cutInfo = getPreferredCutInfo(item);
+
+  if (studentGrade == null || !cutInfo) {
     return {
       judgement: "판정 보류",
       diff: null,
-      summaryText: "학생 내신 또는 70%컷 정보가 없습니다."
+      cutLabel: null,
+      cutValue: null,
+      summaryText: "학생 내신 또는 교과 컷 정보가 없습니다."
     };
   }
 
+  const cut = cutInfo.value;
   const diff = studentGrade - cut;
   let judgement = "판정 보류";
 
   if (item.csat_min_required) {
-    if (diff <= -0.25) judgement = "적정";
-    else if (diff <= 0.05) judgement = "상향";
-    else if (diff <= 0.30) judgement = "도전";
-    else judgement = "최저 위험";
+    if (diff <= -0.35) judgement = "안정";
+    else if (diff <= -0.10) judgement = "적정";
+    else if (diff <= 0.15) judgement = "상향";
+    else if (diff <= 0.40) judgement = "도전";
+    else judgement = "판정 보류";
   } else {
     if (diff <= -0.20) judgement = "안정";
     else if (diff <= 0.10) judgement = "적정";
@@ -191,11 +203,13 @@ function evaluateSchoolRecord(studentGrade, item) {
     else judgement = "판정 보류";
   }
 
-  const summaryText = `내신 ${studentGrade.toFixed(2)} / 70%컷 ${cut.toFixed(2)} / ${diff <= 0 ? `${Math.abs(diff).toFixed(2)}등급 여유` : `${diff.toFixed(2)}등급 부족`}`;
+  const summaryText = `내신 ${studentGrade.toFixed(2)} / ${cutInfo.label} ${cut.toFixed(2)} / ${diff <= 0 ? `${Math.abs(diff).toFixed(2)}등급 여유` : `${diff.toFixed(2)}등급 부족`}`;
 
   return {
     judgement,
     diff,
+    cutLabel: cutInfo.label,
+    cutValue: cut,
     summaryText
   };
 }
@@ -206,8 +220,7 @@ function judgementRank(label) {
     "적정": 2,
     "상향": 3,
     "도전": 4,
-    "최저 위험": 5,
-    "판정 보류": 6
+    "판정 보류": 5
   };
   return map[label] ?? 99;
 }
@@ -222,8 +235,6 @@ function judgementToneClass(label) {
       return "is-up";
     case "도전":
       return "is-challenge";
-    case "최저 위험":
-      return "is-risk";
     default:
       return "";
   }
@@ -250,15 +261,13 @@ function summarizeGroupJudgement(yearItems) {
     안정: yearItems.filter(x => x.analysis.judgement === "안정").length,
     적정: yearItems.filter(x => x.analysis.judgement === "적정").length,
     상향: yearItems.filter(x => x.analysis.judgement === "상향").length,
-    도전: yearItems.filter(x => x.analysis.judgement === "도전").length,
-    최저위험: yearItems.filter(x => x.analysis.judgement === "최저 위험").length
+    도전: yearItems.filter(x => x.analysis.judgement === "도전").length
   };
 
   if (counts.안정 >= 2) return "안정";
   if (counts.안정 + counts.적정 >= 2) return "적정";
   if (counts.상향 >= 1 || counts.적정 >= 1) return "상향";
   if (counts.도전 >= 1) return "도전";
-  if (counts.최저위험 >= 1) return "최저 위험";
   return "판정 보류";
 }
 
@@ -311,22 +320,18 @@ function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
 
-  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "안정");
 
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
   const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
   const challenge = groupedList.filter(item => item.summaryJudgement === "도전").length;
-  const risk = groupedList.filter(item => item.summaryJudgement === "최저 위험").length;
-  const totalCore = safe + fit + up + challenge;
 
   statsBox.innerHTML = `
     <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
     <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
     <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
     <button type="button" class="stat-chip is-clickable ${currentFilter === "도전" ? "is-active" : ""}" data-filter="도전">도전 ${challenge}</button>
-    <button type="button" class="stat-chip is-clickable ${currentFilter === "최저 위험" ? "is-active" : ""}" data-filter="최저 위험">최저 위험 ${risk}</button>
-    <button type="button" class="stat-chip is-clickable ${currentFilter === "핵심" ? "is-active" : ""}" data-filter="핵심">핵심합 ${totalCore}</button>
   `;
 
   bindStatChips();
@@ -336,9 +341,53 @@ function makeInfoCard(label, value) {
   return `
     <div class="school-info-card">
       <div class="school-info-label">${escapeHtml(label)}</div>
-      <div class="school-info-value">${escapeHtml(safeValue(value))}</div>
+      <div class="school-info-value">${escapeHtml(String(value))}</div>
     </div>
   `;
+}
+
+function makeCutInfoCards(item) {
+  const cards = [];
+
+  if (item.cut_50 != null) {
+    cards.push(makeInfoCard("50%컷", item.cut_50.toFixed(2)));
+  }
+  if (item.cut_70 != null) {
+    cards.push(makeInfoCard("70%컷", item.cut_70.toFixed(2)));
+  }
+  if (item.cut_90 != null) {
+    cards.push(makeInfoCard("90%컷", item.cut_90.toFixed(2)));
+  }
+
+  return cards.join("");
+}
+
+function makeMetaChip(text) {
+  return `<span class="meta-chip">${escapeHtml(text)}</span>`;
+}
+
+function makeLatestMetaChips(latest) {
+  const chips = [];
+
+  if (latest.cut_50 != null) chips.push(makeMetaChip(`최근 50%컷 ${latest.cut_50.toFixed(2)}`));
+  if (latest.cut_70 != null) chips.push(makeMetaChip(`최근 70%컷 ${latest.cut_70.toFixed(2)}`));
+  if (latest.cut_90 != null) chips.push(makeMetaChip(`최근 90%컷 ${latest.cut_90.toFixed(2)}`));
+
+  if (latest.csat_min_required) {
+    chips.push(makeMetaChip(`수능최저 ${safeValue(latest.csat_min_rule, "있음")}`));
+  } else {
+    chips.push(makeMetaChip("수능최저 없음"));
+  }
+
+  if (hasValue(latest.competition_rate)) {
+    chips.push(makeMetaChip(`경쟁률 ${latest.competition_rate}`));
+  }
+
+  if (hasValue(latest.add_admit_count)) {
+    chips.push(makeMetaChip(`추합인원 ${latest.add_admit_count}`));
+  }
+
+  return chips.join("");
 }
 
 function makeYearBlock(item, groupIndex, yearIndex) {
@@ -350,6 +399,17 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 
   const interviewText = item.interview ? "있음" : "없음";
   const recommendText = item.recommendation_required ? "필요" : "불필요";
+
+  const infoCards = [
+    makeCutInfoCards(item),
+    hasValue(item.subject_rule) ? makeInfoCard("반영교과", item.subject_rule) : "",
+    makeInfoCard("수능최저", csatText),
+    makeInfoCard("면접", interviewText),
+    makeInfoCard("추천 필요", recommendText),
+    hasValue(item.competition_rate) ? makeInfoCard("경쟁률", item.competition_rate) : "",
+    hasValue(item.registered_count) ? makeInfoCard("모집인원", item.registered_count) : "",
+    hasValue(item.add_admit_count) ? makeInfoCard("추합인원", item.add_admit_count) : ""
+  ].join("");
 
   return `
     <div class="year-block">
@@ -363,16 +423,7 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 
       <div class="year-body" id="${yearDetailId}" hidden>
         <div class="school-info-grid">
-          ${makeInfoCard("50%컷", item.cut_50 != null ? item.cut_50.toFixed(2) : "-")}
-          ${makeInfoCard("70%컷", item.cut_70 != null ? item.cut_70.toFixed(2) : "-")}
-          ${makeInfoCard("90%컷", item.cut_90 != null ? item.cut_90.toFixed(2) : "-")}
-          ${makeInfoCard("반영교과", item.subject_rule)}
-          ${makeInfoCard("수능최저", csatText)}
-          ${makeInfoCard("면접", interviewText)}
-          ${makeInfoCard("추천 필요", recommendText)}
-          ${makeInfoCard("경쟁률", item.competition_rate)}
-          ${makeInfoCard("모집인원", safeValue(item.registered_count, "-"))}
-          ${makeInfoCard("추합인원", safeValue(item.add_admit_count, "-"))}
+          ${infoCards}
         </div>
 
         ${safeValue(item.selection_note) !== "-" ? `<div class="detail-note"><strong>전형 주의사항</strong> ${escapeHtml(item.selection_note)}</div>` : ""}
@@ -385,10 +436,6 @@ function makeYearBlock(item, groupIndex, yearIndex) {
 function makeCard(group, index) {
   const detailId = `school-group-detail-${index}`;
   const latest = group.latest;
-
-  const latestCsat = latest.csat_min_required
-    ? safeValue(latest.csat_min_rule, "있음")
-    : "없음";
 
   return `
     <article class="compact-card school-card">
@@ -412,12 +459,7 @@ function makeCard(group, index) {
       </div>
 
       <div class="meta-chip-row">
-        <span class="meta-chip">최근 50%컷 ${escapeHtml(latest.cut_50 != null ? latest.cut_50.toFixed(2) : "-")}</span>
-        <span class="meta-chip">최근 70%컷 ${escapeHtml(latest.cut_70 != null ? latest.cut_70.toFixed(2) : "-")}</span>
-        <span class="meta-chip">최근 90%컷 ${escapeHtml(latest.cut_90 != null ? latest.cut_90.toFixed(2) : "-")}</span>
-        <span class="meta-chip">수능최저 ${escapeHtml(latestCsat)}</span>
-        <span class="meta-chip">경쟁률 ${escapeHtml(safeValue(latest.competition_rate))}</span>
-        <span class="meta-chip">추합인원 ${escapeHtml(safeValue(latest.add_admit_count, "-"))}</span>
+        ${makeLatestMetaChips(latest)}
       </div>
 
       <div class="year-chip-row">
@@ -476,7 +518,7 @@ function bindYearToggles() {
 function bindJudgementTabs() {
   document.querySelectorAll(".judge-tab").forEach(tab => {
     tab.onclick = () => {
-      const value = canonicalFilterValue(tab.getAttribute("data-value") || "핵심");
+      const value = canonicalFilterValue(tab.getAttribute("data-value") || "안정");
       setJudgementFilter(value);
 
       if (hasAnyStudentInput()) {
@@ -490,7 +532,7 @@ function bindStatChips() {
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
     btn.onclick = (e) => {
       e.preventDefault();
-      const value = canonicalFilterValue(btn.getAttribute("data-filter") || "핵심");
+      const value = canonicalFilterValue(btn.getAttribute("data-filter") || "안정");
       setJudgementFilter(value);
 
       if (hasAnyStudentInput()) {
@@ -521,7 +563,7 @@ function renderCurrentResults() {
 function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter");
-  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "안정");
 
   const studentGrade = getStudentGrade();
 
@@ -561,13 +603,11 @@ function searchResults() {
 
   let groupedList = [...allGroupedList];
 
-  if (judgementFilter === "핵심") {
-    groupedList = groupedList.filter(item =>
-      ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
-    );
-  } else if (judgementFilter !== "all") {
-    groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
-  }
+  groupedList = groupedList.filter(item =>
+    ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
+  );
+
+  groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
 
   groupedList.sort((a, b) => {
     const rankDiff = judgementRank(a.summaryJudgement) - judgementRank(b.summaryJudgement);
@@ -616,13 +656,12 @@ function preventNumberInputSideEffects() {
 }
 
 function resetForm() {
-  if ($("studentName")) $("studentName").value = "";
   if ($("gradeAvg")) $("gradeAvg").value = "";
   if ($("subjectGrade")) $("subjectGrade").value = "";
   if ($("groupFilter")) $("groupFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
-  setJudgementFilter("핵심");
+  setJudgementFilter("안정");
 
   LAST_RESULTS = [];
 
@@ -637,7 +676,7 @@ async function init() {
   try {
     await loadData();
 
-    setJudgementFilter("핵심");
+    setJudgementFilter("안정");
     bindJudgementTabs();
     preventNumberInputSideEffects();
 
