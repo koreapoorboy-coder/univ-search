@@ -9,7 +9,7 @@
 <body>
   <main class="page">
     <header class="top">
-      <a class="back-link" id="backLink" href="../students/index.html">← 메인으로</a>
+      <a class="back-link" href="index.html">← 메인으로</a>
       <h1>정시 판독기</h1>
       <p class="sub">국어 · 수학 · 탐구 백분위와 영어 등급 기준으로 지원 가능 대학을 조회합니다.</p>
     </header>
@@ -125,6 +125,7 @@
           </div>
         </div>
 
+        <!-- JS 호환용 숨김 필드 -->
         <input type="hidden" id="methodFilter" value="all" />
       </div>
     </section>
@@ -142,38 +143,6 @@
       </div>
     </section>
   </main>
-
-  <script>
-    (function () {
-      const qs = new URLSearchParams(location.search);
-      const source = (qs.get("source") || "").trim();
-      const token = (qs.get("t") || qs.get("token") || "").trim();
-      const id = (qs.get("id") || "").trim();
-      const admin = (qs.get("admin") || "").trim();
-
-      const backLink = document.getElementById("backLink");
-      if (!backLink) return;
-
-      // 학생 상세 페이지에서 들어온 경우
-      if (source === "student") {
-        if (token) {
-          backLink.href = `../students/student.html?t=${encodeURIComponent(token)}`;
-        } else if (id && admin) {
-          backLink.href = `../students/student.html?id=${encodeURIComponent(id)}&admin=${encodeURIComponent(admin)}`;
-        } else if (id) {
-          backLink.href = `../students/student.html?id=${encodeURIComponent(id)}`;
-        } else {
-          backLink.href = "../students/index.html";
-        }
-        backLink.textContent = "← 학생 페이지로";
-        return;
-      }
-
-      // 기본은 학생 메인
-      backLink.href = "../students/index.html";
-      backLink.textContent = "← 메인으로";
-    })();
-  </script>
 
   <script src="assets/regular.js"></script>
 </body>
