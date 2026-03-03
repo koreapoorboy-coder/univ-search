@@ -114,19 +114,17 @@
             <span class="filter-label">판정 필터</span>
 
             <div class="judge-tabs" id="judgementTabs">
-              <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
+              <button type="button" class="judge-tab is-active" data-value="all">전체</button>
               <button type="button" class="judge-tab" data-value="안정">안정</button>
               <button type="button" class="judge-tab" data-value="적정">적정</button>
               <button type="button" class="judge-tab" data-value="상향">상향</button>
               <button type="button" class="judge-tab" data-value="도전">도전</button>
-              <button type="button" class="judge-tab" data-value="all">전체</button>
             </div>
 
-            <input type="hidden" id="judgementFilter" value="핵심" />
+            <input type="hidden" id="judgementFilter" value="all" />
           </div>
         </div>
 
-        <!-- JS 호환용 숨김 필드 (추후 method select를 넣을 수 있음) -->
         <input type="hidden" id="methodFilter" value="all" />
       </div>
     </section>
