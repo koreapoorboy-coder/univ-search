@@ -7,6 +7,11 @@ let LAST_RESULTS = [];
 let visibleCount = getPageSize();
 let autoSearchTimer = null;
 
+/* 모바일/재렌더 시 열림 상태 유지 */
+const OPEN_GROUP_DETAILS = new Set();
+const OPEN_YEAR_DETAILS = new Set();
+let lastPageSize = getPageSize();
+
 function getPageSize() {
   return window.innerWidth <= 768 ? MOBILE_PAGE_SIZE : DESKTOP_PAGE_SIZE;
 }
@@ -468,6 +473,44 @@ function buildGroupedResults(analyzedList) {
   });
 }
 
+function sanitizeForId(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "item";
+}
+
+function makeGroupDetailDomId(group) {
+  return `group-detail-${sanitizeForId(group.key)}`;
+}
+
+function makeYearDetailKey(groupKey, item) {
+  return `${groupKey}__${item.year || "year"}__${item.id || item.__index || ""}`;
+}
+
+function makeYearDetailDomId(group, item) {
+  return `year-detail-${sanitizeForId(makeYearDetailKey(group.key, item))}`;
+}
+
+function syncOpenStatesWithResults(groupedList) {
+  const validGroupKeys = new Set(groupedList.map(group => group.key));
+  const validYearKeys = new Set();
+
+  groupedList.forEach(group => {
+    group.years.forEach(item => {
+      validYearKeys.add(makeYearDetailKey(group.key, item));
+    });
+  });
+
+  [...OPEN_GROUP_DETAILS].forEach(key => {
+    if (!validGroupKeys.has(key)) OPEN_GROUP_DETAILS.delete(key);
+  });
+
+  [...OPEN_YEAR_DETAILS].forEach(key => {
+    if (!validYearKeys.has(key)) OPEN_YEAR_DETAILS.delete(key);
+  });
+}
+
 function makeLatestCutChips(item) {
   if (!item) return "";
 
@@ -513,14 +556,16 @@ function makeSubjectDetailRow(s) {
   `;
 }
 
-function makeYearBlock(item, groupIndex, yearIndex) {
-  const yearDetailId = `year-detail-${groupIndex}-${yearIndex}`;
+function makeYearBlock(group, item) {
+  const yearDetailKey = makeYearDetailKey(group.key, item);
+  const yearDetailId = makeYearDetailDomId(group, item);
+  const isOpen = OPEN_YEAR_DETAILS.has(yearDetailKey);
   const competitionText = formatCompetitionRate(item.competition_rate);
   const addAdmitText = formatAddAdmitCount(item.add_admit_count);
 
   return `
     <div class="year-block">
-      <button type="button" class="year-toggle" data-target="${yearDetailId}">
+      <button type="button" class="year-toggle" data-target="${yearDetailId}" data-year-key="${escapeHtml(yearDetailKey)}" aria-expanded="${isOpen ? "true" : "false"}">
         <span class="year-toggle-top">
           <span class="year-title">${escapeHtml(item.year)}</span>
           <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
@@ -528,7 +573,7 @@ function makeYearBlock(item, groupIndex, yearIndex) {
         <span class="year-toggle-summary">${escapeHtml(item.analysis.shortageText)}</span>
       </button>
 
-      <div class="year-body" id="${yearDetailId}" hidden>
+      <div class="year-body" id="${yearDetailId}" ${isOpen ? "" : "hidden"}>
         <div class="year-meta-row">
           <span class="meta-chip">경쟁률 ${escapeHtml(competitionText)}</span>
           <span class="meta-chip">추가합격 ${escapeHtml(addAdmitText)}</span>
@@ -544,15 +589,16 @@ function makeYearBlock(item, groupIndex, yearIndex) {
   `;
 }
 
-function makeCard(group, index) {
-  const detailId = `group-detail-${index}`;
+function makeCard(group) {
+  const detailId = makeGroupDetailDomId(group);
+  const isOpen = OPEN_GROUP_DETAILS.has(group.key);
   const latestYear = group.latest?.year ?? "-";
   const latestCompetition = formatCompetitionRate(group.latest?.competition_rate);
   const latestAddAdmit = formatAddAdmitCount(group.latest?.add_admit_count);
   const latestCutChips = makeLatestCutChips(group.latest);
 
   return `
-    <article class="compact-card">
+    <article class="compact-card" data-group-key="${escapeHtml(group.key)}">
       <div class="compact-top">
         <div class="compact-main">
           <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
@@ -562,8 +608,8 @@ function makeCard(group, index) {
           </div>
         </div>
 
-        <button type="button" class="detail-toggle" data-target="${detailId}">
-          연도보기
+        <button type="button" class="detail-toggle" data-target="${detailId}" data-group-key="${escapeHtml(group.key)}" aria-expanded="${isOpen ? "true" : "false"}">
+          ${isOpen ? "연도닫기" : "연도보기"}
         </button>
       </div>
 
@@ -587,9 +633,9 @@ function makeCard(group, index) {
         `).join("")}
       </div>
 
-      <div class="detail-panel" id="${detailId}" hidden>
+      <div class="detail-panel" id="${detailId}" ${isOpen ? "" : "hidden"}>
         <div class="year-block-list">
-          ${group.years.map((item, yearIndex) => makeYearBlock(item, index, yearIndex)).join("")}
+          ${group.years.map(item => makeYearBlock(group, item)).join("")}
         </div>
       </div>
     </article>
@@ -600,17 +646,22 @@ function bindDetailToggles() {
   document.querySelectorAll(".detail-toggle").forEach(btn => {
     btn.onclick = () => {
       const targetId = btn.getAttribute("data-target");
+      const groupKey = btn.getAttribute("data-group-key");
       const panel = document.getElementById(targetId);
-      if (!panel) return;
+      if (!panel || !groupKey) return;
 
       const isHidden = panel.hasAttribute("hidden");
 
       if (isHidden) {
         panel.removeAttribute("hidden");
         btn.textContent = "연도닫기";
+        btn.setAttribute("aria-expanded", "true");
+        OPEN_GROUP_DETAILS.add(groupKey);
       } else {
         panel.setAttribute("hidden", "");
         btn.textContent = "연도보기";
+        btn.setAttribute("aria-expanded", "false");
+        OPEN_GROUP_DETAILS.delete(groupKey);
       }
     };
   });
@@ -620,13 +671,18 @@ function bindYearToggles() {
   document.querySelectorAll(".year-toggle").forEach(btn => {
     btn.onclick = () => {
       const targetId = btn.getAttribute("data-target");
+      const yearKey = btn.getAttribute("data-year-key");
       const panel = document.getElementById(targetId);
-      if (!panel) return;
+      if (!panel || !yearKey) return;
 
       if (panel.hasAttribute("hidden")) {
         panel.removeAttribute("hidden");
+        btn.setAttribute("aria-expanded", "true");
+        OPEN_YEAR_DETAILS.add(yearKey);
       } else {
         panel.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", "false");
+        OPEN_YEAR_DETAILS.delete(yearKey);
       }
     };
   });
@@ -691,7 +747,9 @@ function renderCurrentResults() {
   }
 
   const visibleItems = LAST_RESULTS.slice(0, shown);
-  let html = visibleItems.map((group, idx) => makeCard(group, idx)).join("");
+  syncOpenStatesWithResults(visibleItems);
+
+  let html = visibleItems.map(group => makeCard(group)).join("");
 
   if (shown < total) {
     html += `
@@ -757,6 +815,8 @@ function searchResults() {
   if (!hasScores && !keyword) {
     LAST_RESULTS = [];
     visibleCount = getPageSize();
+    OPEN_GROUP_DETAILS.clear();
+    OPEN_YEAR_DETAILS.clear();
     renderStats([], { previewOnly: false });
 
     if ($("resultCount")) $("resultCount").textContent = "결과 없음";
@@ -828,6 +888,7 @@ function searchResults() {
 
   LAST_RESULTS = groupedList;
   visibleCount = getPageSize();
+  syncOpenStatesWithResults(LAST_RESULTS);
   renderCurrentResults();
 }
 
@@ -905,6 +966,8 @@ function resetForm() {
 
   LAST_RESULTS = [];
   visibleCount = getPageSize();
+  OPEN_GROUP_DETAILS.clear();
+  OPEN_YEAR_DETAILS.clear();
 
   renderStats([]);
 
@@ -947,10 +1010,12 @@ async function init() {
     window.addEventListener("resize", () => {
       if (!LAST_RESULTS.length) return;
 
-      if (visibleCount < getPageSize()) {
-        visibleCount = getPageSize();
-      }
+      const nextPageSize = getPageSize();
+      if (nextPageSize === lastPageSize) return;
 
+      const currentlyShown = Math.min(visibleCount, LAST_RESULTS.length);
+      lastPageSize = nextPageSize;
+      visibleCount = Math.max(nextPageSize, currentlyShown);
       renderCurrentResults();
     });
   } catch (err) {
