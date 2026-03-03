@@ -54,14 +54,16 @@ function normalizeText(value) {
 function canonicalFilterValue(value) {
   const v = normalizeText(value);
 
-  if (!v) return "핵심";
+  if (!v) return "all";
   if (["all", "전체"].includes(v)) return "all";
   if (["안정", "stable", "safe"].includes(v)) return "안정";
   if (["적정", "fit", "match"].includes(v)) return "적정";
   if (["상향", "reach", "up"].includes(v)) return "상향";
   if (["도전", "challenge"].includes(v)) return "도전";
   if (["비교전", "preview"].includes(v)) return "비교 전";
-  if (["핵심", "핵심합", "core"].includes(v)) return "핵심";
+
+  /* 이전 버전 호환 */
+  if (["핵심", "핵심합", "core"].includes(v)) return "all";
 
   return value;
 }
@@ -205,7 +207,7 @@ function hasAnyStudentInput() {
 }
 
 function setJudgementFilter(value) {
-  const finalValue = canonicalFilterValue(value || "핵심");
+  const finalValue = canonicalFilterValue(value || "all");
 
   if ($("judgementFilter")) {
     $("judgementFilter").value = finalValue;
@@ -392,7 +394,7 @@ function fillSelectOptions() {
     `;
   }
 
-  if (methodSelect) {
+  if (methodSelect && methodSelect.tagName === "SELECT") {
     methodSelect.innerHTML =
       `<option value="all">전체</option>` +
       methods.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join("");
@@ -565,7 +567,13 @@ function makeYearBlock(group, item) {
 
   return `
     <div class="year-block">
-      <button type="button" class="year-toggle" data-target="${yearDetailId}" data-year-key="${escapeHtml(yearDetailKey)}" aria-expanded="${isOpen ? "true" : "false"}">
+      <button
+        type="button"
+        class="year-toggle"
+        data-target="${yearDetailId}"
+        data-year-key="${escapeHtml(yearDetailKey)}"
+        aria-expanded="${isOpen ? "true" : "false"}"
+      >
         <span class="year-toggle-top">
           <span class="year-title">${escapeHtml(item.year)}</span>
           <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
@@ -608,7 +616,13 @@ function makeCard(group) {
           </div>
         </div>
 
-        <button type="button" class="detail-toggle" data-target="${detailId}" data-group-key="${escapeHtml(group.key)}" aria-expanded="${isOpen ? "true" : "false"}">
+        <button
+          type="button"
+          class="detail-toggle"
+          data-target="${detailId}"
+          data-group-key="${escapeHtml(group.key)}"
+          aria-expanded="${isOpen ? "true" : "false"}"
+        >
           ${isOpen ? "연도닫기" : "연도보기"}
         </button>
       </div>
@@ -692,7 +706,7 @@ function bindStatChips() {
   document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
     btn.onclick = (e) => {
       e.preventDefault();
-      const filterValue = canonicalFilterValue(btn.getAttribute("data-filter") || "핵심");
+      const filterValue = canonicalFilterValue(btn.getAttribute("data-filter") || "all");
       setJudgementFilter(filterValue);
 
       if (hasAnyStudentInput() || getValue("keyword")) {
@@ -712,20 +726,20 @@ function renderStats(groupedList, options = {}) {
     return;
   }
 
-  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "all");
 
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
   const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
   const challenge = groupedList.filter(item => item.summaryJudgement === "도전").length;
-  const totalCore = safe + fit + up + challenge;
+  const totalAll = safe + fit + up + challenge;
 
   statsBox.innerHTML = `
+    <button type="button" class="stat-chip is-clickable ${currentFilter === "all" ? "is-active" : ""}" data-filter="all">전체 ${totalAll}</button>
     <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
     <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
     <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
     <button type="button" class="stat-chip is-clickable ${currentFilter === "도전" ? "is-active" : ""}" data-filter="도전">도전 ${challenge}</button>
-    <button type="button" class="stat-chip is-clickable ${currentFilter === "핵심" ? "is-active" : ""}" data-filter="핵심">핵심합 ${totalCore}</button>
   `;
 
   bindStatChips();
@@ -784,7 +798,7 @@ function bindJudgementTabs() {
         tab.getAttribute("data-value") ||
         tab.getAttribute("data-filter") ||
         tab.getAttribute("data-judge") ||
-        "핵심"
+        "all"
       );
 
       setJudgementFilter(value);
@@ -800,7 +814,7 @@ function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter") || "all";
   const methodFilter = getValue("methodFilter") || "all";
-  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
+  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "all");
 
   const kor = parseNum(getValue("kor"));
   const math = parseNum(getValue("math"));
@@ -857,11 +871,11 @@ function searchResults() {
   let groupedList = [...allGroupedList];
 
   if (!previewOnly) {
-    if (judgementFilter === "핵심") {
-      groupedList = groupedList.filter(item =>
-        ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
-      );
-    } else if (judgementFilter !== "all") {
+    groupedList = groupedList.filter(item =>
+      ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
+    );
+
+    if (judgementFilter !== "all") {
       groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
     }
 
@@ -962,7 +976,7 @@ function resetForm() {
   if ($("methodFilter")) $("methodFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
-  setJudgementFilter("핵심");
+  setJudgementFilter("all");
 
   LAST_RESULTS = [];
   visibleCount = getPageSize();
@@ -981,7 +995,7 @@ async function init() {
   try {
     await loadData();
     fillSelectOptions();
-    setJudgementFilter("핵심");
+    setJudgementFilter("all");
     bindJudgementTabs();
     resetForm();
     applyQueryParams();
