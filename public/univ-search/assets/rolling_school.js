@@ -46,7 +46,7 @@ function canonicalFilterValue(value) {
   if (["적정", "fit", "match"].includes(v)) return "적정";
   if (["상향", "up", "reach"].includes(v)) return "상향";
   if (["도전", "challenge"].includes(v)) return "도전";
-  if (["최저위험", "최저위험도", "risk"].includes(v)) return "최저 위험";
+  if (["최저위험", "risk"].includes(v)) return "최저 위험";
   if (["핵심", "핵심만", "core"].includes(v)) return "핵심";
 
   return value;
@@ -164,8 +164,9 @@ function setJudgementFilter(value) {
   });
 }
 
-function evaluateSchoolRecord(studentGrade, item, csatExpected) {
+function evaluateSchoolRecord(studentGrade, item) {
   const cut = item.cut_70;
+
   if (studentGrade == null || cut == null) {
     return {
       judgement: "판정 보류",
@@ -177,21 +178,11 @@ function evaluateSchoolRecord(studentGrade, item, csatExpected) {
   const diff = studentGrade - cut;
   let judgement = "판정 보류";
 
-  if (item.csat_min_required && csatExpected === "no") {
-    if (diff <= 0.10) judgement = "최저 위험";
-    else if (diff <= 0.35) judgement = "도전";
-    else judgement = "판정 보류";
-  } else if (item.csat_min_required && csatExpected === "yes") {
-    if (diff <= -0.20) judgement = "안정";
-    else if (diff <= 0.10) judgement = "적정";
-    else if (diff <= 0.30) judgement = "상향";
-    else if (diff <= 0.50) judgement = "도전";
-    else judgement = "판정 보류";
-  } else if (item.csat_min_required && csatExpected === "all") {
+  if (item.csat_min_required) {
     if (diff <= -0.25) judgement = "적정";
     else if (diff <= 0.05) judgement = "상향";
     else if (diff <= 0.30) judgement = "도전";
-    else judgement = "판정 보류";
+    else judgement = "최저 위험";
   } else {
     if (diff <= -0.20) judgement = "안정";
     else if (diff <= 0.10) judgement = "적정";
@@ -316,24 +307,6 @@ function buildGroupedResults(analyzedList) {
   });
 }
 
-function regionMatches(itemRegion, selectedRegion) {
-  const region = String(itemRegion || "").trim();
-
-  if (selectedRegion === "all") return true;
-  if (selectedRegion === "서울") return region === "서울";
-  if (selectedRegion === "경기") return region === "경기";
-
-  if (selectedRegion === "수도권") {
-    return ["서울", "경기", "인천", "수도권"].includes(region);
-  }
-
-  if (selectedRegion === "지방") {
-    return !["서울", "경기", "인천", "수도권"].includes(region);
-  }
-
-  return region === selectedRegion;
-}
-
 function renderStats(groupedList) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
@@ -424,7 +397,7 @@ function makeCard(group, index) {
           <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
           <div class="compact-title-wrap">
             <div class="compact-title">${escapeHtml(group.university)} ${escapeHtml(group.major)}</div>
-            <div class="compact-meta">${escapeHtml(group.admission_name)} · ${escapeHtml(latest.group)} · ${escapeHtml(latest.region)} · 최근 기준 ${escapeHtml(latest.year)}</div>
+            <div class="compact-meta">${escapeHtml(group.admission_name)} · ${escapeHtml(latest.group)} · 최근 기준 ${escapeHtml(latest.year)}</div>
           </div>
         </div>
 
@@ -548,8 +521,6 @@ function renderCurrentResults() {
 function searchResults() {
   const keyword = getValue("keyword").toLowerCase();
   const groupFilter = getValue("groupFilter");
-  const regionFilter = getValue("regionFilter");
-  const csatExpected = getValue("csatExpected");
   const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "핵심");
 
   const studentGrade = getStudentGrade();
@@ -579,13 +550,9 @@ function searchResults() {
     list = list.filter(item => item.group === groupFilter);
   }
 
-  if (regionFilter !== "all") {
-    list = list.filter(item => regionMatches(item.region, regionFilter));
-  }
-
   const analyzedList = list.map(item => ({
     ...item,
-    analysis: evaluateSchoolRecord(studentGrade, item, csatExpected)
+    analysis: evaluateSchoolRecord(studentGrade, item)
   }));
 
   const allGroupedList = buildGroupedResults(analyzedList);
@@ -652,9 +619,7 @@ function resetForm() {
   if ($("studentName")) $("studentName").value = "";
   if ($("gradeAvg")) $("gradeAvg").value = "";
   if ($("subjectGrade")) $("subjectGrade").value = "";
-  if ($("csatExpected")) $("csatExpected").value = "all";
   if ($("groupFilter")) $("groupFilter").value = "all";
-  if ($("regionFilter")) $("regionFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
   setJudgementFilter("핵심");
@@ -688,7 +653,7 @@ async function init() {
       }
     });
 
-    ["csatExpected", "groupFilter", "regionFilter"].forEach(id => {
+    ["groupFilter"].forEach(id => {
       if ($(id)) {
         $(id).addEventListener("change", scheduleAutoSearch);
       }
