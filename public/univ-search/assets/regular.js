@@ -86,6 +86,12 @@ function formatAddAdmitCount(value) {
   return `${value}명`;
 }
 
+function formatCutLabel(value, type = "percentile") {
+  if (value === undefined || value === null || value === "") return null;
+  if (type === "grade") return `${value}등급`;
+  return `${value}p`;
+}
+
 function normalizeRegularItem(item, index) {
   return {
     __index: index,
@@ -462,6 +468,36 @@ function buildGroupedResults(analyzedList) {
   });
 }
 
+function makeLatestCutChips(item) {
+  if (!item) return "";
+
+  const chips = [
+    item.cut_kor != null
+      ? `<span class="meta-chip">국어 컷 ${escapeHtml(formatCutLabel(item.cut_kor, "percentile"))}</span>`
+      : "",
+    item.cut_math != null
+      ? `<span class="meta-chip">수학 컷 ${escapeHtml(formatCutLabel(item.cut_math, "percentile"))}</span>`
+      : "",
+    item.cut_inq1 != null
+      ? `<span class="meta-chip">탐1 컷 ${escapeHtml(formatCutLabel(item.cut_inq1, "percentile"))}</span>`
+      : "",
+    item.cut_inq2 != null
+      ? `<span class="meta-chip">탐2 컷 ${escapeHtml(formatCutLabel(item.cut_inq2, "percentile"))}</span>`
+      : "",
+    item.cut_eng_grade != null
+      ? `<span class="meta-chip">영어 컷 ${escapeHtml(formatCutLabel(item.cut_eng_grade, "grade"))}</span>`
+      : ""
+  ].filter(Boolean);
+
+  if (!chips.length) return "";
+
+  return `
+    <div class="meta-chip-row">
+      ${chips.join("")}
+    </div>
+  `;
+}
+
 function makeSubjectDetailRow(s) {
   const studentText = s.student == null ? "입력 없음" : s.student;
   const cutText = safeValue(s.cut);
@@ -513,6 +549,7 @@ function makeCard(group, index) {
   const latestYear = group.latest?.year ?? "-";
   const latestCompetition = formatCompetitionRate(group.latest?.competition_rate);
   const latestAddAdmit = formatAddAdmitCount(group.latest?.add_admit_count);
+  const latestCutChips = makeLatestCutChips(group.latest);
 
   return `
     <article class="compact-card">
@@ -539,6 +576,8 @@ function makeCard(group, index) {
         <span class="meta-chip">최근 경쟁률 ${escapeHtml(latestCompetition)}</span>
         <span class="meta-chip">최근 추가합격 ${escapeHtml(latestAddAdmit)}</span>
       </div>
+
+      ${latestCutChips}
 
       <div class="year-chip-row">
         ${group.years.map(item => `
