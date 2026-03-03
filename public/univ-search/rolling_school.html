@@ -19,13 +19,13 @@
 
       <div class="form-grid">
         <label>
-          <span>학생 이름 / 메모</span>
-          <input type="text" id="studentName" placeholder="예: 고3 자연계 / 1학기 기준" />
+          <span>전체 내신 평균</span>
+          <input type="number" id="gradeAvg" step="0.01" placeholder="예: 1.72" />
         </label>
 
         <label>
-          <span>전체 내신 평균</span>
-          <input type="number" id="gradeAvg" step="0.01" placeholder="예: 1.72" />
+          <span>대학 / 학과 / 전형명 검색</span>
+          <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학 / 학교추천" />
         </label>
 
         <label>
@@ -46,21 +46,13 @@
         <div class="full">
           <span class="filter-label">판정 필터</span>
           <div class="judge-tabs" id="judgementTabs">
-            <button type="button" class="judge-tab is-active" data-value="핵심">핵심만</button>
-            <button type="button" class="judge-tab" data-value="안정">안정</button>
+            <button type="button" class="judge-tab is-active" data-value="안정">안정</button>
             <button type="button" class="judge-tab" data-value="적정">적정</button>
             <button type="button" class="judge-tab" data-value="상향">상향</button>
             <button type="button" class="judge-tab" data-value="도전">도전</button>
-            <button type="button" class="judge-tab" data-value="최저 위험">최저 위험</button>
-            <button type="button" class="judge-tab" data-value="all">전체</button>
           </div>
-          <input type="hidden" id="judgementFilter" value="핵심" />
+          <input type="hidden" id="judgementFilter" value="안정" />
         </div>
-
-        <label class="full">
-          <span>대학 / 학과 / 전형명 검색</span>
-          <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학 / 학교추천" />
-        </label>
       </div>
 
       <div class="btn-row">
