@@ -150,6 +150,7 @@ button {
   background: #111;
   color: #fff;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button.secondary {
@@ -570,6 +571,7 @@ button.secondary {
   color: #222;
   text-align: left;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .year-toggle-top {
@@ -633,10 +635,6 @@ button.secondary {
 @media (max-width: 900px) {
   .row-top,
   .row-two {
-    grid-template-columns: 1fr;
-  }
-
-  .row-bottom {
     grid-template-columns: 1fr;
   }
 
@@ -727,6 +725,7 @@ button.secondary {
     padding: 9px 10px;
   }
 
+  /* 모바일 3열을 2줄로 자연스럽게 */
   .detail-row .detail-val:nth-child(3) {
     grid-column: 2 / 3;
   }
