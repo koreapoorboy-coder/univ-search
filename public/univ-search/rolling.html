@@ -3,35 +3,126 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>수시 판독기</title>
+  <title>수시 지원 판독기</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .menu-card {
+      display: block;
+      padding: 18px;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      background: #fff;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-1px);
+      border-color: #d8d8d8;
+      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    }
+
+    .menu-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #333;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .menu-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      word-break: keep-all;
+    }
+
+    .menu-desc {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    .menu-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: #444;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-title {
+        font-size: 18px;
+      }
+
+      .menu-desc,
+      .menu-list {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
     <header class="top">
       <a class="back-link" href="index.html">← 메인으로</a>
-      <h1>수시 판독기</h1>
-      <p class="sub">수시 전형 유형을 선택하세요.</p>
+      <h1>수시 지원 판독기</h1>
+      <p class="sub">수시 지원 데이터를 전형 유형별로 확인할 수 있습니다.</p>
     </header>
 
-    <section class="card-grid">
-      <a class="menu-card" href="rolling_school.html">
-        <h2>학생부교과</h2>
-        <p>내신 · 반영교과 · 수능최저 중심 판독</p>
-        <span class="tag">우선 구현</span>
-      </a>
+    <section class="panel">
+      <h2>판독기 선택</h2>
 
-      <a class="menu-card is-disabled" href="javascript:void(0);" aria-disabled="true">
-        <h2>학생부종합</h2>
-        <p>세특 · 탐구 · 전공적합성 중심 판독</p>
-        <span class="tag">준비중</span>
-      </a>
+      <div class="menu-grid">
+        <a class="menu-card" href="rolling_school.html">
+          <div class="menu-badge">학생부교과</div>
+          <div class="menu-title">학생부교과 판독기</div>
+          <div class="menu-desc">
+            내신 기준 컷과 수능최저, 경쟁률, 추합 등을 바탕으로
+            3개년 묶음형으로 지원 가능 전형을 조회합니다.
+          </div>
+          <ul class="menu-list">
+            <li>50 / 70 / 90컷 중 제공값만 표시</li>
+            <li>수능최저 / 경쟁률 / 추합 확인</li>
+            <li>안정 / 적정 / 상향 / 도전 판정</li>
+          </ul>
+        </a>
 
-      <a class="menu-card is-disabled" href="javascript:void(0);" aria-disabled="true">
-        <h2>논술</h2>
-        <p>논술 경쟁력 · 수능최저 중심 판독</p>
-        <span class="tag">준비중</span>
-      </a>
+        <a class="menu-card" href="rolling_total.html">
+          <div class="menu-badge">학생부종합</div>
+          <div class="menu-title">학생부종합 판독기</div>
+          <div class="menu-desc">
+            기준 내신에 면접, 수능최저, 서류강도를 함께 반영해
+            3개년 묶음형으로 종합전형을 조회합니다.
+          </div>
+          <ul class="menu-list">
+            <li>기준 내신 + 서류강도 보정</li>
+            <li>면접 / 수능최저 / 활동 키워드 확인</li>
+            <li>안정 / 적정 / 상향 / 도전 판정</li>
+          </ul>
+        </a>
+      </div>
     </section>
   </main>
 </body>
