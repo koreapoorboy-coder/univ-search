@@ -1,1 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>수시 학생부종합 판독기</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="top">
+      <a class="back-link" href="rolling.html">← 수시 메인</a>
+      <h1>학생부종합 판독기</h1>
+      <p class="sub">내신 기준 1차 판독에 면접 · 수능최저 · 서류강도를 반영해 3개년 묶음형으로 조회합니다.</p>
+    </header>
 
+    <section class="panel">
+      <h2>학생 입력</h2>
+
+      <div class="form-grid">
+        <label>
+          <span>전체 내신 평균</span>
+          <input type="number" id="gradeAvg" step="0.01" placeholder="예: 1.72" />
+        </label>
+
+        <label>
+          <span>대학 / 학과 / 전형명 검색</span>
+          <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학과 / 네오르네상스" />
+        </label>
+
+        <label>
+          <span>계열</span>
+          <select id="groupFilter">
+            <option value="all">전체</option>
+            <option value="인문">인문</option>
+            <option value="자연">자연</option>
+            <option value="예체능">예체능</option>
+          </select>
+        </label>
+
+        <div>
+          <span class="filter-label">판정 필터</span>
+          <div class="judge-tabs" id="judgementTabs">
+            <button type="button" class="judge-tab is-active" data-value="all">전체</button>
+            <button type="button" class="judge-tab" data-value="안정">안정</button>
+            <button type="button" class="judge-tab" data-value="적정">적정</button>
+            <button type="button" class="judge-tab" data-value="상향">상향</button>
+            <button type="button" class="judge-tab" data-value="도전">도전</button>
+          </div>
+          <input type="hidden" id="judgementFilter" value="all" />
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" id="btnSearch">판정 보기</button>
+        <button type="button" id="btnReset" class="secondary">초기화</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="result-head">
+        <h2>조회 결과</h2>
+        <div id="resultCount" class="meta-text">결과 없음</div>
+      </div>
+
+      <div id="resultStats" class="result-stats"></div>
+
+      <div id="resultList" class="result-list">
+        <div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/rolling_total.js"></script>
+</body>
+</html>
