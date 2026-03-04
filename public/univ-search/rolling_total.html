@@ -11,7 +11,7 @@
     <header class="top">
       <a class="back-link" href="rolling.html">← 수시 메인</a>
       <h1>학생부종합 판독기</h1>
-      <p class="sub">내신 기준 1차 판독에 면접 · 수능최저 · 서류강도를 반영해 3개년 묶음형으로 조회합니다.</p>
+      <p class="sub">내신 기준 1차 판독에 수능최저·서류강도·정성 보정(A형)을 반영해 3개년 묶음형으로 조회합니다.</p>
     </header>
 
     <section class="panel">
@@ -26,6 +26,24 @@
         <label>
           <span>대학 / 학과 / 전형명 검색</span>
           <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학과 / 네오르네상스" />
+        </label>
+
+        <label>
+          <span>서류 전체 평가</span>
+          <select id="docLevel">
+            <option value="보통">보통</option>
+            <option value="우수">우수</option>
+            <option value="미흡">미흡</option>
+          </select>
+        </label>
+
+        <label>
+          <span>전공 연계성</span>
+          <select id="majorfitLevel">
+            <option value="보통">보통</option>
+            <option value="높음">높음</option>
+            <option value="낮음">낮음</option>
+          </select>
         </label>
 
         <label>
@@ -66,7 +84,7 @@
       <div id="resultStats" class="result-stats"></div>
 
       <div id="resultList" class="result-list">
-        <div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>
+        <div class="empty">전체 내신 평균 또는 대학/학과 검색어를 입력한 뒤 판정 보기를 눌러주세요.</div>
       </div>
     </section>
   </main>
