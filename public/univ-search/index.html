@@ -97,6 +97,11 @@
       <p class="sub">정시와 수시 지원 데이터를 전형 유형별로 확인할 수 있습니다.</p>
     </header>
 
+    <div class="install-wrap">
+      <button type="button" id="btnInstallApp" class="install-btn" hidden>앱으로 설치</button>
+      <button type="button" id="btnInstallGuide" class="install-btn secondary">홈 화면 추가 안내</button>
+    </div>
+
     <section class="panel">
       <h2>판독기 선택</h2>
 
@@ -132,6 +137,14 @@
     </section>
   </main>
 
+  <div id="installGuideModal" class="install-guide-modal" hidden>
+    <div class="install-guide-card">
+      <h3>홈 화면에 추가</h3>
+      <div id="installGuideText" class="install-guide-text"></div>
+      <button type="button" id="btnCloseInstallGuide" class="secondary">닫기</button>
+    </div>
+  </div>
+
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -140,6 +153,90 @@
         });
       });
     }
+
+    let deferredInstallPrompt = null;
+
+    function isIOS() {
+      return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    }
+
+    function isInStandaloneMode() {
+      return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    }
+
+    function openInstallGuide() {
+      const modal = document.getElementById("installGuideModal");
+      const text = document.getElementById("installGuideText");
+      if (!modal || !text) return;
+
+      if (isIOS()) {
+        text.textContent =
+          "아이폰 설치 방법\n\n1. 아래 또는 위의 공유 버튼을 누르세요.\n2. '홈 화면에 추가'를 누르세요.\n3. 이름을 확인한 뒤 추가하세요.";
+      } else {
+        text.textContent =
+          "안드로이드 설치 방법\n\n1. 브라우저 메뉴(⋮)를 누르세요.\n2. '홈 화면에 추가' 또는 '설치'를 누르세요.\n3. 안내에 따라 설치하세요.";
+      }
+
+      modal.hidden = false;
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+
+      const btn = document.getElementById("btnInstallApp");
+      if (btn && !isInStandaloneMode()) {
+        btn.hidden = false;
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredInstallPrompt = null;
+      const btn = document.getElementById("btnInstallApp");
+      if (btn) btn.hidden = true;
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const btnInstallApp = document.getElementById("btnInstallApp");
+      const btnInstallGuide = document.getElementById("btnInstallGuide");
+      const btnCloseGuide = document.getElementById("btnCloseInstallGuide");
+      const modal = document.getElementById("installGuideModal");
+
+      if (isInStandaloneMode()) {
+        if (btnInstallApp) btnInstallApp.hidden = true;
+        if (btnInstallGuide) btnInstallGuide.hidden = true;
+      }
+
+      if (btnInstallApp) {
+        btnInstallApp.addEventListener("click", async () => {
+          if (!deferredInstallPrompt) {
+            openInstallGuide();
+            return;
+          }
+
+          deferredInstallPrompt.prompt();
+          await deferredInstallPrompt.userChoice;
+          deferredInstallPrompt = null;
+          btnInstallApp.hidden = true;
+        });
+      }
+
+      if (btnInstallGuide) {
+        btnInstallGuide.addEventListener("click", openInstallGuide);
+      }
+
+      if (btnCloseGuide) {
+        btnCloseGuide.addEventListener("click", () => {
+          if (modal) modal.hidden = true;
+        });
+      }
+
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) modal.hidden = true;
+        });
+      }
+    });
   </script>
 </body>
 </html>
