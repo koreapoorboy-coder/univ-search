@@ -4,7 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>수시 지원 판독기</title>
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
   <link rel="stylesheet" href="assets/style.css" />
+
   <style>
     .menu-grid {
       display: grid;
@@ -27,7 +33,7 @@
     .menu-card:hover {
       transform: translateY(-1px);
       border-color: #d8d8d8;
-      box-shadow: 0 6px 18px rgba(0,0,0,.05);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .05);
     }
 
     .menu-badge {
@@ -113,17 +119,27 @@
           <div class="menu-badge">학생부종합</div>
           <div class="menu-title">학생부종합 판독기</div>
           <div class="menu-desc">
-            기준 내신에 면접, 수능최저, 서류강도를 함께 반영해
+            기준 내신에 수능최저, 정성 보정(A형), 전형 요소를 반영해
             3개년 묶음형으로 종합전형을 조회합니다.
           </div>
           <ul class="menu-list">
-            <li>기준 내신 + 서류강도 보정</li>
-            <li>면접 / 수능최저 / 활동 키워드 확인</li>
+            <li>기준 내신 + 정성 보정(A형)</li>
+            <li>수능최저 / 경쟁률 / 모집인원 / 추합인원 확인</li>
             <li>안정 / 적정 / 상향 / 도전 판정</li>
           </ul>
         </a>
       </div>
     </section>
   </main>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((err) => {
+          console.error("SW 등록 실패:", err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
