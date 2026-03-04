@@ -101,6 +101,7 @@ function normalizeTotalItem(item, index) {
     grade_note: String(getRawValue(item, ["grade_note", "기준설명"], "")).trim(),
 
     document_intensity: normalizeDocumentIntensity(getRawValue(item, ["document_intensity", "서류강도"], "보통")),
+    document_weight_factor: getRawNum(item, ["document_weight_factor", "서류반영계수", "서류계수"]) ?? 1.0,
     document_focus: String(getRawValue(item, ["document_focus", "서류중점", "평가포인트"], "")).trim(),
     activity_keywords: String(getRawValue(item, ["activity_keywords", "활동키워드", "키워드"], "")).trim(),
 
@@ -186,6 +187,43 @@ function intensityPenalty(level) {
   }
 }
 
+function getDocLevelAdjustment(level) {
+  const text = normalizeText(level);
+  if (["우수", "good", "high"].includes(text)) return -0.12;
+  if (["미흡", "bad", "low"].includes(text)) return 0.12;
+  return 0;
+}
+
+function getMajorfitAdjustment(level) {
+  const text = normalizeText(level);
+  if (["높음", "high"].includes(text)) return -0.08;
+  if (["낮음", "low"].includes(text)) return 0.08;
+  return 0;
+}
+
+function getQualitativeAdjustment(item) {
+  const docLevel = getValue("docLevel") || "보통";
+  const majorfitLevel = getValue("majorfitLevel") || "보통";
+
+  const docAdj = getDocLevelAdjustment(docLevel);
+  const majorAdj = getMajorfitAdjustment(majorfitLevel);
+  const factor = item.document_weight_factor ?? 1.0;
+
+  let total = (docAdj + majorAdj) * factor;
+
+  if (total > 0.20) total = 0.20;
+  if (total < -0.20) total = -0.20;
+
+  return {
+    docLevel,
+    majorfitLevel,
+    docAdj,
+    majorAdj,
+    factor,
+    total
+  };
+}
+
 function formatGradeGap(diff) {
   if (diff == null) return "비교 불가";
   return diff <= 0
@@ -202,6 +240,7 @@ function evaluateTotalRecord(studentGrade, item, options = {}) {
       judgement: "비교 전",
       rawDiff: null,
       adjustedDiff: null,
+      qualitativeAdjustment: null,
       summaryText: refGrade != null
         ? `기준내신 ${refGrade.toFixed(2)} · 내신 입력 시 판정 표시`
         : "기준 내신 정보가 없습니다."
@@ -213,17 +252,19 @@ function evaluateTotalRecord(studentGrade, item, options = {}) {
       judgement: "판정 보류",
       rawDiff: null,
       adjustedDiff: null,
+      qualitativeAdjustment: null,
       summaryText: "학생 내신 또는 기준 내신 정보가 없습니다."
     };
   }
 
   const rawDiff = studentGrade - refGrade;
-  const penalty =
+  const qualitativeAdjustment = getQualitativeAdjustment(item);
+
+  const fixedPenalty =
     intensityPenalty(item.document_intensity) +
-    (item.interview ? 0.08 : 0) +
     (item.csat_min_required ? 0.10 : 0);
 
-  const adjustedDiff = rawDiff + penalty;
+  const adjustedDiff = rawDiff + fixedPenalty + qualitativeAdjustment.total;
 
   let judgement = "판정 보류";
   if (adjustedDiff <= -0.20) judgement = "안정";
@@ -232,12 +273,15 @@ function evaluateTotalRecord(studentGrade, item, options = {}) {
   else if (adjustedDiff <= 0.58) judgement = "도전";
   else judgement = "판정 보류";
 
-  const summaryText = `내신 ${studentGrade.toFixed(2)} / 기준내신 ${refGrade.toFixed(2)} / ${formatGradeGap(rawDiff)} · 면접/수능최저/서류강도 반영`;
+  const summaryText =
+    `내신 ${studentGrade.toFixed(2)} / 기준내신 ${refGrade.toFixed(2)} / ${formatGradeGap(rawDiff)} · ` +
+    `정성보정 ${qualitativeAdjustment.total >= 0 ? "+" : ""}${qualitativeAdjustment.total.toFixed(2)}`;
 
   return {
     judgement,
     rawDiff,
     adjustedDiff,
+    qualitativeAdjustment,
     summaryText
   };
 }
@@ -406,6 +450,10 @@ function makeLatestMetaChips(latest) {
     chips.push(makeMetaChip(`서류강도 ${latest.document_intensity}`));
   }
 
+  if (hasValue(latest.document_weight_factor)) {
+    chips.push(makeMetaChip(`서류계수 ${Number(latest.document_weight_factor).toFixed(2)}`));
+  }
+
   if (hasValue(latest.competition_rate)) {
     chips.push(makeMetaChip(`경쟁률 ${latest.competition_rate}`));
   }
@@ -456,13 +504,19 @@ function makeYearBlock(group, item) {
   const yearDetailId = makeYearDetailDomId(group, item);
   const isOpen = OPEN_YEAR_DETAILS.has(yearDetailKey);
 
+  const qualitative = item.analysis.qualitativeAdjustment;
+
   const infoCards = [
     item.grade_ref != null ? makeInfoCard("기준내신", item.grade_ref.toFixed(2)) : "",
     hasValue(item.document_intensity) ? makeInfoCard("서류강도", item.document_intensity) : "",
+    hasValue(item.document_weight_factor) ? makeInfoCard("서류계수", Number(item.document_weight_factor).toFixed(2)) : "",
     hasValue(item.document_focus) ? makeInfoCard("서류중점", item.document_focus) : "",
     hasValue(item.activity_keywords) ? makeInfoCard("활동 키워드", item.activity_keywords) : "",
     makeInfoCard("면접", item.interview ? "있음" : "없음"),
     makeInfoCard("수능최저", item.csat_min_required ? safeValue(item.csat_min_rule, "있음") : "없음"),
+    qualitative ? makeInfoCard("서류 전체 평가", qualitative.docLevel) : "",
+    qualitative ? makeInfoCard("전공 연계성", qualitative.majorfitLevel) : "",
+    qualitative ? makeInfoCard("정성 보정", `${qualitative.total >= 0 ? "+" : ""}${qualitative.total.toFixed(2)}`) : "",
     hasValue(item.competition_rate) ? makeInfoCard("경쟁률", item.competition_rate) : "",
     hasValue(item.registered_count) ? makeInfoCard("모집인원", item.registered_count) : "",
     hasValue(item.add_admit_count) ? makeInfoCard("추합인원", item.add_admit_count) : ""
@@ -749,6 +803,8 @@ function resetForm() {
   if ($("gradeAvg")) $("gradeAvg").value = "";
   if ($("groupFilter")) $("groupFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
+  if ($("docLevel")) $("docLevel").value = "보통";
+  if ($("majorfitLevel")) $("majorfitLevel").value = "보통";
 
   setJudgementFilter("all");
 
@@ -759,7 +815,7 @@ function resetForm() {
   if ($("resultCount")) $("resultCount").textContent = "결과 없음";
   if ($("resultStats")) $("resultStats").innerHTML = "";
   if ($("resultList")) {
-    $("resultList").innerHTML = `<div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>`;
+    $("resultList").innerHTML = `<div class="empty">전체 내신 평균 또는 대학/학과 검색어를 입력한 뒤 판정 보기를 눌러주세요.</div>`;
   }
 }
 
@@ -783,9 +839,11 @@ async function init() {
       }
     });
 
-    if ($("groupFilter")) {
-      $("groupFilter").addEventListener("change", scheduleAutoSearch);
-    }
+    ["groupFilter", "docLevel", "majorfitLevel"].forEach(id => {
+      if ($(id)) {
+        $(id).addEventListener("change", scheduleAutoSearch);
+      }
+    });
   } catch (err) {
     console.error(err);
     if ($("resultCount")) $("resultCount").textContent = "데이터 오류";
