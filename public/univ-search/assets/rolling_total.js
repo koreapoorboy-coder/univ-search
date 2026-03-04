@@ -436,26 +436,22 @@ function makeMetaChip(text) {
 function makeLatestMetaChips(latest) {
   const chips = [];
 
-  if (latest.grade_ref != null) chips.push(makeMetaChip(`최근 기준내신 ${latest.grade_ref.toFixed(2)}`));
-  if (latest.interview) chips.push(makeMetaChip("면접 있음"));
-  else chips.push(makeMetaChip("면접 없음"));
-
   if (latest.csat_min_required) {
     chips.push(makeMetaChip(`수능최저 ${safeValue(latest.csat_min_rule, "있음")}`));
   } else {
     chips.push(makeMetaChip("수능최저 없음"));
   }
 
-  if (hasValue(latest.document_intensity)) {
-    chips.push(makeMetaChip(`서류강도 ${latest.document_intensity}`));
-  }
-
-  if (hasValue(latest.document_weight_factor)) {
-    chips.push(makeMetaChip(`서류계수 ${Number(latest.document_weight_factor).toFixed(2)}`));
-  }
-
   if (hasValue(latest.competition_rate)) {
     chips.push(makeMetaChip(`경쟁률 ${latest.competition_rate}`));
+  }
+
+  if (hasValue(latest.registered_count)) {
+    chips.push(makeMetaChip(`모집인원 ${latest.registered_count}`));
+  }
+
+  if (hasValue(latest.add_admit_count)) {
+    chips.push(makeMetaChip(`추합인원 ${latest.add_admit_count}`));
   }
 
   return chips.join("");
@@ -504,19 +500,8 @@ function makeYearBlock(group, item) {
   const yearDetailId = makeYearDetailDomId(group, item);
   const isOpen = OPEN_YEAR_DETAILS.has(yearDetailKey);
 
-  const qualitative = item.analysis.qualitativeAdjustment;
-
   const infoCards = [
-    item.grade_ref != null ? makeInfoCard("기준내신", item.grade_ref.toFixed(2)) : "",
-    hasValue(item.document_intensity) ? makeInfoCard("서류강도", item.document_intensity) : "",
-    hasValue(item.document_weight_factor) ? makeInfoCard("서류계수", Number(item.document_weight_factor).toFixed(2)) : "",
-    hasValue(item.document_focus) ? makeInfoCard("서류중점", item.document_focus) : "",
-    hasValue(item.activity_keywords) ? makeInfoCard("활동 키워드", item.activity_keywords) : "",
-    makeInfoCard("면접", item.interview ? "있음" : "없음"),
     makeInfoCard("수능최저", item.csat_min_required ? safeValue(item.csat_min_rule, "있음") : "없음"),
-    qualitative ? makeInfoCard("서류 전체 평가", qualitative.docLevel) : "",
-    qualitative ? makeInfoCard("전공 연계성", qualitative.majorfitLevel) : "",
-    qualitative ? makeInfoCard("정성 보정", `${qualitative.total >= 0 ? "+" : ""}${qualitative.total.toFixed(2)}`) : "",
     hasValue(item.competition_rate) ? makeInfoCard("경쟁률", item.competition_rate) : "",
     hasValue(item.registered_count) ? makeInfoCard("모집인원", item.registered_count) : "",
     hasValue(item.add_admit_count) ? makeInfoCard("추합인원", item.add_admit_count) : ""
@@ -543,9 +528,7 @@ function makeYearBlock(group, item) {
           ${infoCards}
         </div>
 
-        ${safeValue(item.grade_note) !== "-" ? `<div class="detail-note"><strong>기준 설명</strong> ${escapeHtml(item.grade_note)}</div>` : ""}
         ${safeValue(item.selection_note) !== "-" ? `<div class="detail-note"><strong>전형 주의사항</strong> ${escapeHtml(item.selection_note)}</div>` : ""}
-        ${item.notes ? `<div class="detail-note"><strong>비고</strong> ${escapeHtml(item.notes)}</div>` : ""}
       </div>
     </div>
   `;
