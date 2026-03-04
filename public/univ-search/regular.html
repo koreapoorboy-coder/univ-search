@@ -4,6 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>정시 판독기</title>
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -32,7 +37,7 @@
               type="text"
               id="keyword"
               autocomplete="off"
-              placeholder="예: 경희대 / 전자공학 / 과목별 컷 충족"
+              placeholder="예: 경희대 / 전자공학 / 일반전형"
             />
           </label>
         </div>
@@ -138,11 +143,21 @@
       <div id="resultStats" class="result-stats"></div>
 
       <div id="resultList" class="result-list">
-        <div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력하거나 대학/학과 검색어를 입력하면 자동으로 결과가 표시됩니다.</div>
+        <div class="empty">국어/수학/탐구/영어 중 최소 1개 이상 입력하거나 대학/학과 검색어를 입력해주세요.</div>
       </div>
     </section>
   </main>
 
   <script src="assets/regular.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((err) => {
+          console.error("SW 등록 실패:", err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
