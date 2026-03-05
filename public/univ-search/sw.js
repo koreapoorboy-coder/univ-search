@@ -1,4 +1,4 @@
-const CACHE_NAME = "univ-search-v1";
+const CACHE_NAME = "univ-search-v2";
 
 const APP_SHELL = [
   "./",
@@ -15,6 +15,7 @@ const APP_SHELL = [
   "./data/rolling_total_data.json",
   "./univ_search_data.json",
   "./manifest.webmanifest",
+  "./sw.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
