@@ -51,6 +51,11 @@ function normalizeText(value) {
     .toLowerCase();
 }
 
+/**
+ * ✅ 도전 제거
+ * - 기존 링크/쿼리파라미터에 judge=도전 이 남아있을 수 있으니,
+ *   "도전"은 "상향"으로 흡수 처리(하위호환).
+ */
 function canonicalFilterValue(value) {
   const v = normalizeText(value);
 
@@ -59,7 +64,10 @@ function canonicalFilterValue(value) {
   if (["안정", "stable", "safe"].includes(v)) return "안정";
   if (["적정", "fit", "match"].includes(v)) return "적정";
   if (["상향", "reach", "up"].includes(v)) return "상향";
-  if (["도전", "challenge"].includes(v)) return "도전";
+
+  // 하위 호환: 도전 -> 상향
+  if (["도전", "challenge"].includes(v)) return "상향";
+
   if (["비교전", "preview"].includes(v)) return "비교 전";
 
   /* 이전 버전 호환 */
@@ -233,46 +241,11 @@ function analyzeRegular(item, student, options = {}) {
   const { previewOnly = false } = options;
 
   const subjects = [
-    {
-      key: "kor",
-      label: "국어",
-      student: student.kor,
-      cut: item.cut_kor,
-      diff: percentileDiff(student.kor, item.cut_kor),
-      type: "percentile"
-    },
-    {
-      key: "math",
-      label: "수학",
-      student: student.math,
-      cut: item.cut_math,
-      diff: percentileDiff(student.math, item.cut_math),
-      type: "percentile"
-    },
-    {
-      key: "inq1",
-      label: "탐1",
-      student: student.inq1,
-      cut: item.cut_inq1,
-      diff: percentileDiff(student.inq1, item.cut_inq1),
-      type: "percentile"
-    },
-    {
-      key: "inq2",
-      label: "탐2",
-      student: student.inq2,
-      cut: item.cut_inq2,
-      diff: percentileDiff(student.inq2, item.cut_inq2),
-      type: "percentile"
-    },
-    {
-      key: "eng",
-      label: "영어",
-      student: student.engGrade,
-      cut: item.cut_eng_grade,
-      diff: englishDiff(student.engGrade, item.cut_eng_grade),
-      type: "grade"
-    }
+    { key: "kor",  label: "국어", student: student.kor,      cut: item.cut_kor,      diff: percentileDiff(student.kor, item.cut_kor),      type: "percentile" },
+    { key: "math", label: "수학", student: student.math,     cut: item.cut_math,     diff: percentileDiff(student.math, item.cut_math),    type: "percentile" },
+    { key: "inq1", label: "탐1",  student: student.inq1,     cut: item.cut_inq1,     diff: percentileDiff(student.inq1, item.cut_inq1),    type: "percentile" },
+    { key: "inq2", label: "탐2",  student: student.inq2,     cut: item.cut_inq2,     diff: percentileDiff(student.inq2, item.cut_inq2),    type: "percentile" },
+    { key: "eng",  label: "영어", student: student.engGrade, cut: item.cut_eng_grade, diff: englishDiff(student.engGrade, item.cut_eng_grade), type: "grade" }
   ];
 
   const used = subjects.filter(s => s.student != null && s.cut != null && s.cut !== "");
@@ -307,6 +280,10 @@ function analyzeRegular(item, student, options = {}) {
       .join(", ");
   }
 
+  /**
+   * ✅ 도전 제거: 상향 범위를 넓혀 흡수
+   * - 안정/적정/상향/판정 보류만 남김
+   */
   let judgement = "판정 보류";
 
   if (allMeet) {
@@ -315,12 +292,16 @@ function analyzeRegular(item, student, options = {}) {
     } else {
       judgement = "적정";
     }
-  } else if (shortageCount === 1 && minDiff >= -2) {
-    judgement = "상향";
-  } else if (shortageCount <= 2 && minDiff >= -5) {
-    judgement = "도전";
   } else {
-    judgement = "판정 보류";
+    // 기존: (1과목 -2p 이내) 상향 / (2과목 -5p 이내) 도전
+    // 변경: 둘 다 "상향"으로 흡수
+    if (shortageCount === 1 && minDiff >= -2) {
+      judgement = "상향";
+    } else if (shortageCount <= 2 && minDiff >= -5) {
+      judgement = "상향";
+    } else {
+      judgement = "판정 보류";
+    }
   }
 
   const shortageMagnitude = shortages.reduce((sum, s) => {
@@ -347,9 +328,8 @@ function judgementRank(label) {
     "안정": 1,
     "적정": 2,
     "상향": 3,
-    "도전": 4,
-    "판정 보류": 5,
-    "비교 전": 6
+    "판정 보류": 4,
+    "비교 전": 5
   };
   return map[label] ?? 99;
 }
@@ -362,8 +342,6 @@ function judgementToneClass(label) {
       return "is-fit";
     case "상향":
       return "is-up";
-    case "도전":
-      return "is-challenge";
     default:
       return "";
   }
@@ -416,7 +394,6 @@ function summarizeGroupJudgement(yearItems) {
     안정: yearItems.filter(x => x.analysis.judgement === "안정").length,
     적정: yearItems.filter(x => x.analysis.judgement === "적정").length,
     상향: yearItems.filter(x => x.analysis.judgement === "상향").length,
-    도전: yearItems.filter(x => x.analysis.judgement === "도전").length,
     비교전: yearItems.filter(x => x.analysis.judgement === "비교 전").length
   };
 
@@ -424,7 +401,6 @@ function summarizeGroupJudgement(yearItems) {
   if (counts.안정 >= 2) return "안정";
   if (counts.안정 + counts.적정 >= 2) return "적정";
   if (counts.상향 >= 1 || counts.적정 >= 1) return "상향";
-  if (counts.도전 >= 1) return "도전";
   return "판정 보류";
 }
 
@@ -731,15 +707,13 @@ function renderStats(groupedList, options = {}) {
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
   const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
-  const challenge = groupedList.filter(item => item.summaryJudgement === "도전").length;
-  const totalAll = safe + fit + up + challenge;
+  const totalAll = safe + fit + up;
 
   statsBox.innerHTML = `
     <button type="button" class="stat-chip is-clickable ${currentFilter === "all" ? "is-active" : ""}" data-filter="all">전체 ${totalAll}</button>
     <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
     <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
     <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
-    <button type="button" class="stat-chip is-clickable ${currentFilter === "도전" ? "is-active" : ""}" data-filter="도전">도전 ${challenge}</button>
   `;
 
   bindStatChips();
@@ -871,8 +845,9 @@ function searchResults() {
   let groupedList = [...allGroupedList];
 
   if (!previewOnly) {
+    // ✅ 도전 제거: 안정/적정/상향만 표시
     groupedList = groupedList.filter(item =>
-      ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
+      ["안정", "적정", "상향"].includes(item.summaryJudgement)
     );
 
     if (judgementFilter !== "all") {
