@@ -14,7 +14,9 @@
 <body>
   <main class="page">
     <header class="top">
-      <!-- ✅ '← 메인으로' 버튼 삭제 (눌렀을 때 대학/학과 검색기로 잘못 이동 이슈 방지) -->
+      <!-- ✅ 하위 페이지는 모두 판독기 홈으로 -->
+      <a class="back-link" href="index.html">← 판독기 홈</a>
+
       <h1>정시 판독기</h1>
       <p class="sub">국어 · 수학 · 탐구 백분위와 영어 등급 기준으로 지원 가능 대학을 조회합니다.</p>
     </header>
@@ -123,7 +125,7 @@
               <button type="button" class="judge-tab" data-value="안정">안정</button>
               <button type="button" class="judge-tab" data-value="적정">적정</button>
               <button type="button" class="judge-tab" data-value="상향">상향</button>
-         </div>
+            </div>
 
             <input type="hidden" id="judgementFilter" value="all" />
           </div>
