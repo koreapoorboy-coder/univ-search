@@ -166,6 +166,20 @@
     <div class="subject-grid" id="subjectAnalysisArea" style="margin-top:12px;"></div>
   </div>
 
+  <!-- ✅ 창의적체험활동 섹션 추가 -->
+  <div class="card" id="panelActivities">
+    <div class="topbar">
+      <div class="leftgroup">
+        <div class="subttl">창의적체험활동</div>
+        <span class="pill" id="activityCountPill">창체 0개</span>
+      </div>
+      <div class="rightgroup">
+        <span class="muted">자율 · 동아리 · 봉사 · 진로</span>
+      </div>
+    </div>
+    <div class="subject-grid" id="activityArea" style="margin-top:12px;"></div>
+  </div>
+
   <div class="card" id="panelReading">
     <div class="topbar">
       <div class="leftgroup">
@@ -189,13 +203,8 @@
 (() => {
   const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
 
-  function getQS() {
-    return new URLSearchParams(location.search);
-  }
-
-  function safeStr(v) {
-    return (v == null) ? "" : String(v);
-  }
+  function getQS() { return new URLSearchParams(location.search); }
+  function safeStr(v) { return (v == null) ? "" : String(v); }
 
   function getAuthContext() {
     const qs = getQS();
@@ -203,21 +212,13 @@
     const id = safeStr(qs.get("id")).trim();
     const admin = safeStr(qs.get("admin")).trim();
 
-    if (t) {
-      return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
-    }
-
-    if (id && admin) {
-      return { mode: "admin", token: "", id, admin, isAdmin: false };
-    }
-
+    if (t) return { mode: "student", token: t, id: "", admin: "", isAdmin: false };
+    if (id && admin) return { mode: "admin", token: "", id, admin, isAdmin: false };
     return { mode: "guest", token: "", id: "", admin: "", isAdmin: false };
   }
 
   function buildPageLink(page, auth, student) {
-    if (auth && auth.mode === "student") {
-      return `${page}?t=${encodeURIComponent(auth.token)}`;
-    }
+    if (auth && auth.mode === "student") return `${page}?t=${encodeURIComponent(auth.token)}`;
     if (auth && auth.mode === "admin" && auth.isAdmin) {
       const sid = pickId(student) || auth.id;
       return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
@@ -227,13 +228,8 @@
 
   function resolveStudentByAuth(students, auth) {
     if (!Array.isArray(students)) return null;
-
-    if (auth.mode === "student") {
-      return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
-    }
-    if (auth.mode === "admin" && auth.isAdmin) {
-      return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
-    }
+    if (auth.mode === "student") return students.find(s => safeStr(pickToken(s)).trim() === auth.token) || null;
+    if (auth.mode === "admin" && auth.isAdmin) return students.find(s => safeStr(pickId(s)).trim() === auth.id) || null;
     return null;
   }
 
@@ -267,25 +263,18 @@
   }
 
   async function loadJsonSafe(path, fallback){
-    try{
-      return await loadJson(path);
-    }catch(_e){
-      return fallback;
-    }
+    try{ return await loadJson(path); }catch(_e){ return fallback; }
   }
 
   function getRecordFlag(flags, studentId) {
     if (!flags) return {};
-    if (Array.isArray(flags)) {
-      return flags.find(x => String(x?.id) === String(studentId)) || {};
-    }
+    if (Array.isArray(flags)) return flags.find(x => String(x?.id) === String(studentId)) || {};
     return flags[studentId] || {};
   }
 
   function canViewRecord(flag, auth) {
     if (!flag || Object.keys(flag).length === 0) return true;
     if (flag.recordEnabled === false) return false;
-
     const visibility = String(flag.visibility || "student").toLowerCase();
     if (visibility === "admin_only") return !!auth.isAdmin;
     return true;
@@ -294,7 +283,6 @@
   function canViewRawRecord(flag, auth) {
     if (!flag || Object.keys(flag).length === 0) return true;
     if (flag.recordEnabled === false) return false;
-
     const visibility = String(flag.visibility || "student").toLowerCase();
     if (visibility === "admin_only") return !!auth.isAdmin;
     return true;
@@ -306,7 +294,6 @@
     if (Array.isArray(detailData)) {
       return detailData.find(x => String(x?.id) === String(studentId)) || null;
     }
-
     if (detailData[studentId]) return detailData[studentId];
 
     if (Array.isArray(detailData.items)) {
@@ -315,26 +302,16 @@
     if (Array.isArray(detailData.data)) {
       return detailData.data.find(x => String(x?.id) === String(studentId)) || null;
     }
-
     return null;
   }
 
   function unwrapRecordPayload(record) {
     if (!record) return null;
-    return (
-      record.detail ||
-      record.record ||
-      record.analysis ||
-      record.payload ||
-      record.data ||
-      record
-    );
+    return (record.detail || record.record || record.analysis || record.payload || record.data || record);
   }
 
   function normalizeKeywords(v) {
-    if (Array.isArray(v)) {
-      return v.map(x => String(x ?? "").trim()).filter(Boolean);
-    }
+    if (Array.isArray(v)) return v.map(x => String(x ?? "").trim()).filter(Boolean);
     const s = String(v ?? "").trim();
     if (!s) return [];
     return s.split(/[,\/·\n|]/g).map(x => x.trim()).filter(Boolean);
@@ -351,37 +328,17 @@
 
   function normalizeSubjectEntry(entry, fallbackName) {
     const e = entry || {};
-    const subjectName = pickText(
-      e.subject, e.name, e.course, e.과목, e.과목명, fallbackName
-    ) || "과목";
+    const subjectName = pickText(e.subject, e.name, e.course, e.과목, e.과목명, fallbackName) || "과목";
 
     const keywords = normalizeKeywords(
-      pickFirst(
-        e.keywords, e.keywordList, e.keyword_list,
-        e.키워드, e.추출키워드, e.과목별키워드
-      )
+      pickFirst(e.keywords, e.keywordList, e.keyword_list, e.키워드, e.추출키워드, e.과목별키워드)
     );
 
-    const core = pickText(
-      e.coreAnalysis, e.core, e.core_summary, e.analysis,
-      e.핵심해석, e.핵심분석, e["핵심 분석"]
-    );
+    const core = pickText(e.coreAnalysis, e.core, e.core_summary, e.analysis, e.핵심해석, e.핵심분석, e["핵심 분석"]);
+    const strength = pickText(e.strength, e.강점, e.장점);
+    const improve = pickText(e.improve, e.보완, e.보완점, e.약점, e.개선점);
 
-    const strength = pickText(
-      e.strength, e.강점, e.장점
-    );
-
-    const improve = pickText(
-      e.improve, e.보완, e.보완점, e.약점, e.개선점
-    );
-
-    return {
-      subject: subjectName,
-      keywords,
-      core,
-      strength,
-      improve
-    };
+    return { subject: subjectName, keywords, core, strength, improve };
   }
 
   function collectSubjectsFromPayload(payload) {
@@ -395,9 +352,7 @@
       Array.isArray(payload.subjectAnalyses) ? payload.subjectAnalyses : null,
       Array.isArray(payload.과목분석) ? payload.과목분석 : null
     );
-    if (Array.isArray(arrCandidate)) {
-      return arrCandidate.map((x, i) => normalizeSubjectEntry(x, `과목 ${i+1}`));
-    }
+    if (Array.isArray(arrCandidate)) return arrCandidate.map((x, i) => normalizeSubjectEntry(x, `과목 ${i+1}`));
 
     const objCandidate = pickFirst(
       (payload.subjects && !Array.isArray(payload.subjects) && typeof payload.subjects === "object") ? payload.subjects : null,
@@ -407,13 +362,49 @@
       return Object.entries(objCandidate).map(([k, v]) => normalizeSubjectEntry(v, k));
     }
 
-    const blacklist = new Set(["id","studentId","studentID","학생ID","name","studentName","summary","요약","meta","metadata"]);
-    const objectLikeEntries = Object.entries(payload).filter(([k,v]) => {
-      if (blacklist.has(k)) return false;
-      return v && typeof v === "object";
-    });
-    if (objectLikeEntries.length) {
-      return objectLikeEntries.map(([k,v]) => normalizeSubjectEntry(v, k));
+    return [];
+  }
+
+  // ✅ 창체 정규화/수집 추가
+  function normalizeActivityEntry(entry, fallbackTitle) {
+    const e = entry || {};
+    const type = pickText(e.type, e.kind, e.category, e.구분, e.영역, e.활동구분) || "창체";
+    const title = pickText(e.title, e.name, e.activity, e.활동명, e.활동, fallbackTitle) || "활동명 미입력";
+    const term = pickText(e.term, e.period, e.semester, e.학기, e.시기, e.기간) || "";
+
+    const keywords = normalizeKeywords(pickFirst(e.keywords, e.keywordList, e.키워드, e.핵심키워드));
+    const core = pickText(e.coreAnalysis, e.core, e.analysis, e.핵심해석, e.핵심분석);
+    const strength = pickText(e.strength, e.강점, e.장점);
+    const improve = pickText(e.improve, e.보완, e.보완점, e.개선점);
+    const visible = pickText(e.visible, e.visibility) || "student";
+
+    return { type, title, term, keywords, core, strength, improve, visible };
+  }
+
+  function collectActivitiesFromPayload(payload) {
+    if (!payload || typeof payload !== "object") return [];
+
+    const arrCandidate = pickFirst(
+      Array.isArray(payload.activities) ? payload.activities : null,
+      Array.isArray(payload.activity) ? payload.activity : null,
+      Array.isArray(payload.creativeActivities) ? payload.creativeActivities : null,
+      Array.isArray(payload.창체) ? payload.창체 : null,
+      Array.isArray(payload.창의적체험활동) ? payload.창의적체험활동 : null,
+      Array.isArray(payload.창의체험활동) ? payload.창의체험활동 : null
+    );
+
+    if (Array.isArray(arrCandidate)) {
+      return arrCandidate.map((x, i) => normalizeActivityEntry(x, `활동 ${i+1}`));
+    }
+
+    // 혹시 객체로 들어온 경우(키=활동명)
+    const objCandidate = pickFirst(
+      (payload.activities && !Array.isArray(payload.activities) && typeof payload.activities === "object") ? payload.activities : null,
+      (payload.창체 && !Array.isArray(payload.창체) && typeof payload.창체 === "object") ? payload.창체 : null
+    );
+
+    if (objCandidate && typeof objCandidate === "object") {
+      return Object.entries(objCandidate).map(([k,v]) => normalizeActivityEntry(v, k));
     }
 
     return [];
@@ -421,63 +412,21 @@
 
   function normalizeReadingEntry(entry, fallbackTitle) {
     const e = entry || {};
+    const title = pickText(e.title, e.bookTitle, e.book, e.book_name, e.도서명, e.책제목, e.독서명, fallbackTitle) || "도서명 미입력";
+    const author = pickText(e.author, e.writer, e.저자, e.지은이);
+    const subjectLink = pickText(e.subject, e.linkedSubject, e.subjectLink, e.연계과목, e.관련과목, e.교과연계, e.portfolioLink);
+    const period = pickText(e.period, e.term, e.date, e.readDate, e.학기, e.시기, e.일자, e.readPeriod);
+    const summary = pickText(e.summary, e.bookSummary, e.요약, e.내용요약, e.핵심내용, e.oneLineSummary);
+    const reflection = pickText(e.reflection, e.feeling, e.thought, e.review, e.소감, e.느낀점, e.감상, e.비평, e.의미, e.insight);
+    const portfolioPoint = pickText(e.portfolioPoint, e.connectPoint, e.application, e.포트폴리오포인트, e.연결포인트, e.세특연결, e.탐구연결, e.portfolioUse, e.discussion);
 
-    const title = pickText(
-      e.title, e.bookTitle, e.book, e.book_name,
-      e.도서명, e.책제목, e.독서명, fallbackTitle
-    ) || "도서명 미입력";
+    const keywords = normalizeKeywords(pickFirst(e.keywords, e.keywordList, e.keyword_list, e.키워드, e.핵심키워드));
 
-    const author = pickText(
-      e.author, e.writer, e.저자, e.지은이
-    );
-
-    const subjectLink = pickText(
-      e.subject, e.linkedSubject, e.subjectLink,
-      e.연계과목, e.관련과목, e.교과연계, e.portfolioLink
-    );
-
-    const period = pickText(
-      e.period, e.term, e.date, e.readDate,
-      e.학기, e.시기, e.일자, e.readPeriod
-    );
-
-    const summary = pickText(
-      e.summary, e.bookSummary, e.요약, e.내용요약, e.핵심내용, e.oneLineSummary
-    );
-
-    const reflection = pickText(
-      e.reflection, e.feeling, e.thought, e.review,
-      e.소감, e.느낀점, e.감상, e.비평, e.의미, e.insight
-    );
-
-    const portfolioPoint = pickText(
-      e.portfolioPoint, e.connectPoint, e.application,
-      e.포트폴리오포인트, e.연결포인트, e.세특연결, e.탐구연결,
-      e.portfolioUse, e.discussion
-    );
-
-    const keywords = normalizeKeywords(
-      pickFirst(
-        e.keywords, e.keywordList, e.keyword_list,
-        e.키워드, e.핵심키워드
-      )
-    );
-
-    return {
-      title,
-      author,
-      subjectLink,
-      period,
-      summary,
-      reflection,
-      portfolioPoint,
-      keywords
-    };
+    return { title, author, subjectLink, period, summary, reflection, portfolioPoint, keywords };
   }
 
   function collectReadingFromPayload(payload) {
     if (!payload || typeof payload !== "object") return [];
-
     const arrCandidate = pickFirst(
       Array.isArray(payload.reading) ? payload.reading : null,
       Array.isArray(payload.readings) ? payload.readings : null,
@@ -487,47 +436,18 @@
       Array.isArray(payload.독서기록) ? payload.독서기록 : null,
       Array.isArray(payload.독서록) ? payload.독서록 : null
     );
-    if (Array.isArray(arrCandidate)) {
-      return arrCandidate.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
-    }
-
-    const objCandidate = pickFirst(
-      (payload.reading && !Array.isArray(payload.reading) && typeof payload.reading === "object") ? payload.reading : null,
-      (payload.독서 && !Array.isArray(payload.독서) && typeof payload.독서 === "object") ? payload.독서 : null
-    );
-    if (objCandidate && typeof objCandidate === "object") {
-      if (Array.isArray(objCandidate.items)) {
-        return objCandidate.items.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
-      }
-      return Object.entries(objCandidate).map(([k, v]) => normalizeReadingEntry(v, k));
-    }
-
+    if (Array.isArray(arrCandidate)) return arrCandidate.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
     return [];
   }
 
   function getReadingRecords(readingData, studentId) {
     if (!readingData) return [];
-
     if (Array.isArray(readingData)) {
       const sidRows = readingData.filter(x => String(x?.id) === String(studentId));
-
-      const directRows = sidRows.filter(x =>
-        x && (x.title || x.bookTitle || x.도서명 || x.책제목)
-      );
-      if (directRows.length) {
-        return directRows.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
-      }
-
-      for (const row of sidRows) {
-        let arr = collectReadingFromPayload(row);
-        if (arr.length) return arr;
-
-        arr = collectReadingFromPayload(row?.data || row?.payload || row?.detail);
-        if (arr.length) return arr;
-      }
+      const directRows = sidRows.filter(x => x && (x.title || x.bookTitle || x.도서명 || x.책제목));
+      if (directRows.length) return directRows.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
       return [];
     }
-
     if (typeof readingData === "object") {
       const byId = readingData[studentId];
       if (byId) {
@@ -535,31 +455,7 @@
         const arr = collectReadingFromPayload(byId);
         if (arr.length) return arr;
       }
-
-      const wrappers = [];
-      if (Array.isArray(readingData.items)) wrappers.push(...readingData.items);
-      if (Array.isArray(readingData.data)) wrappers.push(...readingData.data);
-
-      if (wrappers.length) {
-        const sidRows = wrappers.filter(x => String(x?.id) === String(studentId));
-
-        const directRows = sidRows.filter(x =>
-          x && (x.title || x.bookTitle || x.도서명 || x.책제목)
-        );
-        if (directRows.length) {
-          return directRows.map((x, i) => normalizeReadingEntry(x, `도서 ${i+1}`));
-        }
-
-        for (const row of sidRows) {
-          let arr = collectReadingFromPayload(row);
-          if (arr.length) return arr;
-
-          arr = collectReadingFromPayload(row?.data || row?.payload || row?.detail);
-          if (arr.length) return arr;
-        }
-      }
     }
-
     return [];
   }
 
@@ -680,6 +576,54 @@
     `;
   }
 
+  // ✅ 창체 카드
+  function activityCardHtml(a) {
+    const keywords = Array.isArray(a.keywords) ? a.keywords : [];
+    const hasAny = !!(a.core || a.strength || a.improve);
+
+    const topBadge = [a.type, a.term].filter(Boolean).join(" · ");
+
+    return `
+      <div class="subject-card">
+        <div class="subject-head">
+          <div class="subject-name">${esc(a.title || "활동명")}</div>
+          <div class="subject-badge">${esc(topBadge || "창체")}</div>
+        </div>
+
+        ${
+          keywords.length
+          ? `<div class="chips">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
+          : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`
+        }
+
+        ${
+          hasAny ? `
+            <div class="analysis-block">
+              ${a.core ? `
+                <div class="analysis-item">
+                  <div class="analysis-label">핵심 해석</div>
+                  <div class="analysis-text">${esc(a.core)}</div>
+                </div>` : ""
+              }
+              ${a.strength ? `
+                <div class="analysis-item">
+                  <div class="analysis-label">강점</div>
+                  <div class="analysis-text">${esc(a.strength)}</div>
+                </div>` : ""
+              }
+              ${a.improve ? `
+                <div class="analysis-item">
+                  <div class="analysis-label">보완</div>
+                  <div class="analysis-text">${esc(a.improve)}</div>
+                </div>` : ""
+              }
+            </div>
+          ` : ``
+        }
+      </div>
+    `;
+  }
+
   function readingCardHtml(b) {
     const meta = [];
     if (b.subjectLink) meta.push(`<span class="chip"><span class="k">연계과목</span>${esc(b.subjectLink)}</span>`);
@@ -701,37 +645,26 @@
         }
 
         <div class="analysis-block">
-          ${
-            b.summary ? `
+          ${b.summary ? `
               <div class="analysis-item">
                 <div class="analysis-label">핵심 내용 요약</div>
                 <div class="analysis-text">${esc(b.summary)}</div>
-              </div>
-            ` : ``
+              </div>` : ``
           }
-
-          ${
-            b.reflection ? `
+          ${b.reflection ? `
               <div class="analysis-item">
                 <div class="analysis-label">소감 / 생각</div>
                 <div class="analysis-text">${esc(b.reflection)}</div>
-              </div>
-            ` : ``
+              </div>` : ``
           }
-
-          ${
-            b.portfolioPoint ? `
+          ${b.portfolioPoint ? `
               <div class="analysis-item">
                 <div class="analysis-label">포트폴리오 연결 포인트</div>
                 <div class="analysis-text">${esc(b.portfolioPoint)}</div>
-              </div>
-            ` : ``
+              </div>` : ``
           }
-
-          ${
-            (!b.summary && !b.reflection && !b.portfolioPoint)
-            ? `<div class="muted">독서 상세 데이터가 없습니다.</div>`
-            : ``
+          ${(!b.summary && !b.reflection && !b.portfolioPoint)
+            ? `<div class="muted">독서 상세 데이터가 없습니다.</div>` : ``
           }
         </div>
       </div>
@@ -767,6 +700,33 @@
     root.innerHTML = list.map(analysisCardHtml).join("");
   }
 
+  function renderActivityCards(activities){
+    const root = $("#activityArea");
+    const pill = $("#activityCountPill");
+    if (!root) return;
+
+    const list = (Array.isArray(activities) ? activities : [])
+      .filter(a => String(a?.visible || "student").toLowerCase() !== "hidden");
+
+    if (pill) pill.textContent = `창체 ${list.length}개`;
+
+    if (!list.length) {
+      root.innerHTML = `<div class="empty">창의적체험활동 데이터가 없습니다. <span class="muted">(detail.activities 확인)</span></div>`;
+      return;
+    }
+
+    // type 우선 정렬 (자율/동아리/봉사/진로)
+    const order = { "자율":1, "동아리":2, "봉사":3, "진로":4 };
+    list.sort((a,b)=>{
+      const oa = order[a.type] ?? 99;
+      const ob = order[b.type] ?? 99;
+      if (oa !== ob) return oa - ob;
+      return String(a.term||"").localeCompare(String(b.term||""), "ko");
+    });
+
+    root.innerHTML = list.map(activityCardHtml).join("");
+  }
+
   function renderReadingCards(readings){
     const root = $("#readingArea");
     const pill = $("#readingCountPill");
@@ -788,18 +748,14 @@
 
     if (auth.mode === "admin") {
       auth.isAdmin = (auth.admin === ADMIN_TOKEN);
-      if (!auth.isAdmin) {
-        return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
-      }
+      if (!auth.isAdmin) return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
     const students = await loadJson("./students.json");
     if (!Array.isArray(students)) throw new Error("students.json is not an array");
 
     const student = resolveStudentByAuth(students, auth);
-    if (!student) {
-      return renderNoAccess("학생을 찾을 수 없습니다.");
-    }
+    if (!student) return renderNoAccess("학생을 찾을 수 없습니다.");
 
     const sid = norm(pickId(student));
 
@@ -817,22 +773,29 @@
     hideIfExists("panelAllKeywords");
     hideIfExists("panelDetailRecords");
 
-    const detailData = await loadJsonSafe("./school_record_detail.json", null);
+    // ✅ detail 파일명 dot/underscore 둘 다 대응
+    const detailData =
+      (await loadJsonSafe("./school_record.detail.json", null)) ||
+      (await loadJsonSafe("./school_record_detail.json", null));
 
     let payload = null;
     let subjects = [];
+    let activities = [];
 
     if (detailData) {
       const record = getRecordDetail(detailData, sid);
       if (record) {
         payload = unwrapRecordPayload(record);
         subjects = collectSubjectsFromPayload(payload);
+        activities = collectActivitiesFromPayload(payload);
       }
     }
 
     renderSubjectKeywordCards(subjects);
     renderSubjectCoreAnalysis(subjects);
+    renderActivityCards(activities);
 
+    // 독서: 별도 파일 우선, 없으면 detail payload에서 추출
     const readingData = await loadJsonSafe("./school_record_reading.json", null);
     let readings = getReadingRecords(readingData, sid);
 
