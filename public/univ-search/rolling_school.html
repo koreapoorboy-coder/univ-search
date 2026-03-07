@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#111111" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/style.css?v=20260307-2" />
 </head>
 <body>
   <main class="page">
@@ -81,14 +81,22 @@
     </section>
   </main>
 
-  <script src="assets/rolling_school.js?v=20260307-1"></script>
+  <script>
+    window.__ROLLING_SCHOOL_BUILD__ = "20260307-2";
+    console.log("rolling_school.html loaded:", window.__ROLLING_SCHOOL_BUILD__);
+  </script>
+
+  <script src="assets/rolling_school.js?v=20260307-2"></script>
 
   <script>
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch((err) => {
+      window.addEventListener("load", async () => {
+        try {
+          console.log("register sw:", window.__ROLLING_SCHOOL_BUILD__);
+          await navigator.serviceWorker.register("./sw.js");
+        } catch (err) {
           console.error("SW 등록 실패:", err);
-        });
+        }
       });
     }
   </script>
