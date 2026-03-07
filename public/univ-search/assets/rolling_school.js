@@ -77,7 +77,14 @@ function getRawNum(obj, keys) {
 }
 
 function normalizeSchoolItem(item, index) {
-  const cut70 = getRawNum(item, ["cut_70", "grade_cut", "70컷", "70%컷", "기준컷", "교과컷"]);
+  const cut70 = getRawNum(item, [
+    "cut_70",
+    "grade_cut",
+    "70컷",
+    "70%컷",
+    "기준컷",
+    "교과컷"
+  ]);
 
   return {
     __index: index,
@@ -92,11 +99,12 @@ function normalizeSchoolItem(item, index) {
     group: String(getRawValue(item, ["group", "계열"], "")).trim(),
     region: String(getRawValue(item, ["region", "지역"], "")).trim(),
 
-    cut_50: getRawNum(item, ["cut_50", "50컷", "50%컷"]),
     cut_70: cut70,
-    cut_90: getRawNum(item, ["cut_90", "90컷", "90%컷"]),
+    grade_cut_range_min: getRawNum(item, ["grade_cut_range_min", "컷범위최소", "최소컷"]),
+    grade_cut_range_max: getRawNum(item, ["grade_cut_range_max", "컷범위최대", "최대컷"]),
 
     subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
+    school_year_rule: String(getRawValue(item, ["school_year_rule", "학년반영"], "")).trim(),
 
     csat_min_required: boolValue(getRawValue(item, ["csat_min_required", "수능최저필수"], false)),
     csat_min_rule: String(getRawValue(item, ["csat_min_rule", "수능최저"], "")).trim(),
@@ -171,8 +179,6 @@ function setJudgementFilter(value) {
 
 function getPreferredCutInfo(item) {
   if (item.cut_70 != null) return { label: "70%컷", value: item.cut_70 };
-  if (item.cut_50 != null) return { label: "50%컷", value: item.cut_50 };
-  if (item.cut_90 != null) return { label: "90%컷", value: item.cut_90 };
   return null;
 }
 
@@ -185,7 +191,7 @@ function evaluateSchoolRecord(studentGrade, item) {
       diff: null,
       cutLabel: null,
       cutValue: null,
-      summaryText: "학생 내신 또는 교과 컷 정보가 없습니다."
+      summaryText: "학생 내신 또는 70%컷 정보가 없습니다."
     };
   }
 
@@ -357,14 +363,17 @@ function makeInfoCard(label, value) {
 function makeCutInfoCards(item) {
   const cards = [];
 
-  if (item.cut_50 != null) {
-    cards.push(makeInfoCard("50%컷", item.cut_50.toFixed(2)));
-  }
   if (item.cut_70 != null) {
     cards.push(makeInfoCard("70%컷", item.cut_70.toFixed(2)));
   }
-  if (item.cut_90 != null) {
-    cards.push(makeInfoCard("90%컷", item.cut_90.toFixed(2)));
+
+  if (item.grade_cut_range_min != null && item.grade_cut_range_max != null) {
+    cards.push(
+      makeInfoCard(
+        "컷 범위",
+        `${item.grade_cut_range_min.toFixed(2)} ~ ${item.grade_cut_range_max.toFixed(2)}`
+      )
+    );
   }
 
   return cards.join("");
@@ -377,9 +386,17 @@ function makeMetaChip(text) {
 function makeLatestMetaChips(latest) {
   const chips = [];
 
-  if (latest.cut_50 != null) chips.push(makeMetaChip(`최근 50%컷 ${latest.cut_50.toFixed(2)}`));
-  if (latest.cut_70 != null) chips.push(makeMetaChip(`최근 70%컷 ${latest.cut_70.toFixed(2)}`));
-  if (latest.cut_90 != null) chips.push(makeMetaChip(`최근 90%컷 ${latest.cut_90.toFixed(2)}`));
+  if (latest.cut_70 != null) {
+    chips.push(makeMetaChip(`최근 70%컷 ${latest.cut_70.toFixed(2)}`));
+  }
+
+  if (latest.grade_cut_range_min != null && latest.grade_cut_range_max != null) {
+    chips.push(
+      makeMetaChip(
+        `컷 범위 ${latest.grade_cut_range_min.toFixed(2)}~${latest.grade_cut_range_max.toFixed(2)}`
+      )
+    );
+  }
 
   if (latest.csat_min_required) {
     chips.push(makeMetaChip(`수능최저 ${safeValue(latest.csat_min_rule, "있음")}`));
@@ -451,6 +468,8 @@ function makeYearBlock(group, item) {
   const infoCards = [
     makeCutInfoCards(item),
     hasValue(item.subject_rule) ? makeInfoCard("반영교과", item.subject_rule) : "",
+    hasValue(item.school_year_rule) ? makeInfoCard("학년 반영", item.school_year_rule) : "",
+    hasValue(item.region) ? makeInfoCard("지역", item.region) : "",
     makeInfoCard("수능최저", csatText),
     makeInfoCard("면접", interviewText),
     makeInfoCard("추천 필요", recommendText),
