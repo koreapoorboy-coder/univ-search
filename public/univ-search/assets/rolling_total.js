@@ -286,19 +286,12 @@ function evaluateTotalRecord(studentContext, item) {
   const diff = grade - adjustedCut;
   let judgement = "판정 보류";
 
-  if (item.csat_min_required) {
-    if (diff <= -0.30) judgement = "안정";
-    else if (diff <= 0.00) judgement = "적정";
-    else if (diff <= 0.20) judgement = "상향";
-    else if (diff <= 0.40) judgement = "도전";
-    else judgement = "판정 보류";
-  } else {
-    if (diff <= -0.15) judgement = "안정";
-    else if (diff <= 0.15) judgement = "적정";
-    else if (diff <= 0.35) judgement = "상향";
-    else if (diff <= 0.55) judgement = "도전";
-    else judgement = "판정 보류";
-  }
+  /* 수능최저 보정 없음: 정성보정만 반영 */
+  if (diff <= -0.15) judgement = "안정";
+  else if (diff <= 0.15) judgement = "적정";
+  else if (diff <= 0.35) judgement = "상향";
+  else if (diff <= 0.55) judgement = "도전";
+  else judgement = "판정 보류";
 
   const compareText = diff <= 0
     ? `${Math.abs(diff).toFixed(2)}등급 우위`
@@ -705,7 +698,7 @@ function bindStatChips() {
       if (hasAnyStudentInput()) {
         searchResults();
       }
-    };
+    });
   });
 }
 
