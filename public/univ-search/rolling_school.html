@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#111111" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
-  <link rel="stylesheet" href="assets/style.css?v=20260307-2" />
+  <link rel="stylesheet" href="assets/style.css?v=20260307-4" />
 </head>
 <body>
   <main class="page">
@@ -35,7 +35,7 @@
 
         <label>
           <span>대학 / 학과 / 전형명 검색</span>
-          <input type="text" id="keyword" placeholder="예: 경희대 / 전자공학 / 학교추천" />
+          <input type="text" id="keyword" placeholder="예: 서강대 / 생명과학과 / 학교장추천" />
         </label>
 
         <label>
@@ -52,12 +52,13 @@
         <div class="full">
           <span class="filter-label">판정 필터</span>
           <div class="judge-tabs" id="judgementTabs">
-            <button type="button" class="judge-tab is-active" data-value="안정">안정</button>
+            <button type="button" class="judge-tab is-active" data-value="전체">전체</button>
+            <button type="button" class="judge-tab" data-value="안정">안정</button>
             <button type="button" class="judge-tab" data-value="적정">적정</button>
             <button type="button" class="judge-tab" data-value="상향">상향</button>
             <button type="button" class="judge-tab" data-value="도전">도전</button>
           </div>
-          <input type="hidden" id="judgementFilter" value="안정" />
+          <input type="hidden" id="judgementFilter" value="전체" />
         </div>
       </div>
 
@@ -81,24 +82,6 @@
     </section>
   </main>
 
-  <script>
-    window.__ROLLING_SCHOOL_BUILD__ = "20260307-2";
-    console.log("rolling_school.html loaded:", window.__ROLLING_SCHOOL_BUILD__);
-  </script>
-
-  <script src="assets/rolling_school.js?v=20260307-2"></script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", async () => {
-        try {
-          console.log("register sw:", window.__ROLLING_SCHOOL_BUILD__);
-          await navigator.serviceWorker.register("./sw.js");
-        } catch (err) {
-          console.error("SW 등록 실패:", err);
-        }
-      });
-    }
-  </script>
+  <script src="assets/rolling_school.js?v=20260307-4"></script>
 </body>
 </html>
