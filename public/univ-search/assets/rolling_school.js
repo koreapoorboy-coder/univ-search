@@ -80,6 +80,7 @@ function normalizeSchoolItem(item, index) {
   const cut70 = getRawNum(item, [
     "cut_70",
     "grade_cut",
+    "grade_cut_5_avg",
     "70컷",
     "70%컷",
     "기준컷",
@@ -102,6 +103,11 @@ function normalizeSchoolItem(item, index) {
     cut_70: cut70,
     grade_cut_range_min: getRawNum(item, ["grade_cut_range_min", "컷범위최소", "최소컷"]),
     grade_cut_range_max: getRawNum(item, ["grade_cut_range_max", "컷범위최대", "최대컷"]),
+
+    grade_cut_9: getRawNum(item, ["grade_cut_9", "grade9", "원본9등급컷"]),
+    grade_cut_5_avg: getRawNum(item, ["grade_cut_5_avg", "grade5Average", "환산5등급컷"]),
+    grade_cut_5_conservative: getRawNum(item, ["grade_cut_5_conservative", "grade5Conservative", "환산5등급보수컷"]),
+    grade_cut_5_relaxed: getRawNum(item, ["grade_cut_5_relaxed", "grade5Relaxed", "환산5등급완화컷"]),
 
     subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
     school_year_rule: String(getRawValue(item, ["school_year_rule", "학년반영"], "")).trim(),
@@ -364,13 +370,28 @@ function makeCutInfoCards(item) {
   const cards = [];
 
   if (item.cut_70 != null) {
-    cards.push(makeInfoCard("70%컷", item.cut_70.toFixed(2)));
+    cards.push(makeInfoCard("70%컷(판정기준)", item.cut_70.toFixed(2)));
   }
 
-  if (item.grade_cut_range_min != null && item.grade_cut_range_max != null) {
+  if (item.grade_cut_9 != null) {
+    cards.push(makeInfoCard("원본 9등급컷", item.grade_cut_9.toFixed(2)));
+  }
+
+  if (item.grade_cut_5_avg != null) {
+    cards.push(makeInfoCard("환산 5등급컷", item.grade_cut_5_avg.toFixed(2)));
+  }
+
+  if (item.grade_cut_5_conservative != null && item.grade_cut_5_relaxed != null) {
     cards.push(
       makeInfoCard(
-        "컷 범위",
+        "5등급 범위",
+        `${item.grade_cut_5_conservative.toFixed(2)} ~ ${item.grade_cut_5_relaxed.toFixed(2)}`
+      )
+    );
+  } else if (item.grade_cut_range_min != null && item.grade_cut_range_max != null) {
+    cards.push(
+      makeInfoCard(
+        "5등급 범위",
         `${item.grade_cut_range_min.toFixed(2)} ~ ${item.grade_cut_range_max.toFixed(2)}`
       )
     );
@@ -390,10 +411,18 @@ function makeLatestMetaChips(latest) {
     chips.push(makeMetaChip(`최근 70%컷 ${latest.cut_70.toFixed(2)}`));
   }
 
-  if (latest.grade_cut_range_min != null && latest.grade_cut_range_max != null) {
+  if (latest.grade_cut_9 != null) {
+    chips.push(makeMetaChip(`원본 9등급컷 ${latest.grade_cut_9.toFixed(2)}`));
+  }
+
+  if (latest.grade_cut_5_avg != null) {
+    chips.push(makeMetaChip(`환산 5등급컷 ${latest.grade_cut_5_avg.toFixed(2)}`));
+  }
+
+  if (latest.grade_cut_5_conservative != null && latest.grade_cut_5_relaxed != null) {
     chips.push(
       makeMetaChip(
-        `컷 범위 ${latest.grade_cut_range_min.toFixed(2)}~${latest.grade_cut_range_max.toFixed(2)}`
+        `5등급 범위 ${latest.grade_cut_5_conservative.toFixed(2)}~${latest.grade_cut_5_relaxed.toFixed(2)}`
       )
     );
   }
@@ -796,7 +825,7 @@ async function init() {
     if ($("resultCount")) $("resultCount").textContent = "데이터 오류";
     if ($("resultStats")) $("resultStats").innerHTML = "";
     if ($("resultList")) {
-      $("resultList").innerHTML = `<div class="empty">데이터 파일을 불러오지 못했습니다. 경로를 확인해주세요.</div>`;
+      $("resultList").innerHTML = `<div class="empty">데이터 오류: ${escapeHtml(err.message || "알 수 없는 오류")}</div>`;
     }
   }
 }
