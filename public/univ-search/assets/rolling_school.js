@@ -77,14 +77,38 @@ function getRawNum(obj, keys) {
 }
 
 function normalizeSchoolItem(item, index) {
-  const cut70 = getRawNum(item, [
-    "cut_70",
-    "grade_cut",
+  const gradeCut9 = getRawNum(item, [
+    "grade_cut_9",
+    "grade9",
+    "원본9등급컷",
+    "original_grade_cut",
+    "original_cut_70"
+  ]);
+
+  const gradeCut5Avg = getRawNum(item, [
     "grade_cut_5_avg",
+    "grade5Average",
+    "환산5등급컷",
+    "grade_cut",
+    "cut_70",
     "70컷",
     "70%컷",
     "기준컷",
     "교과컷"
+  ]);
+
+  const gradeCut5Conservative = getRawNum(item, [
+    "grade_cut_5_conservative",
+    "grade5Conservative",
+    "환산5등급보수컷",
+    "grade_cut_range_min"
+  ]);
+
+  const gradeCut5Relaxed = getRawNum(item, [
+    "grade_cut_5_relaxed",
+    "grade5Relaxed",
+    "환산5등급완화컷",
+    "grade_cut_range_max"
   ]);
 
   return {
@@ -100,14 +124,13 @@ function normalizeSchoolItem(item, index) {
     group: String(getRawValue(item, ["group", "계열"], "")).trim(),
     region: String(getRawValue(item, ["region", "지역"], "")).trim(),
 
-    cut_70: cut70,
-    grade_cut_range_min: getRawNum(item, ["grade_cut_range_min", "컷범위최소", "최소컷"]),
-    grade_cut_range_max: getRawNum(item, ["grade_cut_range_max", "컷범위최대", "최대컷"]),
+    grade_cut_9: gradeCut9,
+    grade_cut_5_avg: gradeCut5Avg,
+    grade_cut_5_conservative: gradeCut5Conservative,
+    grade_cut_5_relaxed: gradeCut5Relaxed,
 
-    grade_cut_9: getRawNum(item, ["grade_cut_9", "grade9", "원본9등급컷"]),
-    grade_cut_5_avg: getRawNum(item, ["grade_cut_5_avg", "grade5Average", "환산5등급컷"]),
-    grade_cut_5_conservative: getRawNum(item, ["grade_cut_5_conservative", "grade5Conservative", "환산5등급보수컷"]),
-    grade_cut_5_relaxed: getRawNum(item, ["grade_cut_5_relaxed", "grade5Relaxed", "환산5등급완화컷"]),
+    /* 기존 호환용 */
+    cut_70: gradeCut5Avg,
 
     subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
     school_year_rule: String(getRawValue(item, ["school_year_rule", "학년반영"], "")).trim(),
@@ -184,7 +207,10 @@ function setJudgementFilter(value) {
 }
 
 function getPreferredCutInfo(item) {
-  if (item.cut_70 != null) return { label: "70%컷", value: item.cut_70 };
+  const cut = item.grade_cut_5_avg ?? item.cut_70;
+  if (cut != null) {
+    return { label: "5등급 변환컷", value: cut };
+  }
   return null;
 }
 
@@ -197,7 +223,7 @@ function evaluateSchoolRecord(studentGrade, item) {
       diff: null,
       cutLabel: null,
       cutValue: null,
-      summaryText: "학생 내신 또는 70%컷 정보가 없습니다."
+      summaryText: "학생 내신 또는 5등급 변환컷 정보가 없습니다."
     };
   }
 
@@ -369,16 +395,12 @@ function makeInfoCard(label, value) {
 function makeCutInfoCards(item) {
   const cards = [];
 
-  if (item.cut_70 != null) {
-    cards.push(makeInfoCard("70%컷(판정기준)", item.cut_70.toFixed(2)));
-  }
-
   if (item.grade_cut_9 != null) {
-    cards.push(makeInfoCard("원본 9등급컷", item.grade_cut_9.toFixed(2)));
+    cards.push(makeInfoCard("70%컷(원본)", item.grade_cut_9.toFixed(2)));
   }
 
   if (item.grade_cut_5_avg != null) {
-    cards.push(makeInfoCard("환산 5등급컷", item.grade_cut_5_avg.toFixed(2)));
+    cards.push(makeInfoCard("5등급 변환컷", item.grade_cut_5_avg.toFixed(2)));
   }
 
   if (item.grade_cut_5_conservative != null && item.grade_cut_5_relaxed != null) {
@@ -386,13 +408,6 @@ function makeCutInfoCards(item) {
       makeInfoCard(
         "5등급 범위",
         `${item.grade_cut_5_conservative.toFixed(2)} ~ ${item.grade_cut_5_relaxed.toFixed(2)}`
-      )
-    );
-  } else if (item.grade_cut_range_min != null && item.grade_cut_range_max != null) {
-    cards.push(
-      makeInfoCard(
-        "5등급 범위",
-        `${item.grade_cut_range_min.toFixed(2)} ~ ${item.grade_cut_range_max.toFixed(2)}`
       )
     );
   }
@@ -407,16 +422,12 @@ function makeMetaChip(text) {
 function makeLatestMetaChips(latest) {
   const chips = [];
 
-  if (latest.cut_70 != null) {
-    chips.push(makeMetaChip(`최근 70%컷 ${latest.cut_70.toFixed(2)}`));
-  }
-
   if (latest.grade_cut_9 != null) {
-    chips.push(makeMetaChip(`원본 9등급컷 ${latest.grade_cut_9.toFixed(2)}`));
+    chips.push(makeMetaChip(`70%컷 ${latest.grade_cut_9.toFixed(2)}`));
   }
 
   if (latest.grade_cut_5_avg != null) {
-    chips.push(makeMetaChip(`환산 5등급컷 ${latest.grade_cut_5_avg.toFixed(2)}`));
+    chips.push(makeMetaChip(`5등급 변환컷 ${latest.grade_cut_5_avg.toFixed(2)}`));
   }
 
   if (latest.grade_cut_5_conservative != null && latest.grade_cut_5_relaxed != null) {
