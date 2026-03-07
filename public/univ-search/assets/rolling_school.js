@@ -258,19 +258,12 @@ function evaluateSchoolRecord(studentInput, item) {
   const diff = grade - cut;
   let judgement = "판정 보류";
 
-  if (item.csat_min_required) {
-    if (diff <= -0.35) judgement = "안정";
-    else if (diff <= -0.10) judgement = "적정";
-    else if (diff <= 0.15) judgement = "상향";
-    else if (diff <= 0.40) judgement = "도전";
-    else judgement = "판정 보류";
-  } else {
-    if (diff <= -0.20) judgement = "안정";
-    else if (diff <= 0.10) judgement = "적정";
-    else if (diff <= 0.30) judgement = "상향";
-    else if (diff <= 0.50) judgement = "도전";
-    else judgement = "판정 보류";
-  }
+  /* 수능최저 보정 없음: 내신 점수만으로 동일 기준 적용 */
+  if (diff <= -0.20) judgement = "안정";
+  else if (diff <= 0.10) judgement = "적정";
+  else if (diff <= 0.30) judgement = "상향";
+  else if (diff <= 0.50) judgement = "도전";
+  else judgement = "판정 보류";
 
   const summaryText = `내신 ${grade.toFixed(2)} / ${cutInfo.label} ${cut.toFixed(2)} / ${
     diff <= 0
@@ -695,7 +688,7 @@ function bindStatChips() {
       if (hasAnyStudentInput()) {
         searchResults();
       }
-    };
+    });
   });
 }
 
