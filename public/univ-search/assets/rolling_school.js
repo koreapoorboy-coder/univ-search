@@ -129,9 +129,6 @@ function normalizeSchoolItem(item, index) {
     grade_cut_5_conservative: gradeCut5Conservative,
     grade_cut_5_relaxed: gradeCut5Relaxed,
 
-    /* 기존 호환용 */
-    cut_70: gradeCut5Avg,
-
     subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
     school_year_rule: String(getRawValue(item, ["school_year_rule", "학년반영"], "")).trim(),
 
@@ -178,14 +175,39 @@ async function loadData() {
   }
 }
 
-function getStudentGrade() {
-  const gradeAvg = parseNum(getValue("gradeAvg"));
-  const subjectGrade = parseNum(getValue("subjectGrade"));
-  return subjectGrade ?? gradeAvg;
+function getStudentInput() {
+  const grade9 = parseNum(getValue("gradeAvg9"));
+  const grade5 = parseNum(getValue("gradeAvg5"));
+
+  if (grade9 != null && grade5 != null) {
+    return {
+      error: "9등급제와 5등급제 내신을 동시에 입력할 수 없습니다. 한 칸만 입력해주세요."
+    };
+  }
+
+  if (grade9 != null) {
+    return {
+      system: "9",
+      grade: grade9
+    };
+  }
+
+  if (grade5 != null) {
+    return {
+      system: "5",
+      grade: grade5
+    };
+  }
+
+  return {
+    system: null,
+    grade: null
+  };
 }
 
 function hasAnyStudentInput() {
-  return getStudentGrade() != null;
+  const input = getStudentInput();
+  return input.grade != null;
 }
 
 function setJudgementFilter(value) {
@@ -206,29 +228,34 @@ function setJudgementFilter(value) {
   });
 }
 
-function getPreferredCutInfo(item) {
-  const cut = item.grade_cut_5_avg ?? item.cut_70;
-  if (cut != null) {
-    return { label: "5등급 변환컷", value: cut };
+function getPreferredCutInfo(item, system) {
+  if (system === "9" && item.grade_cut_9 != null) {
+    return { label: "70%컷", value: item.grade_cut_9 };
   }
+
+  if (system === "5" && item.grade_cut_5_avg != null) {
+    return { label: "5등급 변환컷", value: item.grade_cut_5_avg };
+  }
+
   return null;
 }
 
-function evaluateSchoolRecord(studentGrade, item) {
-  const cutInfo = getPreferredCutInfo(item);
+function evaluateSchoolRecord(studentInput, item) {
+  const { system, grade } = studentInput;
+  const cutInfo = getPreferredCutInfo(item, system);
 
-  if (studentGrade == null || !cutInfo) {
+  if (grade == null || !system || !cutInfo) {
     return {
       judgement: "판정 보류",
       diff: null,
       cutLabel: null,
       cutValue: null,
-      summaryText: "학생 내신 또는 5등급 변환컷 정보가 없습니다."
+      summaryText: "학생 내신 또는 비교 기준 컷 정보가 없습니다."
     };
   }
 
   const cut = cutInfo.value;
-  const diff = studentGrade - cut;
+  const diff = grade - cut;
   let judgement = "판정 보류";
 
   if (item.csat_min_required) {
@@ -245,7 +272,7 @@ function evaluateSchoolRecord(studentGrade, item) {
     else judgement = "판정 보류";
   }
 
-  const summaryText = `내신 ${studentGrade.toFixed(2)} / ${cutInfo.label} ${cut.toFixed(2)} / ${
+  const summaryText = `내신 ${grade.toFixed(2)} / ${cutInfo.label} ${cut.toFixed(2)} / ${
     diff <= 0
       ? `${Math.abs(diff).toFixed(2)}등급 여유`
       : `${diff.toFixed(2)}등급 부족`
@@ -697,10 +724,15 @@ function searchResults() {
   const groupFilter = getValue("groupFilter");
   const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "안정");
 
-  const studentGrade = getStudentGrade();
+  const studentInput = getStudentInput();
 
-  if (studentGrade == null) {
-    alert("전체 내신 평균 또는 반영교과 평균을 입력해주세요.");
+  if (studentInput.error) {
+    alert(studentInput.error);
+    return;
+  }
+
+  if (studentInput.grade == null) {
+    alert("9등급제 내신 평균 또는 5등급제 내신 평균 중 한 칸을 입력해주세요.");
     return;
   }
 
@@ -726,7 +758,7 @@ function searchResults() {
 
   const analyzedList = list.map(item => ({
     ...item,
-    analysis: evaluateSchoolRecord(studentGrade, item)
+    analysis: evaluateSchoolRecord(studentInput, item)
   }));
 
   const allGroupedList = buildGroupedResults(analyzedList);
@@ -761,14 +793,15 @@ function scheduleAutoSearch() {
   }
 
   autoSearchTimer = setTimeout(() => {
-    if (hasAnyStudentInput()) {
+    const input = getStudentInput();
+    if (!input.error && input.grade != null) {
       searchResults();
     }
   }, 180);
 }
 
 function preventNumberInputSideEffects() {
-  ["gradeAvg", "subjectGrade"].forEach(id => {
+  ["gradeAvg9", "gradeAvg5"].forEach(id => {
     const el = $(id);
     if (!el) return;
 
@@ -788,8 +821,8 @@ function preventNumberInputSideEffects() {
 }
 
 function resetForm() {
-  if ($("gradeAvg")) $("gradeAvg").value = "";
-  if ($("subjectGrade")) $("subjectGrade").value = "";
+  if ($("gradeAvg9")) $("gradeAvg9").value = "";
+  if ($("gradeAvg5")) $("gradeAvg5").value = "";
   if ($("groupFilter")) $("groupFilter").value = "all";
   if ($("keyword")) $("keyword").value = "";
 
@@ -817,7 +850,7 @@ async function init() {
     if ($("btnSearch")) $("btnSearch").addEventListener("click", searchResults);
     if ($("btnReset")) $("btnReset").addEventListener("click", resetForm);
 
-    ["keyword", "gradeAvg", "subjectGrade"].forEach(id => {
+    ["keyword", "gradeAvg9", "gradeAvg5"].forEach(id => {
       if ($(id)) {
         $(id).addEventListener("input", scheduleAutoSearch);
         $(id).addEventListener("keydown", (e) => {
