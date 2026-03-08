@@ -223,6 +223,54 @@ function hasSearchSignal() {
   return !!keyword || (groupFilter !== "전체" && groupFilter !== "" && groupFilter !== "all");
 }
 
+function hasLiveSignal() {
+  return hasAnyStudentInput() || hasSearchSignal();
+}
+
+function getActionRow() {
+  return document.querySelector('.btn-row');
+}
+
+function getResultPanel() {
+  return $("resultList")?.closest(".panel") || null;
+}
+
+function clearRenderedResults(blank = true) {
+  LAST_RESULTS = [];
+  OPEN_GROUP_DETAILS.clear();
+  OPEN_YEAR_DETAILS.clear();
+
+  if ($("resultCount")) {
+    $("resultCount").textContent = blank ? "" : "결과 없음";
+  }
+
+  if ($("resultStats")) {
+    $("resultStats").innerHTML = "";
+  }
+
+  if ($("resultList")) {
+    $("resultList").innerHTML = blank ? "" : `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
+  }
+}
+
+function syncInputDrivenVisibility() {
+  const visible = hasLiveSignal();
+  const actionRow = getActionRow();
+  const resultPanel = getResultPanel();
+
+  if (actionRow) {
+    actionRow.hidden = !visible;
+  }
+
+  if (resultPanel) {
+    resultPanel.hidden = !visible;
+  }
+
+  if (!visible) {
+    clearRenderedResults(true);
+  }
+}
+
 function setJudgementFilter(value) {
   const finalValue = canonicalFilterValue(value || "전체");
 
@@ -761,7 +809,7 @@ function searchResults() {
     !!keywordNorm || (groupFilter !== "전체" && groupFilter !== "all" && groupFilter !== "");
 
   if (!hasGrade && !hasKeywordOrFilter) {
-    alert("9등급제 내신 평균 또는 5등급제 내신 평균 중 한 칸을 입력하거나, 학교/학과/전형명을 검색해주세요.");
+    syncInputDrivenVisibility();
     return;
   }
 
@@ -844,10 +892,17 @@ function searchResults() {
 function scheduleAutoSearch() {
   if (autoSearchTimer) clearTimeout(autoSearchTimer);
 
+  syncInputDrivenVisibility();
+
   autoSearchTimer = setTimeout(() => {
-    if (DATA_READY && (hasAnyStudentInput() || hasSearchSignal())) {
-      searchResults();
+    if (!DATA_READY) return;
+
+    if (!hasLiveSignal()) {
+      syncInputDrivenVisibility();
+      return;
     }
+
+    searchResults();
   }, 180);
 }
 
@@ -878,16 +933,7 @@ function resetForm() {
   if ($("keyword")) $("keyword").value = "";
 
   setJudgementFilter("전체");
-
-  LAST_RESULTS = [];
-  OPEN_GROUP_DETAILS.clear();
-  OPEN_YEAR_DETAILS.clear();
-
-  if ($("resultCount")) $("resultCount").textContent = "결과 없음";
-  if ($("resultStats")) $("resultStats").innerHTML = "";
-  if ($("resultList")) {
-    $("resultList").innerHTML = `<div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>`;
-  }
+  syncInputDrivenVisibility();
 }
 
 function bindBasicUI() {
@@ -917,6 +963,8 @@ function bindBasicUI() {
       $(id).addEventListener("change", scheduleAutoSearch);
     }
   });
+
+  syncInputDrivenVisibility();
 }
 
 async function init() {
