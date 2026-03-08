@@ -711,7 +711,7 @@ function bindStatChips() {
       if (DATA_READY && (hasAnyStudentInput() || hasSearchSignal())) {
         searchResults();
       }
-    });
+    };
   });
 }
 
