@@ -166,7 +166,7 @@ async function loadData() {
   DATA_READY = false;
   LOAD_ERROR = "";
 
-  const res = await fetch("data/rolling_school_data.json?v=20260307-5", { cache: "no-store" });
+  const res = await fetch("data/rolling_school_data.json?v=20260307-6", { cache: "no-store" });
   if (!res.ok) {
     throw new Error(`학생부교과 데이터 파일을 불러오지 못했습니다. (${res.status})`);
   }
@@ -214,6 +214,13 @@ function getStudentInput() {
 function hasAnyStudentInput() {
   const input = getStudentInput();
   return input.grade != null;
+}
+
+function hasSearchSignal() {
+  const keyword = normalizeText(getValue("keyword"));
+  const groupFilterRaw = getValue("groupFilter");
+  const groupFilter = groupFilterRaw === "all" ? "전체" : canonicalGroupValue(groupFilterRaw);
+  return !!keyword || (groupFilter !== "전체" && groupFilter !== "" && groupFilter !== "all");
 }
 
 function setJudgementFilter(value) {
@@ -283,13 +290,38 @@ function evaluateSchoolRecord(studentInput, item) {
   };
 }
 
+function buildInfoSummary(item) {
+  const parts = [];
+
+  if (item.grade_cut_9 != null) {
+    parts.push(`70%컷 ${item.grade_cut_9.toFixed(2)}`);
+  }
+
+  if (item.grade_cut_5_avg != null) {
+    parts.push(`5등급 변환컷 ${item.grade_cut_5_avg.toFixed(2)}`);
+  }
+
+  if (hasValue(item.competition_rate)) {
+    parts.push(`경쟁률 ${item.competition_rate}`);
+  }
+
+  if (item.csat_min_required) {
+    parts.push(`수능최저 ${safeValue(item.csat_min_rule, "있음")}`);
+  } else {
+    parts.push("수능최저 없음");
+  }
+
+  return parts.join(" / ") || "전형 정보";
+}
+
 function judgementRank(label) {
   const map = {
     "안정": 1,
     "적정": 2,
     "상향": 3,
     "도전": 4,
-    "판정 보류": 5
+    "정보": 5,
+    "판정 보류": 6
   };
   return map[label] ?? 99;
 }
@@ -319,6 +351,11 @@ function buildGroupKey(item) {
 
 function summarizeGroupJudgement(yearItems) {
   if (!yearItems.length) return "판정 보류";
+
+  if (yearItems.every(x => x.analysis.judgement === "정보")) {
+    return "정보";
+  }
+
   if (yearItems.length === 1) return yearItems[0].analysis.judgement;
 
   const counts = {
@@ -380,11 +417,18 @@ function buildGroupedResults(analyzedList) {
   });
 }
 
-function renderStats(groupedList) {
+function renderStats(groupedList, hasGrade = true) {
   const statsBox = $("resultStats");
   if (!statsBox) return;
 
   const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "전체");
+
+  if (!hasGrade) {
+    statsBox.innerHTML = `
+      <button type="button" class="stat-chip is-active">전체 ${groupedList.length}</button>
+    `;
+    return;
+  }
 
   const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
   const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
@@ -650,7 +694,7 @@ function bindJudgementTabs() {
       const value = canonicalFilterValue(tab.getAttribute("data-value") || "전체");
       setJudgementFilter(value);
 
-      if (hasAnyStudentInput() && DATA_READY) {
+      if (DATA_READY && (hasAnyStudentInput() || hasSearchSignal())) {
         searchResults();
       }
     };
@@ -664,10 +708,10 @@ function bindStatChips() {
       const value = canonicalFilterValue(btn.getAttribute("data-filter") || "전체");
       setJudgementFilter(value);
 
-      if (hasAnyStudentInput() && DATA_READY) {
+      if (DATA_READY && (hasAnyStudentInput() || hasSearchSignal())) {
         searchResults();
       }
-    };
+    });
   });
 }
 
@@ -712,8 +756,12 @@ function searchResults() {
     return;
   }
 
-  if (studentInput.grade == null) {
-    alert("9등급제 내신 평균 또는 5등급제 내신 평균 중 한 칸을 입력해주세요.");
+  const hasGrade = studentInput.grade != null;
+  const hasKeywordOrFilter =
+    !!keywordNorm || (groupFilter !== "전체" && groupFilter !== "all" && groupFilter !== "");
+
+  if (!hasGrade && !hasKeywordOrFilter) {
+    alert("9등급제 내신 평균 또는 5등급제 내신 평균 중 한 칸을 입력하거나, 학교/학과/전형명을 검색해주세요.");
     return;
   }
 
@@ -729,7 +777,6 @@ function searchResults() {
       const searchTarget = normalizeText(
         `${item.university || ""} ${item.major || ""} ${item.admission_name || ""}`
       );
-
       return tokens.every(token => searchTarget.includes(token));
     });
   }
@@ -738,15 +785,41 @@ function searchResults() {
     list = list.filter(item => canonicalGroupValue(item.group) === groupFilter);
   }
 
+  let groupedList = [];
+
+  if (!hasGrade) {
+    const infoList = list.map(item => ({
+      ...item,
+      analysis: {
+        judgement: "정보",
+        diff: null,
+        cutLabel: null,
+        cutValue: null,
+        summaryText: buildInfoSummary(item)
+      }
+    }));
+
+    groupedList = buildGroupedResults(infoList);
+
+    groupedList.sort((a, b) =>
+      String(a.university || "").localeCompare(String(b.university || ""), "ko")
+    );
+
+    LAST_RESULTS = groupedList;
+    renderStats(groupedList, false);
+    renderCurrentResults();
+    return;
+  }
+
   const analyzedList = list.map(item => ({
     ...item,
     analysis: evaluateSchoolRecord(studentInput, item)
   }));
 
   const allGroupedList = buildGroupedResults(analyzedList);
-  renderStats(allGroupedList);
+  renderStats(allGroupedList, true);
 
-  let groupedList = [...allGroupedList].filter(item =>
+  groupedList = [...allGroupedList].filter(item =>
     ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
   );
 
@@ -772,8 +845,7 @@ function scheduleAutoSearch() {
   if (autoSearchTimer) clearTimeout(autoSearchTimer);
 
   autoSearchTimer = setTimeout(() => {
-    const input = getStudentInput();
-    if (!input.error && input.grade != null && DATA_READY) {
+    if (DATA_READY && (hasAnyStudentInput() || hasSearchSignal())) {
       searchResults();
     }
   }, 180);
