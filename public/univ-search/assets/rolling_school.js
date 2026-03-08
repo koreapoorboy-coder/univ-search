@@ -3,6 +3,9 @@ let LAST_RESULTS = [];
 let autoSearchTimer = null;
 let DATA_READY = false;
 let LOAD_ERROR = "";
+let visibleResultCount = 5;
+
+const PAGE_SIZE = 5;
 
 const OPEN_GROUP_DETAILS = new Set();
 const OPEN_YEAR_DETAILS = new Set();
@@ -237,6 +240,7 @@ function getResultPanel() {
 
 function clearRenderedResults(blank = true) {
   LAST_RESULTS = [];
+  visibleResultCount = PAGE_SIZE;
   OPEN_GROUP_DETAILS.clear();
   OPEN_YEAR_DETAILS.clear();
 
@@ -763,6 +767,21 @@ function bindStatChips() {
   });
 }
 
+
+function resetVisibleResultCount() {
+  visibleResultCount = PAGE_SIZE;
+}
+
+function bindLoadMoreButton() {
+  const btn = $("btnLoadMore");
+  if (!btn) return;
+
+  btn.onclick = () => {
+    visibleResultCount += PAGE_SIZE;
+    renderCurrentResults();
+  };
+}
+
 function renderCurrentResults() {
   const total = LAST_RESULTS.length;
 
@@ -775,11 +794,22 @@ function renderCurrentResults() {
     return;
   }
 
-  syncOpenStatesWithResults(LAST_RESULTS);
-  $("resultList").innerHTML = LAST_RESULTS.map(group => makeCard(group)).join("");
+  const visibleList = LAST_RESULTS.slice(0, visibleResultCount);
+  syncOpenStatesWithResults(visibleList);
+
+  const moreButtonHtml = total > visibleResultCount
+    ? `
+      <div class="load-more-wrap">
+        <button type="button" class="btn-more" id="btnLoadMore">더 보기 (${Math.min(visibleResultCount, total)} / ${total})</button>
+      </div>
+    `
+    : "";
+
+  $("resultList").innerHTML = visibleList.map(group => makeCard(group)).join("") + moreButtonHtml;
 
   bindDetailToggles();
   bindYearToggles();
+  bindLoadMoreButton();
 }
 
 function searchResults() {
@@ -853,6 +883,7 @@ function searchResults() {
       String(a.university || "").localeCompare(String(b.university || ""), "ko")
     );
 
+    resetVisibleResultCount();
     LAST_RESULTS = groupedList;
     renderStats(groupedList, false);
     renderCurrentResults();
@@ -876,15 +907,16 @@ function searchResults() {
   }
 
   groupedList.sort((a, b) => {
-    const rankDiff = judgementRank(a.summaryJudgement) - judgementRank(b.summaryJudgement);
-    if (rankDiff !== 0) return rankDiff;
-
     const relevanceDiff = a.relevanceScore - b.relevanceScore;
     if (relevanceDiff !== 0) return relevanceDiff;
+
+    const rankDiff = judgementRank(a.summaryJudgement) - judgementRank(b.summaryJudgement);
+    if (rankDiff !== 0) return rankDiff;
 
     return String(a.university || "").localeCompare(String(b.university || ""), "ko");
   });
 
+  resetVisibleResultCount();
   LAST_RESULTS = groupedList;
   renderCurrentResults();
 }
