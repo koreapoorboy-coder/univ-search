@@ -1,87 +1,868 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>수시 학생부교과 판독기</title>
+let SCHOOL_DATA = [];
+let LAST_RESULTS = [];
+let autoSearchTimer = null;
+let DATA_READY = false;
+let LOAD_ERROR = "";
 
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#111111" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+const OPEN_GROUP_DETAILS = new Set();
+const OPEN_YEAR_DETAILS = new Set();
 
-  <link rel="stylesheet" href="assets/style.css?v=20260307-4" />
-</head>
-<body>
-  <main class="page">
-    <header class="top">
-      <a class="back-link" href="rolling.html">← 수시 판독기</a>
-      <h1>학생부교과 판독기</h1>
-      <p class="sub">9등급제와 5등급제 입력을 구분해 3개년 묶음형 전형을 조회합니다.</p>
-    </header>
+function $(id) {
+  return document.getElementById(id);
+}
 
-    <section class="panel">
-      <h2>학생 입력</h2>
+function getValue(id) {
+  return ($(id)?.value || "").trim();
+}
 
-      <div class="form-grid">
-        <label>
-          <span>9등급제 내신 평균</span>
-          <input type="number" id="gradeAvg9" step="0.01" placeholder="예: 1.72" />
-        </label>
+function parseNum(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const cleaned = String(value).replace(/,/g, "").trim();
+  const n = parseFloat(cleaned);
+  return Number.isFinite(n) ? n : null;
+}
 
-        <label>
-          <span>5등급제 내신 평균</span>
-          <input type="number" id="gradeAvg5" step="0.01" placeholder="예: 1.23" />
-        </label>
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
 
-        <label>
-          <span>대학 / 학과 / 전형명 검색</span>
-          <input type="text" id="keyword" placeholder="예: 서강대 / 생명과학과 / 학교장추천" />
-        </label>
+function safeValue(v, fallback = "-") {
+  return v === undefined || v === null || v === "" ? fallback : v;
+}
 
-        <label>
-          <span>계열</span>
-          <select id="groupFilter">
-            <option value="all">전체</option>
-            <option value="인문">인문</option>
-            <option value="자연">자연</option>
-            <option value="예체능">예체능</option>
-            <option value="상경">상경</option>
-          </select>
-        </label>
+function hasValue(v) {
+  return !(v === undefined || v === null || v === "");
+}
 
-        <div class="full">
-          <span class="filter-label">판정 필터</span>
-          <div class="judge-tabs" id="judgementTabs">
-            <button type="button" class="judge-tab is-active" data-value="전체">전체</button>
-            <button type="button" class="judge-tab" data-value="안정">안정</button>
-            <button type="button" class="judge-tab" data-value="적정">적정</button>
-            <button type="button" class="judge-tab" data-value="상향">상향</button>
-            <button type="button" class="judge-tab" data-value="도전">도전</button>
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[()[\]{}\/\\·,.\-_:]/g, "")
+    .trim();
+}
+
+function canonicalFilterValue(value) {
+  const v = normalizeText(value);
+
+  if (!v) return "전체";
+  if (["전체", "all"].includes(v)) return "전체";
+  if (["안정", "safe", "stable"].includes(v)) return "안정";
+  if (["적정", "fit", "match"].includes(v)) return "적정";
+  if (["상향", "up", "reach"].includes(v)) return "상향";
+  if (["도전", "challenge"].includes(v)) return "도전";
+
+  return String(value || "").trim();
+}
+
+function canonicalGroupValue(value) {
+  const v = normalizeText(value);
+
+  if (!v) return "";
+  if (["자연", "자연계", "자연계열", "이공", "이공계", "공학", "공학계열"].includes(v)) return "자연";
+  if (["인문", "인문계", "인문계열", "사회", "어문"].includes(v)) return "인문";
+  if (["상경", "상경계", "상경계열", "경영", "경제", "biz"].includes(v)) return "상경";
+  if (["예체능", "예능", "체능", "미술", "음악", "체육"].includes(v)) return "예체능";
+  if (["전체", "all"].includes(v)) return "전체";
+
+  return String(value || "").trim();
+}
+
+function boolValue(value) {
+  if (typeof value === "boolean") return value;
+  const text = normalizeText(value);
+  return ["true", "1", "y", "yes", "있음", "필수", "required", "need"].includes(text);
+}
+
+function getRawValue(obj, keys, fallback = "") {
+  for (const key of keys) {
+    if (obj && obj[key] !== undefined && obj[key] !== null && obj[key] !== "") {
+      return obj[key];
+    }
+  }
+  return fallback;
+}
+
+function getRawNum(obj, keys) {
+  return parseNum(getRawValue(obj, keys, null));
+}
+
+function normalizeSchoolItem(item, index) {
+  const gradeCut9 = getRawNum(item, [
+    "grade_cut_9",
+    "grade9",
+    "원본9등급컷",
+    "original_grade_cut",
+    "original_cut_70"
+  ]);
+
+  const gradeCut5Avg = getRawNum(item, [
+    "grade_cut_5_avg",
+    "grade5Average",
+    "환산5등급컷",
+    "grade_cut",
+    "cut_70",
+    "70컷",
+    "70%컷",
+    "기준컷",
+    "교과컷"
+  ]);
+
+  const gradeCut5Conservative = getRawNum(item, [
+    "grade_cut_5_conservative",
+    "grade5Conservative",
+    "환산5등급보수컷",
+    "grade_cut_range_min"
+  ]);
+
+  const gradeCut5Relaxed = getRawNum(item, [
+    "grade_cut_5_relaxed",
+    "grade5Relaxed",
+    "환산5등급완화컷",
+    "grade_cut_range_max"
+  ]);
+
+  return {
+    __index: index,
+    year: String(getRawValue(item, ["year", "연도", "년도"], "")).trim(),
+    track: String(getRawValue(item, ["track", "전형구분"], "수시")).trim(),
+    subtrack: String(getRawValue(item, ["subtrack", "세부전형"], "학생부교과")).trim(),
+
+    university: String(getRawValue(item, ["university", "univ", "대학", "학교명"], "")).trim(),
+    major: String(getRawValue(item, ["major", "학과", "모집단위"], "")).trim(),
+    admission_name: String(getRawValue(item, ["admission_name", "전형명", "admission"], "")).trim(),
+
+    group: canonicalGroupValue(getRawValue(item, ["group", "계열"], "")),
+    region: String(getRawValue(item, ["region", "지역"], "")).trim(),
+
+    grade_cut_9: gradeCut9,
+    grade_cut_5_avg: gradeCut5Avg,
+    grade_cut_5_conservative: gradeCut5Conservative,
+    grade_cut_5_relaxed: gradeCut5Relaxed,
+
+    subject_rule: String(getRawValue(item, ["subject_rule", "반영교과"], "")).trim(),
+    school_year_rule: String(getRawValue(item, ["school_year_rule", "학년반영"], "")).trim(),
+
+    csat_min_required: boolValue(getRawValue(item, ["csat_min_required", "수능최저필수"], false)),
+    csat_min_rule: String(getRawValue(item, ["csat_min_rule", "수능최저"], "")).trim(),
+
+    interview: boolValue(getRawValue(item, ["interview", "면접"], false)),
+    recommendation_required: boolValue(getRawValue(item, ["recommendation_required", "추천필요"], false)),
+
+    competition_rate: String(getRawValue(item, ["competition_rate", "경쟁률"], "")).trim(),
+    registered_count: getRawValue(item, ["registered_count", "모집인원"], ""),
+    add_admit_count: getRawValue(item, ["add_admit_count", "추합인원", "추가합격", "충원인원"], ""),
+
+    selection_note: String(getRawValue(item, ["selection_note", "전형주의사항"], "")).trim(),
+    notes: String(getRawValue(item, ["notes", "비고", "메모"], "")).trim()
+  };
+}
+
+async function loadData() {
+  DATA_READY = false;
+  LOAD_ERROR = "";
+
+  const res = await fetch("data/rolling_school_data.json?v=20260307-5", { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error(`학생부교과 데이터 파일을 불러오지 못했습니다. (${res.status})`);
+  }
+
+  const json = await res.json();
+  const rows = Array.isArray(json)
+    ? json
+    : Array.isArray(json?.data)
+      ? json.data
+      : Array.isArray(json?.items)
+        ? json.items
+        : null;
+
+  if (!Array.isArray(rows)) {
+    throw new Error("학생부교과 데이터 형식이 올바르지 않습니다.");
+  }
+
+  SCHOOL_DATA = rows
+    .map((item, index) => normalizeSchoolItem(item, index))
+    .filter(item => item.university || item.major || item.admission_name);
+
+  if (!SCHOOL_DATA.length) {
+    throw new Error("학생부교과 데이터는 불러왔지만 실제 행(row)이 없습니다.");
+  }
+
+  DATA_READY = true;
+}
+
+function getStudentInput() {
+  const grade9 = parseNum(getValue("gradeAvg9"));
+  const grade5 = parseNum(getValue("gradeAvg5"));
+
+  if (grade9 != null && grade5 != null) {
+    return {
+      error: "9등급제와 5등급제 내신을 동시에 입력할 수 없습니다. 한 칸만 입력해주세요."
+    };
+  }
+
+  if (grade9 != null) return { system: "9", grade: grade9 };
+  if (grade5 != null) return { system: "5", grade: grade5 };
+
+  return { system: null, grade: null };
+}
+
+function hasAnyStudentInput() {
+  const input = getStudentInput();
+  return input.grade != null;
+}
+
+function setJudgementFilter(value) {
+  const finalValue = canonicalFilterValue(value || "전체");
+
+  if ($("judgementFilter")) {
+    $("judgementFilter").value = finalValue;
+  }
+
+  document.querySelectorAll(".judge-tab").forEach(btn => {
+    const tabValue = canonicalFilterValue(btn.getAttribute("data-value") || "");
+    btn.classList.toggle("is-active", tabValue === finalValue);
+  });
+
+  document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
+    const chipValue = canonicalFilterValue(btn.getAttribute("data-filter") || "");
+    btn.classList.toggle("is-active", chipValue === finalValue);
+  });
+}
+
+function getPreferredCutInfo(item, system) {
+  if (system === "9" && item.grade_cut_9 != null) {
+    return { label: "70%컷", value: item.grade_cut_9 };
+  }
+
+  if (system === "5" && item.grade_cut_5_avg != null) {
+    return { label: "5등급 변환컷", value: item.grade_cut_5_avg };
+  }
+
+  return null;
+}
+
+function evaluateSchoolRecord(studentInput, item) {
+  const { system, grade } = studentInput;
+  const cutInfo = getPreferredCutInfo(item, system);
+
+  if (grade == null || !system || !cutInfo) {
+    return {
+      judgement: "판정 보류",
+      diff: null,
+      cutLabel: null,
+      cutValue: null,
+      summaryText: "학생 내신 또는 비교 기준 컷 정보가 없습니다."
+    };
+  }
+
+  const cut = cutInfo.value;
+  const diff = grade - cut;
+  let judgement = "판정 보류";
+
+  if (diff <= -0.20) judgement = "안정";
+  else if (diff <= 0.10) judgement = "적정";
+  else if (diff <= 0.30) judgement = "상향";
+  else if (diff <= 0.50) judgement = "도전";
+  else judgement = "판정 보류";
+
+  const summaryText = `내신 ${grade.toFixed(2)} / ${cutInfo.label} ${cut.toFixed(2)} / ${
+    diff <= 0 ? `${Math.abs(diff).toFixed(2)}등급 여유` : `${diff.toFixed(2)}등급 부족`
+  }`;
+
+  return {
+    judgement,
+    diff,
+    cutLabel: cutInfo.label,
+    cutValue: cut,
+    summaryText
+  };
+}
+
+function judgementRank(label) {
+  const map = {
+    "안정": 1,
+    "적정": 2,
+    "상향": 3,
+    "도전": 4,
+    "판정 보류": 5
+  };
+  return map[label] ?? 99;
+}
+
+function judgementToneClass(label) {
+  switch (label) {
+    case "안정": return "is-safe";
+    case "적정": return "is-fit";
+    case "상향": return "is-up";
+    case "도전": return "is-challenge";
+    default: return "";
+  }
+}
+
+function badgeClass(label) {
+  const tone = judgementToneClass(label);
+  return tone ? `badge ${tone}` : "badge";
+}
+
+function buildGroupKey(item) {
+  return [
+    normalizeText(item.university),
+    normalizeText(item.major),
+    normalizeText(item.admission_name)
+  ].join("||");
+}
+
+function summarizeGroupJudgement(yearItems) {
+  if (!yearItems.length) return "판정 보류";
+  if (yearItems.length === 1) return yearItems[0].analysis.judgement;
+
+  const counts = {
+    안정: yearItems.filter(x => x.analysis.judgement === "안정").length,
+    적정: yearItems.filter(x => x.analysis.judgement === "적정").length,
+    상향: yearItems.filter(x => x.analysis.judgement === "상향").length,
+    도전: yearItems.filter(x => x.analysis.judgement === "도전").length
+  };
+
+  if (counts.안정 >= 2) return "안정";
+  if (counts.안정 + counts.적정 >= 2) return "적정";
+  if (counts.상향 >= 1 || counts.적정 >= 1) return "상향";
+  if (counts.도전 >= 1) return "도전";
+  return "판정 보류";
+}
+
+function buildGroupedResults(analyzedList) {
+  const map = new Map();
+
+  analyzedList.forEach(item => {
+    const key = buildGroupKey(item);
+
+    if (!map.has(key)) {
+      map.set(key, {
+        key,
+        university: item.university,
+        major: item.major,
+        admission_name: item.admission_name,
+        years: []
+      });
+    }
+
+    map.get(key).years.push(item);
+  });
+
+  return Array.from(map.values()).map(group => {
+    group.years.sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
+
+    const latest = group.years[0];
+    const summaryJudgement = summarizeGroupJudgement(group.years);
+
+    const trendText = group.years
+      .slice(0, 3)
+      .map(item => `${item.year} ${item.analysis.judgement}`)
+      .join(" / ");
+
+    const relevanceScore = group.years.reduce((sum, item) => {
+      return sum + (item.analysis.diff == null ? 999 : Math.abs(item.analysis.diff));
+    }, 0) / group.years.length;
+
+    return {
+      ...group,
+      latest,
+      summaryJudgement,
+      trendText,
+      summaryText: latest.analysis.summaryText,
+      relevanceScore
+    };
+  });
+}
+
+function renderStats(groupedList) {
+  const statsBox = $("resultStats");
+  if (!statsBox) return;
+
+  const currentFilter = canonicalFilterValue(getValue("judgementFilter") || "전체");
+
+  const safe = groupedList.filter(item => item.summaryJudgement === "안정").length;
+  const fit = groupedList.filter(item => item.summaryJudgement === "적정").length;
+  const up = groupedList.filter(item => item.summaryJudgement === "상향").length;
+  const challenge = groupedList.filter(item => item.summaryJudgement === "도전").length;
+
+  statsBox.innerHTML = `
+    <button type="button" class="stat-chip is-clickable ${currentFilter === "전체" ? "is-active" : ""}" data-filter="전체">전체 ${groupedList.length}</button>
+    <button type="button" class="stat-chip stat-safe is-clickable ${currentFilter === "안정" ? "is-active" : ""}" data-filter="안정">안정 ${safe}</button>
+    <button type="button" class="stat-chip stat-fit is-clickable ${currentFilter === "적정" ? "is-active" : ""}" data-filter="적정">적정 ${fit}</button>
+    <button type="button" class="stat-chip stat-up is-clickable ${currentFilter === "상향" ? "is-active" : ""}" data-filter="상향">상향 ${up}</button>
+    <button type="button" class="stat-chip is-clickable ${currentFilter === "도전" ? "is-active" : ""}" data-filter="도전">도전 ${challenge}</button>
+  `;
+
+  bindStatChips();
+}
+
+function makeInfoCard(label, value) {
+  return `
+    <div class="school-info-card">
+      <div class="school-info-label">${escapeHtml(label)}</div>
+      <div class="school-info-value">${escapeHtml(String(value))}</div>
+    </div>
+  `;
+}
+
+function makeCutInfoCards(item) {
+  const cards = [];
+
+  if (item.grade_cut_9 != null) {
+    cards.push(makeInfoCard("70%컷(원본)", item.grade_cut_9.toFixed(2)));
+  }
+
+  if (item.grade_cut_5_avg != null) {
+    cards.push(makeInfoCard("5등급 변환컷", item.grade_cut_5_avg.toFixed(2)));
+  }
+
+  if (item.grade_cut_5_conservative != null && item.grade_cut_5_relaxed != null) {
+    cards.push(
+      makeInfoCard(
+        "5등급 범위",
+        `${item.grade_cut_5_conservative.toFixed(2)} ~ ${item.grade_cut_5_relaxed.toFixed(2)}`
+      )
+    );
+  }
+
+  return cards.join("");
+}
+
+function makeMetaChip(text) {
+  return `<span class="meta-chip">${escapeHtml(text)}</span>`;
+}
+
+function makeLatestMetaChips(latest) {
+  const chips = [];
+
+  if (latest.grade_cut_9 != null) {
+    chips.push(makeMetaChip(`70%컷 ${latest.grade_cut_9.toFixed(2)}`));
+  }
+
+  if (latest.grade_cut_5_avg != null) {
+    chips.push(makeMetaChip(`5등급 변환컷 ${latest.grade_cut_5_avg.toFixed(2)}`));
+  }
+
+  if (latest.grade_cut_5_conservative != null && latest.grade_cut_5_relaxed != null) {
+    chips.push(
+      makeMetaChip(
+        `5등급 범위 ${latest.grade_cut_5_conservative.toFixed(2)}~${latest.grade_cut_5_relaxed.toFixed(2)}`
+      )
+    );
+  }
+
+  if (latest.csat_min_required) {
+    chips.push(makeMetaChip(`수능최저 ${safeValue(latest.csat_min_rule, "있음")}`));
+  } else {
+    chips.push(makeMetaChip("수능최저 없음"));
+  }
+
+  if (hasValue(latest.competition_rate)) {
+    chips.push(makeMetaChip(`경쟁률 ${latest.competition_rate}`));
+  }
+
+  if (hasValue(latest.add_admit_count)) {
+    chips.push(makeMetaChip(`추합인원 ${latest.add_admit_count}`));
+  }
+
+  return chips.join("");
+}
+
+function sanitizeForId(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "item";
+}
+
+function makeGroupDetailDomId(group) {
+  return `school-group-detail-${sanitizeForId(group.key)}`;
+}
+
+function makeYearDetailKey(groupKey, item) {
+  return `${groupKey}__${item.year || "year"}__${item.__index || ""}`;
+}
+
+function makeYearDetailDomId(group, item) {
+  return `school-year-detail-${sanitizeForId(makeYearDetailKey(group.key, item))}`;
+}
+
+function syncOpenStatesWithResults(groupedList) {
+  const validGroupKeys = new Set(groupedList.map(group => group.key));
+  const validYearKeys = new Set();
+
+  groupedList.forEach(group => {
+    group.years.forEach(item => {
+      validYearKeys.add(makeYearDetailKey(group.key, item));
+    });
+  });
+
+  [...OPEN_GROUP_DETAILS].forEach(key => {
+    if (!validGroupKeys.has(key)) OPEN_GROUP_DETAILS.delete(key);
+  });
+
+  [...OPEN_YEAR_DETAILS].forEach(key => {
+    if (!validYearKeys.has(key)) OPEN_YEAR_DETAILS.delete(key);
+  });
+}
+
+function makeYearBlock(group, item) {
+  const yearDetailKey = makeYearDetailKey(group.key, item);
+  const yearDetailId = makeYearDetailDomId(group, item);
+  const isOpen = OPEN_YEAR_DETAILS.has(yearDetailKey);
+
+  const csatText = item.csat_min_required ? safeValue(item.csat_min_rule, "있음") : "없음";
+  const interviewText = item.interview ? "있음" : "없음";
+  const recommendText = item.recommendation_required ? "필요" : "불필요";
+
+  const infoCards = [
+    makeCutInfoCards(item),
+    hasValue(item.subject_rule) ? makeInfoCard("반영교과", item.subject_rule) : "",
+    hasValue(item.school_year_rule) ? makeInfoCard("학년 반영", item.school_year_rule) : "",
+    hasValue(item.region) ? makeInfoCard("지역", item.region) : "",
+    makeInfoCard("수능최저", csatText),
+    makeInfoCard("면접", interviewText),
+    makeInfoCard("추천 필요", recommendText),
+    hasValue(item.competition_rate) ? makeInfoCard("경쟁률", item.competition_rate) : "",
+    hasValue(item.registered_count) ? makeInfoCard("모집인원", item.registered_count) : "",
+    hasValue(item.add_admit_count) ? makeInfoCard("추합인원", item.add_admit_count) : ""
+  ].join("");
+
+  return `
+    <div class="year-block">
+      <button type="button" class="year-toggle" data-target="${yearDetailId}" data-year-key="${escapeHtml(yearDetailKey)}" aria-expanded="${isOpen ? "true" : "false"}">
+        <span class="year-toggle-top">
+          <span class="year-title">${escapeHtml(item.year)}</span>
+          <span class="${badgeClass(item.analysis.judgement)}">${escapeHtml(item.analysis.judgement)}</span>
+        </span>
+        <span class="year-toggle-summary">${escapeHtml(item.analysis.summaryText)}</span>
+      </button>
+
+      <div class="year-body" id="${yearDetailId}" ${isOpen ? "" : "hidden"}>
+        <div class="school-info-grid">${infoCards}</div>
+        ${safeValue(item.selection_note) !== "-" ? `<div class="detail-note"><strong>전형 주의사항</strong> ${escapeHtml(item.selection_note)}</div>` : ""}
+        ${item.notes ? `<div class="detail-note"><strong>비고</strong> ${escapeHtml(item.notes)}</div>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function makeCard(group) {
+  const detailId = makeGroupDetailDomId(group);
+  const latest = group.latest;
+  const isOpen = OPEN_GROUP_DETAILS.has(group.key);
+
+  return `
+    <article class="compact-card school-card" data-group-key="${escapeHtml(group.key)}">
+      <div class="compact-top">
+        <div class="compact-main">
+          <span class="${badgeClass(group.summaryJudgement)}">${escapeHtml(group.summaryJudgement)}</span>
+          <div class="compact-title-wrap">
+            <div class="compact-title">${escapeHtml(group.university)} ${escapeHtml(group.major)}</div>
+            <div class="compact-meta">${escapeHtml(group.admission_name)} · ${escapeHtml(latest.group)} · 최근 기준 ${escapeHtml(latest.year)}</div>
           </div>
-          <input type="hidden" id="judgementFilter" value="전체" />
+        </div>
+
+        <button type="button" class="detail-toggle" data-target="${detailId}" data-group-key="${escapeHtml(group.key)}" aria-expanded="${isOpen ? "true" : "false"}">
+          ${isOpen ? "연도닫기" : "연도보기"}
+        </button>
+      </div>
+
+      <div class="compact-summary">
+        <div class="summary-line"><strong>3개년 흐름</strong> ${escapeHtml(group.trendText || "데이터 없음")}</div>
+        <div class="summary-side">${escapeHtml(group.summaryText || "")}</div>
+      </div>
+
+      <div class="meta-chip-row">${makeLatestMetaChips(latest)}</div>
+
+      <div class="year-chip-row">
+        ${group.years.map(item => `
+          <span class="year-chip ${judgementToneClass(item.analysis.judgement)}">
+            ${escapeHtml(item.year)} ${escapeHtml(item.analysis.judgement)}
+          </span>
+        `).join("")}
+      </div>
+
+      <div class="detail-panel" id="${detailId}" ${isOpen ? "" : "hidden"}>
+        <div class="year-block-list">
+          ${group.years.map(item => makeYearBlock(group, item)).join("")}
         </div>
       </div>
+    </article>
+  `;
+}
 
-      <div class="btn-row">
-        <button type="button" id="btnSearch">판정 보기</button>
-        <button type="button" id="btnReset" class="secondary">초기화</button>
-      </div>
-    </section>
+function bindDetailToggles() {
+  document.querySelectorAll(".detail-toggle").forEach(btn => {
+    btn.onclick = () => {
+      const targetId = btn.getAttribute("data-target");
+      const groupKey = btn.getAttribute("data-group-key");
+      const panel = document.getElementById(targetId);
+      if (!panel || !groupKey) return;
 
-    <section class="panel">
-      <div class="result-head">
-        <h2>조회 결과</h2>
-        <div id="resultCount" class="meta-text">결과 없음</div>
-      </div>
+      const isHidden = panel.hasAttribute("hidden");
 
-      <div id="resultStats" class="result-stats"></div>
+      if (isHidden) {
+        panel.removeAttribute("hidden");
+        btn.textContent = "연도닫기";
+        btn.setAttribute("aria-expanded", "true");
+        OPEN_GROUP_DETAILS.add(groupKey);
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.textContent = "연도보기";
+        btn.setAttribute("aria-expanded", "false");
+        OPEN_GROUP_DETAILS.delete(groupKey);
+      }
+    };
+  });
+}
 
-      <div id="resultList" class="result-list">
-        <div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>
-      </div>
-    </section>
-  </main>
+function bindYearToggles() {
+  document.querySelectorAll(".year-toggle").forEach(btn => {
+    btn.onclick = () => {
+      const targetId = btn.getAttribute("data-target");
+      const yearKey = btn.getAttribute("data-year-key");
+      const panel = document.getElementById(targetId);
+      if (!panel || !yearKey) return;
 
-  <script src="assets/rolling_school.js?v=20260307-4"></script>
-</body>
-</html>
+      if (panel.hasAttribute("hidden")) {
+        panel.removeAttribute("hidden");
+        btn.setAttribute("aria-expanded", "true");
+        OPEN_YEAR_DETAILS.add(yearKey);
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", "false");
+        OPEN_YEAR_DETAILS.delete(yearKey);
+      }
+    };
+  });
+}
+
+function bindJudgementTabs() {
+  document.querySelectorAll(".judge-tab").forEach(tab => {
+    tab.onclick = () => {
+      const value = canonicalFilterValue(tab.getAttribute("data-value") || "전체");
+      setJudgementFilter(value);
+
+      if (hasAnyStudentInput() && DATA_READY) {
+        searchResults();
+      }
+    };
+  });
+}
+
+function bindStatChips() {
+  document.querySelectorAll(".stat-chip.is-clickable").forEach(btn => {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      const value = canonicalFilterValue(btn.getAttribute("data-filter") || "전체");
+      setJudgementFilter(value);
+
+      if (hasAnyStudentInput() && DATA_READY) {
+        searchResults();
+      }
+    };
+  });
+}
+
+function renderCurrentResults() {
+  const total = LAST_RESULTS.length;
+
+  if ($("resultCount")) {
+    $("resultCount").textContent = `조회 결과 ${total}개 전형`;
+  }
+
+  if (!total) {
+    $("resultList").innerHTML = `<div class="empty">조건에 맞는 결과가 없습니다.</div>`;
+    return;
+  }
+
+  syncOpenStatesWithResults(LAST_RESULTS);
+  $("resultList").innerHTML = LAST_RESULTS.map(group => makeCard(group)).join("");
+
+  bindDetailToggles();
+  bindYearToggles();
+}
+
+function searchResults() {
+  if (!DATA_READY) {
+    if (LOAD_ERROR) {
+      alert(`데이터 오류: ${LOAD_ERROR}`);
+    } else {
+      alert("데이터가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요.");
+    }
+    return;
+  }
+
+  const keyword = getValue("keyword");
+  const keywordNorm = normalizeText(keyword);
+  const groupFilterRaw = getValue("groupFilter");
+  const groupFilter = groupFilterRaw === "all" ? "전체" : canonicalGroupValue(groupFilterRaw);
+  const judgementFilter = canonicalFilterValue(getValue("judgementFilter") || "전체");
+  const studentInput = getStudentInput();
+
+  if (studentInput.error) {
+    alert(studentInput.error);
+    return;
+  }
+
+  if (studentInput.grade == null) {
+    alert("9등급제 내신 평균 또는 5등급제 내신 평균 중 한 칸을 입력해주세요.");
+    return;
+  }
+
+  let list = [...SCHOOL_DATA];
+
+  if (keywordNorm) {
+    const tokens = keyword
+      .split(/[\s,/]+/)
+      .map(t => normalizeText(t))
+      .filter(Boolean);
+
+    list = list.filter(item => {
+      const searchTarget = normalizeText(
+        `${item.university || ""} ${item.major || ""} ${item.admission_name || ""}`
+      );
+
+      return tokens.every(token => searchTarget.includes(token));
+    });
+  }
+
+  if (groupFilter !== "전체" && groupFilter !== "all" && groupFilter !== "") {
+    list = list.filter(item => canonicalGroupValue(item.group) === groupFilter);
+  }
+
+  const analyzedList = list.map(item => ({
+    ...item,
+    analysis: evaluateSchoolRecord(studentInput, item)
+  }));
+
+  const allGroupedList = buildGroupedResults(analyzedList);
+  renderStats(allGroupedList);
+
+  let groupedList = [...allGroupedList].filter(item =>
+    ["안정", "적정", "상향", "도전"].includes(item.summaryJudgement)
+  );
+
+  if (judgementFilter !== "전체") {
+    groupedList = groupedList.filter(item => item.summaryJudgement === judgementFilter);
+  }
+
+  groupedList.sort((a, b) => {
+    const rankDiff = judgementRank(a.summaryJudgement) - judgementRank(b.summaryJudgement);
+    if (rankDiff !== 0) return rankDiff;
+
+    const relevanceDiff = a.relevanceScore - b.relevanceScore;
+    if (relevanceDiff !== 0) return relevanceDiff;
+
+    return String(a.university || "").localeCompare(String(b.university || ""), "ko");
+  });
+
+  LAST_RESULTS = groupedList;
+  renderCurrentResults();
+}
+
+function scheduleAutoSearch() {
+  if (autoSearchTimer) clearTimeout(autoSearchTimer);
+
+  autoSearchTimer = setTimeout(() => {
+    const input = getStudentInput();
+    if (!input.error && input.grade != null && DATA_READY) {
+      searchResults();
+    }
+  }, 180);
+}
+
+function preventNumberInputSideEffects() {
+  ["gradeAvg9", "gradeAvg5"].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+
+    el.addEventListener("wheel", (e) => {
+      if (document.activeElement === el) {
+        e.preventDefault();
+        el.blur();
+      }
+    }, { passive: false });
+
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+  });
+}
+
+function resetForm() {
+  if ($("gradeAvg9")) $("gradeAvg9").value = "";
+  if ($("gradeAvg5")) $("gradeAvg5").value = "";
+  if ($("groupFilter")) $("groupFilter").value = "all";
+  if ($("keyword")) $("keyword").value = "";
+
+  setJudgementFilter("전체");
+
+  LAST_RESULTS = [];
+  OPEN_GROUP_DETAILS.clear();
+  OPEN_YEAR_DETAILS.clear();
+
+  if ($("resultCount")) $("resultCount").textContent = "결과 없음";
+  if ($("resultStats")) $("resultStats").innerHTML = "";
+  if ($("resultList")) {
+    $("resultList").innerHTML = `<div class="empty">조건을 입력한 뒤 판정 보기를 눌러주세요.</div>`;
+  }
+}
+
+function bindBasicUI() {
+  setJudgementFilter("전체");
+  bindJudgementTabs();
+  preventNumberInputSideEffects();
+
+  if ($("btnSearch")) {
+    $("btnSearch").addEventListener("click", searchResults);
+  }
+
+  if ($("btnReset")) {
+    $("btnReset").addEventListener("click", resetForm);
+  }
+
+  ["keyword", "gradeAvg9", "gradeAvg5"].forEach(id => {
+    if ($(id)) {
+      $(id).addEventListener("input", scheduleAutoSearch);
+      $(id).addEventListener("keydown", (e) => {
+        if (e.key === "Enter") searchResults();
+      });
+    }
+  });
+
+  ["groupFilter"].forEach(id => {
+    if ($(id)) {
+      $(id).addEventListener("change", scheduleAutoSearch);
+    }
+  });
+}
+
+async function init() {
+  bindBasicUI();
+
+  try {
+    await loadData();
+    LOAD_ERROR = "";
+  } catch (err) {
+    LOAD_ERROR = err.message || "알 수 없는 오류";
+    console.error(err);
+
+    if ($("resultCount")) $("resultCount").textContent = "데이터 오류";
+    if ($("resultStats")) $("resultStats").innerHTML = "";
+    if ($("resultList")) {
+      $("resultList").innerHTML = `<div class="empty">데이터 오류: ${escapeHtml(LOAD_ERROR)}</div>`;
+    }
+  }
+}
+
+window.addEventListener("DOMContentLoaded", init);
