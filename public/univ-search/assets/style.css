@@ -496,19 +496,41 @@ button.secondary {
 .load-more-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 2px;
 }
 
 .load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   flex: 0 0 auto;
   width: auto;
-  min-width: 140px;
-  padding: 10px 16px;
+  min-width: 160px;
+  padding: 12px 18px;
   border: 1px solid #d9d9d9;
-  border-radius: 10px;
-  background: #f8f9fa;
-  color: #222;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
   cursor: pointer;
+}
+
+.load-more-btn:hover {
+  background: #f8f9fa;
+}
+
+.load-more-btn:active {
+  transform: translateY(1px);
+}
+
+.load-more-btn[disabled] {
+  opacity: 0.55;
+  cursor: default;
 }
 
 /* 3개년 관련 */
@@ -781,7 +803,19 @@ button.secondary {
   .year-title {
     font-size: 14px;
   }
+
+  .load-more-wrap {
+    margin-top: 12px;
+  }
+
+  .load-more-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
 }
+
 .install-wrap {
   display: flex;
   gap: 10px;
