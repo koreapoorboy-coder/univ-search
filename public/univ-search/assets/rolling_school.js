@@ -7,6 +7,24 @@ let visibleResultCount = 5;
 
 const PAGE_SIZE = 5;
 
+const UNIVERSITY_PREFERENCE_ORDER = [
+  "서울대",
+  "연세대",
+  "고려대",
+  "성균관대",
+  "서강대",
+  "한양대",
+  "중앙대",
+  "경희대",
+  "서울시립대",
+  "건국대",
+  "이화여대"
+];
+
+const UNIVERSITY_PREFERENCE_MAP = new Map(
+  UNIVERSITY_PREFERENCE_ORDER.map((name, index) => [name, index])
+);
+
 const OPEN_GROUP_DETAILS = new Set();
 const OPEN_YEAR_DETAILS = new Set();
 
@@ -812,6 +830,47 @@ function renderCurrentResults() {
   bindLoadMoreButton();
 }
 
+function normalizeUniversityName(value) {
+  const raw = normalizeText(value);
+  if (!raw) return "";
+
+  return raw
+    .replace(/여자대학교/g, "여대")
+    .replace(/대학교/g, "대")
+    .replace(/학교/g, "")
+    .replace(/\s+/g, "");
+}
+
+function getUniversityPreferenceRank(value) {
+  const normalized = normalizeUniversityName(value);
+  if (!normalized) return Number.MAX_SAFE_INTEGER;
+
+  for (const preferred of UNIVERSITY_PREFERENCE_ORDER) {
+    const preferredNorm = normalizeUniversityName(preferred);
+    if (
+      normalized === preferredNorm ||
+      normalized.includes(preferredNorm) ||
+      preferredNorm.includes(normalized)
+    ) {
+      return UNIVERSITY_PREFERENCE_MAP.get(preferred) ?? Number.MAX_SAFE_INTEGER;
+    }
+  }
+
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function compareByUniversityPreference(a, b) {
+  const aRank = getUniversityPreferenceRank(a.university);
+  const bRank = getUniversityPreferenceRank(b.university);
+  if (aRank !== bRank) return aRank - bRank;
+
+  const bothPreferred =
+    aRank !== Number.MAX_SAFE_INTEGER && bRank !== Number.MAX_SAFE_INTEGER;
+  if (bothPreferred) return 0;
+
+  return String(a.university || "").localeCompare(String(b.university || ""), "ko");
+}
+
 function searchResults() {
   if (!DATA_READY) {
     if (LOAD_ERROR) {
@@ -879,9 +938,7 @@ function searchResults() {
 
     groupedList = buildGroupedResults(infoList);
 
-    groupedList.sort((a, b) =>
-      String(a.university || "").localeCompare(String(b.university || ""), "ko")
-    );
+    groupedList.sort((a, b) => compareByUniversityPreference(a, b));
 
     resetVisibleResultCount();
     LAST_RESULTS = groupedList;
@@ -907,6 +964,9 @@ function searchResults() {
   }
 
   groupedList.sort((a, b) => {
+    const preferenceDiff = compareByUniversityPreference(a, b);
+    if (preferenceDiff !== 0) return preferenceDiff;
+
     const relevanceDiff = a.relevanceScore - b.relevanceScore;
     if (relevanceDiff !== 0) return relevanceDiff;
 
