@@ -1,24 +1,25 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "source_file": "school_record_analysis_input_template.xlsx",
-  "items": [
+  "schema": "record_detail_html_ready",
+  "students": [
     {
-      "id": "shstudy01",
-      "profile": {
-        "student_name": "이현우",
-        "school": "덕소고3",
-        "track": null,
-        "note": null
-      },
+      "student_id": "shstudy01",
+      "student_name": "이현우",
+      "school_name": "덕소고3",
+      "track": null,
+      "note": null,
+      "display_mode": "subject_analysis",
       "years": [
         {
           "year": "1학년",
           "subjects": [
             {
+              "subject_id": "1_1",
               "subject": "국어",
-              "summary": "독서 감상문, 주제 글쓰기, 설명문, 주제 독서 탐구 활동을 통해 비판적 사고·자료 활용·논리적 글쓰기·친환경 자동차 및 2차전지 관련 융합 탐구 역량을 보여 줌",
               "display_order": 1,
-              "axis_items": [
+              "summary": "독서 감상문, 주제 글쓰기, 설명문, 주제 독서 탐구 활동을 통해 비판적 사고·자료 활용·논리적 글쓰기·친환경 자동차 및 2차전지 관련 융합 탐구 역량을 보여 줌",
+              "axis_list": [
                 {
                   "no": 1,
                   "title": "독서 이해 및 성찰 역량",
@@ -86,7 +87,7 @@
                 "종합적 분석",
                 "논리정연한 요약"
               ],
-              "extension_options": [
+              "activity_examples": [
                 {
                   "type": "제작형",
                   "title": "친환경 자동차 비교 자료 정리하기",
@@ -108,10 +109,11 @@
               ]
             },
             {
+              "subject_id": "1_2",
               "subject": "동아리활동(의학탐구동아리)",
-              "summary": "산화·환원 기반 비타민 검출 실험, 플라시보 토론, 심전도 원리 탐구를 통해 실험 적용력·문제 해결력·리더십·논리적 표현·의공학적 탐구 역량을 보여 줌",
               "display_order": 1,
-              "axis_items": [
+              "summary": "산화·환원 기반 비타민 검출 실험, 플라시보 토론, 심전도 원리 탐구를 통해 실험 적용력·문제 해결력·리더십·논리적 표현·의공학적 탐구 역량을 보여 줌",
+              "axis_list": [
                 {
                   "no": 1,
                   "title": "개념 이해 및 실험 적용 역량",
@@ -178,7 +180,7 @@
                 "의공학",
                 "사회 공헌 포부"
               ],
-              "extension_options": [
+              "activity_examples": [
                 {
                   "type": "제작형",
                   "title": "심전도 신호 흐름 모형 정리하기",
@@ -200,10 +202,11 @@
               ]
             },
             {
+              "subject_id": "1_3",
               "subject": "자율활동",
-              "summary": "과학 원리 적용 제작 활동과 학년 특색 사업 운영, 역사 기념행사 참여를 통해 문제 해결력·창의적 사고·협업·리더십·책임감·공감 및 비판적 사고를 보여 줌",
               "display_order": 1,
-              "axis_items": [
+              "summary": "과학 원리 적용 제작 활동과 학년 특색 사업 운영, 역사 기념행사 참여를 통해 문제 해결력·창의적 사고·협업·리더십·책임감·공감 및 비판적 사고를 보여 줌",
+              "axis_list": [
                 {
                   "no": 1,
                   "title": "문제 해결 및 적용 역량",
@@ -269,7 +272,7 @@
                 "공감 능력",
                 "비판적 사고"
               ],
-              "extension_options": [
+              "activity_examples": [
                 {
                   "type": "제작형",
                   "title": "에너지 전환 장치 설계하기",
@@ -291,10 +294,11 @@
               ]
             },
             {
+              "subject_id": "1_4",
               "subject": "진로활동(탄소중립·에너지전환)",
-              "summary": "탄소중립과 에너지 전환, 폐배터리 문제, 친환경 모빌리티 진로를 탐구하며 정책 조사력·문제 해결 사고·토의 역량·지속가능성 이해·진로 구체화 역량을 보여 줌",
               "display_order": 1,
-              "axis_items": [
+              "summary": "탄소중립과 에너지 전환, 폐배터리 문제, 친환경 모빌리티 진로를 탐구하며 정책 조사력·문제 해결 사고·토의 역량·지속가능성 이해·진로 구체화 역량을 보여 줌",
+              "axis_list": [
                 {
                   "no": 1,
                   "title": "정책 조사 및 분석 역량",
@@ -363,7 +367,7 @@
                 "폐배터리 재활용 기술",
                 "사회 공헌 진로"
               ],
-              "extension_options": [
+              "activity_examples": [
                 {
                   "type": "제작형",
                   "title": "폐배터리 순환 구조 정리하기",
