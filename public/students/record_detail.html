@@ -121,15 +121,7 @@
     selectedKeyword: '',
   };
 
-  const DEFAULT_YEAR_SUMMARIES = {
-    shstudy01: {
-      '1학년': {
-        academic: '수학(프랙탈 탐구보고서·창의적 풀이), 영어(지문 분석·문법 판단 매뉴얼), 통합과학·과학탐구실험(배터리 발표·충격량 그래프·안전장치 설계)에서 개념 이해, 자료 활용, 논리적 설명, 실생활 적용 능력이 고르게 드러났다.',
-        career: '국어(친환경 자동차·2차전지 글쓰기), 영어(전고체 배터리 대안 제시), 진로활동(탄소중립·폐배터리·친환경 모빌리티), 기술가정·통합과학(자율주행·하이브리드·에너지 설계)을 통해 배터리·친환경 에너지·모빌리티 분야에 대한 관심을 일관되게 심화하였다.',
-        community: '자율활동(기획단 부단장·모둠 총괄·사회), 동아리활동(실험 조율·축제 운영), 영어부장, 수학 멘토링을 통해 책임감, 협업 능력, 리더십을 안정적으로 보여주며 공동체 안에서 신뢰를 형성하였다.'
-      }
-    }
-  };
+  const DEFAULT_YEAR_SUMMARIES = {};
 
   function defaultYearSummaryFor(studentId, yearLabel){
     return DEFAULT_YEAR_SUMMARIES[String(studentId || '').trim()]?.[String(yearLabel || '').trim()] || null;
