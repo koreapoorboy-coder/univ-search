@@ -85,6 +85,13 @@
       font-size:14px;
     }
 
+    .axis-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .axis-item{border:1px solid #eee;border-radius:14px;padding:12px;background:#fcfcfc}
+    .axis-head{display:flex;gap:8px;align-items:flex-start;line-height:1.5}
+    .axis-no{min-width:22px;height:22px;border-radius:999px;border:1px solid #111;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;background:#111;color:#fff;flex:0 0 auto;margin-top:1px}
+    .axis-title{font-weight:900}
+    .axis-desc{margin-top:6px;line-height:1.65;word-break:break-word;overflow-wrap:anywhere;color:#222}
+
     .empty{
       border:1px dashed #ddd;border-radius:14px;padding:14px;background:#fff;
       color:#555
@@ -174,7 +181,7 @@
         <span class="pill" id="activityCountPill">창체 0개</span>
       </div>
       <div class="rightgroup">
-        <span class="muted">활동 연결성 · 키워드 묶음 · 핵심 해석</span>
+        <span class="muted">자율 · 동아리 · 봉사 · 진로</span>
       </div>
     </div>
     <div class="subject-grid" id="activityArea" style="margin-top:12px;"></div>
@@ -326,6 +333,39 @@
     return null;
   }
 
+  function normalizeAnalysisList(value) {
+    if (!value) return [];
+    let arr = value;
+    if (typeof value === "string") {
+      arr = value.split(/
++/).map(s => s.trim()).filter(Boolean).map(line => ({ title: line, content: "" }));
+    }
+    if (!Array.isArray(arr)) return [];
+    return arr.map((item, idx) => {
+      if (typeof item === "string") return { no: idx + 1, title: item, content: "" };
+      if (!item || typeof item !== "object") return null;
+      return {
+        no: Number(item.no || item.number || idx + 1),
+        title: pickText(item.title, item.label, item.name, item.axis, item.heading, item.항목명, item.제목),
+        content: pickText(item.content, item.desc, item.description, item.text, item.value, item.내용, item.설명)
+      };
+    }).filter(Boolean).filter(x => x.title || x.content);
+  }
+
+  function axisListHtml(list) {
+    const items = normalizeAnalysisList(list);
+    if (!items.length) return "";
+    return `<div class="axis-list">${items.map(item => `
+      <div class="axis-item">
+        <div class="axis-head">
+          <span class="axis-no">${esc(item.no || "")}</span>
+          <div class="axis-title">${esc(item.title || "항목")}</div>
+        </div>
+        ${item.content ? `<div class="axis-desc">${esc(item.content)}</div>` : ``}
+      </div>
+    `).join("")}</div>`;
+  }
+
   function normalizeSubjectEntry(entry, fallbackName) {
     const e = entry || {};
     const subjectName = pickText(e.subject, e.name, e.course, e.과목, e.과목명, fallbackName) || "과목";
@@ -337,8 +377,9 @@
     const core = pickText(e.coreAnalysis, e.core, e.core_summary, e.analysis, e.핵심해석, e.핵심분석, e["핵심 분석"]);
     const strength = pickText(e.strength, e.강점, e.장점);
     const improve = pickText(e.improve, e.보완, e.보완점, e.약점, e.개선점);
+    const analysisList = normalizeAnalysisList(pickFirst(e.analysisList, e.analysis_list, e.analysisAxes, e.analysis_axes, e.axes, e.axisList, e.역량축, e.분석리스트));
 
-    return { subject: subjectName, keywords, core, strength, improve };
+    return { subject: subjectName, keywords, core, strength, improve, analysisList };
   }
 
   function collectSubjectsFromPayload(payload) {
@@ -376,9 +417,10 @@
     const core = pickText(e.coreAnalysis, e.core, e.analysis, e.핵심해석, e.핵심분석);
     const strength = pickText(e.strength, e.강점, e.장점);
     const improve = pickText(e.improve, e.보완, e.보완점, e.개선점);
+    const analysisList = normalizeAnalysisList(pickFirst(e.analysisList, e.analysis_list, e.analysisAxes, e.analysis_axes, e.axes, e.axisList, e.역량축, e.분석리스트));
     const visible = pickText(e.visible, e.visibility) || "student";
 
-    return { type, title, term, keywords, core, strength, improve, visible };
+    return { type, title, term, keywords, core, strength, improve, analysisList, visible };
   }
 
   function collectActivitiesFromPayload(payload) {
@@ -537,13 +579,16 @@
 
   function analysisCardHtml(sub) {
     const hasAny = !!(sub.core || sub.strength || sub.improve);
+    const hasList = Array.isArray(sub.analysisList) && sub.analysisList.length;
 
     return `
       <div class="subject-card">
         <div class="subject-head">
           <div class="subject-name">${esc(sub.subject || "과목")}</div>
-          <div class="subject-badge">핵심 분석</div>
+          <div class="subject-badge">${hasList ? "구조화 분석" : "핵심 분석"}</div>
         </div>
+
+        ${hasList ? axisListHtml(sub.analysisList) : ``}
 
         ${
           hasAny ? `
@@ -570,67 +615,8 @@
                 </div>` : ""
               }
             </div>
-          ` : `<div class="muted" style="margin-top:10px;">핵심 분석 데이터가 없습니다.</div>`
+          ` : `${!hasList ? `<div class="muted" style="margin-top:10px;">핵심 분석 데이터가 없습니다.</div>` : ``}`
         }
-      </div>
-    `;
-  }
-
-  function classifyActivityKeyword(keyword){
-    const k = String(keyword || "");
-    const rules = [
-      { key: "제작·구현", tests: ["제작","코딩","아두이노","센서","모터","회로","연결","보드","브레드보드","시스템","제어"] },
-      { key: "운영·문제해결", tests: ["오류","해결","개선","기획","안정성","복합","동시","원리 이해"] },
-      { key: "데이터·분석", tests: ["모니터링","분석","실시간","원인","심층","지표","비교"] },
-      { key: "환경·지속가능", tests: ["환경","친환경","토양","오염","산성화","퇴비","비료","지속가능","배변패드"] },
-      { key: "대안·확장 적용", tests: ["대안","제안","연계","실용성","수경재배","폐배터리"] }
-    ];
-    for (const rule of rules) {
-      if (rule.tests.some(t => k.includes(t))) return rule.key;
-    }
-    return "기타 연결";
-  }
-
-  function buildKeywordClusters(keywords){
-    const groups = new Map();
-    (Array.isArray(keywords) ? keywords : []).forEach(k => {
-      const group = classifyActivityKeyword(k);
-      if (!groups.has(group)) groups.set(group, []);
-      groups.get(group).push(k);
-    });
-    const order = ["제작·구현","운영·문제해결","데이터·분석","환경·지속가능","대안·확장 적용","기타 연결"];
-    return order
-      .filter(name => groups.has(name))
-      .map(name => ({ name, keywords: groups.get(name) }));
-  }
-
-  function buildActivityConnectionSummary(a, clusters){
-    const title = String(a?.title || "활동");
-    const names = clusters.map(c => c.name);
-    const top = names.slice(0, 3);
-    if (!top.length) return `${title}에서 드러나는 연결 요소를 정리할 데이터가 아직 부족합니다.`;
-
-    const mapText = {
-      "제작·구현": "직접 만들고 연결하는 구현 경험",
-      "운영·문제해결": "오류를 조정하고 구조를 개선하는 문제해결 경험",
-      "데이터·분석": "관찰값을 해석하고 원인을 분석하는 탐구 경험",
-      "환경·지속가능": "환경 문제를 실제 맥락과 연결하는 확장 경험",
-      "대안·확장 적용": "대안을 제안하고 다른 주제로 확장하는 적용 경험",
-      "기타 연결": "다양한 활동 요소를 종합하는 경험"
-    };
-
-    const pieces = top.map(x => mapText[x]).filter(Boolean);
-    return `${title}에서는 ${pieces.join(', ')}이 함께 드러나며, 단순 참여보다 구현 → 분석 → 확장으로 이어지는 활동 흐름을 확인할 수 있습니다.`;
-  }
-
-  function clusterHtml(cluster){
-    return `
-      <div class="cluster-card">
-        <div class="cluster-head">
-          <div class="cluster-title">${esc(cluster.name)}</div>
-          <div class="cluster-count">${cluster.keywords.length}개</div>
-        </div>
-        <div class="chips">${cluster.keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>
       </div>
     `;
   }
@@ -639,9 +625,9 @@
   function activityCardHtml(a) {
     const keywords = Array.isArray(a.keywords) ? a.keywords : [];
     const hasAny = !!(a.core || a.strength || a.improve);
+    const hasList = Array.isArray(a.analysisList) && a.analysisList.length;
+
     const topBadge = [a.type, a.term].filter(Boolean).join(" · ");
-    const clusters = buildKeywordClusters(keywords);
-    const summary = buildActivityConnectionSummary(a, clusters);
 
     return `
       <div class="subject-card">
@@ -650,19 +636,11 @@
           <div class="subject-badge">${esc(topBadge || "창체")}</div>
         </div>
 
-        <div class="summary-box">
-          <div class="summary-title">연결성 요약</div>
-          <div class="summary-text">${esc(summary)}</div>
-          ${clusters.length ? `<div class="subchips">${clusters.map(c => `<span class="subchip">${esc(c.name)}</span>`).join("")}</div>` : ``}
-        </div>
-
-        ${
-          clusters.length
-          ? `<div class="cluster-wrap">${clusters.map(clusterHtml).join("")}</div>`
-          : (keywords.length
-              ? `<div class="chips" style="margin-top:12px;">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
-              : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`)
-        }
+        ${hasList ? axisListHtml(a.analysisList) : (
+          keywords.length
+          ? `<div class="chips">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
+          : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`
+        )}
 
         ${
           hasAny ? `
