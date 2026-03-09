@@ -6,100 +6,119 @@
   <title>생기부 분석 보기</title>
   <style>
     :root{
-      --bd:#e6e6e6;
+      --bd:#e8e8e8;
       --txt:#111;
       --muted:#666;
       --bg:#fff;
-      --soft:#f8f8f8;
-      --chip:#fafafa;
+      --soft:#fafafa;
+      --soft2:#f5f5f5;
+      --chip:#fff;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:#fff;color:var(--txt);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
     body{padding:14px}
     .wrap{max-width:1180px;margin:0 auto}
-    .card{border:1px solid var(--bd);border-radius:24px;background:var(--bg);padding:22px;margin:14px 0}
+    .card{border:1px solid var(--bd);border-radius:26px;background:var(--bg);padding:22px;margin:14px 0}
     .title{font-size:24px;font-weight:900;line-height:1.3;margin:0}
     .sub{color:var(--muted);margin-top:8px;line-height:1.6}
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .between{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
-    .pill{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-weight:800}
-    .badge{display:inline-flex;align-items:center;padding:7px 12px;border-radius:999px;background:var(--soft);border:1px solid var(--bd);font-weight:800}
+    .between{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .badge,.pill{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-weight:800}
     .section-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
     .section-title{font-size:18px;font-weight:900;margin:0}
     .section-desc{color:var(--muted)}
+    .toggle-wrap{display:flex;gap:10px;flex-wrap:wrap}
+    .toggle{
+      appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;
+      padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer;
+    }
+    .toggle.is-on{background:#111;color:#fff;border-color:#111}
+    .toggle:disabled{opacity:.45;cursor:default}
+    .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
+    .hero-line{margin-top:14px;color:#333;line-height:1.75;font-size:17px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:var(--chip);font-size:13px;font-weight:800}
-    .summary-grid{display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:14px}
-    .mini-card{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
-    .mini-title{font-size:14px;font-weight:900;color:#333;margin-bottom:10px}
-    .mini-list{margin:0;padding-left:18px;line-height:1.7}
-    .block{border:1px solid var(--bd);border-radius:20px;padding:18px;background:#fff}
+    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--chip);font-size:14px;font-weight:800}
+    .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
     .block + .block{margin-top:14px}
-    .block-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:12px}
-    .block-title{font-size:18px;font-weight:900;line-height:1.35;margin:0}
-    .block-one{color:#333;line-height:1.6;margin-top:6px}
-    .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .axis-item{border:1px solid var(--bd);border-radius:16px;padding:14px;background:#fff}
-    .axis-head{font-weight:900;line-height:1.45;margin-bottom:6px}
+    .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
+    .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
+    .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
+    .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
     .axis-no{display:inline-flex;min-width:24px;height:24px;border-radius:999px;align-items:center;justify-content:center;background:#111;color:#fff;font-size:12px;margin-right:8px}
-    .axis-text{color:#333;line-height:1.65;font-size:14px}
-    .option-grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px;margin-top:14px}
-    .option-card{border:1px solid var(--bd);border-radius:16px;padding:14px;background:var(--soft)}
-    .option-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;margin-bottom:8px}
-    .option-title{font-weight:900;line-height:1.4;margin-bottom:6px}
-    .option-desc{color:#333;line-height:1.6;font-size:14px;margin-bottom:8px}
-    .option-outputs{display:flex;gap:6px;flex-wrap:wrap}
-    .reading-grid{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px}
-    .reading-card{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
-    .reading-title{font-size:17px;font-weight:900;line-height:1.4}
-    .reading-author{color:var(--muted);margin-top:6px}
-    .reading-why{margin-top:12px;line-height:1.7;color:#333}
-    .question{margin-top:12px;padding:12px;border-radius:14px;background:var(--soft);line-height:1.6}
+    .axis-text{color:#333;line-height:1.7;font-size:14px}
+    .accordion{display:grid;gap:10px;margin-top:14px}
+    .acc-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft)}
+    .acc-head{width:100%;border:0;background:transparent;padding:16px 18px;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center;cursor:pointer}
+    .acc-head-left{display:flex;flex-direction:column;gap:6px}
+    .acc-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .acc-title{font-size:16px;font-weight:900;line-height:1.45}
+    .acc-sign{font-size:22px;line-height:1;font-weight:500;color:#666}
+    .acc-body{display:none;padding:0 18px 18px 18px;color:#333;line-height:1.75}
+    .acc-item.is-open .acc-body{display:block}
+    .acc-item.is-open .acc-sign{transform:rotate(45deg)}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
+    .guide{font-size:13px;color:var(--muted);margin-top:8px}
     @media (max-width: 980px){
-      .summary-grid,.option-grid,.reading-grid,.axis-list{grid-template-columns:1fr}
+      .axis-list{grid-template-columns:1fr}
+      .hero-title{font-size:26px}
+      .one-line{font-size:17px}
+      .toggle{padding:9px 14px;font-size:14px}
     }
   </style>
 </head>
 <body>
-  <div class="wrap" id="app">
+  <div class="wrap">
     <div class="card">
       <div class="between">
         <div>
           <h1 class="title">생기부 분석 보기</h1>
-          <div class="sub" id="studentMeta">가상 데이터 미리보기 구조</div>
+          <div class="sub" id="studentMeta">실제 데이터 입력 전 구조 확인용 가상 예시</div>
         </div>
-        <div class="row">
-          <span class="pill" id="previewBadge">미리보기 데이터</span>
-        </div>
+        <div class="row"><span class="pill" id="previewBadge">미리보기 데이터</span></div>
       </div>
     </div>
 
-    <div class="card" id="overviewCard"></div>
-    <div class="card" id="subjectCard"></div>
-    <div class="card" id="activityCard"></div>
-    <div class="card" id="readingCard"></div>
+    <div class="card" id="yearCard">
+      <div class="section-h">
+        <div>
+          <div class="section-title">학년 선택</div>
+          <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
+        </div>
+      </div>
+      <div class="toggle-wrap" id="yearToggles"></div>
+    </div>
+
+    <div class="card" id="subjectCardTop">
+      <div class="section-h">
+        <div>
+          <div class="section-title">과목 선택</div>
+          <div class="section-desc">선택한 학년 안에서 과목별 분석만 표시</div>
+        </div>
+      </div>
+      <div class="toggle-wrap" id="subjectToggles"></div>
+    </div>
+
+    <div class="card" id="analysisCard"></div>
   </div>
 
 <script>
 (() => {
-  const $ = (sel) => document.querySelector(sel);
+  const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const safeArr = (v) => Array.isArray(v) ? v : [];
   const getQS = () => new URLSearchParams(location.search);
 
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
-  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
-  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.['학생ID'] ?? s?.['학번'] ?? null; }
+  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.['학생명'] ?? s?.['이름'] ?? s?.['성명'] ?? s?.id ?? '-'; }
+  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.['token'] ?? s?.['토큰'] ?? null; }
 
   async function loadJson(path){
-    const r = await fetch(path, { cache: 'no-store' });
-    if(!r.ok) throw new Error(path + ' load failed (' + r.status + ')');
+    const r = await fetch(path, { cache:'no-store' });
+    if (!r.ok) throw new Error(path + ' load failed (' + r.status + ')');
     return r.json();
   }
-  async function loadJsonSafe(path, fallback=null){
-    try { return await loadJson(path); } catch { return fallback; }
-  }
+  async function loadJsonSafe(path, fallback=null){ try { return await loadJson(path); } catch { return fallback; } }
 
   function resolveStudentByToken(students){
     const qs = getQS();
@@ -113,9 +132,9 @@
 
   function pickRecord(data, students){
     const records = safeArr(data?.items);
-    const matchedStudent = resolveStudentByToken(students);
-    if (matchedStudent) {
-      const sid = String(pickId(matchedStudent) || '').trim();
+    const matched = resolveStudentByToken(students);
+    if (matched) {
+      const sid = String(pickId(matched) || '').trim();
       const found = records.find(r => String(r?.id || '').trim() === sid);
       if (found) {
         $('#previewBadge').textContent = '실제 학생 매칭';
@@ -126,171 +145,152 @@
     return records[0] || null;
   }
 
-  function renderOverview(record){
-    const profile = record?.profile || {};
-    const overview = record?.overview || {};
-    $('#studentMeta').textContent = [profile.studentName, profile.school, profile.grade, profile.track].filter(Boolean).join(' · ');
+  const state = { record:null, yearIndex:0, subjectIndex:0 };
 
-    $('#overviewCard').innerHTML = `
-      <div class="section-h">
-        <div>
-          <div class="section-title">핵심 요약</div>
-          <div class="section-desc">학생 전체 인상을 먼저 한 줄과 3개 묶음으로 확인하는 구조</div>
-        </div>
-        <span class="badge">${esc(profile.note || '구조 확인용')}</span>
-      </div>
-      <div class="block">
-        <div class="block-title">${esc(overview.headline || '핵심 한 줄 요약')}</div>
-        <div class="sub">${safeArr(overview.summary_lines).map(x => esc(x)).join('<br>')}</div>
-        <div class="chips" style="margin-top:12px;">${safeArr(overview.strength_tags).map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div>
-      </div>
-      <div class="summary-grid" style="margin-top:14px;">
-        <div class="mini-card">
-          <div class="mini-title">핵심 요약 문장</div>
-          <ul class="mini-list">${safeArr(overview.summary_lines).map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        </div>
-        <div class="mini-card">
-          <div class="mini-title">현재 강하게 보이는 축</div>
-          <div class="chips">${safeArr(overview.strength_tags).map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-title">다음 보강 포인트</div>
-          <ul class="mini-list">${safeArr(overview.next_focus).map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        </div>
-      </div>
-    `;
+  function renderYearToggles(years){
+    $('#yearToggles').innerHTML = years.map((y, i) => `
+      <button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year_label || y.year || (i+1)+'학년')}</button>
+    `).join('');
+    $('#yearToggles').querySelectorAll('[data-year-idx]').forEach(btn => {
+      btn.onclick = () => {
+        state.yearIndex = Number(btn.dataset.yearIdx || 0);
+        state.subjectIndex = 0;
+        rerender();
+      };
+    });
   }
 
-  function axisListHtml(items){
-    const list = safeArr(items);
-    if (!list.length) return `<div class="empty">축 데이터가 없습니다.</div>`;
-    return `<div class="axis-list">${list.map(it => `
+  function renderSubjectToggles(subjects){
+    $('#subjectToggles').innerHTML = subjects.length ? subjects.map((s, i) => `
+      <button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>
+    `).join('') : '<button class="toggle" disabled>과목 없음</button>';
+    $('#subjectToggles').querySelectorAll('[data-subject-idx]').forEach(btn => {
+      btn.onclick = () => {
+        state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
+        rerenderAnalysis();
+        renderSubjectToggles(subjects);
+      };
+    });
+  }
+
+  function axisHtml(axisItems){
+    const list = safeArr(axisItems);
+    if (!list.length) return `<div class="empty">역량 축 데이터가 없습니다.</div>`;
+    return `<div class="axis-list">${list.map(item => `
       <div class="axis-item">
-        <div class="axis-head"><span class="axis-no">${esc(it.no ?? '')}</span>${esc(it.title || '')}</div>
-        <div class="axis-text">${esc(it.content || '')}</div>
+        <div class="axis-head"><span class="axis-no">${esc(item.no || '')}</span>${esc(item.title || '')}</div>
+        <div class="axis-text">${esc(item.content || '')}</div>
       </div>
     `).join('')}</div>`;
   }
 
-  function optionHtml(options){
+  function extensionHtml(options){
     const list = safeArr(options);
-    if (!list.length) return '';
+    if (!list.length) return `<div class="empty">확장 옵션 데이터가 없습니다.</div>`;
     return `
-      <div style="margin-top:16px;">
-        <div class="mini-title">확장 옵션</div>
-        <div class="option-grid">
-          ${list.map(op => `
-            <div class="option-card">
-              <div class="option-type">${esc(op.type || '확장')}</div>
-              <div class="option-title">${esc(op.title || '')}</div>
-              <div class="option-desc">${esc(op.description || '')}</div>
-              <div class="option-outputs">${safeArr(op.outputs).map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div>
+      <div class="accordion">${list.map((opt, idx) => `
+        <div class="acc-item" data-acc-item>
+          <button class="acc-head" type="button" data-acc-btn>
+            <div class="acc-head-left">
+              <span class="acc-type">${esc(opt.type || '확장')}</span>
+              <span class="acc-title">${esc(opt.title || '')}</span>
             </div>
-          `).join('')}
+            <span class="acc-sign">+</span>
+          </button>
+          <div class="acc-body">${esc(opt.description || '')}</div>
         </div>
-      </div>
+      `).join('')}</div>
     `;
   }
 
-  function renderSubjects(record){
-    const list = safeArr(record?.subject_blocks);
-    $('#subjectCard').innerHTML = `
+  function bindAccordion(){
+    document.querySelectorAll('[data-acc-btn]').forEach(btn => {
+      btn.onclick = () => {
+        const item = btn.closest('[data-acc-item]');
+        if (!item) return;
+        item.classList.toggle('is-open');
+      };
+    });
+  }
+
+  function rerenderAnalysis(){
+    const years = safeArr(state.record?.years);
+    const year = years[state.yearIndex] || years[0] || {};
+    const subjects = safeArr(year.subjects);
+    if (state.subjectIndex > subjects.length - 1) state.subjectIndex = 0;
+    const subject = subjects[state.subjectIndex] || null;
+
+    $('#analysisCard').innerHTML = subject ? `
       <div class="section-h">
         <div>
-          <div class="section-title">과목별 분석</div>
-          <div class="section-desc">과목마다 1줄 요약 → 역량 축 → 앵커 키워드 → 확장 옵션 순서</div>
+          <div class="section-title">과목 분석</div>
+          <div class="section-desc">${esc(year.year_label || '')} · ${esc(subject.subject || '')}</div>
         </div>
-        <span class="badge">과목 ${list.length}개</span>
+        <span class="badge">역량 축 ${safeArr(subject.axis_items).length}개</span>
       </div>
-      ${list.length ? list.map(item => `
-        <div class="block">
-          <div class="block-top">
-            <div>
-              <div class="block-title">${esc(item.subject || '과목')}</div>
-              <div class="block-one">${esc(item.one_line || '')}</div>
-            </div>
-            <span class="pill">역량 축 ${safeArr(item.axis_items).length}개</span>
-          </div>
-          ${axisListHtml(item.axis_items)}
-          <div style="margin-top:16px;">
-            <div class="mini-title">앵커 키워드</div>
-            <div class="chips">${safeArr(item.anchor_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
-          </div>
-          ${optionHtml(item.extension_options)}
-        </div>
-      `).join('') : `<div class="empty">과목 분석 데이터가 없습니다.</div>`}
-    `;
-  }
 
-  function renderActivities(record){
-    const list = safeArr(record?.activity_blocks);
-    $('#activityCard').innerHTML = `
+      <div class="block">
+        <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
+        <div class="one-line">${esc(subject.one_line || '')}</div>
+      </div>
+
+      <div class="block">
+        <div class="mini-title">역량 축 분석</div>
+        ${axisHtml(subject.axis_items)}
+      </div>
+
+      <div class="block">
+        <div class="mini-title">확장 키워드</div>
+        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
+      </div>
+
+      <div class="block">
+        <div class="section-h" style="margin-bottom:10px;">
+          <div>
+            <div class="mini-title" style="margin:0;">확장 옵션</div>
+            <div class="guide">내용이 길어지지 않도록 클릭했을 때만 펼쳐집니다.</div>
+          </div>
+        </div>
+        ${extensionHtml(subject.extension_options)}
+      </div>
+    ` : `
       <div class="section-h">
         <div>
-          <div class="section-title">창체 연결 분석</div>
-          <div class="section-desc">자율·동아리 같은 활동도 칩 나열 대신 분석형 블록으로 표시</div>
+          <div class="section-title">과목 분석</div>
+          <div class="section-desc">선택된 과목 데이터가 없습니다.</div>
         </div>
-        <span class="badge">창체 ${list.length}개</span>
       </div>
-      ${list.length ? list.map(item => `
-        <div class="block">
-          <div class="block-top">
-            <div>
-              <div class="row"><span class="pill">${esc(item.area || '창체')}</span></div>
-              <div class="block-title" style="margin-top:8px;">${esc(item.title || '')}</div>
-              <div class="block-one">${esc(item.one_line || '')}</div>
-            </div>
-          </div>
-          ${axisListHtml(item.axis_items)}
-          <div style="margin-top:16px;">
-            <div class="mini-title">연결 키워드</div>
-            <div class="chips">${safeArr(item.anchor_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
-          </div>
-        </div>
-      `).join('') : `<div class="empty">창체 분석 데이터가 없습니다.</div>`}
+      <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
     `;
+    bindAccordion();
   }
 
-  function renderReadings(record){
-    const list = safeArr(record?.reading_blocks);
-    $('#readingCard').innerHTML = `
-      <div class="section-h">
-        <div>
-          <div class="section-title">독서 연결</div>
-          <div class="section-desc">도서명만 쌓지 않고 왜 읽었는지와 다음 질문까지 연결하는 구조</div>
-        </div>
-        <span class="badge">독서 ${list.length}권</span>
-      </div>
-      ${list.length ? `<div class="reading-grid">${list.map(b => `
-        <div class="reading-card">
-          <div class="reading-title">${esc(b.title || '')}</div>
-          <div class="reading-author">${esc(b.author || '')}</div>
-          <div class="reading-why">${esc(b.why || '')}</div>
-          <div class="chips" style="margin-top:12px;">${safeArr(b.links).map(x => `<span class="chip">${esc(x)}</span>`).join('')}</div>
-          <div class="question"><strong>다음 질문</strong><br>${esc(b.next_question || '')}</div>
-        </div>
-      `).join('')}</div>` : `<div class="empty">독서 연결 데이터가 없습니다.</div>`}
-    `;
+  function rerender(){
+    const years = safeArr(state.record?.years);
+    renderYearToggles(years);
+    const year = years[state.yearIndex] || years[0] || {};
+    renderSubjectToggles(safeArr(year.subjects));
+    rerenderAnalysis();
   }
 
-  async function main(){
-    const students = await loadJsonSafe('./students.json', []);
-    const data = await loadJsonSafe('./school_record_detail.v2.mock.json', null)
-      || await loadJsonSafe('./school_record_detail.json', null);
-
-    if (!data) throw new Error('school_record_detail.json 파일을 불러오지 못했습니다.');
-
+  async function boot(){
+    const [students, data] = await Promise.all([
+      loadJsonSafe('../students.json', []),
+      loadJson('school_record_detail.v3.mock.json')
+    ]);
     const record = pickRecord(data, students);
-    if (!record) throw new Error('표시할 미리보기 데이터가 없습니다.');
-
-    renderOverview(record);
-    renderSubjects(record);
-    renderActivities(record);
-    renderReadings(record);
+    if (!record) {
+      $('#analysisCard').innerHTML = '<div class="empty">표시할 분석 데이터가 없습니다.</div>';
+      return;
+    }
+    state.record = record;
+    const p = record.profile || {};
+    $('#studentMeta').textContent = [p.studentName, p.school, p.track, p.note].filter(Boolean).join(' · ');
+    rerender();
   }
 
-  main().catch(err => {
-    document.getElementById('app').innerHTML = `<div class="card"><div class="title">오류</div><div class="sub">${esc(err.message)}</div></div>`;
+  boot().catch(err => {
+    $('#analysisCard').innerHTML = `<div class="empty">데이터를 불러오지 못했습니다. ${esc(err?.message || err)}</div>`;
   });
 })();
 </script>
