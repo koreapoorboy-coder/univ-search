@@ -5,15 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>생기부 분석 보기</title>
   <style>
-    :root{
-      --bd:#e8e8e8;
-      --txt:#111;
-      --muted:#666;
-      --bg:#fff;
-      --soft:#fafafa;
-      --soft2:#f5f5f5;
-      --chip:#fff;
-    }
+    :root{--bd:#e8e8e8;--txt:#111;--muted:#666;--bg:#fff;--soft:#fafafa}
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:#fff;color:var(--txt);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
     body{padding:14px}
@@ -28,22 +20,17 @@
     .section-title{font-size:18px;font-weight:900;margin:0}
     .section-desc{color:var(--muted)}
     .toggle-wrap{display:flex;gap:10px;flex-wrap:wrap}
-    .toggle{
-      appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;
-      padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer;
-    }
-    .toggle.is-on{background:#111;color:#fff;border-color:#111}
+    .toggle,.mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer}
+    .toggle.is-on,.mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
     .toggle:disabled{opacity:.45;cursor:default}
     .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
-    .hero-line{margin-top:14px;color:#333;line-height:1.75;font-size:17px}
+    .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--chip);font-size:14px;font-weight:800}
+    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800}
     .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
     .block + .block{margin-top:14px}
     .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
     .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-    .example-panel{margin-top:14px}
-    .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
     .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
     .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
@@ -55,15 +42,8 @@
     .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .example-body{color:#333;line-height:1.75;margin-top:10px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
-    .guide{font-size:13px;color:var(--muted);margin-top:8px}
-    .mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:900;cursor:pointer;line-height:1.2}
-    .mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
-    @media (max-width: 980px){
-      .axis-list{grid-template-columns:1fr}
-      .hero-title{font-size:26px}
-      .one-line{font-size:17px}
-      .toggle{padding:9px 14px;font-size:14px}
-    }
+    .guide{font-size:13px;color:var(--muted);margin:6px 2px}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}}
   </style>
 </head>
 <body>
@@ -72,9 +52,9 @@
       <div class="between">
         <div>
           <h1 class="title">생기부 분석 보기</h1>
-          <div class="sub" id="studentMeta">실제 데이터 입력 전 구조 확인용 가상 예시</div>
+          <div class="sub" id="studentMeta">데이터를 불러오는 중입니다.</div>
         </div>
-        <div class="row"><span class="pill" id="previewBadge">미리보기 데이터</span></div>
+        <div class="row"><span class="pill" id="previewBadge">실데이터</span></div>
       </div>
     </div>
 
@@ -98,6 +78,7 @@
       <div class="toggle-wrap" id="subjectToggles"></div>
     </div>
 
+    <div class="guide" id="loadGuide"></div>
     <div class="card" id="analysisCard"></div>
   </div>
 
@@ -106,50 +87,56 @@
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const safeArr = (v) => Array.isArray(v) ? v : [];
-  const getQS = () => new URLSearchParams(location.search);
+  const qs = new URLSearchParams(location.search);
 
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.['학생ID'] ?? s?.['학번'] ?? null; }
-  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.['학생명'] ?? s?.['이름'] ?? s?.['성명'] ?? s?.id ?? '-'; }
-  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.['token'] ?? s?.['토큰'] ?? null; }
+  const state = {
+    student: null,
+    yearIndex: 0,
+    subjectIndex: 0,
+    showExamples: false,
+  };
 
   async function loadJson(path){
     const r = await fetch(path, { cache:'no-store' });
-    if (!r.ok) throw new Error(path + ' load failed (' + r.status + ')');
+    if (!r.ok) throw new Error(`${path} (${r.status})`);
     return r.json();
   }
-  async function loadJsonSafe(path, fallback=null){ try { return await loadJson(path); } catch { return fallback; } }
 
-  function resolveStudentByToken(students){
-    const qs = getQS();
-    const t = String(qs.get('t') || qs.get('token') || '').trim();
-    const id = String(qs.get('id') || '').trim();
-    if (!Array.isArray(students)) return null;
-    if (t) return students.find(s => String(pickToken(s) || '').trim() === t) || null;
-    if (id) return students.find(s => String(pickId(s) || '').trim() === id) || null;
-    return null;
-  }
-
-  function pickRecord(data, students){
-    const records = safeArr(data?.items);
-    const matched = resolveStudentByToken(students);
-    if (matched) {
-      const sid = String(pickId(matched) || '').trim();
-      const found = records.find(r => String(r?.id || '').trim() === sid);
-      if (found) {
-        $('#previewBadge').textContent = '실제 학생 매칭';
-        return found;
+  async function loadRecordData(){
+    const stamp = `v=${Date.now()}`;
+    const candidates = [
+      `./record_detail.json?${stamp}`,
+      `record_detail.json?${stamp}`,
+      `./data/record_detail.json?${stamp}`,
+      `../record_detail.json?${stamp}`,
+      `/record_detail.json?${stamp}`,
+    ];
+    const tried = [];
+    for (const path of candidates) {
+      try {
+        const data = await loadJson(path);
+        return { data, source: path, tried };
+      } catch (e) {
+        tried.push(path);
       }
     }
-    $('#previewBadge').textContent = '기본 학생 표시';
-    return records[0] || null;
+    throw new Error(`record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
   }
 
-  const state = { record:null, yearIndex:0, subjectIndex:0, showExamples:false };
+  function pickStudent(data){
+    const students = safeArr(data?.students);
+    if (!students.length) return null;
+    const wantedId = (qs.get('id') || qs.get('student_id') || '').trim();
+    if (wantedId) {
+      return students.find(s => String(s.student_id || '').trim() === wantedId) || null;
+    }
+    return students[0];
+  }
 
   function renderYearToggles(years){
-    $('#yearToggles').innerHTML = years.map((y, i) => `
-      <button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year_label || y.year || (i+1)+'학년')}</button>
-    `).join('');
+    $('#yearToggles').innerHTML = years.length
+      ? years.map((y, i) => `<button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year || `${i+1}학년`)}</button>`).join('')
+      : '<button class="toggle" disabled>학년 없음</button>';
     $('#yearToggles').querySelectorAll('[data-year-idx]').forEach(btn => {
       btn.onclick = () => {
         state.yearIndex = Number(btn.dataset.yearIdx || 0);
@@ -161,22 +148,22 @@
   }
 
   function renderSubjectToggles(subjects){
-    $('#subjectToggles').innerHTML = subjects.length ? subjects.map((s, i) => `
-      <button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>
-    `).join('') : '<button class="toggle" disabled>과목 없음</button>';
+    $('#subjectToggles').innerHTML = subjects.length
+      ? subjects.map((s, i) => `<button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>`).join('')
+      : '<button class="toggle" disabled>과목 없음</button>';
     $('#subjectToggles').querySelectorAll('[data-subject-idx]').forEach(btn => {
       btn.onclick = () => {
         state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
         state.showExamples = false;
-        rerenderAnalysis();
         renderSubjectToggles(subjects);
+        rerenderAnalysis();
       };
     });
   }
 
-  function axisHtml(axisItems){
-    const list = safeArr(axisItems);
-    if (!list.length) return `<div class="empty">역량 축 데이터가 없습니다.</div>`;
+  function axisHtml(axisList){
+    const list = safeArr(axisList);
+    if (!list.length) return '<div class="empty">역량 축 데이터가 없습니다.</div>';
     return `<div class="axis-list">${list.map(item => `
       <div class="axis-item">
         <div class="axis-head"><span class="axis-no">${esc(item.no || '')}</span>${esc(item.title || '')}</div>
@@ -185,25 +172,22 @@
     `).join('')}</div>`;
   }
 
-  function extensionHtml(options){
-    const list = safeArr(options);
-    if (!list.length) return `<div class="empty">활동예시 데이터가 없습니다.</div>`;
-    return `
-      <div class="example-grid">${list.map(opt => `
-        <div class="example-item">
-          <span class="example-type">${esc(opt.type || '활동예시')}</span>
-          <div class="example-title">${esc(opt.title || '')}</div>
-          <div class="example-body">${esc(opt.description || '')}</div>
-        </div>
-      `).join('')}</div>
-    `;
+  function examplesHtml(activityExamples){
+    const list = safeArr(activityExamples);
+    if (!list.length) return '<div class="empty">활동예시 데이터가 없습니다.</div>';
+    return `<div class="example-grid">${list.map(opt => `
+      <div class="example-item">
+        <span class="example-type">${esc(opt.type || '활동예시')}</span>
+        <div class="example-title">${esc(opt.title || '')}</div>
+        <div class="example-body">${esc(opt.description || '')}</div>
+      </div>
+    `).join('')}</div>`;
   }
 
-
   function rerenderAnalysis(){
-    const years = safeArr(state.record?.years);
+    const years = safeArr(state.student?.years);
     const year = years[state.yearIndex] || years[0] || {};
-    const subjects = safeArr(year.subjects);
+    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
     if (state.subjectIndex > subjects.length - 1) state.subjectIndex = 0;
     const subject = subjects[state.subjectIndex] || null;
 
@@ -211,19 +195,19 @@
       <div class="section-h">
         <div>
           <div class="section-title">과목 분석</div>
-          <div class="section-desc">${esc(year.year_label || year.year || '')} · ${esc(subject.subject || '')}</div>
+          <div class="section-desc">${esc(year.year || '')} · ${esc(subject.subject || '')}</div>
         </div>
-        <span class="badge">역량 축 ${safeArr(subject.axis_items).length}개</span>
+        <span class="badge">역량 축 ${safeArr(subject.axis_list).length}개</span>
       </div>
 
       <div class="block">
         <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
-        <div class="one-line">${esc(subject.one_line || subject.summary || '')}</div>
+        <div class="one-line">${esc(subject.summary || '')}</div>
       </div>
 
       <div class="block">
         <div class="mini-title">역량 축 분석</div>
-        ${axisHtml(subject.axis_items)}
+        ${axisHtml(subject.axis_list)}
       </div>
 
       <div class="block">
@@ -233,12 +217,9 @@
         </div>
         <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
         ${state.showExamples ? `
-          <div class="example-panel">
-            <div class="inline-head" style="margin:16px 0 0 0;">
-              <div class="mini-title" style="margin:0;">활동예시</div>
-            </div>
-            <div class="guide" style="margin:0 0 10px 0;">활동예시 버튼을 눌렀을 때 확장 방향을 한 번에 확인합니다.</div>
-            ${extensionHtml(subject.extension_options)}
+          <div style="margin-top:16px;">
+            <div class="mini-title">활동예시</div>
+            ${examplesHtml(subject.activity_examples)}
           </div>
         ` : ''}
       </div>
@@ -252,9 +233,9 @@
       <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
     `;
 
-    const toggleBtn = document.getElementById('toggleExamplesBtn');
-    if (toggleBtn) {
-      toggleBtn.onclick = () => {
+    const btn = document.getElementById('toggleExamplesBtn');
+    if (btn) {
+      btn.onclick = () => {
         state.showExamples = !state.showExamples;
         rerenderAnalysis();
       };
@@ -262,169 +243,33 @@
   }
 
   function rerender(){
-    const years = safeArr(state.record?.years);
+    const years = safeArr(state.student?.years);
     renderYearToggles(years);
     const year = years[state.yearIndex] || years[0] || {};
-    renderSubjectToggles(safeArr(year.subjects));
+    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
+    renderSubjectToggles(subjects);
     rerenderAnalysis();
   }
 
-  const INLINE_MOCK_DATA = {
-    items: [
-      {
-        id: 'preview01',
-        profile: {
-          studentName: '구조 확인용 학생',
-          school: '미리보기 학교',
-          track: '생기부 분석 보기',
-          note: '가상 데이터 자동 표시'
-        },
-        years: [
-          {
-            year_label: '1학년',
-            subjects: [
-              {
-                subject: '수학',
-                one_line: '문헌 조사 기반 탐구와 실생활 수식화를 연결해 설명하는 흐름이 보이는 과목.',
-                axis_items: [
-                  { no: 1, title: '탐구 설계(연역/가설/변인/통제)', content: '프랙탈 주제로 문헌 조사 기반 탐구보고서 작성(탐구 주제 설정→자료 탐색→보고서 산출)' },
-                  { no: 2, title: '정량화·데이터(측정/표/그래프/통계/시각화)', content: '프랙탈의 반복 특성 분석, 자연현상 적용 시도(정량화/시각화 가능성이 있는 분석 기반)' },
-                  { no: 3, title: '모델링·추론(수식화/최적화/조건 도출)', content: '실생활 상황을 수식으로 표현하는 흥미, 평행이동·원의 방정식으로 해결(수학적 모델링·변환 추론)' },
-                  { no: 4, title: '제작·구현(아두이노/회로/코딩/시스템 제작)', content: '직접 제작 기록은 없음(이 축은 잠재 수준으로 판단)' },
-                  { no: 5, title: '문제해결(오류 수정/원인 분석/개선)', content: '경우의 수 어려움 → 스스로 유형화하여 극복(문제 구조화로 해결)' },
-                  { no: 6, title: '논증·리터러시(주장-근거/출처/비판적 독해)', content: '문헌 조사 기반 보고서 작성(출처 기반 정리·논리 전개 요소 존재)' },
-                  { no: 7, title: '협업·리더십(기획/조율/운영/발표/중재)', content: '멘토링으로 설명·도움 제공, 모둠 활동에서 경청/명확 전달로 우수 평가' },
-                  { no: 8, title: '확장·연계(교과 횡단/사회 이슈/적용 확장)', content: '프랙탈을 자연현상에 적용 시도(교과 밖 적용 확장)' }
-                ],
-                extension_keywords: ['프랙탈 탐구', '문헌 조사', '실생활 수식화', '모델링', '유형화', '설명 역량'],
-                extension_options: [
-                  { type: '제작형', title: '프랙탈을 눈에 보이게 만들기', description: '반복 규칙을 시각적으로 표현하는 활동으로 연결하는 방향을 제시합니다.' },
-                  { type: '데이터형', title: '자연현상을 단순 지표로 비교하기', description: '사진이나 사례를 기준으로 복잡도 차이를 정리하는 방향을 제시합니다.' },
-                  { type: '논증형', title: '모델링의 장점과 한계 논증하기', description: '단순화 과정의 장점과 왜곡 가능성을 비교해 논리적으로 정리하는 방향을 제시합니다.' }
-                ]
-              },
-              {
-                subject: '통합과학',
-                one_line: '관찰, 기록, 분석, 설명을 연결하며 과학적 탐구 태도를 보여주는 과목.',
-                axis_items: [
-                  { no: 1, title: '탐구 설계', content: '관찰 대상을 정하고 자료를 수집하는 흐름이 드러남.' },
-                  { no: 2, title: '정량화·데이터', content: '측정값과 기록을 기반으로 경향을 설명하려는 태도가 보임.' }
-                ],
-                extension_keywords: ['관찰', '기록', '데이터', '설명'],
-                extension_options: [
-                  { type: '데이터형', title: '측정값 비교 분석', description: '자료를 표와 그래프로 정리하는 확장 방향입니다.' }
-                ]
-              }
-            ]
-          },
-          {
-            year_label: '2학년',
-            subjects: [
-              {
-                subject: '국어',
-                one_line: '자료를 읽고 정리한 뒤 자신의 관점으로 확장하는 흐름이 드러나는 과목.',
-                axis_items: [
-                  { no: 1, title: '논증·리터러시', content: '자료를 바탕으로 주장과 근거를 정리하는 태도가 보임.' },
-                  { no: 2, title: '확장·연계', content: '교과 내용을 실제 주제와 연결해 해석하려는 흐름이 드러남.' }
-                ],
-                extension_keywords: ['자료 해석', '주장-근거', '확장 서술'],
-                extension_options: [
-                  { type: '논증형', title: '사회 주제 연결 글쓰기', description: '교과 텍스트를 실제 사회 주제로 연결하는 방향입니다.' }
-                ]
-              }
-            ]
-          },
-          {
-            year_label: '3학년',
-            subjects: [
-              {
-                subject: '진로 선택 과목',
-                one_line: '심화 탐구 주제를 선택하고 자신의 방향성을 정리하는 과목.',
-                axis_items: [
-                  { no: 1, title: '확장·연계', content: '이전 학년의 관심사를 심화 주제로 연결하는 흐름이 나타남.' }
-                ],
-                extension_keywords: ['심화 탐구', '방향성', '연결성'],
-                extension_options: [
-                  { type: '심화형', title: '이전 활동의 발전형 주제 설계', description: '앞선 학년 활동을 바탕으로 더 구체적인 탐구 방향을 잡습니다.' }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  };
-
-  async function loadRecordData(){
-    const bust = `v=${Date.now()}`;
-    const pathname = location.pathname || '';
-    const parts = pathname.split('/').filter(Boolean);
-    const bases = [];
-    // current directory, parent, grandparent, root-like guesses
-    bases.push('.');
-    bases.push('..');
-    bases.push('../..');
-    if (parts.length) {
-      const rootGuess = '/' + parts.slice(0, -1).join('/');
-      if (rootGuess && !bases.includes(rootGuess)) bases.push(rootGuess);
-    }
-    bases.push('/');
-    const names = [
-      'record_detail.json',
-      'data/record_detail.json',
-      'assets/record_detail.json',
-      'json/record_detail.json'
-    ];
-    const seen = new Set();
-    const candidates = [];
-    for (const b of bases){
-      for (const n of names){
-        const raw = (b === '/' ? `/${n}` : `${b}/${n}`).replace(/\/g,'/').replace(/\/+/g,'/');
-        const path = raw + (raw.includes('?') ? '&' : '?') + bust;
-        if (!seen.has(path)) { seen.add(path); candidates.push(path); }
-      }
-    }
-    const tried = [];
-    for (const path of candidates){
-      try {
-        const data = await loadJson(path);
-        return { data, source: path, isFallback: false, tried };
-      } catch (e) {
-        tried.push(path);
-      }
-    }
-    return { data: INLINE_MOCK_DATA, source: 'inline-mock', isFallback: true, tried };
-  }
-
   async function boot(){
-    const students = await loadJsonSafe('../students.json', []);
     const loaded = await loadRecordData();
-    const data = loaded.data;
-    const record = pickRecord(data, students);
-    if (!record) {
-      $('#analysisCard').innerHTML = '<div class="empty">표시할 분석 데이터가 없습니다. JSON 구조 또는 학생 매칭을 확인해 주세요.</div>';
+    const student = pickStudent(loaded.data);
+    if (!student) {
+      $('#studentMeta').textContent = '학생 데이터가 없습니다.';
+      $('#analysisCard').innerHTML = '<div class="empty">record_detail.json 안에 students 데이터가 없습니다.</div>';
       return;
     }
-    state.record = record;
-    const p = record.profile || {};
-    $('#studentMeta').textContent = [p.studentName || p.student_name, p.school, p.track, p.note].filter(Boolean).join(' · ');
-    if (loaded.isFallback) {
-      $('#previewBadge').textContent = '미리보기 데이터';
-      const guide = document.createElement('div');
-      guide.className = 'guide';
-      guide.innerHTML = 'record_detail.json을 찾지 못해 HTML 내부 가상 데이터로 표시 중<br>확인: <b>record_detail.html과 같은 폴더</b>에 <b>record_detail.json</b> 파일이 실제 업로드되어 있어야 합니다.' + (loaded.tried?.length ? `<br>시도한 경로: ${loaded.tried.map(esc).join(' , ')}` : '');
-      $('#analysisCard').insertAdjacentElement('beforebegin', guide);
-    } else {
-      const guide = document.createElement('div');
-      guide.className = 'guide';
-      guide.textContent = `불러온 데이터 경로: ${loaded.source}`;
-      $('#analysisCard').insertAdjacentElement('beforebegin', guide);
-    }
+    state.student = student;
+    $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id].filter(Boolean).join(' · ');
+    $('#previewBadge').textContent = '실데이터';
+    $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
     rerender();
   }
 
   boot().catch(err => {
-    $('#analysisCard').innerHTML = `<div class="empty">데이터를 불러오지 못했습니다. ${esc(err?.message || err)}</div>`;
+    $('#studentMeta').textContent = '데이터를 불러오지 못했습니다.';
+    $('#previewBadge').textContent = '오류';
+    $('#analysisCard').innerHTML = `<div class="empty">${esc(err?.message || err)}</div>`;
   });
 })();
 </script>
