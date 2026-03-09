@@ -140,7 +140,7 @@
         return found;
       }
     }
-    $('#previewBadge').textContent = '미리보기 데이터';
+    $('#previewBadge').textContent = '기본 학생 표시';
     return records[0] || null;
   }
 
@@ -211,14 +211,14 @@
       <div class="section-h">
         <div>
           <div class="section-title">과목 분석</div>
-          <div class="section-desc">${esc(year.year_label || '')} · ${esc(subject.subject || '')}</div>
+          <div class="section-desc">${esc(year.year_label || year.year || '')} · ${esc(subject.subject || '')}</div>
         </div>
         <span class="badge">역량 축 ${safeArr(subject.axis_items).length}개</span>
       </div>
 
       <div class="block">
         <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
-        <div class="one-line">${esc(subject.one_line || '')}</div>
+        <div class="one-line">${esc(subject.one_line || subject.summary || '')}</div>
       </div>
 
       <div class="block">
@@ -355,13 +355,13 @@
     ]
   };
 
-  async function loadMockData(){
+  async function loadRecordData(){
     const candidates = [
-      'school_record_detail.v3.mock.json',
-      './school_record_detail.v3.mock.json',
-      '../school_record_detail.v3.mock.json',
-      'data/school_record_detail.v3.mock.json',
-      './data/school_record_detail.v3.mock.json'
+      'record_detail.json',
+      './record_detail.json',
+      '../record_detail.json',
+      'data/record_detail.json',
+      './data/record_detail.json'
     ];
     for (const path of candidates){
       try {
@@ -374,7 +374,7 @@
 
   async function boot(){
     const students = await loadJsonSafe('../students.json', []);
-    const loaded = await loadMockData();
+    const loaded = await loadRecordData();
     const data = loaded.data;
     const record = pickRecord(data, students);
     if (!record) {
@@ -383,12 +383,12 @@
     }
     state.record = record;
     const p = record.profile || {};
-    $('#studentMeta').textContent = [p.studentName, p.school, p.track, p.note].filter(Boolean).join(' · ');
+    $('#studentMeta').textContent = [p.studentName || p.student_name, p.school, p.track, p.note].filter(Boolean).join(' · ');
     if (loaded.isFallback) {
       $('#previewBadge').textContent = '미리보기 데이터';
       const guide = document.createElement('div');
       guide.className = 'guide';
-      guide.textContent = '외부 JSON을 찾지 못해 HTML 내부 가상 데이터로 표시 중';
+      guide.textContent = 'record_detail.json을 찾지 못해 HTML 내부 가상 데이터로 표시 중';
       $('#analysisCard').insertAdjacentElement('beforebegin', guide);
     }
     rerender();
