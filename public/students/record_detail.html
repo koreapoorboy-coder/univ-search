@@ -26,6 +26,11 @@
     .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
     .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .keyword-groups{display:grid;gap:12px}
+    .keyword-group{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:14px 16px}
+    .keyword-group-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+    .keyword-group-title{font-size:14px;font-weight:900;line-height:1.4}
+    .keyword-group-desc{font-size:13px;color:var(--muted);line-height:1.6}
     .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800;cursor:pointer}
     .chip.is-on{background:#111;color:#fff;border-color:#111}
     .keyword-help{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px 0}
@@ -194,6 +199,84 @@
   }
 
 
+
+  function groupInfo(title, desc, keywords){
+    return { title, desc, keywords };
+  }
+
+  function keywordGroupsFor(subjectName, keywords){
+    const list = safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
+    const set = new Set(list);
+    const has = (arr) => arr.filter(k => set.has(k));
+    const groups = [];
+
+    const pushIf = (title, desc, arr) => {
+      const items = has(arr);
+      if (items.length) groups.push(groupInfo(title, desc, items));
+    };
+
+    if (subjectName === '동아리활동(의학탐구동아리)') {
+      pushIf('실험·탐구', '실험 개념을 실제 탐구 상황에 적용한 흐름입니다.', ['의학탐구동아리','비타민 검출 실험','산화와 환원','실험 적용','비타민 정량']);
+      pushIf('문제 해결·협업', '예상과 다른 결과를 조정하며 함께 해결한 과정입니다.', ['실험 과정 수정','문제 해결','모둠 협의']);
+      pushIf('리더십·운영', '행사를 준비하고 현장을 이끈 실행 경험입니다.', ['축제 부스 운영','퀴즈 기획','벽 보수','리더십']);
+      pushIf('토론·논증', '의학 주제를 근거 중심으로 판단하고 표현한 흔적입니다.', ['플라시보 효과','토론 활동','논리적 표현','임상 효과의 불확실성']);
+      pushIf('의공학 확장', '의학과 공학을 연결해 진로 방향으로 확장한 흐름입니다.', ['심장 연구','심전도 기록 원리','전기 신호 증폭','디지털 데이터 변환','전자공학 분석','의공학','사회 공헌 포부']);
+    } else if (subjectName === '자율활동') {
+      pushIf('메이커·과학 원리', '과학 원리를 제작 활동에 연결해 적용한 흐름입니다.', ['골드버그장치 제작','위치 에너지','운동 에너지','역학적 에너지 보존','문제 해결','창의적 사고','협업']);
+      pushIf('기획·운영', '학년 활동을 운영하며 맡은 역할을 주도적으로 수행한 흐름입니다.', ['지속가능한 개발 목표','진로 탐구','기획단 부단장','연간 활동 계획','행사 운영','역할 배정','모둠별 주제 탐구','발표 준비','최종 보고 발표회','진행 사회','책임감']);
+      pushIf('역사 성찰', '역사적 맥락을 현재의 가치 판단과 연결한 흐름입니다.', ['학생독립운동 기념일','역사적 의미','공감 능력','비판적 사고']);
+    } else if (subjectName === '진로활동(탄소중립·에너지전환)') {
+      pushIf('에너지·정책 탐구', '에너지 전환과 정책을 구조적으로 이해한 흐름입니다.', ['탄소 중립','에너지 전환','에너지 정책 조사','에너지 실태 분석','독일 기후 중립 정책','태양광 에너지','풍력 발전 확대','지하케이블 대체','가공선 사용']);
+      pushIf('문제 인식·해결 방향', '기술의 한계와 해결 방안을 함께 본 흐름입니다.', ['미래 모빌리티 에지원 개발자','폐배터리 문제','소재 원리 이해','탄소 중립과 에너지 보장','친환경 자동차','폐배터리 재활용 기술']);
+      pushIf('국제·지속가능성', '지속가능성 문제를 국제 협력 관점에서 바라본 흐름입니다.', ['지속가능한 개발 목표','국제 협력','공동 번영','진로 탐구 생활','굿바이 탄소 에너지 이야기','환경 책임감','지구 환경 문제','세계적 연대']);
+      pushIf('진로 구체화', '관심 직업을 선명하게 설정하고 목표를 구체화한 흐름입니다.', ['친환경 모빌리티 전문가','사회 공헌 진로']);
+    } else if (subjectName === '국어') {
+      pushIf('독서·성찰', '읽기 활동을 사회적 성찰과 연결한 흐름입니다.', ['동물 농장','독서 감상문','사회 구성원 의식','올바른 리더의 자세']);
+      pushIf('글쓰기·자료 활용', '자료를 조사하고 근거를 바탕으로 글을 쓴 흐름입니다.', ['주제 글쓰기','출처 인용','자료 조사','논리력','창의적 사고','설명하는 글쓰기','정보 활용','종합적 분석','논리정연한 요약']);
+      pushIf('친환경·기술 탐구', '국어 활동을 기술 주제와 연결해 확장한 흐름입니다.', ['친환경 자동차','전기자동차','수소자동차','대기 오염 문제','전기자동차 시스템','처음 읽는 2차전지 이야기','주제 독서 탐구','전기차 폭발 사고','배터리 열폭주','리튬이온전지','배터리 폭발 대처 방안']);
+    } else if (subjectName === '수학') {
+      pushIf('탐구·문헌 조사', '주제를 정해 자료를 읽고 개념을 확장한 흐름입니다.', ['수업 적극 참여','질문을 통한 문제 해결','지적 호기심','프랙탈','수학적 원리','문헌 조사','탐구보고서']);
+      pushIf('모델링·창의 풀이', '수학 개념을 실제 문제와 연결하고 새 방식으로 해결한 흐름입니다.', ['자기유사성','반복 구조','자연현상 적용','실생활 수식화','수학적 모델링','심화학습','발표 수행평가','창의적 풀이','평행이동','원의 방정식','경우의 수','문제 유형화']);
+      pushIf('의사소통·멘토링', '설명과 협업을 통해 다른 사람의 학습에도 기여한 흐름입니다.', ['체계적 발표','멘토링 활동','수학적 의사소통','모둠 활동','동료평가 우수학생']);
+    } else if (subjectName === '영어') {
+      pushIf('책임·학습 태도', '역할 수행과 자기관리 측면의 강점을 보여 주는 흐름입니다.', ['영어부장','책임감','역할 수행','문맥 이해력','핵심 내용 파악']);
+      pushIf('지문 이해·대안 제시', '기술 주제를 읽고 핵심 쟁점과 대안을 연결한 흐름입니다.', ['하이브리드 자동차','전기자동차 위험성','배터리 폭발 안전성','전고체 배터리','대안 제시','비판적 사고','논리적 전개','영어 텍스트 분석']);
+      pushIf('문법 분석·자기주도학습', '규칙을 구조화하고 계획적으로 극복한 흐름입니다.', ['어법 오류 수정','발표 활동','능동태와 수동태','분사의 형용사 역할','타동사와 자동사 구별','의미관계 분석','수동태 판단 매뉴얼','학습량 설정','일별 학습 분량 조정','자기주도 학습','한계 극복']);
+    } else if (subjectName === '한국사') {
+      pushIf('전염병 역사 탐구', '역사적 사례를 중심으로 문제를 구조화한 흐름입니다.', ['지적 탐구심','논리적 표현','미국사를 뒤흔든 5대 전염병','전염병 역사 탐구','인수 공통감염병']);
+      pushIf('비교·현재 연결', '조선시대와 현대를 비교하며 현재적 의미를 찾은 흐름입니다.', ['자기관리','수업 적극 참여','조선시대 대처 방안','현대 대응 방안','조선 전기와 후기 비교','인식 변화','대처방안 비교','과거와 현재 연결','교육 방식 비교','현대 사회 적용 가능성']);
+      pushIf('에너지 산업사', '에너지 산업 변화와 역사적 사건의 연관성을 분석한 흐름입니다.', ['석탄의 발전','에너지 사업 발전 과정','역사적 사건 연관성','외국 사례 비교','우리나라 에너지 사업 특수성','발전 방향성','연구 계획 수립']);
+    } else if (subjectName === '통합사회') {
+      pushIf('가치·행복 탐구', '개인의 삶과 사회의 기준을 함께 고민한 흐름입니다.', ['행복의 의미 성찰','행복 기준 제시','통합적 사고','시대별 가치관 변화','진로 구체화']);
+      pushIf('의료·교육·사회 이해', '관심 분야를 사회 구조와 연결해 본 흐름입니다.', ['숨결이 바람 될 때','의료기기 관심','진단 장비 원리','치료 기기 원리','여행 장소 소개하기','경제','과학','의료','세계화','미래 사회','핀란드 교육','공교육 중심 교육','평등 교육','사회적 이슈 분석','의견 표현','타인 의견 존중']);
+      pushIf('자율주행·토론', '기술 쟁점을 다양한 관점에서 토론하고 반박한 흐름입니다.', ['자율주행 기술','사회적 책임 소재','법적 책임 소재','비판적 사고','문제 해결 능력','통계 자료 활용','논리적 반박']);
+    } else if (subjectName === '통합과학') {
+      pushIf('배터리·지속가능성', '과학 원리를 기술과 환경 문제에 연결한 흐름입니다.', ['수업 몰입','깊이 있는 이해','적극적 학습 참여','배터리의 미래','생활 속 과학 원리','심화 발표','리튬 이온 배터리','과학 원리 설명','환경 보호','지속 가능성','과학적 탐구','실생활 적용']);
+      pushIf('실험·표현', '실험 수행과 결과 표현을 함께 보여 준 흐름입니다.', ['산성과 염기성','지시약 활용','액성 구분','색 변화','창의적 작품 제작','실험 도구 사용','협력','소통']);
+      pushIf('친환경 설계', '과학 기술을 실제 설계 문제로 응용한 흐름입니다.', ['태양광 발전','풍력 발전','에너지 자급 주택','첨단 과학 기술','주택 구조와 효율성','친환경 에너지 대안']);
+    }
+
+    const used = new Set(groups.flatMap(g => g.keywords));
+    const rest = list.filter(k => !used.has(k));
+    if (rest.length) groups.push(groupInfo('기타 확장 키워드', '핵심 흐름 외에 함께 참고할 수 있는 보조 키워드입니다.', rest));
+    if (!groups.length && list.length) groups.push(groupInfo('확장 키워드', '이 활동의 핵심 주제와 역량을 보여 주는 키워드입니다.', list));
+    return groups;
+  }
+
+  function keywordGroupsHtml(subjectName, keywords){
+    const groups = keywordGroupsFor(subjectName, keywords);
+    if (!groups.length) return '<div class="empty">확장 키워드 데이터가 없습니다.</div>';
+    return `<div class="keyword-groups">${groups.map(group => `
+      <div class="keyword-group">
+        <div class="keyword-group-head">
+          <div class="keyword-group-title">${esc(group.title || '')}</div>
+          <div class="keyword-group-desc">${esc(group.desc || '')}</div>
+        </div>
+        <div class="chips">${safeArr(group.keywords).map(k => `<button type="button" class="chip ${state.selectedKeyword === k ? 'is-on' : ''}" data-keyword="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+      </div>
+    `).join('')}</div>`;
+  }
+
   function normalizeKeyword(s){
     return String(s || '').replace(/\s+/g,' ').trim();
   }
@@ -322,8 +405,8 @@
           <div class="mini-title" style="margin:0;">확장 키워드</div>
           <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '활동예시 닫기' : '활동예시 보기'}</button>
         </div>
-        <div class="keyword-help">이 활동에서 드러난 핵심 주제와 역량을 정리한 항목입니다. 키워드를 누르면 학생이 실제로 보여 준 의미를 짧게 확인할 수 있습니다.</div>
-        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<button type="button" class="chip ${state.selectedKeyword === k ? 'is-on' : ''}" data-keyword="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+        <div class="keyword-help">이 활동에서 드러난 핵심 주제와 역량을 묶어서 정리한 항목입니다. 비슷한 의미의 키워드를 함께 보면 학생의 관심 분야와 탐구 흐름을 더 쉽게 이해할 수 있습니다. 키워드를 누르면 학생이 실제로 보여 준 의미를 짧게 확인할 수 있습니다.</div>
+        ${keywordGroupsHtml(subject.subject || '', subject.extension_keywords)}
         ${keywordMeaningHtml(subject.subject || '', state.selectedKeyword || safeArr(subject.extension_keywords)[0] || '')}
         ${state.showExamples ? `
           <div style="margin-top:16px;">
