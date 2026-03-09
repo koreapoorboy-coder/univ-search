@@ -54,15 +54,17 @@
     .example-body{color:#333;line-height:1.75;margin-top:10px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
-    .year-layout{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:18px;align-items:stretch}
+    .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+    .year-layout.is-summary-open{grid-template-columns:minmax(280px,420px) 1fr}
     .year-left{display:flex;flex-direction:column;justify-content:flex-start}
     .year-summary{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 20px}
+    .year-summary[hidden]{display:none !important}
     .year-summary-title{font-size:16px;font-weight:900;line-height:1.45;margin:0 0 10px 0}
     .year-summary-desc{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 12px 0}
     .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
     .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
     .year-summary-body{color:#333;line-height:1.75;font-size:14px}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout{grid-template-columns:1fr}}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -85,10 +87,11 @@
               <div class="section-title">학년 선택</div>
               <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
             </div>
+            <button class="mini-toggle" id="yearSummaryToggleBtn" type="button" aria-expanded="false" aria-controls="yearSummaryPanel">총평 보기</button>
           </div>
           <div class="toggle-wrap" id="yearToggles"></div>
         </div>
-        <div class="year-summary" id="yearSummaryPanel"></div>
+        <div class="year-summary" id="yearSummaryPanel" hidden></div>
       </div>
     </div>
 
@@ -119,6 +122,7 @@
     subjectIndex: 0,
     showExamples: false,
     selectedKeyword: '',
+    showYearSummary: false,
   };
 
   const DEFAULT_YEAR_SUMMARIES = {};
@@ -160,9 +164,22 @@
 
   function renderYearSummary(year){
     const panel = $('#yearSummaryPanel');
+    const layout = document.querySelector('#yearCard .year-layout');
+    const toggleBtn = $('#yearSummaryToggleBtn');
     if (!panel) return;
     const summary = getYearSummary(state.student, year?.year || '');
     const hasAny = Boolean(summary.academic || summary.career || summary.community);
+
+    if (toggleBtn) {
+      toggleBtn.textContent = state.showYearSummary ? '총평 닫기' : '총평 보기';
+      toggleBtn.classList.toggle('is-on', state.showYearSummary);
+      toggleBtn.setAttribute('aria-expanded', String(state.showYearSummary));
+    }
+
+    panel.hidden = !state.showYearSummary;
+    if (layout) layout.classList.toggle('is-summary-open', state.showYearSummary);
+    if (!state.showYearSummary) return;
+
     panel.innerHTML = hasAny ? `
       <div class="year-summary-title">${esc(year?.year || '')} 총평</div>
       <div class="year-summary-desc">대학 평가 기준인 학업역량 · 진로역량 · 공동체역량 관점에서 읽은 요약입니다.</div>
@@ -220,6 +237,17 @@
       return students.find(s => String(s.student_id || '').trim() === wantedId) || null;
     }
     return students[0];
+  }
+
+  function bindYearSummaryToggle(){
+    const btn = $('#yearSummaryToggleBtn');
+    if (!btn) return;
+    btn.onclick = () => {
+      state.showYearSummary = !state.showYearSummary;
+      const years = safeArr(state.student?.years);
+      const year = years[state.yearIndex] || years[0] || { year: '학년' };
+      renderYearSummary(year);
+    };
   }
 
   function renderYearToggles(years){
