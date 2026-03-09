@@ -54,7 +54,15 @@
     .example-body{color:#333;line-height:1.75;margin-top:10px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}}
+    .year-layout{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:18px;align-items:stretch}
+    .year-left{display:flex;flex-direction:column;justify-content:flex-start}
+    .year-summary{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 20px}
+    .year-summary-title{font-size:16px;font-weight:900;line-height:1.45;margin:0 0 10px 0}
+    .year-summary-desc{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 12px 0}
+    .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
+    .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
+    .year-summary-body{color:#333;line-height:1.75;font-size:14px}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -70,13 +78,18 @@
     </div>
 
     <div class="card" id="yearCard">
-      <div class="section-h">
-        <div>
-          <div class="section-title">학년 선택</div>
-          <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
+      <div class="year-layout">
+        <div class="year-left">
+          <div class="section-h">
+            <div>
+              <div class="section-title">학년 선택</div>
+              <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
+            </div>
+          </div>
+          <div class="toggle-wrap" id="yearToggles"></div>
         </div>
+        <div class="year-summary" id="yearSummaryPanel"></div>
       </div>
-      <div class="toggle-wrap" id="yearToggles"></div>
     </div>
 
     <div class="card" id="subjectCardTop">
@@ -107,6 +120,78 @@
     showExamples: false,
     selectedKeyword: '',
   };
+
+  const DEFAULT_YEAR_SUMMARIES = {
+    shstudy01: {
+      '1학년': {
+        academic: '수학(프랙탈 탐구보고서·창의적 풀이), 영어(지문 분석·문법 판단 매뉴얼), 통합과학·과학탐구실험(배터리 발표·충격량 그래프·안전장치 설계)에서 개념 이해, 자료 활용, 논리적 설명, 실생활 적용 능력이 고르게 드러났다.',
+        career: '국어(친환경 자동차·2차전지 글쓰기), 영어(전고체 배터리 대안 제시), 진로활동(탄소중립·폐배터리·친환경 모빌리티), 기술가정·통합과학(자율주행·하이브리드·에너지 설계)을 통해 배터리·친환경 에너지·모빌리티 분야에 대한 관심을 일관되게 심화하였다.',
+        community: '자율활동(기획단 부단장·모둠 총괄·사회), 동아리활동(실험 조율·축제 운영), 영어부장, 수학 멘토링을 통해 책임감, 협업 능력, 리더십을 안정적으로 보여주며 공동체 안에서 신뢰를 형성하였다.'
+      }
+    }
+  };
+
+  function defaultYearSummaryFor(studentId, yearLabel){
+    return DEFAULT_YEAR_SUMMARIES[String(studentId || '').trim()]?.[String(yearLabel || '').trim()] || null;
+  }
+
+  function readYearSummaryFromStudent(student, yearLabel){
+    const ys = student?.year_summaries;
+    if (!ys) return null;
+    if (Array.isArray(ys)) {
+      const found = ys.find(v => String(v?.year || '').trim() === String(yearLabel || '').trim());
+      if (!found) return null;
+      return {
+        academic: found.academic || found.academic_summary || '',
+        career: found.career || found.career_summary || '',
+        community: found.community || found.community_summary || '',
+      };
+    }
+    const byKey = ys[String(yearLabel || '').trim()];
+    if (!byKey) return null;
+    return {
+      academic: byKey.academic || byKey.academic_summary || '',
+      career: byKey.career || byKey.career_summary || '',
+      community: byKey.community || byKey.community_summary || '',
+    };
+  }
+
+  function getYearSummary(student, yearLabel){
+    const fromData = readYearSummaryFromStudent(student, yearLabel);
+    if (fromData && (fromData.academic || fromData.career || fromData.community)) return fromData;
+    return defaultYearSummaryFor(student?.student_id, yearLabel) || {
+      academic: '',
+      career: '',
+      community: '',
+    };
+  }
+
+  function renderYearSummary(year){
+    const panel = $('#yearSummaryPanel');
+    if (!panel) return;
+    const summary = getYearSummary(state.student, year?.year || '');
+    const hasAny = Boolean(summary.academic || summary.career || summary.community);
+    panel.innerHTML = hasAny ? `
+      <div class="year-summary-title">${esc(year?.year || '')} 총평</div>
+      <div class="year-summary-desc">대학 평가 기준인 학업역량 · 진로역량 · 공동체역량 관점에서 읽은 요약입니다.</div>
+      <div class="year-summary-item">
+        <div class="year-summary-label">학업역량</div>
+        <div class="year-summary-body">${esc(summary.academic || '')}</div>
+      </div>
+      <div class="year-summary-item">
+        <div class="year-summary-label">진로역량</div>
+        <div class="year-summary-body">${esc(summary.career || '')}</div>
+      </div>
+      <div class="year-summary-item">
+        <div class="year-summary-label">공동체역량</div>
+        <div class="year-summary-body">${esc(summary.community || '')}</div>
+      </div>
+    ` : `
+      <div class="year-summary-title">${esc(year?.year || '학년')} 총평</div>
+      <div class="year-summary-desc">이 학년의 총평 데이터가 아직 없습니다.</div>
+      <div class="empty">학업역량 · 진로역량 · 공동체역량 요약을 추가하면 이 영역에 함께 표시됩니다.</div>
+    `;
+  }
 
   async function loadJson(path){
     const r = await fetch(path, { cache:'no-store' });
@@ -446,6 +531,7 @@
     const years = safeArr(state.student?.years);
     renderYearToggles(years);
     const year = years[state.yearIndex] || years[0] || {};
+    renderYearSummary(year);
     const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
     renderSubjectToggles(subjects);
     rerenderAnalysis();
