@@ -42,25 +42,18 @@
     .block + .block{margin-top:14px}
     .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
     .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-    .mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:900;cursor:pointer}
-    .mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
-    .example-panel{margin-top:12px}
+    .example-panel{margin-top:14px}
     .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
     .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
     .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
     .axis-no{display:inline-flex;min-width:24px;height:24px;border-radius:999px;align-items:center;justify-content:center;background:#111;color:#fff;font-size:12px;margin-right:8px}
     .axis-text{color:#333;line-height:1.7;font-size:14px}
-    .accordion{display:grid;gap:10px;margin-top:14px}
-    .acc-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft)}
-    .acc-head{width:100%;border:0;background:transparent;padding:16px 18px;text-align:left;display:flex;justify-content:space-between;gap:12px;align-items:center;cursor:pointer}
-    .acc-head-left{display:flex;flex-direction:column;gap:6px}
-    .acc-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .acc-title{font-size:16px;font-weight:900;line-height:1.45}
-    .acc-sign{font-size:22px;line-height:1;font-weight:500;color:#666}
-    .acc-body{display:none;padding:0 18px 18px 18px;color:#333;line-height:1.75}
-    .acc-item.is-open .acc-body{display:block}
-    .acc-item.is-open .acc-sign{transform:rotate(45deg)}
+    .example-grid{display:grid;gap:10px;margin-top:12px}
+    .example-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
+    .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
+    .example-body{color:#333;line-height:1.75;margin-top:10px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin-top:8px}
     @media (max-width: 980px){
@@ -190,50 +183,18 @@
 
   function extensionHtml(options){
     const list = safeArr(options);
-    if (!list.length) return `<div class="empty">확장 옵션 데이터가 없습니다.</div>`;
+    if (!list.length) return `<div class="empty">활동예시 데이터가 없습니다.</div>`;
     return `
-      <div class="accordion">${list.map((opt, idx) => `
-        <div class="acc-item" data-acc-item>
-          <button class="acc-head" type="button" data-acc-btn>
-            <div class="acc-head-left">
-              <span class="acc-type">${esc(opt.type || '확장')}</span>
-              <span class="acc-title">${esc(opt.title || '')}</span>
-            </div>
-            <span class="acc-sign">+</span>
-          </button>
-          <div class="acc-body">${esc(opt.description || '')}</div>
+      <div class="example-grid">${list.map(opt => `
+        <div class="example-item">
+          <span class="example-type">${esc(opt.type || '활동예시')}</span>
+          <div class="example-title">${esc(opt.title || '')}</div>
+          <div class="example-body">${esc(opt.description || '')}</div>
         </div>
       `).join('')}</div>
     `;
   }
 
-  function bindAccordion(){
-    document.querySelectorAll('[data-acc-btn]').forEach(btn => {
-      btn.onclick = () => {
-        const item = btn.closest('[data-acc-item]');
-        if (!item) return;
-        item.classList.toggle('is-open');
-      };
-    });
-  }
-
-  function bindExampleToggle(){
-    const btn = document.querySelector('[data-example-toggle]');
-    const panel = document.querySelector('[data-example-panel]');
-    if (!btn || !panel) return;
-    btn.onclick = () => {
-      const open = panel.hasAttribute('hidden');
-      if (open) {
-        panel.removeAttribute('hidden');
-        btn.classList.add('is-on');
-        btn.textContent = '활동예시 닫기';
-      } else {
-        panel.setAttribute('hidden', 'hidden');
-        btn.classList.remove('is-on');
-        btn.textContent = '활동예시';
-      }
-    };
-  }
 
   function rerenderAnalysis(){
     const years = safeArr(state.record?.years);
@@ -262,13 +223,13 @@
       </div>
 
       <div class="block">
-        <div class="inline-head">
-          <div class="mini-title" style="margin:0;">확장 키워드</div>
-          <button type="button" class="mini-toggle" data-example-toggle>활동예시</button>
-        </div>
+        <div class="mini-title">확장 키워드</div>
         <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
-        <div class="example-panel" data-example-panel hidden>
-          <div class="guide" style="margin:0 0 10px 0;">확장 옵션은 필요할 때만 눌러서 확인합니다.</div>
+        <div class="example-panel">
+          <div class="inline-head" style="margin:16px 0 0 0;">
+            <div class="mini-title" style="margin:0;">활동예시</div>
+          </div>
+          <div class="guide" style="margin:0 0 10px 0;">확장 옵션은 한 번에 보고 비교할 수 있도록 모두 표시합니다.</div>
           ${extensionHtml(subject.extension_options)}
         </div>
       </div>
@@ -281,8 +242,6 @@
       </div>
       <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
     `;
-    bindAccordion();
-    bindExampleToggle();
   }
 
   function rerender(){
