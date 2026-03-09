@@ -26,7 +26,13 @@
     .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
     .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800}
+    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800;cursor:pointer}
+    .chip.is-on{background:#111;color:#fff;border-color:#111}
+    .keyword-help{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px 0}
+    .keyword-meaning{margin-top:14px;border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
+    .keyword-meaning-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .keyword-meaning-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
+    .keyword-meaning-body{color:#333;line-height:1.75;margin-top:8px}
     .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
     .block + .block{margin-top:14px}
     .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
@@ -94,6 +100,7 @@
     yearIndex: 0,
     subjectIndex: 0,
     showExamples: false,
+    selectedKeyword: '',
   };
 
   async function loadJson(path){
@@ -142,6 +149,7 @@
         state.yearIndex = Number(btn.dataset.yearIdx || 0);
         state.subjectIndex = 0;
         state.showExamples = false;
+        state.selectedKeyword = '';
         rerender();
       };
     });
@@ -155,6 +163,7 @@
       btn.onclick = () => {
         state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
         state.showExamples = false;
+        state.selectedKeyword = '';
         renderSubjectToggles(subjects);
         rerenderAnalysis();
       };
@@ -182,6 +191,104 @@
         <div class="example-body">${esc(opt.description || '')}</div>
       </div>
     `).join('')}</div>`;
+  }
+
+
+  function normalizeKeyword(s){
+    return String(s || '').replace(/\s+/g,' ').trim();
+  }
+
+  function getKeywordMeaning(subjectName, keyword){
+    const k = normalizeKeyword(keyword);
+    const exact = {
+      '의학탐구동아리':'의학 주제를 중심으로 실험, 토론, 공학적 탐구를 함께 수행한 활동의 방향을 보여 주는 키워드입니다.',
+      '비타민 검출 실험':'개념을 실험 상황에 적용해 결과를 확인한 실제 탐구 경험을 뜻합니다.',
+      '산화와 환원':'화학 개념을 이해하는 데서 그치지 않고 실험에 연결해 활용한 점을 보여 줍니다.',
+      '실험 적용':'배운 내용을 실제 활동에 옮겨 문제 해결에 사용한 학습 적용 역량을 뜻합니다.',
+      '비타민 정량':'관찰을 넘어서 양을 판단하고 측정하려는 데이터 기반 탐구 태도를 보여 줍니다.',
+      '실험 과정 수정':'예상과 다른 결과가 나왔을 때 과정을 조정하며 해결한 경험을 뜻합니다.',
+      '문제 해결':'오류나 예상 밖 상황을 스스로 분석하고 개선하는 역량을 보여 주는 키워드입니다.',
+      '모둠 협의':'혼자 해결하지 않고 팀원과 의견을 조율하며 탐구를 진행한 협업 태도를 뜻합니다.',
+      '축제 부스 운영':'행사 준비와 현장 운영을 실제로 맡아 본 실행 경험을 보여 줍니다.',
+      '퀴즈 기획':'단순 참여가 아니라 내용을 구성하고 전달 방식을 고민한 기획 역량을 뜻합니다.',
+      '벽 보수':'문제가 생겼을 때 바로 움직여 현장을 안정적으로 운영한 실행력과 책임감을 보여 줍니다.',
+      '리더십':'친구들을 이끌고 역할을 조정하며 활동의 흐름을 만드는 역량을 뜻합니다.',
+      '플라시보 효과':'의학·심리 주제를 근거 중심으로 다루며 쟁점을 판단한 토론 주제입니다.',
+      '토론 활동':'주장과 근거를 연결해 자신의 생각을 말하고 상대 의견에 대응한 경험을 뜻합니다.',
+      '논리적 표현':'근거를 바탕으로 자신의 판단을 설득력 있게 전달하는 능력을 보여 줍니다.',
+      '임상 효과의 불확실성':'주장을 세울 때 과학적 검증 가능성과 한계를 함께 본 시각을 뜻합니다.',
+      '심장 연구':'의학 주제를 깊이 있게 확장해 탐구한 관심 분야를 보여 줍니다.',
+      '심전도 기록 원리':'생체 신호가 측정되고 해석되는 과정을 이해한 의공학적 탐구 포인트입니다.',
+      '전기 신호 증폭':'생명 현상을 공학 장치의 작동 원리와 연결해 이해한 점을 보여 줍니다.',
+      '디지털 데이터 변환':'아날로그 신호가 데이터로 바뀌는 과정을 이해하며 기술적 사고를 확장한 키워드입니다.',
+      '전자공학 분석':'의학 현상을 전자공학의 관점으로 해석하려는 융합 사고를 뜻합니다.',
+      '의공학':'의학과 공학을 함께 바라보는 진로·탐구 방향을 압축해 보여 주는 키워드입니다.',
+      '사회 공헌 포부':'개인 관심을 넘어서 배운 내용을 사회적 기여와 연결한 진로 의식을 보여 줍니다.',
+      '프랙탈':'수학 개념을 깊이 탐구하고 자연현상과 연결해 본 핵심 주제입니다.',
+      '문헌 조사':'교과 개념을 더 넓게 이해하기 위해 자료를 찾아 읽고 정리한 학습 방식입니다.',
+      '탐구보고서':'자료 조사와 해석을 바탕으로 스스로 탐구 결과를 구조화한 산출 경험을 뜻합니다.',
+      '실생활 수식화':'현실의 상황을 수학적 식과 구조로 바꾸어 이해하려는 모델링 태도를 뜻합니다.',
+      '수학적 모델링':'개념을 실제 문제에 적용해 설명하고 예측하는 수학 활용 역량을 보여 줍니다.',
+      '창의적 풀이':'정해진 방식만 따르지 않고 새로운 접근으로 문제를 해결한 경험을 뜻합니다.',
+      '평행이동':'도형과 식의 관계를 이용해 문제를 구조적으로 해결한 포인트입니다.',
+      '원의 방정식':'좌표와 식을 연결해 분석적으로 해결한 수학적 사고의 근거입니다.',
+      '문제 유형화':'어려운 문제를 분류하고 패턴을 찾아 스스로 극복한 자기주도 전략을 보여 줍니다.',
+      '멘토링 활동':'자신의 이해를 다른 친구에게 설명하며 학급의 학습에도 기여한 경험입니다.',
+      '동료평가 우수학생':'설명력과 협업 태도가 또래에게도 높게 평가되었음을 보여 줍니다.',
+      '친환경 자동차':'관심 분야를 사회 문제 해결과 연결해 글쓰기·탐구 주제로 확장한 키워드입니다.',
+      '전기자동차':'기술 원리와 사회적 의미를 함께 살핀 탐구 대상입니다.',
+      '수소자동차':'대안 기술을 비교하며 장단점을 생각한 확장 탐구 키워드입니다.',
+      '배터리 열폭주':'과학기술의 위험 요소를 구조적으로 이해하려 한 탐구 포인트입니다.',
+      '리튬이온전지':'에너지 저장 기술의 핵심 개념을 독서와 발표로 연결한 키워드입니다.',
+      '탄소 중립':'환경과 에너지 문제를 진로 탐색과 연결해 본 핵심 사회 의제입니다.',
+      '에너지 전환':'기존 에너지 체계에서 지속가능한 방향으로 바뀌는 흐름을 이해한 키워드입니다.',
+      '폐배터리 문제':'친환경 기술의 한계와 후속 과제를 함께 본 문제의식입니다.',
+      '친환경 모빌리티 전문가':'관심 직업을 구체화하며 진로 방향을 선명하게 드러낸 표현입니다.',
+      '전고체 배터리':'기존 배터리의 한계를 보완할 대안 기술을 탐색한 확장 아이디어입니다.',
+      '문맥 이해력':'영어 내용을 빠르게 파악하고 핵심을 잡는 강점을 보여 주는 키워드입니다.',
+      '능동태와 수동태':'문법을 단순 암기가 아니라 구조적으로 이해한 학습 내용을 뜻합니다.',
+      '수동태 판단 매뉴얼':'규칙을 스스로 정리해 적용 가능한 기준으로 만든 체계화 역량을 보여 줍니다.',
+      '인수 공통감염병':'역사와 현재 사회 문제를 연결해 본 탐구 주제를 뜻합니다.',
+      '에너지 사업 발전 과정':'역사적 사건과 산업 변화를 함께 구조화한 분석 주제입니다.',
+      '자율주행 기술':'기술 발전이 사회와 법에 미치는 영향을 토론으로 확장한 주제입니다.',
+      '통계 자료 활용':'주장을 뒷받침하기 위해 수치와 근거를 사용한 분석 태도를 보여 줍니다.',
+      '리튬 이온 배터리':'과학 원리를 실제 기술과 연결해 설명한 발표 핵심 주제입니다.',
+      '에너지 자급 주택':'과학 기술을 생활 속 설계 문제로 바꾸어 제안한 창의적 응용 결과입니다.',
+      '태양광 발전':'친환경 에너지의 실제 활용 방안을 이해하고 설계에 반영한 요소입니다.',
+      '풍력 발전':'대체 에너지 기술을 비교·적용하며 지속가능성을 고민한 포인트입니다.'
+    };
+    if (exact[k]) return exact[k];
+
+    if (k.includes('실험')) return '실험 키워드는 개념 이해를 실제 탐구 과정에 적용하고 결과를 해석한 경험을 의미합니다.';
+    if (k.includes('발표')) return '발표 키워드는 조사한 내용을 구조화해 다른 사람에게 이해되게 설명한 역량을 의미합니다.';
+    if (k.includes('토론')) return '토론 키워드는 자신의 주장과 근거를 세우고 상대 의견에 논리적으로 대응한 경험을 뜻합니다.';
+    if (k.includes('문제 해결') || k.includes('수정') || k.includes('극복')) return '이 키워드는 예상과 다른 상황을 분석하고 대안을 찾은 문제 해결 경험을 보여 줍니다.';
+    if (k.includes('협업') || k.includes('모둠') || k.includes('소통')) return '이 키워드는 다른 사람과 함께 의견을 조율하고 역할을 나누며 활동한 협업 태도를 뜻합니다.';
+    if (k.includes('리더십') || k.includes('기획') || k.includes('운영')) return '이 키워드는 활동의 흐름을 만들고 책임 있게 이끈 실행형 리더십을 보여 줍니다.';
+    if (k.includes('배터리') || k.includes('에너지') || k.includes('모빌리티')) return '이 키워드는 에너지·배터리·모빌리티 분야에 대한 관심과 탐구 방향을 압축해 보여 줍니다.';
+    if (k.includes('독서') || k.includes('문헌')) return '이 키워드는 읽기 활동을 바탕으로 스스로 주제를 확장하고 해석한 탐구 방식을 뜻합니다.';
+    if (k.includes('논리') || k.includes('근거') || k.includes('자료')) return '이 키워드는 근거를 바탕으로 판단하고 설명하는 분석적 사고를 보여 줍니다.';
+
+    const subjectHints = {
+      '수학':'이 키워드는 수학 개념을 이해하고 문제 해결이나 모델링으로 확장한 흔적을 보여 줍니다.',
+      '국어':'이 키워드는 읽기·쓰기·자료 활용을 통해 생각을 구조화하고 표현한 역량을 보여 줍니다.',
+      '영어':'이 키워드는 영어 지문 이해, 문법 분석, 논리적 표현과 연결된 학습 포인트를 보여 줍니다.',
+      '한국사':'이 키워드는 역사적 사건을 구조화하고 현재와 연결해 해석한 탐구 방향을 보여 줍니다.',
+      '통합사회':'이 키워드는 사회 현상을 여러 관점에서 연결하고 토론·분석으로 확장한 관심을 보여 줍니다.',
+      '통합과학':'이 키워드는 과학 개념을 실험·설계·실생활 적용과 연결한 탐구 방향을 보여 줍니다.'
+    };
+    return subjectHints[subjectName] || '이 키워드는 학생이 이 활동에서 보여 준 관심 주제, 문제 해결 방식, 탐구 방향을 압축해서 보여 줍니다.';
+  }
+
+  function keywordMeaningHtml(subjectName, keyword){
+    if (!keyword) return '';
+    return `
+      <div class="keyword-meaning">
+        <span class="keyword-meaning-label">키워드 해석</span>
+        <div class="keyword-meaning-title">${esc(keyword)}</div>
+        <div class="keyword-meaning-body">${esc(getKeywordMeaning(subjectName, keyword))}</div>
+      </div>
+    `;
   }
 
   function rerenderAnalysis(){
@@ -215,7 +322,9 @@
           <div class="mini-title" style="margin:0;">확장 키워드</div>
           <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '활동예시 닫기' : '활동예시 보기'}</button>
         </div>
-        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
+        <div class="keyword-help">이 활동에서 드러난 핵심 주제와 역량을 정리한 항목입니다. 키워드를 누르면 학생이 실제로 보여 준 의미를 짧게 확인할 수 있습니다.</div>
+        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<button type="button" class="chip ${state.selectedKeyword === k ? 'is-on' : ''}" data-keyword="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+        ${keywordMeaningHtml(subject.subject || '', state.selectedKeyword || safeArr(subject.extension_keywords)[0] || '')}
         ${state.showExamples ? `
           <div style="margin-top:16px;">
             <div class="mini-title">활동예시</div>
@@ -240,6 +349,14 @@
         rerenderAnalysis();
       };
     }
+
+    document.querySelectorAll('[data-keyword]').forEach(el => {
+      el.onclick = () => {
+        const key = el.getAttribute('data-keyword') || '';
+        state.selectedKeyword = state.selectedKeyword === key ? '' : key;
+        rerenderAnalysis();
+      };
+    });
   }
 
   function rerender(){
