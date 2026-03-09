@@ -41,6 +41,10 @@
     .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
     .block + .block{margin-top:14px}
     .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
+    .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:900;cursor:pointer}
+    .mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
+    .example-panel{margin-top:12px}
     .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
     .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
     .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
@@ -213,6 +217,24 @@
     });
   }
 
+  function bindExampleToggle(){
+    const btn = document.querySelector('[data-example-toggle]');
+    const panel = document.querySelector('[data-example-panel]');
+    if (!btn || !panel) return;
+    btn.onclick = () => {
+      const open = panel.hasAttribute('hidden');
+      if (open) {
+        panel.removeAttribute('hidden');
+        btn.classList.add('is-on');
+        btn.textContent = '활동예시 닫기';
+      } else {
+        panel.setAttribute('hidden', 'hidden');
+        btn.classList.remove('is-on');
+        btn.textContent = '활동예시';
+      }
+    };
+  }
+
   function rerenderAnalysis(){
     const years = safeArr(state.record?.years);
     const year = years[state.yearIndex] || years[0] || {};
@@ -240,18 +262,15 @@
       </div>
 
       <div class="block">
-        <div class="mini-title">확장 키워드</div>
-        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
-      </div>
-
-      <div class="block">
-        <div class="section-h" style="margin-bottom:10px;">
-          <div>
-            <div class="mini-title" style="margin:0;">확장 옵션</div>
-            <div class="guide">내용이 길어지지 않도록 클릭했을 때만 펼쳐집니다.</div>
-          </div>
+        <div class="inline-head">
+          <div class="mini-title" style="margin:0;">확장 키워드</div>
+          <button type="button" class="mini-toggle" data-example-toggle>활동예시</button>
         </div>
-        ${extensionHtml(subject.extension_options)}
+        <div class="chips">${safeArr(subject.extension_keywords).map(k => `<span class="chip">${esc(k)}</span>`).join('')}</div>
+        <div class="example-panel" data-example-panel hidden>
+          <div class="guide" style="margin:0 0 10px 0;">확장 옵션은 필요할 때만 눌러서 확인합니다.</div>
+          ${extensionHtml(subject.extension_options)}
+        </div>
       </div>
     ` : `
       <div class="section-h">
@@ -263,6 +282,7 @@
       <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
     `;
     bindAccordion();
+    bindExampleToggle();
   }
 
   function rerender(){
