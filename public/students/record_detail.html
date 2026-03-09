@@ -116,39 +116,6 @@
     }
     .reading-meta .chip{margin-top:0}
     .reading-meta .chip .k{opacity:.7;margin-right:4px}
-
-
-    .analysis-record-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-    .analysis-record-card{
-      border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;
-    }
-    .analysis-record-title{font-weight:900;font-size:16px;line-height:1.35}
-    .analysis-record-summary{
-      margin-top:10px;padding:12px 14px;border-radius:14px;background:#fafafa;border:1px solid #f0f0f0;
-      line-height:1.6;font-size:14px;
-    }
-    .analysis-record-raw{
-      margin-top:12px;border-top:1px dashed #eee;padding-top:12px;
-    }
-    .analysis-record-raw .analysis-text{
-      background:#fff;border:1px solid #f3f3f3;border-radius:14px;padding:12px;
-    }
-    .analysis-section{margin-top:14px;border-top:1px dashed #eee;padding-top:12px}
-    .analysis-section-title{font-size:14px;font-weight:900;margin:0 0 10px}
-    .analysis-section-item + .analysis-section-item{margin-top:10px}
-    .analysis-keywords{display:flex;gap:8px;flex-wrap:wrap}
-    .analysis-option{
-      border:1px solid #f0f0f0;border-radius:14px;padding:12px;background:#fcfcfc;
-    }
-    .analysis-option + .analysis-option{margin-top:10px}
-    .analysis-option-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
-    .analysis-option-type{border:1px solid #ddd;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900}
-    .analysis-option-title{font-weight:900}
-
   </style>
 </head>
 <body>
@@ -199,20 +166,6 @@
     <div class="subject-grid" id="subjectAnalysisArea" style="margin-top:12px;"></div>
   </div>
 
-
-  <div class="card" id="panelAnalysisRecords">
-    <div class="topbar">
-      <div class="leftgroup">
-        <div class="subttl">추가 분석 기록</div>
-        <span class="pill" id="analysisRecordCountPill">분석 0건</span>
-      </div>
-      <div class="rightgroup">
-        <span class="muted">붙여넣은 분석 원문 · 구조화 분석</span>
-      </div>
-    </div>
-    <div class="analysis-record-grid" id="analysisRecordArea" style="margin-top:12px;"></div>
-  </div>
-
   <!-- ✅ 창의적체험활동 섹션 추가 -->
   <div class="card" id="panelActivities">
     <div class="topbar">
@@ -221,7 +174,7 @@
         <span class="pill" id="activityCountPill">창체 0개</span>
       </div>
       <div class="rightgroup">
-        <span class="muted">자율 · 동아리 · 봉사 · 진로</span>
+        <span class="muted">활동 연결성 · 키워드 묶음 · 핵심 해석</span>
       </div>
     </div>
     <div class="subject-grid" id="activityArea" style="margin-top:12px;"></div>
@@ -623,12 +576,72 @@
     `;
   }
 
+  function classifyActivityKeyword(keyword){
+    const k = String(keyword || "");
+    const rules = [
+      { key: "제작·구현", tests: ["제작","코딩","아두이노","센서","모터","회로","연결","보드","브레드보드","시스템","제어"] },
+      { key: "운영·문제해결", tests: ["오류","해결","개선","기획","안정성","복합","동시","원리 이해"] },
+      { key: "데이터·분석", tests: ["모니터링","분석","실시간","원인","심층","지표","비교"] },
+      { key: "환경·지속가능", tests: ["환경","친환경","토양","오염","산성화","퇴비","비료","지속가능","배변패드"] },
+      { key: "대안·확장 적용", tests: ["대안","제안","연계","실용성","수경재배","폐배터리"] }
+    ];
+    for (const rule of rules) {
+      if (rule.tests.some(t => k.includes(t))) return rule.key;
+    }
+    return "기타 연결";
+  }
+
+  function buildKeywordClusters(keywords){
+    const groups = new Map();
+    (Array.isArray(keywords) ? keywords : []).forEach(k => {
+      const group = classifyActivityKeyword(k);
+      if (!groups.has(group)) groups.set(group, []);
+      groups.get(group).push(k);
+    });
+    const order = ["제작·구현","운영·문제해결","데이터·분석","환경·지속가능","대안·확장 적용","기타 연결"];
+    return order
+      .filter(name => groups.has(name))
+      .map(name => ({ name, keywords: groups.get(name) }));
+  }
+
+  function buildActivityConnectionSummary(a, clusters){
+    const title = String(a?.title || "활동");
+    const names = clusters.map(c => c.name);
+    const top = names.slice(0, 3);
+    if (!top.length) return `${title}에서 드러나는 연결 요소를 정리할 데이터가 아직 부족합니다.`;
+
+    const mapText = {
+      "제작·구현": "직접 만들고 연결하는 구현 경험",
+      "운영·문제해결": "오류를 조정하고 구조를 개선하는 문제해결 경험",
+      "데이터·분석": "관찰값을 해석하고 원인을 분석하는 탐구 경험",
+      "환경·지속가능": "환경 문제를 실제 맥락과 연결하는 확장 경험",
+      "대안·확장 적용": "대안을 제안하고 다른 주제로 확장하는 적용 경험",
+      "기타 연결": "다양한 활동 요소를 종합하는 경험"
+    };
+
+    const pieces = top.map(x => mapText[x]).filter(Boolean);
+    return `${title}에서는 ${pieces.join(', ')}이 함께 드러나며, 단순 참여보다 구현 → 분석 → 확장으로 이어지는 활동 흐름을 확인할 수 있습니다.`;
+  }
+
+  function clusterHtml(cluster){
+    return `
+      <div class="cluster-card">
+        <div class="cluster-head">
+          <div class="cluster-title">${esc(cluster.name)}</div>
+          <div class="cluster-count">${cluster.keywords.length}개</div>
+        </div>
+        <div class="chips">${cluster.keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>
+      </div>
+    `;
+  }
+
   // ✅ 창체 카드
   function activityCardHtml(a) {
     const keywords = Array.isArray(a.keywords) ? a.keywords : [];
     const hasAny = !!(a.core || a.strength || a.improve);
-
     const topBadge = [a.type, a.term].filter(Boolean).join(" · ");
+    const clusters = buildKeywordClusters(keywords);
+    const summary = buildActivityConnectionSummary(a, clusters);
 
     return `
       <div class="subject-card">
@@ -637,10 +650,18 @@
           <div class="subject-badge">${esc(topBadge || "창체")}</div>
         </div>
 
+        <div class="summary-box">
+          <div class="summary-title">연결성 요약</div>
+          <div class="summary-text">${esc(summary)}</div>
+          ${clusters.length ? `<div class="subchips">${clusters.map(c => `<span class="subchip">${esc(c.name)}</span>`).join("")}</div>` : ``}
+        </div>
+
         ${
-          keywords.length
-          ? `<div class="chips">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
-          : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`
+          clusters.length
+          ? `<div class="cluster-wrap">${clusters.map(clusterHtml).join("")}</div>`
+          : (keywords.length
+              ? `<div class="chips" style="margin-top:12px;">${keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
+              : `<div class="muted" style="margin-top:10px;">키워드 데이터가 없습니다.</div>`)
         }
 
         ${
@@ -716,160 +737,6 @@
         </div>
       </div>
     `;
-  }
-
-  function normalizeAnalysisSection(section) {
-    const s = section || {};
-    return {
-      section_title: pickText(s.section_title, s.title, s.name, s.label) || "분석 섹션",
-      content: pickText(s.content, s.text, s.description, s.summary),
-      items: Array.isArray(s.items) ? s.items.map(it => ({
-        label: pickText(it?.label, it?.title, it?.name) || "항목",
-        content: pickText(it?.content, it?.text, it?.description) || ""
-      })) : [],
-      keywords: normalizeKeywords(pickFirst(s.keywords, s.keywordList, s.키워드, s.핵심키워드)),
-      options: Array.isArray(s.options) ? s.options.map(op => ({
-        type: pickText(op?.type, op?.kind, op?.category) || "옵션",
-        title: pickText(op?.title, op?.name) || "",
-        topic_example: pickText(op?.topic_example, op?.topicExample, op?.example, op?.주제예시),
-        result: pickText(op?.result, op?.output, op?.산출물),
-        note: pickText(op?.note, op?.description, op?.설명)
-      })) : []
-    };
-  }
-
-  function normalizeAnalysisRecord(entry, fallbackTitle) {
-    const e = entry || {};
-    return {
-      record_id: pickText(e.record_id, e.id) || "",
-      subject: pickText(e.subject, e.course, e.과목) || "분석",
-      title: pickText(e.title, e.name, e.제목, fallbackTitle) || "분석 기록",
-      content_type: pickText(e.content_type, e.type) || "structured",
-      summary: pickText(e.summary, e.oneLine, e.profile, e.요약),
-      raw_text: pickText(e.raw_text, e.rawText, e.content, e.text, e.원문),
-      sections: Array.isArray(e.sections) ? e.sections.map(normalizeAnalysisSection) : [],
-      visible: pickText(e.visible, e.visibility) || "student"
-    };
-  }
-
-  function collectAnalysisRecordsFromPayload(payload) {
-    if (!payload || typeof payload !== "object") return [];
-
-    const arrCandidate = pickFirst(
-      Array.isArray(payload.analysis_records) ? payload.analysis_records : null,
-      Array.isArray(payload.analysisRecords) ? payload.analysisRecords : null,
-      Array.isArray(payload.analysis) ? payload.analysis : null,
-      Array.isArray(payload.extra_analysis) ? payload.extra_analysis : null,
-      Array.isArray(payload.분석기록) ? payload.분석기록 : null
-    );
-
-    if (Array.isArray(arrCandidate)) return arrCandidate.map((x, i) => normalizeAnalysisRecord(x, `분석 ${i+1}`));
-    return [];
-  }
-
-  function analysisSectionHtml(sec) {
-    const itemHtml = (Array.isArray(sec.items) ? sec.items : []).map(it => `
-      <div class="analysis-section-item">
-        <div class="analysis-label">${esc(it.label || "항목")}</div>
-        <div class="analysis-text">${esc(it.content || "")}</div>
-      </div>
-    `).join("");
-
-    const keywordHtml = (Array.isArray(sec.keywords) && sec.keywords.length)
-      ? `<div class="analysis-keywords">${sec.keywords.map(k => `<span class="chip">${esc(k)}</span>`).join("")}</div>`
-      : "";
-
-    const optionHtml = (Array.isArray(sec.options) ? sec.options : []).map(op => `
-      <div class="analysis-option">
-        <div class="analysis-option-head">
-          <span class="analysis-option-type">${esc(op.type || "옵션")}</span>
-          ${op.title ? `<span class="analysis-option-title">${esc(op.title)}</span>` : ``}
-        </div>
-        ${op.topic_example ? `
-          <div class="analysis-item">
-            <div class="analysis-label">주제 예시</div>
-            <div class="analysis-text">${esc(op.topic_example)}</div>
-          </div>` : ``
-        }
-        ${op.result ? `
-          <div class="analysis-item">
-            <div class="analysis-label">산출물</div>
-            <div class="analysis-text">${esc(op.result)}</div>
-          </div>` : ``
-        }
-        ${op.note ? `
-          <div class="analysis-item">
-            <div class="analysis-label">설명</div>
-            <div class="analysis-text">${esc(op.note)}</div>
-          </div>` : ``
-        }
-      </div>
-    `).join("");
-
-    if (!sec.content && !itemHtml && !keywordHtml && !optionHtml) return "";
-
-    return `
-      <div class="analysis-section">
-        <div class="analysis-section-title">${esc(sec.section_title || "분석 섹션")}</div>
-        ${sec.content ? `<div class="analysis-text">${esc(sec.content)}</div>` : ``}
-        ${itemHtml}
-        ${keywordHtml}
-        ${optionHtml}
-      </div>
-    `;
-  }
-
-  function analysisRecordCardHtml(rec) {
-    const badgeText = [rec.subject, rec.content_type].filter(Boolean).join(" · ");
-    const sectionHtml = (Array.isArray(rec.sections) ? rec.sections : []).map(analysisSectionHtml).join("");
-    const hasDetails = !!(rec.summary || rec.raw_text || sectionHtml);
-
-    return `
-      <div class="analysis-record-card">
-        <div class="subject-head">
-          <div class="analysis-record-title">${esc(rec.title || "분석 기록")}</div>
-          <div class="subject-badge">${esc(badgeText || "분석")}</div>
-        </div>
-
-        ${rec.summary ? `<div class="analysis-record-summary">${esc(rec.summary)}</div>` : ``}
-
-        ${rec.raw_text ? `
-          <div class="analysis-record-raw">
-            <div class="analysis-label">원문형 분석</div>
-            <div class="analysis-text">${esc(rec.raw_text)}</div>
-          </div>` : ``
-        }
-
-        ${sectionHtml}
-
-        ${!hasDetails ? `<div class="muted" style="margin-top:10px;">추가 분석 내용이 없습니다.</div>` : ``}
-      </div>
-    `;
-  }
-
-  function renderAnalysisRecords(records, auth){
-    const panel = $("#panelAnalysisRecords");
-    const root = $("#analysisRecordArea");
-    const pill = $("#analysisRecordCountPill");
-    if (!root || !panel) return;
-
-    const list = (Array.isArray(records) ? records : []).filter(r => {
-      const vis = String(r?.visible || "student").toLowerCase();
-      if (vis === "hidden") return false;
-      if (vis === "admin_only") return !!auth?.isAdmin;
-      return true;
-    });
-
-    if (pill) pill.textContent = `분석 ${list.length}건`;
-
-    if (!list.length) {
-      panel.style.display = "none";
-      root.innerHTML = "";
-      return;
-    }
-
-    panel.style.display = "block";
-    root.innerHTML = list.map(analysisRecordCardHtml).join("");
   }
 
   function renderSubjectKeywordCards(subjects){
@@ -982,7 +849,6 @@
     let payload = null;
     let subjects = [];
     let activities = [];
-    let analysisRecords = [];
 
     if (detailData) {
       const record = getRecordDetail(detailData, sid);
@@ -990,13 +856,11 @@
         payload = unwrapRecordPayload(record);
         subjects = collectSubjectsFromPayload(payload);
         activities = collectActivitiesFromPayload(payload);
-        analysisRecords = collectAnalysisRecordsFromPayload(payload);
       }
     }
 
     renderSubjectKeywordCards(subjects);
     renderSubjectCoreAnalysis(subjects);
-    renderAnalysisRecords(analysisRecords, auth);
     renderActivityCards(activities);
 
     // 독서: 별도 파일 우선, 없으면 detail payload에서 추출
