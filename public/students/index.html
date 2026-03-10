@@ -138,7 +138,8 @@
     <div class="subttl" style="margin-bottom:8px;">운영 체크 포인트</div>
     <div class="footer-note">
       • 학생/학부모에게 전달하는 링크는 반드시 <span class="mono">student.html?t=개별토큰</span> 형식 사용<br>
-      • 관리자 페이지 버튼은 <span class="mono">id=학생ID&admin=관리자토큰</span> 형식 유지<br>
+      • 관리자 페이지 버튼은 <span class="mono">id=학생ID&amp;admin=관리자토큰</span> 형식 유지<br>
+      • 생기부 상세 버튼은 <span class="mono">student_id=학생ID&amp;admin=관리자토큰</span> 형식 사용<br>
       • 토큰이 없는 학생은 학생모드 열기/복사 버튼 비활성 처리
     </div>
   </div>
@@ -146,15 +147,9 @@
 
 <script>
 (() => {
-  // =========================
-  // 설정
-  // =========================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN"; // ✅ 실제 관리자 토큰으로 교체
+  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
   const LS_KEY = "__ADMIN_TOKEN__";
 
-  // =========================
-  // 공통 유틸
-  // =========================
   const $ = (s) => document.querySelector(s);
 
   function esc(s){
@@ -214,9 +209,6 @@
     }
   }
 
-  // =========================
-  // 학생 데이터 키 호환
-  // =========================
   function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
   function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
   function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
@@ -225,20 +217,18 @@
   function pickAdmission(s){ return s?.admission ?? s?.["전형"] ?? ""; }
   function pickNote(s){ return s?.note ?? s?.["비고"] ?? ""; }
 
-  // =========================
-  // 보안 링크 규칙
-  // =========================
   function adminLink(page, studentId, adminToken){
     return `${page}?id=${encodeURIComponent(studentId)}&admin=${encodeURIComponent(adminToken)}`;
+  }
+
+  function adminRecordLink(page, studentId, adminToken){
+    return `${page}?student_id=${encodeURIComponent(studentId)}&admin=${encodeURIComponent(adminToken)}`;
   }
 
   function studentLink(page, token){
     return `${page}?t=${encodeURIComponent(token)}`;
   }
 
-  // =========================
-  // flags / scores 헬퍼
-  // =========================
   function getRecordFlag(flagsData, sid){
     if (!flagsData) return {};
     if (Array.isArray(flagsData)) {
@@ -281,9 +271,6 @@
     return "성적 있음";
   }
 
-  // =========================
-  // 렌더링
-  // =========================
   function renderNoAccess(message){
     $("#app").innerHTML = `
       <div class="card">
@@ -344,8 +331,8 @@
     const aStudent = adminLink("./student.html", sid, admin);
     const aUniv = adminLink("./univ_list.html", sid, admin);
     const aProg = adminLink("./progress_detail.html", sid, admin);
-    const aRecD = adminLink("./record_detail.html", sid, admin);
-    const aRecR = adminLink("./record_raw_detail.html", sid, admin);
+    const aRecD = adminRecordLink("./record_detail.html", sid, admin);
+    const aRecR = adminRecordLink("./record_raw_detail.html", sid, admin);
 
     const tStudent = token ? studentLink("./student.html", token) : "";
     const tRecD = token ? studentLink("./record_detail.html", token) : "";
@@ -466,7 +453,8 @@
     `;
     $("#adminMeta").innerHTML = `
       관리자 인증 완료 · 학생모드 링크는 <span class="mono">t=token</span>만 복사/사용 ·
-      관리자 이동은 <span class="mono">id+admin</span> 사용
+      관리자 이동은 <span class="mono">id+admin</span> 사용 ·
+      생기부 상세는 <span class="mono">student_id+admin</span> 사용
     `;
 
     const [studentsRaw, scoresRaw, flagsData] = await Promise.all([
@@ -481,7 +469,6 @@
 
     const students = studentsRaw.slice();
 
-    // scores 인덱싱
     const scoresById = new Map();
     if(Array.isArray(scoresRaw)){
       for(const r of scoresRaw){
@@ -492,7 +479,6 @@
       }
     }
 
-    // 요약 라인
     const total = students.length;
     const tokenCount = students.filter(s => !!norm(pickToken(s))).length;
     const recordOffCount = students.filter(s => {
@@ -511,7 +497,6 @@
     bindCopyButtons();
     applyFilter();
 
-    // 이벤트
     $("#searchInput")?.addEventListener("input", applyFilter);
 
     $("#refreshBtn")?.addEventListener("click", () => {
