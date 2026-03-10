@@ -152,9 +152,22 @@
     };
   }
 
-  function getYearSummary(student, yearLabel){
+  function readYearSummaryFromYear(year){
+    const overview = year?.summary_overview;
+    if (!overview) return null;
+    return {
+      academic: overview.academic || overview.academic_summary || '',
+      career: overview.career || overview.career_summary || '',
+      community: overview.community || overview.community_summary || '',
+    };
+  }
+
+  function getYearSummary(student, year){
+    const yearLabel = typeof year === 'string' ? year : (year?.year || year?.year_label || '');
     const fromData = readYearSummaryFromStudent(student, yearLabel);
     if (fromData && (fromData.academic || fromData.career || fromData.community)) return fromData;
+    const fromYear = typeof year === 'string' ? null : readYearSummaryFromYear(year);
+    if (fromYear && (fromYear.academic || fromYear.career || fromYear.community)) return fromYear;
     return defaultYearSummaryFor(student?.student_id, yearLabel) || {
       academic: '',
       career: '',
@@ -167,7 +180,7 @@
     const layout = document.querySelector('#yearCard .year-layout');
     const toggleBtn = $('#yearSummaryToggleBtn');
     if (!panel) return;
-    const summary = getYearSummary(state.student, year?.year || '');
+    const summary = getYearSummary(state.student, year);
     const hasAny = Boolean(summary.academic || summary.career || summary.community);
 
     if (toggleBtn) {
@@ -558,6 +571,7 @@
   }
 
   async function boot(){
+    bindYearSummaryToggle();
     const loaded = await loadRecordData();
     const student = pickStudent(loaded.data);
     if (!student) {
