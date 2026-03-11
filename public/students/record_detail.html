@@ -157,6 +157,7 @@
     selectedKeyword: '',
     showYearSummary: false,
     gradeTab: 'summary',
+    accessMode: 'none',
   };
 
   const DEFAULT_YEAR_SUMMARIES = {};
@@ -273,7 +274,7 @@
         tried.push(path);
       }
     }
-    throw new Error(`record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
+    throw new Error(`detail.json 또는 record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
   }
 
   function pickTokenValue(row){
@@ -524,6 +525,7 @@
 
     const currentTerm = terms.find(term => term.key === state.gradeTab) || null;
     const hasSummary = Boolean(grade.summary.overall || grade.summary.basis || grade.summary.reflectedUnits || grade.summary.memo);
+    const showFormulaCard = state.accessMode !== 'token';
 
     target.innerHTML = `
       <div class="section-h">
@@ -557,6 +559,7 @@
               <div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div>
             </div>
           </div>
+          ${showFormulaCard ? `
           <div class="grade-panel">
             <div class="grade-panel-head">
               <div>
@@ -586,7 +589,7 @@
             ` : `
               <div class="empty">아직 성적 데이터가 없습니다. 과목별성적 기준으로 입력한 값을 detail.json에 넣으면 이 영역에서 자동 계산해 보여줍니다.</div>
             `}
-          </div>
+          </div>` : ''}
         </div>
       ` : currentTerm ? `
         <div class="grade-shell" style="margin-top:16px;">
@@ -967,12 +970,13 @@
         : '학생 데이터가 없습니다.';
       $('#previewBadge').textContent = selection.invalidToken ? '토큰 오류' : '오류';
       $('#analysisCard').innerHTML = `<div class="empty">${selection.invalidToken
-        ? 'students.json의 토큰과 record_detail.json의 student_id 연결을 확인해주세요.'
-        : 'record_detail.json 안에 해당 학생 데이터가 없습니다.'}</div>`;
+        ? 'students.json의 토큰과 detail.json의 student_id 연결을 확인해주세요.'
+        : 'detail.json 안에 해당 학생 데이터가 없습니다.'}</div>`;
       $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
       return;
     }
     state.student = student;
+    state.accessMode = selection.mode || 'none';
     const studentsIndex = await loadStudentsIndex();
     state.profileRow = findProfileRow(studentsIndex, student.student_id);
     const grade = normalizeGradeData(student, state.profileRow);
