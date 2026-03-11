@@ -93,8 +93,55 @@
     .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
     .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
     .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
-    @media (max-width: 640px){table.grade-table{min-width:560px}}
+    .grade-table-desktop{display:block}
+    .grade-mobile-list{display:none;gap:10px}
+    .grade-mobile-item{border:1px solid var(--bd);border-radius:18px;background:#fff;overflow:hidden}
+    .grade-mobile-summary{list-style:none;cursor:pointer;padding:14px 16px}
+    .grade-mobile-summary::-webkit-details-marker{display:none}
+    .grade-mobile-summary-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .grade-mobile-subject{font-size:15px;font-weight:900;line-height:1.45;color:#111}
+    .grade-mobile-quick{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .grade-mobile-pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--bd);background:var(--soft);font-size:12px;font-weight:900;white-space:nowrap}
+    .grade-mobile-toggle{margin-top:10px;display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900;color:#111}
+    .grade-mobile-item[open] .grade-mobile-toggle{background:#111;color:#fff;border-color:#111}
+    .grade-mobile-body{padding:0 16px 16px 16px;border-top:1px solid var(--bd);background:var(--soft)}
+    .grade-mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:14px}
+    .grade-mobile-cell{border:1px solid var(--bd);border-radius:14px;background:#fff;padding:10px 12px}
+    .grade-mobile-cell-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
+    .grade-mobile-cell-value{font-size:14px;font-weight:800;line-height:1.45;color:#111}
+    .grade-mobile-note{margin-top:12px;padding:12px 14px;border:1px solid var(--bd);border-radius:14px;background:#fff;color:#333;font-size:13px;line-height:1.65}
+    @media (max-width: 980px){
+      html,body{overflow-x:hidden}
+      body{padding:10px}
+      .wrap{max-width:100%}
+      .card{padding:16px;border-radius:20px;margin:10px 0}
+      .title{font-size:21px}
+      .hero-title{font-size:24px}
+      .one-line{font-size:16px;line-height:1.65}
+      .section-title{font-size:17px}
+      .sub,.section-desc,.flow-intro,.keyword-help,.grade-panel-desc,.grade-sub{line-height:1.6}
+      .toggle,.mini-toggle{padding:9px 13px;font-size:13px}
+      .badge,.pill{padding:7px 11px;font-size:13px}
+      .year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}
+      .grade-summary-grid{grid-template-columns:1fr}
+      .grade-value{font-size:21px}
+      .grade-panel{padding:14px}
+      .grade-panel-head{margin-bottom:12px}
+      .flow-card,.block,.grade-stat,.keyword-group,.year-summary{border-radius:18px}
+      .axis-list{grid-template-columns:1fr}
+    }
+    @media (max-width: 820px){
+      .grade-table-desktop{display:none}
+      .grade-mobile-list{display:grid}
+      .section-h{align-items:flex-start}
+      .toggle-wrap{gap:8px}
+    }
+    @media (max-width: 640px){
+      .card{padding:14px;border-radius:18px}
+      .between{gap:12px}
+      .row{width:100%}
+      .grade-mobile-grid{grid-template-columns:1fr 1fr}
+    }
   </style>
 </head>
 <body>
@@ -473,39 +520,83 @@
   function gradeTableHtml(term){
     const subjects = safeArr(term?.subjects);
     if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
-    return `
-      <div class="grade-table-wrap">
-        <table class="grade-table">
-          <thead>
-            <tr>
-              <th>과목</th>
-              <th class="num">원점수/과목평균</th>
-              <th class="num">인원수</th>
-              <th class="num">등급</th>
-              <th class="num">성취도</th>
-              <th class="num">이수단위</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${subjects.map(row => `
+
+    const desktopTable = `
+      <div class="grade-table-desktop">
+        <div class="grade-table-wrap">
+          <table class="grade-table">
+            <thead>
               <tr>
-                <td>
-                  <div>${esc(row.subject || '-')}</div>
-                  ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
-                </td>
-                <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
-                <td class="num">${esc(row.studentCount || '-')}</td>
-                <td class="num">${esc(row.grade || '-')}</td>
-                <td class="num">${esc(row.achievement || '-')}</td>
-                <td class="num">${esc(row.units || '-')}</td>
+                <th>과목</th>
+                <th class="num">원점수/과목평균</th>
+                <th class="num">인원수</th>
+                <th class="num">등급</th>
+                <th class="num">성취도</th>
+                <th class="num">이수단위</th>
               </tr>
-            `).join('')}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              ${subjects.map(row => `
+                <tr>
+                  <td>
+                    <div>${esc(row.subject || '-')}</div>
+                    ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
+                  </td>
+                  <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
+                  <td class="num">${esc(row.studentCount || '-')}</td>
+                  <td class="num">${esc(row.grade || '-')}</td>
+                  <td class="num">${esc(row.achievement || '-')}</td>
+                  <td class="num">${esc(row.units || '-')}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
       </div>
     `;
-  }
 
+    const mobileCards = `
+      <div class="grade-mobile-list">
+        ${subjects.map(row => `
+          <details class="grade-mobile-item">
+            <summary class="grade-mobile-summary">
+              <div class="grade-mobile-summary-row">
+                <div class="grade-mobile-subject">${esc(row.subject || '-')}</div>
+                <div class="grade-mobile-quick">
+                  <span class="grade-mobile-pill">원점수/평균 ${esc(buildRawVsAvg(row) || '-')}</span>
+                  <span class="grade-mobile-pill">등급 ${esc(row.grade || '-')}</span>
+                </div>
+              </div>
+              <span class="grade-mobile-toggle">자세히 보기</span>
+            </summary>
+            <div class="grade-mobile-body">
+              <div class="grade-mobile-grid">
+                <div class="grade-mobile-cell">
+                  <div class="grade-mobile-cell-label">인원수</div>
+                  <div class="grade-mobile-cell-value">${esc(row.studentCount || '-')}</div>
+                </div>
+                <div class="grade-mobile-cell">
+                  <div class="grade-mobile-cell-label">성취도</div>
+                  <div class="grade-mobile-cell-value">${esc(row.achievement || '-')}</div>
+                </div>
+                <div class="grade-mobile-cell">
+                  <div class="grade-mobile-cell-label">이수단위</div>
+                  <div class="grade-mobile-cell-value">${esc(row.units || '-')}</div>
+                </div>
+                <div class="grade-mobile-cell">
+                  <div class="grade-mobile-cell-label">원점수/과목평균</div>
+                  <div class="grade-mobile-cell-value">${esc(buildRawVsAvg(row) || '-')}</div>
+                </div>
+              </div>
+              ${row.memo ? `<div class="grade-mobile-note">${esc(row.memo)}</div>` : ''}
+            </div>
+          </details>
+        `).join('')}
+      </div>
+    `;
+
+    return `${desktopTable}${mobileCards}`;
+  }
 
 
   function renderGradeCard(){
@@ -629,6 +720,15 @@
         state.gradeTab = btn.getAttribute('data-grade-tab') || 'summary';
         renderGradeCard();
       });
+    });
+
+    target.querySelectorAll('.grade-mobile-item').forEach(item => {
+      const label = item.querySelector('.grade-mobile-toggle');
+      const syncLabel = () => {
+        if (label) label.textContent = item.open ? '닫기' : '자세히 보기';
+      };
+      item.addEventListener('toggle', syncLabel);
+      syncLabel();
     });
   }
 
