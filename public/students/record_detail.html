@@ -38,17 +38,6 @@
     .keyword-meaning-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .keyword-meaning-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .keyword-meaning-body{color:#333;line-height:1.75;margin-top:8px}
-
-    .flow-intro{color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 14px 0}
-    .flow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .flow-card{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 18px 16px}
-    .flow-kicker{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .flow-title{font-size:18px;font-weight:900;line-height:1.45;margin:12px 0 8px 0}
-    .flow-body{color:#333;line-height:1.75;font-size:14px;min-height:88px}
-    .flow-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .flow-chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:13px;font-weight:800}
-    @media (max-width: 980px){.flow-grid{grid-template-columns:1fr}.flow-body{min-height:auto}}
-
     .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
     .block + .block{margin-top:14px}
     .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
@@ -163,22 +152,9 @@
     };
   }
 
-  function readYearSummaryFromYear(year){
-    const overview = year?.summary_overview;
-    if (!overview) return null;
-    return {
-      academic: overview.academic || overview.academic_summary || '',
-      career: overview.career || overview.career_summary || '',
-      community: overview.community || overview.community_summary || '',
-    };
-  }
-
-  function getYearSummary(student, year){
-    const yearLabel = typeof year === 'string' ? year : (year?.year || year?.year_label || '');
+  function getYearSummary(student, yearLabel){
     const fromData = readYearSummaryFromStudent(student, yearLabel);
     if (fromData && (fromData.academic || fromData.career || fromData.community)) return fromData;
-    const fromYear = typeof year === 'string' ? null : readYearSummaryFromYear(year);
-    if (fromYear && (fromYear.academic || fromYear.career || fromYear.community)) return fromYear;
     return defaultYearSummaryFor(student?.student_id, yearLabel) || {
       academic: '',
       career: '',
@@ -191,7 +167,7 @@
     const layout = document.querySelector('#yearCard .year-layout');
     const toggleBtn = $('#yearSummaryToggleBtn');
     if (!panel) return;
-    const summary = getYearSummary(state.student, year);
+    const summary = getYearSummary(state.student, year?.year || '');
     const hasAny = Boolean(summary.academic || summary.career || summary.community);
 
     if (toggleBtn) {
@@ -253,12 +229,96 @@
     throw new Error(`record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
   }
 
-  function pickStudent(data){
+  function pickTokenValue(row){
+    return String(row?.token ?? row?.accessToken ?? row?.key ?? row?.['토큰'] ?? '').trim();
+  }
+
+  function pickStudentIdValue(row){
+    return String(row?.id ?? row?.student_id ?? row?.studentId ?? row?.studentID ?? row?.['학생ID'] ?? '').trim();
+  }
+
+  async function loadStudentsIndex(){
+    const stamp = `v=${Date.now()}`;
+    const candidates = [
+      `./students.json?${stamp}`,
+      `students.json?${stamp}`,
+      `./data/students.json?${stamp}`,
+      `../students.json?${stamp}`,
+      `/students.json?${stamp}`,
+    ];
+    for (const path of candidates) {
+      try {
+        return await loadJson(path);
+      } catch (_e) {}
+    }
+    return null;
+  }
+
+  function readStoredStudentId(){
+    const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
+    for (const key of keys) {
+      const fromSession = String(sessionStorage.getItem(key) || '').trim();
+      if (fromSession) return fromSession;
+      const fromLocal = String(localStorage.getItem(key) || '').trim();
+      if (fromLocal) return fromLocal;
+    }
+    return '';
+  }
+
+  function readHashStudentId(){
+    const hash = String(location.hash || '').replace(/^#/, '').trim();
+    if (!hash) return '';
+    if (hash.includes('=')) {
+      const h = new URLSearchParams(hash);
+      return String(h.get('id') || h.get('student_id') || h.get('sid') || '').trim();
+    }
+    if (/^shstudy\d+/i.test(hash)) return hash;
+    return '';
+  }
+
+  async function resolveStudentId(){
+    const directId = String(qs.get('student_id') || qs.get('id') || qs.get('sid') || '').trim();
+    if (directId) return directId;
+
+    const storedId = readStoredStudentId();
+    if (storedId) return storedId;
+
+    const hashId = readHashStudentId();
+    if (hashId) return hashId;
+
+    const token = String(qs.get('t') || qs.get('token') || '').trim();
+    if (token) {
+      const studentsIndex = await loadStudentsIndex();
+      const rows = Array.isArray(studentsIndex?.students)
+        ? studentsIndex.students
+        : Array.isArray(studentsIndex)
+          ? studentsIndex
+          : [];
+      const found = rows.find(row => pickTokenValue(row) === token);
+      const sid = pickStudentIdValue(found);
+      if (sid) {
+        try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
+        try { localStorage.setItem('student_id', sid); } catch(_e) {}
+        return sid;
+      }
+    }
+
+    try {
+      const ref = document.referrer ? new URL(document.referrer) : null;
+      const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
+      if (refId) return refId;
+    } catch (_e) {}
+
+    return '';
+  }
+
+  async function pickStudent(data){
     const students = safeArr(data?.students);
     if (!students.length) return null;
-    const wantedId = (qs.get('id') || qs.get('student_id') || '').trim();
+    const wantedId = await resolveStudentId();
     if (wantedId) {
-      return students.find(s => String(s.student_id || '').trim() === wantedId) || null;
+      const found = students.find(s => String(s.student_id || '').trim() === wantedId) || null;
+      if (found) return found;
     }
     return students[0];
   }
@@ -327,113 +387,179 @@
     `).join('')}</div>`;
   }
 
-  function keywordList(keywords){
-    return safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
+
+
+  function groupInfo(title, desc, keywords){
+    return { title, desc, keywords };
   }
 
-  function uniqueMerge(...arrays){
-    const out = [];
-    const seen = new Set();
-    arrays.flat().forEach(v => {
-      const key = String(v || '').trim();
-      if (!key || seen.has(key)) return;
-      seen.add(key);
-      out.push(key);
-    });
-    return out;
-  }
+  function keywordGroupsFor(subjectName, keywords){
+    const list = safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
+    const set = new Set(list);
+    const has = (arr) => arr.filter(k => set.has(k));
+    const groups = [];
 
-  function pickByRegex(list, regex, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      if (!regex.test(item)) continue;
-      out.push(item);
-      used.add(item);
+    const pushIf = (title, desc, arr) => {
+      const items = has(arr);
+      if (items.length) groups.push(groupInfo(title, desc, items));
+    };
+
+    if (subjectName === '동아리활동(의학탐구동아리)') {
+      pushIf('실험·탐구', '실험 개념을 실제 탐구 상황에 적용한 흐름입니다.', ['의학탐구동아리','비타민 검출 실험','산화와 환원','실험 적용','비타민 정량']);
+      pushIf('문제 해결·협업', '예상과 다른 결과를 조정하며 함께 해결한 과정입니다.', ['실험 과정 수정','문제 해결','모둠 협의']);
+      pushIf('리더십·운영', '행사를 준비하고 현장을 이끈 실행 경험입니다.', ['축제 부스 운영','퀴즈 기획','벽 보수','리더십']);
+      pushIf('토론·논증', '의학 주제를 근거 중심으로 판단하고 표현한 흔적입니다.', ['플라시보 효과','토론 활동','논리적 표현','임상 효과의 불확실성']);
+      pushIf('의공학 확장', '의학과 공학을 연결해 진로 방향으로 확장한 흐름입니다.', ['심장 연구','심전도 기록 원리','전기 신호 증폭','디지털 데이터 변환','전자공학 분석','의공학','사회 공헌 포부']);
+    } else if (subjectName === '자율활동') {
+      pushIf('메이커·과학 원리', '과학 원리를 제작 활동에 연결해 적용한 흐름입니다.', ['골드버그장치 제작','위치 에너지','운동 에너지','역학적 에너지 보존','문제 해결','창의적 사고','협업']);
+      pushIf('기획·운영', '학년 활동을 운영하며 맡은 역할을 주도적으로 수행한 흐름입니다.', ['지속가능한 개발 목표','진로 탐구','기획단 부단장','연간 활동 계획','행사 운영','역할 배정','모둠별 주제 탐구','발표 준비','최종 보고 발표회','진행 사회','책임감']);
+      pushIf('역사 성찰', '역사적 맥락을 현재의 가치 판단과 연결한 흐름입니다.', ['학생독립운동 기념일','역사적 의미','공감 능력','비판적 사고']);
+    } else if (subjectName === '진로활동(탄소중립·에너지전환)') {
+      pushIf('에너지·정책 탐구', '에너지 전환과 정책을 구조적으로 이해한 흐름입니다.', ['탄소 중립','에너지 전환','에너지 정책 조사','에너지 실태 분석','독일 기후 중립 정책','태양광 에너지','풍력 발전 확대','지하케이블 대체','가공선 사용']);
+      pushIf('문제 인식·해결 방향', '기술의 한계와 해결 방안을 함께 본 흐름입니다.', ['미래 모빌리티 에지원 개발자','폐배터리 문제','소재 원리 이해','탄소 중립과 에너지 보장','친환경 자동차','폐배터리 재활용 기술']);
+      pushIf('국제·지속가능성', '지속가능성 문제를 국제 협력 관점에서 바라본 흐름입니다.', ['지속가능한 개발 목표','국제 협력','공동 번영','진로 탐구 생활','굿바이 탄소 에너지 이야기','환경 책임감','지구 환경 문제','세계적 연대']);
+      pushIf('진로 구체화', '관심 직업을 선명하게 설정하고 목표를 구체화한 흐름입니다.', ['친환경 모빌리티 전문가','사회 공헌 진로']);
+    } else if (subjectName === '국어') {
+      pushIf('독서·성찰', '읽기 활동을 사회적 성찰과 연결한 흐름입니다.', ['동물 농장','독서 감상문','사회 구성원 의식','올바른 리더의 자세']);
+      pushIf('글쓰기·자료 활용', '자료를 조사하고 근거를 바탕으로 글을 쓴 흐름입니다.', ['주제 글쓰기','출처 인용','자료 조사','논리력','창의적 사고','설명하는 글쓰기','정보 활용','종합적 분석','논리정연한 요약']);
+      pushIf('친환경·기술 탐구', '국어 활동을 기술 주제와 연결해 확장한 흐름입니다.', ['친환경 자동차','전기자동차','수소자동차','대기 오염 문제','전기자동차 시스템','처음 읽는 2차전지 이야기','주제 독서 탐구','전기차 폭발 사고','배터리 열폭주','리튬이온전지','배터리 폭발 대처 방안']);
+    } else if (subjectName === '수학') {
+      pushIf('탐구·문헌 조사', '주제를 정해 자료를 읽고 개념을 확장한 흐름입니다.', ['수업 적극 참여','질문을 통한 문제 해결','지적 호기심','프랙탈','수학적 원리','문헌 조사','탐구보고서']);
+      pushIf('모델링·창의 풀이', '수학 개념을 실제 문제와 연결하고 새 방식으로 해결한 흐름입니다.', ['자기유사성','반복 구조','자연현상 적용','실생활 수식화','수학적 모델링','심화학습','발표 수행평가','창의적 풀이','평행이동','원의 방정식','경우의 수','문제 유형화']);
+      pushIf('의사소통·멘토링', '설명과 협업을 통해 다른 사람의 학습에도 기여한 흐름입니다.', ['체계적 발표','멘토링 활동','수학적 의사소통','모둠 활동','동료평가 우수학생']);
+    } else if (subjectName === '영어') {
+      pushIf('책임·학습 태도', '역할 수행과 자기관리 측면의 강점을 보여 주는 흐름입니다.', ['영어부장','책임감','역할 수행','문맥 이해력','핵심 내용 파악']);
+      pushIf('지문 이해·대안 제시', '기술 주제를 읽고 핵심 쟁점과 대안을 연결한 흐름입니다.', ['하이브리드 자동차','전기자동차 위험성','배터리 폭발 안전성','전고체 배터리','대안 제시','비판적 사고','논리적 전개','영어 텍스트 분석']);
+      pushIf('문법 분석·자기주도학습', '규칙을 구조화하고 계획적으로 극복한 흐름입니다.', ['어법 오류 수정','발표 활동','능동태와 수동태','분사의 형용사 역할','타동사와 자동사 구별','의미관계 분석','수동태 판단 매뉴얼','학습량 설정','일별 학습 분량 조정','자기주도 학습','한계 극복']);
+    } else if (subjectName === '한국사') {
+      pushIf('전염병 역사 탐구', '역사적 사례를 중심으로 문제를 구조화한 흐름입니다.', ['지적 탐구심','논리적 표현','미국사를 뒤흔든 5대 전염병','전염병 역사 탐구','인수 공통감염병']);
+      pushIf('비교·현재 연결', '조선시대와 현대를 비교하며 현재적 의미를 찾은 흐름입니다.', ['자기관리','수업 적극 참여','조선시대 대처 방안','현대 대응 방안','조선 전기와 후기 비교','인식 변화','대처방안 비교','과거와 현재 연결','교육 방식 비교','현대 사회 적용 가능성']);
+      pushIf('에너지 산업사', '에너지 산업 변화와 역사적 사건의 연관성을 분석한 흐름입니다.', ['석탄의 발전','에너지 사업 발전 과정','역사적 사건 연관성','외국 사례 비교','우리나라 에너지 사업 특수성','발전 방향성','연구 계획 수립']);
+    } else if (subjectName === '통합사회') {
+      pushIf('가치·행복 탐구', '개인의 삶과 사회의 기준을 함께 고민한 흐름입니다.', ['행복의 의미 성찰','행복 기준 제시','통합적 사고','시대별 가치관 변화','진로 구체화']);
+      pushIf('의료·교육·사회 이해', '관심 분야를 사회 구조와 연결해 본 흐름입니다.', ['숨결이 바람 될 때','의료기기 관심','진단 장비 원리','치료 기기 원리','여행 장소 소개하기','경제','과학','의료','세계화','미래 사회','핀란드 교육','공교육 중심 교육','평등 교육','사회적 이슈 분석','의견 표현','타인 의견 존중']);
+      pushIf('자율주행·토론', '기술 쟁점을 다양한 관점에서 토론하고 반박한 흐름입니다.', ['자율주행 기술','사회적 책임 소재','법적 책임 소재','비판적 사고','문제 해결 능력','통계 자료 활용','논리적 반박']);
+    } else if (subjectName === '통합과학') {
+      pushIf('배터리·지속가능성', '과학 원리를 기술과 환경 문제에 연결한 흐름입니다.', ['수업 몰입','깊이 있는 이해','적극적 학습 참여','배터리의 미래','생활 속 과학 원리','심화 발표','리튬 이온 배터리','과학 원리 설명','환경 보호','지속 가능성','과학적 탐구','실생활 적용']);
+      pushIf('실험·표현', '실험 수행과 결과 표현을 함께 보여 준 흐름입니다.', ['산성과 염기성','지시약 활용','액성 구분','색 변화','창의적 작품 제작','실험 도구 사용','협력','소통']);
+      pushIf('친환경 설계', '과학 기술을 실제 설계 문제로 응용한 흐름입니다.', ['태양광 발전','풍력 발전','에너지 자급 주택','첨단 과학 기술','주택 구조와 효율성','친환경 에너지 대안']);
     }
-    return out;
+
+    const used = new Set(groups.flatMap(g => g.keywords));
+    const rest = list.filter(k => !used.has(k));
+    if (rest.length) groups.push(groupInfo('기타 확장 키워드', '핵심 흐름 외에 함께 참고할 수 있는 보조 키워드입니다.', rest));
+    if (!groups.length && list.length) groups.push(groupInfo('확장 키워드', '이 활동의 핵심 주제와 역량을 보여 주는 키워드입니다.', list));
+    return groups;
   }
 
-  function pickRemaining(list, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      out.push(item);
-      used.add(item);
-    }
-    return out;
-  }
-
-  function pickAxisContent(axisList, regex){
-    const hit = safeArr(axisList).find(item => regex.test(`${item?.title || ''} ${item?.content || ''}`));
-    return hit?.content || '';
-  }
-
-  function flowCardsFor(subject){
-    const subjectName = String(subject?.subject || '').trim();
-    const summary = String(subject?.summary || '').trim();
-    const axisList = safeArr(subject?.axis_list);
-    const keywords = keywordList(subject?.extension_keywords);
-    const used = new Set();
-
-    const TOPIC_RE = /(개념|이해|원리|법칙|공식|구조|현상|문제|배터리|에너지|자동차|보안|블록체인|알고리즘|인공지능|AI|데이터|기후|행복|교육|전염병|의료|자율주행|충격량|운동량|관성|프랙탈|전고체|리튬|심전도|탄소|역사|경제|사회|독서|주제|가치|윤리|장치|모빌리티|스포츠|당구|배드민턴)/;
-    const METHOD_RE = /(분석|해석|설계|실험|발표|토론|그래프|시각화|자료|근거|비교|조사|탐구|독해|글쓰기|논리|모델링|표현|구조화|도식화|문헌|계획|정리|판단|설명|검증|제시|구상|활용|적용)/;
-    const EXPAND_RE = /(실생활|진로|사회|공동체|협업|리더십|확장|융합|적용|문제 해결|창의|대안|미래|환경|지속가능|안전|직업|기여|정책|현대|세계|국제|운영|멘토링|소통|스포츠)/;
-
-    let topicKeywords = pickByRegex(keywords, TOPIC_RE, used, 6);
-    let methodKeywords = pickByRegex(keywords, METHOD_RE, used, 6);
-    let expandKeywords = pickByRegex(keywords, EXPAND_RE, used, 6);
-
-    if (!topicKeywords.length) topicKeywords = pickRemaining(keywords, used, 5);
-    if (!methodKeywords.length) methodKeywords = pickRemaining(keywords, used, 5);
-    if (!expandKeywords.length) expandKeywords = uniqueMerge(pickRemaining(keywords, used, 5), keywords.slice(-3)).slice(0, 6);
-
-    const topicBody = pickAxisContent(axisList, /(개념|이해|원리|내용|핵심|주제|법칙|공식|분야|탐구)/)
-      || summary
-      || `${subjectName || '이 활동'}에서 다룬 핵심 개념과 문제의식을 중심으로 탐구의 축이 드러납니다.`;
-
-    const methodBody = pickAxisContent(axisList, /(분석|해석|설명|표현|실험|그래프|자료|설계|문헌|모델링|발표|토론|비교|구조|도식|독해|서술|조사|판단)/)
-      || '자료 해석, 설명, 실험, 설계, 비교 등 학생이 실제로 사용한 탐구 방식이 확인됩니다.';
-
-    const expandBody = pickAxisContent(axisList, /(실생활|확장|융합|적용|문제 해결|창의|진로|사회|공동체|리더십|협업|기여|스포츠|안전|환경|대안)/)
-      || '교과 개념을 실생활, 진로, 다른 사례로 넓혀 보는 확장성이 나타납니다.';
-
-    return [
-      {
-        kicker: '핵심 주제',
-        title: '무엇을 다뤘는지',
-        body: topicBody,
-        keywords: topicKeywords,
-      },
-      {
-        kicker: '탐구 방식',
-        title: '어떻게 접근했는지',
-        body: methodBody,
-        keywords: methodKeywords,
-      },
-      {
-        kicker: '확장 방향',
-        title: '어디로 이어지는지',
-        body: expandBody,
-        keywords: expandKeywords,
-      }
-    ];
-  }
-
-  function flowCardsHtml(subject){
-    const cards = flowCardsFor(subject);
-    if (!cards.length) return '<div class="empty">탐구 흐름 데이터가 없습니다.</div>';
-    return `
-      <div class="flow-grid">${cards.map(card => `
-        <div class="flow-card">
-          <span class="flow-kicker">${esc(card.kicker || '')}</span>
-          <div class="flow-title">${esc(card.title || '')}</div>
-          <div class="flow-body">${esc(card.body || '')}</div>
-          ${safeArr(card.keywords).length ? `<div class="flow-chips">${safeArr(card.keywords).map(k => `<span class="flow-chip">${esc(k)}</span>`).join('')}</div>` : ''}
+  function keywordGroupsHtml(subjectName, keywords){
+    const groups = keywordGroupsFor(subjectName, keywords);
+    if (!groups.length) return '<div class="empty">확장 키워드 데이터가 없습니다.</div>';
+    return `<div class="keyword-groups">${groups.map(group => `
+      <div class="keyword-group">
+        <div class="keyword-group-head">
+          <div class="keyword-group-title">${esc(group.title || '')}</div>
+          <div class="keyword-group-desc">${esc(group.desc || '')}</div>
         </div>
-      `).join('')}</div>
+        <div class="chips">${safeArr(group.keywords).map(k => `<button type="button" class="chip ${state.selectedKeyword === k ? 'is-on' : ''}" data-keyword="${esc(k)}">${esc(k)}</button>`).join('')}</div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  function normalizeKeyword(s){
+    return String(s || '').replace(/\s+/g,' ').trim();
+  }
+
+  function getKeywordMeaning(subjectName, keyword){
+    const k = normalizeKeyword(keyword);
+    const exact = {
+      '의학탐구동아리':'의학 주제를 중심으로 실험, 토론, 공학적 탐구를 함께 수행한 활동의 방향을 보여 주는 키워드입니다.',
+      '비타민 검출 실험':'개념을 실험 상황에 적용해 결과를 확인한 실제 탐구 경험을 뜻합니다.',
+      '산화와 환원':'화학 개념을 이해하는 데서 그치지 않고 실험에 연결해 활용한 점을 보여 줍니다.',
+      '실험 적용':'배운 내용을 실제 활동에 옮겨 문제 해결에 사용한 학습 적용 역량을 뜻합니다.',
+      '비타민 정량':'관찰을 넘어서 양을 판단하고 측정하려는 데이터 기반 탐구 태도를 보여 줍니다.',
+      '실험 과정 수정':'예상과 다른 결과가 나왔을 때 과정을 조정하며 해결한 경험을 뜻합니다.',
+      '문제 해결':'오류나 예상 밖 상황을 스스로 분석하고 개선하는 역량을 보여 주는 키워드입니다.',
+      '모둠 협의':'혼자 해결하지 않고 팀원과 의견을 조율하며 탐구를 진행한 협업 태도를 뜻합니다.',
+      '축제 부스 운영':'행사 준비와 현장 운영을 실제로 맡아 본 실행 경험을 보여 줍니다.',
+      '퀴즈 기획':'단순 참여가 아니라 내용을 구성하고 전달 방식을 고민한 기획 역량을 뜻합니다.',
+      '벽 보수':'문제가 생겼을 때 바로 움직여 현장을 안정적으로 운영한 실행력과 책임감을 보여 줍니다.',
+      '리더십':'친구들을 이끌고 역할을 조정하며 활동의 흐름을 만드는 역량을 뜻합니다.',
+      '플라시보 효과':'의학·심리 주제를 근거 중심으로 다루며 쟁점을 판단한 토론 주제입니다.',
+      '토론 활동':'주장과 근거를 연결해 자신의 생각을 말하고 상대 의견에 대응한 경험을 뜻합니다.',
+      '논리적 표현':'근거를 바탕으로 자신의 판단을 설득력 있게 전달하는 능력을 보여 줍니다.',
+      '임상 효과의 불확실성':'주장을 세울 때 과학적 검증 가능성과 한계를 함께 본 시각을 뜻합니다.',
+      '심장 연구':'의학 주제를 깊이 있게 확장해 탐구한 관심 분야를 보여 줍니다.',
+      '심전도 기록 원리':'생체 신호가 측정되고 해석되는 과정을 이해한 의공학적 탐구 포인트입니다.',
+      '전기 신호 증폭':'생명 현상을 공학 장치의 작동 원리와 연결해 이해한 점을 보여 줍니다.',
+      '디지털 데이터 변환':'아날로그 신호가 데이터로 바뀌는 과정을 이해하며 기술적 사고를 확장한 키워드입니다.',
+      '전자공학 분석':'의학 현상을 전자공학의 관점으로 해석하려는 융합 사고를 뜻합니다.',
+      '의공학':'의학과 공학을 함께 바라보는 진로·탐구 방향을 압축해 보여 주는 키워드입니다.',
+      '사회 공헌 포부':'개인 관심을 넘어서 배운 내용을 사회적 기여와 연결한 진로 의식을 보여 줍니다.',
+      '프랙탈':'수학 개념을 깊이 탐구하고 자연현상과 연결해 본 핵심 주제입니다.',
+      '문헌 조사':'교과 개념을 더 넓게 이해하기 위해 자료를 찾아 읽고 정리한 학습 방식입니다.',
+      '탐구보고서':'자료 조사와 해석을 바탕으로 스스로 탐구 결과를 구조화한 산출 경험을 뜻합니다.',
+      '실생활 수식화':'현실의 상황을 수학적 식과 구조로 바꾸어 이해하려는 모델링 태도를 뜻합니다.',
+      '수학적 모델링':'개념을 실제 문제에 적용해 설명하고 예측하는 수학 활용 역량을 보여 줍니다.',
+      '창의적 풀이':'정해진 방식만 따르지 않고 새로운 접근으로 문제를 해결한 경험을 뜻합니다.',
+      '평행이동':'도형과 식의 관계를 이용해 문제를 구조적으로 해결한 포인트입니다.',
+      '원의 방정식':'좌표와 식을 연결해 분석적으로 해결한 수학적 사고의 근거입니다.',
+      '문제 유형화':'어려운 문제를 분류하고 패턴을 찾아 스스로 극복한 자기주도 전략을 보여 줍니다.',
+      '멘토링 활동':'자신의 이해를 다른 친구에게 설명하며 학급의 학습에도 기여한 경험입니다.',
+      '동료평가 우수학생':'설명력과 협업 태도가 또래에게도 높게 평가되었음을 보여 줍니다.',
+      '친환경 자동차':'관심 분야를 사회 문제 해결과 연결해 글쓰기·탐구 주제로 확장한 키워드입니다.',
+      '전기자동차':'기술 원리와 사회적 의미를 함께 살핀 탐구 대상입니다.',
+      '수소자동차':'대안 기술을 비교하며 장단점을 생각한 확장 탐구 키워드입니다.',
+      '배터리 열폭주':'과학기술의 위험 요소를 구조적으로 이해하려 한 탐구 포인트입니다.',
+      '리튬이온전지':'에너지 저장 기술의 핵심 개념을 독서와 발표로 연결한 키워드입니다.',
+      '탄소 중립':'환경과 에너지 문제를 진로 탐색과 연결해 본 핵심 사회 의제입니다.',
+      '에너지 전환':'기존 에너지 체계에서 지속가능한 방향으로 바뀌는 흐름을 이해한 키워드입니다.',
+      '폐배터리 문제':'친환경 기술의 한계와 후속 과제를 함께 본 문제의식입니다.',
+      '친환경 모빌리티 전문가':'관심 직업을 구체화하며 진로 방향을 선명하게 드러낸 표현입니다.',
+      '전고체 배터리':'기존 배터리의 한계를 보완할 대안 기술을 탐색한 확장 아이디어입니다.',
+      '문맥 이해력':'영어 내용을 빠르게 파악하고 핵심을 잡는 강점을 보여 주는 키워드입니다.',
+      '능동태와 수동태':'문법을 단순 암기가 아니라 구조적으로 이해한 학습 내용을 뜻합니다.',
+      '수동태 판단 매뉴얼':'규칙을 스스로 정리해 적용 가능한 기준으로 만든 체계화 역량을 보여 줍니다.',
+      '인수 공통감염병':'역사와 현재 사회 문제를 연결해 본 탐구 주제를 뜻합니다.',
+      '에너지 사업 발전 과정':'역사적 사건과 산업 변화를 함께 구조화한 분석 주제입니다.',
+      '자율주행 기술':'기술 발전이 사회와 법에 미치는 영향을 토론으로 확장한 주제입니다.',
+      '통계 자료 활용':'주장을 뒷받침하기 위해 수치와 근거를 사용한 분석 태도를 보여 줍니다.',
+      '리튬 이온 배터리':'과학 원리를 실제 기술과 연결해 설명한 발표 핵심 주제입니다.',
+      '에너지 자급 주택':'과학 기술을 생활 속 설계 문제로 바꾸어 제안한 창의적 응용 결과입니다.',
+      '태양광 발전':'친환경 에너지의 실제 활용 방안을 이해하고 설계에 반영한 요소입니다.',
+      '풍력 발전':'대체 에너지 기술을 비교·적용하며 지속가능성을 고민한 포인트입니다.'
+    };
+    if (exact[k]) return exact[k];
+
+    if (k.includes('실험')) return '실험 키워드는 개념 이해를 실제 탐구 과정에 적용하고 결과를 해석한 경험을 의미합니다.';
+    if (k.includes('발표')) return '발표 키워드는 조사한 내용을 구조화해 다른 사람에게 이해되게 설명한 역량을 의미합니다.';
+    if (k.includes('토론')) return '토론 키워드는 자신의 주장과 근거를 세우고 상대 의견에 논리적으로 대응한 경험을 뜻합니다.';
+    if (k.includes('문제 해결') || k.includes('수정') || k.includes('극복')) return '이 키워드는 예상과 다른 상황을 분석하고 대안을 찾은 문제 해결 경험을 보여 줍니다.';
+    if (k.includes('협업') || k.includes('모둠') || k.includes('소통')) return '이 키워드는 다른 사람과 함께 의견을 조율하고 역할을 나누며 활동한 협업 태도를 뜻합니다.';
+    if (k.includes('리더십') || k.includes('기획') || k.includes('운영')) return '이 키워드는 활동의 흐름을 만들고 책임 있게 이끈 실행형 리더십을 보여 줍니다.';
+    if (k.includes('배터리') || k.includes('에너지') || k.includes('모빌리티')) return '이 키워드는 에너지·배터리·모빌리티 분야에 대한 관심과 탐구 방향을 압축해 보여 줍니다.';
+    if (k.includes('독서') || k.includes('문헌')) return '이 키워드는 읽기 활동을 바탕으로 스스로 주제를 확장하고 해석한 탐구 방식을 뜻합니다.';
+    if (k.includes('논리') || k.includes('근거') || k.includes('자료')) return '이 키워드는 근거를 바탕으로 판단하고 설명하는 분석적 사고를 보여 줍니다.';
+
+    const subjectHints = {
+      '수학':'이 키워드는 수학 개념을 이해하고 문제 해결이나 모델링으로 확장한 흔적을 보여 줍니다.',
+      '국어':'이 키워드는 읽기·쓰기·자료 활용을 통해 생각을 구조화하고 표현한 역량을 보여 줍니다.',
+      '영어':'이 키워드는 영어 지문 이해, 문법 분석, 논리적 표현과 연결된 학습 포인트를 보여 줍니다.',
+      '한국사':'이 키워드는 역사적 사건을 구조화하고 현재와 연결해 해석한 탐구 방향을 보여 줍니다.',
+      '통합사회':'이 키워드는 사회 현상을 여러 관점에서 연결하고 토론·분석으로 확장한 관심을 보여 줍니다.',
+      '통합과학':'이 키워드는 과학 개념을 실험·설계·실생활 적용과 연결한 탐구 방향을 보여 줍니다.'
+    };
+    return subjectHints[subjectName] || '이 키워드는 학생이 이 활동에서 보여 준 관심 주제, 문제 해결 방식, 탐구 방향을 압축해서 보여 줍니다.';
+  }
+
+  function keywordMeaningHtml(subjectName, keyword){
+    if (!keyword) return '';
+    return `
+      <div class="keyword-meaning">
+        <span class="keyword-meaning-label">키워드 해석</span>
+        <div class="keyword-meaning-title">${esc(keyword)}</div>
+        <div class="keyword-meaning-body">${esc(getKeywordMeaning(subjectName, keyword))}</div>
+      </div>
     `;
   }
 
@@ -465,14 +591,15 @@
 
       <div class="block">
         <div class="inline-head">
-          <div class="mini-title" style="margin:0;">탐구 흐름 정리</div>
+          <div class="mini-title" style="margin:0;">확장 키워드</div>
           <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '활동예시 닫기' : '활동예시 보기'}</button>
         </div>
-        <div class="flow-intro">키워드를 단순 나열하지 않고, 이 활동에서 학생이 무엇을 다뤘고 어떻게 접근했으며 어디까지 확장했는지를 읽기 쉽게 정리한 영역입니다.</div>
-        ${flowCardsHtml(subject)}
+        <div class="keyword-help">이 활동에서 드러난 핵심 주제와 역량을 묶어서 정리한 항목입니다. 비슷한 의미의 키워드를 함께 보면 학생의 관심 분야와 탐구 흐름을 더 쉽게 이해할 수 있습니다. 키워드를 누르면 학생이 실제로 보여 준 의미를 짧게 확인할 수 있습니다.</div>
+        ${keywordGroupsHtml(subject.subject || '', subject.extension_keywords)}
+        ${keywordMeaningHtml(subject.subject || '', state.selectedKeyword || safeArr(subject.extension_keywords)[0] || '')}
         ${state.showExamples ? `
           <div style="margin-top:16px;">
-            <div class="mini-title">관련 활동 보기</div>
+            <div class="mini-title">활동예시</div>
             ${examplesHtml(subject.activity_examples)}
           </div>
         ` : ''}
@@ -494,6 +621,14 @@
         rerenderAnalysis();
       };
     }
+
+    document.querySelectorAll('[data-keyword]').forEach(el => {
+      el.onclick = () => {
+        const key = el.getAttribute('data-keyword') || '';
+        state.selectedKeyword = state.selectedKeyword === key ? '' : key;
+        rerenderAnalysis();
+      };
+    });
   }
 
   function rerender(){
@@ -507,9 +642,8 @@
   }
 
   async function boot(){
-    bindYearSummaryToggle();
     const loaded = await loadRecordData();
-    const student = pickStudent(loaded.data);
+    const student = await pickStudent(loaded.data);
     if (!student) {
       $('#studentMeta').textContent = '학생 데이터가 없습니다.';
       $('#analysisCard').innerHTML = '<div class="empty">record_detail.json 안에 students 데이터가 없습니다.</div>';
