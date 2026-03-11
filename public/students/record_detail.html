@@ -75,7 +75,26 @@
     .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
     .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
     .year-summary-body{color:#333;line-height:1.75;font-size:14px}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}}
+    .grade-shell{display:grid;gap:16px}
+    .grade-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .grade-stat{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
+    .grade-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
+    .grade-value{font-size:24px;font-weight:900;line-height:1.35;color:#111}
+    .grade-sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:6px}
+    .grade-panel{border:1px solid var(--bd);border-radius:22px;background:#fff;padding:18px}
+    .grade-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+    .grade-panel-title{font-size:16px;font-weight:900;line-height:1.45;margin:0}
+    .grade-panel-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-top:4px}
+    .grade-table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:18px;background:#fff}
+    table.grade-table{width:100%;border-collapse:collapse;min-width:640px}
+    .grade-table th,.grade-table td{padding:12px 14px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px;line-height:1.55;vertical-align:top}
+    .grade-table th{background:var(--soft);font-weight:900;color:#222;position:sticky;top:0}
+    .grade-table tr:last-child td{border-bottom:none}
+    .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
+    .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
+    .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
+    @media (max-width: 640px){table.grade-table{min-width:560px}}
   </style>
 </head>
 <body>
@@ -89,6 +108,8 @@
         <div class="row"><span class="pill" id="previewBadge">실데이터</span></div>
       </div>
     </div>
+
+    <div class="card" id="gradeCard"></div>
 
     <div class="card" id="yearCard">
       <div class="year-layout">
@@ -129,11 +150,13 @@
 
   const state = {
     student: null,
+    profileRow: null,
     yearIndex: 0,
     subjectIndex: 0,
     showExamples: false,
     selectedKeyword: '',
     showYearSummary: false,
+    gradeTab: 'summary',
   };
 
   const DEFAULT_YEAR_SUMMARIES = {};
@@ -292,6 +315,217 @@
       } catch (_e) {}
     }
     return null;
+  }
+
+  function toRows(index){
+    return Array.isArray(index?.students) ? index.students : Array.isArray(index) ? index : [];
+  }
+
+  function isFilled(v){
+    return !(v === undefined || v === null || String(v).trim() === '');
+  }
+
+  function firstFilled(...values){
+    for (const v of values) {
+      if (isFilled(v)) return String(v).trim();
+    }
+    return '';
+  }
+
+  function findProfileRow(index, studentId){
+    const sid = String(studentId || '').trim();
+    if (!sid) return null;
+    return toRows(index).find(row => pickStudentIdValue(row) === sid) || null;
+  }
+
+  function normalizeSubjectGrade(item){
+    return {
+      subject: firstFilled(item?.subject, item?.course, item?.name, item?.과목),
+      rawScore: firstFilled(item?.raw_score, item?.rawScore, item?.score, item?.원점수),
+      studentCount: firstFilled(item?.student_count, item?.studentCount, item?.count, item?.인원수),
+      grade: firstFilled(item?.grade, item?.등급),
+      units: firstFilled(item?.units, item?.credit, item?.이수단위),
+    };
+  }
+
+  function normalizeGradeData(student, profileRow){
+    const direct = student?.grade_info || student?.grades || {};
+    const profile = profileRow?.grade_info || profileRow?.grades || {};
+    const summarySource = direct?.summary || profile?.summary || {};
+    const summary = {
+      overall: firstFilled(
+        summarySource.overall, summarySource.overall_grade, summarySource.gpa,
+        direct.overall, direct.overall_grade, direct.gpa, direct.grade, direct['내신'], direct['내신등급'],
+        profileRow?.overall, profileRow?.overall_grade, profileRow?.gpa, profileRow?.grade, profileRow?.['내신'], profileRow?.['내신등급']
+      ),
+      basis: firstFilled(
+        summarySource.basis, summarySource.latest_term,
+        direct.basis, direct.latest_term, direct.term, direct['기준'],
+        profileRow?.basis, profileRow?.latest_term, profileRow?.term, profileRow?.['기준']
+      ),
+      reflectedUnits: firstFilled(
+        summarySource.reflected_units, summarySource.reflectedUnits, summarySource.units, summarySource.total_units,
+        direct.reflected_units, direct.reflectedUnits, direct.units, direct.total_units,
+        profileRow?.reflected_units, profileRow?.reflectedUnits, profileRow?.units, profileRow?.total_units
+      ),
+      memo: firstFilled(
+        summarySource.memo, summarySource.note,
+        direct.memo, direct.note, direct['메모'],
+        profileRow?.memo, profileRow?.note, profileRow?.['메모']
+      )
+    };
+
+    const termRows = safeArr(direct.terms || direct.grade_terms || direct.semesters || profile.terms || profile.grade_terms || profile.semesters)
+      .map((term, idx) => ({
+        key: firstFilled(term?.key, term?.term, term?.semester, term?.label, term?.name, `term_${idx+1}`),
+        label: firstFilled(term?.label, term?.term, term?.semester, term?.name, `학기 ${idx+1}`),
+        overall: firstFilled(term?.overall, term?.overall_grade, term?.gpa, term?.grade, term?.average_grade, term?.avg_grade, term?.['내신'], term?.['등급']),
+        reflectedUnits: firstFilled(term?.reflected_units, term?.reflectedUnits, term?.units, term?.total_units, term?.credits, term?.['이수단위']),
+        memo: firstFilled(term?.memo, term?.note, term?.['메모']),
+        subjects: safeArr(term?.subjects || term?.courses || term?.items).map(normalizeSubjectGrade).filter(v => v.subject || v.rawScore || v.studentCount || v.grade || v.units)
+      }))
+      .filter(v => v.label || v.subjects.length || v.overall || v.reflectedUnits || v.memo);
+
+    return { summary, terms: termRows };
+  }
+
+  function gradeTableHtml(term){
+    const subjects = safeArr(term?.subjects);
+    if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
+    return `
+      <div class="grade-table-wrap">
+        <table class="grade-table">
+          <thead>
+            <tr>
+              <th>과목</th>
+              <th class="num">원점수</th>
+              <th class="num">인원수</th>
+              <th class="num">등급</th>
+              <th class="num">이수단위</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${subjects.map(row => `
+              <tr>
+                <td>${esc(row.subject || '-')}</td>
+                <td class="num">${esc(row.rawScore || '-')}</td>
+                <td class="num">${esc(row.studentCount || '-')}</td>
+                <td class="num">${esc(row.grade || '-')}</td>
+                <td class="num">${esc(row.units || '-')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function renderGradeCard(){
+    const student = state.student;
+    const row = state.profileRow || {};
+    const target = $('#gradeCard');
+    if (!target) return;
+    if (!student) {
+      target.innerHTML = '';
+      return;
+    }
+
+    const grade = normalizeGradeData(student, row);
+    const terms = grade.terms;
+    const availableTabs = ['summary', ...terms.map(term => term.key)];
+    if (!availableTabs.includes(state.gradeTab)) state.gradeTab = 'summary';
+
+    const currentTerm = terms.find(term => term.key === state.gradeTab) || null;
+    const hasSummary = Boolean(grade.summary.overall || grade.summary.basis || grade.summary.reflectedUnits || grade.summary.memo);
+
+    target.innerHTML = `
+      <div class="section-h">
+        <div>
+          <div class="section-title">성적 보기</div>
+          <div class="section-desc">종합 내신과 학기별 성적을 함께 보고, 과목별 원점수·인원수·등급까지 확인하는 영역입니다.</div>
+        </div>
+      </div>
+
+      <div class="toggle-wrap" id="gradeToggles">
+        <button type="button" class="toggle ${state.gradeTab === 'summary' ? 'is-on' : ''}" data-grade-tab="summary">종합</button>
+        ${terms.map(term => `<button type="button" class="toggle ${state.gradeTab === term.key ? 'is-on' : ''}" data-grade-tab="${esc(term.key)}">${esc(term.label)}</button>`).join('')}
+      </div>
+
+      ${state.gradeTab === 'summary' ? `
+        <div class="grade-shell" style="margin-top:16px;">
+          <div class="grade-summary-grid">
+            <div class="grade-stat">
+              <div class="grade-label">종합 내신</div>
+              <div class="grade-value">${esc(grade.summary.overall || '미입력')}</div>
+              <div class="grade-sub">${esc(grade.summary.basis || '기준 미입력')}</div>
+            </div>
+            <div class="grade-stat">
+              <div class="grade-label">이수단위 반영 산출값</div>
+              <div class="grade-value">${esc(grade.summary.reflectedUnits || '미입력')}</div>
+              <div class="grade-sub">상담 시 사용하는 종합 산출값 중심으로 표시</div>
+            </div>
+            <div class="grade-stat">
+              <div class="grade-label">학기 구성</div>
+              <div class="grade-value">${esc(terms.length ? `${terms.length}개 학기` : '미입력')}</div>
+              <div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div>
+            </div>
+          </div>
+          <div class="grade-panel">
+            <div class="grade-panel-head">
+              <div>
+                <div class="grade-panel-title">종합 해석</div>
+                <div class="grade-panel-desc">백분위 분류는 제외하고, 실제 상담에 필요한 종합 내신과 이수단위 반영값만 남긴 구조입니다.</div>
+              </div>
+              ${grade.summary.memo ? `<span class="grade-chip">메모 있음</span>` : ''}
+            </div>
+            ${hasSummary || terms.length ? `
+              <div class="grade-help">
+                ${esc(grade.summary.memo || (terms.length ? '학기별 토글을 누르면 각 학기의 과목별 원점수·인원수·등급·이수단위를 바로 확인할 수 있습니다.' : '학기별 데이터가 추가되면 종합값과 함께 연동됩니다.'))}
+              </div>
+            ` : `
+              <div class="empty">아직 성적 데이터가 없습니다. students.json 또는 record_detail.json에 종합 내신과 학기별 성적을 추가하면 이 영역에 표시됩니다.</div>
+            `}
+          </div>
+        </div>
+      ` : currentTerm ? `
+        <div class="grade-shell" style="margin-top:16px;">
+          <div class="grade-summary-grid">
+            <div class="grade-stat">
+              <div class="grade-label">학기</div>
+              <div class="grade-value">${esc(currentTerm.label || '-')}</div>
+              <div class="grade-sub">학기별 상세 성적</div>
+            </div>
+            <div class="grade-stat">
+              <div class="grade-label">학기 내신</div>
+              <div class="grade-value">${esc(currentTerm.overall || '미입력')}</div>
+              <div class="grade-sub">학기 기준 종합값</div>
+            </div>
+            <div class="grade-stat">
+              <div class="grade-label">이수단위 반영 산출값</div>
+              <div class="grade-value">${esc(currentTerm.reflectedUnits || '미입력')}</div>
+              <div class="grade-sub">${esc(currentTerm.memo || `${safeArr(currentTerm.subjects).length}과목 입력`)}</div>
+            </div>
+          </div>
+          <div class="grade-panel">
+            <div class="grade-panel-head">
+              <div>
+                <div class="grade-panel-title">${esc(currentTerm.label || '')} 과목별 성적</div>
+                <div class="grade-panel-desc">과목별 원점수·인원수·등급을 직접 확인하는 표입니다.</div>
+              </div>
+              <span class="grade-chip">${esc(`${safeArr(currentTerm.subjects).length}과목`)}</span>
+            </div>
+            ${gradeTableHtml(currentTerm)}
+          </div>
+        </div>
+      ` : ''}
+    `;
+
+    target.querySelectorAll('[data-grade-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.gradeTab = btn.getAttribute('data-grade-tab') || 'summary';
+        renderGradeCard();
+      });
+    });
   }
 
   function readStoredStudentId(){
@@ -609,6 +843,7 @@
   }
 
   function rerender(){
+    renderGradeCard();
     const years = safeArr(state.student?.years);
     renderYearToggles(years);
     const year = years[state.yearIndex] || years[0] || {};
@@ -636,7 +871,10 @@
       return;
     }
     state.student = student;
-    $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id].filter(Boolean).join(' · ');
+    const studentsIndex = await loadStudentsIndex();
+    state.profileRow = findProfileRow(studentsIndex, student.student_id);
+    const grade = normalizeGradeData(student, state.profileRow);
+    $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id, grade.summary.overall ? `내신 ${grade.summary.overall}` : '내신 미입력'].filter(Boolean).join(' · ');
     $('#previewBadge').textContent = selection.mode === 'token' ? '학생모드' : '실데이터';
     $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
     rerender();
