@@ -172,17 +172,15 @@
     const qs = getQS();
 
     const t = safeStr(qs.get("t") || qs.get("token")).trim();
-    const id = safeStr(qs.get("id")).trim();
+    const id = safeStr(qs.get("id") || qs.get("student_id") || qs.get("sid")).trim();
     const adminParam = safeStr(qs.get("admin")).trim();
     const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
     const admin = adminParam || adminSaved;
 
-    // t가 있으면 무조건 학생모드
     if (t) {
       return { mode:"student", token:t, id:"", admin:"", isAdmin:false };
     }
 
-    // 관리자 후보
     if (id && admin) {
       const ok = (admin === ADMIN_TOKEN);
       if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
@@ -200,19 +198,128 @@
       const sid = norm(pickId(student) || auth.id);
       return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
     }
-    return page;
+    const sid = norm(pickId(student));
+    return sid ? `${page}?student_id=${encodeURIComponent(sid)}` : page;
   }
 
-  function resolveStudentByAuth(students, auth) {
-    if (!Array.isArray(students)) return null;
+  function pickTokenValue(row){
+    return String(
+      row?.token ?? row?.accessToken ?? row?.access_token ?? row?.studentToken ?? row?.student_token ?? row?.key ?? row?.['token'] ?? row?.['토큰'] ?? ''
+    ).trim();
+  }
 
-    if (auth.mode === "student") {
-      return students.find(s => norm(pickToken(s)) === auth.token) || null;
+  function pickStudentIdValue(row){
+    return String(
+      row?.id ?? row?.student_id ?? row?.studentId ?? row?.studentID ?? row?.['ID'] ?? row?.['학생ID'] ?? row?.['학번'] ?? ''
+    ).trim();
+  }
+
+  function readStoredStudentId(){
+    const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
+    for (const key of keys) {
+      const a = String(sessionStorage.getItem(key) || '').trim();
+      if (a) return a;
+      const b = String(localStorage.getItem(key) || '').trim();
+      if (b) return b;
     }
+    return '';
+  }
+
+  function readHashStudentId(){
+    const hash = String(location.hash || '').replace(/^#/, '').trim();
+    if (!hash) return '';
+    if (hash.includes('=')) {
+      const h = new URLSearchParams(hash);
+      return String(h.get('id') || h.get('student_id') || h.get('sid') || '').trim();
+    }
+    if (/^shstudy\d+/i.test(hash)) return hash;
+    return '';
+  }
+
+  async function loadStudentsIndex(){
+    const stamp = `v=${Date.now()}`;
+    const candidates = [
+      `./students.json?${stamp}`,
+      `students.json?${stamp}`,
+      `./data/students.json?${stamp}`,
+      `../students.json?${stamp}`,
+      `/students.json?${stamp}`,
+    ];
+    for (const path of candidates) {
+      try {
+        const data = await loadJson(path);
+        if (Array.isArray(data)) return data;
+        if (Array.isArray(data?.students)) return data.students;
+      } catch (_e) {}
+    }
+    return [];
+  }
+
+  async function loadRecordDetailIndex(){
+    const stamp = `v=${Date.now()}`;
+    const candidates = [
+      `./record_detail.json?${stamp}`,
+      `record_detail.json?${stamp}`,
+      `./data/record_detail.json?${stamp}`,
+      `../record_detail.json?${stamp}`,
+      `/record_detail.json?${stamp}`,
+    ];
+    for (const path of candidates) {
+      try {
+        const data = await loadJson(path);
+        if (Array.isArray(data?.students)) return data.students;
+      } catch (_e) {}
+    }
+    return [];
+  }
+
+  async function resolveStudentByAuth(students, auth) {
+    if (!Array.isArray(students)) return null;
 
     if (auth.mode === "admin" && auth.isAdmin) {
       return students.find(s => norm(pickId(s)) === auth.id) || null;
     }
+
+    const directId = safeStr(getQS().get('student_id') || getQS().get('id') || getQS().get('sid')).trim();
+    if (directId) {
+      const found = students.find(s => norm(pickId(s)) === directId) || null;
+      if (found) return found;
+    }
+
+    const storedId = readStoredStudentId();
+    if (storedId) {
+      const found = students.find(s => norm(pickId(s)) === storedId) || null;
+      if (found) return found;
+    }
+
+    const hashId = readHashStudentId();
+    if (hashId) {
+      const found = students.find(s => norm(pickId(s)) === hashId) || null;
+      if (found) return found;
+    }
+
+    if (auth.mode === "student") {
+      let found = students.find(s => pickTokenValue(s) === auth.token) || null;
+      if (!found) {
+        const merged = [...await loadStudentsIndex(), ...await loadRecordDetailIndex()];
+        const idByToken = pickStudentIdValue(merged.find(r => pickTokenValue(r) === auth.token) || null);
+        if (idByToken) found = students.find(s => norm(pickId(s)) === idByToken) || null;
+      }
+      if (found) {
+        const sid = norm(pickId(found));
+        try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
+        try { localStorage.setItem('student_id', sid); } catch(_e) {}
+        return found;
+      }
+    }
+
+    try {
+      const ref = document.referrer ? new URL(document.referrer) : null;
+      const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
+      if (refId) {
+        return students.find(s => norm(pickId(s)) === refId) || null;
+      }
+    } catch (_e) {}
 
     return null;
   }
@@ -303,7 +410,7 @@
         <div class="title">접근 권한이 없습니다.</div>
         <div class="warn">${esc(msg || "학생을 찾을 수 없습니다.")}</div>
         <div class="muted" style="margin-top:8px">
-          관리자: record_raw_detail.html?id=학생ID&admin=관리자토큰 / 학생·학부모: record_raw_detail.html?t=개별토큰
+          관리자: record_raw_detail.html?id=학생ID&admin=관리자토큰 / 학생·학부모: record_raw_detail.html?t=개별토큰 또는 student_id 전달
         </div>
       </div>
     `;
@@ -484,10 +591,15 @@
       return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
-    const students = await loadJson("./students.json");
-    if(!Array.isArray(students)) throw new Error("students.json is not an array");
+    const studentsPayload = await loadJsonSafe("./students.json", null);
+    const students = Array.isArray(studentsPayload)
+      ? studentsPayload
+      : Array.isArray(studentsPayload?.students)
+        ? studentsPayload.students
+        : [];
+    if(!students.length) throw new Error("students.json에 학생 데이터가 없습니다.");
 
-    const student = resolveStudentByAuth(students, auth);
+    const student = await resolveStudentByAuth(students, auth);
     if(!student){
       return renderNoAccess("학생을 찾을 수 없습니다.");
     }
