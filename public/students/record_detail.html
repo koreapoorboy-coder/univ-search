@@ -318,13 +318,11 @@
 
   async function resolveStudentId(){
     const directId = String(qs.get('student_id') || qs.get('id') || qs.get('sid') || '').trim();
-    if (directId) return directId;
-
-    const storedId = readStoredStudentId();
-    if (storedId) return storedId;
-
-    const hashId = readHashStudentId();
-    if (hashId) return hashId;
+    if (directId) {
+      try { sessionStorage.setItem('student_id', directId); } catch(_e) {}
+      try { localStorage.setItem('student_id', directId); } catch(_e) {}
+      return directId;
+    }
 
     const token = String(qs.get('t') || qs.get('token') || '').trim();
     if (token) {
@@ -341,7 +339,16 @@
         try { localStorage.setItem('student_id', sid); } catch(_e) {}
         return sid;
       }
+      try { sessionStorage.removeItem('student_id'); } catch(_e) {}
+      try { localStorage.removeItem('student_id'); } catch(_e) {}
+      return '';
     }
+
+    const storedId = readStoredStudentId();
+    if (storedId) return storedId;
+
+    const hashId = readHashStudentId();
+    if (hashId) return hashId;
 
     try {
       const ref = document.referrer ? new URL(document.referrer) : null;
