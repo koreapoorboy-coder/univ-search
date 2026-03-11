@@ -316,12 +316,12 @@
     return '';
   }
 
-  async function resolveStudentId(){
+  async function resolveStudentSelection(){
     const directId = String(qs.get('student_id') || qs.get('id') || qs.get('sid') || '').trim();
     if (directId) {
       try { sessionStorage.setItem('student_id', directId); } catch(_e) {}
       try { localStorage.setItem('student_id', directId); } catch(_e) {}
-      return directId;
+      return { id: directId, mode: 'direct', strict: true };
     }
 
     const token = String(qs.get('t') || qs.get('token') || '').trim();
@@ -337,36 +337,42 @@
       if (sid) {
         try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
         try { localStorage.setItem('student_id', sid); } catch(_e) {}
-        return sid;
+        return { id: sid, mode: 'token', strict: true };
       }
       try { sessionStorage.removeItem('student_id'); } catch(_e) {}
       try { localStorage.removeItem('student_id'); } catch(_e) {}
-      return '';
+      return { id: '', mode: 'token', strict: true, invalidToken: true };
     }
 
     const storedId = readStoredStudentId();
-    if (storedId) return storedId;
+    if (storedId) return { id: storedId, mode: 'stored', strict: false };
 
     const hashId = readHashStudentId();
-    if (hashId) return hashId;
+    if (hashId) return { id: hashId, mode: 'hash', strict: false };
 
     try {
       const ref = document.referrer ? new URL(document.referrer) : null;
       const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
-      if (refId) return refId;
+      if (refId) return { id: refId, mode: 'referrer', strict: false };
     } catch (_e) {}
 
-    return '';
+    return { id: '', mode: 'none', strict: false };
   }
 
   async function pickStudent(data){
     const students = safeArr(data?.students);
-    if (!students.length) return null;
-    const wantedId = await resolveStudentId();
-    if (wantedId) {
-      return students.find(s => String(s.student_id || '').trim() === wantedId) || null;
+    if (!students.length) return { student: null, selection: { id: '', mode: 'none', strict: false } };
+    const selection = await resolveStudentSelection();
+    if (selection.id) {
+      return {
+        student: students.find(s => String(s.student_id || '').trim() === selection.id) || null,
+        selection
+      };
     }
-    return students[0];
+    if (selection.strict) {
+      return { student: null, selection };
+    }
+    return { student: students[0], selection };
   }
 
   function bindYearSummaryToggle(){
@@ -615,15 +621,23 @@
   async function boot(){
     bindYearSummaryToggle();
     const loaded = await loadRecordData();
-    const student = await pickStudent(loaded.data);
+    const picked = await pickStudent(loaded.data);
+    const student = picked?.student || null;
+    const selection = picked?.selection || { id: '', mode: 'none', strict: false };
     if (!student) {
-      $('#studentMeta').textContent = '학생 데이터가 없습니다.';
-      $('#analysisCard').innerHTML = '<div class="empty">record_detail.json 안에 students 데이터가 없습니다.</div>';
+      $('#studentMeta').textContent = selection.invalidToken
+        ? '학생 토큰과 연결된 데이터를 찾지 못했습니다.'
+        : '학생 데이터가 없습니다.';
+      $('#previewBadge').textContent = selection.invalidToken ? '토큰 오류' : '오류';
+      $('#analysisCard').innerHTML = `<div class="empty">${selection.invalidToken
+        ? 'students.json의 토큰과 record_detail.json의 student_id 연결을 확인해주세요.'
+        : 'record_detail.json 안에 해당 학생 데이터가 없습니다.'}</div>`;
+      $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
       return;
     }
     state.student = student;
     $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id].filter(Boolean).join(' · ');
-    $('#previewBadge').textContent = '실데이터';
+    $('#previewBadge').textContent = selection.mode === 'token' ? '학생모드' : '실데이터';
     $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
     rerender();
   }
