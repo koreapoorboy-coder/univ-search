@@ -63,12 +63,15 @@
     .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .example-body{color:#333;line-height:1.75;margin-top:10px}
-
-    .judgment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
-    .judgment-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .judgment-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .judgment-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .judgment-desc{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 14px 0}
+    .goal-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .goal-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
+    .judgment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+    .judgment-card{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
+    .judgment-kicker{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .judgment-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .judgment-body{color:#333;line-height:1.75;margin-top:10px;font-size:14px}
+    .judgment-body{color:#333;line-height:1.8;font-size:14px;margin-top:10px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
     .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
@@ -784,32 +787,6 @@
     `).join('')}</div>`;
   }
 
-
-  function judgmentHtml(judgment){
-    const subjectJudgment = String(judgment?.subject_judgment || '').trim();
-    const overall = String(judgment?.overall_opinion || '').trim();
-    const career = String(judgment?.career_link || judgment?.career_judgment || '').trim();
-    return `
-      <div class="judgment-grid">
-        <div class="judgment-item">
-          <span class="judgment-label">과목 판단</span>
-          <div class="judgment-title">이 과목의 고유 목표가 어떻게 드러나는지</div>
-          <div class="judgment-body">${esc(subjectJudgment || '해당 과목의 과목 판단 데이터가 아직 없습니다.')}</div>
-        </div>
-        <div class="judgment-item">
-          <span class="judgment-label">종합 의견</span>
-          <div class="judgment-title">현재 강점과 다음 보완 포인트</div>
-          <div class="judgment-body">${esc(overall || '해당 과목의 종합 의견 데이터가 아직 없습니다.')}</div>
-        </div>
-        <div class="judgment-item">
-          <span class="judgment-label">진로 연결</span>
-          <div class="judgment-title">과목 고유 역량이 바탕이 될 때의 연결 가능성</div>
-          <div class="judgment-body">${esc(career || '이 과목은 진로 연결보다 과목 고유 역량 자체를 먼저 보는 것이 적절합니다.')}</div>
-        </div>
-      </div>
-    `;
-  }
-
   function keywordList(keywords){
     return safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
   }
@@ -920,6 +897,123 @@
     `;
   }
 
+  function detectSubjectFamily(subjectName){
+    const n = String(subjectName || '');
+    if (/(국어|문학|독서)/.test(n)) return '국어';
+    if (/(영어|일본어|중국어|독일어|프랑스어)/.test(n)) return '영어/외국어';
+    if (/(수학|확률과통계|미적분|기하)/.test(n)) return '수학';
+    if (/(물리|화학|생명|지구과학|과학탐구실험|통합과학|과학)/.test(n)) return '과학';
+    if (/(사회|한국사|역사|지리|윤리|정법|정치|경제|문화)/.test(n)) return '사회';
+    if (/(정보|기술가정|기술·가정|기술|교육학)/.test(n)) return '정보/기술';
+    if (/(미술|음악|체육)/.test(n)) return '예술/체육';
+    if (/(자율|동아리|진로|행동특성|행특)/.test(n)) return '창체/행특';
+    return '기타';
+  }
+
+  function subjectGoalFocusFor(subject){
+    const family = subject?.subject_family || detectSubjectFamily(subject?.subject || subject?.subject_name);
+    const map = {
+      '국어':['철학적 사고','언어적 표현력','비판적 독해','해석과 논증'],
+      '영어/외국어':['언어 이해','맥락 해석','의사소통','표현의 정확성'],
+      '수학':['개념 이해','추론과 구조화','문제 해결','모델링과 적용'],
+      '과학':['과학적 탐구','근거 기반 설명','자료 해석','실험·설계'],
+      '사회':['쟁점 분석','가치 판단','자료 해석','비판적 사회 인식'],
+      '정보/기술':['알고리즘적 사고','구현과 설계','데이터·시스템 이해','정보윤리'],
+      '예술/체육':['표현과 감상','창의성','수행과 참여','협업과 태도'],
+      '창체/행특':['자기이해와 성장','협업과 공동체성','주도성','기록의 일관성'],
+      '기타':['교과 이해','자기주도성','표현과 설명','확장 가능성']
+    };
+    return safeArr(subject?.subject_goal_focus).length ? safeArr(subject.subject_goal_focus) : (map[family] || map['기타']);
+  }
+
+  function detectCareerArea(subject){
+    const text = [subject?.summary || '', ...(safeArr(subject?.extension_keywords)), ...(safeArr(subject?.axis_list).map(v => v?.content || ''))].join(' ');
+    const rules = [
+      ['컴퓨터공학·데이터·AI',['알고리즘','데이터','인공지능','AI','보안','암호','블록체인','코딩','프로그래밍','디지털','정보처리','소프트웨어']],
+      ['전기전자·반도체·에너지',['배터리','전기','전자','반도체','전고체','리튬','에너지','모빌리티','충전','회로','트랜지스터','센서']],
+      ['의생명·보건',['의학','의료','심전도','생명','세포','질병','약물','백신','면역','보건']],
+      ['환경·지속가능성',['환경','기후','탄소','지속가능','자원 고갈','에너지 과소비','열폭주']],
+      ['교육·인문사회',['교육','역사','철학','사회','윤리','정의','경제','정치','문학']]
+    ];
+    for (const [label, kws] of rules){
+      if (kws.some(k => text.includes(k))) return label;
+    }
+    return '';
+  }
+
+  function deriveJudgmentBlock(subject){
+    const family = subject?.subject_family || detectSubjectFamily(subject?.subject || subject?.subject_name);
+    const goalFocus = subjectGoalFocusFor(subject);
+    const titles = safeArr(subject?.axis_list).map(v => String(v?.title || '').trim()).filter(Boolean);
+    const evText = titles.length >= 2 ? `${titles[0]} 및 ${titles[1]}` : (titles[0] || '과목 활동의 핵심 장면');
+    const existing = subject?.judgment_block || {};
+    const subjectJudgment = existing.subject_judgment || (() => {
+      if (family === '국어') return `국어의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 읽은 내용을 해석하고 자기 언어로 표현하는 힘이 비교적 선명하게 드러난다.`;
+      if (family === '영어/외국어') return `영어/외국어 교과의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 자료를 이해하고 맥락에 맞게 표현하는 능력이 비교적 분명하게 보인다.`;
+      if (family === '수학') return `수학의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 개념을 구조화하고 문제 상황에 적용하는 힘이 비교적 선명하다.`;
+      if (family === '과학') return `과학의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 개념을 근거와 연결해 설명하고 탐구로 확장하는 역량이 드러난다.`;
+      if (family === '사회') return `사회 교과의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 자료를 해석하고 관점을 세우는 비판적 사회 인식이 비교적 잘 드러난다.`;
+      if (family === '정보/기술') return `정보/기술 교과의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 원리 이해를 실제 설계·구현 관점으로 연결하는 힘이 보인다.`;
+      if (family === '예술/체육') return `예술·체육 교과의 고유 목표인 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 표현·참여·협업의 과정이 비교적 자연스럽게 드러난다.`;
+      if (family === '창체/행특') return `창체·행동특성 영역에서는 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 주도성과 공동체 기여가 비교적 선명하게 드러난다.`;
+      return `이 과목에서는 ${goalFocus.slice(0,3).join('·')}이 우선적으로 평가되며, 현재 기록에서는 ${evText}이 확인되어 교과 이해와 자기주도적 확장 가능성이 드러난다.`;
+    })();
+    const summary = String(subject?.summary || '').trim();
+    const improveMap = {
+      '국어':'관점 비교나 반론 검토를 더 분명히 드러내고, 읽은 내용을 자기 언어로 정교하게 표현하는 장면이 보강되면 더 강한 세특으로 읽힐 수 있다',
+      '영어/외국어':'영어 자료를 해석한 뒤 자신의 생각을 더 길게 조직하거나 맥락 비교까지 나아가면 교과 고유 역량이 한층 선명해질 수 있다',
+      '수학':'정의·조건·구조를 더 엄밀하게 다루거나 풀이 선택의 이유를 비교하는 장면이 추가되면 상위권 평가에서도 더 강하게 읽힐 수 있다',
+      '과학':'탐구 설계의 근거, 변인 통제, 결과 해석의 정밀도가 더 구체적으로 드러나면 과학 과목다운 힘이 더 커질 수 있다',
+      '사회':'자료 간 비교와 가치 판단의 기준을 더 분명히 드러내면 사회 교과의 비판적 사고력이 더욱 설득력 있게 읽힐 수 있다',
+      '정보/기술':'구현 과정에서 선택한 방법의 이유, 알고리즘의 한계, 윤리적 고려까지 함께 드러나면 정보 교과의 깊이가 더 잘 보일 수 있다',
+      '예술/체육':'표현 의도와 감상·수행의 과정을 더 구체적으로 남기면 교과 고유의 성장이 더욱 살아날 수 있다',
+      '창체/행특':'활동의 과정과 역할, 그로 인해 달라진 점이 더 구체적으로 드러나면 기록의 설득력이 높아질 수 있다',
+      '기타':'활동의 과정과 근거를 조금 더 구체적으로 드러내면 현재 강점이 더 선명하게 읽힐 수 있다'
+    };
+    const overallOpinion = existing.overall_opinion || `${summary || '현재 활동의 방향은 비교적 분명하다.'} 특히 ${evText}이 강점으로 읽힌다. 다만 ${improveMap[family] || improveMap['기타']}.`;
+    const careerLink = existing.career_link || existing.career_judgment || (() => {
+      const area = detectCareerArea(subject);
+      if (area) return `과목 고유 역량이 바탕이 된 상태에서 ${area} 분야와의 자연스러운 연결 가능성이 읽힌다.`;
+      if (family === '국어' || family === '영어/외국어' || family === '사회') return `이 과목은 진로 연결을 앞세우기보다 ${family.split('/')[0]} 교과 고유의 사고력과 표현력을 충실히 보여 주는 것이 더 중요하며, 현재 기록도 그 방향에서 의미가 있다.`;
+      return '진로 연결은 과목 고유 역량이 충분히 드러난 뒤에 보조적으로 읽는 것이 적절하며, 현재 기록은 우선 해당 교과의 기본기와 성장 가능성을 확인할 수 있는 편이다.';
+    })();
+    return { subject_judgment: subjectJudgment, overall_opinion: overallOpinion, career_link: careerLink };
+  }
+
+  function judgmentHtml(subject){
+    const goalFocus = subjectGoalFocusFor(subject);
+    const jb = deriveJudgmentBlock(subject);
+    return `
+      <div class="block">
+        <div class="judgment-head">
+          <div>
+            <div class="mini-title" style="margin:0;">판단점</div>
+            <div class="judgment-desc">진로 키워드보다 먼저, 이 과목의 고유 목표가 실제 기록에서 어떻게 드러나는지 중심으로 읽은 결과입니다.</div>
+          </div>
+          <span class="badge">과목 고유 목표 우선</span>
+        </div>
+        ${goalFocus.length ? `<div class="goal-chips">${goalFocus.map(v => `<span class="goal-chip">${esc(v)}</span>`).join('')}</div>` : ''}
+        <div class="judgment-grid">
+          <div class="judgment-card">
+            <span class="judgment-kicker">과목 판단</span>
+            <div class="judgment-title">이 과목의 고유 목표가 어떻게 드러나는지</div>
+            <div class="judgment-body">${esc(jb.subject_judgment || '')}</div>
+          </div>
+          <div class="judgment-card">
+            <span class="judgment-kicker">종합 의견</span>
+            <div class="judgment-title">현재 강점과 다음 보완 포인트</div>
+            <div class="judgment-body">${esc(jb.overall_opinion || '')}</div>
+          </div>
+          <div class="judgment-card">
+            <span class="judgment-kicker">진로 연결</span>
+            <div class="judgment-title">과목 고유 역량이 바탕이 될 때의 연결 가능성</div>
+            <div class="judgment-body">${esc(jb.career_link || '')}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function rerenderAnalysis(){
     const years = safeArr(state.student?.years);
     const year = years[state.yearIndex] || years[0] || {};
@@ -961,10 +1055,7 @@
         ` : ''}
       </div>
 
-      <div class="block">
-        <div class="mini-title">판단점</div>
-        ${judgmentHtml(subject.judgment_block)}
-      </div>
+      ${judgmentHtml(subject)}
     ` : `
       <div class="section-h">
         <div>
