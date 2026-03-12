@@ -63,11 +63,12 @@
     .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .example-body{color:#333;line-height:1.75;margin-top:10px}
-    .judgment-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+
+    .judgment-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
     .judgment-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
     .judgment-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .judgment-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .judgment-body{color:#333;line-height:1.78;margin-top:10px;font-size:14px}
+    .judgment-body{color:#333;line-height:1.75;margin-top:10px;font-size:14px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
     .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
@@ -98,7 +99,7 @@
     .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
     .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
     .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.judgment-grid{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}.judgment-grid{grid-template-columns:1fr}}
     @media (max-width: 640px){table.grade-table{min-width:560px}}
   </style>
 </head>
@@ -783,21 +784,27 @@
     `).join('')}</div>`;
   }
 
+
   function judgmentHtml(judgment){
-    const career = String(judgment?.career_judgment || '').trim();
+    const subjectJudgment = String(judgment?.subject_judgment || '').trim();
     const overall = String(judgment?.overall_opinion || '').trim();
-    if (!career && !overall) return '<div class="empty">판단점 데이터가 아직 없습니다.</div>';
+    const career = String(judgment?.career_link || judgment?.career_judgment || '').trim();
     return `
       <div class="judgment-grid">
         <div class="judgment-item">
-          <span class="judgment-label">진로 판단</span>
-          <div class="judgment-title">이 과목이 진로와 어떻게 연결되는지</div>
-          <div class="judgment-body">${esc(career || '해당 과목의 진로 판단 데이터가 아직 없습니다.')}</div>
+          <span class="judgment-label">과목 판단</span>
+          <div class="judgment-title">이 과목의 고유 목표가 어떻게 드러나는지</div>
+          <div class="judgment-body">${esc(subjectJudgment || '해당 과목의 과목 판단 데이터가 아직 없습니다.')}</div>
         </div>
         <div class="judgment-item">
           <span class="judgment-label">종합 의견</span>
           <div class="judgment-title">현재 강점과 다음 보완 포인트</div>
           <div class="judgment-body">${esc(overall || '해당 과목의 종합 의견 데이터가 아직 없습니다.')}</div>
+        </div>
+        <div class="judgment-item">
+          <span class="judgment-label">진로 연결</span>
+          <div class="judgment-title">과목 고유 역량이 바탕이 될 때의 연결 가능성</div>
+          <div class="judgment-body">${esc(career || '이 과목은 진로 연결보다 과목 고유 역량 자체를 먼저 보는 것이 적절합니다.')}</div>
         </div>
       </div>
     `;
@@ -956,7 +963,6 @@
 
       <div class="block">
         <div class="mini-title">판단점</div>
-        <div class="flow-intro">상담 시 바로 설명할 수 있도록, 이 과목의 진로 연결과 현재 강점·보완점을 한 번에 읽히게 정리한 영역입니다.</div>
         ${judgmentHtml(subject.judgment_block)}
       </div>
     ` : `
