@@ -244,11 +244,11 @@ function setJudgementFilter(value) {
 
 function getPreferredCutInfo(item, system) {
   if (system === "9" && item.grade_cut_9 != null) {
-    return { label: "기준내신", value: item.grade_cut_9 };
+    return { label: "내신", value: item.grade_cut_9 };
   }
 
   if (system === "5" && item.grade_cut_5_avg != null) {
-    return { label: "5등급 기준내신", value: item.grade_cut_5_avg };
+    return { label: "5등급 내신", value: item.grade_cut_5_avg };
   }
 
   return null;
@@ -293,9 +293,8 @@ function evaluateTotalRecord(studentInput, item) {
 function buildInfoSummary(item) {
   const parts = [];
 
-  if (item.grade_cut_9 != null) parts.push(`기준내신 ${item.grade_cut_9.toFixed(2)}`);
+  if (item.grade_cut_9 != null) parts.push(`내신 ${item.grade_cut_9.toFixed(2)}`);
   if (item.grade_cut_5_avg != null) parts.push(`5등급 변환기준 ${item.grade_cut_5_avg.toFixed(2)}`);
-  if (item.document_type) parts.push(`서류 ${item.document_type}`);
   if (hasValue(item.competition_rate)) parts.push(`경쟁률 ${item.competition_rate}`);
   if (item.csat_min_required) parts.push(`수능최저 ${safeValue(item.csat_min_rule, "있음")}`);
   else parts.push("수능최저 없음");
@@ -443,7 +442,7 @@ function makeCutInfoCards(item) {
   const cards = [];
 
   if (item.grade_cut_9 != null) {
-    cards.push(makeInfoCard("기준내신(원본)", item.grade_cut_9.toFixed(2)));
+    cards.push(makeInfoCard("내신", item.grade_cut_9.toFixed(2)));
   }
 
   if (item.grade_cut_5_avg != null) {
@@ -469,12 +468,11 @@ function makeMetaChip(text) {
 function makeLatestMetaChips(latest) {
   const chips = [];
 
-  if (latest.grade_cut_9 != null) chips.push(makeMetaChip(`기준내신 ${latest.grade_cut_9.toFixed(2)}`));
+  if (latest.grade_cut_9 != null) chips.push(makeMetaChip(`내신 ${latest.grade_cut_9.toFixed(2)}`));
   if (latest.grade_cut_5_avg != null) chips.push(makeMetaChip(`5등급 변환기준 ${latest.grade_cut_5_avg.toFixed(2)}`));
   if (latest.grade_cut_5_conservative != null && latest.grade_cut_5_relaxed != null) {
     chips.push(makeMetaChip(`5등급 범위 ${latest.grade_cut_5_conservative.toFixed(2)}~${latest.grade_cut_5_relaxed.toFixed(2)}`));
   }
-  if (latest.document_type) chips.push(makeMetaChip(`서류 ${latest.document_type}`));
   if (latest.csat_min_required) chips.push(makeMetaChip(`수능최저 ${safeValue(latest.csat_min_rule, "있음")}`));
   else chips.push(makeMetaChip("수능최저 없음"));
   if (hasValue(latest.competition_rate)) chips.push(makeMetaChip(`경쟁률 ${latest.competition_rate}`));
@@ -532,7 +530,6 @@ function makeYearBlock(group, item) {
   const infoCards = [
     makeCutInfoCards(item),
     hasValue(item.region) ? makeInfoCard("지역", item.region) : "",
-    hasValue(item.document_type) ? makeInfoCard("서류유형", item.document_type) : "",
     makeInfoCard("수능최저", csatText),
     makeInfoCard("면접", interviewText),
     hasValue(item.competition_rate) ? makeInfoCard("경쟁률", item.competition_rate) : "",
