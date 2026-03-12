@@ -63,6 +63,11 @@
     .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .example-body{color:#333;line-height:1.75;margin-top:10px}
+    .judgment-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .judgment-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
+    .judgment-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .judgment-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
+    .judgment-body{color:#333;line-height:1.78;margin-top:10px;font-size:14px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
     .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
@@ -77,7 +82,6 @@
     .year-summary-body{color:#333;line-height:1.75;font-size:14px}
     .grade-shell{display:grid;gap:16px}
     .grade-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .grade-summary-grid.grade-summary-grid--pair{grid-template-columns:repeat(2,minmax(0,1fr))}
     .grade-stat{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
     .grade-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
     .grade-value{font-size:24px;font-weight:900;line-height:1.35;color:#111}
@@ -94,58 +98,8 @@
     .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
     .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
     .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
-    .grade-details{border:1px solid var(--bd);border-radius:20px;background:var(--soft);overflow:hidden}
-    .grade-details > summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;font-weight:900;font-size:15px}
-    .grade-details > summary::-webkit-details-marker{display:none}
-    .grade-details[open] > summary{border-bottom:1px solid var(--bd);background:#fff}
-    .grade-summary-copy{color:var(--muted);font-size:13px;line-height:1.65;margin-top:4px}
-    .grade-toggle-label{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-size:12px;font-weight:900;white-space:nowrap}
-    .grade-details[open] .grade-toggle-label{background:#111;color:#fff;border-color:#111}
-    .grade-detail-body{padding:16px 18px 18px}
-    .grade-desktop-only{display:block}
-    .grade-mobile-list{display:none}
-    .grade-mobile-list{gap:10px}
-    .grade-mobile-item{border:1px solid var(--bd);border-radius:16px;background:#fff;overflow:hidden}
-    .grade-mobile-item + .grade-mobile-item{margin-top:10px}
-    .grade-mobile-summary{list-style:none;cursor:pointer;padding:14px 14px 12px 14px}
-    .grade-mobile-summary::-webkit-details-marker{display:none}
-    .grade-mobile-summary-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .grade-mobile-subject{font-weight:900;line-height:1.5;flex:1;min-width:0}
-    .grade-mobile-quick{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
-    .grade-mobile-pill{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid var(--bd);border-radius:999px;background:var(--soft);font-size:11px;font-weight:900;white-space:nowrap}
-    .grade-mobile-item .grade-mobile-toggle{display:inline-flex;margin-top:10px;font-size:12px;font-weight:900;color:var(--muted)}
-    .grade-mobile-item[open] .grade-mobile-toggle{color:#111}
-    .grade-mobile-body{padding:0 14px 14px 14px;border-top:1px solid var(--bd);background:#fff}
-    .grade-mobile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
-    .grade-mobile-cell{border:1px solid var(--bd);border-radius:14px;background:var(--soft);padding:10px 12px}
-    .grade-mobile-cell-label{font-size:11px;font-weight:900;color:var(--muted);margin-bottom:6px}
-    .grade-mobile-cell-value{font-size:14px;font-weight:900;line-height:1.45;color:#111;word-break:break-word}
-    .grade-mobile-note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6}
-    .counsel-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .counsel-stat{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .counsel-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
-    .counsel-value{font-size:22px;font-weight:900;line-height:1.35;color:#111}
-    .counsel-sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:6px}
-    .counsel-panel{border:1px solid var(--bd);border-radius:22px;background:#fff;padding:18px}
-    .counsel-panel + .counsel-panel{margin-top:14px}
-    .counsel-list{display:grid;gap:10px}
-    .counsel-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);overflow:hidden}
-    .counsel-item > summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-    .counsel-item > summary::-webkit-details-marker{display:none}
-    .counsel-item[open] > summary{background:#fff;border-bottom:1px solid var(--bd)}
-    .counsel-item-title{font-size:15px;font-weight:900;line-height:1.45}
-    .counsel-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .counsel-meta .grade-chip{background:#fff}
-    .counsel-body{padding:16px 18px 18px;background:#fff}
-    .counsel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .counsel-field{border:1px solid var(--bd);border-radius:16px;background:var(--soft);padding:14px 16px}
-    .counsel-field.is-full{grid-column:1 / -1}
-    .counsel-field-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
-    .counsel-field-value{font-size:14px;line-height:1.75;color:#222}
-    .counsel-list-lines{margin:0;padding-left:18px}
-    .counsel-list-lines li + li{margin-top:6px}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}.grade-summary-grid.grade-summary-grid--pair{grid-template-columns:repeat(2,minmax(0,1fr))}.counsel-summary-grid,.counsel-grid{grid-template-columns:1fr}}
-    @media (max-width: 640px){.card{padding:16px}.grade-panel,.counsel-panel{padding:14px}.grade-stat,.counsel-stat{padding:14px}.grade-label,.counsel-label{font-size:11px}.grade-value,.counsel-value{font-size:20px}.grade-sub,.counsel-sub{font-size:12px;line-height:1.55}.grade-desktop-only{display:none}.grade-mobile-list{display:block}.grade-details > summary{padding:13px 14px;font-size:14px}.grade-detail-body{padding:14px}.grade-table-wrap{display:none}.grade-mobile-grid{grid-template-columns:1fr 1fr}.counsel-item > summary{padding:14px}.counsel-body{padding:14px}.counsel-field{padding:12px 14px}}
+    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.judgment-grid{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
+    @media (max-width: 640px){table.grade-table{min-width:560px}}
   </style>
 </head>
 <body>
@@ -161,8 +115,6 @@
     </div>
 
     <div class="card" id="gradeCard"></div>
-
-    <div class="card" id="counselingCard" hidden></div>
 
     <div class="card" id="yearCard">
       <div class="year-layout">
@@ -211,7 +163,6 @@
     showYearSummary: false,
     gradeTab: 'summary',
     accessMode: 'none',
-    counselingIndex: null,
   };
 
   const DEFAULT_YEAR_SUMMARIES = {};
@@ -376,71 +327,6 @@
     return Array.isArray(index?.students) ? index.students : Array.isArray(index) ? index : [];
   }
 
-  async function loadCounselingData(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./counseling_logs.json?${stamp}`,
-      `counseling_logs.json?${stamp}`,
-      `./data/counseling_logs.json?${stamp}`,
-      `../counseling_logs.json?${stamp}`,
-      `/counseling_logs.json?${stamp}`,
-    ];
-    for (const path of candidates) {
-      try {
-        return await loadJson(path);
-      } catch (_e) {}
-    }
-    return null;
-  }
-
-  function normalizeCounselingIndex(index){
-    if (!index) return {};
-    if (Array.isArray(index?.students)) {
-      return index.students.reduce((acc, row) => {
-        const sid = pickStudentIdValue(row);
-        const logs = safeArr(row?.logs);
-        if (sid) acc[sid] = logs;
-        return acc;
-      }, {});
-    }
-    if (Array.isArray(index)) {
-      return index.reduce((acc, row) => {
-        const sid = pickStudentIdValue(row);
-        const logs = safeArr(row?.logs);
-        if (sid) acc[sid] = logs;
-        return acc;
-      }, {});
-    }
-    return index;
-  }
-
-  function normalizeCounselingLog(log, idx = 0){
-    return {
-      id: firstFilled(log?.id, `log_${idx+1}`),
-      date: firstFilled(log?.date, log?.datetime, log?.상담일시),
-      type: firstFilled(log?.type, log?.method, log?.상담유형),
-      stage: firstFilled(log?.stage, log?.phase, log?.상담단계),
-      counselor: firstFilled(log?.counselor, log?.writer, log?.상담자),
-      participants: safeArr(log?.participants || log?.attendees || log?.동석자).map(v => String(v || '').trim()).filter(Boolean),
-      topic: firstFilled(log?.topic, log?.title, log?.핵심주제),
-      diagnosis: firstFilled(log?.diagnosis, log?.current_diagnosis, log?.현재진단),
-      summary: firstFilled(log?.summary, log?.content, log?.상담내용요약),
-      tasks: safeArr(log?.tasks || log?.action_items || log?.실행과제).map(v => String(v || '').trim()).filter(Boolean),
-      nextCheck: safeArr(log?.next_check || log?.nextCheck || log?.check_items || log?.다음상담전체크사항).map(v => String(v || '').trim()).filter(Boolean),
-      nextDate: firstFilled(log?.next_date, log?.nextDate, log?.다음상담예정일),
-      status: firstFilled(log?.status, log?.state, log?.상태),
-      importance: firstFilled(log?.importance, log?.priority, log?.중요도),
-      visibility: firstFilled(log?.visibility, log?.공개범위),
-    };
-  }
-
-  function findCounselingLogs(index, studentId){
-    const sid = String(studentId || '').trim();
-    if (!sid) return [];
-    const normalized = normalizeCounselingIndex(index);
-    return safeArr(normalized?.[sid]).map(normalizeCounselingLog).sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
-  }
-
   function isFilled(v){
     return !(v === undefined || v === null || String(v).trim() === '');
   }
@@ -592,98 +478,40 @@
   function gradeTableHtml(term){
     const subjects = safeArr(term?.subjects);
     if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
-
-    const desktopTable = `
-      <div class="grade-desktop-only">
-        <div class="grade-table-wrap">
-          <table class="grade-table">
-            <thead>
-              <tr>
-                <th>과목</th>
-                <th class="num">원점수/과목평균</th>
-                <th class="num">인원수</th>
-                <th class="num">등급</th>
-                <th class="num">성취도</th>
-                <th class="num">이수단위</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${subjects.map(row => `
-                <tr>
-                  <td>
-                    <div>${esc(row.subject || '-')}</div>
-                    ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
-                  </td>
-                  <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
-                  <td class="num">${esc(row.studentCount || '-')}</td>
-                  <td class="num">${esc(row.grade || '-')}</td>
-                  <td class="num">${esc(row.achievement || '-')}</td>
-                  <td class="num">${esc(row.units || '-')}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    `;
-
-    const mobileCards = `
-      <div class="grade-mobile-list">
-        ${subjects.map(row => `
-          <details class="grade-mobile-item">
-            <summary class="grade-mobile-summary">
-              <div class="grade-mobile-summary-row">
-                <div class="grade-mobile-subject">${esc(row.subject || '-')}</div>
-                <div class="grade-mobile-quick">
-                  <span class="grade-mobile-pill">${esc(buildRawVsAvg(row) || '-')}</span>
-                  <span class="grade-mobile-pill">등급 ${esc(row.grade || '-')}</span>
-                </div>
-              </div>
-              <span class="grade-mobile-toggle">자세히 보기</span>
-            </summary>
-            <div class="grade-mobile-body">
-              <div class="grade-mobile-grid">
-                <div class="grade-mobile-cell">
-                  <div class="grade-mobile-cell-label">인원수</div>
-                  <div class="grade-mobile-cell-value">${esc(row.studentCount || '-')}</div>
-                </div>
-                <div class="grade-mobile-cell">
-                  <div class="grade-mobile-cell-label">성취도</div>
-                  <div class="grade-mobile-cell-value">${esc(row.achievement || '-')}</div>
-                </div>
-                <div class="grade-mobile-cell">
-                  <div class="grade-mobile-cell-label">이수단위</div>
-                  <div class="grade-mobile-cell-value">${esc(row.units || '-')}</div>
-                </div>
-                <div class="grade-mobile-cell">
-                  <div class="grade-mobile-cell-label">원점수/과목평균</div>
-                  <div class="grade-mobile-cell-value">${esc(buildRawVsAvg(row) || '-')}</div>
-                </div>
-              </div>
-              ${row.memo ? `<div class="grade-mobile-note">${esc(row.memo)}</div>` : ''}
-            </div>
-          </details>
-        `).join('')}
-      </div>
-    `;
-
-    return `${desktopTable}${mobileCards}`;
-  }
-
-  function gradeDetailsPanel(title, countLabel, bodyHtml){
     return `
-      <details class="grade-details">
-        <summary>
-          <div>
-            <div style="font-size:15px;font-weight:900;line-height:1.45;">${esc(title || '과목별 성적')}</div>
-            <div class="grade-summary-copy">원점수/과목평균, 인원수, 등급, 성취도, 이수단위를 펼쳐서 확인합니다.</div>
-          </div>
-          <span class="grade-toggle-label">${esc(countLabel || '자세히 보기')}</span>
-        </summary>
-        <div class="grade-detail-body">${bodyHtml}</div>
-      </details>
+      <div class="grade-table-wrap">
+        <table class="grade-table">
+          <thead>
+            <tr>
+              <th>과목</th>
+              <th class="num">원점수/과목평균</th>
+              <th class="num">인원수</th>
+              <th class="num">등급</th>
+              <th class="num">성취도</th>
+              <th class="num">이수단위</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${subjects.map(row => `
+              <tr>
+                <td>
+                  <div>${esc(row.subject || '-')}</div>
+                  ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
+                </td>
+                <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
+                <td class="num">${esc(row.studentCount || '-')}</td>
+                <td class="num">${esc(row.grade || '-')}</td>
+                <td class="num">${esc(row.achievement || '-')}</td>
+                <td class="num">${esc(row.units || '-')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
     `;
   }
+
+
 
   function renderGradeCard(){
     const student = state.student;
@@ -708,7 +536,7 @@
       <div class="section-h">
         <div>
           <div class="section-title">성적 보기</div>
-          <div class="section-desc">종합·학기별 토글로 확인하고, 과목별 성적은 자세히 보기로 펼쳐서 봅니다.</div>
+          <div class="section-desc">종합·학기별 토글로 확인하고, 과목별 원점수/과목평균 · 인원수 · 등급 · 성취도 · 이수단위를 함께 봅니다.</div>
         </div>
       </div>
 
@@ -719,7 +547,7 @@
 
       ${state.gradeTab === 'summary' ? `
         <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid grade-summary-grid--pair">
+          <div class="grade-summary-grid">
             <div class="grade-stat">
               <div class="grade-label">종합 내신</div>
               <div class="grade-value">${esc(formatOverallGrade(grade.summary.overall))}</div>
@@ -730,13 +558,18 @@
               <div class="grade-value">${esc(formatUnitsLabel(grade.summary.reflectedUnits))}</div>
               <div class="grade-sub">등급과 이수단위가 함께 있는 과목만 반영</div>
             </div>
+            <div class="grade-stat">
+              <div class="grade-label">반영 과목 수</div>
+              <div class="grade-value">${esc(grade.summary.countedSubjects ? `${grade.summary.countedSubjects}과목` : '미산출')}</div>
+              <div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div>
+            </div>
           </div>
           ${showFormulaCard ? `
           <div class="grade-panel">
             <div class="grade-panel-head">
               <div>
                 <div class="grade-panel-title">내신 성적 산출값</div>
-                <div class="grade-panel-desc">관리자 화면에서만 산출 공식을 확인할 수 있습니다.</div>
+                <div class="grade-panel-desc">이수단위 반영 공식을 그대로 읽을 수 있게 정리한 카드입니다.</div>
               </div>
               ${hasSummary ? `<span class="grade-chip">자동 계산</span>` : ''}
             </div>
@@ -750,41 +583,47 @@
                   [(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수]
                 </div>
                 <div class="grade-help" style="margin-top:12px;">
+                  • 원점수/과목평균, 인원수, 성취도는 과목 이해용으로 함께 보여주고<br>
                   • 실제 종합 산출은 등급과 이수단위가 있는 과목만 반영합니다.<br>
-                  • 성취도-only 과목은 표에는 보이지만 종합 내신 계산에서는 제외됩니다.
+                  • 성취도만 있는 과목은 표에는 보이지만 종합 내신 계산에서는 제외됩니다.
                 </div>
               </div>
               <div class="grade-help">
                 ${esc(grade.summary.memo || '학기별 토글을 누르면 각 학기의 과목별 성적을 바로 확인할 수 있습니다.')}
               </div>
             ` : `
-              <div class="empty">아직 성적 데이터가 없습니다. 과목별 성적 데이터를 넣으면 이 영역에서 자동 계산해 보여줍니다.</div>
+              <div class="empty">아직 성적 데이터가 없습니다. 과목별성적 기준으로 입력한 값을 detail.json에 넣으면 이 영역에서 자동 계산해 보여줍니다.</div>
             `}
           </div>` : ''}
         </div>
       ` : currentTerm ? `
         <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid grade-summary-grid--pair">
+          <div class="grade-summary-grid">
+            <div class="grade-stat">
+              <div class="grade-label">학기</div>
+              <div class="grade-value">${esc(currentTerm.label || '-')}</div>
+              <div class="grade-sub">학기별 상세 성적</div>
+            </div>
             <div class="grade-stat">
               <div class="grade-label">학기 내신</div>
               <div class="grade-value">${esc(formatOverallGrade(currentTerm.overall))}</div>
-              <div class="grade-sub">${esc(currentTerm.label || '학기별 산출값')}</div>
+              <div class="grade-sub">해당 학기 산출값</div>
             </div>
             <div class="grade-stat">
               <div class="grade-label">반영 이수단위</div>
               <div class="grade-value">${esc(formatUnitsLabel(currentTerm.reflectedUnits))}</div>
-              <div class="grade-sub">등급과 이수단위가 함께 있는 과목만 반영</div>
+              <div class="grade-sub">${esc(currentTerm.memo || `${countVisibleSubjects(currentTerm.subjects)}과목 입력`)}</div>
             </div>
           </div>
           <div class="grade-panel">
             <div class="grade-panel-head">
               <div>
                 <div class="grade-panel-title">${esc(currentTerm.label || '')} 과목별 성적</div>
-                <div class="grade-panel-desc">기본 화면은 접혀 있고, 자세히 보기로 펼쳐서 확인합니다.</div>
+                <div class="grade-panel-desc">원점수/과목평균, 인원수, 등급, 성취도, 이수단위를 한 화면에서 확인합니다.</div>
               </div>
               <span class="grade-chip">${esc(`${countVisibleSubjects(currentTerm.subjects)}과목`)}</span>
             </div>
-            ${gradeDetailsPanel(`${currentTerm.label || ''} 과목별 성적`, `${countVisibleSubjects(currentTerm.subjects)}과목 · 자세히 보기`, gradeTableHtml(currentTerm))}
+            ${gradeTableHtml(currentTerm)}
           </div>
         </div>
       ` : ''}
@@ -796,164 +635,8 @@
         renderGradeCard();
       });
     });
-
-    target.querySelectorAll('.grade-mobile-item').forEach(item => {
-      const label = item.querySelector('.grade-mobile-toggle');
-      const syncLabel = () => {
-        if (label) label.textContent = item.open ? '접기' : '자세히 보기';
-      };
-      item.addEventListener('toggle', syncLabel);
-      syncLabel();
-    });
-
-    target.querySelectorAll('.grade-details').forEach(item => {
-      const label = item.querySelector('.grade-toggle-label');
-      const countText = label ? label.textContent.split(' · ')[0] : '';
-      const syncLabel = () => {
-        if (label) label.textContent = item.open ? `${countText || '과목별 성적'} · 접기` : `${countText || '과목별 성적'} · 자세히 보기`;
-      };
-      item.addEventListener('toggle', syncLabel);
-      syncLabel();
-    });
   }
 
-  function renderCounselingCard(){
-    const target = $('#counselingCard');
-    if (!target) return;
-    if (!state.student || state.accessMode === 'token') {
-      target.hidden = true;
-      target.innerHTML = '';
-      return;
-    }
-
-    const logs = findCounselingLogs(state.counselingIndex, state.student?.student_id);
-    const latest = logs[0] || null;
-    target.hidden = false;
-    target.innerHTML = `
-      <div class="section-h">
-        <div>
-          <div class="section-title">상담일지</div>
-          <div class="section-desc">관리자 전용 기록 영역입니다. 학생모드에서는 보이지 않습니다.</div>
-        </div>
-        <span class="badge">관리자 전용</span>
-      </div>
-
-      <div class="counsel-summary-grid">
-        <div class="counsel-stat">
-          <div class="counsel-label">최근 상담일</div>
-          <div class="counsel-value">${esc(latest?.date || '미입력')}</div>
-          <div class="counsel-sub">${esc(latest?.type || '상담유형 미입력')}</div>
-        </div>
-        <div class="counsel-stat">
-          <div class="counsel-label">상담 횟수</div>
-          <div class="counsel-value">${esc(logs.length ? `${logs.length}회` : '0회')}</div>
-          <div class="counsel-sub">학생별 누적 상담 기록</div>
-        </div>
-        <div class="counsel-stat">
-          <div class="counsel-label">다음 상담 예정</div>
-          <div class="counsel-value">${esc(latest?.nextDate || '미정')}</div>
-          <div class="counsel-sub">${esc(latest?.status || '상태 미입력')}</div>
-        </div>
-      </div>
-
-      ${latest ? `
-        <div class="counsel-panel" style="margin-top:16px;">
-          <div class="grade-panel-head">
-            <div>
-              <div class="grade-panel-title">최근 상담 핵심 요약</div>
-              <div class="grade-panel-desc">상담 직후 바로 봐야 하는 핵심 메모를 상단에 고정합니다.</div>
-            </div>
-            <span class="grade-chip">${esc(latest.stage || '상담')}</span>
-          </div>
-          <div class="counsel-grid">
-            <div class="counsel-field">
-              <div class="counsel-field-label">상담 핵심 주제</div>
-              <div class="counsel-field-value">${esc(latest.topic || '미입력')}</div>
-            </div>
-            <div class="counsel-field">
-              <div class="counsel-field-label">현재 진단</div>
-              <div class="counsel-field-value">${esc(latest.diagnosis || '미입력')}</div>
-            </div>
-            <div class="counsel-field is-full">
-              <div class="counsel-field-label">상담 내용 요약</div>
-              <div class="counsel-field-value">${esc(latest.summary || '미입력')}</div>
-            </div>
-          </div>
-        </div>
-      ` : ''}
-
-      <div class="counsel-panel" style="margin-top:16px;">
-        <div class="grade-panel-head">
-          <div>
-            <div class="grade-panel-title">전체 상담 기록</div>
-            <div class="grade-panel-desc">최신순으로 정렬되며, 클릭해서 펼쳐서 확인합니다.</div>
-          </div>
-          <span class="grade-chip">${esc(logs.length ? `${logs.length}건` : '기록 없음')}</span>
-        </div>
-        ${logs.length ? `
-          <div class="counsel-list">
-            ${logs.map(log => `
-              <details class="counsel-item">
-                <summary>
-                  <div>
-                    <div class="counsel-item-title">${esc(log.topic || '상담 기록')}</div>
-                    <div class="counsel-meta">
-                      ${log.date ? `<span class="grade-chip">${esc(log.date)}</span>` : ''}
-                      ${log.type ? `<span class="grade-chip">${esc(log.type)}</span>` : ''}
-                      ${log.stage ? `<span class="grade-chip">${esc(log.stage)}</span>` : ''}
-                      ${log.status ? `<span class="grade-chip">${esc(log.status)}</span>` : ''}
-                    </div>
-                  </div>
-                  <span class="grade-toggle-label">펼쳐보기</span>
-                </summary>
-                <div class="counsel-body">
-                  <div class="counsel-grid">
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">현재 진단</div>
-                      <div class="counsel-field-value">${esc(log.diagnosis || '미입력')}</div>
-                    </div>
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">상담자 / 동석자</div>
-                      <div class="counsel-field-value">${esc([log.counselor, log.participants.join(', ')].filter(Boolean).join(' / ') || '미입력')}</div>
-                    </div>
-                    <div class="counsel-field is-full">
-                      <div class="counsel-field-label">상담 내용 요약</div>
-                      <div class="counsel-field-value">${esc(log.summary || '미입력')}</div>
-                    </div>
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">실행 과제</div>
-                      <div class="counsel-field-value">${log.tasks.length ? `<ul class="counsel-list-lines">${log.tasks.map(v => `<li>${esc(v)}</li>`).join('')}</ul>` : '미입력'}</div>
-                    </div>
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">다음 상담 전 체크사항</div>
-                      <div class="counsel-field-value">${log.nextCheck.length ? `<ul class="counsel-list-lines">${log.nextCheck.map(v => `<li>${esc(v)}</li>`).join('')}</ul>` : '미입력'}</div>
-                    </div>
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">다음 상담 예정일</div>
-                      <div class="counsel-field-value">${esc(log.nextDate || '미정')}</div>
-                    </div>
-                    <div class="counsel-field">
-                      <div class="counsel-field-label">중요도 / 상태</div>
-                      <div class="counsel-field-value">${esc([log.importance, log.status].filter(Boolean).join(' / ') || '미입력')}</div>
-                    </div>
-                  </div>
-                </div>
-              </details>
-            `).join('')}
-          </div>
-        ` : `<div class="empty">상담일지 데이터가 없습니다. counseling_logs.json에 학생별 상담 기록을 넣으면 이 영역에 자동 표시됩니다.</div>`}
-      </div>
-    `;
-
-    target.querySelectorAll('.counsel-item').forEach(item => {
-      const label = item.querySelector('.grade-toggle-label');
-      const syncLabel = () => {
-        if (label) label.textContent = item.open ? '접기' : '펼쳐보기';
-      };
-      item.addEventListener('toggle', syncLabel);
-      syncLabel();
-    });
-  }
 
   function readStoredStudentId(){
     const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
@@ -1098,6 +781,26 @@
         <div class="example-body">${esc(opt.description || '')}</div>
       </div>
     `).join('')}</div>`;
+  }
+
+  function judgmentHtml(judgment){
+    const career = String(judgment?.career_judgment || '').trim();
+    const overall = String(judgment?.overall_opinion || '').trim();
+    if (!career && !overall) return '<div class="empty">판단점 데이터가 아직 없습니다.</div>';
+    return `
+      <div class="judgment-grid">
+        <div class="judgment-item">
+          <span class="judgment-label">진로 판단</span>
+          <div class="judgment-title">이 과목이 진로와 어떻게 연결되는지</div>
+          <div class="judgment-body">${esc(career || '해당 과목의 진로 판단 데이터가 아직 없습니다.')}</div>
+        </div>
+        <div class="judgment-item">
+          <span class="judgment-label">종합 의견</span>
+          <div class="judgment-title">현재 강점과 다음 보완 포인트</div>
+          <div class="judgment-body">${esc(overall || '해당 과목의 종합 의견 데이터가 아직 없습니다.')}</div>
+        </div>
+      </div>
+    `;
   }
 
   function keywordList(keywords){
@@ -1250,6 +953,12 @@
           </div>
         ` : ''}
       </div>
+
+      <div class="block">
+        <div class="mini-title">판단점</div>
+        <div class="flow-intro">상담 시 바로 설명할 수 있도록, 이 과목의 진로 연결과 현재 강점·보완점을 한 번에 읽히게 정리한 영역입니다.</div>
+        ${judgmentHtml(subject.judgment_block)}
+      </div>
     ` : `
       <div class="section-h">
         <div>
@@ -1271,7 +980,6 @@
 
   function rerender(){
     renderGradeCard();
-    renderCounselingCard();
     const years = safeArr(state.student?.years);
     renderYearToggles(years);
     const year = years[state.yearIndex] || years[0] || {};
@@ -1302,7 +1010,6 @@
     state.accessMode = selection.mode || 'none';
     const studentsIndex = await loadStudentsIndex();
     state.profileRow = findProfileRow(studentsIndex, student.student_id);
-    state.counselingIndex = await loadCounselingData();
     const grade = normalizeGradeData(student, state.profileRow);
     $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id, grade.summary.overall ? `종합 내신 ${formatOverallGrade(grade.summary.overall)}` : '내신 미입력'].filter(Boolean).join(' · ');
     $('#previewBadge').textContent = selection.mode === 'token' ? '학생모드' : '실데이터';
