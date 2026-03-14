@@ -2,1041 +2,617 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>생기부 분석 보기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>shstudy09 선택과목 기반 다음 단계 설계</title>
   <style>
-    :root{--bd:#e8e8e8;--txt:#111;--muted:#666;--bg:#fff;--soft:#fafafa}
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#fff;color:var(--txt);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
-    body{padding:14px}
-    .wrap{max-width:1180px;margin:0 auto}
-    .card{border:1px solid var(--bd);border-radius:26px;background:var(--bg);padding:22px;margin:14px 0}
-    .title{font-size:24px;font-weight:900;line-height:1.3;margin:0}
-    .sub{color:var(--muted);margin-top:8px;line-height:1.6}
-    .between{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .badge,.pill{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-weight:800}
-    .section-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-    .section-title{font-size:18px;font-weight:900;margin:0}
-    .section-desc{color:var(--muted)}
-    .toggle-wrap{display:flex;gap:10px;flex-wrap:wrap}
-    .toggle,.mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer}
-    .toggle.is-on,.mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
-    .toggle:disabled{opacity:.45;cursor:default}
-    .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
-    .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .keyword-groups{display:grid;gap:12px}
-    .keyword-group{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:14px 16px}
-    .keyword-group-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-    .keyword-group-title{font-size:14px;font-weight:900;line-height:1.4}
-    .keyword-group-desc{font-size:13px;color:var(--muted);line-height:1.6}
-    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800;cursor:pointer}
-    .chip.is-on{background:#111;color:#fff;border-color:#111}
-    .keyword-help{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px 0}
-    .keyword-meaning{margin-top:14px;border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .keyword-meaning-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .keyword-meaning-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .keyword-meaning-body{color:#333;line-height:1.75;margin-top:8px}
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --line: #d9e1ec;
+      --text: #16202a;
+      --sub: #5c6b7a;
+      --accent: #1f6feb;
+      --accent-soft: #eaf2ff;
+      --good: #0f766e;
+      --warn: #b45309;
+      --shadow: 0 10px 30px rgba(18, 35, 58, 0.08);
+      --radius: 18px;
+    }
 
-    .flow-intro{color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 14px 0}
-    .flow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .flow-card{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 18px 16px}
-    .flow-kicker{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .flow-title{font-size:18px;font-weight:900;line-height:1.45;margin:12px 0 8px 0}
-    .flow-body{color:#333;line-height:1.75;font-size:14px;min-height:88px}
-    .flow-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .flow-chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:13px;font-weight:800}
-    @media (max-width: 980px){.flow-grid{grid-template-columns:1fr}.judgment-scroll{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x proximity;padding-bottom:2px}.judgment-card{min-width:82%;scroll-snap-align:start}.flow-body{min-height:auto}}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-    .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
-    .block + .block{margin-top:14px}
-    .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
-    .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-    .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-    .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
-    .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
-    .axis-no{display:inline-flex;min-width:24px;height:24px;border-radius:999px;align-items:center;justify-content:center;background:#111;color:#fff;font-size:12px;margin-right:8px}
-    .axis-text{color:#333;line-height:1.7;font-size:14px}
-    .example-grid{display:grid;gap:10px;margin-top:12px}
-    .example-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .example-body{color:#333;line-height:1.75;margin-top:10px}
-    .example-stack{display:grid;gap:10px;margin-top:12px}
-    .example-row{border-top:1px dashed var(--bd);padding-top:10px}
-    .example-row:first-of-type{border-top:none;padding-top:0}
-    .example-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
-    .example-text{color:#222;line-height:1.75;font-size:14px}
-    .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
-    .guide{font-size:13px;color:var(--muted);margin:6px 2px}
-    .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
-    .year-layout.is-summary-open{grid-template-columns:minmax(280px,420px) 1fr}
-    .year-left{display:flex;flex-direction:column;justify-content:flex-start}
-    .year-summary{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 20px}
-    .year-summary[hidden]{display:none !important}
-    .year-summary-title{font-size:16px;font-weight:900;line-height:1.45;margin:0 0 10px 0}
-    .year-summary-desc{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 12px 0}
-    .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
-    .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
-    .year-summary-body{color:#333;line-height:1.75;font-size:14px}
-    .grade-shell{display:grid;gap:16px}
-    .grade-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .grade-stat{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .grade-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
-    .grade-value{font-size:24px;font-weight:900;line-height:1.35;color:#111}
-    .grade-sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:6px}
-    .grade-panel{border:1px solid var(--bd);border-radius:22px;background:#fff;padding:18px}
-    .grade-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-    .grade-panel-title{font-size:16px;font-weight:900;line-height:1.45;margin:0}
-    .grade-panel-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-top:4px}
-    .grade-table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:18px;background:#fff}
-    table.grade-table{width:100%;border-collapse:collapse;min-width:640px}
-    .grade-table th,.grade-table td{padding:12px 14px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px;line-height:1.55;vertical-align:top}
-    .grade-table th{background:var(--soft);font-weight:900;color:#222;position:sticky;top:0}
-    .grade-table tr:last-child td{border-bottom:none}
-    .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
-    .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
-    .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
-    @media (max-width: 640px){table.grade-table{min-width:560px}}
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 1.25;
+    }
+
+    .hero-sub {
+      margin: 0;
+      color: var(--sub);
+      font-size: 15px;
+      max-width: 760px;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 8px;
+      min-width: 240px;
+    }
+
+    .meta-box {
+      background: rgba(255,255,255,.75);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      color: var(--sub);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #cdd9ea;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .stack { display: grid; gap: 14px; }
+
+    .track {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fcfdff;
+    }
+
+    .track .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .track-title {
+      margin: 0 0 6px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .track-subjects {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .track-reason {
+      margin: 0;
+      color: var(--sub);
+      font-size: 14px;
+    }
+
+    .message {
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      padding: 14px;
+      font-size: 14px;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .subject-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .subject-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .subject-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(234,242,255,.85), rgba(255,255,255,.9));
+    }
+
+    .subject-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .subject-name {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    .role-badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .subject-body {
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .summary-box {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .summary-box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--sub);
+    }
+
+    .summary-box p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .bullet-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .bullet-list li + li { margin-top: 8px; }
+
+    .activity-table {
+      display: grid;
+      gap: 12px;
+    }
+
+    .activity-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fcfdff;
+    }
+
+    .activity-title {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .mini p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .status-good { color: var(--good); }
+    .status-warn { color: var(--warn); }
+
+    .record-box {
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .record-year {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .record-year summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 16px;
+      font-weight: 800;
+      background: #f8fbff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .record-year summary::-webkit-details-marker { display: none; }
+
+    .record-grid {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .record-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .record-card h4 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .record-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #263444;
+    }
+
+    .empty {
+      padding: 24px;
+      text-align: center;
+      border: 1px dashed #c8d4e4;
+      border-radius: 16px;
+      color: var(--sub);
+      background: rgba(255,255,255,.8);
+    }
+
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .grid-2, .activity-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 26px; }
+      .subject-name { font-size: 21px; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <div class="between">
-        <div>
-          <h1 class="title">생기부 분석 보기</h1>
-          <div class="sub" id="studentMeta">데이터를 불러오는 중입니다.</div>
-        </div>
-        <div class="row"><span class="pill" id="previewBadge">실데이터</span></div>
-      </div>
-    </div>
-
-    <div class="card" id="gradeCard"></div>
-
-    <div class="card" id="yearCard">
-      <div class="year-layout">
-        <div class="year-left">
-          <div class="section-h">
-            <div>
-              <div class="section-title">학년 선택</div>
-              <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
-            </div>
-            <button class="mini-toggle" id="yearSummaryToggleBtn" type="button" aria-expanded="false" aria-controls="yearSummaryPanel">총평 보기</button>
-          </div>
-          <div class="toggle-wrap" id="yearToggles"></div>
-        </div>
-        <div class="year-summary" id="yearSummaryPanel" hidden></div>
-      </div>
-    </div>
-
-    <div class="card" id="subjectCardTop">
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 선택</div>
-          <div class="section-desc">선택한 학년 안에서 과목별 분석만 표시</div>
-        </div>
-      </div>
-      <div class="toggle-wrap" id="subjectToggles"></div>
-    </div>
-
-    <div class="guide" id="loadGuide"></div>
-    <div class="card" id="analysisCard"></div>
+    <div id="app" class="empty">데이터를 불러오는 중입니다...</div>
   </div>
 
-<script>
-(() => {
-  const $ = (s) => document.querySelector(s);
-  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  const safeArr = (v) => Array.isArray(v) ? v : [];
-  const qs = new URLSearchParams(location.search);
-
-  const state = {
-    student: null,
-    profileRow: null,
-    yearIndex: 0,
-    subjectIndex: 0,
-    showExamples: false,
-    selectedKeyword: '',
-    showYearSummary: false,
-    gradeTab: 'summary',
-    accessMode: 'none',
-  };
-
-  const DEFAULT_YEAR_SUMMARIES = {};
-
-  function defaultYearSummaryFor(studentId, yearLabel){
-    return DEFAULT_YEAR_SUMMARIES[String(studentId || '').trim()]?.[String(yearLabel || '').trim()] || null;
-  }
-
-  function readYearSummaryFromStudent(student, yearLabel){
-    const ys = student?.year_summaries;
-    if (!ys) return null;
-    if (Array.isArray(ys)) {
-      const found = ys.find(v => String(v?.year || '').trim() === String(yearLabel || '').trim());
-      if (!found) return null;
-      return {
-        academic: found.academic || found.academic_summary || '',
-        career: found.career || found.career_summary || '',
-        community: found.community || found.community_summary || '',
-      };
-    }
-    const byKey = ys[String(yearLabel || '').trim()];
-    if (!byKey) return null;
-    return {
-      academic: byKey.academic || byKey.academic_summary || '',
-      career: byKey.career || byKey.career_summary || '',
-      community: byKey.community || byKey.community_summary || '',
-    };
-  }
-
-  function readYearSummaryFromYear(year){
-    const overview = year?.summary_overview;
-    if (!overview) return null;
-    return {
-      academic: overview.academic || overview.academic_summary || '',
-      career: overview.career || overview.career_summary || '',
-      community: overview.community || overview.community_summary || '',
-    };
-  }
-
-  function getYearSummary(student, year){
-    const yearLabel = typeof year === 'string' ? year : (year?.year || year?.year_label || '');
-    const fromData = readYearSummaryFromStudent(student, yearLabel);
-    if (fromData && (fromData.academic || fromData.career || fromData.community)) return fromData;
-    const fromYear = typeof year === 'string' ? null : readYearSummaryFromYear(year);
-    if (fromYear && (fromYear.academic || fromYear.career || fromYear.community)) return fromYear;
-    return defaultYearSummaryFor(student?.student_id, yearLabel) || {
-      academic: '',
-      career: '',
-      community: '',
-    };
-  }
-
-  function renderYearSummary(year){
-    const panel = $('#yearSummaryPanel');
-    const layout = document.querySelector('#yearCard .year-layout');
-    const toggleBtn = $('#yearSummaryToggleBtn');
-    if (!panel) return;
-    const summary = getYearSummary(state.student, year);
-    const hasAny = Boolean(summary.academic || summary.career || summary.community);
-
-    if (toggleBtn) {
-      toggleBtn.textContent = state.showYearSummary ? '총평 닫기' : '총평 보기';
-      toggleBtn.classList.toggle('is-on', state.showYearSummary);
-      toggleBtn.setAttribute('aria-expanded', String(state.showYearSummary));
-    }
-
-    panel.hidden = !state.showYearSummary;
-    if (layout) layout.classList.toggle('is-summary-open', state.showYearSummary);
-    if (!state.showYearSummary) return;
-
-    panel.innerHTML = hasAny ? `
-      <div class="year-summary-title">${esc(year?.year || '')} 총평</div>
-      <div class="year-summary-desc">대학 평가 기준인 학업역량 · 진로역량 · 공동체역량 관점에서 읽은 요약입니다.</div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">학업역량</div>
-        <div class="year-summary-body">${esc(summary.academic || '')}</div>
-      </div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">진로역량</div>
-        <div class="year-summary-body">${esc(summary.career || '')}</div>
-      </div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">공동체역량</div>
-        <div class="year-summary-body">${esc(summary.community || '')}</div>
-      </div>
-    ` : `
-      <div class="year-summary-title">${esc(year?.year || '학년')} 총평</div>
-      <div class="year-summary-desc">이 학년의 총평 데이터가 아직 없습니다.</div>
-      <div class="empty">학업역량 · 진로역량 · 공동체역량 요약을 추가하면 이 영역에 함께 표시됩니다.</div>
-    `;
-  }
-
-  async function loadJson(path){
-    const r = await fetch(path, { cache:'no-store' });
-    if (!r.ok) throw new Error(`${path} (${r.status})`);
-    return r.json();
-  }
-
-  async function loadRecordData(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./record_detail.json?${stamp}`,
-      `record_detail.json?${stamp}`,
-      `./data/record_detail.json?${stamp}`,
-      `../record_detail.json?${stamp}`,
-      `/record_detail.json?${stamp}`,
+  <script>
+    const DATA_PATHS = [
+      './record_detail_shstudy09_selected_subjects.json',
+      './record_detail.json',
+      './record_detail (1).json'
     ];
-    const tried = [];
-    for (const path of candidates) {
-      try {
-        const data = await loadJson(path);
-        return { data, source: path, tried };
-      } catch (e) {
-        tried.push(path);
+    const STUDENT_ID = 'shstudy09';
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    async function fetchJson() {
+      for (const path of DATA_PATHS) {
+        try {
+          const res = await fetch(path, { cache: 'no-store' });
+          if (!res.ok) continue;
+          return await res.json();
+        } catch (e) {}
       }
+      throw new Error('JSON 파일을 찾지 못했습니다. detail.html과 record_detail_shstudy09_selected_subjects.json을 같은 폴더에 두고 열어주세요.');
     }
-    throw new Error(`detail.json 또는 record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
-  }
 
-  function pickTokenValue(row){
-    return String(
-      row?.token
-      ?? row?.accessToken
-      ?? row?.access_token
-      ?? row?.studentToken
-      ?? row?.student_token
-      ?? row?.key
-      ?? row?.['토큰']
-      ?? ''
-    ).trim();
-  }
-
-  function pickStudentIdValue(row){
-    return String(
-      row?.id
-      ?? row?.student_id
-      ?? row?.studentId
-      ?? row?.studentID
-      ?? row?.['학생ID']
-      ?? ''
-    ).trim();
-  }
-
-  async function loadStudentsIndex(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./students.json?${stamp}`,
-      `students.json?${stamp}`,
-      `./data/students.json?${stamp}`,
-      `../students.json?${stamp}`,
-      `/students.json?${stamp}`,
-    ];
-    for (const path of candidates) {
-      try {
-        return await loadJson(path);
-      } catch (_e) {}
-    }
-    return null;
-  }
-
-  function toRows(index){
-    return Array.isArray(index?.students) ? index.students : Array.isArray(index) ? index : [];
-  }
-
-  function isFilled(v){
-    return !(v === undefined || v === null || String(v).trim() === '');
-  }
-
-  function firstFilled(...values){
-    for (const v of values) {
-      if (isFilled(v)) return String(v).trim();
-    }
-    return '';
-  }
-
-  function findProfileRow(index, studentId){
-    const sid = String(studentId || '').trim();
-    if (!sid) return null;
-    return toRows(index).find(row => pickStudentIdValue(row) === sid) || null;
-  }
-
-
-  function normalizeSubjectGrade(item){
-    return {
-      subject: firstFilled(item?.subject, item?.course, item?.name, item?.과목),
-      rawScore: firstFilled(item?.raw_score, item?.rawScore, item?.score, item?.원점수),
-      subjectAverage: firstFilled(item?.subject_average, item?.subjectAverage, item?.average, item?.avg, item?.과목평균),
-      rawVsAvg: firstFilled(item?.raw_vs_avg, item?.rawVsAvg, item?.score_vs_avg, item?.원점수과목평균, item?.['원점수/과목평균']),
-      studentCount: firstFilled(item?.student_count, item?.studentCount, item?.count, item?.인원수),
-      grade: firstFilled(item?.grade, item?.등급),
-      achievement: firstFilled(item?.achievement, item?.attainment, item?.성취도),
-      units: firstFilled(item?.units, item?.credit, item?.이수단위),
-      memo: firstFilled(item?.memo, item?.note, item?.메모),
-    };
-  }
-
-  function parseNumber(value){
-    if (value === null || value === undefined) return null;
-    const raw = String(value).trim();
-    if (!raw) return null;
-    const normalized = raw.replace(/,/g, '');
-    const num = Number(normalized);
-    return Number.isFinite(num) ? num : null;
-  }
-
-  function formatNumber(value, digits = 2){
-    const num = parseNumber(value);
-    if (num === null) return '';
-    return Number.isInteger(num) ? String(num) : num.toFixed(digits).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1');
-  }
-
-  function computeGradeStats(subjects){
-    let weightedSum = 0;
-    let reflectedUnits = 0;
-    let countedSubjects = 0;
-    safeArr(subjects).forEach(row => {
-      const grade = parseNumber(row?.grade);
-      const units = parseNumber(row?.units);
-      if (grade !== null && units !== null) {
-        weightedSum += grade * units;
-        reflectedUnits += units;
-        countedSubjects += 1;
+    function findStudent(data) {
+      const students = Array.isArray(data?.students) ? data.students : [];
+      let found = students.find(s => s.student_id === STUDENT_ID || s.id === STUDENT_ID);
+      if (!found) {
+        found = students.find(s => s.name === '이열음' || s.student_name === '이열음');
       }
-    });
-    return {
-      overall: reflectedUnits > 0 ? (weightedSum / reflectedUnits) : null,
-      reflectedUnits,
-      countedSubjects,
-    };
-  }
-
-  function buildRawVsAvg(row){
-    const joined = firstFilled(row?.rawVsAvg, row?.raw_vs_avg);
-    if (joined) return joined;
-    const raw = firstFilled(row?.rawScore, row?.raw_score);
-    const avg = firstFilled(row?.subjectAverage, row?.subject_average);
-    return raw && avg ? `${raw}/${avg}` : raw || avg || '';
-  }
-
-  function formatOverallGrade(value){
-    const num = parseNumber(value);
-    if (num === null) return '미산출';
-    return `${num.toFixed(2)}등급`;
-  }
-
-  function formatUnitsLabel(value){
-    const num = parseNumber(value);
-    if (num === null) return '미산출';
-    return `${formatNumber(num, 0)}단위`;
-  }
-
-  function countVisibleSubjects(subjects){
-    return safeArr(subjects).filter(row => row?.subject || row?.rawScore || row?.subjectAverage || row?.studentCount || row?.grade || row?.achievement || row?.units).length;
-  }
-
-
-
-  function normalizeGradeData(student, profileRow){
-    const direct = student?.grade_info || student?.grades || {};
-    const profile = profileRow?.grade_info || profileRow?.grades || {};
-    const summarySource = direct?.summary || profile?.summary || {};
-
-    const termRows = safeArr(direct.terms || direct.grade_terms || direct.semesters || profile.terms || profile.grade_terms || profile.semesters)
-      .map((term, idx) => {
-        const subjects = safeArr(term?.subjects || term?.courses || term?.items).map(normalizeSubjectGrade)
-          .filter(v => v.subject || v.rawScore || v.subjectAverage || v.studentCount || v.grade || v.achievement || v.units || v.memo);
-        const computed = computeGradeStats(subjects);
-        const providedOverall = firstFilled(term?.overall, term?.overall_grade, term?.gpa, term?.grade_average, term?.average_grade, term?.avg_grade, term?.['내신'], term?.['등급']);
-        const providedUnits = firstFilled(term?.reflected_units, term?.reflectedUnits, term?.units_total, term?.total_units, term?.credits, term?.['반영이수단위']);
-        return {
-          key: firstFilled(term?.key, term?.term, term?.semester, term?.label, term?.name, `term_${idx+1}`),
-          label: firstFilled(term?.label, term?.term, term?.semester, term?.name, `학기 ${idx+1}`),
-          overall: providedOverall || formatNumber(computed.overall, 2),
-          reflectedUnits: providedUnits || formatNumber(computed.reflectedUnits, 0),
-          memo: firstFilled(term?.memo, term?.note, term?.['메모']) || '등급·이수단위가 있는 과목만 산출에 반영 / 성취도-only 과목은 산출 제외',
-          subjects,
-          countedSubjects: computed.countedSubjects,
-        };
-      })
-      .filter(v => v.label || v.subjects.length || v.overall || v.reflectedUnits || v.memo);
-
-    const mergedSubjects = termRows.flatMap(term => safeArr(term.subjects));
-    const computedSummary = computeGradeStats(mergedSubjects);
-    const summary = {
-      overall: firstFilled(
-        summarySource.overall, summarySource.overall_grade, summarySource.gpa,
-        direct.overall, direct.overall_grade, direct.gpa, direct.grade, direct['내신'], direct['내신등급'],
-        profileRow?.overall, profileRow?.overall_grade, profileRow?.gpa, profileRow?.grade, profileRow?.['내신'], profileRow?.['내신등급']
-      ) || formatNumber(computedSummary.overall, 2),
-      basis: firstFilled(
-        summarySource.basis, summarySource.latest_term,
-        direct.basis, direct.latest_term, direct.term, direct['기준'],
-        profileRow?.basis, profileRow?.latest_term, profileRow?.term, profileRow?.['기준']
-      ) || (termRows.length ? '입력 학기 전체 기준' : ''),
-      reflectedUnits: firstFilled(
-        summarySource.reflected_units, summarySource.reflectedUnits, summarySource.units, summarySource.total_units,
-        direct.reflected_units, direct.reflectedUnits, direct.units, direct.total_units,
-        profileRow?.reflected_units, profileRow?.reflectedUnits, profileRow?.units, profileRow?.total_units
-      ) || formatNumber(computedSummary.reflectedUnits, 0),
-      memo: firstFilled(
-        summarySource.memo, summarySource.note,
-        direct.memo, direct.note, direct['메모'],
-        profileRow?.memo, profileRow?.note, profileRow?.['메모']
-      ) || '[(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수] 방식으로 계산합니다.',
-      countedSubjects: computedSummary.countedSubjects,
-    };
-
-    return { summary, terms: termRows };
-  }
-
-
-
-  function gradeTableHtml(term){
-    const subjects = safeArr(term?.subjects);
-    if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
-    return `
-      <div class="grade-table-wrap">
-        <table class="grade-table">
-          <thead>
-            <tr>
-              <th>과목</th>
-              <th class="num">원점수/과목평균</th>
-              <th class="num">인원수</th>
-              <th class="num">등급</th>
-              <th class="num">성취도</th>
-              <th class="num">이수단위</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${subjects.map(row => `
-              <tr>
-                <td>
-                  <div>${esc(row.subject || '-')}</div>
-                  ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
-                </td>
-                <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
-                <td class="num">${esc(row.studentCount || '-')}</td>
-                <td class="num">${esc(row.grade || '-')}</td>
-                <td class="num">${esc(row.achievement || '-')}</td>
-                <td class="num">${esc(row.units || '-')}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-
-
-
-  function renderGradeCard(){
-    const student = state.student;
-    const row = state.profileRow || {};
-    const target = $('#gradeCard');
-    if (!target) return;
-    if (!student) {
-      target.innerHTML = '';
-      return;
+      return found;
     }
 
-    const grade = normalizeGradeData(student, row);
-    const terms = grade.terms;
-    const availableTabs = ['summary', ...terms.map(term => term.key)];
-    if (!availableTabs.includes(state.gradeTab)) state.gradeTab = 'summary';
+    function renderChips(items = []) {
+      if (!items.length) return '<div class="empty">선택과목 데이터가 없습니다.</div>';
+      return `<div class="chips">${items.map(v => `<span class="chip">${escapeHtml(v)}</span>`).join('')}</div>`;
+    }
 
-    const currentTerm = terms.find(term => term.key === state.gradeTab) || null;
-    const hasSummary = Boolean(grade.summary.overall || grade.summary.basis || grade.summary.reflectedUnits || grade.summary.memo);
-    const showFormulaCard = state.accessMode !== 'token';
+    function renderList(items = []) {
+      if (!items || !items.length) return '<div class="empty">표시할 내용이 없습니다.</div>';
+      return `<ul class="bullet-list">${items.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>`;
+    }
 
-    target.innerHTML = `
-      <div class="section-h">
-        <div>
-          <div class="section-title">성적 보기</div>
-          <div class="section-desc">종합·학기별 토글로 확인하고, 과목별 원점수/과목평균 · 인원수 · 등급 · 성취도 · 이수단위를 함께 봅니다.</div>
-        </div>
-      </div>
-
-      <div class="toggle-wrap" id="gradeToggles">
-        <button type="button" class="toggle ${state.gradeTab === 'summary' ? 'is-on' : ''}" data-grade-tab="summary">종합</button>
-        ${terms.map(term => `<button type="button" class="toggle ${state.gradeTab === term.key ? 'is-on' : ''}" data-grade-tab="${esc(term.key)}">${esc(term.label)}</button>`).join('')}
-      </div>
-
-      ${state.gradeTab === 'summary' ? `
-        <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid">
-            <div class="grade-stat">
-              <div class="grade-label">종합 내신</div>
-              <div class="grade-value">${esc(formatOverallGrade(grade.summary.overall))}</div>
-              <div class="grade-sub">${esc(grade.summary.basis || '기준 미입력')}</div>
+    function renderActivities(items = []) {
+      if (!items.length) return '<div class="empty">설계된 다음 단계 활동이 없습니다.</div>';
+      return `<div class="activity-table">${items.map(item => `
+        <div class="activity-card">
+          <h4 class="activity-title">${escapeHtml(item.title)}</h4>
+          <div class="activity-grid">
+            <div class="mini">
+              <strong>왜 필요한가</strong>
+              <p>${escapeHtml(item.why_needed)}</p>
             </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 이수단위</div>
-              <div class="grade-value">${esc(formatUnitsLabel(grade.summary.reflectedUnits))}</div>
-              <div class="grade-sub">등급과 이수단위가 함께 있는 과목만 반영</div>
+            <div class="mini">
+              <strong>구체적으로 무엇을 할까</strong>
+              <p>${escapeHtml(item.activity_detail)}</p>
             </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 과목 수</div>
-              <div class="grade-value">${esc(grade.summary.countedSubjects ? `${grade.summary.countedSubjects}과목` : '미산출')}</div>
-              <div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div>
+            <div class="mini">
+              <strong>기록이 어떻게 달라지나</strong>
+              <p>${escapeHtml(item.expected_record_change)}</p>
             </div>
           </div>
-          ${showFormulaCard ? `
-          <div class="grade-panel">
-            <div class="grade-panel-head">
-              <div>
-                <div class="grade-panel-title">내신 성적 산출값</div>
-                <div class="grade-panel-desc">이수단위 반영 공식을 그대로 읽을 수 있게 정리한 카드입니다.</div>
-              </div>
-              ${hasSummary ? `<span class="grade-chip">자동 계산</span>` : ''}
-            </div>
-
-            ${hasSummary || terms.length ? `
-              <div class="keyword-group" style="margin-bottom:14px;">
-                <div class="keyword-group-head">
-                  <div class="keyword-group-title">이수단위 반영 내신 성적 산출 공식</div>
-                </div>
-                <div class="keyword-group-desc" style="font-size:14px; color:#222;">
-                  [(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수]
-                </div>
-                <div class="grade-help" style="margin-top:12px;">
-                  • 원점수/과목평균, 인원수, 성취도는 과목 이해용으로 함께 보여주고<br>
-                  • 실제 종합 산출은 등급과 이수단위가 있는 과목만 반영합니다.<br>
-                  • 성취도만 있는 과목은 표에는 보이지만 종합 내신 계산에서는 제외됩니다.
-                </div>
-              </div>
-              <div class="grade-help">
-                ${esc(grade.summary.memo || '학기별 토글을 누르면 각 학기의 과목별 성적을 바로 확인할 수 있습니다.')}
-              </div>
-            ` : `
-              <div class="empty">아직 성적 데이터가 없습니다. 과목별성적 기준으로 입력한 값을 detail.json에 넣으면 이 영역에서 자동 계산해 보여줍니다.</div>
-            `}
-          </div>` : ''}
         </div>
-      ` : currentTerm ? `
-        <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid">
-            <div class="grade-stat">
-              <div class="grade-label">학기</div>
-              <div class="grade-value">${esc(currentTerm.label || '-')}</div>
-              <div class="grade-sub">학기별 상세 성적</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">학기 내신</div>
-              <div class="grade-value">${esc(formatOverallGrade(currentTerm.overall))}</div>
-              <div class="grade-sub">해당 학기 산출값</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 이수단위</div>
-              <div class="grade-value">${esc(formatUnitsLabel(currentTerm.reflectedUnits))}</div>
-              <div class="grade-sub">${esc(currentTerm.memo || `${countVisibleSubjects(currentTerm.subjects)}과목 입력`)}</div>
-            </div>
-          </div>
-          <div class="grade-panel">
-            <div class="grade-panel-head">
-              <div>
-                <div class="grade-panel-title">${esc(currentTerm.label || '')} 과목별 성적</div>
-                <div class="grade-panel-desc">원점수/과목평균, 인원수, 등급, 성취도, 이수단위를 한 화면에서 확인합니다.</div>
-              </div>
-              <span class="grade-chip">${esc(`${countVisibleSubjects(currentTerm.subjects)}과목`)}</span>
-            </div>
-            ${gradeTableHtml(currentTerm)}
-          </div>
-        </div>
-      ` : ''}
-    `;
-
-    target.querySelectorAll('[data-grade-tab]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.gradeTab = btn.getAttribute('data-grade-tab') || 'summary';
-        renderGradeCard();
-      });
-    });
-  }
-
-
-  function readStoredStudentId(){
-    const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
-    for (const key of keys) {
-      const fromSession = String(sessionStorage.getItem(key) || '').trim();
-      if (fromSession) return fromSession;
-      const fromLocal = String(localStorage.getItem(key) || '').trim();
-      if (fromLocal) return fromLocal;
-    }
-    return '';
-  }
-
-  function readHashStudentId(){
-    const hash = String(location.hash || '').replace(/^#/, '').trim();
-    if (!hash) return '';
-    if (hash.includes('=')) {
-      const h = new URLSearchParams(hash);
-      return String(h.get('id') || h.get('student_id') || h.get('sid') || '').trim();
-    }
-    if (/^shstudy\d+/i.test(hash)) return hash;
-    return '';
-  }
-
-  async function resolveStudentSelection(){
-    const directId = String(qs.get('student_id') || qs.get('id') || qs.get('sid') || '').trim();
-    if (directId) {
-      try { sessionStorage.setItem('student_id', directId); } catch(_e) {}
-      try { localStorage.setItem('student_id', directId); } catch(_e) {}
-      return { id: directId, mode: 'direct', strict: true };
+      `).join('')}</div>`;
     }
 
-    const token = String(qs.get('t') || qs.get('token') || '').trim();
-    if (token) {
-      const studentsIndex = await loadStudentsIndex();
-      const rows = Array.isArray(studentsIndex?.students)
-        ? studentsIndex.students
-        : Array.isArray(studentsIndex)
-          ? studentsIndex
-          : [];
-      const found = rows.find(row => pickTokenValue(row) === token);
-      const sid = pickStudentIdValue(found);
-      if (sid) {
-        try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
-        try { localStorage.setItem('student_id', sid); } catch(_e) {}
-        return { id: sid, mode: 'token', strict: true };
-      }
-      try { sessionStorage.removeItem('student_id'); } catch(_e) {}
-      try { localStorage.removeItem('student_id'); } catch(_e) {}
-      return { id: '', mode: 'token', strict: true, invalidToken: true };
-    }
-
-    const storedId = readStoredStudentId();
-    if (storedId) return { id: storedId, mode: 'stored', strict: false };
-
-    const hashId = readHashStudentId();
-    if (hashId) return { id: hashId, mode: 'hash', strict: false };
-
-    try {
-      const ref = document.referrer ? new URL(document.referrer) : null;
-      const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
-      if (refId) return { id: refId, mode: 'referrer', strict: false };
-    } catch (_e) {}
-
-    return { id: '', mode: 'none', strict: false };
-  }
-
-  async function pickStudent(data){
-    const students = safeArr(data?.students);
-    if (!students.length) return { student: null, selection: { id: '', mode: 'none', strict: false } };
-    const selection = await resolveStudentSelection();
-    if (selection.id) {
-      return {
-        student: students.find(s => String(s.student_id || '').trim() === selection.id) || null,
-        selection
-      };
-    }
-    if (selection.strict) {
-      return { student: null, selection };
-    }
-    return { student: students[0], selection };
-  }
-
-  function bindYearSummaryToggle(){
-    const btn = $('#yearSummaryToggleBtn');
-    if (!btn) return;
-    btn.onclick = () => {
-      state.showYearSummary = !state.showYearSummary;
-      const years = safeArr(state.student?.years);
-      const year = years[state.yearIndex] || years[0] || { year: '학년' };
-      renderYearSummary(year);
-    };
-  }
-
-  function renderYearToggles(years){
-    $('#yearToggles').innerHTML = years.length
-      ? years.map((y, i) => `<button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year || `${i+1}학년`)}</button>`).join('')
-      : '<button class="toggle" disabled>학년 없음</button>';
-    $('#yearToggles').querySelectorAll('[data-year-idx]').forEach(btn => {
-      btn.onclick = () => {
-        state.yearIndex = Number(btn.dataset.yearIdx || 0);
-        state.subjectIndex = 0;
-        state.showExamples = false;
-        state.selectedKeyword = '';
-        rerender();
-      };
-    });
-  }
-
-  function renderSubjectToggles(subjects){
-    $('#subjectToggles').innerHTML = subjects.length
-      ? subjects.map((s, i) => `<button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>`).join('')
-      : '<button class="toggle" disabled>과목 없음</button>';
-    $('#subjectToggles').querySelectorAll('[data-subject-idx]').forEach(btn => {
-      btn.onclick = () => {
-        state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
-        state.showExamples = false;
-        state.selectedKeyword = '';
-        renderSubjectToggles(subjects);
-        rerenderAnalysis();
-      };
-    });
-  }
-
-  function axisHtml(axisList){
-    const list = safeArr(axisList);
-    if (!list.length) return '<div class="empty">역량 축 데이터가 없습니다.</div>';
-    return `<div class="axis-list">${list.map(item => `
-      <div class="axis-item">
-        <div class="axis-head"><span class="axis-no">${esc(item.no || '')}</span>${esc(item.title || '')}</div>
-        <div class="axis-text">${esc(item.content || '')}</div>
-      </div>
-    `).join('')}</div>`;
-  }
-
-  function examplesHtml(activityExamples){
-    const list = safeArr(activityExamples);
-    if (!list.length) return '<div class="empty">활동예시 데이터가 없습니다.</div>';
-    const row = (label, text) => String(text || '').trim() ? `
-      <div class="example-row">
-        <div class="example-label">${esc(label)}</div>
-        <div class="example-text">${esc(text)}</div>
-      </div>
-    ` : '';
-    return `<div class="example-grid">${list.map(opt => {
-      const basis = String(opt.current_basis || '').trim();
-      const goal = String(opt.next_goal || '').trim();
-      const recommended = String(opt.recommended_activity || opt.description || '').trim();
-      const effect = String(opt.expected_effect || '').trim();
+    function renderSubjectPlans(plan) {
+      const list = Array.isArray(plan?.selection_subjects) ? plan.selection_subjects : [];
+      if (!list.length) return '<div class="empty">선택과목 설계 데이터가 없습니다.</div>';
       return `
-      <div class="example-item">
-        <span class="example-type">${esc(opt.type || '활동예시')}</span>
-        <div class="example-title">${esc(opt.title || '')}</div>
-        <div class="example-stack">
-          ${row('현재 기록과의 연결', basis)}
-          ${row('다음에 더 보여줄 점', goal)}
-          ${row('추천 활동', recommended)}
-          ${row('기대 효과', effect)}
+        <div class="subject-list">
+          ${list.map(subject => `
+            <section class="subject-card">
+              <div class="subject-head">
+                <div class="subject-top">
+                  <div>
+                    <h3 class="subject-name">${escapeHtml(subject.subject)}</h3>
+                  </div>
+                  <div class="role-badge">${escapeHtml(subject.course_role)}</div>
+                </div>
+              </div>
+              <div class="subject-body">
+                <div class="grid-2">
+                  <div class="summary-box">
+                    <strong>현재 기록 근거</strong>
+                    ${renderList(subject.current_evidence)}
+                  </div>
+                  <div class="summary-box">
+                    <strong>현재 강점</strong>
+                    <p class="status-good">${escapeHtml(subject.current_strength)}</p>
+                  </div>
+                </div>
+                <div class="grid-2">
+                  <div class="summary-box">
+                    <strong>보완 포인트</strong>
+                    <p class="status-warn">${escapeHtml(subject.gap_point)}</p>
+                  </div>
+                  <div class="summary-box">
+                    <strong>입학사정관 관점</strong>
+                    <p>${escapeHtml(subject.admission_view)}</p>
+                  </div>
+                </div>
+                <div class="summary-box">
+                  <strong>다음 단계 활동 설계</strong>
+                  ${renderActivities(subject.next_stage_activities || [])}
+                </div>
+              </div>
+            </section>
+          `).join('')}
         </div>
-      </div>`;
-    }).join('')}</div>`;
-  }
-
-  function keywordList(keywords){
-    return safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
-  }
-
-  function uniqueMerge(...arrays){
-    const out = [];
-    const seen = new Set();
-    arrays.flat().forEach(v => {
-      const key = String(v || '').trim();
-      if (!key || seen.has(key)) return;
-      seen.add(key);
-      out.push(key);
-    });
-    return out;
-  }
-
-  function pickByRegex(list, regex, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      if (!regex.test(item)) continue;
-      out.push(item);
-      used.add(item);
+      `;
     }
-    return out;
-  }
 
-  function pickRemaining(list, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      out.push(item);
-      used.add(item);
+    function renderRecords(student) {
+      const years = Array.isArray(student?.years) ? student.years : [];
+      if (!years.length) return '<div class="empty">표시할 과목 기록이 없습니다.</div>';
+
+      return years.map(year => {
+        const subjects = Array.isArray(year.subjects) ? year.subjects : [];
+        return `
+          <details class="record-year" ${years.length === 1 ? 'open' : ''}>
+            <summary>${escapeHtml(year.year_label || year.year || '학년 기록')} · 현재 기록 기반 참고</summary>
+            <div class="record-grid">
+              ${subjects.map(subject => `
+                <article class="record-card">
+                  <h4>${escapeHtml(subject.subject_name || subject.subject)}</h4>
+                  <p><strong>한 줄 요약:</strong> ${escapeHtml(subject.one_line || subject.summary || '')}</p>
+                  <p style="margin-top:8px;"><strong>판단:</strong> ${escapeHtml(subject?.judgment_block?.subject_judgment || '')}</p>
+                  <p style="margin-top:8px;"><strong>다음 방향:</strong> ${escapeHtml(subject?.judgment_block?.extension_interpretation || '')}</p>
+                </article>
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
     }
-    return out;
-  }
 
-  function pickAxisContent(axisList, regex){
-    const hit = safeArr(axisList).find(item => regex.test(`${item?.title || ''} ${item?.content || ''}`));
-    return hit?.content || '';
-  }
+    function render(student) {
+      const plan = student?.selected_subjects_plan || {};
+      const integrated = plan?.integrated_direction || {};
+      const secondary = plan?.secondary_track || {};
 
-  function flowCardsFor(subject){
-    const subjectName = String(subject?.subject || '').trim();
-    const summary = String(subject?.summary || '').trim();
-    const axisList = safeArr(subject?.axis_list);
-    const keywords = keywordList(subject?.extension_keywords);
-    const used = new Set();
+      return `
+        <section class="hero">
+          <div class="hero-top">
+            <div>
+              <div class="eyebrow">선택과목 기반 다음 단계 설계</div>
+              <h1>${escapeHtml(student.name || student.student_name)} · ${escapeHtml(student.student_id || student.id || '')}</h1>
+              <p class="hero-sub">${escapeHtml(plan.selection_design_note || '현재 기록을 기준으로 선택과목별 다음 단계 활동을 설계한 화면입니다.')}</p>
+              ${renderChips(student.selected_subjects || [])}
+            </div>
+            <div class="hero-meta">
+              <div class="meta-box">
+                <div class="meta-label">학교</div>
+                <div class="meta-value">${escapeHtml(student.school_name || student.school || '-')}</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-label">트랙</div>
+                <div class="meta-value">${escapeHtml(student.track || '-')}</div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    const TOPIC_RE = /(개념|이해|원리|법칙|공식|구조|현상|문제|배터리|에너지|자동차|보안|블록체인|알고리즘|인공지능|AI|데이터|기후|행복|교육|전염병|의료|자율주행|충격량|운동량|관성|프랙탈|전고체|리튬|심전도|탄소|역사|경제|사회|독서|주제|가치|윤리|장치|모빌리티|스포츠|당구|배드민턴)/;
-    const METHOD_RE = /(분석|해석|설계|실험|발표|토론|그래프|시각화|자료|근거|비교|조사|탐구|독해|글쓰기|논리|모델링|표현|구조화|도식화|문헌|계획|정리|판단|설명|검증|제시|구상|활용|적용)/;
-    const EXPAND_RE = /(실생활|진로|사회|공동체|협업|리더십|확장|융합|적용|문제 해결|창의|대안|미래|환경|지속가능|안전|직업|기여|정책|현대|세계|국제|운영|멘토링|소통|스포츠)/;
+        <div class="layout">
+          <aside class="stack">
+            <section class="panel">
+              <h2>전체 방향</h2>
+              <div class="track">
+                <div class="tag">주력 축</div>
+                <h3 class="track-title">${escapeHtml(integrated.primary_track || '-')}</h3>
+                <p class="track-subjects">${escapeHtml((integrated.subjects || []).join(' · '))}</p>
+                <p class="track-reason">${escapeHtml(integrated.reason || '')}</p>
+              </div>
+              <div class="track" style="margin-top:12px;">
+                <div class="tag">보조 축</div>
+                <h3 class="track-title">${escapeHtml(secondary.secondary_track || '-')}</h3>
+                <p class="track-subjects">${escapeHtml((secondary.subjects || []).join(' · '))}</p>
+                <p class="track-reason">${escapeHtml(secondary.reason || '')}</p>
+              </div>
+            </section>
 
-    let topicKeywords = pickByRegex(keywords, TOPIC_RE, used, 6);
-    let methodKeywords = pickByRegex(keywords, METHOD_RE, used, 6);
-    let expandKeywords = pickByRegex(keywords, EXPAND_RE, used, 6);
+            <section class="panel">
+              <h2>상담 메시지</h2>
+              <div class="message">${escapeHtml(plan.counseling_message || '')}</div>
+            </section>
+          </aside>
 
-    if (!topicKeywords.length) topicKeywords = pickRemaining(keywords, used, 5);
-    if (!methodKeywords.length) methodKeywords = pickRemaining(keywords, used, 5);
-    if (!expandKeywords.length) expandKeywords = uniqueMerge(pickRemaining(keywords, used, 5), keywords.slice(-3)).slice(0, 6);
+          <main>
+            <h2 class="section-title">과목별 다음 단계 활동 설계</h2>
+            ${renderSubjectPlans(plan)}
+          </main>
+        </div>
 
-    const topicBody = pickAxisContent(axisList, /(개념|이해|원리|내용|핵심|주제|법칙|공식|분야|탐구)/)
-      || summary
-      || `${subjectName || '이 활동'}에서 다룬 핵심 개념과 문제의식을 중심으로 탐구의 축이 드러납니다.`;
+        <section class="record-box">
+          <h2 style="margin:0 0 10px;">현재 기록 참고</h2>
+          <p style="margin:0; color: var(--sub); font-size: 14px;">선택과목 설계가 어떤 현재 기록을 바탕으로 만들어졌는지 함께 볼 수 있도록 기존 과목 분석 요약을 아래에 붙였습니다.</p>
+          ${renderRecords(student)}
+        </section>
+      `;
+    }
 
-    const methodBody = pickAxisContent(axisList, /(분석|해석|설명|표현|실험|그래프|자료|설계|문헌|모델링|발표|토론|비교|구조|도식|독해|서술|조사|판단)/)
-      || '자료 해석, 설명, 실험, 설계, 비교 등 학생이 실제로 사용한 탐구 방식이 확인됩니다.';
-
-    const expandBody = pickAxisContent(axisList, /(실생활|확장|융합|적용|문제 해결|창의|진로|사회|공동체|리더십|협업|기여|스포츠|안전|환경|대안)/)
-      || '교과 개념을 실생활, 진로, 다른 사례로 넓혀 보는 확장성이 나타납니다.';
-
-    return [
-      {
-        kicker: '핵심 주제',
-        title: '무엇을 다뤘는지',
-        body: topicBody,
-        keywords: topicKeywords,
-      },
-      {
-        kicker: '탐구 방식',
-        title: '어떻게 접근했는지',
-        body: methodBody,
-        keywords: methodKeywords,
-      },
-      {
-        kicker: '확장 방향',
-        title: '어디로 이어지는지',
-        body: expandBody,
-        keywords: expandKeywords,
+    (async () => {
+      const app = document.getElementById('app');
+      try {
+        const data = await fetchJson();
+        const student = findStudent(data);
+        if (!student) {
+          app.innerHTML = '<div class="empty">shstudy09 학생 데이터를 찾지 못했습니다.</div>';
+          return;
+        }
+        app.outerHTML = render(student);
+      } catch (error) {
+        app.innerHTML = `<div class="empty">${escapeHtml(error.message)}</div>`;
       }
-    ];
-  }
-
-  function flowCardsHtml(subject){
-    const cards = flowCardsFor(subject);
-    if (!cards.length) return '<div class="empty">탐구 흐름 데이터가 없습니다.</div>';
-    return `
-      <div class="flow-grid">${cards.map(card => `
-        <div class="flow-card">
-          <span class="flow-kicker">${esc(card.kicker || '')}</span>
-          <div class="flow-title">${esc(card.title || '')}</div>
-          <div class="flow-body">${esc(card.body || '')}</div>
-          ${safeArr(card.keywords).length ? `<div class="flow-chips">${safeArr(card.keywords).map(k => `<span class="flow-chip">${esc(k)}</span>`).join('')}</div>` : ''}
-        </div>
-      `).join('')}</div>
-    `;
-  }
-
-
-  function judgmentBlockHtml(subject){
-    const block = subject?.judgment_block || {};
-    const cards = [
-      { label:'판단', text: String(block.subject_judgment || '').trim() },
-      { label:'의견', text: String(block.overall_opinion || '').trim() },
-      { label:'확장', text: String(block.extension_interpretation || '').trim() }
-    ].filter(v => v.text);
-    if (!cards.length) return '';
-    return `
-      <div class="block">
-        <div class="mini-title">판단점</div>
-        <div class="judgment-scroll">${cards.map(card => `
-          <div class="judgment-card">
-            <div class="flow-kicker">${esc(card.label)}</div>
-            <div class="flow-body">${esc(card.text)}</div>
-          </div>
-        `).join('')}</div>
-      </div>
-    `;
-  }
-
-  function rerenderAnalysis(){
-    const years = safeArr(state.student?.years);
-    const year = years[state.yearIndex] || years[0] || {};
-    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
-    if (state.subjectIndex > subjects.length - 1) state.subjectIndex = 0;
-    const subject = subjects[state.subjectIndex] || null;
-
-    $('#analysisCard').innerHTML = subject ? `
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 분석</div>
-          <div class="section-desc">${esc(year.year || '')} · ${esc(subject.subject || '')}</div>
-        </div>
-        <span class="badge">역량 축 ${safeArr(subject.axis_list).length}개</span>
-      </div>
-
-      <div class="block">
-        <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
-        <div class="one-line">${esc(subject.summary || '')}</div>
-      </div>
-
-      <div class="block">
-        <div class="mini-title">역량 축 분석</div>
-        ${axisHtml(subject.axis_list)}
-      </div>
-
-      <div class="block">
-        <div class="inline-head">
-          <div class="mini-title" style="margin:0;">탐구 흐름 정리</div>
-          <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '다음 단계 닫기' : '다음 단계 보기'}</button>
-        </div>
-        <div class="flow-intro">현재 기록에서 확인되는 수행을 바탕으로, 왜 이 활동이 다음 단계인지까지 연결해서 읽을 수 있도록 정리한 영역입니다.</div>
-        ${flowCardsHtml(subject)}
-        ${state.showExamples ? `
-          <div style="margin-top:16px;">
-            <div class="mini-title">다음 단계 활동 설계</div>
-            ${examplesHtml(subject.activity_examples)}
-          </div>
-        ` : ''}
-      </div>
-
-      ${judgmentBlockHtml(subject)}
-    ` : `
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 분석</div>
-          <div class="section-desc">선택된 과목 데이터가 없습니다.</div>
-        </div>
-      </div>
-      <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
-    `;
-
-    const btn = document.getElementById('toggleExamplesBtn');
-    if (btn) {
-      btn.onclick = () => {
-        state.showExamples = !state.showExamples;
-        rerenderAnalysis();
-      };
-    }
-  }
-
-  function rerender(){
-    renderGradeCard();
-    const years = safeArr(state.student?.years);
-    renderYearToggles(years);
-    const year = years[state.yearIndex] || years[0] || {};
-    renderYearSummary(year);
-    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
-    renderSubjectToggles(subjects);
-    rerenderAnalysis();
-  }
-
-  async function boot(){
-    bindYearSummaryToggle();
-    const loaded = await loadRecordData();
-    const picked = await pickStudent(loaded.data);
-    const student = picked?.student || null;
-    const selection = picked?.selection || { id: '', mode: 'none', strict: false };
-    if (!student) {
-      $('#studentMeta').textContent = selection.invalidToken
-        ? '학생 토큰과 연결된 데이터를 찾지 못했습니다.'
-        : '학생 데이터가 없습니다.';
-      $('#previewBadge').textContent = selection.invalidToken ? '토큰 오류' : '오류';
-      $('#analysisCard').innerHTML = `<div class="empty">${selection.invalidToken
-        ? 'students.json의 토큰과 detail.json의 student_id 연결을 확인해주세요.'
-        : 'detail.json 안에 해당 학생 데이터가 없습니다.'}</div>`;
-      $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
-      return;
-    }
-    state.student = student;
-    state.accessMode = selection.mode || 'none';
-    const studentsIndex = await loadStudentsIndex();
-    state.profileRow = findProfileRow(studentsIndex, student.student_id);
-    const grade = normalizeGradeData(student, state.profileRow);
-    $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id, grade.summary.overall ? `종합 내신 ${formatOverallGrade(grade.summary.overall)}` : '내신 미입력'].filter(Boolean).join(' · ');
-    $('#previewBadge').textContent = selection.mode === 'token' ? '학생모드' : '실데이터';
-    $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
-    rerender();
-  }
-
-  boot().catch(err => {
-    $('#studentMeta').textContent = '데이터를 불러오지 못했습니다.';
-    $('#previewBadge').textContent = '오류';
-    $('#analysisCard').innerHTML = `<div class="empty">${esc(err?.message || err)}</div>`;
-  });
-})();
-</script>
+    })();
+  </script>
 </body>
 </html>
