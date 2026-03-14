@@ -1,336 +1,635 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>record_detail_interpretive_shstudy09</title>
-<style>
-:root{
-  --bg:#f5f7fb; --card:#fff; --line:#dfe5ef; --text:#16202a; --sub:#5c6b7a;
-  --accent:#1f6feb; --soft:#eef4ff; --shadow:0 10px 28px rgba(22,32,42,.08); --radius:20px;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:1400px;margin:0 auto;padding:24px 18px 48px}
-.hero,.panel,.section,.subject-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.hero{padding:24px;margin-bottom:18px}
-.hero h1{margin:0 0 8px;font-size:34px}
-.sub{color:var(--sub);line-height:1.7}
-.top-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.top-nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}
-.top-nav a.active{background:#111;color:#fff;border-color:#111}
-.layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
-.panel{padding:18px;position:sticky;top:16px}
-.panel-title{font-size:20px;font-weight:900;margin:0 0 12px}
-.info-box{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}
-.info-box + .info-box{margin-top:12px}
-.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:5px}
-.value{font-weight:800;line-height:1.7}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:var(--soft);border:1px solid #d8e5ff;font-size:12px;font-weight:900}
-.stack{display:grid;gap:16px}
-.section{padding:20px}
-.section-title{font-size:24px;font-weight:900;margin:0 0 12px}
-.section-desc{color:var(--sub);line-height:1.7}
-.summary-list{display:grid;gap:10px;margin-top:14px}
-.summary-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff;line-height:1.8}
-.subject-card{padding:20px}
-.subject-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
-.subject-name{font-size:28px;font-weight:900;line-height:1.3}
-.subject-sub{margin-top:8px;color:#334155;line-height:1.7}
-.subject-badge{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12px;font-weight:900}
-.block{margin-top:16px;padding-top:14px;border-top:1px solid #edf1f6}
-.block-title,.mini-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
-.block-body,.mini-body{line-height:1.8}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-.mini{border:1px solid #e7edf7;border-radius:16px;padding:14px;background:#fbfdff}
-.cta{margin-top:18px;padding:16px;border-radius:16px;background:#111;color:#fff;display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
-.cta a{display:inline-block;padding:10px 14px;border-radius:12px;background:#fff;color:#111;text-decoration:none;font-weight:900}
-@media (max-width:1000px){.layout{grid-template-columns:1fr} .panel{position:static} .grid2{grid-template-columns:1fr} .hero h1{font-size:28px} .subject-name{font-size:24px}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>생기부 분석 보기 · 심화형</title>
+  <style>
+    :root{
+      --bd:#dfe6f2; --txt:#122033; --muted:#5f7085; --bg:#f7faff; --soft:#f2f7ff;
+      --soft2:#fff8ef; --soft3:#f4fbf5; --card:#ffffff; --accent:#4c7dff; --accent2:#ffb454;
+      --accent3:#52b788; --danger:#ff7a7a; --shadow:0 10px 28px rgba(28,54,90,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+    body{padding:14px}
+    .wrap{max-width:1240px;margin:0 auto}
+    .card{border:1px solid var(--bd);border-radius:26px;background:var(--card);padding:22px;margin:14px 0;box-shadow:var(--shadow)}
+    .title{font-size:24px;font-weight:900;line-height:1.3;margin:0}
+    .sub{color:var(--muted);margin-top:8px;line-height:1.7}
+    .between{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill,.badge{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-weight:800}
+    .pill.primary{background:#eef4ff;border-color:#d6e3ff;color:#2d55d3}
+    .pill.warm{background:#fff5e7;border-color:#ffe0ae;color:#a86100}
+    .pill.good{background:#effbf3;border-color:#cbeed4;color:#1d7a48}
+    .section-title{font-size:18px;font-weight:900;margin:0}
+    .section-desc{color:var(--muted);line-height:1.7}
+    .section-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .toggle-wrap{display:flex;gap:10px;flex-wrap:wrap}
+    .toggle,.mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:var(--txt);border-radius:999px;padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer}
+    .toggle.is-on,.mini-toggle.is-on{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .toggle:disabled{opacity:.45;cursor:default}
+    .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800}
+    .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
+    .block + .block{margin-top:14px}
+    .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#223}
+    .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+    .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
+    .guide{font-size:13px;color:var(--muted);margin:6px 2px}
+    .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+    .year-layout.is-summary-open{grid-template-columns:minmax(280px,420px) 1fr}
+    .year-left{display:flex;flex-direction:column;justify-content:flex-start}
+    .year-summary{border:1px solid var(--bd);border-radius:22px;background:linear-gradient(180deg,#f8fbff,#f1f7ff);padding:18px 20px}
+    .year-summary[hidden]{display:none !important}
+    .year-summary-title{font-size:16px;font-weight:900;line-height:1.45;margin:0 0 10px 0}
+    .year-summary-desc{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 12px 0}
+    .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
+    .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
+    .year-summary-body{color:#333;line-height:1.75;font-size:14px}
+    .grade-shell{display:grid;gap:16px}
+    .grade-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .grade-stat{border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,#ffffff,#f7fbff);padding:16px 18px}
+    .grade-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
+    .grade-value{font-size:24px;font-weight:900;line-height:1.35;color:#111}
+    .grade-sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:6px}
+    .grade-panel{border:1px solid var(--bd);border-radius:22px;background:#fff;padding:18px}
+    .grade-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+    .grade-panel-title{font-size:16px;font-weight:900;line-height:1.45;margin:0}
+    .grade-panel-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-top:4px}
+    .grade-table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:18px;background:#fff}
+    table.grade-table{width:100%;border-collapse:collapse;min-width:640px}
+    .grade-table th,.grade-table td{padding:12px 14px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px;line-height:1.55;vertical-align:top}
+    .grade-table th{background:#f5f9ff;font-weight:900;color:#223;position:sticky;top:0}
+    .grade-table tr:last-child td{border-bottom:none}
+    .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
+    .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
+    .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
+    .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
+    .axis-no{display:inline-flex;min-width:24px;height:24px;border-radius:999px;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:12px;margin-right:8px}
+    .axis-text{color:#334;line-height:1.7;font-size:14px}
+    .focus-grid,.deep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .focus-item{border:1px solid var(--bd);border-radius:18px;background:#fbfdff;padding:16px 18px}
+    .focus-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
+    .focus-body{font-size:14px;line-height:1.75;color:#222}
+    .priority-list{margin:0;padding-left:18px;color:#333;line-height:1.75}
+    .priority-list li+li{margin-top:6px}
+    .flow-intro{color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 14px 0}
+    .flow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .flow-card{border:1px solid var(--bd);border-radius:22px;background:linear-gradient(180deg,#ffffff,#f6faff);padding:18px 18px 16px}
+    .flow-kicker{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
+    .flow-title{font-size:18px;font-weight:900;line-height:1.45;margin:12px 0 8px 0}
+    .flow-body{color:#333;line-height:1.75;font-size:14px;min-height:88px}
+    .flow-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .flow-chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:13px;font-weight:800}
+    .judgment-scroll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .judgment-card{border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,#ffffff,#f9fbff);padding:16px 18px}
+    .summary-box{display:grid;gap:12px}
+    .summary-item{border:1px solid var(--bd);border-radius:18px;padding:16px 18px;background:linear-gradient(180deg,#ffffff,#fbfdff)}
+    .summary-kicker{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
+    .summary-body{font-size:15px;line-height:1.8;color:#222}
+    .analysis-layout{display:grid;gap:14px}
+    .soft-blue{background:linear-gradient(180deg,#f9fbff,#f2f7ff)}
+    .soft-warm{background:linear-gradient(180deg,#fffaf4,#fff4e8)}
+    .soft-green{background:linear-gradient(180deg,#f8fdf9,#eefaf1)}
+    @media (max-width: 980px){
+      .axis-list,.focus-grid,.deep-grid,.flow-grid,.judgment-scroll,.grade-summary-grid{grid-template-columns:1fr}
+      .hero-title{font-size:26px}
+      .year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-
-  <section class="hero">
-    <h1>이열음 (shstudy09)</h1>
-    <div class="sub">기본 상담 화면을 과목 기준표처럼 보이게 하는 대신, 생활기록부 전체 해석 → 구조와 연결성 → 평가상 의미 → 과목별 근거 순서로 읽히게 구성한 실제 적용본입니다.</div>
-    <div class="top-nav">
-      <a class="active">기본 상담 보기</a>
-      <a href="./record_detail_extension.html?student_id=shstudy09">확장 활동 보기</a>
+  <div class="wrap">
+    <div class="card">
+      <div class="between">
+        <div>
+          <h1 class="title">생기부 분석 보기</h1>
+          <div class="sub" id="studentMeta">데이터를 불러오는 중입니다.</div>
+        </div>
+        <div class="row"><span class="pill primary" id="previewBadge">실데이터</span></div>
+      </div>
     </div>
-  </section>
 
-  <div class="layout">
-    <aside class="panel">
-      <h2 class="panel-title">상담 요약</h2>
-      <div class="info-box">
-        <div class="label">학교</div>
-        <div class="value">풍산고</div>
+    <div class="card">
+      <div class="between">
+        <div>
+          <h2 class="title" style="font-size:22px;">확장 활동 설계</h2>
+          <div class="sub">기본 상담 구조는 유지하고, 선택과목 기반 다음 단계 활동은 별도 화면으로 분리해 봅니다.</div>
+        </div>
+        <div class="row">
+          <a href="./record_detail_extension.html?student_id=shstudy09" class="mini-toggle" style="text-decoration:none;">확장 활동 보기</a>
+        </div>
       </div>
-      <div class="info-box">
-        <div class="label">트랙</div>
-        <div class="value">공학</div>
+    </div>
+
+    <div class="card" id="gradeCard"></div>
+
+    <div class="card" id="yearCard">
+      <div class="year-layout">
+        <div class="year-left">
+          <div class="section-h">
+            <div>
+              <div class="section-title">학년 선택</div>
+              <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
+            </div>
+            <button class="mini-toggle" id="yearSummaryToggleBtn" type="button" aria-expanded="false" aria-controls="yearSummaryPanel">총평 보기</button>
+          </div>
+          <div class="toggle-wrap" id="yearToggles"></div>
+        </div>
+        <div class="year-summary" id="yearSummaryPanel" hidden></div>
       </div>
-      <div class="info-box">
-        <div class="label">선택과목</div>
-        <div class="chips"><span class="chip">물리학</span><span class="chip">화학</span><span class="chip">생명과학</span><span class="chip">대수</span><span class="chip">고급화학</span></div>
+    </div>
+
+    <div class="card" id="subjectCardTop">
+      <div class="section-h">
+        <div>
+          <div class="section-title">과목 선택</div>
+          <div class="section-desc">선택한 학년 안에서 과목별 근거 카드만 표시</div>
+        </div>
       </div>
-      <div class="info-box">
-        <div class="label">기본상담 원칙</div>
-        <div class="value">과목 고유 기준을 먼저 제시하지 않고, 세특 근거 → 수행 → 해석 → 평가 의미 → 보완 지점 순서로 읽히게 구성</div>
-      </div>
-    </aside>
+      <div class="toggle-wrap" id="subjectToggles"></div>
+    </div>
 
-    <main class="stack">
-      <section class="section">
-        <h2 class="section-title">1. 생활기록부 핵심 진단</h2>
-        <div class="section-desc">이 학생의 생활기록부는 단순 활동 나열형이 아니라, 근거를 바탕으로 해석하고 구조화한 뒤 설명으로 연결하는 수행 방식이 여러 교과에서 반복적으로 드러나는 구조로 읽힌다.</div>
-        <div class="summary-list">
-          <div class="summary-item">국어·사회 계열에서는 자료와 텍스트를 읽고 의미를 해석하는 수행이 보이고, 수학에서는 개념을 논리적으로 전개하고 구조를 설명하는 흐름이 나타난다.</div><div class="summary-item">과학·정보·기술가정 계열에서는 원리를 이해한 뒤 이를 자료 해석, 설계, 적용으로 연결하려는 태도가 반복되어, 생활기록부 전체가 분석형 학습 태도를 중심으로 묶인다.</div><div class="summary-item">이 생활기록부의 강점은 특정 한 과목의 화려한 활동보다, 여러 교과에서 유사한 사고 방식이 누적되며 하나의 결로 읽힌다는 점에 있다.</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title">2. 생기부 구조와 연결성</h2>
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">교과별 반복 수행 방식</div>
-            <div class="mini-body">활동 주제는 교과마다 다르지만 수행 방식은 비교적 일정하다. 국어 계열에서는 텍스트를 읽고 의미를 해석한 뒤 근거를 붙여 설명하는 흐름이, 수학에서는 문제 해결 과정과 개념 연결을 구조화해 논리적으로 제시하는 흐름이 나타난다. 과학 계열에서는 현상이나 원리를 이해한 뒤 자료를 해석하거나 탐구 활동으로 연결하고, 정보·기술가정에서는 이를 실제 적용이나 설계로 이어가려는 경향이 드러난다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">학생부의 중심 축</div>
-            <div class="mini-body">따라서 이 생활기록부의 중심 축은 ‘분석 → 구조화 → 설명/적용’으로 정리할 수 있다. 단순히 활동을 많이 한 학생이라기보다, 배운 내용을 자기 방식으로 정리하고 설명하며 한 단계 더 연결하려는 학습 태도가 생활기록부 전반에서 확인된다.</div>
-          </div>
-        </div>
-        <div class="block">
-          <div class="block-title">연결성 해석</div>
-          <div class="block-body">이 생활기록부는 과목별 활동이 개별적으로 흩어져 있는 구조가 아니라, 여러 교과에서 비슷한 방식의 수행이 반복되며 하나의 방향으로 묶이는 편이다. 그래서 평가자는 이 학생을 단순 참여형 학생보다, 근거와 원리를 중심으로 사고를 전개하는 학생으로 읽을 가능성이 높다.</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title">3. 평가상 의미</h2>
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">강점</div>
-            <div class="mini-body">이 학생부의 가장 큰 강점은 활동 수 자체보다 사고 과정이 드러난다는 점이다. 무엇을 했는지만 보이는 기록보다, 왜 그렇게 해석했고 어떤 방식으로 설명했는지가 상대적으로 잘 드러난다. 이는 교과 세특에서 중요한 학업 수행의 결을 안정적으로 보여주는 요소다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">한계</div>
-            <div class="mini-body">다만 현재 기록은 해석과 설명의 흐름은 보이지만, 자기 판단 기준의 명확성이나 보다 독자적인 문제 설정까지는 한 단계 더 보강할 필요가 있다. 즉, 수행의 방향은 좋지만 아직은 ‘잘 읽고 잘 설명하는 단계’에 가까워, 이후에는 자신의 기준과 확장 관점이 더 분명하게 드러나면 좋다.</div>
-          </div>
-        </div>
-        <div class="block">
-          <div class="block-title">종합 평가</div>
-          <div class="block-body">종합하면 이 학생부는 학업 수행의 결이 좋고, 여러 교과에서 연결성도 확인되지만, 그 강점을 더 선명하게 구조화하면 훨씬 강한 학생부가 될 수 있는 상태로 평가할 수 있다.</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title">4. 확장 가능성의 출발점</h2>
-        <div class="section-desc">현재 기록을 보면 이미 해석·구조화·설명·적용이라는 강점이 확인되므로, 이후 확장은 전혀 새로운 활동을 억지로 붙이는 방식보다 지금 드러난 수행을 한 단계 더 깊게 만드는 방식이 더 적절하다. 즉, 이 학생에게 필요한 것은 새로운 주제를 무작정 추가하는 것이 아니라, 현재 세특에서 보인 해석·논증·설계·자료분석의 흐름을 선택과목과 연결해 다음 단계 활동으로 구체화하는 것이다.</div>
-        <div class="cta">
-          <div>현재 생활기록부의 해석을 바탕으로, 선택과목 기준의 다음 단계 활동은 확장 화면에서 확인합니다.</div>
-          <a href="./record_detail_extension.html?student_id=shstudy09">확장 활동 보기</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="section-title">5. 과목별 근거 카드</h2>
-        <div class="section-desc">아래 카드는 전체 해석을 뒷받침하는 근거 자료 역할을 합니다.</div>
-      </section>
-
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">공통국어</div>
-            <div class="subject-sub">공통국어 기록에서는 텍스트를 읽고 핵심 의미를 해석한 뒤, 이를 자기 언어로 설명하려는 수행이 확인된다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 내용을 단순 요약하는 데 그치지 않고, 작품이나 자료에서 드러나는 의미를 근거와 함께 설명하는 수행을 보인다. 즉 감상형보다는 해석형·설명형 수행의 결이 더 강하다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">국어 교과에서 중요한 역량 중 하나는 텍스트를 읽고 의미를 구조화해 설명하는 힘인데, 현재 기록은 그중에서도 근거를 통한 해석과 정리 능력이 비교적 잘 드러나는 편이다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 공통국어에서는 단순 참여형이 아니라, 읽고 해석하고 설명하는 학생으로 평가할 수 있다. 이는 이후 비문학 자료 해석이나 논증형 글쓰기와도 자연스럽게 이어질 수 있는 강점이다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 해석의 결과만 제시하는 데서 나아가, 어떤 기준으로 그렇게 판단했는지까지 더 선명하게 드러내면 세특의 밀도가 더 올라갈 수 있다.</div>
-        </div>
-      </section>
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">공통수학</div>
-            <div class="subject-sub">공통수학 기록에서는 문제 해결 과정과 개념 간 연결을 설명하려는 수행이 드러난다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 정답 도출 자체보다 풀이 과정의 논리와 개념 간 관계를 구조화해 설명하는 흐름을 보인다. 즉 계산형보다 구조 이해형 수행의 성격이 강하다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">수학 교과에서는 결과보다 과정과 구조가 중요하게 읽히는데, 현재 기록은 단순 계산을 넘어 논리 전개와 개념 설명이 보인다는 점에서 의미가 있다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 공통수학에서는 문제 해결 과정을 스스로 이해하고 설명할 수 있는 학생으로 평가 가능하다. 이는 이후 대수, 모델링, 과학 교과와의 연결에서도 강점으로 작용할 수 있다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 풀이 과정을 설명하는 수준을 넘어, 조건이 달라질 때 구조가 어떻게 바뀌는지까지 비교하면 더 강한 수학 기록으로 이어질 수 있다.</div>
-        </div>
-      </section>
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">통합과학</div>
-            <div class="subject-sub">통합과학 기록에서는 과학 개념을 단순 암기가 아니라 원리 이해와 자료 해석으로 연결하려는 수행이 확인된다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 현상을 받아 적는 수준이 아니라, 원인을 설명하고 관련 개념을 연결하는 수행을 보인다. 즉 과학을 정보 암기가 아니라 원리 기반 이해로 접근하는 경향이 있다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">통합과학에서 중요한 것은 개별 개념을 외우는 것이 아니라 현상과 원리를 연결하는 힘인데, 현재 기록은 이 부분에서 비교적 좋은 출발점을 보여준다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 통합과학에서는 탐구형 확장 가능성이 있는 기록으로 읽을 수 있다. 이후 생명·환경·에너지 계열의 탐구 주제로 자연스럽게 확장될 수 있는 기반이 있다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 원리 설명에 더해 변수 설정, 자료 비교 기준, 탐구 질문의 명확성까지 드러내면 과학 세특의 완성도가 높아질 수 있다.</div>
-        </div>
-      </section>
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">과학탐구실험</div>
-            <div class="subject-sub">과학탐구실험 기록에서는 탐구의 주제를 정하고 자료를 조사·정리하며 결과를 설명하는 흐름이 확인된다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 실험이나 탐구를 단순 참여로 끝내지 않고, 주제를 잡고 자료를 해석한 뒤 설명으로 연결하는 수행을 보인다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">과학탐구실험에서 중요한 것은 실험 결과보다도 탐구를 어떻게 설계하고 해석했는지인데, 현재 기록은 그 출발점이 비교적 분명하다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 이 과목에서는 탐구형 활동을 수행할 수 있는 기본 역량이 확인되며, 이후 선택과목이나 심화 탐구 활동으로 확장될 가능성이 높다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 탐구 과정에서 왜 이 변수를 선택했고, 어떤 기준으로 해석했는지를 더 선명히 드러내면 훨씬 강한 탐구형 기록이 된다.</div>
-        </div>
-      </section>
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">정보</div>
-            <div class="subject-sub">정보 기록에서는 자료를 읽고 기술이나 시스템을 이해한 뒤, 이를 문제 해결이나 적용과 연결하려는 수행이 드러난다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 정보를 단순 사용자가 아니라, 데이터와 구조를 이해하고 활용하는 방향으로 접근하려는 모습이 보인다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">정보 교과에서는 기능 습득보다 문제 해결의 구조를 이해하는 태도가 중요하게 읽히는데, 현재 기록은 그러한 방향성과 연결성이 비교적 잘 나타난다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 정보 과목에서는 단순 활용형보다, 구조 이해형·적용형 학생으로 평가 가능하다. 이는 공학 계열 확장과도 자연스럽게 연결된다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 사용 경험을 넘어서 어떤 구조로 동작하는지, 왜 그런 결과가 나오는지를 더 분명하게 설명하면 기록의 깊이가 커질 수 있다.</div>
-        </div>
-      </section>
-      
-      <section class="subject-card">
-        <div class="subject-head">
-          <div>
-            <div class="subject-name">기술가정</div>
-            <div class="subject-sub">기술가정 기록에서는 기술의 원리를 이해하고 이를 생활 문제 해결이나 설계와 연결하려는 수행이 확인된다.</div>
-          </div>
-          <div class="subject-badge">근거 중심 해석</div>
-        </div>
-
-        <div class="grid2">
-          <div class="mini">
-            <div class="mini-title">기록에서 확인되는 수행</div>
-            <div class="mini-body">이 학생은 기술 내용을 단순히 배우는 것에 머물지 않고, 실제 적용 가능성과 설계 관점으로 이어가려는 태도를 보인다.</div>
-          </div>
-          <div class="mini">
-            <div class="mini-title">해석 포인트</div>
-            <div class="mini-body">기술가정에서는 개념 이해가 실제 문제 해결과 연결되는지가 중요한데, 현재 기록은 이 점에서 비교적 자연스러운 확장 가능성을 보여준다.</div>
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">평가상 의미</div>
-          <div class="block-body">따라서 기술가정에서는 단순 체험형이 아니라, 원리를 실제 상황에 연결해 보는 학생으로 평가할 수 있다. 이는 공학적 사고와도 연결성이 있다.</div>
-        </div>
-
-        <div class="block">
-          <div class="block-title">다음 보완 지점</div>
-          <div class="block-body">이후에는 적용 사례를 제시하는 수준을 넘어, 설계 기준이나 선택 이유까지 더 구체적으로 드러내면 기록의 설득력이 커진다.</div>
-        </div>
-      </section>
-      
-
-    </main>
+    <div class="guide" id="loadGuide"></div>
+    <div class="card" id="analysisCard"></div>
   </div>
-</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s)=> String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const safeArr = (v) => Array.isArray(v) ? v : [];
+  const qs = new URLSearchParams(location.search);
+
+  const state = {
+    student: null,
+    profileRow: null,
+    yearIndex: 0,
+    subjectIndex: 0,
+    showYearSummary: false,
+    gradeTab: 'summary',
+    accessMode: 'none',
+  };
+
+  async function loadJson(path){
+    const r = await fetch(path, { cache:'no-store' });
+    if (!r.ok) throw new Error(`${path} (${r.status})`);
+    return r.json();
+  }
+
+  async function loadRecordData(){
+    const stamp = `v=${Date.now()}`;
+    const candidates = [
+      `./record_detail.json?${stamp}`,
+      `record_detail.json?${stamp}`,
+      `./data/record_detail.json?${stamp}`,
+      `../record_detail.json?${stamp}`,
+      `/record_detail.json?${stamp}`,
+    ];
+    for (const path of candidates) {
+      try { return { data: await loadJson(path), source: path }; } catch (_e) {}
+    }
+    throw new Error('record_detail.json을 찾지 못했습니다.');
+  }
+
+  function firstFilled(...values){
+    for (const v of values) {
+      if (v !== undefined && v !== null && String(v).trim() !== '') return String(v).trim();
+    }
+    return '';
+  }
+
+  function parseNumber(value){
+    if (value === null || value === undefined) return null;
+    const raw = String(value).trim();
+    if (!raw) return null;
+    const num = Number(raw.replace(/,/g, ''));
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function formatOverallGrade(value){
+    const num = parseNumber(value);
+    if (num === null) return '미산출';
+    return `${num.toFixed(2)}등급`;
+  }
+
+  function formatUnitsLabel(value){
+    const num = parseNumber(value);
+    if (num === null) return '미산출';
+    return `${Number.isInteger(num) ? num : num.toFixed(0)}단위`;
+  }
+
+  function normalizeSubjectGrade(item){
+    return {
+      subject: firstFilled(item?.subject, item?.course, item?.name, item?.과목),
+      rawScore: firstFilled(item?.raw_score, item?.rawScore, item?.score, item?.원점수),
+      subjectAverage: firstFilled(item?.subject_average, item?.subjectAverage, item?.average, item?.avg, item?.과목평균),
+      studentCount: firstFilled(item?.student_count, item?.studentCount, item?.count, item?.인원수),
+      grade: firstFilled(item?.grade, item?.등급),
+      achievement: firstFilled(item?.achievement, item?.attainment, item?.성취도),
+      units: firstFilled(item?.units, item?.credit, item?.이수단위),
+      memo: firstFilled(item?.memo, item?.note, item?.메모),
+    };
+  }
+
+  function computeGradeStats(subjects){
+    let weightedSum = 0, reflectedUnits = 0, countedSubjects = 0;
+    safeArr(subjects).forEach(row => {
+      const grade = parseNumber(row?.grade);
+      const units = parseNumber(row?.units);
+      if (grade !== null && units !== null) {
+        weightedSum += grade * units;
+        reflectedUnits += units;
+        countedSubjects += 1;
+      }
+    });
+    return { overall: reflectedUnits > 0 ? (weightedSum / reflectedUnits) : null, reflectedUnits, countedSubjects };
+  }
+
+  function normalizeGradeData(student){
+    const direct = student?.grade_info || student?.grades || {};
+    const terms = safeArr(direct.terms || direct.grade_terms || direct.semesters).map((term, idx) => {
+      const subjects = safeArr(term?.subjects || term?.courses || term?.items).map(normalizeSubjectGrade);
+      const computed = computeGradeStats(subjects);
+      return {
+        key: firstFilled(term?.key, term?.term, term?.semester, term?.label, `term_${idx+1}`),
+        label: firstFilled(term?.label, term?.term, term?.semester, `학기 ${idx+1}`),
+        overall: firstFilled(term?.overall, term?.overall_grade, term?.gpa) || (computed.overall !== null ? computed.overall.toFixed(2) : ''),
+        reflectedUnits: firstFilled(term?.reflected_units, term?.reflectedUnits, term?.units_total) || String(computed.reflectedUnits || ''),
+        memo: firstFilled(term?.memo, term?.note) || '등급·이수단위가 있는 과목만 산출 반영',
+        subjects,
+        countedSubjects: computed.countedSubjects,
+      };
+    });
+    const merged = terms.flatMap(v => v.subjects);
+    const summaryStats = computeGradeStats(merged);
+    return {
+      summary: {
+        overall: firstFilled(direct.overall, direct.overall_grade, direct.gpa) || (summaryStats.overall !== null ? summaryStats.overall.toFixed(2) : ''),
+        basis: firstFilled(direct.basis, direct.latest_term) || (terms.length ? '입력 학기 전체 기준' : ''),
+        reflectedUnits: firstFilled(direct.reflected_units, direct.reflectedUnits, direct.units) || String(summaryStats.reflectedUnits || ''),
+        memo: firstFilled(direct.memo, direct.note) || '[(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수]',
+        countedSubjects: summaryStats.countedSubjects,
+      },
+      terms
+    };
+  }
+
+  function buildRawVsAvg(row){
+    const raw = firstFilled(row?.rawScore);
+    const avg = firstFilled(row?.subjectAverage);
+    return raw && avg ? `${raw}/${avg}` : raw || avg || '';
+  }
+
+  function gradeTableHtml(term){
+    const subjects = safeArr(term?.subjects);
+    if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
+    return `
+      <div class="grade-table-wrap">
+        <table class="grade-table">
+          <thead>
+            <tr>
+              <th>과목</th>
+              <th class="num">원점수/과목평균</th>
+              <th class="num">인원수</th>
+              <th class="num">등급</th>
+              <th class="num">성취도</th>
+              <th class="num">이수단위</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${subjects.map(row => `
+              <tr>
+                <td><div>${esc(row.subject || '-')}</div>${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}</td>
+                <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
+                <td class="num">${esc(row.studentCount || '-')}</td>
+                <td class="num">${esc(row.grade || '-')}</td>
+                <td class="num">${esc(row.achievement || '-')}</td>
+                <td class="num">${esc(row.units || '-')}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  function getYearSummary(student, year){
+    const ys = student?.year_summaries;
+    if (Array.isArray(ys)) {
+      const found = ys.find(v => String(v?.year || '').trim() === String(year?.year || '').trim());
+      if (found) return {
+        academic: found.academic || found.academic_summary || '',
+        career: found.career || found.career_summary || '',
+        community: found.community || found.community_summary || '',
+      };
+    }
+    return { academic:'', career:'', community:'' };
+  }
+
+  function renderYearSummary(year){
+    const panel = $('#yearSummaryPanel');
+    const layout = document.querySelector('#yearCard .year-layout');
+    const btn = $('#yearSummaryToggleBtn');
+    if (!panel) return;
+    const summary = getYearSummary(state.student, year);
+    if (btn) {
+      btn.textContent = state.showYearSummary ? '총평 닫기' : '총평 보기';
+      btn.classList.toggle('is-on', state.showYearSummary);
+      btn.setAttribute('aria-expanded', String(state.showYearSummary));
+    }
+    panel.hidden = !state.showYearSummary;
+    if (layout) layout.classList.toggle('is-summary-open', state.showYearSummary);
+    if (!state.showYearSummary) return;
+    panel.innerHTML = `
+      <div class="year-summary-title">${esc(year?.year || '')} 총평</div>
+      <div class="year-summary-desc">대학 평가 기준인 학업역량 · 진로역량 · 공동체역량 관점에서 읽은 요약입니다.</div>
+      <div class="year-summary-item"><div class="year-summary-label">학업역량</div><div class="year-summary-body">${esc(summary.academic || '데이터 입력 필요')}</div></div>
+      <div class="year-summary-item"><div class="year-summary-label">진로역량</div><div class="year-summary-body">${esc(summary.career || '데이터 입력 필요')}</div></div>
+      <div class="year-summary-item"><div class="year-summary-label">공동체역량</div><div class="year-summary-body">${esc(summary.community || '데이터 입력 필요')}</div></div>`;
+  }
+
+  function renderGradeCard(){
+    const student = state.student;
+    const target = $('#gradeCard');
+    if (!student) { target.innerHTML = ''; return; }
+    const grade = normalizeGradeData(student);
+    const terms = grade.terms;
+    const availableTabs = ['summary', ...terms.map(v => v.key)];
+    if (!availableTabs.includes(state.gradeTab)) state.gradeTab = 'summary';
+    const currentTerm = terms.find(v => v.key === state.gradeTab) || null;
+
+    target.innerHTML = `
+      <div class="section-h">
+        <div>
+          <div class="section-title">성적 보기</div>
+          <div class="section-desc">종합·학기별 토글로 확인하고, 과목별 원점수/과목평균 · 인원수 · 등급 · 성취도 · 이수단위를 함께 봅니다.</div>
+        </div>
+      </div>
+      <div class="toggle-wrap" id="gradeToggles">
+        <button type="button" class="toggle ${state.gradeTab === 'summary' ? 'is-on' : ''}" data-grade-tab="summary">종합</button>
+        ${terms.map(term => `<button type="button" class="toggle ${state.gradeTab === term.key ? 'is-on' : ''}" data-grade-tab="${esc(term.key)}">${esc(term.label)}</button>`).join('')}
+      </div>
+      ${state.gradeTab === 'summary' ? `
+        <div class="grade-shell" style="margin-top:16px;">
+          <div class="grade-summary-grid">
+            <div class="grade-stat"><div class="grade-label">종합 내신</div><div class="grade-value">${esc(formatOverallGrade(grade.summary.overall))}</div><div class="grade-sub">${esc(grade.summary.basis || '기준 미입력')}</div></div>
+            <div class="grade-stat"><div class="grade-label">반영 이수단위</div><div class="grade-value">${esc(formatUnitsLabel(grade.summary.reflectedUnits))}</div><div class="grade-sub">등급과 이수단위가 함께 있는 과목만 반영</div></div>
+            <div class="grade-stat"><div class="grade-label">반영 과목 수</div><div class="grade-value">${esc(grade.summary.countedSubjects ? `${grade.summary.countedSubjects}과목` : '미산출')}</div><div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div></div>
+          </div>
+          <div class="grade-panel">
+            <div class="grade-panel-head">
+              <div><div class="grade-panel-title">내신 성적 산출값</div><div class="grade-panel-desc">이수단위 반영 공식을 그대로 읽을 수 있게 정리한 카드입니다.</div></div>
+              <span class="grade-chip">자동 계산</span>
+            </div>
+            <div class="summary-item soft-blue">
+              <div class="summary-kicker">공식</div>
+              <div class="summary-body">[(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수]</div>
+            </div>
+            <div class="guide">${esc(grade.summary.memo || '')}</div>
+          </div>
+        </div>` : currentTerm ? `
+        <div class="grade-shell" style="margin-top:16px;">
+          <div class="grade-summary-grid">
+            <div class="grade-stat"><div class="grade-label">학기</div><div class="grade-value">${esc(currentTerm.label || '-')}</div><div class="grade-sub">학기별 상세 성적</div></div>
+            <div class="grade-stat"><div class="grade-label">학기 내신</div><div class="grade-value">${esc(formatOverallGrade(currentTerm.overall))}</div><div class="grade-sub">해당 학기 산출값</div></div>
+            <div class="grade-stat"><div class="grade-label">반영 이수단위</div><div class="grade-value">${esc(formatUnitsLabel(currentTerm.reflectedUnits))}</div><div class="grade-sub">${esc(currentTerm.memo || '')}</div></div>
+          </div>
+          <div class="grade-panel">
+            <div class="grade-panel-head">
+              <div><div class="grade-panel-title">${esc(currentTerm.label || '')} 과목별 성적</div><div class="grade-panel-desc">원점수/과목평균, 인원수, 등급, 성취도, 이수단위를 한 화면에서 확인합니다.</div></div>
+              <span class="grade-chip">${esc(`${safeArr(currentTerm.subjects).length}과목`)}</span>
+            </div>
+            ${gradeTableHtml(currentTerm)}
+          </div>
+        </div>` : ''}
+    `;
+
+    target.querySelectorAll('[data-grade-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.gradeTab = btn.getAttribute('data-grade-tab') || 'summary';
+        renderGradeCard();
+      });
+    });
+  }
+
+  function renderYearToggles(years){
+    $('#yearToggles').innerHTML = years.length
+      ? years.map((y, i) => `<button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year || `${i+1}학년`)}</button>`).join('')
+      : '<button class="toggle" disabled>학년 없음</button>';
+    $('#yearToggles').querySelectorAll('[data-year-idx]').forEach(btn => {
+      btn.onclick = () => {
+        state.yearIndex = Number(btn.dataset.yearIdx || 0);
+        state.subjectIndex = 0;
+        rerender();
+      };
+    });
+  }
+
+  function renderSubjectToggles(subjects){
+    $('#subjectToggles').innerHTML = subjects.length
+      ? subjects.map((s, i) => `<button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>`).join('')
+      : '<button class="toggle" disabled>과목 없음</button>';
+    $('#subjectToggles').querySelectorAll('[data-subject-idx]').forEach(btn => {
+      btn.onclick = () => {
+        state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
+        rerenderAnalysis();
+        renderSubjectToggles(subjects);
+      };
+    });
+  }
+
+  function renderPriorityList(items){
+    const list = safeArr(items).filter(v => String(v || '').trim());
+    if (!list.length) return '<div class="empty">평가 기준 데이터가 없습니다.</div>';
+    return `<ul class="priority-list">${list.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
+  }
+
+  function normalizeFlowCards(subject){
+    const list = safeArr(subject?.inquiry_flow).map(card => ({
+      kicker: card?.kicker || '',
+      title: card?.title || '',
+      body: card?.body || card?.description || '',
+      keywords: safeArr(card?.keywords),
+    })).filter(v => v.title || v.body);
+    return list;
+  }
+
+  function axisHtml(axisList){
+    const list = safeArr(axisList);
+    if (!list.length) return '<div class="empty">역량 축 데이터가 없습니다.</div>';
+    return `<div class="axis-list">${list.map(item => `
+      <div class="axis-item">
+        <div class="axis-head"><span class="axis-no">${esc(item.no || '')}</span>${esc(item.title || '')}</div>
+        <div class="axis-text">${esc(item.content || '')}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  function flowCardsHtml(subject){
+    const cards = normalizeFlowCards(subject);
+    if (!cards.length) return '<div class="empty">탐구 흐름 데이터가 없습니다.</div>';
+    return `<div class="flow-grid">${cards.map(card => `
+      <div class="flow-card">
+        <span class="flow-kicker">${esc(card.kicker || '')}</span>
+        <div class="flow-title">${esc(card.title || '')}</div>
+        <div class="flow-body">${esc(card.body || '')}</div>
+        ${safeArr(card.keywords).length ? `<div class="flow-chips">${safeArr(card.keywords).map(k => `<span class="flow-chip">${esc(k)}</span>`).join('')}</div>` : ''}
+      </div>`).join('')}</div>`;
+  }
+
+  function judgmentBlockHtml(subject){
+    const block = subject?.judgment_block || {};
+    const cards = [
+      { label:'입학사정관 판단점', text: String(block.subject_judgment || '').trim(), cls:'soft-blue' },
+      { label:'생기부 판단점', text: String(block.overall_opinion || '').trim(), cls:'soft-warm' },
+      { label:'구성/연결성 해석', text: String(block.extension_interpretation || '').trim(), cls:'soft-green' },
+    ].filter(v => v.text);
+    if (!cards.length) return '<div class="empty">심화 판단 데이터가 없습니다.</div>';
+    return `<div class="judgment-scroll">${cards.map(card => `
+      <div class="judgment-card ${card.cls}">
+        <div class="summary-kicker">${esc(card.label)}</div>
+        <div class="summary-body">${esc(card.text)}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  function deepAnalysisHtml(subject){
+    const hasFocus = String(subject?.subject_goal_focus || '').trim();
+    const hasBasis = String(subject?.current_activity_basis || '').trim();
+    const hasFramework = safeArr(subject?.activity_framework).length;
+    const hasPriority = safeArr(subject?.evaluation_priority).length;
+    return `
+      <div class="deep-grid">
+        <div class="focus-item soft-blue">
+          <div class="focus-label">과목 고유 목표</div>
+          <div class="focus-body">${esc(subject.subject_goal_focus || '데이터 입력 필요')}</div>
+        </div>
+        <div class="focus-item soft-warm">
+          <div class="focus-label">현재 활동 기반</div>
+          <div class="focus-body">${esc(subject.current_activity_basis || '데이터 입력 필요')}</div>
+        </div>
+        <div class="focus-item soft-green">
+          <div class="focus-label">입학사정관이 보게 되는 평가 우선</div>
+          ${hasPriority ? renderPriorityList(subject.evaluation_priority) : '<div class="focus-body">평가 기준 데이터 입력 필요</div>'}
+        </div>
+        <div class="focus-item soft-blue">
+          <div class="focus-label">생기부 구성상 읽히는 프레임</div>
+          <div class="chips">${hasFramework ? safeArr(subject.activity_framework).map(v => `<span class="flow-chip">${esc(v)}</span>`).join('') : '<span class="flow-chip">데이터 입력 필요</span>'}</div>
+        </div>
+      </div>`;
+  }
+
+  function rerenderAnalysis(){
+    const years = safeArr(state.student?.years);
+    const year = years[state.yearIndex] || years[0] || {};
+    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999));
+    const subject = subjects[state.subjectIndex] || null;
+    const area = $('#analysisCard');
+    if (!subject) {
+      area.innerHTML = '<div class="empty">선택된 과목 데이터가 없습니다.</div>';
+      return;
+    }
+
+    area.innerHTML = `
+      <div class="section-h">
+        <div>
+          <div class="section-title">과목 분석</div>
+          <div class="section-desc">${esc(year.year || '')} · ${esc(subject.subject || '')}</div>
+        </div>
+        <span class="pill warm">심화 데이터 반영</span>
+      </div>
+
+      <div class="analysis-layout">
+        <div class="block soft-blue">
+          <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
+          <div class="sub">${esc(subject.summary || '')}</div>
+        </div>
+
+        <div class="block">
+          <div class="mini-title">생활기록부 핵심 해석</div>
+          <div class="summary-box">
+            <div class="summary-item soft-blue">
+              <div class="summary-kicker">세특 핵심 근거</div>
+              <div class="summary-body">${esc(subject.current_activity_basis || subject.summary || '데이터 입력 필요')}</div>
+            </div>
+            <div class="summary-item soft-warm">
+              <div class="summary-kicker">기록에서 확인되는 수행</div>
+              <div class="summary-body">${esc(subject.one_line || '현재 기록에서 확인되는 수행을 입력해 주세요.')}</div>
+            </div>
+            <div class="summary-item soft-green">
+              <div class="summary-kicker">구조와 연결성 해석</div>
+              <div class="summary-body">${esc(subject.subject_goal_focus || '이 과목이 학생부 전체에서 어떤 축으로 연결되는지 입력해 주세요.')}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="mini-title">입학사정관 판단점 · 생기부 판단점 · 구성 해석</div>
+          ${judgmentBlockHtml(subject)}
+        </div>
+
+        <div class="block">
+          <div class="mini-title">심화 해석 데이터</div>
+          ${deepAnalysisHtml(subject)}
+        </div>
+
+        <div class="block">
+          <div class="mini-title">역량 축 분석</div>
+          ${axisHtml(subject.axis_list)}
+        </div>
+
+        <div class="block">
+          <div class="inline-head">
+            <div class="mini-title" style="margin:0;">탐구 흐름 정리</div>
+            <span class="pill good">밝은 강조색 적용</span>
+          </div>
+          <div class="flow-intro">키워드 나열보다, 이 학생의 세특에서 실제로 어떤 탐구 흐름이 드러나는지 해석 중심으로 보여주는 영역입니다.</div>
+          ${flowCardsHtml(subject)}
+        </div>
+      </div>
+    `;
+  }
+
+  function rerender(){
+    renderGradeCard();
+    const years = safeArr(state.student?.years);
+    renderYearToggles(years);
+    const year = years[state.yearIndex] || years[0] || {};
+    renderYearSummary(year);
+    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999));
+    renderSubjectToggles(subjects);
+    rerenderAnalysis();
+  }
+
+  async function boot(){
+    const loaded = await loadRecordData();
+    const students = safeArr(loaded.data?.students);
+    const sid = String(qs.get('student_id') || qs.get('id') || 'shstudy09').trim();
+    state.student = students.find(s => String(s.student_id || '').trim() === sid) || students[0] || null;
+    if (!state.student) throw new Error('학생 데이터가 없습니다.');
+    const grade = normalizeGradeData(state.student);
+    $('#studentMeta').textContent = [state.student.student_name, state.student.school_name, state.student.student_id, grade.summary.overall ? `종합 내신 ${formatOverallGrade(grade.summary.overall)}` : '내신 미입력'].filter(Boolean).join(' · ');
+    $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
+    $('#previewBadge').textContent = '심화형';
+    const btn = $('#yearSummaryToggleBtn');
+    if (btn) {
+      btn.onclick = () => {
+        state.showYearSummary = !state.showYearSummary;
+        const years = safeArr(state.student?.years);
+        const year = years[state.yearIndex] || years[0] || {};
+        renderYearSummary(year);
+      };
+    }
+    rerender();
+  }
+
+  boot().catch(err => {
+    $('#studentMeta').textContent = '데이터를 불러오지 못했습니다.';
+    $('#previewBadge').textContent = '오류';
+    $('#analysisCard').innerHTML = `<div class="empty">${esc(err?.message || err)}</div>`;
+  });
+})();
+</script>
 </body>
 </html>
