@@ -2,1054 +2,856 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>생기부 분석 보기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>shstudy09 기본 상담</title>
   <style>
-    :root{--bd:#e8e8e8;--txt:#111;--muted:#666;--bg:#fff;--soft:#fafafa}
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#fff;color:var(--txt);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
-    body{padding:14px}
-    .wrap{max-width:1180px;margin:0 auto}
-    .card{border:1px solid var(--bd);border-radius:26px;background:var(--bg);padding:22px;margin:14px 0}
-    .title{font-size:24px;font-weight:900;line-height:1.3;margin:0}
-    .sub{color:var(--muted);margin-top:8px;line-height:1.6}
-    .between{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .badge,.pill{display:inline-flex;align-items:center;padding:8px 13px;border:1px solid var(--bd);border-radius:999px;background:#fff;font-weight:800}
-    .section-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-    .section-title{font-size:18px;font-weight:900;margin:0}
-    .section-desc{color:var(--muted)}
-    .toggle-wrap{display:flex;gap:10px;flex-wrap:wrap}
-    .toggle,.mini-toggle{appearance:none;border:1px solid var(--bd);background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-size:15px;font-weight:800;cursor:pointer}
-    .toggle.is-on,.mini-toggle.is-on{background:#111;color:#fff;border-color:#111}
-    .toggle:disabled{opacity:.45;cursor:default}
-    .hero-title{font-size:30px;font-weight:900;line-height:1.3;margin:0}
-    .one-line{font-size:18px;line-height:1.7;color:#333;margin-top:10px}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .keyword-groups{display:grid;gap:12px}
-    .keyword-group{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:14px 16px}
-    .keyword-group-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-    .keyword-group-title{font-size:14px;font-weight:900;line-height:1.4}
-    .keyword-group-desc{font-size:13px;color:var(--muted);line-height:1.6}
-    .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:14px;font-weight:800;cursor:pointer}
-    .chip.is-on{background:#111;color:#fff;border-color:#111}
-    .keyword-help{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 12px 0}
-    .keyword-meaning{margin-top:14px;border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .keyword-meaning-label{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .keyword-meaning-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .keyword-meaning-body{color:#333;line-height:1.75;margin-top:8px}
-
-    .flow-intro{color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 14px 0}
-    .flow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .flow-card{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 18px 16px}
-    .flow-kicker{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .flow-title{font-size:18px;font-weight:900;line-height:1.45;margin:12px 0 8px 0}
-    .flow-body{color:#333;line-height:1.75;font-size:14px;min-height:88px}
-    .flow-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .flow-chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:13px;font-weight:800}
-    @media (max-width: 980px){.flow-grid{grid-template-columns:1fr}.judgment-scroll{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x proximity;padding-bottom:2px}.judgment-card{min-width:82%;scroll-snap-align:start}.flow-body{min-height:auto}}
-
-    .block{border:1px solid var(--bd);border-radius:22px;padding:20px;background:#fff}
-    .block + .block{margin-top:14px}
-    .mini-title{font-size:15px;font-weight:900;margin:0 0 10px 0;color:#222}
-    .inline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-    .axis-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-    .axis-item{border:1px solid var(--bd);border-radius:18px;padding:16px;background:#fff}
-    .axis-head{font-weight:900;line-height:1.45;margin-bottom:8px}
-    .axis-no{display:inline-flex;min-width:24px;height:24px;border-radius:999px;align-items:center;justify-content:center;background:#111;color:#fff;font-size:12px;margin-right:8px}
-    .axis-text{color:#333;line-height:1.7;font-size:14px}
-    .example-grid{display:grid;gap:10px;margin-top:12px}
-    .example-item{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
-    .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
-    .example-body{color:#333;line-height:1.75;margin-top:10px}
-    .example-stack{display:grid;gap:10px;margin-top:12px}
-    .example-row{border-top:1px dashed var(--bd);padding-top:10px}
-    .example-row:first-of-type{border-top:none;padding-top:0}
-    .example-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
-    .example-text{color:#222;line-height:1.75;font-size:14px}
-    .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
-    .guide{font-size:13px;color:var(--muted);margin:6px 2px}
-    .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
-    .year-layout.is-summary-open{grid-template-columns:minmax(280px,420px) 1fr}
-    .year-left{display:flex;flex-direction:column;justify-content:flex-start}
-    .year-summary{border:1px solid var(--bd);border-radius:22px;background:var(--soft);padding:18px 20px}
-    .year-summary[hidden]{display:none !important}
-    .year-summary-title{font-size:16px;font-weight:900;line-height:1.45;margin:0 0 10px 0}
-    .year-summary-desc{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 12px 0}
-    .year-summary-item + .year-summary-item{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
-    .year-summary-label{font-size:14px;font-weight:900;line-height:1.45;margin:0 0 6px 0}
-    .year-summary-body{color:#333;line-height:1.75;font-size:14px}
-    .grade-shell{display:grid;gap:16px}
-    .grade-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .grade-stat{border:1px solid var(--bd);border-radius:18px;background:var(--soft);padding:16px 18px}
-    .grade-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:8px}
-    .grade-value{font-size:24px;font-weight:900;line-height:1.35;color:#111}
-    .grade-sub{font-size:13px;line-height:1.7;color:var(--muted);margin-top:6px}
-    .grade-panel{border:1px solid var(--bd);border-radius:22px;background:#fff;padding:18px}
-    .grade-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-    .grade-panel-title{font-size:16px;font-weight:900;line-height:1.45;margin:0}
-    .grade-panel-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-top:4px}
-    .grade-table-wrap{overflow:auto;border:1px solid var(--bd);border-radius:18px;background:#fff}
-    table.grade-table{width:100%;border-collapse:collapse;min-width:640px}
-    .grade-table th,.grade-table td{padding:12px 14px;border-bottom:1px solid var(--bd);text-align:left;font-size:14px;line-height:1.55;vertical-align:top}
-    .grade-table th{background:var(--soft);font-weight:900;color:#222;position:sticky;top:0}
-    .grade-table tr:last-child td{border-bottom:none}
-    .grade-table td.num,.grade-table th.num{text-align:center;white-space:nowrap}
-    .grade-chip{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;border:1px solid var(--bd);background:#fff;font-size:12px;font-weight:900}
-    .grade-help{font-size:13px;color:var(--muted);line-height:1.7}
-    @media (max-width: 980px){.axis-list{grid-template-columns:1fr}.hero-title{font-size:26px}.one-line{font-size:17px}.toggle{padding:9px 14px;font-size:14px}.year-layout,.year-layout.is-summary-open{grid-template-columns:1fr}.grade-summary-grid{grid-template-columns:1fr}}
-    @media (max-width: 640px){table.grade-table{min-width:560px}}
-  </style>
+:root{
+  --bg:#f6f8fb; --card:#fff; --line:#d9e1ec; --text:#16202a; --sub:#5c6b7a;
+  --accent:#1f6feb; --soft:#eaf2ff; --shadow:0 8px 24px rgba(18,35,58,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+.hero,.section,.subject-card,.plan-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero{padding:24px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:30px}
+.sub{color:var(--sub);margin:0}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+.meta .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.label{font-size:12px;color:var(--sub);font-weight:700;margin-bottom:4px}
+.value{font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 12px;border-radius:999px;background:var(--soft);border:1px solid #cdd9ea;font-size:13px;font-weight:700}
+.chip.small{padding:5px 10px;font-size:12px;background:#fff}
+.section{padding:20px;margin-top:18px}
+.section-title{font-size:22px;font-weight:900;margin-bottom:14px}
+.year-title{font-size:18px;font-weight:900;margin:18px 0 10px}
+.subject-card,.plan-card{padding:18px;margin:14px 0}
+.subject-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.subject-top h3,.plan-card h3{margin:0;font-size:22px}
+.order{font-size:12px;color:var(--sub);font-weight:700}
+.summary{margin:10px 0 14px}
+.one-line,.block,.kv,.next-wrap,.nav-row{border-top:1px solid #edf1f6;padding-top:12px;margin-top:12px}
+.block-title{font-size:15px;font-weight:900;margin-bottom:10px}
+.axis-item{padding:12px 0;border-bottom:1px dashed #e7edf5}
+.axis-item:last-child{border-bottom:none}
+.axis-title{font-weight:800;margin-bottom:4px}
+.axis-content,.muted{color:var(--sub)}
+.activity-card,.next-card{border:1px solid #e5ebf3;border-radius:14px;padding:14px;margin:10px 0;background:#fbfdff}
+.activity-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--soft);color:var(--accent);font-size:12px;font-weight:800}
+.kv{padding-top:10px}
+.kv span{display:block;font-size:12px;color:var(--sub);font-weight:800;margin-bottom:4px}
+.kv p,.kv ul{margin:0}
+.notice{padding:14px 16px;border:1px dashed #cdd9ea;border-radius:14px;background:#fbfdff;color:var(--sub)}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+.nav-links a{display:inline-block;padding:9px 12px;border-radius:12px;text-decoration:none;border:1px solid #cdd9ea;color:var(--text);font-weight:800;background:#fff}
+.nav-links a.active{background:var(--soft);color:var(--accent)}
+</style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <div class="between">
-        <div>
-          <h1 class="title">생기부 분석 보기</h1>
-          <div class="sub" id="studentMeta">데이터를 불러오는 중입니다.</div>
-        </div>
-        <div class="row"><span class="pill" id="previewBadge">실데이터</span></div>
+    <section class="hero">
+      <h1>이열음 (shstudy09)</h1>
+      <p class="sub">기본 상담용 화면입니다. 현재 기록과 과목별 판단을 먼저 확인하는 용도입니다.</p>
+      <div class="meta">
+        <div class="box"><div class="label">학교</div><div class="value">풍산고</div></div>
+        <div class="box"><div class="label">트랙</div><div class="value">공학</div></div>
+        <div class="box"><div class="label">학년 데이터</div><div class="value">1개 학년</div></div>
       </div>
-    </div>
-
-    <div class="card" id="gradeCard"></div>
-
-    <div class="card" id="yearCard">
-      <div class="year-layout">
-        <div class="year-left">
-          <div class="section-h">
-            <div>
-              <div class="section-title">학년 선택</div>
-              <div class="section-desc">1학년 · 2학년 · 3학년 토글로 구분해서 확인</div>
-            </div>
-            <button class="mini-toggle" id="yearSummaryToggleBtn" type="button" aria-expanded="false" aria-controls="yearSummaryPanel">총평 보기</button>
-          </div>
-          <div class="toggle-wrap" id="yearToggles"></div>
-        </div>
-        <div class="year-summary" id="yearSummaryPanel" hidden></div>
-      </div>
-    </div>
-
-    <div class="card" id="subjectCardTop">
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 선택</div>
-          <div class="section-desc">선택한 학년 안에서 과목별 분석만 표시</div>
-        </div>
-      </div>
-      <div class="toggle-wrap" id="subjectToggles"></div>
-    </div>
-
-
-    <div class="card" id="extensionEntryCard">
-      <div class="between">
-        <div>
-          <div class="section-title">확장 활동 설계</div>
-          <div class="section-desc">기본 상담과 분리된 선택과목 기반 다음 단계 활동 화면으로 이동합니다.</div>
-        </div>
-        <div class="row">
-          <a href="record_detail_extension.html" class="mini-toggle" style="text-decoration:none;">확장 활동 보기</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="guide" id="loadGuide"></div>
-    <div class="card" id="analysisCard"></div>
+      
+<div class="nav-row">
+  <div class="nav-links">
+    <a href="record_detail.html" class="active">기본 상담 보기</a>
+    <a href="record_extension.html" class="">확장 활동 보기</a>
   </div>
+</div>
 
-<script>
-(() => {
-  const $ = (s) => document.querySelector(s);
-  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  const safeArr = (v) => Array.isArray(v) ? v : [];
-  const qs = new URLSearchParams(location.search);
+    </section>
 
-  const state = {
-    student: null,
-    profileRow: null,
-    yearIndex: 0,
-    subjectIndex: 0,
-    showExamples: false,
-    selectedKeyword: '',
-    showYearSummary: false,
-    gradeTab: 'summary',
-    accessMode: 'none',
-  };
+    <section class="section">
+      <div class="section-title">상담 안내</div>
+      <div class="notice">이 화면은 1차 상담용입니다. 과목별 현재 기록, 해석, 역량축을 먼저 확인하고, 다음 단계 활동 설계는 상단의 ‘확장 활동 보기’에서 따로 확인하도록 분리했습니다.</div>
+    </section>
 
-  const DEFAULT_YEAR_SUMMARIES = {};
-
-  function defaultYearSummaryFor(studentId, yearLabel){
-    return DEFAULT_YEAR_SUMMARIES[String(studentId || '').trim()]?.[String(yearLabel || '').trim()] || null;
-  }
-
-  function readYearSummaryFromStudent(student, yearLabel){
-    const ys = student?.year_summaries;
-    if (!ys) return null;
-    if (Array.isArray(ys)) {
-      const found = ys.find(v => String(v?.year || '').trim() === String(yearLabel || '').trim());
-      if (!found) return null;
-      return {
-        academic: found.academic || found.academic_summary || '',
-        career: found.career || found.career_summary || '',
-        community: found.community || found.community_summary || '',
-      };
-    }
-    const byKey = ys[String(yearLabel || '').trim()];
-    if (!byKey) return null;
-    return {
-      academic: byKey.academic || byKey.academic_summary || '',
-      career: byKey.career || byKey.career_summary || '',
-      community: byKey.community || byKey.community_summary || '',
-    };
-  }
-
-  function readYearSummaryFromYear(year){
-    const overview = year?.summary_overview;
-    if (!overview) return null;
-    return {
-      academic: overview.academic || overview.academic_summary || '',
-      career: overview.career || overview.career_summary || '',
-      community: overview.community || overview.community_summary || '',
-    };
-  }
-
-  function getYearSummary(student, year){
-    const yearLabel = typeof year === 'string' ? year : (year?.year || year?.year_label || '');
-    const fromData = readYearSummaryFromStudent(student, yearLabel);
-    if (fromData && (fromData.academic || fromData.career || fromData.community)) return fromData;
-    const fromYear = typeof year === 'string' ? null : readYearSummaryFromYear(year);
-    if (fromYear && (fromYear.academic || fromYear.career || fromYear.community)) return fromYear;
-    return defaultYearSummaryFor(student?.student_id, yearLabel) || {
-      academic: '',
-      career: '',
-      community: '',
-    };
-  }
-
-  function renderYearSummary(year){
-    const panel = $('#yearSummaryPanel');
-    const layout = document.querySelector('#yearCard .year-layout');
-    const toggleBtn = $('#yearSummaryToggleBtn');
-    if (!panel) return;
-    const summary = getYearSummary(state.student, year);
-    const hasAny = Boolean(summary.academic || summary.career || summary.community);
-
-    if (toggleBtn) {
-      toggleBtn.textContent = state.showYearSummary ? '총평 닫기' : '총평 보기';
-      toggleBtn.classList.toggle('is-on', state.showYearSummary);
-      toggleBtn.setAttribute('aria-expanded', String(state.showYearSummary));
-    }
-
-    panel.hidden = !state.showYearSummary;
-    if (layout) layout.classList.toggle('is-summary-open', state.showYearSummary);
-    if (!state.showYearSummary) return;
-
-    panel.innerHTML = hasAny ? `
-      <div class="year-summary-title">${esc(year?.year || '')} 총평</div>
-      <div class="year-summary-desc">대학 평가 기준인 학업역량 · 진로역량 · 공동체역량 관점에서 읽은 요약입니다.</div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">학업역량</div>
-        <div class="year-summary-body">${esc(summary.academic || '')}</div>
-      </div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">진로역량</div>
-        <div class="year-summary-body">${esc(summary.career || '')}</div>
-      </div>
-      <div class="year-summary-item">
-        <div class="year-summary-label">공동체역량</div>
-        <div class="year-summary-body">${esc(summary.community || '')}</div>
-      </div>
-    ` : `
-      <div class="year-summary-title">${esc(year?.year || '학년')} 총평</div>
-      <div class="year-summary-desc">이 학년의 총평 데이터가 아직 없습니다.</div>
-      <div class="empty">학업역량 · 진로역량 · 공동체역량 요약을 추가하면 이 영역에 함께 표시됩니다.</div>
-    `;
-  }
-
-  async function loadJson(path){
-    const r = await fetch(path, { cache:'no-store' });
-    if (!r.ok) throw new Error(`${path} (${r.status})`);
-    return r.json();
-  }
-
-  async function loadRecordData(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./record_detail.json?${stamp}`,
-      `record_detail.json?${stamp}`,
-      `./data/record_detail.json?${stamp}`,
-      `../record_detail.json?${stamp}`,
-      `/record_detail.json?${stamp}`,
-    ];
-    const tried = [];
-    for (const path of candidates) {
-      try {
-        const data = await loadJson(path);
-        return { data, source: path, tried };
-      } catch (e) {
-        tried.push(path);
-      }
-    }
-    throw new Error(`detail.json 또는 record_detail.json을 찾지 못했습니다. 시도한 경로: ${tried.join(', ')}`);
-  }
-
-  function pickTokenValue(row){
-    return String(
-      row?.token
-      ?? row?.accessToken
-      ?? row?.access_token
-      ?? row?.studentToken
-      ?? row?.student_token
-      ?? row?.key
-      ?? row?.['토큰']
-      ?? ''
-    ).trim();
-  }
-
-  function pickStudentIdValue(row){
-    return String(
-      row?.id
-      ?? row?.student_id
-      ?? row?.studentId
-      ?? row?.studentID
-      ?? row?.['학생ID']
-      ?? ''
-    ).trim();
-  }
-
-  async function loadStudentsIndex(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./students.json?${stamp}`,
-      `students.json?${stamp}`,
-      `./data/students.json?${stamp}`,
-      `../students.json?${stamp}`,
-      `/students.json?${stamp}`,
-    ];
-    for (const path of candidates) {
-      try {
-        return await loadJson(path);
-      } catch (_e) {}
-    }
-    return null;
-  }
-
-  function toRows(index){
-    return Array.isArray(index?.students) ? index.students : Array.isArray(index) ? index : [];
-  }
-
-  function isFilled(v){
-    return !(v === undefined || v === null || String(v).trim() === '');
-  }
-
-  function firstFilled(...values){
-    for (const v of values) {
-      if (isFilled(v)) return String(v).trim();
-    }
-    return '';
-  }
-
-  function findProfileRow(index, studentId){
-    const sid = String(studentId || '').trim();
-    if (!sid) return null;
-    return toRows(index).find(row => pickStudentIdValue(row) === sid) || null;
-  }
-
-
-  function normalizeSubjectGrade(item){
-    return {
-      subject: firstFilled(item?.subject, item?.course, item?.name, item?.과목),
-      rawScore: firstFilled(item?.raw_score, item?.rawScore, item?.score, item?.원점수),
-      subjectAverage: firstFilled(item?.subject_average, item?.subjectAverage, item?.average, item?.avg, item?.과목평균),
-      rawVsAvg: firstFilled(item?.raw_vs_avg, item?.rawVsAvg, item?.score_vs_avg, item?.원점수과목평균, item?.['원점수/과목평균']),
-      studentCount: firstFilled(item?.student_count, item?.studentCount, item?.count, item?.인원수),
-      grade: firstFilled(item?.grade, item?.등급),
-      achievement: firstFilled(item?.achievement, item?.attainment, item?.성취도),
-      units: firstFilled(item?.units, item?.credit, item?.이수단위),
-      memo: firstFilled(item?.memo, item?.note, item?.메모),
-    };
-  }
-
-  function parseNumber(value){
-    if (value === null || value === undefined) return null;
-    const raw = String(value).trim();
-    if (!raw) return null;
-    const normalized = raw.replace(/,/g, '');
-    const num = Number(normalized);
-    return Number.isFinite(num) ? num : null;
-  }
-
-  function formatNumber(value, digits = 2){
-    const num = parseNumber(value);
-    if (num === null) return '';
-    return Number.isInteger(num) ? String(num) : num.toFixed(digits).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1');
-  }
-
-  function computeGradeStats(subjects){
-    let weightedSum = 0;
-    let reflectedUnits = 0;
-    let countedSubjects = 0;
-    safeArr(subjects).forEach(row => {
-      const grade = parseNumber(row?.grade);
-      const units = parseNumber(row?.units);
-      if (grade !== null && units !== null) {
-        weightedSum += grade * units;
-        reflectedUnits += units;
-        countedSubjects += 1;
-      }
-    });
-    return {
-      overall: reflectedUnits > 0 ? (weightedSum / reflectedUnits) : null,
-      reflectedUnits,
-      countedSubjects,
-    };
-  }
-
-  function buildRawVsAvg(row){
-    const joined = firstFilled(row?.rawVsAvg, row?.raw_vs_avg);
-    if (joined) return joined;
-    const raw = firstFilled(row?.rawScore, row?.raw_score);
-    const avg = firstFilled(row?.subjectAverage, row?.subject_average);
-    return raw && avg ? `${raw}/${avg}` : raw || avg || '';
-  }
-
-  function formatOverallGrade(value){
-    const num = parseNumber(value);
-    if (num === null) return '미산출';
-    return `${num.toFixed(2)}등급`;
-  }
-
-  function formatUnitsLabel(value){
-    const num = parseNumber(value);
-    if (num === null) return '미산출';
-    return `${formatNumber(num, 0)}단위`;
-  }
-
-  function countVisibleSubjects(subjects){
-    return safeArr(subjects).filter(row => row?.subject || row?.rawScore || row?.subjectAverage || row?.studentCount || row?.grade || row?.achievement || row?.units).length;
-  }
-
-
-
-  function normalizeGradeData(student, profileRow){
-    const direct = student?.grade_info || student?.grades || {};
-    const profile = profileRow?.grade_info || profileRow?.grades || {};
-    const summarySource = direct?.summary || profile?.summary || {};
-
-    const termRows = safeArr(direct.terms || direct.grade_terms || direct.semesters || profile.terms || profile.grade_terms || profile.semesters)
-      .map((term, idx) => {
-        const subjects = safeArr(term?.subjects || term?.courses || term?.items).map(normalizeSubjectGrade)
-          .filter(v => v.subject || v.rawScore || v.subjectAverage || v.studentCount || v.grade || v.achievement || v.units || v.memo);
-        const computed = computeGradeStats(subjects);
-        const providedOverall = firstFilled(term?.overall, term?.overall_grade, term?.gpa, term?.grade_average, term?.average_grade, term?.avg_grade, term?.['내신'], term?.['등급']);
-        const providedUnits = firstFilled(term?.reflected_units, term?.reflectedUnits, term?.units_total, term?.total_units, term?.credits, term?.['반영이수단위']);
-        return {
-          key: firstFilled(term?.key, term?.term, term?.semester, term?.label, term?.name, `term_${idx+1}`),
-          label: firstFilled(term?.label, term?.term, term?.semester, term?.name, `학기 ${idx+1}`),
-          overall: providedOverall || formatNumber(computed.overall, 2),
-          reflectedUnits: providedUnits || formatNumber(computed.reflectedUnits, 0),
-          memo: firstFilled(term?.memo, term?.note, term?.['메모']) || '등급·이수단위가 있는 과목만 산출에 반영 / 성취도-only 과목은 산출 제외',
-          subjects,
-          countedSubjects: computed.countedSubjects,
-        };
-      })
-      .filter(v => v.label || v.subjects.length || v.overall || v.reflectedUnits || v.memo);
-
-    const mergedSubjects = termRows.flatMap(term => safeArr(term.subjects));
-    const computedSummary = computeGradeStats(mergedSubjects);
-    const summary = {
-      overall: firstFilled(
-        summarySource.overall, summarySource.overall_grade, summarySource.gpa,
-        direct.overall, direct.overall_grade, direct.gpa, direct.grade, direct['내신'], direct['내신등급'],
-        profileRow?.overall, profileRow?.overall_grade, profileRow?.gpa, profileRow?.grade, profileRow?.['내신'], profileRow?.['내신등급']
-      ) || formatNumber(computedSummary.overall, 2),
-      basis: firstFilled(
-        summarySource.basis, summarySource.latest_term,
-        direct.basis, direct.latest_term, direct.term, direct['기준'],
-        profileRow?.basis, profileRow?.latest_term, profileRow?.term, profileRow?.['기준']
-      ) || (termRows.length ? '입력 학기 전체 기준' : ''),
-      reflectedUnits: firstFilled(
-        summarySource.reflected_units, summarySource.reflectedUnits, summarySource.units, summarySource.total_units,
-        direct.reflected_units, direct.reflectedUnits, direct.units, direct.total_units,
-        profileRow?.reflected_units, profileRow?.reflectedUnits, profileRow?.units, profileRow?.total_units
-      ) || formatNumber(computedSummary.reflectedUnits, 0),
-      memo: firstFilled(
-        summarySource.memo, summarySource.note,
-        direct.memo, direct.note, direct['메모'],
-        profileRow?.memo, profileRow?.note, profileRow?.['메모']
-      ) || '[(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수] 방식으로 계산합니다.',
-      countedSubjects: computedSummary.countedSubjects,
-    };
-
-    return { summary, terms: termRows };
-  }
-
-
-
-  function gradeTableHtml(term){
-    const subjects = safeArr(term?.subjects);
-    if (!subjects.length) return '<div class="empty">이 학기의 과목별 성적 데이터가 아직 없습니다.</div>';
-    return `
-      <div class="grade-table-wrap">
-        <table class="grade-table">
-          <thead>
-            <tr>
-              <th>과목</th>
-              <th class="num">원점수/과목평균</th>
-              <th class="num">인원수</th>
-              <th class="num">등급</th>
-              <th class="num">성취도</th>
-              <th class="num">이수단위</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${subjects.map(row => `
-              <tr>
-                <td>
-                  <div>${esc(row.subject || '-')}</div>
-                  ${row.memo ? `<div class="grade-sub" style="margin-top:4px;">${esc(row.memo)}</div>` : ''}
-                </td>
-                <td class="num">${esc(buildRawVsAvg(row) || '-')}</td>
-                <td class="num">${esc(row.studentCount || '-')}</td>
-                <td class="num">${esc(row.grade || '-')}</td>
-                <td class="num">${esc(row.achievement || '-')}</td>
-                <td class="num">${esc(row.units || '-')}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-
-
-
-  function renderGradeCard(){
-    const student = state.student;
-    const row = state.profileRow || {};
-    const target = $('#gradeCard');
-    if (!target) return;
-    if (!student) {
-      target.innerHTML = '';
-      return;
-    }
-
-    const grade = normalizeGradeData(student, row);
-    const terms = grade.terms;
-    const availableTabs = ['summary', ...terms.map(term => term.key)];
-    if (!availableTabs.includes(state.gradeTab)) state.gradeTab = 'summary';
-
-    const currentTerm = terms.find(term => term.key === state.gradeTab) || null;
-    const hasSummary = Boolean(grade.summary.overall || grade.summary.basis || grade.summary.reflectedUnits || grade.summary.memo);
-    const showFormulaCard = state.accessMode !== 'token';
-
-    target.innerHTML = `
-      <div class="section-h">
-        <div>
-          <div class="section-title">성적 보기</div>
-          <div class="section-desc">종합·학기별 토글로 확인하고, 과목별 원점수/과목평균 · 인원수 · 등급 · 성취도 · 이수단위를 함께 봅니다.</div>
-        </div>
-      </div>
-
-      <div class="toggle-wrap" id="gradeToggles">
-        <button type="button" class="toggle ${state.gradeTab === 'summary' ? 'is-on' : ''}" data-grade-tab="summary">종합</button>
-        ${terms.map(term => `<button type="button" class="toggle ${state.gradeTab === term.key ? 'is-on' : ''}" data-grade-tab="${esc(term.key)}">${esc(term.label)}</button>`).join('')}
-      </div>
-
-      ${state.gradeTab === 'summary' ? `
-        <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid">
-            <div class="grade-stat">
-              <div class="grade-label">종합 내신</div>
-              <div class="grade-value">${esc(formatOverallGrade(grade.summary.overall))}</div>
-              <div class="grade-sub">${esc(grade.summary.basis || '기준 미입력')}</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 이수단위</div>
-              <div class="grade-value">${esc(formatUnitsLabel(grade.summary.reflectedUnits))}</div>
-              <div class="grade-sub">등급과 이수단위가 함께 있는 과목만 반영</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 과목 수</div>
-              <div class="grade-value">${esc(grade.summary.countedSubjects ? `${grade.summary.countedSubjects}과목` : '미산출')}</div>
-              <div class="grade-sub">${esc(terms.length ? terms.map(v => v.label).join(' · ') : '학기별 데이터 추가 필요')}</div>
-            </div>
-          </div>
-          ${showFormulaCard ? `
-          <div class="grade-panel">
-            <div class="grade-panel-head">
-              <div>
-                <div class="grade-panel-title">내신 성적 산출값</div>
-                <div class="grade-panel-desc">이수단위 반영 공식을 그대로 읽을 수 있게 정리한 카드입니다.</div>
+    <section class="section">
+      <div class="section-title">기존 교과 데이터</div>
+      
+        <div class="year-title">1학년</div>
+        
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>공통국어</h3>
+                <span class="order">표시순서 1</span>
               </div>
-              ${hasSummary ? `<span class="grade-chip">자동 계산</span>` : ''}
-            </div>
-
-            ${hasSummary || terms.length ? `
-              <div class="keyword-group" style="margin-bottom:14px;">
-                <div class="keyword-group-head">
-                  <div class="keyword-group-title">이수단위 반영 내신 성적 산출 공식</div>
-                </div>
-                <div class="keyword-group-desc" style="font-size:14px; color:#222;">
-                  [(각 과목 이수단위 × 해당 과목 등급)의 총합] ÷ [총 이수 단위수]
-                </div>
-                <div class="grade-help" style="margin-top:12px;">
-                  • 원점수/과목평균, 인원수, 성취도는 과목 이해용으로 함께 보여주고<br>
-                  • 실제 종합 산출은 등급과 이수단위가 있는 과목만 반영합니다.<br>
-                  • 성취도만 있는 과목은 표에는 보이지만 종합 내신 계산에서는 제외됩니다.
-                </div>
+              <p class="summary">상호텍스트적 읽기, 사회적 쟁점 글쓰기, 매체 비평 활동을 통해 문학 해석력·비판적 독해력·논증적 표현력을 균형 있게 드러낸 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>문학 작품의 상실 정서를 섬세하게 해석하고, 화석연료 중단 논증과 리뷰 콘텐츠 비평을 통해 비판적 읽기와 논증적 표현 역량을 보여 줌</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;상호텍스트적 읽기, 사회적 쟁점 글쓰기, 매체 비평 활동을 수행하면서 문학 해석과 비판적 독해가 자연스럽게 연결된다. 상호텍스트적 읽기를 통해 작품의 상실 정서를 구절과 소재를 근거로 섬세하게 해석함, 사회적 쟁점 글쓰기에서 정책 전환의 타당성을 근거 중심으로 주장 흐름이 보여 공통국어의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 문학 해석에 그치지 않고 비판적 독해까지 이어진다는 점이다. 그래서 이 세특은 활동 수보다 해석과 글쓰기의 과정이 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;다음 단계에서는 &#x27;작품 비교 근거 정교화하기&#x27;를 다시 다룰 때 자료를 두세 갈래로 나누고 비교 기준이나 반론 지점을 먼저 세우면 해석의 밀도가 더 올라간다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 문학 해석 역량</div><div class='axis-content'>상호텍스트적 읽기를 통해 작품의 상실 정서를 구절과 소재를 근거로 섬세하게 해석함.</div></div><div class='axis-item'><div class='axis-title'>2. 비판적 독해 역량</div><div class='axis-content'>사회적 쟁점 글쓰기에서 정책 전환의 타당성을 근거 중심으로 주장하며 논증 구조를 세움.</div></div><div class='axis-item'><div class='axis-title'>3. 매체 비평 역량</div><div class='axis-content'>콘텐츠의 내재적 요소와 외재적 수용 맥락을 구분하여 리뷰 콘텐츠의 가치와 한계를 분석함.</div></div><div class='axis-item'><div class='axis-title'>4. 창의적 재해석 역량</div><div class='axis-content'>리뷰 콘텐츠를 단순 요약이 아닌 예술적 재창작물로 정의하며 자신만의 관점을 제시함.</div></div>
               </div>
-              <div class="grade-help">
-                ${esc(grade.summary.memo || '학기별 토글을 누르면 각 학기의 과목별 성적을 바로 확인할 수 있습니다.')}
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>상호텍스트성</span><span class='chip small'>상실 정서</span><span class='chip small'>화석연료 단계적 중단</span><span class='chip small'>탄소중립</span><span class='chip small'>매체 비평</span><span class='chip small'>리뷰 콘텐츠</span><span class='chip small'>논증 글쓰기</span><span class='chip small'>예술적 재창작</span></div>
               </div>
-            ` : `
-              <div class="empty">아직 성적 데이터가 없습니다. 과목별성적 기준으로 입력한 값을 detail.json에 넣으면 이 영역에서 자동 계산해 보여줍니다.</div>
-            `}
-          </div>` : ''}
-        </div>
-      ` : currentTerm ? `
-        <div class="grade-shell" style="margin-top:16px;">
-          <div class="grade-summary-grid">
-            <div class="grade-stat">
-              <div class="grade-label">학기</div>
-              <div class="grade-value">${esc(currentTerm.label || '-')}</div>
-              <div class="grade-sub">학기별 상세 성적</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">학기 내신</div>
-              <div class="grade-value">${esc(formatOverallGrade(currentTerm.overall))}</div>
-              <div class="grade-sub">해당 학기 산출값</div>
-            </div>
-            <div class="grade-stat">
-              <div class="grade-label">반영 이수단위</div>
-              <div class="grade-value">${esc(formatUnitsLabel(currentTerm.reflectedUnits))}</div>
-              <div class="grade-sub">${esc(currentTerm.memo || `${countVisibleSubjects(currentTerm.subjects)}과목 입력`)}</div>
-            </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">비판적 독해형</span>
+            <strong>작품 비교 근거 정교화하기</strong>
           </div>
-          <div class="grade-panel">
-            <div class="grade-panel-head">
-              <div>
-                <div class="grade-panel-title">${esc(currentTerm.label || '')} 과목별 성적</div>
-                <div class="grade-panel-desc">원점수/과목평균, 인원수, 등급, 성취도, 이수단위를 한 화면에서 확인합니다.</div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 상호텍스트적 읽기를 통한 소설 분석 활동에서 &#x27;비밀&#x27;과 노천명과 예반&#x27;을 비교하며 상실이 인물의 삶에 남기는 흔적을 섬세하게 해석함 점이 확인되므로, &#x27;작품 비교 근거 정교화하기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>두 작품의 공통 정서를 구체적 표현과 서술 방식까지 연결해 비교 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>작품·자료를 읽고 해석한 내용이 근거 중심 글쓰기로 이어지는 흐름이 더 선명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">논증형</span>
+            <strong>에너지 전환 반론 구조 보강하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 상호텍스트적 읽기를 통한 소설 분석 활동에서 &#x27;비밀&#x27;과 노천명과 예반&#x27;을 비교하며 상실이 인물의 삶에 남기는 흔적을 섬세하게 해석함 점이 확인되므로, &#x27;에너지 전환 반론 구조 보강하기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>화석연료 단계적 중단에 대한 반대 논거를 정리하고 재반박 구조까지 완성해 보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>작품·자료를 읽고 해석한 내용이 근거 중심 글쓰기로 이어지는 흐름이 더 선명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">매체 비평형</span>
+            <strong>리뷰 콘텐츠 가치 판단 기준 세우기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 상호텍스트적 읽기를 통한 소설 분석 활동에서 &#x27;비밀&#x27;과 노천명과 예반&#x27;을 비교하며 상실이 인물의 삶에 남기는 흔적을 섬세하게 해석함 점이 확인되므로, &#x27;리뷰 콘텐츠 가치 판단 기준 세우기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>원작 전달력, 편집 효과, 대중성의 기준을 세워 다양한 리뷰 콘텐츠를 비교 비평하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>작품·자료를 읽고 해석한 내용이 근거 중심 글쓰기로 이어지는 흐름이 더 선명해진다.</p></div>
+        </div>
+        
               </div>
-              <span class="grade-chip">${esc(`${countVisibleSubjects(currentTerm.subjects)}과목`)}</span>
-            </div>
-            ${gradeTableHtml(currentTerm)}
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>공통수학</h3>
+                <span class="order">표시순서 2</span>
+              </div>
+              <p class="summary">모델링, 증명, 집합 표현을 활용해 과학·환경 현상을 수학적으로 구조화한 과목으로 추론과 설명의 힘이 두드러짐</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>효소 반응의 최적 조건을 이차함수로 모델링하고 절대부등식을 증명하며, 기후변화 요인을 집합과 벤다이어그램으로 구조화해 수학적 적용 역량을 드러냄</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;모델링, 증명, 집합 표현을 수행하면서 수학적 모델링과 증명·추론이 자연스럽게 연결된다. 효소 반응 속도 변화를 이차함수로 해석, 절대부등식의 성립 원리를 완전제곱식으로 전개해 논리적으로 흐름이 보여 공통수학의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 수학적 모델링에 그치지 않고 증명·추론까지 이어진다는 점이다. 그래서 이 세특은 활동 수보다 개념을 구조화한 과정이 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;모델링 가정 조건 검토하기&#x27;를 이어 간다면 식·조건·그래프가 어떻게 이어지는지 한 단계만 더 명시하면 사고의 구조가 훨씬 선명해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 수학적 모델링 역량</div><div class='axis-content'>효소 반응 속도 변화를 이차함수로 해석하며 과학 현상을 수학으로 모델링함.</div></div><div class='axis-item'><div class='axis-title'>2. 증명 및 추론 역량</div><div class='axis-content'>절대부등식의 성립 원리를 완전제곱식으로 전개해 논리적으로 설명함.</div></div><div class='axis-item'><div class='axis-title'>3. 구조화 역량</div><div class='axis-content'>기후변화 요인을 집합과 교집합 관계로 정리하며 복합 원인을 수학적으로 시각화함.</div></div><div class='axis-item'><div class='axis-title'>4. 질문 기반 학습 태도</div><div class='axis-content'>문제 풀이 차이를 분석하고 구체적으로 질문하며 개념을 명확히 이해하려는 태도가 꾸준함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>이차함수 모델링</span><span class='chip small'>절대부등식 증명</span><span class='chip small'>집합</span><span class='chip small'>벤다이어그램</span><span class='chip small'>기후변화 구조화</span><span class='chip small'>효소 반응</span><span class='chip small'>수학적 시각화</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">개념 심화형</span>
+            <strong>모델링 가정 조건 검토하기</strong>
           </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학습에 임하는 자세가 가장 훌륭한 학생임 점이 확인되므로, &#x27;모델링 가정 조건 검토하기&#x27;는 이미 드러난 개념 이해와 풀이 구조를 한 단계 더 명확히 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>효소 반응을 이차함수로 본 이유와 한계를 변수 조건 중심으로 다시 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>개념 이해가 풀이 구조와 모델링으로 연결된 수학적 사고 과정이 더 선명해진다.</p></div>
         </div>
-      ` : ''}
-    `;
-
-    target.querySelectorAll('[data-grade-tab]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.gradeTab = btn.getAttribute('data-grade-tab') || 'summary';
-        renderGradeCard();
-      });
-    });
-  }
-
-
-  function readStoredStudentId(){
-    const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
-    for (const key of keys) {
-      const fromSession = String(sessionStorage.getItem(key) || '').trim();
-      if (fromSession) return fromSession;
-      const fromLocal = String(localStorage.getItem(key) || '').trim();
-      if (fromLocal) return fromLocal;
-    }
-    return '';
-  }
-
-  function readHashStudentId(){
-    const hash = String(location.hash || '').replace(/^#/, '').trim();
-    if (!hash) return '';
-    if (hash.includes('=')) {
-      const h = new URLSearchParams(hash);
-      return String(h.get('id') || h.get('student_id') || h.get('sid') || '').trim();
-    }
-    if (/^shstudy\d+/i.test(hash)) return hash;
-    return '';
-  }
-
-  async function resolveStudentSelection(){
-    const directId = String(qs.get('student_id') || qs.get('id') || qs.get('sid') || '').trim();
-    if (directId) {
-      try { sessionStorage.setItem('student_id', directId); } catch(_e) {}
-      try { localStorage.setItem('student_id', directId); } catch(_e) {}
-      return { id: directId, mode: 'direct', strict: true };
-    }
-
-    const token = String(qs.get('t') || qs.get('token') || '').trim();
-    if (token) {
-      const studentsIndex = await loadStudentsIndex();
-      const rows = Array.isArray(studentsIndex?.students)
-        ? studentsIndex.students
-        : Array.isArray(studentsIndex)
-          ? studentsIndex
-          : [];
-      const found = rows.find(row => pickTokenValue(row) === token);
-      const sid = pickStudentIdValue(found);
-      if (sid) {
-        try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
-        try { localStorage.setItem('student_id', sid); } catch(_e) {}
-        return { id: sid, mode: 'token', strict: true };
-      }
-      try { sessionStorage.removeItem('student_id'); } catch(_e) {}
-      try { localStorage.removeItem('student_id'); } catch(_e) {}
-      return { id: '', mode: 'token', strict: true, invalidToken: true };
-    }
-
-    const storedId = readStoredStudentId();
-    if (storedId) return { id: storedId, mode: 'stored', strict: false };
-
-    const hashId = readHashStudentId();
-    if (hashId) return { id: hashId, mode: 'hash', strict: false };
-
-    try {
-      const ref = document.referrer ? new URL(document.referrer) : null;
-      const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
-      if (refId) return { id: refId, mode: 'referrer', strict: false };
-    } catch (_e) {}
-
-    return { id: '', mode: 'none', strict: false };
-  }
-
-  async function pickStudent(data){
-    const students = safeArr(data?.students);
-    if (!students.length) return { student: null, selection: { id: '', mode: 'none', strict: false } };
-    const selection = await resolveStudentSelection();
-    if (selection.id) {
-      return {
-        student: students.find(s => String(s.student_id || '').trim() === selection.id) || null,
-        selection
-      };
-    }
-    if (selection.strict) {
-      return { student: null, selection };
-    }
-    return { student: students[0], selection };
-  }
-
-  function bindYearSummaryToggle(){
-    const btn = $('#yearSummaryToggleBtn');
-    if (!btn) return;
-    btn.onclick = () => {
-      state.showYearSummary = !state.showYearSummary;
-      const years = safeArr(state.student?.years);
-      const year = years[state.yearIndex] || years[0] || { year: '학년' };
-      renderYearSummary(year);
-    };
-  }
-
-  function renderYearToggles(years){
-    $('#yearToggles').innerHTML = years.length
-      ? years.map((y, i) => `<button class="toggle ${i===state.yearIndex ? 'is-on' : ''}" data-year-idx="${i}">${esc(y.year || `${i+1}학년`)}</button>`).join('')
-      : '<button class="toggle" disabled>학년 없음</button>';
-    $('#yearToggles').querySelectorAll('[data-year-idx]').forEach(btn => {
-      btn.onclick = () => {
-        state.yearIndex = Number(btn.dataset.yearIdx || 0);
-        state.subjectIndex = 0;
-        state.showExamples = false;
-        state.selectedKeyword = '';
-        rerender();
-      };
-    });
-  }
-
-  function renderSubjectToggles(subjects){
-    $('#subjectToggles').innerHTML = subjects.length
-      ? subjects.map((s, i) => `<button class="toggle ${i===state.subjectIndex ? 'is-on' : ''}" data-subject-idx="${i}">${esc(s.subject || '과목')}</button>`).join('')
-      : '<button class="toggle" disabled>과목 없음</button>';
-    $('#subjectToggles').querySelectorAll('[data-subject-idx]').forEach(btn => {
-      btn.onclick = () => {
-        state.subjectIndex = Number(btn.dataset.subjectIdx || 0);
-        state.showExamples = false;
-        state.selectedKeyword = '';
-        renderSubjectToggles(subjects);
-        rerenderAnalysis();
-      };
-    });
-  }
-
-  function axisHtml(axisList){
-    const list = safeArr(axisList);
-    if (!list.length) return '<div class="empty">역량 축 데이터가 없습니다.</div>';
-    return `<div class="axis-list">${list.map(item => `
-      <div class="axis-item">
-        <div class="axis-head"><span class="axis-no">${esc(item.no || '')}</span>${esc(item.title || '')}</div>
-        <div class="axis-text">${esc(item.content || '')}</div>
-      </div>
-    `).join('')}</div>`;
-  }
-
-  function examplesHtml(activityExamples){
-    const list = safeArr(activityExamples);
-    if (!list.length) return '<div class="empty">활동예시 데이터가 없습니다.</div>';
-    const row = (label, text) => String(text || '').trim() ? `
-      <div class="example-row">
-        <div class="example-label">${esc(label)}</div>
-        <div class="example-text">${esc(text)}</div>
-      </div>
-    ` : '';
-    return `<div class="example-grid">${list.map(opt => {
-      const basis = String(opt.current_basis || '').trim();
-      const goal = String(opt.next_goal || '').trim();
-      const recommended = String(opt.recommended_activity || opt.description || '').trim();
-      const effect = String(opt.expected_effect || '').trim();
-      return `
-      <div class="example-item">
-        <span class="example-type">${esc(opt.type || '활동예시')}</span>
-        <div class="example-title">${esc(opt.title || '')}</div>
-        <div class="example-stack">
-          ${row('현재 기록과의 연결', basis)}
-          ${row('다음에 더 보여줄 점', goal)}
-          ${row('추천 활동', recommended)}
-          ${row('기대 효과', effect)}
-        </div>
-      </div>`;
-    }).join('')}</div>`;
-  }
-
-  function keywordList(keywords){
-    return safeArr(keywords).map(k => String(k || '').trim()).filter(Boolean);
-  }
-
-  function uniqueMerge(...arrays){
-    const out = [];
-    const seen = new Set();
-    arrays.flat().forEach(v => {
-      const key = String(v || '').trim();
-      if (!key || seen.has(key)) return;
-      seen.add(key);
-      out.push(key);
-    });
-    return out;
-  }
-
-  function pickByRegex(list, regex, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      if (!regex.test(item)) continue;
-      out.push(item);
-      used.add(item);
-    }
-    return out;
-  }
-
-  function pickRemaining(list, used, limit = 6){
-    const out = [];
-    for (const item of list) {
-      if (out.length >= limit) break;
-      if (used.has(item)) continue;
-      out.push(item);
-      used.add(item);
-    }
-    return out;
-  }
-
-  function pickAxisContent(axisList, regex){
-    const hit = safeArr(axisList).find(item => regex.test(`${item?.title || ''} ${item?.content || ''}`));
-    return hit?.content || '';
-  }
-
-  function flowCardsFor(subject){
-    const subjectName = String(subject?.subject || '').trim();
-    const summary = String(subject?.summary || '').trim();
-    const axisList = safeArr(subject?.axis_list);
-    const keywords = keywordList(subject?.extension_keywords);
-    const used = new Set();
-
-    const TOPIC_RE = /(개념|이해|원리|법칙|공식|구조|현상|문제|배터리|에너지|자동차|보안|블록체인|알고리즘|인공지능|AI|데이터|기후|행복|교육|전염병|의료|자율주행|충격량|운동량|관성|프랙탈|전고체|리튬|심전도|탄소|역사|경제|사회|독서|주제|가치|윤리|장치|모빌리티|스포츠|당구|배드민턴)/;
-    const METHOD_RE = /(분석|해석|설계|실험|발표|토론|그래프|시각화|자료|근거|비교|조사|탐구|독해|글쓰기|논리|모델링|표현|구조화|도식화|문헌|계획|정리|판단|설명|검증|제시|구상|활용|적용)/;
-    const EXPAND_RE = /(실생활|진로|사회|공동체|협업|리더십|확장|융합|적용|문제 해결|창의|대안|미래|환경|지속가능|안전|직업|기여|정책|현대|세계|국제|운영|멘토링|소통|스포츠)/;
-
-    let topicKeywords = pickByRegex(keywords, TOPIC_RE, used, 6);
-    let methodKeywords = pickByRegex(keywords, METHOD_RE, used, 6);
-    let expandKeywords = pickByRegex(keywords, EXPAND_RE, used, 6);
-
-    if (!topicKeywords.length) topicKeywords = pickRemaining(keywords, used, 5);
-    if (!methodKeywords.length) methodKeywords = pickRemaining(keywords, used, 5);
-    if (!expandKeywords.length) expandKeywords = uniqueMerge(pickRemaining(keywords, used, 5), keywords.slice(-3)).slice(0, 6);
-
-    const topicBody = pickAxisContent(axisList, /(개념|이해|원리|내용|핵심|주제|법칙|공식|분야|탐구)/)
-      || summary
-      || `${subjectName || '이 활동'}에서 다룬 핵심 개념과 문제의식을 중심으로 탐구의 축이 드러납니다.`;
-
-    const methodBody = pickAxisContent(axisList, /(분석|해석|설명|표현|실험|그래프|자료|설계|문헌|모델링|발표|토론|비교|구조|도식|독해|서술|조사|판단)/)
-      || '자료 해석, 설명, 실험, 설계, 비교 등 학생이 실제로 사용한 탐구 방식이 확인됩니다.';
-
-    const expandBody = pickAxisContent(axisList, /(실생활|확장|융합|적용|문제 해결|창의|진로|사회|공동체|리더십|협업|기여|스포츠|안전|환경|대안)/)
-      || '교과 개념을 실생활, 진로, 다른 사례로 넓혀 보는 확장성이 나타납니다.';
-
-    return [
-      {
-        kicker: '핵심 주제',
-        title: '무엇을 다뤘는지',
-        body: topicBody,
-        keywords: topicKeywords,
-      },
-      {
-        kicker: '탐구 방식',
-        title: '어떻게 접근했는지',
-        body: methodBody,
-        keywords: methodKeywords,
-      },
-      {
-        kicker: '확장 방향',
-        title: '어디로 이어지는지',
-        body: expandBody,
-        keywords: expandKeywords,
-      }
-    ];
-  }
-
-  function flowCardsHtml(subject){
-    const cards = flowCardsFor(subject);
-    if (!cards.length) return '<div class="empty">탐구 흐름 데이터가 없습니다.</div>';
-    return `
-      <div class="flow-grid">${cards.map(card => `
-        <div class="flow-card">
-          <span class="flow-kicker">${esc(card.kicker || '')}</span>
-          <div class="flow-title">${esc(card.title || '')}</div>
-          <div class="flow-body">${esc(card.body || '')}</div>
-          ${safeArr(card.keywords).length ? `<div class="flow-chips">${safeArr(card.keywords).map(k => `<span class="flow-chip">${esc(k)}</span>`).join('')}</div>` : ''}
-        </div>
-      `).join('')}</div>
-    `;
-  }
-
-
-  function judgmentBlockHtml(subject){
-    const block = subject?.judgment_block || {};
-    const cards = [
-      { label:'판단', text: String(block.subject_judgment || '').trim() },
-      { label:'의견', text: String(block.overall_opinion || '').trim() },
-      { label:'확장', text: String(block.extension_interpretation || '').trim() }
-    ].filter(v => v.text);
-    if (!cards.length) return '';
-    return `
-      <div class="block">
-        <div class="mini-title">판단점</div>
-        <div class="judgment-scroll">${cards.map(card => `
-          <div class="judgment-card">
-            <div class="flow-kicker">${esc(card.label)}</div>
-            <div class="flow-body">${esc(card.text)}</div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">증명 확장형</span>
+            <strong>절대부등식 증명 방법 비교하기</strong>
           </div>
-        `).join('')}</div>
-      </div>
-    `;
-  }
-
-  function rerenderAnalysis(){
-    const years = safeArr(state.student?.years);
-    const year = years[state.yearIndex] || years[0] || {};
-    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
-    if (state.subjectIndex > subjects.length - 1) state.subjectIndex = 0;
-    const subject = subjects[state.subjectIndex] || null;
-
-    $('#analysisCard').innerHTML = subject ? `
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 분석</div>
-          <div class="section-desc">${esc(year.year || '')} · ${esc(subject.subject || '')}</div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학습에 임하는 자세가 가장 훌륭한 학생임 점이 확인되므로, &#x27;절대부등식 증명 방법 비교하기&#x27;는 이미 드러난 개념 이해와 풀이 구조를 한 단계 더 명확히 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>완전제곱식 외 다른 증명 경로를 비교하여 각 방법의 장단점을 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>개념 이해가 풀이 구조와 모델링으로 연결된 수학적 사고 과정이 더 선명해진다.</p></div>
         </div>
-        <span class="badge">역량 축 ${safeArr(subject.axis_list).length}개</span>
-      </div>
-
-      <div class="block">
-        <h2 class="hero-title">${esc(subject.subject || '과목')}</h2>
-        <div class="one-line">${esc(subject.summary || '')}</div>
-      </div>
-
-      <div class="block">
-        <div class="mini-title">역량 축 분석</div>
-        ${axisHtml(subject.axis_list)}
-      </div>
-
-      <div class="block">
-        <div class="inline-head">
-          <div class="mini-title" style="margin:0;">탐구 흐름 정리</div>
-          <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '다음 단계 닫기' : '다음 단계 보기'}</button>
-        </div>
-        <div class="flow-intro">현재 기록에서 확인되는 수행을 바탕으로, 왜 이 활동이 다음 단계인지까지 연결해서 읽을 수 있도록 정리한 영역입니다.</div>
-        ${flowCardsHtml(subject)}
-        ${state.showExamples ? `
-          <div style="margin-top:16px;">
-            <div class="mini-title">다음 단계 활동 설계</div>
-            ${examplesHtml(subject.activity_examples)}
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">자료 구조화형</span>
+            <strong>환경 데이터 집합화하기</strong>
           </div>
-        ` : ''}
-      </div>
-
-      ${judgmentBlockHtml(subject)}
-    ` : `
-      <div class="section-h">
-        <div>
-          <div class="section-title">과목 분석</div>
-          <div class="section-desc">선택된 과목 데이터가 없습니다.</div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학습에 임하는 자세가 가장 훌륭한 학생임 점이 확인되므로, &#x27;환경 데이터 집합화하기&#x27;는 이미 드러난 개념 이해와 풀이 구조를 한 단계 더 명확히 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>실제 기후 데이터나 배출 요인을 집합 관계로 나누어 시각화하고 해석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>개념 이해가 풀이 구조와 모델링으로 연결된 수학적 사고 과정이 더 선명해진다.</p></div>
         </div>
-      </div>
-      <div class="empty">학년과 과목을 먼저 선택해 주세요.</div>
-    `;
-
-    const btn = document.getElementById('toggleExamplesBtn');
-    if (btn) {
-      btn.onclick = () => {
-        state.showExamples = !state.showExamples;
-        rerenderAnalysis();
-      };
-    }
-  }
-
-  function rerender(){
-    renderGradeCard();
-    const years = safeArr(state.student?.years);
-    renderYearToggles(years);
-    const year = years[state.yearIndex] || years[0] || {};
-    renderYearSummary(year);
-    const subjects = safeArr(year.subjects).slice().sort((a,b) => (a.display_order||999) - (b.display_order||999) || String(a.subject).localeCompare(String(b.subject),'ko'));
-    renderSubjectToggles(subjects);
-    rerenderAnalysis();
-  }
-
-  async function boot(){
-    bindYearSummaryToggle();
-    const loaded = await loadRecordData();
-    const picked = await pickStudent(loaded.data);
-    const student = picked?.student || null;
-    const selection = picked?.selection || { id: '', mode: 'none', strict: false };
-    if (!student) {
-      $('#studentMeta').textContent = selection.invalidToken
-        ? '학생 토큰과 연결된 데이터를 찾지 못했습니다.'
-        : '학생 데이터가 없습니다.';
-      $('#previewBadge').textContent = selection.invalidToken ? '토큰 오류' : '오류';
-      $('#analysisCard').innerHTML = `<div class="empty">${selection.invalidToken
-        ? 'students.json의 토큰과 detail.json의 student_id 연결을 확인해주세요.'
-        : 'detail.json 안에 해당 학생 데이터가 없습니다.'}</div>`;
-      $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
-      return;
-    }
-    state.student = student;
-    state.accessMode = selection.mode || 'none';
-    const studentsIndex = await loadStudentsIndex();
-    state.profileRow = findProfileRow(studentsIndex, student.student_id);
-    const grade = normalizeGradeData(student, state.profileRow);
-    $('#studentMeta').textContent = [student.student_name, student.school_name, student.student_id, grade.summary.overall ? `종합 내신 ${formatOverallGrade(grade.summary.overall)}` : '내신 미입력'].filter(Boolean).join(' · ');
-    $('#previewBadge').textContent = selection.mode === 'token' ? '학생모드' : '실데이터';
-    $('#loadGuide').textContent = `불러온 데이터 경로: ${loaded.source}`;
-    rerender();
-  }
-
-  boot().catch(err => {
-    $('#studentMeta').textContent = '데이터를 불러오지 못했습니다.';
-    $('#previewBadge').textContent = '오류';
-    $('#analysisCard').innerHTML = `<div class="empty">${esc(err?.message || err)}</div>`;
-  });
-})();
-</script>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>공통영어</h3>
+                <span class="order">표시순서 3</span>
+              </div>
+              <p class="summary">영어 자료 탐색과 논증 프로젝트를 통해 정보 선별력·어휘 활용력·영어 표현의 정확성을 고르게 보여 준 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>생물학자 소개 글쓰기, 대명사 문항 제작, 더빙로그 정리, 기후변화 영어 논증 프로젝트를 수행하며 영어 이해와 표현 역량을 심화함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;영어 자료 탐색과 논증 프로젝트를 다루는 과정에서 영어 자료 해석과 문장 구조 이해가 함께 드러난다. 생물학자의 삶과 성취를 스스로 탐색 내용이 이를 뒷받침해 공통영어에서 중요한 자료 이해와 표현의 흐름이 실제 수행으로 확인된다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 영어 자료 탐색과 논증 프로젝트를 통해 영어 자료 해석과 문장 구조 이해가 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;영문 자료 요약 기준 세우기&#x27;를 이어 간다면 어떤 자료를 골랐고 어떤 기준으로 문장을 다듬었는지까지 보이면 영어·외국어 과목다운 결이 더 살아난다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 영어 자료 해석 역량</div><div class='axis-content'>생물학자의 삶과 성취를 스스로 탐색하고 핵심 정보를 선별해 영어로 효과적으로 소개함.</div></div><div class='axis-item'><div class='axis-title'>2. 문장 구조 이해 역량</div><div class='axis-content'>대명사 지시 대상 문항을 정교하게 제작·공유하며 지문 구조를 세밀하게 읽는 힘을 보임.</div></div><div class='axis-item'><div class='axis-title'>3. 어휘 확장 역량</div><div class='axis-content'>더빙로그를 통해 어원·유의어·반의어까지 정리하며 어휘를 다면적으로 학습함.</div></div><div class='axis-item'><div class='axis-title'>4. 영어 논증 역량</div><div class='axis-content'>기후변화 자료와 국가 목표를 근거로 정책 필요성을 영어로 설득력 있게 제시함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>생물학자 소개</span><span class='chip small'>대명사 지시</span><span class='chip small'>더빙로그</span><span class='chip small'>어원</span><span class='chip small'>기후변화 논증</span><span class='chip small'>온실가스감축목표</span><span class='chip small'>재반박</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">자료독해형</span>
+            <strong>영문 자료 요약 기준 세우기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 성실하고 진지한 학생으로서, 수업의 모든 활동에 매우 적극적이고 긍정적인 태도로 참여함 점이 확인되므로, &#x27;영문 자료 요약 기준 세우기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>전문 용어가 포함된 영어 자료를 핵심 정보와 부가 정보로 구분해 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 이해와 표현 활동이 문맥 해석과 자기 언어화로 이어지는 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">논증형</span>
+            <strong>영어 반론-재반박 글 완성하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 성실하고 진지한 학생으로서, 수업의 모든 활동에 매우 적극적이고 긍정적인 태도로 참여함 점이 확인되므로, &#x27;영어 반론-재반박 글 완성하기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>기후변화 주제에 대한 반대 의견을 유형화하고 영어 재반박 문단을 구성하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 이해와 표현 활동이 문맥 해석과 자기 언어화로 이어지는 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">어휘 심화형</span>
+            <strong>주제별 어휘망 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 성실하고 진지한 학생으로서, 수업의 모든 활동에 매우 적극적이고 긍정적인 태도로 참여함 점이 확인되므로, &#x27;주제별 어휘망 만들기&#x27;는 이미 드러난 읽기·해석·표현 수행을 다음 단계로 연결하기에 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>과학·환경 주제 어휘를 동의어, 반의어, 파생어까지 연결해 의미망으로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 이해와 표현 활동이 문맥 해석과 자기 언어화로 이어지는 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>한국사</h3>
+                <span class="order">표시순서 4</span>
+              </div>
+              <p class="summary">시대 비교와 역사-현재 연결을 바탕으로 역사 해석력과 설명력을 보여 준 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>무역 제도와 개혁 정치를 시대별로 비교하고, 역사 영화 비평 논술에서 문학·예술과 역사를 연결하며 역사 해석의 폭을 넓힘</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;시대 비교와 역사-현재 연결을 수행하면서 개념 비교와 역사 해석이 자연스럽게 연결된다. 거류지 무역, 내지무역, 협정관세를 예시로 비교, 조선 후기 자본가와 갑신정변을 통해 시대 변화와 개혁의 의미를 현재 정치와 연결해 성찰함 흐름이 보여 한국사의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 개념 비교에 그치지 않고 역사 해석까지 이어진다는 점이다. 그래서 이 세특은 활동 수보다 비교와 판단의 과정이 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;제도 비교표 확장하기&#x27;를 이어 간다면 자료 비교의 기준과 자신의 판단이 갈리는 지점을 한 문장 더 붙이면 사회 과목다운 분석력이 더 잘 드러난다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 개념 비교 역량</div><div class='axis-content'>거류지 무역, 내지무역, 협정관세를 예시로 비교하며 제도 차이를 명확히 설명함.</div></div><div class='axis-item'><div class='axis-title'>2. 역사 해석 역량</div><div class='axis-content'>조선 후기 자본가와 갑신정변을 통해 시대 변화와 개혁의 의미를 현재 정치와 연결해 성찰함.</div></div><div class='axis-item'><div class='axis-title'>3. 서사 구성 역량</div><div class='axis-content'>독립운동가와 근대 문학유산을 시각 언어로 재구성하는 아이디어를 제시함.</div></div><div class='axis-item'><div class='axis-title'>4. 발표·리더십 역량</div><div class='axis-content'>또래를 가르치고 퀴즈 활동에서 빠르게 핵심을 짚으며 수업을 주도함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>거류지 무역</span><span class='chip small'>협정관세</span><span class='chip small'>갑신정변</span><span class='chip small'>역사 영화 비평</span><span class='chip small'>근대 문학유산</span><span class='chip small'>독립운동가</span><span class='chip small'>시각 언어</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">비교사 분석형</span>
+            <strong>제도 비교표 확장하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 어려운 용어를 예를 들어 거류지 무역과 내지무역, 협정관세 등을 미리 찾아보고 와서 개념을 비교하며 급우들을 가르쳐주는 탁월한 이해력과 리더십을 보여줌 점이 확인되므로, &#x27;제도 비교표 확장하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>시대별 제도를 표로 정리하고 변화의 원인과 영향까지 함께 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">서사 재구성형</span>
+            <strong>역사 인물 콘텐츠 기획하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 어려운 용어를 예를 들어 거류지 무역과 내지무역, 협정관세 등을 미리 찾아보고 와서 개념을 비교하며 급우들을 가르쳐주는 탁월한 이해력과 리더십을 보여줌 점이 확인되므로, &#x27;역사 인물 콘텐츠 기획하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>독립운동가나 근대 문학유산을 현대 매체로 재구성할 때 필요한 해석 포인트를 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">논술형</span>
+            <strong>과거 개혁과 현재 개혁 비교하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 어려운 용어를 예를 들어 거류지 무역과 내지무역, 협정관세 등을 미리 찾아보고 와서 개념을 비교하며 급우들을 가르쳐주는 탁월한 이해력과 리더십을 보여줌 점이 확인되므로, &#x27;과거 개혁과 현재 개혁 비교하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>갑신정변의 한계와 현재 개혁 정치의 교훈을 비교 논술로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>통합사회</h3>
+                <span class="order">표시순서 5</span>
+              </div>
+              <p class="summary">기후변화와 공정무역 문제를 통계·정책·윤리 관점으로 다루며 통합적 분석력이 돋보인 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>기후변화의 원인과 책임 문제를 지역별 자료로 분석하고, 공정무역 캠페인을 기획·실행하며 사회문제 해결의 실천성을 보여 줌</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;기후변화와 공정무역 문제를 자료·정책·윤리 관점으로 함께 다루면서 통계 해석과 쟁점 분석이 자연스럽게 연결된다. 지역별 배출량과 피해 차이를 비교하고 선진국과 개발도상국의 책임 문제를 함께 검토한 점에서, 통합사회에서 중요한 비교와 판단의 흐름이 실제 수행으로 확인된다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 통계 자료를 읽는 수준에 머물지 않고 정책 판단과 윤리적 해석까지 이어 갔다는 점이다. 그래서 이 세특은 주제 나열보다 학생이 어떤 기준으로 사회 문제를 해석했는지가 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;기후 데이터 비교 심화하기&#x27;를 이어 간다면 자료 비교의 기준과 자신의 판단이 갈리는 지점을 한 문장 더 붙이면 사회 과목다운 분석력이 더 잘 드러난다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 통계 해석 역량</div><div class='axis-content'>지역별 배출량과 피해 차이를 비교하며 책임 문제를 자료 기반으로 분석함.</div></div><div class='axis-item'><div class='axis-title'>2. 쟁점 분석 역량</div><div class='axis-content'>선진국과 개발도상국의 책임 문제를 다각도로 검토하고 정책과 책임 의식의 병행을 강조함.</div></div><div class='axis-item'><div class='axis-title'>3. 프로젝트 기획 역량</div><div class='axis-content'>공정무역 캠페인을 기획·총괄하며 역할 분배와 홍보 전략을 주도함.</div></div><div class='axis-item'><div class='axis-title'>4. 윤리적 시민성</div><div class='axis-content'>윤리적 소비와 인식 개선의 필요성을 실천 활동과 연결해 공동체적 책임을 드러냄.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>기후변화</span><span class='chip small'>탄소격리</span><span class='chip small'>책임 문제</span><span class='chip small'>공정무역</span><span class='chip small'>윤리적 소비</span><span class='chip small'>서명운동</span><span class='chip small'>정책 제안</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">자료분석형</span>
+            <strong>기후 데이터 비교 심화하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 사회주제탐구 활동에서 &#x27;기후변화의 원인과 해결 방안 모색&#x27;을 주제로 선정함 점이 확인되므로, &#x27;기후 데이터 비교 심화하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>배출량·피해·정책 대응 자료를 한 표에 묶어 국가별 책임 구조를 더 입체적으로 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">캠페인 기획형</span>
+            <strong>공정무역 홍보 근거 강화하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 사회주제탐구 활동에서 &#x27;기후변화의 원인과 해결 방안 모색&#x27;을 주제로 선정함 점이 확인되므로, &#x27;공정무역 홍보 근거 강화하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>주장을 제시하는 데서 그치지 않고, 근거·반론·재반박의 위치를 나누어 논리 구조를 더 분명히 하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>소비자 인식 변화에 영향을 주는 수치 자료를 추가해 캠페인 메시지를 정교화하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">쟁점 토론형</span>
+            <strong>기후 정의 토론 준비하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 사회주제탐구 활동에서 &#x27;기후변화의 원인과 해결 방안 모색&#x27;을 주제로 선정함 점이 확인되므로, &#x27;기후 정의 토론 준비하기&#x27;는 이미 드러난 자료 해석과 판단 흐름을 더 분명히 보이게 하는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>기후 정책의 형평성과 실효성을 중심으로 찬반 논거를 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>자료 해석과 판단 기준이 함께 드러나 사회 과목다운 분석력이 더 또렷해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>통합과학</h3>
+                <span class="order">표시순서 6</span>
+              </div>
+              <p class="summary">유전, 효소, 지구시스템, 에너지 기술을 폭넓게 탐구하며 자료 해석과 과학적 설명 능력을 보여 준 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>겸상적혈구빈혈증, 효소의 플라스틱 분해 가능성, 아마존강 탄소 배출, 태양광 폐패널 문제를 조사하며 분석적 시각을 드러냄</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;이 기록의 강점은 유전, 효소, 지구시스템, 에너지 기술을 폭넓게 탐구를 단순한 결과 제시에 머물지 않고 과학 개념 이해에서 탐구 보고서 작성까지 이어 갔다는 점이다. DNA, 아미노산, 효소, 지구시스템 등 다양한 개념을 연결해 내용이 있어 학생이 무엇을 이해하고 어떻게 풀어냈는지가 비교적 선명하다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;통합과학에서는 과학 개념 이해가 중심이지만, 실제로는 탐구 보고서 작성까지 함께 보인다. 한 가지 활동을 여러 결로 확장한 흔적이 있어 기록의 밀도가 안정적이다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;효소 탐구 변수 정리하기&#x27;를 이어 간다면 변인, 예상 결과, 해석 기준을 구분해서 적으면 탐구의 설계와 결론이 더 또렷해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 과학 개념 이해 역량</div><div class='axis-content'>DNA, 아미노산, 효소, 지구시스템 등 다양한 개념을 연결해 설명함.</div></div><div class='axis-item'><div class='axis-title'>2. 탐구 보고서 작성 역량</div><div class='axis-content'>주제별 자료를 바탕으로 탐구보고서를 완성도 높게 작성하고 발표함.</div></div><div class='axis-item'><div class='axis-title'>3. 환경 문제 분석 역량</div><div class='axis-content'>폐패널 회수·재활용 체계의 한계를 비판적으로 파악하고 국가 차원 대책 필요성을 제시함.</div></div><div class='axis-item'><div class='axis-title'>4. 학습 보조 및 책임감</div><div class='axis-content'>과학도우미로서 수업 공지와 활동 보조를 성실히 수행하며 공동체 기여를 보임.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>DNA</span><span class='chip small'>겸상적혈구빈혈증</span><span class='chip small'>효소</span><span class='chip small'>플라스틱 분해</span><span class='chip small'>아마존강</span><span class='chip small'>폐패널</span><span class='chip small'>태양광발전</span><span class='chip small'>지구기후</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">실험 해석형</span>
+            <strong>효소 탐구 변수 정리하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학업목표와 현재 자신의 수준을 명확히 파악하고 점이 확인되므로, &#x27;효소 탐구 변수 정리하기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>효소 분해 가능성 자료를 읽을 때 온도·기질·시간 등 핵심 변수를 표로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">환경 분석형</span>
+            <strong>폐패널 대책 비교하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학업목표와 현재 자신의 수준을 명확히 파악하고 점이 확인되므로, &#x27;폐패널 대책 비교하기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>국내외 재활용 정책과 회수 체계를 비교해 실효성 있는 개선안을 제시하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">보고서 심화형</span>
+            <strong>탄소 순환 개념 연결하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 학업목표와 현재 자신의 수준을 명확히 파악하고 점이 확인되므로, &#x27;탄소 순환 개념 연결하기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>아마존강 사례를 탄소 흡수원·배출원 전환의 개념으로 다시 구조화하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>기술 가정</h3>
+                <span class="order">표시순서 7</span>
+              </div>
+              <p class="summary">유니버설 디자인과 대체육 시장 분석을 통해 기술의 사회적 활용과 한계를 균형 있게 검토한 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>침대 무게 감지 센서를 활용한 자동 조명 시스템을 설계하고 대체육의 영양·시장 한계를 비판적으로 검토하며 해결책을 제시함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;유니버설 디자인과 대체육 시장 분석을 수행하면서 기술 설계와 생활문제 해결이 자연스럽게 연결된다. 노인의 야간 이동 안전을 위해 압력 감지 기반 자동 조명 시스템의 작동 원리를 설계함, 기존 센서의 시간 지연 한계를 파악 흐름이 보여 기술 가정의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 유니버설 디자인과 대체육 시장 분석을 통해 기술 설계와 생활문제 해결이 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;센서 시스템 도식화하기&#x27;를 이어 간다면 설계 선택의 이유와 실제 생활에 적용했을 때의 한계를 함께 적으면 기술 과목다운 판단이 더 분명해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 기술 설계 역량</div><div class='axis-content'>노인의 야간 이동 안전을 위해 압력 감지 기반 자동 조명 시스템의 작동 원리를 설계함.</div></div><div class='axis-item'><div class='axis-title'>2. 생활문제 해결 역량</div><div class='axis-content'>기존 센서의 시간 지연 한계를 파악하고 선제적 대응 아이디어를 제시함.</div></div><div class='axis-item'><div class='axis-title'>3. 시장·기술 분석 역량</div><div class='axis-content'>대체육 사례를 국가 정책과 소비 문화 관점에서 비교 분석함.</div></div><div class='axis-item'><div class='axis-title'>4. 한계 검토 역량</div><div class='axis-content'>영양학적 한계를 비판적으로 포착하고 하이브리드 방식의 현실적 대안을 제안함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>유니버설 디자인</span><span class='chip small'>압력 센서</span><span class='chip small'>자동 조명</span><span class='chip small'>스마트 홈</span><span class='chip small'>대체육</span><span class='chip small'>배양육</span><span class='chip small'>시장 분석</span><span class='chip small'>하이브리드 대안</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">설계형</span>
+            <strong>센서 시스템 도식화하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 매 수업 시간마다 적극적인 질문으로 사고의 폭을 넓혀가는 모습이 인상적인 학생임 점이 확인되므로, &#x27;센서 시스템 도식화하기&#x27;는 현재 기록에서 확인되는 수행을 더 명확하게 보여 주는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>감지-신호 변환-조명 제어의 흐름을 도식으로 정리해 기술 설명력을 높이는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>기술 원리와 생활 적용 판단이 함께 보여 기술 과목다운 사고가 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">비교분석형</span>
+            <strong>대체육 사례 비교표 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 매 수업 시간마다 적극적인 질문으로 사고의 폭을 넓혀가는 모습이 인상적인 학생임 점이 확인되므로, &#x27;대체육 사례 비교표 만들기&#x27;는 현재 기록에서 확인되는 수행을 더 명확하게 보여 주는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>정책, 소비문화, 영양 요소를 기준으로 국가별 대체육 사례를 비교하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>기술 원리와 생활 적용 판단이 함께 보여 기술 과목다운 사고가 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">문제해결형</span>
+            <strong>생활 불편 개선 제품 제안서 쓰기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 매 수업 시간마다 적극적인 질문으로 사고의 폭을 넓혀가는 모습이 인상적인 학생임 점이 확인되므로, &#x27;생활 불편 개선 제품 제안서 쓰기&#x27;는 현재 기록에서 확인되는 수행을 더 명확하게 보여 주는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>유니버설 디자인 관점에서 다른 생활 문제를 해결하는 제품 아이디어를 제안서로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>기술 원리와 생활 적용 판단이 함께 보여 기술 과목다운 사고가 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>정보</h3>
+                <span class="order">표시순서 8</span>
+              </div>
+              <p class="summary">데이터 시각화와 AI 활용 사례 탐색을 통해 정보의 정확성·전달력·윤리성을 함께 고려한 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>수치 데이터를 직접 그래프로 시각화하고 AI 번역 및 의료 활용 사례를 조사하며 정보 기술의 실용성과 윤리적 책임을 성찰함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;이 기록의 강점은 데이터 시각화와 AI 활용 사례 탐색을 단순한 결과 제시에 머물지 않고 데이터 시각화에서 문제 해결까지 이어 갔다는 점이다. 수치 데이터를 그래프로 표현하며 정보 전달 방식의 중요성을 체감함 내용이 있어 학생이 무엇을 이해하고 어떻게 풀어냈는지가 비교적 선명하다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 데이터 시각화와 AI 활용 사례 탐색을 통해 데이터 시각화와 문제 해결이 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;같은 데이터 다른 그래프 비교하기&#x27;를 이어 간다면 입력 자료, 처리 방식, 결과 표현의 기준을 나누어 제시하면 정보 과목 특유의 구조성이 더 살아난다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 데이터 시각화 역량</div><div class='axis-content'>수치 데이터를 그래프로 표현하며 정보 전달 방식의 중요성을 체감함.</div></div><div class='axis-item'><div class='axis-title'>2. 문제 해결 역량</div><div class='axis-content'>오류를 겪고 해결하는 과정에서 협업과 디버깅의 중요성을 학습함.</div></div><div class='axis-item'><div class='axis-title'>3. 정보 기술 이해</div><div class='axis-content'>AI의 의료·번역 활용 사례를 탐색하며 융합 가능성과 사회적 파급력을 인식함.</div></div><div class='axis-item'><div class='axis-title'>4. 정보 윤리 인식</div><div class='axis-content'>사실 기반 정보 전달과 정보 윤리 실천이 생명·환경과 직결될 수 있음을 성찰함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>데이터 시각화</span><span class='chip small'>그래프</span><span class='chip small'>오류 해결</span><span class='chip small'>AI 의료</span><span class='chip small'>AI 번역</span><span class='chip small'>정보 전달</span><span class='chip small'>정보 윤리</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">시각화형</span>
+            <strong>같은 데이터 다른 그래프 비교하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 프로그램을 활용하여 수치 데이터를 직접 그래프로 시각화하는 활동을 통해 자료 해석 및 전달력의 중요성을 실감하고 데이터 시각화 기술의 실용적 가치를 학습함 점이 확인되므로, &#x27;같은 데이터 다른 그래프 비교하기&#x27;는 이미 드러난 데이터·시스템 이해를 구조적으로 설명하는 다음 단계로 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>데이터 시각화 방식에 따라 해석이 어떻게 달라지는지 비교해 보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>데이터·알고리즘·시스템 흐름을 구분해 설명하는 정보 과목 특성이 더 잘 드러난다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">사례분석형</span>
+            <strong>AI 활용 사례 신뢰성 점검하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 프로그램을 활용하여 수치 데이터를 직접 그래프로 시각화하는 활동을 통해 자료 해석 및 전달력의 중요성을 실감하고 데이터 시각화 기술의 실용적 가치를 학습함 점이 확인되므로, &#x27;AI 활용 사례 신뢰성 점검하기&#x27;는 이미 드러난 데이터·시스템 이해를 구조적으로 설명하는 다음 단계로 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>결과를 정리하는 데서 멈추지 않고, 어떤 변수와 기준으로 해석했는지까지 드러내 탐구의 설계와 해석을 분명히 하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>의료·번역 AI 사례의 장점과 한계를 정확성·윤리성 기준으로 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>데이터·알고리즘·시스템 흐름을 구분해 설명하는 정보 과목 특성이 더 잘 드러난다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">정보윤리형</span>
+            <strong>정보 전달 기준 세우기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 프로그램을 활용하여 수치 데이터를 직접 그래프로 시각화하는 활동을 통해 자료 해석 및 전달력의 중요성을 실감하고 데이터 시각화 기술의 실용적 가치를 학습함 점이 확인되므로, &#x27;정보 전달 기준 세우기&#x27;는 이미 드러난 데이터·시스템 이해를 구조적으로 설명하는 다음 단계로 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>사실 검증, 출처 표시, 오해 가능성 점검 기준을 정리해 보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>데이터·알고리즘·시스템 흐름을 구분해 설명하는 정보 과목 특성이 더 잘 드러난다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>과학탐구 실험</h3>
+                <span class="order">표시순서 9</span>
+              </div>
+              <p class="summary">질병 확산과 기후 문제를 과학 개념과 연결해 설명하고 절전 시스템 아이디어로 확장한 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>기온 상승에 따른 모기 개체 수 증가와 감염병 확산을 주제로 보고서와 포스터를 제작하고 과학 아이디어 제안으로 실생활 적용 가능성을 보여 줌</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;질병 확산과 기후 문제를 과학 개념과 연결해 설명하고 절전 시스템 아이디어로 확장한을 수행하면서 주제 탐구와 과학 설명이 자연스럽게 연결된다. 감염병 확산 문제를 스스로 주제로 설정, 온도 조건과 병원체 증식 속도의 관계를 과학 개념으로 논리적으로 흐름이 보여 과학탐구 실험의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 질병 확산과 기후 문제를 과학 개념과 연결해 설명하고 절전 시스템 아이디어로 확장한을 통해 주제 탐구와 과학 설명이 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;다음 단계에서는 &#x27;감염병 변수 정리하기&#x27;를 다시 다룰 때 변인, 예상 결과, 해석 기준을 구분해서 적으면 탐구의 설계와 결론이 더 또렷해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 주제 탐구 역량</div><div class='axis-content'>감염병 확산 문제를 스스로 주제로 설정하고 자료 조사부터 발표까지 완수함.</div></div><div class='axis-item'><div class='axis-title'>2. 과학 설명 역량</div><div class='axis-content'>온도 조건과 병원체 증식 속도의 관계를 과학 개념으로 논리적으로 설명함.</div></div><div class='axis-item'><div class='axis-title'>3. 환경 감수성</div><div class='axis-content'>기후 문제에 대한 책임감을 바탕으로 미시·거시 관점을 연결해 탐구함.</div></div><div class='axis-item'><div class='axis-title'>4. 아이디어 제안 역량</div><div class='axis-content'>적외선 센서와 제어 모듈을 활용한 절전 시스템을 구상해 실생활 적용으로 확장함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>감염병 확산</span><span class='chip small'>모기</span><span class='chip small'>기온 상승</span><span class='chip small'>병원체 증식</span><span class='chip small'>포스터 발표</span><span class='chip small'>절전 시스템</span><span class='chip small'>적외선 센서</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">실험설계형</span>
+            <strong>감염병 변수 정리하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 개별 주제 발표 활동에서 &#x27;기온 상승이 모기 개체 수 증가와 감염병 확산에 미치는 영향&#x27;을 주제로 선정하고, 자기 주도적으로 자료를 조사한 뒤 보고서와 포스터를 제작하고 점이 확인되므로, &#x27;감염병 변수 정리하기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>온도, 습도, 번식 주기처럼 질병 확산에 영향을 주는 요인을 실험 변수 관점으로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">아이디어 제안형</span>
+            <strong>절전 시스템 사용자 시나리오 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 개별 주제 발표 활동에서 &#x27;기온 상승이 모기 개체 수 증가와 감염병 확산에 미치는 영향&#x27;을 주제로 선정하고, 자기 주도적으로 자료를 조사한 뒤 보고서와 포스터를 제작하고 점이 확인되므로, &#x27;절전 시스템 사용자 시나리오 만들기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>절전 장치가 실제 공간에서 어떻게 작동하는지 상황별 흐름을 구체화하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">자료해석형</span>
+            <strong>기후와 질병 사례 비교하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 개별 주제 발표 활동에서 &#x27;기온 상승이 모기 개체 수 증가와 감염병 확산에 미치는 영향&#x27;을 주제로 선정하고, 자기 주도적으로 자료를 조사한 뒤 보고서와 포스터를 제작하고 점이 확인되므로, &#x27;기후와 질병 사례 비교하기&#x27;는 이미 드러난 원리 이해와 탐구 수행을 더 선명하게 구조화하는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>여러 지역 사례를 비교해 환경 변화와 질병 확산의 상관성을 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>원리 이해가 탐구 설계와 자료 해석으로 이어진 과학 과목의 흐름이 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>체육1</h3>
+                <span class="order">표시순서 10</span>
+              </div>
+              <p class="summary">개인 기술 향상과 팀 소통을 함께 발전시키며 신체 수행 역량과 분석적 태도를 보여 준 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>축구와 배드민턴 활동에서 개인 연습을 지속하고 도파민·분위기 조절 관계까지 조사하며 운동 경험을 분석적으로 해석함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;개인 기술 향상과 팀 소통을 함께 발전시키며 신체 수행 역량과 분석적 태도를 보여 준을 수행하면서 기술 수행과 팀 협력이 자연스럽게 연결된다. 팬텀 드리블과 다양한 스트로크를 정확히 수행, 조장으로서 팀원들과 의사소통하며 단체 루틴 완성에 기여함 흐름이 보여 체육1의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 개인 기술 향상과 팀 소통을 함께 발전시키며 신체 수행 역량과 분석적 태도를 보여 준을 통해 기술 수행과 팀 협력이 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;스트로크 루틴 점검표 만들기&#x27;를 이어 간다면 수행 전후의 전략 변화나 팀 안에서의 판단 기준을 덧붙이면 체육 활동의 사고 과정이 더 분명해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 기술 수행 역량</div><div class='axis-content'>팬텀 드리블과 다양한 스트로크를 정확히 수행하며 개인 기술을 안정적으로 향상시킴.</div></div><div class='axis-item'><div class='axis-title'>2. 팀 협력 역량</div><div class='axis-content'>조장으로서 팀원들과 의사소통하며 단체 루틴 완성에 기여함.</div></div><div class='axis-item'><div class='axis-title'>3. 분석적 성찰</div><div class='axis-content'>운동의 뇌과학적 효과를 조사하고 실제 운동 경험과 연결해 해석함.</div></div><div class='axis-item'><div class='axis-title'>4. 지속적 노력</div><div class='axis-content'>수업 외 개인 연습을 지속하며 기술적·정신적 성장을 함께 보여 줌.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>축구</span><span class='chip small'>팬텀 드리블</span><span class='chip small'>배드민턴</span><span class='chip small'>언더클리어</span><span class='chip small'>헤어핀 스트로크</span><span class='chip small'>도파민</span><span class='chip small'>운동 효과</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">수행분석형</span>
+            <strong>스트로크 루틴 점검표 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 축구에 능하며 이를 통해 일상에서 큰 기쁨을 느끼는 학생으로, 팬텀 드리블을 통해 상대를 제치는 기술이 뛰어나고 마지막까지 집중하는 강한 정신력을 보임 점이 확인되므로, &#x27;스트로크 루틴 점검표 만들기&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>결과를 정리하는 데서 멈추지 않고, 어떤 변수와 기준으로 해석했는지까지 드러내 탐구의 설계와 해석을 분명히 하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>배드민턴 루틴을 기술 요소별로 나누어 스스로 점검하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">팀전략형</span>
+            <strong>의사소통 전략 정리하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 축구에 능하며 이를 통해 일상에서 큰 기쁨을 느끼는 학생으로, 팬텀 드리블을 통해 상대를 제치는 기술이 뛰어나고 마지막까지 집중하는 강한 정신력을 보임 점이 확인되므로, &#x27;의사소통 전략 정리하기&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>팀 경기에서 역할 분담과 신호 체계를 정리해 경기 운영 효율을 높이는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">성찰형</span>
+            <strong>운동 경험과 과학 연결하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 축구에 능하며 이를 통해 일상에서 큰 기쁨을 느끼는 학생으로, 팬텀 드리블을 통해 상대를 제치는 기술이 뛰어나고 마지막까지 집중하는 강한 정신력을 보임 점이 확인되므로, &#x27;운동 경험과 과학 연결하기&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>잘 수행했다는 인상에서 그치지 않고, 어떤 기준으로 움직임을 조정하고 협력했는지 보이는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>운동 전후의 집중력·기분 변화를 기록하고 관련 과학 개념과 연결해 보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>체육2</h3>
+                <span class="order">표시순서 11</span>
+              </div>
+              <p class="summary">스포츠 활동에서 협력과 문제 해결의 의미를 실제 수행 경험과 연결해 이해한 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>조장 역할을 맡아 팀 운영을 점검하고 드롭킥 실패 원인을 분석해 중심과 거리 조절의 중요성을 이해하며 협력의 가치를 체득함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;스포츠 활동을 수행하면서 팀 운영과 수행 분석이 자연스럽게 연결된다. 조장을 맡아 경기 흐름과 팀 운영 전반을 점검함, 드롭킥이 멀리 나가지 않는 원인을 관찰과 비교로 분석함 흐름이 보여 체육2의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;체육2에서는 팀 운영이 중심이지만, 실제로는 수행 분석까지 함께 보인다. 한 가지 활동을 여러 결로 확장한 흔적이 있어 기록의 밀도가 안정적이다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;다음 단계에서는 &#x27;실패 원인 체크리스트 만들기&#x27;를 다시 다룰 때 수행 전후의 전략 변화나 팀 안에서의 판단 기준을 덧붙이면 체육 활동의 사고 과정이 더 분명해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 팀 운영 역량</div><div class='axis-content'>조장을 맡아 경기 흐름과 팀 운영 전반을 점검함.</div></div><div class='axis-item'><div class='axis-title'>2. 수행 분석 역량</div><div class='axis-content'>드롭킥이 멀리 나가지 않는 원인을 관찰과 비교로 분석함.</div></div><div class='axis-item'><div class='axis-title'>3. 적용 및 개선 역량</div><div class='axis-content'>중심과 거리 조절의 중요성을 깨닫고 자신의 수행에 적용함.</div></div><div class='axis-item'><div class='axis-title'>4. 협력 성찰</div><div class='axis-content'>팀 스포츠에서 고른 참여와 협력이 경기 효율을 높인다는 점을 활동지에 정리함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>드롭킥</span><span class='chip small'>관찰과 비교</span><span class='chip small'>팀 운영</span><span class='chip small'>협력</span><span class='chip small'>게임트볼</span><span class='chip small'>컬링</span><span class='chip small'>표현활동</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">수행개선형</span>
+            <strong>실패 원인 체크리스트 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 일상에서 스포츠 활동을 꾸준히 실천하며 활기찬 학교생활을 이어 가는 학생으로 근력과 근지구력이 매우 우수함 점이 확인되므로, &#x27;실패 원인 체크리스트 만들기&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>잘 수행했다는 인상에서 그치지 않고, 어떤 기준으로 움직임을 조정하고 협력했는지 보이는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>자신의 수행 오류를 힘, 중심, 타이밍 등 요소별로 점검하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">협력형</span>
+            <strong>팀 참여도 분석하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 일상에서 스포츠 활동을 꾸준히 실천하며 활기찬 학교생활을 이어 가는 학생으로 근력과 근지구력이 매우 우수함 점이 확인되므로, &#x27;팀 참여도 분석하기&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>결과를 정리하는 데서 멈추지 않고, 어떤 변수와 기준으로 해석했는지까지 드러내 탐구의 설계와 해석을 분명히 하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>팀 경기에서 역할 분담과 참여 균형이 경기력에 미치는 영향을 돌아보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">표현형</span>
+            <strong>창작 의도 말하기 정교화</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 일상에서 스포츠 활동을 꾸준히 실천하며 활기찬 학교생활을 이어 가는 학생으로 근력과 근지구력이 매우 우수함 점이 확인되므로, &#x27;창작 의도 말하기 정교화&#x27;는 이미 드러난 수행 경험을 전략과 성찰로 연결해 보여 주는 데 적절하다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>표현 결과를 보여 주는 데서 그치지 않고, 어떤 요소가 어떤 효과를 만들었는지까지 설명해 해석의 깊이를 더하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>표현활동에서 몸동작과 의미의 연결을 더 구체적으로 설명하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>수행 경험이 전략·협력·성찰로 연결되어 체육 활동의 사고 과정이 더 분명해진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>음악</h3>
+                <span class="order">표시순서 12</span>
+              </div>
+              <p class="summary">기보법과 코드 창작을 통해 음악 이론 이해와 창의적 표현을 함께 보여 준 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>화살표 기호를 활용한 창작 악보와 &#x27;새로운 시작&#x27; 곡 창작을 통해 음악 개념을 자신만의 방식으로 구조화하고 표현함</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;이 기록의 강점은 기보법과 코드 창작을 단순한 결과 제시에 머물지 않고 이론 이해에서 기호 창안까지 이어 갔다는 점이다. 기보법의 역사를 시대별로 탐색하며 음악 이론의 흐름을 이해함 내용이 있어 학생이 무엇을 이해하고 어떻게 풀어냈는지가 비교적 선명하다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 이론 이해에 그치지 않고 기호 창안까지 이어진다는 점이다. 그래서 이 세특은 활동 수보다 이해를 표현으로 바꾼 과정이 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;기호 악보 연주 규칙 보완하기&#x27;를 이어 간다면 연주나 창작 결과에 더해 리듬·가락·구성 선택의 이유가 보이면 음악적 해석이 한층 살아난다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 이론 이해 역량</div><div class='axis-content'>기보법의 역사를 시대별로 탐색하며 음악 이론의 흐름을 이해함.</div></div><div class='axis-item'><div class='axis-title'>2. 기호 창안 역량</div><div class='axis-content'>화살표 기호와 길이·색으로 박자와 음을 체계적으로 표현함.</div></div><div class='axis-item'><div class='axis-title'>3. 창작 역량</div><div class='axis-content'>여러 코드를 활용해 16마디 곡을 구성하고 감정의 흐름을 담아냄.</div></div><div class='axis-item'><div class='axis-title'>4. 수업 태도</div><div class='axis-content'>예의 바르고 성실한 태도로 긍정적인 수업 분위기를 형성함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>기보법</span><span class='chip small'>화살표 악보</span><span class='chip small'>코드 진행</span><span class='chip small'>새로운 시작</span><span class='chip small'>16마디 창작</span><span class='chip small'>음악 이론</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">창작형</span>
+            <strong>기호 악보 연주 규칙 보완하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 수업에 열정적으로 참여하며 예의 바르고 인사를 잘하는 학생으로, 긍정적인 학습 분위기를 조성함 점이 확인되므로, &#x27;기호 악보 연주 규칙 보완하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>표현 결과를 보여 주는 데서 그치지 않고, 어떤 요소가 어떤 효과를 만들었는지까지 설명해 해석의 깊이를 더하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>자신이 만든 기보법이 실제 연주에서 더 명확하게 읽히도록 규칙을 정교화하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>연주·감상 경험이 음악 요소와 해석 근거로 연결되어 음악 활동의 깊이가 더 살아난다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">감정표현형</span>
+            <strong>코드와 감정 연결 설명하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 수업에 열정적으로 참여하며 예의 바르고 인사를 잘하는 학생으로, 긍정적인 학습 분위기를 조성함 점이 확인되므로, &#x27;코드와 감정 연결 설명하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>곡의 코드 진행이 설렘과 긴장을 어떻게 표현하는지 문장으로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>연주·감상 경험이 음악 요소와 해석 근거로 연결되어 음악 활동의 깊이가 더 살아난다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">비교형</span>
+            <strong>기보법 역사 비교하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 수업에 열정적으로 참여하며 예의 바르고 인사를 잘하는 학생으로, 긍정적인 학습 분위기를 조성함 점이 확인되므로, &#x27;기보법 역사 비교하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>전통 기보법과 자신이 만든 기호 체계를 비교해 차이와 장점을 분석하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>연주·감상 경험이 음악 요소와 해석 근거로 연결되어 음악 활동의 깊이가 더 살아난다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>미술</h3>
+                <span class="order">표시순서 13</span>
+              </div>
+              <p class="summary">조형 요소와 감상 태도가 안정적으로 드러나며 디지털 도구 활용까지 이어지는 과목</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>젠탱글, 캘리그라피, 포스터 제작, 작품 감상을 통해 화면 구성과 감정 표현, 메시지 전달의 조형 감각을 보여 줌</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;조형 요소와 감상 태도가 안정적으로 드러나며 디지털 도구 활용까지 이어지는을 다루는 과정에서 조형 구성과 표현 감각이 함께 드러난다. 패턴의 흐름과 구조를 조절하며 화면의 안정성과 감정 표현의 균형을 탐색함 내용이 이를 뒷받침해 미술에서 중요한 표현 선택과 감상 근거를 작품으로 드러내는 흐름이 실제 수행으로 확인된다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;주제 자체보다 그것을 다룬 방식이 좋은 기록이다. 조형 요소와 감상 태도가 안정적으로 드러나며 디지털 도구 활용까지 이어지는을 통해 조형 구성과 표현 감각이 함께 드러나서 결과보다 사고의 흐름이 먼저 읽힌다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;패턴 변화 기록하기&#x27;를 이어 간다면 표현 요소를 왜 그렇게 선택했는지와 감상·비평의 근거를 같이 적으면 결과물의 의미가 더 분명해진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 조형 구성 역량</div><div class='axis-content'>패턴의 흐름과 구조를 조절하며 화면의 안정성과 감정 표현의 균형을 탐색함.</div></div><div class='axis-item'><div class='axis-title'>2. 표현 감각</div><div class='axis-content'>문장과 색감의 조화를 고려해 캘리그라피 표현의 완성도를 높임.</div></div><div class='axis-item'><div class='axis-title'>3. 디지털 활용 역량</div><div class='axis-content'>포스터 제작에서 이미지 배치와 색상 구성을 세심하게 조정함.</div></div><div class='axis-item'><div class='axis-title'>4. 작품 감상 역량</div><div class='axis-content'>인왕제색도의 작가 시선과 철학을 탐색하며 감상문에 성실히 정리함.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>젠탱글</span><span class='chip small'>캘리그라피</span><span class='chip small'>포스터 제작</span><span class='chip small'>인왕제색도</span><span class='chip small'>조형 요소</span><span class='chip small'>디지털 앱</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">구성형</span>
+            <strong>패턴 변화 기록하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 명화 속 인물을 주제로 한 젠탱글 디자인 활동에서 패턴의 흐름과 구조를 섬세하게 조절하며 화면의 안정적인 구성과 감정 표현의 균형을 탐색함 점이 확인되므로, &#x27;패턴 변화 기록하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>젠탱글 작업에서 선의 방향·밀도 변화가 화면 분위기에 미치는 영향을 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>표현 의도와 구성 선택의 이유가 살아나 결과물의 해석력과 완성도가 함께 높아진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">메시지형</span>
+            <strong>포스터 전달력 점검하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 명화 속 인물을 주제로 한 젠탱글 디자인 활동에서 패턴의 흐름과 구조를 섬세하게 조절하며 화면의 안정적인 구성과 감정 표현의 균형을 탐색함 점이 확인되므로, &#x27;포스터 전달력 점검하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>이미지와 글귀의 배치가 메시지 전달에 어떤 영향을 주는지 비교 검토하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>표현 의도와 구성 선택의 이유가 살아나 결과물의 해석력과 완성도가 함께 높아진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">감상형</span>
+            <strong>작가 시선 분석 확장하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 명화 속 인물을 주제로 한 젠탱글 디자인 활동에서 패턴의 흐름과 구조를 섬세하게 조절하며 화면의 안정적인 구성과 감정 표현의 균형을 탐색함 점이 확인되므로, &#x27;작가 시선 분석 확장하기&#x27;는 이미 드러난 표현과 감상을 선택 이유까지 보이게 만드는 다음 단계다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>비슷한 점과 다른 점을 나열하는 데서 그치지 않고, 어떤 기준으로 비교했고 그 차이가 왜 생기는지까지 설명하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>동양화의 시선과 철학을 다른 작품과 비교하며 감상 관점을 넓히는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>표현 의도와 구성 선택의 이유가 살아나 결과물의 해석력과 완성도가 함께 높아진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+            <section class="subject-card">
+              <div class="subject-top">
+                <h3>행동특성발달사항</h3>
+                <span class="order">표시순서 14</span>
+              </div>
+              <p class="summary">자기관리, 책임감, 공동체 배려가 안정적으로 드러나며 학습 방법을 스스로 점검·개선하는 태도가 강점인 기록</p>
+              <div class="one-line"><strong>한 줄 해석</strong><p>분리수거 도우미와 학급자치회 부회장 역할을 성실히 수행하고, 학습 방법을 구조화해 개선하며 주변에 선한 영향을 주는 태도가 돋보임</p></div>
+              <div class="kv"><span>판단</span><p>{&#x27;subject_judgment&#x27;: &#x27;자기관리, 책임감, 공동체 배려가 안정적으로 드러나며 학습 방법을 스스로 점검·개선하는 태도가 강점인 기록을 수행하면서 책임감·신뢰감과 자기주도 학습 태도가 자연스럽게 연결된다. 맡은 역할을 끝까지 성실히 수행하고 시간 약속과 언행의 일치를 지키는 태도가 안정적임, 자신의 약점을 정확히 인식하고 학습 방법을 스스로 점검·개선함 흐름이 보여 행동특성발달사항의 핵심 역량을 자연스럽게 읽어낼 수 있다.&#x27;, &#x27;overall_opinion&#x27;: &#x27;강점은 책임감·신뢰감에 그치지 않고 자기주도 학습 태도까지 이어진다는 점이다. 그래서 이 세특은 활동 수보다 태도를 실천으로 이어 낸 과정이 남는 기록에 가깝다.&#x27;, &#x27;extension_interpretation&#x27;: &quot;확장에서는 &#x27;학습 전략 점검표 만들기&#x27;를 이어 간다면 학습 방법을 바꾼 이유나 공동체에 기여한 방식이 한 문장 더 붙으면 기록의 밀도가 더 높아진다.&quot;}</p></div>
+              <div class="block">
+                <div class="block-title">역량축</div>
+                <div class='axis-item'><div class='axis-title'>1. 책임감 및 신뢰감</div><div class='axis-content'>맡은 역할을 끝까지 성실히 수행하고 시간 약속과 언행의 일치를 지키는 태도가 안정적임.</div></div><div class='axis-item'><div class='axis-title'>2. 자기주도 학습 태도</div><div class='axis-content'>자신의 약점을 정확히 인식하고 학습 방법을 스스로 점검·개선함.</div></div><div class='axis-item'><div class='axis-title'>3. 공동체 기여</div><div class='axis-content'>학급 도우미와 부회장 역할을 통해 공동체를 위한 봉사를 꾸준히 실천함.</div></div><div class='axis-item'><div class='axis-title'>4. 성찰과 회복탄력성</div><div class='axis-content'>시행착오 속에서도 긍정적으로 배우며 성장해 가는 태도가 꾸준히 관찰됨.</div></div>
+              </div>
+              <div class="block">
+                <div class="block-title">확장 키워드</div>
+                <div class="chips"><span class='chip small'>책임감</span><span class='chip small'>신뢰</span><span class='chip small'>자기주도 학습</span><span class='chip small'>학습 방법 개선</span><span class='chip small'>부회장</span><span class='chip small'>분리수거 도우미</span><span class='chip small'>회복탄력성</span></div>
+              </div>
+              <div class="block">
+                <div class="block-title">활동 예시</div>
+                
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">자기관리형</span>
+            <strong>학습 전략 점검표 만들기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 좋은 교우관계를 유지하고 있으며, 학급 내 모범학생을 선정하는 상황에서 가장 우선순위로 추천될 정도로 학우들로부터 높은 신임을 받고 있음 점이 확인되므로, &#x27;학습 전략 점검표 만들기&#x27;는 이미 드러난 참여와 탐구를 근거 있게 정리해 다음 단계로 이어 주는 활동이다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>잘 수행했다는 인상에서 그치지 않고, 어떤 기준으로 움직임을 조정하고 팀과 협력했는지까지 보이는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>과목별로 효과적인 학습 방법과 개선 필요점을 스스로 기록·점검하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>생활 태도와 공동체 기여가 구체적 사례와 자기 조절 방식으로 연결되어 기록의 밀도가 높아진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">리더십형</span>
+            <strong>학급 운영 경험 정리하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 좋은 교우관계를 유지하고 있으며, 학급 내 모범학생을 선정하는 상황에서 가장 우선순위로 추천될 정도로 학우들로부터 높은 신임을 받고 있음 점이 확인되므로, &#x27;학급 운영 경험 정리하기&#x27;는 이미 드러난 참여와 탐구를 근거 있게 정리해 다음 단계로 이어 주는 활동이다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>내용을 한 줄로 설명하는 수준을 넘어서, 원인-과정-결과 또는 입력-처리-출력처럼 흐름이 보이게 정리하는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>부회장 활동에서 맡았던 역할과 해결한 문제를 구체적으로 정리하는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>생활 태도와 공동체 기여가 구체적 사례와 자기 조절 방식으로 연결되어 기록의 밀도가 높아진다.</p></div>
+        </div>
+        
+        <div class="activity-card">
+          <div class="activity-head">
+            <span class="badge">성찰형</span>
+            <strong>성장 경험 기록하기</strong>
+          </div>
+          <div class="kv"><span>현재 근거</span><p>현재 기록에서는 좋은 교우관계를 유지하고 있으며, 학급 내 모범학생을 선정하는 상황에서 가장 우선순위로 추천될 정도로 학우들로부터 높은 신임을 받고 있음 점이 확인되므로, &#x27;성장 경험 기록하기&#x27;는 이미 드러난 참여와 탐구를 근거 있게 정리해 다음 단계로 이어 주는 활동이다.</p></div>
+          <div class="kv"><span>다음 목표</span><p>좋은 태도를 보여 주었다는 서술에서 더 나아가, 실제로 바꾼 행동과 주변에 미친 영향을 구체적으로 남기는 단계가 필요하다.</p></div>
+          <div class="kv"><span>추천 활동</span><p>시행착오를 겪으며 바꾼 학습 방식과 태도를 사례 중심으로 되돌아보는 활동이 좋다.</p></div>
+          <div class="kv"><span>기대 효과</span><p>생활 태도와 공동체 기여가 구체적 사례와 자기 조절 방식으로 연결되어 기록의 밀도가 높아진다.</p></div>
+        </div>
+        
+              </div>
+            </section>
+            
+        
+    </section>
+  </div>
 </body>
 </html>
