@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>record_detail_revised_toggle_clean</title>
+<title>record_detail_final_realjson</title>
 <style>
 :root{
-  --bg:#f7fbff; --card:#fff; --line:#deebf7; --text:#122033; --sub:#5f7085;
-  --blue:#eef5ff; --warm:#fff7ec; --green:#f2fbf4; --shadow:0 10px 28px rgba(28,54,90,.08); --radius:20px;
+  --bg:#f8fbff; --card:#fff; --line:#dfe8f4; --text:#122033; --sub:#607286;
+  --blue:#eef5ff; --warm:#fff8ee; --green:#f2fbf4; --shadow:0 10px 28px rgba(28,54,90,.08); --radius:20px;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:1380px;margin:0 auto;padding:24px 18px 48px}
-.hero,.panel,.section,.subject-card,.soft-box,.judge-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.wrap{max-width:1440px;margin:0 auto;padding:24px 18px 48px}
+.hero,.panel,.section,.subject-card,.soft-box,.judge-card,.block{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 .hero{padding:24px;margin-bottom:18px}
 .hero h1{margin:0 0 8px;font-size:34px}
 .sub{color:var(--sub);line-height:1.75}
@@ -35,95 +35,90 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .summary-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff;line-height:1.8}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
-.soft-box{padding:16px}
+.soft-box,.block,.judge-card{padding:16px}
 .soft-box.blue{background:var(--blue)}
 .soft-box.warm{background:var(--warm)}
 .soft-box.green{background:var(--green)}
-.judge-card{padding:16px}
 .judge-card.blue{background:linear-gradient(180deg,#f8fbff,#edf5ff)}
 .judge-card.warm{background:linear-gradient(180deg,#fffaf4,#fff4e8)}
 .judge-card.green{background:linear-gradient(180deg,#f8fdf9,#eefaf1)}
 .mini-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
 .mini-body{line-height:1.8}
 .top-tools{display:flex;gap:10px;flex-wrap:wrap}
-.tool-btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900;cursor:pointer}
+.tool-btn,.toggle-btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900;cursor:pointer}
+.toggle-btn.active{background:#111;color:#fff;border-color:#111}
 .acc-wrap{display:grid;gap:14px}
 .subject-card{overflow:hidden}
 .acc-head{width:100%;border:0;background:#fff;text-align:left;padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .subject-name{font-size:26px;font-weight:900;line-height:1.3}
 .subject-sub{margin-top:8px;color:#334155;line-height:1.75}
+.subject-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .subject-badge{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12px;font-weight:900}
 .acc-arrow{font-size:22px;font-weight:900;color:#466}
 .acc-body{display:none;padding:0 20px 20px;border-top:1px solid #edf1f6}
 .subject-card.open .acc-body{display:block}
-@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
+.axis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.axis-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff}
+.axis-title{font-weight:900;margin-bottom:6px}
+.axis-body{line-height:1.75}
+.flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flow-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfdff}
+.flow-kicker{font-size:12px;color:var(--sub);font-weight:900}
+.flow-title{font-size:17px;font-weight:900;margin:8px 0 6px}
+.flow-body{line-height:1.75}
+.list{margin:0;padding-left:18px;line-height:1.8}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--sub);background:#fff}
+@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1>이열음 (shstudy09)</h1>
-    <div class="sub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
+    <h1 id="heroName">생활기록부 분석</h1>
+    <div class="sub" id="heroSub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
     <div class="nav">
       <a class="active">기본 상담 보기</a>
-      <a href="./record_detail_extension.html?student_id=shstudy09">확장 활동 보기</a>
+      <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
     </div>
   </section>
 
   <div class="layout">
     <aside class="panel">
       <h2 class="panel-title">상담 요약</h2>
-      <div class="info-box"><div class="label">학교</div><div class="value">풍산고</div></div>
-      <div class="info-box"><div class="label">트랙</div><div class="value">공학</div></div>
-      <div class="info-box"><div class="label">선택과목</div><div class="chips">
-        <span class="chip">물리학</span><span class="chip">화학</span><span class="chip">생명과학</span><span class="chip">대수</span><span class="chip">고급화학</span>
-      </div></div>
+      <div class="info-box"><div class="label">학교</div><div class="value" id="schoolBox">-</div></div>
+      <div class="info-box"><div class="label">트랙</div><div class="value" id="trackBox">-</div></div>
+      <div class="info-box"><div class="label">선택과목</div><div class="chips" id="subjectChips"></div></div>
+      <div class="info-box">
+        <div class="label">학년 선택</div>
+        <div class="top-tools" id="yearToggles"></div>
+      </div>
     </aside>
 
     <main class="stack">
       <section class="section">
         <h2 class="section-title">생활기록부 핵심 진단</h2>
-        <div class="sub" style="margin-bottom:14px">이 학생의 생활기록부는 근거를 바탕으로 해석하고 구조화한 뒤 설명으로 연결하는 수행 방식이 여러 교과에서 반복적으로 드러나는 구조다.</div>
-        <div class="summary-list">
-          <div class="summary-item">국어·사회 계열에서는 자료와 텍스트를 읽고 의미를 해석하는 수행이 확인된다.</div>
-          <div class="summary-item">수학에서는 개념을 논리적으로 전개하고 구조를 설명하는 흐름이 확인된다.</div>
-          <div class="summary-item">과학·정보·기술가정 계열에서는 원리를 이해한 뒤 자료 해석, 설계, 적용으로 연결하는 태도가 확인된다.</div>
-        </div>
+        <div class="sub" id="diagOneLine" style="margin-bottom:14px"></div>
+        <div class="summary-list" id="diagSummary"></div>
       </section>
 
       <section class="section">
         <h2 class="section-title">생기부 구조와 연결성</h2>
         <div class="grid2">
-          <div class="soft-box blue">
-            <div class="mini-title">교과별 반복 수행 방식</div>
-            <div class="mini-body">교과마다 주제는 다르지만 수행 방식은 일정하다. 읽기, 해석, 구조화, 설명, 적용의 흐름이 반복된다.</div>
-          </div>
-          <div class="soft-box warm">
-            <div class="mini-title">학생부의 중심 축</div>
-            <div class="mini-body">이 생활기록부의 중심 축은 분석 → 구조화 → 설명/적용이다. 여러 교과가 하나의 수행 방식으로 묶인다.</div>
-          </div>
+          <div class="soft-box blue"><div class="mini-title">교과별 반복 수행 방식</div><div class="mini-body" id="linkPattern"></div></div>
+          <div class="soft-box warm"><div class="mini-title">학생부의 중심 축</div><div class="mini-body" id="linkAxis"></div></div>
         </div>
         <div class="soft-box green" style="margin-top:16px">
           <div class="mini-title">구성 해석</div>
-          <div class="mini-body">이 학생부는 과목별 활동이 흩어진 구조가 아니라, 근거와 원리를 중심으로 사고를 전개하는 학생이라는 점을 일관되게 보여주는 구조다.</div>
+          <div class="mini-body" id="linkMeaning"></div>
         </div>
       </section>
 
       <section class="section">
         <h2 class="section-title">데이터 분석 결과</h2>
         <div class="grid3">
-          <div class="judge-card blue">
-            <div class="mini-title">강점</div>
-            <div class="mini-body">활동 수보다 사고 과정이 드러난다. 무엇을 했는지보다 왜 그렇게 해석했고 어떻게 설명했는지가 확인된다.</div>
-          </div>
-          <div class="judge-card warm">
-            <div class="mini-title">한계</div>
-            <div class="mini-body">자기 판단 기준의 명확성과 독자적 문제 설정은 아직 더 보강해야 한다.</div>
-          </div>
-          <div class="judge-card green">
-            <div class="mini-title">종합 판단</div>
-            <div class="mini-body">수행의 결은 좋고 연결성도 분명하다. 다만 강점을 더 선명하게 구조화하면 학생부의 완성도가 더 높아진다.</div>
-          </div>
+          <div class="judge-card blue"><div class="mini-title">강점</div><div class="mini-body" id="evalStrength"></div></div>
+          <div class="judge-card warm"><div class="mini-title">한계</div><div class="mini-body" id="evalLimit"></div></div>
+          <div class="judge-card green"><div class="mini-title">종합 판단</div><div class="mini-body" id="evalOverall"></div></div>
         </div>
       </section>
 
@@ -135,98 +130,163 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
         </div>
       </section>
 
-      <div class="acc-wrap">
-        <section class="subject-card open">
-          <button class="acc-head" type="button">
-            <div>
-              <div class="subject-name">공통국어</div>
-              <div class="subject-sub">텍스트를 읽고 핵심 의미를 해석한 뒤 이를 자기 언어로 설명하는 수행이 확인된다.</div>
-            </div>
-            <div class="acc-arrow">−</div>
-          </button>
-          <div class="acc-body">
-            <div class="grid2">
-              <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">작품 구절과 표현을 근거로 인물의 감정 변화와 정서 흐름을 해석한 기록이 확인된다.</div></div>
-              <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">내용 요약이 아니라 의미를 근거와 함께 설명하는 수행이 확인된다.</div></div>
-            </div>
-            <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">국어 교과에서 중요한 근거 기반 해석과 의미 구조화 능력이 분명하게 드러난다.</div></div>
-            <div class="grid3">
-              <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">국어 학업 수행은 감상형보다 분석형으로 확정된다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">세특은 활동 나열형이 아니라 근거와 설명이 드러나는 구조로 판단된다.</div></div>
-              <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 분석 → 구조화 → 설명 축의 출발점 역할을 한다.</div></div>
-            </div>
-            <div class="grid2">
-              <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">읽고 해석하고 설명하는 학생으로 판단된다.</div></div>
-              <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">판단 기준을 더 선명하게 드러내면 세특의 밀도가 더 올라간다.</div></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="subject-card">
-          <button class="acc-head" type="button">
-            <div>
-              <div class="subject-name">공통수학</div>
-              <div class="subject-sub">문제 해결 과정과 개념 간 연결을 설명하는 수행이 확인된다.</div>
-            </div>
-            <div class="acc-arrow">+</div>
-          </button>
-          <div class="acc-body">
-            <div class="grid2">
-              <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">문제 풀이 과정과 개념 간 연결을 설명하는 기록이 확인된다.</div></div>
-              <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">정답 도출보다 풀이 과정의 논리와 구조 설명이 확인된다.</div></div>
-            </div>
-            <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">수학 수행은 결과형보다 구조 이해형으로 판단된다.</div></div>
-            <div class="grid3">
-              <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">개념 연결과 논리 전개가 실제 기록 안에서 확인된다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">수학 세특은 과정 설명형 구조로 확정된다.</div></div>
-              <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 구조화 축을 가장 직접적으로 보여주는 카드다.</div></div>
-            </div>
-            <div class="grid2">
-              <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">문제 해결 과정을 스스로 이해하고 설명하는 학생으로 판단된다.</div></div>
-              <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">조건 변화에 따른 구조 차이까지 드러내면 완성도가 높아진다.</div></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="subject-card">
-          <button class="acc-head" type="button">
-            <div>
-              <div class="subject-name">통합과학</div>
-              <div class="subject-sub">과학 개념을 원리 이해와 자료 해석으로 연결하는 수행이 확인된다.</div>
-            </div>
-            <div class="acc-arrow">+</div>
-          </button>
-          <div class="acc-body">
-            <div class="grid2">
-              <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">과학 개념을 단순 암기가 아니라 원리 이해와 자료 해석으로 연결한 기록이 확인된다.</div></div>
-              <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">원인을 설명하고 관련 개념을 연결하는 수행이 확인된다.</div></div>
-            </div>
-            <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">과학 수행은 정보 암기형이 아니라 원리 기반 이해형으로 판단된다.</div></div>
-            <div class="grid3">
-              <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">현상과 원리를 연결하는 태도가 실제 기록 안에서 확인된다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">탐구형 확장 가능성이 분명하게 확인된다.</div></div>
-              <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 설명 → 적용 축이 과학 영역으로 이어진다.</div></div>
-            </div>
-            <div class="grid2">
-              <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">탐구형 확장 가능성이 있는 과학 기록으로 판단된다.</div></div>
-              <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">변수 설정과 비교 기준까지 드러내면 과학 세특의 완성도가 더 높아진다.</div></div>
-            </div>
-          </div>
-        </section>
-      </div>
+      <div class="acc-wrap" id="accWrap"></div>
     </main>
   </div>
 </div>
 
 <script>
-document.querySelectorAll('.acc-head').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const card = btn.parentElement;
-    const open = card.classList.toggle('open');
-    const arrow = btn.querySelector('.acc-arrow');
-    if (arrow) arrow.textContent = open ? '−' : '+';
+const qs = new URLSearchParams(location.search);
+const targetId = qs.get('student_id') || 'shstudy09';
+let currentYear = 0;
+
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]))}
+function tighten(s){
+  s = String(s ?? '').trim();
+  const pairs = [
+    ['읽힌다.', '로 판단된다.'],
+    ['읽힌다', '로 판단된다'],
+    ['보인다.', '확인된다.'],
+    ['보인다', '확인된다'],
+    ['가능성이 읽힌다.', '가능성이 확인된다.'],
+    ['가능성이 보인다.', '가능성이 확인된다.'],
+    ['강점으로 읽힌다.', '강점으로 판단된다.'],
+    ['드러나는 구조로 읽힌다.', '드러나는 구조다.'],
+    ['드러난 기록으로 읽힌다.', '드러난 기록이다.']
+  ];
+  pairs.forEach(([a,b]) => s = s.split(a).join(b));
+  return s;
+}
+async function loadData(){
+  const paths = ['./record_detail.json','./record_detail_concrete.json','./record_detail (1).json'];
+  for(const p of paths){
+    try{
+      const r = await fetch(p + '?v=' + Date.now(), {cache:'no-store'});
+      if(r.ok) return await r.json();
+    }catch(e){}
+  }
+  throw new Error('record_detail JSON을 찾지 못했습니다.');
+}
+function pickStudent(data){
+  const arr = Array.isArray(data?.students) ? data.students : [];
+  return arr.find(s => String(s.student_id||s.id||'') === targetId) || arr[0] || null;
+}
+function renderOverview(student){
+  document.getElementById('heroName').textContent = `${student.student_name || student.name || ''} (${student.student_id || student.id || ''})`;
+  document.getElementById('schoolBox').textContent = student.school_name || student.school || '-';
+  document.getElementById('trackBox').textContent = student.track || '-';
+  document.getElementById('goExtension').href = `./record_detail_extension.html?student_id=${encodeURIComponent(student.student_id || student.id || '')}`;
+  const chips = Array.isArray(student.selected_subjects) ? student.selected_subjects : [];
+  document.getElementById('subjectChips').innerHTML = chips.length ? chips.map(v => `<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">선택과목 없음</span>';
+
+  const ri = student.record_interpretation || {};
+  document.getElementById('diagOneLine').textContent = tighten(ri.one_line_diagnosis || '');
+  document.getElementById('diagSummary').innerHTML = (ri.core_summary || []).map(v => `<div class="summary-item">${esc(tighten(v))}</div>`).join('');
+  document.getElementById('linkPattern').textContent = tighten(ri.structure_linkage?.pattern || '');
+  document.getElementById('linkAxis').textContent = tighten(ri.structure_linkage?.axis || '');
+  document.getElementById('linkMeaning').textContent = tighten(ri.structure_linkage?.meaning || '');
+  document.getElementById('evalStrength').textContent = tighten(ri.evaluation_meaning?.strength || '');
+  document.getElementById('evalLimit').textContent = tighten(ri.evaluation_meaning?.limit || '');
+  document.getElementById('evalOverall').textContent = tighten(ri.evaluation_meaning?.overall || '');
+}
+function renderYearToggles(student){
+  const years = Array.isArray(student.years) ? student.years : [];
+  const wrap = document.getElementById('yearToggles');
+  wrap.innerHTML = years.map((y,i)=>`<button class="toggle-btn ${i===currentYear?'active':''}" data-idx="${i}">${esc(y.year || y.year_label || `학년 ${i+1}`)}</button>`).join('');
+  wrap.querySelectorAll('[data-idx]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      currentYear = Number(btn.dataset.idx || 0);
+      renderYearToggles(student);
+      renderSubjects(student);
+    });
   });
-});
+}
+function axisHtml(axisList){
+  const list = Array.isArray(axisList) ? axisList : [];
+  if(!list.length) return '<div class="empty">데이터 없음</div>';
+  return list.map(a => `<div class="axis-item"><div class="axis-title">${esc(a.title || '')}</div><div class="axis-body">${esc(tighten(a.content || ''))}</div></div>`).join('');
+}
+function flowHtml(flowList){
+  const list = Array.isArray(flowList) ? flowList : [];
+  if(!list.length) return '<div class="empty">데이터 없음</div>';
+  return list.map(f => `<div class="flow-card"><div class="flow-kicker">${esc(f.kicker || '')}</div><div class="flow-title">${esc(f.title || '')}</div><div class="flow-body">${esc(tighten(f.body || f.description || ''))}</div></div>`).join('');
+}
+function renderSubjects(student){
+  const years = Array.isArray(student.years) ? student.years : [];
+  const year = years[currentYear] || years[0] || {};
+  const subjects = (Array.isArray(year.subjects) ? [...year.subjects] : []).sort((a,b)=>(a.display_order||999)-(b.display_order||999));
+  const wrap = document.getElementById('accWrap');
+  wrap.innerHTML = subjects.map((subj, idx) => {
+    const ef = subj.evidence_first || {};
+    const jb = subj.judgment_block || {};
+    const evalList = (subj.evaluation_priority || []).map(v => `<li>${esc(tighten(v))}</li>`).join('') || '<li>데이터 없음</li>';
+    const framework = Array.isArray(subj.activity_framework) ? subj.activity_framework : [];
+    return `
+      <section class="subject-card ${idx===0?'open':''}">
+        <button class="acc-head" type="button">
+          <div style="flex:1">
+            <div class="subject-name">${esc(subj.subject || subj.subject_name || '')}</div>
+            <div class="subject-sub">${esc(tighten(subj.summary || ef.evidence_summary || ''))}</div>
+            ${framework.length ? `<div class="subject-meta">${framework.map(v=>`<span class="subject-badge">${esc(v)}</span>`).join('')}</div>` : ''}
+          </div>
+          <div class="acc-arrow">${idx===0?'−':'+'}</div>
+        </button>
+        <div class="acc-body">
+          <div class="grid2">
+            <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">${esc(tighten(ef.evidence_summary || subj.current_activity_basis || ''))}</div></div>
+            <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">${esc(tighten(ef.observed_performance || subj.one_line || ''))}</div></div>
+          </div>
+
+          <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">${esc(tighten(ef.interpretation || subj.subject_goal_focus || ''))}</div></div>
+
+          <div class="grid3">
+            <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">${esc(tighten(jb.admission_officer_view || jb.subject_judgment || ''))}</div></div>
+            <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">${esc(tighten(jb.record_judgment || jb.overall_opinion || ''))}</div></div>
+            <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">${esc(tighten(jb.structure_interpretation || jb.extension_interpretation || ''))}</div></div>
+          </div>
+
+          <div class="grid2">
+            <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">${esc(tighten(ef.evaluation_meaning || ''))}</div></div>
+            <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">${esc(tighten(ef.next_improvement || ''))}</div></div>
+          </div>
+
+          <div class="grid2">
+            <div class="block">
+              <div class="mini-title">역량</div>
+              <div class="axis-grid">${axisHtml(subj.axis_list)}</div>
+            </div>
+            <div class="block">
+              <div class="mini-title">연결점</div>
+              <div class="mini-body"><b>과목 고유 목표</b><br>${esc(tighten(subj.subject_goal_focus || ''))}<br><br><b>현재 활동 기반</b><br>${esc(tighten(subj.current_activity_basis || subj.analysis_basis || ''))}</div>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="mini-title">평가자가 보게 되는 지점</div>
+            <ul class="list">${evalList}</ul>
+          </div>
+
+          <div class="block">
+            <div class="mini-title">탐구 흐름</div>
+            <div class="flow-grid">${flowHtml(subj.inquiry_flow_detail || subj.inquiry_flow)}</div>
+          </div>
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  bindAccordions();
+}
+function bindAccordions(){
+  document.querySelectorAll('.acc-head').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const card = btn.parentElement;
+      const open = card.classList.toggle('open');
+      const arrow = btn.querySelector('.acc-arrow');
+      if (arrow) arrow.textContent = open ? '−' : '+';
+    });
+  });
+}
 document.getElementById('openAllBtn').addEventListener('click', ()=>{
   document.querySelectorAll('.subject-card').forEach(card=>{
     card.classList.add('open');
@@ -241,6 +301,19 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
     if (arrow) arrow.textContent = '+';
   });
 });
+
+(async function(){
+  try{
+    const data = await loadData();
+    const student = pickStudent(data);
+    if(!student) throw new Error('학생 데이터를 찾지 못했습니다.');
+    renderOverview(student);
+    renderYearToggles(student);
+    renderSubjects(student);
+  }catch(e){
+    document.body.innerHTML = '<div style="padding:24px;font-family:sans-serif">오류: ' + esc(e.message || e) + '</div>';
+  }
+})();
 </script>
 </body>
 </html>
