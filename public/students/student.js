@@ -103,8 +103,9 @@
   }
 
   async function main(){
-    const students = await loadJson("./students.json");
-    if(!Array.isArray(students)) throw new Error("students.json is not an array");
+    const studentsRaw = await loadJson("./students.json");
+    const students = Array.isArray(studentsRaw) ? studentsRaw : (Array.isArray(studentsRaw?.students) ? studentsRaw.students : []);
+    if(!Array.isArray(students) || !students.length) throw new Error("students.json 형식이 올바르지 않습니다.");
 
     // ✅ 보안: 학생모드는 token만 / 관리자만 id 허용
     let student = null;
@@ -130,9 +131,9 @@
     $("#hdr").innerHTML = `${esc(name)} (${esc(sid)})`;
 
     const meta = [];
-    meta.push(`학교: ${esc(student.school||"-")}`);
-    meta.push(`진로: ${esc(student.career||"-")}`);
-    meta.push(`전형: ${esc(student.admission||"-")}`);
+    meta.push(`학교: ${esc(student.school ?? student.school_name ?? "-")}`);
+    meta.push(`진로: ${esc(student.career ?? student.track ?? "-")}`);
+    meta.push(`전형: ${esc(student.admission ?? "-")}`);
     $("#meta").innerHTML = meta.join("<br>");
 
     $("#modeRow").innerHTML = isAdmin
