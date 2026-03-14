@@ -63,6 +63,11 @@
     .example-type{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff;border:1px solid var(--bd);font-size:12px;font-weight:900;width:max-content}
     .example-title{font-size:16px;font-weight:900;line-height:1.45;margin-top:10px}
     .example-body{color:#333;line-height:1.75;margin-top:10px}
+    .example-stack{display:grid;gap:10px;margin-top:12px}
+    .example-row{border-top:1px dashed var(--bd);padding-top:10px}
+    .example-row:first-of-type{border-top:none;padding-top:0}
+    .example-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:4px}
+    .example-text{color:#222;line-height:1.75;font-size:14px}
     .empty{border:1px dashed var(--bd);border-radius:18px;padding:18px;color:var(--muted);background:#fff}
     .guide{font-size:13px;color:var(--muted);margin:6px 2px}
     .year-layout{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
@@ -769,13 +774,29 @@
   function examplesHtml(activityExamples){
     const list = safeArr(activityExamples);
     if (!list.length) return '<div class="empty">활동예시 데이터가 없습니다.</div>';
-    return `<div class="example-grid">${list.map(opt => `
+    const row = (label, text) => String(text || '').trim() ? `
+      <div class="example-row">
+        <div class="example-label">${esc(label)}</div>
+        <div class="example-text">${esc(text)}</div>
+      </div>
+    ` : '';
+    return `<div class="example-grid">${list.map(opt => {
+      const basis = String(opt.current_basis || '').trim();
+      const goal = String(opt.next_goal || '').trim();
+      const recommended = String(opt.recommended_activity || opt.description || '').trim();
+      const effect = String(opt.expected_effect || '').trim();
+      return `
       <div class="example-item">
         <span class="example-type">${esc(opt.type || '활동예시')}</span>
         <div class="example-title">${esc(opt.title || '')}</div>
-        <div class="example-body">${esc(opt.description || '')}</div>
-      </div>
-    `).join('')}</div>`;
+        <div class="example-stack">
+          ${row('현재 기록과의 연결', basis)}
+          ${row('다음에 더 보여줄 점', goal)}
+          ${row('추천 활동', recommended)}
+          ${row('기대 효과', effect)}
+        </div>
+      </div>`;
+    }).join('')}</div>`;
   }
 
   function keywordList(keywords){
@@ -939,13 +960,13 @@
       <div class="block">
         <div class="inline-head">
           <div class="mini-title" style="margin:0;">탐구 흐름 정리</div>
-          <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '활동예시 닫기' : '활동예시 보기'}</button>
+          <button type="button" class="mini-toggle ${state.showExamples ? 'is-on' : ''}" id="toggleExamplesBtn">${state.showExamples ? '다음 단계 닫기' : '다음 단계 보기'}</button>
         </div>
-        <div class="flow-intro">키워드를 단순 나열하지 않고, 이 활동에서 학생이 무엇을 다뤘고 어떻게 접근했으며 어디까지 확장했는지를 읽기 쉽게 정리한 영역입니다.</div>
+        <div class="flow-intro">현재 기록에서 확인되는 수행을 바탕으로, 왜 이 활동이 다음 단계인지까지 연결해서 읽을 수 있도록 정리한 영역입니다.</div>
         ${flowCardsHtml(subject)}
         ${state.showExamples ? `
           <div style="margin-top:16px;">
-            <div class="mini-title">관련 활동 보기</div>
+            <div class="mini-title">다음 단계 활동 설계</div>
             ${examplesHtml(subject.activity_examples)}
           </div>
         ` : ''}
