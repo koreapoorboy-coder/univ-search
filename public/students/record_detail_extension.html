@@ -5,45 +5,44 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>record_detail_extension</title>
   <style>
-:root{
-  --bg:#f6f8fb; --card:#fff; --line:#d9e1ec; --text:#16202a; --sub:#5c6b7a;
-  --accent:#1f6feb; --soft:#eaf2ff; --shadow:0 8px 24px rgba(18,35,58,.08);
-  --radius:18px;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-.wrap{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
-.hero,.section,.plan-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-.hero{padding:24px;margin-bottom:18px}
-.hero h1{margin:0 0 8px;font-size:30px}
-.sub{color:var(--sub);margin:0}
-.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
-.meta .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
-.label{font-size:12px;color:var(--sub);font-weight:700;margin-bottom:4px}
-.value{font-weight:800}
-.section{padding:20px;margin-top:18px}
-.section-title{font-size:22px;font-weight:900;margin-bottom:14px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:8px 12px;border-radius:999px;background:var(--soft);border:1px solid #cdd9ea;font-size:13px;font-weight:700}
-.plan-card{padding:18px;margin:14px 0}
-.plan-card h3{margin:0;font-size:22px}
-.kv,.next-wrap,.nav-row{border-top:1px solid #edf1f6;padding-top:12px;margin-top:12px}
-.kv span{display:block;font-size:12px;color:var(--sub);font-weight:800;margin-bottom:4px}
-.kv p,.kv ul{margin:0}
-.next-card{border:1px solid #e5ebf3;border-radius:14px;padding:14px;margin:10px 0;background:#fbfdff}
-.notice{padding:14px 16px;border:1px dashed #cdd9ea;border-radius:14px;background:#fbfdff;color:var(--sub)}
-.nav-links{display:flex;gap:10px;flex-wrap:wrap}
-.nav-links a{display:inline-block;padding:9px 12px;border-radius:12px;text-decoration:none;border:1px solid #cdd9ea;color:var(--text);font-weight:800;background:#fff}
-.nav-links a.active{background:var(--soft);color:var(--accent)}
-.block-title{font-size:15px;font-weight:900;margin-bottom:10px}
-.empty{border:1px dashed var(--line);border-radius:14px;padding:16px;color:var(--sub);background:#fff}
-</style>
+    :root{
+      --bg:#f6f8fb; --card:#fff; --line:#d9e1ec; --text:#16202a; --sub:#5c6b7a;
+      --accent:#1f6feb; --soft:#eaf2ff; --shadow:0 8px 24px rgba(18,35,58,.08); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1180px;margin:0 auto;padding:24px 16px 48px}
+    .hero,.section,.plan-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero{padding:24px;margin-bottom:18px}
+    .hero h1{margin:0 0 8px;font-size:30px}
+    .sub{color:var(--sub);margin:0;line-height:1.7}
+    .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+    .meta .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .label{font-size:12px;color:var(--sub);font-weight:700;margin-bottom:4px}
+    .value{font-weight:800}
+    .section{padding:20px;margin-top:18px}
+    .section-title{font-size:22px;font-weight:900;margin-bottom:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:8px 12px;border-radius:999px;background:var(--soft);border:1px solid #cdd9ea;font-size:13px;font-weight:700}
+    .plan-card{padding:18px;margin:14px 0}
+    .plan-card h3{margin:0;font-size:22px}
+    .kv,.next-wrap,.nav-row{border-top:1px solid #edf1f6;padding-top:12px;margin-top:12px}
+    .kv span{display:block;font-size:12px;color:var(--sub);font-weight:800;margin-bottom:4px}
+    .kv p,.kv ul{margin:0;line-height:1.75}
+    .next-card{border:1px solid #e5ebf3;border-radius:14px;padding:14px;margin:10px 0;background:#fbfdff}
+    .act-title{font-size:16px;font-weight:900;line-height:1.45}
+    .notice,.empty{padding:14px 16px;border:1px dashed #cdd9ea;border-radius:14px;background:#fbfdff;color:var(--sub)}
+    .nav-links{display:flex;gap:10px;flex-wrap:wrap}
+    .nav-links a{display:inline-block;padding:9px 12px;border-radius:12px;text-decoration:none;border:1px solid #cdd9ea;color:var(--text);font-weight:800;background:#fff}
+    .nav-links a.active{background:var(--soft);color:var(--accent)}
+    .block-title{font-size:15px;font-weight:900;margin-bottom:10px}
+  </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
       <h1>이열음 (shstudy09)</h1>
-      <p class="sub">확장 활동 설계 전용 화면입니다. 기본 상담 데이터와 분리해서 관리합니다.</p>
+      <p class="sub">확장 활동 설계 전용 화면입니다. 기본 상담용 데이터와 분리해서 관리하고, 선택과목 기반 다음 단계 활동만 따로 보여줍니다.</p>
       <div class="meta">
         <div class="box"><div class="label">학교</div><div class="value">풍산고</div></div>
         <div class="box"><div class="label">트랙</div><div class="value">공학</div></div>
@@ -51,18 +50,15 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
       </div>
       <div class="nav-row">
         <div class="nav-links">
-          <a href="record_detail.html">기본 상담 보기</a>
-          <a href="record_detail_extension.html" class="active">확장 활동 보기</a>
+          <a href="./record_detail.html" >기본 상담 보기</a>
+          <a href="./record_detail_extension.html?student_id=shstudy09" class="active">확장 활동 보기</a>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="section-title">확장 데이터 운영 원칙</div>
-      <div class="notice">
-        기본 상담용 데이터(record_detail.html / record_detail.json)와 분리된 확장 전용 구조입니다.
-        이후 선택과목, 다음 단계 활동, 후속 설계는 이 확장 파일만 수정하면 됩니다.
-      </div>
+      <div class="notice">기본 상담용 record_detail.html / record_detail.json 과 분리된 확장 전용 구조입니다. 이후 선택과목, 다음 단계 활동, 후속 설계는 이 파일만 수정하면 됩니다.</div>
     </section>
 
     <section class="section">
@@ -86,26 +82,26 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
           <div class="next-wrap">
             <div class="block-title">다음 단계 활동</div>
             
-            <div class="next-card">
-              <strong>전기차 충전 시스템의 에너지 흐름 해석</strong>
-              <div class="kv"><span>왜 필요한가</span><p>현재 기록의 센서·절전·에너지 관심을 물리학의 핵심인 에너지 전환과 효율 해석으로 연결할 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>충전 입력-저장-손실-출력 구조를 도식화하고, 각 단계에서 효율이 떨어지는 이유를 에너지 보존과 전력 손실 관점에서 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>기술 아이디어 중심 기록에서 물리 개념으로 시스템을 해석하는 기록으로 올라간다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">전기차 충전 시스템의 에너지 흐름 해석</div>
+                <div class="kv"><span>왜 필요한가</span><p>현재 기록의 센서·절전·에너지 관심을 물리학의 핵심인 에너지 전환과 효율 해석으로 연결할 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>충전 입력-저장-손실-출력 구조를 도식화하고, 각 단계에서 효율이 떨어지는 이유를 에너지 보존과 전력 손실 관점에서 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>기술 아이디어 중심 기록에서 물리 개념으로 시스템을 해석하는 기록으로 올라간다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>센서 기반 자동조명 시스템을 회로·전류 관점으로 재구성</strong>
-              <div class="kv"><span>왜 필요한가</span><p>기술 가정의 설계 경험을 물리학 과목 언어로 바꿔야 선택과목 연결성이 선명해진다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>센서 입력, 전류 흐름, 스위칭 조건, 오작동 가능성을 회로도와 조건별 비교표로 정리한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>생활기술 설계가 물리학의 전기·전자기 개념 학습과 연결된 흐름으로 보인다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">센서 기반 자동조명 시스템을 회로·전류 관점으로 재구성</div>
+                <div class="kv"><span>왜 필요한가</span><p>기술 가정의 설계 경험을 물리학 과목 언어로 바꿔야 선택과목 연결성이 선명해진다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>센서 입력, 전류 흐름, 스위칭 조건, 오작동 가능성을 회로도와 조건별 비교표로 정리한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>생활기술 설계가 물리학의 전기·전자기 개념 학습과 연결된 흐름으로 보인다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>온도 변화와 생물 활동 속도의 관계를 그래프로 분석</strong>
-              <div class="kv"><span>왜 필요한가</span><p>감염병·기후 관심을 물리학의 측정과 관계 해석으로 확장할 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>온도 조건 변화에 따른 활동 속도 데이터를 수집해 그래프로 나타내고, 증가·포화·감소 구간을 물리적 조건 변화로 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>생명·환경 관심이 물리적 데이터 해석으로 확장된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">온도 변화와 생물 활동 속도의 관계를 그래프로 분석</div>
+                <div class="kv"><span>왜 필요한가</span><p>감염병·기후 관심을 물리학의 측정과 관계 해석으로 확장할 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>온도 조건 변화에 따른 활동 속도 데이터를 수집해 그래프로 나타내고, 증가·포화·감소 구간을 물리적 조건 변화로 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>생명·환경 관심이 물리적 데이터 해석으로 확장된다.</p></div>
+              </div>
             
           </div>
           <div class="kv"><span>입시 관점</span><p>물리학에서는 &#x27;기술에 관심 있음&#x27;보다 &#x27;변수 관계를 구조화하고 시스템을 해석함&#x27;이 더 강한 평가 포인트가 된다.</p></div>
@@ -120,26 +116,26 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
           <div class="next-wrap">
             <div class="block-title">다음 단계 활동</div>
             
-            <div class="next-card">
-              <strong>효소 반응 조건 비교 탐구</strong>
-              <div class="kv"><span>왜 필요한가</span><p>현재 기록의 효소 이해를 화학의 반응 조건 분석으로 이어 가기 좋다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>온도·pH·농도 변화에 따른 반응 차이를 표와 그래프로 정리하고, 반응 속도 차이를 분자 수준 상호작용으로 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>생명과학 흥미가 화학의 조건 분석과 데이터 해석 역량으로 보강된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">효소 반응 조건 비교 탐구</div>
+                <div class="kv"><span>왜 필요한가</span><p>현재 기록의 효소 이해를 화학의 반응 조건 분석으로 이어 가기 좋다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>온도·pH·농도 변화에 따른 반응 차이를 표와 그래프로 정리하고, 반응 속도 차이를 분자 수준 상호작용으로 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>생명과학 흥미가 화학의 조건 분석과 데이터 해석 역량으로 보강된다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>배터리 소재의 산화·환원 구조 정리</strong>
-              <div class="kv"><span>왜 필요한가</span><p>공학 트랙과 선택과목 조합을 생각하면 화학에서 배터리 소재 해석력이 핵심 연결점이 된다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>양극·음극·전해질 역할을 정리하고, 충·방전 과정의 전자 이동을 산화·환원 반응으로 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>에너지 관심이 물질 변화 해석으로 구체화된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">배터리 소재의 산화·환원 구조 정리</div>
+                <div class="kv"><span>왜 필요한가</span><p>공학 트랙과 선택과목 조합을 생각하면 화학에서 배터리 소재 해석력이 핵심 연결점이 된다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>양극·음극·전해질 역할을 정리하고, 충·방전 과정의 전자 이동을 산화·환원 반응으로 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>에너지 관심이 물질 변화 해석으로 구체화된다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>소독·약물 전달의 화학적 원리 비교</strong>
-              <div class="kv"><span>왜 필요한가</span><p>감염병 주제를 단순 생명 이슈에서 물질 작용 원리로 확장할 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>소독 성분, 작용 조건, 전달 방식, 한계를 비교표로 정리하고 상황별 적합성을 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>실생활 문제를 화학 개념으로 분석하는 힘이 드러난다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">소독·약물 전달의 화학적 원리 비교</div>
+                <div class="kv"><span>왜 필요한가</span><p>감염병 주제를 단순 생명 이슈에서 물질 작용 원리로 확장할 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>소독 성분, 작용 조건, 전달 방식, 한계를 비교표로 정리하고 상황별 적합성을 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>실생활 문제를 화학 개념으로 분석하는 힘이 드러난다.</p></div>
+              </div>
             
           </div>
           <div class="kv"><span>입시 관점</span><p>화학에서는 주제의 화려함보다 반응 조건과 물질 특성을 근거로 설명하는 과정이 더 중요하다.</p></div>
@@ -154,26 +150,26 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
           <div class="next-wrap">
             <div class="block-title">다음 단계 활동</div>
             
-            <div class="next-card">
-              <strong>기후 변화와 매개체 질병 확산 모델 정리</strong>
-              <div class="kv"><span>왜 필요한가</span><p>현재 기록에서 가장 자연스럽게 이어지는 주제로, 생명과학의 변수 해석 능력을 키우기 좋다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>온도, 번식 주기, 활동 반경, 감염 확률을 변수로 나누고 관계도를 만들어 확산 구조를 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>주제 관심이 생명과학의 자료 해석과 기작 설명으로 심화된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">기후 변화와 매개체 질병 확산 모델 정리</div>
+                <div class="kv"><span>왜 필요한가</span><p>현재 기록에서 가장 자연스럽게 이어지는 주제로, 생명과학의 변수 해석 능력을 키우기 좋다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>온도, 번식 주기, 활동 반경, 감염 확률을 변수로 나누고 관계도를 만들어 확산 구조를 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>주제 관심이 생명과학의 자료 해석과 기작 설명으로 심화된다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>유전 질환 사례의 분자생물학적 해석</strong>
-              <div class="kv"><span>왜 필요한가</span><p>DNA와 겸상적혈구빈혈증 이해를 생명과학의 핵심인 유전 정보-단백질-기능 변화 흐름으로 발전시킬 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>염기서열 변화, 아미노산 배열 변화, 단백질 구조 변화, 기능 이상을 단계별로 정리한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>생명과학 세특에서 기작 설명력이 분명해진다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">유전 질환 사례의 분자생물학적 해석</div>
+                <div class="kv"><span>왜 필요한가</span><p>DNA와 겸상적혈구빈혈증 이해를 생명과학의 핵심인 유전 정보-단백질-기능 변화 흐름으로 발전시킬 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>염기서열 변화, 아미노산 배열 변화, 단백질 구조 변화, 기능 이상을 단계별로 정리한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>생명과학 세특에서 기작 설명력이 분명해진다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>효소·세포막·약물 전달 연결 탐구</strong>
-              <div class="kv"><span>왜 필요한가</span><p>생명과학과 화학을 함께 선택하는 강점을 교과 융합 흐름으로 보여줄 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>효소 작용, 세포막 통과 방식, 약물 전달 조건을 연결해 표로 비교하고 적용 사례를 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>한 과목 안의 탐구가 아니라 교과 간 연결형 탐구로 확장된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">효소·세포막·약물 전달 연결 탐구</div>
+                <div class="kv"><span>왜 필요한가</span><p>생명과학과 화학을 함께 선택하는 강점을 교과 융합 흐름으로 보여줄 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>효소 작용, 세포막 통과 방식, 약물 전달 조건을 연결해 표로 비교하고 적용 사례를 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>한 과목 안의 탐구가 아니라 교과 간 연결형 탐구로 확장된다.</p></div>
+              </div>
             
           </div>
           <div class="kv"><span>입시 관점</span><p>생명과학에서는 단순 관심보다 &#x27;기작 설명-자료 해석-변수 구조화&#x27;가 보일 때 설득력이 높다.</p></div>
@@ -188,26 +184,26 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
           <div class="next-wrap">
             <div class="block-title">다음 단계 활동</div>
             
-            <div class="next-card">
-              <strong>과학 데이터를 식으로 근사하는 모델링 활동</strong>
-              <div class="kv"><span>왜 필요한가</span><p>공통수학의 모델링 강점을 대수에서 더 직접적으로 드러낼 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>반응 속도, 충전 속도, 온도 변화 데이터를 식으로 근사하고, 어느 구간까지 설명 가능한지 한계를 함께 적는다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>수학이 계산 과목이 아니라 현상을 구조화하는 도구로 읽힌다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">과학 데이터를 식으로 근사하는 모델링 활동</div>
+                <div class="kv"><span>왜 필요한가</span><p>공통수학의 모델링 강점을 대수에서 더 직접적으로 드러낼 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>반응 속도, 충전 속도, 온도 변화 데이터를 식으로 근사하고, 어느 구간까지 설명 가능한지 한계를 함께 적는다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>수학이 계산 과목이 아니라 현상을 구조화하는 도구로 읽힌다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>조건 변화에 따른 식의 구조 비교</strong>
-              <div class="kv"><span>왜 필요한가</span><p>같은 현상도 초기 조건과 제약이 달라지면 결과가 바뀐다는 점을 대수적으로 보여줄 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>초기값, 범위, 제한 조건에 따라 식의 형태와 해석이 어떻게 달라지는지 비교표와 그래프로 정리한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>대수의 핵심인 관계 해석과 조건 검토 역량이 선명해진다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">조건 변화에 따른 식의 구조 비교</div>
+                <div class="kv"><span>왜 필요한가</span><p>같은 현상도 초기 조건과 제약이 달라지면 결과가 바뀐다는 점을 대수적으로 보여줄 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>초기값, 범위, 제한 조건에 따라 식의 형태와 해석이 어떻게 달라지는지 비교표와 그래프로 정리한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>대수의 핵심인 관계 해석과 조건 검토 역량이 선명해진다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>하나의 명제를 여러 방식으로 증명하기</strong>
-              <div class="kv"><span>왜 필요한가</span><p>현재 기록의 증명 강점을 더 높은 수준의 설명력으로 연결할 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>동일 명제를 대수적 전개, 그래프 해석, 조건 분류 방식으로 각각 설명하고 방법별 장단점을 비교한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>정답 도출보다 추론과 설명의 깊이가 강조된다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">하나의 명제를 여러 방식으로 증명하기</div>
+                <div class="kv"><span>왜 필요한가</span><p>현재 기록의 증명 강점을 더 높은 수준의 설명력으로 연결할 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>동일 명제를 대수적 전개, 그래프 해석, 조건 분류 방식으로 각각 설명하고 방법별 장단점을 비교한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>정답 도출보다 추론과 설명의 깊이가 강조된다.</p></div>
+              </div>
             
           </div>
           <div class="kv"><span>입시 관점</span><p>대수에서는 계산 속도보다 관계를 식으로 해석하고 조건을 검토하는 과정이 강한 평가 포인트가 된다.</p></div>
@@ -222,26 +218,26 @@ body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sys
           <div class="next-wrap">
             <div class="block-title">다음 단계 활동</div>
             
-            <div class="next-card">
-              <strong>이차전지·전고체전지 소재 비교 탐구</strong>
-              <div class="kv"><span>왜 필요한가</span><p>공학 트랙과 화학 심화를 동시에 살릴 수 있는 대표 주제다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>전해질, 전극 재료, 안정성, 에너지 밀도, 열화 요인을 표로 비교하고 각 소재 선택의 장단점을 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>화학 심화가 공학 응용과 연결된 방향성으로 보인다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">이차전지·전고체전지 소재 비교 탐구</div>
+                <div class="kv"><span>왜 필요한가</span><p>공학 트랙과 화학 심화를 동시에 살릴 수 있는 대표 주제다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>전해질, 전극 재료, 안정성, 에너지 밀도, 열화 요인을 표로 비교하고 각 소재 선택의 장단점을 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>화학 심화가 공학 응용과 연결된 방향성으로 보인다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>약물·생체분자의 상호작용 기초 정리</strong>
-              <div class="kv"><span>왜 필요한가</span><p>생명과학과의 선택 조합을 이용해 분자 수준 설명력을 높일 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>분자 구조, 결합 방식, 작용 조건, 전달 환경을 정리해 생체 내 상호작용을 설명한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>고급화학이 의약·생명 응용까지 바라보는 심화 과목으로 읽힌다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">약물·생체분자의 상호작용 기초 정리</div>
+                <div class="kv"><span>왜 필요한가</span><p>생명과학과의 선택 조합을 이용해 분자 수준 설명력을 높일 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>분자 구조, 결합 방식, 작용 조건, 전달 환경을 정리해 생체 내 상호작용을 설명한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>고급화학이 의약·생명 응용까지 바라보는 심화 과목으로 읽힌다.</p></div>
+              </div>
             
-            <div class="next-card">
-              <strong>환경 문제 해결용 화학 기술 분석</strong>
-              <div class="kv"><span>왜 필요한가</span><p>기후·환경 관심을 소재·촉매·공정 해석으로 확장할 수 있다.</p></div>
-              <div class="kv"><span>활동 내용</span><p>탄소 저감 소재, 재활용 공정, 촉매 기술 중 하나를 정해 원리-한계-개선 방향 구조로 정리한다.</p></div>
-              <div class="kv"><span>기록 변화</span><p>주제 관심이 기술 수준의 화학 해석으로 발전한다.</p></div>
-            </div>
+              <div class="next-card">
+                <div class="act-title">환경 문제 해결용 화학 기술 분석</div>
+                <div class="kv"><span>왜 필요한가</span><p>기후·환경 관심을 소재·촉매·공정 해석으로 확장할 수 있다.</p></div>
+                <div class="kv"><span>활동 내용</span><p>탄소 저감 소재, 재활용 공정, 촉매 기술 중 하나를 정해 원리-한계-개선 방향 구조로 정리한다.</p></div>
+                <div class="kv"><span>기록 변화</span><p>주제 관심이 기술 수준의 화학 해석으로 발전한다.</p></div>
+              </div>
             
           </div>
           <div class="kv"><span>입시 관점</span><p>고급화학에서는 &#x27;어려운 주제를 골랐다&#x27;보다 &#x27;소재와 메커니즘을 얼마나 구조화해 설명했는가&#x27;가 더 중요하다.</p></div>
