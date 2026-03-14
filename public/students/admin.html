@@ -67,6 +67,20 @@
   const num = (v)=> { const n = Number(v); return Number.isFinite(n) ? n : null; };
   const norm = (s)=> String(s ?? '').trim().toLowerCase();
 
+  function normalizeStudents(x){
+    const arr = Array.isArray(x) ? x : (Array.isArray(x?.students) ? x.students : []);
+    return arr.map(s => ({
+      ...s,
+      id: s.id ?? s.student_id ?? s.studentId ?? "",
+      name: s.name ?? s.student_name ?? s.studentName ?? "",
+      school: s.school ?? s.school_name ?? "",
+      career: s.career ?? s.track ?? "",
+      admission: s.admission ?? "",
+      token: s.token ?? s.accessToken ?? ""
+    }));
+  }
+
+
   function pickName(s){
     return s.studentName ?? s.studentname ?? s.name ?? s["학생명"] ?? s["이름"] ?? s["성명"] ?? s.id ?? "-";
   }
@@ -281,7 +295,7 @@
       fetch("./univ_percentile.json",{cache:"no-store"}).then(r=>r.json()).catch(()=>null),
     ]);
 
-    students = Array.isArray(st)? st: [];
+    students = normalizeStudents(st);
     scores = Array.isArray(sc)? sc: [];
     progress = Array.isArray(pr)? pr: [];
     notes = Array.isArray(nt)? nt: [];
