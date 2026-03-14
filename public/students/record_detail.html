@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>record_detail_revised_toggle</title>
+<title>record_detail_revised_toggle_clean</title>
 <style>
 :root{
   --bg:#f7fbff; --card:#fff; --line:#deebf7; --text:#122033; --sub:#5f7085;
@@ -45,8 +45,8 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .judge-card.green{background:linear-gradient(180deg,#f8fdf9,#eefaf1)}
 .mini-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
 .mini-body{line-height:1.8}
-.cta{margin-top:18px;padding:16px;border-radius:16px;background:#111;color:#fff;display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
-.cta a{display:inline-block;padding:10px 14px;border-radius:12px;background:#fff;color:#111;text-decoration:none;font-weight:900}
+.top-tools{display:flex;gap:10px;flex-wrap:wrap}
+.tool-btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900;cursor:pointer}
 .acc-wrap{display:grid;gap:14px}
 .subject-card{overflow:hidden}
 .acc-head{width:100%;border:0;background:#fff;text-align:left;padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
@@ -56,25 +56,14 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .acc-arrow{font-size:22px;font-weight:900;color:#466}
 .acc-body{display:none;padding:0 20px 20px;border-top:1px solid #edf1f6}
 .subject-card.open .acc-body{display:block}
-.axis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.axis-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff}
-.axis-title{font-weight:900;margin-bottom:6px}
-.axis-body{line-height:1.75}
-.flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.flow-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfdff}
-.flow-kicker{font-size:12px;color:var(--sub);font-weight:900}
-.flow-title{font-size:17px;font-weight:900;margin:8px 0 6px}
-.flow-body{line-height:1.75}
-.top-tools{display:flex;gap:10px;flex-wrap:wrap}
-.tool-btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900;cursor:pointer}
-@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
+@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
     <h1>이열음 (shstudy09)</h1>
-    <div class="sub">생활기록부 전체 해석 → 구조와 연결성 → 데이터 분석 결과 → 과목별 근거 카드 순서로 정리한 수정본입니다.</div>
+    <div class="sub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
     <div class="nav">
       <a class="active">기본 상담 보기</a>
       <a href="./record_detail_extension.html?student_id=shstudy09">확장 활동 보기</a>
@@ -93,7 +82,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 
     <main class="stack">
       <section class="section">
-        <h2 class="section-title">1. 생활기록부 핵심 진단</h2>
+        <h2 class="section-title">생활기록부 핵심 진단</h2>
         <div class="sub" style="margin-bottom:14px">이 학생의 생활기록부는 근거를 바탕으로 해석하고 구조화한 뒤 설명으로 연결하는 수행 방식이 여러 교과에서 반복적으로 드러나는 구조다.</div>
         <div class="summary-list">
           <div class="summary-item">국어·사회 계열에서는 자료와 텍스트를 읽고 의미를 해석하는 수행이 확인된다.</div>
@@ -103,7 +92,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
       </section>
 
       <section class="section">
-        <h2 class="section-title">2. 생기부 구조와 연결성</h2>
+        <h2 class="section-title">생기부 구조와 연결성</h2>
         <div class="grid2">
           <div class="soft-box blue">
             <div class="mini-title">교과별 반복 수행 방식</div>
@@ -121,11 +110,11 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
       </section>
 
       <section class="section">
-        <h2 class="section-title">3. 데이터 분석 결과</h2>
+        <h2 class="section-title">데이터 분석 결과</h2>
         <div class="grid3">
           <div class="judge-card blue">
             <div class="mini-title">강점</div>
-            <div class="mini-body">활동 수보다 사고 과정이 드러난다. 무엇을 했는지보다 왜 그렇게 해석했고 어떻게 설명했는지가 보인다.</div>
+            <div class="mini-body">활동 수보다 사고 과정이 드러난다. 무엇을 했는지보다 왜 그렇게 해석했고 어떻게 설명했는지가 확인된다.</div>
           </div>
           <div class="judge-card warm">
             <div class="mini-title">한계</div>
@@ -139,16 +128,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
       </section>
 
       <section class="section">
-        <h2 class="section-title">4. 확장 가능성의 출발점</h2>
-        <div class="sub">현재 기록에서는 해석·구조화·설명·적용의 강점이 이미 확인된다. 따라서 이후 확장은 새로운 활동을 추가하는 방식보다, 현재 드러난 수행을 한 단계 더 깊게 만드는 방식으로 진행하면 된다.</div>
-        <div class="cta">
-          <div>선택과목 기준의 다음 단계 활동은 확장 화면에서 확인합니다.</div>
-          <a href="./record_detail_extension.html?student_id=shstudy09">확장 활동 보기</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-title">5. 과목별 근거 카드</div>
+        <div class="section-title">과목별 근거 카드</div>
         <div class="top-tools" style="margin-top:12px">
           <button class="tool-btn" id="openAllBtn" type="button">전체 펼치기</button>
           <button class="tool-btn" id="closeAllBtn" type="button">전체 접기</button>
@@ -171,12 +151,12 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
             </div>
             <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">국어 교과에서 중요한 근거 기반 해석과 의미 구조화 능력이 분명하게 드러난다.</div></div>
             <div class="grid3">
-              <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">국어 학업 수행은 감상형보다 분석형으로 읽힌다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">세특은 활동 나열형이 아니라 근거와 설명이 보이는 구조다.</div></div>
+              <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">국어 학업 수행은 감상형보다 분석형으로 확정된다.</div></div>
+              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">세특은 활동 나열형이 아니라 근거와 설명이 드러나는 구조로 판단된다.</div></div>
               <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 분석 → 구조화 → 설명 축의 출발점 역할을 한다.</div></div>
             </div>
             <div class="grid2">
-              <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">읽고 해석하고 설명하는 학생으로 분명하게 판단된다.</div></div>
+              <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">읽고 해석하고 설명하는 학생으로 판단된다.</div></div>
               <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">판단 기준을 더 선명하게 드러내면 세특의 밀도가 더 올라간다.</div></div>
             </div>
           </div>
@@ -186,7 +166,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
           <button class="acc-head" type="button">
             <div>
               <div class="subject-name">공통수학</div>
-              <div class="subject-sub">문제 해결 과정과 개념 간 연결을 설명하려는 수행이 확인된다.</div>
+              <div class="subject-sub">문제 해결 과정과 개념 간 연결을 설명하는 수행이 확인된다.</div>
             </div>
             <div class="acc-arrow">+</div>
           </button>
@@ -195,10 +175,10 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
               <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">문제 풀이 과정과 개념 간 연결을 설명하는 기록이 확인된다.</div></div>
               <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">정답 도출보다 풀이 과정의 논리와 구조 설명이 확인된다.</div></div>
             </div>
-            <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">수학 수행은 결과형보다 구조 이해형으로 분명하게 판단된다.</div></div>
+            <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">수학 수행은 결과형보다 구조 이해형으로 판단된다.</div></div>
             <div class="grid3">
               <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">개념 연결과 논리 전개가 실제 기록 안에서 확인된다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">수학 세특은 과정 설명형 구조로 읽힌다.</div></div>
+              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">수학 세특은 과정 설명형 구조로 확정된다.</div></div>
               <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 구조화 축을 가장 직접적으로 보여주는 카드다.</div></div>
             </div>
             <div class="grid2">
@@ -224,7 +204,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
             <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">과학 수행은 정보 암기형이 아니라 원리 기반 이해형으로 판단된다.</div></div>
             <div class="grid3">
               <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">현상과 원리를 연결하는 태도가 실제 기록 안에서 확인된다.</div></div>
-              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">탐구형 확장 가능성이 분명하게 읽힌다.</div></div>
+              <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">탐구형 확장 가능성이 분명하게 확인된다.</div></div>
               <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">학생부 전체에서 설명 → 적용 축이 과학 영역으로 이어진다.</div></div>
             </div>
             <div class="grid2">
