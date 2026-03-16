@@ -90,7 +90,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
     <div class="sub" id="heroSub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
     <div class="nav">
       <a class="active">기본 상담 보기</a>
-      <a id="goExtension" href="./record_detail_extension_final.html">확장 활동 보기</a>
+      <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
     </div>
     <div class="sub" style="margin-top:10px;font-size:14px">shstudy09 학생은 최종 포트폴리오 확장 화면으로 바로 연결됩니다.</div>
   </section>
@@ -190,7 +190,7 @@ function renderOverview(student){
   document.getElementById('trackBox').textContent = student.track || '-';
   const sid = String(student.student_id || student.id || '');
   document.getElementById('goExtension').href = sid === 'shstudy09'
-    ? './record_detail_extension_final.html'
+    ? './record_detail_extension.html'
     : `./record_detail_extension.html?student_id=${encodeURIComponent(sid)}`;
   const chips = Array.isArray(student.selected_subjects) ? student.selected_subjects : [];
   document.getElementById('subjectChips').innerHTML = chips.length ? chips.map(v => `<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">선택과목 없음</span>';
