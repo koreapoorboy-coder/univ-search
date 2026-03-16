@@ -1,666 +1,357 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>생기부 원문 보기</title>
-  <style>
-    html,body{width:100%;overflow-x:hidden}
-    *{box-sizing:border-box}
-    body{
-      font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;
-      margin:14px;background:#fff;color:#111;
-    }
-    .wrap{max-width:1100px;margin:0 auto}
-    .card{border:1px solid #ddd;border-radius:18px;padding:16px;margin:12px 0;background:#fff}
-    .title{font-size:20px;font-weight:900;margin:0 0 8px}
-    .meta{opacity:.9;line-height:1.7}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-    .pill{
-      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
-      padding:7px 12px;font-weight:900;background:#fff
-    }
-    .pill.mode{border:2px solid #111}
-    .btn{
-      display:inline-block;border:1px solid #111;border-radius:12px;
-      padding:10px 14px;text-decoration:none;color:#111;background:#fff;font-weight:900
-    }
-    .btn:hover{background:#fafafa}
-    .badge{
-      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
-      padding:6px 10px;font-weight:900;background:#fff
-    }
-    .warn{color:#b00020;font-weight:900}
-    .muted{opacity:.7}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>record_detail_connected</title>
+<style>
+:root{
+  --bg:#f8fbff; --card:#fff; --line:#dfe8f4; --text:#122033; --sub:#607286;
+  --blue:#eef5ff; --warm:#fff8ee; --green:#f2fbf4; --shadow:0 10px 28px rgba(28,54,90,.08); --radius:20px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1440px;margin:0 auto;padding:24px 18px 48px}
+.hero,.panel,.section,.subject-card,.soft-box,.judge-card,.block{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero{padding:24px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:34px}
+.sub{color:var(--sub);line-height:1.75}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}
+.nav a.active{background:#111;color:#fff;border-color:#111}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
+.panel{padding:18px;position:sticky;top:16px}
+.panel-title{font-size:20px;font-weight:900;margin:0 0 12px}
+.info-box{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}
+.info-box+.info-box{margin-top:12px}
+.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:5px}
+.value{font-weight:800;line-height:1.75}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:var(--blue);border:1px solid #d6e6ff;font-size:12px;font-weight:900}
+.stack{display:grid;gap:16px}
+.section{padding:20px}
+.section-title{font-size:24px;font-weight:900;margin:0 0 12px}
+.summary-list{display:grid;gap:10px}
+.summary-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff;line-height:1.8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.soft-box,.block,.judge-card{padding:16px}
+.soft-box.blue{background:var(--blue)}
+.soft-box.warm{background:var(--warm)}
+.soft-box.green{background:var(--green)}
+.judge-card.blue{background:linear-gradient(180deg,#f8fbff,#edf5ff)}
+.judge-card.warm{background:linear-gradient(180deg,#fffaf4,#fff4e8)}
+.judge-card.green{background:linear-gradient(180deg,#f8fdf9,#eefaf1)}
+.mini-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
+.mini-body{line-height:1.8}
+.top-tools{display:flex;gap:10px;flex-wrap:wrap}
+.tool-btn,.toggle-btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900;cursor:pointer}
+.toggle-btn.active{background:#111;color:#fff;border-color:#111}
+.acc-wrap{display:grid;gap:14px}
+.subject-card{overflow:hidden}
+.acc-head{width:100%;border:0;background:#fff;text-align:left;padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.subject-name{font-size:26px;font-weight:900;line-height:1.3}
+.subject-sub{margin-top:8px;color:#334155;line-height:1.75}
+.subject-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.subject-badge{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12px;font-weight:900}
+.acc-arrow{font-size:22px;font-weight:900;color:#466}
+.acc-body{display:none;padding:0 20px 20px;border-top:1px solid #edf1f6}
+.subject-card.open .acc-body{display:block}
+.axis-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.axis-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff}
+.axis-title{font-weight:900;margin-bottom:6px}
+.axis-body{line-height:1.75}
+.flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flow-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfdff}
+.flow-kicker{font-size:12px;color:var(--sub);font-weight:900}
+.flow-title{font-size:17px;font-weight:900;margin:8px 0 6px}
+.flow-body{line-height:1.75}
+.list{margin:0;padding-left:18px;line-height:1.8}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--sub);background:#fff}
+@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
 
-    .topbar{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between
-    }
-    .leftgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .rightgroup{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.extra-panel{margin:18px 0 4px;background:#fff;border:1px solid #dfe8f4;border-radius:24px;box-shadow:0 12px 30px rgba(22,32,42,.08);padding:20px}
+.extra-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.extra-title{font-size:22px;font-weight:900}
+.extra-kicker{font-size:12px;font-weight:900;color:#5c6b7a;background:#eef4ff;border:1px solid #d7e3ff;border-radius:999px;padding:8px 12px}
+.extra-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.extra-box{border:1px solid #dfe8f4;border-radius:18px;padding:14px;background:#fbfdff}
+.extra-box .mini-title{margin-bottom:8px}
+.extra-list{margin:0;padding-left:18px;line-height:1.9}
+.extra-text{line-height:1.9;word-break:keep-all}
+@media (max-width:900px){.extra-grid{grid-template-columns:1fr}}
 
-    .controls{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px
-    }
-    input, select{
-      border:1px solid #ddd;border-radius:12px;padding:10px 12px;background:#fff;font-weight:900;
-    }
-    input{min-width:240px;flex:1}
-
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .tab{
-      border:1px solid #111;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer;font-weight:900
-    }
-    .tab[aria-selected="true"]{background:#111;color:#fff}
-
-    .tablebox{border:1px solid #eee;border-radius:14px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
-    table{border-collapse:collapse;width:100%;min-width:980px}
-    th,td{border-bottom:1px solid #eee;padding:10px;text-align:left;font-size:14px;vertical-align:top}
-    th{background:#fafafa;font-weight:900;position:sticky;top:0;white-space:nowrap}
-    .num{text-align:right}
-    .pre{white-space:pre-wrap;word-break:break-word;line-height:1.6}
-
-    .chip{
-      display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:999px;
-      padding:4px 8px;font-size:12px;font-weight:900;background:#fff;margin-right:6px;margin-bottom:6px
-    }
-    .chip.kv .k{opacity:.7;margin-right:4px}
-
-    .mobile-list{display:none}
-    .mcard{border:1px solid #eee;border-radius:16px;padding:14px;background:#fff;margin:12px 0}
-    .mtop{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
-    .mtitle{font-weight:900;font-size:15px;line-height:1.35}
-    .msub{opacity:.75;margin-top:4px;font-size:13px;line-height:1.45}
-    .divider{height:1px;background:#f0f0f0;margin:10px 0}
-    .mtext{white-space:pre-wrap;word-break:break-word;line-height:1.6;font-size:14px}
-    .emptyBox{
-      border:1px dashed #ddd;border-radius:14px;padding:16px;background:#fff;color:#666
-    }
-
-    @media(max-width: 860px){
-      .tablebox{display:none}
-      .mobile-list{display:block}
-      .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
-      .tabs::-webkit-scrollbar{display:none}
-    }
-  </style>
+</style>
 </head>
 <body>
 <div class="wrap">
-  <div class="card">
-    <div class="topbar">
-      <div>
-        <div class="title" id="hdr">생기부 원문 보기</div>
-        <div class="meta" id="meta"></div>
-      </div>
-      <div class="rightgroup" id="modeRow"></div>
+  <section class="hero">
+    <h1 id="heroName">생활기록부 분석</h1>
+    <div class="sub" id="heroSub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
+    <div class="nav">
+      <a class="active">기본 상담 보기</a>
+      <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
     </div>
-    <div class="row" id="navRow"></div>
-  </div>
+    <div class="sub" style="margin-top:10px;font-size:14px">shstudy09 학생은 최종 포트폴리오 확장 화면으로 바로 연결됩니다.</div>
+  </section>
 
-  <div class="card">
-    <div class="topbar">
-      <div class="leftgroup">
-        <div class="title" style="font-size:16px;margin:0">원문/기록 목록</div>
-        <span class="badge" id="countBadge">0건</span>
+  <div class="layout">
+    <aside class="panel">
+      <h2 class="panel-title">상담 요약</h2>
+      <div class="info-box"><div class="label">학교</div><div class="value" id="schoolBox">-</div></div>
+      <div class="info-box"><div class="label">트랙</div><div class="value" id="trackBox">-</div></div>
+      <div class="info-box"><div class="label">선택과목</div><div class="chips" id="subjectChips"></div></div>
+      <div class="info-box">
+        <div class="label">학년 선택</div>
+        <div class="top-tools" id="yearToggles"></div>
       </div>
-      <div class="rightgroup">
-        <span class="muted" id="updatedText">-</span>
-      </div>
-    </div>
+    </aside>
 
-    <div class="controls">
-      <input id="q" placeholder="카테고리/과목/항목/내용 검색" />
-      <select id="termSel">
-        <option value="">전체 학기</option>
-      </select>
-    </div>
+    <main class="stack">
+      <section class="section">
+        <h2 class="section-title">생활기록부 핵심 진단</h2>
+        <div class="sub" id="diagOneLine" style="margin-bottom:14px"></div>
+        <div class="summary-list" id="diagSummary"></div>
+      </section>
 
-    <div class="tabs" id="tabs"></div>
+      <section class="section">
+        <h2 class="section-title">생기부 구조와 연결성</h2>
+        <div class="grid2">
+          <div class="soft-box blue"><div class="mini-title">교과별 반복 수행 방식</div><div class="mini-body" id="linkPattern"></div></div>
+          <div class="soft-box warm"><div class="mini-title">학생부의 중심 축</div><div class="mini-body" id="linkAxis"></div></div>
+        </div>
+        <div class="soft-box green" style="margin-top:16px">
+          <div class="mini-title">구성 해석</div>
+          <div class="mini-body" id="linkMeaning"></div>
+        </div>
+      </section>
 
-    <div id="content" style="margin-top:12px"></div>
+      <section class="section">
+        <h2 class="section-title">데이터 분석 결과</h2>
+        <div class="grid3">
+          <div class="judge-card blue"><div class="mini-title">강점</div><div class="mini-body" id="evalStrength"></div></div>
+          <div class="judge-card warm"><div class="mini-title">한계</div><div class="mini-body" id="evalLimit"></div></div>
+          <div class="judge-card green"><div class="mini-title">종합 판단</div><div class="mini-body" id="evalOverall"></div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">과목별 근거 카드</div>
+        <div class="top-tools" style="margin-top:12px">
+          <button class="tool-btn" id="openAllBtn" type="button">전체 펼치기</button>
+          <button class="tool-btn" id="closeAllBtn" type="button">전체 접기</button>
+        </div>
+      </section>
+
+      <div class="acc-wrap" id="accWrap"></div>
+    </main>
   </div>
 </div>
 
 <script>
-(() => {
-  // =========================
-  // 설정값
-  // =========================
-  const ADMIN_TOKEN = "CHANGE_ME_ADMIN";
-  const LS_KEY = "__ADMIN_TOKEN__";
+const qs = new URLSearchParams(location.search);
+const targetId = qs.get('student_id') || 'shstudy09';
+let currentYear = 0;
 
-  // =========================
-  // 공통 유틸
-  // =========================
-  const $ = (s)=>document.querySelector(s);
-  const esc = (s)=>String(s ?? "").replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[m]));
-  const norm = (v)=>String(v ?? "").trim();
-
-  function safeStr(v){ return (v == null) ? "" : String(v); }
-  function getQS(){ return new URLSearchParams(location.search); }
-
-  function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
-  function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
-
-  function pickText(...vals){
-    for(const v of vals){
-      const s = String(v ?? "").trim();
-      if(s) return s;
-    }
-    return "";
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]))}
+function tighten(s){
+  s = String(s ?? '').trim();
+  const pairs = [
+    ['읽힌다.', '로 판단된다.'],
+    ['읽힌다', '로 판단된다'],
+    ['보인다.', '확인된다.'],
+    ['보인다', '확인된다'],
+    ['가능성이 읽힌다.', '가능성이 확인된다.'],
+    ['가능성이 보인다.', '가능성이 확인된다.'],
+    ['강점으로 읽힌다.', '강점으로 판단된다.'],
+    ['드러나는 구조로 읽힌다.', '드러나는 구조다.'],
+    ['드러난 기록으로 읽힌다.', '드러난 기록이다.']
+  ];
+  pairs.forEach(([a,b]) => s = s.split(a).join(b));
+  return s;
+}
+async function loadData(){
+  const paths = ['./record_detail.json','./record_detail_concrete.json','./record_detail (1).json'];
+  for(const p of paths){
+    try{
+      const r = await fetch(p + '?v=' + Date.now(), {cache:'no-store'});
+      if(r.ok) return await r.json();
+    }catch(e){}
   }
+  throw new Error('record_detail JSON을 찾지 못했습니다.');
+}
+function pickStudent(data){
+  const arr = Array.isArray(data?.students) ? data.students : [];
+  return arr.find(s => String(s.student_id||s.id||'') === targetId) || arr[0] || null;
+}
+function renderOverview(student){
+  document.getElementById('heroName').textContent = `${student.student_name || student.name || ''} (${student.student_id || student.id || ''})`;
+  document.getElementById('schoolBox').textContent = student.school_name || student.school || '-';
+  document.getElementById('trackBox').textContent = student.track || '-';
+  const sid = String(student.student_id || student.id || '');
+  document.getElementById('goExtension').href = sid === 'shstudy09'
+    ? './record_detail_extension.html'
+    : `./record_detail_extension.html?student_id=${encodeURIComponent(sid)}`;
+  const chips = Array.isArray(student.selected_subjects) ? student.selected_subjects : [];
+  document.getElementById('subjectChips').innerHTML = chips.length ? chips.map(v => `<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">선택과목 없음</span>';
 
-  async function loadJson(path){
-    const r = await fetch(path, { cache:"no-store" });
-    if(!r.ok) throw new Error(path + " load failed (" + r.status + ")");
-    return r.json();
-  }
-
-  async function loadJsonSafe(path, fallback){
-    try{ return await loadJson(path); } catch(_e){ return fallback; }
-  }
-
-  // =========================
-  // 인증/권한
-  // =========================
-  function getAuthContext() {
-    const qs = getQS();
-
-    const t = safeStr(qs.get("t") || qs.get("token")).trim();
-    const id = safeStr(qs.get("id") || qs.get("student_id") || qs.get("sid")).trim();
-    const adminParam = safeStr(qs.get("admin")).trim();
-    const adminSaved = safeStr(localStorage.getItem(LS_KEY)).trim();
-    const admin = adminParam || adminSaved;
-
-    if (t) {
-      return { mode:"student", token:t, id:"", admin:"", isAdmin:false };
-    }
-
-    if (id && admin) {
-      const ok = (admin === ADMIN_TOKEN);
-      if (adminParam && ok) localStorage.setItem(LS_KEY, adminParam);
-      return { mode:"admin", token:"", id, admin, isAdmin:ok };
-    }
-
-    return { mode:"guest", token:"", id:"", admin:"", isAdmin:false };
-  }
-
-  function buildPageLink(page, auth, student) {
-    if (auth?.mode === "student") {
-      return `${page}?t=${encodeURIComponent(auth.token)}`;
-    }
-    if (auth?.mode === "admin" && auth.isAdmin) {
-      const sid = norm(pickId(student) || auth.id);
-      return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
-    }
-    const sid = norm(pickId(student));
-    return sid ? `${page}?student_id=${encodeURIComponent(sid)}` : page;
-  }
-
-  function pickTokenValue(row){
-    return String(
-      row?.token ?? row?.accessToken ?? row?.access_token ?? row?.studentToken ?? row?.student_token ?? row?.key ?? row?.['token'] ?? row?.['토큰'] ?? ''
-    ).trim();
-  }
-
-  function pickStudentIdValue(row){
-    return String(
-      row?.id ?? row?.student_id ?? row?.studentId ?? row?.studentID ?? row?.['ID'] ?? row?.['학생ID'] ?? row?.['학번'] ?? ''
-    ).trim();
-  }
-
-  function readStoredStudentId(){
-    const keys = ['student_id', 'currentStudentId', 'selectedStudentId', 'record_student_id', 'sid'];
-    for (const key of keys) {
-      const a = String(sessionStorage.getItem(key) || '').trim();
-      if (a) return a;
-      const b = String(localStorage.getItem(key) || '').trim();
-      if (b) return b;
-    }
-    return '';
-  }
-
-  function readHashStudentId(){
-    const hash = String(location.hash || '').replace(/^#/, '').trim();
-    if (!hash) return '';
-    if (hash.includes('=')) {
-      const h = new URLSearchParams(hash);
-      return String(h.get('id') || h.get('student_id') || h.get('sid') || '').trim();
-    }
-    if (/^shstudy\d+/i.test(hash)) return hash;
-    return '';
-  }
-
-  async function loadStudentsIndex(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./students.json?${stamp}`,
-      `students.json?${stamp}`,
-      `./data/students.json?${stamp}`,
-      `../students.json?${stamp}`,
-      `/students.json?${stamp}`,
-    ];
-    for (const path of candidates) {
-      try {
-        const data = await loadJson(path);
-        if (Array.isArray(data)) return data;
-        if (Array.isArray(data?.students)) return data.students;
-      } catch (_e) {}
-    }
-    return [];
-  }
-
-  async function loadRecordDetailIndex(){
-    const stamp = `v=${Date.now()}`;
-    const candidates = [
-      `./record_detail.json?${stamp}`,
-      `record_detail.json?${stamp}`,
-      `./data/record_detail.json?${stamp}`,
-      `../record_detail.json?${stamp}`,
-      `/record_detail.json?${stamp}`,
-    ];
-    for (const path of candidates) {
-      try {
-        const data = await loadJson(path);
-        if (Array.isArray(data?.students)) return data.students;
-      } catch (_e) {}
-    }
-    return [];
-  }
-
-  async function resolveStudentByAuth(students, auth) {
-    if (!Array.isArray(students)) return { student: null, invalidToken: false, mode: auth?.mode || 'guest' };
-
-    if (auth.mode === "admin" && auth.isAdmin) {
-      return { student: students.find(s => norm(pickId(s)) === auth.id) || null, invalidToken: false, mode: 'admin' };
-    }
-
-    const directId = safeStr(getQS().get('student_id') || getQS().get('id') || getQS().get('sid')).trim();
-    if (directId) {
-      return { student: students.find(s => norm(pickId(s)) === directId) || null, invalidToken: false, mode: 'direct' };
-    }
-
-    if (auth.mode === "student") {
-      let found = students.find(s => pickTokenValue(s) === auth.token) || null;
-      if (!found) {
-        const merged = [...await loadStudentsIndex(), ...await loadRecordDetailIndex()];
-        const idByToken = pickStudentIdValue(merged.find(r => pickTokenValue(r) === auth.token) || null);
-        if (idByToken) found = students.find(s => norm(pickId(s)) === idByToken) || null;
-      }
-      if (found) {
-        const sid = norm(pickId(found));
-        try { sessionStorage.setItem('student_id', sid); } catch(_e) {}
-        try { localStorage.setItem('student_id', sid); } catch(_e) {}
-        return { student: found, invalidToken: false, mode: 'token' };
-      }
-      try { sessionStorage.removeItem('student_id'); } catch(_e) {}
-      try { localStorage.removeItem('student_id'); } catch(_e) {}
-      return { student: null, invalidToken: true, mode: 'token' };
-    }
-
-    const storedId = readStoredStudentId();
-    if (storedId) {
-      const found = students.find(s => norm(pickId(s)) === storedId) || null;
-      if (found) return { student: found, invalidToken: false, mode: 'stored' };
-    }
-
-    const hashId = readHashStudentId();
-    if (hashId) {
-      const found = students.find(s => norm(pickId(s)) === hashId) || null;
-      if (found) return { student: found, invalidToken: false, mode: 'hash' };
-    }
-
-    try {
-      const ref = document.referrer ? new URL(document.referrer) : null;
-      const refId = String(ref?.searchParams.get('student_id') || ref?.searchParams.get('id') || ref?.searchParams.get('sid') || '').trim();
-      if (refId) {
-        return { student: students.find(s => norm(pickId(s)) === refId) || null, invalidToken: false, mode: 'referrer' };
-      }
-    } catch (_e) {}
-
-    return { student: null, invalidToken: false, mode: 'none' };
-  }
-
-  function getRecordFlag(flags, studentId) {
-    if (!flags) return {};
-    if (Array.isArray(flags)) {
-      return flags.find(x => String(x?.id) === String(studentId)) || {};
-    }
-    return flags[studentId] || {};
-  }
-
-  function canViewRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true;
-    if (flag.recordEnabled === false) return false;
-
-    const visibility = String(flag.visibility || "student").toLowerCase();
-    if (visibility === "admin_only") return !!auth.isAdmin;
-    return true;
-  }
-
-  function canViewRawRecord(flag, auth) {
-    if (!flag || Object.keys(flag).length === 0) return true;
-    if (flag.recordEnabled === false) return false;
-
-    // ✅ rawVisibility 우선
-    const visibility = String(flag.rawVisibility || flag.visibility || "student").toLowerCase();
-    if (visibility === "admin_only") return !!auth.isAdmin;
-    return true;
-  }
-
-  // =========================
-  // raw 데이터 파싱 (레거시 + 신규 rows 모두 대응)
-  // =========================
-  function normalizeRawRows(rawPayload){
-    // 1) object keyed by id 에서 꺼낸 1명 payload 가 들어온다고 가정
-    // 지원형식:
-    // A) { rows:[...] , raw:"..." }
-    // B) { raw:"문자열" }
-    // C) { sections:[...] } (예전 호환)
-    // D) { items:[...] } / array 자체
-    let rows = [];
-
-    if(Array.isArray(rawPayload)){
-      rows = rawPayload.slice();
-    }else if(rawPayload && typeof rawPayload === "object"){
-      if(Array.isArray(rawPayload.rows)) rows = rawPayload.rows.slice();
-      else if(Array.isArray(rawPayload.items)) rows = rawPayload.items.slice();
-      else if(Array.isArray(rawPayload.sections)) rows = rawPayload.sections.slice();
-      else if(typeof rawPayload.raw === "string" && rawPayload.raw.trim()){
-        rows = rawPayload.raw.split(/\n+/).map(line => ({
-          term: "", category: "", subject: "", item: "",
-          text: line.trim(), visibility: "student", source: "legacy-raw"
-        })).filter(x => x.text);
-      }
-    }
-
-    return rows.map(x => ({
-      term: pickText(x?.term, x?.semester, x?.학기),
-      category: pickText(x?.category, x?.분류),
-      subject: pickText(x?.subject, x?.과목),
-      item: pickText(x?.item, x?.항목, x?.title),
-      text: pickText(x?.text, x?.content, x?.내용, x?.raw),
-      visibility: String(x?.visibility || x?.visible || "student"),
-      source: pickText(x?.source, x?.출처),
-      memo: pickText(x?.memo, x?.note, x?.메모),
-      author: pickText(x?.author),
-      type: pickText(x?.type),
-      topicKeyword: pickText(x?.topicKeyword),
-      evidenceLevel: pickText(x?.evidenceLevel),
-      year: pickText(x?.year),
-    }));
-  }
-
-  function isVisibleRow(row, auth){
-    const v = String(row?.visibility || "student").toLowerCase();
-    if(v === "admin_only" || v === "admin-only") return !!auth.isAdmin;
-    return true;
-  }
-
-  function groupKeyOf(x){
-    return x.category || "기타";
-  }
-
-  function renderNoAccess(msg){
-    $(".wrap").innerHTML = `
-      <div class="card">
-        <div class="title">접근 권한이 없습니다.</div>
-        <div class="warn">${esc(msg || "학생을 찾을 수 없습니다.")}</div>
-        <div class="muted" style="margin-top:8px">
-          관리자: record_raw_detail.html?id=학생ID&admin=관리자토큰 / 학생·학부모: record_raw_detail.html?t=개별토큰 또는 student_id 전달
-        </div>
-      </div>
-    `;
-  }
-
-  function renderStudentMeta(student, auth){
-    const sid = norm(pickId(student));
-    const name = pickName(student);
-    const school = pickText(student?.school, student?.["학교"]);
-    const career = pickText(student?.career, student?.["진로"]);
-    const adm = pickText(student?.admission, student?.["전형"]);
-
-    $("#hdr").innerHTML = `생기부 원문 보기 · ${esc(name)} <span class="mono">(${esc(sid)})</span>`;
-    $("#meta").innerHTML = `
-      학교&nbsp;&nbsp;&nbsp;&nbsp;${esc(school || "-")}<br>
-      진로&nbsp;&nbsp;&nbsp;&nbsp;${esc(career || "-")}<br>
-      전형&nbsp;&nbsp;&nbsp;&nbsp;${esc(adm || "-")}
-    `;
-
-    $("#modeRow").innerHTML = auth.isAdmin
-      ? `<span class="pill mode">관리자</span><span class="pill">id 접속</span>`
-      : `<span class="pill mode">학생/학부모</span><span class="pill">token 접속</span>`;
-  }
-
-  function renderNav(student, auth, recordFlag){
-    const nav = [];
-
-    if(auth.isAdmin){
-      nav.push(`<a class="btn" href="./index.html?admin=${encodeURIComponent(auth.admin)}">학생 목록</a>`);
-    }
-
-    nav.push(`<a class="btn" href="${buildPageLink("./student.html", auth, student)}">학생 성적</a>`);
-    nav.push(`<a class="btn" href="${buildPageLink("./univ_list.html", auth, student)}">대학 상향/적정</a>`);
-    nav.push(`<a class="btn" href="${buildPageLink("./progress_detail.html", auth, student)}">진도 보기</a>`);
-
-    if (canViewRecord(recordFlag, auth)) {
-      nav.push(`<a class="btn" href="${buildPageLink("./record_detail.html", auth, student)}">생기부 분석 보기</a>`);
-    }
-
-    $("#navRow").innerHTML = nav.join("");
-  }
-
-  // =========================
-  // 화면 렌더
-  // =========================
-  let ALL_ROWS = [];
-  let ACTIVE_TAB = "all";
-
-  function makeTabs(categories){
-    const tabs = [{key:"all", label:"전체"}].concat(categories.map(c=>({key:c, label:c})));
-    const el = $("#tabs");
-    el.innerHTML = tabs.map(t => `
-      <button class="tab" data-key="${esc(t.key)}" aria-selected="${t.key===ACTIVE_TAB ? "true" : "false"}">
-        ${esc(t.label)}
-      </button>
-    `).join("");
-
-    el.querySelectorAll(".tab").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        ACTIVE_TAB = btn.dataset.key || "all";
-        renderRows();
-      });
+  const ri = student.record_interpretation || {};
+  document.getElementById('diagOneLine').textContent = tighten(ri.one_line_diagnosis || '');
+  document.getElementById('diagSummary').innerHTML = (ri.core_summary || []).map(v => `<div class="summary-item">${esc(tighten(v))}</div>`).join('');
+  document.getElementById('linkPattern').textContent = tighten(ri.structure_linkage?.pattern || '');
+  document.getElementById('linkAxis').textContent = tighten(ri.structure_linkage?.axis || '');
+  document.getElementById('linkMeaning').textContent = tighten(ri.structure_linkage?.meaning || '');
+  document.getElementById('evalStrength').textContent = tighten(ri.evaluation_meaning?.strength || '');
+  document.getElementById('evalLimit').textContent = tighten(ri.evaluation_meaning?.limit || '');
+  document.getElementById('evalOverall').textContent = tighten(ri.evaluation_meaning?.overall || '');
+}
+function renderYearToggles(student){
+  const years = Array.isArray(student.years) ? student.years : [];
+  const wrap = document.getElementById('yearToggles');
+  wrap.innerHTML = years.map((y,i)=>`<button class="toggle-btn ${i===currentYear?'active':''}" data-idx="${i}">${esc(y.year || y.year_label || `학년 ${i+1}`)}</button>`).join('');
+  wrap.querySelectorAll('[data-idx]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      currentYear = Number(btn.dataset.idx || 0);
+      renderYearToggles(student);
+      renderSubjects(student);
     });
-  }
+  });
+}
+function axisHtml(axisList){
+  const list = Array.isArray(axisList) ? axisList : [];
+  if(!list.length) return '<div class="empty">데이터 없음</div>';
+  return list.map(a => `<div class="axis-item"><div class="axis-title">${esc(a.title || '')}</div><div class="axis-body">${esc(tighten(a.content || ''))}</div></div>`).join('');
+}
+function flowHtml(flowList){
+  const list = Array.isArray(flowList) ? flowList : [];
+  if(!list.length) return '<div class="empty">데이터 없음</div>';
+  return list.map(f => `<div class="flow-card"><div class="flow-kicker">${esc(f.kicker || '')}</div><div class="flow-title">${esc(f.title || '')}</div><div class="flow-body">${esc(tighten(f.body || f.description || ''))}</div></div>`).join('');
+}
+function renderSubjects(student){
+  const years = Array.isArray(student.years) ? student.years : [];
+  const year = years[currentYear] || years[0] || {};
+  const subjects = (Array.isArray(year.subjects) ? [...year.subjects] : []).sort((a,b)=>(a.display_order||999)-(b.display_order||999));
+  const wrap = document.getElementById('accWrap');
+  wrap.innerHTML = subjects.map((subj, idx) => {
+    const ef = subj.evidence_first || {};
+    const jb = subj.judgment_block || {};
+    const evalList = (subj.evaluation_priority || []).map(v => `<li>${esc(tighten(v))}</li>`).join('') || '<li>데이터 없음</li>';
+    const framework = Array.isArray(subj.activity_framework) ? subj.activity_framework : [];
+    return `
+      <section class="subject-card ${idx===0?'open':''}">
+        <button class="acc-head" type="button">
+          <div style="flex:1">
+            <div class="subject-name">${esc(subj.subject || subj.subject_name || '')}</div>
+            <div class="subject-sub">${esc(tighten(subj.summary || ef.evidence_summary || ''))}</div>
+            ${framework.length ? `<div class="subject-meta">${framework.map(v=>`<span class="subject-badge">${esc(v)}</span>`).join('')}</div>` : ''}
+          </div>
+          <div class="acc-arrow">${idx===0?'−':'+'}</div>
+        </button>
+        <div class="acc-body">
+          <div class="grid2">
+            <div class="soft-box blue"><div class="mini-title">세특 핵심 근거</div><div class="mini-body">${esc(tighten(ef.evidence_summary || subj.current_activity_basis || ''))}</div></div>
+            <div class="soft-box warm"><div class="mini-title">기록에서 확인되는 수행</div><div class="mini-body">${esc(tighten(ef.observed_performance || subj.one_line || ''))}</div></div>
+          </div>
 
-  function rowChipsHtml(x){
-    const chips = [];
-    if(x.term) chips.push(`<span class="chip kv"><span class="k">학기</span>${esc(x.term)}</span>`);
-    if(x.category) chips.push(`<span class="chip kv"><span class="k">분류</span>${esc(x.category)}</span>`);
-    if(x.subject) chips.push(`<span class="chip kv"><span class="k">과목</span>${esc(x.subject)}</span>`);
-    if(x.item) chips.push(`<span class="chip kv"><span class="k">항목</span>${esc(x.item)}</span>`);
-    if(x.author) chips.push(`<span class="chip kv"><span class="k">저자</span>${esc(x.author)}</span>`);
-    if(x.type) chips.push(`<span class="chip kv"><span class="k">유형</span>${esc(x.type)}</span>`);
-    if(x.topicKeyword) chips.push(`<span class="chip kv"><span class="k">주제키워드</span>${esc(x.topicKeyword)}</span>`);
-    if(x.evidenceLevel) chips.push(`<span class="chip kv"><span class="k">근거수준</span>${esc(x.evidenceLevel)}</span>`);
-    if(x.source) chips.push(`<span class="chip kv"><span class="k">출처</span>${esc(x.source)}</span>`);
-    return chips.join("");
-  }
+          <div class="soft-box green" style="margin-top:16px"><div class="mini-title">해석 포인트</div><div class="mini-body">${esc(tighten(ef.interpretation || subj.subject_goal_focus || ''))}</div></div>
 
-  function renderRows(){
-    const q = norm($("#q").value).toLowerCase();
-    const term = norm($("#termSel").value);
+          <div class="grid3">
+            <div class="judge-card blue"><div class="mini-title">데이터 분석 결과 1</div><div class="mini-body">${esc(tighten(jb.admission_officer_view || jb.subject_judgment || ''))}</div></div>
+            <div class="judge-card warm"><div class="mini-title">데이터 분석 결과 2</div><div class="mini-body">${esc(tighten(jb.record_judgment || jb.overall_opinion || ''))}</div></div>
+            <div class="judge-card green"><div class="mini-title">데이터 분석 결과 3</div><div class="mini-body">${esc(tighten(jb.structure_interpretation || jb.extension_interpretation || ''))}</div></div>
+          </div>
 
-    let rows = ALL_ROWS.slice();
+          <div class="grid2">
+            <div class="soft-box green"><div class="mini-title">평가상 의미</div><div class="mini-body">${esc(tighten(ef.evaluation_meaning || ''))}</div></div>
+            <div class="soft-box blue"><div class="mini-title">다음 보완 지점</div><div class="mini-body">${esc(tighten(ef.next_improvement || ''))}</div></div>
+          </div>
 
-    if(ACTIVE_TAB !== "all"){
-      rows = rows.filter(x => groupKeyOf(x) === ACTIVE_TAB);
-    }
+          <div class="grid2">
+            <div class="block">
+              <div class="mini-title">역량</div>
+              <div class="axis-grid">${axisHtml(subj.axis_list)}</div>
+            </div>
+            <div class="block">
+              <div class="mini-title">연결점</div>
+              <div class="mini-body"><b>과목 고유 목표</b><br>${esc(tighten(subj.subject_goal_focus || ''))}<br><br><b>현재 활동 기반</b><br>${esc(tighten(subj.current_activity_basis || subj.analysis_basis || ''))}</div>
+            </div>
+          </div>
 
-    if(term){
-      rows = rows.filter(x => norm(x.term) === term);
-    }
+          <div class="block">
+            <div class="mini-title">평가자가 보게 되는 지점</div>
+            <ul class="list">${evalList}</ul>
+          </div>
 
-    if(q){
-      rows = rows.filter(x => {
-        const blob = [
-          x.term, x.category, x.subject, x.item, x.text, x.memo, x.author, x.type, x.topicKeyword
-        ].map(v=>String(v||"")).join(" ").toLowerCase();
-        return blob.includes(q);
-      });
-    }
-
-    // 정렬: term > category > subject
-    rows.sort((a,b)=>{
-      const ta = String(a.term||""), tb = String(b.term||"");
-      if(ta !== tb) return ta.localeCompare(tb, "ko");
-      const ca = String(a.category||""), cb = String(b.category||"");
-      if(ca !== cb) return ca.localeCompare(cb, "ko");
-      const sa = String(a.subject||""), sb = String(b.subject||"");
-      if(sa !== sb) return sa.localeCompare(sb, "ko");
-      return 0;
-    });
-
-    $("#countBadge").textContent = `${rows.length}건`;
-
-    if(!rows.length){
-      $("#content").innerHTML = `<div class="emptyBox">표시할 데이터가 없습니다.</div>`;
-      return;
-    }
-
-    const rowsHtml = rows.map(x => `
-      <tr>
-        <td>${esc(x.term || "-")}</td>
-        <td>${esc(x.category || "-")}</td>
-        <td>${esc(x.subject || "-")}</td>
-        <td>${esc(x.item || "-")}</td>
-        <td>
-          ${rowChipsHtml(x)}
-          ${x.memo ? `<div class="muted" style="margin-top:6px">메모: ${esc(x.memo)}</div>` : ``}
-        </td>
-        <td><div class="pre">${esc(x.text || "-")}</div></td>
-      </tr>
-    `).join("");
-
-    const cardsHtml = rows.map(x => `
-      <div class="mcard">
-        <div class="mtop">
-          <div style="min-width:0">
-            <div class="mtitle">${esc(x.item || x.category || "기록")}</div>
-            <div class="msub">${esc(x.term || "-")} · ${esc(x.category || "-")} · ${esc(x.subject || "-")}</div>
+          <div class="block">
+            <div class="mini-title">탐구 흐름</div>
+            <div class="flow-grid">${flowHtml(subj.inquiry_flow_detail || subj.inquiry_flow)}</div>
           </div>
         </div>
-        <div class="divider"></div>
-        <div>${rowChipsHtml(x)}</div>
-        ${x.memo ? `<div class="msub" style="margin-top:8px">메모: ${esc(x.memo)}</div>` : ``}
-        <div class="divider"></div>
-        <div class="mtext">${esc(x.text || "-")}</div>
-      </div>
-    `).join("");
-
-    $("#content").innerHTML = `
-      <div class="mobile-list">${cardsHtml}</div>
-      <div class="tablebox">
-        <table>
-          <thead>
-            <tr>
-              <th>학기</th>
-              <th>분류</th>
-              <th>과목</th>
-              <th>항목</th>
-              <th>보조정보</th>
-              <th>내용</th>
-            </tr>
-          </thead>
-          <tbody>${rowsHtml}</tbody>
-        </table>
-      </div>
+      </section>
     `;
-  }
+  }).join('');
 
-  // =========================
-  // 메인
-  // =========================
-  async function main(){
-    const auth = getAuthContext();
-
-    if (auth.mode === "admin" && !auth.isAdmin) {
-      return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
-    }
-
-    const studentsPayload = await loadJsonSafe("./students.json", null);
-    const students = Array.isArray(studentsPayload)
-      ? studentsPayload
-      : Array.isArray(studentsPayload?.students)
-        ? studentsPayload.students
-        : [];
-    if(!students.length) throw new Error("students.json에 학생 데이터가 없습니다.");
-
-    const resolved = await resolveStudentByAuth(students, auth);
-    const student = resolved?.student || null;
-    if(!student){
-      return renderNoAccess(resolved?.invalidToken ? "학생 토큰과 연결된 원문 데이터를 찾을 수 없습니다." : "학생을 찾을 수 없습니다.");
-    }
-
-    const sid = norm(pickId(student));
-    renderStudentMeta(student, auth);
-
-    const flagsData = await loadJsonSafe("./school_record_flags.json", null);
-    const recordFlag = getRecordFlag(flagsData, sid);
-
-    if (!canViewRawRecord(recordFlag, auth)) {
-      return renderNoAccess("생기부 원문 보기는 현재 비공개 상태입니다.");
-    }
-
-    renderNav(student, auth, recordFlag);
-
-    const rawJson = await loadJsonSafe("./school_record_raw.json", {});
-    let payload = null;
-
-    if (Array.isArray(rawJson)) {
-      payload = rawJson.find(x => norm(x?.id) === sid) || null;
-    } else if (rawJson && typeof rawJson === "object") {
-      payload = rawJson[sid] || null;
-    }
-
-    if(!payload){
-      $("#updatedText").textContent = "원문 데이터 없음";
-      ALL_ROWS = [];
-      makeTabs([]);
-      renderRows();
-      return;
-    }
-
-    const updatedAt = pickText(payload.updatedAt, payload.updated_at, payload.date) || "-";
-    $("#updatedText").textContent = `업데이트: ${updatedAt}`;
-
-    ALL_ROWS = normalizeRawRows(payload).filter(x => isVisibleRow(x, auth));
-
-    const terms = [...new Set(ALL_ROWS.map(x => norm(x.term)).filter(Boolean))];
-    $("#termSel").innerHTML = `<option value="">전체 학기</option>` + terms.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
-    $("#termSel").addEventListener("change", renderRows);
-
-    $("#q").addEventListener("input", renderRows);
-
-    const categories = [...new Set(ALL_ROWS.map(x => groupKeyOf(x)).filter(Boolean))];
-    makeTabs(categories);
-    renderRows();
-  }
-
-  main().catch(err => {
-    $(".wrap").innerHTML = `
-      <div class="card">
-        <div class="title">오류</div>
-        <div class="warn">로딩 오류</div>
-        <div class="muted" style="margin-top:8px">${esc(err.message)}</div>
-      </div>
-    `;
+  bindAccordions();
+}
+function bindAccordions(){
+  document.querySelectorAll('.acc-head').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const card = btn.parentElement;
+      const open = card.classList.toggle('open');
+      const arrow = btn.querySelector('.acc-arrow');
+      if (arrow) arrow.textContent = open ? '−' : '+';
+    });
   });
+}
+document.getElementById('openAllBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('.subject-card').forEach(card=>{
+    card.classList.add('open');
+    const arrow = card.querySelector('.acc-arrow');
+    if (arrow) arrow.textContent = '−';
+  });
+});
+document.getElementById('closeAllBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('.subject-card').forEach(card=>{
+    card.classList.remove('open');
+    const arrow = card.querySelector('.acc-arrow');
+    if (arrow) arrow.textContent = '+';
+  });
+});
+
+
+const EXTRA_SHSTUDY09 = {
+  summary: [
+    '과학실험캠프 화학 분야에서 산화·환원 반응을 활용한 비타민 C 정량 분석과 사카린 합성 실험 수행',
+    '장내 유익균–면역력의 연관성을 주제로 탐구하며 단쇄지방산, ATP 생성, B세포·T세포 활성까지 기작을 자료 기반으로 설명',
+    '야외 지질 탐사에서 지질 구조 관찰, 암석 분류, 생성 과정 추론을 수행하며 환경공학·생명공학 진로 의지를 구체화',
+    '삼투·확산 개념을 확장해 농도와 온도 조건 비교 실험을 수행하고 인체 생리와 연결해 해석'
+  ],
+  text: `과학실험캠프 화학 분야에 참가하여 산화 환원 반응을 활용한 비타민 C 정량 분석과 과망가니즈산칼륨의 산화 반응을 통한 사카린 합성 실험을 수행함. 배경 이론을 충실히 이해한 뒤 정량적 실험 과정을 정확히 수행하고 모둠원들과 협력하여 실험 결과를 해석하며 과학적으로 타당한 결론을 도출함. 실험 과정과 결과를 꼼꼼히 기록한 보고서를 제출하고 실험 원리를 실생활 및 환경 문제와 연결해 해석하는 태도가 돋보임. 질병 대응에서 개인 면역력 강화의 중요성을 인식하여 장내 유익균과 면역력의 연관성을 주제로 탐구하고 발표하며 기존 백신 중심 감염병 대응의 한계를 짚고 개인 면역력 강화를 근본적 예방 방안으로 제시함. 장내 유익균이 섬유소를 발효해 생성하는 단쇄지방산이 미토콘드리아의 ATP 생성을 돕고 이 에너지가 B세포와 T세포 등 면역세포 활성으로 이어지는 생화학적 기전을 자료를 바탕으로 설명하며 과학적 탐구 역량을 드러냄. 야외 지질 탐사 활동에서 다양한 지질 구조를 관찰하고 암석을 분류하며 생성 과정을 추론함. 지질 경관의 조화로움에 주목하며 생명체와 환경의 상호 작용을 이해하고 환경 공학 및 생명 공학 분야에서 과학적으로 환경 문제를 해결하고자 하는 진로 의지를 구체화함. 교과에서 배운 삼투와 확산 개념을 확장하여 농도 차이뿐만 아니라 온도가 물질 이동에 미치는 영향을 검증함. 농도와 온도를 달리한 4가지 조건의 비교 실험을 통해 가열한 용액에서 삼투 현상이 가장 활발함을 확인하고, 분자 운동 에너지 증가가 막 투과에 미치는 영향을 논리적으로 도출함. 교과 지식을 인체 생리 현상에 적용하여 이해하는 응용력이 뛰어나며, 실험을 통해 배움을 스스로 심화시켜 나가는 자기 주도적 탐구 역량이 매우 훌륭함.`
+};
+
+function renderExtraCareer(student){
+  const sid = String(student.student_id || student.id || '');
+  const panel = document.getElementById('extraCareerPanel');
+  if(!panel) return;
+  if(sid !== 'shstudy09'){ panel.style.display='none'; return; }
+  panel.style.display = '';
+  document.getElementById('extraCareerSummary').innerHTML =
+    EXTRA_SHSTUDY09.summary.map(v => `<li>${esc(v)}</li>`).join('');
+  document.getElementById('extraCareerText').textContent = EXTRA_SHSTUDY09.text;
+}
+
+(async function(){
+  try{
+    const data = await loadData();
+    const student = pickStudent(data);
+    if(!student) throw new Error('학생 데이터를 찾지 못했습니다.');
+    renderOverview(student);
+    renderExtraCareer(student);
+    renderYearToggles(student);
+    renderSubjects(student);
+  }catch(e){
+    document.body.innerHTML = '<div style="padding:24px;font-family:sans-serif">오류: ' + esc(e.message || e) + '</div>';
+  }
 })();
 </script>
 </body>
