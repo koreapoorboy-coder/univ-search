@@ -69,18 +69,6 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .list{margin:0;padding-left:18px;line-height:1.8}
 .empty{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--sub);background:#fff}
 @media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
-
-.extra-panel{margin:18px 0 4px;background:#fff;border:1px solid #dfe8f4;border-radius:24px;box-shadow:0 12px 30px rgba(22,32,42,.08);padding:20px}
-.extra-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-.extra-title{font-size:22px;font-weight:900}
-.extra-kicker{font-size:12px;font-weight:900;color:#5c6b7a;background:#eef4ff;border:1px solid #d7e3ff;border-radius:999px;padding:8px 12px}
-.extra-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
-.extra-box{border:1px solid #dfe8f4;border-radius:18px;padding:14px;background:#fbfdff}
-.extra-box .mini-title{margin-bottom:8px}
-.extra-list{margin:0;padding-left:18px;line-height:1.9}
-.extra-text{line-height:1.9;word-break:keep-all}
-@media (max-width:900px){.extra-grid{grid-template-columns:1fr}}
-
 </style>
 </head>
 <body>
@@ -316,25 +304,12 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
   });
 });
 
-
-function renderExtraCareer(student){
-  const panel = document.getElementById('extraCareerPanel');
-  if(!panel) return;
-  const extra = student.extra_career_activity || null;
-  if(!extra){ panel.style.display='none'; return; }
-  panel.style.display = '';
-  document.getElementById('extraCareerSummary').innerHTML =
-    (Array.isArray(extra.summary) ? extra.summary : []).map(v => `<li>${esc(v)}</li>`).join('');
-  document.getElementById('extraCareerText').textContent = extra.text || '';
-}
-
 (async function(){
   try{
     const data = await loadData();
     const student = pickStudent(data);
     if(!student) throw new Error('학생 데이터를 찾지 못했습니다.');
     renderOverview(student);
-    renderExtraCareer(student);
     renderYearToggles(student);
     renderSubjects(student);
   }catch(e){
