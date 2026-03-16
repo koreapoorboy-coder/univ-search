@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>학생 상담 목록</title>
+<style>
+:root {
+  --bg:#f6f9fd;
+  --card:#ffffff;
+  --line:#dfe8f4;
+  --text:#16202a;
+  --sub:#5c6b7a;
+  --shadow:0 12px 30px rgba(22,32,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:24px 18px 48px}
+.hero{background:linear-gradient(135deg,#fff,#f7fbff);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:34px}
+.sub{color:var(--sub);line-height:1.75}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+h2{margin:0;font-size:24px;line-height:1.2}
+.meta{margin-top:8px;color:var(--sub);font-weight:700}
+.badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:12px;font-weight:900;white-space:nowrap}
+.track{margin-top:16px;padding:14px;border-radius:18px;background:#fbfdff;border:1px solid var(--line);font-weight:800;line-height:1.7}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);text-decoration:none;font-weight:900}
+.btn.primary{background:#111;color:#fff;border-color:#111}
+.note{margin-top:18px;padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);color:var(--sub);line-height:1.75}
+@media (max-width:900px) {
+  .grid{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  h2{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>학생 상담 목록</h1>
+    <div class="sub">코치님 관리용이면서 동시에 학생·학부모에게 바로 링크를 전달할 수 있는 목록 페이지입니다. 기본 상담 화면과 확장 활동 화면을 각각 바로 열 수 있게 구성했습니다.</div>
+  </section>
+
+  <section class="grid">
+    
+    <article class="card">
+      <div class="top">
+        <div>
+          <h2>이열음</h2>
+          <div class="meta">풍산고 · shstudy09</div>
+        </div>
+        <span class="badge">상담본 완료</span>
+      </div>
+      <div class="track">환경공학·생명공학</div>
+      <div class="actions">
+        <a class="btn primary" href="./record_detail_shstudy09.html">기본 상담 보기</a>
+        <a class="btn" href="./record_detail_extension_shstudy09.html">확장 활동 보기</a>
+      </div>
+    </article>
+    
+  </section>
+
+  <section class="note">
+    새 학생을 추가할 때는 같은 규칙으로 카드 1개만 더 넣으면 됩니다.<br/>
+    예: <code>record_detail_shstudy10.html</code> / <code>record_detail_extension_shstudy10.html</code>
+  </section>
+</div>
+</body>
+</html>
