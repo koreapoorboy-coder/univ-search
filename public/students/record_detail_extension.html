@@ -15,12 +15,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 .hero{background:linear-gradient(135deg,#ffffff,#f7fbff);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
 .hero h1{margin:0 0 8px;font-size:34px}
 .sub{color:var(--sub);line-height:1.75}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.nav a{text-decoration:none;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900}
-.nav a.active{background:#111;color:#fff;border-color:#111}
-
 .layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;align-items:start}
-
 .side{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
 .side-title{font-size:20px;font-weight:900;margin:0 0 12px}
 .side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
@@ -29,81 +24,77 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 .side-value{font-weight:900;line-height:1.7}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
-
 .main{display:grid;gap:16px}
 .ext-card{background:var(--card-bg);border:1px solid var(--line);border-left:8px solid var(--card-bd);border-radius:24px;box-shadow:var(--shadow);padding:20px}
-.ext-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
-.ext-title{font-size:28px;font-weight:900;line-height:1.3}
-.ext-sub{margin-top:8px;color:#334155;line-height:1.75}
-.ext-tag{padding:8px 12px;border-radius:999px;background:var(--card-tag);border:1px solid rgba(0,0,0,.05);font-size:12px;font-weight:900}
-
-.dual{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-.mini-box{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:14px}
-.mini-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
-.mini-body{line-height:1.8}
-
-.line-block{margin-top:16px;padding-top:14px;border-top:1px solid rgba(0,0,0,.08)}
-.evidence{margin:0;padding-left:18px;line-height:1.8}
-.activities{display:grid;gap:12px}
-.activity-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:14px}
-.activity-title{font-size:16px;font-weight:900;line-height:1.5;margin-bottom:10px}
-.field + .field{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.08)}
+.ext-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.ext-title{font-size:26px;font-weight:900;line-height:1.2}
+.ext-sub{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.ext-tag{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:900;white-space:nowrap}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.mini-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.mini-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:7px}
+.mini-body{font-weight:800;line-height:1.8;word-break:keep-all}
+.line-block{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.evidence{margin:0;padding-left:18px;line-height:1.9;font-weight:800}
+.activities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.activity-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:14px}
+.activity-title{font-size:16px;font-weight:900;line-height:1.45;margin-bottom:10px}
+.field + .field{margin-top:10px}
 .field-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:4px}
-.field-body{line-height:1.75}
-
-@media (max-width:1020px) {
+.field-body{font-size:14px;line-height:1.7;font-weight:800;word-break:keep-all}
+@media (max-width:1100px) {
   .layout{grid-template-columns:1fr}
-  .side{position:static}
+  .side{position:relative;top:auto}
+  .activities{grid-template-columns:1fr}
+}
+@media (max-width:760px) {
+  .wrap{padding:14px 12px 32px}
+  .hero{padding:18px}
+  .hero h1{font-size:26px}
+  .ext-title{font-size:22px}
   .dual{grid-template-columns:1fr}
-  .ext-title{font-size:24px}
 }
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1>이열음 (shstudy09)</h1>
-    <div class="sub">왼쪽은 학생 관련 데이터, 오른쪽은 과목별 색 구성 확장 카드로 배치한 2컬럼 프리미엄 화면입니다. 오늘 상담에서 확인된 희망 진로를 반영해 환경공학·생명공학 포트폴리오 방향으로 전체 재구성했습니다.</div>
-    <div class="nav">
-      <a href="./record_detail.html?student_id=shstudy09">기본 상담 보기</a>
-      <a class="active">확장 활동 보기</a>
-    </div>
+    <h1>이열음 학생 포트폴리오 확장 설계</h1>
+    <div class="sub">누락 문단까지 반영해 환경공학·생명공학 융합형 진로 방향으로 재정리한 확장 화면입니다. 기존 2컬럼 카드형 구조는 유지하고, 과목별 다음 단계 활동이 바로 보이도록 문구를 다듬었습니다.</div>
   </section>
 
   <div class="layout">
     <aside class="side">
       <h2 class="side-title">학생 요약</h2>
       <div class="side-box">
-        <div class="side-label">학교</div>
-        <div class="side-value">풍산고</div>
+        <div class="side-label">학생</div>
+        <div class="side-value">이열음 · 풍산고</div>
       </div>
       <div class="side-box">
-        <div class="side-label">트랙</div>
-        <div class="side-value">환경공학·생명공학</div>
-      </div>
-      <div class="side-box">
-        <div class="side-label">선택과목</div>
-        <div class="chips"><span class="chip">물리학</span><span class="chip">화학</span><span class="chip">생명과학</span><span class="chip">대수</span><span class="chip">고급생명과학</span></div>
-      </div>
-      <div class="side-box">
-        <div class="side-label">주력 축</div>
-        <div class="side-value">환경공학·생명공학 융합형</div>
-        <div class="sub" style="margin-top:6px">현재 기록의 감염병·기후·효소·DNA 이해를 바탕으로 환경 문제를 생명 시스템과 공정 기술로 연결하는 방향이 가장 자연스럽다. 실제 사례집에서도 환경공학 희망 학생은 지의류·공기 정화·미생물 연료전지·생분해성 플라스틱·이산화탄소 포집 같은 주제로 교과와 탐구를 묶고 있다.</div>
+        <div class="side-label">진로 방향</div>
+        <div class="side-value">이 학생은 환경 이슈를 단순 시사 문제로 소비하는 학생이 아니라, 실험·자료·기작 설명을 통해 생명과 환경 문제를 구조적으로 해석하는 학생이다. 포트폴리오는 &#x27;환경 문제 인식&#x27; 자체보다 &#x27;오염·생태·미생물·유전자·공정&#x27;을 교과별 언어로 해석한 기록을 쌓는 방향이 가장 효과적이다. 특히 화학 실험 역량, 장내 유익균-면역-ATP 대사 연결 사고, 지질·환경 상호작용 이해를 하나의 흐름으로 묶어 환경공학·생명공학 융합형 진로로 구체화하는 것이 적절하다.</div>
       </div>
       <div class="side-box">
         <div class="side-label">보조 축</div>
-        <div class="side-value">환경 데이터·바이오공정형</div>
-        <div class="sub" style="margin-top:6px">센서, 측정, 농도 변화, 공정 효율, 미생물 반응을 함께 다루면 환경 모니터링과 바이오 기반 처리 기술을 동시에 보여줄 수 있다.</div>
+        <div class="side-value">환경공학·생명공학 융합형 / 미생물·면역·환경공정 응용형</div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">핵심 과목</div>
+        <div class="chips"><span class="chip">물리학</span><span class="chip">화학</span><span class="chip">생명과학</span><span class="chip">대수</span><span class="chip">고급생명과학</span></div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">포트폴리오 키워드</div>
+        <div class="chips"><span class="chip">공학</span><span class="chip">이 학생은 환경 이슈를 단순 시사 문제로 소비하는 학생이 아니라, 실험·자료·기작 설명을 통해 생명과 환경 문제를 구조적으로 해석하는 학생이다. 포트폴리오는 &#x27;환경 문제 인식&#x27; 자체보다 &#x27;오염·생태·미생물·유전자·공정&#x27;을 교과별 언어로 해석한 기록을 쌓는 방향이 가장 효과적이다. 특히 화학 실험 역량, 장내 유익균-면역-ATP 대사 연결 사고, 지질·환경 상호작용 이해를 하나의 흐름으로 묶어 환경공학·생명공학 융합형 진로로 구체화하는 것이 적절하다.</span><span class="chip">환경공학·생명공학 융합형 / 미생물·면역·환경공정 응용형</span></div>
       </div>
     </aside>
 
     <main class="main">
       
-    <section class="ext-card" style="--card-bg:#eef5ff; --card-bd:#4c7dff; --card-tag:#dce8ff">
+    <section class="ext-card" style="--card-bg:#f6fbff;--card-bd:#4f8cc9">
       <div class="ext-head">
         <div>
           <div class="ext-title">물리학</div>
-          <div class="ext-sub">환경 시스템을 측정·모니터링하고 에너지 흐름을 해석하는 기반 과목</div>
+          <div class="ext-sub">현상을 식·그래프·원리로 구조화하는 시스템 해석 과목</div>
         </div>
         <div class="ext-tag">확장 설계</div>
       </div>
@@ -111,42 +102,42 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="dual">
         <div class="mini-box">
           <div class="mini-label">현재 강점</div>
-          <div class="mini-body">현상을 말로 설명하는 데서 멈추지 않고, 변수·조건·작동 구조로 바꾸어 이해하려는 성향이 있다. 이는 환경공학에서 필요한 측정·제어·시스템 해석의 기초 역량으로 이어질 수 있다.</div>
+          <div class="mini-body">말로 설명한 현상을 변수 관계와 작동 구조로 바꾸는 힘이 있고, 자연환경도 형태가 아니라 구조와 생성 과정으로 해석하려는 성향이 보인다.</div>
         </div>
         <div class="mini-box">
           <div class="mini-label">보완 지점</div>
-          <div class="mini-body">환경공학 포트폴리오에서는 에너지 사례 자체보다 공기질·수질·센서·모니터링 장치를 물리량과 그래프로 설명한 흔적이 더 필요하다.</div>
+          <div class="mini-body">물리학에서는 흥미로운 사례 소개보다 운동·에너지·전기 현상을 식, 그래프, 조건 변화로 설명한 흔적이 더 필요하다.</div>
         </div>
       </div>
 
       <div class="line-block">
         <div class="mini-label">현재 기록 근거</div>
-        <ul class="evidence"><li>공통수학에서 효소 반응을 이차함수로 모델링하고 절대부등식을 증명하며 관계를 구조화함</li><li>과학탐구 실험에서 감염병 확산과 기후 문제를 변수 관계로 설명하고 절전 시스템 아이디어까지 확장함</li><li>기술 가정에서 압력 감지 기반 자동 조명 시스템을 설계하며 센서 작동 원리와 한계를 검토함</li></ul>
+        <ul class="evidence"><li>공통수학에서 효소 반응을 이차함수로 모델링하고 절대부등식을 증명하며 개념을 구조화함</li><li>과학탐구 실험에서 감염병 확산과 기후 문제를 변수 관계로 설명하고 절전 시스템 아이디어까지 확장함</li><li>기술 가정에서 압력 감지 기반 자동 조명 시스템을 설계하며 센서 작동 원리와 한계를 검토함</li><li>야외 지질 탐사 활동에서 다양한 지질 구조를 관찰하고 암석을 분류하며 생성 과정을 추론해, 자연환경을 구조와 과정의 관점에서 해석함</li></ul>
       </div>
 
       <div class="line-block">
         <div class="mini-label">다음 단계 활동</div>
         <div class="activities">
-        
+          
         <div class="activity-card">
-          <div class="activity-title">미세먼지·이산화탄소 측정 센서의 작동 원리 비교</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">기술 가정의 센서 설계 경험을 환경 모니터링 장치 해석으로 연결할 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">측정 대상, 반응 방식, 감도, 오차 요인을 표로 정리하고 센서 출력값이 환경 데이터로 전환되는 구조를 회로·물리량 관점에서 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">기술 설계 기록이 환경 측정 시스템을 해석하는 공학형 기록으로 발전한다.</div></div>
+          <div class="activity-title">전기차 충전 시스템의 에너지 흐름 해석</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재 기록의 센서·절전·에너지 관심을 물리학의 핵심인 에너지 전환과 효율 해석으로 연결할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">충전 입력-저장-손실-출력 구조를 도식화하고, 각 단계에서 효율이 떨어지는 이유를 에너지 보존과 전력 손실 관점에서 설명한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">기술 아이디어 중심 기록에서 물리 개념으로 시스템을 해석하는 기록으로 올라간다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">공기청정기와 식물의 공기 정화 조건 비교</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학 사례집에서는 공기청정기와 식물의 공기 정화 비교 실험 프로젝트가 실제 탐구 흐름으로 제시된다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">풍량, 체류 시간, 표면적, 농도 변화 같은 조건을 나누어 정화 효율 차이를 그래프와 조건별 해석으로 정리한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">환경 주제를 감성적으로 다루는 수준을 넘어서 측정·비교·해석 중심의 과목 기록으로 보인다.</div></div>
+          <div class="activity-title">센서 기반 자동조명 시스템을 회로·전류 관점으로 재구성</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">기술 가정의 설계 경험을 물리학 과목 언어로 바꿔야 선택과목 연결성이 선명해진다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">센서 입력, 전류 흐름, 스위칭 조건, 오작동 가능성을 회로도와 조건별 비교표로 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생활기술 설계가 물리학의 전기·전자기 개념 학습과 연결된 흐름으로 보인다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">하수 처리 장치의 에너지 흐름과 손실 구조 분석</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경 설비를 시스템으로 보는 시각을 물리학 과목 언어로 드러낼 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">유입-처리-배출 과정에서 필요한 동력, 압력, 손실 구간을 도식화하고 효율 개선 가능성을 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">환경 문제 관심이 설비와 공정의 물리적 구조를 해석하는 수준으로 심화된다.</div></div>
+          <div class="activity-title">온도 변화와 생물 활동 속도의 관계를 그래프로 분석</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">감염병·기후 관심을 물리학의 측정과 관계 해석으로 확장할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">온도 조건 변화에 따른 활동 속도 데이터를 수집해 그래프로 나타내고, 증가·포화·감소 구간을 물리적 조건 변화로 설명한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명·환경 관심이 물리적 데이터 해석으로 확장된다.</div></div>
         </div>
         
         </div>
@@ -154,15 +145,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
       <div class="line-block">
         <div class="mini-label">입시 관점</div>
-        <div class="mini-body">물리학에서는 &#x27;환경에 관심 있음&#x27;보다 측정값, 조건 변화, 시스템 효율을 구조화해 설명하는 모습이 더 강한 평가 포인트가 된다.</div>
+        <div class="mini-body">물리학에서는 &#x27;기술에 관심 있음&#x27;보다 &#x27;변수 관계를 구조화하고 시스템을 해석함&#x27;이 더 강한 평가 포인트가 된다.</div>
       </div>
     </section>
     
-    <section class="ext-card" style="--card-bg:#fff7ec; --card-bd:#ffb454; --card-tag:#ffe7bf">
+    <section class="ext-card" style="--card-bg:#fff8f3;--card-bd:#e38b2c">
       <div class="ext-head">
         <div>
           <div class="ext-title">화학</div>
-          <div class="ext-sub">오염 물질, 반응 조건, 친환경 소재를 분자 수준에서 해석하는 과목</div>
+          <div class="ext-sub">물질 변화와 반응 조건을 분자 수준에서 설명하는 과목</div>
         </div>
         <div class="ext-tag">확장 설계</div>
       </div>
@@ -170,42 +161,42 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="dual">
         <div class="mini-box">
           <div class="mini-label">현재 강점</div>
-          <div class="mini-body">현상의 원인을 조건과 물질의 성질 차이로 설명하려는 성향이 있어 환경공학과 생명공학 모두에 필요한 화학적 분석 기반이 있다.</div>
+          <div class="mini-body">반응을 &#x27;재미있는 실험&#x27; 수준이 아니라 정량 분석, 반응 조건, 결과 해석의 언어로 다루는 힘이 있다. 산화·환원, 합성, 확산·삼투를 조건 비교와 결론 도출로 연결한 점은 환경 분석 화학과 공정 이해의 기반이 된다.</div>
         </div>
         <div class="mini-box">
           <div class="mini-label">보완 지점</div>
-          <div class="mini-body">환경공학·생명공학 라인에서는 반응 자체보다 흡착·분해·촉매·생분해 같은 실제 공정 언어로 확장할 필요가 있다.</div>
+          <div class="mini-body">화학 강점이 이미 선명한 만큼, 앞으로는 실험 경험을 수처리·오염물 분해·환경 분석 같은 환경공학 맥락으로 더 분명히 연결하면 포트폴리오 설득력이 커진다.</div>
         </div>
       </div>
 
       <div class="line-block">
         <div class="mini-label">현재 기록 근거</div>
-        <ul class="evidence"><li>통합과학에서 DNA, 아미노산, 효소를 연결해 생명 현상을 물질 수준으로 이해함</li><li>과학탐구 실험에서 기후와 감염병 확산을 과학 개념으로 설명하며 주제 설정과 자료 해석을 수행함</li><li>공통수학에서 과학 현상을 수학적으로 모델링해 조건 변화를 구조화함</li></ul>
+        <ul class="evidence"><li>과학실험캠프 화학 분야에서 산화·환원 반응을 활용한 비타민 C 정량 분석과 과망가니즈산칼륨의 산화 반응을 통한 사카린 합성 실험을 수행함</li><li>배경 이론을 충실히 이해한 뒤 정량적 실험 과정을 정확히 수행하고, 모둠원들과 협력하여 실험 결과를 해석하며 과학적으로 타당한 결론을 도출함</li><li>실험 원리를 실생활 및 환경 문제와 연결해 해석하고, 삼투·확산 개념을 확장해 농도와 온도 조건에 따른 물질 이동 차이를 비교 실험으로 검증함</li></ul>
       </div>
 
       <div class="line-block">
         <div class="mini-label">다음 단계 활동</div>
         <div class="activities">
-        
+          
         <div class="activity-card">
-          <div class="activity-title">생분해성 플라스틱 PLA·PHA 비교 탐구</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학 사례집에서는 PLA, 생분해성 플라스틱, PHA 관련 친환경 물질 고찰이 실제 세특 흐름으로 제시된다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">분자 구조, 분해 조건, 사용 장면, 한계를 표로 비교하고 왜 모든 상황에서 친환경 대안이 되지 않는지도 함께 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">환경 문제 인식이 친환경 소재의 조건과 한계를 보는 화학 탐구로 발전한다.</div></div>
+          <div class="activity-title">산화·환원 기반 수질 정화 탐구</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재의 비타민 C 정량·산화 반응 경험을 환경 화학 공정으로 확장하기 좋다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">과망가니즈산칼륨, 과산화수소, 활성탄 등과 연결하여 오염물 제거 원리를 비교하고, 산화·환원 조건 변화가 정화 효율에 미치는 영향을 표나 그래프로 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">반응식 이해를 넘어 환경 문제 해결 공정으로 확장한 학생으로 보일 수 있다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">이산화탄소 포집과 고에너지 유기물 생산 과정 정리</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경·생명 융합형 포트폴리오에서 탄소 순환과 공정 이해를 동시에 보여줄 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">포집 원리, 전환 반응, 필요한 촉매나 미생물 조건, 효율 저해 요인을 단계별로 정리한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">기후 문제 관심이 공정형 화학 해석으로 바뀌어 전공 적합성이 선명해진다.</div></div>
+          <div class="activity-title">농도·온도 조건 변화와 막 투과 비교 실험 정교화</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">이미 수행한 삼투·확산 실험을 더 정량화하면 화학과 생명의 연결이 강해진다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">농도와 온도를 달리한 조건에서 용질 이동 속도, 질량 변화, 평형 도달 시간을 기록하고 분자 운동 에너지와 막 투과 관계를 설명한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">조건 통제와 데이터 해석 역량이 분명해져 과세특 밀도가 높아진다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">수처리용 흡착·산화 공정 비교</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학의 대표 문제를 화학 교과 언어로 풀어낼 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">중금속 또는 유기 오염물질 하나를 정해 흡착, 산화, 응집 등의 처리 원리를 비교하고 조건별 적합성을 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">실생활 이슈를 화학의 반응 조건과 물질 특성으로 분석하는 힘이 드러난다.</div></div>
+          <div class="activity-title">생분해성 물질 또는 감미료의 환경 영향 비교</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">사카린 합성 실험 경험을 실제 생활 화학물질의 환경성 평가로 이어갈 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">사카린, 아스파탐, 천연 감미료 혹은 PLA/PHA 같은 생분해성 소재를 조사해 화학 구조·분해 가능성·환경 잔류성을 비교한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생활 화학을 환경공학 문제로 재해석하는 포트폴리오 축이 생긴다.</div></div>
         </div>
         
         </div>
@@ -213,15 +204,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
       <div class="line-block">
         <div class="mini-label">입시 관점</div>
-        <div class="mini-body">화학에서는 주제의 화려함보다 오염 물질의 성질, 처리 조건, 친환경 소재의 한계를 근거로 설명하는 과정이 더 중요하다.</div>
+        <div class="mini-body">화학에서는 화려한 주제보다 정량 실험 수행력, 반응 조건 해석, 결과를 환경 문제와 연결하는 응용력이 강한 평가 포인트가 된다.</div>
       </div>
     </section>
     
-    <section class="ext-card" style="--card-bg:#f2fbf4; --card-bd:#52b788; --card-tag:#d8f4e1">
+    <section class="ext-card" style="--card-bg:#f7fcf7;--card-bd:#4da866">
       <div class="ext-head">
         <div>
           <div class="ext-title">생명과학</div>
-          <div class="ext-sub">생명 현상을 기작·변수·생태계 관점으로 해석해 환경과 바이오 문제를 연결하는 과목</div>
+          <div class="ext-sub">생명 현상을 기작·변수·자료로 설명하는 과목</div>
         </div>
         <div class="ext-tag">확장 설계</div>
       </div>
@@ -229,42 +220,42 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="dual">
         <div class="mini-box">
           <div class="mini-label">현재 강점</div>
-          <div class="mini-body">유전·효소·감염병·기후 문제를 단편 기사 수준이 아니라 구조와 원인으로 설명하려는 경향이 이미 드러난다.</div>
+          <div class="mini-body">생명 현상을 건강 정보 수준이 아니라 미생물-대사-에너지-면역 반응의 연결 구조로 설명하는 힘이 있다. 자료를 바탕으로 기전을 서술하는 능력이 있어 생명공학 탐구로 확장하기 적합하다.</div>
         </div>
         <div class="mini-box">
           <div class="mini-label">보완 지점</div>
-          <div class="mini-body">생명과학에서는 흥미 주제를 넓게 가져가기보다 미생물, 생태계, 질병 확산, 생체 반응처럼 하나의 축을 잡아 변수와 기작을 더 선명하게 남겨야 한다.</div>
+          <div class="mini-body">현재 강점은 이미 뚜렷하므로, 앞으로는 &#x27;좋은 유익균&#x27; 같은 일반론보다 특정 변수, 기전, 실험 조건을 더 명확히 잡아 생명과학 탐구의 밀도를 높여야 한다.</div>
         </div>
       </div>
 
       <div class="line-block">
         <div class="mini-label">현재 기록 근거</div>
-        <ul class="evidence"><li>통합과학에서 DNA 염기서열, 겸상적혈구빈혈증, 아미노산과 물의 관계를 이해함</li><li>과학탐구 실험에서 기온 상승과 모기 개체 수 증가, 감염병 확산을 조사·발표함</li><li>정보와 수학 과목에서 자료 시각화와 모델링 경험을 보이며 데이터 해석 기반이 있음</li></ul>
+        <ul class="evidence"><li>질병 대응에서 개인 면역력 강화의 중요성을 인식하여 장내 유익균과 면역력의 연관성을 주제로 탐구·발표함</li><li>장내 유익균이 섬유소를 발효해 생성하는 단쇄지방산이 미토콘드리아 ATP 생성을 돕고, 이 에너지가 B세포와 T세포 등 면역세포 활성으로 이어지는 생화학적 기전을 자료 기반으로 설명함</li><li>기온 상승과 모기 개체 수 증가, 감염병 확산 등을 조사·발표하며 생명 현상을 환경 변수와 연결해 해석함</li></ul>
       </div>
 
       <div class="line-block">
         <div class="mini-label">다음 단계 활동</div>
         <div class="activities">
-        
+          
         <div class="activity-card">
-          <div class="activity-title">기후 변화와 매개체 질병 확산 모델 정리</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재 기록과 가장 자연스럽게 연결되며 환경 변화가 생명 시스템에 미치는 영향을 보여주기 좋다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">온도, 번식 주기, 활동 반경, 감염 확률을 변수로 나누고 관계도를 만들어 확산 구조를 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명과학 세특이 기후-생태-질병을 연결하는 데이터형 탐구로 심화된다.</div></div>
+          <div class="activity-title">장내 미생물-면역-에너지 대사 연결 보고서</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재 기록의 핵심 강점을 가장 직접적으로 심화할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">유익균, 단쇄지방산, 미토콘드리아 ATP, 면역세포 활성의 흐름을 도식화하고, 특정 질환 예방 또는 회복과의 관련성을 논문/기사 자료를 기반으로 비교 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명과학을 기작 중심으로 이해하는 학생이라는 인상이 강해진다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">미생물 연료전지와 하수 처리 원리 탐구</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학 사례집에는 미생물 연료전지를 이용한 고농도 폐수 처리 기술이 실제 탐구 사례로 제시된다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">미생물의 대사 과정, 전자 이동, 오염물 제거 방식, 공정 한계를 단계별로 정리한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명과학이 환경 문제 해결형 바이오 기술과 연결되는 흐름으로 보인다.</div></div>
+          <div class="activity-title">환경 변화와 미생물 생태 비교 탐구</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학·생명공학 융합 진로와 가장 자연스럽게 맞물린다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">온도, pH, 영양 조건 변화에 따라 미생물 활성이나 생장 조건이 어떻게 달라지는지 조사하고, 오염 저감·발효·정화와의 응용 가능성을 연결한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명 현상을 환경 시스템과 연결해 해석하는 역량이 부각된다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">지의류·식물·미생물을 활용한 생태 지표 비교</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경 모니터링을 생태계와 생물 지표 관점에서 접근할 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">지의류 분포, 식물의 공기 정화, 미생물 군집 변화를 사례별로 비교하고 어떤 지표가 어떤 환경 조건에 민감한지 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">환경 관심이 생태계 자료 해석과 생물학적 근거 제시로 확장된다.</div></div>
+          <div class="activity-title">백신 중심 대응의 한계와 면역 기반 예방 전략 비교</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">이미 발표한 문제의식을 더 학술적으로 확장할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">백신, 면역력, 장내 미생물, 생활 습관 요인의 역할을 구분해 비교하고, 예방의학·생명공학·공중보건 관점에서 장단점을 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">자료 해석과 과학적 주장 형성 능력이 뚜렷하게 기록될 수 있다.</div></div>
         </div>
         
         </div>
@@ -272,15 +263,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
       <div class="line-block">
         <div class="mini-label">입시 관점</div>
-        <div class="mini-body">생명과학에서는 단순 관심보다 &#x27;기작 설명-자료 해석-생태·환경 연결&#x27;이 보일 때 환경공학·생명공학 계열에 더 설득력이 높다.</div>
+        <div class="mini-body">생명과학에서는 관심 주제 나열보다 미생물-대사-면역처럼 기작의 연결 구조를 자료 기반으로 설명했는지가 설득력 있는 평가 포인트가 된다.</div>
       </div>
     </section>
     
-    <section class="ext-card" style="--card-bg:#f5f1ff; --card-bd:#7c5cff; --card-tag:#e6dcff">
+    <section class="ext-card" style="--card-bg:#f8f6ff;--card-bd:#7e66d4">
       <div class="ext-head">
         <div>
           <div class="ext-title">대수</div>
-          <div class="ext-sub">환경 데이터와 생명 현상을 식과 그래프로 구조화하는 모델링 과목</div>
+          <div class="ext-sub">식과 관계를 구조화해 현상을 모델링하는 과목</div>
         </div>
         <div class="ext-tag">확장 설계</div>
       </div>
@@ -288,11 +279,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="dual">
         <div class="mini-box">
           <div class="mini-label">현재 강점</div>
-          <div class="mini-body">식이 무엇을 의미하는지 설명하고 관계를 구조화하는 능력이 있어 환경 데이터·생명 데이터 모델링으로 이어질 가능성이 높다.</div>
+          <div class="mini-body">단순 계산보다 식이 무엇을 의미하는지 설명하고 관계를 구조화하는 능력이 강점으로 보인다.</div>
         </div>
         <div class="mini-box">
           <div class="mini-label">보완 지점</div>
-          <div class="mini-body">대수에서는 정답 풀이보다 농도 변화, 증식, 감소, 임계값 같은 실제 데이터 해석 구조가 더 분명히 남아야 한다.</div>
+          <div class="mini-body">대수에서는 풀이의 정답보다 식·조건·해석이 이어지는 사고 구조를 더 명확히 남길 필요가 있다.</div>
         </div>
       </div>
 
@@ -304,26 +295,26 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="line-block">
         <div class="mini-label">다음 단계 활동</div>
         <div class="activities">
-        
+          
         <div class="activity-card">
-          <div class="activity-title">오염물 농도 감소 모델 식 세우기</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학 주제를 대수 과목 언어로 가장 직접적으로 연결할 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">시간에 따른 농도 감소 데이터를 식으로 근사하고, 어느 시점부터 처리 효과가 둔화되는지 조건과 함께 설명한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">수학이 환경 데이터를 해석하는 도구로 활용된 기록이 선명해진다.</div></div>
+          <div class="activity-title">과학 데이터를 식으로 근사하는 모델링 활동</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">공통수학의 모델링 강점을 대수에서 더 직접적으로 드러낼 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">반응 속도, 충전 속도, 온도 변화 데이터를 식으로 근사하고, 어느 구간까지 설명 가능한지 한계를 함께 적는다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">수학이 계산 과목이 아니라 현상을 구조화하는 도구로 읽힌다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">미생물 증식과 분해 속도 비교 모델링</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">생명공학에서는 세포·미생물의 증가와 반응 속도를 식으로 해석하는 힘이 중요하다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">초기값, 성장 조건, 제한 조건에 따라 그래프가 어떻게 달라지는지 비교하고 실제 공정 해석과 연결한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명과학 관심이 수학적 모델링과 결합된 융합형 기록으로 발전한다.</div></div>
+          <div class="activity-title">조건 변화에 따른 식의 구조 비교</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">같은 현상도 초기 조건과 제약이 달라지면 결과가 바뀐다는 점을 대수적으로 보여줄 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">초기값, 범위, 제한 조건에 따라 식의 형태와 해석이 어떻게 달라지는지 비교표와 그래프로 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">대수의 핵심인 관계 해석과 조건 검토 역량이 선명해진다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">환경 지표 임계값 설정과 구간별 해석</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경 문제는 기준치와 임계 조건을 어떻게 읽는지가 중요하다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">공기질 또는 수질 지표를 정해 구간을 나누고 각 구간이 의미하는 위험도와 대응 필요성을 식·표·그래프로 정리한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">대수의 조건 해석 능력이 환경 의사결정과 연결된 형태로 보인다.</div></div>
+          <div class="activity-title">하나의 명제를 여러 방식으로 증명하기</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재 기록의 증명 강점을 더 높은 수준의 설명력으로 연결할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">동일 명제를 대수적 전개, 그래프 해석, 조건 분류 방식으로 각각 설명하고 방법별 장단점을 비교한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">정답 도출보다 추론과 설명의 깊이가 강조된다.</div></div>
         </div>
         
         </div>
@@ -331,15 +322,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
       <div class="line-block">
         <div class="mini-label">입시 관점</div>
-        <div class="mini-body">대수에서는 계산 결과보다 환경·생명 데이터를 식으로 해석하고 조건을 검토하는 과정이 강한 평가 포인트가 된다.</div>
+        <div class="mini-body">대수에서는 계산 속도보다 관계를 식으로 해석하고 조건을 검토하는 과정이 강한 평가 포인트가 된다.</div>
       </div>
     </section>
     
-    <section class="ext-card" style="--card-bg:#fff1f6; --card-bd:#d9578b; --card-tag:#ffd9e8">
+    <section class="ext-card" style="--card-bg:#fff7fb;--card-bd:#c05693">
       <div class="ext-head">
         <div>
           <div class="ext-title">고급생명과학</div>
-          <div class="ext-sub">세포·유전자·조절 체계·생명공학 응용을 분자 수준에서 심화해 다루는 과목</div>
+          <div class="ext-sub">생명 현상을 분자·세포·조절 체계 수준에서 심화해 다루는 과목</div>
         </div>
         <div class="ext-tag">확장 설계</div>
       </div>
@@ -347,42 +338,42 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="dual">
         <div class="mini-box">
           <div class="mini-label">현재 강점</div>
-          <div class="mini-body">일반 생명과학 흥미를 넘어 분자 수준 기작을 알고 싶어 하는 탐구 성향이 있어, 고급생명과학을 생명공학 중심 축으로 삼기에 적합하다.</div>
+          <div class="mini-body">현상 뒤의 원리를 알고 싶어 하는 수준을 넘어, 세포 에너지·미생물 대사·면역 조절을 하나의 흐름으로 엮어 설명하려는 힘이 있다. 그래서 고급생명과학에서는 화학 부속형이 아니라 분자·세포·유전자·생명공학 응용 축으로 보는 것이 맞다.</div>
         </div>
         <div class="mini-box">
           <div class="mini-label">보완 지점</div>
-          <div class="mini-body">이 과목은 고급화학처럼 소재·산화환원 중심으로 잡기보다 세포 에너지, 유전자 발현, 생명공학 기술, 생체 조절 체계를 구조화해 설명해야 과목의 정체성이 살아난다.</div>
+          <div class="mini-body">앞으로는 개념 이해를 넘어서 유전자 발현, 세포 신호, 생명공학 응용 기술처럼 &#x27;조절 체계와 응용&#x27;을 더 분명히 붙여야 한다.</div>
         </div>
       </div>
 
       <div class="line-block">
         <div class="mini-label">현재 기록 근거</div>
-        <ul class="evidence"><li>고급생명과학 교과서는 세포의 에너지, 생물의 조절과 방어, 유전자의 구조와 발현, 생명공학의 기술과 응용의 네 영역으로 구성되어 있다.</li><li>현재 기록에서 DNA, 효소, 감염병, 기후 요인을 연결해 생명 현상을 구조적으로 이해하려는 기반이 확인된다.</li><li>환경공학·생명공학 진로에서는 미생물, 유전자 발현, 생체 반응, 바이오 기술을 연결하는 심화 탐구가 포트폴리오의 핵심이 된다.</li></ul>
+        <ul class="evidence"><li>장내 유익균, 단쇄지방산, 미토콘드리아 ATP 생성, 면역세포 활성의 연결을 자료 기반으로 설명한 경험이 있어 세포·대사·조절 체계 중심의 심화 학습에 적합함</li><li>질병 대응과 면역력 문제를 단순 시사 이슈가 아니라 생화학적 기전으로 해석하려는 탐구 성향이 이미 드러남</li><li>야외 지질 탐사와 환경 상호작용 이해 경험이 있어 생명 현상을 환경 시스템과 연결해 보는 융합형 시야를 갖추고 있음</li></ul>
       </div>
 
       <div class="line-block">
         <div class="mini-label">다음 단계 활동</div>
         <div class="activities">
-        
+          
         <div class="activity-card">
-          <div class="activity-title">유전자 발현과 환경 스트레스 반응 정리</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">고급생명과학의 핵심 축인 유전자의 구조와 발현을 환경 문제와 연결할 수 있다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">환경 스트레스가 세포에서 어떤 신호 전달과 유전자 발현 변화를 유도하는지 단계별로 정리하고 사례를 비교한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">고급생명과학이 화학 응용이 아닌 분자생물학 기반 심화 과목으로 읽힌다.</div></div>
+          <div class="activity-title">미생물 대사와 환경 정화 연결 탐구</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학과 생명공학을 하나의 카드로 묶기에 가장 적절한 주제다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">미생물이 유기물을 분해하거나 특정 오염 물질을 줄이는 과정, 대사산물 생성, 에너지 획득 구조를 정리하고 바이오정화 가능성과 한계를 함께 분석한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">환경공학·생명공학 융합형 진로가 가장 선명하게 드러난다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">중금속 바이오센서 또는 생체 감지 시스템 분석</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">환경공학 사례집에는 중금속 바이오센서 한계 탐구가 실제 진로활동 사례로 제시된다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">감지 원리, 표적 분자, 신호 변환 방식, 민감도, 한계를 정리하고 실제 환경 측정 적용성을 평가한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명공학 응용과 환경 문제 해결을 함께 보여주는 대표 카드가 된다.</div></div>
+          <div class="activity-title">유전자 발현과 환경 반응</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">고급생명과학답게 조절 체계까지 확장해야 과목 선택의 설득력이 높아진다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">온도·영양·스트레스 조건 변화에 따라 특정 유전자 발현이나 세포 반응이 달라지는 사례를 조사하고, 이를 생명공학 응용과 연결해 정리한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">분자·세포 수준의 심화 이해가 기록으로 남을 수 있다.</div></div>
         </div>
         
         <div class="activity-card">
-          <div class="activity-title">미생물 기반 바이오정화·바이오공정 탐구</div>
-          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">생명공학 기술과 환경 정화를 함께 보여줄 수 있는 가장 직접적인 주제다.</div></div>
-          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">미생물의 대사 경로, 오염물 분해 메커니즘, 공정 조건, 적용 한계를 표와 흐름도로 정리한다.</div></div>
-          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">고급생명과학 세특이 세포·유전자 수준의 이해를 실제 공정과 연결하는 형태로 심화된다.</div></div>
+          <div class="activity-title">바이오센서·미생물 기반 환경 모니터링 탐구</div>
+          <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">현재의 환경·생명 융합 관심을 공학 응용 형태로 구체화할 수 있다.</div></div>
+          <div class="field"><div class="field-label">활동 내용</div><div class="field-body">미생물, 효소, 항원-항체 반응 등을 활용한 바이오센서 원리를 조사하고 수질·토양·질병 진단 분야 응용 사례를 비교한다.</div></div>
+          <div class="field"><div class="field-label">기록 변화</div><div class="field-body">생명과학 심화가 실제 공학 문제 해결로 이어지는 흐름이 생긴다.</div></div>
         </div>
         
         </div>
@@ -390,7 +381,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
       <div class="line-block">
         <div class="mini-label">입시 관점</div>
-        <div class="mini-body">고급생명과학에서는 &#x27;어려운 주제&#x27;보다 세포·유전자·생명공학 응용을 얼마나 기작 중심으로 구조화했는가가 더 중요하다.</div>
+        <div class="mini-body">고급생명과학에서는 &#x27;어려운 과목 선택&#x27;보다 세포·대사·면역·유전자 조절을 구조화하고 이를 생명공학 응용으로 연결했는지가 더 강한 평가 포인트가 된다.</div>
       </div>
     </section>
     
