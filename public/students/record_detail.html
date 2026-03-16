@@ -80,7 +80,6 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .extra-list{margin:0;padding-left:18px;line-height:1.9}
 .extra-text{line-height:1.9;word-break:keep-all}
 @media (max-width:900px){.extra-grid{grid-template-columns:1fr}}
-
 </style>
 </head>
 <body>
@@ -142,7 +141,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
         </div>
       </section>
 
-      <div class="acc-wrap" id="accWrap"></div>
+      <section id="extraCareerPanel" class="extra-panel" style="display:none"><div class="extra-head"><div class="extra-title">추가 반영 활동</div><div class="extra-kicker">진로활동 보강</div></div><div class="extra-grid"><div class="extra-box"><div class="mini-title">활동 요약</div><ul id="extraCareerSummary" class="extra-list"></ul></div><div class="extra-box"><div class="mini-title">원문 반영</div><div id="extraCareerText" class="extra-text"></div></div></div></section><div class="acc-wrap" id="accWrap"></div>
     </main>
   </div>
 </div>
@@ -323,8 +322,7 @@ function renderExtraCareer(student){
   const extra = student.extra_career_activity || null;
   if(!extra){ panel.style.display='none'; return; }
   panel.style.display = '';
-  document.getElementById('extraCareerSummary').innerHTML =
-    (Array.isArray(extra.summary) ? extra.summary : []).map(v => `<li>${esc(v)}</li>`).join('');
+  document.getElementById('extraCareerSummary').innerHTML = (Array.isArray(extra.summary) ? extra.summary : []).map(v => `<li>${esc(v)}</li>`).join('');
   document.getElementById('extraCareerText').textContent = extra.text || '';
 }
 
