@@ -69,6 +69,18 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .list{margin:0;padding-left:18px;line-height:1.8}
 .empty{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--sub);background:#fff}
 @media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
+
+.extra-panel{margin:18px 0 4px;background:#fff;border:1px solid #dfe8f4;border-radius:24px;box-shadow:0 12px 30px rgba(22,32,42,.08);padding:20px}
+.extra-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.extra-title{font-size:22px;font-weight:900}
+.extra-kicker{font-size:12px;font-weight:900;color:#5c6b7a;background:#eef4ff;border:1px solid #d7e3ff;border-radius:999px;padding:8px 12px}
+.extra-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.extra-box{border:1px solid #dfe8f4;border-radius:18px;padding:14px;background:#fbfdff}
+.extra-box .mini-title{margin-bottom:8px}
+.extra-list{margin:0;padding-left:18px;line-height:1.9}
+.extra-text{line-height:1.9;word-break:keep-all}
+@media (max-width:900px){.extra-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -306,12 +318,35 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
   });
 });
 
+
+const EXTRA_SHSTUDY09 = {
+  summary: [
+    '과학실험캠프 화학 분야에서 산화·환원 반응을 활용한 비타민 C 정량 분석과 사카린 합성 실험 수행',
+    '장내 유익균–면역력의 연관성을 주제로 탐구하며 단쇄지방산, ATP 생성, B세포·T세포 활성까지 기작을 자료 기반으로 설명',
+    '야외 지질 탐사에서 지질 구조 관찰, 암석 분류, 생성 과정 추론을 수행하며 환경공학·생명공학 진로 의지를 구체화',
+    '삼투·확산 개념을 확장해 농도와 온도 조건 비교 실험을 수행하고 인체 생리와 연결해 해석'
+  ],
+  text: `과학실험캠프 화학 분야에 참가하여 산화 환원 반응을 활용한 비타민 C 정량 분석과 과망가니즈산칼륨의 산화 반응을 통한 사카린 합성 실험을 수행함. 배경 이론을 충실히 이해한 뒤 정량적 실험 과정을 정확히 수행하고 모둠원들과 협력하여 실험 결과를 해석하며 과학적으로 타당한 결론을 도출함. 실험 과정과 결과를 꼼꼼히 기록한 보고서를 제출하고 실험 원리를 실생활 및 환경 문제와 연결해 해석하는 태도가 돋보임. 질병 대응에서 개인 면역력 강화의 중요성을 인식하여 장내 유익균과 면역력의 연관성을 주제로 탐구하고 발표하며 기존 백신 중심 감염병 대응의 한계를 짚고 개인 면역력 강화를 근본적 예방 방안으로 제시함. 장내 유익균이 섬유소를 발효해 생성하는 단쇄지방산이 미토콘드리아의 ATP 생성을 돕고 이 에너지가 B세포와 T세포 등 면역세포 활성으로 이어지는 생화학적 기전을 자료를 바탕으로 설명하며 과학적 탐구 역량을 드러냄. 야외 지질 탐사 활동에서 다양한 지질 구조를 관찰하고 암석을 분류하며 생성 과정을 추론함. 지질 경관의 조화로움에 주목하며 생명체와 환경의 상호 작용을 이해하고 환경 공학 및 생명 공학 분야에서 과학적으로 환경 문제를 해결하고자 하는 진로 의지를 구체화함. 교과에서 배운 삼투와 확산 개념을 확장하여 농도 차이뿐만 아니라 온도가 물질 이동에 미치는 영향을 검증함. 농도와 온도를 달리한 4가지 조건의 비교 실험을 통해 가열한 용액에서 삼투 현상이 가장 활발함을 확인하고, 분자 운동 에너지 증가가 막 투과에 미치는 영향을 논리적으로 도출함. 교과 지식을 인체 생리 현상에 적용하여 이해하는 응용력이 뛰어나며, 실험을 통해 배움을 스스로 심화시켜 나가는 자기 주도적 탐구 역량이 매우 훌륭함.`
+};
+
+function renderExtraCareer(student){
+  const sid = String(student.student_id || student.id || '');
+  const panel = document.getElementById('extraCareerPanel');
+  if(!panel) return;
+  if(sid !== 'shstudy09'){ panel.style.display='none'; return; }
+  panel.style.display = '';
+  document.getElementById('extraCareerSummary').innerHTML =
+    EXTRA_SHSTUDY09.summary.map(v => `<li>${esc(v)}</li>`).join('');
+  document.getElementById('extraCareerText').textContent = EXTRA_SHSTUDY09.text;
+}
+
 (async function(){
   try{
     const data = await loadData();
     const student = pickStudent(data);
     if(!student) throw new Error('학생 데이터를 찾지 못했습니다.');
     renderOverview(student);
+    renderExtraCareer(student);
     renderYearToggles(student);
     renderSubjects(student);
   }catch(e){
