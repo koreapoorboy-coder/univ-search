@@ -48,8 +48,8 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1 id="heroTitle">shstudy09 확장 제언</h1>
-    <div class="sub">shstudy04 학생 전용 상담/수정본입니다. 선택과목과 진로 방향을 반영한 확장 제언 화면입니다.</div>
+    <h1 id="heroTitle">shstudy04 확장 제언</h1>
+    <div class="sub">shstudy04 학생 전용 확장 제언 화면입니다. 선택과목과 진로 방향을 기준으로 다음 단계 활동을 제안합니다.</div>
     <div class="nav">
       <a href="./record_detail.html">기본 상담 보기</a>
       <a class="active">확장 활동 보기</a>
@@ -68,11 +68,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 </div>
 <script>
 const COLORS={
- "물리학":["#f6fbff","#4f8cc9","#eff7ff"],
+ "문학":["#f6fbff","#4f8cc9","#eff7ff"],
+ "대수":["#f8f6ff","#7e66d4","#f1ecff"],
  "화학":["#fff8f3","#e38b2c","#fff1e2"],
  "생명과학":["#f7fcf7","#4da866","#eefaf0"],
- "대수":["#f8f6ff","#7e66d4","#f1ecff"],
- "고급생명과학":["#fff7fb","#c05693","#fdeaf4"]
+ "기하":["#fff7fb","#c05693","#fdeaf4"]
 };
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 function makeCard(s){
@@ -99,7 +99,7 @@ function makeCard(s){
    <div class="line-block"><div class="mini-label">입시 관점</div><div class="mini-body">${esc(s.admission_view)}</div></div>
  </section>`;
 }
-fetch('./record_detail_extension_shstudy04.json',{cache:'no-store'})
+fetch('./record_detail_extension.json',{cache:'no-store'})
  .then(r=>r.json())
  .then(data=>{
    const st=data.students[0];
