@@ -5,152 +5,65 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>record_detail_extension_shstudy01</title>
 <style>
-:root{
-  --bg:#f4f8fd; --line:#d8e3f0; --text:#142130; --sub:#516274; --shadow:0 10px 24px rgba(20,33,48,.06);
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
-.wrap{max-width:1500px;margin:0 auto;padding:18px}
-.hero{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:22px 24px;margin-bottom:16px}
-.hero h1{margin:0 0 6px;font-size:30px}
-.hero .sub{color:var(--sub);line-height:1.75}
-.layout{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start}
-.side{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px;position:sticky;top:14px}
-.side h2{margin:0 0 14px;font-size:18px}
-.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fbfdff}
-.side-box + .side-box{margin-top:12px}
-.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
-.value{line-height:1.75;font-weight:800}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
-.main{display:grid;gap:16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
-.head{padding:18px 22px 14px;border-left:8px solid var(--head)}
-.title-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.title-row h2{margin:0;font-size:22px}
-.badge{padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:900;background:#fff}
-.subtitle{margin-top:6px;color:#4f6174;line-height:1.7;font-weight:700}
-.section{padding:0 22px 18px}
+:root{--bg:#f4f8fd;--line:#d8e3f0;--text:#142130;--sub:#516274;--shadow:0 10px 24px rgba(20,33,48,.06);--card:#ffffff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.wrap{max-width:1500px;margin:0 auto;padding:18px 18px 42px}
+.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.topbar a{text-decoration:none;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900}
+.topbar a.active{background:#111;color:#fff;border-color:#111}
+.card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+.subject-head{padding:22px 24px 16px;border-top:8px solid var(--head);background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,251,255,.9))}
+.subject-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.subject-title h2{margin:0;font-size:24px;line-height:1.2}
+.subject-tag{white-space:nowrap;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:900}
+.subject-sub{margin-top:6px;color:#425365;line-height:1.65;font-weight:700}
+.section{padding:0 24px 18px}
 .dual{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
-.line{border-top:1px solid #e7eef7;margin-top:16px;padding-top:16px}
-.evidence{margin:0;padding-left:20px;line-height:1.85;font-weight:800}
-.activities{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.activity{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
+.box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
+.value{line-height:1.8;font-weight:800}
+.line{border-top:1px solid #e7eef7;margin:18px 0 0;padding-top:16px}
+.evidence{margin:0;padding-left:20px;line-height:1.9;font-weight:800}
+.activities{display:grid;grid-template-columns:repeat(3, 1fr);gap:14px}
+.activity{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}
 .activity h3{margin:0 0 12px;font-size:17px;line-height:1.45}
 .field + .field{margin-top:10px;padding-top:10px;border-top:1px dashed #dde7f3}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.nav a{text-decoration:none;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900}
-.nav a.active{background:#111;color:#fff;border-color:#111}
+.field .label{margin-bottom:4px}
+.foot{padding:0 24px 18px}
+.hero{background:linear-gradient(135deg,#fff,#f7fbff);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px 22px;margin-bottom:16px}
+.hero h1{margin:0 0 6px;font-size:30px}
+.hero .sub{color:var(--sub);line-height:1.75}
+.meta{display:grid;grid-template-columns:220px 1fr 1fr;gap:12px;margin-top:14px}
+.meta .box{background:#fbfdff}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
 .empty{border:1px dashed var(--line);border-radius:16px;padding:16px;color:var(--sub);background:#fff}
-@media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:static}.activities{grid-template-columns:1fr}}
-@media (max-width:760px){.dual{grid-template-columns:1fr}.hero h1{font-size:26px}.title-row h2{font-size:20px}}
+@media (max-width:1100px){.activities{grid-template-columns:1fr}.meta{grid-template-columns:1fr}}
+@media (max-width:760px){.wrap{padding:12px}.dual{grid-template-columns:1fr}.subject-title h2{font-size:22px}.hero h1{font-size:26px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="nav">
+  <div class="topbar">
     <a href="./record_detail.html">기본 상담 보기</a>
     <a class="active">확장 활동 보기</a>
   </div>
-
   <section class="hero">
-    <h1 id="heroTitle">이현우 학생 포트폴리오 확장 설계</h1>
-    <div class="sub">배터리·에너지·전기전자공학 방향으로 재정리한 확장 화면입니다.</div>
+    <h1 id="heroTitle">shstudy01 확장 제언</h1>
+    <div class="sub">shstudy08 카드형 구조를 기준으로, 선택과목별 다음 단계 활동이 한눈에 보이도록 정리한 화면입니다.</div>
+    <div class="meta">
+      <div class="box"><div class="label">학교</div><div class="value" id="school"></div></div>
+      <div class="box"><div class="label">진로 방향</div><div class="value" id="track"></div></div>
+      <div class="box"><div class="label">핵심 과목</div><div class="chips" id="subjects"></div></div>
+    </div>
   </section>
-
-  <div class="layout">
-    <aside class="side">
-      <h2>학생 요약</h2>
-      <div class="side-box">
-        <div class="label">학생</div>
-        <div class="value" id="student"></div>
-      </div>
-      <div class="side-box">
-        <div class="label">진로 방향</div>
-        <div class="value" id="track"></div>
-      </div>
-      <div class="side-box">
-        <div class="label">보조 축</div>
-        <div class="value" id="secondary"></div>
-      </div>
-      <div class="side-box">
-        <div class="label">핵심 과목</div>
-        <div class="chips" id="subjects"></div>
-      </div>
-    </aside>
-
-    <main class="main" id="cards"></main>
-  </div>
+  <main id="cards"></main>
 </div>
-
 <script>
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
-const COLOR_MAP={"미적분":"#4f8cc9","물리Ⅱ":"#7e66d4","화학Ⅱ":"#e38b2c","고급화학":"#4da866"};
-function activityCard(a){
-  return `<article class="activity">
-    <h3>${esc(a.title)}</h3>
-    <div class="field"><div class="label">왜 필요한가</div><div class="value">${esc(a.why_needed)}</div></div>
-    <div class="field"><div class="label">활동 내용</div><div class="value">${esc(a.activity_detail)}</div></div>
-    <div class="field"><div class="label">기록 변화</div><div class="value">${esc(a.expected_record_change)}</div></div>
-  </article>`;
-}
-function subjectCard(s){
-  const color = COLOR_MAP[s.subject] || '#7d8ea1';
-  const evidence = (s.current_evidence || []).map(v=>`<li>${esc(v)}</li>`).join('');
-  const acts = (s.next_stage_activities || []).map(activityCard).join('');
-  return `<section class="card">
-    <div class="head" style="--head:${color}">
-      <div class="title-row">
-        <h2>${esc(s.subject)}</h2>
-        <div class="badge">확장 설계</div>
-      </div>
-      <div class="subtitle">${esc(s.course_role)}</div>
-    </div>
-    <div class="section">
-      <div class="dual">
-        <div class="box">
-          <div class="label">현재 강점</div>
-          <div class="value">${esc(s.current_strength)}</div>
-        </div>
-        <div class="box">
-          <div class="label">보완 지점</div>
-          <div class="value">${esc(s.gap_point)}</div>
-        </div>
-      </div>
-      <div class="line">
-        <div class="label">현재 기록 근거</div>
-        <ul class="evidence">${evidence}</ul>
-      </div>
-      <div class="line">
-        <div class="label">다음 단계 활동</div>
-        <div class="activities">${acts || '<div class="empty">활동 제안이 없습니다.</div>'}</div>
-      </div>
-      <div class="line">
-        <div class="box">
-          <div class="label">입시 관점</div>
-          <div class="value">${esc(s.admission_view)}</div>
-        </div>
-      </div>
-    </div>
-  </section>`;
-}
-
-fetch('./record_detail_extension.json',{cache:'no-store'})
-.then(r=>r.json())
-.then(data=>{
-  const st=(data.students||[])[0];
-  const plan=st.selected_subjects_plan||{};
-  document.getElementById('heroTitle').textContent = `${st.student_name} 학생 포트폴리오 확장 설계`;
-  document.getElementById('student').textContent = `${st.student_name} · ${st.school_name}`;
-  document.getElementById('track').textContent = st.track || '';
-  document.getElementById('secondary').textContent = plan.secondary_track || '';
-  document.getElementById('subjects').innerHTML = (st.selected_subjects||[]).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-  document.getElementById('cards').innerHTML = (plan.selection_subjects||[]).map(subjectCard).join('');
-})
-.catch(()=>{
-  document.getElementById('cards').innerHTML='<div class="empty">확장 데이터를 불러오지 못했습니다.</div>';
-});
+const COLOR_MAP={"미적분":"#8bb8e8","물리Ⅱ":"#9d8ae3","화학Ⅱ":"#ecab4f","고급화학":"#69b882"};
+function activityCard(a){return `<article class="activity"><h3>${esc(a.title)}</h3><div class="field"><div class="label">왜 필요한가</div><div class="value">${esc(a.why_needed)}</div></div><div class="field"><div class="label">활동 내용</div><div class="value">${esc(a.activity_detail)}</div></div><div class="field"><div class="label">기록 변화</div><div class="value">${esc(a.expected_record_change)}</div></div></article>`;}
+function subjectCard(s){const color=COLOR_MAP[s.subject]||'#7d8ea1'; const evidence=(s.current_evidence||[]).map(v=>`<li>${esc(v)}</li>`).join(''); const activities=(s.next_stage_activities||[]).map(activityCard).join(''); return `<section class="card" style="--head:${color}"><div class="subject-head"><div class="subject-title"><h2>${esc(s.subject)}</h2><div class="subject-tag">확장 설계</div></div><div class="subject-sub">${esc(s.course_role)}</div></div><div class="section"><div class="dual"><div class="box"><div class="label">현재 강점</div><div class="value">${esc(s.current_strength)}</div></div><div class="box"><div class="label">보완 지점</div><div class="value">${esc(s.gap_point)}</div></div></div><div class="line"><div class="label">현재 기록 근거</div><ul class="evidence">${evidence}</ul></div><div class="line"><div class="label">다음 단계 활동</div><div class="activities">${activities||'<div class="empty">활동 제안이 없습니다.</div>'}</div></div></div><div class="foot"><div class="box"><div class="label">입시 관점</div><div class="value">${esc(s.admission_view)}</div></div></div></section>`;}
+fetch('./record_detail_extension.json',{cache:'no-store'}).then(r=>r.json()).then(data=>{const st=(data.students||[])[0]; const plan=st.selected_subjects_plan||{}; document.getElementById('heroTitle').textContent=`${st.student_name} (shstudy01)`; document.getElementById('school').textContent=st.school_name||''; document.getElementById('track').textContent=st.track||''; document.getElementById('subjects').innerHTML=(st.selected_subjects||[]).map(v=>`<span class="chip">${esc(v)}</span>`).join(''); document.getElementById('cards').innerHTML=(plan.selection_subjects||[]).map(subjectCard).join('');}).catch(()=>{document.getElementById('cards').innerHTML='<div class="empty">확장 데이터를 불러오지 못했습니다.</div>';});
 </script>
-</body>
-</html>
+</body></html>
