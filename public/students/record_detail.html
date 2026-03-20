@@ -68,7 +68,49 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
 .flow-body{line-height:1.75}
 .list{margin:0;padding-left:18px;line-height:1.8}
 .empty{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--sub);background:#fff}
-@media (max-width:1000px){.layout{grid-template-columns:1fr}.panel{position:static}.grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}.hero h1{font-size:28px}.subject-name{font-size:22px}}
+
+/* textbook match */
+#textbook-match-section{margin-top:0}
+.textbook-match-summary{margin:12px 0 16px}
+.tb-summary-box{
+  background:#f7f8fb;border:1px solid #e1e5ee;border-radius:14px;
+  padding:14px 16px;line-height:1.7;font-size:14px;color:#222
+}
+.textbook-match-results{display:grid;gap:12px}
+.tb-match-card{
+  border:1px solid #e3e7ef;border-radius:16px;background:#fff;padding:16px
+}
+.tb-match-top{
+  display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px
+}
+.tb-match-title-wrap{min-width:0}
+.tb-match-subject{font-size:17px;font-weight:800;color:#111}
+.tb-match-unit{margin-top:4px;font-size:14px;color:#355;font-weight:700}
+.tb-match-subunit{margin-top:3px;font-size:14px;color:#666}
+.tb-match-score{
+  min-width:52px;height:52px;border-radius:14px;background:#1f3c88;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900
+}
+.tb-match-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;
+  font-size:14px;line-height:1.6;color:#222
+}
+.empty-box{
+  border:1px dashed #cfd6e4;background:#fafbfc;border-radius:14px;padding:18px;color:#666;font-size:14px
+}
+
+@media (max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .panel{position:static}
+  .grid2,.grid3,.axis-grid,.flow-grid{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  .subject-name{font-size:22px}
+}
+@media (max-width:768px){
+  .tb-match-grid{grid-template-columns:1fr}
+  .tb-match-top{flex-direction:column}
+  .tb-match-score{width:52px}
+}
 </style>
 </head>
 <body>
@@ -122,6 +164,15 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
         </div>
       </section>
 
+      <section class="section" id="textbook-match-section">
+        <h2 class="section-title">교과서 기반 탐구·세특 추천</h2>
+        <div class="sub">
+          학생 키워드와 선택과목을 바탕으로 교과서 단원, 탐구 주제, 세특 씨앗을 자동 매칭합니다.
+        </div>
+        <div id="textbook-match-summary" class="textbook-match-summary"></div>
+        <div id="textbook-match-results" class="textbook-match-results"></div>
+      </section>
+
       <section class="section">
         <div class="section-title">과목별 근거 카드</div>
         <div class="top-tools" style="margin-top:12px">
@@ -135,10 +186,13 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
   </div>
 </div>
 
+<script src="../../data/student_textbook_matcher.js"></script>
+
 <script>
 const qs = new URLSearchParams(location.search);
 const targetId = qs.get('student_id') || 'shstudy09';
 let currentYear = 0;
+let currentStudent = null;
 
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]))}
 function tighten(s){
@@ -200,6 +254,7 @@ function renderYearToggles(student){
       currentYear = Number(btn.dataset.idx || 0);
       renderYearToggles(student);
       renderSubjects(student);
+      runTextbookMatchFromRecord(student);
     });
   });
 }
@@ -304,14 +359,211 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
   });
 });
 
+function extractCurrentYearSubjects(student){
+  const years = Array.isArray(student?.years) ? student.years : [];
+  const year = years[currentYear] || years[0] || {};
+  return Array.isArray(year?.subjects) ? year.subjects : [];
+}
+
+function buildStudentTextbookInputFromStudent(student){
+  const currentSubjects = extractCurrentYearSubjects(student);
+  const selectedSubjects = [...new Set(
+    [
+      ...(Array.isArray(student?.selected_subjects) ? student.selected_subjects : []),
+      ...currentSubjects.map(s => s.subject || s.subject_name).filter(Boolean)
+    ]
+  )];
+
+  const keywordPool = [];
+
+  currentSubjects.forEach(item => {
+    if (Array.isArray(item.keywords)) keywordPool.push(...item.keywords);
+    if (item.summary) keywordPool.push(item.summary);
+    if (item.subject_goal_focus) keywordPool.push(item.subject_goal_focus);
+    if (item.current_activity_basis) keywordPool.push(item.current_activity_basis);
+    if (item.analysis_basis) keywordPool.push(item.analysis_basis);
+
+    const ef = item.evidence_first || {};
+    if (ef.evidence_summary) keywordPool.push(ef.evidence_summary);
+    if (ef.observed_performance) keywordPool.push(ef.observed_performance);
+    if (ef.interpretation) keywordPool.push(ef.interpretation);
+    if (ef.evaluation_meaning) keywordPool.push(ef.evaluation_meaning);
+    if (ef.next_improvement) keywordPool.push(ef.next_improvement);
+
+    const jb = item.judgment_block || {};
+    if (jb.admission_officer_view) keywordPool.push(jb.admission_officer_view);
+    if (jb.subject_judgment) keywordPool.push(jb.subject_judgment);
+    if (jb.record_judgment) keywordPool.push(jb.record_judgment);
+    if (jb.overall_opinion) keywordPool.push(jb.overall_opinion);
+    if (jb.structure_interpretation) keywordPool.push(jb.structure_interpretation);
+    if (jb.extension_interpretation) keywordPool.push(jb.extension_interpretation);
+
+    if (Array.isArray(item.activity_framework)) keywordPool.push(...item.activity_framework);
+    if (Array.isArray(item.evaluation_priority)) keywordPool.push(...item.evaluation_priority);
+    if (Array.isArray(item.axis_list)) {
+      item.axis_list.forEach(axis => {
+        if (axis?.title) keywordPool.push(axis.title);
+        if (axis?.content) keywordPool.push(axis.content);
+      });
+    }
+    if (Array.isArray(item.inquiry_flow_detail)) {
+      item.inquiry_flow_detail.forEach(flow => {
+        if (flow?.kicker) keywordPool.push(flow.kicker);
+        if (flow?.title) keywordPool.push(flow.title);
+        if (flow?.body) keywordPool.push(flow.body);
+        if (flow?.description) keywordPool.push(flow.description);
+      });
+    }
+  });
+
+  const joined = keywordPool.join(" ");
+  const joinedLower = joined.toLowerCase();
+
+  const trackKeywords = [];
+  const styleKeywords = [];
+
+  if (/배터리|이차전지|전고체|에너지|전기차|전기전자|전지|리튬/.test(joined)) {
+    trackKeywords.push("배터리", "에너지", "전기전자");
+  }
+  if (/생명|의학|의생명|세포|유전|면역|항상성|단백질|효소/.test(joined)) {
+    trackKeywords.push("생명·의생명");
+  }
+  if (/환경|기후|지구|해양|재해|탄소|지질|대기/.test(joined)) {
+    trackKeywords.push("환경·지구");
+  }
+  if (/ai|인공지능|정보|보안|알고리즘|데이터|모델링/.test(joinedLower)) {
+    trackKeywords.push("AI·정보·보안");
+  }
+  if (/반도체|전자기|회로|전자|광학|파동/.test(joined)) {
+    trackKeywords.push("반도체·전자");
+  }
+
+  if (/실험|측정|변인|관찰|전해|반응|검증|조작/.test(joined)) {
+    styleKeywords.push("실험형");
+  }
+  if (/데이터|그래프|해석|통계|시각화|수치/.test(joined)) {
+    styleKeywords.push("데이터형");
+  }
+  if (/시스템|설계|구조|모델|최적화|회로/.test(joined)) {
+    styleKeywords.push("시스템형");
+  }
+  if (/윤리|사회|책임|시민|영향|안전/.test(joined)) {
+    styleKeywords.push("윤리·사회형");
+  }
+
+  const activityKeywords = [...new Set(
+    keywordPool
+      .flatMap(v => String(v || "").split(/[,·/()]/))
+      .map(v => v.trim())
+      .filter(v => v && v.length >= 2)
+  )].slice(0, 40);
+
+  return {
+    student_id: student?.student_id || student?.id || "",
+    track_keywords: [...new Set(trackKeywords)],
+    activity_keywords: activityKeywords,
+    selected_subjects: selectedSubjects,
+    style_keywords: [...new Set(styleKeywords)]
+  };
+}
+
+function renderTextbookMatchSummary(studentInput, results) {
+  const el = document.getElementById("textbook-match-summary");
+  if (!el) return;
+
+  const topSubjects = [...new Set(results.map(r => r.subject))].slice(0, 5);
+  const topKeywords = [...new Set(results.flatMap(r => r.matched_keywords || []))].slice(0, 8);
+
+  el.innerHTML = `
+    <div class="tb-summary-box">
+      <div><strong>선택과목</strong>: ${esc(studentInput.selected_subjects.join(", ") || "-")}</div>
+      <div><strong>진로축</strong>: ${esc(studentInput.track_keywords.join(", ") || "-")}</div>
+      <div><strong>활동유형</strong>: ${esc(studentInput.style_keywords.join(", ") || "-")}</div>
+      <div><strong>상위 매칭 과목</strong>: ${esc(topSubjects.join(", ") || "-")}</div>
+      <div><strong>핵심 매칭 키워드</strong>: ${esc(topKeywords.join(", ") || "-")}</div>
+    </div>
+  `;
+}
+
+function renderTextbookMatchResults(results) {
+  const target = document.getElementById("textbook-match-results");
+  if (!target) return;
+
+  if (!results || !results.length) {
+    target.innerHTML = `<div class="empty-box">매칭 결과가 없습니다.</div>`;
+    return;
+  }
+
+  target.innerHTML = results.map(item => {
+    const matched = (item.matched_keywords || []).join(", ");
+    const topics = (item.recommended_topics || []).slice(0, 4).join(" · ");
+    const records = (item.record_seeds || []).slice(0, 3).join(" · ");
+    const concepts = (item.core_concepts || []).slice(0, 4).join(", ");
+    const majors = (item.major_links || []).slice(0, 4).join(", ");
+
+    return `
+      <div class="tb-match-card">
+        <div class="tb-match-top">
+          <div class="tb-match-title-wrap">
+            <div class="tb-match-subject">${esc(item.subject)}</div>
+            <div class="tb-match-unit">${esc(item.unit)}</div>
+            <div class="tb-match-subunit">${esc(item.subunit)}</div>
+          </div>
+          <div class="tb-match-score">${esc(item.score)}</div>
+        </div>
+
+        <div class="tb-match-grid">
+          <div><strong>매칭 키워드</strong><br>${esc(matched || "-")}</div>
+          <div><strong>핵심 개념</strong><br>${esc(concepts || "-")}</div>
+          <div><strong>추천 탐구</strong><br>${esc(topics || "-")}</div>
+          <div><strong>세특 씨앗</strong><br>${esc(records || "-")}</div>
+          <div><strong>관련 전공</strong><br>${esc(majors || "-")}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function runTextbookMatchFromRecord(student) {
+  const target = document.getElementById("textbook-match-results");
+  const summary = document.getElementById("textbook-match-summary");
+
+  if (!window.StudentTextbookMatcher) {
+    if (target) target.innerHTML = `<div class="empty-box">student_textbook_matcher.js가 로드되지 않았습니다.</div>`;
+    return;
+  }
+
+  const studentInput = buildStudentTextbookInputFromStudent(student);
+
+  try {
+    const results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
+      textbookPath: "../../data/textbook_master.json",
+      keywordMapPath: "../../data/student_textbook_keyword_map.json",
+      minScore: 4,
+      topN: 12
+    });
+
+    renderTextbookMatchSummary(studentInput, results);
+    renderTextbookMatchResults(results);
+  } catch (err) {
+    console.error("교과서 매칭 오류:", err);
+    if (summary) summary.innerHTML = "";
+    if (target) {
+      target.innerHTML = `<div class="empty-box">교과서 매칭 데이터를 불러오지 못했습니다.</div>`;
+    }
+  }
+}
+
 (async function(){
   try{
     const data = await loadData();
     const student = pickStudent(data);
     if(!student) throw new Error('학생 데이터를 찾지 못했습니다.');
+    currentStudent = student;
     renderOverview(student);
     renderYearToggles(student);
     renderSubjects(student);
+    await runTextbookMatchFromRecord(student);
   }catch(e){
     document.body.innerHTML = '<div style="padding:24px;font-family:sans-serif">오류: ' + esc(e.message || e) + '</div>';
   }
