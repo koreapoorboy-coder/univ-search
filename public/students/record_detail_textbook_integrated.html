@@ -186,7 +186,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
   </div>
 </div>
 
-<script src="../../data/student_textbook_matcher.js"></script>
+<script src="../data/student_textbook_matcher.js"></script>
 
 <script>
 const qs = new URLSearchParams(location.search);
@@ -537,8 +537,8 @@ async function runTextbookMatchFromRecord(student) {
 
   try {
     const results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
-      textbookPath: "../../data/textbook_master.json",
-      keywordMapPath: "../../data/student_textbook_keyword_map.json",
+      textbookPath: "../data/textbook_master.json",
+      keywordMapPath: "../data/student_textbook_keyword_map.json",
       minScore: 4,
       topN: 12
     });
