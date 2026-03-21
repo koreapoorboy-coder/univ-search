@@ -35,7 +35,7 @@
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">확장 활동 보기</h1>
-    <div class="sub">이 버전은 생활기록부 원문/분석 텍스트에서 직접 추출한 키워드를 기준으로 매핑한 뒤, 그 결과를 확장 활동으로 전환합니다.</div>
+    <div class="sub">현재 보고 있는 학년의 선택 과목과 원문 텍스트만 기준으로 확장 활동을 생성합니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a id="goMapping" href="./record_detail_mapping.html">교과서 매핑 보기</a>
@@ -46,11 +46,11 @@
     <aside class="side">
       <h2 class="side-title">학생 요약</h2>
       <div class="side-box"><div class="side-label">학생</div><div class="side-value" id="studentBasic">-</div></div>
+      <div class="side-box"><div class="side-label">현재 학년</div><div class="side-value" id="yearValue">-</div></div>
       <div class="side-box"><div class="side-label">진로 방향</div><div class="side-value" id="directionValue">-</div></div>
       <div class="side-box"><div class="side-label">선택과목</div><div class="chips" id="subjectChips"></div></div>
       <div class="side-box"><div class="side-label">핵심 키워드</div><div class="chips" id="portfolioChips"></div></div>
       <div class="side-box"><div class="side-label">추출 방식</div><div class="side-value" id="sourceMode">-</div></div>
-      <div class="side-box"><div class="side-label">설계 기준</div><div class="side-value">기본은 상위 3개만 표시하고, 원하면 전체 확장 활동을 더 볼 수 있게 구성</div></div>
     </aside>
     <main class="main">
       <section class="topbar">
@@ -68,27 +68,25 @@
 const COLORS={"물리학":["#f6fbff","#4f8cc9"],"물리학Ⅰ":["#f6fbff","#4f8cc9"],"고급물리학":["#f5fbff","#4a82c2"],"화학":["#fff8f3","#e38b2c"],"화학Ⅰ":["#fff8f3","#e38b2c"],"화학실험":["#fff8f3","#e38b2c"],"고급화학":["#fff6f1","#d46f2d"],"생명과학":["#f7fcf7","#4da866"],"생명과학Ⅰ":["#f7fcf7","#4da866"],"생명과학Ⅱ":["#f7fcf7","#4da866"],"생명과학실험":["#f7fcf7","#4da866"],"고급생명과학":["#fff7fb","#c05693"],"대수":["#f8f6ff","#7e66d4"],"공통수학1":["#f8f6ff","#7e66d4"],"공통수학2":["#f8f6ff","#7e66d4"],"기하":["#f8f6ff","#7e66d4"],"통합과학":["#f7fbff","#5a7fb8"]};
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
-let ALL_PLANS=[],SHOW_ALL=false;
+let ALL_PLANS=[],SHOW_ALL=false,CURRENT_YEAR_IDX=0;
 function scoreColor(score){const n=Number(score||0);if(n>=40)return '#2f3f93';if(n>=30)return '#6f57c7';return '#6d7786';}
+function getParams(){const params=new URLSearchParams(location.search);return {sid:params.get('student_id')||'shstudy09',yearIdx:Math.max(0,Number(params.get('year_idx')||'0')||0)};}
 async function loadBaseStudent(){
- const params=new URLSearchParams(location.search),sid=params.get('student_id')||'shstudy09';
- document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(sid)}`;
- document.getElementById('goMapping').href=`./record_detail_mapping.html?student_id=${encodeURIComponent(sid)}`;
+ const {sid,yearIdx}=getParams(); CURRENT_YEAR_IDX=yearIdx;
+ document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(sid)}&year_idx=${yearIdx}`;
+ document.getElementById('goMapping').href=`./record_detail_mapping.html?student_id=${encodeURIComponent(sid)}&year_idx=${yearIdx}`;
  const baseDir=location.pathname.replace(/[^/]*$/,'');
  const paths=[`${baseDir}record_detail.json`,`${baseDir}record_detail_concrete.json`,`${baseDir}record_detail (1).json`];
  for(const path of paths){try{const res=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'});if(!res.ok)continue;const data=await res.json();const arr=Array.isArray(data?.students)?data.students:[];const student=arr.find(s=>String(s.student_id||s.id||'')===sid)||arr[0];if(student)return student;}catch(e){}}
  return null;
 }
-function cacheKey(studentId){return `tb_match_raw_text_cache_v1_${studentId}`;}
-function loadResultsFromCache(studentId){try{const raw=localStorage.getItem(cacheKey(studentId));if(!raw)return null;const parsed=JSON.parse(raw);return Array.isArray(parsed?.results)?parsed.results:null;}catch(e){return null;}}
-function inferDirectionText(studentInput,plans){
- const profile=plans?.[0]?.track_profile?.main_track||"";
- const mapping={"배터리·에너지형":"배터리·에너지 중심 탐구형","생명·의생명형":"생명·의생명 중심 탐구형","환경·지구형":"환경·지구 중심 탐구형","AI·정보형":"AI·정보 중심 탐구형","반도체·전자형":"반도체·전자 중심 탐구형","일반 이공 탐구형":"일반 이공 탐구형"};
- return mapping[profile]||unique(studentInput.track_keywords).join(", ")||"-";
-}
+function cacheKey(studentId, yearIdx){return `tb_match_raw_text_cache_v2_${studentId}_y${yearIdx}`;}
+function loadResultsFromCache(studentId, yearIdx){try{const raw=localStorage.getItem(cacheKey(studentId, yearIdx));if(!raw)return null;const parsed=JSON.parse(raw);return Array.isArray(parsed?.results)?parsed.results:null;}catch(e){return null;}}
+function inferDirectionText(studentInput,plans){const profile=plans?.[0]?.track_profile?.main_track||"";const mapping={"배터리·에너지형":"배터리·에너지 중심 탐구형","생명·의생명형":"생명·의생명 중심 탐구형","환경·지구형":"환경·지구 중심 탐구형","AI·정보형":"AI·정보 중심 탐구형","반도체·전자형":"반도체·전자 중심 탐구형","일반 이공 탐구형":"일반 이공 탐구형"};return mapping[profile]||unique(studentInput.track_keywords).join(", ")||"-";}
 function fillSidebar(student,studentInput,plans){
  document.getElementById('heroTitle').textContent=`${student.student_name||student.name||''} 확장 활동 보기`;
  document.getElementById('studentBasic').textContent=`${student.student_name||student.name||''} · ${student.school_name||student.school||''}`;
+ document.getElementById('yearValue').textContent=studentInput.year_label||`${CURRENT_YEAR_IDX+1}학년`;
  document.getElementById('directionValue').textContent=inferDirectionText(studentInput,plans);
  document.getElementById('subjectChips').innerHTML=unique(studentInput.selected_subjects).slice(0,12).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
  const portfolioChips=unique([...(studentInput.track_keywords||[]),...(plans?.[0]?.track_profile?.keywords||[])]).slice(0,12);
@@ -97,7 +95,7 @@ function fillSidebar(student,studentInput,plans){
 }
 function buildMatchReasons(match,studentInput){
  const reasons=[]; const mk=unique(match?.matched_keywords||[]).slice(0,6);
- if(mk.length) reasons.push(`학생 원문/분석 텍스트에서 추출된 ${mk.join(", ")} 키워드가 ${match.subject}의 ${match.unit}·${match.subunit}과 직접 연결됩니다.`);
+ if(mk.length) reasons.push(`현재 학년 원문/분석 텍스트에서 추출된 ${mk.join(", ")} 키워드가 ${match.subject}의 ${match.unit}·${match.subunit}과 직접 연결됩니다.`);
  const concepts=unique(match?.core_concepts||[]).slice(0,3); if(concepts.length) reasons.push(`핵심 개념 ${concepts.join(", ")}이 현재 학생의 탐구 방향과 연결되어 후속 활동 설계가 쉽습니다.`);
  const majors=unique(match?.major_links||[]).slice(0,3); if(majors.length) reasons.push(`관련 전공 ${majors.join(", ")}과 이어져 진로 설계 근거로 활용하기 좋습니다.`);
  if((studentInput.track_keywords||[]).length) reasons.push(`진로축 ${studentInput.track_keywords.join(", ")} 기준으로도 우선 추천 가능한 단원입니다.`);
@@ -111,7 +109,7 @@ function cardHTML(plan,studentInput){
 }
 function renderPlans(student,studentInput){
  const cards=document.getElementById('cards'),info=document.getElementById('resultInfo'),btn=document.getElementById('toggleMoreBtn');
- if(!ALL_PLANS.length){fillSidebar(student,studentInput,[]);cards.innerHTML=`<div class="empty">확장 설계 결과가 없습니다.</div>`;info.textContent='표시할 결과가 없습니다.';btn.style.display='none';return;}
+ if(!ALL_PLANS.length){fillSidebar(student,studentInput,[]);cards.innerHTML=`<div class="empty">현재 학년 선택 과목 기준 확장 설계 결과가 없습니다.</div>`;info.textContent='표시할 결과가 없습니다.';btn.style.display='none';return;}
  const visible=SHOW_ALL?ALL_PLANS:ALL_PLANS.slice(0,3);
  fillSidebar(student,studentInput,visible);
  cards.innerHTML=visible.map(plan=>cardHTML(plan,studentInput)).join('');
@@ -127,13 +125,13 @@ async function boot(){
  const student=await loadBaseStudent();
  if(!student){cards.innerHTML=`<div class="empty">학생 데이터를 불러오지 못했습니다.</div>`;return;}
  let studentInput;
- try{studentInput=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{textbookPath:'../univ-search/data/textbook_master.json',keywordMapPath:'../univ-search/data/student_textbook_keyword_map.json'});}
+ try{studentInput=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{currentYearIdx:CURRENT_YEAR_IDX,textbookPath:'../univ-search/data/textbook_master.json',keywordMapPath:'../univ-search/data/student_textbook_keyword_map.json'});}
  catch(err){console.error(err);cards.innerHTML=`<div class="empty">원문 키워드 추출 중 오류가 발생했습니다.</div>`;return;}
- const sid=studentInput.student_id||'unknown'; const results=loadResultsFromCache(sid);
- if(!results||!results.length){fillSidebar(student,studentInput,[]);cards.innerHTML=`<div class="empty">교과서 매핑 결과가 없어 확장 설계를 생성하지 못했습니다. 먼저 교과서 매핑 페이지를 한 번 열어 결과를 생성해 주세요.</div>`;document.getElementById('resultInfo').textContent='매핑 결과가 필요합니다.';document.getElementById('toggleMoreBtn').style.display='none';return;}
+ const sid=studentInput.student_id||'unknown'; const results=loadResultsFromCache(sid,CURRENT_YEAR_IDX);
+ if(!results||!results.length){fillSidebar(student,studentInput,[]);cards.innerHTML=`<div class="empty">교과서 매핑 결과가 없어 확장 설계를 생성하지 못했습니다. 먼저 같은 학년으로 교과서 매핑 페이지를 한 번 열어 결과를 생성해 주세요.</div>`;document.getElementById('resultInfo').textContent='매핑 결과가 필요합니다.';document.getElementById('toggleMoreBtn').style.display='none';return;}
  ALL_PLANS=window.StudentTextbookExtensionEngine.generateExtensionPlans(studentInput,results,{topN:results.length});
  renderPlans(student,studentInput);
- document.getElementById('toggleMoreBtn').addEventListener('click',()=>{SHOW_ALL=!SHOW_ALL;renderPlans(student,studentInput);});
+ document.getElementById('toggleMoreBtn').onclick=()=>{SHOW_ALL=!SHOW_ALL;renderPlans(student,studentInput);};
 }
 boot();
 </script>
