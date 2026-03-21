@@ -73,20 +73,16 @@
 
     const set = new Set([text]);
 
-    // 공통적으로 많이 쓰는 과목명 변형
     set.add(text.replace(/\s+/g, ""));
     set.add(text.replace(/ⅰ/g, "1"));
     set.add(text.replace(/ⅱ/g, "2"));
     set.add(text.replace(/Ⅰ/g, "1"));
     set.add(text.replace(/Ⅱ/g, "2"));
-
-    // "물리학1" -> "물리학", "화학1" -> "화학"
     set.add(text.replace(/\s*1$/g, ""));
     set.add(text.replace(/\s*2$/g, ""));
     set.add(text.replace(/\s*ⅰ$/g, ""));
     set.add(text.replace(/\s*ⅱ$/g, ""));
 
-    // "물리학" -> "물리학1", "물리학Ⅰ"
     if (!/[12ⅠⅡ]$/.test(text)) {
       set.add(text + " 1");
       set.add(text + " 2");
@@ -94,7 +90,6 @@
       set.add(text + "Ⅱ");
     }
 
-    // 일반적인 축약 대응
     const replacements = [
       ["생명과학", ["생명", "생명과학1", "생명과학2", "생명과학Ⅰ", "생명과학Ⅱ"]],
       ["물리학", ["물리", "물리학1", "물리학2", "물리학Ⅰ", "물리학Ⅱ"]],
@@ -138,6 +133,7 @@
 
         if (normKey === target) {
           found.add(key);
+
           if (Array.isArray(value)) {
             value.forEach(v => found.add(String(v)));
           } else if (value && typeof value === "object") {
@@ -226,14 +222,78 @@
         if (sv.includes(alias) || alias.includes(sv)) return true;
       }
     }
-
     return false;
+  }
+
+  function inferPrimaryTrack(student) {
+    const text = normalizeText([
+      ...(student.track_keywords || []),
+      ...(student.activity_keywords || []),
+      ...(student.selected_subjects || [])
+    ].join(" "));
+
+    if (/배터리|전지|리튬|전고체|산화환원|전기화학|에너지/.test(text)) return "battery_energy";
+    if (/생명|의생명|세포|유전|면역|항상성|의학|바이오/.test(text)) return "bio_med";
+    if (/반도체|전자|전자기|회로|소자|디스플레이/.test(text)) return "semiconductor_electronics";
+    if (/환경|기후|지구|해양|재해|탄소/.test(text)) return "earth_environment";
+    if (/ai|인공지능|알고리즘|정보|보안|데이터|행렬|모델링/.test(text)) return "ai_data";
+    return "general_stem";
+  }
+
+  function getTrackSubjectBoost(track, subjectName) {
+    const subject = normalizeText(subjectName);
+
+    const map = {
+      battery_energy: [
+        ["고급화학", 14], ["화학실험", 12], ["화학Ⅰ", 11], ["물리학Ⅰ", 10],
+        ["고급물리학", 9], ["통합과학", 8], ["대수", 4], ["공통수학", 4], ["기하", 3]
+      ],
+      bio_med: [
+        ["고급생명과학", 14], ["생명과학실험", 12], ["생명과학Ⅰ", 11], ["생명과학Ⅱ", 10],
+        ["화학Ⅰ", 8], ["화학실험", 8], ["통합과학", 7], ["대수", 4], ["공통수학", 3]
+      ],
+      semiconductor_electronics: [
+        ["고급물리학", 13], ["물리학Ⅰ", 12], ["고급화학", 9], ["화학Ⅰ", 8],
+        ["통합과학", 7], ["대수", 6], ["기하", 5], ["공통수학", 5]
+      ],
+      earth_environment: [
+        ["고급지구과학", 14], ["지구과학Ⅰ", 12], ["지구과학Ⅱ", 11], ["지구과학실험", 10],
+        ["통합과학", 8], ["화학Ⅰ", 5], ["대수", 3]
+      ],
+      ai_data: [
+        ["대수", 12], ["공통수학1", 11], ["공통수학2", 11], ["기하", 10],
+        ["통합과학", 6], ["물리학Ⅰ", 6]
+      ],
+      general_stem: [
+        ["통합과학", 8], ["물리학Ⅰ", 7], ["화학Ⅰ", 7], ["생명과학Ⅰ", 7], ["대수", 6]
+      ]
+    };
+
+    const rules = map[track] || [];
+    let boost = 0;
+
+    rules.forEach(([key, value]) => {
+      if (subject.includes(normalizeText(key)) || normalizeText(key).includes(subject)) {
+        boost = Math.max(boost, value);
+      }
+    });
+
+    return boost;
+  }
+
+  function shouldDisplayMatchedKeyword(keyword) {
+    const k = normalizeText(keyword);
+    if (!k) return false;
+    if (["실험형", "데이터형", "시스템형", "윤리 사회형", "윤리·사회형"].map(normalizeText).includes(k)) return false;
+    return true;
   }
 
   function scoreSubunit(subjectName, unitName, subunit, student, keywordMap) {
     let score = 0;
     const matchedKeywords = new Set();
     const scoreBreakdown = [];
+
+    const track = inferPrimaryTrack(student);
 
     const subjectNorm = normalizeText(subjectName);
     const unitNorm = normalizeText(unitName);
@@ -251,7 +311,7 @@
     const majorLinkPool = majorLinks.map(normalizeText);
     const fullTextPool = buildSubunitTextPool(subjectName, unitName, subunit).map(normalizeText);
 
-    // 1) 선택과목 일치 +3 (완화)
+    // 선택과목 일치
     for (const selectedSubject of student.selected_subjects) {
       const aliases = getAliasesForKeyword(keywordMap, selectedSubject);
 
@@ -263,7 +323,7 @@
 
       if (matched) {
         score += 3;
-        matchedKeywords.add(selectedSubject);
+        if (shouldDisplayMatchedKeyword(selectedSubject)) matchedKeywords.add(selectedSubject);
         scoreBreakdown.push({
           type: "selected_subject_match",
           keyword: selectedSubject,
@@ -272,7 +332,7 @@
       }
     }
 
-    // 2) 진로 키워드 일치 +5 (강화)
+    // 진로 키워드 일치
     for (const trackKeyword of student.track_keywords) {
       const aliases = getAliasesForKeyword(keywordMap, trackKeyword);
 
@@ -280,24 +340,25 @@
       const matchedText = includesAlias(fullTextPool, aliases);
 
       if (matchedMajor || matchedText) {
-        score += 5;
-        matchedKeywords.add(trackKeyword);
+        const addScore = matchedMajor ? 6 : 5;
+        score += addScore;
+        if (shouldDisplayMatchedKeyword(trackKeyword)) matchedKeywords.add(trackKeyword);
         scoreBreakdown.push({
           type: matchedMajor ? "track_major_link_match" : "track_keyword_match",
           keyword: trackKeyword,
-          score: 5
+          score: addScore
         });
       }
     }
 
-    // 3) 활동 키워드가 core_concepts 일치 +3
+    // 활동 키워드
     for (const activityKeyword of student.activity_keywords) {
       const aliases = getAliasesForKeyword(keywordMap, activityKeyword);
       const matchedCore = includesAlias(coreConceptPool, aliases);
 
       if (matchedCore) {
         score += 3;
-        matchedKeywords.add(activityKeyword);
+        if (shouldDisplayMatchedKeyword(activityKeyword)) matchedKeywords.add(activityKeyword);
         scoreBreakdown.push({
           type: "activity_core_concept_match",
           keyword: activityKeyword,
@@ -306,11 +367,10 @@
         continue;
       }
 
-      // 4) 활동 키워드가 topic_seeds 일치 +2
       const matchedTopic = includesAlias(topicSeedPool, aliases);
       if (matchedTopic) {
         score += 2;
-        matchedKeywords.add(activityKeyword);
+        if (shouldDisplayMatchedKeyword(activityKeyword)) matchedKeywords.add(activityKeyword);
         scoreBreakdown.push({
           type: "activity_topic_seed_match",
           keyword: activityKeyword,
@@ -319,19 +379,14 @@
         continue;
       }
 
-      // 5) interpretation / record / major_links 보조 매칭 +2
       const matchedExtended = includesAlias(
-        [
-          ...interpretationPoints,
-          ...recordSeeds,
-          ...majorLinks
-        ].map(normalizeText),
+        [...interpretationPoints, ...recordSeeds, ...majorLinks].map(normalizeText),
         aliases
       );
 
       if (matchedExtended) {
         score += 2;
-        matchedKeywords.add(activityKeyword);
+        if (shouldDisplayMatchedKeyword(activityKeyword)) matchedKeywords.add(activityKeyword);
         scoreBreakdown.push({
           type: "activity_extended_match",
           keyword: activityKeyword,
@@ -340,20 +395,30 @@
       }
     }
 
-    // 6) 활동유형/스타일 보너스 +2
+    // 스타일 키워드 - 점수는 낮추되 표시 제외
     for (const styleKeyword of student.style_keywords) {
       const aliases = getAliasesForKeyword(keywordMap, styleKeyword);
       const matched = includesAlias(fullTextPool, aliases);
 
       if (matched) {
-        score += 2;
-        matchedKeywords.add(styleKeyword);
+        score += 1;
         scoreBreakdown.push({
           type: "style_match",
           keyword: styleKeyword,
-          score: 2
+          score: 1
         });
       }
+    }
+
+    // 트랙-과목 우선순위 보정
+    const subjectBoost = getTrackSubjectBoost(track, subjectName);
+    if (subjectBoost > 0) {
+      score += subjectBoost;
+      scoreBreakdown.push({
+        type: "track_subject_boost",
+        keyword: track,
+        score: subjectBoost
+      });
     }
 
     return {
@@ -367,13 +432,14 @@
       core_concepts: coreConcepts,
       interpretation_points: interpretationPoints,
       major_links: majorLinks,
-      score_breakdown: scoreBreakdown
+      score_breakdown: scoreBreakdown,
+      inferred_track: track
     };
   }
 
   function matchStudentToTextbook(studentInput, textbookMaster, keywordMap, options = {}) {
     const {
-      minScore = 2,
+      minScore = 6,
       topN = 30,
       includeZeroScore = false
     } = options;
@@ -475,6 +541,7 @@
     scoreSubunit,
     matchStudentToTextbook,
     runStudentTextbookMatch,
-    toHtmlCards
+    toHtmlCards,
+    inferPrimaryTrack
   };
 })();
