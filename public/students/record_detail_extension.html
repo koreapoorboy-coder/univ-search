@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>record_detail_extension_integrated</title>
+<title>record_detail_extension</title>
 <style>
 :root{
   --bg:#f5f8fd; --line:#dfe8f4; --text:#16202a; --sub:#5c6b7a; --shadow:0 12px 30px rgba(22,32,42,.08);
@@ -41,7 +41,6 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 .field + .field{margin-top:10px}
 .field-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:4px}
 .field-body{font-size:14px;line-height:1.7;font-weight:800;word-break:keep-all}
-.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}.activities{grid-template-columns:1fr}}
 @media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.ext-title{font-size:22px}.dual{grid-template-columns:1fr}}
 </style>
@@ -50,11 +49,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">학생 포트폴리오 확장 설계</h1>
-    <div class="sub" id="heroSub">교과서 매칭 결과를 바탕으로 탐구 질문, 보고서 로드맵, 세특 문장 씨앗까지 확장한 화면입니다.</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-      <a id="goBasic" href="./record_detail.html" style="display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid #dfe8f4;background:#fff;text-decoration:none;color:#16202a;font-weight:900">기본 상담 보기</a>
-      <a style="display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid #111;background:#111;text-decoration:none;color:#fff;font-weight:900">확장 활동 보기</a>
-    </div>
+    <div class="sub" id="heroSub">환경공학·생명공학 융합형 진로 방향으로 재정리한 확장 화면입니다.</div>
   </section>
 
   <div class="layout">
@@ -62,15 +57,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <h2 class="side-title">학생 요약</h2>
       <div class="side-box">
         <div class="side-label">학생</div>
-        <div class="side-value" id="studentBasic">-</div>
+        <div class="side-value" id="studentBasic"></div>
       </div>
       <div class="side-box">
         <div class="side-label">진로 방향</div>
-        <div class="side-value" id="directionValue">-</div>
+        <div class="side-value" id="directionValue"></div>
       </div>
       <div class="side-box">
         <div class="side-label">보조 축</div>
-        <div class="side-value" id="secondaryValue">-</div>
+        <div class="side-value" id="secondaryValue"></div>
       </div>
       <div class="side-box">
         <div class="side-label">핵심 과목</div>
@@ -86,292 +81,87 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
   </div>
 </div>
 
-<script src="../univ-search/data/student_textbook_matcher.js"></script>
-<script src="../univ-search/data/student_textbook_extension_engine.js"></script>
-
 <script>
 const COLORS = {
   "물리학":["#f6fbff","#4f8cc9"],
-  "물리학Ⅰ":["#f6fbff","#4f8cc9"],
   "화학":["#fff8f3","#e38b2c"],
-  "화학Ⅰ":["#fff8f3","#e38b2c"],
-  "화학실험":["#fff8f3","#e38b2c"],
   "생명과학":["#f7fcf7","#4da866"],
-  "생명과학Ⅰ":["#f7fcf7","#4da866"],
-  "생명과학Ⅱ":["#f7fcf7","#4da866"],
-  "생명과학실험":["#f7fcf7","#4da866"],
   "대수":["#f8f6ff","#7e66d4"],
-  "공통수학1":["#f8f6ff","#7e66d4"],
-  "공통수학2":["#f8f6ff","#7e66d4"],
-  "고급생명과학":["#fff7fb","#c05693"],
-  "고급화학":["#fff6f1","#d46f2d"],
-  "고급물리학":["#f5fbff","#4a82c2"],
-  "통합과학":["#f7fbff","#5a7fb8"]
+  "고급생명과학":["#fff7fb","#c05693"]
 };
-
 const esc = (s='') => String(s)
   .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
   .replaceAll('"','&quot;').replaceAll("'","&#39;");
 
-function unique(arr){
-  return [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
-}
-
-function extractCurrentYearSubjects(student){
-  const years = Array.isArray(student?.years) ? student.years : [];
-  const year = years[0] || {};
-  return Array.isArray(year?.subjects) ? year.subjects : [];
-}
-
-function buildStudentTextbookInputFromStudent(student){
-  const currentSubjects = extractCurrentYearSubjects(student);
-  const selectedSubjects = [...new Set(
-    [
-      ...(Array.isArray(student?.selected_subjects) ? student.selected_subjects : []),
-      ...currentSubjects.map(s => s.subject || s.subject_name).filter(Boolean)
-    ]
-  )];
-
-  const keywordPool = [];
-
-  currentSubjects.forEach(item => {
-    if (Array.isArray(item.keywords)) keywordPool.push(...item.keywords);
-    if (item.summary) keywordPool.push(item.summary);
-    if (item.subject_goal_focus) keywordPool.push(item.subject_goal_focus);
-    if (item.current_activity_basis) keywordPool.push(item.current_activity_basis);
-    if (item.analysis_basis) keywordPool.push(item.analysis_basis);
-
-    const ef = item.evidence_first || {};
-    if (ef.evidence_summary) keywordPool.push(ef.evidence_summary);
-    if (ef.observed_performance) keywordPool.push(ef.observed_performance);
-    if (ef.interpretation) keywordPool.push(ef.interpretation);
-    if (ef.evaluation_meaning) keywordPool.push(ef.evaluation_meaning);
-    if (ef.next_improvement) keywordPool.push(ef.next_improvement);
-
-    const jb = item.judgment_block || {};
-    if (jb.admission_officer_view) keywordPool.push(jb.admission_officer_view);
-    if (jb.subject_judgment) keywordPool.push(jb.subject_judgment);
-    if (jb.record_judgment) keywordPool.push(jb.record_judgment);
-    if (jb.overall_opinion) keywordPool.push(jb.overall_opinion);
-    if (jb.structure_interpretation) keywordPool.push(jb.structure_interpretation);
-    if (jb.extension_interpretation) keywordPool.push(jb.extension_interpretation);
-
-    if (Array.isArray(item.activity_framework)) keywordPool.push(...item.activity_framework);
-    if (Array.isArray(item.evaluation_priority)) keywordPool.push(...item.evaluation_priority);
-  });
-
-  const joined = keywordPool.join(" ");
-  const joinedLower = joined.toLowerCase();
-
-  const trackKeywords = [];
-  const styleKeywords = [];
-
-  if (/배터리|이차전지|전고체|에너지|전기차|전기전자|전지|리튬/.test(joined)) {
-    trackKeywords.push("배터리", "에너지", "전기전자");
-  }
-  if (/생명|의학|의생명|세포|유전|면역|항상성|단백질|효소/.test(joined)) {
-    trackKeywords.push("생명·의생명");
-  }
-  if (/환경|기후|지구|해양|재해|탄소|지질|대기/.test(joined)) {
-    trackKeywords.push("환경·지구");
-  }
-  if (/ai|인공지능|정보|보안|알고리즘|데이터|모델링/.test(joinedLower)) {
-    trackKeywords.push("AI·정보·보안");
-  }
-  if (/반도체|전자기|회로|전자|광학|파동/.test(joined)) {
-    trackKeywords.push("반도체·전자");
-  }
-
-  if (/실험|측정|변인|관찰|전해|반응|검증|조작/.test(joined)) {
-    styleKeywords.push("실험형");
-  }
-  if (/데이터|그래프|해석|통계|시각화|수치/.test(joined)) {
-    styleKeywords.push("데이터형");
-  }
-  if (/시스템|설계|구조|모델|최적화|회로/.test(joined)) {
-    styleKeywords.push("시스템형");
-  }
-  if (/윤리|사회|책임|시민|영향|안전/.test(joined)) {
-    styleKeywords.push("윤리·사회형");
-  }
-
-  const activityKeywords = [...new Set(
-    keywordPool
-      .flatMap(v => String(v || "").split(/[,·/()]/))
-      .map(v => v.trim())
-      .filter(v => v && v.length >= 2)
-  )].slice(0, 40);
-
-  return {
-    student_id: student?.student_id || student?.id || "",
-    track_keywords: [...new Set(trackKeywords)],
-    activity_keywords: activityKeywords,
-    selected_subjects: selectedSubjects,
-    style_keywords: [...new Set(styleKeywords)]
-  };
-}
-
-function inferDirectionText(studentInput, plans){
-  const profile = plans?.[0]?.track_profile?.main_track || "";
-  const mapping = {
-    "배터리·에너지형":"배터리·에너지 중심 탐구형",
-    "생명·의생명형":"생명·의생명 중심 탐구형",
-    "환경·지구형":"환경·지구 중심 탐구형",
-    "AI·정보형":"AI·정보 중심 탐구형",
-    "반도체·전자형":"반도체·전자 중심 탐구형",
-    "일반 이공 탐구형":"일반 이공 탐구형"
-  };
-  return mapping[profile] || unique(studentInput.track_keywords).join(", ") || "-";
-}
-
-function inferSecondaryText(studentInput){
-  const raw = unique(studentInput.track_keywords).filter(Boolean);
-  if (raw.length <= 1) return raw[0] || "-";
-  return raw.slice(1).join(", ");
-}
-
-function fillSidebar(student, studentInput, plans){
-  document.getElementById('heroTitle').textContent = `${student.student_name || student.name || ''} 학생 포트폴리오 확장 설계`;
-  document.getElementById('studentBasic').textContent = `${student.student_name || student.name || ''} · ${student.school_name || student.school || ''}`;
-  document.getElementById('directionValue').textContent = inferDirectionText(studentInput, plans);
-  document.getElementById('secondaryValue').textContent = inferSecondaryText(studentInput);
-  document.getElementById('subjectChips').innerHTML = unique(studentInput.selected_subjects).slice(0,12).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-  const portfolioChips = unique([
-    ...(studentInput.track_keywords || []),
-    ...(plans?.[0]?.track_profile?.keywords || [])
-  ]).slice(0,10);
-  document.getElementById('portfolioChips').innerHTML = portfolioChips.map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-}
-
-function cardHTML(plan){
-  const subject = plan?.source_match?.subject || '';
-  const [bg,bd] = COLORS[subject] || ['#fff','#5c6b7a'];
-
-  const evidence = [
-    `${plan.source_match.unit || ''} / ${plan.source_match.subunit || ''}`.trim(),
-    `매칭 키워드: ${(plan.source_match.matched_keywords || []).join(', ') || '-'}`,
-    `핵심 질문: ${(plan.inquiry_questions || [])[0] || '-'}`
-  ].filter(Boolean);
-
-  const activities = (plan.roadmap || []).map(step => `
+function cardHTML(subj){
+  const [bg,bd] = COLORS[subj.subject] || ['#fff','#5c6b7a'];
+  const acts = (subj.next_stage_activities || []).map(a => `
     <div class="activity-card">
-      <div class="activity-title">${esc(step.stage || '')} · ${esc(step.level || '')}</div>
-      <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">${esc(step.action || '')}</div></div>
-      <div class="field"><div class="field-label">활동 내용</div><div class="field-body">${esc(step.example || '')}</div></div>
-      <div class="field"><div class="field-label">기록 변화</div><div class="field-body">${esc(step.report_point || '')}</div></div>
-    </div>
-  `).join('');
-
-  const currentStrength = `${plan.track_profile?.main_track || ''} 관점에서 ${subject}의 핵심 단원이 강하게 매칭되며, ${(plan.source_match.matched_keywords || []).slice(0,4).join(', ')} 축이 선명합니다.`;
-  const gapPoint = `개념 정리형에서 끝내지 말고, 사례 비교·변수 분석·보고서 문장화까지 연결해야 학생부 설득력이 높아집니다.`;
-
+      <div class="activity-title">${esc(a.title || '')}</div>
+      <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">${esc(a.why_needed || '')}</div></div>
+      <div class="field"><div class="field-label">활동 내용</div><div class="field-body">${esc(a.activity_detail || '')}</div></div>
+      <div class="field"><div class="field-label">기록 변화</div><div class="field-body">${esc(a.expected_record_change || '')}</div></div>
+    </div>`).join('');
+  const ev = (subj.current_evidence || []).map(v => `<li>${esc(v)}</li>`).join('');
   return `
   <section class="ext-card" style="--card-bg:${bg};--card-bd:${bd}">
     <div class="ext-head">
       <div>
-        <div class="ext-title">${esc(subject)}</div>
-        <div class="ext-sub">${esc(plan.source_match.unit || '')} · ${esc(plan.source_match.subunit || '')}</div>
+        <div class="ext-title">${esc(subj.subject || '')}</div>
+        <div class="ext-sub">${esc(subj.course_role || '')}</div>
       </div>
-      <div class="ext-tag">확장 설계 · ${esc(plan.source_match.score || '')}</div>
+      <div class="ext-tag">확장 설계</div>
     </div>
 
     <div class="dual">
       <div class="mini-box">
         <div class="mini-label">현재 강점</div>
-        <div class="mini-body">${esc(currentStrength)}</div>
+        <div class="mini-body">${esc(subj.current_strength || '')}</div>
       </div>
       <div class="mini-box">
         <div class="mini-label">보완 지점</div>
-        <div class="mini-body">${esc(gapPoint)}</div>
+        <div class="mini-body">${esc(subj.gap_point || '')}</div>
       </div>
     </div>
 
     <div class="line-block">
       <div class="mini-label">현재 기록 근거</div>
-      <ul class="evidence">${evidence.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>
+      <ul class="evidence">${ev}</ul>
     </div>
 
     <div class="line-block">
       <div class="mini-label">다음 단계 활동</div>
-      <div class="activities">${activities}</div>
+      <div class="activities">${acts}</div>
     </div>
 
     <div class="line-block">
       <div class="mini-label">입시 관점</div>
-      <div class="mini-body">${esc(plan.consulting_comment || '')}</div>
+      <div class="mini-body">${esc(subj.admission_view || '')}</div>
     </div>
   </section>`;
-}
-
-async function loadBaseStudent(){
-  const params = new URLSearchParams(location.search);
-  const sid = params.get('student_id') || 'shstudy09';
-  const baseDir = location.pathname.replace(/[^/]*$/, '');
-  const paths = [
-    `${baseDir}record_detail.json`,
-    `${baseDir}record_detail_concrete.json`,
-    `${baseDir}record_detail (1).json`
-  ];
-
-  for(const path of paths){
-    try{
-      const res = await fetch(path + `?v=${Date.now()}`, {cache:'no-store'});
-      if(!res.ok) continue;
-      const data = await res.json();
-      const arr = Array.isArray(data?.students) ? data.students : [];
-      const student = arr.find(s => String(s.student_id||s.id||'') === sid) || arr[0];
-      if(student) return student;
-    }catch(e){}
-  }
-  return null;
 }
 
 async function boot(){
   const params = new URLSearchParams(location.search);
   const sid = params.get('student_id') || 'shstudy09';
-  const basicLink = document.getElementById('goBasic');
-  if (basicLink) basicLink.href = `./record_detail.html?student_id=${encodeURIComponent(sid)}`;
-
-  const cards = document.getElementById('cards');
-
-  if (!window.StudentTextbookMatcher) {
-    cards.innerHTML = `<div class="empty">student_textbook_matcher.js가 로드되지 않았습니다.</div>`;
+  const baseDir = location.pathname.replace(/[^/]*$/, '');
+  const url = `${baseDir}record_detail_extension_${sid}.json`;
+  const res = await fetch(url, {cache:'no-store'});
+  if(!res.ok){
+    document.getElementById('cards').innerHTML = `<div class="line-block">확장 데이터를 불러오지 못했습니다. (${res.status})</div>`;
     return;
   }
-  if (!window.StudentTextbookExtensionEngine) {
-    cards.innerHTML = `<div class="empty">student_textbook_extension_engine.js가 로드되지 않았습니다.</div>`;
-    return;
-  }
-
-  const student = await loadBaseStudent();
-  if(!student){
-    cards.innerHTML = `<div class="empty">학생 데이터를 불러오지 못했습니다.</div>`;
-    return;
-  }
-
-  const studentInput = buildStudentTextbookInputFromStudent(student);
-
-  try{
-    const results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
-      textbookPath: "../univ-search/data/textbook_master.json",
-      keywordMapPath: "../univ-search/data/student_textbook_keyword_map.json",
-      minScore: 6,
-      topN: 6
-    });
-
-    if(!results.length){
-      fillSidebar(student, studentInput, []);
-      cards.innerHTML = `<div class="empty">교과서 매칭 결과가 없어 확장 설계를 생성하지 못했습니다.</div>`;
-      return;
-    }
-
-    const plans = window.StudentTextbookExtensionEngine.generateExtensionPlans(studentInput, results, { topN: 3 });
-    fillSidebar(student, studentInput, plans);
-    cards.innerHTML = plans.map(cardHTML).join('');
-  }catch(err){
-    console.error(err);
-    cards.innerHTML = `<div class="empty">확장 설계 생성 중 오류가 발생했습니다.</div>`;
-  }
+  const data = await res.json();
+  const st = (data.students || [])[0];
+  const plan = st.selected_subjects_plan || {};
+  document.getElementById('heroTitle').textContent = `${st.student_name} 학생 포트폴리오 확장 설계`;
+  document.getElementById('studentBasic').textContent = `${st.student_name} · ${st.school_name}`;
+  document.getElementById('directionValue').textContent = plan.integrated_direction || '';
+  document.getElementById('secondaryValue').textContent = plan.secondary_track || '';
+  document.getElementById('subjectChips').innerHTML = (st.selected_subjects || []).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
+  const portfolioChips = [st.track, '환경공학·생명공학', '미생물·면역·환경공정'].filter(Boolean);
+  document.getElementById('portfolioChips').innerHTML = portfolioChips.map(v=>`<span class="chip">${esc(v)}</span>`).join('');
+  document.getElementById('cards').innerHTML = (plan.selection_subjects || []).map(cardHTML).join('');
 }
 boot();
 </script>
