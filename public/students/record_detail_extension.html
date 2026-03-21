@@ -30,6 +30,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 .topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px}
 .topbar-title{font-weight:900}
 .topbar-sub{font-size:13px;color:var(--sub);font-weight:700;margin-top:3px}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900;cursor:pointer}
 .ext-card{background:var(--card-bg);border:1px solid var(--line);border-left:8px solid var(--card-bd);border-radius:24px;box-shadow:var(--shadow);padding:20px}
 .ext-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
 .ext-title{font-size:26px;font-weight:900;line-height:1.2}
@@ -59,7 +60,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">확장 활동 보기</h1>
-    <div class="sub">교과서 매핑 상위 3개 결과를 기준으로 탐구 질문, 보고서 로드맵, 세특 문장 씨앗을 자동 설계한 화면입니다.</div>
+    <div class="sub">교과서 매핑 결과를 바탕으로 탐구 질문, 보고서 로드맵, 세특 문장 씨앗을 자동 설계한 화면입니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a id="goMapping" href="./record_detail_mapping.html">교과서 매핑 보기</a>
@@ -88,7 +89,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       </div>
       <div class="side-box">
         <div class="side-label">설계 기준</div>
-        <div class="side-value">매핑 상위 3개 → 확장 활동 자동 변환</div>
+        <div class="side-value">기본은 상위 3개만 표시하고, 원하면 전체 확장 활동을 더 볼 수 있게 구성</div>
       </div>
     </aside>
 
@@ -96,8 +97,9 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <section class="topbar">
         <div>
           <div class="topbar-title">확장 활동 설계 결과</div>
-          <div class="topbar-sub">교과서 매핑 상위 3개 결과만 사용해 길이를 줄이고 집중도를 높였습니다.</div>
+          <div class="topbar-sub" id="resultInfo">상위 3개만 먼저 표시합니다.</div>
         </div>
+        <button class="btn" id="toggleMoreBtn" type="button">더 보기</button>
       </section>
       <div id="cards"></div>
     </main>
@@ -116,6 +118,8 @@ const COLORS = {
 };
 const esc = (s='') => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const unique = arr => [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
+let ALL_PLANS = [];
+let SHOW_ALL = false;
 
 function scoreColor(score){
   const n = Number(score || 0);
@@ -334,6 +338,27 @@ function cardHTML(plan, studentInput){
   `;
 }
 
+function renderPlans(student, studentInput){
+  const cards = document.getElementById('cards');
+  const info = document.getElementById('resultInfo');
+  const btn = document.getElementById('toggleMoreBtn');
+
+  if (!ALL_PLANS.length){
+    fillSidebar(student, studentInput, []);
+    cards.innerHTML = `<div class="empty">확장 설계 결과가 없습니다.</div>`;
+    info.textContent = '표시할 결과가 없습니다.';
+    btn.style.display = 'none';
+    return;
+  }
+
+  const visible = SHOW_ALL ? ALL_PLANS : ALL_PLANS.slice(0,3);
+  fillSidebar(student, studentInput, visible);
+  cards.innerHTML = visible.map(plan => cardHTML(plan, studentInput)).join('');
+  info.textContent = SHOW_ALL ? `전체 ${ALL_PLANS.length}개 확장 활동을 표시 중입니다.` : `상위 3개 / 전체 ${ALL_PLANS.length}개 확장 활동`;
+  btn.textContent = SHOW_ALL ? '접기' : '더 보기';
+  btn.style.display = ALL_PLANS.length > 3 ? 'inline-block' : 'none';
+}
+
 async function boot(){
   const cards = document.getElementById('cards');
   if (!window.StudentTextbookMatcher) {
@@ -358,13 +383,18 @@ async function boot(){
   if(!results || !results.length){
     fillSidebar(student, studentInput, []);
     cards.innerHTML = `<div class="empty">교과서 매핑 결과가 없어 확장 설계를 생성하지 못했습니다. 먼저 교과서 매핑 페이지를 한 번 열어 결과를 생성해 주세요.</div>`;
+    document.getElementById('resultInfo').textContent = '매핑 결과가 필요합니다.';
+    document.getElementById('toggleMoreBtn').style.display = 'none';
     return;
   }
 
-  const topResults = results.slice(0,3);
-  const plans = window.StudentTextbookExtensionEngine.generateExtensionPlans(studentInput, topResults, { topN: 3 });
-  fillSidebar(student, studentInput, plans);
-  cards.innerHTML = plans.map(plan => cardHTML(plan, studentInput)).join('');
+  ALL_PLANS = window.StudentTextbookExtensionEngine.generateExtensionPlans(studentInput, results, { topN: results.length });
+  renderPlans(student, studentInput);
+
+  document.getElementById('toggleMoreBtn').addEventListener('click', () => {
+    SHOW_ALL = !SHOW_ALL;
+    renderPlans(student, studentInput);
+  });
 }
 boot();
 </script>
