@@ -43,7 +43,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">교과서 매핑 보기</h1>
-    <div class="sub">학생 키워드와 선택과목을 바탕으로 교과서 단원, 핵심 개념, 추천 탐구, 세특 씨앗을 과목별로 매칭해 보여주는 화면입니다.</div>
+    <div class="sub">이 버전은 생활기록부의 원문/분석 텍스트를 더 직접적으로 읽어 키워드를 추출한 뒤 교과서 단원과 매칭합니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a class="active">교과서 매핑 보기</a>
@@ -58,6 +58,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
       <div class="side-box"><div class="side-label">선택과목</div><div class="chips" id="subjectChips"></div></div>
       <div class="side-box"><div class="side-label">진로축</div><div class="side-value" id="trackValue">-</div></div>
       <div class="side-box"><div class="side-label">활동유형</div><div class="side-value" id="styleValue">-</div></div>
+      <div class="side-box"><div class="side-label">추출 방식</div><div class="side-value" id="sourceMode">-</div></div>
       <div class="side-box"><div class="side-label">상위 매칭 과목</div><div class="chips" id="topMatchChips"></div></div>
     </aside>
 
@@ -75,6 +76,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 </div>
 
 <script src="../univ-search/data/student_textbook_matcher.js"></script>
+<script src="../univ-search/data/student_record_keyword_extractor.js"></script>
 <script>
 const esc = s => String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const unique = arr => [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
@@ -86,49 +88,6 @@ function scoreColor(score){
   if (n >= 40) return '#2f3f93';
   if (n >= 30) return '#6f57c7';
   return '#6d7786';
-}
-
-function extractCurrentYearSubjects(student){
-  const years = Array.isArray(student?.years) ? student.years : [];
-  const year = years[0] || {};
-  return Array.isArray(year?.subjects) ? year.subjects : [];
-}
-
-function buildStudentTextbookInputFromStudent(student){
-  const currentSubjects = extractCurrentYearSubjects(student);
-  const selectedSubjects = unique([...(Array.isArray(student?.selected_subjects)?student.selected_subjects:[]), ...currentSubjects.map(s=>s.subject||s.subject_name).filter(Boolean)]);
-  const keywordPool = [];
-  currentSubjects.forEach(item => {
-    if(Array.isArray(item.keywords)) keywordPool.push(...item.keywords);
-    ['summary','subject_goal_focus','current_activity_basis','analysis_basis'].forEach(k => item[k] && keywordPool.push(item[k]));
-    const ef = item.evidence_first || {};
-    ['evidence_summary','observed_performance','interpretation','evaluation_meaning','next_improvement'].forEach(k => ef[k] && keywordPool.push(ef[k]));
-    const jb = item.judgment_block || {};
-    ['admission_officer_view','subject_judgment','record_judgment','overall_opinion','structure_interpretation','extension_interpretation'].forEach(k => jb[k] && keywordPool.push(jb[k]));
-    if(Array.isArray(item.activity_framework)) keywordPool.push(...item.activity_framework);
-    if(Array.isArray(item.evaluation_priority)) keywordPool.push(...item.evaluation_priority);
-  });
-
-  const joined = keywordPool.join(" "), joinedLower = joined.toLowerCase();
-  const trackKeywords = [], styleKeywords = [];
-  if(/배터리|이차전지|전고체|에너지|전기차|전기전자|전지|리튬/.test(joined)) trackKeywords.push("배터리","에너지","전기전자");
-  if(/생명|의학|의생명|세포|유전|면역|항상성|단백질|효소/.test(joined)) trackKeywords.push("생명·의생명");
-  if(/환경|기후|지구|해양|재해|탄소|지질|대기/.test(joined)) trackKeywords.push("환경·지구");
-  if(/ai|인공지능|정보|보안|알고리즘|데이터|모델링/.test(joinedLower)) trackKeywords.push("AI·정보·보안");
-  if(/반도체|전자기|회로|전자|광학|파동/.test(joined)) trackKeywords.push("반도체·전자");
-  if(/실험|측정|변인|관찰|전해|반응|검증|조작/.test(joined)) styleKeywords.push("실험형");
-  if(/데이터|그래프|해석|통계|시각화|수치/.test(joined)) styleKeywords.push("데이터형");
-  if(/시스템|설계|구조|모델|최적화|회로/.test(joined)) styleKeywords.push("시스템형");
-  if(/윤리|사회|책임|시민|영향|안전/.test(joined)) styleKeywords.push("윤리·사회형");
-  const activityKeywords = unique(keywordPool.flatMap(v => String(v||"").split(/[,·/()]/)).map(v => v.trim()).filter(v => v && v.length >= 2)).slice(0,40);
-
-  return {
-    student_id: student?.student_id || student?.id || "",
-    track_keywords: unique(trackKeywords),
-    activity_keywords: activityKeywords,
-    selected_subjects: selectedSubjects,
-    style_keywords: unique(styleKeywords)
-  };
 }
 
 async function loadBaseStudent(){
@@ -151,10 +110,8 @@ async function loadBaseStudent(){
   return null;
 }
 
-function cacheKey(studentId){ return `tb_match_cache_v2_${studentId}`; }
-function saveResultsToCache(studentId, results){
-  try{ localStorage.setItem(cacheKey(studentId), JSON.stringify({savedAt: Date.now(), results})); }catch(e){}
-}
+function cacheKey(studentId){ return `tb_match_raw_text_cache_v1_${studentId}`; }
+function saveResultsToCache(studentId, results){ try{ localStorage.setItem(cacheKey(studentId), JSON.stringify({savedAt:Date.now(), results})); }catch(e){} }
 function loadResultsFromCache(studentId){
   try{
     const raw = localStorage.getItem(cacheKey(studentId));
@@ -170,6 +127,7 @@ function fillSidebar(student, studentInput, results){
   document.getElementById('subjectChips').innerHTML = unique(studentInput.selected_subjects).slice(0,12).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
   document.getElementById('trackValue').textContent = unique(studentInput.track_keywords).join(', ') || '-';
   document.getElementById('styleValue').textContent = unique(studentInput.style_keywords).join(', ') || '-';
+  document.getElementById('sourceMode').textContent = studentInput.source_mode || '-';
   document.getElementById('topMatchChips').innerHTML = unique(results.map(r=>r.subject)).slice(0,6).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
 }
 
@@ -229,8 +187,13 @@ function renderResults(){
 
 async function boot(){
   const cards = document.getElementById('cards');
+
   if(!window.StudentTextbookMatcher){
     cards.innerHTML = `<div class="empty">student_textbook_matcher.js가 로드되지 않았습니다.</div>`;
+    return;
+  }
+  if(!window.StudentRecordKeywordExtractor){
+    cards.innerHTML = `<div class="empty">student_record_keyword_extractor.js가 로드되지 않았습니다.</div>`;
     return;
   }
 
@@ -240,10 +203,21 @@ async function boot(){
     return;
   }
 
-  const studentInput = buildStudentTextbookInputFromStudent(student);
-  const sid = studentInput.student_id || 'unknown';
+  let studentInput;
+  try{
+    studentInput = await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student, {
+      textbookPath:'../univ-search/data/textbook_master.json',
+      keywordMapPath:'../univ-search/data/student_textbook_keyword_map.json'
+    });
+  }catch(err){
+    console.error(err);
+    cards.innerHTML = `<div class="empty">원문 키워드 추출 중 오류가 발생했습니다.</div>`;
+    return;
+  }
 
+  const sid = studentInput.student_id || 'unknown';
   let results = loadResultsFromCache(sid);
+
   if(!results){
     try{
       results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
