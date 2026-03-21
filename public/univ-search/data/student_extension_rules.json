@@ -1,16 +1,22 @@
 {
   "version": "1.0",
+  "description": "shstudy08 실데이터 기반 확장 과목 통제 규칙",
   "students": {
-    "shstudy09": {
-      "student_name": "예시 학생",
-      "current_year_idx": 0,
-      "current_year_label": "1학년",
+    "shstudy08": {
+      "student_name": "shstudy08",
+      "current_year_idx": 1,
+      "current_year_label": "2학년",
       "current_subjects": [
-        "공통수학1",
-        "통합과학"
+        "대수",
+        "미적분1",
+        "물리학",
+        "화학",
+        "생명과학",
+        "고급생명과학"
       ],
       "allowed_extension_subjects": [
         "대수",
+        "미적분1",
         "물리학Ⅰ",
         "화학Ⅰ",
         "생명과학Ⅰ",
@@ -18,14 +24,29 @@
       ],
       "blocked_extension_subjects": [
         "공통수학1",
-        "통합과학"
+        "공통수학2",
+        "통합과학",
+        "과학탐구실험",
+        "수학",
+        "국어",
+        "영어",
+        "한국사",
+        "통합사회",
+        "기술가정",
+        "정보",
+        "일본어Ⅰ",
+        "물리학실험"
       ],
       "preferred_extension_subjects": [
         "화학Ⅰ",
         "생명과학Ⅰ",
-        "고급생명과학"
+        "고급생명과학",
+        "물리학Ⅰ",
+        "대수",
+        "미적분1"
       ],
-      "notes": "학생별 허용/제외/우선 과목 규칙"
+      "track_hint": "배터리·에너지 / 전기전자반도체 / 생명 융합",
+      "notes": "사용자 제공 기준: shstudy08 학생 2학년 선택과목은 대수, 미적분1, 물리학, 화학, 생명과학, 고급생명과학. 1학년 공통과목(예: 통합과학, 공통수학1)은 확장 활동에서 제외."
     }
   }
 }
