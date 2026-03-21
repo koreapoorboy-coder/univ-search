@@ -77,7 +77,10 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
     <h1 id="heroName">생활기록부 분석</h1>
     <div class="sub" id="heroSub">생활기록부 전체 해석과 과목별 근거를 정리한 기본 상담 화면입니다.</div>
     <div class="nav">
-      <a class="active">기본 상담 보기</a>
+      <a class="active">생활기록부 분석</a>
+      <a id="goMapping" href="./record_detail_mapping.html">교과서 매핑 보기</a>
+      <a class="active">생활기록부 분석</a>
+      <a id="goMapping" href="./record_detail_mapping.html">교과서 매핑 보기</a>
       <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
     </div>
   </section>
@@ -120,16 +123,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
           <div class="judge-card warm"><div class="mini-title">한계</div><div class="mini-body" id="evalLimit"></div></div>
           <div class="judge-card green"><div class="mini-title">종합 판단</div><div class="mini-body" id="evalOverall"></div></div>
         </div>
-      
       </section>
-
-      <section class="section" id="textbook-extension-section">
-        <h2 class="section-title">교과서 기반 확장 활동 설계</h2>
-        <div class="sub">
-          상위 매칭 결과를 바탕으로 탐구 질문, 보고서 로드맵, 세특 문장 씨앗을 자동 생성합니다.
-        </div>
-        <div id="textbook-extension-results" class="textbook-match-results"></div>
-
 
       <section class="section">
         <div class="section-title">과목별 근거 카드</div>
@@ -187,6 +181,8 @@ function renderOverview(student){
   const sid = encodeURIComponent(student.student_id || student.id || '');
   const baseDir = window.location.pathname.replace(/[^/]*$/, '');
   document.getElementById('goExtension').href = `${baseDir}record_detail_extension.html?student_id=${sid}`;
+  const mapLink = document.getElementById('goMapping');
+  if (mapLink) mapLink.href = `${baseDir}record_detail_mapping.html?student_id=${sid}`;
   const chips = Array.isArray(student.selected_subjects) ? student.selected_subjects : [];
   document.getElementById('subjectChips').innerHTML = chips.length ? chips.map(v => `<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">선택과목 없음</span>';
 
