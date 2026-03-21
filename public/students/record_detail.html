@@ -170,6 +170,7 @@ body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif
           학생 키워드와 선택과목을 바탕으로 교과서 단원, 탐구 주제, 세특 씨앗을 자동 매칭합니다.
         </div>
         <div id="textbook-match-summary" class="textbook-match-summary"></div>
+        <div id="textbook-match-debug" class="textbook-match-summary"></div>
         <div id="textbook-match-results" class="textbook-match-results"></div>
       </section>
 
@@ -485,12 +486,25 @@ function renderTextbookMatchSummary(studentInput, results) {
   `;
 }
 
+
+function renderTextbookMatchDebug(studentInput, results) {
+  const el = document.getElementById("textbook-match-debug");
+  if (!el) return;
+  el.innerHTML = `
+    <div class="tb-summary-box">
+      <div><strong>디버그</strong>: 결과 ${results.length}건 / 최소점수 1점 기준</div>
+      <div><strong>활동 키워드 수</strong>: ${(studentInput.activity_keywords || []).length}개</div>
+      <div><strong>선택과목 수</strong>: ${(studentInput.selected_subjects || []).length}개</div>
+    </div>
+  `;
+}
+
 function renderTextbookMatchResults(results) {
   const target = document.getElementById("textbook-match-results");
   if (!target) return;
 
   if (!results || !results.length) {
-    target.innerHTML = `<div class="empty-box">매칭 결과가 없습니다.</div>`;
+    target.innerHTML = `<div class="empty-box">매칭 결과가 없습니다. (교과서 데이터 구조 또는 키워드 매칭 범위를 추가 확인해야 합니다.)</div>`;
     return;
   }
 
@@ -539,7 +553,7 @@ async function runTextbookMatchFromRecord(student) {
     const results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
       textbookPath: "../univ-search/data/textbook_master.json",
       keywordMapPath: "../univ-search/data/student_textbook_keyword_map.json",
-      minScore: 4,
+      minScore: 1,
       topN: 12
     });
 
