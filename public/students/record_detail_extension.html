@@ -121,9 +121,7 @@ const esc = (s='') => String(s)
   .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
   .replaceAll('"','&quot;').replaceAll("'","&#39;");
 
-function unique(arr){
-  return [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
-}
+function unique(arr){ return [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))]; }
 
 function scoreColor(score){
   const n = Number(score || 0);
@@ -146,7 +144,6 @@ function buildStudentTextbookInputFromStudent(student){
   ]);
 
   const keywordPool = [];
-
   currentSubjects.forEach(item => {
     if (Array.isArray(item.keywords)) keywordPool.push(...item.keywords);
     if (item.summary) keywordPool.push(item.summary);
@@ -175,38 +172,19 @@ function buildStudentTextbookInputFromStudent(student){
 
   const joined = keywordPool.join(" ");
   const joinedLower = joined.toLowerCase();
-
   const trackKeywords = [];
   const styleKeywords = [];
 
-  if (/배터리|이차전지|전고체|에너지|전기차|전기전자|전지|리튬/.test(joined)) {
-    trackKeywords.push("배터리", "에너지", "전기전자");
-  }
-  if (/생명|의학|의생명|세포|유전|면역|항상성|단백질|효소/.test(joined)) {
-    trackKeywords.push("생명·의생명");
-  }
-  if (/환경|기후|지구|해양|재해|탄소|지질|대기/.test(joined)) {
-    trackKeywords.push("환경·지구");
-  }
-  if (/ai|인공지능|정보|보안|알고리즘|데이터|모델링/.test(joinedLower)) {
-    trackKeywords.push("AI·정보·보안");
-  }
-  if (/반도체|전자기|회로|전자|광학|파동/.test(joined)) {
-    trackKeywords.push("반도체·전자");
-  }
+  if (/배터리|이차전지|전고체|에너지|전기차|전기전자|전지|리튬/.test(joined)) trackKeywords.push("배터리","에너지","전기전자");
+  if (/생명|의학|의생명|세포|유전|면역|항상성|단백질|효소/.test(joined)) trackKeywords.push("생명·의생명");
+  if (/환경|기후|지구|해양|재해|탄소|지질|대기/.test(joined)) trackKeywords.push("환경·지구");
+  if (/ai|인공지능|정보|보안|알고리즘|데이터|모델링/.test(joinedLower)) trackKeywords.push("AI·정보·보안");
+  if (/반도체|전자기|회로|전자|광학|파동/.test(joined)) trackKeywords.push("반도체·전자");
 
-  if (/실험|측정|변인|관찰|전해|반응|검증|조작/.test(joined)) {
-    styleKeywords.push("실험형");
-  }
-  if (/데이터|그래프|해석|통계|시각화|수치/.test(joined)) {
-    styleKeywords.push("데이터형");
-  }
-  if (/시스템|설계|구조|모델|최적화|회로/.test(joined)) {
-    styleKeywords.push("시스템형");
-  }
-  if (/윤리|사회|책임|시민|영향|안전/.test(joined)) {
-    styleKeywords.push("윤리·사회형");
-  }
+  if (/실험|측정|변인|관찰|전해|반응|검증|조작/.test(joined)) styleKeywords.push("실험형");
+  if (/데이터|그래프|해석|통계|시각화|수치/.test(joined)) styleKeywords.push("데이터형");
+  if (/시스템|설계|구조|모델|최적화|회로/.test(joined)) styleKeywords.push("시스템형");
+  if (/윤리|사회|책임|시민|영향|안전/.test(joined)) styleKeywords.push("윤리·사회형");
 
   const activityKeywords = unique(
     keywordPool
@@ -269,20 +247,12 @@ function inferDirectionText(studentInput, plans){
 function buildMatchReasons(match, studentInput){
   const reasons = [];
   const mk = unique(match?.matched_keywords || []).slice(0, 6);
-  if (mk.length) {
-    reasons.push(`학생 키워드 ${mk.join(", ")}가 ${match.subject}의 ${match.unit}·${match.subunit}과 직접 연결됩니다.`);
-  }
+  if (mk.length) reasons.push(`학생 키워드 ${mk.join(", ")}가 ${match.subject}의 ${match.unit}·${match.subunit}과 직접 연결됩니다.`);
   const concepts = unique(match?.core_concepts || []).slice(0, 3);
-  if (concepts.length) {
-    reasons.push(`핵심 개념 ${concepts.join(", ")}이 현재 학생의 탐구 방향과 연결되어 후속 활동 설계가 쉽습니다.`);
-  }
+  if (concepts.length) reasons.push(`핵심 개념 ${concepts.join(", ")}이 현재 학생의 탐구 방향과 연결되어 후속 활동 설계가 쉽습니다.`);
   const majors = unique(match?.major_links || []).slice(0, 3);
-  if (majors.length) {
-    reasons.push(`관련 전공 ${majors.join(", ")}과 이어져 진로 설계 근거로 활용하기 좋습니다.`);
-  }
-  if ((studentInput.track_keywords || []).length) {
-    reasons.push(`진로축 ${studentInput.track_keywords.join(", ")} 기준으로도 우선 추천 가능한 단원입니다.`);
-  }
+  if (majors.length) reasons.push(`관련 전공 ${majors.join(", ")}과 이어져 진로 설계 근거로 활용하기 좋습니다.`);
+  if ((studentInput.track_keywords || []).length) reasons.push(`진로축 ${studentInput.track_keywords.join(", ")} 기준으로도 우선 추천 가능한 단원입니다.`);
   return reasons.slice(0, 4);
 }
 
@@ -291,16 +261,14 @@ function fillSidebar(student, studentInput, plans){
   document.getElementById('studentBasic').textContent = `${student.student_name || student.name || ''} · ${student.school_name || student.school || ''}`;
   document.getElementById('directionValue').textContent = inferDirectionText(studentInput, plans);
   document.getElementById('subjectChips').innerHTML = unique(studentInput.selected_subjects).slice(0,12).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-  const portfolioChips = unique([
-    ...(studentInput.track_keywords || []),
-    ...(plans?.[0]?.track_profile?.keywords || [])
-  ]).slice(0,10);
+  const portfolioChips = unique([...(studentInput.track_keywords || []), ...(plans?.[0]?.track_profile?.keywords || [])]).slice(0,10);
   document.getElementById('portfolioChips').innerHTML = portfolioChips.map(v=>`<span class="chip">${esc(v)}</span>`).join('');
 }
 
 function cardHTML(plan, studentInput){
   const subject = plan?.source_match?.subject || '';
-  const [bg,bd] = COLORS[subject] || ['#fff','#5c6b7a'];
+  const pair = COLORS[subject] || ['#fff','#5c6b7a'];
+  const bg = pair[0], bd = pair[1];
   const matchScore = Number(plan?.source_match?.score || 0);
   const reasons = buildMatchReasons(plan?.source_match || {}, studentInput);
 
@@ -350,7 +318,7 @@ function cardHTML(plan, studentInput){
 
     <div class="line-block">
       <div class="mini-label">현재 기록 근거</div>
-      <ul class="evidence">${evidence.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>
+      <ul class="evidence">${evidence.map(v => `<li>${esc(v)}</li>`).join('')}</ul>
     </div>
 
     <div class="line-block">
@@ -397,6 +365,7 @@ async function boot(){
   const studentInput = buildStudentTextbookInputFromStudent(student);
 
   try{
+    // 핵심: 학생 데이터만으로 확장하지 않고, 먼저 매핑 결과를 만든 뒤 그 results를 확장 엔진에 넘김
     const results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
       textbookPath: "../univ-search/data/textbook_master.json",
       keywordMapPath: "../univ-search/data/student_textbook_keyword_map.json",
@@ -406,7 +375,7 @@ async function boot(){
 
     if(!results.length){
       fillSidebar(student, studentInput, []);
-      cards.innerHTML = `<div class="empty">교과서 매칭 결과가 없어 확장 설계를 생성하지 못했습니다.</div>`;
+      cards.innerHTML = `<div class="empty">교과서 매핑 결과가 없어 확장 설계를 생성하지 못했습니다.</div>`;
       return;
     }
 
