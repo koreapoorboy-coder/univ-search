@@ -25,7 +25,7 @@
 .mini-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.mini-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:7px}.mini-body{font-weight:800;line-height:1.8;word-break:keep-all}
 .line-block{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.activities{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .activity-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:14px}.activity-title{font-size:16px;font-weight:900;line-height:1.45;margin-bottom:10px}.field + .field{margin-top:10px}.field-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:4px}.field-body{font-size:14px;line-height:1.7;font-weight:800;word-break:keep-all}
-.reason-list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
+.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
 @media (max-width:1200px){.activities{grid-template-columns:repeat(2,minmax(0,1fr))}.triple{grid-template-columns:1fr}}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
 @media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.ext-title{font-size:22px}.dual,.triple{grid-template-columns:1fr}.activities{grid-template-columns:1fr}.score-badge{min-width:56px;height:56px;font-size:24px;border-radius:16px}.topbar{flex-direction:column;align-items:flex-start}}
@@ -35,7 +35,7 @@
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">확장 활동 보기</h1>
-    <div class="sub">학생별 허용 과목 / 제외 과목 설정값을 기준으로 확장 활동을 통제합니다.</div>
+    <div class="sub">학생별 허용 과목 / 제외 과목 / 우선 과목 설정을 반영해 확장 활동을 통제합니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a id="goMapping" href="./record_detail_mapping.html">교과서 매핑 보기</a>
@@ -67,7 +67,7 @@ const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
 let ALL_PLANS=[],SHOW_ALL=false;
 function norm(v){return String(v||'').toLowerCase().replace(/\s+/g,'').replace(/Ⅰ|ⅰ/g,'1').replace(/Ⅱ|ⅱ/g,'2');}
 function scoreColor(score){const n=Number(score||0);if(n>=40)return '#2f3f93';if(n>=30)return '#6f57c7';return '#6d7786';}
-function getParams(){const p=new URLSearchParams(location.search);return {sid:p.get('student_id')||'shstudy09', yearIdx:Math.max(0, Number(p.get('year_idx')||'0')||0)};}
+function getParams(){const p=new URLSearchParams(location.search);return {sid:p.get('student_id')||'shstudy08', yearIdx:Math.max(0, Number(p.get('year_idx')||'1')||0)};}
 async function loadJson(path){const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json();}
 async function loadRules(){return loadJson('../univ-search/data/student_extension_rules.json');}
 function getStudentRule(rules, sid){return rules?.students?.[sid] || null;}
