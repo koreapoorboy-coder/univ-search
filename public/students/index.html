@@ -229,7 +229,64 @@
     return `${page}?t=${encodeURIComponent(token)}`;
   }
 
-  function getRecordFlag(flagsData, sid){
+  
+  function adminLinkFor(page, studentId, adminToken, yearIdx){
+    const url = new URL(page, location.href);
+    if(studentId){
+      if(page.includes("record_")) url.searchParams.set("student_id", studentId);
+      else url.searchParams.set("id", studentId);
+    }
+    if(adminToken) url.searchParams.set("admin", adminToken);
+    if(yearIdx != null && page.includes("record_")) url.searchParams.set("year_idx", String(yearIdx));
+    return url.pathname + url.search;
+  }
+
+  function studentLinkFor(page, token, yearIdx){
+    const url = new URL(page, location.href);
+    if(token) url.searchParams.set("t", token);
+    if(yearIdx != null && page.includes("record_")) url.searchParams.set("year_idx", String(yearIdx));
+    return url.pathname + url.search;
+  }
+
+  async function urlExists(path){
+    try{
+      const r = await fetch(path + `?v=${Date.now()}`, { method:"GET", cache:"no-store" });
+      return r.ok;
+    }catch(_e){
+      return false;
+    }
+  }
+
+  async function resolveStudentRoutes(studentId){
+    const sid = norm(studentId);
+    const folderBase = `./${encodeURIComponent(sid)}/`;
+    const folder = {
+      student: folderBase + "student.html",
+      univ: folderBase + "univ_list.html",
+      progress: folderBase + "progress_detail.html",
+      recordDetail: folderBase + "record_detail.html",
+      recordRaw: folderBase + "record_raw_detail.html",
+      recordMapping: folderBase + "record_detail_mapping.html",
+      recordExtension: folderBase + "record_detail_extension.html"
+    };
+
+    const root = {
+      student: "./student.html",
+      univ: "./univ_list.html",
+      progress: "./progress_detail.html",
+      recordDetail: "./record_detail.html",
+      recordRaw: "./record_raw_detail.html",
+      recordMapping: "./record_detail_mapping.html",
+      recordExtension: "./record_detail_extension.html"
+    };
+
+    const route = {};
+    for(const [key, folderPath] of Object.entries(folder)){
+      route[key] = (await urlExists(folderPath)) ? folderPath : root[key];
+    }
+    return route;
+  }
+function getRecordFlag(flagsData, sid){
     if (!flagsData) return {};
     if (Array.isArray(flagsData)) {
       return flagsData.find(x => norm(x?.id) === norm(sid)) || {};
@@ -314,7 +371,8 @@
     return `<span class="btn disabled" aria-disabled="true">${esc(label)}</span>`;
   }
 
-  function studentCardHtml(student, admin, flagsData, scoresById){
+  
+  async function studentCardHtml(student, admin, flagsData, scoresById){
     const sid = norm(pickId(student));
     const sname = pickName(student);
     const token = norm(pickToken(student));
@@ -325,18 +383,25 @@
 
     const flag = getRecordFlag(flagsData, sid);
     const latestRow = getLatestScoreRow(scoresById, sid);
-
     const recordEnabled = flag?.recordEnabled !== false;
+    const yearIdx = Number(flag?.currentYearIdx ?? flag?.year_idx ?? 0) || 0;
 
-    const aStudent = adminLink("./student.html", sid, admin);
-    const aUniv = adminLink("./univ_list.html", sid, admin);
-    const aProg = adminLink("./progress_detail.html", sid, admin);
-    const aRecD = adminRecordLink("./record_detail.html", sid, admin);
-    const aRecR = adminRecordLink("./record_raw_detail.html", sid, admin);
+    const routes = await resolveStudentRoutes(sid);
 
-    const tStudent = token ? studentLink("./student.html", token) : "";
-    const tRecD = token ? studentLink("./record_detail.html", token) : "";
-    const tRecR = token ? studentLink("./record_raw_detail.html", token) : "";
+    const aStudent = adminLinkFor(routes.student, sid, admin, yearIdx);
+    const aUniv = adminLinkFor(routes.univ, sid, admin, yearIdx);
+    const aProg = adminLinkFor(routes.progress, sid, admin, yearIdx);
+    const aRecD = adminLinkFor(routes.recordDetail, sid, admin, yearIdx);
+    const aRecR = adminLinkFor(routes.recordRaw, sid, admin, yearIdx);
+    const aMap = adminLinkFor(routes.recordMapping, sid, admin, yearIdx);
+    const aExt = adminLinkFor(routes.recordExtension, sid, admin, yearIdx);
+
+    const tStudent = token ? studentLinkFor(routes.student, token, yearIdx) : "";
+    const tRecD = token ? studentLinkFor(routes.recordDetail, token, yearIdx) : "";
+    const tRecR = token ? studentLinkFor(routes.recordRaw, token, yearIdx) : "";
+
+    const showMapping = !!routes.recordMapping;
+    const showExtension = !!routes.recordExtension;
 
     return `
       <div class="student-card" data-search="${esc([
@@ -370,8 +435,10 @@
           ${
             recordEnabled
               ? `<a class="btn" href="${esc(aRecD)}">생기부 분석</a>
-                 <a class="btn" href="${esc(aRecR)}">생기부 원문</a>`
-              : `${disabledBtn("생기부 분석")} ${disabledBtn("생기부 원문")}`
+                 <a class="btn" href="${esc(aRecR)}">생기부 원문</a>
+                 <a class="btn" href="${esc(aMap)}">매핑 보기</a>
+                 <a class="btn" href="${esc(aExt)}">확장 활동</a>`
+              : `${disabledBtn("생기부 분석")} ${disabledBtn("생기부 원문")} ${disabledBtn("매핑 보기")} ${disabledBtn("확장 활동")}`
           }
 
           <span class="divider" aria-hidden="true"></span>
@@ -454,7 +521,7 @@
     $("#adminMeta").innerHTML = `
       관리자 인증 완료 · 학생모드 링크는 <span class="mono">t=token</span>만 복사/사용 ·
       관리자 이동은 <span class="mono">id+admin</span> 사용 ·
-      생기부 상세는 <span class="mono">student_id+admin</span> 사용
+      생기부 상세는 <span class="mono">student_id+admin(+year_idx)</span> 사용 · 학생별 폴더가 있으면 자동 연결
     `;
 
     const [studentsRaw, scoresRaw, flagsData] = await Promise.all([
@@ -491,7 +558,8 @@
       총 ${total}명 · 토큰 보유 ${tokenCount}명 · 생기부 OFF ${recordOffCount}명
     `;
 
-    const listHtml = students.map(s => studentCardHtml(s, admin, flagsData, scoresById)).join("");
+    const cards = await Promise.all(students.map(s => studentCardHtml(s, admin, flagsData, scoresById)));
+    const listHtml = cards.join("");
     $("#studentList").innerHTML = listHtml || `<div class="empty">학생 데이터가 없습니다.</div>`;
 
     bindCopyButtons();
