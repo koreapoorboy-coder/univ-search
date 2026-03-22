@@ -29,7 +29,7 @@
 <div class="wrap">
 <section class="hero">
   <h1 id="heroTitle">생활기록부 연결</h1>
-  <div class="sub">현재 생활기록부를 교과 개념과 연결해 왜 다음 과목이 후보가 되는지 보여주는 진단 화면입니다. 실제 활동 설계는 확장 활동 보기에서 진행합니다.</div>
+  <div class="sub">현재 생활기록부를 교과 개념과 연결해 왜 다음 과목이 후보가 되는지 보여주는 진단 화면입니다. 실제 활동 설계는 확장 활동 보기에서 진행합니다.</div><div id="loadError" class="empty" style="display:none;margin-top:14px;border-style:solid;border-color:#f0c7c7;background:#fff7f7;color:#9b1c1c"></div>
   <div class="nav">
     <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
     <a class="active">생활기록부 연결</a>
@@ -77,9 +77,9 @@
 </div>
 </div>
 
-<script src="../../univ-search/data/student_textbook_matcher_v2.js"></script>
+<script src="../../univ-search/data/student_textbook_matcher.js"></script>
 <script src="../../univ-search/data/student_record_keyword_extractor.js"></script>
-<script src="../../univ-search/data/student_textbook_recommendation_engine_v2.js"></script>
+<script src="../../univ-search/data/student_textbook_recommendation_engine.js"></script>
 <script>
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
@@ -93,7 +93,7 @@ function candidateCard(item){const reasons=(item.auto_reasons||[]).map(v=>`<li>$
 function mapCard(item){const matched=unique(item.matched_keywords||[]).join(', ')||'-'; const concepts=unique(item.core_concepts||[]).slice(0,6).join(', ')||'-'; const reason=item.match_reason||'단원-키워드-전공 연결성이 확인됨'; return `<div class="map-card"><div class="head"><div><div class="title">${esc(item.subject||'')}</div><div class="subtitle">${esc(item.unit||'')} · ${esc(item.subunit||'')}</div></div><div class="score" style="background:${scoreColor(item.score)}">${esc(item.score||0)}</div></div><div class="summary-grid"><div class="box"><div class="kicker">매핑 키워드</div><div class="body">${esc(matched)}</div></div><div class="box"><div class="kicker">핵심 개념</div><div class="body">${esc(concepts)}</div></div></div><div class="box" style="margin-top:12px"><div class="kicker">현재 과목 연결 근거</div><div class="body">${esc(reason)}</div></div></div>`;}
 function renderCandidates(){const visible=SHOW_ALL_CANDIDATES?ALL_RECS:ALL_RECS.slice(0,3); document.getElementById('candidateWrap').innerHTML=visible.length?visible.map(candidateCard).join(''):'<div class="empty">추천 후보가 없습니다.</div>'; const btn=document.getElementById('toggleCandidatesBtn'); btn.style.display=ALL_RECS.length>3?'inline-block':'none'; btn.textContent=SHOW_ALL_CANDIDATES?'접기':'더 보기';}
 function renderMappings(){const visible=SHOW_ALL_MAPPINGS?ALL_MATCHES:ALL_MATCHES.slice(0,3); document.getElementById('mapWrap').innerHTML=visible.length?visible.map(mapCard).join(''):'<div class="empty">연결 결과가 없습니다.</div>'; const btn=document.getElementById('toggleMappingsBtn'); btn.style.display=ALL_MATCHES.length>3?'inline-block':'none'; btn.textContent=SHOW_ALL_MAPPINGS?'접기':'더 보기';}
-(async function(){const {student, extStudent}=await loadData(); const input=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{currentYearIdx:yearIdx,textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'}); ALL_MATCHES=await window.StudentTextbookMatcher.runStudentTextbookMatch(input,{textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json',minScore:10,topN:12,restrictToSelectedSubjects:true}); const rec=window.StudentTextbookRecommendationEngine.generateRecommendations(ALL_MATCHES, extStudent); ALL_RECS=rec.visible_subjects||rec.recommended_subjects||[]; fillSidebar(student, rec); renderCandidates(); renderMappings(); document.getElementById('toggleCandidatesBtn').onclick=()=>{SHOW_ALL_CANDIDATES=!SHOW_ALL_CANDIDATES; renderCandidates();}; document.getElementById('toggleMappingsBtn').onclick=()=>{SHOW_ALL_MAPPINGS=!SHOW_ALL_MAPPINGS; renderMappings();};})();
+(async function(){try{const {student, extStudent}=await loadData(); const input=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{currentYearIdx:yearIdx,textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'}); ALL_MATCHES=await window.StudentTextbookMatcher.runStudentTextbookMatch(input,{textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json',minScore:10,topN:12,restrictToSelectedSubjects:true}); const rec=window.StudentTextbookRecommendationEngine.generateRecommendations(ALL_MATCHES, extStudent); ALL_RECS=rec.visible_subjects||rec.recommended_subjects||[]; fillSidebar(student, rec); renderCandidates(); renderMappings(); document.getElementById('toggleCandidatesBtn').onclick=()=>{SHOW_ALL_CANDIDATES=!SHOW_ALL_CANDIDATES; renderCandidates();}; document.getElementById('toggleMappingsBtn').onclick=()=>{SHOW_ALL_MAPPINGS=!SHOW_ALL_MAPPINGS; renderMappings();};}catch(err){const box=document.getElementById('loadError'); if(box){box.style.display='block'; box.textContent='데이터 또는 엔진 로딩 중 오류가 발생했습니다: '+(err?.message||err);} console.error(err);}})();
 </script>
 </body>
 </html>
