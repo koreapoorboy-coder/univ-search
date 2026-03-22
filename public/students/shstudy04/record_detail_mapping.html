@@ -1,21 +1,150 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>record_detail_mapping</title>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>record_detail_mapping</title>
 <style>
-:root{--bg:#f6f8fc;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}.wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}.hero{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}.layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}.side{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}.side-title{font-size:20px;font-weight:900;margin:0 0 12px}.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}.side-label{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:5px}.side-value{font-weight:900;line-height:1.75}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}.main{display:grid;gap:14px}.bar{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px}.bar-left{font-weight:900}.bar-sub{font-size:13px;color:var(--sub);font-weight:700;margin-top:3px}.btn-row{display:flex;gap:8px;flex-wrap:wrap}.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900;cursor:pointer}.map-card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}.map-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}.map-title{font-size:24px;font-weight:900}.map-sub{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}.map-score{min-width:72px;height:72px;border-radius:22px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.map-item{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}.map-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.map-body{font-size:15px;line-height:1.75;font-weight:800}.reason-box{margin-top:12px;border:1px solid #e7ecf3;border-radius:18px;background:#f8fbff;padding:14px}.reason-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.reason-body{font-size:14px;line-height:1.75;font-weight:800}.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
-@media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.map-title{font-size:20px}.map-grid{grid-template-columns:1fr}.map-score{min-width:58px;height:58px;font-size:24px;border-radius:18px}.bar{flex-direction:column;align-items:flex-start}}
-</style></head><body>
-<div class="wrap"><section class="hero"><h1 id="heroTitle">교과서 매핑 보기</h1><div class="sub">shstudy04는 1학년 현재 과목 기준으로 매핑하고, 확장 활동은 별도 확장 계획 JSON으로 분리합니다.</div><div class="nav"><a id="goBasic" href="./record_detail.html">기본 상담 보기</a><a class="active">교과서 매핑 보기</a><a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a></div></section>
-<div class="layout"><aside class="side"><h2 class="side-title">학생 요약</h2><div class="side-box"><div class="side-label">학생</div><div class="side-value" id="studentBasic">-</div></div><div class="side-box"><div class="side-label">현재 학년</div><div class="side-value" id="yearValue">-</div></div><div class="side-box"><div class="side-label">현재 과목</div><div class="chips" id="subjectChips"></div></div><div class="side-box"><div class="side-label">진로축</div><div class="side-value" id="trackValue">-</div></div></aside><main class="main"><section class="bar"><div><div class="bar-left">교과서 매핑 결과</div><div class="bar-sub" id="resultInfo">상위 3개만 먼저 표시합니다.</div></div><div class="btn-row"><button class="btn" id="toggleMoreBtn" type="button">더 보기</button></div></section><div id="cards"></div></main></div></div>
+:root{--bg:#f6f8fc;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
+.hero{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}
+.nav a.active{background:#111;color:#fff;border-color:#111}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
+.side{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+.side-title{font-size:20px;font-weight:900;margin:0 0 12px}.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}
+.side-label{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:5px}.side-value{font-weight:900;line-height:1.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
+.main{display:grid;gap:14px}
+.bar{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px}
+.bar-left{font-weight:900}.bar-sub{font-size:13px;color:var(--sub);font-weight:700;margin-top:3px}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900;cursor:pointer}
+.section{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}
+.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
+.rec-card,.map-card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}
+.rec-head,.map-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
+.rec-title,.map-title{font-size:24px;font-weight:900}.rec-sub,.map-sub{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.score{min-width:72px;height:72px;border-radius:22px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;background:#2f3f93}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}
+.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
+.list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}
+.reason-box{margin-top:12px;border:1px solid #e7ecf3;border-radius:18px;background:#f8fbff;padding:14px}
+.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
+@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.rec-title,.map-title{font-size:20px}.grid2{grid-template-columns:1fr}.bar{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1 id="heroTitle">교과서 매핑 보기</h1>
+    <div class="sub">현재 과목 매핑을 보여주고, 그 결과를 바탕으로 다음 선택과목 탐구 방향까지 자동 추천합니다.</div>
+    <div class="nav">
+      <a id="goBasic" href="./record_detail.html">기본 상담 보기</a>
+      <a class="active">교과서 매핑 보기</a>
+      <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="side">
+      <h2 class="side-title">학생 요약</h2>
+      <div class="side-box"><div class="side-label">학생</div><div class="side-value" id="studentBasic">-</div></div>
+      <div class="side-box"><div class="side-label">현재 학년</div><div class="side-value" id="yearValue">-</div></div>
+      <div class="side-box"><div class="side-label">현재 과목</div><div class="chips" id="subjectChips"></div></div>
+      <div class="side-box"><div class="side-label">확장 방향</div><div class="side-value" id="directionValue">-</div></div>
+      <div class="side-box"><div class="side-label">보조 축</div><div class="side-value" id="secondaryValue">-</div></div>
+    </aside>
+
+    <main class="main">
+      <section class="bar">
+        <div>
+          <div class="bar-left">교과서 매핑 + 탐구 추천</div>
+          <div class="bar-sub">현재 과목 매핑은 근거 확인용, 아래 추천은 다음 과목 탐구 설계용입니다.</div>
+        </div>
+        <button class="btn" id="toggleMoreBtn" type="button">더 보기</button>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">핵심 추천 1개</h2>
+        <div id="coreRec"></div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">다음 선택과목 추천</h2>
+        <div id="recWrap"></div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">현재 과목 교과서 매핑</h2>
+        <div id="mapWrap"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
 <script src="../../univ-search/data/student_textbook_matcher.js"></script>
 <script src="../../univ-search/data/student_record_keyword_extractor.js"></script>
+<script src="../../univ-search/data/student_textbook_recommendation_engine.js"></script>
 <script>
-const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;"); const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))]; let ALL_RESULTS=[], SHOW_ALL=false;
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;"); const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
+let SHOW_ALL=false, ALL_RECS=[], ALL_MATCHES=[];
 function scoreColor(score){const n=Number(score||0); if(n>=40)return '#2f3f93'; if(n>=30)return '#6f57c7'; return '#6d7786';}
 const qs=new URLSearchParams(location.search); const targetId=qs.get('student_id')||'shstudy04'; const yearIdx=Math.max(0,Number(qs.get('year_idx')||'0')||0);
-async function loadStudent(){const r=await fetch('./record_detail.json?v='+Date.now(),{cache:'no-store'}); const data=await r.json(); const arr=Array.isArray(data?.students)?data.students:[]; return arr.find(s=>String(s.student_id||s.id||'')===targetId)||arr[0];}
-function cacheKey(studentId, yearIdx){return `tb_match_raw_text_cache_v2_${studentId}_y${yearIdx}`;} function loadResultsFromCache(studentId, yearIdx){try{const raw=localStorage.getItem(cacheKey(studentId, yearIdx)); if(!raw)return null; const parsed=JSON.parse(raw); return Array.isArray(parsed?.results)?parsed.results:null;}catch(e){return null;}} function saveResultsToCache(studentId, yearIdx, results){try{localStorage.setItem(cacheKey(studentId, yearIdx), JSON.stringify({savedAt:Date.now(), results}));}catch(e){}}
-function fillSidebar(student, input, results){document.getElementById('heroTitle').textContent=`${student.student_name||student.name||''} 교과서 매핑 보기`; document.getElementById('studentBasic').textContent=`${student.student_name||student.name||''} · ${student.school_name||student.school||''}`; document.getElementById('yearValue').textContent=input.year_label||`${yearIdx+1}학년`; document.getElementById('subjectChips').innerHTML=unique(input.selected_subjects).map(v=>`<span class="chip">${esc(v)}</span>`).join(''); document.getElementById('trackValue').textContent=unique(input.track_keywords).join(', ')||'-'; document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`; document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`;}
-function cardHTML(item){const matched=unique(item.matched_keywords||[]).join(', ')||'-'; const concepts=unique(item.core_concepts||[]).slice(0,6).join(', ')||'-'; const topics=unique(item.recommended_topics||[]).slice(0,3).join(' · ')||'-'; const seeds=unique(item.record_seeds||[]).slice(0,2).join(' · ')||'-'; const majors=unique(item.major_links||[]).slice(0,4).join(', ')||'-'; const reason=item.match_reason||'단원-키워드-전공 연결성이 확인됨'; return `<section class="map-card"><div class="map-head"><div><div class="map-title">${esc(item.subject||'')}</div><div class="map-sub">${esc(item.unit||'')}</div><div class="map-sub">${esc(item.subunit||'')}</div></div><div class="map-score" style="background:${scoreColor(item.score)}">${esc(item.score||'')}</div></div><div class="map-grid"><div class="map-item"><div class="map-label">매핑 키워드</div><div class="map-body">${esc(matched)}</div></div><div class="map-item"><div class="map-label">핵심 개념</div><div class="map-body">${esc(concepts)}</div></div><div class="map-item"><div class="map-label">추천 탐구</div><div class="map-body">${esc(topics)}</div></div><div class="map-item"><div class="map-label">세특 씨앗</div><div class="map-body">${esc(seeds)}</div></div><div class="map-item"><div class="map-label">관련 전공</div><div class="map-body">${esc(majors)}</div></div></div><div class="reason-box"><div class="reason-title">추천 근거</div><div class="reason-body">${esc(reason)}</div></div></section>`;}
-function renderResults(){const cards=document.getElementById('cards'), info=document.getElementById('resultInfo'), btn=document.getElementById('toggleMoreBtn'); if(!ALL_RESULTS.length){cards.innerHTML=`<div class="empty">현재 학년 과목 기준 매핑 결과가 없습니다.</div>`; info.textContent='표시할 결과가 없습니다.'; btn.style.display='none'; return;} const visible=SHOW_ALL?ALL_RESULTS:ALL_RESULTS.slice(0,3); cards.innerHTML=visible.map(cardHTML).join(''); info.textContent=SHOW_ALL?`전체 ${ALL_RESULTS.length}개 결과를 표시 중입니다.`:`상위 3개 / 전체 ${ALL_RESULTS.length}개 결과`; btn.textContent=SHOW_ALL?'접기':'더 보기'; btn.style.display=ALL_RESULTS.length>3?'inline-block':'none';}
-(async function(){const student=await loadStudent(); let input=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{currentYearIdx:yearIdx,textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'}); let results=loadResultsFromCache(targetId,yearIdx); if(!results){results=await window.StudentTextbookMatcher.runStudentTextbookMatch(input,{textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json',minScore:10,topN:12,restrictToSelectedSubjects:true}); saveResultsToCache(targetId,yearIdx,results);} ALL_RESULTS=Array.isArray(results)?results:[]; fillSidebar(student,input,ALL_RESULTS); renderResults(); document.getElementById('toggleMoreBtn').onclick=()=>{SHOW_ALL=!SHOW_ALL; renderResults();};})();
-</script></body></html>
+async function loadJson(path){const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json();}
+async function loadData(){
+  const [detail, ext] = await Promise.all([loadJson('./record_detail.json'), loadJson('./record_detail_extension.json')]);
+  const student = (detail.students||[]).find(s=>String(s.student_id||s.id||'')===targetId) || (detail.students||[])[0] || {};
+  const extStudent = (ext.students||[]).find(s=>String(s.student_id||s.id||'')===targetId) || (ext.students||[])[0] || {};
+  return {student, extStudent};
+}
+function mapCard(item){
+  const matched=unique(item.matched_keywords||[]).join(', ')||'-';
+  const concepts=unique(item.core_concepts||[]).slice(0,6).join(', ')||'-';
+  const topics=unique(item.recommended_topics||[]).slice(0,3).join(' · ')||'-';
+  const reason=item.match_reason||'단원-키워드-전공 연결성이 확인됨';
+  return `<div class="map-card"><div class="map-head"><div><div class="map-title">${esc(item.subject||'')}</div><div class="map-sub">${esc(item.unit||'')}</div><div class="map-sub">${esc(item.subunit||'')}</div></div><div class="score" style="background:${scoreColor(item.score)}">${esc(item.score||'')}</div></div><div class="grid2"><div class="box"><div class="kicker">매핑 키워드</div><div class="body">${esc(matched)}</div></div><div class="box"><div class="kicker">핵심 개념</div><div class="body">${esc(concepts)}</div></div><div class="box"><div class="kicker">추천 탐구</div><div class="body">${esc(topics)}</div></div><div class="box"><div class="kicker">추천 근거</div><div class="body">${esc(reason)}</div></div></div></div>`;
+}
+function recCard(item){
+  const core=item.auto_core||{};
+  const reasons=(item.auto_reasons||[]).map(v=>`<li>${esc(v)}</li>`).join('');
+  return `<div class="rec-card"><div class="rec-head"><div><div class="rec-title">${esc(item.subject||'')}</div><div class="rec-sub">${esc(item.course_role||'')}</div></div><div class="score">${esc(item.auto_score||0)}</div></div><div class="grid2"><div class="box"><div class="kicker">핵심 추천 활동</div><div class="body">${esc(core.top_activity_title||'-')}</div></div><div class="box"><div class="kicker">왜 추천되는가</div><div class="body">${esc(core.why||'-')}</div></div><div class="box"><div class="kicker">활동 내용</div><div class="body">${esc(core.activity_detail||'-')}</div></div><div class="box"><div class="kicker">기대 변화</div><div class="body">${esc(core.expected_change||'-')}</div></div></div><div class="reason-box"><div class="kicker">현재 기록과의 연결</div><ul class="list">${reasons||'<li>연결 근거 없음</li>'}</ul></div></div>`;
+}
+function render(){
+  const recVisible = SHOW_ALL ? ALL_RECS : ALL_RECS.slice(0,3);
+  document.getElementById('recWrap').innerHTML = recVisible.length ? recVisible.map(recCard).join('') : '<div class="empty">추천 데이터가 없습니다.</div>';
+  document.getElementById('mapWrap').innerHTML = (ALL_MATCHES.length ? ALL_MATCHES.slice(0,3).map(mapCard).join('') : '<div class="empty">매핑 결과가 없습니다.</div>');
+  document.getElementById('toggleMoreBtn').textContent = SHOW_ALL ? '접기' : '더 보기';
+}
+(async function(){
+  const {student, extStudent} = await loadData();
+  document.getElementById('heroTitle').textContent = `${student.student_name||'학생'} 교과서 매핑 보기`;
+  document.getElementById('studentBasic').textContent = `${student.student_name||''} · ${student.school_name||''}`;
+  document.getElementById('yearValue').textContent = (student.years||[])[yearIdx]?.year || `${yearIdx+1}학년`;
+  document.getElementById('subjectChips').innerHTML = (((student.years||[])[yearIdx]?.subjects)||[]).map(s=>`<span class="chip">${esc(s.subject||s.subject_name||'')}</span>`).join('');
+  document.getElementById('goBasic').href = `./record_detail.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`;
+  document.getElementById('goExtension').href = `./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`;
+
+  const input = await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student, {currentYearIdx:yearIdx, textbookPath:'../../univ-search/data/textbook_master.json', keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'});
+  const matches = await window.StudentTextbookMatcher.runStudentTextbookMatch(input, {textbookPath:'../../univ-search/data/textbook_master.json', keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json', minScore:10, topN:12, restrictToSelectedSubjects:true});
+  ALL_MATCHES = Array.isArray(matches) ? matches : [];
+
+  const rec = window.StudentTextbookRecommendationEngine.generateRecommendations(ALL_MATCHES, extStudent);
+  ALL_RECS = rec.recommended_subjects || [];
+  document.getElementById('directionValue').textContent = rec.integrated_direction || extStudent.track || '-';
+  document.getElementById('secondaryValue').textContent = rec.secondary_track || '-';
+
+  const core = ALL_RECS[0];
+  document.getElementById('coreRec').innerHTML = core ? recCard(core) : '<div class="empty">핵심 추천이 없습니다.</div>';
+
+  render();
+  document.getElementById('toggleMoreBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); };
+})();
+</script>
+</body>
+</html>
