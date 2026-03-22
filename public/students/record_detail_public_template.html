@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>생활기록부 보기</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:0;background:#f6f8fc}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    .card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px;margin-bottom:12px}
+    .title{font-size:22px;font-weight:900;margin-bottom:10px}
+    .meta{color:#555;margin-bottom:10px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="title" id="name">학생 이름</div>
+    <div class="meta" id="school"></div>
+  </div>
+  <div class="card">
+    <div class="title">생활기록부 요약</div>
+    <div id="summary">데이터 없음</div>
+  </div>
+</div>
+<script>
+  const qs = new URLSearchParams(location.search);
+  const sid = qs.get("student_id") || qs.get("id");
+  fetch("./students.json?v="+Date.now())
+    .then(r=>r.json())
+    .then(data=>{
+      const arr = Array.isArray(data?.students) ? data.students : data;
+      const student = arr.find(s => (s.id||s.student_id) === sid) || arr[0] || {};
+      document.getElementById("name").textContent = student.name || student.student_name || "학생";
+      document.getElementById("school").textContent = student.school || student.school_name || "";
+    });
+</script>
+</body>
+</html>
