@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="ko">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>record_creative</title>
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>record_creative</title>
 <style>
 :root{--bg:#f7faff;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
@@ -22,67 +24,91 @@
 .badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:900;background:#fff}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .box{padding:14px;border-radius:18px;background:#fbfdff}.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
+.list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}
 .empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
 @media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.title{font-size:20px}.grid2,.grid3{grid-template-columns:1fr}}
 </style></head>
 <body>
 <div class="wrap">
-<section class="hero">
-  <h1 id="heroTitle">창의체험활동 분석</h1>
-  <div class="sub">shstudy04 원문 기준으로 만든 창의체험활동 분석 화면입니다.</div>
-  <div class="nav">
-    <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
-    <a id="goMapping" href="./record_detail_mapping.html">생활기록부 연결</a>
-    <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
-    <a class="active">창의체험활동 분석</a>
-  </div>
-</section>
-<div class="layout">
-<aside class="side">
-  <h2 class="side-title">학생 요약</h2>
-  <div class="side-box"><div class="label">학생</div><div class="value" id="studentBasic">-</div></div>
-  <div class="side-box"><div class="label">활동 분류</div><div class="chips" id="categoryChips"></div></div>
-  <div class="side-box"><div class="label">연결 과목</div><div class="chips" id="subjectChips"></div></div>
-  <div class="side-box"><div class="label">연결 진로축</div><div class="chips" id="trackChips"></div></div>
-</aside>
-<main class="main">
-  <section class="section">
-    <div class="topbar">
-      <h2 class="section-title" style="margin:0">창체 항목별 분석</h2>
-      <button class="toggle" id="toggleBtn" type="button">더 보기</button>
+  <section class="hero">
+    <h1 id="heroTitle">창의체험활동 분석</h1>
+    <div class="sub">창체 원문 전체를 보여주기보다 필요한 발췌만 제시하고, 선택과목 연결성과 활동 연속성을 중심으로 확장 방향을 보여줍니다.</div>
+    <div class="nav">
+      <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
+      <a id="goMapping" href="./record_detail_mapping.html">생활기록부 연결</a>
+      <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
+      <a class="active">창의체험활동 분석</a>
+      <a id="goRaw" href="./record_detail_raw.html">생활기록부 원문</a>
     </div>
-    <div class="activity-list" id="activityWrap"></div>
   </section>
-</main>
+  <div class="layout">
+    <aside class="side">
+      <h2 class="side-title">연결 요약</h2>
+      <div class="side-box"><div class="label">학생</div><div class="value" id="studentBox">shstudy04</div></div>
+      <div class="side-box"><div class="label">선택과목</div><div class="chips" id="subjectChips"></div></div>
+      <div class="side-box"><div class="label">통합 방향</div><div class="value" id="directionBox">-</div></div>
+      <div class="side-box"><div class="label">보조 축</div><div class="value" id="secondaryBox">-</div></div>
+    </aside>
+    <main class="main">
+      <section class="section">
+        <div class="topbar">
+          <h2 class="section-title" style="margin:0">창체 연결 분석</h2>
+          <button class="toggle" id="toggleBtn" type="button">더 보기</button>
+        </div>
+        <div class="activity-list" id="activityWrap"></div>
+      </section>
+    </main>
+  </div>
 </div>
-</div>
+<script src="../../univ-search/data/creative_activity_link_engine.js"></script>
 <script>
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
-const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
-const qs=new URLSearchParams(location.search);
-const targetId=qs.get('student_id')||'shstudy04';
+const qs=new URLSearchParams(location.search); const targetId=qs.get('student_id')||'shstudy04';
 let SHOW_ALL=false, ALL_ITEMS=[];
 async function loadJson(path){ const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json(); }
-function fillSidebar(student){
-  document.getElementById('heroTitle').textContent = `${student.student_id||'학생'} 창의체험활동 분석`;
-  document.getElementById('studentBasic').textContent = `${student.student_id||''}`;
-  document.getElementById('goBasic').href = `./record_detail.html?student_id=${encodeURIComponent(targetId)}`;
-  document.getElementById('goMapping').href = `./record_detail_mapping.html?student_id=${encodeURIComponent(targetId)}`;
-  document.getElementById('goExtension').href = `./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}`;
-  const cats = unique((student.creative_activities||[]).map(a=>a.category));
-  const subs = unique((student.creative_activities||[]).flatMap(a=>a.linked_subjects||[]));
-  const tracks = unique((student.creative_activities||[]).flatMap(a=>a.linked_tracks||[]));
-  document.getElementById('categoryChips').innerHTML = cats.length ? cats.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
-  document.getElementById('subjectChips').innerHTML = subs.length ? subs.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
-  document.getElementById('trackChips').innerHTML = tracks.length ? tracks.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
-}
 function cardHtml(item){
-  const ext = Array.isArray(item.extension_activities) ? item.extension_activities : [];
-  const extHtml = ext.length ? ext.map(e=>`<div class="box"><div class="kicker">${esc(e.title||'후속 활동')}</div><div class="body">${esc(e.activity_detail||'')}</div><div class="kicker" style="margin-top:10px">왜 필요한가</div><div class="body">${esc(e.why_needed||'')}</div><div class="kicker" style="margin-top:10px">기록 변화</div><div class="body">${esc(e.expected_record_change||'')}</div></div>`).join('') : '<div class="empty">확장활동 데이터 없음</div>';
-  return `<section class="activity-card"><div class="head"><div><div class="title">${esc(item.title||'')}</div><div class="subtitle">${esc(item.category||'')} · ${esc(item.term||'')}</div></div><div class="badge">${esc(item.activity_type||'활동')}</div></div><div class="grid2"><div class="box"><div class="kicker">활동 원문</div><div class="body">${esc(item.raw_text||'')}</div></div><div class="box"><div class="kicker">핵심 키워드</div><div class="body">${esc((item.keywords||[]).join(', ')||'-')}</div></div></div><div class="grid3" style="margin-top:12px"><div class="box"><div class="kicker">활동 분석</div><div class="body">${esc(item.analysis?.activity_meaning||'')}</div></div><div class="box"><div class="kicker">연결성 해석</div><div class="body">${esc(item.analysis?.connection_analysis||'')}</div></div><div class="box"><div class="kicker">입시 관점</div><div class="body">${esc(item.analysis?.admission_view||'')}</div></div></div><div class="section-title" style="font-size:18px;margin:16px 0 10px">확장활동 제안</div><div class="grid2">${extHtml}</div></section>`;
+  const reasons=(item.connection_reasons||[]).map(v=>`<li>${esc(v)}</li>`).join('') || '<li>연결 근거 없음</li>';
+  const links=(item.extension_links||[]).map(v=>`<div class="box"><div class="kicker">${esc(v.type||'확장')}</div><div class="body">${esc(v.title||'')}</div><div class="kicker" style="margin-top:10px">연결 방식</div><div class="body">${esc(v.detail||'')}</div></div>`).join('');
+  return `<section class="activity-card">
+    <div class="head">
+      <div>
+        <div class="title">${esc(item.title||'')}</div>
+        <div class="subtitle">${esc(item.category||'')} · ${esc(item.term||'')}</div>
+      </div>
+      <div class="badge">연결 점수 ${esc(item.connection_score||0)}</div>
+    </div>
+    <div class="grid2">
+      <div class="box"><div class="kicker">핵심 발췌</div><div class="body">${esc(item.excerpt||'')}</div></div>
+      <div class="box"><div class="kicker">현재 의미</div><div class="body">${esc(item.core_meaning||'')}</div></div>
+    </div>
+    <div class="grid3" style="margin-top:12px">
+      <div class="box"><div class="kicker">선택과목 연결</div><div class="body">${esc((item.matched_subjects||[]).join(', ')||'-')}</div></div>
+      <div class="box"><div class="kicker">연속 활동 축</div><div class="body">${esc((item.continuity_tags||[]).join(', ')||'-')}</div></div>
+      <div class="box"><div class="kicker">연결성 해석</div><div class="body">${esc(item.connection_focus||'')}</div></div>
+    </div>
+    <div class="box" style="margin-top:12px">
+      <div class="kicker">왜 확장성이 있는가</div>
+      <ul class="list">${reasons}</ul>
+    </div>
+    <div class="section-title" style="font-size:18px;margin:16px 0 10px">확장 연결 제안</div>
+    <div class="grid2">${links || '<div class="empty">확장 연결 데이터 없음</div>'}</div>
+  </section>`;
 }
-function render(){ const visible = SHOW_ALL ? ALL_ITEMS : ALL_ITEMS.slice(0,3); document.getElementById('activityWrap').innerHTML = visible.length ? visible.map(cardHtml).join('') : '<div class="empty">창의체험활동 데이터가 없습니다.</div>'; const btn = document.getElementById('toggleBtn'); btn.style.display = ALL_ITEMS.length > 3 ? 'inline-block' : 'none'; btn.textContent = SHOW_ALL ? '접기' : '더 보기'; }
-(async function(){ const data = await loadJson('./creative_activities.json'); const student = data.student_id ? data : ((data.students||[]).find(s=>String(s.student_id||s.id||'')===targetId) || (data.students||[])[0] || {}); ALL_ITEMS = Array.isArray(student.creative_activities) ? student.creative_activities : []; fillSidebar(student); render(); document.getElementById('toggleBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); }; })();
+function render(){ const visible = SHOW_ALL ? ALL_ITEMS : ALL_ITEMS.slice(0,3); document.getElementById('activityWrap').innerHTML = visible.length ? visible.map(cardHtml).join('') : '<div class="empty">창체 연결 데이터가 없습니다.</div>'; const btn=document.getElementById('toggleBtn'); btn.style.display=ALL_ITEMS.length>3?'inline-block':'none'; btn.textContent=SHOW_ALL?'접기':'더 보기'; }
+(async function(){
+  document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}`;
+  document.getElementById('goMapping').href=`./record_detail_mapping.html?student_id=${encodeURIComponent(targetId)}`;
+  document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}`;
+  document.getElementById('goRaw').href=`./record_detail_raw.html?student_id=${encodeURIComponent(targetId)}`;
+  const data = await loadJson('./creative_activities.json');
+  const result = window.CreativeActivityLinkEngine.buildCreativeLinkage(data);
+  document.getElementById('subjectChips').innerHTML = (result.selection_subjects||[]).map(v=>`<span class="chip">${esc(v.subject||v)}</span>`).join('');
+  document.getElementById('directionBox').textContent = result.integrated_direction || '-';
+  document.getElementById('secondaryBox').textContent = result.secondary_track || '-';
+  ALL_ITEMS = result.activities || [];
+  render();
+  document.getElementById('toggleBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); };
+})();
 </script>
 </body></html>
