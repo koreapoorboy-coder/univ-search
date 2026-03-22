@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>창의체험활동 분석</title>
+<title>record_creative</title>
 <style>
 :root{--bg:#f7faff;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
@@ -27,7 +27,6 @@
 .badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:900;background:#fff}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .box{padding:14px;border-radius:18px;background:#fbfdff}.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
-.list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}
 .empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
 @media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.title{font-size:20px}.grid2,.grid3{grid-template-columns:1fr}}
@@ -37,7 +36,7 @@
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">창의체험활동 분석</h1>
-    <div class="sub">창의체험활동도 교과와 동일하게 분석, 연결성 해석, 확장활동까지 한 세트로 보여주는 화면입니다.</div>
+    <div class="sub">창체도 분석, 연결성, 확장활동까지 한 세트로 관리하는 학생별 화면입니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a id="goMapping" href="./record_detail_mapping.html">생활기록부 연결</a>
@@ -157,7 +156,8 @@ function render(){
 
 (async function(){
   const data = await loadJson('./creative_activities.json');
-  const student = (data.students||[]).find(s=>String(s.student_id||s.id||'')===targetId) || (data.students||[])[0] || {};
+  const students = Array.isArray(data.students) ? data.students : [data];
+  const student = students.find(s=>String(s.student_id||s.id||'')===targetId) || students[0] || {};
   ALL_ITEMS = Array.isArray(student.creative_activities) ? student.creative_activities : [];
   fillSidebar(student);
   render();
