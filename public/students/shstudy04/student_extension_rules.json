@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "description": "shstudy04 실데이터 기반 확장 과목 통제 규칙",
+  "students": {
+    "shstudy04": {
+      "student_name": "조민서",
+      "current_year_idx": 0,
+      "current_year_label": "1학년 분석 기준",
+      "current_subjects": [
+        "공통국어",
+        "공통수학",
+        "공통영어",
+        "통합사회",
+        "통합과학",
+        "과학탐구실험",
+        "창의체험활동"
+      ],
+      "allowed_extension_subjects": [
+        "문학",
+        "대수",
+        "화학",
+        "생명과학",
+        "기하"
+      ],
+      "blocked_extension_subjects": [
+        "공통국어",
+        "공통수학",
+        "공통영어",
+        "통합사회",
+        "통합과학",
+        "과학탐구실험",
+        "창의체험활동"
+      ],
+      "preferred_extension_subjects": [
+        "화학",
+        "생명과학",
+        "대수",
+        "기하",
+        "문학"
+      ],
+      "notes": "1학년 공통과목은 제외하고, 선택과목 계획에 있는 과목만 확장 활동에 표시"
+    }
+  }
+}
