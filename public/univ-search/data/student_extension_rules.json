@@ -1,54 +1,58 @@
 {
-  "version": "1.1",
-  "description": "학생별 확장 과목 통제 규칙",
+  "version": "2.0",
+  "description": "공용 엔진 업그레이드용 학생별 확장 과목 통제 규칙",
+  "global_defaults": {
+    "blocked_extension_subjects": ["공통국어","공통수학","공통수학1","공통수학2","공통영어","통합사회","통합과학","과학탐구실험","창의체험활동"],
+    "preferred_extension_subjects": [],
+    "display_mode": "diagnostic_first"
+  },
   "students": {
+    "shstudy01": {
+      "student_name": "shstudy01",
+      "main_track": "배터리·에너지 시스템형",
+      "sub_track": "전기전자·모빌리티 연계",
+      "career_label": "배터리 시스템 엔지니어",
+      "current_year_idx": 0,
+      "allowed_extension_subjects": ["미적분","물리학Ⅱ","화학Ⅱ","고급화학"],
+      "blocked_extension_subjects": ["생명과학Ⅱ","고급생명과학","문학"],
+      "preferred_extension_subjects": ["물리학Ⅱ","화학Ⅱ","고급화학","미적분"],
+      "creative_focus": "선택과목 연결 + 활동 연속성 + 확장성",
+      "notes": "배터리·에너지·전기전자 시스템 축 우선"
+    },
+    "shstudy04": {
+      "student_name": "shstudy04",
+      "main_track": "화학·생명 융합형",
+      "sub_track": "실험 기반 탐구형",
+      "career_label": "화학생명 융합 탐구형",
+      "current_year_idx": 0,
+      "allowed_extension_subjects": ["문학","대수","화학","생명과학","기하"],
+      "preferred_extension_subjects": ["화학","생명과학","대수","기하","문학"],
+      "creative_focus": "핵심 발췌 + 선택과목 연결 + 활동 연속성",
+      "notes": "1학년 공통과목 제외, 선택과목 계획 과목 중심"
+    },
     "shstudy08": {
       "student_name": "shstudy08",
+      "main_track": "화학생명 심화형",
+      "sub_track": "실험·분석형",
+      "career_label": "화학생명 심화 탐구형",
       "current_year_idx": 1,
-      "current_year_label": "2학년",
-      "current_subjects": [
-        "대수",
-        "미적분1",
-        "물리학",
-        "화학",
-        "생명과학",
-        "고급생명과학"
-      ],
-      "allowed_extension_subjects": [
-        "대수",
-        "미적분1",
-        "물리학",
-        "물리학Ⅰ",
-        "화학",
-        "화학Ⅰ",
-        "생명과학",
-        "생명과학Ⅰ",
-        "고급생명과학"
-      ],
-      "blocked_extension_subjects": [
-        "공통수학1",
-        "공통수학2",
-        "통합과학",
-        "과학탐구실험",
-        "국어",
-        "영어",
-        "한국사",
-        "통합사회",
-        "정보",
-        "일본어Ⅰ"
-      ],
-      "preferred_extension_subjects": [
-        "화학",
-        "화학Ⅰ",
-        "생명과학",
-        "생명과학Ⅰ",
-        "고급생명과학",
-        "물리학",
-        "물리학Ⅰ",
-        "대수",
-        "미적분1"
-      ],
-      "notes": "shstudy08 2학년 기준 규칙"
+      "allowed_extension_subjects": ["대수","미적분","물리학","물리학Ⅰ","화학","화학Ⅰ","생명과학","생명과학Ⅰ","고급생명과학"],
+      "blocked_extension_subjects": ["정보","일본어Ⅰ"],
+      "preferred_extension_subjects": ["화학","생명과학","고급생명과학","물리학","미적분"],
+      "creative_focus": "선택과목 심화 + 실험형 확장",
+      "notes": "2학년 기준 규칙"
+    },
+    "_template": {
+      "student_name": "학생ID",
+      "main_track": "메인 진로축",
+      "sub_track": "보조 진로축",
+      "career_label": "대표 진로명",
+      "current_year_idx": 0,
+      "allowed_extension_subjects": [],
+      "blocked_extension_subjects": [],
+      "preferred_extension_subjects": [],
+      "creative_focus": "선택과목 연결 + 활동 연속성",
+      "notes": "새 학생 추가용 템플릿"
     }
   }
 }
