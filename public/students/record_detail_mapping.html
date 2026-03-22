@@ -6,52 +6,39 @@
 <title>record_detail_mapping</title>
 <style>
 :root{--bg:#f6f8fc;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
 .wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
-.hero{background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
-.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}
-.nav a.active{background:#111;color:#fff;border-color:#111}
+.hero,.section,.candidate-card,.map-card,.side{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.hero{padding:26px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}
 .layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
-.side{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
-.side-title{font-size:20px;font-weight:900;margin:0 0 12px}
+.side{padding:20px;position:sticky;top:18px}.side-title{font-size:20px;font-weight:900;margin:0 0 12px}
 .side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}
-.side-label{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:5px}.side-value{font-weight:900;line-height:1.75}
+.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.value{font-weight:800;line-height:1.8}
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
-.main{display:grid;gap:14px}
-.bar{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px 16px}
-.bar-left{font-weight:900}.bar-sub{font-size:13px;color:var(--sub);font-weight:700;margin-top:3px}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap}
-.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:900;cursor:pointer}
-.map-card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}
-.map-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
-.map-title{font-size:24px;font-weight:900}.map-sub{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
-.map-score{min-width:72px;height:72px;border-radius:22px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
-.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.map-item{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}
-.map-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.map-body{font-size:15px;line-height:1.75;font-weight:800}
-.reason-box{margin-top:12px;border:1px solid #e7ecf3;border-radius:18px;background:#f8fbff;padding:14px}
-.reason-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}
-.reason-body{font-size:14px;line-height:1.75;font-weight:800}
-.diag{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}
-.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.diag-box{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}
-.diag-title{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:8px}
-.diag-text{font-size:14px;line-height:1.75;font-weight:800}
+.main{display:grid;gap:16px}.section{padding:18px}.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
+.candidate-list,.map-list{display:grid;gap:14px}
+.candidate-card,.map-card{padding:18px}
+.head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:10px}
+.title{font-size:24px;font-weight:900}.subtitle{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.score{min-width:72px;height:72px;border-radius:22px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;background:#2f3f93}
+.reason-list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}
+.note{color:var(--sub);font-size:14px;line-height:1.7}
+.toggle{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
 .empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
-@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.map-title{font-size:20px}.map-grid,.diag-grid{grid-template-columns:1fr}.map-score{min-width:58px;height:58px;font-size:24px;border-radius:18px}.bar{flex-direction:column;align-items:flex-start}}
+@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.summary-grid{grid-template-columns:1fr}.title{font-size:20px}.head{align-items:flex-start}.score{min-width:58px;height:58px;font-size:24px;border-radius:18px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">교과서 매핑 보기</h1>
-    <div class="sub">현재 보고 있는 학년의 과목만 기준으로 교과서 매핑을 수행합니다.</div>
+    <div class="sub">이 화면은 현재 생활기록부를 교과서 단원과 연결해 <b>왜 다음 과목이 후보가 되는지</b>를 보여주는 진단 화면입니다. 실제 활동 설계는 확장 활동 보기에서 진행합니다.</div>
     <div class="nav">
-      <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
+      <a id="goBasic" href="./record_detail.html">기본 상담 보기</a>
       <a class="active">교과서 매핑 보기</a>
       <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
     </div>
@@ -59,254 +46,163 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple
 
   <div class="layout">
     <aside class="side">
-      <h2 class="side-title">학생 요약</h2>
-      <div class="side-box"><div class="side-label">학생</div><div class="side-value" id="studentBasic">-</div></div>
-      <div class="side-box"><div class="side-label">현재 학년</div><div class="side-value" id="yearValue">-</div></div>
-      <div class="side-box"><div class="side-label">선택과목</div><div class="chips" id="subjectChips"></div></div>
-      <div class="side-box"><div class="side-label">진로축</div><div class="side-value" id="trackValue">-</div></div>
-      <div class="side-box"><div class="side-label">활동유형</div><div class="side-value" id="styleValue">-</div></div>
-      <div class="side-box"><div class="side-label">추출 방식</div><div class="side-value" id="sourceMode">-</div></div>
-      <div class="side-box"><div class="side-label">상위 매칭 과목</div><div class="chips" id="topMatchChips"></div></div>
+      <h2 class="side-title">진단 요약</h2>
+      <div class="side-box"><div class="label">학생</div><div class="value" id="studentBasic">-</div></div>
+      <div class="side-box"><div class="label">현재 학년</div><div class="value" id="yearValue">-</div></div>
+      <div class="side-box"><div class="label">현재 과목</div><div class="chips" id="subjectChips"></div></div>
+      <div class="side-box"><div class="label">통합 방향</div><div class="value" id="directionValue">-</div></div>
+      <div class="side-box"><div class="label">보조 축</div><div class="value" id="secondaryValue">-</div></div>
     </aside>
 
     <main class="main">
-      <section class="bar">
-        <div>
-          <div class="bar-left">교과서 매핑 결과</div>
-          <div class="bar-sub" id="resultInfo">상위 3개만 먼저 표시합니다.</div>
-        </div>
-        <div class="btn-row">
-          <button class="btn" id="toggleDiagBtn" type="button">추출 키워드 보기</button>
-          <button class="btn" id="resetCacheBtn" type="button">캐시 새로고침</button>
-          <button class="btn" id="toggleMoreBtn" type="button">더 보기</button>
-        </div>
-      </section>
-
-      <section class="diag" id="diagPanel" style="display:none">
-        <div class="diag-grid">
-          <div class="diag-box">
-            <div class="diag-title">현재 학년 원문에서 추출된 활동 키워드</div>
-            <div class="diag-text" id="diagKeywords">-</div>
+      <section class="section">
+        <h2 class="section-title">이 화면의 역할</h2>
+        <div class="summary-grid">
+          <div class="box">
+            <div class="kicker">교과서 매핑 보기</div>
+            <div class="body">현재 기록이 어떤 교과 개념과 연결되는지, 그리고 왜 다음 과목 후보가 되는지를 진단합니다.</div>
           </div>
-          <div class="diag-box">
-            <div class="diag-title">현재 학년 원문/분석 텍스트 샘플</div>
-            <div class="diag-text" id="diagRawTexts">-</div>
+          <div class="box">
+            <div class="kicker">확장 활동 보기</div>
+            <div class="body">선택된 다음 과목을 기준으로 실제 탐구 질문, 로드맵, 산출물, 세특 문장 씨앗을 설계합니다.</div>
           </div>
         </div>
       </section>
 
-      <div id="cards"></div>
+      <section class="section">
+        <div class="head">
+          <div>
+            <h2 class="section-title" style="margin:0">다음 과목 후보 추천</h2>
+            <div class="note">여기서는 현재 기록을 바탕으로 <b>다음 과목 후보</b>만 보여줍니다. 실행 계획은 확장 활동에서 확인합니다.</div>
+          </div>
+          <button class="toggle" id="toggleCandidatesBtn" type="button">더 보기</button>
+        </div>
+        <div class="candidate-list" id="candidateWrap"></div>
+      </section>
+
+      <section class="section">
+        <div class="head">
+          <div>
+            <h2 class="section-title" style="margin:0">현재 과목 교과서 매핑 근거</h2>
+            <div class="note">이 영역은 현재 생활기록부 근거 확인용입니다.</div>
+          </div>
+          <button class="toggle" id="toggleMappingsBtn" type="button">더 보기</button>
+        </div>
+        <div class="map-list" id="mapWrap"></div>
+      </section>
     </main>
   </div>
 </div>
 
-<script src="../univ-search/data/student_textbook_matcher.js"></script>
-<script src="../univ-search/data/student_record_keyword_extractor.js"></script>
+<script src="../../univ-search/data/student_textbook_matcher.js"></script>
+<script src="../../univ-search/data/student_record_keyword_extractor.js"></script>
+<script src="../../univ-search/data/student_textbook_recommendation_engine.js"></script>
 <script>
-const esc = s => String(s ?? '').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
-const unique = arr => [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
-let ALL_RESULTS = [];
-let SHOW_ALL = false;
-let DIAG_OPEN = false;
-let CURRENT_INPUT = null;
-let CURRENT_YEAR_IDX = 0;
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
+const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
+const qs=new URLSearchParams(location.search);
+const targetId=qs.get('student_id')||'shstudy04';
+const yearIdx=Math.max(0,Number(qs.get('year_idx')||'0')||0);
+let SHOW_ALL_CANDIDATES=false;
+let SHOW_ALL_MAPPINGS=false;
+let ALL_RECS=[], ALL_MATCHES=[];
 
-function scoreColor(score){
-  const n = Number(score || 0);
-  if (n >= 40) return '#2f3f93';
-  if (n >= 30) return '#6f57c7';
-  return '#6d7786';
+function scoreColor(score){const n=Number(score||0); if(n>=40)return '#2f3f93'; if(n>=30)return '#6f57c7'; return '#6d7786';}
+async function loadJson(path){const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json();}
+async function loadData(){
+  const [detail, ext] = await Promise.all([loadJson('./record_detail.json'), loadJson('./record_detail_extension.json')]);
+  const student=(detail.students||[]).find(s=>String(s.student_id||s.id||'')===targetId)||(detail.students||[])[0]||{};
+  const extStudent=(ext.students||[]).find(s=>String(s.student_id||s.id||'')===targetId)||(ext.students||[])[0]||{};
+  return {student, extStudent};
 }
-
-function getParams(){
-  const params = new URLSearchParams(location.search);
-  return {
-    sid: params.get('student_id') || 'shstudy09',
-    yearIdx: Math.max(0, Number(params.get('year_idx') || '0') || 0)
-  };
+function fillSidebar(student, rec){
+  document.getElementById('heroTitle').textContent=`${student.student_name||'학생'} 교과서 매핑 보기`;
+  document.getElementById('studentBasic').textContent=`${student.student_name||''} · ${student.school_name||''}`;
+  document.getElementById('yearValue').textContent=(student.years||[])[yearIdx]?.year || `${yearIdx+1}학년`;
+  document.getElementById('subjectChips').innerHTML=(((student.years||[])[yearIdx]?.subjects)||[]).map(s=>`<span class="chip">${esc(s.subject||s.subject_name||'')}</span>`).join('') || '<span class="chip">과목 없음</span>';
+  document.getElementById('directionValue').textContent=rec.integrated_direction || student.track || '-';
+  document.getElementById('secondaryValue').textContent=rec.secondary_track || '-';
+  document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`;
+  document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`;
 }
-
-async function loadBaseStudent(){
-  const { sid, yearIdx } = getParams();
-  CURRENT_YEAR_IDX = yearIdx;
-  document.getElementById('goBasic').href = `./record_detail.html?student_id=${encodeURIComponent(sid)}&year_idx=${yearIdx}`;
-  document.getElementById('goExtension').href = `./record_detail_extension.html?student_id=${encodeURIComponent(sid)}&year_idx=${yearIdx}`;
-  const baseDir = location.pathname.replace(/[^/]*$/, '');
-  const paths = [`${baseDir}record_detail.json`,`${baseDir}record_detail_concrete.json`,`${baseDir}record_detail (1).json`];
-  for(const path of paths){
-    try{
-      const res = await fetch(path + `?v=${Date.now()}`, {cache:'no-store'});
-      if(!res.ok) continue;
-      const data = await res.json();
-      const arr = Array.isArray(data?.students) ? data.students : [];
-      const student = arr.find(s => String(s.student_id||s.id||'') === sid) || arr[0];
-      if(student) return student;
-    }catch(e){}
-  }
-  return null;
-}
-
-function cacheKey(studentId, yearIdx){ return `tb_match_raw_text_cache_v2_${studentId}_y${yearIdx}`; }
-function saveResultsToCache(studentId, yearIdx, results){ try{ localStorage.setItem(cacheKey(studentId, yearIdx), JSON.stringify({savedAt:Date.now(), results})); }catch(e){} }
-function loadResultsFromCache(studentId, yearIdx){
-  try{
-    const raw = localStorage.getItem(cacheKey(studentId, yearIdx));
-    if(!raw) return null;
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed?.results) ? parsed.results : null;
-  }catch(e){ return null; }
-}
-function clearResultsCache(studentId, yearIdx){ try{ localStorage.removeItem(cacheKey(studentId, yearIdx)); }catch(e){} }
-
-function fillSidebar(student, studentInput, results){
-  document.getElementById('heroTitle').textContent = `${student.student_name || student.name || ''} 교과서 매핑 보기`;
-  document.getElementById('studentBasic').textContent = `${student.student_name || student.name || ''} · ${student.school_name || student.school || ''}`;
-  document.getElementById('yearValue').textContent = studentInput.year_label || `${CURRENT_YEAR_IDX + 1}학년`;
-  document.getElementById('subjectChips').innerHTML = unique(studentInput.selected_subjects).slice(0,12).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-  document.getElementById('trackValue').textContent = unique(studentInput.track_keywords).join(', ') || '-';
-  document.getElementById('styleValue').textContent = unique(studentInput.style_keywords).join(', ') || '-';
-  document.getElementById('sourceMode').textContent = studentInput.source_mode || '-';
-  document.getElementById('topMatchChips').innerHTML = unique(results.map(r=>r.subject)).slice(0,6).map(v=>`<span class="chip">${esc(v)}</span>`).join('');
-}
-
-function renderDiagnostics(studentInput){
-  const keywords = unique(studentInput.activity_keywords || []).slice(0,40).join(', ') || '-';
-  const rawTexts = unique(studentInput.raw_keyword_pool || []).slice(0,8).join(' / ') || '-';
-  document.getElementById('diagKeywords').textContent = keywords;
-  document.getElementById('diagRawTexts').textContent = rawTexts;
-  document.getElementById('diagPanel').style.display = DIAG_OPEN ? 'block' : 'none';
-  document.getElementById('toggleDiagBtn').textContent = DIAG_OPEN ? '추출 키워드 숨기기' : '추출 키워드 보기';
-}
-
-function cardHTML(item){
-  const matched = unique(item.matched_keywords || []).join(', ') || '-';
-  const concepts = unique(item.core_concepts || []).slice(0,6).join(', ') || '-';
-  const topics = unique(item.recommended_topics || []).slice(0,3).join(' · ') || '-';
-  const seeds = unique(item.record_seeds || []).slice(0,2).join(' · ') || '-';
-  const majors = unique(item.major_links || []).slice(0,4).join(', ') || '-';
-  const reason = item.match_reason || '단원-키워드-전공 연결성이 확인됨';
-
-  return `
-    <section class="map-card">
-      <div class="map-head">
-        <div>
-          <div class="map-title">${esc(item.subject || '')}</div>
-          <div class="map-sub">${esc(item.unit || '')}</div>
-          <div class="map-sub">${esc(item.subunit || '')}</div>
-        </div>
-        <div class="map-score" style="background:${scoreColor(item.score)}">${esc(item.score || '')}</div>
+function candidateCard(item){
+  const reasons=(item.auto_reasons||[]).map(v=>`<li>${esc(v)}</li>`).join('') || '<li>연결 근거 없음</li>';
+  return `<div class="candidate-card">
+    <div class="head">
+      <div>
+        <div class="title">${esc(item.subject||'')}</div>
+        <div class="subtitle">${esc(item.course_role||'')}</div>
       </div>
-
-      <div class="map-grid">
-        <div class="map-item"><div class="map-label">매핑 키워드</div><div class="map-body">${esc(matched)}</div></div>
-        <div class="map-item"><div class="map-label">핵심 개념</div><div class="map-body">${esc(concepts)}</div></div>
-        <div class="map-item"><div class="map-label">추천 탐구</div><div class="map-body">${esc(topics)}</div></div>
-        <div class="map-item"><div class="map-label">세특 씨앗</div><div class="map-body">${esc(seeds)}</div></div>
-        <div class="map-item"><div class="map-label">관련 전공</div><div class="map-body">${esc(majors)}</div></div>
+      <div class="score" style="background:${scoreColor(item.auto_score)}">${esc(item.auto_score||0)}</div>
+    </div>
+    <div class="summary-grid">
+      <div class="box">
+        <div class="kicker">왜 다음 과목 후보인가</div>
+        <ul class="reason-list">${reasons}</ul>
       </div>
-
-      <div class="reason-box">
-        <div class="reason-title">추천 근거</div>
-        <div class="reason-body">${esc(reason)}</div>
+      <div class="box">
+        <div class="kicker">핵심 추천 방향</div>
+        <div class="body">${esc(item.auto_core?.top_activity_title || '-')}</div>
       </div>
-    </section>
-  `;
+    </div>
+  </div>`;
 }
-
-function renderResults(){
-  const cards = document.getElementById('cards');
-  const info = document.getElementById('resultInfo');
-  const btn = document.getElementById('toggleMoreBtn');
-
-  if(!ALL_RESULTS.length){
-    cards.innerHTML = `<div class="empty">현재 학년 선택 과목 기준 교과서 매핑 결과가 없습니다.</div>`;
-    info.textContent = '표시할 결과가 없습니다.';
-    btn.style.display = 'none';
-    return;
-  }
-
-  const visible = SHOW_ALL ? ALL_RESULTS : ALL_RESULTS.slice(0,3);
-  cards.innerHTML = visible.map(cardHTML).join('');
-  info.textContent = SHOW_ALL ? `전체 ${ALL_RESULTS.length}개 결과를 표시 중입니다.` : `상위 3개 / 전체 ${ALL_RESULTS.length}개 결과`;
-  btn.textContent = SHOW_ALL ? '접기' : '더 보기';
-  btn.style.display = ALL_RESULTS.length > 3 ? 'inline-block' : 'none';
+function mapCard(item){
+  const matched=unique(item.matched_keywords||[]).join(', ')||'-';
+  const concepts=unique(item.core_concepts||[]).slice(0,6).join(', ')||'-';
+  const reason=item.match_reason||'단원-키워드-전공 연결성이 확인됨';
+  return `<div class="map-card">
+    <div class="head">
+      <div>
+        <div class="title">${esc(item.subject||'')}</div>
+        <div class="subtitle">${esc(item.unit||'')} · ${esc(item.subunit||'')}</div>
+      </div>
+      <div class="score" style="background:${scoreColor(item.score)}">${esc(item.score||0)}</div>
+    </div>
+    <div class="summary-grid">
+      <div class="box"><div class="kicker">매핑 키워드</div><div class="body">${esc(matched)}</div></div>
+      <div class="box"><div class="kicker">핵심 개념</div><div class="body">${esc(concepts)}</div></div>
+    </div>
+    <div class="reason-box">
+      <div class="kicker">현재 과목 매핑 근거</div>
+      <div class="body">${esc(reason)}</div>
+    </div>
+  </div>`;
 }
-
-async function computeAndRender(student, forceRefresh = false){
-  let studentInput;
-  try{
-    studentInput = await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student, {
-      currentYearIdx: CURRENT_YEAR_IDX,
-      textbookPath:'../univ-search/data/textbook_master.json',
-      keywordMapPath:'../univ-search/data/student_textbook_keyword_map.json'
-    });
-  }catch(err){
-    console.error(err);
-    document.getElementById('cards').innerHTML = `<div class="empty">원문 키워드 추출 중 오류가 발생했습니다.</div>`;
-    return;
-  }
-
-  CURRENT_INPUT = studentInput;
-  const sid = studentInput.student_id || 'unknown';
-  let results = forceRefresh ? null : loadResultsFromCache(sid, CURRENT_YEAR_IDX);
-
-  if(!results){
-    try{
-      results = await window.StudentTextbookMatcher.runStudentTextbookMatch(studentInput, {
-        textbookPath:'../univ-search/data/textbook_master.json',
-        keywordMapPath:'../univ-search/data/student_textbook_keyword_map.json',
-        minScore:10,
-        topN:12,
-        restrictToSelectedSubjects:true
-      });
-      saveResultsToCache(sid, CURRENT_YEAR_IDX, results);
-    }catch(err){
-      console.error(err);
-      document.getElementById('cards').innerHTML = `<div class="empty">교과서 매핑 생성 중 오류가 발생했습니다.</div>`;
-      return;
-    }
-  }
-
-  ALL_RESULTS = Array.isArray(results) ? results : [];
-  fillSidebar(student, studentInput, ALL_RESULTS);
-  renderDiagnostics(studentInput);
-  renderResults();
-
-  document.getElementById('toggleMoreBtn').onclick = () => {
-    SHOW_ALL = !SHOW_ALL;
-    renderResults();
-  };
-  document.getElementById('toggleDiagBtn').onclick = () => {
-    DIAG_OPEN = !DIAG_OPEN;
-    renderDiagnostics(CURRENT_INPUT);
-  };
-  document.getElementById('resetCacheBtn').onclick = async () => {
-    clearResultsCache(sid, CURRENT_YEAR_IDX);
-    await computeAndRender(student, true);
-  };
+function renderCandidates(){
+  const visible=SHOW_ALL_CANDIDATES ? ALL_RECS : ALL_RECS.slice(0,3);
+  document.getElementById('candidateWrap').innerHTML=visible.length ? visible.map(candidateCard).join('') : '<div class="empty">추천 후보가 없습니다.</div>';
+  document.getElementById('toggleCandidatesBtn').style.display = ALL_RECS.length>3 ? 'inline-block' : 'none';
+  document.getElementById('toggleCandidatesBtn').textContent = SHOW_ALL_CANDIDATES ? '접기' : '더 보기';
 }
-
-async function boot(){
-  const cards = document.getElementById('cards');
-
-  if(!window.StudentTextbookMatcher){
-    cards.innerHTML = `<div class="empty">student_textbook_matcher.js가 로드되지 않았습니다.</div>`;
-    return;
-  }
-  if(!window.StudentRecordKeywordExtractor){
-    cards.innerHTML = `<div class="empty">student_record_keyword_extractor.js가 로드되지 않았습니다.</div>`;
-    return;
-  }
-
-  const student = await loadBaseStudent();
-  if(!student){
-    cards.innerHTML = `<div class="empty">학생 데이터를 불러오지 못했습니다.</div>`;
-    return;
-  }
-
-  await computeAndRender(student, false);
+function renderMappings(){
+  const visible=SHOW_ALL_MAPPINGS ? ALL_MATCHES : ALL_MATCHES.slice(0,3);
+  document.getElementById('mapWrap').innerHTML=visible.length ? visible.map(mapCard).join('') : '<div class="empty">매핑 결과가 없습니다.</div>';
+  document.getElementById('toggleMappingsBtn').style.display = ALL_MATCHES.length>3 ? 'inline-block' : 'none';
+  document.getElementById('toggleMappingsBtn').textContent = SHOW_ALL_MAPPINGS ? '접기' : '더 보기';
 }
-boot();
+(async function(){
+  const {student, extStudent} = await loadData();
+  const input = await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{
+    currentYearIdx:yearIdx,
+    textbookPath:'../../univ-search/data/textbook_master.json',
+    keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'
+  });
+  ALL_MATCHES = await window.StudentTextbookMatcher.runStudentTextbookMatch(input,{
+    textbookPath:'../../univ-search/data/textbook_master.json',
+    keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json',
+    minScore:10,
+    topN:12,
+    restrictToSelectedSubjects:true
+  });
+  const rec = window.StudentTextbookRecommendationEngine.generateRecommendations(ALL_MATCHES, extStudent);
+  ALL_RECS = rec.recommended_subjects || [];
+  fillSidebar(student, rec);
+  renderCandidates();
+  renderMappings();
+  document.getElementById('toggleCandidatesBtn').onclick=()=>{SHOW_ALL_CANDIDATES=!SHOW_ALL_CANDIDATES; renderCandidates();};
+  document.getElementById('toggleMappingsBtn').onclick=()=>{SHOW_ALL_MAPPINGS=!SHOW_ALL_MAPPINGS; renderMappings();};
+})();
 </script>
 </body>
 </html>
