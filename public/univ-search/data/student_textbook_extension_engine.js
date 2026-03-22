@@ -93,10 +93,10 @@
     const topics = unique(match?.recommended_topics || []).slice(0, 3);
 
     return unique([
-      `${subject}의 ${unit}에서 다루는 원리가 실제 문제 해결에 어떻게 적용되는가`,
-      `${subunit} 개념을 실생활 사례와 연결하면 어떤 탐구 질문을 만들 수 있는가`,
-      concepts[0] ? `${concepts[0]}를 정량적으로 비교·분석할 수 있는 방법은 무엇인가` : "",
-      topics[0] ? `${topics[0]}를 학생 수준의 탐구로 변환하면 어떤 실험·조사 설계가 가능한가` : ""
+      `${subject}의 ${unit}에서 다루는 원리가 실제 문제 이해에 어떻게 연결될 수 있는가`,
+      `${subunit} 개념을 학교 수업 안에서 해석해 보면 어떤 탐구 질문이 자연스러운가`,
+      concepts[0] ? `${concepts[0]}를 비교·분석 관점에서 읽어볼 수 있는 방법은 무엇인가` : "",
+      topics[0] ? `${topics[0]}를 학생 수준의 탐구 질문으로 바꾸면 어떤 접근이 가능한가` : ""
     ]).filter(Boolean);
   }
 
@@ -112,36 +112,36 @@
       {
         stage: "출발",
         level: "개념 확인",
-        action: `${subject} ${unit}의 핵심 개념을 교과서 기준으로 다시 정리하고 용어 정의를 정확히 잡기`,
+        action: `${subject} ${unit}의 핵심 개념을 교과서 기준으로 다시 정리하고 주요 용어 관계를 파악하기`,
         example: concepts[0]
-          ? `${concepts[0]}의 정의, 원리, 조건을 표로 정리`
-          : `${subunit}의 기본 원리를 한 페이지 개념 노트로 정리`,
-        report_point: "단순 요약이 아니라 핵심 변수와 개념 간 관계를 드러내기"
+          ? `${concepts[0]}의 정의, 작동 조건, 관련 변수의 관계를 정리`
+          : `${subunit}의 기본 원리를 개념 노트 형태로 구조화`,
+        report_point: "단순 요약보다 개념 간 관계와 해석 관점을 드러내기"
       },
       {
         stage: "확장",
-        level: "자료 조사",
-        action: `교과 개념을 실제 사례와 연결하여 조사 질문 2~3개 설계`,
+        level: "교과서-사례 연결",
+        action: `교과 개념을 실제 사례와 연결해 볼 수 있는 질문 2~3개를 세우기`,
         example: topics[0]
-          ? `${topics[0]}와 연결되는 사례를 기사·보고서·논문 요약 자료로 비교`
-          : `${subunit}이 적용되는 산업·기술 사례 2개 비교`,
-        report_point: "왜 이 사례를 골랐는지 선정 이유를 명확히 쓰기"
+          ? `${topics[0]}와 연결되는 사례를 기사·보고서 수준에서 비교`
+          : `${subunit}이 적용되는 사례 2개를 비교 정리`,
+        report_point: "사례 선정 이유와 교과 개념 연결 근거를 함께 적기"
       },
       {
         stage: "심화",
-        level: "분석·설계",
-        action: `${profile.main_track} 관점에서 변수 설정, 비교 기준, 해석 틀 만들기`,
+        level: "해석 구조화",
+        action: `${profile.main_track} 관점에서 어떤 변수와 비교 기준으로 읽을 수 있는지 해석 틀 만들기`,
         example: seeds[0]
-          ? `${seeds[0]}를 바탕으로 실험/조사 설계 초안 작성`
-          : `변인 2~3개를 두고 비교표 또는 간단한 데이터 분석표 작성`,
-        report_point: "결과보다 설계 논리와 해석 근거를 중심으로 쓰기"
+          ? `${seeds[0]}를 바탕으로 비교표 또는 해석 프레임 구성`
+          : `변수 2~3개를 두고 관계를 비교하는 표 작성`,
+        report_point: "결과 단정보다 해석 기준과 근거를 중심으로 정리하기"
       },
       {
-        stage: "완성",
-        level: "학생부형 정리",
-        action: `탐구 동기 → 개념 적용 → 분석 결과 → 확장 가능성 순으로 보고서 문장화`,
-        example: `${subject} 세특에 들어갈 수 있도록 과정 중심 문장 3~4문장으로 정리`,
-        report_point: "‘무엇을 했다’보다 ‘어떻게 검토하고 왜 해석했는가’를 강조"
+        stage: "정리",
+        level: "학생부형 정돈",
+        action: `탐구 동기 → 교과 개념 연결 → 해석 포인트 → 확장 가능성 순으로 정리하기`,
+        example: `${subject}에서 보인 관심과 해석 흐름을 과정 중심 문장으로 정돈`,
+        report_point: "무엇을 했는지보다 어떻게 읽고 연결했는지를 강조하기"
       }
     ];
   }
@@ -151,11 +151,11 @@
     const topics = unique(match?.recommended_topics || []).slice(0, 3);
 
     return unique([
-      `${match.subject} 탐구 보고서 1차 설계안`,
-      `${match.unit} 개념-사례 연결표`,
+      `${match.subject} 개념-사례 연결 정리표`,
+      `${match.unit} 핵심 개념 해석 노트`,
       concepts[0] ? `${concepts[0]} 비교 분석표` : "",
       topics[0] ? `${topics[0]} 관련 자료 요약 카드` : "",
-      `${profile.main_track} 연계 세특 문장 초안`
+      `${profile.main_track} 연결 관점 메모`
     ]).filter(Boolean);
   }
 
@@ -165,24 +165,65 @@
     const seeds = unique(match?.record_seeds || []).slice(0, 2);
 
     return unique([
-      `${match.subject} 수업에서 ${concepts[0] || match.subunit} 개념을 바탕으로 탐구 질문을 설정하고, 관련 사례를 조사하여 개념 적용 가능성을 분석함.`,
+      `${match.subject} 수업에서 ${concepts[0] || match.subunit} 개념을 바탕으로 탐구 질문을 설정하고, 관련 사례를 조사하여 개념 적용 가능성을 해석함.`,
       `${profile.main_track} 관심과 연결해 ${topics[0] || match.unit} 주제를 확장하고, 자료 비교를 통해 해석의 근거를 정리함.`,
       seeds[0]
-        ? `${seeds[0]}를 중심으로 수행 과정을 구조화하며 탐구의 타당성과 확장 방향을 스스로 점검함.`
-        : `탐구 과정에서 변수 설정과 해석 기준을 스스로 세우며 과정 중심의 학업 태도를 보임.`
+        ? `${seeds[0]}를 중심으로 탐구 흐름을 구조화하며 개념과 사례의 연결 가능성을 점검함.`
+        : `탐구 과정에서 비교 기준과 해석 관점을 스스로 세우며 과정 중심의 학업 태도를 드러냄.`
     ]).filter(Boolean);
   }
 
   function buildConsultingComment(match, profile) {
     return [
       `현재 매칭은 ${match.subject} - ${match.unit} - ${match.subunit} 축에서 가장 강하게 잡힙니다.`,
-      `따라서 활동은 넓게 퍼뜨리기보다 ${profile.main_track} 방향으로 한 축을 반복 심화하는 구성이 유리합니다.`,
-      `보고서는 개념 정리형에서 끝내지 말고, 사례 비교 또는 변수 분석이 들어가야 학생부 설득력이 생깁니다.`
+      `따라서 활동을 넓게 퍼뜨리기보다 ${profile.main_track} 방향 안에서 교과서 개념과 기존 기록을 반복 연결하는 구성이 자연스럽습니다.`,
+      `핵심은 새로운 활동을 억지로 만드는 것보다, 이미 있는 관심을 수업·발표·탐구 장면에서 어떤 개념 언어로 해석할 수 있는지 분명히 하는 것입니다.`
     ].join(" ");
+  }
+
+  function buildTextbookConnection(match, profile) {
+    const subject = match?.subject || "관련 과목";
+    const unit = match?.unit || "관련 단원";
+    const subunit = match?.subunit || "핵심 소단원";
+    const concepts = unique(match?.core_concepts || []).slice(0, 4);
+    const topicSeed = unique(match?.recommended_topics || []).slice(0, 2);
+    const points = unique(match?.interpretation_points || []).slice(0, 2);
+
+    const relatedUnits = unique([subject, unit, subunit]).filter(Boolean);
+    const conceptSummary = concepts.length ? concepts.join(", ") : `${unit}의 핵심 개념`;
+    const conceptLink = [
+      `${subject}의 ${unit}${subunit ? ` - ${subunit}` : ""} 축에서 다루는 ${conceptSummary} 개념과 연결될 수 있음.`,
+      points[0] ? `교과서에서는 특히 '${points[0]}'와 같은 해석 관점으로 읽어볼 수 있음.` : "",
+      topicSeed[0] ? `${topicSeed[0]}와 같은 사례 축은 ${profile.main_track} 관심과 맞물려 작동 가능함.` : ""
+    ].filter(Boolean).join(" ");
+
+    return {
+      related_units: relatedUnits,
+      core_concepts: concepts,
+      concept_link: conceptLink
+    };
+  }
+
+  function buildSchoolScene(match, profile) {
+    const subject = match?.subject || "관련 과목";
+    const unit = match?.unit || "관련 단원";
+    const concepts = unique(match?.core_concepts || []).slice(0, 3);
+    const topicSeed = unique(match?.recommended_topics || []).slice(0, 2);
+    const firstConcept = concepts[0] || unit;
+
+    return unique([
+      `수업에서 ${firstConcept} 개념을 설명할 때 기존 관심 주제와 연결해 해석해 볼 수 있음.`,
+      `수행평가에서는 ${unit} 개념을 단순 정리보다 비교·분석 관점으로 드러내는 장면에서 작동할 수 있음.`,
+      `발표나 탐구활동에서는 ${topicSeed[0] || unit} 사례를 통해 ${profile.main_track} 관심과 교과 개념을 묶어 설명하는 흐름으로 연결 가능함.`,
+      `${subject} 세특에서는 새로운 결과보다 개념을 실제 사례와 연결해 읽어내는 과정이 포인트로 작용할 수 있음.`
+    ]).filter(Boolean);
   }
 
   function createExtensionPlan(match, studentInput = {}, options = {}) {
     const profile = inferTrackProfile(studentInput, [match]);
+    const textbookConnection = buildTextbookConnection(match, profile);
+    const schoolScene = buildSchoolScene(match, profile);
+
     return {
       source_match: {
         subject: match.subject || "",
@@ -192,6 +233,8 @@
         matched_keywords: unique(match.matched_keywords || [])
       },
       track_profile: profile,
+      textbook_connection: textbookConnection,
+      school_scene: schoolScene,
       inquiry_questions: buildQuestionSeeds(match),
       roadmap: buildActivityRoadmap(match, profile),
       recommended_outputs: buildRecommendedOutputs(match, profile),
@@ -209,7 +252,7 @@
   function toHtml(plans) {
     const items = ensureArray(plans);
     if (!items.length) {
-      return '<div class="empty-box">확장 활동 추천 결과가 없습니다.</div>';
+      return '<div class="empty-box">확장 연결 안내 결과가 없습니다.</div>';
     }
 
     return items.map((plan, index) => {
@@ -218,13 +261,16 @@
           <div style="font-size:12px;color:#667085;font-weight:800">${step.stage} · ${step.level}</div>
           <div style="margin-top:6px;font-weight:800">${step.action}</div>
           <div style="margin-top:6px;line-height:1.6"><b>예시</b>: ${step.example}</div>
-          <div style="margin-top:4px;line-height:1.6"><b>보고서 포인트</b>: ${step.report_point}</div>
+          <div style="margin-top:4px;line-height:1.6"><b>정리 포인트</b>: ${step.report_point}</div>
         </div>
       `).join("");
 
       const qHtml = ensureArray(plan.inquiry_questions).map(q => `<li>${q}</li>`).join("");
       const outHtml = ensureArray(plan.recommended_outputs).map(q => `<li>${q}</li>`).join("");
       const seedHtml = ensureArray(plan.record_sentence_seeds).map(q => `<li>${q}</li>`).join("");
+      const sceneHtml = ensureArray(plan.school_scene).map(q => `<li>${q}</li>`).join("");
+      const unitHtml = ensureArray(plan.textbook_connection?.related_units).map(q => `<li>${q}</li>`).join("");
+      const conceptHtml = ensureArray(plan.textbook_connection?.core_concepts).map(q => `<span style="display:inline-block;padding:4px 8px;border-radius:999px;background:#eef4ff;border:1px solid #dbe7ff;margin:0 6px 6px 0;font-size:12px;font-weight:700">${q}</span>`).join("");
 
       return `
         <section style="border:1px solid #dfe3ea;border-radius:18px;padding:18px;background:#fff;margin:0 0 14px">
@@ -245,23 +291,38 @@
             <div><b>매칭 키워드</b>: ${ensureArray(plan.source_match.matched_keywords).join(", ") || "-"}</div>
           </div>
 
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff">
+              <div style="font-weight:900;margin-bottom:8px">교과서 연결 근거</div>
+              <div style="line-height:1.7;margin-bottom:8px">${plan.textbook_connection?.concept_link || "-"}</div>
+              <div style="font-size:13px;font-weight:800;color:#475467;margin:8px 0 6px">관련 축</div>
+              <ul style="margin:0;padding-left:18px;line-height:1.7">${unitHtml}</ul>
+              <div style="font-size:13px;font-weight:800;color:#475467;margin:10px 0 6px">핵심 개념</div>
+              <div>${conceptHtml || "-"}</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff">
+              <div style="font-weight:900;margin-bottom:8px">학교 안에서 작동 가능한 장면</div>
+              <ul style="margin:0;padding-left:18px;line-height:1.7">${sceneHtml}</ul>
+            </div>
+          </div>
+
           <div style="margin-top:14px">
             <div style="font-weight:900;margin-bottom:8px">탐구 질문</div>
             <ul style="margin:0;padding-left:18px;line-height:1.7">${qHtml}</ul>
           </div>
 
           <div style="margin-top:14px">
-            <div style="font-weight:900;margin-bottom:8px">로드맵</div>
+            <div style="font-weight:900;margin-bottom:8px">연결 안내 로드맵</div>
             <div style="display:grid;gap:10px">${roadmapHtml}</div>
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
             <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff">
-              <div style="font-weight:900;margin-bottom:8px">추천 산출물</div>
+              <div style="font-weight:900;margin-bottom:8px">정리해 볼 수 있는 산출물</div>
               <ul style="margin:0;padding-left:18px;line-height:1.7">${outHtml}</ul>
             </div>
             <div style="border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff">
-              <div style="font-weight:900;margin-bottom:8px">세특 문장 씨앗</div>
+              <div style="font-weight:900;margin-bottom:8px">학생부에서 읽힐 수 있는 포인트</div>
               <ul style="margin:0;padding-left:18px;line-height:1.7">${seedHtml}</ul>
             </div>
           </div>
@@ -279,6 +340,8 @@
     inferTrackProfile,
     createExtensionPlan,
     generateExtensionPlans,
-    toHtml
+    toHtml,
+    buildTextbookConnection,
+    buildSchoolScene
   };
 })();
