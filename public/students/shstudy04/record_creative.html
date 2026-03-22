@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>record_creative</title>
 <style>
 :root{--bg:#f7faff;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
@@ -10,18 +9,16 @@
 .wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
 .hero,.side,.section,.activity-card,.box{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
 .hero{padding:26px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:#16202a;font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}
 .layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
 .side{padding:20px;position:sticky;top:18px}.side-title{font-size:20px;font-weight:900;margin:0 0 12px}
 .side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}
 .label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.value{font-weight:800;line-height:1.8}
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
-.main{display:grid;gap:16px}
-.section{padding:18px}.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
+.main{display:grid;gap:16px}.section{padding:18px}.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
 .topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}
 .toggle{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
-.activity-list{display:grid;gap:14px}
-.activity-card{padding:18px}
+.activity-list{display:grid;gap:14px}.activity-card{padding:18px}
 .head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
 .title{font-size:24px;font-weight:900}.subtitle{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
 .badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:900;background:#fff}
@@ -36,7 +33,7 @@
 <div class="wrap">
   <section class="hero">
     <h1 id="heroTitle">창의체험활동 분석</h1>
-    <div class="sub">창체도 분석, 연결성, 확장활동까지 한 세트로 관리하는 학생별 화면입니다.</div>
+    <div class="sub">shstudy04 원문을 반영해 창체도 분석, 연결성 해석, 확장활동까지 한 세트로 정리한 화면입니다.</div>
     <div class="nav">
       <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
       <a id="goMapping" href="./record_detail_mapping.html">생활기록부 연결</a>
@@ -44,7 +41,6 @@
       <a class="active">창의체험활동 분석</a>
     </div>
   </section>
-
   <div class="layout">
     <aside class="side">
       <h2 class="side-title">학생 요약</h2>
@@ -53,7 +49,6 @@
       <div class="side-box"><div class="label">연결 과목</div><div class="chips" id="subjectChips"></div></div>
       <div class="side-box"><div class="label">연결 진로축</div><div class="chips" id="trackChips"></div></div>
     </aside>
-
     <main class="main">
       <section class="section">
         <div class="topbar">
@@ -65,104 +60,33 @@
     </main>
   </div>
 </div>
-
 <script>
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
 const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
 const qs=new URLSearchParams(location.search);
 const targetId=qs.get('student_id')||'shstudy04';
 let SHOW_ALL=false, ALL_ITEMS=[];
-
 async function loadJson(path){ const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json(); }
-
 function fillSidebar(student){
   document.getElementById('heroTitle').textContent = `${student.student_name||'학생'} 창의체험활동 분석`;
   document.getElementById('studentBasic').textContent = `${student.student_name||''} · ${student.school_name||''}`;
   document.getElementById('goBasic').href = `./record_detail.html?student_id=${encodeURIComponent(targetId)}`;
   document.getElementById('goMapping').href = `./record_detail_mapping.html?student_id=${encodeURIComponent(targetId)}`;
   document.getElementById('goExtension').href = `./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}`;
-
   const cats = unique((student.creative_activities||[]).map(a=>a.category));
   const subs = unique((student.creative_activities||[]).flatMap(a=>a.linked_subjects||[]));
   const tracks = unique((student.creative_activities||[]).flatMap(a=>a.linked_tracks||[]));
-
   document.getElementById('categoryChips').innerHTML = cats.length ? cats.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
   document.getElementById('subjectChips').innerHTML = subs.length ? subs.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
   document.getElementById('trackChips').innerHTML = tracks.length ? tracks.map(v=>`<span class="chip">${esc(v)}</span>`).join('') : '<span class="chip">데이터 없음</span>';
 }
-
 function cardHtml(item){
   const ext = Array.isArray(item.extension_activities) ? item.extension_activities : [];
-  const extHtml = ext.length ? ext.map(e=>`
-    <div class="box">
-      <div class="kicker">${esc(e.title||'후속 활동')}</div>
-      <div class="body">${esc(e.activity_detail||'')}</div>
-      <div class="kicker" style="margin-top:10px">왜 필요한가</div>
-      <div class="body">${esc(e.why_needed||'')}</div>
-      <div class="kicker" style="margin-top:10px">기록 변화</div>
-      <div class="body">${esc(e.expected_record_change||'')}</div>
-    </div>
-  `).join('') : '<div class="empty">확장활동 데이터 없음</div>';
-
-  return `
-    <section class="activity-card">
-      <div class="head">
-        <div>
-          <div class="title">${esc(item.title||'')}</div>
-          <div class="subtitle">${esc(item.category||'')} · ${esc(item.term||'')}</div>
-        </div>
-        <div class="badge">${esc(item.activity_type||'활동')}</div>
-      </div>
-
-      <div class="grid2">
-        <div class="box">
-          <div class="kicker">활동 원문</div>
-          <div class="body">${esc(item.raw_text||'')}</div>
-        </div>
-        <div class="box">
-          <div class="kicker">핵심 키워드</div>
-          <div class="body">${esc((item.keywords||[]).join(', ')||'-')}</div>
-        </div>
-      </div>
-
-      <div class="grid3" style="margin-top:12px">
-        <div class="box">
-          <div class="kicker">활동 분석</div>
-          <div class="body">${esc(item.analysis?.activity_meaning||'')}</div>
-        </div>
-        <div class="box">
-          <div class="kicker">연결성 해석</div>
-          <div class="body">${esc(item.analysis?.connection_analysis||'')}</div>
-        </div>
-        <div class="box">
-          <div class="kicker">입시 관점</div>
-          <div class="body">${esc(item.analysis?.admission_view||'')}</div>
-        </div>
-      </div>
-
-      <div class="section-title" style="font-size:18px;margin:16px 0 10px">확장활동 제안</div>
-      <div class="grid2">${extHtml}</div>
-    </section>
-  `;
+  const extHtml = ext.length ? ext.map(e=>`<div class="box"><div class="kicker">${esc(e.title||'후속 활동')}</div><div class="body">${esc(e.activity_detail||'')}</div><div class="kicker" style="margin-top:10px">왜 필요한가</div><div class="body">${esc(e.why_needed||'')}</div><div class="kicker" style="margin-top:10px">기록 변화</div><div class="body">${esc(e.expected_record_change||'')}</div></div>`).join('') : '<div class="empty">확장활동 데이터 없음</div>';
+  return `<section class="activity-card"><div class="head"><div><div class="title">${esc(item.title||'')}</div><div class="subtitle">${esc(item.category||'')} · ${esc(item.term||'')}</div></div><div class="badge">${esc(item.activity_type||'활동')}</div></div><div class="grid2"><div class="box"><div class="kicker">활동 원문</div><div class="body">${esc(item.raw_text||'')}</div></div><div class="box"><div class="kicker">핵심 키워드</div><div class="body">${esc((item.keywords||[]).join(', ')||'-')}</div></div></div><div class="grid3" style="margin-top:12px"><div class="box"><div class="kicker">활동 분석</div><div class="body">${esc(item.analysis?.activity_meaning||'')}</div></div><div class="box"><div class="kicker">연결성 해석</div><div class="body">${esc(item.analysis?.connection_analysis||'')}</div></div><div class="box"><div class="kicker">입시 관점</div><div class="body">${esc(item.analysis?.admission_view||'')}</div></div></div><div class="section-title" style="font-size:18px;margin:16px 0 10px">확장활동 제안</div><div class="grid2">${extHtml}</div></section>`;
 }
-
-function render(){
-  const visible = SHOW_ALL ? ALL_ITEMS : ALL_ITEMS.slice(0,3);
-  document.getElementById('activityWrap').innerHTML = visible.length ? visible.map(cardHtml).join('') : '<div class="empty">창의체험활동 데이터가 없습니다.</div>';
-  const btn = document.getElementById('toggleBtn');
-  btn.style.display = ALL_ITEMS.length > 3 ? 'inline-block' : 'none';
-  btn.textContent = SHOW_ALL ? '접기' : '더 보기';
-}
-
-(async function(){
-  const data = await loadJson('./creative_activities.json');
-  const students = Array.isArray(data.students) ? data.students : [data];
-  const student = students.find(s=>String(s.student_id||s.id||'')===targetId) || students[0] || {};
-  ALL_ITEMS = Array.isArray(student.creative_activities) ? student.creative_activities : [];
-  fillSidebar(student);
-  render();
-  document.getElementById('toggleBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); };
-})();
+function render(){ const visible = SHOW_ALL ? ALL_ITEMS : ALL_ITEMS.slice(0,3); document.getElementById('activityWrap').innerHTML = visible.length ? visible.map(cardHtml).join('') : '<div class="empty">창의체험활동 데이터가 없습니다.</div>'; const btn = document.getElementById('toggleBtn'); btn.style.display = ALL_ITEMS.length > 3 ? 'inline-block' : 'none'; btn.textContent = SHOW_ALL ? '접기' : '더 보기'; }
+(async function(){ const data = await loadJson('./creative_activities.json'); const students = Array.isArray(data.students) ? data.students : [data]; const student = students.find(s=>String(s.student_id||s.id||'')===targetId) || students[0] || {}; ALL_ITEMS = Array.isArray(student.creative_activities) ? student.creative_activities : []; fillSidebar(student); render(); document.getElementById('toggleBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); }; })();
 </script>
 </body>
 </html>
