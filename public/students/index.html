@@ -265,7 +265,7 @@
       univ: folderBase + "univ_list.html",
       progress: folderBase + "progress_detail.html",
       recordDetail: folderBase + "record_detail.html",
-      recordRaw: folderBase + "record_raw_detail.html",
+      recordRaw: folderBase + "record_detail_raw.html",
       recordMapping: folderBase + "record_detail_mapping.html",
       recordExtension: folderBase + "record_detail_extension.html"
     };
@@ -274,7 +274,7 @@
       univ: "./univ_list.html",
       progress: "./progress_detail.html",
       recordDetail: "./record_detail.html",
-      recordRaw: "./record_raw_detail.html",
+      recordRaw: "./record_detail_raw.html",
       recordMapping: "./record_detail_mapping.html",
       recordExtension: "./record_detail_extension.html"
     };
@@ -335,6 +335,7 @@ function getRecordFlag(flagsData, sid){
         <div class="meta" style="margin-top:8px">
           접속 형식: <span class="mono">index.html?admin=관리자토큰</span>
         </div>
+        <div class="tiny" style="margin-top:10px;">매핑 보기·확장 활동·원문 확인은 생기부 분석 페이지 내부에서 이어집니다.</div>
       </div>
     `;
   }
@@ -430,11 +431,8 @@ function getRecordFlag(flagsData, sid){
 
           ${
             recordEnabled
-              ? `<a class="btn" href="${esc(aRecD)}">생기부 분석</a>
-                 <a class="btn" href="${esc(aRecR)}">생기부 원문</a>
-                 <a class="btn" href="${esc(aMap)}">매핑 보기</a>
-                 <a class="btn" href="${esc(aExt)}">확장 활동</a>`
-              : `${disabledBtn("생기부 분석")} ${disabledBtn("생기부 원문")} ${disabledBtn("매핑 보기")} ${disabledBtn("확장 활동")}`
+              ? `<a class="btn" href="${esc(aRecD)}">생기부 분석</a>`
+              : `${disabledBtn("생기부 분석")}`
           }
 
           <span class="divider" aria-hidden="true"></span>
@@ -451,17 +449,7 @@ function getRecordFlag(flagsData, sid){
               : disabledBtn("학생 링크 복사")
           }
 
-          ${
-            token && recordEnabled
-              ? `<button class="btn ghost js-copy-record-link" type="button" data-link="${esc(tRecD)}">생기부분석 링크 복사</button>`
-              : disabledBtn("생기부분석 링크 복사")
-          }
 
-          ${
-            token && recordEnabled
-              ? `<button class="btn ghost js-copy-raw-link" type="button" data-link="${esc(tRecR)}">생기부원문 링크 복사</button>`
-              : disabledBtn("생기부원문 링크 복사")
-          }
         </div>
       </div>
     `;
