@@ -34,14 +34,21 @@
 <script>
 const h = (v='') => String(v).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 async function loadJson(path){ const r = await fetch(path,{cache:'no-store'}); if(!r.ok) throw new Error(path+' 로딩 실패'); return r.json(); }
-function nav(){ return `
+const qs = new URLSearchParams(location.search);
+let targetId = qs.get('student_id') || '';
+let currentYear = Number(qs.get('year_idx')||'0') || 0;
+function nav(){
+  const q = targetId ? `?student_id=${encodeURIComponent(targetId)}&year_idx=${currentYear}` : '';
+  const rawQ = targetId ? `?student_id=${encodeURIComponent(targetId)}` : '';
+  return `
 <div class="nav">
-  <a href="./record_detail.html">생활기록부 분석</a>
-  <a href="./record_detail_mapping.html">생활기록부 연결</a>
-  <a href="./record_detail_extension.html">확장 활동 보기</a>
-  <a href="./record_creative.html" class="active">창의체험활동 분석</a>
-  <a href="./record_detail_raw.html">생활기록부 원문</a>
-</div>`; }
+  <a href="./record_detail.html${q}">생활기록부 분석</a>
+  <a href="./record_detail_mapping.html${q}">생활기록부 연결</a>
+  <a href="./record_detail_extension.html${q}">확장 활동 보기</a>
+  <a href="./record_creative.html${rawQ}" class="active">창의체험활동 분석</a>
+  <a href="./record_detail_raw.html${rawQ}">생활기록부 원문</a>
+</div>`;
+}
 function subjectLinks(items=[]){
   return `<ul class="list">${items.map(it=>`<li><b>${h(it.subject)}</b><span class="level">${h(it.level)}</span> — ${h(it.reason)}</li>`).join('')}</ul>`;
 }
@@ -92,7 +99,7 @@ function render(data){
     </main>
   </div>`;
 }
-(async()=>{ try { const data = await loadJson('./creative_activities.json'); render(data); } catch(err){ document.getElementById('app').innerHTML = `<div class="error">오류: ${h(err.message||String(err))}</div>`; }})();
+(async()=>{ try { const data = await loadJson('./creative_activities.json'); targetId = targetId || data.student_id || ''; render(data); } catch(err){ document.getElementById('app').innerHTML = `<div class="error">오류: ${h(err.message||String(err))}</div>`; }})();
 </script>
 </body>
 </html>
