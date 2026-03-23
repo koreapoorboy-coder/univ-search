@@ -1,14 +1,194 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_detail_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
-<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
-<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
-<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
-<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
-<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
-</div><div id="app"></div></div><script>
-const qs=new URLSearchParams(location.search); const targetId=qs.get('student_id')||'shstudy08';
-fetch('./record_detail.json').then(r=>r.json()).then(data=>{
- const s=(data.students||[]).find(v=>v.student_id===targetId)||{}; const year=(s.years||[])[0]||{}; const subjects=year.subjects||[];
- document.getElementById('app').innerHTML=`<div class="card"><h1>${s.student_name||targetId}</h1><div class="muted">${s.school_name||''}</div><div class="sec">트랙</div><div>${s.track||''}</div><div class="sec">선택과목</div>${(s.selected_subjects||[]).map(v=>`<span class='chip'>${v}</span>`).join('')}<div class="sec">핵심 진단</div><div>${s.record_interpretation?.one_line_diagnosis||''}</div><div class="sec">핵심 요약</div><div>${s.record_interpretation?.core_summary||''}</div><div class="sec">구조와 연결성</div><div>${s.record_interpretation?.structure_linkage||''}</div></div>`+
- subjects.map(sub=>`<div class="card"><h3>${sub.subject}</h3><div>${sub.summary||''}</div><div class='small'>현재 근거: ${sub.current_activity_basis||''}</div></div>`).join('');
-})
-</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>생활기록부 분석</title>
+  <style>
+    :root{
+      --bg:#f4f6fb; --card:#ffffff; --text:#111827; --muted:#6b7280;
+      --line:#e5e7eb; --accent:#111827; --pill:#eef2ff;
+      --blue:#eef4ff; --green:#eefaf2; --sand:#fbf7ea;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .wrap{max-width:1360px;margin:0 auto;padding:24px}
+    .hero,.card{background:var(--card);border:1px solid var(--line);border-radius:24px}
+    .hero{padding:28px;margin-bottom:20px}
+    h1{margin:0 0 10px;font-size:32px;line-height:1.2}
+    .sub{color:var(--muted);font-size:15px}
+    .nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      min-height:48px;padding:0 18px;border:1px solid #cfd6e3;border-radius:16px;
+      background:#fff;color:#111827;text-decoration:none;font-weight:700
+    }
+    .btn.primary{background:#111827;color:#fff;border-color:#111827}
+    .grid{display:grid;grid-template-columns:380px 1fr;gap:20px}
+    .stack{display:grid;gap:16px}
+    .box{border:1px solid var(--line);border-radius:20px;padding:18px;background:#fff}
+    .label{font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:700}
+    .value{font-size:18px;font-weight:800;line-height:1.55}
+    .chips{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{padding:10px 14px;border-radius:999px;background:var(--pill);border:1px solid #d9def2;font-weight:700}
+    .year{display:flex;gap:12px}
+    .yearbtn{display:inline-flex;align-items:center;justify-content:center;min-width:84px;height:52px;border-radius:16px;border:1px solid #cfd6e3;background:#fff;font-weight:800;cursor:pointer}
+    .yearbtn.active{background:#111827;color:#fff;border-color:#111827}
+    .maincard{padding:24px}
+    .section-title{font-size:28px;font-weight:900;margin:0 0 18px}
+    .paragraphs{display:grid;gap:14px}
+    .para{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;line-height:1.7;font-size:17px}
+    .blocks{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mini{border-radius:18px;padding:18px;border:1px solid var(--line)}
+    .mini.blue{background:var(--blue)}
+    .mini.sand{background:var(--sand)}
+    .mini.green{background:var(--green);grid-column:1 / -1}
+    .muted{color:var(--muted)}
+    .error{padding:16px 18px;border-radius:16px;background:#fff1f2;border:1px solid #fecdd3;color:#9f1239}
+    @media (max-width: 1024px){.grid{grid-template-columns:1fr}.blocks{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1 id="title">생활기록부 분석</h1>
+      <div class="sub">학생 기록의 구조와 방향을 읽는 기본 분석 화면입니다. 연결·확장·창체·원문은 아래 버튼에서 이어집니다.</div>
+      <div class="nav" id="nav"></div>
+    </div>
+
+    <div id="app"></div>
+  </div>
+
+<script>
+(async function(){
+  const qs = new URLSearchParams(location.search);
+  const targetId = qs.get('student_id') || 'shstudy08';
+  const forcedYear = Number.parseInt(qs.get('year_idx') || '0', 10);
+
+  function h(v){return String(v ?? '').replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));}
+  function safeArray(v){ return Array.isArray(v) ? v : []; }
+
+  async function loadJson(path){
+    const res = await fetch(path, { cache:'no-store' });
+    if(!res.ok) throw new Error(path + ' 로딩 실패');
+    return await res.json();
+  }
+
+  function route(path){
+    return `${path}?student_id=${encodeURIComponent(targetId)}&year_idx=${encodeURIComponent(currentYearIdx)}`;
+  }
+
+  function normalizeStudent(data){
+    const arr = Array.isArray(data?.students) ? data.students : [];
+    return arr.find(s => s.student_id === targetId || s.id === targetId) || data[targetId] || null;
+  }
+
+  const app = document.getElementById('app');
+  const nav = document.getElementById('nav');
+  let currentYearIdx = forcedYear >= 0 ? forcedYear : 0;
+
+  try{
+    const detailRaw = await loadJson('./record_detail.json');
+    const student = normalizeStudent(detailRaw);
+    if(!student) throw new Error('shstudy08 데이터를 찾지 못했습니다.');
+
+    const name = student.student_name || student.name || targetId;
+    const school = student.school_name || student.school || '-';
+    const track = student.track || student.career_label || '-';
+    const selectedSubjects = safeArray(student.selected_subjects);
+    const years = safeArray(student.years);
+    if(currentYearIdx >= years.length) currentYearIdx = 0;
+    const currentYear = years[currentYearIdx] || {};
+    const record = student.record_interpretation || {};
+    const summaries = [
+      record.one_line_diagnosis,
+      record.core_summary,
+      record.structure_linkage,
+      record.evaluation_meaning
+    ].filter(Boolean);
+
+    document.getElementById('title').textContent = `${name} (${targetId})`;
+
+    nav.innerHTML = `
+      <a class="btn primary" href="${route('./record_detail.html')}">생활기록부 분석</a>
+      <a class="btn" href="${route('./record_detail_mapping.html')}">생활기록부 연결</a>
+      <a class="btn" href="${route('./record_detail_extension.html')}">확장 활동 보기</a>
+      <a class="btn" href="${route('./record_creative.html')}">창의체험활동 분석</a>
+      <a class="btn" href="${route('./record_detail_raw.html')}">생활기록부 원문</a>
+    `;
+
+    function render(){
+      const year = years[currentYearIdx] || {};
+      const yearLabel = year.year || year.term || `${currentYearIdx + 1}학년`;
+      const subjects = safeArray(year.subjects).map(s => s.subject).filter(Boolean);
+      const rows = safeArray(year.subjects);
+      const repeatPattern = rows.map(r => r.activity_framework).find(Boolean) || record.structure_linkage || '-';
+      const focusAxis = rows.map(r => r.subject_goal_focus).find(Boolean) || record.core_summary || '-';
+      const interpretation = rows.map(r => r.summary).find(Boolean) || record.evaluation_meaning || '-';
+
+      app.innerHTML = `
+        <div class="grid">
+          <div class="stack">
+            <div class="card" style="padding:20px">
+              <div class="section-title" style="font-size:26px;margin-bottom:16px">상담 요약</div>
+              <div class="stack">
+                <div class="box"><div class="label">학교</div><div class="value">${h(school)}</div></div>
+                <div class="box"><div class="label">트랙</div><div class="value">${h(track)}</div></div>
+                <div class="box"><div class="label">선택과목</div><div class="chips">${selectedSubjects.map(v=>`<span class="chip">${h(v)}</span>`).join('')}</div></div>
+                <div class="box"><div class="label">학년 선택</div><div class="year">${years.map((y,i)=>`<button class="yearbtn ${i===currentYearIdx?'active':''}" data-idx="${i}">${h((y.year || `${i+1}학년`).replace('학년',''))}학년</button>`).join('')}</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card maincard">
+            <div class="section-title">생활기록부 핵심 진단</div>
+            <div class="paragraphs">
+              ${summaries.map(t=>`<div class="para">${h(t)}</div>`).join('')}
+            </div>
+
+            <div class="section-title" style="margin-top:28px">생기부 구조와 연결성</div>
+            <div class="blocks">
+              <div class="mini blue">
+                <div class="label">교과별 반복 수행 방식</div>
+                <div class="value">${h(repeatPattern)}</div>
+              </div>
+              <div class="mini sand">
+                <div class="label">학생부의 중심 축</div>
+                <div class="value">${h(focusAxis)}</div>
+              </div>
+              <div class="mini green">
+                <div class="label">구성 해석</div>
+                <div class="value">${h(interpretation)}</div>
+              </div>
+            </div>
+
+            <div class="section-title" style="margin-top:28px">현재 학년 핵심 과목</div>
+            <div class="chips">${subjects.map(v=>`<span class="chip">${h(v)}</span>`).join('') || '<span class="muted">표시할 과목이 없습니다.</span>'}</div>
+
+            <div class="section-title" style="margin-top:28px">다음 단계 이동</div>
+            <div class="nav">
+              <a class="btn" href="${route('./record_detail_mapping.html')}">생활기록부 연결로 이동</a>
+              <a class="btn" href="${route('./record_detail_extension.html')}">확장 활동 보기로 이동</a>
+              <a class="btn" href="${route('./record_creative.html')}">창의체험활동 분석으로 이동</a>
+              <a class="btn" href="${route('./record_detail_raw.html')}">생활기록부 원문으로 이동</a>
+            </div>
+          </div>
+        </div>
+      `;
+
+      app.querySelectorAll('.yearbtn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          currentYearIdx = Number(btn.dataset.idx || '0');
+          render();
+        });
+      });
+    }
+
+    render();
+  }catch(err){
+    app.innerHTML = `<div class="error">${h(err.message || err)}</div>`;
+  }
+})();
+</script>
+</body>
+</html>
