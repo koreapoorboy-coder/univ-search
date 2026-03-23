@@ -1,39 +1,40 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>record_creative</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>창의체험활동 분석</title>
 <style>
-:root{--bg:#f7faff;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
+:root{--bg:#f7faff;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08);--accent:#111827;--soft:#eef4ff;}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
-.wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
+.wrap{max-width:1440px;margin:0 auto;padding:24px 18px 48px}
 .hero,.side,.section,.activity-card,.box{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
-.hero{padding:26px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:#16202a;font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}
+.hero{padding:26px;margin-bottom:18px} .hero h1{margin:0 0 8px;font-size:34px} .sub{color:var(--sub);line-height:1.75}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px} .nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:#16202a;font-weight:900} .nav a.active{background:#111;color:#fff;border-color:#111}
 .layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
-.side{padding:20px;position:sticky;top:18px}.side-title{font-size:20px;font-weight:900;margin:0 0 12px}
-.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}
-.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.value{font-weight:800;line-height:1.8}
-.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
-.main{display:grid;gap:16px}.section{padding:18px}.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
-.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}
-.toggle{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;cursor:pointer}
-.activity-list{display:grid;gap:14px}.activity-card{padding:18px}
+.side{padding:20px;position:sticky;top:18px} .side-title{font-size:20px;font-weight:900;margin:0 0 12px}
+.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff} .side-box+.side-box{margin-top:12px}
+.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px} .value{font-weight:800;line-height:1.8}
+.chips{display:flex;flex-wrap:wrap;gap:8px} .chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
+.main{display:grid;gap:16px} .section{padding:18px} .section-title{font-size:22px;font-weight:900;margin:0 0 12px}
+.activity-list{display:grid;gap:14px} .activity-card{padding:18px}
 .head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:12px}
-.title{font-size:24px;font-weight:900}.subtitle{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.title{font-size:24px;font-weight:900} .subtitle{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
 .badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:900;background:#fff}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.box{padding:14px;border-radius:18px;background:#fbfdff}.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
-.list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}
-.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px} .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.box{padding:14px;border-radius:18px;background:#fbfdff} .kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px} .body{font-size:15px;line-height:1.75;font-weight:800}
+.list{margin:0;padding-left:18px;line-height:1.85;font-weight:800} .empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
+.notice{background:#fff9db;border:1px solid #f6d365;color:#6b5500;border-radius:16px;padding:12px 14px;font-weight:800;line-height:1.7;margin-bottom:14px}
+.level{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:var(--soft);border:1px solid #d7e3ff;font-size:12px;font-weight:900;margin-left:8px}
 @media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
 @media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.title{font-size:20px}.grid2,.grid3{grid-template-columns:1fr}}
-</style></head>
+</style>
+</head>
 <body>
 <div class="wrap">
   <section class="hero">
     <h1>창의체험활동 분석</h1>
-    <div class="sub">창체는 원문 전체보다 핵심 내용만 발췌하고, 선택과목 연결성과 활동 연속성을 바탕으로 확장성을 분석합니다.</div>
+    <div class="sub">창체는 원문 전체를 길게 재출력하기보다, 실제 활동에서 확인되는 성격·선택과목 연결 정도·연속 활동 축을 보수적으로 정리합니다.</div>
     <div class="nav">
       <a href="./record_detail.html?student_id=shstudy04">생활기록부 분석</a>
       <a href="./record_detail_mapping.html?student_id=shstudy04">생활기록부 연결</a>
@@ -44,81 +45,199 @@
   </section>
   <div class="layout">
     <aside class="side">
-      <h2 class="side-title">연결 요약</h2>
+      <h2 class="side-title">보수적 연결 요약</h2>
       <div class="side-box"><div class="label">학생</div><div class="value">shstudy04</div></div>
-      <div class="side-box"><div class="label">선택과목</div><div class="chips" id="subjectChips"></div></div>
-      <div class="side-box"><div class="label">통합 방향</div><div class="value" id="directionBox">-</div></div>
-      <div class="side-box"><div class="label">보조 축</div><div class="value" id="secondaryBox">-</div></div>
+      <div class="side-box"><div class="label">선택과목</div><div class="chips"><span class="chip">문학</span><span class="chip">대수</span><span class="chip">화학</span><span class="chip">생명과학</span><span class="chip">기하</span></div></div>
+      <div class="side-box"><div class="label">통합 방향</div><div class="value">생명과학 기반 + 간호·보건 확장형</div></div>
+      <div class="side-box"><div class="label">보조 축</div><div class="value">환경보건 / 건강·생명 문제 해결형</div></div>
+      <div class="side-box"><div class="label">읽는 기준</div><div class="value">창체는 확장 제안보다, 현재 활동의 성격·직접 연결 정도·연속 축을 우선 확인합니다.</div></div>
     </aside>
     <main class="main">
       <section class="section">
-        <div class="topbar">
-          <h2 class="section-title" style="margin:0">창체 연결 분석</h2>
-          <button class="toggle" id="toggleBtn" type="button">더 보기</button>
+        <div class="notice">창체 분석은 “무엇을 더 할지”를 과하게 넓히기보다, 현재 기록에서 실제로 확인되는 활동의 성격과 선택과목 연결 정도를 보수적으로 보여주는 페이지입니다.</div>
+        <h2 class="section-title">창체 분석 카드</h2>
+        <div class="activity-list">
+
+          <article class="activity-card">
+            <div class="head">
+              <div>
+                <div class="title">청소년 노동·다문화 이해 활동</div>
+                <div class="subtitle">자율자치활동 · 1학년</div>
+              </div>
+              <div class="badge">보수형 해석</div>
+            </div>
+            <div class="grid2">
+              <div class="box">
+                <div class="kicker">핵심 발췌</div>
+                <div class="body">청소년 노동 인권 침해 사례를 조사하고 정책 제안 활동에 참여함. 다문화 이해 교육에 참여하여 학교의 다문화 이해 증진 캠페인 제안하기 활동에 참여함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">활동 성격</div>
+                <div class="body">조사·제안형 활동</div>
+              </div>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">현재 기록에서 확인되는 역량</div>
+                <ul class="list"><li>사회문제를 조사한 뒤 제안으로 이어가는 기본 구조가 확인됨</li><li>주장을 만들기 전에 사례를 확인하고 문제를 정리하는 태도가 보임</li></ul>
+              </div>
+              <div class="box">
+                <div class="kicker">선택과목 연결 정도</div>
+                <ul class="list"><li><b>문학</b><span class="level">보조 연결</span> — 사회문제를 글과 관점의 차이로 해석하는 활동과 무리 없이 닿음</li><li><b>대수</b><span class="level">약한 연결</span> — 정책 제안 전 자료를 정리하고 비교하는 과정과 연결 가능</li></ul>
+              </div>
+            </div>
+            <div class="grid3" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">연속 활동 축</div>
+                <div class="body">문제 인식 → 조사 → 제안</div>
+              </div>
+              <div class="box">
+                <div class="kicker">무리 없는 확장 해석</div>
+                <div class="body">현재 기록 기준으로는 사회문제를 조사하고 의견을 정리하는 출발점으로 읽는 것이 적절함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">보수적 종합 판단</div>
+                <div class="body">직접적인 전공 심화 근거라기보다, 조사·정리·제안형 활동의 기본 태도를 보여주는 창체로 보는 것이 타당함.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="head">
+              <div>
+                <div class="title">생물화학실험부 미세플라스틱 탐구</div>
+                <div class="subtitle">동아리 · 1학년</div>
+              </div>
+              <div class="badge">보수형 해석</div>
+            </div>
+            <div class="grid2">
+              <div class="box">
+                <div class="kicker">핵심 발췌</div>
+                <div class="body">‘일회용 생수에 숨겨진 위험, 미세 플라스틱’을 주제로 탐구하고 발표함. 발생 요인과 체내 축적 영향을 분석하고 개인·사회적 저감 방안을 제시함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">활동 성격</div>
+                <div class="body">환경 이슈 기반 발표형 탐구</div>
+              </div>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">현재 기록에서 확인되는 역량</div>
+                <ul class="list"><li>환경 문제를 과학 주제로 끌어와 발표한 기록이 확인됨</li><li>발생 요인과 건강 영향을 함께 보려는 관점이 드러남</li></ul>
+              </div>
+              <div class="box">
+                <div class="kicker">선택과목 연결 정도</div>
+                <ul class="list"><li><b>화학</b><span class="level">직접 연결</span> — 플라스틱 물질 특성, 분해·안정성, 오염 물질 문제와 직접 닿음</li><li><b>생명과학</b><span class="level">직접 연결</span> — 체내 축적과 건강 영향이라는 생명·보건 관점으로 이어짐</li></ul>
+              </div>
+            </div>
+            <div class="grid3" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">연속 활동 축</div>
+                <div class="body">환경 이슈 → 과학적 해석 → 발표</div>
+              </div>
+              <div class="box">
+                <div class="kicker">무리 없는 확장 해석</div>
+                <div class="body">현재 기록 기준으로는 환경·건강 이슈를 화학·생명과학의 언어로 읽으려는 출발점까지 확인된다고 보는 것이 적절함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">보수적 종합 판단</div>
+                <div class="body">창체 중에서 선택과목(화학·생명과학)과 가장 직접적으로 연결되는 활동이며, 다만 심화 실험까지 했다고 넓게 해석하기보다는 발표형 탐구의 근거로 보는 편이 보수적임.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="head">
+              <div>
+                <div class="title">아스피린 합성·효소 활성·혈구 관찰 실험 경험</div>
+                <div class="subtitle">동아리 · 1학년</div>
+              </div>
+              <div class="badge">보수형 해석</div>
+            </div>
+            <div class="grid2">
+              <div class="box">
+                <div class="kicker">핵심 발췌</div>
+                <div class="body">아스피린 합성, 알지네이트 비드 합성, 물의 경도 측정, 적혈구 수 측정 및 백혈구 관찰을 수행하고 탐구 기록지를 성실히 작성함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">활동 성격</div>
+                <div class="body">실험 참여·기록형 활동</div>
+              </div>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">현재 기록에서 확인되는 역량</div>
+                <ul class="list"><li>여러 실험에 참여하고 기록지를 성실히 작성한 점이 확인됨</li><li>실험 과정을 따라가며 관찰하고 정리하는 기본 실험 태도가 보임</li></ul>
+              </div>
+              <div class="box">
+                <div class="kicker">선택과목 연결 정도</div>
+                <ul class="list"><li><b>화학</b><span class="level">직접 연결</span> — 합성, 용액, 물질 특성 등 화학 실험 경험과 직접 이어짐</li><li><b>생명과학</b><span class="level">직접 연결</span> — 효소 활성과 혈구 관찰은 생명과학 실험 경험으로 볼 수 있음</li></ul>
+              </div>
+            </div>
+            <div class="grid3" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">연속 활동 축</div>
+                <div class="body">기초 실험 참여 → 관찰·기록 → 후속 실험 태도</div>
+              </div>
+              <div class="box">
+                <div class="kicker">무리 없는 확장 해석</div>
+                <div class="body">현재 기록 기준으로는 심화 연구 성과보다, 화학·생명과학 실험 수업에 안정적으로 적응할 수 있는 기반 경험으로 해석하는 것이 적절함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">보수적 종합 판단</div>
+                <div class="body">전공 직접성을 과장하기보다 실험형 과목 선택의 학습 태도 근거로 보는 편이 더 정확함.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="activity-card">
+            <div class="head">
+              <div>
+                <div class="title">생명교과 도우미와 공동체 기여</div>
+                <div class="subtitle">행동특성 발달사항 · 기록 통합</div>
+              </div>
+              <div class="badge">보수형 해석</div>
+            </div>
+            <div class="grid2">
+              <div class="box">
+                <div class="kicker">핵심 발췌</div>
+                <div class="body">통합과학 생명교과 도우미를 맡아 학습 준비물 관리와 평가 관련 사항을 성실히 안내함. 이공계열 진로를 목표로 설정하고 관련 학과와 활동에 꾸준히 노력하고 있음.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">활동 성격</div>
+                <div class="body">공동체 기여·학습 지원형 활동</div>
+              </div>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">현재 기록에서 확인되는 역량</div>
+                <ul class="list"><li>생명교과 도우미 역할을 맡아 준비물 관리와 안내를 수행함</li><li>공동체 안에서 성실성과 책임감을 보이는 태도가 확인됨</li></ul>
+              </div>
+              <div class="box">
+                <div class="kicker">선택과목 연결 정도</div>
+                <ul class="list"><li><b>생명과학</b><span class="level">직접 연결</span> — 생명 관련 활동에서 성실한 참여 태도를 뒷받침함</li><li><b>화학</b><span class="level">간접 연결</span> — 실험·프로젝트형 과목에서 협업과 지원 태도의 근거가 될 수 있음</li></ul>
+              </div>
+            </div>
+            <div class="grid3" style="margin-top:12px">
+              <div class="box">
+                <div class="kicker">연속 활동 축</div>
+                <div class="body">학습 지원 → 책임감 → 팀 기여</div>
+              </div>
+              <div class="box">
+                <div class="kicker">무리 없는 확장 해석</div>
+                <div class="body">현재 기록 기준으로는 학업 심화 성과보다, 실험·프로젝트 수업에서의 협업 태도와 지속성을 보여주는 근거로 보는 것이 적절함.</div>
+              </div>
+              <div class="box">
+                <div class="kicker">보수적 종합 판단</div>
+                <div class="body">전공 심화 근거로 과하게 해석하기보다, 생명과학 중심 학업 태도와 공동체 기여를 보여주는 보조 기록으로 보는 편이 타당함.</div>
+              </div>
+            </div>
+          </article>
+
         </div>
-        <div class="activity-list" id="activityWrap"></div>
       </section>
     </main>
   </div>
 </div>
-<script>
-const DATA = {"student_id": "shstudy04", "student_name": "shstudy04", "selected_subjects_plan": {"student_id": "shstudy04", "integrated_direction": "생명과학 기반 + 간호·보건 확장형", "secondary_track": "환경보건 / 건강·생명 문제 해결형", "selection_design_note": "생활기록부 원문에서 드러난 유전자 편집, 항균 실험, 미세플라스틱, 수면·뇌 기능 관심을 바탕으로 선택과목별 확장 제언을 구성함.", "selection_subjects": [{"subject": "문학", "course_role": "생명·건강·환경 문제를 글과 토론으로 해석하고 자신의 관점을 설득력 있게 표현하는 과목", "current_evidence": ["탄소중립 토론에서 기후 대응과 재생에너지 근거를 논리적으로 제시함", "생태적 전환 관련 독서를 통해 자연과 공존의 책임감을 드러냄", "학원 심야 교습 연장 기사 비평에서 학생 건강권과 교육 불평등 문제를 분석함"], "current_strength": "생명·환경·건강 문제를 근거와 가치 판단의 언어로 풀어낼 수 있다.", "gap_point": "생명윤리나 환자·공동체 관점 글쓰기처럼 간호·보건 계열과 더 직접 연결되는 문학 활동이 추가되면 좋다.", "next_stage_activities": [{"title": "생명윤리 이슈 비평문 쓰기", "why_needed": "문학은 간호·보건 계열에서 필요한 공감과 판단의 언어를 만드는 과목이기 때문이다.", "activity_detail": "유전자 편집, 장기이식, 백신, 의료 자원 배분 중 하나를 정해 기사와 칼럼을 비교하고 자신의 판단을 정리한다.", "expected_record_change": "생명과학 관심이 윤리적 사고와 의사소통 능력으로 확장된 기록으로 읽힌다."}, {"title": "건강권 관련 기사 분석 발표", "why_needed": "이미 건강권 기사 비평 경험이 있어 보건·사회 문제를 해석하는 흐름을 강화하기 좋다.", "activity_detail": "청소년 수면권, 감염병 대응, 환경오염과 건강 불평등 중 하나를 정해 통계와 사례 중심으로 발표한다.", "expected_record_change": "보건 이슈를 비판적으로 읽고 근거 중심으로 설명하는 능력이 더 선명해진다."}], "admission_view": "문학에서 생명·건강 이슈를 공감과 근거의 언어로 해석할 수 있으면 간호·보건 계열 적합성이 훨씬 자연스럽게 보인다."}, {"subject": "대수", "course_role": "생명 데이터를 규칙과 구조로 해석하고 실험 결과를 논리적으로 정리하는 기초 수학 과목", "current_evidence": ["DNA 염기서열과 순열의 연관성을 스스로 심화 탐구함", "문제 해결 정보를 파악하고 풀이 절차를 논리적으로 수행함"], "current_strength": "생명과학 개념을 수학적 구조로 바꾸어 보는 융합적 관점이 있다.", "gap_point": "현재는 개념 연결 수준이므로, 데이터 정리나 그래프 해석까지 나아가야 선택의 의미가 더 커진다.", "next_stage_activities": [{"title": "실험 데이터 표·그래프 정리", "why_needed": "대수 선택의 의미를 만들려면 생명 실험 결과를 수치와 관계로 해석하는 경험이 필요하다.", "activity_detail": "항균 실험, 설문조사, 수면 패턴 자료 중 하나를 골라 표와 그래프로 정리하고 변화 양상을 설명한다.", "expected_record_change": "생명과학 관심이 수학적 데이터 해석 능력과 연결된 기록이 된다."}, {"title": "DNA 배열 규칙성 확장 탐구", "why_needed": "이미 염기서열과 순열을 연결한 경험이 있어 수학-생명 융합 흐름을 강화하기 좋다.", "activity_detail": "염기서열, 유전 정보 배열, 경우의 수를 연결해 규칙성과 제한 조건을 설명하는 짧은 보고서를 작성한다.", "expected_record_change": "대수가 단순 계산 과목이 아니라 생명과학 구조 이해를 돕는 과목으로 읽힌다."}], "admission_view": "생명과학 계열 학생이 수학을 회피하지 않고 데이터와 구조 해석 도구로 활용하면 전공 설득력이 높아진다."}, {"subject": "화학", "course_role": "물질의 성질과 반응을 실험과 환경보건 이슈에 연결하는 핵심 기초 과목", "current_evidence": ["아스피린 합성 실험과 알지네이트 비드 합성 실험을 수행함", "물의 경도 측정, 관찰 기록, 실험 지원 경험이 있음", "미세플라스틱의 체내 축적 영향과 발생 요인을 분석함"], "current_strength": "실험 기반 관심이 분명하고, 생활 속 화학물질 문제를 건강과 연결해 보는 태도가 강하다.", "gap_point": "실험 흥미를 넘어서 농도, 독성, 물질 이동, 노출 경로 등 개념어를 더 정교하게 잡을 필요가 있다.", "next_stage_activities": [{"title": "미세플라스틱과 화학적 특성 탐구", "why_needed": "이미 미세플라스틱을 건강·환경 문제로 본 경험이 있어 화학 개념과 가장 자연스럽게 연결된다.", "activity_detail": "플라스틱 종류, 분해 특성, 노출 경로, 대체 소재를 조사하고 표로 비교한다.", "expected_record_change": "화학 선택이 환경보건 문제 해석으로 확장된 기록이 된다."}, {"title": "항균 실험 농도 조건 비교", "why_needed": "항균 실험의 설득력을 높이려면 농도와 대조군을 활용한 화학적 조건 비교가 필요하다.", "activity_detail": "꿀 또는 천연 항균 물질의 농도를 달리해 비교 실험 설계를 하고 예상 결과를 정리한다.", "expected_record_change": "생명과학 실험이 화학 개념과 함께 정교화된 탐구로 보인다."}], "admission_view": "화학은 이 학생에게 생명과학과 환경보건을 잇는 중간축이므로, 실험과 생활 속 건강 문제를 연결한 기록이 중요하다."}, {"subject": "생명과학", "course_role": "유전자, 미생물, 면역, 건강 문제를 직접 다루는 핵심 전공 과목", "current_evidence": ["유전자 편집 기술의 원리와 응용 사례를 균형 있게 설명함", "꿀의 항균 효과를 검증하는 실험 설계를 수행함", "적혈구 수 측정, 백혈구 관찰, 효소 실험에 관심을 보임", "수면과 뇌 기능, 카페인 작용을 영어 활동에서 설명함"], "current_strength": "생명과학 개념 이해, 실험 설계, 건강 문제 연결이 모두 가능해 가장 강한 중심 과목이다.", "gap_point": "좋은 주제가 여러 개라 분산될 수 있으므로, 하나의 장기 탐구 주제로 묶어 포트폴리오 축을 선명하게 해야 한다.", "next_stage_activities": [{"title": "장내 미생물과 면역력 탐구", "why_needed": "생명과 건강 문제를 함께 다룰 수 있어 간호·보건 계열까지 폭넓게 연결된다.", "activity_detail": "장내 미생물, 면역 반응, 식습관의 관계를 조사하고 흐름도를 제작한다.", "expected_record_change": "생명과학 관심이 인체 건강과 면역 이해로 확장된 심화 기록이 된다."}, {"title": "수면과 기억 형성 탐구", "why_needed": "이미 뇌와 수면, 카페인 작용을 설명한 경험이 있어 생리학적 탐구로 발전시키기 좋다.", "activity_detail": "수면 부족과 기억 형성, 학습 효율, 감정 조절의 관계를 자료 조사와 간단한 설문으로 정리한다.", "expected_record_change": "간호·보건 계열과의 연결이 훨씬 직접적으로 드러난다."}, {"title": "유전자 편집 기술과 윤리 비교", "why_needed": "기술 원리 이해는 이미 보여주었으므로, 생명윤리와 사회적 파장까지 다루면 깊이가 생긴다.", "activity_detail": "CRISPR 기술의 농업·의학 적용 사례와 윤리 문제를 비교 정리해 발표한다.", "expected_record_change": "생명과학 기술을 균형 있게 해석하는 사고가 드러나 생명과학 계열 적합성이 강화된다."}], "admission_view": "생명과학은 이 학생의 가장 강한 카드다. 여기서 주제를 한 축으로 묶어내면 간호·보건·생명과학 모두에 설득력이 커진다."}, {"subject": "기하", "course_role": "실험 구조와 생명과학 자료를 시각적으로 정리하고 관계를 설명하는 보조 심화 과목", "current_evidence": ["포스터 제작, 인포그래픽 작성, 발표 자료 구성에서 구조를 시각화하는 장점이 보임", "복잡한 개념을 쉽게 설명하기 위해 다양한 표현 방식을 탐색함"], "current_strength": "직접적인 기하 기록은 적지만, 정보를 구조적으로 정리하고 시각화하는 힘이 있다.", "gap_point": "기하를 선택하는 이유를 생명과학 자료 시각화와 명시적으로 연결해야 한다.", "next_stage_activities": [{"title": "생명과학 개념 도식화", "why_needed": "기하 선택의 의미를 만들려면 생명 개념의 구조와 관계를 시각화하는 경험이 필요하다.", "activity_detail": "세포 구조, 유전자 배열, 실험 조건 변화, 미생물-면역 관계 등을 도식으로 정리한다.", "expected_record_change": "기하가 과학 자료 구조화 능력을 강화하는 과목으로 읽히게 된다."}, {"title": "실험 결과 시각 자료 제작", "why_needed": "이미 포스터와 인포그래픽 강점이 있으므로 이를 선택과목의 의미와 연결할 수 있다.", "activity_detail": "항균 실험이나 수면 설문 결과를 그래프·도식 자료로 시각화하여 발표한다.", "expected_record_change": "표현 역량이 단순 디자인이 아니라 과학 정보 구조화 능력으로 해석된다."}], "admission_view": "기하는 이 학생에게 전공 직접성보다 자료 시각화와 구조화 강점을 살리는 과목으로 설계하는 것이 자연스럽다."}]}, "creative_activities": [{"category": "자율자치활동", "title": "청소년 노동·다문화 이해 활동", "term": "1학년", "excerpt": "청소년 노동 인권 침해 사례를 조사하고 정책 제안 활동에 참여함. 다문화 이해 교육에 참여하여 학교의 다문화 이해 증진 캠페인 제안하기 활동에 참여함.", "core_meaning": "사회문제를 조사와 제안으로 확장하는 태도가 보임.", "connection_focus": "문제 인식 → 조사 → 제안 구조가 형성되어 있어 이후 보고서형·발표형 탐구의 기반이 됨.", "selected_subject_links": [{"subject": "문학", "why": "사회문제를 텍스트와 사례를 통해 해석·비평하는 활동으로 확장 가능"}, {"subject": "대수", "why": "정책 제안 전 자료·통계 정리와 데이터 해석 역량으로 연결 가능"}], "continuity_tags": ["문제인식", "조사", "제안"], "extension_links": [{"type": "선택과목 연결", "title": "문학 기반 사회문제 비평 활동", "detail": "노동 인권·다문화 관련 글을 읽고 사회적 시각 차이를 비교하는 비평형 탐구로 연결"}, {"type": "활동 연속성", "title": "정책 제안 후속 발표", "detail": "문제 조사에서 끝내지 않고 대안 제시·발표까지 이어지는 구조로 확장"}]}, {"category": "동아리", "title": "생물화학실험부 미세플라스틱 탐구", "term": "1학년", "excerpt": "‘일회용 생수에 숨겨진 위험, 미세 플라스틱’을 주제로 탐구하고 발표함. 발생 요인과 체내 축적 영향을 분석하고 개인·사회적 저감 방안을 제시함.", "core_meaning": "실험·환경 이슈를 연결해 과학 개념을 실제 문제로 확장하는 출발점이 형성됨.", "connection_focus": "화학·생명과학 선택과목으로 이어질 수 있는 가장 직접적인 창체 근거이며, 이후 환경·보건 탐구의 축으로 활용 가능.", "selected_subject_links": [{"subject": "화학", "why": "물질 특성, 플라스틱 분해·안정성, 환경 물질 이슈와 직접 연결됨"}, {"subject": "생명과학", "why": "체내 축적 영향, 인체 건강 영향 등 생명·보건 측면으로 확장 가능"}], "continuity_tags": ["환경이슈", "실험기록", "발표"], "extension_links": [{"type": "선택과목 연결", "title": "화학·생명과학 연계 미세플라스틱 후속 탐구", "detail": "발생 조건, 체내 영향, 저감 방안 비교로 확장해 과목 선택의 근거로 활용"}, {"type": "동아리 연속성", "title": "환경 보건 주제 누적 탐구", "detail": "동아리 발표를 이후 보고서·심화 발표로 연결해 활동 지속성을 확보"}]}, {"category": "동아리", "title": "아스피린 합성·효소 활성·혈구 관찰 실험 경험", "term": "1학년", "excerpt": "아스피린 합성, 알지네이트 비드 합성, 물의 경도 측정, 적혈구 수 측정 및 백혈구 관찰을 수행하고 탐구 기록지를 성실히 작성함.", "core_meaning": "실험 참여가 단발 체험이 아니라 기록과 질문 해결 중심으로 이루어졌다는 점이 강점.", "connection_focus": "화학·생명과학 선택과목의 실험형 학습 태도를 미리 보여주는 근거가 되며, 이후 심화 실험 활동의 기반이 됨.", "selected_subject_links": [{"subject": "화학", "why": "합성·용액·물질 특성 등 화학 실험형 탐구로 바로 이어짐"}, {"subject": "생명과학", "why": "효소 활성, 혈구 관찰 등 생명과학 실험형 탐구와 연결됨"}], "continuity_tags": ["실험", "기록", "변인", "질문해결"], "extension_links": [{"type": "선택과목 연결", "title": "화학·생명과학 심화 실험 태도 근거", "detail": "실험 기록과 오차 해석 경험을 이후 교과 세특 활동의 출발점으로 활용"}, {"type": "동아리 연속성", "title": "기초 실험 → 심화 탐구 구조 형성", "detail": "기초 실험 경험을 바탕으로 비교 실험·보고서형 활동으로 단계 상승"}]}, {"category": "행동특성 발달사항", "title": "생명교과 도우미와 공동체 기여", "term": "기록 통합", "excerpt": "통합과학 생명교과 도우미를 맡아 학습 준비물 관리와 평가 관련 사항을 성실히 안내함. 이공계열 진로를 목표로 설정하고 관련 학과와 활동에 꾸준히 노력하고 있음.", "core_meaning": "성실성과 협업 태도가 반복적으로 드러나며, 특히 생명 관련 활동에서 책임감이 확인됨.", "connection_focus": "생명과학 선택과목의 학업 태도 근거이자, 실험·프로젝트 활동에서 팀 기여를 뒷받침하는 행동 특성으로 활용 가능.", "selected_subject_links": [{"subject": "생명과학", "why": "생명 교과 도우미 경험이 생명과학 관심과 학습 태도를 직접 뒷받침함"}, {"subject": "고급생명과학", "why": "기초 관심을 심화 선택과목으로 확장할 때 태도 근거로 활용 가능"}], "continuity_tags": ["도우미", "책임감", "협업", "이공계 진로"], "extension_links": [{"type": "선택과목 연결", "title": "생명과학 심화 선택의 태도 근거", "detail": "생명 분야 관심이 단순 흥미가 아니라 지속적 참여와 책임감으로 이어졌음을 보여줌"}, {"type": "활동 연속성", "title": "도우미 경험 → 팀 프로젝트 운영", "detail": "협업·지원 경험을 이후 탐구 프로젝트 운영 역할로 연결"}]}]};
-let SHOW_ALL = false;
-let ALL_ITEMS = [];
-function esc(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");}
-function unique(arr){return [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];}
-function norm(v){return String(v||"").toLowerCase().replace(/\s+/g,"").replace(/Ⅰ|ⅰ/g,"1").replace(/Ⅱ|ⅱ/g,"2");}
-function scoreActivity(activity, planSubjects){
-  let score = 0;
-  const reasons = [];
-  const matchedSubjects = [];
-  const links = Array.isArray(activity.selected_subject_links) ? activity.selected_subject_links : [];
-  const continuity = Array.isArray(activity.continuity_tags) ? activity.continuity_tags : [];
-  planSubjects.forEach(ps => {
-    const psName = ps.subject || ps;
-    const psn = norm(psName);
-    links.forEach(link => {
-      const lsn = norm(link.subject || "");
-      if(lsn && (psn.includes(lsn) || lsn.includes(psn))){
-        score += 20;
-        matchedSubjects.push(link.subject);
-        reasons.push(`${link.subject} 선택과목과 직접 연결됨`);
-        if(link.why) reasons.push(link.why);
-      }
-    });
-  });
-  if(continuity.length){ score += Math.min(continuity.length * 3, 12); reasons.push(`연속 활동 축: ${continuity.join(", ")}`); }
-  if(activity.connection_focus){ score += 8; reasons.push(activity.connection_focus); }
-  return Object.assign({}, activity, {connection_score: score, matched_subjects: unique(matchedSubjects), connection_reasons: unique(reasons)});
-}
-function cardHtml(item){
-  const reasons=(item.connection_reasons||[]).map(v=>`<li>${esc(v)}</li>`).join('') || '<li>연결 근거 없음</li>';
-  const links=(item.extension_links||[]).map(v=>`<div class="box"><div class="kicker">${esc(v.type||'확장')}</div><div class="body">${esc(v.title||'')}</div><div class="kicker" style="margin-top:10px">연결 방식</div><div class="body">${esc(v.detail||'')}</div></div>`).join('');
-  return `<section class="activity-card">
-    <div class="head"><div><div class="title">${esc(item.title||'')}</div><div class="subtitle">${esc(item.category||'')} · ${esc(item.term||'')}</div></div><div class="badge">연결 점수 ${esc(item.connection_score||0)}</div></div>
-    <div class="grid2"><div class="box"><div class="kicker">핵심 발췌</div><div class="body">${esc(item.excerpt||'')}</div></div><div class="box"><div class="kicker">현재 의미</div><div class="body">${esc(item.core_meaning||'')}</div></div></div>
-    <div class="grid3" style="margin-top:12px"><div class="box"><div class="kicker">선택과목 연결</div><div class="body">${esc((item.matched_subjects||[]).join(', ')||'-')}</div></div><div class="box"><div class="kicker">연속 활동 축</div><div class="body">${esc((item.continuity_tags||[]).join(', ')||'-')}</div></div><div class="box"><div class="kicker">연결성 해석</div><div class="body">${esc(item.connection_focus||'')}</div></div></div>
-    <div class="box" style="margin-top:12px"><div class="kicker">왜 확장성이 있는가</div><ul class="list">${reasons}</ul></div>
-    <div class="section-title" style="font-size:18px;margin:16px 0 10px">확장 연결 제안</div><div class="grid2">${links || '<div class="empty">확장 연결 데이터 없음</div>'}</div>
-  </section>`;
-}
-function render(){
-  const visible = SHOW_ALL ? ALL_ITEMS : ALL_ITEMS.slice(0,3);
-  document.getElementById('activityWrap').innerHTML = visible.length ? visible.map(cardHtml).join('') : '<div class="empty">창체 연결 데이터가 없습니다.</div>';
-  const btn=document.getElementById('toggleBtn');
-  btn.style.display=ALL_ITEMS.length>3?'inline-block':'none';
-  btn.textContent=SHOW_ALL?'접기':'더 보기';
-}
-(function(){
-  const plan = DATA.selected_subjects_plan || {};
-  const planSubjects = Array.isArray(plan.selection_subjects) ? plan.selection_subjects : [];
-  document.getElementById('subjectChips').innerHTML = planSubjects.length ? planSubjects.map(v=>`<span class="chip">${esc(v.subject||v)}</span>`).join('') : '<span class="chip">선택과목 없음</span>';
-  document.getElementById('directionBox').textContent = plan.integrated_direction || '-';
-  document.getElementById('secondaryBox').textContent = plan.secondary_track || '-';
-  const acts = Array.isArray(DATA.creative_activities) ? DATA.creative_activities : [];
-  ALL_ITEMS = acts.map(a => scoreActivity(a, planSubjects)).sort((a,b)=>(b.connection_score||0)-(a.connection_score||0));
-  render();
-  document.getElementById('toggleBtn').onclick = ()=>{ SHOW_ALL=!SHOW_ALL; render(); };
-})();
-</script>
-</body></html>
+</body>
+</html>
