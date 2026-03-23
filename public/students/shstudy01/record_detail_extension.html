@@ -1,303 +1,186 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>확장 활동 보기</title>
-  <style>
-    :root{
-      --bg:#f6f7fb; --card:#fff; --ink:#111827; --muted:#6b7280;
-      --line:#e5e7eb; --soft:#f3f4f6; --brand:#2563eb; --brand2:#0ea5e9;
-      --good:#065f46; --warn:#92400e;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Apple SD Gothic Neo,Malgun Gothic,sans-serif;background:var(--bg);color:var(--ink)}
-    .wrap{max-width:1100px;margin:0 auto;padding:22px}
-    .top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
-    .title{font-size:28px;font-weight:800}
-    .sub{color:var(--muted);font-size:14px}
-    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;text-decoration:none;color:var(--ink);font-weight:700}
-    .hero{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border:1px solid #dbeafe;border-radius:20px;padding:18px 18px 14px;margin-bottom:18px}
-    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
-    .hero h2{margin:0 0 8px;font-size:20px}
-    .hero p{margin:0;color:#334155;line-height:1.7}
-    .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .meta .box{background:#fff;border:1px solid #dbeafe;border-radius:16px;padding:12px}
-    .meta .label{font-size:12px;color:#64748b;font-weight:700;margin-bottom:6px}
-    .meta .value{font-size:15px;font-weight:800}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 8px 18px rgba(15,23,42,.04)}
-    .card h3{margin:0 0 6px;font-size:22px}
-    .role{display:inline-block;background:#eff6ff;color:#1d4ed8;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;margin-bottom:12px}
-    .section{margin-top:14px;padding:12px 13px;border-radius:14px;background:var(--soft);border:1px solid #eef2f7}
-    .section h4{margin:0 0 8px;font-size:15px}
-    .section p{margin:0;color:#374151;line-height:1.7}
-    ul.clean{margin:0;padding-left:18px}
-    ul.clean li{margin:6px 0;color:#374151;line-height:1.6}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:700;color:#334155}
-    .k{color:#334155;font-weight:800}
-    .muted{color:var(--muted)}
-    .empty{padding:18px;border:1px dashed #cbd5e1;background:#fff;border-radius:16px;color:#64748b}
-    .footer-note{margin-top:16px;padding:14px 16px;border-radius:16px;background:#fffbeb;border:1px solid #fde68a;color:#78350f;line-height:1.7}
-    .loading{padding:18px;border:1px dashed #cbd5e1;background:#fff;border-radius:16px}
-    @media (max-width:900px){
-      .hero-grid,.grid{grid-template-columns:1fr}
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>record_detail_extension</title>
+<style>
+:root{
+  --bg:#f5f8fd; --line:#dfe8f4; --text:#16202a; --sub:#5c6b7a; --shadow:0 12px 30px rgba(22,32,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
+.hero{background:linear-gradient(135deg,#ffffff,#f7fbff);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:34px}
+.sub{color:var(--sub);line-height:1.75}
+.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px;align-items:start}
+.side{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+.side-title{font-size:20px;font-weight:900;margin:0 0 12px}
+.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}
+.side-box + .side-box{margin-top:12px}
+.side-label{font-size:12px;color:var(--sub);font-weight:800;margin-bottom:5px}
+.side-value{font-weight:900;line-height:1.75;word-break:keep-all}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
+.main{display:grid;gap:16px}
+.ext-card{background:var(--card-bg);border:1px solid var(--line);border-left:8px solid var(--card-bd);border-radius:24px;box-shadow:var(--shadow);padding:20px}
+.ext-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.ext-title{font-size:26px;font-weight:900;line-height:1.2}
+.ext-sub{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.ext-tag{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:900;white-space:nowrap}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.mini-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.mini-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:7px}
+.mini-body{font-weight:800;line-height:1.8;word-break:keep-all}
+.line-block{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}
+.evidence{margin:0;padding-left:18px;line-height:1.9;font-weight:800}
+.activities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.activity-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:14px}
+.activity-title{font-size:16px;font-weight:900;line-height:1.45;margin-bottom:10px}
+.field + .field{margin-top:10px}
+.field-label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:4px}
+.field-body{font-size:14px;line-height:1.7;font-weight:800;word-break:keep-all}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--text);font-weight:900}
+.nav a.active{background:#111;color:#fff;border-color:#111}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}.activities{grid-template-columns:1fr}}
+@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.ext-title{font-size:22px}.dual{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div>
-        <div class="title">확장 활동 보기</div>
-        <div class="sub">시작한 흐름을 학교 안에서 어떻게 설계해 갈지 보여주는 전문형 페이지</div>
-      </div>
-      <div class="toolbar">
-        <a class="btn" href="./record_detail.html">생활기록부 분석</a>
-        <a class="btn" href="./record_detail_mapping.html">생활기록부 연결</a>
-        <a class="btn" href="./record_creative.html">창의체험활동 분석</a>
-        <a class="btn" href="./record_detail_raw.html">생활기록부 원문</a>
-      </div>
+<div class="wrap">
+  <section class="hero">
+    <h1 id="heroTitle">학생 포트폴리오 확장 설계</h1>
+    <div class="sub" id="heroSub">학생 진로 방향으로 재정리한 확장 화면입니다.</div>
+    <div class="nav">
+      <a href="./record_detail.html">기본 상담 보기</a>
+      <a class="active">확장 활동 보기</a>
     </div>
+  </section>
 
-    <div id="app" class="loading">로딩 중...</div>
+  <div class="layout">
+    <aside class="side">
+      <h2 class="side-title">학생 요약</h2>
+      <div class="side-box">
+        <div class="side-label">학생</div>
+        <div class="side-value" id="studentBasic"></div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">진로 방향</div>
+        <div class="side-value" id="directionValue"></div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">보조 축</div>
+        <div class="side-value" id="secondaryValue"></div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">핵심 과목</div>
+        <div class="chips" id="subjectChips"></div>
+      </div>
+      <div class="side-box">
+        <div class="side-label">포트폴리오 키워드</div>
+        <div class="chips" id="portfolioChips"></div>
+      </div>
+    </aside>
+
+    <main class="main" id="cards"></main>
   </div>
+</div>
 
-<script src="../../univ-search/data/student_textbook_extension_engine.js"></script>
 <script>
+const COLORS = {
+  "물리학":["#f6fbff","#4f8cc9"],
+  "물리Ⅱ":["#f6fbff","#4f8cc9"],
+  "화학":["#fff8f3","#e38b2c"],
+  "화학Ⅱ":["#fff8f3","#e38b2c"],
+  "생명과학":["#f7fcf7","#4da866"],
+  "생명과학Ⅰ":["#f7fcf7","#4da866"],
+  "대수":["#f8f6ff","#7e66d4"],
+  "미적분":["#f8f6ff","#7e66d4"],
+  "고급생명과학":["#fff7fb","#c05693"],
+  "고급화학":["#fff7fb","#c05693"]
+};
+const esc = (s='') => String(s)
+  .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+  .replaceAll('"','&quot;').replaceAll("'","&#39;");
+
+function cardHTML(subj){
+  const [bg,bd] = COLORS[subj.subject] || ['#fff','#5c6b7a'];
+  const acts = (subj.next_stage_activities || []).map(a => `
+    <div class="activity-card">
+      <div class="activity-title">${esc(a.title || '')}</div>
+      <div class="field"><div class="field-label">왜 필요한가</div><div class="field-body">${esc(a.why_needed || '')}</div></div>
+      <div class="field"><div class="field-label">활동 내용</div><div class="field-body">${esc(a.activity_detail || '')}</div></div>
+      <div class="field"><div class="field-label">기대되는 연결 포인트</div><div class="field-body">${esc(a.expected_record_change || '')}</div></div>
+    </div>
+  `).join('');
+  const evidence = (subj.current_evidence || []).map(v => `<li>${esc(v)}</li>`).join('');
+  return `
+    <section class="ext-card" style="--card-bg:${bg}; --card-bd:${bd}">
+      <div class="ext-head">
+        <div>
+          <div class="ext-title">${esc(subj.subject || '')}</div>
+          <div class="ext-sub">${esc(subj.course_role || '')}</div>
+        </div>
+        <div class="ext-tag">확장 설계</div>
+      </div>
+
+      <div class="dual">
+        <div class="mini-box">
+          <div class="mini-label">현재 강점</div>
+          <div class="mini-body">${esc(subj.current_strength || '')}</div>
+        </div>
+        <div class="mini-box">
+          <div class="mini-label">보완 지점</div>
+          <div class="mini-body">${esc(subj.gap_point || '')}</div>
+        </div>
+      </div>
+
+      <div class="line-block">
+        <div class="mini-label">현재 기록 근거</div>
+        <ul class="evidence">${evidence}</ul>
+      </div>
+
+      <div class="line-block">
+        <div class="mini-label">다음 단계 활동</div>
+        <div class="activities">${acts}</div>
+      </div>
+
+      <div class="line-block">
+        <div class="mini-label">확장 활동 제안 예시</div>\n        <div class="mini-body">${esc(proposalExamples(subj) || "현재 기록을 바탕으로 수업·발표·탐구에서 연결 가능한 예시를 우선 검토합니다.")}</div>
+      </div>
+    </section>
+  `;
+}
+
 (async function(){
-  const qs = new URLSearchParams(location.search);
-  const targetId = qs.get('student_id') || location.pathname.split('/').filter(Boolean).slice(-2,-1)[0] || 'shstudy01';
-
-  const app = document.getElementById('app');
-
-  function h(v){ return String(v ?? '').replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
-  function arr(v){ return Array.isArray(v) ? v : []; }
-  async function loadJson(path){
-    const res = await fetch(path, {cache:'no-store'});
-    if(!res.ok) throw new Error(path + ' 로딩 실패');
-    return await res.json();
-  }
-
-  function firstStudent(payload, id){
-    if(Array.isArray(payload?.students)) return payload.students.find(s => s.student_id === id) || {};
-    return payload?.[id] || {};
-  }
-
-  function mergeUnique(a,b){
-    return [...new Set([...(Array.isArray(a)?a:[]), ...(Array.isArray(b)?b:[])].filter(Boolean))];
-  }
-
-  function normalizePlanSubject(s){
-    return {
-      subject: s?.subject || '',
-      course_role: s?.course_role || '',
-      current_evidence: s?.current_evidence || '',
-      current_strength: s?.current_strength || '',
-      gap_point: s?.gap_point || '',
-      next_stage_activities: arr(s?.next_stage_activities),
-      admission_view: s?.admission_view || '',
-      textbook_connection: s?.textbook_connection || null,
-      school_scene: arr(s?.school_scene),
-      expansion_questions: arr(s?.expansion_questions),
-      execution_plan: arr(s?.execution_plan),
-      output_structure: arr(s?.output_structure),
-      record_point: arr(s?.record_point),
-      evaluation_point: s?.evaluation_point || ''
-    };
-  }
-
-  function buildFallbackMatches(detailStudent){
-    const years = arr(detailStudent?.years);
-    const subjects = years.flatMap(y => arr(y?.subjects));
-    return subjects.flatMap(s => {
-      const bag = []
-        .concat(arr(s?.activity_framework))
-        .concat(arr(s?.axis_list))
-        .concat(arr(s?.evaluation_priority))
-        .concat(arr(s?.inquiry_flow).map(v => typeof v === 'string' ? v : (v?.title || '')))
-        .filter(Boolean);
-
-      return bag.map(k => ({
-        subject: s?.subject || '',
-        unit: k,
-        matched_keywords: [k],
-        core_concepts: [k]
-      }));
-    });
-  }
-
-  function renderList(title, items){
-    const list = arr(items).filter(Boolean);
-    if(!list.length) return '';
-    return `
-      <div class="section">
-        <h4>${h(title)}</h4>
-        <ul class="clean">${list.map(v => `<li>${h(v)}</li>`).join('')}</ul>
-      </div>
-    `;
-  }
-
-  function renderChips(title, items){
-    const list = arr(items).filter(Boolean);
-    if(!list.length) return '';
-    return `
-      <div class="section">
-        <h4>${h(title)}</h4>
-        <div class="chips">${list.map(v => `<span class="chip">${h(v)}</span>`).join('')}</div>
-      </div>
-    `;
-  }
-
-  function renderSubjectCard(item){
-    const auto = item?.auto_generated || {};
-    const relatedUnits = arr(item?.textbook_connection?.related_units || auto?.textbook_connection?.related_units);
-    const conceptLink = item?.textbook_connection?.concept_link || auto?.textbook_connection?.concept_link || '';
-    const schoolScenes = mergeUnique(item?.school_scene, auto?.school_scene);
-    const executionPlan = mergeUnique(item?.execution_plan, auto?.execution_plan);
-    const questions = mergeUnique(item?.expansion_questions, auto?.expansion_questions);
-    const outputStructure = mergeUnique(item?.output_structure, auto?.output_structure);
-    const recordPoint = mergeUnique(item?.record_point, auto?.record_point);
-
-    return `
-      <div class="card">
-        <h3>${h(item.subject || '과목')}</h3>
-        ${item.course_role ? `<div class="role">${h(item.course_role)}</div>` : ''}
-
-        <div class="section">
-          <h4>현재 강점</h4>
-          <p>${h(item.current_strength || auto.current_strength || '현재 기록을 바탕으로 확장 가능성을 해석하는 단계')}</p>
-        </div>
-
-        <div class="section">
-          <h4>보완 관점</h4>
-          <p>${h(item.gap_point || auto.gap_point || '현재 흐름을 더 명확한 질문과 개념으로 묶어가는 과정이 필요함')}</p>
-        </div>
-
-        <div class="section">
-          <h4>현재 기록 근거</h4>
-          <p>${h(item.current_evidence || auto.current_evidence || '현재 학생 기록에서 확인되는 핵심 표현을 기반으로 설계')}</p>
-        </div>
-
-        ${relatedUnits.length || conceptLink ? `
-          <div class="section">
-            <h4>교과서 연결 근거</h4>
-            ${relatedUnits.length ? `<div class="chips" style="margin-bottom:8px">${relatedUnits.map(v=>`<span class="chip">${h(v)}</span>`).join('')}</div>` : ''}
-            ${conceptLink ? `<p>${h(conceptLink)}</p>` : ''}
-          </div>
-        ` : ''}
-
-        ${renderList('확장 가능 방향', arr(auto.expansion_direction || item.expansion_direction))}
-        ${renderList('세부 실행 설계', executionPlan)}
-        ${renderList('탐구 질문', questions)}
-        ${renderList('보고서·발표 구조', outputStructure)}
-        ${renderList('학교 안에서 작동 가능한 장면', schoolScenes)}
-        ${renderList('학생부에서 읽힐 수 있는 포인트', recordPoint)}
-
-        ${(item.evaluation_point || auto.evaluation_point || item.admission_view) ? `
-          <div class="section">
-            <h4>평가상 해석 포인트</h4>
-            <p>${h(item.evaluation_point || auto.evaluation_point || item.admission_view)}</p>
-          </div>
-        ` : ''}
-      </div>
-    `;
-  }
-
   try{
-    const [detail, ext, rules] = await Promise.all([
-      loadJson('./record_detail.json'),
-      loadJson('./record_detail_extension.json'),
-      loadJson('../../univ-search/data/student_extension_rules.json')
-    ]);
+    const res = await fetch('./record_detail_extension.json?v='+Date.now(), {cache:'no-store'});
+    const data = await res.json();
+    const student = (data.students || [])[0] || {};
+    const plan = student.selected_subjects_plan || {};
+    const subjects = plan.selection_subjects || [];
 
-    const detailStudent = firstStudent(detail, targetId);
-    const extStudent = firstStudent(ext, targetId);
-
-    const plan = extStudent?.selected_subjects_plan || {};
-    const planSubjects = arr(plan?.selection_subjects).map(normalizePlanSubject);
-    const matches = buildFallbackMatches(detailStudent);
-
-    let autoSubjects = [];
-    if(window.StudentTextbookExtensionEngine && typeof window.StudentTextbookExtensionEngine.generateExtensionPlan === 'function'){
-      try{
-        const generated = window.StudentTextbookExtensionEngine.generateExtensionPlan(matches, detailStudent, extStudent, rules, targetId) || {};
-        autoSubjects = arr(generated?.selection_subjects || generated?.subjects || []);
-      }catch(err){
-        console.error(err);
-      }
-    }
-
-    const mergedMap = new Map();
-    planSubjects.forEach(s => mergedMap.set(s.subject, {...s}));
-    autoSubjects.forEach(s => {
-      const prev = mergedMap.get(s.subject) || {subject: s.subject};
-      mergedMap.set(s.subject, {
-        ...prev,
-        auto_generated: s,
-        textbook_connection: prev.textbook_connection || s.textbook_connection || null,
-        school_scene: mergeUnique(prev.school_scene, s.school_scene),
-        expansion_questions: mergeUnique(prev.expansion_questions, s.expansion_questions),
-        execution_plan: mergeUnique(prev.execution_plan, s.execution_plan),
-        output_structure: mergeUnique(prev.output_structure, s.output_structure),
-        record_point: mergeUnique(prev.record_point, s.record_point),
-        evaluation_point: prev.evaluation_point || s.evaluation_point || ''
+    document.getElementById('heroTitle').textContent = `${student.student_name || '학생'} 학생 포트폴리오 확장 설계`;
+    document.getElementById('heroSub').textContent = `${plan.integrated_direction || student.track || ''} 방향으로 재정리한 확장 화면입니다.`;
+    document.getElementById('studentBasic').textContent = `${student.student_name || ''} · ${student.school_name || ''}`;
+    document.getElementById('directionValue').textContent = student.track || '';
+    document.getElementById('secondaryValue').textContent = plan.secondary_track || '';
+    document.getElementById('subjectChips').innerHTML = (student.selected_subjects || []).map(v => `<span class="chip">${esc(v)}</span>`).join('');
+    const keywordSet = new Set();
+    (student.selected_subjects || []).forEach(v => keywordSet.add(v));
+    subjects.forEach(s => {
+      if (s.subject) keywordSet.add(s.subject);
+      (s.current_evidence || []).slice(0,2).forEach(v => {
+        const m = String(v).split(/[·,]/)[0].trim();
+        if (m) keywordSet.add(m);
       });
     });
-
-    const subjects = [...mergedMap.values()];
-    const studentName = extStudent?.student_name || detailStudent?.student_name || targetId;
-    const schoolName = extStudent?.school_name || detailStudent?.school_name || '';
-    const integratedDirection = plan?.integrated_direction || extStudent?.main_track || '';
-    const secondaryTrack = plan?.secondary_track || extStudent?.sub_track || '';
-
-    app.className = '';
-    app.innerHTML = `
-      <div class="hero">
-        <div class="hero-grid">
-          <div>
-            <h2>${h(studentName)} 확장 활동 설계</h2>
-            <p>
-              이 페이지는 <span class="k">시작한 흐름을 학교 안에서 어떻게 설계해 갈지</span>를 보여주는 전문형 페이지야.
-              생활기록부 연결이 “어디서 시작할지”를 보여준다면, 여기서는 그 시작을
-              <span class="k">질문·실행·결과물 구조</span>로 풀어가는 데 초점을 둔다.
-            </p>
-          </div>
-          <div class="meta">
-            <div class="box">
-              <div class="label">학교</div>
-              <div class="value">${h(schoolName || '미입력')}</div>
-            </div>
-            <div class="box">
-              <div class="label">통합 방향</div>
-              <div class="value">${h(integratedDirection || '미설정')}</div>
-            </div>
-            <div class="box">
-              <div class="label">보조 축</div>
-              <div class="value">${h(secondaryTrack || '미설정')}</div>
-            </div>
-            <div class="box">
-              <div class="label">과목 수</div>
-              <div class="value">${subjects.length}개</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      ${subjects.length ? `<div class="grid">${subjects.map(renderSubjectCard).join('')}</div>` : `<div class="empty">표시할 확장 과목 데이터가 없습니다.</div>`}
-
-      <div class="footer-note">
-        생활기록부 연결 페이지와 달리, 여기서는 <b>질문·실행 설계·결과물 구조</b>를 더 세분화해서 보여준다.
-        다만 학교별 수업 구조와 담당 교사 방식이 다르므로, 확정형 지시가 아니라
-        <b>학교 안에서 작동 가능한 설계 방향</b>을 제시하는 형태로 읽으면 된다.
-      </div>
-    `;
-  }catch(err){
-    console.error(err);
-    app.className = 'empty';
-    app.innerHTML = `오류: ${h(err.message || err)}`;
+    document.getElementById('portfolioChips').innerHTML = [...keywordSet].slice(0,8).map(v => `<span class="chip">${esc(v)}</span>`).join('');
+    document.getElementById('cards').innerHTML = subjects.map(cardHTML).join('');
+  }catch(e){
+    document.getElementById('cards').innerHTML = '<section class="ext-card" style="--card-bg:#fff; --card-bd:#999"><div class="mini-body">확장 데이터를 불러오지 못했습니다.</div></section>';
   }
 })();
 </script>
