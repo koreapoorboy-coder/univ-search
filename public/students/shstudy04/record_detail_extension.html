@@ -229,7 +229,7 @@
 
     (async function init(){
       try {
-        const ext = await loadJson('./record_detail_extension_professional.json');
+        const ext = await loadJson('./record_detail_extension.json');
         const students = toStudentsArray(ext);
         const extStudent = students.find(s => (s.student_id || s.id) === targetId) || {};
         renderStudent(extStudent, extStudent);
