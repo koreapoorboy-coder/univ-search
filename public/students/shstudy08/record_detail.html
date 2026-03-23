@@ -1,0 +1,14 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_detail_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
+<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
+<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
+<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
+<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
+<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
+</div><div id="app"></div></div><script>
+const qs=new URLSearchParams(location.search); const targetId=qs.get('student_id')||'shstudy08';
+fetch('./record_detail.json').then(r=>r.json()).then(data=>{
+ const s=(data.students||[]).find(v=>v.student_id===targetId)||{}; const year=(s.years||[])[0]||{}; const subjects=year.subjects||[];
+ document.getElementById('app').innerHTML=`<div class="card"><h1>${s.student_name||targetId}</h1><div class="muted">${s.school_name||''}</div><div class="sec">트랙</div><div>${s.track||''}</div><div class="sec">선택과목</div>${(s.selected_subjects||[]).map(v=>`<span class='chip'>${v}</span>`).join('')}<div class="sec">핵심 진단</div><div>${s.record_interpretation?.one_line_diagnosis||''}</div><div class="sec">핵심 요약</div><div>${s.record_interpretation?.core_summary||''}</div><div class="sec">구조와 연결성</div><div>${s.record_interpretation?.structure_linkage||''}</div></div>`+
+ subjects.map(sub=>`<div class="card"><h3>${sub.subject}</h3><div>${sub.summary||''}</div><div class='small'>현재 근거: ${sub.current_activity_basis||''}</div></div>`).join('');
+})
+</script></body></html>
