@@ -1,0 +1,15 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_extension_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
+<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
+<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
+<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
+<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
+<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
+</div><div id="app"></div></div><script>
+const targetId=(new URLSearchParams(location.search)).get('student_id')||'shstudy08';
+fetch('./record_detail_extension.json').then(r=>r.json()).then(ext=>{
+ const ex=(ext.students||[]).find(v=>v.student_id===targetId)||{}; const list=ex.selected_subjects_plan?.selection_subjects||[];
+ function block(title,val){ if(!val || (Array.isArray(val)&&!val.length)) return ''; if(Array.isArray(val)) return `<div class='sec'>${title}</div><ul>${val.map(v=>`<li>${v}</li>`).join('')}</ul>`; return `<div class='sec'>${title}</div><div>${val}</div>`; }
+ document.getElementById('app').innerHTML=`<div class='card'><h1>확장 활동 보기</h1><div class='muted'>선택과목을 실제 탐구·보고서 방향으로 설계해보는 페이지</div></div>`+
+ list.map(item=>`<div class='card'><h3>${item.subject}</h3>${block('현재 강점',item.current_strength)}${block('보완 관점',item.gap_point)}${block('현재 기록 근거',item.current_evidence)}${block('교과서 연결 근거',item.textbook_connection?.concept_link)}${block('확장 가능 방향',item.expansion)}${block('세부 실행 설계',item.execution_design)}${block('탐구 질문',item.inquiry_questions)}${block('보고서/발표 구조',item.report_structure)}${block('학교 안에서 작동 가능한 장면',item.school_scene)}${block('학생부에서 읽힐 수 있는 포인트',item.record_point)}${block('확장 활동 제안 예시',item.proposal_examples)}</div>`).join('');
+})
+</script></body></html>
