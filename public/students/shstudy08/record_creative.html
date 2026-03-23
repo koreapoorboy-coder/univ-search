@@ -1,0 +1,13 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_creative_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
+<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
+<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
+<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
+<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
+<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
+</div><div id="app"></div></div><script>
+fetch('./creative_activities.json').then(r=>r.json()).then(data=>{
+ const acts=data.creative_activities||[];
+ document.getElementById('app').innerHTML=`<div class='card'><h1>창의체험활동 분석</h1><div class='muted'>원문을 과장 없이 읽고 선택과목과의 연결 정도를 확인하는 페이지</div></div>`+
+ acts.map(a=>`<div class='card'><h3>${a.category}</h3><div class='sec'>핵심 발췌</div><div>${a.key_excerpt}</div><div class='sec'>활동 성격</div><div>${a.activity_nature}</div><div class='sec'>현재 기록에서 확인되는 역량</div><ul>${(a.confirmed_strengths||[]).map(v=>`<li>${v}</li>`).join('')}</ul><div class='sec'>선택과목 연결 정도</div><ul>${(a.subject_links||[]).map(v=>`<li><b>${v.subject}</b> - ${v.degree}: ${v.why}</li>`).join('')}</ul><div class='sec'>연속 활동 축</div><div>${a.continuity_axis||''}</div><div class='sec'>무리 없는 확장 해석</div><div>${a.conservative_extension||''}</div><div class='sec'>보수적 종합 판단</div><div>${a.overall_judgment||''}</div></div>`).join('');
+})
+</script></body></html>
