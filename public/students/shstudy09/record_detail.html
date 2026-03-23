@@ -161,7 +161,7 @@ function tighten(s){
   return s;
 }
 async function loadData(){
-  const paths = ['./record_detail.json'];
+  const paths = ['../record_detail.json', './record_detail.json'];
   for(const p of paths){
     try{
       const r = await fetch(p + '?v=' + Date.now(), {cache:'no-store'});
