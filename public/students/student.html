@@ -158,7 +158,7 @@
   }
 
   function pickName(s){ return s?.studentName ?? s?.studentname ?? s?.name ?? s?.["학생명"] ?? s?.["이름"] ?? s?.["성명"] ?? s?.id ?? "-"; }
-  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
+  function pickId(s){ return s?.id ?? s?.studentId ?? s?.studentID ?? s?.student_id ?? s?.["ID"] ?? s?.["학생ID"] ?? s?.["학번"] ?? null; }
   function pickToken(s){ return s?.token ?? s?.accessToken ?? s?.key ?? s?.["token"] ?? s?.["토큰"] ?? null; }
 
   function pickText(...vals){
@@ -218,6 +218,12 @@
       }
     }
     return out;
+  }
+
+  function normalizeStudents(x){
+    if(Array.isArray(x)) return x.slice();
+    if(Array.isArray(x?.students)) return x.students.slice();
+    return [];
   }
 
   function getAuthContext() {
@@ -489,8 +495,8 @@
   function renderStudentMeta(student, auth){
     const sid = norm(pickId(student));
     const name = pickName(student);
-    const school = pickText(student?.school, student?.["학교"]);
-    const career = pickText(student?.career, student?.["진로"]);
+    const school = pickText(student?.school, student?.["학교"], student?.school_name);
+    const career = pickText(student?.career, student?.["진로"], student?.track);
     const adm = pickText(student?.admission, student?.["전형"]);
 
     $("#hdr").innerHTML = `${esc(name)} <span class="mono">(${esc(sid)})</span>`;
@@ -628,8 +634,9 @@
       return renderNoAccess("관리자 토큰이 올바르지 않습니다.");
     }
 
-    const students = await loadJson("./students.json");
-    if(!Array.isArray(students)) throw new Error("students.json is not an array");
+    const studentsRaw = await loadJson("./students.json");
+    const students = normalizeStudents(studentsRaw);
+    if(!students.length) throw new Error("students.json is empty");
 
     const student = resolveStudentByAuth(students, auth);
     if(!student){
@@ -651,7 +658,7 @@
     let rows = normalizeArrayish(scoresRaw);
     const sid = norm(pickId(student));
 
-    rows = rows.filter(r => norm(r?.id ?? r?.studentId ?? r?.studentID ?? r?.["ID"] ?? r?.["학생ID"]) === sid);
+    rows = rows.filter(r => norm(r?.id ?? r?.studentId ?? r?.studentID ?? r?.student_id ?? r?.["ID"] ?? r?.["학생ID"]) === sid);
     rows = sortScores(rows);
 
     renderNav(student, auth, recordFlag, rows[0] || null);
