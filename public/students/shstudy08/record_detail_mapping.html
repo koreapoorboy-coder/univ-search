@@ -1,14 +1,135 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_mapping_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
-<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
-<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
-<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
-<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
-<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
-</div><div id="app"></div></div><script>
-const targetId=(new URLSearchParams(location.search)).get('student_id')||'shstudy08';
-Promise.all([fetch('./record_detail.json').then(r=>r.json()), fetch('./record_detail_extension.json').then(r=>r.json())]).then(([detail,ext])=>{
- const s=(detail.students||[]).find(v=>v.student_id===targetId)||{}; const ex=(ext.students||[]).find(v=>v.student_id===targetId)||{}; const list=ex.selected_subjects_plan?.selection_subjects||[];
- document.getElementById('app').innerHTML=`<div class="card"><h1>생활기록부 연결</h1><div class='muted'>현재 기록에서 다음 선택과목이 왜 자연스러운지 확인하는 페이지</div><div class='sec'>통합 방향</div><div>${ex.selected_subjects_plan?.integrated_direction||''}</div></div>`+
- list.map(item=>`<div class='card'><h3>${item.subject}</h3><div class='sec'>왜 다음 과목 후보인가</div><ul>${(item.auto_reasons||[]).map(v=>`<li>${v}</li>`).join('') || `<li>${item.current_evidence||''}</li>`}</ul><div class='sec'>연결 개념</div>${((item.textbook_connection?.core_concepts)||[]).map(v=>`<span class='chip'>${v}</span>`).join('')}<div class='sec'>시작해볼 수 있는 연결 행동</div><ul>${(item.proposal_examples||[]).slice(0,2).map(v=>`<li>${v}</li>`).join('')}</ul><div class='sec'>다음 과목 역할</div><div>${item.course_role||''}</div></div>`).join('');
-})
-</script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>record_detail_mapping</title>
+<style>
+:root{--bg:#f6f8fc;--line:#dfe8f4;--text:#16202a;--sub:#5c6b7a;--shadow:0 12px 30px rgba(22,32,42,.08)}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif}
+.wrap{max-width:1460px;margin:0 auto;padding:24px 18px 48px}
+.hero,.section,.candidate-card,.map-card,.side{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.hero{padding:26px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:34px}.sub{color:var(--sub);line-height:1.75}
+.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.nav a{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;text-decoration:none;color:#16202a;font-weight:900}.nav a.active{background:#111;color:#fff;border-color:#111}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}
+.side{padding:20px;position:sticky;top:18px}.side-title{font-size:20px;font-weight:900;margin:0 0 12px}.side-box{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fff}.side-box+.side-box{margin-top:12px}
+.label{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.value{font-weight:800;line-height:1.8}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid #d7e3ff;font-size:13px;font-weight:800}
+.main{display:grid;gap:16px}.section{padding:18px}.section-title{font-size:22px;font-weight:900;margin:0 0 12px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{border:1px solid var(--line);border-radius:18px;background:#fbfdff;padding:14px}.kicker{font-size:12px;color:var(--sub);font-weight:900;margin-bottom:6px}.body{font-size:15px;line-height:1.75;font-weight:800}
+.candidate-list,.map-list{display:grid;gap:14px}.candidate-card,.map-card{padding:18px}
+.head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:10px}.title{font-size:24px;font-weight:900}.subtitle{margin-top:6px;color:var(--sub);font-weight:700;line-height:1.65}
+.score{min-width:72px;height:72px;border-radius:22px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;background:#2f3f93}
+.reason-list{margin:0;padding-left:18px;line-height:1.85;font-weight:800}.note{color:var(--sub);font-size:14px;line-height:1.7}
+.toggle{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:900;cursor:pointer}.empty{background:#fff;border:1px dashed var(--line);border-radius:18px;padding:18px;line-height:1.8;color:var(--sub)}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto}}
+@media (max-width:760px){.wrap{padding:14px 12px 32px}.hero{padding:18px}.hero h1{font-size:26px}.summary-grid{grid-template-columns:1fr}.title{font-size:20px}.score{min-width:58px;height:58px;font-size:24px;border-radius:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+  <h1 id="heroTitle">생활기록부 연결</h1>
+  <div class="sub">현재 생활기록부를 교과 개념과 연결해 왜 다음 과목이 후보가 되는지 보여주는 진단 화면입니다. 실제 활동 설계는 확장 활동 보기에서 진행합니다.</div>
+  <div class="nav">
+    <a id="goBasic" href="./record_detail.html">생활기록부 분석</a>
+    <a class="active">생활기록부 연결</a>
+    <a id="goExtension" href="./record_detail_extension.html">확장 활동 보기</a>
+    <a id="goCreative" href="./record_creative.html">창의체험활동 분석</a>
+    <a id="goRaw" href="./record_raw_detail.html">생활기록부 원문</a>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="side">
+    <h2 class="side-title">진단 요약</h2>
+    <div class="side-box"><div class="label">학생</div><div class="value" id="studentBasic">-</div></div>
+    <div class="side-box"><div class="label">현재 학년</div><div class="value" id="yearValue">-</div></div>
+    <div class="side-box"><div class="label">현재 과목</div><div class="chips" id="subjectChips"></div></div>
+    <div class="side-box"><div class="label">통합 방향</div><div class="value" id="directionValue">-</div></div>
+    <div class="side-box"><div class="label">보조 축</div><div class="value" id="secondaryValue">-</div></div>
+  </aside>
+
+  <main class="main">
+    <section class="section">
+      <h2 class="section-title">이 화면의 역할</h2>
+      <div class="summary-grid">
+        <div class="box"><div class="kicker">생활기록부 연결</div><div class="body">현재 기록이 어떤 교과 개념과 연결되는지, 그리고 왜 다음 과목 후보가 되는지를 진단합니다.</div></div>
+        <div class="box"><div class="kicker">확장 활동 보기</div><div class="body">선택된 다음 과목을 기준으로 실제 탐구 질문, 로드맵, 산출물, 세특 문장 씨앗을 설계합니다.</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="head">
+        <div><h2 class="section-title" style="margin:0">다음 과목 후보 추천</h2><div class="note">현재 기록을 바탕으로 다음 과목 후보만 보여줍니다.</div></div>
+        <button class="toggle" id="toggleCandidatesBtn" type="button">더 보기</button>
+      </div>
+      <div class="candidate-list" id="candidateWrap"></div>
+    </section>
+
+    <section class="section">
+      <div class="head">
+        <div><h2 class="section-title" style="margin:0">현재 과목 연결 근거</h2><div class="note">현재 생활기록부 근거 확인용입니다.</div></div>
+        <button class="toggle" id="toggleMappingsBtn" type="button">더 보기</button>
+      </div>
+      <div class="map-list" id="mapWrap"></div>
+    </section>
+  </main>
+</div>
+</div>
+
+<script src="../../univ-search/data/student_textbook_matcher.js"></script>
+<script src="../../univ-search/data/student_record_keyword_extractor.js"></script>
+<script src="../../univ-search/data/student_textbook_recommendation_engine.js"></script>
+<script>
+const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
+const unique=arr=>[...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];
+const qs=new URLSearchParams(location.search); const targetId=qs.get('student_id')||'shstudy08'; const yearIdx=Math.max(0,Number(qs.get('year_idx')||'0')||0);
+let SHOW_ALL_CANDIDATES=false, SHOW_ALL_MAPPINGS=false, ALL_RECS=[], ALL_MATCHES=[];
+function scoreColor(score){const n=Number(score||0); if(n>=40)return '#2f3f93'; if(n>=30)return '#6f57c7'; return '#6d7786';}
+async function loadJson(path){const r=await fetch(path+`?v=${Date.now()}`,{cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json();}
+async function loadData(){
+  const [detail, ext, rules] = await Promise.all([
+    loadJson('./record_detail.json'),
+    loadJson('./record_detail_extension.json'),
+    loadJson('../../univ-search/data/student_extension_rules.json').catch(()=>({}))
+  ]);
+  const detailStudents = Array.isArray(detail?.students) ? detail.students : [];
+  const extStudents = Array.isArray(ext?.students) ? ext.students : [];
+  const student = detailStudents.find(s=>String(s.student_id||s.id||'')===targetId) || detailStudents[0] || {};
+  const extStudent = extStudents.find(s=>String(s.student_id||s.id||'')===targetId) || extStudents[0] || {};
+  return {student, extStudent, rules};
+}
+function fillSidebar(student, rec){document.getElementById('studentBasic').textContent=`${student.student_name||''} · ${student.school_name||''}`; document.getElementById('yearValue').textContent=(student.years||[])[yearIdx]?.year || `${yearIdx+1}학년`; document.getElementById('subjectChips').innerHTML=(((student.years||[])[yearIdx]?.subjects)||[]).map(s=>`<span class="chip">${esc(s.subject||s.subject_name||'')}</span>`).join('') || '<span class="chip">과목 없음</span>'; document.getElementById('directionValue').textContent=rec.integrated_direction || student.track || '-'; document.getElementById('secondaryValue').textContent=rec.secondary_track || '-'; document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`; document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}&year_idx=${yearIdx}`; document.getElementById('goCreative').href=`./record_creative.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goRaw').href=`./record_detail_raw.html?student_id=${encodeURIComponent(targetId)}`;}
+function candidateCard(item){const reasons=(item.auto_reasons||[]).map(v=>`<li>${esc(v)}</li>`).join('') || '<li>연결 근거 없음</li>'; return `<div class="candidate-card"><div class="head"><div><div class="title">${esc(item.subject||'')}</div><div class="subtitle">${esc(item.course_role||'')}</div></div><div class="score" style="background:${scoreColor(item.auto_score)}">${esc(item.auto_score||0)}</div></div><div class="summary-grid"><div class="box"><div class="kicker">왜 다음 과목 후보인가</div><ul class="reason-list">${reasons}</ul></div><div class="box"><div class="kicker">핵심 추천 방향</div><div class="body">${esc(item.auto_core?.top_activity_title || item.course_role || '-')}</div></div></div></div>`;}
+function mapCard(item){const matched=unique(item.matched_keywords||[]).join(', ')||'-'; const concepts=unique(item.core_concepts||[]).slice(0,6).join(', ')||'-'; const reason=item.match_reason||'단원-키워드-전공 연결성이 확인됨'; return `<div class="map-card"><div class="head"><div><div class="title">${esc(item.subject||'')}</div><div class="subtitle">${esc(item.unit||'')} · ${esc(item.subunit||'')}</div></div><div class="score" style="background:${scoreColor(item.score)}">${esc(item.score||0)}</div></div><div class="summary-grid"><div class="box"><div class="kicker">매핑 키워드</div><div class="body">${esc(matched)}</div></div><div class="box"><div class="kicker">핵심 개념</div><div class="body">${esc(concepts)}</div></div></div><div class="box" style="margin-top:12px"><div class="kicker">현재 과목 연결 근거</div><div class="body">${esc(reason)}</div></div></div>`;}
+function renderCandidates(){const visible=SHOW_ALL_CANDIDATES?ALL_RECS:ALL_RECS.slice(0,3); document.getElementById('candidateWrap').innerHTML=visible.length?visible.map(candidateCard).join(''):'<div class="empty">추천 후보가 없습니다.</div>'; const btn=document.getElementById('toggleCandidatesBtn'); btn.style.display=ALL_RECS.length>3?'inline-block':'none'; btn.textContent=SHOW_ALL_CANDIDATES?'접기':'더 보기';}
+function renderMappings(){const visible=SHOW_ALL_MAPPINGS?ALL_MATCHES:ALL_MATCHES.slice(0,3); document.getElementById('mapWrap').innerHTML=visible.length?visible.map(mapCard).join(''):'<div class="empty">연결 결과가 없습니다.</div>'; const btn=document.getElementById('toggleMappingsBtn'); btn.style.display=ALL_MATCHES.length>3?'inline-block':'none'; btn.textContent=SHOW_ALL_MAPPINGS?'접기':'더 보기';}
+(async function(){
+  try {
+    const {student, extStudent, rules}=await loadData();
+    const input=await window.StudentRecordKeywordExtractor.buildStudentInputFromRecord(student,{currentYearIdx:yearIdx,textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json'});
+    ALL_MATCHES=await window.StudentTextbookMatcher.runStudentTextbookMatch(input,{textbookPath:'../../univ-search/data/textbook_master.json',keywordMapPath:'../../univ-search/data/student_textbook_keyword_map.json',minScore:10,topN:12,restrictToSelectedSubjects:true});
+    let rec=window.StudentTextbookRecommendationEngine.generateRecommendations(ALL_MATCHES, extStudent, rules, targetId);
+    if (Array.isArray(rec)) rec = {recommended_subjects: rec, integrated_direction:'', secondary_track:''};
+    if ((!rec?.recommended_subjects || !rec.recommended_subjects.length) && Array.isArray(extStudent?.selected_subjects_plan?.selection_subjects)) {
+      rec = {
+        integrated_direction: extStudent?.selected_subjects_plan?.integrated_direction || '',
+        secondary_track: extStudent?.selected_subjects_plan?.secondary_track || '',
+        recommended_subjects: extStudent.selected_subjects_plan.selection_subjects.map((s, idx) => ({
+          ...s,
+          auto_score: 20 - idx,
+          auto_reasons: [s.current_strength || s.current_evidence || '현재 기록과 연결 가능한 과목입니다.'].filter(Boolean),
+          auto_core: {top_activity_title: s.course_role || ''}
+        }))
+      };
+    }
+    ALL_RECS=rec?.recommended_subjects||[];
+    fillSidebar(student, rec||{}); renderCandidates(); renderMappings();
+    document.getElementById('toggleCandidatesBtn').onclick=()=>{SHOW_ALL_CANDIDATES=!SHOW_ALL_CANDIDATES; renderCandidates();};
+    document.getElementById('toggleMappingsBtn').onclick=()=>{SHOW_ALL_MAPPINGS=!SHOW_ALL_MAPPINGS; renderMappings();};
+  } catch (e) {
+    document.getElementById('candidateWrap').innerHTML = `<div class="empty">데이터 로딩 오류: ${esc(e.message||e)}</div>`;
+  }
+})();</script>
+</body>
+</html>
