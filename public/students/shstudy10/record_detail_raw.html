@@ -48,7 +48,7 @@
 
 <script>
 const qs = new URLSearchParams(location.search);
-const targetId = qs.get('student_id') || 'shstudy01';
+let targetId = qs.get('student_id') || '';
 let ALL_ITEMS = [];
 let CURRENT_YEAR = '전체';
 let CURRENT_TYPE = '전체';
@@ -57,6 +57,7 @@ function esc(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt
 function unique(arr){return [...new Set((Array.isArray(arr)?arr:[]).filter(Boolean))];}
 async function loadJson(path){ const r = await fetch(path + `?v=${Date.now()}`, {cache:'no-store'}); if(!r.ok) throw new Error(path); return r.json(); }
 function classifyType(row){ return row.category === '창의체험활동' ? '창의체험활동' : '세특'; }
+function resolveTargetId(data){ if(targetId) return targetId; const keys = Object.keys(data || {}); return keys[0] || ''; }
 function normalizeRawData(data){ let root=data; if(data[targetId]) root=data[targetId]; else if(data.raw_record) root=data.raw_record; const rows=Array.isArray(root?.rows)?root.rows:[]; return rows.map((r,idx)=>({ key:`${idx}-${r.term||''}-${r.subject||''}`,
   year:r.term||'미분류', type:classifyType(r), category:r.category||'', subject:r.subject||'', item:r.item||'', raw_text:r.text||'', title:`${r.subject||r.category||'원문'}${r.item?` · ${r.item}`:''}` })); }
 function fillSidebars(items){ document.getElementById('studentBox').textContent=targetId; const years=['전체', ...unique(items.map(x=>x.year))]; document.getElementById('yearChips').innerHTML=years.map(y=>`<span class="chip">${esc(y)}</span>`).join(''); document.getElementById('categoryChips').innerHTML=['세특','창의체험활동'].map(c=>`<span class="chip">${esc(c)}</span>`).join(''); }
@@ -64,7 +65,7 @@ function renderFilterButtons(){ const years=['전체', ...unique(ALL_ITEMS.map(x
 function itemCard(item){ return `<section class="card"><div class="acc-head"><div><div class="title">${esc(item.title)}</div><div class="subtitle">${esc(item.year)} · ${esc(item.type)} · ${esc(item.category)}</div></div><span class="badge">토글 보기</span></div><div class="box"><div class="kicker">원문</div><div class="body">${esc(item.raw_text)}</div></div></section>`; }
 function bindAccordions(){ document.querySelectorAll('.acc-head').forEach(h=>{ h.onclick=()=> h.parentElement.classList.toggle('open'); }); }
 function render(){ renderFilterButtons(); let visible=ALL_ITEMS.slice(); if(CURRENT_YEAR!=='전체') visible=visible.filter(v=>v.year===CURRENT_YEAR); if(CURRENT_TYPE!=='전체') visible=visible.filter(v=>v.type===CURRENT_TYPE); document.getElementById('itemsWrap').innerHTML = visible.length ? visible.map(itemCard).join('') : '<div class="empty">선택한 조건에 해당하는 원문이 없습니다.</div>'; bindAccordions(); }
-(async function(){ document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goMapping').href=`./record_detail_mapping.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goCreative').href=`./record_creative.html?student_id=${encodeURIComponent(targetId)}`; const data=await loadJson('./school_record_raw.json'); ALL_ITEMS = normalizeRawData(data); fillSidebars(ALL_ITEMS); render(); })();
+(async function(){ const data=await loadJson('./school_record_raw.json'); targetId = resolveTargetId(data); document.getElementById('goBasic').href=`./record_detail.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goMapping').href=`./record_detail_mapping.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goExtension').href=`./record_detail_extension.html?student_id=${encodeURIComponent(targetId)}`; document.getElementById('goCreative').href=`./record_creative.html?student_id=${encodeURIComponent(targetId)}`; ALL_ITEMS = normalizeRawData(data); fillSidebars(ALL_ITEMS); render(); })();
 </script>
 </body>
 </html>
