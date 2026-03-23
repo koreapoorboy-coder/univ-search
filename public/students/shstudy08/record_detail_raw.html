@@ -1,0 +1,12 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>record_raw_shstudy08</title><style>body{font-family:Arial,Apple SD Gothic Neo,sans-serif;margin:24px;background:#f7f8fc;color:#222}.wrap{max-width:1080px;margin:0 auto}.card{background:#fff;border:1px solid #e7e9f1;border-radius:16px;padding:18px;margin:14px 0}.nav a{text-decoration:none;color:#234;display:inline-block;margin-right:8px;padding:8px 10px;background:#eef2ff;border-radius:10px}.muted{color:#667}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chip{display:inline-block;background:#f1f5f9;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0}.sec{font-weight:700;margin:8px 0}details{background:#fff;border:1px solid #e7e9f1;border-radius:12px;padding:10px;margin:10px 0}summary{cursor:pointer;font-weight:700}.small{font-size:13px;color:#667}ul{margin:8px 0 0 18px}</style></head><body><div class="wrap"><div class="nav">
+<a href="./record_detail.html?student_id=shstudy08&year_idx=0">생활기록부 분석</a> |
+<a href="./record_detail_mapping.html?student_id=shstudy08&year_idx=0">생활기록부 연결</a> |
+<a href="./record_detail_extension.html?student_id=shstudy08&year_idx=0">확장 활동 보기</a> |
+<a href="./record_creative.html?student_id=shstudy08">창의체험활동 분석</a> |
+<a href="./record_detail_raw.html?student_id=shstudy08&year_idx=0">생활기록부 원문</a>
+</div><div class='card'><h1>생활기록부 원문</h1><div class='small'>학년/유형 토글을 눌러 필요한 원문만 확인할 수 있습니다.</div><div style='margin-top:10px'><button onclick="setYear('전체')">전체</button> <button onclick="setYear('1학년')">1학년</button> <button onclick="setType('전체')">전체유형</button> <button onclick="setType('세특')">세특</button> <button onclick="setType('창의체험활동')">창의체험활동</button></div></div><div id='list'></div></div><script>
+let YEAR='전체', TYPE='전체'; let ROWS=[];
+function render(){ const list=document.getElementById('list'); const filtered=ROWS.filter(r=>(YEAR==='전체'||r.term===YEAR)&&(TYPE==='전체'||r.category===TYPE)); list.innerHTML=filtered.map((r,i)=>`<details><summary>${r.term} · ${r.category} · ${r.subject}</summary><div class='small'>${r.item||''}</div><div style='margin-top:8px;white-space:pre-wrap;line-height:1.65'>${r.text||''}</div></details>`).join(''); }
+function setYear(v){YEAR=v;render();} function setType(v){TYPE=v;render();}
+fetch('./school_record_raw.json').then(r=>r.json()).then(data=>{ const rec=data['shstudy08']||data.raw_record||{}; ROWS=rec.rows||[]; render(); });
+</script></body></html>
