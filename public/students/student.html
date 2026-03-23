@@ -262,13 +262,36 @@
   }
 
   function buildPageLink(page, auth, student) {
+    const sid = norm(pickId(student) || auth?.id);
+    const isRecordPage = /^\.\/record_/.test(page) || /^\.\/record_detail/.test(page) || page.includes("record_raw_detail");
+
+    if (isRecordPage && sid) {
+      let file = String(page || "").replace(/^\.\//, "");
+      if (file === "record_raw_detail.html") file = "record_detail_raw.html";
+
+      const params = new URLSearchParams();
+      params.set("student_id", sid);
+
+      if (auth?.mode === "student" && auth.token) {
+        params.set("t", auth.token);
+      }
+      if (auth?.mode === "admin" && auth.isAdmin && auth.admin) {
+        params.set("admin", auth.admin);
+      }
+
+      return `./${encodeURIComponent(sid)}/${file}?${params.toString()}`;
+    }
+
     if (auth?.mode === "student") {
       return `${page}?t=${encodeURIComponent(auth.token)}`;
     }
 
     if (auth?.mode === "admin" && auth.isAdmin) {
-      const sid = norm(pickId(student) || auth.id);
       return `${page}?id=${encodeURIComponent(sid)}&admin=${encodeURIComponent(auth.admin)}`;
+    }
+
+    if (sid) {
+      return `${page}?id=${encodeURIComponent(sid)}`;
     }
 
     return page;
