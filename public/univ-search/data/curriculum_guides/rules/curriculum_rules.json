@@ -1,0 +1,51 @@
+{
+  "rules": [
+    {
+      "id": "rule_sequence_required",
+      "if_contains_any": [
+        "세포와 물질대사",
+        "고급생명과학",
+        "심화 과학"
+      ],
+      "check_any": [
+        "선행 필요",
+        "과목 위계 중요"
+      ],
+      "interpret_as": "verify_prerequisite_sequence",
+      "notes": "심화 과목 추천 전 선행 과목 이수 여부 점검"
+    },
+    {
+      "id": "rule_subject_activity_alignment",
+      "if_contains_any": [
+        "과목 선택",
+        "세특",
+        "탐구",
+        "진로"
+      ],
+      "interpret_as": "needs_subject_activity_alignment",
+      "notes": "과목 선택과 탐구활동, 학생부 기록의 일관성 확인"
+    },
+    {
+      "id": "rule_math_to_project",
+      "if_contains_any": [
+        "공통수학1",
+        "공통수학2",
+        "대수",
+        "함수",
+        "그래프"
+      ],
+      "interpret_as": "convert_to_project_task",
+      "notes": "수학 교과 개념을 직업 세계/실무 프로젝트로 변환"
+    },
+    {
+      "id": "rule_cross_subject_link",
+      "if_contains_any": [
+        "수학-과학 연결",
+        "융합탐구",
+        "직무 연계 가능"
+      ],
+      "interpret_as": "recommend_cross_subject_inquiry",
+      "notes": "수학-과학 횡단 탐구 주제를 우선 추천"
+    }
+  ]
+}
