@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "name": "output_schema",
+    "version": "0.1.0-starter",
+    "description": "통합 엔진이 최종적으로 생성할 분석/추천 결과의 공통 출력 스키마"
+  },
+  "fields": [
+    {
+      "name": "student_id",
+      "type": "string",
+      "description": "학생 고유 ID"
+    },
+    {
+      "name": "summary",
+      "type": "array[string]",
+      "description": "핵심 요약 3줄"
+    },
+    {
+      "name": "record_diagnosis",
+      "type": "object",
+      "description": "학생부 구조·기록 품질 진단"
+    },
+    {
+      "name": "curriculum_check",
+      "type": "object",
+      "description": "과목 선택/위계/적합성 점검"
+    },
+    {
+      "name": "extension_recommendations",
+      "type": "array[object]",
+      "description": "확장활동 추천 결과"
+    },
+    {
+      "name": "admission_case_matches",
+      "type": "array[object]",
+      "description": "유사 합격생 케이스 매칭 결과"
+    },
+    {
+      "name": "evaluation_interpretation",
+      "type": "object",
+      "description": "학종 평가 관점 해석"
+    },
+    {
+      "name": "action_plan",
+      "type": "array[object]",
+      "description": "실행 우선순위 계획"
+    },
+    {
+      "name": "report_design",
+      "type": "array[object]",
+      "description": "탐구보고서 설계안"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "추가 메모"
+    }
+  ]
+}
