@@ -1,0 +1,386 @@
+{
+  "meta": {
+    "name": "admission_case_library",
+    "version": "0.2.0-initial-cases",
+    "description": "업로드된 합격생/사례집 자료에서 추출한 초기 케이스 반영본"
+  },
+  "cases": [
+    {
+      "id": "case_2022_bio_001",
+      "source_id": "src_casebook_2022",
+      "university": "서울대학교",
+      "major": "생물교육과",
+      "admission_type": "기회균형특별전형1",
+      "result": "최초 합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "1.27",
+        "selected_subjects": [
+          "문학",
+          "독서",
+          "화법과 작문",
+          "언어와 매체",
+          "수학Ⅰ",
+          "수학Ⅱ",
+          "확률과 통계",
+          "생명과학Ⅰ",
+          "세계지리",
+          "세계사",
+          "사회·문화",
+          "한국지리",
+          "생활과 윤리",
+          "고전 읽기",
+          "사회문제 탐구"
+        ],
+        "major_tags": [
+          "생명공학",
+          "생물교육",
+          "의약학 인접"
+        ],
+        "activity_tags": [
+          "세특",
+          "탐구보고서",
+          "진로활동",
+          "교과연계"
+        ],
+        "method_tags": [
+          "자료조사형",
+          "교과서재구성형",
+          "발표형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "생명",
+          "교육",
+          "과학 탐구",
+          "교과 연계 심화"
+        ],
+        "subject_flow": [
+          "생명과학Ⅰ 중심",
+          "사회·윤리 과목 병행",
+          "국어·수학 상위권 유지"
+        ],
+        "activity_flow": [
+          "교과 선택 심화",
+          "탐구내용 축적",
+          "전형별 다중 지원"
+        ],
+        "writing_style": [
+          "교과 연결성",
+          "탐구 흐름 서술",
+          "학업 일관성"
+        ],
+        "strength_points": [
+          "전과목 상위권 성적",
+          "생명계열 중심 선택과목",
+          "서울대/KAIST/UNIST 동시 합격권"
+        ]
+      },
+      "linked_template_ids": [
+        "high_biosignal_free_inquiry_001",
+        "high_osmosis_observation_001",
+        "high_textbook_based_inquiry_001"
+      ],
+      "notes": "2022 사례집 생명공학과 지원 사례에서 추출한 상위권 생명계열 합격 패턴"
+    },
+    {
+      "id": "case_2022_language_001",
+      "source_id": "src_casebook_2022",
+      "university": "한국외국어대학교",
+      "major": "언어인지과학과",
+      "admission_type": "학생부종합전형(면접형)",
+      "result": "합격",
+      "student_profile": {
+        "school_type": "인문계열 일반고 추정",
+        "grade_band": "2.3",
+        "selected_subjects": [
+          "문학",
+          "독서",
+          "화법과 작문",
+          "언어와 매체",
+          "세계지리",
+          "세계사",
+          "사회·문화",
+          "한국지리",
+          "생활과 윤리",
+          "생명과학Ⅰ",
+          "독일어Ⅰ",
+          "독일어Ⅱ",
+          "고전 읽기",
+          "사회문제 탐구"
+        ],
+        "major_tags": [
+          "언어학",
+          "언어인지",
+          "언어정보"
+        ],
+        "activity_tags": [
+          "독서",
+          "발표",
+          "토론",
+          "세특",
+          "보고서"
+        ],
+        "method_tags": [
+          "자료조사형",
+          "논증형",
+          "발표형",
+          "비평형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "언어",
+          "교육",
+          "사회 문제",
+          "정보보안/정보 표현"
+        ],
+        "subject_flow": [
+          "국어 강점",
+          "사회 과목 확장",
+          "언어 관련 독서 집중",
+          "생명과학/정보를 언어학과 연결"
+        ],
+        "activity_flow": [
+          "언어 관련 독서 누적",
+          "사회·역사와 언어 연결",
+          "발표·보고서 중심 활동"
+        ],
+        "writing_style": [
+          "논리적 설명",
+          "비교 분석",
+          "언어-사회 연결"
+        ],
+        "strength_points": [
+          "언어학 관련 독서 폭",
+          "세특에서 언어학 관심 지속 연결",
+          "전공 적합성 일관성"
+        ]
+      },
+      "linked_template_ids": [
+        "high_gene_editing_ethics_001",
+        "high_life_science_pseudoscience_001",
+        "high_textbook_based_inquiry_001"
+      ],
+      "notes": "2022 사례집 언어학과 지원 사례에서 추출한 인문-언어학 적합성 패턴"
+    },
+    {
+      "id": "case_2024_nursing_001",
+      "source_id": "src_casebook_2024",
+      "university": "가천대학교",
+      "major": "간호학과",
+      "admission_type": "농어촌 종합 전형",
+      "result": "충원합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "2.82",
+        "selected_subjects": [
+          "생명과학1",
+          "생명과학2",
+          "화학1",
+          "과학과제연구",
+          "수학과제탐구",
+          "화법과작문",
+          "공동교육과정(슬기로운 간호학생 되는 법, 공중보건의 기초반, 슬기로운 의사생활 속 질병과 의료기관)"
+        ],
+        "major_tags": [
+          "간호",
+          "보건",
+          "의학"
+        ],
+        "activity_tags": [
+          "동아리",
+          "진로활동",
+          "실험",
+          "독서",
+          "공동교육과정"
+        ],
+        "method_tags": [
+          "실험형",
+          "자료조사형",
+          "논증형",
+          "프로젝트형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "간호",
+          "보건의료",
+          "질병",
+          "유전자",
+          "인체 기능"
+        ],
+        "subject_flow": [
+          "생명과학·화학 기반",
+          "과제연구/수학탐구까지 의료 주제 연결",
+          "공동교육과정으로 진로 심화"
+        ],
+        "activity_flow": [
+          "보건메디컬 동아리",
+          "카페인 추출/물벼룩 실험",
+          "간호 관련 독서/주제 탐구"
+        ],
+        "writing_style": [
+          "의료 진로 일관성",
+          "생명과학 탐구 구체화",
+          "교과와 진로 연계"
+        ],
+        "strength_points": [
+          "전공 일관성",
+          "공동교육과정 활용",
+          "생명·의학 관련 탐구 다양성"
+        ]
+      },
+      "linked_template_ids": [
+        "high_ekg_homeostasis_001",
+        "high_enzyme_digestive_001",
+        "high_biosignal_free_inquiry_001"
+      ],
+      "notes": "2024 사례집 간호 충원합격 사례에서 추출한 보건·간호 계열 패턴"
+    },
+    {
+      "id": "case_2024_ai_sw_001",
+      "source_id": "src_casebook_2024",
+      "university": "충남대학교",
+      "major": "전파정보통신공학과",
+      "admission_type": "학생부 종합Ⅰ",
+      "result": "합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "3.75",
+        "selected_subjects": [
+          "물리학실험",
+          "물리학Ⅱ",
+          "심화수학",
+          "정보",
+          "공동교육과정(파이썬으로 인공지능 맛보기, 공학기초입문반)"
+        ],
+        "major_tags": [
+          "AI/SW",
+          "전자공학",
+          "공학계열",
+          "통신공학"
+        ],
+        "activity_tags": [
+          "동아리",
+          "제작",
+          "보고서",
+          "실험",
+          "공동교육과정"
+        ],
+        "method_tags": [
+          "제작형",
+          "실험형",
+          "자료조사형",
+          "프로젝트형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "AI",
+          "전자공학",
+          "회로",
+          "배터리",
+          "자율주행",
+          "로봇"
+        ],
+        "subject_flow": [
+          "물리-수학-정보 결합",
+          "공학 동아리 활동 지속",
+          "공동교육과정으로 AI/공학 심화"
+        ],
+        "activity_flow": [
+          "AI 자율주행자동차",
+          "노이즈 캔슬링/휘스톤브릿지 탐구",
+          "배터리 충전방식 보고서",
+          "정보 과목 실습"
+        ],
+        "writing_style": [
+          "공학 문제 해결",
+          "제작과 실험 병행",
+          "과목 간 연결성"
+        ],
+        "strength_points": [
+          "공학 실습/제작 경험",
+          "물리·정보·수학 연결",
+          "공동교육과정 활용"
+        ]
+      },
+      "linked_template_ids": [
+        "high_electromagnetic_induction_001",
+        "high_solar_device_design_001",
+        "high_appropriate_technology_001",
+        "high_vibe_coding_simulation_001"
+      ],
+      "notes": "2024 사례집 AI/SW 계열 합격 사례에서 추출한 공학·정보계열 패턴"
+    },
+    {
+      "id": "case_snu_fusion_001",
+      "source_id": "src_snu_success_pdf",
+      "university": "서울대학교",
+      "major": "첨단융합학부",
+      "admission_type": "학생부종합 추정",
+      "result": "합격",
+      "student_profile": {
+        "school_type": "상위권 일반고 추정",
+        "grade_band": "상위권",
+        "selected_subjects": [],
+        "major_tags": [
+          "첨단융합",
+          "공학",
+          "적정기술",
+          "과학기술윤리"
+        ],
+        "activity_tags": [
+          "세특",
+          "독서",
+          "과학기술윤리",
+          "적정기술",
+          "수학 챌린지",
+          "학급특색활동"
+        ],
+        "method_tags": [
+          "자료조사형",
+          "논증형",
+          "융합탐구형",
+          "프로젝트형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "첨단기술",
+          "윤리",
+          "적정기술",
+          "융합"
+        ],
+        "subject_flow": [
+          "교과 이수와 윤리적 성찰 병행",
+          "수학/과학 기반 + 사회적 해석"
+        ],
+        "activity_flow": [
+          "독서",
+          "과학기술 윤리 탐구",
+          "적정기술 관련 활동",
+          "학급 특색 프로젝트"
+        ],
+        "writing_style": [
+          "융합적 서술",
+          "기술-사회 연결",
+          "상위권 심화 탐구형"
+        ],
+        "strength_points": [
+          "상위권 대학형 융합 패턴",
+          "과학기술과 윤리의 연결",
+          "교과 외 확장성"
+        ]
+      },
+      "linked_template_ids": [
+        "high_appropriate_technology_001",
+        "high_green_energy_city_001",
+        "high_textbook_based_inquiry_001"
+      ],
+      "notes": "서울대 첨단융합학부 합격생 PDF에서 확인된 활동 축을 중심으로 초기 구조화"
+    }
+  ]
+}
