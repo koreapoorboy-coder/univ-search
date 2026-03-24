@@ -322,5 +322,20 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
   }
 })();
 </script>
+
+<script type="module">
+  import { mountIntegratedEngineResult } from "../../js/engine_page_hook.js";
+
+  mountIntegratedEngineResult({
+    studentId: "shstudy10",
+    mountSelector: ".wrap",
+    recordDetailPath: "./record_detail.json",
+    rawRecordPath: "./school_record_raw.json",
+    integratedIndexPath: "../../integrated_engine_index.json"
+  }).catch(err => {
+    console.error("Integrated engine mount failed:", err);
+  });
+</script>
+
 </body>
 </html>
