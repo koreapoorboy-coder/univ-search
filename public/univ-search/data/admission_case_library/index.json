@@ -1,1 +1,17 @@
-
+{
+  "active_case_library": "cases/admission_case_library.json",
+  "case_libraries": [
+    "cases/admission_case_library.json"
+  ],
+  "sources": [
+    "sources/source_registry.json"
+  ],
+  "tags": [
+    "tags/major_tags.json",
+    "tags/activity_tags.json",
+    "tags/method_tags.json"
+  ],
+  "rules": [
+    "rules/case_matching_rules.json"
+  ]
+}
