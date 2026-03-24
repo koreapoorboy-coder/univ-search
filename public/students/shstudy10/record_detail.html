@@ -333,14 +333,14 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
   probe.style.fontWeight = "700";
   document.querySelector(".wrap")?.prepend(probe);
 
-  import("../../../univ-search/js/engine_page_hook.js")
+  import("/univ-search/public/univ-search/js/engine_page_hook.js")
     .then(({ mountIntegratedEngineResult }) => {
       return mountIntegratedEngineResult({
         studentId: "shstudy10",
         mountSelector: ".wrap",
         recordDetailPath: "./record_detail.json",
         rawRecordPath: "./school_record_raw.json",
-        integratedIndexPath: "../../../univ-search/integrated_engine_index.json"
+        integratedIndexPath: "/univ-search/public/univ-search/integrated_engine_index.json"
       });
     })
     .catch(err => {
