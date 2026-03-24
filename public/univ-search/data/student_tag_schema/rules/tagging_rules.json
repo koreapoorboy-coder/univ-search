@@ -1,0 +1,80 @@
+{
+  "rules": [
+    {
+      "id": "rule_modeling_math_science",
+      "if_text_contains_any": [
+        "모델링",
+        "그래프",
+        "함수",
+        "증명",
+        "변수"
+      ],
+      "add_method_tags": [
+        "모델링",
+        "자료분석"
+      ],
+      "add_thinking_tags": [
+        "구조화",
+        "정량분석"
+      ],
+      "notes": "수학/과학 세특에서 모델링형 활동을 우선 태깅"
+    },
+    {
+      "id": "rule_bio_experiment",
+      "if_text_contains_any": [
+        "세포",
+        "효소",
+        "면역",
+        "항상성",
+        "배양",
+        "소화"
+      ],
+      "add_theme_tags": [
+        "생명",
+        "세포/효소"
+      ],
+      "add_method_tags": [
+        "실험",
+        "관찰"
+      ],
+      "notes": "생명과학 기반 세특·실험형 탐구 태그"
+    },
+    {
+      "id": "rule_environment_data",
+      "if_text_contains_any": [
+        "기후",
+        "환경",
+        "미세먼지",
+        "오염",
+        "대기질"
+      ],
+      "add_theme_tags": [
+        "기후",
+        "환경"
+      ],
+      "add_method_tags": [
+        "자료조사",
+        "데이터분석"
+      ],
+      "notes": "환경/기후 데이터형 태그"
+    },
+    {
+      "id": "rule_argument_ethics",
+      "if_text_contains_any": [
+        "윤리",
+        "찬반",
+        "토론",
+        "논증",
+        "비평"
+      ],
+      "add_method_tags": [
+        "논증",
+        "발표"
+      ],
+      "add_thinking_tags": [
+        "비판적사고"
+      ],
+      "notes": "윤리·논증·비평형 활동 태그"
+    }
+  ]
+}
