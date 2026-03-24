@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "name": "student_tag_schema",
+    "version": "0.1.0-starter",
+    "description": "학생 원문/세특/창체/진로 기록을 태그화하기 위한 공통 스키마"
+  },
+  "fields": [
+    {
+      "name": "student_id",
+      "type": "string",
+      "description": "학생 고유 ID"
+    },
+    {
+      "name": "record_type",
+      "type": "string",
+      "allowed_values": [
+        "세특",
+        "창의체험활동",
+        "진로활동",
+        "동아리",
+        "독서",
+        "행특",
+        "기타"
+      ],
+      "description": "기록 종류"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "관련 교과명"
+    },
+    {
+      "name": "grade_level",
+      "type": "string",
+      "allowed_values": [
+        "1학년",
+        "2학년",
+        "3학년"
+      ],
+      "description": "학년"
+    },
+    {
+      "name": "source_text",
+      "type": "string",
+      "description": "원문 또는 발췌 텍스트"
+    },
+    {
+      "name": "theme_tags",
+      "type": "array[string]",
+      "description": "핵심 주제 태그"
+    },
+    {
+      "name": "method_tags",
+      "type": "array[string]",
+      "description": "탐구/활동 방법 태그"
+    },
+    {
+      "name": "thinking_tags",
+      "type": "array[string]",
+      "description": "사고 방식 태그"
+    },
+    {
+      "name": "major_tags",
+      "type": "array[string]",
+      "description": "전공/계열 적합성 태그"
+    },
+    {
+      "name": "evidence_tags",
+      "type": "array[string]",
+      "description": "객관적 사실/근거 요소 태그"
+    },
+    {
+      "name": "activity_level",
+      "type": "string",
+      "allowed_values": [
+        "기초",
+        "적용",
+        "심화",
+        "확장"
+      ],
+      "description": "활동 수준"
+    },
+    {
+      "name": "record_quality",
+      "type": "string",
+      "allowed_values": [
+        "낮음",
+        "보통",
+        "높음"
+      ],
+      "description": "기록 신뢰도 및 밀도"
+    },
+    {
+      "name": "extension_fit",
+      "type": "array[string]",
+      "description": "연결 가능한 확장 템플릿 ID 또는 유형"
+    },
+    {
+      "name": "admission_fit",
+      "type": "array[string]",
+      "description": "연결 가능한 합격생 케이스 ID 또는 계열"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "해석 메모"
+    }
+  ]
+}
