@@ -4,7 +4,15 @@
     "templates/extension_library_v2.json",
     "templates/extension_library_draft.json"
   ],
-  "sources": [],
-  "tags": [],
-  "rules": []
+  "sources": [
+    "sources/source_registry.json"
+  ],
+  "tags": [
+    "tags/theme_tags.json",
+    "tags/method_tags.json",
+    "tags/thinking_tags.json"
+  ],
+  "rules": [
+    "rules/matching_rules.json"
+  ]
 }
