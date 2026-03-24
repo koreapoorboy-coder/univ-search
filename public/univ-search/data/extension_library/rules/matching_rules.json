@@ -1,0 +1,91 @@
+{
+  "rules": [
+    {
+      "id": "rule_energy_sensor",
+      "if_theme_any": [
+        "에너지",
+        "전력",
+        "태양광",
+        "배터리"
+      ],
+      "if_method_any": [
+        "실험",
+        "측정",
+        "제작",
+        "데이터분석"
+      ],
+      "recommend_template_ids": [
+        "high_power_consumption_digital_001",
+        "high_electromagnetic_induction_001",
+        "high_solar_device_design_001",
+        "high_renewable_bigdata_001"
+      ],
+      "notes": "에너지·전력·측정형 학생에게 우선 추천."
+    },
+    {
+      "id": "rule_bio_homeostasis",
+      "if_theme_any": [
+        "면역",
+        "항상성",
+        "생체신호",
+        "세포",
+        "효소"
+      ],
+      "if_method_any": [
+        "실험",
+        "측정",
+        "관찰",
+        "데이터분석"
+      ],
+      "recommend_template_ids": [
+        "high_biosignal_free_inquiry_001",
+        "high_ekg_homeostasis_001",
+        "high_osmosis_observation_001",
+        "high_enzyme_digestive_001"
+      ],
+      "notes": "생명과학 실험·데이터형 우선 추천."
+    },
+    {
+      "id": "rule_climate_environment",
+      "if_theme_any": [
+        "기후",
+        "환경",
+        "생태",
+        "미세먼지",
+        "대기질"
+      ],
+      "if_method_any": [
+        "자료조사",
+        "데이터분석",
+        "프로젝트",
+        "발표"
+      ],
+      "recommend_template_ids": [
+        "high_climate_ecology_001",
+        "high_climate_trend_korea_001",
+        "high_fine_dust_inquiry_001",
+        "high_green_energy_city_001"
+      ],
+      "notes": "환경·기후 데이터/프로젝트형 학생에게 우선 추천."
+    },
+    {
+      "id": "rule_argument_ethics",
+      "if_theme_any": [
+        "유전자",
+        "생명윤리",
+        "유사과학"
+      ],
+      "if_method_any": [
+        "논증",
+        "토론",
+        "자료조사",
+        "발표"
+      ],
+      "recommend_template_ids": [
+        "high_gene_editing_ethics_001",
+        "high_life_science_pseudoscience_001"
+      ],
+      "notes": "논증형·비판형 확장 추천."
+    }
+  ]
+}
