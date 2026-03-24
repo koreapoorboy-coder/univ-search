@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Bridge Example</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;line-height:1.6}
+    input{padding:8px 10px}
+    button{padding:10px 14px;font-weight:700}
+    pre{white-space:pre-wrap;background:#f6f6f6;padding:16px;border-radius:12px}
+  </style>
+</head>
+<body>
+  <h1>Student Bridge Example</h1>
+  <p>record_detail.json / school_record_raw.json에서 taggedStudent를 자동 생성합니다.</p>
+  <input id="studentId" value="shstudy09" />
+  <button id="runBtn">태그 생성</button>
+  <pre id="output">아직 실행 전</pre>
+
+  <script type="module">
+    import { buildTaggedStudent } from "./student_tag_bridge.js";
+
+    document.getElementById("runBtn").addEventListener("click", async () => {
+      const output = document.getElementById("output");
+      const studentId = document.getElementById("studentId").value.trim();
+      try {
+        const result = await buildTaggedStudent(studentId, {
+          recordDetailPath: "../student/record_detail.json",
+          rawRecordPath: "../student/school_record_raw.json"
+        });
+        output.textContent = JSON.stringify(result, null, 2);
+      } catch (err) {
+        output.textContent = "오류: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
