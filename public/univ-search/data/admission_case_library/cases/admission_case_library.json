@@ -1,8 +1,8 @@
 {
   "meta": {
     "name": "admission_case_library",
-    "version": "0.2.0-initial-cases",
-    "description": "업로드된 합격생/사례집 자료에서 추출한 초기 케이스 반영본"
+    "version": "0.3.0-expanded-cases",
+    "description": "초기 케이스에 화학공학/생명공학/소프트웨어 계열 사례를 추가 반영한 확장본"
   },
   "cases": [
     {
@@ -134,7 +134,7 @@
           "언어",
           "교육",
           "사회 문제",
-          "정보보안/정보 표현"
+          "정보 표현"
         ],
         "subject_flow": [
           "국어 강점",
@@ -381,6 +381,227 @@
         "high_textbook_based_inquiry_001"
       ],
       "notes": "서울대 첨단융합학부 합격생 PDF에서 확인된 활동 축을 중심으로 초기 구조화"
+    },
+    {
+      "id": "case_2024_chemeng_001",
+      "source_id": "src_casebook_2024",
+      "university": "화학공학과 지원 대학(충원합격 사례)",
+      "major": "화학공학과",
+      "admission_type": "학생부종합(면접 포함)",
+      "result": "충원 합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "1.95",
+        "selected_subjects": [
+          "화학",
+          "생명과학",
+          "공학기초 입문반",
+          "융합과학(원서 학습반)",
+          "화학의 원리와 응용탐구반",
+          "도전할 화학 탐구반"
+        ],
+        "major_tags": [
+          "화학공학",
+          "친환경 화학",
+          "공학"
+        ],
+        "activity_tags": [
+          "화학실험탐구반",
+          "공학동아리",
+          "공동교육과정",
+          "캠페인",
+          "독서발표"
+        ],
+        "method_tags": [
+          "실험형",
+          "프로젝트형",
+          "자료조사형",
+          "발표형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "친환경 화학",
+          "촉매",
+          "수질 오염 해결",
+          "산화수",
+          "표면적"
+        ],
+        "subject_flow": [
+          "화학 중심 심화",
+          "공동교육과정으로 공학 연결",
+          "생명/환경 문제를 화학공학으로 수렴"
+        ],
+        "activity_flow": [
+          "친환경 플라스틱·수질오염 캠페인",
+          "포름알데하이드 제거 실험",
+          "망가니즈 산화수 탐구",
+          "촉매 표면적 영향 분석"
+        ],
+        "writing_style": [
+          "실험 근거 제시",
+          "친환경 문제 해결형 서술",
+          "교과-진로 연계"
+        ],
+        "strength_points": [
+          "화학 심화의 일관성",
+          "공동교육과정 활용",
+          "친환경 화학 문제를 공학으로 연결한 점"
+        ]
+      },
+      "linked_template_ids": [
+        "high_redox_reaction_001",
+        "high_climate_ecology_001",
+        "high_textbook_based_inquiry_001",
+        "high_new_materials_world_001"
+      ],
+      "notes": "2024 사례집 화학공학 충원합격 사례에서 추출한 친환경 화학·촉매 기반 패턴"
+    },
+    {
+      "id": "case_2024_bioeng_001",
+      "source_id": "src_casebook_2024",
+      "university": "서울과학기술대학교",
+      "major": "식품생명공학과",
+      "admission_type": "학교생활우수자전형",
+      "result": "합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "2.26",
+        "selected_subjects": [
+          "생명공학 관련 탐구",
+          "독서연구회",
+          "세균 배양",
+          "동물 실험 찬반 토론"
+        ],
+        "major_tags": [
+          "생명공학",
+          "식품생명공학",
+          "보건/생명 인접"
+        ],
+        "activity_tags": [
+          "모둠 탐구",
+          "독서연구회",
+          "토론",
+          "학생회",
+          "멘토링"
+        ],
+        "method_tags": [
+          "실험형",
+          "논증형",
+          "자료조사형",
+          "프로젝트형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "생명공학",
+          "세균 배양",
+          "동물 실험 윤리",
+          "신소재 독서",
+          "콜라겐 탐구"
+        ],
+        "subject_flow": [
+          "한의사→생명공학으로 진로 축 이동",
+          "생명공학 모둠 탐구와 독서 축 강화"
+        ],
+        "activity_flow": [
+          "세균 배양 탐구",
+          "동물 실험 찬반 토론",
+          "신소재 독서",
+          "콜라겐 탐구",
+          "학생회 멘토링"
+        ],
+        "writing_style": [
+          "생명 탐구 + 윤리 토론 결합",
+          "독서-탐구 연계",
+          "학급/학생회 활동 병행"
+        ],
+        "strength_points": [
+          "생명공학 주제의 폭",
+          "토론과 탐구 병행",
+          "독서와 세특 연결성"
+        ]
+      },
+      "linked_template_ids": [
+        "high_natural_antibiotic_001",
+        "high_enzyme_digestive_001",
+        "high_gene_editing_ethics_001",
+        "high_textbook_based_inquiry_001"
+      ],
+      "notes": "2024 사례집 식품생명공학 합격 사례에서 추출한 생명·윤리·독서 연계 패턴"
+    },
+    {
+      "id": "case_2023_software_001",
+      "source_id": "src_student_record_2023_hwp",
+      "university": "성균관대학교",
+      "major": "소프트웨어학과",
+      "admission_type": "학생부종합",
+      "result": "합격",
+      "student_profile": {
+        "school_type": "일반고 추정",
+        "grade_band": "1.62/1.35",
+        "selected_subjects": [
+          "정보",
+          "프로그래밍",
+          "피지컬 컴퓨팅",
+          "문제해결 로봇 제작"
+        ],
+        "major_tags": [
+          "소프트웨어",
+          "컴퓨터공학",
+          "AI/SW"
+        ],
+        "activity_tags": [
+          "프로그래밍",
+          "피지컬 컴퓨팅",
+          "로봇 제작",
+          "자율활동",
+          "학습부장"
+        ],
+        "method_tags": [
+          "제작형",
+          "프로젝트형",
+          "실험형",
+          "자료조사형"
+        ]
+      },
+      "record_patterns": {
+        "core_theme": [
+          "프로그래밍",
+          "피지컬 컴퓨팅",
+          "미세먼지/지진/항온습도 센서",
+          "배경차분법",
+          "QR코드",
+          "인물 제거 프로그램"
+        ],
+        "subject_flow": [
+          "정보/프로그래밍 중심",
+          "센서-제작-문제해결 축 강화",
+          "고학년에서 심층 연구결과 제시"
+        ],
+        "activity_flow": [
+          "정보미디어부 활동",
+          "문제해결 로봇 제작",
+          "센서 기반 피지컬 컴퓨팅",
+          "영상/이미지 처리 프로그램 제작"
+        ],
+        "writing_style": [
+          "실제 구현 경험 중심",
+          "문제 해결형 공학 서술",
+          "정보·공학 활동의 연속성"
+        ],
+        "strength_points": [
+          "강한 실습/제작 포트폴리오",
+          "소프트웨어와 하드웨어 결합",
+          "상위권 성적과 활동 일관성"
+        ]
+      },
+      "linked_template_ids": [
+        "high_vibe_coding_simulation_001",
+        "high_appropriate_technology_001",
+        "high_safety_device_design_001"
+      ],
+      "notes": "학생부_2023 자료에서 확인된 성균관대 소프트웨어학과 합격생 패턴"
     }
   ]
 }
