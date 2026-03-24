@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "name": "admission_case_library",
+    "version": "0.1.0-starter",
+    "description": "합격생/사례집 데이터를 구조화해 학생 추천 결과를 실제 합격 패턴과 비교 검증하기 위한 라이브러리 초안"
+  },
+  "cases": [
+    {
+      "id": "case_placeholder_001",
+      "university": "",
+      "major": "",
+      "admission_type": "",
+      "result": "",
+      "student_profile": {
+        "school_type": "",
+        "grade_band": "",
+        "selected_subjects": [],
+        "major_tags": [],
+        "activity_tags": [],
+        "method_tags": []
+      },
+      "record_patterns": {
+        "core_theme": [],
+        "subject_flow": [],
+        "activity_flow": [],
+        "writing_style": [],
+        "strength_points": []
+      },
+      "linked_template_ids": [],
+      "notes": "실제 합격생 사례를 넣을 때 이 구조를 복제해서 사용"
+    }
+  ]
+}
