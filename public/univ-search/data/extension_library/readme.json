@@ -1,0 +1,18 @@
+{
+  "package_name": "extension_library_templates_pkg",
+  "included_templates": [
+    "extension_library_v2.json",
+    "extension_library_draft.json"
+  ],
+  "placement": "public/univ-search/data/extension_library/templates/",
+  "notes": [
+    "templates 폴더 안에 그대로 업로드하면 됩니다.",
+    "실사용 연결은 index.json의 active_template_library 값을 기준으로 합니다.",
+    "현재 실사용 권장 파일은 extension_library_v2.json 입니다.",
+    "extension_library_draft.json 은 보관용/비교용으로 유지하면 됩니다."
+  ],
+  "next_step": [
+    "새 자료가 들어오면 templates 안의 파일을 직접 덮지 말고 v3, v4처럼 누적본을 만든 뒤 검수 후 active_template_library를 바꾸는 방식 권장",
+    "장기적으로는 주제군별 파일 분리(energy, climate, bio, ethics 등)를 권장"
+  ]
+}
