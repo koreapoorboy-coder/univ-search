@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Integrated Engine Tester</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;line-height:1.6}
+    textarea{width:100%;min-height:240px;font-family:ui-monospace,monospace;font-size:14px}
+    button{padding:10px 14px;font-weight:700}
+    pre{white-space:pre-wrap;background:#f6f6f6;padding:16px;border-radius:12px}
+  </style>
+</head>
+<body>
+  <h1>Integrated Engine Tester</h1>
+  <p>integrated_engine_index.json을 먼저 읽고, 학생 태그 예시를 넣어 최소 추천 결과를 테스트합니다.</p>
+
+  <label>학생 태그 JSON</label>
+  <textarea id="input">{
+  "student_id": "shstudy09",
+  "subject": "생명과학",
+  "theme_tags": ["기후", "환경", "데이터", "생명"],
+  "method_tags": ["자료분석", "실험", "발표"],
+  "thinking_tags": ["구조화", "정량분석"],
+  "major_tags": ["생명공학", "환경공학"],
+  "evidence_tags": ["객관적 사실"],
+  "activity_level": "심화"
+}</textarea>
+  <div style="margin:12px 0">
+    <button id="runBtn">테스트 실행</button>
+  </div>
+  <pre id="output">아직 실행 전</pre>
+
+  <script type="module">
+    import { loadIntegratedEngine, runBasicRecommendation } from "./integrated_engine_loader.js";
+
+    document.getElementById("runBtn").addEventListener("click", async () => {
+      const output = document.getElementById("output");
+      try {
+        const tagged = JSON.parse(document.getElementById("input").value);
+        const engine = await loadIntegratedEngine("../integrated_engine_index.json");
+        const result = runBasicRecommendation(tagged, engine);
+        output.textContent = JSON.stringify(result, null, 2);
+      } catch (err) {
+        output.textContent = "오류: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
