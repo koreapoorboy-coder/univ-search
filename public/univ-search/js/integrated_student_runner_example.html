@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Integrated Student Runner</title>
+</head>
+<body>
+  <h1>Integrated Student Runner</h1>
+  <input id="studentId" value="shstudy10" />
+  <button id="runBtn">실행</button>
+  <pre id="taggedOutput">아직 실행 전</pre>
+  <pre id="finalOutput">아직 실행 전</pre>
+
+  <script type="module">
+    import { runIntegratedStudent } from "./integrated_student_runner.js";
+
+    document.getElementById("runBtn").addEventListener("click", async () => {
+      const studentId = document.getElementById("studentId").value.trim();
+      const taggedOutput = document.getElementById("taggedOutput");
+      const finalOutput = document.getElementById("finalOutput");
+
+      try {
+        const result = await runIntegratedStudent(studentId, {
+          recordDetailPath: "../student/record_detail.json",
+          rawRecordPath: "../student/school_record_raw.json",
+          integratedIndexPath: "../integrated_engine_index.json"
+        });
+
+        taggedOutput.textContent = JSON.stringify(result.taggedStudent, null, 2);
+        finalOutput.textContent = JSON.stringify(result.output, null, 2);
+      } catch (err) {
+        taggedOutput.textContent = "오류: " + err.message;
+        finalOutput.textContent = "오류: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
