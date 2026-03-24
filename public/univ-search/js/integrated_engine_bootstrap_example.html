@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Integrated Engine Bootstrap Example</title>
+  <style>
+    body{font-family:system-ui,Apple SD Gothic Neo,Malgun Gothic,sans-serif;margin:24px;line-height:1.6}
+    button{padding:10px 14px;font-weight:700}
+    pre{white-space:pre-wrap;background:#f6f6f6;padding:16px;border-radius:12px}
+  </style>
+</head>
+<body>
+  <h1>Integrated Engine Bootstrap Example</h1>
+  <button id="runBtn">샘플 실행</button>
+  <pre id="output">아직 실행 전</pre>
+
+  <script type="module">
+    import { bootIntegratedEngine } from "./integrated_engine_bootstrap.js";
+
+    const sampleTaggedStudent = {
+      student_id: "shstudy09",
+      subject: "생명과학",
+      theme_tags: ["기후", "환경", "데이터", "생명"],
+      method_tags: ["자료분석", "실험", "발표"],
+      thinking_tags: ["구조화", "정량분석"],
+      major_tags: ["생명공학", "환경공학"],
+      evidence_tags: ["객관적 사실"],
+      activity_level: "심화"
+    };
+
+    document.getElementById("runBtn").addEventListener("click", async () => {
+      const output = document.getElementById("output");
+      try {
+        const result = await bootIntegratedEngine(sampleTaggedStudent, {
+          integratedIndexPath: "../integrated_engine_index.json"
+        });
+        output.textContent = JSON.stringify(result, null, 2);
+      } catch (err) {
+        output.textContent = "오류: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
