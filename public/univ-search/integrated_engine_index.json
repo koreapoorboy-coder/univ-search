@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0-starter",
-  "description": "학생 데이터 분석 엔진용 통합 인덱스. 각 레이어의 index.json 경로를 한 곳에서 관리.",
+  "version": "0.2.0-output-linked",
+  "description": "학생 데이터 분석 엔진용 통합 인덱스. 각 레이어의 index.json과 최종 출력 스키마를 한 곳에서 관리.",
   "layers": {
     "extension_library": {
       "enabled": true,
@@ -21,25 +21,37 @@
       "enabled": true,
       "path": "data/curriculum_guides/index.json",
       "role": "과목 선택·위계·진로 연결 가이드"
+    },
+    "student_tag_schema": {
+      "enabled": true,
+      "path": "data/student_tag_schema/index.json",
+      "role": "학생 원문/세특/창체 태그화 스키마"
+    },
+    "output_schema": {
+      "enabled": true,
+      "path": "data/output_schema/index.json",
+      "role": "최종 분석/추천 출력 형식"
     }
   },
   "engine_flow": [
     "학생 원문/기록 입력",
-    "과목·주제·방법·사고 태그 추출",
+    "student_tag_schema로 과목·주제·방법·사고 태그 추출",
     "curriculum_guides로 과목 위계/적합성 점검",
     "extension_library로 확장 활동 추천",
     "evaluation_framework로 기록 품질/평가 관점 점검",
     "admission_case_library로 합격생 패턴 비교",
-    "최종 추천/분석/세특 확장안 출력"
+    "output_schema 형식으로 최종 분석/추천 결과 출력"
   ],
   "priority_order": [
+    "student_tag_schema",
     "curriculum_guides",
     "extension_library",
     "evaluation_framework",
-    "admission_case_library"
+    "admission_case_library",
+    "output_schema"
   ],
   "notes": [
     "실제 엔진은 이 파일을 먼저 읽고 각 레이어 index.json을 순차 로드하는 방식 권장",
-    "향후 research_sites, prompt_rules, student_tag_schema 같은 추가 레이어를 확장 가능"
+    "향후 research_sites, prompt_rules, university_weight_rules 같은 추가 레이어를 확장 가능"
   ]
 }
