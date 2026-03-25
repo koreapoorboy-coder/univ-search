@@ -1,4 +1,4 @@
-export const recordPatternSeedDataClassified = {
+export const recordPatternSeedData = {
   "meta": {
     "name": "record_pattern_seed_data_classified",
     "version": "0.2.0-auto-classified",
