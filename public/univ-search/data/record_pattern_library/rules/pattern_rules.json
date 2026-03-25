@@ -1,0 +1,45 @@
+{
+  "rules": [
+    {
+      "id": "rule_consistency_high",
+      "if_features_any": [
+        "과목 수렴",
+        "반복 주제",
+        "교과-창체 연결"
+      ],
+      "interpret_as": "strong_consistency_pattern",
+      "notes": "활동 수보다 일관성 높은 패턴을 우선 긍정 평가"
+    },
+    {
+      "id": "rule_many_but_diffuse",
+      "if_features_any": [
+        "주제 분산",
+        "단발성 활동 다수"
+      ],
+      "interpret_as": "needs_axis_reduction",
+      "notes": "활동이 많아도 핵심 축이 약하면 보정 필요"
+    },
+    {
+      "id": "rule_data_pattern",
+      "if_features_any": [
+        "데이터 수집",
+        "그래프",
+        "비교 분석",
+        "정량 근거"
+      ],
+      "interpret_as": "data_driven_pattern",
+      "notes": "데이터 기반 탐구형으로 분류"
+    },
+    {
+      "id": "rule_expression_pattern",
+      "if_features_any": [
+        "독서",
+        "논증",
+        "발표",
+        "글쓰기"
+      ],
+      "interpret_as": "expression_driven_pattern",
+      "notes": "인문사회·언어형 학생부 패턴으로 분류"
+    }
+  ]
+}
