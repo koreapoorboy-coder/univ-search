@@ -1,7 +1,4 @@
 // engine_page_hook.js
-// record_detail.html / record_detail_extension.html 같은 기존 페이지에서
-// student_id를 읽어 통합 엔진 결과를 페이지에 주입하는 공용 훅
-
 import { runIntegratedStudent } from "./integrated_student_runner.js";
 
 function getStudentIdFromUrl() {
@@ -16,16 +13,17 @@ function createDefaultPanel() {
   panel = document.createElement("section");
   panel.id = "integrated-engine-panel";
   panel.style.margin = "20px 0";
-  panel.style.padding = "16px";
-  panel.style.border = "1px solid #ddd";
-  panel.style.borderRadius = "16px";
+  panel.style.padding = "20px";
+  panel.style.border = "1px solid #d8dde6";
+  panel.style.borderRadius = "18px";
   panel.style.background = "#fff";
 
   panel.innerHTML = `
-    <h2 style="margin:0 0 10px;font-size:20px">통합 엔진 결과</h2>
-    <div id="integrated-engine-summary" style="margin:0 0 12px;line-height:1.7"></div>
-    <div id="integrated-engine-extensions" style="margin:0 0 12px"></div>
-    <div id="integrated-engine-cases" style="margin:0 0 12px"></div>
+    <h2 style="margin:0 0 14px;font-size:22px;font-weight:900">통합 엔진 결과</h2>
+    <div id="integrated-engine-summary" style="margin:0 0 18px;line-height:1.8"></div>
+    <div id="integrated-engine-extensions" style="margin:0 0 18px"></div>
+    <div id="integrated-engine-cases" style="margin:0 0 18px"></div>
+    <div id="integrated-engine-actions" style="margin:0 0 18px"></div>
     <details>
       <summary style="cursor:pointer;font-weight:700">원본 JSON 보기</summary>
       <pre id="integrated-engine-json" style="white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:12px;margin-top:10px"></pre>
@@ -34,36 +32,78 @@ function createDefaultPanel() {
   return panel;
 }
 
-function renderResult(output) {
-  const summaryEl = document.getElementById("integrated-engine-summary");
-  const extEl = document.getElementById("integrated-engine-extensions");
-  const caseEl = document.getElementById("integrated-engine-cases");
-  const jsonEl = document.getElementById("integrated-engine-json");
-
-  const summary = Array.isArray(output?.summary) ? output.summary : [];
-  summaryEl.innerHTML = summary.length
-    ? `<ul style="margin:0;padding-left:18px">${summary.map(x => `<li>${x}</li>`).join("")}</ul>`
+function renderSummary(summary = []) {
+  return summary.length
+    ? `<ul style="margin:0;padding-left:22px">${summary.map(x => `<li style="margin:6px 0">${x}</li>`).join("")}</ul>`
     : `요약 없음`;
+}
 
-  const exts = Array.isArray(output?.extension_recommendations) ? output.extension_recommendations : [];
-  extEl.innerHTML = `
-    <div style="font-weight:700;margin-bottom:8px">확장활동 추천</div>
-    ${exts.length ? `
-      <ul style="margin:0;padding-left:18px">
-        ${exts.map(x => `<li><b>${x.title}</b> — ${x.reason || ""}</li>`).join("")}
-      </ul>` : `추천 없음`}
+function renderExtensions(items = []) {
+  if (!items.length) return `<div>추천 없음</div>`;
+
+  return `
+    <div style="font-weight:900;font-size:20px;margin-bottom:10px">확장 탐구 설계</div>
+    <div style="display:grid;gap:14px">
+      ${items.map(item => `
+        <div style="border:1px solid #e1e5ee;border-radius:16px;padding:16px;background:#fafbfd">
+          <div style="font-weight:900;font-size:18px;margin-bottom:8px">${item.priority}. ${item.title}</div>
+          <div style="margin-bottom:8px"><b>탐구 방향</b> · ${item.direction}</div>
+          <div style="margin-bottom:8px"><b>왜 이 방향인가</b> · ${item.why_this}</div>
+          <div style="margin-bottom:6px"><b>출발</b> · ${item.start}</div>
+          <div style="margin-bottom:6px"><b>확장</b> · ${item.expand}</div>
+          <div style="margin-bottom:6px"><b>심화</b> · ${item.deepen}</div>
+          <div style="margin-bottom:8px"><b>완성</b> · ${item.complete}</div>
+          <div style="margin-bottom:6px"><b>결과 형태</b></div>
+          <ul style="margin:0 0 10px 0;padding-left:20px">
+            ${(item.outputs || []).map(x => `<li>${x}</li>`).join("")}
+          </ul>
+          <div style="margin-bottom:6px"><b>기록될 포인트</b></div>
+          <ul style="margin:0;padding-left:20px">
+            ${(item.record_points || []).map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        </div>
+      `).join("")}
+    </div>
   `;
+}
 
-  const cases = Array.isArray(output?.admission_case_matches) ? output.admission_case_matches : [];
-  caseEl.innerHTML = `
-    <div style="font-weight:700;margin-bottom:8px">유사 합격생 패턴</div>
-    ${cases.length ? `
-      <ul style="margin:0;padding-left:18px">
-        ${cases.map(x => `<li><b>${x.university || ""} ${x.major || ""}</b> — ${x.match_reason || ""}</li>`).join("")}
-      </ul>` : `매칭 없음`}
+function renderCases(items = []) {
+  if (!items.length) return `<div>매칭 없음</div>`;
+  return `
+    <div style="font-weight:900;font-size:20px;margin-bottom:10px">유사 합격생 패턴</div>
+    <div style="display:grid;gap:12px">
+      ${items.map(item => `
+        <div style="border:1px solid #e1e5ee;border-radius:16px;padding:14px;background:#fffdf8">
+          <div style="font-weight:900;margin-bottom:6px">${item.university} ${item.major}</div>
+          <div style="margin-bottom:6px"><b>참고 이유</b> · ${item.why_similar}</div>
+          <div><b>활용 방식</b> · ${item.use_point}</div>
+        </div>
+      `).join("")}
+    </div>
   `;
+}
 
-  jsonEl.textContent = JSON.stringify(output, null, 2);
+function renderActions(items = []) {
+  if (!items.length) return "";
+  return `
+    <div style="font-weight:900;font-size:20px;margin-bottom:10px">실행 계획</div>
+    <div style="display:grid;gap:10px">
+      ${items.map(item => `
+        <div style="border:1px solid #e1e5ee;border-radius:14px;padding:12px;background:#f9fbff">
+          <div style="font-weight:800">${item.step}. ${item.title}</div>
+          <div style="margin-top:4px">${item.goal}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderResult(output) {
+  document.getElementById("integrated-engine-summary").innerHTML = renderSummary(output?.summary || []);
+  document.getElementById("integrated-engine-extensions").innerHTML = renderExtensions(output?.extension_recommendations || []);
+  document.getElementById("integrated-engine-cases").innerHTML = renderCases(output?.admission_case_matches || []);
+  document.getElementById("integrated-engine-actions").innerHTML = renderActions(output?.action_plan || []);
+  document.getElementById("integrated-engine-json").textContent = JSON.stringify(output, null, 2);
 }
 
 export async function mountIntegratedEngineResult(options = {}) {
@@ -78,15 +118,11 @@ export async function mountIntegratedEngineResult(options = {}) {
     mountTarget.prepend(panel);
   }
 
-  const summaryEl = document.getElementById("integrated-engine-summary");
-  const extEl = document.getElementById("integrated-engine-extensions");
-  const caseEl = document.getElementById("integrated-engine-cases");
-  const jsonEl = document.getElementById("integrated-engine-json");
-
-  summaryEl.textContent = "로딩 중...";
-  extEl.textContent = "";
-  caseEl.textContent = "";
-  jsonEl.textContent = "";
+  document.getElementById("integrated-engine-summary").textContent = "로딩 중...";
+  document.getElementById("integrated-engine-extensions").textContent = "";
+  document.getElementById("integrated-engine-cases").textContent = "";
+  document.getElementById("integrated-engine-actions").textContent = "";
+  document.getElementById("integrated-engine-json").textContent = "";
 
   const result = await runIntegratedStudent(studentId, {
     recordDetailPath: options.recordDetailPath || "../student/record_detail.json",
