@@ -13,22 +13,41 @@ function createDefaultPanel() {
   panel = document.createElement("section");
   panel.id = "integrated-engine-panel";
   panel.style.margin = "20px 0";
-  panel.style.padding = "20px";
+  panel.style.padding = "16px";
   panel.style.border = "1px solid #d8dde6";
   panel.style.borderRadius = "18px";
   panel.style.background = "#fff";
 
   panel.innerHTML = `
-    <h2 style="margin:0 0 14px;font-size:22px;font-weight:900">통합 엔진 결과</h2>
-    <div id="integrated-engine-summary" style="margin:0 0 18px;line-height:1.8"></div>
-    <div id="integrated-engine-extensions" style="margin:0 0 18px"></div>
-    <div id="integrated-engine-cases" style="margin:0 0 18px"></div>
-    <div id="integrated-engine-actions" style="margin:0 0 18px"></div>
-    <details>
-      <summary style="cursor:pointer;font-weight:700">원본 JSON 보기</summary>
-      <pre id="integrated-engine-json" style="white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:12px;margin-top:10px"></pre>
-    </details>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <h2 style="margin:0;font-size:22px;font-weight:900">통합 엔진 결과</h2>
+      <button id="integrated-engine-toggle"
+        style="border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer">
+        통합 엔진 결과 보기
+      </button>
+    </div>
+
+    <div id="integrated-engine-body" style="display:none;margin-top:16px">
+      <div id="integrated-engine-summary" style="margin:0 0 18px;line-height:1.8"></div>
+      <div id="integrated-engine-extensions" style="margin:0 0 18px"></div>
+      <div id="integrated-engine-cases" style="margin:0 0 18px"></div>
+      <div id="integrated-engine-actions" style="margin:0 0 18px"></div>
+      <details>
+        <summary style="cursor:pointer;font-weight:700">원본 JSON 보기</summary>
+        <pre id="integrated-engine-json" style="white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:12px;margin-top:10px"></pre>
+      </details>
+    </div>
   `;
+
+  const btn = panel.querySelector("#integrated-engine-toggle");
+  const body = panel.querySelector("#integrated-engine-body");
+
+  btn.addEventListener("click", () => {
+    const isOpen = body.style.display !== "none";
+    body.style.display = isOpen ? "none" : "block";
+    btn.textContent = isOpen ? "통합 엔진 결과 보기" : "통합 엔진 결과 접기";
+  });
+
   return panel;
 }
 
@@ -40,7 +59,6 @@ function renderSummary(summary = []) {
 
 function renderExtensions(items = []) {
   if (!items.length) return `<div>추천 없음</div>`;
-
   return `
     <div style="font-weight:900;font-size:20px;margin-bottom:10px">확장 탐구 설계</div>
     <div style="display:grid;gap:14px">
