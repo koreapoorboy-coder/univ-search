@@ -1,12 +1,14 @@
 {
   "sources": [
     {
-      "id": "src_record_collection_manual",
-      "title": "일반 생활기록부 패턴 수집본",
-      "file_name": "manual_record_collection",
+      "id": "src_record_pattern_seed_data",
+      "title": "일반 학생 생활기록부 시드 데이터",
+      "file_name": "record_pattern_seed_data.json",
+      "module_file": "record_pattern_seed_data.js",
+      "summary_file": "record_pattern_summary.json",
       "type": "패턴 비교용",
-      "status": "starter",
-      "notes": "합격 여부와 무관하게 생활기록부 패턴을 유형화해 비교 기준으로 활용"
+      "status": "auto_classified",
+      "notes": "일반 학생 생활기록부 원문을 구조화하고 자동 패턴 분류를 반영한 운영용 소스"
     }
   ]
 }
