@@ -1,4 +1,6 @@
 // integrated_engine_bootstrap.js
+// record_pattern_library까지 반영한 업그레이드 버전
+
 import { loadIntegratedEngine, runBasicRecommendation } from "./integrated_engine_loader.js";
 
 function uniq(arr) {
@@ -23,7 +25,70 @@ function pickTrackFromTags(tags = {}) {
   return "융합 탐구";
 }
 
-function buildSummary(taggedStudent, basic) {
+function textContainsAny(text, words) {
+  return (words || []).some(w => text.includes(w));
+}
+
+function buildStudentJoinedText(taggedStudent = {}) {
+  return [
+    ...(taggedStudent.theme_tags || []),
+    ...(taggedStudent.method_tags || []),
+    ...(taggedStudent.thinking_tags || []),
+    ...(taggedStudent.major_tags || [])
+  ].join(" ");
+}
+
+function scorePattern(pattern = {}, taggedStudent = {}) {
+  const joined = buildStudentJoinedText(taggedStudent);
+  let score = 0;
+
+  const track = pattern.track || "";
+  const patternType = pattern.pattern_type || "";
+
+  if (track.includes("공학") && (taggedStudent.major_tags || []).includes("AI/SW")) score += 2;
+  if (track.includes("생명") && (taggedStudent.theme_tags || []).includes("생명")) score += 2;
+  if (track.includes("환경") && ((taggedStudent.theme_tags || []).includes("환경") || (taggedStudent.theme_tags || []).includes("기후"))) score += 2;
+  if (track.includes("인문") && (taggedStudent.method_tags || []).includes("논증")) score += 2;
+
+  if (patternType.includes("데이터") && (taggedStudent.method_tags || []).includes("데이터분석")) score += 3;
+  if (patternType.includes("표현") && ((taggedStudent.method_tags || []).includes("발표/토론") || (taggedStudent.method_tags || []).includes("논증"))) score += 3;
+  if (patternType.includes("강한 일관성") && (taggedStudent.major_tags || []).length > 0) score += 2;
+
+  (pattern.core_features || []).forEach(x => {
+    if (textContainsAny(joined, String(x).split(/[^0-9A-Za-z가-힣]+/).filter(Boolean))) score += 1;
+  });
+  (pattern.strength_signals || []).forEach(x => {
+    if (textContainsAny(joined, String(x).split(/[^0-9A-Za-z가-힣]+/).filter(Boolean))) score += 1;
+  });
+
+  return score;
+}
+
+function pickRecordPattern(taggedStudent, recordPatterns = []) {
+  const scored = (recordPatterns || []).map(p => ({ ...p, _score: scorePattern(p, taggedStudent) }))
+    .sort((a, b) => b._score - a._score);
+  return scored[0] || null;
+}
+
+function buildPatternInterpretation(bestPattern, taggedStudent) {
+  if (!bestPattern) {
+    return {
+      current_position: "일반 학생부 비교 기준상 아직 뚜렷한 패턴 판정 전 단계",
+      strength_view: ["패턴 비교 데이터가 더 쌓이면 현재 위치 판단이 더 정확해질 수 있음"],
+      weakness_view: ["일반 학생부 비교 기준이 아직 충분히 매칭되지 않음"],
+      coaching_message: "현재는 합격생 기준보다 일반 학생부 패턴 기준을 더 많이 쌓아 현실 보정을 강화하는 것이 좋다."
+    };
+  }
+
+  return {
+    current_position: `일반 학생부 비교 기준상 현재 기록은 '${bestPattern.pattern_type}' 패턴에 가장 가깝다.`,
+    strength_view: bestPattern.strength_signals || [],
+    weakness_view: bestPattern.weakness_signals || [],
+    coaching_message: bestPattern.recommended_use || "일반 학생부 비교 기준으로 참고 가능"
+  };
+}
+
+function buildSummary(taggedStudent, basic, patternInterp) {
   const track = pickTrackFromTags(taggedStudent);
   const firstExt = basic.matchedExtensions?.[0];
   const firstCase = basic.matchedCases?.[0];
@@ -35,7 +100,8 @@ function buildSummary(taggedStudent, basic) {
       : `우선은 학생 원문 태그를 더 정교하게 잡은 뒤 확장 방향을 좁히는 것이 좋다.`,
     firstCase
       ? `합격생 비교 기준으로는 ${firstCase.university} ${firstCase.major} 유형의 패턴과 일부 맞닿아 있다.`
-      : `합격생 비교는 태그 정교화 이후 더 정확해질 수 있다.`
+      : `합격생 비교는 태그 정교화 이후 더 정확해질 수 있다.`,
+    patternInterp?.current_position || "일반 학생부 비교 기준은 아직 판정 전 단계이다."
   ];
 }
 
@@ -68,17 +134,9 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
       start: "교과에서 다룬 환경·오염 개념과 미세먼지 관련 기사·공공자료를 정리해 핵심 질문을 한 문장으로 설정한다.",
       expand: "시간대·지역·날씨 조건에 따른 미세먼지 변화를 공공 데이터로 수집해 그래프와 표로 비교 분석한다.",
       deepen: "센서 측정, 간이 예측 모델, 저감 아이디어 같은 공학적 해결 방향을 붙여 탐구를 심화한다.",
-      complete: "결론에서는 '무슨 현상이 있었는가'보다 '어떤 조건을 비교했고 어떤 해석에 도달했는가'를 중심으로 정리한다.",
-      outputs: [
-        "데이터 분석 보고서",
-        "그래프/표 시각화 자료",
-        "발표 자료 또는 포스터"
-      ],
-      record_points: [
-        "데이터 수집과 조건별 비교 분석",
-        "변수 설정 및 결과 해석",
-        "문제 해결 아이디어 도출"
-      ]
+      complete: "결론에서는 무엇을 봤는가보다 어떤 조건을 비교했고 어떤 해석에 도달했는가를 중심으로 정리한다.",
+      outputs: ["데이터 분석 보고서", "그래프/표 시각화 자료", "발표 자료 또는 포스터"],
+      record_points: ["데이터 수집과 조건별 비교 분석", "변수 설정 및 결과 해석", "문제 해결 아이디어 도출"]
     };
   }
 
@@ -88,17 +146,9 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
       start: "신소재가 실제 산업·생활에서 어떤 문제를 해결했는지 사례를 2~3개 정리한다.",
       expand: "기존 소재와 새로운 소재를 성질·효율·안전성 기준으로 비교한다.",
       deepen: "센서, 배터리, 로봇 부품, 의료 소재 등 자신의 진로와 연결되는 응용 분야를 좁혀 탐구한다.",
-      complete: "단순 사례 나열이 아니라 '왜 이 소재가 필요했는가'와 '어떤 한계가 남는가'까지 정리한다.",
-      outputs: [
-        "비교 분석 보고서",
-        "기술 변화 정리표",
-        "응용 분야 발표 자료"
-      ],
-      record_points: [
-        "비교 기준 설정",
-        "과학·공학 개념의 실제 적용",
-        "기술 변화에 대한 해석"
-      ]
+      complete: "단순 사례 나열이 아니라 왜 이 소재가 필요했는가와 어떤 한계가 남는가까지 정리한다.",
+      outputs: ["비교 분석 보고서", "기술 변화 정리표", "응용 분야 발표 자료"],
+      record_points: ["비교 기준 설정", "과학·공학 개념의 실제 적용", "기술 변화에 대한 해석"]
     };
   }
 
@@ -109,16 +159,8 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
       expand: "센서, 경고, 자동 정지, 충격 흡수 같은 요소 중 1~2개를 골라 장치 구조를 스케치한다.",
       deepen: "간단한 회로·모형·프로그램 설계 또는 동작 시뮬레이션까지 연결한다.",
       complete: "장치가 해결하는 문제, 한계, 개선 방향을 함께 정리해 설계의 완성도를 높인다.",
-      outputs: [
-        "설계 보고서",
-        "구조도/스케치",
-        "시연 자료 또는 프로토타입 설명서"
-      ],
-      record_points: [
-        "문제 정의와 구조 분석",
-        "설계 과정과 수정 포인트",
-        "기술적 해결 시도"
-      ]
+      outputs: ["설계 보고서", "구조도/스케치", "시연 자료 또는 프로토타입 설명서"],
+      record_points: ["문제 정의와 구조 분석", "설계 과정과 수정 포인트", "기술적 해결 시도"]
     };
   }
 
@@ -202,7 +244,7 @@ function buildEvaluationInterpretation(taggedStudent = {}, basic = {}) {
   return { academic, career, community, overall };
 }
 
-function buildActionPlan(taggedStudent, extensionRecs) {
+function buildActionPlan(taggedStudent, extensionRecs, patternInterp) {
   const first = extensionRecs[0];
   const track = pickTrackFromTags(taggedStudent);
   return [
@@ -220,8 +262,10 @@ function buildActionPlan(taggedStudent, extensionRecs) {
     },
     {
       step: 3,
-      title: "결과 형태 준비",
-      goal: "보고서, 그래프, 발표자료 중 학교에서 실제 제출 가능한 형태로 준비한다."
+      title: "일반 학생부 패턴 보정",
+      goal: patternInterp?.weakness_view?.length
+        ? `현재 약점으로 읽히는 요소(${patternInterp.weakness_view.join(", ")})를 보완하는 방향으로 결과를 정리한다.`
+        : "일반 학생부 비교 기준을 바탕으로 현실적인 보완 포인트를 점검한다."
     }
   ];
 }
@@ -231,23 +275,31 @@ export async function bootIntegratedEngine(taggedStudent, options = {}) {
   const engine = await loadIntegratedEngine(integratedIndexPath);
   const basic = runBasicRecommendation(taggedStudent, engine);
 
+  const recordPatternLayer = engine?.layerData?.record_pattern_library;
+  const patternLibrary = recordPatternLayer?.active_pattern_library?.data?.patterns || [];
+  const bestPattern = pickRecordPattern(taggedStudent, patternLibrary);
+  const patternInterp = buildPatternInterpretation(bestPattern, taggedStudent);
+
   const extensionRecs = buildExtensionRecommendations(taggedStudent, basic);
   const caseMatches = buildAdmissionMatches(taggedStudent, basic);
 
   return {
     student_id: taggedStudent?.student_id || "",
-    summary: buildSummary(taggedStudent, basic),
+    summary: buildSummary(taggedStudent, basic, patternInterp),
     record_diagnosis: {
-      one_line: "현재 화면은 '추천 이름'보다 '어떻게 수행할지'가 보이도록 재구성된 출력이다.",
+      one_line: "현재 화면은 추천 이름보다 어떻게 수행할지, 그리고 일반 학생부와 비교해 어떤 패턴에 가까운지가 보이도록 재구성된 출력이다.",
       strengths: uniq([
         ...(taggedStudent?.theme_tags || []),
-        ...(taggedStudent?.method_tags || [])
-      ]).slice(0, 5),
-      limits: [
+        ...(taggedStudent?.method_tags || []),
+        ...(patternInterp?.strength_view || [])
+      ]).slice(0, 6),
+      limits: uniq([
         "추천 주제를 그대로 쓰기보다 학교에서 실제 수행 가능한 범위로 축소 필요",
-        "한 번에 많은 주제를 벌리기보다 1~2개를 깊게 가져가는 것이 유리"
-      ]
+        "한 번에 많은 주제를 벌리기보다 1~2개를 깊게 가져가는 것이 유리",
+        ...((patternInterp?.weakness_view || []).slice(0, 3))
+      ])
     },
+    current_pattern_position: patternInterp,
     curriculum_check: {
       fit: "점검 완료",
       selected_subjects_comment: "현재 선택과목은 진로 방향과 연결 가능성이 있다. 다만 주제를 한 축으로 더 모아주면 해석이 선명해진다.",
@@ -256,12 +308,12 @@ export async function bootIntegratedEngine(taggedStudent, options = {}) {
     extension_recommendations: extensionRecs,
     admission_case_matches: caseMatches,
     evaluation_interpretation: buildEvaluationInterpretation(taggedStudent, basic),
-    action_plan: buildActionPlan(taggedStudent, extensionRecs),
+    action_plan: buildActionPlan(taggedStudent, extensionRecs, patternInterp),
     report_design: extensionRecs.slice(0, 2).map(x => ({
       topic: x.title,
       method: x.expand,
       output: x.outputs.join(" / ")
     })),
-    notes: "교사가 작성하는 문장을 대신 만드는 것이 아니라, 학생이 실제로 할 수 있는 수행 방식과 결과 형태가 보이도록 설계한 출력"
+    notes: "교사가 작성하는 문장을 대신 만드는 것이 아니라, 학생이 실제로 할 수 있는 수행 방식과 결과 형태, 그리고 일반 학생부 비교 기준상 현재 위치가 보이도록 설계한 출력"
   };
 }
