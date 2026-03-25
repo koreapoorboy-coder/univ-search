@@ -29,6 +29,7 @@ function createDefaultPanel() {
 
     <div id="integrated-engine-body" style="display:none;margin-top:16px">
       <div id="integrated-engine-summary" style="margin:0 0 18px;line-height:1.8"></div>
+      <div id="integrated-engine-pattern" style="margin:0 0 18px"></div>
       <div id="integrated-engine-extensions" style="margin:0 0 18px"></div>
       <div id="integrated-engine-cases" style="margin:0 0 18px"></div>
       <div id="integrated-engine-actions" style="margin:0 0 18px"></div>
@@ -55,6 +56,25 @@ function renderSummary(summary = []) {
   return summary.length
     ? `<ul style="margin:0;padding-left:22px">${summary.map(x => `<li style="margin:6px 0">${x}</li>`).join("")}</ul>`
     : `요약 없음`;
+}
+
+function renderPatternBox(item = {}) {
+  if (!item || !item.current_position) return "";
+  return `
+    <div style="border:1px solid #e1e5ee;border-radius:16px;padding:16px;background:#f7fbff">
+      <div style="font-weight:900;font-size:20px;margin-bottom:10px">일반 학생부 비교 기준상 현재 위치</div>
+      <div style="margin-bottom:10px"><b>현재 판정</b> · ${item.current_position}</div>
+      <div style="margin-bottom:8px"><b>강점으로 읽히는 요소</b></div>
+      <ul style="margin:0 0 10px 0;padding-left:20px">
+        ${(item.strength_view || []).map(x => `<li>${x}</li>`).join("")}
+      </ul>
+      <div style="margin-bottom:8px"><b>보완이 필요한 요소</b></div>
+      <ul style="margin:0 0 10px 0;padding-left:20px">
+        ${(item.weakness_view || []).map(x => `<li>${x}</li>`).join("")}
+      </ul>
+      <div><b>해석</b> · ${item.coaching_message || ""}</div>
+    </div>
+  `;
 }
 
 function renderExtensions(items = []) {
@@ -118,6 +138,7 @@ function renderActions(items = []) {
 
 function renderResult(output) {
   document.getElementById("integrated-engine-summary").innerHTML = renderSummary(output?.summary || []);
+  document.getElementById("integrated-engine-pattern").innerHTML = renderPatternBox(output?.current_pattern_position || {});
   document.getElementById("integrated-engine-extensions").innerHTML = renderExtensions(output?.extension_recommendations || []);
   document.getElementById("integrated-engine-cases").innerHTML = renderCases(output?.admission_case_matches || []);
   document.getElementById("integrated-engine-actions").innerHTML = renderActions(output?.action_plan || []);
@@ -137,6 +158,7 @@ export async function mountIntegratedEngineResult(options = {}) {
   }
 
   document.getElementById("integrated-engine-summary").textContent = "로딩 중...";
+  document.getElementById("integrated-engine-pattern").textContent = "";
   document.getElementById("integrated-engine-extensions").textContent = "";
   document.getElementById("integrated-engine-cases").textContent = "";
   document.getElementById("integrated-engine-actions").textContent = "";
