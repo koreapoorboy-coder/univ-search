@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "name": "record_pattern_library",
+    "version": "0.1.0-starter",
+    "description": "합격 여부와 별개로 생활기록부 패턴 자체를 비교·보정하기 위한 라이브러리"
+  },
+  "patterns": [
+    {
+      "id": "pattern_engineering_consistent_001",
+      "pattern_type": "강한 일관성",
+      "track": "공학",
+      "core_features": [
+        "과목 선택과 활동 주제가 공학 축으로 수렴",
+        "실험/설계/데이터 해석 중 최소 2개 이상 반복",
+        "기술 원리 이해 → 구현/설계 → 사회 적용 흐름 존재"
+      ],
+      "strength_signals": [
+        "전공 방향이 선명함",
+        "교과와 창체 연결성이 높음",
+        "실제 수행 흔적이 보임"
+      ],
+      "weakness_signals": [
+        "주제가 너무 넓게 퍼지면 축이 약해질 수 있음"
+      ],
+      "recommended_use": "공학 지망 학생의 기본 비교 기준 패턴"
+    },
+    {
+      "id": "pattern_life_science_broad_001",
+      "pattern_type": "확장 가능",
+      "track": "생명과학",
+      "core_features": [
+        "생명 개념 이해는 보이나 전공 축이 아직 넓음",
+        "탐구는 있으나 실험·데이터·윤리 중 하나가 더 보강 필요"
+      ],
+      "strength_signals": [
+        "생명 관련 관심 주제가 반복",
+        "독서·탐구 연결 가능성 있음"
+      ],
+      "weakness_signals": [
+        "의약학/생명공학/환경생명 중 중심축이 흐릴 수 있음"
+      ],
+      "recommended_use": "생명계열 학생이 방향을 좁힐 때 비교 기준"
+    },
+    {
+      "id": "pattern_humanities_expression_001",
+      "pattern_type": "표현 강점형",
+      "track": "인문사회",
+      "core_features": [
+        "독서, 발표, 논증, 글쓰기 활동이 반복",
+        "사회 문제를 해석하고 자신의 관점으로 정리하는 흐름 존재"
+      ],
+      "strength_signals": [
+        "표현력과 해석력이 강함",
+        "자료를 재구성하는 능력 보임"
+      ],
+      "weakness_signals": [
+        "전공 연결 문장이 약하면 방향성이 흐려질 수 있음"
+      ],
+      "recommended_use": "언어학/교육/인문사회 계열 학생의 비교 패턴"
+    },
+    {
+      "id": "pattern_activity_many_but_diffuse_001",
+      "pattern_type": "과다 분산형",
+      "track": "공통",
+      "core_features": [
+        "활동 수는 많지만 주제 수렴이 약함",
+        "한 번씩만 등장하는 주제가 많음"
+      ],
+      "strength_signals": [
+        "경험 폭은 넓음"
+      ],
+      "weakness_signals": [
+        "일관성 부족",
+        "전공 적합성 해석이 어려움",
+        "핵심 축이 보이지 않음"
+      ],
+      "recommended_use": "학생부 보정·축 재정렬이 필요한 사례 판단"
+    },
+    {
+      "id": "pattern_data_driven_clear_001",
+      "pattern_type": "데이터 기반형",
+      "track": "융합",
+      "core_features": [
+        "데이터 수집, 그래프 해석, 비교 분석이 반복",
+        "정량적 근거가 세특과 활동에 자주 등장"
+      ],
+      "strength_signals": [
+        "분석 역량이 선명함",
+        "탐구 과정이 설명 가능함"
+      ],
+      "weakness_signals": [
+        "결과 해석은 있으나 실제 적용 아이디어가 부족할 수 있음"
+      ],
+      "recommended_use": "환경·AI·공학·사회과학 융합형 학생의 비교 기준"
+    }
+  ]
+}
