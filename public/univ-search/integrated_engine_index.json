@@ -1,6 +1,6 @@
 {
-  "version": "0.3.0-record-pattern-linked",
-  "description": "학생 데이터 분석 엔진용 통합 인덱스. 합격생 기준과 일반 학생부 패턴 비교 기준을 함께 관리.",
+  "version": "0.4.1-level-folder-linked",
+  "description": "합격생 기준, 일반 학생부 패턴 기준, 수준 판정 규칙을 함께 반영하는 통합 인덱스",
   "layers": {
     "extension_library": {
       "enabled": true,
@@ -16,6 +16,11 @@
       "enabled": true,
       "path": "data/record_pattern_library/index.json",
       "role": "일반 학생부 패턴 비교·현실 보정"
+    },
+    "level_judgment_rules": {
+      "enabled": true,
+      "path": "data/level_judgment_rules/index.json",
+      "role": "현재 위치·수준 판정"
     },
     "evaluation_framework": {
       "enabled": true,
@@ -38,28 +43,19 @@
       "role": "최종 분석/추천 출력 형식"
     }
   },
-  "engine_flow": [
-    "학생 원문/기록 입력",
-    "student_tag_schema로 과목·주제·방법·사고 태그 추출",
-    "curriculum_guides로 과목 위계/적합성 점검",
-    "extension_library로 확장 활동 추천",
-    "evaluation_framework로 기록 품질/평가 관점 점검",
-    "admission_case_library로 합격생 패턴 비교",
-    "record_pattern_library로 일반 학생부 패턴 비교 및 현실 보정",
-    "output_schema 형식으로 최종 분석/추천 결과 출력"
-  ],
   "priority_order": [
     "student_tag_schema",
     "curriculum_guides",
     "extension_library",
     "evaluation_framework",
-    "admission_case_library",
     "record_pattern_library",
+    "admission_case_library",
+    "level_judgment_rules",
     "output_schema"
   ],
   "notes": [
-    "admission_case_library는 이상적 기준(합격생 기준)에 가깝고, record_pattern_library는 현실적 기준(일반 학생부 비교 기준)에 가깝다.",
-    "둘을 함께 쓰면 추천 강도, 현실성, 보완 우선순위를 동시에 판단할 수 있다.",
-    "향후 recommendation_weight_rules 레이어를 추가해 합격생 기준/일반 패턴 기준 가중치를 조절할 수 있다."
+    "record_pattern_library는 일반 학생부 비교 기준이다.",
+    "admission_case_library는 합격생 비교 기준이다.",
+    "level_judgment_rules는 위 두 기준을 합쳐 현재 위치를 상위권/중상위권/도달 직전 등으로 판정한다."
   ]
 }
