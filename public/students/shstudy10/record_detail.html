@@ -324,19 +324,10 @@ document.getElementById('closeAllBtn').addEventListener('click', ()=>{
 </script>
 
 <script type="module">
-  const probe = document.createElement("div");
-  probe.textContent = "엔진 스크립트 실행됨";
-  probe.style.margin = "16px";
-  probe.style.padding = "12px";
-  probe.style.background = "#ffe9e9";
-  probe.style.border = "2px solid red";
-  probe.style.fontWeight = "700";
-  document.querySelector(".wrap")?.prepend(probe);
-
   import("/univ-search/public/univ-search/js/engine_page_hook.js")
     .then(({ mountIntegratedEngineResult }) => {
       return mountIntegratedEngineResult({
-        studentId: "shstudy10",
+        studentId: targetId,
         mountSelector: ".wrap",
         recordDetailPath: "./record_detail.json",
         rawRecordPath: "./school_record_raw.json",
