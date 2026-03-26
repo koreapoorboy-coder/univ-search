@@ -1,4 +1,3 @@
-// engine_page_hook.js
 import { runIntegratedStudent } from "./integrated_student_runner.js";
 
 function getStudentIdFromUrl() {
@@ -13,29 +12,33 @@ function createDefaultPanel() {
   panel = document.createElement("section");
   panel.id = "integrated-engine-panel";
   panel.style.margin = "20px 0";
-  panel.style.padding = "16px";
+  panel.style.padding = "18px";
   panel.style.border = "1px solid #d8dde6";
-  panel.style.borderRadius = "18px";
-  panel.style.background = "#fff";
+  panel.style.borderRadius = "20px";
+  panel.style.background = "linear-gradient(180deg,#ffffff 0%,#fbfcff 100%)";
+  panel.style.boxShadow = "0 8px 24px rgba(15,23,42,.04)";
 
   panel.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <h2 style="margin:0;font-size:22px;font-weight:900">통합 엔진 결과</h2>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:#5b6b85;letter-spacing:.04em;margin-bottom:4px">INTEGRATED ENGINE</div>
+        <h2 style="margin:0;font-size:24px;font-weight:900;color:#182131">통합 엔진 결과</h2>
+      </div>
       <button id="integrated-engine-toggle"
         style="border:1px solid #111;background:#111;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer">
         통합 엔진 결과 보기
       </button>
     </div>
 
-    <div id="integrated-engine-body" style="display:none;margin-top:16px">
-      <div id="integrated-engine-summary" style="margin:0 0 18px;line-height:1.8"></div>
-      <div id="integrated-engine-pattern" style="margin:0 0 18px"></div>
-      <div id="integrated-engine-extensions" style="margin:0 0 18px"></div>
-      <div id="integrated-engine-cases" style="margin:0 0 18px"></div>
-      <div id="integrated-engine-actions" style="margin:0 0 18px"></div>
+    <div id="integrated-engine-body" style="display:none;margin-top:18px">
+      <div id="integrated-engine-summary" style="margin:0 0 20px;line-height:1.8"></div>
+      <div id="integrated-engine-pattern" style="margin:0 0 20px"></div>
+      <div id="integrated-engine-extensions" style="margin:0 0 20px"></div>
+      <div id="integrated-engine-cases" style="margin:0 0 20px"></div>
+      <div id="integrated-engine-actions" style="margin:0 0 20px"></div>
       <details>
         <summary style="cursor:pointer;font-weight:700">원본 JSON 보기</summary>
-        <pre id="integrated-engine-json" style="white-space:pre-wrap;background:#f6f6f6;padding:12px;border-radius:12px;margin-top:10px"></pre>
+        <pre id="integrated-engine-json" style="white-space:pre-wrap;background:#f6f8fb;padding:12px;border-radius:12px;margin-top:10px;border:1px solid #e7ebf2"></pre>
       </details>
     </div>
   `;
@@ -52,71 +55,161 @@ function createDefaultPanel() {
   return panel;
 }
 
+function escapeHtml(value = "") {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderBulletList(items = [], emptyText = "내용 없음") {
+  return items.length
+    ? `<ul style="margin:0;padding-left:20px;line-height:1.7">${items
+        .map((x) => `<li style="margin:6px 0">${escapeHtml(x)}</li>`)
+        .join("")}</ul>`
+    : `<div style="color:#6b7280">${escapeHtml(emptyText)}</div>`;
+}
+
 function renderSummary(summary = []) {
-  return summary.length
-    ? `<ul style="margin:0;padding-left:22px">${summary.map(x => `<li style="margin:6px 0">${x}</li>`).join("")}</ul>`
-    : `요약 없음`;
+  return `
+    <div style="border:1px solid #e6ebf2;border-radius:18px;padding:18px;background:#ffffff">
+      <div style="font-weight:900;font-size:20px;margin-bottom:10px;color:#172033">핵심 요약</div>
+      ${renderBulletList(summary, "요약 없음")}
+    </div>
+  `;
 }
 
 function renderPatternBox(item = {}) {
   if (!item || !item.current_position) return "";
+
+  const diagnosis = item.current_position || "판정 정보 없음";
+  const oneLine = item.coaching_message || "해석 정보 없음";
+  const strengths = item.strength_view || [];
+  const weaknesses = item.weakness_view || [];
+
   return `
-    <div style="border:1px solid #e1e5ee;border-radius:16px;padding:16px;background:#f7fbff">
-      <div style="font-weight:900;font-size:20px;margin-bottom:10px">일반 학생부 비교 기준상 현재 위치</div>
-      <div style="margin-bottom:10px"><b>현재 판정</b> · ${item.current_position}</div>
-      <div style="margin-bottom:8px"><b>강점으로 읽히는 요소</b></div>
-      <ul style="margin:0 0 10px 0;padding-left:20px">
-        ${(item.strength_view || []).map(x => `<li>${x}</li>`).join("")}
-      </ul>
-      <div style="margin-bottom:8px"><b>보완이 필요한 요소</b></div>
-      <ul style="margin:0 0 10px 0;padding-left:20px">
-        ${(item.weakness_view || []).map(x => `<li>${x}</li>`).join("")}
-      </ul>
-      <div><b>해석</b> · ${item.coaching_message || ""}</div>
+    <div style="border:1px solid #dbe4f0;border-radius:20px;padding:18px;background:linear-gradient(180deg,#f8fbff 0%,#ffffff 100%)">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:#5b6b85;letter-spacing:.04em;margin-bottom:4px">PATTERN POSITION</div>
+          <div style="font-weight:900;font-size:22px;color:#172033">현재 위치 진단</div>
+        </div>
+        <div style="display:inline-flex;align-items:center;border:1px solid #c7d5e8;background:#fff;border-radius:999px;padding:8px 14px;font-weight:800;color:#17324f">
+          ${escapeHtml(diagnosis)}
+        </div>
+      </div>
+
+      <div style="border:1px solid #dfe8f5;background:#ffffff;border-radius:16px;padding:14px 16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:6px">한 줄 해석</div>
+        <div style="font-size:15px;line-height:1.8;color:#1f2937;font-weight:700">${escapeHtml(oneLine)}</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+        <div style="border:1px solid #d8e7db;border-radius:16px;padding:16px;background:#f8fff9">
+          <div style="font-weight:900;font-size:18px;color:#15603a;margin-bottom:10px">강점</div>
+          ${renderBulletList(strengths, "강점 요소 없음")}
+        </div>
+        <div style="border:1px solid #f1dfc8;border-radius:16px;padding:16px;background:#fffaf4">
+          <div style="font-weight:900;font-size:18px;color:#9a5a11;margin-bottom:10px">보완 포인트</div>
+          ${renderBulletList(weaknesses, "보완 요소 없음")}
+        </div>
+      </div>
     </div>
   `;
 }
 
 function renderExtensions(items = []) {
-  if (!items.length) return `<div>추천 없음</div>`;
+  if (!items.length) {
+    return `
+      <div style="border:1px solid #e6ebf2;border-radius:18px;padding:18px;background:#fff">
+        <div style="font-weight:900;font-size:20px;margin-bottom:8px">확장 탐구 설계</div>
+        <div style="color:#6b7280">추천 없음</div>
+      </div>
+    `;
+  }
+
   return `
-    <div style="font-weight:900;font-size:20px;margin-bottom:10px">확장 탐구 설계</div>
-    <div style="display:grid;gap:14px">
-      ${items.map(item => `
-        <div style="border:1px solid #e1e5ee;border-radius:16px;padding:16px;background:#fafbfd">
-          <div style="font-weight:900;font-size:18px;margin-bottom:8px">${item.priority}. ${item.title}</div>
-          <div style="margin-bottom:8px"><b>탐구 방향</b> · ${item.direction}</div>
-          <div style="margin-bottom:8px"><b>왜 이 방향인가</b> · ${item.why_this}</div>
-          <div style="margin-bottom:6px"><b>출발</b> · ${item.start}</div>
-          <div style="margin-bottom:6px"><b>확장</b> · ${item.expand}</div>
-          <div style="margin-bottom:6px"><b>심화</b> · ${item.deepen}</div>
-          <div style="margin-bottom:8px"><b>완성</b> · ${item.complete}</div>
-          <div style="margin-bottom:6px"><b>결과 형태</b></div>
-          <ul style="margin:0 0 10px 0;padding-left:20px">
-            ${(item.outputs || []).map(x => `<li>${x}</li>`).join("")}
-          </ul>
-          <div style="margin-bottom:6px"><b>기록될 포인트</b></div>
-          <ul style="margin:0;padding-left:20px">
-            ${(item.record_points || []).map(x => `<li>${x}</li>`).join("")}
-          </ul>
-        </div>
-      `).join("")}
+    <div>
+      <div style="font-weight:900;font-size:20px;margin-bottom:10px;color:#172033">확장 탐구 설계</div>
+      <div style="display:grid;gap:14px">
+        ${items
+          .map(
+            (item) => `
+          <div style="border:1px solid #e1e5ee;border-radius:18px;padding:16px;background:#fafbfd">
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+              <div style="font-weight:900;font-size:18px;color:#182131">${escapeHtml(item.priority)}. ${escapeHtml(item.title)}</div>
+              <div style="font-size:12px;font-weight:800;color:#5b6b85">EXTENSION PLAN</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px">
+              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff"><b>탐구 방향</b><div style="margin-top:6px;line-height:1.7">${escapeHtml(item.direction || "")}</div></div>
+              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff"><b>왜 이 방향인가</b><div style="margin-top:6px;line-height:1.7">${escapeHtml(item.why_this || "")}</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px">
+              ${[
+                ["출발", item.start],
+                ["확장", item.expand],
+                ["심화", item.deepen],
+                ["완성", item.complete],
+              ]
+                .map(
+                  ([label, value]) => `
+                <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
+                  <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:6px">${label}</div>
+                  <div style="line-height:1.7">${escapeHtml(value || "")}</div>
+                </div>`
+                )
+                .join("")}
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
+                <div style="font-weight:800;margin-bottom:8px">결과 형태</div>
+                ${renderBulletList(item.outputs || [], "결과 형태 없음")}
+              </div>
+              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
+                <div style="font-weight:800;margin-bottom:8px">기록될 포인트</div>
+                ${renderBulletList(item.record_points || [], "기록 포인트 없음")}
+              </div>
+            </div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
 
 function renderCases(items = []) {
-  if (!items.length) return `<div>매칭 없음</div>`;
+  if (!items.length) {
+    return `
+      <div style="border:1px solid #e6ebf2;border-radius:18px;padding:18px;background:#fff">
+        <div style="font-weight:900;font-size:20px;margin-bottom:8px">유사 합격생 패턴</div>
+        <div style="color:#6b7280">매칭 없음</div>
+      </div>
+    `;
+  }
+
   return `
-    <div style="font-weight:900;font-size:20px;margin-bottom:10px">유사 합격생 패턴</div>
-    <div style="display:grid;gap:12px">
-      ${items.map(item => `
-        <div style="border:1px solid #e1e5ee;border-radius:16px;padding:14px;background:#fffdf8">
-          <div style="font-weight:900;margin-bottom:6px">${item.university} ${item.major}</div>
-          <div style="margin-bottom:6px"><b>참고 이유</b> · ${item.why_similar}</div>
-          <div><b>활용 방식</b> · ${item.use_point}</div>
-        </div>
-      `).join("")}
+    <div>
+      <div style="font-weight:900;font-size:20px;margin-bottom:10px;color:#172033">유사 합격생 패턴</div>
+      <div style="display:grid;gap:12px">
+        ${items
+          .map(
+            (item) => `
+          <div style="border:1px solid #e1e5ee;border-radius:16px;padding:14px;background:#fffdf8">
+            <div style="font-weight:900;margin-bottom:8px;font-size:17px;color:#182131">${escapeHtml(item.university)} ${escapeHtml(item.major)}</div>
+            <div style="margin-bottom:6px;line-height:1.7"><b>참고 이유</b> · ${escapeHtml(item.why_similar || "")}</div>
+            <div style="line-height:1.7"><b>활용 방식</b> · ${escapeHtml(item.use_point || "")}</div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
@@ -124,14 +217,20 @@ function renderCases(items = []) {
 function renderActions(items = []) {
   if (!items.length) return "";
   return `
-    <div style="font-weight:900;font-size:20px;margin-bottom:10px">실행 계획</div>
-    <div style="display:grid;gap:10px">
-      ${items.map(item => `
-        <div style="border:1px solid #e1e5ee;border-radius:14px;padding:12px;background:#f9fbff">
-          <div style="font-weight:800">${item.step}. ${item.title}</div>
-          <div style="margin-top:4px">${item.goal}</div>
-        </div>
-      `).join("")}
+    <div>
+      <div style="font-weight:900;font-size:20px;margin-bottom:10px;color:#172033">실행 계획</div>
+      <div style="display:grid;gap:10px">
+        ${items
+          .map(
+            (item) => `
+          <div style="border:1px solid #e1e5ee;border-radius:14px;padding:12px;background:#f9fbff">
+            <div style="font-weight:800;color:#182131">${escapeHtml(item.step)}. ${escapeHtml(item.title)}</div>
+            <div style="margin-top:4px;line-height:1.7">${escapeHtml(item.goal || "")}</div>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
@@ -157,7 +256,9 @@ export async function mountIntegratedEngineResult(options = {}) {
     mountTarget.prepend(panel);
   }
 
-  document.getElementById("integrated-engine-summary").textContent = "로딩 중...";
+  document.getElementById("integrated-engine-summary").innerHTML = `
+    <div style="border:1px solid #e6ebf2;border-radius:18px;padding:18px;background:#fff">로딩 중...</div>
+  `;
   document.getElementById("integrated-engine-pattern").textContent = "";
   document.getElementById("integrated-engine-extensions").textContent = "";
   document.getElementById("integrated-engine-cases").textContent = "";
