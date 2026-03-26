@@ -71,20 +71,46 @@ function pickRecordPattern(taggedStudent, recordPatterns = []) {
 }
 
 function buildPatternInterpretation(bestPattern, taggedStudent) {
+  const track = pickTrackFromTags(taggedStudent);
+
   if (!bestPattern) {
     return {
-      current_position: "일반 학생부 비교 기준상 아직 뚜렷한 패턴 판정 전 단계",
-      strength_view: ["패턴 비교 데이터가 더 쌓이면 현재 위치 판단이 더 정확해질 수 있음"],
-      weakness_view: ["일반 학생부 비교 기준이 아직 충분히 매칭되지 않음"],
-      coaching_message: "현재는 합격생 기준보다 일반 학생부 패턴 기준을 더 많이 쌓아 현실 보정을 강화하는 것이 좋다."
+      current_position: "현재는 방향성은 보이지만 대표 패턴이 아직 선명하게 고정되기 전 단계",
+      strength_view: [
+        "관심 분야와 활동 경험의 연결은 이미 확인됨",
+        "기록이 더 쌓이면 상담에서 현재 위치를 더 정확하게 설명할 수 있음"
+      ],
+      weakness_view: [
+        "대표 활동 1~2개를 중심으로 기록을 더 선명하게 묶을 필요가 있음",
+        "활동 수보다 결과 정리와 해석 문장을 더 또렷하게 만드는 보강이 필요함"
+      ],
+      coaching_message: `${track} 방향의 가능성은 보인다. 이제는 여러 활동을 넓게 보여주기보다 대표 탐구를 깊게 정리해 현재 위치를 선명하게 만드는 것이 좋다.`
     };
   }
 
+  const positionMap = {
+    "데이터 분석형": "강점이 분명한 단계",
+    "표현·논증형": "해석 역량이 분명한 단계",
+    "강한 일관성형": "합격생 흐름에 근접한 단계",
+    "실험 설계형": "탐구 역량이 분명한 단계",
+    "제작 구현형": "전공 적합성이 선명한 단계"
+  };
+
+  const currentPosition = positionMap[bestPattern.pattern_type]
+    || `${bestPattern.pattern_type} 강점이 확인되는 단계`;
+
+  const mappedWeaknesses = (bestPattern.weakness_signals || []).length
+    ? bestPattern.weakness_signals
+    : [
+        "대표 탐구 1개를 더 깊게 정리하면 상담 설명력이 높아짐",
+        "선택과목과 활동의 연결 문장을 더 분명하게 남길 필요가 있음"
+      ];
+
   return {
-    current_position: `일반 학생부 비교 기준상 현재 기록은 '${bestPattern.pattern_type}' 패턴에 가장 가깝다.`,
+    current_position: currentPosition,
     strength_view: bestPattern.strength_signals || [],
-    weakness_view: bestPattern.weakness_signals || [],
-    coaching_message: bestPattern.recommended_use || "일반 학생부 비교 기준으로 참고 가능"
+    weakness_view: mappedWeaknesses,
+    coaching_message: `${track} 방향성은 이미 확인된다. 현재는 '${bestPattern.pattern_type}' 흐름이 강점으로 보이며, 다음 단계는 대표 활동의 완성도와 결과 정리를 끌어올려 합격생 수준의 설명력을 만드는 것이다.`
   };
 }
 
@@ -94,14 +120,16 @@ function buildSummary(taggedStudent, basic, patternInterp) {
   const firstCase = basic.matchedCases?.[0];
 
   return [
-    `이 학생은 ${track} 방향의 탐구를 실제 수행 활동으로 연결하기 좋은 구조를 갖고 있다.`,
+    `현재 기록만 보더라도 ${track} 방향성은 비교적 분명하게 확인된다.`,
     firstExt
-      ? `가장 먼저 검토할 확장 방향은 "${firstExt.title}" 계열 탐구이다.`
-      : `우선은 학생 원문 태그를 더 정교하게 잡은 뒤 확장 방향을 좁히는 것이 좋다.`,
+      ? `다음 보강은 활동을 더 늘리는 것보다 "${firstExt.title}" 계열 대표 탐구를 중심으로 깊이를 만드는 데 두는 것이 좋다.`
+      : `다음 보강은 활동 수를 늘리기보다 현재 기록 중 대표 활동 1~2개를 중심으로 깊이를 만드는 데 두는 것이 좋다.`,
     firstCase
-      ? `합격생 비교 기준으로는 ${firstCase.university} ${firstCase.major} 유형의 패턴과 일부 맞닿아 있다.`
-      : `합격생 비교는 태그 정교화 이후 더 정확해질 수 있다.`,
-    patternInterp?.current_position || "일반 학생부 비교 기준은 아직 판정 전 단계이다."
+      ? `합격생 비교 관점에서는 ${firstCase.university} ${firstCase.major} 유형처럼 전공 방향성과 수행 경험이 연결되는 흐름을 참고할 수 있다.`
+      : `합격생 비교는 가능하지만 우선은 현재 학생 기록 안에서 어떤 강점을 대표 활동으로 묶을지부터 정리하는 것이 더 중요하다.`,
+    patternInterp?.current_position
+      ? `현재 위치 판단은 "${patternInterp.current_position}"으로 해석할 수 있다.`
+      : "현재 위치 판단은 아직 패턴 확정 전 단계다."
   ];
 }
 
@@ -262,10 +290,10 @@ function buildActionPlan(taggedStudent, extensionRecs, patternInterp) {
     },
     {
       step: 3,
-      title: "일반 학생부 패턴 보정",
+      title: "현재 위치 보강",
       goal: patternInterp?.weakness_view?.length
-        ? `현재 약점으로 읽히는 요소(${patternInterp.weakness_view.join(", ")})를 보완하는 방향으로 결과를 정리한다.`
-        : "일반 학생부 비교 기준을 바탕으로 현실적인 보완 포인트를 점검한다."
+        ? `지금 보완이 필요한 지점(${patternInterp.weakness_view.join(", ")})을 중심으로 결과 정리와 해석 문장을 다듬는다.`
+        : "현재 위치 판단을 더 선명하게 만들 수 있도록 현실적인 보완 포인트를 점검한다."
     }
   ];
 }
