@@ -123,8 +123,8 @@ function renderPatternBox(item = {}) {
 function renderExtensions(items = []) {
   if (!items.length) {
     return `
-      <div style="border:1px solid #e6ebf2;border-radius:18px;padding:18px;background:#fff">
-        <div style="font-weight:900;font-size:20px;margin-bottom:8px">확장 탐구 설계</div>
+      <div style="border:1px solid #e6ebf2;border-radius:20px;padding:20px;background:#fff">
+        <div style="font-weight:900;font-size:22px;margin-bottom:8px;color:#172033">확장 탐구 설계</div>
         <div style="color:#6b7280">추천 없음</div>
       </div>
     `;
@@ -132,53 +132,58 @@ function renderExtensions(items = []) {
 
   return `
     <div>
-      <div style="font-weight:900;font-size:20px;margin-bottom:10px;color:#172033">확장 탐구 설계</div>
-      <div style="display:grid;gap:14px">
-        ${items
-          .map(
-            (item) => `
-          <div style="border:1px solid #e1e5ee;border-radius:18px;padding:16px;background:#fafbfd">
-            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
-              <div style="font-weight:900;font-size:18px;color:#182131">${escapeHtml(item.priority)}. ${escapeHtml(item.title)}</div>
-              <div style="font-size:12px;font-weight:800;color:#5b6b85">EXTENSION PLAN</div>
+      <div style="font-weight:900;font-size:22px;margin-bottom:12px;color:#172033">확장 탐구 설계</div>
+      <div style="display:grid;gap:16px">
+        ${items.map((item) => {
+          const consultantComment = item.consultant_comment || `${item.title || '이 탐구'}는 단순 활동 추가용이 아니라, 현재 생활기록부의 관심 축을 대표 탐구로 정리해 설명력을 높이는 설계안이다.`;
+          return `
+          <div style="border:1px solid #dbe4f0;border-radius:22px;padding:18px;background:linear-gradient(180deg,#fcfdff 0%,#f7faff 100%)">
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+              <div style="font-weight:900;font-size:20px;color:#182131">${escapeHtml(item.priority)}. ${escapeHtml(item.title)}</div>
+              <div style="font-size:12px;font-weight:800;color:#5b6b85;letter-spacing:.04em">CONSULTING DESIGN</div>
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:12px">
-              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff"><b>탐구 방향</b><div style="margin-top:6px;line-height:1.7">${escapeHtml(item.direction || "")}</div></div>
-              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff"><b>왜 이 방향인가</b><div style="margin-top:6px;line-height:1.7">${escapeHtml(item.why_this || "")}</div></div>
+            <div style="display:grid;grid-template-columns:1.3fr .9fr;gap:12px;margin-bottom:12px">
+              <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
+                <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:6px">핵심 탐구 설계</div>
+                <div style="font-size:16px;line-height:1.8;font-weight:700;color:#1f2937">${escapeHtml(item.direction || '')}</div>
+              </div>
+              <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
+                <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:6px">설계 의도</div>
+                <div style="line-height:1.8;color:#1f2937">${escapeHtml(item.why_this || '')}</div>
+              </div>
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:12px">
               ${[
-                ["출발", item.start],
-                ["확장", item.expand],
-                ["심화", item.deepen],
-                ["완성", item.complete],
-              ]
-                .map(
-                  ([label, value]) => `
-                <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
-                  <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:6px">${label}</div>
-                  <div style="line-height:1.7">${escapeHtml(value || "")}</div>
-                </div>`
-                )
-                .join("")}
+                ['문제 정의', item.start],
+                ['분석 설계', item.expand],
+                ['심화 설계', item.deepen],
+                ['결론 설계', item.complete],
+              ].map(([label, value]) => `
+                <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
+                  <div style="font-size:13px;font-weight:800;color:#5b6b85;margin-bottom:7px">${label}</div>
+                  <div style="line-height:1.8;color:#1f2937">${escapeHtml(value || '')}</div>
+                </div>`).join('')}
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
-              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
-                <div style="font-weight:800;margin-bottom:8px">결과 형태</div>
-                ${renderBulletList(item.outputs || [], "결과 형태 없음")}
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px">
+              <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
+                <div style="font-weight:800;margin-bottom:8px;color:#182131">예상 산출물</div>
+                ${renderBulletList(item.outputs || [], '산출물 없음')}
               </div>
-              <div style="border:1px solid #e8edf4;border-radius:14px;padding:12px;background:#fff">
-                <div style="font-weight:800;margin-bottom:8px">기록될 포인트</div>
-                ${renderBulletList(item.record_points || [], "기록 포인트 없음")}
+              <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
+                <div style="font-weight:800;margin-bottom:8px;color:#182131">학생부 반영 포인트</div>
+                ${renderBulletList(item.record_points || [], '반영 포인트 없음')}
               </div>
             </div>
-          </div>
-        `
-          )
-          .join("")}
+
+            <div style="border:1px solid #d7e6dc;border-radius:16px;padding:14px;background:#f8fff9">
+              <div style="font-size:13px;font-weight:800;color:#46604b;margin-bottom:6px">컨설턴트 해설</div>
+              <div style="line-height:1.8;color:#1f2937">${escapeHtml(consultantComment)}</div>
+            </div>
+          </div>`
+        }).join('')}
       </div>
     </div>
   `;
