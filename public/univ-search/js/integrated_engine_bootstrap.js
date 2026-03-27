@@ -72,102 +72,84 @@ function pickRecordPattern(taggedStudent, recordPatterns = []) {
 
 function buildPatternInterpretation(bestPattern, taggedStudent) {
   const track = pickTrackFromTags(taggedStudent);
+  const methods = taggedStudent?.method_tags || [];
+  const majors = taggedStudent?.major_tags || [];
+  const themes = taggedStudent?.theme_tags || [];
+  const thinking = taggedStudent?.thinking_tags || [];
+
+  const hasImplementation = ["실험", "제작", "설계", "모델링", "데이터분석"].some(x => methods.includes(x));
+  const hasAITrack = track === "AI·소프트웨어" || majors.includes("AI/SW");
+  const hasEngineeringTrack = hasAITrack || track.includes("공학") || themes.includes("AI/SW");
+  const hasAnalysis = methods.includes("데이터분석") || thinking.includes("정량분석");
 
   if (!bestPattern) {
     return {
-      current_position: `${track} 계열 관심은 확인되지만 전공 적합성의 핵심 축은 아직 정리 전`,
+      current_position: `${track} 계열 관심은 보이지만, 전공 적합성을 명확히 설명할 대표 활동 정리는 아직 부족한 상태`,
       strength_view: [
-        "관심 분야와 활동 경험의 연결은 이미 확인됨",
-        "초기 탐색 단계로서 진로 축을 구체화할 수 있는 재료는 확보됨"
+        "관심 분야의 방향성은 일부 확인됨",
+        "탐구 또는 수행 활동으로 이어질 가능성은 보임"
       ],
       weakness_view: [
-        "대표 활동 1~2개를 중심으로 기록을 선명하게 묶을 필요가 있음",
-        "무엇을 했는지보다 무엇을 검증했고 어떻게 해석했는지까지 정리할 필요가 있음"
+        "대표 탐구가 무엇인지 한눈에 잡히지 않음",
+        "활동 간 연결 설명이 부족해 평가 전달력이 약함",
+        "결과보다 수행 사실 중심으로 보일 가능성이 있음"
       ],
-      coaching_message: `${track} 방향의 관심과 활동 경험은 확인된다. 다만 아직은 전공 적합성을 설명하는 핵심 축이 정리되기 전 단계이므로, 여러 활동을 넓게 제시하기보다 대표 탐구를 선정해 과정·근거·결론이 보이도록 정리하는 것이 우선이다.`
+      coaching_message: "현재는 활동 수를 늘리기보다 핵심 탐구 1개를 선정해 문제 설정, 수행 과정, 결과 해석이 드러나도록 정리하는 것이 우선이다."
     };
   }
 
-  const positionMap = {
-    "데이터 분석형": `${track} 계열에서 데이터 해석 역량이 확인되는 상태`,
-    "표현·논증형": `${track} 계열에서 해석·논증 역량이 확인되는 상태`,
-    "강한 일관성형": `${track} 중심 전공 적합성이 구조적으로 형성된 상태`,
-    "실험 설계형": `${track} 계열에서 탐구 설계 역량이 확인되는 상태`,
-    "제작 구현형": `${track} 계열에서 실제 구현 역량이 확인되는 상태`
-  };
+  if (hasAITrack) {
+    return {
+      current_position: "AI·소프트웨어 계열 전공 적합성은 확보되어 있으나, 합격 설명력은 추가 보강이 필요한 상태",
+      strength_view: [
+        "AI·소프트웨어 관련 관심이 단발성이 아니라 활동 전반에 반복적으로 나타남",
+        "교과 개념이 탐구·설계·구현 활동으로 이어지는 흐름이 확인됨",
+        hasImplementation
+          ? "조사 중심을 넘어 제작·실험·설계 등 수행 기반 활동 흔적이 확인됨"
+          : "관심 주제를 실제 수행 활동으로 전환할 수 있는 기반이 형성됨"
+      ],
+      weakness_view: [
+        "대표 탐구가 무엇을 검증했고 어떤 결론에 도달했는지 설명이 더 필요함",
+        "개별 활동은 좋지만 하나의 연구 흐름으로 묶는 정리가 부족함",
+        hasAnalysis
+          ? "분석은 시도되었으나 결과 비교와 해석의 밀도를 더 높일 필요가 있음"
+          : "결과 비교, 수치 해석, 개선 방향까지 드러나야 평가 밀도가 올라감"
+      ],
+      coaching_message: "현재 단계에서는 활동 수보다 대표 탐구의 완성도, 결과 해석, 활동 간 연결 설명이 실제 합격 설명력을 좌우한다."
+    };
+  }
 
-  const strengthMap = {
-    "데이터 분석형": [
-      "자료 수집과 비교 분석을 통해 근거 기반 해석이 가능함",
-      "데이터를 활용해 주제를 구조적으로 설명할 수 있음",
-      "교과 개념을 수치·그래프·비교 결과와 연결할 가능성이 높음"
-    ],
-    "표현·논증형": [
-      "주장을 근거와 함께 설명하는 해석 역량이 확인됨",
-      "탐구 결과를 말이나 글로 구조화할 수 있음",
-      "교과 개념을 자신의 관점으로 재해석하는 힘이 보임"
-    ],
-    "강한 일관성형": [
-      "전공 방향성이 활동 전반에 일관되게 반영됨",
-      "교과 개념이 실제 활동으로 확장되는 구조가 형성됨",
-      "수행 기반 결과물이 존재하는 활동 구조가 확인됨"
-    ],
-    "실험 설계형": [
-      "문제 설정과 변수 통제를 포함한 탐구 설계 역량이 확인됨",
-      "실험 절차를 바탕으로 결과를 검증하는 흐름을 만들 수 있음",
-      "교과 개념을 실제 탐구 과정으로 전환하는 힘이 보임"
-    ],
-    "제작 구현형": [
-      "아이디어를 실제 제작·구현으로 연결한 수행 흔적이 확인됨",
-      "설계와 실행을 바탕으로 전공 관심을 구체화한 경험이 있음",
-      "문제 해결을 결과물 중심으로 보여줄 수 있는 강점이 있음"
-    ]
-  };
-
-  const weaknessMap = {
-    "데이터 분석형": [
-      "분석 결과를 전공 관심과 연결해 해석하는 문장이 더 필요함",
-      "데이터를 제시하는 수준을 넘어 비교 기준과 결론을 명확히 해야 함"
-    ],
-    "표현·논증형": [
-      "설명은 좋지만 실제 수행 근거가 함께 제시되면 설득력이 더 높아짐",
-      "주장과 근거를 탐구 결과와 연결하는 구조 보강이 필요함"
-    ],
-    "강한 일관성형": [
-      "대표 탐구의 결과 해석이 부족함",
-      "개별 활동을 하나의 연구 흐름으로 묶는 정리가 더 필요함"
-    ],
-    "실험 설계형": [
-      "실험 결과 해석과 한계 분석이 함께 제시되면 완성도가 높아짐",
-      "설계 과정이 실제 진로 방향과 어떻게 연결되는지 보강할 필요가 있음"
-    ],
-    "제작 구현형": [
-      "결과물 소개를 넘어 설계 의도와 개선 과정을 정리해야 함",
-      "구현 경험을 교과 개념 및 진로 축과 연결하는 설명이 더 필요함"
-    ]
-  };
-
-  const currentPosition = positionMap[bestPattern.pattern_type]
-    || `${track} 계열에서 ${bestPattern.pattern_type} 강점이 확인되는 상태`;
-
-  const mappedStrengths = strengthMap[bestPattern.pattern_type]?.length
-    ? strengthMap[bestPattern.pattern_type]
-    : (bestPattern.strength_signals || []);
-
-  const mappedWeaknesses = weaknessMap[bestPattern.pattern_type]?.length
-    ? weaknessMap[bestPattern.pattern_type]
-    : ((bestPattern.weakness_signals || []).length
-      ? bestPattern.weakness_signals
-      : [
-          "대표 탐구 1개를 더 깊게 정리하면 상담 설명력이 높아짐",
-          "선택과목과 활동의 연결 문장을 더 분명하게 남길 필요가 있음"
-        ]);
+  if (hasEngineeringTrack) {
+    return {
+      current_position: `${track} 계열 전공 적합성은 형성되어 있으나, 대표 탐구의 완성도와 설명력 보강이 필요한 상태`,
+      strength_view: [
+        "전공 축이 활동 전반에서 비교적 일관되게 유지됨",
+        "교과 개념을 실제 문제 해결 활동으로 연결하려는 시도가 보임",
+        hasImplementation
+          ? "수행 결과물이 남는 활동 구조가 확인됨"
+          : "탐구를 실제 수행으로 연결할 수 있는 기반이 형성됨"
+      ],
+      weakness_view: [
+        "무엇을 했는지보다 왜 그렇게 했는지에 대한 설명 보강이 필요함",
+        "대표 활동 1개를 중심으로 스토리를 재정리할 필요가 있음",
+        "결과 해석과 개선 방향까지 제시되어야 평가 설득력이 높아짐"
+      ],
+      coaching_message: "현재는 전공 적합성 자체보다 대표 활동의 구조화와 결과 해석을 보강하는 것이 중요하다."
+    };
+  }
 
   return {
-    current_position: currentPosition,
-    strength_view: mappedStrengths,
-    weakness_view: mappedWeaknesses,
-    coaching_message: `${track} 방향성은 단순 관심 수준을 넘어 교과·탐구·활동이 같은 축으로 반복되며 전공 적합성이 구조적으로 형성된 상태다. 다만 현재 평가는 활동의 양보다 대표 탐구의 완성도, 결과 해석의 명확성, 활동 간 연결 설명의 구조화가 좌우하므로 이 지점을 보강해야 합격 설명력이 높아진다.`
+    current_position: `${track} 방향성은 보이지만, 강점이 무엇인지 평가자가 한눈에 읽을 수 있도록 구조화가 더 필요한 상태`,
+    strength_view: [
+      "관심 주제와 활동 축이 어느 정도 이어지고 있음",
+      "교과와 탐구의 연결 가능성이 확인됨"
+    ],
+    weakness_view: [
+      "핵심 강점을 한 줄로 설명할 대표 활동이 부족함",
+      "활동 간 연결성보다 개별 나열로 읽힐 가능성이 있음",
+      "수행 결과와 해석을 더 분명히 드러낼 필요가 있음"
+    ],
+    coaching_message: "현재는 활동의 양보다 핵심 주제 1개를 중심으로 강점이 드러나게 재정리하는 것이 효과적이다."
   };
 }
 
@@ -177,16 +159,14 @@ function buildSummary(taggedStudent, basic, patternInterp) {
   const firstCase = basic.matchedCases?.[0];
 
   return [
-    `현재 학생부는 ${track} 계열 전공 적합성이 단순 관심 수준을 넘어 구조적으로 형성되고 있는 흐름으로 해석된다.`,
+    `이 학생은 ${track} 방향의 관심이 교과·탐구·활동으로 이어지며 전공 적합성이 형성된 구조를 보인다.`,
     firstExt
-      ? `우선 보강 과제는 활동 추가가 아니라 "${firstExt.title}" 계열 대표 탐구를 중심으로 과정·결과·해석을 정리해 설명력을 높이는 것이다.`
-      : `우선 보강 과제는 활동 수를 늘리기보다 대표 활동 1~2개를 중심으로 과정·결과·해석을 정리해 설명력을 높이는 것이다.`,
+      ? `다음 단계에서는 "${firstExt.title}" 계열처럼 대표 탐구 1개를 정해 완성도를 높이는 접근이 적절하다.`
+      : `우선은 학생 원문 태그를 더 정교하게 잡은 뒤 대표 탐구 1개를 먼저 좁히는 것이 좋다.`,
     firstCase
-      ? `합격생 비교 관점에서는 ${firstCase.university} ${firstCase.major} 유형처럼 전공 방향성과 실제 수행 경험이 연결되는 구조를 참고할 수 있다.`
-      : `합격생 비교 이전에 먼저 현재 학생 기록 안에서 어떤 활동을 대표 탐구로 설정할지 정리하는 것이 우선이다.`,
-    patternInterp?.current_position
-      ? `현재 위치는 "${patternInterp.current_position}"으로 판단되며, 핵심 과제는 전공 적합성 확보 이후 합격 설명력을 완성하는 단계로 넘어가는 것이다.`
-      : "현재 위치는 아직 대표 패턴이 확정되기 전 단계로 판단된다."
+      ? `합격생 비교 기준으로는 ${firstCase.university} ${firstCase.major} 유형에서 참고할 만한 활동 구조가 일부 확인된다.`
+      : `합격생 비교는 태그 정교화 이후 더 정확해질 수 있다.`,
+    patternInterp?.current_position || "일반 학생부 비교 기준은 아직 판정 전 단계이다."
   ];
 }
 
@@ -335,22 +315,22 @@ function buildActionPlan(taggedStudent, extensionRecs, patternInterp) {
   return [
     {
       step: 1,
-      title: "대표 탐구 1개 선정",
-      goal: `${track} 방향에서 가장 설명력이 높은 활동 1개를 대표 탐구로 확정하고, 문제 설정 이유를 한 문장으로 정리한다.`
+      title: "핵심 탐구 축 1개 확정",
+      goal: `${track} 방향에서 가장 먼저 할 탐구 주제를 1개로 좁힌다.`
     },
     {
       step: 2,
-      title: "수행 구조 구체화",
+      title: "수행 방법 결정",
       goal: first
-        ? `${first.title}를 기준으로 자료 조사·데이터 분석·실험·설계 중 실제 수행 가능한 방식을 선택하고, 과정과 비교 기준을 미리 설계한다.`
-        : "자료 조사·데이터 분석·실험 중 실제 수행 가능한 방식을 정하고, 과정과 비교 기준을 미리 설계한다."
+        ? `${first.title}를 기준으로 데이터 분석·실험·설계 중 실제 가능한 방식을 선택한다.`
+        : "자료 조사 / 데이터 분석 / 실험 중 실제 수행 가능한 방식을 고른다."
     },
     {
       step: 3,
-      title: "합격 설명력 보강",
+      title: "일반 학생부 패턴 보정",
       goal: patternInterp?.weakness_view?.length
-        ? `현재 보완이 필요한 지점(${patternInterp.weakness_view.join(", ")})을 중심으로 결과 해석, 결론, 활동 간 연결 설명을 정리한다.`
-        : "현재 위치 판단을 더 선명하게 만들 수 있도록 결과 해석과 활동 간 연결 설명을 보강한다."
+        ? `현재 약점으로 읽히는 요소(${patternInterp.weakness_view.join(", ")})를 보완하는 방향으로 결과를 정리한다.`
+        : "일반 학생부 비교 기준을 바탕으로 현실적인 보완 포인트를 점검한다."
     }
   ];
 }
