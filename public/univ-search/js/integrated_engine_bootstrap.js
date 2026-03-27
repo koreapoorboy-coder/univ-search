@@ -140,7 +140,7 @@ function buildSummary(taggedStudent, basic, patternInterp) {
     firstCase
       ? `합격생 비교 기준으로는 ${firstCase.university} ${firstCase.major} 유형의 패턴과 일부 맞닿아 있다.`
       : `합격생 비교는 태그 정교화 이후 더 정확해질 수 있다.`,
-    patternInterp?.current_position || "일반 학생부 비교 기준은 아직 판정 전 단계이다."
+    patternInterp?.current_position || "진로 방향은 보이지만 활동 정리를 더 선명하게 할 필요가 있다."
   ];
 }
 
@@ -308,22 +308,22 @@ function buildActionPlan(taggedStudent, extensionRecs, patternInterp) {
   return [
     {
       step: 1,
-      title: "핵심 탐구 축 1개 확정",
-      goal: `${track} 방향에서 가장 먼저 할 탐구 주제를 1개로 좁힌다.`
+      title: "대표 활동 1개 선정",
+      goal: `${track} 방향에서 상담과 학생부에 함께 활용할 대표 탐구 1개를 먼저 정한다.`
     },
     {
       step: 2,
-      title: "수행 방법 결정",
+      title: "결과가 보이는 형태로 정리",
       goal: first
-        ? `${first.title}를 기준으로 데이터 분석·실험·설계 중 실제 가능한 방식을 선택한다.`
-        : "자료 조사 / 데이터 분석 / 실험 중 실제 수행 가능한 방식을 고른다."
+        ? `${first.title}를 기준으로 그래프, 비교표, 보고서, 발표 자료 중 실제 제출 가능한 결과물 형태를 정한다.`
+        : "그래프, 비교표, 보고서, 발표 자료 중 실제 제출 가능한 결과물 형태를 정한다."
     },
     {
       step: 3,
-      title: "일반 학생부 패턴 보정",
+      title: "설명력이 드러나게 마무리",
       goal: patternInterp?.weakness_view?.length
-        ? `현재 약점으로 읽히는 요소(${patternInterp.weakness_view.join(", ")})를 보완하는 방향으로 결과를 정리한다.`
-        : "일반 학생부 비교 기준을 바탕으로 현실적인 보완 포인트를 점검한다."
+        ? `현재 보완 포인트(${patternInterp.weakness_view.join(", ")})가 보이도록 결과와 해석을 정리한다.`
+        : "결과와 해석이 함께 보이도록 최종 문장을 정리한다."
     }
   ];
 }
@@ -345,7 +345,7 @@ export async function bootIntegratedEngine(taggedStudent, options = {}) {
     student_id: taggedStudent?.student_id || "",
     summary: buildSummary(taggedStudent, basic, patternInterp),
     record_diagnosis: {
-      one_line: "현재 화면은 추천 이름보다 어떻게 수행할지, 그리고 일반 학생부와 비교해 어떤 패턴에 가까운지가 보이도록 재구성된 출력이다.",
+      one_line: "추천 주제를 나열하는 것이 아니라, 실제로 어떤 탐구를 어떻게 수행하고 무엇을 결과로 남길지 보이도록 정리한 출력이다.",
       strengths: uniq([
         ...(taggedStudent?.theme_tags || []),
         ...(taggedStudent?.method_tags || []),
