@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>공용 탐구 설계 엔진</title>
+  <link rel="stylesheet" href="./assets/keyword_engine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">KEYWORD ENGINE</p>
+        <h1>공용 탐구 설계 엔진</h1>
+        <p class="subtitle">키워드, 관심 계열, 과목을 입력하면 탐구 설계 카드와 학생부 연결 포인트를 추천합니다.</p>
+      </div>
+      <div class="hero-actions">
+        <button id="exportLogsBtn" class="ghost-btn" type="button">로그 내보내기</button>
+        <button id="clearLogsBtn" class="ghost-btn danger" type="button">로그 초기화</button>
+      </div>
+    </header>
+
+    <section class="search-card">
+      <div class="search-grid">
+        <label class="field field-keyword">
+          <span>키워드</span>
+          <input id="keywordInput" type="text" placeholder="예: 미세먼지, 인공지능, 이차전지" />
+        </label>
+
+        <label class="field">
+          <span>관심 계열</span>
+          <select id="trackSelect">
+            <option value="">전체</option>
+            <option value="공학">공학</option>
+            <option value="환경">환경</option>
+            <option value="소프트웨어">소프트웨어</option>
+            <option value="자연과학">자연과학</option>
+            <option value="생명">생명</option>
+            <option value="의학">의학</option>
+            <option value="사회">사회</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>관심 과목</span>
+          <select id="subjectSelect">
+            <option value="">전체</option>
+            <option value="과학">과학</option>
+            <option value="정보">정보</option>
+            <option value="수학">수학</option>
+            <option value="물리">물리</option>
+            <option value="화학">화학</option>
+            <option value="생명과학">생명과학</option>
+            <option value="사회">사회</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>학교급</span>
+          <select id="schoolLevelSelect">
+            <option value="">전체</option>
+            <option value="middle">중학생</option>
+            <option value="high">고등학생</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="search-actions">
+        <button id="searchBtn" class="primary-btn" type="button">탐구 설계 찾기</button>
+        <button id="randomBtn" class="secondary-btn" type="button">랜덤 키워드</button>
+      </div>
+      <p class="helper">정적 GitHub Pages 환경에서는 로그가 서버 JSON에 직접 저장되지 않아서, 브라우저 localStorage에 저장한 뒤 JSON으로 내보내는 방식으로 구성했습니다.</p>
+    </section>
+
+    <section id="summarySection" class="summary-card hidden"></section>
+
+    <section id="resultSection" class="results hidden">
+      <div class="section-head">
+        <h2>추천 탐구 설계</h2>
+        <p id="resultMeta"></p>
+      </div>
+      <div id="resultCards" class="result-cards"></div>
+    </section>
+  </div>
+
+  <template id="planCardTemplate">
+    <article class="plan-card">
+      <div class="card-head">
+        <div>
+          <p class="card-rank"></p>
+          <h3 class="card-title"></h3>
+          <p class="card-type"></p>
+        </div>
+        <div class="card-actions">
+          <button class="copy-btn" type="button">복사</button>
+          <button class="select-btn" type="button">선택</button>
+          <button class="consult-btn" type="button">상담 연결</button>
+        </div>
+      </div>
+
+      <div class="top-grid">
+        <section class="info-box span-2">
+          <h4>핵심 탐구 설계</h4>
+          <p class="core-design"></p>
+        </section>
+        <section class="info-box">
+          <h4>설계 의도</h4>
+          <p class="intent"></p>
+        </section>
+      </div>
+
+      <div class="mid-grid">
+        <section class="info-box">
+          <h4>문제 정의</h4>
+          <p class="problem-definition"></p>
+        </section>
+        <section class="info-box">
+          <h4>분석 설계</h4>
+          <p class="analysis-design"></p>
+        </section>
+        <section class="info-box">
+          <h4>심화 설계</h4>
+          <p class="advanced-design"></p>
+        </section>
+        <section class="info-box">
+          <h4>결론 설계</h4>
+          <p class="conclusion-design"></p>
+        </section>
+      </div>
+
+      <div class="bottom-grid">
+        <section class="info-box">
+          <h4>완성 결과 예시</h4>
+          <ul class="result-examples"></ul>
+        </section>
+        <section class="info-box">
+          <h4>학생부에 드러날 내용</h4>
+          <ul class="record-points"></ul>
+        </section>
+      </div>
+
+      <section class="info-box why-box">
+        <h4>이 탐구를 추천하는 이유</h4>
+        <p class="why-recommended"></p>
+      </section>
+    </article>
+  </template>
+
+  <script src="./assets/keyword_engine.js"></script>
+</body>
+</html>
