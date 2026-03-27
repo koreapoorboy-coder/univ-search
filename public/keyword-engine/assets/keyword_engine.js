@@ -1,316 +1,430 @@
+
+const DATA_PATH = "./data";
 const STORAGE_KEYS = {
-  search: 'keyword_engine_search_logs',
-  interaction: 'keyword_engine_interaction_logs',
-  selection: 'keyword_engine_selection_logs',
-  consulting: 'keyword_engine_consulting_logs'
+  search: "keyword_engine_search_logs",
+  interaction: "keyword_engine_interaction_logs",
+  selection: "keyword_engine_selection_logs",
+  consulting: "keyword_engine_consulting_logs"
 };
 
-const state = {
-  sessionId: `sess_${Date.now()}`,
-  keywordLibrary: {},
-  keywordAlias: {},
-  currentResults: [],
-  currentQuery: null,
-  currentClicks: [],
-  searchStartedAt: null
-};
+let KEYWORD_LIBRARY = {};
+let KEYWORD_ALIAS = {};
+let CURRENT_SESSION = null;
+let CURRENT_RESULTS = [];
+let CURRENT_SEARCH_META = null;
+let CURRENT_INTERACTION = null;
 
-const $ = (selector) => document.querySelector(selector);
-
-async function loadJSON(path) {
-  const res = await fetch(path, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`Failed to load ${path}`);
-  return await res.json();
+function generateSessionId() {
+  return "sess_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
 }
 
-async function init() {
+function nowIso() {
+  return new Date().toISOString();
+}
+
+async function loadJson(path, fallback) {
   try {
-    const [library, alias] = await Promise.all([
-      loadJSON('./data/keyword_library.json'),
-      loadJSON('./data/keyword_alias.json')
-    ]);
-    state.keywordLibrary = library;
-    state.keywordAlias = alias;
-    bindEvents();
-  } catch (error) {
-    alert(`데이터를 불러오지 못했습니다. ${error.message}`);
+    const res = await fetch(path, { cache: "no-store" });
+    if (!res.ok) return fallback;
+    return await res.json();
+  } catch (e) {
+    return fallback;
   }
+}
+
+async function boot() {
+  const [library, alias] = await Promise.all([
+    loadJson(`${DATA_PATH}/keyword_library.json`, {}),
+    loadJson(`${DATA_PATH}/keyword_alias.json`, {})
+  ]);
+  KEYWORD_LIBRARY = library || {};
+  KEYWORD_ALIAS = alias || {};
+
+  bindEvents();
+  renderEmptyState("키워드를 입력하면 관련 탐구 설계 카드가 표시됩니다.");
 }
 
 function bindEvents() {
-  $('#searchBtn').addEventListener('click', handleSearch);
-  $('#randomBtn').addEventListener('click', handleRandomKeyword);
-  $('#exportLogsBtn').addEventListener('click', exportLogs);
-  $('#clearLogsBtn').addEventListener('click', clearLogs);
-  $('#keywordInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleSearch();
+  document.getElementById("searchBtn").addEventListener("click", onSearch);
+  document.getElementById("exportLogsBtn").addEventListener("click", exportLogs);
+  document.getElementById("clearLogsBtn").addEventListener("click", clearLogs);
+  document.getElementById("searchInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") onSearch();
   });
-  window.addEventListener('beforeunload', saveInteractionSnapshot);
 }
 
-function normalizeKeyword(raw) {
-  const cleaned = String(raw || '').trim();
-  if (!cleaned) return '';
-  return state.keywordAlias[cleaned] || cleaned;
+function getFormData() {
+  return {
+    query_keyword: document.getElementById("searchInput").value.trim(),
+    interest_track: document.getElementById("trackSelect").value.trim(),
+    favorite_subjects: document.getElementById("subjectSelect").value ? [document.getElementById("subjectSelect").value.trim()] : [],
+    school_level: document.getElementById("schoolLevelSelect").value.trim(),
+    grade: document.getElementById("gradeSelect").value.trim(),
+    career_interest: document.getElementById("careerInput").value.trim()
+  };
 }
 
-function handleRandomKeyword() {
-  const keys = Object.keys(state.keywordLibrary);
-  const pick = keys[Math.floor(Math.random() * keys.length)];
-  $('#keywordInput').value = pick;
-  handleSearch();
+function normalizeKeyword(keyword) {
+  const raw = keyword.trim();
+  if (!raw) return "";
+  const lower = raw.toLowerCase();
+  if (KEYWORD_LIBRARY[raw]) return raw;
+  if (KEYWORD_ALIAS[raw]) return KEYWORD_ALIAS[raw];
+  if (KEYWORD_ALIAS[lower]) return KEYWORD_ALIAS[lower];
+
+  const direct = Object.keys(KEYWORD_LIBRARY).find((k) => k.toLowerCase() === lower);
+  if (direct) return direct;
+
+  const aliasKey = Object.keys(KEYWORD_ALIAS).find((k) => k.toLowerCase() === lower);
+  if (aliasKey) return KEYWORD_ALIAS[aliasKey];
+
+  // partial keyword scan
+  const partial = Object.keys(KEYWORD_LIBRARY).find((k) => raw.includes(k) || k.includes(raw));
+  if (partial) return partial;
+
+  return raw;
 }
 
-function scoreKeyword(entry, track, subject, keyword) {
-  let score = 0;
-  if (entry.display_name === keyword) score += 60;
-  if ((entry.category || []).includes(track)) score += 15;
-  if ((entry.related_subjects || []).includes(subject)) score += 12;
-  if ((entry.recommended_for || []).includes(track)) score += 10;
+function scorePlan(plan, keywordData, meta) {
+  let score = 50;
+  const text = [
+    plan.type, plan.title, plan.core_design, plan.intent,
+    ...(plan.result_examples || []),
+    ...(plan.record_points || [])
+  ].join(" ");
+
+  if (meta.interest_track && (keywordData.recommended_for || []).some(v => textIncludes(v, meta.interest_track) || textIncludes(meta.interest_track, v))) score += 18;
+  if (meta.favorite_subjects?.length && (keywordData.related_subjects || []).some(s => meta.favorite_subjects.includes(s))) score += 12;
+  if (meta.career_interest && textIncludes(text, meta.career_interest)) score += 10;
+  if (meta.query_keyword && textIncludes(text, meta.query_keyword)) score += 8;
   return score;
 }
 
-function buildResultSet(keyword, track, subject) {
-  const entry = state.keywordLibrary[keyword];
-  if (!entry) return [];
+function textIncludes(a, b) {
+  return String(a || "").toLowerCase().includes(String(b || "").toLowerCase());
+}
 
-  return (entry.plans || [])
+function buildRecommendations(keyword, meta) {
+  const item = KEYWORD_LIBRARY[keyword];
+  if (!item) return [];
+
+  return (item.plans || [])
     .map((plan, idx) => ({
-      keyword,
       rank: idx + 1,
-      score: scoreKeyword(entry, track, subject, keyword) + (3 - idx),
-      related_subjects: entry.related_subjects || [],
-      recommended_for: entry.recommended_for || [],
-      related_keywords: entry.related_keywords || [],
+      keyword,
+      score: scorePlan(plan, item, meta),
       ...plan
     }))
     .sort((a, b) => b.score - a.score)
-    .map((plan, idx) => ({ ...plan, rank: idx + 1 }));
+    .map((row, idx) => ({ ...row, rank: idx + 1 }));
 }
 
-function handleSearch() {
-  const rawKeyword = $('#keywordInput').value;
-  const keyword = normalizeKeyword(rawKeyword);
-  const track = $('#trackSelect').value;
-  const subject = $('#subjectSelect').value;
-  const schoolLevel = $('#schoolLevelSelect').value;
-
-  if (!keyword) {
-    alert('키워드를 입력해 주세요.');
-    return;
-  }
-
-  const entry = state.keywordLibrary[keyword];
-  if (!entry) {
-    alert(`'${keyword}' 키워드는 아직 라이브러리에 없습니다.`);
-    return;
-  }
-
-  const results = buildResultSet(keyword, track, subject);
-  state.currentResults = results;
-  state.currentClicks = [];
-  state.searchStartedAt = Date.now();
-  state.currentQuery = {
-    query_keyword: keyword,
-    interest_track: track || '',
-    favorite_subjects: subject ? [subject] : [],
-    school_level: schoolLevel || '',
-    searched_at: new Date().toISOString(),
-    engine_version: 'keyword_engine_v1'
-  };
-
-  saveLog(STORAGE_KEYS.search, {
-    session_id: state.sessionId,
-    ...state.currentQuery
-  });
-
-  renderSummary(keyword, entry, track, subject);
-  renderResults(results);
-}
-
-function renderSummary(keyword, entry, track, subject) {
-  const section = $('#summarySection');
-  section.classList.remove('hidden');
-  const tags = [keyword, ...(entry.category || []), ...(entry.related_subjects || [])]
-    .filter((v, i, arr) => v && arr.indexOf(v) === i)
-    .slice(0, 8)
-    .map((tag) => `<span class="tag">${tag}</span>`)
-    .join('');
-
-  section.innerHTML = `
-    <div class="summary-top">
-      <div>
-        <h2>${keyword}</h2>
-        <p>${entry.summary || '입력한 키워드와 연결되는 공용 탐구 설계 카드입니다.'}</p>
-      </div>
-      <div>
-        <p>관심 계열: <strong>${track || '전체'}</strong></p>
-        <p>관심 과목: <strong>${subject || '전체'}</strong></p>
-      </div>
-    </div>
-    <div class="summary-tags">${tags}</div>
-  `;
-}
-
-function renderResults(results) {
-  $('#resultSection').classList.remove('hidden');
-  $('#resultMeta').textContent = `${results.length}개의 추천 카드가 생성되었습니다.`;
-  const wrap = $('#resultCards');
-  wrap.innerHTML = '';
-  const template = $('#planCardTemplate');
-
-  results.forEach((plan) => {
-    const node = template.content.firstElementChild.cloneNode(true);
-    node.dataset.planType = plan.type;
-
-    node.querySelector('.card-rank').textContent = `추천 ${plan.rank}`;
-    node.querySelector('.card-title').textContent = plan.title;
-    node.querySelector('.card-type').textContent = `${plan.type} · 점수 ${plan.score}`;
-    node.querySelector('.core-design').textContent = plan.core_design;
-    node.querySelector('.intent').textContent = plan.intent;
-    node.querySelector('.problem-definition').textContent = plan.problem_definition;
-    node.querySelector('.analysis-design').textContent = plan.analysis_design;
-    node.querySelector('.advanced-design').textContent = plan.advanced_design;
-    node.querySelector('.conclusion-design').textContent = plan.conclusion_design;
-    node.querySelector('.why-recommended').textContent = plan.why_recommended;
-
-    fillList(node.querySelector('.result-examples'), plan.result_examples || []);
-    fillList(node.querySelector('.record-points'), plan.record_points || []);
-
-    node.querySelector('.copy-btn').addEventListener('click', () => handleCopy(plan));
-    node.querySelector('.select-btn').addEventListener('click', () => handleSelect(plan));
-    node.querySelector('.consult-btn').addEventListener('click', () => handleConsulting(plan));
-    node.addEventListener('click', () => logCardOpen(plan), { once: true });
-
-    wrap.appendChild(node);
-  });
-}
-
-function fillList(ul, items) {
-  ul.innerHTML = '';
-  items.forEach((item) => {
-    const li = document.createElement('li');
-    li.textContent = item;
-    ul.appendChild(li);
-  });
-}
-
-function logCardOpen(plan) {
-  const payload = {
-    rank: plan.rank,
-    keyword: plan.keyword,
-    plan_type: plan.type,
-    title: plan.title,
-    clicked_at: new Date().toISOString(),
-    dwell_start: Date.now()
-  };
-  state.currentClicks.push(payload);
-}
-
-function handleCopy(plan) {
-  const text = [
-    plan.title,
-    `핵심 탐구 설계: ${plan.core_design}`,
-    `설계 의도: ${plan.intent}`,
-    `문제 정의: ${plan.problem_definition}`,
-    `분석 설계: ${plan.analysis_design}`,
-    `심화 설계: ${plan.advanced_design}`,
-    `결론 설계: ${plan.conclusion_design}`
-  ].join('\n');
-
-  navigator.clipboard.writeText(text).then(() => {
-    saveInteractionSnapshot({ copy_clicked: true, copied_plan: plan.title });
-    alert('카드 내용을 복사했습니다.');
-  });
-}
-
-function handleSelect(plan) {
-  saveLog(STORAGE_KEYS.selection, {
-    session_id: state.sessionId,
-    query_keyword: state.currentQuery?.query_keyword || '',
-    final_selected_plan: {
-      keyword: plan.keyword,
-      plan_type: plan.type,
-      title: plan.title
-    },
-    selected_at: new Date().toISOString()
-  });
-  alert(`'${plan.title}' 카드가 선택되었습니다.`);
-}
-
-function handleConsulting(plan) {
-  saveLog(STORAGE_KEYS.consulting, {
-    session_id: state.sessionId,
-    consulting_requested: true,
-    consulting_requested_at: new Date().toISOString(),
-    pre_consulting_keyword: state.currentQuery?.query_keyword || '',
-    pre_consulting_selected_plan: {
-      keyword: plan.keyword,
-      plan_type: plan.type,
-      title: plan.title
-    },
-    consulting_status: 'requested'
-  });
-  alert('상담 연결 로그가 저장되었습니다.');
-}
-
-function saveInteractionSnapshot(extra = {}) {
-  if (!state.currentResults.length || !state.currentQuery) return;
-  const clickedCards = state.currentClicks.map((item) => ({
-    ...item,
-    dwell_seconds: Math.max(1, Math.floor((Date.now() - item.dwell_start) / 1000))
-  }));
-
-  saveLog(STORAGE_KEYS.interaction, {
-    session_id: state.sessionId,
-    query_keyword: state.currentQuery.query_keyword,
-    recommended_cards: state.currentResults.map((r) => ({
-      rank: r.rank,
-      keyword: r.keyword,
-      plan_type: r.type,
-      title: r.title,
-      score: r.score
-    })),
-    first_clicked_card: clickedCards[0] || null,
-    clicked_cards: clickedCards,
-    ended_at: new Date().toISOString(),
-    ...extra
-  });
-}
-
-function getStoredArray(key) {
+function readLogs(key) {
   try {
-    return JSON.parse(localStorage.getItem(key) || '[]');
-  } catch {
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  } catch (e) {
     return [];
   }
 }
 
-function saveLog(key, item) {
-  const arr = getStoredArray(key);
-  arr.push(item);
-  localStorage.setItem(key, JSON.stringify(arr));
+function writeLogs(key, payload) {
+  const prev = readLogs(key);
+  prev.push(payload);
+  localStorage.setItem(key, JSON.stringify(prev));
+}
+
+function onSearch() {
+  const meta = getFormData();
+  if (!meta.query_keyword) {
+    alert("키워드를 입력해 주세요.");
+    return;
+  }
+
+  const normalized = normalizeKeyword(meta.query_keyword);
+  const keywordData = KEYWORD_LIBRARY[normalized];
+
+  CURRENT_SESSION = generateSessionId();
+  CURRENT_SEARCH_META = {
+    session_id: CURRENT_SESSION,
+    ...meta,
+    normalized_keyword: normalized,
+    searched_at: nowIso(),
+    engine_version: "keyword_engine_v1_localstorage"
+  };
+  writeLogs(STORAGE_KEYS.search, CURRENT_SEARCH_META);
+
+  if (!keywordData) {
+    renderSummary(null, normalized, meta);
+    renderEmptyState(`'${meta.query_keyword}'에 대한 결과가 없습니다. 다른 키워드나 유사어로 검색해 보세요.`);
+    return;
+  }
+
+  CURRENT_RESULTS = buildRecommendations(normalized, meta);
+  CURRENT_INTERACTION = {
+    session_id: CURRENT_SESSION,
+    query_keyword: meta.query_keyword,
+    normalized_keyword: normalized,
+    recommended_cards: CURRENT_RESULTS.map(({ rank, keyword, score, type, title }) => ({
+      rank, keyword, score, plan_type: type, title
+    })),
+    first_clicked_card: null,
+    clicked_cards: [],
+    followup_keywords_clicked: [],
+    copy_clicked: false,
+    save_clicked: false,
+    started_at: nowIso()
+  };
+
+  renderSummary(keywordData, normalized, meta);
+  renderResults(CURRENT_RESULTS, keywordData.related_keywords || []);
+}
+
+function renderSummary(item, keyword, meta) {
+  const summaryRoot = document.getElementById("summarySection");
+  summaryRoot.innerHTML = "";
+  if (!item) return;
+
+  const tpl = document.getElementById("summaryTemplate");
+  const node = tpl.content.firstElementChild.cloneNode(true);
+  node.querySelector("h2").textContent = `${keyword} 탐구 설계 추천`;
+  node.querySelector(".chip").textContent = meta.interest_track ? `${meta.interest_track} 중심 추천` : "공용 추천";
+
+  const metaTags = node.querySelector(".meta-tags");
+  const tags = [
+    ...(item.category || []),
+    ...(item.related_subjects || []).map(v => `${v} 연계`),
+    ...(item.recommended_for || []).slice(0, 2).map(v => `${v} 추천`)
+  ];
+  tags.forEach(tag => {
+    const span = document.createElement("span");
+    span.className = "meta-tag";
+    span.textContent = tag;
+    metaTags.appendChild(span);
+  });
+
+  const followup = node.querySelector(".followup-list");
+  (item.related_keywords || []).forEach(kw => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "followup-btn";
+    btn.textContent = kw;
+    btn.addEventListener("click", () => {
+      if (CURRENT_INTERACTION) {
+        CURRENT_INTERACTION.followup_keywords_clicked.push(kw);
+      }
+      document.getElementById("searchInput").value = kw;
+      onSearch();
+    });
+    followup.appendChild(btn);
+  });
+
+  summaryRoot.appendChild(node);
+}
+
+function renderEmptyState(message) {
+  document.getElementById("resultsSection").innerHTML = `<div class="empty-state">${message}</div>`;
+}
+
+function renderResults(results) {
+  const root = document.getElementById("resultsSection");
+  root.innerHTML = "";
+
+  if (!results.length) {
+    renderEmptyState("추천 결과가 없습니다.");
+    return;
+  }
+
+  results.forEach((result, index) => {
+    const tpl = document.getElementById("resultTemplate");
+    const node = tpl.content.firstElementChild.cloneNode(true);
+
+    node.querySelector(".plan-type").textContent = result.type;
+    node.querySelector(".plan-title").textContent = result.title;
+    node.querySelector(".core-design").textContent = result.core_design || "";
+    node.querySelector(".intent").textContent = result.intent || "";
+    node.querySelector(".problem-definition").textContent = result.problem_definition || "";
+    node.querySelector(".analysis-design").textContent = result.analysis_design || "";
+    node.querySelector(".advanced-design").textContent = result.advanced_design || "";
+    node.querySelector(".conclusion-design").textContent = result.conclusion_design || "";
+    node.querySelector(".why-recommended").textContent = result.why_recommended || "";
+
+    fillList(node.querySelector(".result-examples"), result.result_examples || []);
+    fillList(node.querySelector(".record-points"), result.record_points || []);
+
+    node.querySelector(".copy-btn").addEventListener("click", async () => {
+      const text = buildCardText(result);
+      try {
+        await navigator.clipboard.writeText(text);
+        if (CURRENT_INTERACTION) CURRENT_INTERACTION.copy_clicked = true;
+        alert("내용이 복사되었습니다.");
+      } catch (e) {
+        alert("복사에 실패했습니다.");
+      }
+    });
+
+    node.querySelector(".select-btn").addEventListener("click", () => {
+      logCardClick(result, index);
+      writeLogs(STORAGE_KEYS.selection, {
+        session_id: CURRENT_SESSION,
+        query_keyword: CURRENT_SEARCH_META?.query_keyword || "",
+        normalized_keyword: CURRENT_SEARCH_META?.normalized_keyword || "",
+        final_selected_plan: {
+          keyword: result.keyword,
+          plan_type: result.type,
+          title: result.title
+        },
+        selection_reason: ["학생이 화면에서 직접 선택"],
+        selected_followup_keywords: CURRENT_INTERACTION?.followup_keywords_clicked || [],
+        selected_at: nowIso()
+      });
+      alert("선택 기록이 저장되었습니다.");
+    });
+
+    node.querySelector(".consult-btn").addEventListener("click", () => {
+      logCardClick(result, index);
+      writeLogs(STORAGE_KEYS.consulting, {
+        session_id: CURRENT_SESSION,
+        consulting_requested: true,
+        consulting_requested_at: nowIso(),
+        pre_consulting_keyword: CURRENT_SEARCH_META?.query_keyword || "",
+        pre_consulting_selected_plan: {
+          keyword: result.keyword,
+          plan_type: result.type,
+          title: result.title
+        },
+        consulting_status: "requested"
+      });
+      alert("상담 연결 기록이 저장되었습니다.");
+    });
+
+    node.addEventListener("mouseenter", () => startDwell(index, result));
+    node.addEventListener("mouseleave", () => endDwell(index));
+
+    root.appendChild(node);
+  });
+
+  root.insertAdjacentHTML("beforeend", `<p class="notice">현재 구조는 브라우저 localStorage에 로그를 저장합니다. 나중에 '로그 내보내기'로 JSON을 받을 수 있습니다.</p>`);
+}
+
+function fillList(el, items) {
+  el.innerHTML = "";
+  items.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    el.appendChild(li);
+  });
+}
+
+function buildCardText(result) {
+  const sections = [
+    `[${result.type}] ${result.title}`,
+    `핵심 탐구 설계: ${result.core_design || ""}`,
+    `설계 의도: ${result.intent || ""}`,
+    `문제 정의: ${result.problem_definition || ""}`,
+    `분석 설계: ${result.analysis_design || ""}`,
+    `심화 설계: ${result.advanced_design || ""}`,
+    `결론 설계: ${result.conclusion_design || ""}`,
+    `완성 결과 예시: ${(result.result_examples || []).join(", ")}`,
+    `학생부에 드러날 내용: ${(result.record_points || []).join(", ")}`,
+    `추천 이유: ${result.why_recommended || ""}`
+  ];
+  return sections.join("\n");
+}
+
+function startDwell(index, result) {
+  if (!CURRENT_INTERACTION) return;
+  const exists = CURRENT_INTERACTION.clicked_cards.find(v => v.rank === result.rank && !v.dwell_end);
+  if (exists) return;
+  logCardClick(result, index, false);
+}
+
+function endDwell(index) {
+  if (!CURRENT_INTERACTION) return;
+  const last = [...CURRENT_INTERACTION.clicked_cards].reverse().find(v => !v.dwell_end);
+  if (!last) return;
+  last.dwell_end = nowIso();
+  last.dwell_seconds = Math.max(1, Math.floor((Date.now() - last._startedMs) / 1000));
+  delete last._startedMs;
+}
+
+function logCardClick(result, index, setFirst = true) {
+  if (!CURRENT_INTERACTION) return;
+
+  const clickData = {
+    rank: result.rank,
+    keyword: result.keyword,
+    plan_type: result.type,
+    title: result.title,
+    clicked_at: nowIso(),
+    dwell_start: nowIso(),
+    _startedMs: Date.now()
+  };
+
+  CURRENT_INTERACTION.clicked_cards.push(clickData);
+  if (setFirst && !CURRENT_INTERACTION.first_clicked_card) {
+    CURRENT_INTERACTION.first_clicked_card = {
+      rank: result.rank,
+      plan_type: result.type,
+      title: result.title,
+      clicked_at: clickData.clicked_at
+    };
+  }
 }
 
 function exportLogs() {
-  const payload = {
-    search_logs: getStoredArray(STORAGE_KEYS.search),
-    interaction_logs: getStoredArray(STORAGE_KEYS.interaction),
-    selection_logs: getStoredArray(STORAGE_KEYS.selection),
-    consulting_logs: getStoredArray(STORAGE_KEYS.consulting)
+  if (CURRENT_INTERACTION) {
+    // finalize any open dwell
+    CURRENT_INTERACTION.clicked_cards.forEach(item => {
+      if (!item.dwell_end && item._startedMs) {
+        item.dwell_end = nowIso();
+        item.dwell_seconds = Math.max(1, Math.floor((Date.now() - item._startedMs) / 1000));
+        delete item._startedMs;
+      }
+    });
+    CURRENT_INTERACTION.ended_at = nowIso();
+    const prev = readLogs(STORAGE_KEYS.interaction);
+    const exists = prev.some(v => v.session_id === CURRENT_INTERACTION.session_id);
+    if (!exists) writeLogs(STORAGE_KEYS.interaction, CURRENT_INTERACTION);
+  }
+
+  const bundle = {
+    exported_at: nowIso(),
+    search_logs: readLogs(STORAGE_KEYS.search),
+    interaction_logs: readLogs(STORAGE_KEYS.interaction),
+    selection_logs: readLogs(STORAGE_KEYS.selection),
+    consulting_logs: readLogs(STORAGE_KEYS.consulting)
   };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+
+  const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
   a.download = `keyword_engine_logs_${Date.now()}.json`;
+  document.body.appendChild(a);
   a.click();
+  a.remove();
   URL.revokeObjectURL(url);
 }
 
 function clearLogs() {
-  Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
-  alert('브라우저에 저장된 로그를 초기화했습니다.');
+  if (!confirm("브라우저에 저장된 로그를 모두 지울까요?")) return;
+  Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+  alert("로그가 초기화되었습니다.");
 }
 
-init();
+window.addEventListener("beforeunload", () => {
+  if (!CURRENT_INTERACTION) return;
+  CURRENT_INTERACTION.clicked_cards.forEach(item => {
+    if (!item.dwell_end && item._startedMs) {
+      item.dwell_end = nowIso();
+      item.dwell_seconds = Math.max(1, Math.floor((Date.now() - item._startedMs) / 1000));
+      delete item._startedMs;
+    }
+  });
+  CURRENT_INTERACTION.ended_at = nowIso();
+  const prev = readLogs(STORAGE_KEYS.interaction);
+  const exists = prev.some(v => v.session_id === CURRENT_INTERACTION.session_id);
+  if (!exists) writeLogs(STORAGE_KEYS.interaction, CURRENT_INTERACTION);
+});
+
+boot();
