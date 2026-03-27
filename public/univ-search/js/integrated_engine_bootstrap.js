@@ -71,59 +71,20 @@ function pickRecordPattern(taggedStudent, recordPatterns = []) {
 }
 
 function buildPatternInterpretation(bestPattern, taggedStudent) {
-  const studentId = taggedStudent?.student_id || "";
-  const track = pickTrackFromTags(taggedStudent);
-  const methods = taggedStudent?.method_tags || [];
-  const thinking = taggedStudent?.thinking_tags || [];
-  const majors = taggedStudent?.major_tags || [];
-
-  if (studentId === "shstudy10") {
-    return {
-      current_position: "AI·소프트웨어 계열 진로 방향이 뚜렷하고, 관련 활동이 실제 수행 중심으로 이어진 상태",
-      strength_view: [
-        "전공 방향성이 활동 전반에 일관되게 유지됨 → AI·소프트웨어 관련 관심이 여러 교과와 활동에서 반복적으로 나타남",
-        "교과 학습이 실제 탐구와 활동으로 연결됨 → 배운 개념이 탐구·설계·구현 활동으로 이어지는 흐름이 보임",
-        "수행 중심 활동을 통해 결과가 드러남 → 조사에 그치지 않고 제작·실험·구현 형태의 실제 수행 흔적이 확인됨"
-      ],
-      weakness_view: [
-        "대표 활동의 결과 정리와 결론 제시가 부족함 → 무엇을 했는지는 보이지만 어떤 결과를 얻었는지 정리가 더 필요함",
-        "개별 활동이 하나의 흐름으로 정리되지 않음 → 활동 간 연결은 있으나 하나의 연구 과정처럼 보이도록 묶는 작업이 필요함",
-        "활동 결과에 대한 비교와 해석이 부족함 → 결과 차이, 원인, 개선 방향까지 드러나야 평가 밀도가 높아짐"
-      ],
-      coaching_message: "이 학생의 생활기록부는 AI·소프트웨어 분야에 대한 관심이 교과 학습, 탐구 활동, 실제 수행 경험으로 연결되며 방향성이 안정적으로 형성된 흐름을 보인다."
-    };
-  }
-
   if (!bestPattern) {
     return {
-      current_position: `${track} 방향은 보이지만, 대표 활동을 더 정리해 보여줄 필요가 있는 상태`,
-      strength_view: ["관심 분야의 방향성은 확인되지만, 강점을 더 명확히 보여줄 대표 활동 정리가 필요함"],
-      weakness_view: ["개별 활동을 하나의 흐름으로 묶는 작업이 아직 부족함"],
-      coaching_message: "생활기록부 전체 흐름은 보이지만, 한 가지 핵심 활동을 중심으로 정리하면 학생의 강점이 더 쉽게 전달될 수 있다."
+      current_position: "일반 학생부 비교 기준상 아직 뚜렷한 패턴 판정 전 단계",
+      strength_view: ["패턴 비교 데이터가 더 쌓이면 현재 위치 판단이 더 정확해질 수 있음"],
+      weakness_view: ["일반 학생부 비교 기준이 아직 충분히 매칭되지 않음"],
+      coaching_message: "현재는 합격생 기준보다 일반 학생부 패턴 기준을 더 많이 쌓아 현실 보정을 강화하는 것이 좋다."
     };
-  }
-
-  const strongPoints = [];
-  if (majors.length) strongPoints.push(`전공 방향성이 비교적 선명함 → ${track} 관련 관심이 활동 전반에서 반복적으로 나타남`);
-  if (methods.includes("실험") || methods.includes("데이터분석") || methods.includes("제작") || methods.includes("설계")) {
-    strongPoints.push("교과 학습이 실제 수행으로 이어짐 → 배운 내용을 탐구·실험·설계 활동으로 연결한 흔적이 확인됨");
-  }
-  if (thinking.includes("구조화") || thinking.includes("정량분석")) {
-    strongPoints.push("과정과 결과를 구조적으로 정리하는 힘이 보임 → 단순 참여보다 해석과 정리에 강점이 있음");
-  }
-
-  const weakPoints = [];
-  weakPoints.push("대표 활동의 결과와 의미를 더 분명히 정리할 필요가 있음");
-  weakPoints.push("개별 활동을 하나의 흐름으로 연결해 보여주는 작업이 더 필요함");
-  if (!(methods.includes("실험") || methods.includes("데이터분석") || methods.includes("제작") || methods.includes("설계"))) {
-    weakPoints.push("조사 중심 기록을 수행 중심 기록으로 확장하면 강점이 더 선명해질 수 있음");
   }
 
   return {
-    current_position: `${track} 방향은 비교적 분명하고, 관련 활동이 이어지고 있는 상태`,
-    strength_view: strongPoints.length ? strongPoints : ["관심 분야의 방향성과 활동 연결성이 확인됨"],
-    weakness_view: weakPoints,
-    coaching_message: `이 학생의 생활기록부는 ${track} 분야에 대한 관심이 교과 학습과 활동 경험으로 이어지며 방향성이 형성되는 흐름을 보인다.`
+    current_position: `일반 학생부 비교 기준상 현재 기록은 '${bestPattern.pattern_type}' 패턴에 가장 가깝다.`,
+    strength_view: bestPattern.strength_signals || [],
+    weakness_view: bestPattern.weakness_signals || [],
+    coaching_message: bestPattern.recommended_use || "일반 학생부 비교 기준으로 참고 가능"
   };
 }
 
@@ -150,7 +111,7 @@ function classifyReason(title = "", taggedStudent = {}) {
   const majors = taggedStudent.major_tags || [];
 
   if (title.includes("미세먼지") || title.includes("대기")) {
-    return "환경 데이터 해석 경험과 공학적 문제 해결 방향을 함께 확장할 수 있기 때문";
+    return "환경 데이터를 단순 해석하는 수준을 넘어, 변수 비교·패턴 분석·개선 방안 설계까지 이어지는 연구 흐름을 만들 수 있기 때문";
   }
   if (title.includes("신소재")) {
     return "공학 탐구를 소재·기술 변화의 맥락으로 넓힐 수 있기 때문";
@@ -181,7 +142,7 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
 
   if (title.includes("신소재")) {
     return {
-      direction: "소재 특성과 기술 변화를 연결해 활용 가능성을 분석하는 연구형 탐구",
+      direction: "기술 변화와 소재의 역할을 연결하는 탐구",
       start: "신소재가 실제 산업·생활에서 어떤 문제를 해결했는지 사례를 2~3개 정리한다.",
       expand: "기존 소재와 새로운 소재를 성질·효율·안전성 기준으로 비교한다.",
       deepen: "센서, 배터리, 로봇 부품, 의료 소재 등 자신의 진로와 연결되는 응용 분야를 좁혀 탐구한다.",
@@ -193,7 +154,7 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
 
   if (title.includes("안전사고") || title.includes("장치")) {
     return {
-      direction: "실생활 문제를 기술적으로 해결하는 제작·설계형 연구 탐구",
+      direction: "제작·설계형 문제 해결 탐구",
       start: "실생활 안전 문제를 하나 정하고 사고가 일어나는 원인을 구조적으로 정리한다.",
       expand: "센서, 경고, 자동 정지, 충격 흡수 같은 요소 중 1~2개를 골라 장치 구조를 스케치한다.",
       deepen: "간단한 회로·모형·프로그램 설계 또는 동작 시뮬레이션까지 연결한다.",
@@ -204,7 +165,7 @@ function roadmapByTitle(title = "", taggedStudent = {}) {
   }
 
   return {
-    direction: `${subjectHint || "교과"} 개념을 실제 문제와 연결해 검증하는 연구형 확장 탐구`,
+    direction: `${subjectHint || "교과"} 기반 확장 탐구`,
     start: "현재 과목에서 다룬 개념 중 관심 주제를 하나 고른 뒤 왜 궁금한지 질문으로 정리한다.",
     expand: "자료 조사, 데이터 분석, 실험, 제작 중 가능한 방법을 골라 탐구 절차를 설계한다.",
     deepen: "진로와 연결되는 응용 사례를 붙여 탐구 범위를 좁히고 비교 기준을 만든다.",
@@ -228,7 +189,8 @@ function buildExtensionRecommendations(taggedStudent, basic) {
       deepen: roadmap.deepen,
       complete: roadmap.complete,
       outputs: roadmap.outputs,
-      record_points: roadmap.record_points
+      record_points: roadmap.record_points,
+      consultant_comment: `${x.title}는 단순 활동 추가용 주제가 아니라, 현재 학생의 관심 축을 대표 탐구로 정리해 생활기록부의 설명력을 높이는 데 적합한 설계안이다.`
     };
   });
 }
