@@ -135,7 +135,7 @@ function renderExtensions(items = []) {
       <div style="font-weight:900;font-size:22px;margin-bottom:12px;color:#172033">확장 탐구 설계</div>
       <div style="display:grid;gap:16px">
         ${items.map((item) => {
-          const consultantComment = item.consultant_comment || `${item.title || '이 탐구'}는 단순 활동 추가용이 아니라, 현재 생활기록부의 관심 축을 대표 탐구로 정리해 설명력을 높이는 설계안이다.`;
+          const consultantComment = item.consultant_comment || `${item.title || '이 탐구'}는 학생의 현재 관심 축을 가장 잘 보여줄 수 있는 대표 탐구로, 생활기록부에서 과정과 사고를 구체적으로 드러내기에 적합하다.`;
           return `
           <div style="border:1px solid #dbe4f0;border-radius:22px;padding:18px;background:linear-gradient(180deg,#fcfdff 0%,#f7faff 100%)">
             <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
@@ -169,17 +169,17 @@ function renderExtensions(items = []) {
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px">
               <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
-                <div style="font-weight:800;margin-bottom:8px;color:#182131">예상 산출물</div>
+                <div style="font-weight:800;margin-bottom:8px;color:#182131">완성 결과 예시</div>
                 ${renderBulletList(item.outputs || [], '산출물 없음')}
               </div>
               <div style="border:1px solid #e4ebf5;border-radius:16px;padding:14px;background:#fff">
-                <div style="font-weight:800;margin-bottom:8px;color:#182131">학생부 반영 포인트</div>
+                <div style="font-weight:800;margin-bottom:8px;color:#182131">학생부에 드러날 내용</div>
                 ${renderBulletList(item.record_points || [], '반영 포인트 없음')}
               </div>
             </div>
 
             <div style="border:1px solid #d7e6dc;border-radius:16px;padding:14px;background:#f8fff9">
-              <div style="font-size:13px;font-weight:800;color:#46604b;margin-bottom:6px">컨설턴트 해설</div>
+              <div style="font-size:13px;font-weight:800;color:#46604b;margin-bottom:6px">이 탐구를 추천하는 이유</div>
               <div style="line-height:1.8;color:#1f2937">${escapeHtml(consultantComment)}</div>
             </div>
           </div>`
