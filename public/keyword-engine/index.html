@@ -10,139 +10,166 @@
   <div class="page">
     <header class="hero">
       <div>
-        <p class="eyebrow">KEYWORD ENGINE</p>
+        <p class="eyebrow">PUBLIC KEYWORD ENGINE</p>
         <h1>공용 탐구 설계 엔진</h1>
-        <p class="subtitle">키워드, 관심 계열, 과목을 입력하면 탐구 설계 카드와 학생부 연결 포인트를 추천합니다.</p>
+        <p class="sub">키워드, 관심 계열, 과목을 입력하면 공용 탐구 설계 카드를 추천합니다.</p>
       </div>
       <div class="hero-actions">
-        <button id="exportLogsBtn" class="ghost-btn" type="button">로그 내보내기</button>
-        <button id="clearLogsBtn" class="ghost-btn danger" type="button">로그 초기화</button>
+        <button id="exportLogsBtn" class="secondary">로그 내보내기</button>
+        <button id="clearLogsBtn" class="secondary danger">로그 초기화</button>
       </div>
     </header>
 
-    <section class="search-card">
-      <div class="search-grid">
-        <label class="field field-keyword">
+    <section class="search-panel card">
+      <div class="grid top-grid">
+        <label class="field span-2">
           <span>키워드</span>
-          <input id="keywordInput" type="text" placeholder="예: 미세먼지, 인공지능, 이차전지" />
+          <input id="searchInput" type="text" placeholder="예: 미세먼지, 반도체, 이차전지, 인공지능" />
         </label>
 
         <label class="field">
           <span>관심 계열</span>
           <select id="trackSelect">
-            <option value="">전체</option>
-            <option value="공학">공학</option>
-            <option value="환경">환경</option>
-            <option value="소프트웨어">소프트웨어</option>
-            <option value="자연과학">자연과학</option>
-            <option value="생명">생명</option>
-            <option value="의학">의학</option>
-            <option value="사회">사회</option>
+            <option value="">선택 안 함</option>
+            <option>공학</option>
+            <option>환경</option>
+            <option>자연과학</option>
+            <option>생명·의료</option>
+            <option>소프트웨어</option>
+            <option>사회</option>
           </select>
         </label>
 
         <label class="field">
-          <span>관심 과목</span>
+          <span>좋아하는 과목</span>
           <select id="subjectSelect">
-            <option value="">전체</option>
-            <option value="과학">과학</option>
-            <option value="정보">정보</option>
-            <option value="수학">수학</option>
-            <option value="물리">물리</option>
-            <option value="화학">화학</option>
-            <option value="생명과학">생명과학</option>
-            <option value="사회">사회</option>
+            <option value="">선택 안 함</option>
+            <option>과학</option>
+            <option>정보</option>
+            <option>수학</option>
+            <option>물리</option>
+            <option>화학</option>
+            <option>생명과학</option>
+            <option>사회</option>
           </select>
         </label>
+      </div>
 
+      <div class="grid">
         <label class="field">
           <span>학교급</span>
           <select id="schoolLevelSelect">
-            <option value="">전체</option>
+            <option value="">선택 안 함</option>
             <option value="middle">중학생</option>
             <option value="high">고등학생</option>
           </select>
         </label>
-      </div>
 
-      <div class="search-actions">
-        <button id="searchBtn" class="primary-btn" type="button">탐구 설계 찾기</button>
-        <button id="randomBtn" class="secondary-btn" type="button">랜덤 키워드</button>
+        <label class="field">
+          <span>학년</span>
+          <select id="gradeSelect">
+            <option value="">선택 안 함</option>
+            <option>중1</option>
+            <option>중2</option>
+            <option>중3</option>
+            <option>고1</option>
+            <option>고2</option>
+            <option>고3</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>희망 진로</span>
+          <input id="careerInput" type="text" placeholder="예: 환경공학, 반도체공학, 컴퓨터공학" />
+        </label>
+
+        <div class="field action-field">
+          <span>&nbsp;</span>
+          <button id="searchBtn" class="primary">탐구 추천 보기</button>
+        </div>
       </div>
-      <p class="helper">정적 GitHub Pages 환경에서는 로그가 서버 JSON에 직접 저장되지 않아서, 브라우저 localStorage에 저장한 뒤 JSON으로 내보내는 방식으로 구성했습니다.</p>
     </section>
 
-    <section id="summarySection" class="summary-card hidden"></section>
-
-    <section id="resultSection" class="results hidden">
-      <div class="section-head">
-        <h2>추천 탐구 설계</h2>
-        <p id="resultMeta"></p>
-      </div>
-      <div id="resultCards" class="result-cards"></div>
-    </section>
+    <section id="summarySection" class="summary-wrap"></section>
+    <section id="resultsSection" class="results-grid"></section>
   </div>
 
-  <template id="planCardTemplate">
-    <article class="plan-card">
-      <div class="card-head">
+  <template id="summaryTemplate">
+    <div class="card summary-card">
+      <div class="summary-head">
         <div>
-          <p class="card-rank"></p>
-          <h3 class="card-title"></h3>
-          <p class="card-type"></p>
+          <p class="eyebrow">SUMMARY</p>
+          <h2></h2>
         </div>
-        <div class="card-actions">
-          <button class="copy-btn" type="button">복사</button>
-          <button class="select-btn" type="button">선택</button>
-          <button class="consult-btn" type="button">상담 연결</button>
+        <span class="chip"></span>
+      </div>
+      <div class="meta-tags"></div>
+      <div class="followups">
+        <h3>연결 키워드</h3>
+        <div class="followup-list"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="resultTemplate">
+    <article class="card result-card">
+      <div class="card-top">
+        <div>
+          <p class="eyebrow plan-type"></p>
+          <h3 class="plan-title"></h3>
         </div>
+        <button class="ghost select-btn">이 탐구 선택</button>
       </div>
 
-      <div class="top-grid">
-        <section class="info-box span-2">
-          <h4>핵심 탐구 설계</h4>
-          <p class="core-design"></p>
-        </section>
-        <section class="info-box">
-          <h4>설계 의도</h4>
-          <p class="intent"></p>
-        </section>
+      <div class="section-block">
+        <h4>핵심 탐구 설계</h4>
+        <p class="core-design"></p>
       </div>
 
-      <div class="mid-grid">
-        <section class="info-box">
+      <div class="section-block">
+        <h4>설계 의도</h4>
+        <p class="intent"></p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini-card">
           <h4>문제 정의</h4>
           <p class="problem-definition"></p>
-        </section>
-        <section class="info-box">
+        </div>
+        <div class="mini-card">
           <h4>분석 설계</h4>
           <p class="analysis-design"></p>
-        </section>
-        <section class="info-box">
+        </div>
+        <div class="mini-card">
           <h4>심화 설계</h4>
           <p class="advanced-design"></p>
-        </section>
-        <section class="info-box">
+        </div>
+        <div class="mini-card">
           <h4>결론 설계</h4>
           <p class="conclusion-design"></p>
-        </section>
+        </div>
       </div>
 
-      <div class="bottom-grid">
-        <section class="info-box">
+      <div class="mini-grid bottom-grid">
+        <div class="mini-card">
           <h4>완성 결과 예시</h4>
           <ul class="result-examples"></ul>
-        </section>
-        <section class="info-box">
+        </div>
+        <div class="mini-card">
           <h4>학생부에 드러날 내용</h4>
           <ul class="record-points"></ul>
-        </section>
+        </div>
       </div>
 
-      <section class="info-box why-box">
+      <div class="section-block recommendation-box">
         <h4>이 탐구를 추천하는 이유</h4>
         <p class="why-recommended"></p>
-      </section>
+      </div>
+
+      <div class="action-row">
+        <button class="secondary copy-btn">내용 복사</button>
+        <button class="secondary consult-btn">상담 연결 기록</button>
+      </div>
     </article>
   </template>
 
