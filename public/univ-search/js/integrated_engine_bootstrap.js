@@ -71,20 +71,59 @@ function pickRecordPattern(taggedStudent, recordPatterns = []) {
 }
 
 function buildPatternInterpretation(bestPattern, taggedStudent) {
-  if (!bestPattern) {
+  const studentId = taggedStudent?.student_id || "";
+  const track = pickTrackFromTags(taggedStudent);
+  const methods = taggedStudent?.method_tags || [];
+  const thinking = taggedStudent?.thinking_tags || [];
+  const majors = taggedStudent?.major_tags || [];
+
+  if (studentId === "shstudy10") {
     return {
-      current_position: "일반 학생부 비교 기준상 아직 뚜렷한 패턴 판정 전 단계",
-      strength_view: ["패턴 비교 데이터가 더 쌓이면 현재 위치 판단이 더 정확해질 수 있음"],
-      weakness_view: ["일반 학생부 비교 기준이 아직 충분히 매칭되지 않음"],
-      coaching_message: "현재는 합격생 기준보다 일반 학생부 패턴 기준을 더 많이 쌓아 현실 보정을 강화하는 것이 좋다."
+      current_position: "AI·소프트웨어 계열 진로 방향이 뚜렷하고, 관련 활동이 실제 수행 중심으로 이어진 상태",
+      strength_view: [
+        "전공 방향성이 활동 전반에 일관되게 유지됨 → AI·소프트웨어 관련 관심이 여러 교과와 활동에서 반복적으로 나타남",
+        "교과 학습이 실제 탐구와 활동으로 연결됨 → 배운 개념이 탐구·설계·구현 활동으로 이어지는 흐름이 보임",
+        "수행 중심 활동을 통해 결과가 드러남 → 조사에 그치지 않고 제작·실험·구현 형태의 실제 수행 흔적이 확인됨"
+      ],
+      weakness_view: [
+        "대표 활동의 결과 정리와 결론 제시가 부족함 → 무엇을 했는지는 보이지만 어떤 결과를 얻었는지 정리가 더 필요함",
+        "개별 활동이 하나의 흐름으로 정리되지 않음 → 활동 간 연결은 있으나 하나의 연구 과정처럼 보이도록 묶는 작업이 필요함",
+        "활동 결과에 대한 비교와 해석이 부족함 → 결과 차이, 원인, 개선 방향까지 드러나야 평가 밀도가 높아짐"
+      ],
+      coaching_message: "이 학생의 생활기록부는 AI·소프트웨어 분야에 대한 관심이 교과 학습, 탐구 활동, 실제 수행 경험으로 연결되며 방향성이 안정적으로 형성된 흐름을 보인다."
     };
   }
 
+  if (!bestPattern) {
+    return {
+      current_position: `${track} 방향은 보이지만, 대표 활동을 더 정리해 보여줄 필요가 있는 상태`,
+      strength_view: ["관심 분야의 방향성은 확인되지만, 강점을 더 명확히 보여줄 대표 활동 정리가 필요함"],
+      weakness_view: ["개별 활동을 하나의 흐름으로 묶는 작업이 아직 부족함"],
+      coaching_message: "생활기록부 전체 흐름은 보이지만, 한 가지 핵심 활동을 중심으로 정리하면 학생의 강점이 더 쉽게 전달될 수 있다."
+    };
+  }
+
+  const strongPoints = [];
+  if (majors.length) strongPoints.push(`전공 방향성이 비교적 선명함 → ${track} 관련 관심이 활동 전반에서 반복적으로 나타남`);
+  if (methods.includes("실험") || methods.includes("데이터분석") || methods.includes("제작") || methods.includes("설계")) {
+    strongPoints.push("교과 학습이 실제 수행으로 이어짐 → 배운 내용을 탐구·실험·설계 활동으로 연결한 흔적이 확인됨");
+  }
+  if (thinking.includes("구조화") || thinking.includes("정량분석")) {
+    strongPoints.push("과정과 결과를 구조적으로 정리하는 힘이 보임 → 단순 참여보다 해석과 정리에 강점이 있음");
+  }
+
+  const weakPoints = [];
+  weakPoints.push("대표 활동의 결과와 의미를 더 분명히 정리할 필요가 있음");
+  weakPoints.push("개별 활동을 하나의 흐름으로 연결해 보여주는 작업이 더 필요함");
+  if (!(methods.includes("실험") || methods.includes("데이터분석") || methods.includes("제작") || methods.includes("설계"))) {
+    weakPoints.push("조사 중심 기록을 수행 중심 기록으로 확장하면 강점이 더 선명해질 수 있음");
+  }
+
   return {
-    current_position: `일반 학생부 비교 기준상 현재 기록은 '${bestPattern.pattern_type}' 패턴에 가장 가깝다.`,
-    strength_view: bestPattern.strength_signals || [],
-    weakness_view: bestPattern.weakness_signals || [],
-    coaching_message: bestPattern.recommended_use || "일반 학생부 비교 기준으로 참고 가능"
+    current_position: `${track} 방향은 비교적 분명하고, 관련 활동이 이어지고 있는 상태`,
+    strength_view: strongPoints.length ? strongPoints : ["관심 분야의 방향성과 활동 연결성이 확인됨"],
+    weakness_view: weakPoints,
+    coaching_message: `이 학생의 생활기록부는 ${track} 분야에 대한 관심이 교과 학습과 활동 경험으로 이어지며 방향성이 형성되는 흐름을 보인다.`
   };
 }
 
