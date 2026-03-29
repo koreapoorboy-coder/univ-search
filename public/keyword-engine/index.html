@@ -10,19 +10,24 @@
   <main class="page">
     <header class="hero">
       <h1>공용 탐구 설계 엔진</h1>
-      <p class="hero-sub">키워드를 입력하면 탐구 주제, 활동 설계, 생활기록부형 문장을 함께 제안합니다.</p>
+      <p class="hero-sub">키워드를 입력하면 탐구 주제, 확장 방향, 활동 흐름, 생활기록부 문장까지 함께 제안합니다.</p>
     </header>
 
     <section class="search-panel">
       <div class="search-row">
-        <input id="searchInput" type="text" placeholder="예: 이차전지, 반도체, 인공지능" />
+        <input id="searchInput" type="text" placeholder="예: 이차전지, 반도체, 인공지능, 미세먼지, 스마트팜" />
         <button id="searchBtn" type="button">검색</button>
       </div>
+
       <div class="quick-row">
         <button class="quick-keyword" data-keyword="이차전지">이차전지</button>
         <button class="quick-keyword" data-keyword="반도체">반도체</button>
         <button class="quick-keyword" data-keyword="인공지능">인공지능</button>
         <button class="quick-keyword" data-keyword="미세먼지">미세먼지</button>
+        <button class="quick-keyword" data-keyword="스마트팜">스마트팜</button>
+        <button class="quick-keyword" data-keyword="자율주행">자율주행</button>
+        <button class="quick-keyword" data-keyword="유전자">유전자</button>
+        <button class="quick-keyword" data-keyword="생명윤리">생명윤리</button>
       </div>
     </section>
 
@@ -31,7 +36,7 @@
     <section id="resultWrap" class="result-wrap" hidden>
       <div class="summary-card">
         <div class="summary-top">
-          <span class="summary-badge" id="summaryBadge">공용 추천</span>
+          <span class="summary-badge" id="summaryBadge">탐구 설계 추천</span>
           <span class="summary-keyword" id="summaryKeyword"></span>
         </div>
         <h2 id="summaryTitle"></h2>
