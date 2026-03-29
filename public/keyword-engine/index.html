@@ -9,25 +9,16 @@
 <body>
   <main class="page">
     <header class="hero">
+      <div class="hero-label">CONSULTING KEYWORD ENGINE</div>
       <h1>공용 탐구 설계 엔진</h1>
-      <p class="hero-sub">키워드를 입력하면 탐구 주제, 확장 방향, 활동 흐름, 생활기록부 문장까지 함께 제안합니다.</p>
+      <p class="hero-sub">키워드를 입력하면 추천 이유, 탐구 진행 순서, 결과물 형태, 생활기록부 문장까지 한 번에 제안합니다.</p>
     </header>
 
     <section class="search-panel">
+      <label class="search-label" for="searchInput">탐구 키워드 입력</label>
       <div class="search-row">
         <input id="searchInput" type="text" placeholder="예: 이차전지, 반도체, 인공지능, 미세먼지, 스마트팜" />
         <button id="searchBtn" type="button">검색</button>
-      </div>
-
-      <div class="quick-row">
-        <button class="quick-keyword" data-keyword="이차전지">이차전지</button>
-        <button class="quick-keyword" data-keyword="반도체">반도체</button>
-        <button class="quick-keyword" data-keyword="인공지능">인공지능</button>
-        <button class="quick-keyword" data-keyword="미세먼지">미세먼지</button>
-        <button class="quick-keyword" data-keyword="스마트팜">스마트팜</button>
-        <button class="quick-keyword" data-keyword="자율주행">자율주행</button>
-        <button class="quick-keyword" data-keyword="유전자">유전자</button>
-        <button class="quick-keyword" data-keyword="생명윤리">생명윤리</button>
       </div>
     </section>
 
@@ -36,17 +27,20 @@
     <section id="resultWrap" class="result-wrap" hidden>
       <div class="summary-card">
         <div class="summary-top">
-          <span class="summary-badge" id="summaryBadge">탐구 설계 추천</span>
+          <span class="summary-badge">컨설팅 추천</span>
           <span class="summary-keyword" id="summaryKeyword"></span>
         </div>
         <h2 id="summaryTitle"></h2>
-        <p id="summarySentence" class="summary-sentence"></p>
+        <div class="summary-block">
+          <h3>이 주제를 추천하는 이유</h3>
+          <p id="summarySentence" class="summary-sentence"></p>
+        </div>
       </div>
 
       <div class="detail-grid">
         <article class="detail-card">
-          <h3>탐구 확장 방향</h3>
-          <ul id="directionList" class="bullet-list"></ul>
+          <h3>탐구 진행 순서</h3>
+          <ol id="directionList" class="step-list"></ol>
         </article>
 
         <article class="detail-card">
@@ -55,12 +49,12 @@
         </article>
 
         <article class="detail-card">
-          <h3>완성 결과 예시</h3>
+          <h3>예상 결과물</h3>
           <ul id="resultExampleList" class="bullet-list"></ul>
         </article>
 
         <article class="detail-card">
-          <h3>생활기록부 문장</h3>
+          <h3>생활기록부 문장 예시</h3>
           <p id="recordSentence" class="record-text"></p>
           <button id="copySentenceBtn" class="copy-btn" type="button">문장 복사</button>
         </article>
