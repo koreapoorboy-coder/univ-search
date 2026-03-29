@@ -1,0 +1,21 @@
+# admission UI integration patch 적용 순서
+
+1. 이번 패키지의 `public/keyword-engine/index.html`을 기존 파일에 덮어씁니다.
+2. `public/keyword-engine/assets/keyword_engine.css`와 `keyword_engine.js`를 교체합니다.
+3. 이전 단계에서 넣은 아래 seed 파일이 실제 서비스 경로에 존재하는지 확인합니다.
+   - `public/keyword-engine/seed/keyword_cluster_bridge.json`
+   - `public/keyword-engine/seed/admission_pattern_rules.json`
+   - `public/keyword-engine/seed/admission_grade_level_modifiers.json`
+4. 브라우저 강력 새로고침 후 테스트합니다.
+
+## 기본 테스트 키워드
+- 이차전지 / 고1
+- 이차전지 / 고2 / 신소재·공학
+- 인공지능 / 고3 / AI·SW·공학
+- 다문화 / 고2 / 언어·인문
+- 유전자검사 / 고3 / 간호·보건
+
+## 확인 포인트
+- 키워드만 입력했을 때도 자동 전공군 추천이 되는지
+- 학년을 바꾸면 우측 학년 보정 문구가 달라지는지
+- 관심 계열을 직접 선택하면 자동 추천보다 우선 적용되는지
