@@ -48,7 +48,7 @@ body{
   padding:0 14px;
   font-size:16px;
 }
-.search-row button,.copy-btn{
+.search-row button{
   min-height:46px;
   border:0;
   border-radius:12px;
@@ -107,32 +107,20 @@ body{
   gap:14px;
   margin-top:16px;
 }
-.detail-card,.pattern-section{
+.detail-card,.extension-section{
   background:#fff;
   border:1px solid #e5e7eb;
   border-radius:18px;
   padding:18px;
 }
-.detail-card h3,.pattern-section h3{margin:0 0 12px;font-size:20px}
-.bullet-list{margin:0;padding-left:18px;line-height:1.85}
+.detail-card.full-width{grid-column:1/-1}
+.detail-card h3,.extension-section h3{margin:0 0 12px;font-size:20px}
+.bullet-list{margin:0;padding-left:18px;line-height:1.9}
 .step-list{margin:0;padding-left:22px;line-height:1.95}
-.step-list li{margin-bottom:6px}
-.flow-text,.record-text{margin:0;line-height:1.85;color:#374151}
-.copy-btn{margin-top:12px;background:#2563eb}
-.pattern-section{margin-top:16px}
-.pattern-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-.pattern-item{
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  padding:14px;
-  background:#f9fafb;
-}
-.pattern-item strong{display:block;margin-bottom:8px;font-size:16px}
-.pattern-item span{line-height:1.7;color:#374151}
+.step-list li{margin-bottom:8px}
+.flow-text{margin:0;line-height:1.85;color:#374151}
+.extension-section{margin-top:16px}
 @media (max-width:860px){
-  .search-row,.detail-grid,.pattern-grid{grid-template-columns:1fr}
+  .search-row,.detail-grid{grid-template-columns:1fr}
+  .detail-card.full-width{grid-column:auto}
 }
