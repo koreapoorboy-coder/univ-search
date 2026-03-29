@@ -31,53 +31,6 @@ function normalizeKeyword(raw) {
   return aliasData[value] || value;
 }
 
-function buildFallback(keyword) {
-  const item = libraryData[keyword] || {};
-  const related = item.related_keywords || [];
-  const subjectText = (item.related_subjects || []).join(", ");
-
-  return {
-    keyword,
-    topic: `${keyword} 관련 탐구 설계`,
-    directions: related.length > 0
-      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있습니다.`)
-      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리합니다.`],
-    flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
-    resultExamples: ["탐구 보고서", "발표 자료", "비교표 또는 그래프"],
-    recordSentence: `${keyword}의 핵심 개념을 이해하고${subjectText ? ` ${subjectText} 교과와 연결하여` : ""} 관련 사례를 조사·분석함.`,
-    patternGuide: [
-      { pattern: "기본 탐구형", guide: "개념 이해와 사례 분석을 중심으로 탐구를 설계합니다." }
-    ]
-  };
-}
-
-function buildActivity(keyword) {
-  const item = mappingData[keyword];
-  if (!item) return buildFallback(keyword);
-
-  const sub = item.sub_keywords?.[0] || "핵심 기술";
-  const template = item.topic_templates?.[0] || `${keyword} 관련 탐구`;
-  const topic = template.replaceAll("{sub}", sub).replaceAll("{keyword}", keyword);
-  const directions = item.record_sentences || [];
-  const flow = item.activity_flow || "개념 이해 → 사례 조사 → 분석 → 결론 정리";
-  const resultExamples = item.result_examples || ["탐구 보고서", "발표 자료"];
-  const recordSentence = directions.length ? directions.join(" ") : `${keyword} 관련 탐구를 수행함.`;
-  const patternGuide = (item.patterns || []).map(name => ({
-    pattern: name,
-    guide: patternGuideText(name)
-  }));
-
-  return {
-    keyword,
-    topic,
-    directions,
-    flow,
-    resultExamples,
-    recordSentence,
-    patternGuide
-  };
-}
-
 function patternGuideText(name) {
   const guides = {
     "원리 탐구형": "핵심 개념과 작동 원리를 이해하고 실제 사례와 연결하는 방식으로 탐구를 설계합니다.",
@@ -90,6 +43,45 @@ function patternGuideText(name) {
   return guides[name] || "탐구 방향을 구조적으로 정리하는 패턴입니다.";
 }
 
+function buildFallback(keyword) {
+  const item = libraryData[keyword] || {};
+  const related = item.related_keywords || [];
+  const subjectText = (item.related_subjects || []).join(", ");
+
+  return {
+    keyword,
+    topic: `${keyword} 관련 탐구 설계`,
+    summary: `${keyword}는${subjectText ? ` ${subjectText} 교과와 연결해` : ""} 탐구 방향을 설계할 수 있는 주제입니다.`,
+    directions: related.length > 0
+      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있습니다.`)
+      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리합니다.`],
+    flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
+    resultExamples: ["탐구 보고서", "발표 자료", "비교표 또는 그래프"],
+    recordSentence: `${keyword}의 핵심 개념을 이해하고${subjectText ? ` ${subjectText} 교과와 연결하여` : ""} 관련 사례를 조사·분석함.`,
+    patternGuide: [{ pattern: "기본 탐구형", guide: "개념 이해와 사례 분석을 중심으로 탐구를 설계합니다." }]
+  };
+}
+
+function buildActivity(keyword) {
+  const item = mappingData[keyword];
+  if (!item) return buildFallback(keyword);
+
+  const sub = item.sub_keywords?.[0] || "핵심 기술";
+  const template = item.topic_templates?.[0] || `${keyword} 관련 탐구`;
+  const topic = template.replaceAll("{sub}", sub).replaceAll("{keyword}", keyword);
+
+  return {
+    keyword,
+    topic,
+    summary: item.summary || `${keyword} 관련 탐구를 설계합니다.`,
+    directions: item.directions || [],
+    flow: item.activity_flow || "개념 이해 → 사례 조사 → 분석 → 결론 정리",
+    resultExamples: item.result_examples || ["탐구 보고서", "발표 자료"],
+    recordSentence: item.record_sentence || `${keyword} 관련 탐구를 수행함.`,
+    patternGuide: (item.patterns || []).map(name => ({ pattern: name, guide: patternGuideText(name) }))
+  };
+}
+
 function setStatus(message = "", visible = false) {
   const box = document.getElementById("statusBox");
   box.hidden = !visible;
@@ -100,7 +92,7 @@ function renderResult(model) {
   document.getElementById("resultWrap").hidden = false;
   document.getElementById("summaryKeyword").textContent = model.keyword;
   document.getElementById("summaryTitle").textContent = model.topic;
-  document.getElementById("summarySentence").textContent = model.recordSentence;
+  document.getElementById("summarySentence").textContent = model.summary;
 
   const directionList = document.getElementById("directionList");
   directionList.innerHTML = "";
