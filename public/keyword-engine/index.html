@@ -7,171 +7,66 @@
   <link rel="stylesheet" href="./assets/keyword_engine.css" />
 </head>
 <body>
-  <div class="page">
+  <main class="page">
     <header class="hero">
-      <div>
-        <p class="eyebrow">PUBLIC KEYWORD ENGINE</p>
-        <h1>공용 탐구 설계 엔진</h1>
-        <p class="sub">키워드, 관심 계열, 과목을 입력하면 공용 탐구 설계 카드를 추천합니다.</p>
-      </div>
-      <div class="hero-actions">
-        <button id="exportLogsBtn" class="secondary">로그 내보내기</button>
-        <button id="clearLogsBtn" class="secondary danger">로그 초기화</button>
-      </div>
+      <h1>공용 탐구 설계 엔진</h1>
+      <p class="hero-sub">키워드를 입력하면 탐구 주제, 활동 설계, 생활기록부형 문장을 함께 제안합니다.</p>
     </header>
 
-    <section class="search-panel card">
-      <div class="grid top-grid">
-        <label class="field span-2">
-          <span>키워드</span>
-          <input id="searchInput" type="text" placeholder="예: 미세먼지, 반도체, 이차전지, 인공지능" />
-        </label>
-
-        <label class="field">
-          <span>관심 계열</span>
-          <select id="trackSelect">
-            <option value="">선택 안 함</option>
-            <option>공학</option>
-            <option>환경</option>
-            <option>자연과학</option>
-            <option>생명·의료</option>
-            <option>소프트웨어</option>
-            <option>사회</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>좋아하는 과목</span>
-          <select id="subjectSelect">
-            <option value="">선택 안 함</option>
-            <option>과학</option>
-            <option>정보</option>
-            <option>수학</option>
-            <option>물리</option>
-            <option>화학</option>
-            <option>생명과학</option>
-            <option>사회</option>
-          </select>
-        </label>
+    <section class="search-panel">
+      <div class="search-row">
+        <input id="searchInput" type="text" placeholder="예: 이차전지, 반도체, 인공지능" />
+        <button id="searchBtn" type="button">검색</button>
       </div>
-
-      <div class="grid">
-        <label class="field">
-          <span>학교급</span>
-          <select id="schoolLevelSelect">
-            <option value="">선택 안 함</option>
-            <option value="middle">중학생</option>
-            <option value="high">고등학생</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>학년</span>
-          <select id="gradeSelect">
-            <option value="">선택 안 함</option>
-            <option>중1</option>
-            <option>중2</option>
-            <option>중3</option>
-            <option>고1</option>
-            <option>고2</option>
-            <option>고3</option>
-          </select>
-        </label>
-
-        <label class="field">
-          <span>희망 진로</span>
-          <input id="careerInput" type="text" placeholder="예: 환경공학, 반도체공학, 컴퓨터공학" />
-        </label>
-
-        <div class="field action-field">
-          <span>&nbsp;</span>
-          <button id="searchBtn" class="primary">탐구 추천 보기</button>
-        </div>
+      <div class="quick-row">
+        <button class="quick-keyword" data-keyword="이차전지">이차전지</button>
+        <button class="quick-keyword" data-keyword="반도체">반도체</button>
+        <button class="quick-keyword" data-keyword="인공지능">인공지능</button>
+        <button class="quick-keyword" data-keyword="미세먼지">미세먼지</button>
       </div>
     </section>
 
-    <section id="summarySection" class="summary-wrap"></section>
-    <section id="resultsSection" class="results-grid"></section>
-  </div>
+    <section id="statusBox" class="status-box" hidden></section>
 
-  <template id="summaryTemplate">
-    <div class="card summary-card">
-      <div class="summary-head">
-        <div>
-          <p class="eyebrow">SUMMARY</p>
-          <h2></h2>
+    <section id="resultWrap" class="result-wrap" hidden>
+      <div class="summary-card">
+        <div class="summary-top">
+          <span class="summary-badge" id="summaryBadge">공용 추천</span>
+          <span class="summary-keyword" id="summaryKeyword"></span>
         </div>
-        <span class="chip"></span>
-      </div>
-      <div class="meta-tags"></div>
-      <div class="followups">
-        <h3>연결 키워드</h3>
-        <div class="followup-list"></div>
-      </div>
-    </div>
-  </template>
-
-  <template id="resultTemplate">
-    <article class="card result-card">
-      <div class="card-top">
-        <div>
-          <p class="eyebrow plan-type"></p>
-          <h3 class="plan-title"></h3>
-        </div>
-        <button class="ghost select-btn">이 탐구 선택</button>
+        <h2 id="summaryTitle"></h2>
+        <p id="summarySentence" class="summary-sentence"></p>
       </div>
 
-      <div class="section-block">
-        <h4>핵심 탐구 설계</h4>
-        <p class="core-design"></p>
+      <div class="detail-grid">
+        <article class="detail-card">
+          <h3>탐구 확장 방향</h3>
+          <ul id="directionList" class="bullet-list"></ul>
+        </article>
+
+        <article class="detail-card">
+          <h3>활동 설계 흐름</h3>
+          <p id="flowText" class="flow-text"></p>
+        </article>
+
+        <article class="detail-card">
+          <h3>완성 결과 예시</h3>
+          <ul id="resultExampleList" class="bullet-list"></ul>
+        </article>
+
+        <article class="detail-card">
+          <h3>생활기록부 문장</h3>
+          <p id="recordSentence" class="record-text"></p>
+          <button id="copySentenceBtn" class="copy-btn" type="button">문장 복사</button>
+        </article>
       </div>
 
-      <div class="section-block">
-        <h4>설계 의도</h4>
-        <p class="intent"></p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini-card">
-          <h4>문제 정의</h4>
-          <p class="problem-definition"></p>
-        </div>
-        <div class="mini-card">
-          <h4>분석 설계</h4>
-          <p class="analysis-design"></p>
-        </div>
-        <div class="mini-card">
-          <h4>심화 설계</h4>
-          <p class="advanced-design"></p>
-        </div>
-        <div class="mini-card">
-          <h4>결론 설계</h4>
-          <p class="conclusion-design"></p>
-        </div>
-      </div>
-
-      <div class="mini-grid bottom-grid">
-        <div class="mini-card">
-          <h4>완성 결과 예시</h4>
-          <ul class="result-examples"></ul>
-        </div>
-        <div class="mini-card">
-          <h4>학생부에 드러날 내용</h4>
-          <ul class="record-points"></ul>
-        </div>
-      </div>
-
-      <div class="section-block recommendation-box">
-        <h4>이 탐구를 추천하는 이유</h4>
-        <p class="why-recommended"></p>
-      </div>
-
-      <div class="action-row">
-        <button class="secondary copy-btn">내용 복사</button>
-        <button class="secondary consult-btn">상담 연결 기록</button>
-      </div>
-    </article>
-  </template>
+      <section class="pattern-section">
+        <h3>탐구 패턴 가이드</h3>
+        <div id="patternGuide" class="pattern-grid"></div>
+      </section>
+    </section>
+  </main>
 
   <script src="./assets/keyword_engine.js"></script>
 </body>
