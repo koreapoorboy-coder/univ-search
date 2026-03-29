@@ -33,32 +33,31 @@ function normalizeKeyword(raw) {
 
 function patternGuideText(name) {
   const guides = {
-    "원리 탐구형": "핵심 개념과 작동 원리를 이해하고 실제 사례와 연결하는 방식으로 탐구를 설계합니다.",
-    "비교 분석형": "두 기술·소재·방식을 기준을 세워 비교하고 차이를 해석하는 방식으로 설계합니다.",
-    "데이터 분석형": "수치 자료를 정리하고 변수별 패턴과 의미를 해석하는 구조로 탐구를 구성합니다.",
-    "설계/구현형": "이론을 장치·코드·센서·모형 설계 및 구현 활동으로 확장하는 흐름입니다.",
-    "문제 해결형": "발생한 문제를 분석하고 실행 가능한 개선 방향이나 해결 방안을 제시하는 구조입니다.",
-    "확장/후속연구형": "현재 탐구의 한계를 검토하고 차세대 기술·응용 방향까지 확장하는 구조입니다."
+    "원리 탐구형": "핵심 개념과 작동 원리를 먼저 분명히 잡고, 실제 사례와 연결해 설명력을 높이는 방식이다.",
+    "비교 분석형": "두 기술·소재·방식을 같은 기준으로 놓고 차이를 해석해 탐구의 논리 구조를 선명하게 만드는 방식이다.",
+    "데이터 분석형": "수치 자료를 정리하고 변수별 패턴을 해석해 근거 중심의 결론을 도출하는 구조다.",
+    "설계/구현형": "이론을 장치·코드·센서·모형 활동으로 연결해 수행 경험을 드러내는 흐름이다.",
+    "문제 해결형": "현실 문제를 발견하고 개선 방향이나 해결 방안을 설계해 탐구의 실천성을 높이는 구조다.",
+    "확장/후속연구형": "현재 탐구의 한계를 검토하고 차세대 기술·응용 방향까지 이어 주제를 한 단계 끌어올리는 방식이다."
   };
-  return guides[name] || "탐구 방향을 구조적으로 정리하는 패턴입니다.";
+  return guides[name] || "탐구 방향을 구조적으로 정리하는 패턴이다.";
 }
 
 function buildFallback(keyword) {
   const item = libraryData[keyword] || {};
   const related = item.related_keywords || [];
   const subjectText = (item.related_subjects || []).join(", ");
-
   return {
     keyword,
     topic: `${keyword} 관련 탐구 설계`,
-    summary: `${keyword}는${subjectText ? ` ${subjectText} 교과와 연결해` : ""} 탐구 방향을 설계할 수 있는 주제입니다.`,
+    summary: `${keyword}는${subjectText ? ` ${subjectText} 교과와 연결해` : ""} 탐구 주제를 설계할 수 있는 키워드다.`,
     directions: related.length > 0
-      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있습니다.`)
-      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리합니다.`],
+      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있다.`)
+      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리한다.`],
     flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
     resultExamples: ["탐구 보고서", "발표 자료", "비교표 또는 그래프"],
     recordSentence: `${keyword}의 핵심 개념을 이해하고${subjectText ? ` ${subjectText} 교과와 연결하여` : ""} 관련 사례를 조사·분석함.`,
-    patternGuide: [{ pattern: "기본 탐구형", guide: "개념 이해와 사례 분석을 중심으로 탐구를 설계합니다." }]
+    patternGuide: [{ pattern: "기본 탐구형", guide: "개념 이해와 사례 분석을 중심으로 탐구를 설계한다." }]
   };
 }
 
@@ -73,7 +72,7 @@ function buildActivity(keyword) {
   return {
     keyword,
     topic,
-    summary: item.summary || `${keyword} 관련 탐구를 설계합니다.`,
+    summary: item.summary || `${keyword} 관련 탐구를 설계한다.`,
     directions: item.directions || [],
     flow: item.activity_flow || "개념 이해 → 사례 조사 → 분석 → 결론 정리",
     resultExamples: item.result_examples || ["탐구 보고서", "발표 자료"],
