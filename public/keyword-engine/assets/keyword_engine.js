@@ -22,7 +22,6 @@ async function bootstrap() {
     loadJsonSafe(`${DATA_BASE}/keyword_library.json`),
     loadJsonSafe(`${DATA_BASE}/keyword_alias.json`)
   ]);
-
   bindEvents();
 }
 
@@ -36,14 +35,19 @@ function buildFallback(keyword) {
   const item = libraryData[keyword] || {};
   const related = item.related_keywords || [];
   const subjectText = (item.related_subjects || []).join(", ");
+
   return {
     keyword,
     topic: `${keyword} 관련 탐구 설계`,
-    directions: related.length > 0 ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있습니다.`) : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리합니다.`],
+    directions: related.length > 0
+      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있습니다.`)
+      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리합니다.`],
     flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
     resultExamples: ["탐구 보고서", "발표 자료", "비교표 또는 그래프"],
     recordSentence: `${keyword}의 핵심 개념을 이해하고${subjectText ? ` ${subjectText} 교과와 연결하여` : ""} 관련 사례를 조사·분석함.`,
-    patternGuide: []
+    patternGuide: [
+      { pattern: "기본 탐구형", guide: "개념 이해와 사례 분석을 중심으로 탐구를 설계합니다." }
+    ]
   };
 }
 
@@ -51,16 +55,45 @@ function buildActivity(keyword) {
   const item = mappingData[keyword];
   if (!item) return buildFallback(keyword);
 
-  const sub = (item.sub_keywords && item.sub_keywords[0]) ? item.sub_keywords[0] : "핵심 기술";
-  const template = (item.topic_templates && item.topic_templates[0]) ? item.topic_templates[0] : `${keyword} 관련 탐구`;
+  const sub = item.sub_keywords?.[0] || "핵심 기술";
+  const template = item.topic_templates?.[0] || `${keyword} 관련 탐구`;
   const topic = template.replaceAll("{sub}", sub).replaceAll("{keyword}", keyword);
   const directions = item.record_sentences || [];
   const flow = item.activity_flow || "개념 이해 → 사례 조사 → 분석 → 결론 정리";
   const resultExamples = item.result_examples || ["탐구 보고서", "발표 자료"];
-  const recordSentence = directions.length ? directions.join(" ") : `${keyword}에 관한 탐구를 수행함.`;
-  const patternGuide = (item.patterns || []).map(name => ({ pattern: name, guide: `${name} 구조로 탐구를 설계합니다.` }));
+  const recordSentence = directions.length ? directions.join(" ") : `${keyword} 관련 탐구를 수행함.`;
+  const patternGuide = (item.patterns || []).map(name => ({
+    pattern: name,
+    guide: patternGuideText(name)
+  }));
 
-  return { keyword, topic, directions, flow, resultExamples, recordSentence, patternGuide };
+  return {
+    keyword,
+    topic,
+    directions,
+    flow,
+    resultExamples,
+    recordSentence,
+    patternGuide
+  };
+}
+
+function patternGuideText(name) {
+  const guides = {
+    "원리 탐구형": "핵심 개념과 작동 원리를 이해하고 실제 사례와 연결하는 방식으로 탐구를 설계합니다.",
+    "비교 분석형": "두 기술·소재·방식을 기준을 세워 비교하고 차이를 해석하는 방식으로 설계합니다.",
+    "데이터 분석형": "수치 자료를 정리하고 변수별 패턴과 의미를 해석하는 구조로 탐구를 구성합니다.",
+    "설계/구현형": "이론을 장치·코드·센서·모형 설계 및 구현 활동으로 확장하는 흐름입니다.",
+    "문제 해결형": "발생한 문제를 분석하고 실행 가능한 개선 방향이나 해결 방안을 제시하는 구조입니다.",
+    "확장/후속연구형": "현재 탐구의 한계를 검토하고 차세대 기술·응용 방향까지 확장하는 구조입니다."
+  };
+  return guides[name] || "탐구 방향을 구조적으로 정리하는 패턴입니다.";
+}
+
+function setStatus(message = "", visible = false) {
+  const box = document.getElementById("statusBox");
+  box.hidden = !visible;
+  box.textContent = message;
 }
 
 function renderResult(model) {
@@ -92,24 +125,18 @@ function renderResult(model) {
   const patternGuide = document.getElementById("patternGuide");
   patternGuide.innerHTML = "";
   (model.patternGuide || []).forEach(item => {
-    const box = document.createElement("div");
-    box.className = "pattern-item";
-    box.innerHTML = `<strong>${item.pattern}</strong><span>${item.guide}</span>`;
-    patternGuide.appendChild(box);
+    const el = document.createElement("div");
+    el.className = "pattern-item";
+    el.innerHTML = `<strong>${item.pattern}</strong><span>${item.guide}</span>`;
+    patternGuide.appendChild(el);
   });
 }
 
-function setStatus(message = "", visible = false) {
-  const box = document.getElementById("statusBox");
-  box.hidden = !visible;
-  box.textContent = message;
-}
-
-function runSearch(raw) {
-  const keyword = normalizeKeyword(raw);
+function runSearch(rawKeyword) {
+  const keyword = normalizeKeyword(rawKeyword);
   if (!keyword) {
-    setStatus("키워드를 입력해 주세요.", true);
     document.getElementById("resultWrap").hidden = true;
+    setStatus("키워드를 입력해 주세요.", true);
     return;
   }
   setStatus("", false);
@@ -128,8 +155,9 @@ function bindEvents() {
 
   document.querySelectorAll(".quick-keyword").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.getElementById("searchInput").value = btn.dataset.keyword || "";
-      runSearch(btn.dataset.keyword || "");
+      const keyword = btn.dataset.keyword || "";
+      document.getElementById("searchInput").value = keyword;
+      runSearch(keyword);
     });
   });
 
