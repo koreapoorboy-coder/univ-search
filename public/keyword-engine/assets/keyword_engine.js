@@ -1,220 +1,231 @@
+const DATA_PATHS = {
+  bridge: 'seed/keyword_cluster_bridge.json',
+  patterns: 'seed/admission_pattern_rules.json',
+  gradeModifiers: 'seed/admission_grade_level_modifiers.json'
+};
 
-const REF_BASE = "./reference";
-const DATA_BASE = "./data";
+const CLUSTER_LABELS = {
+  lang_humanities: '언어·인문',
+  nursing_health: '간호·보건',
+  ai_sw_engineering: 'AI·SW·공학',
+  advanced_convergence_stem: '첨단융합·이공',
+  materials_engineering: '신소재·공학'
+};
 
-let mappingData = {};
-let libraryData = {};
-let aliasData = {};
+let ENGINE_DATA = {
+  bridge: [],
+  patterns: { clusters: [] },
+  gradeModifiers: {}
+};
 
-async function loadJsonSafe(path) {
-  try {
-    const res = await fetch(path, { cache: "no-store" });
-    if (!res.ok) return {};
-    return await res.json();
-  } catch (err) {
-    return {};
+const form = document.getElementById('engineForm');
+const keywordInput = document.getElementById('keywordInput');
+const gradeSelect = document.getElementById('gradeSelect');
+const trackSelect = document.getElementById('trackSelect');
+const majorInput = document.getElementById('majorInput');
+const resetBtn = document.getElementById('resetBtn');
+const resultSection = document.getElementById('resultSection');
+const emptyState = document.getElementById('emptyState');
+
+async function loadEngineData() {
+  const [bridge, patterns, gradeModifiers] = await Promise.all([
+    fetchJson(DATA_PATHS.bridge),
+    fetchJson(DATA_PATHS.patterns),
+    fetchJson(DATA_PATHS.gradeModifiers)
+  ]);
+
+  ENGINE_DATA = { bridge, patterns, gradeModifiers };
+}
+
+async function fetchJson(path) {
+  const response = await fetch(path, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`데이터 로딩 실패: ${path}`);
+  }
+  return response.json();
+}
+
+function normalizeKeyword(value) {
+  return String(value || '').trim();
+}
+
+function findBridge(keyword) {
+  const normalized = normalizeKeyword(keyword);
+  return ENGINE_DATA.bridge.find(item => item.keyword === normalized);
+}
+
+function findCluster(clusterId) {
+  return ENGINE_DATA.patterns.clusters.find(item => item.cluster_id === clusterId);
+}
+
+function inferCluster(keyword, selectedTrack) {
+  if (selectedTrack) return selectedTrack;
+
+  const bridge = findBridge(keyword);
+  if (bridge?.primary_cluster) return bridge.primary_cluster;
+
+  return 'advanced_convergence_stem';
+}
+
+function buildReason({ keyword, grade, cluster, bridge, major }) {
+  const gradeProfile = bridge?.grade_profiles?.[grade] || `${grade} 수준에서 무리 없는 탐구 흐름으로 보정`;
+  const majorText = major ? `${major} 진로와의 연결성을 살려` : '전공 연결성을 고려해';
+  const intro = cluster?.starting_frames?.[0] || '이 키워드를 교과와 실제 문제에 연결하는 방식으로';
+  return `${keyword}는 ${CLUSTER_LABELS[cluster.cluster_id] || '관련 전공군'}에서 반복적으로 확장성이 확인된 키워드이며, ${majorText} ${gradeProfile}으로 접근할 때 설득력이 높습니다. 이번 추천은 '${intro}'라는 출발점을 바탕으로, 학생이 실제로 따라가기 쉬운 단계형 흐름으로 정리했습니다.`;
+}
+
+function buildFlow(cluster, grade, keyword) {
+  const raw = cluster?.recommended_flows?.[0] || '질문 설정 → 개념 확인 → 사례 조사 → 정리';
+  return raw.split('→').map(step => `${step.trim()} (${keyword} 기준 ${grade} 단계 적용)`);
+}
+
+function buildMethods(gradeModifier) {
+  return gradeModifier?.recommended_methods || ['사례 조사', '비교 분석'];
+}
+
+function buildOutputs(cluster, keyword) {
+  return (cluster?.preferred_outputs || []).map(item => `${keyword} 주제로 ${item} 형태로 정리`);
+}
+
+function buildExtensions(cluster, bridge, grade, major) {
+  const items = [];
+  const secondary = (bridge?.secondary_clusters || [])
+    .map(id => CLUSTER_LABELS[id])
+    .filter(Boolean);
+
+  if (secondary.length) {
+    items.push(`다음 단계에서는 ${secondary.join(', ')} 관점까지 확장해 융합성을 보여줄 수 있습니다.`);
+  }
+
+  if (major) {
+    items.push(`${major}와 직접 연결되는 사례나 기사, 실험, 보고서 형식으로 정리하면 진로 정합성이 더 선명해집니다.`);
+  }
+
+  items.push(`${grade} 단계에서는 교과 개념을 먼저 잡고, 그 뒤에 사회적 의미·윤리·응용 문제까지 넓히는 순서가 안정적입니다.`);
+  return items;
+}
+
+function buildWarnings(cluster, gradeModifier) {
+  return [...(cluster?.warning_rules || []), ...(gradeModifier?.avoid || [])];
+}
+
+function buildGradeProfiles(bridge) {
+  if (!bridge?.grade_profiles) {
+    return [];
+  }
+
+  return Object.entries(bridge.grade_profiles).map(([grade, text]) => `${grade}: ${text}`);
+}
+
+function renderList(containerId, items, ordered = false) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+
+  items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    el.appendChild(li);
+  });
+
+  if (!ordered && items.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = '연결 가능한 데이터가 아직 부족합니다.';
+    el.appendChild(li);
   }
 }
 
-async function bootstrap() {
-  [mappingData, libraryData, aliasData] = await Promise.all([
-    loadJsonSafe(`${REF_BASE}/keyword_mapping_examples.json`),
-    loadJsonSafe(`${DATA_BASE}/keyword_library.json`),
-    loadJsonSafe(`${DATA_BASE}/keyword_alias.json`)
-  ]);
-  bindEvents();
-}
-
-function normalizeKeyword(raw) {
-  const value = String(raw || "").trim();
-  if (!value) return "";
-  return aliasData[value] || value;
-}
-
-function buildFallback(keyword) {
-  const item = libraryData[keyword] || {};
-  const related = item.related_keywords || [];
-  const subjectText = (item.related_subjects || []).join(", ");
-
-  return {
-    keyword,
-    topic: `${keyword} 관련 탐구 설계`,
-    summary: `${keyword}는${subjectText ? ` ${subjectText} 교과와 연결해` : ""} 탐구 주제를 설계할 수 있는 키워드다.`,
-    directions: [
-      "핵심 개념을 먼저 정리합니다.",
-      "관련 사례를 조사합니다.",
-      "비교하거나 분석할 기준을 세웁니다.",
-      "결과를 정리하고 확장 방향을 붙입니다."
-    ],
-    flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
-    executionSteps: related.length > 0
-      ? [
-          `${related[0]}와 연결해 첫 번째 탐구 축을 잡습니다.`,
-          related[1] ? `${related[1]}를 붙여 비교 또는 분석 방향을 만듭니다.` : "비교 또는 분석 기준을 추가합니다.",
-          "근거 자료를 정리해 발표 또는 보고서 형태로 마무리합니다."
-        ]
-      : [
-          "핵심 개념 1개를 먼저 정리합니다.",
-          "사례 1~2개를 조사해 탐구 축을 잡습니다.",
-          "비교·분석·해결 중 하나로 방향을 정해 마무리합니다."
-        ],
-    extensions: [
-      "같은 키워드를 다른 교과와 연결해보면 확장성이 높아집니다.",
-      "비교 대상이나 실제 사례가 들어가면 탐구 완성도가 올라갑니다."
-    ]
-  };
-}
-
-function buildActivity(keyword) {
-  const item = mappingData[keyword];
-  if (!item) return buildFallback(keyword);
-
-  const sub = item.sub_keywords?.[0] || "핵심 기술";
-  const template = item.topic_templates?.[0] || `${keyword} 관련 탐구`;
-  const topic = template.replaceAll("{sub}", sub).replaceAll("{keyword}", keyword);
-
-  return {
-    keyword,
-    topic,
-    summary: item.summary || `${keyword} 관련 탐구를 설계한다.`,
-    directions: item.directions || [],
-    flow: item.activity_flow || "개념 이해 → 사례 조사 → 분석 → 결론 정리",
-    executionSteps: buildExecutionSteps(keyword, item),
-    extensions: buildExtensions(keyword, item)
-  };
-}
-
-function buildExecutionSteps(keyword, item) {
-  const map = {
-    "이차전지": [
-      "충·방전 원리를 먼저 개념 수준에서 정리합니다.",
-      "전고체 배터리와 비교해 구조·성능 차이를 잡습니다.",
-      "폐배터리 재활용 공정을 붙여 문제 해결 관점으로 확장합니다.",
-      "에너지 저장 시스템까지 연결해 공학적 확장성을 마무리합니다."
-    ],
-    "반도체": [
-      "도핑과 밴드 구조를 중심으로 작동 원리를 정리합니다.",
-      "전력반도체와 일반 반도체의 역할 차이를 비교합니다.",
-      "정밀 공정 사례를 붙여 실제 산업 문제와 연결합니다."
-    ],
-    "인공지능": [
-      "머신러닝과 딥러닝 차이를 데이터 처리 방식 중심으로 정리합니다.",
-      "실제 활용 사례 1개를 골라 문제 해결 구조를 분석합니다.",
-      "할루시네이션이나 편향 문제를 붙여 한계까지 검토합니다."
-    ],
-    "미세먼지": [
-      "시간대·계절·풍속 조건 중 비교 기준을 하나 정합니다.",
-      "데이터를 수집하거나 실제 센서 측정값을 확보합니다.",
-      "변화 패턴을 분석한 뒤 저감 방안을 붙입니다."
-    ],
-    "스마트팜": [
-      "센서와 자동 제어 구조를 먼저 이해합니다.",
-      "생육 데이터나 환경 변화 데이터를 연결합니다.",
-      "아두이노 등 구현 요소를 붙여 실제 수행형 탐구로 만듭니다."
-    ],
-    "자율주행": [
-      "센서 데이터가 어떻게 판단 구조로 들어가는지 먼저 이해합니다.",
-      "통계나 확률 개념을 붙여 사고 회피 구조를 해석합니다.",
-      "안전성과 책임 문제까지 연결해 융합형 주제로 확장합니다."
-    ],
-    "유전자": [
-      "DNA 구조와 유전자 발현 원리를 먼저 정리합니다.",
-      "CRISPR 같은 최신 기술을 비교 대상으로 붙입니다.",
-      "활용 가능성과 한계를 함께 검토하며 심화합니다."
-    ],
-    "생명윤리": [
-      "대표 사례 1~2개를 정해 쟁점을 분리합니다.",
-      "찬반 또는 이해관계자 관점으로 비교 구조를 만듭니다.",
-      "판단 기준을 세우고 자신의 결론까지 정리합니다."
-    ]
-  };
-  return map[keyword] || item.directions || ["핵심 개념을 정리합니다.", "비교 또는 분석 방향을 정합니다.", "결과를 정리합니다."];
-}
-
-function buildExtensions(keyword, item) {
-  const map = {
-    "이차전지": [
-      "배터리 관리 시스템이나 전기차와 연결하면 탐구 축이 더 넓어집니다.",
-      "공정 비교를 넘어서 안전성·효율성 기준까지 세우면 완성도가 올라갑니다."
-    ],
-    "반도체": [
-      "센서, 전력반도체, 정밀 공정 사례를 넣으면 산업 연결성이 더 분명해집니다.",
-      "단순 원리 설명보다 공정 문제까지 붙이면 탐구 수준이 올라갑니다."
-    ],
-    "인공지능": [
-      "윤리 문제를 넣으면 단순 기술 설명을 넘는 탐구가 됩니다.",
-      "다른 교과 사례와 연결하면 활용 범위가 더 넓어집니다."
-    ],
-    "미세먼지": [
-      "실측 데이터가 들어가면 탐구의 신뢰도가 확 올라갑니다.",
-      "지역 비교나 계절 비교를 붙이면 결과 해석이 더 선명해집니다."
-    ]
-  };
-  return map[keyword] || [
-    "비교 대상이나 실제 사례를 추가하면 탐구의 완성도가 올라갑니다.",
-    "교과 개념과 실생활 문제를 함께 연결하면 설득력이 더 강해집니다."
+function renderSummary(summary) {
+  const summaryBox = document.getElementById('summaryBox');
+  const rows = [
+    ['키워드', summary.keyword],
+    ['학년', summary.grade],
+    ['전공군', summary.clusterLabel],
+    ['희망 전공', summary.major || '미입력'],
+    ['추천 방식', summary.gradeFocus]
   ];
+
+  summaryBox.innerHTML = rows.map(([label, value]) => `
+    <dl class="summary-row">
+      <dt>${label}</dt>
+      <dd>${value}</dd>
+    </dl>
+  `).join('');
 }
 
-function setStatus(message = "", visible = false) {
-  const box = document.getElementById("statusBox");
-  box.hidden = !visible;
-  box.textContent = message;
+function renderResult(payload) {
+  document.getElementById('resultKeywordLabel').textContent = `${payload.keyword} 추천 결과`;
+  document.getElementById('resultTitle').textContent = `${payload.keyword} 탐구 설계 네비게이션`;
+  document.getElementById('resultClusterBadge').textContent = payload.clusterLabel;
+  document.getElementById('reasonText').textContent = payload.reason;
+  document.getElementById('depthRule').textContent = payload.depthRule;
+
+  renderList('flowList', payload.flow, true);
+  renderList('methodList', payload.methods);
+  renderList('outputList', payload.outputs);
+  renderList('extensionList', payload.extensions);
+  renderList('warningList', payload.warnings);
+  renderList('gradeProfileList', payload.gradeProfiles);
+  renderSummary(payload.summary);
+
+  emptyState.classList.add('hidden');
+  resultSection.classList.remove('hidden');
 }
 
-function renderResult(model) {
-  document.getElementById("resultWrap").hidden = false;
-  document.getElementById("summaryKeyword").textContent = model.keyword;
-  document.getElementById("summaryTitle").textContent = model.topic;
-  document.getElementById("summarySentence").textContent = model.summary;
+function generateRecommendation({ keyword, grade, selectedTrack, major }) {
+  const bridge = findBridge(keyword);
+  const clusterId = inferCluster(keyword, selectedTrack);
+  const cluster = findCluster(clusterId);
+  const gradeModifier = ENGINE_DATA.gradeModifiers[grade];
+  const clusterLabel = CLUSTER_LABELS[clusterId] || '융합 추천';
 
-  const directionList = document.getElementById("directionList");
-  directionList.innerHTML = "";
-  model.directions.forEach(text => {
-    const li = document.createElement("li");
-    li.textContent = text;
-    directionList.appendChild(li);
-  });
-
-  document.getElementById("flowText").textContent = model.flow;
-
-  const executionList = document.getElementById("executionList");
-  executionList.innerHTML = "";
-  (model.executionSteps || []).forEach(text => {
-    const li = document.createElement("li");
-    li.textContent = text;
-    executionList.appendChild(li);
-  });
-
-  const extensionList = document.getElementById("extensionList");
-  extensionList.innerHTML = "";
-  (model.extensions || []).forEach(text => {
-    const li = document.createElement("li");
-    li.textContent = text;
-    extensionList.appendChild(li);
-  });
+  return {
+    keyword,
+    clusterLabel,
+    reason: buildReason({ keyword, grade, cluster, bridge, major }),
+    flow: buildFlow(cluster, grade, keyword),
+    methods: buildMethods(gradeModifier),
+    outputs: buildOutputs(cluster, keyword),
+    extensions: buildExtensions(cluster, bridge, grade, major),
+    warnings: buildWarnings(cluster, gradeModifier),
+    depthRule: gradeModifier?.depth_rule || `${grade} 맞춤형 보정 규칙 없음`,
+    gradeProfiles: buildGradeProfiles(bridge),
+    summary: {
+      keyword,
+      grade,
+      clusterLabel,
+      major,
+      gradeFocus: bridge?.grade_profiles?.[grade] || '일반 보정 적용'
+    }
+  };
 }
 
-function runSearch(rawKeyword) {
-  const keyword = normalizeKeyword(rawKeyword);
+form.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const keyword = normalizeKeyword(keywordInput.value);
+  const grade = gradeSelect.value;
+  const selectedTrack = trackSelect.value;
+  const major = normalizeKeyword(majorInput.value);
+
   if (!keyword) {
-    document.getElementById("resultWrap").hidden = true;
-    setStatus("키워드를 입력해 주세요.", true);
+    alert('키워드를 입력해 주세요.');
+    keywordInput.focus();
     return;
   }
-  setStatus("", false);
-  const model = buildActivity(keyword);
-  renderResult(model);
-}
 
-function bindEvents() {
-  document.getElementById("searchBtn").addEventListener("click", () => {
-    runSearch(document.getElementById("searchInput").value);
-  });
+  const result = generateRecommendation({ keyword, grade, selectedTrack, major });
+  renderResult(result);
+});
 
-  document.getElementById("searchInput").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") runSearch(e.target.value);
-  });
-}
+resetBtn.addEventListener('click', () => {
+  form.reset();
+  gradeSelect.value = '고1';
+  resultSection.classList.add('hidden');
+  emptyState.classList.remove('hidden');
+  keywordInput.focus();
+});
 
-bootstrap();
+loadEngineData().catch(error => {
+  console.error(error);
+  alert('엔진 데이터를 불러오지 못했습니다. seed 폴더 경로를 확인해 주세요.');
+});
