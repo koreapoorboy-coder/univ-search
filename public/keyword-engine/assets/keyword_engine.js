@@ -47,13 +47,14 @@ function buildFallback(keyword) {
   const item = libraryData[keyword] || {};
   const related = item.related_keywords || [];
   const subjectText = (item.related_subjects || []).join(", ");
+  const directions = related.length > 0
+      ? related.slice(0, 3).map((v, idx) => `${idx + 1}. ${v}와 연결해 탐구 방향을 구체화합니다.`)
+      : ["1. 핵심 개념을 정리합니다.", "2. 사례를 조사합니다.", "3. 결과를 정리합니다."];
   return {
     keyword,
     topic: `${keyword} 관련 탐구 설계`,
     summary: `${keyword}는${subjectText ? ` ${subjectText} 교과와 연결해` : ""} 탐구 주제를 설계할 수 있는 키워드다.`,
-    directions: related.length > 0
-      ? related.map(v => `${v}와 연결해 탐구 방향을 확장할 수 있다.`)
-      : [`${keyword}의 개념과 사례를 조사하고 탐구 방향을 정리한다.`],
+    directions,
     flow: "개념 이해 → 사례 조사 → 비교 또는 데이터 분석 → 결론 정리",
     resultExamples: ["탐구 보고서", "발표 자료", "비교표 또는 그래프"],
     recordSentence: `${keyword}의 핵심 개념을 이해하고${subjectText ? ` ${subjectText} 교과와 연결하여` : ""} 관련 사례를 조사·분석함.`,
@@ -142,14 +143,6 @@ function bindEvents() {
 
   document.getElementById("searchInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter") runSearch(e.target.value);
-  });
-
-  document.querySelectorAll(".quick-keyword").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const keyword = btn.dataset.keyword || "";
-      document.getElementById("searchInput").value = keyword;
-      runSearch(keyword);
-    });
   });
 
   document.getElementById("copySentenceBtn").addEventListener("click", async () => {
