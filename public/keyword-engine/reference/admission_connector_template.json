@@ -1,0 +1,17 @@
+{
+  "description": "2단 엔진에서 seed를 실제 결과 생성에 연결하기 위한 템플릿",
+  "input": {
+    "keyword": "string",
+    "school_level": "중/고",
+    "grade": "고1/고2/고3",
+    "interest_cluster": "전공군",
+    "target_major": "세부 희망전공"
+  },
+  "resolution_order": [
+    "keyword_cluster_bridge에서 1차 cluster 찾기",
+    "admission_pattern_rules에서 cluster 흐름 선택",
+    "admission_grade_level_modifiers로 학년 깊이 보정",
+    "admission_case_seed에서 사례 태그 참고",
+    "추천 이유/진행 순서/활동 흐름/확장 방향 생성"
+  ]
+}
