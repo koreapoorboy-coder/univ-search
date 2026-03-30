@@ -1,248 +1,464 @@
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+const SERVICE_NAME = 'admission-keyword-worker';
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders() });
-    }
+const DEFAULT_SEED_BASE =
+  'https://cdn.jsdelivr.net/gh/koreapoorboy-coder/univ-search@main/public/keyword-engine/seed';
 
-    if (url.pathname === '/health') {
-      return jsonResponse({ ok: true, service: 'admission-keyword-worker' });
-    }
+const REQUIRED_INPUTS = ['keyword', 'grade', 'track', 'major'];
+const OPTIONAL_INPUTS = ['activityLevel', 'style'];
+const OUTPUT_SECTIONS = [
+  'reason',
+  'steps',
+  'flow',
+  'recommendedApproach',
+  'extension',
+  'subjectLinks',
+  'warnings',
+];
 
-    if (url.pathname === '/config' && request.method === 'GET') {
-      return jsonResponse({
-        ok: true,
-        requiredInputs: ['keyword', 'grade', 'track', 'major'],
-        optionalInputs: ['activityLevel', 'style'],
-        outputSections: [
-          'reason',
-          'steps',
-          'flow',
-          'recommendedApproach',
-          'extension',
-          'subjectLinks',
-          'warnings'
-        ]
-      });
-    }
-
-    if (url.pathname === '/generate' && request.method === 'POST') {
-      try {
-        const payload = await request.json();
-        const validation = validateInput(payload);
-        if (!validation.ok) {
-          return jsonResponse({ ok: false, error: validation.error }, 400);
-        }
-
-        const seedBundle = await loadSeedBundle(env);
-        const resolved = resolveContext(payload, seedBundle);
-        const prompt = buildPrompt(payload, resolved, seedBundle);
-
-        // TODO: Replace this stub with actual AI call.
-        const aiResult = buildStubResult(payload, resolved);
-
-        const response = {
-          ok: true,
-          mode: 'stub',
-          requestId: crypto.randomUUID(),
-          input: payload,
-          resolved,
-          promptPreview: prompt.system.slice(0, 800),
-          result: aiResult,
-          generatedAt: new Date().toISOString()
-        };
-
-        ctx.waitUntil(writeLog(env, {
-          type: 'generate',
-          payload,
-          resolved,
-          resultMeta: {
-            mode: 'stub',
-            generatedAt: response.generatedAt
-          }
-        }));
-
-        return jsonResponse(response);
-      } catch (error) {
-        return jsonResponse({ ok: false, error: error.message || 'Unknown error' }, 500);
-      }
-    }
-
-    if (url.pathname === '/log' && request.method === 'POST') {
-      try {
-        const payload = await request.json();
-        await writeLog(env, {
-          type: 'client_log',
-          payload,
-          createdAt: new Date().toISOString()
-        });
-        return jsonResponse({ ok: true });
-      } catch (error) {
-        return jsonResponse({ ok: false, error: error.message || 'Unknown error' }, 500);
-      }
-    }
-
-    return jsonResponse({ ok: false, error: 'Not found' }, 404);
-  }
+const SEED_FILES = {
+  keywordClusterBridge: 'keyword_cluster_bridge.json',
+  admissionPatternRules: 'admission_pattern_rules.json',
+  admissionGradeModifiers: 'admission_grade_level_modifiers.json',
+  reasonBlocks: 'generation_reason_blocks.json',
+  stepBlocks: 'generation_step_blocks.json',
+  flowBlocks: 'generation_flow_blocks.json',
+  extensionBlocks: 'generation_extension_blocks.json',
+  warningBlocks: 'generation_warning_blocks.json',
 };
 
-function validateInput(input) {
-  if (!input || typeof input !== 'object') {
-    return { ok: false, error: 'Input must be an object.' };
-  }
+export default {
+  async fetch(request, env, ctx) {
+    try {
+      const url = new URL(request.url);
+      if (request.method === 'OPTIONS') {
+        return withCors(new Response(null, { status: 204 }));
+      }
+      if (url.pathname === '/health') {
+        return json({ ok: true, service: SERVICE_NAME });
+      }
+      if (url.pathname === '/config') {
+        return json({
+          ok: true,
+          requiredInputs: REQUIRED_INPUTS,
+          optionalInputs: OPTIONAL_INPUTS,
+          outputSections: OUTPUT_SECTIONS,
+          mode: env.ENGINE_MODE || 'development',
+          stubAllowed: String(env.ALLOW_STUB ?? 'true'),
+          seedBaseUrl: env.SEED_BASE_URL || DEFAULT_SEED_BASE,
+          hasOpenAIKey: Boolean(env.OPENAI_API_KEY),
+          model: env.OPENAI_MODEL || 'gpt-4.1-mini',
+        });
+      }
+      if (url.pathname === '/generate' && request.method === 'POST') {
+        const payload = await request.json();
+        const input = resolveInput(payload);
+        validateInput(input);
 
-  const required = ['keyword', 'grade', 'track', 'major'];
-  for (const key of required) {
-    if (!String(input[key] || '').trim()) {
-      return { ok: false, error: `Missing required field: ${key}` };
+        const seedPack = await loadSeedPack(env);
+        const seedMatch = matchSeed(input, seedPack);
+        const prompt = buildPrompt(input, seedMatch, env);
+
+        let result;
+        let source = 'seed-fallback';
+
+        if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
+          try {
+            result = await callOpenAI(prompt, env);
+            source = 'openai';
+          } catch (error) {
+            result = buildSeedFallbackResult(input, seedMatch);
+            source = 'seed-fallback-after-openai-error';
+            console.error('OpenAI call failed:', error?.message || error);
+          }
+        } else {
+          result = buildSeedFallbackResult(input, seedMatch);
+        }
+
+        return json({
+          ok: true,
+          source,
+          resolved: input,
+          matchedCluster: seedMatch.matchedCluster,
+          gradeModifier: seedMatch.gradeModifier,
+          patternRule: seedMatch.patternRule,
+          promptPreview: prompt.slice(0, 4000),
+          result,
+        });
+      }
+      if (url.pathname === '/log' && request.method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        console.log('log event', body);
+        return json({ ok: true });
+      }
+      return json({ ok: false, error: 'Not found' }, 404);
+    } catch (error) {
+      console.error(error);
+      return json({ ok: false, error: error?.message || 'Unknown error' }, 500);
+    }
+  },
+};
+
+function resolveInput(payload) {
+  return {
+    keyword: String(payload?.keyword || '').trim(),
+    grade: String(payload?.grade || '').trim(),
+    track: String(payload?.track || '').trim(),
+    major: String(payload?.major || '').trim(),
+    activityLevel: String(payload?.activityLevel || '미입력').trim(),
+    style: String(payload?.style || '미입력').trim(),
+  };
+}
+
+function validateInput(input) {
+  for (const key of REQUIRED_INPUTS) {
+    if (!input[key]) {
+      throw new Error(`Missing required input: ${key}`);
+    }
+  }
+}
+
+async function loadSeedPack(env) {
+  const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
+  const entries = await Promise.all(
+    Object.entries(SEED_FILES).map(async ([key, file]) => {
+      const url = `${base}/${file}`;
+      const res = await fetch(url, { cf: { cacheTtl: 300, cacheEverything: true } });
+      if (!res.ok) {
+        throw new Error(`Failed to load seed file: ${file} (${res.status})`);
+      }
+      return [key, await res.json()];
+    })
+  );
+  return Object.fromEntries(entries);
+}
+
+function matchSeed(input, seedPack) {
+  const matchedCluster = findMatchedCluster(input, seedPack.keywordClusterBridge);
+  const gradeModifier = findGradeModifier(input.grade, seedPack.admissionGradeModifiers);
+  const patternRule = findPatternRule(input, matchedCluster, seedPack.admissionPatternRules);
+
+  return { matchedCluster, gradeModifier, patternRule, seedPack };
+}
+
+function findMatchedCluster(input, bridge) {
+  const keyword = normalize(input.keyword);
+  const track = normalize(input.track);
+  const major = normalize(input.major);
+
+  const candidates = flattenAny(bridge);
+  for (const item of candidates) {
+    const hay = [
+      item.keyword,
+      ...(toArray(item.keywords)),
+      item.cluster,
+      item.track,
+      item.major,
+      ...(toArray(item.majors)),
+      ...(toArray(item.aliases)),
+    ]
+      .filter(Boolean)
+      .map(normalize);
+
+    const keywordHit = hay.some((v) => v && (v.includes(keyword) || keyword.includes(v)));
+    if (!keywordHit) continue;
+
+    const trackFields = [item.track, ...(toArray(item.tracks))].filter(Boolean).map(normalize);
+    const majorFields = [item.major, ...(toArray(item.majors))].filter(Boolean).map(normalize);
+
+    const trackOk = !trackFields.length || trackFields.some((v) => v.includes(track) || track.includes(v));
+    const majorOk = !majorFields.length || majorFields.some((v) => v.includes(major) || major.includes(v));
+
+    if (trackOk || majorOk) {
+      return item;
     }
   }
 
-  return { ok: true };
-}
-
-async function loadSeedBundle(env) {
-  return {
-    keywordBridge: await readJsonFromKV(env, 'seed:keyword_cluster_bridge'),
-    patternRules: await readJsonFromKV(env, 'seed:admission_pattern_rules'),
-    gradeModifiers: await readJsonFromKV(env, 'seed:admission_grade_level_modifiers'),
-    reasonBlocks: await readJsonFromKV(env, 'seed:generation_reason_blocks'),
-    stepBlocks: await readJsonFromKV(env, 'seed:generation_step_blocks'),
-    flowBlocks: await readJsonFromKV(env, 'seed:generation_flow_blocks'),
-    extensionBlocks: await readJsonFromKV(env, 'seed:generation_extension_blocks'),
-    warningBlocks: await readJsonFromKV(env, 'seed:generation_warning_blocks')
-  };
-}
-
-async function readJsonFromKV(env, key) {
-  if (!env.SEED_KV) return null;
-  const raw = await env.SEED_KV.get(key, 'text');
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
-function resolveContext(input, seeds) {
-  const normalizedKeyword = String(input.keyword).trim();
-  const normalizedTrack = String(input.track).trim();
-  const normalizedGrade = String(input.grade).trim();
-
-  return {
-    keyword: normalizedKeyword,
-    grade: normalizedGrade,
-    track: normalizedTrack,
-    major: String(input.major).trim(),
-    activityLevel: String(input.activityLevel || '').trim() || '미입력',
-    style: String(input.style || '').trim() || '미입력',
-    matchedCluster: findMatchedCluster(normalizedKeyword, seeds.keywordBridge),
-    gradeModifier: findGradeModifier(normalizedGrade, seeds.gradeModifiers),
-    patternRule: findPatternRule(normalizedTrack, seeds.patternRules)
-  };
-}
-
-function findMatchedCluster(keyword, bridge) {
-  if (!bridge) return null;
-  const pools = Array.isArray(bridge) ? bridge : Object.values(bridge).flat();
-  return pools.find(item => {
-    const itemKeyword = item?.keyword || item?.name || '';
-    return String(itemKeyword).trim() === keyword;
+  return candidates.find((item) => {
+    const keys = [item.keyword, ...(toArray(item.keywords))].filter(Boolean).map(normalize);
+    return keys.some((v) => v && (v.includes(keyword) || keyword.includes(v)));
   }) || null;
 }
 
-function findGradeModifier(grade, modifiers) {
-  if (!modifiers) return null;
-  if (Array.isArray(modifiers)) {
-    return modifiers.find(item => item.grade === grade) || null;
-  }
-  return modifiers[grade] || null;
+function findGradeModifier(grade, gradeData) {
+  const flattened = flattenAny(gradeData);
+  return (
+    flattened.find((item) => normalize(item.grade) === normalize(grade)) ||
+    flattened.find((item) => normalize(item.key) === normalize(grade)) ||
+    flattened.find((item) => normalize(item.level) === normalize(grade)) ||
+    null
+  );
 }
 
-function findPatternRule(track, rules) {
-  if (!rules) return null;
-  if (Array.isArray(rules)) {
-    return rules.find(item => item.track === track || item.cluster === track) || null;
-  }
-  return rules[track] || null;
+function findPatternRule(input, matchedCluster, patternData) {
+  const flattened = flattenAny(patternData);
+  const keyword = normalize(input.keyword);
+  const track = normalize(input.track);
+  const major = normalize(input.major);
+  const clusterName = normalize(
+    matchedCluster?.cluster || matchedCluster?.clusterName || matchedCluster?.track || matchedCluster?.major || ''
+  );
+
+  return (
+    flattened.find((item) => {
+      const keys = [item.keyword, ...(toArray(item.keywords))].filter(Boolean).map(normalize);
+      const clusters = [item.cluster, item.clusterName, ...(toArray(item.clusters))].filter(Boolean).map(normalize);
+      const tracks = [item.track, ...(toArray(item.tracks))].filter(Boolean).map(normalize);
+      const majors = [item.major, ...(toArray(item.majors))].filter(Boolean).map(normalize);
+
+      const keywordHit = !keys.length || keys.some((v) => v.includes(keyword) || keyword.includes(v));
+      const clusterHit = !clusters.length || clusters.some((v) => v.includes(clusterName) || clusterName.includes(v));
+      const trackHit = !tracks.length || tracks.some((v) => v.includes(track) || track.includes(v));
+      const majorHit = !majors.length || majors.some((v) => v.includes(major) || major.includes(v));
+      return keywordHit && clusterHit && (trackHit || majorHit);
+    }) || null
+  );
 }
 
-function buildPrompt(input, resolved, seeds) {
-  const system = [
-    '너는 학생용 공용 탐구 설계 엔진의 생성 모듈이다.',
-    '반드시 학생 눈높이에 맞는 한국어로 작성한다.',
-    '생활기록부 문장, 교사 평가 문체, 과장된 입시 단정은 금지한다.',
-    '출력은 reason, steps, flow, recommendedApproach, extension, subjectLinks, warnings 7개 섹션으로 구성한다.',
-    'seed에 없는 방향으로 과도하게 확장하지 않는다.',
-    JSON.stringify({ resolved, controlHints: seeds?.gradeModifiers || null })
-  ].join('\n');
+function buildPrompt(input, seedMatch, env) {
+  const { matchedCluster, gradeModifier, patternRule, seedPack } = seedMatch;
+  const prompt = [
+    '너는 고등학생용 탐구 설계 엔진이다.',
+    '반드시 학생 눈높이의 한국어로만 답하라.',
+    '출력은 JSON만 반환하라.',
+    '키는 reason, steps, flow, recommendedApproach, extension, subjectLinks, warnings 이다.',
+    'steps, flow, subjectLinks, warnings는 배열이어야 한다.',
+    '생활기록부 문장이나 교사 평가 문체는 절대 쓰지 마라.',
+    '대학교 수준의 과도한 이론이나 실험은 피하고, 학년 수준을 지켜라.',
+    '',
+    '[학생 입력]',
+    JSON.stringify(input, null, 2),
+    '',
+    '[매칭 결과]',
+    JSON.stringify({
+      matchedCluster,
+      gradeModifier,
+      patternRule,
+    }, null, 2),
+    '',
+    '[생성용 블록]',
+    JSON.stringify({
+      reasonBlocks: pickBlocks(seedPack.reasonBlocks, input, 5),
+      stepBlocks: pickBlocks(seedPack.stepBlocks, input, 8),
+      flowBlocks: pickBlocks(seedPack.flowBlocks, input, 8),
+      extensionBlocks: pickBlocks(seedPack.extensionBlocks, input, 6),
+      warningBlocks: pickBlocks(seedPack.warningBlocks, input, 6),
+    }, null, 2),
+    '',
+    '[작성 지침]',
+    '- reason: 2~3문장 문자열',
+    '- steps: 4~5개 배열',
+    '- flow: 4~5개 배열',
+    '- recommendedApproach: 2문장 문자열',
+    '- extension: 2문장 문자열',
+    '- subjectLinks: 3~5개 배열',
+    '- warnings: 2~4개 배열',
+  ];
 
-  const user = JSON.stringify(input, null, 2);
-  return { system, user };
+  return prompt.join('\n');
 }
 
-function buildStubResult(input, resolved) {
-  return {
-    reason: `${resolved.keyword}는 ${resolved.track} 계열과 연결하기 좋고, ${resolved.grade} 수준에서 탐구 흐름을 잡기 쉬운 주제입니다.`,
-    steps: [
-      '핵심 개념을 짧게 정리한다.',
-      '비교하거나 분석할 기준을 2~3개 정한다.',
-      '자료 또는 사례를 찾아 핵심 내용을 정리한다.',
-      '자신의 전공 관심과 연결해 해석한다.'
-    ],
-    flow: [
-      '문제의식 설정',
-      '자료 수집',
-      '비교·분석',
-      '결론 정리',
-      '추가 확장 포인트 점검'
-    ],
-    recommendedApproach: `${resolved.activityLevel === '미입력' ? '기본형 비교·분석' : resolved.activityLevel} 수준에 맞춰 ${resolved.style === '미입력' ? '조사·보고서형' : resolved.style} 방식으로 진행하는 것이 적절합니다.`,
-    extension: `${resolved.major}와 연결되는 실제 사례나 사회적 쟁점을 한 단계 더 붙이면 결과의 완성도가 높아집니다.`,
-    subjectLinks: resolved.track.includes('공학') || resolved.track.includes('AI')
-      ? ['물리', '화학', '정보']
-      : ['국어', '사회', '과학'],
-    warnings: [
-      '주제를 너무 넓게 잡지 않는다.',
-      '자료 나열만 하지 말고 비교 기준을 분명히 한다.',
-      `${resolved.grade} 수준을 넘는 과도한 대학 전공 이론은 피한다.`
-    ]
-  };
-}
-
-async function writeLog(env, data) {
-  const record = JSON.stringify({ ...data, createdAt: new Date().toISOString() });
-
-  if (env.LOGS_KV) {
-    const key = `log:${Date.now()}:${crypto.randomUUID()}`;
-    await env.LOGS_KV.put(key, record);
-  }
-
-  if (env.LOG_ENDPOINT) {
-    await fetch(env.LOG_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: record
-    }).catch(() => null);
-  }
-}
-
-function jsonResponse(data, status = 200) {
-  return new Response(JSON.stringify(data, null, 2), {
-    status,
+async function callOpenAI(prompt, env) {
+  const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
+  const res = await fetch('https://api.openai.com/v1/responses', {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      ...corsHeaders()
-    }
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model,
+      input: prompt,
+      text: {
+        format: {
+          type: 'json_schema',
+          name: 'admission_engine_output',
+          schema: {
+            type: 'object',
+            additionalProperties: false,
+            required: OUTPUT_SECTIONS,
+            properties: {
+              reason: { type: 'string' },
+              steps: { type: 'array', items: { type: 'string' } },
+              flow: { type: 'array', items: { type: 'string' } },
+              recommendedApproach: { type: 'string' },
+              extension: { type: 'string' },
+              subjectLinks: { type: 'array', items: { type: 'string' } },
+              warnings: { type: 'array', items: { type: 'string' } },
+            },
+          },
+        },
+      },
+    }),
   });
+
+  const body = await res.json();
+  if (!res.ok) {
+    throw new Error(body?.error?.message || `OpenAI error ${res.status}`);
+  }
+
+  const content = body?.output?.[0]?.content?.[0]?.text || body?.output_text;
+  if (!content) {
+    throw new Error('OpenAI response did not include output text');
+  }
+  return JSON.parse(content);
 }
 
-function corsHeaders() {
+function buildSeedFallbackResult(input, seedMatch) {
+  const { matchedCluster, gradeModifier, patternRule, seedPack } = seedMatch;
+  const reasonBits = pickBlocks(seedPack.reasonBlocks, input, 3);
+  const stepBits = pickBlocks(seedPack.stepBlocks, input, 5);
+  const flowBits = pickBlocks(seedPack.flowBlocks, input, 5);
+  const extBits = pickBlocks(seedPack.extensionBlocks, input, 2);
+  const warnBits = pickBlocks(seedPack.warningBlocks, input, 3);
+
+  const subjectLinks = unique([
+    ...toArray(matchedCluster?.subjects),
+    ...toArray(patternRule?.subjects),
+    ...inferSubjects(input),
+  ]).slice(0, 5);
+
   return {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    reason: compactJoin([
+      `${input.keyword}는 ${input.track} 계열과 연결하기 좋고, ${input.grade} 수준에서 탐구 흐름을 잡기 쉬운 주제입니다.`,
+      reasonBits[0],
+      gradeModifier?.summary || gradeModifier?.description || reasonBits[1],
+    ]),
+    steps: unique([
+      ...stepBits,
+      '자료를 바탕으로 자신의 전공 관심과 연결해 해석한다.',
+    ]).slice(0, 5),
+    flow: unique([
+      ...flowBits,
+      patternRule?.flow,
+      patternRule?.structure,
+    ]).filter(Boolean).slice(0, 5),
+    recommendedApproach: compactJoin([
+      `${input.grade}에서는 ${input.style === '미입력' ? '비교·분석 중심' : input.style + ' 중심'}으로 접근하는 것이 가장 안정적입니다.`,
+      matchedCluster?.recommendedApproach || patternRule?.recommendedApproach,
+    ]),
+    extension: compactJoin([
+      extBits[0] || `${input.major}와 연결되는 실제 사례를 한 단계 더 붙이면 결과의 완성도가 높아집니다.`,
+      extBits[1],
+    ]),
+    subjectLinks,
+    warnings: unique([
+      ...warnBits,
+      `${input.grade} 수준을 넘는 과도한 대학 전공 이론은 피한다.`,
+    ]).slice(0, 4),
   };
+}
+
+function pickBlocks(seed, input, count) {
+  const flat = flattenAny(seed);
+  const keyword = normalize(input.keyword);
+  const track = normalize(input.track);
+  const major = normalize(input.major);
+
+  const scored = flat
+    .map((item) => ({ item, score: scoreBlock(item, keyword, track, major) }))
+    .sort((a, b) => b.score - a.score)
+    .filter((x) => x.score > 0 || !hasAnyMeta(x.item));
+
+  const selected = (scored.length ? scored : flat.map((item) => ({ item, score: 0 })))
+    .slice(0, count)
+    .map(({ item }) => extractBlockText(item))
+    .filter(Boolean);
+
+  return unique(selected);
+}
+
+function scoreBlock(item, keyword, track, major) {
+  let score = 0;
+  const keys = [item.keyword, ...(toArray(item.keywords))].filter(Boolean).map(normalize);
+  const tracks = [item.track, ...(toArray(item.tracks))].filter(Boolean).map(normalize);
+  const majors = [item.major, ...(toArray(item.majors))].filter(Boolean).map(normalize);
+
+  if (!keys.length && !tracks.length && !majors.length) score += 1;
+  if (keys.some((v) => v.includes(keyword) || keyword.includes(v))) score += 5;
+  if (tracks.some((v) => v.includes(track) || track.includes(v))) score += 3;
+  if (majors.some((v) => v.includes(major) || major.includes(v))) score += 2;
+  return score;
+}
+
+function hasAnyMeta(item) {
+  return Boolean(item?.keyword || item?.keywords || item?.track || item?.tracks || item?.major || item?.majors);
+}
+
+function extractBlockText(item) {
+  if (typeof item === 'string') return item;
+  return (
+    item?.text ||
+    item?.block ||
+    item?.content ||
+    item?.value ||
+    item?.description ||
+    item?.message ||
+    item?.summary ||
+    null
+  );
+}
+
+function inferSubjects(input) {
+  const keyword = normalize(input.keyword);
+  const major = normalize(input.major);
+  const track = normalize(input.track);
+
+  const results = [];
+  if (keyword.includes('배터리') || keyword.includes('이차전지') || keyword.includes('반도체')) {
+    results.push('물리', '화학', '정보');
+  }
+  if (keyword.includes('유전자') || keyword.includes('의학') || keyword.includes('간호')) {
+    results.push('생명과학', '화학', '생활과 윤리');
+  }
+  if (keyword.includes('언어') || keyword.includes('다문화')) {
+    results.push('국어', '사회', '영어');
+  }
+  if (major.includes('공학') || track.includes('이공')) {
+    results.push('수학', '물리');
+  }
+  return unique(results);
+}
+
+function flattenAny(data) {
+  if (!data) return [];
+  if (Array.isArray(data)) return data.flatMap(flattenAny);
+  if (typeof data === 'object') {
+    const values = Object.values(data);
+    if (values.every((v) => typeof v !== 'object' || v === null)) return [data];
+    return [data, ...values.flatMap(flattenAny)];
+  }
+  return [data];
+}
+
+function toArray(value) {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+function normalize(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function compactJoin(items) {
+  return items.filter(Boolean).join(' ');
+}
+
+function unique(arr) {
+  return [...new Set(arr.filter(Boolean))];
+}
+
+function json(data, status = 200) {
+  return withCors(
+    new Response(JSON.stringify(data, null, 2), {
+      status,
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    })
+  );
+}
+
+function withCors(response) {
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  return response;
 }
