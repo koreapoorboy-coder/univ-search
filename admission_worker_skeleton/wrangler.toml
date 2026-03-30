@@ -1,0 +1,16 @@
+name = "admission-keyword-worker"
+main = "worker.js"
+compatibility_date = "2026-03-30"
+
+[[kv_namespaces]]
+binding = "SEED_KV"
+id = "REPLACE_WITH_SEED_KV_ID"
+preview_id = "REPLACE_WITH_SEED_KV_PREVIEW_ID"
+
+[[kv_namespaces]]
+binding = "LOGS_KV"
+id = "REPLACE_WITH_LOGS_KV_ID"
+preview_id = "REPLACE_WITH_LOGS_KV_PREVIEW_ID"
+
+[vars]
+LOG_ENDPOINT = ""
