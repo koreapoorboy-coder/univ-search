@@ -1,0 +1,28 @@
+{
+  "generateRequest": {
+    "keyword": "string (required)",
+    "grade": "string (required)",
+    "track": "string (required)",
+    "major": "string (required)",
+    "activityLevel": "string (optional)",
+    "style": "string (optional)"
+  },
+  "generateResponse": {
+    "ok": true,
+    "mode": "stub | ai",
+    "requestId": "string",
+    "input": {},
+    "resolved": {},
+    "promptPreview": "string",
+    "result": {
+      "reason": "string",
+      "steps": ["string"],
+      "flow": ["string"],
+      "recommendedApproach": "string",
+      "extension": "string",
+      "subjectLinks": ["string"],
+      "warnings": ["string"]
+    },
+    "generatedAt": "ISO datetime"
+  }
+}
