@@ -2,137 +2,81 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>탐구 설계 네비게이션 엔진</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>공용 탐구 설계 엔진</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
 </head>
 <body>
   <main class="page">
-    <section class="hero card">
-      <div class="hero-copy">
-        <p class="eyebrow">공용 탐구 설계 엔진</p>
-        <h1>키워드만 설명하지 않고<br />학생 조건에 맞게 길을 보여주는 구조</h1>
-        <p class="hero-desc">
-          같은 키워드라도 학년과 관심 계열에 따라 탐구 흐름이 달라지도록 연결한 상담형 네비게이션 화면입니다.
-        </p>
-      </div>
-      <div class="hero-note">
-        <div class="note-box">
-          <strong>현재 기준</strong>
-          <p>합격생 사례 seed + 전공군 패턴 브리지 + 학년 보정 로직 반영</p>
-        </div>
-      </div>
+    <section class="hero">
+      <h1>공용 탐구 설계 엔진</h1>
+      <p>키워드와 학년, 계열, 희망 전공을 넣으면 AI가 탐구 설계 흐름을 만들어줍니다.</p>
     </section>
 
-    <section class="controls card">
-      <div class="section-head">
-        <h2>탐구 조건 입력</h2>
-        <p>학생이 실제로 선택할 값만 남겨서 단순하게 구성했습니다.</p>
-      </div>
+    <section class="panel form-panel">
+      <div class="grid">
+        <label>
+          <span>키워드</span>
+          <input id="keyword" type="text" placeholder="예: 이차전지" />
+        </label>
 
-      <form id="engineForm" class="engine-form">
-        <div class="field wide">
-          <label for="keywordInput">키워드</label>
-          <input id="keywordInput" name="keyword" type="text" placeholder="예: 이차전지, 인공지능, 다문화" autocomplete="off" />
-        </div>
-
-        <div class="field">
-          <label for="gradeSelect">학년</label>
-          <select id="gradeSelect" name="grade">
-            <option value="고1">고1</option>
-            <option value="고2">고2">고2</option>
-            <option value="고3">고3</option>
+        <label>
+          <span>학년</span>
+          <select id="grade">
+            <option value="">선택</option>
+            <option value="1">고1</option>
+            <option value="2">고2</option>
+            <option value="3">고3</option>
           </select>
-        </div>
+        </label>
 
-        <div class="field">
-          <label for="trackSelect">관심 계열</label>
-          <select id="trackSelect" name="track">
-            <option value="">자동 추천</option>
-            <option value="materials_engineering">신소재·공학</option>
-            <option value="ai_sw_engineering">AI·SW·공학</option>
-            <option value="nursing_health">간호·보건</option>
-            <option value="lang_humanities">언어·인문</option>
-            <option value="advanced_convergence_stem">첨단융합·이공</option>
+        <label>
+          <span>관심 계열</span>
+          <input id="track" type="text" placeholder="예: 이공계" />
+        </label>
+
+        <label>
+          <span>희망 전공</span>
+          <input id="major" type="text" placeholder="예: 화학공학" />
+        </label>
+
+        <label>
+          <span>현재 활동 수준</span>
+          <select id="activityLevel">
+            <option value="미입력">선택 안 함</option>
+            <option value="시작 전">시작 전</option>
+            <option value="기초 탐구 경험">기초 탐구 경험</option>
+            <option value="교과 연계 경험">교과 연계 경험</option>
+            <option value="심화 탐구 경험">심화 탐구 경험</option>
           </select>
-        </div>
+        </label>
 
-        <div class="field wide">
-          <label for="majorInput">희망 전공</label>
-          <input id="majorInput" name="major" type="text" placeholder="예: 신소재공학과, 간호학과, 언어학과" autocomplete="off" />
-        </div>
+        <label>
+          <span>탐구 스타일</span>
+          <select id="style">
+            <option value="미입력">선택 안 함</option>
+            <option value="조사·보고서형">조사·보고서형</option>
+            <option value="실험형">실험형</option>
+            <option value="데이터 분석형">데이터 분석형</option>
+            <option value="토론형">토론형</option>
+            <option value="제작형">제작형</option>
+          </select>
+        </label>
+      </div>
 
-        <div class="actions">
-          <button type="submit" class="btn primary">탐구 흐름 생성</button>
-          <button type="button" id="resetBtn" class="btn secondary">초기화</button>
-        </div>
-      </form>
+      <div class="actions">
+        <button id="generateBtn" type="button">탐구 설계 생성</button>
+        <button id="resetBtn" type="button" class="secondary">초기화</button>
+      </div>
+      <p id="status" class="status" aria-live="polite"></p>
     </section>
 
-    <section id="resultSection" class="result-grid hidden">
-      <article class="card result-main">
-        <div class="result-head">
-          <div>
-            <p class="eyebrow" id="resultKeywordLabel">추천 키워드</p>
-            <h2 id="resultTitle">탐구 설계 결과</h2>
-          </div>
-          <span class="badge" id="resultClusterBadge">전공군</span>
-        </div>
-
-        <div class="result-block">
-          <h3>이 주제를 추천하는 이유</h3>
-          <p id="reasonText"></p>
-        </div>
-
-        <div class="result-block two-col">
-          <div>
-            <h3>탐구 진행 순서</h3>
-            <ol id="flowList" class="flow-list"></ol>
-          </div>
-          <div>
-            <h3>추천 진행 방식</h3>
-            <ul id="methodList" class="tag-list"></ul>
-          </div>
-        </div>
-
-        <div class="result-block two-col">
-          <div>
-            <h3>활동 설계 흐름</h3>
-            <ul id="outputList" class="bullet-list"></ul>
-          </div>
-          <div>
-            <h3>한 단계 더 확장하려면</h3>
-            <ul id="extensionList" class="bullet-list"></ul>
-          </div>
-        </div>
-      </article>
-
-      <aside class="card result-side">
-        <div class="result-block compact">
-          <h3>학년 보정</h3>
-          <p id="depthRule"></p>
-        </div>
-
-        <div class="result-block compact">
-          <h3>이 키워드의 학년별 관점</h3>
-          <ul id="gradeProfileList" class="bullet-list"></ul>
-        </div>
-
-        <div class="result-block compact">
-          <h3>주의할 점</h3>
-          <ul id="warningList" class="bullet-list warning"></ul>
-        </div>
-
-        <div class="result-block compact">
-          <h3>추천 입력값 요약</h3>
-          <div id="summaryBox" class="summary-box"></div>
-        </div>
-      </aside>
-    </section>
-
-    <section id="emptyState" class="card empty-state">
-      <h2>예시</h2>
-      <p>이차전지 + 고1 → 원리 비교 중심 / 이차전지 + 고2 → 안전성·재활용 확장 / 인공지능 + 고3 → 윤리·사회 영향 분석</p>
+    <section id="resultPanel" class="panel result-panel hidden">
+      <div class="result-header">
+        <h2>생성 결과</h2>
+        <span id="resultMode" class="badge"></span>
+      </div>
+      <div id="resultBody" class="result-body"></div>
     </section>
   </main>
 
