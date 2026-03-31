@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "description": "전공군별 탐구 설계 기본 구조 규칙",
+  "majorGroups": [
+    {
+      "groupId": "engineering_general",
+      "groupName": "공학 일반",
+      "coreStructure": [
+        "원리 이해",
+        "구조·성능 비교",
+        "산업 적용",
+        "개선 방향 제시"
+      ],
+      "preferredApproach": [
+        "비교분석형",
+        "설계형",
+        "데이터 해석형"
+      ],
+      "avoidPatterns": [
+        "단순 기술 나열",
+        "교과 개념과 무관한 기사 요약",
+        "대학 수준 공식 남용"
+      ]
+    },
+    {
+      "groupId": "ai_sw",
+      "groupName": "AI·SW",
+      "coreStructure": [
+        "입력-처리-출력 구조 이해",
+        "간단 구현 또는 시뮬레이션",
+        "알고리즘/데이터 해석",
+        "실제 서비스 적용"
+      ],
+      "preferredApproach": [
+        "구현형",
+        "데이터분석형",
+        "문제해결형"
+      ],
+      "avoidPatterns": [
+        "코드 없이 개념만 나열",
+        "모델 이름만 언급하는 탐구",
+        "실현 불가능한 대규모 개발 계획"
+      ]
+    },
+    {
+      "groupId": "chemical_bio_process",
+      "groupName": "화학·생명공정",
+      "coreStructure": [
+        "물질/반응 특성 이해",
+        "공정·효율 비교",
+        "실제 산업·의료 적용",
+        "안전·환경성 검토"
+      ],
+      "preferredApproach": [
+        "실험연계형",
+        "공정비교형",
+        "산업응용형"
+      ],
+      "avoidPatterns": [
+        "반응식 암기형 서술",
+        "공정 없이 제품만 소개",
+        "검증 없는 효과 주장"
+      ]
+    },
+    {
+      "groupId": "health_medical",
+      "groupName": "보건·의료",
+      "coreStructure": [
+        "건강 문제 인식",
+        "원인/기전 이해",
+        "예방·치료·간호 적용",
+        "윤리·안전·공공성 확장"
+      ],
+      "preferredApproach": [
+        "사례분석형",
+        "보건문제해결형",
+        "윤리확장형"
+      ],
+      "avoidPatterns": [
+        "자극적 질병 사례 소비",
+        "의학 용어만 많은 보고서",
+        "환자 관점 없는 탐구"
+      ]
+    },
+    {
+      "groupId": "humanities_language",
+      "groupName": "인문·언어",
+      "coreStructure": [
+        "현상 관찰",
+        "자료 수집",
+        "비교·분석",
+        "사회·문화 의미 도출"
+      ],
+      "preferredApproach": [
+        "자료분석형",
+        "비교해석형",
+        "사회문제연계형"
+      ],
+      "avoidPatterns": [
+        "감상문형 탐구",
+        "자료 출처 불명",
+        "분석 없이 주장만 제시"
+      ]
+    },
+    {
+      "groupId": "environment_energy",
+      "groupName": "환경·에너지",
+      "coreStructure": [
+        "문제 상황 정의",
+        "원인/원리 파악",
+        "기술·정책 비교",
+        "지속가능성 평가"
+      ],
+      "preferredApproach": [
+        "정책비교형",
+        "기술비교형",
+        "문제해결형"
+      ],
+      "avoidPatterns": [
+        "친환경 구호만 반복",
+        "실현성 없는 대안 제시",
+        "수치·근거 없는 주장"
+      ]
+    }
+  ]
+}
