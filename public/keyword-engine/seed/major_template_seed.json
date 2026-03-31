@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "description": "전공군 + 세부 전공 템플릿 매핑 seed",
+  "templateRouting": {
+    "priorityOrder": [
+      "major exact match",
+      "major alias match",
+      "major group match",
+      "track fallback",
+      "generic fallback"
+    ],
+    "fieldUsage": {
+      "keyword": "주제 핵심",
+      "grade": "난이도 보정",
+      "track": "전공군 1차 분기",
+      "major": "세부 전공 최종 분기",
+      "activityLevel": "실행 난이도 조절",
+      "style": "출력 형식 보정"
+    }
+  },
+  "recommendedPromptInjection": [
+    "입력된 전공에 해당하는 템플릿을 우선 사용하라",
+    "해당 전공에서 자주 평가되는 탐구 구조를 반영하라",
+    "학생이 방향을 잡기 어려운 상황이라면 여러 선택지 대신 하나의 우선 경로를 제시하라",
+    "합격생 패턴에 가까운 구조를 따르되 고등학생 수행 가능 범위를 넘지 말라"
+  ]
+}
