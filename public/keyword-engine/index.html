@@ -10,44 +10,51 @@
   <main class="page">
     <section class="hero">
       <h1>공용 탐구 설계 엔진</h1>
-      <p>키워드와 학년, 계열, 희망 전공을 넣으면 AI가 탐구 설계 흐름을 만들어줍니다.</p>
+      <p>전공과 학년에 맞는 탐구 방향을 제안하고, 관련 교과서 근거까지 연결합니다.</p>
     </section>
 
     <section class="panel form-panel">
-      <div class="grid">
+      <div class="form-grid">
         <label>
           <span>키워드</span>
-          <input id="keyword" type="text" placeholder="예: 이차전지" />
+          <input id="keyword" type="text" placeholder="예: 이차전지, 유전자 검사, 탄소중립" />
         </label>
 
         <label>
           <span>학년</span>
           <select id="grade">
             <option value="">선택</option>
-            <option value="1">고1</option>
-            <option value="2">고2</option>
-            <option value="3">고3</option>
+            <option value="1학년">1학년</option>
+            <option value="2학년">2학년</option>
+            <option value="3학년">3학년</option>
           </select>
         </label>
 
         <label>
           <span>관심 계열</span>
-          <input id="track" type="text" placeholder="예: 이공계" />
+          <select id="track">
+            <option value="">선택</option>
+            <option value="이공계">이공계</option>
+            <option value="보건·의료">보건·의료</option>
+            <option value="AI·SW">AI·SW</option>
+            <option value="인문·사회">인문·사회</option>
+            <option value="환경">환경</option>
+            <option value="경영·경제">경영·경제</option>
+          </select>
         </label>
 
         <label>
           <span>희망 전공</span>
-          <input id="major" type="text" placeholder="예: 화학공학" />
+          <input id="major" type="text" placeholder="예: 화학공학, 컴퓨터공학과, 간호학과" />
         </label>
 
         <label>
           <span>현재 활동 수준</span>
           <select id="activityLevel">
             <option value="미입력">선택 안 함</option>
-            <option value="시작 전">시작 전</option>
-            <option value="기초 탐구 경험">기초 탐구 경험</option>
-            <option value="교과 연계 경험">교과 연계 경험</option>
-            <option value="심화 탐구 경험">심화 탐구 경험</option>
+            <option value="초기 탐색">초기 탐색</option>
+            <option value="기초 탐구 경험 있음">기초 탐구 경험 있음</option>
+            <option value="심화 탐구 경험 있음">심화 탐구 경험 있음</option>
           </select>
         </label>
 
@@ -55,31 +62,71 @@
           <span>탐구 스타일</span>
           <select id="style">
             <option value="미입력">선택 안 함</option>
-            <option value="조사·보고서형">조사·보고서형</option>
             <option value="실험형">실험형</option>
-            <option value="데이터 분석형">데이터 분석형</option>
-            <option value="토론형">토론형</option>
-            <option value="제작형">제작형</option>
+            <option value="자료분석형">자료분석형</option>
+            <option value="사례분석형">사례분석형</option>
+            <option value="구현형">구현형</option>
+            <option value="비교탐구형">비교탐구형</option>
           </select>
         </label>
       </div>
 
       <div class="actions">
-        <button id="generateBtn" type="button">탐구 설계 생성</button>
-        <button id="resetBtn" type="button" class="secondary">초기화</button>
+        <button id="generateBtn" class="primary-btn">탐구 설계 생성</button>
+        <span id="loadingText" class="loading-text" hidden>생성 중...</span>
       </div>
-      <p id="status" class="status" aria-live="polite"></p>
+      <p id="statusMessage" class="status-message"></p>
     </section>
 
-    <section id="resultPanel" class="panel result-panel hidden">
-      <div class="result-header">
-        <h2>생성 결과</h2>
-        <span id="resultMode" class="badge"></span>
+    <section id="resultSection" class="panel result-panel" hidden>
+      <div class="result-grid">
+        <article class="result-card">
+          <h2>추천 이유</h2>
+          <p id="reason"></p>
+        </article>
+
+        <article class="result-card">
+          <h2>탐구 진행 순서</h2>
+          <ul id="steps"></ul>
+        </article>
+
+        <article class="result-card">
+          <h2>활동 설계 흐름</h2>
+          <ul id="flow"></ul>
+        </article>
+
+        <article class="result-card">
+          <h2>추천 진행 방식</h2>
+          <p id="recommendedApproach"></p>
+        </article>
+
+        <article class="result-card">
+          <h2>한 단계 더 확장하려면</h2>
+          <p id="extension"></p>
+        </article>
+
+        <article class="result-card">
+          <h2>관련 교과 연결</h2>
+          <ul id="subjectLinks"></ul>
+        </article>
+
+        <article class="result-card">
+          <h2>주의할 점</h2>
+          <ul id="warnings"></ul>
+        </article>
       </div>
-      <div id="resultBody" class="result-body"></div>
+    </section>
+
+    <section id="textbookSection" class="panel textbook-panel" hidden>
+      <div class="section-head">
+        <h2>관련 교과서 근거</h2>
+        <p>현재 입력과 연결되는 교과·단원·핵심 개념을 기준으로 정리합니다.</p>
+      </div>
+      <div id="textbookMatches" class="textbook-matches"></div>
     </section>
   </main>
 
+  <script src="assets/student_textbook_matcher.js"></script>
   <script src="assets/keyword_engine.js"></script>
 </body>
 </html>
