@@ -1,0 +1,19 @@
+{
+  "sections": [
+    {
+      "id": "relatedBooks",
+      "title": "관련 교과 연계 추천도서",
+      "description": "현재 키워드/전공과 연결되는 교과·도서 추천"
+    },
+    {
+      "id": "followupActivities",
+      "title": "이 주제와 연결해서 더 해볼 활동",
+      "description": "PDF의 '한걸음 더' 기반 후속 활동"
+    }
+  ],
+  "mapping_rules": [
+    "keyword -> subject/topic bridge 우선 매칭",
+    "major -> related_majors 보정",
+    "keyword_cluster와 major_template 결과를 함께 사용"
+  ]
+}
