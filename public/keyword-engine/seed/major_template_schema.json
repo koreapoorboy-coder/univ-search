@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "name": "major_group_template_rules.json",
+      "requiredKeys": [
+        "version",
+        "description",
+        "majorGroups"
+      ]
+    },
+    {
+      "name": "major_detail_template_seed.json",
+      "requiredKeys": [
+        "version",
+        "description",
+        "majors"
+      ]
+    },
+    {
+      "name": "major_template_seed.json",
+      "requiredKeys": [
+        "version",
+        "description",
+        "templateRouting",
+        "recommendedPromptInjection"
+      ]
+    }
+  ],
+  "majorRecordRequiredKeys": [
+    "majorId",
+    "majorName",
+    "majorGroup",
+    "focusKeywords",
+    "templateAxes",
+    "goodPatterns",
+    "warningPatterns"
+  ]
+}
