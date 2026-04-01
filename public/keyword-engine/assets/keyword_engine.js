@@ -1,4 +1,6 @@
+
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
+const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -9,7 +11,7 @@ function escapeHtml(value) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
 
@@ -17,6 +19,10 @@ function toArray(value) {
   if (Array.isArray(value)) return value;
   if (value == null) return [];
   return [value];
+}
+
+function normalizeText(value) {
+  return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
 }
 
 function renderBullets(items) {
@@ -48,7 +54,6 @@ function validateInput(data) {
     ["track", "관심 계열"],
     ["major", "희망 전공"]
   ];
-
   for (const [key, label] of required) {
     if (!data[key]) {
       throw new Error(`${label}을(를) 입력해 주세요.`);
@@ -96,7 +101,8 @@ function clearResults() {
     "extensionCard",
     "subjectLinksCard",
     "warningsCard",
-    "textbookSection"
+    "textbookSection",
+    "extensionLibrarySection"
   ];
   ids.forEach(id => {
     const el = $(id);
@@ -109,9 +115,7 @@ function clearResults() {
 async function callGenerateAPI(payload) {
   const response = await fetch(`${WORKER_BASE_URL}/generate`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
 
@@ -137,18 +141,13 @@ async function callGenerateAPI(payload) {
 
 async function getTextbookMatches(payload) {
   try {
-    if (typeof window.matchTextbook !== "function") {
-      return [];
-    }
-
+    if (typeof window.matchTextbook !== "function") return [];
     const keywords = [payload.keyword, payload.track, payload.major].filter(Boolean);
-
     const result = await window.matchTextbook({
       keywords,
       category: payload.track,
       major: payload.major
     });
-
     if (Array.isArray(result)) return result;
     if (Array.isArray(result?.matches)) return result.matches;
     return [];
@@ -161,45 +160,16 @@ async function getTextbookMatches(payload) {
 function renderResultCards(apiData) {
   const result = apiData.result || {};
 
-  $("reasonCard").innerHTML = `
-    <h3>추천 이유</h3>
-    ${renderText(result.reason)}
-  `;
-
-  $("stepsCard").innerHTML = `
-    <h3>탐구 진행 순서</h3>
-    ${renderBullets(result.steps)}
-  `;
-
-  $("flowCard").innerHTML = `
-    <h3>활동 설계 흐름</h3>
-    ${renderBullets(result.flow)}
-  `;
-
-  $("approachCard").innerHTML = `
-    <h3>추천 진행 방식</h3>
-    ${renderText(result.recommendedApproach)}
-  `;
-
-  $("extensionCard").innerHTML = `
-    <h3>한 단계 더 확장하려면</h3>
-    ${renderText(result.extension)}
-  `;
-
-  $("subjectLinksCard").innerHTML = `
-    <h3>관련 교과 연결</h3>
-    ${renderBullets(result.subjectLinks)}
-  `;
-
-  $("warningsCard").innerHTML = `
-    <h3>주의할 점</h3>
-    ${renderBullets(result.warnings)}
-  `;
+  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(result.reason)}`;
+  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(result.steps)}`;
+  $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(result.flow)}`;
+  $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(result.recommendedApproach)}`;
+  $("extensionCard").innerHTML = `<h3>한 단계 더 확장하려면</h3>${renderText(result.extension)}`;
+  $("subjectLinksCard").innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(result.subjectLinks)}`;
+  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(result.warnings)}`;
 
   const badge = $("resultModeBadge");
-  if (badge) {
-    badge.textContent = apiData.mode || "ai";
-  }
+  if (badge) badge.textContent = apiData.mode || "ai";
 
   const resultWrap = $("resultSection");
   if (resultWrap) resultWrap.style.display = "block";
@@ -223,7 +193,7 @@ function renderTextbookSection(matches) {
         ${topMatches.map(item => {
           const subject = item.subject || "";
           const unit = item.unit || "";
-          const subunit = item.subunit || "";
+          const subunit = item.subunit || item.name || "";
           const concepts = toArray(item.core_concepts || item.coreConcepts).slice(0, 5);
           const points = toArray(item.interpretation_points || item.interpretationPoints).slice(0, 3);
           const topics = toArray(item.topic_seeds || item.topicSeeds).slice(0, 3);
@@ -258,6 +228,159 @@ function renderTextbookSection(matches) {
   `;
 }
 
+async function loadExtensionLibrary() {
+  const response = await fetch(EXTENSION_LIBRARY_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
+  return response.json();
+}
+
+function scoreExtensionTemplate(template, context) {
+  let score = 0;
+
+  const haystack = [
+    context.keyword,
+    context.track,
+    context.major,
+    ...(context.subjectLinks || []),
+    ...(context.textbookSubjects || []),
+    ...(context.textbookTopics || [])
+  ].map(normalizeText).filter(Boolean);
+
+  const requiredKeywords = toArray(template.fit_conditions?.required_any_keywords);
+  const preferredSubjects = toArray(template.fit_conditions?.preferred_subjects);
+  const preferredMethods = toArray(template.fit_conditions?.preferred_methods);
+  const themeTags = toArray(template.theme_tags);
+  const methodTags = toArray(template.method_tags);
+  const thinkingTags = toArray(template.thinking_tags);
+  const subjects = toArray(template.subjects);
+
+  requiredKeywords.forEach(keyword => {
+    const k = normalizeText(keyword);
+    if (haystack.some(item => item.includes(k) || k.includes(item))) score += 8;
+  });
+
+  preferredSubjects.forEach(subject => {
+    const s = normalizeText(subject);
+    if ((context.subjectLinks || []).map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 6;
+    if ((context.textbookSubjects || []).map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 4;
+  });
+
+  preferredMethods.forEach(method => {
+    const m = normalizeText(method);
+    if (normalizeText(context.style).includes(m)) score += 5;
+    if (methodTags.map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 1;
+  });
+
+  themeTags.forEach(tag => {
+    const t = normalizeText(tag);
+    if (haystack.some(item => item.includes(t) || t.includes(item))) score += 3;
+  });
+
+  if (normalizeText(context.track).includes("보건") || normalizeText(context.major).includes("간호")) {
+    if (template.type === "센서실험형" || template.type === "자유탐구형" || template.type === "비평탐구형") score += 1;
+  }
+
+  if (normalizeText(context.major).includes("컴퓨터") || normalizeText(context.major).includes("ai")) {
+    if (template.type === "시뮬레이션형" || template.type === "모델링형") score += 8;
+  }
+
+  if (normalizeText(context.major).includes("화학공학") || normalizeText(context.major).includes("신소재") || normalizeText(context.track).includes("이공")) {
+    if (template.type === "센서실험형" || template.type === "데이터분석형" || template.type === "모델링형") score += 4;
+  }
+
+  subjects.forEach(subject => {
+    const s = normalizeText(subject);
+    if ((context.subjectLinks || []).map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 2;
+  });
+
+  return score;
+}
+
+async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
+  try {
+    const library = await loadExtensionLibrary();
+    const templates = Array.isArray(library?.templates) ? library.templates : [];
+    if (!templates.length) return [];
+
+    const context = {
+      keyword: payload.keyword,
+      track: payload.track,
+      major: payload.major,
+      style: payload.style,
+      subjectLinks: toArray(apiData?.result?.subjectLinks),
+      textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
+      textbookTopics: textbookMatches
+        .flatMap(item => toArray(item.topic_seeds || item.topicSeeds))
+        .filter(Boolean)
+    };
+
+    return templates
+      .map(template => ({ ...template, _score: scoreExtensionTemplate(template, context) }))
+      .filter(template => template._score > 0)
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 3);
+  } catch (error) {
+    console.warn("extension library error:", error);
+    return [];
+  }
+}
+
+function renderExtensionLibrarySection(matches) {
+  const el = $("extensionLibrarySection");
+  if (!el) return;
+
+  if (!Array.isArray(matches) || !matches.length) {
+    el.innerHTML = "";
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>추천 활동 템플릿</h3>
+      <div class="textbook-list">
+        ${matches.map(item => `
+          <div class="textbook-item">
+            <div class="textbook-head">
+              <strong>${escapeHtml(item.title || "")}</strong>
+              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
+            </div>
+
+            ${toArray(item.subjects).length ? `
+              <div class="textbook-row">
+                <b>연결 과목</b>
+                <ul>${toArray(item.subjects).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.activity_flow).length ? `
+              <div class="textbook-row">
+                <b>권장 탐구 흐름</b>
+                <ul>${toArray(item.activity_flow).slice(0, 5).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.outputs).length ? `
+              <div class="textbook-row">
+                <b>추천 산출물</b>
+                <ul>${toArray(item.outputs).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.evaluation_points).length ? `
+              <div class="textbook-row">
+                <b>관찰 포인트</b>
+                <ul>${toArray(item.evaluation_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${item.notes ? `
+              <div class="textbook-row">
+                <b>운영 메모</b>
+                <p>${escapeHtml(item.notes)}</p>
+              </div>` : ""}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
 async function handleGenerate() {
   clearError();
   clearResults();
@@ -267,13 +390,13 @@ async function handleGenerate() {
     validateInput(payload);
     setLoading(true);
 
-    const [apiData, textbookMatches] = await Promise.all([
-      callGenerateAPI(payload),
-      getTextbookMatches(payload)
-    ]);
+    const apiData = await callGenerateAPI(payload);
+    const textbookMatches = await getTextbookMatches(payload);
+    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
 
     renderResultCards(apiData);
     renderTextbookSection(textbookMatches);
+    renderExtensionLibrarySection(extensionMatches);
   } catch (error) {
     showError(error.message || "생성 중 오류가 발생했습니다.");
   } finally {
