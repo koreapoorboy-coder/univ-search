@@ -1,0 +1,61 @@
+{
+  "version": "0.4.1-level-folder-linked",
+  "description": "합격생 기준, 일반 학생부 패턴 기준, 수준 판정 규칙을 함께 반영하는 통합 인덱스",
+  "layers": {
+    "extension_library": {
+      "enabled": true,
+      "path": "data/extension_library/index.json",
+      "role": "확장 활동 템플릿 추천"
+    },
+    "admission_case_library": {
+      "enabled": true,
+      "path": "data/admission_case_library/index.json",
+      "role": "합격생 패턴 비교·검증"
+    },
+    "record_pattern_library": {
+      "enabled": true,
+      "path": "data/record_pattern_library/index.json",
+      "role": "일반 학생부 패턴 비교·현실 보정"
+    },
+    "level_judgment_rules": {
+      "enabled": true,
+      "path": "data/level_judgment_rules/index.json",
+      "role": "현재 위치·수준 판정"
+    },
+    "evaluation_framework": {
+      "enabled": true,
+      "path": "data/evaluation_framework/index.json",
+      "role": "학생부/학종 평가 기준 해석"
+    },
+    "curriculum_guides": {
+      "enabled": true,
+      "path": "data/curriculum_guides/index.json",
+      "role": "과목 선택·위계·진로 연결 가이드"
+    },
+    "student_tag_schema": {
+      "enabled": true,
+      "path": "data/student_tag_schema/index.json",
+      "role": "학생 원문/세특/창체 태그화 스키마"
+    },
+    "output_schema": {
+      "enabled": true,
+      "path": "data/output_schema/index.json",
+      "role": "최종 분석/추천 출력 형식"
+    }
+  },
+  "priority_order": [
+    "student_tag_schema",
+    "curriculum_guides",
+    "extension_library",
+    "evaluation_framework",
+    "record_pattern_library",
+    "admission_case_library",
+    "level_judgment_rules",
+    "output_schema"
+  ],
+  "notes": [
+    "record_pattern_library는 일반 학생부 비교 기준이다.",
+    "admission_case_library는 합격생 비교 기준이다.",
+    "level_judgment_rules는 위 두 기준을 합쳐 현재 위치를 상위권/중상위권/도달 직전 등으로 판정한다."
+  ]
+}
