@@ -1,19 +1,36 @@
 {
-  "description": "합격생/사례집 기반 seed 스키마. 공용 출력용이 아니라 내부 판단 엔진용.",
-  "fields": {
-    "case_id": "고유 ID",
-    "source_file": "원본 파일명",
-    "source_type": "casebook | individual_record | image_only",
-    "admission_year": "자료 기준 연도",
-    "major_cluster": "전공 군집",
-    "target_major": "세부 전공/모집단위",
-    "universities": "지원 대학/학과/전형/결과 배열",
-    "grades": "핵심 성적 요약",
-    "grade_trend": "성적 추세 요약",
-    "course_pattern": "선택과목/교과 연결 패턴",
-    "activity_patterns": "반복되는 활동 설계 패턴",
-    "special_features": "핵심 세특/진로/동아리 특징",
-    "reading_pattern": "독서 패턴",
-    "seed_tags": "keywords / methods / expansion_axes"
-  }
+  "files": [
+    {
+      "name": "subject_book_bridge.json",
+      "purpose": "교과/교과내용/추천도서 기본 브리지",
+      "key_fields": [
+        "subject_area",
+        "topic",
+        "book",
+        "page"
+      ]
+    },
+    {
+      "name": "textbook_detail_seed.json",
+      "purpose": "관련전공, 한걸음 더, 추천도서, 엔진 태그 starter seed",
+      "key_fields": [
+        "subject_area",
+        "topic",
+        "book",
+        "related_majors",
+        "followup_activities",
+        "recommended_books",
+        "engine_tags",
+        "recommended_output_mode"
+      ]
+    },
+    {
+      "name": "textbook_ui_feed_seed.json",
+      "purpose": "UI 하단 보조 섹션용 피드 구조",
+      "key_fields": [
+        "sections",
+        "mapping_rules"
+      ]
+    }
+  ]
 }
