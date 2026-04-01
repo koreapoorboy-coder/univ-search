@@ -6,9 +6,7 @@
   <title>공용 탐구 설계 엔진</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <style>
-    :root{
-      --bg:#f6f7fb; --card:#ffffff; --line:#e5e7ef; --text:#172033; --muted:#6b7280; --accent:#5b6cff;
-    }
+    :root{--bg:#f6f7fb;--card:#ffffff;--line:#e5e7ef;--text:#172033;--muted:#6b7280;--accent:#5b6cff}
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
     .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 40px}
@@ -42,16 +40,15 @@
     .textbook-head{display:flex;flex-wrap:wrap;gap:6px 8px;margin-bottom:10px}
     .textbook-row b{display:block;margin:0 0 6px}
     .textbook-row ul{margin:0 0 8px;padding-left:18px}
-    @media (max-width:900px){
-      .form-grid,.result-grid{grid-template-columns:1fr}
-    }
+    .textbook-row p{margin:0;line-height:1.6}
+    @media (max-width:900px){.form-grid,.result-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
       <h1>공용 탐구 설계 엔진</h1>
-      <p>키워드와 학년, 계열, 희망 전공을 넣으면 AI가 탐구 설계 흐름을 만들고 관련 교과서 근거도 함께 보여줍니다.</p>
+      <p>키워드와 학년, 계열, 희망 전공을 넣으면 AI가 탐구 설계 흐름을 만들고 관련 교과서 근거와 추천 활동 템플릿도 함께 보여줍니다.</p>
     </div>
 
     <div class="panel">
@@ -130,6 +127,7 @@
         </div>
 
         <div id="textbookSection"></div>
+        <div id="extensionLibrarySection"></div>
       </div>
     </div>
   </div>
