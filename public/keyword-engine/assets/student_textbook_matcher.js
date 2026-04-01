@@ -35,7 +35,7 @@
 
       units.forEach(unitItem => {
         const unitName = unitItem.unit || "";
-        const subunits = Array.isArray(unitItem.subunits) ? subjectItem.subunits : [];
+        const subunits = Array.isArray(unitItem.subunits) ? unitItem.subunits : [];
 
         subunits.forEach(subunitItem => {
           flat.push({
@@ -74,17 +74,20 @@
 
     haystack.forEach(token => {
       if (!token) return;
-      if (concepts.some(v => v.includes(token) || token.includes(v))) score += 10;
-      if (topics.some(v => v.includes(token) || token.includes(v))) score += 8;
-      if (points.some(v => v.includes(token) || token.includes(v))) score += 5;
-      if (majors.some(v => v.includes(token) || token.includes(v))) score += 7;
-      if (subject.includes(token) || token.includes(subject)) score += 4;
-      if (unit.includes(token) || token.includes(unit)) score += 3;
-      if (subunit.includes(token) || token.includes(subunit)) score += 3;
+
+      if (concepts.some(v => v && (v.includes(token) || token.includes(v)))) score += 10;
+      if (topics.some(v => v && (v.includes(token) || token.includes(v)))) score += 8;
+      if (points.some(v => v && (v.includes(token) || token.includes(v)))) score += 5;
+      if (majors.some(v => v && (v.includes(token) || token.includes(v)))) score += 7;
+      if (subject && (subject.includes(token) || token.includes(subject))) score += 4;
+      if (unit && (unit.includes(token) || token.includes(unit))) score += 3;
+      if (subunit && (subunit.includes(token) || token.includes(subunit))) score += 3;
     });
 
     const major = normalizeText(context.major || "");
-    if (major && majors.some(v => v.includes(major) || major.includes(v))) score += 12;
+    if (major && majors.some(v => v && (v.includes(major) || major.includes(v)))) {
+      score += 12;
+    }
 
     return score;
   }
@@ -93,14 +96,20 @@
     const master = await loadTextbookMaster();
     const flat = flattenTextbookMaster(master);
 
-    const matches = flat
+    const scored = flat
       .map(item => ({
         ...item,
         _score: scoreMatch(item, { keywords, category, major })
       }))
-      .filter(item => item._score > 0)
-      .sort((a, b) => b._score - a._score)
-      .slice(0, 5);
+      .sort((a, b) => b._score - a._score);
+
+    const matches = scored.filter(item => item._score >= 0).slice(0, 5);
+
+    if (!matches.length) {
+      return {
+        matches: flat.slice(0, 3)
+      };
+    }
 
     return { matches };
   }
