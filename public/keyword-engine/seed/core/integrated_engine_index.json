@@ -37,6 +37,11 @@
       "path": "data/student_tag_schema/index.json",
       "role": "학생 원문/세특/창체 태그화 스키마"
     },
+    "generation_blocks": {
+      "enabled": true,
+      "path": "seed/core/generation_blocks.json",
+      "role": "탐구/활동/문장 생성 엔진"
+    },
     "output_schema": {
       "enabled": true,
       "path": "data/output_schema/index.json",
@@ -46,6 +51,7 @@
   "priority_order": [
     "student_tag_schema",
     "curriculum_guides",
+    "generation_blocks",
     "extension_library",
     "evaluation_framework",
     "record_pattern_library",
