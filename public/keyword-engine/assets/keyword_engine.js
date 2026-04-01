@@ -53,6 +53,7 @@ function validateInput(data) {
     ["track", "관심 계열"],
     ["major", "희망 전공"]
   ];
+
   for (const [key, label] of required) {
     if (!data[key]) {
       throw new Error(`${label}을(를) 입력해 주세요.`);
@@ -141,12 +142,15 @@ async function callGenerateAPI(payload) {
 async function getTextbookMatches(payload) {
   try {
     if (typeof window.matchTextbook !== "function") return [];
+
     const keywords = [payload.keyword, payload.track, payload.major].filter(Boolean);
+
     const result = await window.matchTextbook({
       keywords,
       category: payload.track,
       major: payload.major
     });
+
     if (Array.isArray(result)) return result;
     if (Array.isArray(result?.matches)) return result.matches;
     return [];
