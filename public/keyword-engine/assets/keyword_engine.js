@@ -1,4 +1,3 @@
-
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 
@@ -251,7 +250,6 @@ function scoreExtensionTemplate(template, context) {
   const preferredMethods = toArray(template.fit_conditions?.preferred_methods);
   const themeTags = toArray(template.theme_tags);
   const methodTags = toArray(template.method_tags);
-  const thinkingTags = toArray(template.thinking_tags);
   const subjects = toArray(template.subjects);
 
   requiredKeywords.forEach(keyword => {
@@ -276,16 +274,16 @@ function scoreExtensionTemplate(template, context) {
     if (haystack.some(item => item.includes(t) || t.includes(item))) score += 3;
   });
 
-  if (normalizeText(context.track).includes("보건") || normalizeText(context.major).includes("간호")) {
-    if (template.type === "센서실험형" || template.type === "자유탐구형" || template.type === "비평탐구형") score += 1;
-  }
-
   if (normalizeText(context.major).includes("컴퓨터") || normalizeText(context.major).includes("ai")) {
     if (template.type === "시뮬레이션형" || template.type === "모델링형") score += 8;
   }
 
   if (normalizeText(context.major).includes("화학공학") || normalizeText(context.major).includes("신소재") || normalizeText(context.track).includes("이공")) {
     if (template.type === "센서실험형" || template.type === "데이터분석형" || template.type === "모델링형") score += 4;
+  }
+
+  if (normalizeText(context.track).includes("보건") || normalizeText(context.major).includes("간호")) {
+    if (template.type === "센서실험형" || template.type === "자유탐구형" || template.type === "비평탐구형") score += 2;
   }
 
   subjects.forEach(subject => {
@@ -309,9 +307,7 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
       style: payload.style,
       subjectLinks: toArray(apiData?.result?.subjectLinks),
       textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
-      textbookTopics: textbookMatches
-        .flatMap(item => toArray(item.topic_seeds || item.topicSeeds))
-        .filter(Boolean)
+      textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
     };
 
     return templates
@@ -417,3 +413,6 @@ document.addEventListener("DOMContentLoaded", () => {
   $("generateBtn")?.addEventListener("click", handleGenerate);
   $("resetBtn")?.addEventListener("click", handleReset);
 });
+
+window.handleGenerate = handleGenerate;
+window.handleReset = handleReset;
