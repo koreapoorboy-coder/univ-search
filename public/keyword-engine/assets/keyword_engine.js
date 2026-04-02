@@ -1,4 +1,3 @@
-window.__KEYWORD_ENGINE_VERSION = "stable-precision-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ADMISSION_STRUCTURE_SEED_URLS = [
@@ -15,7 +14,7 @@ function escapeHtml(value) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
 
@@ -29,14 +28,15 @@ function normalizeText(value) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
 }
 
-function dedupe(items) {
-  return [...new Set(toArray(items).filter(Boolean))];
+function renderBullets(items) {
+  const arr = toArray(items).filter(Boolean);
+  if (!arr.length) return '<p class="muted">내용이 없습니다.</p>';
+  return `<ul>${arr.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
-function renderBullets(items, emptyText = "내용이 없습니다.") {
-  const arr = toArray(items).filter(Boolean);
-  if (!arr.length) return `<p class="muted">${escapeHtml(emptyText)}</p>`;
-  return `<ul class="bullet-list">${arr.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+function renderText(value) {
+  if (!value) return '<p class="muted">내용이 없습니다.</p>';
+  return `<p>${escapeHtml(value)}</p>`;
 }
 
 function getFormValues() {
@@ -97,7 +97,18 @@ function clearError() {
 }
 
 function clearResults() {
-  ["topSummary", "subjectShell"].forEach(id => {
+  const ids = [
+    "reasonCard",
+    "stepsCard",
+    "flowCard",
+    "approachCard",
+    "extensionCard",
+    "subjectLinksCard",
+    "warningsCard",
+    "textbookSection",
+    "extensionLibrarySection"
+  ];
+  ids.forEach(id => {
     const el = $(id);
     if (el) el.innerHTML = "";
   });
@@ -153,6 +164,89 @@ async function getTextbookMatches(payload) {
   }
 }
 
+function renderResultCards(apiData, structureMatches = []) {
+  const result = apiData.result || {};
+  const firstStructure = structureMatches[0];
+
+  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(result.reason)}`;
+  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(result.steps)}`;
+  $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(result.flow)}`;
+  $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(result.recommendedApproach)}`;
+  $("extensionCard").innerHTML = `<h3>한 단계 더 확장하려면</h3>${renderText(result.extension)}`;
+  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(dedupe([...toArray(result.warnings), ...toArray(firstStructure?.avoid_points).slice(0,2)]))}`;
+
+  const badge = $("resultModeBadge");
+  if (badge) badge.textContent = apiData.mode || "ai";
+
+  const resultWrap = $("resultSection");
+  if (resultWrap) resultWrap.style.display = "block";
+}
+
+function renderTextbookSection(matches, structureMatches = []) {
+  const el = $("textbookSection");
+  if (!el) return;
+
+  if (!Array.isArray(matches) || !matches.length) {
+    el.innerHTML = "";
+    return;
+  }
+
+  const topMatches = matches.slice(0, 3);
+  const firstStructure = structureMatches[0];
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>관련 교과서 근거</h3>
+      <div class="textbook-list">
+        ${topMatches.map(item => {
+          const subject = item.subject || "";
+          const unit = item.unit || "";
+          const subunit = item.subunit || item.name || "";
+          const concepts = toArray(item.core_concepts || item.coreConcepts).slice(0, 4);
+          const points = toArray(item.interpretation_points || item.interpretationPoints).slice(0, 2);
+          const topics = toArray(item.topic_seeds || item.topicSeeds).slice(0, 2);
+
+          const actionLines = [
+            firstStructure?.core_question_frame ? `이 단원은 "${firstStructure.core_question_frame}" 같은 질문으로 바로 연결하기 좋다.` : "",
+            concepts[0] ? `${concepts[0]}을(를) 결과 해석의 기준 개념으로 잡기 좋다.` : "",
+            topics[0] ? `${topics[0]}를 출발 질문으로 삼으면 탐구 흐름이 선명해진다.` : ""
+          ].filter(Boolean);
+
+          return `
+            <div class="textbook-item">
+              <div class="textbook-head">
+                <strong>${escapeHtml(subject)}</strong>
+                ${unit ? `<span>› ${escapeHtml(unit)}</span>` : ""}
+                ${subunit ? `<span>› ${escapeHtml(subunit)}</span>` : ""}
+              </div>
+              ${actionLines.length ? `
+                <div class="textbook-row">
+                  <b>이 단원을 써야 하는 이유</b>
+                  <ul>${actionLines.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+                </div>` : ""}
+              ${concepts.length ? `
+                <div class="textbook-row">
+                  <b>핵심 개념</b>
+                  <ul>${concepts.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+                </div>` : ""}
+              ${points.length ? `
+                <div class="textbook-row">
+                  <b>해석 포인트</b>
+                  <ul>${points.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+                </div>` : ""}
+              ${topics.length ? `
+                <div class="textbook-row">
+                  <b>바로 이어갈 탐구 질문</b>
+                  <ul>${topics.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+                </div>` : ""}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
 async function loadExtensionLibrary() {
   const response = await fetch(EXTENSION_LIBRARY_URL, { cache: "no-store" });
   if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
@@ -175,7 +269,6 @@ async function loadAdmissionStructureSeed() {
 }
 
 function scoreStructureEntry(entry, context) {
-  let score = 0;
   const haystack = [
     context.keyword,
     context.track,
@@ -196,117 +289,37 @@ function scoreStructureEntry(entry, context) {
     ...toArray(entry.career_link_points)
   ].filter(Boolean);
 
+  let score = 0;
   pieces.forEach(piece => {
     const p = normalizeText(piece);
-    if (!p) return;
-    if (haystack.some(item => item.includes(p) || p.includes(item))) score += 4;
+    if (p && haystack.some(item => item.includes(p) || p.includes(item))) score += 4;
   });
 
   if (normalizeText(entry.track).includes(normalizeText(context.major)) || normalizeText(context.major).includes(normalizeText(entry.track))) score += 8;
   if (normalizeText(entry.track).includes(normalizeText(context.track)) || normalizeText(context.track).includes(normalizeText(entry.track))) score += 4;
-
   return score;
 }
 
 async function getStructureMatches(payload, apiData, textbookMatches) {
-  try {
-    const seed = await loadAdmissionStructureSeed();
-    const entries = Array.isArray(seed?.entries) ? seed.entries : [];
-    if (!entries.length) return [];
+  const seed = await loadAdmissionStructureSeed();
+  const entries = Array.isArray(seed?.entries) ? seed.entries : [];
+  if (!entries.length) return [];
 
-    const context = {
-      keyword: payload.keyword,
-      track: payload.track,
-      major: payload.major,
-      subjectLinks: toArray(apiData?.result?.subjectLinks),
-      textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
-      textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
-    };
+  const context = {
+    keyword: payload.keyword,
+    track: payload.track,
+    major: payload.major,
+    subjectLinks: toArray(apiData?.result?.subjectLinks),
+    textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
+    textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
+  };
 
-    const ranked = entries
-      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, context) }))
-      .sort((a, b) => b._score - a._score);
+  const ranked = entries
+    .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, context) }))
+    .sort((a, b) => b._score - a._score);
 
-    const positives = ranked.filter(entry => entry._score > 0).slice(0, 3);
-    return positives.length ? positives : ranked.slice(0, 2);
-  } catch (error) {
-    console.warn("structure matching error:", error);
-    return [];
-  }
-}
-
-function buildStructureStrengthText(payload, structureMatches, textbookMatches) {
-  const first = structureMatches[0];
-  if (first?.structure_name) {
-    return `${first.structure_name} 구조를 기준으로 잡으면 ${payload.keyword}를 단순 흥미가 아니라 비교·해석 중심 탐구로 끌어올리기 좋다.`;
-  }
-  return buildStrengthText(payload, {}, textbookMatches);
-}
-
-function buildStructureImproveText(payload, structureMatches, extensionMatches) {
-  const first = structureMatches[0];
-  const avoid = toArray(first?.avoid_points)[0];
-  if (avoid) return avoid;
-  return buildImproveText(payload, {}, extensionMatches);
-}
-
-function buildStructureEvidenceList(payload, apiResult, textbookMatches, extensionMatches, structureMatches) {
-  const evidence = buildEvidenceList(payload, apiResult, textbookMatches, extensionMatches);
-  const first = structureMatches[0];
-  if (first?.structure_name) evidence.unshift(`적용 구조: ${first.structure_name}`);
-  if (first?.core_question_frame) evidence.push(`질문 틀: ${first.core_question_frame}`);
-  return evidence.slice(0, 5);
-}
-
-function buildStructurePlanCards(payload, apiResult, extensionMatches, textbookMatches, structureMatches) {
-  if (!structureMatches.length) return buildPlanCards(payload, apiResult, extensionMatches, textbookMatches);
-
-  return structureMatches.slice(0, 3).map((item, index) => ({
-    title: item.structure_name || `추천 구조 ${index + 1}`,
-    why: toArray(item.career_link_points)[0] || `${payload.major} 방향으로 연결되는 탐구 구조를 만들기에 적합하다.`,
-    activity: toArray(item.process_steps).slice(0, 4).join(" → ") || "질문 설정 → 기준 설정 → 자료 정리 → 해석",
-    point: [
-      toArray(item.concept_links).length ? `핵심 개념: ${toArray(item.concept_links).slice(0, 2).join(", ")}` : "",
-      toArray(item.good_output_forms).length ? `산출물: ${toArray(item.good_output_forms).slice(0, 2).join(", ")}` : "",
-      toArray(item.high_score_signals)[0] || ""
-    ].filter(Boolean).join(" / ")
-  }));
-}
-
-function renderStructureSection(matches) {
-  if (!Array.isArray(matches) || !matches.length) return "";
-
-  return `
-    <div class="template-box">
-      <h4 class="section-title">합격 패턴 기반 구조 가이드</h4>
-      <div class="template-list">
-        ${matches.slice(0, 3).map(item => `
-          <div class="template-item">
-            <div class="template-head">
-              <strong>${escapeHtml(item.structure_name || "")}</strong>
-              ${item.subject ? `<span class="pill">${escapeHtml(item.subject)}</span>` : ""}
-            </div>
-            ${item.core_question_frame ? `<p class="summary-desc"><b>질문 틀</b> ${escapeHtml(item.core_question_frame)}</p>` : ""}
-            ${toArray(item.process_steps).length ? `
-              <div class="plan-block">
-                <b>이 구조로 가는 순서</b>
-                ${renderBullets(toArray(item.process_steps).slice(0, 4))}
-              </div>` : ""}
-            ${toArray(item.high_score_signals).length ? `
-              <div class="plan-block">
-                <b>평가자가 좋게 보는 포인트</b>
-                ${renderBullets(toArray(item.high_score_signals).slice(0, 3))}
-              </div>` : ""}
-            ${toArray(item.avoid_points).length ? `
-              <div class="plan-block">
-                <b>피해야 할 실수</b>
-                ${renderBullets(toArray(item.avoid_points).slice(0, 2))}
-              </div>` : ""}
-          </div>
-        `).join("")}
-      </div>
-    </div>
-  `;
+  const positives = ranked.filter(entry => entry._score > 0).slice(0, 3);
+  return positives.length ? positives : ranked.slice(0, 2);
 }
 
 function scoreExtensionTemplate(template, context) {
@@ -355,11 +368,11 @@ function scoreExtensionTemplate(template, context) {
   }
 
   if (normalizeText(context.major).includes("화학공학") || normalizeText(context.major).includes("신소재") || normalizeText(context.track).includes("이공")) {
-    if (["센서실험형", "데이터분석형", "모델링형", "디지털측정형"].includes(template.type)) score += 4;
+    if (template.type === "센서실험형" || template.type === "데이터분석형" || template.type === "모델링형") score += 4;
   }
 
   if (normalizeText(context.track).includes("보건") || normalizeText(context.major).includes("간호")) {
-    if (["센서실험형", "자유탐구형", "비평탐구형"].includes(template.type)) score += 2;
+    if (template.type === "센서실험형" || template.type === "자유탐구형" || template.type === "비평탐구형") score += 2;
   }
 
   subjects.forEach(subject => {
@@ -386,320 +399,76 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
       textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
     };
 
-    const ranked = templates
+    return templates
       .map(template => ({ ...template, _score: scoreExtensionTemplate(template, context) }))
-      .sort((a, b) => b._score - a._score);
-
-    const positives = ranked.filter(template => template._score > 0).slice(0, 3);
-    return positives.length ? positives : ranked.slice(0, 3);
+      .filter(template => template._score > 0)
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 3);
   } catch (error) {
     console.warn("extension library error:", error);
     return [];
   }
 }
 
-function inferPrimarySubject(payload, apiResult, textbookMatches, extensionMatches) {
-  const subjectPool = [
-    ...textbookMatches.map(item => item.subject),
-    ...toArray(apiResult.subjectLinks),
-    ...extensionMatches.flatMap(item => toArray(item.subjects))
-  ].filter(Boolean);
-
-  const normalizedPool = subjectPool.map(normalizeText);
-
-  if (normalizedPool.some(v => v.includes("물리"))) return "물리학";
-  if (normalizedPool.some(v => v.includes("화학"))) return "화학";
-  if (normalizedPool.some(v => v.includes("생명"))) return "생명과학";
-  if (normalizedPool.some(v => v.includes("정보") || v.includes("컴퓨터"))) return "정보";
-  if (normalizedPool.some(v => v.includes("지구"))) return "지구과학";
-
-  const major = normalizeText(payload.major);
-  if (major.includes("간호") || major.includes("생명")) return "생명과학";
-  if (major.includes("화학") || major.includes("배터리") || major.includes("신소재")) return "화학";
-  if (major.includes("전기") || major.includes("전자") || major.includes("기계") || major.includes("로봇")) return "물리학";
-  if (major.includes("컴퓨터") || major.includes("인공지능") || major.includes("ai")) return "정보";
-  return payload.track || "탐구 설계";
-}
-
-function buildSubjectDescription(payload, subject) {
-  const parts = [payload.keyword, payload.major].filter(Boolean).join(" · ");
-  const byStyle = payload.style ? `${payload.style.replace("형", "")} 접근을 바탕으로` : "탐구 활동을 바탕으로";
-  return `${parts}를 ${byStyle} 실제 교과 개념과 연결해 해석하고, 결과 차이를 비교할 수 있도록 설계한 ${subject} 중심 탐구입니다.`;
-}
-
-function buildStrengthText(payload, apiResult, textbookMatches) {
-  const concepts = dedupe(textbookMatches.flatMap(item => toArray(item.core_concepts))).slice(0, 3);
-  const conceptText = concepts.length ? `${concepts.join(", ")} 같은 핵심 개념과 연결될 여지가 크다.` : "교과 개념과 전공 관심사를 연결할 출발점이 분명하다.";
-  return `${payload.keyword}와 ${payload.major} 관심사가 분명하고, ${payload.grade} 수준에서 ${conceptText}`;
-}
-
-function buildImproveText(payload, apiResult, extensionMatches) {
-  const firstTemplate = extensionMatches[0];
-  const flow = toArray(apiResult.flow).slice(0, 2).join(", ");
-  if (firstTemplate) {
-    return `${firstTemplate.title}처럼 조건 변화와 결과 차이를 남기는 정량 기록이 들어가면 탐구의 설득력이 더 강해진다.`;
-  }
-  if (flow) {
-    return `${flow}처럼 과정과 결과를 단계별로 남기면 단순 관심 표현이 아니라 실제 탐구 경험으로 보이게 만들 수 있다.`;
-  }
-  return "관심 주제를 말하는 데서 멈추지 않고, 조건 비교와 결과 해석을 남기는 탐구 기록이 필요하다.";
-}
-
-function buildEvidenceList(payload, apiResult, textbookMatches, extensionMatches) {
-  const evidence = [];
-  evidence.push(`입력 키워드: ${payload.keyword}`);
-  evidence.push(`희망 전공/계열: ${payload.major} / ${payload.track}`);
-
-  const subjects = dedupe([
-    ...toArray(apiResult.subjectLinks),
-    ...textbookMatches.map(item => item.subject)
-  ]).slice(0, 3);
-  if (subjects.length) {
-    evidence.push(`이 탐구가 연결되는 교과: ${subjects.join(", ")}`);
-  }
-
-  const firstTopic = textbookMatches.flatMap(item => toArray(item.topic_seeds)).find(Boolean);
-  if (firstTopic) {
-    evidence.push(`교과서 기반 탐구 출발점: ${firstTopic}`);
-  }
-
-  const firstTemplate = extensionMatches[0]?.title;
-  if (firstTemplate) {
-    evidence.push(`추천 활동 예시 연결: ${firstTemplate}`);
-  }
-
-  return evidence.slice(0, 4);
-}
-
-function buildPlanCards(payload, apiResult, extensionMatches, textbookMatches) {
-  const fallbackFlows = toArray(apiResult.flow);
-  const fallbackSteps = toArray(apiResult.steps);
-  const textbookTopics = textbookMatches.flatMap(item => toArray(item.topic_seeds));
-
-  if (extensionMatches.length) {
-    return extensionMatches.slice(0, 3).map((item, index) => ({
-      title: item.title || `추천 활동 ${index + 1}`,
-      why: toArray(item.evaluation_points)[0]
-        ? `${toArray(item.evaluation_points)[0]}를 보여주기에 좋은 활동이다.`
-        : `${payload.major} 관심사를 실제 탐구 흐름으로 바꾸기에 적합하다.`,
-      activity: toArray(item.activity_flow).length
-        ? toArray(item.activity_flow).slice(0, 3).join(" → ")
-        : fallbackFlows.slice(0, 3).join(" → "),
-      point: toArray(item.outputs)[0]
-        ? `${toArray(item.outputs)[0]} 형태로 결과를 남기면 기록화하기 좋다.`
-        : (textbookTopics[index] || `${payload.keyword}를 교과 개념과 연결해 결과 차이를 설명할 수 있다.`)
-    }));
-  }
-
-  return [0, 1].map(index => ({
-    title: fallbackSteps[index] || `추천 탐구 설계 ${index + 1}`,
-    why: `${payload.keyword}를 ${payload.major} 방향으로 확장하기 좋은 기본 구조다.`,
-    activity: fallbackFlows.slice(0, 3).join(" → ") || "탐구 질문 설정 → 자료/실험 설계 → 결과 정리",
-    point: textbookTopics[index] || "교과 개념을 연결해 결과를 설명하면 탐구의 완성도가 올라간다."
-  }));
-}
-
-function buildSummary(payload, apiResult, subject) {
-  const reason = apiResult.reason || `${payload.keyword}를 ${payload.major} 방향으로 확장하는 탐구입니다.`;
-  return {
-    title: `${payload.keyword} 탐구는 ${subject} 해석으로 끌어올리는 방향이 좋습니다.`,
-    desc: reason
-  };
-}
-
-function renderTopSummary(payload, apiData, subject) {
-  const el = $("topSummary");
+function renderExtensionLibrarySection(matches, structureMatches = []) {
+  const el = $("extensionLibrarySection");
   if (!el) return;
 
-  const summary = buildSummary(payload, apiData.result || {}, subject);
-  el.innerHTML = `
-    <div class="summary-kicker">한 줄 총평</div>
-    <div class="summary-title">${escapeHtml(summary.title)}</div>
-    <p class="summary-desc">${escapeHtml(summary.desc)}</p>
-  `;
-}
+  if (!Array.isArray(matches) || !matches.length) {
+    el.innerHTML = "";
+    return;
+  }
 
-function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches = []) {
-  const el = $("subjectShell");
-  if (!el) return;
-
-  const result = apiData.result || {};
-  const subject = inferPrimarySubject(payload, result, textbookMatches, extensionMatches);
-  const subjectDesc = buildSubjectDescription(payload, subject);
-  const strengthText = buildStructureStrengthText(payload, structureMatches, textbookMatches);
-  const improveText = buildStructureImproveText(payload, structureMatches, extensionMatches);
-  const evidenceList = buildStructureEvidenceList(payload, result, textbookMatches, extensionMatches, structureMatches);
-  const planCards = buildStructurePlanCards(payload, result, extensionMatches, textbookMatches, structureMatches);
-
-  el.innerHTML = `
-    <div class="subject-head">
-      <div>
-        <h3 class="subject-title">${escapeHtml(subject)}</h3>
-        <p class="subject-desc">${escapeHtml(subjectDesc)}</p>
-      </div>
-      <div class="subject-tag">${escapeHtml(payload.major)} 설계</div>
-    </div>
-
-    <div class="mini-grid">
-      <div class="mini-card good">
-        <div class="mini-label">현재 강점</div>
-        <div class="mini-body">${escapeHtml(strengthText)}</div>
-      </div>
-      <div class="mini-card warn">
-        <div class="mini-label">보완 관점</div>
-        <div class="mini-body">${escapeHtml(improveText)}</div>
-      </div>
-    </div>
-
-    <div class="evidence-box">
-      <h4 class="section-title">현재 입력 기준 해석 근거</h4>
-      ${renderBullets(evidenceList)}
-    </div>
-
-    <div class="planner-box">
-      <h4 class="section-title">세부 실행 설계</h4>
-      <div class="planner-grid">
-        ${planCards.map(card => `
-          <div class="plan-card">
-            <div class="plan-title">${escapeHtml(card.title)}</div>
-            <div class="plan-block">
-              <b>왜 추천하나</b>
-              <p>${escapeHtml(card.why)}</p>
-            </div>
-            <div class="plan-block">
-              <b>활동 내용</b>
-              <p>${escapeHtml(card.activity)}</p>
-            </div>
-            <div class="plan-block">
-              <b>기대되는 연결 포인트</b>
-              <p>${escapeHtml(card.point)}</p>
-            </div>
-          </div>
-        `).join("")}
-      </div>
-    </div>
-
-    ${renderStructureSection(structureMatches)}
-    ${renderTextbookSection(textbookMatches, result, structureMatches)}
-    ${renderTemplateSection(extensionMatches, structureMatches)}
-
-    <div class="evidence-box">
-      <h4 class="section-title">총합 메모</h4>
-      <p class="summary-desc">${escapeHtml(buildClosingMemo(payload, result, textbookMatches, extensionMatches))}</p>
-    </div>
-  `;
-}
-
-function renderTextbookSection(matches, result, structureMatches = []) {
-  if (!Array.isArray(matches) || !matches.length) return "";
-
-  const topMatches = matches.slice(0, 3);
   const firstStructure = structureMatches[0];
 
-  return `
+  el.innerHTML = `
     <div class="textbook-box">
-      <h4 class="section-title">이 탐구의 교과서 근거</h4>
+      <h3>추천 활동 템플릿</h3>
       <div class="textbook-list">
-        ${topMatches.map(item => {
-          const subject = item.subject || "";
-          const unit = item.unit || "";
-          const subunit = item.subunit || item.name || "";
-          const concepts = toArray(item.core_concepts || item.coreConcepts).slice(0, 4);
-          const points = toArray(item.interpretation_points || item.interpretationPoints).slice(0, 2);
-          const topics = toArray(item.topic_seeds || item.topicSeeds).slice(0, 2);
-          const actionLines = [
-            firstStructure?.core_question_frame ? `이 단원은 "${firstStructure.core_question_frame}" 같은 질문으로 바로 연결하기 좋다.` : "",
-            concepts[0] ? `${concepts[0]}을(를) 결과 해석의 기준 개념으로 잡기 좋다.` : "",
-            topics[0] ? `${topics[0]}를 출발 질문으로 삼으면 탐구 흐름이 선명해진다.` : ""
-          ].filter(Boolean);
-
-          return `
-            <div class="textbook-item">
-              <div class="textbook-head">
-                <strong>${escapeHtml(subject)}</strong>
-                ${unit ? `<span class="pill">${escapeHtml(unit)}</span>` : ""}
-                ${subunit ? `<span class="pill">${escapeHtml(subunit)}</span>` : ""}
-              </div>
-              ${actionLines.length ? `
-                <div class="plan-block">
-                  <b>이 단원을 써야 하는 이유</b>
-                  ${renderBullets(actionLines)}
-                </div>` : ""}
-              ${concepts.length ? `
-                <div class="plan-block">
-                  <b>핵심 개념</b>
-                  ${renderBullets(concepts)}
-                </div>` : ""}
-              ${points.length ? `
-                <div class="plan-block">
-                  <b>해석 포인트</b>
-                  ${renderBullets(points)}
-                </div>` : ""}
-              ${topics.length ? `
-                <div class="plan-block">
-                  <b>바로 이어갈 탐구 질문</b>
-                  ${renderBullets(topics)}
-                </div>` : ""}
-            </div>
-          `;
-        }).join("")}
-      </div>
-    </div>
-  `;
-}
-
-function renderTemplateSection(matches, structureMatches = []) {
-  if (!Array.isArray(matches) || !matches.length) return "";
-
-  const firstStructure = structureMatches[0];
-
-  return `
-    <div class="template-box">
-      <h4 class="section-title">바로 적용 가능한 활동 예시</h4>
-      <div class="template-list">
         ${matches.slice(0, 3).map(item => `
-          <div class="template-item">
-            <div class="template-head">
+          <div class="textbook-item">
+            <div class="textbook-head">
               <strong>${escapeHtml(item.title || "")}</strong>
-              ${item.type ? `<span class="pill">${escapeHtml(item.type)}</span>` : ""}
+              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
             </div>
-            <p class="summary-desc">${escapeHtml(
-              firstStructure?.structure_name
-                ? `${firstStructure.structure_name} 구조로 적용하면 이 템플릿이 더 선명해진다.`
-                : (toArray(item.notes)[0] || "실행 시 조건 비교와 결과 해석 중심으로 정리하면 좋습니다.")
-            )}</p>
+
+            <div class="textbook-row">
+              <b>적용 포인트</b>
+              <p>${escapeHtml(
+                firstStructure?.structure_name
+                  ? `${firstStructure.structure_name} 구조로 적용하면 이 템플릿이 훨씬 선명해진다.`
+                  : (item.notes || "실행 시 조건 비교와 결과 해석 중심으로 정리하면 좋습니다.")
+              )}</p>
+            </div>
+
             ${toArray(item.activity_flow).length ? `
-              <div class="plan-block">
+              <div class="textbook-row">
                 <b>바로 시작할 첫 단계</b>
-                ${renderBullets(toArray(item.activity_flow).slice(0, 3))}
+                <ul>${toArray(item.activity_flow).slice(0, 3).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
               </div>` : ""}
+
             ${toArray(item.outputs).length ? `
-              <div class="plan-block">
+              <div class="textbook-row">
                 <b>추천 산출물</b>
-                ${renderBullets(toArray(item.outputs).slice(0, 3))}
+                <ul>${toArray(item.outputs).slice(0, 3).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
               </div>` : ""}
+
             ${toArray(item.evaluation_points).length ? `
-              <div class="plan-block">
+              <div class="textbook-row">
                 <b>평가 포인트</b>
-                ${renderBullets(toArray(item.evaluation_points).slice(0, 3))}
+                <ul>${toArray(item.evaluation_points).slice(0, 3).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
               </div>` : ""}
-            <div class="meta-strip">
-              ${toArray(item.subjects).slice(0, 3).map(v => `<span class="meta-chip">${escapeHtml(v)}</span>`).join("")}
-            </div>
+
+            ${toArray(item.subjects).length ? `
+              <div class="textbook-row">
+                <b>연결 과목</b>
+                <ul>${toArray(item.subjects).slice(0, 3).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
           </div>
         `).join("")}
       </div>
     </div>
   `;
-}
-
-function buildClosingMemo(payload, result, textbookMatches, extensionMatches) {
-  const subjectText = dedupe(textbookMatches.map(item => item.subject)).slice(0, 2).join(", ");
-  const template = extensionMatches[0]?.title;
-  if (template && subjectText) {
-    return `${payload.keyword}를 단순 관심 수준에서 끝내지 않고, ${subjectText} 개념을 바탕으로 ${template} 같은 활동으로 구체화하면 탐구의 방향과 기록 포인트가 함께 살아납니다.`;
-  }
-  return `${payload.keyword} 탐구는 무엇을 좋아하는지보다 어떻게 비교하고 해석했는지가 더 중요합니다. 조건 변화, 결과 차이, 교과 개념 연결이 함께 보이도록 정리하는 것이 핵심입니다.`;
 }
 
 async function handleGenerate() {
@@ -715,22 +484,24 @@ async function handleGenerate() {
     const textbookMatches = await getTextbookMatches(payload);
     const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
     const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
-    const subject = inferPrimarySubject(payload, apiData.result || {}, textbookMatches, extensionMatches);
 
     window.__lastGenerateDebug = {
       payload,
       apiData,
       textbookMatches,
       structureMatches,
-      extensionMatches,
-      subject
+      extensionMatches
     };
 
-    renderTopSummary(payload, apiData, subject);
-    renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches);
+    renderResultCards(apiData, structureMatches);
+    renderStructureSection(structureMatches);
+    renderTextbookSection(textbookMatches, structureMatches);
+    renderExtensionLibrarySection(extensionMatches, structureMatches);
 
-    const badge = $("resultModeBadge");
-    if (badge) badge.textContent = apiData.mode || "ai";
+    const closing = $("subjectLinksCard");
+    if (closing && (!Array.isArray(structureMatches) || !structureMatches.length) && apiData?.result?.subjectLinks) {
+      closing.innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(apiData.result.subjectLinks)}`;
+    }
 
     const resultWrap = $("resultSection");
     if (resultWrap) resultWrap.style.display = "block";
