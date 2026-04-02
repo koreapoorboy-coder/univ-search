@@ -1,3 +1,4 @@
+window.__KEYWORD_ENGINE_VERSION = "hybrid-fixed-v2";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
