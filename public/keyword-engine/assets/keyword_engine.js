@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v5.3";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v6";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 
@@ -425,7 +425,207 @@ window.handleReset = handleReset;
 
 
 
-/* ===== admissions-v5.3 debug patch ===== */
+/* ===== admissions-v6 template action patch ===== */
+
+function buildTemplateWhyThisWorks(item, payload, structureMatches) {
+  const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  if (s?.structure_name) {
+    return `${s.structure_name} 구조로 적용하면 비교 기준과 해석 기준이 먼저 보이기 때문에 수행평가에서 탐구 설계 능력과 개념 적용력이 함께 드러난다.`;
+  }
+  return `${payload.keyword}를 단순 설명이 아니라 비교-해석 구조로 정리할 수 있어 수행평가에서 구조가 선명하게 읽힌다.`;
+}
+
+function buildTemplateExecutionSteps(item, payload, structureMatches) {
+  const title = normalizeText(item?.title || "");
+  const keyword = payload.keyword || "주제";
+  const major = payload.major || "희망 진로";
+
+  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
+    return [
+      `${keyword}와 연결되는 반응 쌍 또는 비교 대상을 2~3개 정한다.`,
+      `각 반응 또는 소재의 차이를 볼 기준(전도성, 반응성, 효율 등)을 먼저 정한다.`,
+      `간단한 실험 또는 자료 조사로 동일 기준의 결과를 기록한다.`,
+      `결과 차이를 전기화학 또는 산화·환원 개념으로 해석한다.`,
+      `${major} 진로와 연결되는 의미를 한 문장으로 정리한다.`
+    ];
+  }
+
+  if (title.includes("빅데이터") || title.includes("데이터")) {
+    return [
+      `${keyword}와 관련된 공개 데이터나 기사 자료를 2~3개 수집한다.`,
+      `비교할 지표를 먼저 정하고 표로 정리한다.`,
+      `기간·조건·사례별 차이를 그래프나 비교표로 나타낸다.`,
+      `차이가 나타난 이유를 교과 개념으로 해석한다.`,
+      `${major} 진로와 연결되는 시사점을 한 문장으로 정리한다.`
+    ];
+  }
+
+  if (title.includes("신소재") || title.includes("구조")) {
+    return [
+      `${keyword}와 연결되는 소재 사례를 2~3개 선정한다.`,
+      `각 소재의 구조·기능·장단점을 동일 기준으로 비교한다.`,
+      `비교표를 바탕으로 어떤 특성이 성능 차이로 이어지는지 정리한다.`,
+      `결과를 화학 또는 물리 개념으로 해석한다.`,
+      `${major} 진로와 연결되는 활용 가능성을 한 문장으로 정리한다.`
+    ];
+  }
+
+  return [
+    `${keyword}와 관련된 비교 대상 2~3개를 정한다.`,
+    `비교 기준과 해석 기준을 먼저 세운다.`,
+    `자료 조사 또는 간단한 실험으로 결과를 정리한다.`,
+    `차이를 교과 개념으로 해석한다.`,
+    `${major} 진로와 연결되는 의미를 한 문장으로 정리한다.`
+  ];
+}
+
+function buildTemplateWriteGuide(item, payload, structureMatches) {
+  const title = normalizeText(item?.title || "");
+  const keyword = payload.keyword || "주제";
+
+  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
+    return [
+      `"${keyword}와 관련된 반응 또는 소재를 동일 기준으로 비교하였다"처럼 출발 문장을 쓴다.`,
+      `"A가 B보다 더 높게 나타난 이유는 전자 이동 또는 반응 효율 차이로 볼 수 있다"처럼 결과를 해석한다.`,
+      `"이 과정에서 비교 기준 설정과 개념 적용 능력이 드러났다"로 마무리한다.`
+    ];
+  }
+
+  if (title.includes("빅데이터") || title.includes("데이터")) {
+    return [
+      `"자료를 수집한 뒤 비교 지표를 기준으로 표를 재구성하였다"라고 쓴다.`,
+      `"지표 차이는 에너지 효율 또는 조건 차이로 해석할 수 있다"처럼 결과 의미를 연결한다.`,
+      `"데이터를 근거로 시사점을 정리한 점이 탐구 설계 역량으로 이어진다"로 마무리한다.`
+    ];
+  }
+
+  if (title.includes("신소재") || title.includes("구조")) {
+    return [
+      `"소재별 구조와 기능을 동일 기준으로 비교하였다"라고 쓴다.`,
+      `"구조 차이가 성능 차이로 이어진다는 점을 교과 개념으로 해석하였다"라고 연결한다.`,
+      `"비교 결과를 활용 사례와 연결해 진로 연계성을 드러냈다"로 마무리한다.`
+    ];
+  }
+
+  return [
+    `"${keyword} 관련 사례를 비교하였다"라고 시작한다.`,
+    `"차이를 교과 개념으로 해석하였다"라고 결과를 연결한다.`,
+    `"이 과정에서 탐구 설계 및 개념 적용 능력이 드러났다"로 마무리한다.`
+  ];
+}
+
+function buildTemplateOutputExample(item, payload, structureMatches) {
+  const title = normalizeText(item?.title || "");
+  const keyword = payload.keyword || "주제";
+  const major = payload.major || "희망 진로";
+
+  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
+    return `${keyword} 관련 반응 또는 소재 차이를 비교하고 이를 전기화학 개념으로 해석하여 성능 차이를 설명함으로써 ${major} 진로와 연결되는 탐구 설계 역량을 드러냄.`;
+  }
+
+  if (title.includes("빅데이터") || title.includes("데이터")) {
+    return `${keyword} 관련 데이터를 비교 지표 중심으로 재구성하고 이를 교과 개념으로 해석하여 결과 차이를 설명함으로써 자료 분석 및 해석 역량을 드러냄.`;
+  }
+
+  if (title.includes("신소재") || title.includes("구조")) {
+    return `${keyword}와 연결되는 소재 사례를 비교하고 구조·기능 차이를 교과 개념으로 해석하여 활용 가능성을 설명함으로써 진로 연계 탐구 역량을 드러냄.`;
+  }
+
+  return `${keyword} 관련 사례를 동일 기준으로 비교하고 이를 교과 개념으로 해석하여 결과 의미를 설명함으로써 탐구 설계 역량을 드러냄.`;
+}
+
+function buildTemplateUpgradePoint(item, payload, structureMatches) {
+  const title = normalizeText(item?.title || "");
+  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
+    return "온도·시간·전해질 조건 중 하나를 추가해 결과 차이가 왜 발생했는지 원인 가설까지 붙이면 상위권 탐구로 올라간다.";
+  }
+  if (title.includes("빅데이터") || title.includes("데이터")) {
+    return "비교 지표를 한 개 더 추가하거나 기간별 변화까지 보면 단순 정리가 아니라 분석형 탐구로 확장된다.";
+  }
+  if (title.includes("신소재") || title.includes("구조")) {
+    return "기존 소재와 대체 소재를 한 번 더 비교해 개선 방향까지 제시하면 진로 연계성이 더 강해진다.";
+  }
+  return "변수 한 개를 더 추가하거나 결과 차이의 원인 가설까지 붙이면 수행평가 완성도가 높아진다.";
+}
+
+function normalizeTemplateForAdmissions(item, payload, structureMatches) {
+  return {
+    title: item?.title || "",
+    type: item?.type || "",
+    whyThisWorks: buildTemplateWhyThisWorks(item, payload, structureMatches),
+    executionSteps: buildTemplateExecutionSteps(item, payload, structureMatches),
+    writeGuide: buildTemplateWriteGuide(item, payload, structureMatches),
+    outputExample: buildTemplateOutputExample(item, payload, structureMatches),
+    upgradePoint: buildTemplateUpgradePoint(item, payload, structureMatches),
+    evaluationPoints: toArray(item?.evaluation_points).slice(0, 3),
+    subjects: toArray(item?.subjects).slice(0, 3)
+  };
+}
+
+function renderExtensionLibrarySection(matches, structureMatches = [], payload = null) {
+  const el = $("extensionLibrarySection");
+  if (!el) return;
+
+  if (!Array.isArray(matches) || !matches.length || !payload) {
+    el.innerHTML = "";
+    return;
+  }
+
+  const normalized = matches.map(item => normalizeTemplateForAdmissions(item, payload, structureMatches));
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>추천 활동 템플릿</h3>
+      <div class="textbook-list">
+        ${normalized.map(item => `
+          <div class="textbook-item">
+            <div class="textbook-head">
+              <strong>${escapeHtml(item.title)}</strong>
+              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
+            </div>
+
+            <div class="textbook-row">
+              <b>왜 이 템플릿이 유리한가</b>
+              <p>${escapeHtml(item.whyThisWorks)}</p>
+            </div>
+
+            <div class="textbook-row">
+              <b>학생이 바로 할 일</b>
+              <ul>${item.executionSteps.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>
+
+            <div class="textbook-row">
+              <b>보고서에 쓰는 방식</b>
+              <ul>${item.writeGuide.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>
+
+            <div class="textbook-row">
+              <b>결과물 예시</b>
+              <p>${escapeHtml(item.outputExample)}</p>
+            </div>
+
+            <div class="textbook-row">
+              <b>한 단계 더 높이려면</b>
+              <p>${escapeHtml(item.upgradePoint)}</p>
+            </div>
+
+            ${item.evaluationPoints.length ? `
+              <div class="textbook-row">
+                <b>평가 포인트</b>
+                <ul>${item.evaluationPoints.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${item.subjects.length ? `
+              <div class="textbook-row">
+                <b>연결 과목</b>
+                <ul>${item.subjects.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
 
 async function handleGenerate() {
   clearError();
@@ -463,11 +663,11 @@ async function handleGenerate() {
       renderTextbookSection(textbookMatches, structureMatches);
     }
     if (typeof renderExtensionLibrarySection === "function") {
-      renderExtensionLibrarySection(extensionMatches, structureMatches);
+      renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
     }
 
     const badge = $("resultModeBadge");
-    if (badge) badge.textContent = "admissions-v5.3";
+    if (badge) badge.textContent = "admissions-v6";
 
     const resultWrap = $("resultSection");
     if (resultWrap) resultWrap.style.display = "block";
