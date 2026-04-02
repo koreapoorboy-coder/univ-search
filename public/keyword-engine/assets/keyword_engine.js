@@ -1,3 +1,4 @@
+window.__KEYWORD_ENGINE_VERSION = "hybrid-strong-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
@@ -237,6 +238,79 @@ function inferEngineTrack(payload = {}, apiResult = {}, textbookMatches = [], ex
   return "공학";
 }
 
+
+function mapGradeKey(grade) {
+  const raw = String(grade || "").trim();
+  const map = {
+    "1학년": "고1",
+    "2학년": "고2",
+    "3학년": "고3",
+    "고1": "고1",
+    "고2": "고2",
+    "고3": "고3"
+  };
+  return map[raw] || raw;
+}
+
+function mapStyleKey(style) {
+  const raw = String(style || "").trim();
+  const map = {
+    "실험형": "실험형",
+    "보고서형": "조사·보고서형",
+    "사례분석형": "조사·보고서형",
+    "시뮬레이션형": "데이터 분석형",
+    "데이터 분석형": "데이터 분석형",
+    "조사·보고서형": "조사·보고서형",
+    "토론·사회문제형": "토론·사회문제형",
+    "제작·설계형": "제작·설계형"
+  };
+  return map[raw] || raw;
+}
+
+function mapActivityLevelKey(level) {
+  const raw = String(level || "").trim();
+  const map = {
+    "초기": "시작 전",
+    "기초": "1회 탐구 경험 있음",
+    "심화": "교과 연계 활동 해봄",
+    "시작 전": "시작 전",
+    "1회 탐구 경험 있음": "1회 탐구 경험 있음",
+    "교과 연계 활동 해봄": "교과 연계 활동 해봄",
+    "심화 탐구 경험 있음": "심화 탐구 경험 있음"
+  };
+  return map[raw] || raw;
+}
+
+function normalizeSubjectLinks(list) {
+  const map = {
+    "물리": "물리학",
+    "생명": "생명과학",
+    "정보과": "정보"
+  };
+  return dedupe(toArray(list).map(v => map[String(v).trim()] || String(v).trim()).filter(Boolean));
+}
+
+function buildReasonSentence(payload, reasonParts) {
+  const grade = payload.grade || "고등학생";
+  const major = payload.major || payload.track || "관심 전공";
+  const joined = dedupe(reasonParts).filter(Boolean);
+  return `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 연결하려면 ${joined.join(" ")}`.trim();
+}
+
+function buildApproachSentence(payload, methods, textbookMatches) {
+  const subject = normalizeSubjectLinks(textbookMatches.map(item => item.subject))[0] || payload.track || "관련 교과";
+  const methodText = dedupe(methods).filter(Boolean).slice(0, 2).join(", ");
+  return `${subject} 개념을 바탕으로 ${payload.keyword}를 ${methodText || "자료 비교와 조건 분석"} 중심으로 진행하면 탐구 구조가 가장 안정적이다.`;
+}
+
+function buildExtensionSentence(payload, items, textbookMatches) {
+  const topic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
+  const joined = dedupe(items).filter(Boolean).slice(0, 3);
+  if (topic) joined.push(`${topic}처럼 교과서에 바로 연결되는 질문으로 좁혀 가면 탐구의 완성도가 높아진다.`);
+  return dedupe(joined).join(" ");
+}
+
+
 function inferExtensionTag(payload = {}, textbookMatches = [], extensionMatches = []) {
   const joined = normalizeText([
     payload.keyword,
@@ -264,6 +338,10 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const generation = coreEngines?.generation || {};
   const admission = coreEngines?.admission || {};
 
+  const gradeKey = mapGradeKey(payload.grade);
+  const styleKey = mapStyleKey(payload.style);
+  const activityLevelKey = mapActivityLevelKey(payload.activityLevel);
+
   const engineTrack = inferEngineTrack(payload, apiResult, textbookMatches, extensionMatches, admission);
   const extensionTag = inferExtensionTag(payload, textbookMatches, extensionMatches);
 
@@ -273,67 +351,68 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const extensionSection = getGenerationSection(generation, "extension");
   const warningSection = getGenerationSection(generation, "warning");
 
-  const seedKey = [payload.keyword, payload.major, payload.grade, payload.style, engineTrack].join("|");
+  const seedKey = [payload.keyword, payload.major, gradeKey, styleKey, engineTrack].join("|");
 
   const reasonParts = dedupe([
     ...pickWithSeed(reasonSection?.blocks?.common, seedKey + "|reason-common", 1),
     ...pickWithSeed(reasonSection?.blocks?.track?.[engineTrack], seedKey + "|reason-track", 1),
-    ...pickWithSeed(reasonSection?.blocks?.grade?.[payload.grade], seedKey + "|reason-grade", 1),
-    ...pickWithSeed(reasonSection?.blocks?.style?.[payload.style], seedKey + "|reason-style", 1)
+    ...pickWithSeed(reasonSection?.blocks?.grade?.[gradeKey], seedKey + "|reason-grade", 1),
+    ...pickWithSeed(reasonSection?.blocks?.style?.[styleKey], seedKey + "|reason-style", 1)
   ]);
-  const reason = dedupe([apiResult.reason, ...reasonParts]).filter(Boolean).join(" ");
+
+  const textbookTopic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
+  const textbookConcept = textbookMatches.flatMap(item => toArray(item.core_concepts || item.coreConcepts)).find(Boolean);
 
   const steps = dedupe([
-    ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 3),
-    ...pickWithSeed(stepSection?.blocks?.style?.[payload.style], seedKey + "|steps-style", 2),
-    ...pickWithSeed(stepSection?.blocks?.grade?.[payload.grade], seedKey + "|steps-grade", 1),
-    ...toArray(apiResult.steps).slice(0, 2)
+    textbookTopic ? `${textbookTopic}를 중심 질문으로 잡고 비교 기준을 먼저 정리한다.` : "",
+    ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 2),
+    ...pickWithSeed(stepSection?.blocks?.style?.[styleKey], seedKey + "|steps-style", 2),
+    ...pickWithSeed(stepSection?.blocks?.grade?.[gradeKey], seedKey + "|steps-grade", 1),
+    textbookConcept ? `${textbookConcept} 같은 핵심 개념을 결과 해석에 직접 연결한다.` : ""
   ]).slice(0, 6);
 
   const flow = dedupe([
     ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 2),
     ...pickWithSeed(flowSection?.blocks?.track?.[engineTrack], seedKey + "|flow-track", 1),
-    ...pickWithSeed(flowSection?.blocks?.activity_level?.[payload.activityLevel], seedKey + "|flow-level", 1),
-    ...toArray(apiResult.flow).slice(0, 1)
+    ...pickWithSeed(flowSection?.blocks?.activity_level?.[activityLevelKey], seedKey + "|flow-level", 1)
   ]).slice(0, 4);
 
   const extensionItems = dedupe([
     ...pickWithSeed(extensionSection?.blocks?.common, seedKey + "|extension-common", 1),
     ...pickWithSeed(extensionSection?.blocks?.tag?.[extensionTag], seedKey + "|extension-tag", 1),
-    ...pickWithSeed(extensionSection?.blocks?.track?.[engineTrack], seedKey + "|extension-track", 1),
-    apiResult.extension
+    ...pickWithSeed(extensionSection?.blocks?.track?.[engineTrack], seedKey + "|extension-track", 1)
   ]).filter(Boolean);
-  const extension = extensionItems.join(" ");
 
   const warnings = dedupe([
     ...pickWithSeed(warningSection?.blocks?.common, seedKey + "|warning-common", 1),
-    ...pickWithSeed(warningSection?.blocks?.grade?.[payload.grade], seedKey + "|warning-grade", 1),
-    ...pickWithSeed(warningSection?.blocks?.style?.[payload.style], seedKey + "|warning-style", 1),
+    ...pickWithSeed(warningSection?.blocks?.grade?.[gradeKey], seedKey + "|warning-grade", 1),
+    ...pickWithSeed(warningSection?.blocks?.style?.[styleKey], seedKey + "|warning-style", 1),
     ...pickWithSeed(warningSection?.blocks?.control, seedKey + "|warning-control", 1),
-    ...toArray(apiResult.warnings).slice(0, 1)
+    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).slice(0, 1)
   ]).slice(0, 5);
 
-  const subjectLinks = dedupe([
+  const subjectLinks = normalizeSubjectLinks([
     ...toArray(apiResult.subjectLinks),
     ...textbookMatches.map(item => item.subject),
     ...extensionMatches.flatMap(item => toArray(item.subjects))
   ]).slice(0, 5);
 
-  const recommendedApproach = dedupe([
-    apiResult.recommendedApproach,
-    ...pickWithSeed(toArray(admission?.grade_level_modifiers?.[payload.grade]?.recommended_methods), seedKey + "|approach-grade", 2)
-  ]).filter(Boolean).join(" · ");
+  const recommendedMethods = dedupe([
+    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.recommended_methods).slice(0, 2),
+    payload.style || ""
+  ]).filter(Boolean);
 
   return {
-    reason,
+    reason: buildReasonSentence(payload, reasonParts),
     steps,
     flow,
-    recommendedApproach,
-    extension,
+    recommendedApproach: buildApproachSentence(payload, recommendedMethods, textbookMatches),
+    extension: buildExtensionSentence(payload, extensionItems, textbookMatches),
     subjectLinks,
     warnings
   };
 }
+
 
 
 function renderResultCards(apiData) {
