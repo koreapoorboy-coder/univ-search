@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "hybrid-consulting-v2";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v3";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
@@ -282,23 +282,12 @@ function mapActivityLevelKey(level) {
 }
 
 function normalizeSubjectLinks(list) {
-  const mapped = toArray(list)
-    .map(v => String(v || "").trim())
-    .filter(Boolean)
-    .map(v => {
-      if (v === "물리") return "물리학";
-      if (v === "생명") return "생명과학";
-      if (v === "정보과") return "정보";
-      return v;
-    });
-
-  const descriptive = mapped.filter(v => v.includes(":"));
-  const rootsFromDescriptive = descriptive.map(v => v.split(":")[0].trim());
-  const cleaned = mapped.filter(v => {
-    if (!v.includes(":") && rootsFromDescriptive.includes(v)) return false
-    return true
-  });
-  return dedupe(cleaned);
+  const map = {
+    "물리": "물리학",
+    "생명": "생명과학",
+    "정보과": "정보"
+  };
+  return dedupe(toArray(list).map(v => map[String(v).trim()] || String(v).trim()).filter(Boolean));
 }
 
 function buildReasonSentence(payload, reasonParts) {
@@ -307,34 +296,36 @@ function buildReasonSentence(payload, reasonParts) {
   const majorNorm = normalizeText(major);
   const joined = dedupe(reasonParts).filter(Boolean);
 
-  let angle = "개념 이해에서 끝내지 않고 비교 기준을 세워 해석까지 밀고 가기 좋다.";
-  if (majorNorm.includes("화학공학")) angle = "반응 원리, 소재 차이, 효율 비교까지 이어지기 때문에 화학공학식 탐구 구조로 발전시키기 쉽다.";
-  else if (majorNorm.includes("신소재")) angle = "구조와 물성 차이를 성능 비교로 연결하기 쉬워 재료·신소재 계열 설계와 맞닿아 있다.";
-  else if (majorNorm.includes("컴퓨터") || majorNorm.includes("ai")) angle = "입력-처리-결과 구조로 바꿔 해석하기 쉬워 데이터·시스템형 탐구로 연결하기 좋다.";
-  else if (majorNorm.includes("간호") || majorNorm.includes("의료")) angle = "원리 이해를 실제 건강·의료 맥락으로 확장하기 쉬워 보건계열 탐구와 연결성이 높다.";
+  let strategy = "비교 기준을 먼저 세우고 교과 개념으로 해석하는 구조를 만들면 탐구 완성도가 가장 안정적으로 올라간다.";
+  if (majorNorm.includes("화학공학")) {
+    strategy = "반응 원리·소재 차이·효율 비교를 한 흐름으로 묶을 수 있어 화학공학식 탐구 구조를 만들기 가장 좋다.";
+  } else if (majorNorm.includes("신소재")) {
+    strategy = "구조와 물성 차이를 성능 비교로 연결할 수 있어 신소재 계열에서 변별력이 생기기 좋다.";
+  } else if (majorNorm.includes("컴퓨터") || majorNorm.includes("ai")) {
+    strategy = "입력-처리-결과 비교 구조로 정리하면 데이터 해석형 탐구로 평가받기 좋다.";
+  } else if (majorNorm.includes("간호") || majorNorm.includes("의료")) {
+    strategy = "원리 이해를 실제 건강·안전 문제로 연결할 수 있어 보건·의료 계열 적합성을 보여주기 좋다.";
+  }
 
-  const parts = [
-    `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 설계할 때는 너무 넓게 벌리기보다`,
-    joined.join(" "),
-    angle
-  ].filter(Boolean);
-
-  return parts.join(" ");
+  const intro = `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 잡을 때는 너무 넓게 벌리기보다 학생 수준에서 끝까지 밀고 갈 수 있는 구조를 먼저 확보해야 한다.`;
+  const body = joined.length ? ` ${joined.join(" ")}` : "";
+  return `${intro}${body} ${strategy}`.trim();
 }
 
 function buildApproachSentence(payload, methods, textbookMatches) {
   const subject = normalizeSubjectLinks(textbookMatches.map(item => item.subject))[0] || payload.track || "관련 교과";
   const methodText = dedupe(methods).filter(Boolean).slice(0, 2).join(", ");
-  const styleNorm = normalizeText(payload.style || "");
+  const style = payload.style || "자료 비교";
+  const styleNorm = normalizeText(style);
 
   if (styleNorm.includes("실험")) {
-    return `${subject} 개념을 바탕으로 조건을 나누고 결과 차이를 기록한 뒤, 왜 그런 차이가 났는지 해석 문장을 붙이는 방식이 가장 설득력 있다.`;
+    return `${subject} 개념을 바탕으로 조건을 나누고 결과 차이를 기록하는 방식으로 가야 한다. 그래야 단순 흥미가 아니라 비교·해석 중심 탐구로 평가받기 쉽다.`;
   }
   if (styleNorm.includes("보고서") || styleNorm.includes("사례")) {
-    return `${subject} 개념을 기준으로 사례를 2개 이상 비교하고, 공통점·차이점·해석을 분리해 정리하면 완성도가 높다.`;
+    return `${subject} 개념을 기준으로 사례를 고르고, 비교 기준을 먼저 세운 뒤 해석 문장을 붙이는 방식으로 가야 한다. 이 흐름이 가장 감점 위험이 낮다.`;
   }
   if (styleNorm.includes("시뮬레이션") || styleNorm.includes("데이터")) {
-    return `${subject} 개념을 기준으로 지표를 먼저 정하고 수치 차이를 해석하는 구조가 가장 안정적이다.`;
+    return `${subject} 개념을 기준으로 지표를 정하고 수치 차이를 해석하는 방식으로 가야 한다. 그래야 결과가 단순 정리가 아니라 분석형 탐구로 보인다.`;
   }
   return `${subject} 개념을 바탕으로 ${payload.keyword}를 ${methodText || "자료 비교와 조건 분석"} 중심으로 설계하면 탐구 흐름이 가장 선명해진다.`;
 }
@@ -342,8 +333,12 @@ function buildApproachSentence(payload, methods, textbookMatches) {
 function buildExtensionSentence(payload, items, textbookMatches) {
   const topic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
   const joined = dedupe(items).filter(Boolean).slice(0, 3);
-  if (topic) joined.push(`${topic}처럼 교과서에 바로 연결되는 질문으로 좁혀 가면 탐구가 훨씬 단단해진다.`);
-  return dedupe(joined).join(" ");
+
+  const tail = topic
+    ? `${topic}처럼 교과서에 바로 연결되는 질문으로 좁혀 가면 탐구가 훨씬 단단해진다.`
+    : `확장은 범위를 넓히는 것보다 비교 요소를 더 정교하게 만드는 방향이 훨씬 유리하다.`;
+
+  return dedupe([...joined, tail]).join(" ");
 }
 
 
@@ -400,27 +395,31 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const textbookTopic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
   const textbookConcept = textbookMatches.flatMap(item => toArray(item.core_concepts || item.coreConcepts)).find(Boolean);
 
-  const customStep = majorNorm.includes("화학공학")
-    ? `${payload.keyword}를 소재 차이·반응 원리·효율 비교라는 세 기준으로 나눠 질문을 정리한다.`
-    : majorNorm.includes("신소재")
-    ? `${payload.keyword}를 구조·물성·응용 가능성이라는 세 기준으로 나눠 질문을 정리한다.`
-    : majorNorm.includes("컴퓨터") || majorNorm.includes("ai")
-    ? `${payload.keyword}를 입력 데이터·처리 방식·결과 비교라는 구조로 질문을 정리한다.`
-    : "";
+  let customStep = "";
+  if (majorNorm.includes("화학공학")) {
+    customStep = `${payload.keyword}를 소재 차이·반응 원리·효율 비교라는 세 기준으로 나눠 질문을 먼저 설계한다.`;
+  } else if (majorNorm.includes("신소재")) {
+    customStep = `${payload.keyword}를 구조·물성·응용 가능성이라는 세 기준으로 나눠 질문을 먼저 설계한다.`;
+  } else if (majorNorm.includes("컴퓨터") || majorNorm.includes("ai")) {
+    customStep = `${payload.keyword}를 입력 데이터·처리 방식·결과 비교 구조로 바꿔 질문을 먼저 설계한다.`;
+  } else if (majorNorm.includes("간호") || majorNorm.includes("의료")) {
+    customStep = `${payload.keyword}를 원리 이해·사례 비교·안전성 판단 구조로 바꿔 질문을 먼저 설계한다.`;
+  }
 
   const steps = dedupe([
     customStep,
-    textbookTopic ? `${textbookTopic}를 중심 질문으로 잡고 비교 기준을 먼저 정리한다.` : "",
+    textbookTopic ? `${textbookTopic}를 중심 질문으로 잡고 비교 기준을 먼저 세운다.` : "",
     ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 2),
     ...pickWithSeed(stepSection?.blocks?.style?.[styleKey], seedKey + "|steps-style", 2),
     ...pickWithSeed(stepSection?.blocks?.grade?.[gradeKey], seedKey + "|steps-grade", 1),
-    textbookConcept ? `${textbookConcept} 같은 핵심 개념을 결과 해석에 직접 연결한다.` : ""
+    textbookConcept ? `${textbookConcept} 같은 핵심 개념을 결과 해석 문장에 직접 연결한다.` : ""
   ]).slice(0, 6);
 
   const flow = dedupe([
-    ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 2),
+    `비교 기준을 먼저 세운 뒤 자료를 해석하면 탐구 흐름이 가장 선명해진다.`,
     ...pickWithSeed(flowSection?.blocks?.track?.[engineTrack], seedKey + "|flow-track", 1),
-    ...pickWithSeed(flowSection?.blocks?.activity_level?.[activityLevelKey], seedKey + "|flow-level", 1)
+    ...pickWithSeed(flowSection?.blocks?.activity_level?.[activityLevelKey], seedKey + "|flow-level", 1),
+    ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 1)
   ]).slice(0, 4);
 
   const extensionItems = dedupe([
@@ -434,18 +433,27 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     ...pickWithSeed(warningSection?.blocks?.grade?.[gradeKey], seedKey + "|warning-grade", 1),
     ...pickWithSeed(warningSection?.blocks?.style?.[styleKey], seedKey + "|warning-style", 1),
     ...pickWithSeed(warningSection?.blocks?.control, seedKey + "|warning-control", 1),
-    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).map(v => {
-      if (String(v).includes("대학 전공 수준 수식 전개")) return "대학 수준 수식 전개로 가기보다 고교 교과 개념 안에서 비교·해석 중심으로 잡는 편이 안전하다.";
-      if (String(v).includes("전문 논문 중심 단독 탐구")) return "전문 논문만 길게 요약하기보다 교과 개념과 직접 연결되는 자료를 함께 써야 한다.";
-      return v;
-    }).slice(0, 1)
-  ]).slice(0, 5);
+    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).slice(0, 1)
+  ]).slice(0, 5).map(item => {
+    const text = String(item || "");
+    if (text.includes("대학 전공 수준 수식 전개")) {
+      return "대학 수준 수식 전개로 가기보다 고교 교과 개념 안에서 비교·해석 구조를 잡는 편이 훨씬 안전하다.";
+    }
+    if (text.includes("대학 1학년 이상 수준")) {
+      return "대학 1학년 이상 개념을 억지로 끌어오면 오히려 탐구의 자연스러움이 깨질 수 있다.";
+    }
+    return text;
+  });
 
   const subjectLinks = normalizeSubjectLinks([
     ...toArray(apiResult.subjectLinks),
     ...textbookMatches.map(item => item.subject),
     ...extensionMatches.flatMap(item => toArray(item.subjects))
-  ]).slice(0, 5);
+  ]).slice(0, 5).filter((item, idx, arr) => {
+    if (item === "화학" && arr.includes("화학 기초")) return false;
+    if (item === "물리" && arr.includes("물리학")) return false;
+    return true;
+  });
 
   const recommendedMethods = dedupe([
     ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.recommended_methods).slice(0, 2),
