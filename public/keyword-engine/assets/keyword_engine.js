@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "structure-dominant-real-v1";
+window.__KEYWORD_ENGINE_VERSION = "stable-precision-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ADMISSION_STRUCTURE_SEED_URLS = [
@@ -163,7 +163,10 @@ async function loadAdmissionStructureSeed() {
   for (const url of ADMISSION_STRUCTURE_SEED_URLS) {
     try {
       const response = await fetch(url, { cache: "no-store" });
-      if (response.ok) return response.json();
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data?.entries)) return data;
+      }
     } catch (error) {
       console.warn("structure seed load error:", url, error);
     }
@@ -182,7 +185,7 @@ function scoreStructureEntry(entry, context) {
     ...(context.textbookTopics || [])
   ].map(normalizeText).filter(Boolean);
 
-  [
+  const pieces = [
     entry.track,
     entry.subject,
     entry.structure_name,
@@ -191,21 +194,24 @@ function scoreStructureEntry(entry, context) {
     ...toArray(entry.seed_keywords),
     ...toArray(entry.concept_links),
     ...toArray(entry.career_link_points)
-  ].filter(Boolean).forEach(piece => {
+  ].filter(Boolean);
+
+  pieces.forEach(piece => {
     const p = normalizeText(piece);
+    if (!p) return;
     if (haystack.some(item => item.includes(p) || p.includes(item))) score += 4;
   });
 
   if (normalizeText(entry.track).includes(normalizeText(context.major)) || normalizeText(context.major).includes(normalizeText(entry.track))) score += 8;
-  if ((context.subjectLinks || []).map(normalizeText).some(v => normalizeText(entry.subject).includes(v) || v.includes(normalizeText(entry.subject)))) score += 6;
+  if (normalizeText(entry.track).includes(normalizeText(context.track)) || normalizeText(context.track).includes(normalizeText(entry.track))) score += 4;
 
   return score;
 }
 
 async function getStructureMatches(payload, apiData, textbookMatches) {
   try {
-    const data = await loadAdmissionStructureSeed();
-    const entries = Array.isArray(data?.entries) ? data.entries : [];
+    const seed = await loadAdmissionStructureSeed();
+    const entries = Array.isArray(seed?.entries) ? seed.entries : [];
     if (!entries.length) return [];
 
     const context = {
@@ -221,62 +227,60 @@ async function getStructureMatches(payload, apiData, textbookMatches) {
       .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, context) }))
       .sort((a, b) => b._score - a._score);
 
-    const positives = ranked.filter(entry => entry._score > 0).slice(0, 2);
+    const positives = ranked.filter(entry => entry._score > 0).slice(0, 3);
     return positives.length ? positives : ranked.slice(0, 2);
   } catch (error) {
-    console.warn("structure seed error:", error);
+    console.warn("structure matching error:", error);
     return [];
   }
 }
 
 function buildStructureStrengthText(payload, structureMatches, textbookMatches) {
   const first = structureMatches[0];
-  if (first) {
-    return `${first.structure_name} 구조로 설계하면 ${payload.keyword}를 단순 관심이 아니라 비교·해석 중심 탐구로 끌어올리기 좋다.`;
+  if (first?.structure_name) {
+    return `${first.structure_name} 구조를 기준으로 잡으면 ${payload.keyword}를 단순 흥미가 아니라 비교·해석 중심 탐구로 끌어올리기 좋다.`;
   }
   return buildStrengthText(payload, {}, textbookMatches);
 }
 
 function buildStructureImproveText(payload, structureMatches, extensionMatches) {
   const first = structureMatches[0];
-  if (first) {
-    const avoid = toArray(first.avoid_points)[0];
-    return avoid || `${payload.keyword}를 넓게 늘리기보다 질문 틀과 비교 기준을 먼저 고정하는 편이 훨씬 안정적이다.`;
-  }
+  const avoid = toArray(first?.avoid_points)[0];
+  if (avoid) return avoid;
   return buildImproveText(payload, {}, extensionMatches);
 }
 
 function buildStructureEvidenceList(payload, apiResult, textbookMatches, extensionMatches, structureMatches) {
   const evidence = buildEvidenceList(payload, apiResult, textbookMatches, extensionMatches);
   const first = structureMatches[0];
-  if (first?.structure_name) evidence.unshift(`적용된 합격 구조: ${first.structure_name}`);
+  if (first?.structure_name) evidence.unshift(`적용 구조: ${first.structure_name}`);
   if (first?.core_question_frame) evidence.push(`질문 틀: ${first.core_question_frame}`);
   return evidence.slice(0, 5);
 }
 
 function buildStructurePlanCards(payload, apiResult, extensionMatches, textbookMatches, structureMatches) {
-  if (structureMatches.length) {
-    return structureMatches.map((item, index) => ({
-      title: item.structure_name || `추천 구조 ${index + 1}`,
-      why: toArray(item.career_link_points)[0] || `${payload.major} 방향으로 연결되는 구조를 만들기에 적합하다.`,
-      activity: toArray(item.process_steps).slice(0, 4).join(" → ") || "질문 설정 → 비교 기준 설정 → 자료 정리 → 해석",
-      point: [
-        toArray(item.concept_links)[0] ? `핵심 개념: ${toArray(item.concept_links).slice(0, 2).join(", ")}` : "",
-        toArray(item.good_output_forms)[0] ? `산출물: ${toArray(item.good_output_forms).slice(0, 2).join(", ")}` : "",
-        toArray(item.high_score_signals)[0] || ""
-      ].filter(Boolean).join(" / ")
-    }));
-  }
-  return buildPlanCards(payload, apiResult, extensionMatches, textbookMatches);
+  if (!structureMatches.length) return buildPlanCards(payload, apiResult, extensionMatches, textbookMatches);
+
+  return structureMatches.slice(0, 3).map((item, index) => ({
+    title: item.structure_name || `추천 구조 ${index + 1}`,
+    why: toArray(item.career_link_points)[0] || `${payload.major} 방향으로 연결되는 탐구 구조를 만들기에 적합하다.`,
+    activity: toArray(item.process_steps).slice(0, 4).join(" → ") || "질문 설정 → 기준 설정 → 자료 정리 → 해석",
+    point: [
+      toArray(item.concept_links).length ? `핵심 개념: ${toArray(item.concept_links).slice(0, 2).join(", ")}` : "",
+      toArray(item.good_output_forms).length ? `산출물: ${toArray(item.good_output_forms).slice(0, 2).join(", ")}` : "",
+      toArray(item.high_score_signals)[0] || ""
+    ].filter(Boolean).join(" / ")
+  }));
 }
 
 function renderStructureSection(matches) {
   if (!Array.isArray(matches) || !matches.length) return "";
+
   return `
     <div class="template-box">
       <h4 class="section-title">합격 패턴 기반 구조 가이드</h4>
       <div class="template-list">
-        ${matches.map(item => `
+        ${matches.slice(0, 3).map(item => `
           <div class="template-item">
             <div class="template-head">
               <strong>${escapeHtml(item.structure_name || "")}</strong>
@@ -515,7 +519,7 @@ function renderTopSummary(payload, apiData, subject) {
   `;
 }
 
-function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches) {
+function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches = []) {
   const el = $("subjectShell");
   if (!el) return;
 
@@ -603,9 +607,8 @@ function renderTextbookSection(matches, result, structureMatches = []) {
           const concepts = toArray(item.core_concepts || item.coreConcepts).slice(0, 4);
           const points = toArray(item.interpretation_points || item.interpretationPoints).slice(0, 2);
           const topics = toArray(item.topic_seeds || item.topicSeeds).slice(0, 2);
-          const structureHint = firstStructure?.core_question_frame || "";
           const actionLines = [
-            structureHint ? `이 단원은 "${structureHint}" 같은 질문으로 바로 연결하기 좋다.` : "",
+            firstStructure?.core_question_frame ? `이 단원은 "${firstStructure.core_question_frame}" 같은 질문으로 바로 연결하기 좋다.` : "",
             concepts[0] ? `${concepts[0]}을(를) 결과 해석의 기준 개념으로 잡기 좋다.` : "",
             topics[0] ? `${topics[0]}를 출발 질문으로 삼으면 탐구 흐름이 선명해진다.` : ""
           ].filter(Boolean);
@@ -662,7 +665,7 @@ function renderTemplateSection(matches, structureMatches = []) {
             </div>
             <p class="summary-desc">${escapeHtml(
               firstStructure?.structure_name
-                ? `${firstStructure.structure_name} 구조로 적용하면 이 템플릿이 훨씬 선명해집니다.`
+                ? `${firstStructure.structure_name} 구조로 적용하면 이 템플릿이 더 선명해진다.`
                 : (toArray(item.notes)[0] || "실행 시 조건 비교와 결과 해석 중심으로 정리하면 좋습니다.")
             )}</p>
             ${toArray(item.activity_flow).length ? `
@@ -714,6 +717,15 @@ async function handleGenerate() {
     const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
     const subject = inferPrimarySubject(payload, apiData.result || {}, textbookMatches, extensionMatches);
 
+    window.__lastGenerateDebug = {
+      payload,
+      apiData,
+      textbookMatches,
+      structureMatches,
+      extensionMatches,
+      subject
+    };
+
     renderTopSummary(payload, apiData, subject);
     renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches);
 
@@ -723,6 +735,7 @@ async function handleGenerate() {
     const resultWrap = $("resultSection");
     if (resultWrap) resultWrap.style.display = "block";
   } catch (error) {
+    console.error("handleGenerate error:", error);
     showError(error.message || "생성 중 오류가 발생했습니다.");
   } finally {
     setLoading(false);
