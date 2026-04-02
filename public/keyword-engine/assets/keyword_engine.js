@@ -26,6 +26,12 @@ function normalizeText(value) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
 }
 
+
+function dedupe(items) {
+  return [...new Set(toArray(items).filter(Boolean))];
+}
+
+
 function renderBullets(items) {
   const arr = toArray(items).filter(Boolean);
   if (!arr.length) return '<p class="muted">내용이 없습니다.</p>';
