@@ -1,3 +1,4 @@
+window.__KEYWORD_ENGINE_VERSION = "stable-precision-v3";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ADMISSION_STRUCTURE_SEED_URLS = [
@@ -22,6 +23,10 @@ function toArray(value) {
   if (Array.isArray(value)) return value;
   if (value == null) return [];
   return [value];
+}
+
+function dedupe(arr) {
+  return Array.from(new Set((Array.isArray(arr) ? arr : []).filter(Boolean)));
 }
 
 function normalizeText(value) {
