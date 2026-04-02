@@ -1,8 +1,13 @@
-window.__KEYWORD_ENGINE_VERSION = "career-link-diverse-v1";
+window.__KEYWORD_ENGINE_VERSION = "seed-full-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
 const ADMISSION_RULES_URL = "seed/core/admission_rules.json";
+const MAJOR_KEYWORD_URL = "seed/core/major_keyword.json";
+const PRIORITY_KEYWORD_URL = "seed/core/priority_keyword.json";
+const MAJOR_TEMPLATE_URL = "seed/core/major_template_seed.json";
+const ADMISSION_CASE_URL = "seed/core/admission_case_seed.json";
+const INTEGRATED_INDEX_URL = "seed/core/integrated_engine_index.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -171,9 +176,33 @@ async function getTextbookMatches(payload) {
 
 
 async function loadCoreEngines() {
-  const [generationRes, admissionRes] = await Promise.all([
+  async function fetchOptionalJson(url) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (error) {
+      console.warn("optional seed load error:", url, error);
+      return null;
+    }
+  }
+
+  const [
+    generationRes,
+    admissionRes,
+    majorKeyword,
+    priorityKeyword,
+    majorTemplate,
+    admissionCase,
+    integratedIndex
+  ] = await Promise.all([
     fetch(GENERATION_BLOCKS_URL, { cache: "no-store" }),
-    fetch(ADMISSION_RULES_URL, { cache: "no-store" })
+    fetch(ADMISSION_RULES_URL, { cache: "no-store" }),
+    fetchOptionalJson(MAJOR_KEYWORD_URL),
+    fetchOptionalJson(PRIORITY_KEYWORD_URL),
+    fetchOptionalJson(MAJOR_TEMPLATE_URL),
+    fetchOptionalJson(ADMISSION_CASE_URL),
+    fetchOptionalJson(INTEGRATED_INDEX_URL)
   ]);
 
   if (!generationRes.ok) throw new Error("generation_blocks.json을 불러오지 못했습니다.");
@@ -181,7 +210,12 @@ async function loadCoreEngines() {
 
   return {
     generation: await generationRes.json(),
-    admission: await admissionRes.json()
+    admission: await admissionRes.json(),
+    majorKeyword,
+    priorityKeyword,
+    majorTemplate,
+    admissionCase,
+    integratedIndex
   };
 }
 
@@ -447,10 +481,107 @@ function getGenerationSection(generation, sectionName) {
   return generation?.blocks?.[sectionName] || generation?.[sectionName] || {};
 }
 
+
+function extractSeedEntries(data) {
+  if (!data) return [];
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data.entries)) return data.entries;
+  if (Array.isArray(data.items)) return data.items;
+  if (Array.isArray(data.templates)) return data.templates;
+  if (Array.isArray(data.majors)) return data.majors;
+  if (Array.isArray(data.cases)) return data.cases;
+  if (typeof data === "object") {
+    return Object.values(data).flatMap(value => Array.isArray(value) ? value : (value && typeof value === "object" ? [value] : []));
+  }
+  return [];
+}
+
+function stringifySeedEntry(entry) {
+  try {
+    return JSON.stringify(entry);
+  } catch (error) {
+    return String(entry ?? "");
+  }
+}
+
+function scoreSeedEntry(entry, payload = {}) {
+  const text = normalizeText(stringifySeedEntry(entry));
+  let score = 0;
+  [payload.major, payload.track, payload.keyword].filter(Boolean).forEach(token => {
+    const norm = normalizeText(token);
+    if (norm && text.includes(norm)) score += 3;
+  });
+  return score;
+}
+
+function pickBestSeedEntries(data, payload = {}, limit = 2) {
+  return extractSeedEntries(data)
+    .map(entry => ({ entry, score: scoreSeedEntry(entry, payload) }))
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.entry);
+}
+
+function pullSeedPhrases(entry, keys = []) {
+  if (!entry || typeof entry !== "object") return [];
+  const phrases = [];
+  keys.forEach(key => {
+    const value = entry[key];
+    if (typeof value === "string") phrases.push(value);
+    if (Array.isArray(value)) phrases.push(...value.filter(v => typeof v === "string"));
+  });
+  return dedupe(phrases);
+}
+
+function buildSeedSignals(coreEngines = {}, payload = {}) {
+  const majorEntries = pickBestSeedEntries(coreEngines.majorKeyword, payload, 2);
+  const priorityEntries = pickBestSeedEntries(coreEngines.priorityKeyword, payload, 2);
+  const templateEntries = pickBestSeedEntries(coreEngines.majorTemplate, payload, 2);
+  const caseEntries = pickBestSeedEntries(coreEngines.admissionCase, payload, 2);
+
+  const learningKeywords = dedupe([
+    ...majorEntries.flatMap(entry => pullSeedPhrases(entry, ["keywords", "learning_keywords", "core_keywords", "problem_solving_keywords"])),
+    ...templateEntries.flatMap(entry => pullSeedPhrases(entry, ["keywords", "learning_keywords", "core_keywords", "problem_solving_keywords"]))
+  ]);
+
+  const careerLinks = dedupe([
+    ...majorEntries.flatMap(entry => pullSeedPhrases(entry, ["career_paths", "career_links", "jobs", "career_direction"])),
+    ...templateEntries.flatMap(entry => pullSeedPhrases(entry, ["career_paths", "career_links", "jobs", "career_direction"]))
+  ]);
+
+  const subjectHints = dedupe([
+    ...majorEntries.flatMap(entry => pullSeedPhrases(entry, ["subjects", "related_subjects", "subject_links"])),
+    ...templateEntries.flatMap(entry => pullSeedPhrases(entry, ["subjects", "related_subjects", "subject_links"])),
+    ...priorityEntries.flatMap(entry => pullSeedPhrases(entry, ["subjects", "related_subjects", "subject_links"]))
+  ]);
+
+  const strategyHints = dedupe([
+    ...priorityEntries.flatMap(entry => pullSeedPhrases(entry, ["priority_keywords", "strategy", "strategy_keywords", "focus_keywords"])),
+    ...caseEntries.flatMap(entry => pullSeedPhrases(entry, ["best_pattern", "high_score_pattern", "focus_keywords", "strategy_keywords"])),
+    ...templateEntries.flatMap(entry => pullSeedPhrases(entry, ["strategy", "best_pattern", "high_score_pattern"]))
+  ]);
+
+  const cautionHints = dedupe([
+    ...caseEntries.flatMap(entry => pullSeedPhrases(entry, ["penalty_pattern", "avoid", "warning_points", "caution_points"])),
+    ...priorityEntries.flatMap(entry => pullSeedPhrases(entry, ["avoid", "warning_points", "caution_points"]))
+  ]);
+
+  return {
+    learningKeywords: learningKeywords.slice(0, 6),
+    careerLinks: careerLinks.slice(0, 4),
+    subjectHints: subjectHints.slice(0, 5),
+    strategyHints: strategyHints.slice(0, 6),
+    cautionHints: cautionHints.slice(0, 4)
+  };
+}
+
+
 function buildHybridResult(payload, apiData, coreEngines, textbookMatches, extensionMatches, diversifyKey = "") {
   const apiResult = apiData?.result || {};
   const generation = coreEngines?.generation || {};
   const admission = coreEngines?.admission || {};
+  const seedSignals = buildSeedSignals(coreEngines, payload);
 
   const gradeKey = mapGradeKey(payload.grade);
   const styleKey = mapStyleKey(payload.style);
@@ -472,13 +603,15 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     ...pickWithSeed(reasonSection?.blocks?.common, seedKey + "|reason-common", 1),
     ...pickWithSeed(reasonSection?.blocks?.track?.[engineTrack], seedKey + "|reason-track", 1),
     ...pickWithSeed(reasonSection?.blocks?.grade?.[gradeKey], seedKey + "|reason-grade", 1),
-    ...pickWithSeed(reasonSection?.blocks?.style?.[styleKey], seedKey + "|reason-style", 1)
+    ...pickWithSeed(reasonSection?.blocks?.style?.[styleKey], seedKey + "|reason-style", 1),
+    ...pickWithSeed(seedSignals.strategyHints, seedKey + "|seed-strategy", 2),
+    ...pickWithSeed(seedSignals.learningKeywords, seedKey + "|seed-learning", 1)
   ]);
 
   const textbookTopicPool = shuffleArray(textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean), seedKey + "|topic-pool");
   const textbookConceptPool = shuffleArray(textbookMatches.flatMap(item => toArray(item.core_concepts || item.coreConcepts)).filter(Boolean), seedKey + "|concept-pool");
-  const textbookTopic = textbookTopicPool[0];
-  const textbookConcept = textbookConceptPool[0];
+  const textbookTopicPicks = textbookTopicPool.slice(0, 2);
+  const textbookConceptPicks = textbookConceptPool.slice(0, 2);
 
   let customStepOptions = [];
   if (majorNorm.includes("화학공학")) {
@@ -507,22 +640,19 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     ];
   }
 
+  const seedStepOptions = seedSignals.learningKeywords.map(item => `${item}을(를) 해석 기준에 포함해 비교 구조를 더 선명하게 만든다.`);
+  const topicStepOptions = textbookTopicPicks.map(topic => `${topic}를 중심 질문으로 잡고 비교 기준을 먼저 세운다.`);
+  const conceptStepOptions = textbookConceptPicks.map(concept => `${concept} 같은 핵심 개념을 결과 해석 문장에 직접 연결한다.`);
+
   const steps = dedupe([
     pickVariant(customStepOptions, seedKey + "|custom-step"),
-    textbookTopic ? pickVariant([
-      `${textbookTopic}를 중심 질문으로 잡고 비교 기준을 먼저 세운다.`,
-      `${textbookTopic}를 출발 질문으로 삼고 무엇을 같은 기준으로 볼지 먼저 정한다.`,
-      `${textbookTopic}를 핵심 질문으로 두고 비교 기준부터 구조화한다.`
-    ], seedKey + "|topic-step") : "",
+    ...topicStepOptions,
     ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 2),
     ...pickWithSeed(stepSection?.blocks?.style?.[styleKey], seedKey + "|steps-style", 2),
     ...pickWithSeed(stepSection?.blocks?.grade?.[gradeKey], seedKey + "|steps-grade", 1),
-    textbookConcept ? pickVariant([
-      `${textbookConcept} 같은 핵심 개념을 결과 해석 문장에 직접 연결한다.`,
-      `${textbookConcept}을 결과 해석의 기준 개념으로 써서 차이를 설명한다.`,
-      `${textbookConcept}을 끌어와 결과 차이가 왜 생기는지 해석한다.`
-    ], seedKey + "|concept-step") : ""
-  ]).slice(0, 6);
+    ...pickWithSeed(seedStepOptions, seedKey + "|seed-step", 2),
+    ...conceptStepOptions
+  ]).slice(0, 7);
 
   const flowLead = pickVariant([
     `비교 기준을 먼저 세운 뒤 자료를 해석하면 탐구 흐름이 가장 선명해진다.`,
@@ -534,13 +664,16 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     flowLead,
     ...pickWithSeed(flowSection?.blocks?.track?.[engineTrack], seedKey + "|flow-track", 1),
     ...pickWithSeed(flowSection?.blocks?.activity_level?.[activityLevelKey], seedKey + "|flow-level", 1),
-    ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 1)
+    ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 1),
+    ...pickWithSeed(seedSignals.strategyHints, seedKey + "|flow-strategy", 1)
   ]).slice(0, 4);
 
   const extensionItems = dedupe([
     ...pickWithSeed(extensionSection?.blocks?.common, seedKey + "|extension-common", 1),
     ...pickWithSeed(extensionSection?.blocks?.tag?.[extensionTag], seedKey + "|extension-tag", 1),
-    ...pickWithSeed(extensionSection?.blocks?.track?.[engineTrack], seedKey + "|extension-track", 1)
+    ...pickWithSeed(extensionSection?.blocks?.track?.[engineTrack], seedKey + "|extension-track", 1),
+    ...pickWithSeed(seedSignals.careerLinks, seedKey + "|extension-career", 1),
+    ...pickWithSeed(seedSignals.learningKeywords, seedKey + "|extension-learning", 1)
   ]).filter(Boolean);
 
   const warnings = dedupe([
@@ -548,7 +681,8 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     ...pickWithSeed(warningSection?.blocks?.grade?.[gradeKey], seedKey + "|warning-grade", 1),
     ...pickWithSeed(warningSection?.blocks?.style?.[styleKey], seedKey + "|warning-style", 1),
     ...pickWithSeed(warningSection?.blocks?.control, seedKey + "|warning-control", 1),
-    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).slice(0, 1)
+    ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).slice(0, 1),
+    ...pickWithSeed(seedSignals.cautionHints, seedKey + "|warning-seed", 1)
   ]).slice(0, 5).map(item => {
     const text = String(item || "");
     if (text.includes("대학 전공 수준 수식 전개")) {
@@ -571,16 +705,18 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const subjectLinks = normalizeSubjectLinks([
     ...toArray(apiResult.subjectLinks),
     ...textbookMatches.map(item => item.subject),
-    ...extensionMatches.flatMap(item => toArray(item.subjects))
-  ]).slice(0, 5).filter((item, idx, arr) => {
-    if (item === "화학" && arr.includes("화학 I")) return false;
+    ...extensionMatches.flatMap(item => toArray(item.subjects)),
+    ...seedSignals.subjectHints
+  ]).slice(0, 6).filter((item, idx, arr) => {
+    if (item === "화학" && (arr.includes("화학 I") || arr.includes("화학Ⅰ"))) return false;
     if (item === "물리" && arr.includes("물리학")) return false;
     return true;
   });
 
   const recommendedMethods = dedupe([
     ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.recommended_methods).slice(0, 2),
-    payload.style || ""
+    payload.style || "",
+    ...pickWithSeed(seedSignals.strategyHints, seedKey + "|approach-strategy", 1)
   ]).filter(Boolean);
 
   return {
