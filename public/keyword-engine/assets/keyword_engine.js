@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v5.1";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v5.2";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 
@@ -564,115 +564,89 @@ window.handleReset = handleReset;
 
 
 
-/* ===== admissions-v5.1 refinement patch ===== */
+/* ===== admissions-v5.2 structure helper patch ===== */
 
-function buildAdmissionsResultMeaning(payload, structureMatches, textbookMatches) {
-  const s = (Array.isArray(structureMatches) && structureMatches.length) ? structureMatches[0] : null;
-  const concept = toArray(s?.concept_links)[0] || toArray(textbookMatches?.[0]?.core_concepts || textbookMatches?.[0]?.coreConcepts)[0] || payload.keyword;
-  if (normalizeText(payload.keyword).includes("이차전지")) {
-    return `${concept}을 기준으로 성능 차이를 설명하는 근거`;
+const ADMISSION_STRUCTURE_SEED_URLS = [
+  "seed/core/admission_subject_structure_seed.json",
+  "seed/admission_subject_structure_seed.json"
+];
+
+function dedupe(arr) {
+  return Array.from(new Set((Array.isArray(arr) ? arr : []).filter(Boolean)));
+}
+
+async function loadAdmissionStructureSeed() {
+  for (const url of ADMISSION_STRUCTURE_SEED_URLS) {
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data?.entries)) return data;
+      }
+    } catch (error) {
+      console.warn("structure seed load error:", url, error);
+    }
   }
-  return `${concept}을 기준으로 결과 차이를 해석하는 근거`;
+  return { entries: [] };
 }
 
-function buildAdmissionsAbilityText(payload) {
-  return `${payload.major} 진로와 연결되는 탐구 설계 역량과 교과 개념 적용력`;
+function scoreStructureEntry(entry, context) {
+  let score = 0;
+  const haystack = [
+    context.keyword,
+    context.track,
+    context.major,
+    ...(context.subjectLinks || []),
+    ...(context.textbookSubjects || []),
+    ...(context.textbookTopics || [])
+  ].map(normalizeText).filter(Boolean);
+
+  const pieces = [
+    entry.track,
+    entry.subject,
+    entry.structure_name,
+    entry.when_to_use,
+    entry.core_question_frame,
+    ...toArray(entry.seed_keywords),
+    ...toArray(entry.concept_links),
+    ...toArray(entry.career_link_points)
+  ].filter(Boolean);
+
+  pieces.forEach(piece => {
+    const p = normalizeText(piece);
+    if (!p) return;
+    if (haystack.some(item => item.includes(p) || p.includes(item))) score += 4;
+  });
+
+  if (normalizeText(entry.track).includes(normalizeText(context.major)) || normalizeText(context.major).includes(normalizeText(entry.track))) score += 8;
+  if (normalizeText(entry.track).includes(normalizeText(context.track)) || normalizeText(context.track).includes(normalizeText(entry.track))) score += 4;
+
+  return score;
 }
 
-function buildStudentRecordExample(payload, structureMatches, textbookMatches) {
-  const s = (Array.isArray(structureMatches) && structureMatches.length) ? structureMatches[0] : null;
-  const topic = payload.keyword;
-  const action = normalizeText(topic).includes("이차전지")
-    ? "구성 소재 및 반응 조건 차이를 비교하고"
-    : "비교 기준을 설정해 관련 사례를 분석하고";
-  const concept = toArray(s?.concept_links)[0] || toArray(textbookMatches?.[0]?.core_concepts || textbookMatches?.[0]?.coreConcepts)[0] || payload.keyword;
-  const meaning = buildAdmissionsResultMeaning(payload, structureMatches, textbookMatches);
-  const ability = buildAdmissionsAbilityText(payload);
-  return `${topic} 관련 탐구에서 ${action} 이를 ${concept} 개념으로 해석하여 ${meaning}를 도출함으로써 ${ability}이 드러남.`;
-}
-
-function buildAdmissionsReason(payload, apiData, textbookMatches, structureMatches) {
-  const s = (Array.isArray(structureMatches) && structureMatches.length) ? structureMatches[0] : null;
-  const concept = toArray(s?.concept_links)[0] || toArray(textbookMatches?.[0]?.core_concepts || textbookMatches?.[0]?.coreConcepts)[0] || payload.keyword;
-  const question = s?.core_question_frame || `${payload.keyword}에서 어떤 차이가 성능 차이로 이어지는가?`;
-  const signal = toArray(s?.high_score_signals)[0] || "비교 기준이 선명하고, 결과 해석에 교과 개념이 직접 연결되는지";
-  return `${payload.grade} 학생이 ${payload.keyword}를 ${payload.major} 진로와 연결해 다룰 때는 흥미 설명보다 질문-비교-해석 구조가 먼저 보여야 한다. ${question}라는 질문으로 범위를 좁히고, ${concept}을(를) 해석 기준 개념으로 고정하면 학생부에서 탐구 설계 능력과 교과 개념 적용력이 함께 평가될 수 있다. 특히 ${signal}가 보이면 단순 조사형이 아니라 입시에서 읽히는 탐구로 정리되기 쉽다.`;
-}
-
-function buildAdmissionsMethod(payload, structureMatches, textbookMatches) {
-  const s = (Array.isArray(structureMatches) && structureMatches.length) ? structureMatches[0] : null;
-  const concept = toArray(s?.concept_links)[0] || toArray(textbookMatches?.[0]?.core_concepts || textbookMatches?.[0]?.coreConcepts)[0] || payload.keyword;
-  const evidence = toArray(s?.evidence_style)[0] || "비교표·실험 기록·그래프";
-  return `${concept}을(를) 해석 기준으로 먼저 고정한 뒤, 조작 변인과 통제 변인을 분리하고 비교 기준을 선명하게 세워 ${evidence} 중심으로 자료를 정리하는 방식이 가장 안정적이다. 수행평가에서는 '무엇을 조사했는가'보다 '어떤 기준으로 비교하고 결과를 어떻게 해석했는가'가 더 중요하게 평가된다.`;
-}
-
-function buildAdmissionsExpansion(payload, structureMatches) {
-  const s = (Array.isArray(structureMatches) && structureMatches.length) ? structureMatches[0] : null;
-  const axis = toArray(s?.extension_axes)[0] || "원인 가설·조건 변화·개선 아이디어";
-  return `${axis} 축으로 한 단계 더 확장하면 단순 개념 이해를 넘어 비교·분석형 탐구로 올라갈 수 있다. 다음 단계에서는 결과 차이가 왜 발생했는지 원인 가설을 추가하고, ${payload.major} 진로와 연결되는 적용 사례까지 붙이면 학생부 활용도가 높아진다.`;
-}
-
-function renderResultCards(apiData, payload, textbookMatches = [], structureMatches = []) {
-  const reason = buildAdmissionsReason(payload, apiData, textbookMatches, structureMatches);
-  const steps = buildAdmissionsSteps(payload, textbookMatches, structureMatches);
-  const flow = buildAdmissionsFlow(payload, structureMatches);
-  const method = buildAdmissionsMethod(payload, structureMatches, textbookMatches);
-  const expansion = buildAdmissionsExpansion(payload, structureMatches);
-  const studentRecordExample = buildStudentRecordExample(payload, structureMatches, textbookMatches);
-  const subjectLinks = buildAdmissionsSubjectLinks(payload, apiData, textbookMatches, structureMatches);
-  const warnings = buildAdmissionsWarnings(payload, structureMatches);
-
-  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(reason)}`;
-  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(steps)}`;
-  $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(flow)}`;
-  $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(method)}`;
-  $("extensionCard").innerHTML = `
-    <h3>한 단계 더 확장하려면</h3>
-    ${renderText(expansion)}
-    <div class="plan-block" style="margin-top:16px">
-      <b>생기부 문장 예시</b>
-      <p>${escapeHtml(studentRecordExample)}</p>
-    </div>
-  `;
-  $("subjectLinksCard").innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(subjectLinks)}`;
-  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(warnings)}`;
-
-  const badge = $("resultModeBadge");
-  if (badge) badge.textContent = "admissions-v5.1";
-
-  const resultWrap = $("resultSection");
-  if (resultWrap) resultWrap.style.display = "block";
-}
-
-async function handleGenerate() {
-  clearError();
-  clearResults();
-
+async function getStructureMatches(payload, apiData, textbookMatches) {
   try {
-    const payload = getFormValues();
-    validateInput(payload);
-    setLoading(true);
+    const seed = await loadAdmissionStructureSeed();
+    const entries = Array.isArray(seed?.entries) ? seed.entries : [];
+    if (!entries.length) return [];
 
-    const apiData = await callGenerateAPI(payload);
-    const textbookMatches = await getTextbookMatches(payload);
-    const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
-    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
-
-    window.__lastGenerateDebug = {
-      payload,
-      apiData,
-      textbookMatches,
-      structureMatches,
-      extensionMatches
+    const context = {
+      keyword: payload.keyword,
+      track: payload.track,
+      major: payload.major,
+      subjectLinks: toArray(apiData?.result?.subjectLinks),
+      textbookSubjects: (textbookMatches || []).map(item => item.subject).filter(Boolean),
+      textbookTopics: (textbookMatches || []).flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
     };
 
-    renderResultCards(apiData, payload, textbookMatches, structureMatches);
-    renderTextbookSection(textbookMatches, structureMatches);
-    renderExtensionLibrarySection(extensionMatches, structureMatches);
+    const ranked = entries
+      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, context) }))
+      .sort((a, b) => b._score - a._score);
+
+    const positives = ranked.filter(entry => entry._score > 0).slice(0, 3);
+    return positives.length ? positives : ranked.slice(0, 2);
   } catch (error) {
-    console.error("handleGenerate error:", error);
-    showError(error.message || "생성 중 오류가 발생했습니다.");
-  } finally {
-    setLoading(false);
+    console.warn("structure matching error:", error);
+    return [];
   }
 }
