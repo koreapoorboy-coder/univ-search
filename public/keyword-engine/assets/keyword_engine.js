@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "hybrid-strong-v1";
+window.__KEYWORD_ENGINE_VERSION = "hybrid-production-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
@@ -293,14 +293,29 @@ function normalizeSubjectLinks(list) {
 function buildReasonSentence(payload, reasonParts) {
   const grade = payload.grade || "고등학생";
   const major = payload.major || payload.track || "관심 전공";
+  const majorNorm = normalizeText(major);
   const joined = dedupe(reasonParts).filter(Boolean);
-  return `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 연결하려면 ${joined.join(" ")}`.trim();
+  let focus = "기초 개념을 기준으로 비교·해석 구조를 잡기 좋다.";
+  if (majorNorm.includes("화학공학")) focus = "반응 원리, 소재 차이, 효율 비교까지 이어지기 좋은 출발점이다.";
+  else if (majorNorm.includes("신소재")) focus = "구조와 물성 차이를 성능 비교로 연결하기 좋은 출발점이다.";
+  else if (majorNorm.includes("컴퓨터") || majorNorm.includes("ai")) focus = "데이터 해석과 시스템 관점으로 확장하기 좋은 출발점이다.";
+  else if (majorNorm.includes("간호") || majorNorm.includes("의료")) focus = "원리 이해를 실제 건강·의료 맥락으로 연결하기 좋은 출발점이다.";
+
+  const intro = `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 설계할 때 가장 안정적인 출발점은`;
+  const body = joined.join(" ");
+  return `${intro} ${body} ${focus}`.trim();
 }
 
 function buildApproachSentence(payload, methods, textbookMatches) {
   const subject = normalizeSubjectLinks(textbookMatches.map(item => item.subject))[0] || payload.track || "관련 교과";
   const methodText = dedupe(methods).filter(Boolean).slice(0, 2).join(", ");
-  return `${subject} 개념을 바탕으로 ${payload.keyword}를 ${methodText || "자료 비교와 조건 분석"} 중심으로 진행하면 탐구 구조가 가장 안정적이다.`;
+  const style = payload.style || "자료 비교";
+  const styleNorm = normalizeText(style);
+  let frame = `${subject} 개념을 바탕으로 ${payload.keyword}를 ${methodText || "자료 비교와 조건 분석"} 중심으로 진행하면 탐구 구조가 가장 안정적이다.`;
+  if (styleNorm.includes("실험")) frame = `${subject} 개념을 바탕으로 조건을 나누고 결과 차이를 기록하는 방식으로 진행하면 탐구의 설득력이 높아진다.`;
+  if (styleNorm.includes("보고서") || styleNorm.includes("사례")) frame = `${subject} 개념을 기준으로 사례를 비교하고 해석 문장을 붙이는 방식이 가장 안정적이다.`;
+  if (styleNorm.includes("시뮬레이션") || styleNorm.includes("데이터")) frame = `${subject} 개념을 기준으로 지표를 정하고 수치 차이를 해석하는 방식이 가장 안정적이다.`;
+  return frame;
 }
 
 function buildExtensionSentence(payload, items, textbookMatches) {
@@ -352,6 +367,7 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const warningSection = getGenerationSection(generation, "warning");
 
   const seedKey = [payload.keyword, payload.major, gradeKey, styleKey, engineTrack].join("|");
+  const majorNorm = normalizeText(payload.major);
 
   const reasonParts = dedupe([
     ...pickWithSeed(reasonSection?.blocks?.common, seedKey + "|reason-common", 1),
@@ -363,7 +379,16 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
   const textbookTopic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
   const textbookConcept = textbookMatches.flatMap(item => toArray(item.core_concepts || item.coreConcepts)).find(Boolean);
 
+  const customStep = majorNorm.includes("화학공학")
+    ? `${payload.keyword}를 소재 차이·반응 원리·효율 비교라는 세 기준으로 나눠 질문을 정리한다.`
+    : majorNorm.includes("신소재")
+    ? `${payload.keyword}를 구조·물성·응용 가능성이라는 세 기준으로 나눠 질문을 정리한다.`
+    : majorNorm.includes("컴퓨터") || majorNorm.includes("ai")
+    ? `${payload.keyword}를 입력 데이터·처리 방식·결과 비교라는 구조로 질문을 정리한다.`
+    : "";
+
   const steps = dedupe([
+    customStep,
     textbookTopic ? `${textbookTopic}를 중심 질문으로 잡고 비교 기준을 먼저 정리한다.` : "",
     ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 2),
     ...pickWithSeed(stepSection?.blocks?.style?.[styleKey], seedKey + "|steps-style", 2),
