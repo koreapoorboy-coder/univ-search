@@ -3,8 +3,6 @@ const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
 const ADMISSION_RULES_URL = "seed/core/admission_rules.json";
 
-let coreEngineCache = null;
-
 function $(id) {
   return document.getElementById(id);
 }
@@ -164,6 +162,174 @@ async function getTextbookMatches(payload) {
   }
 }
 
+
+async function loadCoreEngines() {
+  const [generationRes, admissionRes] = await Promise.all([
+    fetch(GENERATION_BLOCKS_URL, { cache: "no-store" }),
+    fetch(ADMISSION_RULES_URL, { cache: "no-store" })
+  ]);
+
+  if (!generationRes.ok) throw new Error("generation_blocks.json을 불러오지 못했습니다.");
+  if (!admissionRes.ok) throw new Error("admission_rules.json을 불러오지 못했습니다.");
+
+  return {
+    generation: await generationRes.json(),
+    admission: await admissionRes.json()
+  };
+}
+
+function pickWithSeed(items, seedKey, count = 1) {
+  const arr = toArray(items).filter(Boolean);
+  if (!arr.length || count <= 0) return [];
+  const seed = normalizeText(seedKey || "seed").split("").reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const out = [];
+  for (let i = 0; i < arr.length && out.length < Math.min(count, arr.length); i += 1) {
+    const idx = (seed + i * 3) % arr.length;
+    const candidate = arr[idx];
+    if (!out.includes(candidate)) out.push(candidate);
+  }
+  for (const item of arr) {
+    if (out.length >= Math.min(count, arr.length)) break;
+    if (!out.includes(item)) out.push(item);
+  }
+  return out;
+}
+
+function inferEngineTrack(payload = {}, apiResult = {}, textbookMatches = [], extensionMatches = [], admissionRules = {}) {
+  const joined = normalizeText([
+    payload.track,
+    payload.major,
+    payload.keyword,
+    ...toArray(apiResult.subjectLinks),
+    ...textbookMatches.map(item => item.subject),
+    ...extensionMatches.flatMap(item => toArray(item.subjects))
+  ].join(" "));
+
+  const major = normalizeText(payload.major);
+  const track = normalizeText(payload.track);
+
+  if (major.includes("간호") || track.includes("보건") || major.includes("의료")) return "보건·의료";
+  if (major.includes("ai") || major.includes("컴퓨터") || major.includes("소프트웨어") || track.includes("sw")) return "AI·SW";
+  if (major.includes("화학") || major.includes("신소재") || major.includes("배터리") || major.includes("재료")) return "화학";
+  if (major.includes("생명") || joined.includes("생명과학")) return "생명과학";
+  if (track.includes("환경") || joined.includes("환경") || joined.includes("에너지")) return "환경·에너지";
+  if (track.includes("인문") || track.includes("언어")) return "인문·언어";
+  if (track.includes("사회")) return "사회";
+  if (track.includes("공학") || major.includes("공학") || joined.includes("물리")) return "공학";
+
+  const clusters = toArray(admissionRules?.cluster_rules);
+  const match = clusters.find(cluster => {
+    const label = normalizeText(cluster?.label);
+    return label && (joined.includes(label) || label.includes(joined));
+  });
+  if (match?.label === "AI·SW·공학") return "AI·SW";
+  if (match?.label === "간호·보건") return "보건·의료";
+  if (match?.label === "언어·인문") return "인문·언어";
+  if (match?.label === "신소재·공학") return "화학";
+  if (match?.label === "첨단융합·이공") return "공학";
+
+  return "공학";
+}
+
+function inferExtensionTag(payload = {}, textbookMatches = [], extensionMatches = []) {
+  const joined = normalizeText([
+    payload.keyword,
+    payload.major,
+    payload.track,
+    ...textbookMatches.flatMap(item => toArray(item.topic_seeds)),
+    ...extensionMatches.flatMap(item => toArray(item.theme_tags))
+  ].join(" "));
+
+  if (joined.includes("윤리") || joined.includes("안전") || joined.includes("개인정보")) return "윤리";
+  if (joined.includes("정책") || joined.includes("제도")) return "정책";
+  if (joined.includes("데이터") || joined.includes("통계") || joined.includes("그래프")) return "데이터";
+  if (joined.includes("실험") || joined.includes("전압") || joined.includes("측정") || joined.includes("전류")) return "실험";
+  if (joined.includes("제작") || joined.includes("설계") || joined.includes("모형")) return "제작";
+  if (joined.includes("사회") || joined.includes("문제") || joined.includes("환경")) return "사회문제";
+  return "데이터";
+}
+
+function getGenerationSection(generation, sectionName) {
+  return generation?.blocks?.[sectionName] || generation?.[sectionName] || {};
+}
+
+function buildHybridResult(payload, apiData, coreEngines, textbookMatches, extensionMatches) {
+  const apiResult = apiData?.result || {};
+  const generation = coreEngines?.generation || {};
+  const admission = coreEngines?.admission || {};
+
+  const engineTrack = inferEngineTrack(payload, apiResult, textbookMatches, extensionMatches, admission);
+  const extensionTag = inferExtensionTag(payload, textbookMatches, extensionMatches);
+
+  const reasonSection = getGenerationSection(generation, "reason");
+  const stepSection = getGenerationSection(generation, "steps");
+  const flowSection = getGenerationSection(generation, "flow");
+  const extensionSection = getGenerationSection(generation, "extension");
+  const warningSection = getGenerationSection(generation, "warning");
+
+  const seedKey = [payload.keyword, payload.major, payload.grade, payload.style, engineTrack].join("|");
+
+  const reasonParts = dedupe([
+    ...pickWithSeed(reasonSection?.blocks?.common, seedKey + "|reason-common", 1),
+    ...pickWithSeed(reasonSection?.blocks?.track?.[engineTrack], seedKey + "|reason-track", 1),
+    ...pickWithSeed(reasonSection?.blocks?.grade?.[payload.grade], seedKey + "|reason-grade", 1),
+    ...pickWithSeed(reasonSection?.blocks?.style?.[payload.style], seedKey + "|reason-style", 1)
+  ]);
+  const reason = dedupe([apiResult.reason, ...reasonParts]).filter(Boolean).join(" ");
+
+  const steps = dedupe([
+    ...pickWithSeed(stepSection?.blocks?.common, seedKey + "|steps-common", 3),
+    ...pickWithSeed(stepSection?.blocks?.style?.[payload.style], seedKey + "|steps-style", 2),
+    ...pickWithSeed(stepSection?.blocks?.grade?.[payload.grade], seedKey + "|steps-grade", 1),
+    ...toArray(apiResult.steps).slice(0, 2)
+  ]).slice(0, 6);
+
+  const flow = dedupe([
+    ...pickWithSeed(flowSection?.blocks?.common, seedKey + "|flow-common", 2),
+    ...pickWithSeed(flowSection?.blocks?.track?.[engineTrack], seedKey + "|flow-track", 1),
+    ...pickWithSeed(flowSection?.blocks?.activity_level?.[payload.activityLevel], seedKey + "|flow-level", 1),
+    ...toArray(apiResult.flow).slice(0, 1)
+  ]).slice(0, 4);
+
+  const extensionItems = dedupe([
+    ...pickWithSeed(extensionSection?.blocks?.common, seedKey + "|extension-common", 1),
+    ...pickWithSeed(extensionSection?.blocks?.tag?.[extensionTag], seedKey + "|extension-tag", 1),
+    ...pickWithSeed(extensionSection?.blocks?.track?.[engineTrack], seedKey + "|extension-track", 1),
+    apiResult.extension
+  ]).filter(Boolean);
+  const extension = extensionItems.join(" ");
+
+  const warnings = dedupe([
+    ...pickWithSeed(warningSection?.blocks?.common, seedKey + "|warning-common", 1),
+    ...pickWithSeed(warningSection?.blocks?.grade?.[payload.grade], seedKey + "|warning-grade", 1),
+    ...pickWithSeed(warningSection?.blocks?.style?.[payload.style], seedKey + "|warning-style", 1),
+    ...pickWithSeed(warningSection?.blocks?.control, seedKey + "|warning-control", 1),
+    ...toArray(apiResult.warnings).slice(0, 1)
+  ]).slice(0, 5);
+
+  const subjectLinks = dedupe([
+    ...toArray(apiResult.subjectLinks),
+    ...textbookMatches.map(item => item.subject),
+    ...extensionMatches.flatMap(item => toArray(item.subjects))
+  ]).slice(0, 5);
+
+  const recommendedApproach = dedupe([
+    apiResult.recommendedApproach,
+    ...pickWithSeed(toArray(admission?.grade_level_modifiers?.[payload.grade]?.recommended_methods), seedKey + "|approach-grade", 2)
+  ]).filter(Boolean).join(" · ");
+
+  return {
+    reason,
+    steps,
+    flow,
+    recommendedApproach,
+    extension,
+    subjectLinks,
+    warnings
+  };
+}
+
+
 function renderResultCards(apiData) {
   const result = apiData.result || {};
 
@@ -239,63 +405,6 @@ async function loadExtensionLibrary() {
   const response = await fetch(EXTENSION_LIBRARY_URL, { cache: "no-store" });
   if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
   return response.json();
-}
-
-async function loadCoreEngines() {
-  if (coreEngineCache) return coreEngineCache;
-
-  const [generationResponse, admissionResponse] = await Promise.all([
-    fetch(GENERATION_BLOCKS_URL, { cache: "no-store" }),
-    fetch(ADMISSION_RULES_URL, { cache: "no-store" })
-  ]);
-
-  if (!generationResponse.ok) {
-    throw new Error("generation_blocks.json을 불러오지 못했습니다.");
-  }
-  if (!admissionResponse.ok) {
-    throw new Error("admission_rules.json을 불러오지 못했습니다.");
-  }
-
-  coreEngineCache = {
-    generation: await generationResponse.json(),
-    admission: await admissionResponse.json()
-  };
-
-  return coreEngineCache;
-}
-
-function inferAdmissionCluster(payload, admissionRules) {
-  const rules = toArray(admissionRules?.cluster_rules);
-  if (!rules.length) return null;
-
-  const haystack = [payload.keyword, payload.track, payload.major]
-    .map(normalizeText)
-    .filter(Boolean);
-
-  let best = null;
-  let bestScore = -1;
-
-  rules.forEach(rule => {
-    let score = 0;
-    const label = normalizeText(rule?.label || "");
-    const clusterId = normalizeText(rule?.cluster_id || "");
-    const links = toArray(rule?.recurring_links).map(normalizeText);
-    const methods = toArray(rule?.recurring_methods).map(normalizeText);
-
-    haystack.forEach(token => {
-      if (label && (label.includes(token) || token.includes(label))) score += 6;
-      if (clusterId && (clusterId.includes(token) || token.includes(clusterId))) score += 5;
-      if (links.some(item => item && (item.includes(token) || token.includes(item)))) score += 4;
-      if (methods.some(item => item && (item.includes(token) || token.includes(item)))) score += 2;
-    });
-
-    if (score > bestScore) {
-      best = rule;
-      bestScore = score;
-    }
-  });
-
-  return bestScore > 0 ? best : null;
 }
 
 function scoreExtensionTemplate(template, context) {
@@ -451,11 +560,22 @@ async function handleGenerate() {
     validateInput(payload);
     setLoading(true);
 
-    const apiData = await callGenerateAPI(payload);
+    const [apiData, coreEngines] = await Promise.all([
+      callGenerateAPI(payload),
+      loadCoreEngines()
+    ]);
+
     const textbookMatches = await getTextbookMatches(payload);
     const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
 
-    renderResultCards(apiData);
+    const hybridResult = buildHybridResult(payload, apiData, coreEngines, textbookMatches, extensionMatches);
+    const hybridApiData = {
+      ...apiData,
+      mode: "hybrid",
+      result: hybridResult
+    };
+
+    renderResultCards(hybridApiData);
     renderTextbookSection(textbookMatches);
     renderExtensionLibrarySection(extensionMatches);
   } catch (error) {
@@ -464,6 +584,7 @@ async function handleGenerate() {
     setLoading(false);
   }
 }
+
 
 function handleReset() {
   ["keyword", "grade", "track", "major", "activityLevel", "style"].forEach(id => {
