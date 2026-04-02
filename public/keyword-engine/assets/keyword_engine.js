@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v3";
+window.__KEYWORD_ENGINE_VERSION = "career-link-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const GENERATION_BLOCKS_URL = "seed/core/generation_blocks.json";
@@ -60,7 +60,7 @@ function validateInput(data) {
     ["keyword", "키워드"],
     ["grade", "학년"],
     ["track", "관심 계열"],
-    ["major", "희망 전공"]
+    ["major", "희망 진로"]
   ];
 
   for (const [key, label] of required) {
@@ -292,19 +292,19 @@ function normalizeSubjectLinks(list) {
 
 function buildReasonSentence(payload, reasonParts) {
   const grade = payload.grade || "고등학생";
-  const major = payload.major || payload.track || "관심 전공";
+  const major = payload.major || payload.track || "관심 진로";
   const majorNorm = normalizeText(major);
   const joined = dedupe(reasonParts).filter(Boolean);
 
-  let strategy = "비교 기준을 먼저 세우고 교과 개념으로 해석하는 구조를 만들면 탐구 완성도가 가장 안정적으로 올라간다.";
+  let strategy = "비교 기준을 먼저 세우고 교과 개념으로 해석하는 구조를 만들면 진로 연계성이 가장 선명하게 드러난다.";
   if (majorNorm.includes("화학공학")) {
-    strategy = "반응 원리·소재 차이·효율 비교를 한 흐름으로 묶을 수 있어 화학공학식 탐구 구조를 만들기 가장 좋다.";
+    strategy = "반응 원리·소재 차이·효율 비교를 한 흐름으로 묶을 수 있어 화학공학 진로와 연결되는 탐구 구조를 만들기 좋다.";
   } else if (majorNorm.includes("신소재")) {
-    strategy = "구조와 물성 차이를 성능 비교로 연결할 수 있어 신소재 계열에서 변별력이 생기기 좋다.";
+    strategy = "구조와 물성 차이를 성능 비교로 연결할 수 있어 재료·신소재 진로와 연결되는 탐구 흐름을 만들기 좋다.";
   } else if (majorNorm.includes("컴퓨터") || majorNorm.includes("ai")) {
-    strategy = "입력-처리-결과 비교 구조로 정리하면 데이터 해석형 탐구로 평가받기 좋다.";
+    strategy = "입력-처리-결과 비교 구조로 정리하면 데이터·AI 진로와 연결되는 분석형 탐구로 발전시키기 좋다.";
   } else if (majorNorm.includes("간호") || majorNorm.includes("의료")) {
-    strategy = "원리 이해를 실제 건강·안전 문제로 연결할 수 있어 보건·의료 계열 적합성을 보여주기 좋다.";
+    strategy = "원리 이해를 실제 건강·안전 문제로 연결할 수 있어 보건·의료 진로 연계성이 드러나기 좋다.";
   }
 
   const intro = `${grade} 단계에서 ${payload.keyword}를 ${major} 방향으로 잡을 때는 너무 넓게 벌리기보다 학생 수준에서 끝까지 밀고 갈 수 있는 구조를 먼저 확보해야 한다.`;
@@ -332,11 +332,12 @@ function buildApproachSentence(payload, methods, textbookMatches) {
 
 function buildExtensionSentence(payload, items, textbookMatches) {
   const topic = textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).find(Boolean);
+  const major = payload.major || payload.track || "관심 진로";
   const joined = dedupe(items).filter(Boolean).slice(0, 3);
 
   const tail = topic
-    ? `${topic}처럼 교과서에 바로 연결되는 질문으로 좁혀 가면 탐구가 훨씬 단단해진다.`
-    : `확장은 범위를 넓히는 것보다 비교 요소를 더 정교하게 만드는 방향이 훨씬 유리하다.`;
+    ? `${topic}처럼 교과서에 바로 연결되는 질문으로 좁혀 가면 탐구가 훨씬 단단해지고, 이후 ${major} 진로와의 연결도 자연스럽게 설명할 수 있다.`
+    : `확장은 범위를 넓히는 것보다 비교 요소를 더 정교하게 만드는 방향이 훨씬 유리하고, 그 과정이 진로 연계성 설명에도 도움이 된다.`;
 
   return dedupe([...joined, tail]).join(" ");
 }
@@ -436,7 +437,7 @@ function buildHybridResult(payload, apiData, coreEngines, textbookMatches, exten
     ...toArray(admission?.grade_level_modifiers?.[gradeKey]?.avoid).slice(0, 1)
   ]).slice(0, 5).map(item => {
     const text = String(item || "");
-    if (text.includes("대학 전공 수준 수식 전개")) {
+    if (text.includes("대학 진로 수준 수식 전개")) {
       return "대학 수준 수식 전개로 가기보다 고교 교과 개념 안에서 비교·해석 구조를 잡는 편이 훨씬 안전하다.";
     }
     if (text.includes("대학 1학년 이상 수준")) {
