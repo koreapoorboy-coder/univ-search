@@ -1,6 +1,10 @@
-window.__KEYWORD_ENGINE_VERSION = "structure-dominant-v1";
+window.__KEYWORD_ENGINE_VERSION = "structure-dominant-real-v1";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
+const ADMISSION_STRUCTURE_SEED_URLS = [
+  "seed/core/admission_subject_structure_seed.json",
+  "seed/admission_subject_structure_seed.json"
+];
 
 function $(id) {
   return document.getElementById(id);
@@ -153,6 +157,152 @@ async function loadExtensionLibrary() {
   const response = await fetch(EXTENSION_LIBRARY_URL, { cache: "no-store" });
   if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
   return response.json();
+}
+
+async function loadAdmissionStructureSeed() {
+  for (const url of ADMISSION_STRUCTURE_SEED_URLS) {
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (response.ok) return response.json();
+    } catch (error) {
+      console.warn("structure seed load error:", url, error);
+    }
+  }
+  return { entries: [] };
+}
+
+function scoreStructureEntry(entry, context) {
+  let score = 0;
+  const haystack = [
+    context.keyword,
+    context.track,
+    context.major,
+    ...(context.subjectLinks || []),
+    ...(context.textbookSubjects || []),
+    ...(context.textbookTopics || [])
+  ].map(normalizeText).filter(Boolean);
+
+  [
+    entry.track,
+    entry.subject,
+    entry.structure_name,
+    entry.when_to_use,
+    entry.core_question_frame,
+    ...toArray(entry.seed_keywords),
+    ...toArray(entry.concept_links),
+    ...toArray(entry.career_link_points)
+  ].filter(Boolean).forEach(piece => {
+    const p = normalizeText(piece);
+    if (haystack.some(item => item.includes(p) || p.includes(item))) score += 4;
+  });
+
+  if (normalizeText(entry.track).includes(normalizeText(context.major)) || normalizeText(context.major).includes(normalizeText(entry.track))) score += 8;
+  if ((context.subjectLinks || []).map(normalizeText).some(v => normalizeText(entry.subject).includes(v) || v.includes(normalizeText(entry.subject)))) score += 6;
+
+  return score;
+}
+
+async function getStructureMatches(payload, apiData, textbookMatches) {
+  try {
+    const data = await loadAdmissionStructureSeed();
+    const entries = Array.isArray(data?.entries) ? data.entries : [];
+    if (!entries.length) return [];
+
+    const context = {
+      keyword: payload.keyword,
+      track: payload.track,
+      major: payload.major,
+      subjectLinks: toArray(apiData?.result?.subjectLinks),
+      textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
+      textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
+    };
+
+    const ranked = entries
+      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, context) }))
+      .sort((a, b) => b._score - a._score);
+
+    const positives = ranked.filter(entry => entry._score > 0).slice(0, 2);
+    return positives.length ? positives : ranked.slice(0, 2);
+  } catch (error) {
+    console.warn("structure seed error:", error);
+    return [];
+  }
+}
+
+function buildStructureStrengthText(payload, structureMatches, textbookMatches) {
+  const first = structureMatches[0];
+  if (first) {
+    return `${first.structure_name} 구조로 설계하면 ${payload.keyword}를 단순 관심이 아니라 비교·해석 중심 탐구로 끌어올리기 좋다.`;
+  }
+  return buildStrengthText(payload, {}, textbookMatches);
+}
+
+function buildStructureImproveText(payload, structureMatches, extensionMatches) {
+  const first = structureMatches[0];
+  if (first) {
+    const avoid = toArray(first.avoid_points)[0];
+    return avoid || `${payload.keyword}를 넓게 늘리기보다 질문 틀과 비교 기준을 먼저 고정하는 편이 훨씬 안정적이다.`;
+  }
+  return buildImproveText(payload, {}, extensionMatches);
+}
+
+function buildStructureEvidenceList(payload, apiResult, textbookMatches, extensionMatches, structureMatches) {
+  const evidence = buildEvidenceList(payload, apiResult, textbookMatches, extensionMatches);
+  const first = structureMatches[0];
+  if (first?.structure_name) evidence.unshift(`적용된 합격 구조: ${first.structure_name}`);
+  if (first?.core_question_frame) evidence.push(`질문 틀: ${first.core_question_frame}`);
+  return evidence.slice(0, 5);
+}
+
+function buildStructurePlanCards(payload, apiResult, extensionMatches, textbookMatches, structureMatches) {
+  if (structureMatches.length) {
+    return structureMatches.map((item, index) => ({
+      title: item.structure_name || `추천 구조 ${index + 1}`,
+      why: toArray(item.career_link_points)[0] || `${payload.major} 방향으로 연결되는 구조를 만들기에 적합하다.`,
+      activity: toArray(item.process_steps).slice(0, 4).join(" → ") || "질문 설정 → 비교 기준 설정 → 자료 정리 → 해석",
+      point: [
+        toArray(item.concept_links)[0] ? `핵심 개념: ${toArray(item.concept_links).slice(0, 2).join(", ")}` : "",
+        toArray(item.good_output_forms)[0] ? `산출물: ${toArray(item.good_output_forms).slice(0, 2).join(", ")}` : "",
+        toArray(item.high_score_signals)[0] || ""
+      ].filter(Boolean).join(" / ")
+    }));
+  }
+  return buildPlanCards(payload, apiResult, extensionMatches, textbookMatches);
+}
+
+function renderStructureSection(matches) {
+  if (!Array.isArray(matches) || !matches.length) return "";
+  return `
+    <div class="template-box">
+      <h4 class="section-title">합격 패턴 기반 구조 가이드</h4>
+      <div class="template-list">
+        ${matches.map(item => `
+          <div class="template-item">
+            <div class="template-head">
+              <strong>${escapeHtml(item.structure_name || "")}</strong>
+              ${item.subject ? `<span class="pill">${escapeHtml(item.subject)}</span>` : ""}
+            </div>
+            ${item.core_question_frame ? `<p class="summary-desc"><b>질문 틀</b> ${escapeHtml(item.core_question_frame)}</p>` : ""}
+            ${toArray(item.process_steps).length ? `
+              <div class="plan-block">
+                <b>이 구조로 가는 순서</b>
+                ${renderBullets(toArray(item.process_steps).slice(0, 4))}
+              </div>` : ""}
+            ${toArray(item.high_score_signals).length ? `
+              <div class="plan-block">
+                <b>평가자가 좋게 보는 포인트</b>
+                ${renderBullets(toArray(item.high_score_signals).slice(0, 3))}
+              </div>` : ""}
+            ${toArray(item.avoid_points).length ? `
+              <div class="plan-block">
+                <b>피해야 할 실수</b>
+                ${renderBullets(toArray(item.avoid_points).slice(0, 2))}
+              </div>` : ""}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
 }
 
 function scoreExtensionTemplate(template, context) {
@@ -365,17 +515,17 @@ function renderTopSummary(payload, apiData, subject) {
   `;
 }
 
-function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches) {
+function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches) {
   const el = $("subjectShell");
   if (!el) return;
 
   const result = apiData.result || {};
   const subject = inferPrimarySubject(payload, result, textbookMatches, extensionMatches);
   const subjectDesc = buildSubjectDescription(payload, subject);
-  const strengthText = buildStrengthText(payload, result, textbookMatches);
-  const improveText = buildImproveText(payload, result, extensionMatches);
-  const evidenceList = buildEvidenceList(payload, result, textbookMatches, extensionMatches);
-  const planCards = buildPlanCards(payload, result, extensionMatches, textbookMatches);
+  const strengthText = buildStructureStrengthText(payload, structureMatches, textbookMatches);
+  const improveText = buildStructureImproveText(payload, structureMatches, extensionMatches);
+  const evidenceList = buildStructureEvidenceList(payload, result, textbookMatches, extensionMatches, structureMatches);
+  const planCards = buildStructurePlanCards(payload, result, extensionMatches, textbookMatches, structureMatches);
 
   el.innerHTML = `
     <div class="subject-head">
@@ -425,8 +575,9 @@ function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches)
       </div>
     </div>
 
-    ${renderTextbookSection(textbookMatches, result)}
-    ${renderTemplateSection(extensionMatches)}
+    ${renderStructureSection(structureMatches)}
+    ${renderTextbookSection(textbookMatches, result, structureMatches)}
+    ${renderTemplateSection(extensionMatches, structureMatches)}
 
     <div class="evidence-box">
       <h4 class="section-title">총합 메모</h4>
@@ -435,10 +586,12 @@ function renderSubjectShell(payload, apiData, textbookMatches, extensionMatches)
   `;
 }
 
-function renderTextbookSection(matches, result) {
+function renderTextbookSection(matches, result, structureMatches = []) {
   if (!Array.isArray(matches) || !matches.length) return "";
 
   const topMatches = matches.slice(0, 3);
+  const firstStructure = structureMatches[0];
+
   return `
     <div class="textbook-box">
       <h4 class="section-title">이 탐구의 교과서 근거</h4>
@@ -450,6 +603,12 @@ function renderTextbookSection(matches, result) {
           const concepts = toArray(item.core_concepts || item.coreConcepts).slice(0, 4);
           const points = toArray(item.interpretation_points || item.interpretationPoints).slice(0, 2);
           const topics = toArray(item.topic_seeds || item.topicSeeds).slice(0, 2);
+          const structureHint = firstStructure?.core_question_frame || "";
+          const actionLines = [
+            structureHint ? `이 단원은 "${structureHint}" 같은 질문으로 바로 연결하기 좋다.` : "",
+            concepts[0] ? `${concepts[0]}을(를) 결과 해석의 기준 개념으로 잡기 좋다.` : "",
+            topics[0] ? `${topics[0]}를 출발 질문으로 삼으면 탐구 흐름이 선명해진다.` : ""
+          ].filter(Boolean);
 
           return `
             <div class="textbook-item">
@@ -458,6 +617,11 @@ function renderTextbookSection(matches, result) {
                 ${unit ? `<span class="pill">${escapeHtml(unit)}</span>` : ""}
                 ${subunit ? `<span class="pill">${escapeHtml(subunit)}</span>` : ""}
               </div>
+              ${actionLines.length ? `
+                <div class="plan-block">
+                  <b>이 단원을 써야 하는 이유</b>
+                  ${renderBullets(actionLines)}
+                </div>` : ""}
               ${concepts.length ? `
                 <div class="plan-block">
                   <b>핵심 개념</b>
@@ -465,12 +629,12 @@ function renderTextbookSection(matches, result) {
                 </div>` : ""}
               ${points.length ? `
                 <div class="plan-block">
-                  <b>왜 연결되나</b>
+                  <b>해석 포인트</b>
                   ${renderBullets(points)}
                 </div>` : ""}
               ${topics.length ? `
                 <div class="plan-block">
-                  <b>바로 이어갈 탐구 씨앗</b>
+                  <b>바로 이어갈 탐구 질문</b>
                   ${renderBullets(topics)}
                 </div>` : ""}
             </div>
@@ -481,8 +645,10 @@ function renderTextbookSection(matches, result) {
   `;
 }
 
-function renderTemplateSection(matches) {
+function renderTemplateSection(matches, structureMatches = []) {
   if (!Array.isArray(matches) || !matches.length) return "";
+
+  const firstStructure = structureMatches[0];
 
   return `
     <div class="template-box">
@@ -494,10 +660,28 @@ function renderTemplateSection(matches) {
               <strong>${escapeHtml(item.title || "")}</strong>
               ${item.type ? `<span class="pill">${escapeHtml(item.type)}</span>` : ""}
             </div>
-            <p class="summary-desc">${escapeHtml(toArray(item.notes)[0] || "실행 시 조건 비교와 결과 해석 중심으로 정리하면 좋습니다.")}</p>
+            <p class="summary-desc">${escapeHtml(
+              firstStructure?.structure_name
+                ? `${firstStructure.structure_name} 구조로 적용하면 이 템플릿이 훨씬 선명해집니다.`
+                : (toArray(item.notes)[0] || "실행 시 조건 비교와 결과 해석 중심으로 정리하면 좋습니다.")
+            )}</p>
+            ${toArray(item.activity_flow).length ? `
+              <div class="plan-block">
+                <b>바로 시작할 첫 단계</b>
+                ${renderBullets(toArray(item.activity_flow).slice(0, 3))}
+              </div>` : ""}
+            ${toArray(item.outputs).length ? `
+              <div class="plan-block">
+                <b>추천 산출물</b>
+                ${renderBullets(toArray(item.outputs).slice(0, 3))}
+              </div>` : ""}
+            ${toArray(item.evaluation_points).length ? `
+              <div class="plan-block">
+                <b>평가 포인트</b>
+                ${renderBullets(toArray(item.evaluation_points).slice(0, 3))}
+              </div>` : ""}
             <div class="meta-strip">
               ${toArray(item.subjects).slice(0, 3).map(v => `<span class="meta-chip">${escapeHtml(v)}</span>`).join("")}
-              ${toArray(item.outputs).slice(0, 2).map(v => `<span class="meta-chip">산출물: ${escapeHtml(v)}</span>`).join("")}
             </div>
           </div>
         `).join("")}
@@ -526,11 +710,12 @@ async function handleGenerate() {
 
     const apiData = await callGenerateAPI(payload);
     const textbookMatches = await getTextbookMatches(payload);
+    const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
     const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
     const subject = inferPrimarySubject(payload, apiData.result || {}, textbookMatches, extensionMatches);
 
     renderTopSummary(payload, apiData, subject);
-    renderSubjectShell(payload, apiData, textbookMatches, extensionMatches);
+    renderSubjectShell(payload, apiData, textbookMatches, extensionMatches, structureMatches);
 
     const badge = $("resultModeBadge");
     if (badge) badge.textContent = apiData.mode || "ai";
