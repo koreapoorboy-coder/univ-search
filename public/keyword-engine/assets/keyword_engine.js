@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "stable-precision-v3";
+window.__KEYWORD_ENGINE_VERSION = "stable-precision-v4";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ADMISSION_STRUCTURE_SEED_URLS = [
@@ -534,3 +534,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.handleGenerate = handleGenerate;
 window.handleReset = handleReset;
+
+function renderStructureSection(matches) {
+  if (!Array.isArray(matches) || !matches.length) return "";
+
+  return `
+    <div class="template-box">
+      <h4 class="section-title">합격 패턴 기반 구조 가이드</h4>
+      <div class="template-list">
+        ${matches.slice(0, 3).map(item => `
+          <div class="template-item">
+            <div class="template-head">
+              <strong>${escapeHtml(item.structure_name || "")}</strong>
+              ${item.subject ? `<span class="pill">${escapeHtml(item.subject)}</span>` : ""}
+            </div>
+            ${item.core_question_frame ? `<p class="summary-desc"><b>질문 틀</b> ${escapeHtml(item.core_question_frame)}</p>` : ""}
+            ${toArray(item.process_steps).length ? `
+              <div class="plan-block">
+                <b>이 구조로 가는 순서</b>
+                ${renderBullets(toArray(item.process_steps).slice(0, 4))}
+              </div>` : ""}
+            ${toArray(item.high_score_signals).length ? `
+              <div class="plan-block">
+                <b>평가자가 좋게 보는 포인트</b>
+                ${renderBullets(toArray(item.high_score_signals).slice(0, 3))}
+              </div>` : ""}
+            ${toArray(item.avoid_points).length ? `
+              <div class="plan-block">
+                <b>피해야 할 실수</b>
+                ${renderBullets(toArray(item.avoid_points).slice(0, 2))}
+              </div>` : ""}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
