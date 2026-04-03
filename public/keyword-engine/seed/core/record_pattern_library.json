@@ -1,6 +1,6 @@
 {
-  "version": "0.4.0-raw-records",
-  "description": "교과서 기반 추천 결과를 일반 학생부 원문 패턴으로 현실 보정하기 위한 raw-record 확장 라이브러리",
+  "version": "0.5.0-mode-priority",
+  "description": "교과서 기반 추천 결과를 일반 학생부 원문 패턴과 탐구 방식 우선순위로 현실 보정하기 위한 라이브러리",
   "entries": [
     {
       "pattern_id": "general_grade1_compare_basic",
@@ -51,7 +51,26 @@
         "전문 논문 용어를 과도하게 끌어오는 것",
         "실험 설계만 있고 비교 기준이 없는 것"
       ],
-      "weight": 8
+      "weight": 8,
+      "observed_modes": {
+        "data_analysis": 0.45,
+        "social_issue": 0.2,
+        "design": 0.2,
+        "experiment": 0.1,
+        "modeling": 0.05
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "social_issue",
+        "experiment",
+        "modeling"
+      ],
+      "school_fit_note": "고1 공통 탐구는 실험보다 비교표·사례정리·발표형 전개가 더 안정적이다.",
+      "mode_reason": [
+        "생활기록부 원문에서 실제로 자주 보이는 전개 방식을 우선 반영함",
+        "고1 공통 탐구는 실험보다 비교표·사례정리·발표형 전개가 더 안정적이다."
+      ]
     },
     {
       "pattern_id": "general_grade2_data_analysis",
@@ -104,7 +123,26 @@
         "자료 출처 없이 결론만 쓰는 것",
         "그래프가 있어도 해석 문장이 약한 것"
       ],
-      "weight": 9
+      "weight": 9,
+      "observed_modes": {
+        "data_analysis": 0.62,
+        "modeling": 0.18,
+        "design": 0.1,
+        "social_issue": 0.06,
+        "experiment": 0.04
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "modeling",
+        "design",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "고2에서는 자료 해석과 시각화가 가장 자연스럽고, 실험은 선택적으로만 붙는 편이 안전하다.",
+      "mode_reason": [
+        "생활기록부 원문에서 실제로 자주 보이는 전개 방식을 우선 반영함",
+        "고2에서는 자료 해석과 시각화가 가장 자연스럽고, 실험은 선택적으로만 붙는 편이 안전하다."
+      ]
     },
     {
       "pattern_id": "nursing_health_case_safety",
@@ -161,7 +199,26 @@
         "질환명 나열만 하고 작용 기전이 없는 것",
         "의학적 치료 조언처럼 보이게 쓰는 것"
       ],
-      "weight": 10
+      "weight": 10,
+      "observed_modes": {
+        "data_analysis": 0.38,
+        "social_issue": 0.27,
+        "modeling": 0.18,
+        "experiment": 0.1,
+        "design": 0.07
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "social_issue",
+        "modeling",
+        "experiment",
+        "design"
+      ],
+      "school_fit_note": "보건 계열은 실제로 사례 판단·안전성 비교·인포그래픽형 전개가 실험보다 자주 쓰인다.",
+      "mode_reason": [
+        "생활기록부 원문에서 실제로 자주 보이는 전개 방식을 우선 반영함",
+        "보건 계열은 실제로 사례 판단·안전성 비교·인포그래픽형 전개가 실험보다 자주 쓰인다."
+      ]
     },
     {
       "pattern_id": "chem_materials_compare_efficiency",
@@ -219,7 +276,26 @@
         "대학 공정 이론을 무리하게 끌어오는 것",
         "비교 기준 없이 장점만 나열하는 것"
       ],
-      "weight": 10
+      "weight": 10,
+      "observed_modes": {
+        "data_analysis": 0.42,
+        "design": 0.24,
+        "modeling": 0.18,
+        "experiment": 0.12,
+        "social_issue": 0.04
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "experiment",
+        "social_issue"
+      ],
+      "school_fit_note": "배터리·소재 주제도 학교 현실에서는 자료 비교와 구조 해석이 먼저이며, 실험은 보조 옵션에 가깝다.",
+      "mode_reason": [
+        "생활기록부 원문에서 실제로 자주 보이는 전개 방식을 우선 반영함",
+        "배터리·소재 주제도 학교 현실에서는 자료 비교와 구조 해석이 먼저이며, 실험은 보조 옵션에 가깝다."
+      ]
     },
     {
       "pattern_id": "ai_engineering_system_data",
@@ -278,7 +354,26 @@
         "작동 원리 설명 없이 제작 과정만 적는 것",
         "데이터 검증 없이 구현 사실만 강조하는 것"
       ],
-      "weight": 10
+      "weight": 10,
+      "observed_modes": {
+        "design": 0.34,
+        "data_analysis": 0.3,
+        "modeling": 0.24,
+        "social_issue": 0.08,
+        "experiment": 0.04
+      },
+      "recommended_mode_order": [
+        "design",
+        "data_analysis",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "AI·공학 계열은 제작·구조화·데이터 해석이 중심이고, 실험은 기본값이 아니다.",
+      "mode_reason": [
+        "생활기록부 원문에서 실제로 자주 보이는 전개 방식을 우선 반영함",
+        "AI·공학 계열은 제작·구조화·데이터 해석이 중심이고, 실험은 기본값이 아니다."
+      ]
     },
     {
       "pattern_id": "environment_social_evidence",
@@ -337,7 +432,26 @@
         "근거 없이 가치 판단만 반복하는 것",
         "한계나 반론 없이 단정적으로 쓰는 것"
       ],
-      "weight": 8
+      "weight": 8,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "general_data_analysis_stem",
@@ -394,7 +508,26 @@
         "그래프만 제시하고 해석이 없음",
         "자료 출처가 불명확함"
       ],
-      "weight": 3
+      "weight": 3,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "general_bio_health_case",
@@ -451,7 +584,26 @@
         "질환 이름만 나열함",
         "의학 논문 용어를 과도하게 사용함"
       ],
-      "weight": 4
+      "weight": 4,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "general_engineering_system_basic",
@@ -506,7 +658,26 @@
         "작동 원리만 길게 설명함",
         "구조 비교 없이 결론만 제시함"
       ],
-      "weight": 3
+      "weight": 3,
+      "observed_modes": {
+        "data_analysis": 0.36,
+        "design": 0.22,
+        "modeling": 0.18,
+        "social_issue": 0.14,
+        "experiment": 0.1
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "materials_high_compare_safety",
@@ -565,7 +736,26 @@
         "미래 기술 소개만 길게 쓰는 것",
         "실제 비교 근거 없이 장점만 나열하는 것"
       ],
-      "weight": 9
+      "weight": 9,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "language_society_data_policy",
@@ -623,7 +813,26 @@
         "언어 용어 설명만 하고 사회 연결이 없는 것",
         "자료 없이 주장만 반복하는 것"
       ],
-      "weight": 8
+      "weight": 8,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "bio_ethics_case_decision",
@@ -678,7 +887,26 @@
         "찬반 주장만 있고 교과 개념이 없는 것",
         "전문 의학 판단처럼 단정하는 것"
       ],
-      "weight": 8
+      "weight": 8,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_grade1_battery_reading_explain",
@@ -734,7 +962,26 @@
       ],
       "raw_basis_summary": "국어·영어·통합과학에서 배터리·친환경차를 자료 조사, 독서 발표, 안전성 설명으로 전개하는 원문 패턴 반영",
       "source_examples_count": 6,
-      "weight": 11
+      "weight": 11,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_grade2_battery_process_optimization",
@@ -792,7 +1039,26 @@
       ],
       "raw_basis_summary": "진로활동·화학·생명·정보 원문에서 폐LFP 배터리 회수, 건식/습식 재활용, BMS 설계처럼 데이터와 최적화를 함께 다루는 패턴 반영",
       "source_examples_count": 7,
-      "weight": 13
+      "weight": 13,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_sensor_maker_system_build",
@@ -853,7 +1119,26 @@
       ],
       "raw_basis_summary": "스마트팜, 스마트 퇴비화 시스템, 아두이노 주차 경고장치 등 제작·센서 원문 패턴 반영",
       "source_examples_count": 5,
-      "weight": 12
+      "weight": 12,
+      "observed_modes": {
+        "experiment": 0.3,
+        "data_analysis": 0.3,
+        "design": 0.18,
+        "modeling": 0.14,
+        "social_issue": 0.08
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "experiment",
+        "design",
+        "modeling",
+        "social_issue"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_energy_social_solution_design",
@@ -913,7 +1198,26 @@
       ],
       "raw_basis_summary": "탄소중립, 풍력 간헐성, 에너지 저장 시스템, 국제 협력, 일본 산업 사례를 연결하는 원문 패턴 반영",
       "source_examples_count": 6,
-      "weight": 12
+      "weight": 12,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_ai_ethics_issue_solution",
@@ -975,7 +1279,26 @@
       ],
       "raw_basis_summary": "조작 이미지 위험성, 할루시네이션, 안면인식 편향, AI 윤리 규제 등 실제 원문 패턴 반영",
       "source_examples_count": 6,
-      "weight": 13
+      "weight": 13,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_cross_subject_language_technology",
@@ -1036,7 +1359,26 @@
       ],
       "raw_basis_summary": "국어·영어·일본어·통합사회 원문에서 배터리, 하이브리드, 디지털 윤리, 자율주행을 발표·글쓰기와 연결한 패턴 반영",
       "source_examples_count": 8,
-      "weight": 10
+      "weight": 10,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_math_modeling_engineering",
@@ -1094,7 +1436,26 @@
       ],
       "raw_basis_summary": "프랙탈, 방전율, 경사하강법, 조건부확률 기반 자율주행 센서 예측 등 수학 원문 패턴 반영",
       "source_examples_count": 5,
-      "weight": 12
+      "weight": 12,
+      "observed_modes": {
+        "data_analysis": 0.5,
+        "design": 0.18,
+        "modeling": 0.16,
+        "social_issue": 0.1,
+        "experiment": 0.06
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "design",
+        "modeling",
+        "social_issue",
+        "experiment"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     },
     {
       "pattern_id": "raw_experiment_visualization_realworld",
@@ -1157,7 +1518,26 @@
       ],
       "raw_basis_summary": "충격량 그래프, 당구/배드민턴 사례, 중화 적정, 회로 발열 가상실험 등 원문 패턴 반영",
       "source_examples_count": 7,
-      "weight": 12
+      "weight": 12,
+      "observed_modes": {
+        "experiment": 0.3,
+        "data_analysis": 0.3,
+        "design": 0.18,
+        "modeling": 0.14,
+        "social_issue": 0.08
+      },
+      "recommended_mode_order": [
+        "data_analysis",
+        "experiment",
+        "design",
+        "modeling",
+        "social_issue"
+      ],
+      "school_fit_note": "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다.",
+      "mode_reason": [
+        "원문 학생부의 실제 수행 가능성을 반영함",
+        "학교 현실을 고려하면 실험 단일 추천보다 자료·설계·모델링형을 먼저 검토하는 것이 안정적이다."
+      ]
     }
   ],
   "source_basis": [
