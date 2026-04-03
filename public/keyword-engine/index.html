@@ -9,13 +9,28 @@
 <body>
   <div class="page">
     <section class="hero">
-      <div class="hero-badge">학생이 바로 쓰는 화면</div>
+      <div class="hero-badge">데이터 축적형 학생 엔진</div>
       <h1>학생용 탐구 보고서 설계 엔진</h1>
-      <p>설명을 읽는 화면이 아니라, <strong>바로 따라 쓰는 화면</strong>으로 바꿨습니다.</p>
+      <p>학생은 쉽게 쓰고, 운영자는 <strong>학교·수행평가별 데이터</strong>를 쌓을 수 있게 구성했습니다.</p>
     </section>
 
     <section class="panel form-panel">
       <div class="form-grid">
+        <label>
+          <span>학교명</span>
+          <input id="schoolName" type="text" placeholder="예: 한영고" />
+        </label>
+
+        <label>
+          <span>학년</span>
+          <select id="grade">
+            <option value="">선택</option>
+            <option>고1</option>
+            <option>고2</option>
+            <option>고3</option>
+          </select>
+        </label>
+
         <label>
           <span>과목</span>
           <select id="subject">
@@ -34,6 +49,11 @@
         </label>
 
         <label>
+          <span>수행평가명</span>
+          <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 정책 제안 발표" />
+        </label>
+
+        <label>
           <span>수행평가 형태</span>
           <select id="taskType">
             <option value="">선택</option>
@@ -44,6 +64,18 @@
             <option>정책 제안서</option>
             <option>실험 보고서</option>
             <option>제작·설계형</option>
+          </select>
+        </label>
+
+        <label>
+          <span>사용 목적</span>
+          <select id="usagePurpose">
+            <option value="">선택</option>
+            <option>수행평가 주제 선정</option>
+            <option>보고서 구조 잡기</option>
+            <option>발표 주제 정리</option>
+            <option>생기부 확장 아이디어</option>
+            <option>탐구 방향 점검</option>
           </select>
         </label>
 
@@ -60,16 +92,6 @@
         <label>
           <span>키워드</span>
           <input id="keyword" type="text" placeholder="예: 이차전지, 반도체, 폐배터리" />
-        </label>
-
-        <label>
-          <span>학년</span>
-          <select id="grade">
-            <option value="">선택</option>
-            <option>고1</option>
-            <option>고2</option>
-            <option>고3</option>
-          </select>
         </label>
       </div>
 
@@ -121,7 +143,7 @@
       </section>
 
       <details class="details-panel">
-        <summary>선생님/상담용 참고 보기</summary>
+        <summary>운영/분석용 참고 보기</summary>
         <div class="details-grid">
           <div class="compact-card" id="reasonCard"></div>
           <div class="compact-card" id="stepsCard"></div>
