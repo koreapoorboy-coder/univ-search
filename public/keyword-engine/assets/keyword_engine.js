@@ -1,9 +1,11 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v7-structure";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v9-structure-major";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
 const RECORD_PATTERN_LIBRARY_URL = "seed/record_pattern_library.json";
 const ADMISSION_RULES_URL = "seed/admission_rules.json";
+const MAJOR_KEYWORD_URL = "seed/major_keyword.json";
+const PRIORITY_KEYWORD_URL = "seed/priority_keyword.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -270,6 +272,8 @@ let extensionLibraryCache = null;
 let structureSeedCache = null;
 let recordPatternCache = null;
 let admissionRulesCache = null;
+let majorKeywordCache = null;
+let priorityKeywordCache = null;
 
 async function loadExtensionLibrary() {
   if (extensionLibraryCache) return extensionLibraryCache;
@@ -301,6 +305,22 @@ async function loadAdmissionRules() {
   if (!response.ok) throw new Error("입시 규칙 파일을 불러오지 못했습니다.");
   admissionRulesCache = await response.json();
   return admissionRulesCache;
+}
+
+async function loadMajorKeywordMap() {
+  if (majorKeywordCache) return majorKeywordCache;
+  const response = await fetch(MAJOR_KEYWORD_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("전공 키워드 맵을 불러오지 못했습니다.");
+  majorKeywordCache = await response.json();
+  return majorKeywordCache;
+}
+
+async function loadPriorityKeywords() {
+  if (priorityKeywordCache) return priorityKeywordCache;
+  const response = await fetch(PRIORITY_KEYWORD_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("우선 키워드 파일을 불러오지 못했습니다.");
+  priorityKeywordCache = await response.json();
+  return priorityKeywordCache;
 }
 
 function buildContextTokens(payload, apiData, textbookMatches) {
@@ -884,3 +904,403 @@ document.addEventListener("DOMContentLoaded", () => {
 window.handleGenerate = handleGenerate;
 window.handleReset = handleReset;
 window.getStructureMatches = getStructureMatches;
+
+
+/* ===== admissions-v9 structure major override ===== */
+
+async function buildAdvancedSignals(payload) {
+  try {
+    const [majorMap, priorityMap] = await Promise.all([
+      loadMajorKeywordMap(),
+      loadPriorityKeywords()
+    ]);
+
+    const majorSeeds = toArray(majorMap?.[payload.major] || []);
+    const prioritySeeds = toArray(priorityMap?.phase1_high_priority || []);
+    const payloadTokens = [payload.keyword, payload.track, payload.major].flatMap(tokenize);
+
+    const matchedMajorSeeds = majorSeeds.filter(seed => {
+      const n = normalizeText(seed);
+      return payloadTokens.some(token => token && (n.includes(token) || token.includes(n)));
+    }).slice(0, 12);
+
+    const matchedPrioritySeeds = prioritySeeds.filter(seed => {
+      const n = normalizeText(seed);
+      return payloadTokens.some(token => token && (n.includes(token) || token.includes(n)));
+    }).slice(0, 10);
+
+    return { matchedMajorSeeds, matchedPrioritySeeds };
+  } catch (error) {
+    console.warn('advanced signal load error:', error);
+    return { matchedMajorSeeds: [], matchedPrioritySeeds: [] };
+  }
+}
+
+function buildStructureSummary(topStructure, apiData, payload, textbookMatches) {
+  const result = apiData?.result || {};
+  if (!topStructure) {
+    return {
+      mainApproach: result.recommendedApproach || '비교 기준과 해석 기준을 먼저 세우는 기본 탐구형',
+      outputFocus: toArray(result.subjectLinks).slice(0, 3),
+      checkpoint: toArray(result.warnings).slice(0, 3)
+    };
+  }
+
+  return {
+    mainApproach: `${topStructure.structure_name}을 우선 적용하고 ${topStructure.record_pattern_label || '학생부 일반 패턴'}으로 현실 보정`,
+    outputFocus: toArray(topStructure.good_output_forms).slice(0, 3),
+    checkpoint: [...new Set([...toArray(topStructure.avoid_points), ...toArray(topStructure.grade_avoid)])].slice(0, 3)
+  };
+}
+
+function renderSummarySection(apiData, payload, textbookMatches, structureMatches) {
+  const el = ensureDynamicSection('summarySection');
+  if (!el) return;
+  const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  const summary = buildStructureSummary(topStructure, apiData, payload, textbookMatches);
+  el.innerHTML = `
+    <h3>추천 설계 요약</h3>
+    <div class="summary-strip">
+      <div class="summary-mini">
+        <b>우선 적용 구조</b>
+        <p>${escapeHtml(summary.mainApproach)}</p>
+      </div>
+      <div class="summary-mini">
+        <b>우선 산출물</b>
+        ${renderBullets(summary.outputFocus)}
+      </div>
+      <div class="summary-mini">
+        <b>먼저 피할 점</b>
+        ${renderBullets(summary.checkpoint)}
+      </div>
+    </div>
+  `;
+}
+
+function renderResultCards(apiData, payload = null, textbookMatches = [], structureMatches = []) {
+  const result = apiData.result || {};
+  const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  const reasonText = topStructure
+    ? `${result.reason || ''} 현재 추천은 ${topStructure.structure_name} 구조와 ${topStructure.record_pattern_label || '일반 학생부 패턴'}을 함께 반영했다.`.trim()
+    : result.reason;
+  const steps = topStructure && toArray(topStructure.process_steps).length
+    ? toArray(topStructure.process_steps).slice(0, 5)
+    : result.steps;
+  const flow = topStructure
+    ? [...new Set([
+        ...toArray(topStructure.concept_links).slice(0, 3),
+        ...toArray(topStructure.evidence_style).slice(0, 2)
+      ])].map((item, index) => index < 3 ? `${item} 중심으로 전개` : item)
+    : result.flow;
+  const approachText = topStructure
+    ? `${topStructure.structure_name}을 기준으로 ${topStructure.core_question_frame}`
+    : result.recommendedApproach;
+  const extensionText = topStructure && toArray(topStructure.high_score_signals).length
+    ? `${toArray(topStructure.high_score_signals).slice(0, 2).join(' / ')}까지 보이면 상위권 구조로 읽힌다.`
+    : result.extension;
+  const subjectLinks = [...new Set([
+    ...toArray(result.subjectLinks),
+    ...toArray(topStructure?.concept_links)
+  ])].slice(0, 6);
+  const warnings = [...new Set([
+    ...toArray(result.warnings),
+    ...toArray(topStructure?.avoid_points).slice(0, 3),
+    ...toArray(topStructure?.grade_avoid).slice(0, 2)
+  ])];
+
+  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(reasonText)}`;
+  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(steps)}`;
+  $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(flow)}`;
+  $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(approachText)}`;
+  $("extensionCard").innerHTML = `<h3>한 단계 더 확장하려면</h3>${renderText(extensionText)}`;
+  $("subjectLinksCard").innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(subjectLinks)}`;
+  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(warnings)}`;
+
+  const badge = $("resultModeBadge");
+  if (badge) badge.textContent = apiData.mode || 'ai';
+}
+
+async function getStructureMatches(payload, apiData, textbookMatches) {
+  try {
+    const [structureSeed, recordPatternLibrary, admissionRules, advancedSignals] = await Promise.all([
+      loadStructureSeed(),
+      loadRecordPatternLibrary(),
+      loadAdmissionRules(),
+      buildAdvancedSignals(payload)
+    ]);
+
+    const structureEntries = Array.isArray(structureSeed?.entries) ? structureSeed.entries : [];
+    const recordPatterns = Array.isArray(recordPatternLibrary?.entries) ? recordPatternLibrary.entries : [];
+    const clusterRule = selectClusterRule(payload, apiData, textbookMatches, admissionRules);
+    const gradeModifier = getGradeModifier(payload, admissionRules);
+
+    const boostedTextbookMatches = (textbookMatches || []).map(item => ({
+      ...item,
+      core_concepts: [...new Set([...toArray(item.core_concepts), ...advancedSignals.matchedMajorSeeds.slice(0, 4)])],
+      topic_seeds: [...new Set([...toArray(item.topic_seeds), ...advancedSignals.matchedPrioritySeeds.slice(0, 4)])]
+    }));
+
+    const scoredStructures = structureEntries
+      .map(entry => {
+        let extra = 0;
+        extra += scoreTokenList(advancedSignals.matchedMajorSeeds, toArray(entry.seed_keywords).flatMap(tokenize), 8, 4);
+        extra += scoreTokenList(advancedSignals.matchedPrioritySeeds, toArray(entry.seed_keywords).flatMap(tokenize), 5, 2);
+        const base = scoreStructureEntry(entry, payload, apiData, boostedTextbookMatches, clusterRule, gradeModifier);
+        return { ...entry, _score: base + extra };
+      })
+      .filter(entry => entry._score > 0)
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 4);
+
+    const scoredPatterns = recordPatterns
+      .map(entry => {
+        let extra = 0;
+        extra += scoreTokenList(advancedSignals.matchedMajorSeeds, toArray(entry.fit_keywords).flatMap(tokenize), 6, 3);
+        extra += scoreTokenList(advancedSignals.matchedPrioritySeeds, toArray(entry.fit_keywords).flatMap(tokenize), 4, 2);
+        const base = scoreRecordPatternEntry(entry, payload, apiData, boostedTextbookMatches, clusterRule, gradeModifier);
+        return { ...entry, _score: base + extra };
+      })
+      .filter(entry => entry._score > 0)
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 4);
+
+    if (!scoredStructures.length && !scoredPatterns.length && !clusterRule && !gradeModifier) return [];
+
+    const merged = [];
+    const baseStructures = scoredStructures.length ? scoredStructures : [null];
+    const basePatterns = scoredPatterns.length ? scoredPatterns : [null];
+
+    for (const s of baseStructures) {
+      for (const p of basePatterns) {
+        const item = mergeStructureAndPattern(s, p, clusterRule, gradeModifier);
+        item.major_signal_hits = advancedSignals.matchedMajorSeeds.slice(0, 5);
+        item.priority_signal_hits = advancedSignals.matchedPrioritySeeds.slice(0, 5);
+        item._score += item.major_signal_hits.length * 2 + item.priority_signal_hits.length;
+        merged.push(item);
+      }
+    }
+
+    return merged
+      .sort((a, b) => b._score - a._score)
+      .filter((item, index, arr) => arr.findIndex(v => v.structure_id === item.structure_id && v.record_pattern_label === item.record_pattern_label) === index)
+      .slice(0, 3);
+  } catch (error) {
+    console.warn('structure matcher error:', error);
+    return [];
+  }
+}
+
+function renderStructureSection(structureMatches, payload) {
+  const el = ensureDynamicSection('structureSection');
+  if (!el) return;
+
+  if (!Array.isArray(structureMatches) || !structureMatches.length) {
+    el.innerHTML = '';
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>추천 구조 매칭</h3>
+      <div class="textbook-list">
+        ${structureMatches.map((item, idx) => `
+          <div class="textbook-item structure-item">
+            <div class="textbook-head">
+              <strong>${escapeHtml(`${idx + 1}순위 · ${item.structure_name || ''}`)}</strong>
+              <div class="inline-badges">
+                ${item.record_pattern_label ? `<span>${escapeHtml(item.record_pattern_label)}</span>` : ''}
+                ${item.cluster_label ? `<span>${escapeHtml(item.cluster_label)}</span>` : ''}
+              </div>
+            </div>
+
+            <div class="score-line">구조 점수 ${escapeHtml(item._score || 0)}</div>
+
+            <div class="textbook-row">
+              <b>핵심 질문 틀</b>
+              <p>${escapeHtml(item.core_question_frame || '')}</p>
+            </div>
+
+            <div class="textbook-row">
+              <b>이 구조가 맞는 이유</b>
+              <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
+            </div>
+
+            ${item.grade_depth_rule ? `
+              <div class="textbook-row">
+                <b>학년 보정</b>
+                <p>${escapeHtml(item.grade_depth_rule)}</p>
+              </div>` : ''}
+
+            ${toArray(item.major_signal_hits).length ? `
+              <div class="textbook-row">
+                <b>전공 키워드 보정</b>
+                <ul>${toArray(item.major_signal_hits).slice(0, 5).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+
+            ${toArray(item.process_steps).length ? `
+              <div class="textbook-row">
+                <b>권장 전개 순서</b>
+                <ul>${toArray(item.process_steps).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+
+            ${toArray(item.good_output_forms).length ? `
+              <div class="textbook-row">
+                <b>잘 맞는 산출물</b>
+                <ul>${toArray(item.good_output_forms).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+
+            ${toArray(item.high_score_signals).length ? `
+              <div class="textbook-row">
+                <b>좋게 보이는 신호</b>
+                <ul>${toArray(item.high_score_signals).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+
+            ${toArray(item.avoid_points).length ? `
+              <div class="textbook-row">
+                <b>피해야 할 점</b>
+                <ul>${toArray(item.avoid_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function normalizeTemplateForAdmissions(item, payload, structureMatches) {
+  const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  const preferredOutputs = toArray(topStructure?.good_output_forms).map(normalizeText);
+  const baseSubjects = [...new Set([...toArray(item?.subjects).slice(0, 3), ...toArray(topStructure?.concept_links).slice(0, 2)])];
+  return {
+    title: item?.title || '',
+    type: item?.type || '',
+    whyThisWorks: buildTemplateWhyThisWorks(item, payload, structureMatches),
+    executionSteps: buildTemplateExecutionSteps(item, payload, structureMatches),
+    writeGuide: buildTemplateWriteGuide(item, payload, structureMatches),
+    outputExample: buildTemplateOutputExample(item, payload, structureMatches),
+    upgradePoint: buildTemplateUpgradePoint(item, payload, structureMatches),
+    evaluationPoints: toArray(item?.evaluation_points).slice(0, 3),
+    subjects: baseSubjects,
+    outputPriorityNote: preferredOutputs.length ? `우선 산출물은 ${toArray(topStructure?.good_output_forms).slice(0, 2).join(', ')} 쪽이 더 안정적이다.` : ''
+  };
+}
+
+function renderExtensionLibrarySection(matches, structureMatches = [], payload = null) {
+  const el = $('extensionLibrarySection');
+  if (!el) return;
+
+  if (!Array.isArray(matches) || !matches.length || !payload) {
+    el.innerHTML = '';
+    return;
+  }
+
+  const normalized = matches.map(item => normalizeTemplateForAdmissions(item, payload, structureMatches));
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>추천 활동 템플릿</h3>
+      <div class="textbook-list">
+        ${normalized.map(item => `
+          <div class="textbook-item">
+            <div class="textbook-head">
+              <strong>${escapeHtml(item.title)}</strong>
+              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ''}
+            </div>
+
+            <div class="textbook-row">
+              <b>왜 이 템플릿이 유리한가</b>
+              <p>${escapeHtml(item.whyThisWorks)}</p>
+            </div>
+
+            <div class="textbook-row">
+              <b>학생이 바로 할 일</b>
+              <ul>${item.executionSteps.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+            </div>
+
+            <div class="textbook-row">
+              <b>보고서에 쓰는 방식</b>
+              <ul>${item.writeGuide.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+            </div>
+
+            <div class="textbook-row">
+              <b>결과물 예시</b>
+              <p>${escapeHtml(item.outputExample)}</p>
+            </div>
+
+            ${item.outputPriorityNote ? `
+              <div class="textbook-row">
+                <b>산출물 우선순위</b>
+                <p>${escapeHtml(item.outputPriorityNote)}</p>
+              </div>` : ''}
+
+            <div class="textbook-row">
+              <b>한 단계 더 높이려면</b>
+              <p>${escapeHtml(item.upgradePoint)}</p>
+            </div>
+
+            ${item.evaluationPoints.length ? `
+              <div class="textbook-row">
+                <b>평가 포인트</b>
+                <ul>${item.evaluationPoints.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+
+            ${item.subjects.length ? `
+              <div class="textbook-row">
+                <b>연결 과목</b>
+                <ul>${item.subjects.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+async function handleGenerate() {
+  clearError();
+  clearResults();
+
+  try {
+    const payload = getFormValues();
+    validateInput(payload);
+    setLoading(true);
+
+    const apiData = await callGenerateAPI(payload);
+    const textbookMatches = await getTextbookMatches(payload);
+    const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
+    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches);
+
+    window.__lastGenerateDebug = {
+      payload,
+      apiData,
+      textbookMatches,
+      structureMatches,
+      extensionMatches,
+      version: window.__KEYWORD_ENGINE_VERSION || 'unknown'
+    };
+
+    renderResultCards(apiData, payload, textbookMatches, structureMatches);
+    renderSummarySection(apiData, payload, textbookMatches, structureMatches);
+    renderTextbookSection(textbookMatches);
+    renderStructureSection(structureMatches, payload);
+    renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
+
+    const badge = $('resultModeBadge');
+    if (badge) badge.textContent = 'admissions-v9-structure-major';
+
+    const resultWrap = $('resultSection');
+    if (resultWrap) resultWrap.style.display = 'block';
+
+    return window.__lastGenerateDebug;
+  } catch (error) {
+    console.error('handleGenerate error:', error);
+    window.__lastGenerateDebug = {
+      error: error?.message || String(error),
+      version: window.__KEYWORD_ENGINE_VERSION || 'unknown'
+    };
+    showError(error.message || '생성 중 오류가 발생했습니다.');
+    return window.__lastGenerateDebug;
+  } finally {
+    setLoading(false);
+  }
+}
