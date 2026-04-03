@@ -128,7 +128,7 @@
       };
     }
 
-    return { matches };
+    return { matches, bestScore, minScore };
   }
 
   function buildTextbookSummary(matches = []) {
