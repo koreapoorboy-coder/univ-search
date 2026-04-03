@@ -3,6 +3,7 @@ const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
 const RECORD_PATTERN_LIBRARY_URL = "seed/record_pattern_library.json";
+const ADMISSION_RULES_URL = "seed/admission_rules.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -186,16 +187,27 @@ async function getTextbookMatches(payload) {
   }
 }
 
-function renderResultCards(apiData) {
+function renderResultCards(apiData, payload = null, textbookMatches = [], structureMatches = []) {
   const result = apiData.result || {};
+  const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  const reasonText = topStructure
+    ? `${result.reason || ""} 현재 추천은 ${topStructure.structure_name} 구조를 우선 반영했다.`.trim()
+    : result.reason;
+  const steps = topStructure && toArray(topStructure.process_steps).length
+    ? toArray(topStructure.process_steps).slice(0, 5)
+    : result.steps;
+  const warnings = [...new Set([
+    ...toArray(result.warnings),
+    ...toArray(topStructure?.avoid_points).slice(0, 2)
+  ])];
 
-  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(result.reason)}`;
-  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(result.steps)}`;
+  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(reasonText)}`;
+  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(steps)}`;
   $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(result.flow)}`;
   $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(result.recommendedApproach)}`;
   $("extensionCard").innerHTML = `<h3>한 단계 더 확장하려면</h3>${renderText(result.extension)}`;
   $("subjectLinksCard").innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(result.subjectLinks)}`;
-  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(result.warnings)}`;
+  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(warnings)}`;
 
   const badge = $("resultModeBadge");
   if (badge) badge.textContent = apiData.mode || "ai";
@@ -257,6 +269,7 @@ function renderTextbookSection(matches) {
 let extensionLibraryCache = null;
 let structureSeedCache = null;
 let recordPatternCache = null;
+let admissionRulesCache = null;
 
 async function loadExtensionLibrary() {
   if (extensionLibraryCache) return extensionLibraryCache;
@@ -280,6 +293,14 @@ async function loadRecordPatternLibrary() {
   if (!response.ok) throw new Error("학생부 보정 라이브러리를 불러오지 못했습니다.");
   recordPatternCache = await response.json();
   return recordPatternCache;
+}
+
+async function loadAdmissionRules() {
+  if (admissionRulesCache) return admissionRulesCache;
+  const response = await fetch(ADMISSION_RULES_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("입시 규칙 파일을 불러오지 못했습니다.");
+  admissionRulesCache = await response.json();
+  return admissionRulesCache;
 }
 
 function buildContextTokens(payload, apiData, textbookMatches) {
@@ -311,7 +332,34 @@ function scoreTokenList(list, contextTokens, exactWeight, partialWeight) {
   return score;
 }
 
-function scoreStructureEntry(entry, payload, apiData, textbookMatches) {
+function selectClusterRule(payload, apiData, textbookMatches, admissionRules) {
+  const rules = Array.isArray(admissionRules?.cluster_rules) ? admissionRules.cluster_rules : [];
+  if (!rules.length) return null;
+
+  const contextTokens = buildContextTokens(payload, apiData, textbookMatches);
+  const ranked = rules
+    .map(rule => ({
+      ...rule,
+      _score:
+        scoreTokenList(rule.label, contextTokens, 10, 4) +
+        scoreTokenList(rule.recurring_links, contextTokens, 8, 4) +
+        scoreTokenList(rule.recurring_methods, contextTokens, 7, 3) +
+        scoreTokenList(rule.engine_rule, contextTokens, 3, 1)
+    }))
+    .filter(rule => rule._score > 0)
+    .sort((a, b) => b._score - a._score);
+
+  return ranked[0] || null;
+}
+
+function getGradeModifier(payload, admissionRules) {
+  const key = String(payload?.grade || '').trim();
+  if (!key) return null;
+  const modifiers = admissionRules?.grade_level_modifiers || {};
+  return modifiers[key] || modifiers[key.replace('학년', '')] || null;
+}
+
+function scoreStructureEntry(entry, payload, apiData, textbookMatches, clusterRule = null, gradeModifier = null) {
   const contextTokens = buildContextTokens(payload, apiData, textbookMatches);
   let score = 0;
 
@@ -327,10 +375,21 @@ function scoreStructureEntry(entry, payload, apiData, textbookMatches) {
   const payloadMajor = normalizeText(payload.major);
   if (payloadMajor && tokenize(entry.track).includes(payloadMajor)) score += 4;
 
+  if (clusterRule) {
+    score += scoreTokenList(clusterRule.label, tokenize(entry.track).concat(tokenize(entry.when_to_use)), 6, 3);
+    score += scoreTokenList(clusterRule.recurring_links, toArray(entry.concept_links).flatMap(tokenize), 5, 2);
+    score += scoreTokenList(clusterRule.recurring_methods, toArray(entry.evidence_style).flatMap(tokenize), 5, 2);
+  }
+
+  if (gradeModifier) {
+    score += scoreTokenList(gradeModifier.recommended_methods, toArray(entry.evidence_style).flatMap(tokenize), 4, 2);
+    score += scoreTokenList(gradeModifier.avoid, toArray(entry.avoid_points).flatMap(tokenize), 2, 1);
+  }
+
   return score;
 }
 
-function scoreRecordPatternEntry(entry, payload, apiData, textbookMatches) {
+function scoreRecordPatternEntry(entry, payload, apiData, textbookMatches, clusterRule = null, gradeModifier = null) {
   const contextTokens = buildContextTokens(payload, apiData, textbookMatches);
   let score = 0;
   score += scoreTokenList(entry.fit_keywords, contextTokens, 12, 6);
@@ -341,31 +400,51 @@ function scoreRecordPatternEntry(entry, payload, apiData, textbookMatches) {
   const payloadGrade = normalizeText(payload.grade);
   if (payloadGrade && toArray(entry.grade).map(normalizeText).includes(payloadGrade)) score += 8;
   score += Number(entry.weight || 0);
+
+  if (clusterRule) {
+    score += scoreTokenList(clusterRule.recurring_links, toArray(entry.fit_subjects).flatMap(tokenize), 4, 2);
+    score += scoreTokenList(clusterRule.recurring_methods, toArray(entry.preferred_styles).flatMap(tokenize), 4, 2);
+  }
+
+  if (gradeModifier) {
+    score += scoreTokenList(gradeModifier.recommended_methods, toArray(entry.preferred_styles).flatMap(tokenize), 4, 2);
+    score += scoreTokenList(gradeModifier.avoid, toArray(entry.avoid_points).flatMap(tokenize), 1, 1);
+  }
+
   return score;
 }
 
-function mergeStructureAndPattern(structureMatch, patternMatch) {
+function mergeStructureAndPattern(structureMatch, patternMatch, clusterRule = null, gradeModifier = null) {
   return {
     structure_id: structureMatch?.structure_id || patternMatch?.pattern_id || "fallback_structure",
     structure_name: structureMatch?.structure_name || patternMatch?.label || "기본 비교-해석형",
-    track: structureMatch?.track || toArray(patternMatch?.track)[0] || "",
+    track: structureMatch?.track || toArray(patternMatch?.track)[0] || clusterRule?.label || "",
     subject: structureMatch?.subject || toArray(patternMatch?.fit_subjects)[0] || "",
+    cluster_label: clusterRule?.label || "",
+    grade_depth_rule: gradeModifier?.depth_rule || "",
+    grade_recommended_methods: toArray(gradeModifier?.recommended_methods),
+    grade_avoid: toArray(gradeModifier?.avoid),
     core_question_frame: structureMatch?.core_question_frame || "이 주제를 어떤 기준으로 비교하고 어떻게 해석할 수 있는가?",
     process_steps: toArray(structureMatch?.process_steps).length
       ? toArray(structureMatch.process_steps)
       : toArray(patternMatch?.recommended_structure),
-    concept_links: toArray(structureMatch?.concept_links),
-    evidence_style: toArray(structureMatch?.evidence_style),
+    concept_links: [...new Set([...toArray(structureMatch?.concept_links), ...toArray(clusterRule?.recurring_links).slice(0,2)])],
+    evidence_style: [...new Set([...toArray(structureMatch?.evidence_style), ...toArray(clusterRule?.recurring_methods).slice(0,2)])],
     good_output_forms: [...new Set([...toArray(structureMatch?.good_output_forms), ...toArray(patternMatch?.outputs)])],
     high_score_signals: [...new Set([
       ...toArray(structureMatch?.high_score_signals),
       ...toArray(patternMatch?.student_record_signals)
     ])],
-    avoid_points: [...new Set([...toArray(structureMatch?.avoid_points), ...toArray(patternMatch?.avoid_points)])],
+    avoid_points: [...new Set([
+      ...toArray(structureMatch?.avoid_points),
+      ...toArray(patternMatch?.avoid_points),
+      ...toArray(gradeModifier?.avoid)
+    ])],
     record_pattern_label: patternMatch?.label || "",
     _structure_score: structureMatch?._score || 0,
     _pattern_score: patternMatch?._score || 0,
-    _score: (structureMatch?._score || 0) + (patternMatch?._score || 0)
+    _cluster_score: clusterRule?._score || 0,
+    _score: (structureMatch?._score || 0) + (patternMatch?._score || 0) + Math.min(clusterRule?._score || 0, 18)
   };
 }
 
@@ -373,26 +452,41 @@ async function getStructureMatches(payload, apiData, textbookMatches) {
   try {
     const structureSeed = await loadStructureSeed();
     const recordPatternLibrary = await loadRecordPatternLibrary();
+    const admissionRules = await loadAdmissionRules();
 
     const structureEntries = Array.isArray(structureSeed?.entries) ? structureSeed.entries : [];
     const recordPatterns = Array.isArray(recordPatternLibrary?.entries) ? recordPatternLibrary.entries : [];
+    const clusterRule = selectClusterRule(payload, apiData, textbookMatches, admissionRules);
+    const gradeModifier = getGradeModifier(payload, admissionRules);
 
     const scoredStructures = structureEntries
-      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, payload, apiData, textbookMatches) }))
+      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, payload, apiData, textbookMatches, clusterRule, gradeModifier) }))
       .filter(entry => entry._score > 0)
-      .sort((a, b) => b._score - a._score);
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 3);
 
     const scoredPatterns = recordPatterns
-      .map(entry => ({ ...entry, _score: scoreRecordPatternEntry(entry, payload, apiData, textbookMatches) }))
+      .map(entry => ({ ...entry, _score: scoreRecordPatternEntry(entry, payload, apiData, textbookMatches, clusterRule, gradeModifier) }))
       .filter(entry => entry._score > 0)
-      .sort((a, b) => b._score - a._score);
+      .sort((a, b) => b._score - a._score)
+      .slice(0, 3);
 
-    const topStructure = scoredStructures[0] || null;
-    const topPattern = scoredPatterns[0] || null;
+    if (!scoredStructures.length && !scoredPatterns.length && !clusterRule && !gradeModifier) return [];
 
-    if (!topStructure && !topPattern) return [];
+    const baseStructures = scoredStructures.length ? scoredStructures : [null];
+    const basePatterns = scoredPatterns.length ? scoredPatterns : [null];
 
-    return [mergeStructureAndPattern(topStructure, topPattern)];
+    const merged = [];
+    for (const s of baseStructures) {
+      for (const p of basePatterns) {
+        merged.push(mergeStructureAndPattern(s, p, clusterRule, gradeModifier));
+      }
+    }
+
+    return merged
+      .sort((a, b) => b._score - a._score)
+      .filter((item, index, arr) => arr.findIndex(v => v.structure_id === item.structure_id && v.record_pattern_label === item.record_pattern_label) === index)
+      .slice(0, 3);
   } catch (error) {
     console.warn("structure matcher error:", error);
     return [];
@@ -402,7 +496,8 @@ async function getStructureMatches(payload, apiData, textbookMatches) {
 function buildStructureWhyThisWorks(structureMatch, payload) {
   const structureName = structureMatch?.structure_name || "기본 비교-해석형";
   const patternLabel = structureMatch?.record_pattern_label || "학생부 현실 보정";
-  return `${structureName}을 중심으로 ${patternLabel}을 반영하면 ${payload.keyword}를 단순 설명이 아니라 고등학생 수행평가에 맞는 흐름으로 정리할 수 있다.`;
+  const cluster = structureMatch?.cluster_label ? `${structureMatch.cluster_label} 계열 관점` : "진로 관점";
+  return `${structureName}을 중심으로 ${patternLabel}과 ${cluster}을 함께 반영하면 ${payload.keyword}를 단순 설명이 아니라 고등학생 수행평가에 맞는 흐름으로 정리할 수 있다.`;
 }
 
 function renderStructureSection(structureMatches, payload) {
@@ -414,52 +509,63 @@ function renderStructureSection(structureMatches, payload) {
     return;
   }
 
-  const item = structureMatches[0];
-
   el.innerHTML = `
     <div class="textbook-box">
       <h3>추천 구조 매칭</h3>
       <div class="textbook-list">
-        <div class="textbook-item">
-          <div class="textbook-head">
-            <strong>${escapeHtml(item.structure_name || "")}</strong>
-            ${item.record_pattern_label ? `<span>${escapeHtml(item.record_pattern_label)}</span>` : ""}
+        ${structureMatches.map(item => `
+          <div class="textbook-item structure-item">
+            <div class="textbook-head">
+              <strong>${escapeHtml(item.structure_name || "")}</strong>
+              <div class="inline-badges">
+                ${item.record_pattern_label ? `<span>${escapeHtml(item.record_pattern_label)}</span>` : ""}
+                ${item.cluster_label ? `<span>${escapeHtml(item.cluster_label)}</span>` : ""}
+              </div>
+            </div>
+
+            <div class="score-line">구조 점수 ${escapeHtml(item._score || 0)}</div>
+
+            <div class="textbook-row">
+              <b>핵심 질문 틀</b>
+              <p>${escapeHtml(item.core_question_frame || "")}</p>
+            </div>
+
+            <div class="textbook-row">
+              <b>이 구조가 맞는 이유</b>
+              <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
+            </div>
+
+            ${item.grade_depth_rule ? `
+              <div class="textbook-row">
+                <b>학년 보정</b>
+                <p>${escapeHtml(item.grade_depth_rule)}</p>
+              </div>` : ""}
+
+            ${toArray(item.process_steps).length ? `
+              <div class="textbook-row">
+                <b>권장 전개 순서</b>
+                <ul>${toArray(item.process_steps).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.good_output_forms).length ? `
+              <div class="textbook-row">
+                <b>잘 맞는 산출물</b>
+                <ul>${toArray(item.good_output_forms).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.high_score_signals).length ? `
+              <div class="textbook-row">
+                <b>좋게 보이는 신호</b>
+                <ul>${toArray(item.high_score_signals).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
+
+            ${toArray(item.avoid_points).length ? `
+              <div class="textbook-row">
+                <b>피해야 할 점</b>
+                <ul>${toArray(item.avoid_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+              </div>` : ""}
           </div>
-
-          <div class="textbook-row">
-            <b>핵심 질문 틀</b>
-            <p>${escapeHtml(item.core_question_frame || "")}</p>
-          </div>
-
-          <div class="textbook-row">
-            <b>이 구조가 맞는 이유</b>
-            <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
-          </div>
-
-          ${toArray(item.process_steps).length ? `
-            <div class="textbook-row">
-              <b>권장 전개 순서</b>
-              <ul>${toArray(item.process_steps).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-            </div>` : ""}
-
-          ${toArray(item.good_output_forms).length ? `
-            <div class="textbook-row">
-              <b>잘 맞는 산출물</b>
-              <ul>${toArray(item.good_output_forms).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-            </div>` : ""}
-
-          ${toArray(item.high_score_signals).length ? `
-            <div class="textbook-row">
-              <b>좋게 보이는 신호</b>
-              <ul>${toArray(item.high_score_signals).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-            </div>` : ""}
-
-          ${toArray(item.avoid_points).length ? `
-            <div class="textbook-row">
-              <b>피해야 할 점</b>
-              <ul>${toArray(item.avoid_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-            </div>` : ""}
-        </div>
+        `).join("")}
       </div>
     </div>
   `;
