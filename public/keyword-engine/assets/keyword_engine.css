@@ -160,3 +160,16 @@ input, select {
 @media (max-width: 820px) {
   .form-grid, .result-grid { grid-template-columns: 1fr; }
 }
+
+
+.result-card-wide { grid-column: 1 / -1; }
+.textbook-box h3 { margin: 0 0 12px; }
+.textbook-list { display: grid; gap: 12px; }
+.textbook-item { border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: #fff; }
+.textbook-head { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px; }
+.textbook-head span { background: var(--primary-soft); color: var(--primary); border-radius: 999px; padding: 4px 10px; font-size: .84rem; font-weight: 700; }
+.textbook-row { margin-top: 12px; }
+.textbook-row b { display:block; margin-bottom: 6px; }
+.textbook-row p, .textbook-row li { line-height: 1.62; }
+.textbook-row ul { margin: 0; padding-left: 18px; }
+.muted { color: var(--muted); }
