@@ -1,5 +1,6 @@
 (function () {
   const TEXTBOOK_MASTER_URL = "seed/textbook_master.json";
+  const MIN_MATCH_SCORE = 8;
 
   function normalizeText(value) {
     return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
@@ -9,6 +10,18 @@
     if (Array.isArray(value)) return value;
     if (value == null) return [];
     return [value];
+  }
+
+  function tokenize(value) {
+    const raw = String(value ?? "").trim();
+    if (!raw) return [];
+
+    return [...new Set(
+      raw
+        .split(/[\/,|·ㆍ>]+|\s+/)
+        .map(v => normalizeText(v))
+        .filter(v => v && v.length >= 2)
+    )];
   }
 
   let textbookMasterCache = null;
@@ -55,38 +68,42 @@
     return flat;
   }
 
-  function scoreMatch(item, context) {
+  function scoreField(values, token, exactWeight, partialWeight) {
+    const normalized = toArray(values).map(normalizeText).filter(Boolean);
     let score = 0;
 
-    const haystack = [
-      ...(context.keywords || []),
-      context.category || "",
-      context.major || ""
-    ].map(normalizeText).filter(Boolean);
+    normalized.forEach(value => {
+      if (!value || !token) return;
+      if (value === token) score += exactWeight;
+      else if (value.includes(token) || token.includes(value)) score += partialWeight;
+    });
 
-    const concepts = toArray(item.core_concepts).map(normalizeText);
-    const points = toArray(item.interpretation_points).map(normalizeText);
-    const topics = toArray(item.topic_seeds).map(normalizeText);
-    const majors = toArray(item.major_links).map(normalizeText);
-    const subject = normalizeText(item.subject);
-    const unit = normalizeText(item.unit);
-    const subunit = normalizeText(item.subunit);
+    return score;
+  }
+
+  function scoreMatch(item, context) {
+    let score = 0;
+    const tokenPool = [
+      ...(context.keywords || []).flatMap(tokenize),
+      ...tokenize(context.category || ""),
+      ...tokenize(context.major || "")
+    ];
+    const haystack = [...new Set(tokenPool)].filter(Boolean);
 
     haystack.forEach(token => {
-      if (!token) return;
-
-      if (concepts.some(v => v && (v.includes(token) || token.includes(v)))) score += 10;
-      if (topics.some(v => v && (v.includes(token) || token.includes(v)))) score += 8;
-      if (points.some(v => v && (v.includes(token) || token.includes(v)))) score += 5;
-      if (majors.some(v => v && (v.includes(token) || token.includes(v)))) score += 7;
-      if (subject && (subject.includes(token) || token.includes(subject))) score += 4;
-      if (unit && (unit.includes(token) || token.includes(unit))) score += 3;
-      if (subunit && (subunit.includes(token) || token.includes(subunit))) score += 3;
+      score += scoreField(item.core_concepts, token, 14, 9);
+      score += scoreField(item.topic_seeds, token, 12, 7);
+      score += scoreField(item.interpretation_points, token, 7, 4);
+      score += scoreField(item.major_links, token, 10, 6);
+      score += scoreField([item.subject], token, 8, 4);
+      score += scoreField([item.unit], token, 6, 3);
+      score += scoreField([item.subunit], token, 6, 3);
+      score += scoreField(item.record_seeds, token, 5, 2);
     });
 
     const major = normalizeText(context.major || "");
-    if (major && majors.some(v => v && (v.includes(major) || major.includes(v)))) {
-      score += 12;
+    if (major && toArray(item.major_links).map(normalizeText).some(v => v === major)) {
+      score += 16;
     }
 
     return score;
@@ -103,11 +120,11 @@
       }))
       .sort((a, b) => b._score - a._score);
 
-    const matches = scored.filter(item => item._score >= 0).slice(0, 5);
+    const matches = scored.filter(item => item._score >= MIN_MATCH_SCORE).slice(0, 5);
 
     if (!matches.length) {
       return {
-        matches: flat.slice(0, 3)
+        matches: scored.slice(0, 3)
       };
     }
 
@@ -129,6 +146,7 @@
     normalizeText,
     flattenTextbookMaster,
     matchTextbook,
-    buildTextbookSummary
+    buildTextbookSummary,
+    tokenize
   };
 })();
