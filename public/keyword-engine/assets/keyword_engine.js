@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v11-mode-priority";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v12-grade1-research";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
@@ -28,6 +28,23 @@ function toArray(value) {
 
 function normalizeText(value) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
+}
+
+
+function containsAnyToken(value, tokens = []) {
+  const norm = normalizeText(value || '');
+  return tokens.some(token => {
+    const t = normalizeText(token);
+    return t && (norm.includes(t) || t.includes(norm));
+  });
+}
+
+function isGrade1ResearchPriority(payload = {}) {
+  const grade = String(payload.grade || '');
+  if (!(grade.includes('1') || grade.includes('고1'))) return false;
+  const tokens = ['이차전지', '배터리', '반도체', '신소재', '전기차', '전고체'];
+  const combined = [payload.keyword, payload.major, payload.track].filter(Boolean).join(' ');
+  return containsAnyToken(combined, tokens);
 }
 
 function tokenize(value) {
@@ -663,28 +680,40 @@ function buildModePriorityText(structureMatch) {
   return order.slice(0, 3).map(key => modeLabels[key] || key).join(" → ");
 }
 
-function buildModeRecommendation(structureMatches = []) {
+function buildModeRecommendation(structureMatches = [], payload = {}) {
   const top = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
-  if (!top) {
-    return {
-      primary: "자료분석형",
-      secondary: ["설계·제작형", "모델링형"],
-      reason: ["학교 현실을 고려하면 실험보다 자료 정리와 비교 해석이 기본값으로 더 안전하다."]
-    };
-  }
-
   const labels = {
-    data_analysis: "자료분석형",
+    data_analysis: "자료·조사형",
     design: "설계·제작형",
     modeling: "모델링형",
     social_issue: "사회문제해결형",
     experiment: "실험형"
   };
-  const order = toArray(top.recommended_mode_order);
+
+  if (!top) {
+    return {
+      primary: "자료·조사형",
+      secondary: ["설계·제작형", "모델링형"],
+      reason: ["학교 현실을 고려하면 실험보다 자료 조사와 비교 해석이 기본값으로 더 안전하다."]
+    };
+  }
+
+  let order = toArray(top.recommended_mode_order);
+  let reason = [...toArray(top.mode_reason), top.school_fit_note].filter(Boolean);
+
+  if (isGrade1ResearchPriority(payload)) {
+    order = ['data_analysis', 'design', 'modeling', 'social_issue', 'experiment'];
+    reason = [
+      '1학년의 이차전지·반도체·신소재 주제는 실험보다 자료 조사와 비교 설명형이 더 자연스럽다.',
+      '학교 현실상 바로 측정 실험으로 가기보다 기사·도표·기술 사례를 정리하는 방식이 안정적이다.',
+      '개념 1~2개를 정확히 설명하고 장단점·안전성·활용성을 비교하는 흐름이 학생부에도 더 잘 남는다.'
+    ];
+  }
+
   return {
-    primary: labels[order[0]] || "자료분석형",
+    primary: labels[order[0]] || "자료·조사형",
     secondary: order.slice(1, 3).map(key => labels[key] || key),
-    reason: [...toArray(top.mode_reason), top.school_fit_note].filter(Boolean).slice(0, 3)
+    reason: reason.slice(0, 3)
   };
 }
 
@@ -759,6 +788,13 @@ function scoreExtensionTemplate(template, context) {
     if (templateMode === "experiment") score -= 8;
   }
 
+  if (isGrade1ResearchPriority(context)) {
+    if (templateMode === "experiment") score -= 18;
+    if (templateMode === "data_analysis") score += 14;
+    if (templateMode === "design") score += 8;
+    if (templateMode === "modeling") score += 5;
+  }
+
   if (styleMode && templateMode === styleMode) score += 10;
   if (context.primaryMode && templateMode === context.primaryMode) score += 8;
 
@@ -789,7 +825,8 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, str
       textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean),
       structureSignals,
       modeOrder: toArray(topStructure?.recommended_mode_order),
-      primaryMode: getTopMode(structureMatches)
+      primaryMode: getTopMode(structureMatches),
+      grade: payload.grade
     };
 
     return templates
@@ -1078,7 +1115,7 @@ function renderSummarySection(apiData, payload, textbookMatches, structureMatche
   if (!el) return;
   const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   const summary = buildStructureSummary(topStructure, apiData, payload, textbookMatches);
-  const modeRec = buildModeRecommendation(structureMatches);
+  const modeRec = buildModeRecommendation(structureMatches, payload);
   el.innerHTML = `
     <h3>추천 설계 요약</h3>
     <div class="summary-strip">
@@ -1119,7 +1156,7 @@ function renderResultCards(apiData, payload = null, textbookMatches = [], struct
         ...toArray(topStructure.evidence_style).slice(0, 2)
       ])].map((item, index) => index < 3 ? `${item} 중심으로 전개` : item)
     : result.flow;
-  const modeRec = buildModeRecommendation(structureMatches);
+  const modeRec = buildModeRecommendation(structureMatches, payload);
   const approachText = topStructure
     ? `${modeRec.primary}을 1순위로 두고 ${topStructure.structure_name}을 기준으로 ${topStructure.core_question_frame}`
     : result.recommendedApproach;
@@ -1301,22 +1338,54 @@ function renderStructureSection(structureMatches, payload) {
   `;
 }
 
+
+function renderNumberedSteps(items = []) {
+  const arr = toArray(items).filter(Boolean);
+  if (!arr.length) return '<p class="muted">내용이 없습니다.</p>';
+  return `<ol class="step-list">${arr.map((item, index) => `<li><span class="step-no">${index + 1}</span><span>${escapeHtml(item)}</span></li>`).join('')}</ol>`;
+}
+
+function buildTemplateStructurePreview(item) {
+  const steps = toArray(item.executionSteps).slice(0, 3).map(step => String(step).replace(/[.。]$/, '').trim()).filter(Boolean);
+  if (!steps.length) return '개념 정리 → 비교 기준 설정 → 결과 해석';
+  return steps.join(' → ');
+}
+
+function buildTemplateOutputLabel(item) {
+  const priority = String(item.outputPriorityNote || '').replace('우선 산출물은 ', '').replace(' 쪽이 더 안정적이다.', '').trim();
+  if (priority) return priority;
+  return '보고서 · 발표 자료';
+}
+
 function normalizeTemplateForAdmissions(item, payload, structureMatches) {
   const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   const preferredOutputs = toArray(topStructure?.good_output_forms).map(normalizeText);
   const baseSubjects = [...new Set([...toArray(item?.subjects).slice(0, 3), ...toArray(topStructure?.concept_links).slice(0, 2)])];
+  const templateMode = templateToMode(item);
+  const modeLabelMap = {
+    data_analysis: '자료·조사형',
+    design: '설계·제작형',
+    modeling: '모델링형',
+    social_issue: '사회문제해결형',
+    experiment: '실험형'
+  };
+  const executionSteps = buildTemplateExecutionSteps(item, payload, structureMatches);
+  const outputPriorityNote = preferredOutputs.length ? `우선 산출물은 ${toArray(topStructure?.good_output_forms).slice(0, 2).join(', ')} 쪽이 더 안정적이다.` : '';
   return {
     title: item?.title || '',
     type: item?.type || '',
-    templateMode: templateToMode(item),
+    templateMode,
+    templateModeLabel: modeLabelMap[templateMode] || '자료·조사형',
     whyThisWorks: buildTemplateWhyThisWorks(item, payload, structureMatches),
-    executionSteps: buildTemplateExecutionSteps(item, payload, structureMatches),
+    executionSteps,
     writeGuide: buildTemplateWriteGuide(item, payload, structureMatches),
     outputExample: buildTemplateOutputExample(item, payload, structureMatches),
     upgradePoint: buildTemplateUpgradePoint(item, payload, structureMatches),
     evaluationPoints: toArray(item?.evaluation_points).slice(0, 3),
     subjects: baseSubjects,
-    outputPriorityNote: preferredOutputs.length ? `우선 산출물은 ${toArray(topStructure?.good_output_forms).slice(0, 2).join(', ')} 쪽이 더 안정적이다.` : ''
+    outputPriorityNote,
+    structurePreview: buildTemplateStructurePreview({ executionSteps }),
+    quickOutput: buildTemplateOutputLabel({ subjects: baseSubjects, outputPriorityNote })
   };
 }
 
@@ -1332,43 +1401,61 @@ function renderExtensionLibrarySection(matches, structureMatches = [], payload =
   const normalized = matches.map(item => normalizeTemplateForAdmissions(item, payload, structureMatches));
 
   el.innerHTML = `
-    <div class="textbook-box">
+    <div class="textbook-box template-box">
       <h3>추천 활동 템플릿</h3>
-      <div class="textbook-list">
-        ${normalized.map(item => `
-          <div class="textbook-item">
+      <div class="template-note">한눈에 구조가 보이도록 <b>방식 → 구조 → 바로 할 일 → 결과물</b> 순서로 정리했습니다.</div>
+      <div class="textbook-list template-list">
+        ${normalized.map((item, index) => `
+          <div class="textbook-item template-item ${index === 0 ? 'template-item-primary' : ''}">
             <div class="textbook-head">
-              <strong>${escapeHtml(item.title)}</strong>
-              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ''}
+              <div>
+                <strong>${index === 0 ? '1순위 추천 템플릿' : `${index + 1}순위 대안 템플릿`}</strong>
+                <div class="template-title">${escapeHtml(item.title)}</div>
+              </div>
+              <div class="template-badges">
+                <span class="template-badge template-badge-mode">${escapeHtml(item.templateModeLabel)}</span>
+                ${item.type ? `<span class="template-badge">${escapeHtml(item.type)}</span>` : ''}
+              </div>
             </div>
 
-            <div class="textbook-row">
-              <b>왜 이 템플릿이 유리한가</b>
-              <p>${escapeHtml(item.whyThisWorks)}</p>
+            <div class="template-summary-grid">
+              <div class="template-summary-card">
+                <b>핵심 구조</b>
+                <p>${escapeHtml(item.structurePreview)}</p>
+              </div>
+              <div class="template-summary-card">
+                <b>권장 산출물</b>
+                <p>${escapeHtml(item.quickOutput)}</p>
+              </div>
+              <div class="template-summary-card">
+                <b>왜 맞는가</b>
+                <p>${escapeHtml(item.whyThisWorks)}</p>
+              </div>
             </div>
 
             <div class="textbook-row">
               <b>학생이 바로 할 일</b>
-              <ul>${item.executionSteps.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              ${renderNumberedSteps(item.executionSteps)}
             </div>
 
-            <div class="textbook-row">
-              <b>보고서에 쓰는 방식</b>
-              <ul>${item.writeGuide.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
-            </div>
-
-            <div class="textbook-row">
-              <b>결과물 예시</b>
-              <p>${escapeHtml(item.outputExample)}</p>
+            <div class="textbook-row template-two-col">
+              <div>
+                <b>보고서 문장 틀</b>
+                <ul>${item.writeGuide.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+              </div>
+              <div>
+                <b>결과물 예시</b>
+                <p>${escapeHtml(item.outputExample)}</p>
+              </div>
             </div>
 
             ${item.outputPriorityNote ? `
-              <div class="textbook-row">
+              <div class="textbook-row template-callout">
                 <b>산출물 우선순위</b>
                 <p>${escapeHtml(item.outputPriorityNote)}</p>
               </div>` : ''}
 
-            <div class="textbook-row">
+            <div class="textbook-row template-callout-light">
               <b>한 단계 더 높이려면</b>
               <p>${escapeHtml(item.upgradePoint)}</p>
             </div>
@@ -1391,7 +1478,7 @@ function renderExtensionLibrarySection(matches, structureMatches = [], payload =
   `;
 }
 
-async function handleGenerate() {
+async function handleGenerate() {async function handleGenerate() {
   clearError();
   clearResults();
 
@@ -1421,7 +1508,7 @@ async function handleGenerate() {
     renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
 
     const badge = $('resultModeBadge');
-    if (badge) badge.textContent = 'admissions-v11-mode-priority';
+    if (badge) badge.textContent = 'admissions-v12-grade1-research';
 
     const resultWrap = $('resultSection');
     if (resultWrap) resultWrap.style.display = 'block';
