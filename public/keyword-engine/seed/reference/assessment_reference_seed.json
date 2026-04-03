@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "name": "assessment_reference_seed",
+    "version": "1.0.0",
+    "scope": "highschool_grade1_sem1",
+    "usage_role": "reference_only",
+    "description": "고1 1학기 수행평가 현실성 참고용 seed. 특정 학교 맞춤 고정값이 아니라 과목별 자주 보이는 수행 형식과 결과물 경향을 약한 보정값으로 반영하기 위한 참고 데이터."
+  },
+  "grade_1_semester_1": {
+    "정보": {
+      "common_activity_types": [
+        "자료수집",
+        "데이터시각화",
+        "문제해결",
+        "협업"
+      ],
+      "preferred_outputs": [
+        "보고서",
+        "발표자료",
+        "포트폴리오"
+      ],
+      "reality_bias": {
+        "research": 3,
+        "analysis": 3,
+        "presentation": 2,
+        "experiment": 1
+      },
+      "school_reality_hint": [
+        "실험보다 데이터 수집·시각화와 실생활 문제 해결형 활동이 자연스럽다.",
+        "협업과 역할 분담이 포함된 수행 흐름이 자주 보인다."
+      ]
+    },
+    "공통영어1": {
+      "common_activity_types": [
+        "발표",
+        "설명",
+        "도표활용",
+        "모둠피드백"
+      ],
+      "preferred_outputs": [
+        "발표자료",
+        "설명문",
+        "포트폴리오"
+      ],
+      "reality_bias": {
+        "research": 2,
+        "analysis": 2,
+        "presentation": 3,
+        "experiment": 0
+      },
+      "school_reality_hint": [
+        "말하기·설명하기·모둠 협업이 중심이다.",
+        "시각자료를 활용한 설명형 수행과 피드백 과정이 중요하다."
+      ]
+    },
+    "공통수학1": {
+      "common_activity_types": [
+        "문제해결",
+        "구술설명",
+        "개념설명"
+      ],
+      "preferred_outputs": [
+        "구술발표",
+        "풀이정리",
+        "설명자료"
+      ],
+      "reality_bias": {
+        "research": 1,
+        "analysis": 2,
+        "presentation": 1,
+        "experiment": 0
+      },
+      "school_reality_hint": [
+        "실험형보다 개념 설명과 문제 해결 과정 표현이 더 자연스럽다."
+      ]
+    },
+    "통합사회1": {
+      "common_activity_types": [
+        "정책제안",
+        "조사분석",
+        "홍보물제작",
+        "포트폴리오"
+      ],
+      "preferred_outputs": [
+        "정책제안서",
+        "홍보물",
+        "포트폴리오",
+        "발표자료"
+      ],
+      "reality_bias": {
+        "research": 3,
+        "analysis": 3,
+        "presentation": 2,
+        "experiment": 0
+      },
+      "school_reality_hint": [
+        "조사·분석·제안·제작형 활동이 자연스럽다.",
+        "사회문제 해결과 시민성 연결 구조가 잘 맞는다."
+      ]
+    },
+    "공통국어1": {
+      "common_activity_types": [
+        "자료탐색",
+        "매체제작",
+        "글쓰기",
+        "토론"
+      ],
+      "preferred_outputs": [
+        "매체자료",
+        "글쓰기 결과물",
+        "토론정리",
+        "포트폴리오"
+      ],
+      "reality_bias": {
+        "research": 3,
+        "analysis": 2,
+        "presentation": 2,
+        "experiment": 0
+      },
+      "school_reality_hint": [
+        "진로 자료 읽기, 매체 제작, 비판적 읽기와 토론형 수행이 자연스럽다."
+      ]
+    },
+    "통합과학1": {
+      "common_activity_types": [
+        "자료조사",
+        "주제글쓰기",
+        "발표",
+        "일부실험"
+      ],
+      "preferred_outputs": [
+        "서술형 결과물",
+        "발표자료",
+        "포트폴리오"
+      ],
+      "reality_bias": {
+        "research": 3,
+        "analysis": 2,
+        "presentation": 2,
+        "experiment": 1
+      },
+      "school_reality_hint": [
+        "과학이라고 해서 실험만 중심이 아니며 조사·글쓰기·발표 비중도 크다."
+      ]
+    },
+    "과학탐구실험1": {
+      "common_activity_types": [
+        "조사학습",
+        "발표학습",
+        "보고서작성",
+        "빅데이터분석",
+        "탐구실험"
+      ],
+      "preferred_outputs": [
+        "PPT",
+        "보고서",
+        "발표자료"
+      ],
+      "reality_bias": {
+        "research": 3,
+        "analysis": 3,
+        "presentation": 3,
+        "experiment": 2
+      },
+      "school_reality_hint": [
+        "실험 과목이지만 조사·발표·보고서의 비중이 매우 크다.",
+        "빅데이터 활용형 탐구도 자연스럽게 연결된다."
+      ]
+    }
+  }
+}
