@@ -1,6 +1,8 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v6";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v7-structure";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
+const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
+const RECORD_PATTERN_LIBRARY_URL = "seed/record_pattern_library.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -11,7 +13,7 @@ function escapeHtml(value) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
 
@@ -23,6 +25,12 @@ function toArray(value) {
 
 function normalizeText(value) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
+}
+
+function tokenize(value) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return [];
+  return [...new Set(raw.split(/[\/,|·ㆍ>]+|\s+/).map(normalizeText).filter(v => v && v.length >= 2))];
 }
 
 function renderBullets(items) {
@@ -93,6 +101,23 @@ function clearError() {
   }
 }
 
+function ensureDynamicSection(id, title = "") {
+  let el = $(id);
+  if (el) return el;
+
+  const anchor = $("extensionLibrarySection") || $("resultSection");
+  if (!anchor || !anchor.parentNode) return null;
+
+  el = document.createElement("div");
+  el.id = id;
+  el.className = "result-card result-card-wide";
+  if (title) {
+    el.innerHTML = `<h3>${escapeHtml(title)}</h3>`;
+  }
+  anchor.parentNode.insertBefore(el, anchor);
+  return el;
+}
+
 function clearResults() {
   const ids = [
     "reasonCard",
@@ -103,6 +128,7 @@ function clearResults() {
     "subjectLinksCard",
     "warningsCard",
     "textbookSection",
+    "structureSection",
     "extensionLibrarySection"
   ];
   ids.forEach(id => {
@@ -145,7 +171,6 @@ async function getTextbookMatches(payload) {
     if (typeof window.matchTextbook !== "function") return [];
 
     const keywords = [payload.keyword, payload.track, payload.major].filter(Boolean);
-
     const result = await window.matchTextbook({
       keywords,
       category: payload.track,
@@ -174,9 +199,6 @@ function renderResultCards(apiData) {
 
   const badge = $("resultModeBadge");
   if (badge) badge.textContent = apiData.mode || "ai";
-
-  const resultWrap = $("resultSection");
-  if (resultWrap) resultWrap.style.display = "block";
 }
 
 function renderTextbookSection(matches) {
@@ -232,10 +254,215 @@ function renderTextbookSection(matches) {
   `;
 }
 
+let extensionLibraryCache = null;
+let structureSeedCache = null;
+let recordPatternCache = null;
+
 async function loadExtensionLibrary() {
+  if (extensionLibraryCache) return extensionLibraryCache;
   const response = await fetch(EXTENSION_LIBRARY_URL, { cache: "no-store" });
   if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
-  return response.json();
+  extensionLibraryCache = await response.json();
+  return extensionLibraryCache;
+}
+
+async function loadStructureSeed() {
+  if (structureSeedCache) return structureSeedCache;
+  const response = await fetch(STRUCTURE_SEED_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("구조 seed를 불러오지 못했습니다.");
+  structureSeedCache = await response.json();
+  return structureSeedCache;
+}
+
+async function loadRecordPatternLibrary() {
+  if (recordPatternCache) return recordPatternCache;
+  const response = await fetch(RECORD_PATTERN_LIBRARY_URL, { cache: "no-store" });
+  if (!response.ok) throw new Error("학생부 보정 라이브러리를 불러오지 못했습니다.");
+  recordPatternCache = await response.json();
+  return recordPatternCache;
+}
+
+function buildContextTokens(payload, apiData, textbookMatches) {
+  return [
+    ...tokenize(payload.keyword),
+    ...tokenize(payload.track),
+    ...tokenize(payload.major),
+    ...tokenize(payload.grade),
+    ...toArray(apiData?.result?.subjectLinks).flatMap(tokenize),
+    ...textbookMatches.flatMap(item => tokenize(item.subject)),
+    ...textbookMatches.flatMap(item => tokenize(item.unit)),
+    ...textbookMatches.flatMap(item => tokenize(item.subunit)),
+    ...textbookMatches.flatMap(item => toArray(item.core_concepts).flatMap(tokenize)),
+    ...textbookMatches.flatMap(item => toArray(item.topic_seeds).flatMap(tokenize))
+  ].filter(Boolean);
+}
+
+function scoreTokenList(list, contextTokens, exactWeight, partialWeight) {
+  let score = 0;
+  const normalizedList = toArray(list).flatMap(tokenize).filter(Boolean);
+
+  normalizedList.forEach(seed => {
+    contextTokens.forEach(token => {
+      if (!seed || !token) return;
+      if (seed === token) score += exactWeight;
+      else if (seed.includes(token) || token.includes(seed)) score += partialWeight;
+    });
+  });
+  return score;
+}
+
+function scoreStructureEntry(entry, payload, apiData, textbookMatches) {
+  const contextTokens = buildContextTokens(payload, apiData, textbookMatches);
+  let score = 0;
+
+  score += scoreTokenList(entry.seed_keywords, contextTokens, 14, 7);
+  score += scoreTokenList(entry.concept_links, contextTokens, 10, 5);
+  score += scoreTokenList(entry.track, contextTokens, 12, 6);
+  score += scoreTokenList(entry.subject, contextTokens, 12, 6);
+  score += scoreTokenList(entry.when_to_use, contextTokens, 4, 2);
+
+  const payloadGrade = normalizeText(payload.grade);
+  if (payloadGrade && tokenize(entry.grade).includes(payloadGrade)) score += 6;
+
+  const payloadMajor = normalizeText(payload.major);
+  if (payloadMajor && tokenize(entry.track).includes(payloadMajor)) score += 4;
+
+  return score;
+}
+
+function scoreRecordPatternEntry(entry, payload, apiData, textbookMatches) {
+  const contextTokens = buildContextTokens(payload, apiData, textbookMatches);
+  let score = 0;
+  score += scoreTokenList(entry.fit_keywords, contextTokens, 12, 6);
+  score += scoreTokenList(entry.fit_subjects, contextTokens, 10, 5);
+  score += scoreTokenList(entry.track, contextTokens, 8, 4);
+  score += scoreTokenList(entry.preferred_styles, [normalizeText(payload.style)], 8, 4);
+
+  const payloadGrade = normalizeText(payload.grade);
+  if (payloadGrade && toArray(entry.grade).map(normalizeText).includes(payloadGrade)) score += 8;
+  score += Number(entry.weight || 0);
+  return score;
+}
+
+function mergeStructureAndPattern(structureMatch, patternMatch) {
+  return {
+    structure_id: structureMatch?.structure_id || patternMatch?.pattern_id || "fallback_structure",
+    structure_name: structureMatch?.structure_name || patternMatch?.label || "기본 비교-해석형",
+    track: structureMatch?.track || toArray(patternMatch?.track)[0] || "",
+    subject: structureMatch?.subject || toArray(patternMatch?.fit_subjects)[0] || "",
+    core_question_frame: structureMatch?.core_question_frame || "이 주제를 어떤 기준으로 비교하고 어떻게 해석할 수 있는가?",
+    process_steps: toArray(structureMatch?.process_steps).length
+      ? toArray(structureMatch.process_steps)
+      : toArray(patternMatch?.recommended_structure),
+    concept_links: toArray(structureMatch?.concept_links),
+    evidence_style: toArray(structureMatch?.evidence_style),
+    good_output_forms: [...new Set([...toArray(structureMatch?.good_output_forms), ...toArray(patternMatch?.outputs)])],
+    high_score_signals: [...new Set([
+      ...toArray(structureMatch?.high_score_signals),
+      ...toArray(patternMatch?.student_record_signals)
+    ])],
+    avoid_points: [...new Set([...toArray(structureMatch?.avoid_points), ...toArray(patternMatch?.avoid_points)])],
+    record_pattern_label: patternMatch?.label || "",
+    _structure_score: structureMatch?._score || 0,
+    _pattern_score: patternMatch?._score || 0,
+    _score: (structureMatch?._score || 0) + (patternMatch?._score || 0)
+  };
+}
+
+async function getStructureMatches(payload, apiData, textbookMatches) {
+  try {
+    const structureSeed = await loadStructureSeed();
+    const recordPatternLibrary = await loadRecordPatternLibrary();
+
+    const structureEntries = Array.isArray(structureSeed?.entries) ? structureSeed.entries : [];
+    const recordPatterns = Array.isArray(recordPatternLibrary?.entries) ? recordPatternLibrary.entries : [];
+
+    const scoredStructures = structureEntries
+      .map(entry => ({ ...entry, _score: scoreStructureEntry(entry, payload, apiData, textbookMatches) }))
+      .filter(entry => entry._score > 0)
+      .sort((a, b) => b._score - a._score);
+
+    const scoredPatterns = recordPatterns
+      .map(entry => ({ ...entry, _score: scoreRecordPatternEntry(entry, payload, apiData, textbookMatches) }))
+      .filter(entry => entry._score > 0)
+      .sort((a, b) => b._score - a._score);
+
+    const topStructure = scoredStructures[0] || null;
+    const topPattern = scoredPatterns[0] || null;
+
+    if (!topStructure && !topPattern) return [];
+
+    return [mergeStructureAndPattern(topStructure, topPattern)];
+  } catch (error) {
+    console.warn("structure matcher error:", error);
+    return [];
+  }
+}
+
+function buildStructureWhyThisWorks(structureMatch, payload) {
+  const structureName = structureMatch?.structure_name || "기본 비교-해석형";
+  const patternLabel = structureMatch?.record_pattern_label || "학생부 현실 보정";
+  return `${structureName}을 중심으로 ${patternLabel}을 반영하면 ${payload.keyword}를 단순 설명이 아니라 고등학생 수행평가에 맞는 흐름으로 정리할 수 있다.`;
+}
+
+function renderStructureSection(structureMatches, payload) {
+  const el = ensureDynamicSection("structureSection");
+  if (!el) return;
+
+  if (!Array.isArray(structureMatches) || !structureMatches.length) {
+    el.innerHTML = "";
+    return;
+  }
+
+  const item = structureMatches[0];
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>추천 구조 매칭</h3>
+      <div class="textbook-list">
+        <div class="textbook-item">
+          <div class="textbook-head">
+            <strong>${escapeHtml(item.structure_name || "")}</strong>
+            ${item.record_pattern_label ? `<span>${escapeHtml(item.record_pattern_label)}</span>` : ""}
+          </div>
+
+          <div class="textbook-row">
+            <b>핵심 질문 틀</b>
+            <p>${escapeHtml(item.core_question_frame || "")}</p>
+          </div>
+
+          <div class="textbook-row">
+            <b>이 구조가 맞는 이유</b>
+            <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
+          </div>
+
+          ${toArray(item.process_steps).length ? `
+            <div class="textbook-row">
+              <b>권장 전개 순서</b>
+              <ul>${toArray(item.process_steps).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>` : ""}
+
+          ${toArray(item.good_output_forms).length ? `
+            <div class="textbook-row">
+              <b>잘 맞는 산출물</b>
+              <ul>${toArray(item.good_output_forms).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>` : ""}
+
+          ${toArray(item.high_score_signals).length ? `
+            <div class="textbook-row">
+              <b>좋게 보이는 신호</b>
+              <ul>${toArray(item.high_score_signals).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>` : ""}
+
+          ${toArray(item.avoid_points).length ? `
+            <div class="textbook-row">
+              <b>피해야 할 점</b>
+              <ul>${toArray(item.avoid_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+            </div>` : ""}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function scoreExtensionTemplate(template, context) {
@@ -247,7 +474,8 @@ function scoreExtensionTemplate(template, context) {
     context.major,
     ...(context.subjectLinks || []),
     ...(context.textbookSubjects || []),
-    ...(context.textbookTopics || [])
+    ...(context.textbookTopics || []),
+    ...(context.structureSignals || [])
   ].map(normalizeText).filter(Boolean);
 
   const requiredKeywords = toArray(template.fit_conditions?.required_any_keywords);
@@ -271,7 +499,7 @@ function scoreExtensionTemplate(template, context) {
   preferredMethods.forEach(method => {
     const m = normalizeText(method);
     if (normalizeText(context.style).includes(m)) score += 5;
-    if (methodTags.map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 1;
+    if (methodTags.map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 2;
   });
 
   themeTags.forEach(tag => {
@@ -279,31 +507,34 @@ function scoreExtensionTemplate(template, context) {
     if (haystack.some(item => item.includes(t) || t.includes(item))) score += 3;
   });
 
-  if (normalizeText(context.major).includes("컴퓨터") || normalizeText(context.major).includes("ai")) {
-    if (template.type === "시뮬레이션형" || template.type === "모델링형") score += 8;
-  }
-
-  if (normalizeText(context.major).includes("화학공학") || normalizeText(context.major).includes("신소재") || normalizeText(context.track).includes("이공")) {
-    if (template.type === "센서실험형" || template.type === "데이터분석형" || template.type === "모델링형") score += 4;
-  }
-
-  if (normalizeText(context.track).includes("보건") || normalizeText(context.major).includes("간호")) {
-    if (template.type === "센서실험형" || template.type === "자유탐구형" || template.type === "비평탐구형") score += 2;
-  }
-
   subjects.forEach(subject => {
     const s = normalizeText(subject);
     if ((context.subjectLinks || []).map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 2;
   });
 
+  if ((context.structureSignals || []).map(normalizeText).some(v => v.includes("데이터") || v.includes("효율"))) {
+    if (template.type === "데이터분석형" || template.type === "시뮬레이션형") score += 4;
+  }
+
+  if ((context.structureSignals || []).map(normalizeText).some(v => v.includes("질환") || v.includes("안전성"))) {
+    if (template.type === "자유탐구형" || template.type === "비평탐구형" || template.type === "데이터분석형") score += 3;
+  }
+
   return score;
 }
 
-async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
+async function getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches = []) {
   try {
     const library = await loadExtensionLibrary();
     const templates = Array.isArray(library?.templates) ? library.templates : [];
     if (!templates.length) return [];
+
+    const structureSignals = structureMatches.length ? [
+      structureMatches[0].structure_name,
+      ...toArray(structureMatches[0].concept_links),
+      ...toArray(structureMatches[0].evidence_style),
+      ...toArray(structureMatches[0].record_pattern_label)
+    ] : [];
 
     const context = {
       keyword: payload.keyword,
@@ -312,7 +543,8 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
       style: payload.style,
       subjectLinks: toArray(apiData?.result?.subjectLinks),
       textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
-      textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean)
+      textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean),
+      structureSignals
     };
 
     return templates
@@ -326,147 +558,31 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches) {
   }
 }
 
-function renderExtensionLibrarySection(matches) {
-  const el = $("extensionLibrarySection");
-  if (!el) return;
-
-  if (!Array.isArray(matches) || !matches.length) {
-    el.innerHTML = "";
-    return;
-  }
-
-  el.innerHTML = `
-    <div class="textbook-box">
-      <h3>추천 활동 템플릿</h3>
-      <div class="textbook-list">
-        ${matches.map(item => `
-          <div class="textbook-item">
-            <div class="textbook-head">
-              <strong>${escapeHtml(item.title || "")}</strong>
-              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
-            </div>
-
-            ${toArray(item.subjects).length ? `
-              <div class="textbook-row">
-                <b>연결 과목</b>
-                <ul>${toArray(item.subjects).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-              </div>` : ""}
-
-            ${toArray(item.activity_flow).length ? `
-              <div class="textbook-row">
-                <b>권장 탐구 흐름</b>
-                <ul>${toArray(item.activity_flow).slice(0, 5).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-              </div>` : ""}
-
-            ${toArray(item.outputs).length ? `
-              <div class="textbook-row">
-                <b>추천 산출물</b>
-                <ul>${toArray(item.outputs).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-              </div>` : ""}
-
-            ${toArray(item.evaluation_points).length ? `
-              <div class="textbook-row">
-                <b>관찰 포인트</b>
-                <ul>${toArray(item.evaluation_points).slice(0, 4).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
-              </div>` : ""}
-
-            ${item.notes ? `
-              <div class="textbook-row">
-                <b>운영 메모</b>
-                <p>${escapeHtml(item.notes)}</p>
-              </div>` : ""}
-          </div>
-        `).join("")}
-      </div>
-    </div>
-  `;
-}
-
-async function handleGenerate() {
-  clearError();
-  clearResults();
-
-  try {
-    const payload = getFormValues();
-    validateInput(payload);
-    setLoading(true);
-
-    const apiData = await callGenerateAPI(payload);
-    const textbookMatches = await getTextbookMatches(payload);
-    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches);
-
-    renderResultCards(apiData);
-    renderTextbookSection(textbookMatches);
-    renderExtensionLibrarySection(extensionMatches);
-  } catch (error) {
-    showError(error.message || "생성 중 오류가 발생했습니다.");
-  } finally {
-    setLoading(false);
-  }
-}
-
-function handleReset() {
-  ["keyword", "grade", "track", "major", "activityLevel", "style"].forEach(id => {
-    const el = $(id);
-    if (el) el.value = "";
-  });
-  clearError();
-  clearResults();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  $("generateBtn")?.addEventListener("click", handleGenerate);
-  $("resetBtn")?.addEventListener("click", handleReset);
-});
-
-window.handleGenerate = handleGenerate;
-window.handleReset = handleReset;
-
-
-
-
-/* ===== admissions-v6 template action patch ===== */
-
 function buildTemplateWhyThisWorks(item, payload, structureMatches) {
   const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   if (s?.structure_name) {
-    return `${s.structure_name} 구조로 적용하면 비교 기준과 해석 기준이 먼저 보이기 때문에 수행평가에서 탐구 설계 능력과 개념 적용력이 함께 드러난다.`;
+    return `${s.structure_name} 구조를 따라가면 비교 기준과 해석 기준이 먼저 보이기 때문에 ${payload.keyword}가 설명형이 아니라 설계형 탐구로 정리된다.`;
   }
   return `${payload.keyword}를 단순 설명이 아니라 비교-해석 구조로 정리할 수 있어 수행평가에서 구조가 선명하게 읽힌다.`;
 }
 
 function buildTemplateExecutionSteps(item, payload, structureMatches) {
+  const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  if (toArray(s?.process_steps).length) {
+    return toArray(s.process_steps).slice(0, 5).map(step => `${step}`);
+  }
+
   const title = normalizeText(item?.title || "");
   const keyword = payload.keyword || "주제";
   const major = payload.major || "희망 진로";
 
-  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
-    return [
-      `${keyword}와 연결되는 반응 쌍 또는 비교 대상을 2~3개 정한다.`,
-      `각 반응 또는 소재의 차이를 볼 기준(전도성, 반응성, 효율 등)을 먼저 정한다.`,
-      `간단한 실험 또는 자료 조사로 동일 기준의 결과를 기록한다.`,
-      `결과 차이를 전기화학 또는 산화·환원 개념으로 해석한다.`,
-      `${major} 진로와 연결되는 의미를 한 문장으로 정리한다.`
-    ];
-  }
-
-  if (title.includes("빅데이터") || title.includes("데이터")) {
+  if (title.includes("데이터")) {
     return [
       `${keyword}와 관련된 공개 데이터나 기사 자료를 2~3개 수집한다.`,
       `비교할 지표를 먼저 정하고 표로 정리한다.`,
       `기간·조건·사례별 차이를 그래프나 비교표로 나타낸다.`,
       `차이가 나타난 이유를 교과 개념으로 해석한다.`,
       `${major} 진로와 연결되는 시사점을 한 문장으로 정리한다.`
-    ];
-  }
-
-  if (title.includes("신소재") || title.includes("구조")) {
-    return [
-      `${keyword}와 연결되는 소재 사례를 2~3개 선정한다.`,
-      `각 소재의 구조·기능·장단점을 동일 기준으로 비교한다.`,
-      `비교표를 바탕으로 어떤 특성이 성능 차이로 이어지는지 정리한다.`,
-      `결과를 화학 또는 물리 개념으로 해석한다.`,
-      `${major} 진로와 연결되는 활용 가능성을 한 문장으로 정리한다.`
     ];
   }
 
@@ -480,70 +596,40 @@ function buildTemplateExecutionSteps(item, payload, structureMatches) {
 }
 
 function buildTemplateWriteGuide(item, payload, structureMatches) {
-  const title = normalizeText(item?.title || "");
+  const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   const keyword = payload.keyword || "주제";
 
-  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
+  if (s?.structure_name?.includes("안전성") || toArray(s?.avoid_points).some(v => normalizeText(v).includes("의학"))) {
     return [
-      `"${keyword}와 관련된 반응 또는 소재를 동일 기준으로 비교하였다"처럼 출발 문장을 쓴다.`,
-      `"A가 B보다 더 높게 나타난 이유는 전자 이동 또는 반응 효율 차이로 볼 수 있다"처럼 결과를 해석한다.`,
-      `"이 과정에서 비교 기준 설정과 개념 적용 능력이 드러났다"로 마무리한다.`
-    ];
-  }
-
-  if (title.includes("빅데이터") || title.includes("데이터")) {
-    return [
-      `"자료를 수집한 뒤 비교 지표를 기준으로 표를 재구성하였다"라고 쓴다.`,
-      `"지표 차이는 에너지 효율 또는 조건 차이로 해석할 수 있다"처럼 결과 의미를 연결한다.`,
-      `"데이터를 근거로 시사점을 정리한 점이 탐구 설계 역량으로 이어진다"로 마무리한다.`
-    ];
-  }
-
-  if (title.includes("신소재") || title.includes("구조")) {
-    return [
-      `"소재별 구조와 기능을 동일 기준으로 비교하였다"라고 쓴다.`,
-      `"구조 차이가 성능 차이로 이어진다는 점을 교과 개념으로 해석하였다"라고 연결한다.`,
-      `"비교 결과를 활용 사례와 연결해 진로 연계성을 드러냈다"로 마무리한다.`
+      `"${keyword}와 관련된 생리 기전 또는 작용 원리를 먼저 정리하였다"라고 시작한다.`,
+      `"사례 차이를 안전성·영향 요소 기준으로 비교하였다"라고 연결한다.`,
+      `"환자 또는 보건 현장에서의 의미를 해석하였다"로 마무리한다.`
     ];
   }
 
   return [
-    `"${keyword} 관련 사례를 비교하였다"라고 시작한다.`,
+    `"${keyword} 관련 사례를 동일 기준으로 비교하였다"라고 시작한다.`,
     `"차이를 교과 개념으로 해석하였다"라고 결과를 연결한다.`,
     `"이 과정에서 탐구 설계 및 개념 적용 능력이 드러났다"로 마무리한다.`
   ];
 }
 
 function buildTemplateOutputExample(item, payload, structureMatches) {
-  const title = normalizeText(item?.title || "");
+  const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   const keyword = payload.keyword || "주제";
   const major = payload.major || "희망 진로";
 
-  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
-    return `${keyword} 관련 반응 또는 소재 차이를 비교하고 이를 전기화학 개념으로 해석하여 성능 차이를 설명함으로써 ${major} 진로와 연결되는 탐구 설계 역량을 드러냄.`;
-  }
-
-  if (title.includes("빅데이터") || title.includes("데이터")) {
-    return `${keyword} 관련 데이터를 비교 지표 중심으로 재구성하고 이를 교과 개념으로 해석하여 결과 차이를 설명함으로써 자료 분석 및 해석 역량을 드러냄.`;
-  }
-
-  if (title.includes("신소재") || title.includes("구조")) {
-    return `${keyword}와 연결되는 소재 사례를 비교하고 구조·기능 차이를 교과 개념으로 해석하여 활용 가능성을 설명함으로써 진로 연계 탐구 역량을 드러냄.`;
+  if (s?.structure_name) {
+    return `${keyword}를 ${s.structure_name} 구조로 정리하여 비교 기준과 해석 기준을 선명하게 제시하고, 이를 통해 ${major} 진로와 연결되는 탐구 설계 역량을 드러냄.`;
   }
 
   return `${keyword} 관련 사례를 동일 기준으로 비교하고 이를 교과 개념으로 해석하여 결과 의미를 설명함으로써 탐구 설계 역량을 드러냄.`;
 }
 
 function buildTemplateUpgradePoint(item, payload, structureMatches) {
-  const title = normalizeText(item?.title || "");
-  if (title.includes("산화") || title.includes("환원") || title.includes("실험")) {
-    return "온도·시간·전해질 조건 중 하나를 추가해 결과 차이가 왜 발생했는지 원인 가설까지 붙이면 상위권 탐구로 올라간다.";
-  }
-  if (title.includes("빅데이터") || title.includes("데이터")) {
-    return "비교 지표를 한 개 더 추가하거나 기간별 변화까지 보면 단순 정리가 아니라 분석형 탐구로 확장된다.";
-  }
-  if (title.includes("신소재") || title.includes("구조")) {
-    return "기존 소재와 대체 소재를 한 번 더 비교해 개선 방향까지 제시하면 진로 연계성이 더 강해진다.";
+  const s = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  if (toArray(s?.avoid_points).some(v => normalizeText(v).includes("비교기준"))) {
+    return "비교 기준을 한 개 더 추가하고 결과 차이의 원인 가설까지 붙이면 수행평가 완성도가 높아진다.";
   }
   return "변수 한 개를 더 추가하거나 결과 차이의 원인 가설까지 붙이면 수행평가 완성도가 높아진다.";
 }
@@ -637,15 +723,9 @@ async function handleGenerate() {
     setLoading(true);
 
     const apiData = await callGenerateAPI(payload);
-    const textbookMatches = typeof getTextbookMatches === "function"
-      ? await getTextbookMatches(payload)
-      : [];
-    const structureMatches = typeof getStructureMatches === "function"
-      ? await getStructureMatches(payload, apiData, textbookMatches)
-      : [];
-    const extensionMatches = typeof getExtensionLibraryMatches === "function"
-      ? await getExtensionLibraryMatches(payload, apiData, textbookMatches)
-      : [];
+    const textbookMatches = await getTextbookMatches(payload);
+    const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
+    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches);
 
     window.__lastGenerateDebug = {
       payload,
@@ -656,18 +736,13 @@ async function handleGenerate() {
       version: window.__KEYWORD_ENGINE_VERSION || "unknown"
     };
 
-    if (typeof renderResultCards === "function") {
-      renderResultCards(apiData, payload, textbookMatches, structureMatches);
-    }
-    if (typeof renderTextbookSection === "function") {
-      renderTextbookSection(textbookMatches, structureMatches);
-    }
-    if (typeof renderExtensionLibrarySection === "function") {
-      renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
-    }
+    renderResultCards(apiData);
+    renderTextbookSection(textbookMatches);
+    renderStructureSection(structureMatches, payload);
+    renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
 
     const badge = $("resultModeBadge");
-    if (badge) badge.textContent = "admissions-v6";
+    if (badge) badge.textContent = "admissions-v7-structure";
 
     const resultWrap = $("resultSection");
     if (resultWrap) resultWrap.style.display = "block";
@@ -685,3 +760,21 @@ async function handleGenerate() {
     setLoading(false);
   }
 }
+
+function handleReset() {
+  ["keyword", "grade", "track", "major", "activityLevel", "style"].forEach(id => {
+    const el = $(id);
+    if (el) el.value = "";
+  });
+  clearError();
+  clearResults();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  $("generateBtn")?.addEventListener("click", handleGenerate);
+  $("resetBtn")?.addEventListener("click", handleReset);
+});
+
+window.handleGenerate = handleGenerate;
+window.handleReset = handleReset;
+window.getStructureMatches = getStructureMatches;
