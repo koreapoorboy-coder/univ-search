@@ -1,5 +1,5 @@
 {
-  "version": "0.4.2-record-structure",
+  "version": "0.5.0-structure-priority",
   "description": "합격생 기준, 일반 학생부 패턴 기준, 수준 판정 규칙을 함께 반영하는 통합 인덱스",
   "layers": {
     "extension_library": {
@@ -51,17 +51,18 @@
   "priority_order": [
     "student_tag_schema",
     "curriculum_guides",
-    "generation_blocks",
-    "extension_library",
-    "evaluation_framework",
     "record_pattern_library",
     "admission_case_library",
     "level_judgment_rules",
+    "generation_blocks",
+    "extension_library",
+    "evaluation_framework",
     "output_schema"
   ],
   "notes": [
     "record_pattern_library는 일반 학생부 비교 기준이다.",
     "admission_case_library는 합격생 비교 기준이다.",
-    "level_judgment_rules는 위 두 기준을 합쳐 현재 위치를 상위권/중상위권/도달 직전 등으로 판정한다."
+    "level_judgment_rules는 위 두 기준을 합쳐 현재 위치를 상위권/중상위권/도달 직전 등으로 판정한다.",
+    "v9에서는 record_pattern_library와 admission_case_library를 generation_blocks보다 앞에 두어 구조 보정을 우선 반영한다."
   ]
 }
