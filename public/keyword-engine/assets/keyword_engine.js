@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v14-task-first";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v15-visual-ui";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ASSESSMENT_REFERENCE_URL = "seed/reference/assessment_reference_seed.json";
@@ -11,12 +11,6 @@ function escapeHtml(value) {
 }
 function toArray(value) { return Array.isArray(value) ? value : (value == null ? [] : [value]); }
 function normalizeText(value) { return String(value ?? "").trim().toLowerCase().replace(/\s+/g, ""); }
-function renderBullets(items) {
-  const arr = toArray(items).filter(Boolean);
-  if (!arr.length) return '<p class="muted">내용이 없습니다.</p>';
-  return `<ul>${arr.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
-}
-function renderText(value) { return value ? `<p>${escapeHtml(value)}</p>` : '<p class="muted">내용이 없습니다.</p>'; }
 
 function getFormValues() {
   const subject = $("subject")?.value?.trim() || "";
@@ -27,11 +21,7 @@ function getFormValues() {
   const grade = $("grade")?.value?.trim() || "";
   return {
     subject, taskType, taskDescription, career, keyword, grade,
-    // backward compatibility for worker
-    major: career,
-    track: career,
-    style: taskType,
-    activityLevel: grade
+    major: career, track: career, style: taskType, activityLevel: grade
   };
 }
 
@@ -47,7 +37,6 @@ function validateInput(data) {
     if (!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
 }
-
 function setLoading(isLoading) {
   const btn = $("generateBtn"), resetBtn = $("resetBtn"), loading = $("loadingMessage");
   if (btn) { btn.disabled = isLoading; btn.textContent = isLoading ? "생성 중..." : "탐구 설계 생성"; }
@@ -64,29 +53,27 @@ function clearError() {
   if (errorBox) { errorBox.innerHTML = ""; errorBox.style.display = "none"; }
 }
 function clearResults() {
-  ["reasonCard","stepsCard","flowCard","approachCard","extensionCard","subjectLinksCard","warningsCard","textbookSection","extensionLibrarySection","assessmentReferenceCard","taskSummaryCard"].forEach(id => {
+  ["mainDirection","mainDirectionReason","inputChips","modePriorityVisual","outputPriorityVisual","taskMapCard","reportFrameCard","doDontCard","textbookSection","assessmentReferenceCard","extensionLibrarySection","reasonCard","stepsCard","flowCard","subjectLinksCard","warningsCard"].forEach(id => {
     const el = $(id); if (el) el.innerHTML = "";
   });
   const resultWrap = $("resultSection"); if (resultWrap) resultWrap.style.display = "none";
-  const inputSummary = $("inputSummary"); if (inputSummary) inputSummary.textContent = "";
 }
 
 async function callGenerateAPI(payload) {
-  const workerPayload = {
-    keyword: payload.keyword,
-    grade: payload.grade,
-    track: payload.track,
-    major: payload.major,
-    style: payload.style,
-    activityLevel: payload.activityLevel,
-    subject: payload.subject,
-    taskType: payload.taskType,
-    taskDescription: payload.taskDescription
-  };
   const response = await fetch(`${WORKER_BASE_URL}/generate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(workerPayload)
+    body: JSON.stringify({
+      keyword: payload.keyword,
+      grade: payload.grade,
+      track: payload.track,
+      major: payload.major,
+      style: payload.style,
+      activityLevel: payload.activityLevel,
+      subject: payload.subject,
+      taskType: payload.taskType,
+      taskDescription: payload.taskDescription
+    })
   });
   const text = await response.text();
   let data;
@@ -115,7 +102,6 @@ async function loadAssessmentReferenceSeed() {
   if (!response.ok) throw new Error("assessment_reference_seed.json을 불러오지 못했습니다.");
   return response.json();
 }
-
 function subjectKeyForReference(subject) {
   const map = {
     "공통국어": "공통국어1",
@@ -127,12 +113,10 @@ function subjectKeyForReference(subject) {
   };
   return map[subject] || subject;
 }
-
 async function getAssessmentReference(payload) {
   try {
     const seed = await loadAssessmentReferenceSeed();
-    const byGrade = seed?.grade_1_semester_1 || {};
-    return byGrade[subjectKeyForReference(payload.subject)] || null;
+    return (seed?.grade_1_semester_1 || {})[subjectKeyForReference(payload.subject)] || null;
   } catch (error) {
     console.warn("assessment reference error:", error);
     return null;
@@ -144,18 +128,13 @@ async function loadExtensionLibrary() {
   if (!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
   return response.json();
 }
-
 function typeToMode(typeText = "") {
   const t = normalizeText(typeText);
   if (t.includes("실험")) return "experiment";
-  if (t.includes("데이터")) return "analysis";
-  if (t.includes("시뮬") || t.includes("모델")) return "analysis";
+  if (t.includes("데이터") || t.includes("시뮬") || t.includes("모델")) return "analysis";
   if (t.includes("제작") || t.includes("설계")) return "design";
-  if (t.includes("정책") || t.includes("사회")) return "research";
-  if (t.includes("자유탐구")) return "research";
   return "research";
 }
-
 function scoreExtensionTemplate(template, context) {
   let score = 0;
   const haystack = [
@@ -163,37 +142,21 @@ function scoreExtensionTemplate(template, context) {
     ...(context.subjectLinks || []), ...(context.textbookSubjects || []), ...(context.textbookTopics || [])
   ].map(normalizeText).filter(Boolean);
 
-  const requiredKeywords = toArray(template.fit_conditions?.required_any_keywords);
-  const preferredSubjects = toArray(template.fit_conditions?.preferred_subjects);
-  const preferredMethods = toArray(template.fit_conditions?.preferred_methods);
-  const themeTags = toArray(template.theme_tags);
-  const methodTags = toArray(template.method_tags);
-  const subjects = toArray(template.subjects);
-
-  requiredKeywords.forEach(keyword => {
+  toArray(template.fit_conditions?.required_any_keywords).forEach(keyword => {
     const k = normalizeText(keyword);
     if (haystack.some(item => item.includes(k) || k.includes(item))) score += 8;
   });
-
-  preferredSubjects.forEach(subject => {
+  toArray(template.fit_conditions?.preferred_subjects).forEach(subject => {
     const s = normalizeText(subject);
     if ([context.subject, ...(context.subjectLinks || [])].map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 7;
   });
-
-  preferredMethods.forEach(method => {
+  toArray(template.fit_conditions?.preferred_methods).forEach(method => {
     const m = normalizeText(method);
     if ([context.taskType, context.taskDescription].map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 5;
-    if (methodTags.map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 2;
   });
-
-  themeTags.forEach(tag => {
+  toArray(template.theme_tags).forEach(tag => {
     const t = normalizeText(tag);
     if (haystack.some(item => item.includes(t) || t.includes(item))) score += 3;
-  });
-
-  subjects.forEach(subject => {
-    const s = normalizeText(subject);
-    if ([context.subject, ...(context.subjectLinks || [])].map(normalizeText).some(item => item.includes(s) || s.includes(item))) score += 3;
   });
 
   const mode = typeToMode(template.type);
@@ -205,14 +168,12 @@ function scoreExtensionTemplate(template, context) {
     if (mode === "experiment") score -= 5;
     if (mode === "research" || mode === "analysis") score += 3;
   }
-
   if (normalizeText(context.grade).includes("고1")) {
     if (["이차전지","반도체","신소재"].some(k => normalizeText(context.keyword).includes(normalizeText(k)))) {
       if (mode === "experiment") score -= 4;
       if (mode === "research" || mode === "analysis") score += 4;
     }
   }
-
   return score;
 }
 
@@ -220,21 +181,14 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, ass
   try {
     const library = await loadExtensionLibrary();
     const templates = Array.isArray(library?.templates) ? library.templates : [];
-    if (!templates.length) return [];
-
     const context = {
-      keyword: payload.keyword,
-      subject: payload.subject,
-      career: payload.career,
-      grade: payload.grade,
-      taskType: payload.taskType,
-      taskDescription: payload.taskDescription,
+      keyword: payload.keyword, subject: payload.subject, career: payload.career, grade: payload.grade,
+      taskType: payload.taskType, taskDescription: payload.taskDescription,
       subjectLinks: toArray(apiData?.result?.subjectLinks),
       textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
       textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean),
       assessmentReference
     };
-
     return templates
       .map(template => ({ ...template, _score: scoreExtensionTemplate(template, context), _mode: typeToMode(template.type) }))
       .filter(template => template._score > 0)
@@ -246,97 +200,144 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, ass
   }
 }
 
-function renderResultCards(apiData, payload, assessmentReference) {
-  const result = apiData.result || {};
-  $("inputSummary").textContent = `${payload.subject} · ${payload.taskType} · ${payload.career} · ${payload.keyword} · ${payload.grade}`;
-  $("taskSummaryCard").innerHTML = `
-    <h3>이번 수행 입력 요약</h3>
-    <ul>
-      <li><strong>과목:</strong> ${escapeHtml(payload.subject)}</li>
-      <li><strong>수행평가 형태:</strong> ${escapeHtml(payload.taskType)}</li>
-      <li><strong>희망 진로:</strong> ${escapeHtml(payload.career)}</li>
-      <li><strong>키워드:</strong> ${escapeHtml(payload.keyword)}</li>
-      <li><strong>학년:</strong> ${escapeHtml(payload.grade)}</li>
-      ${payload.taskDescription ? `<li><strong>수행 설명:</strong> ${escapeHtml(payload.taskDescription)}</li>` : ""}
-    </ul>
+function renderPriorityVisual(modeBias = {}) {
+  const entries = Object.entries(modeBias).sort((a,b) => b[1] - a[1]).slice(0,3);
+  if (!entries.length) return `<p class="muted">참고 데이터가 없습니다.</p>`;
+  return `<div class="summary-item-list">${
+    entries.map((entry, idx) => `
+      <div class="priority-row">
+        <strong>${escapeHtml(entry[0])}</strong>
+        <span class="priority-tag ${idx===1 ? "second" : idx===2 ? "third" : ""}">${idx===0 ? "1순위" : idx===1 ? "2순위" : "3순위"}</span>
+      </div>
+    `).join("")
+  }</div>`;
+}
+
+function renderOutputVisual(outputs = []) {
+  if (!outputs.length) return `<p class="muted">추천 결과물이 없습니다.</p>`;
+  return `<div class="summary-item-list">${
+    outputs.slice(0,3).map((v, idx) => `
+      <div class="priority-row">
+        <strong>${escapeHtml(v)}</strong>
+        <span class="priority-tag ${idx===1 ? "second" : idx===2 ? "third" : ""}">${idx===0 ? "우선" : idx===1 ? "차선" : "보조"}</span>
+      </div>
+    `).join("")
+  }</div>`;
+}
+
+function renderTaskMapCard(payload, apiData) {
+  const steps = toArray(apiData?.result?.steps).slice(0,4);
+  $("taskMapCard").innerHTML = `
+    <h3 class="card-title"><span class="icon-dot"></span>한눈에 보는 수행 구조</h3>
+    <div class="step-flow">
+      ${steps.map((step, idx) => `
+        <div class="step-box">
+          <div class="step-no">${idx+1}</div>
+          <div>${escapeHtml(step)}</div>
+        </div>
+      `).join("")}
+    </div>
   `;
-  $("reasonCard").innerHTML = `<h3>추천 이유</h3>${renderText(result.reason)}`;
-  $("stepsCard").innerHTML = `<h3>탐구 진행 순서</h3>${renderBullets(result.steps)}`;
-  $("flowCard").innerHTML = `<h3>활동 설계 흐름</h3>${renderBullets(result.flow)}`;
-  $("approachCard").innerHTML = `<h3>추천 진행 방식</h3>${renderText(result.recommendedApproach || payload.taskType)}`;
-  $("extensionCard").innerHTML = `<h3>한 단계 더 확장하려면</h3>${renderText(result.extension)}`;
-  $("subjectLinksCard").innerHTML = `<h3>관련 교과 연결</h3>${renderBullets(result.subjectLinks || [payload.subject])}`;
-  $("warningsCard").innerHTML = `<h3>주의할 점</h3>${renderBullets(result.warnings)}`;
+}
 
-  $("assessmentReferenceCard").innerHTML = assessmentReference ? `
-    <h3>수행평가 현실성 참고</h3>
-    <p class="muted">reference_only 보정값입니다.</p>
-    <ul>
-      ${(assessmentReference.school_reality_hint || []).map(v => `<li>${escapeHtml(v)}</li>`).join("")}
-    </ul>
-  ` : `<h3>수행평가 현실성 참고</h3><p class="muted">참고 데이터가 없습니다.</p>`;
+function renderReportFrameCard(payload, textbookMatches, extensionMatches) {
+  const concepts = textbookMatches.flatMap(x => toArray(x.core_concepts)).slice(0,4);
+  const outputs = extensionMatches[0]?.outputs?.slice(0,4) || [];
+  const compareBase = payload.keyword ? [`${payload.keyword}의 기본 개념`, `${payload.keyword} 관련 사례 비교`, `결과 해석`, `결론`] : [`개념 정리`, `사례 비교`, `자료 해석`, `결론`];
+  $("reportFrameCard").innerHTML = `
+    <h3 class="card-title"><span class="icon-dot"></span>보고서 틀</h3>
+    <div class="frame-grid">
+      <div class="frame-item"><b>1. 도입</b><div>${escapeHtml(compareBase[0])}</div></div>
+      <div class="frame-item"><b>2. 핵심 비교</b><div>${escapeHtml(compareBase[1])}</div></div>
+      <div class="frame-item"><b>3. 교과 개념 연결</b><div>${escapeHtml(concepts.join(", ") || "관련 교과 개념 정리")}</div></div>
+      <div class="frame-item"><b>4. 마무리</b><div>${escapeHtml(outputs[0] || compareBase[3])}</div></div>
+    </div>
+  `;
+}
 
-  const badge = $("resultModeBadge");
-  if (badge) badge.textContent = apiData.mode || "task-first";
+function renderDoDontCard(payload, assessmentReference) {
+  const hints = toArray(assessmentReference?.school_reality_hint);
+  const doList = hints.length ? hints : ["교과 개념을 먼저 정리하기", "자료 비교 기준을 먼저 세우기"];
+  const dontList = [
+    "대학 수준 이론으로 너무 깊게 들어가기",
+    "실험이 어려운데 실험형으로 억지 확장하기",
+    "자료 없이 주장만 길게 쓰기"
+  ];
+  $("doDontCard").innerHTML = `
+    <h3 class="card-title"><span class="icon-dot"></span>바로 보이는 체크포인트</h3>
+    <div class="do-dont-grid">
+      <div class="do-box">
+        <h4>이렇게 하면 좋아요</h4>
+        <ul>${doList.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+      </div>
+      <div class="dont-box">
+        <h4>이건 피하세요</h4>
+        <ul>${dontList.map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>
+      </div>
+    </div>
+  `;
 }
 
 function renderTextbookSection(matches) {
   const el = $("textbookSection");
-  if (!el) return;
-  if (!Array.isArray(matches) || !matches.length) { el.innerHTML = ""; return; }
-
-  const topMatches = matches.slice(0, 3);
+  if (!matches.length) { el.innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>교과 근거</h3><p class="muted">매칭 결과가 없습니다.</p>`; return; }
+  const item = matches[0];
   el.innerHTML = `
-    <div class="textbook-box">
-      <h3>관련 교과서 근거</h3>
-      <div class="textbook-list">
-        ${topMatches.map(item => {
-          const concepts = toArray(item.core_concepts).slice(0, 5);
-          const topics = toArray(item.topic_seeds).slice(0, 3);
-          return `
-            <div class="textbook-item">
-              <div class="textbook-head">
-                <strong>${escapeHtml(item.subject || "")}</strong>
-                <span>${escapeHtml([item.unit, item.subunit].filter(Boolean).join(" › "))}</span>
-              </div>
-              <div class="textbook-row"><b>핵심 개념</b>${renderBullets(concepts)}</div>
-              <div class="textbook-row"><b>탐구 씨앗</b>${renderBullets(topics)}</div>
-            </div>
-          `;
-        }).join("")}
-      </div>
+    <h3 class="card-title"><span class="icon-dot"></span>교과 근거</h3>
+    <div class="textbook-mini">
+      <div class="mini-block"><b>과목/단원</b><div>${escapeHtml([item.subject, item.unit, item.subunit].filter(Boolean).join(" › "))}</div></div>
+      <div class="mini-block"><b>핵심 개념</b><div>${escapeHtml(toArray(item.core_concepts).slice(0,4).join(", "))}</div></div>
+      <div class="mini-block"><b>탐구 씨앗</b><div>${escapeHtml(toArray(item.topic_seeds).slice(0,2).join(" / "))}</div></div>
     </div>
   `;
 }
 
-function renderExtensionLibrarySection(matches, assessmentReference) {
+function renderAssessmentReferenceCard(assessmentReference) {
+  $("assessmentReferenceCard").innerHTML = assessmentReference ? `
+    <h3 class="card-title"><span class="icon-dot"></span>수행평가 현실 참고</h3>
+    <div class="reference-mini">
+      <div class="mini-block"><b>자주 보이는 방식</b><div>${escapeHtml(toArray(assessmentReference.common_activity_types).join(", "))}</div></div>
+      <div class="mini-block"><b>권장 결과물</b><div>${escapeHtml(toArray(assessmentReference.preferred_outputs).join(", "))}</div></div>
+      <div class="mini-block"><b>현실 힌트</b><ul>${toArray(assessmentReference.school_reality_hint).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
+    </div>
+  ` : `<h3 class="card-title"><span class="icon-dot"></span>수행평가 현실 참고</h3><p class="muted">참고 데이터가 없습니다.</p>`;
+}
+
+function renderExtensionLibrarySection(matches) {
   const el = $("extensionLibrarySection");
-  if (!el) return;
-  if (!Array.isArray(matches) || !matches.length) { el.innerHTML = ""; return; }
-
-  const modeOrder = Object.entries(assessmentReference?.reality_bias || {})
-    .sort((a,b) => b[1] - a[1])
-    .map(([k]) => k);
-
+  if (!matches.length) {
+    el.innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>추천 템플릿</h3><p class="muted">추천 템플릿이 없습니다.</p>`;
+    return;
+  }
   el.innerHTML = `
-    <div class="textbook-box">
-      <h3>추천 활동 템플릿</h3>
-      ${modeOrder.length ? `<ul class="mode-list">${modeOrder.map(v => `<li class="mode-chip">${escapeHtml(v)}</li>`).join("")}</ul>` : ""}
-      <div class="textbook-list">
-        ${matches.map((item, idx) => `
-          <div class="textbook-item">
-            <div class="textbook-head">
-              <strong>${idx === 0 ? "1순위" : `${idx+1}순위`} · ${escapeHtml(item.title || "")}</strong>
-              ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
-            </div>
-            <div class="textbook-row"><b>핵심 구조</b>${renderBullets(item.activity_flow?.slice(0,5) || [])}</div>
-            <div class="textbook-row"><b>권장 산출물</b>${renderBullets(item.outputs?.slice(0,4) || [])}</div>
-            <div class="textbook-row"><b>왜 맞는가</b><p>${escapeHtml(`현재 입력 조건과 수행평가 현실성 보정을 함께 반영했을 때 가장 자연스러운 템플릿입니다.`)}</p></div>
-          </div>
-        `).join("")}
-      </div>
+    <h3 class="card-title"><span class="icon-dot"></span>추천 템플릿</h3>
+    <div class="template-mini">
+      ${matches.map((item, idx) => `
+        <div class="mini-block">
+          <b>${idx === 0 ? "1순위" : `${idx+1}순위`} · ${escapeHtml(item.title || "")}</b>
+          <div>${escapeHtml(item.type || "")}</div>
+        </div>
+      `).join("")}
     </div>
   `;
+}
+
+function renderBottomCards(apiData) {
+  const result = apiData.result || {};
+  $("reasonCard").innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>왜 이 방향인가</h3><p>${escapeHtml(result.reason || "")}</p>`;
+  $("stepsCard").innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>탐구 순서</h3><ul>${toArray(result.steps).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("flowCard").innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>설계 흐름</h3><ul>${toArray(result.flow).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("subjectLinksCard").innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>연결 교과</h3><ul>${toArray(result.subjectLinks).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("warningsCard").innerHTML = `<h3 class="card-title"><span class="icon-dot"></span>주의할 점</h3><ul>${toArray(result.warnings).map(v => `<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+}
+
+function renderTopSummary(payload, apiData, assessmentReference, extensionMatches) {
+  const bestMode = Object.entries(assessmentReference?.reality_bias || {}).sort((a,b) => b[1]-a[1])[0]?.[0] || "research";
+  $("mainDirection").textContent = `${payload.subject}에서 ${payload.keyword}를 ${payload.taskType}로 설계`;
+  $("mainDirectionReason").textContent = `이 입력에서는 ${bestMode} 중심 접근이 가장 자연스럽고, ${payload.grade} 수준에서 무리 없이 연결하기 좋습니다.`;
+  $("inputChips").innerHTML = [payload.subject, payload.taskType, payload.career, payload.keyword, payload.grade].filter(Boolean).map(v => `<span class="chip">${escapeHtml(v)}</span>`).join("");
+  $("modePriorityVisual").innerHTML = renderPriorityVisual(assessmentReference?.reality_bias || {});
+  $("outputPriorityVisual").innerHTML = renderOutputVisual(toArray(assessmentReference?.preferred_outputs).concat(extensionMatches[0]?.outputs || []));
 }
 
 async function handleGenerate() {
@@ -353,21 +354,23 @@ async function handleGenerate() {
 
     window.__lastGenerateDebug = {
       version: window.__KEYWORD_ENGINE_VERSION,
-      payload, apiData, textbookMatches, extensionMatches, assessmentReference
+      payload, apiData, textbookMatches, assessmentReference, extensionMatches
     };
 
-    renderResultCards(apiData, payload, assessmentReference);
+    renderTopSummary(payload, apiData, assessmentReference, extensionMatches);
+    renderTaskMapCard(payload, apiData);
+    renderReportFrameCard(payload, textbookMatches, extensionMatches);
+    renderDoDontCard(payload, assessmentReference);
     renderTextbookSection(textbookMatches);
-    renderExtensionLibrarySection(extensionMatches, assessmentReference);
+    renderAssessmentReferenceCard(assessmentReference);
+    renderExtensionLibrarySection(extensionMatches);
+    renderBottomCards(apiData);
 
-    const resultWrap = $("resultSection");
-    if (resultWrap) resultWrap.style.display = "block";
+    $("resultSection").style.display = "grid";
     return window.__lastGenerateDebug;
   } catch (error) {
     console.error("handleGenerate error:", error);
-    window.__lastGenerateDebug = { error: error?.message || String(error), version: window.__KEYWORD_ENGINE_VERSION || "unknown" };
     showError(error.message || "생성 중 오류가 발생했습니다.");
-    return window.__lastGenerateDebug;
   } finally {
     setLoading(false);
   }
@@ -384,6 +387,5 @@ document.addEventListener("DOMContentLoaded", () => {
   $("generateBtn")?.addEventListener("click", handleGenerate);
   $("resetBtn")?.addEventListener("click", handleReset);
 });
-
 window.handleGenerate = handleGenerate;
 window.handleReset = handleReset;
