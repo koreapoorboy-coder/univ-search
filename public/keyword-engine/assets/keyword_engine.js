@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v10-raw-record";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v11-mode-priority";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
@@ -463,6 +463,10 @@ function mergeStructureAndPattern(structureMatch, patternMatch, clusterRule = nu
     record_pattern_label: patternMatch?.label || "",
     raw_basis_summary: patternMatch?.raw_basis_summary || "",
     source_examples_count: Number(patternMatch?.source_examples_count || 0),
+    recommended_mode_order: toArray(patternMatch?.recommended_mode_order),
+    observed_modes: patternMatch?.observed_modes || {},
+    school_fit_note: patternMatch?.school_fit_note || "",
+    mode_reason: toArray(patternMatch?.mode_reason),
     _structure_score: structureMatch?._score || 0,
     _pattern_score: patternMatch?._score || 0,
     _cluster_score: clusterRule?._score || 0,
@@ -563,6 +567,16 @@ function renderStructureSection(structureMatches, payload) {
                 <p>${escapeHtml(item.raw_basis_summary)}${item.source_examples_count ? ` (원문 예시 ${item.source_examples_count}건 반영)` : ""}</p>
               </div>` : ''}
 
+            ${toArray(item.recommended_mode_order).length ? `
+              <div class="textbook-row">
+                <b>방식 우선순위</b>
+                <p>${escapeHtml(buildModePriorityText(item))}</p>
+              </div>` : ""}
+            ${item.school_fit_note ? `
+              <div class="textbook-row">
+                <b>학교 현실 보정</b>
+                <p>${escapeHtml(item.school_fit_note)}</p>
+              </div>` : ""}
             ${item.grade_depth_rule ? `
               <div class="textbook-row">
                 <b>학년 보정</b>
@@ -599,6 +613,81 @@ function renderStructureSection(structureMatches, payload) {
   `;
 }
 
+
+function normalizeModeKey(value) {
+  const v = normalizeText(value);
+  if (!v) return "";
+  if (v.includes("실험") || v.includes("측정")) return "experiment";
+  if (v.includes("데이터") || v.includes("그래프") || v.includes("통계") || v.includes("보고서") || v.includes("발표")) return "data_analysis";
+  if (v.includes("설계") || v.includes("제작") || v.includes("시스템") || v.includes("프로젝트")) return "design";
+  if (v.includes("모델링") || v.includes("시뮬레이션") || v.includes("수식")) return "modeling";
+  if (v.includes("사회") || v.includes("윤리") || v.includes("정책") || v.includes("문제해결") || v.includes("논증") || v.includes("비평")) return "social_issue";
+  return v;
+}
+
+function templateToMode(template) {
+  const candidates = [
+    template?.type,
+    ...toArray(template?.method_tags),
+    ...toArray(template?.thinking_tags),
+    ...toArray(template?.outputs)
+  ].map(normalizeModeKey).filter(Boolean);
+
+  const preferred = ["experiment", "data_analysis", "design", "modeling", "social_issue"];
+  for (const key of preferred) {
+    if (candidates.includes(key)) return key;
+  }
+
+  const rawType = normalizeText(template?.type);
+  if (rawType.includes("자유탐구")) return "data_analysis";
+  return "data_analysis";
+}
+
+function getTopMode(structureMatches = []) {
+  const top = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  return top && Array.isArray(top.recommended_mode_order) && top.recommended_mode_order.length
+    ? top.recommended_mode_order[0]
+    : "data_analysis";
+}
+
+function buildModePriorityText(structureMatch) {
+  const order = toArray(structureMatch?.recommended_mode_order);
+  if (!order.length) return "";
+  const modeLabels = {
+    data_analysis: "자료분석형",
+    design: "설계·제작형",
+    modeling: "모델링형",
+    social_issue: "사회문제해결형",
+    experiment: "실험형"
+  };
+  return order.slice(0, 3).map(key => modeLabels[key] || key).join(" → ");
+}
+
+function buildModeRecommendation(structureMatches = []) {
+  const top = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
+  if (!top) {
+    return {
+      primary: "자료분석형",
+      secondary: ["설계·제작형", "모델링형"],
+      reason: ["학교 현실을 고려하면 실험보다 자료 정리와 비교 해석이 기본값으로 더 안전하다."]
+    };
+  }
+
+  const labels = {
+    data_analysis: "자료분석형",
+    design: "설계·제작형",
+    modeling: "모델링형",
+    social_issue: "사회문제해결형",
+    experiment: "실험형"
+  };
+  const order = toArray(top.recommended_mode_order);
+  return {
+    primary: labels[order[0]] || "자료분석형",
+    secondary: order.slice(1, 3).map(key => labels[key] || key),
+    reason: [...toArray(top.mode_reason), top.school_fit_note].filter(Boolean).slice(0, 3)
+  };
+}
+
 function scoreExtensionTemplate(template, context) {
   let score = 0;
 
@@ -618,6 +707,10 @@ function scoreExtensionTemplate(template, context) {
   const themeTags = toArray(template.theme_tags);
   const methodTags = toArray(template.method_tags);
   const subjects = toArray(template.subjects);
+  const templateMode = templateToMode(template);
+  const modeOrder = toArray(context.modeOrder);
+  const explicitStyle = normalizeText(context.style || "");
+  const styleMode = normalizeModeKey(explicitStyle);
 
   requiredKeywords.forEach(keyword => {
     const k = normalizeText(keyword);
@@ -632,7 +725,7 @@ function scoreExtensionTemplate(template, context) {
 
   preferredMethods.forEach(method => {
     const m = normalizeText(method);
-    if (normalizeText(context.style).includes(m)) score += 5;
+    if (explicitStyle && explicitStyle.includes(m)) score += 5;
     if (methodTags.map(normalizeText).some(item => item.includes(m) || m.includes(item))) score += 2;
   });
 
@@ -647,12 +740,27 @@ function scoreExtensionTemplate(template, context) {
   });
 
   if ((context.structureSignals || []).map(normalizeText).some(v => v.includes("데이터") || v.includes("효율"))) {
-    if (template.type === "데이터분석형" || template.type === "시뮬레이션형") score += 4;
+    if (templateMode === "data_analysis" || templateMode === "modeling") score += 5;
   }
 
   if ((context.structureSignals || []).map(normalizeText).some(v => v.includes("질환") || v.includes("안전성"))) {
-    if (template.type === "자유탐구형" || template.type === "비평탐구형" || template.type === "데이터분석형") score += 3;
+    if (templateMode === "data_analysis" || templateMode === "social_issue") score += 4;
   }
+
+  if (modeOrder.length) {
+    const rank = modeOrder.indexOf(templateMode);
+    if (rank === 0) score += 14;
+    else if (rank === 1) score += 8;
+    else if (rank === 2) score += 4;
+    else score -= 2;
+  }
+
+  if (!styleMode || styleMode === "data_analysis" || styleMode === "design" || styleMode === "modeling" || styleMode === "social_issue") {
+    if (templateMode === "experiment") score -= 8;
+  }
+
+  if (styleMode && templateMode === styleMode) score += 10;
+  if (context.primaryMode && templateMode === context.primaryMode) score += 8;
 
   return score;
 }
@@ -670,6 +778,7 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, str
       ...toArray(structureMatches[0].record_pattern_label)
     ] : [];
 
+    const topStructure = structureMatches[0] || null;
     const context = {
       keyword: payload.keyword,
       track: payload.track,
@@ -678,7 +787,9 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, str
       subjectLinks: toArray(apiData?.result?.subjectLinks),
       textbookSubjects: textbookMatches.map(item => item.subject).filter(Boolean),
       textbookTopics: textbookMatches.flatMap(item => toArray(item.topic_seeds || item.topicSeeds)).filter(Boolean),
-      structureSignals
+      structureSignals,
+      modeOrder: toArray(topStructure?.recommended_mode_order),
+      primaryMode: getTopMode(structureMatches)
     };
 
     return templates
@@ -802,6 +913,7 @@ function renderExtensionLibrarySection(matches, structureMatches = [], payload =
             <div class="textbook-head">
               <strong>${escapeHtml(item.title)}</strong>
               ${item.type ? `<span>${escapeHtml(item.type)}</span>` : ""}
+              ${item.templateMode ? `<span>${escapeHtml(buildModePriorityText({ recommended_mode_order: [item.templateMode] }))}</span>` : ""}
             </div>
 
             <div class="textbook-row">
@@ -966,12 +1078,18 @@ function renderSummarySection(apiData, payload, textbookMatches, structureMatche
   if (!el) return;
   const topStructure = Array.isArray(structureMatches) && structureMatches.length ? structureMatches[0] : null;
   const summary = buildStructureSummary(topStructure, apiData, payload, textbookMatches);
+  const modeRec = buildModeRecommendation(structureMatches);
   el.innerHTML = `
     <h3>추천 설계 요약</h3>
     <div class="summary-strip">
       <div class="summary-mini">
         <b>우선 적용 구조</b>
         <p>${escapeHtml(summary.mainApproach)}</p>
+      </div>
+      <div class="summary-mini">
+        <b>우선 추천 방식</b>
+        <p>${escapeHtml(modeRec.primary)}</p>
+        ${modeRec.secondary.length ? `<div class="mini-sub">차선 방식: ${escapeHtml(modeRec.secondary.join(' / '))}</div>` : ''}
       </div>
       <div class="summary-mini">
         <b>우선 산출물</b>
@@ -982,6 +1100,7 @@ function renderSummarySection(apiData, payload, textbookMatches, structureMatche
         ${renderBullets(summary.checkpoint)}
       </div>
     </div>
+    ${modeRec.reason.length ? `<div class="mode-reason-box"><b>왜 이 방식을 먼저 추천하나</b>${renderBullets(modeRec.reason)}</div>` : ''}
   `;
 }
 
@@ -1000,8 +1119,9 @@ function renderResultCards(apiData, payload = null, textbookMatches = [], struct
         ...toArray(topStructure.evidence_style).slice(0, 2)
       ])].map((item, index) => index < 3 ? `${item} 중심으로 전개` : item)
     : result.flow;
+  const modeRec = buildModeRecommendation(structureMatches);
   const approachText = topStructure
-    ? `${topStructure.structure_name}을 기준으로 ${topStructure.core_question_frame}`
+    ? `${modeRec.primary}을 1순위로 두고 ${topStructure.structure_name}을 기준으로 ${topStructure.core_question_frame}`
     : result.recommendedApproach;
   const extensionText = topStructure && toArray(topStructure.high_score_signals).length
     ? `${toArray(topStructure.high_score_signals).slice(0, 2).join(' / ')}까지 보이면 상위권 구조로 읽힌다.`
@@ -1188,6 +1308,7 @@ function normalizeTemplateForAdmissions(item, payload, structureMatches) {
   return {
     title: item?.title || '',
     type: item?.type || '',
+    templateMode: templateToMode(item),
     whyThisWorks: buildTemplateWhyThisWorks(item, payload, structureMatches),
     executionSteps: buildTemplateExecutionSteps(item, payload, structureMatches),
     writeGuide: buildTemplateWriteGuide(item, payload, structureMatches),
@@ -1300,7 +1421,7 @@ async function handleGenerate() {
     renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
 
     const badge = $('resultModeBadge');
-    if (badge) badge.textContent = 'admissions-v10-raw-record';
+    if (badge) badge.textContent = 'admissions-v11-mode-priority';
 
     const resultWrap = $('resultSection');
     if (resultWrap) resultWrap.style.display = 'block';
