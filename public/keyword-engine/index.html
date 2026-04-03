@@ -9,11 +9,12 @@
 <body>
   <div class="page">
     <section class="hero">
+      <div class="hero-badge">학생이 바로 이해하는 탐구 설계</div>
       <h1>탐구 보고서 설계 엔진</h1>
-      <p>과목과 수행평가 맥락을 먼저 반영해, 현실적인 탐구 보고서 방향을 추천합니다.</p>
+      <p>말로 길게 푸는 대신, <strong>한눈에 보이는 구조</strong>로 추천합니다.</p>
     </section>
 
-    <section class="panel">
+    <section class="panel form-panel">
       <div class="form-grid">
         <label>
           <span>과목</span>
@@ -80,27 +81,47 @@
       <div id="errorMessage" class="status-message error" style="display:none;"></div>
     </section>
 
-    <section id="resultSection" class="panel" style="display:none;">
-      <div class="section-head">
-        <h2>설계 결과 <span id="resultModeBadge" class="badge">task-first</span></h2>
-        <p id="inputSummary" class="muted"></p>
+    <section id="resultSection" class="result-section" style="display:none;">
+      <div class="top-summary">
+        <div class="summary-card hero-result">
+          <div class="mini-label">이번 수행 한줄 정리</div>
+          <h2 id="mainDirection"></h2>
+          <p id="mainDirectionReason"></p>
+          <div id="inputChips" class="chip-row"></div>
+        </div>
+
+        <div class="summary-card">
+          <div class="mini-label">추천 방식</div>
+          <div id="modePriorityVisual"></div>
+        </div>
+
+        <div class="summary-card">
+          <div class="mini-label">제출 결과물</div>
+          <div id="outputPriorityVisual"></div>
+        </div>
       </div>
 
-      <div class="summary-box" id="taskSummaryCard"></div>
+      <div class="main-layout">
+        <div class="left-column">
+          <div class="focus-card" id="taskMapCard"></div>
+          <div class="focus-card" id="reportFrameCard"></div>
+          <div class="focus-card" id="doDontCard"></div>
+        </div>
 
-      <div class="result-grid">
-        <div class="result-card" id="reasonCard"></div>
-        <div class="result-card" id="stepsCard"></div>
-        <div class="result-card" id="flowCard"></div>
-        <div class="result-card" id="approachCard"></div>
-        <div class="result-card" id="extensionCard"></div>
-        <div class="result-card" id="subjectLinksCard"></div>
-        <div class="result-card" id="warningsCard"></div>
-        <div class="result-card" id="assessmentReferenceCard"></div>
+        <div class="right-column">
+          <div class="compact-card" id="textbookSection"></div>
+          <div class="compact-card" id="assessmentReferenceCard"></div>
+          <div class="compact-card" id="extensionLibrarySection"></div>
+        </div>
       </div>
 
-      <div id="textbookSection"></div>
-      <div id="extensionLibrarySection"></div>
+      <div class="bottom-grid">
+        <div class="compact-card" id="reasonCard"></div>
+        <div class="compact-card" id="stepsCard"></div>
+        <div class="compact-card" id="flowCard"></div>
+        <div class="compact-card" id="subjectLinksCard"></div>
+        <div class="compact-card" id="warningsCard"></div>
+      </div>
     </section>
   </div>
 
