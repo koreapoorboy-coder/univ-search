@@ -1,6 +1,6 @@
 (function () {
   const TEXTBOOK_MASTER_URL = "seed/textbook_master.json";
-  const MIN_MATCH_SCORE = 8;
+  const MIN_MATCH_SCORE = 10;
 
   function normalizeText(value) {
     return String(value ?? "").trim().toLowerCase().replace(/\s+/g, "");
