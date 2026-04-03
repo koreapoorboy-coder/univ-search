@@ -173,3 +173,9 @@ input, select {
 .textbook-row p, .textbook-row li { line-height: 1.62; }
 .textbook-row ul { margin: 0; padding-left: 18px; }
 .muted { color: var(--muted); }
+
+
+.inline-badges { display:flex; flex-wrap:wrap; gap:8px; }
+.inline-badges span { border:1px solid #bfdbfe; background:#eff6ff; color:#1d4ed8; border-radius:999px; padding:4px 8px; font-size:0.82rem; font-weight:700; }
+.structure-item { background: linear-gradient(180deg, #ffffff, #f8fbff); }
+.score-line { margin: 8px 0 2px; color: var(--primary); font-weight: 700; font-size: 0.92rem; }
