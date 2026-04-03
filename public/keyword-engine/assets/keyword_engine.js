@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v13-reference-seed";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v14-task-first";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
@@ -54,6 +54,19 @@ function tokenize(value) {
   return [...new Set(raw.split(/[\/,|·ㆍ>]+|\s+/).map(normalizeText).filter(v => v && v.length >= 2))];
 }
 
+function inferTrackFromCareer(career = '') {
+  const n = normalizeText(career);
+  if (!n) return '';
+  if (/간호|보건|의료|약학|생명/.test(n)) return '보건·의료';
+  if (/신소재|반도체|기계|전기|전자|에너지|화학공학|공학/.test(n)) return '공학';
+  if (/ai|sw|소프트웨어|컴퓨터|데이터|인공지능|정보/.test(n)) return 'AI·SW';
+  if (/환경|기후|지속가능/.test(n)) return '환경·에너지';
+  if (/사회|정책|행정|경제|국제/.test(n)) return '사회';
+  if (/국어|언어|문학|역사|철학|인문/.test(n)) return '인문·언어';
+  return '';
+}
+
+
 function renderBullets(items) {
   const arr = toArray(items).filter(Boolean);
   if (!arr.length) return '<p class="muted">내용이 없습니다.</p>';
@@ -65,23 +78,46 @@ function renderText(value) {
   return `<p>${escapeHtml(value)}</p>`;
 }
 
+
 function getFormValues() {
+  const subject = $("subject")?.value?.trim() || "";
+  const taskType = $("taskType")?.value?.trim() || "";
+  const taskDescription = $("taskDescription")?.value?.trim() || "";
+  const career = $("career")?.value?.trim() || "";
+  const keyword = $("keyword")?.value?.trim() || "";
+  const grade = $("grade")?.value?.trim() || "";
+
+  const legacyTrack = $("track")?.value?.trim() || "";
+  const legacyMajor = $("major")?.value?.trim() || "";
+  const activityLevel = $("activityLevel")?.value?.trim() || "";
+  const style = $("style")?.value?.trim() || "";
+
+  const major = career || legacyMajor;
+  const track = legacyTrack || inferTrackFromCareer(major) || inferTrackFromCareer(subject + ' ' + taskDescription);
+
   return {
-    keyword: $("keyword")?.value?.trim() || "",
-    grade: $("grade")?.value?.trim() || "",
-    track: $("track")?.value?.trim() || "",
-    major: $("major")?.value?.trim() || "",
-    activityLevel: $("activityLevel")?.value?.trim() || "",
-    style: $("style")?.value?.trim() || ""
+    subject,
+    taskType,
+    taskDescription,
+    career,
+    keyword,
+    grade,
+    major,
+    track,
+    activityLevel,
+    style
   };
 }
 
+
+
 function validateInput(data) {
   const required = [
+    ["subject", "과목"],
+    ["taskType", "수행평가 형태"],
+    ["career", "희망 진로"],
     ["keyword", "키워드"],
-    ["grade", "학년"],
-    ["track", "관심 계열"],
-    ["major", "희망 전공"]
+    ["grade", "학년"]
   ];
 
   for (const [key, label] of required) {
@@ -90,6 +126,7 @@ function validateInput(data) {
     }
   }
 }
+
 
 function setLoading(isLoading) {
   const btn = $("generateBtn");
@@ -188,25 +225,44 @@ async function callGenerateAPI(payload) {
   return data;
 }
 
+
 async function getTextbookMatches(payload) {
   try {
     if (typeof window.matchTextbook !== "function") return [];
 
-    const keywords = [payload.keyword, payload.track, payload.major].filter(Boolean);
+    const keywords = [
+      payload.keyword,
+      payload.subject,
+      payload.taskType,
+      payload.taskDescription,
+      payload.career,
+      payload.track,
+      payload.major
+    ].filter(Boolean);
+
     const result = await window.matchTextbook({
       keywords,
-      category: payload.track,
-      major: payload.major
+      category: payload.subject || payload.track,
+      major: payload.career || payload.major
     });
 
-    if (Array.isArray(result)) return result;
-    if (Array.isArray(result?.matches)) return result.matches;
-    return [];
+    let matches = [];
+    if (Array.isArray(result)) matches = result;
+    else if (Array.isArray(result?.matches)) matches = result.matches;
+
+    const selectedSubject = normalizeSubjectName(payload.subject || '');
+    if (selectedSubject) {
+      const filtered = matches.filter(item => normalizeSubjectName(item.subject) === selectedSubject);
+      if (filtered.length) return filtered;
+    }
+
+    return matches;
   } catch (error) {
     console.warn("textbook matcher error:", error);
     return [];
   }
 }
+
 
 function renderResultCards(apiData, payload = null, textbookMatches = [], structureMatches = []) {
   const result = apiData.result || {};
@@ -392,6 +448,7 @@ function buildAssessmentReferenceContext(seed, payload = {}, apiData = {}, textb
   const bucketKey = getAssessmentGradeBucket(payload);
   const bucket = seed?.[bucketKey] || {};
   const subjectCandidates = [
+    normalizeSubjectName(payload.subject),
     ...toArray(apiData?.result?.subjectLinks).map(normalizeSubjectName),
     ...toArray(textbookMatches).map(item => normalizeSubjectName(item.subject)),
     ...toArray(structureMatches[0]?.concept_links).map(normalizeSubjectName)
@@ -467,8 +524,13 @@ function renderAssessmentReferenceSection(referenceContext) {
   `;
 }
 
+
 function buildContextTokens(payload, apiData, textbookMatches) {
   return [
+    ...tokenize(payload.subject),
+    ...tokenize(payload.taskType),
+    ...tokenize(payload.taskDescription),
+    ...tokenize(payload.career),
     ...tokenize(payload.keyword),
     ...tokenize(payload.track),
     ...tokenize(payload.major),
@@ -481,6 +543,7 @@ function buildContextTokens(payload, apiData, textbookMatches) {
     ...textbookMatches.flatMap(item => toArray(item.topic_seeds).flatMap(tokenize))
   ].filter(Boolean);
 }
+
 
 function scoreTokenList(list, contextTokens, exactWeight, partialWeight) {
   let score = 0;
@@ -1186,14 +1249,33 @@ async function handleGenerate() {
   }
 }
 
+
+function renderInputSummarySection(payload) {
+  const el = ensureDynamicSection('inputSummarySection');
+  if (!el || !payload) return;
+  const detail = payload.taskDescription ? `<div class="template-note">${escapeHtml(payload.taskDescription)}</div>` : '';
+  el.innerHTML = `
+    <h3>이번 수행 입력 요약</h3>
+    <div class="summary-strip task-input-strip">
+      <div class="summary-mini"><b>과목</b><p>${escapeHtml(payload.subject || '-')}</p></div>
+      <div class="summary-mini"><b>수행평가 형태</b><p>${escapeHtml(payload.taskType || '-')}</p></div>
+      <div class="summary-mini"><b>희망 진로</b><p>${escapeHtml(payload.career || '-')}</p></div>
+      <div class="summary-mini"><b>키워드/학년</b><p>${escapeHtml([payload.keyword, payload.grade].filter(Boolean).join(' · ') || '-')}</p></div>
+    </div>
+    ${detail}
+  `;
+}
+
+
 function handleReset() {
-  ["keyword", "grade", "track", "major", "activityLevel", "style"].forEach(id => {
+  ["subject", "taskType", "taskDescription", "career", "keyword", "grade", "track", "major", "activityLevel", "style"].forEach(id => {
     const el = $(id);
     if (el) el.value = "";
   });
   clearError();
   clearResults();
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   $("generateBtn")?.addEventListener("click", handleGenerate);
@@ -1620,6 +1702,7 @@ function renderExtensionLibrarySection(matches, structureMatches = [], payload =
   `;
 }
 
+
 async function handleGenerate() {
   clearError();
   clearResults();
@@ -1629,15 +1712,28 @@ async function handleGenerate() {
     validateInput(payload);
     setLoading(true);
 
-    const apiData = await callGenerateAPI(payload);
-    const textbookMatches = await getTextbookMatches(payload);
-    const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
+    const apiPayload = {
+      keyword: payload.keyword,
+      grade: payload.grade,
+      track: payload.track || inferTrackFromCareer(payload.career),
+      major: payload.career,
+      activityLevel: payload.activityLevel,
+      style: payload.style,
+      subject: payload.subject,
+      taskType: payload.taskType,
+      taskDescription: payload.taskDescription,
+      career: payload.career
+    };
+
+    const apiData = await callGenerateAPI(apiPayload);
+    const textbookMatches = await getTextbookMatches(apiPayload);
+    const structureMatches = await getStructureMatches(apiPayload, apiData, textbookMatches);
     const assessmentReferenceSeed = await loadAssessmentReferenceSeed();
-    const assessmentReferenceContext = buildAssessmentReferenceContext(assessmentReferenceSeed, payload, apiData, textbookMatches, structureMatches);
-    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches, assessmentReferenceContext);
+    const assessmentReferenceContext = buildAssessmentReferenceContext(assessmentReferenceSeed, apiPayload, apiData, textbookMatches, structureMatches);
+    const extensionMatches = await getExtensionLibraryMatches(apiPayload, apiData, textbookMatches, structureMatches, assessmentReferenceContext);
 
     window.__lastGenerateDebug = {
-      payload,
+      payload: apiPayload,
       apiData,
       textbookMatches,
       structureMatches,
@@ -1646,15 +1742,16 @@ async function handleGenerate() {
       version: window.__KEYWORD_ENGINE_VERSION || 'unknown'
     };
 
-    renderResultCards(apiData, payload, textbookMatches, structureMatches);
-    renderSummarySection(apiData, payload, textbookMatches, structureMatches);
+    renderInputSummarySection(apiPayload);
+    renderResultCards(apiData, apiPayload, textbookMatches, structureMatches);
+    renderSummarySection(apiData, apiPayload, textbookMatches, structureMatches);
     renderTextbookSection(textbookMatches);
-    renderStructureSection(structureMatches, payload);
+    renderStructureSection(structureMatches, apiPayload);
     renderAssessmentReferenceSection(assessmentReferenceContext);
-    renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
+    renderExtensionLibrarySection(extensionMatches, structureMatches, apiPayload);
 
     const badge = $('resultModeBadge');
-    if (badge) badge.textContent = 'admissions-v13-reference-seed';
+    if (badge) badge.textContent = 'admissions-v14-task-first';
 
     const resultWrap = $('resultSection');
     if (resultWrap) resultWrap.style.display = 'block';
@@ -1672,3 +1769,4 @@ async function handleGenerate() {
     setLoading(false);
   }
 }
+
