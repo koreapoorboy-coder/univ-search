@@ -3,135 +3,108 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>공용 탐구 설계 엔진</title>
+  <title>탐구 보고서 설계 엔진</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
-  <style>
-    :root{--bg:#f6f7fb;--card:#ffffff;--line:#e5e7ef;--text:#172033;--muted:#6b7280;--accent:#5b6cff}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 40px}
-    .hero h1{margin:0 0 8px;font-size:28px}
-    .hero p{margin:0;color:var(--muted);font-size:16px}
-    .panel{margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px}
-    .field label{display:block;font-weight:700;margin:0 0 10px;font-size:15px}
-    .field input,.field select{width:100%;height:58px;border:1px solid #d8ddea;border-radius:18px;padding:0 18px;font-size:15px;background:#fff}
-    .actions{display:flex;gap:14px;margin-top:22px}
-    .btn{border:none;border-radius:16px;height:56px;padding:0 28px;font-weight:700;font-size:16px;cursor:pointer}
-    .btn.primary{background:var(--accent);color:#fff}
-    .btn.secondary{background:#eef1f7;color:#1f2937}
-    .status{margin-top:14px}
-    .loading{display:none;color:var(--accent);font-weight:700}
-    .error{display:none;background:#fff2f2;border:1px solid #f3c8c8;color:#a11a1a;padding:14px 16px;border-radius:14px}
-    .result-wrap{display:none;margin-top:22px}
-    .result-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-    .result-head h2{margin:0;font-size:22px}
-    .badge{min-width:40px;height:40px;border-radius:999px;background:#eef2ff;color:#5b6cff;display:flex;align-items:center;justify-content:center;font-weight:700}
-    .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
-    .card h3{margin:0 0 12px;font-size:16px}
-    .card p{margin:0;line-height:1.7}
-    .card ul{margin:0;padding-left:20px;line-height:1.7}
-    .muted{color:var(--muted)}
-    .textbook-box{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
-    .textbook-box h3{margin:0 0 12px}
-    .textbook-list{display:grid;gap:12px}
-    .textbook-item{border:1px solid var(--line);border-radius:14px;padding:14px}
-    .textbook-head{display:flex;flex-wrap:wrap;gap:6px 8px;margin-bottom:10px}
-    .textbook-row b{display:block;margin:0 0 6px}
-    .textbook-row ul{margin:0 0 8px;padding-left:18px}
-    .textbook-row p{margin:0;line-height:1.6}
-    @media (max-width:900px){.form-grid,.result-grid{grid-template-columns:1fr}}
-  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>공용 탐구 설계 엔진</h1>
-      <p>키워드와 학년, 계열, 희망 전공을 넣으면 AI가 탐구 설계 흐름을 만들고 관련 교과서 근거와 추천 활동 템플릿도 함께 보여줍니다.</p>
-    </div>
+  <div class="page">
+    <section class="hero">
+      <h1>탐구 보고서 설계 엔진</h1>
+      <p>과목과 수행평가 맥락을 먼저 반영해, 현실적인 탐구 보고서 방향을 추천합니다.</p>
+    </section>
 
-    <div class="panel">
+    <section class="panel">
       <div class="form-grid">
-        <div class="field">
-          <label for="keyword">키워드</label>
-          <input id="keyword" type="text" placeholder="예: 이차전지" />
-        </div>
+        <label>
+          <span>과목</span>
+          <select id="subject">
+            <option value="">선택</option>
+            <option>통합과학</option>
+            <option>과학탐구실험</option>
+            <option>화학</option>
+            <option>생명과학</option>
+            <option>물리학</option>
+            <option>정보</option>
+            <option>통합사회</option>
+            <option>공통국어</option>
+            <option>공통영어</option>
+            <option>수학</option>
+          </select>
+        </label>
 
-        <div class="field">
-          <label for="grade">학년</label>
+        <label>
+          <span>수행평가 형태</span>
+          <select id="taskType">
+            <option value="">선택</option>
+            <option>탐구 보고서</option>
+            <option>자료조사 보고서</option>
+            <option>발표</option>
+            <option>포스터</option>
+            <option>정책 제안서</option>
+            <option>실험 보고서</option>
+            <option>제작·설계형</option>
+          </select>
+        </label>
+
+        <label class="full">
+          <span>수행평가 설명</span>
+          <textarea id="taskDescription" rows="4" placeholder="예: 교과서 개념과 연결한 자료조사형 수행평가, 실험은 어려움, 발표 포함"></textarea>
+        </label>
+
+        <label>
+          <span>희망 진로</span>
+          <input id="career" type="text" placeholder="예: 신소재공학, 반도체공학, 간호학" />
+        </label>
+
+        <label>
+          <span>키워드</span>
+          <input id="keyword" type="text" placeholder="예: 이차전지, 반도체, 폐배터리" />
+        </label>
+
+        <label>
+          <span>학년</span>
           <select id="grade">
             <option value="">선택</option>
-            <option value="1학년">1학년</option>
-            <option value="2학년">2학년</option>
-            <option value="3학년">3학년</option>
+            <option>고1</option>
+            <option>고2</option>
+            <option>고3</option>
           </select>
-        </div>
-
-        <div class="field">
-          <label for="track">관심 계열</label>
-          <input id="track" type="text" placeholder="예: 이공계, 보건·의료, 인문사회" />
-        </div>
-
-        <div class="field">
-          <label for="major">희망 전공</label>
-          <input id="major" type="text" placeholder="예: 화학공학, 간호학과, 컴퓨터공학과" />
-        </div>
-
-        <div class="field">
-          <label for="activityLevel">현재 활동 수준</label>
-          <select id="activityLevel">
-            <option value="">선택 안 함</option>
-            <option value="초기">초기</option>
-            <option value="기초">기초</option>
-            <option value="심화">심화</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="style">탐구 스타일</label>
-          <select id="style">
-            <option value="">선택 안 함</option>
-            <option value="실험형">실험형</option>
-            <option value="보고서형">보고서형</option>
-            <option value="사례분석형">사례분석형</option>
-            <option value="시뮬레이션형">시뮬레이션형</option>
-          </select>
-        </div>
+        </label>
       </div>
 
       <div class="actions">
-        <button id="generateBtn" class="btn primary" type="button">탐구 설계 생성</button>
-        <button id="resetBtn" class="btn secondary" type="button">초기화</button>
+        <button id="generateBtn" class="primary-btn">탐구 설계 생성</button>
+        <button id="resetBtn" class="secondary-btn" type="button">초기화</button>
+        <div id="loadingMessage" class="loading-text" style="display:none;">생성 중...</div>
+      </div>
+      <div id="errorMessage" class="status-message error" style="display:none;"></div>
+    </section>
+
+    <section id="resultSection" class="panel" style="display:none;">
+      <div class="section-head">
+        <h2>설계 결과 <span id="resultModeBadge" class="badge">task-first</span></h2>
+        <p id="inputSummary" class="muted"></p>
       </div>
 
-      <div class="status">
-        <div id="loadingMessage" class="loading">생성 중...</div>
-        <div id="errorMessage" class="error"></div>
+      <div class="summary-box" id="taskSummaryCard"></div>
+
+      <div class="result-grid">
+        <div class="result-card" id="reasonCard"></div>
+        <div class="result-card" id="stepsCard"></div>
+        <div class="result-card" id="flowCard"></div>
+        <div class="result-card" id="approachCard"></div>
+        <div class="result-card" id="extensionCard"></div>
+        <div class="result-card" id="subjectLinksCard"></div>
+        <div class="result-card" id="warningsCard"></div>
+        <div class="result-card" id="assessmentReferenceCard"></div>
       </div>
 
-      <div id="resultSection" class="result-wrap">
-        <div class="result-head">
-          <h2>생성 결과</h2>
-          <div id="resultModeBadge" class="badge">ai</div>
-        </div>
-
-        <div class="result-grid">
-          <div id="reasonCard" class="card"></div>
-          <div id="stepsCard" class="card"></div>
-          <div id="flowCard" class="card"></div>
-          <div id="approachCard" class="card"></div>
-          <div id="extensionCard" class="card"></div>
-          <div id="subjectLinksCard" class="card"></div>
-          <div id="warningsCard" class="card"></div>
-        </div>
-
-        <div id="textbookSection"></div>
-        <div id="extensionLibrarySection"></div>
-      </div>
-    </div>
+      <div id="textbookSection"></div>
+      <div id="extensionLibrarySection"></div>
+    </section>
   </div>
 
   <script src="assets/student_textbook_matcher.js"></script>
-  <script src="assets/keyword_engine.js"></script></body>
+  <script src="assets/keyword_engine.js"></script>
+</body>
 </html>
