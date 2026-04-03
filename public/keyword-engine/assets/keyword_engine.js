@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v9-structure-major";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v10-raw-record";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
@@ -461,6 +461,8 @@ function mergeStructureAndPattern(structureMatch, patternMatch, clusterRule = nu
       ...toArray(gradeModifier?.avoid)
     ])],
     record_pattern_label: patternMatch?.label || "",
+    raw_basis_summary: patternMatch?.raw_basis_summary || "",
+    source_examples_count: Number(patternMatch?.source_examples_count || 0),
     _structure_score: structureMatch?._score || 0,
     _pattern_score: patternMatch?._score || 0,
     _cluster_score: clusterRule?._score || 0,
@@ -554,6 +556,12 @@ function renderStructureSection(structureMatches, payload) {
               <b>이 구조가 맞는 이유</b>
               <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
             </div>
+
+            ${item.raw_basis_summary ? `
+              <div class="textbook-row">
+                <b>실제 학생부 보정 근거</b>
+                <p>${escapeHtml(item.raw_basis_summary)}${item.source_examples_count ? ` (원문 예시 ${item.source_examples_count}건 반영)` : ""}</p>
+              </div>` : ''}
 
             ${item.grade_depth_rule ? `
               <div class="textbook-row">
@@ -1125,6 +1133,12 @@ function renderStructureSection(structureMatches, payload) {
               <p>${escapeHtml(buildStructureWhyThisWorks(item, payload))}</p>
             </div>
 
+            ${item.raw_basis_summary ? `
+              <div class="textbook-row">
+                <b>실제 학생부 보정 근거</b>
+                <p>${escapeHtml(item.raw_basis_summary)}${item.source_examples_count ? ` (원문 예시 ${item.source_examples_count}건 반영)` : ""}</p>
+              </div>` : ''}
+
             ${item.grade_depth_rule ? `
               <div class="textbook-row">
                 <b>학년 보정</b>
@@ -1286,7 +1300,7 @@ async function handleGenerate() {
     renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
 
     const badge = $('resultModeBadge');
-    if (badge) badge.textContent = 'admissions-v9-structure-major';
+    if (badge) badge.textContent = 'admissions-v10-raw-record';
 
     const resultWrap = $('resultSection');
     if (resultWrap) resultWrap.style.display = 'block';
