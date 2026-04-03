@@ -1620,7 +1620,7 @@ function renderExtensionLibrarySection(matches, structureMatches = [], payload =
   `;
 }
 
-async function handleGenerate() {async function handleGenerate() {
+async function handleGenerate() {
   clearError();
   clearResults();
 
