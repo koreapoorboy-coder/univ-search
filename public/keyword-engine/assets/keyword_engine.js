@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v12-grade1-research";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v13-reference-seed";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const STRUCTURE_SEED_URL = "seed/admission_subject_structure_seed.json";
@@ -6,6 +6,7 @@ const RECORD_PATTERN_LIBRARY_URL = "seed/record_pattern_library.json";
 const ADMISSION_RULES_URL = "seed/admission_rules.json";
 const MAJOR_KEYWORD_URL = "seed/major_keyword.json";
 const PRIORITY_KEYWORD_URL = "seed/priority_keyword.json";
+const ASSESSMENT_REFERENCE_URL = "seed/reference/assessment_reference_seed.json";
 
 function $(id) {
   return document.getElementById(id);
@@ -149,6 +150,7 @@ function clearResults() {
     "warningsCard",
     "textbookSection",
     "structureSection",
+    "assessmentReferenceSection",
     "extensionLibrarySection"
   ];
   ids.forEach(id => {
@@ -291,6 +293,7 @@ let recordPatternCache = null;
 let admissionRulesCache = null;
 let majorKeywordCache = null;
 let priorityKeywordCache = null;
+let assessmentReferenceCache = null;
 
 async function loadExtensionLibrary() {
   if (extensionLibraryCache) return extensionLibraryCache;
@@ -338,6 +341,130 @@ async function loadPriorityKeywords() {
   if (!response.ok) throw new Error("우선 키워드 파일을 불러오지 못했습니다.");
   priorityKeywordCache = await response.json();
   return priorityKeywordCache;
+}
+
+async function loadAssessmentReferenceSeed() {
+  if (assessmentReferenceCache) return assessmentReferenceCache;
+  try {
+    const response = await fetch(ASSESSMENT_REFERENCE_URL, { cache: "no-store" });
+    if (!response.ok) throw new Error("assessment reference seed not found");
+    assessmentReferenceCache = await response.json();
+    return assessmentReferenceCache;
+  } catch (error) {
+    console.warn("assessment reference seed load skipped:", error);
+    assessmentReferenceCache = {};
+    return assessmentReferenceCache;
+  }
+}
+
+function normalizeSubjectName(value) {
+  const v = String(value || '').trim();
+  const map = {
+    '공통영어': '공통영어1',
+    '공통수학': '공통수학1',
+    '통합사회': '통합사회1',
+    '공통국어': '공통국어1',
+    '통합과학': '통합과학1',
+    '과학탐구실험': '과학탐구실험1'
+  };
+  return map[v] || v;
+}
+
+function getAssessmentGradeBucket(payload = {}) {
+  const grade = String(payload.grade || '');
+  if (grade.includes('1') || grade.includes('고1')) return 'grade_1_semester_1';
+  if (grade.includes('2') || grade.includes('고2')) return 'grade_2_semester_1';
+  if (grade.includes('3') || grade.includes('고3')) return 'grade_3_semester_1';
+  return 'grade_1_semester_1';
+}
+
+function modeKeyToLabel(key) {
+  const labels = {
+    research: '자료·조사형',
+    analysis: '자료분석형',
+    presentation: '발표형',
+    experiment: '실험형'
+  };
+  return labels[key] || key;
+}
+
+function buildAssessmentReferenceContext(seed, payload = {}, apiData = {}, textbookMatches = [], structureMatches = []) {
+  const bucketKey = getAssessmentGradeBucket(payload);
+  const bucket = seed?.[bucketKey] || {};
+  const subjectCandidates = [
+    ...toArray(apiData?.result?.subjectLinks).map(normalizeSubjectName),
+    ...toArray(textbookMatches).map(item => normalizeSubjectName(item.subject)),
+    ...toArray(structureMatches[0]?.concept_links).map(normalizeSubjectName)
+  ].filter(Boolean);
+
+  const matchedSubjects = [...new Set(subjectCandidates.filter(subject => bucket[subject]))];
+  const entries = matchedSubjects.map(subject => ({ subject, ...(bucket[subject] || {}) })).filter(item => item.subject);
+
+  const mergedBias = { research: 0, analysis: 0, presentation: 0, experiment: 0 };
+  entries.forEach(entry => {
+    const bias = entry.reality_bias || {};
+    Object.keys(mergedBias).forEach(key => {
+      mergedBias[key] += Number(bias[key] || 0);
+    });
+  });
+
+  const preferredOutputs = [...new Set(entries.flatMap(entry => toArray(entry.preferred_outputs)).filter(Boolean))];
+  const hints = [...new Set(entries.flatMap(entry => toArray(entry.school_reality_hint)).filter(Boolean))];
+  const commonActivities = [...new Set(entries.flatMap(entry => toArray(entry.common_activity_types)).filter(Boolean))];
+
+  const orderedModes = Object.entries(mergedBias)
+    .sort((a, b) => b[1] - a[1])
+    .filter(([, value]) => value > 0)
+    .map(([key]) => key);
+
+  return {
+    bucketKey,
+    matchedSubjects,
+    entries,
+    mergedBias,
+    preferredOutputs,
+    hints,
+    commonActivities,
+    orderedModes
+  };
+}
+
+function renderAssessmentReferenceSection(referenceContext) {
+  const el = ensureDynamicSection('assessmentReferenceSection');
+  if (!el) return;
+
+  if (!referenceContext || !referenceContext.matchedSubjects || !referenceContext.matchedSubjects.length) {
+    el.innerHTML = '';
+    return;
+  }
+
+  const topModes = toArray(referenceContext.orderedModes).slice(0, 3).map(modeKeyToLabel);
+
+  el.innerHTML = `
+    <div class="textbook-box">
+      <h3>수행평가 현실성 참고</h3>
+      <div class="template-note">이 섹션은 학교 맞춤 고정값이 아니라, 현재 학년·과목에서 자주 보이는 수행 형식을 <b>reference_only</b>로 약하게 반영한 참고값입니다.</div>
+      <div class="textbook-row">
+        <b>참고 과목</b>
+        <ul>${referenceContext.matchedSubjects.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+      </div>
+      ${topModes.length ? `
+      <div class="textbook-row">
+        <b>자주 보이는 방식</b>
+        <p>${escapeHtml(topModes.join(' → '))}</p>
+      </div>` : ''}
+      ${referenceContext.preferredOutputs.length ? `
+      <div class="textbook-row">
+        <b>자주 보이는 산출물</b>
+        <ul>${referenceContext.preferredOutputs.slice(0, 6).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+      </div>` : ''}
+      ${referenceContext.hints.length ? `
+      <div class="textbook-row">
+        <b>현실성 힌트</b>
+        <ul>${referenceContext.hints.slice(0, 6).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+      </div>` : ''}
+    </div>
+  `;
 }
 
 function buildContextTokens(payload, apiData, textbookMatches) {
@@ -798,10 +925,23 @@ function scoreExtensionTemplate(template, context) {
   if (styleMode && templateMode === styleMode) score += 10;
   if (context.primaryMode && templateMode === context.primaryMode) score += 8;
 
+  const assessmentBias = context.assessmentBias || {};
+  if (templateMode === "data_analysis") score += Number(assessmentBias.analysis || 0) * 2 + Number(assessmentBias.research || 0);
+  if (templateMode === "design") score += Number(assessmentBias.research || 0);
+  if (templateMode === "social_issue") score += Number(assessmentBias.research || 0) + Number(assessmentBias.presentation || 0);
+  if (templateMode === "modeling") score += Number(assessmentBias.analysis || 0);
+  if (templateMode === "experiment") score += Number(assessmentBias.experiment || 0) * 1.5 - Number(assessmentBias.research || 0) * 0.5;
+
+  const preferredOutputs = (context.assessmentPreferredOutputs || []).map(normalizeText);
+  const templateOutputs = toArray(template.outputs).map(normalizeText);
+  if (preferredOutputs.length && templateOutputs.some(v => preferredOutputs.some(p => v.includes(p) || p.includes(v)))) {
+    score += 4;
+  }
+
   return score;
 }
 
-async function getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches = []) {
+async function getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches = [], assessmentReferenceContext = null) {
   try {
     const library = await loadExtensionLibrary();
     const templates = Array.isArray(library?.templates) ? library.templates : [];
@@ -826,7 +966,9 @@ async function getExtensionLibraryMatches(payload, apiData, textbookMatches, str
       structureSignals,
       modeOrder: toArray(topStructure?.recommended_mode_order),
       primaryMode: getTopMode(structureMatches),
-      grade: payload.grade
+      grade: payload.grade,
+      assessmentBias: assessmentReferenceContext?.mergedBias || {},
+      assessmentPreferredOutputs: assessmentReferenceContext?.preferredOutputs || []
     };
 
     return templates
@@ -1490,13 +1632,16 @@ async function handleGenerate() {async function handleGenerate() {
     const apiData = await callGenerateAPI(payload);
     const textbookMatches = await getTextbookMatches(payload);
     const structureMatches = await getStructureMatches(payload, apiData, textbookMatches);
-    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches);
+    const assessmentReferenceSeed = await loadAssessmentReferenceSeed();
+    const assessmentReferenceContext = buildAssessmentReferenceContext(assessmentReferenceSeed, payload, apiData, textbookMatches, structureMatches);
+    const extensionMatches = await getExtensionLibraryMatches(payload, apiData, textbookMatches, structureMatches, assessmentReferenceContext);
 
     window.__lastGenerateDebug = {
       payload,
       apiData,
       textbookMatches,
       structureMatches,
+      assessmentReferenceContext,
       extensionMatches,
       version: window.__KEYWORD_ENGINE_VERSION || 'unknown'
     };
@@ -1505,10 +1650,11 @@ async function handleGenerate() {async function handleGenerate() {
     renderSummarySection(apiData, payload, textbookMatches, structureMatches);
     renderTextbookSection(textbookMatches);
     renderStructureSection(structureMatches, payload);
+    renderAssessmentReferenceSection(assessmentReferenceContext);
     renderExtensionLibrarySection(extensionMatches, structureMatches, payload);
 
     const badge = $('resultModeBadge');
-    if (badge) badge.textContent = 'admissions-v12-grade1-research';
+    if (badge) badge.textContent = 'admissions-v13-reference-seed';
 
     const resultWrap = $('resultSection');
     if (resultWrap) resultWrap.style.display = 'block';
