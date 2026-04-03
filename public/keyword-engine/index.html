@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>탐구 보고서 설계 엔진</title>
+  <title>학생용 탐구 보고서 설계 엔진</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
 </head>
 <body>
   <div class="page">
     <section class="hero">
-      <div class="hero-badge">결론 먼저 보는 탐구 설계</div>
-      <h1>탐구 보고서 설계 엔진</h1>
-      <p>설명보다 먼저, <strong>지금 해야 할 것</strong>부터 보여줍니다.</p>
+      <div class="hero-badge">학생이 바로 쓰는 화면</div>
+      <h1>학생용 탐구 보고서 설계 엔진</h1>
+      <p>설명을 읽는 화면이 아니라, <strong>바로 따라 쓰는 화면</strong>으로 바꿨습니다.</p>
     </section>
 
     <section class="panel form-panel">
@@ -74,7 +74,7 @@
       </div>
 
       <div class="actions">
-        <button id="generateBtn" class="primary-btn">탐구 설계 생성</button>
+        <button id="generateBtn" class="primary-btn">학생용 결과 생성</button>
         <button id="resetBtn" class="secondary-btn" type="button">초기화</button>
         <div id="loadingMessage" class="loading-text" style="display:none;">생성 중...</div>
       </div>
@@ -82,33 +82,46 @@
     </section>
 
     <section id="resultSection" class="result-section" style="display:none;">
-      <div class="conclusion-grid">
+      <div class="student-top">
         <div class="big-card">
-          <div class="mini-label">1. 최종 추천</div>
+          <div class="mini-label">최종 추천</div>
           <h2 id="finalMode"></h2>
           <p id="finalReason"></p>
         </div>
         <div class="big-card">
-          <div class="mini-label">2. 추천 주제</div>
+          <div class="mini-label">추천 주제</div>
           <h2 id="finalTopic"></h2>
           <p id="topicSub"></p>
         </div>
       </div>
 
       <div class="action-card">
-        <div class="mini-label">3. 지금 바로 할 일</div>
+        <div class="mini-label">지금 바로 할 일 3단계</div>
         <div id="actionSteps" class="action-steps"></div>
       </div>
 
-      <div class="quick-grid">
+      <div class="student-grid">
         <div class="quick-card" id="outputCard"></div>
         <div class="quick-card" id="reportFrameCard"></div>
         <div class="quick-card" id="doDontCard"></div>
         <div class="quick-card" id="inputSummaryCard"></div>
       </div>
 
-      <details class="details-panel" open>
-        <summary>왜 이렇게 추천됐는지 보기</summary>
+      <section class="report-panel">
+        <div class="report-head">
+          <div>
+            <div class="mini-label">학생 제출용 초안</div>
+            <h3>바로 쓸 수 있는 보고서</h3>
+          </div>
+          <div class="report-actions">
+            <button id="copyReportBtn" class="secondary-btn" type="button">보고서 복사</button>
+          </div>
+        </div>
+        <div id="studentReport" class="student-report"></div>
+      </section>
+
+      <details class="details-panel">
+        <summary>선생님/상담용 참고 보기</summary>
         <div class="details-grid">
           <div class="compact-card" id="reasonCard"></div>
           <div class="compact-card" id="stepsCard"></div>
