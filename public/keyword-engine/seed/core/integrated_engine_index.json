@@ -1,5 +1,5 @@
 {
-  "version": "0.8.0-grade1-research-priority",
+  "version": "0.9.0-reference-seed-linked",
   "description": "합격생 기준, 일반 학생부 패턴 기준, 수준 판정 규칙을 함께 반영하는 통합 인덱스",
   "layers": {
     "extension_library": {
@@ -46,12 +46,18 @@
       "enabled": true,
       "path": "data/output_schema/index.json",
       "role": "최종 분석/추천 출력 형식"
+    },
+    "assessment_reference": {
+      "enabled": true,
+      "path": "seed/reference/assessment_reference_seed.json",
+      "role": "수행평가 현실성 참고·보조 보정"
     }
   },
   "priority_order": [
     "student_tag_schema",
     "curriculum_guides",
     "record_pattern_library",
+    "assessment_reference",
     "admission_case_library",
     "level_judgment_rules",
     "generation_blocks",
@@ -64,6 +70,7 @@
     "v9에서는 record_pattern_library와 admission_case_library를 generation_blocks보다 앞에 두어 구조 보정을 우선 반영한다.",
     "v10에서는 school_record_raw 원문에서 추출한 일반 학생부 패턴을 record_pattern_library에 추가해 현실 보정을 강화한다.",
     "raw-record 패턴은 고1 배터리 독서·설명형, 센서 제작형, AI 윤리형, 수학 모델링형 등 실제 학생부 전개를 우선 반영한다.",
-    "record_pattern_library는 탐구 방식 우선순위(mode priority)를 포함해 실험 편향을 보정한다."
+    "record_pattern_library는 탐구 방식 우선순위(mode priority)를 포함해 실험 편향을 보정한다.",
+    "assessment_reference는 school-fit을 고정하지 않고, 수행 형식과 산출물 경향을 reference_only로 약하게 보정한다."
   ]
 }
