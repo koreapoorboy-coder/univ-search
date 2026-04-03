@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0-raw-record-priority",
+  "version": "0.6.0-mode-priority",
   "description": "합격생 기준, 일반 학생부 패턴 기준, 수준 판정 규칙을 함께 반영하는 통합 인덱스",
   "layers": {
     "extension_library": {
@@ -60,11 +60,10 @@
     "output_schema"
   ],
   "notes": [
-    "record_pattern_library는 일반 학생부 비교 기준이다.",
-    "admission_case_library는 합격생 비교 기준이다.",
     "level_judgment_rules는 위 두 기준을 합쳐 현재 위치를 상위권/중상위권/도달 직전 등으로 판정한다.",
     "v9에서는 record_pattern_library와 admission_case_library를 generation_blocks보다 앞에 두어 구조 보정을 우선 반영한다.",
     "v10에서는 school_record_raw 원문에서 추출한 일반 학생부 패턴을 record_pattern_library에 추가해 현실 보정을 강화한다.",
-    "raw-record 패턴은 고1 배터리 독서·설명형, 센서 제작형, AI 윤리형, 수학 모델링형 등 실제 학생부 전개를 우선 반영한다."
+    "raw-record 패턴은 고1 배터리 독서·설명형, 센서 제작형, AI 윤리형, 수학 모델링형 등 실제 학생부 전개를 우선 반영한다.",
+    "record_pattern_library는 탐구 방식 우선순위(mode priority)를 포함해 실험 편향을 보정한다."
   ]
 }
