@@ -179,3 +179,45 @@ input, select {
 .inline-badges span { border:1px solid #bfdbfe; background:#eff6ff; color:#1d4ed8; border-radius:999px; padding:4px 8px; font-size:0.82rem; font-weight:700; }
 .structure-item { background: linear-gradient(180deg, #ffffff, #f8fbff); }
 .score-line { margin: 8px 0 2px; color: var(--primary); font-weight: 700; font-size: 0.92rem; }
+
+
+.result-card-wide {
+  grid-column: 1 / -1;
+}
+.inline-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.inline-badges span {
+  font-size: 0.8rem;
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 999px;
+  padding: 5px 8px;
+  border: 1px solid #c7d2fe;
+}
+.score-line {
+  margin: 8px 0 12px;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.summary-mini {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+}
+.summary-mini b {
+  display: block;
+  margin-bottom: 8px;
+}
+@media (max-width: 820px) {
+  .summary-strip { grid-template-columns: 1fr; }
+}
