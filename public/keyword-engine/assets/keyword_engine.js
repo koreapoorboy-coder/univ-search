@@ -1,4 +1,4 @@
-window.__KEYWORD_ENGINE_VERSION = "admissions-v18-input-logging";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v20-collect-connected";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
 const ASSESSMENT_REFERENCE_URL = "seed/reference/assessment_reference_seed.json";
@@ -73,6 +73,25 @@ async function callGenerateAPI(payload){
   }
   return data;
 }
+
+async function sendCollectionLog(log) {
+  try {
+    const response = await fetch(`${WORKER_BASE_URL}/collect`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(log)
+    });
+
+    const data = await response.json().catch(() => ({}));
+    window.__collectResponse = data;
+    return data;
+  } catch (error) {
+    console.error("collect log error:", error);
+    window.__collectResponse = { ok: false, error: String(error.message || error) };
+    return window.__collectResponse;
+  }
+}
+
 async function getTextbookMatches(payload){
   try{
     if(typeof window.matchTextbook!=="function") return [];
@@ -311,6 +330,7 @@ async function handleGenerate(){
     const extensionMatches=await getExtensionLibraryMatches(payload,apiData,textbookMatches,assessmentReference);
     window.__lastGenerateDebug={version:window.__KEYWORD_ENGINE_VERSION,payload,apiData,textbookMatches,assessmentReference,extensionMatches};
     renderStudentView(payload, apiData, textbookMatches, extensionMatches, assessmentReference);
+    await sendCollectionLog(window.__engineCollectionLog);
     $("resultSection").style.display="grid";
     return window.__lastGenerateDebug;
   }catch(error){
