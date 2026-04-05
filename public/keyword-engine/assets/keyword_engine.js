@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v34-final-clean";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v35-acceptance-structure";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -57,6 +57,9 @@ function normalize(value){
 function containsAny(texts, patterns){
   const hay = texts.map(normalize).join(" ");
   return patterns.some(p => hay.includes(normalize(p)));
+}
+function uniq(arr){
+  return [...new Set((arr || []).filter(Boolean))];
 }
 
 function getFormValues(){
@@ -124,29 +127,12 @@ function hideLegacySections(){
     ].filter(Boolean);
 
     wrappers.forEach(w => {
-      // hide only if this wrapper looks like a standalone block
       if (w && w.id !== "contentOutputSection" && w.id !== "resultSection") {
         w.style.display = "none";
       }
     });
   });
 
-  // extra legacy headings/buttons that remained visible
-  [
-    "copyReportBtn",
-    "analysisSection",
-    "studentDraftSection",
-    "analysisWrap",
-    "studentDraftWrap"
-  ].forEach(id => {
-    const el = $(id);
-    if (el) {
-      const target = el.closest("section, .card, .result-card, div") || el;
-      target.style.display = "none";
-    }
-  });
-
-  // hard hide by visible text block patterns
   document.querySelectorAll("section, .card, .result-card, .quick-card, .student-card, .analysis-card, .side-card, .panel").forEach(node => {
     const text = (node.textContent || "").trim();
     if (!text) return;
@@ -188,22 +174,41 @@ async function callGenerateAPI(payload){
   return data;
 }
 
+function inferTheme(subject, career, keywords){
+  const texts = [subject, career, ...keywords];
+  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) return "health_policy";
+  if (containsAny(texts, ["이차전지", "배터리", "전고체", "전극", "전해질"])) return "battery";
+  if (containsAny(texts, ["반도체", "도핑", "트랜지스터", "웨이퍼", "EDS", "직류전압", "DC"])) return "semiconductor";
+  if (containsAny(texts, ["인공지능", "데이터", "알고리즘", "AI"])) return "ai_data";
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) return "energy_materials";
+  return "general";
+}
+
 function buildLocalContent(payload){
   const keywords = splitKeywords(payload.keyword);
   const joined = keywords.join(" + ") || payload.keyword;
+  const theme = inferTheme(payload.subject, payload.career, keywords);
 
-  const subjectCards = deriveSubjectCards(payload.subject, payload.career, keywords);
-  const quickPoints = deriveQuickPoints(payload.subject, payload.career, keywords);
-  const steps = deriveActionSteps(payload.subject, payload.career, keywords);
-  const flow = deriveReportFlow(payload.subject, payload.career, keywords);
-  const books = deriveBooks(payload.career, keywords);
-  const why = deriveWhy(payload.subject, payload.career, keywords);
+  const subjectCards = deriveSubjectCards(payload.subject, payload.career, keywords, theme);
+  const quickPoints = deriveQuickPoints(payload.subject, payload.career, keywords, theme);
+  const steps = deriveActionSteps(payload.subject, payload.career, keywords, theme);
+  const flow = deriveReportFlow(payload.subject, payload.career, keywords, theme);
+  const books = deriveBooks(payload.career, keywords, theme);
+  const why = deriveWhy(payload.subject, payload.career, keywords, theme);
+  const position = derivePosition(payload.subject, payload.career, keywords, theme);
+  const admissionPoints = deriveAdmissionPoints(payload.subject, payload.career, keywords, theme);
+  const differentiation = deriveDifferentiation(payload.subject, payload.career, keywords, theme);
+  const recordSentence = deriveRecordSentence(payload.subject, payload.career, keywords, theme);
 
   return {
     title: `[탐구주제] ${joined} 관련 교과 연결`,
     one_line_pick: `${joined}의 핵심 개념과 실제 적용을 중심으로 보기`,
     intro: `${joined}는 ${payload.subject} 교과 개념과 연결하기 좋고, ${payload.career} 진로와도 자연스럽게 이어질 수 있는 탐구 조합입니다.`,
     why_this_works: why,
+    position,
+    admission_points: admissionPoints,
+    differentiation,
+    record_sentence: recordSentence,
     topic_options: [
       `${joined} 관련 교과 연결 탐구`,
       `${joined}의 핵심 개념과 실제 적용 중심 탐구`,
@@ -217,30 +222,79 @@ function buildLocalContent(payload){
   };
 }
 
-function deriveWhy(subject, career, keywords){
-  const texts = [subject, career, ...keywords];
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) {
-    return "개인 건강관리와 공공 보건을 함께 다룰 수 있어서, 학생도 이해하기 쉽고 진로 연결도 분명하게 보입니다.";
-  }
-  if (containsAny(texts, ["이차전지", "배터리", "전고체", "전극", "전해질"])) {
-    return "구조 차이와 성능 차이를 같은 기준으로 비교하기 좋아서, 학생이 보고서 방향을 잡기 쉬운 공학형 주제입니다.";
-  }
-  if (containsAny(texts, ["반도체", "도핑", "트랜지스터", "웨이퍼"])) {
-    return "부품·공정·원리로 나눠 설명할 수 있어 교과 개념 연결과 전공 적합성 표현이 쉽습니다.";
-  }
-  if (containsAny(texts, ["인공지능", "데이터", "알고리즘", "AI"])) {
-    return "기술 원리와 실제 활용 사례를 함께 다룰 수 있어서, 학생이 실생활 예시를 붙이기 쉬운 주제입니다.";
-  }
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
-    return "과학 개념과 실제 산업 사례를 같이 설명할 수 있어서, 학생이 비교 기준을 세우고 전공 연결을 하기 쉬운 주제입니다.";
-  }
+function derivePosition(subject, career, keywords, theme){
+  const joined = keywords.join(" + ");
+  if (theme === "health_policy") return `${joined}을 활용한 개인 건강관리-공공 보건 연결형 탐구`;
+  if (theme === "battery") return `${joined}을 활용한 구조-성능 비교형 탐구`;
+  if (theme === "semiconductor") return `${joined}을 활용한 부품-공정-전기적 특성 연결형 탐구`;
+  if (theme === "ai_data") return `${joined}을 활용한 기술 원리-실제 활용 확장형 탐구`;
+  if (theme === "energy_materials") return `${joined}을 활용한 에너지 전환-재료 적용 연결형 탐구`;
+  return `${joined}을 활용한 교과 개념-사례 해석형 탐구`;
+}
+
+function deriveAdmissionPoints(subject, career, keywords, theme){
+  if (theme === "health_policy") return [
+    "면역·예방 개념을 개인 건강관리와 공공 정책으로 확장한 점이 강점입니다.",
+    "단순 질병 설명이 아니라 보건의료 체계와 연결해 해석한 구조가 보입니다.",
+    "간호·보건계열 진로 적합성이 비교적 분명하게 드러납니다."
+  ];
+  if (theme === "battery") return [
+    "구조 차이와 성능 차이를 같은 기준으로 비교해 분석 구조가 분명합니다.",
+    "화학 개념이 실제 산업 기술 사례로 확장되어 전공 적합성이 잘 드러납니다.",
+    "소재·안전성·효율을 함께 다뤄 탐구의 깊이를 확보하기 좋습니다."
+  ];
+  if (theme === "semiconductor") return [
+    "부품·공정·전기적 특성을 하나의 흐름으로 연결해 과정 기반 탐구로 읽힙니다.",
+    "반도체 원리를 실제 공정 사례와 연결해 전공 적합성이 명확하게 드러납니다.",
+    "단순 개념 설명보다 공정이 결과 성능에 미치는 영향을 해석하는 구조가 강점입니다."
+  ];
+  if (theme === "ai_data") return [
+    "기술 원리와 실제 활용 사례를 함께 다뤄 확장성이 분명합니다.",
+    "데이터·알고리즘·사회 적용을 연결해 사고의 폭을 보여주기 좋습니다.",
+    "AI·SW 계열 진로와 직접 연결되는 탐구로 읽힙니다."
+  ];
+  if (theme === "energy_materials") return [
+    "에너지 전환 원리와 재료 적용을 같이 다뤄 공학형 탐구 구조가 보입니다.",
+    "열역학 개념을 실제 발전 사례와 연결해 교과 확장이 자연스럽습니다.",
+    "에너지공학 계열 진로 적합성을 드러내기 좋은 조합입니다."
+  ];
+  return [
+    "교과 개념을 사례와 연결해 설명하는 구조가 비교적 분명합니다.",
+    "비교 기준을 세우고 해석하는 방식으로 탐구 방향을 잡기 좋습니다.",
+    "진로와 연결되는 이유를 정리하기에 무난한 주제 조합입니다."
+  ];
+}
+
+function deriveDifferentiation(subject, career, keywords, theme){
+  if (theme === "health_policy") return "일반적인 건강 상식 정리에서 그치지 않고, 개인 예방과 공공 보건정책을 함께 다뤘다는 점에서 차별화할 수 있습니다.";
+  if (theme === "battery") return "배터리 종류를 단순 나열하는 대신, 구조 차이가 성능과 안전성으로 이어지는 과정을 설명하면 차별화됩니다.";
+  if (theme === "semiconductor") return "반도체 정의 설명을 넘어서, 공정 조건이나 전기적 특성이 결과 성능에 어떤 영향을 주는지 연결하면 차별화됩니다.";
+  if (theme === "ai_data") return "기술 소개에 그치지 않고, 실제 활용 사례와 한계를 같은 기준으로 비교하면 차별화됩니다.";
+  if (theme === "energy_materials") return "발전 원리만 정리하는 수준을 넘어서, 열역학 법칙과 재료 적용의 관계를 연결해 해석하면 차별화됩니다.";
+  return "핵심 개념을 실제 사례와 연결하고 비교 기준을 분명히 제시하면 흔한 설명형 보고서와 구별될 수 있습니다.";
+}
+
+function deriveRecordSentence(subject, career, keywords, theme){
+  const joined = keywords.join(", ");
+  if (theme === "health_policy") return `${joined}를 중심으로 감염 예방과 면역 반응의 의미를 정리하고, 개인 건강관리와 공공 보건정책의 역할을 비교·해석함.`;
+  if (theme === "battery") return `${joined}를 중심으로 전지의 작동 원리와 구조 차이를 분석하고, 소재 변화가 안전성·효율에 미치는 영향을 비교·해석함.`;
+  if (theme === "semiconductor") return `${joined}를 중심으로 반도체의 기본 원리와 공정 요소를 정리하고, 공정 조건이 전기적 특성과 결과 성능에 미치는 영향을 탐구함.`;
+  if (theme === "ai_data") return `${joined}를 중심으로 데이터 처리와 알고리즘의 원리를 정리하고, 인공지능의 실제 활용 사례와 한계를 비교·해석함.`;
+  if (theme === "energy_materials") return `${joined}를 중심으로 에너지 전환과 열역학 원리를 정리하고, 발전 과정에서 재료 적용이 효율과 안전성에 미치는 영향을 탐구함.`;
+  return `${joined}를 중심으로 교과 핵심 개념을 정리하고, 실제 사례와 연결하여 차이점과 적용 의미를 해석함.`;
+}
+
+function deriveWhy(subject, career, keywords, theme){
+  if (theme === "health_policy") return "개인 건강관리와 공공 보건을 함께 다룰 수 있어서, 학생도 이해하기 쉽고 진로 연결도 분명하게 보입니다.";
+  if (theme === "battery") return "구조 차이와 성능 차이를 같은 기준으로 비교하기 좋아서, 학생이 보고서 방향을 잡기 쉬운 공학형 주제입니다.";
+  if (theme === "semiconductor") return "부품·공정·원리로 나눠 설명할 수 있어 교과 개념 연결과 전공 적합성 표현이 쉽습니다.";
+  if (theme === "ai_data") return "기술 원리와 실제 활용 사례를 함께 다룰 수 있어서, 학생이 실생활 예시를 붙이기 쉬운 주제입니다.";
+  if (theme === "energy_materials") return "과학 개념과 실제 산업 사례를 같이 설명할 수 있어서, 학생이 비교 기준을 세우고 전공 연결을 하기 쉬운 주제입니다.";
   return "교과 개념과 실제 사례를 함께 다루면 학생이 보고서 방향을 잡기 쉬워지고, 진로 연결도 더 분명해집니다.";
 }
 
-function deriveSubjectCards(subject, career, keywords){
-  const texts = [subject, career, ...keywords];
-
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) {
+function deriveSubjectCards(subject, career, keywords, theme){
+  if (theme === "health_policy") {
     return [
       {
         title: `${subject} : 감염병 예방과 면역 반응`,
@@ -254,8 +308,7 @@ function deriveSubjectCards(subject, career, keywords){
       }
     ];
   }
-
-  if (containsAny(texts, ["이차전지", "배터리", "전고체", "전극", "전해질"])) {
+  if (theme === "battery") {
     return [
       {
         title: `${subject} : 산화환원과 전지`,
@@ -269,8 +322,7 @@ function deriveSubjectCards(subject, career, keywords){
       }
     ];
   }
-
-  if (containsAny(texts, ["반도체", "도핑", "트랜지스터", "웨이퍼"])) {
+  if (theme === "semiconductor") {
     return [
       {
         title: `${subject} : 반도체의 기본 원리`,
@@ -284,8 +336,7 @@ function deriveSubjectCards(subject, career, keywords){
       }
     ];
   }
-
-  if (containsAny(texts, ["인공지능", "데이터", "알고리즘", "AI"])) {
+  if (theme === "ai_data") {
     return [
       {
         title: `${subject} : 데이터와 알고리즘`,
@@ -299,8 +350,7 @@ function deriveSubjectCards(subject, career, keywords){
       }
     ];
   }
-
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+  if (theme === "energy_materials") {
     return [
       {
         title: `${subject} : 에너지 전환과 열역학`,
@@ -314,7 +364,6 @@ function deriveSubjectCards(subject, career, keywords){
       }
     ];
   }
-
   return [
     {
       title: `${subject} : 핵심 개념 정리`,
@@ -329,9 +378,8 @@ function deriveSubjectCards(subject, career, keywords){
   ];
 }
 
-function deriveQuickPoints(subject, career, keywords){
-  const texts = [subject, career, ...keywords];
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) {
+function deriveQuickPoints(subject, career, keywords, theme){
+  if (theme === "health_policy") {
     return [
       "감염이 일어나는 과정과 예방 방법을 함께 정리하기",
       "면역 반응이 왜 중요한지 개인 건강관리 관점에서 설명하기",
@@ -339,7 +387,7 @@ function deriveQuickPoints(subject, career, keywords){
       "정책 사례 1개를 붙여 실제 적용 의미를 해석하기"
     ];
   }
-  if (containsAny(texts, ["이차전지", "배터리", "전고체"])) {
+  if (theme === "battery") {
     return [
       "비교할 배터리 2개를 먼저 정하기",
       "안전성·효율·활용성 기준으로 차이를 정리하기",
@@ -347,7 +395,7 @@ function deriveQuickPoints(subject, career, keywords){
       "전기차나 에너지 저장 사례와 연결하기"
     ];
   }
-  if (containsAny(texts, ["반도체"])) {
+  if (theme === "semiconductor") {
     return [
       "반도체가 필요한 이유를 먼저 정리하기",
       "도핑이나 트랜지스터 역할을 핵심만 설명하기",
@@ -355,7 +403,7 @@ function deriveQuickPoints(subject, career, keywords){
       "실생활 전자기기와 연결하기"
     ];
   }
-  if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
+  if (theme === "ai_data") {
     return [
       "AI가 사용하는 데이터와 알고리즘을 구분하기",
       "활용 사례 1~2개 붙이기",
@@ -363,7 +411,7 @@ function deriveQuickPoints(subject, career, keywords){
       "사회적 영향 또는 진로 연결 의미 정리하기"
     ];
   }
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+  if (theme === "energy_materials") {
     return [
       "원자력발전이 어떻게 에너지를 만드는지 먼저 정리하기",
       "열역학 법칙이 실제 발전 효율과 어떻게 연결되는지 설명하기",
@@ -379,29 +427,17 @@ function deriveQuickPoints(subject, career, keywords){
   ];
 }
 
-function deriveActionSteps(subject, career, keywords){
-  const texts = [subject, career, ...keywords];
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) {
-    return ["감염·면역 핵심 개념 정리", "개인 예방과 공공 보건 비교", "정책 사례 1개 연결하기"];
-  }
-  if (containsAny(texts, ["이차전지", "배터리", "전고체"])) {
-    return ["비교할 배터리 2개 정하기", "안전성·효율 기준 세우기", "구조 차이를 성능과 연결하기"];
-  }
-  if (containsAny(texts, ["반도체"])) {
-    return ["핵심 부품 1~2개 정리", "원리와 공정 연결", "실생활 기기 사례 붙이기"];
-  }
-  if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
-    return ["핵심 개념 정리", "활용 사례 1~2개 연결", "장점·한계 비교하기"];
-  }
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
-    return ["발전 원리 핵심 정리", "열역학 법칙과 효율 연결", "재료 의미를 사례와 연결하기"];
-  }
+function deriveActionSteps(subject, career, keywords, theme){
+  if (theme === "health_policy") return ["감염·면역 핵심 개념 정리", "개인 예방과 공공 보건 비교", "정책 사례 1개 연결하기"];
+  if (theme === "battery") return ["비교할 배터리 2개 정하기", "안전성·효율 기준 세우기", "구조 차이를 성능과 연결하기"];
+  if (theme === "semiconductor") return ["핵심 부품 1~2개 정리", "원리와 공정 연결", "실생활 기기 사례 붙이기"];
+  if (theme === "ai_data") return ["핵심 개념 정리", "활용 사례 1~2개 연결", "장점·한계 비교하기"];
+  if (theme === "energy_materials") return ["발전 원리 핵심 정리", "열역학 법칙과 효율 연결", "재료 의미를 사례와 연결하기"];
   return ["핵심 개념 정리", "교과 단원 연결", "사례 비교 또는 자료 해석"];
 }
 
-function deriveReportFlow(subject, career, keywords){
-  const texts = [subject, career, ...keywords];
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료", "WHO"])) {
+function deriveReportFlow(subject, career, keywords, theme){
+  if (theme === "health_policy") {
     return [
       "감염 예방과 면역 반응의 의미를 짧게 정리한다.",
       "개인 건강관리와 공공 보건정책을 비교한다.",
@@ -409,7 +445,7 @@ function deriveReportFlow(subject, career, keywords){
       "보건의료 진로와 연결되는 이유를 정리한다."
     ];
   }
-  if (containsAny(texts, ["이차전지", "배터리", "전고체"])) {
+  if (theme === "battery") {
     return [
       "전지의 기본 작동 원리를 짧게 정리한다.",
       "비교할 배터리 종류를 2개 이상 정한다.",
@@ -417,7 +453,7 @@ function deriveReportFlow(subject, career, keywords){
       "실제 활용 사례와 진로 연결 의미를 정리한다."
     ];
   }
-  if (containsAny(texts, ["반도체"])) {
+  if (theme === "semiconductor") {
     return [
       "반도체가 어떤 역할을 하는지 짧게 정리한다.",
       "핵심 원리나 공정을 1~2개 골라 설명한다.",
@@ -425,7 +461,7 @@ function deriveReportFlow(subject, career, keywords){
       "전자·반도체 진로와의 연결 의미를 정리한다."
     ];
   }
-  if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
+  if (theme === "ai_data") {
     return [
       "핵심 개념을 짧게 정리한다.",
       "활용 사례 1~2개를 고른다.",
@@ -433,7 +469,7 @@ function deriveReportFlow(subject, career, keywords){
       "기술과 진로 연결 의미를 정리한다."
     ];
   }
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+  if (theme === "energy_materials") {
     return [
       "원자력발전의 기본 원리를 짧게 정리한다.",
       "열역학 법칙이 실제 발전 효율과 어떻게 연결되는지 설명한다.",
@@ -449,23 +485,12 @@ function deriveReportFlow(subject, career, keywords){
   ];
 }
 
-function deriveBooks(career, keywords){
-  const texts = [career, ...keywords];
-  if (containsAny(texts, ["감염", "면역", "백신", "보건", "의료"])) {
-    return ["의학은 몸을 어떻게 살리는가 (제임스 햄블린) - 건강 관리와 의료 의사결정 이해"];
-  }
-  if (containsAny(texts, ["이차전지", "배터리", "전고체"])) {
-    return ["배터리 전쟁 (루카스 베드나르스키) - 산업 맥락과 기술 발전 흐름 이해"];
-  }
-  if (containsAny(texts, ["반도체"])) {
-    return ["반도체 제국의 미래 - 반도체 산업과 기술 흐름 이해"];
-  }
-  if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
-    return ["AI 2041 - 인공지능 기술과 사회 변화 이해"];
-  }
-  if (containsAny(texts, ["원자력", "원자력발전", "열역학"])) {
-    return ["에너지 전환과 미래 발전 기술 관련 교양 과학 도서 1권을 선택해 실제 사례와 연결해 보기"];
-  }
+function deriveBooks(career, keywords, theme){
+  if (theme === "health_policy") return ["의학은 몸을 어떻게 살리는가 (제임스 햄블린) - 건강 관리와 의료 의사결정 이해"];
+  if (theme === "battery") return ["배터리 전쟁 (루카스 베드나르스키) - 산업 맥락과 기술 발전 흐름 이해"];
+  if (theme === "semiconductor") return ["반도체 제국의 미래 - 반도체 산업과 기술 흐름 이해"];
+  if (theme === "ai_data") return ["AI 2041 - 인공지능 기술과 사회 변화 이해"];
+  if (theme === "energy_materials") return ["에너지 전환과 미래 발전 기술 관련 교양 과학 도서 1권을 선택해 실제 사례와 연결해 보기"];
   return ["교양 과학 도서 1권을 선택해 실제 사례와 연결해 보기"];
 }
 
@@ -491,9 +516,30 @@ function renderContentOutput(content){
 
       <p class="content-intro">${escapeHtml(content.intro)}</p>
 
+      <div class="admission-spotlight-card">
+        <div class="admission-spotlight-label">핵심 포지션</div>
+        <div class="admission-spotlight-text">${escapeHtml(content.position)}</div>
+      </div>
+
       <div class="content-why-box">
         <b>왜 이 방향이 좋은가</b>
         <div>${escapeHtml(content.why_this_works)}</div>
+      </div>
+
+      <div class="admission-grid">
+        <div class="admission-card">
+          <h3>합격 포인트</h3>
+          <ul>${(content.admission_points || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="admission-card">
+          <h3>차별화 포인트</h3>
+          <p>${escapeHtml(content.differentiation || "")}</p>
+        </div>
+      </div>
+
+      <div class="record-card">
+        <div class="record-card-label">생기부 문장용 요약</div>
+        <div class="record-card-text">${escapeHtml(content.record_sentence || "")}</div>
       </div>
 
       <h3>주제 후보</h3>
@@ -513,7 +559,7 @@ function renderContentOutput(content){
       <h3>바로 쓸 탐구 포인트</h3>
       <ul>${(content.quick_points || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
 
-      <h3>보고서 흐름</h3>
+      <h3>탐구 설계 단계</h3>
       <ol>${(content.report_flow || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
 
       <h3>추천 도서</h3>
@@ -525,7 +571,6 @@ function renderContentOutput(content){
 function renderStudentView(payload){
   const content = buildLocalContent(payload);
 
-  // keep only the useful top summary card
   hideBlock("finalMode");
   setText("finalReason", "");
   setText("finalTopic", content.one_line_pick);
@@ -548,7 +593,6 @@ async function handleGenerate(){
 
     setLoading(true);
 
-    // keep worker call for compatibility/logging, but render from local unified logic
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }
 
     renderStudentView(payload);
