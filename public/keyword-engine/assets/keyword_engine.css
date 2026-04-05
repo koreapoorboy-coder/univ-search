@@ -329,5 +329,68 @@ textarea{resize:vertical;min-height:96px}
     border-radius:14px;
   }
 }
+/* ===== v35 acceptance output structure ===== */
+.admission-spotlight-card{
+  margin:16px 0;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px 18px;
+  background:linear-gradient(180deg,#f8fbff 0%, #f1f6ff 100%);
+}
+.admission-spotlight-label{
+  font-size:.85rem;
+  font-weight:900;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.admission-spotlight-text{
+  font-size:1.05rem;
+  font-weight:900;
+  line-height:1.6;
+  color:var(--text);
+}
+.admission-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:16px 0;
+}
+.admission-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+}
+.admission-card h3{
+  margin:0 0 10px;
+}
+.admission-card p,
+.admission-card li{
+  line-height:1.7;
+}
+.record-card{
+  margin:16px 0 8px;
+  border:1px solid #d7e4ff;
+  border-radius:18px;
+  padding:16px 18px;
+  background:#f7faff;
+}
+.record-card-label{
+  font-size:.84rem;
+  font-weight:900;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.record-card-text{
+  line-height:1.8;
+  font-weight:700;
+  color:var(--text);
+}
+@media (max-width:760px){
+  .admission-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 
 
