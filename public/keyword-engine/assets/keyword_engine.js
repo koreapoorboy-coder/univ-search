@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v33-unified-selection-engine";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v34-final-clean";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -51,9 +51,6 @@ function splitKeywords(raw){
     .map(v => v.trim())
     .filter(Boolean);
 }
-function uniq(arr){
-  return [...new Set((arr || []).filter(Boolean))];
-}
 function normalize(value){
   return String(value || "").toLowerCase().replace(/\s+/g, "");
 }
@@ -104,17 +101,62 @@ function clearError(){
 }
 
 function hideLegacySections(){
-  [
+  const ids = [
     "outputCard","reportFrameCard","doDontCard","inputSummaryCard","studentReport",
     "reasonCard","stepsCard","flowCard","subjectLinksCard","warningsCard",
     "assessmentReferenceCard","textbookSection","extensionLibrarySection"
+  ];
+
+  ids.forEach(id => {
+    const el = $(id);
+    if (!el) return;
+    el.innerHTML = "";
+    el.style.display = "none";
+
+    const wrappers = [
+      el.closest(".quick-card"),
+      el.closest(".student-card"),
+      el.closest(".analysis-card"),
+      el.closest(".result-card"),
+      el.closest(".side-card"),
+      el.closest(".card"),
+      el.parentElement
+    ].filter(Boolean);
+
+    wrappers.forEach(w => {
+      // hide only if this wrapper looks like a standalone block
+      if (w && w.id !== "contentOutputSection" && w.id !== "resultSection") {
+        w.style.display = "none";
+      }
+    });
+  });
+
+  // extra legacy headings/buttons that remained visible
+  [
+    "copyReportBtn",
+    "analysisSection",
+    "studentDraftSection",
+    "analysisWrap",
+    "studentDraftWrap"
   ].forEach(id => {
     const el = $(id);
     if (el) {
-      el.innerHTML = "";
-      const parent = el.closest(".quick-card, .student-card, .analysis-card, .result-card, .side-card, .card");
-      if (parent) parent.style.display = "none";
-      else el.style.display = "none";
+      const target = el.closest("section, .card, .result-card, div") || el;
+      target.style.display = "none";
+    }
+  });
+
+  // hard hide by visible text block patterns
+  document.querySelectorAll("section, .card, .result-card, .quick-card, .student-card, .analysis-card, .side-card, .panel").forEach(node => {
+    const text = (node.textContent || "").trim();
+    if (!text) return;
+    if (
+      text.includes("학생 제출용 초안") ||
+      text.includes("바로 쓸 수 있는 보고서") ||
+      text.includes("운영/분석용 참고 보기") ||
+      text.includes("보고서 복사")
+    ) {
+      node.style.display = "none";
     }
   });
 }
@@ -148,7 +190,6 @@ async function callGenerateAPI(payload){
 
 function buildLocalContent(payload){
   const keywords = splitKeywords(payload.keyword);
-  const titleKeyword = keywords.join(" + ");
   const joined = keywords.join(" + ") || payload.keyword;
 
   const subjectCards = deriveSubjectCards(payload.subject, payload.career, keywords);
@@ -189,6 +230,9 @@ function deriveWhy(subject, career, keywords){
   }
   if (containsAny(texts, ["인공지능", "데이터", "알고리즘", "AI"])) {
     return "기술 원리와 실제 활용 사례를 함께 다룰 수 있어서, 학생이 실생활 예시를 붙이기 쉬운 주제입니다.";
+  }
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+    return "과학 개념과 실제 산업 사례를 같이 설명할 수 있어서, 학생이 비교 기준을 세우고 전공 연결을 하기 쉬운 주제입니다.";
   }
   return "교과 개념과 실제 사례를 함께 다루면 학생이 보고서 방향을 잡기 쉬워지고, 진로 연결도 더 분명해집니다.";
 }
@@ -256,6 +300,21 @@ function deriveSubjectCards(subject, career, keywords){
     ];
   }
 
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+    return [
+      {
+        title: `${subject} : 에너지 전환과 열역학`,
+        concepts: ["에너지 전환", "열역학 기본 법칙", "효율", "열 손실"],
+        points: ["에너지가 어떻게 변환되는지 정리하기", "효율 차이가 생기는 이유를 설명하기"]
+      },
+      {
+        title: `${subject} : 원자력발전과 재료`,
+        concepts: ["발전 원리", "열 전달", "재료 특성", "고분자 재료"],
+        points: ["원자력발전이 어떻게 이루어지는지 간단히 설명하기", "재료가 실제 성능과 안전성에 어떤 영향을 주는지 연결하기"]
+      }
+    ];
+  }
+
   return [
     {
       title: `${subject} : 핵심 개념 정리`,
@@ -304,6 +363,14 @@ function deriveQuickPoints(subject, career, keywords){
       "사회적 영향 또는 진로 연결 의미 정리하기"
     ];
   }
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+    return [
+      "원자력발전이 어떻게 에너지를 만드는지 먼저 정리하기",
+      "열역학 법칙이 실제 발전 효율과 어떻게 연결되는지 설명하기",
+      "고분자 재료가 실제 설비나 안전성에 어떤 의미가 있는지 붙이기",
+      "에너지공학 진로와 연결되는 이유를 마지막에 정리하기"
+    ];
+  }
   return [
     "핵심 개념을 먼저 2~3개 정리하기",
     "비교하거나 해석할 사례를 1~2개 고르기",
@@ -325,6 +392,9 @@ function deriveActionSteps(subject, career, keywords){
   }
   if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
     return ["핵심 개념 정리", "활용 사례 1~2개 연결", "장점·한계 비교하기"];
+  }
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+    return ["발전 원리 핵심 정리", "열역학 법칙과 효율 연결", "재료 의미를 사례와 연결하기"];
   }
   return ["핵심 개념 정리", "교과 단원 연결", "사례 비교 또는 자료 해석"];
 }
@@ -363,6 +433,14 @@ function deriveReportFlow(subject, career, keywords){
       "기술과 진로 연결 의미를 정리한다."
     ];
   }
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학", "고분자"])) {
+    return [
+      "원자력발전의 기본 원리를 짧게 정리한다.",
+      "열역학 법칙이 실제 발전 효율과 어떻게 연결되는지 설명한다.",
+      "고분자 재료가 실제 장치나 안전성과 어떻게 연결되는지 해석한다.",
+      "에너지공학 진로와 연결되는 의미를 정리한다."
+    ];
+  }
   return [
     "핵심 개념을 정리한다.",
     "비교할 기준을 세운다.",
@@ -384,6 +462,9 @@ function deriveBooks(career, keywords){
   }
   if (containsAny(texts, ["인공지능", "데이터", "AI"])) {
     return ["AI 2041 - 인공지능 기술과 사회 변화 이해"];
+  }
+  if (containsAny(texts, ["원자력", "원자력발전", "열역학"])) {
+    return ["에너지 전환과 미래 발전 기술 관련 교양 과학 도서 1권을 선택해 실제 사례와 연결해 보기"];
   }
   return ["교양 과학 도서 1권을 선택해 실제 사례와 연결해 보기"];
 }
@@ -444,15 +525,17 @@ function renderContentOutput(content){
 function renderStudentView(payload){
   const content = buildLocalContent(payload);
 
-  setText("finalMode", "선택 키워드 조합형");
-  setText("finalReason", `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다.`);
+  // keep only the useful top summary card
+  hideBlock("finalMode");
+  setText("finalReason", "");
   setText("finalTopic", content.one_line_pick);
-  setText("topicSub", `${payload.subject} · ${payload.career} 기준으로 구성된 결과입니다.`);
+  setText("topicSub", `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다.`);
   setHTML("actionSteps", renderStepList(content.steps));
 
   const root = ensureContentOutputSection();
   if (root) root.innerHTML = renderContentOutput(content);
 
+  hideLegacySections();
   showBlock("resultSection", "grid");
 }
 
@@ -465,7 +548,7 @@ async function handleGenerate(){
 
     setLoading(true);
 
-    // keep worker call for collection/debug compatibility, but render from local unified logic
+    // keep worker call for compatibility/logging, but render from local unified logic
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }
 
     renderStudentView(payload);
@@ -490,6 +573,5 @@ document.addEventListener("DOMContentLoaded",()=>{
   $("generateBtn")?.addEventListener("click", handleGenerate);
   $("resetBtn")?.addEventListener("click", handleReset);
 });
-
 window.handleGenerate = handleGenerate;
 window.handleReset = handleReset;
