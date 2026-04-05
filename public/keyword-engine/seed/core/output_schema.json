@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "name": "student_task_output_schema",
+  "description": "Student-facing structured output schema for the task-first keyword engine.",
+  "sections": [
+    {
+      "key": "core_reason",
+      "label": "Core Recommendation",
+      "purpose": "One-screen explanation of why this topic direction is the best fit."
+    },
+    {
+      "key": "research_flow",
+      "label": "Research Flow",
+      "purpose": "Three to five execution steps the student can follow immediately."
+    },
+    {
+      "key": "assessment_fit",
+      "label": "Assessment Fit",
+      "purpose": "Reality check based on subject, grade, and common school assessment patterns."
+    },
+    {
+      "key": "extension",
+      "label": "Extension",
+      "purpose": "One-step expansion ideas that deepen the topic without overreaching."
+    },
+    {
+      "key": "action_guide",
+      "label": "Action Guide",
+      "purpose": "Direct writing and execution guidance for the report or presentation."
+    }
+  ],
+  "required_fields": {
+    "core_reason": [
+      "headline",
+      "summary",
+      "topic",
+      "topic_candidates"
+    ],
+    "research_flow": [
+      "steps",
+      "workflow",
+      "comparison_axes",
+      "core_concepts"
+    ],
+    "assessment_fit": [
+      "fit_summary",
+      "preferred_outputs",
+      "school_reality_hint"
+    ],
+    "extension": [
+      "ideas",
+      "conclusion_direction"
+    ],
+    "action_guide": [
+      "writing_points",
+      "must_include",
+      "avoid"
+    ]
+  }
+}
