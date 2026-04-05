@@ -1,5 +1,5 @@
 
-window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
+window.__MAJOR_SELECTOR_HELPER_VERSION = "v31-career-major-keyword-click-fix";
 
 (function(){
   const CAREER_SEED_URL = "seed/major-keyword-v30/career_selector_seed.json";
@@ -23,7 +23,7 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
       .replace(/"/g,"&quot;")
       .replace(/'/g,"&#39;");
   }
-  function uniq(arr){ return [...new Set(arr.filter(Boolean))]; }
+  function uniq(arr){ return [...new Set((arr || []).filter(Boolean))]; }
 
   async function init(){
     try{
@@ -33,7 +33,7 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
       ]);
 
       if(!careerRes.ok || !majorRes.ok){
-        console.warn("major selector seed load failed");
+        console.warn("major selector seed load failed", careerRes.status, majorRes.status);
         return;
       }
 
@@ -41,8 +41,9 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
       majorData = await majorRes.json();
 
       injectSelectorUI();
-      renderAll();
+      bindDelegatedClicks();
       bindGenerateGuard();
+      renderAll();
     }catch(error){
       console.warn("major selector init error:", error);
     }
@@ -105,6 +106,35 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
     keywordInput.placeholder = "위 추천 키워드를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
 
+  function bindDelegatedClicks(){
+    const root = $("majorSelectorSection");
+    if(!root) return;
+
+    root.addEventListener("click", function(event){
+      const btn = event.target.closest(".selector-btn");
+      if(!btn) return;
+
+      const action = btn.dataset.action;
+      const value = btn.dataset.value || "";
+      if(!action) return;
+
+      event.preventDefault();
+
+      if(action === "career"){
+        pickCareerGroup(value);
+        return;
+      }
+      if(action === "major"){
+        pickMajor(value);
+        return;
+      }
+      if(action === "keyword"){
+        toggleKeyword(value);
+        return;
+      }
+    });
+  }
+
   function renderAll(){
     renderCareerGroups();
     renderMajors();
@@ -122,7 +152,8 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
     el.innerHTML = groups.map(group => buttonHtml({
       label: group,
       active: state.careerGroup === group,
-      action: `window.__majorSelectorActions.pickCareerGroup(${JSON.stringify(group)})`
+      action: "career",
+      value: group
     })).join("");
   }
 
@@ -139,7 +170,8 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
     el.innerHTML = majors.map(major => buttonHtml({
       label: major,
       active: state.major === major,
-      action: `window.__majorSelectorActions.pickMajor(${JSON.stringify(major)})`
+      action: "major",
+      value: major
     })).join("");
   }
 
@@ -163,7 +195,8 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
     el.innerHTML = keywords.map(keyword => buttonHtml({
       label: keyword,
       active: state.selectedKeywords.includes(keyword),
-      action: `window.__majorSelectorActions.toggleKeyword(${JSON.stringify(keyword)})`
+      action: "keyword",
+      value: keyword
     })).join("");
   }
 
@@ -200,7 +233,8 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
                 ${(cluster.keywords || []).slice(0, 10).map(keyword => buttonHtml({
                   label: keyword,
                   active: state.selectedKeywords.includes(keyword),
-                  action: `window.__majorSelectorActions.toggleKeyword(${JSON.stringify(keyword)})`
+                  action: "keyword",
+                  value: keyword
                 })).join("")}
               </div>
             </div>
@@ -228,21 +262,23 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
     const input = $("keyword");
     if(!input) return;
 
-    const manualValue = String(input.value || "").trim();
-    const joined = state.selectedKeywords.join(" + ");
-
     if(state.selectedKeywords.length){
-      input.value = joined;
+      input.value = state.selectedKeywords.join(" + ");
       input.dataset.autoFilled = "true";
-    } else if (input.dataset.autoFilled === "true" && !state.selectedKeywords.length) {
+    } else if (input.dataset.autoFilled === "true") {
       input.value = "";
       input.dataset.autoFilled = "false";
     }
   }
 
-  function buttonHtml({label, active, action}){
+  function buttonHtml({label, active, action, value}){
     return `
-      <button type="button" class="selector-btn ${active ? "active" : ""}" onclick="${action}">
+      <button
+        type="button"
+        class="selector-btn ${active ? "active" : ""}"
+        data-action="${escapeHtml(action)}"
+        data-value="${escapeHtml(value)}"
+      >
         ${escapeHtml(label)}
       </button>
     `;
@@ -294,12 +330,6 @@ window.__MAJOR_SELECTOR_HELPER_VERSION = "v30-career-major-keyword";
       }
     }, true);
   }
-
-  window.__majorSelectorActions = {
-    pickCareerGroup,
-    pickMajor,
-    toggleKeyword
-  };
 
   document.addEventListener("DOMContentLoaded", init);
 })();
