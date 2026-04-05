@@ -1,4 +1,3 @@
-
 window.__KEYWORD_ENGINE_VERSION = "admissions-v25-content-connected";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
@@ -154,17 +153,6 @@ function scoreExtensionTemplate(template,context){
   const mode=typeToMode(template.type);
   const bias=context.assessmentReference?.reality_bias||{};
   score+=Number(bias[mode]||0);
-  const desc=normalizeText(context.taskDescription);
-  if(desc.includes("실험어려움")||desc.includes("실험불가")||desc.includes("실험은어려움")){
-    if(mode==="experiment") score-=5;
-    if(mode==="research"||mode==="analysis") score+=3;
-  }
-  if(normalizeText(context.grade).includes("고1")){
-    if(["이차전지","반도체","신소재"].some(k=>normalizeText(context.keyword).includes(normalizeText(k)))){
-      if(mode==="experiment") score-=4;
-      if(mode==="research"||mode==="analysis") score+=4;
-    }
-  }
   return score;
 }
 async function getExtensionLibraryMatches(payload,apiData,textbookMatches,assessmentReference){
@@ -224,7 +212,7 @@ function renderContentOutput(content){
 
 function buildStudentReport(payload, apiData, variableDesign){
   const result=apiData.result||{};
-  const topic=(apiData.content?.title)||result.finalDecision?.topic||`${payload.keyword}를 ${payload.subject} 개념과 연결해 비교·분석하기`;
+  const topic=(apiData.content?.title)||`${payload.keyword}를 ${payload.subject} 개념과 연결해 비교·분석하기`;
   const reason=result.reason||`${payload.subject} 과목에서 ${payload.keyword}를 다루면서 ${payload.career} 진로와 연결할 수 있는 방향으로 탐구를 설계했다.`;
   const warnings=toArray(result.warnings).slice(0,2);
   const reportFrame=toArray(result.reportFrame).length?toArray(result.reportFrame):["탐구 동기","교과 개념 정리","비교 또는 자료 분석","결론"];
