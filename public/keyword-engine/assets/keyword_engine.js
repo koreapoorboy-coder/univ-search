@@ -1,6 +1,8 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v23-structured-output";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v25-content-connected";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
+const EXTENSION_LIBRARY_URL = "seed/extension_library_v2.json";
+const ASSESSMENT_REFERENCE_URL = "seed/reference/assessment_reference_seed.json";
 
 function $(id){return document.getElementById(id);}
 function escapeHtml(value){
@@ -11,6 +13,8 @@ function escapeHtml(value){
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#39;");
 }
+function toArray(value){return Array.isArray(value)?value:(value==null?[]:[value]);}
+function normalizeText(value){return String(value??"").trim().toLowerCase().replace(/\s+/g,"");}
 function createSessionId(){return `session_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;}
 
 function getFormValues(){
@@ -31,36 +35,33 @@ function getFormValues(){
     activityLevel:$("grade")?.value?.trim()||""
   };
 }
-
 function validateInput(data){
-  const required=[
-    ["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],
-    ["taskType","수행평가 형태"],["usagePurpose","사용 목적"],["career","희망 진로"],["keyword","키워드"]
-  ];
+  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["usagePurpose","사용 목적"],["career","희망 진로"],["keyword","키워드"]];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
 }
-
 function setLoading(isLoading){
   const btn=$("generateBtn"), resetBtn=$("resetBtn"), loading=$("loadingMessage");
   if(btn){ btn.disabled=isLoading; btn.textContent=isLoading?"생성 중...":"학생용 결과 생성"; }
   if(resetBtn) resetBtn.disabled=isLoading;
   if(loading) loading.style.display=isLoading?"block":"none";
 }
-
 function showError(message){
   const resultWrap=$("resultSection"), errorBox=$("errorMessage");
   if(errorBox){ errorBox.innerHTML=`<strong>오류</strong><br>${escapeHtml(message)}`; errorBox.style.display="block"; }
   if(resultWrap) resultWrap.style.display="none";
 }
-
 function clearError(){ const e=$("errorMessage"); if(e){ e.innerHTML=""; e.style.display="none"; } }
-
 function clearResults(){
-  ["resultSection","coreReasonSection","researchFlowSection","assessmentFitSection","extensionSection","actionGuideSection"]
-    .forEach(id=>{ const el=$(id); if(el) el.innerHTML=""; });
-  if($("resultSection")) $("resultSection").style.display="none";
+  [
+    "finalMode","finalReason","finalTopic","topicSub","actionSteps","outputCard","reportFrameCard",
+    "doDontCard","inputSummaryCard","studentReport","reasonCard","stepsCard","flowCard","subjectLinksCard",
+    "warningsCard","assessmentReferenceCard","textbookSection","extensionLibrarySection","contentOutputSection"
+  ].forEach(id=>{
+    const el=$(id); if(el) el.innerHTML="";
+  });
+  const resultWrap=$("resultSection"); if(resultWrap) resultWrap.style.display="none";
 }
 
 async function callGenerateAPI(payload){
@@ -73,7 +74,7 @@ async function callGenerateAPI(payload){
   let data;
   try{ data=JSON.parse(text); }catch{ throw new Error(`응답을 해석할 수 없습니다. (${response.status})`); }
   if(!response.ok||data.ok===false){
-    throw new Error(data?.error || data?.message || `요청 처리 중 오류가 발생했습니다. (${response.status})`);
+    throw new Error(data?.data?.error?.message || data?.error || data?.message || `요청 처리 중 오류가 발생했습니다. (${response.status})`);
   }
   return data;
 }
@@ -85,92 +86,231 @@ async function sendCollectionLog(log) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(log)
     });
+
     const data = await response.json().catch(() => ({}));
     window.__collectResponse = data;
     return data;
   } catch (error) {
+    console.error("collect log error:", error);
     window.__collectResponse = { ok: false, error: String(error.message || error) };
     return window.__collectResponse;
   }
 }
 
-function renderList(title, items){
-  const list=(items||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("");
-  return `<div class="result-card"><h3>${escapeHtml(title)}</h3><ul>${list}</ul></div>`;
+async function getTextbookMatches(payload){
+  try{
+    if(typeof window.matchTextbook!=="function") return [];
+    const keywords=[payload.keyword,payload.subject,payload.career,payload.taskDescription,payload.taskName].filter(Boolean);
+    const result=await window.matchTextbook({keywords,category:payload.subject,major:payload.career});
+    return Array.isArray(result?.matches)?result.matches:[];
+  }catch(error){ console.warn("textbook matcher error:",error); return []; }
+}
+async function loadAssessmentReferenceSeed(){
+  const response=await fetch(ASSESSMENT_REFERENCE_URL,{cache:"no-store"});
+  if(!response.ok) throw new Error("assessment_reference_seed.json을 불러오지 못했습니다.");
+  return response.json();
+}
+function subjectKeyForReference(subject){
+  const map={"공통국어":"공통국어1","공통영어":"공통영어1","수학":"공통수학1","과학탐구실험":"과학탐구실험1","통합과학":"통합과학1","통합사회":"통합사회1"};
+  return map[subject]||subject;
+}
+async function getAssessmentReference(payload){
+  try{
+    const seed=await loadAssessmentReferenceSeed();
+    return (seed?.grade_1_semester_1||{})[subjectKeyForReference(payload.subject)]||null;
+  }catch(error){ console.warn("assessment reference error:",error); return null; }
+}
+async function loadExtensionLibrary(){
+  const response=await fetch(EXTENSION_LIBRARY_URL,{cache:"no-store"});
+  if(!response.ok) throw new Error("확장 활동 라이브러리를 불러오지 못했습니다.");
+  return response.json();
+}
+function typeToMode(typeText=""){
+  const t=normalizeText(typeText);
+  if(t.includes("실험")) return "experiment";
+  if(t.includes("데이터")||t.includes("시뮬")||t.includes("모델")) return "analysis";
+  if(t.includes("제작")||t.includes("설계")) return "design";
+  return "research";
+}
+function scoreExtensionTemplate(template,context){
+  let score=0;
+  const haystack=[context.keyword,context.subject,context.career,context.taskType,context.taskDescription,context.taskName,context.usagePurpose,...(context.subjectLinks||[]),...(context.textbookSubjects||[]),...(context.textbookTopics||[])].map(normalizeText).filter(Boolean);
+  toArray(template.fit_conditions?.required_any_keywords).forEach(keyword=>{
+    const k=normalizeText(keyword);
+    if(haystack.some(item=>item.includes(k)||k.includes(item))) score+=8;
+  });
+  toArray(template.fit_conditions?.preferred_subjects).forEach(subject=>{
+    const s=normalizeText(subject);
+    if([context.subject,...(context.subjectLinks||[])].map(normalizeText).some(item=>item.includes(s)||s.includes(item))) score+=7;
+  });
+  toArray(template.fit_conditions?.preferred_methods).forEach(method=>{
+    const m=normalizeText(method);
+    if([context.taskType,context.taskDescription,context.taskName].map(normalizeText).some(item=>item.includes(m)||m.includes(item))) score+=5;
+  });
+  toArray(template.theme_tags).forEach(tag=>{
+    const t=normalizeText(tag);
+    if(haystack.some(item=>item.includes(t)||t.includes(item))) score+=3;
+  });
+  const mode=typeToMode(template.type);
+  const bias=context.assessmentReference?.reality_bias||{};
+  score+=Number(bias[mode]||0);
+  const desc=normalizeText(context.taskDescription);
+  if(desc.includes("실험어려움")||desc.includes("실험불가")||desc.includes("실험은어려움")){
+    if(mode==="experiment") score-=5;
+    if(mode==="research"||mode==="analysis") score+=3;
+  }
+  if(normalizeText(context.grade).includes("고1")){
+    if(["이차전지","반도체","신소재"].some(k=>normalizeText(context.keyword).includes(normalizeText(k)))){
+      if(mode==="experiment") score-=4;
+      if(mode==="research"||mode==="analysis") score+=4;
+    }
+  }
+  return score;
+}
+async function getExtensionLibraryMatches(payload,apiData,textbookMatches,assessmentReference){
+  try{
+    const library=await loadExtensionLibrary();
+    const templates=Array.isArray(library?.templates)?library.templates:[];
+    const context={
+      keyword:payload.keyword,subject:payload.subject,career:payload.career,grade:payload.grade,
+      taskType:payload.taskType,taskDescription:payload.taskDescription,taskName:payload.taskName,
+      usagePurpose:payload.usagePurpose,subjectLinks:toArray(apiData?.result?.subjectLinks),
+      textbookSubjects:textbookMatches.map(item=>item.subject).filter(Boolean),
+      textbookTopics:textbookMatches.flatMap(item=>toArray(item.topic_seeds||item.topicSeeds)).filter(Boolean),
+      assessmentReference
+    };
+    return templates
+      .map(template=>({...template,_score:scoreExtensionTemplate(template,context),_mode:typeToMode(template.type)}))
+      .filter(template=>template._score>0)
+      .sort((a,b)=>b._score-a._score)
+      .slice(0,3);
+  }catch(error){ console.warn("extension library error:",error); return []; }
 }
 
-function renderStudentOutput(payload, apiData){
-  const student = apiData.student_output || {};
-  const engine = apiData.engine_output || {};
+function renderContentOutput(content){
+  if(!content) return "";
+  const subjectConnection = Array.isArray(content.subject_connection) ? content.subject_connection : [];
+  const researchPoints = Array.isArray(content.research_points) ? content.research_points : [];
+  const deepening = Array.isArray(content.deepening) ? content.deepening : [];
+  const books = Array.isArray(content.recommended_books) ? content.recommended_books : [];
 
-  const core = student.core_reason || {};
-  const flow = student.research_flow || {};
-  const fit = student.assessment_fit || {};
-  const extension = student.extension || {};
-  const action = student.action_guide || {};
+  return `
+    <div class="result-card content-output-card">
+      <h2>${escapeHtml(content.title || "콘텐츠형 탐구 결과")}</h2>
+      <p class="content-intro">${escapeHtml(content.intro || "")}</p>
 
-  $("coreReasonSection").innerHTML = `
-    <div class="result-card">
-      <h2>핵심 추천</h2>
-      <p><b>${escapeHtml(core.headline || "")}</b></p>
-      <p>${escapeHtml(core.summary || "")}</p>
-      <div class="mini-block"><b>추천 주제</b><div>${escapeHtml(core.topic || "")}</div></div>
-      <div class="mini-block"><b>주제 후보</b><ul>${(core.topic_candidates||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
+      <h3>교과 연결</h3>
+      <div class="content-section-list">
+        ${subjectConnection.map(item => `
+          <div class="content-section-item">
+            <div class="content-section-title">${escapeHtml(item.section_title || "")}</div>
+            <div><b>관련 개념</b> : ${(item.concepts || []).map(escapeHtml).join(", ")}</div>
+            <div><b>탐구 포인트</b> : ${(item.points || []).map(escapeHtml).join(" / ")}</div>
+          </div>
+        `).join("")}
+      </div>
+
+      <h3>탐구 포인트</h3>
+      <ul>${researchPoints.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+
+      <h3>심화 방향</h3>
+      <ul>${deepening.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+
+      <h3>추천 도서</h3>
+      <ul>${books.map(book => `<li>${escapeHtml(book.title || "")} (${escapeHtml(book.author || "")})${book.use_for ? ` - ${escapeHtml(book.use_for)}` : ""}</li>`).join("")}</ul>
     </div>
   `;
+}
 
-  $("researchFlowSection").innerHTML = `
-    <div class="result-card">
-      <h2>탐구 구조</h2>
-      <div class="mini-block"><b>실행 순서</b><ol>${(flow.steps||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ol></div>
-      <div class="mini-block"><b>비교 기준</b><div>${(flow.comparison_axes||[]).map(escapeHtml).join(" / ")}</div></div>
-      <div class="mini-block"><b>핵심 개념</b><div>${(flow.core_concepts||[]).map(escapeHtml).join(" / ")}</div></div>
-      <div class="mini-block"><b>엔진 루트</b><div>${escapeHtml(engine.route || "")}</div></div>
-    </div>
+function buildStudentReport(payload, apiData, variableDesign){
+  const result=apiData.result||{};
+  const topic=(apiData.content?.title)||result.finalDecision?.topic||`${payload.keyword}를 ${payload.subject} 개념과 연결해 비교·분석하기`;
+  const reason=result.reason||`${payload.subject} 과목에서 ${payload.keyword}를 다루면서 ${payload.career} 진로와 연결할 수 있는 방향으로 탐구를 설계했다.`;
+  const warnings=toArray(result.warnings).slice(0,2);
+  const reportFrame=toArray(result.reportFrame).length?toArray(result.reportFrame):["탐구 동기","교과 개념 정리","비교 또는 자료 분석","결론"];
+  return `
+    <h4>1. 주제</h4>
+    <p>${escapeHtml(topic)}</p>
+    <h4>2. 주제 선정 동기</h4>
+    <p>${escapeHtml(payload.subject)} 과목의 개념을 바탕으로 ${escapeHtml(payload.career)} 진로와 연결되는 탐구를 하고자 했다. 특히 ${escapeHtml(payload.keyword)}는 실생활과 연관성이 높고 비교·분석이 가능해 수행평가 주제로 적합하다고 판단했다.</p>
+    <h4>3. 탐구 방향</h4>
+    <ul>
+      <li>${escapeHtml(variableDesign.focus)}</li>
+      <li>${escapeHtml(variableDesign.conclusion_direction)}</li>
+    </ul>
+    <h4>4. 비교 기준</h4>
+    <p>${escapeHtml(variableDesign.comparison_axes.join(" / "))}</p>
+    <h4>5. 연결 교과 개념</h4>
+    <p>${escapeHtml(variableDesign.core_concepts.join(" / "))}</p>
+    <h4>6. 보고서 작성 순서</h4>
+    <ul>${reportFrame.map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>
+    <h4>7. 결론 방향</h4>
+    <p>${escapeHtml(reason)}</p>
+    <h4>8. 작성할 때 주의할 점</h4>
+    <ul>${warnings.map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>
   `;
+}
 
-  $("assessmentFitSection").innerHTML = `
-    <div class="result-card">
-      <h2>수행평가 적합성</h2>
-      <p>${escapeHtml(fit.fit_summary || "")}</p>
-      <div class="mini-block"><b>추천 결과물</b><div>${(fit.preferred_outputs||[]).map(escapeHtml).join(" + ")}</div></div>
-      <div class="mini-block"><b>학교 현실 참고</b><ul>${(fit.school_reality_hint||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
-    </div>
-  `;
+function renderStudentView(payload, apiData, textbookMatches, extensionMatches, assessmentReference){
+  const result=apiData.result||{};
+  const variableDesign=apiData.engine_output||{
+    route:"조사·비교형 탐구",
+    focus:`${payload.keyword}의 핵심 개념과 실제 적용을 중심으로 보기`,
+    comparison_axes:["핵심 개념","차이점","활용성"],
+    core_concepts:[`${payload.subject} 핵심 개념`, `${payload.keyword} 관련 개념`],
+    conclusion_direction:`${payload.career} 진로와 연결되는 실제 의미로 마무리`,
+    workflow:["개념 정리","비교 기준 설정","자료 정리","결론 도출"]
+  };
 
-  $("extensionSection").innerHTML = `
-    <div class="result-card">
-      <h2>확장 방향</h2>
-      <ul>${(extension.ideas||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>
-      <div class="mini-block"><b>결론 방향</b><div>${escapeHtml(extension.conclusion_direction || "")}</div></div>
-    </div>
-  `;
+  $("finalMode").textContent=variableDesign.route;
+  $("finalReason").textContent=`${payload.schoolName} · ${payload.taskName} 기준으로 보면 ${variableDesign.route}이(가) 가장 자연스럽습니다.`;
+  $("finalTopic").textContent=variableDesign.focus;
+  $("topicSub").textContent=`이번 결과는 ${payload.subject} · ${payload.career} · ${payload.usagePurpose} 조합을 반영해 다르게 설계된 버전입니다.`;
+  $("actionSteps").innerHTML=variableDesign.workflow.slice(0,3).map((step,idx)=>`<div class="step-item"><div class="step-no">${idx+1}</div><div>${escapeHtml(step)}</div></div>`).join("");
+  const outputs=toArray(assessmentReference?.preferred_outputs).slice(0,2);
+  $("outputCard").innerHTML=`<h3>제출물 형태</h3><div class="mini-block-list"><div class="mini-item"><b>우선 제출</b><div>${escapeHtml(outputs[0]||"비교표 + 보고서")}</div></div><div class="mini-item"><b>같이 넣으면 좋음</b><div>${escapeHtml(outputs[1]||"비교표")}</div></div></div>`;
+  $("reportFrameCard").innerHTML=`<h3>설계 변수</h3><div class="frame-list"><div class="frame-item"><b>루트</b><div>${escapeHtml(variableDesign.route)}</div></div><div class="frame-item"><b>초점</b><div>${escapeHtml(variableDesign.focus)}</div></div><div class="frame-item"><b>비교 기준</b><div>${escapeHtml(variableDesign.comparison_axes.join(", "))}</div></div><div class="frame-item"><b>결론 방향</b><div>${escapeHtml(variableDesign.conclusion_direction)}</div></div></div>`;
+  const doList=toArray(assessmentReference?.school_reality_hint).slice(0,2);
+  const dontList=toArray(result.warnings).slice(0,2);
+  $("doDontCard").innerHTML=`<h3>바로 체크</h3><div class="do-dont-wrap"><div class="do-box"><h4>이렇게 쓰면 됨</h4><ul>${(doList.length?doList:["비교 기준을 먼저 정하기","자료를 표로 정리하기"]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div><div class="dont-box"><h4>이건 피하기</h4><ul>${(dontList.length?dontList:["자료 없이 주장만 쓰기","주제를 너무 크게 잡기"]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div></div>`;
+  $("inputSummaryCard").innerHTML=`<h3>수집되는 입력 데이터</h3><div class="mini-block-list"><div class="mini-item"><b>학교 / 학년</b><div>${escapeHtml(payload.schoolName)} / ${escapeHtml(payload.grade)}</div></div><div class="mini-item"><b>과목 / 수행평가명</b><div>${escapeHtml(payload.subject)} / ${escapeHtml(payload.taskName)}</div></div><div class="mini-item"><b>형태 / 사용 목적</b><div>${escapeHtml(payload.taskType)} / ${escapeHtml(payload.usagePurpose)}</div></div><div class="mini-item"><b>진로 / 키워드</b><div>${escapeHtml(payload.career)} / ${escapeHtml(payload.keyword)}</div></div></div>`;
+  $("studentReport").innerHTML=buildStudentReport(payload, apiData, variableDesign);
+  $("reasonCard").innerHTML=`<h3>추천 이유</h3><p>${escapeHtml(result.reason||"")}</p>`;
+  $("stepsCard").innerHTML=`<h3>탐구 순서</h3><ul>${toArray(result.steps).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("flowCard").innerHTML=`<h3>설계 흐름</h3><ul>${toArray(result.flow).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("subjectLinksCard").innerHTML=`<h3>연결 교과</h3><ul>${variableDesign.core_concepts.map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("warningsCard").innerHTML=`<h3>주의할 점</h3><ul>${toArray(result.warnings).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>`;
+  $("assessmentReferenceCard").innerHTML=assessmentReference?`<h3>수행평가 현실 참고</h3><p class="muted">reference_only 보정값</p><ul>${toArray(assessmentReference.school_reality_hint).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul>`:`<h3>수행평가 현실 참고</h3><p class="muted">참고 데이터가 없습니다.</p>`;
+  if(textbookMatches.length){
+    const item=textbookMatches[0];
+    $("textbookSection").innerHTML=`<h3>교과 근거</h3><ul><li>${escapeHtml([item.subject,item.unit,item.subunit].filter(Boolean).join(" › "))}</li><li>${escapeHtml(toArray(item.core_concepts).slice(0,4).join(", "))}</li></ul>`;
+  }else{
+    $("textbookSection").innerHTML=`<h3>교과 근거</h3><p class="muted">매칭 결과가 없습니다.</p>`;
+  }
+  if(extensionMatches.length){
+    $("extensionLibrarySection").innerHTML=`<h3>차선 템플릿</h3><ul>${extensionMatches.map((item,idx)=>`<li>${escapeHtml(`${idx+1}순위 · ${item.title||""}`)}</li>`).join("")}</ul>`;
+  }else{
+    $("extensionLibrarySection").innerHTML=`<h3>차선 템플릿</h3><p class="muted">추가 템플릿이 없습니다.</p>`;
+  }
 
-  $("actionGuideSection").innerHTML = `
-    <div class="result-card">
-      <h2>실행 가이드</h2>
-      <div class="mini-block"><b>작성 포인트</b><ul>${(action.writing_points||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
-      <div class="mini-block"><b>반드시 포함</b><ul>${(action.must_include||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
-      <div class="mini-block"><b>피해야 할 점</b><ul>${(action.avoid||[]).map(v=>`<li>${escapeHtml(v)}</li>`).join("")}</ul></div>
-    </div>
-  `;
+  if($("contentOutputSection")){
+    $("contentOutputSection").innerHTML = renderContentOutput(apiData.content);
+  }
 
-  if($("resultSection")) $("resultSection").style.display="grid";
-
-  window.__engineCollectionLog = {
-    session_id: payload.sessionId,
-    timestamp: new Date().toISOString(),
-    school_name: payload.schoolName,
-    grade: payload.grade,
-    subject: payload.subject,
-    task_name: payload.taskName,
-    task_type: payload.taskType,
-    task_description: payload.taskDescription,
-    career: payload.career,
-    keyword: payload.keyword,
-    usage_purpose: payload.usagePurpose,
-    engine_output: apiData.engine_output || {},
-    student_output: apiData.student_output || {}
+  window.__engineCollectionLog={
+    session_id:payload.sessionId,
+    timestamp:new Date().toISOString(),
+    school_name:payload.schoolName,
+    grade:payload.grade,
+    subject:payload.subject,
+    task_name:payload.taskName,
+    task_type:payload.taskType,
+    task_description:payload.taskDescription,
+    career:payload.career,
+    keyword:payload.keyword,
+    usage_purpose:payload.usagePurpose,
+    engine_output:variableDesign,
+    content_output:apiData.content || {}
   };
 }
 
@@ -181,28 +321,42 @@ async function handleGenerate(){
     validateInput(payload);
     setLoading(true);
     const apiData=await callGenerateAPI(payload);
-    window.__lastGenerateDebug={version:window.__KEYWORD_ENGINE_VERSION,payload,apiData};
-    renderStudentOutput(payload, apiData);
+    const textbookMatches=await getTextbookMatches(payload);
+    const assessmentReference=await getAssessmentReference(payload);
+    const extensionMatches=await getExtensionLibraryMatches(payload,apiData,textbookMatches,assessmentReference);
+    window.__lastGenerateDebug={version:window.__KEYWORD_ENGINE_VERSION,payload,apiData,textbookMatches,assessmentReference,extensionMatches};
+    renderStudentView(payload, apiData, textbookMatches, extensionMatches, assessmentReference);
     await sendCollectionLog(window.__engineCollectionLog);
+    $("resultSection").style.display="grid";
     return window.__lastGenerateDebug;
   }catch(error){
+    console.error("handleGenerate error:",error);
     showError(error.message||"생성 중 오류가 발생했습니다.");
   }finally{
     setLoading(false);
   }
 }
-
 function handleReset(){
   ["schoolName","grade","subject","taskName","taskType","usagePurpose","taskDescription","career","keyword"].forEach(id=>{
     const el=$(id); if(el) el.value="";
   });
   clearError(); clearResults();
 }
-
+async function handleCopyReport(){
+  const report=$("studentReport");
+  const text=report ? report.innerText.replace(/\n{3,}/g,"\n\n").trim() : "";
+  if(!text) return;
+  try{
+    await navigator.clipboard.writeText(text);
+    alert("보고서를 복사했어요.");
+  }catch{
+    alert("복사에 실패했어요. 직접 선택해서 복사해 주세요.");
+  }
+}
 document.addEventListener("DOMContentLoaded",()=>{
   $("generateBtn")?.addEventListener("click",handleGenerate);
   $("resetBtn")?.addEventListener("click",handleReset);
+  $("copyReportBtn")?.addEventListener("click",handleCopyReport);
 });
-
 window.handleGenerate=handleGenerate;
 window.handleReset=handleReset;
