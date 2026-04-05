@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v28-strong-content";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v29-button-personalized";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){return document.getElementById(id);}
@@ -12,6 +12,20 @@ function escapeHtml(value){
     .replace(/'/g,"&#39;");
 }
 function createSessionId(){return `session_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;}
+
+const selectionState = {
+  direction: "",
+  compareTargets: [],
+  compareAxes: [],
+  emphasis: ""
+};
+
+function resetSelectionState(){
+  selectionState.direction = "";
+  selectionState.compareTargets = [];
+  selectionState.compareAxes = [];
+  selectionState.emphasis = "";
+}
 
 function getFormValues(){
   return {
@@ -55,6 +69,7 @@ function clearResults(){
   ["finalMode","finalReason","finalTopic","topicSub","actionSteps","outputCard","reportFrameCard","doDontCard","inputSummaryCard","studentReport","reasonCard","stepsCard","flowCard","subjectLinksCard","warningsCard","assessmentReferenceCard","textbookSection","extensionLibrarySection","contentOutputSection"].forEach(id=>{
     const el=$(id); if(el) el.innerHTML="";
   });
+  resetSelectionState();
   const resultWrap=$("resultSection"); if(resultWrap) resultWrap.style.display="none";
 }
 
@@ -73,7 +88,113 @@ async function callGenerateAPI(payload){
   return data;
 }
 
-function renderContentOutput(content){
+function toggleSingle(key, value){
+  selectionState[key] = selectionState[key] === value ? "" : value;
+  refreshSelectionUI();
+}
+
+function toggleMulti(key, value, maxCount){
+  const arr = selectionState[key];
+  const exists = arr.includes(value);
+  if (exists) {
+    selectionState[key] = arr.filter(v => v !== value);
+  } else {
+    if (arr.length >= maxCount) return;
+    selectionState[key] = [...arr, value];
+  }
+  refreshSelectionUI();
+}
+
+function buttonClass(active){
+  return active ? "pick-btn active" : "pick-btn";
+}
+
+function renderButtonGroup(title, values, key, mode, maxCount=1){
+  const items = (values || []).map(value => {
+    const active = mode === "single"
+      ? selectionState[key] === value
+      : selectionState[key].includes(value);
+
+    const handler = mode === "single"
+      ? `toggleSingle('${key}', '${escapeForAttr(value)}')`
+      : `toggleMulti('${key}', '${escapeForAttr(value)}', ${maxCount})`;
+
+    return `<button type="button" class="${buttonClass(active)}" onclick="${handler}">${escapeHtml(value)}</button>`;
+  }).join("");
+
+  const guide = mode === "multi" ? `<div class="pick-guide">최대 ${maxCount}개 선택</div>` : `<div class="pick-guide">1개 선택</div>`;
+
+  return `
+    <div class="pick-block">
+      <div class="pick-head">
+        <h4>${escapeHtml(title)}</h4>
+        ${guide}
+      </div>
+      <div class="pick-buttons">${items}</div>
+    </div>
+  `;
+}
+
+function escapeForAttr(value){
+  return String(value).replace(/'/g, "\'");
+}
+
+function buildPersonalGuide(options){
+  const direction = selectionState.direction || "탐구 방향을 먼저 정하기";
+  const targets = selectionState.compareTargets.length ? selectionState.compareTargets.join(", ") : "비교 대상 2개 선택";
+  const axes = selectionState.compareAxes.length ? selectionState.compareAxes.join(", ") : "비교 기준 3개 선택";
+  const emphasis = selectionState.emphasis || "강조 포인트 1개 선택";
+
+  const introStarter = (options.intro_starters || [])[0] || "이번 주제를 선택한 이유는";
+  const bodyStarter = (options.body_starters || [])[0] || "먼저 핵심 개념을 보면";
+  const conclusionStarter = (options.conclusion_starters || [])[0] || "이번 탐구를 통해";
+
+  return `
+    <div class="personal-guide-card">
+      <div class="content-headline-badge">학생마다 다르게 쓰게 만드는 개인화 설계</div>
+      <h3>내 선택 결과</h3>
+      <div class="personal-summary">
+        <div><b>탐구 방향</b> : ${escapeHtml(direction)}</div>
+        <div><b>비교 대상</b> : ${escapeHtml(targets)}</div>
+        <div><b>비교 기준</b> : ${escapeHtml(axes)}</div>
+        <div><b>강조 포인트</b> : ${escapeHtml(emphasis)}</div>
+      </div>
+
+      <h3>보고서 작성 가이드</h3>
+      <div class="guide-section">
+        <h4>도입</h4>
+        <ul>
+          <li>왜 이 주제를 선택했는지 2~3문장으로 정리하기</li>
+          <li>실생활 사례 또는 뉴스 1개 포함하기</li>
+          <li>내 진로와 왜 연결되는지 한 문장 넣기</li>
+        </ul>
+        <div class="starter-box"><b>문장 시작 예시</b> : ${escapeHtml(introStarter)} ...</div>
+      </div>
+
+      <div class="guide-section">
+        <h4>본문</h4>
+        <ul>
+          <li>${escapeHtml(targets)}를 중심으로 비교하기</li>
+          <li>${escapeHtml(axes)} 기준에서 차이가 나는 이유 설명하기</li>
+          <li>교과 개념을 최소 1~2개 연결하기</li>
+        </ul>
+        <div class="starter-box"><b>문장 시작 예시</b> : ${escapeHtml(bodyStarter)} ...</div>
+      </div>
+
+      <div class="guide-section">
+        <h4>결론</h4>
+        <ul>
+          <li>가장 중요하다고 본 기준 1개 정리하기</li>
+          <li>탐구 후 바뀐 생각이나 배운 점 쓰기</li>
+          <li>${escapeHtml(emphasis)} 관점으로 마무리하기</li>
+        </ul>
+        <div class="starter-box"><b>문장 시작 예시</b> : ${escapeHtml(conclusionStarter)} ...</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderContentOutput(content, selectionOptions){
   if(!content) return "";
   const subjectConnection = Array.isArray(content.subject_connection) ? content.subject_connection : [];
   const researchPoints = Array.isArray(content.research_points) ? content.research_points : [];
@@ -122,8 +243,25 @@ function renderContentOutput(content){
 
       <h3>추천 도서</h3>
       <ul>${books.map(book => `<li>${escapeHtml(book.title || "")} (${escapeHtml(book.author || "")})${book.use_for ? ` - ${escapeHtml(book.use_for)}` : ""}</li>`).join("")}</ul>
+
+      <div class="pick-layout">
+        ${renderButtonGroup("1. 탐구 방향 선택", selectionOptions.direction_buttons || [], "direction", "single")}
+        ${renderButtonGroup("2. 비교 대상 선택", selectionOptions.compare_target_buttons || [], "compareTargets", "multi", 2)}
+        ${renderButtonGroup("3. 비교 기준 선택", selectionOptions.compare_axis_buttons || [], "compareAxes", "multi", 3)}
+        ${renderButtonGroup("4. 강조 포인트 선택", selectionOptions.emphasis_buttons || [], "emphasis", "single")}
+      </div>
+
+      <div id="personalGuideSection">
+        ${buildPersonalGuide(selectionOptions)}
+      </div>
     </div>
   `;
+}
+
+function refreshSelectionUI(){
+  const root = window.__currentContentRoot;
+  if(!root) return;
+  root.innerHTML = renderContentOutput(window.__currentContentData, window.__currentSelectionOptions);
 }
 
 function renderStudentView(payload, apiData){
@@ -133,7 +271,13 @@ function renderStudentView(payload, apiData){
   $("finalTopic").textContent = engine.focus || `${payload.keyword}의 핵심 개념과 실제 적용`;
   $("topicSub").textContent = `${payload.subject} · ${payload.career} 기준으로 구성된 결과입니다.`;
   $("actionSteps").innerHTML = (engine.workflow || []).slice(0,3).map((step,idx)=>`<div class="step-item"><div class="step-no">${idx+1}</div><div>${escapeHtml(step)}</div></div>`).join("");
-  $("contentOutputSection").innerHTML = renderContentOutput(apiData.content || {});
+
+  const root = $("contentOutputSection");
+  window.__currentContentRoot = root;
+  window.__currentContentData = apiData.content || {};
+  window.__currentSelectionOptions = apiData.selection_options || {};
+  root.innerHTML = renderContentOutput(window.__currentContentData, window.__currentSelectionOptions);
+
   $("resultSection").style.display = "grid";
 }
 
@@ -167,3 +311,5 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 window.handleGenerate=handleGenerate;
 window.handleReset=handleReset;
+window.toggleSingle=toggleSingle;
+window.toggleMulti=toggleMulti;
