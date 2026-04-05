@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "description": "Content-generation patterns for topic/article-style output.",
+  "patterns": [
+    {
+      "pattern_id": "concept_case_bridge",
+      "label": "개념-사례 연결형",
+      "best_for": [
+        "우주",
+        "환경",
+        "기술",
+        "의료"
+      ],
+      "output_sections": [
+        "title",
+        "intro",
+        "subject_connection",
+        "research_points",
+        "deepening",
+        "recommended_books"
+      ],
+      "section_rules": {
+        "title": "반드시 [탐구주제]로 시작하고 핵심 키워드와 교과 연결을 함께 넣는다.",
+        "intro": "실제 사례의 현재성 또는 중요성을 2~3문장으로 설명한다.",
+        "subject_connection": "과목별 관련 단원과 연결 개념을 묶어서 제시한다.",
+        "research_points": "학생이 바로 탐구 질문으로 바꿀 수 있는 포인트를 2~4개 쓴다.",
+        "deepening": "고1 과심화를 피하면서 한 단계 확장 방향을 1~3개 제시한다.",
+        "recommended_books": "주제 이해를 돕는 도서를 1~3권 제안한다."
+      }
+    },
+    {
+      "pattern_id": "comparison_report",
+      "label": "비교 보고서형",
+      "best_for": [
+        "이차전지",
+        "약물",
+        "정책",
+        "의료기기"
+      ],
+      "output_sections": [
+        "title",
+        "intro",
+        "comparison_axes",
+        "research_points",
+        "writing_direction",
+        "recommended_books"
+      ],
+      "section_rules": {
+        "comparison_axes": "비교 기준 2~3개를 먼저 고정해 준다.",
+        "writing_direction": "보고서 구조가 보이도록 작성 순서를 제시한다."
+      }
+    }
+  ]
+}
