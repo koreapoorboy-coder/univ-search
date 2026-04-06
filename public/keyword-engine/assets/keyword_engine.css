@@ -556,4 +556,115 @@ textarea{resize:vertical;min-height:96px}
     padding:14px;
   }
 }
+/* ===== v38 draft report addon ===== */
+.draft-report-wrap{
+  margin-bottom:18px;
+}
+.draft-report-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  padding:20px;
+  box-shadow:0 10px 24px rgba(15,23,42,.05);
+}
+.draft-report-kicker{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 12px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:800;
+  margin-bottom:14px;
+}
+.draft-report-title{
+  font-size:1.2rem;
+  font-weight:900;
+  line-height:1.6;
+  margin-bottom:14px;
+}
+.draft-report-body{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+  line-height:1.9;
+}
+.draft-report-body p{
+  margin:0 0 14px;
+}
+.draft-placeholder{
+  display:inline-block;
+  padding:2px 6px;
+  border-radius:8px;
+  background:#f3f7ff;
+  border:1px solid #d7e4ff;
+  font-weight:800;
+}
+.draft-options-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin-top:14px;
+}
+.draft-option-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+}
+.draft-option-title{
+  font-size:1rem;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.draft-option-help{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:10px;
+}
+.draft-option-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.draft-option-btn{
+  border:1px solid #dbe3f4;
+  background:#fff;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:999px;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+}
+.draft-option-btn.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+.draft-final-tip{
+  margin-top:16px;
+  border:1px solid #d7e4ff;
+  border-radius:18px;
+  padding:16px;
+  background:#f7faff;
+  line-height:1.8;
+  font-weight:800;
+}
+@media (max-width:760px){
+  .draft-report-card,
+  .draft-report-body,
+  .draft-option-card,
+  .draft-final-tip{
+    padding:14px;
+  }
+  .draft-option-btn{
+    width:100%;
+    text-align:left;
+    border-radius:14px;
+  }
+}
+
 
