@@ -466,3 +466,94 @@ textarea{resize:vertical;min-height:96px}
 }
 
 
+/* ===== v37 student focus addon ===== */
+.student-focus-guide-wrap{
+  margin-bottom:18px;
+}
+.student-focus-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  padding:20px;
+  box-shadow:0 10px 24px rgba(15,23,42,.05);
+}
+.student-focus-kicker{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 12px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:800;
+  margin-bottom:14px;
+}
+.student-focus-topic-card,
+.student-focus-steps-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+  margin-bottom:14px;
+}
+.student-focus-topic-label,
+.student-focus-steps-label{
+  font-size:.84rem;
+  font-weight:900;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.student-focus-topic-text{
+  font-size:1.15rem;
+  font-weight:900;
+  line-height:1.6;
+  color:var(--text);
+}
+.student-focus-steps-list{
+  margin:0;
+  padding-left:20px;
+  line-height:1.9;
+}
+.student-focus-summary{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.7;
+}
+.student-focus-section{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:16px;
+  margin-top:14px;
+}
+.student-focus-section-title{
+  font-size:1.02rem;
+  font-weight:900;
+  margin-bottom:10px;
+}
+.student-focus-line{
+  line-height:1.8;
+  margin-top:7px;
+}
+.student-focus-tip{
+  color:var(--primary);
+}
+.student-focus-check{
+  margin-top:16px;
+  border:1px solid #d7e4ff;
+  border-radius:18px;
+  padding:16px;
+  background:#f7faff;
+  line-height:1.8;
+  font-weight:800;
+}
+@media (max-width:760px){
+  .student-focus-card,
+  .student-focus-topic-card,
+  .student-focus-steps-card,
+  .student-focus-section,
+  .student-focus-check{
+    padding:14px;
+  }
+}
+
