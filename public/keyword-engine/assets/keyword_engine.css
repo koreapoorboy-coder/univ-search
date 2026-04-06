@@ -778,3 +778,113 @@ textarea{resize:vertical;min-height:96px}
 }
 
 
+/* ===== textbook concept addon v2 ===== */
+.textbook-concept-section{
+  margin-top:14px;
+}
+.textbook-concept-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  padding:20px;
+  box-shadow:0 10px 24px rgba(15,23,42,.05);
+}
+.textbook-concept-kicker{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 12px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.textbook-concept-title{
+  margin:0 0 8px;
+  font-size:1.35rem;
+  line-height:1.4;
+}
+.textbook-concept-desc{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.7;
+}
+.textbook-block{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:16px;
+  margin-top:14px;
+}
+.textbook-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:10px;
+}
+.textbook-head h3{
+  margin:0;
+  font-size:1rem;
+}
+.textbook-guide{
+  color:var(--muted);
+  font-size:.86rem;
+  font-weight:800;
+}
+.textbook-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.textbook-btn{
+  border:1px solid #dbe3f4;
+  background:#fff;
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:999px;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+}
+.textbook-btn.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+.textbook-empty,
+.textbook-selected-subject{
+  color:var(--muted);
+  line-height:1.7;
+}
+.textbook-selection-summary{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.textbook-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  background:#f3f7ff;
+  border:1px solid #d7e4ff;
+  font-weight:800;
+}
+@media (max-width:760px){
+  .textbook-concept-card,
+  .textbook-block{
+    padding:14px;
+  }
+  .textbook-head{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .textbook-btn{
+    width:100%;
+    text-align:left;
+    border-radius:14px;
+  }
+}
+
