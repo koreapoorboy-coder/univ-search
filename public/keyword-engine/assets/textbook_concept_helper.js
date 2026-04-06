@@ -1,5 +1,5 @@
 
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -15,7 +15,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
   const UI_SEED_URL = "seed/textbook-v1/subject_concept_ui_seed.json";
   const ENGINE_MAP_URL = "seed/textbook-v1/subject_concept_engine_map.json";
 
-  const state = { subject: "", concept: "", topic: "" };
+  const state = {
+    subject: "",
+    concept: "",
+    keyword: "",
+    career: ""
+  };
+
   let uiSeed = null;
   let engineMap = null;
 
@@ -29,6 +35,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
         console.warn("textbook concept seed load failed", uiRes.status, engineRes.status);
         return;
       }
+
       uiSeed = await uiRes.json();
       engineMap = await engineRes.json();
 
@@ -36,6 +43,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
       bindEvents();
       syncSubjectFromSelect();
       renderAll();
+      setTimeout(hideLegacyCareerSelector, 300);
+      setTimeout(hideLegacyCareerSelector, 1200);
     }catch(error){
       console.warn("textbook concept helper init error:", error);
     }
@@ -51,10 +60,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
     wrap.innerHTML = `
       <div class="textbook-concept-card">
         <div class="textbook-concept-kicker">수업 개념부터 고르면 더 이해하기 쉽습니다</div>
-        <h2 class="textbook-concept-title">과목 → 교과 개념 → 관련 주제 선택</h2>
+        <h2 class="textbook-concept-title">과목 → 교과 개념 → 교과 키워드 → 진로 연결</h2>
         <p class="textbook-concept-desc">
-          어려운 키워드 대신 수업에서 배운 개념부터 고르면 됩니다.
-          과목을 선택하고, 교과 개념과 관련 주제를 누르면 키워드 입력칸에도 자동 반영됩니다.
+          먼저 과목을 고르고, 그 안에서 수업 개념을 선택하세요.
+          그다음 교과 키워드를 누르면 관련 진로/학과 연결까지 한눈에 볼 수 있습니다.
         </p>
 
         <div class="textbook-block">
@@ -75,10 +84,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
 
         <div class="textbook-block">
           <div class="textbook-head">
-            <h3>3. 이 개념으로 할 수 있는 주제</h3>
+            <h3>3. 이 개념의 교과 키워드</h3>
             <div class="textbook-guide">1개 선택</div>
           </div>
-          <div id="textbookTopicButtons" class="textbook-buttons"></div>
+          <div id="textbookKeywordButtons" class="textbook-buttons"></div>
+        </div>
+
+        <div class="textbook-block">
+          <div class="textbook-head">
+            <h3>4. 이 키워드와 연결되는 진로/학과</h3>
+            <div class="textbook-guide">선택 가능</div>
+          </div>
+          <div id="textbookCareerButtons" class="textbook-buttons"></div>
         </div>
 
         <div class="textbook-block">
@@ -90,8 +107,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
         </div>
       </div>
     `;
+
     keywordInput.parentNode.insertBefore(wrap, keywordInput);
-    keywordInput.placeholder = "위 교과 개념/주제를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
+    keywordInput.placeholder = "위 교과 키워드를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
 
   function bindEvents(){
@@ -100,9 +118,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
       subjectEl.addEventListener("change", function(){
         syncSubjectFromSelect();
         state.concept = "";
-        state.topic = "";
+        state.keyword = "";
+        state.career = "";
         syncKeywordInput();
         renderAll();
+        hideLegacyCareerSelector();
       });
     }
 
@@ -118,14 +138,27 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
 
         if(action === "concept"){
           state.concept = state.concept === value ? "" : value;
-          state.topic = "";
+          state.keyword = "";
+          state.career = "";
+          syncKeywordInput();
+          syncCareerInput(false);
           renderAll();
           return;
         }
-        if(action === "topic"){
-          state.topic = state.topic === value ? "" : value;
+
+        if(action === "keyword"){
+          state.keyword = state.keyword === value ? "" : value;
+          state.career = "";
           renderAll();
           syncKeywordInput();
+          syncCareerInput(false);
+          return;
+        }
+
+        if(action === "career"){
+          state.career = state.career === value ? "" : value;
+          renderAll();
+          syncCareerInput(true);
         }
       });
     }
@@ -163,22 +196,53 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
     const entry = uiSeed[subject];
 
     if(Array.isArray(entry.concepts)) return entry.concepts;
-
     if(Array.isArray(entry.concept_buttons)){
-      return entry.concept_buttons
-        .map(item => item && item.concept)
-        .filter(Boolean);
+      return entry.concept_buttons.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
     }
-
     if(Array.isArray(entry.concept_order)) return entry.concept_order;
-
     return [];
+  }
+
+  function getConceptEntry(){
+    if(!state.subject || !state.concept || !engineMap) return null;
+    if(!engineMap[state.subject]) return null;
+    return engineMap[state.subject][state.concept] || null;
+  }
+
+  function stringArrayFrom(value){
+    if(!value) return [];
+    if(Array.isArray(value)) {
+      return value.map(item => {
+        if(typeof item === "string") return item;
+        if(item && typeof item === "object"){
+          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || "";
+        }
+        return "";
+      }).filter(Boolean);
+    }
+    return [];
+  }
+
+  function getKeywordList(entry){
+    if(!entry) return [];
+    return stringArrayFrom(entry.keywords || entry.micro_keywords || entry.core_keywords || entry.keyword_buttons);
+  }
+
+  function getCareerList(entry){
+    if(!entry) return [];
+    return stringArrayFrom(
+      entry.career_bridges ||
+      entry.linked_career_bridge ||
+      entry.careers ||
+      entry.career_keywords
+    );
   }
 
   function renderAll(){
     renderSubjectSummary();
     renderConceptButtons();
-    renderTopicButtons();
+    renderKeywordButtons();
+    renderCareerButtons();
     renderSelectionSummary();
   }
 
@@ -202,44 +266,65 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
     }
 
     el.innerHTML = concepts.map(concept => `
-      <button
-        type="button"
+      <button type="button"
         class="textbook-btn ${state.concept === concept ? "active" : ""}"
         data-action="concept"
-        data-value="${escapeHtml(concept)}"
-      >${escapeHtml(concept)}</button>
+        data-value="${escapeHtml(concept)}">${escapeHtml(concept)}</button>
     `).join("");
   }
 
-  function renderTopicButtons(){
-    const el = $("textbookTopicButtons");
+  function renderKeywordButtons(){
+    const el = $("textbookKeywordButtons");
     if(!el) return;
 
-    if(!state.subject || !state.concept || !engineMap || !engineMap[state.subject] || !engineMap[state.subject][state.concept]){
-      el.innerHTML = `<div class="textbook-empty">교과 개념을 선택하면 관련 주제가 나옵니다.</div>`;
+    const entry = getConceptEntry();
+    if(!state.subject || !state.concept){
+      el.innerHTML = `<div class="textbook-empty">교과 개념을 선택하면 교과 키워드가 나옵니다.</div>`;
       return;
     }
 
-    const topics = engineMap[state.subject][state.concept].topics || [];
-    if(!topics.length){
-      el.innerHTML = `<div class="textbook-empty">등록된 관련 주제가 없습니다.</div>`;
+    const keywords = getKeywordList(entry);
+    if(!keywords.length){
+      el.innerHTML = `<div class="textbook-empty">등록된 교과 키워드가 없습니다.</div>`;
       return;
     }
 
-    el.innerHTML = topics.map(topic => `
-      <button
-        type="button"
-        class="textbook-btn ${state.topic === topic ? "active" : ""}"
-        data-action="topic"
-        data-value="${escapeHtml(topic)}"
-      >${escapeHtml(topic)}</button>
+    el.innerHTML = keywords.map(keyword => `
+      <button type="button"
+        class="textbook-btn ${state.keyword === keyword ? "active" : ""}"
+        data-action="keyword"
+        data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
+    `).join("");
+  }
+
+  function renderCareerButtons(){
+    const el = $("textbookCareerButtons");
+    if(!el) return;
+
+    const entry = getConceptEntry();
+    if(!state.keyword){
+      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 관련 진로/학과 연결이 나옵니다.</div>`;
+      return;
+    }
+
+    const careers = getCareerList(entry);
+    if(!careers.length){
+      el.innerHTML = `<div class="textbook-empty">등록된 진로/학과 연결이 없습니다.</div>`;
+      return;
+    }
+
+    el.innerHTML = careers.map(career => `
+      <button type="button"
+        class="textbook-btn ${state.career === career ? "active" : ""}"
+        data-action="career"
+        data-value="${escapeHtml(career)}">${escapeHtml(career)}</button>
     `).join("");
   }
 
   function renderSelectionSummary(){
     const el = $("textbookSelectionSummary");
     if(!el) return;
-    const parts = [state.subject, state.concept, state.topic].filter(Boolean);
+    const parts = [state.subject, state.concept, state.keyword, state.career].filter(Boolean);
     el.innerHTML = parts.length
       ? parts.map(part => `<span class="textbook-chip">${escapeHtml(part)}</span>`).join("")
       : "아직 선택하지 않았습니다.";
@@ -248,10 +333,35 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
   function syncKeywordInput(){
     const keywordInput = $("keyword");
     if(!keywordInput) return;
-    if(state.topic){
-      keywordInput.value = state.topic;
-      keywordInput.dataset.autoFilled = "textbook-topic";
+    if(state.keyword){
+      keywordInput.value = state.keyword;
+      keywordInput.dataset.autoFilled = "textbook-keyword";
+    } else if(keywordInput.dataset.autoFilled === "textbook-keyword"){
+      keywordInput.value = "";
+      keywordInput.dataset.autoFilled = "";
     }
+  }
+
+  function syncCareerInput(shouldFill){
+    const careerInput = $("career");
+    if(!careerInput) return;
+    if(shouldFill && state.career){
+      careerInput.value = state.career;
+      careerInput.dataset.autoFilled = "textbook-career";
+    }
+  }
+
+  function hideLegacyCareerSelector(){
+    document.querySelectorAll("h1,h2,h3,h4,div,p,section").forEach(node => {
+      const txt = (node.textContent || "").trim();
+      if(!txt) return;
+      if(txt.includes("진로 → 학과 → 추천 키워드 선택")){
+        const block = node.closest("section, .card, .result-card, .side-card, .student-card, .analysis-card, div");
+        if(block && block.id !== "textbookConceptSelectorSection"){
+          block.style.display = "none";
+        }
+      }
+    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
