@@ -1,4 +1,5 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
+
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.3-reason-layer";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -7,7 +8,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
       .replace(/&/g,"&amp;")
       .replace(/</g,"&lt;")
       .replace(/>/g,"&gt;")
-      .replace(/\"/g,"&quot;")
+      .replace(/"/g,"&quot;")
       .replace(/'/g,"&#39;");
   }
 
@@ -24,7 +25,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" })
       ]);
-
       if(!uiRes.ok || !engineRes.ok){
         console.warn("textbook concept seed load failed", uiRes.status, engineRes.status);
         return;
@@ -37,9 +37,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
       bindEvents();
       syncSubjectFromSelect();
       renderAll();
-      hardHideLegacyCareerBlock();
-      setTimeout(hardHideLegacyCareerBlock, 300);
-      setTimeout(hardHideLegacyCareerBlock, 1200);
+      safeHideLegacyCareerBlock();
+      setTimeout(safeHideLegacyCareerBlock, 600);
+      setTimeout(safeHideLegacyCareerBlock, 1800);
     }catch(error){
       console.warn("textbook concept helper init error:", error);
     }
@@ -95,6 +95,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
 
         <div class="textbook-block">
           <div class="textbook-head">
+            <h3>5. 왜 이 키워드가 이 진로와 연결될까?</h3>
+            <div class="textbook-guide">연결 이유 설명</div>
+          </div>
+          <div id="textbookReasonBox" class="textbook-reason-box">키워드를 선택하면 연결 이유가 표시됩니다.</div>
+        </div>
+
+        <div class="textbook-block">
+          <div class="textbook-head">
             <h3>현재 선택</h3>
             <div class="textbook-guide">자동 반영</div>
           </div>
@@ -103,12 +111,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
       </div>
     `;
 
-    const keywordLabel = keywordInput.closest("label");
-    if(keywordLabel && keywordLabel.parentNode){
-      keywordLabel.parentNode.insertBefore(wrap, keywordLabel);
-    }else{
-      keywordInput.parentNode.insertBefore(wrap, keywordInput);
-    }
+    keywordInput.parentNode.insertBefore(wrap, keywordInput);
     keywordInput.placeholder = "위 교과 키워드를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
 
@@ -117,31 +120,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
     if(subjectEl){
       subjectEl.addEventListener("change", function(){
         syncSubjectFromSelect();
-        resetBelowSubject();
+        state.concept = "";
+        state.keyword = "";
+        state.career = "";
+        syncKeywordInput();
+        syncCareerInput(false);
         renderAll();
-      });
-    }
-
-    const keywordInput = $("keyword");
-    if(keywordInput){
-      keywordInput.addEventListener("input", function(){
-        if(keywordInput.dataset.autoFilled !== "textbook-keyword"){
-          state.keyword = keywordInput.value.trim();
-          state.career = "";
-          syncCareerInput(false);
-          renderSelectionSummary();
-          renderCareerButtons();
-        }
-      });
-    }
-
-    const careerInput = $("career");
-    if(careerInput){
-      careerInput.addEventListener("input", function(){
-        if(careerInput.dataset.autoFilled !== "textbook-career"){
-          state.career = careerInput.value.trim();
-          renderSelectionSummary();
-        }
+        safeHideLegacyCareerBlock();
       });
     }
 
@@ -183,14 +168,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
     }
   }
 
-  function resetBelowSubject(){
-    state.concept = "";
-    state.keyword = "";
-    state.career = "";
-    syncKeywordInput();
-    syncCareerInput(false);
-  }
-
   function getSubjectRawValue(){
     const el = $("subject");
     if(!el) return "";
@@ -206,42 +183,34 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
 
   function findSubjectKey(raw){
     if(!raw || !uiSeed) return "";
-
-    const cleaned = normalizeSubject(raw);
-    const aliasMap = {
-      "통합과학": "통합과학1",
-      "통합과학1": "통합과학1",
-      "integratedscience": "통합과학1",
-      "integratedscience1": "통합과학1",
-      "과학탐구실험": "과학탐구실험1",
-      "과학탐구실험1": "과학탐구실험1",
-      "과학탐구실험2": "과학탐구실험2",
-      "scienceinquiryexperiment": "과학탐구실험1",
-      "scienceinquiryexperiment1": "과학탐구실험1",
-      "scienceinquiryexperiment2": "과학탐구실험2",
-      "수학": "공통수학1",
-      "공통수학": "공통수학1",
-      "공통수학1": "공통수학1",
-      "공통수학2": "공통수학2",
-      "commonmath": "공통수학1",
-      "commonmath1": "공통수학1",
-      "commonmath2": "공통수학2",
-      "정보": "정보",
-      "information": "정보"
-    };
-
-    if(aliasMap[cleaned]) return aliasMap[cleaned];
-
     const keys = Object.keys(uiSeed);
+    const cleaned = normalizeSubject(raw);
+
     for(const key of keys){
-      if(normalizeSubject(key) === cleaned) return key;
+      const nk = normalizeSubject(key);
+      if(nk === cleaned) return key;
     }
     for(const key of keys){
       const nk = normalizeSubject(key);
       if(cleaned.includes(nk) || nk.includes(cleaned)) return key;
     }
 
-    return "";
+    const aliasMap = {
+      "통합과학": "통합과학1",
+      "통합과학1": "통합과학1",
+      "integratedscience1": "통합과학1",
+      "scienceinquiryexperiment1": "과학탐구실험1",
+      "scienceinquiryexperiment2": "과학탐구실험2",
+      "과학탐구실험1": "과학탐구실험1",
+      "과학탐구실험2": "과학탐구실험2",
+      "공통수학1": "공통수학1",
+      "공통수학2": "공통수학2",
+      "commonmath1": "공통수학1",
+      "commonmath2": "공통수학2",
+      "정보": "정보",
+      "information": "정보"
+    };
+    return aliasMap[cleaned] || "";
   }
 
   function normalizeSubject(v){
@@ -254,45 +223,29 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
   function getConceptList(subject){
     if(!subject || !uiSeed || !uiSeed[subject]) return [];
     const entry = uiSeed[subject];
-
+    if(Array.isArray(entry.concepts)) return entry.concepts;
     if(Array.isArray(entry.concept_buttons)){
-      return entry.concept_buttons
-        .map(item => item && (item.concept || item.label || item.name))
-        .filter(Boolean);
+      return entry.concept_buttons.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
     }
     if(Array.isArray(entry.concept_order)) return entry.concept_order;
-    if(Array.isArray(entry.concepts)) return entry.concepts;
     if(Array.isArray(entry.items)){
       return entry.items.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
     }
     return [];
   }
 
-  function getSubjectEntry(){
-    if(!state.subject || !engineMap) return null;
-    return engineMap[state.subject] || null;
-  }
-
   function getConceptEntry(){
-    const subjectEntry = getSubjectEntry();
-    if(!subjectEntry || !state.concept) return null;
-
-    if(subjectEntry.concepts && subjectEntry.concepts[state.concept]){
-      return subjectEntry.concepts[state.concept];
-    }
-    if(subjectEntry[state.concept]){
-      return subjectEntry[state.concept];
-    }
-    return null;
+    if(!state.subject || !state.concept || !engineMap || !engineMap[state.subject]) return null;
+    return (engineMap[state.subject].concepts && engineMap[state.subject].concepts[state.concept]) || engineMap[state.subject][state.concept] || null;
   }
 
   function stringArrayFrom(value){
     if(!value) return [];
-    if(Array.isArray(value)){
+    if(Array.isArray(value)) {
       return value.map(item => {
         if(typeof item === "string") return item;
         if(item && typeof item === "object"){
-          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || item.concept || item.connection_point || "";
+          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || item.concept || "";
         }
         return "";
       }).filter(Boolean);
@@ -300,25 +253,89 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
     return [];
   }
 
-  function uniq(arr){
-    return [...new Set((arr || []).filter(Boolean))];
-  }
-
   function getKeywordList(entry){
     if(!entry) return [];
-    return uniq(stringArrayFrom(
-      entry.micro_keywords || entry.keywords || entry.core_keywords || entry.keyword_buttons
-    ));
+    return stringArrayFrom(entry.keywords || entry.micro_keywords || entry.core_keywords || entry.keyword_buttons);
   }
 
   function getCareerList(entry){
     if(!entry) return [];
-    const direct = stringArrayFrom(
-      entry.linked_career_bridge || entry.career_bridges || entry.careers || entry.career_keywords
-    );
-    const horizontal = stringArrayFrom(entry.horizontal_links);
-    const vertical = stringArrayFrom(entry.vertical_links);
-    return uniq([...direct, ...horizontal, ...vertical]);
+    return stringArrayFrom(entry.career_bridges || entry.linked_career_bridge || entry.careers || entry.career_keywords);
+  }
+
+  function getReasonList(entry, selectedCareer){
+    if(!entry) return [];
+
+    const direct = stringArrayFrom(entry.reason_lines || entry.connection_reasons || entry.linked_career_bridge || entry.career_reason_keywords);
+    const horizontal = Array.isArray(entry.horizontal_links) ? entry.horizontal_links : [];
+
+    const normalizedCareer = normalizeCareer(selectedCareer);
+    const matchedHorizontal = horizontal.filter(item => {
+      const subject = normalizeCareer(item && item.subject);
+      const concept = normalizeCareer(item && item.concept);
+      return normalizedCareer && (
+        subject.includes(normalizedCareer) ||
+        normalizedCareer.includes(subject) ||
+        concept.includes(normalizedCareer) ||
+        normalizedCareer.includes(concept)
+      );
+    });
+
+    const matchedReasonLines = matchedHorizontal.flatMap(item => {
+      const lines = [];
+      if(item.subject || item.concept){
+        const title = [item.subject, item.concept].filter(Boolean).join(" · ");
+        if(title) lines.push(`${title}와 연결`);
+      }
+      if(item.evaluation_focus) lines.push(item.evaluation_focus);
+      if(item.inquiry_extension) lines.push(`탐구 확장: ${item.inquiry_extension}`);
+      return lines;
+    });
+
+    return uniq([...direct, ...matchedReasonLines]);
+  }
+
+  function normalizeCareer(value){
+    return String(value || "")
+      .replace(/\s+/g, "")
+      .replace(/[()\-_/·]/g, "")
+      .toLowerCase();
+  }
+
+  function renderReasonBox(){
+    const el = $("textbookReasonBox");
+    if(!el) return;
+
+    if(!state.keyword){
+      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 왜 이 진로/학과와 연결되는지 설명이 나옵니다.</div>`;
+      return;
+    }
+
+    const entry = getConceptEntry();
+    if(!entry){
+      el.innerHTML = `<div class="textbook-empty">연결 설명 데이터를 찾지 못했습니다.</div>`;
+      return;
+    }
+
+    const reasons = getReasonList(entry, state.career);
+    const careerLabel = state.career || "관련 진로/학과";
+
+    let exampleText = "";
+    if(state.keyword === "정밀 측정"){
+      exampleText = "정밀 측정은 실험·센서·계측 데이터를 정확하게 다루는 역량과 연결되어 물리학, 공학, 데이터 해석 분야와 자연스럽게 이어집니다.";
+    } else if(state.keyword === "위치 추적"){
+      exampleText = "위치 추적은 좌표 계산, 센서 신호 해석, 위성·지도 데이터 활용과 연결되어 정보, 물리학, 지구과학 분야와 이어집니다.";
+    } else if(state.keyword === "과학 데이터 해석"){
+      exampleText = "과학 데이터 해석은 측정값을 읽고 패턴을 설명하는 힘이어서 실험 기반 과목과 데이터 활용 진로 전반에 연결됩니다.";
+    }
+
+    el.innerHTML = `
+      <div class="textbook-reason-wrap">
+        <div class="textbook-reason-title"><strong>${escapeHtml(state.keyword)}</strong> → <strong>${escapeHtml(careerLabel)}</strong></div>
+        ${exampleText ? `<p class="textbook-reason-lead">${escapeHtml(exampleText)}</p>` : ""}
+        ${reasons.length ? `<ul class="textbook-reason-list">${reasons.map(reason => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>` : `<div class="textbook-empty">아직 연결 설명이 충분히 등록되지 않았습니다.</div>`}
+      </div>
+    `;
   }
 
   function renderAll(){
@@ -326,6 +343,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
     renderConceptButtons();
     renderKeywordButtons();
     renderCareerButtons();
+    renderReasonBox();
     renderSelectionSummary();
   }
 
@@ -429,10 +447,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
     }
   }
 
-  function hardHideLegacyCareerBlock(){
-    const legacy = $("majorSelectorSection");
-    if(legacy) legacy.remove();
-    document.querySelectorAll(".major-selector-section").forEach(node => node.remove());
+  function safeHideLegacyCareerBlock(){
+    try{
+      const headings = Array.from(document.querySelectorAll("h1,h2,h3,h4"));
+      const target = headings.find(h => (h.textContent || "").includes("진로 → 학과 → 추천 키워드 선택"));
+      if(!target) return;
+
+      let block = target.closest("section, .card, .result-card, .side-card, .student-card, .analysis-card");
+      if(!block){
+        block = target.parentElement;
+      }
+      if(!block || block.id === "textbookConceptSelectorSection") return;
+      block.style.display = "none";
+    }catch(error){
+      console.warn("safeHideLegacyCareerBlock error:", error);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", init);
