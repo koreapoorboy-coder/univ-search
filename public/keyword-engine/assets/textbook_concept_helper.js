@@ -1,5 +1,5 @@
 
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1.1-safe-addon";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -15,12 +15,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
   const UI_SEED_URL = "seed/textbook-v1/subject_concept_ui_seed.json";
   const ENGINE_MAP_URL = "seed/textbook-v1/subject_concept_engine_map.json";
 
-  const state = {
-    subject: "",
-    concept: "",
-    topic: ""
-  };
-
+  const state = { subject: "", concept: "", topic: "" };
   let uiSeed = null;
   let engineMap = null;
 
@@ -30,12 +25,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" })
       ]);
-
       if(!uiRes.ok || !engineRes.ok){
         console.warn("textbook concept seed load failed", uiRes.status, engineRes.status);
         return;
       }
-
       uiSeed = await uiRes.json();
       engineMap = await engineRes.json();
 
@@ -50,8 +43,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
 
   function injectUI(){
     const keywordInput = $("keyword");
-    if(!keywordInput) return;
-    if($("textbookConceptSelectorSection")) return;
+    if(!keywordInput || $("textbookConceptSelectorSection")) return;
 
     const wrap = document.createElement("section");
     wrap.id = "textbookConceptSelectorSection";
@@ -94,13 +86,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
             <h3>현재 선택</h3>
             <div class="textbook-guide">자동 반영</div>
           </div>
-          <div id="textbookSelectionSummary" class="textbook-selection-summary">
-            아직 선택하지 않았습니다.
-          </div>
+          <div id="textbookSelectionSummary" class="textbook-selection-summary">아직 선택하지 않았습니다.</div>
         </div>
       </div>
     `;
-
     keywordInput.parentNode.insertBefore(wrap, keywordInput);
     keywordInput.placeholder = "위 교과 개념/주제를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
@@ -110,7 +99,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
     if(subjectEl){
       subjectEl.addEventListener("change", function(){
         syncSubjectFromSelect();
-        resetBelowSubject();
+        state.concept = "";
+        state.topic = "";
+        syncKeywordInput();
         renderAll();
       });
     }
@@ -123,7 +114,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
 
         const action = btn.dataset.action;
         const value = btn.dataset.value || "";
-
         event.preventDefault();
 
         if(action === "concept"){
@@ -132,27 +122,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
           renderAll();
           return;
         }
-
         if(action === "topic"){
           state.topic = state.topic === value ? "" : value;
           renderAll();
           syncKeywordInput();
-          return;
         }
       });
     }
   }
 
   function syncSubjectFromSelect(){
-    const subjectEl = $("subject");
-    const raw = subjectEl?.value?.trim() || "";
+    const raw = $("subject")?.value?.trim() || "";
     state.subject = findSubjectKey(raw);
-  }
-
-  function resetBelowSubject(){
-    state.concept = "";
-    state.topic = "";
-    syncKeywordInput();
   }
 
   function findSubjectKey(raw){
@@ -162,8 +143,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
 
     for(const key of keys){
       const nk = key.replace(/\s+/g, "").toLowerCase();
-      if(nk === normalized) return key;
-      if(normalized.includes(nk) || nk.includes(normalized)) return key;
+      if(nk === normalized || normalized.includes(nk) || nk.includes(normalized)) return key;
     }
 
     const aliasMap = {
@@ -175,8 +155,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
       "공통수학2": "공통수학2",
       "정보": "정보"
     };
-
     return aliasMap[raw] || "";
+  }
+
+  function getConceptList(subject){
+    if(!subject || !uiSeed || !uiSeed[subject]) return [];
+    const entry = uiSeed[subject];
+
+    if(Array.isArray(entry.concepts)) return entry.concepts;
+
+    if(Array.isArray(entry.concept_buttons)){
+      return entry.concept_buttons
+        .map(item => item && item.concept)
+        .filter(Boolean);
+    }
+
+    if(Array.isArray(entry.concept_order)) return entry.concept_order;
+
+    return [];
   }
 
   function renderAll(){
@@ -188,20 +184,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
 
   function renderSubjectSummary(){
     const el = $("selectedSubjectSummary");
-    if(!el) return;
-    el.textContent = state.subject || "먼저 과목을 선택하세요.";
+    if(el) el.textContent = state.subject || "먼저 과목을 선택하세요.";
   }
 
   function renderConceptButtons(){
     const el = $("textbookConceptButtons");
     if(!el) return;
 
-    if(!state.subject || !uiSeed || !uiSeed[state.subject]){
+    const concepts = getConceptList(state.subject);
+    if(!state.subject){
       el.innerHTML = `<div class="textbook-empty">과목을 선택하면 교과 개념이 나옵니다.</div>`;
       return;
     }
-
-    const concepts = uiSeed[state.subject].concepts || [];
     if(!concepts.length){
       el.innerHTML = `<div class="textbook-empty">등록된 교과 개념이 없습니다.</div>`;
       return;
@@ -245,23 +239,19 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v1-safe-addon";
   function renderSelectionSummary(){
     const el = $("textbookSelectionSummary");
     if(!el) return;
-
     const parts = [state.subject, state.concept, state.topic].filter(Boolean);
-    if(!parts.length){
-      el.textContent = "아직 선택하지 않았습니다.";
-      return;
-    }
-
-    el.innerHTML = parts.map(part => `<span class="textbook-chip">${escapeHtml(part)}</span>`).join("");
+    el.innerHTML = parts.length
+      ? parts.map(part => `<span class="textbook-chip">${escapeHtml(part)}</span>`).join("")
+      : "아직 선택하지 않았습니다.";
   }
 
   function syncKeywordInput(){
     const keywordInput = $("keyword");
     if(!keywordInput) return;
-    if(!state.topic) return;
-
-    keywordInput.value = state.topic;
-    keywordInput.dataset.autoFilled = "textbook-topic";
+    if(state.topic){
+      keywordInput.value = state.topic;
+      keywordInput.dataset.autoFilled = "textbook-topic";
+    }
   }
 
   document.addEventListener("DOMContentLoaded", init);
