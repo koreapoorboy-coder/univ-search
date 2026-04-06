@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -54,7 +54,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
     wrap.innerHTML = `
       <div class="textbook-concept-card">
         <div class="textbook-concept-kicker">수업 개념부터 고르면 더 이해하기 쉽습니다</div>
-        <h2 class="textbook-concept-title">과목 → 교과 개념 → 교과 키워드 → 진로 연결</h2>
+        <h2 class="textbook-concept-title">과목 → 교과 개념 → 교과 키워드 → 확장 방향 이해</h2>
         <p class="textbook-concept-desc">
           먼저 과목을 고르고, 그 안에서 수업 개념을 선택하세요.
           그다음 교과 키워드를 누르면 관련 진로/학과 연결까지 한눈에 볼 수 있습니다.
@@ -86,8 +86,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
 
         <div class="textbook-block">
           <div class="textbook-head">
-            <h3>4. 이 키워드와 연결되는 진로/학과</h3>
-            <div class="textbook-guide">선택 가능</div>
+            <h3>4. 이 키워드를 어떤 방향으로 확장할까?</h3>
+            <div class="textbook-guide">아래에서 과목·전공 연결 설명</div>
           </div>
           <div id="textbookCareerButtons" class="textbook-buttons"></div>
         </div>
@@ -329,14 +329,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
     const el = $("textbookCareerButtons");
     if(!el) return;
     if(!state.keyword){
-      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 관련 진로/학과 연결이 나옵니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 이 키워드를 어떤 방향으로 확장할지 고를 수 있습니다.</div>`;
       return;
     }
 
     const entry = getConceptEntry();
     const careers = getCareerList(entry);
     if(!careers.length){
-      el.innerHTML = `<div class="textbook-empty">등록된 진로/학과 연결이 없습니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">등록된 확장 방향 정보가 없습니다.</div>`;
       return;
     }
 
@@ -355,7 +355,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
       return;
     }
     if(!state.career){
-      el.innerHTML = `<div class="textbook-empty">진로/학과를 선택하면 “왜 연결되는지”, “어떤 대학 전공과 이어지는지”를 함께 보여줍니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">4번에서 하나를 선택하면 통합과학 단원, 연결 과목, 대학 전공까지 함께 보여줍니다.</div>`;
       return;
     }
 
@@ -367,6 +367,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
         <div class="reason-topline">${escapeHtml(reason.badge)}</div>
         <h4 class="reason-title">${escapeHtml(reason.title)}</h4>
         <p class="reason-lead">${escapeHtml(reason.lead)}</p>
+
+        <div class="reason-major-summary">
+          <div class="reason-mini-label">추천 전공 예시</div>
+          <div class="reason-chip-list reason-chip-list--highlight">${reason.majorChips}</div>
+        </div>
 
         <div class="reason-grid reason-grid--major">
           <div class="reason-mini-card">
@@ -382,8 +387,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
             <div class="reason-chip-list">${reason.subjectChips}</div>
           </div>
           <div class="reason-mini-card">
-            <div class="reason-mini-label">연결되는 대학 전공은?</div>
-            <div class="reason-chip-list">${reason.majorChips}</div>
+            <div class="reason-mini-label">전공으로 더 가면?</div>
+            <p>${escapeHtml(reason.majorLead)}</p>
           </div>
         </div>
 
@@ -434,13 +439,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
 
     return {
       badge: `${subject} · ${concept}`,
-      title: `${keyword}이(가) ${career}와 연결되는 이유`,
-      lead: `${keyword}은(는) 교과서에서 배우는 개념이지만, 실제로는 다른 과목과 대학 전공까지 이어질 수 있는 출발점이에요.`,
+      title: `${keyword}을(를) 이렇게 확장해 볼 수 있어요`,
+      lead: `${keyword}은(는) 교과서 속 개념이지만, 실제로는 다른 과목과 대학 전공까지 이어질 수 있는 출발점이에요.`,
       why: buildWhyText(keyword, career),
-      schoolLabel: `${subject}에서는 어디서 나와?`,
+      schoolLabel: `${subject} 단원 연결`,
       school: buildSchoolText(subject, concept, keyword, entry),
       subjectChips: chipHtml(relatedSubjects),
       majorChips: chipHtml(relatedMajors),
+      majorLead: buildMajorLeadText(relatedMajors),
       fit: buildFitText(keyword, career)
     };
   }
@@ -509,6 +515,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
     });
     results = unique(results);
     return results.length ? results.slice(0, 6) : ["자연과학계열","공학계열","의생명계열"];
+  }
+
+
+  function buildMajorLeadText(majors){
+    const list = (majors || []).filter(Boolean);
+    if(!list.length) return "이 키워드는 자연과학·공학·의생명 계열 전공과 폭넓게 이어질 수 있어요.";
+    if(list.length === 1) return `${list[0]}처럼 교과 개념을 실제 분석과 탐구로 확장하는 전공과 연결돼요.`;
+    const top = list.slice(0, 3).join(", ");
+    return `${top}처럼 교과 개념을 측정·해석·모델링으로 확장하는 전공과 이어질 수 있어요.`;
   }
 
   function buildFitText(keyword, career){
