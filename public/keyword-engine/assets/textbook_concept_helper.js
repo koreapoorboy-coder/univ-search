@@ -1,5 +1,4 @@
-
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.1-major-readable";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -95,10 +94,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
 
         <div class="textbook-block">
           <div class="textbook-head">
-            <h3>5. 왜 이 키워드가 이 진로와 연결될까?</h3>
-            <div class="textbook-guide">쉬운 설명</div>
+            <h3>5. 왜 이 키워드가 중요할까?</h3>
+            <div class="textbook-guide">대학 전공까지 연결</div>
           </div>
-          <div id="textbookReasonBox" class="textbook-reason-box">교과 키워드와 진로를 선택하면 쉽게 풀어 설명해 줍니다.</div>
+          <div id="textbookReasonBox" class="textbook-reason-box">교과 키워드와 진로를 선택하면 수업 위치, 연결 과목, 대학 전공까지 함께 보여줍니다.</div>
         </div>
 
         <div class="textbook-block">
@@ -257,6 +256,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
     return [];
   }
 
+  function unique(arr){
+    return [...new Set((arr || []).filter(Boolean))];
+  }
+
   function getKeywordList(entry){
     if(!entry) return [];
     return stringArrayFrom(entry.keywords || entry.micro_keywords || entry.core_keywords || entry.keyword_buttons);
@@ -348,11 +351,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
     if(!el) return;
 
     if(!state.keyword){
-      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 이 키워드가 왜 중요한지 쉽게 설명해 줍니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 수업 위치와 대학 전공 연결까지 쉽게 설명해 줍니다.</div>`;
       return;
     }
     if(!state.career){
-      el.innerHTML = `<div class="textbook-empty">진로/학과를 선택하면 “왜 연결되는지”를 학생 눈높이로 풀어 보여줍니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">진로/학과를 선택하면 “왜 연결되는지”, “어떤 대학 전공과 이어지는지”를 함께 보여줍니다.</div>`;
       return;
     }
 
@@ -360,29 +363,33 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
     const reason = buildReasonData(entry, state.keyword, state.career, state.subject, state.concept);
 
     el.innerHTML = `
-      <div class="reason-card">
+      <div class="reason-card reason-card--major">
         <div class="reason-topline">${escapeHtml(reason.badge)}</div>
         <h4 class="reason-title">${escapeHtml(reason.title)}</h4>
         <p class="reason-lead">${escapeHtml(reason.lead)}</p>
 
-        <div class="reason-grid">
+        <div class="reason-grid reason-grid--major">
           <div class="reason-mini-card">
             <div class="reason-mini-label">왜 연결돼?</div>
             <p>${escapeHtml(reason.why)}</p>
           </div>
           <div class="reason-mini-card">
-            <div class="reason-mini-label">학교 공부에서는?</div>
+            <div class="reason-mini-label">${escapeHtml(reason.schoolLabel)}</div>
             <p>${escapeHtml(reason.school)}</p>
           </div>
           <div class="reason-mini-card">
-            <div class="reason-mini-label">진로에서는?</div>
-            <p>${escapeHtml(reason.careerUse)}</p>
+            <div class="reason-mini-label">연결되는 다른 과목은?</div>
+            <div class="reason-chip-list">${reason.subjectChips}</div>
+          </div>
+          <div class="reason-mini-card">
+            <div class="reason-mini-label">연결되는 대학 전공은?</div>
+            <div class="reason-chip-list">${reason.majorChips}</div>
           </div>
         </div>
 
         <div class="reason-example">
-          <div class="reason-mini-label">이렇게 이해하면 쉬워요</div>
-          <p>${escapeHtml(reason.example)}</p>
+          <div class="reason-mini-label">이런 학생에게 잘 맞아요</div>
+          <p>${escapeHtml(reason.fit)}</p>
         </div>
       </div>
     `;
@@ -422,61 +429,105 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-reason-readable";
   }
 
   function buildReasonData(entry, keyword, career, subject, concept){
-    const bridges = stringArrayFrom(entry && (entry.linked_career_bridge || entry.career_bridges)).slice(0, 3);
-    const horizontal = Array.isArray(entry && entry.horizontal_links) ? entry.horizontal_links : [];
-    const vertical = Array.isArray(entry && entry.vertical_links) ? entry.vertical_links : [];
-
-    const bridgeText = bridges.length
-      ? bridges.map(makeBridgePhrase).join(", ")
-      : "관찰하고 해석하는 힘";
-
-    const horizontalText = horizontal.length
-      ? `${horizontal[0].subject || "다른 교과"}에서 ${(horizontal[0].concept || "관련 개념")}을 다룰 때 함께 이어져요.`
-      : `${subject} 수업에서 배운 내용을 실제 사례에 연결해 보는 출발점이 됩니다.`;
-
-    const verticalText = vertical.length
-      ? `${vertical[0].subject || "다음 단계 학습"}처럼 더 전문적인 내용으로 이어질 수 있어요.`
-      : `${career}처럼 실제 분야로 확장해 볼 수 있는 기초 개념이에요.`;
+    const relatedSubjects = getRelatedSubjects(entry, subject, career);
+    const relatedMajors = getRelatedMajors(keyword, career, relatedSubjects);
 
     return {
       badge: `${subject} · ${concept}`,
       title: `${keyword}이(가) ${career}와 연결되는 이유`,
-      lead: `${keyword}은(는) 단순한 단어가 아니라, ${career}에서 자주 쓰는 생각 방식과 연결되는 교과 키워드예요.`,
-      why: `${career}에서는 ${bridgeText}이 중요해요. 그래서 ${keyword}을(를) 이해하면 해당 분야의 문제를 더 정확하게 보고 설명할 수 있어요.`,
-      school: `${concept} 단원에서 ${keyword}을(를) 배우는 이유는 개념을 외우는 데서 끝나는 게 아니라, 실제 현상을 설명하는 기준으로 쓰기 위해서예요. ${horizontalText}`,
-      careerUse: `${career}에서는 ${keyword}과(와) 비슷한 원리로 자료를 해석하거나 변화를 관찰하고, 결과를 설명하는 일이 많아요. ${verticalText}`,
-      example: buildExample(keyword, career)
+      lead: `${keyword}은(는) 교과서에서 배우는 개념이지만, 실제로는 다른 과목과 대학 전공까지 이어질 수 있는 출발점이에요.`,
+      why: buildWhyText(keyword, career),
+      schoolLabel: `${subject}에서는 어디서 나와?`,
+      school: buildSchoolText(subject, concept, keyword, entry),
+      subjectChips: chipHtml(relatedSubjects),
+      majorChips: chipHtml(relatedMajors),
+      fit: buildFitText(keyword, career)
     };
   }
 
-  function makeBridgePhrase(bridge){
-    const map = {
-      "정밀 측정":"정확하게 재고 오차를 줄이는 능력",
-      "위치 추적":"어디에 있고 어떻게 움직이는지 파악하는 능력",
-      "과학 데이터 해석":"숫자와 변화를 읽어 의미를 찾는 능력",
-      "생체 데이터":"몸에서 나오는 정보를 읽고 해석하는 능력",
-      "건강 측정":"몸 상태를 수치로 확인하는 능력",
-      "항상성 분석":"몸이 균형을 유지하는 과정을 보는 능력",
-      "생명과학 탐구":"생명 현상을 관찰하고 이유를 설명하는 능력",
-      "공통수학1":"수치와 관계를 식으로 정리하는 능력",
-      "정보":"자료를 구조화하고 처리하는 능력",
-      "물리학":"현상을 측정하고 원리로 설명하는 능력",
-      "지구과학":"자연 현상을 관찰하고 위치·변화를 해석하는 능력"
-    };
-    return map[bridge] || `${bridge}과 관련된 이해`;
-  }
-
-  function buildExample(keyword, career){
+  function buildWhyText(keyword, career){
     const pair = `${keyword}|${career}`;
-    const specific = {
-      "정밀 측정|물리학":"예를 들어 실험에서 길이·시간·속도를 정확히 재야 결과를 믿을 수 있듯, 물리학은 ‘정확하게 재는 힘’이 핵심이에요.",
-      "위치 추적|지구과학":"예를 들어 지진 위치나 태풍 이동 경로를 파악할 때처럼, 지구과학은 ‘어디서 어떤 변화가 일어나는지’ 추적하는 힘이 중요해요.",
-      "위치 추적|정보":"예를 들어 GPS나 지도 앱이 현재 위치를 계산하듯, 정보 분야는 위치 데이터를 처리하고 활용하는 일이 많아요.",
-      "자극 반응|생명과학 탐구":"예를 들어 생물이 빛, 소리, 온도 변화에 어떻게 반응하는지 살펴보면 생명 현상을 탐구하는 기본 질문이 만들어져요.",
-      "나트륨 이온|생명과학 탐구":"예를 들어 신경세포가 신호를 전달할 때 나트륨 이온의 이동이 중요하듯, 생명과학은 몸속 변화의 원리를 이런 개념으로 설명해요."
+    const map = {
+      "정밀 측정|물리학": "정밀 측정은 아주 작은 차이도 정확하게 재고 오차를 줄이는 힘과 연결돼요. 물리학은 실험과 관찰에서 정확한 수치가 중요해서 이 키워드와 잘 이어져요.",
+      "위치 추적|지구과학": "위치 추적은 대상이 어디에 있고 어떻게 움직이는지 파악하는 힘과 연결돼요. 지구과학은 지진, 태풍, 행성 운동처럼 위치와 변화를 읽는 일이 많아서 잘 맞아요.",
+      "위치 추적|정보": "위치 추적은 좌표와 데이터를 처리하는 힘과 연결돼요. 정보 분야에서는 GPS, 지도, 센서 데이터처럼 위치 정보를 계산하고 활용하는 일이 많아요.",
+      "자극 반응|생명과학 탐구": "자극 반응은 생물이 환경 변화에 어떻게 반응하는지 이해하는 핵심 개념이에요. 생명과학 탐구는 이런 변화를 관찰하고 이유를 설명하는 활동과 바로 연결돼요.",
+      "나트륨 이온|생명과학 탐구": "나트륨 이온은 신경 전달과 세포막 이동처럼 생명 현상을 설명할 때 자주 나오는 핵심 개념이에요. 그래서 생명과학 탐구와 자연스럽게 이어져요."
     };
-    if(specific[pair]) return specific[pair];
-    return `예를 들어 ${career}에서는 ${keyword}과(와) 연결된 원리로 현상을 설명하거나 자료를 해석하는 상황을 자주 만나게 돼요. 그래서 이 키워드를 알면 “왜 그런가?”를 더 잘 설명할 수 있어요.`;
+    if(map[pair]) return map[pair];
+    return `${keyword}은(는) ${career}와 관련된 현상을 관찰하고 해석할 때 자주 쓰이는 관점이에요. 교과서에서 배운 개념을 실제 문제에 연결해 보는 첫 단추라고 보면 돼요.`;
+  }
+
+  function buildSchoolText(subject, concept, keyword, entry){
+    const lesson = entry && entry.lesson_focus ? entry.lesson_focus : "개념의 의미를 이해하고 실제 현상과 연결하는 흐름";
+    return `${subject}의 ‘${concept}’에서 ${keyword}과(와) 이어지는 흐름을 배우게 돼요. 이 단원은 ${lesson}`;
+  }
+
+  function getRelatedSubjects(entry, subject, career){
+    const horizontal = Array.isArray(entry && entry.horizontal_links) ? entry.horizontal_links.map(v => v && v.subject).filter(Boolean) : [];
+    const vertical = Array.isArray(entry && entry.vertical_links) ? entry.vertical_links.map(v => v && v.subject).filter(Boolean) : [];
+    const careerAsSubject = isSubjectLike(career) ? [career] : [];
+    const cleaned = unique([...horizontal, ...vertical, ...careerAsSubject]).filter(v => v !== subject);
+    return cleaned.slice(0, 6);
+  }
+
+  function isSubjectLike(value){
+    return ["물리학","지구과학","정보","공통수학1","공통수학2","생명과학 탐구","과학 데이터 해석"].includes(value);
+  }
+
+  function getRelatedMajors(keyword, career, subjects){
+    const key = `${keyword}|${career}`;
+    const pairMap = {
+      "정밀 측정|물리학": ["물리학과","기계공학과","전자공학과","반도체공학과","신소재공학과"],
+      "위치 추적|지구과학": ["지구과학과","천문우주학과","환경공학과","해양학과","도시공학과"],
+      "위치 추적|정보": ["컴퓨터공학과","소프트웨어학과","인공지능학과","전자공학과","항공우주공학과"],
+      "자극 반응|생명과학 탐구": ["생명과학과","생명공학과","의생명공학과","간호학과","약학과"],
+      "나트륨 이온|생명과학 탐구": ["생명과학과","생명공학과","의생명공학과","약학과","간호학과"]
+    };
+    if(pairMap[key]) return pairMap[key];
+
+    const baseMap = {
+      "물리학": ["물리학과","기계공학과","전자공학과","반도체공학과","천문우주학과"],
+      "지구과학": ["지구과학과","천문우주학과","환경공학과","해양학과","지리학과"],
+      "정보": ["컴퓨터공학과","소프트웨어학과","인공지능학과","데이터사이언스학과","전자공학과"],
+      "공통수학1": ["수학과","통계학과","산업공학과","데이터사이언스학과","경제학과"],
+      "공통수학2": ["수학과","통계학과","산업공학과","건축학과","도시공학과"],
+      "생명과학 탐구": ["생명과학과","생명공학과","의생명공학과","간호학과","약학과"],
+      "과학 데이터 해석": ["통계학과","데이터사이언스학과","산업공학과","환경공학과","물리학과"],
+      "정밀 측정": ["물리학과","기계공학과","전자공학과","반도체공학과","신소재공학과"],
+      "위치 추적": ["지구과학과","천문우주학과","항공우주공학과","컴퓨터공학과","도시공학과"],
+      "생체 데이터": ["의공학과","생명과학과","생명공학과","간호학과","보건학과"],
+      "건강 측정": ["간호학과","보건학과","의공학과","스포츠과학과","약학과"],
+      "항상성 분석": ["생명과학과","생명공학과","간호학과","약학과","의예과"]
+    };
+
+    let results = [];
+    if(baseMap[career]) results = results.concat(baseMap[career]);
+    if(baseMap[keyword]) results = results.concat(baseMap[keyword]);
+    (subjects || []).forEach(subject => {
+      if(baseMap[subject]) results = results.concat(baseMap[subject].slice(0,2));
+    });
+    results = unique(results);
+    return results.length ? results.slice(0, 6) : ["자연과학계열","공학계열","의생명계열"];
+  }
+
+  function buildFitText(keyword, career){
+    const byCareer = {
+      "물리학": "측정, 비교, 실험 결과 해석을 좋아하는 학생에게 잘 맞아요.",
+      "지구과학": "위치 변화, 자연 현상 관찰, 지도나 우주에 관심 있는 학생에게 잘 맞아요.",
+      "정보": "데이터를 구조화하고 계산하거나 디지털 도구를 활용하는 걸 좋아하는 학생에게 잘 맞아요.",
+      "생명과학 탐구": "몸의 변화, 생명 현상, 실험과 관찰을 좋아하는 학생에게 잘 맞아요.",
+      "과학 데이터 해석": "숫자와 그래프를 보고 의미를 찾는 걸 좋아하는 학생에게 잘 맞아요."
+    };
+    if(byCareer[career]) return byCareer[career];
+    if(keyword.includes("측정")) return "정확하게 재고 비교하는 활동을 좋아하는 학생에게 잘 맞아요.";
+    if(keyword.includes("추적")) return "움직임과 위치 변화를 따라가는 활동을 좋아하는 학생에게 잘 맞아요.";
+    return `${keyword}처럼 개념을 외우는 데서 끝나지 않고, 다른 과목이나 전공까지 확장해 보고 싶은 학생에게 잘 맞아요.`;
+  }
+
+  function chipHtml(items){
+    if(!items || !items.length) return `<span class="reason-chip muted-chip">연결 정보 준비 중</span>`;
+    return items.map(item => `<span class="reason-chip">${escapeHtml(item)}</span>`).join("");
   }
 
   function safeHideLegacyCareerBlock(){
