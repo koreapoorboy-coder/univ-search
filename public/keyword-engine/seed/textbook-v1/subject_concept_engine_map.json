@@ -1,0 +1,2591 @@
+{
+  "공통수학1": {
+    "meta": {
+      "subject_kr": "공통수학1",
+      "subject_en": "Common Mathematics 1",
+      "publisher": "MiraeN",
+      "curriculum": "2022 Revised Curriculum",
+      "source_name": "common_math1_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "다항식의 연산": {
+        "unit": "다항식",
+        "lesson_focus": "다항식의 구조를 이해하고 덧셈·뺄셈·곱셈·나눗셈 규칙을 적용한다.",
+        "core_concepts": [
+          "다항식",
+          "항",
+          "계수",
+          "차수",
+          "연산 규칙"
+        ],
+        "micro_keywords": [
+          "동류항",
+          "정리",
+          "전개",
+          "분배법칙",
+          "곱셈",
+          "나눗셈",
+          "몫",
+          "나머지"
+        ],
+        "student_topics": [
+          "다항식 계산은 왜 일정한 규칙을 따라야 할까?",
+          "식의 구조를 보는 눈은 문제 해결에 어떻게 도움이 될까?"
+        ],
+        "linked_activity_types": [
+          "규칙 발견형",
+          "문제 해결형",
+          "구조 분석형"
+        ],
+        "linked_career_bridge": [
+          "수학 모델링",
+          "알고리즘 사고",
+          "식의 구조화"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "정량 관계 표현",
+            "evaluation_focus": "과학 현상을 식으로 단순화해 표현하는 기초를 이해하는가",
+            "inquiry_extension": "측정값 관계를 간단한 식으로 모델링하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "연산 절차와 알고리즘",
+            "evaluation_focus": "연산 과정을 절차로 설명할 수 있는가",
+            "inquiry_extension": "다항식 연산 과정을 단계별 알고리즘으로 써 보기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "대수 심화/수학 관련 심화",
+            "connection_point": "식의 변형과 모델링 사고 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "관계식을 통한 현상 표현으로 연결"
+          }
+        ]
+      },
+      "나머지정리와 인수분해": {
+        "unit": "다항식",
+        "lesson_focus": "항등식·나머지정리·인수분해를 통해 식의 구조와 해의 단서를 파악한다.",
+        "core_concepts": [
+          "항등식",
+          "나머지정리",
+          "인수정리",
+          "인수분해"
+        ],
+        "micro_keywords": [
+          "항등식의 성질",
+          "나머지",
+          "인수",
+          "다항식의 나눗셈",
+          "구조 분해",
+          "해의 조건"
+        ],
+        "student_topics": [
+          "복잡한 식을 왜 더 단순한 구조로 나누어 보아야 할까?",
+          "나머지정리는 어떻게 식의 성질을 빠르게 파악하게 해 줄까?"
+        ],
+        "linked_activity_types": [
+          "구조 분해형",
+          "패턴 분석형",
+          "문제 해결형"
+        ],
+        "linked_career_bridge": [
+          "구조 해석",
+          "논리적 추론",
+          "계산 효율성"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "분해와 구성의 사고",
+            "evaluation_focus": "복잡한 현상을 구성 요소로 나누어 이해하는 태도를 갖추고 있는가",
+            "inquiry_extension": "복잡한 과학 현상을 변수와 요소로 쪼개어 보기"
+          },
+          {
+            "subject": "화학",
+            "concept": "구성 요소와 구조 이해",
+            "evaluation_focus": "복합 구조를 분해해 이해하는 사고를 다른 교과에 적용할 수 있는가",
+            "inquiry_extension": "물질의 구성과 수학의 인수분해 사고 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "수학 심화",
+            "connection_point": "방정식 해석과 식의 구조 이해 심화"
+          }
+        ]
+      },
+      "복소수와 이차방정식": {
+        "unit": "방정식과 부등식",
+        "lesson_focus": "복소수의 필요성을 이해하고 이차방정식의 해를 해석한다.",
+        "core_concepts": [
+          "복소수",
+          "이차방정식",
+          "판별식",
+          "근과 계수의 관계"
+        ],
+        "micro_keywords": [
+          "허수",
+          "허근",
+          "판별식",
+          "근",
+          "계수",
+          "해의 존재",
+          "방정식 해석"
+        ],
+        "student_topics": [
+          "실수로 설명되지 않는 해는 왜 필요할까?",
+          "판별식은 왜 방정식의 성질을 한 번에 보여줄까?"
+        ],
+        "linked_activity_types": [
+          "개념 확장형",
+          "해석형",
+          "문제 해결형"
+        ],
+        "linked_career_bridge": [
+          "추상화",
+          "수학적 언어 확장",
+          "관계 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "물리학",
+            "concept": "수식 해석",
+            "evaluation_focus": "관계식을 통해 가능한 상태를 해석할 수 있는가",
+            "inquiry_extension": "물리 관계식에서 해의 의미를 설명해 보기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "수학 심화",
+            "connection_point": "함수와 방정식 해석의 확장"
+          }
+        ]
+      },
+      "이차방정식과 이차함수": {
+        "unit": "방정식과 부등식",
+        "lesson_focus": "방정식과 함수의 관계를 이해하고 그래프를 통해 최대·최소를 해석한다.",
+        "core_concepts": [
+          "이차방정식",
+          "이차함수",
+          "그래프",
+          "꼭짓점",
+          "최대·최소"
+        ],
+        "micro_keywords": [
+          "그래프 해석",
+          "꼭짓점 좌표",
+          "축",
+          "최댓값",
+          "최솟값",
+          "함수와 방정식의 관계"
+        ],
+        "student_topics": [
+          "같은 식이 왜 방정식으로도, 함수로도 해석될까?",
+          "그래프를 보면 식의 성질을 왜 더 쉽게 볼 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "그래프해석형",
+          "모델링형",
+          "문제 해결형"
+        ],
+        "linked_career_bridge": [
+          "데이터 시각화",
+          "모델링",
+          "변화 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "측정값의 그래프 해석",
+            "evaluation_focus": "과학 데이터를 함수 그래프로 해석하는 기초를 갖추고 있는가",
+            "inquiry_extension": "온도·속도 변화 데이터를 포물선과 비교하며 해석해 보기"
+          },
+          {
+            "subject": "정보",
+            "concept": "시각화와 좌표 표현",
+            "evaluation_focus": "데이터를 좌표평면에 표현하고 해석할 수 있는가",
+            "inquiry_extension": "간단한 데이터셋을 좌표 그래프로 시각화하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "운동·변화량 그래프 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공통수학2",
+            "connection_point": "좌표와 도형의 관계 해석으로 확장"
+          }
+        ]
+      },
+      "여러 가지 방정식과 부등식": {
+        "unit": "방정식과 부등식",
+        "lesson_focus": "삼차·사차방정식, 연립방정식, 부등식을 통해 조건과 해의 범위를 해석한다.",
+        "core_concepts": [
+          "삼차방정식",
+          "사차방정식",
+          "연립이차방정식",
+          "부등식",
+          "해의 범위"
+        ],
+        "micro_keywords": [
+          "연립일차부등식",
+          "이차부등식",
+          "연립이차부등식",
+          "조건 해석",
+          "해집합",
+          "범위 판단"
+        ],
+        "student_topics": [
+          "방정식은 하나의 답을 찾고, 부등식은 왜 범위를 찾는 걸까?",
+          "조건이 많아질수록 해석이 왜 더 중요해질까?"
+        ],
+        "linked_activity_types": [
+          "조건 분석형",
+          "경우 구분형",
+          "논리 해석형"
+        ],
+        "linked_career_bridge": [
+          "조건 최적화",
+          "문제 해결",
+          "범위 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합사회",
+            "concept": "조건과 기준",
+            "evaluation_focus": "기준에 따라 가능한 범위를 해석할 수 있는가",
+            "inquiry_extension": "현실의 규제 기준을 부등식 형태로 바꿔 보기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "측정 기준과 허용 범위",
+            "evaluation_focus": "과학적 기준을 범위 개념으로 연결할 수 있는가",
+            "inquiry_extension": "미세먼지·소음 기준을 수학적 범위로 표현해 보기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "과학 데이터 해석",
+            "connection_point": "실험 조건과 허용 범위 해석으로 연결"
+          }
+        ]
+      },
+      "경우의 수, 순열, 조합": {
+        "unit": "경우의 수",
+        "lesson_focus": "가능한 경우를 체계적으로 세고 선택 구조를 이해한다.",
+        "core_concepts": [
+          "경우의 수",
+          "순열",
+          "조합",
+          "선택",
+          "배열"
+        ],
+        "micro_keywords": [
+          "경우 나누기",
+          "중복 없는 선택",
+          "순서 고려",
+          "순서 미고려",
+          "계산 전략"
+        ],
+        "student_topics": [
+          "같은 선택도 왜 순서를 따지면 결과가 달라질까?",
+          "가능한 경우를 빠짐없이 세는 방법은 무엇일까?"
+        ],
+        "linked_activity_types": [
+          "경우 구분형",
+          "전략 수립형",
+          "논리 구조형"
+        ],
+        "linked_career_bridge": [
+          "의사결정",
+          "확률적 사고 기초",
+          "알고리즘 사고"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "탐색 전략",
+            "evaluation_focus": "가능한 경우를 체계적으로 탐색하는 사고를 보이는가",
+            "inquiry_extension": "간단한 탐색 알고리즘과 경우의 수 비교하기"
+          },
+          {
+            "subject": "과학탐구실험1",
+            "concept": "탐구 설계 선택지",
+            "evaluation_focus": "탐구 조건을 경우의 수 관점으로 구조화할 수 있는가",
+            "inquiry_extension": "변인 조합에 따른 탐구 설계 경우 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "확률·통계 관련 학습",
+            "connection_point": "자료 해석과 확률적 사고의 기초 형성"
+          }
+        ]
+      },
+      "행렬과 행렬의 연산": {
+        "unit": "행렬",
+        "lesson_focus": "여러 값을 표 형태로 표현하고 연산을 통해 효율적으로 처리한다.",
+        "core_concepts": [
+          "행렬",
+          "자료 표현",
+          "행렬의 연산",
+          "구조적 처리"
+        ],
+        "micro_keywords": [
+          "행과 열",
+          "자료 배열",
+          "연산 규칙",
+          "효율적 처리",
+          "표 데이터"
+        ],
+        "student_topics": [
+          "왜 많은 자료를 한꺼번에 표현할 때 행렬이 유용할까?",
+          "행렬 연산은 어떤 상황에서 효율성을 높여 줄까?"
+        ],
+        "linked_activity_types": [
+          "자료구조형",
+          "연산 적용형",
+          "시각화형"
+        ],
+        "linked_career_bridge": [
+          "데이터 처리",
+          "컴퓨팅",
+          "공학 계산"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "데이터 구조",
+            "evaluation_focus": "자료를 구조화된 형태로 정리하고 처리할 수 있는가",
+            "inquiry_extension": "학생 실험 데이터나 센서 데이터를 행렬 형태로 배열해 보기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "측정 데이터 정리",
+            "evaluation_focus": "여러 조건의 측정값을 체계적으로 정리할 수 있는가",
+            "inquiry_extension": "조건별 과학 측정값 표를 행렬 관점으로 해석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보/인공지능 기초",
+            "connection_point": "데이터 배열과 연산 구조로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "센서 데이터·수치 모델 정리로 연결"
+          }
+        ]
+      }
+    }
+  },
+  "공통수학2": {
+    "meta": {
+      "subject_kr": "공통수학2",
+      "subject_en": "Common Mathematics 2",
+      "publisher": "MiraeN",
+      "curriculum": "2022 Revised Curriculum",
+      "source_name": "common_math2_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "평면좌표와 직선의 방정식": {
+        "unit": "도형의 방정식",
+        "lesson_focus": "평면 위의 점과 직선을 수식으로 표현하고 위치 관계를 해석한다.",
+        "core_concepts": [
+          "평면좌표",
+          "좌표평면",
+          "선분의 내분",
+          "직선의 방정식",
+          "기울기",
+          "직선의 위치 관계",
+          "점과 직선 사이의 거리"
+        ],
+        "micro_keywords": [
+          "좌표",
+          "x축",
+          "y축",
+          "기울기",
+          "평행",
+          "수직",
+          "일치",
+          "일차방정식",
+          "Ax+By+C=0",
+          "y=mx+n",
+          "내분점",
+          "거리 공식"
+        ],
+        "student_topics": [
+          "도형을 왜 좌표와 식으로 표현해야 할까?",
+          "직선 두 개의 관계는 왜 기울기로 빠르게 판단할 수 있을까?",
+          "점과 직선 사이의 거리는 왜 식으로 계산할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "좌표해석형",
+          "관계분석형",
+          "모델링형"
+        ],
+        "linked_career_bridge": [
+          "공간 해석",
+          "설계 도면",
+          "좌표 기반 모델링",
+          "측정과 거리 계산"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "측정값의 좌표화",
+            "evaluation_focus": "과학 현상이나 측정값을 좌표와 직선 관계로 표현할 수 있는가",
+            "inquiry_extension": "시간-거리, 위치-온도 같은 자료를 좌표평면에 나타내기"
+          },
+          {
+            "subject": "물리학",
+            "concept": "운동의 위치 변화",
+            "evaluation_focus": "위치 관계와 변화 방향을 수학적 직선 모델로 설명할 수 있는가",
+            "inquiry_extension": "등속 운동 자료를 직선 그래프로 모델링하기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "도면과 직선 구조",
+            "evaluation_focus": "좌표·기울기·거리 개념을 구조 설계나 도면 해석에 적용할 수 있는가",
+            "inquiry_extension": "간단한 구조 도면을 좌표와 직선으로 바꾸어 보기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "운동 그래프와 벡터적 해석의 기초로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "지구과학",
+            "connection_point": "위치·거리·공간 관계 해석으로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "설계 좌표와 구조 모델 해석으로 연결"
+          }
+        ]
+      },
+      "원의 방정식": {
+        "unit": "도형의 방정식",
+        "lesson_focus": "원을 중심과 반지름, 방정식과 접선의 관계로 해석하고 직선과의 위치 관계를 판단한다.",
+        "core_concepts": [
+          "원의 방정식",
+          "중심",
+          "반지름",
+          "원과 직선의 위치 관계",
+          "접선",
+          "판별식"
+        ],
+        "micro_keywords": [
+          "x²+y²=r²",
+          "중심좌표",
+          "반지름",
+          "접선의 방정식",
+          "원과 직선",
+          "두 점에서 만남",
+          "한 점에서 만남",
+          "만나지 않음",
+          "판별식",
+          "기울기"
+        ],
+        "student_topics": [
+          "원은 왜 중심과 반지름만으로 완전히 설명될까?",
+          "직선이 원에 접하는지 만나는지는 왜 식으로 판단할 수 있을까?",
+          "접선의 방정식은 어떻게 만들어질까?"
+        ],
+        "linked_activity_types": [
+          "도형모델링형",
+          "방정식해석형",
+          "관계판단형"
+        ],
+        "linked_career_bridge": [
+          "곡선 해석",
+          "회전 운동 모델",
+          "설계와 접선 개념",
+          "공간 구조 분석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "원운동과 중심 방향 해석",
+            "evaluation_focus": "원의 방정식 개념을 원운동이나 중심-반지름 구조와 연결할 수 있는가",
+            "inquiry_extension": "원운동 경로를 좌표와 반지름 개념으로 표현하기"
+          },
+          {
+            "subject": "물리학",
+            "concept": "원운동",
+            "evaluation_focus": "중심 방향과 경로를 수학적으로 설명할 수 있는가",
+            "inquiry_extension": "원운동 사례를 반지름·속력·방향과 함께 정리하기"
+          },
+          {
+            "subject": "미술/디자인",
+            "concept": "곡선과 접선",
+            "evaluation_focus": "곡선과 접선 개념을 시각적 설계에 적용할 수 있는가",
+            "inquiry_extension": "로고나 구조물의 곡선 요소를 원과 접선 관점으로 분석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "원운동과 가속도 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "회전 구조, 곡선 설계, 접선 활용 구조로 확장"
+          }
+        ]
+      },
+      "도형의 이동": {
+        "unit": "도형의 방정식",
+        "lesson_focus": "도형의 평행이동과 대칭이동을 좌표와 식의 변화로 해석한다.",
+        "core_concepts": [
+          "도형의 이동",
+          "평행이동",
+          "대칭이동",
+          "좌표 변화",
+          "도형의 식 변환"
+        ],
+        "micro_keywords": [
+          "이동 전후 좌표",
+          "평행이동 벡터",
+          "x축 대칭",
+          "y축 대칭",
+          "원점 대칭",
+          "직선 이동",
+          "원 이동",
+          "식의 치환"
+        ],
+        "student_topics": [
+          "도형이 움직이면 왜 좌표와 식도 함께 바뀔까?",
+          "대칭은 왜 단순한 그림 변화가 아니라 규칙 있는 좌표 변환일까?",
+          "도형의 이동을 식으로 보면 무엇이 더 잘 보일까?"
+        ],
+        "linked_activity_types": [
+          "변환해석형",
+          "시각화형",
+          "규칙발견형"
+        ],
+        "linked_career_bridge": [
+          "그래픽 변환",
+          "설계 수정",
+          "좌표 변환",
+          "시뮬레이션 사고"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "좌표 변환과 그래픽 처리",
+            "evaluation_focus": "좌표 변화를 규칙으로 설명하고 디지털 변환과 연결할 수 있는가",
+            "inquiry_extension": "간단한 좌표 변환 규칙을 코드나 표로 정리하기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "위치 변화와 모델 변환",
+            "evaluation_focus": "도형 이동 개념을 과학 모델의 위치 변화와 연결해 설명할 수 있는가",
+            "inquiry_extension": "천체·구조물·센서 위치 변화를 좌표 이동으로 표현하기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "설계 수정과 배치 변화",
+            "evaluation_focus": "도형 이동을 배치·구조 변경 문제에 적용할 수 있는가",
+            "inquiry_extension": "간단한 평면 배치를 평행이동·대칭이동으로 재설계하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보",
+            "connection_point": "그래픽 처리와 좌표 변환 개념으로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "설계 배치와 시뮬레이션 모델 수정으로 연결"
+          }
+        ]
+      }
+    }
+  },
+  "정보": {
+    "meta": {
+      "subject_kr": "정보",
+      "subject_en": "Information",
+      "publisher": "Cmas",
+      "curriculum": "2015 Revised Curriculum",
+      "source_name": "information_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "지식·정보 사회와 정보 문화": {
+        "unit": "정보 문화",
+        "lesson_focus": "지식·정보 사회의 특징을 이해하고 사회 구성원으로서 정보 문화 소양을 기른다.",
+        "core_concepts": [
+          "정보 문화",
+          "지식·정보 사회",
+          "정보 문화 소양",
+          "정보 윤리",
+          "디지털 시민성"
+        ],
+        "micro_keywords": [
+          "지식·정보 사회",
+          "사회 구성원",
+          "정보 문화 소양",
+          "정보 윤리 의식",
+          "정보 보호",
+          "정보 기술 활용",
+          "디지털 의사소통",
+          "공유와 협업"
+        ],
+        "student_topics": [
+          "정보 사회에서 필요한 태도와 역량은 무엇일까?",
+          "디지털 환경에서는 왜 정보 윤리와 정보 보호가 중요할까?",
+          "정보 문화 소양은 다른 과목 학습에도 어떻게 도움이 될까?"
+        ],
+        "linked_activity_types": [
+          "사례 분석형",
+          "토론형",
+          "생활 적용형"
+        ],
+        "linked_career_bridge": [
+          "디지털 시민성",
+          "정보 윤리",
+          "정보 보호",
+          "협업 문화"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합사회",
+            "concept": "사회 구성원과 규범",
+            "evaluation_focus": "정보 사회의 규범과 시민적 책임을 설명할 수 있는가",
+            "inquiry_extension": "디지털 시민성 사례를 사회 규범과 함께 분석하기"
+          },
+          {
+            "subject": "국어",
+            "concept": "정보 해석과 의사소통",
+            "evaluation_focus": "정보를 올바르게 해석하고 근거 있게 전달할 수 있는가",
+            "inquiry_extension": "가짜 정보와 신뢰 가능한 정보를 구분해 설명하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 심화/인공지능 기초",
+            "connection_point": "디지털 시민성과 기술 활용 태도의 심화"
+          }
+        ]
+      },
+      "자료와 정보의 표현": {
+        "unit": "자료와 정보",
+        "lesson_focus": "아날로그 정보를 디지털로 변환하고 약속된 표현 체계를 통해 정보를 전달하는 방식을 이해한다.",
+        "core_concepts": [
+          "자료",
+          "정보",
+          "표현 체계",
+          "디지털 변환",
+          "부호화"
+        ],
+        "micro_keywords": [
+          "아날로그 정보",
+          "디지털 정보",
+          "모스부호",
+          "표현의 약속",
+          "자료 표현",
+          "부호화",
+          "표현 방식 선택"
+        ],
+        "student_topics": [
+          "정보는 왜 약속된 표현 방식이 있어야 전달될까?",
+          "아날로그 정보를 디지털로 바꾸는 이유는 무엇일까?",
+          "같은 정보도 표현 방식에 따라 왜 다르게 보일까?"
+        ],
+        "linked_activity_types": [
+          "표현 변환형",
+          "자료 해석형",
+          "문제 해결형"
+        ],
+        "linked_career_bridge": [
+          "데이터 표현",
+          "디지털 신호",
+          "정보 전달",
+          "암호와 부호"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "센서와 디지털 정보",
+            "evaluation_focus": "과학 측정값이 어떻게 디지털 정보로 표현되는지 설명할 수 있는가",
+            "inquiry_extension": "온도·속도·소리 데이터를 디지털 정보 관점으로 정리하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "수치화",
+            "evaluation_focus": "현상을 수치와 규칙으로 바꾸어 표현할 수 있는가",
+            "inquiry_extension": "생활 자료를 수치 데이터로 바꾸어 표로 나타내기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보/인공지능 기초",
+            "connection_point": "데이터 표현과 처리의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "과학탐구실험2",
+            "connection_point": "센서 데이터와 디지털 정보 탐구로 확장"
+          }
+        ]
+      },
+      "자료와 정보의 분석": {
+        "unit": "자료와 정보",
+        "lesson_focus": "문제 해결을 위해 필요한 자료를 수집하고 분석하여 의미 있는 정보로 구성하는 과정을 이해한다.",
+        "core_concepts": [
+          "자료 수집",
+          "자료 분석",
+          "정보 구성",
+          "의미 도출",
+          "문제 해결"
+        ],
+        "micro_keywords": [
+          "자료 수집",
+          "자료 분석",
+          "컴퓨팅 도구",
+          "의미 있는 정보",
+          "분석 과정",
+          "정렬",
+          "탐색",
+          "비교 기준"
+        ],
+        "student_topics": [
+          "자료를 그냥 모으는 것과 분석하는 것은 왜 다를까?",
+          "의미 있는 정보는 어떻게 만들어질까?",
+          "문제 해결에 필요한 자료는 어떤 기준으로 모아야 할까?"
+        ],
+        "linked_activity_types": [
+          "데이터분석형",
+          "비교판단형",
+          "도구활용형"
+        ],
+        "linked_career_bridge": [
+          "데이터 분석",
+          "정보 관리",
+          "컴퓨팅 도구 활용",
+          "문제 해결"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "표와 그래프 해석",
+            "evaluation_focus": "자료를 표·그래프로 정리하고 비교·분석할 수 있는가",
+            "inquiry_extension": "생활 자료를 표와 그래프로 정리하고 패턴 해석하기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "측정 데이터 분석",
+            "evaluation_focus": "과학 실험·측정 자료를 정보 분석 관점에서 다룰 수 있는가",
+            "inquiry_extension": "센서 측정값을 수집·분석하여 결론 도출하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "과학탐구실험2",
+            "connection_point": "생활 자료와 건강·환경 데이터 분석 탐구로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "정보 심화",
+            "connection_point": "데이터 처리와 분석 알고리즘 심화"
+          }
+        ]
+      },
+      "추상화와 문제 분해": {
+        "unit": "문제 해결과 프로그래밍",
+        "lesson_focus": "복잡한 문제를 이해하고 분석하여 핵심 요소만 남기고 구조화하는 추상화 과정을 익힌다.",
+        "core_concepts": [
+          "추상화",
+          "문제 이해",
+          "문제 분해",
+          "모델링",
+          "구조화"
+        ],
+        "micro_keywords": [
+          "현재 상태",
+          "목표 상태",
+          "조건 분석",
+          "불필요한 요소 제거",
+          "작은 문제로 나누기",
+          "모델",
+          "모델링",
+          "비상 대피도"
+        ],
+        "student_topics": [
+          "복잡한 문제는 왜 바로 풀기보다 먼저 단순화해야 할까?",
+          "중요한 요소만 남기는 추상화는 어떻게 이루어질까?",
+          "문제 분해는 왜 실제 문제 해결을 더 쉽게 만들까?"
+        ],
+        "linked_activity_types": [
+          "문제구조화형",
+          "모델링형",
+          "프로젝트형"
+        ],
+        "linked_career_bridge": [
+          "컴퓨팅 사고",
+          "문제 구조화",
+          "모델링",
+          "프로젝트 설계"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "과학탐구실험1",
+            "concept": "탐구 설계",
+            "evaluation_focus": "탐구 문제를 핵심 요소 중심으로 구조화할 수 있는가",
+            "inquiry_extension": "과학 탐구 주제를 현재 상태-목표 상태-조건으로 정리하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "조건 정리와 구조화",
+            "evaluation_focus": "문제의 조건을 체계적으로 정리하고 경우를 나눌 수 있는가",
+            "inquiry_extension": "복잡한 상황을 표나 도식으로 구조화해 보기"
+          },
+          {
+            "subject": "통합사회",
+            "concept": "현실 문제의 구조 분석",
+            "evaluation_focus": "생활 속 문제를 사회적 맥락까지 고려해 구조화할 수 있는가",
+            "inquiry_extension": "학교 안전 문제를 정보·사회 관점에서 분석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "융합과학 탐구",
+            "connection_point": "프로젝트 문제 정의와 연구 설계의 기초로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "정보 심화",
+            "connection_point": "알고리즘 설계 전 추상화 단계의 정교화"
+          }
+        ]
+      },
+      "알고리즘 설계와 분석": {
+        "unit": "문제 해결과 프로그래밍",
+        "lesson_focus": "문제 해결 절차를 순차·선택·반복 구조로 설계하고 수행 시간 관점에서 분석한다.",
+        "core_concepts": [
+          "알고리즘",
+          "순차 구조",
+          "선택 구조",
+          "반복 구조",
+          "수행 시간",
+          "정렬",
+          "탐색"
+        ],
+        "micro_keywords": [
+          "순차",
+          "선택",
+          "반복",
+          "버블 정렬",
+          "선택 정렬",
+          "순차 탐색",
+          "이진 탐색",
+          "성능 비교",
+          "효율성"
+        ],
+        "student_topics": [
+          "같은 문제도 왜 알고리즘에 따라 효율이 달라질까?",
+          "정렬과 탐색은 왜 데이터를 빠르게 처리하게 해 줄까?",
+          "반복과 선택 구조는 어떤 문제에서 특히 유용할까?"
+        ],
+        "linked_activity_types": [
+          "알고리즘설계형",
+          "효율비교형",
+          "문제해결형"
+        ],
+        "linked_career_bridge": [
+          "알고리즘 사고",
+          "효율성 분석",
+          "자동화 설계",
+          "컴퓨팅 문제 해결"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "경우의 수와 절차적 사고",
+            "evaluation_focus": "문제 해결 절차를 논리적 순서로 설계할 수 있는가",
+            "inquiry_extension": "경우의 수 문제를 알고리즘 흐름으로 바꾸어 보기"
+          },
+          {
+            "subject": "과학탐구실험1",
+            "concept": "탐구 절차 설계",
+            "evaluation_focus": "탐구 실험 절차를 순차·선택·반복 구조로 설명할 수 있는가",
+            "inquiry_extension": "실험 절차를 순서도 형태로 표현하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 심화/프로그래밍",
+            "connection_point": "자료구조와 알고리즘 심화로 연결"
+          }
+        ]
+      },
+      "프로그래밍과 자동화": {
+        "unit": "문제 해결과 프로그래밍",
+        "lesson_focus": "프로그래밍 언어와 번역 과정을 이해하고 변수를 활용해 문제 해결을 자동화한다.",
+        "core_concepts": [
+          "프로그래밍 언어",
+          "고급 언어",
+          "저급 언어",
+          "컴파일러",
+          "인터프리터",
+          "변수",
+          "제어 구조",
+          "자동화"
+        ],
+        "micro_keywords": [
+          "Python",
+          "기계어",
+          "어셈블리어",
+          "원시 코드",
+          "언어 번역 프로그램",
+          "변수 설계",
+          "입력과 출력",
+          "반복문",
+          "조건문",
+          "random 모듈",
+          "turtle 그래픽",
+          "리스트",
+          "리스트 내포"
+        ],
+        "student_topics": [
+          "사람의 언어와 컴퓨터 언어는 왜 번역 과정이 필요할까?",
+          "프로그래밍은 어떻게 반복되는 문제를 자동화할까?",
+          "좋은 프로그램은 왜 변수와 흐름 설계가 중요할까?"
+        ],
+        "linked_activity_types": [
+          "프로그래밍실습형",
+          "자동화형",
+          "시각화형"
+        ],
+        "linked_career_bridge": [
+          "소프트웨어 개발",
+          "자동화",
+          "프로그래밍",
+          "컴퓨터 공학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "반복 계산과 구조화",
+            "evaluation_focus": "수학적 규칙이나 반복 계산을 코드로 구현할 수 있는가",
+            "inquiry_extension": "경우의 수 계산이나 수열 규칙을 간단한 프로그램으로 구현하기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "측정 데이터 자동 처리",
+            "evaluation_focus": "과학 데이터를 코드로 정리·출력하는 기초 사고를 보이는가",
+            "inquiry_extension": "센서 데이터나 실험 결과를 출력하는 간단한 코드 설계하기"
+          },
+          {
+            "subject": "미술",
+            "concept": "그래픽과 알고리즘",
+            "evaluation_focus": "알고리즘을 시각적 결과물로 표현할 수 있는가",
+            "inquiry_extension": "turtle을 이용한 도형·패턴 그리기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 심화/AI 기초",
+            "connection_point": "코딩, 자동화, 데이터 처리의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "프로그래밍 기반 문제 해결 프로젝트로 확장"
+          }
+        ]
+      },
+      "컴퓨팅 시스템과 네트워크": {
+        "unit": "컴퓨팅 시스템",
+        "lesson_focus": "컴퓨팅 시스템과 네트워크 기반에서 정보를 공유·유통·소통하는 구조를 이해한다.",
+        "core_concepts": [
+          "컴퓨팅 시스템",
+          "네트워크",
+          "공유",
+          "유통",
+          "소통",
+          "협업"
+        ],
+        "micro_keywords": [
+          "컴퓨팅 네트워크 환경",
+          "지식 공동체",
+          "학습 공동체",
+          "공유",
+          "의사소통",
+          "협업",
+          "네트워크 기반 문제 해결"
+        ],
+        "student_topics": [
+          "네트워크는 왜 단순 연결을 넘어 협업의 기반이 될까?",
+          "컴퓨팅 시스템은 어떻게 정보를 공유하고 유통할까?",
+          "협업적 문제 해결에는 왜 네트워크 환경이 중요할까?"
+        ],
+        "linked_activity_types": [
+          "시스템이해형",
+          "협업형",
+          "사례분석형"
+        ],
+        "linked_career_bridge": [
+          "네트워크",
+          "정보 시스템",
+          "협업 도구",
+          "디지털 소통"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "시스템과 상호작용",
+            "evaluation_focus": "컴퓨팅 시스템도 여러 요소가 상호작용하는 시스템임을 설명할 수 있는가",
+            "inquiry_extension": "지구시스템과 컴퓨팅 시스템의 공통 구조 비교하기"
+          },
+          {
+            "subject": "국어",
+            "concept": "디지털 의사소통",
+            "evaluation_focus": "네트워크 환경에서 적절한 소통과 협업 방식을 설명할 수 있는가",
+            "inquiry_extension": "온라인 협업 규칙과 의사소통 원칙 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 심화",
+            "connection_point": "네트워크와 시스템 구조 이해의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "스마트 시스템과 IoT 탐구로 확장"
+          }
+        ]
+      }
+    }
+  },
+  "통합과학1": {
+    "meta": {
+      "subject_kr": "통합과학1",
+      "subject_en": "Integrated Science 1",
+      "publisher": "Visang Education",
+      "curriculum": "2022 Revised Curriculum",
+      "source_name": "integrated_science1_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "자연 세계의 시간과 공간": {
+        "unit": "과학의 기초",
+        "lesson_focus": "자연 세계를 미시·거시, 시간·공간 규모에 따라 구분하고 관측 범위의 확장을 이해한다.",
+        "core_concepts": [
+          "미시 세계",
+          "거시 세계",
+          "시간 규모",
+          "공간 규모",
+          "정밀 측정",
+          "관측 범위 확장"
+        ],
+        "micro_keywords": [
+          "수소 원자",
+          "물 분자",
+          "나트륨 이온",
+          "세포",
+          "나무",
+          "동물",
+          "천체",
+          "위성 위치 확인 시스템",
+          "세슘 원자 시계",
+          "위치 측정",
+          "시간 측정",
+          "자연 세계 분류"
+        ],
+        "student_topics": [
+          "보이지 않는 미시 세계는 어떻게 탐구할 수 있을까?",
+          "위성 위치 확인 시스템은 왜 넓은 영역 측정에 유리할까?",
+          "세슘 원자 시계는 왜 정확한 시간의 기준이 될까?",
+          "과학은 어떻게 인간의 관측 범위를 넓혀 왔을까?"
+        ],
+        "linked_activity_types": [
+          "자료 조사형",
+          "비교 분석형",
+          "시각화형"
+        ],
+        "linked_career_bridge": [
+          "정밀 측정",
+          "위치 추적",
+          "과학 데이터 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "크기 비교와 수치화",
+            "evaluation_focus": "서로 다른 규모의 대상을 수치적으로 비교하고 범위를 해석할 수 있는가",
+            "inquiry_extension": "미시·거시 대상의 크기 범위를 표와 수로 정리하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "위치 데이터와 디지털 처리",
+            "evaluation_focus": "위치·시간 정보를 디지털 데이터로 이해할 수 있는가",
+            "inquiry_extension": "GPS 기반 위치 정보가 저장·처리되는 방식 조사하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "정밀 측정과 시간·공간 해석의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "지구과학",
+            "connection_point": "천체와 우주 규모 해석으로 확장"
+          }
+        ]
+      },
+      "기본량과 단위": {
+        "unit": "과학의 기초",
+        "lesson_focus": "자연 현상을 설명하기 위한 공통 기준으로서 기본량·유도량·국제단위계를 이해한다.",
+        "core_concepts": [
+          "기본량",
+          "유도량",
+          "국제단위계",
+          "단위 표준화",
+          "측정 기준"
+        ],
+        "micro_keywords": [
+          "시간",
+          "길이",
+          "질량",
+          "전류",
+          "온도",
+          "넓이",
+          "부피",
+          "속력",
+          "힘",
+          "밀도",
+          "SI",
+          "국제도량형총회",
+          "단위 환산",
+          "공통 기준"
+        ],
+        "student_topics": [
+          "왜 세계가 같은 단위를 써야 할까?",
+          "기본량과 유도량은 어떻게 다를까?",
+          "속력이나 힘은 왜 조합된 단위로 표현될까?",
+          "단위가 달라지면 과학적 의사소통은 왜 어려워질까?"
+        ],
+        "linked_activity_types": [
+          "개념 비교형",
+          "문제 해결형",
+          "수학 연계형"
+        ],
+        "linked_career_bridge": [
+          "측정 표준",
+          "정량화",
+          "공학 계산",
+          "데이터 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "식으로 표현하기와 단위 해석",
+            "evaluation_focus": "기본량과 유도량의 관계를 식과 수치로 설명할 수 있는가",
+            "inquiry_extension": "속력·밀도 같은 유도량을 식으로 정리하고 사례에 적용하기"
+          },
+          {
+            "subject": "공통수학2",
+            "concept": "좌표·거리·관계식",
+            "evaluation_focus": "측정된 양 사이의 관계를 수학적으로 표현할 수 있는가",
+            "inquiry_extension": "측정값을 좌표나 관계식으로 표현하는 활동 설계하기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "표준화와 설계 기준",
+            "evaluation_focus": "공통 단위와 표준이 실제 제작·설계에 왜 필요한지 설명할 수 있는가",
+            "inquiry_extension": "산업 현장에서 표준 단위가 중요한 사례 찾기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "힘·운동·전기량 등 물리량 해석의 정교화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "농도·부피·질량 등 정량 해석으로 확장"
+          }
+        ]
+      },
+      "과학의 측정과 우리 사회": {
+        "unit": "과학의 기초",
+        "lesson_focus": "측정·어림·측정 표준·센서·그래프 해석이 사회적 판단과 연결되는 구조를 이해한다.",
+        "core_concepts": [
+          "측정",
+          "어림",
+          "측정 표준",
+          "눈금 읽기",
+          "측정 도구",
+          "센서",
+          "데이터 분석",
+          "그래프 해석",
+          "디지털 정보"
+        ],
+        "micro_keywords": [
+          "폭염주의보",
+          "속도 측정 카메라",
+          "미세먼지 농도",
+          "데시벨",
+          "소음 규제",
+          "전자저울",
+          "눈금 실린더",
+          "물의 부피 읽기",
+          "온도 센서",
+          "냉난방기 가동 전후 변화",
+          "위치별 온도 차이",
+          "스마트 기기",
+          "디지털 데이터",
+          "그래프 저장",
+          "측정값 비교"
+        ],
+        "student_topics": [
+          "어림은 왜 막연한 추측이 아니라 측정 경험에 가까울까?",
+          "미세먼지 농도 수치는 어떻게 생활 판단으로 이어질까?",
+          "소음 기준은 왜 사회적 규제가 될 수 있을까?",
+          "센서가 모은 수치는 어떻게 그래프가 되고 정보가 될까?",
+          "교실 안 위치별 온도 차이는 어떻게 분석할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "센서실험형",
+          "데이터분석형",
+          "그래프해석형",
+          "조건비교형"
+        ],
+        "linked_career_bridge": [
+          "환경 측정",
+          "센서 데이터",
+          "사회 규제 기준",
+          "정량 분석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "그래프 해석",
+            "evaluation_focus": "측정 데이터를 수치와 그래프로 비교·해석할 수 있는가",
+            "inquiry_extension": "위치별 온도 변화를 표와 그래프로 나타내고 패턴 해석하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "데이터 처리",
+            "evaluation_focus": "센서 데이터를 정리하고 시각화하여 의미를 해석할 수 있는가",
+            "inquiry_extension": "센서 측정값을 디지털 데이터셋으로 정리하고 시각화하기"
+          },
+          {
+            "subject": "통합사회",
+            "concept": "공공 기준과 사회 판단",
+            "evaluation_focus": "과학적 측정 기준이 사회 규제와 공공 의사결정에 어떻게 쓰이는지 설명할 수 있는가",
+            "inquiry_extension": "미세먼지·소음·폭염 기준이 정책 판단에 쓰이는 사례 조사하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "실험 측정값 분석과 그래프 기반 해석의 정밀화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "환경 농도 데이터와 물질 정량 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "생명과학",
+            "connection_point": "생체 신호 측정과 데이터 기반 항상성 탐구로 확장"
+          }
+        ]
+      },
+      "물질 구성과 분류": {
+        "unit": "물질과 규칙성",
+        "lesson_focus": "물질을 원소·원자·분자·이온 수준에서 이해하고 성질에 따라 분류한다.",
+        "core_concepts": [
+          "원소",
+          "원자",
+          "분자",
+          "이온",
+          "물질 구성",
+          "분류 기준"
+        ],
+        "micro_keywords": [
+          "자연에 존재하는 원소",
+          "원자 번호",
+          "양성자 수",
+          "금속",
+          "비금속",
+          "산화",
+          "산",
+          "염기",
+          "염",
+          "성질 비교",
+          "분류 기준 설정"
+        ],
+        "student_topics": [
+          "원소는 어떤 기준으로 나눌 수 있을까?",
+          "금속과 비금속은 왜 성질이 다를까?",
+          "물질의 성질은 입자 수준에서 어떻게 설명할 수 있을까?",
+          "원자 번호는 왜 분류의 핵심 기준이 될까?"
+        ],
+        "linked_activity_types": [
+          "분류체계형",
+          "비교 분석형",
+          "탐구 설계형"
+        ],
+        "linked_career_bridge": [
+          "재료 성질",
+          "화학 분류",
+          "물질 이해",
+          "구조와 성질의 관계"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "분류 기준의 구조화",
+            "evaluation_focus": "여러 성질을 기준으로 물질을 체계적으로 분류할 수 있는가",
+            "inquiry_extension": "원소·물질을 성질별 분류표로 구조화하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "분류 데이터 정리",
+            "evaluation_focus": "물질 정보를 기준별 데이터로 정리할 수 있는가",
+            "inquiry_extension": "원소 특성을 표 데이터로 정리하고 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "원소의 성질과 반응성, 결합 개념 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "생명과학",
+            "connection_point": "생체 구성 물질과 분자 수준 이해로 연결"
+          }
+        ]
+      },
+      "규칙성 발견과 주기율표": {
+        "unit": "물질과 규칙성",
+        "lesson_focus": "원소 배열 속 규칙성을 발견하고 분류·예측의 의미를 이해한다.",
+        "core_concepts": [
+          "규칙성",
+          "배열",
+          "주기율표",
+          "원자 번호",
+          "성질의 반복",
+          "과학의 본성"
+        ],
+        "micro_keywords": [
+          "멘델레예프",
+          "원소 배열",
+          "성질 예측",
+          "빈칸 예측",
+          "규칙 발견",
+          "분류 체계",
+          "주기성",
+          "표 구성",
+          "과학사",
+          "모델 형성"
+        ],
+        "student_topics": [
+          "과학자는 보이지 않는 규칙을 어떻게 찾을까?",
+          "주기율표는 왜 단순 표가 아니라 예측 도구일까?",
+          "분류 체계는 과학의 이해를 어떻게 바꿀까?",
+          "멘델레예프는 왜 빈칸을 남길 수 있었을까?"
+        ],
+        "linked_activity_types": [
+          "모형구성형",
+          "자료정리형",
+          "과학사연계형"
+        ],
+        "linked_career_bridge": [
+          "재료공학",
+          "화학 분류 체계",
+          "예측 모델",
+          "원소 기반 기술"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "패턴 인식과 규칙 찾기",
+            "evaluation_focus": "반복되는 성질과 배열 규칙을 스스로 찾아 설명할 수 있는가",
+            "inquiry_extension": "원소 배열 속 반복 패턴을 시각적으로 정리하기"
+          },
+          {
+            "subject": "역사",
+            "concept": "과학사와 지식 형성",
+            "evaluation_focus": "주기율표 형성 과정에서 과학 지식이 축적·수정되는 모습을 설명할 수 있는가",
+            "inquiry_extension": "멘델레예프와 주기율표 발전 과정을 과학사 관점으로 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "주기성과 원소 반응성·결합 특성 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "물질 구조와 전기적 성질 해석으로 확장"
+          }
+        ]
+      },
+      "지구시스템": {
+        "unit": "시스템과 상호작용",
+        "lesson_focus": "지구를 태양계 안의 구성 요소이자 권역 간 상호작용이 일어나는 시스템으로 이해한다.",
+        "core_concepts": [
+          "태양계",
+          "지구시스템",
+          "권역",
+          "물질 순환",
+          "에너지 흐름",
+          "상호작용"
+        ],
+        "micro_keywords": [
+          "수성",
+          "금성",
+          "지구",
+          "화성",
+          "목성",
+          "토성",
+          "해왕성",
+          "유로파",
+          "데이모스",
+          "천체 분류",
+          "지구계",
+          "대기권",
+          "수권",
+          "지권",
+          "생물권",
+          "물의 순환",
+          "권역 간 이동",
+          "시스템 구성 요소"
+        ],
+        "student_topics": [
+          "지구는 왜 태양계 안에서 함께 봐야 할까?",
+          "천체는 어떤 기준으로 분류할 수 있을까?",
+          "물의 순환은 지구의 여러 권역을 어떻게 연결할까?",
+          "에너지 흐름이 지구시스템의 변화를 어떻게 만든다고 볼 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "시스템분석형",
+          "모형 해석형",
+          "자료 조사형"
+        ],
+        "linked_career_bridge": [
+          "지구환경 분석",
+          "우주와 천체",
+          "시스템 사고",
+          "환경 데이터"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학2",
+            "concept": "관계식과 좌표적 해석",
+            "evaluation_focus": "구성 요소 사이의 관계를 구조적으로 설명할 수 있는가",
+            "inquiry_extension": "태양계 또는 권역 간 상호작용을 관계도와 좌표적 구조로 표현하기"
+          },
+          {
+            "subject": "통합사회",
+            "concept": "환경과 인간 생활",
+            "evaluation_focus": "지구시스템 변화가 인간 생활과 사회 문제에 어떤 영향을 주는지 설명할 수 있는가",
+            "inquiry_extension": "물의 순환과 기후, 인간 생활의 연관성 조사하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "지구과학",
+            "connection_point": "지구계 상호작용과 천체 시스템 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "대기·수권 내 물질 변화 해석으로 확장"
+          }
+        ]
+      },
+      "역학 시스템": {
+        "unit": "시스템과 상호작용",
+        "lesson_focus": "힘과 운동, 흔들림과 안정성을 구조와 상호작용의 관점에서 이해한다.",
+        "core_concepts": [
+          "힘",
+          "운동",
+          "시스템 응답",
+          "구조 안정성",
+          "진동 제어",
+          "상호작용"
+        ],
+        "micro_keywords": [
+          "지진",
+          "댐퍼",
+          "진자",
+          "흔들림 감소",
+          "구조물 연결",
+          "외벽과 중심부 연결",
+          "충격 완화",
+          "진동 억제",
+          "내진 설계",
+          "하중 전달",
+          "안정성 확보"
+        ],
+        "student_topics": [
+          "건물은 왜 흔들림을 줄이는 장치를 넣어야 할까?",
+          "댐퍼와 진자는 어떻게 진동을 줄일까?",
+          "구조물의 연결 방식은 안정성에 어떤 영향을 줄까?",
+          "시스템 안에서 힘의 전달을 어떻게 해석할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "모델링형",
+          "설계형",
+          "구조비교형"
+        ],
+        "linked_career_bridge": [
+          "건축 구조",
+          "기계 시스템",
+          "내진 설계",
+          "하중 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학2",
+            "concept": "좌표와 거리, 구조 해석",
+            "evaluation_focus": "구조물의 위치 관계와 연결 방식을 수학적으로 해석할 수 있는가",
+            "inquiry_extension": "구조 요소의 배치를 단순 도형·좌표 모델로 표현하기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "설계와 안전성",
+            "evaluation_focus": "과학 개념을 실제 구조 설계 문제에 적용할 수 있는가",
+            "inquiry_extension": "간단한 내진 구조 모형 설계 후 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "힘·운동·에너지와 시스템 해석의 본격 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "구조 설계와 하중 해석 프로젝트로 확장"
+          }
+        ]
+      },
+      "생명 시스템": {
+        "unit": "시스템과 상호작용",
+        "lesson_focus": "생명체를 내부 조절과 항상성을 가진 시스템으로 이해한다.",
+        "core_concepts": [
+          "생명 시스템",
+          "항상성",
+          "조절",
+          "반응",
+          "내부 환경 유지",
+          "시스템 균형"
+        ],
+        "micro_keywords": [
+          "자극 반응",
+          "내부 환경",
+          "조절 작용",
+          "균형 유지",
+          "생명 유지",
+          "변화 대응",
+          "항상성 유지",
+          "시스템 수준 해석"
+        ],
+        "student_topics": [
+          "생명체는 왜 내부 환경을 일정하게 유지해야 할까?",
+          "외부 자극에 대한 반응은 항상성과 어떤 관계가 있을까?",
+          "생명 시스템을 구성 요소의 상호작용으로 보면 무엇이 달라질까?"
+        ],
+        "linked_activity_types": [
+          "센서실험형",
+          "조건비교형",
+          "데이터해석형"
+        ],
+        "linked_career_bridge": [
+          "생체 데이터",
+          "건강 측정",
+          "항상성 분석",
+          "생명과학 탐구"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "변화량 비교와 그래프 표현",
+            "evaluation_focus": "생체 변화나 조건 차이를 수치와 그래프로 설명할 수 있는가",
+            "inquiry_extension": "심박·체온 등 생체 신호 변화의 패턴을 그래프로 표현하기"
+          },
+          {
+            "subject": "보건/체육",
+            "concept": "신체 반응과 건강",
+            "evaluation_focus": "신체 반응을 건강 관리나 운동과 연결해 설명할 수 있는가",
+            "inquiry_extension": "운동 전후 생체 신호 변화를 비교해 해석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "생명과학",
+            "connection_point": "항상성·조절·생명 유지 메커니즘의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "생체 내 물질과 반응 해석으로 연결"
+          }
+        ]
+      }
+    }
+  },
+  "과학탐구실험1": {
+    "meta": {
+      "subject_kr": "과학탐구실험1",
+      "subject_en": "Science Inquiry Experiment 1",
+      "publisher": "Visang Education",
+      "curriculum": "2022 Revised Curriculum",
+      "source_name": "science_inquiry_experiment1_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "우리 선조들의 과학 기술 발전 사례 찾기": {
+        "unit": "과학의 본성과 역사 속의 과학 탐구",
+        "lesson_focus": "과학 지식이 역사와 문화 속에서 축적되고 사회 문제 해결에 활용되어 왔음을 이해한다.",
+        "core_concepts": [
+          "과학과 사회",
+          "과학 기술의 역사",
+          "문화 맥락",
+          "과학의 본성"
+        ],
+        "micro_keywords": [
+          "우리 선조들의 과학 기술",
+          "자격루",
+          "과학 유산",
+          "기술 발전 사례",
+          "역사 자료 해석"
+        ],
+        "student_topics": [
+          "옛 과학 기술은 어떤 사회적 필요에서 만들어졌을까?",
+          "과학 기술은 시대와 문화에 따라 어떻게 발전했을까?"
+        ],
+        "linked_activity_types": [
+          "자료 조사형",
+          "역사 해석형",
+          "발표형"
+        ],
+        "linked_career_bridge": [
+          "과학사",
+          "기술 문화",
+          "과학 커뮤니케이션"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "한국사",
+            "concept": "역사 자료 해석",
+            "evaluation_focus": "과학 기술 사례를 시대적 배경과 함께 설명할 수 있는가",
+            "inquiry_extension": "자격루 등 사례를 역사 맥락과 기능 중심으로 정리하기"
+          },
+          {
+            "subject": "국어",
+            "concept": "정보 재구성",
+            "evaluation_focus": "조사한 내용을 근거 중심으로 정리·설명할 수 있는가",
+            "inquiry_extension": "과학 기술 소개문 또는 카드뉴스 작성하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "과학의 역사와 문화",
+            "connection_point": "과학 지식 형성 과정과 사회적 의미 심화"
+          }
+        ]
+      },
+      "갈릴레이의 경사면 실험과 낙하 운동": {
+        "unit": "과학의 본성과 역사 속의 과학 탐구",
+        "lesson_focus": "실험을 통해 과학적 설명이 만들어지는 과정과 증거 기반 해석의 중요성을 이해한다.",
+        "core_concepts": [
+          "실험",
+          "증거",
+          "가설 검증",
+          "낙하 운동",
+          "과학의 본성"
+        ],
+        "micro_keywords": [
+          "갈릴레이",
+          "경사면 실험",
+          "질량이 다른 물체",
+          "낙하 운동",
+          "관찰",
+          "실험 결과 비교"
+        ],
+        "student_topics": [
+          "과학자는 왜 직접 실험으로 생각을 검증할까?",
+          "같은 현상을 보고도 설명이 달라질 수 있는 이유는 무엇일까?"
+        ],
+        "linked_activity_types": [
+          "실험형",
+          "비교 분석형",
+          "과학사연계형"
+        ],
+        "linked_career_bridge": [
+          "물리 실험",
+          "증거 기반 해석",
+          "연구 설계"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "변화량 비교",
+            "evaluation_focus": "실험 결과를 수치나 표로 비교하고 설명할 수 있는가",
+            "inquiry_extension": "경사면 조건 변화에 따른 결과를 표로 정리하기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "역학 시스템",
+            "evaluation_focus": "실험 결과를 힘·운동의 기본 관점과 연결할 수 있는가",
+            "inquiry_extension": "실험 결과를 통합과학의 운동 개념과 연결해 해석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "운동 해석과 실험 설계의 정교화"
+          }
+        ]
+      },
+      "멘델레예프의 주기율표 만들기": {
+        "unit": "과학의 본성과 역사 속의 과학 탐구",
+        "lesson_focus": "원소를 배열하고 규칙을 발견하는 과정을 통해 과학 지식의 예측 가능성을 이해한다.",
+        "core_concepts": [
+          "원소",
+          "주기율표",
+          "규칙성",
+          "예측",
+          "과학의 본성"
+        ],
+        "micro_keywords": [
+          "멘델레예프",
+          "주기율표",
+          "원소 배열",
+          "원자 번호",
+          "빈칸 예측",
+          "화학식 표기 방법"
+        ],
+        "student_topics": [
+          "과학자는 보이지 않는 규칙을 어떻게 찾아낼까?",
+          "주기율표는 왜 분류표를 넘어 예측 도구가 될까?"
+        ],
+        "linked_activity_types": [
+          "모형구성형",
+          "분류체계형",
+          "과학사연계형"
+        ],
+        "linked_career_bridge": [
+          "화학 분류",
+          "재료 이해",
+          "예측 모델"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "물질과 규칙성",
+            "evaluation_focus": "탐구 활동을 통합과학의 원소·규칙성 개념과 연결할 수 있는가",
+            "inquiry_extension": "통합과학1 개념어를 활용해 주기율표 설명하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "패턴 인식",
+            "evaluation_focus": "반복 규칙을 스스로 찾아 구조화할 수 있는가",
+            "inquiry_extension": "원소 배열의 규칙을 시각적 패턴으로 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "원소의 성질·결합·반응성 심화"
+          }
+        ]
+      },
+      "과학사에서 동시 발견으로 이룬 과학 발전 추적하기": {
+        "unit": "과학의 본성과 역사 속의 과학 탐구",
+        "lesson_focus": "과학 지식이 한 사람의 영감이 아니라 다양한 연구 맥락과 공동 축적을 통해 발전함을 이해한다.",
+        "core_concepts": [
+          "동시 발견",
+          "과학사",
+          "증거",
+          "이론 형성",
+          "협력과 경쟁"
+        ],
+        "micro_keywords": [
+          "동시 발견",
+          "우주 배경 복사",
+          "디키",
+          "피블스",
+          "펜지어스",
+          "윌슨",
+          "전파 천문학"
+        ],
+        "student_topics": [
+          "왜 비슷한 발견이 같은 시대에 여러 사람에게서 나올까?",
+          "과학 발전은 개인의 천재성만으로 설명할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "자료 조사형",
+          "사례 비교형",
+          "토론형"
+        ],
+        "linked_career_bridge": [
+          "천문학",
+          "연구 협업",
+          "과학 커뮤니케이션"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합사회",
+            "concept": "지식 생산의 사회성",
+            "evaluation_focus": "과학 지식 형성에 사회적 맥락과 공동체가 영향을 준다는 점을 설명할 수 있는가",
+            "inquiry_extension": "동시 발견 사례를 사회적 맥락과 함께 정리하기"
+          },
+          {
+            "subject": "국어",
+            "concept": "비교 서술",
+            "evaluation_focus": "여러 연구자 사례를 비교하여 핵심 차이를 설명할 수 있는가",
+            "inquiry_extension": "과학사 비교 글쓰기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "과학의 역사와 문화",
+            "connection_point": "과학 지식 형성과 발견의 역사 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "지구과학",
+            "connection_point": "우주 관측과 천체 탐구 주제로 확장"
+          }
+        ]
+      },
+      "과학의 단위 및 도량형의 역사 추적하기": {
+        "unit": "과학의 본성과 역사 속의 과학 탐구",
+        "lesson_focus": "단위와 도량형이 과학적 측정과 사회적 표준을 가능하게 하는 기반임을 이해한다.",
+        "core_concepts": [
+          "단위",
+          "도량형",
+          "표준",
+          "과학의 본성",
+          "측정 체계"
+        ],
+        "micro_keywords": [
+          "단위",
+          "도량형",
+          "표준화",
+          "역사 추적",
+          "공통 기준",
+          "측정의 사회성"
+        ],
+        "student_topics": [
+          "왜 단위의 통일은 과학 발전에 중요할까?",
+          "도량형의 변화는 사회와 과학을 어떻게 바꾸었을까?"
+        ],
+        "linked_activity_types": [
+          "역사 조사형",
+          "비교 분석형",
+          "개념 정리형"
+        ],
+        "linked_career_bridge": [
+          "측정 표준",
+          "정량화",
+          "공학 기준"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "기본량과 단위",
+            "evaluation_focus": "탐구 내용을 통합과학1의 기본량·단위 개념과 연결할 수 있는가",
+            "inquiry_extension": "도량형 역사와 SI 단위 체계를 연결해 정리하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "수치화와 비교 기준",
+            "evaluation_focus": "표준 단위가 수치 비교와 계산의 기반임을 설명할 수 있는가",
+            "inquiry_extension": "단위가 다를 때 생기는 비교 문제 사례 찾기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "물리량과 측정 정밀도 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학",
+            "connection_point": "질량·부피·농도 정량 해석으로 확장"
+          }
+        ]
+      },
+      "문제 인식과 탐구 질문 설정": {
+        "unit": "과학 탐구의 과정과 절차",
+        "lesson_focus": "탐구의 출발점이 되는 문제 인식과 질문 설정의 중요성을 이해한다.",
+        "core_concepts": [
+          "문제 인식",
+          "탐구 질문",
+          "탐구의 출발점"
+        ],
+        "micro_keywords": [
+          "문제 인식",
+          "질문 설정",
+          "탐구 주제",
+          "탐구 목적"
+        ],
+        "student_topics": [
+          "좋은 탐구 질문은 무엇이 다를까?",
+          "같은 현상도 왜 다른 질문으로 이어질 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "질문 설계형",
+          "주제 탐색형"
+        ],
+        "linked_career_bridge": [
+          "연구 기획",
+          "문제 해결",
+          "탐구 설계"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "국어",
+            "concept": "질문 구체화",
+            "evaluation_focus": "탐구 질문을 명확하고 구체적으로 서술할 수 있는가",
+            "inquiry_extension": "질문을 좋은 탐구 질문 형태로 수정하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "융합과학 탐구",
+            "connection_point": "자기 주도 탐구 주제 설정으로 확장"
+          }
+        ]
+      },
+      "가설 설정과 탐구 설계": {
+        "unit": "과학 탐구의 과정과 절차",
+        "lesson_focus": "가설을 세우고 변인을 고려하여 탐구 절차를 설계하는 방법을 익힌다.",
+        "core_concepts": [
+          "가설 설정",
+          "탐구 설계",
+          "변인",
+          "대조",
+          "절차"
+        ],
+        "micro_keywords": [
+          "가설",
+          "조작변인",
+          "통제변인",
+          "종속변인",
+          "대조 실험",
+          "탐구 절차"
+        ],
+        "student_topics": [
+          "가설은 왜 막연한 생각이 아니라 검증 가능한 문장이어야 할까?",
+          "변인을 통제하지 않으면 왜 결과 해석이 어려울까?"
+        ],
+        "linked_activity_types": [
+          "실험설계형",
+          "변인통제형"
+        ],
+        "linked_career_bridge": [
+          "연구 방법론",
+          "실험 설계",
+          "데이터 신뢰도"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "측정과 변수 해석",
+            "evaluation_focus": "통합과학 개념을 바탕으로 측정할 변인을 정할 수 있는가",
+            "inquiry_extension": "같은 현상에 대해 변인을 달리한 탐구 설계안 작성하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "조건 정리와 경우 구분",
+            "evaluation_focus": "조건을 논리적으로 분리해 탐구 계획에 반영할 수 있는가",
+            "inquiry_extension": "변인별 조건표 만들기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학/화학/생명과학",
+            "connection_point": "과목별 실험 설계의 정교화"
+          }
+        ]
+      },
+      "자료 수집·분석·결론 도출": {
+        "unit": "과학 탐구의 과정과 절차",
+        "lesson_focus": "탐구 자료를 수집하고 분석하여 결론을 일반화하는 과정을 익힌다.",
+        "core_concepts": [
+          "자료 수집",
+          "분석",
+          "해석",
+          "결론 도출",
+          "일반화"
+        ],
+        "micro_keywords": [
+          "관찰 기록",
+          "표 정리",
+          "그래프",
+          "해석",
+          "결론",
+          "증거 기반 설명"
+        ],
+        "student_topics": [
+          "자료는 많이 모으는 것보다 왜 잘 정리하는 것이 중요할까?",
+          "결론은 의견이 아니라 왜 증거를 바탕으로 해야 할까?"
+        ],
+        "linked_activity_types": [
+          "데이터분석형",
+          "그래프해석형",
+          "보고서형"
+        ],
+        "linked_career_bridge": [
+          "데이터 분석",
+          "연구 보고",
+          "증거 기반 판단"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "표와 그래프 해석",
+            "evaluation_focus": "자료를 표·그래프로 정리하고 패턴을 설명할 수 있는가",
+            "inquiry_extension": "탐구 데이터를 그래프로 정리하고 변화 경향 설명하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "데이터 시각화",
+            "evaluation_focus": "자료를 디지털 방식으로 정리하고 시각화할 수 있는가",
+            "inquiry_extension": "스프레드시트로 자료 정리 및 차트 생성하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "융합과학 탐구",
+            "connection_point": "데이터 기반 프로젝트 탐구 보고서 작성으로 연결"
+          }
+        ]
+      },
+      "탐구 보고서 작성": {
+        "unit": "과학 탐구의 과정과 절차",
+        "lesson_focus": "탐구의 전 과정을 목적, 방법, 결과, 해석의 흐름으로 구조화하여 보고서로 작성한다.",
+        "core_concepts": [
+          "탐구 보고서",
+          "구조화",
+          "결과 및 토의",
+          "참고 문헌",
+          "제언"
+        ],
+        "micro_keywords": [
+          "탐구 주제",
+          "탐구 목적",
+          "탐구 문제",
+          "이론적 배경",
+          "탐구 방법",
+          "결과 및 토의",
+          "결론 및 제언",
+          "참고 문헌"
+        ],
+        "student_topics": [
+          "좋은 탐구 보고서는 왜 구조가 분명해야 할까?",
+          "결과와 해석을 구분해 쓰는 이유는 무엇일까?"
+        ],
+        "linked_activity_types": [
+          "보고서형",
+          "발표형",
+          "문서구성형"
+        ],
+        "linked_career_bridge": [
+          "연구 커뮤니케이션",
+          "학술 글쓰기",
+          "문서 설계"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "국어",
+            "concept": "논리적 글쓰기",
+            "evaluation_focus": "탐구 과정을 순서와 근거에 맞게 글로 표현할 수 있는가",
+            "inquiry_extension": "탐구 보고서 초안 작성 후 구조 점검하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "각 과학 과목 세특 및 탐구 보고서",
+            "connection_point": "교과 심화 탐구 산출물 작성의 기본 틀로 활용"
+          }
+        ]
+      }
+    }
+  },
+  "과학탐구실험2": {
+    "meta": {
+      "subject_kr": "과학탐구실험2",
+      "subject_en": "Science Inquiry Experiment 2",
+      "publisher": "Visang Education",
+      "curriculum": "2022 Revised Curriculum",
+      "source_name": "science_inquiry_experiment2_structure_db",
+      "version": "0.2.0-cross-evaluation"
+    },
+    "concepts": {
+      "충격을 줄이는 방법과 안전장치 탐구": {
+        "unit": "생활 속의 과학 탐구",
+        "lesson_focus": "교통수단과 스포츠에서 발생하는 충돌 상황을 과학적으로 해석하고 충격을 줄이는 장치를 고안한다.",
+        "core_concepts": [
+          "충돌",
+          "충격",
+          "관성 법칙",
+          "운동량",
+          "충격량",
+          "안전장치",
+          "장치 개선"
+        ],
+        "micro_keywords": [
+          "교통수단",
+          "스포츠",
+          "충돌 사고",
+          "헬멧",
+          "보호대",
+          "에어백",
+          "완충 장치",
+          "충격 분산",
+          "감속",
+          "안전 설계"
+        ],
+        "student_topics": [
+          "충격을 줄이려면 왜 힘의 작용 시간을 늘려야 할까?",
+          "안전장치는 어떤 과학 원리로 사람을 보호할까?",
+          "기존 안전장치는 어떻게 개선할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "설계형",
+          "조사형",
+          "모델링형"
+        ],
+        "linked_career_bridge": [
+          "안전 설계",
+          "기계 시스템",
+          "교통공학",
+          "스포츠과학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "역학 시스템",
+            "evaluation_focus": "충돌과 안전장치를 힘·운동·충격 개념과 연결해 설명할 수 있는가",
+            "inquiry_extension": "안전장치를 통합과학의 충격·운동량 개념으로 해석하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "수치 비교",
+            "evaluation_focus": "충돌 전후 조건을 표와 수치로 비교해 설명할 수 있는가",
+            "inquiry_extension": "보호장치 유무에 따른 충격 조건 비교표 만들기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "안전 설계",
+            "evaluation_focus": "과학 원리를 실제 장치 설계에 적용할 수 있는가",
+            "inquiry_extension": "충격 완화 구조를 반영한 안전장치 개선안 설계하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "운동량·충격량·힘의 심화 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "안전 설계 프로젝트와 구조 개선 탐구로 확장"
+          }
+        ]
+      },
+      "내진 설계와 구조 안정성 탐구": {
+        "unit": "생활 속의 과학 탐구",
+        "lesson_focus": "지진 발생 시 건물의 흔들림을 줄이는 구조와 장치를 이해하고 내진 설계 아이디어를 탐구한다.",
+        "core_concepts": [
+          "지진",
+          "내진 설계",
+          "진동 제어",
+          "구조 안정성",
+          "댐퍼",
+          "진자",
+          "하중 전달"
+        ],
+        "micro_keywords": [
+          "건물 흔들림",
+          "지반 진동",
+          "댐퍼",
+          "튜닝 질량 감쇠기",
+          "진자",
+          "대각선 구조물",
+          "중심부와 외벽 연결",
+          "내진 구조",
+          "진동 억제",
+          "구조 보강"
+        ],
+        "student_topics": [
+          "건물은 지진의 흔들림을 어떻게 줄일까?",
+          "댐퍼와 진자는 왜 진동을 줄이는 데 효과적일까?",
+          "내진 설계는 어떤 구조적 아이디어에서 출발할까?"
+        ],
+        "linked_activity_types": [
+          "구조비교형",
+          "설계형",
+          "모형실험형"
+        ],
+        "linked_career_bridge": [
+          "건축공학",
+          "구조공학",
+          "기계 진동",
+          "도시 안전"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "시스템과 상호작용",
+            "evaluation_focus": "내진 장치를 통합과학1의 역학 시스템 개념과 연결할 수 있는가",
+            "inquiry_extension": "댐퍼·진자·대각선 구조를 시스템 상호작용 관점으로 설명하기"
+          },
+          {
+            "subject": "공통수학2",
+            "concept": "도형과 구조 배치",
+            "evaluation_focus": "구조 요소의 위치 관계를 도형·좌표 관점으로 해석할 수 있는가",
+            "inquiry_extension": "내진 구조 배치를 좌표·직선 구조로 단순화해 표현하기"
+          },
+          {
+            "subject": "기술·가정/공학",
+            "concept": "안정성 설계",
+            "evaluation_focus": "안전성과 구조 배치를 연계한 설계 사고를 보이는가",
+            "inquiry_extension": "간단한 내진 모형을 설계하고 구조 차이를 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "진동, 힘, 에너지 전달 해석의 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공통수학2",
+            "connection_point": "좌표·직선·거리 개념을 활용한 구조 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "공학 관련 탐구",
+            "connection_point": "구조 설계 프로젝트와 도시 안전 탐구로 확장"
+          }
+        ]
+      },
+      "생활 자료를 활용한 과학적 의사결정 탐구": {
+        "unit": "생활 속의 과학 탐구",
+        "lesson_focus": "일상생활 속 자료와 증거를 수집·비교하여 과학적 판단과 선택의 과정을 이해한다.",
+        "core_concepts": [
+          "자료 수집",
+          "증거 기반 판단",
+          "비교",
+          "과학적 의사결정",
+          "생활 속 탐구"
+        ],
+        "micro_keywords": [
+          "생활 자료",
+          "비교 기준",
+          "선택 근거",
+          "증거 정리",
+          "자료 해석",
+          "의사결정"
+        ],
+        "student_topics": [
+          "생활 속 선택도 왜 과학적 자료를 바탕으로 해야 할까?",
+          "좋은 판단을 위해서는 어떤 자료를 모아야 할까?"
+        ],
+        "linked_activity_types": [
+          "자료분석형",
+          "비교판단형",
+          "발표형"
+        ],
+        "linked_career_bridge": [
+          "데이터 해석",
+          "정책 판단",
+          "과학 커뮤니케이션"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "표와 그래프 해석",
+            "evaluation_focus": "자료를 표와 그래프로 정리하고 비교 기준을 제시할 수 있는가",
+            "inquiry_extension": "생활 자료를 표와 그래프로 시각화하여 비교하기"
+          },
+          {
+            "subject": "통합사회",
+            "concept": "공공 의사결정",
+            "evaluation_focus": "과학적 자료가 사회적 판단과 연결된다는 점을 설명할 수 있는가",
+            "inquiry_extension": "자료를 바탕으로 정책 선택이나 생활 규칙 제안하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "융합과학 탐구",
+            "connection_point": "자료 기반 프로젝트 탐구의 기초로 연결"
+          }
+        ]
+      },
+      "생체 신호와 건강 데이터 탐구": {
+        "unit": "미래 사회와 첨단 과학 탐구",
+        "lesson_focus": "생체 신호 측정과 해석을 통해 건강 상태와 항상성을 데이터 기반으로 이해한다.",
+        "core_concepts": [
+          "생체 신호",
+          "항상성",
+          "건강 데이터",
+          "측정",
+          "조건 비교",
+          "그래프 해석"
+        ],
+        "micro_keywords": [
+          "심박",
+          "맥박",
+          "체온",
+          "신체 반응",
+          "센서 측정",
+          "운동 전후 변화",
+          "그래프",
+          "생체 데이터셋"
+        ],
+        "student_topics": [
+          "생체 신호는 왜 몸 상태를 보여 주는 중요한 데이터일까?",
+          "운동 전후 신체 반응은 어떻게 비교할 수 있을까?",
+          "건강 데이터를 해석할 때 항상성은 왜 중요할까?"
+        ],
+        "linked_activity_types": [
+          "센서실험형",
+          "데이터분석형",
+          "조건비교형"
+        ],
+        "linked_career_bridge": [
+          "보건의료",
+          "생체 데이터",
+          "바이오센서",
+          "건강관리"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "생명 시스템",
+            "evaluation_focus": "생체 신호 변화를 통합과학1의 항상성 개념과 연결할 수 있는가",
+            "inquiry_extension": "생체 데이터 변화를 항상성 유지 관점으로 설명하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "그래프 해석",
+            "evaluation_focus": "생체 신호 데이터를 수치와 그래프로 분석할 수 있는가",
+            "inquiry_extension": "운동 전후 심박 또는 체온 변화를 그래프로 나타내기"
+          },
+          {
+            "subject": "정보",
+            "concept": "디지털 데이터 처리",
+            "evaluation_focus": "센서 데이터를 정리·시각화하여 의미를 도출할 수 있는가",
+            "inquiry_extension": "생체 데이터셋을 디지털 표로 정리하고 차트 생성하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "생명과학",
+            "connection_point": "항상성과 조절, 생명 유지 메커니즘 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "보건/의생명 탐구",
+            "connection_point": "건강 관리, 바이오센서, 데이터 기반 의생명 탐구로 확장"
+          }
+        ]
+      },
+      "첨단 센서와 디지털 정보 탐구": {
+        "unit": "미래 사회와 첨단 과학 탐구",
+        "lesson_focus": "센서를 통해 자연 현상과 생활 속 변화를 디지털 데이터로 바꾸는 과정을 이해한다.",
+        "core_concepts": [
+          "센서",
+          "디지털 정보",
+          "데이터 수집",
+          "시각화",
+          "정량 분석"
+        ],
+        "micro_keywords": [
+          "온도 센서",
+          "습도 센서",
+          "빛 센서",
+          "속도 센서",
+          "데이터 로깅",
+          "스마트 기기",
+          "그래프 저장",
+          "실시간 측정"
+        ],
+        "student_topics": [
+          "센서는 어떻게 자연의 변화를 숫자로 바꿀까?",
+          "디지털 데이터는 왜 과학 탐구를 더 정교하게 만들까?",
+          "실시간 측정은 어떤 탐구 상황에서 유리할까?"
+        ],
+        "linked_activity_types": [
+          "센서실험형",
+          "데이터수집형",
+          "시각화형"
+        ],
+        "linked_career_bridge": [
+          "전자공학",
+          "정보통신",
+          "스마트 기술",
+          "측정 시스템"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학1",
+            "concept": "과학의 측정과 우리 사회",
+            "evaluation_focus": "센서와 디지털 정보를 측정·분석 개념과 연결해 설명할 수 있는가",
+            "inquiry_extension": "통합과학1의 측정 표준과 센서 활용을 비교 정리하기"
+          },
+          {
+            "subject": "공통수학1",
+            "concept": "데이터 그래프화",
+            "evaluation_focus": "측정값을 표와 그래프로 변환해 패턴을 읽을 수 있는가",
+            "inquiry_extension": "센서 측정값을 시간순 그래프로 시각화하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "데이터 처리 과정",
+            "evaluation_focus": "수집된 데이터를 디지털 방식으로 정리·처리할 수 있는가",
+            "inquiry_extension": "센서 데이터 정리-저장-시각화 흐름도 만들기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보",
+            "connection_point": "데이터 처리와 스마트 시스템 구현으로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "물리학",
+            "connection_point": "측정 장치와 물리량 분석의 정밀화"
+          }
+        ]
+      },
+      "첨단 과학 기술의 사회 적용 탐구": {
+        "unit": "미래 사회와 첨단 과학 탐구",
+        "lesson_focus": "첨단 과학 기술이 사회 문제 해결과 미래 생활 변화에 어떤 영향을 미치는지 탐구한다.",
+        "core_concepts": [
+          "첨단 과학 기술",
+          "미래 사회",
+          "사회 적용",
+          "문제 해결",
+          "과학과 사회"
+        ],
+        "micro_keywords": [
+          "첨단 기술",
+          "미래 사회 변화",
+          "문제 해결 사례",
+          "사회적 영향",
+          "과학 기술 윤리",
+          "기술 선택"
+        ],
+        "student_topics": [
+          "첨단 과학 기술은 어떤 사회 문제를 해결할 수 있을까?",
+          "새로운 기술은 왜 편리함과 함께 새로운 고민도 만들까?",
+          "미래 사회에서 필요한 과학 역량은 무엇일까?"
+        ],
+        "linked_activity_types": [
+          "사례연구형",
+          "토론형",
+          "프로젝트형"
+        ],
+        "linked_career_bridge": [
+          "미래기술",
+          "과학정책",
+          "융합기술",
+          "사회문제 해결"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합사회",
+            "concept": "기술과 사회 변화",
+            "evaluation_focus": "첨단 기술이 사회 구조와 생활 방식에 미치는 영향을 설명할 수 있는가",
+            "inquiry_extension": "기술 발전이 가져올 생활 변화와 쟁점을 정리하기"
+          },
+          {
+            "subject": "국어",
+            "concept": "근거 기반 발표와 토론",
+            "evaluation_focus": "사례와 근거를 들어 기술의 장단점을 설명할 수 있는가",
+            "inquiry_extension": "첨단 기술의 사회적 쟁점을 발표 자료로 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "융합과학 탐구",
+            "connection_point": "첨단 기술 기반 프로젝트 탐구로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "과학의 역사와 문화/기후변화와 환경생태",
+            "connection_point": "과학 기술의 사회적 영향과 책임 탐구로 확장"
+          }
+        ]
+      }
+    }
+  }
+}
