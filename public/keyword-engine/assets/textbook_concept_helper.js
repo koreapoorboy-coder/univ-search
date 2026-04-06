@@ -1,5 +1,4 @@
-
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.0-structure-fix";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -8,7 +7,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
       .replace(/&/g,"&amp;")
       .replace(/</g,"&lt;")
       .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
+      .replace(/\"/g,"&quot;")
       .replace(/'/g,"&#39;");
   }
 
@@ -25,6 +24,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" })
       ]);
+
       if(!uiRes.ok || !engineRes.ok){
         console.warn("textbook concept seed load failed", uiRes.status, engineRes.status);
         return;
@@ -37,9 +37,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
       bindEvents();
       syncSubjectFromSelect();
       renderAll();
-      safeHideLegacyCareerBlock();
-      setTimeout(safeHideLegacyCareerBlock, 600);
-      setTimeout(safeHideLegacyCareerBlock, 1800);
+      hardHideLegacyCareerBlock();
+      setTimeout(hardHideLegacyCareerBlock, 300);
+      setTimeout(hardHideLegacyCareerBlock, 1200);
     }catch(error){
       console.warn("textbook concept helper init error:", error);
     }
@@ -103,7 +103,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
       </div>
     `;
 
-    keywordInput.parentNode.insertBefore(wrap, keywordInput);
+    const keywordLabel = keywordInput.closest("label");
+    if(keywordLabel && keywordLabel.parentNode){
+      keywordLabel.parentNode.insertBefore(wrap, keywordLabel);
+    }else{
+      keywordInput.parentNode.insertBefore(wrap, keywordInput);
+    }
     keywordInput.placeholder = "위 교과 키워드를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
 
@@ -112,13 +117,31 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
     if(subjectEl){
       subjectEl.addEventListener("change", function(){
         syncSubjectFromSelect();
-        state.concept = "";
-        state.keyword = "";
-        state.career = "";
-        syncKeywordInput();
-        syncCareerInput(false);
+        resetBelowSubject();
         renderAll();
-        safeHideLegacyCareerBlock();
+      });
+    }
+
+    const keywordInput = $("keyword");
+    if(keywordInput){
+      keywordInput.addEventListener("input", function(){
+        if(keywordInput.dataset.autoFilled !== "textbook-keyword"){
+          state.keyword = keywordInput.value.trim();
+          state.career = "";
+          syncCareerInput(false);
+          renderSelectionSummary();
+          renderCareerButtons();
+        }
+      });
+    }
+
+    const careerInput = $("career");
+    if(careerInput){
+      careerInput.addEventListener("input", function(){
+        if(careerInput.dataset.autoFilled !== "textbook-career"){
+          state.career = careerInput.value.trim();
+          renderSelectionSummary();
+        }
       });
     }
 
@@ -160,6 +183,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
     }
   }
 
+  function resetBelowSubject(){
+    state.concept = "";
+    state.keyword = "";
+    state.career = "";
+    syncKeywordInput();
+    syncCareerInput(false);
+  }
+
   function getSubjectRawValue(){
     const el = $("subject");
     if(!el) return "";
@@ -175,34 +206,42 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
 
   function findSubjectKey(raw){
     if(!raw || !uiSeed) return "";
-    const keys = Object.keys(uiSeed);
-    const cleaned = normalizeSubject(raw);
 
+    const cleaned = normalizeSubject(raw);
+    const aliasMap = {
+      "통합과학": "통합과학1",
+      "통합과학1": "통합과학1",
+      "integratedscience": "통합과학1",
+      "integratedscience1": "통합과학1",
+      "과학탐구실험": "과학탐구실험1",
+      "과학탐구실험1": "과학탐구실험1",
+      "과학탐구실험2": "과학탐구실험2",
+      "scienceinquiryexperiment": "과학탐구실험1",
+      "scienceinquiryexperiment1": "과학탐구실험1",
+      "scienceinquiryexperiment2": "과학탐구실험2",
+      "수학": "공통수학1",
+      "공통수학": "공통수학1",
+      "공통수학1": "공통수학1",
+      "공통수학2": "공통수학2",
+      "commonmath": "공통수학1",
+      "commonmath1": "공통수학1",
+      "commonmath2": "공통수학2",
+      "정보": "정보",
+      "information": "정보"
+    };
+
+    if(aliasMap[cleaned]) return aliasMap[cleaned];
+
+    const keys = Object.keys(uiSeed);
     for(const key of keys){
-      const nk = normalizeSubject(key);
-      if(nk === cleaned) return key;
+      if(normalizeSubject(key) === cleaned) return key;
     }
     for(const key of keys){
       const nk = normalizeSubject(key);
       if(cleaned.includes(nk) || nk.includes(cleaned)) return key;
     }
 
-    const aliasMap = {
-      "통합과학": "통합과학1",
-      "통합과학1": "통합과학1",
-      "integratedscience1": "통합과학1",
-      "scienceinquiryexperiment1": "과학탐구실험1",
-      "scienceinquiryexperiment2": "과학탐구실험2",
-      "과학탐구실험1": "과학탐구실험1",
-      "과학탐구실험2": "과학탐구실험2",
-      "공통수학1": "공통수학1",
-      "공통수학2": "공통수학2",
-      "commonmath1": "공통수학1",
-      "commonmath2": "공통수학2",
-      "정보": "정보",
-      "information": "정보"
-    };
-    return aliasMap[cleaned] || "";
+    return "";
   }
 
   function normalizeSubject(v){
@@ -215,29 +254,45 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
   function getConceptList(subject){
     if(!subject || !uiSeed || !uiSeed[subject]) return [];
     const entry = uiSeed[subject];
-    if(Array.isArray(entry.concepts)) return entry.concepts;
+
     if(Array.isArray(entry.concept_buttons)){
-      return entry.concept_buttons.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
+      return entry.concept_buttons
+        .map(item => item && (item.concept || item.label || item.name))
+        .filter(Boolean);
     }
     if(Array.isArray(entry.concept_order)) return entry.concept_order;
+    if(Array.isArray(entry.concepts)) return entry.concepts;
     if(Array.isArray(entry.items)){
       return entry.items.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
     }
     return [];
   }
 
+  function getSubjectEntry(){
+    if(!state.subject || !engineMap) return null;
+    return engineMap[state.subject] || null;
+  }
+
   function getConceptEntry(){
-    if(!state.subject || !state.concept || !engineMap || !engineMap[state.subject]) return null;
-    return engineMap[state.subject][state.concept] || null;
+    const subjectEntry = getSubjectEntry();
+    if(!subjectEntry || !state.concept) return null;
+
+    if(subjectEntry.concepts && subjectEntry.concepts[state.concept]){
+      return subjectEntry.concepts[state.concept];
+    }
+    if(subjectEntry[state.concept]){
+      return subjectEntry[state.concept];
+    }
+    return null;
   }
 
   function stringArrayFrom(value){
     if(!value) return [];
-    if(Array.isArray(value)) {
+    if(Array.isArray(value)){
       return value.map(item => {
         if(typeof item === "string") return item;
         if(item && typeof item === "object"){
-          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || item.concept || "";
+          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || item.concept || item.connection_point || "";
         }
         return "";
       }).filter(Boolean);
@@ -245,14 +300,25 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
     return [];
   }
 
+  function uniq(arr){
+    return [...new Set((arr || []).filter(Boolean))];
+  }
+
   function getKeywordList(entry){
     if(!entry) return [];
-    return stringArrayFrom(entry.keywords || entry.micro_keywords || entry.core_keywords || entry.keyword_buttons);
+    return uniq(stringArrayFrom(
+      entry.micro_keywords || entry.keywords || entry.core_keywords || entry.keyword_buttons
+    ));
   }
 
   function getCareerList(entry){
     if(!entry) return [];
-    return stringArrayFrom(entry.career_bridges || entry.linked_career_bridge || entry.careers || entry.career_keywords);
+    const direct = stringArrayFrom(
+      entry.linked_career_bridge || entry.career_bridges || entry.careers || entry.career_keywords
+    );
+    const horizontal = stringArrayFrom(entry.horizontal_links);
+    const vertical = stringArrayFrom(entry.vertical_links);
+    return uniq([...direct, ...horizontal, ...vertical]);
   }
 
   function renderAll(){
@@ -363,21 +429,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
     }
   }
 
-  function safeHideLegacyCareerBlock(){
-    try{
-      const headings = Array.from(document.querySelectorAll("h1,h2,h3,h4"));
-      const target = headings.find(h => (h.textContent || "").includes("진로 → 학과 → 추천 키워드 선택"));
-      if(!target) return;
-
-      let block = target.closest("section, .card, .result-card, .side-card, .student-card, .analysis-card");
-      if(!block){
-        block = target.parentElement;
-      }
-      if(!block || block.id === "textbookConceptSelectorSection") return;
-      block.style.display = "none";
-    }catch(error){
-      console.warn("safeHideLegacyCareerBlock error:", error);
-    }
+  function hardHideLegacyCareerBlock(){
+    const legacy = $("majorSelectorSection");
+    if(legacy) legacy.remove();
+    document.querySelectorAll(".major-selector-section").forEach(node => node.remove());
   }
 
   document.addEventListener("DOMContentLoaded", init);
