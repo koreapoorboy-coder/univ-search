@@ -1,5 +1,5 @@
 
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -15,13 +15,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
   const UI_SEED_URL = "seed/textbook-v1/subject_concept_ui_seed.json";
   const ENGINE_MAP_URL = "seed/textbook-v1/subject_concept_engine_map.json";
 
-  const state = {
-    subject: "",
-    concept: "",
-    keyword: "",
-    career: ""
-  };
-
+  const state = { subject: "", concept: "", keyword: "", career: "" };
   let uiSeed = null;
   let engineMap = null;
 
@@ -43,8 +37,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
       bindEvents();
       syncSubjectFromSelect();
       renderAll();
-      setTimeout(hideLegacyCareerSelector, 300);
-      setTimeout(hideLegacyCareerSelector, 1200);
     }catch(error){
       console.warn("textbook concept helper init error:", error);
     }
@@ -121,8 +113,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
         state.keyword = "";
         state.career = "";
         syncKeywordInput();
+        syncCareerInput(false);
         renderAll();
-        hideLegacyCareerSelector();
       });
     }
 
@@ -149,16 +141,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
         if(action === "keyword"){
           state.keyword = state.keyword === value ? "" : value;
           state.career = "";
-          renderAll();
           syncKeywordInput();
           syncCareerInput(false);
+          renderAll();
           return;
         }
 
         if(action === "career"){
           state.career = state.career === value ? "" : value;
+          syncCareerInput(!!state.career);
           renderAll();
-          syncCareerInput(true);
         }
       });
     }
@@ -194,7 +186,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
   function getConceptList(subject){
     if(!subject || !uiSeed || !uiSeed[subject]) return [];
     const entry = uiSeed[subject];
-
     if(Array.isArray(entry.concepts)) return entry.concepts;
     if(Array.isArray(entry.concept_buttons)){
       return entry.concept_buttons.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
@@ -204,8 +195,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
   }
 
   function getConceptEntry(){
-    if(!state.subject || !state.concept || !engineMap) return null;
-    if(!engineMap[state.subject]) return null;
+    if(!state.subject || !state.concept || !engineMap || !engineMap[state.subject]) return null;
     return engineMap[state.subject][state.concept] || null;
   }
 
@@ -215,7 +205,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
       return value.map(item => {
         if(typeof item === "string") return item;
         if(item && typeof item === "object"){
-          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || "";
+          return item.keyword || item.topic || item.name || item.subject || item.bridge || item.label || item.concept || "";
         }
         return "";
       }).filter(Boolean);
@@ -230,12 +220,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
 
   function getCareerList(entry){
     if(!entry) return [];
-    return stringArrayFrom(
-      entry.career_bridges ||
-      entry.linked_career_bridge ||
-      entry.careers ||
-      entry.career_keywords
-    );
+    return stringArrayFrom(entry.career_bridges || entry.linked_career_bridge || entry.careers || entry.career_keywords);
   }
 
   function renderAll(){
@@ -254,8 +239,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
   function renderConceptButtons(){
     const el = $("textbookConceptButtons");
     if(!el) return;
-
     const concepts = getConceptList(state.subject);
+
     if(!state.subject){
       el.innerHTML = `<div class="textbook-empty">과목을 선택하면 교과 개념이 나옵니다.</div>`;
       return;
@@ -266,23 +251,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
     }
 
     el.innerHTML = concepts.map(concept => `
-      <button type="button"
-        class="textbook-btn ${state.concept === concept ? "active" : ""}"
-        data-action="concept"
-        data-value="${escapeHtml(concept)}">${escapeHtml(concept)}</button>
+      <button type="button" class="textbook-btn ${state.concept === concept ? "active" : ""}"
+        data-action="concept" data-value="${escapeHtml(concept)}">${escapeHtml(concept)}</button>
     `).join("");
   }
 
   function renderKeywordButtons(){
     const el = $("textbookKeywordButtons");
     if(!el) return;
-
-    const entry = getConceptEntry();
     if(!state.subject || !state.concept){
       el.innerHTML = `<div class="textbook-empty">교과 개념을 선택하면 교과 키워드가 나옵니다.</div>`;
       return;
     }
 
+    const entry = getConceptEntry();
     const keywords = getKeywordList(entry);
     if(!keywords.length){
       el.innerHTML = `<div class="textbook-empty">등록된 교과 키워드가 없습니다.</div>`;
@@ -290,23 +272,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
     }
 
     el.innerHTML = keywords.map(keyword => `
-      <button type="button"
-        class="textbook-btn ${state.keyword === keyword ? "active" : ""}"
-        data-action="keyword"
-        data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
+      <button type="button" class="textbook-btn ${state.keyword === keyword ? "active" : ""}"
+        data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
     `).join("");
   }
 
   function renderCareerButtons(){
     const el = $("textbookCareerButtons");
     if(!el) return;
-
-    const entry = getConceptEntry();
     if(!state.keyword){
       el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 관련 진로/학과 연결이 나옵니다.</div>`;
       return;
     }
 
+    const entry = getConceptEntry();
     const careers = getCareerList(entry);
     if(!careers.length){
       el.innerHTML = `<div class="textbook-empty">등록된 진로/학과 연결이 없습니다.</div>`;
@@ -314,10 +293,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
     }
 
     el.innerHTML = careers.map(career => `
-      <button type="button"
-        class="textbook-btn ${state.career === career ? "active" : ""}"
-        data-action="career"
-        data-value="${escapeHtml(career)}">${escapeHtml(career)}</button>
+      <button type="button" class="textbook-btn ${state.career === career ? "active" : ""}"
+        data-action="career" data-value="${escapeHtml(career)}">${escapeHtml(career)}</button>
     `).join("");
   }
 
@@ -348,20 +325,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2-subject-concept-keyword-career";
     if(shouldFill && state.career){
       careerInput.value = state.career;
       careerInput.dataset.autoFilled = "textbook-career";
+    } else if(careerInput.dataset.autoFilled === "textbook-career"){
+      careerInput.value = "";
+      careerInput.dataset.autoFilled = "";
     }
-  }
-
-  function hideLegacyCareerSelector(){
-    document.querySelectorAll("h1,h2,h3,h4,div,p,section").forEach(node => {
-      const txt = (node.textContent || "").trim();
-      if(!txt) return;
-      if(txt.includes("진로 → 학과 → 추천 키워드 선택")){
-        const block = node.closest("section, .card, .result-card, .side-card, .student-card, .analysis-card, div");
-        if(block && block.id !== "textbookConceptSelectorSection"){
-          block.style.display = "none";
-        }
-      }
-    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
