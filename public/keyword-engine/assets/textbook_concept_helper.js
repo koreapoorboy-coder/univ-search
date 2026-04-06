@@ -1,5 +1,5 @@
 
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.2-subject-match-fix";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -37,6 +37,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
       bindEvents();
       syncSubjectFromSelect();
       renderAll();
+      safeHideLegacyCareerBlock();
+      setTimeout(safeHideLegacyCareerBlock, 600);
+      setTimeout(safeHideLegacyCareerBlock, 1800);
     }catch(error){
       console.warn("textbook concept helper init error:", error);
     }
@@ -115,6 +118,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
         syncKeywordInput();
         syncCareerInput(false);
         renderAll();
+        safeHideLegacyCareerBlock();
       });
     }
 
@@ -156,31 +160,56 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
     }
   }
 
+  function getSubjectRawValue(){
+    const el = $("subject");
+    if(!el) return "";
+    const value = (el.value || "").trim();
+    const text = el.options && el.selectedIndex >= 0 ? (el.options[el.selectedIndex].text || "").trim() : "";
+    return value || text || "";
+  }
+
   function syncSubjectFromSelect(){
-    const raw = $("subject")?.value?.trim() || "";
+    const raw = getSubjectRawValue();
     state.subject = findSubjectKey(raw);
   }
 
   function findSubjectKey(raw){
     if(!raw || !uiSeed) return "";
     const keys = Object.keys(uiSeed);
-    const normalized = raw.replace(/\s+/g, "").toLowerCase();
+    const cleaned = normalizeSubject(raw);
 
     for(const key of keys){
-      const nk = key.replace(/\s+/g, "").toLowerCase();
-      if(nk === normalized || normalized.includes(nk) || nk.includes(normalized)) return key;
+      const nk = normalizeSubject(key);
+      if(nk === cleaned) return key;
+    }
+    for(const key of keys){
+      const nk = normalizeSubject(key);
+      if(cleaned.includes(nk) || nk.includes(cleaned)) return key;
     }
 
     const aliasMap = {
       "통합과학": "통합과학1",
       "통합과학1": "통합과학1",
+      "integratedscience1": "통합과학1",
+      "scienceinquiryexperiment1": "과학탐구실험1",
+      "scienceinquiryexperiment2": "과학탐구실험2",
       "과학탐구실험1": "과학탐구실험1",
       "과학탐구실험2": "과학탐구실험2",
       "공통수학1": "공통수학1",
       "공통수학2": "공통수학2",
-      "정보": "정보"
+      "commonmath1": "공통수학1",
+      "commonmath2": "공통수학2",
+      "정보": "정보",
+      "information": "정보"
     };
-    return aliasMap[raw] || "";
+    return aliasMap[cleaned] || "";
+  }
+
+  function normalizeSubject(v){
+    return String(v || "")
+      .replace(/\s+/g, "")
+      .replace(/[()\-_/]/g, "")
+      .toLowerCase();
   }
 
   function getConceptList(subject){
@@ -191,6 +220,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
       return entry.concept_buttons.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
     }
     if(Array.isArray(entry.concept_order)) return entry.concept_order;
+    if(Array.isArray(entry.items)){
+      return entry.items.map(item => item && (item.concept || item.label || item.name)).filter(Boolean);
+    }
     return [];
   }
 
@@ -328,6 +360,23 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v2.1-safe-fix";
     } else if(careerInput.dataset.autoFilled === "textbook-career"){
       careerInput.value = "";
       careerInput.dataset.autoFilled = "";
+    }
+  }
+
+  function safeHideLegacyCareerBlock(){
+    try{
+      const headings = Array.from(document.querySelectorAll("h1,h2,h3,h4"));
+      const target = headings.find(h => (h.textContent || "").includes("진로 → 학과 → 추천 키워드 선택"));
+      if(!target) return;
+
+      let block = target.closest("section, .card, .result-card, .side-card, .student-card, .analysis-card");
+      if(!block){
+        block = target.parentElement;
+      }
+      if(!block || block.id === "textbookConceptSelectorSection") return;
+      block.style.display = "none";
+    }catch(error){
+      console.warn("safeHideLegacyCareerBlock error:", error);
     }
   }
 
