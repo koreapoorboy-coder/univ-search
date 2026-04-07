@@ -444,8 +444,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
       why: buildWhyText(keyword, career),
       schoolLabel: `${subject} 단원 연결`,
       school: buildSchoolText(subject, concept, keyword, entry),
-      subjectChips: chipHtml(relatedSubjects),
-      majorChips: chipHtml(relatedMajors),
+      subjectChips: chipHtmlSubject(relatedSubjects),
+      majorChips: chipHtmlWithDesc(relatedMajors),
       majorLead: buildMajorLeadText(relatedMajors),
       fit: buildFitText(keyword, career)
     };
@@ -523,7 +523,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
     if(!list.length) return "이 키워드는 자연과학·공학·의생명 계열 전공과 폭넓게 이어질 수 있어요.";
     if(list.length === 1) return `${list[0]}처럼 교과 개념을 실제 분석과 탐구로 확장하는 전공과 연결돼요.`;
     const top = list.slice(0, 3).join(", ");
-    return `${top}처럼 교과 개념을 측정·해석·모델링으로 확장하는 전공과 이어질 수 있어요.`;
+    return `${top}처럼 교과 개념을 계산하고 데이터를 분석하고 문제를 해결하는 방식으로 확장하는 전공과 이어질 수 있어요.`;
   }
 
   function buildFitText(keyword, career){
@@ -562,3 +562,32 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+
+
+function chipHtmlWithDesc(arr){
+  const map = {
+    "수학과":"수식으로 원리 분석",
+    "통계학과":"데이터 비교·해석",
+    "물리학과":"전자·힘·에너지 연구",
+    "기계공학과":"기계 시스템 설계",
+    "컴퓨터공학과":"프로그램·데이터 처리"
+  };
+  return (arr||[]).map(v=>{
+    const desc = map[v] ? ` (${map[v]})` : "";
+    return `<span class="reason-chip">${v}${desc}</span>`;
+  }).join("");
+}
+
+function chipHtmlSubject(arr){
+  const map = {
+    "공통수학1":"수치 계산·비교",
+    "공통수학2":"수치 계산·비교",
+    "물리학":"전자·힘·에너지 이해",
+    "정보":"데이터 처리",
+    "통합사회":"현상 해석"
+  };
+  return (arr||[]).map(v=>{
+    const desc = map[v] ? ` (${map[v]})` : "";
+    return `<span class="reason-chip">${v}${desc}</span>`;
+  }).join("");
+}
