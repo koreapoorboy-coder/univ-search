@@ -1,3 +1,10 @@
+.single-column-form{
+  grid-template-columns:1fr !important;
+}
+.single-column-form > label{
+  grid-column:1 / -1 !important;
+}
+
 .topic-suggestion-card{
   margin-top:16px;
   border:1px solid #dfe7ff;
@@ -38,55 +45,21 @@
   font-weight:700;
   line-height:1.55;
 }
-.topic-combo-grid{
-  display:grid;
-  gap:12px;
+.puzzle-step{
+  margin-top:12px;
 }
-.topic-combo-card{
-  border:1px solid #dfe5f2;
-  border-radius:16px;
-  background:#fff;
-  padding:14px;
-}
-.topic-combo-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
-.topic-combo-label{
-  font-size:.92rem;
-  font-weight:800;
-  color:#2440a8;
-  margin-bottom:4px;
-}
-.topic-combo-desc{
-  font-size:.9rem;
-  line-height:1.5;
-  color:#475569;
-}
-.topic-combo-mini{
-  font-size:.78rem;
-  font-weight:700;
-  color:#64748b;
-  white-space:nowrap;
-}
-.topic-combo-section{
-  margin-top:10px;
-}
-.topic-combo-section-title{
-  font-size:.86rem;
+.puzzle-step-label{
+  font-size:.88rem;
   font-weight:800;
   color:#334155;
   margin-bottom:8px;
 }
-.topic-chip-wrap{
+.puzzle-chip-wrap{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
 }
-.topic-choice-chip{
+.puzzle-chip{
   border:1px solid #d7e3ff;
   background:#fff;
   color:#2440a8;
@@ -100,30 +73,30 @@
   align-items:flex-start;
   gap:2px;
   text-align:left;
-  min-width:110px;
+  min-width:120px;
 }
-.topic-choice-chip.is-active{
+.puzzle-chip.is-active{
   background:#2458ff;
   color:#fff;
   border-color:#2458ff;
 }
-.topic-choice-main{
+.puzzle-chip-main{
   font-weight:800;
   line-height:1.35;
 }
-.topic-choice-sub{
+.puzzle-chip-sub{
   font-size:.74rem;
   line-height:1.35;
   opacity:.92;
 }
-.topic-structured-box{
-  margin-top:12px;
+.puzzle-result-box{
+  margin-top:14px;
   padding:12px;
   border:1px solid #dfe7ff;
   border-radius:14px;
   background:#f8fbff;
 }
-.topic-structured-head{
+.puzzle-result-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -131,74 +104,74 @@
   flex-wrap:wrap;
   margin-bottom:10px;
 }
-.topic-preview-label{
+.puzzle-result-title{
   font-size:.82rem;
   font-weight:800;
   color:#2440a8;
 }
-.topic-structured-mini{
+.puzzle-result-mini{
   font-size:.78rem;
   font-weight:700;
   color:#64748b;
 }
-.topic-structured-grid{
+.puzzle-result-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
 }
-.topic-structured-item{
+.puzzle-result-item{
   border:1px solid #dfe5f2;
   border-radius:12px;
   background:#fff;
   padding:10px;
 }
-.topic-structured-label{
+.puzzle-result-label{
   font-size:.78rem;
   font-weight:800;
   color:#2440a8;
   margin-bottom:6px;
 }
-.topic-structured-value{
+.puzzle-result-value{
   font-size:.92rem;
   font-weight:800;
   color:#172033;
   line-height:1.45;
 }
-.topic-structured-sub{
+.puzzle-result-sub{
   margin-top:4px;
   font-size:.78rem;
   line-height:1.45;
   color:#64748b;
 }
-.topic-focus-box{
+.puzzle-focus-box{
   display:grid;
   gap:10px;
   margin-top:10px;
 }
-.topic-focus-item{
+.puzzle-focus-item{
   border:1px solid #dfe5f2;
   border-radius:12px;
   background:#fff;
   padding:10px;
 }
-.topic-focus-value{
+.puzzle-focus-value{
   line-height:1.6;
   color:#172033;
   font-weight:700;
 }
-.topic-structured-help{
+.puzzle-result-help{
   margin-top:10px;
   font-size:.82rem;
   line-height:1.55;
   color:#64748b;
 }
-.topic-structured-actions{
+.puzzle-result-actions{
   margin-top:12px;
   display:flex;
   flex-direction:column;
   gap:8px;
 }
-.topic-apply-btn{
+.puzzle-apply-btn{
   border:0;
   border-radius:12px;
   padding:11px 14px;
@@ -207,7 +180,7 @@
   font-weight:800;
   cursor:pointer;
 }
-.topic-copy-notice{
+.puzzle-copy-notice{
   font-size:.82rem;
   line-height:1.45;
   color:#2458ff;
@@ -232,16 +205,10 @@
   color:#334155;
 }
 @media (max-width:760px){
-  .topic-combo-top{
-    flex-direction:column;
-  }
-  .topic-combo-mini{
-    white-space:normal;
-  }
-  .topic-choice-chip{
+  .puzzle-chip{
     min-width:100%;
   }
-  .topic-structured-grid{
+  .puzzle-result-grid{
     grid-template-columns:1fr;
   }
 }
