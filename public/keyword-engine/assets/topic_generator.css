@@ -116,29 +116,102 @@
   line-height:1.35;
   opacity:.92;
 }
-.topic-preview-box{
+.topic-structured-box{
   margin-top:12px;
   padding:12px;
   border:1px solid #dfe7ff;
   border-radius:14px;
   background:#f8fbff;
 }
+.topic-structured-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
 .topic-preview-label{
   font-size:.82rem;
   font-weight:800;
   color:#2440a8;
+}
+.topic-structured-mini{
+  font-size:.78rem;
+  font-weight:700;
+  color:#64748b;
+}
+.topic-structured-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.topic-structured-item{
+  border:1px solid #dfe5f2;
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+}
+.topic-structured-label{
+  font-size:.78rem;
+  font-weight:800;
+  color:#2440a8;
   margin-bottom:6px;
 }
-.topic-preview-text{
-  line-height:1.65;
+.topic-structured-value{
+  font-size:.92rem;
+  font-weight:800;
+  color:#172033;
+  line-height:1.45;
+}
+.topic-structured-sub{
+  margin-top:4px;
+  font-size:.78rem;
+  line-height:1.45;
+  color:#64748b;
+}
+.topic-focus-box{
+  display:grid;
+  gap:10px;
+  margin-top:10px;
+}
+.topic-focus-item{
+  border:1px solid #dfe5f2;
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+}
+.topic-focus-value{
+  line-height:1.6;
   color:#172033;
   font-weight:700;
 }
-.topic-preview-help{
-  margin-top:8px;
+.topic-structured-help{
+  margin-top:10px;
   font-size:.82rem;
   line-height:1.55;
   color:#64748b;
+}
+.topic-structured-actions{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.topic-apply-btn{
+  border:0;
+  border-radius:12px;
+  padding:11px 14px;
+  background:#2458ff;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+}
+.topic-copy-notice{
+  font-size:.82rem;
+  line-height:1.45;
+  color:#2458ff;
+  font-weight:700;
 }
 .topic-tip-box{
   margin-top:14px;
@@ -167,5 +240,8 @@
   }
   .topic-choice-chip{
     min-width:100%;
+  }
+  .topic-structured-grid{
+    grid-template-columns:1fr;
   }
 }
