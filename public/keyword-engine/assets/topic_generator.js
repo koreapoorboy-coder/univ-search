@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
+window.__TOPIC_GENERATOR_VERSION = "v7.0-json-mini-connected";
 
 (function(){
   const SEED_URL = "seed/textbook-v1/topic_matrix_seed.json";
@@ -85,37 +85,60 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
     return (seedData?.targets || []).find(t => t.name === name)?.hint || "";
   }
 
-  function buildStructuredSummary({routeType, keyword, career, target, perspective}){
-    const routeMap = {
-      applied: "어디에 쓰일까?",
-      compare: "무엇이 다를까?",
-      major: "어떤 진로와 이어질까?"
+  function routeLabel(routeType){
+    const map = {
+      applied: "사례 조사",
+      compare: "비교 탐구",
+      application: "응용 탐구",
+      major: "진로 연결"
     };
-    const route = routeMap[routeType] || "어떻게 볼까?";
-    const targetHint = getTargetHint(target);
-    const perspectiveHint = getPerspectiveHint(perspective);
-    const resultLine = `${target}를 ${perspective} 관점에서 ${route}`;
-    const title = `${keyword}을(를) ${target} 사례로 살펴보며 ${perspective} 중심으로 정리하기`;
-    const question = `${keyword}이(가) ${target} 사례에서 어떤 역할을 하며, ${perspective} 관점에서 무엇을 설명할 수 있을까? ${career} 방향과 연결해 보기`;
+    return map[routeType] || "사례 조사";
+  }
 
-    return {
-      route, target, targetHint, perspective, perspectiveHint, resultLine, title, question,
-      reportText:
-`[보고서 생성용 입력값]
-질문 방향: ${route}
-핵심 키워드: ${keyword}
-연결 전공/방향: ${career}
-사례: ${target}
-사례 설명: ${targetHint || "-"}
-관점: ${perspective}
-관점 설명: ${perspectiveHint || "-"}
-퍼즐 결과: ${resultLine}
-추천 제목: ${title}
-핵심 질문: ${question}
-
-위 내용을 바탕으로 학생용 수행평가 보고서 초안을 자연스럽게 작성해줘.
-문체는 고등학생 수준에 맞추고, 서론-본론-결론 흐름이 보이게 정리해줘.`
+  function routePrompt(routeType){
+    const map = {
+      applied: "실제 사례를 찾아보는 방식",
+      compare: "둘의 차이를 비교해 보는 방식",
+      application: "배운 개념이 어디에 쓰이는지 보는 방식",
+      major: "관심 있는 전공과 연결해 보는 방식"
     };
+    return map[routeType] || "실제 사례를 찾아보는 방식";
+  }
+
+  function buildPayload({routeType, keyword, subject, concept, career, target, perspective}){
+    const payload = {
+      exploration_mode: routeType,
+      exploration_mode_label: routeLabel(routeType),
+      exploration_mode_help: routePrompt(routeType),
+      subject: subject || "",
+      concept: concept || "",
+      core_keyword: keyword || "",
+      target_case: target || "",
+      target_case_hint: getTargetHint(target) || "",
+      analysis_view: perspective || "",
+      analysis_view_hint: getPerspectiveHint(perspective) || "",
+      linked_career: career || ""
+    };
+
+    payload.result_line = `${payload.target_case}를 ${payload.analysis_view} 관점에서 ${payload.exploration_mode_label}`;
+    payload.recommended_title = `${payload.core_keyword}을(를) ${payload.target_case} 사례로 살펴보며 ${payload.analysis_view} 중심으로 정리하기`;
+    payload.core_question = `${payload.core_keyword}이(가) ${payload.target_case} 사례에서 어떤 역할을 하며, ${payload.analysis_view} 관점에서 무엇을 설명할 수 있을까? ${payload.linked_career} 방향과 연결해 보기`;
+
+    return payload;
+  }
+
+  function buildMiniBlock(payload){
+    const jsonText = JSON.stringify(payload, null, 2);
+    return `[MINI_REPORT_INPUT_JSON]
+${jsonText}
+
+[MINI_REPORT_INSTRUCTION]
+위 JSON만 기준으로 고등학생 수준의 수행평가 보고서 초안을 작성해줘.
+조건:
+1. JSON에 없는 내용은 임의로 크게 확장하지 말 것
+2. 서론-본론-결론 흐름이 보이게 쓸 것
+3. 문장은 학생이 제출 가능한 자연스러운 한국어로 작성할 것
+4. 사례, 관점, 진로 연결이 본문에 드러나게 할 것`;
   }
 
   function chipHTML(items, kind, selectedIndex=0){
@@ -131,16 +154,22 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
     }).join("");
   }
 
-  function updateSummary(root){
+  function getCurrentPayload(root){
     const routeType = root.querySelector('.puzzle-chip[data-kind="route"].is-active')?.getAttribute("data-value") || "applied";
     const target = root.querySelector('.puzzle-chip[data-kind="target"].is-active .puzzle-chip-main')?.textContent || "";
     const perspective = root.querySelector('.puzzle-chip[data-kind="perspective"].is-active .puzzle-chip-main')?.textContent || "";
     const keyword = root.getAttribute("data-keyword") || "";
+    const subject = root.getAttribute("data-subject") || "";
+    const concept = root.getAttribute("data-concept") || "";
     const career = root.getAttribute("data-career") || "";
-    const summary = buildStructuredSummary({ routeType, keyword, career, target, perspective });
+    return buildPayload({routeType, keyword, subject, concept, career, target, perspective});
+  }
 
-    root.querySelector(".puzzle-result-line").textContent = summary.resultLine;
-    root.querySelector(".puzzle-report-payload").value = summary.reportText;
+  function updateSummary(root){
+    const payload = getCurrentPayload(root);
+    root.querySelector(".puzzle-result-line").textContent = payload.result_line;
+    root.querySelector(".puzzle-json-preview").textContent = JSON.stringify(payload, null, 2);
+    root.querySelector(".puzzle-report-payload").value = buildMiniBlock(payload);
   }
 
   function applyToTaskDescription(root){
@@ -149,19 +178,17 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
 
     const taskDesc = $("taskDescription");
     if(taskDesc){
-      const cleaned = (taskDesc.value || "").replace(/\n*\[보고서 생성용 입력값\][\s\S]*$/m, "").trim();
+      const cleaned = (taskDesc.value || "")
+        .replace(/\n*\[MINI_REPORT_INPUT_JSON\][\s\S]*$/m, "")
+        .trim();
       taskDesc.value = cleaned ? `${cleaned}\n\n${text}` : text;
-    }
-
-    if(navigator.clipboard?.writeText){
-      navigator.clipboard.writeText(text).catch(() => {});
     }
 
     const notice = root.querySelector(".puzzle-copy-notice");
     if(notice){
-      notice.textContent = "선택한 내용이 수행평가 설명 칸에 반영됐어요.";
+      notice.textContent = "JSON 입력값이 수행평가 설명 칸에 반영됐어요. 이제 학생용 결과 생성을 누르면 됩니다.";
       notice.style.display = "block";
-      setTimeout(() => { notice.style.display = "none"; }, 1800);
+      setTimeout(() => { notice.style.display = "none"; }, 2200);
     }
   }
 
@@ -192,6 +219,8 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
 
   window.renderTopicSuggestionHTML = function(ctx){
     const keyword = ctx?.keyword || "";
+    const subject = ctx?.subject || "";
+    const concept = ctx?.concept || "";
     const career = ctx?.career || "";
     if(!keyword || !career) return "";
 
@@ -201,29 +230,46 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
 
     const targets = getAllowedTargets(keyword, career).slice(0, 6);
     const perspectives = getAllowedPerspectives(keyword, career).slice(0, 6);
-    const firstTarget = targets[0]?.name || targets[0] || "";
-    const firstPerspective = perspectives[0] || "";
-    const firstSummary = buildStructuredSummary({
-      routeType: "applied", keyword, career, target: firstTarget, perspective: firstPerspective
+    const firstPayload = buildPayload({
+      routeType: "applied",
+      keyword,
+      subject,
+      concept,
+      career,
+      target: targets[0]?.name || targets[0] || "",
+      perspective: perspectives[0] || ""
     });
 
     return `
-      <div class="topic-suggestion-card single-puzzle-root" data-keyword="${esc(keyword)}" data-career="${esc(career)}">
+      <div class="topic-suggestion-card single-puzzle-root" data-keyword="${esc(keyword)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}" data-career="${esc(career)}">
         <div class="topic-suggestion-head">
           <h4>6. 탐구 퍼즐 맞추기</h4>
-          <div class="topic-suggestion-guide">학생용 최소 선택 UI</div>
+          <div class="topic-suggestion-guide">JSON → MINI 연결</div>
         </div>
 
-        <p class="topic-suggestion-desc">아래에서 <b>질문 1개</b>, <b>사례 1개</b>, <b>관점 1개</b>만 골라보세요.</p>
+        <p class="topic-suggestion-desc">아래에서 <b>탐구 방식 1개</b>, <b>사례 1개</b>, <b>관점 1개</b>를 고르면, MINI가 바로 이해할 수 있는 구조화 데이터가 만들어집니다.</p>
 
-        <div class="topic-pick-guide">👉 설명은 최소화하고, 선택만 하게 만든 퍼즐형 구조예요.</div>
+        <div class="topic-pick-guide">👉 여기서는 문장을 길게 만들지 않고, MINI가 오류 없이 받기 좋은 JSON 입력값을 만드는 단계예요.</div>
 
         <div class="puzzle-step">
-          <div class="puzzle-step-label">1. 어떤 궁금증으로 볼까?</div>
+          <div class="puzzle-step-label">1. 먼저, 어떤 방식으로 탐구할까?</div>
           <div class="puzzle-chip-wrap">
-            <button type="button" class="puzzle-chip is-active" data-kind="route" data-value="applied"><span class="puzzle-chip-main">어디에 쓰일까?</span></button>
-            <button type="button" class="puzzle-chip" data-kind="route" data-value="compare"><span class="puzzle-chip-main">무엇이 다를까?</span></button>
-            <button type="button" class="puzzle-chip" data-kind="route" data-value="major"><span class="puzzle-chip-main">어떤 진로와 이어질까?</span></button>
+            <button type="button" class="puzzle-chip is-active" data-kind="route" data-value="applied">
+              <span class="puzzle-chip-main">사례 조사</span>
+              <span class="puzzle-chip-sub">실제 사례를 찾아보는 방식</span>
+            </button>
+            <button type="button" class="puzzle-chip" data-kind="route" data-value="compare">
+              <span class="puzzle-chip-main">비교 탐구</span>
+              <span class="puzzle-chip-sub">둘의 차이를 비교해 보는 방식</span>
+            </button>
+            <button type="button" class="puzzle-chip" data-kind="route" data-value="application">
+              <span class="puzzle-chip-main">응용 탐구</span>
+              <span class="puzzle-chip-sub">배운 개념이 어디에 쓰이는지 보는 방식</span>
+            </button>
+            <button type="button" class="puzzle-chip" data-kind="route" data-value="major">
+              <span class="puzzle-chip-main">진로 연결</span>
+              <span class="puzzle-chip-sub">관심 전공과 연결해 보는 방식</span>
+            </button>
           </div>
         </div>
 
@@ -243,11 +289,17 @@ window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
 
         <div class="puzzle-result-box">
           <div class="puzzle-result-title">선택 결과</div>
-          <div class="puzzle-result-line">${esc(firstSummary.resultLine)}</div>
-          <textarea class="puzzle-report-payload" style="display:none;">${esc(firstSummary.reportText)}</textarea>
+          <div class="puzzle-result-line">${esc(firstPayload.result_line)}</div>
         </div>
 
-        <button type="button" class="puzzle-apply-btn">보고서 만들기</button>
+        <details class="puzzle-json-box">
+          <summary>MINI로 넘길 JSON 보기</summary>
+          <pre class="puzzle-json-preview">${esc(JSON.stringify(firstPayload, null, 2))}</pre>
+        </details>
+
+        <textarea class="puzzle-report-payload" style="display:none;">${esc(buildMiniBlock(firstPayload))}</textarea>
+
+        <button type="button" class="puzzle-apply-btn">선택한 JSON을 보고서 생성에 반영</button>
         <div class="puzzle-copy-notice" style="display:none;"></div>
       </div>
     `;
