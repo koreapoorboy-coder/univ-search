@@ -172,6 +172,7 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
       if (chip){
         const root = chip.closest(".single-puzzle-root");
         if(!root) return;
+        if (chip.classList.contains("is-active")) return;
         const kind = chip.getAttribute("data-kind");
         root.querySelectorAll(`.puzzle-chip[data-kind="${kind}"]`).forEach(btn => btn.classList.remove("is-active"));
         chip.classList.add("is-active");
@@ -212,16 +213,16 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
           <div class="topic-suggestion-guide">학생용 퍼즐 선택 UI</div>
         </div>
 
-        <p class="topic-suggestion-desc">긴 설명 카드를 읽는 대신, 아래에서 <b>탐구 방식</b> / <b>사례</b> / <b>관점</b>을 하나씩 골라 탐구 방향을 맞춰 보세요.</p>
+        <p class="topic-suggestion-desc">긴 설명 카드를 읽는 대신, 아래에서 <b>질문</b> / <b>사례</b> / <b>관점</b>을 하나씩 골라 탐구 방향을 맞춰 보세요.</p>
 
         <div class="topic-pick-guide">👉 정답은 없어요. 가장 관심 가는 조합을 골라보면 됩니다.</div>
 
         <div class="puzzle-step">
-          <div class="puzzle-step-label">1. 어떤 방식으로 해볼까?</div>
+          <div class="puzzle-step-label">1. 어떤 질문으로 더 살펴볼까?</div>
           <div class="puzzle-chip-wrap">
-            <button type="button" class="puzzle-chip is-active" data-kind="route" data-value="applied"><span class="puzzle-chip-main">생활 연결</span></button>
-            <button type="button" class="puzzle-chip" data-kind="route" data-value="compare"><span class="puzzle-chip-main">비교하기</span></button>
-            <button type="button" class="puzzle-chip" data-kind="route" data-value="major"><span class="puzzle-chip-main">전공 연결</span></button>
+            <button type="button" class="puzzle-chip is-active" data-kind="route" data-value="applied"><span class="puzzle-chip-main">어디에 쓰일까?</span></button>
+            <button type="button" class="puzzle-chip" data-kind="route" data-value="compare"><span class="puzzle-chip-main">무엇이 다를까?</span></button>
+            <button type="button" class="puzzle-chip" data-kind="route" data-value="major"><span class="puzzle-chip-main">어떤 진로와 이어질까?</span></button>
           </div>
         </div>
 
