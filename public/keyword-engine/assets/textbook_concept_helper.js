@@ -402,6 +402,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
           </div>
         </div>
 
+        <div class="reason-example reason-example--simple">
+          <div class="reason-mini-label">쉽게 말하면</div>
+          <p>${escapeHtml(reason.simple)}</p>
+        </div>
+
         <div class="reason-example">
           <div class="reason-mini-label">이런 학생에게 잘 맞아요</div>
           <p>${escapeHtml(reason.fit)}</p>
@@ -458,6 +463,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
       subjectChips: chipHtmlSubject(relatedSubjects),
       majorChips: chipHtmlWithDesc(relatedMajors),
       majorLead: buildMajorLeadText(relatedMajors),
+      simple: buildSimpleText(keyword, career),
       fit: buildFitText(keyword, career)
     };
   }
@@ -535,6 +541,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
     if(list.length === 1) return `${list[0]}처럼 교과 개념을 실제 분석과 탐구로 확장하는 전공과 연결돼요.`;
     const top = list.slice(0, 3).join(", ");
     return `${top}처럼 교과 개념을 계산하고 데이터를 분석하고 문제를 해결하는 방식으로 확장하는 전공과 이어질 수 있어요.`;
+  }
+
+
+  function buildSimpleText(keyword, career){
+    return `${keyword}은(는) 교과서 개념에서 끝나는 게 아니라, 실제 사례를 이해하고 ${career} 방향으로 확장해 보는 출발점이에요.`;
   }
 
   function buildFitText(keyword, career){
