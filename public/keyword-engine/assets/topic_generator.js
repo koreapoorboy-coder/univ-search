@@ -1,6 +1,10 @@
-window.__TOPIC_GENERATOR_VERSION = "v1.1-complete";
+window.__TOPIC_GENERATOR_VERSION = "v2.0-combo-ui";
 
 (function(){
+  const SEED_URL = "seed/textbook-v1/topic_matrix_seed.json";
+  let seedData = null;
+  let listenersBound = false;
+
   function esc(value){
     return String(value ?? "")
       .replace(/&/g,"&amp;")
@@ -14,57 +18,107 @@ window.__TOPIC_GENERATOR_VERSION = "v1.1-complete";
     return [...new Set((arr || []).filter(Boolean))];
   }
 
-  function buildTopics(keyword, subject, concept, career){
-    const base = uniq([
-      `${keyword}이(가) 실생활에서 어떻게 활용되는지 분석하기`,
-      `${keyword}을(를) ${subject} 개념과 연결해 탐구 주제로 바꾸기`,
-      `${keyword}과(와) ${career}를 연결한 자료조사형 탐구 설계하기`
-    ]);
-
-    const pair = `${keyword}|${career}`;
-    const custom = {
-      "정밀 측정|물리학": [
-        "정밀 측정이 필요한 실험 사례를 조사하고 오차를 줄이는 방법 비교하기",
-        "센서와 측정 장비가 물리 실험에서 정확도를 높이는 원리 정리하기",
-        "일상 속 측정 도구를 비교해 어떤 상황에서 더 정확한지 분석하기"
-      ],
-      "위치 추적|정보": [
-        "GPS와 센서 데이터가 위치 추적에 어떻게 활용되는지 조사하기",
-        "지도 앱의 위치 추적 원리를 좌표와 데이터 처리 관점에서 설명하기",
-        "드론·자율주행에서 위치 추적 기술이 왜 중요한지 사례 분석하기"
-      ],
-      "위치 추적|지구과학": [
-        "태풍 이동 경로 예측에 위치 추적 데이터가 어떻게 쓰이는지 조사하기",
-        "지진 관측과 화산 감시에서 위치 정보가 왜 중요한지 정리하기",
-        "행성 운동 관측에서 위치 추적이 어떤 역할을 하는지 사례 분석하기"
-      ],
-      "자극 반응|생명과학 탐구": [
-        "생물이 빛·소리·온도 자극에 어떻게 반응하는지 사례 비교하기",
-        "식물과 동물의 자극 반응 차이를 자료조사로 정리하기",
-        "일상생활 속 자극 반응 사례를 생명과학 개념으로 설명하기"
-      ],
-      "나트륨 이온|생명과학 탐구": [
-        "나트륨 이온이 신경 전달에서 어떤 역할을 하는지 조사하기",
-        "세포막을 통한 이온 이동과 항상성의 관계를 정리하기",
-        "운동 후 전해질 보충이 왜 필요한지 나트륨 이온 관점에서 설명하기"
-      ],
-      "속도 측정 카메라|물리학": [
-        "속도 측정 카메라가 속도를 계산하는 원리를 조사하기",
-        "속도 측정에 쓰이는 센서와 시간 측정 방법을 비교하기",
-        "과속 단속 장치가 물리 개념과 어떻게 연결되는지 정리하기"
-      ],
-      "전자|기계공학": [
-        "전자 개념이 기계 시스템과 어떤 방식으로 연결되는지 조사하기",
-        "모터·센서·제어 장치에서 전자가 어떤 역할을 하는지 사례 분석하기",
-        "일상 속 기계 장치에 전기·전자 원리가 어떻게 적용되는지 정리하기"
-      ]
-    };
-
-    return uniq((custom[pair] || []).concat(base)).slice(0, 3);
+  function loadSeed(){
+    if (seedData) return Promise.resolve(seedData);
+    return fetch(SEED_URL, { cache: "no-store" })
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        seedData = data || { commonTargets: [], commonPerspectives: [], routeTypes: {} };
+        return seedData;
+      })
+      .catch(() => {
+        seedData = { commonTargets: [], commonPerspectives: [], routeTypes: {} };
+        return seedData;
+      });
   }
 
-  function buildGuide(keyword, career){
-    return `${keyword}을(를) 그대로 쓰기보다, 실제 사례·원리·비교 요소를 붙이면 수행평가 주제로 더 좋아져요. ${career} 방향으로 연결하면 탐구의 목적도 더 분명해집니다.`;
+  function pickList(keyword, career, field){
+    const common = seedData?.[field === "targets" ? "commonTargets" : "commonPerspectives"] || [];
+    const byKeyword = seedData?.keywordOverrides?.[keyword]?.[field] || [];
+    const byCareer = seedData?.careerOverrides?.[career]?.[field] || [];
+    return uniq([...byKeyword, ...byCareer, ...common]).slice(0, 8);
+  }
+
+  function buildTopic(routeType, keyword, career, target, perspective){
+    const template = seedData?.routeTypes?.[routeType]?.template || "{keyword}을(를) 활용한 탐구 주제 만들기";
+    return template
+      .replaceAll("{keyword}", keyword || "이 개념")
+      .replaceAll("{career}", career || "관심 전공")
+      .replaceAll("{target}", target || "실제 사례")
+      .replaceAll("{perspective}", perspective || "원리");
+  }
+
+  function cardHTML(routeType, keyword, subject, concept, career, targets, perspectives){
+    const route = seedData?.routeTypes?.[routeType] || {};
+    const initTarget = targets[0] || "실제 사례";
+    const initPerspective = perspectives[0] || "원리";
+    const preview = buildTopic(routeType, keyword, career, initTarget, initPerspective);
+
+    return `
+      <div class="topic-combo-card" data-route-type="${esc(routeType)}">
+        <div class="topic-combo-top">
+          <div>
+            <div class="topic-combo-label">${esc(route.label || "탐구형")}</div>
+            <div class="topic-combo-desc">${esc(route.description || "주제를 골라보세요.")}</div>
+          </div>
+          <div class="topic-combo-mini">중복 줄이는 선택형</div>
+        </div>
+
+        <div class="topic-combo-section">
+          <div class="topic-combo-section-title">1) 무엇을 중심으로 볼까?</div>
+          <div class="topic-chip-wrap topic-chip-wrap--target">
+            ${targets.map((item, idx) => `
+              <button type="button" class="topic-choice-chip ${idx === 0 ? "is-active" : ""}" data-kind="target" data-value="${esc(item)}">${esc(item)}</button>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="topic-combo-section">
+          <div class="topic-combo-section-title">2) 어떤 시각으로 볼까?</div>
+          <div class="topic-chip-wrap topic-chip-wrap--perspective">
+            ${perspectives.map((item, idx) => `
+              <button type="button" class="topic-choice-chip ${idx === 0 ? "is-active" : ""}" data-kind="perspective" data-value="${esc(item)}">${esc(item)}</button>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="topic-preview-box">
+          <div class="topic-preview-label">자동 생성된 주제</div>
+          <div class="topic-preview-text">${esc(preview)}</div>
+        </div>
+
+        <div class="topic-preview-help">같은 키워드를 골라도 선택하는 대상과 시각이 달라지면 주제가 달라집니다.</div>
+      </div>
+    `;
+  }
+
+  function bindEvents(){
+    if (listenersBound) return;
+    listenersBound = true;
+
+    document.addEventListener("click", function(event){
+      const chip = event.target.closest(".topic-choice-chip");
+      if (!chip) return;
+
+      const card = chip.closest(".topic-combo-card");
+      const root = chip.closest(".topic-suggestion-card");
+      if (!card || !root) return;
+
+      const kind = chip.getAttribute("data-kind");
+      card.querySelectorAll(`.topic-choice-chip[data-kind="${kind}"]`).forEach(btn => btn.classList.remove("is-active"));
+      chip.classList.add("is-active");
+
+      const routeType = card.getAttribute("data-route-type") || "";
+      const keyword = root.getAttribute("data-keyword") || "";
+      const career = root.getAttribute("data-career") || "";
+
+      const selectedTarget = card.querySelector('.topic-choice-chip[data-kind="target"].is-active')?.getAttribute("data-value") || "";
+      const selectedPerspective = card.querySelector('.topic-choice-chip[data-kind="perspective"].is-active')?.getAttribute("data-value") || "";
+      const preview = buildTopic(routeType, keyword, career, selectedTarget, selectedPerspective);
+
+      const previewText = card.querySelector(".topic-preview-text");
+      if (previewText) previewText.textContent = preview;
+    });
   }
 
   window.renderTopicSuggestionHTML = function(ctx){
@@ -75,31 +129,50 @@ window.__TOPIC_GENERATOR_VERSION = "v1.1-complete";
 
     if(!keyword || !career) return "";
 
-    const topics = buildTopics(keyword, subject, concept, career);
-    const guide = buildGuide(keyword, career);
+    bindEvents();
+
+    const fallbackSeed = {
+      commonTargets: ["실생활 물건", "기술 사례", "장치", "재료", "기기"],
+      commonPerspectives: ["원리", "구조", "기능", "비교"],
+      routeTypes: {
+        applied: { label: "생활 적용형", description: "실생활에 연결하는 주제예요.", template: "{keyword}이(가) {target}에서 어떻게 쓰이는지 {perspective} 중심으로 알아보기" },
+        compare: { label: "비교형", description: "둘을 비교하는 주제예요.", template: "{keyword}과(와) 관련된 {target} 사례를 {perspective} 관점에서 비교해보기" },
+        major: { label: "전공 연결형", description: "{career} 방향으로 넓히는 주제예요.", template: "{career}에서 {target}를 다룰 때 {keyword}이(가) 어떤 역할을 하는지 {perspective} 중심으로 정리해보기" }
+      }
+    };
+
+    if (!seedData) seedData = fallbackSeed;
+
+    const targets = pickList(keyword, career, "targets");
+    const perspectives = pickList(keyword, career, "perspectives");
+
+    const routeTypes = ["applied", "compare", "major"];
+    const cards = routeTypes.map(routeType => {
+      const shiftedTargets = routeType === "compare" ? targets.slice(1).concat(targets.slice(0,1)) : (routeType === "major" ? targets.slice(2).concat(targets.slice(0,2)) : targets);
+      const shiftedPerspectives = routeType === "compare" ? perspectives.slice(1).concat(perspectives.slice(0,1)) : (routeType === "major" ? perspectives.slice(2).concat(perspectives.slice(0,2)) : perspectives);
+      return cardHTML(routeType, keyword, subject, concept, career, shiftedTargets.slice(0,4), shiftedPerspectives.slice(0,4));
+    }).join("");
+
+    loadSeed();
 
     return `
-      <div class="topic-suggestion-card">
+      <div class="topic-suggestion-card" data-keyword="${esc(keyword)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}" data-career="${esc(career)}">
         <div class="topic-suggestion-head">
           <h4>6. 이 개념으로 할 수 있는 탐구 주제</h4>
-          <div class="topic-suggestion-guide">바로 수행평가 주제로 연결</div>
+          <div class="topic-suggestion-guide">조합형 주제 생성 UI</div>
         </div>
 
-        <p class="topic-suggestion-desc">${esc(guide)}</p>
-        <div class="topic-pick-guide">👉 위 3개 중 하나를 선택해서 바로 수행평가 주제로 써보세요.</div>
+        <p class="topic-suggestion-desc">주제를 그대로 주는 대신, <b>탐구 대상</b>과 <b>보는 시각</b>을 직접 골라서 주제를 만들게 했어요. 같은 키워드를 골라도 결과가 달라져서 중복이 줄어듭니다.</p>
 
-        <div class="topic-suggestion-list">
-          ${topics.map((topic, idx) => `
-            <div class="topic-item">
-              <div class="topic-no">${idx + 1}</div>
-              <div class="topic-text">${esc(topic)}</div>
-            </div>
-          `).join("")}
+        <div class="topic-pick-guide">👉 각 카드에서 버튼을 눌러보면 주제가 바로 바뀝니다. 3개 중 마음에 드는 방향을 골라 수행평가 주제로 쓰면 됩니다.</div>
+
+        <div class="topic-combo-grid">
+          ${cards}
         </div>
 
         <div class="topic-tip-box">
-          <div class="topic-tip-label">주제 잡는 팁</div>
-          <p>${esc(concept)} 단원에서 배운 원리를 붙이고, ${esc(career)}와 연결되는 실제 사례를 넣으면 더 설득력 있는 주제가 됩니다.</p>
+          <div class="topic-tip-label">6번을 확장하려면 어떤 데이터가 필요할까?</div>
+          <p><b>탐구 유형</b>(생활 적용형/비교형/전공 연결형), <b>탐구 대상</b>(배터리·자동차·센서 등), <b>탐구 관점</b>(구조·기능·정확도·비교 등) 데이터가 많을수록 중복이 줄어듭니다.</p>
         </div>
       </div>
     `;
