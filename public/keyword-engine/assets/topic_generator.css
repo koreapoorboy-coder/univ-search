@@ -90,16 +90,31 @@
   border:1px solid #d7e3ff;
   background:#fff;
   color:#2440a8;
-  border-radius:999px;
-  padding:8px 12px;
-  font-size:.85rem;
+  border-radius:14px;
+  padding:9px 11px;
+  font-size:.84rem;
   font-weight:700;
   cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  text-align:left;
+  min-width:110px;
 }
 .topic-choice-chip.is-active{
   background:#2458ff;
   color:#fff;
   border-color:#2458ff;
+}
+.topic-choice-main{
+  font-weight:800;
+  line-height:1.35;
+}
+.topic-choice-sub{
+  font-size:.74rem;
+  line-height:1.35;
+  opacity:.92;
 }
 .topic-preview-box{
   margin-top:12px;
@@ -149,5 +164,8 @@
   }
   .topic-combo-mini{
     white-space:normal;
+  }
+  .topic-choice-chip{
+    min-width:100%;
   }
 }
