@@ -86,6 +86,7 @@ window.__TOPIC_GENERATOR_VERSION = "v1.1-complete";
         </div>
 
         <p class="topic-suggestion-desc">${esc(guide)}</p>
+        <div class="topic-pick-guide">👉 위 3개 중 하나를 선택해서 바로 수행평가 주제로 써보세요.</div>
 
         <div class="topic-suggestion-list">
           ${topics.map((topic, idx) => `
