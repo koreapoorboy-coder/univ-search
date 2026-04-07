@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
+window.__TOPIC_GENERATOR_VERSION = "v6.1-single-puzzle-full";
 
 (function(){
   const SEED_URL = "seed/textbook-v1/topic_matrix_seed.json";
@@ -87,27 +87,29 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
 
   function buildStructuredSummary({routeType, keyword, career, target, perspective}){
     const routeMap = {
-      applied: "생활 연결",
-      compare: "비교하기",
-      major: "전공 연결"
+      applied: "어디에 쓰일까?",
+      compare: "무엇이 다를까?",
+      major: "어떤 진로와 이어질까?"
     };
-    const route = routeMap[routeType] || "탐구";
+    const route = routeMap[routeType] || "어떻게 볼까?";
     const targetHint = getTargetHint(target);
     const perspectiveHint = getPerspectiveHint(perspective);
+    const resultLine = `${target}를 ${perspective} 관점에서 ${route}`;
     const title = `${keyword}을(를) ${target} 사례로 살펴보며 ${perspective} 중심으로 정리하기`;
     const question = `${keyword}이(가) ${target} 사례에서 어떤 역할을 하며, ${perspective} 관점에서 무엇을 설명할 수 있을까? ${career} 방향과 연결해 보기`;
 
     return {
-      route, target, targetHint, perspective, perspectiveHint, title, question,
+      route, target, targetHint, perspective, perspectiveHint, resultLine, title, question,
       reportText:
 `[보고서 생성용 입력값]
-탐구 방식: ${route}
+질문 방향: ${route}
 핵심 키워드: ${keyword}
 연결 전공/방향: ${career}
 사례: ${target}
 사례 설명: ${targetHint || "-"}
 관점: ${perspective}
 관점 설명: ${perspectiveHint || "-"}
+퍼즐 결과: ${resultLine}
 추천 제목: ${title}
 핵심 질문: ${question}
 
@@ -116,12 +118,12 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
     };
   }
 
-  function chipHTML(items, kind){
+  function chipHTML(items, kind, selectedIndex=0){
     return items.map((item, idx) => {
       const label = item.name || item;
       const hint = item.hint || getPerspectiveHint(label) || "";
       return `
-        <button type="button" class="puzzle-chip ${idx === 0 ? "is-active" : ""}" data-kind="${esc(kind)}" data-value="${esc(label)}">
+        <button type="button" class="puzzle-chip ${idx === selectedIndex ? "is-active" : ""}" data-kind="${esc(kind)}" data-value="${esc(label)}">
           <span class="puzzle-chip-main">${esc(label)}</span>
           ${hint ? `<span class="puzzle-chip-sub">${esc(hint)}</span>` : ""}
         </button>
@@ -135,26 +137,26 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
     const perspective = root.querySelector('.puzzle-chip[data-kind="perspective"].is-active .puzzle-chip-main')?.textContent || "";
     const keyword = root.getAttribute("data-keyword") || "";
     const career = root.getAttribute("data-career") || "";
-    const summary = buildStructuredSummary({routeType, keyword, career, target, perspective});
+    const summary = buildStructuredSummary({ routeType, keyword, career, target, perspective });
 
-    root.querySelector(".puzzle-summary-route").textContent = summary.route;
-    root.querySelector(".puzzle-summary-target").textContent = summary.target;
-    root.querySelector(".puzzle-summary-target-hint").textContent = summary.targetHint || "선택한 사례를 중심으로 조사";
-    root.querySelector(".puzzle-summary-perspective").textContent = summary.perspective;
-    root.querySelector(".puzzle-summary-perspective-hint").textContent = summary.perspectiveHint || "선택한 시각으로 정리";
-    root.querySelector(".puzzle-summary-title").textContent = summary.title;
-    root.querySelector(".puzzle-summary-question").textContent = summary.question;
+    root.querySelector(".puzzle-result-line").textContent = summary.resultLine;
     root.querySelector(".puzzle-report-payload").value = summary.reportText;
   }
 
   function applyToTaskDescription(root){
     const text = root.querySelector(".puzzle-report-payload")?.value || "";
     if(!text) return;
+
     const taskDesc = $("taskDescription");
     if(taskDesc){
       const cleaned = (taskDesc.value || "").replace(/\n*\[보고서 생성용 입력값\][\s\S]*$/m, "").trim();
       taskDesc.value = cleaned ? `${cleaned}\n\n${text}` : text;
     }
+
+    if(navigator.clipboard?.writeText){
+      navigator.clipboard.writeText(text).catch(() => {});
+    }
+
     const notice = root.querySelector(".puzzle-copy-notice");
     if(notice){
       notice.textContent = "선택한 내용이 수행평가 설명 칸에 반영됐어요.";
@@ -199,7 +201,6 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
 
     const targets = getAllowedTargets(keyword, career).slice(0, 6);
     const perspectives = getAllowedPerspectives(keyword, career).slice(0, 6);
-
     const firstTarget = targets[0]?.name || targets[0] || "";
     const firstPerspective = perspectives[0] || "";
     const firstSummary = buildStructuredSummary({
@@ -209,16 +210,16 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
     return `
       <div class="topic-suggestion-card single-puzzle-root" data-keyword="${esc(keyword)}" data-career="${esc(career)}">
         <div class="topic-suggestion-head">
-          <h4>6. 조각 맞추기로 탐구 방향 정하기</h4>
-          <div class="topic-suggestion-guide">학생용 퍼즐 선택 UI</div>
+          <h4>6. 탐구 퍼즐 맞추기</h4>
+          <div class="topic-suggestion-guide">학생용 최소 선택 UI</div>
         </div>
 
-        <p class="topic-suggestion-desc">긴 설명 카드를 읽는 대신, 아래에서 <b>질문</b> / <b>사례</b> / <b>관점</b>을 하나씩 골라 탐구 방향을 맞춰 보세요.</p>
+        <p class="topic-suggestion-desc">아래에서 <b>질문 1개</b>, <b>사례 1개</b>, <b>관점 1개</b>만 골라보세요.</p>
 
-        <div class="topic-pick-guide">👉 정답은 없어요. 가장 관심 가는 조합을 골라보면 됩니다.</div>
+        <div class="topic-pick-guide">👉 설명은 최소화하고, 선택만 하게 만든 퍼즐형 구조예요.</div>
 
         <div class="puzzle-step">
-          <div class="puzzle-step-label">1. 어떤 질문으로 더 살펴볼까?</div>
+          <div class="puzzle-step-label">1. 어떤 궁금증으로 볼까?</div>
           <div class="puzzle-chip-wrap">
             <button type="button" class="puzzle-chip is-active" data-kind="route" data-value="applied"><span class="puzzle-chip-main">어디에 쓰일까?</span></button>
             <button type="button" class="puzzle-chip" data-kind="route" data-value="compare"><span class="puzzle-chip-main">무엇이 다를까?</span></button>
@@ -227,70 +228,27 @@ window.__TOPIC_GENERATOR_VERSION = "v6.0-single-puzzle";
         </div>
 
         <div class="puzzle-step">
-          <div class="puzzle-step-label">2. 어떤 사례를 고를까?</div>
+          <div class="puzzle-step-label">2. 어떤 사례로 볼까?</div>
           <div class="puzzle-chip-wrap">
-            ${chipHTML(targets, "target")}
+            ${chipHTML(targets, "target", 0)}
           </div>
         </div>
 
         <div class="puzzle-step">
-          <div class="puzzle-step-label">3. 무엇을 중심으로 볼까?</div>
+          <div class="puzzle-step-label">3. 어떤 관점으로 볼까?</div>
           <div class="puzzle-chip-wrap">
-            ${chipHTML(perspectives, "perspective")}
+            ${chipHTML(perspectives, "perspective", 0)}
           </div>
         </div>
 
         <div class="puzzle-result-box">
-          <div class="puzzle-result-head">
-            <div class="puzzle-result-title">선택 결과</div>
-            <div class="puzzle-result-mini">보고서로 넘길 내용</div>
-          </div>
-
-          <div class="puzzle-result-grid">
-            <div class="puzzle-result-item">
-              <div class="puzzle-result-label">탐구 방식</div>
-              <div class="puzzle-result-value puzzle-summary-route">${esc(firstSummary.route)}</div>
-            </div>
-            <div class="puzzle-result-item">
-              <div class="puzzle-result-label">사례</div>
-              <div class="puzzle-result-value puzzle-summary-target">${esc(firstSummary.target)}</div>
-              <div class="puzzle-result-sub puzzle-summary-target-hint">${esc(firstSummary.targetHint || "선택한 사례를 중심으로 조사")}</div>
-            </div>
-            <div class="puzzle-result-item">
-              <div class="puzzle-result-label">관점</div>
-              <div class="puzzle-result-value puzzle-summary-perspective">${esc(firstSummary.perspective)}</div>
-              <div class="puzzle-result-sub puzzle-summary-perspective-hint">${esc(firstSummary.perspectiveHint || "선택한 시각으로 정리")}</div>
-            </div>
-            <div class="puzzle-result-item">
-              <div class="puzzle-result-label">전공/확장 방향</div>
-              <div class="puzzle-result-value">${esc(career)}</div>
-            </div>
-          </div>
-
-          <div class="puzzle-focus-box">
-            <div class="puzzle-focus-item">
-              <div class="puzzle-result-label">추천 제목</div>
-              <div class="puzzle-focus-value puzzle-summary-title">${esc(firstSummary.title)}</div>
-            </div>
-            <div class="puzzle-focus-item">
-              <div class="puzzle-result-label">핵심 질문</div>
-              <div class="puzzle-focus-value puzzle-summary-question">${esc(firstSummary.question)}</div>
-            </div>
-          </div>
-
+          <div class="puzzle-result-title">선택 결과</div>
+          <div class="puzzle-result-line">${esc(firstSummary.resultLine)}</div>
           <textarea class="puzzle-report-payload" style="display:none;">${esc(firstSummary.reportText)}</textarea>
-
-          <div class="puzzle-result-help">완성 문장을 억지로 보여주는 대신, MINI가 잘 이해할 수 있는 입력값으로 먼저 정리해요.</div>
-          <div class="puzzle-result-actions">
-            <button type="button" class="puzzle-apply-btn">선택한 내용으로 보고서 방향 정리</button>
-            <div class="puzzle-copy-notice" style="display:none;"></div>
-          </div>
         </div>
 
-        <div class="topic-tip-box">
-          <div class="topic-tip-label">왜 이렇게 바꿨을까?</div>
-          <p>학생은 긴 카드 설명보다 하나씩 고르는 구조를 더 쉽게 느껴요. 그래서 6번을 카드 읽기형이 아니라, 조각 맞추기처럼 선택하는 구조로 바꿨어요.</p>
-        </div>
+        <button type="button" class="puzzle-apply-btn">보고서 만들기</button>
+        <div class="puzzle-copy-notice" style="display:none;"></div>
       </div>
     `;
   };
