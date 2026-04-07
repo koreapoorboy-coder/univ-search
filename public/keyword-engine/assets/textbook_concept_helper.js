@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
 
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -362,6 +362,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
     const entry = getConceptEntry();
     const reason = buildReasonData(entry, state.keyword, state.career, state.subject, state.concept);
 
+    const topicHtml = (window.renderTopicSuggestionHTML && typeof window.renderTopicSuggestionHTML === "function")
+      ? window.renderTopicSuggestionHTML({
+          keyword: state.keyword,
+          subject: state.subject,
+          concept: state.concept,
+          career: state.career,
+          reason
+        })
+      : "";
+
     el.innerHTML = `
       <div class="reason-card reason-card--major">
         <div class="reason-topline">${escapeHtml(reason.badge)}</div>
@@ -397,6 +407,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.2-major-focus";
           <p>${escapeHtml(reason.fit)}</p>
         </div>
       </div>
+      ${topicHtml}
     `;
   }
 
