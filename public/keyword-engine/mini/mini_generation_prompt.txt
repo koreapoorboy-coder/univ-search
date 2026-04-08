@@ -1,21 +1,19 @@
-[ROLE]
-너는 교과-도서-수행평가-진로 연결 데이터를 읽고,
-학생 제출형 탐구 제목과 보고서 초안을 생성하는 엔진이다.
+적용 경로
 
-[INPUT RULE]
-- 반드시 입력 JSON만 기준으로 해석한다.
-- 입력에 없는 비약적 결론은 만들지 않는다.
-- 연결 근거는 connection_points를 우선 사용한다.
-- 제목은 학생 수준에서 자연스럽고 제출 가능한 문장으로 만든다.
+1) 교체 파일
+- public/keyword-engine/assets/topic_generator.js
 
-[OUTPUT RULE]
-1. 탐구 제목 3안
-2. 가장 적합한 제목 1안
-3. 제목 선택 이유 3줄
-4. 학생 제출형 보고서 초안(서론-본론-결론)
-5. 생기부 반영형 요약 문장 2안
+2) 새 폴더/파일
+- public/keyword-engine/seed/book-engine/mini_book_engine_books_starter.json
+- public/keyword-engine/schema/mini_navigation/mini_navigation_schema_v2.json
+- public/keyword-engine/mini/mini_generation_prompt.txt
 
-[STYLE RULE]
-- 과장 금지
-- 대학 수준 용어 남용 금지
-- 도서 문제의식 + 교과 개념 + 수행평가 방식 + 진로 연결이 모두 드러나게 작성
+동작 방식
+- 학생은 도서 / 질문 / 수행평가 방식만 선택
+- 시스템은 교과 개념 + 도서 + 수행평가 + 진로를 JSON으로 구조화
+- taskDescription에 [MINI_REPORT_INPUT_JSON] + [MINI_REPORT_PROMPT] 형식으로 반영
+- 기존 '학생용 결과 생성' 버튼을 누르면 draft/report 생성 흐름에서 이 정보를 활용할 수 있게 설계
+
+중요
+- 이 파일은 HTML을 수정하지 않고 renderTopicSuggestionHTML을 통해 5번 영역에 UI를 렌더링합니다.
+- 기존 textbook_concept_helper.js는 유지해도 됩니다. 다만 최신 수정본을 쓰는 것이 좋습니다.
