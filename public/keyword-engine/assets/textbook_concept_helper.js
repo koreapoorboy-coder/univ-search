@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -17,9 +17,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
 
   const state = {
     subject: "",
+    career: "",
     concept: "",
     keyword: "",
-    career: ""
+    selectedBook: ""
   };
 
   let uiSeed = null;
@@ -45,7 +46,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
       syncSubjectFromSelect();
       syncCareerFromInput();
       renderAll();
-      setTimeout(renderAll, 300);
     } catch (error) {
       console.warn("textbook concept helper init error:", error);
     }
@@ -60,14 +60,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     wrap.className = "textbook-concept-section";
     wrap.innerHTML = `
       <div class="textbook-concept-card">
-        <div class="textbook-concept-kicker">과목과 진로를 먼저 잡고, 그다음 도서와 교과 연결로 들어갑니다</div>
-        <h2 class="textbook-concept-title">과목 → 진로 → 도서 → 교과 개념/키워드 연결</h2>
+        <div class="textbook-concept-kicker">순서대로 선택해야 다음 단계가 열립니다</div>
+        <h2 class="textbook-concept-title">과목 → 진로 → 도서 → 교과 개념 → 교과 키워드</h2>
         <p class="textbook-concept-desc">
-          먼저 과목과 희망 진로를 잡고, 그 진로에 맞는 도서를 추천받습니다.
-          그다음 선택한 방향에 맞춰 교과 개념과 키워드를 연결하는 흐름으로 사용합니다.
+          학생은 위에서 아래로 순서대로만 선택합니다.
+          앞 단계가 완료되어야 다음 단계가 열리도록 잠금 구조로 설계했습니다.
         </p>
 
-        <div class="textbook-block">
+        <div class="textbook-block" data-step="1">
           <div class="textbook-head">
             <h3>1. 과목 확인</h3>
             <div class="textbook-guide">현재 선택 과목 기준</div>
@@ -75,7 +75,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
           <div id="selectedSubjectSummary" class="textbook-selected-subject">먼저 과목을 선택하세요.</div>
         </div>
 
-        <div class="textbook-block">
+        <div class="textbook-block" data-step="2">
           <div class="textbook-head">
             <h3>2. 희망 진로 확인</h3>
             <div class="textbook-guide">진로 입력값 기준</div>
@@ -83,26 +83,26 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
           <div id="selectedCareerSummary" class="textbook-selected-subject">먼저 희망 진로를 입력하세요.</div>
         </div>
 
-        <div class="textbook-block">
+        <div class="textbook-block" data-step="3">
           <div class="textbook-head">
             <h3>3. 진로 기반 추천 도서</h3>
             <div class="textbook-guide">도서 먼저 선택</div>
           </div>
-          <div id="textbookReasonBox" class="textbook-reason-box">과목과 희망 진로를 먼저 입력하면 아래에 추천 도서가 열립니다.</div>
+          <div id="textbookReasonBox" class="textbook-reason-box">과목과 희망 진로를 먼저 입력하면 추천 도서가 열립니다.</div>
         </div>
 
-        <div class="textbook-block">
+        <div class="textbook-block" data-step="4">
           <div class="textbook-head">
             <h3>4. 연결할 교과 개념 선택</h3>
-            <div class="textbook-guide">1개 선택</div>
+            <div class="textbook-guide">도서 선택 후 열림</div>
           </div>
           <div id="textbookConceptButtons" class="textbook-buttons"></div>
         </div>
 
-        <div class="textbook-block">
+        <div class="textbook-block" data-step="5">
           <div class="textbook-head">
             <h3>5. 이 개념의 교과 키워드</h3>
-            <div class="textbook-guide">1개 선택</div>
+            <div class="textbook-guide">개념 선택 후 열림</div>
           </div>
           <div id="textbookKeywordButtons" class="textbook-buttons"></div>
         </div>
@@ -128,6 +128,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
         syncSubjectFromSelect();
         state.concept = "";
         state.keyword = "";
+        state.selectedBook = "";
         renderAll();
       });
     }
@@ -136,10 +137,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     if (careerEl) {
       careerEl.addEventListener("input", function () {
         syncCareerFromInput();
+        state.selectedBook = "";
+        state.concept = "";
+        state.keyword = "";
         renderAll();
       });
       careerEl.addEventListener("change", function () {
         syncCareerFromInput();
+        state.selectedBook = "";
+        state.concept = "";
+        state.keyword = "";
         renderAll();
       });
     }
@@ -155,6 +162,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
         event.preventDefault();
 
         if (action === "concept") {
+          if (!isStepEnabled(4)) return;
           state.concept = state.concept === value ? "" : value;
           state.keyword = "";
           syncKeywordInput();
@@ -163,10 +171,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
         }
 
         if (action === "keyword") {
+          if (!isStepEnabled(5)) return;
           state.keyword = state.keyword === value ? "" : value;
           syncKeywordInput();
           renderAll();
         }
+      });
+
+      root.addEventListener("click", function (event) {
+        const bookBtn = event.target.closest(".book-chip[data-kind='book']");
+        if (!bookBtn) return;
+        if (!isStepEnabled(3)) return;
+        state.selectedBook = bookBtn.getAttribute("data-value") || "";
+        state.concept = "";
+        state.keyword = "";
+        syncKeywordInput();
+        setTimeout(renderAll, 20);
       });
     }
   }
@@ -239,6 +259,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     return stringArrayFrom(entry.keywords || entry.micro_keywords || entry.core_keywords || entry.keyword_buttons);
   }
 
+  function isStepEnabled(step) {
+    if (step === 1) return true;
+    if (step === 2) return !!state.subject;
+    if (step === 3) return !!state.subject && !!state.career;
+    if (step === 4) return !!state.subject && !!state.career && !!state.selectedBook;
+    if (step === 5) return !!state.subject && !!state.career && !!state.selectedBook && !!state.concept;
+    return false;
+  }
+
+  function applyStepLocks() {
+    const blocks = document.querySelectorAll("#textbookConceptSelectorSection .textbook-block[data-step]");
+    blocks.forEach(block => {
+      const step = Number(block.getAttribute("data-step") || "0");
+      const enabled = isStepEnabled(step);
+      block.classList.toggle("locked-step", !enabled);
+    });
+  }
+
   function renderAll() {
     renderSubjectSummary();
     renderCareerSummary();
@@ -246,6 +284,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     renderConceptButtons();
     renderKeywordButtons();
     renderSelectionSummary();
+    applyStepLocks();
   }
 
   function renderSubjectSummary() {
@@ -262,12 +301,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     const el = $("textbookReasonBox");
     if (!el) return;
 
-    if (!state.subject) {
-      el.innerHTML = `<div class="textbook-empty">먼저 과목을 선택하세요.</div>`;
-      return;
-    }
-    if (!state.career) {
-      el.innerHTML = `<div class="textbook-empty">희망 진로를 입력하면 진로 기반 추천 도서가 열립니다.</div>`;
+    if (!isStepEnabled(3)) {
+      el.innerHTML = `<div class="textbook-empty">과목과 희망 진로를 먼저 입력하면 추천 도서가 열립니다.</div>`;
       return;
     }
 
@@ -281,14 +316,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
       : "";
 
     el.innerHTML = topicHtml || `<div class="textbook-empty">추천 도서 영역을 불러오지 못했습니다.</div>`;
+
+    setTimeout(() => {
+      if (state.selectedBook) {
+        const btns = el.querySelectorAll(".book-chip[data-kind='book']");
+        btns.forEach(btn => {
+          const match = btn.getAttribute("data-value") === state.selectedBook;
+          btn.classList.toggle("is-active", match);
+        });
+      }
+    }, 10);
   }
 
   function renderConceptButtons() {
     const el = $("textbookConceptButtons");
     if (!el) return;
 
-    if (!state.subject) {
-      el.innerHTML = `<div class="textbook-empty">과목을 선택하면 연결할 교과 개념이 나옵니다.</div>`;
+    if (!isStepEnabled(4)) {
+      el.innerHTML = `<div class="textbook-empty">먼저 추천 도서를 선택해야 교과 개념 선택이 열립니다.</div>`;
       return;
     }
 
@@ -308,8 +353,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
     const el = $("textbookKeywordButtons");
     if (!el) return;
 
-    if (!state.concept) {
-      el.innerHTML = `<div class="textbook-empty">도서와 연결할 교과 개념을 선택하면 교과 키워드가 나옵니다.</div>`;
+    if (!isStepEnabled(5)) {
+      el.innerHTML = `<div class="textbook-empty">먼저 교과 개념을 선택해야 교과 키워드 선택이 열립니다.</div>`;
       return;
     }
 
@@ -329,7 +374,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.0-career-first-ui";
   function renderSelectionSummary() {
     const el = $("textbookSelectionSummary");
     if (!el) return;
-    const parts = [state.subject, state.career, state.concept, state.keyword].filter(Boolean);
+    const parts = [state.subject, state.career, state.selectedBook, state.concept, state.keyword].filter(Boolean);
 
     el.innerHTML = parts.length
       ? parts.map(item => `<span class="reason-chip">${escapeHtml(item)}</span>`).join("")
