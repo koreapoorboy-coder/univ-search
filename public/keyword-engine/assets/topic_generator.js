@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
+window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
 
 (function () {
   function esc(v) {
@@ -62,6 +62,41 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     "문학": ["문학", "국어", "사회", "윤리", "철학", "언어"]
   };
 
+  function injectCompactStyles() {
+    if (document.getElementById("topicGeneratorCompactStyles")) return;
+    const style = document.createElement("style");
+    style.id = "topicGeneratorCompactStyles";
+    style.textContent = `
+      .book-puzzle-root{display:block;margin-top:6px}
+      .book-puzzle-root h4{margin:0 0 12px;font-size:18px}
+      .book-step{margin:0 0 12px}
+      .book-step-label{font-weight:700;font-size:13px;margin-bottom:8px;color:#1f2a44}
+      .book-step-hint{font-size:12px;color:#5f6b85;margin-bottom:8px}
+      .book-chip-wrap{display:flex !important;flex-direction:column !important;gap:8px !important;grid-template-columns:none !important}
+      .book-chip{display:flex !important;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:12px 14px;border:1px solid #d8e0f5;border-radius:14px;background:#fff;box-sizing:border-box}
+      .book-chip.is-active{border-color:#2f5bff;background:#eef3ff;box-shadow:none}
+      .book-chip-rank{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:999px;background:#eef2ff;color:#3652d9;font-size:12px;font-weight:700;margin-top:1px}
+      .book-chip.is-active .book-chip-rank{background:#2f5bff;color:#fff}
+      .book-chip-body{min-width:0;display:block;flex:1}
+      .book-chip-title{display:block;font-size:15px;font-weight:700;color:#1e2d50;line-height:1.35}
+      .book-chip-meta{display:block;font-size:12px;color:#6a7690;line-height:1.45;margin-top:3px}
+      .book-chip-why{display:block;font-size:12px;color:#33405f;line-height:1.45;margin-top:4px}
+      .book-result-box{border:1px solid #d8e0f5;border-radius:14px;padding:14px;background:#fff}
+      .book-result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+      .book-result-title{font-size:15px;font-weight:700;color:#1e2d50}
+      .book-result-badge{font-size:11px;color:#3652d9;background:#eef2ff;border-radius:999px;padding:4px 8px;white-space:nowrap}
+      .book-selected-desc{font-size:13px;line-height:1.6;color:#33405f;margin:0 0 10px}
+      .book-mini-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+      .book-mini-item{font-size:12px;line-height:1.5;color:#4b5875}
+      .book-reason-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+      .book-reason-tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f6fb;color:#44516c;font-size:11px;font-weight:600}
+      .book-inline-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+      .book-inline-tag{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#f6f8fc;color:#5d6985;font-size:11px}
+      .book-empty-note{font-size:13px;line-height:1.6;color:#4b5875}
+    `;
+    document.head.appendChild(style);
+  }
+
   function normalize(value) {
     return String(value || "")
       .toLowerCase()
@@ -117,9 +152,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
           const res = await fetch(url, { cache: "no-store" });
           if (!res.ok) continue;
           return await res.json();
-        } catch (error) {
-          // continue to next fallback
-        }
+        } catch (error) {}
       }
       return null;
     })();
@@ -162,15 +195,12 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     }
   }
 
+  injectCompactStyles();
   loadEngineData();
 
   function ensureScore(map, bookId) {
     if (!map.has(bookId)) {
-      map.set(bookId, {
-        bookId,
-        score: 0,
-        reasons: []
-      });
+      map.set(bookId, { bookId, score: 0, reasons: [] });
     }
     return map.get(bookId);
   }
@@ -179,15 +209,11 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     if (!bookId || !dataStore.bookMap.has(bookId)) return;
     const entry = ensureScore(map, bookId);
     entry.score += delta;
-    if (reason && !entry.reasons.includes(reason)) {
-      entry.reasons.push(reason);
-    }
+    if (reason && !entry.reasons.includes(reason)) entry.reasons.push(reason);
   }
 
   function addLookupEntries(map, entries, delta, reason) {
-    (entries || []).forEach(entry => {
-      addScore(map, entry?.book_id || entry?.bookId, delta, reason);
-    });
+    (entries || []).forEach(entry => addScore(map, entry?.book_id || entry?.bookId, delta, reason));
   }
 
   function getLookupByFuzzyKey(index, signals) {
@@ -360,9 +386,16 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     return [];
   }
 
+  function trimText(text, maxLength) {
+    const value = String(text || "").trim();
+    if (!value) return "";
+    return value.length > maxLength ? `${value.slice(0, maxLength)}…` : value;
+  }
+
   function renderBooks(books) {
     return books.map((book, index) => {
-      const meta = [book.author, ...(book.linked_subjects || []).slice(0, 2)].filter(Boolean).join(" · ");
+      const subject = (book.linked_subjects || [])[0] || "연결 과목";
+      const why = unique([...(book._reasons || []), ...((book.broad_theme || []).slice(0, 1))]).slice(0, 2).join(" · ");
       return `
         <button
           type="button"
@@ -371,8 +404,12 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
           data-value="${esc(book.book_id)}"
           data-title="${esc(book.title)}"
         >
-          <span class="book-chip-title">${esc(book.title)}</span>
-          <span class="book-chip-meta">${esc(meta)}</span>
+          <span class="book-chip-rank">${index + 1}</span>
+          <span class="book-chip-body">
+            <span class="book-chip-title">${esc(book.title)}</span>
+            <span class="book-chip-meta">${esc(book.author || "저자 정보 없음")} · ${esc(subject)}</span>
+            ${why ? `<span class="book-chip-why">${esc(why)}</span>` : ""}
+          </span>
         </button>
       `;
     }).join("");
@@ -393,28 +430,34 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     `;
   }
 
+  function renderInlineTags(values) {
+    const items = (values || []).filter(Boolean).slice(0, 4);
+    if (!items.length) return "";
+    return `<div class="book-inline-tags">${items.map(item => `<span class="book-inline-tag">${esc(item)}</span>`).join("")}</div>`;
+  }
+
   function renderSelectedBookSummary(book) {
     if (!book) return "";
-    const subjectText = (book.linked_subjects || []).slice(0, 3).join(", ");
-    const majorText = (book.linked_majors || []).slice(0, 3).join(", ");
+
+    const question = (book.starter_questions || [])[0] || "현재 과목과 진로를 연결해 탐구 질문으로 확장할 수 있습니다.";
+    const subjectText = (book.linked_subjects || []).slice(0, 3);
+    const majorText = (book.linked_majors || []).slice(0, 3);
 
     return `
       <div class="book-selected-wrap">
-        <div><strong>선택된 도서:</strong> ${esc(book.title)}</div>
-        <div class="book-selected-desc">${esc(book.summary_short || "현재 과목·진로와 연결해 탐구 주제로 확장할 수 있는 도서입니다.")}</div>
+        <div class="book-result-head">
+          <div class="book-result-title">선택 도서: ${esc(book.title)}</div>
+          <div class="book-result-badge">다음 단계 열림</div>
+        </div>
+        <div class="book-selected-desc">${esc(trimText(book.summary_short || "현재 과목·진로와 연결해 탐구 주제로 확장할 수 있는 도서입니다.", 90))}</div>
         ${renderReasonTags(book)}
-        <div class="book-selected-meta">
-          ${subjectText ? `<div><strong>연결 과목:</strong> ${esc(subjectText)}</div>` : ""}
-          ${majorText ? `<div><strong>연결 진로:</strong> ${esc(majorText)}</div>` : ""}
+        <div class="book-mini-list">
+          <div class="book-mini-item"><strong>탐구 질문:</strong> ${esc(trimText(question, 70))}</div>
+          ${subjectText.length ? `<div class="book-mini-item"><strong>연결 과목:</strong>${renderInlineTags(subjectText)}</div>` : ""}
+          ${majorText.length ? `<div class="book-mini-item"><strong>연결 진로:</strong>${renderInlineTags(majorText)}</div>` : ""}
         </div>
       </div>
     `;
-  }
-
-  function getSelectedBook(root) {
-    const button = root.querySelector(".book-chip[data-kind='book'].is-active");
-    const bookId = button?.getAttribute("data-value") || "";
-    return dataStore.bookMap.get(bookId) || null;
   }
 
   function syncSelectedBookToHelper(book) {
@@ -438,9 +481,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
       syncSelectedBookToHelper(selectedBook);
 
       const result = root.querySelector(".book-result-box");
-      if (result) {
-        result.innerHTML = renderSelectedBookSummary(selectedBook);
-      }
+      if (result) result.innerHTML = renderSelectedBookSummary(selectedBook);
 
       if (typeof window.__TEXTBOOK_HELPER_RENDER__ === "function") {
         setTimeout(() => window.__TEXTBOOK_HELPER_RENDER__(), 20);
@@ -451,7 +492,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
   function renderLoadingBox() {
     return `
       <div class="book-puzzle-root">
-        <div class="book-result-box">도서 추천 데이터를 불러오는 중입니다.</div>
+        <div class="book-result-box"><div class="book-empty-note">도서 추천 데이터를 불러오는 중입니다.</div></div>
       </div>
     `;
   }
@@ -459,7 +500,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
   function renderEmptyBox(message) {
     return `
       <div class="book-puzzle-root">
-        <div class="book-result-box">${esc(message)}</div>
+        <div class="book-result-box"><div class="book-empty-note">${esc(message)}</div></div>
       </div>
     `;
   }
@@ -469,45 +510,33 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-engine70-lookup";
     const concept = ctx?.concept || "";
     const career = ctx?.career || "";
 
-    if (!subject || !career) {
-      return "";
-    }
+    if (!subject || !career) return "";
 
     loadEngineData();
 
-    if (!dataStore.loaded) {
-      return renderLoadingBox();
-    }
+    if (!dataStore.loaded) return renderLoadingBox();
 
     const books = resolveRecommendedBooks(ctx, 6);
-
-    if (!books.length) {
-      return renderEmptyBox("현재 이 진로와 연결되는 도서 데이터가 없습니다.");
-    }
+    if (!books.length) return renderEmptyBox("현재 이 진로와 연결되는 도서 데이터가 없습니다.");
 
     const selectedBook = books[0];
     syncSelectedBookToHelper(selectedBook);
 
     const html = `
       <div class="book-puzzle-root" data-career="${esc(career)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}">
-        <h4>진로 기반 도서 추천</h4>
-
         <div class="book-step">
-          <div class="book-step-label">1. 진로 기반 도서 선택</div>
+          <div class="book-step-label">1. 추천 도서 선택</div>
+          <div class="book-step-hint">도서 제목을 눌러 선택하면 다음 단계가 바로 열립니다.</div>
           <div class="book-chip-wrap">
             ${renderBooks(books)}
           </div>
         </div>
 
         <div class="book-step">
-          <div class="book-step-label">2. 교과 개념 연결</div>
-          <div class="book-desc">
-            선택한 도서를 ${esc(concept || "현재 과목의 교과 개념")}과 연결하여 탐구 주제로 확장합니다.
+          <div class="book-step-label">2. 선택 도서 요약</div>
+          <div class="book-result-box">
+            ${renderSelectedBookSummary(selectedBook)}
           </div>
-        </div>
-
-        <div class="book-result-box">
-          ${renderSelectedBookSummary(selectedBook)}
         </div>
       </div>
     `;
