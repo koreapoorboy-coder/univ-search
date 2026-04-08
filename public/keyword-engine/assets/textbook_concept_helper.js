@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -8,7 +8,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
+      .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
   }
 
@@ -23,6 +23,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
     selectedBook: "",
     selectedBookTitle: ""
   };
+
+  window.__TEXTBOOK_HELPER_STATE__ = state;
 
   let uiSeed = null;
   let engineMap = null;
@@ -44,42 +46,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
 
       injectUI();
       bindEvents();
-      exposeApi();
       syncSubjectFromSelect();
       syncCareerFromInput();
       renderAll();
     } catch (error) {
       console.warn("textbook concept helper init error:", error);
     }
-  }
-
-  function exposeApi() {
-    window.__TEXTBOOK_HELPER_STATE__ = state;
-    window.__TEXTBOOK_HELPER_RENDER__ = renderAll;
-    window.__TEXTBOOK_HELPER_API__ = {
-      getState() {
-        return { ...state };
-      },
-      setSelectedBook(bookId, bookTitle) {
-        const nextId = String(bookId || "").trim();
-        const nextTitle = String(bookTitle || "").trim();
-        state.selectedBook = nextId;
-        state.selectedBookTitle = nextTitle;
-        state.concept = "";
-        state.keyword = "";
-        syncKeywordInput();
-        renderAll();
-      },
-      clearSelectedBook() {
-        state.selectedBook = "";
-        state.selectedBookTitle = "";
-        state.concept = "";
-        state.keyword = "";
-        syncKeywordInput();
-        renderAll();
-      },
-      renderAll
-    };
   }
 
   function injectUI() {
@@ -167,16 +139,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
 
     const careerEl = $("career");
     if (careerEl) {
-      function handleCareerChange() {
+      careerEl.addEventListener("input", function () {
         syncCareerFromInput();
         state.selectedBook = "";
         state.selectedBookTitle = "";
         state.concept = "";
         state.keyword = "";
         renderAll();
-      }
-      careerEl.addEventListener("input", handleCareerChange);
-      careerEl.addEventListener("change", handleCareerChange);
+      });
+      careerEl.addEventListener("change", function () {
+        syncCareerFromInput();
+        state.selectedBook = "";
+        state.selectedBookTitle = "";
+        state.concept = "";
+        state.keyword = "";
+        renderAll();
+      });
     }
 
     const root = $("textbookConceptSelectorSection");
@@ -210,9 +188,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
         const bookBtn = event.target.closest(".book-chip[data-kind='book']");
         if (!bookBtn) return;
         if (!isStepEnabled(3)) return;
-        const nextId = bookBtn.getAttribute("data-value") || "";
-        const nextTitle = bookBtn.getAttribute("data-title") || bookBtn.textContent || "";
-        window.__TEXTBOOK_HELPER_API__?.setSelectedBook(nextId, nextTitle.trim());
+        state.selectedBook = bookBtn.getAttribute("data-value") || "";
+        state.selectedBookTitle = bookBtn.getAttribute("data-title") || bookBtn.textContent.trim() || "";
+        state.concept = "";
+        state.keyword = "";
+        syncKeywordInput();
+        setTimeout(renderAll, 20);
       });
     }
   }
@@ -337,20 +318,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
           subject: state.subject,
           concept: state.concept,
           keyword: state.keyword,
-          career: state.career,
-          selectedBook: state.selectedBook
+          career: state.career
         })
       : "";
 
     el.innerHTML = topicHtml || `<div class="textbook-empty">추천 도서 영역을 불러오지 못했습니다.</div>`;
 
-    if (state.selectedBook) {
-      const btns = el.querySelectorAll(".book-chip[data-kind='book']");
-      btns.forEach(btn => {
-        const match = btn.getAttribute("data-value") === state.selectedBook;
-        btn.classList.toggle("is-active", match);
-      });
-    }
+    setTimeout(() => {
+      if (state.selectedBook) {
+        const btns = el.querySelectorAll(".book-chip[data-kind='book']");
+        btns.forEach(btn => {
+          const match = btn.getAttribute("data-value") === state.selectedBook;
+          btn.classList.toggle("is-active", match);
+        });
+      }
+    }, 10);
   }
 
   function renderConceptButtons() {
@@ -399,13 +381,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
   function renderSelectionSummary() {
     const el = $("textbookSelectionSummary");
     if (!el) return;
-    const parts = [
-      state.subject,
-      state.career,
-      state.selectedBookTitle || state.selectedBook,
-      state.concept,
-      state.keyword
-    ].filter(Boolean);
+    const parts = [state.subject, state.career, state.selectedBookTitle || state.selectedBook, state.concept, state.keyword].filter(Boolean);
 
     el.innerHTML = parts.length
       ? parts.map(item => `<span class="reason-chip">${escapeHtml(item)}</span>`).join("")
@@ -417,6 +393,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.2-career-first-locked-sync-api";
     if (!input) return;
     input.value = state.keyword || "";
   }
+
+  window.__TEXTBOOK_HELPER_RENDER__ = renderAll;
 
   document.addEventListener("DOMContentLoaded", init);
 })();
