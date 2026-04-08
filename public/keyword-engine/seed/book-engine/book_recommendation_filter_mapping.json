@@ -1,0 +1,648 @@
+{
+  "version": "1.0",
+  "description": "교과 키워드/교과 개념/진로에 따라 도서 후보를 필터링하고 우선순위를 정하기 위한 매핑 데이터",
+  "subject_keyword_rules": [
+    {
+      "rule_id": "astro_planetary",
+      "subjects": [
+        "통합과학1"
+      ],
+      "concepts": [
+        "지구시스템",
+        "자연 세계의 시간과 공간"
+      ],
+      "keywords": [
+        "수성",
+        "금성",
+        "지구",
+        "화성",
+        "목성",
+        "토성",
+        "해왕성",
+        "천체 분류",
+        "지구계",
+        "대기권",
+        "수권",
+        "물의 순환",
+        "권역 간 이동"
+      ],
+      "recommended_books": [
+        "book_science_history",
+        "book_cosmos_intro",
+        "book_science_guide"
+      ],
+      "blocked_books": [
+        "book_1984",
+        "book_galmaegi",
+        "book_demian",
+        "book_doctorsignal"
+      ],
+      "recommended_modes": [
+        "case",
+        "compare",
+        "application"
+      ],
+      "recommended_views": [
+        "원리",
+        "구조",
+        "변화",
+        "영향"
+      ],
+      "reason": "행성·천체·지구시스템 계열은 사회통제 서사보다 과학사, 천문, 자연과학 설명형 도서와 연결하는 것이 자연스럽다."
+    },
+    {
+      "rule_id": "bio_response",
+      "subjects": [
+        "통합과학1",
+        "생명과학"
+      ],
+      "concepts": [
+        "생명 시스템"
+      ],
+      "keywords": [
+        "자극 반응",
+        "항상성 유지",
+        "내부 환경",
+        "균형 유지",
+        "생명 유지",
+        "변화 대응",
+        "건강 측정",
+        "생체 데이터"
+      ],
+      "recommended_books": [
+        "book_doctorsignal",
+        "book_medical_thinking",
+        "book_demian"
+      ],
+      "blocked_books": [
+        "book_1984"
+      ],
+      "recommended_modes": [
+        "case",
+        "career",
+        "compare"
+      ],
+      "recommended_views": [
+        "기능",
+        "비교",
+        "변화",
+        "영향"
+      ],
+      "reason": "자극 반응·항상성은 의학적 판단, 건강 데이터, 생명 현상 분석과 연결할 때 수행평가 확장성이 높다."
+    },
+    {
+      "rule_id": "system_data",
+      "subjects": [
+        "통합과학1",
+        "정보",
+        "통합사회"
+      ],
+      "concepts": [
+        "역학 시스템",
+        "지구시스템",
+        "정보"
+      ],
+      "keywords": [
+        "시스템 구성 요소",
+        "구조",
+        "데이터",
+        "정보 처리",
+        "효율",
+        "시스템 사고",
+        "환경 데이터"
+      ],
+      "recommended_books": [
+        "book_gyeongyeonghak",
+        "book_1984",
+        "book_science_guide"
+      ],
+      "blocked_books": [],
+      "recommended_modes": [
+        "compare",
+        "application",
+        "career",
+        "case"
+      ],
+      "recommended_views": [
+        "구조",
+        "기능",
+        "비교",
+        "영향"
+      ],
+      "reason": "시스템·데이터 키워드는 경영·정보·사회 시스템 도서와 연결할 때 추론 품질이 높아진다."
+    },
+    {
+      "rule_id": "emotion_identity",
+      "subjects": [
+        "공통국어",
+        "문학",
+        "윤리"
+      ],
+      "concepts": [
+        "문학 감상",
+        "자아 탐색",
+        "윤리적 성찰"
+      ],
+      "keywords": [
+        "감정",
+        "정체성",
+        "선택",
+        "성장",
+        "갈등",
+        "관계"
+      ],
+      "recommended_books": [
+        "book_demian",
+        "book_galmaegi"
+      ],
+      "blocked_books": [
+        "book_gyeongyeonghak"
+      ],
+      "recommended_modes": [
+        "compare",
+        "career",
+        "application"
+      ],
+      "recommended_views": [
+        "변화",
+        "비교",
+        "영향"
+      ],
+      "reason": "감정·정체성·성장은 문학/심리 계열 도서와 연결할 때 자연스럽고 학생 이해도도 높다."
+    }
+  ],
+  "career_rules": [
+    {
+      "career_keywords": [
+        "지구환경",
+        "환경 분석",
+        "환경공학",
+        "지구과학",
+        "천문",
+        "우주"
+      ],
+      "preferred_books": [
+        "book_science_history",
+        "book_cosmos_intro",
+        "book_science_guide"
+      ],
+      "preferred_modes": [
+        "case",
+        "application",
+        "career"
+      ],
+      "preferred_views": [
+        "원리",
+        "구조",
+        "영향"
+      ],
+      "linked_majors": [
+        "지구과학과",
+        "환경공학과",
+        "천문우주학과",
+        "해양학과"
+      ]
+    },
+    {
+      "career_keywords": [
+        "간호",
+        "의예",
+        "보건",
+        "생명",
+        "의생명"
+      ],
+      "preferred_books": [
+        "book_doctorsignal",
+        "book_medical_thinking"
+      ],
+      "preferred_modes": [
+        "case",
+        "career",
+        "compare"
+      ],
+      "preferred_views": [
+        "기능",
+        "비교",
+        "변화"
+      ],
+      "linked_majors": [
+        "간호학과",
+        "의예과",
+        "보건행정학과",
+        "생명과학과"
+      ]
+    },
+    {
+      "career_keywords": [
+        "컴퓨터",
+        "소프트웨어",
+        "인공지능",
+        "데이터",
+        "정보보호"
+      ],
+      "preferred_books": [
+        "book_1984",
+        "book_gyeongyeonghak"
+      ],
+      "preferred_modes": [
+        "compare",
+        "career",
+        "application"
+      ],
+      "preferred_views": [
+        "구조",
+        "기능",
+        "영향"
+      ],
+      "linked_majors": [
+        "컴퓨터공학과",
+        "소프트웨어학과",
+        "인공지능학과",
+        "데이터사이언스학과"
+      ]
+    },
+    {
+      "career_keywords": [
+        "기계",
+        "반도체",
+        "전자",
+        "신소재"
+      ],
+      "preferred_books": [
+        "book_gyeongyeonghak",
+        "book_science_guide"
+      ],
+      "preferred_modes": [
+        "application",
+        "case",
+        "career"
+      ],
+      "preferred_views": [
+        "구조",
+        "원리",
+        "기능"
+      ],
+      "linked_majors": [
+        "기계공학과",
+        "전자공학과",
+        "반도체공학과",
+        "신소재공학과"
+      ]
+    }
+  ],
+  "book_catalog": [
+    {
+      "book_id": "book_1984",
+      "title": "1984",
+      "domain_tags": [
+        "사회 시스템",
+        "감시",
+        "통제",
+        "정보 윤리",
+        "권력"
+      ],
+      "fit_keywords": [
+        "감시",
+        "통제",
+        "시스템",
+        "정보 처리",
+        "데이터",
+        "구조"
+      ],
+      "fit_subjects": [
+        "통합사회",
+        "정보",
+        "공통국어"
+      ],
+      "fit_careers": [
+        "컴퓨터공학",
+        "행정",
+        "사회",
+        "데이터"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "행성",
+        "천체",
+        "지구계",
+        "항상성 유지"
+      ],
+      "default_modes": [
+        "compare",
+        "career",
+        "case"
+      ]
+    },
+    {
+      "book_id": "book_galmaegi",
+      "title": "갈매기",
+      "domain_tags": [
+        "감정",
+        "예술",
+        "관계",
+        "무의식",
+        "심리"
+      ],
+      "fit_keywords": [
+        "감정",
+        "관계",
+        "무의식",
+        "표현",
+        "갈등",
+        "변화"
+      ],
+      "fit_subjects": [
+        "공통국어",
+        "문학",
+        "심리학 기초"
+      ],
+      "fit_careers": [
+        "심리",
+        "국문",
+        "미디어",
+        "예술"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "지구계",
+        "정보 처리"
+      ],
+      "default_modes": [
+        "compare",
+        "case",
+        "career"
+      ]
+    },
+    {
+      "book_id": "book_gyeongyeonghak",
+      "title": "경영학 콘서트",
+      "domain_tags": [
+        "데이터",
+        "의사결정",
+        "효율",
+        "최적화",
+        "시스템"
+      ],
+      "fit_keywords": [
+        "데이터",
+        "구조",
+        "시스템",
+        "효율",
+        "분석",
+        "정보 처리"
+      ],
+      "fit_subjects": [
+        "정보",
+        "수학",
+        "통합사회"
+      ],
+      "fit_careers": [
+        "경영",
+        "산업공학",
+        "통계",
+        "데이터"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "항상성 유지"
+      ],
+      "default_modes": [
+        "case",
+        "application",
+        "career",
+        "compare"
+      ]
+    },
+    {
+      "book_id": "book_doctorsignal",
+      "title": "닥터스 씽킹",
+      "domain_tags": [
+        "판단",
+        "오류",
+        "진단",
+        "증거",
+        "의료"
+      ],
+      "fit_keywords": [
+        "자극 반응",
+        "항상성",
+        "반응",
+        "오류",
+        "증거",
+        "건강 측정",
+        "생체 데이터"
+      ],
+      "fit_subjects": [
+        "생명과학",
+        "통합과학1",
+        "윤리"
+      ],
+      "fit_careers": [
+        "간호",
+        "의예",
+        "보건",
+        "생명"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "행성",
+        "천체"
+      ],
+      "default_modes": [
+        "case",
+        "career",
+        "compare"
+      ]
+    },
+    {
+      "book_id": "book_demian",
+      "title": "데미안",
+      "domain_tags": [
+        "자아",
+        "성장",
+        "정체성",
+        "선택",
+        "갈등"
+      ],
+      "fit_keywords": [
+        "정체성",
+        "성장",
+        "갈등",
+        "선택",
+        "변화",
+        "심리"
+      ],
+      "fit_subjects": [
+        "문학",
+        "윤리",
+        "심리학 기초"
+      ],
+      "fit_careers": [
+        "심리",
+        "교육",
+        "철학"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "지구계",
+        "정보 처리"
+      ],
+      "default_modes": [
+        "compare",
+        "career",
+        "application"
+      ]
+    },
+    {
+      "book_id": "book_science_history",
+      "title": "과학혁명의 법칙",
+      "domain_tags": [
+        "과학사",
+        "천문",
+        "관측",
+        "모형",
+        "자연과학"
+      ],
+      "fit_keywords": [
+        "수성",
+        "금성",
+        "행성",
+        "천체",
+        "지구계",
+        "과학 모델",
+        "관측"
+      ],
+      "fit_subjects": [
+        "통합과학1",
+        "지구과학",
+        "공통수학1"
+      ],
+      "fit_careers": [
+        "지구환경",
+        "천문",
+        "우주",
+        "자연과학"
+      ],
+      "blocked_keywords": [],
+      "default_modes": [
+        "case",
+        "compare",
+        "application"
+      ]
+    },
+    {
+      "book_id": "book_cosmos_intro",
+      "title": "코스모스",
+      "domain_tags": [
+        "우주",
+        "천체",
+        "과학 커뮤니케이션",
+        "자연"
+      ],
+      "fit_keywords": [
+        "수성",
+        "금성",
+        "행성",
+        "천체",
+        "우주",
+        "지구계"
+      ],
+      "fit_subjects": [
+        "통합과학1",
+        "지구과학"
+      ],
+      "fit_careers": [
+        "천문",
+        "우주",
+        "환경",
+        "지구과학"
+      ],
+      "blocked_keywords": [],
+      "default_modes": [
+        "case",
+        "application",
+        "career"
+      ]
+    },
+    {
+      "book_id": "book_science_guide",
+      "title": "과학의 눈으로 세상 읽기",
+      "domain_tags": [
+        "과학적 사고",
+        "자연 현상",
+        "데이터",
+        "구조"
+      ],
+      "fit_keywords": [
+        "수성",
+        "금성",
+        "지구계",
+        "데이터",
+        "구조",
+        "환경 데이터",
+        "시스템 구성 요소"
+      ],
+      "fit_subjects": [
+        "통합과학1",
+        "정보",
+        "통합사회"
+      ],
+      "fit_careers": [
+        "환경",
+        "데이터",
+        "공학",
+        "자연과학"
+      ],
+      "blocked_keywords": [],
+      "default_modes": [
+        "case",
+        "compare",
+        "application",
+        "career"
+      ]
+    },
+    {
+      "book_id": "book_medical_thinking",
+      "title": "의학적 사고의 법칙",
+      "domain_tags": [
+        "의학",
+        "증거",
+        "판단",
+        "반응",
+        "건강"
+      ],
+      "fit_keywords": [
+        "자극 반응",
+        "항상성 유지",
+        "건강 측정",
+        "생체 데이터",
+        "판단"
+      ],
+      "fit_subjects": [
+        "생명과학",
+        "통합과학1",
+        "보건"
+      ],
+      "fit_careers": [
+        "간호",
+        "의예",
+        "보건"
+      ],
+      "blocked_keywords": [
+        "수성",
+        "금성",
+        "행성"
+      ],
+      "default_modes": [
+        "case",
+        "career",
+        "compare"
+      ]
+    }
+  ]
+}
