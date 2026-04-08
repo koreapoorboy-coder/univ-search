@@ -93,6 +93,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
         </div>
         <div class="textbook-block">
           <div class="textbook-head">
+            <h3>5. 탐구 퍼즐 맞추기</h3>
+            <div class="textbook-guide">제목 자동 완성</div>
+          </div>
+          <div id="textbookReasonBox" class="textbook-reason-box">키워드와 탐구 방향을 고르면 탐구 보고서 제목이 자동으로 완성됩니다.</div>
+        </div>
+
+
+        <div class="textbook-block">
+          <div class="textbook-head">
             <h3>현재 선택</h3>
             <div class="textbook-guide">자동 반영</div>
           </div>
@@ -337,22 +346,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
     `).join("");
   }
 
+
   function renderReasonBox(){
     const el = $("textbookReasonBox");
     if(!el) return;
 
     if(!state.keyword){
-      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 수업 위치와 대학 전공 연결까지 쉽게 설명해 줍니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">교과 키워드를 선택하면 아래에서 탐구 퍼즐을 맞출 수 있습니다.</div>`;
       return;
     }
     if(!state.career){
-      el.innerHTML = `<div class="textbook-empty">4번에서 하나를 선택하면 통합과학 단원, 연결 과목, 대학 전공까지 함께 보여줍니다.</div>`;
+      el.innerHTML = `<div class="textbook-empty">4번에서 탐구 방향을 하나 고르면 퍼즐이 열립니다.</div>`;
       return;
     }
 
     const entry = getConceptEntry();
     const reason = buildReasonData(entry, state.keyword, state.career, state.subject, state.concept);
-
     const topicHtml = (window.renderTopicSuggestionHTML && typeof window.renderTopicSuggestionHTML === "function")
       ? window.renderTopicSuggestionHTML({
           keyword: state.keyword,
@@ -363,81 +372,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
         })
       : "";
 
-    el.innerHTML = `
-      <div class="reason-card reason-card--major">
-        <div class="reason-topline">${escapeHtml(reason.badge)}</div>
-        <h4 class="reason-title">${escapeHtml(reason.title)}</h4>
-        <p class="reason-lead">${escapeHtml(reason.lead)}</p>
-
-        <div class="reason-major-summary">
-          <div class="reason-mini-label">추천 전공 예시</div>
-          <div class="reason-chip-list reason-chip-list--highlight">${reason.majorChips}</div>
-        </div>
-
-        <div class="reason-grid reason-grid--major">
-          <div class="reason-mini-card">
-            <div class="reason-mini-label">왜 연결돼?</div>
-            <p>${escapeHtml(reason.why)}</p>
-          </div>
-          <div class="reason-mini-card">
-            <div class="reason-mini-label">${escapeHtml(reason.schoolLabel)}</div>
-            <p>${escapeHtml(reason.school)}</p>
-          </div>
-          <div class="reason-mini-card">
-            <div class="reason-mini-label">연결되는 다른 과목은?</div>
-            <div class="reason-chip-list">${reason.subjectChips}</div>
-          </div>
-          <div class="reason-mini-card">
-            <div class="reason-mini-label">전공으로 더 가면?</div>
-            <p>${escapeHtml(reason.majorLead)}</p>
-          </div>
-        </div>
-
-        <div class="reason-example reason-example--simple">
-          <div class="reason-mini-label">쉽게 말하면</div>
-          <p>${escapeHtml(reason.simple)}</p>
-        </div>
-
-        <div class="reason-example">
-          <div class="reason-mini-label">이런 학생에게 잘 맞아요</div>
-          <p>${escapeHtml(reason.fit)}</p>
-        </div>
-      </div>
-      ${topicHtml}
-    `;
-  }
-
-  function renderSelectionSummary(){
-    const el = $("textbookSelectionSummary");
-    if(!el) return;
-    const parts = [state.subject, state.concept, state.keyword, state.career].filter(Boolean);
-    el.innerHTML = parts.length
-      ? parts.map(part => `<span class="textbook-chip">${escapeHtml(part)}</span>`).join("")
-      : "아직 선택하지 않았습니다.";
-  }
-
-  function syncKeywordInput(){
-    const keywordInput = $("keyword");
-    if(!keywordInput) return;
-    if(state.keyword){
-      keywordInput.value = state.keyword;
-      keywordInput.dataset.autoFilled = "textbook-keyword";
-    } else if(keywordInput.dataset.autoFilled === "textbook-keyword"){
-      keywordInput.value = "";
-      keywordInput.dataset.autoFilled = "";
-    }
-  }
-
-  function syncCareerInput(shouldFill){
-    const careerInput = $("career");
-    if(!careerInput) return;
-    if(shouldFill && state.career){
-      careerInput.value = state.career;
-      careerInput.dataset.autoFilled = "textbook-career";
-    } else if(careerInput.dataset.autoFilled === "textbook-career"){
-      careerInput.value = "";
-      careerInput.dataset.autoFilled = "";
-    }
+    el.innerHTML = topicHtml || `<div class="textbook-empty">탐구 퍼즐을 불러오지 못했습니다.</div>`;
   }
 
   function buildReasonData(entry, keyword, career, subject, concept){
