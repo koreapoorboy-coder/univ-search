@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
+window.__TOPIC_GENERATOR_VERSION = "v14.0-engine70-layout-match-fix";
 
 (function () {
   function esc(v) {
@@ -38,6 +38,12 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
   };
 
   const CAREER_ALIAS_MAP = {
+    "신소재공학": ["신소재공학", "신소재", "재료공학", "재료", "소재", "금속", "세라믹", "고분자", "나노소재", "전자재료", "반도체", "배터리", "화학", "물리"],
+    "재료공학": ["재료공학", "재료", "신소재", "소재", "금속", "세라믹", "고분자", "나노소재", "전자재료", "반도체", "배터리", "화학", "물리"],
+    "반도체공학": ["반도체공학", "반도체", "전자재료", "재료", "신소재", "전자", "전기", "물리", "화학"],
+    "화학공학": ["화학공학", "화학", "공정", "촉매", "에너지", "재료", "배터리", "반도체"],
+    "기계공학": ["기계공학", "기계", "설계", "열역학", "재료", "모터", "로봇", "물리"],
+    "전기전자공학": ["전기전자공학", "전기", "전자", "회로", "반도체", "센서", "전력", "배터리", "물리"],
     "컴퓨터": ["컴퓨터", "소프트웨어", "프로그래밍", "개발", "코딩", "IT", "정보", "보안", "데이터", "AI", "인공지능"],
     "소프트웨어": ["소프트웨어", "프로그래밍", "개발", "코딩", "컴퓨터", "AI", "인공지능", "데이터"],
     "인공지능": ["인공지능", "AI", "데이터", "머신러닝", "딥러닝", "알고리즘", "컴퓨터"],
@@ -67,32 +73,36 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     const style = document.createElement("style");
     style.id = "topicGeneratorCompactStyles";
     style.textContent = `
-      .book-puzzle-root{display:block;margin-top:6px}
-      .book-puzzle-root h4{margin:0 0 12px;font-size:18px}
-      .book-step{margin:0 0 12px}
-      .book-step-label{font-weight:700;font-size:13px;margin-bottom:8px;color:#1f2a44}
-      .book-step-hint{font-size:12px;color:#5f6b85;margin-bottom:8px}
-      .book-chip-wrap{display:flex !important;flex-direction:column !important;gap:8px !important;grid-template-columns:none !important}
-      .book-chip{display:flex !important;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:12px 14px;border:1px solid #d8e0f5;border-radius:14px;background:#fff;box-sizing:border-box}
-      .book-chip.is-active{border-color:#2f5bff;background:#eef3ff;box-shadow:none}
-      .book-chip-rank{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:999px;background:#eef2ff;color:#3652d9;font-size:12px;font-weight:700;margin-top:1px}
+      .book-puzzle-root{display:block}
+      .book-chooser-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,0.8fr);gap:14px}
+      .book-step{margin:0}
+      .book-step-label{font-weight:800;font-size:14px;margin-bottom:8px;color:#1f2a44}
+      .book-step-hint{font-size:12px;color:#5f6b85;margin-bottom:10px}
+      .book-chip-wrap{display:flex !important;flex-direction:column !important;gap:10px !important;grid-template-columns:none !important}
+      .book-chip{display:flex !important;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:14px;border:1px solid #d8e0f5;border-radius:16px;background:#fff;box-sizing:border-box;transition:border-color .15s ease, transform .15s ease, background .15s ease}
+      .book-chip:hover{border-color:#9bb2ff;transform:translateY(-1px)}
+      .book-chip.is-active{border-color:#2f5bff;background:#eef3ff;box-shadow:0 0 0 1px rgba(47,91,255,.05)}
+      .book-chip-rank{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:999px;background:#eef2ff;color:#3652d9;font-size:12px;font-weight:700;margin-top:1px}
       .book-chip.is-active .book-chip-rank{background:#2f5bff;color:#fff}
       .book-chip-body{min-width:0;display:block;flex:1}
-      .book-chip-title{display:block;font-size:15px;font-weight:700;color:#1e2d50;line-height:1.35}
-      .book-chip-meta{display:block;font-size:12px;color:#6a7690;line-height:1.45;margin-top:3px}
-      .book-chip-why{display:block;font-size:12px;color:#33405f;line-height:1.45;margin-top:4px}
-      .book-result-box{border:1px solid #d8e0f5;border-radius:14px;padding:14px;background:#fff}
-      .book-result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-      .book-result-title{font-size:15px;font-weight:700;color:#1e2d50}
+      .book-chip-title{display:block;font-size:15px;font-weight:800;color:#1e2d50;line-height:1.35}
+      .book-chip-meta{display:block;font-size:12px;color:#6a7690;line-height:1.45;margin-top:4px}
+      .book-chip-why{display:block;font-size:12px;color:#33405f;line-height:1.45;margin-top:6px}
+      .book-result-box{border:1px solid #d8e0f5;border-radius:16px;padding:16px;background:#fff;height:100%;box-sizing:border-box}
+      .book-result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+      .book-result-title{font-size:16px;font-weight:800;color:#1e2d50}
       .book-result-badge{font-size:11px;color:#3652d9;background:#eef2ff;border-radius:999px;padding:4px 8px;white-space:nowrap}
-      .book-selected-desc{font-size:13px;line-height:1.6;color:#33405f;margin:0 0 10px}
-      .book-mini-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-      .book-mini-item{font-size:12px;line-height:1.5;color:#4b5875}
+      .book-selected-desc{font-size:13px;line-height:1.7;color:#33405f;margin:0 0 10px}
+      .book-mini-list{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+      .book-mini-item{font-size:12px;line-height:1.6;color:#4b5875}
       .book-reason-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
-      .book-reason-tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f6fb;color:#44516c;font-size:11px;font-weight:600}
+      .book-reason-tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f3f6fb;color:#44516c;font-size:11px;font-weight:700}
       .book-inline-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-      .book-inline-tag{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#f6f8fc;color:#5d6985;font-size:11px}
-      .book-empty-note{font-size:13px;line-height:1.6;color:#4b5875}
+      .book-inline-tag{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#f6f8fc;color:#5d6985;font-size:11px;font-weight:700}
+      .book-empty-note{font-size:13px;line-height:1.7;color:#4b5875}
+      @media (max-width: 980px){
+        .book-chooser-grid{grid-template-columns:1fr}
+      }
     `;
     document.head.appendChild(style);
   }
@@ -134,6 +144,68 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     });
 
     return unique(expanded);
+  }
+
+
+  function hasAnyToken(text, tokens) {
+    const source = normalize(text);
+    return (tokens || []).some(token => source.includes(normalize(token)));
+  }
+
+  function detectCareerProfile(signals) {
+    const joined = (signals || []).join(" ");
+    if (hasAnyToken(joined, ["신소재", "재료", "소재", "금속", "세라믹", "고분자", "나노", "전자재료", "반도체", "배터리", "화학공학", "기계공학", "전기전자", "전자공학"])) {
+      return "engineering_materials";
+    }
+    if (hasAnyToken(joined, ["의학", "의료", "간호", "치과", "치의", "약학", "수의", "보건", "생명", "바이오"])) {
+      return "bio_medical";
+    }
+    if (hasAnyToken(joined, ["컴퓨터", "소프트웨어", "AI", "인공지능", "데이터", "프로그래밍"])) {
+      return "computing";
+    }
+    return "general";
+  }
+
+  function applyCareerProfileScore(book, profile) {
+    const majors = book.linked_majors || [];
+    const subjects = book.linked_subjects || [];
+    const themes = book.broad_theme || [];
+    let score = 0;
+    const reasons = [];
+
+    if (profile === "engineering_materials") {
+      if (textIncludesLoose(majors, ["물리학과", "화학과", "산업공학과", "천문학과", "물리천문학과", "물리천문학부", "지구과학과", "과학교육과"])) {
+        score += 24; reasons.push("공학 기초 연결");
+      }
+      if (textIncludesLoose(subjects, ["물리학", "화학", "공통수학1", "공통수학2", "정보", "통합과학1", "과학탐구실험1", "과학탐구실험2"])) {
+        score += 18; reasons.push("물리·화학 연결");
+      }
+      if (textIncludesLoose(themes, ["과학방법과객관성", "우주와자연", "미디어와정보", "경제와경영"])) {
+        score += 8; reasons.push("과학 확장성");
+      }
+      if (textIncludesLoose(majors, ["의예과", "간호학과", "치의예과", "수의예과", "약학과", "보건행정학과", "생명과학과", "생명공학과"])) {
+        score -= 28; reasons.push("진로 거리 있음");
+      }
+      if (textIncludesLoose(subjects, ["생명과학"]) && !textIncludesLoose(subjects, ["물리학", "화학"])) {
+        score -= 14; reasons.push("생명과학 편중");
+      }
+    } else if (profile === "bio_medical") {
+      if (textIncludesLoose(majors, ["의예과", "간호학과", "치의예과", "수의예과", "약학과", "생명과학과", "생명공학과"])) {
+        score += 18; reasons.push("의생명 진로 연결");
+      }
+      if (textIncludesLoose(subjects, ["생명과학", "통합과학1", "화학", "윤리문제탐구"])) {
+        score += 12; reasons.push("의생명 과목 연결");
+      }
+    } else if (profile === "computing") {
+      if (textIncludesLoose(majors, ["컴퓨터공학과", "데이터사이언스학과", "산업공학과", "정보", "미디어커뮤니케이션학과"])) {
+        score += 18; reasons.push("컴퓨팅 진로 연결");
+      }
+      if (textIncludesLoose(subjects, ["정보", "공통수학1", "공통수학2"])) {
+        score += 12; reasons.push("정보 과목 연결");
+      }
+    }
+
+    return { score, reasons };
   }
 
   function textIncludesLoose(haystackList, needle) {
@@ -242,6 +314,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     const subject = ctx?.subject || "";
     const concept = ctx?.concept || "";
     const keyword = ctx?.keyword || "";
+    const profile = detectCareerProfile(signals);
 
     dataStore.books.forEach(book => {
       let score = 0;
@@ -307,6 +380,14 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
         reasons.push("교과 키워드 연결");
       }
 
+      const profileAdjust = applyCareerProfileScore(book, profile);
+      if (profileAdjust.score) {
+        score += profileAdjust.score;
+        profileAdjust.reasons.forEach(reason => {
+          if (!reasons.includes(reason)) reasons.push(reason);
+        });
+      }
+
       if (score > 0) {
         const entry = ensureScore(map, book.book_id);
         entry.score += score;
@@ -319,9 +400,18 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
 
   function getMatchedRules(ctx) {
     return dataStore.rules.filter(rule => {
-      const subjectOk = !ctx?.subject || !Array.isArray(rule.subjects) || !rule.subjects.length || textIncludesLoose(rule.subjects, ctx.subject);
-      const conceptOk = !ctx?.concept || !Array.isArray(rule.concepts) || !rule.concepts.length || textIncludesLoose(rule.concepts, ctx.concept);
-      const keywordOk = !ctx?.keyword || !Array.isArray(rule.keywords) || !rule.keywords.length || textIncludesLoose(rule.keywords, ctx.keyword);
+      const subjectOk = !Array.isArray(rule.subjects) || !rule.subjects.length
+        ? true
+        : (!!ctx?.subject && textIncludesLoose(rule.subjects, ctx.subject));
+
+      const conceptOk = !Array.isArray(rule.concepts) || !rule.concepts.length
+        ? true
+        : (!!ctx?.concept && textIncludesLoose(rule.concepts, ctx.concept));
+
+      const keywordOk = !Array.isArray(rule.keywords) || !rule.keywords.length
+        ? true
+        : (!!ctx?.keyword && textIncludesLoose(rule.keywords, ctx.keyword));
+
       return subjectOk && conceptOk && keywordOk;
     });
   }
@@ -350,10 +440,11 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     });
   }
 
-  function resolveRecommendedBooks(ctx, limit = 6) {
+  function resolveRecommendedBooks(ctx, limit = 5) {
     const career = String(ctx?.career || "").trim();
     const subject = String(ctx?.subject || "").trim();
     const signals = splitCareerTokens(career);
+    const profile = detectCareerProfile(signals);
     const scoreMap = new Map();
 
     getLookupByFuzzyKey(dataStore.lookup?.career_index || {}, signals).forEach(hit => {
@@ -380,7 +471,12 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
 
     const subjectFallback = dataStore.books.filter(book => textIncludesLoose(book.linked_subjects, subject));
     if (subjectFallback.length) {
-      return subjectFallback.slice(0, limit).map(book => ({ ...book, _score: 1, _reasons: ["과목 연결"] }));
+      const filtered = profile === "engineering_materials"
+        ? subjectFallback.filter(book => !textIncludesLoose(book.linked_majors, ["의예과", "간호학과", "치의예과", "수의예과", "약학과"]))
+        : subjectFallback;
+      return (filtered.length ? filtered : subjectFallback)
+        .slice(0, limit)
+        .map(book => ({ ...book, _score: 1, _reasons: ["과목 연결"] }));
     }
 
     return [];
@@ -446,15 +542,15 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     return `
       <div class="book-selected-wrap">
         <div class="book-result-head">
-          <div class="book-result-title">선택 도서: ${esc(book.title)}</div>
-          <div class="book-result-badge">다음 단계 열림</div>
+          <div class="book-result-title">${esc(book.title)}</div>
+          <div class="book-result-badge">선택 완료</div>
         </div>
-        <div class="book-selected-desc">${esc(trimText(book.summary_short || "현재 과목·진로와 연결해 탐구 주제로 확장할 수 있는 도서입니다.", 90))}</div>
+        <div class="book-selected-desc">${esc(trimText(book.summary_short || "현재 과목·진로와 연결해 탐구 주제로 확장할 수 있는 도서입니다.", 92))}</div>
         ${renderReasonTags(book)}
         <div class="book-mini-list">
-          <div class="book-mini-item"><strong>탐구 질문:</strong> ${esc(trimText(question, 70))}</div>
-          ${subjectText.length ? `<div class="book-mini-item"><strong>연결 과목:</strong>${renderInlineTags(subjectText)}</div>` : ""}
-          ${majorText.length ? `<div class="book-mini-item"><strong>연결 진로:</strong>${renderInlineTags(majorText)}</div>` : ""}
+          <div class="book-mini-item"><strong>탐구 질문</strong> · ${esc(trimText(question, 72))}</div>
+          ${subjectText.length ? `<div class="book-mini-item"><strong>연결 과목</strong>${renderInlineTags(subjectText)}</div>` : ""}
+          ${majorText.length ? `<div class="book-mini-item"><strong>연결 진로</strong>${renderInlineTags(majorText)}</div>` : ""}
         </div>
       </div>
     `;
@@ -538,18 +634,20 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
 
     const html = `
       <div class="book-puzzle-root" data-career="${esc(career)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}">
-        <div class="book-step">
-          <div class="book-step-label">1. 추천 도서 선택</div>
-          <div class="book-step-hint">도서 제목을 눌러 선택하면 다음 단계가 바로 열립니다.</div>
-          <div class="book-chip-wrap">
-            ${renderBooks(books.map(book => ({ ...book, __selected: selectedBook && book.book_id === selectedBook.book_id })))}
+        <div class="book-chooser-grid">
+          <div class="book-step">
+            <div class="book-step-label">1. 추천 도서 선택</div>
+            <div class="book-step-hint">진로와 과목 연결도가 높은 책부터 보여줍니다. 제목을 누르면 바로 아래 요약이 바뀝니다.</div>
+            <div class="book-chip-wrap">
+              ${renderBooks(books.map(book => ({ ...book, __selected: selectedBook && book.book_id === selectedBook.book_id })))}
+            </div>
           </div>
-        </div>
 
-        <div class="book-step">
-          <div class="book-step-label">2. 선택 도서 요약</div>
-          <div class="book-result-box">
-            ${renderSelectedBookSummary(selectedBook)}
+          <div class="book-step">
+            <div class="book-step-label">2. 선택 도서 요약</div>
+            <div class="book-result-box">
+              ${renderSelectedBookSummary(selectedBook)}
+            </div>
           </div>
         </div>
       </div>
