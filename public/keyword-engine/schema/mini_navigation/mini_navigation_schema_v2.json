@@ -1,0 +1,99 @@
+{
+  "schema_version": "2.0",
+  "purpose": "MINI가 교과 개념-도서-수행평가-진로 연결점을 안정적으로 읽고 제목/보고서/네비게이션 결과를 추론하도록 하기 위한 표준 입력 구조",
+  "design_principles": [
+    "사람이 긴 설명을 읽는 구조가 아니라 AI가 필드를 정확히 읽는 구조로 설계한다",
+    "시스템은 연결점과 근거만 제공하고, 최종 제목/결론/보고서 문장화는 MINI가 담당한다",
+    "무리한 연결은 넣지 않고 강한 연결만 기록한다",
+    "모든 연결은 교과 개념, 도서, 수행평가 방식, 진로의 4축 위에서 관리한다"
+  ],
+  "top_level_fields": {
+    "source_type": "book_textbook_navigation",
+    "student_context": {
+      "school_level": "고1|고2|고3",
+      "subject": "과목명",
+      "textbook_concept": "교과 개념명",
+      "textbook_keyword": "교과 키워드"
+    },
+    "book_context": {
+      "book_id": "고유 도서 ID",
+      "title": "도서명",
+      "author": "저자명",
+      "summary_short": "도서 핵심 요약 1~2문장",
+      "book_keywords": [
+        "도서 핵심 키워드"
+      ],
+      "starter_questions": [
+        "도서 기반 시작 질문"
+      ]
+    },
+    "task_context": {
+      "performance_task_mode": "사례 조사|비교 탐구|응용 탐구|진로 연결",
+      "task_output_type": "보고서|발표|포스터|제안서 등",
+      "task_constraints": [
+        "실험 불가",
+        "자료조사형",
+        "발표 포함"
+      ]
+    },
+    "career_context": {
+      "target_career": "학생 희망 진로 또는 학과",
+      "linked_majors": [
+        "연결 가능한 전공/학과"
+      ]
+    },
+    "connection_points": {
+      "concept_to_book": [
+        {
+          "strength": "high|medium",
+          "reason": "교과 개념과 도서 문제의식이 어떻게 연결되는지 짧은 근거"
+        }
+      ],
+      "book_to_task": [
+        {
+          "strength": "high|medium",
+          "reason": "도서 질문이 수행평가 방식과 왜 맞는지 근거"
+        }
+      ],
+      "task_to_career": [
+        {
+          "strength": "high|medium",
+          "reason": "수행평가 방식이 학생 진로와 왜 맞는지 근거"
+        }
+      ]
+    },
+    "allowed_navigation": {
+      "recommended_questions": [
+        "이 입력에서 우선 추천할 질문"
+      ],
+      "recommended_cases": [
+        "사례 후보"
+      ],
+      "recommended_views": [
+        "원리|구조|기능|비교|변화|영향"
+      ],
+      "recommended_modes": [
+        "사례 조사|비교 탐구|응용 탐구|진로 연결"
+      ]
+    },
+    "mini_generation_rules": {
+      "must_include": [
+        "도서의 문제의식",
+        "교과 개념 또는 키워드",
+        "수행평가 방식",
+        "학생 진로 연결"
+      ],
+      "must_avoid": [
+        "입력에 없는 비약적 결론",
+        "대학 수준 과도한 전문용어",
+        "도서와 무관한 사례 확장"
+      ],
+      "output_requests": [
+        "탐구 제목 3안",
+        "가장 적합한 제목 1안",
+        "학생 제출형 보고서 초안",
+        "생기부 반영형 요약 문장"
+      ]
+    }
+  }
+}
