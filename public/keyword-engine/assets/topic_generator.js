@@ -1,7 +1,6 @@
-window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
+window.__TOPIC_GENERATOR_VERSION = "v14.0-book-catalog-driven";
 
 (function(){
-
   function esc(v){
     return String(v || "")
       .replace(/&/g,"&amp;")
@@ -14,73 +13,60 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
   const FILTER_MAP_URL = "seed/book-engine/book_recommendation_filter_mapping.json";
   const BOOKS_URL = "seed/book-engine/mini_book_engine_books_starter.json";
 
-  const CAREER_BOOK_MAP = {
-    "지구환경": [
-      { id: "book_cosmos_intro", title: "코스모스" },
-      { id: "book_science_history", title: "과학혁명의 법칙" },
-      { id: "book_science_guide", title: "과학의 눈으로 세상 읽기" }
-    ],
-    "환경 데이터": [
-      { id: "book_science_guide", title: "과학의 눈으로 세상 읽기" },
-      { id: "book_cosmos_intro", title: "코스모스" }
-    ],
-    "컴퓨터": [
-      { id: "book_1984", title: "1984" },
-      { id: "book_gyeongyeonghak", title: "경영학 콘서트" }
-    ],
-    "데이터": [
-      { id: "book_gyeongyeonghak", title: "경영학 콘서트" },
-      { id: "book_1984", title: "1984" }
-    ],
-    "의학": [
-      { id: "book_doctorsignal", title: "닥터스 씽킹" },
-      { id: "book_medical_thinking", title: "의학적 사고의 법칙" }
-    ],
-    "간호": [
-      { id: "book_doctorsignal", title: "닥터스 씽킹" }
-    ],
-    "배터리": [
-      { id: "book_science_guide", title: "과학의 눈으로 세상 읽기" },
-      { id: "book_gyeongyeonghak", title: "경영학 콘서트" }
-    ],
-    "반도체": [
-      { id: "book_gyeongyeonghak", title: "경영학 콘서트" },
-      { id: "book_science_guide", title: "과학의 눈으로 세상 읽기" }
-    ]
+  const CAREER_SEED = {
+    science: {
+      keywords: ["지구", "환경", "천문", "우주", "과학", "물리", "화학", "생명", "배터리", "반도체", "신소재", "에너지"],
+      books: ["book_cosmos_intro", "book_science_history", "book_science_guide", "book_objectivity_blade"]
+    },
+    medical: {
+      keywords: ["의학", "의료", "간호", "보건", "의생명", "의예", "약", "치", "한의"],
+      books: ["book_doctorsignal", "book_medical_thinking", "book_science_guide"]
+    },
+    data: {
+      keywords: ["컴퓨터", "소프트웨어", "ai", "인공지능", "데이터", "정보", "보안", "통계", "경영", "산업"],
+      books: ["book_gyeongyeonghak", "book_1984", "book_science_guide", "book_objectivity_blade"]
+    },
+    society: {
+      keywords: ["행정", "정치", "정책", "법", "사회", "경제", "윤리", "철학"],
+      books: ["book_republic", "book_mokminsimseo", "book_tyranny_merit", "book_1984", "book_gwangjang"]
+    },
+    literature: {
+      keywords: ["문학", "국어", "콘텐츠", "스토리", "심리", "상담", "교육", "예술"],
+      books: ["book_demian", "book_galmaegi", "book_greek_tragedy", "book_genji", "book_gwangjang"]
+    }
+  };
+
+  const SUBJECT_SEED = {
+    "통합과학1": ["book_science_guide", "book_cosmos_intro", "book_science_history", "book_objectivity_blade"],
+    "과학탐구실험1": ["book_objectivity_blade", "book_science_history", "book_science_guide"],
+    "과학탐구실험2": ["book_objectivity_blade", "book_science_history", "book_science_guide"],
+    "생명과학": ["book_doctorsignal", "book_medical_thinking", "book_science_guide"],
+    "물리학": ["book_cosmos_intro", "book_science_history", "book_objectivity_blade"],
+    "화학": ["book_science_history", "book_objectivity_blade", "book_science_guide"],
+    "정보": ["book_gyeongyeonghak", "book_1984", "book_science_guide"],
+    "공통수학1": ["book_gyeongyeonghak", "book_objectivity_blade", "book_science_guide"],
+    "공통수학2": ["book_gyeongyeonghak", "book_objectivity_blade", "book_science_guide"],
+    "통합사회": ["book_tyranny_merit", "book_1984", "book_republic", "book_mokminsimseo"],
+    "공통국어": ["book_demian", "book_galmaegi", "book_gwangjang", "book_nanjangi"]
   };
 
   const runtime = {
     books: [],
     booksById: new Map(),
-    filterRules: []
+    subjectRules: [],
+    careerRules: []
   };
-
-  function preloadData(){
-    Promise.allSettled([
-      fetch(BOOKS_URL, { cache: "no-store" }).then(r => r.ok ? r.json() : []),
-      fetch(FILTER_MAP_URL, { cache: "no-store" }).then(r => r.ok ? r.json() : { subject_keyword_rules: [] })
-    ]).then(([booksRes, filterRes]) => {
-      runtime.books = Array.isArray(booksRes.value) ? booksRes.value : [];
-      runtime.booksById = new Map(runtime.books.map(book => [String(book.book_id || "").trim(), book]));
-      const rules = filterRes.value?.subject_keyword_rules;
-      runtime.filterRules = Array.isArray(rules) ? rules : [];
-    }).catch(error => {
-      console.warn("topic generator preload failed:", error);
-    });
-  }
-
-  function getBooksByCareer(career){
-    const raw = String(career || "").trim();
-    if (!raw) return [];
-    if (CAREER_BOOK_MAP[raw]) return CAREER_BOOK_MAP[raw];
-
-    const entries = Object.entries(CAREER_BOOK_MAP);
-    const found = entries.find(([key]) => raw.includes(key) || key.includes(raw));
-    return found ? found[1] : [];
-  }
 
   function normalizeText(value){
     return String(value || "").trim().toLowerCase();
+  }
+
+  function tokenize(value){
+    return normalizeText(value)
+      .replace(/[()\[\],.]/g, " ")
+      .split(/\s+|\/|·|,|-/)
+      .map(v => v.trim())
+      .filter(Boolean);
   }
 
   function includesLoose(targetList, value){
@@ -92,44 +78,31 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
     });
   }
 
-  function getMatchingRules(subject, concept, career){
-    return runtime.filterRules.filter(rule => {
-      const subjectOk = includesLoose(rule.subjects, subject);
-      if (!subjectOk) return false;
-
-      const conceptOk = !concept || !Array.isArray(rule.concepts) || rule.concepts.length === 0 || includesLoose(rule.concepts, concept);
-      if (!conceptOk) return false;
-
-      if (!career) return true;
-      const recommendedViews = Array.isArray(rule.recommended_views) ? rule.recommended_views : [];
-      const recommendedModes = Array.isArray(rule.recommended_modes) ? rule.recommended_modes : [];
-      const careerLoose = normalizeText(career);
-      return !!careerLoose || recommendedViews.length >= 0 || recommendedModes.length >= 0;
+  function preloadData(){
+    Promise.allSettled([
+      fetch(BOOKS_URL, { cache: "no-store" }).then(r => r.ok ? r.json() : []),
+      fetch(FILTER_MAP_URL, { cache: "no-store" }).then(r => r.ok ? r.json() : { subject_keyword_rules: [], career_rules: [] })
+    ]).then(([booksRes, filterRes]) => {
+      runtime.books = Array.isArray(booksRes.value) ? booksRes.value : [];
+      runtime.booksById = new Map(runtime.books.map(book => [String(book.book_id || "").trim(), book]));
+      runtime.subjectRules = Array.isArray(filterRes.value?.subject_keyword_rules) ? filterRes.value.subject_keyword_rules : [];
+      runtime.careerRules = Array.isArray(filterRes.value?.career_rules) ? filterRes.value.career_rules : [];
+    }).catch(error => {
+      console.warn("topic generator preload failed:", error);
     });
   }
 
   function toBookObject(input){
-    if (!input) return null;
-    const id = String(input.id || input.book_id || "").trim();
+    const id = String(input?.id || input?.book_id || input || "").trim();
     if (!id) return null;
     const fromCatalog = runtime.booksById.get(id);
-    if (fromCatalog) {
-      return {
-        id,
-        title: fromCatalog.title || input.title || id,
-        author: fromCatalog.author || ""
-      };
-    }
-    return {
-      id,
-      title: input.title || id,
-      author: input.author || ""
-    };
+    if (!fromCatalog) return { id, title: input?.title || id, author: input?.author || "" };
+    return { id, title: fromCatalog.title || id, author: fromCatalog.author || "" };
   }
 
   function dedupeBooks(list){
-    const seen = new Set();
     const out = [];
+    const seen = new Set();
     list.forEach(item => {
       const book = toBookObject(item);
       if (!book || seen.has(book.id)) return;
@@ -139,31 +112,97 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
     return out;
   }
 
-  function resolveBooks(subject, concept, career){
-    const careerBooks = dedupeBooks(getBooksByCareer(career));
-    const matchingRules = getMatchingRules(subject, concept, career);
+  function getSubjectRules(subject, concept){
+    return runtime.subjectRules.filter(rule => {
+      if (!includesLoose(rule.subjects, subject)) return false;
+      if (!concept) return true;
+      if (!Array.isArray(rule.concepts) || rule.concepts.length === 0) return true;
+      return includesLoose(rule.concepts, concept);
+    });
+  }
 
-    const recommendedFromRules = dedupeBooks(
-      matchingRules.flatMap(rule => (Array.isArray(rule.recommended_books) ? rule.recommended_books : []).map(bookId => ({ id: bookId })))
-    );
+  function getCareerMatchedSeedBooks(career){
+    const raw = String(career || "").trim();
+    const tokens = tokenize(raw);
+    const out = [];
 
-    const blockedBookIds = new Set(
-      matchingRules.flatMap(rule => Array.isArray(rule.blocked_books) ? rule.blocked_books : [])
-    );
+    Object.values(CAREER_SEED).forEach(seed => {
+      const hit = seed.keywords.some(keyword => {
+        const k = normalizeText(keyword);
+        return raw.toLowerCase().includes(k) || tokens.some(token => token.includes(k) || k.includes(token));
+      });
+      if (hit) {
+        seed.books.forEach(id => out.push({ id }));
+      }
+    });
 
-    let merged = dedupeBooks([
-      ...recommendedFromRules,
-      ...careerBooks
-    ]);
+    runtime.careerRules.forEach(rule => {
+      const matched = (rule.career_keywords || []).some(keyword => {
+        const k = normalizeText(keyword);
+        return raw.toLowerCase().includes(k) || tokens.some(token => token.includes(k) || k.includes(token));
+      });
+      if (matched) {
+        (rule.preferred_books || []).forEach(id => out.push({ id }));
+      }
+    });
 
-    if (blockedBookIds.size > 0) {
-      merged = merged.filter(book => !blockedBookIds.has(book.id));
+    return dedupeBooks(out);
+  }
+
+  function scoreBook(book, ctx, subjectRules, blockedSet){
+    if (!book || blockedSet.has(book.book_id)) return -999;
+    let score = 0;
+    const careerRaw = String(ctx.career || "");
+    const careerTokens = tokenize(careerRaw);
+
+    if ((SUBJECT_SEED[ctx.subject] || []).includes(book.book_id)) score += 2;
+
+    subjectRules.forEach(rule => {
+      if ((rule.recommended_books || []).includes(book.book_id)) score += 6;
+      if ((rule.blocked_books || []).includes(book.book_id)) score -= 100;
+    });
+
+    const majors = Array.isArray(book.linked_majors) ? book.linked_majors : [];
+    const keywords = Array.isArray(book.fit_keywords) ? book.fit_keywords : [];
+    const subjects = Array.isArray(book.linked_subjects) ? book.linked_subjects : [];
+
+    if (subjects.some(s => normalizeText(s) === normalizeText(ctx.subject))) score += 2;
+
+    careerTokens.forEach(token => {
+      if (majors.some(m => normalizeText(m).includes(token) || token.includes(normalizeText(m)))) score += 4;
+      if (keywords.some(k => normalizeText(k).includes(token) || token.includes(normalizeText(k)))) score += 3;
+      if (normalizeText(book.title).includes(token)) score += 2;
+    });
+
+    if (careerRaw) {
+      Object.values(CAREER_SEED).forEach(seed => {
+        const hit = seed.keywords.some(keyword => careerRaw.toLowerCase().includes(normalizeText(keyword)));
+        if (hit && seed.books.includes(book.book_id)) score += 5;
+      });
     }
 
+    return score;
+  }
+
+  function resolveBooks(subject, concept, career){
+    const subjectRules = getSubjectRules(subject, concept);
+    const blockedSet = new Set(subjectRules.flatMap(rule => Array.isArray(rule.blocked_books) ? rule.blocked_books : []));
+
+    const seeded = dedupeBooks([
+      ...(SUBJECT_SEED[subject] || []).map(id => ({ id })),
+      ...getCareerMatchedSeedBooks(career),
+      ...subjectRules.flatMap(rule => (rule.recommended_books || []).map(id => ({ id }))),
+      ...runtime.books.map(book => ({ id: book.book_id }))
+    ]);
+
+    const scored = seeded
+      .map(book => ({ book, score: scoreBook(runtime.booksById.get(book.id) || { book_id: book.id, title: book.title }, { subject, concept, career }, subjectRules, blockedSet) }))
+      .filter(item => item.score > -50)
+      .sort((a, b) => b.score - a.score || a.book.title.localeCompare(b.book.title, "ko"));
+
     return {
-      books: merged,
-      matchingRules,
-      blockedBookIds
+      books: scored.slice(0, 6).map(item => item.book),
+      matchingRules: subjectRules
     };
   }
 
@@ -231,13 +270,10 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
 
   function renderRuleGuide(matchingRules){
     if (!Array.isArray(matchingRules) || matchingRules.length === 0) return "";
-
     const firstRule = matchingRules[0];
     const modes = Array.isArray(firstRule.recommended_modes) ? firstRule.recommended_modes.join(", ") : "";
     const views = Array.isArray(firstRule.recommended_views) ? firstRule.recommended_views.join(", ") : "";
-
     if (!modes && !views) return "";
-
     return `
       <div class="book-desc">
         추천 기준: ${views ? `관점 ${esc(views)}` : ""}${views && modes ? " / " : ""}${modes ? `방식 ${esc(modes)}` : ""}
@@ -251,13 +287,11 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
     const career = ctx?.career || "";
     const selectedBook = ctx?.selectedBook || "";
 
-    if (!subject || !career){
-      return "";
-    }
+    if (!subject || !career) return "";
 
     const { books, matchingRules } = resolveBooks(subject, concept, career);
 
-    if (books.length === 0){
+    if (!books.length){
       return `
         <div class="book-puzzle-root">
           <div class="book-result-box">
@@ -266,10 +300,6 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
         </div>
       `;
     }
-
-    const firstTitle = selectedBook
-      ? (books.find(book => book.id === selectedBook)?.title || books[0].title)
-      : books[0].title;
 
     const html = `
       <div class="book-puzzle-root" data-career="${esc(career)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}">
@@ -282,17 +312,18 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
           </div>
         </div>
 
+        ${renderRuleGuide(matchingRules)}
+
         <div class="book-step">
           <div class="book-step-label">2. 교과 개념 연결</div>
           <div class="book-desc">
             선택한 도서와 ${esc(concept || "교과 개념")}을 연결하여 탐구를 진행합니다.
           </div>
-          ${renderRuleGuide(matchingRules)}
         </div>
 
         <div class="book-result-box">
           진로 → 도서 → 교과 개념 흐름으로 탐구가 생성됩니다.<br>
-          <strong>선택된 도서:</strong> ${esc(firstTitle)}
+          <strong>선택된 도서:</strong> ${esc(selectedBook ? (books.find(b => b.id === selectedBook)?.title || books[0]?.title || "") : (books[0]?.title || ""))}
         </div>
       </div>
     `;
@@ -304,10 +335,5 @@ window.__TOPIC_GENERATOR_VERSION = "v13.0-career-first-filtered-sync";
     return html;
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", preloadData);
-  } else {
-    preloadData();
-  }
-
+  preloadData();
 })();
