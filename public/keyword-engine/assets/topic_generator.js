@@ -105,6 +105,20 @@ window.__TOPIC_GENERATOR_VERSION = "v7.0-json-mini-connected";
     return map[routeType] || "실제 사례를 찾아보는 방식";
   }
 
+
+  function buildTitle(payload){
+    const k = payload.core_keyword || "";
+    const t = payload.target_case || "";
+    const v = payload.analysis_view || "";
+    const m = payload.exploration_mode || "applied";
+
+    if(m === "applied") return `${k}이(가) ${t}에서 어떻게 쓰이는지 ${v} 중심으로 탐구하기`;
+    if(m === "compare") return `${k}과(와) 관련된 ${t} 사례를 ${v} 관점에서 비교하기`;
+    if(m === "application") return `${k}이(가) ${t}에 어떻게 적용되는지 ${v} 중심으로 분석하기`;
+    if(m === "major") return `${k}을(를) ${t} 사례로 살펴보며 ${payload.linked_career}와 연결하기`;
+    return `${k}을(를) ${t} 사례로 ${v} 중심으로 탐구하기`;
+  }
+
   function buildPayload({routeType, keyword, subject, concept, career, target, perspective}){
     const payload = {
       exploration_mode: routeType,
