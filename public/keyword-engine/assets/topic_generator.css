@@ -1,18 +1,17 @@
-.single-column-form{
-  grid-template-columns:1fr !important;
-}
-.single-column-form > label{
-  grid-column:1 / -1 !important;
+.textbook-reason-box{
+  padding:0;
+  background:transparent;
+  border:none;
 }
 
-.topic-suggestion-card{
-  margin-top:16px;
+.book-puzzle-root{
+  margin-top:12px;
   border:1px solid #dfe7ff;
   border-radius:16px;
   background:#f8faff;
   padding:16px;
 }
-.topic-suggestion-head{
+.book-puzzle-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -20,46 +19,36 @@
   flex-wrap:wrap;
   margin-bottom:10px;
 }
-.topic-suggestion-head h4{
+.book-puzzle-head h4{
   margin:0;
   font-size:1rem;
   color:#2440a8;
 }
-.topic-suggestion-guide{
+.book-puzzle-guide{
   font-size:.82rem;
   font-weight:700;
   color:#5c6ac4;
 }
-.topic-suggestion-desc{
+.book-puzzle-desc{
   margin:0 0 12px;
   line-height:1.65;
   color:#43506a;
 }
-.topic-pick-guide{
-  margin:0 0 14px;
-  padding:10px 12px;
-  border:1px solid #d7e3ff;
-  border-radius:12px;
-  background:#eef4ff;
-  color:#2440a8;
-  font-weight:700;
-  line-height:1.55;
-}
-.puzzle-step{
+.book-step{
   margin-top:12px;
 }
-.puzzle-step-label{
+.book-step-label{
   font-size:.88rem;
   font-weight:800;
   color:#334155;
   margin-bottom:8px;
 }
-.puzzle-chip-wrap{
+.book-chip-wrap{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
 }
-.puzzle-chip{
+.book-chip{
   border:1px solid #d7e3ff;
   background:#fff;
   color:#2440a8;
@@ -68,46 +57,32 @@
   font-size:.84rem;
   font-weight:700;
   cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:2px;
   text-align:left;
-  min-width:145px;
 }
-.puzzle-chip.is-active{
+.book-chip.is-active{
   background:#2458ff;
   color:#fff;
   border-color:#2458ff;
 }
-.puzzle-chip-main{
-  font-weight:800;
-  line-height:1.35;
-}
-.puzzle-chip-sub{
-  font-size:.74rem;
-  line-height:1.35;
-  opacity:.92;
-}
-.puzzle-result-box{
+.book-result-box{
   margin-top:14px;
   padding:12px;
   border:1px solid #dfe7ff;
   border-radius:14px;
   background:#fff;
 }
-.puzzle-result-title{
+.book-result-label{
   font-size:.82rem;
   font-weight:800;
   color:#2440a8;
   margin-bottom:6px;
 }
-.puzzle-result-line{
-  line-height:1.6;
+.book-final-title{
+  line-height:1.7;
   color:#172033;
   font-weight:700;
 }
-.puzzle-apply-btn{
+.book-apply-btn{
   margin-top:12px;
   width:100%;
   border:0;
@@ -118,7 +93,7 @@
   font-weight:800;
   cursor:pointer;
 }
-.puzzle-copy-notice{
+.book-copy-notice{
   margin-top:8px;
   font-size:.82rem;
   line-height:1.45;
@@ -126,8 +101,7 @@
   font-weight:700;
 }
 @media (max-width:760px){
-  .puzzle-chip{
-    min-width:100%;
+  .book-chip{
+    width:100%;
   }
 }
-.textbook-reason-box{padding:0;background:transparent;border:none;}
