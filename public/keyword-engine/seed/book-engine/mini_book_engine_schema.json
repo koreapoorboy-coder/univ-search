@@ -1,11 +1,9 @@
 {
   "schema_version": "1.0",
-  "description": "MINI-readable dataset for book-centered inquiry engine",
-  "book_record_fields": {
+  "fields": {
     "book_id": "string",
     "title": "string",
     "author": "string",
-    "category": "string",
     "summary_short": "string",
     "book_keywords": [
       "string"
@@ -18,45 +16,6 @@
     ],
     "linked_majors": [
       "string"
-    ],
-    "core_concepts": [
-      "string"
-    ],
-    "exploration_modes": {
-      "case": {
-        "label": "사례 조사",
-        "prompt_templates": [
-          "string"
-        ]
-      },
-      "compare": {
-        "label": "비교 탐구",
-        "prompt_templates": [
-          "string"
-        ]
-      },
-      "application": {
-        "label": "응용 탐구",
-        "prompt_templates": [
-          "string"
-        ]
-      },
-      "career": {
-        "label": "진로 연결",
-        "prompt_templates": [
-          "string"
-        ]
-      }
-    },
-    "starter_payload_template": {
-      "selected_question": "string",
-      "selected_subject": "string",
-      "selected_keyword": "string",
-      "exploration_mode": "case|compare|application|career",
-      "target_case": "string",
-      "analysis_view": "string",
-      "linked_career": "string"
-    },
-    "mini_instruction_template": "string"
+    ]
   }
 }
