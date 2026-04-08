@@ -57,7 +57,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
         <h2 class="textbook-concept-title">과목 → 교과 개념 → 교과 키워드 → 확장 방향 이해</h2>
         <p class="textbook-concept-desc">
           먼저 과목을 고르고, 그 안에서 수업 개념을 선택하세요.
-          그다음 교과 키워드를 누르면 관련 진로/학과 연결까지 한눈에 볼 수 있습니다.
+          그다음 교과 키워드를 누르면 어떤 방향으로 탐구를 확장할지 고를 수 있습니다.
         </p>
 
         <div class="textbook-block">
@@ -86,20 +86,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v3.4-topic-complete";
 
         <div class="textbook-block">
           <div class="textbook-head">
-            <h3>4. 이 키워드를 어떤 방향으로 확장할까?</h3>
-            <div class="textbook-guide">아래에서 과목·전공 연결 설명</div>
+            <h3>4. 이 키워드를 어떤 탐구 방향으로 확장할까?</h3>
+            <div class="textbook-guide">탐구 방향 선택</div>
           </div>
           <div id="textbookCareerButtons" class="textbook-buttons"></div>
         </div>
-
-        <div class="textbook-block">
-          <div class="textbook-head">
-            <h3>5. 왜 이 키워드가 중요할까?</h3>
-            <div class="textbook-guide">대학 전공까지 연결</div>
-          </div>
-          <div id="textbookReasonBox" class="textbook-reason-box">교과 키워드와 진로를 선택하면 수업 위치, 연결 과목, 대학 전공까지 함께 보여줍니다.</div>
-        </div>
-
         <div class="textbook-block">
           <div class="textbook-head">
             <h3>현재 선택</h3>
