@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v6.0-layout-refresh";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -44,6 +44,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
       uiSeed = await uiRes.json();
       engineMap = await engineRes.json();
 
+      injectLayoutStyles();
       injectUI();
       bindEvents();
       syncSubjectFromSelect();
@@ -54,73 +55,127 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
     }
   }
 
+  function injectLayoutStyles() {
+    if (document.getElementById("textbookConceptRefreshStyles")) return;
+    const style = document.createElement("style");
+    style.id = "textbookConceptRefreshStyles";
+    style.textContent = `
+      #textbookConceptSelectorSection{margin-top:18px}
+      #textbookConceptSelectorSection .textbook-concept-card{border:1px solid #dbe4f6;border-radius:24px;padding:22px;background:linear-gradient(180deg,#fbfcff 0%,#f7f9ff 100%)}
+      #textbookConceptSelectorSection .textbook-concept-kicker{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;background:#e9f7ef;color:#1d8f5a;font-size:12px;font-weight:700;margin-bottom:10px}
+      #textbookConceptSelectorSection .textbook-concept-title{margin:0;font-size:24px;line-height:1.35;color:#1b2744}
+      #textbookConceptSelectorSection .textbook-concept-desc{margin:10px 0 0;font-size:14px;line-height:1.7;color:#5a6682}
+      #textbookConceptSelectorSection .textbook-status-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+      #textbookConceptSelectorSection .textbook-status-card{background:#fff;border:1px solid #dfe6f6;border-radius:16px;padding:14px 16px;min-height:86px}
+      #textbookConceptSelectorSection .textbook-status-label{font-size:12px;font-weight:700;color:#50607f}
+      #textbookConceptSelectorSection .textbook-status-value{margin-top:8px;font-size:15px;line-height:1.55;color:#1c2845;font-weight:700}
+      #textbookConceptSelectorSection .textbook-main-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,0.7fr);gap:14px;margin-top:14px}
+      #textbookConceptSelectorSection .textbook-bottom-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+      #textbookConceptSelectorSection .textbook-block{background:#fff;border:1px solid #dfe6f6;border-radius:18px;padding:16px}
+      #textbookConceptSelectorSection .textbook-block.locked-step{opacity:.6;background:#f7f9fd}
+      #textbookConceptSelectorSection .textbook-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+      #textbookConceptSelectorSection .textbook-head h3{margin:0;font-size:17px;color:#1b2744}
+      #textbookConceptSelectorSection .textbook-guide{font-size:11px;font-weight:700;color:#6a7896;background:#f3f6fc;border-radius:999px;padding:5px 8px;white-space:nowrap}
+      #textbookConceptSelectorSection .textbook-helper-note{border:1px dashed #d8e1f4;border-radius:16px;padding:14px;background:#fbfcff}
+      #textbookConceptSelectorSection .textbook-helper-note-title{font-size:13px;font-weight:800;color:#24406c;margin-bottom:6px}
+      #textbookConceptSelectorSection .textbook-helper-note-desc{font-size:13px;line-height:1.65;color:#56627d}
+      #textbookConceptSelectorSection .textbook-empty{font-size:13px;line-height:1.65;color:#64708a}
+      #textbookConceptSelectorSection .textbook-buttons{display:flex;flex-wrap:wrap;gap:8px}
+      #textbookConceptSelectorSection .textbook-btn{border:1px solid #d7def0;background:#fff;border-radius:999px;padding:9px 12px;font-size:13px;font-weight:700;color:#2f3d5b;cursor:pointer}
+      #textbookConceptSelectorSection .textbook-btn.active{border-color:#2f5bff;background:#eef3ff;color:#2041c9}
+      #textbookConceptSelectorSection .textbook-selection-summary{display:flex;flex-wrap:wrap;gap:8px}
+      #textbookConceptSelectorSection .reason-chip{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eef3ff;color:#284ac8;font-size:12px;font-weight:700}
+      #textbookConceptSelectorSection .textbook-reason-box{min-height:330px}
+      @media (max-width: 1100px){
+        #textbookConceptSelectorSection .textbook-main-grid{grid-template-columns:1fr}
+      }
+      @media (max-width: 860px){
+        #textbookConceptSelectorSection .textbook-status-grid,
+        #textbookConceptSelectorSection .textbook-bottom-grid{grid-template-columns:1fr}
+        #textbookConceptSelectorSection .textbook-concept-card{padding:18px}
+        #textbookConceptSelectorSection .textbook-concept-title{font-size:20px}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function injectUI() {
     const keywordInput = $("keyword");
     if (!keywordInput || $("textbookConceptSelectorSection")) return;
+
+    const formPanel = keywordInput.closest(".form-panel");
+    const actions = formPanel ? formPanel.querySelector(".actions") : null;
 
     const wrap = document.createElement("section");
     wrap.id = "textbookConceptSelectorSection";
     wrap.className = "textbook-concept-section";
     wrap.innerHTML = `
       <div class="textbook-concept-card">
-        <div class="textbook-concept-kicker">순서대로 선택해야 다음 단계가 열립니다</div>
-        <h2 class="textbook-concept-title">과목 → 진로 → 도서 → 교과 개념 → 교과 키워드</h2>
-        <p class="textbook-concept-desc">
-          학생은 위에서 아래로 순서대로만 선택합니다.
-          앞 단계가 완료되어야 다음 단계가 열리도록 잠금 구조로 설계했습니다.
-        </p>
+        <div class="textbook-concept-kicker">순서대로 선택하면 다음 단계가 열립니다</div>
+        <h2 class="textbook-concept-title">과목 · 진로 · 도서를 먼저 고르고,<br>그다음 교과 개념과 키워드를 연결합니다.</h2>
+        <p class="textbook-concept-desc">학생은 위에서 아래로 순서대로만 선택합니다. 도서 선택까지 끝나면 아래에서 교과 개념과 키워드를 눌러 탐구 방향을 구체화할 수 있습니다.</p>
 
-        <div class="textbook-block" data-step="1">
-          <div class="textbook-head">
-            <h3>1. 과목 확인</h3>
-            <div class="textbook-guide">현재 선택 과목 기준</div>
+        <div class="textbook-status-grid">
+          <div class="textbook-status-card">
+            <div class="textbook-status-label">1. 과목 확인</div>
+            <div id="selectedSubjectSummary" class="textbook-status-value">먼저 과목을 선택하세요.</div>
           </div>
-          <div id="selectedSubjectSummary" class="textbook-selected-subject">먼저 과목을 선택하세요.</div>
+          <div class="textbook-status-card">
+            <div class="textbook-status-label">2. 희망 진로 확인</div>
+            <div id="selectedCareerSummary" class="textbook-status-value">먼저 희망 진로를 입력하세요.</div>
+          </div>
+          <div class="textbook-status-card">
+            <div class="textbook-status-label">현재 선택</div>
+            <div id="textbookSelectionSummary" class="textbook-selection-summary">아직 선택하지 않았습니다.</div>
+          </div>
         </div>
 
-        <div class="textbook-block" data-step="2">
-          <div class="textbook-head">
-            <h3>2. 희망 진로 확인</h3>
-            <div class="textbook-guide">진로 입력값 기준</div>
+        <div class="textbook-main-grid">
+          <div class="textbook-block" data-step="3">
+            <div class="textbook-head">
+              <h3>3. 진로 기반 추천 도서</h3>
+              <div class="textbook-guide">도서 먼저 선택</div>
+            </div>
+            <div id="textbookReasonBox" class="textbook-reason-box">과목과 희망 진로를 먼저 입력하면 추천 도서가 열립니다.</div>
           </div>
-          <div id="selectedCareerSummary" class="textbook-selected-subject">먼저 희망 진로를 입력하세요.</div>
+          <div class="textbook-block">
+            <div class="textbook-head">
+              <h3>선택 안내</h3>
+              <div class="textbook-guide">사용 팁</div>
+            </div>
+            <div class="textbook-helper-note">
+              <div class="textbook-helper-note-title">이 순서로 보면 편합니다</div>
+              <div class="textbook-helper-note-desc">도서는 <strong>진로와 연결성</strong>이 높은 것부터 고르고, 그다음 아래에서 <strong>교과 개념</strong>을 선택한 뒤 마지막에 <strong>교과 키워드</strong>를 눌러 탐구 범위를 좁히면 됩니다.</div>
+            </div>
+          </div>
         </div>
 
-        <div class="textbook-block" data-step="3">
-          <div class="textbook-head">
-            <h3>3. 진로 기반 추천 도서</h3>
-            <div class="textbook-guide">도서 먼저 선택</div>
+        <div class="textbook-bottom-grid">
+          <div class="textbook-block" data-step="4">
+            <div class="textbook-head">
+              <h3>4. 연결할 교과 개념 선택</h3>
+              <div class="textbook-guide">도서 선택 후 열림</div>
+            </div>
+            <div id="textbookConceptButtons" class="textbook-buttons"></div>
           </div>
-          <div id="textbookReasonBox" class="textbook-reason-box">과목과 희망 진로를 먼저 입력하면 추천 도서가 열립니다.</div>
-        </div>
 
-        <div class="textbook-block" data-step="4">
-          <div class="textbook-head">
-            <h3>4. 연결할 교과 개념 선택</h3>
-            <div class="textbook-guide">도서 선택 후 열림</div>
+          <div class="textbook-block" data-step="5">
+            <div class="textbook-head">
+              <h3>5. 이 개념의 교과 키워드</h3>
+              <div class="textbook-guide">개념 선택 후 열림</div>
+            </div>
+            <div id="textbookKeywordButtons" class="textbook-buttons"></div>
           </div>
-          <div id="textbookConceptButtons" class="textbook-buttons"></div>
-        </div>
-
-        <div class="textbook-block" data-step="5">
-          <div class="textbook-head">
-            <h3>5. 이 개념의 교과 키워드</h3>
-            <div class="textbook-guide">개념 선택 후 열림</div>
-          </div>
-          <div id="textbookKeywordButtons" class="textbook-buttons"></div>
-        </div>
-
-        <div class="textbook-block">
-          <div class="textbook-head">
-            <h3>현재 선택</h3>
-            <div class="textbook-guide">자동 반영</div>
-          </div>
-          <div id="textbookSelectionSummary" class="textbook-selection-summary">아직 선택하지 않았습니다.</div>
         </div>
       </div>
     `;
 
-    keywordInput.parentNode.insertBefore(wrap, keywordInput);
+    if (formPanel) {
+      formPanel.insertBefore(wrap, actions || null);
+    } else {
+      keywordInput.parentNode.insertBefore(wrap, keywordInput.parentNode.nextSibling);
+    }
+
     keywordInput.placeholder = "위에서 교과 키워드를 선택하면 자동으로 입력됩니다. 직접 입력도 가능합니다.";
   }
 
@@ -186,8 +241,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
 
       root.addEventListener("click", function (event) {
         const bookBtn = event.target.closest(".book-chip[data-kind='book']");
-        if (!bookBtn) return;
-        if (!isStepEnabled(3)) return;
+        if (!bookBtn || !isStepEnabled(3)) return;
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || bookBtn.textContent.trim() || "";
         state.concept = "";
@@ -386,7 +440,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
 
     el.innerHTML = parts.length
       ? parts.map(item => `<span class="reason-chip">${escapeHtml(item)}</span>`).join("")
-      : "아직 선택하지 않았습니다.";
+      : `<div class="textbook-empty">아직 선택하지 않았습니다.</div>`;
   }
 
   function syncKeywordInput() {
