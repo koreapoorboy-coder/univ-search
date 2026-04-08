@@ -399,7 +399,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
       return `
         <button
           type="button"
-          class="book-chip ${index === 0 ? "is-active" : ""}"
+          class="book-chip ${book.__selected ? "is-active" : ""}"
           data-kind="book"
           data-value="${esc(book.book_id)}"
           data-title="${esc(book.title)}"
@@ -489,6 +489,18 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     });
   }
 
+
+  function resolveSelectedBookFromContext(ctx, books) {
+    const preferredId = String(
+      ctx?.selectedBook ||
+      window.__TEXTBOOK_HELPER_STATE__?.selectedBook ||
+      ""
+    ).trim();
+
+    if (!preferredId) return books[0] || null;
+    return books.find(book => String(book.book_id || "") === preferredId) || books[0] || null;
+  }
+
   function renderLoadingBox() {
     return `
       <div class="book-puzzle-root">
@@ -519,8 +531,10 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
     const books = resolveRecommendedBooks(ctx, 6);
     if (!books.length) return renderEmptyBox("현재 이 진로와 연결되는 도서 데이터가 없습니다.");
 
-    const selectedBook = books[0];
-    syncSelectedBookToHelper(selectedBook);
+    const selectedBook = resolveSelectedBookFromContext(ctx, books);
+    if (!ctx?.selectedBook && !window.__TEXTBOOK_HELPER_STATE__?.selectedBook) {
+      syncSelectedBookToHelper(selectedBook);
+    }
 
     const html = `
       <div class="book-puzzle-root" data-career="${esc(career)}" data-subject="${esc(subject)}" data-concept="${esc(concept)}">
@@ -528,7 +542,7 @@ window.__TOPIC_GENERATOR_VERSION = "v13.1-engine70-compact-ui";
           <div class="book-step-label">1. 추천 도서 선택</div>
           <div class="book-step-hint">도서 제목을 눌러 선택하면 다음 단계가 바로 열립니다.</div>
           <div class="book-chip-wrap">
-            ${renderBooks(books)}
+            ${renderBooks(books.map(book => ({ ...book, __selected: selectedBook && book.book_id === selectedBook.book_id })))}
           </div>
         </div>
 
