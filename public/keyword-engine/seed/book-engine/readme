@@ -1,24 +1,20 @@
-이 ZIP은 '학생이 책을 읽지 않아도 MINI가 바로 이해할 수 있는 구조화 데이터' 스타터 팩입니다.
+적용 경로
 
-핵심 방향
-- 학생에게는 도서 선택 + 질문 선택 + 교과 연결만 보여준다
-- MINI에게는 JSON payload만 넘긴다
-- 즉, 사람용 화면과 AI용 입력을 분리한다
+1) 새 데이터 파일
+- public/keyword-engine/seed/book-engine/book_recommendation_filter_mapping.json
 
-추천 엔진 흐름
-1. 도서 선택
-2. 자동 제공된 핵심 질문 선택
-3. 교과 개념/키워드 선택
-4. 탐구 방식 선택(사례 조사/비교 탐구/응용 탐구/진로 연결)
-5. JSON payload 생성
-6. MINI로 보고서 생성
+2) 다음 단계에서 수정할 파일
+- public/keyword-engine/assets/topic_generator.js
 
-들어있는 파일
-- mini_book_engine_schema.json : 전체 데이터 구조
-- mini_book_engine_books_starter.json : 시작용 도서 5종 데이터
-- README.txt : 사용 설명
+적용 방식 요약
+- textbook_keyword, subject, concept, career를 기준으로 rule match
+- rule의 recommended_books를 우선 후보로 사용
+- blocked_books / blocked_keywords는 제외
+- 추천된 도서만 UI에 노출
+- 추천 질문/모드/관점도 이 데이터 기준으로 제한
+- 우리는 연결점만 제공하고, MINI가 최종 제목/보고서를 추론
 
-권장 다음 단계
-- 도서 5종 → 20종 이상으로 확대
-- 책별 starter_questions / linked_subjects / linked_majors 추가
-- UI는 간단하게, MINI 입력은 구조화해서 유지
+핵심 원칙
+- 무관한 조합은 애초에 보여주지 않는다
+- 약한 조합은 후순위로 내린다
+- 교과-도서-수행평가-진로의 4축 연결점을 구조화한다
