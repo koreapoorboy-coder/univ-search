@@ -318,7 +318,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v5.1-career-first-locked";
           subject: state.subject,
           concept: state.concept,
           keyword: state.keyword,
-          career: state.career
+          career: state.career,
+          selectedBook: state.selectedBook
         })
       : "";
 
