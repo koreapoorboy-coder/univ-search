@@ -317,8 +317,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
         <div id="engineBookBlock" class="engine-step-block" data-step="4">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">4. 키워드와 맞는 도서 선택</h3>
-              <div class="engine-step-copy">선택한 키워드를 근거로 확장하기 좋은 도서를 고릅니다. 도서는 보고서의 참고 근거와 확장 프레임 역할을 합니다.</div>
+              <h3 class="engine-step-title">4. 직접 일치 / 확장 참고 도서 선택</h3>
+              <div class="engine-step-copy">선택한 키워드와 직접 맞는 도서를 먼저 보고, 부족하면 보고서 확장에 참고할 도서를 봅니다. 도서는 보고서의 근거와 확장 프레임 역할을 합니다.</div>
             </div>
             <div class="engine-step-guide">도서 선택</div>
           </div>
