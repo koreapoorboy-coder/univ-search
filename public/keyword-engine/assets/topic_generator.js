@@ -339,6 +339,71 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     return { score, reasons: uniq(reasons).slice(0, 3), matchedRules, routes };
   }
 
+  function getMatchSignals(book, ctx){
+    const subject = ctx?.subject || "";
+    const concept = ctx?.concept || "";
+    const keyword = ctx?.keyword || "";
+    const careerTokens = tokenizeCareer(ctx?.career || "");
+    const themes = getBookThemeArray(book);
+    const routes = getRouteMatches(book, subject, concept, keyword);
+    const subjectHit = (book?.linked_subjects || []).some(v => fuzzyIncludes(v, subject));
+    const themeKeywordHit = themes.some(v => fuzzyIncludes(v, keyword)) || (book?.fit_keywords || []).some(v => fuzzyIncludes(v, keyword));
+    const themeConceptHit = themes.some(v => fuzzyIncludes(v, concept)) || (book?.fit_keywords || []).some(v => fuzzyIncludes(v, concept));
+    const careerMajorHit = (book?.linked_majors || []).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
+    return { routes, subjectHit, themeKeywordHit, themeConceptHit, careerMajorHit };
+  }
+
+  function classifyRecommendation(item, ctx){
+    const bucket = detectCareerBucket(ctx?.career || "");
+    const strictBucket = isStrictCareerBucket(bucket);
+    const signals = getMatchSignals(item.book, ctx);
+    const reasonSet = new Set(item.reasons || []);
+
+    const isDirect = (
+      signals.routes.length > 0 ||
+      reasonSet.has("개념-키워드 직접 연결") ||
+      (signals.themeKeywordHit && signals.careerMajorHit) ||
+      (signals.themeKeywordHit && signals.subjectHit && item.score >= 26) ||
+      (signals.themeConceptHit && signals.careerMajorHit && item.score >= 28) ||
+      (signals.subjectHit && signals.careerMajorHit && item.score >= 30)
+    );
+
+    if (isDirect) return "direct";
+
+    if (strictBucket) {
+      if (isClearlyOffTopicBook(item.book, bucket)) return "drop";
+      if (item.score < 26) return "drop";
+      if (!signals.subjectHit) return "drop";
+      if (!(reasonSet.has("일반 과학 확장") || reasonSet.has("과목 연결") || reasonSet.has("개념 확장 적합") || signals.themeConceptHit)) return "drop";
+      return "explore";
+    }
+
+    if (item.score >= 18 && !isClearlyOffTopicBook(item.book, bucket)) return "explore";
+    return "drop";
+  }
+
+  function getBookRecommendationSections(ctx){
+    const recommended = getRecommendedBooks(ctx);
+    const direct = [];
+    const explore = [];
+
+    recommended.forEach(item => {
+      const section = classifyRecommendation(item, ctx);
+      if (section === "direct") direct.push(item);
+      else if (section === "explore") explore.push(item);
+    });
+
+    const directLimited = direct.slice(0, 6);
+    let exploreLimited = [];
+    if (directLimited.length === 0) {
+      exploreLimited = explore.slice(0, 4);
+    } else if (directLimited.length <= 3) {
+      exploreLimited = explore.slice(0, 2);
+    }
+
+    return { direct: directLimited, explore: exploreLimited, all: [...directLimited, ...exploreLimited] };
+  }
+
   function getRecommendedBooks(ctx){
     if (!loaded || !Array.isArray(books) || books.length === 0) return [];
     const bucket = detectCareerBucket(ctx?.career || "");
@@ -429,7 +494,8 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
   }
 
   function buildReportOptionMeta(ctx){
-    const recommendations = getRecommendedBooks(ctx);
+    const sections = getBookRecommendationSections(ctx);
+    const recommendations = sections.all || [];
     const selected = recommendations.find(item => item.book.book_id === ctx?.selectedBook)?.book || recommendations[0]?.book || null;
     const matchedRules = getMatchedRules(ctx);
     const keywordProfile = getKeywordProfile(ctx?.keyword);
@@ -462,9 +528,12 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     return { selectedBook: selected, modeOptions, viewOptions };
   }
 
-  function renderBookCard(item, active, index){
+  function renderBookCard(item, active, index, sectionType){
     const book = item.book;
-    const reasonText = item.reasons.length ? item.reasons.join(" · ") : "과목 기준 추천";
+    const labels = (item.reasons || []).slice(0, 2);
+    if (sectionType === "direct") labels.push("직접 일치");
+    if (sectionType === "explore") labels.push("확장 참고");
+    const reasonText = labels.length ? labels.join(" · ") : (sectionType === "explore" ? "확장 참고" : "과목 기준 추천");
     const subjectTag = (book.linked_subjects || [])[0] || "교과 연결";
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(book.book_id)}" data-title="${esc(book.title)}">
@@ -478,13 +547,16 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     `;
   }
 
-  function renderBookSummary(selectedBook, ctx){
+  function renderBookSummary(selectedBook, ctx, sectionType){
     if (!selectedBook) {
       return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
     }
-    const meta = buildReportOptionMeta(ctx);
     const subjectTags = (selectedBook.linked_subjects || []).slice(0, 3).map(v => `<span class="engine-tag">${esc(v)}</span>`).join("");
     const majorTags = (selectedBook.linked_majors || []).slice(0, 3).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
+    const badgeText = sectionType === "explore" ? "확장 참고 도서" : "직접 일치 도서";
+    const footText = sectionType === "explore"
+      ? "직접 일치 도서가 충분하지 않아, 보고서 확장에 참고할 수 있는 도서를 보여줍니다."
+      : "이 도서를 바탕으로 보고서에 들어갈 근거와 확장 방향을 MINI에 전달합니다.";
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -492,11 +564,11 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
             <div class="engine-summary-title">${esc(selectedBook.title)}</div>
             <div class="engine-summary-meta">${esc(selectedBook.author || "")}</div>
           </div>
-          <div class="engine-summary-badge">도서 선택 완료</div>
+          <div class="engine-summary-badge">${esc(badgeText)}</div>
         </div>
         <p class="engine-summary-text">${esc(selectedBook.summary_short || "이 도서는 선택한 개념 키워드를 확장하는 데 적합합니다.")}</p>
         <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
-        <div class="engine-summary-foot">이 도서를 바탕으로 보고서에 들어갈 근거와 확장 방향을 MINI에 전달합니다.</div>
+        <div class="engine-summary-foot">${esc(footText)}</div>
       </div>
     `;
   }
@@ -512,24 +584,44 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
       return `<div class="engine-empty">도서 추천 데이터를 불러오는 중입니다.</div>`;
     }
 
-    const recommendations = getRecommendedBooks(ctx);
-    if (!recommendations.length) {
-      return `<div class="engine-empty">현재 선택한 과목·진로·개념 키워드와 직접 연결되는 도서 데이터가 아직 충분하지 않습니다. 억지로 추천하지 않고, 맞는 도서가 있을 때만 보여줍니다.</div>`;
+    const sections = getBookRecommendationSections(ctx);
+    const direct = sections.direct || [];
+    const explore = sections.explore || [];
+    const all = sections.all || [];
+
+    if (!all.length) {
+      return `<div class="engine-empty">현재 선택한 진로·개념·키워드와 직접 연결되는 도서 데이터가 아직 충분하지 않습니다. 관련 도서가 있을 때만 보여줍니다.</div>`;
     }
 
-    const selectedItem = recommendations.find(item => item.book.book_id === ctx.selectedBook) || recommendations[0];
+    const selectedItem = all.find(item => item.book.book_id === ctx.selectedBook) || direct[0] || explore[0] || null;
     const selectedBook = selectedItem?.book || null;
+    const selectedSection = selectedItem ? (direct.some(item => item.book.book_id === selectedItem.book.book_id) ? "direct" : "explore") : "direct";
+
+    const directHTML = direct.length
+      ? direct.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index, "direct")).join("")
+      : `<div class="engine-empty">현재 선택한 진로·개념·키워드와 직접 일치하는 도서 데이터는 아직 충분하지 않습니다.</div>`;
+
+    const exploreHTML = explore.length
+      ? `
+        <div style="margin-top:18px;">
+          <div class="engine-subtitle">확장 참고 도서</div>
+          <div class="engine-help">직접 일치 도서가 부족할 때, 보고서 확장에 참고할 수 있는 범용 과학 도서만 보여줍니다.</div>
+          ${explore.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index, "explore")).join("")}
+        </div>
+      `
+      : "";
 
     return `
       <div class="engine-book-layout">
         <div class="engine-book-list">
-          <div class="engine-subtitle">4. 키워드와 맞는 도서 선택</div>
-          <div class="engine-help">선택한 키워드와 직접 연결되는 도서만 보여줍니다. 관련도가 낮으면 표시하지 않습니다.</div>
-          ${recommendations.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index)).join("")}
+          <div class="engine-subtitle">직접 일치 도서</div>
+          <div class="engine-help">진로 + 개념 + 키워드와 직접 연결되는 도서만 먼저 보여줍니다.</div>
+          ${directHTML}
+          ${exploreHTML}
         </div>
         <div class="engine-book-summary">
           <div class="engine-subtitle">선택 도서 요약</div>
-          ${renderBookSummary(selectedBook, ctx)}
+          ${renderBookSummary(selectedBook, ctx, selectedSection)}
         </div>
       </div>
     `;
