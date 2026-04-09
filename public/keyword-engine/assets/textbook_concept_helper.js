@@ -540,34 +540,43 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
     const bucket = detectCareerBucket(career);
     const textBag = [
       concept,
+      entry?.unit || "",
       ...(entry?.micro_keywords || []),
       ...(entry?.linked_career_bridge || []),
       ...(entry?.core_concepts || [])
     ].join(" ");
 
+    const hasBio = /(세포|항상성|생명|건강|자극|내부 환경)/.test(textBag);
+    const hasMech = /(역학|구조|하중|진동|측정|단위|힘|운동|에너지|재료)/.test(textBag);
+    const hasElec = /(측정|센서|단위|전류|전기|전자|시스템|에너지|회로)/.test(textBag);
+    const hasData = /(측정|데이터|정량|표준|시스템|자료|분석)/.test(textBag);
+    const hasEnv = /(지구|천체|대기권|수권|지구계|환경|우주)/.test(textBag);
+
     let score = 0;
     const reasons = [];
 
     if (bucket === "materials") {
-      if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 16; reasons.push("재료·구조 연결"); }
-      if (/(세포|항상성|생명|자극)/.test(textBag)) score -= 12;
+      if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 18; reasons.push("재료·구조 연결"); }
+      if (hasBio && !hasMech) score -= 24;
     }
     if (bucket === "mechanical") {
-      if (/(역학|구조|하중|진동|측정|단위|시스템)/.test(textBag)) { score += 16; reasons.push("기계·구조 연결"); }
-      if (/(세포|항상성|생명)/.test(textBag)) score -= 10;
+      if (hasMech) { score += 18; reasons.push("기계·구조 연결"); }
+      if (hasBio && !hasMech) score -= 26;
     }
     if (bucket === "electronic") {
-      if (/(측정|센서|단위|시스템|원소|규칙성|에너지)/.test(textBag)) { score += 15; reasons.push("전자·센서 연결"); }
-      if (/(세포|항상성|생명)/.test(textBag)) score -= 10;
+      if (hasElec) { score += 17; reasons.push("전자·센서 연결"); }
+      if (hasBio && !hasElec) score -= 24;
     }
     if (bucket === "it") {
-      if (/(측정|데이터|단위|시스템|정량|표준)/.test(textBag)) { score += 15; reasons.push("데이터 해석 연결"); }
+      if (hasData) { score += 17; reasons.push("데이터 해석 연결"); }
+      if (hasBio && !hasData) score -= 18;
     }
     if (bucket === "bio") {
-      if (/(세포|항상성|생명|건강|자극|내부 환경)/.test(textBag)) { score += 18; reasons.push("생명·건강 연결"); }
+      if (hasBio) { score += 18; reasons.push("생명·건강 연결"); }
+      if (hasMech && !hasBio) score -= 10;
     }
     if (bucket === "env") {
-      if (/(지구|천체|대기권|수권|지구계|환경|우주)/.test(textBag)) { score += 18; reasons.push("지구·환경 연결"); }
+      if (hasEnv) { score += 18; reasons.push("지구·환경 연결"); }
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
@@ -588,6 +597,25 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
     return getSubjectConceptEntries(state.subject)
       .map(({ concept, value }) => ({ concept, value, ...scoreConcept(concept, value) }))
       .sort((a, b) => b.score - a.score || a.concept.localeCompare(b.concept, 'ko'));
+  }
+
+  function getDisplayConcepts(ranked) {
+    if (!Array.isArray(ranked) || !ranked.length) return [];
+    const bucket = detectCareerBucket(state.career || "");
+    const topScore = ranked[0]?.score ?? 0;
+
+    let filtered = ranked.filter((item, index) => {
+      if (index < 3) return true;
+      if (item.score < -8) return false;
+      if (topScore >= 12 && item.score < topScore - 8) return false;
+      if (["materials", "mechanical", "electronic", "it"].includes(bucket) && /(생명 시스템|생명)/.test(item.concept) && item.score < topScore - 6) {
+        return false;
+      }
+      return true;
+    });
+
+    if (filtered.length < 4) filtered = ranked.slice(0, 4);
+    return filtered.slice(0, 6);
   }
 
   function getConceptEntry() {
@@ -648,13 +676,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
     }
 
     const ranked = getRankedConcepts();
-    if (!ranked.length) {
+    const displayConcepts = getDisplayConcepts(ranked);
+    if (!displayConcepts.length) {
       conceptWrap.innerHTML = `<div class="engine-empty">등록된 교과 개념 데이터가 없습니다.</div>`;
       keywordWrap.innerHTML = `<div class="engine-empty">등록된 키워드 데이터가 없습니다.</div>`;
       return;
     }
 
-    conceptWrap.innerHTML = `<div class="engine-concept-grid">${ranked.slice(0, 6).map(item => {
+    conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
       const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
       const why = item.reasons[0] || "교과 개념 추천";
       return `
