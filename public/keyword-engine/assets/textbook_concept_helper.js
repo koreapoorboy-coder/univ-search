@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -25,6 +25,49 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
     selectedBookTitle: "",
     reportMode: "",
     reportView: ""
+  };
+
+  const VIEW_HELP = {
+    "구조": {
+      title: "구조 관점",
+      desc: "대상이 무엇으로 이루어져 있고, 각 부분이 어떻게 연결되어 있는지 중심으로 정리합니다.",
+      example: "예: 센서가 어떤 구성 요소로 이루어지고, 각 요소가 어떤 역할을 나누는지 설명하기"
+    },
+    "기능": {
+      title: "기능 관점",
+      desc: "대상이 실제로 무엇을 하는지, 어떤 역할을 수행하는지 중심으로 설명합니다.",
+      example: "예: 온도 센서가 왜 필요한지, 측정 과정에서 어떤 기능을 하는지 정리하기"
+    },
+    "안정성": {
+      title: "안정성 관점",
+      desc: "쉽게 흔들리거나 무너지지 않고 일정한 상태를 유지하는 조건을 중심으로 봅니다.",
+      example: "예: 구조물이 왜 안정적으로 버텨야 하는지, 흔들림과 충격에 어떻게 대응하는지 설명하기"
+    },
+    "효율": {
+      title: "효율 관점",
+      desc: "같은 결과를 내기 위해 시간·에너지·비용을 얼마나 덜 쓰는지에 초점을 둡니다.",
+      example: "예: 같은 장치라도 에너지를 덜 쓰고 더 정확하게 작동하는 방법 비교하기"
+    },
+    "비교": {
+      title: "비교 관점",
+      desc: "두 대상이나 두 조건을 나란히 놓고 차이점과 공통점을 정리합니다.",
+      example: "예: 두 종류의 센서나 두 실험 조건을 비교해 어떤 점이 다른지 설명하기"
+    },
+    "원리": {
+      title: "원리 관점",
+      desc: "왜 그런 현상이 일어나는지, 어떤 과학 개념이 작동하는지 중심으로 풀이합니다.",
+      example: "예: 산화가 왜 일어나는지, 온도 센서가 어떤 원리로 값을 읽는지 설명하기"
+    },
+    "변화": {
+      title: "변화 관점",
+      desc: "시간이 지나면서 값이나 상태가 어떻게 달라지는지 흐름 중심으로 정리합니다.",
+      example: "예: 온도 변화에 따라 재료의 성질이나 측정값이 어떻게 달라지는지 설명하기"
+    },
+    "데이터": {
+      title: "데이터 관점",
+      desc: "수치, 그래프, 측정값을 해석해서 의미를 찾는 방식으로 정리합니다.",
+      example: "예: 측정 데이터를 그래프로 보고, 어떤 경향이 나타나는지 해석하기"
+    }
   };
 
   let uiSeed = null;
@@ -256,6 +299,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
       .engine-selection-title { margin:0 0 10px; font-size:20px; font-weight:800; color:#172033; }
       .engine-selection-payload { margin-top:12px; padding:14px 16px; border-radius:16px; background:#fff; border:1px dashed #d6deef; color:#33435f; font-size:14px; line-height:1.7; }
       .engine-selection-payload strong { color:#172033; }
+      .engine-view-guide {
+        margin-top: 14px;
+        padding: 14px 16px;
+        border: 1px solid #d8e0ee;
+        border-radius: 16px;
+        background: #fbfcff;
+      }
+      .engine-view-guide-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #172033;
+        margin-bottom: 6px;
+      }
+      .engine-view-guide-desc {
+        color: #47556e;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .engine-view-guide-example {
+        margin-top: 8px;
+        color: #67758d;
+        font-size: 13px;
+        line-height: 1.6;
+      }
       @media (max-width: 1100px) {
         .engine-status-row, .engine-book-layout, .engine-subgrid, .engine-mode-grid, .engine-concept-grid { grid-template-columns: 1fr; }
       }
@@ -773,9 +840,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.0-concept-first-report-mode";
       selectedBook: state.selectedBook
     }) : { viewOptions: [] };
     const options = meta.viewOptions || [];
-    el.innerHTML = `<div class="engine-chip-wrap">${options.map(view => `
-      <button type="button" class="engine-chip ${state.reportView === view ? "is-active" : ""}" data-action="view" data-value="${escapeHtml(view)}">${escapeHtml(view)}</button>
-    `).join("")}</div>`;
+    const selectedView = state.reportView || options[0] || "";
+    const viewMeta = VIEW_HELP[selectedView] || {
+      title: `${selectedView || "관점"} 설명`,
+      desc: "이 관점은 보고서를 어떤 시선으로 풀어갈지 정하는 선택입니다.",
+      example: "예: 선택한 개념과 도서를 이 시선으로 다시 정리해 보세요."
+    };
+    el.innerHTML = `
+      <div class="engine-chip-wrap">${options.map(view => `
+        <button type="button" class="engine-chip ${state.reportView === view ? "is-active" : ""}" data-action="view" data-value="${escapeHtml(view)}">${escapeHtml(view)}</button>
+      `).join("")}</div>
+      <div class="engine-view-guide">
+        <div class="engine-view-guide-title">${escapeHtml(viewMeta.title)}</div>
+        <div class="engine-view-guide-desc">${escapeHtml(viewMeta.desc)}</div>
+        <div class="engine-view-guide-example">${escapeHtml(viewMeta.example)}</div>
+      </div>
+    `;
   }
 
   function applyLocks() {
