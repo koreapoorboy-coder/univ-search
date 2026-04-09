@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
+window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
 
 (function(){
   const BOOK_URLS = [
@@ -341,6 +341,9 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
 
   function getRecommendedBooks(ctx){
     if (!loaded || !Array.isArray(books) || books.length === 0) return [];
+    const bucket = detectCareerBucket(ctx?.career || "");
+    const strictBucket = isStrictCareerBucket(bucket);
+
     const scored = books.map(book => {
       const meta = scoreBook(book, ctx);
       return {
@@ -353,19 +356,72 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
     });
 
     const sorted = scored
-      .filter(item => item.score > -30)
       .sort((a, b) => b.score - a.score || a.book.title.localeCompare(b.book.title, 'ko'));
+
+    const cutoff = getScoreCutoff(sorted, ctx);
+    const filtered = sorted.filter(item => {
+      if (item.score < cutoff) return false;
+      if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
+      if (strictBucket && !hasStrongMatchEvidence(item, ctx) && item.score < cutoff + 6) return false;
+      return true;
+    });
+
+    if (!filtered.length) return [];
 
     const dedup = [];
     const seen = new Set();
-    sorted.forEach(item => {
-      if (!seen.has(item.book.book_id) && dedup.length < 8) {
-        seen.add(item.book.book_id);
-        dedup.push(item);
-      }
+    filtered.forEach(item => {
+      if (seen.has(item.book.book_id)) return;
+      seen.add(item.book.book_id);
+      dedup.push(item);
     });
 
-    return dedup;
+    return dedup.slice(0, 6);
+  }
+
+
+  function isStrictCareerBucket(bucket){
+    return ["materials", "mechanical", "electronic", "it"].includes(bucket);
+  }
+
+  function hasStrongMatchEvidence(item, ctx){
+    if (!item) return false;
+    const strongReasons = [
+      "개념-키워드 직접 연결",
+      "키워드 일치",
+      "진로 직접 연결",
+      "필터 추천",
+      "진로 적합 연결",
+      "개념 확장 적합",
+      "진로 추천 목록"
+    ];
+    const reasonSet = new Set(item.reasons || []);
+    const hasStrongReason = strongReasons.some(reason => reasonSet.has(reason));
+    const hasRoute = Array.isArray(item.routes) && item.routes.length > 0;
+    const themes = getBookThemeArray(item.book);
+    const hasKeywordTheme = themes.some(v => fuzzyIncludes(v, ctx?.keyword)) || (item.book?.fit_keywords || []).some(v => fuzzyIncludes(v, ctx?.keyword));
+    const careerTokens = tokenizeCareer(ctx?.career || "");
+    const hasCareerMajor = (item.book?.linked_majors || []).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
+    return hasRoute || hasStrongReason || (hasKeywordTheme && hasCareerMajor);
+  }
+
+  function getScoreCutoff(sorted, ctx){
+    if (!Array.isArray(sorted) || !sorted.length) return Infinity;
+    const bucket = detectCareerBucket(ctx?.career || "");
+    const strict = isStrictCareerBucket(bucket);
+    const hasConceptKeyword = !!(ctx?.concept && ctx?.keyword);
+    const topScore = sorted[0]?.score ?? -999;
+    const baseCutoff = hasConceptKeyword ? (strict ? 24 : 18) : (strict ? 20 : 14);
+    const spreadCutoff = topScore - (hasConceptKeyword ? 16 : 12);
+    return Math.max(baseCutoff, spreadCutoff);
+  }
+
+  function isClearlyOffTopicBook(book, bucket){
+    const bag = `${book?.title || ""} ${(book?.linked_majors || []).join(" ")} ${(book?.linked_subjects || []).join(" ")} ${(book?.broad_theme || []).join(" ")} ${(book?.fit_keywords || []).join(" ")} ${book?.summary_short || ""}`;
+    const engineeringSignals = /(물리|화학|과학|천문|지구과학|재료|구조|역학|측정|데이터|시스템|기술|공학)/;
+    if (!isStrictCareerBucket(bucket)) return false;
+    if (engineeringSignals.test(bag)) return false;
+    return /(철학|윤리|문학|국문|한문|사회학|정치|행정|역사|교육|인류학|신학|종교|의학|의예|치의|간호|수의|동물보건)/.test(bag);
   }
 
   function mapModeLabel(id){
@@ -458,7 +514,7 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
 
     const recommendations = getRecommendedBooks(ctx);
     if (!recommendations.length) {
-      return `<div class="engine-empty">현재 선택한 과목·진로·개념 키워드와 맞는 도서가 없습니다. 키워드를 바꾸거나 진로 표현을 조금 더 넓게 입력해 보세요.</div>`;
+      return `<div class="engine-empty">현재 선택한 과목·진로·개념 키워드와 직접 연결되는 도서 데이터가 아직 충분하지 않습니다. 억지로 추천하지 않고, 맞는 도서가 있을 때만 보여줍니다.</div>`;
     }
 
     const selectedItem = recommendations.find(item => item.book.book_id === ctx.selectedBook) || recommendations[0];
@@ -468,8 +524,8 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
       <div class="engine-book-layout">
         <div class="engine-book-list">
           <div class="engine-subtitle">4. 키워드와 맞는 도서 선택</div>
-          <div class="engine-help">선택한 키워드와 연결성이 높은 도서부터 보여줍니다.</div>
-          ${recommendations.slice(0, 6).map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index)).join("")}
+          <div class="engine-help">선택한 키워드와 직접 연결되는 도서만 보여줍니다. 관련도가 낮으면 표시하지 않습니다.</div>
+          ${recommendations.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index)).join("")}
         </div>
         <div class="engine-book-summary">
           <div class="engine-subtitle">선택 도서 요약</div>
