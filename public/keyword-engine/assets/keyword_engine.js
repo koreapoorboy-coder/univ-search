@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v35-acceptance-structure";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v36-collect-enabled";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -62,9 +62,9 @@ function uniq(arr){
   return [...new Set((arr || []).filter(Boolean))];
 }
 
-function getFormValues(sessionId=createSessionId()){
+function getFormValues(){
   return {
-    sessionId:sessionId,
+    sessionId:createSessionId(),
     schoolName:$("schoolName")?.value?.trim()||"",
     grade:$("grade")?.value?.trim()||"",
     subject:$("subject")?.value?.trim()||"",
@@ -155,75 +155,6 @@ function clearResults(){
   hideBlock("resultSection");
 }
 
-async function callCollectAPI(payload, files){
-  const useFormData = Boolean(files && (files.past_report_files?.length || files.record_files?.length));
-  const requestInit = { method:"POST", headers:{}, body:null };
-
-  if (useFormData) {
-    const fd = new FormData();
-    fd.append("payload", JSON.stringify(payload));
-    (files.past_report_files || []).forEach(file => fd.append("past_report_files", file));
-    (files.record_files || []).forEach(file => fd.append("record_files", file));
-    requestInit.body = fd;
-  } else {
-    requestInit.headers["Content-Type"] = "application/json";
-    requestInit.body = JSON.stringify(payload);
-  }
-
-  const response = await fetch(`${WORKER_BASE_URL}/collect`, requestInit);
-  const text = await response.text();
-  let data;
-  try{
-    data = JSON.parse(text);
-  }catch{
-    throw new Error(`collect 응답을 해석할 수 없습니다. (${response.status})`);
-  }
-  if(!response.ok || data.ok === false){
-    throw new Error(data?.error || data?.message || `collect 저장 중 오류가 발생했습니다. (${response.status})`);
-  }
-  return data;
-}
-
-function buildCollectPayload(sessionId){
-  const enginePayload = typeof window.getEngineCollectionPayload === "function"
-    ? window.getEngineCollectionPayload()
-    : {};
-  const miniPayload = typeof window.getMiniNavigationSelectionData === "function"
-    ? window.getMiniNavigationSelectionData()
-    : {};
-
-  const student = enginePayload.student_input || {};
-  const files = {
-    past_report_files: Array.from(document.getElementById("pastReportFile")?.files || []),
-    record_files: Array.from(document.getElementById("recordFile")?.files || [])
-  };
-
-  const payload = {
-    session_id: sessionId,
-    collected_at: new Date().toISOString(),
-    student_input: {
-      ...student,
-      school_name: student.school_name || $("schoolName")?.value?.trim() || "",
-      grade: student.grade || $("grade")?.value?.trim() || "",
-      subject: student.subject || $("subject")?.value?.trim() || "",
-      career: student.career || $("career")?.value?.trim() || "",
-      task_name: student.task_name || $("taskName")?.value?.trim() || "",
-      task_type: student.task_type || $("taskType")?.value?.trim() || "",
-      usage_purpose: student.usage_purpose || $("usagePurpose")?.value?.trim() || "",
-      task_description: student.task_description || $("taskDescription")?.value?.trim() || ""
-    },
-    constraint_flags: enginePayload.constraint_flags || {},
-    source_materials: enginePayload.source_materials || {
-      files: [],
-      source_goals: [],
-      source_goal_labels: []
-    },
-    mini_payload: miniPayload
-  };
-
-  return { payload, files };
-}
-
 async function callGenerateAPI(payload){
   const response = await fetch(`${WORKER_BASE_URL}/generate`, {
     method:"POST",
@@ -241,6 +172,151 @@ async function callGenerateAPI(payload){
     throw new Error(data?.error || data?.message || `요청 처리 중 오류가 발생했습니다. (${response.status})`);
   }
   return data;
+}
+
+
+async function callCollectAPI(payload){
+  const response = await fetch(`${WORKER_BASE_URL}/collect`, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+  });
+  const text = await response.text();
+  let data;
+  try{
+    data = JSON.parse(text);
+  }catch{
+    throw new Error(`collect 응답을 해석할 수 없습니다. (${response.status})`);
+  }
+  if(!response.ok || data.ok === false){
+    throw new Error(data?.error || data?.message || `collect 저장 중 오류가 발생했습니다. (${response.status})`);
+  }
+  return data;
+}
+
+function readValue(id){
+  const el = $(id);
+  if(!el) return "";
+  return (el.value ?? "").toString().trim();
+}
+
+function readChecked(id){
+  return Boolean($(id)?.checked);
+}
+
+function safeGetMiniSelection(){
+  try{
+    if(typeof window.getMiniNavigationSelectionData === "function"){
+      return window.getMiniNavigationSelectionData() || {};
+    }
+  }catch(e){
+    console.warn('mini selection read failed:', e);
+  }
+  return {};
+}
+
+function buildCollectPayload(formValues){
+  const mini = safeGetMiniSelection();
+  const studentContext = mini.student_context || mini.studentContext || {};
+  const trackContext = mini.track_context || mini.trackContext || {};
+  const conceptContext = mini.concept_context || mini.conceptContext || {};
+  const bookContext = mini.book_context || mini.bookContext || {};
+  const reportContext = mini.report_context || mini.reportContext || {};
+
+  const sessionId = formValues.sessionId || createSessionId();
+  const pastReportInput = $("pastReportFiles") || $("pastReportInput") || $("pastReportUpload");
+  const recordInput = $("recordFiles") || $("recordInput") || $("recordUpload");
+
+  const sourceGoals = [];
+  const goalMap = [
+    ["goalKeywordExtract", "키워드 추출"],
+    ["goalUsedTopics", "이미 쓴 주제 파악"],
+    ["goalDuplicationCheck", "중복 줄이기"],
+    ["goalTrackRecommend", "연계 축 추천 보정"],
+    ["goalBookAdjust", "도서 추천 보정"]
+  ];
+  goalMap.forEach(([id,label]) => { if (readChecked(id)) sourceGoals.push(label); });
+
+  const student_input = {
+    session_id: sessionId,
+    school_name: formValues.schoolName || "",
+    grade: formValues.grade || "",
+    subject: formValues.subject || "",
+    task_name: formValues.taskName || "",
+    task_type: formValues.taskType || "",
+    usage_purpose: formValues.usagePurpose || "",
+    task_description: formValues.taskDescription || "",
+    career: formValues.career || "",
+    activity_area: readValue("activityType") || readValue("activityArea"),
+    output_goal: readValue("outputType") || readValue("outputGoal"),
+    length_level: readValue("lengthPref") || readValue("lengthLevel"),
+    work_style: readValue("workMode") || readValue("workStyle"),
+    linked_track: trackContext.track_label || trackContext.title || trackContext.track || "",
+    selected_concept: conceptContext.concept || conceptContext.concept_name || studentContext.concept || "",
+    selected_keyword: conceptContext.keyword || conceptContext.keyword_name || formValues.keyword || "",
+    selected_book_title: bookContext.title || bookContext.book_title || "",
+    report_mode: reportContext.mode_label || reportContext.mode || "",
+    report_view: reportContext.view_label || reportContext.view || "",
+    report_line: reportContext.line_label || reportContext.line || "",
+    student_seed: readValue("studentExtraNotes") || readValue("studentSeed") || readValue("extraNotes"),
+    teacher_focus: readValue("teacherNotes") || readValue("teacherFocus")
+  };
+
+  return {
+    session_id: sessionId,
+    collected_at: new Date().toISOString(),
+    school_name: formValues.schoolName || "",
+    grade: formValues.grade || "",
+    subject: formValues.subject || "",
+    task_name: formValues.taskName || "",
+    task_type: formValues.taskType || "",
+    usage_purpose: formValues.usagePurpose || "",
+    task_description: formValues.taskDescription || "",
+    career: formValues.career || "",
+    link_track: student_input.linked_track,
+    concept: student_input.selected_concept,
+    keyword: student_input.selected_keyword,
+    selected_book: student_input.selected_book_title,
+    report_mode: student_input.report_mode,
+    report_view: student_input.report_view,
+    report_line: student_input.report_line,
+    extra_notes: student_input.student_seed,
+    teacher_notes: student_input.teacher_focus,
+    constraint_flags: {
+      include_presentation: readChecked("flagPresentation"),
+      experiment_possible: readChecked("flagExperiment"),
+      data_research_only: readChecked("flagResearch"),
+      graph_needed: readChecked("flagGraph"),
+      table_needed: readChecked("flagTable"),
+      concept_required: readChecked("flagConcept"),
+      book_required: readChecked("flagBook"),
+      comparison_required: readChecked("flagComparison")
+    },
+    student_input,
+    source_materials: {
+      files: [
+        ...Array.from(pastReportInput?.files || []).map(file => ({
+          upload_type: "past_report",
+          filename: file.name || "",
+          mime_type: file.type || "",
+          file_size: Number(file.size || 0)
+        })),
+        ...Array.from(recordInput?.files || []).map(file => ({
+          upload_type: "student_record",
+          filename: file.name || "",
+          mime_type: file.type || "",
+          file_size: Number(file.size || 0)
+        }))
+      ],
+      source_goals: sourceGoals,
+      source_goal_labels: sourceGoals
+    },
+    upload_summary: {
+      past_report_count: Array.from(pastReportInput?.files || []).length,
+      record_file_count: Array.from(recordInput?.files || []).length
+    },
+    mini_payload: mini
+  };
 }
 
 function inferTheme(subject, career, keywords){
@@ -657,17 +733,17 @@ async function handleGenerate(){
   clearError();
   clearResults();
   try{
-    const sessionId = createSessionId();
-    const payload = getFormValues(sessionId);
+    const payload = getFormValues();
     validateInput(payload);
 
     setLoading(true);
 
+    const collectPayload = buildCollectPayload(payload);
     try {
-      const collectPack = buildCollectPayload(sessionId);
-      await callCollectAPI(collectPack.payload, collectPack.files);
+      await callCollectAPI(collectPayload);
     } catch (e) {
-      console.warn("collect api warning:", e);
+      console.error("collect api error:", e);
+      throw e;
     }
 
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }
