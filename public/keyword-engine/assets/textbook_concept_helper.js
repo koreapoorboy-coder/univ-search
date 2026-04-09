@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -562,6 +562,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
       if (span) span.textContent = "선택 키워드(자동 반영)";
     }
 
+    normalizeBaseLabels();
+    augmentTaskOptions();
+    injectGeneralContextPanel();
+
     injectHiddenInput("linkedTrack");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
@@ -581,6 +585,188 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
     if (actions && actions.parentNode) {
       actions.parentNode.insertBefore(input, actions);
     }
+  }
+
+  function normalizeBaseLabels() {
+    const taskName = $("taskName");
+    const taskType = $("taskType");
+    const taskDescription = $("taskDescription");
+    const usagePurpose = $("usagePurpose");
+
+    const taskNameSpan = taskName?.closest("label")?.querySelector("span");
+    const taskTypeSpan = taskType?.closest("label")?.querySelector("span");
+    const taskDescSpan = taskDescription?.closest("label")?.querySelector("span");
+    const usageSpan = usagePurpose?.closest("label")?.querySelector("span");
+
+    if (taskNameSpan) taskNameSpan.textContent = "활동/과제명";
+    if (taskTypeSpan) taskTypeSpan.textContent = "기본 결과물";
+    if (taskDescSpan) taskDescSpan.textContent = "과제/활동 설명";
+    if (usageSpan) usageSpan.textContent = "사용 목적";
+
+    if (taskName) taskName.placeholder = "예: 과학 탐구 보고서, 동아리 탐구 발표, 자율활동 기록 정리";
+    if (taskDescription) taskDescription.placeholder = "예: 교과 개념과 연결한 자료조사형 활동, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심";
+  }
+
+  function ensureSelectOption(selectEl, value, label) {
+    if (!selectEl) return;
+    const exists = Array.from(selectEl.options || []).some(opt => (opt.value || opt.textContent || "").trim() === value);
+    if (!exists) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label || value;
+      selectEl.appendChild(option);
+    }
+  }
+
+  function augmentTaskOptions() {
+    const taskType = $("taskType");
+    const usagePurpose = $("usagePurpose");
+    [
+      "활동 기록형 정리",
+      "생기부형 요약",
+      "아이디어 스케치"
+    ].forEach(v => ensureSelectOption(taskType, v, v));
+
+    [
+      "동아리 주제 정리",
+      "자율활동 주제 설계",
+      "진로활동 확장",
+      "세특 참고 초안"
+    ].forEach(v => ensureSelectOption(usagePurpose, v, v));
+  }
+
+  function injectGeneralContextPanel() {
+    if ($("engineGeneralContextPanel")) return;
+    const formGrid = document.querySelector(".form-grid");
+    const actions = document.querySelector(".actions");
+    if (!formGrid || !actions || !actions.parentNode) return;
+
+    const panel = document.createElement("div");
+    panel.id = "engineGeneralContextPanel";
+    panel.className = "engine-context-panel";
+    panel.innerHTML = `
+      <div class="engine-context-head">
+        <div>
+          <h3 class="engine-context-title">활동 맥락과 작성 조건</h3>
+          <div class="engine-context-copy">주제만 고르는 것이 아니라, 이 글을 어디에 쓰는지와 어떤 조건으로 써야 하는지 MINI가 함께 이해할 수 있도록 구조화합니다.</div>
+        </div>
+        <div class="engine-step-guide">수행평가 / 동아리 / 자율활동 공통</div>
+      </div>
+      <div class="engine-context-grid">
+        <label>
+          <span>활용 영역</span>
+          <select id="activityArea">
+            <option value="">선택</option>
+            <option value="수행평가">수행평가</option>
+            <option value="동아리 활동">동아리 활동</option>
+            <option value="자율활동">자율활동</option>
+            <option value="진로활동">진로활동</option>
+            <option value="세특 참고">세특 참고</option>
+          </select>
+        </label>
+        <label>
+          <span>최종 결과물</span>
+          <select id="outputGoal">
+            <option value="">선택</option>
+            <option value="탐구 보고서">탐구 보고서</option>
+            <option value="자료조사 보고서">자료조사 보고서</option>
+            <option value="발표 개요">발표 개요</option>
+            <option value="포스터 문안">포스터 문안</option>
+            <option value="활동 기록형 정리">활동 기록형 정리</option>
+            <option value="생기부형 요약">생기부형 요약</option>
+          </select>
+        </label>
+        <label>
+          <span>권장 분량</span>
+          <select id="lengthLevel">
+            <option value="">선택</option>
+            <option value="짧게">짧게</option>
+            <option value="보통">보통</option>
+            <option value="깊게">깊게</option>
+          </select>
+        </label>
+        <label>
+          <span>진행 방식</span>
+          <select id="workStyle">
+            <option value="">선택</option>
+            <option value="개인">개인</option>
+            <option value="모둠">모둠</option>
+            <option value="개인+발표">개인+발표</option>
+            <option value="모둠+발표">모둠+발표</option>
+          </select>
+        </label>
+        <label class="full">
+          <span>조건 선택</span>
+          <div class="engine-check-grid">
+            <label class="engine-check-item"><input type="checkbox" id="ctx_presentation">발표 포함</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_experiment">실험 가능</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_research">자료조사 중심</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_graph">그래프 필요</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_table">표 필요</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_concept">교과 개념 반드시 포함</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_book">도서 활용 포함</label>
+            <label class="engine-check-item"><input type="checkbox" id="ctx_compare">비교 대상 포함</label>
+          </div>
+          <div class="engine-context-note">체크를 많이 할수록 MINI가 글의 형식과 조건을 더 정확히 이해할 수 있습니다.</div>
+        </label>
+        <label class="full">
+          <span>교사/활동 안내사항</span>
+          <textarea id="teacherFocus" placeholder="예: 교과 개념을 반드시 2개 이상 넣기 / 실제 사례를 포함하기 / 발표 시간 3분 내외"></textarea>
+        </label>
+        <label class="full">
+          <span>학생이 이미 생각해 둔 내용</span>
+          <textarea id="studentSeed" placeholder="예: 배터리 열폭주 사례를 넣고 싶어요 / 온도 센서와 반도체를 연결해 보고 싶어요"></textarea>
+        </label>
+      </div>
+    `;
+
+    actions.parentNode.insertBefore(panel, actions);
+  }
+
+  function getContextFieldIds() {
+    return [
+      "schoolName", "grade", "subject", "taskName", "taskType", "usagePurpose", "taskDescription",
+      "activityArea", "outputGoal", "lengthLevel", "workStyle", "teacherFocus", "studentSeed",
+      "ctx_presentation", "ctx_experiment", "ctx_research", "ctx_graph", "ctx_table", "ctx_concept", "ctx_book", "ctx_compare"
+    ];
+  }
+
+  function getStructuredConstraints() {
+    const checks = [
+      ["presentation_included", $("ctx_presentation")?.checked, "발표 포함"],
+      ["experiment_possible", $("ctx_experiment")?.checked, "실험 가능"],
+      ["research_only", $("ctx_research")?.checked, "자료조사 중심"],
+      ["graph_needed", $("ctx_graph")?.checked, "그래프 필요"],
+      ["table_needed", $("ctx_table")?.checked, "표 필요"],
+      ["concept_required", $("ctx_concept")?.checked, "교과 개념 반드시 포함"],
+      ["book_required", $("ctx_book")?.checked, "도서 활용 포함"],
+      ["comparison_needed", $("ctx_compare")?.checked, "비교 대상 포함"]
+    ];
+    const flags = {};
+    const labels = [];
+    checks.forEach(([key, checked, label]) => {
+      flags[key] = !!checked;
+      if (checked) labels.push(label);
+    });
+    return { flags, labels };
+  }
+
+  function bindContextInputs() {
+    getContextFieldIds().forEach(id => {
+      const el = $(id);
+      if (!el) return;
+      const evt = el.tagName === "TEXTAREA" || el.tagName === "INPUT" ? "input" : "change";
+      el.addEventListener(evt, function () {
+        syncOutputFields();
+        renderSelectionSummary();
+      });
+      if (el.type === "checkbox") {
+        el.addEventListener("change", function () {
+          syncOutputFields();
+          renderSelectionSummary();
+        });
+      }
+    });
   }
 
   function bindEvents() {
@@ -680,6 +866,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
         renderAll();
       }
     });
+
+    bindContextInputs();
 
     window.__BOOK_ENGINE_REQUEST_RERENDER__ = renderAll;
     window.__TEXTBOOK_HELPER_STATE__ = state;
@@ -1187,6 +1375,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
     const payloadEl = $("engineMiniPayload");
     if (!el || !payloadEl) return;
 
+    const payload = buildMiniPayload();
     const chips = [
       state.subject,
       state.career,
@@ -1196,16 +1385,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
       state.selectedBookTitle || state.selectedBook,
       getModeLabel(state.reportMode),
       state.reportView,
-      getReportLineLabel(state.reportLine)
+      getReportLineLabel(state.reportLine),
+      payload.activity_context.activity_area,
+      payload.activity_context.output_goal
     ].filter(Boolean).map(v => `<span class="engine-tag">${escapeHtml(v)}</span>`).join("");
 
     el.innerHTML = chips || `<div class="engine-empty">아직 MINI로 넘길 선택 데이터가 없습니다.</div>`;
 
-    const payload = buildMiniPayload();
     payloadEl.innerHTML = `
       <strong>MINI 전달 구조</strong><br>
+      학교/학년: ${escapeHtml(payload.student_context.school_name || "-")} / ${escapeHtml(payload.student_context.grade || "-")}<br>
       과목: ${escapeHtml(payload.student_context.subject || "-")}<br>
       진로: ${escapeHtml(payload.student_context.career || "-")}<br>
+      활용 영역: ${escapeHtml(payload.activity_context.activity_area || "-")}<br>
+      최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
+      기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
       연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
@@ -1213,7 +1407,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
       보고서 방식: ${escapeHtml(payload.report_context.mode_label || "-")}<br>
       보고서 관점: ${escapeHtml(payload.report_context.view || "-")}<br>
       보고서 라인: ${escapeHtml(payload.report_context.line_label || "-")}<br>
-      문단 흐름: ${escapeHtml((payload.report_context.frame_sections || []).join(' → ') || "-")}
+      문단 흐름: ${escapeHtml((payload.report_context.frame_sections || []).join(' → ') || "-")}<br>
+      조건: ${escapeHtml((payload.activity_context.constraint_labels || []).join(', ') || "없음")}<br>
+      교사 안내: ${escapeHtml(payload.activity_context.teacher_focus || "-")}<br>
+      학생 메모: ${escapeHtml(payload.activity_context.student_seed || "-")}
     `;
   }
 
@@ -1248,10 +1445,28 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
   function buildMiniPayload() {
     const bookDetail = window.getSelectedBookDetail ? window.getSelectedBookDetail(state.selectedBook) : null;
     const lineMeta = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[getRecommendedReportLine()] || REPORT_LINE_HELP.basic;
+    const constraints = getStructuredConstraints();
     return {
       student_context: {
+        school_name: $("schoolName")?.value || "",
+        grade: $("grade")?.value || "",
         subject: state.subject,
         career: state.career
+      },
+      activity_context: {
+        activity_area: $("activityArea")?.value || "",
+        output_goal: $("outputGoal")?.value || "",
+        length_level: $("lengthLevel")?.value || "",
+        work_style: $("workStyle")?.value || "",
+        constraint_flags: constraints.flags,
+        constraint_labels: constraints.labels,
+        teacher_focus: $("teacherFocus")?.value || "",
+        student_seed: $("studentSeed")?.value || ""
+      },
+      track_context: {
+        id: state.linkTrack,
+        label: getTrackMeta(state.linkTrack)?.title || "",
+        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || ""
       },
       concept_context: {
         concept: state.concept,
@@ -1283,7 +1498,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
         task_name: $("taskName")?.value || "",
         task_type: $("taskType")?.value || "",
         usage_purpose: $("usagePurpose")?.value || "",
-        task_description: $("taskDescription")?.value || ""
+        task_description: $("taskDescription")?.value || "",
+        output_goal: $("outputGoal")?.value || "",
+        activity_area: $("activityArea")?.value || "",
+        length_level: $("lengthLevel")?.value || "",
+        work_style: $("workStyle")?.value || "",
+        constraints: constraints.labels,
+        teacher_focus: $("teacherFocus")?.value || "",
+        student_seed: $("studentSeed")?.value || ""
       }
     };
   }
