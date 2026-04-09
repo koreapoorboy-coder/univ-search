@@ -34,7 +34,7 @@ export default {
         return withCors(new Response(null, { status: 204 }));
       }
       if (url.pathname === '/health') {
-        return json({ ok: true, service: SERVICE_NAME });
+        return json({ ok: true, service: SERVICE_NAME, hasDB: Boolean(env.DB) });
       }
       if (url.pathname === '/config') {
         return json({
@@ -47,6 +47,28 @@ export default {
           seedBaseUrl: env.SEED_BASE_URL || DEFAULT_SEED_BASE,
           hasOpenAIKey: Boolean(env.OPENAI_API_KEY),
           model: env.OPENAI_MODEL || 'gpt-4.1-mini',
+        });
+      }
+
+      if (url.pathname === '/collect' && request.method === 'POST') {
+        if (!env.DB) {
+          return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        }
+
+        const collectRequest = await parseCollectRequest(request);
+        const collectPayload = normalizeCollectPayload(collectRequest);
+        if (!collectPayload.session_id) {
+          return json({ ok: false, error: 'Missing session_id' }, 400);
+        }
+
+        await ensureEngineTables(env.DB);
+        const saved = await insertEngineSession(env.DB, collectPayload);
+
+        return json({
+          ok: true,
+          saved: true,
+          session_id: collectPayload.session_id,
+          row_id: saved?.meta?.last_row_id ?? null
         });
       }
       if (url.pathname === '/generate' && request.method === 'POST') {
@@ -461,4 +483,203 @@ function withCors(response) {
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   return response;
+}
+
+
+async function parseCollectRequest(request) {
+  const contentType = request.headers.get('content-type') || '';
+  if (contentType.includes('multipart/form-data')) {
+    const form = await request.formData();
+    const payloadRaw = String(form.get('payload') || '{}');
+    let payload = {};
+    try {
+      payload = JSON.parse(payloadRaw);
+    } catch {
+      payload = {};
+    }
+
+    return {
+      payload,
+      files: [
+        ...extractFiles(form, 'past_report_files', 'past_report'),
+        ...extractFiles(form, 'record_files', 'student_record'),
+      ],
+    };
+  }
+
+  const payload = await request.json().catch(() => ({}));
+  return { payload, files: [] };
+}
+
+function extractFiles(form, key, uploadType) {
+  return form
+    .getAll(key)
+    .filter((file) => file && typeof file === 'object' && 'name' in file)
+    .map((file) => ({
+      upload_type: uploadType,
+      filename: file.name || '',
+      mime_type: file.type || '',
+      file_size: Number(file.size || 0),
+    }));
+}
+
+function normalizeCollectPayload(requestData) {
+  const payload = requestData?.payload || {};
+  const student = payload.student_input || {};
+
+  const sourceSummary = payload.source_materials || {};
+  const uploadFiles = Array.isArray(requestData?.files) ? requestData.files : [];
+  const sourceFiles = Array.isArray(sourceSummary.files) ? sourceSummary.files : [];
+  const mergedFiles = [...sourceFiles, ...uploadFiles];
+
+  return {
+    session_id:
+      clean(payload.session_id) ||
+      clean(student.session_id) ||
+      `session_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+    collected_at: clean(payload.collected_at) || new Date().toISOString(),
+    school_name: clean(student.school_name || payload.school_name),
+    grade: clean(student.grade || payload.grade),
+    subject: clean(student.subject || payload.subject),
+
+    activity_type: clean(student.activity_area || payload.activity_type),
+    output_type: clean(student.output_goal || payload.output_type),
+    length_pref: clean(student.length_level || payload.length_pref),
+    work_mode: clean(student.work_style || payload.work_mode),
+
+    task_name: clean(student.task_name || payload.task_name),
+    task_type: clean(student.task_type || payload.task_type),
+    usage_purpose: clean(student.usage_purpose || payload.usage_purpose),
+    task_description: clean(student.task_description || payload.task_description),
+
+    career: clean(student.career || payload.career),
+    link_track: clean(student.linked_track || payload.link_track),
+    concept: clean(student.selected_concept || payload.concept),
+    keyword: clean(student.selected_keyword || payload.keyword),
+    selected_book: clean(student.selected_book_title || payload.selected_book),
+
+    report_mode: clean(student.report_mode || payload.report_mode),
+    report_view: clean(student.report_view || payload.report_view),
+    report_line: clean(student.report_line || payload.report_line),
+
+    extra_notes: clean(student.student_seed || payload.extra_notes),
+    teacher_notes: clean(student.teacher_focus || payload.teacher_notes),
+
+    constraint_flags_json: JSON.stringify(payload.constraint_flags || {}),
+    upload_summary_json: JSON.stringify({
+      files: mergedFiles,
+      source_goals: sourceSummary.source_goals || [],
+      source_goal_labels: sourceSummary.source_goal_labels || [],
+    }),
+    mini_payload_json: JSON.stringify(payload.mini_payload || {}),
+    raw_payload_json: JSON.stringify(payload || {}),
+  };
+}
+
+async function ensureEngineTables(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS engine_sessions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      session_id TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+      school_name TEXT,
+      grade TEXT,
+      subject TEXT,
+
+      activity_type TEXT,
+      output_type TEXT,
+      length_pref TEXT,
+      work_mode TEXT,
+
+      task_name TEXT,
+      task_type TEXT,
+      usage_purpose TEXT,
+      task_description TEXT,
+
+      career TEXT,
+      link_track TEXT,
+      concept TEXT,
+      keyword TEXT,
+      selected_book TEXT,
+
+      report_mode TEXT,
+      report_view TEXT,
+      report_line TEXT,
+
+      extra_notes TEXT,
+      teacher_notes TEXT,
+
+      constraint_flags_json TEXT,
+      upload_summary_json TEXT,
+      mini_payload_json TEXT,
+      raw_payload_json TEXT
+    )
+  `).run();
+}
+
+async function insertEngineSession(db, row) {
+  return db.prepare(`
+    INSERT INTO engine_sessions (
+      session_id,
+      created_at,
+      school_name,
+      grade,
+      subject,
+      activity_type,
+      output_type,
+      length_pref,
+      work_mode,
+      task_name,
+      task_type,
+      usage_purpose,
+      task_description,
+      career,
+      link_track,
+      concept,
+      keyword,
+      selected_book,
+      report_mode,
+      report_view,
+      report_line,
+      extra_notes,
+      teacher_notes,
+      constraint_flags_json,
+      upload_summary_json,
+      mini_payload_json,
+      raw_payload_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).bind(
+    row.session_id,
+    row.collected_at,
+    row.school_name,
+    row.grade,
+    row.subject,
+    row.activity_type,
+    row.output_type,
+    row.length_pref,
+    row.work_mode,
+    row.task_name,
+    row.task_type,
+    row.usage_purpose,
+    row.task_description,
+    row.career,
+    row.link_track,
+    row.concept,
+    row.keyword,
+    row.selected_book,
+    row.report_mode,
+    row.report_view,
+    row.report_line,
+    row.extra_notes,
+    row.teacher_notes,
+    row.constraint_flags_json,
+    row.upload_summary_json,
+    row.mini_payload_json,
+    row.raw_payload_json
+  ).run();
+}
+
+function clean(value) {
+  return String(value || '').trim();
 }
