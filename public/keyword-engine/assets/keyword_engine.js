@@ -62,9 +62,9 @@ function uniq(arr){
   return [...new Set((arr || []).filter(Boolean))];
 }
 
-function getFormValues(){
+function getFormValues(sessionId=createSessionId()){
   return {
-    sessionId:createSessionId(),
+    sessionId:sessionId,
     schoolName:$("schoolName")?.value?.trim()||"",
     grade:$("grade")?.value?.trim()||"",
     subject:$("subject")?.value?.trim()||"",
@@ -153,6 +153,75 @@ function clearResults(){
   ]);
   hideLegacySections();
   hideBlock("resultSection");
+}
+
+async function callCollectAPI(payload, files){
+  const useFormData = Boolean(files && (files.past_report_files?.length || files.record_files?.length));
+  const requestInit = { method:"POST", headers:{}, body:null };
+
+  if (useFormData) {
+    const fd = new FormData();
+    fd.append("payload", JSON.stringify(payload));
+    (files.past_report_files || []).forEach(file => fd.append("past_report_files", file));
+    (files.record_files || []).forEach(file => fd.append("record_files", file));
+    requestInit.body = fd;
+  } else {
+    requestInit.headers["Content-Type"] = "application/json";
+    requestInit.body = JSON.stringify(payload);
+  }
+
+  const response = await fetch(`${WORKER_BASE_URL}/collect`, requestInit);
+  const text = await response.text();
+  let data;
+  try{
+    data = JSON.parse(text);
+  }catch{
+    throw new Error(`collect 응답을 해석할 수 없습니다. (${response.status})`);
+  }
+  if(!response.ok || data.ok === false){
+    throw new Error(data?.error || data?.message || `collect 저장 중 오류가 발생했습니다. (${response.status})`);
+  }
+  return data;
+}
+
+function buildCollectPayload(sessionId){
+  const enginePayload = typeof window.getEngineCollectionPayload === "function"
+    ? window.getEngineCollectionPayload()
+    : {};
+  const miniPayload = typeof window.getMiniNavigationSelectionData === "function"
+    ? window.getMiniNavigationSelectionData()
+    : {};
+
+  const student = enginePayload.student_input || {};
+  const files = {
+    past_report_files: Array.from(document.getElementById("pastReportFile")?.files || []),
+    record_files: Array.from(document.getElementById("recordFile")?.files || [])
+  };
+
+  const payload = {
+    session_id: sessionId,
+    collected_at: new Date().toISOString(),
+    student_input: {
+      ...student,
+      school_name: student.school_name || $("schoolName")?.value?.trim() || "",
+      grade: student.grade || $("grade")?.value?.trim() || "",
+      subject: student.subject || $("subject")?.value?.trim() || "",
+      career: student.career || $("career")?.value?.trim() || "",
+      task_name: student.task_name || $("taskName")?.value?.trim() || "",
+      task_type: student.task_type || $("taskType")?.value?.trim() || "",
+      usage_purpose: student.usage_purpose || $("usagePurpose")?.value?.trim() || "",
+      task_description: student.task_description || $("taskDescription")?.value?.trim() || ""
+    },
+    constraint_flags: enginePayload.constraint_flags || {},
+    source_materials: enginePayload.source_materials || {
+      files: [],
+      source_goals: [],
+      source_goal_labels: []
+    },
+    mini_payload: miniPayload
+  };
+
+  return { payload, files };
 }
 
 async function callGenerateAPI(payload){
@@ -588,10 +657,18 @@ async function handleGenerate(){
   clearError();
   clearResults();
   try{
-    const payload = getFormValues();
+    const sessionId = createSessionId();
+    const payload = getFormValues(sessionId);
     validateInput(payload);
 
     setLoading(true);
+
+    try {
+      const collectPack = buildCollectPayload(sessionId);
+      await callCollectAPI(collectPack.payload, collectPack.files);
+    } catch (e) {
+      console.warn("collect api warning:", e);
+    }
 
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }
 
