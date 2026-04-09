@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.0-student-track-first";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -774,12 +774,19 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.0-student-track-first";
       ...(entry?.core_concepts || [])
     ].join(" ");
 
-    const hasBio = /(세포|항상성|생명|건강|자극|내부 환경|생체)/.test(textBag);
-    const hasMech = /(역학|구조|하중|진동|측정|단위|힘|운동|에너지|재료|전류|센서|안정성)/.test(textBag);
-    const hasElec = /(측정|센서|단위|전류|전기|전자|시스템|에너지|회로)/.test(textBag);
-    const hasData = /(측정|데이터|정량|표준|자료|분석|그래프)/.test(textBag);
-    const hasEnv = /(지구|천체|대기권|수권|지구계|환경|우주|기후)/.test(textBag);
-    const hasChem = /(물질|원소|주기율|산화|염기|산|결합|반응|분류|금속|이온|분자|재료)/.test(textBag);
+    const bioStrong = /(세포|항상성|생명 시스템|생명 유지|생체 데이터|건강 측정|자극 반응|내부 환경)/.test(textBag);
+    const mechStrong = /(역학 시스템|구조 안정성|하중 전달|진동 제어|운동|힘|전류|전압|센서|단위|측정|구조물|내진 설계)/.test(textBag);
+    const elecStrong = /(전류|전압|전기|전자|회로|센서|디지털 정보|측정 도구|정밀 측정)/.test(textBag);
+    const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료)/.test(textBag);
+    const envStrong = /(지구시스템|지구 시스템|천체|대기권|수권|지구계|우주|기후|환경 측정|지구과학 탐구|위성|관측)/.test(textBag);
+    const chemStrong = /(물질 구성|물질 분류|원소 배열|주기율|산화|염기|결합|분류 기준|금속|이온|분자|재료 변화|원소|자연에 존재하는 원소)/.test(textBag);
+
+    const hasBio = bioStrong;
+    const hasMech = mechStrong || dataStrong;
+    const hasElec = elecStrong || dataStrong;
+    const hasData = dataStrong;
+    const hasEnv = envStrong;
+    const hasChem = chemStrong;
 
     let score = 0;
     const reasons = [];
@@ -817,8 +824,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.0-student-track-first";
       if ((hasMech || hasChem) && !hasBio) score -= 8;
     }
     if (track === "earth") {
-      if (hasEnv) { score += 14; reasons.push("지구과학 연계 추천"); }
-      if ((hasBio || hasChem) && !hasEnv) score -= 6;
+      if (hasEnv) { score += 22; reasons.push("지구과학 연계 추천"); }
+      if (hasBio && !hasEnv) score -= 18;
+      if (hasChem && !hasEnv) score -= 10;
+      if (hasMech && !hasEnv) score -= 8;
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
@@ -845,6 +854,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.0-student-track-first";
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const topScore = ranked[0]?.score ?? 0;
     let filtered = ranked.filter(item => item.score >= topScore - 10 && item.score > -12);
+
+    if (state.linkTrack === "earth") {
+      const envFirst = filtered.filter(item => /(지구|천체|대기|수권|우주|기후|관측)/.test(item.concept + ' ' + ((item.value?.core_concepts || []).join(' ')) + ' ' + ((item.value?.micro_keywords || []).join(' '))));
+      const others = filtered.filter(item => !envFirst.includes(item));
+      filtered = [...envFirst, ...others];
+    }
+
     if (filtered.length < 3) filtered = ranked.slice(0, 3);
     return filtered.slice(0, 3);
   }
