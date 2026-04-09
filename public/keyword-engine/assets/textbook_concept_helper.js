@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v22.0-report-line-template";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -25,7 +25,50 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     selectedBook: "",
     selectedBookTitle: "",
     reportMode: "",
-    reportView: ""
+    reportView: "",
+    reportLine: ""
+  };
+
+  const REPORT_LINE_HELP = {
+    basic: {
+      id: "basic",
+      title: "기본형",
+      desc: "고1 학생이 처음 쓰기 좋은 구조입니다. 개념을 먼저 설명하고, 도서를 참고로 간단히 넓혀 마무리합니다.",
+      fit: "처음 쓰는 학생 / 교과 개념 설명 중심",
+      sections: [
+        "주제 선정 이유",
+        "교과 개념 설명",
+        "도서로 넓히기",
+        "정리와 느낀 점"
+      ]
+    },
+    standard: {
+      id: "standard",
+      title: "확장형",
+      desc: "수행평가에서 가장 많이 쓰는 구조입니다. 교과 개념을 설명하고, 도서·사례·데이터 중 하나를 넣어 확장합니다.",
+      fit: "일반 수행평가 / 비교·데이터·사례 확장",
+      sections: [
+        "주제 선정 이유",
+        "교과 개념 설명",
+        "도서·사례·데이터 확장",
+        "분석과 해석",
+        "결론 및 후속 연결"
+      ]
+    },
+    advanced: {
+      id: "advanced",
+      title: "심화형",
+      desc: "고2~고3 심화 탐구용 구조입니다. 현재 과목과 후속 과목, 진로를 함께 연결해 깊이 있게 정리합니다.",
+      fit: "심화 탐구 / 후속 과목·진로 연결",
+      sections: [
+        "주제 선정 이유",
+        "현재 과목의 핵심 개념 설명",
+        "후속 과목 연결",
+        "도서·자료 근거 확장",
+        "분석과 한계",
+        "추가 탐구 계획"
+      ]
+    }
   };
 
   const VIEW_HELP = {
@@ -489,6 +532,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
           <div id="engineViewButtons"></div>
         </div>
 
+        <div id="engineLineBlock" class="engine-step-block" data-step="8">
+          <div class="engine-step-head">
+            <div>
+              <h3 class="engine-step-title">8. 보고서 라인 선택</h3>
+              <div class="engine-step-copy">보고서를 어떤 순서와 비중으로 쓸지 뼈대를 고릅니다. 같은 주제라도 라인에 따라 결과물이 달라집니다.</div>
+            </div>
+            <div class="engine-step-guide">기본형 / 확장형 / 심화형</div>
+          </div>
+          <div id="engineLineArea"></div>
+        </div>
+
         <div class="engine-selection-box">
           <h3 class="engine-selection-title">현재 선택 요약</h3>
           <div id="engineSelectionSummary"></div>
@@ -514,6 +568,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     injectHiddenInput("selectedBookTitle");
     injectHiddenInput("reportMode");
     injectHiddenInput("reportView");
+    injectHiddenInput("reportLine");
     injectHiddenInput("miniNavigationPayload");
   }
 
@@ -578,6 +633,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
         state.selectedBookTitle = "";
         state.reportMode = "";
         state.reportView = "";
+        state.reportLine = "";
         syncOutputFields();
         renderAll();
         return;
@@ -590,6 +646,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
         state.selectedBookTitle = "";
         state.reportMode = "";
         state.reportView = "";
+        state.reportLine = "";
         syncOutputFields();
         renderAll();
         return;
@@ -601,6 +658,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
         state.reportView = "";
+        state.reportLine = "";
         syncOutputFields();
         renderAll();
         return;
@@ -882,6 +940,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
     if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
+    if (step === 8) return isStepEnabled(7) && !!state.reportView;
     return false;
   }
 
@@ -892,6 +951,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     renderBookArea();
     renderModeArea();
     renderViewArea();
+    renderReportLineArea();
     renderSelectionSummary();
     applyLocks();
     syncOutputFields();
@@ -910,7 +970,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
-    if (state.reportView) progress = "MINI 전달 데이터 준비 완료";
+    if (state.reportView && !state.reportLine) progress = "보고서 라인 선택 대기";
+    if (state.reportLine) progress = "MINI 전달 데이터 준비 완료";
     if (progressEl) progressEl.textContent = progress;
   }
 
@@ -1040,6 +1101,46 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     `).join("")}</div>`;
   }
 
+  function getRecommendedReportLine() {
+    const grade = ($("grade")?.value || "").trim();
+    const taskType = ($("taskType")?.value || "").trim();
+    if (state.reportMode === "major") return "advanced";
+    if (grade === "고3") return "advanced";
+    if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return "standard";
+    if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return "standard";
+    if (grade === "고2") return "standard";
+    return "basic";
+  }
+
+  function renderReportLineArea() {
+    const el = $("engineLineArea");
+    if (!el) return;
+    if (!isStepEnabled(8)) {
+      el.innerHTML = `<div class="engine-empty">먼저 보고서 관점을 선택해야 보고서 라인이 열립니다.</div>`;
+      return;
+    }
+    if (!state.reportLine) {
+      state.reportLine = getRecommendedReportLine();
+    }
+    const entries = Object.values(REPORT_LINE_HELP);
+    const recommended = getRecommendedReportLine();
+    const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || entries[0];
+    el.innerHTML = `
+      <div class="engine-mode-grid">${entries.map(item => `
+        <button type="button" class="engine-mode-card ${state.reportLine === item.id ? "is-active" : ""}" data-action="line" data-value="${escapeHtml(item.id)}">
+          <div class="engine-mode-title">${escapeHtml(item.title)} ${item.id === recommended ? '<span class="engine-mini-tag" style="margin-left:6px;">추천</span>' : ''}</div>
+          <div class="engine-mode-desc">${escapeHtml(item.desc)}</div>
+          <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(item.fit)}</div>
+        </button>
+      `).join("")}</div>
+      <div class="engine-view-guide">
+        <div class="engine-view-guide-title">${escapeHtml(current.title)} 보고서 라인</div>
+        <div class="engine-view-guide-desc">${escapeHtml(current.desc)}</div>
+        <div class="engine-view-guide-example">문단 흐름: ${current.sections.map((section, idx) => `${idx + 1}. ${section}`).join(' → ')}</div>
+      </div>
+    `;
+  }
+
   function renderViewArea() {
     const el = $("engineViewButtons");
     if (!el) return;
@@ -1075,7 +1176,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
   }
 
   function applyLocks() {
-    [3,4,5,6,7].forEach(step => {
+    [3,4,5,6,7,8].forEach(step => {
       const block = document.querySelector(`.engine-step-block[data-step="${step}"]`);
       if (block) block.classList.toggle("locked", !isStepEnabled(step));
     });
@@ -1094,7 +1195,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
       state.keyword,
       state.selectedBookTitle || state.selectedBook,
       getModeLabel(state.reportMode),
-      state.reportView
+      state.reportView,
+      getReportLineLabel(state.reportLine)
     ].filter(Boolean).map(v => `<span class="engine-tag">${escapeHtml(v)}</span>`).join("");
 
     el.innerHTML = chips || `<div class="engine-empty">아직 MINI로 넘길 선택 데이터가 없습니다.</div>`;
@@ -1109,7 +1211,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
       보고서 방식: ${escapeHtml(payload.report_context.mode_label || "-")}<br>
-      보고서 관점: ${escapeHtml(payload.report_context.view || "-")}
+      보고서 관점: ${escapeHtml(payload.report_context.view || "-")}<br>
+      보고서 라인: ${escapeHtml(payload.report_context.line_label || "-")}<br>
+      문단 흐름: ${escapeHtml((payload.report_context.frame_sections || []).join(' → ') || "-")}
     `;
   }
 
@@ -1124,6 +1228,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     return labelMap[id] || id || "";
   }
 
+  function getReportLineLabel(id) {
+    return REPORT_LINE_HELP[id]?.title || id || "";
+  }
+
   function syncOutputFields() {
     const keywordInput = $("keyword");
     if (keywordInput) keywordInput.value = state.keyword || "";
@@ -1133,11 +1241,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
     if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
     if ($("reportMode")) $("reportMode").value = state.reportMode || "";
     if ($("reportView")) $("reportView").value = state.reportView || "";
+    if ($("reportLine")) $("reportLine").value = state.reportLine || "";
     if ($("miniNavigationPayload")) $("miniNavigationPayload").value = JSON.stringify(buildMiniPayload());
   }
 
   function buildMiniPayload() {
     const bookDetail = window.getSelectedBookDetail ? window.getSelectedBookDetail(state.selectedBook) : null;
+    const lineMeta = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[getRecommendedReportLine()] || REPORT_LINE_HELP.basic;
     return {
       student_context: {
         subject: state.subject,
@@ -1156,7 +1266,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.1-track-bugfix";
       report_context: {
         mode: state.reportMode,
         mode_label: getModeLabel(state.reportMode),
-        view: state.reportView
+        view: state.reportView,
+        line_id: lineMeta.id,
+        line_label: lineMeta.title,
+        line_fit: lineMeta.fit,
+        frame_sections: lineMeta.sections,
+        frame: {
+          intro: lineMeta.sections[0] || "",
+          body1: lineMeta.sections[1] || "",
+          body2: lineMeta.sections[2] || "",
+          body3: lineMeta.sections[3] || "",
+          conclusion: lineMeta.sections[lineMeta.sections.length - 1] || ""
+        }
       },
       task_context: {
         task_name: $("taskName")?.value || "",
