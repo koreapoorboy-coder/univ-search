@@ -164,6 +164,97 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
     ]);
   }
 
+  function getBucketPatterns(bucket){
+    const map = {
+      materials: {
+        major: /(재료|신소재|반도체|배터리|에너지|화학공학|고분자|금속|물리|화학)/,
+        theme: /(재료|구조|측정|단위|원소|에너지|기술|과학방법|정량|데이터)/,
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+      },
+      mechanical: {
+        major: /(기계|자동차|로봇|항공|모빌리티|설계|구조|물리)/,
+        theme: /(구조|역학|진동|측정|단위|시스템|에너지|기술|정량|데이터)/,
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+      },
+      electronic: {
+        major: /(전자|전기|회로|센서|반도체|통신|전파|물리)/,
+        theme: /(센서|전류|측정|단위|시스템|에너지|데이터|정확도|기술)/,
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+      },
+      it: {
+        major: /(컴퓨터|소프트웨어|데이터|인공지능|정보|통계|보안|전자)/,
+        theme: /(데이터|정보|구조|시스템|알고리즘|정량|분석|기술)/,
+        avoid: /(의학|질병|환자|수의|치과)/
+      },
+      bio: {
+        major: /(의학|의예|치의|약학|보건|간호|수의|생명|바이오)/,
+        theme: /(생명|건강|질병|항상성|의학|생체|반응)/,
+        avoid: /(전쟁|국가|정치 체제)/
+      },
+      env: {
+        major: /(환경|지구|지리|천문|우주|기후|해양)/,
+        theme: /(지구|환경|우주|천체|기후|시스템|데이터)/,
+        avoid: /(의학|질병|환자)/
+      },
+      default: {
+        major: /.^/,
+        theme: /.^/,
+        avoid: /.^/
+      }
+    };
+    return map[bucket] || map.default;
+  }
+
+  function getBucketAlignment(book, bucket){
+    const patterns = getBucketPatterns(bucket);
+    const majors = book?.linked_majors || [];
+    const themes = getBookThemeArray(book);
+    const titleBag = `${book?.title || ""} ${book?.summary_short || ""}`;
+
+    const majorHit = majors.some(v => patterns.major.test(v));
+    const themeHit = themes.some(v => patterns.theme.test(v));
+    const avoidHit = patterns.avoid.test(titleBag) || majors.some(v => patterns.avoid.test(v)) || themes.some(v => patterns.avoid.test(v));
+    const bioHeavy = majors.length > 0 && majors.every(v => /(의학|의예|치의|약학|보건|간호|수의|생명|바이오)/.test(v));
+    const professionSpecificBio = /(의사|수의사|치과의사|환자|동물 병원|동물병원|간호사)/.test(titleBag);
+    const generalScience = majors.some(v => /(물리|화학|과학교육|천문|지구과학|수학)/.test(v));
+
+    let score = 0;
+    const reasons = [];
+
+    if (majorHit) {
+      score += 20;
+      reasons.push("진로 적합 연결");
+    }
+    if (themeHit) {
+      score += 10;
+      reasons.push("개념 확장 적합");
+    }
+
+    if (["materials", "mechanical", "electronic", "it"].includes(bucket)) {
+      if (bioHeavy && !majorHit) score -= 22;
+      if (professionSpecificBio && !majorHit) score -= 28;
+      if (avoidHit && !majorHit) score -= 18;
+      if (generalScience && !bioHeavy) {
+        score += 8;
+        reasons.push("일반 과학 확장");
+      }
+    }
+
+    if (bucket === "bio") {
+      if (avoidHit && !majorHit) score -= 12;
+    }
+
+    return {
+      score,
+      reasons: uniq(reasons),
+      majorHit,
+      themeHit,
+      bioHeavy,
+      professionSpecificBio,
+      generalScience
+    };
+  }
+
   function getRouteMatches(book, subject, concept, keyword){
     const routes = Array.isArray(book?.engine_subject_routes) ? book.engine_subject_routes : [];
     return routes.filter(route => {
@@ -184,75 +275,68 @@ window.__TOPIC_GENERATOR_VERSION = "v20.0-concept-first-report-mode";
     const matchedRules = getMatchedRules(ctx);
     const themes = getBookThemeArray(book);
     const routes = getRouteMatches(book, subject, concept, keyword);
+    const bucketAlignment = getBucketAlignment(book, bucket);
 
     let score = 0;
     const reasons = [];
 
     if ((book.linked_subjects || []).some(v => fuzzyIncludes(v, subject))) {
-      score += 18;
+      score += 16;
       reasons.push("과목 연결");
     }
 
     routes.forEach(route => {
-      score += 14;
-      if (fuzzyIncludes(route.concept, concept)) score += 10;
-      if (Array.isArray(route.micro_keywords) && route.micro_keywords.some(k => fuzzyIncludes(k, keyword))) score += 12;
+      const exactConcept = fuzzyIncludes(route.concept, concept);
+      const exactKeyword = Array.isArray(route.micro_keywords) && route.micro_keywords.some(k => fuzzyIncludes(k, keyword));
+      if (exactConcept) score += 18;
+      if (exactKeyword) score += 18;
+      if (exactConcept && exactKeyword) reasons.push("개념-키워드 직접 연결");
     });
 
     if ((book.fit_keywords || []).some(v => fuzzyIncludes(v, keyword))) {
-      score += 16;
+      score += 14;
       reasons.push("키워드 일치");
     }
 
     if (themes.some(v => fuzzyIncludes(v, keyword))) {
-      score += 10;
+      score += 8;
     }
 
     if ((book.linked_majors || []).some(v => careerTokens.some(token => fuzzyIncludes(v, token)))) {
       score += 18;
-      reasons.push("진로 연결");
+      reasons.push("진로 직접 연결");
     }
 
     const lookupHits = getCareerLookupCandidates(career);
     if (lookupHits.some(item => item.book_id === book.book_id)) {
-      score += 14;
+      score += 12;
       reasons.push("진로 추천 목록");
     }
 
     matchedRules.forEach(rule => {
       if ((rule.blocked_books || []).includes(book.book_id)) score -= 100;
       if ((rule.recommended_books || []).includes(book.book_id)) {
-        score += 22;
+        score += 18;
         reasons.push("필터 추천");
       }
     });
 
-    // bucket adjustments
-    if (bucket === "materials") {
-      if ((book.linked_majors || []).some(v => /(재료|신소재|화학공학|반도체|전자|전기|기계|물리)/.test(v))) score += 12;
-      if ((book.linked_majors || []).some(v => /(간호|의학|치의|수의|보건)/.test(v))) score -= 14;
-      if (themes.some(v => /(재료|구조|기술|과학사|원소|측정|데이터|에너지)/.test(v))) score += 10;
-      if (themes.some(v => /(의학|질병|생명윤리|관계와감정)/.test(v))) score -= 12;
-    }
+    score += bucketAlignment.score;
+    reasons.push(...bucketAlignment.reasons);
 
-    if (bucket === "bio") {
-      if ((book.linked_majors || []).some(v => /(간호|의학|치의|수의|보건|생명)/.test(v))) score += 12;
-      if (themes.some(v => /(생명|건강|질병|의학|항상성)/.test(v))) score += 10;
-    }
-
-    if (bucket === "it") {
-      if ((book.linked_majors || []).some(v => /(컴퓨터|데이터|정보|통계|전자)/.test(v))) score += 12;
-      if (themes.some(v => /(데이터|정보|시스템|기술|구조)/.test(v))) score += 10;
-    }
-
-    if (bucket === "env") {
-      if ((book.linked_majors || []).some(v => /(환경|지구|지리|천문|우주)/.test(v))) score += 12;
-      if (themes.some(v => /(지구|환경|우주|천체|기후)/.test(v))) score += 10;
+    if (["materials", "mechanical", "electronic", "it"].includes(bucket)) {
+      const selectedBioConcept = /(생명|세포|항상성|자극|내부 환경|변화 대응)/.test(`${concept} ${keyword}`);
+      if (selectedBioConcept && bucketAlignment.professionSpecificBio && !bucketAlignment.majorHit) {
+        score -= 22;
+      }
+      if (selectedBioConcept && bucketAlignment.generalScience) {
+        score += 8;
+      }
     }
 
     if (!concept && !keyword) score -= 12;
 
-    return { score, reasons: uniq(reasons), matchedRules, routes };
+    return { score, reasons: uniq(reasons).slice(0, 3), matchedRules, routes };
   }
 
   function getRecommendedBooks(ctx){
