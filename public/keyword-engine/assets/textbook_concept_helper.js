@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -195,6 +195,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
       syncSubjectFromSelect();
       syncCareerFromInput();
       renderAll();
+      renderUploadSummary();
     } catch (error) {
       console.warn("textbook concept helper init error:", error);
     }
@@ -430,6 +431,63 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
         font-size: 13px;
         line-height: 1.6;
       }
+
+      .engine-upload-panel {
+        margin-top: 16px;
+        border: 1px solid #d8e0ee;
+        border-radius: 20px;
+        padding: 18px;
+        background: #fff;
+      }
+      .engine-upload-grid {
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap:14px;
+        margin-top:12px;
+      }
+      .engine-upload-grid label {
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+      }
+      .engine-upload-grid label span {
+        font-size:14px;
+        font-weight:800;
+        color:#172033;
+      }
+      .engine-file-input {
+        border:1px dashed #b8c8ee;
+        border-radius:14px;
+        padding:12px;
+        background:#fbfcff;
+      }
+      .engine-upload-help {
+        color:#67758d;
+        font-size:13px;
+        line-height:1.6;
+      }
+      .engine-file-list {
+        margin-top:10px;
+        padding:12px 14px;
+        border:1px dashed #d8e0ee;
+        border-radius:14px;
+        background:#fbfcff;
+        color:#44526c;
+        font-size:13px;
+        line-height:1.7;
+      }
+      .engine-pill-checks { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+      .engine-pill-check {
+        display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border-radius:999px; background:#f3f6fc; font-size:13px; color:#304666; font-weight:700;
+      }
+      .engine-pill-check input { accent-color:#2563eb; }
+      .engine-student-note {
+        margin-top:10px;
+        color:#5e6d87;
+        font-size:13px;
+        line-height:1.65;
+      }
+
       @media (max-width: 1100px) {
         .engine-status-row, .engine-book-layout, .engine-subgrid, .engine-mode-grid, .engine-concept-grid, .engine-track-grid { grid-template-columns: 1fr; }
       }
@@ -574,6 +632,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
     injectHiddenInput("reportView");
     injectHiddenInput("reportLine");
     injectHiddenInput("miniNavigationPayload");
+    injectHiddenInput("engineCollectionPayload");
   }
 
   function injectHiddenInput(id) {
@@ -598,13 +657,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
     const taskDescSpan = taskDescription?.closest("label")?.querySelector("span");
     const usageSpan = usagePurpose?.closest("label")?.querySelector("span");
 
-    if (taskNameSpan) taskNameSpan.textContent = "활동/과제명";
+    if (taskNameSpan) taskNameSpan.textContent = "활동/과제 이름";
     if (taskTypeSpan) taskTypeSpan.textContent = "기본 결과물";
-    if (taskDescSpan) taskDescSpan.textContent = "과제/활동 설명";
-    if (usageSpan) usageSpan.textContent = "사용 목적";
+    if (taskDescSpan) taskDescSpan.textContent = "선생님이 준 설명 / 활동 안내";
+    if (usageSpan) usageSpan.textContent = "이 프로그램을 쓰는 목적";
 
-    if (taskName) taskName.placeholder = "예: 과학 탐구 보고서, 동아리 탐구 발표, 자율활동 기록 정리";
-    if (taskDescription) taskDescription.placeholder = "예: 교과 개념과 연결한 자료조사형 활동, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심";
+    if (taskName) taskName.placeholder = "예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리";
+    if (taskDescription) taskDescription.placeholder = "예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심";
   }
 
   function ensureSelectOption(selectEl, value, label) {
@@ -647,14 +706,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
     panel.innerHTML = `
       <div class="engine-context-head">
         <div>
-          <h3 class="engine-context-title">활동 맥락과 작성 조건</h3>
-          <div class="engine-context-copy">주제만 고르는 것이 아니라, 이 글을 어디에 쓰는지와 어떤 조건으로 써야 하는지 MINI가 함께 이해할 수 있도록 구조화합니다.</div>
+          <h3 class="engine-context-title">학생 입력 정보</h3>
+          <div class="engine-context-copy">학생은 쉬운 질문에 답하고, 엔진은 그 답을 MINI와 Cloudflare가 쓰기 좋은 구조 데이터로 바꿉니다.</div>
         </div>
         <div class="engine-step-guide">수행평가 / 동아리 / 자율활동 공통</div>
       </div>
       <div class="engine-context-grid">
         <label>
-          <span>활용 영역</span>
+          <span>이 글을 어디에 쓰나요?</span>
           <select id="activityArea">
             <option value="">선택</option>
             <option value="수행평가">수행평가</option>
@@ -665,7 +724,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
           </select>
         </label>
         <label>
-          <span>최종 결과물</span>
+          <span>어떤 결과물이 필요하나요?</span>
           <select id="outputGoal">
             <option value="">선택</option>
             <option value="탐구 보고서">탐구 보고서</option>
@@ -677,7 +736,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
           </select>
         </label>
         <label>
-          <span>권장 분량</span>
+          <span>원하는 길이는 어느 정도인가요?</span>
           <select id="lengthLevel">
             <option value="">선택</option>
             <option value="짧게">짧게</option>
@@ -686,7 +745,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
           </select>
         </label>
         <label>
-          <span>진행 방식</span>
+          <span>혼자 하나요, 같이 하나요?</span>
           <select id="workStyle">
             <option value="">선택</option>
             <option value="개인">개인</option>
@@ -696,7 +755,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
           </select>
         </label>
         <label class="full">
-          <span>조건 선택</span>
+          <span>선생님 조건이 있나요?</span>
           <div class="engine-check-grid">
             <label class="engine-check-item"><input type="checkbox" id="ctx_presentation">발표 포함</label>
             <label class="engine-check-item"><input type="checkbox" id="ctx_experiment">실험 가능</label>
@@ -707,27 +766,69 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
             <label class="engine-check-item"><input type="checkbox" id="ctx_book">도서 활용 포함</label>
             <label class="engine-check-item"><input type="checkbox" id="ctx_compare">비교 대상 포함</label>
           </div>
-          <div class="engine-context-note">체크를 많이 할수록 MINI가 글의 형식과 조건을 더 정확히 이해할 수 있습니다.</div>
+          <div class="engine-context-note">잘 모르겠으면 비워도 괜찮아요. 체크한 조건만 반영해서 더 정확하게 맞춰줍니다.</div>
         </label>
         <label class="full">
-          <span>교사/활동 안내사항</span>
-          <textarea id="teacherFocus" placeholder="예: 교과 개념을 반드시 2개 이상 넣기 / 실제 사례를 포함하기 / 발표 시간 3분 내외"></textarea>
+          <span>선생님이 준 설명 그대로 붙여넣기</span>
+          <textarea id="teacherFocus" placeholder="예: 교과 개념을 반드시 2개 이상 넣기 / 실제 사례 포함 / 발표 시간 3분 내외"></textarea>
         </label>
         <label class="full">
-          <span>학생이 이미 생각해 둔 내용</span>
-          <textarea id="studentSeed" placeholder="예: 배터리 열폭주 사례를 넣고 싶어요 / 온도 센서와 반도체를 연결해 보고 싶어요"></textarea>
+          <span>이미 생각한 키워드나 넣고 싶은 내용</span>
+          <textarea id="studentSeed" placeholder="예: 배터리 열폭주 사례를 넣고 싶어요 / 반도체와 센서를 연결해 보고 싶어요"></textarea>
+        </label>
+      </div>
+    `;
+
+    const uploadPanel = document.createElement("div");
+    uploadPanel.id = "engineUploadPanel";
+    uploadPanel.className = "engine-upload-panel";
+    uploadPanel.innerHTML = `
+      <div class="engine-context-head">
+        <div>
+          <h3 class="engine-context-title">참고 자료 업로드</h3>
+          <div class="engine-context-copy">예전 보고서나 생활기록부 PDF가 있으면 올려 주세요. 엔진이 키워드, 이미 쓴 방향, 중복 위험을 구조 데이터로 바꿔 쓰게 됩니다.</div>
+        </div>
+        <div class="engine-step-guide">PDF / 이미지 가능</div>
+      </div>
+      <div class="engine-upload-grid">
+        <label>
+          <span>이전에 쓴 보고서 / 발표 자료</span>
+          <input id="pastReportFile" class="engine-file-input" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" multiple />
+          <div class="engine-upload-help">예: 예전 탐구 보고서, 발표 자료, 포스터 초안</div>
+        </label>
+        <label>
+          <span>생활기록부 / 활동 기록 자료</span>
+          <input id="recordFile" class="engine-file-input" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" multiple />
+          <div class="engine-upload-help">예: 생활기록부 일부, 세특 발췌본, 활동 기록 PDF</div>
+        </label>
+        <label class="full">
+          <span>업로드 자료로 무엇을 도와드릴까요?</span>
+          <div class="engine-pill-checks">
+            <label class="engine-pill-check"><input type="checkbox" id="src_extract_keywords">키워드 추출</label>
+            <label class="engine-pill-check"><input type="checkbox" id="src_find_used_topics">이미 쓴 주제 파악</label>
+            <label class="engine-pill-check"><input type="checkbox" id="src_reduce_duplication">중복 줄이기</label>
+            <label class="engine-pill-check"><input type="checkbox" id="src_adjust_track">연계 축 추천 보정</label>
+            <label class="engine-pill-check"><input type="checkbox" id="src_adjust_books">도서 추천 보정</label>
+          </div>
+          <div class="engine-student-note">자료가 없으면 그냥 넘어가도 됩니다. 자료가 있으면 결과를 더 개인화하기 좋습니다.</div>
+        </label>
+        <label class="full">
+          <span>업로드 자료 요약</span>
+          <div id="engineUploadSummary" class="engine-file-list">아직 업로드한 자료가 없습니다.</div>
         </label>
       </div>
     `;
 
     actions.parentNode.insertBefore(panel, actions);
+    actions.parentNode.insertBefore(uploadPanel, actions);
   }
 
   function getContextFieldIds() {
     return [
       "schoolName", "grade", "subject", "taskName", "taskType", "usagePurpose", "taskDescription",
       "activityArea", "outputGoal", "lengthLevel", "workStyle", "teacherFocus", "studentSeed",
-      "ctx_presentation", "ctx_experiment", "ctx_research", "ctx_graph", "ctx_table", "ctx_concept", "ctx_book", "ctx_compare"
+      "ctx_presentation", "ctx_experiment", "ctx_research", "ctx_graph", "ctx_table", "ctx_concept", "ctx_book", "ctx_compare",
+      "pastReportFile", "recordFile", "src_extract_keywords", "src_find_used_topics", "src_reduce_duplication", "src_adjust_track", "src_adjust_books"
     ];
   }
 
@@ -751,6 +852,61 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
     return { flags, labels };
   }
 
+  function getSelectedSourceGoals() {
+    const pairs = [
+      ["extract_keywords", $("src_extract_keywords")?.checked, "키워드 추출"],
+      ["find_used_topics", $("src_find_used_topics")?.checked, "이미 쓴 주제 파악"],
+      ["reduce_duplication", $("src_reduce_duplication")?.checked, "중복 줄이기"],
+      ["adjust_track", $("src_adjust_track")?.checked, "연계 축 추천 보정"],
+      ["adjust_books", $("src_adjust_books")?.checked, "도서 추천 보정"]
+    ];
+    const flags = {};
+    const labels = [];
+    pairs.forEach(([key, checked, label]) => {
+      flags[key] = !!checked;
+      if (checked) labels.push(label);
+    });
+    return { flags, labels };
+  }
+
+  function fileMetaList(inputId, sourceType) {
+    const input = $(inputId);
+    const files = Array.from(input?.files || []);
+    return files.map(file => ({
+      source_type: sourceType,
+      name: file.name || "",
+      size: Number(file.size || 0),
+      mime_type: file.type || "",
+      last_modified: Number(file.lastModified || 0)
+    }));
+  }
+
+  function formatBytes(n) {
+    const value = Number(n || 0);
+    if (!value) return "0KB";
+    if (value >= 1024 * 1024) return (value / (1024 * 1024)).toFixed(1) + "MB";
+    return Math.max(1, Math.round(value / 1024)) + "KB";
+  }
+
+  function renderUploadSummary() {
+    const box = $("engineUploadSummary");
+    if (!box) return;
+    const files = [
+      ...fileMetaList("pastReportFile", "past_report"),
+      ...fileMetaList("recordFile", "student_record")
+    ];
+    const goals = getSelectedSourceGoals().labels;
+    if (!files.length) {
+      box.innerHTML = "아직 업로드한 자료가 없습니다.";
+      return;
+    }
+    const lines = files.map(file => `• ${escapeHtml(file.name)} (${escapeHtml(formatBytes(file.size))}) / ${escapeHtml(file.source_type === "past_report" ? "예전 보고서" : "생활기록부/활동 자료")}`);
+    if (goals.length) {
+      lines.push(`<br><strong>활용 목적</strong>: ${escapeHtml(goals.join(", "))}`);
+    }
+    box.innerHTML = lines.join("<br>");
+  }
+
   function bindContextInputs() {
     getContextFieldIds().forEach(id => {
       const el = $(id);
@@ -758,6 +914,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
       const evt = el.tagName === "TEXTAREA" || el.tagName === "INPUT" ? "input" : "change";
       el.addEventListener(evt, function () {
         syncOutputFields();
+        renderUploadSummary();
         renderSelectionSummary();
       });
       if (el.type === "checkbox") {
@@ -873,6 +1030,57 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v23.0-activity-context";
     window.__TEXTBOOK_HELPER_STATE__ = state;
     window.__TEXTBOOK_HELPER_RENDER__ = renderAll;
     window.getMiniNavigationSelectionData = buildMiniPayload;
+    window.getEngineCollectionPayload = buildEngineCollectionPayload;
+    window.getEngineCollectionFormData = buildEngineCollectionFormData;
+  }
+
+  function buildEngineCollectionPayload() {
+    const mini = buildMiniPayload();
+    return {
+      collected_at: new Date().toISOString(),
+      student_input: {
+        school_name: $("schoolName")?.value || "",
+        grade: $("grade")?.value || "",
+        subject: state.subject || $("subject")?.value || "",
+        career: state.career || $("career")?.value || "",
+        task_name: $("taskName")?.value || "",
+        task_type: $("taskType")?.value || "",
+        usage_purpose: $("usagePurpose")?.value || "",
+        task_description: $("taskDescription")?.value || "",
+        linked_track: state.linkTrack || "",
+        selected_concept: state.concept || "",
+        selected_keyword: state.keyword || "",
+        selected_book_id: state.selectedBook || "",
+        selected_book_title: state.selectedBookTitle || "",
+        report_mode: state.reportMode || "",
+        report_view: state.reportView || "",
+        report_line: state.reportLine || "",
+        activity_area: $("activityArea")?.value || "",
+        output_goal: $("outputGoal")?.value || "",
+        length_level: $("lengthLevel")?.value || "",
+        work_style: $("workStyle")?.value || "",
+        teacher_focus: $("teacherFocus")?.value || "",
+        student_seed: $("studentSeed")?.value || ""
+      },
+      source_materials: {
+        files: [
+          ...fileMetaList("pastReportFile", "past_report"),
+          ...fileMetaList("recordFile", "student_record")
+        ],
+        source_goals: getSelectedSourceGoals().flags,
+        source_goal_labels: getSelectedSourceGoals().labels
+      },
+      mini_payload: mini
+    };
+  }
+
+  function buildEngineCollectionFormData() {
+    const payload = buildEngineCollectionPayload();
+    const fd = new FormData();
+    fd.append("payload", JSON.stringify(payload));
+    Array.from($("pastReportFile")?.files || []).forEach(file => fd.append("past_report_files", file));
+    Array.from($("recordFile")?.files || []).forEach(file => fd.append("record_files", file));
+    return fd;
   }
 
   function clearFrom(stepName) {
