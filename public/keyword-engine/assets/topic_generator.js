@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
+window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
 
 (function(){
   const BOOK_URLS = [
@@ -205,6 +205,52 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     return map[bucket] || map.default;
   }
 
+
+  function getTrackPatterns(track){
+    const map = {
+      physics: {
+        major: /(물리|전자|전기|기계|반도체|천문|재료|공학|수학)/,
+        theme: /(힘|운동|전류|측정|센서|구조|에너지|진동|안정성|시스템|데이터|정량)/,
+        subjects: /(물리학|통합과학1|공통수학1|공통수학2|정보)/
+      },
+      chemistry: {
+        major: /(화학|재료|신소재|배터리|화학공학|반도체|에너지|공학)/,
+        theme: /(원소|물질|산화|환원|결합|분류|재료|금속|반응|이온|분자|주기율)/,
+        subjects: /(화학|통합과학1)/
+      },
+      biology: {
+        major: /(생명|의학|간호|보건|바이오|수의|약학|의예)/,
+        theme: /(생명|세포|항상성|자극|반응|건강|생체|질병)/,
+        subjects: /(생명과학|통합과학1|윤리와사상)/
+      },
+      earth: {
+        major: /(지구|환경|기후|천문|우주|해양|지리)/,
+        theme: /(환경|기후|지구|천체|우주|관측|지구계|대기|수권)/,
+        subjects: /(지구과학|통합과학1|통합사회)/
+      }
+    };
+    return map[track] || null;
+  }
+
+  function getTrackAlignment(book, track){
+    const patterns = getTrackPatterns(track);
+    if (!patterns) return { score: 0, reasons: [], themeHit: false, majorHit: false };
+    const majors = book?.linked_majors || [];
+    const subjects = book?.linked_subjects || [];
+    const themes = getBookThemeArray(book);
+    const bag = `${book?.title || ""} ${book?.summary_short || ""}`;
+    const majorHit = majors.some(v => patterns.major.test(v));
+    const subjectHit = subjects.some(v => patterns.subjects.test(v));
+    const themeHit = themes.some(v => patterns.theme.test(v)) || patterns.theme.test(bag);
+    let score = 0;
+    const reasons = [];
+    if (majorHit) { score += 12; reasons.push("연계 축 적합"); }
+    if (subjectHit) { score += 8; if (!reasons.includes("연계 축 적합")) reasons.push("연계 축 적합"); }
+    if (themeHit) score += 10;
+    if (!majorHit && !subjectHit && !themeHit) score -= 8;
+    return { score, reasons, themeHit, majorHit, subjectHit };
+  }
+
   function getBucketAlignment(book, bucket){
     const patterns = getBucketPatterns(bucket);
     const majors = book?.linked_majors || [];
@@ -270,12 +316,14 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     const concept = ctx?.concept || "";
     const keyword = ctx?.keyword || "";
     const career = ctx?.career || "";
+    const linkTrack = ctx?.linkTrack || "";
     const bucket = detectCareerBucket(career);
     const careerTokens = tokenizeCareer(career);
     const matchedRules = getMatchedRules(ctx);
     const themes = getBookThemeArray(book);
     const routes = getRouteMatches(book, subject, concept, keyword);
     const bucketAlignment = getBucketAlignment(book, bucket);
+    const trackAlignment = getTrackAlignment(book, linkTrack);
 
     let score = 0;
     const reasons = [];
@@ -324,6 +372,9 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     score += bucketAlignment.score;
     reasons.push(...bucketAlignment.reasons);
 
+    score += trackAlignment.score;
+    reasons.push(...trackAlignment.reasons);
+
     if (["materials", "mechanical", "electronic", "it"].includes(bucket)) {
       const selectedBioConcept = /(생명|세포|항상성|자극|내부 환경|변화 대응)/.test(`${concept} ${keyword}`);
       if (selectedBioConcept && bucketAlignment.professionSpecificBio && !bucketAlignment.majorHit) {
@@ -332,6 +383,10 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
       if (selectedBioConcept && bucketAlignment.generalScience) {
         score += 8;
       }
+    }
+
+    if (linkTrack && !trackAlignment.majorHit && !trackAlignment.themeHit && !routes.length) {
+      score -= 10;
     }
 
     if (!concept && !keyword) score -= 12;
@@ -362,6 +417,7 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     const isDirect = (
       signals.routes.length > 0 ||
       reasonSet.has("개념-키워드 직접 연결") ||
+      reasonSet.has("연계 축 적합") ||
       (signals.themeKeywordHit && signals.careerMajorHit) ||
       (signals.themeKeywordHit && signals.subjectHit && item.score >= 26) ||
       (signals.themeConceptHit && signals.careerMajorHit && item.score >= 28) ||
@@ -475,10 +531,12 @@ window.__TOPIC_GENERATOR_VERSION = "v21.0-relevance-cutoff-max6";
     const bucket = detectCareerBucket(ctx?.career || "");
     const strict = isStrictCareerBucket(bucket);
     const hasConceptKeyword = !!(ctx?.concept && ctx?.keyword);
+    const hasTrack = !!(ctx?.linkTrack);
     const topScore = sorted[0]?.score ?? -999;
     const baseCutoff = hasConceptKeyword ? (strict ? 24 : 18) : (strict ? 20 : 14);
+    const trackBonusCutoff = hasTrack ? 4 : 0;
     const spreadCutoff = topScore - (hasConceptKeyword ? 16 : 12);
-    return Math.max(baseCutoff, spreadCutoff);
+    return Math.max(baseCutoff + trackBonusCutoff, spreadCutoff);
   }
 
   function isClearlyOffTopicBook(book, bucket){
