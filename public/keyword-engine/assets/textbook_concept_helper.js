@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v21.0-student-track-first";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -19,6 +19,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   const state = {
     subject: "",
     career: "",
+    linkTrack: "",
     concept: "",
     keyword: "",
     selectedBook: "",
@@ -67,6 +68,42 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       title: "데이터 관점",
       desc: "수치, 그래프, 측정값을 해석해서 의미를 찾는 방식으로 정리합니다.",
       example: "예: 측정 데이터를 그래프로 보고, 어떤 경향이 나타나는지 해석하기"
+    }
+  };
+
+
+  const TRACK_HELP = {
+    physics: {
+      id: "physics",
+      title: "물리 연계",
+      short: "힘·운동·센서",
+      nextSubject: "고2 물리학",
+      desc: "힘, 운동, 전류, 센서, 구조 안정성처럼 물리학으로 이어지는 방향입니다.",
+      easy: "기계, 반도체, 센서, 구조 쪽 보고서에 잘 맞아요."
+    },
+    chemistry: {
+      id: "chemistry",
+      title: "화학 연계",
+      short: "원소·재료·반응",
+      nextSubject: "고2 화학",
+      desc: "원소, 물질 성질, 산화·환원, 재료 변화처럼 화학으로 이어지는 방향입니다.",
+      easy: "신소재, 배터리, 재료 성질 쪽 보고서에 잘 맞아요."
+    },
+    biology: {
+      id: "biology",
+      title: "생명과학 연계",
+      short: "생명·건강·반응",
+      nextSubject: "고2 생명과학",
+      desc: "세포, 항상성, 생체 반응, 건강 데이터처럼 생명과학으로 이어지는 방향입니다.",
+      easy: "의학, 간호, 생명, 바이오 쪽 보고서에 잘 맞아요."
+    },
+    earth: {
+      id: "earth",
+      title: "지구과학 연계",
+      short: "환경·기후·지구",
+      nextSubject: "고2 지구과학",
+      desc: "환경, 기후, 지구 시스템, 관측 데이터처럼 지구과학으로 이어지는 방향입니다.",
+      easy: "환경, 기후, 우주, 지구 시스템 쪽 보고서에 잘 맞아요."
     }
   };
 
@@ -254,6 +291,33 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
         padding:16px;
         background:#fbfcff;
       }
+      .engine-track-grid {
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap:12px;
+        margin-top: 12px;
+      }
+      .engine-track-card {
+        border:1px solid #d5deef;
+        border-radius:16px;
+        background:#fff;
+        padding:16px;
+        text-align:left;
+        cursor:pointer;
+        transition: all .18s ease;
+      }
+      .engine-track-card:hover { border-color:#b6c7ef; transform:translateY(-1px); }
+      .engine-track-card.is-active { border-color:#2764ff; box-shadow:0 0 0 2px rgba(39,100,255,.08); background:#f7faff; }
+      .engine-track-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+      .engine-track-title { font-size:18px; font-weight:800; color:#172033; }
+      .engine-track-short { display:inline-flex; padding:6px 10px; border-radius:999px; background:#eef4ff; color:#265ae8; font-size:12px; font-weight:700; }
+      .engine-track-next { margin-top:10px; color:#51607a; font-size:13px; font-weight:700; }
+      .engine-track-desc { margin-top:8px; color:#5f6d86; font-size:13px; line-height:1.6; }
+      .engine-auto-row { margin-top:12px; display:flex; justify-content:flex-end; }
+      .engine-auto-btn {
+        border:1px dashed #b8c8ee; background:#f8fbff; color:#275fe8; border-radius:999px;
+        padding:10px 14px; font-size:13px; font-weight:800; cursor:pointer;
+      }
       .engine-subtitle { font-size:16px; font-weight:800; color:#172033; margin-bottom:6px; }
       .engine-help { color:#6b7890; font-size:13px; line-height:1.55; }
       .engine-empty {
@@ -324,7 +388,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
         line-height: 1.6;
       }
       @media (max-width: 1100px) {
-        .engine-status-row, .engine-book-layout, .engine-subgrid, .engine-mode-grid, .engine-concept-grid { grid-template-columns: 1fr; }
+        .engine-status-row, .engine-book-layout, .engine-subgrid, .engine-mode-grid, .engine-concept-grid, .engine-track-grid { grid-template-columns: 1fr; }
       }
     `;
     document.head.appendChild(style);
@@ -342,9 +406,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     section.className = "engine-flow-wrap";
     section.innerHTML = `
       <div class="engine-flow-card">
-        <div class="engine-flow-kicker">MINI로 보고서 초안을 만들기 위한 선택 흐름</div>
-        <h2 class="engine-flow-title">과목 → 진로 → 개념 키워드 → 도서 → 보고서 방식 → 관점</h2>
-        <p class="engine-flow-desc">질문을 만들기보다, MINI가 보고서를 만들 수 있도록 연결 데이터를 정확히 모으는 구조로 바꿨습니다. 먼저 교과 개념 키워드를 정하고, 그 키워드를 확장해 줄 도서를 고른 다음, 보고서 전개 방식과 관점을 선택합니다.</p>
+        <div class="engine-flow-kicker">학생이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
+        <h2 class="engine-flow-title">과목 → 진로 → 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
+        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>연계 축</strong>을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조로 바꿨습니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결을 생각하며 선택할 수 있습니다.</p>
 
         <div class="engine-status-row">
           <div class="engine-status-box">
@@ -357,34 +421,45 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
           </div>
           <div class="engine-status-box">
             <div class="engine-status-label">현재 진행 상태</div>
-            <div id="engineProgressSummary" class="engine-status-value">개념 키워드 선택 대기</div>
+            <div id="engineProgressSummary" class="engine-status-value">연계 축 선택 대기</div>
           </div>
         </div>
 
-        <div id="engineConceptBlock" class="engine-step-block" data-step="3">
+        <div id="engineTrackBlock" class="engine-step-block" data-step="3">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3. 진로와 맞는 교과 개념 키워드 선택</h3>
-              <div class="engine-step-copy">과목과 진로를 바탕으로 먼저 교과 개념을 고르고, 그 안에서 보고서의 핵심 키워드를 선택합니다.</div>
+              <h3 class="engine-step-title">3. 후속 과목 연계 축 선택</h3>
+              <div class="engine-step-copy">학과를 어떤 과학 축으로 연결할지 먼저 고릅니다. 학생은 어려운 교과 개념 대신, 익숙한 과목 축으로 먼저 방향을 정하면 됩니다.</div>
             </div>
-            <div class="engine-step-guide">개념 → 키워드</div>
+            <div class="engine-step-guide">물리 / 화학 / 생명 / 지구</div>
+          </div>
+          <div id="engineTrackArea"></div>
+        </div>
+
+        <div id="engineConceptBlock" class="engine-step-block" data-step="4">
+          <div class="engine-step-head">
+            <div>
+              <h3 class="engine-step-title">4. 연계 축에 맞는 추천 개념·키워드 선택</h3>
+              <div class="engine-step-copy">선택한 연계 축에 맞는 추천 개념을 먼저 보고, 그 안에서 보고서 핵심 키워드를 고릅니다.</div>
+            </div>
+            <div class="engine-step-guide">추천 개념 → 추천 키워드</div>
           </div>
           <div class="engine-subgrid">
             <div class="engine-panel">
-              <div class="engine-subtitle">개념 고르기</div>
+              <div class="engine-subtitle">추천 개념 고르기</div>
               <div id="engineConceptCards"></div>
             </div>
             <div class="engine-panel">
-              <div class="engine-subtitle">키워드 고르기</div>
+              <div class="engine-subtitle">추천 키워드 고르기</div>
               <div id="engineKeywordButtons"></div>
             </div>
           </div>
         </div>
 
-        <div id="engineBookBlock" class="engine-step-block" data-step="4">
+        <div id="engineBookBlock" class="engine-step-block" data-step="5">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">4. 직접 일치 / 확장 참고 도서 선택</h3>
+              <h3 class="engine-step-title">5. 직접 일치 / 확장 참고 도서 선택</h3>
               <div class="engine-step-copy">선택한 키워드와 직접 맞는 도서를 먼저 보고, 부족하면 보고서 확장에 참고할 도서를 봅니다. 도서는 보고서의 근거와 확장 프레임 역할을 합니다.</div>
             </div>
             <div class="engine-step-guide">도서 선택</div>
@@ -392,10 +467,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
           <div id="engineBookArea"></div>
         </div>
 
-        <div id="engineModeBlock" class="engine-step-block" data-step="5">
+        <div id="engineModeBlock" class="engine-step-block" data-step="6">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">5. 보고서 전개 방식 선택</h3>
+              <h3 class="engine-step-title">6. 보고서 전개 방식 선택</h3>
               <div class="engine-step-copy">같은 개념과 도서라도 어떻게 풀어 쓸지에 따라 보고서 방향이 달라집니다.</div>
             </div>
             <div class="engine-step-guide">원리 / 비교 / 데이터</div>
@@ -403,10 +478,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
           <div id="engineModeButtons"></div>
         </div>
 
-        <div id="engineViewBlock" class="engine-step-block" data-step="6">
+        <div id="engineViewBlock" class="engine-step-block" data-step="7">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">6. 보고서 관점 선택</h3>
+              <h3 class="engine-step-title">7. 보고서 관점 선택</h3>
               <div class="engine-step-copy">보고서를 어떤 시선으로 정리할지 마지막 관점을 고릅니다.</div>
             </div>
             <div class="engine-step-guide">관점 선택</div>
@@ -433,6 +508,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       if (span) span.textContent = "선택 키워드(자동 반영)";
     }
 
+    injectHiddenInput("linkedTrack");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
     injectHiddenInput("selectedBookTitle");
@@ -467,15 +543,34 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       ["input", "change"].forEach(evt => {
         careerEl.addEventListener(evt, function () {
           syncCareerFromInput();
-          clearFrom("concept");
+          clearFrom("track");
           renderAll();
         });
       });
     }
 
     document.addEventListener("click", function (event) {
+      const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
+      if (autoTrackBtn && isStepEnabled(3)) {
+        const topTrack = getTrackOptions()[0];
+        state.linkTrack = topTrack ? topTrack.id : "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
+      const trackCard = event.target.closest(".engine-track-card");
+      if (trackCard && isStepEnabled(3)) {
+        state.linkTrack = trackCard.getAttribute("data-track") || "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
       const conceptCard = event.target.closest(".engine-concept-card");
-      if (conceptCard && isStepEnabled(3)) {
+      if (conceptCard && isStepEnabled(4)) {
         const value = conceptCard.getAttribute("data-concept") || "";
         state.concept = value;
         state.keyword = "";
@@ -489,7 +584,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       }
 
       const keywordBtn = event.target.closest(".engine-chip[data-action='keyword']");
-      if (keywordBtn && isStepEnabled(3)) {
+      if (keywordBtn && isStepEnabled(4)) {
         state.keyword = keywordBtn.getAttribute("data-value") || "";
         state.selectedBook = "";
         state.selectedBookTitle = "";
@@ -501,7 +596,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       }
 
       const bookBtn = event.target.closest(".book-chip[data-kind='book']");
-      if (bookBtn && isStepEnabled(4)) {
+      if (bookBtn && isStepEnabled(5)) {
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
@@ -512,7 +607,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       }
 
       const modeCard = event.target.closest(".engine-mode-card[data-action='mode']");
-      if (modeCard && isStepEnabled(5)) {
+      if (modeCard && isStepEnabled(6)) {
         state.reportMode = modeCard.getAttribute("data-value") || "";
         state.reportView = "";
         syncOutputFields();
@@ -521,7 +616,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       }
 
       const viewBtn = event.target.closest(".engine-chip[data-action='view']");
-      if (viewBtn && isStepEnabled(6)) {
+      if (viewBtn && isStepEnabled(7)) {
         state.reportView = viewBtn.getAttribute("data-value") || "";
         syncOutputFields();
         renderAll();
@@ -535,6 +630,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   }
 
   function clearFrom(stepName) {
+    if (stepName === "track") {
+      state.linkTrack = "";
+      state.concept = "";
+      state.keyword = "";
+      state.selectedBook = "";
+      state.selectedBookTitle = "";
+      state.reportMode = "";
+      state.reportView = "";
+      syncOutputFields();
+      return;
+    }
     if (stepName === "concept") {
       state.concept = "";
       state.keyword = "";
@@ -571,6 +677,60 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     return "";
   }
 
+
+  function getTrackOptions() {
+    const bucket = detectCareerBucket(state.career || "");
+    const base = [
+      { ...TRACK_HELP.physics, score: 4 },
+      { ...TRACK_HELP.chemistry, score: 4 },
+      { ...TRACK_HELP.biology, score: 4 },
+      { ...TRACK_HELP.earth, score: 4 }
+    ];
+
+    base.forEach(item => {
+      if (bucket === "materials") {
+        if (item.id === "chemistry") item.score += 12;
+        if (item.id === "physics") item.score += 9;
+        if (item.id === "earth") item.score += 2;
+        if (item.id === "biology") item.score -= 8;
+      } else if (bucket === "mechanical") {
+        if (item.id === "physics") item.score += 12;
+        if (item.id === "chemistry") item.score += 4;
+        if (item.id === "biology") item.score -= 10;
+      } else if (bucket === "electronic" || bucket === "it") {
+        if (item.id === "physics") item.score += 11;
+        if (item.id === "chemistry") item.score += 5;
+        if (item.id === "earth") item.score += 1;
+        if (item.id === "biology") item.score -= 8;
+      } else if (bucket === "bio") {
+        if (item.id === "biology") item.score += 12;
+        if (item.id === "chemistry") item.score += 3;
+      } else if (bucket === "env") {
+        if (item.id === "earth") item.score += 12;
+        if (item.id === "physics") item.score += 3;
+      }
+    });
+
+    return base.sort((a, b) => b.score - a.score);
+  }
+
+  function getTrackMeta(trackId) {
+    return TRACK_HELP[trackId] || null;
+  }
+
+  function getConceptFriendlyLabel(concept) {
+    const map = {
+      "과학의 측정과 우리 사회": "센서·측정·데이터",
+      "규칙성 발견과 주기율표": "원소·배열·예측",
+      "기본량과 단위": "전류·시간·길이",
+      "물질 구성과 분류": "재료·원소·구조",
+      "생명 시스템": "생명·건강·반응",
+      "역학 시스템": "힘·운동·안정성",
+      "지구시스템": "환경·기후·지구"
+    };
+    return map[concept] || "";
+  }
+
   function getSubjectConceptEntries(subject) {
     const entry = engineMap?.[subject];
     const concepts = entry?.concepts || {};
@@ -605,6 +765,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   function scoreConcept(concept, entry) {
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
+    const track = state.linkTrack || "";
     const textBag = [
       concept,
       entry?.unit || "",
@@ -613,48 +774,62 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       ...(entry?.core_concepts || [])
     ].join(" ");
 
-    const hasBio = /(세포|항상성|생명|건강|자극|내부 환경)/.test(textBag);
-    const hasMech = /(역학|구조|하중|진동|측정|단위|힘|운동|에너지|재료)/.test(textBag);
+    const hasBio = /(세포|항상성|생명|건강|자극|내부 환경|생체)/.test(textBag);
+    const hasMech = /(역학|구조|하중|진동|측정|단위|힘|운동|에너지|재료|전류|센서|안정성)/.test(textBag);
     const hasElec = /(측정|센서|단위|전류|전기|전자|시스템|에너지|회로)/.test(textBag);
-    const hasData = /(측정|데이터|정량|표준|시스템|자료|분석)/.test(textBag);
-    const hasEnv = /(지구|천체|대기권|수권|지구계|환경|우주)/.test(textBag);
+    const hasData = /(측정|데이터|정량|표준|자료|분석|그래프)/.test(textBag);
+    const hasEnv = /(지구|천체|대기권|수권|지구계|환경|우주|기후)/.test(textBag);
+    const hasChem = /(물질|원소|주기율|산화|염기|산|결합|반응|분류|금속|이온|분자|재료)/.test(textBag);
 
     let score = 0;
     const reasons = [];
 
     if (bucket === "materials") {
-      if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 18; reasons.push("재료·구조 연결"); }
-      if (hasBio && !hasMech) score -= 24;
+      if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 16; reasons.push("진로 연결"); }
+      if (hasBio && !hasMech && !hasChem) score -= 26;
     }
     if (bucket === "mechanical") {
-      if (hasMech) { score += 18; reasons.push("기계·구조 연결"); }
-      if (hasBio && !hasMech) score -= 26;
+      if (hasMech) { score += 16; reasons.push("진로 연결"); }
+      if (hasBio && !hasMech) score -= 28;
     }
-    if (bucket === "electronic") {
-      if (hasElec) { score += 17; reasons.push("전자·센서 연결"); }
-      if (hasBio && !hasElec) score -= 24;
-    }
-    if (bucket === "it") {
-      if (hasData) { score += 17; reasons.push("데이터 해석 연결"); }
-      if (hasBio && !hasData) score -= 18;
+    if (bucket === "electronic" || bucket === "it") {
+      if (hasElec || hasData) { score += 15; reasons.push("진로 연결"); }
+      if (hasBio && !hasElec && !hasData) score -= 22;
     }
     if (bucket === "bio") {
-      if (hasBio) { score += 18; reasons.push("생명·건강 연결"); }
+      if (hasBio) { score += 16; reasons.push("진로 연결"); }
       if (hasMech && !hasBio) score -= 10;
     }
     if (bucket === "env") {
-      if (hasEnv) { score += 18; reasons.push("지구·환경 연결"); }
+      if (hasEnv) { score += 16; reasons.push("진로 연결"); }
+    }
+
+    if (track === "physics") {
+      if (hasMech || hasElec || hasData) { score += 14; reasons.push("물리 연계 추천"); }
+      if (hasBio && !hasMech) score -= 12;
+    }
+    if (track === "chemistry") {
+      if (hasChem) { score += 14; reasons.push("화학 연계 추천"); }
+      if (hasBio && !hasChem) score -= 10;
+    }
+    if (track === "biology") {
+      if (hasBio) { score += 14; reasons.push("생명과학 연계 추천"); }
+      if ((hasMech || hasChem) && !hasBio) score -= 8;
+    }
+    if (track === "earth") {
+      if (hasEnv) { score += 14; reasons.push("지구과학 연계 추천"); }
+      if ((hasBio || hasChem) && !hasEnv) score -= 6;
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
-      score += 12;
+      score += 10;
       reasons.push("진로 브리지 일치");
     }
 
     const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(career)];
     if (profile && Array.isArray(profile.categories)) {
       const combined = textBag;
-      if (profile.categories.some(cat => fuzzyIncludes(combined, cat))) score += 8;
+      if (profile.categories.some(cat => fuzzyIncludes(combined, cat))) score += 6;
     }
 
     return { score, reasons: uniq(reasons) };
@@ -668,21 +843,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
 
   function getDisplayConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
-    const bucket = detectCareerBucket(state.career || "");
     const topScore = ranked[0]?.score ?? 0;
-
-    let filtered = ranked.filter((item, index) => {
-      if (index < 3) return true;
-      if (item.score < -8) return false;
-      if (topScore >= 12 && item.score < topScore - 8) return false;
-      if (["materials", "mechanical", "electronic", "it"].includes(bucket) && /(생명 시스템|생명)/.test(item.concept) && item.score < topScore - 6) {
-        return false;
-      }
-      return true;
-    });
-
-    if (filtered.length < 4) filtered = ranked.slice(0, 4);
-    return filtered.slice(0, 6);
+    let filtered = ranked.filter(item => item.score >= topScore - 10 && item.score > -12);
+    if (filtered.length < 3) filtered = ranked.slice(0, 3);
+    return filtered.slice(0, 3);
   }
 
   function getConceptEntry() {
@@ -698,14 +862,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     if (step === 1) return true;
     if (step === 2) return !!state.subject;
     if (step === 3) return !!state.subject && !!state.career;
-    if (step === 4) return !!state.subject && !!state.career && !!state.concept && !!state.keyword;
-    if (step === 5) return isStepEnabled(4) && !!state.selectedBook;
-    if (step === 6) return isStepEnabled(5) && !!state.reportMode;
+    if (step === 4) return isStepEnabled(3) && !!state.linkTrack;
+    if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
+    if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
+    if (step === 7) return isStepEnabled(6) && !!state.reportMode;
     return false;
   }
 
   function renderAll() {
     renderStatus();
+    renderTrackArea();
     renderConceptArea();
     renderBookArea();
     renderModeArea();
@@ -722,8 +888,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
     if (careerEl) careerEl.textContent = state.career || "입력 전";
 
-    let progress = "개념 키워드 선택 대기";
-    if (state.subject && state.career && !state.keyword) progress = "개념/키워드 선택 중";
+    let progress = "연계 축 선택 대기";
+    if (state.subject && state.career && !state.linkTrack) progress = "연계 축 선택 중";
+    if (state.linkTrack && !state.keyword) progress = "추천 개념/키워드 선택 중";
     if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
@@ -731,14 +898,42 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     if (progressEl) progressEl.textContent = progress;
   }
 
+  function renderTrackArea() {
+    const el = $("engineTrackArea");
+    if (!el) return;
+    if (!isStepEnabled(3)) {
+      el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
+      return;
+    }
+    const options = getTrackOptions();
+    const recommended = options[0];
+    el.innerHTML = `
+      <div class="engine-help">학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || "추천 연계 축")}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.</div>
+      <div class="engine-track-grid">${options.map(item => `
+        <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+          <div class="engine-track-top">
+            <div class="engine-track-title">${escapeHtml(item.title)}</div>
+            <div class="engine-track-short">${escapeHtml(item.short)}</div>
+          </div>
+          <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
+          <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+        </button>
+      `).join("")}</div>
+      <div class="engine-auto-row">
+        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 추천 연계 축 자동 선택</button>
+      </div>
+    `;
+  }
+
   function renderConceptArea() {
     const conceptWrap = $("engineConceptCards");
     const keywordWrap = $("engineKeywordButtons");
     if (!conceptWrap || !keywordWrap) return;
 
-    if (!isStepEnabled(3)) {
-      conceptWrap.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 교과 개념 추천이 열립니다.</div>`;
-      keywordWrap.innerHTML = `<div class="engine-empty">개념을 먼저 선택하면 그 안의 키워드가 열립니다.</div>`;
+    if (!isStepEnabled(4)) {
+      conceptWrap.innerHTML = `<div class="engine-empty">먼저 연계 축을 선택해야 추천 개념이 열립니다.</div>`;
+      keywordWrap.innerHTML = `<div class="engine-empty">추천 개념을 먼저 선택하면 그 안의 추천 키워드가 열립니다.</div>`;
       return;
     }
 
@@ -752,10 +947,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
 
     conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
       const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
-      const why = item.reasons[0] || "교과 개념 추천";
+      const why = item.reasons[0] || "추천 개념";
+      const alias = getConceptFriendlyLabel(item.concept);
       return `
         <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
           <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
+          ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
           <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
@@ -796,6 +993,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     el.innerHTML = window.renderBookSelectionHTML({
       subject: state.subject,
       career: state.career,
+      linkTrack: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -805,13 +1003,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   function renderModeArea() {
     const el = $("engineModeButtons");
     if (!el) return;
-    if (!isStepEnabled(5)) {
+    if (!isStepEnabled(6)) {
       el.innerHTML = `<div class="engine-empty">먼저 도서를 선택해야 보고서 전개 방식을 고를 수 있습니다.</div>`;
       return;
     }
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
       subject: state.subject,
       career: state.career,
+      linkTrack: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -828,13 +1027,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   function renderViewArea() {
     const el = $("engineViewButtons");
     if (!el) return;
-    if (!isStepEnabled(6)) {
+    if (!isStepEnabled(7)) {
       el.innerHTML = `<div class="engine-empty">먼저 보고서 전개 방식을 선택해야 관점 선택이 열립니다.</div>`;
       return;
     }
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
       subject: state.subject,
       career: state.career,
+      linkTrack: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -859,7 +1059,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   }
 
   function applyLocks() {
-    [3,4,5,6].forEach(step => {
+    [3,4,5,6,7].forEach(step => {
       const block = document.querySelector(`.engine-step-block[data-step="${step}"]`);
       if (block) block.classList.toggle("locked", !isStepEnabled(step));
     });
@@ -873,6 +1073,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
     const chips = [
       state.subject,
       state.career,
+      getTrackMeta(state.linkTrack)?.title || "",
       state.concept,
       state.keyword,
       state.selectedBookTitle || state.selectedBook,
@@ -887,6 +1088,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
       <strong>MINI 전달 구조</strong><br>
       과목: ${escapeHtml(payload.student_context.subject || "-")}<br>
       진로: ${escapeHtml(payload.student_context.career || "-")}<br>
+      연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
@@ -909,6 +1111,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v20.1-view-guide";
   function syncOutputFields() {
     const keywordInput = $("keyword");
     if (keywordInput) keywordInput.value = state.keyword || "";
+    if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
     if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
     if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
