@@ -1,4 +1,4 @@
-[README_major_engine_install.md](https://github.com/user-attachments/files/26628969/README_major_engine_install.md)
+[README_major_engine_install.md](https://github.com/user-attachments/files/26630125/README_major_engine_install.md)
 # major-engine seed pack v1
 
 이 ZIP은 `학과별 전공탐구 활동` 레이어를 엔진 폴더 구조에 맞춰 넣을 수 있게 정리한 1차 시드 묶음입니다.
