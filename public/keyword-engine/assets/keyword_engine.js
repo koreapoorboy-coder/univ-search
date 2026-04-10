@@ -251,7 +251,14 @@ function buildCollectPayload(formValues){
     output_goal: readValue("outputType") || readValue("outputGoal"),
     length_level: readValue("lengthPref") || readValue("lengthLevel"),
     work_style: readValue("workMode") || readValue("workStyle"),
-    linked_track: trackContext.track_label || trackContext.title || trackContext.track || "",
+    linked_track:
+      trackContext.label ||
+      trackContext.track_label ||
+      trackContext.title ||
+      trackContext.track ||
+      trackContext.id ||
+      readValue("linkedTrack") ||
+      "",
     selected_concept: conceptContext.concept || conceptContext.concept_name || studentContext.concept || "",
     selected_keyword: conceptContext.keyword || conceptContext.keyword_name || formValues.keyword || "",
     selected_book_title: bookContext.title || bookContext.book_title || "",
