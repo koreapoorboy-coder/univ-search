@@ -1,4 +1,4 @@
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-subject-first-booster";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -90,6 +90,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
       }));
       state.loaded = true;
       bindCareerInput();
+      bindSubjectInput();
       renderMajorSummary();
       startMiniPayloadPatch();
     } catch (error) {
@@ -100,17 +101,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
   function getCareerInput(){ return $('career'); }
   function getKeywordInput(){ return $('keyword'); }
   function getTaskDescriptionInput(){ return $('taskDescription'); }
+  function getTextbookState(){ return window.__TEXTBOOK_HELPER_STATE__ || {}; }
+  function getSelectedSubject(){ return getTextbookState().subject || $('subject')?.value || ''; }
 
   function buildKeywordSuggestionText(data){
-    if (!data || data.status !== 'resolved') return '';
+    if (!data || data.status !== 'resolved' || !data.selected_subject) return '';
     return uniq(data.boost_keywords || data.core_keywords || []).slice(0, 6).join(', ');
   }
   function buildInquirySeedText(data){
-    if (!data || data.status !== 'resolved') return '';
+    if (!data || data.status !== 'resolved' || !data.selected_subject) return '';
     const parts = [];
-    if (data.display_name) parts.push(`${data.display_name} 기준 탐구`);
-    if ((data.related_subject_hints || [])[0]) parts.push(`${data.related_subject_hints[0]} 연계`);
-    if ((data.boost_concepts || [])[0]) parts.push(`${data.boost_concepts[0]} 개념 중심`);
+    parts.push(`선택 과목 ${data.selected_subject}`);
+    if ((data.boost_concepts || [])[0]) parts.push(`${data.boost_concepts[0]} 중심`);
     if ((data.inquiry_topics_raw || [])[0]) parts.push(data.inquiry_topics_raw[0]);
     return parts.filter(Boolean).join(' / ');
   }
@@ -140,7 +142,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
   }
 
   function autoReflectMajorData(data){
-    if (!data || data.status !== 'resolved') return;
+    if (!data || data.status !== 'resolved' || !data.selected_subject) return;
     const keywordInput = getKeywordInput();
     if (keywordInput && (!keywordInput.value.trim() || keywordInput.dataset.majorAutofill === '1')) {
       const nextKeyword = buildKeywordSuggestionText(data);
@@ -162,6 +164,32 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
         startMiniPayloadPatch();
       });
     });
+  }
+
+  function bindSubjectInput(){
+    const el = $('subject');
+    if (!el || el.dataset.majorSubjectBound === '1') return;
+    el.dataset.majorSubjectBound = '1';
+    ['change','input'].forEach(evt => {
+      el.addEventListener(evt, () => {
+        setTimeout(() => {
+          renderMajorSummary();
+          startMiniPayloadPatch();
+        }, 0);
+      });
+    });
+    const renderFn = window.__TEXTBOOK_HELPER_RENDER__;
+    if (typeof renderFn === 'function' && !window.__MAJOR_ENGINE_WRAP_TEXTBOOK_RENDER__) {
+      window.__MAJOR_ENGINE_WRAP_TEXTBOOK_RENDER__ = true;
+      window.__TEXTBOOK_HELPER_RENDER__ = function(){
+        const result = renderFn.apply(this, arguments);
+        setTimeout(() => {
+          renderMajorSummary();
+          startMiniPayloadPatch();
+        }, 0);
+        return result;
+      };
+    }
   }
 
   function ensureMajorPanel(){
@@ -192,14 +220,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
       .major-engine-chip { display:inline-flex; padding:6px 10px; border-radius:999px; background:#f1f5fd; color:#314767; font-size:12px; font-weight:700; }
       .major-engine-list { margin:0; padding-left:18px; color:#3c4b64; font-size:13px; line-height:1.6; }
       .major-engine-empty { color:#6f7d95; font-size:13px; line-height:1.6; }
-      .major-engine-suggest { margin-top:10px; color:#55647e; font-size:13px; }
       .major-engine-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
       .major-engine-action-btn { border:1px solid #cfe0ff; background:#f4f8ff; color:#1f4fbf; border-radius:10px; padding:8px 12px; font-size:12px; font-weight:800; cursor:pointer; }
       .major-engine-action-btn:hover { background:#eaf2ff; }
       .major-engine-note { margin-top:10px; font-size:12px; color:#5d6c86; }
-      .major-engine-inline-guide { margin-top: 14px; border:1px dashed #dbe5f4; border-radius:14px; background:#fff; padding:12px; }
-      .major-engine-inline-guide-title { font-size:13px; font-weight:900; color:#16213a; margin-bottom:8px; }
-      .major-engine-inline-guide p { margin:0; color:#5f6d86; font-size:13px; line-height:1.6; }
+      .major-engine-status { margin-top: 10px; border:1px dashed #dbe5f4; border-radius:14px; background:#fff; padding:12px; }
+      .major-engine-status-title { font-size:13px; font-weight:900; color:#16213a; margin-bottom:8px; }
+      .major-engine-status p { margin:0; color:#5f6d86; font-size:13px; line-height:1.6; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
@@ -244,47 +271,28 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
     };
   }
 
-  function mapSubjectHintToAxis(hint){
-    const h = String(hint || '').trim();
-    const map = {
-      '공통수학1':'공통수학1', '수학':'공통수학1', '대수':'공통수학1',
-      '공통수학2':'공통수학2',
-      '정보':'정보', '컴퓨터':'정보',
-      '통합과학1':'통합과학1', '통합과학':'통합과학1',
-      '물리학':'통합과학1', '화학':'통합과학1', '생명과학':'통합과학1', '지구과학':'통합과학1',
-      '과학탐구실험1':'과학탐구실험1', '과학탐구실험2':'과학탐구실험2'
-    };
-    return map[h] || (state.conceptUI[h] ? h : '');
-  }
-
-  function buildAxes(data){
-    const seen = new Set();
-    const out = [];
-    (data.related_subject_hints || []).forEach(h => {
-      const subjectKey = mapSubjectHintToAxis(h);
-      if (!subjectKey) return;
-      const key = `${subjectKey}::${h}`;
-      if (seen.has(key)) return;
-      seen.add(key);
-      out.push({ original: h, subjectKey, label: h });
-    });
-    if (!out.length) {
-      ['통합과학1','정보','공통수학1'].forEach(k => {
-        if (state.conceptUI[k]) out.push({ original: k, subjectKey: k, label: k });
-      });
-    }
-    return out;
-  }
-
-  function collectConceptPreviews(data){
-    const axes = buildAxes(data).slice(0, 3);
-    const names = [];
-    axes.forEach(axis => {
-      const row = state.conceptUI[axis.subjectKey];
-      const buttons = row?.concept_buttons || [];
-      buttons.slice(0, 2).forEach(btn => names.push(btn.concept));
-    });
-    return uniq(names).slice(0, 6);
+  function collectSubjectScopedConcepts(selectedSubject, data){
+    if (!selectedSubject || !state.conceptUI[selectedSubject]) return [];
+    const row = state.conceptUI[selectedSubject];
+    const buttons = row?.concept_buttons || [];
+    const bag = uniq([
+      data.display_name,
+      ...(data.core_keywords || []),
+      ...(data.inquiry_topics_raw || []),
+      ...(data.book_bridge_candidates || [])
+    ]).join(' ');
+    const scored = buttons.map(btn => {
+      const text = [btn.concept, btn.unit, ...(btn.core_preview || []), ...(btn.student_topics || [])].join(' ');
+      let score = 0;
+      (data.core_keywords || []).forEach(k => { if (fuzzyIncludes(text, k) || fuzzyIncludes(k, text)) score += 12; });
+      (btn.core_preview || []).forEach(k => { if (fuzzyIncludes(bag, k) || fuzzyIncludes(k, bag)) score += 8; });
+      if (fuzzyIncludes(data.display_name, text) || fuzzyIncludes(text, data.display_name)) score += 10;
+      if (/반도체|전자|전기/.test(data.display_name + ' ' + bag) && /(측정|물질|규칙성|전기|자료|정보|행렬|그래프|시스템|역학)/.test(text)) score += 6;
+      if (/컴퓨터|소프트웨어|정보|보안/.test(data.display_name + ' ' + bag) && /(자료|정보|알고리즘|데이터|시각화|문제 분해)/.test(text)) score += 6;
+      if (/신소재|재료|화학|에너지/.test(data.display_name + ' ' + bag) && /(물질|원소|규칙성|주기율|측정|단위|에너지|역학)/.test(text)) score += 6;
+      return { concept: btn.concept, score, preview: btn.core_preview || [] };
+    }).sort((a,b)=> b.score-a.score || a.concept.localeCompare(b.concept,'ko'));
+    return scored.slice(0,4);
   }
 
   function getPerspectiveSuggestions(data){
@@ -310,17 +318,25 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
     const input = getCareerInput();
     const raw = input?.value || '';
     const resolved = resolveMajor(raw);
-    if (resolved.status !== 'resolved') return resolved;
+    const selectedSubject = getSelectedSubject();
+    if (resolved.status !== 'resolved') return { ...resolved, selected_subject: selectedSubject };
     const profile = resolved.profile || {};
     const relatedSubjects = uniq(profile.related_subject_hints || []).slice(0, 6);
-    const conceptPreviews = collectConceptPreviews({ related_subject_hints: relatedSubjects, core_keywords: uniq(profile.core_keywords || []) });
+    const subjectScopedConcepts = collectSubjectScopedConcepts(selectedSubject, {
+      display_name: resolved.display_name,
+      core_keywords: uniq(profile.core_keywords || []),
+      inquiry_topics_raw: uniq(profile.inquiry_topics_raw || []),
+      book_bridge_candidates: uniq(profile.book_bridge_candidates || [])
+    });
     const perspectiveSuggestions = getPerspectiveSuggestions({ core_keywords: uniq(profile.core_keywords || []) });
     const boostKeywords = uniq([
       ...(profile.core_keywords || []).slice(0, 5),
-      ...conceptPreviews.slice(0, 1)
+      ...(subjectScopedConcepts[0]?.preview || []).slice(0, 2)
     ]).slice(0, 6);
     return {
       ...resolved,
+      selected_subject: selectedSubject,
+      subject_selected: !!selectedSubject,
       major_intro: profile.major_intro || '',
       core_keywords: uniq(profile.core_keywords || []).slice(0, 8),
       related_subject_hints: relatedSubjects,
@@ -329,8 +345,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
       recommended_books_raw: uniq(profile.recommended_books_raw || []).slice(0, 5),
       book_bridge_candidates: uniq(profile.book_bridge_candidates || []),
       bridge_books: resolved.bridge_books || [],
-      boost_subjects: buildAxes({ related_subject_hints: relatedSubjects }).map(v => v.subjectKey),
-      boost_concepts: conceptPreviews,
+      boost_subjects: selectedSubject ? [selectedSubject] : [],
+      boost_concepts: subjectScopedConcepts.map(v => v.concept),
       boost_perspectives: perspectiveSuggestions,
       boost_keywords: boostKeywords
     };
@@ -339,6 +355,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
   function renderMajorSummary(){
     injectStyles();
     bindCareerInput();
+    bindSubjectInput();
     const panel = ensureMajorPanel();
     if (!panel) return;
     const data = getSummaryData();
@@ -354,59 +371,53 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
         <div class="major-engine-kicker">전공 해석 미리보기</div>
         <h4 class="major-engine-title">학과명을 표준화하지 못했어요</h4>
         <div class="major-engine-sub">입력값: <strong>${escapeHtml(data.input || '-')}</strong></div>
-        <div class="major-engine-suggest">${(data.suggestions || []).length ? `비슷한 학과: ${data.suggestions.map(escapeHtml).join(', ')}` : '아직 연결된 전공 프로필이 없습니다.'}</div>
+        <div class="major-engine-note">과목 선택 뒤 다시 입력하면 전공 맞춤 추천이 더 정확해집니다.</div>
       `;
       return;
     }
 
     const profileReady = data.source_status !== 'skeleton_only';
+    const subjectReady = !!data.selected_subject;
     panel.innerHTML = `
-      <div class="major-engine-kicker">전공 해석 레이어</div>
+      <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
         입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
-        계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
-        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
+        선택 과목: <strong>${escapeHtml(data.selected_subject || '선택 전')}</strong> · 계열: ${escapeHtml(data.track_category || '-')}
+        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 추천만 표시합니다.</strong>'}
       </div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
-          <div class="major-engine-box-title">핵심 키워드</div>
-          <div class="major-engine-chip-wrap">${(data.core_keywords || []).length ? data.core_keywords.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
+          <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
+          <div class="major-engine-chip-wrap">${(data.core_keywords || []).slice(0,6).length ? data.core_keywords.slice(0,6).map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
         </div>
         <div class="major-engine-box">
-          <div class="major-engine-box-title">연결 교과</div>
-          <div class="major-engine-chip-wrap">${(data.related_subject_hints || []).length ? data.related_subject_hints.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
+          <div class="major-engine-box-title">선택 과목 안 추천 개념</div>
+          ${subjectReady ? `<div class="major-engine-chip-wrap">${(data.boost_concepts || []).length ? data.boost_concepts.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">이 과목에서 바로 연결된 추천 개념을 찾지 못했습니다.</div>'}</div>` : '<div class="major-engine-empty">먼저 아래 공용 엔진에서 과목을 선택하면, 그 과목 안에서만 추천 개념을 추려 줍니다.</div>'}
         </div>
         <div class="major-engine-box">
-          <div class="major-engine-box-title">추천 개념 미리보기</div>
-          <div class="major-engine-chip-wrap">${(data.boost_concepts || []).length ? data.boost_concepts.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아래 공용 엔진에서 개념을 선택해 주세요.</div>'}</div>
+          <div class="major-engine-box-title">추천 탐구 방향</div>
+          ${(data.inquiry_topics_raw || []).slice(0,4).length ? `<ul class="major-engine-list">${data.inquiry_topics_raw.slice(0,4).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}
         </div>
         <div class="major-engine-box">
-          <div class="major-engine-box-title">기존 도서 엔진 연결</div>
-          ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
-        </div>
-        <div class="major-engine-box">
-          <div class="major-engine-box-title">탐구 방향 예시</div>
-          ${(data.inquiry_topics_raw || []).length ? `<ul class="major-engine-list">${data.inquiry_topics_raw.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}
-        </div>
-        <div class="major-engine-box">
-          <div class="major-engine-box-title">추천 관점</div>
-          <div class="major-engine-chip-wrap">${(data.boost_perspectives || []).length ? data.boost_perspectives.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">기본 관점을 사용합니다.</div>'}</div>
+          <div class="major-engine-box-title">참고 도서</div>
+          ${(data.bridge_books || []).slice(0,4).length ? `<ul class="major-engine-list">${data.bridge_books.slice(0,4).map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
       <div class="major-engine-action-row">
-        <button type="button" class="major-engine-action-btn" data-major-action="keywords">핵심 키워드 자동 반영</button>
-        <button type="button" class="major-engine-action-btn" data-major-action="inquiry">탐구 예시 설명칸 넣기</button>
-        <button type="button" class="major-engine-action-btn" data-major-action="all">둘 다 자동 반영</button>
+        <button type="button" class="major-engine-action-btn" data-major-action="keywords" ${subjectReady ? '' : 'disabled'}>${subjectReady ? '아래 엔진에 키워드 넣기' : '과목 선택 후 키워드 반영'}</button>
+        <button type="button" class="major-engine-action-btn" data-major-action="inquiry" ${subjectReady ? '' : 'disabled'}>${subjectReady ? '아래 엔진에 설명 넣기' : '과목 선택 후 설명 반영'}</button>
+        <button type="button" class="major-engine-action-btn" data-major-action="all" ${subjectReady ? '' : 'disabled'}>${subjectReady ? '추천값 한 번에 넣기' : '과목 선택 후 전체 반영'}</button>
       </div>
-      <div class="major-engine-note">전공 입력은 아래 공용 보고서 엔진을 대체하지 않고, 추천값을 더 정확하게 넣기 위한 보정 데이터로만 사용됩니다.</div>
-      <div class="major-engine-inline-guide">
-        <div class="major-engine-inline-guide-title">현재 동작 방식</div>
-        <p>위 카드는 전공 기반 추천 요약입니다. 실제 과목·개념·도서·보고서 방식 선택은 아래 공용 엔진에서 계속 진행하고, 여기서는 핵심 키워드와 설명칸만 빠르게 넣어 주도록 유지합니다.</p>
+      <div class="major-engine-note">전공 데이터는 과목을 바꾸지 않고, 학생이 고른 과목 안에서 추천 개념·키워드·설명 순서만 더 정교하게 보정합니다.</div>
+      <div class="major-engine-status">
+        <div class="major-engine-status-title">현재 반영 상태</div>
+        <p>${subjectReady ? `선택 과목 <strong>${escapeHtml(data.selected_subject)}</strong> 기준으로 전공 맞춤 추천이 준비되었습니다. 아래 공용 엔진에서 실제 개념·도서·보고서 방식을 이어서 고르면 됩니다.` : '아직 과목이 선택되지 않았습니다. 먼저 아래 공용 엔진에서 과목을 고르면, 그 과목 안에서 전공 맞춤 추천만 보정됩니다.'}</p>
       </div>
     `;
 
     panel.querySelectorAll('[data-major-action]').forEach(btn => {
+      if (btn.disabled) return;
       btn.addEventListener('click', () => applyMajorSuggestions(btn.dataset.majorAction));
     });
     autoReflectMajorData(data);
@@ -423,6 +434,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
         track_category: '',
         matched_by: data?.matched_by || '',
         source_status: '',
+        selected_subject: data?.selected_subject || '',
+        subject_scoped: false,
         core_keywords: [],
         related_subject_hints: [],
         inquiry_topics_raw: [],
@@ -445,6 +458,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
       track_category: data.track_category,
       matched_by: data.matched_by,
       source_status: data.source_status,
+      selected_subject: data.selected_subject || '',
+      subject_scoped: !!data.selected_subject,
       core_keywords: data.core_keywords || [],
       related_subject_hints: data.related_subject_hints || [],
       inquiry_topics_raw: data.inquiry_topics_raw || [],
