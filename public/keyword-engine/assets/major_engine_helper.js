@@ -1,4 +1,4 @@
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.1.0-major-layer-runtime";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-layer-enhanced";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -92,6 +92,59 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.1.0-major-layer-runtime";
 
   function getCareerInput(){ return $('career'); }
 
+  function getKeywordInput(){ return $("keyword"); }
+  function getTaskDescriptionInput(){ return $("taskDescription"); }
+
+  function buildKeywordSuggestionText(data){
+    if (!data || data.status !== 'resolved') return '';
+    return uniq([
+      ...(data.core_keywords || []).slice(0, 4),
+      ...(data.related_subject_hints || []).slice(0, 2)
+    ]).slice(0, 6).join(', ');
+  }
+
+  function buildInquirySeedText(data){
+    if (!data || data.status !== 'resolved') return '';
+    return (data.inquiry_topics_raw || []).slice(0, 3).join(' / ');
+  }
+
+  function applyMajorSuggestions(mode){
+    const data = getSummaryData();
+    if (!data || data.status !== 'resolved') return;
+    const keywordInput = getKeywordInput();
+    const taskDesc = getTaskDescriptionInput();
+    if (mode === 'keywords' || mode === 'all') {
+      const nextKeyword = buildKeywordSuggestionText(data);
+      if (keywordInput && nextKeyword) {
+        keywordInput.value = nextKeyword;
+        keywordInput.dataset.majorAutofill = '1';
+        keywordInput.dispatchEvent(new Event('input', { bubbles: true }));
+        keywordInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    if (mode === 'inquiry' || mode === 'all') {
+      const nextDesc = buildInquirySeedText(data);
+      if (taskDesc && nextDesc) {
+        taskDesc.value = nextDesc;
+        taskDesc.dispatchEvent(new Event('input', { bubbles: true }));
+        taskDesc.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+  }
+
+  function autoReflectMajorData(data){
+    if (!data || data.status !== 'resolved') return;
+    const keywordInput = getKeywordInput();
+    if (keywordInput && (!keywordInput.value.trim() || keywordInput.dataset.majorAutofill === '1')) {
+      const nextKeyword = buildKeywordSuggestionText(data);
+      if (nextKeyword) {
+        keywordInput.value = nextKeyword;
+        keywordInput.dataset.majorAutofill = '1';
+        keywordInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+  }
+
   function bindCareerInput(){
     const el = getCareerInput();
     if (!el || el.dataset.majorBound === '1') return;
@@ -136,6 +189,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.1.0-major-layer-runtime";
       .major-engine-list { margin:0; padding-left:18px; color:#3c4b64; font-size:13px; line-height:1.6; }
       .major-engine-empty { color:#6f7d95; font-size:13px; line-height:1.6; }
       .major-engine-suggest { margin-top:10px; color:#55647e; font-size:13px; }
+      .major-engine-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+      .major-engine-action-btn { border:1px solid #cfe0ff; background:#f4f8ff; color:#1f4fbf; border-radius:10px; padding:8px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+      .major-engine-action-btn:hover { background:#eaf2ff; }
+      .major-engine-note { margin-top:10px; font-size:12px; color:#5d6c86; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
@@ -253,7 +310,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.1.0-major-layer-runtime";
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
+      <div class="major-engine-action-row">
+        <button type="button" class="major-engine-action-btn" data-major-action="keywords">핵심 키워드 자동 반영</button>
+        <button type="button" class="major-engine-action-btn" data-major-action="inquiry">탐구 예시 설명칸 넣기</button>
+        <button type="button" class="major-engine-action-btn" data-major-action="all">둘 다 자동 반영</button>
+      </div>
+      <div class="major-engine-note">전공 입력을 실제 엔진 동작에 바로 쓰도록, 선택 키워드와 설명칸에 자동 반영할 수 있습니다.</div>
     `;
+
+    panel.querySelectorAll('[data-major-action]').forEach(btn => {
+      btn.addEventListener('click', () => applyMajorSuggestions(btn.dataset.majorAction));
+    });
+    autoReflectMajorData(data);
   }
 
   function buildMajorPayload(){
@@ -320,6 +388,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.1.0-major-layer-runtime";
 
   window.getMajorEngineSelectionData = buildMajorPayload;
   window.__MAJOR_ENGINE_RENDER__ = renderMajorSummary;
+  window.__MAJOR_ENGINE_APPLY__ = applyMajorSuggestions;
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadAll);
   } else {
