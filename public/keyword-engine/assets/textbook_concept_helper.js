@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-cross-lens-evaluation";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -20,6 +20,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     subject: "",
     career: "",
     linkTrack: "",
+    crossLens: "",
     concept: "",
     keyword: "",
     selectedBook: "",
@@ -170,6 +171,31 @@ const TRACK_HELP = {
     desc: "데이터 처리, 알고리즘, 시뮬레이션, 자동화처럼 정보 과목으로 확장하는 방향입니다.",
     easy: "AI, 소프트웨어, 센서 제어, 시뮬레이션 보고서에 잘 맞아요.",
     relationType: "cross"
+  }
+};
+
+
+const CROSS_LENS_HELP = {
+  math_view: {
+    id: "math_view",
+    title: "수학적으로 보기",
+    short: "그래프·변화율·모델링",
+    desc: "현재 개념을 그래프, 수량 관계, 변화율, 비율, 예측처럼 수학 언어로 다시 읽는 방식입니다.",
+    easy: "과학 개념을 정량 해석하거나 성능·경향을 비교하는 보고서에 잘 맞아요."
+  },
+  science_view: {
+    id: "science_view",
+    title: "과학적으로 보기",
+    short: "원리·실험·측정",
+    desc: "현재 개념을 원리, 실험, 측정, 인과 관계 중심으로 다시 읽는 방식입니다.",
+    easy: "수학·정보 개념을 실제 현상과 실험 맥락으로 확장할 때 잘 맞아요."
+  },
+  information_view: {
+    id: "information_view",
+    title: "정보적으로 보기",
+    short: "데이터·알고리즘·시뮬레이션",
+    desc: "현재 개념을 데이터 처리, 알고리즘, 자동화, 시뮬레이션 관점으로 다시 읽는 방식입니다.",
+    easy: "센서 데이터, AI, 컴퓨터공학, 시스템 제어로 연결할 때 잘 맞아요."
   }
 };
 
@@ -573,11 +599,22 @@ const TRACK_HELP = {
           <div id="engineTrackArea"></div>
         </div>
 
+        <div id="engineLensBlock" class="engine-step-block" data-step="3.5">
+          <div class="engine-step-head">
+            <div>
+              <h3 class="engine-step-title">3-2. 횡단 해석 방식 선택</h3>
+              <div class="engine-step-copy">선택한 연계 축을 어떤 언어로 다시 해석할지 정합니다. 과학을 수학적으로, 수학을 과학적으로, 정보를 데이터·알고리즘 관점으로 다시 읽을 수 있습니다.</div>
+            </div>
+            <div class="engine-step-guide">해석 렌즈</div>
+          </div>
+          <div id="engineLensArea"></div>
+        </div>
+
         <div id="engineConceptBlock" class="engine-step-block" data-step="4">
           <div class="engine-step-head">
             <div>
               <h3 class="engine-step-title">4. 연계 축에 맞는 추천 개념·키워드 선택</h3>
-              <div class="engine-step-copy">선택한 연계 축에 맞는 추천 개념을 먼저 보고, 그 안에서 보고서 핵심 키워드를 고릅니다.</div>
+              <div class="engine-step-copy">선택한 연계 축과 해석 렌즈에 맞는 추천 개념을 먼저 보고, 그 안에서 보고서 핵심 키워드를 고릅니다.</div>
             </div>
             <div class="engine-step-guide">추천 개념 → 추천 키워드</div>
           </div>
@@ -661,6 +698,7 @@ const TRACK_HELP = {
     injectGeneralContextPanel();
 
     injectHiddenInput("linkedTrack");
+    injectHiddenInput("crossInterpretLens");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
     injectHiddenInput("selectedBookTitle");
@@ -988,6 +1026,8 @@ const TRACK_HELP = {
       if (autoTrackBtn && isStepEnabled(3)) {
         const topTrack = getTrackOptions()[0];
         state.linkTrack = topTrack ? topTrack.id : "";
+        const firstLens = getRecommendedCrossLenses()[0];
+        state.crossLens = firstLens ? firstLens.id : "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -997,6 +1037,17 @@ const TRACK_HELP = {
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(3)) {
         state.linkTrack = trackCard.getAttribute("data-track") || "";
+        const firstLens = getRecommendedCrossLenses()[0];
+        state.crossLens = firstLens ? firstLens.id : "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
+      const lensBtn = event.target.closest(".engine-chip[data-action='lens']");
+      if (lensBtn && isStepEnabled(3)) {
+        state.crossLens = lensBtn.getAttribute("data-value") || "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1084,6 +1135,7 @@ const TRACK_HELP = {
         usage_purpose: $("usagePurpose")?.value || "",
         task_description: $("taskDescription")?.value || "",
         linked_track: state.linkTrack || "",
+        cross_lens: state.crossLens || "",
         selected_concept: state.concept || "",
         selected_keyword: state.keyword || "",
         selected_book_id: state.selectedBook || "",
@@ -1122,6 +1174,7 @@ const TRACK_HELP = {
   function clearFrom(stepName) {
     if (stepName === "track") {
       state.linkTrack = "";
+      state.crossLens = "";
       state.concept = "";
       state.keyword = "";
       state.selectedBook = "";
@@ -1132,6 +1185,10 @@ const TRACK_HELP = {
       return;
     }
     if (stepName === "concept") {
+      if (!state.crossLens) {
+        const firstLens = getRecommendedCrossLenses()[0];
+        state.crossLens = firstLens ? firstLens.id : "";
+      }
       state.concept = "";
       state.keyword = "";
       state.selectedBook = "";
@@ -1321,8 +1378,103 @@ function getTrackOptions() {
 }
 
 function getTrackMeta(trackId) {
-(trackId) {
     return TRACK_HELP[trackId] || null;
+  }
+
+  function getCrossLensMeta(lensId) {
+    return CROSS_LENS_HELP[lensId] || null;
+  }
+
+  function getRecommendedCrossLenses() {
+    const domain = detectSubjectDomain(state.subject || "");
+    const bucket = detectCareerBucket(state.career || "");
+    const track = state.linkTrack || "";
+
+    let order = ["math_view", "science_view", "information_view"];
+
+    if (domain === "math") order = ["science_view", "information_view", "math_view"];
+    if (domain === "information") order = ["math_view", "science_view", "information_view"];
+
+    if (track === "information") order = ["math_view", "science_view", "information_view"];
+    if (track === "math") order = ["science_view", "information_view", "math_view"];
+    if (["physics", "chemistry", "biology", "earth"].includes(track)) order = ["math_view", "information_view", "science_view"];
+
+    if (bucket === "it") order = ["information_view", "math_view", "science_view"];
+    if (bucket === "materials") order = ["math_view", "science_view", "information_view"];
+    if (bucket === "mechanical") order = ["math_view", "science_view", "information_view"];
+    if (bucket === "bio") order = ["science_view", "math_view", "information_view"];
+
+    return order.map(id => CROSS_LENS_HELP[id]).filter(Boolean);
+  }
+
+  function getLensKeywordsForConcept(concept, entry, lensId) {
+    const textBag = [
+      concept,
+      entry?.unit || "",
+      ...(entry?.micro_keywords || []),
+      ...(entry?.core_concepts || [])
+    ].join(" ");
+
+    const baseMap = {
+      "규칙성 발견과 주기율표": {
+        math_view: ["패턴 해석", "그래프 해석", "주기성", "예측 모델"],
+        science_view: ["원소 배열", "주기성", "성질 예측", "반응성"],
+        information_view: ["분류 규칙", "데이터 정렬", "패턴 탐지", "예측 시스템"]
+      },
+      "물질 구성과 분류": {
+        math_view: ["분류 기준", "비율 해석", "구조 비교", "모델링"],
+        science_view: ["원자·분자", "결합", "물질 분류", "재료 구조"],
+        information_view: ["분류 알고리즘", "구조 데이터", "소재 DB", "시뮬레이션"]
+      },
+      "과학의 측정과 우리 사회": {
+        math_view: ["그래프 해석", "오차 분석", "평균·분산", "데이터 비교"],
+        science_view: ["측정 원리", "단위", "오차", "실험 설계"],
+        information_view: ["센서 데이터", "측정 자동화", "데이터 처리", "시각화"]
+      },
+      "역학 시스템": {
+        math_view: ["변화율", "그래프 해석", "벡터 감각", "모델링"],
+        science_view: ["힘", "운동", "안정성", "에너지 이동"],
+        information_view: ["센서 입력", "시뮬레이션", "제어", "시스템 데이터"]
+      },
+      "생명 시스템": {
+        math_view: ["변화 추세", "상관 관계", "통계 비교", "데이터 해석"],
+        science_view: ["세포", "항상성", "생체 반응", "건강"],
+        information_view: ["바이오 데이터", "분류 모델", "예측", "헬스케어 AI"]
+      },
+      "지구시스템": {
+        math_view: ["시계열 그래프", "변동 추세", "패턴 분석", "예측"],
+        science_view: ["환경", "기후", "지구계", "관측"],
+        information_view: ["환경 데이터", "GIS", "위성 데이터", "시각화"]
+      },
+      "자연 세계의 시간과 공간": {
+        math_view: ["좌표", "변화율", "스케일", "모델링"],
+        science_view: ["시간", "공간", "우주", "관측"],
+        information_view: ["공간 데이터", "시뮬레이션", "센서 좌표", "시각화"]
+      },
+      "기본량과 단위": {
+        math_view: ["수량 관계", "비율", "단위 환산", "정량화"],
+        science_view: ["측정", "단위", "기본량", "오차"],
+        information_view: ["데이터 표준화", "센서 단위", "입력값 처리", "정규화"]
+      }
+    };
+
+    let keywords = baseMap[concept]?.[lensId] || [];
+
+    if (!keywords.length) {
+      if (lensId === "math_view") {
+        if (/(측정|그래프|데이터|규칙|예측|변화|단위|배열)/.test(textBag)) keywords = ["그래프 해석", "변화율", "비교", "모델링"];
+        else keywords = ["정량 해석", "비율", "패턴", "모델링"];
+      }
+      if (lensId === "science_view") {
+        if (/(알고리즘|데이터|정보|시뮬레이션|프로그래밍)/.test(textBag)) keywords = ["원리", "실험 연결", "측정", "인과 관계"];
+        else keywords = ["원리", "실험", "측정", "인과 관계"];
+      }
+      if (lensId === "information_view") {
+        if (/(측정|센서|데이터|그래프|규칙|분류)/.test(textBag)) keywords = ["데이터 처리", "시각화", "알고리즘", "시뮬레이션"];
+        else keywords = ["데이터 처리", "알고리즘", "자동화", "시뮬레이션"];
+      }
+    }
+    return uniq(keywords);
   }
 
   function getConceptFriendlyLabel(concept) {
@@ -1373,6 +1525,7 @@ function getTrackMeta(trackId) {
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
     const track = state.linkTrack || "";
+    const lens = state.crossLens || "";
     const textBag = [
       concept,
       entry?.unit || "",
@@ -1449,6 +1602,18 @@ function getTrackMeta(trackId) {
       if (hasBio && !hasInfo) score -= 6;
     }
 
+    if (lens === "math_view") {
+      if (hasMath) { score += 12; reasons.push("수학적 해석 추천"); }
+      if (hasBio && !hasMath) score -= 4;
+    }
+    if (lens === "science_view") {
+      if (hasChem || hasMech || hasBio || hasEnv || hasElec) { score += 10; reasons.push("과학적 해석 추천"); }
+    }
+    if (lens === "information_view") {
+      if (hasInfo || hasData) { score += 12; reasons.push("정보적 해석 추천"); }
+      if (hasBio && !hasInfo) score -= 2;
+    }
+
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
       score += 10;
       reasons.push("진로 브리지 일치");
@@ -1497,7 +1662,7 @@ function getTrackMeta(trackId) {
     if (step === 1) return true;
     if (step === 2) return !!state.subject;
     if (step === 3) return !!state.subject && !!state.career;
-    if (step === 4) return isStepEnabled(3) && !!state.linkTrack;
+    if (step === 4) return isStepEnabled(3) && !!state.linkTrack && !!state.crossLens;
     if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
     if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
@@ -1508,6 +1673,7 @@ function getTrackMeta(trackId) {
   function renderAll() {
     renderStatus();
     renderTrackArea();
+    renderLensArea();
     renderConceptArea();
     renderBookArea();
     renderModeArea();
@@ -1527,7 +1693,8 @@ function getTrackMeta(trackId) {
 
     let progress = "연계 축 선택 대기";
     if (state.subject && state.career && !state.linkTrack) progress = "연계 축 선택 중";
-    if (state.linkTrack && !state.keyword) progress = "추천 개념/키워드 선택 중";
+    if (state.linkTrack && !state.crossLens) progress = "횡단 해석 방식 선택 중";
+    if (state.linkTrack && state.crossLens && !state.keyword) progress = "추천 개념/키워드 선택 중";
     if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
@@ -1594,8 +1761,38 @@ function renderTrackArea() {
   `;
 }
 
+
+function renderLensArea() {
+  const el = $("engineLensArea");
+  if (!el) return;
+  if (!isStepEnabled(3) || !state.linkTrack) {
+    el.innerHTML = `<div class="engine-empty">먼저 연계 축을 선택해야 해석 방식이 열립니다.</div>`;
+    return;
+  }
+  const lenses = getRecommendedCrossLenses();
+  if (!state.crossLens) {
+    state.crossLens = lenses[0]?.id || "";
+  }
+  const selected = getCrossLensMeta(state.crossLens) || lenses[0];
+  el.innerHTML = `
+    <div class="engine-help"><strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || "현재 연계 축")}</strong>을(를) 어떤 언어로 다시 읽을지 고르는 단계입니다. 같은 전공이라도 수학적으로 볼지, 과학적으로 볼지, 정보적으로 볼지에 따라 보고서 문장이 달라집니다.</div>
+    <div class="engine-chip-wrap" style="margin-top:10px;">${lenses.map(lens => `
+      <button type="button" class="engine-chip ${state.crossLens === lens.id ? "is-active" : ""}" data-action="lens" data-value="${escapeHtml(lens.id)}">
+        ${escapeHtml(lens.title)}
+      </button>
+    `).join("")}</div>
+    ${selected ? `
+      <div class="engine-view-guide" style="margin-top:14px;">
+        <div class="engine-view-guide-title">${escapeHtml(selected.title)}</div>
+        <div class="engine-view-guide-desc">${escapeHtml(selected.desc)}</div>
+        <div class="engine-view-guide-example">${escapeHtml(selected.easy)}</div>
+      </div>
+    ` : ""}
+  `;
+}
+
+
 function renderConceptArea() {
-() {
     const conceptWrap = $("engineConceptCards");
     const keywordWrap = $("engineKeywordButtons");
     if (!conceptWrap || !keywordWrap) return;
@@ -1615,14 +1812,15 @@ function renderConceptArea() {
     }
 
     conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
-      const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
+      const lensKeywords = getLensKeywordsForConcept(item.concept, item.value, state.crossLens).slice(0, 4);
+      const tags = lensKeywords.map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
       const why = item.reasons[0] || "추천 개념";
       const alias = getConceptFriendlyLabel(item.concept);
       return `
         <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
           <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
-          <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)}</div>
+          <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)} · ${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "횡단 해석")}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
       `;
@@ -1641,8 +1839,9 @@ function renderConceptArea() {
     }
 
     keywordWrap.innerHTML = `
-      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong></div>
-      <div class="engine-chip-wrap">${keywords.map(keyword => `
+      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 해석 방식: <strong>${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
+      <div class="engine-help" style="margin-top:6px;">횡단 해석 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
+      <div class="engine-chip-wrap" style="margin-top:10px;">${uniq([...getLensKeywordsForConcept(state.concept, entry, state.crossLens), ...keywords]).map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
       `).join("")}</div>
     `;
@@ -1784,6 +1983,7 @@ function renderConceptArea() {
       state.subject,
       state.career,
       getTrackMeta(state.linkTrack)?.title || "",
+      getCrossLensMeta(state.crossLens)?.title || "",
       state.concept,
       state.keyword,
       state.selectedBookTitle || state.selectedBook,
@@ -1805,6 +2005,7 @@ function renderConceptArea() {
       최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
       기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
       연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
+      횡단 해석: ${escapeHtml(payload.track_context.cross_lens_label || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
@@ -1837,6 +2038,7 @@ function renderConceptArea() {
     const keywordInput = $("keyword");
     if (keywordInput) keywordInput.value = state.keyword || "";
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
+    if ($("crossInterpretLens")) $("crossInterpretLens").value = state.crossLens || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
     if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
     if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
@@ -1870,7 +2072,9 @@ function renderConceptArea() {
       track_context: {
         id: state.linkTrack,
         label: getTrackMeta(state.linkTrack)?.title || "",
-        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || ""
+        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || "",
+        cross_lens: state.crossLens,
+        cross_lens_label: getCrossLensMeta(state.crossLens)?.title || ""
       },
       concept_context: {
         concept: state.concept,
