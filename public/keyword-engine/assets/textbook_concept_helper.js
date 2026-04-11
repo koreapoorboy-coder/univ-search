@@ -20,6 +20,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-main-subject-anchor";
     subject: "",
     career: "",
     linkTrack: "",
+    supportTrack: "",
+    supportMode: "",
     crossLens: "",
     concept: "",
     keyword: "",
@@ -199,6 +201,37 @@ const CROSS_LENS_HELP = {
   }
 
 };
+
+const SUPPORT_MODE_HELP = {
+  math: [
+    { id: "math_graph", title: "그래프 해석형", desc: "변화 추세와 경향을 그래프로 읽어 비교하는 방식입니다.", lensId: "math_view" },
+    { id: "math_change", title: "변화율 비교형", desc: "증가·감소와 변화 정도를 수치로 비교하는 방식입니다.", lensId: "math_view" },
+    { id: "math_model", title: "모델링형", desc: "현상을 식·패턴·모델로 단순화해 설명하는 방식입니다.", lensId: "math_view" },
+    { id: "math_stat", title: "통계 비교형", desc: "평균·분산·표본 비교처럼 데이터를 정리해 해석하는 방식입니다.", lensId: "math_view" }
+  ],
+  information: [
+    { id: "info_data", title: "데이터 처리형", desc: "센서·측정값을 수집·정리·시각화해 읽는 방식입니다.", lensId: "information_view" },
+    { id: "info_algo", title: "알고리즘 적용형", desc: "규칙·절차·판단 기준을 알고리즘 관점으로 풀어보는 방식입니다.", lensId: "information_view" },
+    { id: "info_sim", title: "시뮬레이션형", desc: "현상을 가상 실행이나 모델로 재현해 보는 방식입니다.", lensId: "information_view" },
+    { id: "info_auto", title: "자동화·제어형", desc: "센서 입력과 제어 흐름을 정보 처리 관점으로 설명하는 방식입니다.", lensId: "information_view" }
+  ]
+};
+
+function getSupportModeMeta(trackId, modeId) {
+  return (SUPPORT_MODE_HELP[trackId] || []).find(item => item.id === modeId) || null;
+}
+
+function getSupportTrackOptions() {
+  return getTrackOptions().filter(item => item.relationType === "cross");
+}
+
+function getRecommendedSupportTrack() {
+  return getSupportTrackOptions()[0] || null;
+}
+
+function getSupportModes(trackId) {
+  return SUPPORT_MODE_HELP[trackId] || [];
+}
 
 const ENGINEERING_MAJOR_GROUPS = [
   {
@@ -654,8 +687,8 @@ const ENGINEERING_MAJOR_GROUPS = [
     section.innerHTML = `
       <div class="engine-flow-card">
         <div class="engine-flow-kicker">학생이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
-        <h2 class="engine-flow-title">과목 → 진로 → 직접·횡단 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
-        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>직접 연계 축</strong>과 <strong>횡단 연계 축</strong>을 함께 보고 방향을 정할 수 있게 바꿨습니다. 같은 과목을 선택해도 전공에 따라 수학·정보처럼 다른 교과로 확장하는 길이 달라질 수 있습니다.</p>
+        <h2 class="engine-flow-title">과목 → 진로 → 직접 연계 축 → 보조 연계 선택 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
+        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>직접 연계 축</strong>을 정하고 그 뒤에 <strong>보조 연계</strong>를 골라 보고서 방향을 세밀하게 조정할 수 있게 바꿨습니다. 같은 과목을 선택해도 전공에 따라 수학·정보처럼 다른 교과를 보조 도구로 빌려오는 방식이 달라질 수 있습니다.</p>
 
         <div class="engine-status-row">
           <div class="engine-status-box">
@@ -675,10 +708,10 @@ const ENGINEERING_MAJOR_GROUPS = [
         <div id="engineTrackBlock" class="engine-step-block" data-step="3">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3. 전공 맞춤 후속 교과 연계 축 선택</h3>
-              <div class="engine-step-copy">선택 과목을 바탕으로 직접 이어지는 축과 다른 교과로 확장되는 횡단 축을 함께 봅니다. 학생은 전공에 더 맞는 축부터 고르면 됩니다.</div>
+              <h3 class="engine-step-title">3. 전공 맞춤 직접 연계 축 선택</h3>
+              <div class="engine-step-copy">선택 과목을 바탕으로 먼저 직접 이어지는 축을 고릅니다. 수행평가에서는 이 축이 주과목 심화 방향이 됩니다.</div>
             </div>
-            <div class="engine-step-guide">직접 연계 / 횡단 연계</div>
+            <div class="engine-step-guide">직접 연계 축</div>
           </div>
           <div id="engineTrackArea"></div>
         </div>
@@ -686,10 +719,10 @@ const ENGINEERING_MAJOR_GROUPS = [
         <div id="engineLensBlock" class="engine-step-block" data-step="3.5">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3-2. 보조 해석 방식 선택</h3>
-              <div class="engine-step-copy">선택한 주과목 개념을 더 정교하게 설명하기 위해 어떤 보조 해석을 붙일지 정합니다. 과학을 수학적으로, 수학을 과학적으로, 정보를 데이터·알고리즘 관점으로 다시 읽을 수 있습니다.</div>
+              <h3 class="engine-step-title">3-2. 보조 연계 선택</h3>
+              <div class="engine-step-copy">직접 연계축을 정한 뒤, 보고서를 더 정교하게 만들기 위해 어떤 보조 교과를 붙일지 고릅니다. 보조 연계를 고르면 그 안에서 세부 방식까지 함께 선택할 수 있습니다.</div>
             </div>
-            <div class="engine-step-guide">해석 렌즈</div>
+            <div class="engine-step-guide">보조 연계</div>
           </div>
           <div id="engineLensArea"></div>
         </div>
@@ -782,6 +815,8 @@ const ENGINEERING_MAJOR_GROUPS = [
     injectGeneralContextPanel();
 
     injectHiddenInput("linkedTrack");
+    injectHiddenInput("supportTrack");
+    injectHiddenInput("supportMode");
     injectHiddenInput("crossInterpretLens");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
@@ -1108,10 +1143,13 @@ const ENGINEERING_MAJOR_GROUPS = [
     document.addEventListener("click", function (event) {
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
       if (autoTrackBtn && isStepEnabled(3)) {
-        const topTrack = getTrackOptions()[0];
+        const topTrack = getTrackOptions().filter(item => item.relationType === "direct")[0] || getTrackOptions()[0];
         state.linkTrack = topTrack ? topTrack.id : "";
-        const firstLens = getRecommendedCrossLenses()[0];
-        state.crossLens = firstLens ? firstLens.id : "";
+        const firstSupport = getRecommendedSupportTrack();
+        state.supportTrack = firstSupport ? firstSupport.id : "";
+        const firstMode = getSupportModes(state.supportTrack)[0];
+        state.supportMode = firstMode ? firstMode.id : "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1121,8 +1159,46 @@ const ENGINEERING_MAJOR_GROUPS = [
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(3)) {
         state.linkTrack = trackCard.getAttribute("data-track") || "";
-        const firstLens = getRecommendedCrossLenses()[0];
-        state.crossLens = firstLens ? firstLens.id : "";
+        const firstSupport = getRecommendedSupportTrack();
+        state.supportTrack = firstSupport ? firstSupport.id : "";
+        const firstMode = getSupportModes(state.supportTrack)[0];
+        state.supportMode = firstMode ? firstMode.id : "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
+      const supportCard = event.target.closest(".engine-support-card[data-support]");
+      if (supportCard && isStepEnabled(3)) {
+        state.supportTrack = supportCard.getAttribute("data-support") || "";
+        const firstMode = getSupportModes(state.supportTrack)[0];
+        state.supportMode = firstMode ? firstMode.id : "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
+      const supportModeBtn = event.target.closest(".engine-chip[data-action='support-mode']");
+      if (supportModeBtn && isStepEnabled(3)) {
+        state.supportMode = supportModeBtn.getAttribute("data-value") || "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
+        clearFrom("concept");
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
+      const autoSupportBtn = event.target.closest(".engine-auto-btn[data-action='auto-support']");
+      if (autoSupportBtn && isStepEnabled(3)) {
+        const firstSupport = getRecommendedSupportTrack();
+        state.supportTrack = firstSupport ? firstSupport.id : "";
+        const firstMode = getSupportModes(state.supportTrack)[0];
+        state.supportMode = firstMode ? firstMode.id : "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1219,6 +1295,8 @@ const ENGINEERING_MAJOR_GROUPS = [
         usage_purpose: $("usagePurpose")?.value || "",
         task_description: $("taskDescription")?.value || "",
         linked_track: state.linkTrack || "",
+        support_track: state.supportTrack || "",
+        support_mode: state.supportMode || "",
         cross_lens: state.crossLens || "",
         selected_concept: state.concept || "",
         selected_keyword: state.keyword || "",
@@ -1258,6 +1336,8 @@ const ENGINEERING_MAJOR_GROUPS = [
   function clearFrom(stepName) {
     if (stepName === "track") {
       state.linkTrack = "";
+      state.supportTrack = "";
+      state.supportMode = "";
       state.crossLens = "";
       state.concept = "";
       state.keyword = "";
@@ -1269,9 +1349,16 @@ const ENGINEERING_MAJOR_GROUPS = [
       return;
     }
     if (stepName === "concept") {
+      if (!state.supportTrack) {
+        const firstSupport = getRecommendedSupportTrack();
+        state.supportTrack = firstSupport ? firstSupport.id : "";
+      }
+      if (!state.supportMode) {
+        const firstMode = getSupportModes(state.supportTrack)[0];
+        state.supportMode = firstMode ? firstMode.id : "";
+      }
       if (!state.crossLens) {
-        const firstLens = getRecommendedCrossLenses()[0];
-        state.crossLens = firstLens ? firstLens.id : "";
+        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || getRecommendedCrossLenses()[0]?.id || "";
       }
       state.concept = "";
       state.keyword = "";
@@ -1512,7 +1599,7 @@ function getTrackMeta(trackId) {
   function getRecommendedCrossLenses() {
     const domain = detectSubjectDomain(state.subject || "");
     const bucket = detectCareerBucket(state.career || "");
-    const track = state.linkTrack || "";
+    const track = state.supportTrack || state.linkTrack || "";
     const engRule = getEngineeringGroupRule(state.career || "", domain);
 
     let order = ["math_view", "science_view", "information_view"];
@@ -1669,6 +1756,7 @@ function getTrackMeta(trackId) {
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
     const track = state.linkTrack || "";
+    const supportTrack = state.supportTrack || "";
     const lens = state.crossLens || "";
     const textBag = [
       concept,
@@ -1737,12 +1825,12 @@ function getTrackMeta(trackId) {
       if (hasChem && !hasEnv) score -= 10;
       if (hasMech && !hasEnv) score -= 8;
     }
-    if (track === "math") {
-      if (hasMath) { score += 15; reasons.push("수학 횡단 연계 추천"); }
+    if (supportTrack === "math") {
+      if (hasMath) { score += 15; reasons.push("수학 보조 연계 추천"); }
       if (hasBio && !hasMath) score -= 6;
     }
-    if (track === "information") {
-      if (hasInfo) { score += 15; reasons.push("정보 횡단 연계 추천"); }
+    if (supportTrack === "information") {
+      if (hasInfo) { score += 15; reasons.push("정보 보조 연계 추천"); }
       if (hasBio && !hasInfo) score -= 6;
     }
 
@@ -1806,7 +1894,7 @@ function getTrackMeta(trackId) {
     if (step === 1) return true;
     if (step === 2) return !!state.subject;
     if (step === 3) return !!state.subject && !!state.career;
-    if (step === 4) return isStepEnabled(3) && !!state.linkTrack && !!state.crossLens;
+    if (step === 4) return isStepEnabled(3) && !!state.linkTrack && !!state.supportTrack && !!state.supportMode;
     if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
     if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
@@ -1836,9 +1924,9 @@ function getTrackMeta(trackId) {
     if (careerEl) careerEl.textContent = state.career || "입력 전";
 
     let progress = "연계 축 선택 대기";
-    if (state.subject && state.career && !state.linkTrack) progress = "연계 축 선택 중";
-    if (state.linkTrack && !state.crossLens) progress = "횡단 해석 방식 선택 중";
-    if (state.linkTrack && state.crossLens && !state.keyword) progress = "추천 개념/키워드 선택 중";
+    if (state.subject && state.career && !state.linkTrack) progress = "직접 연계 축 선택 중";
+    if (state.linkTrack && (!state.supportTrack || !state.supportMode)) progress = "보조 연계 선택 중";
+    if (state.linkTrack && state.supportTrack && state.supportMode && !state.keyword) progress = "추천 개념/키워드 선택 중";
     if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
@@ -1852,55 +1940,38 @@ function renderTrackArea() {
   const el = $("engineTrackArea");
   if (!el) return;
   if (!isStepEnabled(3)) {
-    el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
+    el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 직접 연계 축 선택이 열립니다.</div>`;
     return;
   }
-  const options = getTrackOptions();
+  const options = getTrackOptions().filter(item => item.relationType === "direct");
   const recommended = options[0];
-  const groups = [
-    {
-      key: 'direct',
-      title: '직접 연계 축',
-      copy: '선택 과목의 내용에서 바로 이어지는 축입니다. 과학 과목이라면 물리·화학처럼 같은 교과군 심화가 여기에 해당합니다.'
-    },
-    {
-      key: 'cross',
-      title: '횡단 연계 축',
-      copy: '선택 과목을 바탕으로 수학·정보처럼 다른 교과로 확장하는 축입니다. 전공에 따라 이쪽이 더 핵심일 수 있습니다.'
-    }
-  ];
-
   el.innerHTML = `
-    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 다만 수행평가는 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이므로, <strong>직접 연계 축</strong>이 기본이고 <strong>횡단 연계 축</strong>은 수학·정보 같은 보조 해석 도구로 붙는다고 이해하면 됩니다. ${escapeHtml(options[0]?.engineeringGroupLabel ? '현재 전공군 기준으로 덜 맞는 직접 연계 축은 기본 보기에서 숨겼습니다.' : '')}</div>
-    <div class="engine-track-group-wrap">${groups.map(group => {
-      const items = options.filter(item => item.relationType === group.key);
-      if (!items.length) return '';
-      return `
-        <div class="engine-track-group">
-          <div class="engine-track-group-head">
-            <div>
-              <div class="engine-track-group-title">${escapeHtml(group.title)}</div>
-              <div class="engine-track-group-copy">${escapeHtml(group.copy)}</div>
-            </div>
-            <span class="engine-track-group-badge ${group.key === 'cross' ? 'support' : 'core'}">${escapeHtml(group.title)}</span>
+    <div class="engine-help">수행평가의 주과목은 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>입니다. 여기서는 주과목을 심화할 <strong>${escapeHtml(recommended?.title || '직접 연계 축')}</strong> 같은 기본 방향을 먼저 고릅니다.</div>
+    <div class="engine-track-group-wrap">
+      <div class="engine-track-group">
+        <div class="engine-track-group-head">
+          <div>
+            <div class="engine-track-group-title">직접 연계 축</div>
+            <div class="engine-track-group-copy">선택 과목의 내용에서 바로 이어지는 축입니다. 수행평가에서는 이 축이 메인 선택이 됩니다.</div>
           </div>
-          <div class="engine-track-grid">${items.map(item => `
-            <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
-              <div class="engine-track-top">
-                <div class="engine-track-title">${escapeHtml(item.title)}</div>
-                <div class="engine-track-short">${escapeHtml(item.short)}</div>
-              </div>
-              <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
-              <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-              <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-              <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · ${escapeHtml(item.relationLabel)}</div>
-            </button>
-          `).join("")}</div>
+          <span class="engine-track-group-badge core">직접 연계 축</span>
         </div>
-      `;
-    }).join("")}</div>
+        <div class="engine-track-grid">${options.map(item => `
+          <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+            <div class="engine-track-top">
+              <div class="engine-track-title">${escapeHtml(item.title)}</div>
+              <div class="engine-track-short">${escapeHtml(item.short)}</div>
+            </div>
+            <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
+            <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+            <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+            <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · 직접 연계 축</div>
+          </button>
+        `).join("")}</div>
+      </div>
+    </div>
     <div class="engine-auto-row">
-      <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 전공 적합도 높은 연계 축 자동 선택</button>
+      <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 전공 적합도 높은 직접 연계 축 자동 선택</button>
     </div>
   `;
 }
@@ -1910,28 +1981,63 @@ function renderLensArea() {
   const el = $("engineLensArea");
   if (!el) return;
   if (!isStepEnabled(3) || !state.linkTrack) {
-    el.innerHTML = `<div class="engine-empty">먼저 연계 축을 선택해야 해석 방식이 열립니다.</div>`;
+    el.innerHTML = `<div class="engine-empty">먼저 직접 연계 축을 선택해야 보조 연계 선택이 열립니다.</div>`;
     return;
   }
-  const lenses = getRecommendedCrossLenses();
-  if (!state.crossLens) {
-    state.crossLens = lenses[0]?.id || "";
+  const supports = getSupportTrackOptions();
+  if (!supports.length) {
+    el.innerHTML = `<div class="engine-empty">현재 전공·과목 조합에서 사용할 보조 연계가 없습니다.</div>`;
+    return;
   }
-  const selected = getCrossLensMeta(state.crossLens) || lenses[0];
+  if (!state.supportTrack) state.supportTrack = supports[0]?.id || "";
+  const modes = getSupportModes(state.supportTrack);
+  if (!state.supportMode) state.supportMode = modes[0]?.id || "";
+  state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
+  const selectedSupport = getTrackMeta(state.supportTrack) || supports[0];
+  const selectedMode = getSupportModeMeta(state.supportTrack, state.supportMode) || modes[0];
   el.innerHTML = `
-    <div class="engine-help"><strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이고, <strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || "현재 연계 축")}</strong>은(는) 그 주과목을 더 잘 설명하기 위한 연결 축입니다. 여기서는 주과목 개념을 어떤 보조 언어로 다시 읽을지 고릅니다.</div>
-    <div class="engine-chip-wrap" style="margin-top:10px;">${lenses.map(lens => `
-      <button type="button" class="engine-chip ${state.crossLens === lens.id ? "is-active" : ""}" data-action="lens" data-value="${escapeHtml(lens.id)}">
-        ${escapeHtml(lens.title)}
-      </button>
-    `).join("")}</div>
-    ${selected ? `
-      <div class="engine-view-guide" style="margin-top:14px;">
-        <div class="engine-view-guide-title">${escapeHtml(selected.title)}</div>
-        <div class="engine-view-guide-desc">${escapeHtml(selected.desc)}</div>
-        <div class="engine-view-guide-example">${escapeHtml(selected.easy)}</div>
+    <div class="engine-help"><strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || '현재 직접 연계 축')}</strong>을(를) 메인으로 두고, 보고서를 더 정교하게 만들 보조 연계를 고릅니다. 보조 연계는 주과목을 바꾸는 것이 아니라 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>을 다른 교과의 언어로 더 선명하게 설명하기 위한 도구입니다.</div>
+    <div class="engine-track-group-wrap" style="margin-top:12px;">
+      <div class="engine-track-group">
+        <div class="engine-track-group-head">
+          <div>
+            <div class="engine-track-group-title">보조 연계 선택</div>
+            <div class="engine-track-group-copy">수학·정보처럼 다른 교과를 보조 도구로 붙이고, 그 안에서 사용할 세부 방식까지 고릅니다.</div>
+          </div>
+          <span class="engine-track-group-badge support">보조 연계</span>
+        </div>
+        <div class="engine-track-grid">${supports.map(item => `
+          <button type="button" class="engine-track-card engine-support-card ${state.supportTrack === item.id ? 'is-active' : ''}" data-support="${escapeHtml(item.id)}">
+            <div class="engine-track-top">
+              <div class="engine-track-title">${escapeHtml(item.title)}</div>
+              <div class="engine-track-short">${escapeHtml(item.short)}</div>
+            </div>
+            <div class="engine-track-next">보조 과목: ${escapeHtml(item.nextSubject)}</div>
+            <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+            <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+          </button>
+        `).join('')}</div>
       </div>
-    ` : ""}
+    </div>
+    ${selectedSupport ? `
+      <div class="engine-panel" style="margin-top:14px;">
+        <div class="engine-subtitle">보조 연계 방식 선택</div>
+        <div class="engine-help" style="margin-bottom:10px;"><strong>${escapeHtml(selectedSupport.title)}</strong>을(를) 어떤 방식으로 쓸지 고릅니다. 이 선택값이 MINI 문장 방향에 그대로 반영됩니다.</div>
+        <div class="engine-chip-wrap">${modes.map(mode => `
+          <button type="button" class="engine-chip ${state.supportMode === mode.id ? 'is-active' : ''}" data-action="support-mode" data-value="${escapeHtml(mode.id)}">${escapeHtml(mode.title)}</button>
+        `).join('')}</div>
+        ${selectedMode ? `
+          <div class="engine-view-guide" style="margin-top:14px;">
+            <div class="engine-view-guide-title">${escapeHtml(selectedMode.title)}</div>
+            <div class="engine-view-guide-desc">${escapeHtml(selectedMode.desc)}</div>
+            <div class="engine-view-guide-example">보조 연계: ${escapeHtml(selectedSupport.title)} · 내부 해석 렌즈: ${escapeHtml(getCrossLensMeta(selectedMode.lensId)?.title || '-')}</div>
+          </div>
+        ` : ''}
+      </div>
+    ` : ''}
+    <div class="engine-auto-row">
+      <button type="button" class="engine-auto-btn" data-action="auto-support">잘 모르겠어요 → 전공 적합도 높은 보조 연계 자동 선택</button>
+    </div>
   `;
 }
 
@@ -1964,7 +2070,7 @@ function renderConceptArea() {
         <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
           <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
-          <div class="engine-help" style="margin-top:8px;">주과목: ${escapeHtml(state.subject || '-')} · ${escapeHtml(why)} · 보조 해석: ${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "없음")}</div>
+          <div class="engine-help" style="margin-top:8px;">주과목: ${escapeHtml(state.subject || '-')} · ${escapeHtml(why)} · 보조 연계: ${escapeHtml(getTrackMeta(state.supportTrack)?.title || "없음")} / ${escapeHtml(getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "없음")}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
       `;
@@ -1983,8 +2089,8 @@ function renderConceptArea() {
     }
 
     keywordWrap.innerHTML = `
-      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 주과목: <strong>${escapeHtml(state.subject || '-')}</strong> · 보조 해석: <strong>${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
-      <div class="engine-help" style="margin-top:6px;">보조 해석 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
+      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 주과목: <strong>${escapeHtml(state.subject || '-')}</strong> · 보조 연계: <strong>${escapeHtml(getTrackMeta(state.supportTrack)?.title || "-")}</strong> · 방식: <strong>${escapeHtml(getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
+      <div class="engine-help" style="margin-top:6px;">보조 연계 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
       <div class="engine-chip-wrap" style="margin-top:10px;">${uniq([...getLensKeywordsForConcept(state.concept, entry, state.crossLens), ...keywords]).map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
       `).join("")}</div>
@@ -2127,7 +2233,8 @@ function renderConceptArea() {
       state.subject,
       state.career,
       getTrackMeta(state.linkTrack)?.title || "",
-      getCrossLensMeta(state.crossLens)?.title || "",
+      getTrackMeta(state.supportTrack)?.title || "",
+      getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "",
       state.concept,
       state.keyword,
       state.selectedBookTitle || state.selectedBook,
@@ -2148,8 +2255,9 @@ function renderConceptArea() {
       활용 영역: ${escapeHtml(payload.activity_context.activity_area || "-")}<br>
       최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
       기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
-      연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
-      횡단 해석: ${escapeHtml(payload.track_context.cross_lens_label || "-")}<br>
+      직접 연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
+      보조 연계: ${escapeHtml(payload.track_context.support_track_label || "-")}<br>
+      보조 연계 방식: ${escapeHtml(payload.track_context.support_mode_label || payload.track_context.cross_lens_label || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
@@ -2182,7 +2290,9 @@ function renderConceptArea() {
     const keywordInput = $("keyword");
     if (keywordInput) keywordInput.value = state.keyword || "";
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
-    if ($("crossInterpretLens")) $("crossInterpretLens").value = state.crossLens || "";
+    if ($("supportTrack")) $("supportTrack").value = state.supportTrack || "";
+    if ($("supportMode")) $("supportMode").value = state.supportMode || "";
+    if ($("crossInterpretLens")) $("crossInterpretLens").value = state.supportMode || state.crossLens || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
     if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
     if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
@@ -2217,6 +2327,10 @@ function renderConceptArea() {
         id: state.linkTrack,
         label: getTrackMeta(state.linkTrack)?.title || "",
         next_subject: getTrackMeta(state.linkTrack)?.nextSubject || "",
+        support_track: state.supportTrack,
+        support_track_label: getTrackMeta(state.supportTrack)?.title || "",
+        support_mode: state.supportMode,
+        support_mode_label: getSupportModeMeta(state.supportTrack, state.supportMode)?.title || "",
         cross_lens: state.crossLens,
         cross_lens_label: getCrossLensMeta(state.crossLens)?.title || ""
       },
