@@ -1,5 +1,4 @@
-
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-layer-booster";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -24,10 +23,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
     profileByName: new Map(),
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
-    aliasRows: [],
-    currentMajorKey: '',
-    selectedAxisKey: '',
-    selectedConceptKey: ''
+    aliasRows: []
   };
 
   function $(id){ return document.getElementById(id); }
@@ -107,14 +103,16 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
 
   function buildKeywordSuggestionText(data){
     if (!data || data.status !== 'resolved') return '';
-    return uniq([
-      ...(data.core_keywords || []).slice(0, 4),
-      ...(data.related_subject_hints || []).slice(0, 2)
-    ]).slice(0, 6).join(', ');
+    return uniq(data.boost_keywords || data.core_keywords || []).slice(0, 6).join(', ');
   }
   function buildInquirySeedText(data){
     if (!data || data.status !== 'resolved') return '';
-    return (data.inquiry_topics_raw || []).slice(0, 3).join(' / ');
+    const parts = [];
+    if (data.display_name) parts.push(`${data.display_name} 기준 탐구`);
+    if ((data.related_subject_hints || [])[0]) parts.push(`${data.related_subject_hints[0]} 연계`);
+    if ((data.boost_concepts || [])[0]) parts.push(`${data.boost_concepts[0]} 개념 중심`);
+    if ((data.inquiry_topics_raw || [])[0]) parts.push(data.inquiry_topics_raw[0]);
+    return parts.filter(Boolean).join(' / ');
   }
 
   function applyMajorSuggestions(mode){
@@ -196,33 +194,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
       .major-engine-empty { color:#6f7d95; font-size:13px; line-height:1.6; }
       .major-engine-suggest { margin-top:10px; color:#55647e; font-size:13px; }
       .major-engine-action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-      .major-engine-action-btn, .major-flow-btn { border:1px solid #cfe0ff; background:#f4f8ff; color:#1f4fbf; border-radius:10px; padding:8px 12px; font-size:12px; font-weight:800; cursor:pointer; }
-      .major-engine-action-btn:hover, .major-flow-btn:hover { background:#eaf2ff; }
+      .major-engine-action-btn { border:1px solid #cfe0ff; background:#f4f8ff; color:#1f4fbf; border-radius:10px; padding:8px 12px; font-size:12px; font-weight:800; cursor:pointer; }
+      .major-engine-action-btn:hover { background:#eaf2ff; }
       .major-engine-note { margin-top:10px; font-size:12px; color:#5d6c86; }
-      .major-flow-panel { margin-top:18px; border:1px solid #dbe5f4; border-radius:16px; padding:16px; background:#ffffff; }
-      .major-flow-headline { font-size:16px; font-weight:900; color:#152033; margin:8px 0 6px; }
-      .major-flow-sub { color:#5f6d86; font-size:13px; line-height:1.6; margin-bottom:14px; }
-      .major-flow-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-bottom:14px; }
-      .major-flow-card { border:1px solid #e2e8f4; border-radius:14px; background:#fff; padding:12px; }
-      .major-flow-card .step { font-size:11px; color:#6a7a94; font-weight:800; margin-bottom:4px; }
-      .major-flow-card .value { font-size:14px; color:#152033; font-weight:900; }
-      .major-flow-section { border-top:1px dashed #dbe5f4; padding-top:12px; margin-top:12px; }
-      .major-flow-section-title { font-size:13px; font-weight:900; color:#16213a; margin-bottom:8px; }
-      .major-flow-chip-wrap { display:flex; flex-wrap:wrap; gap:8px; }
-      .major-flow-axis { border:1px solid #d7e5ff; background:#f7faff; color:#284b9b; border-radius:999px; padding:7px 12px; font-size:12px; font-weight:800; cursor:pointer; }
-      .major-flow-axis.active { background:#245ee8; color:#fff; border-color:#245ee8; }
-      .major-flow-concept { border:1px solid #d8e0ec; background:#fff; color:#24344d; border-radius:12px; padding:10px 12px; cursor:pointer; min-width:180px; text-align:left; }
-      .major-flow-concept.active { border-color:#245ee8; background:#eef4ff; }
-      .major-flow-concept .name { display:block; font-size:13px; font-weight:800; margin-bottom:4px; }
-      .major-flow-concept .unit { display:block; font-size:11px; color:#70819a; }
-      .major-flow-reco { display:flex; flex-wrap:wrap; gap:8px; }
-      .major-flow-pill { border:1px solid #d9e6ff; background:#f8fbff; color:#23449a; border-radius:999px; padding:7px 12px; font-size:12px; font-weight:800; cursor:pointer; }
-      .major-flow-two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-      .major-flow-box { border:1px solid #e2e8f4; border-radius:14px; background:#fff; padding:12px; }
-      .major-flow-book-list, .major-flow-persp-list { margin:0; padding-left:18px; color:#3c4b64; font-size:13px; line-height:1.6; }
-      .major-flow-apply-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-      .major-flow-helper { font-size:12px; color:#64748b; margin-top:8px; }
-      @media (max-width: 900px){ .major-engine-grid, .major-flow-grid, .major-flow-two { grid-template-columns: 1fr; } }
+      .major-engine-inline-guide { margin-top: 14px; border:1px dashed #dbe5f4; border-radius:14px; background:#fff; padding:12px; }
+      .major-engine-inline-guide-title { font-size:13px; font-weight:900; color:#16213a; margin-bottom:8px; }
+      .major-engine-inline-guide p { margin:0; color:#5f6d86; font-size:13px; line-height:1.6; }
+      @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
   }
@@ -266,25 +244,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
     };
   }
 
-  function getSummaryData(){
-    const input = getCareerInput();
-    const raw = input?.value || '';
-    const resolved = resolveMajor(raw);
-    if (resolved.status !== 'resolved') return resolved;
-    const profile = resolved.profile || {};
-    return {
-      ...resolved,
-      major_intro: profile.major_intro || '',
-      core_keywords: uniq(profile.core_keywords || []).slice(0, 8),
-      related_subject_hints: uniq(profile.related_subject_hints || []).slice(0, 6),
-      inquiry_topics_raw: uniq(profile.inquiry_topics_raw || []).slice(0, 5),
-      prep_activities: uniq(profile.prep_activities || []).slice(0, 5),
-      recommended_books_raw: uniq(profile.recommended_books_raw || []).slice(0, 5),
-      book_bridge_candidates: uniq(profile.book_bridge_candidates || []),
-      bridge_books: resolved.bridge_books || []
-    };
-  }
-
   function mapSubjectHintToAxis(hint){
     const h = String(hint || '').trim();
     const map = {
@@ -317,32 +276,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
     return out;
   }
 
-  function getAxisByKey(data, axisKey){
-    const axes = buildAxes(data);
-    return axes.find(a => `${a.subjectKey}|${a.label}` === axisKey) || axes[0] || null;
-  }
-
-  function getConceptOptions(axis){
-    if (!axis || !axis.subjectKey) return [];
-    const row = state.conceptUI[axis.subjectKey];
-    const buttons = row?.concept_buttons || [];
-    return buttons.slice(0, 8);
-  }
-
-  function buildKeywordSeedFromConcept(data, concept){
-    const parts = uniq([
-      ...(data.core_keywords || []).slice(0, 3),
-      concept?.concept,
-      ...((concept?.core_preview || []).slice(0, 2))
-    ]).slice(0, 6);
-    return parts.join(', ');
-  }
-
-  function buildDescriptionSeed(data, axis, concept, perspective){
-    const line1 = `${data.display_name} 기준 ${axis?.label || ''} 연계 탐구`;
-    const line2 = concept?.concept ? `${concept.concept} 개념을 중심으로 ${data.inquiry_topics_raw?.[0] || '탐구 방향을 구체화'}` : (data.inquiry_topics_raw?.[0] || '탐구 방향을 구체화');
-    const line3 = perspective ? `${perspective} 관점에서 자료조사·비교분석형으로 확장` : '자료조사·비교분석형으로 확장';
-    return [line1, line2, line3].filter(Boolean).join(' / ');
+  function collectConceptPreviews(data){
+    const axes = buildAxes(data).slice(0, 3);
+    const names = [];
+    axes.forEach(axis => {
+      const row = state.conceptUI[axis.subjectKey];
+      const buttons = row?.concept_buttons || [];
+      buttons.slice(0, 2).forEach(btn => names.push(btn.concept));
+    });
+    return uniq(names).slice(0, 6);
   }
 
   function getPerspectiveSuggestions(data){
@@ -361,99 +303,37 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
       const defaults = tm.keywordProfiles?._default?.perspectives || tm.careerProfiles?._default?.perspectives || [];
       picks.push(...defaults);
     }
-    return uniq(picks).slice(0, 6);
+    return uniq(picks).slice(0, 4);
   }
 
-  function syncWorkflowState(data){
-    const majorKey = data.major_id || data.display_name || '';
-    if (state.currentMajorKey !== majorKey) {
-      state.currentMajorKey = majorKey;
-      const axis = buildAxes(data)[0] || null;
-      state.selectedAxisKey = axis ? `${axis.subjectKey}|${axis.label}` : '';
-      const firstConcept = getConceptOptions(axis)[0] || null;
-      state.selectedConceptKey = firstConcept?.concept || '';
-    }
-  }
-
-  function applyWorkflowSelection(mode){
-    const data = getSummaryData();
-    if (!data || data.status !== 'resolved') return;
-    const axis = getAxisByKey(data, state.selectedAxisKey);
-    const concept = getConceptOptions(axis).find(c => c.concept === state.selectedConceptKey) || getConceptOptions(axis)[0] || null;
-    const perspectives = getPerspectiveSuggestions(data);
-    const perspective = perspectives[0] || '';
-    const keywordInput = getKeywordInput();
-    const taskDesc = getTaskDescriptionInput();
-    if ((mode === 'keyword' || mode === 'all') && keywordInput) {
-      const keywordSeed = buildKeywordSeedFromConcept(data, concept);
-      if (keywordSeed) {
-        keywordInput.value = keywordSeed;
-        keywordInput.dataset.majorAutofill = '1';
-        keywordInput.dispatchEvent(new Event('input', { bubbles: true }));
-        keywordInput.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    }
-    if ((mode === 'description' || mode === 'all') && taskDesc) {
-      const descSeed = buildDescriptionSeed(data, axis, concept, perspective);
-      if (descSeed) {
-        taskDesc.value = descSeed;
-        taskDesc.dispatchEvent(new Event('input', { bubbles: true }));
-        taskDesc.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    }
-  }
-
-  function renderWorkflowPanel(data){
-    const axes = buildAxes(data);
-    const axis = getAxisByKey(data, state.selectedAxisKey);
-    const concepts = getConceptOptions(axis);
-    const selectedConcept = concepts.find(c => c.concept === state.selectedConceptKey) || concepts[0] || null;
-    const perspectives = getPerspectiveSuggestions(data);
-    const books = (data.bridge_books || []).slice(0,5);
-    return `
-      <div class="major-flow-panel">
-        <div class="major-engine-kicker">핵심이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
-        <div class="major-flow-headline">과목 → 진로 → 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</div>
-        <div class="major-flow-sub">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 연계 축을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조입니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결을 생각하며 선택할 수 있습니다.</div>
-        <div class="major-flow-grid">
-          <div class="major-flow-card"><div class="step">1. 과목</div><div class="value">${escapeHtml(axis?.subjectKey || axes[0]?.subjectKey || '통합과학1')}</div></div>
-          <div class="major-flow-card"><div class="step">2. 진로</div><div class="value">${escapeHtml(data.display_name)}</div></div>
-          <div class="major-flow-card"><div class="step">현재 진행 상태</div><div class="value">${escapeHtml(axis ? '연계 축 선택 중' : '과목 매핑 확인 필요')}</div></div>
-        </div>
-        <div class="major-flow-section">
-          <div class="major-flow-section-title">3. 연계 축 선택</div>
-          <div class="major-flow-chip-wrap">
-            ${axes.length ? axes.map(a => {
-              const key = `${a.subjectKey}|${a.label}`;
-              return `<button type="button" class="major-flow-axis ${key === state.selectedAxisKey ? 'active' : ''}" data-axis-key="${escapeHtml(key)}">${escapeHtml(a.label)}</button>`;
-            }).join('') : '<div class="major-engine-empty">연계할 교과 축이 아직 없습니다.</div>'}
-          </div>
-        </div>
-        <div class="major-flow-section">
-          <div class="major-flow-section-title">4. 추천 개념·키워드</div>
-          <div class="major-flow-chip-wrap">
-            ${concepts.length ? concepts.map(c => `<button type="button" class="major-flow-concept ${c.concept === state.selectedConceptKey ? 'active' : ''}" data-concept-key="${escapeHtml(c.concept)}"><span class="name">${escapeHtml(c.concept)}</span><span class="unit">${escapeHtml(c.unit || '')}</span></button>`).join('') : '<div class="major-engine-empty">선택 가능한 개념이 없습니다.</div>'}
-          </div>
-          ${selectedConcept ? `<div class="major-flow-helper" style="margin-top:10px;">자동 반영 키워드 예시: <strong>${escapeHtml(buildKeywordSeedFromConcept(data, selectedConcept))}</strong></div>` : ''}
-        </div>
-        <div class="major-flow-two">
-          <div class="major-flow-box">
-            <div class="major-flow-section-title">5. 연결 도서</div>
-            ${books.length ? `<ul class="major-flow-book-list">${books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
-          </div>
-          <div class="major-flow-box">
-            <div class="major-flow-section-title">6. 추천 관점</div>
-            ${perspectives.length ? `<div class="major-flow-reco">${perspectives.map(p => `<button type="button" class="major-flow-pill" data-perspective="${escapeHtml(p)}">${escapeHtml(p)}</button>`).join('')}</div>` : '<div class="major-engine-empty">현재 추천 관점이 없습니다.</div>'}
-            <div class="major-flow-helper">관점을 누르면 설명칸 문구를 더 구체화하는 데 쓸 수 있습니다.</div>
-          </div>
-        </div>
-        <div class="major-flow-apply-row">
-          <button type="button" class="major-flow-btn" data-flow-apply="keyword">추천 개념·키워드 반영</button>
-          <button type="button" class="major-flow-btn" data-flow-apply="description">보고서 설명칸 반영</button>
-          <button type="button" class="major-flow-btn" data-flow-apply="all">둘 다 반영</button>
-        </div>
-      </div>
-    `;
+  function getSummaryData(){
+    const input = getCareerInput();
+    const raw = input?.value || '';
+    const resolved = resolveMajor(raw);
+    if (resolved.status !== 'resolved') return resolved;
+    const profile = resolved.profile || {};
+    const relatedSubjects = uniq(profile.related_subject_hints || []).slice(0, 6);
+    const conceptPreviews = collectConceptPreviews({ related_subject_hints: relatedSubjects, core_keywords: uniq(profile.core_keywords || []) });
+    const perspectiveSuggestions = getPerspectiveSuggestions({ core_keywords: uniq(profile.core_keywords || []) });
+    const boostKeywords = uniq([
+      ...(profile.core_keywords || []).slice(0, 5),
+      ...conceptPreviews.slice(0, 1)
+    ]).slice(0, 6);
+    return {
+      ...resolved,
+      major_intro: profile.major_intro || '',
+      core_keywords: uniq(profile.core_keywords || []).slice(0, 8),
+      related_subject_hints: relatedSubjects,
+      inquiry_topics_raw: uniq(profile.inquiry_topics_raw || []).slice(0, 5),
+      prep_activities: uniq(profile.prep_activities || []).slice(0, 5),
+      recommended_books_raw: uniq(profile.recommended_books_raw || []).slice(0, 5),
+      book_bridge_candidates: uniq(profile.book_bridge_candidates || []),
+      bridge_books: resolved.bridge_books || [],
+      boost_subjects: buildAxes({ related_subject_hints: relatedSubjects }).map(v => v.subjectKey),
+      boost_concepts: conceptPreviews,
+      boost_perspectives: perspectiveSuggestions,
+      boost_keywords: boostKeywords
+    };
   }
 
   function renderMajorSummary(){
@@ -479,7 +359,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
       return;
     }
 
-    syncWorkflowState(data);
     const profileReady = data.source_status !== 'skeleton_only';
     panel.innerHTML = `
       <div class="major-engine-kicker">전공 해석 레이어</div>
@@ -499,12 +378,20 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
           <div class="major-engine-chip-wrap">${(data.related_subject_hints || []).length ? data.related_subject_hints.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
         </div>
         <div class="major-engine-box">
-          <div class="major-engine-box-title">탐구 방향 예시</div>
-          ${(data.inquiry_topics_raw || []).length ? `<ul class="major-engine-list">${data.inquiry_topics_raw.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}
+          <div class="major-engine-box-title">추천 개념 미리보기</div>
+          <div class="major-engine-chip-wrap">${(data.boost_concepts || []).length ? data.boost_concepts.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아래 공용 엔진에서 개념을 선택해 주세요.</div>'}</div>
         </div>
         <div class="major-engine-box">
           <div class="major-engine-box-title">기존 도서 엔진 연결</div>
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
+        </div>
+        <div class="major-engine-box">
+          <div class="major-engine-box-title">탐구 방향 예시</div>
+          ${(data.inquiry_topics_raw || []).length ? `<ul class="major-engine-list">${data.inquiry_topics_raw.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}
+        </div>
+        <div class="major-engine-box">
+          <div class="major-engine-box-title">추천 관점</div>
+          <div class="major-engine-chip-wrap">${(data.boost_perspectives || []).length ? data.boost_perspectives.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">기본 관점을 사용합니다.</div>'}</div>
         </div>
       </div>
       <div class="major-engine-action-row">
@@ -512,41 +399,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
         <button type="button" class="major-engine-action-btn" data-major-action="inquiry">탐구 예시 설명칸 넣기</button>
         <button type="button" class="major-engine-action-btn" data-major-action="all">둘 다 자동 반영</button>
       </div>
-      <div class="major-engine-note">전공 입력을 실제 엔진 동작에 바로 쓰도록, 선택 키워드와 설명칸에 자동 반영할 수 있습니다.</div>
-      ${renderWorkflowPanel(data)}
+      <div class="major-engine-note">전공 입력은 아래 공용 보고서 엔진을 대체하지 않고, 추천값을 더 정확하게 넣기 위한 보정 데이터로만 사용됩니다.</div>
+      <div class="major-engine-inline-guide">
+        <div class="major-engine-inline-guide-title">현재 동작 방식</div>
+        <p>위 카드는 전공 기반 추천 요약입니다. 실제 과목·개념·도서·보고서 방식 선택은 아래 공용 엔진에서 계속 진행하고, 여기서는 핵심 키워드와 설명칸만 빠르게 넣어 주도록 유지합니다.</p>
+      </div>
     `;
 
     panel.querySelectorAll('[data-major-action]').forEach(btn => {
       btn.addEventListener('click', () => applyMajorSuggestions(btn.dataset.majorAction));
-    });
-    panel.querySelectorAll('[data-axis-key]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.selectedAxisKey = btn.dataset.axisKey || '';
-        state.selectedConceptKey = getConceptOptions(getAxisByKey(data, state.selectedAxisKey))[0]?.concept || '';
-        renderMajorSummary();
-      });
-    });
-    panel.querySelectorAll('[data-concept-key]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.selectedConceptKey = btn.dataset.conceptKey || '';
-        renderMajorSummary();
-      });
-    });
-    panel.querySelectorAll('[data-flow-apply]').forEach(btn => {
-      btn.addEventListener('click', () => applyWorkflowSelection(btn.dataset.flowApply));
-    });
-    panel.querySelectorAll('[data-perspective]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const data = getSummaryData();
-        const axis = getAxisByKey(data, state.selectedAxisKey);
-        const concept = getConceptOptions(axis).find(c => c.concept === state.selectedConceptKey) || getConceptOptions(axis)[0] || null;
-        const taskDesc = getTaskDescriptionInput();
-        if (taskDesc) {
-          taskDesc.value = buildDescriptionSeed(data, axis, concept, btn.dataset.perspective || '');
-          taskDesc.dispatchEvent(new Event('input', { bubbles: true }));
-          taskDesc.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      });
     });
     autoReflectMajorData(data);
   }
@@ -554,7 +415,27 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
   function buildMajorPayload(){
     const data = getSummaryData();
     if (!data || data.status !== 'resolved') {
-      return { status: data?.status || 'empty', raw_input: data?.input || '', display_name: '', major_id: '', track_category: '', matched_by: data?.matched_by || '', source_status: '', core_keywords: [], related_subject_hints: [], inquiry_topics_raw: [], prep_activities: [], recommended_books_raw: [], bridge_books: [], major_intro: '', suggestions: data?.suggestions || [], selected_axis: '', selected_concept: '' };
+      return {
+        status: data?.status || 'empty',
+        raw_input: data?.input || '',
+        display_name: '',
+        major_id: '',
+        track_category: '',
+        matched_by: data?.matched_by || '',
+        source_status: '',
+        core_keywords: [],
+        related_subject_hints: [],
+        inquiry_topics_raw: [],
+        prep_activities: [],
+        recommended_books_raw: [],
+        bridge_books: [],
+        major_intro: '',
+        suggestions: data?.suggestions || [],
+        boost_subjects: [],
+        boost_concepts: [],
+        boost_perspectives: [],
+        boost_keywords: []
+      };
     }
     return {
       status: data.status,
@@ -572,8 +453,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
       bridge_books: data.bridge_books || [],
       major_intro: data.major_intro || '',
       book_bridge_candidates: data.book_bridge_candidates || [],
-      selected_axis: state.selectedAxisKey || '',
-      selected_concept: state.selectedConceptKey || ''
+      boost_subjects: data.boost_subjects || [],
+      boost_concepts: data.boost_concepts || [],
+      boost_perspectives: data.boost_perspectives || [],
+      boost_keywords: data.boost_keywords || []
     };
   }
 
@@ -602,7 +485,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-layer-workflow";
   window.getMajorEngineSelectionData = buildMajorPayload;
   window.__MAJOR_ENGINE_RENDER__ = renderMajorSummary;
   window.__MAJOR_ENGINE_APPLY__ = applyMajorSuggestions;
-  window.__MAJOR_ENGINE_FLOW_APPLY__ = applyWorkflowSelection;
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadAll);
   } else {
