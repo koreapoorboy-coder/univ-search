@@ -197,7 +197,91 @@ const CROSS_LENS_HELP = {
     desc: "현재 개념을 데이터 처리, 알고리즘, 자동화, 시뮬레이션 관점으로 다시 읽는 방식입니다.",
     easy: "센서 데이터, AI, 컴퓨터공학, 시스템 제어로 연결할 때 잘 맞아요."
   }
+
 };
+
+const ENGINEERING_MAJOR_GROUPS = [
+  {
+    id: "computing_software",
+    label: "컴퓨팅·소프트웨어형",
+    patterns: ["컴퓨터", "소프트웨어", "정보보안", "정보보호", "정보통신", "인공지능", "AI", "데이터", "네트워크"],
+    rules: {
+      science: {
+        directPriority: ["physics", "chemistry"],
+        crossPriority: ["information", "math"],
+        hideDirect: ["biology", "earth"],
+        lensPriority: { information: ["information_view", "math_view", "science_view"], math: ["math_view", "information_view", "science_view"] }
+      }
+    }
+  },
+  {
+    id: "electronic_system",
+    label: "전기·전자·통신형",
+    patterns: ["전기", "전자", "회로", "센서", "통신", "반도체"],
+    rules: {
+      science: {
+        directPriority: ["physics", "chemistry"],
+        crossPriority: ["information", "math"],
+        hideDirect: ["biology", "earth"],
+        lensPriority: { information: ["information_view", "math_view", "science_view"], math: ["math_view", "information_view", "science_view"] }
+      }
+    }
+  },
+  {
+    id: "materials_energy",
+    label: "재료·에너지형",
+    patterns: ["신소재", "재료", "고분자", "금속", "배터리", "에너지", "화학공학", "화공", "화장품", "제약", "식품생명"],
+    rules: {
+      science: {
+        directPriority: ["chemistry", "physics"],
+        crossPriority: ["math", "information"],
+        hideDirect: [],
+        conditionalDirect: ["biology", "earth"],
+        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
+      }
+    }
+  },
+  {
+    id: "mechanical_system",
+    label: "기계·로봇형",
+    patterns: ["기계", "로봇", "메카트로닉스", "자동차", "모빌리티"],
+    rules: {
+      science: {
+        directPriority: ["physics", "chemistry"],
+        crossPriority: ["math", "information"],
+        hideDirect: ["biology"],
+        conditionalDirect: ["earth"],
+        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
+      }
+    }
+  },
+  {
+    id: "civil_urban_env",
+    label: "건설·도시·환경형",
+    patterns: ["건설", "건축", "토목", "도시", "교통", "환경", "안전"],
+    rules: {
+      science: {
+        directPriority: ["physics", "earth", "chemistry"],
+        crossPriority: ["math", "information"],
+        hideDirect: ["biology"],
+        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
+      }
+    }
+  },
+  {
+    id: "aerospace_marine",
+    label: "항공·조선·해양형",
+    patterns: ["항공", "우주", "조선", "해양"],
+    rules: {
+      science: {
+        directPriority: ["physics", "earth", "chemistry"],
+        crossPriority: ["math", "information"],
+        hideDirect: ["biology"],
+        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
+      }
+    }
+  }
+];
 
   let uiSeed = null;
   let engineMap = null;
@@ -1282,6 +1366,7 @@ function getTrackOptions() {
   const materialsBio = /(바이오소재|의공소재|생체재료)/.test(majorText);
   const materialsGeo = /(광물|자원|희토류|지질|세라믹원료)/.test(majorText);
   const domain = detectSubjectDomain(state.subject || "");
+  const engRule = getEngineeringGroupRule(career, domain);
 
   base.forEach(item => {
     if (bucket === "materials") {
@@ -1344,6 +1429,30 @@ function getTrackOptions() {
     }
   });
 
+
+  if (engRule && domain === "science") {
+    const directPriority = engRule.directPriority || [];
+    const crossPriority = engRule.crossPriority || [];
+    const hideDirect = engRule.hideDirect || [];
+    const conditionalDirect = engRule.conditionalDirect || [];
+
+    base.forEach(item => {
+      if (item.relationType === "direct") {
+        const idx = directPriority.indexOf(item.id);
+        if (idx >= 0) item.score += Math.max(0, 14 - idx * 4);
+        if (hideDirect.includes(item.id)) {
+          item.score -= 60;
+          item.hiddenByMajor = true;
+        }
+        if (conditionalDirect.includes(item.id)) item.score -= 18;
+      }
+      if (item.relationType === "cross") {
+        const idx = crossPriority.indexOf(item.id);
+        if (idx >= 0) item.score += Math.max(0, 14 - idx * 4);
+      }
+    });
+  }
+
   const sorted = base.sort((a, b) => b.score - a.score);
   const top = sorted[0]?.score ?? 0;
   return sorted.map(item => {
@@ -1380,8 +1489,16 @@ function getTrackOptions() {
       }
     }
 
-    return { ...item, level, levelLabel, groupCopy, relationLabel: item.relationType === 'cross' ? '횡단 연계 축' : '직접 연계 축' };
-  });
+    return {
+      ...item,
+      level,
+      levelLabel,
+      groupCopy,
+      relationLabel: item.relationType === 'cross' ? '횡단 연계 축' : '직접 연계 축',
+      hiddenByMajor: !!item.hiddenByMajor,
+      engineeringGroupLabel: engRule?.groupLabel || ""
+    };
+  }).filter(item => !item.hiddenByMajor);
 }
 
 function getTrackMeta(trackId) {
@@ -1396,6 +1513,7 @@ function getTrackMeta(trackId) {
     const domain = detectSubjectDomain(state.subject || "");
     const bucket = detectCareerBucket(state.career || "");
     const track = state.linkTrack || "";
+    const engRule = getEngineeringGroupRule(state.career || "", domain);
 
     let order = ["math_view", "science_view", "information_view"];
 
@@ -1410,6 +1528,10 @@ function getTrackMeta(trackId) {
     if (bucket === "materials") order = ["math_view", "science_view", "information_view"];
     if (bucket === "mechanical") order = ["math_view", "science_view", "information_view"];
     if (bucket === "bio") order = ["science_view", "math_view", "information_view"];
+
+    if (engRule?.lensPriority?.[track]) {
+      order = engRule.lensPriority[track];
+    }
 
     return order.map(id => CROSS_LENS_HELP[id]).filter(Boolean);
   }
@@ -1512,6 +1634,21 @@ function getTrackMeta(trackId) {
     if (/(간호|의학|의예|치의|약학|보건|수의|생명|바이오|의료)/.test(text)) return "bio";
     if (/(환경|기후|지구|우주|천문|해양|지리)/.test(text)) return "env";
     return "default";
+  }
+
+
+  function detectEngineeringMajorGroup(career) {
+    const text = String(career || "");
+    for (const group of ENGINEERING_MAJOR_GROUPS) {
+      if ((group.patterns || []).some(pattern => text.includes(pattern))) return group;
+    }
+    return null;
+  }
+
+  function getEngineeringGroupRule(career, domain) {
+    const group = detectEngineeringMajorGroup(career);
+    if (!group) return null;
+    return group.rules?.[domain] ? { ...group.rules[domain], groupId: group.id, groupLabel: group.label } : null;
   }
 
   function getCareerProfileKey(career) {
@@ -1734,7 +1871,7 @@ function renderTrackArea() {
   ];
 
   el.innerHTML = `
-    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 다만 수행평가는 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이므로, <strong>직접 연계 축</strong>이 기본이고 <strong>횡단 연계 축</strong>은 수학·정보 같은 보조 해석 도구로 붙는다고 이해하면 됩니다.</div>
+    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 다만 수행평가는 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이므로, <strong>직접 연계 축</strong>이 기본이고 <strong>횡단 연계 축</strong>은 수학·정보 같은 보조 해석 도구로 붙는다고 이해하면 됩니다. ${escapeHtml(options[0]?.engineeringGroupLabel ? '현재 전공군 기준으로 덜 맞는 직접 연계 축은 기본 보기에서 숨겼습니다.' : '')}</div>
     <div class="engine-track-group-wrap">${groups.map(group => {
       const items = options.filter(item => item.relationType === group.key);
       if (!items.length) return '';
