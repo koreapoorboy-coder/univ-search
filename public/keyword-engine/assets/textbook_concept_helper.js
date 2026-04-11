@@ -115,40 +115,63 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
   };
 
 
-  const TRACK_HELP = {
-    physics: {
-      id: "physics",
-      title: "물리 연계",
-      short: "힘·운동·센서",
-      nextSubject: "고2 물리학",
-      desc: "힘, 운동, 전류, 센서, 구조 안정성처럼 물리학으로 이어지는 방향입니다.",
-      easy: "기계, 반도체, 센서, 구조 쪽 보고서에 잘 맞아요."
-    },
-    chemistry: {
-      id: "chemistry",
-      title: "화학 연계",
-      short: "원소·재료·반응",
-      nextSubject: "고2 화학",
-      desc: "원소, 물질 성질, 산화·환원, 재료 변화처럼 화학으로 이어지는 방향입니다.",
-      easy: "신소재, 배터리, 재료 성질 쪽 보고서에 잘 맞아요."
-    },
-    biology: {
-      id: "biology",
-      title: "생명과학 연계",
-      short: "생명·건강·반응",
-      nextSubject: "고2 생명과학",
-      desc: "세포, 항상성, 생체 반응, 건강 데이터처럼 생명과학으로 이어지는 방향입니다.",
-      easy: "의학, 간호, 생명, 바이오 쪽 보고서에 잘 맞아요."
-    },
-    earth: {
-      id: "earth",
-      title: "지구과학 연계",
-      short: "환경·기후·지구",
-      nextSubject: "고2 지구과학",
-      desc: "환경, 기후, 지구 시스템, 관측 데이터처럼 지구과학으로 이어지는 방향입니다.",
-      easy: "환경, 기후, 우주, 지구 시스템 쪽 보고서에 잘 맞아요."
-    }
-  };
+  
+const TRACK_HELP = {
+  physics: {
+    id: "physics",
+    title: "물리 연계",
+    short: "힘·운동·센서",
+    nextSubject: "고2 물리학",
+    desc: "힘, 운동, 전류, 센서, 구조 안정성처럼 물리학으로 이어지는 방향입니다.",
+    easy: "기계, 반도체, 센서, 구조 쪽 보고서에 잘 맞아요.",
+    relationType: "direct"
+  },
+  chemistry: {
+    id: "chemistry",
+    title: "화학 연계",
+    short: "원소·재료·반응",
+    nextSubject: "고2 화학",
+    desc: "원소, 물질 성질, 산화·환원, 재료 변화처럼 화학으로 이어지는 방향입니다.",
+    easy: "신소재, 배터리, 재료 성질 쪽 보고서에 잘 맞아요.",
+    relationType: "direct"
+  },
+  biology: {
+    id: "biology",
+    title: "생명과학 연계",
+    short: "생명·건강·반응",
+    nextSubject: "고2 생명과학",
+    desc: "세포, 항상성, 생체 반응, 건강 데이터처럼 생명과학으로 이어지는 방향입니다.",
+    easy: "의학, 간호, 생명, 바이오 쪽 보고서에 잘 맞아요.",
+    relationType: "direct"
+  },
+  earth: {
+    id: "earth",
+    title: "지구과학 연계",
+    short: "환경·기후·지구",
+    nextSubject: "고2 지구과학",
+    desc: "환경, 기후, 지구 시스템, 관측 데이터처럼 지구과학으로 이어지는 방향입니다.",
+    easy: "환경, 기후, 우주, 지구 시스템 쪽 보고서에 잘 맞아요.",
+    relationType: "direct"
+  },
+  math: {
+    id: "math",
+    title: "수학 연계",
+    short: "규칙·모델링·정량",
+    nextSubject: "고2 대수·미적분Ⅰ",
+    desc: "규칙성, 수량 관계, 그래프, 예측, 모델링처럼 수학으로 확장하는 방향입니다.",
+    easy: "알고리즘, 데이터 해석, 성능 비교, 모델링 보고서에 잘 맞아요.",
+    relationType: "cross"
+  },
+  information: {
+    id: "information",
+    title: "정보 연계",
+    short: "데이터·알고리즘",
+    nextSubject: "고2 정보",
+    desc: "데이터 처리, 알고리즘, 시뮬레이션, 자동화처럼 정보 과목으로 확장하는 방향입니다.",
+    easy: "AI, 소프트웨어, 센서 제어, 시뮬레이션 보고서에 잘 맞아요.",
+    relationType: "cross"
+  }
+};
 
   let uiSeed = null;
   let engineMap = null;
@@ -521,8 +544,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     section.innerHTML = `
       <div class="engine-flow-card">
         <div class="engine-flow-kicker">학생이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
-        <h2 class="engine-flow-title">과목 → 진로 → 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
-        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>연계 축</strong>을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조로 바꿨습니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결을 생각하며 선택할 수 있습니다.</p>
+        <h2 class="engine-flow-title">과목 → 진로 → 직접·횡단 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
+        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>직접 연계 축</strong>과 <strong>횡단 연계 축</strong>을 함께 보고 방향을 정할 수 있게 바꿨습니다. 같은 과목을 선택해도 전공에 따라 수학·정보처럼 다른 교과로 확장하는 길이 달라질 수 있습니다.</p>
 
         <div class="engine-status-row">
           <div class="engine-status-box">
@@ -542,10 +565,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
         <div id="engineTrackBlock" class="engine-step-block" data-step="3">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3. 후속 과목 연계 축 선택</h3>
-              <div class="engine-step-copy">학과를 어떤 과학 축으로 연결할지 먼저 고릅니다. 학생은 어려운 교과 개념 대신, 익숙한 과목 축으로 먼저 방향을 정하면 됩니다.</div>
+              <h3 class="engine-step-title">3. 전공 맞춤 후속 교과 연계 축 선택</h3>
+              <div class="engine-step-copy">선택 과목을 바탕으로 직접 이어지는 축과 다른 교과로 확장되는 횡단 축을 함께 봅니다. 학생은 전공에 더 맞는 축부터 고르면 됩니다.</div>
             </div>
-            <div class="engine-step-guide">물리 / 화학 / 생명 / 지구</div>
+            <div class="engine-step-guide">직접 연계 / 횡단 연계</div>
           </div>
           <div id="engineTrackArea"></div>
         </div>
@@ -1145,86 +1168,160 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
   }
 
 
-  function getTrackOptions() {
-    const career = state.career || "";
-    const bucket = detectCareerBucket(career);
-    const base = [
-      { ...TRACK_HELP.physics, score: 4 },
-      { ...TRACK_HELP.chemistry, score: 4 },
-      { ...TRACK_HELP.biology, score: 4 },
-      { ...TRACK_HELP.earth, score: 4 }
+
+function detectSubjectDomain(subject) {
+  const s = String(subject || "");
+  if (/(공통수학|대수|미적분|기하|확률|통계|수학)/.test(s)) return "math";
+  if (/(정보|프로그래밍|소프트웨어|인공지능)/.test(s)) return "information";
+  if (/(통합과학|물리|화학|생명|지구|과학탐구)/.test(s)) return "science";
+  return "general";
+}
+
+function getBaseTrackOptions() {
+  const domain = detectSubjectDomain(state.subject || "");
+  if (domain === "science") {
+    return [
+      { ...TRACK_HELP.physics, score: 5 },
+      { ...TRACK_HELP.chemistry, score: 5 },
+      { ...TRACK_HELP.biology, score: 5 },
+      { ...TRACK_HELP.earth, score: 5 },
+      { ...TRACK_HELP.math, score: 3 },
+      { ...TRACK_HELP.information, score: 3 }
     ];
-
-    const majorText = String(career || "");
-    const materialsBio = /(바이오소재|의공소재|생체재료)/.test(majorText);
-    const materialsGeo = /(광물|자원|희토류|지질|세라믹원료)/.test(majorText);
-
-    base.forEach(item => {
-      if (bucket === "materials") {
-        if (item.id === "chemistry") item.score += 14;
-        if (item.id === "physics") item.score += 11;
-        if (item.id === "earth") item.score += materialsGeo ? 8 : 0;
-        if (item.id === "biology") item.score += materialsBio ? 7 : -10;
-      } else if (bucket === "mechanical") {
-        if (item.id === "physics") item.score += 14;
-        if (item.id === "chemistry") item.score += 5;
-        if (item.id === "earth") item.score += 1;
-        if (item.id === "biology") item.score -= 10;
-      } else if (bucket === "electronic") {
-        if (item.id === "physics") item.score += 13;
-        if (item.id === "chemistry") item.score += 7;
-        if (item.id === "earth") item.score -= 2;
-        if (item.id === "biology") item.score -= 10;
-      } else if (bucket === "it") {
-        if (item.id === "physics") item.score += 9;
-        if (item.id === "chemistry") item.score += 3;
-        if (item.id === "earth") item.score -= 2;
-        if (item.id === "biology") item.score -= 6;
-      } else if (bucket === "bio") {
-        if (item.id === "biology") item.score += 14;
-        if (item.id === "chemistry") item.score += 8;
-        if (item.id === "physics") item.score += 2;
-        if (item.id === "earth") item.score -= 4;
-      } else if (bucket === "env") {
-        if (item.id === "earth") item.score += 14;
-        if (item.id === "physics") item.score += 6;
-        if (item.id === "chemistry") item.score += 2;
-        if (item.id === "biology") item.score += 1;
-      }
-    });
-
-    const sorted = base.sort((a, b) => b.score - a.score);
-    const top = sorted[0]?.score ?? 0;
-    return sorted.map((item, idx) => {
-      let level = 'conditional';
-      let levelLabel = '관심이 있을 때만';
-      let groupCopy = '전공과 직접 연결되지는 않지만, 세부 관심 주제에 따라 확장할 수 있습니다.';
-      if (idx < 2 && item.score >= top - 4) {
-        level = 'core';
-        levelLabel = '우선 추천';
-        groupCopy = '이 전공에서 가장 먼저 보는 축입니다. 보고서 방향을 잡을 때 여기부터 고르는 것이 자연스럽습니다.';
-      } else if (item.score >= top - 9) {
-        level = 'support';
-        levelLabel = '확장 가능';
-        groupCopy = '핵심 축 다음으로 넓혀 볼 수 있는 방향입니다. 관심 주제가 맞으면 충분히 연결 가능합니다.';
-      }
-      if (bucket === 'materials') {
-        if (item.id === 'biology' && !materialsBio) {
-          level = 'conditional';
-          levelLabel = '관심이 있을 때만';
-          groupCopy = '바이오소재·생체재료처럼 특수 관심이 있을 때만 추천합니다.';
-        }
-        if (item.id === 'earth' && !materialsGeo) {
-          level = 'conditional';
-          levelLabel = '관심이 있을 때만';
-          groupCopy = '광물·자원·지질 기반 소재에 관심이 있을 때만 추천합니다.';
-        }
-      }
-      return { ...item, level, levelLabel, groupCopy };
-    });
   }
+  if (domain === "math") {
+    return [
+      { ...TRACK_HELP.math, score: 5 },
+      { ...TRACK_HELP.information, score: 4 },
+      { ...TRACK_HELP.physics, score: 3 },
+      { ...TRACK_HELP.chemistry, score: 2 }
+    ];
+  }
+  if (domain === "information") {
+    return [
+      { ...TRACK_HELP.information, score: 5 },
+      { ...TRACK_HELP.math, score: 4 },
+      { ...TRACK_HELP.physics, score: 3 },
+      { ...TRACK_HELP.chemistry, score: 2 }
+    ];
+  }
+  return [
+    { ...TRACK_HELP.physics, score: 4 },
+    { ...TRACK_HELP.chemistry, score: 4 },
+    { ...TRACK_HELP.biology, score: 4 },
+    { ...TRACK_HELP.earth, score: 4 },
+    { ...TRACK_HELP.math, score: 3 },
+    { ...TRACK_HELP.information, score: 3 }
+  ];
+}
 
-  function getTrackMeta(trackId) {
+
+function getTrackOptions() {
+  const career = state.career || "";
+  const bucket = detectCareerBucket(career);
+  const base = getBaseTrackOptions();
+
+  const majorText = String(career || "");
+  const materialsBio = /(바이오소재|의공소재|생체재료)/.test(majorText);
+  const materialsGeo = /(광물|자원|희토류|지질|세라믹원료)/.test(majorText);
+  const domain = detectSubjectDomain(state.subject || "");
+
+  base.forEach(item => {
+    if (bucket === "materials") {
+      if (item.id === "chemistry") item.score += 14;
+      if (item.id === "physics") item.score += 11;
+      if (item.id === "math") item.score += 8;
+      if (item.id === "information") item.score += 6;
+      if (item.id === "earth") item.score += materialsGeo ? 7 : -4;
+      if (item.id === "biology") item.score += materialsBio ? 6 : -9;
+    } else if (bucket === "mechanical") {
+      if (item.id === "physics") item.score += 14;
+      if (item.id === "math") item.score += 10;
+      if (item.id === "information") item.score += 5;
+      if (item.id === "chemistry") item.score += 4;
+      if (item.id === "biology") item.score -= 10;
+      if (item.id === "earth") item.score -= 2;
+    } else if (bucket === "electronic") {
+      if (item.id === "physics") item.score += 12;
+      if (item.id === "information") item.score += 10;
+      if (item.id === "math") item.score += 9;
+      if (item.id === "chemistry") item.score += 6;
+      if (item.id === "biology") item.score -= 10;
+      if (item.id === "earth") item.score -= 4;
+    } else if (bucket === "it") {
+      if (item.id === "information") item.score += 18;
+      if (item.id === "math") item.score += 14;
+      if (item.id === "physics") item.score += 7;
+      if (item.id === "chemistry") item.score += 1;
+      if (item.id === "biology") item.score -= 6;
+      if (item.id === "earth") item.score -= 6;
+    } else if (bucket === "bio") {
+      if (item.id === "biology") item.score += 14;
+      if (item.id === "chemistry") item.score += 8;
+      if (item.id === "math") item.score += 5;
+      if (item.id === "information") item.score += 4;
+      if (item.id === "physics") item.score += 2;
+      if (item.id === "earth") item.score -= 4;
+    } else if (bucket === "env") {
+      if (item.id === "earth") item.score += 14;
+      if (item.id === "physics") item.score += 6;
+      if (item.id === "math") item.score += 7;
+      if (item.id === "information") item.score += 5;
+      if (item.id === "chemistry") item.score += 2;
+    } else {
+      if (item.id === "math") item.score += 3;
+      if (item.id === "information") item.score += 3;
+    }
+
+    if (domain === "science") {
+      if (item.relationType === "direct") item.score += 2;
+    }
+    if (domain === "math" && item.id === "math") item.score += 4;
+    if (domain === "information" && item.id === "information") item.score += 4;
+  });
+
+  const sorted = base.sort((a, b) => b.score - a.score);
+  const top = sorted[0]?.score ?? 0;
+  return sorted.map(item => {
+    let level = 'conditional';
+    let levelLabel = '관심이 있을 때만';
+    let groupCopy = item.relationType === 'cross'
+      ? '현재 과목을 바탕으로 다른 교과로 확장하는 축입니다. 전공에 따라 오히려 이쪽이 더 핵심일 수 있습니다.'
+      : '선택 과목에서 내용상 바로 이어지는 축입니다. 먼저 보기 좋은 기본 방향입니다.';
+
+    if (item.score >= top - 3) {
+      level = 'core';
+      levelLabel = '우선 추천';
+      groupCopy = item.relationType === 'cross'
+        ? '현재 과목을 넘어서 수학·정보처럼 가로로 확장할 때 가장 먼저 볼 축입니다.'
+        : '선택 과목과 가장 자연스럽게 이어지는 직접 연계 축입니다.';
+    } else if (item.score >= top - 8) {
+      level = 'support';
+      levelLabel = '확장 가능';
+      groupCopy = item.relationType === 'cross'
+        ? '현재 과목에서 다른 교과로 넓혀 볼 수 있는 횡단 확장 축입니다.'
+        : '기본 축 다음으로 충분히 연결 가능한 직접 연계 축입니다.';
+    }
+
+    if (bucket === 'materials') {
+      if (item.id === 'biology' && !materialsBio) {
+        level = 'conditional';
+        levelLabel = '관심이 있을 때만';
+        groupCopy = '바이오소재·생체재료처럼 특수 관심이 있을 때만 추천합니다.';
+      }
+      if (item.id === 'earth' && !materialsGeo) {
+        level = 'conditional';
+        levelLabel = '관심이 있을 때만';
+        groupCopy = '광물·자원·지질 기반 소재에 관심이 있을 때만 추천합니다.';
+      }
+    }
+
+    return { ...item, level, levelLabel, groupCopy, relationLabel: item.relationType === 'cross' ? '횡단 연계 축' : '직접 연계 축' };
+  });
+}
+
+function getTrackMeta(trackId) {
+(trackId) {
     return TRACK_HELP[trackId] || null;
   }
 
@@ -1287,16 +1384,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     const bioStrong = /(세포|항상성|생명 시스템|생명 유지|생체 데이터|건강 측정|자극 반응|내부 환경)/.test(textBag);
     const mechStrong = /(역학 시스템|구조 안정성|하중 전달|진동 제어|운동|힘|전류|전압|센서|단위|측정|구조물|내진 설계)/.test(textBag);
     const elecStrong = /(전류|전압|전기|전자|회로|센서|디지털 정보|측정 도구|정밀 측정)/.test(textBag);
-    const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료)/.test(textBag);
+    const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료|모델링|시뮬레이션)/.test(textBag);
     const envStrong = /(지구시스템|지구 시스템|천체|대기권|수권|지구계|우주|기후|환경 측정|지구과학 탐구|위성|관측)/.test(textBag);
     const chemStrong = /(물질 구성|물질 분류|원소 배열|주기율|산화|염기|결합|분류 기준|금속|이온|분자|재료 변화|원소|자연에 존재하는 원소)/.test(textBag);
+    const mathStrong = /(규칙성|주기율|기본량과 단위|측정|그래프|예측|비율|수량|모델|배열|정량|패턴|원자 번호|분류 체계)/.test(textBag);
+    const infoStrong = /(데이터|알고리즘|센서|디지털|모델링|시뮬레이션|자동화|인공지능|프로그래밍|정보 처리|제어)/.test(textBag);
 
     const hasBio = bioStrong;
     const hasMech = mechStrong || dataStrong;
-    const hasElec = elecStrong || dataStrong;
-    const hasData = dataStrong;
+    const hasElec = elecStrong || dataStrong || infoStrong;
+    const hasData = dataStrong || mathStrong || infoStrong;
     const hasEnv = envStrong;
     const hasChem = chemStrong;
+    const hasMath = mathStrong || dataStrong;
+    const hasInfo = infoStrong || dataStrong || elecStrong;
 
     let score = 0;
     const reasons = [];
@@ -1338,6 +1439,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
       if (hasBio && !hasEnv) score -= 18;
       if (hasChem && !hasEnv) score -= 10;
       if (hasMech && !hasEnv) score -= 8;
+    }
+    if (track === "math") {
+      if (hasMath) { score += 15; reasons.push("수학 횡단 연계 추천"); }
+      if (hasBio && !hasMath) score -= 6;
+    }
+    if (track === "information") {
+      if (hasInfo) { score += 15; reasons.push("정보 횡단 연계 추천"); }
+      if (hasBio && !hasInfo) score -= 6;
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
@@ -1427,37 +1536,44 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     if (progressEl) progressEl.textContent = progress;
   }
 
-  function renderTrackArea() {
-    const el = $("engineTrackArea");
-    if (!el) return;
-    if (!isStepEnabled(3)) {
-      el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
-      return;
-    }
-    const options = getTrackOptions();
-    const recommended = options.find(v => v.level === 'core') || options[0];
-    const groups = [
-      { key: 'core', title: '우선 추천', badgeClass: 'core' },
-      { key: 'support', title: '확장 가능', badgeClass: 'support' },
-      { key: 'conditional', title: '관심이 있을 때만', badgeClass: 'conditional' }
-    ];
-    const byGroup = groups.map(group => ({
-      ...group,
-      items: options.filter(item => item.level === group.key)
-    })).filter(group => group.items.length);
 
-    el.innerHTML = `
-      <div class="engine-help">학생은 어려운 개념을 먼저 고르기보다, 전공 적합도가 높은 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하면 됩니다. 같은 전공이어도 모든 축이 같은 강도로 맞는 것은 아닙니다.</div>
-      <div class="engine-track-group-wrap">${byGroup.map(group => `
+function renderTrackArea() {
+  const el = $("engineTrackArea");
+  if (!el) return;
+  if (!isStepEnabled(3)) {
+    el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
+    return;
+  }
+  const options = getTrackOptions();
+  const recommended = options[0];
+  const groups = [
+    {
+      key: 'direct',
+      title: '직접 연계 축',
+      copy: '선택 과목의 내용에서 바로 이어지는 축입니다. 과학 과목이라면 물리·화학처럼 같은 교과군 심화가 여기에 해당합니다.'
+    },
+    {
+      key: 'cross',
+      title: '횡단 연계 축',
+      copy: '선택 과목을 바탕으로 수학·정보처럼 다른 교과로 확장하는 축입니다. 전공에 따라 이쪽이 더 핵심일 수 있습니다.'
+    }
+  ];
+
+  el.innerHTML = `
+    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 현재 과목이 과학이라도 수학·정보처럼 다른 교과로 <strong>횡단 연계</strong>될 수 있습니다.</div>
+    <div class="engine-track-group-wrap">${groups.map(group => {
+      const items = options.filter(item => item.relationType === group.key);
+      if (!items.length) return '';
+      return `
         <div class="engine-track-group">
           <div class="engine-track-group-head">
             <div>
               <div class="engine-track-group-title">${escapeHtml(group.title)}</div>
-              <div class="engine-track-group-copy">${escapeHtml(group.items[0]?.groupCopy || '')}</div>
+              <div class="engine-track-group-copy">${escapeHtml(group.copy)}</div>
             </div>
-            <span class="engine-track-group-badge ${escapeHtml(group.badgeClass)}">${escapeHtml(group.title)}</span>
+            <span class="engine-track-group-badge ${group.key === 'cross' ? 'support' : 'core'}">${escapeHtml(group.title)}</span>
           </div>
-          <div class="engine-track-grid">${group.items.map(item => `
+          <div class="engine-track-grid">${items.map(item => `
             <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
               <div class="engine-track-top">
                 <div class="engine-track-title">${escapeHtml(item.title)}</div>
@@ -1466,18 +1582,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
               <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
               <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
               <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-              <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)}</div>
+              <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · ${escapeHtml(item.relationLabel)}</div>
             </button>
           `).join("")}</div>
         </div>
-      `).join("")}</div>
-      <div class="engine-auto-row">
-        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 우선 추천 연계 축 자동 선택</button>
-      </div>
-    `;
-  }
+      `;
+    }).join("")}</div>
+    <div class="engine-auto-row">
+      <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 전공 적합도 높은 연계 축 자동 선택</button>
+    </div>
+  `;
+}
 
-  function renderConceptArea() {
+function renderConceptArea() {
+() {
     const conceptWrap = $("engineConceptCards");
     const keywordWrap = $("engineKeywordButtons");
     if (!conceptWrap || !keywordWrap) return;
