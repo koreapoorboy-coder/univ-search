@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-cross-lens-evaluation";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-main-subject-anchor";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -602,8 +602,8 @@ const CROSS_LENS_HELP = {
         <div id="engineLensBlock" class="engine-step-block" data-step="3.5">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3-2. 횡단 해석 방식 선택</h3>
-              <div class="engine-step-copy">선택한 연계 축을 어떤 언어로 다시 해석할지 정합니다. 과학을 수학적으로, 수학을 과학적으로, 정보를 데이터·알고리즘 관점으로 다시 읽을 수 있습니다.</div>
+              <h3 class="engine-step-title">3-2. 보조 해석 방식 선택</h3>
+              <div class="engine-step-copy">선택한 주과목 개념을 더 정교하게 설명하기 위해 어떤 보조 해석을 붙일지 정합니다. 과학을 수학적으로, 수학을 과학적으로, 정보를 데이터·알고리즘 관점으로 다시 읽을 수 있습니다.</div>
             </div>
             <div class="engine-step-guide">해석 렌즈</div>
           </div>
@@ -1331,10 +1331,17 @@ function getTrackOptions() {
     }
 
     if (domain === "science") {
-      if (item.relationType === "direct") item.score += 2;
+      if (item.relationType === "direct") item.score += 8;
+      if (item.relationType === "cross") item.score -= 4;
     }
-    if (domain === "math" && item.id === "math") item.score += 4;
-    if (domain === "information" && item.id === "information") item.score += 4;
+    if (domain === "math") {
+      if (item.id === "math") item.score += 8;
+      if (item.relationType === "cross" && item.id !== "math") item.score -= 2;
+    }
+    if (domain === "information") {
+      if (item.id === "information") item.score += 8;
+      if (item.relationType === "cross" && item.id !== "information") item.score -= 2;
+    }
   });
 
   const sorted = base.sort((a, b) => b.score - a.score);
@@ -1350,13 +1357,13 @@ function getTrackOptions() {
       level = 'core';
       levelLabel = '우선 추천';
       groupCopy = item.relationType === 'cross'
-        ? '현재 과목을 넘어서 수학·정보처럼 가로로 확장할 때 가장 먼저 볼 축입니다.'
-        : '선택 과목과 가장 자연스럽게 이어지는 직접 연계 축입니다.';
+        ? '현재 과목을 유지한 채 수학·정보처럼 다른 교과의 해석 도구를 보조적으로 붙일 때 먼저 볼 축입니다.'
+        : '선택 과목과 가장 자연스럽게 이어지는 직접 연계 축입니다. 수행평가의 주과목을 유지할 때 기본이 되는 축입니다.';
     } else if (item.score >= top - 8) {
       level = 'support';
       levelLabel = '확장 가능';
       groupCopy = item.relationType === 'cross'
-        ? '현재 과목에서 다른 교과로 넓혀 볼 수 있는 횡단 확장 축입니다.'
+        ? '현재 과목의 개념을 더 잘 설명하기 위해 다른 교과 언어를 빌려오는 보조 확장 축입니다.'
         : '기본 축 다음으로 충분히 연결 가능한 직접 연계 축입니다.';
     }
 
@@ -1727,7 +1734,7 @@ function renderTrackArea() {
   ];
 
   el.innerHTML = `
-    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 현재 과목이 과학이라도 수학·정보처럼 다른 교과로 <strong>횡단 연계</strong>될 수 있습니다.</div>
+    <div class="engine-help">학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>처럼 전공 적합도가 높은 축부터 고르면 됩니다. 다만 수행평가는 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이므로, <strong>직접 연계 축</strong>이 기본이고 <strong>횡단 연계 축</strong>은 수학·정보 같은 보조 해석 도구로 붙는다고 이해하면 됩니다.</div>
     <div class="engine-track-group-wrap">${groups.map(group => {
       const items = options.filter(item => item.relationType === group.key);
       if (!items.length) return '';
@@ -1775,7 +1782,7 @@ function renderLensArea() {
   }
   const selected = getCrossLensMeta(state.crossLens) || lenses[0];
   el.innerHTML = `
-    <div class="engine-help"><strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || "현재 연계 축")}</strong>을(를) 어떤 언어로 다시 읽을지 고르는 단계입니다. 같은 전공이라도 수학적으로 볼지, 과학적으로 볼지, 정보적으로 볼지에 따라 보고서 문장이 달라집니다.</div>
+    <div class="engine-help"><strong>${escapeHtml(state.subject || '현재 과목')}</strong>이 주과목이고, <strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || "현재 연계 축")}</strong>은(는) 그 주과목을 더 잘 설명하기 위한 연결 축입니다. 여기서는 주과목 개념을 어떤 보조 언어로 다시 읽을지 고릅니다.</div>
     <div class="engine-chip-wrap" style="margin-top:10px;">${lenses.map(lens => `
       <button type="button" class="engine-chip ${state.crossLens === lens.id ? "is-active" : ""}" data-action="lens" data-value="${escapeHtml(lens.id)}">
         ${escapeHtml(lens.title)}
@@ -1820,7 +1827,7 @@ function renderConceptArea() {
         <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
           <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
-          <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)} · ${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "횡단 해석")}</div>
+          <div class="engine-help" style="margin-top:8px;">주과목: ${escapeHtml(state.subject || '-')} · ${escapeHtml(why)} · 보조 해석: ${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "없음")}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
       `;
@@ -1839,8 +1846,8 @@ function renderConceptArea() {
     }
 
     keywordWrap.innerHTML = `
-      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 해석 방식: <strong>${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
-      <div class="engine-help" style="margin-top:6px;">횡단 해석 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
+      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 주과목: <strong>${escapeHtml(state.subject || '-')}</strong> · 보조 해석: <strong>${escapeHtml(getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
+      <div class="engine-help" style="margin-top:6px;">보조 해석 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
       <div class="engine-chip-wrap" style="margin-top:10px;">${uniq([...getLensKeywordsForConcept(state.concept, entry, state.crossLens), ...keywords]).map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
       `).join("")}</div>
