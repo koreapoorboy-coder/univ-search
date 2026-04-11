@@ -357,6 +357,19 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
       .engine-track-short { display:inline-flex; padding:6px 10px; border-radius:999px; background:#eef4ff; color:#265ae8; font-size:12px; font-weight:700; }
       .engine-track-next { margin-top:10px; color:#51607a; font-size:13px; font-weight:700; }
       .engine-track-desc { margin-top:8px; color:#5f6d86; font-size:13px; line-height:1.6; }
+      .engine-track-group-wrap { margin-top: 14px; display:flex; flex-direction:column; gap:14px; }
+      .engine-track-group { border:1px solid #e0e6f3; border-radius:18px; background:#fbfcff; padding:14px; }
+      .engine-track-group-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
+      .engine-track-group-title { font-size:15px; font-weight:900; color:#172033; }
+      .engine-track-group-copy { color:#6b7890; font-size:12px; }
+      .engine-track-group-badge { display:inline-flex; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800; }
+      .engine-track-group-badge.core { background:#eef4ff; color:#245ee8; }
+      .engine-track-group-badge.support { background:#f4f8ff; color:#2f5fb5; }
+      .engine-track-group-badge.conditional { background:#f7f9fd; color:#65748c; }
+      .engine-track-card.is-core { border-color:#cfe0ff; }
+      .engine-track-card.is-support { border-color:#d9e3f3; }
+      .engine-track-card.is-conditional { border-style:dashed; }
+      .engine-track-note { margin-top:8px; font-size:12px; color:#5f6d86; line-height:1.6; }
       .engine-auto-row { margin-top:12px; display:flex; justify-content:flex-end; }
       .engine-auto-btn {
         border:1px dashed #b8c8ee; background:#f8fbff; color:#275fe8; border-radius:999px;
@@ -1133,7 +1146,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
 
 
   function getTrackOptions() {
-    const bucket = detectCareerBucket(state.career || "");
+    const career = state.career || "";
+    const bucket = detectCareerBucket(career);
     const base = [
       { ...TRACK_HELP.physics, score: 4 },
       { ...TRACK_HELP.chemistry, score: 4 },
@@ -1141,31 +1155,73 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
       { ...TRACK_HELP.earth, score: 4 }
     ];
 
+    const majorText = String(career || "");
+    const materialsBio = /(바이오소재|의공소재|생체재료)/.test(majorText);
+    const materialsGeo = /(광물|자원|희토류|지질|세라믹원료)/.test(majorText);
+
     base.forEach(item => {
       if (bucket === "materials") {
-        if (item.id === "chemistry") item.score += 12;
-        if (item.id === "physics") item.score += 9;
-        if (item.id === "earth") item.score += 2;
-        if (item.id === "biology") item.score -= 8;
-      } else if (bucket === "mechanical") {
-        if (item.id === "physics") item.score += 12;
-        if (item.id === "chemistry") item.score += 4;
-        if (item.id === "biology") item.score -= 10;
-      } else if (bucket === "electronic" || bucket === "it") {
+        if (item.id === "chemistry") item.score += 14;
         if (item.id === "physics") item.score += 11;
+        if (item.id === "earth") item.score += materialsGeo ? 8 : 0;
+        if (item.id === "biology") item.score += materialsBio ? 7 : -10;
+      } else if (bucket === "mechanical") {
+        if (item.id === "physics") item.score += 14;
         if (item.id === "chemistry") item.score += 5;
         if (item.id === "earth") item.score += 1;
-        if (item.id === "biology") item.score -= 8;
-      } else if (bucket === "bio") {
-        if (item.id === "biology") item.score += 12;
+        if (item.id === "biology") item.score -= 10;
+      } else if (bucket === "electronic") {
+        if (item.id === "physics") item.score += 13;
+        if (item.id === "chemistry") item.score += 7;
+        if (item.id === "earth") item.score -= 2;
+        if (item.id === "biology") item.score -= 10;
+      } else if (bucket === "it") {
+        if (item.id === "physics") item.score += 9;
         if (item.id === "chemistry") item.score += 3;
+        if (item.id === "earth") item.score -= 2;
+        if (item.id === "biology") item.score -= 6;
+      } else if (bucket === "bio") {
+        if (item.id === "biology") item.score += 14;
+        if (item.id === "chemistry") item.score += 8;
+        if (item.id === "physics") item.score += 2;
+        if (item.id === "earth") item.score -= 4;
       } else if (bucket === "env") {
-        if (item.id === "earth") item.score += 12;
-        if (item.id === "physics") item.score += 3;
+        if (item.id === "earth") item.score += 14;
+        if (item.id === "physics") item.score += 6;
+        if (item.id === "chemistry") item.score += 2;
+        if (item.id === "biology") item.score += 1;
       }
     });
 
-    return base.sort((a, b) => b.score - a.score);
+    const sorted = base.sort((a, b) => b.score - a.score);
+    const top = sorted[0]?.score ?? 0;
+    return sorted.map((item, idx) => {
+      let level = 'conditional';
+      let levelLabel = '관심이 있을 때만';
+      let groupCopy = '전공과 직접 연결되지는 않지만, 세부 관심 주제에 따라 확장할 수 있습니다.';
+      if (idx < 2 && item.score >= top - 4) {
+        level = 'core';
+        levelLabel = '우선 추천';
+        groupCopy = '이 전공에서 가장 먼저 보는 축입니다. 보고서 방향을 잡을 때 여기부터 고르는 것이 자연스럽습니다.';
+      } else if (item.score >= top - 9) {
+        level = 'support';
+        levelLabel = '확장 가능';
+        groupCopy = '핵심 축 다음으로 넓혀 볼 수 있는 방향입니다. 관심 주제가 맞으면 충분히 연결 가능합니다.';
+      }
+      if (bucket === 'materials') {
+        if (item.id === 'biology' && !materialsBio) {
+          level = 'conditional';
+          levelLabel = '관심이 있을 때만';
+          groupCopy = '바이오소재·생체재료처럼 특수 관심이 있을 때만 추천합니다.';
+        }
+        if (item.id === 'earth' && !materialsGeo) {
+          level = 'conditional';
+          levelLabel = '관심이 있을 때만';
+          groupCopy = '광물·자원·지질 기반 소재에 관심이 있을 때만 추천합니다.';
+        }
+      }
+      return { ...item, level, levelLabel, groupCopy };
+    });
   }
 
   function getTrackMeta(trackId) {
@@ -1379,22 +1435,44 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
       return;
     }
     const options = getTrackOptions();
-    const recommended = options[0];
+    const recommended = options.find(v => v.level === 'core') || options[0];
+    const groups = [
+      { key: 'core', title: '우선 추천', badgeClass: 'core' },
+      { key: 'support', title: '확장 가능', badgeClass: 'support' },
+      { key: 'conditional', title: '관심이 있을 때만', badgeClass: 'conditional' }
+    ];
+    const byGroup = groups.map(group => ({
+      ...group,
+      items: options.filter(item => item.level === group.key)
+    })).filter(group => group.items.length);
+
     el.innerHTML = `
-      <div class="engine-help">학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || "추천 연계 축")}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.</div>
-      <div class="engine-track-grid">${options.map(item => `
-        <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
-          <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)}</div>
-            <div class="engine-track-short">${escapeHtml(item.short)}</div>
+      <div class="engine-help">학생은 어려운 개념을 먼저 고르기보다, 전공 적합도가 높은 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하면 됩니다. 같은 전공이어도 모든 축이 같은 강도로 맞는 것은 아닙니다.</div>
+      <div class="engine-track-group-wrap">${byGroup.map(group => `
+        <div class="engine-track-group">
+          <div class="engine-track-group-head">
+            <div>
+              <div class="engine-track-group-title">${escapeHtml(group.title)}</div>
+              <div class="engine-track-group-copy">${escapeHtml(group.items[0]?.groupCopy || '')}</div>
+            </div>
+            <span class="engine-track-group-badge ${escapeHtml(group.badgeClass)}">${escapeHtml(group.title)}</span>
           </div>
-          <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
-          <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-        </button>
+          <div class="engine-track-grid">${group.items.map(item => `
+            <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+              <div class="engine-track-top">
+                <div class="engine-track-title">${escapeHtml(item.title)}</div>
+                <div class="engine-track-short">${escapeHtml(item.short)}</div>
+              </div>
+              <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
+              <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+              <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+              <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)}</div>
+            </button>
+          `).join("")}</div>
+        </div>
       `).join("")}</div>
       <div class="engine-auto-row">
-        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 추천 연계 축 자동 선택</button>
+        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 우선 추천 연계 축 자동 선택</button>
       </div>
     `;
   }
