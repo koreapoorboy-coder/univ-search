@@ -1,0 +1,18 @@
+{
+  "summary": {
+    "active": 1,
+    "duplicate_review": 0,
+    "inactive": 0
+  },
+  "batches": [
+    {
+      "source_batch": "legacy_seed_migration",
+      "count": 1,
+      "status": "loaded"
+    }
+  ],
+  "notes": [
+    "새 배치가 들어오면 source_batch 단위로 counts 갱신",
+    "중복 의심 도서는 duplicate_review로 먼저 분류"
+  ]
+}
