@@ -1,0 +1,15 @@
+{
+  "phase": "post_source_210",
+  "next_best_step": "generate runtime from source after bridge enrichment",
+  "recommended_order": [
+    "source 210권 구조 고정",
+    "bridges 보강",
+    "runtime generated preview 생성",
+    "starter/filter/lookup 교체"
+  ],
+  "notes": [
+    "active 70권은 runtime 직접 반영 가능",
+    "pending_detail 140권은 include-pending 옵션으로만 starter 포함 권장",
+    "lookup은 source/bridges 보강 후 재생성이 가장 안전"
+  ]
+}
