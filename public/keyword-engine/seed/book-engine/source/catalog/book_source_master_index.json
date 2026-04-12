@@ -2,19 +2,1408 @@
   "books": [
     {
       "book_uid": "booksrc_0001",
+      "catalog_no": 1,
+      "book_id_runtime_candidate": "book_1984",
+      "title": "1984",
+      "title_normalized": "1984",
+      "authors": [
+        "조지 오웰"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0001_1984.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "book_uid": "booksrc_0002",
+      "catalog_no": 2,
+      "book_id_runtime_candidate": "book_galmaegi",
+      "title": "갈매기",
+      "title_normalized": "갈매기",
+      "authors": [
+        "안톤 체호프"
+      ],
+      "publisher": "더클래식",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0002_갈매기.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "book_uid": "booksrc_0003",
+      "catalog_no": 3,
+      "book_id_runtime_candidate": "book_003",
       "title": "객관성의 칼날",
       "title_normalized": "객관성의칼날",
       "authors": [
         "찰스 길리스피"
       ],
-      "source_batch": "legacy_seed_migration",
-      "source_path": "source/books/0001_객관성의칼날.json",
-      "status": "active"
+      "publisher": "새물결",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0003_객관성의칼날.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "book_uid": "booksrc_0004",
+      "catalog_no": 4,
+      "book_id_runtime_candidate": "book_004",
+      "title": "겐지 이야기",
+      "title_normalized": "겐지이야기",
+      "authors": [
+        "무라사키 시키부"
+      ],
+      "publisher": "한길사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0004_겐지이야기.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "book_uid": "booksrc_0005",
+      "catalog_no": 5,
+      "book_id_runtime_candidate": "book_gyeongyeonghak",
+      "title": "경영학 콘서트",
+      "title_normalized": "경영학콘서트",
+      "authors": [
+        "장영재"
+      ],
+      "publisher": "비즈니스북스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0005_경영학콘서트.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "book_uid": "booksrc_0006",
+      "catalog_no": 6,
+      "book_id_runtime_candidate": "book_006",
+      "title": "고리오 영감",
+      "title_normalized": "고리오영감",
+      "authors": [
+        "오노레 드 발자크"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0006_고리오영감.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "book_uid": "booksrc_0007",
+      "catalog_no": 7,
+      "book_id_runtime_candidate": "book_007",
+      "title": "고향",
+      "title_normalized": "고향",
+      "authors": [
+        "이기영"
+      ],
+      "publisher": "푸른사상",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0007_고향.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "book_uid": "booksrc_0008",
+      "catalog_no": 8,
+      "book_id_runtime_candidate": "book_008",
+      "title": "공정하다는 착각",
+      "title_normalized": "공정하다는착각",
+      "authors": [
+        "마이클 샌델"
+      ],
+      "publisher": "와이즈베리",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0008_공정하다는착각.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        31,
+        32,
+        33
+      ]
+    },
+    {
+      "book_uid": "booksrc_0009",
+      "catalog_no": 9,
+      "book_id_runtime_candidate": "book_009",
+      "title": "광장",
+      "title_normalized": "광장",
+      "authors": [
+        "최인훈"
+      ],
+      "publisher": "문학과지성사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0009_광장.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "book_uid": "booksrc_0010",
+      "catalog_no": 10,
+      "book_id_runtime_candidate": "book_010",
+      "title": "국가",
+      "title_normalized": "국가",
+      "authors": [
+        "플라톤"
+      ],
+      "publisher": "현대지성",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0010_국가.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "book_uid": "booksrc_0011",
+      "catalog_no": 11,
+      "book_id_runtime_candidate": "book_011",
+      "title": "국화와 칼",
+      "title_normalized": "국화와칼",
+      "authors": [
+        "루스 베네딕트"
+      ],
+      "publisher": "현대지성",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0011_국화와칼.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "book_uid": "booksrc_0012",
+      "catalog_no": 12,
+      "book_id_runtime_candidate": "book_012",
+      "title": "그리스 비극 걸작선",
+      "title_normalized": "그리스비극걸작선",
+      "authors": [
+        "소포클레스 외"
+      ],
+      "publisher": "현대지성",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0012_그리스비극걸작선.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        43,
+        44,
+        45
+      ]
+    },
+    {
+      "book_uid": "booksrc_0013",
+      "catalog_no": 13,
+      "book_id_runtime_candidate": "book_013",
+      "title": "난장이가 쏘아올린 작은 공",
+      "title_normalized": "난장이가쏘아올린작은공",
+      "authors": [
+        "조세희"
+      ],
+      "publisher": "이성과힘",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0013_난장이가쏘아올린작은공.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        46,
+        47,
+        48
+      ]
+    },
+    {
+      "book_uid": "booksrc_0014",
+      "catalog_no": 14,
+      "book_id_runtime_candidate": "book_014",
+      "title": "누구나 한번쯤 읽어야 할 목민심서",
+      "title_normalized": "누구나한번쯤읽어야할목민심서",
+      "authors": [
+        "미리내공방"
+      ],
+      "publisher": "청민미디어",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0014_누구나한번쯤읽어야할목민심서.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        49,
+        50,
+        51
+      ]
+    },
+    {
+      "book_uid": "booksrc_0015",
+      "catalog_no": 15,
+      "book_id_runtime_candidate": "book_doctorsignal",
+      "title": "닥터스 씽킹",
+      "title_normalized": "닥터스씽킹",
+      "authors": [
+        "제롬 그루프먼"
+      ],
+      "publisher": "해냄출판사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0015_닥터스씽킹.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        52,
+        53,
+        54
+      ]
+    },
+    {
+      "book_uid": "booksrc_0016",
+      "catalog_no": 16,
+      "book_id_runtime_candidate": "book_demian",
+      "title": "데미안",
+      "title_normalized": "데미안",
+      "authors": [
+        "헤르만 헤세"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0016_데미안.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        55,
+        56,
+        57
+      ]
+    },
+    {
+      "book_uid": "booksrc_0017",
+      "catalog_no": 17,
+      "book_id_runtime_candidate": "book_017",
+      "title": "돈으로 살 수 없는 것들",
+      "title_normalized": "돈으로살수없는것들",
+      "authors": [
+        "마이클 샌델"
+      ],
+      "publisher": "와이즈베리",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0017_돈으로살수없는것들.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        58,
+        59,
+        60
+      ]
+    },
+    {
+      "book_uid": "booksrc_0018",
+      "catalog_no": 18,
+      "book_id_runtime_candidate": "book_018",
+      "title": "동방견문록",
+      "title_normalized": "동방견문록",
+      "authors": [
+        "마르코 폴로"
+      ],
+      "publisher": "동서문화사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0018_동방견문록.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        61,
+        62,
+        63
+      ]
+    },
+    {
+      "book_uid": "booksrc_0019",
+      "catalog_no": 19,
+      "book_id_runtime_candidate": "book_019",
+      "title": "동물 세포에는 세포벽이 없다",
+      "title_normalized": "동물세포에는세포벽이없다",
+      "authors": [
+        "무로후시 기미오"
+      ],
+      "publisher": "전나무숲",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0019_동물세포에는세포벽이없다.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        64,
+        65,
+        66
+      ]
+    },
+    {
+      "book_uid": "booksrc_0020",
+      "catalog_no": 20,
+      "book_id_runtime_candidate": "book_020",
+      "title": "마음",
+      "title_normalized": "마음",
+      "authors": [
+        "나쓰메 소세키"
+      ],
+      "publisher": "현암사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0020_마음.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        67,
+        68,
+        69
+      ]
+    },
+    {
+      "book_uid": "booksrc_0021",
+      "catalog_no": 21,
+      "book_id_runtime_candidate": "book_021",
+      "title": "맹자",
+      "title_normalized": "맹자",
+      "authors": [
+        "맹자"
+      ],
+      "publisher": "휴머니스트",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0021_맹자.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        70,
+        71,
+        72
+      ]
+    },
+    {
+      "book_uid": "booksrc_0022",
+      "catalog_no": 22,
+      "book_id_runtime_candidate": "book_022",
+      "title": "무정",
+      "title_normalized": "무정",
+      "authors": [
+        "이광수"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0022_무정.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        73,
+        74,
+        75
+      ]
+    },
+    {
+      "book_uid": "booksrc_0023",
+      "catalog_no": 23,
+      "book_id_runtime_candidate": "book_023",
+      "title": "문학과 예술의 사회사",
+      "title_normalized": "문학과예술의사회사",
+      "authors": [
+        "아르놀트 하우저"
+      ],
+      "publisher": "창비",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0023_문학과예술의사회사.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        76,
+        77,
+        78
+      ]
+    },
+    {
+      "book_uid": "booksrc_0024",
+      "catalog_no": 24,
+      "book_id_runtime_candidate": "book_024",
+      "title": "미디어의 이해",
+      "title_normalized": "미디어의이해",
+      "authors": [
+        "마셜 맥루언"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0024_미디어의이해.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        79,
+        80,
+        81
+      ]
+    },
+    {
+      "book_uid": "booksrc_0025",
+      "catalog_no": 25,
+      "book_id_runtime_candidate": "book_025",
+      "title": "반지성주의",
+      "title_normalized": "반지성주의",
+      "authors": [
+        "강준만"
+      ],
+      "publisher": "인물과사상사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0025_반지성주의.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        82,
+        83,
+        84
+      ]
+    },
+    {
+      "book_uid": "booksrc_0026",
+      "catalog_no": 26,
+      "book_id_runtime_candidate": "book_026",
+      "title": "백범일지",
+      "title_normalized": "백범일지",
+      "authors": [
+        "김구"
+      ],
+      "publisher": "매월당",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0026_백범일지.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        85,
+        86,
+        87
+      ]
+    },
+    {
+      "book_uid": "booksrc_0027",
+      "catalog_no": 27,
+      "book_id_runtime_candidate": "book_027",
+      "title": "변신",
+      "title_normalized": "변신",
+      "authors": [
+        "프란츠 카프카"
+      ],
+      "publisher": "새움",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0027_변신.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        88,
+        89,
+        90
+      ]
+    },
+    {
+      "book_uid": "booksrc_0028",
+      "catalog_no": 28,
+      "book_id_runtime_candidate": "book_028",
+      "title": "부분과 전체",
+      "title_normalized": "부분과전체",
+      "authors": [
+        "베르너 하이젠베르크"
+      ],
+      "publisher": "서커스출판상회",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0028_부분과전체.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        91,
+        92,
+        93
+      ]
+    },
+    {
+      "book_uid": "booksrc_0029",
+      "catalog_no": 29,
+      "book_id_runtime_candidate": "book_029",
+      "title": "빌러비드",
+      "title_normalized": "빌러비드",
+      "authors": [
+        "토니 모리슨"
+      ],
+      "publisher": "문학동네",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0029_빌러비드.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        94,
+        95,
+        96
+      ]
+    },
+    {
+      "book_uid": "booksrc_0030",
+      "catalog_no": 30,
+      "book_id_runtime_candidate": "book_030",
+      "title": "사람아, 아 사람아!",
+      "title_normalized": "사람아아사람아",
+      "authors": [
+        "다이허우잉"
+      ],
+      "publisher": "다락원",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0030_사람아,아사람아!.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        97,
+        98,
+        99
+      ]
+    },
+    {
+      "book_uid": "booksrc_0031",
+      "catalog_no": 31,
+      "book_id_runtime_candidate": "book_031",
+      "title": "삼대",
+      "title_normalized": "삼대",
+      "authors": [
+        "염상섭"
+      ],
+      "publisher": "아르테",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0031_삼대.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        100,
+        101,
+        102
+      ]
+    },
+    {
+      "book_uid": "booksrc_0032",
+      "catalog_no": 32,
+      "book_id_runtime_candidate": "book_032",
+      "title": "서유견문",
+      "title_normalized": "서유견문",
+      "authors": [
+        "유길준"
+      ],
+      "publisher": "박이정출판사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0032_서유견문.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        103,
+        104,
+        105
+      ]
+    },
+    {
+      "book_uid": "booksrc_0033",
+      "catalog_no": 33,
+      "book_id_runtime_candidate": "book_033",
+      "title": "성의 역사 1",
+      "title_normalized": "성의역사1",
+      "authors": [
+        "미셀 푸코"
+      ],
+      "publisher": "나남",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0033_성의역사1.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        106,
+        107,
+        108
+      ]
+    },
+    {
+      "book_uid": "booksrc_0034",
+      "catalog_no": 34,
+      "book_id_runtime_candidate": "book_034",
+      "title": "성호사설",
+      "title_normalized": "성호사설",
+      "authors": [
+        "이익"
+      ],
+      "publisher": "동서문화사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0034_성호사설.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        109,
+        110,
+        111
+      ]
+    },
+    {
+      "book_uid": "booksrc_0035",
+      "catalog_no": 35,
+      "book_id_runtime_candidate": "book_035",
+      "title": "수호전",
+      "title_normalized": "수호전",
+      "authors": [
+        "시내암"
+      ],
+      "publisher": "글항아리",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0035_수호전.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        112,
+        113,
+        114
+      ]
+    },
+    {
+      "book_uid": "booksrc_0036",
+      "catalog_no": 36,
+      "book_id_runtime_candidate": "book_036",
+      "title": "슬픈 열대",
+      "title_normalized": "슬픈열대",
+      "authors": [
+        "클로드 레비스트로스"
+      ],
+      "publisher": "한길사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0036_슬픈열대.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        115,
+        116,
+        117
+      ]
+    },
+    {
+      "book_uid": "booksrc_0037",
+      "catalog_no": 37,
+      "book_id_runtime_candidate": "book_037",
+      "title": "시학",
+      "title_normalized": "시학",
+      "authors": [
+        "아리스토텔레스"
+      ],
+      "publisher": "길",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0037_시학.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        118,
+        119,
+        120
+      ]
+    },
+    {
+      "book_uid": "booksrc_0038",
+      "catalog_no": 38,
+      "book_id_runtime_candidate": "book_038",
+      "title": "신약의 탄생",
+      "title_normalized": "신약의탄생",
+      "authors": [
+        "윤태진"
+      ],
+      "publisher": "바다출판사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0038_신약의탄생.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        121,
+        122,
+        123
+      ]
+    },
+    {
+      "book_uid": "booksrc_0039",
+      "catalog_no": 39,
+      "book_id_runtime_candidate": "book_039",
+      "title": "실낙원",
+      "title_normalized": "실낙원",
+      "authors": [
+        "존 밀턴"
+      ],
+      "publisher": "더북스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0039_실낙원.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        124,
+        125,
+        126
+      ]
+    },
+    {
+      "book_uid": "booksrc_0040",
+      "catalog_no": 40,
+      "book_id_runtime_candidate": "book_040",
+      "title": "아라비안 나이트",
+      "title_normalized": "아라비안나이트",
+      "authors": [
+        "리처드 F. 버턴"
+      ],
+      "publisher": "시대의창",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0040_아라비안나이트.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        127,
+        128,
+        129
+      ]
+    },
+    {
+      "book_uid": "booksrc_0041",
+      "catalog_no": 41,
+      "book_id_runtime_candidate": "book_041",
+      "title": "아함경",
+      "title_normalized": "아함경",
+      "authors": [
+        "작자 미상"
+      ],
+      "publisher": "담마아카데미",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0041_아함경.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        130,
+        131,
+        132
+      ]
+    },
+    {
+      "book_uid": "booksrc_0042",
+      "catalog_no": 42,
+      "book_id_runtime_candidate": "book_042",
+      "title": "앵무새 죽이기",
+      "title_normalized": "앵무새죽이기",
+      "authors": [
+        "하퍼 리"
+      ],
+      "publisher": "미메시스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0042_앵무새죽이기.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        133,
+        134,
+        135
+      ]
+    },
+    {
+      "book_uid": "booksrc_0043",
+      "catalog_no": 43,
+      "book_id_runtime_candidate": "book_043",
+      "title": "어둠의 심장",
+      "title_normalized": "어둠의심장",
+      "authors": [
+        "조셉 콘래드"
+      ],
+      "publisher": "문예출판사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0043_어둠의심장.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        136,
+        137,
+        138
+      ]
+    },
+    {
+      "book_uid": "booksrc_0044",
+      "catalog_no": 44,
+      "book_id_runtime_candidate": "book_044",
+      "title": "역사",
+      "title_normalized": "역사",
+      "authors": [
+        "헤로도토스"
+      ],
+      "publisher": "숲",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0044_역사.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        139,
+        140,
+        141
+      ]
+    },
+    {
+      "book_uid": "booksrc_0045",
+      "catalog_no": 45,
+      "book_id_runtime_candidate": "book_045",
+      "title": "역사와 계급의식",
+      "title_normalized": "역사와계급의식",
+      "authors": [
+        "게오르그 루카치"
+      ],
+      "publisher": "지식을만드는지식",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0045_역사와계급의식.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        142,
+        143,
+        144
+      ]
+    },
+    {
+      "book_uid": "booksrc_0046",
+      "catalog_no": 46,
+      "book_id_runtime_candidate": "book_046",
+      "title": "영국 노동계급의 형성",
+      "title_normalized": "영국노동계급의형성",
+      "authors": [
+        "E.P. 톰슨"
+      ],
+      "publisher": "창작과비평",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0046_영국노동계급의형성.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        145,
+        146,
+        147
+      ]
+    },
+    {
+      "book_uid": "booksrc_0047",
+      "catalog_no": 47,
+      "book_id_runtime_candidate": "book_047",
+      "title": "오리엔탈리즘",
+      "title_normalized": "오리엔탈리즘",
+      "authors": [
+        "에드워드 사이드"
+      ],
+      "publisher": "교보문고",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0047_오리엔탈리즘.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        148,
+        149,
+        150
+      ]
+    },
+    {
+      "book_uid": "booksrc_0048",
+      "catalog_no": 48,
+      "book_id_runtime_candidate": "book_048",
+      "title": "왜 세계의 절반은 굶주리는가",
+      "title_normalized": "왜세계의절반은굶주리는가",
+      "authors": [
+        "장 지글러"
+      ],
+      "publisher": "갈라파고스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0048_왜세계의절반은굶주리는가.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        151,
+        152,
+        153
+      ]
+    },
+    {
+      "book_uid": "booksrc_0049",
+      "catalog_no": 49,
+      "book_id_runtime_candidate": "book_049",
+      "title": "우리 시대의 영웅",
+      "title_normalized": "우리시대의영웅",
+      "authors": [
+        "미하일 레르몬토프"
+      ],
+      "publisher": "작가와비평",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0049_우리시대의영웅.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        154,
+        155,
+        156
+      ]
+    },
+    {
+      "book_uid": "booksrc_0050",
+      "catalog_no": 50,
+      "book_id_runtime_candidate": "book_050",
+      "title": "위대하고 위험한 약 이야기",
+      "title_normalized": "위대하고위험한약이야기",
+      "authors": [
+        "정진호"
+      ],
+      "publisher": "푸른숲",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0050_위대하고위험한약이야기.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        157,
+        158,
+        159
+      ]
+    },
+    {
+      "book_uid": "booksrc_0051",
+      "catalog_no": 51,
+      "book_id_runtime_candidate": "book_051",
+      "title": "의무론",
+      "title_normalized": "의무론",
+      "authors": [
+        "키케로"
+      ],
+      "publisher": "현대지성",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0051_의무론.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        160,
+        161,
+        162
+      ]
+    },
+    {
+      "book_uid": "booksrc_0052",
+      "catalog_no": 52,
+      "book_id_runtime_candidate": "book_052",
+      "title": "의사와 수의사가 만나다",
+      "title_normalized": "의사와수의사가만나다",
+      "authors": [
+        "캐스린 바워스 외"
+      ],
+      "publisher": "모멘토",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0052_의사와수의사가만나다.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        163,
+        164,
+        165
+      ]
+    },
+    {
+      "book_uid": "booksrc_0053",
+      "catalog_no": 53,
+      "book_id_runtime_candidate": "book_053",
+      "title": "이기적 유전자",
+      "title_normalized": "이기적유전자",
+      "authors": [
+        "리처드 도킨스"
+      ],
+      "publisher": "을유문화사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0053_이기적유전자.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        166,
+        167,
+        168
+      ]
+    },
+    {
+      "book_uid": "booksrc_0054",
+      "catalog_no": 54,
+      "book_id_runtime_candidate": "book_054",
+      "title": "이상한 나라의 앨리스",
+      "title_normalized": "이상한나라의앨리스",
+      "authors": [
+        "김희경"
+      ],
+      "publisher": "동아시아",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0054_이상한나라의앨리스.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        169,
+        170,
+        171
+      ]
+    },
+    {
+      "book_uid": "booksrc_0055",
+      "catalog_no": 55,
+      "book_id_runtime_candidate": "book_055",
+      "title": "인간 문제",
+      "title_normalized": "인간문제",
+      "authors": [
+        "강경애"
+      ],
+      "publisher": "새움",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0055_인간문제.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        172,
+        173,
+        174
+      ]
+    },
+    {
+      "book_uid": "booksrc_0056",
+      "catalog_no": 56,
+      "book_id_runtime_candidate": "book_056",
+      "title": "인물로 읽는 장자",
+      "title_normalized": "인물로읽는장자",
+      "authors": [
+        "왕샤오졔"
+      ],
+      "publisher": "나들목",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0056_인물로읽는장자.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        175,
+        176,
+        177
+      ]
+    },
+    {
+      "book_uid": "booksrc_0057",
+      "catalog_no": 57,
+      "book_id_runtime_candidate": "book_057",
+      "title": "잃어버린 시간을 찾아서",
+      "title_normalized": "잃어버린시간을찾아서",
+      "authors": [
+        "마르셀 프루스트"
+      ],
+      "publisher": "국일미디어",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0057_잃어버린시간을찾아서.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        178,
+        179,
+        180
+      ]
+    },
+    {
+      "book_uid": "booksrc_0058",
+      "catalog_no": 58,
+      "book_id_runtime_candidate": "book_058",
+      "title": "자유론",
+      "title_normalized": "자유론",
+      "authors": [
+        "존 스튜어트 밀"
+      ],
+      "publisher": "현대지성",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0058_자유론.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        181,
+        182,
+        183
+      ]
+    },
+    {
+      "book_uid": "booksrc_0059",
+      "catalog_no": 59,
+      "book_id_runtime_candidate": "book_059",
+      "title": "젊은 예술가의 초상",
+      "title_normalized": "젊은예술가의초상",
+      "authors": [
+        "제임스 조이스"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0059_젊은예술가의초상.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        184,
+        185,
+        186
+      ]
+    },
+    {
+      "book_uid": "booksrc_0060",
+      "catalog_no": 60,
+      "book_id_runtime_candidate": "book_060",
+      "title": "정신현상학",
+      "title_normalized": "정신현상학",
+      "authors": [
+        "G.W.F. 헤겔"
+      ],
+      "publisher": "아카넷",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0060_정신현상학.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        187,
+        188,
+        189
+      ]
+    },
+    {
+      "book_uid": "booksrc_0061",
+      "catalog_no": 61,
+      "book_id_runtime_candidate": "book_061",
+      "title": "정지용전집",
+      "title_normalized": "정지용전집",
+      "authors": [
+        "정지용"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0061_정지용전집.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        190,
+        191,
+        192
+      ]
+    },
+    {
+      "book_uid": "booksrc_0062",
+      "catalog_no": 62,
+      "book_id_runtime_candidate": "book_062",
+      "title": "제국의 시대",
+      "title_normalized": "제국의시대",
+      "authors": [
+        "에릭 홉스봄"
+      ],
+      "publisher": "한길사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0062_제국의시대.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        193,
+        194,
+        195
+      ]
+    },
+    {
+      "book_uid": "booksrc_0063",
+      "catalog_no": 63,
+      "book_id_runtime_candidate": "book_063",
+      "title": "종의 기원",
+      "title_normalized": "종의기원",
+      "authors": [
+        "찰스 로버트 다윈"
+      ],
+      "publisher": "사이언스북스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0063_종의기원.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        196,
+        197,
+        198
+      ]
+    },
+    {
+      "book_uid": "booksrc_0064",
+      "catalog_no": 64,
+      "book_id_runtime_candidate": "book_064",
+      "title": "죽은 시인의 사회",
+      "title_normalized": "죽은시인의사회",
+      "authors": [
+        "N.H. 클라인바움"
+      ],
+      "publisher": "서교출판사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0064_죽은시인의사회.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        199,
+        200,
+        201
+      ]
+    },
+    {
+      "book_uid": "booksrc_0065",
+      "catalog_no": 65,
+      "book_id_runtime_candidate": "book_065",
+      "title": "짜라투스트라는 이렇게 말했다",
+      "title_normalized": "짜라투스트라는이렇게말했다",
+      "authors": [
+        "프리드리히 니체"
+      ],
+      "publisher": "홍신문화사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0065_짜라투스트라는이렇게말했다.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        202,
+        203,
+        204
+      ]
+    },
+    {
+      "book_uid": "booksrc_0066",
+      "catalog_no": 66,
+      "book_id_runtime_candidate": "book_066",
+      "title": "천변풍경",
+      "title_normalized": "천변풍경",
+      "authors": [
+        "박태원"
+      ],
+      "publisher": "애플북스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0066_천변풍경.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        205,
+        206,
+        207
+      ]
+    },
+    {
+      "book_uid": "booksrc_0067",
+      "catalog_no": 67,
+      "book_id_runtime_candidate": "book_067",
+      "title": "치과의사가 말하는 치과의사",
+      "title_normalized": "치과의사가말하는치과의사",
+      "authors": [
+        "안현세 외"
+      ],
+      "publisher": "부키",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0067_치과의사가말하는치과의사.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        208,
+        209,
+        210
+      ]
+    },
+    {
+      "book_uid": "booksrc_0068",
+      "catalog_no": 68,
+      "book_id_runtime_candidate": "book_068",
+      "title": "카라마조프가의 형제들",
+      "title_normalized": "카라마조프가의형제들",
+      "authors": [
+        "표도르 도스토예프스키"
+      ],
+      "publisher": "민음사",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0068_카라마조프가의형제들.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        211,
+        212,
+        213
+      ]
+    },
+    {
+      "book_uid": "booksrc_0069",
+      "catalog_no": 69,
+      "book_id_runtime_candidate": "book_069",
+      "title": "카오스",
+      "title_normalized": "카오스",
+      "authors": [
+        "제임스 글릭"
+      ],
+      "publisher": "동아시아",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0069_카오스.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        214,
+        215,
+        216
+      ]
+    },
+    {
+      "book_uid": "booksrc_0070",
+      "catalog_no": 70,
+      "book_id_runtime_candidate": "book_cosmos_intro",
+      "title": "코스모스",
+      "title_normalized": "코스모스",
+      "authors": [
+        "칼 세이건"
+      ],
+      "publisher": "사이언스북스",
+      "source_batch": "legacy_70_seed_migration",
+      "source_path": "source/books/0070_코스모스.json",
+      "status": "active",
+      "source_file": "독서중심 주제탐구 활동 1.pdf",
+      "source_pages": [
+        217,
+        218,
+        219
+      ]
     }
   ],
   "meta": {
-    "count": 1,
+    "count": 70,
     "purpose": "book-engine source master index",
-    "update_rule": "새 책 추가 시 books 배열과 CSV를 함께 갱신"
+    "update_rule": "새 책 추가 시 books 배열과 CSV, dedupe, bridges를 함께 갱신"
   }
 }
