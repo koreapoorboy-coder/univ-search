@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-main-subject-anchor";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-support-click-fix-direct-filter";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1156,11 +1156,9 @@ const ENGINEERING_MAJOR_GROUPS = [
         return;
       }
 
-      const trackCard = event.target.closest(".engine-track-card");
-      if (trackCard && isStepEnabled(3)) {
-        state.linkTrack = trackCard.getAttribute("data-track") || "";
-        const firstSupport = getRecommendedSupportTrack();
-        state.supportTrack = firstSupport ? firstSupport.id : "";
+      const supportCard = event.target.closest(".engine-support-card[data-support]");
+      if (supportCard && isStepEnabled(3)) {
+        state.supportTrack = supportCard.getAttribute("data-support") || "";
         const firstMode = getSupportModes(state.supportTrack)[0];
         state.supportMode = firstMode ? firstMode.id : "";
         state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
@@ -1170,9 +1168,11 @@ const ENGINEERING_MAJOR_GROUPS = [
         return;
       }
 
-      const supportCard = event.target.closest(".engine-support-card[data-support]");
-      if (supportCard && isStepEnabled(3)) {
-        state.supportTrack = supportCard.getAttribute("data-support") || "";
+      const trackCard = event.target.closest(".engine-track-card[data-track]");
+      if (trackCard && isStepEnabled(3)) {
+        state.linkTrack = trackCard.getAttribute("data-track") || "";
+        const firstSupport = getRecommendedSupportTrack();
+        state.supportTrack = firstSupport ? firstSupport.id : "";
         const firstMode = getSupportModes(state.supportTrack)[0];
         state.supportMode = firstMode ? firstMode.id : "";
         state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
@@ -1943,8 +1943,10 @@ function renderTrackArea() {
     el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 직접 연계 축 선택이 열립니다.</div>`;
     return;
   }
-  const options = getTrackOptions().filter(item => item.relationType === "direct");
-  const recommended = options[0];
+  const optionsAll = getTrackOptions().filter(item => item.relationType === "direct");
+  const options = optionsAll.filter(item => item.level !== "conditional");
+  const optionalOptions = optionsAll.filter(item => item.level === "conditional");
+  const recommended = options[0] || optionsAll[0];
   el.innerHTML = `
     <div class="engine-help">수행평가의 주과목은 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>입니다. 여기서는 주과목을 심화할 <strong>${escapeHtml(recommended?.title || '직접 연계 축')}</strong> 같은 기본 방향을 먼저 고릅니다.</div>
     <div class="engine-track-group-wrap">
@@ -1968,6 +1970,24 @@ function renderTrackArea() {
             <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · 직접 연계 축</div>
           </button>
         `).join("")}</div>
+        ${optionalOptions.length ? `
+          <details class="engine-optional-box" style="margin-top:12px; border:1px dashed #d8def2; border-radius:14px; padding:10px 12px; background:#fafcff;">
+            <summary style="cursor:pointer; font-weight:700; color:#3357c0;">관심이 있을 때만 보는 직접 연계 보기 (${optionalOptions.length})</summary>
+            <div class="engine-help" style="margin-top:8px;">현재 전공군 템플릿 기준으로 직접 연계성이 낮은 축은 기본 보기에서 접어두었습니다. 특수 관심 주제가 있을 때만 아래에서 선택하세요.</div>
+            <div class="engine-track-grid" style="margin-top:10px;">${optionalOptions.map(item => `
+              <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+                <div class="engine-track-top">
+                  <div class="engine-track-title">${escapeHtml(item.title)}</div>
+                  <div class="engine-track-short">${escapeHtml(item.short)}</div>
+                </div>
+                <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
+                <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+                <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+                <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · 조건부 직접 연계</div>
+              </button>
+            `).join("")}</div>
+          </details>
+        ` : ''}
       </div>
     </div>
     <div class="engine-auto-row">
