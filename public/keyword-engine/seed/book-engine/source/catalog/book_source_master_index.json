@@ -1,0 +1,20 @@
+{
+  "books": [
+    {
+      "book_uid": "booksrc_0001",
+      "title": "객관성의 칼날",
+      "title_normalized": "객관성의칼날",
+      "authors": [
+        "찰스 길리스피"
+      ],
+      "source_batch": "legacy_seed_migration",
+      "source_path": "source/books/0001_객관성의칼날.json",
+      "status": "active"
+    }
+  ],
+  "meta": {
+    "count": 1,
+    "purpose": "book-engine source master index",
+    "update_rule": "새 책 추가 시 books 배열과 CSV를 함께 갱신"
+  }
+}
