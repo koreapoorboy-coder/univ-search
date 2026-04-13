@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -51,6 +51,19 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
     const na = normalize(a); const nb = normalize(b);
     if (!na || !nb) return false;
     return na.includes(nb) || nb.includes(na);
+  }
+
+  function countKeywordMatches(keywords, input){
+    const normalizedInput = normalize(input);
+    if (!normalizedInput) return 0;
+    return (keywords || []).filter(v => fuzzyIncludes(v, input)).length;
+  }
+
+  function deriveMatchLabel(score){
+    if (score >= 120) return '강한 일치';
+    if (score >= 70) return '높은 연관';
+    if (score >= 40) return '관련 추천';
+    return '확장 후보';
   }
 
   async function loadJSON(url){
@@ -154,10 +167,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
       .major-engine-list { margin:0; padding-left:18px; color:#3c4b64; font-size:13px; line-height:1.6; }
       .major-engine-empty { color:#6f7d95; font-size:13px; line-height:1.6; }
       .major-engine-suggest { margin-top:10px; color:#55647e; font-size:13px; }
-      .major-engine-candidates { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-      .major-engine-candidate { border:1px solid #cfe0ff; background:#fff; color:#245ee8; border-radius:999px; padding:8px 12px; font-size:13px; font-weight:700; cursor:pointer; }
+      .major-engine-candidates { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:12px; }
+      .major-engine-candidate { border:1px solid #cfe0ff; background:#fff; color:#245ee8; border-radius:16px; padding:12px; font-size:13px; font-weight:700; cursor:pointer; text-align:left; }
       .major-engine-candidate:hover { background:#eef4ff; }
       .major-engine-candidate.is-selected { background:#245ee8; color:#fff; border-color:#245ee8; box-shadow:0 4px 12px rgba(36,94,232,.18); }
+      .major-engine-candidate-title { font-size:14px; font-weight:800; }
+      .major-engine-candidate-meta { margin-top:6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+      .major-engine-candidate-track { display:inline-block; border-radius:999px; padding:3px 8px; background:#eef4ff; color:#245ee8; font-size:11px; font-weight:700; }
+      .major-engine-candidate.is-selected .major-engine-candidate-track { background:rgba(255,255,255,.18); color:#fff; }
+      .major-engine-candidate-score { display:inline-block; border-radius:999px; padding:3px 8px; background:#f6f8fc; color:#5c6c86; font-size:11px; font-weight:700; }
+      .major-engine-candidate.is-selected .major-engine-candidate-score { background:rgba(255,255,255,.12); color:#fff; }
+      .major-engine-candidate-keywords { margin-top:8px; color:#5c6c86; font-size:12px; line-height:1.5; }
+      .major-engine-candidate.is-selected .major-engine-candidate-keywords { color:rgba(255,255,255,.92); }
       .major-engine-help { margin-top:8px; color:#6a7891; font-size:12px; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
@@ -244,13 +265,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
       const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]);
       const keywords = getMeaningfulKeywords(profile);
+      const keywordMatchCount = countKeywordMatches(keywords, input);
       let score = 0;
-      if (normalize(row.display_name) === normalized) score += 100;
-      if (aliases.map(normalize).includes(normalized)) score += 90;
-      if (fuzzyIncludes(row.display_name, input)) score += 30;
-      if (aliases.some(v => fuzzyIncludes(v, input))) score += 25;
-      if (keywords.some(v => fuzzyIncludes(v, input))) score += 20;
-      if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 10;
+      if (normalize(row.display_name) === normalized) score += 140;
+      if (aliases.map(normalize).includes(normalized)) score += 120;
+      if (fuzzyIncludes(row.display_name, input)) score += 45;
+      if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
+      if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
+      if ((profile.display_name || '').includes(input)) score += 18;
       if (!score) return null;
       return {
         major_id: row.major_id,
@@ -259,10 +282,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
         profile,
         aliasRow,
         score,
+        match_label: deriveMatchLabel(score),
         keywords
       };
     }).filter(Boolean);
-    return rows.sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko')).slice(0, 8);
+    return rows
+      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+      .slice(0, 10);
   }
 
   function resolveMajor(rawCareer){
@@ -311,7 +337,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
         major_id: row.major_id,
         display_name: row.display_name,
         track_category: row.track_category,
-        keywords: row.keywords.slice(0, 4)
+        match_label: row.match_label,
+        keywords: row.keywords.slice(0, 5)
       }))
     };
   }
@@ -378,11 +405,16 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
         <div class="major-engine-candidates">
           ${(data.suggestions || []).map(row => `
             <button type="button" class="major-engine-candidate ${state.selectedMajorId && state.selectedMajorId === row.major_id ? 'is-selected' : ''}" data-major-id="${escapeHtml(row.major_id)}" data-major-select="${escapeHtml(row.display_name)}">
-              ${escapeHtml(row.display_name)}
+              <div class="major-engine-candidate-title">${escapeHtml(row.display_name)}</div>
+              <div class="major-engine-candidate-meta">
+                <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
+                <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
+              </div>
+              <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(', ') || '관련 키워드 준비 중')}</div>
             </button>
           `).join('')}
         </div>
-        <div class="major-engine-help">예: 환경을 입력하면 주거환경학과 · 지구환경과학과 · 대기과학과처럼 관련 학과가 함께 보이도록 합니다.</div>
+        <div class="major-engine-help">입력한 단어와 가장 가까운 학과를 위에 먼저 정렬합니다. 학과를 클릭하면 전공 프리셋과 자동 키워드가 함께 바뀝니다.</div>
       `;
       dispatchMajorSelection(null);
       return;
