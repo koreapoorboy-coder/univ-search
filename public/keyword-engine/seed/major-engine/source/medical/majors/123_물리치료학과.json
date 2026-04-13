@@ -1,19 +1,17 @@
 {
-  "source_type": "pdf_extracted_source",
-  "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_group": "medical",
   "major_no": 123,
+  "major_id": "medical_123",
   "major_name": "물리치료학과",
-  "visible_pdf_pages": [
+  "track": "의약계열",
+  "source_folder": "medical",
+  "source_file": "학과별 전공탐구 활동_의약계열.pdf",
+  "source_pages_visible": [
     6,
     7
   ],
-  "book_pages": [
-    266,
-    267
-  ],
-  "detail_status": "complete_two_page_visible",
-  "sections_available": [
+  "extraction_status": "complete_two_page_visible",
+  "extraction_scope": "page_structure_captured",
+  "visible_sections": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,36 +19,13 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "extracted": {
-    "intro_summary": "물리치료학은 질병·사고로 저하된 신체 기능을 비수술적 치료와 재활을 통해 회복시키는 전공으로, 해부학·운동치료·도수치료·전기치료를 이론과 실습으로 배우는 분야로 정리된다.",
-    "key_theme_summary": [
-      "해부학",
-      "생리학",
-      "운동치료",
-      "도수치료",
-      "전기치료",
-      "재활의학"
-    ],
-    "college_summary": "수도권과 지방의 물리치료학과 개설 대학이 폭넓게 제시된다.",
-    "capability_summary": [
-      "의학 지식 이해와 관찰·분석",
-      "환자와의 소통·공감",
-      "체력과 실무 처리 역량",
-      "근거 기반 의사결정과 협업"
-    ],
-    "linked_book_focus": "물리치료사의 실제 직무, 재활과 회복 과정, 운동치료와 환자 심리 지원을 다룬 도서를 바탕으로 치료 현장과 진로 탐구를 확장하도록 제안한다.",
-    "topic_examples": [
-      "물리치료사 역할과 미래 전망 탐구",
-      "재활치료와 회복 과정 분석",
-      "노인·스포츠·신경계 재활 비교",
-      "심리적 요인이 재활 효과에 미치는 영향 연구"
-    ],
-    "reference_materials_summary": "중년 건강과 척추·관절 관리, 소아비만·운동처방, 만성 통증과 재활 관련 기사·연구자료를 도움자료로 연결한다.",
-    "prep_activity_summary": "생명과학·체육·보건 교과 연계 탐구, 병원·재활센터 견학, 스포츠 재활·운동처방 동아리 활동과 봉사활동을 권장한다."
-  },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master 계열 데이터로 이관합니다.",
-  "next_action": "partial 항목은 후속 페이지 확보 후 보강, complete 항목은 엔진용 필드 매핑 진행"
+  "notes": [
+    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+  ],
+  "recommended_books_visible": [],
+  "major_keywords_visible": [],
+  "university_examples_visible": []
 }

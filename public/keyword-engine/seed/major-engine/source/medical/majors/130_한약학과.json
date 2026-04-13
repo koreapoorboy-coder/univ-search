@@ -1,51 +1,31 @@
 {
-  "source_type": "pdf_extracted_source",
-  "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_group": "medical",
   "major_no": 130,
+  "major_id": "medical_130",
   "major_name": "한약학과",
-  "visible_pdf_pages": [
-    20
+  "track": "의약계열",
+  "source_folder": "medical",
+  "source_file": "메디컬 계열 추가.pdf",
+  "source_pages_visible": [
+    1,
+    2
   ],
-  "book_pages": [
-    280
-  ],
-  "detail_status": "partial_one_page_visible",
-  "sections_available": [
+  "extraction_status": "complete_two_page_visible",
+  "extraction_scope": "page_structure_captured",
+  "visible_sections": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
     "필요 역량",
     "추천 도서",
-    "도서 연계 탐구활동"
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 준비활동"
   ],
-  "extracted": {
-    "intro_summary": "한약학은 전통 한의학 이론을 바탕으로 약초와 한약재의 성분·효능·안전성을 연구하고 질병 예방·치료에 적용하는 전공으로, 한방과 현대 과학이 융합되는 분야로 제시된다.",
-    "key_theme_summary": [
-      "한약재",
-      "약리학",
-      "한방약물학",
-      "약용식물학",
-      "임상한약학",
-      "한방치료"
-    ],
-    "college_summary": "수도권과 지방 일부 대학에서 개설된 전공으로 제시된다.",
-    "capability_summary": [
-      "기초 의학 지식",
-      "한약학 이론 이해",
-      "과학적 연구와 약효 분석",
-      "임상 적용과 윤리적 판단"
-    ],
-    "linked_book_focus": "본초학과 동의보감 기반 약재 이해, 한약재의 약리 작용과 독성·부작용, 한방과 서양의학 비교 탐구를 연결하는 도서로 제시된다.",
-    "topic_examples": [
-      "한약재의 약리 작용과 현대 의학적 해석 연구",
-      "질병별 한약과 서양의학 치료법 비교",
-      "약용 식물 탐구와 한약재 안전성 분석",
-      "동물 치료·생활 속 한방 활용 가능성 탐색"
-    ],
-    "reference_materials_summary": "현재 업로드 PDF에서는 한약학과 1쪽만 확인되어, 도움자료와 준비활동은 후속 페이지 확보 후 보강이 필요하다.",
-    "prep_activity_summary": "생명과학·화학·보건 교과 연계 탐구와 약용식물 관찰, 한약·약학 직무 탐색, 본초학·동의보감 기반 독서 활동을 권장한다."
-  },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master 계열 데이터로 이관합니다.",
-  "next_action": "partial 항목은 후속 페이지 확보 후 보강, complete 항목은 엔진용 필드 매핑 진행"
+  "notes": [
+    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+  ],
+  "recommended_books_visible": [],
+  "major_keywords_visible": [],
+  "university_examples_visible": []
 }
