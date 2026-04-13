@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.3.0-major-search-select";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -25,7 +25,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
     aliasRows: [],
-    activeResolved: null
+    activeResolved: null,
+    selectedMajorId: '',
+    selectedMajorName: ''
   };
 
   function $(id){ return document.getElementById(id); }
@@ -105,6 +107,14 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
     el.dataset.majorBound = '1';
     ['input','change','focus','blur'].forEach(evt => {
       el.addEventListener(evt, () => {
+        const raw = String(el.value || '').trim();
+        if (!raw) {
+          state.selectedMajorId = '';
+          state.selectedMajorName = '';
+        } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
+          state.selectedMajorId = '';
+          state.selectedMajorName = '';
+        }
         renderMajorSummary();
         startMiniPayloadPatch();
       });
@@ -147,6 +157,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
       .major-engine-candidates { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
       .major-engine-candidate { border:1px solid #cfe0ff; background:#fff; color:#245ee8; border-radius:999px; padding:8px 12px; font-size:13px; font-weight:700; cursor:pointer; }
       .major-engine-candidate:hover { background:#eef4ff; }
+      .major-engine-candidate.is-selected { background:#245ee8; color:#fff; border-color:#245ee8; box-shadow:0 4px 12px rgba(36,94,232,.18); }
       .major-engine-help { margin-top:8px; color:#6a7891; font-size:12px; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
@@ -203,6 +214,27 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
     return buildHeuristicKeywords(profile?.display_name || '', profile?.track_category || '').slice(0, 8);
   }
 
+  function getProfileByIdOrName(majorId, displayName){
+    return state.profileByMajorId.get(majorId) || state.profileByName.get(displayName) || null;
+  }
+
+  function buildResolvedFromSelection(profile, input){
+    if (!profile) return null;
+    return buildResolved(profile, 'suggestion_select', input || profile.display_name);
+  }
+
+  function applySelectedMajor(majorId, displayName){
+    const input = getCareerInput();
+    const profile = getProfileByIdOrName(majorId, displayName);
+    if (!profile || !input) return;
+    state.selectedMajorId = profile.major_id || majorId || '';
+    state.selectedMajorName = profile.display_name || displayName || '';
+    input.value = state.selectedMajorName;
+    renderMajorSummary();
+    startMiniPayloadPatch();
+    input.dispatchEvent(new Event('change', { bubbles:true }));
+  }
+
   function findCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
@@ -238,13 +270,28 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
     if (!input) return { input, status: 'empty' };
     const normalized = normalize(input);
 
+    if (state.selectedMajorId) {
+      const selectedProfile = getProfileByIdOrName(state.selectedMajorId, state.selectedMajorName);
+      if (selectedProfile && (normalize(selectedProfile.display_name) === normalized || normalize(state.selectedMajorName) === normalized)) {
+        return buildResolvedFromSelection(selectedProfile, input);
+      }
+    }
+
     const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalized);
-    if (exactProfile) return buildResolved(exactProfile, 'exact_major_name', input);
+    if (exactProfile) {
+      state.selectedMajorId = exactProfile.major_id || '';
+      state.selectedMajorName = exactProfile.display_name || '';
+      return buildResolved(exactProfile, 'exact_major_name', input);
+    }
 
     const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized));
     if (aliasRow) {
       const profile = state.profileByMajorId.get(aliasRow.major_id) || state.profileByName.get(aliasRow.display_name);
-      if (profile) return buildResolved(profile, 'alias_match', input, aliasRow);
+      if (profile) {
+        state.selectedMajorId = profile.major_id || '';
+        state.selectedMajorName = profile.display_name || '';
+        return buildResolved(profile, 'alias_match', input, aliasRow);
+      }
     }
 
     const candidates = findCandidates(input);
@@ -252,6 +299,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
       return { input, normalized, status: 'not_found', suggestions: [] };
     }
     if (candidates.length === 1 && candidates[0].score >= 25) {
+      state.selectedMajorId = candidates[0].profile.major_id || '';
+      state.selectedMajorName = candidates[0].profile.display_name || '';
       return buildResolved(candidates[0].profile, 'candidate_match', input, candidates[0].aliasRow);
     }
     return {
@@ -328,7 +377,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
         <div class="major-engine-sub"><strong>${escapeHtml(data.input || '-')}</strong>와(과) 연결된 학과 후보입니다. 학생이 정확한 학과명을 몰라도 먼저 후보를 보고 선택할 수 있게 구성했습니다.</div>
         <div class="major-engine-candidates">
           ${(data.suggestions || []).map(row => `
-            <button type="button" class="major-engine-candidate" data-major-select="${escapeHtml(row.display_name)}">
+            <button type="button" class="major-engine-candidate ${state.selectedMajorId && state.selectedMajorId === row.major_id ? 'is-selected' : ''}" data-major-id="${escapeHtml(row.major_id)}" data-major-select="${escapeHtml(row.display_name)}">
               ${escapeHtml(row.display_name)}
             </button>
           `).join('')}
@@ -377,7 +426,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
-      <div class="major-engine-help">학과 데이터는 과목을 바꾸지 않고, 학생이 고른 과목 안에서 추천 개념·키워드·설명 순서만 더 정교하게 보정합니다.</div>
+      <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
     dispatchMajorSelection(data);
   }
@@ -386,12 +435,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.2.0-major-search-suggest";
     const btn = event.target.closest('[data-major-select]');
     if (!btn) return;
     const name = btn.getAttribute('data-major-select') || '';
-    const input = getCareerInput();
-    if (input) {
-      input.value = name;
-      input.dispatchEvent(new Event('input', { bubbles:true }));
-      input.dispatchEvent(new Event('change', { bubbles:true }));
-    }
+    const majorId = btn.getAttribute('data-major-id') || '';
+    applySelectedMajor(majorId, name);
   }
 
   function dispatchMajorSelection(data){
