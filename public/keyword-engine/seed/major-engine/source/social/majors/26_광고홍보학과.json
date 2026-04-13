@@ -1,41 +1,35 @@
 {
-  "major_id": "social_026",
-  "series": "social",
-  "series_kor": "사회계열",
-  "display_order": 26,
+  "major_id": "26",
   "major_name": "광고홍보학과",
-  "source_file": "사회계열 파트1.pdf",
-  "source_page_refs": [
-    14,
-    15
+  "track": "social",
+  "source_version": "v2",
+  "source_files": [
+    {
+      "file_name": "사회계열 파트1.pdf",
+      "page_range": [
+        14,
+        15
+      ],
+      "visibility_status": "complete_two_page_visible"
+    }
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
-    "전공 소개",
-    "전공 핵심키워드",
-    "개설 대학",
-    "필요 역량",
-    "추천 도서",
-    "도서 연계 탐구활동",
-    "전공 탐구활동 주제",
-    "전공 탐구활동 도움자료",
-    "전공 준비활동"
+  "structuring_status": "complete_two_page_visible",
+  "extraction_mode": "image_page_structured",
+  "notes": [
+    "PDF 페이지 이미지 기반으로 source 구조화함",
+    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
-  },
-  "normalization": {
-    "major_name_normalized": "광고홍보학과",
-    "family": "사회계열",
-    "source_pack_version": "v1"
+  "schema_hint": {
+    "expected_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ]
   }
 }
