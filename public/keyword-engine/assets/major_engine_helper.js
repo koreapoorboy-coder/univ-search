@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -187,6 +187,16 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
       .major-engine-group-desc { margin-top:4px; color:#5c6c86; font-size:13px; line-height:1.55; }
       .major-engine-group-count { display:inline-flex; padding:4px 10px; border-radius:999px; background:#f3f6fd; color:#40506a; font-size:12px; font-weight:700; white-space:nowrap; }
       .major-engine-candidates { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:12px; }
+      .major-engine-compare { margin-top:14px; padding:14px; border:1px solid #dbe5f4; background:#fbfdff; border-radius:16px; }
+      .major-engine-compare-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
+      .major-engine-compare-title { font-size:15px; font-weight:800; color:#172033; }
+      .major-engine-compare-desc { margin-top:4px; color:#5c6c86; font-size:13px; line-height:1.55; }
+      .major-engine-compare-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:10px; }
+      .major-engine-compare-card { border:1px solid #d7e4fb; background:#fff; border-radius:14px; padding:12px; }
+      .major-engine-compare-name { font-size:14px; font-weight:800; color:#172033; }
+      .major-engine-compare-track { margin-top:6px; display:inline-flex; padding:3px 8px; border-radius:999px; background:#eef4ff; color:#245ee8; font-size:11px; font-weight:700; }
+      .major-engine-compare-focus { margin-top:8px; color:#33435f; font-size:13px; line-height:1.55; }
+      .major-engine-compare-hint { margin-top:8px; color:#61708c; font-size:12px; line-height:1.5; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
@@ -303,6 +313,77 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
     if (track.includes('인문')) return { id:'language_culture', label:'인문 계열', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
     if (track.includes('사회')) return { id:'business_global', label:'사회 계열', desc:'사회 현상, 정책, 시장과 연결된 후보입니다.' };
     return { id:'general', label:'관련 학과 묶음', desc:'입력한 단어와 연결된 후보를 모아 보여줍니다.' };
+  }
+
+
+  function getPrimaryFocus(profile, group){
+    const name = String(profile?.display_name || '');
+    const keywords = getMeaningfulKeywords(profile);
+    const firstTwo = keywords.slice(0, 2).join(', ');
+    const focusRules = [
+      [/주거환경|실내|주거/, '생활 공간과 주거 환경 설계'],
+      [/지구환경|대기과학|해양|천문|우주/, '기후·지구 시스템과 자연 관측'],
+      [/도시|건축|토목|조경|인프라/, '도시 구조와 생활 기반 설계'],
+      [/통계|응용통계|데이터/, '데이터 해석과 정량 분석'],
+      [/심리|상담/, '인지·정서·행동 이해'],
+      [/경영정보/, '비즈니스와 정보시스템 연결'],
+      [/경영|경제|무역|국제|통상|회계|세무|부동산/, '시장·정책·국제 흐름 해석'],
+      [/행정|정치외교|법학|공공|경찰|군사/, '제도·정책·공공 문제 해결'],
+      [/생명|미생물|동물|식물|수산|간호|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
+      [/컴퓨터|소프트웨어|AI|정보|전자|전기|기계|자동차|로봇|재료|반도체/, '장치·시스템·기술 응용'],
+      [/국어|문예|언어|영어|일어|중어|독어|불어|노어|아랍어|철학|사학|고고|신학|미학|한문|한국어/, '텍스트·언어·문화 해석']
+    ];
+    for (const [regex, label] of focusRules) {
+      if (regex.test(name)) return label;
+    }
+    if (firstTwo) return firstTwo;
+    return group?.label ? `${group.label} 중심 탐구` : '핵심 키워드 중심 탐구';
+  }
+
+  function getSelectedComparison(profile, rawInput){
+    const current = {
+      major_id: profile?.major_id || '',
+      display_name: profile?.display_name || '',
+      track_category: profile?.track_category || '',
+      profile,
+      keywords: getMeaningfulKeywords(profile)
+    };
+    const group = classifyCandidateGroup(current, rawInput);
+    const peers = state.catalog.map(row => {
+      const peerProfile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
+      if (!peerProfile || peerProfile.major_id === profile?.major_id) return null;
+      const peerRow = {
+        major_id: row.major_id,
+        display_name: row.display_name,
+        track_category: peerProfile.track_category || row.track_category || '',
+        profile: peerProfile,
+        keywords: getMeaningfulKeywords(peerProfile)
+      };
+      const peerGroup = classifyCandidateGroup(peerRow, rawInput);
+      if ((peerGroup.id || '') !== (group.id || '')) return null;
+      let overlap = 0;
+      const selectedKeywords = new Set((current.keywords || []).map(normalize));
+      (peerRow.keywords || []).forEach(v => { if (selectedKeywords.has(normalize(v))) overlap += 1; });
+      if (normalize(peerRow.display_name).includes(normalize(rawInput)) || normalize(rawInput).includes(normalize(peerRow.display_name))) overlap += 2;
+      return {
+        major_id: peerRow.major_id,
+        display_name: peerRow.display_name,
+        track_category: peerRow.track_category,
+        focus: getPrimaryFocus(peerProfile, peerGroup),
+        hint: `이 학과는 ${getPrimaryFocus(peerProfile, peerGroup)} 쪽이 더 강합니다.`,
+        overlap
+      };
+    }).filter(Boolean)
+      .sort((a,b)=> b.overlap - a.overlap || a.display_name.localeCompare(b.display_name,'ko'))
+      .slice(0,3);
+
+    return {
+      group_id: group.id || '',
+      group_label: group.label || '비슷한 학과',
+      group_desc: group.desc || '',
+      selected_focus: getPrimaryFocus(profile, group),
+      peers
+    };
   }
 
   function groupCandidateSuggestions(rows, rawInput){
@@ -437,7 +518,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
       alias_row: aliasRow || null,
       bridge,
       bridge_books: (bridge?.book_candidates || []).slice(0, 8),
-      meaningful_keywords: meaningfulKeywords
+      meaningful_keywords: meaningfulKeywords,
+      comparison: getSelectedComparison(profile, input)
     };
   }
 
@@ -553,6 +635,26 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
+      ${(data.comparison && Array.isArray(data.comparison.peers) && data.comparison.peers.length) ? `
+      <div class="major-engine-compare">
+        <div class="major-engine-compare-head">
+          <div>
+            <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
+            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) <strong>${escapeHtml(data.comparison.selected_focus || '')}</strong> 쪽에 더 가깝습니다. 같은 묶음 안에서도 아래 학과들과 초점이 조금씩 다릅니다.</div>
+          </div>
+          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
+        </div>
+        <div class="major-engine-compare-grid">
+          ${data.comparison.peers.map(peer => `
+            <div class="major-engine-compare-card">
+              <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
+              <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
+              <div class="major-engine-compare-focus">더 가까운 초점: ${escapeHtml(peer.focus || '')}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || '')}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
       <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
     dispatchMajorSelection(data);
@@ -571,7 +673,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
       detail: data && data.status === 'resolved' ? {
         display_name: data.display_name,
         core_keywords: data.core_keywords || [],
-        track_category: data.track_category || ''
+        track_category: data.track_category || '',
+        comparison: data.comparison || null
       } : null
     }));
   }
