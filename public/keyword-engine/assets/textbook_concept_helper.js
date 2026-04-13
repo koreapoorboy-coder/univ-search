@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.1-major-keyword-preview";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     reportMode: "",
     reportView: "",
     reportLine: "",
-    majorSuggestedKeywords: []
+    majorSuggestedKeywords: [],
+    majorSelectedName: ''
   };
 
   const REPORT_LINE_HELP = {
@@ -934,8 +935,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
     window.__MAJOR_KEYWORD_SYNC_BOUND__ = true;
     window.addEventListener('major-engine-selection-changed', function (event) {
       const detail = event?.detail || null;
+      state.majorSelectedName = detail?.display_name || '';
       state.majorSuggestedKeywords = Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 6) : [];
+      if (!state.keyword) {
+        state.selectedBook = '';
+        state.selectedBookTitle = '';
+        state.reportMode = '';
+        state.reportView = '';
+        state.reportLine = '';
+      }
       syncOutputFields();
+      renderSelectionSummary();
     });
   }
 
@@ -1653,10 +1663,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
   function syncOutputFields() {
     const keywordInput = $("keyword");
     if (keywordInput) {
-      const displayKeywords = state.keyword || state.majorSuggestedKeywords.join(', ');
-      keywordInput.value = displayKeywords || "";
+      const majorPreview = state.majorSuggestedKeywords.join(', ');
+      const displayKeywords = state.keyword || majorPreview;
+      keywordInput.value = displayKeywords || '';
       if (!state.keyword && state.majorSuggestedKeywords.length) {
-        keywordInput.placeholder = '학과 선택 키워드가 자동 반영됩니다.';
+        keywordInput.placeholder = state.majorSelectedName ? `${state.majorSelectedName} 선택 키워드가 자동 반영됩니다.` : '학과 선택 키워드가 자동 반영됩니다.';
+      } else if (!state.keyword) {
+        keywordInput.placeholder = '아래에서 교과 개념 키워드를 선택하면 자동 입력됩니다.';
       }
     }
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
