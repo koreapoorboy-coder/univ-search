@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-support-click-fix-direct-filter";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.0-student-input-transform";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -20,16 +20,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-support-click-fix-direct-filte
     subject: "",
     career: "",
     linkTrack: "",
-    supportTrack: "",
-    supportMode: "",
-    crossLens: "",
     concept: "",
     keyword: "",
     selectedBook: "",
     selectedBookTitle: "",
     reportMode: "",
     reportView: "",
-    reportLine: ""
+    reportLine: "",
+    majorSuggestedKeywords: []
   };
 
   const REPORT_LINE_HELP = {
@@ -118,203 +116,40 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-support-click-fix-direct-filte
   };
 
 
-  
-const TRACK_HELP = {
-  physics: {
-    id: "physics",
-    title: "물리 연계",
-    short: "힘·운동·센서",
-    nextSubject: "고2 물리학",
-    desc: "힘, 운동, 전류, 센서, 구조 안정성처럼 물리학으로 이어지는 방향입니다.",
-    easy: "기계, 반도체, 센서, 구조 쪽 보고서에 잘 맞아요.",
-    relationType: "direct"
-  },
-  chemistry: {
-    id: "chemistry",
-    title: "화학 연계",
-    short: "원소·재료·반응",
-    nextSubject: "고2 화학",
-    desc: "원소, 물질 성질, 산화·환원, 재료 변화처럼 화학으로 이어지는 방향입니다.",
-    easy: "신소재, 배터리, 재료 성질 쪽 보고서에 잘 맞아요.",
-    relationType: "direct"
-  },
-  biology: {
-    id: "biology",
-    title: "생명과학 연계",
-    short: "생명·건강·반응",
-    nextSubject: "고2 생명과학",
-    desc: "세포, 항상성, 생체 반응, 건강 데이터처럼 생명과학으로 이어지는 방향입니다.",
-    easy: "의학, 간호, 생명, 바이오 쪽 보고서에 잘 맞아요.",
-    relationType: "direct"
-  },
-  earth: {
-    id: "earth",
-    title: "지구과학 연계",
-    short: "환경·기후·지구",
-    nextSubject: "고2 지구과학",
-    desc: "환경, 기후, 지구 시스템, 관측 데이터처럼 지구과학으로 이어지는 방향입니다.",
-    easy: "환경, 기후, 우주, 지구 시스템 쪽 보고서에 잘 맞아요.",
-    relationType: "direct"
-  },
-  math: {
-    id: "math",
-    title: "수학 연계",
-    short: "규칙·모델링·정량",
-    nextSubject: "고2 대수·미적분Ⅰ",
-    desc: "규칙성, 수량 관계, 그래프, 예측, 모델링처럼 수학으로 확장하는 방향입니다.",
-    easy: "알고리즘, 데이터 해석, 성능 비교, 모델링 보고서에 잘 맞아요.",
-    relationType: "cross"
-  },
-  information: {
-    id: "information",
-    title: "정보 연계",
-    short: "데이터·알고리즘",
-    nextSubject: "고2 정보",
-    desc: "데이터 처리, 알고리즘, 시뮬레이션, 자동화처럼 정보 과목으로 확장하는 방향입니다.",
-    easy: "AI, 소프트웨어, 센서 제어, 시뮬레이션 보고서에 잘 맞아요.",
-    relationType: "cross"
-  }
-};
-
-
-const CROSS_LENS_HELP = {
-  math_view: {
-    id: "math_view",
-    title: "수학적으로 보기",
-    short: "그래프·변화율·모델링",
-    desc: "현재 개념을 그래프, 수량 관계, 변화율, 비율, 예측처럼 수학 언어로 다시 읽는 방식입니다.",
-    easy: "과학 개념을 정량 해석하거나 성능·경향을 비교하는 보고서에 잘 맞아요."
-  },
-  science_view: {
-    id: "science_view",
-    title: "과학적으로 보기",
-    short: "원리·실험·측정",
-    desc: "현재 개념을 원리, 실험, 측정, 인과 관계 중심으로 다시 읽는 방식입니다.",
-    easy: "수학·정보 개념을 실제 현상과 실험 맥락으로 확장할 때 잘 맞아요."
-  },
-  information_view: {
-    id: "information_view",
-    title: "정보적으로 보기",
-    short: "데이터·알고리즘·시뮬레이션",
-    desc: "현재 개념을 데이터 처리, 알고리즘, 자동화, 시뮬레이션 관점으로 다시 읽는 방식입니다.",
-    easy: "센서 데이터, AI, 컴퓨터공학, 시스템 제어로 연결할 때 잘 맞아요."
-  }
-
-};
-
-const SUPPORT_MODE_HELP = {
-  math: [
-    { id: "math_graph", title: "그래프 해석형", desc: "변화 추세와 경향을 그래프로 읽어 비교하는 방식입니다.", lensId: "math_view" },
-    { id: "math_change", title: "변화율 비교형", desc: "증가·감소와 변화 정도를 수치로 비교하는 방식입니다.", lensId: "math_view" },
-    { id: "math_model", title: "모델링형", desc: "현상을 식·패턴·모델로 단순화해 설명하는 방식입니다.", lensId: "math_view" },
-    { id: "math_stat", title: "통계 비교형", desc: "평균·분산·표본 비교처럼 데이터를 정리해 해석하는 방식입니다.", lensId: "math_view" }
-  ],
-  information: [
-    { id: "info_data", title: "데이터 처리형", desc: "센서·측정값을 수집·정리·시각화해 읽는 방식입니다.", lensId: "information_view" },
-    { id: "info_algo", title: "알고리즘 적용형", desc: "규칙·절차·판단 기준을 알고리즘 관점으로 풀어보는 방식입니다.", lensId: "information_view" },
-    { id: "info_sim", title: "시뮬레이션형", desc: "현상을 가상 실행이나 모델로 재현해 보는 방식입니다.", lensId: "information_view" },
-    { id: "info_auto", title: "자동화·제어형", desc: "센서 입력과 제어 흐름을 정보 처리 관점으로 설명하는 방식입니다.", lensId: "information_view" }
-  ]
-};
-
-function getSupportModeMeta(trackId, modeId) {
-  return (SUPPORT_MODE_HELP[trackId] || []).find(item => item.id === modeId) || null;
-}
-
-function getSupportTrackOptions() {
-  return getTrackOptions().filter(item => item.relationType === "cross");
-}
-
-function getRecommendedSupportTrack() {
-  return getSupportTrackOptions()[0] || null;
-}
-
-function getSupportModes(trackId) {
-  return SUPPORT_MODE_HELP[trackId] || [];
-}
-
-const ENGINEERING_MAJOR_GROUPS = [
-  {
-    id: "computing_software",
-    label: "컴퓨팅·소프트웨어형",
-    patterns: ["컴퓨터", "소프트웨어", "정보보안", "정보보호", "정보통신", "인공지능", "AI", "데이터", "네트워크"],
-    rules: {
-      science: {
-        directPriority: ["physics", "chemistry"],
-        crossPriority: ["information", "math"],
-        hideDirect: ["biology", "earth"],
-        lensPriority: { information: ["information_view", "math_view", "science_view"], math: ["math_view", "information_view", "science_view"] }
-      }
+  const TRACK_HELP = {
+    physics: {
+      id: "physics",
+      title: "물리 연계",
+      short: "힘·운동·센서",
+      nextSubject: "고2 물리학",
+      desc: "힘, 운동, 전류, 센서, 구조 안정성처럼 물리학으로 이어지는 방향입니다.",
+      easy: "기계, 반도체, 센서, 구조 쪽 보고서에 잘 맞아요."
+    },
+    chemistry: {
+      id: "chemistry",
+      title: "화학 연계",
+      short: "원소·재료·반응",
+      nextSubject: "고2 화학",
+      desc: "원소, 물질 성질, 산화·환원, 재료 변화처럼 화학으로 이어지는 방향입니다.",
+      easy: "신소재, 배터리, 재료 성질 쪽 보고서에 잘 맞아요."
+    },
+    biology: {
+      id: "biology",
+      title: "생명과학 연계",
+      short: "생명·건강·반응",
+      nextSubject: "고2 생명과학",
+      desc: "세포, 항상성, 생체 반응, 건강 데이터처럼 생명과학으로 이어지는 방향입니다.",
+      easy: "의학, 간호, 생명, 바이오 쪽 보고서에 잘 맞아요."
+    },
+    earth: {
+      id: "earth",
+      title: "지구과학 연계",
+      short: "환경·기후·지구",
+      nextSubject: "고2 지구과학",
+      desc: "환경, 기후, 지구 시스템, 관측 데이터처럼 지구과학으로 이어지는 방향입니다.",
+      easy: "환경, 기후, 우주, 지구 시스템 쪽 보고서에 잘 맞아요."
     }
-  },
-  {
-    id: "electronic_system",
-    label: "전기·전자·통신형",
-    patterns: ["전기", "전자", "회로", "센서", "통신", "반도체"],
-    rules: {
-      science: {
-        directPriority: ["physics", "chemistry"],
-        crossPriority: ["information", "math"],
-        hideDirect: ["biology", "earth"],
-        lensPriority: { information: ["information_view", "math_view", "science_view"], math: ["math_view", "information_view", "science_view"] }
-      }
-    }
-  },
-  {
-    id: "materials_energy",
-    label: "재료·에너지형",
-    patterns: ["신소재", "재료", "고분자", "금속", "배터리", "에너지", "화학공학", "화공", "화장품", "제약", "식품생명"],
-    rules: {
-      science: {
-        directPriority: ["chemistry", "physics"],
-        crossPriority: ["math", "information"],
-        hideDirect: [],
-        conditionalDirect: ["biology", "earth"],
-        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
-      }
-    }
-  },
-  {
-    id: "mechanical_system",
-    label: "기계·로봇형",
-    patterns: ["기계", "로봇", "메카트로닉스", "자동차", "모빌리티"],
-    rules: {
-      science: {
-        directPriority: ["physics", "chemistry"],
-        crossPriority: ["math", "information"],
-        hideDirect: ["biology"],
-        conditionalDirect: ["earth"],
-        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
-      }
-    }
-  },
-  {
-    id: "civil_urban_env",
-    label: "건설·도시·환경형",
-    patterns: ["건설", "건축", "토목", "도시", "교통", "환경", "안전"],
-    rules: {
-      science: {
-        directPriority: ["physics", "earth", "chemistry"],
-        crossPriority: ["math", "information"],
-        hideDirect: ["biology"],
-        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
-      }
-    }
-  },
-  {
-    id: "aerospace_marine",
-    label: "항공·조선·해양형",
-    patterns: ["항공", "우주", "조선", "해양"],
-    rules: {
-      science: {
-        directPriority: ["physics", "earth", "chemistry"],
-        crossPriority: ["math", "information"],
-        hideDirect: ["biology"],
-        lensPriority: { math: ["math_view", "science_view", "information_view"], information: ["information_view", "math_view", "science_view"] }
-      }
-    }
-  }
-];
+  };
 
   let uiSeed = null;
   let engineMap = null;
@@ -358,6 +193,7 @@ const ENGINEERING_MAJOR_GROUPS = [
       injectStyles();
       injectUI();
       bindEvents();
+      bindMajorKeywordSync();
       syncSubjectFromSelect();
       syncCareerFromInput();
       renderAll();
@@ -523,19 +359,6 @@ const ENGINEERING_MAJOR_GROUPS = [
       .engine-track-short { display:inline-flex; padding:6px 10px; border-radius:999px; background:#eef4ff; color:#265ae8; font-size:12px; font-weight:700; }
       .engine-track-next { margin-top:10px; color:#51607a; font-size:13px; font-weight:700; }
       .engine-track-desc { margin-top:8px; color:#5f6d86; font-size:13px; line-height:1.6; }
-      .engine-track-group-wrap { margin-top: 14px; display:flex; flex-direction:column; gap:14px; }
-      .engine-track-group { border:1px solid #e0e6f3; border-radius:18px; background:#fbfcff; padding:14px; }
-      .engine-track-group-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
-      .engine-track-group-title { font-size:15px; font-weight:900; color:#172033; }
-      .engine-track-group-copy { color:#6b7890; font-size:12px; }
-      .engine-track-group-badge { display:inline-flex; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800; }
-      .engine-track-group-badge.core { background:#eef4ff; color:#245ee8; }
-      .engine-track-group-badge.support { background:#f4f8ff; color:#2f5fb5; }
-      .engine-track-group-badge.conditional { background:#f7f9fd; color:#65748c; }
-      .engine-track-card.is-core { border-color:#cfe0ff; }
-      .engine-track-card.is-support { border-color:#d9e3f3; }
-      .engine-track-card.is-conditional { border-style:dashed; }
-      .engine-track-note { margin-top:8px; font-size:12px; color:#5f6d86; line-height:1.6; }
       .engine-auto-row { margin-top:12px; display:flex; justify-content:flex-end; }
       .engine-auto-btn {
         border:1px dashed #b8c8ee; background:#f8fbff; color:#275fe8; border-radius:999px;
@@ -687,8 +510,8 @@ const ENGINEERING_MAJOR_GROUPS = [
     section.innerHTML = `
       <div class="engine-flow-card">
         <div class="engine-flow-kicker">학생이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
-        <h2 class="engine-flow-title">과목 → 진로 → 직접 연계 축 → 보조 연계 선택 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
-        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>직접 연계 축</strong>을 정하고 그 뒤에 <strong>보조 연계</strong>를 골라 보고서 방향을 세밀하게 조정할 수 있게 바꿨습니다. 같은 과목을 선택해도 전공에 따라 수학·정보처럼 다른 교과를 보조 도구로 빌려오는 방식이 달라질 수 있습니다.</p>
+        <h2 class="engine-flow-title">과목 → 진로 → 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
+        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>연계 축</strong>을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조로 바꿨습니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결을 생각하며 선택할 수 있습니다.</p>
 
         <div class="engine-status-row">
           <div class="engine-status-box">
@@ -708,30 +531,19 @@ const ENGINEERING_MAJOR_GROUPS = [
         <div id="engineTrackBlock" class="engine-step-block" data-step="3">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3. 전공 맞춤 직접 연계 축 선택</h3>
-              <div class="engine-step-copy">선택 과목을 바탕으로 먼저 직접 이어지는 축을 고릅니다. 수행평가에서는 이 축이 주과목 심화 방향이 됩니다.</div>
+              <h3 class="engine-step-title">3. 후속 과목 연계 축 선택</h3>
+              <div class="engine-step-copy">학과를 어떤 과학 축으로 연결할지 먼저 고릅니다. 학생은 어려운 교과 개념 대신, 익숙한 과목 축으로 먼저 방향을 정하면 됩니다.</div>
             </div>
-            <div class="engine-step-guide">직접 연계 축</div>
+            <div class="engine-step-guide">물리 / 화학 / 생명 / 지구</div>
           </div>
           <div id="engineTrackArea"></div>
-        </div>
-
-        <div id="engineLensBlock" class="engine-step-block" data-step="3.5">
-          <div class="engine-step-head">
-            <div>
-              <h3 class="engine-step-title">3-2. 보조 연계 선택</h3>
-              <div class="engine-step-copy">직접 연계축을 정한 뒤, 보고서를 더 정교하게 만들기 위해 어떤 보조 교과를 붙일지 고릅니다. 보조 연계를 고르면 그 안에서 세부 방식까지 함께 선택할 수 있습니다.</div>
-            </div>
-            <div class="engine-step-guide">보조 연계</div>
-          </div>
-          <div id="engineLensArea"></div>
         </div>
 
         <div id="engineConceptBlock" class="engine-step-block" data-step="4">
           <div class="engine-step-head">
             <div>
               <h3 class="engine-step-title">4. 연계 축에 맞는 추천 개념·키워드 선택</h3>
-              <div class="engine-step-copy">선택한 연계 축과 해석 렌즈에 맞는 추천 개념을 먼저 보고, 그 안에서 보고서 핵심 키워드를 고릅니다.</div>
+              <div class="engine-step-copy">선택한 연계 축에 맞는 추천 개념을 먼저 보고, 그 안에서 보고서 핵심 키워드를 고릅니다.</div>
             </div>
             <div class="engine-step-guide">추천 개념 → 추천 키워드</div>
           </div>
@@ -815,9 +627,6 @@ const ENGINEERING_MAJOR_GROUPS = [
     injectGeneralContextPanel();
 
     injectHiddenInput("linkedTrack");
-    injectHiddenInput("supportTrack");
-    injectHiddenInput("supportMode");
-    injectHiddenInput("crossInterpretLens");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
     injectHiddenInput("selectedBookTitle");
@@ -1119,6 +928,17 @@ const ENGINEERING_MAJOR_GROUPS = [
     });
   }
 
+
+  function bindMajorKeywordSync() {
+    if (window.__MAJOR_KEYWORD_SYNC_BOUND__) return;
+    window.__MAJOR_KEYWORD_SYNC_BOUND__ = true;
+    window.addEventListener('major-engine-selection-changed', function (event) {
+      const detail = event?.detail || null;
+      state.majorSuggestedKeywords = Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 6) : [];
+      syncOutputFields();
+    });
+  }
+
   function bindEvents() {
     const subjectEl = $("subject");
     if (subjectEl) {
@@ -1143,71 +963,17 @@ const ENGINEERING_MAJOR_GROUPS = [
     document.addEventListener("click", function (event) {
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
       if (autoTrackBtn && isStepEnabled(3)) {
-        const topTrack = getTrackOptions().filter(item => item.relationType === "direct")[0] || getTrackOptions()[0];
+        const topTrack = getTrackOptions()[0];
         state.linkTrack = topTrack ? topTrack.id : "";
-        const firstSupport = getRecommendedSupportTrack();
-        state.supportTrack = firstSupport ? firstSupport.id : "";
-        const firstMode = getSupportModes(state.supportTrack)[0];
-        state.supportMode = firstMode ? firstMode.id : "";
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
         return;
       }
 
-      const supportCard = event.target.closest(".engine-support-card[data-support]");
-      if (supportCard && isStepEnabled(3)) {
-        state.supportTrack = supportCard.getAttribute("data-support") || "";
-        const firstMode = getSupportModes(state.supportTrack)[0];
-        state.supportMode = firstMode ? firstMode.id : "";
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
-        clearFrom("concept");
-        syncOutputFields();
-        renderAll();
-        return;
-      }
-
-      const trackCard = event.target.closest(".engine-track-card[data-track]");
+      const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(3)) {
         state.linkTrack = trackCard.getAttribute("data-track") || "";
-        const firstSupport = getRecommendedSupportTrack();
-        state.supportTrack = firstSupport ? firstSupport.id : "";
-        const firstMode = getSupportModes(state.supportTrack)[0];
-        state.supportMode = firstMode ? firstMode.id : "";
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || "";
-        clearFrom("concept");
-        syncOutputFields();
-        renderAll();
-        return;
-      }
-
-      const supportModeBtn = event.target.closest(".engine-chip[data-action='support-mode']");
-      if (supportModeBtn && isStepEnabled(3)) {
-        state.supportMode = supportModeBtn.getAttribute("data-value") || "";
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
-        clearFrom("concept");
-        syncOutputFields();
-        renderAll();
-        return;
-      }
-
-      const autoSupportBtn = event.target.closest(".engine-auto-btn[data-action='auto-support']");
-      if (autoSupportBtn && isStepEnabled(3)) {
-        const firstSupport = getRecommendedSupportTrack();
-        state.supportTrack = firstSupport ? firstSupport.id : "";
-        const firstMode = getSupportModes(state.supportTrack)[0];
-        state.supportMode = firstMode ? firstMode.id : "";
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
-        clearFrom("concept");
-        syncOutputFields();
-        renderAll();
-        return;
-      }
-
-      const lensBtn = event.target.closest(".engine-chip[data-action='lens']");
-      if (lensBtn && isStepEnabled(3)) {
-        state.crossLens = lensBtn.getAttribute("data-value") || "";
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1295,9 +1061,6 @@ const ENGINEERING_MAJOR_GROUPS = [
         usage_purpose: $("usagePurpose")?.value || "",
         task_description: $("taskDescription")?.value || "",
         linked_track: state.linkTrack || "",
-        support_track: state.supportTrack || "",
-        support_mode: state.supportMode || "",
-        cross_lens: state.crossLens || "",
         selected_concept: state.concept || "",
         selected_keyword: state.keyword || "",
         selected_book_id: state.selectedBook || "",
@@ -1336,9 +1099,6 @@ const ENGINEERING_MAJOR_GROUPS = [
   function clearFrom(stepName) {
     if (stepName === "track") {
       state.linkTrack = "";
-      state.supportTrack = "";
-      state.supportMode = "";
-      state.crossLens = "";
       state.concept = "";
       state.keyword = "";
       state.selectedBook = "";
@@ -1349,17 +1109,6 @@ const ENGINEERING_MAJOR_GROUPS = [
       return;
     }
     if (stepName === "concept") {
-      if (!state.supportTrack) {
-        const firstSupport = getRecommendedSupportTrack();
-        state.supportTrack = firstSupport ? firstSupport.id : "";
-      }
-      if (!state.supportMode) {
-        const firstMode = getSupportModes(state.supportTrack)[0];
-        state.supportMode = firstMode ? firstMode.id : "";
-      }
-      if (!state.crossLens) {
-        state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || getRecommendedCrossLenses()[0]?.id || "";
-      }
       state.concept = "";
       state.keyword = "";
       state.selectedBook = "";
@@ -1396,301 +1145,44 @@ const ENGINEERING_MAJOR_GROUPS = [
   }
 
 
-
-function detectSubjectDomain(subject) {
-  const s = String(subject || "");
-  if (/(공통수학|대수|미적분|기하|확률|통계|수학)/.test(s)) return "math";
-  if (/(정보|프로그래밍|소프트웨어|인공지능)/.test(s)) return "information";
-  if (/(통합과학|물리|화학|생명|지구|과학탐구)/.test(s)) return "science";
-  return "general";
-}
-
-function getBaseTrackOptions() {
-  const domain = detectSubjectDomain(state.subject || "");
-  if (domain === "science") {
-    return [
-      { ...TRACK_HELP.physics, score: 5 },
-      { ...TRACK_HELP.chemistry, score: 5 },
-      { ...TRACK_HELP.biology, score: 5 },
-      { ...TRACK_HELP.earth, score: 5 },
-      { ...TRACK_HELP.math, score: 3 },
-      { ...TRACK_HELP.information, score: 3 }
+  function getTrackOptions() {
+    const bucket = detectCareerBucket(state.career || "");
+    const base = [
+      { ...TRACK_HELP.physics, score: 4 },
+      { ...TRACK_HELP.chemistry, score: 4 },
+      { ...TRACK_HELP.biology, score: 4 },
+      { ...TRACK_HELP.earth, score: 4 }
     ];
-  }
-  if (domain === "math") {
-    return [
-      { ...TRACK_HELP.math, score: 5 },
-      { ...TRACK_HELP.information, score: 4 },
-      { ...TRACK_HELP.physics, score: 3 },
-      { ...TRACK_HELP.chemistry, score: 2 }
-    ];
-  }
-  if (domain === "information") {
-    return [
-      { ...TRACK_HELP.information, score: 5 },
-      { ...TRACK_HELP.math, score: 4 },
-      { ...TRACK_HELP.physics, score: 3 },
-      { ...TRACK_HELP.chemistry, score: 2 }
-    ];
-  }
-  return [
-    { ...TRACK_HELP.physics, score: 4 },
-    { ...TRACK_HELP.chemistry, score: 4 },
-    { ...TRACK_HELP.biology, score: 4 },
-    { ...TRACK_HELP.earth, score: 4 },
-    { ...TRACK_HELP.math, score: 3 },
-    { ...TRACK_HELP.information, score: 3 }
-  ];
-}
-
-
-function getTrackOptions() {
-  const career = state.career || "";
-  const bucket = detectCareerBucket(career);
-  const base = getBaseTrackOptions();
-
-  const majorText = String(career || "");
-  const materialsBio = /(바이오소재|의공소재|생체재료)/.test(majorText);
-  const materialsGeo = /(광물|자원|희토류|지질|세라믹원료)/.test(majorText);
-  const domain = detectSubjectDomain(state.subject || "");
-  const engRule = getEngineeringGroupRule(career, domain);
-
-  base.forEach(item => {
-    if (bucket === "materials") {
-      if (item.id === "chemistry") item.score += 14;
-      if (item.id === "physics") item.score += 11;
-      if (item.id === "math") item.score += 8;
-      if (item.id === "information") item.score += 6;
-      if (item.id === "earth") item.score += materialsGeo ? 7 : -4;
-      if (item.id === "biology") item.score += materialsBio ? 6 : -9;
-    } else if (bucket === "mechanical") {
-      if (item.id === "physics") item.score += 14;
-      if (item.id === "math") item.score += 10;
-      if (item.id === "information") item.score += 5;
-      if (item.id === "chemistry") item.score += 4;
-      if (item.id === "biology") item.score -= 10;
-      if (item.id === "earth") item.score -= 2;
-    } else if (bucket === "electronic") {
-      if (item.id === "physics") item.score += 12;
-      if (item.id === "information") item.score += 10;
-      if (item.id === "math") item.score += 9;
-      if (item.id === "chemistry") item.score += 6;
-      if (item.id === "biology") item.score -= 10;
-      if (item.id === "earth") item.score -= 4;
-    } else if (bucket === "it") {
-      if (item.id === "information") item.score += 18;
-      if (item.id === "math") item.score += 14;
-      if (item.id === "physics") item.score += 7;
-      if (item.id === "chemistry") item.score += 1;
-      if (item.id === "biology") item.score -= 6;
-      if (item.id === "earth") item.score -= 6;
-    } else if (bucket === "bio") {
-      if (item.id === "biology") item.score += 14;
-      if (item.id === "chemistry") item.score += 8;
-      if (item.id === "math") item.score += 5;
-      if (item.id === "information") item.score += 4;
-      if (item.id === "physics") item.score += 2;
-      if (item.id === "earth") item.score -= 4;
-    } else if (bucket === "env") {
-      if (item.id === "earth") item.score += 14;
-      if (item.id === "physics") item.score += 6;
-      if (item.id === "math") item.score += 7;
-      if (item.id === "information") item.score += 5;
-      if (item.id === "chemistry") item.score += 2;
-    } else {
-      if (item.id === "math") item.score += 3;
-      if (item.id === "information") item.score += 3;
-    }
-
-    if (domain === "science") {
-      if (item.relationType === "direct") item.score += 8;
-      if (item.relationType === "cross") item.score -= 4;
-    }
-    if (domain === "math") {
-      if (item.id === "math") item.score += 8;
-      if (item.relationType === "cross" && item.id !== "math") item.score -= 2;
-    }
-    if (domain === "information") {
-      if (item.id === "information") item.score += 8;
-      if (item.relationType === "cross" && item.id !== "information") item.score -= 2;
-    }
-  });
-
-
-  if (engRule && domain === "science") {
-    const directPriority = engRule.directPriority || [];
-    const crossPriority = engRule.crossPriority || [];
-    const hideDirect = engRule.hideDirect || [];
-    const conditionalDirect = engRule.conditionalDirect || [];
 
     base.forEach(item => {
-      if (item.relationType === "direct") {
-        const idx = directPriority.indexOf(item.id);
-        if (idx >= 0) item.score += Math.max(0, 14 - idx * 4);
-        if (hideDirect.includes(item.id)) {
-          item.score -= 60;
-          item.hiddenByMajor = true;
-        }
-        if (conditionalDirect.includes(item.id)) item.score -= 18;
-      }
-      if (item.relationType === "cross") {
-        const idx = crossPriority.indexOf(item.id);
-        if (idx >= 0) item.score += Math.max(0, 14 - idx * 4);
+      if (bucket === "materials") {
+        if (item.id === "chemistry") item.score += 12;
+        if (item.id === "physics") item.score += 9;
+        if (item.id === "earth") item.score += 2;
+        if (item.id === "biology") item.score -= 8;
+      } else if (bucket === "mechanical") {
+        if (item.id === "physics") item.score += 12;
+        if (item.id === "chemistry") item.score += 4;
+        if (item.id === "biology") item.score -= 10;
+      } else if (bucket === "electronic" || bucket === "it") {
+        if (item.id === "physics") item.score += 11;
+        if (item.id === "chemistry") item.score += 5;
+        if (item.id === "earth") item.score += 1;
+        if (item.id === "biology") item.score -= 8;
+      } else if (bucket === "bio") {
+        if (item.id === "biology") item.score += 12;
+        if (item.id === "chemistry") item.score += 3;
+      } else if (bucket === "env") {
+        if (item.id === "earth") item.score += 12;
+        if (item.id === "physics") item.score += 3;
       }
     });
+
+    return base.sort((a, b) => b.score - a.score);
   }
 
-  const sorted = base.sort((a, b) => b.score - a.score);
-  const top = sorted[0]?.score ?? 0;
-  return sorted.map(item => {
-    let level = 'conditional';
-    let levelLabel = '관심이 있을 때만';
-    let groupCopy = item.relationType === 'cross'
-      ? '현재 과목을 바탕으로 다른 교과로 확장하는 축입니다. 전공에 따라 오히려 이쪽이 더 핵심일 수 있습니다.'
-      : '선택 과목에서 내용상 바로 이어지는 축입니다. 먼저 보기 좋은 기본 방향입니다.';
-
-    if (item.score >= top - 3) {
-      level = 'core';
-      levelLabel = '우선 추천';
-      groupCopy = item.relationType === 'cross'
-        ? '현재 과목을 유지한 채 수학·정보처럼 다른 교과의 해석 도구를 보조적으로 붙일 때 먼저 볼 축입니다.'
-        : '선택 과목과 가장 자연스럽게 이어지는 직접 연계 축입니다. 수행평가의 주과목을 유지할 때 기본이 되는 축입니다.';
-    } else if (item.score >= top - 8) {
-      level = 'support';
-      levelLabel = '확장 가능';
-      groupCopy = item.relationType === 'cross'
-        ? '현재 과목의 개념을 더 잘 설명하기 위해 다른 교과 언어를 빌려오는 보조 확장 축입니다.'
-        : '기본 축 다음으로 충분히 연결 가능한 직접 연계 축입니다.';
-    }
-
-    if (bucket === 'materials') {
-      if (item.id === 'biology' && !materialsBio) {
-        level = 'conditional';
-        levelLabel = '관심이 있을 때만';
-        groupCopy = '바이오소재·생체재료처럼 특수 관심이 있을 때만 추천합니다.';
-      }
-      if (item.id === 'earth' && !materialsGeo) {
-        level = 'conditional';
-        levelLabel = '관심이 있을 때만';
-        groupCopy = '광물·자원·지질 기반 소재에 관심이 있을 때만 추천합니다.';
-      }
-    }
-
-    return {
-      ...item,
-      level,
-      levelLabel,
-      groupCopy,
-      relationLabel: item.relationType === 'cross' ? '횡단 연계 축' : '직접 연계 축',
-      hiddenByMajor: !!item.hiddenByMajor,
-      engineeringGroupLabel: engRule?.groupLabel || ""
-    };
-  }).filter(item => !item.hiddenByMajor);
-}
-
-function getTrackMeta(trackId) {
+  function getTrackMeta(trackId) {
     return TRACK_HELP[trackId] || null;
-  }
-
-  function getCrossLensMeta(lensId) {
-    return CROSS_LENS_HELP[lensId] || null;
-  }
-
-  function getRecommendedCrossLenses() {
-    const domain = detectSubjectDomain(state.subject || "");
-    const bucket = detectCareerBucket(state.career || "");
-    const track = state.supportTrack || state.linkTrack || "";
-    const engRule = getEngineeringGroupRule(state.career || "", domain);
-
-    let order = ["math_view", "science_view", "information_view"];
-
-    if (domain === "math") order = ["science_view", "information_view", "math_view"];
-    if (domain === "information") order = ["math_view", "science_view", "information_view"];
-
-    if (track === "information") order = ["math_view", "science_view", "information_view"];
-    if (track === "math") order = ["science_view", "information_view", "math_view"];
-    if (["physics", "chemistry", "biology", "earth"].includes(track)) order = ["math_view", "information_view", "science_view"];
-
-    if (bucket === "it") order = ["information_view", "math_view", "science_view"];
-    if (bucket === "materials") order = ["math_view", "science_view", "information_view"];
-    if (bucket === "mechanical") order = ["math_view", "science_view", "information_view"];
-    if (bucket === "bio") order = ["science_view", "math_view", "information_view"];
-
-    if (engRule?.lensPriority?.[track]) {
-      order = engRule.lensPriority[track];
-    }
-
-    return order.map(id => CROSS_LENS_HELP[id]).filter(Boolean);
-  }
-
-  function getLensKeywordsForConcept(concept, entry, lensId) {
-    const textBag = [
-      concept,
-      entry?.unit || "",
-      ...(entry?.micro_keywords || []),
-      ...(entry?.core_concepts || [])
-    ].join(" ");
-
-    const baseMap = {
-      "규칙성 발견과 주기율표": {
-        math_view: ["패턴 해석", "그래프 해석", "주기성", "예측 모델"],
-        science_view: ["원소 배열", "주기성", "성질 예측", "반응성"],
-        information_view: ["분류 규칙", "데이터 정렬", "패턴 탐지", "예측 시스템"]
-      },
-      "물질 구성과 분류": {
-        math_view: ["분류 기준", "비율 해석", "구조 비교", "모델링"],
-        science_view: ["원자·분자", "결합", "물질 분류", "재료 구조"],
-        information_view: ["분류 알고리즘", "구조 데이터", "소재 DB", "시뮬레이션"]
-      },
-      "과학의 측정과 우리 사회": {
-        math_view: ["그래프 해석", "오차 분석", "평균·분산", "데이터 비교"],
-        science_view: ["측정 원리", "단위", "오차", "실험 설계"],
-        information_view: ["센서 데이터", "측정 자동화", "데이터 처리", "시각화"]
-      },
-      "역학 시스템": {
-        math_view: ["변화율", "그래프 해석", "벡터 감각", "모델링"],
-        science_view: ["힘", "운동", "안정성", "에너지 이동"],
-        information_view: ["센서 입력", "시뮬레이션", "제어", "시스템 데이터"]
-      },
-      "생명 시스템": {
-        math_view: ["변화 추세", "상관 관계", "통계 비교", "데이터 해석"],
-        science_view: ["세포", "항상성", "생체 반응", "건강"],
-        information_view: ["바이오 데이터", "분류 모델", "예측", "헬스케어 AI"]
-      },
-      "지구시스템": {
-        math_view: ["시계열 그래프", "변동 추세", "패턴 분석", "예측"],
-        science_view: ["환경", "기후", "지구계", "관측"],
-        information_view: ["환경 데이터", "GIS", "위성 데이터", "시각화"]
-      },
-      "자연 세계의 시간과 공간": {
-        math_view: ["좌표", "변화율", "스케일", "모델링"],
-        science_view: ["시간", "공간", "우주", "관측"],
-        information_view: ["공간 데이터", "시뮬레이션", "센서 좌표", "시각화"]
-      },
-      "기본량과 단위": {
-        math_view: ["수량 관계", "비율", "단위 환산", "정량화"],
-        science_view: ["측정", "단위", "기본량", "오차"],
-        information_view: ["데이터 표준화", "센서 단위", "입력값 처리", "정규화"]
-      }
-    };
-
-    let keywords = baseMap[concept]?.[lensId] || [];
-
-    if (!keywords.length) {
-      if (lensId === "math_view") {
-        if (/(측정|그래프|데이터|규칙|예측|변화|단위|배열)/.test(textBag)) keywords = ["그래프 해석", "변화율", "비교", "모델링"];
-        else keywords = ["정량 해석", "비율", "패턴", "모델링"];
-      }
-      if (lensId === "science_view") {
-        if (/(알고리즘|데이터|정보|시뮬레이션|프로그래밍)/.test(textBag)) keywords = ["원리", "실험 연결", "측정", "인과 관계"];
-        else keywords = ["원리", "실험", "측정", "인과 관계"];
-      }
-      if (lensId === "information_view") {
-        if (/(측정|센서|데이터|그래프|규칙|분류)/.test(textBag)) keywords = ["데이터 처리", "시각화", "알고리즘", "시뮬레이션"];
-        else keywords = ["데이터 처리", "알고리즘", "자동화", "시뮬레이션"];
-      }
-    }
-    return uniq(keywords);
   }
 
   function getConceptFriendlyLabel(concept) {
@@ -1723,21 +1215,6 @@ function getTrackMeta(trackId) {
     return "default";
   }
 
-
-  function detectEngineeringMajorGroup(career) {
-    const text = String(career || "");
-    for (const group of ENGINEERING_MAJOR_GROUPS) {
-      if ((group.patterns || []).some(pattern => text.includes(pattern))) return group;
-    }
-    return null;
-  }
-
-  function getEngineeringGroupRule(career, domain) {
-    const group = detectEngineeringMajorGroup(career);
-    if (!group) return null;
-    return group.rules?.[domain] ? { ...group.rules[domain], groupId: group.id, groupLabel: group.label } : null;
-  }
-
   function getCareerProfileKey(career) {
     const bucket = detectCareerBucket(career);
     const map = {
@@ -1756,8 +1233,6 @@ function getTrackMeta(trackId) {
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
     const track = state.linkTrack || "";
-    const supportTrack = state.supportTrack || "";
-    const lens = state.crossLens || "";
     const textBag = [
       concept,
       entry?.unit || "",
@@ -1769,20 +1244,16 @@ function getTrackMeta(trackId) {
     const bioStrong = /(세포|항상성|생명 시스템|생명 유지|생체 데이터|건강 측정|자극 반응|내부 환경)/.test(textBag);
     const mechStrong = /(역학 시스템|구조 안정성|하중 전달|진동 제어|운동|힘|전류|전압|센서|단위|측정|구조물|내진 설계)/.test(textBag);
     const elecStrong = /(전류|전압|전기|전자|회로|센서|디지털 정보|측정 도구|정밀 측정)/.test(textBag);
-    const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료|모델링|시뮬레이션)/.test(textBag);
+    const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료)/.test(textBag);
     const envStrong = /(지구시스템|지구 시스템|천체|대기권|수권|지구계|우주|기후|환경 측정|지구과학 탐구|위성|관측)/.test(textBag);
     const chemStrong = /(물질 구성|물질 분류|원소 배열|주기율|산화|염기|결합|분류 기준|금속|이온|분자|재료 변화|원소|자연에 존재하는 원소)/.test(textBag);
-    const mathStrong = /(규칙성|주기율|기본량과 단위|측정|그래프|예측|비율|수량|모델|배열|정량|패턴|원자 번호|분류 체계)/.test(textBag);
-    const infoStrong = /(데이터|알고리즘|센서|디지털|모델링|시뮬레이션|자동화|인공지능|프로그래밍|정보 처리|제어)/.test(textBag);
 
     const hasBio = bioStrong;
     const hasMech = mechStrong || dataStrong;
-    const hasElec = elecStrong || dataStrong || infoStrong;
-    const hasData = dataStrong || mathStrong || infoStrong;
+    const hasElec = elecStrong || dataStrong;
+    const hasData = dataStrong;
     const hasEnv = envStrong;
     const hasChem = chemStrong;
-    const hasMath = mathStrong || dataStrong;
-    const hasInfo = infoStrong || dataStrong || elecStrong;
 
     let score = 0;
     const reasons = [];
@@ -1824,26 +1295,6 @@ function getTrackMeta(trackId) {
       if (hasBio && !hasEnv) score -= 18;
       if (hasChem && !hasEnv) score -= 10;
       if (hasMech && !hasEnv) score -= 8;
-    }
-    if (supportTrack === "math") {
-      if (hasMath) { score += 15; reasons.push("수학 보조 연계 추천"); }
-      if (hasBio && !hasMath) score -= 6;
-    }
-    if (supportTrack === "information") {
-      if (hasInfo) { score += 15; reasons.push("정보 보조 연계 추천"); }
-      if (hasBio && !hasInfo) score -= 6;
-    }
-
-    if (lens === "math_view") {
-      if (hasMath) { score += 12; reasons.push("수학적 해석 추천"); }
-      if (hasBio && !hasMath) score -= 4;
-    }
-    if (lens === "science_view") {
-      if (hasChem || hasMech || hasBio || hasEnv || hasElec) { score += 10; reasons.push("과학적 해석 추천"); }
-    }
-    if (lens === "information_view") {
-      if (hasInfo || hasData) { score += 12; reasons.push("정보적 해석 추천"); }
-      if (hasBio && !hasInfo) score -= 2;
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
@@ -1894,7 +1345,7 @@ function getTrackMeta(trackId) {
     if (step === 1) return true;
     if (step === 2) return !!state.subject;
     if (step === 3) return !!state.subject && !!state.career;
-    if (step === 4) return isStepEnabled(3) && !!state.linkTrack && !!state.supportTrack && !!state.supportMode;
+    if (step === 4) return isStepEnabled(3) && !!state.linkTrack;
     if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
     if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
@@ -1905,7 +1356,6 @@ function getTrackMeta(trackId) {
   function renderAll() {
     renderStatus();
     renderTrackArea();
-    renderLensArea();
     renderConceptArea();
     renderBookArea();
     renderModeArea();
@@ -1924,9 +1374,8 @@ function getTrackMeta(trackId) {
     if (careerEl) careerEl.textContent = state.career || "입력 전";
 
     let progress = "연계 축 선택 대기";
-    if (state.subject && state.career && !state.linkTrack) progress = "직접 연계 축 선택 중";
-    if (state.linkTrack && (!state.supportTrack || !state.supportMode)) progress = "보조 연계 선택 중";
-    if (state.linkTrack && state.supportTrack && state.supportMode && !state.keyword) progress = "추천 개념/키워드 선택 중";
+    if (state.subject && state.career && !state.linkTrack) progress = "연계 축 선택 중";
+    if (state.linkTrack && !state.keyword) progress = "추천 개념/키워드 선택 중";
     if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
@@ -1935,134 +1384,35 @@ function getTrackMeta(trackId) {
     if (progressEl) progressEl.textContent = progress;
   }
 
-
-function renderTrackArea() {
-  const el = $("engineTrackArea");
-  if (!el) return;
-  if (!isStepEnabled(3)) {
-    el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 직접 연계 축 선택이 열립니다.</div>`;
-    return;
-  }
-  const optionsAll = getTrackOptions().filter(item => item.relationType === "direct");
-  const options = optionsAll.filter(item => item.level !== "conditional");
-  const optionalOptions = optionsAll.filter(item => item.level === "conditional");
-  const recommended = options[0] || optionsAll[0];
-  el.innerHTML = `
-    <div class="engine-help">수행평가의 주과목은 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>입니다. 여기서는 주과목을 심화할 <strong>${escapeHtml(recommended?.title || '직접 연계 축')}</strong> 같은 기본 방향을 먼저 고릅니다.</div>
-    <div class="engine-track-group-wrap">
-      <div class="engine-track-group">
-        <div class="engine-track-group-head">
-          <div>
-            <div class="engine-track-group-title">직접 연계 축</div>
-            <div class="engine-track-group-copy">선택 과목의 내용에서 바로 이어지는 축입니다. 수행평가에서는 이 축이 메인 선택이 됩니다.</div>
+  function renderTrackArea() {
+    const el = $("engineTrackArea");
+    if (!el) return;
+    if (!isStepEnabled(3)) {
+      el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
+      return;
+    }
+    const options = getTrackOptions();
+    const recommended = options[0];
+    el.innerHTML = `
+      <div class="engine-help">학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || "추천 연계 축")}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.</div>
+      <div class="engine-track-grid">${options.map(item => `
+        <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+          <div class="engine-track-top">
+            <div class="engine-track-title">${escapeHtml(item.title)}</div>
+            <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
-          <span class="engine-track-group-badge core">직접 연계 축</span>
-        </div>
-        <div class="engine-track-grid">${options.map(item => `
-          <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
-            <div class="engine-track-top">
-              <div class="engine-track-title">${escapeHtml(item.title)}</div>
-              <div class="engine-track-short">${escapeHtml(item.short)}</div>
-            </div>
-            <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
-            <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-            <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-            <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · 직접 연계 축</div>
-          </button>
-        `).join("")}</div>
-        ${optionalOptions.length ? `
-          <details class="engine-optional-box" style="margin-top:12px; border:1px dashed #d8def2; border-radius:14px; padding:10px 12px; background:#fafcff;">
-            <summary style="cursor:pointer; font-weight:700; color:#3357c0;">관심이 있을 때만 보는 직접 연계 보기 (${optionalOptions.length})</summary>
-            <div class="engine-help" style="margin-top:8px;">현재 전공군 템플릿 기준으로 직접 연계성이 낮은 축은 기본 보기에서 접어두었습니다. 특수 관심 주제가 있을 때만 아래에서 선택하세요.</div>
-            <div class="engine-track-grid" style="margin-top:10px;">${optionalOptions.map(item => `
-              <button type="button" class="engine-track-card is-${escapeHtml(item.level)} ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
-                <div class="engine-track-top">
-                  <div class="engine-track-title">${escapeHtml(item.title)}</div>
-                  <div class="engine-track-short">${escapeHtml(item.short)}</div>
-                </div>
-                <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
-                <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-                <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-                <div class="engine-track-note">전공 적합도 분류: ${escapeHtml(item.levelLabel)} · 조건부 직접 연계</div>
-              </button>
-            `).join("")}</div>
-          </details>
-        ` : ''}
+          <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
+          <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
+          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+        </button>
+      `).join("")}</div>
+      <div class="engine-auto-row">
+        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 추천 연계 축 자동 선택</button>
       </div>
-    </div>
-    <div class="engine-auto-row">
-      <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 전공 적합도 높은 직접 연계 축 자동 선택</button>
-    </div>
-  `;
-}
-
-
-function renderLensArea() {
-  const el = $("engineLensArea");
-  if (!el) return;
-  if (!isStepEnabled(3) || !state.linkTrack) {
-    el.innerHTML = `<div class="engine-empty">먼저 직접 연계 축을 선택해야 보조 연계 선택이 열립니다.</div>`;
-    return;
+    `;
   }
-  const supports = getSupportTrackOptions();
-  if (!supports.length) {
-    el.innerHTML = `<div class="engine-empty">현재 전공·과목 조합에서 사용할 보조 연계가 없습니다.</div>`;
-    return;
-  }
-  if (!state.supportTrack) state.supportTrack = supports[0]?.id || "";
-  const modes = getSupportModes(state.supportTrack);
-  if (!state.supportMode) state.supportMode = modes[0]?.id || "";
-  state.crossLens = getSupportModeMeta(state.supportTrack, state.supportMode)?.lensId || state.crossLens || "";
-  const selectedSupport = getTrackMeta(state.supportTrack) || supports[0];
-  const selectedMode = getSupportModeMeta(state.supportTrack, state.supportMode) || modes[0];
-  el.innerHTML = `
-    <div class="engine-help"><strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || '현재 직접 연계 축')}</strong>을(를) 메인으로 두고, 보고서를 더 정교하게 만들 보조 연계를 고릅니다. 보조 연계는 주과목을 바꾸는 것이 아니라 <strong>${escapeHtml(state.subject || '현재 과목')}</strong>을 다른 교과의 언어로 더 선명하게 설명하기 위한 도구입니다.</div>
-    <div class="engine-track-group-wrap" style="margin-top:12px;">
-      <div class="engine-track-group">
-        <div class="engine-track-group-head">
-          <div>
-            <div class="engine-track-group-title">보조 연계 선택</div>
-            <div class="engine-track-group-copy">수학·정보처럼 다른 교과를 보조 도구로 붙이고, 그 안에서 사용할 세부 방식까지 고릅니다.</div>
-          </div>
-          <span class="engine-track-group-badge support">보조 연계</span>
-        </div>
-        <div class="engine-track-grid">${supports.map(item => `
-          <button type="button" class="engine-track-card engine-support-card ${state.supportTrack === item.id ? 'is-active' : ''}" data-support="${escapeHtml(item.id)}">
-            <div class="engine-track-top">
-              <div class="engine-track-title">${escapeHtml(item.title)}</div>
-              <div class="engine-track-short">${escapeHtml(item.short)}</div>
-            </div>
-            <div class="engine-track-next">보조 과목: ${escapeHtml(item.nextSubject)}</div>
-            <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-            <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
-          </button>
-        `).join('')}</div>
-      </div>
-    </div>
-    ${selectedSupport ? `
-      <div class="engine-panel" style="margin-top:14px;">
-        <div class="engine-subtitle">보조 연계 방식 선택</div>
-        <div class="engine-help" style="margin-bottom:10px;"><strong>${escapeHtml(selectedSupport.title)}</strong>을(를) 어떤 방식으로 쓸지 고릅니다. 이 선택값이 MINI 문장 방향에 그대로 반영됩니다.</div>
-        <div class="engine-chip-wrap">${modes.map(mode => `
-          <button type="button" class="engine-chip ${state.supportMode === mode.id ? 'is-active' : ''}" data-action="support-mode" data-value="${escapeHtml(mode.id)}">${escapeHtml(mode.title)}</button>
-        `).join('')}</div>
-        ${selectedMode ? `
-          <div class="engine-view-guide" style="margin-top:14px;">
-            <div class="engine-view-guide-title">${escapeHtml(selectedMode.title)}</div>
-            <div class="engine-view-guide-desc">${escapeHtml(selectedMode.desc)}</div>
-            <div class="engine-view-guide-example">보조 연계: ${escapeHtml(selectedSupport.title)} · 내부 해석 렌즈: ${escapeHtml(getCrossLensMeta(selectedMode.lensId)?.title || '-')}</div>
-          </div>
-        ` : ''}
-      </div>
-    ` : ''}
-    <div class="engine-auto-row">
-      <button type="button" class="engine-auto-btn" data-action="auto-support">잘 모르겠어요 → 전공 적합도 높은 보조 연계 자동 선택</button>
-    </div>
-  `;
-}
 
-
-function renderConceptArea() {
+  function renderConceptArea() {
     const conceptWrap = $("engineConceptCards");
     const keywordWrap = $("engineKeywordButtons");
     if (!conceptWrap || !keywordWrap) return;
@@ -2082,15 +1432,14 @@ function renderConceptArea() {
     }
 
     conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
-      const lensKeywords = getLensKeywordsForConcept(item.concept, item.value, state.crossLens).slice(0, 4);
-      const tags = lensKeywords.map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
+      const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
       const why = item.reasons[0] || "추천 개념";
       const alias = getConceptFriendlyLabel(item.concept);
       return `
         <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
           <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
-          <div class="engine-help" style="margin-top:8px;">주과목: ${escapeHtml(state.subject || '-')} · ${escapeHtml(why)} · 보조 연계: ${escapeHtml(getTrackMeta(state.supportTrack)?.title || "없음")} / ${escapeHtml(getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "없음")}</div>
+          <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
       `;
@@ -2109,9 +1458,8 @@ function renderConceptArea() {
     }
 
     keywordWrap.innerHTML = `
-      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 주과목: <strong>${escapeHtml(state.subject || '-')}</strong> · 보조 연계: <strong>${escapeHtml(getTrackMeta(state.supportTrack)?.title || "-")}</strong> · 방식: <strong>${escapeHtml(getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "-")}</strong></div>
-      <div class="engine-help" style="margin-top:6px;">보조 연계 키워드 예시: ${escapeHtml(getLensKeywordsForConcept(state.concept, entry, state.crossLens).join(", ") || "없음")}</div>
-      <div class="engine-chip-wrap" style="margin-top:10px;">${uniq([...getLensKeywordsForConcept(state.concept, entry, state.crossLens), ...keywords]).map(keyword => `
+      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong></div>
+      <div class="engine-chip-wrap">${keywords.map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
       `).join("")}</div>
     `;
@@ -2253,8 +1601,6 @@ function renderConceptArea() {
       state.subject,
       state.career,
       getTrackMeta(state.linkTrack)?.title || "",
-      getTrackMeta(state.supportTrack)?.title || "",
-      getSupportModeMeta(state.supportTrack, state.supportMode)?.title || getCrossLensMeta(state.crossLens)?.title || "",
       state.concept,
       state.keyword,
       state.selectedBookTitle || state.selectedBook,
@@ -2275,9 +1621,7 @@ function renderConceptArea() {
       활용 영역: ${escapeHtml(payload.activity_context.activity_area || "-")}<br>
       최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
       기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
-      직접 연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
-      보조 연계: ${escapeHtml(payload.track_context.support_track_label || "-")}<br>
-      보조 연계 방식: ${escapeHtml(payload.track_context.support_mode_label || payload.track_context.cross_lens_label || "-")}<br>
+      연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
@@ -2308,11 +1652,14 @@ function renderConceptArea() {
 
   function syncOutputFields() {
     const keywordInput = $("keyword");
-    if (keywordInput) keywordInput.value = state.keyword || "";
+    if (keywordInput) {
+      const displayKeywords = state.keyword || state.majorSuggestedKeywords.join(', ');
+      keywordInput.value = displayKeywords || "";
+      if (!state.keyword && state.majorSuggestedKeywords.length) {
+        keywordInput.placeholder = '학과 선택 키워드가 자동 반영됩니다.';
+      }
+    }
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
-    if ($("supportTrack")) $("supportTrack").value = state.supportTrack || "";
-    if ($("supportMode")) $("supportMode").value = state.supportMode || "";
-    if ($("crossInterpretLens")) $("crossInterpretLens").value = state.supportMode || state.crossLens || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
     if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
     if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
@@ -2346,13 +1693,7 @@ function renderConceptArea() {
       track_context: {
         id: state.linkTrack,
         label: getTrackMeta(state.linkTrack)?.title || "",
-        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || "",
-        support_track: state.supportTrack,
-        support_track_label: getTrackMeta(state.supportTrack)?.title || "",
-        support_mode: state.supportMode,
-        support_mode_label: getSupportModeMeta(state.supportTrack, state.supportMode)?.title || "",
-        cross_lens: state.crossLens,
-        cross_lens_label: getCrossLensMeta(state.crossLens)?.title || ""
+        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || ""
       },
       concept_context: {
         concept: state.concept,
