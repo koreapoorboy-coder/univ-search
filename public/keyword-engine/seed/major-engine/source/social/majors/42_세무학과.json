@@ -1,0 +1,35 @@
+{
+  "major_id": "42",
+  "major_name": "세무학과",
+  "track": "social",
+  "source_version": "v3",
+  "source_files": [
+    {
+      "file_name": "사회계열 파트3.pdf",
+      "page_range": [
+        9,
+        10
+      ],
+      "visibility_status": "complete_two_page_visible"
+    }
+  ],
+  "structuring_status": "complete_two_page_visible",
+  "extraction_mode": "image_page_structured",
+  "notes": [
+    "PDF 페이지 이미지 기반으로 source 구조화함",
+    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+  ],
+  "schema_hint": {
+    "expected_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ]
+  }
+}
