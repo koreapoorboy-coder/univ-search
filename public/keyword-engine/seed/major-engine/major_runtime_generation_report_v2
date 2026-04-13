@@ -1,0 +1,41 @@
+{
+  "runtime_version": "v2_from_integrated_source",
+  "total_majors": 138,
+  "categories": [
+    {
+      "track_category": "자율전공계열",
+      "index_range": "198-198",
+      "loaded_major_count": 1
+    },
+    {
+      "track_category": "공학계열",
+      "index_range": "78-119",
+      "loaded_major_count": 42
+    },
+    {
+      "track_category": "인문계열",
+      "index_range": "1-19",
+      "loaded_major_count": 19
+    },
+    {
+      "track_category": "의약계열",
+      "index_range": "121-138",
+      "loaded_major_count": 18
+    },
+    {
+      "track_category": "자연계열",
+      "index_range": "56-77",
+      "loaded_major_count": 22
+    },
+    {
+      "track_category": "사회계열",
+      "index_range": "20-55",
+      "loaded_major_count": 36
+    }
+  ],
+  "notes": [
+    "기존 파일명을 유지해 helper.js와 호환되도록 구성함",
+    "세부 문장 추출이 없는 source는 placeholder intro/주제/역량으로 1차 매핑함",
+    "도서 bridge는 추천 도서 제목 기반의 표시용 후보를 우선 생성함"
+  ]
+}
