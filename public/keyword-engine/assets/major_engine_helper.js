@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.5.0-major-search-grouped";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -180,6 +180,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
       .major-engine-candidate-keywords { margin-top:8px; color:#5c6c86; font-size:12px; line-height:1.5; }
       .major-engine-candidate.is-selected .major-engine-candidate-keywords { color:rgba(255,255,255,.92); }
       .major-engine-help { margin-top:8px; color:#6a7891; font-size:12px; }
+      .major-engine-group-list { margin-top: 12px; display:grid; gap:14px; }
+      .major-engine-group { border:1px solid #dbe5f4; background:#fff; border-radius:18px; padding:14px; }
+      .major-engine-group-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
+      .major-engine-group-title { font-size:16px; font-weight:800; color:#172033; }
+      .major-engine-group-desc { margin-top:4px; color:#5c6c86; font-size:13px; line-height:1.55; }
+      .major-engine-group-count { display:inline-flex; padding:4px 10px; border-radius:999px; background:#f3f6fd; color:#40506a; font-size:12px; font-weight:700; white-space:nowrap; }
+      .major-engine-candidates { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:12px; }
       @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
@@ -254,6 +261,76 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
     renderMajorSummary();
     startMiniPayloadPatch();
     input.dispatchEvent(new Event('change', { bubbles:true }));
+  }
+
+
+  function classifyCandidateGroup(row, rawInput){
+    const input = String(rawInput || '').trim();
+    const profile = row?.profile || {};
+    const textBag = [
+      row?.display_name || '',
+      profile?.display_name || '',
+      row?.track_category || '',
+      ...(row?.keywords || []),
+      ...(profile?.related_subject_hints || []),
+      ...(profile?.inquiry_topics_raw || [])
+    ].join(' ');
+
+    const rules = [
+      { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
+      { id:'climate_nature', label:'기후·자연 환경', desc:'기후, 대기, 지구 시스템, 자연 관측과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|천문|해양|생태|관측|자연환경)/ },
+      { id:'city_infra', label:'도시·인프라', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
+      { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|데이터|분석|확률|모델링|수리|정량)/ },
+      { id:'media_content', label:'미디어·콘텐츠', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.', test: /(미디어|콘텐츠|신문방송|광고홍보|언론정보|커뮤니케이션|문화콘텐츠|방송)/ },
+      { id:'psychology_counsel', label:'심리·상담', desc:'인지, 정서, 행동, 상담 사례를 중심으로 보는 학과입니다.', test: /(심리|상담|정서|인지|행동)/ },
+      { id:'business_global', label:'경영·국제', desc:'시장, 소비자, 국제 이슈와 연결된 경영·경제 계열 학과입니다.', test: /(경영|경제|무역|국제|통상|관광|호텔|회계|세무|부동산|소비자)/ },
+      { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.', test: /(행정|정책|법학|정치외교|공공|경찰|군사|외교)/ },
+      { id:'bio_health', label:'생명·보건', desc:'건강, 생명, 의료, 보건 데이터와 연결된 학과입니다.', test: /(생명|바이오|의료|보건|간호|약학|치의|한의|수의|임상|방사선|치위생|치기공|응급구조|물리치료)/ },
+      { id:'materials_devices', label:'소재·장치', desc:'재료, 반도체, 장치 구조와 성질을 다루는 학과입니다.', test: /(신소재|재료|반도체|고분자|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
+      { id:'language_culture', label:'언어·문화·사상', desc:'언어, 텍스트, 문화와 사상을 중심으로 읽는 학과입니다.', test: /(국어국문|언어|영어|일어|중어|불어|독어|노어|아랍어|철학|사학|고고|신학|한문|한국어|미학|문예창작|문화인류|문화유산)/ }
+    ];
+
+    for (const rule of rules) {
+      if (rule.test.test(textBag) || (input && rule.test.test(input))) {
+        return rule;
+      }
+    }
+
+    const track = String(row?.track_category || '');
+    if (track.includes('공학')) return { id:'materials_devices', label:'공학 계열', desc:'구조, 장치, 설계처럼 공학 중심으로 이어지는 후보입니다.' };
+    if (track.includes('자연')) return { id:'climate_nature', label:'자연 계열', desc:'자연 현상, 데이터 해석과 연결된 후보입니다.' };
+    if (track.includes('의약')) return { id:'bio_health', label:'의약 계열', desc:'건강·생명·의료 문제와 연결된 후보입니다.' };
+    if (track.includes('인문')) return { id:'language_culture', label:'인문 계열', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
+    if (track.includes('사회')) return { id:'business_global', label:'사회 계열', desc:'사회 현상, 정책, 시장과 연결된 후보입니다.' };
+    return { id:'general', label:'관련 학과 묶음', desc:'입력한 단어와 연결된 후보를 모아 보여줍니다.' };
+  }
+
+  function groupCandidateSuggestions(rows, rawInput){
+    const orderedGroups = [];
+    const groupMap = new Map();
+    (rows || []).forEach(row => {
+      const group = classifyCandidateGroup(row, rawInput);
+      const key = group.id || 'general';
+      if (!groupMap.has(key)) {
+        const bundle = { id:key, label:group.label, desc:group.desc, items:[] };
+        groupMap.set(key, bundle);
+        orderedGroups.push(bundle);
+      }
+      groupMap.get(key).items.push({
+        major_id: row.major_id,
+        display_name: row.display_name,
+        track_category: row.track_category,
+        match_label: row.match_label,
+        keywords: (row.keywords || []).slice(0, 5),
+        score: row.score
+      });
+    });
+    return orderedGroups.map(group => ({
+      ...group,
+      items: group.items
+        .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+        .slice(0, 4)
+    }));
   }
 
   function findCandidates(rawInput){
@@ -333,6 +410,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
       input,
       normalized,
       status: 'ambiguous',
+      grouped_suggestions: groupCandidateSuggestions(candidates, input),
       suggestions: candidates.map(row => ({
         major_id: row.major_id,
         display_name: row.display_name,
@@ -398,23 +476,40 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.4.0-major-search-ranking";
     panel.style.display = 'block';
 
     if (data.status === 'ambiguous') {
+      const grouped = Array.isArray(data.grouped_suggestions) && data.grouped_suggestions.length
+        ? data.grouped_suggestions
+        : [{ id:'general', label:'관련 학과 묶음', desc:'입력한 단어와 가까운 후보입니다.', items:(data.suggestions || []) }];
+
       panel.innerHTML = `
         <div class="major-engine-kicker">전공 후보 추천</div>
         <h4 class="major-engine-title">관련 학과를 먼저 고르세요</h4>
-        <div class="major-engine-sub"><strong>${escapeHtml(data.input || '-')}</strong>와(과) 연결된 학과 후보입니다. 학생이 정확한 학과명을 몰라도 먼저 후보를 보고 선택할 수 있게 구성했습니다.</div>
-        <div class="major-engine-candidates">
-          ${(data.suggestions || []).map(row => `
-            <button type="button" class="major-engine-candidate ${state.selectedMajorId && state.selectedMajorId === row.major_id ? 'is-selected' : ''}" data-major-id="${escapeHtml(row.major_id)}" data-major-select="${escapeHtml(row.display_name)}">
-              <div class="major-engine-candidate-title">${escapeHtml(row.display_name)}</div>
-              <div class="major-engine-candidate-meta">
-                <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
-                <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
+        <div class="major-engine-sub"><strong>${escapeHtml(data.input || '-')}</strong>와(과) 연결된 학과 후보입니다. 비슷한 학과를 묶음으로 보여주기 때문에, 학생이 학과명을 정확히 몰라도 차이를 보고 선택할 수 있습니다.</div>
+        <div class="major-engine-group-list">
+          ${grouped.map(group => `
+            <section class="major-engine-group">
+              <div class="major-engine-group-head">
+                <div>
+                  <div class="major-engine-group-title">${escapeHtml(group.label || '관련 학과')}</div>
+                  <div class="major-engine-group-desc">${escapeHtml(group.desc || '입력한 단어와 연결된 후보입니다.')}</div>
+                </div>
+                <div class="major-engine-group-count">${escapeHtml(String((group.items || []).length))}개 후보</div>
               </div>
-              <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(', ') || '관련 키워드 준비 중')}</div>
-            </button>
+              <div class="major-engine-candidates">
+                ${(group.items || []).map(row => `
+                  <button type="button" class="major-engine-candidate ${state.selectedMajorId && state.selectedMajorId === row.major_id ? 'is-selected' : ''}" data-major-id="${escapeHtml(row.major_id)}" data-major-select="${escapeHtml(row.display_name)}">
+                    <div class="major-engine-candidate-title">${escapeHtml(row.display_name)}</div>
+                    <div class="major-engine-candidate-meta">
+                      <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
+                      <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
+                    </div>
+                    <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(', ') || '관련 키워드 준비 중')}</div>
+                  </button>
+                `).join('')}
+              </div>
+            </section>
           `).join('')}
         </div>
-        <div class="major-engine-help">입력한 단어와 가장 가까운 학과를 위에 먼저 정렬합니다. 학과를 클릭하면 전공 프리셋과 자동 키워드가 함께 바뀝니다.</div>
+        <div class="major-engine-help">입력한 단어를 바탕으로 비슷한 학과를 묶어서 보여줍니다. 먼저 묶음을 보고, 그 안에서 가장 가까운 학과를 클릭하면 전공 프리셋과 자동 키워드가 함께 바뀝니다.</div>
       `;
       dispatchMajorSelection(null);
       return;
