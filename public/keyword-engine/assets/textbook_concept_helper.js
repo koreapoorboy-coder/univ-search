@@ -1686,6 +1686,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.2-major-keyword-preview-grouped"
         author: bookDetail?.author || "",
         summary_short: bookDetail?.summary_short || ""
       },
+      major_compare_context: {
+        selected_major: state.majorSelectedName || '',
+        comparison_group: state.majorComparison?.group_label || '',
+        selected_focus: state.majorComparison?.selected_focus || '',
+        peer_majors: Array.isArray(state.majorComparison?.peers) ? state.majorComparison.peers.slice(0,3).map(peer => ({
+          display_name: peer.display_name || '',
+          track_category: peer.track_category || '',
+          focus: peer.focus || ''
+        })) : []
+      },
       report_context: {
         mode: state.reportMode,
         mode_label: getModeLabel(state.reportMode),
