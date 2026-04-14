@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguous-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -29,7 +29,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
     reportLine: "",
     majorSelectedName: "",
     majorCoreKeywords: [],
-    majorComparison: null
+    majorComparison: null,
+    linkTrackSource: ""
   };
 
   const REPORT_LINE_HELP = {
@@ -982,6 +983,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
     state.majorSelectedName = fallback?.display_name || '';
     state.majorCoreKeywords = Array.isArray(fallback?.core_keywords) ? fallback.core_keywords.slice(0, 8) : [];
     state.majorComparison = fallback?.comparison || null;
+    if (!state.linkTrack && state.subject && state.career) {
+      const autoTrack = getAutoTrackDetail();
+      if (autoTrack?.id) {
+        state.linkTrack = autoTrack.id;
+        state.linkTrackSource = 'auto';
+      }
+    }
   }
 
   function scheduleMajorPreviewSync() {
@@ -1018,6 +1026,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
         careerEl.addEventListener(evt, function () {
           syncCareerFromInput();
           clearFrom("track");
+          state.linkTrackSource = "";
           renderAll();
           scheduleMajorPreviewSync();
         });
@@ -1034,6 +1043,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
       if (autoTrackBtn && isStepEnabled(3)) {
         const topTrack = getTrackOptions()[0];
         state.linkTrack = topTrack ? topTrack.id : "";
+        state.linkTrackSource = topTrack ? 'auto' : '';
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1043,6 +1053,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(3)) {
         state.linkTrack = trackCard.getAttribute("data-track") || "";
+        state.linkTrackSource = 'manual';
         clearFrom("concept");
         syncOutputFields();
         renderAll();
@@ -1218,6 +1229,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
 
   function getTrackOptions() {
     const bucket = detectCareerBucket(state.career || "");
+    const majorLabel = getMajorGroupLabel();
+    const majorText = getMajorTextBag();
     const base = [
       { ...TRACK_HELP.physics, score: 4 },
       { ...TRACK_HELP.chemistry, score: 4 },
@@ -1247,9 +1260,52 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
         if (item.id === "earth") item.score += 12;
         if (item.id === "physics") item.score += 3;
       }
+
+      if (majorLabel.includes('환자 진료') || majorLabel.includes('회복 지원')) {
+        if (item.id === 'biology') item.score += 14;
+        if (item.id === 'chemistry') item.score += 2;
+        if (/방사선/.test(majorText) && item.id === 'physics') item.score += 6;
+      }
+      if (majorLabel.includes('실험·기술 응용')) {
+        if (item.id === 'chemistry') item.score += 10;
+        if (item.id === 'biology') item.score += 7;
+      }
+      if (majorLabel.includes('기초 생명과학')) {
+        if (item.id === 'biology') item.score += 14;
+        if (item.id === 'chemistry') item.score += 3;
+      }
+      if (majorLabel.includes('의료기기')) {
+        if (item.id === 'physics') item.score += 10;
+        if (item.id === 'chemistry') item.score += 6;
+      }
+      if (majorLabel.includes('반도체')) {
+        if (item.id === 'physics') item.score += 13;
+        if (item.id === 'chemistry') item.score += 9;
+        if (item.id === 'biology') item.score -= 10;
+      }
+      if (majorLabel.includes('국제 이슈')) {
+        if (item.id === 'earth') item.score += 8;
+        if (item.id === 'chemistry') item.score += 4;
+      }
+      if (majorLabel.includes('기업 운영')) {
+        if (item.id === 'chemistry') item.score += 6;
+        if (item.id === 'physics') item.score += 2;
+      }
+      if (majorLabel.includes('환경')) {
+        if (item.id === 'earth') item.score += 12;
+        if (item.id === 'chemistry') item.score += 4;
+      }
+      if (/간호|임상병리|보건관리|언어치료|물리치료|작업치료/.test(majorText)) {
+        if (item.id === 'biology') item.score += 6;
+      }
+      if (/제약|화공|식품|발효|미생물/.test(majorText)) {
+        if (item.id === 'chemistry') item.score += 6;
+      }
     });
 
-    return base.sort((a, b) => b.score - a.score);
+    return base
+      .sort((a, b) => b.score - a.score)
+      .map(item => ({ ...item, reason: getTrackReason(item) }));
   }
 
   function getTrackMeta(trackId) {
@@ -1273,6 +1329,40 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
     const entry = engineMap?.[subject];
     const concepts = entry?.concepts || {};
     return Object.entries(concepts).map(([concept, value]) => ({ concept, value }));
+  }
+
+  function getMajorGroupLabel() {
+    return String(state.majorComparison?.group_label || "");
+  }
+
+  function getMajorTextBag() {
+    return [
+      state.majorSelectedName || "",
+      ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
+      state.majorComparison?.group_label || "",
+      state.majorComparison?.selected_focus || ""
+    ].join(" ");
+  }
+
+  function getTrackReason(item) {
+    const label = getMajorGroupLabel();
+    const majorText = getMajorTextBag();
+    if (/반도체|신소재|전자|소자/.test(majorText) && item.id === 'physics') return '반도체·소자 구조를 이해하기 쉬운 축';
+    if (/반도체|신소재|전자|소자|재료|제약|화공|식품|고분자/.test(majorText) && item.id === 'chemistry') return '재료·반응·성질을 연결하기 쉬운 축';
+    if (label.includes('환자 진료') && item.id === 'biology') return '인체 반응·건강 데이터를 연결하기 쉬운 축';
+    if (label.includes('회복 지원') && item.id === 'biology') return '신체 기능 회복과 생명 반응을 설명하기 쉬운 축';
+    if (label.includes('국제 이슈') && item.id === 'earth') return '환경·자원·지구 시스템 이슈와 연결하기 쉬운 축';
+    if (label.includes('기업 운영') && item.id === 'chemistry') return '소재·제품·산업 사례를 붙이기 쉬운 축';
+    if (label.includes('실험·기술 응용') && item.id === 'chemistry') return '실험·공정·응용 기술을 연결하기 쉬운 축';
+    if (label.includes('기초 생명과학') && item.id === 'biology') return '생명 현상의 원리를 설명하기 쉬운 축';
+    if (label.includes('의료기기') && item.id === 'physics') return '장비·센서·측정 원리를 설명하기 쉬운 축';
+    if (label.includes('환경') && item.id === 'earth') return '환경·기후 변화를 바로 연결하기 쉬운 축';
+    return item.easy || '';
+  }
+
+  function getAutoTrackDetail() {
+    const options = getTrackOptions();
+    return options[0] || null;
   }
 
   function detectCareerBucket(career) {
@@ -1464,17 +1554,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-preview-ambiguou
     }
     const options = getTrackOptions();
     const recommended = options[0];
+    const autoHint = recommended?.reason || recommended?.easy || '';
+    const guide = state.majorSelectedName
+      ? `${escapeHtml(state.majorSelectedName)} 기준으로는 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하는 것이 가장 자연스럽습니다.`
+      : `학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.`;
     el.innerHTML = `
-      <div class="engine-help">학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || "추천 연계 축")}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.</div>
-      <div class="engine-track-grid">${options.map(item => `
+      <div class="engine-help">${guide}</div>
+      ${autoHint ? `<div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(autoHint)}</div>` : ''}
+      <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
           <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.easy)}</div>
+          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy)}</div>
         </button>
       `).join("")}</div>
       <div class="engine-auto-row">
