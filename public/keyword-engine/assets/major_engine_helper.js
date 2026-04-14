@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -275,6 +275,82 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
     input.dispatchEvent(new Event('change', { bubbles:true }));
   }
 
+  function detectSearchIntent(rawInput){
+    const input = String(rawInput || '').trim();
+    if (!input) return null;
+    const normalized = normalize(input);
+    const rules = [
+      { id:'environment', group_id:'climate_nature', label:'환경', test: /(환경|기후|대기|생태|지구|지속가능|탄소|환경공학|환경과학)/ },
+      { id:'psychology', group_id:'psychology_counsel', label:'심리', test: /(심리|상담|인지|정서|행동)/ },
+      { id:'media', group_id:'media_content', label:'미디어', test: /(미디어|콘텐츠|커뮤니케이션|언론|방송|광고|홍보|신문방송)/ },
+      { id:'global', group_id:'business_global', label:'국제', test: /(국제|통상|무역|글로벌|외교)/ },
+      { id:'semiconductor', group_id:'materials_devices', label:'반도체', test: /(반도체|회로|소자|칩|전자재료)/ },
+      { id:'bio', group_id:'bio_health', label:'바이오', test: /(바이오|생명|의생명|생명공학|생명과학|의공|제약|bio)/i },
+      { id:'health', group_id:'bio_health', label:'보건', test: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|치료)/ }
+    ];
+    return rules.find(rule => rule.test.test(input) || rule.test.test(normalized)) || null;
+  }
+
+  function isBroadCareerKeyword(rawInput){
+    const input = String(rawInput || '').trim();
+    if (!input) return false;
+    if (/[학과부전공]$/.test(input)) return false;
+    const normalized = normalize(input);
+    return normalized.length <= 4 && !!detectSearchIntent(input);
+  }
+
+  function getIntentMatchBoost(intent, row, aliasList, keywords, profile){
+    if (!intent) return 0;
+    const textBag = [
+      row?.display_name || '',
+      profile?.display_name || '',
+      row?.track_category || '',
+      ...(aliasList || []),
+      ...(keywords || []),
+      ...(profile?.related_subject_hints || []),
+      ...(profile?.inquiry_topics_raw || [])
+    ].join(' ');
+    const boostRules = {
+      environment: /(환경|지구환경|기후|대기|생태|주거환경|건설환경|토목환경|환경과학|지속가능|수자원|스마트시티)/,
+      psychology: /(심리|상담|인지|정서|행동|상담사례)/,
+      media: /(미디어|커뮤니케이션|광고|홍보|방송|언론|콘텐츠|문화콘텐츠|신문방송)/,
+      global: /(국제|통상|무역|글로벌|외교|지역|시장구조|국제무역)/,
+      semiconductor: /(반도체|전자|신소재|재료|회로|센서|전기|소자|메모리)/,
+      bio: /(바이오|생명|의생명|생명공학|생명과학|제약|의공|세포|유전|미생물|바이오센서|바이오의약품)/,
+      health: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|언어치료|의료영상)/
+    };
+    const regex = boostRules[intent.id];
+    if (!regex) return 0;
+    if (regex.test(textBag)) return 34;
+    return 0;
+  }
+
+  function filterCandidateRows(rows, rawInput){
+    if (!Array.isArray(rows) || !rows.length) return [];
+    const top = rows[0].score || 0;
+    const intent = detectSearchIntent(rawInput);
+    const normalized = normalize(rawInput);
+    const minBase = normalized.length <= 2 ? 42 : 35;
+    let floor = minBase;
+    if (top >= 140) floor = Math.max(minBase, top - 70);
+    else if (top >= 100) floor = Math.max(minBase, top - 60);
+    else if (top >= 80) floor = Math.max(minBase, top - 50);
+
+    let filtered = rows.filter(row => row.score >= floor);
+
+    if (intent && filtered.length < 3) {
+      filtered = rows.filter(row => row.score >= minBase);
+    }
+    if (filtered.length < 2 && rows.length > 1) {
+      filtered = rows.filter(row => row.score >= minBase);
+    }
+    return filtered.slice(0, 8);
+  }
+
+  function shouldPreferSuggestionSelection(rawInput, candidates){
+    return isBroadCareerKeyword(rawInput) && Array.isArray(candidates) && candidates.length >= 2;
+  }
+
 
   function classifyCandidateGroup(row, rawInput){
     const input = String(rawInput || '').trim();
@@ -287,6 +363,34 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
       ...(profile?.related_subject_hints || []),
       ...(profile?.inquiry_topics_raw || [])
     ].join(' ');
+
+    const intent = detectSearchIntent(input);
+    if (intent) {
+      const intentRules = {
+        environment: { id:'climate_nature', label:'환경 관련 추천', desc:'환경·기후·지구 시스템과 연결되는 학과를 먼저 보여줍니다.' },
+        psychology: { id:'psychology_counsel', label:'심리 관련 추천', desc:'심리·상담·행동 이해와 연결되는 학과를 먼저 보여줍니다.' },
+        media: { id:'media_content', label:'미디어 관련 추천', desc:'미디어·콘텐츠·광고·커뮤니케이션 계열 학과를 먼저 보여줍니다.' },
+        global: { id:'business_global', label:'국제 관련 추천', desc:'국제·통상·무역·글로벌 이슈와 연결되는 학과를 먼저 보여줍니다.' },
+        semiconductor: { id:'materials_devices', label:'반도체 관련 추천', desc:'반도체·전자·재료·회로와 연결되는 학과를 먼저 보여줍니다.' },
+        bio: { id:'bio_health', label:'바이오 관련 추천', desc:'생명·바이오·제약·의공과 연결되는 학과를 먼저 보여줍니다.' },
+        health: { id:'bio_health', label:'보건 관련 추천', desc:'보건·의료·간호·임상과 연결되는 학과를 먼저 보여줍니다.' }
+      };
+      const intentRule = intentRules[intent.id];
+      if (intentRule) {
+        const intentRegex = {
+          environment: /(환경|지구환경|기후|대기|생태|주거환경|건설환경|토목환경|환경과학|수자원|지속가능)/,
+          psychology: /(심리|상담|인지|정서|행동)/,
+          media: /(미디어|커뮤니케이션|광고|홍보|방송|언론|콘텐츠|신문방송)/,
+          global: /(국제|통상|무역|글로벌|외교)/,
+          semiconductor: /(반도체|전자|신소재|재료|회로|소자|센서)/,
+          bio: /(바이오|생명|의생명|생명공학|생명과학|제약|의공|세포|유전|미생물)/,
+          health: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|치료)/
+        }[intent.id];
+        if (intentRegex && intentRegex.test(textBag)) {
+          return intentRule;
+        }
+      }
+    }
 
     const rules = [
       { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
@@ -408,18 +512,26 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
         score: row.score
       });
     });
+    const intent = detectSearchIntent(rawInput);
     return orderedGroups.map(group => ({
       ...group,
       items: group.items
         .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
         .slice(0, 4)
-    }));
+    })).sort((a,b) => {
+      if (intent && a.id === intent.group_id && b.id !== intent.group_id) return -1;
+      if (intent && b.id === intent.group_id && a.id !== intent.group_id) return 1;
+      const aTop = (a.items?.[0]?.score || 0);
+      const bTop = (b.items?.[0]?.score || 0);
+      return bTop - aTop;
+    });
   }
 
   function findCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
     if (!normalized) return [];
+    const intent = detectSearchIntent(input);
     const rows = state.catalog.map(row => {
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
@@ -436,6 +548,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
+      score += getIntentMatchBoost(intent, row, aliases, keywords, profile);
       if (!score) return null;
       return {
         major_id: row.major_id,
@@ -447,10 +560,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
         match_label: deriveMatchLabel(score),
         keywords
       };
-    }).filter(Boolean);
-    return rows
-      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
-      .slice(0, 10);
+    }).filter(Boolean)
+      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'));
+    return filterCandidateRows(rows, input);
   }
 
   function resolveMajor(rawCareer){
@@ -472,8 +584,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
       return buildResolved(exactProfile, 'exact_major_name', input);
     }
 
-    const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized));
-    if (aliasRow) {
+    const candidates = findCandidates(input);
+    const aliasMatches = state.aliasRows.filter(row => row.normalized_aliases.includes(normalized));
+
+    if (aliasMatches.length === 1 && !shouldPreferSuggestionSelection(input, candidates)) {
+      const aliasRow = aliasMatches[0];
       const profile = state.profileByMajorId.get(aliasRow.major_id) || state.profileByName.get(aliasRow.display_name);
       if (profile) {
         state.selectedMajorId = profile.major_id || '';
@@ -482,11 +597,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
       }
     }
 
-    const candidates = findCandidates(input);
     if (!candidates.length) {
       return { input, normalized, status: 'not_found', suggestions: [] };
     }
-    if (candidates.length === 1 && candidates[0].score >= 25) {
+    if (candidates.length === 1 && candidates[0].score >= 25 && !shouldPreferSuggestionSelection(input, candidates)) {
       state.selectedMajorId = candidates[0].profile.major_id || '';
       state.selectedMajorName = candidates[0].profile.display_name || '';
       return buildResolved(candidates[0].profile, 'candidate_match', input, candidates[0].aliasRow);
@@ -617,9 +731,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
       <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
-        입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
-        선택 과목: ${escapeHtml($('subject')?.value || '') || '-'} · 계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
-        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
+        입력한 희망 진로 <strong>${escapeHtml(data.input)}</strong>와(과) 가장 가까운 학과로 <strong>${escapeHtml(data.display_name)}</strong>을(를) 연결했습니다.<br>
+        계열: ${escapeHtml(data.track_category || '-')}
+        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 보여주고 있습니다.</strong>'}
       </div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
