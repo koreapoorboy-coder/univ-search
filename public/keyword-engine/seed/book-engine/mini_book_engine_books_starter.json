@@ -7171,26 +7171,80 @@
     "book_no": 81,
     "title": "나는 간호사, 사람입니다",
     "author": "김현아",
-    "summary_short": "나는 간호사, 사람입니다 관련 탐구 확장용 등록 도서 (상세 보강 예정)",
+    "summary_short": "간호사의 실제 경험을 통해 환자 돌봄, 임상 판단, 의료윤리를 연결해 탐구를 확장할 수 있는 의료·보건 계열 입문 도서",
     "starter_questions": [
       "\"나는 간호사, 사람입니다\"의 핵심 문제의식을 현재 관심 전공과 연결해 해석할 수 있을까?",
       "\"나는 간호사, 사람입니다\"를 읽고 교과 개념과 연결되는 탐구 질문을 어떻게 만들 수 있을까?",
       "\"나는 간호사, 사람입니다\"의 내용을 수행평가용 보고서 주제로 확장한다면 어떤 방향이 가능할까?"
     ],
-    "linked_subjects": [],
-    "linked_majors": [],
-    "fit_keywords": [],
-    "fit_modes": [
-      "catalog",
-      "pending_detail"
+    "linked_subjects": [
+      "생명과학",
+      "통합과학1",
+      "보건",
+      "윤리와사상"
     ],
-    "engine_subject_routes": [],
+    "linked_majors": [
+      "간호학과",
+      "보건관리학과",
+      "응급구조학과"
+    ],
+    "fit_keywords": [
+      "환자 간호",
+      "임상 판단",
+      "의사소통",
+      "돌봄 윤리",
+      "건강관리",
+      "의료현장"
+    ],
+    "fit_modes": [
+      "compare",
+      "application",
+      "major"
+    ],
+    "engine_subject_routes": [
+      {
+        "subject": "생명과학",
+        "concept": "생명 시스템",
+        "micro_keywords": [
+          "항상성",
+          "자극과 반응",
+          "건강",
+          "면역"
+        ]
+      },
+      {
+        "subject": "통합과학1",
+        "concept": "과학의 측정과 우리 사회",
+        "micro_keywords": [
+          "측정",
+          "데이터",
+          "건강지표",
+          "의료기기"
+        ]
+      },
+      {
+        "subject": "윤리와사상",
+        "concept": "생명윤리",
+        "micro_keywords": [
+          "돌봄",
+          "환자 권리",
+          "의료 윤리",
+          "공감"
+        ]
+      }
+    ],
     "task_fit": [
       "탐구 보고서",
       "독서 확장 기록"
     ],
-    "broad_theme": [],
-    "status": "pending_detail"
+    "broad_theme": [
+      "간호",
+      "임상",
+      "돌봄",
+      "의료윤리",
+      "환자경험"
+    ],
+    "status": "active"
   },
   {
     "book_id": "book_082",
@@ -8367,26 +8421,81 @@
     "book_no": 127,
     "title": "죽은 경제학자의 살아있는 아이디어",
     "author": "토드 부크홀츠",
-    "summary_short": "죽은 경제학자의 살아있는 아이디어 관련 탐구 확장용 등록 도서 (상세 보강 예정)",
+    "summary_short": "대표 경제학자들의 핵심 아이디어를 바탕으로 시장 원리와 정책 판단을 비교·분석할 수 있는 사회·상경 계열 확장 도서",
     "starter_questions": [
       "\"죽은 경제학자의 살아있는 아이디어\"의 핵심 문제의식을 현재 관심 전공과 연결해 해석할 수 있을까?",
       "\"죽은 경제학자의 살아있는 아이디어\"를 읽고 교과 개념과 연결되는 탐구 질문을 어떻게 만들 수 있을까?",
       "\"죽은 경제학자의 살아있는 아이디어\"의 내용을 수행평가용 보고서 주제로 확장한다면 어떤 방향이 가능할까?"
     ],
-    "linked_subjects": [],
-    "linked_majors": [],
-    "fit_keywords": [],
-    "fit_modes": [
-      "catalog",
-      "pending_detail"
+    "linked_subjects": [
+      "경제",
+      "통합사회",
+      "사회·문화",
+      "공통수학1"
     ],
-    "engine_subject_routes": [],
+    "linked_majors": [
+      "경제학과",
+      "경영학과",
+      "국제통상학과",
+      "행정학과"
+    ],
+    "fit_keywords": [
+      "시장",
+      "가격",
+      "경쟁",
+      "정책",
+      "효율",
+      "경제사상"
+    ],
+    "fit_modes": [
+      "compare",
+      "application",
+      "major"
+    ],
+    "engine_subject_routes": [
+      {
+        "subject": "통합사회",
+        "concept": "시장과 경제",
+        "micro_keywords": [
+          "시장",
+          "가격",
+          "경쟁",
+          "효율"
+        ]
+      },
+      {
+        "subject": "경제",
+        "concept": "경제 문제와 합리적 선택",
+        "micro_keywords": [
+          "희소성",
+          "기회비용",
+          "수요",
+          "공급"
+        ]
+      },
+      {
+        "subject": "공통수학1",
+        "concept": "자료와 해석",
+        "micro_keywords": [
+          "비교",
+          "추세",
+          "수치 해석",
+          "그래프"
+        ]
+      }
+    ],
     "task_fit": [
       "탐구 보고서",
       "독서 확장 기록"
     ],
-    "broad_theme": [],
-    "status": "pending_detail"
+    "broad_theme": [
+      "경제학",
+      "시장",
+      "정책",
+      "사상",
+      "사회문제"
+    ],
+    "status": "active"
   },
   {
     "book_id": "book_128",
@@ -8731,26 +8840,81 @@
     "book_no": 141,
     "title": "20세기 수학의 다섯가지 황금률",
     "author": "존 L. 캐스티",
-    "summary_short": "20세기 수학의 다섯가지 황금률 관련 탐구 확장용 등록 도서 (상세 보강 예정)",
+    "summary_short": "20세기 수학의 핵심 아이디어를 통해 패턴 인식, 구조 이해, 모델링 사고를 확장할 수 있는 수학·공학 계열 기초 도서",
     "starter_questions": [
       "\"20세기 수학의 다섯가지 황금률\"의 핵심 문제의식을 현재 관심 전공과 연결해 해석할 수 있을까?",
       "\"20세기 수학의 다섯가지 황금률\"를 읽고 교과 개념과 연결되는 탐구 질문을 어떻게 만들 수 있을까?",
       "\"20세기 수학의 다섯가지 황금률\"의 내용을 수행평가용 보고서 주제로 확장한다면 어떤 방향이 가능할까?"
     ],
-    "linked_subjects": [],
-    "linked_majors": [],
-    "fit_keywords": [],
-    "fit_modes": [
-      "catalog",
-      "pending_detail"
+    "linked_subjects": [
+      "공통수학1",
+      "공통수학2",
+      "물리학",
+      "정보"
     ],
-    "engine_subject_routes": [],
+    "linked_majors": [
+      "수학과",
+      "통계학과",
+      "컴퓨터공학과",
+      "전자공학과"
+    ],
+    "fit_keywords": [
+      "패턴",
+      "증명",
+      "모델링",
+      "구조",
+      "알고리즘",
+      "추상화"
+    ],
+    "fit_modes": [
+      "compare",
+      "application",
+      "major"
+    ],
+    "engine_subject_routes": [
+      {
+        "subject": "공통수학1",
+        "concept": "수와 연산의 구조",
+        "micro_keywords": [
+          "패턴",
+          "일반화",
+          "증명",
+          "구조"
+        ]
+      },
+      {
+        "subject": "공통수학2",
+        "concept": "함수와 변화",
+        "micro_keywords": [
+          "모델링",
+          "함수",
+          "변화",
+          "그래프"
+        ]
+      },
+      {
+        "subject": "정보",
+        "concept": "알고리즘과 문제해결",
+        "micro_keywords": [
+          "알고리즘",
+          "논리",
+          "추상화",
+          "최적화"
+        ]
+      }
+    ],
     "task_fit": [
       "탐구 보고서",
       "독서 확장 기록"
     ],
-    "broad_theme": [],
-    "status": "pending_detail"
+    "broad_theme": [
+      "수학",
+      "논리",
+      "모델링",
+      "구조",
+      "문제해결"
+    ],
+    "status": "active"
   },
   {
     "book_id": "book_142",
@@ -9871,26 +10035,81 @@
     "book_no": 185,
     "title": "의학, 인문학으로 치유하다",
     "author": "예병일",
-    "summary_short": "의학, 인문학으로 치유하다 관련 탐구 확장용 등록 도서 (상세 보강 예정)",
+    "summary_short": "의학을 인문학적 관점에서 바라보며 환자 이해, 공감, 생명윤리를 연결해 탐구를 확장할 수 있는 의료·인문 융합 도서",
     "starter_questions": [
       "\"의학, 인문학으로 치유하다\"의 핵심 문제의식을 현재 관심 전공과 연결해 해석할 수 있을까?",
       "\"의학, 인문학으로 치유하다\"를 읽고 교과 개념과 연결되는 탐구 질문을 어떻게 만들 수 있을까?",
       "\"의학, 인문학으로 치유하다\"의 내용을 수행평가용 보고서 주제로 확장한다면 어떤 방향이 가능할까?"
     ],
-    "linked_subjects": [],
-    "linked_majors": [],
-    "fit_keywords": [],
-    "fit_modes": [
-      "catalog",
-      "pending_detail"
+    "linked_subjects": [
+      "생명과학",
+      "윤리와사상",
+      "통합사회",
+      "국어"
     ],
-    "engine_subject_routes": [],
+    "linked_majors": [
+      "의예과",
+      "간호학과",
+      "보건관리학과",
+      "심리학과"
+    ],
+    "fit_keywords": [
+      "의학 윤리",
+      "환자 서사",
+      "공감",
+      "치유",
+      "의료 인문학",
+      "생명윤리"
+    ],
+    "fit_modes": [
+      "compare",
+      "application",
+      "major"
+    ],
+    "engine_subject_routes": [
+      {
+        "subject": "생명과학",
+        "concept": "생명 시스템",
+        "micro_keywords": [
+          "건강",
+          "질병",
+          "항상성",
+          "생명윤리"
+        ]
+      },
+      {
+        "subject": "윤리와사상",
+        "concept": "생명윤리",
+        "micro_keywords": [
+          "존엄성",
+          "의료윤리",
+          "공감",
+          "환자이해"
+        ]
+      },
+      {
+        "subject": "국어",
+        "concept": "관점과 해석",
+        "micro_keywords": [
+          "서사",
+          "관점",
+          "의미",
+          "해석"
+        ]
+      }
+    ],
     "task_fit": [
       "탐구 보고서",
       "독서 확장 기록"
     ],
-    "broad_theme": [],
-    "status": "pending_detail"
+    "broad_theme": [
+      "의학",
+      "인문학",
+      "치유",
+      "생명윤리",
+      "환자이해"
+    ],
+    "status": "active"
   },
   {
     "book_id": "book_186",
