@@ -229,24 +229,38 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-student-polish";
   ];
 
   const GROUP_META_OVERRIDES = {
-    '보건·임상': { id:'clinical_health', label:'보건·임상', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.' },
-    '재활·치료': { id:'rehab_therapy', label:'재활·치료', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.' },
-    '바이오·생명공학': { id:'bio_engineering', label:'바이오·생명공학', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.' },
-    '바이오·생명과학': { id:'bio_science', label:'바이오·생명과학', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.' },
-    '바이오소재·의료기기': { id:'bio_materials_devices', label:'바이오소재·의료기기', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
-    '반도체·전자': { id:'materials_devices', label:'반도체·전자', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
-    '심리·상담': { id:'psychology_counsel', label:'심리·상담', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
-    '국제·통상': { id:'global_trade', label:'국제·통상', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.' },
-    '경영·서비스': { id:'business_service', label:'경영·서비스', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.' },
-    '미디어·콘텐츠': { id:'media_content', label:'미디어·콘텐츠', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.' },
-    '환경 관련 추천': { id:'environment', label:'환경 관련 추천', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
-    '공간·주거 환경': { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
-    '도시·인프라': { id:'city_infra', label:'도시·인프라', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' }
+    '보건·임상': { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.' },
+    '재활·치료': { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.' },
+    '바이오·생명공학': { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.' },
+    '바이오·생명과학': { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.' },
+    '바이오소재·의료기기': { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
+    '반도체·전자': { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
+    '심리·상담': { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
+    '국제·통상': { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.' },
+    '경영·서비스': { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.' },
+    '미디어·콘텐츠': { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.' },
+    '환경 관련 추천': { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
+    '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
+    '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
     const key = String(label || '').trim();
-    return GROUP_META_OVERRIDES[key] || null;
+    return GROUP_META_OVERRIDES[key] || GROUP_META_OVERRIDES[({
+      '환자 진료·검사 쪽':'보건·임상',
+      '회복 지원·치료 쪽':'재활·치료',
+      '실험·기술 응용 쪽':'바이오·생명공학',
+      '기초 생명과학 쪽':'바이오·생명과학',
+      '의료기기·바이오소재 쪽':'바이오소재·의료기기',
+      '반도체·소자 설계 쪽':'반도체·전자',
+      '마음 이해·상담 쪽':'심리·상담',
+      '국제 이슈·무역 쪽':'국제·통상',
+      '기업 운영·서비스 쪽':'경영·서비스',
+      '미디어·콘텐츠 기획 쪽':'미디어·콘텐츠',
+      '환경·도시 시스템 쪽':'환경 관련 추천',
+      '주거·공간 설계 쪽':'공간·주거 환경',
+      '도시 기반시설 쪽':'도시·인프라'
+    })[key]] || null;
   }
 
   const MAJOR_COPY_OVERRIDES = {
@@ -563,22 +577,22 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-student-polish";
     if (overrideGroup) return overrideGroup;
 
     if (normalizedInput.includes('바이오') && /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/.test(textBag)) {
-      return getGroupMetaByLabel('바이오소재·의료기기');
+      return getGroupMetaByLabel('의료기기·바이오소재 쪽');
     }
 
     const rules = [
-      { id:'rehab_therapy', label:'재활·치료', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활)/ },
-      { id:'clinical_health', label:'보건·임상', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건)/ },
-      { id:'bio_engineering', label:'바이오·생명공학', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(생명공학|생명과학|바이오|제약|화공생명|식품생명|미생물|유전|세포)/ },
-      { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
-      { id:'environment', label:'환경 관련 추천', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|생태|건설환경|토목환경|수자원|도시환경|환경)/ },
-      { id:'city_infra', label:'도시·인프라', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
-      { id:'media_content', label:'미디어·콘텐츠', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.', test: /(미디어|콘텐츠|신문방송|광고홍보|언론정보|커뮤니케이션|문화콘텐츠|방송)/ },
-      { id:'psychology_counsel', label:'심리·상담', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.', test: /(심리|상담|정서|인지|행동과학)/ },
-      { id:'global_trade', label:'국제·통상', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.', test: /(국제학부|국제통상|무역|통상|글로벌|경제학)/ },
-      { id:'business_service', label:'경영·서비스', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.', test: /(경영|관광|호텔|회계|세무|부동산|소비자)/ },
+      { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활)/ },
+      { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건)/ },
+      { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(생명공학|생명과학|바이오|제약|화공생명|식품생명|미생물|유전|세포)/ },
+      { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
+      { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|생태|건설환경|토목환경|수자원|도시환경|환경)/ },
+      { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
+      { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.', test: /(미디어|콘텐츠|신문방송|광고홍보|언론정보|커뮤니케이션|문화콘텐츠|방송)/ },
+      { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.', test: /(심리|상담|정서|인지|행동과학)/ },
+      { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.', test: /(국제학부|국제통상|무역|통상|글로벌|경제학)/ },
+      { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.', test: /(경영|관광|호텔|회계|세무|부동산|소비자)/ },
       { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.', test: /(행정|정책|법학|정치외교|공공|경찰|군사|외교)/ },
-      { id:'materials_devices', label:'반도체·전자', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|고분자|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
+      { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|고분자|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
       { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|확률|모델링|수리|정량)/ },
       { id:'language_culture', label:'언어·문화·사상', desc:'언어, 텍스트, 문화와 사상을 중심으로 읽는 학과입니다.', test: /(국어국문|언어|영어|일어|중어|불어|독어|노어|아랍어|철학|사학|고고|신학|한문|한국어|미학|문예창작|문화인류|문화유산)/ }
     ];
@@ -590,11 +604,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-student-polish";
     }
 
     const track = String(row?.track_category || '');
-    if (track.includes('공학')) return { id:'materials_devices', label:'공학 계열', desc:'구조, 장치, 설계처럼 공학 중심으로 이어지는 후보입니다.' };
-    if (track.includes('자연')) return { id:'environment', label:'자연 계열', desc:'자연 현상, 데이터 해석과 연결된 후보입니다.' };
-    if (track.includes('의약')) return { id:'clinical_health', label:'의약 계열', desc:'건강·생명·의료 문제와 연결된 후보입니다.' };
-    if (track.includes('인문')) return { id:'language_culture', label:'인문 계열', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
-    if (track.includes('사회')) return { id:'business_service', label:'사회 계열', desc:'사회 현상, 정책, 시장과 연결된 후보입니다.' };
+    if (track.includes('공학')) return { id:'materials_devices', label:'기술·설계 쪽', desc:'구조, 장치, 설계처럼 공학 중심으로 이어지는 후보입니다.' };
+    if (track.includes('자연')) return { id:'environment', label:'자연 현상 탐구 쪽', desc:'자연 현상, 데이터 해석과 연결된 후보입니다.' };
+    if (track.includes('의약')) return { id:'clinical_health', label:'건강·의료 쪽', desc:'건강·생명·의료 문제와 연결된 후보입니다.' };
+    if (track.includes('인문')) return { id:'language_culture', label:'언어·문화 해석 쪽', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
+    if (track.includes('사회')) return { id:'business_service', label:'사회·정책·시장 쪽', desc:'사회 현상, 정책, 시장과 연결된 후보입니다.' };
     return { id:'general', label:'관련 학과 묶음', desc:'입력한 단어와 연결된 후보를 모아 보여줍니다.' };
   }
 
