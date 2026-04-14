@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -233,7 +233,17 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       [/화학|화학공학/, ['물질 구조','반응 원리','실험 설계','정량 분석','에너지 변화']],
       [/생명공학|생명과학|생물|수산생명|미생물|동물자원|식물자원|원예|식품공학|식품영양/, ['생명 시스템','변화 분석','실험 설계','생체 데이터','응용 사례']],
       [/물리|천문|우주|해양/, ['관측 데이터','원리 해석','시스템 이해','변화 분석','모델링']],
-      [/간호|의예|약학|치의|한의|수의|보건|방사선|물리치료|임상병리|작업치료|재활상담|치위생|치기공|응급구조|언어치료/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
+      [/보건관리|보건행정|보건정책/, ['보건 정책','의료 행정','역학 통계','예방 관리','보건 제도']],
+      [/간호/, ['환자 간호','건강 사정','임상 판단','생체 반응','의사소통']],
+      [/방사선/, ['의료 영상','방사선 물리','장비 운용','영상 구조','안전 관리']],
+      [/물리치료/, ['재활 운동','기능 회복','근골격 평가','운동 처방','치료 계획']],
+      [/임상병리/, ['검사 데이터','혈액·미생물','진단 정확도','실험 분석','검체 관리']],
+      [/응급구조/, ['응급 처치','현장 대응','환자 평가','생명 유지','판단 속도']],
+      [/언어치료/, ['언어 발달','발음 분석','의사소통 재활','평가 도구','중재 계획']],
+      [/작업치료|재활상담/, ['일상 기능','재활 활동','감각 통합','발달 평가','중재 설계']],
+      [/치위생/, ['구강 건강','예방 관리','위생 교육','치아 구조','임상 보조']],
+      [/치기공/, ['치과 보철','재료 가공','정밀 제작','구강 구조','실습 설계']],
+      [/의예|약학|치의|한의|수의|보건/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
       [/국어국문|문예창작|언어학|영어영문|일어일문|중어중문|노어노문|독어독문|불어불문|아랍어|한문|한국어|철학|사학|고고|신학|미학/, ['텍스트 해석','비교 분석','문화 맥락','표현 방식','사상 이해']]
     ];
     for (const [regex, keywords] of rules) {
@@ -275,82 +285,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
     input.dispatchEvent(new Event('change', { bubbles:true }));
   }
 
-  function detectSearchIntent(rawInput){
-    const input = String(rawInput || '').trim();
-    if (!input) return null;
-    const normalized = normalize(input);
-    const rules = [
-      { id:'environment', group_id:'climate_nature', label:'환경', test: /(환경|기후|대기|생태|지구|지속가능|탄소|환경공학|환경과학)/ },
-      { id:'psychology', group_id:'psychology_counsel', label:'심리', test: /(심리|상담|인지|정서|행동)/ },
-      { id:'media', group_id:'media_content', label:'미디어', test: /(미디어|콘텐츠|커뮤니케이션|언론|방송|광고|홍보|신문방송)/ },
-      { id:'global', group_id:'business_global', label:'국제', test: /(국제|통상|무역|글로벌|외교)/ },
-      { id:'semiconductor', group_id:'materials_devices', label:'반도체', test: /(반도체|회로|소자|칩|전자재료)/ },
-      { id:'bio', group_id:'bio_health', label:'바이오', test: /(바이오|생명|의생명|생명공학|생명과학|의공|제약|bio)/i },
-      { id:'health', group_id:'bio_health', label:'보건', test: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|치료)/ }
-    ];
-    return rules.find(rule => rule.test.test(input) || rule.test.test(normalized)) || null;
-  }
-
-  function isBroadCareerKeyword(rawInput){
-    const input = String(rawInput || '').trim();
-    if (!input) return false;
-    if (/[학과부전공]$/.test(input)) return false;
-    const normalized = normalize(input);
-    return normalized.length <= 4 && !!detectSearchIntent(input);
-  }
-
-  function getIntentMatchBoost(intent, row, aliasList, keywords, profile){
-    if (!intent) return 0;
-    const textBag = [
-      row?.display_name || '',
-      profile?.display_name || '',
-      row?.track_category || '',
-      ...(aliasList || []),
-      ...(keywords || []),
-      ...(profile?.related_subject_hints || []),
-      ...(profile?.inquiry_topics_raw || [])
-    ].join(' ');
-    const boostRules = {
-      environment: /(환경|지구환경|기후|대기|생태|주거환경|건설환경|토목환경|환경과학|지속가능|수자원|스마트시티)/,
-      psychology: /(심리|상담|인지|정서|행동|상담사례)/,
-      media: /(미디어|커뮤니케이션|광고|홍보|방송|언론|콘텐츠|문화콘텐츠|신문방송)/,
-      global: /(국제|통상|무역|글로벌|외교|지역|시장구조|국제무역)/,
-      semiconductor: /(반도체|전자|신소재|재료|회로|센서|전기|소자|메모리)/,
-      bio: /(바이오|생명|의생명|생명공학|생명과학|제약|의공|세포|유전|미생물|바이오센서|바이오의약품)/,
-      health: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|언어치료|의료영상)/
-    };
-    const regex = boostRules[intent.id];
-    if (!regex) return 0;
-    if (regex.test(textBag)) return 34;
-    return 0;
-  }
-
-  function filterCandidateRows(rows, rawInput){
-    if (!Array.isArray(rows) || !rows.length) return [];
-    const top = rows[0].score || 0;
-    const intent = detectSearchIntent(rawInput);
-    const normalized = normalize(rawInput);
-    const minBase = normalized.length <= 2 ? 42 : 35;
-    let floor = minBase;
-    if (top >= 140) floor = Math.max(minBase, top - 70);
-    else if (top >= 100) floor = Math.max(minBase, top - 60);
-    else if (top >= 80) floor = Math.max(minBase, top - 50);
-
-    let filtered = rows.filter(row => row.score >= floor);
-
-    if (intent && filtered.length < 3) {
-      filtered = rows.filter(row => row.score >= minBase);
-    }
-    if (filtered.length < 2 && rows.length > 1) {
-      filtered = rows.filter(row => row.score >= minBase);
-    }
-    return filtered.slice(0, 8);
-  }
-
-  function shouldPreferSuggestionSelection(rawInput, candidates){
-    return isBroadCareerKeyword(rawInput) && Array.isArray(candidates) && candidates.length >= 2;
-  }
-
 
   function classifyCandidateGroup(row, rawInput){
     const input = String(rawInput || '').trim();
@@ -363,34 +297,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       ...(profile?.related_subject_hints || []),
       ...(profile?.inquiry_topics_raw || [])
     ].join(' ');
-
-    const intent = detectSearchIntent(input);
-    if (intent) {
-      const intentRules = {
-        environment: { id:'climate_nature', label:'환경 관련 추천', desc:'환경·기후·지구 시스템과 연결되는 학과를 먼저 보여줍니다.' },
-        psychology: { id:'psychology_counsel', label:'심리 관련 추천', desc:'심리·상담·행동 이해와 연결되는 학과를 먼저 보여줍니다.' },
-        media: { id:'media_content', label:'미디어 관련 추천', desc:'미디어·콘텐츠·광고·커뮤니케이션 계열 학과를 먼저 보여줍니다.' },
-        global: { id:'business_global', label:'국제 관련 추천', desc:'국제·통상·무역·글로벌 이슈와 연결되는 학과를 먼저 보여줍니다.' },
-        semiconductor: { id:'materials_devices', label:'반도체 관련 추천', desc:'반도체·전자·재료·회로와 연결되는 학과를 먼저 보여줍니다.' },
-        bio: { id:'bio_health', label:'바이오 관련 추천', desc:'생명·바이오·제약·의공과 연결되는 학과를 먼저 보여줍니다.' },
-        health: { id:'bio_health', label:'보건 관련 추천', desc:'보건·의료·간호·임상과 연결되는 학과를 먼저 보여줍니다.' }
-      };
-      const intentRule = intentRules[intent.id];
-      if (intentRule) {
-        const intentRegex = {
-          environment: /(환경|지구환경|기후|대기|생태|주거환경|건설환경|토목환경|환경과학|수자원|지속가능)/,
-          psychology: /(심리|상담|인지|정서|행동)/,
-          media: /(미디어|커뮤니케이션|광고|홍보|방송|언론|콘텐츠|신문방송)/,
-          global: /(국제|통상|무역|글로벌|외교)/,
-          semiconductor: /(반도체|전자|신소재|재료|회로|소자|센서)/,
-          bio: /(바이오|생명|의생명|생명공학|생명과학|제약|의공|세포|유전|미생물)/,
-          health: /(보건|의료|간호|임상|치위생|치기공|방사선|물리치료|응급구조|재활|치료)/
-        }[intent.id];
-        if (intentRegex && intentRegex.test(textBag)) {
-          return intentRule;
-        }
-      }
-    }
 
     const rules = [
       { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
@@ -435,7 +341,17 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       [/경영정보/, '비즈니스와 정보시스템 연결'],
       [/경영|경제|무역|국제|통상|회계|세무|부동산/, '시장·정책·국제 흐름 해석'],
       [/행정|정치외교|법학|공공|경찰|군사/, '제도·정책·공공 문제 해결'],
-      [/생명|미생물|동물|식물|수산|간호|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
+      [/보건관리|보건행정|보건정책/, '보건 제도와 의료 행정 운영'],
+      [/간호/, '환자 간호와 임상 판단'],
+      [/방사선/, '의료 영상과 장비 운용'],
+      [/물리치료/, '재활 운동과 기능 회복'],
+      [/임상병리/, '검사 데이터와 진단 정확도'],
+      [/응급구조/, '응급 대응과 생명 유지'],
+      [/언어치료/, '언어 평가와 의사소통 재활'],
+      [/작업치료|재활상담/, '일상 기능 회복과 재활 중재'],
+      [/치위생/, '구강 예방 관리와 임상 보조'],
+      [/치기공/, '치과 보철 제작과 재료 가공'],
+      [/생명|미생물|동물|식물|수산|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
       [/컴퓨터|소프트웨어|AI|정보|전자|전기|기계|자동차|로봇|재료|반도체/, '장치·시스템·기술 응용'],
       [/국어|문예|언어|영어|일어|중어|독어|불어|노어|아랍어|철학|사학|고고|신학|미학|한문|한국어/, '텍스트·언어·문화 해석']
     ];
@@ -512,26 +428,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
         score: row.score
       });
     });
-    const intent = detectSearchIntent(rawInput);
     return orderedGroups.map(group => ({
       ...group,
       items: group.items
         .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
         .slice(0, 4)
-    })).sort((a,b) => {
-      if (intent && a.id === intent.group_id && b.id !== intent.group_id) return -1;
-      if (intent && b.id === intent.group_id && a.id !== intent.group_id) return 1;
-      const aTop = (a.items?.[0]?.score || 0);
-      const bTop = (b.items?.[0]?.score || 0);
-      return bTop - aTop;
-    });
+    }));
   }
 
   function findCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
     if (!normalized) return [];
-    const intent = detectSearchIntent(input);
     const rows = state.catalog.map(row => {
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
@@ -548,7 +456,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
-      score += getIntentMatchBoost(intent, row, aliases, keywords, profile);
       if (!score) return null;
       return {
         major_id: row.major_id,
@@ -560,9 +467,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
         match_label: deriveMatchLabel(score),
         keywords
       };
-    }).filter(Boolean)
-      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'));
-    return filterCandidateRows(rows, input);
+    }).filter(Boolean);
+    return rows
+      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+      .slice(0, 10);
   }
 
   function resolveMajor(rawCareer){
@@ -584,11 +492,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       return buildResolved(exactProfile, 'exact_major_name', input);
     }
 
-    const candidates = findCandidates(input);
-    const aliasMatches = state.aliasRows.filter(row => row.normalized_aliases.includes(normalized));
-
-    if (aliasMatches.length === 1 && !shouldPreferSuggestionSelection(input, candidates)) {
-      const aliasRow = aliasMatches[0];
+    const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized));
+    if (aliasRow) {
       const profile = state.profileByMajorId.get(aliasRow.major_id) || state.profileByName.get(aliasRow.display_name);
       if (profile) {
         state.selectedMajorId = profile.major_id || '';
@@ -597,10 +502,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       }
     }
 
+    const candidates = findCandidates(input);
     if (!candidates.length) {
       return { input, normalized, status: 'not_found', suggestions: [] };
     }
-    if (candidates.length === 1 && candidates[0].score >= 25 && !shouldPreferSuggestionSelection(input, candidates)) {
+    if (candidates.length === 1 && candidates[0].score >= 25) {
       state.selectedMajorId = candidates[0].profile.major_id || '';
       state.selectedMajorName = candidates[0].profile.display_name || '';
       return buildResolved(candidates[0].profile, 'candidate_match', input, candidates[0].aliasRow);
@@ -731,9 +637,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-intent-tuning";
       <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
-        입력한 희망 진로 <strong>${escapeHtml(data.input)}</strong>와(과) 가장 가까운 학과로 <strong>${escapeHtml(data.display_name)}</strong>을(를) 연결했습니다.<br>
-        계열: ${escapeHtml(data.track_category || '-')}
-        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 보여주고 있습니다.</strong>'}
+        입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
+        선택 과목: ${escapeHtml($('subject')?.value || '') || '-'} · 계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
+        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
       </div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
