@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.2-major-search-normalize-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -36,7 +36,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       .toLowerCase()
       .replace(/\s+/g,'')
       .replace(/[()\-_/·.,]/g,'')
-      .replace(/학과|학부|전공|예과/g,'');
+      .replace(/학부$/,'')
+      .replace(/전공$/,'')
+      .replace(/과$/,'');
   }
   function escapeHtml(value){
     return String(value ?? '')
@@ -422,13 +424,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
       const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]);
+      const normalizedAliases = aliases.map(normalize).filter(Boolean);
+      const fuzzyAliases = aliases.filter(v => normalize(v).length >= 2);
       const keywords = getMeaningfulKeywords(profile);
       const keywordMatchCount = countKeywordMatches(keywords, input);
       let score = 0;
       if (normalize(row.display_name) === normalized) score += 140;
-      if (aliases.map(normalize).includes(normalized)) score += 120;
+      if (normalizedAliases.includes(normalized)) score += 120;
       if (fuzzyIncludes(row.display_name, input)) score += 45;
-      if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (fuzzyAliases.some(v => fuzzyIncludes(v, input))) score += 35;
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
