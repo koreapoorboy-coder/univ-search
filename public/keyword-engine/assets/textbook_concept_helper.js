@@ -1397,19 +1397,79 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   function getPreferredKeywordSequence() {
     const majorText = getMajorTextBag();
     const track = state.linkTrack || '';
+    const concept = state.concept || '';
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
-      if (track === 'chemistry') return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '원자 번호', '주기율표', '원소 배열', '성질 예측', '재료 성질', '구조와 성질의 관계'];
-      if (track === 'physics') return ['전류', '전압', '시간', '길이', '질량', '힘', '센서', '측정', '측정 표준', '정밀 측정', '디지털 정보', '구조 안정성'];
+      if (track === 'chemistry') {
+        if (/물질 구성과 분류/.test(concept)) return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '금속', '비금속', '산화', '환원', '성질 비교'];
+        if (/규칙성 발견과 주기율표/.test(concept)) return ['원자 번호', '주기율표', '원소 배열', '성질 예측', '금속', '비금속', '주기성', '족 구조', '규칙성'];
+        if (/과학의 측정과 우리 사회/.test(concept)) return ['측정', '측정 표준', '정밀 측정', '센서', '디지털 데이터', '데이터 분석', '그래프 해석', '측정 도구', '오차', '단위', '수치 비교', '온도 센서'];
+        return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '원자 번호', '주기율표', '원소 배열', '성질 예측', '재료 성질', '구조와 성질의 관계'];
+      }
+      if (track === 'physics') {
+        if (/기본량과 단위|과학의 측정과 우리 사회/.test(concept)) return ['측정', '측정 표준', '정밀 측정', '센서', '전류', '전압', '시간', '길이', '질량', '단위', '디지털 정보', '데이터 분석'];
+        return ['전류', '전압', '시간', '길이', '질량', '힘', '센서', '측정', '측정 표준', '정밀 측정', '디지털 정보', '구조 안정성'];
+      }
     }
     if (/간호|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|재활|의학|의료/.test(majorText)) {
       if (track === 'biology') return ['생명 시스템', '항상성', '조절', '반응', '내부 환경 유지', '생체 데이터', '건강 측정'];
-      if (track === 'physics') return ['측정', '센서', '측정 표준', '기본량', '유도량', '시간', '길이'];
+      if (track === 'physics') return ['측정', '센서', '측정 표준', '기본량', '유도량', '시간', '길이', '정밀 측정', '데이터 분석'];
     }
     if (/생명과학|바이오|제약|화공|식품|발효|미생물/.test(majorText)) {
-      if (track === 'chemistry') return ['원소', '분자', '이온', '물질 구성', '분류 기준', '재료 성질', '구조와 성질의 관계'];
+      if (track === 'chemistry') {
+        if (/물질 구성과 분류/.test(concept)) return ['원소', '분자', '이온', '물질 구성', '분류 기준', '구조와 성질의 관계', '재료 성질'];
+        if (/규칙성 발견과 주기율표/.test(concept)) return ['원자 번호', '주기율표', '원소 배열', '성질 예측', '주기성', '족 구조'];
+        return ['원소', '분자', '이온', '물질 구성', '분류 기준', '재료 성질', '구조와 성질의 관계'];
+      }
       if (track === 'biology') return ['생명 시스템', '항상성', '조절', '반응', '생체 데이터'];
     }
     return [];
+  }
+
+  function getKeywordPriority(keyword, entry) {
+    const majorText = getMajorTextBag();
+    const track = state.linkTrack || '';
+    const concept = state.concept || '';
+    const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
+    let score = 0;
+
+    if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
+      if (track === 'chemistry' && /과학의 측정과 우리 사회/.test(concept)) {
+        if (/측정|센서|표준|정밀|단위|데이터|그래프|오차|전자저울|온도|수치/.test(text)) score += 28;
+        if (/미세먼지|데시벨|소음|난방|규제|실린더|부피 읽기/.test(text)) score -= 28;
+      }
+      if (track === 'chemistry' && /규칙성 발견과 주기율표/.test(concept)) {
+        if (/원자 번호|주기율표|원소 배열|성질 예측|금속|비금속|족|주기성|규칙성/.test(text)) score += 24;
+        if (/멘델레예프|과학사|표 구성|모델 형성/.test(text)) score += 8;
+      }
+      if (track === 'chemistry' && /물질 구성과 분류/.test(concept)) {
+        if (/원소|원자|분자|이온|물질 구성|분류 기준|금속|비금속|산화|환원|성질 비교/.test(text)) score += 24;
+      }
+      if (track === 'physics' && /기본량과 단위|과학의 측정과 우리 사회/.test(concept)) {
+        if (/측정|센서|전류|전압|정밀|표준|단위|데이터|그래프|오차/.test(text)) score += 24;
+        if (/미세먼지|데시벨|소음|난방/.test(text)) score -= 20;
+      }
+    }
+
+    if (/간호|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|재활|의학|의료/.test(majorText)) {
+      if (track === 'physics' && /과학의 측정과 우리 사회|기본량과 단위/.test(concept)) {
+        if (/측정|센서|표준|데이터|정밀|기본량|유도량/.test(text)) score += 18;
+        if (/데시벨|난방|미세먼지/.test(text)) score -= 12;
+      }
+      if (track === 'biology' && /생명 시스템/.test(concept)) {
+        if (/항상성|조절|반응|내부 환경|생체 데이터|건강/.test(text)) score += 18;
+      }
+    }
+
+    if (/생명과학|바이오|제약|화공|식품|발효|미생물/.test(majorText)) {
+      if (track === 'chemistry' && /물질 구성과 분류|규칙성 발견과 주기율표/.test(concept)) {
+        if (/원소|분자|이온|주기율표|원자 번호|구조와 성질|재료 성질/.test(text)) score += 18;
+      }
+      if (track === 'biology' && /생명 시스템/.test(concept)) {
+        if (/항상성|조절|반응|생체 데이터|세포/.test(text)) score += 18;
+      }
+    }
+
+    return score;
   }
 
   function getAutoTrackDetail() {
@@ -1584,10 +1644,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   function getKeywordList(entry) {
     const base = uniq([...(entry?.micro_keywords || []), ...(entry?.core_concepts || [])]);
     const preferred = getPreferredKeywordSequence();
-    if (!preferred.length) return base;
-    const preferredItems = preferred.filter(item => base.includes(item));
-    const others = base.filter(item => !preferredItems.includes(item));
-    return [...preferredItems, ...others];
+    const preferredIndex = new Map(preferred.map((item, idx) => [item, idx]));
+    return base
+      .map((keyword, index) => ({
+        keyword,
+        index,
+        preferredScore: preferredIndex.has(keyword) ? (1000 - preferredIndex.get(keyword) * 10) : 0,
+        customScore: getKeywordPriority(keyword, entry)
+      }))
+      .sort((a, b) => (b.preferredScore + b.customScore) - (a.preferredScore + a.customScore) || a.index - b.index)
+      .map(item => item.keyword);
   }
 
   function isStepEnabled(step) {
