@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -27,9 +27,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
     aliasRows: [],
     activeResolved: null,
     selectedMajorId: '',
-    selectedMajorName: '',
-    loadState: 'idle',
-    loadError: ''
+    selectedMajorName: ''
   };
 
   function $(id){ return document.getElementById(id); }
@@ -74,91 +72,43 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
     return await res.json();
   }
 
-  function buildFallbackProfilesFromCatalog(catalog){
-    return (Array.isArray(catalog) ? catalog : []).map(row => ({
-      major_id: row.major_id,
-      display_name: row.display_name,
-      track_category: row.track_category || '',
-      pdf_start_page_in_book: row.pdf_start_page_in_book,
-      pdf_end_page_in_book: row.pdf_end_page_in_book,
-      source_file: row.source_file || '',
-      source_status: row.data_status || 'catalog_only',
-      major_intro: `${row.display_name || '이 학과'} 관련 기본 정보가 연결된 전공입니다.`,
-      core_keywords: buildHeuristicKeywords(row.display_name || '', row.track_category || ''),
-      required_competencies: [],
-      recommended_books_raw: [],
-      inquiry_topics_raw: [
-        `${row.display_name || '이 학과'} 관련 핵심 개념 탐구`,
-        `${row.display_name || '이 학과'} 진로 연계 사례 분석`,
-        `${row.display_name || '이 학과'} 주제 보고서 설계`
-      ],
-      prep_activities: [],
-      related_subject_hints: [],
-      book_bridge_candidates: []
-    }));
-  }
-
-  function rebuildIndexes(){
-    state.profileByMajorId = new Map();
-    state.profileByName = new Map();
-    state.bridgeByMajorId = new Map();
-    state.bridgeByName = new Map();
-
-    state.profiles.forEach(row => {
-      if (!row || !row.major_id) return;
-      state.profileByMajorId.set(row.major_id, row);
-      state.profileByName.set(row.display_name, row);
-    });
-    state.bridges.forEach(row => {
-      if (!row) return;
-      if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
-      if (row.display_name) state.bridgeByName.set(row.display_name, row);
-    });
-    state.aliasRows = state.aliases.map(row => ({
-      ...row,
-      normalized_display_name: normalize(row.display_name),
-      normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
-    }));
-  }
-
   async function loadAll(){
-    state.loadState = 'loading';
-    renderMajorSummary();
-    const results = await Promise.allSettled([
-      loadJSON(CATALOG_URL),
-      loadJSON(PROFILES_URL),
-      loadJSON(ALIAS_URL),
-      loadJSON(ROUTER_URL),
-      loadJSON(BRIDGE_URL)
-    ]);
+    try {
+      const [catalog, profiles, aliases, router, bridges] = await Promise.all([
+        loadJSON(CATALOG_URL),
+        loadJSON(PROFILES_URL),
+        loadJSON(ALIAS_URL),
+        loadJSON(ROUTER_URL),
+        loadJSON(BRIDGE_URL)
+      ]);
+      state.catalog = Array.isArray(catalog) ? catalog : [];
+      state.profiles = Array.isArray(profiles) ? profiles : [];
+      state.aliases = Array.isArray(aliases) ? aliases : [];
+      state.router = router || {};
+      state.bridges = Array.isArray(bridges) ? bridges : [];
 
-    const [catalogRes, profilesRes, aliasesRes, routerRes, bridgesRes] = results;
-
-    state.catalog = catalogRes.status === 'fulfilled' && Array.isArray(catalogRes.value) ? catalogRes.value : [];
-    state.profiles = profilesRes.status === 'fulfilled' && Array.isArray(profilesRes.value) ? profilesRes.value : [];
-    state.aliases = aliasesRes.status === 'fulfilled' && Array.isArray(aliasesRes.value) ? aliasesRes.value : [];
-    state.router = routerRes.status === 'fulfilled' ? (routerRes.value || {}) : {};
-    state.bridges = bridgesRes.status === 'fulfilled' && Array.isArray(bridgesRes.value) ? bridgesRes.value : [];
-
-    if (!state.profiles.length && state.catalog.length) {
-      state.profiles = buildFallbackProfilesFromCatalog(state.catalog);
-    }
-
-    rebuildIndexes();
-
-    const failed = results.filter(r => r.status === 'rejected');
-    state.loaded = !!(state.profiles.length || state.catalog.length);
-    state.loadState = state.loaded ? 'ready' : 'error';
-    state.loadError = failed.length ? failed.map(r => String(r.reason?.message || r.reason || '')).join(' | ') : '';
-
-    injectStyles();
-    bindCareerInput();
-    ensureMajorPanel();
-    renderMajorSummary();
-    startMiniPayloadPatch();
-
-    if (!state.loaded && state.loadError) {
-      console.warn('major engine helper load failed:', state.loadError);
+      state.profiles.forEach(row => {
+        if (!row || !row.major_id) return;
+        state.profileByMajorId.set(row.major_id, row);
+        state.profileByName.set(row.display_name, row);
+      });
+      state.bridges.forEach(row => {
+        if (!row) return;
+        if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
+        if (row.display_name) state.bridgeByName.set(row.display_name, row);
+      });
+      state.aliasRows = state.aliases.map(row => ({
+        ...row,
+        normalized_display_name: normalize(row.display_name),
+        normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
+      }));
+      state.loaded = true;
+      injectStyles();
+      bindCareerInput();
+      renderMajorSummary();
+      startMiniPayloadPatch();
+    } catch (error) {
+      console.warn('major engine helper load failed:', error);
     }
   }
 
@@ -168,7 +118,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
     const el = getCareerInput();
     if (!el || el.dataset.majorBound === '1') return;
     el.dataset.majorBound = '1';
-    ['input','change','focus','blur','keyup'].forEach(evt => {
+    ['input','change','focus','blur'].forEach(evt => {
       el.addEventListener(evt, () => {
         const raw = String(el.value || '').trim();
         if (!raw) {
@@ -182,7 +132,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
         startMiniPayloadPatch();
       });
     });
-    if (String(el.value || '').trim()) renderMajorSummary();
   }
 
   function ensureMajorPanel(){
@@ -603,25 +552,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
     if (!data || data.status === 'empty') {
       panel.style.display = 'none';
       panel.innerHTML = '';
-      dispatchMajorSelection(null);
+      dispatchMajorSelection(data);
       return;
     }
     panel.style.display = 'block';
-
-    if (state.loadState !== 'ready') {
-      const title = state.loadState === 'error' ? '학과 데이터를 불러오지 못했어요' : '학과 데이터를 불러오는 중입니다';
-      const desc = state.loadState === 'error'
-        ? '데이터 파일 경로 또는 캐시 문제일 수 있습니다. 새로고침 후 다시 입력해 보세요.'
-        : '입력한 진로를 기준으로 관련 학과를 찾는 중입니다.';
-      panel.innerHTML = `
-        <div class="major-engine-kicker">전공 후보 추천</div>
-        <h4 class="major-engine-title">${escapeHtml(title)}</h4>
-        <div class="major-engine-sub"><strong>${escapeHtml(data.input || '')}</strong> ${escapeHtml(desc)}</div>
-        ${state.loadError ? `<div class="major-engine-help">${escapeHtml(state.loadError)}</div>` : ''}
-      `;
-      dispatchMajorSelection(null);
-      return;
-    }
 
     if (data.status === 'ambiguous') {
       const grouped = Array.isArray(data.grouped_suggestions) && data.grouped_suggestions.length
@@ -679,9 +613,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
       <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
-        입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>(으)로 연결했습니다.<br>
-        계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
-        ${profileReady ? '' : '<br><strong>일부 학과는 기본 설명 중심으로 먼저 보여줍니다.</strong>'}
+        입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
+        선택 과목: ${escapeHtml($('subject')?.value || '') || '-'} · 계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
+        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
       </div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
@@ -734,15 +668,31 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
     applySelectedMajor(majorId, name);
   }
 
+  function getPreviewDetailFromData(data){
+    if (!data || data.status !== 'ambiguous') return null;
+    const first = Array.isArray(data.suggestions) && data.suggestions.length ? data.suggestions[0] : null;
+    if (!first) return null;
+    return {
+      preview_display_name: first.display_name || '',
+      core_keywords: Array.isArray(first.keywords) ? first.keywords.slice(0, 5) : [],
+      preview_track_category: first.track_category || '',
+      comparison: null
+    };
+  }
+
   function dispatchMajorSelection(data){
-    window.dispatchEvent(new CustomEvent('major-engine-selection-changed', {
-      detail: data && data.status === 'resolved' ? {
+    let detail = null;
+    if (data && data.status === 'resolved') {
+      detail = {
         display_name: data.display_name,
         core_keywords: data.core_keywords || [],
         track_category: data.track_category || '',
         comparison: data.comparison || null
-      } : null
-    }));
+      };
+    } else {
+      detail = getPreviewDetailFromData(data);
+    }
+    window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
   }
 
   function buildMajorPayload(){
@@ -809,18 +759,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.0-major-search-stable";
 
   window.getMajorEngineSelectionData = buildMajorPayload;
   window.__MAJOR_ENGINE_RENDER__ = renderMajorSummary;
-
-  function bootMajorEngine(){
-    injectStyles();
-    bindCareerInput();
-    ensureMajorPanel();
-    renderMajorSummary();
-    loadAll();
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bootMajorEngine);
+    document.addEventListener('DOMContentLoaded', loadAll);
   } else {
-    bootMajorEngine();
+    loadAll();
   }
 })();
