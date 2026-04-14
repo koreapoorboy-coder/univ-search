@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1318,6 +1318,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
       "규칙성 발견과 주기율표": "원소·배열·예측",
       "기본량과 단위": "전류·시간·길이",
       "물질 구성과 분류": "재료·원소·구조",
+      "자연 세계의 시간과 공간": "관측·규모·시공간",
       "생명 시스템": "생명·건강·반응",
       "역학 시스템": "힘·운동·안정성",
       "지구시스템": "환경·기후·지구"
@@ -1360,6 +1361,57 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
     return item.easy || '';
   }
 
+  function getPreferredConceptSequence() {
+    const majorText = getMajorTextBag();
+    const track = state.linkTrack || '';
+
+    if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
+      if (track === 'chemistry') return ['물질 구성과 분류', '규칙성 발견과 주기율표', '과학의 측정과 우리 사회', '기본량과 단위', '역학 시스템'];
+      if (track === 'physics') return ['기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '물질 구성과 분류', '규칙성 발견과 주기율표'];
+    }
+
+    if (/간호|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|재활|의학|의료/.test(majorText)) {
+      if (track === 'biology') return ['생명 시스템', '과학의 측정과 우리 사회', '기본량과 단위', '물질 구성과 분류'];
+      if (track === 'physics') return ['과학의 측정과 우리 사회', '기본량과 단위', '역학 시스템', '생명 시스템'];
+      if (track === 'chemistry') return ['물질 구성과 분류', '과학의 측정과 우리 사회', '생명 시스템'];
+    }
+
+    if (/생명과학|바이오|제약|화공|식품|발효|미생물/.test(majorText)) {
+      if (track === 'chemistry') return ['물질 구성과 분류', '규칙성 발견과 주기율표', '생명 시스템', '과학의 측정과 우리 사회'];
+      if (track === 'biology') return ['생명 시스템', '물질 구성과 분류', '과학의 측정과 우리 사회'];
+    }
+
+    if (/국제|통상|무역|경영|관광|호텔/.test(majorText)) {
+      if (track === 'earth') return ['지구시스템', '과학의 측정과 우리 사회', '기본량과 단위'];
+      if (track === 'chemistry') return ['과학의 측정과 우리 사회', '물질 구성과 분류', '기본량과 단위'];
+    }
+
+    if (/환경|기후|지구|해양|천문|우주/.test(majorText)) {
+      if (track === 'earth') return ['지구시스템', '자연 세계의 시간과 공간', '과학의 측정과 우리 사회'];
+      if (track === 'chemistry') return ['과학의 측정과 우리 사회', '물질 구성과 분류', '지구시스템'];
+    }
+
+    return [];
+  }
+
+  function getPreferredKeywordSequence() {
+    const majorText = getMajorTextBag();
+    const track = state.linkTrack || '';
+    if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
+      if (track === 'chemistry') return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '원자 번호', '주기율표', '원소 배열', '성질 예측', '재료 성질', '구조와 성질의 관계'];
+      if (track === 'physics') return ['전류', '전압', '시간', '길이', '질량', '힘', '센서', '측정', '측정 표준', '정밀 측정', '디지털 정보', '구조 안정성'];
+    }
+    if (/간호|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|재활|의학|의료/.test(majorText)) {
+      if (track === 'biology') return ['생명 시스템', '항상성', '조절', '반응', '내부 환경 유지', '생체 데이터', '건강 측정'];
+      if (track === 'physics') return ['측정', '센서', '측정 표준', '기본량', '유도량', '시간', '길이'];
+    }
+    if (/생명과학|바이오|제약|화공|식품|발효|미생물/.test(majorText)) {
+      if (track === 'chemistry') return ['원소', '분자', '이온', '물질 구성', '분류 기준', '재료 성질', '구조와 성질의 관계'];
+      if (track === 'biology') return ['생명 시스템', '항상성', '조절', '반응', '생체 데이터'];
+    }
+    return [];
+  }
+
   function getAutoTrackDetail() {
     const options = getTrackOptions();
     return options[0] || null;
@@ -1394,6 +1446,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
     const track = state.linkTrack || "";
+    const majorText = getMajorTextBag();
+    const preferred = getPreferredConceptSequence();
     const textBag = [
       concept,
       entry?.unit || "",
@@ -1408,6 +1462,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
     const dataStrong = /(데이터 분석|그래프 해석|정량 분석|측정값 비교|디지털 데이터|표준|자료)/.test(textBag);
     const envStrong = /(지구시스템|지구 시스템|천체|대기권|수권|지구계|우주|기후|환경 측정|지구과학 탐구|위성|관측)/.test(textBag);
     const chemStrong = /(물질 구성|물질 분류|원소 배열|주기율|산화|염기|결합|분류 기준|금속|이온|분자|재료 변화|원소|자연에 존재하는 원소)/.test(textBag);
+    const scaleStrong = /(시간 규모|공간 규모|미시 세계|거시 세계|관측 범위 확장|정밀 측정)/.test(textBag);
 
     const hasBio = bioStrong;
     const hasMech = mechStrong || dataStrong;
@@ -1422,14 +1477,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
     if (bucket === "materials") {
       if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 16; reasons.push("진로 연결"); }
       if (hasBio && !hasMech && !hasChem) score -= 26;
+      if (scaleStrong && !hasChem && !hasElec && !hasMech) score -= 16;
     }
     if (bucket === "mechanical") {
       if (hasMech) { score += 16; reasons.push("진로 연결"); }
       if (hasBio && !hasMech) score -= 28;
+      if (scaleStrong && !hasMech) score -= 10;
     }
     if (bucket === "electronic" || bucket === "it") {
       if (hasElec || hasData) { score += 15; reasons.push("진로 연결"); }
       if (hasBio && !hasElec && !hasData) score -= 22;
+      if (scaleStrong && !hasElec && !hasData) score -= 10;
     }
     if (bucket === "bio") {
       if (hasBio) { score += 16; reasons.push("진로 연결"); }
@@ -1437,30 +1495,44 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
     }
     if (bucket === "env") {
       if (hasEnv) { score += 16; reasons.push("진로 연결"); }
+      if (scaleStrong) score += 8;
     }
 
     if (track === "physics") {
       if (hasMech || hasElec || hasData) { score += 14; reasons.push("물리 연계 추천"); }
       if (hasBio && !hasMech) score -= 12;
+      if (/반도체|신소재|전자|소자/.test(majorText) && /기본량과 단위|과학의 측정과 우리 사회|역학 시스템/.test(concept)) score += 18;
+      if (/반도체|신소재|전자|소자/.test(majorText) && /자연 세계의 시간과 공간/.test(concept)) score -= 18;
     }
     if (track === "chemistry") {
       if (hasChem) { score += 14; reasons.push("화학 연계 추천"); }
       if (hasBio && !hasChem) score -= 10;
+      if (/반도체|신소재|전자|소자|재료/.test(majorText) && /물질 구성과 분류|규칙성 발견과 주기율표|과학의 측정과 우리 사회/.test(concept)) score += 18;
+      if (/반도체|신소재|전자|소자|재료/.test(majorText) && /자연 세계의 시간과 공간|생명 시스템/.test(concept)) score -= 18;
+      if (/제약|화공|식품|발효|미생물/.test(majorText) && /물질 구성과 분류|규칙성 발견과 주기율표|생명 시스템/.test(concept)) score += 10;
     }
     if (track === "biology") {
       if (hasBio) { score += 14; reasons.push("생명과학 연계 추천"); }
       if ((hasMech || hasChem) && !hasBio) score -= 8;
+      if (/간호|보건관리|임상병리|의학|의료|생명|바이오/.test(majorText) && /생명 시스템|과학의 측정과 우리 사회/.test(concept)) score += 12;
     }
     if (track === "earth") {
       if (hasEnv) { score += 22; reasons.push("지구과학 연계 추천"); }
       if (hasBio && !hasEnv) score -= 18;
       if (hasChem && !hasEnv) score -= 10;
       if (hasMech && !hasEnv) score -= 8;
+      if (/국제|환경|기후|지구|우주/.test(majorText) && /지구시스템|자연 세계의 시간과 공간|과학의 측정과 우리 사회/.test(concept)) score += 12;
     }
 
     if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
       score += 10;
       reasons.push("진로 브리지 일치");
+    }
+
+    const prefIndex = preferred.indexOf(concept);
+    if (prefIndex >= 0) {
+      score += 30 - (prefIndex * 4);
+      reasons.unshift("전공 맞춤 추천");
     }
 
     const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(career)];
@@ -1480,8 +1552,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
 
   function getDisplayConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
+    const preferred = getPreferredConceptSequence();
     const topScore = ranked[0]?.score ?? 0;
-    let filtered = ranked.filter(item => item.score >= topScore - 10 && item.score > -12);
+    let filtered = ranked.filter(item => item.score >= topScore - 12 && item.score > -18);
+
+    if (preferred.length) {
+      const preferredItems = preferred.map(name => filtered.find(item => item.concept === name)).filter(Boolean);
+      const others = filtered.filter(item => !preferred.includes(item.concept));
+      filtered = [...preferredItems, ...others];
+    }
 
     if (state.linkTrack === "earth") {
       const envFirst = filtered.filter(item => /(지구|천체|대기|수권|우주|기후|관측)/.test(item.concept + ' ' + ((item.value?.core_concepts || []).join(' ')) + ' ' + ((item.value?.micro_keywords || []).join(' '))));
@@ -1489,8 +1568,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
       filtered = [...envFirst, ...others];
     }
 
-    if (filtered.length < 3) filtered = ranked.slice(0, 3);
-    return filtered.slice(0, 3);
+    if (filtered.length < 3) {
+      const fallback = preferred.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !fallback.includes(item));
+      filtered = [...fallback, ...others];
+    }
+    return uniq(filtered).slice(0, 3);
   }
 
   function getConceptEntry() {
@@ -1499,7 +1582,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.5-major-track-autopilot";
   }
 
   function getKeywordList(entry) {
-    return uniq([...(entry?.micro_keywords || []), ...(entry?.core_concepts || [])]);
+    const base = uniq([...(entry?.micro_keywords || []), ...(entry?.core_concepts || [])]);
+    const preferred = getPreferredKeywordSequence();
+    if (!preferred.length) return base;
+    const preferredItems = preferred.filter(item => base.includes(item));
+    const others = base.filter(item => !preferredItems.includes(item));
+    return [...preferredItems, ...others];
   }
 
   function isStepEnabled(step) {
