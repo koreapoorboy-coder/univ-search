@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.1-major-search-integrated-bundle";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -209,11 +209,319 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
     return map[track] || track || '';
   }
 
+
+  const GENERIC_MAJOR_INTRO_PATTERNS = [
+    /source 구조화가 완료된 전공입니다/,
+    /세부 문장 추출은 후속 보강 단계/,
+    /기반의 source 구조화가 완료/
+  ];
+
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','미디어','국제','반도체','바이오','보건']);
+
+  const QUERY_BOOST_RULES = [
+    { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경)/, boost: 38 },
+    { queries:['심리'], test: /(심리학|상담심리학)/, boost: 42 },
+    { queries:['미디어'], test: /(미디어커뮤니케이션|광고홍보|문화인류|문화유산)/, boost: 34 },
+    { queries:['국제'], test: /(국제학부|국제통상학|경제학|경영학)/, boost: 34 },
+    { queries:['반도체'], test: /(반도체공학|신소재공학|전자공학)/, boost: 36 },
+    { queries:['바이오'], test: /(생명공학|생명과학|식품생명공학|화공생명공학|제약공학|의공학)/, boost: 44 },
+    { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학)/, boost: 34 }
+  ];
+
+  const GROUP_META_OVERRIDES = {
+    '보건·임상': { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.' },
+    '재활·치료': { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.' },
+    '바이오·생명공학': { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.' },
+    '바이오·생명과학': { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.' },
+    '바이오소재·의료기기': { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
+    '반도체·전자': { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
+    '심리·상담': { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
+    '국제·통상': { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.' },
+    '경영·서비스': { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.' },
+    '미디어·콘텐츠': { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.' },
+    '환경 관련 추천': { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
+    '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
+    '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' }
+  };
+
+  function getGroupMetaByLabel(label){
+    const key = String(label || '').trim();
+    return GROUP_META_OVERRIDES[key] || GROUP_META_OVERRIDES[({
+      '환자 진료·검사 쪽':'보건·임상',
+      '회복 지원·치료 쪽':'재활·치료',
+      '실험·기술 응용 쪽':'바이오·생명공학',
+      '기초 생명과학 쪽':'바이오·생명과학',
+      '의료기기·바이오소재 쪽':'바이오소재·의료기기',
+      '반도체·소자 설계 쪽':'반도체·전자',
+      '마음 이해·상담 쪽':'심리·상담',
+      '국제 이슈·무역 쪽':'국제·통상',
+      '기업 운영·서비스 쪽':'경영·서비스',
+      '미디어·콘텐츠 기획 쪽':'미디어·콘텐츠',
+      '환경·도시 시스템 쪽':'환경 관련 추천',
+      '주거·공간 설계 쪽':'공간·주거 환경',
+      '도시 기반시설 쪽':'도시·인프라'
+    })[key]] || null;
+  }
+
+
+  function getQueryAllowedGroupIds(rawInput){
+    const input = normalize(rawInput || '');
+    if (!input) return null;
+    if (input.includes('보건')) return new Set(['clinical_health','rehab_therapy']);
+    if (input.includes('간호') || input.includes('방사선') || input.includes('임상병리') || input.includes('보건관리')) return new Set(['clinical_health']);
+    if (input.includes('물리치료') || input.includes('작업치료') || input.includes('언어치료') || input.includes('재활')) return new Set(['rehab_therapy']);
+    if (input.includes('바이오')) return new Set(['bio_engineering','bio_science','bio_materials_devices']);
+    if (input.includes('반도체')) return new Set(['materials_devices']);
+    if (input.includes('국제')) return new Set(['global_trade','business_service']);
+    if (input.includes('심리')) return new Set(['psychology_counsel']);
+    if (input.includes('미디어')) return new Set(['media_content']);
+    if (input.includes('환경')) return new Set(['environment','space_housing','city_infra']);
+    return null;
+  }
+
+  function isGroupAllowedForQuery(groupId, rawInput){
+    const allowed = getQueryAllowedGroupIds(rawInput);
+    return !allowed || allowed.has(groupId);
+  }
+
+  const MAJOR_COPY_OVERRIDES = {
+    '보건관리학과': {
+      card: '질병 예방, 보건 정책, 의료행정과 건강 데이터를 다루는 학과입니다.',
+      fit: '예방, 보건 정책, 통계 해석에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '보건관리학과는 질병 예방과 건강 증진을 위해 보건 정책, 의료행정, 지역사회 보건, 건강 데이터를 함께 배우는 학과입니다.',
+      subjects: ['보건', '생명과학', '통합과학1', '공통수학1', '통합사회'],
+      topics: ['지역사회 감염병 예방 정책 비교', '건강검진 데이터로 보는 생활습관과 질환 위험 분석', '의료 접근성 격차와 공공보건 서비스 개선안 탐구'],
+      group_label: '보건·임상',
+      compare: ['간호학과','방사선학과','임상병리학과']
+    },
+    '간호학과': {
+      card: '환자 상태를 관찰하고 직접 간호하는 임상 실천 중심 학과입니다.',
+      fit: '사람을 직접 돌보고 임상 현장에서 빠르게 판단하는 일에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '간호학과는 환자의 상태를 관찰하고 건강 회복을 돕기 위해 기본간호, 건강사정, 임상판단, 의사소통을 배우는 학과입니다.',
+      subjects: ['보건', '생명과학', '화학', '통합과학1', '공통수학1'],
+      topics: ['환자 안전을 높이는 간호 의사소통 사례 분석', '고령사회에서 만성질환 관리와 간호의 역할 탐구', '감염관리 기본 원칙이 병원 현장에 적용되는 방식 분석'],
+      group_label: '보건·임상',
+      compare: ['방사선학과','임상병리학과','보건관리학과']
+    },
+    '방사선학과': {
+      card: '의료영상 장비를 다루며 촬영, 판독 보조, 방사선 안전관리를 배우는 학과입니다.',
+      fit: '영상 장비, 정밀 촬영, 의료기술에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '방사선학과는 X선, CT, MRI 같은 의료영상 장비의 원리와 촬영 기술, 영상 품질 관리, 방사선 안전관리를 배우는 학과입니다.',
+      subjects: ['보건', '물리학', '생명과학', '통합과학1', '공통수학1'],
+      topics: ['의료영상 장비별 원리와 활용 분야 비교', '방사선 안전관리 기준이 필요한 이유 탐구', '영상 품질과 환자 피폭량 사이의 균형 분석'],
+      group_label: '보건·임상',
+      compare: ['간호학과','임상병리학과','보건관리학과']
+    },
+    '임상병리학과': {
+      card: '혈액·조직·체액 검사를 통해 질병 원인을 분석하는 검사 중심 학과입니다.',
+      fit: '검사 데이터와 실험 과정으로 질병 원인을 찾는 일에 흥미가 있는 학생에게 잘 맞습니다.',
+      intro: '임상병리학과는 혈액, 조직, 체액 등 생체 시료를 분석해 질병의 원인을 찾고 진단을 돕는 검사 중심 학과입니다.',
+      subjects: ['보건', '생명과학', '화학', '통합과학1', '공통수학1'],
+      topics: ['혈액검사 결과로 추정할 수 있는 질환 사례 분석', '미생물 검사와 감염병 진단 과정 이해', '정확한 검사 결과를 위한 표본 처리와 품질관리 탐구'],
+      group_label: '보건·임상',
+      compare: ['간호학과','방사선학과','보건관리학과']
+    },
+    '물리치료학과': {
+      card: '움직임 회복과 재활 운동을 통해 기능 회복을 돕는 학과입니다.',
+      fit: '움직임 분석, 재활, 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '물리치료학과는 근골격계와 신경계 기능을 이해하고 운동치료, 재활치료, 기능평가를 통해 회복을 돕는 학과입니다.',
+      subjects: ['보건', '생명과학', '물리학', '통합과학1', '체육'],
+      topics: ['근골격계 손상 후 재활 단계별 목표 비교', '자세 불균형이 통증과 움직임에 미치는 영향 탐구', '운동치료가 기능 회복에 기여하는 원리 분석'],
+      group_label: '재활·치료',
+      compare: ['작업치료학과','간호학과','보건관리학과']
+    },
+    '작업치료학과': {
+      card: '일상생활 기능 회복을 위한 활동 훈련과 재활을 다루는 학과입니다.',
+      fit: '재활과 일상 기능 회복을 사람 중심으로 돕고 싶은 학생에게 잘 맞습니다.',
+      intro: '작업치료학과는 환자가 일상생활과 학습, 직업 활동에 다시 참여할 수 있도록 기능 회복과 활동 훈련을 설계하는 학과입니다.',
+      subjects: ['보건', '생명과학', '통합과학1', '공통수학1', '심리'],
+      topics: ['일상생활 동작 평가와 재활 계획 수립 사례 분석', '신체 기능과 인지 기능이 작업 수행에 미치는 영향 탐구', '재활 도구가 환자 자립도 향상에 미치는 효과 비교'],
+      group_label: '재활·치료',
+      compare: ['물리치료학과','언어치료학과','간호학과']
+    },
+    '언어치료학과': {
+      card: '말과 언어, 의사소통의 어려움을 평가하고 중재하는 학과입니다.',
+      fit: '언어 발달과 의사소통 지원에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '언어치료학과는 발음, 언어 발달, 의사소통 장애를 평가하고 훈련 프로그램으로 회복을 돕는 학과입니다.',
+      subjects: ['보건', '생명과학', '공통국어', '심리', '통합과학1'],
+      topics: ['언어 발달 지연 사례에서 필요한 평가 요소 분석', '의사소통 장애 유형별 중재 방법 비교', '뇌 손상과 언어 기능 저하의 관계 탐구'],
+      group_label: '재활·치료',
+      compare: ['작업치료학과','물리치료학과','간호학과']
+    },
+    '의공학과': {
+      card: '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.',
+      fit: '공학 기술을 의료기기와 생체신호 분석에 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '의공학과는 의료기기, 바이오센서, 의료영상, 생체신호 처리 기술을 바탕으로 의료 문제를 공학적으로 해결하는 학과입니다.',
+      subjects: ['정보', '물리학', '생명과학', '화학', '공통수학1'],
+      topics: ['웨어러블 의료기기의 작동 원리와 한계 분석', '생체신호 데이터가 질환 판별에 활용되는 방식 탐구', '의료영상 장비 정확도를 높이는 공학 요소 분석'],
+      group_label: '바이오·생명공학',
+      compare: ['생명공학과','제약공학과','방사선학과']
+    },
+    '제약공학과': {
+      card: '의약품의 개발·생산·품질 관리를 공정 관점에서 다루는 학과입니다.',
+      fit: '약물 개발과 생산 공정이 어떻게 연결되는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '제약공학과는 신약 개발 이후 필요한 제형 설계, 약물전달, 생산 공정, 품질관리를 공학적으로 다루는 학과입니다.',
+      subjects: ['화학', '생명과학', '통합과학1', '공통수학1', '정보'],
+      topics: ['약물전달 시스템이 약효와 부작용에 미치는 영향', '바이오의약품 생산 공정과 품질 관리의 중요성', '지속가능한 제약 생산 공정 설계 아이디어 탐구'],
+      group_label: '바이오·생명공학',
+      compare: ['생명공학과','화공생명공학과','의공학과']
+    },
+    '생명공학과': {
+      card: '세포·유전자·미생물을 활용해 의료·식품·환경 기술로 연결하는 학과입니다.',
+      fit: '생명 현상을 실험과 기술로 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '생명공학과는 세포, 유전자, 단백질, 미생물 같은 생명 시스템을 이해하고 이를 의약, 식품, 환경, 산업 기술로 연결하는 학과입니다.',
+      subjects: ['생명과학', '화학', '통합과학1', '공통수학1', '정보'],
+      topics: ['유전자 편집 기술의 가능성과 윤리 문제 탐구', '미생물 활용 기술이 식품·환경 산업에 미치는 영향', '세포 배양 기술이 의료 연구에 활용되는 방식 분석'],
+      group_label: '바이오·생명공학',
+      compare: ['생명과학과','제약공학과','화공생명공학과']
+    },
+    '생명과학과': {
+      card: '생명 현상의 원리를 실험과 데이터로 탐구하는 기초과학 중심 학과입니다.',
+      fit: '생명 현상 자체의 원리를 깊게 파고드는 탐구에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '생명과학과는 세포, 유전, 진화, 생태 같은 생명 현상의 원리를 이론과 실험으로 탐구하는 기초과학 중심 학과입니다.',
+      subjects: ['생명과학', '화학', '통합과학1', '공통수학1', '수학'],
+      topics: ['유전 정보 발현 과정이 생명체 기능에 미치는 영향 탐구', '생태계 변화와 생물다양성 감소 원인 분석', '실험 설계로 확인하는 효소 활성 조건 비교'],
+      group_label: '바이오·생명과학',
+      compare: ['생명공학과','식품생명공학과','화공생명공학과']
+    },
+    '식품생명공학과': {
+      card: '식품과 생명과학을 바탕으로 안전성, 가공, 기능성 소재를 연구하는 학과입니다.',
+      fit: '생명과학을 식품 산업과 건강 문제에 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '식품생명공학과는 식품의 제조, 가공, 안전성, 영양, 발효, 기능성 소재를 생명과학과 공학 관점에서 함께 다루는 학과입니다.',
+      subjects: ['생명과학', '화학', '통합과학1', '공통수학1', '정보'],
+      topics: ['기능성 식품의 원리와 건강 효과 비교', '푸드테크가 식품 산업에 미치는 영향', '발효 공정이 식품 품질과 안전성에 미치는 효과 탐구'],
+      group_label: '바이오·생명공학',
+      compare: ['생명공학과','화공생명공학과','제약공학과']
+    },
+    '화공생명공학과': {
+      card: '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.',
+      fit: '화학과 생명기술을 산업 공정으로 연결하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '화공생명공학과는 화학공정과 생명공학을 결합해 의약품, 식품, 에너지, 소재 생산 과정을 설계하는 융합 학과입니다.',
+      subjects: ['화학', '생명과학', '통합과학1', '공통수학1', '정보'],
+      topics: ['바이오 공정과 화학 공정의 차이 비교', '의약품 생산 공정에서 중요한 설계 요소 탐구', '생명공학 기술이 화학 산업에 미치는 영향 분석'],
+      group_label: '바이오·생명공학',
+      compare: ['생명공학과','제약공학과','식품생명공학과']
+    },
+    '고분자공학과': {
+      card: '고분자 소재의 구조와 성질을 이해하고 바이오소재·의료용 재료로 확장하는 학과입니다.',
+      fit: '재료의 성질이 의료용 소재와 생활 기술에 어떻게 적용되는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '고분자공학과는 플라스틱, 고무, 섬유, 생체재료 같은 고분자 소재의 구조와 성질을 배우고 이를 의료, 환경, 산업 소재로 확장하는 학과입니다.',
+      subjects: ['화학', '생명과학', '통합과학1', '공통수학1', '정보'],
+      topics: ['생체적합성 고분자 소재가 의료 분야에 쓰이는 이유', '플라스틱과 바이오소재의 성질 비교', '고분자 구조 변화가 재료 성능에 미치는 영향 탐구'],
+      group_label: '바이오소재·의료기기',
+      compare: ['의공학과','신소재공학과','화공생명공학과']
+    },
+    '반도체공학과': {
+      card: '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.',
+      fit: '칩, 회로, 공정 같은 반도체 기술에 관심 있는 학생에게 잘 맞습니다.',
+      group_label: '반도체·전자',
+      compare: ['신소재공학과','전자공학과']
+    },
+    '신소재공학과': {
+      card: '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.',
+      fit: '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.',
+      group_label: '반도체·전자',
+      compare: ['반도체공학과','전자공학과']
+    },
+    '전자공학과': {
+      card: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.',
+      fit: '회로와 신호, 장치 동작 원리에 관심 있는 학생에게 잘 맞습니다.',
+      group_label: '반도체·전자',
+      compare: ['반도체공학과','신소재공학과']
+    },
+    '심리학과': {
+      card: '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.',
+      fit: '사람의 마음과 행동을 분석적으로 이해하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '심리학과는 사람의 인지, 정서, 행동이 어떻게 나타나는지 실험과 통계, 사례 분석으로 탐구하는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '생명과학', '영어', '공통수학1'],
+      topics: ['기억과 주의집중이 학습에 미치는 영향 탐구', '정서 조절 전략과 스트레스 반응 비교', '설문과 실험을 활용한 행동 패턴 분석'],
+      group_label: '심리·상담',
+      compare: ['상담심리학과']
+    },
+    '상담심리학과': {
+      card: '심리 이해를 바탕으로 상담과 관계 지원에 더 가까운 학과입니다.',
+      fit: '사람의 마음을 이해하고 상담과 지원 활동으로 연결하고 싶은 학생에게 잘 맞습니다.',
+      intro: '상담심리학과는 심리 이론을 바탕으로 개인과 집단의 어려움을 이해하고 상담을 통해 관계 회복과 적응을 돕는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '생명과학', '영어', '공통수학1'],
+      topics: ['상담 장면에서 필요한 경청과 공감 요소 분석', '청소년 스트레스와 상담 지원 방안 탐구', '심리검사 결과를 상담 계획으로 연결하는 방식 이해'],
+      group_label: '심리·상담',
+      compare: ['심리학과']
+    },
+    '국제학부': {
+      card: '국제 이슈를 폭넓게 보고 정치·경제·외교를 함께 다루는 학과입니다.',
+      fit: '국제정세와 외교, 글로벌 이슈를 넓게 읽는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '국제학부는 국제정치, 외교, 경제, 문화, 지역 이슈를 폭넓게 다루며 글로벌 관점에서 문제를 해석하는 학과입니다.',
+      subjects: ['통합사회', '영어', '정치', '경제', '공통국어'],
+      topics: ['국제 갈등 사례를 외교 관점에서 비교 분석', '글로벌 공급망 변화가 국가 관계에 미치는 영향 탐구', '국제기구의 역할과 한계 사례 분석'],
+      group_label: '국제·통상',
+      compare: ['국제통상학과','경제학과','경영학과']
+    },
+    '국제통상학과': {
+      card: '무역과 글로벌 시장, 통상 흐름을 실무적으로 다루는 학과입니다.',
+      fit: '국제 시장, 무역, 수출입 구조를 현실 문제와 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '국제통상학과는 무역, 수출입, 글로벌 시장 구조, 통상 정책과 같은 국제 거래 흐름을 실무적으로 배우는 학과입니다.',
+      subjects: ['통합사회', '영어', '경제', '수학', '공통국어'],
+      topics: ['환율 변동이 수출입 산업에 미치는 영향 분석', 'FTA가 국내 산업 구조에 주는 효과 탐구', '글로벌 무역 갈등이 기업 전략에 미치는 변화 분석'],
+      group_label: '국제·통상',
+      compare: ['국제학부','경제학과','경영학과']
+    },
+    '미디어커뮤니케이션학과': {
+      card: '미디어 메시지와 콘텐츠가 사회에 미치는 영향을 분석하는 학과입니다.',
+      fit: '콘텐츠와 미디어가 사람과 사회에 미치는 영향에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '미디어커뮤니케이션학과는 뉴스, 광고, 플랫폼, 영상 콘텐츠 같은 미디어 메시지가 사람과 사회에 미치는 영향을 분석하는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '영어', '정보', '경제'],
+      topics: ['뉴스 프레이밍이 여론 형성에 미치는 영향 분석', '숏폼 콘텐츠 소비 방식 변화와 미디어 산업 탐구', '플랫폼 알고리즘이 정보 노출에 미치는 효과 비교'],
+      group_label: '미디어·콘텐츠',
+      compare: ['광고홍보학과','문화인류학과','문화유산학과']
+    },
+    '광고홍보학과': {
+      card: '브랜드 메시지와 콘텐츠 전략을 기획하고 전달 효과를 다루는 학과입니다.',
+      fit: '메시지를 기획하고 사람의 반응을 분석하는 일에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '광고홍보학과는 브랜드와 기관의 메시지를 효과적으로 전달하기 위해 콘텐츠 전략, 캠페인 기획, 소비자 반응 분석을 배우는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '영어', '경제', '정보'],
+      topics: ['광고 메시지 유형별 설득 전략 비교', '브랜드 캠페인이 소비자 태도에 미치는 영향 분석', 'SNS 홍보 콘텐츠 확산 구조 탐구'],
+      group_label: '미디어·콘텐츠',
+      compare: ['미디어커뮤니케이션학과','문화인류학과','문화유산학과']
+    },
+    '건설환경공학과': {
+      card: '도시·도로·수자원·환경 문제를 함께 다루는 기반시설 중심 학과입니다.',
+      fit: '도시 문제와 환경 문제를 기술적으로 해결하는 데 관심 있는 학생에게 잘 맞습니다.',
+      group_label: '환경 관련 추천',
+      compare: ['토목환경공학과','지구환경과학과','주거환경학과']
+    },
+    '토목환경공학과': {
+      card: '도로·교량·수자원과 환경 관리를 함께 다루는 사회기반시설 학과입니다.',
+      fit: '사회기반시설과 환경 관리를 같이 보고 싶은 학생에게 잘 맞습니다.',
+      group_label: '환경 관련 추천',
+      compare: ['건설환경공학과','지구환경과학과','주거환경학과']
+    },
+    '지구환경과학과': {
+      card: '기후·대기·지구 시스템을 관측 데이터로 분석하는 학과입니다.',
+      fit: '자연환경 변화와 기후 문제를 과학적으로 분석하고 싶은 학생에게 잘 맞습니다.',
+      intro: '지구환경과학과는 기후, 대기, 지질, 수문 등 지구 시스템의 변화를 관측 자료와 과학적 모델로 분석하는 학과입니다.',
+      subjects: ['지구과학', '통합과학1', '공통수학1', '화학', '지리'],
+      topics: ['도시 열섬 현상의 원인과 관측 자료 분석', '대기오염 지표와 기후 변화의 관계 탐구', '수문 순환 변화가 환경에 미치는 영향 분석'],
+      group_label: '환경 관련 추천',
+      compare: ['건설환경공학과','토목환경공학과','주거환경학과']
+    },
+    '주거환경학과': {
+      card: '주거 공간과 생활 환경을 설계하고 사람의 생활 동선을 분석하는 학과입니다.',
+      fit: '사람이 살아가는 공간을 더 안전하고 편리하게 바꾸는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '주거환경학과는 주거 공간, 실내 환경, 생활 동선, 주거문화 등을 바탕으로 사람이 살아가는 공간을 설계하고 분석하는 학과입니다.',
+      subjects: ['통합과학1', '공통수학1', '기하', '지리', '미술'],
+      topics: ['생활 동선이 주거 만족도에 미치는 영향 분석', '친환경 주거 설계 요소 비교', '고령사회에 필요한 주거 공간 설계 아이디어 탐구'],
+      group_label: '환경 관련 추천',
+      compare: ['건설환경공학과','토목환경공학과','지구환경과학과']
+    }
+  };
+
   function buildHeuristicKeywords(displayName, trackCategory){
     const name = String(displayName || '');
     const rules = [
       [/주거환경|실내/, ['주거 설계','실내 환경','공간 분석','생활 동선','주거문화']],
       [/환경공학|지구환경|대기과학|환경/, ['환경 분석','기후 데이터','지속가능성','오염 원인','환경 정책']],
+      [/간호|의예|약학|치의|한의|수의|보건관리|보건|방사선|물리치료|임상병리|작업치료|재활상담|치위생|치기공|응급구조|언어치료/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
+      [/생명공학|생명과학|생물|수산생명|미생물|동물자원|식물자원|원예|식품공학|식품영양/, ['생명 시스템','변화 분석','실험 설계','생체 데이터','응용 사례']],
       [/컴퓨터|소프트웨어|AI|인공지능|정보보안|정보통신|정보/, ['알고리즘','데이터 처리','시스템 설계','프로그래밍','디지털 기술']],
       [/경영정보/, ['정보시스템','비즈니스 데이터','디지털 전략','의사결정','플랫폼']],
       [/신소재|재료|반도체|고분자|금속/, ['재료 특성','구조 분석','성질 변화','소재 설계','공정 기술']],
@@ -229,9 +537,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       [/통계|응용통계/, ['데이터 분석','확률 모델','통계 추정','그래프 해석','표본 조사']],
       [/수학/, ['수리 모델링','증명 논리','문제 해결','함수 해석','정량 분석']],
       [/화학|화학공학/, ['물질 구조','반응 원리','실험 설계','정량 분석','에너지 변화']],
-      [/생명공학|생명과학|생물|수산생명|미생물|동물자원|식물자원|원예|식품공학|식품영양/, ['생명 시스템','변화 분석','실험 설계','생체 데이터','응용 사례']],
-      [/물리|천문|우주|해양/, ['관측 데이터','원리 해석','시스템 이해','변화 분석','모델링']],
-      [/간호|의예|약학|치의|한의|수의|보건|방사선|물리치료|임상병리|작업치료|재활상담|치위생|치기공|응급구조|언어치료/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
+      [/물리(?!치료)|천문|우주|해양/, ['관측 데이터','원리 해석','시스템 이해','변화 분석','모델링']],
       [/국어국문|문예창작|언어학|영어영문|일어일문|중어중문|노어노문|독어독문|불어불문|아랍어|한문|한국어|철학|사학|고고|신학|미학/, ['텍스트 해석','비교 분석','문화 맥락','표현 방식','사상 이해']]
     ];
     for (const [regex, keywords] of rules) {
@@ -275,7 +581,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
 
 
   function classifyCandidateGroup(row, rawInput){
-    const input = String(rawInput || '').trim();
     const profile = row?.profile || {};
     const textBag = [
       row?.display_name || '',
@@ -283,35 +588,98 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       row?.track_category || '',
       ...(row?.keywords || []),
       ...(profile?.related_subject_hints || []),
-      ...(profile?.inquiry_topics_raw || [])
+      ...(profile?.inquiry_topics_raw || []),
+      profile?.major_intro || ''
     ].join(' ');
+    const normalizedInput = normalize(rawInput || '');
+
+    const override = getMajorOverride(profile || row);
+    const overrideGroup = getGroupMetaByLabel(override?.group_label);
+    if (overrideGroup && isGroupAllowedForQuery(overrideGroup.id, normalizedInput)) return overrideGroup;
+
+    if (normalizedInput.includes('바이오') && /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/.test(textBag)) {
+      const forced = getGroupMetaByLabel('의료기기·바이오소재 쪽');
+      if (forced && isGroupAllowedForQuery(forced.id, normalizedInput)) return forced;
+    }
 
     const rules = [
-      { id:'space_housing', label:'공간·주거 환경', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
-      { id:'climate_nature', label:'기후·자연 환경', desc:'기후, 대기, 지구 시스템, 자연 관측과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|천문|해양|생태|관측|자연환경)/ },
-      { id:'city_infra', label:'도시·인프라', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
-      { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|데이터|분석|확률|모델링|수리|정량)/ },
-      { id:'media_content', label:'미디어·콘텐츠', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.', test: /(미디어|콘텐츠|신문방송|광고홍보|언론정보|커뮤니케이션|문화콘텐츠|방송)/ },
-      { id:'psychology_counsel', label:'심리·상담', desc:'인지, 정서, 행동, 상담 사례를 중심으로 보는 학과입니다.', test: /(심리|상담|정서|인지|행동)/ },
-      { id:'business_global', label:'경영·국제', desc:'시장, 소비자, 국제 이슈와 연결된 경영·경제 계열 학과입니다.', test: /(경영|경제|무역|국제|통상|관광|호텔|회계|세무|부동산|소비자)/ },
+      { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활)/ },
+      { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건)/ },
+      { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.', test: /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/ },
+      { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(식품생명공학|제약공학|화공생명|생명공학|바이오|미생물|유전|세포|단백질|발효|식품)/ },
+      { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.', test: /(생명과학|생물학|분자생물|생태학)/ },
+      { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
+      { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|생태|건설환경|토목환경|수자원|도시환경|환경)/ },
+      { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
+      { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.', test: /(미디어|콘텐츠|신문방송|광고홍보|언론정보|커뮤니케이션|문화콘텐츠|방송)/ },
+      { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.', test: /(심리|상담|정서|인지|행동과학)/ },
+      { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.', test: /(국제학부|국제통상|무역|통상|글로벌|경제학|농업경제)/ },
+      { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.', test: /(경영|관광|호텔|회계|세무|부동산|소비자)/ },
       { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.', test: /(행정|정책|법학|정치외교|공공|경찰|군사|외교)/ },
-      { id:'bio_health', label:'생명·보건', desc:'건강, 생명, 의료, 보건 데이터와 연결된 학과입니다.', test: /(생명|바이오|의료|보건|간호|약학|치의|한의|수의|임상|방사선|치위생|치기공|응급구조|물리치료)/ },
-      { id:'materials_devices', label:'소재·장치', desc:'재료, 반도체, 장치 구조와 성질을 다루는 학과입니다.', test: /(신소재|재료|반도체|고분자|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
+      { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
+      { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|확률|모델링|수리|정량)/ },
       { id:'language_culture', label:'언어·문화·사상', desc:'언어, 텍스트, 문화와 사상을 중심으로 읽는 학과입니다.', test: /(국어국문|언어|영어|일어|중어|불어|독어|노어|아랍어|철학|사학|고고|신학|한문|한국어|미학|문예창작|문화인류|문화유산)/ }
     ];
 
     for (const rule of rules) {
-      if (rule.test.test(textBag) || (input && rule.test.test(input))) {
-        return rule;
-      }
+      if (!rule.test.test(textBag)) continue;
+      if (!isGroupAllowedForQuery(rule.id, normalizedInput)) continue;
+      return rule;
     }
 
+    const allowed = getQueryAllowedGroupIds(normalizedInput);
     const track = String(row?.track_category || '');
-    if (track.includes('공학')) return { id:'materials_devices', label:'공학 계열', desc:'구조, 장치, 설계처럼 공학 중심으로 이어지는 후보입니다.' };
-    if (track.includes('자연')) return { id:'climate_nature', label:'자연 계열', desc:'자연 현상, 데이터 해석과 연결된 후보입니다.' };
-    if (track.includes('의약')) return { id:'bio_health', label:'의약 계열', desc:'건강·생명·의료 문제와 연결된 후보입니다.' };
-    if (track.includes('인문')) return { id:'language_culture', label:'인문 계열', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
-    if (track.includes('사회')) return { id:'business_global', label:'사회 계열', desc:'사회 현상, 정책, 시장과 연결된 후보입니다.' };
+    if (track.includes('의약')) {
+      if (allowed) {
+        const preferred = ['clinical_health','rehab_therapy','bio_engineering','bio_science','bio_materials_devices'].find(v => allowed.has(v));
+        if (preferred) return { ...(getGroupMetaByLabel({
+          clinical_health:'보건·임상',
+          rehab_therapy:'재활·치료',
+          bio_engineering:'바이오·생명공학',
+          bio_science:'바이오·생명과학',
+          bio_materials_devices:'바이오소재·의료기기'
+        }[preferred])) };
+      }
+      return getGroupMetaByLabel('보건·임상');
+    }
+    if (track.includes('공학')) {
+      if (allowed) {
+        const preferred = ['materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
+        if (preferred) return { ...(getGroupMetaByLabel({
+          materials_devices:'반도체·전자',
+          bio_engineering:'바이오·생명공학',
+          bio_materials_devices:'바이오소재·의료기기',
+          city_infra:'도시·인프라'
+        }[preferred])) };
+      }
+      return getGroupMetaByLabel('반도체·전자');
+    }
+    if (track.includes('자연')) {
+      if (allowed) {
+        const preferred = ['bio_science','environment','space_housing','city_infra'].find(v => allowed.has(v));
+        if (preferred) return { ...(getGroupMetaByLabel({
+          bio_science:'바이오·생명과학',
+          environment:'환경 관련 추천',
+          space_housing:'공간·주거 환경',
+          city_infra:'도시·인프라'
+        }[preferred])) };
+      }
+      return getGroupMetaByLabel('환경 관련 추천');
+    }
+    if (track.includes('인문')) return getGroupMetaByLabel('미디어·콘텐츠') || { id:'language_culture', label:'언어·문화·사상', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
+    if (track.includes('사회')) {
+      if (allowed) {
+        const preferred = ['global_trade','business_service','law_public','psychology_counsel','media_content'].find(v => allowed.has(v));
+        if (preferred) return { ...(getGroupMetaByLabel({
+          global_trade:'국제·통상',
+          business_service:'경영·서비스',
+          law_public:'행정·정책·법',
+          psychology_counsel:'심리·상담',
+          media_content:'미디어·콘텐츠'
+        }[preferred])) };
+      }
+      return getGroupMetaByLabel('국제·통상');
+    }
     return { id:'general', label:'관련 학과 묶음', desc:'입력한 단어와 연결된 후보를 모아 보여줍니다.' };
   }
 
@@ -327,7 +695,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       [/통계|응용통계|데이터/, '데이터 해석과 정량 분석'],
       [/심리|상담/, '인지·정서·행동 이해'],
       [/경영정보/, '비즈니스와 정보시스템 연결'],
-      [/경영|경제|무역|국제|통상|회계|세무|부동산/, '시장·정책·국제 흐름 해석'],
+      [/국제|무역|통상|경제/, '시장·정책·국제 흐름 해석'],
+      [/경영|관광|호텔|회계|세무|부동산/, '기업 운영과 서비스 전략 분석'],
       [/행정|정치외교|법학|공공|경찰|군사/, '제도·정책·공공 문제 해결'],
       [/생명|미생물|동물|식물|수산|간호|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
       [/컴퓨터|소프트웨어|AI|정보|전자|전기|기계|자동차|로봇|재료|반도체/, '장치·시스템·기술 응용'],
@@ -340,6 +709,143 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
     return group?.label ? `${group.label} 중심 탐구` : '핵심 키워드 중심 탐구';
   }
 
+
+
+  function getMajorOverride(profileOrName){
+    const name = typeof profileOrName === 'string'
+      ? profileOrName
+      : String(profileOrName?.display_name || '');
+    return MAJOR_COPY_OVERRIDES[name] || null;
+  }
+
+  function isGenericMajorIntro(value){
+    const text = String(value || '').trim();
+    if (!text) return true;
+    return GENERIC_MAJOR_INTRO_PATTERNS.some(pattern => pattern.test(text));
+  }
+
+  function getPreferredMajorIntro(profile, group){
+    const override = getMajorOverride(profile);
+    if (override?.intro) return override.intro;
+    const rawIntro = String(profile?.major_intro || '').trim();
+    if (rawIntro && !isGenericMajorIntro(rawIntro)) return rawIntro;
+    return buildStudentDescription(profile, group);
+  }
+
+  function getPreferredSubjectHints(profile){
+    const override = getMajorOverride(profile);
+    if (override?.subjects?.length) return override.subjects.slice(0, 6);
+    return uniq(profile?.related_subject_hints || []).slice(0, 6);
+  }
+
+  function getPreferredInquiryTopics(profile){
+    const override = getMajorOverride(profile);
+    if (override?.topics?.length) return override.topics.slice(0, 5);
+    const topics = uniq(profile?.inquiry_topics_raw || []).filter(v => !/관련 핵심 개념 탐구|진로 연계 사례 분석|주제 보고서 설계/.test(String(v)));
+    if (topics.length) return topics.slice(0, 5);
+    const base = String(profile?.display_name || '').replace(/학과|학부|전공/g, '');
+    return base ? [`${base}와 관련된 핵심 개념 탐구`, `${base} 사례 비교 분석`, `${base} 보고서 주제 설계`] : [];
+  }
+
+  function applyQueryBoost(input, displayName){
+    const normalizedInput = normalize(input);
+    const name = String(displayName || '');
+    let score = 0;
+    QUERY_BOOST_RULES.forEach(rule => {
+      if (rule.queries.some(q => normalize(q) === normalizedInput) && rule.test.test(name)) {
+        score += rule.boost;
+      }
+    });
+    return score;
+  }
+
+  function isBroadQueryKeyword(input){
+    return BROAD_QUERY_KEYWORDS.has(String(input || '').trim());
+  }
+
+  function buildStudentDescription(profile, group){
+    const override = getMajorOverride(profile);
+    if (override?.card) return override.card;
+    const name = String(profile?.display_name || '');
+    const rules = [
+      [/보건관리/, '질병 예방, 보건 정책, 의료행정과 건강 데이터를 다루는 학과입니다.'],
+      [/간호/, '환자 상태를 관찰하고 직접 간호하는 임상 실천 중심 학과입니다.'],
+      [/방사선/, '의료영상 장비를 다루며 촬영, 판독 보조, 방사선 안전관리를 배우는 학과입니다.'],
+      [/물리치료/, '움직임 회복과 재활 운동을 통해 기능 회복을 돕는 학과입니다.'],
+      [/임상병리/, '혈액·조직·체액 검사를 통해 질병 원인을 분석하는 검사 중심 학과입니다.'],
+      [/응급구조/, '응급 상황에서 환자 상태를 판단하고 현장 처치를 수행하는 학과입니다.'],
+      [/언어치료/, '말과 언어, 의사소통의 어려움을 평가하고 중재하는 학과입니다.'],
+      [/작업치료/, '일상생활 기능 회복을 위한 활동 훈련과 재활을 다루는 학과입니다.'],
+      [/치위생/, '구강 건강 예방과 위생 관리, 치과 진료 지원을 배우는 학과입니다.'],
+      [/치기공/, '보철물과 치과 장치를 설계·제작하는 제작 중심 학과입니다.'],
+      [/의공/, '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.'],
+      [/제약공학/, '의약품의 개발·생산·품질 관리를 공정 관점에서 다루는 학과입니다.'],
+      [/화공생명/, '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.'],
+      [/생명공학/, '세포·유전자·미생물을 활용해 의료·식품·환경 기술로 연결하는 학과입니다.'],
+      [/생명과학/, '생명 현상의 원리를 실험과 데이터로 탐구하는 기초과학 중심 학과입니다.'],
+      [/식품생명공학/, '식품과 생명과학을 바탕으로 안전성, 가공, 기능성 소재를 연구하는 학과입니다.'],
+      [/식품영양/, '영양, 식생활, 건강 관리를 바탕으로 사람의 건강한 생활을 설계하는 학과입니다.'],
+      [/반도체공학/, '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.'],
+      [/신소재공학|재료공학/, '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.'],
+      [/전자공학/, '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.'],
+      [/전기공학/, '전력, 제어, 전기 시스템의 동작 원리를 다루는 학과입니다.'],
+      [/미디어커뮤니케이션/, '미디어 메시지와 콘텐츠가 사회에 미치는 영향을 분석하는 학과입니다.'],
+      [/광고홍보/, '브랜드 메시지와 콘텐츠 전략을 기획하고 전달 효과를 다루는 학과입니다.'],
+      [/문화인류/, '사람들의 생활방식과 문화 차이를 현장과 사례로 해석하는 학과입니다.'],
+      [/문화유산/, '역사·문화 자료를 조사하고 보존·활용하는 학과입니다.'],
+      [/심리학/, '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.'],
+      [/상담심리/, '심리 이해를 바탕으로 상담과 관계 지원에 더 가까운 학과입니다.'],
+      [/국제학부/, '국제 이슈를 폭넓게 보고 정치·경제·외교를 함께 다루는 학과입니다.'],
+      [/국제통상/, '무역과 글로벌 시장, 통상 흐름을 실무적으로 다루는 학과입니다.'],
+      [/경제학/, '시장 원리와 자원 배분을 데이터와 이론으로 분석하는 학과입니다.'],
+      [/경영학/, '기업 운영과 소비자, 시장 전략을 함께 보는 학과입니다.'],
+      [/건설환경공학/, '도시·도로·수자원·환경 문제를 함께 다루는 기반시설 중심 학과입니다.'],
+      [/토목환경공학/, '도로·교량·수자원과 환경 관리를 함께 다루는 사회기반시설 학과입니다.'],
+      [/지구환경과학/, '기후·대기·지구 시스템을 관측 데이터로 분석하는 학과입니다.'],
+      [/주거환경/, '주거 공간과 생활 환경을 설계하고 사람의 생활 동선을 분석하는 학과입니다.']
+    ];
+    for (const [regex, sentence] of rules) {
+      if (regex.test(name)) return sentence;
+    }
+    const focus = getPrimaryFocus(profile, group);
+    if (group?.label) return `${group.label}와 관련해 ${focus}를 중심으로 배우는 학과입니다.`;
+    return `${focus}를 중심으로 배우는 학과입니다.`;
+  }
+
+  function buildStudentFit(profile, group){
+    const override = getMajorOverride(profile);
+    if (override?.fit) return override.fit;
+    const name = String(profile?.display_name || '');
+    const rules = [
+      [/보건관리/, '예방, 보건 정책, 통계 해석에 관심 있는 학생에게 잘 맞습니다.'],
+      [/간호/, '사람을 직접 돌보고 임상 현장에서 빠르게 판단하는 일에 관심 있는 학생에게 잘 맞습니다.'],
+      [/방사선/, '영상 장비, 정밀 촬영, 의료기술에 관심 있는 학생에게 잘 맞습니다.'],
+      [/물리치료/, '움직임 분석, 재활, 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.'],
+      [/임상병리/, '검사 데이터와 실험 과정으로 질병 원인을 찾는 일에 흥미가 있는 학생에게 잘 맞습니다.'],
+      [/응급구조/, '긴급 상황에서 침착하게 판단하고 현장 대응을 하고 싶은 학생에게 잘 맞습니다.'],
+      [/언어치료/, '언어 발달과 의사소통 지원에 관심 있는 학생에게 잘 맞습니다.'],
+      [/작업치료/, '재활과 일상 기능 회복을 사람 중심으로 돕고 싶은 학생에게 잘 맞습니다.'],
+      [/치위생/, '예방 중심 구강 관리와 환자 교육에 관심 있는 학생에게 잘 맞습니다.'],
+      [/치기공/, '정밀 제작과 손기술, 치과 장치 설계에 관심 있는 학생에게 잘 맞습니다.'],
+      [/의공/, '공학 기술을 의료기기와 생체신호 분석에 연결해 보고 싶은 학생에게 잘 맞습니다.'],
+      [/생명공학|생명과학|제약공학|화공생명|식품생명공학/, '생명 현상을 실험과 기술로 연결해 보고 싶은 학생에게 잘 맞습니다.'],
+      [/반도체공학/, '칩, 회로, 공정 같은 반도체 기술에 관심 있는 학생에게 잘 맞습니다.'],
+      [/신소재공학|재료공학/, '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.'],
+      [/전자공학|전기공학/, '회로와 신호, 장치 동작 원리에 관심 있는 학생에게 잘 맞습니다.'],
+      [/미디어커뮤니케이션/, '콘텐츠와 미디어가 사람과 사회에 미치는 영향에 관심 있는 학생에게 잘 맞습니다.'],
+      [/광고홍보/, '메시지를 기획하고 사람의 반응을 분석하는 일에 관심 있는 학생에게 잘 맞습니다.'],
+      [/문화인류|문화유산/, '사람과 문화, 사회 맥락을 사례로 깊게 읽고 싶은 학생에게 잘 맞습니다.'],
+      [/심리학|상담심리/, '사람의 마음과 행동을 이해하고 관계를 돕는 데 관심 있는 학생에게 잘 맞습니다.'],
+      [/국제학부|국제통상|경제학|경영학/, '국제 이슈와 시장 흐름을 넓게 보고 해석하는 데 관심 있는 학생에게 잘 맞습니다.'],
+      [/건설환경공학|토목환경공학|지구환경과학|주거환경/, '환경과 생활 공간, 도시 문제를 연결해서 보고 싶은 학생에게 잘 맞습니다.']
+    ];
+    for (const [regex, sentence] of rules) {
+      if (regex.test(name)) return sentence;
+    }
+    if (group?.label) return `${group.label}와 연결된 주제를 사례와 데이터로 탐구해 보고 싶은 학생에게 잘 맞습니다.`;
+    return '관심 주제를 데이터와 사례로 탐구해 보고 싶은 학생에게 잘 맞습니다.';
+  }
+
   function getSelectedComparison(profile, rawInput){
     const current = {
       major_id: profile?.major_id || '',
@@ -348,7 +854,31 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       profile,
       keywords: getMeaningfulKeywords(profile)
     };
-    const group = classifyCandidateGroup(current, rawInput);
+    const override = getMajorOverride(profile);
+    const baseGroup = classifyCandidateGroup(current, rawInput);
+
+    if (override?.compare?.length) {
+      const peers = override.compare.map(name => {
+        const peerProfile = getProfileByIdOrName('', name);
+        if (!peerProfile) return null;
+        return {
+          major_id: peerProfile.major_id || '',
+          display_name: peerProfile.display_name,
+          track_category: peerProfile.track_category || '',
+          focus: buildStudentDescription(peerProfile, baseGroup),
+          hint: buildStudentFit(peerProfile, baseGroup),
+          overlap: 999
+        };
+      }).filter(Boolean);
+      return {
+        group_id: baseGroup.id || '',
+        group_label: override.group_label || baseGroup.label || '비슷한 학과',
+        group_desc: baseGroup.desc || '',
+        selected_focus: override.card || buildStudentDescription(profile, baseGroup),
+        peers
+      };
+    }
+
     const peers = state.catalog.map(row => {
       const peerProfile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       if (!peerProfile || peerProfile.major_id === profile?.major_id) return null;
@@ -359,18 +889,17 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
         profile: peerProfile,
         keywords: getMeaningfulKeywords(peerProfile)
       };
-      const peerGroup = classifyCandidateGroup(peerRow, rawInput);
-      if ((peerGroup.id || '') !== (group.id || '')) return null;
+      const peerGroup = classifyCandidateGroup(peerRow, '');
+      if ((peerGroup.id || '') !== (baseGroup.id || '')) return null;
       let overlap = 0;
       const selectedKeywords = new Set((current.keywords || []).map(normalize));
       (peerRow.keywords || []).forEach(v => { if (selectedKeywords.has(normalize(v))) overlap += 1; });
-      if (normalize(peerRow.display_name).includes(normalize(rawInput)) || normalize(rawInput).includes(normalize(peerRow.display_name))) overlap += 2;
       return {
         major_id: peerRow.major_id,
         display_name: peerRow.display_name,
         track_category: peerRow.track_category,
-        focus: getPrimaryFocus(peerProfile, peerGroup),
-        hint: `이 학과는 ${getPrimaryFocus(peerProfile, peerGroup)} 쪽이 더 강합니다.`,
+        focus: buildStudentDescription(peerProfile, peerGroup),
+        hint: buildStudentFit(peerProfile, peerGroup),
         overlap
       };
     }).filter(Boolean)
@@ -378,10 +907,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       .slice(0,3);
 
     return {
-      group_id: group.id || '',
-      group_label: group.label || '비슷한 학과',
-      group_desc: group.desc || '',
-      selected_focus: getPrimaryFocus(profile, group),
+      group_id: baseGroup.id || '',
+      group_label: override?.group_label || baseGroup.label || '비슷한 학과',
+      group_desc: baseGroup.desc || '',
+      selected_focus: override?.card || buildStudentDescription(profile, baseGroup),
       peers
     };
   }
@@ -403,7 +932,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
         track_category: row.track_category,
         match_label: row.match_label,
         keywords: (row.keywords || []).slice(0, 5),
-        score: row.score
+        score: row.score,
+        profile: row.profile || null
       });
     });
     return orderedGroups.map(group => ({
@@ -432,6 +962,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
+      score += applyQueryBoost(input, row.display_name);
       if (!score) return null;
       return {
         major_id: row.major_id,
@@ -461,6 +992,23 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       }
     }
 
+    const candidates = findCandidates(input);
+    if (isBroadQueryKeyword(input) && candidates.length > 1) {
+      return {
+        input,
+        normalized,
+        status: 'ambiguous',
+        grouped_suggestions: groupCandidateSuggestions(candidates, input),
+        suggestions: candidates.map(row => ({
+          major_id: row.major_id,
+          display_name: row.display_name,
+          track_category: row.track_category,
+          match_label: row.match_label,
+          keywords: row.keywords.slice(0, 5)
+        }))
+      };
+    }
+
     const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalized);
     if (exactProfile) {
       state.selectedMajorId = exactProfile.major_id || '';
@@ -478,7 +1026,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       }
     }
 
-    const candidates = findCandidates(input);
     if (!candidates.length) {
       return { input, normalized, status: 'not_found', suggestions: [] };
     }
@@ -531,10 +1078,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
     const profile = resolved.profile || {};
     return {
       ...resolved,
-      major_intro: profile.major_intro || '',
+      major_intro: getPreferredMajorIntro(profile, resolved.comparison ? { label: resolved.comparison.group_label } : null),
       core_keywords: resolved.meaningful_keywords || [],
-      related_subject_hints: uniq(profile.related_subject_hints || []).slice(0, 6),
-      inquiry_topics_raw: uniq(profile.inquiry_topics_raw || []).slice(0, 5),
+      related_subject_hints: getPreferredSubjectHints(profile),
+      inquiry_topics_raw: getPreferredInquiryTopics(profile),
       prep_activities: uniq(profile.prep_activities || []).slice(0, 5),
       recommended_books_raw: uniq(profile.recommended_books_raw || []).slice(0, 5),
       book_bridge_candidates: uniq(profile.book_bridge_candidates || []),
@@ -552,7 +1099,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
     if (!data || data.status === 'empty') {
       panel.style.display = 'none';
       panel.innerHTML = '';
-      dispatchMajorSelection(data);
+      dispatchMajorSelection(null);
       return;
     }
     panel.style.display = 'block';
@@ -584,7 +1131,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
                       <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
                       <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
                     </div>
-                    <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(', ') || '관련 키워드 준비 중')}</div>
+                    <div class="major-engine-candidate-keywords">${escapeHtml(buildStudentDescription(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
+                    <div class="major-engine-help">${escapeHtml(buildStudentFit(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
                   </button>
                 `).join('')}
               </div>
@@ -613,10 +1161,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
       <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
-        입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
-        선택 과목: ${escapeHtml($('subject')?.value || '') || '-'} · 계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
-        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
+        입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
+        계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
+        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
       </div>
+      <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+      <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
           <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
@@ -640,7 +1190,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
         <div class="major-engine-compare-head">
           <div>
             <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
-            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) <strong>${escapeHtml(data.comparison.selected_focus || '')}</strong> 쪽에 더 가깝습니다. 같은 묶음 안에서도 아래 학과들과 초점이 조금씩 다릅니다.</div>
+            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) ${escapeHtml(buildStudentDescription(data.profile || {}, { label: data.comparison.group_label || '' }))} 같은 묶음 안에서도 아래 학과들과 배우는 초점이 조금씩 다릅니다.</div>
           </div>
           <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
         </div>
@@ -649,8 +1199,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
             <div class="major-engine-compare-card">
               <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
               <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
-              <div class="major-engine-compare-focus">더 가까운 초점: ${escapeHtml(peer.focus || '')}</div>
-              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || '')}</div>
+              <div class="major-engine-compare-focus">${escapeHtml(buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
             </div>
           `).join('')}
         </div>
@@ -668,31 +1218,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.0-major-search-compare";
     applySelectedMajor(majorId, name);
   }
 
-  function getPreviewDetailFromData(data){
-    if (!data || data.status !== 'ambiguous') return null;
-    const first = Array.isArray(data.suggestions) && data.suggestions.length ? data.suggestions[0] : null;
-    if (!first) return null;
-    return {
-      preview_display_name: first.display_name || '',
-      core_keywords: Array.isArray(first.keywords) ? first.keywords.slice(0, 5) : [],
-      preview_track_category: first.track_category || '',
-      comparison: null
-    };
-  }
-
   function dispatchMajorSelection(data){
-    let detail = null;
-    if (data && data.status === 'resolved') {
-      detail = {
+    window.dispatchEvent(new CustomEvent('major-engine-selection-changed', {
+      detail: data && data.status === 'resolved' ? {
         display_name: data.display_name,
         core_keywords: data.core_keywords || [],
         track_category: data.track_category || '',
         comparison: data.comparison || null
-      };
-    } else {
-      detail = getPreviewDetailFromData(data);
-    }
-    window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
+      } : null
+    }));
   }
 
   function buildMajorPayload(){
