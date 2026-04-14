@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.4-major-keyword-auto-preview-ambiguous";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -31,7 +31,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
     majorTrackCategory: "",
     majorCoreKeywords: [],
     majorRelatedHints: [],
-    majorComparison: null
+    majorComparison: null,
+    majorSelectionStatus: "",
+    majorPreviewKeywords: [],
+    majorPreviewNames: []
   };
 
   const REPORT_LINE_HELP = {
@@ -1142,13 +1145,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
   function syncCareerFromInput() {
     const el = $("career");
     state.career = (el?.value || "").trim();
+    syncMajorSelectionFromPayload();
   }
 
   function getMajorSelectionPayload() {
     try {
       if (typeof window.getMajorEngineSelectionData === "function") {
         const payload = window.getMajorEngineSelectionData();
-        if (payload && payload.status === "resolved") return payload;
+        if (payload && (payload.status === "resolved" || payload.status === "ambiguous")) return payload;
       }
     } catch (error) {
       console.warn("major selection payload read failed:", error);
@@ -1156,28 +1160,67 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
     return null;
   }
 
-  function syncMajorSelectionFromEvent(detail) {
+  function syncMajorSelectionFromPayload() {
     const payload = getMajorSelectionPayload();
-    const source = payload || detail || null;
-    if (!source || !source.display_name) {
+    syncMajorSelectionFromEvent(payload || null);
+  }
+
+  function syncMajorSelectionFromEvent(detail) {
+    const source = detail || null;
+    if (!source) {
       state.majorSelectedName = "";
       state.majorTrackCategory = "";
       state.majorCoreKeywords = [];
       state.majorRelatedHints = [];
       state.majorComparison = null;
+      state.majorSelectionStatus = "";
+      state.majorPreviewKeywords = [];
+      state.majorPreviewNames = [];
       return;
     }
-    state.majorSelectedName = source.display_name || "";
-    state.majorTrackCategory = source.track_category || "";
-    state.majorCoreKeywords = uniq(source.core_keywords || []).slice(0, 8);
-    state.majorRelatedHints = uniq(source.related_subject_hints || []).slice(0, 8);
-    state.majorComparison = source.comparison || null;
+
+    if (source.status === "resolved" && source.display_name) {
+      state.majorSelectedName = source.display_name || "";
+      state.majorTrackCategory = source.track_category || "";
+      state.majorCoreKeywords = uniq(source.core_keywords || []).slice(0, 8);
+      state.majorRelatedHints = uniq(source.related_subject_hints || []).slice(0, 8);
+      state.majorComparison = source.comparison || null;
+      state.majorSelectionStatus = "resolved";
+      state.majorPreviewKeywords = [];
+      state.majorPreviewNames = [];
+      return;
+    }
+
+    if (source.status === "ambiguous") {
+      const suggestions = Array.isArray(source.suggestions) ? source.suggestions.slice(0, 3) : [];
+      const previewKeywords = uniq(suggestions.flatMap(row => Array.isArray(row?.keywords) ? row.keywords : [])).slice(0, 8);
+      const previewNames = suggestions.map(row => row?.display_name).filter(Boolean);
+      state.majorSelectedName = "";
+      state.majorTrackCategory = suggestions[0]?.track_category || "";
+      state.majorCoreKeywords = [];
+      state.majorRelatedHints = [];
+      state.majorComparison = null;
+      state.majorSelectionStatus = "ambiguous";
+      state.majorPreviewKeywords = previewKeywords;
+      state.majorPreviewNames = previewNames;
+      return;
+    }
+
+    state.majorSelectedName = "";
+    state.majorTrackCategory = "";
+    state.majorCoreKeywords = [];
+    state.majorRelatedHints = [];
+    state.majorComparison = null;
+    state.majorSelectionStatus = source.status || "";
+    state.majorPreviewKeywords = [];
+    state.majorPreviewNames = [];
   }
 
   function getAutoKeywordPreviewList() {
     const combined = uniq([
       ...(state.majorCoreKeywords || []),
-      ...(state.majorRelatedHints || [])
+      ...(state.majorRelatedHints || []),
+      ...(state.majorPreviewKeywords || [])
     ]).filter(Boolean);
     return combined.slice(0, 6);
   }
@@ -1189,26 +1232,42 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
   function renderMajorKeywordPreview() {
     const box = $("engineMajorKeywordPreview");
     if (!box) return;
-    if (!state.majorSelectedName) {
-      box.innerHTML = `<div class="engine-preview-note">학과를 고르면 이곳에 전공 핵심 키워드가 먼저 자동으로 뜹니다. 아래에서 교과 개념을 고르면 여기 입력칸은 그 개념 키워드로 바뀝니다.</div>`;
+    if (state.majorSelectedName) {
+      const previewKeywords = getAutoKeywordPreviewList();
+      const focus = state.majorComparison?.selected_focus || "";
+      const comparisonLabel = state.majorComparison?.group_label || "";
+      box.innerHTML = `
+        <div class="engine-preview-card">
+          <div class="engine-preview-head">
+            <div>
+              <div class="engine-preview-title">${escapeHtml(state.majorSelectedName)} 기준 자동 키워드</div>
+              <div class="engine-preview-copy">학과를 기준으로 먼저 잡아준 전공 키워드예요. 아직 교과 개념을 고르기 전이라 <strong>미리보기</strong> 상태입니다.</div>
+            </div>
+            ${state.majorTrackCategory ? `<div class="engine-preview-track">${escapeHtml(state.majorTrackCategory)}</div>` : ""}
+          </div>
+          ${previewKeywords.length ? `<div class="engine-preview-chip-wrap">${previewKeywords.map(keyword => `<span class="engine-preview-chip">${escapeHtml(keyword)}</span>`).join("")}</div>` : `<div class="engine-preview-empty">자동으로 보여줄 전공 키워드가 아직 없습니다.</div>`}
+          <div class="engine-preview-note">${focus ? `이 학과는 지금 <strong>${escapeHtml(focus)}</strong> 쪽으로 해석되고 있어요.` : `학과를 먼저 고른 뒤 아래 연계 축과 교과 개념을 선택하면 탐구 방향이 더 정확해집니다.`}${comparisonLabel ? ` 비슷한 학과 묶음: <strong>${escapeHtml(comparisonLabel)}</strong>.` : ""}</div>
+        </div>
+      `;
       return;
     }
-    const previewKeywords = getAutoKeywordPreviewList();
-    const focus = state.majorComparison?.selected_focus || "";
-    const comparisonLabel = state.majorComparison?.group_label || "";
-    box.innerHTML = `
-      <div class="engine-preview-card">
-        <div class="engine-preview-head">
-          <div>
-            <div class="engine-preview-title">${escapeHtml(state.majorSelectedName)} 기준 자동 키워드</div>
-            <div class="engine-preview-copy">학과를 기준으로 먼저 잡아준 전공 키워드예요. 아직 교과 개념을 고르기 전이라 <strong>미리보기</strong> 상태입니다.</div>
+    if (state.majorSelectionStatus === "ambiguous" && (state.majorPreviewKeywords || []).length) {
+      box.innerHTML = `
+        <div class="engine-preview-card">
+          <div class="engine-preview-head">
+            <div>
+              <div class="engine-preview-title">후보 기준 자동 키워드 미리보기</div>
+              <div class="engine-preview-copy">아직 학과를 확정하기 전이라, 현재 뜬 후보들 기준으로 먼저 자주 연결되는 전공 키워드를 보여줍니다.</div>
+            </div>
+            ${state.majorTrackCategory ? `<div class="engine-preview-track">${escapeHtml(state.majorTrackCategory)}</div>` : ""}
           </div>
-          ${state.majorTrackCategory ? `<div class="engine-preview-track">${escapeHtml(state.majorTrackCategory)}</div>` : ""}
+          <div class="engine-preview-chip-wrap">${state.majorPreviewKeywords.map(keyword => `<span class="engine-preview-chip">${escapeHtml(keyword)}</span>`).join("")}</div>
+          <div class="engine-preview-note">먼저 왼쪽 후보 카드 중 하나를 누르면 키워드가 그 학과 기준으로 <strong>확정</strong>됩니다.${state.majorPreviewNames.length ? ` 현재 반영 후보: <strong>${escapeHtml(state.majorPreviewNames.join(', '))}</strong>` : ''}</div>
         </div>
-        ${previewKeywords.length ? `<div class="engine-preview-chip-wrap">${previewKeywords.map(keyword => `<span class="engine-preview-chip">${escapeHtml(keyword)}</span>`).join("")}</div>` : `<div class="engine-preview-empty">자동으로 보여줄 전공 키워드가 아직 없습니다.</div>`}
-        <div class="engine-preview-note">${focus ? `이 학과는 지금 <strong>${escapeHtml(focus)}</strong> 쪽으로 해석되고 있어요.` : `학과를 먼저 고른 뒤 아래 연계 축과 교과 개념을 선택하면 탐구 방향이 더 정확해집니다.`}${comparisonLabel ? ` 비슷한 학과 묶음: <strong>${escapeHtml(comparisonLabel)}</strong>.` : ""}</div>
-      </div>
-    `;
+      `;
+      return;
+    }
+    box.innerHTML = `<div class="engine-preview-note">학과를 고르면 이곳에 전공 핵심 키워드가 먼저 자동으로 뜹니다. 아래에서 교과 개념을 고르면 여기 입력칸은 그 개념 키워드로 바뀝니다.</div>`;
   }
 
   function findSubjectKey(raw) {
@@ -1435,6 +1494,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
   }
 
   function renderAll() {
+    syncMajorSelectionFromPayload();
     renderStatus();
     renderMajorKeywordPreview();
     renderTrackArea();
@@ -1738,9 +1798,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-auto-preview";
     const keywordInput = $("keyword");
     if (keywordInput) {
       keywordInput.value = state.keyword || getAutoKeywordPreviewText() || "";
-      keywordInput.placeholder = state.majorSelectedName
-        ? "학과 기준 자동 키워드가 먼저 보입니다. 아래에서 교과 개념을 고르면 최종 키워드로 바뀝니다."
-        : "학과를 고르면 먼저 전공 키워드가 미리 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 자동 입력됩니다.";
+      if (state.majorSelectedName) {
+        keywordInput.placeholder = "학과 기준 자동 키워드가 먼저 보입니다. 아래에서 교과 개념을 고르면 최종 키워드로 바뀝니다.";
+      } else if (state.majorSelectionStatus === "ambiguous" && (state.majorPreviewKeywords || []).length) {
+        keywordInput.placeholder = "후보 기준 전공 키워드를 먼저 미리 보여주고 있습니다. 왼쪽에서 학과를 누르면 키워드가 확정됩니다.";
+      } else {
+        keywordInput.placeholder = "학과를 고르면 먼저 전공 키워드가 미리 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 자동 입력됩니다.";
+      }
     }
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
