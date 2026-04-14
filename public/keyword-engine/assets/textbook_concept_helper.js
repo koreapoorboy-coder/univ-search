@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-fix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,9 +27,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
     reportMode: "",
     reportView: "",
     reportLine: "",
-    majorPreviewKeywords: [],
     majorSelectedName: "",
-    majorTrackCategory: "",
+    majorKeywordPreview: [],
+    majorPreviewStatus: "",
     majorComparison: null
   };
 
@@ -196,7 +196,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
       injectStyles();
       injectUI();
       bindEvents();
-      bindMajorSelectionBridge();
       syncSubjectFromSelect();
       syncCareerFromInput();
       renderAll();
@@ -948,9 +947,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
           syncCareerFromInput();
           clearFrom("track");
           renderAll();
+          setTimeout(function () {
+            syncMajorPreviewFromEngine();
+            syncOutputFields();
+            renderSelectionSummary();
+          }, 0);
         });
       });
     }
+
+    window.addEventListener("major-engine-selection-changed", function (event) {
+      syncMajorPreviewFromEngine(event?.detail || null);
+      syncOutputFields();
+      renderSelectionSummary();
+    });
 
     document.addEventListener("click", function (event) {
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
@@ -1039,21 +1049,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
     window.getEngineCollectionFormData = buildEngineCollectionFormData;
   }
 
-  function bindMajorSelectionBridge() {
-    if (window.__TEXTBOOK_MAJOR_BRIDGE_BOUND__) return;
-    window.__TEXTBOOK_MAJOR_BRIDGE_BOUND__ = true;
-
-    window.addEventListener('major-engine-selection-changed', function(event) {
-      const detail = event?.detail || null;
-      state.majorSelectedName = detail?.display_name || detail?.preview_display_name || '';
-      state.majorTrackCategory = detail?.track_category || detail?.preview_track_category || '';
-      state.majorComparison = detail?.comparison || null;
-      state.majorPreviewKeywords = Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 8) : [];
-      syncOutputFields();
-      renderSelectionSummary();
-    });
-  }
-
   function buildEngineCollectionPayload() {
     const mini = buildMiniPayload();
     return {
@@ -1135,6 +1130,43 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
   function syncCareerFromInput() {
     const el = $("career");
     state.career = (el?.value || "").trim();
+  }
+
+  function getMajorPreviewPayload(detailOverride) {
+    const payload = detailOverride || (window.getMajorEngineSelectionData ? window.getMajorEngineSelectionData() : null);
+    if (!payload) return null;
+
+    if ((!payload.status || payload.status === "resolved") && (payload.display_name || payload.core_keywords)) {
+      const keywords = uniq((payload.core_keywords || []).filter(Boolean)).slice(0, 6);
+      return {
+        status: "resolved",
+        display_name: payload.display_name || "",
+        keywords,
+        comparison: payload.comparison || null
+      };
+    }
+
+    if ((payload.status === "ambiguous" || payload.status === "not_found") && Array.isArray(payload.suggestions) && payload.suggestions.length) {
+      const first = payload.suggestions[0] || {};
+      const keywords = uniq((first.keywords || []).filter(Boolean)).slice(0, 6);
+      return {
+        status: "preview",
+        display_name: first.display_name || "",
+        keywords,
+        comparison: null
+      };
+    }
+
+    return null;
+  }
+
+  function syncMajorPreviewFromEngine(detailOverride) {
+    const preview = getMajorPreviewPayload(detailOverride);
+    state.majorSelectedName = preview?.display_name || "";
+    state.majorKeywordPreview = preview?.keywords || [];
+    state.majorPreviewStatus = preview?.status || "";
+    state.majorComparison = preview?.comparison || null;
+    return preview;
   }
 
   function findSubjectKey(raw) {
@@ -1361,6 +1393,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
   }
 
   function renderAll() {
+    syncMajorPreviewFromEngine();
     renderStatus();
     renderTrackArea();
     renderConceptArea();
@@ -1659,12 +1692,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
 
   function syncOutputFields() {
     const keywordInput = $("keyword");
+    const previewValue = Array.isArray(state.majorKeywordPreview) ? state.majorKeywordPreview.join(", ") : "";
     if (keywordInput) {
-      const previewText = (state.majorPreviewKeywords || []).join(', ');
-      keywordInput.value = state.keyword || previewText || "";
+      keywordInput.value = state.keyword || previewValue || "";
       keywordInput.placeholder = state.keyword
-        ? "교과 개념 기준 최종 키워드가 반영되었습니다."
-        : (previewText ? "전공 기준 키워드가 미리 반영되었습니다." : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드로 바뀝니다.");
+        ? "교과 개념 키워드가 자동 반영되었습니다."
+        : (previewValue
+            ? "전공 키워드 미리보기가 자동 반영되었습니다."
+            : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 반영됩니다.");
     }
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
@@ -1704,7 +1739,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
       },
       concept_context: {
         concept: state.concept,
-        keyword: state.keyword || (state.majorPreviewKeywords || []).join(', ')
+        keyword: state.keyword
       },
       book_context: {
         book_id: state.selectedBook,
