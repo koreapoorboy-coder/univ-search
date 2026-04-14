@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-preview-sync";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,8 +27,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
     reportMode: "",
     reportView: "",
     reportLine: "",
+    majorPreviewKeywords: [],
     majorSelectedName: "",
-    majorCoreKeywords: [],
+    majorTrackCategory: "",
     majorComparison: null
   };
 
@@ -195,9 +196,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
       injectStyles();
       injectUI();
       bindEvents();
+      bindMajorSelectionBridge();
       syncSubjectFromSelect();
       syncCareerFromInput();
-      renderCareerKeywordPreview();
       renderAll();
       renderUploadSummary();
     } catch (error) {
@@ -930,28 +931,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
     });
   }
 
-  function renderCareerKeywordPreview() {
-    const keywordInput = $("keyword");
-    if (!keywordInput) return;
-    if (state.keyword) {
-      keywordInput.value = state.keyword;
-      keywordInput.placeholder = "교과 개념 키워드가 자동 입력된 상태입니다.";
-      return;
-    }
-    const preview = Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords.slice(0, 4).join(', ') : '';
-    keywordInput.value = preview || '';
-    keywordInput.placeholder = preview
-      ? "학과를 기준으로 전공 키워드가 먼저 보입니다. 아래에서 교과 개념을 고르면 최종 키워드로 바뀝니다."
-      : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 바뀝니다.";
-  }
-
-  function syncMajorSelectionDetail(detail) {
-    state.majorSelectedName = detail?.display_name || '';
-    state.majorCoreKeywords = Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 8) : [];
-    state.majorComparison = detail?.comparison || null;
-    if (!state.keyword) renderCareerKeywordPreview();
-  }
-
   function bindEvents() {
     const subjectEl = $("subject");
     if (subjectEl) {
@@ -967,17 +946,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
       ["input", "change"].forEach(evt => {
         careerEl.addEventListener(evt, function () {
           syncCareerFromInput();
-          if (!state.keyword) renderCareerKeywordPreview();
           clearFrom("track");
           renderAll();
         });
       });
     }
-
-    window.addEventListener("major-engine-selection-changed", function (event) {
-      syncMajorSelectionDetail(event?.detail || null);
-      renderAll();
-    });
 
     document.addEventListener("click", function (event) {
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
@@ -1066,6 +1039,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
     window.getEngineCollectionFormData = buildEngineCollectionFormData;
   }
 
+  function bindMajorSelectionBridge() {
+    if (window.__TEXTBOOK_MAJOR_BRIDGE_BOUND__) return;
+    window.__TEXTBOOK_MAJOR_BRIDGE_BOUND__ = true;
+
+    window.addEventListener('major-engine-selection-changed', function(event) {
+      const detail = event?.detail || null;
+      state.majorSelectedName = detail?.display_name || detail?.preview_display_name || '';
+      state.majorTrackCategory = detail?.track_category || detail?.preview_track_category || '';
+      state.majorComparison = detail?.comparison || null;
+      state.majorPreviewKeywords = Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 8) : [];
+      syncOutputFields();
+      renderSelectionSummary();
+    });
+  }
+
   function buildEngineCollectionPayload() {
     const mini = buildMiniPayload();
     return {
@@ -1147,7 +1135,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
   function syncCareerFromInput() {
     const el = $("career");
     state.career = (el?.value || "").trim();
-    if (!state.keyword) renderCareerKeywordPreview();
   }
 
   function findSubjectKey(raw) {
@@ -1673,11 +1660,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
   function syncOutputFields() {
     const keywordInput = $("keyword");
     if (keywordInput) {
-      if (state.keyword) {
-        keywordInput.value = state.keyword || "";
-      } else {
-        renderCareerKeywordPreview();
-      }
+      const previewText = (state.majorPreviewKeywords || []).join(', ');
+      keywordInput.value = state.keyword || previewText || "";
+      keywordInput.placeholder = state.keyword
+        ? "교과 개념 기준 최종 키워드가 반영되었습니다."
+        : (previewText ? "전공 기준 키워드가 미리 반영되었습니다." : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드로 바뀝니다.");
     }
     if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
     if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
@@ -1717,7 +1704,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.3-major-keyword-sync-stable";
       },
       concept_context: {
         concept: state.concept,
-        keyword: state.keyword
+        keyword: state.keyword || (state.majorPreviewKeywords || []).join(', ')
       },
       book_context: {
         book_id: state.selectedBook,
