@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.1-student-major-copy";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -36,9 +36,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
       .toLowerCase()
       .replace(/\s+/g,'')
       .replace(/[()\-_/·.,]/g,'')
-      .replace(/학부$/,'')
-      .replace(/전공$/,'')
-      .replace(/과$/,'');
+      .replace(/학과|학부|전공|예과/g,'');
   }
   function escapeHtml(value){
     return String(value ?? '')
@@ -233,17 +231,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
       [/화학|화학공학/, ['물질 구조','반응 원리','실험 설계','정량 분석','에너지 변화']],
       [/생명공학|생명과학|생물|수산생명|미생물|동물자원|식물자원|원예|식품공학|식품영양/, ['생명 시스템','변화 분석','실험 설계','생체 데이터','응용 사례']],
       [/물리|천문|우주|해양/, ['관측 데이터','원리 해석','시스템 이해','변화 분석','모델링']],
-      [/보건관리|보건행정|보건정책/, ['보건 정책','의료 행정','역학 통계','예방 관리','보건 제도']],
-      [/간호/, ['환자 간호','건강 사정','임상 판단','생체 반응','의사소통']],
-      [/방사선/, ['의료 영상','방사선 물리','장비 운용','영상 구조','안전 관리']],
-      [/물리치료/, ['재활 운동','기능 회복','근골격 평가','운동 처방','치료 계획']],
-      [/임상병리/, ['검사 데이터','혈액·미생물','진단 정확도','실험 분석','검체 관리']],
-      [/응급구조/, ['응급 처치','현장 대응','환자 평가','생명 유지','판단 속도']],
-      [/언어치료/, ['언어 발달','발음 분석','의사소통 재활','평가 도구','중재 계획']],
-      [/작업치료|재활상담/, ['일상 기능','재활 활동','감각 통합','발달 평가','중재 설계']],
-      [/치위생/, ['구강 건강','예방 관리','위생 교육','치아 구조','임상 보조']],
-      [/치기공/, ['치과 보철','재료 가공','정밀 제작','구강 구조','실습 설계']],
-      [/의예|약학|치의|한의|수의|보건/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
+      [/간호|의예|약학|치의|한의|수의|보건|방사선|물리치료|임상병리|작업치료|재활상담|치위생|치기공|응급구조|언어치료/, ['건강 데이터','생체 반응','질병 이해','의료 사례','문제 해결']],
       [/국어국문|문예창작|언어학|영어영문|일어일문|중어중문|노어노문|독어독문|불어불문|아랍어|한문|한국어|철학|사학|고고|신학|미학/, ['텍스트 해석','비교 분석','문화 맥락','표현 방식','사상 이해']]
     ];
     for (const [regex, keywords] of rules) {
@@ -341,17 +329,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
       [/경영정보/, '비즈니스와 정보시스템 연결'],
       [/경영|경제|무역|국제|통상|회계|세무|부동산/, '시장·정책·국제 흐름 해석'],
       [/행정|정치외교|법학|공공|경찰|군사/, '제도·정책·공공 문제 해결'],
-      [/보건관리|보건행정|보건정책/, '보건 제도와 의료 행정 운영'],
-      [/간호/, '환자 간호와 임상 판단'],
-      [/방사선/, '의료 영상과 장비 운용'],
-      [/물리치료/, '재활 운동과 기능 회복'],
-      [/임상병리/, '검사 데이터와 진단 정확도'],
-      [/응급구조/, '응급 대응과 생명 유지'],
-      [/언어치료/, '언어 평가와 의사소통 재활'],
-      [/작업치료|재활상담/, '일상 기능 회복과 재활 중재'],
-      [/치위생/, '구강 예방 관리와 임상 보조'],
-      [/치기공/, '치과 보철 제작과 재료 가공'],
-      [/생명|미생물|동물|식물|수산|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
+      [/생명|미생물|동물|식물|수산|간호|의예|약학|보건|치의|한의|수의/, '생명·건강·의료 문제 분석'],
       [/컴퓨터|소프트웨어|AI|정보|전자|전기|기계|자동차|로봇|재료|반도체/, '장치·시스템·기술 응용'],
       [/국어|문예|언어|영어|일어|중어|독어|불어|노어|아랍어|철학|사학|고고|신학|미학|한문|한국어/, '텍스트·언어·문화 해석']
     ];
@@ -360,6 +338,86 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
     }
     if (firstTwo) return firstTwo;
     return group?.label ? `${group.label} 중심 탐구` : '핵심 키워드 중심 탐구';
+  }
+
+
+  function buildStudentDescription(profile, group){
+    const name = String(profile?.display_name || '');
+    const rules = [
+      [/보건관리/, '질병 예방, 보건 정책, 의료행정과 건강 데이터를 다루는 학과입니다.'],
+      [/간호/, '환자 상태를 관찰하고 직접 간호하는 임상 실천 중심 학과입니다.'],
+      [/방사선/, '의료영상 장비를 다루며 촬영, 판독 보조, 방사선 안전관리를 배우는 학과입니다.'],
+      [/물리치료/, '움직임 회복과 재활 운동을 통해 기능 회복을 돕는 학과입니다.'],
+      [/임상병리/, '혈액·조직·체액 검사를 통해 질병 원인을 분석하는 검사 중심 학과입니다.'],
+      [/응급구조/, '응급 상황에서 환자 상태를 판단하고 현장 처치를 수행하는 학과입니다.'],
+      [/언어치료/, '말과 언어, 의사소통의 어려움을 평가하고 중재하는 학과입니다.'],
+      [/작업치료/, '일상생활 기능 회복을 위한 활동 훈련과 재활을 다루는 학과입니다.'],
+      [/치위생/, '구강 건강 예방과 위생 관리, 치과 진료 지원을 배우는 학과입니다.'],
+      [/치기공/, '보철물과 치과 장치를 설계·제작하는 제작 중심 학과입니다.'],
+      [/의공/, '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.'],
+      [/제약공학/, '의약품의 개발·생산·품질 관리를 공정 관점에서 다루는 학과입니다.'],
+      [/화공생명/, '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.'],
+      [/생명공학/, '세포·유전자·미생물을 활용해 의료·식품·환경 기술로 연결하는 학과입니다.'],
+      [/생명과학/, '생명 현상의 원리를 실험과 데이터로 탐구하는 기초과학 중심 학과입니다.'],
+      [/식품생명공학/, '식품과 생명과학을 바탕으로 안전성, 가공, 기능성 소재를 연구하는 학과입니다.'],
+      [/식품영양/, '영양, 식생활, 건강 관리를 바탕으로 사람의 건강한 생활을 설계하는 학과입니다.'],
+      [/반도체공학/, '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.'],
+      [/신소재공학|재료공학/, '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.'],
+      [/전자공학/, '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.'],
+      [/전기공학/, '전력, 제어, 전기 시스템의 동작 원리를 다루는 학과입니다.'],
+      [/미디어커뮤니케이션/, '미디어 메시지와 콘텐츠가 사회에 미치는 영향을 분석하는 학과입니다.'],
+      [/광고홍보/, '브랜드 메시지와 콘텐츠 전략을 기획하고 전달 효과를 다루는 학과입니다.'],
+      [/문화인류/, '사람들의 생활방식과 문화 차이를 현장과 사례로 해석하는 학과입니다.'],
+      [/문화유산/, '역사·문화 자료를 조사하고 보존·활용하는 학과입니다.'],
+      [/심리학/, '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.'],
+      [/상담심리/, '심리 이해를 바탕으로 상담과 관계 지원에 더 가까운 학과입니다.'],
+      [/국제학부/, '국제 이슈를 폭넓게 보고 정치·경제·외교를 함께 다루는 학과입니다.'],
+      [/국제통상/, '무역과 글로벌 시장, 통상 흐름을 실무적으로 다루는 학과입니다.'],
+      [/경제학/, '시장 원리와 자원 배분을 데이터와 이론으로 분석하는 학과입니다.'],
+      [/경영학/, '기업 운영과 소비자, 시장 전략을 함께 보는 학과입니다.'],
+      [/건설환경공학/, '도시·도로·수자원·환경 문제를 함께 다루는 기반시설 중심 학과입니다.'],
+      [/토목환경공학/, '도로·교량·수자원과 환경 관리를 함께 다루는 사회기반시설 학과입니다.'],
+      [/지구환경과학/, '기후·대기·지구 시스템을 관측 데이터로 분석하는 학과입니다.'],
+      [/주거환경/, '주거 공간과 생활 환경을 설계하고 사람의 생활 동선을 분석하는 학과입니다.']
+    ];
+    for (const [regex, sentence] of rules) {
+      if (regex.test(name)) return sentence;
+    }
+    const focus = getPrimaryFocus(profile, group);
+    if (group?.label) return `${group.label}와 관련해 ${focus}를 중심으로 배우는 학과입니다.`;
+    return `${focus}를 중심으로 배우는 학과입니다.`;
+  }
+
+  function buildStudentFit(profile, group){
+    const name = String(profile?.display_name || '');
+    const rules = [
+      [/보건관리/, '예방, 보건 정책, 통계 해석에 관심 있는 학생에게 잘 맞습니다.'],
+      [/간호/, '사람을 직접 돌보고 임상 현장에서 빠르게 판단하는 일에 관심 있는 학생에게 잘 맞습니다.'],
+      [/방사선/, '영상 장비, 정밀 촬영, 의료기술에 관심 있는 학생에게 잘 맞습니다.'],
+      [/물리치료/, '움직임 분석, 재활, 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.'],
+      [/임상병리/, '검사 데이터와 실험 과정으로 질병 원인을 찾는 일에 흥미가 있는 학생에게 잘 맞습니다.'],
+      [/응급구조/, '긴급 상황에서 침착하게 판단하고 현장 대응을 하고 싶은 학생에게 잘 맞습니다.'],
+      [/언어치료/, '언어 발달과 의사소통 지원에 관심 있는 학생에게 잘 맞습니다.'],
+      [/작업치료/, '재활과 일상 기능 회복을 사람 중심으로 돕고 싶은 학생에게 잘 맞습니다.'],
+      [/치위생/, '예방 중심 구강 관리와 환자 교육에 관심 있는 학생에게 잘 맞습니다.'],
+      [/치기공/, '정밀 제작과 손기술, 치과 장치 설계에 관심 있는 학생에게 잘 맞습니다.'],
+      [/의공/, '공학 기술을 의료기기와 생체신호 분석에 연결해 보고 싶은 학생에게 잘 맞습니다.'],
+      [/생명공학|생명과학|제약공학|화공생명|식품생명공학/, '생명 현상을 실험과 기술로 연결해 보고 싶은 학생에게 잘 맞습니다.'],
+      [/반도체공학/, '칩, 회로, 공정 같은 반도체 기술에 관심 있는 학생에게 잘 맞습니다.'],
+      [/신소재공학|재료공학/, '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.'],
+      [/전자공학|전기공학/, '회로와 신호, 장치 동작 원리에 관심 있는 학생에게 잘 맞습니다.'],
+      [/미디어커뮤니케이션/, '콘텐츠와 미디어가 사람과 사회에 미치는 영향에 관심 있는 학생에게 잘 맞습니다.'],
+      [/광고홍보/, '메시지를 기획하고 사람의 반응을 분석하는 일에 관심 있는 학생에게 잘 맞습니다.'],
+      [/문화인류|문화유산/, '사람과 문화, 사회 맥락을 사례로 깊게 읽고 싶은 학생에게 잘 맞습니다.'],
+      [/심리학|상담심리/, '사람의 마음과 행동을 이해하고 관계를 돕는 데 관심 있는 학생에게 잘 맞습니다.'],
+      [/국제학부|국제통상|경제학|경영학/, '국제 이슈와 시장 흐름을 넓게 보고 해석하는 데 관심 있는 학생에게 잘 맞습니다.'],
+      [/건설환경공학|토목환경공학|지구환경과학|주거환경/, '환경과 생활 공간, 도시 문제를 연결해서 보고 싶은 학생에게 잘 맞습니다.']
+    ];
+    for (const [regex, sentence] of rules) {
+      if (regex.test(name)) return sentence;
+    }
+    if (group?.label) return `${group.label}와 연결된 주제를 사례와 데이터로 탐구해 보고 싶은 학생에게 잘 맞습니다.`;
+    return '관심 주제를 데이터와 사례로 탐구해 보고 싶은 학생에게 잘 맞습니다.';
   }
 
   function getSelectedComparison(profile, rawInput){
@@ -425,7 +483,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
         track_category: row.track_category,
         match_label: row.match_label,
         keywords: (row.keywords || []).slice(0, 5),
-        score: row.score
+        score: row.score,
+        profile: row.profile || null
       });
     });
     return orderedGroups.map(group => ({
@@ -444,15 +503,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
       const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]);
-      const normalizedAliases = aliases.map(normalize).filter(Boolean);
-      const fuzzyAliases = aliases.filter(v => normalize(v).length >= 2);
       const keywords = getMeaningfulKeywords(profile);
       const keywordMatchCount = countKeywordMatches(keywords, input);
       let score = 0;
       if (normalize(row.display_name) === normalized) score += 140;
-      if (normalizedAliases.includes(normalized)) score += 120;
+      if (aliases.map(normalize).includes(normalized)) score += 120;
       if (fuzzyIncludes(row.display_name, input)) score += 45;
-      if (fuzzyAliases.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
@@ -608,7 +665,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
                       <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
                       <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
                     </div>
-                    <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(', ') || '관련 키워드 준비 중')}</div>
+                    <div class="major-engine-candidate-keywords">${escapeHtml(buildStudentDescription(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
+                    <div class="major-engine-help">${escapeHtml(buildStudentFit(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
                   </button>
                 `).join('')}
               </div>
@@ -637,10 +695,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
       <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
       <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
       <div class="major-engine-sub">
-        입력값 정규화: <strong>${escapeHtml(data.input)}</strong> → <strong>${escapeHtml(data.display_name)}</strong><br>
-        선택 과목: ${escapeHtml($('subject')?.value || '') || '-'} · 계열: ${escapeHtml(data.track_category || '-')} · 매칭: ${escapeHtml(data.matched_by || '-')}
-        ${profileReady ? '' : '<br><strong>현재는 skeleton 상태라 기본 정보만 표시합니다.</strong>'}
+        입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
+        계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
+        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
       </div>
+      <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml((data.major_intro || '').trim() || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+      <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
           <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
@@ -664,7 +724,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
         <div class="major-engine-compare-head">
           <div>
             <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
-            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) <strong>${escapeHtml(data.comparison.selected_focus || '')}</strong> 쪽에 더 가깝습니다. 같은 묶음 안에서도 아래 학과들과 초점이 조금씩 다릅니다.</div>
+            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) ${escapeHtml(buildStudentDescription(data.profile || {}, { label: data.comparison.group_label || '' }))} 같은 묶음 안에서도 아래 학과들과 배우는 초점이 조금씩 다릅니다.</div>
           </div>
           <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
         </div>
@@ -673,8 +733,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.6.3-major-medical-differentiation";
             <div class="major-engine-compare-card">
               <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
               <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
-              <div class="major-engine-compare-focus">더 가까운 초점: ${escapeHtml(peer.focus || '')}</div>
-              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || '')}</div>
+              <div class="major-engine-compare-focus">${escapeHtml(buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
             </div>
           `).join('')}
         </div>
