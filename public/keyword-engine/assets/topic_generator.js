@@ -650,6 +650,65 @@ function getRecommendedBooks(ctx){
     return (DEFAULT_MODE_OPTIONS.find(item => item.id === id) || {}).label || id;
   }
 
+  function pickTop(arr, n){
+    return (arr || []).filter(Boolean).slice(0, n);
+  }
+
+  function isGenericBookSummary(text){
+    const s = String(text || '').trim();
+    if (!s) return true;
+    return /(교과 개념과 실제 사례로 확장하기 좋은 도서|연결성이 높다|확장할 수 있는 .* 도서|입문 도서)/.test(s);
+  }
+
+  function buildBookPreviewText(book){
+    const keywords = pickTop(book?.fit_keywords, 3);
+    const themes = pickTop(book?.broad_theme, 2);
+    if (keywords.length) return `${keywords.join(', ')} 중심`;
+    if (themes.length) return `${themes.join(', ')} 관점`;
+    return '선택 주제와 연결해 보기 좋은 도서';
+  }
+
+  function buildBookSummaryText(book){
+    const raw = String(book?.summary_short || '').trim();
+    if (raw && !isGenericBookSummary(raw)) return raw;
+    const keywords = pickTop(book?.fit_keywords, 3);
+    const majors = pickTop(book?.linked_majors, 2);
+    const subjects = pickTop(book?.linked_subjects, 2);
+    const title = book?.title || '이 도서';
+
+    if (keywords.length && majors.length) {
+      return `${title}는 ${keywords.join(', ')} 주제를 중심으로 다루며 ${majors.join('·')} 관심과 연결해 보기 좋은 도서입니다.`;
+    }
+    if (keywords.length && subjects.length) {
+      return `${title}는 ${keywords.join(', ')} 내용을 바탕으로 ${subjects.join('·')} 교과 탐구를 확장하기 좋은 도서입니다.`;
+    }
+    if (majors.length) {
+      return `${title}는 ${majors.join('·')} 진로와 연결해 생각해 보기 좋은 도서입니다.`;
+    }
+    return raw || '선택한 개념 키워드를 확장하는 데 적합한 도서입니다.';
+  }
+
+  function buildBookSelectionFitText(book, ctx){
+    const concept = String(ctx?.concept || '').trim();
+    const keyword = String(ctx?.keyword || '').trim();
+    const fit = pickTop(book?.fit_keywords, 3);
+    const starter = Array.isArray(book?.starter_questions) ? String(book.starter_questions[0] || '').replace(/^["']|["']$/g, '').trim() : '';
+
+    if (concept && keyword && fit.length) {
+      return `선택한 '${concept} - ${keyword}'와 연결할 때 ${fit.join(', ')} 쪽으로 보고서를 풀기 좋습니다.`;
+    }
+    if (keyword && fit.length) {
+      return `선택한 키워드 '${keyword}'를 ${fit.join(', ')} 방향으로 확장하기 좋습니다.`;
+    }
+    if (starter) {
+      return `이 책으로는 '${starter}' 같은 문제의식으로 탐구를 시작하기 좋습니다.`;
+    }
+    if (fit.length) {
+      return `${fit.join(', ')} 중심으로 보고서 방향을 잡기 좋습니다.`;
+    }
+    return '선택한 주제를 보고서로 확장하는 데 활용하기 좋습니다.';
+  }
+
   function buildReportOptionMeta(ctx){
     const sections = getBookRecommendationSections(ctx);
     const recommendations = sections.all || [];
@@ -692,12 +751,14 @@ function getRecommendedBooks(ctx){
     if (sectionType === "explore") labels.push("확장 참고");
     const reasonText = labels.length ? labels.join(" · ") : (sectionType === "explore" ? "확장 참고" : "과목 기준 추천");
     const subjectTag = (book.linked_subjects || [])[0] || "교과 연결";
+    const previewText = buildBookPreviewText(book);
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(book.book_id)}" data-title="${esc(book.title)}">
         <div class="engine-book-order">${index + 1}</div>
         <div class="engine-book-main">
           <div class="engine-book-title">${esc(book.title)}</div>
           <div class="engine-book-meta">${esc(book.author || "저자 정보 없음")} · ${esc(subjectTag)}</div>
+          <div class="engine-book-preview">${esc(previewText)}</div>
           <div class="engine-book-reason">${esc(reasonText)}</div>
         </div>
       </button>
@@ -714,6 +775,8 @@ function getRecommendedBooks(ctx){
     const footText = sectionType === "explore"
       ? "직접 일치 도서가 충분하지 않아, 보고서 확장에 참고할 수 있는 도서를 보여줍니다."
       : "이 도서를 바탕으로 보고서에 들어갈 근거와 확장 방향을 MINI에 전달합니다.";
+    const summaryText = buildBookSummaryText(selectedBook);
+    const fitText = buildBookSelectionFitText(selectedBook, ctx);
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -723,7 +786,8 @@ function getRecommendedBooks(ctx){
           </div>
           <div class="engine-summary-badge">${esc(badgeText)}</div>
         </div>
-        <p class="engine-summary-text">${esc(selectedBook.summary_short || "이 도서는 선택한 개념 키워드를 확장하는 데 적합합니다.")}</p>
+        <p class="engine-summary-text">${esc(summaryText)}</p>
+        <p class="engine-summary-fit">${esc(fitText)}</p>
         <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
         <div class="engine-summary-foot">${esc(footText)}</div>
       </div>
