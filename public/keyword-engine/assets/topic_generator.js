@@ -405,8 +405,10 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     const subjectHit = (book?.linked_subjects || []).some(v => fuzzyIncludes(v, subject));
     const themeKeywordHit = themes.some(v => fuzzyIncludes(v, keyword)) || (book?.fit_keywords || []).some(v => fuzzyIncludes(v, keyword));
     const themeConceptHit = themes.some(v => fuzzyIncludes(v, concept)) || (book?.fit_keywords || []).some(v => fuzzyIncludes(v, concept));
-    const careerMajorHit = (book?.linked_majors || []).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
-    return { routes, subjectHit, themeKeywordHit, themeConceptHit, careerMajorHit };
+    const careerMajorHit = [...(book?.linked_majors || []), ...(book?.related_majors || [])].some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
+    const bucketAffinity = hasCareerBucketAffinity(book, ctx);
+    const lookupCareerHit = hasLookupCareerHit(book, ctx);
+    return { routes, subjectHit, themeKeywordHit, themeConceptHit, careerMajorHit, bucketAffinity, lookupCareerHit };
   }
 
 function getBookDiversityTokens(book){
@@ -507,9 +509,12 @@ function classifyRecommendation(item, ctx){
       reasonSet.has("개념-키워드 직접 연결") ||
       reasonSet.has("연계 축 적합") ||
       (signals.themeKeywordHit && signals.careerMajorHit) ||
-      (signals.themeKeywordHit && signals.subjectHit && item.score >= 26) ||
-      (signals.themeConceptHit && signals.careerMajorHit && item.score >= 28) ||
-      (signals.subjectHit && signals.careerMajorHit && item.score >= 30)
+      (signals.themeKeywordHit && signals.subjectHit && item.score >= 24) ||
+      (signals.themeConceptHit && signals.careerMajorHit && item.score >= 24) ||
+      (signals.subjectHit && signals.careerMajorHit && item.score >= 24) ||
+      (signals.bucketAffinity && signals.subjectHit && item.score >= 16) ||
+      (signals.bucketAffinity && signals.themeConceptHit && item.score >= 16) ||
+      (signals.lookupCareerHit && signals.subjectHit && item.score >= 14)
     );
 
     if (isDirect) return "direct";
@@ -522,7 +527,9 @@ function classifyRecommendation(item, ctx){
       return "explore";
     }
 
-    if (item.score >= 18 && !isClearlyOffTopicBook(item.book, bucket)) return "explore";
+    if (signals.bucketAffinity && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit) && item.score >= 12) return "explore";
+    if (signals.lookupCareerHit && item.score >= 12) return "explore";
+    if (item.score >= 16 && !isClearlyOffTopicBook(item.book, bucket)) return "explore";
     return "drop";
   }
 
@@ -539,14 +546,28 @@ function getBookRecommendationSections(ctx){
     });
 
     const directLimited = selectDiverseItems(directCandidates, ctx, 4, "direct");
+    const usedIds = new Set(directLimited.map(item => item.book.book_id));
+
+    if (directLimited.length < 2) {
+      const promotionPool = exploreCandidates.filter(item => !usedIds.has(item.book.book_id) && shouldPromoteToDirect(item, ctx));
+      const promoted = selectDiverseItems(promotionPool, ctx, 2 - directLimited.length, "direct", directLimited);
+      promoted.forEach(item => {
+        if (!usedIds.has(item.book.book_id)) {
+          directLimited.push(item);
+          usedIds.add(item.book.book_id);
+        }
+      });
+    }
+
+    const remainingExplore = exploreCandidates.filter(item => !usedIds.has(item.book.book_id));
     let exploreLimited = [];
 
     if (directLimited.length === 0) {
-      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 4, "explore");
+      exploreLimited = selectDiverseItems(remainingExplore, ctx, 4, "explore");
     } else if (directLimited.length <= 2) {
-      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 3, "explore", directLimited);
+      exploreLimited = selectDiverseItems(remainingExplore, ctx, 3, "explore", directLimited);
     } else if (directLimited.length <= 4) {
-      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 2, "explore", directLimited);
+      exploreLimited = selectDiverseItems(remainingExplore, ctx, 2, "explore", directLimited);
     }
 
     return { direct: directLimited, explore: exploreLimited, all: [...directLimited, ...exploreLimited] };
@@ -580,11 +601,17 @@ function getRecommendedBooks(ctx){
       return true;
     });
 
-    const fallbackPool = filtered.length >= 8 ? filtered : sorted.filter(item => {
-      if (item.score < Math.max(cutoff - 6, 10)) return false;
+    const relaxedFloor = strictBucket ? Math.max(cutoff - 6, 10) : Math.max(cutoff - 6, 8);
+    const fallbackPool = (filtered.length >= 8 ? filtered : sorted.filter(item => {
+      const signals = getMatchSignals(item.book, ctx);
+      if (item.score < relaxedFloor) return false;
       if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
-      return true;
-    });
+      if (!strictBucket) {
+        if (signals.bucketAffinity && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
+        if (signals.lookupCareerHit && (signals.subjectHit || signals.themeConceptHit)) return true;
+      }
+      return item.score >= relaxedFloor + (strictBucket ? 0 : 2);
+    }));
 
     if (!fallbackPool.length) return [];
 
@@ -596,7 +623,7 @@ function getRecommendedBooks(ctx){
       dedup.push(item);
     });
 
-    return selectDiverseItems(dedup, ctx, 14, "pool");
+    return selectDiverseItems(dedup, ctx, 18, "pool");
   }
 
 
@@ -632,9 +659,20 @@ function getRecommendedBooks(ctx){
     const hasConceptKeyword = !!(ctx?.concept && ctx?.keyword);
     const hasTrack = !!(ctx?.linkTrack);
     const topScore = sorted[0]?.score ?? -999;
-    const baseCutoff = hasConceptKeyword ? (strict ? 24 : 18) : (strict ? 20 : 14);
-    const trackBonusCutoff = hasTrack ? 4 : 0;
-    const spreadCutoff = topScore - (hasConceptKeyword ? 16 : 12);
+
+    let baseCutoff;
+    if (strict) {
+      baseCutoff = hasConceptKeyword ? 24 : 20;
+    } else if (bucket === "bio") {
+      baseCutoff = hasConceptKeyword ? 12 : 10;
+    } else if (bucket === "biz" || bucket === "humanities" || bucket === "env") {
+      baseCutoff = hasConceptKeyword ? 13 : 10;
+    } else {
+      baseCutoff = hasConceptKeyword ? 14 : 10;
+    }
+
+    const trackBonusCutoff = hasTrack ? (strict ? 4 : 2) : 0;
+    const spreadCutoff = topScore - (hasConceptKeyword ? (strict ? 16 : 20) : (strict ? 12 : 16));
     return Math.max(baseCutoff + trackBonusCutoff, spreadCutoff);
   }
 
@@ -673,6 +711,42 @@ function getDisplayMajors(book){
   const fallback = Array.isArray(book?.linked_majors) ? book.linked_majors.filter(Boolean) : [];
   return uniq(fallback).slice(0, 5);
 }
+function getBookCareerBucket(book){
+  const bag = [
+    ...(Array.isArray(book?.related_majors) ? book.related_majors : []),
+    ...(Array.isArray(book?.linked_majors) ? book.linked_majors : []),
+    ...(Array.isArray(book?.broad_theme) ? book.broad_theme : []),
+    ...(Array.isArray(book?.fit_keywords) ? book.fit_keywords : []),
+    book?.title || "",
+    book?.summary_short || "",
+    book?.book_core_summary || ""
+  ].filter(Boolean).join(" ");
+  return detectCareerBucket(bag);
+}
+
+function hasCareerBucketAffinity(book, ctx){
+  const targetBucket = detectCareerBucket(ctx?.career || "");
+  if (!targetBucket || targetBucket === "default") return false;
+  return getBookCareerBucket(book) === targetBucket;
+}
+
+function hasLookupCareerHit(book, ctx){
+  const hits = getCareerLookupCandidates(ctx?.career || "");
+  return hits.some(item => item.book_id === book?.book_id);
+}
+
+function shouldPromoteToDirect(item, ctx){
+  if (!item?.book) return false;
+  const signals = getMatchSignals(item.book, ctx);
+  const bucket = detectCareerBucket(ctx?.career || "");
+  const sameBucket = signals.bucketAffinity || hasCareerBucketAffinity(item.book, ctx);
+  const lookupHit = signals.lookupCareerHit || hasLookupCareerHit(item.book, ctx);
+  if (sameBucket && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit) && item.score >= (bucket === "bio" ? 14 : 16)) return true;
+  if (lookupHit && signals.subjectHit && item.score >= 14) return true;
+  if (signals.careerMajorHit && (signals.themeConceptHit || signals.subjectHit) && item.score >= 16) return true;
+  return false;
+}
+
 
 function buildBookCoreKeywords(book, ctx){
   const manual = Array.isArray(book?.core_keywords) ? book.core_keywords.filter(Boolean) : [];
