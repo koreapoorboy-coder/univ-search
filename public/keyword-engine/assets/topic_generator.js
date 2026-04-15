@@ -487,9 +487,10 @@ function selectDiverseItems(items, ctx, limit, mode, anchorItems){
     if (!chosen) break;
 
     const adjustedChosen = chosen.score - getDiversityPenalty(chosen, [...anchors, ...selected], ctx, mode);
-    const strict = isStrictCareerBucket(detectCareerBucket(ctx?.career || ""));
-    if (selected.length > 0 && strict && adjustedChosen < 18) continue;
-    if (selected.length > 0 && !strict && adjustedChosen < 12) continue;
+    const bucket = detectCareerBucket(ctx?.career || "");
+    const strict = isStrictCareerBucket(bucket);
+    const minFollowup = strict ? 18 : (bucket === "bio" ? 8 : 10);
+    if (selected.length > 0 && adjustedChosen < minFollowup) continue;
 
     selected.push(chosen);
   }
@@ -545,12 +546,19 @@ function getBookRecommendationSections(ctx){
       else if (section === "explore") exploreCandidates.push(item);
     });
 
+    const bucket = detectCareerBucket(ctx?.career || "");
+    const targetDirectMin = isStrictCareerBucket(bucket) ? 2 : (bucket === "bio" ? 3 : 2);
+
     const directLimited = selectDiverseItems(directCandidates, ctx, 4, "direct");
     const usedIds = new Set(directLimited.map(item => item.book.book_id));
 
-    if (directLimited.length < 2) {
-      const promotionPool = exploreCandidates.filter(item => !usedIds.has(item.book.book_id) && shouldPromoteToDirect(item, ctx));
-      const promoted = selectDiverseItems(promotionPool, ctx, 2 - directLimited.length, "direct", directLimited);
+    if (directLimited.length < targetDirectMin) {
+      const backfillPool = recommended.filter(item =>
+        !usedIds.has(item.book.book_id) &&
+        (shouldPromoteToDirect(item, ctx) || isBroadRelevantItem(item, ctx))
+      );
+      const need = targetDirectMin - directLimited.length;
+      const promoted = selectDiverseItems(backfillPool, ctx, need, "direct", directLimited);
       promoted.forEach(item => {
         if (!usedIds.has(item.book.book_id)) {
           directLimited.push(item);
@@ -559,14 +567,16 @@ function getBookRecommendationSections(ctx){
       });
     }
 
-    const remainingExplore = exploreCandidates.filter(item => !usedIds.has(item.book.book_id));
+    const remainingExplore = recommended.filter(item => !usedIds.has(item.book.book_id) && (
+      classifyRecommendation(item, ctx) === "explore" || isBroadRelevantItem(item, ctx)
+    ));
     let exploreLimited = [];
 
     if (directLimited.length === 0) {
       exploreLimited = selectDiverseItems(remainingExplore, ctx, 4, "explore");
     } else if (directLimited.length <= 2) {
       exploreLimited = selectDiverseItems(remainingExplore, ctx, 3, "explore", directLimited);
-    } else if (directLimited.length <= 4) {
+    } else {
       exploreLimited = selectDiverseItems(remainingExplore, ctx, 2, "explore", directLimited);
     }
 
@@ -594,36 +604,36 @@ function getRecommendedBooks(ctx){
       .sort((a, b) => b.score - a.score || a.book.title.localeCompare(b.book.title, 'ko'));
 
     const cutoff = getScoreCutoff(sorted, ctx);
-    const filtered = sorted.filter(item => {
+    const primary = sorted.filter(item => {
       if (item.score < cutoff) return false;
       if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
       if (strictBucket && !hasStrongMatchEvidence(item, ctx) && item.score < cutoff + 4) return false;
       return true;
     });
 
-    const relaxedFloor = strictBucket ? Math.max(cutoff - 6, 10) : Math.max(cutoff - 6, 8);
-    const fallbackPool = (filtered.length >= 8 ? filtered : sorted.filter(item => {
+    const relaxedFloor = strictBucket ? Math.max(cutoff - 6, 10) : Math.max(cutoff - 8, bucket === "bio" ? 6 : 8);
+    const secondary = sorted.filter(item => {
       const signals = getMatchSignals(item.book, ctx);
       if (item.score < relaxedFloor) return false;
       if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
-      if (!strictBucket) {
-        if (signals.bucketAffinity && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
-        if (signals.lookupCareerHit && (signals.subjectHit || signals.themeConceptHit)) return true;
-      }
+      if (isBroadRelevantItem(item, ctx)) return true;
+      if (!strictBucket && signals.bucketAffinity && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
+      if (!strictBucket && signals.lookupCareerHit && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
       return item.score >= relaxedFloor + (strictBucket ? 0 : 2);
-    }));
+    });
 
-    if (!fallbackPool.length) return [];
+    const combined = [...primary, ...secondary];
+    if (!combined.length) return [];
 
     const dedup = [];
     const seen = new Set();
-    fallbackPool.forEach(item => {
+    combined.forEach(item => {
       if (seen.has(item.book.book_id)) return;
       seen.add(item.book.book_id);
       dedup.push(item);
     });
 
-    return selectDiverseItems(dedup, ctx, 18, "pool");
+    return selectDiverseItems(dedup, ctx, strictBucket ? 18 : 24, "pool");
   }
 
 
@@ -746,6 +756,19 @@ function shouldPromoteToDirect(item, ctx){
   if (signals.careerMajorHit && (signals.themeConceptHit || signals.subjectHit) && item.score >= 16) return true;
   return false;
 }
+
+function isBroadRelevantItem(item, ctx){
+  if (!item?.book) return false;
+  const signals = getMatchSignals(item.book, ctx);
+  const sameBucket = signals.bucketAffinity || hasCareerBucketAffinity(item.book, ctx);
+  const lookupHit = signals.lookupCareerHit || hasLookupCareerHit(item.book, ctx);
+  if (signals.routes.length > 0) return true;
+  if (sameBucket && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
+  if (lookupHit && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
+  if (signals.careerMajorHit && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
+  return false;
+}
+
 
 
 function buildBookCoreKeywords(book, ctx){
