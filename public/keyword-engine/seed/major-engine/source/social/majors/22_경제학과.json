@@ -1,26 +1,69 @@
 {
-  "major_id": "22",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 22,
   "major_name": "경제학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        6,
-        7
-      ],
-      "visibility_status": "complete_two_page_visible"
-    }
+  "visible_pdf_pages": [
+    6,
+    7
   ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
   ],
-  "schema_hint": {
-    "expected_sections": [
+  "extracted": {
+    "intro_summary": "시장과 가격, 소비와 생산, 경기와 정책처럼 사회의 자원 배분 구조를 이론과 데이터로 분석하는 학과다. 개인 기업보다 시장 전체 구조와 정책 효과를 더 많이 보는 전공이다.",
+    "key_theme_summary": [
+      "경제",
+      "시장",
+      "정책",
+      "소비",
+      "생산",
+      "분배",
+      "거시경제",
+      "행동경제"
+    ],
+    "college_summary": "주요 대학의 경제학과, 응용경제학과, 국제경제 관련 전공에서 운영",
+    "capability_summary": [
+      "수리·자료 해석 역량",
+      "논리적 사고 역량",
+      "정책 분석 역량",
+      "문제 해결 역량"
+    ],
+    "linked_book_focus": "죽은 경제학자의 살아있는 아이디어, 국부론, 고용, 이자 및 화폐의 일반이론 등을 통해 경제학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "물가·금리 변화가 소비와 투자에 미치는 영향",
+      "행동경제학으로 본 청소년 소비 선택",
+      "불평등과 분배 구조의 경제학적 해석"
+    ],
+    "reference_materials_summary": "한국은행 자료 / 통계청 경제지표 / 정부 정책 보고서 / 경제 기사 데이터",
+    "prep_activity_summary": "경제 지표 비교 활동 / 정책 효과 토론 / 그래프 해석 훈련 / 수학·정보 기반 데이터 분석"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "사회계열 파트1.pdf",
+    "source_group": "social",
+    "major_no": 22,
+    "major_name": "경제학과",
+    "visible_pdf_pages": [
+      6,
+      7
+    ],
+    "book_pages": [],
+    "detail_status": "complete_two_page_visible_enriched_v1",
+    "sections_available": [
       "전공 소개",
       "전공 핵심키워드",
       "개설 대학",
@@ -30,6 +73,71 @@
       "전공 탐구활동 주제",
       "전공 탐구활동 도움자료",
       "전공 준비활동"
-    ]
+    ],
+    "extracted": {
+      "intro_summary": "시장과 가격, 소비와 생산, 경기와 정책처럼 사회의 자원 배분 구조를 이론과 데이터로 분석하는 학과다. 개인 기업보다 시장 전체 구조와 정책 효과를 더 많이 보는 전공이다.",
+      "key_theme_summary": [
+        "경제",
+        "시장",
+        "정책",
+        "소비",
+        "생산",
+        "분배",
+        "거시경제",
+        "행동경제"
+      ],
+      "college_summary": "주요 대학의 경제학과, 응용경제학과, 국제경제 관련 전공에서 운영",
+      "capability_summary": [
+        "수리·자료 해석 역량",
+        "논리적 사고 역량",
+        "정책 분석 역량",
+        "문제 해결 역량"
+      ],
+      "linked_book_focus": "죽은 경제학자의 살아있는 아이디어, 국부론, 고용, 이자 및 화폐의 일반이론 등을 통해 경제학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+      "topic_examples": [
+        "물가·금리 변화가 소비와 투자에 미치는 영향",
+        "행동경제학으로 본 청소년 소비 선택",
+        "불평등과 분배 구조의 경제학적 해석"
+      ],
+      "reference_materials_summary": "한국은행 자료, 통계청 경제지표, 정부 정책 보고서, 경제 기사 데이터",
+      "prep_activity_summary": "경제 지표 비교 활동 / 정책 효과 토론 / 그래프 해석 훈련 / 수학·정보 기반 데이터 분석"
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+    "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+    "legacy_source_meta": {
+      "major_id": "22",
+      "major_name": "경제학과",
+      "track": "social",
+      "source_version": "v2",
+      "source_files": [
+        {
+          "file_name": "사회계열 파트1.pdf",
+          "page_range": [
+            6,
+            7
+          ],
+          "visibility_status": "complete_two_page_visible"
+        }
+      ],
+      "structuring_status": "complete_two_page_visible",
+      "extraction_mode": "image_page_structured",
+      "notes": [
+        "PDF 페이지 이미지 기반으로 source 구조화함",
+        "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+      ],
+      "schema_hint": {
+        "expected_sections": [
+          "전공 소개",
+          "전공 핵심키워드",
+          "개설 대학",
+          "필요 역량",
+          "추천 도서",
+          "도서 연계 탐구활동",
+          "전공 탐구활동 주제",
+          "전공 탐구활동 도움자료",
+          "전공 준비활동"
+        ]
+      }
+    }
   }
 }
