@@ -688,68 +688,61 @@ function getRecommendedBooks(ctx){
     return raw || '선택한 개념 키워드를 확장하는 데 적합한 도서입니다.';
   }
 
-  function buildBookSelectionFitText(book, ctx){
-    const concept = String(ctx?.concept || '').trim();
-    const keyword = String(ctx?.keyword || '').trim();
-    const fit = pickTop(book?.fit_keywords, 3);
-    const starter = Array.isArray(book?.starter_questions) ? String(book.starter_questions[0] || '').replace(/^["']|["']$/g, '').trim() : '';
-
-    if (book?.report_fit_reason) return String(book.report_fit_reason).trim();
-    if (concept && keyword && fit.length) {
-      return `선택한 '${concept} - ${keyword}'와 연결할 때 ${fit.join(', ')} 쪽으로 보고서를 풀기 좋습니다.`;
+  function buildBookApproachText(book){
+    if (String(book?.book_approach || '').trim()) return String(book.book_approach).trim();
+    const bag = `${book?.title || ""} ${book?.summary_short || ""} ${(book?.broad_theme || []).join(" ")} ${(book?.fit_keywords || []).join(" ")}`;
+    if (/(자서전|에세이|일기|기록|고백|삶|현장|환자|의사|간호사|수기|인터뷰)/.test(bag)) {
+      return '현장 사례와 경험을 바탕으로 읽는 사례·경험형 도서입니다.';
     }
-    if (keyword && fit.length) {
-      return `선택한 키워드 '${keyword}'를 ${fit.join(', ')} 방향으로 확장하기 좋습니다.`;
+    if (/(역사|변화|발달|탄생|문명|과정|계보|기원)/.test(bag)) {
+      return '개념이 형성되고 발전한 흐름을 따라가는 역사·발달형 도서입니다.';
     }
-    if (starter) {
-      return `이 책으로는 '${starter}' 같은 문제의식으로 탐구를 시작하기 좋습니다.`;
+    if (/(비교|차이|분석|논쟁|쟁점|정책|사회|윤리)/.test(bag)) {
+      return '사례와 관점을 비교하며 읽는 비교·분석형 도서입니다.';
     }
-    if (fit.length) {
-      return `${fit.join(', ')} 중심으로 보고서 방향을 잡기 좋습니다.`;
+    if (/(실험|원리|측정|구조|시스템|데이터|과학|기술|공학)/.test(bag)) {
+      return '핵심 원리와 개념을 설명하며 읽는 과학 설명형 도서입니다.';
     }
-    return '선택한 주제를 보고서로 확장하는 데 활용하기 좋습니다.';
+    return '핵심 개념을 사례와 함께 이해하기 좋은 개념 확장형 도서입니다.';
   }
 
-  function buildBookUsePoints(book, ctx){
-    if (Array.isArray(book?.report_use_points) && book.report_use_points.length) {
-      return pickTop(book.report_use_points, 3);
-    }
-    const points = [];
-    const concept = String(ctx?.concept || '').trim();
-    const keyword = String(ctx?.keyword || '').trim();
-    const fit = pickTop(book?.fit_keywords, 3);
-    const routes = Array.isArray(book?.engine_subject_routes) ? book.engine_subject_routes : [];
-    const matchedRoute = routes.find(route => {
-      const conceptOk = !concept || fuzzyIncludes(route?.concept, concept);
-      const keywordOk = !keyword || (Array.isArray(route?.micro_keywords) && route.micro_keywords.some(k => fuzzyIncludes(k, keyword)));
-      return conceptOk && keywordOk;
-    }) || routes[0] || null;
-
-    if (matchedRoute?.report_points) {
-      if (Array.isArray(matchedRoute.report_points)) {
-        points.push(...matchedRoute.report_points.filter(Boolean));
-      } else if (String(matchedRoute.report_points).trim()) {
-        points.push(String(matchedRoute.report_points).trim());
-      }
-    }
-    if (concept && keyword) points.push(`${concept} 개념을 ${keyword} 사례와 연결하는 근거로 쓰기`);
-    if (fit.length) points.push(`${fit.slice(0,2).join('·')} 관점으로 비교하거나 확장하기`);
-    if (Array.isArray(book?.starter_questions) && book.starter_questions[0]) {
-      const starter = String(book.starter_questions[0]).replace(/^["']|["']$/g, '').trim();
-      if (starter) points.push(`'${starter}' 같은 질문으로 보고서 문제의식 잡기`);
-    }
-    if ((book?.linked_majors || []).length) points.push(`${pickTop(book.linked_majors, 2).join('·')} 진로와 연결해 의미 정리하기`);
-    return uniq(points).slice(0, 3);
+  function buildBookCoreKeywords(book, ctx){
+    const manual = Array.isArray(book?.book_core_keywords) ? book.book_core_keywords.filter(Boolean) : [];
+    if (manual.length) return uniq(manual).slice(0, 10);
+    return uniq([
+      ...(book?.fit_keywords || []),
+      ...(book?.book_keywords || []),
+      ...(book?.broad_theme || []),
+      String(ctx?.keyword || '').trim()
+    ]).filter(Boolean).slice(0, 10);
   }
 
-  function buildStudentReadingNote(book, ctx){
-    if (String(book?.student_note || '').trim()) return String(book.student_note).trim();
-    const majors = pickTop(book?.linked_majors, 2);
-    const subjects = pickTop(book?.linked_subjects, 2);
+  function buildConnectableConcepts(book, ctx){
+    const manual = Array.isArray(book?.connectable_concepts) ? book.connectable_concepts.filter(Boolean) : [];
+    if (manual.length) return uniq(manual).slice(0, 6);
+    const routeConcepts = uniq((book?.engine_subject_routes || []).map(route => String(route?.concept || '').trim()).filter(Boolean));
+    const subjectHints = [];
+    const subjects = book?.linked_subjects || [];
+    if (subjects.some(v => /생명과학|통합과학/.test(v))) subjectHints.push('생명 시스템');
+    if (subjects.some(v => /화학|통합과학/.test(v))) subjectHints.push('물질 구성과 분류');
+    if (subjects.some(v => /물리|공통수학|통합과학/.test(v))) subjectHints.push('과학의 측정과 우리 사회');
+    if (subjects.some(v => /지구과학|통합사회/.test(v))) subjectHints.push('자연 세계의 시간과 공간');
+    return uniq([String(ctx?.concept || '').trim(), ...routeConcepts, ...subjectHints]).filter(Boolean).slice(0, 6);
+  }
+
+  function buildReadingQuestions(book, ctx){
+    const manual = Array.isArray(book?.reading_questions) ? book.reading_questions.filter(Boolean) : [];
+    if (manual.length) return uniq(manual).slice(0, 3);
+    const starter = Array.isArray(book?.starter_questions) ? book.starter_questions.filter(Boolean).map(v => String(v).replace(/^["']|["']$/g, '').trim()) : [];
+    const concept = String(ctx?.concept || '').trim();
     const keyword = String(ctx?.keyword || '').trim();
-    if (keyword && majors.length) return `${keyword}가 ${majors.join('·')}와 어떻게 연결되는지 표시해 가며 읽으면 보고서 방향이 더 선명해집니다.`;
-    if (subjects.length) return `${subjects.join('·')} 교과 개념이 실제 사례에서 어떻게 쓰이는지 표시해 가며 읽으면 좋습니다.`;
-    return '읽으면서 인상적인 사례·비교 지점·숫자 정보를 표시해 두면 보고서 근거를 정리하기 쉽습니다.';
+    const questions = [];
+    if (starter.length) questions.push(...starter.slice(0, 2));
+    if (concept && keyword) questions.push(`${concept} 관점에서 '${keyword}'를 다시 보면 어떤 새로운 질문이 생길까?`);
+    const core = buildBookCoreKeywords(book, ctx);
+    if (core[0]) questions.push(`이 책에서 반복해서 등장하는 '${core[0]}'는 어떤 맥락에서 중요하게 다뤄질까?`);
+    questions.push('이 책은 개인의 경험, 사회의 문제, 과학의 원리 중 어디에 더 무게를 두고 있을까?');
+    return uniq(questions).filter(Boolean).slice(0, 3);
   }
 
 
@@ -817,15 +810,22 @@ function getRecommendedBooks(ctx){
     const majorTags = (selectedBook.linked_majors || []).slice(0, 3).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
     const badgeText = sectionType === "explore" ? "확장 참고 도서" : "직접 일치 도서";
     const footText = sectionType === "explore"
-      ? "직접 일치 도서가 충분하지 않을 때, 보고서 배경지식과 확장 관점을 넓히는 참고 도서입니다."
-      : "이 도서를 바탕으로 보고서에 들어갈 근거와 확장 방향을 MINI에 전달합니다.";
+      ? "직접 일치 도서가 충분하지 않을 때, 배경지식과 시야를 넓히는 참고 도서입니다."
+      : "먼저 책의 내용과 키워드를 보고, 이후 단계에서 전개 방식과 관점을 고르면 됩니다.";
     const summaryText = buildBookSummaryText(selectedBook);
-    const fitText = buildBookSelectionFitText(selectedBook, ctx);
-    const usePoints = buildBookUsePoints(selectedBook, ctx);
-    const studentNote = buildStudentReadingNote(selectedBook, ctx);
-    const usePointHTML = usePoints.length
-      ? `<ul class="engine-summary-list">${usePoints.map(point => `<li>${esc(point)}</li>`).join("")}</ul>`
-      : `<div class="engine-summary-empty">아직 활용 포인트가 등록되지 않았습니다.</div>`;
+    const approachText = buildBookApproachText(selectedBook);
+    const coreKeywords = buildBookCoreKeywords(selectedBook, ctx);
+    const concepts = buildConnectableConcepts(selectedBook, ctx);
+    const questions = buildReadingQuestions(selectedBook, ctx);
+    const keywordHTML = coreKeywords.length
+      ? `<div class="engine-tag-wrap">${coreKeywords.map(item => `<span class="engine-tag">${esc(item)}</span>`).join("")}</div>`
+      : `<div class="engine-summary-empty">표시할 핵심 키워드가 아직 없습니다.</div>`;
+    const conceptHTML = concepts.length
+      ? `<div class="engine-tag-wrap">${concepts.map(item => `<span class="engine-tag subtle">${esc(item)}</span>`).join("")}</div>`
+      : `<div class="engine-summary-empty">연결 가능한 교과 개념이 아직 없습니다.</div>`;
+    const questionHTML = questions.length
+      ? `<ul class="engine-summary-list">${questions.map(item => `<li>${esc(item)}</li>`).join("")}</ul>`
+      : `<div class="engine-summary-empty">먼저 책을 읽고 떠오른 질문을 직접 적어보면 좋습니다.</div>`;
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -840,16 +840,20 @@ function getRecommendedBooks(ctx){
           <p class="engine-summary-text">${esc(summaryText)}</p>
         </div>
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">왜 이 보고서에 맞는가</div>
-          <p class="engine-summary-fit">${esc(fitText)}</p>
+          <div class="engine-summary-section-title">책의 접근 방식 / 형태</div>
+          <p class="engine-summary-note">${esc(approachText)}</p>
         </div>
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">보고서에 활용할 포인트</div>
-          ${usePointHTML}
+          <div class="engine-summary-section-title">이 책의 핵심 키워드</div>
+          ${keywordHTML}
         </div>
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">학생이 읽을 때 보면 좋은 점</div>
-          <p class="engine-summary-note">${esc(studentNote)}</p>
+          <div class="engine-summary-section-title">연결 가능한 교과 개념</div>
+          ${conceptHTML}
+        </div>
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">읽으면서 생각해볼 질문</div>
+          ${questionHTML}
         </div>
         <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
         <div class="engine-summary-foot">${esc(footText)}</div>
