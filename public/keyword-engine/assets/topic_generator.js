@@ -557,8 +557,16 @@ function getBookRecommendationSections(ctx){
         !usedIds.has(item.book.book_id) &&
         (shouldPromoteToDirect(item, ctx) || isBroadRelevantItem(item, ctx))
       );
+      const supplementalPool = getSupplementalRecommendationPool(ctx, Array.from(usedIds));
+      const mergedPool = [];
+      const seen = new Set();
+      [...backfillPool, ...supplementalPool].forEach(item => {
+        if (!item?.book?.book_id || seen.has(item.book.book_id) || usedIds.has(item.book.book_id)) return;
+        seen.add(item.book.book_id);
+        mergedPool.push(item);
+      });
       const need = targetDirectMin - directLimited.length;
-      const promoted = selectDiverseItems(backfillPool, ctx, need, "direct", directLimited);
+      const promoted = selectDiverseItems(mergedPool, ctx, need, "direct", directLimited);
       promoted.forEach(item => {
         if (!usedIds.has(item.book.book_id)) {
           directLimited.push(item);
@@ -768,6 +776,71 @@ function isBroadRelevantItem(item, ctx){
   if (signals.careerMajorHit && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit)) return true;
   return false;
 }
+
+function getCareerBucketRegex(bucket){
+  const map = {
+    bio: /(의예|의학|의사|간호|보건|치의|약학|수의|의공|생명|바이오)/,
+    materials: /(반도체|신소재|재료|배터리|에너지|화학공학|고분자|금속)/,
+    electronic: /(전자|전기|회로|센서|통신|반도체)/,
+    mechanical: /(기계|로봇|자동차|항공|설계|구조)/,
+    env: /(환경|지구|기후|우주|천문|해양|지리)/,
+    biz: /(경영|경제|회계|금융|마케팅|산업공학|국제통상|무역)/,
+    humanities: /(사회|역사|철학|윤리|정치|법|행정|언론|미디어|교육|문학|심리)/
+  };
+  return map[bucket] || null;
+}
+
+function getSupplementalRecommendationPool(ctx, usedIds){
+  const bucket = detectCareerBucket(ctx?.career || "");
+  const bucketRegex = getCareerBucketRegex(bucket);
+  const subject = String(ctx?.subject || "");
+  const concept = String(ctx?.concept || "");
+  const keyword = String(ctx?.keyword || "");
+  const used = new Set(Array.isArray(usedIds) ? usedIds : []);
+  const pool = [];
+
+  (books || []).forEach(book => {
+    if (!book?.book_id || used.has(book.book_id)) return;
+    const meta = scoreBook(book, ctx);
+    const item = {
+      book,
+      score: meta.score,
+      reasons: uniq([...(meta.reasons || []), "보강 추천"]),
+      matchedRules: meta.matchedRules,
+      routes: meta.routes
+    };
+    const signals = getMatchSignals(book, ctx);
+    const majorsBag = [
+      ...(Array.isArray(book?.related_majors) ? book.related_majors : []),
+      ...(Array.isArray(book?.linked_majors) ? book.linked_majors : [])
+    ].join(" ");
+    const subjectsBag = [
+      ...(Array.isArray(book?.related_subjects_highschool) ? book.related_subjects_highschool : []),
+      ...(Array.isArray(book?.linked_subjects) ? book.linked_subjects : [])
+    ].join(" ");
+    const themesBag = [
+      ...(Array.isArray(book?.fit_keywords) ? book.fit_keywords : []),
+      ...(Array.isArray(book?.broad_theme) ? book.broad_theme : []),
+      ...(Array.isArray(book?.book_keywords) ? book.book_keywords : []),
+      ...(Array.isArray(book?.core_keywords) ? book.core_keywords : [])
+    ].join(" ");
+
+    const bucketMajorHit = bucketRegex ? bucketRegex.test(majorsBag) : false;
+    const subjectLooseHit = subject ? fuzzyIncludes(subjectsBag, subject) : false;
+    const conceptLooseHit = concept ? fuzzyIncludes(themesBag, concept) : false;
+    const keywordLooseHit = keyword ? fuzzyIncludes(themesBag, keyword) : false;
+    const broadRelevant = signals.bucketAffinity || signals.lookupCareerHit || signals.careerMajorHit || bucketMajorHit;
+
+    if (!broadRelevant) return;
+    if (!(signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit || subjectLooseHit || conceptLooseHit || keywordLooseHit || signals.routes.length > 0)) return;
+
+    item.score = Math.max(item.score, bucket === "bio" ? 12 : 14);
+    pool.push(item);
+  });
+
+  return pool.sort((a, b) => b.score - a.score || a.book.title.localeCompare(b.book.title, 'ko'));
+}
+
 
 
 
