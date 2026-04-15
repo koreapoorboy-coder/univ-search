@@ -1,26 +1,69 @@
 {
-  "major_id": "21",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 21,
   "major_name": "경영학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        4,
-        5
-      ],
-      "visibility_status": "complete_two_page_visible"
-    }
+  "visible_pdf_pages": [
+    4,
+    5
   ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
   ],
-  "schema_hint": {
-    "expected_sections": [
+  "extracted": {
+    "intro_summary": "기업과 조직이 어떻게 운영되고, 전략과 마케팅, 재무와 인사가 실제로 어떻게 연결되는지를 배우는 학과다. 시장 변화와 소비자 선택, 조직 문제를 함께 분석하는 전공이다.",
+    "key_theme_summary": [
+      "경영",
+      "기업",
+      "조직",
+      "전략",
+      "브랜드",
+      "마케팅",
+      "의사결정",
+      "혁신"
+    ],
+    "college_summary": "주요 대학의 경영학과, 경영계열 전공에서 운영",
+    "capability_summary": [
+      "자료 해석 역량",
+      "의사결정 역량",
+      "조직 이해 역량",
+      "의사소통 역량"
+    ],
+    "linked_book_focus": "경영학 콘서트, 넛지, 제3의 물결 등을 통해 경영학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "브랜드가 소비자 선택에 미치는 영향 분석",
+      "기업의 조직문화와 성과의 관계 탐구",
+      "데이터 기반 경영 의사결정 사례 분석"
+    ],
+    "reference_materials_summary": "기업 사례 기사 / 산업 보고서 / 소비자 행동 데이터 / 브랜드 전략 관련 자료",
+    "prep_activity_summary": "경제·사회 이슈 기사 스크랩 / 기업 사례 분석 발표 / 시장 조사 활동 / 프로젝트형 경영 탐구"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "사회계열 파트1.pdf",
+    "source_group": "social",
+    "major_no": 21,
+    "major_name": "경영학과",
+    "visible_pdf_pages": [
+      4,
+      5
+    ],
+    "book_pages": [],
+    "detail_status": "complete_two_page_visible_enriched_v1",
+    "sections_available": [
       "전공 소개",
       "전공 핵심키워드",
       "개설 대학",
@@ -30,6 +73,71 @@
       "전공 탐구활동 주제",
       "전공 탐구활동 도움자료",
       "전공 준비활동"
-    ]
+    ],
+    "extracted": {
+      "intro_summary": "기업과 조직이 어떻게 운영되고, 전략과 마케팅, 재무와 인사가 실제로 어떻게 연결되는지를 배우는 학과다. 단순히 회사를 소개하는 수준이 아니라 시장 변화, 소비자 선택, 조직 문제를 함께 분석하는 전공이다.",
+      "key_theme_summary": [
+        "경영",
+        "기업",
+        "조직",
+        "전략",
+        "마케팅",
+        "의사결정",
+        "브랜드",
+        "혁신"
+      ],
+      "college_summary": "주요 대학의 경영학과, 글로벌경영학과, 경영계열 전공에서 운영",
+      "capability_summary": [
+        "자료 해석 역량",
+        "의사결정 역량",
+        "조직 이해 역량",
+        "의사소통 역량"
+      ],
+      "linked_book_focus": "경영학 콘서트, 넛지, 제3의 물결 등을 통해 경영학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+      "topic_examples": [
+        "브랜드가 소비자 선택에 미치는 영향 분석",
+        "기업의 조직문화와 성과의 관계 탐구",
+        "데이터 기반 경영 의사결정 사례 분석"
+      ],
+      "reference_materials_summary": "기업 사례 기사, 산업 보고서, 소비자 행동 데이터, 브랜드 전략 관련 자료",
+      "prep_activity_summary": "경제·사회 이슈 기사 스크랩 / 기업 사례 분석 발표 / 시장 조사 활동 / 교내 프로젝트형 경영 탐구"
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+    "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+    "legacy_source_meta": {
+      "major_id": "21",
+      "major_name": "경영학과",
+      "track": "social",
+      "source_version": "v2",
+      "source_files": [
+        {
+          "file_name": "사회계열 파트1.pdf",
+          "page_range": [
+            4,
+            5
+          ],
+          "visibility_status": "complete_two_page_visible"
+        }
+      ],
+      "structuring_status": "complete_two_page_visible",
+      "extraction_mode": "image_page_structured",
+      "notes": [
+        "PDF 페이지 이미지 기반으로 source 구조화함",
+        "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+      ],
+      "schema_hint": {
+        "expected_sections": [
+          "전공 소개",
+          "전공 핵심키워드",
+          "개설 대학",
+          "필요 역량",
+          "추천 도서",
+          "도서 연계 탐구활동",
+          "전공 탐구활동 주제",
+          "전공 탐구활동 도움자료",
+          "전공 준비활동"
+        ]
+      }
+    }
   }
 }
