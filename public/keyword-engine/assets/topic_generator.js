@@ -661,17 +661,17 @@ function getRecommendedBooks(ctx){
   }
 
 function getDisplaySubjects(book){
-  return uniq([
-    ...(Array.isArray(book?.related_subjects_highschool) ? book.related_subjects_highschool : []),
-    ...(Array.isArray(book?.linked_subjects) ? book.linked_subjects : [])
-  ]).slice(0, 5);
+  const curated = Array.isArray(book?.related_subjects_highschool) ? book.related_subjects_highschool.filter(Boolean) : [];
+  if (curated.length) return uniq(curated).slice(0, 5);
+  const fallback = Array.isArray(book?.linked_subjects) ? book.linked_subjects.filter(Boolean) : [];
+  return uniq(fallback).slice(0, 5);
 }
 
 function getDisplayMajors(book){
-  return uniq([
-    ...(Array.isArray(book?.related_majors) ? book.related_majors : []),
-    ...(Array.isArray(book?.linked_majors) ? book.linked_majors : [])
-  ]).slice(0, 5);
+  const curated = Array.isArray(book?.related_majors) ? book.related_majors.filter(Boolean) : [];
+  if (curated.length) return uniq(curated).slice(0, 5);
+  const fallback = Array.isArray(book?.linked_majors) ? book.linked_majors.filter(Boolean) : [];
+  return uniq(fallback).slice(0, 5);
 }
 
 function buildBookCoreKeywords(book, ctx){
@@ -782,20 +782,26 @@ function isDisplayConceptTag(value){
 function buildConnectableConcepts(book, ctx){
   const manual = Array.isArray(book?.connectable_concepts) ? book.connectable_concepts.filter(isDisplayConceptTag) : [];
   if (manual.length) return uniq(manual).slice(0, 6);
+
   const routeConcepts = uniq((book?.engine_subject_routes || [])
     .map(route => String(route?.concept || '').trim())
     .filter(isDisplayConceptTag));
-  const subjectHints = [];
-  const subjects = getDisplaySubjects(book);
-  if (subjects.some(v => /생명과학|통합과학|보건/.test(v))) subjectHints.push('생명 시스템');
-  if (subjects.some(v => /화학|통합과학/.test(v))) subjectHints.push('물질 구성과 분류');
-  if (subjects.some(v => /물리|공통수학|통합과학|정보/.test(v))) subjectHints.push('과학의 측정과 우리 사회');
-  if (subjects.some(v => /지구과학|통합사회|지리/.test(v))) subjectHints.push('자연 세계의 시간과 공간');
-  return uniq([
-    String(ctx?.concept || '').trim(),
+
+  const ctxConcept = String(ctx?.concept || '').trim();
+  const concepts = uniq([
     ...routeConcepts,
-    ...subjectHints
-  ]).filter(isDisplayConceptTag).slice(0, 6);
+    ctxConcept
+  ]).filter(isDisplayConceptTag);
+
+  if (concepts.length) return concepts.slice(0, 6);
+
+  const subjects = getDisplaySubjects(book);
+  const fallback = [];
+  if (subjects.some(v => /생명과학|보건/.test(v))) fallback.push('생명 시스템');
+  if (subjects.some(v => /화학/.test(v))) fallback.push('물질 구성과 분류');
+  if (subjects.some(v => /물리|정보/.test(v))) fallback.push('과학의 측정과 우리 사회');
+  if (subjects.some(v => /지구과학|지리/.test(v))) fallback.push('자연 세계의 시간과 공간');
+  return uniq(fallback).filter(isDisplayConceptTag).slice(0, 4);
 }
 
   function buildReportOptionMeta(ctx){
