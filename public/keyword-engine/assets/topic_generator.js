@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
+window.__TOPIC_GENERATOR_VERSION = "v23.0-diverse-book-recommendations";
 
 (function(){
   const BOOK_URLS = [
@@ -169,17 +169,17 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
       materials: {
         major: /(재료|신소재|반도체|배터리|에너지|화학공학|고분자|금속|물리|화학)/,
         theme: /(재료|구조|측정|단위|원소|에너지|기술|과학방법|정량|데이터)/,
-        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원|약학|제약|의료기술|의료)/
       },
       mechanical: {
         major: /(기계|자동차|로봇|항공|모빌리티|설계|구조|물리)/,
         theme: /(구조|역학|진동|측정|단위|시스템|에너지|기술|정량|데이터)/,
-        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원|약학|제약|의료기술|의료)/
       },
       electronic: {
         major: /(전자|전기|회로|센서|반도체|통신|전파|물리)/,
         theme: /(센서|전류|측정|단위|시스템|에너지|데이터|정확도|기술)/,
-        avoid: /(의학|질병|환자|간호|수의|치과|동물병원)/
+        avoid: /(의학|질병|환자|간호|수의|치과|동물병원|약학|제약|의료기술|의료)/
       },
       it: {
         major: /(컴퓨터|소프트웨어|데이터|인공지능|정보|통계|보안|전자)/,
@@ -261,7 +261,7 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
     const themeHit = themes.some(v => patterns.theme.test(v));
     const avoidHit = patterns.avoid.test(titleBag) || majors.some(v => patterns.avoid.test(v)) || themes.some(v => patterns.avoid.test(v));
     const bioHeavy = majors.length > 0 && majors.every(v => /(의학|의예|치의|약학|보건|간호|수의|생명|바이오)/.test(v));
-    const professionSpecificBio = /(의사|수의사|치과의사|환자|동물 병원|동물병원|간호사)/.test(titleBag);
+    const professionSpecificBio = /(의사|수의사|치과의사|환자|동물 병원|동물병원|간호사|약학|신약|제약|의료기술|의료)/.test(titleBag);
     const generalScience = majors.some(v => /(물리|화학|과학교육|천문|지구과학|수학)/.test(v));
 
     let score = 0;
@@ -284,6 +284,7 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
         score += 8;
         reasons.push("일반 과학 확장");
       }
+      if (!majorHit && /(약학|제약|의공학|생명공학|의료)/.test((majors || []).join(" "))) score -= 10;
     }
 
     if (bucket === "bio") {
@@ -408,7 +409,94 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
     return { routes, subjectHit, themeKeywordHit, themeConceptHit, careerMajorHit };
   }
 
-  function classifyRecommendation(item, ctx){
+function getBookDiversityTokens(book){
+  return uniq([
+    ...(book?.linked_majors || []).slice(0, 4),
+    ...(book?.linked_subjects || []).slice(0, 3),
+    ...(book?.fit_keywords || []).slice(0, 6),
+    ...(book?.broad_theme || []).slice(0, 4),
+    ...((book?.engine_subject_routes || []).flatMap(route => [route?.subject, route?.concept, ...((route?.micro_keywords || []).slice(0, 3))]))
+  ]).map(normalize).filter(Boolean);
+}
+
+function getBookFamilyKey(book){
+  const parts = uniq([
+    ...(book?.linked_majors || []).slice(0, 2),
+    ...(book?.broad_theme || []).slice(0, 2),
+    ...((book?.engine_subject_routes || []).slice(0, 1).map(route => route?.concept))
+  ]).map(normalize).filter(Boolean);
+  return parts.slice(0, 3).join("|") || normalize(book?.title || "").slice(0, 18);
+}
+
+function getBookSimilarity(a, b){
+  const aTokens = getBookDiversityTokens(a);
+  const bTokens = getBookDiversityTokens(b);
+  const aSet = new Set(aTokens);
+  const bSet = new Set(bTokens);
+  const overlap = aTokens.filter(token => bSet.has(token)).length;
+  const union = new Set([...aTokens, ...bTokens]).size || 1;
+  const ratio = overlap / union;
+  const familyA = getBookFamilyKey(a);
+  const familyB = getBookFamilyKey(b);
+  return {
+    ratio,
+    sameFamily: !!familyA && !!familyB && familyA === familyB,
+    sameAuthor: normalize(a?.author) && normalize(a?.author) === normalize(b?.author)
+  };
+}
+
+function getDiversityPenalty(item, selectedItems, ctx, mode){
+  if (!Array.isArray(selectedItems) || selectedItems.length === 0) return 0;
+  const strong = hasStrongMatchEvidence(item, ctx);
+  let penalty = 0;
+
+  selectedItems.forEach(selectedItem => {
+    const similar = getBookSimilarity(item.book, selectedItem.book);
+    if (similar.sameFamily) penalty += mode === "explore" ? 12 : 10;
+    if (similar.ratio >= 0.62) penalty += mode === "explore" ? 18 : 14;
+    else if (similar.ratio >= 0.42) penalty += mode === "explore" ? 12 : 9;
+    else if (similar.ratio >= 0.24) penalty += 5;
+    if (similar.sameAuthor) penalty += 3;
+  });
+
+  if (strong) penalty *= 0.65;
+  return penalty;
+}
+
+function selectDiverseItems(items, ctx, limit, mode, anchorItems){
+  const pool = Array.isArray(items) ? items.slice() : [];
+  const anchors = Array.isArray(anchorItems) ? anchorItems.slice() : [];
+  const selected = [];
+
+  while (pool.length && selected.length < limit) {
+    let bestIndex = 0;
+    let bestValue = -Infinity;
+
+    pool.slice(0, 40).forEach((item, index) => {
+      const penalty = getDiversityPenalty(item, [...anchors, ...selected], ctx, mode);
+      const adjusted = item.score - penalty;
+      if (adjusted > bestValue) {
+        bestValue = adjusted;
+        bestIndex = index;
+      }
+    });
+
+    const chosen = pool.splice(bestIndex, 1)[0];
+    if (!chosen) break;
+
+    const adjustedChosen = chosen.score - getDiversityPenalty(chosen, [...anchors, ...selected], ctx, mode);
+    const strict = isStrictCareerBucket(detectCareerBucket(ctx?.career || ""));
+    if (selected.length > 0 && strict && adjustedChosen < 18) continue;
+    if (selected.length > 0 && !strict && adjustedChosen < 12) continue;
+
+    selected.push(chosen);
+  }
+
+  return selected;
+}
+
+  
+function classifyRecommendation(item, ctx){
     const bucket = detectCareerBucket(ctx?.career || "");
     const strictBucket = isStrictCareerBucket(bucket);
     const signals = getMatchSignals(item.book, ctx);
@@ -428,8 +516,8 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
 
     if (strictBucket) {
       if (isClearlyOffTopicBook(item.book, bucket)) return "drop";
-      if (item.score < 26) return "drop";
-      if (!signals.subjectHit) return "drop";
+      if (item.score < 24) return "drop";
+      if (!signals.subjectHit && !signals.themeConceptHit) return "drop";
       if (!(reasonSet.has("일반 과학 확장") || reasonSet.has("과목 연결") || reasonSet.has("개념 확장 적합") || signals.themeConceptHit)) return "drop";
       return "explore";
     }
@@ -438,29 +526,34 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
     return "drop";
   }
 
-  function getBookRecommendationSections(ctx){
+  
+function getBookRecommendationSections(ctx){
     const recommended = getRecommendedBooks(ctx);
-    const direct = [];
-    const explore = [];
+    const directCandidates = [];
+    const exploreCandidates = [];
 
     recommended.forEach(item => {
       const section = classifyRecommendation(item, ctx);
-      if (section === "direct") direct.push(item);
-      else if (section === "explore") explore.push(item);
+      if (section === "direct") directCandidates.push(item);
+      else if (section === "explore") exploreCandidates.push(item);
     });
 
-    const directLimited = direct.slice(0, 6);
+    const directLimited = selectDiverseItems(directCandidates, ctx, 4, "direct");
     let exploreLimited = [];
+
     if (directLimited.length === 0) {
-      exploreLimited = explore.slice(0, 4);
-    } else if (directLimited.length <= 3) {
-      exploreLimited = explore.slice(0, 2);
+      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 4, "explore");
+    } else if (directLimited.length <= 2) {
+      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 3, "explore", directLimited);
+    } else if (directLimited.length <= 4) {
+      exploreLimited = selectDiverseItems(exploreCandidates, ctx, 2, "explore", directLimited);
     }
 
     return { direct: directLimited, explore: exploreLimited, all: [...directLimited, ...exploreLimited] };
   }
 
-  function getRecommendedBooks(ctx){
+  
+function getRecommendedBooks(ctx){
     if (!loaded || !Array.isArray(books) || books.length === 0) return [];
     const bucket = detectCareerBucket(ctx?.career || "");
     const strictBucket = isStrictCareerBucket(bucket);
@@ -483,21 +576,27 @@ window.__TOPIC_GENERATOR_VERSION = "v22.0-track-aware-student-flow";
     const filtered = sorted.filter(item => {
       if (item.score < cutoff) return false;
       if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
-      if (strictBucket && !hasStrongMatchEvidence(item, ctx) && item.score < cutoff + 6) return false;
+      if (strictBucket && !hasStrongMatchEvidence(item, ctx) && item.score < cutoff + 4) return false;
       return true;
     });
 
-    if (!filtered.length) return [];
+    const fallbackPool = filtered.length >= 8 ? filtered : sorted.filter(item => {
+      if (item.score < Math.max(cutoff - 6, 10)) return false;
+      if (strictBucket && isClearlyOffTopicBook(item.book, bucket) && !hasStrongMatchEvidence(item, ctx)) return false;
+      return true;
+    });
+
+    if (!fallbackPool.length) return [];
 
     const dedup = [];
     const seen = new Set();
-    filtered.forEach(item => {
+    fallbackPool.forEach(item => {
       if (seen.has(item.book.book_id)) return;
       seen.add(item.book.book_id);
       dedup.push(item);
     });
 
-    return dedup.slice(0, 6);
+    return selectDiverseItems(dedup, ctx, 14, "pool");
   }
 
 
