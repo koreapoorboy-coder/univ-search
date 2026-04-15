@@ -688,62 +688,53 @@ function getRecommendedBooks(ctx){
     return raw || '선택한 개념 키워드를 확장하는 데 적합한 도서입니다.';
   }
 
-  function buildBookApproachText(book){
-    if (String(book?.book_approach || '').trim()) return String(book.book_approach).trim();
-    const bag = `${book?.title || ""} ${book?.summary_short || ""} ${(book?.broad_theme || []).join(" ")} ${(book?.fit_keywords || []).join(" ")}`;
-    if (/(자서전|에세이|일기|기록|고백|삶|현장|환자|의사|간호사|수기|인터뷰)/.test(bag)) {
-      return '현장 사례와 경험을 바탕으로 읽는 사례·경험형 도서입니다.';
-    }
-    if (/(역사|변화|발달|탄생|문명|과정|계보|기원)/.test(bag)) {
-      return '개념이 형성되고 발전한 흐름을 따라가는 역사·발달형 도서입니다.';
-    }
-    if (/(비교|차이|분석|논쟁|쟁점|정책|사회|윤리)/.test(bag)) {
-      return '사례와 관점을 비교하며 읽는 비교·분석형 도서입니다.';
-    }
-    if (/(실험|원리|측정|구조|시스템|데이터|과학|기술|공학)/.test(bag)) {
-      return '핵심 원리와 개념을 설명하며 읽는 과학 설명형 도서입니다.';
-    }
-    return '핵심 개념을 사례와 함께 이해하기 좋은 개념 확장형 도서입니다.';
+  function buildBookFormatText(book){
+    if (String(book?.book_format || '').trim()) return String(book.book_format).trim();
+    const bag = `${book?.title || ''} ${book?.summary_short || ''} ${(book?.broad_theme || []).join(' ')} ${(book?.fit_keywords || []).join(' ')}`;
+    if (/(자서전|회고록|일기|고백|여정|삶|기록)/.test(bag)) return '자서전·경험 기록형';
+    if (/(현장|사례|환자|인터뷰|실제 경험|임상|관찰)/.test(bag)) return '사례·현장형';
+    if (/(역사|발달|변화|연대기|시대|기원)/.test(bag)) return '역사·발달 과정형';
+    if (/(사상|철학|이론|아이디어|비교|논쟁|담론)/.test(bag)) return '사상·비교 분석형';
+    if (/(원리|구조|측정|모델링|설명|과학|기술|원소|분류)/.test(bag)) return '원리 설명형';
+    if (/(사회|정책|제도|문제|윤리|문화)/.test(bag)) return '사회문제 분석형';
+    return '교양·주제 입문형';
   }
 
   function buildBookCoreKeywords(book, ctx){
-    const manual = Array.isArray(book?.book_core_keywords) ? book.book_core_keywords.filter(Boolean) : [];
-    if (manual.length) return uniq(manual).slice(0, 10);
-    return uniq([
-      ...(book?.fit_keywords || []),
-      ...(book?.book_keywords || []),
-      ...(book?.broad_theme || []),
-      String(ctx?.keyword || '').trim()
-    ]).filter(Boolean).slice(0, 10);
-  }
-
-  function buildConnectableConcepts(book, ctx){
-    const manual = Array.isArray(book?.connectable_concepts) ? book.connectable_concepts.filter(Boolean) : [];
-    if (manual.length) return uniq(manual).slice(0, 6);
-    const routeConcepts = uniq((book?.engine_subject_routes || []).map(route => String(route?.concept || '').trim()).filter(Boolean));
-    const subjectHints = [];
-    const subjects = book?.linked_subjects || [];
-    if (subjects.some(v => /생명과학|통합과학/.test(v))) subjectHints.push('생명 시스템');
-    if (subjects.some(v => /화학|통합과학/.test(v))) subjectHints.push('물질 구성과 분류');
-    if (subjects.some(v => /물리|공통수학|통합과학/.test(v))) subjectHints.push('과학의 측정과 우리 사회');
-    if (subjects.some(v => /지구과학|통합사회/.test(v))) subjectHints.push('자연 세계의 시간과 공간');
-    return uniq([String(ctx?.concept || '').trim(), ...routeConcepts, ...subjectHints]).filter(Boolean).slice(0, 6);
-  }
-
-  function buildReadingQuestions(book, ctx){
-    const manual = Array.isArray(book?.reading_questions) ? book.reading_questions.filter(Boolean) : [];
-    if (manual.length) return uniq(manual).slice(0, 3);
-    const starter = Array.isArray(book?.starter_questions) ? book.starter_questions.filter(Boolean).map(v => String(v).replace(/^["']|["']$/g, '').trim()) : [];
+    const routeKeywords = [];
     const concept = String(ctx?.concept || '').trim();
-    const keyword = String(ctx?.keyword || '').trim();
-    const questions = [];
-    if (starter.length) questions.push(...starter.slice(0, 2));
-    if (concept && keyword) questions.push(`${concept} 관점에서 '${keyword}'를 다시 보면 어떤 새로운 질문이 생길까?`);
-    const core = buildBookCoreKeywords(book, ctx);
-    if (core[0]) questions.push(`이 책에서 반복해서 등장하는 '${core[0]}'는 어떤 맥락에서 중요하게 다뤄질까?`);
-    questions.push('이 책은 개인의 경험, 사회의 문제, 과학의 원리 중 어디에 더 무게를 두고 있을까?');
-    return uniq(questions).filter(Boolean).slice(0, 3);
+    const subject = String(ctx?.subject || '').trim();
+    const routes = Array.isArray(book?.engine_subject_routes) ? book.engine_subject_routes : [];
+    routes.forEach(route => {
+      const subjectOk = !subject || fuzzyIncludes(route?.subject, subject);
+      const conceptOk = !concept || fuzzyIncludes(route?.concept, concept);
+      if (subjectOk || conceptOk) {
+        routeKeywords.push(...(Array.isArray(route?.micro_keywords) ? route.micro_keywords : []));
+      }
+    });
+    return uniq([
+      ...pickTop(routeKeywords, 6),
+      ...pickTop(book?.fit_keywords, 6),
+      ...pickTop(book?.book_keywords, 6),
+      ...pickTop(book?.broad_theme, 4)
+    ]).slice(0, 8);
   }
+
+  function buildRelatedConcepts(book, ctx){
+    const subject = String(ctx?.subject || '').trim();
+    const routes = Array.isArray(book?.engine_subject_routes) ? book.engine_subject_routes : [];
+    const ordered = [];
+    routes.forEach(route => {
+      if (subject && fuzzyIncludes(route?.subject, subject) && route?.concept) ordered.push(route.concept);
+    });
+    routes.forEach(route => {
+      if (route?.concept) ordered.push(route.concept);
+    });
+    const concepts = uniq(ordered).slice(0, 4);
+    if (concepts.length) return concepts;
+    return pickTop(book?.linked_subjects, 3);
+  }
+
 
 
   function buildReportOptionMeta(ctx){
@@ -806,26 +797,22 @@ function getRecommendedBooks(ctx){
     if (!selectedBook) {
       return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
     }
-    const subjectTags = (selectedBook.linked_subjects || []).slice(0, 3).map(v => `<span class="engine-tag">${esc(v)}</span>`).join("");
-    const majorTags = (selectedBook.linked_majors || []).slice(0, 3).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
+    const subjectTags = (selectedBook.linked_subjects || []).slice(0, 4).map(v => `<span class="engine-tag">${esc(v)}</span>`).join("");
+    const majorTags = (selectedBook.linked_majors || []).slice(0, 4).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
     const badgeText = sectionType === "explore" ? "확장 참고 도서" : "직접 일치 도서";
     const footText = sectionType === "explore"
-      ? "직접 일치 도서가 충분하지 않을 때, 배경지식과 시야를 넓히는 참고 도서입니다."
-      : "먼저 책의 내용과 키워드를 보고, 이후 단계에서 전개 방식과 관점을 고르면 됩니다.";
+      ? "직접 연결 도서가 부족할 때 함께 볼 수 있는 참고 도서입니다."
+      : "도서 선택 단계에서 책의 성격과 연결 키워드를 빠르게 파악할 수 있도록 정리한 정보입니다.";
     const summaryText = buildBookSummaryText(selectedBook);
-    const approachText = buildBookApproachText(selectedBook);
+    const formatText = buildBookFormatText(selectedBook);
     const coreKeywords = buildBookCoreKeywords(selectedBook, ctx);
-    const concepts = buildConnectableConcepts(selectedBook, ctx);
-    const questions = buildReadingQuestions(selectedBook, ctx);
-    const keywordHTML = coreKeywords.length
-      ? `<div class="engine-tag-wrap">${coreKeywords.map(item => `<span class="engine-tag">${esc(item)}</span>`).join("")}</div>`
-      : `<div class="engine-summary-empty">표시할 핵심 키워드가 아직 없습니다.</div>`;
-    const conceptHTML = concepts.length
-      ? `<div class="engine-tag-wrap">${concepts.map(item => `<span class="engine-tag subtle">${esc(item)}</span>`).join("")}</div>`
+    const relatedConcepts = buildRelatedConcepts(selectedBook, ctx);
+    const coreKeywordHTML = coreKeywords.length
+      ? `<div class="engine-tag-wrap">${coreKeywords.map(keyword => `<span class="engine-tag">${esc(keyword)}</span>`).join("")}</div>`
+      : `<div class="engine-summary-empty">등록된 핵심 키워드가 아직 없습니다.</div>`;
+    const relatedConceptHTML = relatedConcepts.length
+      ? `<div class="engine-tag-wrap">${relatedConcepts.map(concept => `<span class="engine-tag subtle">${esc(concept)}</span>`).join("")}</div>`
       : `<div class="engine-summary-empty">연결 가능한 교과 개념이 아직 없습니다.</div>`;
-    const questionHTML = questions.length
-      ? `<ul class="engine-summary-list">${questions.map(item => `<li>${esc(item)}</li>`).join("")}</ul>`
-      : `<div class="engine-summary-empty">먼저 책을 읽고 떠오른 질문을 직접 적어보면 좋습니다.</div>`;
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -841,21 +828,20 @@ function getRecommendedBooks(ctx){
         </div>
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">책의 접근 방식 / 형태</div>
-          <p class="engine-summary-note">${esc(approachText)}</p>
+          <p class="engine-summary-fit">${esc(formatText)}</p>
         </div>
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책의 핵심 키워드</div>
-          ${keywordHTML}
+          ${coreKeywordHTML}
         </div>
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">연결 가능한 교과 개념</div>
-          ${conceptHTML}
+          ${relatedConceptHTML}
         </div>
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">읽으면서 생각해볼 질문</div>
-          ${questionHTML}
+          <div class="engine-summary-section-title">관련 교과 / 관련 학과</div>
+          <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
         </div>
-        <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
         <div class="engine-summary-foot">${esc(footText)}</div>
       </div>
     `;
