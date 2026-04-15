@@ -694,6 +694,7 @@ function getRecommendedBooks(ctx){
     const fit = pickTop(book?.fit_keywords, 3);
     const starter = Array.isArray(book?.starter_questions) ? String(book.starter_questions[0] || '').replace(/^["']|["']$/g, '').trim() : '';
 
+    if (book?.report_fit_reason) return String(book.report_fit_reason).trim();
     if (concept && keyword && fit.length) {
       return `선택한 '${concept} - ${keyword}'와 연결할 때 ${fit.join(', ')} 쪽으로 보고서를 풀기 좋습니다.`;
     }
@@ -708,6 +709,49 @@ function getRecommendedBooks(ctx){
     }
     return '선택한 주제를 보고서로 확장하는 데 활용하기 좋습니다.';
   }
+
+  function buildBookUsePoints(book, ctx){
+    if (Array.isArray(book?.report_use_points) && book.report_use_points.length) {
+      return pickTop(book.report_use_points, 3);
+    }
+    const points = [];
+    const concept = String(ctx?.concept || '').trim();
+    const keyword = String(ctx?.keyword || '').trim();
+    const fit = pickTop(book?.fit_keywords, 3);
+    const routes = Array.isArray(book?.engine_subject_routes) ? book.engine_subject_routes : [];
+    const matchedRoute = routes.find(route => {
+      const conceptOk = !concept || fuzzyIncludes(route?.concept, concept);
+      const keywordOk = !keyword || (Array.isArray(route?.micro_keywords) && route.micro_keywords.some(k => fuzzyIncludes(k, keyword)));
+      return conceptOk && keywordOk;
+    }) || routes[0] || null;
+
+    if (matchedRoute?.report_points) {
+      if (Array.isArray(matchedRoute.report_points)) {
+        points.push(...matchedRoute.report_points.filter(Boolean));
+      } else if (String(matchedRoute.report_points).trim()) {
+        points.push(String(matchedRoute.report_points).trim());
+      }
+    }
+    if (concept && keyword) points.push(`${concept} 개념을 ${keyword} 사례와 연결하는 근거로 쓰기`);
+    if (fit.length) points.push(`${fit.slice(0,2).join('·')} 관점으로 비교하거나 확장하기`);
+    if (Array.isArray(book?.starter_questions) && book.starter_questions[0]) {
+      const starter = String(book.starter_questions[0]).replace(/^["']|["']$/g, '').trim();
+      if (starter) points.push(`'${starter}' 같은 질문으로 보고서 문제의식 잡기`);
+    }
+    if ((book?.linked_majors || []).length) points.push(`${pickTop(book.linked_majors, 2).join('·')} 진로와 연결해 의미 정리하기`);
+    return uniq(points).slice(0, 3);
+  }
+
+  function buildStudentReadingNote(book, ctx){
+    if (String(book?.student_note || '').trim()) return String(book.student_note).trim();
+    const majors = pickTop(book?.linked_majors, 2);
+    const subjects = pickTop(book?.linked_subjects, 2);
+    const keyword = String(ctx?.keyword || '').trim();
+    if (keyword && majors.length) return `${keyword}가 ${majors.join('·')}와 어떻게 연결되는지 표시해 가며 읽으면 보고서 방향이 더 선명해집니다.`;
+    if (subjects.length) return `${subjects.join('·')} 교과 개념이 실제 사례에서 어떻게 쓰이는지 표시해 가며 읽으면 좋습니다.`;
+    return '읽으면서 인상적인 사례·비교 지점·숫자 정보를 표시해 두면 보고서 근거를 정리하기 쉽습니다.';
+  }
+
 
   function buildReportOptionMeta(ctx){
     const sections = getBookRecommendationSections(ctx);
@@ -773,10 +817,15 @@ function getRecommendedBooks(ctx){
     const majorTags = (selectedBook.linked_majors || []).slice(0, 3).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
     const badgeText = sectionType === "explore" ? "확장 참고 도서" : "직접 일치 도서";
     const footText = sectionType === "explore"
-      ? "직접 일치 도서가 충분하지 않아, 보고서 확장에 참고할 수 있는 도서를 보여줍니다."
+      ? "직접 일치 도서가 충분하지 않을 때, 보고서 배경지식과 확장 관점을 넓히는 참고 도서입니다."
       : "이 도서를 바탕으로 보고서에 들어갈 근거와 확장 방향을 MINI에 전달합니다.";
     const summaryText = buildBookSummaryText(selectedBook);
     const fitText = buildBookSelectionFitText(selectedBook, ctx);
+    const usePoints = buildBookUsePoints(selectedBook, ctx);
+    const studentNote = buildStudentReadingNote(selectedBook, ctx);
+    const usePointHTML = usePoints.length
+      ? `<ul class="engine-summary-list">${usePoints.map(point => `<li>${esc(point)}</li>`).join("")}</ul>`
+      : `<div class="engine-summary-empty">아직 활용 포인트가 등록되지 않았습니다.</div>`;
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -786,13 +835,28 @@ function getRecommendedBooks(ctx){
           </div>
           <div class="engine-summary-badge">${esc(badgeText)}</div>
         </div>
-        <p class="engine-summary-text">${esc(summaryText)}</p>
-        <p class="engine-summary-fit">${esc(fitText)}</p>
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
+          <p class="engine-summary-text">${esc(summaryText)}</p>
+        </div>
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">왜 이 보고서에 맞는가</div>
+          <p class="engine-summary-fit">${esc(fitText)}</p>
+        </div>
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">보고서에 활용할 포인트</div>
+          ${usePointHTML}
+        </div>
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">학생이 읽을 때 보면 좋은 점</div>
+          <p class="engine-summary-note">${esc(studentNote)}</p>
+        </div>
         <div class="engine-tag-wrap">${subjectTags || ""}${majorTags || ""}</div>
         <div class="engine-summary-foot">${esc(footText)}</div>
       </div>
     `;
   }
+
 
   window.renderBookSelectionHTML = function(ctx){
     if (!ctx?.subject || !ctx?.career) {
