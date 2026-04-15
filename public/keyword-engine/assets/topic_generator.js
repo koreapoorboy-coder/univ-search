@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.0-bookseed-content-first";
+window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
 
 (function(){
   const BOOK_URLS = [
@@ -756,17 +756,46 @@ function buildBookContentPoints(book){
   return uniq(points).slice(0, 4);
 }
 
+
+function isDisplayConceptTag(value){
+  const s = String(value || '').trim();
+  if (!s) return false;
+  const blocked = [
+    /탐구\s*보고서\s*작성/,
+    /자료\s*수집[·ㆍ\-–~]?분석[·ㆍ\-–~]?결론\s*도출/,
+    /생활\s*자료를\s*활용한\s*과학적\s*의사결정\s*탐구/,
+    /의사결정\s*탐구/,
+    /보고서\s*작성/,
+    /자료\s*수집/,
+    /결론\s*도출/,
+    /조사\s*(중심|활동|설계)/,
+    /발표\s*(중심|활동|설계)/,
+    /탐구\s*(주제|활동|설계)/,
+    /실험\s*(보고서|설계|수행|중심)/,
+    /토론\s*(활동|중심|설계)/
+  ];
+  if (blocked.some(rx => rx.test(s))) return false;
+  if (s.length > 22 && /(탐구|작성|활용|의사결정|자료|결론)/.test(s)) return false;
+  return true;
+}
+
 function buildConnectableConcepts(book, ctx){
-  const manual = Array.isArray(book?.connectable_concepts) ? book.connectable_concepts.filter(Boolean) : [];
+  const manual = Array.isArray(book?.connectable_concepts) ? book.connectable_concepts.filter(isDisplayConceptTag) : [];
   if (manual.length) return uniq(manual).slice(0, 6);
-  const routeConcepts = uniq((book?.engine_subject_routes || []).map(route => String(route?.concept || '').trim()).filter(Boolean));
+  const routeConcepts = uniq((book?.engine_subject_routes || [])
+    .map(route => String(route?.concept || '').trim())
+    .filter(isDisplayConceptTag));
   const subjectHints = [];
   const subjects = getDisplaySubjects(book);
   if (subjects.some(v => /생명과학|통합과학|보건/.test(v))) subjectHints.push('생명 시스템');
   if (subjects.some(v => /화학|통합과학/.test(v))) subjectHints.push('물질 구성과 분류');
   if (subjects.some(v => /물리|공통수학|통합과학|정보/.test(v))) subjectHints.push('과학의 측정과 우리 사회');
   if (subjects.some(v => /지구과학|통합사회|지리/.test(v))) subjectHints.push('자연 세계의 시간과 공간');
-  return uniq([String(ctx?.concept || '').trim(), ...routeConcepts, ...subjectHints]).filter(Boolean).slice(0, 6);
+  return uniq([
+    String(ctx?.concept || '').trim(),
+    ...routeConcepts,
+    ...subjectHints
+  ]).filter(isDisplayConceptTag).slice(0, 6);
 }
 
   function buildReportOptionMeta(ctx){
