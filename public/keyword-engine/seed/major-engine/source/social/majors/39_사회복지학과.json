@@ -1,35 +1,89 @@
 {
-  "major_id": "39",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트2.pdf",
+  "source_group": "social",
+  "major_no": 39,
   "major_name": "사회복지학과",
-  "track": "social",
-  "source_version": "v3",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트3.pdf",
-      "page_range": [
-        3,
-        4
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    21,
+    22
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "개인 문제를 넘어서 사회 구조 속에서 어려움을 겪는 사람들을 돕기 위한 제도와 서비스 체계를 배우는 학과다. 사람과 제도를 함께 보는 시각이 중요하다.",
+    "key_theme_summary": [
+      "사회복지",
+      "돌봄",
+      "복지정책",
+      "취약계층",
+      "서비스",
+      "지원체계",
+      "지역사회",
+      "복지 사각지대"
+    ],
+    "college_summary": "주요 대학의 사회복지학과, 복지정책 관련 전공에서 운영",
+    "capability_summary": [
+      "공감과 구조 해석 역량",
+      "문제 해결 역량",
+      "의사소통 역량",
+      "공공성 인식"
+    ],
+    "linked_book_focus": "아픔이 길이 되려면, 공정하다는 착각, 대한민국의 시험 등을 통해 사회복지학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "청소년 복지 사각지대 사례 분석",
+      "노인 돌봄과 지역사회 지원 구조",
+      "학교 밖 청소년 지원 제도 비교"
+    ],
+    "reference_materials_summary": "보건복지부 자료 / 복지 서비스 사례 / 지방자치단체 복지 프로그램 / 통계 자료",
+    "prep_activity_summary": "지역 복지기관 조사 / 복지 정책 비교 / 지원 체계 설계 활동"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "39",
+    "major_name": "사회복지학과",
+    "track": "social",
+    "source_version": "v3",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트3.pdf",
+        "page_range": [
+          3,
+          4
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

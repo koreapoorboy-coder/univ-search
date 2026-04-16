@@ -1,35 +1,89 @@
 {
-  "major_id": "25",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 25,
   "major_name": "관광경영학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        12,
-        13
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    12,
+    13
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "관광을 단순 여행이 아니라 서비스 산업, 지역 자원, 문화 기획과 연결해 배우는 학과다. 사람 경험과 지역 문제를 함께 보는 관점이 중요하다.",
+    "key_theme_summary": [
+      "관광",
+      "서비스",
+      "지역",
+      "문화",
+      "산업",
+      "브랜드",
+      "경험",
+      "지속가능성"
+    ],
+    "college_summary": "주요 대학의 관광경영학과, 관광학과, 호텔관광 관련 전공에서 운영",
+    "capability_summary": [
+      "기획 역량",
+      "서비스 이해 역량",
+      "의사소통 역량",
+      "자료 분석 역량"
+    ],
+    "linked_book_focus": "파타고니아, 파도가 칠 때는 서핑을, 동방견문록, 택리지 등을 통해 관광경영학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "지역 축제와 관광 활성화 구조 분석",
+      "관광과 환경 보존의 균형",
+      "여행 경험 디자인과 서비스 운영 탐구"
+    ],
+    "reference_materials_summary": "관광공사 자료 / 지역 축제 사례 / 관광 통계 / 서비스 디자인 자료",
+    "prep_activity_summary": "지역 관광 사례 조사 / 서비스 경험 분석 / 문화 자원 기획 활동"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "25",
+    "major_name": "관광경영학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트1.pdf",
+        "page_range": [
+          12,
+          13
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

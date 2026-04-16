@@ -1,35 +1,89 @@
 {
-  "major_id": "41",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트3.pdf",
+  "source_group": "social",
+  "major_no": 41,
   "major_name": "상담심리학과",
-  "track": "social",
-  "source_version": "v3",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트3.pdf",
-      "page_range": [
-        7,
-        8
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    7,
+    8
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "사람의 감정과 관계, 갈등과 회복 과정을 이해하고 상담 장면에서 어떻게 도움을 줄 수 있는지를 배우는 학과다. 공감만이 아니라 이론과 사례 해석이 중요하다.",
+    "key_theme_summary": [
+      "상담",
+      "심리",
+      "관계",
+      "갈등",
+      "회복",
+      "정서",
+      "상담기법",
+      "성장"
+    ],
+    "college_summary": "주요 대학의 상담심리학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "공감 능력",
+      "사례 해석 역량",
+      "의사소통 역량",
+      "윤리 의식"
+    ],
+    "linked_book_focus": "미움받을 용기, 팁스, 자존감 수업 등을 통해 상담심리학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "상담에서 경청과 질문 방식의 차이 분석",
+      "청소년 관계 갈등과 회복 과정 탐구",
+      "자존감과 대인관계 문제의 연결 구조 해석"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "41",
+    "major_name": "상담심리학과",
+    "track": "social",
+    "source_version": "v3",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트3.pdf",
+        "page_range": [
+          7,
+          8
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

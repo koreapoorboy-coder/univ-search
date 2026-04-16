@@ -1,35 +1,89 @@
 {
-  "major_id": "47",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트4.pdf",
+  "source_group": "social",
+  "major_no": 47,
   "major_name": "아동학과",
-  "track": "social",
-  "source_version": "v4",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트4.pdf",
-      "page_range": [
-        1,
-        2
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    1,
+    2
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "아동의 발달과 양육, 놀이, 교육 환경을 통해 성장 과정을 이해하는 학과다. 아이를 좋아하는 것만으로는 부족하고 발달 단계와 환경의 영향을 함께 보는 시각이 중요하다.",
+    "key_theme_summary": [
+      "아동",
+      "발달",
+      "양육",
+      "놀이",
+      "교육 환경",
+      "애착",
+      "성장",
+      "가족"
+    ],
+    "college_summary": "주요 대학의 아동학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "관찰 역량",
+      "발달 이해 역량",
+      "공감 능력",
+      "환경 해석 역량"
+    ],
+    "linked_book_focus": "팁스, 죽은 시인의 사회, 에밀 등을 통해 아동학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "놀이가 아동 발달에 미치는 영향 분석",
+      "가정 환경과 애착 형성의 관계 탐구",
+      "발달 단계에 따른 교육 방식 차이 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "47",
+    "major_name": "아동학과",
+    "track": "social",
+    "source_version": "v4",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트4.pdf",
+        "page_range": [
+          1,
+          2
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

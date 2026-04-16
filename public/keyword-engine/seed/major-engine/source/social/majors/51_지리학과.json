@@ -1,35 +1,89 @@
 {
-  "major_id": "51",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트4.pdf",
+  "source_group": "social",
+  "major_no": 51,
   "major_name": "지리학과",
-  "track": "social",
-  "source_version": "v4",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트4.pdf",
-      "page_range": [
-        9,
-        10
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    9,
+    10
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "자연환경과 인간 활동이 공간 속에서 어떻게 분포하고 연결되는지를 배우는 학과다. 지도를 읽는 수준을 넘어 지역과 세계를 공간적 구조로 해석하는 힘이 핵심이다.",
+    "key_theme_summary": [
+      "지리",
+      "공간",
+      "분포",
+      "지역",
+      "환경",
+      "지도",
+      "인문지리",
+      "자연지리"
+    ],
+    "college_summary": "주요 대학의 지리학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "공간 해석 역량",
+      "자료 시각화 역량",
+      "비교 분석 역량",
+      "장기적 시각"
+    ],
+    "linked_book_focus": "택리지, 동방견문록, 사피엔스 등을 통해 지리학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "지역별 인구·산업 분포가 형성되는 원인 분석",
+      "자연환경이 생활양식과 경제활동에 미치는 영향 비교",
+      "도시와 농촌의 공간 구조 차이를 지도 자료로 해석"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관·학회 자료 / 지도·통계·관측 데이터 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 사례 분석"
+  },
+  "engine_migration_note": "v1 환경/지리/도시 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "51",
+    "major_name": "지리학과",
+    "track": "social",
+    "source_version": "v4",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트4.pdf",
+        "page_range": [
+          9,
+          10
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

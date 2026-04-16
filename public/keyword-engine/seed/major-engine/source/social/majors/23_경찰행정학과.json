@@ -1,35 +1,89 @@
 {
-  "major_id": "23",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 23,
   "major_name": "경찰행정학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        8,
-        9
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    8,
+    9
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "사회 안전과 치안 체계, 범죄 예방과 대응, 공권력의 역할을 제도와 현장 문제와 함께 배우는 학과다. 안전과 인권을 함께 보는 균형 감각이 중요하다.",
+    "key_theme_summary": [
+      "경찰",
+      "치안",
+      "범죄",
+      "질서",
+      "예방",
+      "공공안전",
+      "인권",
+      "대응"
+    ],
+    "college_summary": "주요 대학의 경찰행정학과, 경찰학과, 공공안전 관련 전공에서 운영",
+    "capability_summary": [
+      "상황 판단 역량",
+      "문제 해결 역량",
+      "공공성 인식",
+      "의사소통 역량"
+    ],
+    "linked_book_focus": "앵무새 죽이기, 반지성주의, 비통한 자들을 위한 정치학 등을 통해 경찰행정학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "사이버범죄 예방과 청소년 안전",
+      "학교폭력 대응 체계 비교",
+      "공권력과 인권이 충돌하는 사례 분석"
+    ],
+    "reference_materials_summary": "경찰청 자료 / 범죄 통계 / 청소년 보호 정책 자료 / 판례 사례",
+    "prep_activity_summary": "안전 문제 사례 조사 / 범죄 예방 캠페인 기획 / 공권력 토론 활동"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "23",
+    "major_name": "경찰행정학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트1.pdf",
+        "page_range": [
+          8,
+          9
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

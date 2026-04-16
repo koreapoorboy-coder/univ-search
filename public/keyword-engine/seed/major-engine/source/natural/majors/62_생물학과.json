@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_062",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 62,
-  "major_name": "생물학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_자연계열.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 62,
+  "major_name": "생물학과",
+  "visible_pdf_pages": [
     14,
     15
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "다양한 생물의 구조와 기능, 종 간 관계와 생태를 폭넓게 배우는 학과다. 생명을 개별 개체와 종, 환경과의 연결 속에서 이해하는 시각이 중요하다.",
+    "key_theme_summary": [
+      "생물",
+      "종",
+      "생태",
+      "구조",
+      "기능",
+      "다양성",
+      "환경",
+      "관계"
+    ],
+    "college_summary": "주요 대학의 생물학과, 자연과학계열 관련 전공에서 운영",
+    "capability_summary": [
+      "관찰 역량",
+      "분류·비교 역량",
+      "생태 이해력",
+      "자료 해석 역량"
+    ],
+    "linked_book_focus": "이기적 유전자, 종의 기원, 사피엔스 등을 통해 생물학과와 연결되는 개념·탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "생물 다양성이 생태계 안정성에 미치는 영향 분석",
+      "생물의 구조와 기능 차이가 생존 전략에 미치는 역할 비교",
+      "환경 변화가 종 분포와 상호작용 구조를 바꾸는 과정 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 실험·관측·데이터 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 실험·탐구 정리"
   },
-  "normalization": {
-    "major_name_normalized": "생물학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 순수과학/생명계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_062",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 62,
+    "major_name": "생물학과",
+    "source_file": "학과별 전공탐구 활동_자연계열.pdf",
+    "source_page_refs": [
+      14,
+      15
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "생물학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

@@ -12,7 +12,7 @@
     236,
     237
   ],
-  "detail_status": "complete_two_page_visible",
+  "detail_status": "complete_two_page_visible_enriched_v1",
   "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
@@ -25,33 +25,90 @@
     "전공 준비활동"
   ],
   "extracted": {
-    "intro_summary": "하드웨어와 소프트웨어를 함께 다루며 컴퓨터 시스템을 설계·구현하는 전공으로, 알고리즘·운영체제·인공지능·보안·네트워크 등 폭넓은 분야와 연결된다.",
+    "intro_summary": "하드웨어와 소프트웨어를 함께 이해하며 컴퓨터 시스템과 알고리즘, 네트워크, AI 응용까지 배우는 핵심 전공이다. 시스템을 설계하고 구현하는 힘이 중요하다.",
     "key_theme_summary": [
-      "프로그래밍",
+      "컴퓨터공학",
+      "시스템",
       "알고리즘",
-      "컴퓨터 시스템",
-      "운영체제",
-      "인공지능",
-      "네트워크·보안"
+      "프로그래밍",
+      "네트워크",
+      "하드웨어",
+      "AI",
+      "구현"
     ],
-    "college_summary": "컴퓨터공학, 컴퓨터과학, 소프트웨어·AI 계열로 제시되며 정보통신·전자·데이터 분야와 융합적으로 연결된다.",
+    "college_summary": "주요 대학의 컴퓨터공학과, 공학계열 관련 전공에서 운영",
     "capability_summary": [
       "논리적 사고",
-      "프로그래밍 기초",
-      "문제 해결력",
-      "수학적 사고",
-      "시스템 이해"
+      "프로그래밍 역량",
+      "시스템 설계력",
+      "문제 해결력"
     ],
-    "linked_book_focus": "인공지능, 알고리즘, 컴퓨터 시스템과 디지털 사회 변화를 다루는 도서를 통해 컴퓨터 기술의 구조와 응용을 탐구하도록 연결한다.",
+    "linked_book_focus": "AI 2041, 칩 워, 제3의 물결 등을 통해 컴퓨터공학과와 연결되는 기술 원리와 산업 구조를 함께 탐구할 수 있다.",
     "topic_examples": [
-      "알고리즘 효율이 서비스 성능에 미치는 영향",
-      "AI 시스템과 전통적 프로그래밍의 차이 비교",
-      "운영체제와 컴퓨터 구조가 프로그램 실행에 미치는 영향",
-      "컴퓨터공학이 다양한 산업과 융합되는 사례 분석"
+      "컴퓨터 시스템에서 하드웨어와 소프트웨어의 관계 분석",
+      "알고리즘 선택이 서비스 성능에 미치는 영향 탐구",
+      "AI 응용 시스템이 컴퓨팅 환경에 주는 변화 비교"
     ],
-    "reference_materials_summary": "AI·알고리즘·운영체제·컴퓨터구조 관련 기사와 입문서, 소프트웨어 산업 자료를 함께 활용할 수 있다.",
-    "prep_activity_summary": "자율활동·동아리·탐구보고서에서 알고리즘 비교 실험, AI 서비스 분석, 시스템 구조 학습 활동을 권장한다."
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 산업 보고서 / 공학 기술 자료 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
   },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
-  "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  "engine_migration_note": "v1 공학계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "공학계열 파트 4.pdf",
+    "source_group": "engineering",
+    "major_no": 109,
+    "major_name": "컴퓨터공학과",
+    "visible_pdf_pages": [
+      15,
+      16
+    ],
+    "book_pages": [
+      236,
+      237
+    ],
+    "detail_status": "complete_two_page_visible",
+    "sections_available": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "extracted": {
+      "intro_summary": "하드웨어와 소프트웨어를 함께 다루며 컴퓨터 시스템을 설계·구현하는 전공으로, 알고리즘·운영체제·인공지능·보안·네트워크 등 폭넓은 분야와 연결된다.",
+      "key_theme_summary": [
+        "프로그래밍",
+        "알고리즘",
+        "컴퓨터 시스템",
+        "운영체제",
+        "인공지능",
+        "네트워크·보안"
+      ],
+      "college_summary": "컴퓨터공학, 컴퓨터과학, 소프트웨어·AI 계열로 제시되며 정보통신·전자·데이터 분야와 융합적으로 연결된다.",
+      "capability_summary": [
+        "논리적 사고",
+        "프로그래밍 기초",
+        "문제 해결력",
+        "수학적 사고",
+        "시스템 이해"
+      ],
+      "linked_book_focus": "인공지능, 알고리즘, 컴퓨터 시스템과 디지털 사회 변화를 다루는 도서를 통해 컴퓨터 기술의 구조와 응용을 탐구하도록 연결한다.",
+      "topic_examples": [
+        "알고리즘 효율이 서비스 성능에 미치는 영향",
+        "AI 시스템과 전통적 프로그래밍의 차이 비교",
+        "운영체제와 컴퓨터 구조가 프로그램 실행에 미치는 영향",
+        "컴퓨터공학이 다양한 산업과 융합되는 사례 분석"
+      ],
+      "reference_materials_summary": "AI·알고리즘·운영체제·컴퓨터구조 관련 기사와 입문서, 소프트웨어 산업 자료를 함께 활용할 수 있다.",
+      "prep_activity_summary": "자율활동·동아리·탐구보고서에서 알고리즘 비교 실험, AI 서비스 분석, 시스템 구조 학습 활동을 권장한다."
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
+    "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  }
 }

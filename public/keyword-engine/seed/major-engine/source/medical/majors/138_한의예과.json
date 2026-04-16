@@ -1,17 +1,16 @@
 {
-  "major_no": 138,
-  "major_id": "medical_138",
-  "major_name": "한의예과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "메디컬 계열 추가.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 138,
+  "major_name": "한의예과",
+  "visible_pdf_pages": [
     17,
     18
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "인체를 통합적 시스템으로 바라보며 진단과 치료, 예방 원리를 배우는 전공이다. 전통 의학 이론과 현대적 해석, 환자 상태를 종합적으로 보는 시각이 중요하다.",
+    "key_theme_summary": [
+      "한의학",
+      "진단",
+      "치료",
+      "예방",
+      "통합적 관점",
+      "체질",
+      "한방",
+      "인체시스템"
+    ],
+    "college_summary": "주요 대학의 한의예과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "종합적 사고",
+      "인체 이해력",
+      "윤리 의식",
+      "소통 능력"
+    ],
+    "linked_book_focus": "동의보감 이야기, 한방으로 읽는 몸, 닥터스 씽킹 등을 통해 한의예과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "통합적 인체 관점이 진단 방식에 미치는 영향 분석",
+      "전통 의학 지식과 현대 보건 문제의 연결 가능성 탐구",
+      "예방 중심 치료 접근이 가지는 의미 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 138,
+    "major_id": "medical_138",
+    "major_name": "한의예과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "메디컬 계열 추가.pdf",
+    "source_pages_visible": [
+      17,
+      18
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

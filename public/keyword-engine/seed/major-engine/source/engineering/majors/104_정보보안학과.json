@@ -12,7 +12,7 @@
     226,
     227
   ],
-  "detail_status": "complete_two_page_visible",
+  "detail_status": "complete_two_page_visible_enriched_v1",
   "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
@@ -25,33 +25,90 @@
     "전공 준비활동"
   ],
   "extracted": {
-    "intro_summary": "정보 보호, 암호, 네트워크, 시스템 보안, 디지털 포렌식 등으로 디지털 환경의 위협을 예방·탐지·대응하는 전공이다.",
+    "intro_summary": "데이터와 시스템을 보호하기 위한 암호화, 해킹 대응, 네트워크 보안 원리를 배우는 학과다. 정보 사회의 신뢰를 기술적으로 지키는 전공이다.",
     "key_theme_summary": [
-      "사이버보안",
-      "암호",
-      "네트워크 보안",
-      "시스템 보안",
-      "디지털 포렌식",
-      "보안 정책"
+      "정보보안",
+      "보안",
+      "암호화",
+      "해킹",
+      "네트워크",
+      "시스템",
+      "데이터",
+      "방어"
     ],
-    "college_summary": "정보보안, 사이버보안, 보안공학 계열로 제시되며 컴퓨터공학·AI·법·정책과도 연결된다.",
+    "college_summary": "주요 대학의 정보보안학과, 공학계열 관련 전공에서 운영",
     "capability_summary": [
       "논리적 사고",
-      "문제 해결력",
-      "네트워크 이해",
-      "프로그래밍 기초",
-      "보안 윤리 의식"
+      "프로그래밍 역량",
+      "위험 대응력",
+      "시스템 이해력"
     ],
-    "linked_book_focus": "해킹, 보안사고, 개인정보 보호, 네트워크 방어를 다루는 도서를 통해 디지털 사회의 위험과 보안 체계를 탐구하도록 연결한다.",
+    "linked_book_focus": "AI 2041, 제3의 물결, 미디어의 이해 등을 통해 정보보안학과와 연결되는 기술 원리와 산업 구조를 함께 탐구할 수 있다.",
     "topic_examples": [
-      "랜섬웨어와 피싱 공격의 동작 원리 비교",
-      "개인정보 보호 기술과 법·정책의 관계 분석",
-      "IoT 기기의 보안 취약점과 대응 방안 탐구",
-      "디지털 포렌식이 사건 분석에 활용되는 방식"
+      "암호화 기술이 정보 보호에 미치는 영향 분석",
+      "네트워크 보안 구조와 침입 대응 방식 비교",
+      "디지털 사회에서 보안 사고가 가지는 의미 탐구"
     ],
-    "reference_materials_summary": "보안 사고 사례, 개인정보 보호 정책, 네트워크 보안 기사, 포렌식 관련 자료를 함께 활용할 수 있다.",
-    "prep_activity_summary": "자율활동·동아리·탐구보고서에서 보안 위협 사례 분석, 암호 기술 조사, IoT 보안 주제 프로젝트 구상을 권장한다."
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 산업 보고서 / 공학 기술 자료 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
   },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
-  "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  "engine_migration_note": "v1 공학계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "공학계열 파트 4.pdf",
+    "source_group": "engineering",
+    "major_no": 104,
+    "major_name": "정보보안학과",
+    "visible_pdf_pages": [
+      5,
+      6
+    ],
+    "book_pages": [
+      226,
+      227
+    ],
+    "detail_status": "complete_two_page_visible",
+    "sections_available": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "extracted": {
+      "intro_summary": "정보 보호, 암호, 네트워크, 시스템 보안, 디지털 포렌식 등으로 디지털 환경의 위협을 예방·탐지·대응하는 전공이다.",
+      "key_theme_summary": [
+        "사이버보안",
+        "암호",
+        "네트워크 보안",
+        "시스템 보안",
+        "디지털 포렌식",
+        "보안 정책"
+      ],
+      "college_summary": "정보보안, 사이버보안, 보안공학 계열로 제시되며 컴퓨터공학·AI·법·정책과도 연결된다.",
+      "capability_summary": [
+        "논리적 사고",
+        "문제 해결력",
+        "네트워크 이해",
+        "프로그래밍 기초",
+        "보안 윤리 의식"
+      ],
+      "linked_book_focus": "해킹, 보안사고, 개인정보 보호, 네트워크 방어를 다루는 도서를 통해 디지털 사회의 위험과 보안 체계를 탐구하도록 연결한다.",
+      "topic_examples": [
+        "랜섬웨어와 피싱 공격의 동작 원리 비교",
+        "개인정보 보호 기술과 법·정책의 관계 분석",
+        "IoT 기기의 보안 취약점과 대응 방안 탐구",
+        "디지털 포렌식이 사건 분석에 활용되는 방식"
+      ],
+      "reference_materials_summary": "보안 사고 사례, 개인정보 보호 정책, 네트워크 보안 기사, 포렌식 관련 자료를 함께 활용할 수 있다.",
+      "prep_activity_summary": "자율활동·동아리·탐구보고서에서 보안 위협 사례 분석, 암호 기술 조사, IoT 보안 주제 프로젝트 구상을 권장한다."
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
+    "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  }
 }

@@ -1,35 +1,89 @@
 {
-  "major_id": "50",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트4.pdf",
+  "source_group": "social",
+  "major_no": 50,
   "major_name": "정치외교학과",
-  "track": "social",
-  "source_version": "v4",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트4.pdf",
-      "page_range": [
-        7,
-        8
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    7,
+    8
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "국가 권력과 민주주의, 외교와 국제질서처럼 정치가 사회 안팎에서 어떻게 작동하는지 배우는 학과다. 국내 정치와 국제정치를 함께 보는 구조적 시각이 중요하다.",
+    "key_theme_summary": [
+      "정치",
+      "외교",
+      "국가",
+      "권력",
+      "민주주의",
+      "국제정치",
+      "정당",
+      "시민성"
+    ],
+    "college_summary": "주요 대학의 정치외교학과, 국제정치학과, 정치행정 계열에서 운영",
+    "capability_summary": [
+      "구조적 해석 역량",
+      "시사 분석 역량",
+      "논증 역량",
+      "의사소통 역량"
+    ],
+    "linked_book_focus": "정의란 무엇인가, 문명의 충돌, 미국의 민주주의 등을 통해 정치외교학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "민주주의 제도와 시민 참여의 관계",
+      "국제갈등을 보는 현실주의와 문화적 시각 비교",
+      "정당 정치와 청소년 정치 인식 탐구"
+    ],
+    "reference_materials_summary": "외교부·국회 자료 / 국제 뉴스 / 선거 데이터 / 여론조사 자료",
+    "prep_activity_summary": "시사 토론 / 정책 비교 발표 / 국제 뉴스 구조 분석"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "50",
+    "major_name": "정치외교학과",
+    "track": "social",
+    "source_version": "v4",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트4.pdf",
+        "page_range": [
+          7,
+          8
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

@@ -12,7 +12,7 @@
     238,
     239
   ],
-  "detail_status": "complete_two_page_visible",
+  "detail_status": "complete_two_page_visible_enriched_v1",
   "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
@@ -24,35 +24,92 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "extraction_mode": "normalized_from_visible_pages",
   "extracted": {
-    "intro_summary": "도로·교량·터널·철도·댐 등 사회기반시설의 계획·설계·시공·유지관리를 다루는 전공으로, 구조·지반·수자원·교통과 도시 인프라를 종합적으로 다룬다.",
+    "intro_summary": "도로·교량·터널·댐 같은 사회기반시설을 설계하고 시공·관리하는 학과다. 사람들의 생활을 지탱하는 인프라를 공학적으로 이해하는 전공이다.",
     "key_theme_summary": [
-      "사회기반시설",
-      "구조·지반",
-      "교통 인프라",
-      "수자원·방재",
-      "시공관리",
-      "스마트 건설"
+      "토목",
+      "인프라",
+      "도로",
+      "교량",
+      "터널",
+      "구조",
+      "시공",
+      "사회기반시설"
     ],
-    "college_summary": "개설 대학 섹션이 제시되며 토목·건설·인프라 계열 전공으로 연결된다.",
+    "college_summary": "주요 대학의 토목공학과, 공학계열 관련 전공에서 운영",
     "capability_summary": [
-      "수학·물리 기초",
-      "구조 해석 능력",
-      "공간·시스템 사고",
-      "CAD·BIM 등 도구 활용",
-      "안전·공공성 인식"
+      "구조 이해력",
+      "공간 해석력",
+      "문제 해결력",
+      "정확한 분석력"
     ],
-    "linked_book_focus": "토목 구조물과 인프라, 공학사와 도시·교통 시스템을 다루는 도서를 통해 토목공학의 사회적 역할과 구조 설계 원리를 탐구하도록 연결한다.",
+    "linked_book_focus": "사람, 장소, 환대, 엔트로피, 미래를 여는 공학 등을 통해 토목공학과와 연결되는 기술 원리와 산업 구조를 함께 탐구할 수 있다.",
     "topic_examples": [
-      "교량과 터널 구조 설계의 차이 비교",
-      "스마트 토목 유지관리 기술이 안전성에 미치는 영향",
-      "지반 특성과 구조 안정성의 관계 탐구",
-      "도시 교통 인프라와 토목공학의 연계 분석"
+      "사회기반시설 설계가 생활 편의에 미치는 영향 분석",
+      "교량·터널 구조 차이가 안전성에 미치는 영향 탐구",
+      "토목 인프라 유지관리 시스템 비교"
     ],
-    "reference_materials_summary": "토목 구조물, BIM·GIS, 도시 인프라, 교량·도로·수자원 관련 기사와 보고서를 함께 활용할 수 있다.",
-    "prep_activity_summary": "자율활동·동아리·탐구보고서에서 인프라 설계, 구조 안전, 교통·수자원 연계 문제를 탐구하는 활동을 권장한다."
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 산업 보고서 / 공학 기술 자료 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
   },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
-  "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  "engine_migration_note": "v1 공학계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "공학계열 파트 5.pdf",
+    "source_group": "engineering",
+    "major_no": 110,
+    "major_name": "토목공학과",
+    "visible_pdf_pages": [
+      1,
+      2
+    ],
+    "book_pages": [
+      238,
+      239
+    ],
+    "detail_status": "complete_two_page_visible",
+    "sections_available": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "extraction_mode": "normalized_from_visible_pages",
+    "extracted": {
+      "intro_summary": "도로·교량·터널·철도·댐 등 사회기반시설의 계획·설계·시공·유지관리를 다루는 전공으로, 구조·지반·수자원·교통과 도시 인프라를 종합적으로 다룬다.",
+      "key_theme_summary": [
+        "사회기반시설",
+        "구조·지반",
+        "교통 인프라",
+        "수자원·방재",
+        "시공관리",
+        "스마트 건설"
+      ],
+      "college_summary": "개설 대학 섹션이 제시되며 토목·건설·인프라 계열 전공으로 연결된다.",
+      "capability_summary": [
+        "수학·물리 기초",
+        "구조 해석 능력",
+        "공간·시스템 사고",
+        "CAD·BIM 등 도구 활용",
+        "안전·공공성 인식"
+      ],
+      "linked_book_focus": "토목 구조물과 인프라, 공학사와 도시·교통 시스템을 다루는 도서를 통해 토목공학의 사회적 역할과 구조 설계 원리를 탐구하도록 연결한다.",
+      "topic_examples": [
+        "교량과 터널 구조 설계의 차이 비교",
+        "스마트 토목 유지관리 기술이 안전성에 미치는 영향",
+        "지반 특성과 구조 안정성의 관계 탐구",
+        "도시 교통 인프라와 토목공학의 연계 분석"
+      ],
+      "reference_materials_summary": "토목 구조물, BIM·GIS, 도시 인프라, 교량·도로·수자원 관련 기사와 보고서를 함께 활용할 수 있다.",
+      "prep_activity_summary": "자율활동·동아리·탐구보고서에서 인프라 설계, 구조 안전, 교통·수자원 연계 문제를 탐구하는 활동을 권장한다."
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
+    "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  }
 }

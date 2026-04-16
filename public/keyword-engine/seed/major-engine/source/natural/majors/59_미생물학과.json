@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_059",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 59,
-  "major_name": "미생물학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_자연계열.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 59,
+  "major_name": "미생물학과",
+  "visible_pdf_pages": [
     8,
     9
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "눈에 보이지 않는 미생물의 구조와 증식, 상호작용을 배우며 질병과 산업, 환경과 연결되는 미생물 세계를 탐구하는 학과다. 작은 생명체가 만드는 큰 변화를 이해하는 전공이다.",
+    "key_theme_summary": [
+      "미생물",
+      "세균",
+      "바이러스",
+      "증식",
+      "감염",
+      "환경",
+      "생태",
+      "응용"
+    ],
+    "college_summary": "주요 대학의 미생물학과, 자연과학계열 관련 전공에서 운영",
+    "capability_summary": [
+      "관찰·실험 역량",
+      "생명현상 해석력",
+      "자료 분석 역량",
+      "정밀한 탐구 태도"
+    ],
+    "linked_book_focus": "닥터스 씽킹, 입속에서 시작하는 미생물 이야기, 이기적 유전자 등을 통해 미생물학과와 연결되는 개념·탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "미생물 군집 변화가 건강과 환경에 미치는 영향 분석",
+      "항생제 사용과 내성 문제를 미생물 관점에서 해석",
+      "산업·식품·의학 분야에서 미생물 활용 사례 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 실험·관측·데이터 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 실험·탐구 정리"
   },
-  "normalization": {
-    "major_name_normalized": "미생물학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 순수과학/생명계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_059",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 59,
+    "major_name": "미생물학과",
+    "source_file": "학과별 전공탐구 활동_자연계열.pdf",
+    "source_page_refs": [
+      8,
+      9
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "미생물학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

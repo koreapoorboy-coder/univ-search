@@ -12,7 +12,7 @@
     240,
     241
   ],
-  "detail_status": "complete_two_page_visible",
+  "detail_status": "complete_two_page_visible_enriched_v1",
   "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
@@ -24,35 +24,92 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "extraction_mode": "normalized_from_visible_pages",
   "extracted": {
-    "intro_summary": "토목공학의 인프라 설계와 환경공학의 수질·대기·폐기물·도시환경 문제를 함께 다루며, 지속가능한 기반시설과 환경 보전을 통합적으로 다루는 전공이다.",
+    "intro_summary": "토목 기술과 환경 관리 문제를 함께 다루며 인프라와 수질·대기·자원 문제를 통합적으로 배우는 학과다.",
     "key_theme_summary": [
-      "토목 인프라",
-      "환경시스템",
-      "수자원 관리",
-      "도시환경",
-      "지속가능성",
-      "기후·재난 대응"
+      "토목환경",
+      "인프라",
+      "수질",
+      "대기",
+      "자원",
+      "환경관리",
+      "구조",
+      "지속가능성"
     ],
-    "college_summary": "개설 대학 섹션이 제시되며 토목·환경·도시·수자원 계열 전공으로 연결된다.",
+    "college_summary": "주요 대학의 토목환경공학과, 공학계열 관련 전공에서 운영",
     "capability_summary": [
-      "수학·과학 기초",
-      "환경 데이터 해석",
-      "시스템적 문제 해결력",
-      "공공성·안전 의식",
-      "도구 활용 능력"
+      "통합적 사고",
+      "환경 해석력",
+      "구조 이해력",
+      "문제 해결력"
     ],
-    "linked_book_focus": "도시와 환경, 지속가능한 인프라와 환경 문제 해결을 다루는 도서를 통해 토목환경공학의 통합적 관점을 탐구하도록 연결한다.",
+    "linked_book_focus": "오래된 미래, 기후 변화와 지속가능한 세계, 엔트로피 등을 통해 토목환경공학과와 연결되는 기술 원리와 산업 구조를 함께 탐구할 수 있다.",
     "topic_examples": [
-      "도시 인프라가 환경에 미치는 영향 분석",
-      "빗물·하천 관리와 수자원 시스템 설계 탐구",
-      "친환경 도시기반시설의 사례 비교",
-      "기후변화 시대의 토목환경 대응 전략 분석"
+      "토목 구조와 환경 관리 기준의 관계 분석",
+      "도시 인프라와 수질 관리 체계 비교",
+      "지속가능한 토목 기술 사례 탐구"
     ],
-    "reference_materials_summary": "스마트시티, 수자원, 도시환경, 환경보전과 관련된 기사·연구자료·정책 자료를 함께 활용할 수 있다.",
-    "prep_activity_summary": "자율활동·동아리·탐구보고서에서 도시환경, 물관리, 환경 인프라, 지속가능 설계와 관련된 활동을 권장한다."
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 산업 보고서 / 공학 기술 자료 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
   },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
-  "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  "engine_migration_note": "v1 공학계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "공학계열 파트 5.pdf",
+    "source_group": "engineering",
+    "major_no": 111,
+    "major_name": "토목환경공학과",
+    "visible_pdf_pages": [
+      3,
+      4
+    ],
+    "book_pages": [
+      240,
+      241
+    ],
+    "detail_status": "complete_two_page_visible",
+    "sections_available": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "extraction_mode": "normalized_from_visible_pages",
+    "extracted": {
+      "intro_summary": "토목공학의 인프라 설계와 환경공학의 수질·대기·폐기물·도시환경 문제를 함께 다루며, 지속가능한 기반시설과 환경 보전을 통합적으로 다루는 전공이다.",
+      "key_theme_summary": [
+        "토목 인프라",
+        "환경시스템",
+        "수자원 관리",
+        "도시환경",
+        "지속가능성",
+        "기후·재난 대응"
+      ],
+      "college_summary": "개설 대학 섹션이 제시되며 토목·환경·도시·수자원 계열 전공으로 연결된다.",
+      "capability_summary": [
+        "수학·과학 기초",
+        "환경 데이터 해석",
+        "시스템적 문제 해결력",
+        "공공성·안전 의식",
+        "도구 활용 능력"
+      ],
+      "linked_book_focus": "도시와 환경, 지속가능한 인프라와 환경 문제 해결을 다루는 도서를 통해 토목환경공학의 통합적 관점을 탐구하도록 연결한다.",
+      "topic_examples": [
+        "도시 인프라가 환경에 미치는 영향 분석",
+        "빗물·하천 관리와 수자원 시스템 설계 탐구",
+        "친환경 도시기반시설의 사례 비교",
+        "기후변화 시대의 토목환경 대응 전략 분석"
+      ],
+      "reference_materials_summary": "스마트시티, 수자원, 도시환경, 환경보전과 관련된 기사·연구자료·정책 자료를 함께 활용할 수 있다.",
+      "prep_activity_summary": "자율활동·동아리·탐구보고서에서 도시환경, 물관리, 환경 인프라, 지속가능 설계와 관련된 활동을 권장한다."
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
+    "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  }
 }

@@ -1,17 +1,16 @@
 {
-  "major_no": 137,
-  "major_id": "medical_137",
-  "major_name": "치의예과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "메디컬 계열 추가.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 137,
+  "major_name": "치의예과",
+  "visible_pdf_pages": [
     15,
     16
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "치아와 구강 구조, 질환의 진단과 치료, 예방과 재건을 배우는 대표 치의학 전공이다. 인체 이해와 정밀성, 환자 소통과 예방 관점을 함께 요구한다.",
+    "key_theme_summary": [
+      "치의학",
+      "구강",
+      "치아",
+      "진단",
+      "치료",
+      "예방",
+      "재건",
+      "정밀성"
+    ],
+    "college_summary": "주요 대학의 치의예과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "정밀한 분석력",
+      "기초과학 역량",
+      "소통 능력",
+      "윤리 의식"
+    ],
+    "linked_book_focus": "치과의사가 말하는 치과의사, 입속에서 시작하는 미생물 이야기, 치과의사는 입만 진료하지 않는다 등을 통해 치의예과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "구강 질환 진단 과정과 치료 선택 기준 분석",
+      "예방 중심 치과 진료가 가지는 의미 탐구",
+      "구강 건강과 전신 건강의 연관성 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 137,
+    "major_id": "medical_137",
+    "major_name": "치의예과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "메디컬 계열 추가.pdf",
+    "source_pages_visible": [
+      15,
+      16
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

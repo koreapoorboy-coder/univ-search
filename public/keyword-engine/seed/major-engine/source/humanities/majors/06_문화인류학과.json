@@ -1,19 +1,13 @@
 {
-  "major_id": 6,
-  "major_code": "06",
+  "source_type": "pdf_extracted_source",
+  "source_file": null,
+  "source_group": "humanities",
+  "major_no": 6,
   "major_name": "문화인류학과",
-  "track": "인문계열",
-  "source_status": "complete_two_page_visible",
-  "source_pdf": "인문계열 part1.pdf",
-  "source_pages": [
-    12,
-    13
-  ],
-  "source_page_range_label": "12-13",
-  "document_type": "major_source",
-  "schema_version": "1.0",
-  "extraction_mode": "page-visual-structured",
-  "profile_sections": [
+  "visible_pdf_pages": [],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -24,11 +18,68 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": [
-    "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
-    "세부 문장 단위 원문 OCR은 추후 보강 가능",
-    "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
-  ],
-  "raw_capture_level": "section-aware",
-  "completion_confidence": "high"
+  "extracted": {
+    "intro_summary": "다양한 문화와 생활양식, 관습과 상징을 현장 조사와 해석을 통해 배우는 학과다. 낯선 문화를 이해하는 방식 자체를 탐구한다.",
+    "key_theme_summary": [
+      "문화인류학",
+      "현지조사",
+      "관습",
+      "문화",
+      "의례",
+      "타자 이해",
+      "생활양식",
+      "해석"
+    ],
+    "college_summary": "주요 대학의 문화인류학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "관찰 역량",
+      "비교문화 역량",
+      "질문 설계 역량",
+      "해석 능력"
+    ],
+    "linked_book_focus": "국화와 칼, 슬픈 열대, 오리엔탈리즘 등을 통해 문화인류학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "한 사회의 관습을 해석하는 기준 비교",
+      "문화 차이가 일상 행동에 미치는 영향 분석",
+      "타문화를 바라보는 시선의 한계 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": 6,
+    "major_code": "06",
+    "major_name": "문화인류학과",
+    "track": "인문계열",
+    "source_status": "complete_two_page_visible",
+    "source_pdf": "인문계열 part1.pdf",
+    "source_pages": [
+      12,
+      13
+    ],
+    "source_page_range_label": "12-13",
+    "document_type": "major_source",
+    "schema_version": "1.0",
+    "extraction_mode": "page-visual-structured",
+    "profile_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
+      "세부 문장 단위 원문 OCR은 추후 보강 가능",
+      "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
+    ],
+    "raw_capture_level": "section-aware",
+    "completion_confidence": "high"
+  }
 }

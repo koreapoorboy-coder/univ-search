@@ -1,17 +1,16 @@
 {
-  "major_no": 12,
-  "major_id": "humanities_012",
-  "major_name": "아랍어과",
-  "track": "인문계열",
-  "source_folder": "humanities",
+  "source_type": "pdf_extracted_source",
   "source_file": "인문계열 part2.pdf",
-  "source_pages_visible": [
+  "source_group": "humanities",
+  "major_no": 12,
+  "major_name": "아랍어과",
+  "visible_pdf_pages": [
     5,
     6
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -22,11 +21,66 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "아랍어를 바탕으로 중동 지역의 역사와 문화, 사회를 함께 배우는 학과다. 언어를 통해 지역 세계를 이해하는 힘이 중요하다.",
+    "key_theme_summary": [
+      "아랍어",
+      "중동",
+      "문화",
+      "언어",
+      "지역 이해",
+      "역사",
+      "종교",
+      "번역"
+    ],
+    "college_summary": "주요 대학의 아랍어과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "언어 이해 역량",
+      "지역 이해 역량",
+      "비교문화 감각",
+      "독해력"
+    ],
+    "linked_book_focus": "아라비안 나이트, 오리엔탈리즘, 문명의 충돌 등을 통해 아랍어과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "중동 문화권을 바라보는 시각 비교",
+      "언어와 종교가 지역 정체성에 미치는 영향",
+      "설화와 문학으로 읽는 문화권 특징 분석"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_no": 12,
+    "major_id": "humanities_012",
+    "major_name": "아랍어과",
+    "track": "인문계열",
+    "source_folder": "humanities",
+    "source_file": "인문계열 part2.pdf",
+    "source_pages_visible": [
+      5,
+      6
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

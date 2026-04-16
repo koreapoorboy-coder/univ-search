@@ -1,17 +1,16 @@
 {
-  "major_no": 130,
-  "major_id": "medical_130",
-  "major_name": "한약학과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "메디컬 계열 추가.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 130,
+  "major_name": "한약학과",
+  "visible_pdf_pages": [
     1,
     2
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "한약재의 성질과 조합, 전통 의약 이론과 현대적 검증을 함께 배우는 전공이다. 약용 식물과 처방 체계를 이해하고 안전한 활용 기준을 다룬다.",
+    "key_theme_summary": [
+      "한약학",
+      "한약재",
+      "처방",
+      "약용식물",
+      "전통의약",
+      "성분",
+      "안전성",
+      "조합"
+    ],
+    "college_summary": "주요 대학의 한약학과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "생명·화학 기초",
+      "체계적 분류 능력",
+      "윤리 의식",
+      "전통과 현대를 잇는 사고"
+    ],
+    "linked_book_focus": "동의보감 이야기, 위대하고 위험한 약 이야기, 약의 탄생 등을 통해 한약학과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "한약재의 성질과 처방 조합 원리 분석",
+      "전통 의약 지식과 현대 검증 방식 비교",
+      "약용식물 활용과 안전성 관리 기준 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 130,
+    "major_id": "medical_130",
+    "major_name": "한약학과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "메디컬 계열 추가.pdf",
+    "source_pages_visible": [
+      1,
+      2
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

@@ -1,35 +1,89 @@
 {
-  "major_id": "31",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트2.pdf",
+  "source_group": "social",
+  "major_no": 31,
   "major_name": "농업경제학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트2.pdf",
-      "page_range": [
-        5,
-        6
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    5,
+    6
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "농업과 식량 문제를 시장과 정책, 지역경제의 관점에서 배우는 학과다. 생산 구조와 유통, 농촌 문제를 경제적으로 해석하는 전공이다.",
+    "key_theme_summary": [
+      "농업경제",
+      "식량",
+      "유통",
+      "정책",
+      "농촌",
+      "시장",
+      "생산",
+      "지역경제"
+    ],
+    "college_summary": "주요 대학의 농업경제학과, 사회계열 관련 전공에서 운영",
+    "capability_summary": [
+      "경제 해석력",
+      "지역 이해력",
+      "정책 분석 역량",
+      "자료 분석력"
+    ],
+    "linked_book_focus": "국부론, 왜 세계의 절반은 굶주리는가, 오래된 미래 등을 통해 농업경제학과와 연결되는 구조·사례·진로 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "농산물 유통 구조가 가격 형성에 미치는 영향 분석",
+      "식량 문제와 지역경제의 관계 탐구",
+      "농업 정책이 농촌 공동체에 미치는 변화 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관 자료 / 산업 보고서 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
+  },
+  "engine_migration_note": "v1 사회계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "31",
+    "major_name": "농업경제학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트2.pdf",
+        "page_range": [
+          5,
+          6
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

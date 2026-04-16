@@ -1,35 +1,89 @@
 {
-  "major_id": "40",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트3.pdf",
+  "source_group": "social",
+  "major_no": 40,
   "major_name": "사회학과",
-  "track": "social",
-  "source_version": "v3",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트3.pdf",
-      "page_range": [
-        5,
-        6
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    5,
+    6
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "개인의 선택과 감정, 제도와 문화가 사회 구조 속에서 어떻게 연결되는지를 배우는 학과다. 익숙한 일상을 구조적으로 낯설게 보는 힘이 중요하다.",
+    "key_theme_summary": [
+      "사회학",
+      "구조",
+      "문화",
+      "제도",
+      "관계",
+      "불평등",
+      "규범",
+      "집단"
+    ],
+    "college_summary": "주요 대학의 사회학과, 사회계열 관련 전공에서 운영",
+    "capability_summary": [
+      "구조적 사고",
+      "비판적 시각",
+      "자료 해석력",
+      "개념 연결 능력"
+    ],
+    "linked_book_focus": "선량한 차별주의자, 문명화 과정, 프로테스탄트 윤리와 자본주의 정신 등을 통해 사회학과와 연결되는 구조·사례·진로 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "일상 속 차별과 규범이 사회 구조와 연결되는 방식 분석",
+      "불평등이 개인 선택에 미치는 영향 탐구",
+      "문화와 제도가 집단 행동을 형성하는 과정 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관 자료 / 산업 보고서 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 발표·토론"
+  },
+  "engine_migration_note": "v1 사회계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "40",
+    "major_name": "사회학과",
+    "track": "social",
+    "source_version": "v3",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트3.pdf",
+        "page_range": [
+          5,
+          6
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

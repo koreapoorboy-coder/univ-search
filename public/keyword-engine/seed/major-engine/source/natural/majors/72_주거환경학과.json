@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_072",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 72,
-  "major_name": "주거환경학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "자연계열 파트 2.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 72,
+  "major_name": "주거환경학과",
+  "visible_pdf_pages": [
     15,
     16
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "사람이 사는 공간의 구조와 생활 환경, 가구와 동선, 안전과 편의를 함께 배우는 학과다. 주거를 단순 건축물이 아니라 삶의 질을 만드는 환경으로 본다.",
+    "key_theme_summary": [
+      "주거",
+      "생활공간",
+      "실내환경",
+      "동선",
+      "주거안전",
+      "가구",
+      "공간계획",
+      "삶의 질"
+    ],
+    "college_summary": "주요 대학의 주거환경학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "생활공간 이해 역량",
+      "문제 해결 역량",
+      "설계 감각",
+      "사용자 관점 사고"
+    ],
+    "linked_book_focus": "디자인 인문학, 사람, 장소, 환대, 돈으로 살 수 없는 것들 등을 통해 주거환경학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "주거 공간 설계가 생활 습관에 미치는 영향 분석",
+      "세대별 주거환경 요구 차이 비교",
+      "안전과 편의를 반영한 생활 공간 개선 방향 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관·학회 자료 / 지도·통계·관측 데이터 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 사례 분석"
   },
-  "normalization": {
-    "major_name_normalized": "주거환경학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 환경/지리/도시 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_072",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 72,
+    "major_name": "주거환경학과",
+    "source_file": "자연계열 파트 2.pdf",
+    "source_page_refs": [
+      15,
+      16
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "주거환경학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

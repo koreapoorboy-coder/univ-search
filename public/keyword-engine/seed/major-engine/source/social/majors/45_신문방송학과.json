@@ -1,35 +1,89 @@
 {
-  "major_id": "45",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트3.pdf",
+  "source_group": "social",
+  "major_no": 45,
   "major_name": "신문방송학과",
-  "track": "social",
-  "source_version": "v3",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트3.pdf",
-      "page_range": [
-        15,
-        16
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    15,
+    16
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "뉴스와 방송 콘텐츠가 어떻게 제작되고 전달되며 사회 의제를 형성하는지 배우는 학과다. 보도와 편집, 시사 해석, 공공성과 미디어 윤리를 함께 다룬다.",
+    "key_theme_summary": [
+      "신문방송",
+      "뉴스",
+      "보도",
+      "편집",
+      "시사",
+      "방송",
+      "저널리즘",
+      "미디어윤리"
+    ],
+    "college_summary": "주요 대학의 신문방송학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "시사 분석 역량",
+      "매체 이해 역량",
+      "표현 역량",
+      "윤리 의식"
+    ],
+    "linked_book_focus": "미디어의 이해, 반지성주의, 정의란 무엇인가 등을 통해 신문방송학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "뉴스 프레이밍이 사건 인식에 미치는 영향 분석",
+      "방송 보도와 디지털 뉴스의 전달 방식 비교",
+      "미디어 윤리와 공공성 기준을 사례로 검토하기"
+    ],
+    "reference_materials_summary": "기사·방송 자료 / 플랫폼 사례 / 산업 보고서 / 학술·통계 자료 / 전공 기초 서적",
+    "prep_activity_summary": "기사 스크랩 / 매체 비교 분석 / 발표·토론 / 보고서 작성 / 콘텐츠 구조 분석"
+  },
+  "engine_migration_note": "v1 미디어/디자인/문화콘텐츠 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "45",
+    "major_name": "신문방송학과",
+    "track": "social",
+    "source_version": "v3",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트3.pdf",
+        "page_range": [
+          15,
+          16
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

@@ -1,35 +1,89 @@
 {
-  "major_id": "28",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 28,
   "major_name": "국제학부",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        18,
-        18
-      ],
-      "visibility_status": "partial_one_page_visible"
+  "visible_pdf_pages": [
+    18,
+    19
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "국제사회에서 일어나는 정치, 경제, 문화, 외교 문제를 통합적으로 배우는 전공이다. 한 분야만이 아니라 여러 변수를 함께 보며 세계 이슈를 해석하는 힘이 중요하다.",
+    "key_theme_summary": [
+      "국제",
+      "외교",
+      "세계 이슈",
+      "정치",
+      "경제",
+      "문화",
+      "국제기구",
+      "갈등"
+    ],
+    "college_summary": "주요 대학의 국제학부, 글로벌학부, 국제지역 관련 전공에서 운영",
+    "capability_summary": [
+      "통합적 해석 역량",
+      "시사 분석 역량",
+      "의사소통 역량",
+      "언어 활용 역량"
+    ],
+    "linked_book_focus": "문명의 충돌, 오리엔탈리즘, 사피엔스 등을 통해 국제학부와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "국제갈등을 보는 문화적 시각과 현실주의 비교",
+      "국제기구의 역할과 한계 분석",
+      "세계 이슈를 정치·경제·문화 변수로 함께 읽기"
+    ],
+    "reference_materials_summary": "국제 뉴스 / UN 자료 / 외교부 자료 / 국제 분쟁 보고서",
+    "prep_activity_summary": "국제 뉴스 스크랩 / 시사 토론 / 국가별 이슈 비교 발표"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "28",
+    "major_name": "국제학부",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트1.pdf",
+        "page_range": [
+          18,
+          18
+        ],
+        "visibility_status": "partial_one_page_visible"
+      }
+    ],
+    "structuring_status": "partial_one_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "partial_one_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

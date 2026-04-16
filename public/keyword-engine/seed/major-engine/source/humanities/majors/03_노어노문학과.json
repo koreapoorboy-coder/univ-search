@@ -1,19 +1,13 @@
 {
-  "major_id": 3,
-  "major_code": "03",
+  "source_type": "pdf_extracted_source",
+  "source_file": null,
+  "source_group": "humanities",
+  "major_no": 3,
   "major_name": "노어노문학과",
-  "track": "인문계열",
-  "source_status": "complete_two_page_visible",
-  "source_pdf": "인문계열 part1.pdf",
-  "source_pages": [
-    6,
-    7
-  ],
-  "source_page_range_label": "6-7",
-  "document_type": "major_source",
-  "schema_version": "1.0",
-  "extraction_mode": "page-visual-structured",
-  "profile_sections": [
+  "visible_pdf_pages": [],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -24,11 +18,68 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": [
-    "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
-    "세부 문장 단위 원문 OCR은 추후 보강 가능",
-    "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
-  ],
-  "raw_capture_level": "section-aware",
-  "completion_confidence": "high"
+  "extracted": {
+    "intro_summary": "러시아어와 러시아 문학·문화를 함께 배우며 언어와 사회, 사상의 흐름을 읽는 학과다. 작품과 문화권을 함께 보는 시각이 중요하다.",
+    "key_theme_summary": [
+      "러시아어",
+      "러시아문학",
+      "문화",
+      "번역",
+      "언어",
+      "사상",
+      "서사",
+      "비교문학"
+    ],
+    "college_summary": "주요 대학의 노어노문학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "외국어 이해 역량",
+      "해석 역량",
+      "비교문화 역량",
+      "독해력"
+    ],
+    "linked_book_focus": "카라마조프가의 형제들, 우리 시대의 영웅, 백년 동안의 고독 등을 통해 노어노문학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "러시아 문학 속 인간 내면과 사회 구조 분석",
+      "번역 과정에서 의미가 달라지는 표현 비교",
+      "문학 작품으로 읽는 러시아 문화권의 특징"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": 3,
+    "major_code": "03",
+    "major_name": "노어노문학과",
+    "track": "인문계열",
+    "source_status": "complete_two_page_visible",
+    "source_pdf": "인문계열 part1.pdf",
+    "source_pages": [
+      6,
+      7
+    ],
+    "source_page_range_label": "6-7",
+    "document_type": "major_source",
+    "schema_version": "1.0",
+    "extraction_mode": "page-visual-structured",
+    "profile_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
+      "세부 문장 단위 원문 OCR은 추후 보강 가능",
+      "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
+    ],
+    "raw_capture_level": "section-aware",
+    "completion_confidence": "high"
+  }
 }

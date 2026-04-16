@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_056",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 56,
-  "major_name": "대기과학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_자연계열.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 56,
+  "major_name": "대기과학과",
+  "visible_pdf_pages": [
     2,
     3
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "대기의 구조와 운동, 기상 현상, 기후 변화를 과학적으로 배우는 학과다. 날씨를 예보하는 수준을 넘어 대기 시스템 전체를 이해하는 전공이다.",
+    "key_theme_summary": [
+      "대기",
+      "기상",
+      "기후",
+      "대기순환",
+      "예측",
+      "기후변화",
+      "관측",
+      "모델링"
+    ],
+    "college_summary": "주요 대학의 대기과학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "수리·모델링 역량",
+      "관측 자료 해석 역량",
+      "시스템 사고",
+      "과학적 탐구 역량"
+    ],
+    "linked_book_focus": "카오스, 엔트로피, 기후 변화와 지속가능한 세계 등을 통해 대기과학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "기상 예측에 필요한 변수와 모델링 구조 분석",
+      "기후 변화가 지역별 기상 패턴에 미치는 영향 탐구",
+      "대기오염과 기상 조건의 상호작용 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관·학회 자료 / 지도·통계·관측 데이터 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 사례 분석"
   },
-  "normalization": {
-    "major_name_normalized": "대기과학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 환경/지리/도시 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_056",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 56,
+    "major_name": "대기과학과",
+    "source_file": "학과별 전공탐구 활동_자연계열.pdf",
+    "source_page_refs": [
+      2,
+      3
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "대기과학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

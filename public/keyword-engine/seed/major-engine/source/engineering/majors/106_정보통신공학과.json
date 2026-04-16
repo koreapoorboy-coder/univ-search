@@ -12,7 +12,7 @@
     230,
     231
   ],
-  "detail_status": "complete_two_page_visible",
+  "detail_status": "complete_two_page_visible_enriched_v1",
   "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
@@ -25,33 +25,90 @@
     "전공 준비활동"
   ],
   "extracted": {
-    "intro_summary": "데이터와 정보를 유선·무선 네트워크로 전달하고, 통신 시스템과 미디어 인프라를 설계·운영하는 전공으로 5G·IoT·스마트시티와 연결된다.",
+    "intro_summary": "정보를 전송하고 처리하는 통신 시스템과 네트워크, 무선 기술을 배우는 학과다. 기기 간 연결과 데이터 흐름이 사회를 어떻게 바꾸는지 함께 이해하는 전공이다.",
     "key_theme_summary": [
-      "통신 시스템",
+      "정보통신",
       "네트워크",
-      "무선 통신",
-      "미디어 전송",
-      "IoT",
-      "스마트 인프라"
+      "무선",
+      "데이터 전송",
+      "통신 시스템",
+      "신호",
+      "연결",
+      "플랫폼"
     ],
-    "college_summary": "정보통신, 통신공학, 네트워크 시스템 계열로 제시되며 전자공학·컴퓨터공학·AI와 융합된다.",
+    "college_summary": "주요 대학의 정보통신공학과, 공학계열 관련 전공에서 운영",
     "capability_summary": [
-      "수학·물리 기반",
-      "네트워크 이해",
-      "데이터 전송 개념",
-      "시스템 분석력",
-      "융합적 사고"
+      "시스템 이해 역량",
+      "논리적 사고",
+      "정보 해석 역량",
+      "문제 해결 역량"
     ],
-    "linked_book_focus": "네트워크, 이동통신, 사물인터넷, 스마트시티 통신 인프라를 다루는 도서를 통해 연결 사회의 기반 기술을 탐구하도록 연결한다.",
+    "linked_book_focus": "제3의 물결, 미디어의 이해, 칩 워 등을 통해 정보통신공학과와 연결되는 기술 원리와 산업 변화를 함께 탐구할 수 있다.",
     "topic_examples": [
-      "5G/6G 통신 기술 변화가 사회에 미치는 영향",
-      "IoT 기기 확산과 네트워크 구조 변화 분석",
-      "미디어 스트리밍 서비스와 데이터 전송 기술의 관계",
-      "스마트시티 인프라에서 정보통신 기술의 역할 탐구"
+      "통신 기술 세대 변화가 사회 시스템에 미친 영향 분석",
+      "무선 통신 구조와 데이터 전송 방식 비교",
+      "IoT 환경에서 네트워크 안정성과 보안 문제 탐구"
     ],
-    "reference_materials_summary": "통신사 기술 자료, 5G·IoT 기사, 스마트시티 보고서, 네트워크 보안 및 인프라 자료를 함께 활용할 수 있다.",
-    "prep_activity_summary": "자율활동·동아리·탐구보고서에서 통신 세대 비교, IoT 네트워크 구조 분석, 스마트시티 통신 설계 아이디어 구상을 권장한다."
+    "reference_materials_summary": "전공 기초 서적 / 산업 기사 / 공학 기술 자료 / 실험·설계 사례 / 기업·연구소 동향 자료",
+    "prep_activity_summary": "교과 심화 학습 / 설계 아이디어 정리 / 기사 스크랩 / 비교 분석 보고서 / 프로젝트 구상"
   },
-  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
-  "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  "engine_migration_note": "v1 기계/전자/로봇/자동차 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "source_type": "pdf_extracted_source",
+    "source_file": "공학계열 파트 4.pdf",
+    "source_group": "engineering",
+    "major_no": 106,
+    "major_name": "정보통신공학과",
+    "visible_pdf_pages": [
+      9,
+      10
+    ],
+    "book_pages": [
+      230,
+      231
+    ],
+    "detail_status": "complete_two_page_visible",
+    "sections_available": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "extracted": {
+      "intro_summary": "데이터와 정보를 유선·무선 네트워크로 전달하고, 통신 시스템과 미디어 인프라를 설계·운영하는 전공으로 5G·IoT·스마트시티와 연결된다.",
+      "key_theme_summary": [
+        "통신 시스템",
+        "네트워크",
+        "무선 통신",
+        "미디어 전송",
+        "IoT",
+        "스마트 인프라"
+      ],
+      "college_summary": "정보통신, 통신공학, 네트워크 시스템 계열로 제시되며 전자공학·컴퓨터공학·AI와 융합된다.",
+      "capability_summary": [
+        "수학·물리 기반",
+        "네트워크 이해",
+        "데이터 전송 개념",
+        "시스템 분석력",
+        "융합적 사고"
+      ],
+      "linked_book_focus": "네트워크, 이동통신, 사물인터넷, 스마트시티 통신 인프라를 다루는 도서를 통해 연결 사회의 기반 기술을 탐구하도록 연결한다.",
+      "topic_examples": [
+        "5G/6G 통신 기술 변화가 사회에 미치는 영향",
+        "IoT 기기 확산과 네트워크 구조 변화 분석",
+        "미디어 스트리밍 서비스와 데이터 전송 기술의 관계",
+        "스마트시티 인프라에서 정보통신 기술의 역할 탐구"
+      ],
+      "reference_materials_summary": "통신사 기술 자료, 5G·IoT 기사, 스마트시티 보고서, 네트워크 보안 및 인프라 자료를 함께 활용할 수 있다.",
+      "prep_activity_summary": "자율활동·동아리·탐구보고서에서 통신 세대 비교, IoT 네트워크 구조 분석, 스마트시티 통신 설계 아이디어 구상을 권장한다."
+    },
+    "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용입니다. 최종 반영 시 major_profiles_master_198.json으로 이관합니다.",
+    "next_action": "complete 항목은 엔진용 필드 매핑 진행"
+  }
 }

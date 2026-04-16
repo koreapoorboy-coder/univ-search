@@ -1,35 +1,89 @@
 {
-  "major_id": "32",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트2.pdf",
+  "source_group": "social",
+  "major_no": 32,
   "major_name": "도시행정학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트2.pdf",
-      "page_range": [
-        7,
-        8
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    7,
+    8
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "도시 문제를 행정과 정책의 관점에서 다루며 교통, 주거, 지역 개발, 공공서비스가 어떻게 연결되는지를 배우는 학과다. 도시를 단순 공간이 아니라 제도와 생활의 구조로 읽는 힘이 중요하다.",
+    "key_theme_summary": [
+      "도시",
+      "행정",
+      "정책",
+      "주거",
+      "교통",
+      "지역개발",
+      "공공서비스",
+      "도시문제"
+    ],
+    "college_summary": "주요 대학의 도시행정학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "정책 분석 역량",
+      "문제 해결 역량",
+      "공간 이해 역량",
+      "자료 해석 역량"
+    ],
+    "linked_book_focus": "사람, 장소, 환대, 택리지, 대한민국의 시험 등을 통해 도시행정학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "도시 교통 문제와 공공정책의 관계 분석",
+      "주거환경과 삶의 질을 연결하는 도시행정 사례 탐구",
+      "지역 불균형 문제를 제도 설계 관점에서 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 공공기관·학회 자료 / 지도·통계·관측 데이터 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 데이터 비교 / 보고서 작성 / 사례 분석"
+  },
+  "engine_migration_note": "v1 환경/지리/도시 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "32",
+    "major_name": "도시행정학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트2.pdf",
+        "page_range": [
+          7,
+          8
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

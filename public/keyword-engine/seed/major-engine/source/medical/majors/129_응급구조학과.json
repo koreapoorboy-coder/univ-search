@@ -1,17 +1,16 @@
 {
-  "major_no": 129,
-  "major_id": "medical_129",
-  "major_name": "응급구조학과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 129,
+  "major_name": "응급구조학과",
+  "visible_pdf_pages": [
     18,
     19
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "응급 상황에서 환자 상태를 신속히 판단하고 초기 처치와 이송, 현장 대응을 수행하는 방법을 배우는 학과다. 빠른 판단과 정확한 절차 이해가 핵심이다.",
+    "key_theme_summary": [
+      "응급구조",
+      "응급처치",
+      "현장대응",
+      "이송",
+      "심폐소생",
+      "판단",
+      "안전",
+      "재난"
+    ],
+    "college_summary": "주요 대학의 응급구조학과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "신속한 판단력",
+      "절차 이해력",
+      "책임감",
+      "체계적 대응 역량"
+    ],
+    "linked_book_focus": "닥터스 씽킹, 응급실의 천사들, 아픔이 길이 되려면 등을 통해 응급구조학과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "응급 상황에서 초기 판단이 생존율에 미치는 영향 분석",
+      "재난 현장 대응 체계와 응급의료 시스템 비교",
+      "응급처치 절차와 환자 상태 변화의 관계 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 129,
+    "major_id": "medical_129",
+    "major_name": "응급구조학과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "학과별 전공탐구 활동_의약계열.pdf",
+    "source_pages_visible": [
+      18,
+      19
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

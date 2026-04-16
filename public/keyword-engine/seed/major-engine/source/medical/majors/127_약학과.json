@@ -1,17 +1,16 @@
 {
-  "major_no": 127,
-  "major_id": "medical_127",
-  "major_name": "약학과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 127,
+  "major_name": "약학과",
+  "visible_pdf_pages": [
     14,
     15
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "약물의 성분과 작용, 제형, 복약지도와 의약품 개발 과정을 배우는 전공이다. 화학과 생명과학, 인체 이해를 바탕으로 치료의 매개가 되는 물질을 다룬다.",
+    "key_theme_summary": [
+      "약학",
+      "약물",
+      "성분",
+      "제형",
+      "작용기전",
+      "복약지도",
+      "의약품",
+      "신약"
+    ],
+    "college_summary": "주요 대학의 약학과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "화학·생명 기초",
+      "정밀한 분석력",
+      "윤리 의식",
+      "소통 능력"
+    ],
+    "linked_book_focus": "위대하고 위험한 약 이야기, 위대한 약 이야기, 약의 탄생 등을 통해 약학과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "약물 작용기전이 치료 효과와 부작용에 미치는 영향 분석",
+      "의약품 개발 과정에서 필요한 검증 절차 탐구",
+      "복약지도가 환자 치료 결과에 미치는 역할 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 127,
+    "major_id": "medical_127",
+    "major_name": "약학과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "학과별 전공탐구 활동_의약계열.pdf",
+    "source_pages_visible": [
+      14,
+      15
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

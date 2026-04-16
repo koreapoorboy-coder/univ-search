@@ -1,17 +1,16 @@
 {
-  "major_no": 16,
-  "major_id": "humanities_016",
-  "major_name": "중어중문학과",
-  "track": "인문계열",
-  "source_folder": "humanities",
+  "source_type": "pdf_extracted_source",
   "source_file": "인문계열 part2.pdf",
-  "source_pages_visible": [
+  "source_group": "humanities",
+  "major_no": 16,
+  "major_name": "중어중문학과",
+  "visible_pdf_pages": [
     13,
     14
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -22,11 +21,66 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "중국어와 중국 문학, 사상, 문화를 함께 배우는 학과다. 언어를 통해 동아시아 문화권의 큰 흐름을 읽는 힘이 중요하다.",
+    "key_theme_summary": [
+      "중국어",
+      "중국문학",
+      "동아시아",
+      "사상",
+      "번역",
+      "문화",
+      "언어",
+      "해석"
+    ],
+    "college_summary": "주요 대학의 중어중문학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "언어 이해 역량",
+      "텍스트 해석 역량",
+      "비교문화 감각",
+      "장기적 시각"
+    ],
+    "linked_book_focus": "논어, 맹자, 시경 등을 통해 중어중문학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "중국 고전 문학과 사상이 사회 이해에 미치는 영향",
+      "동아시아 고전 속 인간관계와 정치 개념 비교",
+      "문학 작품을 통한 문화권 이해 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_no": 16,
+    "major_id": "humanities_016",
+    "major_name": "중어중문학과",
+    "track": "인문계열",
+    "source_folder": "humanities",
+    "source_file": "인문계열 part2.pdf",
+    "source_pages_visible": [
+      13,
+      14
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_067",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 67,
-  "major_name": "식품영양학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "자연계열 파트 2.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 67,
+  "major_name": "식품영양학과",
+  "visible_pdf_pages": [
     5,
     6
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "영양소의 기능과 식생활, 건강 관리, 생애주기별 영양 문제를 배우는 학과다. 음식과 건강의 관계를 과학적으로 해석하는 전공이다.",
+    "key_theme_summary": [
+      "식품영양",
+      "영양소",
+      "식생활",
+      "건강",
+      "생애주기",
+      "식단",
+      "대사",
+      "관리"
+    ],
+    "college_summary": "주요 대학의 식품영양학과, 자연과학계열 관련 전공에서 운영",
+    "capability_summary": [
+      "생명현상 이해력",
+      "생활 적용 능력",
+      "자료 해석력",
+      "건강 관리 관점"
+    ],
+    "linked_book_focus": "위대한 약 이야기, 인체의 신비, 팩트풀니스 등을 통해 식품영양학과와 연결되는 개념·산업·생활 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "영양소 균형이 건강 유지에 미치는 영향 분석",
+      "생애주기별 영양 요구 차이 비교",
+      "식습관 변화가 건강 지표에 미치는 영향 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 실험·재배·분석 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 실험·탐구 정리"
   },
-  "normalization": {
-    "major_name_normalized": "식품영양학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 자연계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_067",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 67,
+    "major_name": "식품영양학과",
+    "source_file": "자연계열 파트 2.pdf",
+    "source_page_refs": [
+      5,
+      6
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "식품영양학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

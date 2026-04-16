@@ -1,16 +1,16 @@
 {
-  "major_id": "natural_063",
-  "series": "natural",
-  "series_kor": "자연계열",
-  "display_order": 63,
-  "major_name": "수산생명의학과",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_자연계열.pdf",
-  "source_page_refs": [
+  "source_group": "natural",
+  "major_no": 63,
+  "major_name": "수산생명의학과",
+  "visible_pdf_pages": [
     16,
     17
   ],
-  "status": "complete_two_page_visible",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -18,24 +18,78 @@
     "추천 도서",
     "도서 연계 탐구활동",
     "전공 탐구활동 주제",
-    "전공 탐구활동 도서자료",
+    "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
-  "raw_extraction_state": {
-    "intro_visible": true,
-    "keywords_visible": true,
-    "colleges_visible": true,
-    "competencies_visible": true,
-    "recommended_books_visible": true,
-    "book_linked_inquiry_visible": true,
-    "major_inquiry_topics_visible": true,
-    "major_inquiry_book_resources_visible": true,
-    "preparation_activities_visible": true
+  "extracted": {
+    "intro_summary": "어류와 수산생물의 질병, 건강 관리, 양식 환경을 배우는 학과다. 해양 생명과학과 수의학적 접근이 함께 들어가는 전공이라고 볼 수 있다.",
+    "key_theme_summary": [
+      "수산생명",
+      "어류",
+      "질병",
+      "양식",
+      "해양생물",
+      "건강관리",
+      "수산의학",
+      "환경"
+    ],
+    "college_summary": "주요 대학의 수산생명의학과, 자연과학계열 관련 전공에서 운영",
+    "capability_summary": [
+      "생명현상 이해력",
+      "관찰·판단 역량",
+      "해양환경 이해",
+      "자료 분석력"
+    ],
+    "linked_book_focus": "의사와 수의사가 만나다, 해양과학 이야기, 이기적 유전자 등을 통해 수산생명의학과와 연결되는 개념·산업·생활 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "양식 환경 변화가 수산생물 건강에 미치는 영향 분석",
+      "어류 질병 관리와 육상 동물 질병 대응 방식 비교",
+      "수산생명 관리에서 환경과 보건의 관계 탐구"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 실험·재배·분석 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 실험·탐구 정리"
   },
-  "normalization": {
-    "major_name_normalized": "수산생명의학과",
-    "family": "자연계열",
-    "source_pack_version": "v2"
+  "engine_migration_note": "v1 자연계열 잔여 전공 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "natural_063",
+    "series": "natural",
+    "series_kor": "자연계열",
+    "display_order": 63,
+    "major_name": "수산생명의학과",
+    "source_file": "학과별 전공탐구 활동_자연계열.pdf",
+    "source_page_refs": [
+      16,
+      17
+    ],
+    "status": "complete_two_page_visible",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도서자료",
+      "전공 준비활동"
+    ],
+    "notes": "PDF 페이지 가시 범위를 기준으로 source 구조화함. 2페이지가 확인된 학과는 complete_two_page_visible, 1페이지만 확인된 학과는 partial_one_page_visible로 표기.",
+    "raw_extraction_state": {
+      "intro_visible": true,
+      "keywords_visible": true,
+      "colleges_visible": true,
+      "competencies_visible": true,
+      "recommended_books_visible": true,
+      "book_linked_inquiry_visible": true,
+      "major_inquiry_topics_visible": true,
+      "major_inquiry_book_resources_visible": true,
+      "preparation_activities_visible": true
+    },
+    "normalization": {
+      "major_name_normalized": "수산생명의학과",
+      "family": "자연계열",
+      "source_pack_version": "v2"
+    }
   }
 }

@@ -1,35 +1,89 @@
 {
-  "major_id": "27",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트1.pdf",
+  "source_group": "social",
+  "major_no": 27,
   "major_name": "국제통상학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트1.pdf",
-      "page_range": [
-        16,
-        17
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    16,
+    17
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "국가 간 상품과 서비스, 자본과 제도가 어떻게 움직이는지 배우며 무역과 글로벌 시장 구조를 다루는 학과다. 국제 이슈를 경제 흐름과 연결해 보는 힘이 중요하다.",
+    "key_theme_summary": [
+      "국제통상",
+      "무역",
+      "수출입",
+      "관세",
+      "환율",
+      "글로벌 시장",
+      "공급망",
+      "통상 마찰"
+    ],
+    "college_summary": "주요 대학의 국제통상학과, 무역학과, 글로벌통상 전공에서 운영",
+    "capability_summary": [
+      "글로벌 이슈 해석 역량",
+      "자료 분석 역량",
+      "경제 이해 역량",
+      "언어 활용 역량"
+    ],
+    "linked_book_focus": "국부론, 제3의 물결, 문명의 충돌 등을 통해 국제통상학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "환율 변화가 수출입 구조에 미치는 영향",
+      "글로벌 공급망 재편과 기업 전략",
+      "관세 정책과 국가 간 통상 갈등 비교"
+    ],
+    "reference_materials_summary": "무역협회 자료 / 산업통상자원부 보고서 / 국제 뉴스 / 관세청 통계",
+    "prep_activity_summary": "국제 경제 기사 분석 / 환율·무역량 그래프 해석 / 국가별 통상 정책 비교"
+  },
+  "engine_migration_note": "이 파일은 엔진 반영 전 원문 source 보관용이며, v1 사회/상경/법행정 세부 설명 보강이 반영되었습니다.",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": "27",
+    "major_name": "국제통상학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트1.pdf",
+        "page_range": [
+          16,
+          17
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }

@@ -1,17 +1,16 @@
 {
-  "major_no": 128,
-  "major_id": "medical_128",
-  "major_name": "언어치료학과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 128,
+  "major_name": "언어치료학과",
+  "visible_pdf_pages": [
     16,
     17
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "말과 언어, 발음과 의사소통 문제를 이해하고 평가·중재 방법을 배우는 학과다. 발달과 신경, 심리와 교육을 함께 보는 융합적 관점이 중요하다.",
+    "key_theme_summary": [
+      "언어치료",
+      "의사소통",
+      "발음",
+      "언어발달",
+      "중재",
+      "평가",
+      "신경",
+      "상담"
+    ],
+    "college_summary": "주요 대학의 언어치료학과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "관찰력",
+      "소통 능력",
+      "발달 이해력",
+      "공감과 분석의 균형"
+    ],
+    "linked_book_focus": "팁스, 미움받을 용기, 인체의 신비 등을 통해 언어치료학과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "언어발달 단계와 중재 방법의 관계 분석",
+      "의사소통 장애가 학습과 관계 형성에 미치는 영향 탐구",
+      "발음·언어 문제 평가 방식과 치료 접근 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 128,
+    "major_id": "medical_128",
+    "major_name": "언어치료학과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "학과별 전공탐구 활동_의약계열.pdf",
+    "source_pages_visible": [
+      16,
+      17
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

@@ -1,17 +1,16 @@
 {
-  "major_no": 125,
-  "major_id": "medical_125",
-  "major_name": "보건관리학과",
-  "track": "의약계열",
-  "source_folder": "medical",
+  "source_type": "pdf_extracted_source",
   "source_file": "학과별 전공탐구 활동_의약계열.pdf",
-  "source_pages_visible": [
+  "source_group": "medical",
+  "major_no": 125,
+  "major_name": "보건관리학과",
+  "visible_pdf_pages": [
     10,
     11
   ],
-  "extraction_status": "complete_two_page_visible",
-  "extraction_scope": "page_structure_captured",
-  "visible_sections": [
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -21,11 +20,65 @@
     "전공 탐구활동 주제",
     "전공 준비활동"
   ],
-  "notes": [
-    "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
-    "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
-  ],
-  "recommended_books_visible": [],
-  "major_keywords_visible": [],
-  "university_examples_visible": []
+  "extracted": {
+    "intro_summary": "개인 치료를 넘어 지역사회와 의료기관의 보건 시스템, 행정, 정책, 건강 데이터를 다루는 학과다. 건강 문제를 제도와 운영의 관점에서 보는 힘이 중요하다.",
+    "key_theme_summary": [
+      "보건관리",
+      "의료행정",
+      "건강정책",
+      "의료기관",
+      "공공보건",
+      "데이터",
+      "제도",
+      "운영"
+    ],
+    "college_summary": "주요 대학의 보건관리학과, 의약·보건 관련 전공에서 운영",
+    "capability_summary": [
+      "제도 이해력",
+      "자료 해석 역량",
+      "의사소통 역량",
+      "공공성 인식"
+    ],
+    "linked_book_focus": "아픔이 길이 되려면, 공공선택론, 대한민국의 시험 등을 통해 보건관리학과와 연결되는 개념·현장·윤리 흐름을 함께 탐구할 수 있다.",
+    "topic_examples": [
+      "공공보건 정책이 지역사회 건강에 미치는 영향 분석",
+      "의료기관 운영과 환자 경험의 관계 탐구",
+      "건강 데이터가 보건정책 설계에 활용되는 방식 비교"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 병원·보건기관 자료 / 질병·건강 통계 / 사례 자료",
+    "prep_activity_summary": "교과 심화 학습 / 기사 스크랩 / 사례 비교 / 보고서 작성 / 윤리 쟁점 정리"
+  },
+  "engine_migration_note": "v1 메디컬/보건 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_no": 125,
+    "major_id": "medical_125",
+    "major_name": "보건관리학과",
+    "track": "의약계열",
+    "source_folder": "medical",
+    "source_file": "학과별 전공탐구 활동_의약계열.pdf",
+    "source_pages_visible": [
+      10,
+      11
+    ],
+    "extraction_status": "complete_two_page_visible",
+    "extraction_scope": "page_structure_captured",
+    "visible_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "현재 버전은 PDF 페이지 구조 기준 source화 버전입니다.",
+      "세부 불릿/문장 단위 추출은 후속 보강 단계에서 추가할 수 있습니다."
+    ],
+    "recommended_books_visible": [],
+    "major_keywords_visible": [],
+    "university_examples_visible": []
+  }
 }

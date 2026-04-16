@@ -1,19 +1,13 @@
 {
-  "major_id": 5,
-  "major_code": "05",
+  "source_type": "pdf_extracted_source",
+  "source_file": null,
+  "source_group": "humanities",
+  "major_no": 5,
   "major_name": "문예창작학과",
-  "track": "인문계열",
-  "source_status": "complete_two_page_visible",
-  "source_pdf": "인문계열 part1.pdf",
-  "source_pages": [
-    10,
-    11
-  ],
-  "source_page_range_label": "10-11",
-  "document_type": "major_source",
-  "schema_version": "1.0",
-  "extraction_mode": "page-visual-structured",
-  "profile_sections": [
+  "visible_pdf_pages": [],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
     "전공 소개",
     "전공 핵심키워드",
     "개설 대학",
@@ -24,11 +18,68 @@
     "전공 탐구활동 도움자료",
     "전공 준비활동"
   ],
-  "notes": [
-    "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
-    "세부 문장 단위 원문 OCR은 추후 보강 가능",
-    "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
-  ],
-  "raw_capture_level": "section-aware",
-  "completion_confidence": "high"
+  "extracted": {
+    "intro_summary": "시와 소설, 희곡 등 창작의 원리와 표현 방식을 배우며 직접 글을 쓰고 다듬는 학과다. 읽기와 창작이 함께 가는 전공이다.",
+    "key_theme_summary": [
+      "창작",
+      "서사",
+      "시",
+      "소설",
+      "문체",
+      "인물",
+      "구성",
+      "표현"
+    ],
+    "college_summary": "주요 대학의 문예창작학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "창의적 표현 역량",
+      "문체 감각",
+      "독해력",
+      "수정·편집 역량"
+    ],
+    "linked_book_focus": "문예창작론, 백석시전집, 데카메론 등을 통해 문예창작학과와 연결되는 사고 흐름과 탐구 방향을 설계할 수 있다.",
+    "topic_examples": [
+      "짧은 서사 안에서 인물 갈등 구조 설계",
+      "시적 이미지가 정서를 만드는 방식 탐구",
+      "고전 서사 구조를 현대 글쓰기에 적용해보기"
+    ],
+    "reference_materials_summary": "전공 기초 서적 / 기사 / 논문형 자료 / 공공기관·학회 정보 / 텍스트·사례 자료",
+    "prep_activity_summary": "관련 교과 심화 읽기 / 기사 스크랩 / 발표·토론 / 보고서 작성 / 개념 비교 정리"
+  },
+  "engine_migration_note": "v3 인문/철학/심리 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 및 런타임 연계 필드와 동기화",
+  "legacy_source_meta": {
+    "major_id": 5,
+    "major_code": "05",
+    "major_name": "문예창작학과",
+    "track": "인문계열",
+    "source_status": "complete_two_page_visible",
+    "source_pdf": "인문계열 part1.pdf",
+    "source_pages": [
+      10,
+      11
+    ],
+    "source_page_range_label": "10-11",
+    "document_type": "major_source",
+    "schema_version": "1.0",
+    "extraction_mode": "page-visual-structured",
+    "profile_sections": [
+      "전공 소개",
+      "전공 핵심키워드",
+      "개설 대학",
+      "필요 역량",
+      "추천 도서",
+      "도서 연계 탐구활동",
+      "전공 탐구활동 주제",
+      "전공 탐구활동 도움자료",
+      "전공 준비활동"
+    ],
+    "notes": [
+      "해당 전공은 PDF 시각 페이지 기준으로 2페이지 완결 구조가 확인됨",
+      "세부 문장 단위 원문 OCR은 추후 보강 가능",
+      "현재 버전은 source 아카이브용 구조화본으로, 계열별 통합 및 후속 엔진 연결 전 단계 데이터임"
+    ],
+    "raw_capture_level": "section-aware",
+    "completion_confidence": "high"
+  }
 }

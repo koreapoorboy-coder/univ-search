@@ -1,35 +1,89 @@
 {
-  "major_id": "35",
+  "source_type": "pdf_extracted_source",
+  "source_file": "사회계열 파트2.pdf",
+  "source_group": "social",
+  "major_no": 35,
   "major_name": "문화콘텐츠학과",
-  "track": "social",
-  "source_version": "v2",
-  "source_files": [
-    {
-      "file_name": "사회계열 파트2.pdf",
-      "page_range": [
-        13,
-        14
-      ],
-      "visibility_status": "complete_two_page_visible"
+  "visible_pdf_pages": [
+    13,
+    14
+  ],
+  "book_pages": [],
+  "detail_status": "complete_two_page_visible_enriched_v1",
+  "sections_available": [
+    "전공 소개",
+    "전공 핵심키워드",
+    "개설 대학",
+    "필요 역량",
+    "추천 도서",
+    "도서 연계 탐구활동",
+    "전공 탐구활동 주제",
+    "전공 탐구활동 도움자료",
+    "전공 준비활동"
+  ],
+  "extracted": {
+    "intro_summary": "문화와 이야기를 단순 감상이 아니라 콘텐츠 기획, 산업 구조, 매체 확장 관점에서 배우는 학과다. 작품을 만드는 일뿐 아니라 그것이 어떻게 유통되고 소비되는지도 함께 다룬다.",
+    "key_theme_summary": [
+      "문화콘텐츠",
+      "스토리",
+      "기획",
+      "매체",
+      "IP",
+      "유통",
+      "대중문화",
+      "산업"
+    ],
+    "college_summary": "주요 대학의 문화콘텐츠학과, 관련 계열 전공에서 운영",
+    "capability_summary": [
+      "기획 역량",
+      "스토리 해석 역량",
+      "매체 이해 역량",
+      "자료 조사 역량"
+    ],
+    "linked_book_focus": "미디어의 이해, 디자인 인문학, 문학과 예술의 사회사 등을 통해 문화콘텐츠학과와 연결되는 탐구 흐름을 설계할 수 있다.",
+    "topic_examples": [
+      "원작 서사가 콘텐츠 산업에서 확장되는 방식 분석",
+      "플랫폼 변화가 콘텐츠 소비 방식에 미치는 영향",
+      "지역 문화자원을 활용한 콘텐츠 기획안 설계"
+    ],
+    "reference_materials_summary": "기사·방송 자료 / 플랫폼 사례 / 산업 보고서 / 학술·통계 자료 / 전공 기초 서적",
+    "prep_activity_summary": "기사 스크랩 / 매체 비교 분석 / 발표·토론 / 보고서 작성 / 콘텐츠 구조 분석"
+  },
+  "engine_migration_note": "v1 미디어/디자인/문화콘텐츠 계열 세부 설명 보강 반영",
+  "next_action": "major_profiles_master_198.json 런타임 필드 동기화",
+  "legacy_source_meta": {
+    "major_id": "35",
+    "major_name": "문화콘텐츠학과",
+    "track": "social",
+    "source_version": "v2",
+    "source_files": [
+      {
+        "file_name": "사회계열 파트2.pdf",
+        "page_range": [
+          13,
+          14
+        ],
+        "visibility_status": "complete_two_page_visible"
+      }
+    ],
+    "structuring_status": "complete_two_page_visible",
+    "extraction_mode": "image_page_structured",
+    "notes": [
+      "PDF 페이지 이미지 기반으로 source 구조화함",
+      "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
+    ],
+    "schema_hint": {
+      "expected_sections": [
+        "전공 소개",
+        "전공 핵심키워드",
+        "개설 대학",
+        "필요 역량",
+        "추천 도서",
+        "도서 연계 탐구활동",
+        "전공 탐구활동 주제",
+        "전공 탐구활동 도움자료",
+        "전공 준비활동"
+      ]
     }
-  ],
-  "structuring_status": "complete_two_page_visible",
-  "extraction_mode": "image_page_structured",
-  "notes": [
-    "PDF 페이지 이미지 기반으로 source 구조화함",
-    "도식·목차·설명문·준비활동·탐구활동 주제·도움자료 영역을 후속 major runtime 통합용 키로 보존"
-  ],
-  "schema_hint": {
-    "expected_sections": [
-      "전공 소개",
-      "전공 핵심키워드",
-      "개설 대학",
-      "필요 역량",
-      "추천 도서",
-      "도서 연계 탐구활동",
-      "전공 탐구활동 주제",
-      "전공 탐구활동 도움자료",
-      "전공 준비활동"
-    ]
   }
 }
