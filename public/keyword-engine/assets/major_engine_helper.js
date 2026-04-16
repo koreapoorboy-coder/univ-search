@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -280,7 +280,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
     if (input.includes('심리')) return new Set(['psychology_counsel']);
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content']);
-    if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건축') || input.includes('토목') || input.includes('교통') || input.includes('조경')) return new Set(['environment','space_housing','city_infra']);
+    if (input.includes('환경')) return new Set(['environment','space_housing','city_infra']);
     return null;
   }
 
@@ -653,20 +653,14 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     '건설환경공학과': {
       card: '도시·도로·수자원·환경 문제를 함께 다루는 기반시설 중심 학과입니다.',
       fit: '도시 문제와 환경 문제를 기술적으로 해결하는 데 관심 있는 학생에게 잘 맞습니다.',
-      intro: '건설환경공학과는 도로, 교량, 수자원, 환경 설비처럼 사회기반시설을 배우면서 도시 환경 문제를 함께 다루는 학과입니다.',
-      subjects: ['물리학', '화학', '지구과학', '미적분', '통합과학1'],
-      topics: ['건설 공정이 환경에 미치는 영향 분석', '도시 기반시설과 수질 관리 체계 비교', '지속가능한 건설 기술 적용 사례 탐구'],
       group_label: '환경 관련 추천',
-      compare: ['토목환경공학과','도시공학과','지구환경과학과']
+      compare: ['토목환경공학과','지구환경과학과','주거환경학과']
     },
     '토목환경공학과': {
       card: '도로·교량·수자원과 환경 관리를 함께 다루는 사회기반시설 학과입니다.',
       fit: '사회기반시설과 환경 관리를 같이 보고 싶은 학생에게 잘 맞습니다.',
-      intro: '토목환경공학과는 도로, 교량, 터널, 수자원 같은 토목 구조를 배우고 수질·대기·자원 관리처럼 환경 문제를 함께 다루는 학과입니다.',
-      subjects: ['물리학', '화학', '지구과학', '미적분', '통합과학1'],
-      topics: ['토목 구조와 환경 관리 기준의 관계 분석', '도시 인프라와 수질 관리 체계 비교', '지속가능한 토목 기술 사례 탐구'],
       group_label: '환경 관련 추천',
-      compare: ['건설환경공학과','도시공학과','지구환경과학과']
+      compare: ['건설환경공학과','지구환경과학과','주거환경학과']
     },
     '지구환경과학과': {
       card: '기후·대기·지구 시스템을 관측 데이터로 분석하는 학과입니다.',
@@ -675,7 +669,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       subjects: ['지구과학', '통합과학1', '공통수학1', '화학', '지리'],
       topics: ['도시 열섬 현상의 원인과 관측 자료 분석', '대기오염 지표와 기후 변화의 관계 탐구', '수문 순환 변화가 환경에 미치는 영향 분석'],
       group_label: '환경 관련 추천',
-      compare: ['건설환경공학과','토목환경공학과','도시공학과']
+      compare: ['건설환경공학과','토목환경공학과','주거환경학과']
     },
     '주거환경학과': {
       card: '주거 공간과 생활 환경을 설계하고 사람의 생활 동선을 분석하는 학과입니다.',
@@ -683,21 +677,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       intro: '주거환경학과는 주거 공간, 실내 환경, 생활 동선, 주거문화 등을 바탕으로 사람이 살아가는 공간을 설계하고 분석하는 학과입니다.',
       subjects: ['통합과학1', '공통수학1', '기하', '지리', '미술'],
       topics: ['생활 동선이 주거 만족도에 미치는 영향 분석', '친환경 주거 설계 요소 비교', '고령사회에 필요한 주거 공간 설계 아이디어 탐구'],
-      group_label: '공간·주거 환경',
-      compare: ['도시공학과','건축학과','건설환경공학과']
-    },
-    '도시공학과': {
-      card: '도시 구조와 인프라, 주거, 교통, 환경 계획을 함께 다루는 학과입니다.',
-      fit: '도시 문제를 공간 구조와 생활 기반 관점에서 통합적으로 보고 싶은 학생에게 잘 맞습니다.',
-      intro: '도시공학과는 주거, 교통, 환경, 개발 계획을 종합적으로 배우며 도시를 설계하고 운영하는 큰 그림을 다루는 학과입니다.',
-      subjects: ['통합사회', '세계시민과 지리', '미적분', '정보', '물리학'],
-      topics: ['도시계획이 생활환경에 미치는 영향 분석', '주거·교통·환경 요소를 통합한 도시 설계 비교', '재개발과 지역 공동체 변화의 관계 탐구'],
-      group_label: '도시·인프라',
-      compare: ['건설환경공학과','토목환경공학과','주거환경학과']
+      group_label: '환경 관련 추천',
+      compare: ['건설환경공학과','토목환경공학과','지구환경과학과']
     }
-  };
-
-  function buildHeuristicKeywords
   };
 
   function buildHeuristicKeywords(displayName, trackCategory){
