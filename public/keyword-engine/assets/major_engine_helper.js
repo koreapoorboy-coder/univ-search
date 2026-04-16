@@ -279,7 +279,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
     if (input.includes('반도체')) return new Set(['materials_devices']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
     if (input.includes('심리')) return new Set(['psychology_counsel']);
-    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠')) return new Set(['media_content']);
+    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content']);
     if (input.includes('환경')) return new Set(['environment','space_housing','city_infra']);
     return null;
   }
@@ -605,7 +605,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
       group_label: '국제·통상',
       compare: ['국제학부','경제학과','경영학과']
     },
-    '미디어커뮤니케이션학과': {
+        '미디어커뮤니케이션학과': {
       card: '뉴스, 플랫폼, 영상 콘텐츠처럼 미디어 메시지가 사회에 미치는 영향을 분석하는 학과입니다.',
       fit: '미디어와 콘텐츠가 사람과 사회에 어떤 영향을 주는지 분석하고 싶은 학생에게 잘 맞습니다.',
       intro: '미디어커뮤니케이션학과는 뉴스, 광고, 플랫폼, 영상 콘텐츠 같은 미디어 메시지가 사람과 사회에 미치는 영향을 분석하고 커뮤니케이션 구조를 해석하는 학과입니다.',
@@ -614,7 +614,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
       group_label: '미디어·콘텐츠',
       compare: ['광고홍보학과','언론정보학과','문화콘텐츠학과']
     },
-    '광고홍보학과': {
+        '광고홍보학과': {
       card: '브랜드 메시지와 콘텐츠 전략을 기획하고 소비자 반응을 분석하는 학과입니다.',
       fit: '메시지를 기획하고 사람의 반응과 설득 효과를 분석하는 일에 관심 있는 학생에게 잘 맞습니다.',
       intro: '광고홍보학과는 브랜드와 기관의 메시지를 효과적으로 전달하기 위해 콘텐츠 전략, 캠페인 기획, 소비자 반응 분석을 배우는 학과입니다.',
@@ -623,8 +623,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
       group_label: '미디어·콘텐츠',
       compare: ['미디어커뮤니케이션학과','문화콘텐츠학과','언론정보학과']
     },
-    '언론정보학과': {
-      card: '뉴스와 정보가 생산·유통되는 구조를 읽고, 기사와 데이터, 플랫폼 환경을 함께 해석하는 학과입니다.',
+        '언론정보학과': {
+      card: '뉴스와 정보가 생산·유통되는 구조를 읽고 기사와 데이터, 플랫폼 환경을 함께 해석하는 학과입니다.',
       fit: '기사, 정보 검증, 데이터 기반 시사 해석에 관심 있는 학생에게 잘 맞습니다.',
       intro: '언론정보학과는 뉴스 생산과 정보 유통 구조를 배우고, 기사와 데이터, 플랫폼 환경이 사회 인식에 어떤 영향을 미치는지 해석하는 학과입니다.',
       subjects: ['통합사회', '공통국어', '영어', '정보', '경제'],
@@ -632,7 +632,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
       group_label: '미디어·콘텐츠',
       compare: ['신문방송학과','미디어커뮤니케이션학과','광고홍보학과']
     },
-    '신문방송학과': {
+        '신문방송학과': {
       card: '뉴스와 방송 콘텐츠가 어떻게 제작되고 전달되며 사회 의제를 형성하는지 배우는 학과입니다.',
       fit: '보도, 시사 해석, 방송 콘텐츠와 공공성에 관심 있는 학생에게 잘 맞습니다.',
       intro: '신문방송학과는 뉴스와 방송 콘텐츠의 제작 과정, 보도와 편집, 시사 해석, 공공성과 미디어 윤리를 함께 배우는 학과입니다.',
@@ -641,14 +641,14 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.4-major-search-integrated-bundle"
       group_label: '미디어·콘텐츠',
       compare: ['언론정보학과','미디어커뮤니케이션학과','광고홍보학과']
     },
-    '문화콘텐츠학과': {
+        '문화콘텐츠학과': {
       card: '스토리와 문화 자원을 콘텐츠로 기획하고, 매체 확장과 산업 구조까지 함께 배우는 학과입니다.',
       fit: '이야기와 문화 자원을 콘텐츠 기획과 산업 흐름으로 연결해 보고 싶은 학생에게 잘 맞습니다.',
       intro: '문화콘텐츠학과는 문화와 이야기를 단순 감상이 아니라 콘텐츠 기획, 산업 구조, 매체 확장 관점에서 배우는 학과입니다.',
       subjects: ['통합사회', '공통국어', '영어', '정보', '미술'],
       topics: ['원작 서사가 콘텐츠 산업에서 확장되는 방식 분석', '플랫폼 변화가 콘텐츠 소비 방식에 미치는 영향 탐구', '지역 문화자원을 활용한 콘텐츠 기획안 설계'],
       group_label: '미디어·콘텐츠',
-      compare: ['미디어커뮤니케이션학과','광고홍보학과','신문방송학과']
+      compare: ['광고홍보학과','미디어커뮤니케이션학과','신문방송학과']
     },
     '건설환경공학과': {
       card: '도시·도로·수자원·환경 문제를 함께 다루는 기반시설 중심 학과입니다.',
