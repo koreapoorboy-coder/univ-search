@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.6-major-search-integrated-bundle-v12";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-v13";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -47,6 +47,70 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.6-major-search-integrated-bundle-
       .replace(/'/g,'&#39;');
   }
   function uniq(arr){ return Array.from(new Set((arr || []).filter(Boolean))); }
+
+  function buildVirtualMajorProfile(name, majorId, existingRow){
+    const override = getMajorOverride(name) || {};
+    const fallbackKeywords = uniq([
+      ...((existingRow && Array.isArray(existingRow.core_keywords)) ? existingRow.core_keywords : []),
+      ...((existingRow && Array.isArray(existingRow.recommended_keywords)) ? existingRow.recommended_keywords : []),
+      ...((override.subjects || [])),
+      ...((override.topics || [])).map(v => String(v).split(/[·,]/)[0].trim())
+    ]).filter(Boolean).slice(0, 6);
+    return {
+      ...(existingRow || {}),
+      major_id: majorId,
+      display_name: name,
+      track_category: override.track_category || existingRow?.track_category || '',
+      core_keywords: existingRow?.core_keywords || fallbackKeywords,
+      source_status: existingRow?.source_status || 'virtual_override'
+    };
+  }
+
+  function ensureOverrideMajorsInSearch(){
+    const overrideNames = Object.keys(MAJOR_COPY_OVERRIDES || {});
+    if (!overrideNames.length) return;
+
+    const catalogNameMap = new Map((state.catalog || []).map(row => [normalize(row?.display_name), row]).filter(([k]) => k));
+    const profileNameMap = new Map((state.profiles || []).map(row => [normalize(row?.display_name), row]).filter(([k]) => k));
+    const aliasNameSet = new Set((state.aliases || []).flatMap(row => {
+      const values = [row?.display_name, ...((row?.aliases) || [])];
+      return values.map(normalize).filter(Boolean);
+    }));
+
+    overrideNames.forEach(name => {
+      const key = normalize(name);
+      const existingCatalog = catalogNameMap.get(key) || null;
+      const existingProfile = profileNameMap.get(key) || null;
+      const majorId = existingCatalog?.major_id || existingProfile?.major_id || `virtual:${key}`;
+
+      if (!existingCatalog) {
+        const virtualCatalog = {
+          major_id: majorId,
+          display_name: name,
+          track_category: getMajorOverride(name)?.track_category || '',
+          source_status: 'virtual_override'
+        };
+        state.catalog.push(virtualCatalog);
+        catalogNameMap.set(key, virtualCatalog);
+      }
+
+      if (!existingProfile) {
+        const virtualProfile = buildVirtualMajorProfile(name, majorId, existingCatalog);
+        state.profiles.push(virtualProfile);
+        profileNameMap.set(key, virtualProfile);
+      }
+
+      if (!aliasNameSet.has(key)) {
+        state.aliases.push({
+          major_id: majorId,
+          display_name: name,
+          aliases: uniq([name, String(name).replace(/학과$/, ''), String(name).replace(/학부$/, '')]).filter(Boolean)
+        });
+        aliasNameSet.add(key);
+      }
+    });
+  }
+
   function fuzzyIncludes(a,b){
     const na = normalize(a); const nb = normalize(b);
     if (!na || !nb) return false;
@@ -86,6 +150,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.6-major-search-integrated-bundle-
       state.aliases = Array.isArray(aliases) ? aliases : [];
       state.router = router || {};
       state.bridges = Array.isArray(bridges) ? bridges : [];
+      ensureOverrideMajorsInSearch();
 
       state.profiles.forEach(row => {
         if (!row || !row.major_id) return;
