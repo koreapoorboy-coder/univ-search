@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-v19";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-v22";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -286,7 +286,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -298,6 +298,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     { queries:['미디어'], test: /(미디어커뮤니케이션|광고홍보|문화인류|문화유산)/, boost: 34 },
     { queries:['국제'], test: /(국제학부|국제통상학|경제학|경영학)/, boost: 34 },
     { queries:['반도체'], test: /(반도체공학|신소재공학|전자공학)/, boost: 36 },
+    { queries:['건축'], test: /(건축학|건축공학|실내디자인학|공간디자인|인테리어)/, boost: 42 },
+    { queries:['디자인'], test: /(산업디자인학|시각디자인학|제품디자인학|실내디자인학|건축학)/, boost: 42 },
+    { queries:['실내','인테리어'], test: /(실내디자인학|건축학|주거환경학)/, boost: 42 },
     { queries:['컴퓨터'], test: /(컴퓨터공학|소프트웨어학|인공지능학|데이터사이언스학|정보보호학|산업공학)/, boost: 42 },
     { queries:['소프트웨어'], test: /(소프트웨어학|컴퓨터공학|인공지능학)/, boost: 42 },
     { queries:['인공지능'], test: /(인공지능학|데이터사이언스학|소프트웨어학|컴퓨터공학)/, boost: 44 },
@@ -330,7 +333,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     '미디어·콘텐츠': { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.' },
     '환경 관련 추천': { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
     '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
-    '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' }
+    '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' },
+    '건축·디자인': { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -353,7 +357,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       '미디어·콘텐츠 기획 쪽':'미디어·콘텐츠',
       '환경·도시 시스템 쪽':'환경 관련 추천',
       '주거·공간 설계 쪽':'공간·주거 환경',
-      '도시 기반시설 쪽':'도시·인프라'
+      '도시 기반시설 쪽':'도시·인프라',
+      '건축·디자인 쪽':'건축·디자인'
     })[key]] || null;
   }
 
@@ -375,8 +380,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     if (input.includes('심리') || input.includes('상담')) return new Set(['psychology_counsel','welfare_support']);
     if (input.includes('교육') || input.includes('유아') || input.includes('아동') || input.includes('특수')) return new Set(['education_child','welfare_support']);
     if (input.includes('복지')) return new Set(['welfare_support','education_child']);
+    if (input.includes('건축') || input.includes('디자인') || input.includes('실내') || input.includes('인테리어') || input.includes('시각') || input.includes('제품')) return new Set(['architecture_design','space_housing','city_infra','media_content']);
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content']);
-    if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra']);
+    if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
 
@@ -1294,6 +1300,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       { id:'chem_energy_materials', label:'화학·에너지·소재 쪽', desc:'화학 반응, 공정 설계, 에너지 변환, 소재 응용과 연결된 학과입니다.', test: /(화학과|화학공학|에너지공학|신소재공학|화공생명|촉매|반응공학|전기화학|배터리|이차전지|고분자|정제|분석화학|유기화학|무기화학|소재|에너지)/ },
       { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(식품생명공학|제약공학|화공생명|생명공학|바이오|미생물|유전|세포|단백질|발효|식품)/ },
       { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.', test: /(생명과학|생물학|분자생물|생태학)/ },
+      { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.', test: /(건축학|건축공학|실내디자인|산업디자인|시각디자인|제품디자인|공간디자인|인테리어|디자인)/ },
       { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
       { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.', test: /(지구환경|대기과학|기후|환경과학|지구과학|생태|건설환경|토목환경|수자원|도시환경|환경)/ },
       { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.', test: /(도시|토목|건설|인프라|교통|도시행정|조경|건축공학|건축학)/ },
@@ -1331,8 +1338,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     }
     if (track.includes('공학')) {
       if (allowed) {
-        const preferred = ['computing_ai','chem_energy_materials','materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
+        const preferred = ['architecture_design','computing_ai','chem_energy_materials','materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
         if (preferred) return { ...(getGroupMetaByLabel({
+          architecture_design:'건축·디자인',
           computing_ai:'컴퓨터·AI·데이터',
           chem_energy_materials:'화학·에너지·소재',
           materials_devices:'반도체·전자',
@@ -1345,8 +1353,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     }
     if (track.includes('자연')) {
       if (allowed) {
-        const preferred = ['chem_energy_materials','bio_science','environment','space_housing','city_infra'].find(v => allowed.has(v));
+        const preferred = ['architecture_design','chem_energy_materials','bio_science','environment','space_housing','city_infra'].find(v => allowed.has(v));
         if (preferred) return { ...(getGroupMetaByLabel({
+          architecture_design:'건축·디자인',
           chem_energy_materials:'화학·에너지·소재',
           bio_science:'바이오·생명과학',
           environment:'환경 관련 추천',
