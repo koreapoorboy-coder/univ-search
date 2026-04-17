@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.8-major-search-integrated-bundle-v15";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-v17";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -361,7 +361,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.8-major-search-integrated-bundle-
     if (input.includes('경제') || input.includes('통상') || input.includes('무역')) return new Set(['global_trade']);
     if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices']);
     if (input.includes('컴퓨터') || input.includes('소프트웨어') || input.includes('인공지능') || input.includes('ai') || input.includes('데이터사이언스') || input.includes('정보보호') || input.includes('보안') || input.includes('산업공학')) return new Set(['computing_ai']);
-    if (input.includes('반도체')) return new Set(['materials_devices']);
+    if (input.includes('반도체') || input.includes('전자') || input.includes('전기') || input.includes('기계') || input.includes('로봇') || input.includes('자동차') || input.includes('모빌리티')) return new Set(['materials_devices']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
     if (input.includes('심리') || input.includes('상담')) return new Set(['psychology_counsel','welfare_support']);
     if (input.includes('교육') || input.includes('유아') || input.includes('아동') || input.includes('특수')) return new Set(['education_child','welfare_support']);
@@ -786,23 +786,117 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.8-major-search-integrated-bundle-
       group_label: '바이오소재·의료기기',
       compare: ['의공학과','신소재공학과','화공생명공학과']
     },
+    '기계공학과': {
+      card: '기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.',
+      fit: '움직이는 구조가 어떻게 힘을 전달하고, 설계가 성능을 바꾸는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '기계공학과는 역학, 열유체, 재료, 설계, 제어를 배우며 기계 장치와 생산 시스템이 안정적으로 작동하도록 설계하는 학과입니다.',
+      subjects: ['물리학', '공통수학1', '정보', '통합과학1', '영어'],
+      topics: ['기어비와 토크 변화가 기계 동작 성능에 미치는 영향 분석', '열에너지 전달 방식 차이가 냉각 효율에 주는 효과 비교', '재료 강성과 구조 설계가 진동과 안정성에 미치는 영향 탐구'],
+      group_label: '기계·로봇 설계',
+      track_category: '기계/설계/동역학',
+      core_keywords: ['기계공학','설계','동역학','열유체','재료','제어'],
+      recommended_keywords: ['물리학','공통수학1','정보','통합과학1','영어'],
+      compare_profiles: [
+        { display_name: '로봇공학과', track_category: '로봇/제어/센서', focus: '기계 구조와 센서, 제어 알고리즘을 결합해 자동으로 움직이는 시스템을 만드는 학과입니다.', hint: '움직이는 장치에 제어와 자동화를 넣어 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '자동차공학과', track_category: '자동차/모빌리티/동력', focus: '자동차의 동력, 차체, 주행 제어와 미래 모빌리티 기술을 배우는 학과입니다.', hint: '기계 설계를 실제 이동 수단과 주행 시스템으로 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '기계 구조보다 전자 회로와 센서가 장치를 움직이게 하는 방식에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '전자공학과': {
+      card: '회로, 신호, 센서, 통신 시스템을 설계하고 장치가 정보를 처리하도록 만드는 학과입니다.',
+      fit: '회로와 신호가 장치 동작과 센서 반응을 어떻게 바꾸는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '전자공학과는 회로이론, 전자소자, 신호처리, 센서, 통신, 임베디드 시스템을 배우며 전자 장치와 정보 처리 시스템을 설계하는 학과입니다.',
+      subjects: ['물리학', '공통수학1', '정보', '통합과학1', '영어'],
+      topics: ['센서 신호의 잡음 제거 방식이 측정 정확도에 미치는 영향 분석', '증폭 회로 구조 차이가 장치 성능에 주는 효과 비교', '무선 통신 방식 변화가 전자 시스템 설계에 주는 영향 탐구'],
+      group_label: '전자·전기·반도체',
+      track_category: '전자/회로/신호',
+      core_keywords: ['전자공학','회로','신호','센서','통신','반도체'],
+      recommended_keywords: ['물리학','공통수학1','정보','통합과학1','영어'],
+      compare_profiles: [
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.', hint: '전자 회로보다 전력과 에너지 흐름, 제어 시스템에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '반도체공학과', track_category: '반도체/소자/공정', focus: '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.', hint: '전자 장치보다 칩 내부 소자와 공정 구조를 더 깊게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '로봇공학과', track_category: '로봇/제어/센서', focus: '기계 구조와 센서, 제어 알고리즘을 결합해 자동으로 움직이는 시스템을 만드는 학과입니다.', hint: '전자 회로를 실제 움직이는 시스템 제어로 확장해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '전기공학과': {
+      card: '전력, 에너지 변환, 모터, 제어를 중심으로 전기 시스템을 설계하는 학과입니다.',
+      fit: '전기가 어떻게 생성·전달·제어되고 실제 시스템을 움직이게 하는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '전기공학과는 전력 시스템, 전기회로, 모터, 제어, 에너지 변환을 배우며 전기 에너지의 흐름과 활용 기술을 다루는 학과입니다.',
+      subjects: ['물리학', '공통수학1', '정보', '통합과학1', '영어'],
+      topics: ['전력 손실이 송배전 효율에 미치는 영향 분석', '모터 제어 방식 차이가 동작 안정성에 주는 효과 비교', '재생에너지 연계가 전력 시스템 설계에 주는 변화 탐구'],
+      group_label: '전자·전기·반도체',
+      track_category: '전기/에너지/제어',
+      core_keywords: ['전기공학','전력','에너지','모터','제어','회로'],
+      recommended_keywords: ['물리학','공통수학1','정보','통합과학1','영어'],
+      compare_profiles: [
+        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '전력보다 전자 회로와 정보 처리 쪽에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '자동차공학과', track_category: '자동차/모빌리티/동력', focus: '자동차의 동력, 차체, 주행 제어와 미래 모빌리티 기술을 배우는 학과입니다.', hint: '전기 시스템을 실제 구동 장치와 모빌리티에 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '로봇공학과', track_category: '로봇/제어/센서', focus: '기계 구조와 센서, 제어 알고리즘을 결합해 자동으로 움직이는 시스템을 만드는 학과입니다.', hint: '전기 제어를 자동화 장치의 움직임으로 확장해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
     '반도체공학과': {
       card: '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.',
-      fit: '칩, 회로, 공정 같은 반도체 기술에 관심 있는 학생에게 잘 맞습니다.',
-      group_label: '반도체·전자',
-      compare: ['신소재공학과','전자공학과']
+      fit: '칩, 회로, 공정이 미세한 구조 차이로 성능을 어떻게 바꾸는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '반도체공학과는 반도체 소자, 회로 설계, 공정, 패키징, 검사 기술을 배우며 칩이 만들어지고 동작하는 전 과정을 이해하는 학과입니다.',
+      subjects: ['물리학', '화학', '공통수학1', '정보', '통합과학1'],
+      topics: ['미세공정 변화가 반도체 성능과 수율에 미치는 영향 분석', '반도체 소자 구조 차이가 전류 흐름에 주는 효과 비교', '칩 설계와 열 관리가 장치 안정성에 미치는 영향 탐구'],
+      group_label: '전자·전기·반도체',
+      track_category: '반도체/소자/공정',
+      core_keywords: ['반도체공학','소자','공정','칩설계','회로','패키징'],
+      recommended_keywords: ['물리학','화학','공통수학1','정보','통합과학1'],
+      compare_profiles: [
+        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '칩 내부보다 전자 시스템 전체와 회로 동작에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '신소재공학과', track_category: '반도체/소재/재료설계', focus: '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.', hint: '칩 공정보다 재료 자체의 구조와 성질이 성능을 바꾸는 방식에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.', hint: '칩 자체보다 전기 에너지 흐름과 대규모 시스템 제어에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
     '신소재공학과': {
       card: '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.',
       fit: '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.',
-      group_label: '반도체·전자',
-      compare: ['반도체공학과','전자공학과']
+      intro: '신소재공학과는 금속, 세라믹, 고분자, 반도체 소재의 구조와 성질을 분석하고 이를 배터리, 반도체, 전자부품으로 연결하는 학과입니다.',
+      subjects: ['화학', '물리학', '공통수학1', '통합과학1', '정보'],
+      topics: ['결정 구조 차이가 전도성과 강도에 미치는 영향 분석', '배터리 소재 변화가 성능과 안정성에 주는 효과 비교', '반도체 소재의 불순물 제어가 소자 특성에 미치는 영향 탐구'],
+      group_label: '소재·반도체 설계',
+      track_category: '반도체/소재/재료설계',
+      core_keywords: ['신소재공학','소재','결정구조','반도체','배터리','재료설계'],
+      recommended_keywords: ['화학','물리학','공통수학1','통합과학1','정보'],
+      compare_profiles: [
+        { display_name: '반도체공학과', track_category: '반도체/소자/공정', focus: '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.', hint: '재료 자체보다 칩 구조와 공정에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '소재보다 회로와 전자 장치 동작 원리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '화공생명공학과', track_category: '화학공정/바이오생산/소재', focus: '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.', hint: '소재 성질보다 생산 공정과 대규모 응용 설계에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
-    '전자공학과': {
-      card: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.',
-      fit: '회로와 신호, 장치 동작 원리에 관심 있는 학생에게 잘 맞습니다.',
-      group_label: '반도체·전자',
-      compare: ['반도체공학과','신소재공학과']
+    '로봇공학과': {
+      card: '기계 구조와 센서, 제어 알고리즘을 결합해 자동으로 움직이는 시스템을 만드는 학과입니다.',
+      fit: '움직이는 장치에 제어와 자동화를 넣어 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '로봇공학과는 기계 설계, 센서, 제어, 임베디드 시스템, 로봇 알고리즘을 배우며 자동화 장치와 지능형 로봇 시스템을 설계하는 학과입니다.',
+      subjects: ['물리학', '공통수학1', '정보', '통합과학1', '영어'],
+      topics: ['센서 피드백 제어가 로봇 움직임 안정성에 미치는 영향 분석', '로봇 관절 구조 차이가 작업 효율에 주는 효과 비교', '자율주행 로봇의 경로 계획 방식이 성능에 미치는 영향 탐구'],
+      group_label: '로봇·제어 시스템',
+      track_category: '로봇/제어/센서',
+      core_keywords: ['로봇공학','센서','제어','자동화','기구','알고리즘'],
+      recommended_keywords: ['물리학','공통수학1','정보','통합과학1','영어'],
+      compare_profiles: [
+        { display_name: '기계공학과', track_category: '기계/설계/동역학', focus: '기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.', hint: '자동화보다 구조 설계와 동역학 자체에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '기계 구조보다 센서와 회로, 제어 신호 처리 쪽에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.', hint: '로봇의 움직임보다 인식·판단 알고리즘 자체에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '자동차공학과': {
+      card: '자동차의 동력, 차체, 주행 제어와 미래 모빌리티 기술을 배우는 학과입니다.',
+      fit: '기계 설계를 실제 이동 수단과 주행 시스템으로 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '자동차공학과는 동력전달, 차체 구조, 차량 제어, 친환경 파워트레인, 미래 모빌리티 기술을 배우며 자동차 시스템 전반을 설계하는 학과입니다.',
+      subjects: ['물리학', '공통수학1', '정보', '통합과학1', '영어'],
+      topics: ['차량 무게 배분이 주행 안정성에 미치는 영향 분석', '전기차와 내연기관의 동력 전달 구조 차이 비교', '자율주행 보조 시스템이 운전 안전성에 주는 효과 탐구'],
+      group_label: '자동차·모빌리티',
+      track_category: '자동차/모빌리티/동력',
+      core_keywords: ['자동차공학','모빌리티','동력','차체','제어','주행'],
+      recommended_keywords: ['물리학','공통수학1','정보','통합과학1','영어'],
+      compare_profiles: [
+        { display_name: '기계공학과', track_category: '기계/설계/동역학', focus: '기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.', hint: '자동차라는 응용 분야보다 기계 전반의 구조 설계에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.', hint: '차량 전체보다 전기 구동과 에너지 제어 기술에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '로봇공학과', track_category: '로봇/제어/센서', focus: '기계 구조와 센서, 제어 알고리즘을 결합해 자동으로 움직이는 시스템을 만드는 학과입니다.', hint: '차량보다 자동화 장치와 움직이는 제어 시스템 전반에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
     '심리학과': {
       card: '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.',
