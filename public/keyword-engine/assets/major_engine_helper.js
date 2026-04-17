@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-v13";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.8-major-search-integrated-bundle-v15";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -285,7 +285,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -297,6 +297,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
     { queries:['미디어'], test: /(미디어커뮤니케이션|광고홍보|문화인류|문화유산)/, boost: 34 },
     { queries:['국제'], test: /(국제학부|국제통상학|경제학|경영학)/, boost: 34 },
     { queries:['반도체'], test: /(반도체공학|신소재공학|전자공학)/, boost: 36 },
+    { queries:['컴퓨터'], test: /(컴퓨터공학|소프트웨어학|인공지능학|데이터사이언스학|정보보호학|산업공학)/, boost: 42 },
+    { queries:['소프트웨어'], test: /(소프트웨어학|컴퓨터공학|인공지능학)/, boost: 42 },
+    { queries:['인공지능'], test: /(인공지능학|데이터사이언스학|소프트웨어학|컴퓨터공학)/, boost: 44 },
+    { queries:['데이터'], test: /(데이터사이언스학|인공지능학|산업공학|컴퓨터공학)/, boost: 40 },
+    { queries:['보안'], test: /(정보보호학|컴퓨터공학|소프트웨어학)/, boost: 42 },
     { queries:['바이오'], test: /(생명공학|생명과학|식품생명공학|화공생명공학|제약공학|의공학)/, boost: 44 },
     { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학)/, boost: 34 }
   ];
@@ -308,6 +313,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
     '바이오·생명과학': { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.' },
     '바이오소재·의료기기': { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
     '반도체·전자': { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
+    '컴퓨터·AI·데이터': { id:'computing_ai', label:'컴퓨터·AI 쪽', desc:'프로그래밍, 알고리즘, 데이터, 시스템 설계와 연결된 학과입니다.' },
     '심리·상담': { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
     '교육·아동 발달': { id:'education_child', label:'교육·발달 지원 쪽', desc:'유아, 아동, 학습 발달, 특수교육처럼 성장과 학습 지원을 다루는 학과입니다.' },
     '복지·상담 지원': { id:'welfare_support', label:'복지·상담 지원 쪽', desc:'상담, 복지 제도, 사례 지원처럼 삶의 적응과 회복을 돕는 학과입니다.' },
@@ -329,6 +335,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
       '기초 생명과학 쪽':'바이오·생명과학',
       '의료기기·바이오소재 쪽':'바이오소재·의료기기',
       '반도체·소자 설계 쪽':'반도체·전자',
+      '컴퓨터·AI 쪽':'컴퓨터·AI·데이터',
       '마음 이해·상담 쪽':'심리·상담',
       '교육·발달 지원 쪽':'교육·아동 발달',
       '복지·상담 지원 쪽':'복지·상담 지원',
@@ -353,6 +360,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
     if (input.includes('경영') || input.includes('관광') || input.includes('호텔') || input.includes('소비자')) return new Set(['business_service']);
     if (input.includes('경제') || input.includes('통상') || input.includes('무역')) return new Set(['global_trade']);
     if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices']);
+    if (input.includes('컴퓨터') || input.includes('소프트웨어') || input.includes('인공지능') || input.includes('ai') || input.includes('데이터사이언스') || input.includes('정보보호') || input.includes('보안') || input.includes('산업공학')) return new Set(['computing_ai']);
     if (input.includes('반도체')) return new Set(['materials_devices']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
     if (input.includes('심리') || input.includes('상담')) return new Set(['psychology_counsel','welfare_support']);
@@ -670,6 +678,103 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
         { display_name: '생명공학과', track_category: '유전자/세포/바이오기술', focus: '세포·유전자·미생물을 활용해 의약, 식품, 환경 기술로 연결하는 응용 중심 학과입니다.', hint: '생명 현상을 실험과 기술로 연결해 보고 싶은 학생에게 잘 맞습니다.' },
         { display_name: '제약공학과', track_category: '제약/약물전달/생산공정', focus: '의약품의 제형 설계, 약물전달, 생산 공정, 품질 관리를 공학적으로 다루는 학과입니다.', hint: '생산 공정을 의약품 개발과 연결해 보고 싶은 학생에게 잘 맞습니다.' },
         { display_name: '신소재공학과', track_category: '반도체/소재/재료설계', focus: '금속, 세라믹, 고분자, 반도체 소재의 구조와 성질을 설계하는 학과입니다.', hint: '생산 공정이 새로운 소재의 성능과 연결되는 방식에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+
+    '컴퓨터공학과': {
+      card: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.',
+      fit: '프로그램이 어떻게 돌아가는지, 하드웨어와 소프트웨어가 만나는 구조에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '컴퓨터공학과는 컴퓨터 구조, 운영체제, 네트워크, 알고리즘, 데이터베이스를 배우며 다양한 디지털 시스템이 안정적으로 동작하도록 설계하는 학과입니다.',
+      subjects: ['정보', '공통수학1', '물리학', '영어', '통합과학1'],
+      topics: ['알고리즘 효율 차이가 프로그램 실행 속도에 미치는 영향 분석', '운영체제의 자원 관리 방식이 시스템 성능에 주는 효과 비교', '네트워크 구조 변화가 데이터 전송 안정성에 미치는 영향 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: '컴퓨터/시스템/개발',
+      core_keywords: ['컴퓨터공학','알고리즘','시스템','운영체제','네트워크','개발'],
+      recommended_keywords: ['정보','공통수학1','물리학','영어','통합과학1'],
+      compare_profiles: [
+        { display_name: '소프트웨어학과', track_category: '소프트웨어/개발/서비스', focus: '서비스를 실제로 구현하는 프로그래밍, 앱·웹 개발, 협업 중심 개발 과정을 배우는 학과입니다.', hint: '사용자가 직접 쓰는 프로그램과 서비스를 만드는 일에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.', hint: '수학과 데이터를 활용해 스스로 판단하는 시스템을 만들고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '정보보호학과', track_category: '보안/암호/시스템', focus: '해킹 대응, 암호, 인증, 시스템 보안을 통해 디지털 환경을 안전하게 지키는 학과입니다.', hint: '시스템을 만드는 것뿐 아니라 공격과 방어 구조까지 함께 이해하고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '소프트웨어학과': {
+      card: '앱, 웹, 서비스 개발을 중심으로 실제 사용자를 위한 프로그램을 만드는 학과입니다.',
+      fit: '프로그래밍으로 문제를 해결하고 사용자 경험이 좋은 서비스를 직접 구현해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '소프트웨어학과는 프로그래밍, 자료구조, 데이터베이스, 웹·앱 개발, 협업 개발 방식을 배우며 실제 서비스 구현 역량을 키우는 학과입니다.',
+      subjects: ['정보', '공통수학1', '영어', '통합과학1', '통합사회'],
+      topics: ['앱 기능 설계가 사용자 경험에 미치는 영향 분석', '데이터베이스 구조가 서비스 속도와 안정성에 주는 효과 비교', '협업 개발 과정에서 버전 관리가 필요한 이유 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: '소프트웨어/개발/서비스',
+      core_keywords: ['소프트웨어','프로그래밍','서비스','앱개발','웹개발','구현'],
+      recommended_keywords: ['정보','공통수학1','영어','통합과학1','통합사회'],
+      compare_profiles: [
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: '프로그램이 돌아가는 바탕 구조와 시스템 자체에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.', hint: '서비스에 AI 기능을 넣거나 데이터를 바탕으로 자동화하는 일에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '데이터사이언스학과', track_category: '데이터/통계/AI응용', focus: '데이터 수집, 정제, 분석, 시각화를 바탕으로 의미 있는 의사결정을 돕는 학과입니다.', hint: '프로그램 구현보다 데이터 해석과 분석 결과 활용에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '인공지능학과': {
+      card: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.',
+      fit: '수학과 데이터를 활용해 스스로 판단하는 시스템을 만들고 싶고, 모델 성능을 비교해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '인공지능학과는 머신러닝, 딥러닝, 데이터 처리, 모델 평가, AI 윤리를 배우며 사람의 판단을 보조하거나 자동화하는 시스템을 설계하는 학과입니다.',
+      subjects: ['정보', '공통수학1', '영어', '통합과학1', '물리학'],
+      topics: ['학습 데이터의 양과 질이 모델 성능에 미치는 영향 비교', '추천 시스템이 사용자 선택을 바꾸는 방식 분석', 'AI 판단 과정에서 발생할 수 있는 편향과 윤리 문제 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: 'AI/데이터/모델링',
+      core_keywords: ['인공지능','머신러닝','데이터','모델링','예측','딥러닝'],
+      recommended_keywords: ['정보','공통수학1','영어','통합과학1','물리학'],
+      compare_profiles: [
+        { display_name: '데이터사이언스학과', track_category: '데이터/통계/AI응용', focus: '데이터 수집, 정제, 분석, 시각화를 바탕으로 의미 있는 의사결정을 돕는 학과입니다.', hint: '모델을 만드는 것보다 데이터를 해석해 현장 문제를 해결하는 데 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '소프트웨어학과', track_category: '소프트웨어/개발/서비스', focus: '앱, 웹, 서비스 개발을 중심으로 실제 사용자를 위한 프로그램을 만드는 학과입니다.', hint: 'AI 자체보다 실제 서비스 구현과 사용자 경험에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: 'AI를 돌리는 바탕 시스템과 성능 구조까지 함께 이해하고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '데이터사이언스학과': {
+      card: '데이터를 수집·정제·분석·시각화해 의미 있는 의사결정을 돕는 학과입니다.',
+      fit: '숫자와 패턴을 읽어 현실 문제를 해석하고, 데이터를 바탕으로 결론을 도출하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '데이터사이언스학과는 데이터 수집, 전처리, 통계 분석, 시각화, 모델링을 배우며 산업과 사회 문제를 데이터 기반으로 해결하는 학과입니다.',
+      subjects: ['정보', '공통수학1', '통합사회', '영어', '사회와 문화'],
+      topics: ['생활 데이터 시각화 방식이 해석 결과에 미치는 영향 비교', '예측 모델이 실제 의사결정에서 어떻게 활용되는지 사례 분석', '데이터 편향이 결과 해석과 정책 판단에 미치는 영향 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: '데이터/통계/AI응용',
+      core_keywords: ['데이터','분석','시각화','예측','통계','모델링'],
+      recommended_keywords: ['정보','공통수학1','통합사회','영어','사회와 문화'],
+      compare_profiles: [
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.', hint: '데이터 해석을 넘어 학습 모델 자체를 만드는 데 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '산업공학과', track_category: '최적화/시스템/데이터', focus: '생산·물류·서비스 시스템을 데이터와 최적화 기법으로 개선하는 학과입니다.', hint: '데이터를 해석해 실제 운영 효율과 시스템 개선으로 연결하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: '데이터 분석보다 시스템 자체의 구조와 구현에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '정보보호학과': {
+      card: '해킹 대응, 암호, 인증, 시스템 보안을 통해 디지털 환경을 안전하게 지키는 학과입니다.',
+      fit: '시스템을 만드는 것뿐 아니라 공격과 방어 구조, 정보 보호 원리에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '정보보호학과는 네트워크 보안, 시스템 보안, 암호 기술, 디지털 포렌식, 보안 정책을 배우며 정보 유출과 사이버 공격을 막는 방법을 다루는 학과입니다.',
+      subjects: ['정보', '공통수학1', '영어', '물리학', '통합사회'],
+      topics: ['암호화 방식 차이가 정보 보호 수준에 미치는 영향 비교', '네트워크 공격 유형별 탐지·차단 방식 분석', '개인정보 보호 정책이 디지털 서비스 설계에 주는 영향 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: '보안/암호/시스템',
+      core_keywords: ['정보보호','보안','암호','인증','시스템','네트워크'],
+      recommended_keywords: ['정보','공통수학1','영어','물리학','통합사회'],
+      compare_profiles: [
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: '시스템 자체를 설계하는 기반 기술에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '소프트웨어학과', track_category: '소프트웨어/개발/서비스', focus: '앱, 웹, 서비스 개발을 중심으로 실제 사용자를 위한 프로그램을 만드는 학과입니다.', hint: '보안보다는 서비스 구현과 사용자 기능 설계에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 예측, 추천, 인식 같은 지능형 시스템을 만드는 학과입니다.', hint: '보안 문제를 넘어서 자동화와 지능형 판단 시스템 자체에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '산업공학과': {
+      card: '생산·물류·서비스 시스템을 데이터와 최적화 기법으로 개선하는 학과입니다.',
+      fit: '복잡한 운영 과정을 더 효율적으로 만들고, 데이터를 바탕으로 전체 흐름을 개선하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '산업공학과는 생산관리, 물류, 품질관리, 인간공학, 데이터 분석, 최적화 기법을 배우며 제조와 서비스 시스템의 효율을 높이는 학과입니다.',
+      subjects: ['공통수학1', '정보', '통합사회', '영어', '물리학'],
+      topics: ['대기 시간과 작업 순서가 생산 효율에 미치는 영향 분석', '물류 경로 최적화가 비용과 시간에 주는 효과 비교', '서비스 운영 데이터로 병목 구간을 찾아 개선하는 방식 탐구'],
+      group_label: '컴퓨터·AI·데이터',
+      track_category: '최적화/시스템/데이터',
+      core_keywords: ['산업공학','최적화','시스템','생산관리','물류','데이터'],
+      recommended_keywords: ['공통수학1','정보','통합사회','영어','물리학'],
+      compare_profiles: [
+        { display_name: '데이터사이언스학과', track_category: '데이터/통계/AI응용', focus: '데이터를 수집·정제·분석·시각화해 의미 있는 의사결정을 돕는 학과입니다.', hint: '데이터를 해석하는 데서 나아가 실제 운영 시스템 개선으로 연결하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '경영정보학과', track_category: '경영/정보시스템/데이터', focus: '기업 운영을 데이터와 정보시스템 관점에서 해결하는 융합형 상경계열 학과입니다.', hint: '공장·물류뿐 아니라 조직 운영과 비즈니스 시스템 개선에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조와 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: '운영 최적화보다 시스템 자체 구현과 성능 구조에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
     },
     '고분자공학과': {
@@ -1045,7 +1150,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
       { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.', test: /(국제학부|국제통상|무역|통상|글로벌|경제학|농업경제)/ },
       { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.', test: /(경영|관광|호텔|회계|세무|부동산|소비자)/ },
       { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.', test: /(행정|정책|법학|정치외교|공공|경찰|군사|외교)/ },
-      { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|컴퓨터|소프트웨어|AI|로봇|기계|자동차)/ },
+      { id:'computing_ai', label:'컴퓨터·AI 쪽', desc:'프로그래밍, 알고리즘, 데이터, 시스템 설계와 연결된 학과입니다.', test: /(컴퓨터공학|소프트웨어학|인공지능학|데이터사이언스학|정보보호학|산업공학|프로그래밍|알고리즘|인공지능|AI|데이터분석|보안|암호|시스템설계|소프트웨어)/i },
+      { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|로봇|기계|자동차)/ },
       { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|확률|모델링|수리|정량)/ },
       { id:'language_culture', label:'언어·문화·사상', desc:'언어, 텍스트, 문화와 사상을 중심으로 읽는 학과입니다.', test: /(국어국문|언어|영어|일어|중어|불어|독어|노어|아랍어|철학|사학|고고|신학|한문|한국어|미학|문예창작|문화인류|문화유산)/ }
     ];
@@ -1073,8 +1179,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
     }
     if (track.includes('공학')) {
       if (allowed) {
-        const preferred = ['materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
+        const preferred = ['computing_ai','materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
         if (preferred) return { ...(getGroupMetaByLabel({
+          computing_ai:'컴퓨터·AI·데이터',
           materials_devices:'반도체·전자',
           bio_engineering:'바이오·생명공학',
           bio_materials_devices:'바이오소재·의료기기',
