@@ -65,7 +65,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       major_id: majorId,
       display_name: name,
       track_category: override.track_category || existingRow?.track_category || '',
-      core_keywords: (existingRow?.core_keywords && existingRow.core_keywords.length ? existingRow.core_keywords : (explicitCoreKeywords.length ? explicitCoreKeywords : fallbackKeywords)),
+      core_keywords: (explicitCoreKeywords.length ? explicitCoreKeywords : ((existingRow?.core_keywords && existingRow.core_keywords.length) ? existingRow.core_keywords : fallbackKeywords)),
+      recommended_keywords: (explicitRecommendedKeywords.length ? explicitRecommendedKeywords : ((existingRow?.recommended_keywords && existingRow.recommended_keywords.length) ? existingRow.recommended_keywords : [])),
       source_status: existingRow?.source_status || 'virtual_override'
     };
   }
