@@ -434,7 +434,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       subjects: ['보건', '통합사회', '사회와 문화', '공통수학1', '정보'],
       topics: ['지역별 건강지표 차이와 공공보건 서비스 개선안 비교', '감염병 예방 정책이 지역사회 건강 관리에 미치는 영향 분석', '건강검진 데이터로 생활습관과 만성질환 위험 요인 해석'],
       group_label: '보건·예방·관리',
-      compare: ['식품영양학과','간호학과','임상병리학과']
+      compare: ['식품영양학과','간호학과','재활상담학과'],
+      compare_profiles: [
+        { display_name: '식품영양학과', track_category: '영양/식품/건강관리', focus: '식품과 영양, 건강 관리의 관계를 생활과 예방 관점에서 다루는 학과입니다.', hint: '생활 습관과 영양 관리가 건강에 어떤 영향을 주는지 궁금한 학생에게 잘 맞습니다.' },
+        { display_name: '간호학과', track_category: '메디컬/보건 계열', focus: '환자 상태를 지속적으로 관찰하고 직접 간호를 수행하는 임상 실천 중심 학과입니다.', hint: '사람을 직접 돌보며 변화하는 상태를 빠르게 판단하고 대응하는 일에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '재활상담학과', track_category: '재활/상담/지원', focus: '질환이나 장애 이후의 학교·직업·사회 복귀를 상담과 지원 관점에서 다루는 학과입니다.', hint: '회복 이후의 적응과 복귀, 상담 지원 체계에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
     '간호학과': {
       card: '환자 상태를 지속적으로 관찰하고 직접 간호를 수행하는 임상 실천 중심 학과입니다.',
@@ -452,7 +457,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       subjects: ['보건', '물리학', '생명과학', '공통수학1', '정보'],
       topics: ['의료영상 장비별 원리와 활용 분야 비교', '영상 품질과 환자 피폭량 사이의 균형 분석', '방사선 안전관리 기준이 촬영 실무에서 필요한 이유 탐구'],
       group_label: '보건·임상',
-      compare: ['임상병리학과','간호학과','의공학과']
+      compare: ['임상병리학과','간호학과','의공학과'],
+      compare_profiles: [
+        { display_name: '임상병리학과', track_category: '메디컬/보건 계열', focus: '혈액·조직·체액 검사를 통해 질병 원인을 찾고 진단을 돕는 검사 중심 학과입니다.', hint: '실험 과정과 검사 데이터를 바탕으로 질병의 원인을 정밀하게 해석하는 일에 흥미가 있는 학생에게 잘 맞습니다.' },
+        { display_name: '간호학과', track_category: '메디컬/보건 계열', focus: '환자 상태를 지속적으로 관찰하고 직접 간호를 수행하는 임상 실천 중심 학과입니다.', hint: '사람을 직접 돌보며 변화하는 상태를 빠르게 판단하고 대응하는 일에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '의공학과', track_category: '의료기기/생체신호/공학융합', focus: '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.', hint: '공학 기술을 의료기기와 생체신호 분석에 연결해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
     },
     '임상병리학과': {
       card: '혈액·조직·체액 검사를 통해 질병 원인을 찾고 진단을 돕는 검사 중심 학과입니다.',
@@ -479,7 +489,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       subjects: ['보건', '생명과학', '심리', '정보', '통합과학1'],
       topics: ['일상생활 동작 평가와 재활 계획 수립 사례 분석', '인지 기능 변화가 작업 수행과 자립도에 미치는 영향 탐구', '재활 보조도구가 환자 참여 수준 향상에 주는 효과 비교'],
       group_label: '재활·치료',
-      compare: ['물리치료학과','언어치료학과','재활상담학과']
+      compare: ['물리치료학과','언어치료학과','재활상담학과'],
+      compare_profiles: [
+        { display_name: '물리치료학과', track_category: '메디컬/보건 계열', focus: '움직임 평가와 재활 운동을 통해 신체 기능 회복을 돕는 학과입니다.', hint: '근육·관절·신경계 움직임을 분석하고 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '언어치료학과', track_category: '메디컬/보건 계열', focus: '말·언어·의사소통의 어려움을 평가하고 중재하는 의사소통 재활 학과입니다.', hint: '언어 발달과 발음, 의사소통 지원을 성장과 회복 관점에서 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '재활상담학과', track_category: '재활/상담/지원', focus: '질환이나 장애 이후의 학교·직업·사회 복귀를 상담과 지원 관점에서 다루는 학과입니다.', hint: '회복 이후의 적응과 복귀, 상담 지원 체계에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
     '언어치료학과': {
       card: '말·언어·의사소통의 어려움을 평가하고 중재하는 의사소통 재활 학과입니다.',
@@ -488,7 +503,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       subjects: ['공통국어', '심리', '보건', '생명과학', '정보'],
       topics: ['언어 발달 지연 사례에서 필요한 평가 요소 분석', '의사소통 장애 유형별 중재 방법과 효과 비교', '뇌 손상과 언어 기능 저하의 관계를 사례 중심으로 탐구'],
       group_label: '재활·치료',
-      compare: ['작업치료학과','물리치료학과','재활상담학과']
+      compare: ['작업치료학과','물리치료학과','재활상담학과'],
+      compare_profiles: [
+        { display_name: '작업치료학과', track_category: '메디컬/보건 계열', focus: '일상생활·학습·직업 활동 복귀를 돕는 활동 훈련 중심 재활 학과입니다.', hint: '신체 기능뿐 아니라 인지와 생활 적응까지 사람 중심으로 회복을 돕고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '물리치료학과', track_category: '메디컬/보건 계열', focus: '움직임 평가와 재활 운동을 통해 신체 기능 회복을 돕는 학과입니다.', hint: '근육·관절·신경계 움직임을 분석하고 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '재활상담학과', track_category: '재활/상담/지원', focus: '질환이나 장애 이후의 학교·직업·사회 복귀를 상담과 지원 관점에서 다루는 학과입니다.', hint: '회복 이후의 적응과 복귀, 상담 지원 체계에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
     },
     '의공학과': {
       card: '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.',
@@ -1059,10 +1079,30 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     const override = getMajorOverride(profile);
     const baseGroup = classifyCandidateGroup(current, rawInput);
 
+    if (override?.compare_profiles?.length) {
+      const peers = override.compare_profiles.map(peer => ({
+        major_id: peer.major_id || '',
+        display_name: peer.display_name || '',
+        track_category: peer.track_category || '',
+        focus: peer.focus || '',
+        hint: peer.hint || '',
+        overlap: 1000
+      })).filter(peer => peer.display_name);
+      return {
+        group_id: baseGroup.id || '',
+        group_label: override.group_label || baseGroup.label || '비슷한 학과',
+        group_desc: baseGroup.desc || '',
+        selected_focus: override.card || buildStudentDescription(profile, baseGroup),
+        peers
+      };
+    }
+
     if (override?.compare?.length) {
       const peers = override.compare.map(name => {
         const peerProfile = getProfileByIdOrName('', name);
-        if (!peerProfile) return null;
+        if (!peerProfile) {
+          return { major_id: '', display_name: name, track_category: '', focus: '', hint: '', overlap: 999 };
+        }
         return {
           major_id: peerProfile.major_id || '',
           display_name: peerProfile.display_name,
@@ -1401,8 +1441,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
             <div class="major-engine-compare-card">
               <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
               <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
-              <div class="major-engine-compare-focus">${escapeHtml(buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
-              <div class="major-engine-compare-hint">${escapeHtml(buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-focus">${escapeHtml(peer.focus || buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
             </div>
           `).join('')}
         </div>
