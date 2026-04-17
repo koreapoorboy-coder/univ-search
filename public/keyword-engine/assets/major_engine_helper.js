@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-v17";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-v19";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -285,7 +285,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -303,6 +303,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     { queries:['데이터'], test: /(데이터사이언스학|인공지능학|산업공학|컴퓨터공학)/, boost: 40 },
     { queries:['보안'], test: /(정보보호학|컴퓨터공학|소프트웨어학)/, boost: 42 },
     { queries:['바이오'], test: /(생명공학|생명과학|식품생명공학|화공생명공학|제약공학|의공학)/, boost: 44 },
+    { queries:['화학'], test: /(화학과|화학공학과|화공생명공학과|에너지공학과|신소재공학과)/, boost: 42 },
+    { queries:['화공'], test: /(화학공학과|화공생명공학과|에너지공학과|신소재공학과)/, boost: 44 },
+    { queries:['에너지'], test: /(에너지공학과|화학공학과|화공생명공학과|신소재공학과|전기공학과)/, boost: 42 },
+    { queries:['소재'], test: /(신소재공학과|반도체공학과|화학공학과|화공생명공학과)/, boost: 40 },
+    { queries:['배터리','이차전지'], test: /(신소재공학과|화학공학과|에너지공학과|화공생명공학과|전기공학과)/, boost: 46 },
     { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학)/, boost: 34 }
   ];
 
@@ -312,6 +317,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     '바이오·생명공학': { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.' },
     '바이오·생명과학': { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.' },
     '바이오소재·의료기기': { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
+    '화학·에너지·소재': { id:'chem_energy_materials', label:'화학·에너지·소재 쪽', desc:'화학 반응, 공정 설계, 에너지 변환, 소재 응용과 연결된 학과입니다.' },
     '반도체·전자': { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
     '컴퓨터·AI·데이터': { id:'computing_ai', label:'컴퓨터·AI 쪽', desc:'프로그래밍, 알고리즘, 데이터, 시스템 설계와 연결된 학과입니다.' },
     '심리·상담': { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
@@ -334,6 +340,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       '실험·기술 응용 쪽':'바이오·생명공학',
       '기초 생명과학 쪽':'바이오·생명과학',
       '의료기기·바이오소재 쪽':'바이오소재·의료기기',
+      '화학·에너지·소재 쪽':'화학·에너지·소재',
       '반도체·소자 설계 쪽':'반도체·전자',
       '컴퓨터·AI 쪽':'컴퓨터·AI·데이터',
       '마음 이해·상담 쪽':'심리·상담',
@@ -359,7 +366,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     if (input.includes('행정') || input.includes('정치') || input.includes('법') || input.includes('경찰') || input.includes('공공') || input.includes('군사')) return new Set(['law_public']);
     if (input.includes('경영') || input.includes('관광') || input.includes('호텔') || input.includes('소비자')) return new Set(['business_service']);
     if (input.includes('경제') || input.includes('통상') || input.includes('무역')) return new Set(['global_trade']);
-    if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices']);
+    if (input.includes('화학') || input.includes('화공') || input.includes('에너지') || input.includes('소재') || input.includes('배터리') || input.includes('이차전지') || input.includes('촉매')) return new Set(['chem_energy_materials','materials_devices','bio_engineering']);
+    if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices','chem_energy_materials']);
     if (input.includes('컴퓨터') || input.includes('소프트웨어') || input.includes('인공지능') || input.includes('ai') || input.includes('데이터사이언스') || input.includes('정보보호') || input.includes('보안') || input.includes('산업공학')) return new Set(['computing_ai']);
     if (input.includes('반도체') || input.includes('전자') || input.includes('전기') || input.includes('기계') || input.includes('로봇') || input.includes('자동차') || input.includes('모빌리티')) return new Set(['materials_devices']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
@@ -850,20 +858,68 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
         { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.', hint: '집적회로 자체보다 전기 에너지 흐름과 대규모 시스템 제어에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
     },
+    '화학과': {
+      card: '원자와 분자 수준에서 물질의 구조와 반응 원리를 실험과 분석으로 탐구하는 기초과학 학과입니다.',
+      fit: '눈에 보이지 않는 분자 구조와 반응 원리를 실험으로 확인하고 깊게 이해해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '화학과는 원자, 분자, 결합, 반응, 평형, 분석 방법을 배우며 물질이 어떻게 변하고 어떤 성질을 가지는지 기초 원리부터 탐구하는 학과입니다.',
+      subjects: ['화학', '공통수학1', '생명과학', '물리학', '정보'],
+      topics: ['반응 조건 변화가 평형 이동과 생성물 수율에 미치는 영향 분석', '분자 구조 차이가 물질의 성질과 반응성에 주는 효과 비교', '분석 화학 기법이 미지 시료 성분을 구별하는 방식 탐구'],
+      group_label: '기초화학 탐구',
+      track_category: '화학/분석/분자이해',
+      core_keywords: ['화학과','분자','반응','구조','분석','실험'],
+      recommended_keywords: ['화학','공통수학1','생명과학','물리학','정보'],
+      compare_profiles: [
+        { display_name: '화학공학과', track_category: '화학공정/소재/생산', focus: '화학 반응과 물질전달, 공정 설계를 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.', hint: '기초 반응 원리를 산업 공정과 생산 시스템으로 확장해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '생명과학과', track_category: '세포/유전/생명탐구', focus: '세포, 유전, 진화, 생태 같은 생명 현상의 원리를 이론과 실험으로 탐구하는 기초과학 중심 학과입니다.', hint: '화학적 원리를 생명 현상 이해와 실험 데이터 해석으로 넓혀 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '신소재공학과', track_category: '소재/배터리/재료설계', focus: '새로운 소재의 구조와 성질을 분석해 배터리·반도체·부품으로 연결하는 학과입니다.', hint: '기초 물질 성질을 실제 소재 설계와 성능 문제로 이어 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '화학공학과': {
+      card: '화학 반응과 물질전달, 공정 설계를 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.',
+      fit: '실험실 반응을 대규모 생산 공정과 설비 시스템으로 확장해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '화학공학과는 반응공학, 열·물질전달, 분리 공정, 공정 설계를 배우며 화학 원리를 의약, 배터리, 소재, 에너지 생산 시스템에 적용하는 학과입니다.',
+      subjects: ['화학', '공통수학1', '물리학', '정보', '통합과학1'],
+      topics: ['촉매 조건 변화가 생산 효율과 에너지 사용량에 미치는 영향 분석', '배터리 전해질 공정 차이가 안정성과 수율에 주는 효과 비교', '분리 공정 설계가 자원 회수와 친환경 생산에 기여하는 방식 탐구'],
+      group_label: '화학공정·소재',
+      track_category: '화학공정/소재/생산',
+      core_keywords: ['화학공학','공정','반응','분리','촉매','생산'],
+      recommended_keywords: ['화학','공통수학1','물리학','정보','통합과학1'],
+      compare_profiles: [
+        { display_name: '화학과', track_category: '화학/분석/분자이해', focus: '원자와 분자 수준에서 물질의 구조와 반응 원리를 실험과 분석으로 탐구하는 기초과학 학과입니다.', hint: '공정보다 분자 반응 원리 자체를 깊게 이해하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '에너지공학과', track_category: '에너지/전환/저장시스템', focus: '전기, 열, 연료, 저장 시스템을 바탕으로 에너지 변환과 활용을 설계하는 학과입니다.', hint: '생산 공정 전반보다 전력·저장·변환 시스템 자체에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '신소재공학과', track_category: '소재/배터리/재료설계', focus: '새로운 소재의 구조와 성질을 분석해 배터리·반도체·부품으로 연결하는 학과입니다.', hint: '공정보다 소재 조성과 구조가 성능을 바꾸는 방식에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '에너지공학과': {
+      card: '전기, 열, 연료, 저장 시스템을 바탕으로 에너지 변환과 활용을 설계하는 학과입니다.',
+      fit: '에너지가 만들어지고 저장되고 효율적으로 쓰이는 전체 시스템을 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '에너지공학과는 열역학, 전기화학, 에너지 변환, 저장 기술, 전력 활용 시스템을 배우며 발전·배터리·신재생에너지 문제를 공학적으로 다루는 학과입니다.',
+      subjects: ['물리학', '화학', '공통수학1', '정보', '통합과학1'],
+      topics: ['배터리 소재와 전극 구조 차이가 저장 효율에 미치는 영향 분석', '에너지 변환 방식 차이가 시스템 효율과 손실에 주는 효과 비교', '신재생에너지 출력 변동을 저장 시스템이 보완하는 방식 탐구'],
+      group_label: '에너지 변환·시스템',
+      track_category: '에너지/전환/저장시스템',
+      core_keywords: ['에너지공학','변환','저장','효율','전기화학','시스템'],
+      recommended_keywords: ['물리학','화학','공통수학1','정보','통합과학1'],
+      compare_profiles: [
+        { display_name: '화학공학과', track_category: '화학공정/소재/생산', focus: '화학 반응과 물질전달, 공정 설계를 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.', hint: '에너지 문제를 생산 공정과 제조 시스템까지 넓혀 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.', hint: '저장 기술보다 전력 설비와 제어 시스템 쪽에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '신소재공학과', track_category: '소재/배터리/재료설계', focus: '새로운 소재의 구조와 성질을 분석해 배터리·반도체·부품으로 연결하는 학과입니다.', hint: '에너지 시스템보다 배터리와 기능성 소재 자체의 성능 설계에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
     '신소재공학과': {
-      card: '새로운 소재의 구조와 성질을 분석해 반도체·배터리·부품으로 연결하는 학과입니다.',
-      fit: '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.',
-      intro: '신소재공학과는 금속, 세라믹, 고분자, 반도체 소재의 구조와 성질을 분석하고 이를 배터리, 반도체, 전자부품으로 연결하는 학과입니다.',
+      card: '새로운 소재의 구조와 성질을 분석해 배터리·반도체·부품 성능으로 연결하는 학과입니다.',
+      fit: '소재 조성과 결정 구조가 실제 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.',
+      intro: '신소재공학과는 금속, 세라믹, 고분자, 반도체 소재의 구조와 성질을 분석하고 이를 배터리, 반도체, 전자부품, 기능성 소재 설계로 연결하는 학과입니다.',
       subjects: ['화학', '물리학', '공통수학1', '통합과학1', '정보'],
-      topics: ['결정 구조 차이가 전도성과 강도에 미치는 영향 분석', '배터리 소재 변화가 성능과 안정성에 주는 효과 비교', '반도체 소재의 불순물 제어가 소자 특성에 미치는 영향 탐구'],
-      group_label: '소재·반도체 설계',
-      track_category: '반도체/소재/재료설계',
-      core_keywords: ['신소재공학','소재','결정구조','반도체','배터리','재료설계'],
+      topics: ['결정 구조 차이가 전도성과 강도에 미치는 영향 분석', '배터리 소재 변화가 성능과 안정성에 주는 효과 비교', '소재 조성 변화가 반도체·전극 성능에 미치는 영향 탐구'],
+      group_label: '소재·배터리 설계',
+      track_category: '소재/배터리/재료설계',
+      core_keywords: ['신소재공학','소재','결정구조','배터리','반도체','재료설계'],
       recommended_keywords: ['화학','물리학','공통수학1','통합과학1','정보'],
       compare_profiles: [
-        { display_name: '반도체공학과', track_category: '반도체/소자/공정', focus: '칩 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.', hint: '재료 자체보다 칩 구조와 공정에 더 관심 있는 학생에게 잘 맞습니다.' },
-        { display_name: '전자공학과', track_category: '전자/회로/신호', focus: '회로, 신호, 센서, 통신 시스템을 설계하는 학과입니다.', hint: '소재보다 회로와 전자 장치 동작 원리에 더 관심 있는 학생에게 잘 맞습니다.' },
-        { display_name: '화공생명공학과', track_category: '화학공정/바이오생산/소재', focus: '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.', hint: '소재 성질보다 생산 공정과 대규모 응용 설계에 더 관심 있는 학생에게 잘 맞습니다.' }
+        { display_name: '화학공학과', track_category: '화학공정/소재/생산', focus: '화학 반응과 물질전달, 공정 설계를 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.', hint: '소재 성질보다 생산 공정과 대규모 제조 시스템에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '반도체공학과', track_category: '반도체/소자/공정', focus: '집적회로 설계와 반도체 공정, 소자 동작 원리를 배우는 학과입니다.', hint: '재료 자체보다 소자 구조와 공정 설계에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '에너지공학과', track_category: '에너지/전환/저장시스템', focus: '전기, 열, 연료, 저장 시스템을 바탕으로 에너지 변환과 활용을 설계하는 학과입니다.', hint: '소재 자체보다 배터리와 저장 시스템 전체 성능에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
     },
     '로봇공학과': {
@@ -1234,6 +1290,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활)/ },
       { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건|안경광학)/ },
       { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.', test: /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/ },
+      { id:'chem_energy_materials', label:'화학·에너지·소재 쪽', desc:'화학 반응, 공정 설계, 에너지 변환, 소재 응용과 연결된 학과입니다.', test: /(화학과|화학공학|에너지공학|신소재공학|화공생명|촉매|반응공학|전기화학|배터리|이차전지|고분자|정제|분석화학|유기화학|무기화학|소재|에너지)/ },
       { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(식품생명공학|제약공학|화공생명|생명공학|바이오|미생물|유전|세포|단백질|발효|식품)/ },
       { id:'bio_science', label:'기초 생명과학 쪽', desc:'생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.', test: /(생명과학|생물학|분자생물|생태학)/ },
       { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.', test: /(주거환경|주거|실내|주택|공간|생활환경|인테리어|실내디자인)/ },
@@ -1273,9 +1330,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     }
     if (track.includes('공학')) {
       if (allowed) {
-        const preferred = ['computing_ai','materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
+        const preferred = ['computing_ai','chem_energy_materials','materials_devices','bio_engineering','bio_materials_devices','city_infra'].find(v => allowed.has(v));
         if (preferred) return { ...(getGroupMetaByLabel({
           computing_ai:'컴퓨터·AI·데이터',
+          chem_energy_materials:'화학·에너지·소재',
           materials_devices:'반도체·전자',
           bio_engineering:'바이오·생명공학',
           bio_materials_devices:'바이오소재·의료기기',
@@ -1286,8 +1344,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
     }
     if (track.includes('자연')) {
       if (allowed) {
-        const preferred = ['bio_science','environment','space_housing','city_infra'].find(v => allowed.has(v));
+        const preferred = ['chem_energy_materials','bio_science','environment','space_housing','city_infra'].find(v => allowed.has(v));
         if (preferred) return { ...(getGroupMetaByLabel({
+          chem_energy_materials:'화학·에너지·소재',
           bio_science:'바이오·생명과학',
           environment:'환경 관련 추천',
           space_housing:'공간·주거 환경',
@@ -1410,6 +1469,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       [/치기공/, '보철물과 치과 장치를 설계·제작하는 제작 중심 학과입니다.'],
       [/의공/, '의료기기와 생체신호를 공학적으로 분석하고 설계하는 학과입니다.'],
       [/제약공학/, '의약품의 개발·생산·품질 관리를 공정 관점에서 다루는 학과입니다.'],
+      [/화학공학/, '화학 반응과 물질전달, 공정 설계를 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.'],
+      [/에너지공학/, '전기, 열, 연료, 저장 시스템을 바탕으로 에너지 변환과 활용을 설계하는 학과입니다.'],
+      [/화학과/, '원자·분자 수준의 반응과 구조를 실험과 분석으로 탐구하는 기초과학 학과입니다.'],
       [/화공생명/, '화학공정과 생명기술을 함께 다루며 의약·소재·에너지 응용으로 이어지는 학과입니다.'],
       [/생명공학/, '세포·유전자·미생물을 활용해 의료·식품·환경 기술로 연결하는 학과입니다.'],
       [/생명과학/, '생명 현상의 원리를 실험과 데이터로 탐구하는 기초과학 중심 학과입니다.'],
@@ -1460,6 +1522,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.9-major-search-integrated-bundle-
       [/치기공/, '정밀 제작과 손기술, 치과 장치 설계에 관심 있는 학생에게 잘 맞습니다.'],
       [/의공/, '공학 기술을 의료기기와 생체신호 분석에 연결해 보고 싶은 학생에게 잘 맞습니다.'],
       [/생명공학|생명과학|제약공학|화공생명|식품생명공학/, '생명 현상을 실험과 기술로 연결해 보고 싶은 학생에게 잘 맞습니다.'],
+      [/화학공학|에너지공학|신소재공학/, '반응, 공정, 에너지, 소재 변화가 실제 기술 성능으로 이어지는 과정에 관심 있는 학생에게 잘 맞습니다.'],
+      [/화학과/, '물질의 구조와 반응 원리를 실험과 분석으로 깊게 탐구하고 싶은 학생에게 잘 맞습니다.'],
       [/반도체공학/, '칩, 회로, 공정 같은 반도체 기술에 관심 있는 학생에게 잘 맞습니다.'],
       [/신소재공학|재료공학/, '소재의 구조와 성질이 기술 성능을 바꾸는 과정에 흥미가 있는 학생에게 잘 맞습니다.'],
       [/전자공학|전기공학/, '회로와 신호, 장치 동작 원리에 관심 있는 학생에게 잘 맞습니다.'],
