@@ -50,9 +50,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
 
   function buildVirtualMajorProfile(name, majorId, existingRow){
     const override = getMajorOverride(name) || {};
+    const explicitCoreKeywords = Array.isArray(override.core_keywords) ? override.core_keywords : [];
+    const explicitRecommendedKeywords = Array.isArray(override.recommended_keywords) ? override.recommended_keywords : [];
     const fallbackKeywords = uniq([
       ...((existingRow && Array.isArray(existingRow.core_keywords)) ? existingRow.core_keywords : []),
+      ...explicitCoreKeywords,
       ...((existingRow && Array.isArray(existingRow.recommended_keywords)) ? existingRow.recommended_keywords : []),
+      ...explicitRecommendedKeywords,
       ...((override.subjects || [])),
       ...((override.topics || [])).map(v => String(v).split(/[·,]/)[0].trim())
     ]).filter(Boolean).slice(0, 6);
@@ -61,7 +65,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
       major_id: majorId,
       display_name: name,
       track_category: override.track_category || existingRow?.track_category || '',
-      core_keywords: existingRow?.core_keywords || fallbackKeywords,
+      core_keywords: (existingRow?.core_keywords && existingRow.core_keywords.length ? existingRow.core_keywords : (explicitCoreKeywords.length ? explicitCoreKeywords : fallbackKeywords)),
       source_status: existingRow?.source_status || 'virtual_override'
     };
   }
@@ -780,6 +784,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.7-major-search-integrated-bundle-
       card: '장애·학습 차이가 있는 학생을 위한 개별 지원과 통합교육 방법을 배우는 학과입니다.',
       fit: '학습 지원과 교육적 배려, 개별화된 수업 설계에 관심 있는 학생에게 잘 맞습니다.',
       intro: '특수교육과는 장애나 학습 차이가 있는 학생의 발달 특성을 이해하고 개별화 교육, 의사소통 지원, 통합교육 방법을 배우는 학과입니다.',
+      core_keywords: ['개별화교육', '통합교육', '학습지원', '의사소통지원', '발달이해', '교육배려'],
+      recommended_keywords: ['특수교육', '개별지원', '학교적응', '지원체계'],
       subjects: ['통합사회', '심리', '공통국어', '보건', '정보'],
       topics: ['개별화 교육계획이 학습 참여도에 미치는 영향 분석', '통합교육 환경에서 필요한 지원 요소 비교', '의사소통 보조도구가 학습 접근성에 주는 효과 탐구'],
       group_label: '교육·아동 발달',
