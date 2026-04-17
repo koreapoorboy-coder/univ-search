@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.6-major-search-integrated-bundle-v12";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -216,13 +216,15 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','미디어','국제','반도체','바이오','보건']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','반도체','바이오','보건']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
     { queries:['도시'], test: /(도시공학|건설환경공학|토목환경공학|주거환경|지구환경과학)/, boost: 36 },
     { queries:['주거'], test: /(주거환경|도시공학)/, boost: 34 },
-    { queries:['심리'], test: /(심리학|상담심리학)/, boost: 42 },
+    { queries:['심리'], test: /(심리학|상담심리학|재활상담학)/, boost: 42 },
+    { queries:['교육'], test: /(교육학|유아교육|아동학|특수교육|사회복지학)/, boost: 40 },
+    { queries:['복지'], test: /(사회복지학|상담심리학|재활상담학|특수교육|아동학)/, boost: 38 },
     { queries:['미디어'], test: /(미디어커뮤니케이션|광고홍보|문화인류|문화유산)/, boost: 34 },
     { queries:['국제'], test: /(국제학부|국제통상학|경제학|경영학)/, boost: 34 },
     { queries:['반도체'], test: /(반도체공학|신소재공학|전자공학)/, boost: 36 },
@@ -238,6 +240,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     '바이오소재·의료기기': { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.' },
     '반도체·전자': { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.' },
     '심리·상담': { id:'psychology_counsel', label:'마음 이해·상담 쪽', desc:'인지, 정서, 상담 사례를 중심으로 보는 학과입니다.' },
+    '교육·아동 발달': { id:'education_child', label:'교육·발달 지원 쪽', desc:'유아, 아동, 학습 발달, 특수교육처럼 성장과 학습 지원을 다루는 학과입니다.' },
+    '복지·상담 지원': { id:'welfare_support', label:'복지·상담 지원 쪽', desc:'상담, 복지 제도, 사례 지원처럼 삶의 적응과 회복을 돕는 학과입니다.' },
     '국제·통상': { id:'global_trade', label:'국제 이슈·무역 쪽', desc:'국제 이슈, 무역, 경제 흐름과 연결된 사회계열 학과입니다.' },
     '경영·서비스': { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.' },
     '행정·정책·법': { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.' },
@@ -257,6 +261,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       '의료기기·바이오소재 쪽':'바이오소재·의료기기',
       '반도체·소자 설계 쪽':'반도체·전자',
       '마음 이해·상담 쪽':'심리·상담',
+      '교육·발달 지원 쪽':'교육·아동 발달',
+      '복지·상담 지원 쪽':'복지·상담 지원',
       '국제 이슈·무역 쪽':'국제·통상',
       '기업 운영·서비스 쪽':'경영·서비스',
       '행정·정책·법':'행정·정책·법',
@@ -280,7 +286,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
     if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices']);
     if (input.includes('반도체')) return new Set(['materials_devices']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
-    if (input.includes('심리')) return new Set(['psychology_counsel']);
+    if (input.includes('심리') || input.includes('상담')) return new Set(['psychology_counsel','welfare_support']);
+    if (input.includes('교육') || input.includes('유아') || input.includes('아동') || input.includes('특수')) return new Set(['education_child','welfare_support']);
+    if (input.includes('복지')) return new Set(['welfare_support','education_child']);
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content']);
     if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra']);
     return null;
@@ -659,6 +667,105 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.5-major-search-integrated-bundle"
       group_label: '식품·영양·건강',
       track_category: '영양/식품/건강관리',
       compare: ['보건관리학과','생명공학과','간호학과']
+    },
+
+    '교육학과': {
+      card: '교육 제도와 학습 원리, 학교 운영 구조를 폭넓게 이해하는 학과입니다.',
+      fit: '사람이 배우고 성장하는 과정과 교육 제도가 어떻게 연결되는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '교육학과는 학습 이론, 교육과정, 학교 제도, 교육 정책을 함께 배우며 교육이 개인의 성장과 사회 변화에 어떤 역할을 하는지 폭넓게 탐구하는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '사회와 문화', '심리', '공통수학1'],
+      topics: ['학교 교육과정 차이가 학습 경험에 미치는 영향 비교', '교육 정책 변화가 학생 성장 지원에 미치는 효과 분석', '학습 동기 이론이 수업 설계에 반영되는 방식 탐구'],
+      group_label: '교육·아동 발달',
+      track_category: '교육/학습/정책',
+      compare_profiles: [
+        { display_name: '유아교육과', track_category: '유아교육/발달/놀이', focus: '유아의 발달과 놀이, 초기 학습 환경을 이해하고 교육 활동을 설계하는 학과입니다.', hint: '어린 시기의 성장과 놀이 중심 교육에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '특수교육과', track_category: '특수교육/개별지원/통합교육', focus: '장애·학습 차이가 있는 학생을 위한 개별 지원과 통합교육 방법을 배우는 학과입니다.', hint: '학습 지원과 교육적 배려를 실제 교육 현장에 적용해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '사회복지학과', track_category: '복지/사례관리/지역지원', focus: '개인과 가족, 지역사회의 어려움을 제도와 사례 지원으로 돕는 학과입니다.', hint: '교육 밖의 생활 환경과 지원 체계까지 함께 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '유아교육과': {
+      card: '유아의 발달과 놀이, 초기 학습 환경을 이해하고 교육 활동을 설계하는 학과입니다.',
+      fit: '어린 시기의 성장과 놀이, 언어·사회성 발달을 교육 활동으로 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '유아교육과는 영유아의 인지, 언어, 사회성, 정서 발달을 이해하고 놀이와 생활 경험을 바탕으로 초기 학습 환경을 설계하는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '아동발달', '심리', '미술'],
+      topics: ['놀이 유형이 언어·사회성 발달에 미치는 영향 분석', '연령별 발달 차이에 맞는 활동 설계 비교', '유아 교실 환경이 정서 안정과 참여도에 주는 효과 탐구'],
+      group_label: '교육·아동 발달',
+      track_category: '유아교육/발달/놀이',
+      compare_profiles: [
+        { display_name: '아동학과', track_category: '아동발달/가족/성장지원', focus: '아동의 성장과 가족 환경, 발달 지원을 폭넓게 이해하는 학과입니다.', hint: '교육뿐 아니라 가정과 발달 환경 전체를 함께 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '교육학과', track_category: '교육/학습/정책', focus: '학습 원리와 교육 제도, 학교 운영 구조를 폭넓게 이해하는 학과입니다.', hint: '교육 현상을 제도와 학습 이론 관점에서 넓게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '특수교육과', track_category: '특수교육/개별지원/통합교육', focus: '장애·학습 차이가 있는 학생을 위한 개별 지원과 통합교육 방법을 배우는 학과입니다.', hint: '발달 지원을 더 세밀한 개별 교육 관점에서 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '아동학과': {
+      card: '아동의 성장과 가족 환경, 발달 지원을 폭넓게 이해하는 학과입니다.',
+      fit: '아이의 발달을 교육뿐 아니라 가족, 복지, 상담까지 넓게 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '아동학과는 아동의 인지, 정서, 사회성 발달과 가족 관계, 양육 환경, 성장 지원 체계를 폭넓게 배우는 학과입니다.',
+      subjects: ['아동발달', '통합사회', '심리', '공통국어', '사회와 문화'],
+      topics: ['가정 환경 차이가 아동 발달에 미치는 영향 분석', '놀이·양육 방식에 따른 정서 발달 차이 비교', '아동 권리와 보호 제도가 성장 지원에 주는 효과 탐구'],
+      group_label: '교육·아동 발달',
+      track_category: '아동발달/가족/성장지원',
+      compare_profiles: [
+        { display_name: '유아교육과', track_category: '유아교육/발달/놀이', focus: '유아의 발달과 놀이, 초기 학습 환경을 이해하고 교육 활동을 설계하는 학과입니다.', hint: '성장을 교육 활동으로 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '사회복지학과', track_category: '복지/사례관리/지역지원', focus: '개인과 가족, 지역사회의 어려움을 제도와 사례 지원으로 돕는 학과입니다.', hint: '아동과 가족 문제를 복지 제도와 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '상담심리학과', track_category: '인간이해/상담/관계지원', focus: '심리 이론을 바탕으로 개인과 집단의 어려움을 이해하고 상담을 통해 관계 회복과 적응을 돕는 학과입니다.', hint: '아이의 정서와 관계 지원을 심리·상담 관점에서 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '특수교육과': {
+      card: '장애·학습 차이가 있는 학생을 위한 개별 지원과 통합교육 방법을 배우는 학과입니다.',
+      fit: '학습 지원과 교육적 배려, 개별화된 수업 설계에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '특수교육과는 장애나 학습 차이가 있는 학생의 발달 특성을 이해하고 개별화 교육, 의사소통 지원, 통합교육 방법을 배우는 학과입니다.',
+      subjects: ['통합사회', '심리', '공통국어', '보건', '정보'],
+      topics: ['개별화 교육계획이 학습 참여도에 미치는 영향 분석', '통합교육 환경에서 필요한 지원 요소 비교', '의사소통 보조도구가 학습 접근성에 주는 효과 탐구'],
+      group_label: '교육·아동 발달',
+      track_category: '특수교육/개별지원/통합교육',
+      compare_profiles: [
+        { display_name: '유아교육과', track_category: '유아교육/발달/놀이', focus: '유아의 발달과 놀이, 초기 학습 환경을 이해하고 교육 활동을 설계하는 학과입니다.', hint: '발달 초기 교육과 놀이 중심 지원에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '교육학과', track_category: '교육/학습/정책', focus: '교육 제도와 학습 원리, 학교 운영 구조를 폭넓게 이해하는 학과입니다.', hint: '지원 체계를 교육 전반의 제도와 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '언어치료학과', track_category: '메디컬/보건 계열', focus: '발음, 언어 발달, 의사소통 장애를 평가하고 중재하는 의사소통 재활 학과입니다.', hint: '교육과 치료가 만나는 지원 방식에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '사회복지학과': {
+      card: '개인과 가족, 지역사회의 어려움을 제도와 사례 지원으로 돕는 학과입니다.',
+      fit: '사람의 어려움을 상담만이 아니라 제도, 서비스, 지역사회 지원까지 함께 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '사회복지학과는 개인, 가족, 아동, 노인, 장애인 등 다양한 대상의 삶의 문제를 이해하고 복지 제도, 사례관리, 지역사회 지원 체계를 배우는 학과입니다.',
+      subjects: ['통합사회', '사회와 문화', '정치와 법', '공통국어', '심리'],
+      topics: ['복지 제도 차이가 삶의 안정에 미치는 영향 분석', '사례관리 과정에서 필요한 지역사회 자원 연결 방식 탐구', '아동·노인·장애인 복지 서비스 비교와 개선안 분석'],
+      group_label: '복지·상담 지원',
+      track_category: '복지/사례관리/지역지원',
+      compare_profiles: [
+        { display_name: '상담심리학과', track_category: '인간이해/상담/관계지원', focus: '심리 이론을 바탕으로 개인과 집단의 어려움을 이해하고 상담을 통해 관계 회복과 적응을 돕는 학과입니다.', hint: '개인의 정서 지원에 더 가까운 방향을 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '아동학과', track_category: '아동발달/가족/성장지원', focus: '아동의 성장과 가족 환경, 발달 지원을 폭넓게 이해하는 학과입니다.', hint: '복지 대상을 아동·가족 성장 관점으로 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '특수교육과', track_category: '특수교육/개별지원/통합교육', focus: '장애·학습 차이가 있는 학생을 위한 개별 지원과 통합교육 방법을 배우는 학과입니다.', hint: '지원 체계를 교육 현장과 연결해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '심리학과': {
+      card: '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.',
+      fit: '사람의 마음과 행동을 분석적으로 이해하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '심리학과는 사람의 인지, 정서, 행동이 어떻게 나타나는지 실험과 통계, 사례 분석으로 탐구하는 학과입니다.',
+      subjects: ['통합사회', '공통국어', '생명과학', '영어', '공통수학1'],
+      topics: ['기억과 주의집중이 학습에 미치는 영향 탐구', '정서 조절 전략과 스트레스 반응 비교', '설문과 실험을 활용한 행동 패턴 분석'],
+      group_label: '심리·상담',
+      track_category: '심리/실험/행동분석',
+      compare_profiles: [
+        { display_name: '상담심리학과', track_category: '인간이해/상담/관계지원', focus: '심리 이론을 바탕으로 개인과 집단의 어려움을 이해하고 상담을 통해 관계 회복과 적응을 돕는 학과입니다.', hint: '심리 이해를 실제 상담 장면에 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '사회복지학과', track_category: '복지/사례관리/지역지원', focus: '개인과 가족, 지역사회의 어려움을 제도와 사례 지원으로 돕는 학과입니다.', hint: '마음과 행동 문제를 생활 환경·지원 체계까지 넓혀 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '교육학과', track_category: '교육/학습/정책', focus: '학습 원리와 교육 제도, 학교 운영 구조를 폭넓게 이해하는 학과입니다.', hint: '심리 이론이 학습과 교육 현장에 어떻게 쓰이는지 궁금한 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '상담심리학과': {
+      card: '심리 이해를 바탕으로 상담과 관계 지원에 더 가까운 학과입니다.',
+      fit: '사람의 마음을 이해하고 상담과 지원 활동으로 연결하고 싶은 학생에게 잘 맞습니다.',
+      intro: '상담심리학과는 심리 이론을 바탕으로 개인과 집단의 어려움을 이해하고 상담을 통해 관계 회복과 적응을 돕는 학과입니다.',
+      subjects: ['심리', '공통국어', '사회와 문화', '정보', '공통수학1'],
+      topics: ['상담 관계 형성 요소가 개입 효과에 미치는 영향', '청소년 정서 문제 지원 방식 비교', '상담 장면에서 의사소통과 공감의 역할 탐구'],
+      group_label: '심리·상담',
+      track_category: '인간이해/상담/관계지원',
+      compare_profiles: [
+        { display_name: '심리학과', track_category: '심리/실험/행동분석', focus: '인지·정서·행동의 원리를 실험과 분석으로 이해하는 학과입니다.', hint: '마음의 원리를 더 분석적으로 파고드는 방향에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '사회복지학과', track_category: '복지/사례관리/지역지원', focus: '개인과 가족, 지역사회의 어려움을 제도와 사례 지원으로 돕는 학과입니다.', hint: '상담을 복지 제도와 사례 지원까지 넓혀 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '아동학과', track_category: '아동발달/가족/성장지원', focus: '아동의 성장과 가족 환경, 발달 지원을 폭넓게 이해하는 학과입니다.', hint: '상담 대상을 아동·가족 성장 관점에서 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
     },
     '국제통상학과': {
       card: '무역과 글로벌 시장, 통상 흐름을 실무적으로 다루는 학과입니다.',
