@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.12-performing-arts-search-backfill-v30";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority-v31";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -2147,21 +2147,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.12-performing-arts-search-backfil
     }
 
     const candidates = findCandidates(input);
-    if (isBroadQueryKeyword(input) && candidates.length > 1) {
-      return {
-        input,
-        normalized,
-        status: 'ambiguous',
-        grouped_suggestions: groupCandidateSuggestions(candidates, input),
-        suggestions: candidates.map(row => ({
-          major_id: row.major_id,
-          display_name: row.display_name,
-          track_category: row.track_category,
-          match_label: row.match_label,
-          keywords: row.keywords.slice(0, 5)
-        }))
-      };
-    }
 
     const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalized);
     if (exactProfile) {
@@ -2178,6 +2163,22 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.12-performing-arts-search-backfil
         state.selectedMajorName = profile.display_name || '';
         return buildResolved(profile, 'alias_match', input, aliasRow);
       }
+    }
+
+    if (isBroadQueryKeyword(input) && candidates.length > 1) {
+      return {
+        input,
+        normalized,
+        status: 'ambiguous',
+        grouped_suggestions: groupCandidateSuggestions(candidates, input),
+        suggestions: candidates.map(row => ({
+          major_id: row.major_id,
+          display_name: row.display_name,
+          track_category: row.track_category,
+          match_label: row.match_label,
+          keywords: row.keywords.slice(0, 5)
+        }))
+      };
     }
 
     if (!candidates.length) {
