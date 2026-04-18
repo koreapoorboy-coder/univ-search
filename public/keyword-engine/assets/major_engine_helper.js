@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle-v26";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle-v27";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -286,7 +286,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -317,6 +317,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
     { queries:['에너지'], test: /(에너지공학과|화학공학과|화공생명공학과|신소재공학과|전기공학과)/, boost: 42 },
     { queries:['소재'], test: /(신소재공학과|반도체공학과|화학공학과|화공생명공학과)/, boost: 40 },
     { queries:['배터리','이차전지'], test: /(신소재공학과|화학공학과|에너지공학과|화공생명공학과|전기공학과)/, boost: 46 },
+    { queries:['국문','문학'], test: /(국어국문학과|영어영문학과|사학과|철학과|문헌정보학과|문화콘텐츠학과)/, boost: 40 },
+    { queries:['영문','영어영문'], test: /(영어영문학과|국어국문학과|국제통상학과|문화콘텐츠학과)/, boost: 42 },
+    { queries:['역사','사학'], test: /(사학과|철학과|문헌정보학과|국어국문학과)/, boost: 42 },
+    { queries:['철학'], test: /(철학과|심리학과|사학과|국어국문학과)/, boost: 40 },
+    { queries:['문헌','도서관'], test: /(문헌정보학과|국어국문학과|사학과|미디어커뮤니케이션학과)/, boost: 42 },
     { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학)/, boost: 34 }
   ];
 
@@ -338,6 +343,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
     '경영·서비스': { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.' },
     '행정·정책·법': { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.' },
     '미디어·콘텐츠': { id:'media_content', label:'미디어·콘텐츠 기획 쪽', desc:'미디어, 콘텐츠, 커뮤니케이션처럼 정보 전달과 해석을 다루는 학과입니다.' },
+    '인문·어문·문화': { id:'humanities_language_culture', label:'언어·역사·문화 해석 쪽', desc:'언어, 문학, 역사, 철학, 기록과 지식 구조처럼 인간과 문화를 해석하는 학과입니다.' },
     '환경 관련 추천': { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
     '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
     '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' },
@@ -362,6 +368,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
       '기업 운영·서비스 쪽':'경영·서비스',
       '행정·정책·법':'행정·정책·법',
       '미디어·콘텐츠 기획 쪽':'미디어·콘텐츠',
+      '언어·역사·문화 해석 쪽':'인문·어문·문화',
       '환경·도시 시스템 쪽':'환경 관련 추천',
       '주거·공간 설계 쪽':'공간·주거 환경',
       '도시 기반시설 쪽':'도시·인프라',
@@ -388,7 +395,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
     if (input.includes('교육') || input.includes('유아') || input.includes('아동') || input.includes('특수')) return new Set(['education_child','welfare_support']);
     if (input.includes('복지')) return new Set(['welfare_support','education_child']);
     if (input.includes('건축') || input.includes('디자인') || input.includes('실내') || input.includes('인테리어') || input.includes('시각') || input.includes('제품')) return new Set(['architecture_design','space_housing','city_infra','media_content']);
-    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content']);
+    if (input.includes('국문') || input.includes('문학') || input.includes('영문') || input.includes('영어영문') || input.includes('역사') || input.includes('사학') || input.includes('철학') || input.includes('문헌') || input.includes('도서관') || input.includes('어문')) return new Set(['humanities_language_culture','media_content']);
+    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture']);
     if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
@@ -1380,6 +1388,87 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
         { display_name: '경영학과', track_category: '경영/브랜드/서비스전략', focus: '기업 운영과 소비자, 시장 전략을 함께 보는 대표 상경계열 학과입니다.', hint: '무역 구조보다 기업의 시장 전략과 조직 운영에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
     },
+
+    '국어국문학과': {
+      track_category: '국어/문학/텍스트해석',
+      card: '한국어와 문학 작품, 글쓰기와 비평을 통해 언어와 문화의 의미를 읽는 학과입니다.',
+      fit: '문학 작품의 표현 방식과 시대 맥락, 글쓰기와 비평 관점에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '국어국문학과는 한국어의 구조와 표현, 고전과 현대 문학, 글쓰기와 비평을 배우며 언어와 텍스트가 시대와 사회를 어떻게 담아내는지 탐구하는 학과입니다.',
+      core_keywords: ['국어국문','문학','텍스트','비평','서사','언어'],
+      recommended_keywords: ['공통국어','문학','화법과 언어','통합사회','영어'],
+      subjects: ['공통국어','문학','화법과 언어','통합사회','영어'],
+      topics: ['서사 구조 차이가 작품 해석에 미치는 영향 분석', '시대별 문학 표현 방식 비교와 사회 맥락 탐구', '비평 관점에 따라 같은 작품의 의미가 달라지는 방식 탐구'],
+      group_label: '인문·어문·문화',
+      compare_profiles: [
+        { display_name: '영어영문학과', track_category: '영어/문학/글로벌텍스트', focus: '영어권 문학과 표현, 번역과 해석을 통해 언어와 문화를 폭넓게 다루는 학과입니다.', hint: '한국어 텍스트보다 영어권 텍스트와 번역, 글로벌 문화 해석에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '사학과', track_category: '역사/사료/시대해석', focus: '사료와 기록을 바탕으로 시대 변화와 사건의 맥락을 해석하는 학과입니다.', hint: '문학 텍스트보다 실제 기록과 역사 자료로 시대를 읽고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '문화콘텐츠학과', track_category: '문화/스토리/콘텐츠기획', focus: '문화와 이야기를 콘텐츠 기획과 산업 구조 관점에서 확장해 다루는 학과입니다.', hint: '텍스트 해석을 이야기 산업과 콘텐츠 기획으로 넓혀 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '영어영문학과': {
+      track_category: '영어/문학/글로벌텍스트',
+      card: '영어권 문학과 표현, 번역과 해석을 통해 언어와 문화를 폭넓게 읽는 학과입니다.',
+      fit: '영어 텍스트를 깊게 읽고 표현과 번역, 글로벌 문화 맥락까지 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '영어영문학과는 영어의 구조와 표현, 영미 문학, 번역과 비평, 영어권 문화 텍스트를 배우며 언어와 문학을 통해 세계를 해석하는 학과입니다.',
+      core_keywords: ['영어영문','영문학','텍스트해석','번역','비평','문화'],
+      recommended_keywords: ['영어','공통국어','문학','통합사회','세계사'],
+      subjects: ['영어','공통국어','문학','통합사회','세계사'],
+      topics: ['번역 방식 차이가 작품 의미 전달에 주는 영향 분석', '영어권 문학 작품의 시대 배경과 주제 의식 비교', '같은 메시지가 언어 표현에 따라 다르게 읽히는 방식 탐구'],
+      group_label: '인문·어문·문화',
+      compare_profiles: [
+        { display_name: '국어국문학과', track_category: '국어/문학/텍스트해석', focus: '한국어의 구조와 표현, 고전과 현대 문학을 통해 텍스트를 해석하는 학과입니다.', hint: '영어권 텍스트보다 한국어와 한국 문학을 더 깊게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '국제통상학과', track_category: '국제통상/무역/글로벌시장', focus: '영어를 국제 거래, 통상 정책, 글로벌 시장 분석에 실무적으로 연결하는 학과입니다.', hint: '문학과 번역보다 영어를 국제 비즈니스와 시장 흐름에 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '문화콘텐츠학과', track_category: '문화/스토리/콘텐츠기획', focus: '이야기와 문화 요소를 콘텐츠 기획과 매체 확장 관점에서 다루는 학과입니다.', hint: '문학 텍스트를 콘텐츠 산업과 스토리 기획으로 확장해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '사학과': {
+      track_category: '역사/사료/시대해석',
+      card: '사료와 기록을 바탕으로 사건과 시대 변화의 맥락을 해석하는 학과입니다.',
+      fit: '역사 자료를 통해 시대 흐름과 사회 변화를 구조적으로 읽고 싶은 학생에게 잘 맞습니다.',
+      intro: '사학과는 고대부터 현대까지의 역사, 사료 읽기, 시대 변화, 국가와 사회 구조를 배우며 기록과 증거를 통해 과거를 해석하는 학과입니다.',
+      core_keywords: ['사학','역사','사료','시대해석','기록','변화'],
+      recommended_keywords: ['세계사','한국사','통합사회','공통국어','영어'],
+      subjects: ['세계사','한국사','통합사회','공통국어','영어'],
+      topics: ['같은 사건을 서로 다른 사료가 기록하는 방식 비교', '시대 전환기 제도 변화가 사회 구조에 미친 영향 분석', '역사 서술 관점 차이가 사건 해석에 주는 효과 탐구'],
+      group_label: '인문·어문·문화',
+      compare_profiles: [
+        { display_name: '철학과', track_category: '철학/사유/윤리', focus: '개념과 논증, 존재와 윤리 문제를 깊게 사고하는 학과입니다.', hint: '사건과 기록보다 개념과 사유의 구조를 더 깊게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '국어국문학과', track_category: '국어/문학/텍스트해석', focus: '문학 작품과 글쓰기, 비평을 통해 텍스트와 시대 맥락을 해석하는 학과입니다.', hint: '역사 기록보다 문학 텍스트 속 시대상과 표현을 더 깊게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '문헌정보학과', track_category: '문헌/정보조직/기록관리', focus: '자료와 기록, 정보 분류와 검색 체계를 배우며 지식 구조를 관리하는 학과입니다.', hint: '역사 해석보다 기록과 지식의 정리·보존·탐색 구조에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '철학과': {
+      track_category: '철학/사유/윤리',
+      card: '인간, 지식, 존재, 윤리 문제를 개념과 논증으로 깊게 사고하는 학과입니다.',
+      fit: '정답을 외우기보다 개념을 끝까지 따지고 사고의 근거를 세우는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '철학과는 인간과 세계를 이해하기 위해 존재, 인식, 윤리, 정치, 언어 철학 등을 배우며 개념과 논증을 통해 질문을 깊게 탐구하는 학과입니다.',
+      core_keywords: ['철학','사유','윤리','논증','개념','질문'],
+      recommended_keywords: ['통합사회','정치와 법','공통국어','윤리와 사상','영어'],
+      subjects: ['통합사회','정치와 법','공통국어','윤리와 사상','영어'],
+      topics: ['같은 사회 문제를 서로 다른 윤리 관점이 해석하는 방식 비교', '언어 표현 차이가 개념 이해에 주는 영향 분석', '기술 발전이 인간 책임과 자유 개념을 어떻게 바꾸는지 탐구'],
+      group_label: '인문·어문·문화',
+      compare_profiles: [
+        { display_name: '사학과', track_category: '역사/사료/시대해석', focus: '기록과 사료를 통해 사건과 시대 변화를 해석하는 학과입니다.', hint: '개념 논증보다 실제 사건과 역사 자료를 더 깊게 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '심리학과', track_category: '심리/실험/행동분석', focus: '인지·정서·행동의 원리를 실험과 데이터로 이해하는 학과입니다.', hint: '철학적 질문보다 인간 마음과 행동을 관찰·실험으로 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '국어국문학과', track_category: '국어/문학/텍스트해석', focus: '문학과 글쓰기, 비평을 통해 언어와 텍스트를 해석하는 학과입니다.', hint: '개념과 논증보다 텍스트와 표현을 통해 인간과 사회를 읽고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '문헌정보학과': {
+      track_category: '문헌/정보조직/기록관리',
+      card: '자료와 기록, 지식 분류와 검색 체계를 배우며 정보를 조직하고 연결하는 학과입니다.',
+      fit: '책과 기록, 데이터와 정보 구조를 정리하고 필요한 지식을 찾기 쉽게 만드는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '문헌정보학과는 도서관·아카이브 자료, 기록 관리, 정보 검색, 분류 체계, 디지털 정보 서비스를 배우며 지식과 기록을 조직하는 학과입니다.',
+      core_keywords: ['문헌정보','기록관리','정보검색','분류','아카이브','지식조직'],
+      recommended_keywords: ['공통국어','정보','통합사회','영어','공통수학1'],
+      subjects: ['공통국어','정보','통합사회','영어','공통수학1'],
+      topics: ['분류 기준 차이가 정보 검색 효율에 미치는 영향 분석', '기록 보존 방식에 따라 자료 활용성이 달라지는 구조 탐구', '디지털 아카이브 서비스가 지식 접근 방식을 바꾸는 효과 비교'],
+      group_label: '인문·어문·문화',
+      compare_profiles: [
+        { display_name: '사학과', track_category: '역사/사료/시대해석', focus: '사료와 기록을 통해 과거 사건과 시대 흐름을 해석하는 학과입니다.', hint: '기록을 정리하는 것보다 기록 자체로 시대를 해석하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '경영정보학과', track_category: '경영/정보시스템/데이터', focus: '정보시스템과 데이터 관점에서 조직 운영과 의사결정을 다루는 학과입니다.', hint: '지식 조직보다 기업 정보 시스템과 데이터 활용에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '미디어커뮤니케이션학과', track_category: '미디어/콘텐츠/사회분석', focus: '미디어, 정보 전달, 콘텐츠가 사회에 미치는 영향을 분석하는 학과입니다.', hint: '자료 보존보다 정보 전달 구조와 미디어 환경 변화에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
     '제품디자인학과': {
       track_category: '제품/형태/사용경험',
       card: '제품의 형태와 구조, 조작 방식, 사용 경험을 구체적으로 설계하는 학과입니다.',
@@ -1414,6 +1503,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
       [/심리|상담심리/, ['인지 과정','정서 행동','심리 실험','상담 사례','행동 분석']],
       [/사회복지|아동/, ['복지 제도','발달 이해','지원 체계','사회 문제','현장 사례']],
       [/사회학|문화인류|문화유산|문화콘텐츠|미디어커뮤니케이션|언론정보|신문방송|광고홍보/, ['사회 현상','미디어 분석','문화 해석','콘텐츠 기획','커뮤니케이션']],
+      [/국어국문|영어영문|사학|철학|문헌정보/, ['텍스트 해석','시대 맥락','개념 탐구','기록 분석','문화 이해']],
       [/통계|응용통계/, ['데이터 분석','확률 모델','통계 추정','그래프 해석','표본 조사']],
       [/수학/, ['수리 모델링','증명 논리','문제 해결','함수 해석','정량 분석']],
       [/화학|화학공학/, ['물질 구조','반응 원리','실험 설계','정량 분석','에너지 변화']],
