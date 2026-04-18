@@ -250,6 +250,17 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.49-remaining-misc-prefix-resolve-
           state.selectedMajorId = '';
           state.selectedMajorName = '';
         }
+        // When the user types a shortened but unique major keyword such as
+        // '항공기계' or '원자력', resolve it immediately and canonicalize the
+        // input so downstream mini-flow UIs receive a stable major name.
+        if (raw && raw.length >= 2) {
+          const probe = resolveMajor(raw);
+          if (probe && probe.status === 'resolved' && probe.display_name && normalize(raw) !== normalize(probe.display_name)) {
+            state.selectedMajorId = probe.profile?.major_id || state.selectedMajorId || '';
+            state.selectedMajorName = probe.display_name;
+            el.value = probe.display_name;
+          }
+        }
         renderMajorSummary();
         startMiniPayloadPatch();
       });
