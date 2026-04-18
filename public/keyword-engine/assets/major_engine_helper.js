@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority-v31";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.17-natural-science-alias-v36";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -1253,6 +1253,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
       compare: ['건설환경공학과','도시공학과','지구환경과학과']
     },
     '지구환경과학과': {
+      search_aliases: ['지구과학과', '지구과학'],
       track_category: '환경/기후/지구시스템',
       card: '기후·대기·지질·해양·수문 같은 지구 시스템의 변화를 관측 자료와 데이터로 분석하는 학과입니다.',
       fit: '기후 변화와 자연환경 문제를 관측 자료와 지도, 과학 모델로 해석해 보고 싶은 학생에게 잘 맞습니다.',
