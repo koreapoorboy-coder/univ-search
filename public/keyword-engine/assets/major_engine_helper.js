@@ -1329,6 +1329,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.10-major-search-integrated-bundle
   }
 
   function getMeaningfulKeywords(profile){
+    const override = getMajorOverride(profile);
+    const overrideRaw = uniq((Array.isArray(override?.core_keywords) ? override.core_keywords : [])).filter(Boolean);
+    const overrideFiltered = overrideRaw.filter(v => !PLACEHOLDER_KEYWORDS.has(String(v).trim()));
+    if (overrideFiltered.length) return overrideFiltered.slice(0, 8);
+
     const raw = uniq(profile?.core_keywords || []).filter(Boolean);
     const filtered = raw.filter(v => !PLACEHOLDER_KEYWORDS.has(String(v).trim()));
     if (filtered.length) return filtered.slice(0, 8);
