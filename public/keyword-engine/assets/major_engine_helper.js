@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle-v27";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.12-performing-arts-search-backfill-v30";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -105,13 +105,55 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
         profileNameMap.set(key, virtualProfile);
       }
 
-      if (!aliasNameSet.has(key)) {
+      const override = getMajorOverride(name) || {};
+      const forcedAliases = uniq([
+        name,
+        String(name).replace(/학과$/, ''),
+        String(name).replace(/학부$/, ''),
+        ...((override.search_aliases || [])),
+        ...((override.subjects || [])),
+        ...((override.topics || [])).map(v => String(v).split(/[·,]/)[0].trim())
+      ]).filter(Boolean);
+
+      const existingAliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
+      if (existingAliasRow) {
+        existingAliasRow.aliases = uniq([...(existingAliasRow.aliases || []), ...forcedAliases]).filter(Boolean);
+      } else {
         state.aliases.push({
           major_id: majorId,
           display_name: name,
-          aliases: uniq([name, String(name).replace(/학과$/, ''), String(name).replace(/학부$/, '')]).filter(Boolean)
+          aliases: forcedAliases
         });
-        aliasNameSet.add(key);
+      }
+      forcedAliases.map(normalize).filter(Boolean).forEach(v => aliasNameSet.add(v));
+    });
+  }
+
+
+  function backfillPriorityMajorsForSearch(names){
+    (names || []).forEach(name => {
+      const key = normalize(name);
+      const override = getMajorOverride(name) || {};
+      const catalogRow = (state.catalog || []).find(row => normalize(row?.display_name) === key);
+      const profileRow = (state.profiles || []).find(row => normalize(row?.display_name) === key);
+      const majorId = catalogRow?.major_id || profileRow?.major_id || `virtual:${key}`;
+      if (!catalogRow) {
+        state.catalog.push({ major_id: majorId, display_name: name, track_category: override.track_category || '', source_status: 'priority_override' });
+      }
+      if (!profileRow) {
+        state.profiles.push(buildVirtualMajorProfile(name, majorId, catalogRow || null));
+      }
+      const aliasPool = uniq([
+        name,
+        String(name).replace(/학과$/, ''),
+        String(name).replace(/학부$/, ''),
+        ...((override.search_aliases || []))
+      ]).filter(Boolean);
+      const aliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
+      if (aliasRow) {
+        aliasRow.aliases = uniq([...(aliasRow.aliases || []), ...aliasPool]).filter(Boolean);
+      } else {
+        state.aliases.push({ major_id: majorId, display_name: name, aliases: aliasPool });
       }
     });
   }
@@ -156,6 +198,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
       state.router = router || {};
       state.bridges = Array.isArray(bridges) ? bridges : [];
       ensureOverrideMajorsInSearch();
+      backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과']);
 
       state.profiles.forEach(row => {
         if (!row || !row.major_id) return;
