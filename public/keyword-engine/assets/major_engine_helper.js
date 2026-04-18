@@ -38,6 +38,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
       .replace(/[()\-_/·.,]/g,'')
       .replace(/학과|학부|전공|예과/g,'');
   }
+
+  function stripMajorSuffix(value){
+    return String(value || '')
+      .trim()
+      .replace(/(학과|학부|전공|예과|과)$/,'');
+  }
   function escapeHtml(value){
     return String(value ?? '')
       .replace(/&/g,'&amp;')
