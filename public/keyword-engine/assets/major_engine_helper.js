@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.49-remaining-misc-prefix-resolve-v49";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -4493,7 +4493,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "유체 흐름 차이가 비행체 제어에 미치는 영향 탐구"
     ],
     group_label: "항공기계·구조·동력",
-    search_aliases: ["항공기계공","항공기계"],
+    search_aliases: ["항공기계공","항공기계","항공기계과","항공기계공학"],
     compare_profiles: [
       { display_name: "항공우주공학과", track_category: "항공우주/비행체/추진", focus: "비행체와 우주 시스템의 구조, 추진과 궤도, 운용 원리를 배우는 학과입니다.", hint: "하늘과 우주를 기계와 물리 원리로 이해하고 싶은 학생에게 잘 맞습니다." },
       { display_name: "기계공학과", track_category: "기계/설계/동역학", focus: "기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.", hint: "비행 특수성보다 일반 기계 설계와 동역학 원리에 더 관심 있는 학생에게 잘 맞습니다." },
@@ -4514,7 +4514,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "엔진 상태 진단 방식이 운항 안정에 주는 영향 탐구"
     ],
     group_label: "항공정비·운항시스템",
-    search_aliases: ["항공정비"],
+    search_aliases: ["항공정비","항공정비과","항공정비공학"],
     compare_profiles: [
       { display_name: "항공운항학과", track_category: "항공운항/비행/항법", focus: "비행 원리와 항법, 기상 판단, 조종 수행과 운항 안전을 중심으로 배우는 학과입니다.", hint: "정비보다 비행 원리와 운항 시스템, 기상 판단에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "기계공학과", track_category: "기계/설계/동역학", focus: "기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.", hint: "항공 특수성보다 일반 기계 구조와 운동, 에너지 전달 원리에 더 관심 있는 학생에게 잘 맞습니다." },
@@ -4535,7 +4535,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "해양 환경 조건 차이가 설계 기준에 미치는 영향 탐구"
     ],
     group_label: "조선·해양시스템",
-    search_aliases: ["조선해양공","조선해양"],
+    search_aliases: ["조선해양공","조선해양","조선공학","해양조선"],
     compare_profiles: [
       { display_name: "해양공학과", track_category: "해양/구조/유체시스템", focus: "바다 위 구조물과 해양 시스템의 설계와 운영을 배우는 학과입니다.", hint: "선박 운항보다 해양 구조물과 시스템 자체 설계에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "기계공학과", track_category: "기계/설계/동역학", focus: "기계의 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 실제 장치를 만드는 학과입니다.", hint: "해양 특수성보다 일반 기계 설계와 운동, 에너지 전달 원리에 더 관심 있는 학생에게 잘 맞습니다." },
@@ -4556,7 +4556,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "운영 시스템 차이가 유지관리 효율에 미치는 영향 탐구"
     ],
     group_label: "해양시스템·구조설계",
-    search_aliases: ["해양공","해양공학"],
+    search_aliases: ["해양공","해양공학","해양시스템"],
     compare_profiles: [
       { display_name: "조선해양공학과", track_category: "조선해양/선박/구조설계", focus: "선박과 해양 구조물의 설계와 운항 원리를 배우는 학과입니다.", hint: "바다 위에서 움직이는 선박 시스템 자체 설계에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "해양학과", track_category: "해양/지리/순환", focus: "바다의 구조와 순환, 해양 환경과 생태를 배우는 자연과학 계열 학과입니다.", hint: "구조 설계보다 해양 환경과 자료 해석에 더 관심 있는 학생에게 잘 맞습니다." },
@@ -4577,7 +4577,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "교통 안전 기준 변화가 이용자 행동에 미치는 영향 탐구"
     ],
     group_label: "교통시스템·도시이동",
-    search_aliases: ["교통공"],
+    search_aliases: ["교통공","교통시스템","대중교통공학"],
     compare_profiles: [
       { display_name: "도시공학과", track_category: "도시/교통/인프라", focus: "도시 공간과 주거·교통·환경·인프라를 생활권 전체의 구조에서 종합적으로 계획하는 학과입니다.", hint: "교통 운영보다 도시계획과 생활권 인프라 전체 구조에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "산업공학과", track_category: "최적화/시스템/데이터", focus: "생산·물류·서비스 시스템을 데이터와 최적화 기법으로 개선하는 학과입니다.", hint: "복잡한 교통 과정도 효율적으로 만들고, 데이터로 병목 구조를 개선하는 데 관심 있는 학생에게 잘 맞습니다." },
@@ -4598,7 +4598,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "연료와 냉각 구조 차이가 발전 안정성에 미치는 영향 탐구"
     ],
     group_label: "원자력·에너지시스템",
-    search_aliases: ["원자력공","원자력"],
+    search_aliases: ["원자력공","원자력","원자력에너지"],
     compare_profiles: [
       { display_name: "에너지공학과", track_category: "에너지/전력/저장시스템", focus: "전기·열·연료·저장 시스템을 바탕으로 에너지 전환과 활용을 설계하는 학과입니다.", hint: "원자력 반응 자체보다 전력·저장 시스템 전체 효율에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "전기공학과", track_category: "전기/에너지/제어", focus: "전력 시스템, 모터, 에너지 변환, 제어를 중심으로 전기 시스템을 다루는 학과입니다.", hint: "핵반응보다 발전 이후 전력 시스템과 제어 구조에 더 관심 있는 학생에게 잘 맞습니다." },
@@ -4619,7 +4619,7 @@ Object.assign(MAJOR_OVERRIDES, {
       "위기 대응 시스템이 현장 안전성에 미치는 영향 탐구"
     ],
     group_label: "방재·재난안전",
-    search_aliases: ["소방방재"],
+    search_aliases: ["소방방재","재난안전","소방안전"],
     compare_profiles: [
       { display_name: "안전공학과", track_category: "안전/리스크관리/방재", focus: "위험 요소를 분석하고 사고를 예방하는 설계와 관리 기준을 배우는 학과입니다.", hint: "재난 대응 자체보다 위험 분석과 예방 기준 설계에 더 관심 있는 학생에게 잘 맞습니다." },
       { display_name: "건설환경공학과", track_category: "건설/환경/인프라", focus: "도시 기반시설의 설계·시공·유지관리를 배우며 수질·대기·폐기물 같은 환경 문제를 함께 해결하는 학과입니다.", hint: "현장 대응보다 시설과 인프라 구조 자체를 기술적으로 보고 싶은 학생에게 잘 맞습니다." },
@@ -5193,6 +5193,36 @@ Object.assign(MAJOR_OVERRIDES, {
         state.selectedMajorId = profile.major_id || '';
         state.selectedMajorName = profile.display_name || '';
         return buildResolved(profile, 'alias_match', input, aliasRow);
+      }
+    }
+
+    // Late-added override majors are often searched with shortened forms
+    // such as "항공기계", "조선해양", "원자력공". If a single major
+    // uniquely matches by prefix on its name or aliases, resolve it directly
+    // instead of falling through to hidden broad-candidate flows.
+    const prefixAliasMatches = state.aliasRows.filter(row => {
+      const pool = uniq([row.display_name, ...(row.aliases || [])]).map(normalize).filter(Boolean);
+      return pool.some(v => v.startsWith(normalized) || normalized.startsWith(v));
+    });
+    const prefixProfileMatches = state.profiles.filter(row => {
+      const display = normalize(row.display_name);
+      const stripped = normalize(stripMajorSuffix(row.display_name));
+      return display.startsWith(normalized) || stripped.startsWith(normalized) || normalized.startsWith(stripped);
+    });
+    const prefixMajorIds = uniq([
+      ...prefixAliasMatches.map(row => row.major_id || row.display_name),
+      ...prefixProfileMatches.map(row => row.major_id || row.display_name)
+    ]).filter(Boolean);
+    if (prefixMajorIds.length === 1) {
+      const majorKey = prefixMajorIds[0];
+      const matchedAlias = prefixAliasMatches.find(row => (row.major_id || row.display_name) === majorKey) || null;
+      const profile = state.profileByMajorId.get(majorKey)
+        || state.profiles.find(row => (row.major_id || row.display_name) === majorKey)
+        || (matchedAlias ? state.profileByName.get(matchedAlias.display_name) : null);
+      if (profile) {
+        state.selectedMajorId = profile.major_id || '';
+        state.selectedMajorName = profile.display_name || '';
+        return buildResolved(profile, 'prefix_alias_match', input, matchedAlias || null);
       }
     }
 
