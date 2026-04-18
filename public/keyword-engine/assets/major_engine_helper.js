@@ -2070,9 +2070,35 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
   }
 
   function groupCandidateSuggestions(rows, rawInput){
+    const normalizedInput = normalize(rawInput || '');
+    let filteredRows = Array.isArray(rows) ? rows.slice() : [];
+
+    // If the input already exactly matches a major name or an alias,
+    // restrict grouped suggestions to that same family/group so unrelated
+    // fuzzy matches (e.g. 화학과 for 연극영화) do not appear.
+    let exactRow = null;
+    const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalizedInput);
+    if (exactProfile) {
+      exactRow = filteredRows.find(row => row.major_id === exactProfile.major_id || row.display_name === exactProfile.display_name) || null;
+    }
+    if (!exactRow) {
+      const exactAliasRow = state.aliasRows.find(row => row.normalized_display_name === normalizedInput || row.normalized_aliases.includes(normalizedInput));
+      if (exactAliasRow) {
+        exactRow = filteredRows.find(row => row.major_id === exactAliasRow.major_id || row.display_name === exactAliasRow.display_name) || null;
+      }
+    }
+    if (exactRow) {
+      const exactGroup = classifyCandidateGroup(exactRow, rawInput);
+      filteredRows = filteredRows.filter(row => {
+        if (row.major_id === exactRow.major_id || row.display_name === exactRow.display_name) return true;
+        const rowGroup = classifyCandidateGroup(row, rawInput);
+        return rowGroup.id === exactGroup.id;
+      });
+    }
+
     const orderedGroups = [];
     const groupMap = new Map();
-    (rows || []).forEach(row => {
+    filteredRows.forEach(row => {
       const group = classifyCandidateGroup(row, rawInput);
       const key = group.id || 'general';
       if (!groupMap.has(key)) {
