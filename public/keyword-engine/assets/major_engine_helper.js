@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -27,7 +27,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
     aliasRows: [],
     activeResolved: null,
     selectedMajorId: '',
-    selectedMajorName: ''
+    selectedMajorName: '',
+    loading: false,
+    delegatedCareerBound: false,
+    inputObserverBound: false
   };
 
   function $(id){ return document.getElementById(id); }
@@ -37,6 +40,57 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
       .replace(/\s+/g,'')
       .replace(/[()\-_/·.,]/g,'')
       .replace(/학과|학부|전공|예과/g,'');
+  }
+
+  function uniqStrings(values){
+    return Array.from(new Set((values || []).filter(Boolean)));
+  }
+
+  function getNearbyInputFromNode(node){
+    if (!node) return null;
+    const direct = node.matches?.('input, textarea') ? node : null;
+    if (direct) return direct;
+    const own = node.querySelector?.('input, textarea');
+    if (own) return own;
+    let current = node;
+    for (let depth = 0; depth < 4 && current; depth += 1) {
+      const parent = current.parentElement;
+      if (!parent) break;
+      const parentInput = parent.querySelector?.('input, textarea');
+      if (parentInput) return parentInput;
+      let sibling = current.nextElementSibling;
+      while (sibling) {
+        if (sibling.matches?.('input, textarea')) return sibling;
+        const nested = sibling.querySelector?.('input, textarea');
+        if (nested) return nested;
+        sibling = sibling.nextElementSibling;
+      }
+      current = parent;
+    }
+    return null;
+  }
+
+  function getInputByLabelText(labelText){
+    const target = String(labelText || '').trim();
+    if (!target) return null;
+    const nodes = Array.from(document.querySelectorAll('label, legend, th, td, dt, span, div, strong, p'));
+    for (const node of nodes) {
+      const text = String(node.textContent || '').replace(/\s+/g,' ').trim();
+      if (!text) continue;
+      if (text === target || text.includes(target)) {
+        const input = getNearbyInputFromNode(node);
+        if (input) return input;
+      }
+    }
+    return null;
+  }
+
+  function getCareerInput(){
+    return $('career')
+      || document.querySelector('input[name="career"]')
+      || document.querySelector('input[data-field="career"]')
+      || getInputByLabelText('희망 진로')
+      || null;
   }
 
   function stripMajorSuffix(value){
@@ -186,13 +240,39 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
     return '확장 후보';
   }
 
+  function buildUrlCandidates(url){
+    const clean = String(url || '').replace(/^\/+/, '');
+    const href = (typeof document !== 'undefined' && document.baseURI) ? document.baseURI : window.location.href;
+    return uniqStrings([
+      clean,
+      `./${clean}`,
+      `/${clean}`,
+      new URL(clean, href).toString(),
+      new URL(`./${clean}`, href).toString(),
+      new URL(`../${clean}`, href).toString()
+    ]);
+  }
+
   async function loadJSON(url){
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
-    return await res.json();
+    let lastError = null;
+    for (const candidate of buildUrlCandidates(url)) {
+      try {
+        const res = await fetch(candidate, { cache: 'no-store' });
+        if (!res.ok) {
+          lastError = new Error(`Failed to load ${candidate}: ${res.status}`);
+          continue;
+        }
+        return await res.json();
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    throw lastError || new Error(`Failed to load ${url}`);
   }
 
   async function loadAll(){
+    if (state.loaded || state.loading) return;
+    state.loading = true;
     try {
       const [catalog, profiles, aliases, router, bridges] = await Promise.all([
         loadJSON(CATALOG_URL),
@@ -231,36 +311,70 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.46-remaining-misc-refine-v46";
       startMiniPayloadPatch();
     } catch (error) {
       console.warn('major engine helper load failed:', error);
+    } finally {
+      state.loading = false;
     }
   }
 
-  function getCareerInput(){ return $('career'); }
+  function onCareerInputEvent(el){
+    if (!el) return;
+    const raw = String(el.value || '').trim();
+    if (!raw) {
+      state.selectedMajorId = '';
+      state.selectedMajorName = '';
+    } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
+      state.selectedMajorId = '';
+      state.selectedMajorName = '';
+    }
+    renderMajorSummary();
+    startMiniPayloadPatch();
+  }
 
   function bindCareerInput(){
     const el = getCareerInput();
-    if (!el || el.dataset.majorBound === '1') return;
-    el.dataset.majorBound = '1';
-    ['input','change','focus','blur'].forEach(evt => {
-      el.addEventListener(evt, () => {
-        const raw = String(el.value || '').trim();
-        if (!raw) {
-          state.selectedMajorId = '';
-          state.selectedMajorName = '';
-        } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
-          state.selectedMajorId = '';
-          state.selectedMajorName = '';
-        }
-        renderMajorSummary();
-        startMiniPayloadPatch();
+    if (el && el.dataset.majorBound !== '1') {
+      el.dataset.majorBound = '1';
+      ['input','change','focus','blur'].forEach(evt => {
+        el.addEventListener(evt, () => onCareerInputEvent(el));
       });
-    });
+    }
+
+    if (!state.delegatedCareerBound) {
+      state.delegatedCareerBound = true;
+      const handler = (event) => {
+        const current = getCareerInput();
+        if (!current) return;
+        if (event.target === current) onCareerInputEvent(current);
+      };
+      ['input','change','focus','blur'].forEach(evt => {
+        document.addEventListener(evt, handler, true);
+      });
+    }
+
+    if (!state.inputObserverBound && typeof MutationObserver !== 'undefined') {
+      state.inputObserverBound = true;
+      const observer = new MutationObserver(() => {
+        const current = getCareerInput();
+        if (current && current.dataset.majorBound !== '1') bindCareerInput();
+        const panel = $('majorEngineSummary');
+        if (panel && current && panel.previousElementSibling !== current) {
+          current.insertAdjacentElement('afterend', panel);
+        }
+      });
+      observer.observe(document.body || document.documentElement, { childList:true, subtree:true });
+    }
   }
 
   function ensureMajorPanel(){
     const input = getCareerInput();
     if (!input) return null;
     let panel = $('majorEngineSummary');
-    if (panel) return panel;
+    if (panel) {
+      if (panel.previousElementSibling !== input) {
+        input.insertAdjacentElement('afterend', panel);
+      }
+      return panel;
+    }
     panel = document.createElement('div');
     panel.id = 'majorEngineSummary';
     panel.className = 'major-engine-panel';
@@ -5477,11 +5591,20 @@ Object.assign(MAJOR_OVERRIDES, {
     }, 250);
   }
 
+  async function bootMajorEngine(){
+    await loadAll();
+    bindCareerInput();
+    renderMajorSummary();
+  }
+
   window.getMajorEngineSelectionData = buildMajorPayload;
   window.__MAJOR_ENGINE_RENDER__ = renderMajorSummary;
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadAll);
+    document.addEventListener('DOMContentLoaded', bootMajorEngine);
+    window.addEventListener('load', bootMajorEngine);
   } else {
-    loadAll();
+    bootMajorEngine();
+    window.addEventListener('load', bootMajorEngine);
   }
+  setTimeout(bootMajorEngine, 1200);
 })();
