@@ -207,7 +207,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       state.router = router || {};
       state.bridges = Array.isArray(bridges) ? bridges : [];
       ensureOverrideMajorsInSearch();
-      backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과']);
+      backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과']);
 
       state.profiles.forEach(row => {
         if (!row || !row.major_id) return;
@@ -338,7 +338,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌','수학','물리','지구과학','천문','우주','통계','체육','스포츠','레저','운동']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','법','행정','정치','외교','사회학','공공','경찰','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌','수학','물리','지구과학','천문','우주','통계','체육','스포츠','레저','운동']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -354,6 +354,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
     { queries:['회계'], test: /(회계학|금융학|경영정보학|경제학)/, boost: 44 },
     { queries:['무역'], test: /(무역학|국제통상학|경제학|글로벌경영학)/, boost: 42 },
     { queries:['통상'], test: /(국제통상학|무역학|경제학|국제학부)/, boost: 42 },
+    { queries:['법'], test: /(법학과|경찰행정학과|행정학과|정치외교학과|사회학과)/, boost: 42 },
+    { queries:['행정'], test: /(행정학과|경찰행정학과|공공인재학부|정치외교학과|사회학과)/, boost: 42 },
+    { queries:['정치','외교'], test: /(정치외교학과|행정학과|국제학부|법학과|사회학과)/, boost: 42 },
+    { queries:['사회학'], test: /(사회학과|행정학과|정치외교학과|사회복지학과|심리학과)/, boost: 44 },
+    { queries:['공공'], test: /(공공인재학부|행정학과|경찰행정학과|정치외교학과|사회학과)/, boost: 40 },
     { queries:['반도체'], test: /(반도체공학|신소재공학|전자공학)/, boost: 36 },
     { queries:['건축'], test: /(건축학|건축공학|실내디자인학|공간디자인|인테리어)/, boost: 42 },
     { queries:['디자인'], test: /(산업디자인학|시각디자인학|제품디자인학|실내디자인학|건축학)/, boost: 42 },
@@ -450,7 +455,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
     if (input.includes('보건')) return new Set(['clinical_health','rehab_therapy']);
     if (input.includes('간호') || input.includes('방사선') || input.includes('임상병리') || input.includes('보건관리') || input.includes('안경광학')) return new Set(['clinical_health']);
     if (input.includes('물리치료') || input.includes('작업치료') || input.includes('언어치료') || input.includes('재활')) return new Set(['rehab_therapy']);
-    if (input.includes('행정') || input.includes('정치') || input.includes('법') || input.includes('경찰') || input.includes('공공') || input.includes('군사')) return new Set(['law_public']);
+    if (input.includes('행정') || input.includes('정치') || input.includes('법') || input.includes('경찰') || input.includes('공공') || input.includes('군사') || input.includes('외교') || input.includes('사회학')) return new Set(['law_public']);
     if (input.includes('경영') || input.includes('관광') || input.includes('호텔') || input.includes('소비자')) return new Set(['business_service']);
     if (input.includes('경제') || input.includes('통상') || input.includes('무역')) return new Set(['global_trade']);
     if (input.includes('화학') || input.includes('화공') || input.includes('에너지') || input.includes('소재') || input.includes('배터리') || input.includes('이차전지') || input.includes('촉매')) return new Set(['chem_energy_materials','materials_devices','bio_engineering']);
@@ -492,7 +497,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       subjects: ['통합사회', '정치와 법', '사회와 문화', '공통국어', '영어'],
       topics: ['범죄 예방 정책이 지역사회 안전에 미치는 영향 분석', '경찰 조직과 행정 체계의 역할 비교', '디지털 범죄 대응에서 수사 절차와 공공성 탐구'],
       group_label: '행정·정책·법',
-      compare: ['행정학과','정치외교학과','법학과']
+      compare: ['행정학과','정치외교학과','사회학과']
     },
     '행정학과': {
       card: '정부와 공공기관의 제도, 정책, 행정 운영을 중심으로 배우는 학과입니다.',
@@ -501,7 +506,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       subjects: ['통합사회', '정치와 법', '사회와 문화', '공통국어', '경제'],
       topics: ['공공정책 설계 과정과 이해관계 조정 방식 분석', '행정 제도가 시민 생활에 미치는 영향 탐구', '지방행정과 중앙행정의 역할 차이 비교'],
       group_label: '행정·정책·법',
-      compare: ['경찰행정학과','정치외교학과','공공인재학부']
+      compare: ['경찰행정학과','정치외교학과','사회학과']
     },
     '정치외교학과': {
       card: '권력, 국가, 외교, 국제정치를 중심으로 공공 문제를 해석하는 학과입니다.',
@@ -510,7 +515,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       subjects: ['통합사회', '정치와 법', '세계사', '공통국어', '영어'],
       topics: ['국가 간 갈등이 외교 전략에 미치는 영향 분석', '정치 제도 차이가 시민 참여에 미치는 효과 비교', '국제기구와 외교 협상의 역할 탐구'],
       group_label: '행정·정책·법',
-      compare: ['행정학과','법학과','국제학부']
+      compare: ['행정학과','법학과','사회학과']
     },
     '법학과': {
       card: '법과 제도, 권리와 책임, 분쟁 해결 원리를 중심으로 배우는 학과입니다.',
@@ -519,7 +524,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       subjects: ['정치와 법', '통합사회', '공통국어', '사회와 문화', '영어'],
       topics: ['법 체계가 사회 질서 유지에 미치는 영향 분석', '권리와 책임 충돌 사례의 판단 기준 탐구', '형사 절차와 시민 기본권의 관계 비교'],
       group_label: '행정·정책·법',
-      compare: ['경찰행정학과','행정학과','정치외교학과']
+      compare: ['경찰행정학과','행정학과','사회학과']
     },
     '공공인재학부': {
       card: '정책, 행정, 공공조직 운영을 폭넓게 배우는 공공문제 해결 중심 학과입니다.',
@@ -537,7 +542,21 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.18-sports-leisure-v38";
       subjects: ['통합사회', '정치와 법', '세계사', '체육', '영어'],
       topics: ['국가안보 전략이 국제정세 변화에 따라 달라지는 방식 분석', '군 조직 운영과 공공성의 관계 탐구', '위기 대응 체계에서 전략 판단의 중요성 비교'],
       group_label: '행정·정책·법',
-      compare: ['경찰행정학과','정치외교학과','공공인재학부']
+      compare: ['경찰행정학과','정치외교학과','사회학과']
+    },
+    '사회학과': {
+      card: '사회 구조, 집단 행동, 문화와 제도를 바탕으로 사회 현상을 해석하는 학과입니다.',
+      fit: '개인보다 사회 구조와 집단, 문화 변화가 어떻게 사회 문제를 만드는지 넓게 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '사회학과는 계층, 가족, 문화, 미디어, 도시, 조직 같은 사회 구조와 집단 행동을 배우며 사회 현상을 데이터와 이론으로 해석하는 학과입니다.',
+      subjects: ['통합사회', '사회와 문화', '정치와 법', '공통국어', '통계와 사회'],
+      topics: ['세대와 계층 차이가 소비와 가치관에 미치는 영향 분석', '미디어 환경 변화가 집단 행동과 여론 형성에 주는 효과 비교', '도시화·가족 구조 변화가 사회 제도에 미치는 영향 탐구'],
+      group_label: '행정·정책·법',
+      search_aliases: ['사회과학과','사회학'],
+      compare_profiles: [
+        { display_name: '행정학과', track_category: '행정/정책/공공서비스', focus: '정부와 공공기관의 제도와 정책 운영을 중심으로 배우는 학과입니다.', hint: '사회 구조 해석보다 정책 설계와 공공서비스 운영에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '정치외교학과', track_category: '정치/외교/국가관계', focus: '권력 구조와 국가, 외교 전략을 중심으로 국내외 정치 문제를 다루는 학과입니다.', hint: '사회 집단과 문화 변화보다 정치 구조와 외교 이슈에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '사회복지학과', track_category: '복지/사례관리/지역지원', focus: '사회 제도와 지역 자원을 바탕으로 삶의 어려움을 지원하는 학과입니다.', hint: '사회 현상 분석을 넘어서 제도 개선과 현장 지원으로 연결하고 싶은 학생에게 잘 맞습니다.' }
+      ]
     },
     '경영학과': {
       card: '기업 운영과 소비자, 시장 전략을 함께 보는 대표 상경계열 학과입니다.',
