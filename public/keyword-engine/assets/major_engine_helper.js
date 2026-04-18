@@ -207,7 +207,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
       state.router = router || {};
       state.bridges = Array.isArray(bridges) ? bridges : [];
       ensureOverrideMajorsInSearch();
-      backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과']);
+      backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과','식품영양학과','식품공학과','동물자원학과','원예생명과학과','산림자원학과','농업경제학과']);
 
       state.profiles.forEach(row => {
         if (!row || !row.major_id) return;
@@ -393,6 +393,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
     { queries:['운항'], test: /(항공운항학과|항공서비스학과|기계공학과|전자공학과)/, boost: 44 },
     { queries:['외식'], test: /(외식경영학과|호텔경영학과|관광경영학과|경영학과)/, boost: 44 },
     { queries:['컨벤션','마이스'], test: /(MICE산업학과|관광경영학과|호텔경영학과|스포츠산업학과)/, boost: 44 },
+    { queries:['식품','영양'], test: /(식품영양학과|식품공학과|생명공학과|식품생명공학과|외식경영학과)/, boost: 44 },
+    { queries:['동물','축산'], test: /(동물자원학과|식품영양학과|생명공학과|수의예과|수의학과)/, boost: 42 },
+    { queries:['원예','식물'], test: /(원예생명과학과|산림자원학과|생명과학과|환경공학과|식품공학과)/, boost: 42 },
+    { queries:['산림','임업'], test: /(산림자원학과|원예생명과학과|환경공학과|지구과학과)/, boost: 42 },
+    { queries:['농업','농경제'], test: /(농업경제학과|경제학과|식품영양학과|원예생명과학과|동물자원학과)/, boost: 42 },
     { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학|스포츠의학과)/, boost: 34 }
   ];
 
@@ -422,7 +427,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
     '건축·디자인': { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.' },
     '공연·영상·예술': { id:'performing_visual_arts', label:'공연·영상·예술 쪽', desc:'공연, 연기, 영화, 방송, 애니메이션, 음악처럼 장면과 감각 표현을 다루는 학과입니다.' },
     '체육·스포츠·레저': { id:'sports_leisure', label:'체육·스포츠·레저 쪽', desc:'운동 수행, 스포츠 과학, 경기 분석, 레저·스포츠 산업처럼 몸의 움직임과 스포츠 현장을 다루는 학과입니다.' },
-    '자연과학·수리탐구': { id:'natural_math_stats', label:'자연과학·수리탐구 쪽', desc:'수학, 물리, 지구과학, 우주, 통계처럼 원리 탐구와 데이터 해석을 다루는 학과입니다.' }
+    '자연과학·수리탐구': { id:'natural_math_stats', label:'자연과학·수리탐구 쪽', desc:'수학, 물리, 지구과학, 우주, 통계처럼 원리 탐구와 데이터 해석을 다루는 학과입니다.' },
+    '식품·농업·환경생명': { id:'food_agri_life', label:'식품·농업·환경생명 쪽', desc:'식품, 영양, 농업, 동물, 식물, 산림 자원처럼 먹거리와 생명 환경을 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -451,7 +457,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
       '건축·디자인 쪽':'건축·디자인',
       '공연·영상·예술 쪽':'공연·영상·예술',
       '체육·스포츠·레저 쪽':'체육·스포츠·레저',
-      '자연과학·수리탐구 쪽':'자연과학·수리탐구'
+      '자연과학·수리탐구 쪽':'자연과학·수리탐구',
+      '식품·농업·환경생명 쪽':'식품·농업·환경생명'
     })[key]] || null;
   }
 
@@ -480,6 +487,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture','performing_visual_arts']);
     if (input.includes('연극') || input.includes('영화') || input.includes('공연') || input.includes('영상') || input.includes('애니') || input.includes('애니메이션') || input.includes('실용음악') || input.includes('음악') || input.includes('뮤지컬')) return new Set(['performing_visual_arts','media_content','architecture_design']);
     if (input.includes('수학') || input.includes('물리') || input.includes('통계') || input.includes('지구과학') || input.includes('지구') || input.includes('천문') || input.includes('우주')) return new Set(['natural_math_stats']);
+    if (input.includes('식품') || input.includes('영양') || input.includes('농업') || input.includes('농경제') || input.includes('동물자원') || input.includes('축산') || input.includes('원예') || input.includes('산림') || input.includes('임업') || input.includes('식물')) return new Set(['food_agri_life','bio_science','bio_engineering','chem_energy_materials']);
     if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
@@ -711,6 +719,87 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.21-tourism-service-v41";
         { display_name: '스포츠산업학과', track_category: '스포츠산업/마케팅/경영', focus: '스포츠 산업 구조와 이벤트 운영, 구단 비즈니스를 배우는 학과입니다.', hint: '일반 행사 기획보다 스포츠 이벤트 산업과 팬 경험 설계에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
     },
+    '식품공학과': {
+      track_category: '식품/가공/품질관리',
+      core_keywords: ['식품공학','가공','품질관리','안전성','보존','생산공정'],
+      card: '식품 원료를 가공하고 보존하며 품질과 안전성을 관리하는 공정 중심 학과입니다.',
+      fit: '음식의 성분 자체보다 식품이 만들어지고 오래 유지되는 공정과 품질 관리에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '식품공학과는 식품의 가공, 저장, 발효, 품질관리, 생산 시스템을 배우며 먹거리를 공학적으로 다루는 학과입니다.',
+      subjects: ['화학', '생명과학', '공통수학1', '정보', '가정'],
+      topics: ['가공 방식 차이가 식품의 저장성과 품질에 미치는 영향 분석', '식품 안전 기준 변화가 생산 공정에 주는 효과 비교', '발효·건조·냉장 기술이 원료 특성을 바꾸는 방식 탐구'],
+      group_label: '식품·농업·환경생명',
+      search_aliases: ['식품공학', '식품가공학과'],
+      compare_profiles: [
+        { display_name: '식품영양학과', track_category: '영양/식품/건강관리', focus: '식품의 성분과 조리, 영양 설계, 건강 증진과 식생활 관리의 관계를 함께 배우는 학과입니다.', hint: '생산 공정보다 사람의 식생활과 영양 관리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '화학공학과', track_category: '화학공정/소재/생산', focus: '화학 반응, 분리 공정, 생산 시스템을 바탕으로 소재·에너지·생산 시스템을 다루는 학과입니다.', hint: '먹거리보다 더 넓은 공정 설계와 생산 시스템에 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '생명공학과', track_category: '유전자/세포/바이오기술', focus: '세포·유전자·미생물을 활용해 의약·식품·환경 기술로 연결하는 학과입니다.', hint: '가공 공정보다 생명 현상을 기술로 확장해 보고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '동물자원학과': {
+      track_category: '동물/자원/생산관리',
+      core_keywords: ['동물자원','축산','사육관리','생산','복지','유전개량'],
+      card: '가축과 동물 자원의 사육, 생산, 복지와 유전 개량 구조를 배우는 학과입니다.',
+      fit: '동물의 성장과 생산 관리, 자원 활용을 현장과 데이터 관점에서 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '동물자원학과는 가축과 동물 자원의 성장, 사육, 생산성, 복지, 유전 개량, 자원 활용 구조를 배우는 학과입니다.',
+      subjects: ['생명과학', '화학', '정보', '공통수학1', '통합사회'],
+      topics: ['사육 환경 차이가 동물 건강과 생산성에 미치는 영향 분석', '동물 복지 기준 변화가 생산 관리 방식에 주는 효과 비교', '유전 개량과 사료 관리가 축산 자원 활용에 미치는 영향 탐구'],
+      group_label: '식품·농업·환경생명',
+      search_aliases: ['동물자원', '축산학과', '동물생명자원학과'],
+      compare_profiles: [
+        { display_name: '원예생명과학과', track_category: '원예/식물/생명응용', focus: '식물과 작물의 생장, 재배 환경, 원예 기술과 생명 응용을 배우는 학과입니다.', hint: '동물 자원보다 식물·작물 생장과 재배 관리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '식품영양학과', track_category: '영양/식품/건강관리', focus: '식품의 성분과 조리, 영양 설계, 건강 증진과 식생활 관리의 관계를 함께 배우는 학과입니다.', hint: '생산 현장보다 식품의 영양과 건강 관리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '생명공학과', track_category: '유전자/세포/바이오기술', focus: '세포·유전자·미생물을 활용해 의약·식품·환경 기술로 연결하는 학과입니다.', hint: '사육 관리보다 생명 기술과 실험 응용에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '원예생명과학과': {
+      track_category: '원예/식물/생명응용',
+      core_keywords: ['원예','식물','재배','생장환경','품종','생명응용'],
+      card: '식물과 작물의 생장, 재배 환경, 품종과 원예 기술을 배우는 식물 중심 학과입니다.',
+      fit: '식물의 생장과 재배 환경을 관찰하고 원예 기술을 생활·산업과 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '원예생명과학과는 식물과 작물의 생장 원리, 재배 환경, 품종 개량, 원예 기술과 생명 응용을 함께 배우는 학과입니다.',
+      subjects: ['생명과학', '화학', '정보', '가정', '공통수학1'],
+      topics: ['재배 환경 차이가 식물 생장 속도와 품질에 미치는 영향 분석', '품종 차이가 저장성·상품성에 주는 효과 비교', '원예 기술이 생활 환경과 식품 생산에 연결되는 방식 탐구'],
+      group_label: '식품·농업·환경생명',
+      search_aliases: ['원예생명', '원예학과', '원예과학과', '식물자원학과'],
+      compare_profiles: [
+        { display_name: '산림자원학과', track_category: '산림/자원/생태관리', focus: '산림 생태와 자원 관리, 복원, 임업 활용 구조를 배우는 학과입니다.', hint: '원예 작물보다 숲과 산림 자원 전체의 관리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '동물자원학과', track_category: '동물/자원/생산관리', focus: '가축과 동물 자원의 사육, 생산, 복지와 유전 개량 구조를 배우는 학과입니다.', hint: '식물보다 동물 자원과 생산 관리에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '생명과학과', track_category: '세포/유전/생명탐구', focus: '세포, 유전, 진화, 생태 같은 생명 현상의 원리를 이론과 실험으로 탐구하는 기초과학 중심 학과입니다.', hint: '재배 기술보다 생명 현상의 원리와 생태를 넓게 탐구하고 싶은 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '산림자원학과': {
+      track_category: '산림/자원/생태관리',
+      core_keywords: ['산림자원','생태','복원','임업','환경관리','자원순환'],
+      card: '숲과 산림 생태, 자원 관리, 복원과 임업 활용 구조를 배우는 학과입니다.',
+      fit: '산림 생태계와 자원 보전, 복원, 인간 이용의 균형을 현장과 데이터로 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '산림자원학과는 산림 생태, 토양, 수자원, 복원, 임업, 자원 순환과 같은 숲 환경 전반의 관리 구조를 배우는 학과입니다.',
+      subjects: ['생명과학', '지구과학', '정보', '통합사회', '공통수학1'],
+      topics: ['산림 복원 방식 차이가 생태 다양성과 토양 안정성에 미치는 영향 분석', '인간 이용과 산림 보전 기준이 자원 순환에 주는 효과 비교', '기후 변화가 산림 자원 관리 전략을 바꾸는 방식 탐구'],
+      group_label: '식품·농업·환경생명',
+      search_aliases: ['산림자원', '산림학과', '임학과'],
+      compare_profiles: [
+        { display_name: '원예생명과학과', track_category: '원예/식물/생명응용', focus: '식물과 작물의 생장, 재배 환경, 원예 기술과 생명 응용을 배우는 학과입니다.', hint: '숲 전체보다 재배 가능한 작물과 식물 생장에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '지구환경과학과', track_category: '환경/기후/지구시스템', focus: '기후, 대기, 지질, 해양, 수문 등 지구 시스템의 변화를 관측 자료와 과학적 모델로 분석하는 학과입니다.', hint: '산림 관리보다 기후와 지구 환경 변화를 넓게 분석하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '환경공학과', track_category: '건설/환경/인프라', focus: '수질·대기·폐기물 같은 환경 문제를 공학적으로 해결하는 학과입니다.', hint: '생태 관리보다 환경 문제의 기술적 해결에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '농업경제학과': {
+      track_category: '농업/경제/유통정책',
+      core_keywords: ['농업경제','유통','정책','시장','자원관리','지역경제'],
+      card: '농산물 시장, 유통 구조, 농업 정책과 지역 경제의 관계를 배우는 학과입니다.',
+      fit: '먹거리 생산 그 자체보다 농업이 시장과 지역 사회에서 어떻게 운영되는지 궁금한 학생에게 잘 맞습니다.',
+      intro: '농업경제학과는 농산물 생산과 유통, 농업 정책, 지역 경제, 자원 관리와 시장 구조의 관계를 배우는 학과입니다.',
+      subjects: ['경제', '통합사회', '사회와 문화', '정보', '공통수학1'],
+      topics: ['유통 구조 차이가 농산물 가격과 지역 경제에 미치는 영향 분석', '농업 지원 정책 변화가 생산 구조에 주는 효과 비교', '지역 자원과 먹거리 소비 구조가 농업 시장을 바꾸는 방식 탐구'],
+      group_label: '식품·농업·환경생명',
+      search_aliases: ['농업경제', '농경제학과', '농업경제'],
+      compare_profiles: [
+        { display_name: '경제학과', track_category: '경제/시장/데이터해석', focus: '시장 원리와 정책 효과를 이론과 데이터로 해석하는 학과입니다.', hint: '농업 현장보다 시장 구조와 정책 효과를 넓게 분석하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '국제통상학과', track_category: '국제통상/무역/글로벌시장', focus: '수출입 구조와 무역, 통상 정책, 글로벌 시장 흐름을 함께 배우는 학과입니다.', hint: '지역 농업보다 국제 거래와 무역 구조에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '식품공학과', track_category: '식품/가공/품질관리', focus: '식품 원료를 가공하고 보존하며 품질과 안전성을 관리하는 공정 중심 학과입니다.', hint: '시장 구조보다 식품 생산 공정과 품질 관리에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+
     '소비자학과': {
       card: '소비자의 선택과 행동, 생활 방식, 권리와 복지를 함께 다루는 학과입니다.',
       fit: '시장과 소비자 반응, 생활 문제를 행동과 제도 관점에서 보고 싶은 학생에게 잘 맞습니다.',
