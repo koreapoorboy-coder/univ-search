@@ -1462,7 +1462,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
       recommended_keywords: ['공통국어','정보','통합사회','영어','공통수학1'],
       subjects: ['공통국어','정보','통합사회','영어','공통수학1'],
       topics: ['분류 기준 차이가 정보 검색 효율에 미치는 영향 분석', '기록 보존 방식에 따라 자료 활용성이 달라지는 구조 탐구', '디지털 아카이브 서비스가 지식 접근 방식을 바꾸는 효과 비교'],
-      group_label: '인문·어문·문화',
+      group_label: '기록·지식관리',
       compare_profiles: [
         { display_name: '사학과', track_category: '역사/사료/시대해석', focus: '사료와 기록을 통해 과거 사건과 시대 흐름을 해석하는 학과입니다.', hint: '기록을 정리하는 것보다 기록 자체로 시대를 해석하고 싶은 학생에게 잘 맞습니다.' },
         { display_name: '경영정보학과', track_category: '경영/정보시스템/데이터', focus: '정보시스템과 데이터 관점에서 조직 운영과 의사결정을 다루는 학과입니다.', hint: '지식 조직보다 기업 정보 시스템과 데이터 활용에 더 관심 있는 학생에게 잘 맞습니다.' },
