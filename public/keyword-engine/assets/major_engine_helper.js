@@ -110,6 +110,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
         name,
         String(name).replace(/학과$/, ''),
         String(name).replace(/학부$/, ''),
+        stripMajorSuffix(name),
+        stripMajorSuffix(name),
         ...((override.search_aliases || [])),
         ...((override.subjects || [])),
         ...((override.topics || [])).map(v => String(v).split(/[·,]/)[0].trim())
@@ -147,6 +149,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
         name,
         String(name).replace(/학과$/, ''),
         String(name).replace(/학부$/, ''),
+        stripMajorSuffix(name),
         ...((override.search_aliases || []))
       ]).filter(Boolean);
       const aliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
@@ -2077,12 +2080,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
     // restrict grouped suggestions to that same family/group so unrelated
     // fuzzy matches (e.g. 화학과 for 연극영화) do not appear.
     let exactRow = null;
-    const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalizedInput);
+    const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalizedInput || normalize(stripMajorSuffix(row.display_name)) === normalizedInput);
     if (exactProfile) {
       exactRow = filteredRows.find(row => row.major_id === exactProfile.major_id || row.display_name === exactProfile.display_name) || null;
     }
     if (!exactRow) {
-      const exactAliasRow = state.aliasRows.find(row => row.normalized_display_name === normalizedInput || row.normalized_aliases.includes(normalizedInput));
+      const exactAliasRow = state.aliasRows.find(row => row.normalized_display_name === normalizedInput || normalize(stripMajorSuffix(row.display_name)) === normalizedInput || row.normalized_aliases.includes(normalizedInput));
       if (exactAliasRow) {
         exactRow = filteredRows.find(row => row.major_id === exactAliasRow.major_id || row.display_name === exactAliasRow.display_name) || null;
       }
@@ -2174,14 +2177,14 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
 
     const candidates = findCandidates(input);
 
-    const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalized);
+    const exactProfile = state.profiles.find(row => normalize(row.display_name) === normalized || normalize(stripMajorSuffix(row.display_name)) === normalized);
     if (exactProfile) {
       state.selectedMajorId = exactProfile.major_id || '';
       state.selectedMajorName = exactProfile.display_name || '';
       return buildResolved(exactProfile, 'exact_major_name', input);
     }
 
-    const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized));
+    const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized) || normalize(stripMajorSuffix(row.display_name)) === normalized);
     if (aliasRow) {
       const profile = state.profileByMajorId.get(aliasRow.major_id) || state.profileByName.get(aliasRow.display_name);
       if (profile) {
