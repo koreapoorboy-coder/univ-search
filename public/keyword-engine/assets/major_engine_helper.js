@@ -347,7 +347,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
     '환경 관련 추천': { id:'environment', label:'환경·도시 시스템 쪽', desc:'기후, 환경, 도시 기반시설과 연결된 학과입니다.' },
     '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
     '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' },
-    '건축·디자인': { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.' }
+    '건축·디자인': { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.' },
+    '공연·영상·예술': { id:'performing_visual_arts', label:'공연·영상·예술 쪽', desc:'공연, 연기, 영화, 방송, 애니메이션, 음악처럼 장면과 감각 표현을 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -372,7 +373,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
       '환경·도시 시스템 쪽':'환경 관련 추천',
       '주거·공간 설계 쪽':'공간·주거 환경',
       '도시 기반시설 쪽':'도시·인프라',
-      '건축·디자인 쪽':'건축·디자인'
+      '건축·디자인 쪽':'건축·디자인',
+      '공연·영상·예술 쪽':'공연·영상·예술'
     })[key]] || null;
   }
 
@@ -396,7 +398,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
     if (input.includes('복지')) return new Set(['welfare_support','education_child']);
     if (input.includes('건축') || input.includes('디자인') || input.includes('실내') || input.includes('인테리어') || input.includes('시각') || input.includes('제품')) return new Set(['architecture_design','space_housing','city_infra','media_content']);
     if (input.includes('국문') || input.includes('문학') || input.includes('영문') || input.includes('영어영문') || input.includes('역사') || input.includes('사학') || input.includes('철학') || input.includes('문헌') || input.includes('도서관') || input.includes('어문')) return new Set(['humanities_language_culture','media_content']);
-    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture']);
+    if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture','performing_visual_arts']);
+    if (input.includes('연극') || input.includes('영화') || input.includes('공연') || input.includes('영상') || input.includes('애니') || input.includes('애니메이션') || input.includes('실용음악') || input.includes('음악') || input.includes('뮤지컬')) return new Set(['performing_visual_arts','media_content','architecture_design']);
     if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
@@ -1482,7 +1485,105 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
         { display_name: '시각디자인학과', track_category: '시각/브랜드/콘텐츠', focus: '이미지, 편집, 브랜드, 콘텐츠 전달 방식을 시각적으로 설계하는 학과입니다.', hint: '제품 형태보다 시각 커뮤니케이션과 브랜드 경험에 더 관심 있는 학생에게 잘 맞습니다.' },
         { display_name: '실내디자인학과', track_category: '실내/공간/인테리어', focus: '실내 공간의 동선과 분위기, 생활 경험을 중심으로 설계하는 학과입니다.', hint: '제품보다 공간과 생활 환경 디자인에 더 관심 있는 학생에게 잘 맞습니다.' }
       ]
-    }  };
+
+    },
+    '연극영화과': {
+      track_category: '연극/영화/연출',
+      card: '연기와 연출, 장면 구성과 서사를 통해 무대와 스크린의 표현 방식을 배우는 학과입니다.',
+      fit: '인물 감정과 장면 연출, 이야기 표현을 몸과 화면으로 풀어내는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '연극영화과는 연기, 연출, 희곡과 시나리오, 장면 구성, 캐릭터 해석을 배우며 무대와 영화가 이야기를 전달하는 방식을 탐구하는 학과입니다.',
+      core_keywords: ['연극영화','연기','연출','장면구성','캐릭터해석','서사'],
+      recommended_keywords: ['공통국어','문학','영어','미술','사회와 문화'],
+      subjects: ['공통국어','문학','영어','미술','사회와 문화'],
+      topics: ['같은 장면을 연기 방식에 따라 다르게 전달하는 효과 비교', '희곡과 시나리오 구조 차이가 인물 해석에 주는 영향 분석', '카메라 구도와 무대 동선이 감정 전달을 바꾸는 방식 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '영화영상학과', track_category: '영화/영상/연출', focus: '카메라 구도와 편집, 영상 문법을 바탕으로 장면을 설계하는 학과입니다.', hint: '배우의 표현보다 장면 구성과 촬영·편집 방식에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '공연예술학과', track_category: '공연/무대/표현', focus: '무대, 공연 기획, 퍼포먼스 표현을 중심으로 현장형 예술을 배우는 학과입니다.', hint: '스크린보다 무대 표현과 공연 제작 과정에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '방송영상학과', track_category: '방송/영상제작/콘텐츠', focus: '방송 포맷, 영상 제작, 편집과 콘텐츠 흐름을 중심으로 매체 제작을 배우는 학과입니다.', hint: '극영화보다 방송·콘텐츠 제작 구조와 영상 편집에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '영화영상학과': {
+      track_category: '영화/영상/연출',
+      card: '카메라 구도와 편집, 영상 문법을 바탕으로 장면과 이야기를 설계하는 학과입니다.',
+      fit: '촬영, 편집, 장면 전환과 영상 흐름을 통해 메시지를 구성하는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '영화영상학과는 영화와 영상 콘텐츠의 촬영, 편집, 사운드, 연출, 영상 문법을 배우며 화면이 이야기를 전달하는 방식을 탐구하는 학과입니다.',
+      core_keywords: ['영화영상','촬영','편집','연출','영상문법','사운드'],
+      recommended_keywords: ['미술','영어','공통국어','정보','통합사회'],
+      subjects: ['미술','영어','공통국어','정보','통합사회'],
+      topics: ['편집 리듬 차이가 장면 몰입도에 미치는 영향 분석', '카메라 구도 변화가 인물 감정 해석을 바꾸는 방식 비교', '사운드 설계가 영상 메시지 전달에 주는 효과 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '연극영화과', track_category: '연극/영화/연출', focus: '연기와 장면 연출, 캐릭터 해석을 통해 무대와 영화 표현을 배우는 학과입니다.', hint: '영상 편집보다 배우 표현과 장면 연기에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '방송영상학과', track_category: '방송/영상제작/콘텐츠', focus: '방송 포맷과 영상 제작, 콘텐츠 흐름을 중심으로 매체 제작을 배우는 학과입니다.', hint: '영화보다 방송 콘텐츠와 포맷 제작 구조에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '애니메이션학과', track_category: '애니메이션/캐릭터/스토리보드', focus: '캐릭터와 움직임, 스토리보드와 작화 설계를 통해 영상 서사를 만드는 학과입니다.', hint: '실사 영상보다 캐릭터 기반 장면 구성과 움직임 표현에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '공연예술학과': {
+      track_category: '공연/무대/표현',
+      card: '무대, 공연 기획, 퍼포먼스 표현을 중심으로 현장형 예술을 배우는 학과입니다.',
+      fit: '관객과 현장에서 만나는 무대 표현, 공연 흐름, 몸과 소리의 전달 방식에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '공연예술학과는 무대 연출, 퍼포먼스, 공연 기획, 음악과 움직임, 현장 제작을 배우며 공연이 관객과 소통하는 구조를 탐구하는 학과입니다.',
+      core_keywords: ['공연예술','무대','퍼포먼스','공연기획','표현','현장제작'],
+      recommended_keywords: ['음악','미술','공통국어','영어','통합사회'],
+      subjects: ['음악','미술','공통국어','영어','통합사회'],
+      topics: ['무대 동선 차이가 공연 몰입도에 미치는 영향 분석', '라이브 공연과 녹화 영상의 표현 방식 비교', '공연 기획 요소가 관객 경험을 바꾸는 방식 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '연극영화과', track_category: '연극/영화/연출', focus: '연기와 연출, 장면 구성을 통해 이야기 표현을 배우는 학과입니다.', hint: '공연 전체 기획보다 인물과 장면의 드라마 표현에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '실용음악과', track_category: '실용음악/작곡/공연', focus: '보컬, 연주, 작곡과 무대 공연을 중심으로 음악 표현을 배우는 학과입니다.', hint: '연기와 무대 연출보다 음악 퍼포먼스와 사운드 표현에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '방송영상학과', track_category: '방송/영상제작/콘텐츠', focus: '방송 포맷, 영상 제작, 편집과 콘텐츠 흐름을 배우는 학과입니다.', hint: '현장 공연보다 매체 제작과 편집, 방송 송출 구조에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '방송영상학과': {
+      track_category: '방송/영상제작/콘텐츠',
+      card: '방송 포맷과 영상 제작, 편집과 콘텐츠 흐름을 중심으로 매체 제작을 배우는 학과입니다.',
+      fit: '영상 편집, 콘텐츠 기획, 방송 제작 흐름과 시청자 반응을 함께 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '방송영상학과는 방송 포맷, 촬영과 편집, 영상 제작, 스튜디오 운영, 콘텐츠 기획을 배우며 영상 매체가 메시지를 전달하는 방식을 이해하는 학과입니다.',
+      core_keywords: ['방송영상','영상제작','편집','콘텐츠','포맷','송출'],
+      recommended_keywords: ['정보','미술','영어','공통국어','통합사회'],
+      subjects: ['정보','미술','영어','공통국어','통합사회'],
+      topics: ['방송 포맷 차이가 시청자 몰입도에 미치는 영향 분석', '편집 방식이 영상 전달 속도와 이해도에 주는 효과 비교', '플랫폼 변화가 방송 콘텐츠 제작 구조를 바꾸는 방식 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '영화영상학과', track_category: '영화/영상/연출', focus: '카메라 구도와 편집, 영상 문법을 바탕으로 장면을 설계하는 학과입니다.', hint: '방송 포맷보다 영화적 장면 구성과 연출에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '미디어커뮤니케이션학과', track_category: '미디어/콘텐츠/사회분석', focus: '미디어 구조와 정보 전달, 콘텐츠가 사회에 미치는 영향을 분석하는 학과입니다.', hint: '제작 실무보다 미디어 구조와 여론, 커뮤니케이션 효과 분석에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '시각디자인학과', track_category: '시각/브랜드/콘텐츠', focus: '이미지, 편집, 브랜드와 콘텐츠 전달 방식을 시각적으로 설계하는 학과입니다.', hint: '방송 포맷보다 화면 디자인과 시각 전달 구조에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '애니메이션학과': {
+      track_category: '애니메이션/캐릭터/스토리보드',
+      card: '캐릭터와 움직임, 스토리보드와 작화 설계를 통해 영상 서사를 만드는 학과입니다.',
+      fit: '캐릭터 감정 표현, 움직임 연출, 그림과 장면 구성으로 이야기를 만드는 데 관심 있는 학생에게 잘 맞습니다.',
+      intro: '애니메이션학과는 캐릭터 디자인, 스토리보드, 작화, 움직임 표현, 영상 연출을 배우며 그림과 시간의 흐름으로 이야기를 만드는 학과입니다.',
+      core_keywords: ['애니메이션','캐릭터','스토리보드','작화','움직임','연출'],
+      recommended_keywords: ['미술','공통국어','영어','정보','통합사회'],
+      subjects: ['미술','공통국어','영어','정보','통합사회'],
+      topics: ['캐릭터 표정 변화가 감정 전달에 미치는 영향 분석', '스토리보드 구성 차이가 장면 이해도에 주는 효과 비교', '작화 방식과 움직임 표현이 몰입도를 바꾸는 방식 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '시각디자인학과', track_category: '시각/브랜드/콘텐츠', focus: '이미지, 편집, 브랜드와 콘텐츠 전달 방식을 시각적으로 설계하는 학과입니다.', hint: '움직임 서사보다 정지 이미지와 전달 디자인에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '영화영상학과', track_category: '영화/영상/연출', focus: '촬영, 편집, 영상 문법을 통해 실사 장면을 설계하는 학과입니다.', hint: '캐릭터 기반 표현보다 실제 장면 촬영과 편집에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '문화콘텐츠학과', track_category: '문화/스토리/콘텐츠기획', focus: '이야기와 문화 요소를 콘텐츠 기획과 산업 구조 관점에서 다루는 학과입니다.', hint: '작화와 장면 연출보다 스토리 IP 기획과 콘텐츠 확장에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
+    '실용음악과': {
+      track_category: '실용음악/작곡/공연',
+      card: '보컬, 연주, 작곡과 무대 공연을 중심으로 음악 표현을 배우는 학과입니다.',
+      fit: '리듬과 멜로디, 무대 퍼포먼스, 사운드 표현을 실제 공연과 연결해 보고 싶은 학생에게 잘 맞습니다.',
+      intro: '실용음악과는 보컬, 연주, 작곡, 편곡, 사운드와 무대 공연을 배우며 대중음악이 만들어지고 전달되는 방식을 탐구하는 학과입니다.',
+      core_keywords: ['실용음악','보컬','연주','작곡','편곡','공연'],
+      recommended_keywords: ['음악','영어','공통국어','미술','정보'],
+      subjects: ['음악','영어','공통국어','미술','정보'],
+      topics: ['편곡 방식 차이가 곡 분위기와 전달력에 미치는 영향 분석', '라이브 공연과 음원 제작의 표현 방식 비교', '사운드 구성 요소가 청자의 몰입도에 주는 효과 탐구'],
+      group_label: '공연·영상·예술',
+      compare_profiles: [
+        { display_name: '공연예술학과', track_category: '공연/무대/표현', focus: '무대 연출과 퍼포먼스, 공연 기획을 중심으로 현장형 예술을 배우는 학과입니다.', hint: '음악 중심 공연보다 무대 전체 기획과 현장 표현에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '방송영상학과', track_category: '방송/영상제작/콘텐츠', focus: '방송 포맷과 영상 제작, 편집과 콘텐츠 흐름을 배우는 학과입니다.', hint: '음악 자체보다 음원 영상화와 방송 콘텐츠 제작에 더 관심 있는 학생에게 잘 맞습니다.' },
+        { display_name: '연극영화과', track_category: '연극/영화/연출', focus: '연기와 연출, 장면 구성과 서사를 통해 이야기 표현을 배우는 학과입니다.', hint: '음악 퍼포먼스보다 인물과 장면의 극적 표현에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    }
+  };
 
   function buildHeuristicKeywords(displayName, trackCategory){
     const name = String(displayName || '');
@@ -1503,6 +1604,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.11-major-search-integrated-bundle
       [/심리|상담심리/, ['인지 과정','정서 행동','심리 실험','상담 사례','행동 분석']],
       [/사회복지|아동/, ['복지 제도','발달 이해','지원 체계','사회 문제','현장 사례']],
       [/사회학|문화인류|문화유산|문화콘텐츠|미디어커뮤니케이션|언론정보|신문방송|광고홍보/, ['사회 현상','미디어 분석','문화 해석','콘텐츠 기획','커뮤니케이션']],
+      [/연극영화|영화영상|방송영상|공연예술|애니메이션|실용음악|뮤지컬/, ['장면 구성','표현 방식','콘텐츠 제작','감정 전달','무대·영상']],
       [/국어국문|영어영문|사학|철학|문헌정보/, ['텍스트 해석','시대 맥락','개념 탐구','기록 분석','문화 이해']],
       [/통계|응용통계/, ['데이터 분석','확률 모델','통계 추정','그래프 해석','표본 조사']],
       [/수학/, ['수리 모델링','증명 논리','문제 해결','함수 해석','정량 분석']],
