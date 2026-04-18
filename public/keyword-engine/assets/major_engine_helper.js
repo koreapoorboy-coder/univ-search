@@ -338,7 +338,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
     /기반의 source 구조화가 완료/
   ];
 
-  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌']);
+  const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌','수학','물리','지구과학','천문','우주','통계']);
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -374,6 +374,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
     { queries:['역사','사학'], test: /(사학과|철학과|문헌정보학과|국어국문학과)/, boost: 42 },
     { queries:['철학'], test: /(철학과|심리학과|사학과|국어국문학과)/, boost: 40 },
     { queries:['문헌','도서관'], test: /(문헌정보학과|국어국문학과|사학과|미디어커뮤니케이션학과)/, boost: 42 },
+    { queries:['수학'], test: /(수학과|통계학과|응용통계학과|물리학과|컴퓨터공학과)/, boost: 42 },
+    { queries:['물리'], test: /(물리학과|천문우주학과|수학과|전자공학과)/, boost: 42 },
+    { queries:['지구과학','지구'], test: /(지구과학과|천문우주학과|환경공학과|에너지공학과)/, boost: 42 },
+    { queries:['천문','우주'], test: /(천문우주학과|물리학과|지구과학과|수학과)/, boost: 44 },
+    { queries:['통계'], test: /(통계학과|응용통계학과|경제학과|데이터사이언스학과)/, boost: 42 },
     { queries:['보건'], test: /(보건관리학|간호학|방사선학|임상병리학|물리치료학|작업치료학|언어치료학)/, boost: 34 }
   ];
 
@@ -400,7 +405,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
     '공간·주거 환경': { id:'space_housing', label:'주거·공간 설계 쪽', desc:'주거, 실내, 공간 설계처럼 생활 공간과 연결된 학과입니다.' },
     '도시·인프라': { id:'city_infra', label:'도시 기반시설 쪽', desc:'도시 구조, 인프라, 건설·토목처럼 생활 기반을 다루는 학과입니다.' },
     '건축·디자인': { id:'architecture_design', label:'건축·디자인 쪽', desc:'건축 설계, 공간 디자인, 제품·시각 디자인처럼 형태와 사용 경험을 다루는 학과입니다.' },
-    '공연·영상·예술': { id:'performing_visual_arts', label:'공연·영상·예술 쪽', desc:'공연, 연기, 영화, 방송, 애니메이션, 음악처럼 장면과 감각 표현을 다루는 학과입니다.' }
+    '공연·영상·예술': { id:'performing_visual_arts', label:'공연·영상·예술 쪽', desc:'공연, 연기, 영화, 방송, 애니메이션, 음악처럼 장면과 감각 표현을 다루는 학과입니다.' },
+    '자연과학·수리탐구': { id:'natural_math_stats', label:'자연과학·수리탐구 쪽', desc:'수학, 물리, 지구과학, 우주, 통계처럼 원리 탐구와 데이터 해석을 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -426,7 +432,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
       '주거·공간 설계 쪽':'공간·주거 환경',
       '도시 기반시설 쪽':'도시·인프라',
       '건축·디자인 쪽':'건축·디자인',
-      '공연·영상·예술 쪽':'공연·영상·예술'
+      '공연·영상·예술 쪽':'공연·영상·예술',
+      '자연과학·수리탐구 쪽':'자연과학·수리탐구'
     })[key]] || null;
   }
 
@@ -452,6 +459,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.13-performing-arts-alias-priority
     if (input.includes('국문') || input.includes('문학') || input.includes('영문') || input.includes('영어영문') || input.includes('역사') || input.includes('사학') || input.includes('철학') || input.includes('문헌') || input.includes('도서관') || input.includes('어문')) return new Set(['humanities_language_culture','media_content']);
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture','performing_visual_arts']);
     if (input.includes('연극') || input.includes('영화') || input.includes('공연') || input.includes('영상') || input.includes('애니') || input.includes('애니메이션') || input.includes('실용음악') || input.includes('음악') || input.includes('뮤지컬')) return new Set(['performing_visual_arts','media_content','architecture_design']);
+    if (input.includes('수학') || input.includes('물리') || input.includes('통계') || input.includes('지구과학') || input.includes('지구') || input.includes('천문') || input.includes('우주')) return new Set(['natural_math_stats']);
     if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
