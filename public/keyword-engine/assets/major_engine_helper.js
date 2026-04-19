@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.64-compare-merge-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.65-humanities-label-fixes";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -337,6 +337,34 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.64-compare-merge-fix";
     renderMajorSummary();
     startMiniPayloadPatch();
   }
+
+
+  Object.assign(MAJOR_COPY_OVERRIDES, {
+    "고고학과": {
+      ...(MAJOR_COPY_OVERRIDES["고고학과"] || {}),
+      group_label: "유적·역사·문화복원"
+    },
+    "문화유산학과": {
+      ...(MAJOR_COPY_OVERRIDES["문화유산학과"] || {}),
+      group_label: "유산·기록·보존해석"
+    },
+    "미학과": {
+      ...(MAJOR_COPY_OVERRIDES["미학과"] || {}),
+      group_label: "예술·미학·가치해석"
+    },
+    "언어학과": {
+      ...(MAJOR_COPY_OVERRIDES["언어학과"] || {}),
+      group_label: "언어·의미·구조분석"
+    },
+    "한국어학과": {
+      ...(MAJOR_COPY_OVERRIDES["한국어학과"] || {}),
+      group_label: "한국어·문법·표현분석"
+    },
+    "한문학과": {
+      ...(MAJOR_COPY_OVERRIDES["한문학과"] || {}),
+      group_label: "한문·고전·사상해석"
+    }
+  });
 
   async function loadAll(){
     if (state.loaded || state.loading) return;
@@ -5830,46 +5858,4 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     window.addEventListener('load', bootMajorEngine);
   }
   setTimeout(bootMajorEngine, 1200);
-
-Object.assign(GROUP_META_OVERRIDES, {
-  '국제사회·글로벌이슈': { id:'global_affairs_issues', label:'국제사회·글로벌이슈', desc:'국제정치, 글로벌 이슈, 지역 협력과 문화 이해를 폭넓게 다루는 학과입니다.' },
-  '부동산·도시개발·자산분석': { id:'real_estate_urban_assets', label:'부동산·도시개발·자산분석', desc:'토지·건물, 도시 개발, 시장 구조와 자산 가치 분석을 함께 다루는 학과입니다.' },
-  '문화·사회·현지조사': { id:'culture_society_fieldwork', label:'문화·사회·현지조사', desc:'현지 조사와 비교 관찰을 바탕으로 문화와 사회를 해석하는 학과입니다.' },
-  '문학·서사·창작': { id:'literature_narrative_creation', label:'문학·서사·창작', desc:'문학 텍스트와 서사 구조, 인물과 문체를 바탕으로 창작을 설계하는 학과입니다.' }
-});
-
-Object.assign(MAJOR_COPY_OVERRIDES, {
-  '국제학부': {
-    ...(MAJOR_COPY_OVERRIDES['국제학부'] || {}),
-    group_label: '국제사회·글로벌이슈'
-  },
-  '부동산학과': {
-    ...(MAJOR_COPY_OVERRIDES['부동산학과'] || {}),
-    group_label: '부동산·도시개발·자산분석',
-    compare_profiles: [
-      { display_name: '경제학과', track_category: '경제/시장/데이터해석', focus: '시장 원리와 자원 배분, 경기 흐름을 지표와 데이터로 읽는 학과입니다.', hint: '부동산 시장을 더 넓은 경제 흐름과 지표 해석 관점에서 보고 싶은 학생에게 잘 맞습니다.' },
-      { display_name: '도시공학과', track_category: '도시/교통/인프라', focus: '도시 공간과 주거·교통·환경·인프라를 생활권 전체의 구조에서 종합적으로 계획하는 학과입니다.', hint: '자산 가치보다 도시 구조와 개발, 생활권 설계에 더 관심 있는 학생에게 잘 맞습니다.' },
-      { display_name: '행정학과', track_category: '사회계열', focus: '정부와 공공기관의 제도, 정책, 행정 운영을 중심으로 배우는 학과입니다.', hint: '시장 분석보다 제도·정책과 공공 규제 관점에서 도시 문제를 보고 싶은 학생에게 잘 맞습니다.' }
-    ]
-  },
-  '문화인류학과': {
-    ...(MAJOR_COPY_OVERRIDES['문화인류학과'] || {}),
-    group_label: '문화·사회·현지조사',
-    compare_profiles: [
-      { display_name: '사회학과', track_category: '사회/구조/문화', focus: '사회 구조, 집단 행동, 문화와 제도를 바탕으로 사회 현상을 해석하는 학과입니다.', hint: '현지조사보다 사회 구조와 집단 변화를 넓게 해석하고 싶은 학생에게 잘 맞습니다.' },
-      { display_name: '사학과', track_category: '역사/사료/시대해석', focus: '사료와 기록을 바탕으로 사건과 시대 변화의 맥락을 해석하는 학과입니다.', hint: '현재 문화 현상보다 과거 사회와 문화의 흐름을 기록과 자료로 읽고 싶은 학생에게 잘 맞습니다.' },
-      { display_name: '문화유산학과', track_category: '인문/설화/심리', focus: '유형·무형 문화유산을 기록하고 보존·활용하는 학과입니다.', hint: '문화 일반의 비교보다 전통 문화와 유산의 보존·기록에 더 관심 있는 학생에게 잘 맞습니다.' }
-    ]
-  },
-  '문예창작학과': {
-    ...(MAJOR_COPY_OVERRIDES['문예창작학과'] || {}),
-    group_label: '문학·서사·창작',
-    compare_profiles: [
-      { display_name: '국어국문학과', track_category: '국어/문학/텍스트해석', focus: '한국어와 문학 작품, 글쓰기와 비평을 통해 언어와 문화의 의미를 읽는 학과입니다.', hint: '직접 창작보다 문학 텍스트를 분석하고 해석하는 데 더 관심 있는 학생에게 잘 맞습니다.' },
-      { display_name: '문화콘텐츠학과', track_category: '미디어/디자인/문화콘텐츠', focus: '이야기와 문화 요소를 콘텐츠 기획과 산업 구조 관점에서 배우는 학과입니다.', hint: '창작한 이야기를 콘텐츠 기획과 산업 확장으로 연결해 보고 싶은 학생에게 잘 맞습니다.' },
-      { display_name: '연극영화과', track_category: '연극/영화/연출', focus: '연기와 연출, 장면 구성과 서사를 통해 무대와 스크린의 표현 방식을 배우는 학과입니다.', hint: '문학 창작을 장면과 대사, 퍼포먼스 표현으로 확장해 보고 싶은 학생에게 잘 맞습니다.' }
-    ]
-  }
-});
-
 })();
