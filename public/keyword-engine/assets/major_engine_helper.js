@@ -597,7 +597,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.53-fallback-recovery";
     '공연·영상·예술': { id:'performing_visual_arts', label:'공연·영상·예술 쪽', desc:'공연, 연기, 영화, 방송, 애니메이션, 음악처럼 장면과 감각 표현을 다루는 학과입니다.' },
     '체육·스포츠·레저': { id:'sports_leisure', label:'체육·스포츠·레저 쪽', desc:'운동 수행, 스포츠 과학, 경기 분석, 레저·스포츠 산업처럼 몸의 움직임과 스포츠 현장을 다루는 학과입니다.' },
     '자연과학·수리탐구': { id:'natural_math_stats', label:'자연과학·수리탐구 쪽', desc:'수학, 물리, 지구과학, 우주, 통계처럼 원리 탐구와 데이터 해석을 다루는 학과입니다.' },
-    '식품·농업·환경생명': { id:'food_agri_life', label:'식품·농업·환경생명 쪽', desc:'식품, 영양, 농업, 동물, 식물, 산림 자원처럼 먹거리와 생명 환경을 다루는 학과입니다.' }
+    '식품·농업·환경생명': { id:'food_agri_life', label:'식품·농업·환경생명 쪽', desc:'식품, 영양, 농업, 동물, 식물, 산림 자원처럼 먹거리와 생명 환경을 다루는 학과입니다.' },
+    '기계·제어·시스템': { id:'mechanical_systems', label:'기계·제어·시스템', desc:'기계 구조와 동력, 제어, 운영 시스템을 함께 다루는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -3617,6 +3618,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.53-fallback-recovery";
         "card": "기계 요소를 구조·동력·제어 시스템으로 확장해 배우는 학과입니다.",
         "fit": "기계를 부품이 아니라 전체 시스템으로 보고 싶은 학생에게 잘 맞습니다.",
         "intro": "기계시스템공학과는 기계 요소를 구조와 동력, 제어와 운영 시스템 관점에서 배우는 학과입니다.",
+        "group_label": "기계·제어·시스템",
         "group": "기계·전자·모빌리티",
         "compare": [
             "기계공학과",
