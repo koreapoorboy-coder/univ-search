@@ -25,7 +25,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.56-misc-label-refine";
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
     aliasRows: [],
-    activeResolved: null,a
+    activeResolved: null,
     selectedMajorId: '',
     selectedMajorName: '',
     loading: false,
