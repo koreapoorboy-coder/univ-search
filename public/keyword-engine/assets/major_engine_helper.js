@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.62-atmosphere-landscape-label-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -603,7 +603,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
     '식품·유통·농업경제': { id:'food_distribution_agriecon', label:'식품·유통·농업경제', desc:'식품과 자원, 유통 구조, 가격과 정책처럼 먹거리의 경제 흐름을 다루는 학과입니다.' },
     '지역·공간·환경분석': { id:'regional_spatial_env', label:'지역·공간·환경분석', desc:'지역 분포, 공간 구조, 인간과 환경의 관계를 지도와 자료 분석으로 해석하는 학과입니다.' },
     '해양·환경·지구시스템': { id:'marine_earth_systems', label:'해양·환경·지구시스템', desc:'바다의 순환, 해양 환경, 기후와 지구 시스템 변화를 함께 읽는 학과입니다.' },
-    '미생물·생명현상 탐구': { id:'microbiology_life', label:'미생물·생명현상 탐구', desc:'세균, 바이러스, 세포 반응처럼 보이지 않는 생명 현상을 실험으로 탐구하는 학과입니다.' }
+    '미생물·생명현상 탐구': { id:'microbiology_life', label:'미생물·생명현상 탐구', desc:'세균, 바이러스, 세포 반응처럼 보이지 않는 생명 현상을 실험으로 탐구하는 학과입니다.' },
+    '대기·기후·지구시스템': { id:'atmosphere_climate_earth', label:'대기·기후·지구시스템', desc:'대기 순환, 기상, 기후 변화와 지구 시스템 해석을 중심으로 배우는 학과입니다.' },
+    '조경·공간·생태환경': { id:'landscape_ecospace', label:'조경·공간·생태환경', desc:'식물, 공간 설계, 생태와 생활 환경을 함께 연결해 배우는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -638,7 +640,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
       '식품·유통·농업경제':'식품·유통·농업경제',
       '지역·공간·환경분석':'지역·공간·환경분석',
       '해양·환경·지구시스템':'해양·환경·지구시스템',
-      '미생물·생명현상 탐구':'미생물·생명현상 탐구'
+      '미생물·생명현상 탐구':'미생물·생명현상 탐구',
+      '대기·기후·지구시스템':'대기·기후·지구시스템',
+      '조경·공간·생태환경':'조경·공간·생태환경'
     })[key]] || null;
   }
 
@@ -3179,6 +3183,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
         ]
     },
     "대기과학과": {
+        "group_label": "대기·기후·지구시스템",
         "track": "대기/기상/기후분석",
         "core": [
             "대기",
@@ -3462,6 +3467,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
         ]
     },
     "조경학과": {
+        "group_label": "조경·공간·생태환경",
         "track": "조경/공간/환경설계",
         "core": [
             "조경",
