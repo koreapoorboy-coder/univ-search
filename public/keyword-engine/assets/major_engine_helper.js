@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -120,6 +120,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fi
   }
   function uniq(arr){ return Array.from(new Set((arr || []).filter(Boolean))); }
 
+
+  function sanitizeAliasList(aliases){
+    return uniq((aliases || []).filter(alias => normalize(alias).length >= 2));
+  }
+
   function buildVirtualMajorProfile(name, majorId, existingRow){
     const override = getMajorOverride(name) || {};
     const explicitCoreKeywords = Array.isArray(override.core_keywords) ? override.core_keywords : [];
@@ -193,12 +198,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fi
 
       const existingAliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
       if (existingAliasRow) {
-        existingAliasRow.aliases = uniq([...(existingAliasRow.aliases || []), ...forcedAliases]).filter(Boolean);
+        existingAliasRow.aliases = sanitizeAliasList([...(existingAliasRow.aliases || []), ...forcedAliases]);
       } else {
         state.aliases.push({
           major_id: majorId,
           display_name: name,
-          aliases: forcedAliases
+          aliases: sanitizeAliasList(forcedAliases)
         });
       }
       forcedAliases.map(normalize).filter(Boolean).forEach(v => aliasNameSet.add(v));
@@ -230,9 +235,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fi
       ]).filter(Boolean);
       const aliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
       if (aliasRow) {
-        aliasRow.aliases = uniq([...(aliasRow.aliases || []), ...aliasPool]).filter(Boolean);
+        aliasRow.aliases = sanitizeAliasList([...(aliasRow.aliases || []), ...aliasPool]);
       } else {
-        state.aliases.push({ major_id: majorId, display_name: name, aliases: aliasPool });
+        state.aliases.push({ major_id: majorId, display_name: name, aliases: sanitizeAliasList(aliasPool) });
       }
     });
   }
@@ -336,7 +341,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fi
       ]);
       state.catalog = Array.isArray(catalog) ? catalog : [];
       state.profiles = Array.isArray(profiles) ? profiles : [];
-      state.aliases = Array.isArray(aliases) ? aliases : [];
+      state.aliases = (Array.isArray(aliases) ? aliases : []).map(row => ({ ...row, aliases: sanitizeAliasList(row?.aliases || []) }));
       state.router = router || {};
       state.bridges = Array.isArray(bridges) ? bridges : [];
       ensureOverrideMajorsInSearch();
@@ -507,9 +512,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fi
 
   const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','법','행정','정치','외교','사회학','공공','경찰','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌','수학','물리','지구과학','천문','우주','통계','체육','스포츠','레저','운동','관광','호텔','항공','승무','운항','외식','컨벤션','마이스']);
 
-  const ALWAYS_GROUP_QUERY_KEYWORDS = new Set(['환경']);
 
-  const QUERY_PRIORITY_MAJOR_MAP = {
+  const DIRECT_QUERY_MAJOR_MAP = {
+    '신소재': ['신소재공학과'],
+    '신소재공': ['신소재공학과']
+  };
+
+  const DIRECT_QUERY_BROAD_MAP = {
     '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과']
   };
 
@@ -5127,23 +5136,6 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     return BROAD_QUERY_KEYWORDS.has(String(input || '').trim());
   }
 
-  function isAlwaysGroupedQueryKeyword(input){
-    return ALWAYS_GROUP_QUERY_KEYWORDS.has(String(input || '').trim());
-  }
-
-  function getPriorityMajorNamesForQuery(input){
-    return QUERY_PRIORITY_MAJOR_MAP[String(input || '').trim()] || [];
-  }
-
-  function applyPriorityQueryOrdering(rows, rawInput){
-    const priorityNames = getPriorityMajorNamesForQuery(rawInput);
-    if (!priorityNames.length) return rows;
-    const prioritySet = new Set(priorityNames.map(normalize));
-    const prioritized = rows.filter(row => prioritySet.has(normalize(row.display_name)));
-    const others = rows.filter(row => !prioritySet.has(normalize(row.display_name)));
-    return [...prioritized, ...others];
-  }
-
   function buildStudentDescription(profile, group){
     const override = getMajorOverride(profile);
     if (override?.card) return override.card;
@@ -5410,9 +5402,68 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         keywords
       };
     }).filter(Boolean);
-    const sortedRows = rows
-      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'));
-    return applyPriorityQueryOrdering(sortedRows, input).slice(0, 10);
+    return rows
+      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+      .slice(0, 10);
+  }
+
+
+  function buildCandidateEntryFromProfile(profile, input, baseScore = 100){
+    if (!profile) return null;
+    const aliasRow = state.aliasRows.find(row => row.major_id === profile.major_id || row.display_name === profile.display_name) || null;
+    const keywords = getMeaningfulKeywords(profile);
+    return {
+      major_id: profile.major_id || '',
+      display_name: profile.display_name || '',
+      track_category: profile.track_category || '',
+      profile,
+      aliasRow,
+      score: baseScore + applyQueryBoost(input, profile.display_name || ''),
+      match_label: deriveMatchLabel(baseScore + applyQueryBoost(input, profile.display_name || '')),
+      keywords
+    };
+  }
+
+  function buildDirectAmbiguousResponse(input, names){
+    const rows = (names || []).map((name, idx) => {
+      const profile = getProfileByIdOrName('', name);
+      if (!profile) return null;
+      return buildCandidateEntryFromProfile(profile, input, 140 - (idx * 5));
+    }).filter(Boolean);
+    if (!rows.length) return null;
+    return {
+      input,
+      normalized: normalize(input),
+      status: 'ambiguous',
+      grouped_suggestions: groupCandidateSuggestions(rows, input),
+      suggestions: rows.map(row => ({
+        major_id: row.major_id,
+        display_name: row.display_name,
+        track_category: row.track_category,
+        match_label: row.match_label,
+        keywords: row.keywords.slice(0, 5)
+      }))
+    };
+  }
+
+  function resolveDirectQueryIntent(rawCareer){
+    const input = String(rawCareer || '').trim();
+    const normalized = normalize(input);
+    if (!normalized) return null;
+    const directNames = DIRECT_QUERY_MAJOR_MAP[normalized] || null;
+    if (directNames?.length) {
+      const profile = getProfileByIdOrName('', directNames[0]);
+      if (profile) {
+        state.selectedMajorId = profile.major_id || '';
+        state.selectedMajorName = profile.display_name || '';
+        return buildResolved(profile, 'direct_query_map', input);
+      }
+    }
+    const broadNames = DIRECT_QUERY_BROAD_MAP[normalized] || null;
+    if (broadNames?.length) {
+      return buildDirectAmbiguousResponse(input, broadNames);
+    }
+    return null;
   }
 
   function resolveMajor(rawCareer){
@@ -5426,6 +5477,9 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         return buildResolvedFromSelection(selectedProfile, input);
       }
     }
+
+    const directIntent = resolveDirectQueryIntent(input);
+    if (directIntent) return directIntent;
 
     const candidates = findCandidates(input);
 
@@ -5465,7 +5519,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       }
     }
 
-    if ((isAlwaysGroupedQueryKeyword(input) && candidates.length >= 1) || (isBroadQueryKeyword(input) && candidates.length > 1)) {
+    if (isBroadQueryKeyword(input) && candidates.length > 1) {
       return {
         input,
         normalized,
