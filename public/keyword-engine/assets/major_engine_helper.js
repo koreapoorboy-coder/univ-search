@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -270,74 +270,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
     throw lastError || new Error(`Failed to load ${url}`);
   }
 
-  function rebuildStateIndexes(){
-    state.profileByMajorId = new Map();
-    state.profileByName = new Map();
-    state.bridgeByMajorId = new Map();
-    state.bridgeByName = new Map();
-    state.profiles.forEach(row => {
-      if (!row || !row.major_id) return;
-      state.profileByMajorId.set(row.major_id, row);
-      state.profileByName.set(row.display_name, row);
-    });
-    state.bridges.forEach(row => {
-      if (!row) return;
-      if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
-      if (row.display_name) state.bridgeByName.set(row.display_name, row);
-    });
-    state.aliasRows = state.aliases.map(row => ({
-      ...row,
-      normalized_display_name: normalize(row.display_name),
-      normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
-    }));
-  }
-
-  function bootstrapOverridesOnly(reason){
-    const priorityNames = ['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과','식품영양학과','식품공학과','동물자원학과','원예생명과학과','산림자원학과','농업경제학과'];
-    state.catalog = [];
-    state.profiles = [];
-    state.aliases = [];
-    state.router = state.router || {};
-    state.bridges = [];
-
-    const names = uniq([
-      ...Object.keys(MAJOR_COPY_OVERRIDES || {}),
-      ...priorityNames
-    ]).filter(Boolean);
-
-    names.forEach(name => {
-      const override = getMajorOverride(name) || {};
-      const key = normalize(name);
-      const majorId = `virtual:${key}`;
-      state.catalog.push({
-        major_id: majorId,
-        display_name: name,
-        track_category: override.track_category || '',
-        source_status: 'fallback_override'
-      });
-      state.profiles.push(buildVirtualMajorProfile(name, majorId, null));
-      state.aliases.push({
-        major_id: majorId,
-        display_name: name,
-        aliases: uniq([
-          name,
-          String(name).replace(/학과$/, ''),
-          String(name).replace(/학부$/, ''),
-          stripMajorSuffix(name),
-          ...(override.search_aliases || [])
-        ]).filter(Boolean)
-      });
-    });
-
-    rebuildStateIndexes();
-    state.loaded = true;
-    if (reason) window.__MAJOR_ENGINE_LAST_ERROR__ = String(reason);
-    injectStyles();
-    bindCareerInput();
-    renderMajorSummary();
-    startMiniPayloadPatch();
-  }
-
   async function loadAll(){
     if (state.loaded || state.loading) return;
     state.loading = true;
@@ -357,7 +289,21 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
       ensureOverrideMajorsInSearch();
       backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과','식품영양학과','식품공학과','동물자원학과','원예생명과학과','산림자원학과','농업경제학과']);
 
-      rebuildStateIndexes();
+      state.profiles.forEach(row => {
+        if (!row || !row.major_id) return;
+        state.profileByMajorId.set(row.major_id, row);
+        state.profileByName.set(row.display_name, row);
+      });
+      state.bridges.forEach(row => {
+        if (!row) return;
+        if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
+        if (row.display_name) state.bridgeByName.set(row.display_name, row);
+      });
+      state.aliasRows = state.aliases.map(row => ({
+        ...row,
+        normalized_display_name: normalize(row.display_name),
+        normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
+      }));
       state.loaded = true;
       injectStyles();
       bindCareerInput();
@@ -365,7 +311,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
       startMiniPayloadPatch();
     } catch (error) {
       console.warn('major engine helper load failed:', error);
-      bootstrapOverridesOnly(error && (error.message || String(error)));
     } finally {
       state.loading = false;
     }
@@ -598,12 +543,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
     '체육·스포츠·레저': { id:'sports_leisure', label:'체육·스포츠·레저 쪽', desc:'운동 수행, 스포츠 과학, 경기 분석, 레저·스포츠 산업처럼 몸의 움직임과 스포츠 현장을 다루는 학과입니다.' },
     '자연과학·수리탐구': { id:'natural_math_stats', label:'자연과학·수리탐구 쪽', desc:'수학, 물리, 지구과학, 우주, 통계처럼 원리 탐구와 데이터 해석을 다루는 학과입니다.' },
     '식품·농업·환경생명': { id:'food_agri_life', label:'식품·농업·환경생명 쪽', desc:'식품, 영양, 농업, 동물, 식물, 산림 자원처럼 먹거리와 생명 환경을 다루는 학과입니다.' },
-    '기계·제어·시스템': { id:'mechanical_systems', label:'기계·제어·시스템', desc:'기계 구조와 동력, 제어, 운영 시스템을 함께 다루는 학과입니다.' },
-    '세무·회계·재무관리': { id:'tax_accounting_finance', label:'세무·회계·재무관리', desc:'세무, 조세, 회계, 기업 재무 구조처럼 돈의 흐름과 제도 해석을 함께 다루는 학과입니다.' },
-    '식품·유통·농업경제': { id:'food_distribution_agriecon', label:'식품·유통·농업경제', desc:'식품과 자원, 유통 구조, 가격과 정책처럼 먹거리의 경제 흐름을 다루는 학과입니다.' },
-    '지역·공간·환경분석': { id:'regional_spatial_env', label:'지역·공간·환경분석', desc:'지역 분포, 공간 구조, 인간과 환경의 관계를 지도와 자료 분석으로 해석하는 학과입니다.' },
-    '해양·환경·지구시스템': { id:'marine_earth_systems', label:'해양·환경·지구시스템', desc:'바다의 순환, 해양 환경, 기후와 지구 시스템 변화를 함께 읽는 학과입니다.' },
-    '미생물·생명현상 탐구': { id:'microbiology_life', label:'미생물·생명현상 탐구', desc:'세균, 바이러스, 세포 반응처럼 보이지 않는 생명 현상을 실험으로 탐구하는 학과입니다.' }
+    '러시아어·문학·지역이해': { id:'russian_language_region', label:'러시아어·문학·지역이해', desc:'러시아어와 러시아권 문학, 문화, 지역 이해를 함께 다루는 학과입니다.' },
+    '독일어·문학·문화해석': { id:'german_language_culture', label:'독일어·문학·문화해석', desc:'독일어와 독일권 문학, 문화, 사상을 텍스트 해석으로 배우는 학과입니다.' },
+    '프랑스어·문학·문화해석': { id:'french_language_culture', label:'프랑스어·문학·문화해석', desc:'프랑스어와 프랑스권 문학, 문화, 사회를 함께 해석하는 학과입니다.' },
+    '일본어·문학·문화해석': { id:'japanese_language_culture', label:'일본어·문학·문화해석', desc:'일본어와 일본 문학, 문화, 사회를 텍스트 해석과 번역으로 배우는 학과입니다.' },
+    '중국어·문학·동아시아이해': { id:'chinese_language_eastasia', label:'중국어·문학·동아시아이해', desc:'중국어와 중국권 문학, 문화, 동아시아 맥락을 함께 이해하는 학과입니다.' },
+    '아랍어·중동지역이해': { id:'arabic_middleeast', label:'아랍어·중동지역이해', desc:'아랍어와 중동 지역의 문화, 사회, 국제 맥락을 함께 배우는 학과입니다.' }
   };
 
   function getGroupMetaByLabel(label){
@@ -634,11 +579,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
       '체육·스포츠·레저 쪽':'체육·스포츠·레저',
       '자연과학·수리탐구 쪽':'자연과학·수리탐구',
       '식품·농업·환경생명 쪽':'식품·농업·환경생명',
-      '세무·회계·재무관리':'세무·회계·재무관리',
-      '식품·유통·농업경제':'식품·유통·농업경제',
-      '지역·공간·환경분석':'지역·공간·환경분석',
-      '해양·환경·지구시스템':'해양·환경·지구시스템',
-      '미생물·생명현상 탐구':'미생물·생명현상 탐구'
+      '러시아어·문학·지역이해':'러시아어·문학·지역이해',
+      '독일어·문학·문화해석':'독일어·문학·문화해석',
+      '프랑스어·문학·문화해석':'프랑스어·문학·문화해석',
+      '일본어·문학·문화해석':'일본어·문학·문화해석',
+      '중국어·문학·동아시아이해':'중국어·문학·동아시아이해',
+      '아랍어·중동지역이해':'아랍어·중동지역이해'
     })[key]] || null;
   }
 
@@ -2248,7 +2194,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "발굴 자료와 유물, 과거 생활 흔적을 근거로 시대를 해석하고 싶은 학생에게 잘 맞습니다.",
         "intro": "고고학과는 유적과 유물, 발굴 기록을 통해 과거 사회의 생활상과 문화, 교류 구조를 복원하고 해석하는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "유적·역사·문화복원",
         "compare": [
             "사학과",
             "문화유산학과",
@@ -2285,6 +2230,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 표현과 번역, 러시아권 문화와 문학을 함께 보고 싶은 학생에게 잘 맞습니다.",
         "intro": "노어노문학과는 러시아어를 익히고 러시아권 문학과 문화, 사회 맥락을 텍스트 해석과 번역을 통해 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "러시아어·문학·지역이해",
         "compare": [
             "영어영문학과",
             "국어국문학과",
@@ -2327,6 +2273,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 표현과 번역, 독일권 사회와 문학을 함께 읽고 싶은 학생에게 잘 맞습니다.",
         "intro": "독어독문학과는 독일어를 익히고 독일권 문학과 문화, 사상과 사회를 텍스트 해석과 번역을 통해 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "독일어·문학·문화해석",
         "compare": [
             "영어영문학과",
             "국어국문학과",
@@ -2440,7 +2387,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "과거의 흔적을 지키고 해석해 오늘의 문화로 연결하고 싶은 학생에게 잘 맞습니다.",
         "intro": "문화유산학과는 유형·무형 문화유산을 기록하고 보존하며 전승과 활용, 해설 방식을 함께 배우는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "유산·기록·보존해석",
         "compare": [
             "고고학과",
             "사학과",
@@ -2477,7 +2423,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "예술을 감상하는 데서 나아가 왜 아름답다고 느끼는지 근거를 따져 보고 싶은 학생에게 잘 맞습니다.",
         "intro": "미학과는 예술과 아름다움, 감각 경험과 가치 판단의 원리를 철학적으로 탐구하는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "예술·미학·가치해석",
         "compare": [
             "철학과",
             "시각디자인학과",
@@ -2514,6 +2459,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 표현과 번역, 문화적 맥락을 함께 읽고 싶은 학생에게 잘 맞습니다.",
         "intro": "불어불문학과는 프랑스어를 익히고 프랑스권 문학과 문화, 사회를 텍스트 해석과 번역을 통해 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "프랑스어·문학·문화해석",
         "compare": [
             "영어영문학과",
             "국어국문학과",
@@ -2590,6 +2536,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 학습을 넘어 지역 이해와 국제 소통에 관심 있는 학생에게 잘 맞습니다.",
         "intro": "아랍어과는 아랍어를 익히고 중동 지역의 문화와 사회, 국제 맥락을 언어와 번역을 통해 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "아랍어·중동지역이해",
         "compare": [
             "국제통상학과",
             "정치외교학과",
@@ -2628,7 +2575,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "말과 글을 쓰는 데서 나아가 언어가 어떤 구조로 의미를 만드는지 알고 싶은 학생에게 잘 맞습니다.",
         "intro": "언어학과는 음운, 문법, 의미, 언어 변화 원리를 분석하며 인간 언어의 구조를 과학적으로 탐구하는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "언어·의미·구조분석",
         "compare": [
             "국어국문학과",
             "영어영문학과",
@@ -2664,6 +2610,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 표현과 문화 맥락, 번역에 관심 있는 학생에게 잘 맞습니다.",
         "intro": "일어일문학과는 일본어를 익히고 일본 문학과 문화, 사회를 텍스트 해석과 번역을 통해 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "일본어·문학·문화해석",
         "compare": [
             "영어영문학과",
             "국어국문학과",
@@ -2705,6 +2652,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "언어 학습과 문화 이해, 번역에 관심 있는 학생에게 잘 맞습니다.",
         "intro": "중어중문학과는 중국어를 익히고 중국권 문학과 문화, 사회를 텍스트 해석과 번역으로 이해하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "중국어·문학·동아시아이해",
         "compare": [
             "국제통상학과",
             "영어영문학과",
@@ -2746,7 +2694,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "한국어를 잘 쓰는 데서 나아가 언어 구조를 깊이 있게 이해하고 싶은 학생에게 잘 맞습니다.",
         "intro": "한국어학과는 한국어의 음운, 문법, 의미, 표현 구조를 분석하며 언어 원리를 체계적으로 배우는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "한국어·문법·표현분석",
         "compare": [
             "국어국문학과",
             "언어학과",
@@ -2783,7 +2730,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "fit": "고전 텍스트를 바탕으로 사상과 문화를 해석하고 싶은 학생에게 잘 맞습니다.",
         "intro": "한문학과는 한문 고전과 문헌을 읽고 해석하며 한자 문화권의 사상과 문화 전통을 배우는 학과입니다.",
         "group": "인문·어문·문화",
-        "group_label": "한문·고전·사상해석",
         "compare": [
             "국어국문학과",
             "사학과",
@@ -3634,7 +3580,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
         "card": "기계 요소를 구조·동력·제어 시스템으로 확장해 배우는 학과입니다.",
         "fit": "기계를 부품이 아니라 전체 시스템으로 보고 싶은 학생에게 잘 맞습니다.",
         "intro": "기계시스템공학과는 기계 요소를 구조와 동력, 제어와 운영 시스템 관점에서 배우는 학과입니다.",
-        "group_label": "기계·제어·시스템",
         "group": "기계·전자·모빌리티",
         "compare": [
             "기계공학과",
@@ -4665,7 +4610,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
   });
 
 
-Object.assign(MAJOR_COPY_OVERRIDES, {
+Object.assign(MAJOR_OVERRIDES, {
   "항공기계공학과": {
     track_category: "항공기계/구조/동력",
     card: "비행체의 구조와 동력, 유체와 기계 설계 원리를 배우는 학과입니다.",
@@ -5641,162 +5586,6 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       book_bridge_candidates: data.book_bridge_candidates || []
     };
   }
-
-
-
-Object.assign(MAJOR_COPY_OVERRIDES, {
-  "세무학과": {
-    track_category: "세무/조세/기업재무",
-    card: "세금과 조세 제도, 신고와 기업 재무를 중심으로 배우는 학과입니다.",
-    fit: "숫자와 제도, 기업의 세무 구조를 함께 보고 싶은 학생에게 잘 맞습니다.",
-    intro: "세무학과는 조세 제도와 세금 신고, 기업 재무와 세무 관리 구조를 배우는 학과입니다.",
-    core_keywords: ["세무","조세","세금신고","세법","기업재무","절세"],
-    recommended_keywords: ["통합사회","공통국어","경제","정치와 법","영어","공통수학1"],
-    subjects: ["통합사회","공통국어","경제","정치와 법","영어","공통수학1"],
-    topics: [
-      "세율 변화가 기업 의사결정에 미치는 영향 분석",
-      "조세 제도 차이가 소비와 투자에 주는 효과 비교",
-      "신고 절차와 세무 정보 정리 방식 탐구"
-    ],
-    group_label: "세무·회계·재무관리",
-    search_aliases: ["세무","조세학과"],
-    compare_profiles: [
-      { display_name: "회계학과", track_category: "회계/재무/기업분석", focus: "회계 처리와 재무제표, 기업의 자금 흐름을 수치와 기준으로 해석하는 학과입니다.", hint: "세금 신고보다 회계 기준과 재무 구조 해석에 더 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "경제학과", track_category: "경제/시장/데이터해석", focus: "시장 원리와 자원 배분, 경기 흐름을 지표와 데이터로 읽는 학과입니다.", hint: "기업 세무보다 시장 변화와 정책 효과를 넓게 해석하는 데 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "행정학과", track_category: "사회계열", focus: "정부와 공공기관의 제도, 정책, 행정 운영을 중심으로 배우는 학과입니다.", hint: "기업 세무 실무보다 조세 제도와 공공 행정 기준에 더 관심 있는 학생에게 잘 맞습니다." }
-    ]
-  },
-  "식품자원경제학과": {
-    track_category: "식품자원/경제/유통정책",
-    card: "식품과 자원, 유통과 시장 구조를 경제 관점에서 배우는 학과입니다.",
-    fit: "식품 생산을 넘어 자원과 유통, 가격 구조를 함께 보고 싶은 학생에게 잘 맞습니다.",
-    intro: "식품자원경제학과는 식품과 자원의 생산·유통·가격 구조를 경제와 정책 관점에서 배우는 학과입니다.",
-    core_keywords: ["식품자원경제","식량","자원","유통","소비","시장"],
-    recommended_keywords: ["경제","통합사회","세계시민과 지리","생명과학","정보"],
-    subjects: ["경제","통합사회","세계시민과 지리","생명과학","정보"],
-    topics: [
-      "식품 가격 변동이 생산자와 소비자에 주는 영향 분석",
-      "유통 구조 차이가 지역 농산물 경쟁력에 미치는 효과 비교",
-      "식량 정책 변화가 자원 관리에 주는 영향 탐구"
-    ],
-    group_label: "식품·유통·농업경제",
-    search_aliases: ["식품자원경제","식품경제학과"],
-    compare_profiles: [
-      { display_name: "농업경제학과", track_category: "농업/경제/유통정책", focus: "농산물 시장, 유통 구조, 농업 정책과 지역 경제의 관계를 배우는 학과입니다.", hint: "식품 소비 구조보다 농업 생산과 지역 경제 정책에 더 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "식품공학과", track_category: "식품/가공/품질관리", focus: "식품 원료를 가공하고 보존하며 품질과 안전성을 관리하는 공정 중심 학과입니다.", hint: "유통과 가격 구조보다 식품이 만들어지고 오래 유지되는 공정과 품질 관리에 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "경제학과", track_category: "경제/시장/데이터해석", focus: "시장 원리와 자원 배분, 경기 흐름을 지표와 데이터로 읽는 학과입니다.", hint: "수치와 그래프를 바탕으로 시장 변화와 정책 효과를 해석하는 데 관심 있는 학생에게 잘 맞습니다." }
-    ]
-  },
-  "지리학과": {
-    track_category: "지리/공간/지역분석",
-    card: "공간과 지역, 인간과 환경의 관계를 지도와 자료로 배우는 학과입니다.",
-    fit: "지도를 바탕으로 지역과 공간 구조를 해석하고 싶은 학생에게 잘 맞습니다.",
-    intro: "지리학과는 공간과 지역, 인간과 환경의 관계를 지도와 자료 분석을 통해 이해하는 학과입니다.",
-    core_keywords: ["지리","공간","분포","지역","환경","지도"],
-    recommended_keywords: ["세계시민과 지리","통합사회","세계사","정보","독서와 작문"],
-    subjects: ["세계시민과 지리","통합사회","세계사","정보","독서와 작문"],
-    topics: [
-      "지역 분포 차이가 산업과 인구 구조에 주는 영향 분석",
-      "지도 표현 방식이 공간 이해에 미치는 효과 비교",
-      "도시와 농촌의 공간 구조 변화 탐구"
-    ],
-    group_label: "지역·공간·환경분석",
-    search_aliases: ["지리"],
-    compare_profiles: [
-      { display_name: "지구환경과학과", track_category: "환경/기후/지구시스템", focus: "기후·대기·지질·해양·수문 같은 지구 시스템 변화를 관측 자료와 데이터로 분석하는 학과입니다.", hint: "기후 변화와 자연환경 문제를 관측 자료와 지도, 과학 모델로 해석해 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "도시공학과", track_category: "도시/교통/인프라", focus: "도시 공간과 주거·교통·환경·인프라를 생활권 전체의 구조에서 종합적으로 계획하는 학과입니다.", hint: "도시 문제를 개별 시설보다 생활권 전체의 구조로 보고 설계·기획하는 데 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "관광경영학과", track_category: "관광/서비스/기획", focus: "관광 산업 구조와 여행 기획, 지역 자원 운영, 고객 경험 설계를 함께 다루는 학과입니다.", hint: "관광 상품 기획과 지역 관광 자원 활용, 서비스 경험 설계에 관심 있는 학생에게 잘 맞습니다." }
-    ]
-  },
-  "해양학과": {
-    track_category: "해양/해수/환경분석",
-    card: "바다의 구조와 순환, 해양 환경과 생태를 배우는 학과입니다.",
-    fit: "바다와 기후, 해양 생태를 자료와 과학 모델로 해석해 보고 싶은 학생에게 잘 맞습니다.",
-    intro: "해양학과는 바다의 구조와 순환, 해양 환경과 생태를 배우며 해양 시스템을 자료와 과학 모델로 이해하는 학과입니다.",
-    core_keywords: ["해양","바다","해양환경","해류","염분","생태"],
-    recommended_keywords: ["지구과학","생명과학","화학","수학","정보"],
-    subjects: ["지구과학","생명과학","화학","수학","정보"],
-    topics: [
-      "해수 순환 차이가 해양 생태에 미치는 영향 분석",
-      "염분과 수온 변화가 해양 구조에 주는 효과 비교",
-      "기후 변화가 해양 환경에 미치는 영향 탐구"
-    ],
-    group_label: "해양·환경·지구시스템",
-    search_aliases: ["해양","해양과학과"],
-    compare_profiles: [
-      { display_name: "지구환경과학과", track_category: "환경/기후/지구시스템", focus: "기후·대기·지질·해양·수문 같은 지구 시스템 변화를 관측 자료와 데이터로 분석하는 학과입니다.", hint: "기후 변화와 자연환경 문제를 관측 자료와 지도, 과학 모델로 해석해 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "대기과학과", track_category: "대기/기상/기후분석", focus: "기상과 기후, 대기 순환을 자료와 모델로 배우는 학과입니다.", hint: "날씨와 기후 변화를 관측 자료와 과학 모델로 해석하고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "해양공학과", track_category: "해양/구조/유체시스템", focus: "바다 위 구조물과 해양 시스템의 설계와 운영을 배우는 학과입니다.", hint: "해양 환경과 구조물 시스템을 공학적으로 보고 싶은 학생에게 잘 맞습니다." }
-    ]
-  },
-  "미생물학과": {
-    track_category: "미생물/세포/실험분석",
-    card: "보이지 않는 미생물 세계를 실험과 분석으로 배우는 학과입니다.",
-    fit: "작은 생명체의 성장과 반응을 실험으로 확인해 보고 싶은 학생에게 잘 맞습니다.",
-    intro: "미생물학과는 세균과 곰팡이, 바이러스와 같은 미생물의 구조와 생장, 반응 원리를 실험으로 배우는 학과입니다.",
-    core_keywords: ["미생물","세균","바이러스","증식","감염","환경"],
-    recommended_keywords: ["생명과학","화학","통합과학1","보건"],
-    subjects: ["생명과학","화학","통합과학1","보건"],
-    topics: [
-      "배양 조건 차이가 미생물 증식에 미치는 영향 분석",
-      "미생물 반응 차이가 환경 변화에 주는 효과 비교",
-      "실험 조건 통제가 결과 해석에 주는 영향 탐구"
-    ],
-    group_label: "미생물·생명현상 탐구",
-    search_aliases: ["미생물"],
-    compare_profiles: [
-      { display_name: "생물학과", track_category: "순수과학/생명계열", focus: "생명체의 구조와 기능, 생태와 진화를 폭넓게 배우는 기초과학 학과입니다.", hint: "생명 현상을 넓고 기초적으로 탐구하고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "생명과학과", track_category: "세포/유전/생명탐구", focus: "세포, 유전, 진화, 생태 같은 생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.", hint: "응용보다 생명 현상 자체의 원리를 깊게 탐구해 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "식품공학과", track_category: "식품/가공/품질관리", focus: "식품 원료를 가공하고 보존하며 품질과 안전성을 관리하는 공정 중심 학과입니다.", hint: "음식의 성분 자체보다 식품이 만들어지고 오래 유지되는 공정과 품질 관리에 관심 있는 학생에게 잘 맞습니다." }
-    ]
-  }
-});
-
-
-Object.assign(GROUP_META_OVERRIDES, {
-  "수산생명·질병관리": { id:'aquatic_bio_health', label:'수산생명·질병관리', desc:'수생 생물의 건강, 질병, 양식 환경과 관리 구조를 함께 다루는 학과입니다.' },
-  "식물·재배·자원활용": { id:'plant_cultivation_resources', label:'식물·재배·자원활용', desc:'식물의 생장과 재배, 품종, 자원 활용 구조를 배우는 학과입니다.' },
-  "원예·재배·생산환경": { id:'horticulture_production', label:'원예·재배·생산환경', desc:'원예 작물의 재배, 품질 관리, 생산 환경을 중심으로 배우는 학과입니다.' },
-  "의류·소재·생활디자인": { id:'fashion_material_life', label:'의류·소재·생활디자인', desc:'의류 소재, 착용감, 생활 디자인과 소비자 경험을 함께 다루는 학과입니다.' }
-});
-
-
-
-Object.assign(MAJOR_COPY_OVERRIDES, {
-  "식물자원학과": {
-    group_label: "식물·재배·자원활용",
-    compare_profiles: [
-      { display_name: "원예생명과학과", track_category: "원예/식물/생명응용", focus: "식물과 작물의 생장, 재배 환경, 품종과 원예 기술을 배우는 식물 중심 학과입니다.", hint: "식물 생장과 재배 기술을 생활·산업에 연결해 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "산림자원학과", track_category: "산림/자원/생태관리", focus: "숲과 산림 생태, 자원 관리, 복원과 임업 활용 구조를 배우는 학과입니다.", hint: "작물 재배보다 더 넓은 식물 자원과 생태 관리 관점에 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "생명공학과", track_category: "유전자/세포/바이오기술", focus: "세포·유전자·미생물을 활용해 의약·식품·환경 기술로 연결하는 응용 중심 학과입니다.", hint: "식물 재배보다 생명 기술과 실험 응용으로 확장해 보고 싶은 학생에게 잘 맞습니다." }
-    ]
-  },
-  "수산생명의학과": {
-    group_label: "수산생명·질병관리",
-    compare_profiles: [
-      { display_name: "동물자원학과", track_category: "동물/자원/생산관리", focus: "가축과 동물 자원의 사육, 생산, 복지와 유전 개량 구조를 배우는 학과입니다.", hint: "수생 생물보다 더 넓은 동물 자원과 생산 관리에 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "해양학과", track_category: "해양/지리/도시", focus: "바다의 구조와 순환, 해양 환경과 생태를 배우며 해양 시스템을 자료와 과학 모델로 이해하는 학과입니다.", hint: "질병 관리보다 바다 환경과 해양 생태를 자료와 모델로 해석해 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "생명공학과", track_category: "유전자/세포/바이오기술", focus: "세포·유전자·미생물을 활용해 의약, 식품, 환경 기술로 연결하는 응용 중심 학과입니다.", hint: "수산 생물 관리보다 생명기술과 실험 응용에 더 관심 있는 학생에게 잘 맞습니다." }
-    ]
-  },
-  "원예학과": {
-    group_label: "원예·재배·생산환경",
-    compare_profiles: [
-      { display_name: "원예생명과학과", track_category: "원예/식물/생명응용", focus: "식물과 작물의 생장, 재배 환경, 품종과 원예 기술을 배우는 식물 중심 학과입니다.", hint: "원예 작물의 생장과 품종, 생명 응용을 함께 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "식물자원학과", track_category: "식물/재배/생명계열", focus: "식물의 성장과 재배, 품종과 자원 활용 방식을 배우는 학과입니다.", hint: "원예 작물뿐 아니라 식물 자원과 재배 전반에 더 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "조경학과", track_category: "환경/지리/도시", focus: "식물과 공간, 생태와 생활 환경을 함께 설계하는 학과입니다.", hint: "재배 관리보다 식물과 공간 설계를 함께 보고 싶은 학생에게 잘 맞습니다." }
-    ]
-  },
-  "의류학과": {
-    group_label: "의류·소재·생활디자인",
-    compare_profiles: [
-      { display_name: "산업디자인학과", track_category: "제품/사용자/디자인", focus: "사람이 사용하는 제품과 서비스의 형태, 기능, 사용 경험을 분석하고 설계하는 학과입니다.", hint: "의류보다 더 넓은 사용자 경험과 제품 설계에 관심 있는 학생에게 잘 맞습니다." },
-      { display_name: "소비자학과", track_category: "사회/생활/행동경제", focus: "소비자의 선택과 행동, 생활 방식, 권리와 복지를 함께 다루는 학과입니다.", hint: "의류 소비와 브랜드, 생활 패턴을 소비자 행동 관점에서 보고 싶은 학생에게 잘 맞습니다." },
-      { display_name: "화장품공학과", track_category: "기계/전자/로봇/자동차", focus: "화장품 소재와 제형, 품질과 제품 개발을 배우는 학과입니다.", hint: "뷰티 제품을 감각이 아니라 소재와 과학 원리로 보고 싶은 학생에게 잘 맞습니다." }
-    ]
-  }
-});
-
 
   function startMiniPayloadPatch(){
     if (state.wrapped) return;
