@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.56-misc-label-refine";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -17,7 +17,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.56-misc-label-refine";
     wrapped: false,
     catalog: [],
     profiles: [],
-    aliases: [],
+    aliases: [],a
     router: {},
     bridges: [],
     profileByMajorId: new Map(),
@@ -5754,18 +5754,40 @@ Object.assign(GROUP_META_OVERRIDES, {
   "의류·소재·생활디자인": { id:'fashion_material_life', label:'의류·소재·생활디자인', desc:'의류 소재, 착용감, 생활 디자인과 소비자 경험을 함께 다루는 학과입니다.' }
 });
 
+
+
 Object.assign(MAJOR_COPY_OVERRIDES, {
-  "수산생명의학과": {
-    group_label: "수산생명·질병관리"
-  },
   "식물자원학과": {
-    group_label: "식물·재배·자원활용"
+    group_label: "식물·재배·자원활용",
+    compare_profiles: [
+      { display_name: "원예생명과학과", track_category: "원예/식물/생명응용", focus: "식물과 작물의 생장, 재배 환경, 품종과 원예 기술을 배우는 식물 중심 학과입니다.", hint: "식물 생장과 재배 기술을 생활·산업에 연결해 보고 싶은 학생에게 잘 맞습니다." },
+      { display_name: "산림자원학과", track_category: "산림/자원/생태관리", focus: "숲과 산림 생태, 자원 관리, 복원과 임업 활용 구조를 배우는 학과입니다.", hint: "작물 재배보다 더 넓은 식물 자원과 생태 관리 관점에 관심 있는 학생에게 잘 맞습니다." },
+      { display_name: "생명공학과", track_category: "유전자/세포/바이오기술", focus: "세포·유전자·미생물을 활용해 의약·식품·환경 기술로 연결하는 응용 중심 학과입니다.", hint: "식물 재배보다 생명 기술과 실험 응용으로 확장해 보고 싶은 학생에게 잘 맞습니다." }
+    ]
+  },
+  "수산생명의학과": {
+    group_label: "수산생명·질병관리",
+    compare_profiles: [
+      { display_name: "동물자원학과", track_category: "동물/자원/생산관리", focus: "가축과 동물 자원의 사육, 생산, 복지와 유전 개량 구조를 배우는 학과입니다.", hint: "수생 생물보다 더 넓은 동물 자원과 생산 관리에 관심 있는 학생에게 잘 맞습니다." },
+      { display_name: "해양학과", track_category: "해양/지리/도시", focus: "바다의 구조와 순환, 해양 환경과 생태를 배우며 해양 시스템을 자료와 과학 모델로 이해하는 학과입니다.", hint: "질병 관리보다 바다 환경과 해양 생태를 자료와 모델로 해석해 보고 싶은 학생에게 잘 맞습니다." },
+      { display_name: "생명공학과", track_category: "유전자/세포/바이오기술", focus: "세포·유전자·미생물을 활용해 의약, 식품, 환경 기술로 연결하는 응용 중심 학과입니다.", hint: "수산 생물 관리보다 생명기술과 실험 응용에 더 관심 있는 학생에게 잘 맞습니다." }
+    ]
   },
   "원예학과": {
-    group_label: "원예·재배·생산환경"
+    group_label: "원예·재배·생산환경",
+    compare_profiles: [
+      { display_name: "원예생명과학과", track_category: "원예/식물/생명응용", focus: "식물과 작물의 생장, 재배 환경, 품종과 원예 기술을 배우는 식물 중심 학과입니다.", hint: "원예 작물의 생장과 품종, 생명 응용을 함께 보고 싶은 학생에게 잘 맞습니다." },
+      { display_name: "식물자원학과", track_category: "식물/재배/생명계열", focus: "식물의 성장과 재배, 품종과 자원 활용 방식을 배우는 학과입니다.", hint: "원예 작물뿐 아니라 식물 자원과 재배 전반에 더 관심 있는 학생에게 잘 맞습니다." },
+      { display_name: "조경학과", track_category: "환경/지리/도시", focus: "식물과 공간, 생태와 생활 환경을 함께 설계하는 학과입니다.", hint: "재배 관리보다 식물과 공간 설계를 함께 보고 싶은 학생에게 잘 맞습니다." }
+    ]
   },
   "의류학과": {
-    group_label: "의류·소재·생활디자인"
+    group_label: "의류·소재·생활디자인",
+    compare_profiles: [
+      { display_name: "산업디자인학과", track_category: "제품/사용자/디자인", focus: "사람이 사용하는 제품과 서비스의 형태, 기능, 사용 경험을 분석하고 설계하는 학과입니다.", hint: "의류보다 더 넓은 사용자 경험과 제품 설계에 관심 있는 학생에게 잘 맞습니다." },
+      { display_name: "소비자학과", track_category: "사회/생활/행동경제", focus: "소비자의 선택과 행동, 생활 방식, 권리와 복지를 함께 다루는 학과입니다.", hint: "의류 소비와 브랜드, 생활 패턴을 소비자 행동 관점에서 보고 싶은 학생에게 잘 맞습니다." },
+      { display_name: "화장품공학과", track_category: "기계/전자/로봇/자동차", focus: "화장품 소재와 제형, 품질과 제품 개발을 배우는 학과입니다.", hint: "뷰티 제품을 감각이 아니라 소재와 과학 원리로 보고 싶은 학생에게 잘 맞습니다." }
+    ]
   }
 });
 
