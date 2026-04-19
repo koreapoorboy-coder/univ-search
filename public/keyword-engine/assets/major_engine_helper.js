@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-search-priority-environment-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.78-search-priority-environment-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
