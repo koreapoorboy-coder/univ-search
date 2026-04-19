@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-search-priority-environment-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -110,43 +110,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
       .trim()
       .replace(/(학과|학부|전공|예과|과)$/,'');
   }
-
-  function stripSearchTail(value){
-    const base = stripMajorSuffix(value);
-    return String(base || '').replace(/(공학|과학)$/,'').trim();
-  }
-
-  function isUsefulAlias(value){
-    const normalized = normalize(value);
-    if (!normalized) return false;
-    if (normalized.length < 2) return false;
-    return true;
-  }
-
-  function buildSearchForms(displayName, aliases){
-    const rawForms = uniqStrings([
-      displayName,
-      stripMajorSuffix(displayName),
-      stripSearchTail(displayName),
-      ...((aliases || [])),
-      ...((aliases || []).map(stripMajorSuffix)),
-      ...((aliases || []).map(stripSearchTail))
-    ]);
-    return rawForms.filter(isUsefulAlias);
-  }
-
-  function findDirectIntentForms(searchForms, rawInput){
-    const normalizedInput = normalize(rawInput);
-    if (!normalizedInput || normalizedInput.length < 2) return [];
-    return (searchForms || []).filter(form => {
-      const normalizedForm = normalize(form);
-      if (!normalizedForm || normalizedForm.length < 2) return false;
-      if (normalizedForm === normalizedInput) return true;
-      if (normalizedInput.length >= 3 && normalizedForm.startsWith(normalizedInput)) return true;
-      return false;
-    });
-  }
-
   function escapeHtml(value){
     return String(value ?? '')
       .replace(/&/g,'&amp;')
@@ -277,7 +240,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
   function fuzzyIncludes(a,b){
     const na = normalize(a); const nb = normalize(b);
     if (!na || !nb) return false;
-    if (na.length < 2 || nb.length < 2) return false;
     return na.includes(nb) || nb.includes(na);
   }
 
@@ -390,18 +352,11 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
         if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
         if (row.display_name) state.bridgeByName.set(row.display_name, row);
       });
-      state.aliasRows = state.aliases.map(row => {
-        const cleanedAliases = uniqStrings((row.aliases || []).filter(isUsefulAlias));
-        const searchForms = buildSearchForms(row.display_name, cleanedAliases);
-        return {
-          ...row,
-          aliases: cleanedAliases,
-          normalized_display_name: normalize(row.display_name),
-          normalized_aliases: cleanedAliases.map(normalize).filter(Boolean),
-          search_forms: searchForms,
-          normalized_search_forms: searchForms.map(normalize).filter(Boolean)
-        };
-      });
+      state.aliasRows = state.aliases.map(row => ({
+        ...row,
+        normalized_display_name: normalize(row.display_name),
+        normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
+      }));
       state.loaded = true;
       injectStyles();
       bindCareerInput();
@@ -551,6 +506,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
   ];
 
   const BROAD_QUERY_KEYWORDS = new Set(['환경','심리','교육','복지','미디어','국제','경제','금융','회계','무역','통상','법','행정','정치','외교','사회학','공공','경찰','반도체','바이오','보건','컴퓨터','인공지능','소프트웨어','데이터','보안','화학','화공','에너지','소재','배터리','이차전지','건축','디자인','실내','인테리어','국문','문학','영문','역사','철학','문헌','수학','물리','지구과학','천문','우주','통계','체육','스포츠','레저','운동','관광','호텔','항공','승무','운항','외식','컨벤션','마이스']);
+
+  const ALWAYS_GROUP_QUERY_KEYWORDS = new Set(['환경']);
+
+  const QUERY_PRIORITY_MAJOR_MAP = {
+    '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과']
+  };
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(환경공학과|건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -5166,6 +5127,23 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     return BROAD_QUERY_KEYWORDS.has(String(input || '').trim());
   }
 
+  function isAlwaysGroupedQueryKeyword(input){
+    return ALWAYS_GROUP_QUERY_KEYWORDS.has(String(input || '').trim());
+  }
+
+  function getPriorityMajorNamesForQuery(input){
+    return QUERY_PRIORITY_MAJOR_MAP[String(input || '').trim()] || [];
+  }
+
+  function applyPriorityQueryOrdering(rows, rawInput){
+    const priorityNames = getPriorityMajorNamesForQuery(rawInput);
+    if (!priorityNames.length) return rows;
+    const prioritySet = new Set(priorityNames.map(normalize));
+    const prioritized = rows.filter(row => prioritySet.has(normalize(row.display_name)));
+    const others = rows.filter(row => !prioritySet.has(normalize(row.display_name)));
+    return [...prioritized, ...others];
+  }
+
   function buildStudentDescription(profile, group){
     const override = getMajorOverride(profile);
     if (override?.card) return override.card;
@@ -5406,20 +5384,16 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     const rows = state.catalog.map(row => {
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
-      const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]).filter(isUsefulAlias);
-      const searchForms = buildSearchForms(row.display_name, aliases);
-      const normalizedSearchForms = searchForms.map(normalize).filter(Boolean);
-      const directIntentForms = findDirectIntentForms(searchForms, input);
+      const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]);
       const keywords = getMeaningfulKeywords(profile);
       const keywordMatchCount = countKeywordMatches(keywords, input);
       let score = 0;
-      if (normalize(row.display_name) === normalized) score += 160;
-      if (normalizedSearchForms.includes(normalized)) score += 130;
-      if (directIntentForms.length) score += (normalized.length >= 3 ? 95 : 50);
+      if (normalize(row.display_name) === normalized) score += 140;
+      if (aliases.map(normalize).includes(normalized)) score += 120;
       if (fuzzyIncludes(row.display_name, input)) score += 45;
-      if (searchForms.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
       if (isTypoCloseMatch(row.display_name, input)) score += 52;
-      if (searchForms.some(v => isTypoCloseMatch(v, input))) score += 44;
+      if (aliases.some(v => isTypoCloseMatch(v, input))) score += 44;
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
@@ -5433,18 +5407,12 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         aliasRow,
         score,
         match_label: deriveMatchLabel(score),
-        keywords,
-        search_forms: searchForms,
-        direct_match_kind: normalizedSearchForms.includes(normalized) ? 'exact' : (directIntentForms.length ? 'prefix' : '')
+        keywords
       };
     }).filter(Boolean);
-    return rows
-      .sort((a,b)=> {
-        const aDirect = a.direct_match_kind === 'exact' ? 2 : (a.direct_match_kind === 'prefix' ? 1 : 0);
-        const bDirect = b.direct_match_kind === 'exact' ? 2 : (b.direct_match_kind === 'prefix' ? 1 : 0);
-        return bDirect - aDirect || b.score - a.score || a.display_name.localeCompare(b.display_name,'ko');
-      })
-      .slice(0, 10);
+    const sortedRows = rows
+      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'));
+    return applyPriorityQueryOrdering(sortedRows, input).slice(0, 10);
   }
 
   function resolveMajor(rawCareer){
@@ -5497,27 +5465,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       }
     }
 
-    if (!candidates.length) {
-      return { input, normalized, status: 'not_found', suggestions: [] };
-    }
-
-    const directCandidates = candidates.filter(row => row.direct_match_kind === 'exact' || row.direct_match_kind === 'prefix');
-    if (directCandidates.length === 1) {
-      const direct = directCandidates[0];
-      state.selectedMajorId = direct.profile.major_id || '';
-      state.selectedMajorName = direct.profile.display_name || '';
-      return buildResolved(direct.profile, direct.direct_match_kind === 'exact' ? 'direct_alias_match' : 'direct_prefix_match', input, direct.aliasRow);
-    }
-
-    const topCandidate = candidates[0] || null;
-    const secondCandidate = candidates[1] || null;
-    if (topCandidate && topCandidate.direct_match_kind === 'exact' && (!secondCandidate || (topCandidate.score - secondCandidate.score) >= 35)) {
-      state.selectedMajorId = topCandidate.profile.major_id || '';
-      state.selectedMajorName = topCandidate.profile.display_name || '';
-      return buildResolved(topCandidate.profile, 'direct_exact_priority', input, topCandidate.aliasRow);
-    }
-
-    if (isBroadQueryKeyword(input) && candidates.length > 1) {
+    if ((isAlwaysGroupedQueryKeyword(input) && candidates.length >= 1) || (isBroadQueryKeyword(input) && candidates.length > 1)) {
       return {
         input,
         normalized,
@@ -5533,6 +5481,9 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       };
     }
 
+    if (!candidates.length) {
+      return { input, normalized, status: 'not_found', suggestions: [] };
+    }
     if (candidates.length === 1 && candidates[0].score >= 25) {
       state.selectedMajorId = candidates[0].profile.major_id || '';
       state.selectedMajorName = candidates[0].profile.display_name || '';
