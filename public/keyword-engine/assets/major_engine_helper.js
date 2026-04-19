@@ -25,7 +25,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.56-misc-label-refine";
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
     aliasRows: [],
-    activeResolved: null,
+    activeResolved: null,a
     selectedMajorId: '',
     selectedMajorName: '',
     loading: false,
@@ -5743,6 +5743,29 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       { display_name: "생명과학과", track_category: "세포/유전/생명탐구", focus: "세포, 유전, 진화, 생태 같은 생명 현상의 원리를 실험과 데이터로 탐구하는 학과입니다.", hint: "응용보다 생명 현상 자체의 원리를 깊게 탐구해 보고 싶은 학생에게 잘 맞습니다." },
       { display_name: "식품공학과", track_category: "식품/가공/품질관리", focus: "식품 원료를 가공하고 보존하며 품질과 안전성을 관리하는 공정 중심 학과입니다.", hint: "음식의 성분 자체보다 식품이 만들어지고 오래 유지되는 공정과 품질 관리에 관심 있는 학생에게 잘 맞습니다." }
     ]
+  }
+});
+
+
+Object.assign(GROUP_META_OVERRIDES, {
+  "수산생명·질병관리": { id:'aquatic_bio_health', label:'수산생명·질병관리', desc:'수생 생물의 건강, 질병, 양식 환경과 관리 구조를 함께 다루는 학과입니다.' },
+  "식물·재배·자원활용": { id:'plant_cultivation_resources', label:'식물·재배·자원활용', desc:'식물의 생장과 재배, 품종, 자원 활용 구조를 배우는 학과입니다.' },
+  "원예·재배·생산환경": { id:'horticulture_production', label:'원예·재배·생산환경', desc:'원예 작물의 재배, 품질 관리, 생산 환경을 중심으로 배우는 학과입니다.' },
+  "의류·소재·생활디자인": { id:'fashion_material_life', label:'의류·소재·생활디자인', desc:'의류 소재, 착용감, 생활 디자인과 소비자 경험을 함께 다루는 학과입니다.' }
+});
+
+Object.assign(MAJOR_COPY_OVERRIDES, {
+  "수산생명의학과": {
+    group_label: "수산생명·질병관리"
+  },
+  "식물자원학과": {
+    group_label: "식물·재배·자원활용"
+  },
+  "원예학과": {
+    group_label: "원예·재배·생산환경"
+  },
+  "의류학과": {
+    group_label: "의류·소재·생활디자인"
   }
 });
 
