@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.75-full-merge-career-input-foreign-language-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -21,7 +21,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
     router: {},
     bridges: [],
     profileByMajorId: new Map(),
-    profileByName: new Map(),
+    profileByName: new Map(),A
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
     aliasRows: [],
@@ -73,11 +73,13 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
   function getInputByLabelText(labelText){
     const target = String(labelText || '').trim();
     if (!target) return null;
+    const normalizedTarget = target.replace(/\s+/g,'').trim();
     const nodes = Array.from(document.querySelectorAll('label, legend, th, td, dt, span, div, strong, p'));
     for (const node of nodes) {
       const text = String(node.textContent || '').replace(/\s+/g,' ').trim();
+      const normalizedText = text.replace(/\s+/g,'').trim();
       if (!text) continue;
-      if (text === target || text.includes(target)) {
+      if (text === target || text.includes(target) || normalizedText === normalizedTarget || normalizedText.includes(normalizedTarget)) {
         const input = getNearbyInputFromNode(node);
         if (input) return input;
       }
@@ -88,8 +90,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
   function getCareerInput(){
     return $('career')
       || document.querySelector('input[name="career"]')
+      || document.querySelector('textarea[name="career"]')
       || document.querySelector('input[data-field="career"]')
+      || document.querySelector('textarea[data-field="career"]')
+      || document.querySelector('#career input, #career textarea')
       || getInputByLabelText('희망 진로')
+      || getInputByLabelText('희망진로')
+      || getInputByLabelText('희망 전공')
+      || getInputByLabelText('희망전공')
+      || document.querySelector('input[placeholder*="희망 진로"]')
+      || document.querySelector('textarea[placeholder*="희망 진로"]')
+      || document.querySelector('input[placeholder*="희망진로"]')
+      || document.querySelector('textarea[placeholder*="희망진로"]')
       || null;
   }
 
@@ -172,7 +184,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
         String(name).replace(/학부$/, ''),
         stripMajorSuffix(name),
         stripMajorSuffix(name),
+        ...((override.aliases || [])),
         ...((override.search_aliases || [])),
+        ...((override.core_keywords || [])),
         ...((override.subjects || [])),
         ...((override.topics || [])).map(v => String(v).split(/[·,]/)[0].trim())
       ]).filter(Boolean);
@@ -210,7 +224,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
         String(name).replace(/학과$/, ''),
         String(name).replace(/학부$/, ''),
         stripMajorSuffix(name),
-        ...((override.search_aliases || []))
+        ...((override.aliases || [])),
+        ...((override.search_aliases || [])),
+        ...((override.core_keywords || []))
       ]).filter(Boolean);
       const aliasRow = (state.aliases || []).find(row => normalize(row?.display_name) === key || row?.major_id === majorId);
       if (aliasRow) {
@@ -604,6 +620,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
     if (input.includes('바이오') || input.includes('생명') || input.includes('유전') || input.includes('제약') || input.includes('의공') || input.includes('식품생명') || input.includes('화공생명')) return new Set(['bio_engineering','bio_science','bio_materials_devices','chem_energy_materials']);
     if (input.includes('컴퓨터') || input.includes('소프트웨어') || input.includes('인공지능') || input.includes('ai') || input.includes('데이터사이언스') || input.includes('정보보호') || input.includes('보안') || input.includes('산업공학')) return new Set(['computing_ai']);
     if (input.includes('반도체') || input.includes('전자') || input.includes('전기') || input.includes('기계') || input.includes('로봇') || input.includes('자동차') || input.includes('모빌리티')) return new Set(['materials_devices']);
+    if (input.includes('러시아') || input.includes('러시아어') || input.includes('노어') || input.includes('노문')) return new Set(['russian_language_region']);
+    if (input.includes('독일') || input.includes('독일어') || input.includes('독어') || input.includes('독문')) return new Set(['german_language_culture']);
+    if (input.includes('프랑스') || input.includes('프랑스어') || input.includes('불어') || input.includes('불문')) return new Set(['french_language_culture']);
+    if (input.includes('일본') || input.includes('일본어') || input.includes('일어') || input.includes('일문')) return new Set(['japanese_language_culture']);
+    if (input.includes('중국') || input.includes('중국어') || input.includes('중어') || input.includes('중문')) return new Set(['chinese_language_eastasia']);
+    if (input.includes('아랍') || input.includes('중동')) return new Set(['arabic_middleeast']);
     if (input.includes('국제')) return new Set(['global_trade','business_service']);
     if (input.includes('심리') || input.includes('상담')) return new Set(['psychology_counsel','welfare_support']);
     if (input.includes('교육') || input.includes('유아') || input.includes('아동') || input.includes('특수')) return new Set(['education_child','welfare_support']);
@@ -4610,7 +4632,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.71-foreign-language-inline-fixed"
   });
 
 
-Object.assign(MAJOR_OVERRIDES, {
+Object.assign(MAJOR_COPY_OVERRIDES, {
   "항공기계공학과": {
     track_category: "항공기계/구조/동력",
     card: "비행체의 구조와 동력, 유체와 기계 설계 원리를 배우는 학과입니다.",
@@ -4877,6 +4899,12 @@ Object.assign(MAJOR_OVERRIDES, {
       { id:'computing_ai', label:'컴퓨터·AI 쪽', desc:'프로그래밍, 알고리즘, 데이터, 시스템 설계와 연결된 학과입니다.', test: /(컴퓨터공학|소프트웨어학|인공지능학|데이터사이언스학|정보보호학|산업공학|프로그래밍|알고리즘|인공지능|AI|데이터분석|보안|암호|시스템설계|소프트웨어)/i },
       { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|로봇|기계|자동차)/ },
       { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|확률|모델링|수리|정량)/ },
+      { id:'russian_language_region', label:'러시아어·문학·지역이해', desc:'러시아어와 러시아권 문학, 문화, 지역 이해를 함께 다루는 학과입니다.', test: /(노어노문|러시아어|러시아문학|노문과|노어과)/ },
+      { id:'german_language_culture', label:'독일어·문학·문화해석', desc:'독일어와 독일권 문학, 문화, 사상을 텍스트 해석으로 배우는 학과입니다.', test: /(독어독문|독일어|독문과|독어과)/ },
+      { id:'french_language_culture', label:'프랑스어·문학·문화해석', desc:'프랑스어와 프랑스권 문학, 문화, 사회를 함께 해석하는 학과입니다.', test: /(불어불문|프랑스어|불문과|불어과)/ },
+      { id:'japanese_language_culture', label:'일본어·문학·문화해석', desc:'일본어와 일본 문학, 문화, 사회를 텍스트 해석과 번역으로 배우는 학과입니다.', test: /(일어일문|일본어|일문과|일어과)/ },
+      { id:'chinese_language_eastasia', label:'중국어·문학·동아시아이해', desc:'중국어와 중국권 문학, 문화, 동아시아 맥락을 함께 이해하는 학과입니다.', test: /(중어중문|중국어|중문과|중어과)/ },
+      { id:'arabic_middleeast', label:'아랍어·중동지역이해', desc:'아랍어와 중동 지역의 문화, 사회, 국제 맥락을 함께 배우는 학과입니다.', test: /(아랍어|중동|아랍지역)/ },
       { id:'language_culture', label:'언어·문화·사상', desc:'언어, 텍스트, 문화와 사상을 중심으로 읽는 학과입니다.', test: /(국어국문|언어|영어|일어|중어|불어|독어|노어|아랍어|철학|사학|고고|신학|한문|한국어|미학|문예창작|문화인류|문화유산)/ }
     ];
 
@@ -4931,7 +4959,22 @@ Object.assign(MAJOR_OVERRIDES, {
       return getGroupMetaByLabel('환경 관련 추천');
     }
     if (track.includes('체육') || track.includes('스포츠') || track.includes('레저')) return getGroupMetaByLabel('체육·스포츠·레저');
-    if (track.includes('인문')) return getGroupMetaByLabel('미디어·콘텐츠') || { id:'language_culture', label:'언어·문화·사상', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
+    if (track.includes('인문')) {
+      if (allowed) {
+        const preferred = ['russian_language_region','german_language_culture','french_language_culture','japanese_language_culture','chinese_language_eastasia','arabic_middleeast','humanities_language_culture','media_content'].find(v => allowed.has(v));
+        if (preferred) return { ...(getGroupMetaByLabel({
+          russian_language_region:'러시아어·문학·지역이해',
+          german_language_culture:'독일어·문학·문화해석',
+          french_language_culture:'프랑스어·문학·문화해석',
+          japanese_language_culture:'일본어·문학·문화해석',
+          chinese_language_eastasia:'중국어·문학·동아시아이해',
+          arabic_middleeast:'아랍어·중동지역이해',
+          humanities_language_culture:'인문·어문·문화',
+          media_content:'미디어·콘텐츠'
+        }[preferred])) };
+      }
+      return getGroupMetaByLabel('인문·어문·문화') || { id:'language_culture', label:'언어·문화·사상', desc:'언어, 문화, 사상과 연결된 후보입니다.' };
+    }
     if (track.includes('사회')) {
       if (allowed) {
         const preferred = ['global_trade','business_service','law_public','psychology_counsel','media_content'].find(v => allowed.has(v));
@@ -4980,7 +5023,20 @@ Object.assign(MAJOR_OVERRIDES, {
     const name = typeof profileOrName === 'string'
       ? profileOrName
       : String(profileOrName?.display_name || '');
-    return MAJOR_COPY_OVERRIDES[name] || null;
+    const raw = MAJOR_COPY_OVERRIDES[name] || null;
+    if (!raw) return null;
+    const normalizedOverride = { ...raw };
+    if (!normalizedOverride.track_category && normalizedOverride.track) normalizedOverride.track_category = normalizedOverride.track;
+    if (!normalizedOverride.core_keywords && Array.isArray(normalizedOverride.core)) normalizedOverride.core_keywords = normalizedOverride.core.slice();
+    if (!normalizedOverride.subjects && Array.isArray(normalizedOverride.subs)) normalizedOverride.subjects = normalizedOverride.subs.slice();
+    if (!normalizedOverride.group_label && normalizedOverride.group) normalizedOverride.group_label = normalizedOverride.group;
+    const aliasPool = uniq([
+      ...(Array.isArray(normalizedOverride.aliases) ? normalizedOverride.aliases : []),
+      ...(Array.isArray(normalizedOverride.search_aliases) ? normalizedOverride.search_aliases : [])
+    ]).filter(Boolean);
+    normalizedOverride.aliases = aliasPool;
+    normalizedOverride.search_aliases = aliasPool;
+    return normalizedOverride;
   }
 
   function isGenericMajorIntro(value){
@@ -5583,7 +5639,8 @@ Object.assign(MAJOR_OVERRIDES, {
       recommended_books_raw: data.recommended_books_raw || [],
       bridge_books: data.bridge_books || [],
       major_intro: data.major_intro || '',
-      book_bridge_candidates: data.book_bridge_candidates || []
+      book_bridge_candidates: data.book_bridge_candidates || [],
+      comparison: data.comparison || null
     };
   }
 
