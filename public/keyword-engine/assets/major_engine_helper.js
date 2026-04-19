@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.76-typo-fuzzy-career-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.77-direct-intent-alias-cleanup";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -110,6 +110,43 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.76-typo-fuzzy-career-fix";
       .trim()
       .replace(/(학과|학부|전공|예과|과)$/,'');
   }
+
+  function stripSearchTail(value){
+    const base = stripMajorSuffix(value);
+    return String(base || '').replace(/(공학|과학)$/,'').trim();
+  }
+
+  function isUsefulAlias(value){
+    const normalized = normalize(value);
+    if (!normalized) return false;
+    if (normalized.length < 2) return false;
+    return true;
+  }
+
+  function buildSearchForms(displayName, aliases){
+    const rawForms = uniqStrings([
+      displayName,
+      stripMajorSuffix(displayName),
+      stripSearchTail(displayName),
+      ...((aliases || [])),
+      ...((aliases || []).map(stripMajorSuffix)),
+      ...((aliases || []).map(stripSearchTail))
+    ]);
+    return rawForms.filter(isUsefulAlias);
+  }
+
+  function findDirectIntentForms(searchForms, rawInput){
+    const normalizedInput = normalize(rawInput);
+    if (!normalizedInput || normalizedInput.length < 2) return [];
+    return (searchForms || []).filter(form => {
+      const normalizedForm = normalize(form);
+      if (!normalizedForm || normalizedForm.length < 2) return false;
+      if (normalizedForm === normalizedInput) return true;
+      if (normalizedInput.length >= 3 && normalizedForm.startsWith(normalizedInput)) return true;
+      return false;
+    });
+  }
+
   function escapeHtml(value){
     return String(value ?? '')
       .replace(/&/g,'&amp;')
@@ -240,6 +277,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.76-typo-fuzzy-career-fix";
   function fuzzyIncludes(a,b){
     const na = normalize(a); const nb = normalize(b);
     if (!na || !nb) return false;
+    if (na.length < 2 || nb.length < 2) return false;
     return na.includes(nb) || nb.includes(na);
   }
 
@@ -352,11 +390,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.76-typo-fuzzy-career-fix";
         if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
         if (row.display_name) state.bridgeByName.set(row.display_name, row);
       });
-      state.aliasRows = state.aliases.map(row => ({
-        ...row,
-        normalized_display_name: normalize(row.display_name),
-        normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
-      }));
+      state.aliasRows = state.aliases.map(row => {
+        const cleanedAliases = uniqStrings((row.aliases || []).filter(isUsefulAlias));
+        const searchForms = buildSearchForms(row.display_name, cleanedAliases);
+        return {
+          ...row,
+          aliases: cleanedAliases,
+          normalized_display_name: normalize(row.display_name),
+          normalized_aliases: cleanedAliases.map(normalize).filter(Boolean),
+          search_forms: searchForms,
+          normalized_search_forms: searchForms.map(normalize).filter(Boolean)
+        };
+      });
       state.loaded = true;
       injectStyles();
       bindCareerInput();
@@ -5361,16 +5406,20 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     const rows = state.catalog.map(row => {
       const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
       const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
-      const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]);
+      const aliases = uniq([...(aliasRow?.aliases || []), row.display_name]).filter(isUsefulAlias);
+      const searchForms = buildSearchForms(row.display_name, aliases);
+      const normalizedSearchForms = searchForms.map(normalize).filter(Boolean);
+      const directIntentForms = findDirectIntentForms(searchForms, input);
       const keywords = getMeaningfulKeywords(profile);
       const keywordMatchCount = countKeywordMatches(keywords, input);
       let score = 0;
-      if (normalize(row.display_name) === normalized) score += 140;
-      if (aliases.map(normalize).includes(normalized)) score += 120;
+      if (normalize(row.display_name) === normalized) score += 160;
+      if (normalizedSearchForms.includes(normalized)) score += 130;
+      if (directIntentForms.length) score += (normalized.length >= 3 ? 95 : 50);
       if (fuzzyIncludes(row.display_name, input)) score += 45;
-      if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (searchForms.some(v => fuzzyIncludes(v, input))) score += 35;
       if (isTypoCloseMatch(row.display_name, input)) score += 52;
-      if (aliases.some(v => isTypoCloseMatch(v, input))) score += 44;
+      if (searchForms.some(v => isTypoCloseMatch(v, input))) score += 44;
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
@@ -5384,11 +5433,17 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         aliasRow,
         score,
         match_label: deriveMatchLabel(score),
-        keywords
+        keywords,
+        search_forms: searchForms,
+        direct_match_kind: normalizedSearchForms.includes(normalized) ? 'exact' : (directIntentForms.length ? 'prefix' : '')
       };
     }).filter(Boolean);
     return rows
-      .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+      .sort((a,b)=> {
+        const aDirect = a.direct_match_kind === 'exact' ? 2 : (a.direct_match_kind === 'prefix' ? 1 : 0);
+        const bDirect = b.direct_match_kind === 'exact' ? 2 : (b.direct_match_kind === 'prefix' ? 1 : 0);
+        return bDirect - aDirect || b.score - a.score || a.display_name.localeCompare(b.display_name,'ko');
+      })
       .slice(0, 10);
   }
 
@@ -5442,6 +5497,26 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       }
     }
 
+    if (!candidates.length) {
+      return { input, normalized, status: 'not_found', suggestions: [] };
+    }
+
+    const directCandidates = candidates.filter(row => row.direct_match_kind === 'exact' || row.direct_match_kind === 'prefix');
+    if (directCandidates.length === 1) {
+      const direct = directCandidates[0];
+      state.selectedMajorId = direct.profile.major_id || '';
+      state.selectedMajorName = direct.profile.display_name || '';
+      return buildResolved(direct.profile, direct.direct_match_kind === 'exact' ? 'direct_alias_match' : 'direct_prefix_match', input, direct.aliasRow);
+    }
+
+    const topCandidate = candidates[0] || null;
+    const secondCandidate = candidates[1] || null;
+    if (topCandidate && topCandidate.direct_match_kind === 'exact' && (!secondCandidate || (topCandidate.score - secondCandidate.score) >= 35)) {
+      state.selectedMajorId = topCandidate.profile.major_id || '';
+      state.selectedMajorName = topCandidate.profile.display_name || '';
+      return buildResolved(topCandidate.profile, 'direct_exact_priority', input, topCandidate.aliasRow);
+    }
+
     if (isBroadQueryKeyword(input) && candidates.length > 1) {
       return {
         input,
@@ -5458,9 +5533,6 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       };
     }
 
-    if (!candidates.length) {
-      return { input, normalized, status: 'not_found', suggestions: [] };
-    }
     if (candidates.length === 1 && candidates[0].score >= 25) {
       state.selectedMajorId = candidates[0].profile.major_id || '';
       state.selectedMajorName = candidates[0].profile.display_name || '';
