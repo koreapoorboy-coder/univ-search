@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.53-fallback-recovery";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -270,6 +270,74 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
     throw lastError || new Error(`Failed to load ${url}`);
   }
 
+  function rebuildStateIndexes(){
+    state.profileByMajorId = new Map();
+    state.profileByName = new Map();
+    state.bridgeByMajorId = new Map();
+    state.bridgeByName = new Map();
+    state.profiles.forEach(row => {
+      if (!row || !row.major_id) return;
+      state.profileByMajorId.set(row.major_id, row);
+      state.profileByName.set(row.display_name, row);
+    });
+    state.bridges.forEach(row => {
+      if (!row) return;
+      if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
+      if (row.display_name) state.bridgeByName.set(row.display_name, row);
+    });
+    state.aliasRows = state.aliases.map(row => ({
+      ...row,
+      normalized_display_name: normalize(row.display_name),
+      normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
+    }));
+  }
+
+  function bootstrapOverridesOnly(reason){
+    const priorityNames = ['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과','식품영양학과','식품공학과','동물자원학과','원예생명과학과','산림자원학과','농업경제학과'];
+    state.catalog = [];
+    state.profiles = [];
+    state.aliases = [];
+    state.router = state.router || {};
+    state.bridges = [];
+
+    const names = uniq([
+      ...Object.keys(MAJOR_COPY_OVERRIDES || {}),
+      ...priorityNames
+    ]).filter(Boolean);
+
+    names.forEach(name => {
+      const override = getMajorOverride(name) || {};
+      const key = normalize(name);
+      const majorId = `virtual:${key}`;
+      state.catalog.push({
+        major_id: majorId,
+        display_name: name,
+        track_category: override.track_category || '',
+        source_status: 'fallback_override'
+      });
+      state.profiles.push(buildVirtualMajorProfile(name, majorId, null));
+      state.aliases.push({
+        major_id: majorId,
+        display_name: name,
+        aliases: uniq([
+          name,
+          String(name).replace(/학과$/, ''),
+          String(name).replace(/학부$/, ''),
+          stripMajorSuffix(name),
+          ...(override.search_aliases || [])
+        ]).filter(Boolean)
+      });
+    });
+
+    rebuildStateIndexes();
+    state.loaded = true;
+    if (reason) window.__MAJOR_ENGINE_LAST_ERROR__ = String(reason);
+    injectStyles();
+    bindCareerInput();
+    renderMajorSummary();
+    startMiniPayloadPatch();
+  }
+
   async function loadAll(){
     if (state.loaded || state.loading) return;
     state.loading = true;
@@ -289,21 +357,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
       ensureOverrideMajorsInSearch();
       backfillPriorityMajorsForSearch(['연극영화과','영화영상학과','공연예술학과','방송영상학과','애니메이션학과','실용음악과','체육학과','스포츠과학과','스포츠산업학과','사회체육학과','레저스포츠학과','스포츠의학과','행정학과','정치외교학과','법학과','경찰행정학과','공공인재학부','사회학과','관광경영학과','호텔경영학과','항공서비스학과','항공운항학과','외식경영학과','MICE산업학과','식품영양학과','식품공학과','동물자원학과','원예생명과학과','산림자원학과','농업경제학과']);
 
-      state.profiles.forEach(row => {
-        if (!row || !row.major_id) return;
-        state.profileByMajorId.set(row.major_id, row);
-        state.profileByName.set(row.display_name, row);
-      });
-      state.bridges.forEach(row => {
-        if (!row) return;
-        if (row.major_id) state.bridgeByMajorId.set(row.major_id, row);
-        if (row.display_name) state.bridgeByName.set(row.display_name, row);
-      });
-      state.aliasRows = state.aliases.map(row => ({
-        ...row,
-        normalized_display_name: normalize(row.display_name),
-        normalized_aliases: (row.aliases || []).map(normalize).filter(Boolean)
-      }));
+      rebuildStateIndexes();
       state.loaded = true;
       injectStyles();
       bindCareerInput();
@@ -311,6 +365,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
       startMiniPayloadPatch();
     } catch (error) {
       console.warn('major engine helper load failed:', error);
+      bootstrapOverridesOnly(error && (error.message || String(error)));
     } finally {
       state.loading = false;
     }
@@ -4592,7 +4647,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.52-career-input-recovery";
   });
 
 
-Object.assign(MAJOR_OVERRIDES, {
+Object.assign(MAJOR_COPY_OVERRIDES, {
   "항공기계공학과": {
     track_category: "항공기계/구조/동력",
     card: "비행체의 구조와 동력, 유체와 기계 설계 원리를 배우는 학과입니다.",
