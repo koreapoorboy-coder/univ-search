@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.75-full-merge-career-input-foreign-language-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.76-typo-fuzzy-career-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -21,7 +21,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.75-full-merge-career-input-foreig
     router: {},
     bridges: [],
     profileByMajorId: new Map(),
-    profileByName: new Map(),A
+    profileByName: new Map(),
     bridgeByMajorId: new Map(),
     bridgeByName: new Map(),
     aliasRows: [],
@@ -241,6 +241,43 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.75-full-merge-career-input-foreig
     const na = normalize(a); const nb = normalize(b);
     if (!na || !nb) return false;
     return na.includes(nb) || nb.includes(na);
+  }
+
+  function boundedEditDistance(a, b, maxDistance){
+    const left = normalize(a);
+    const right = normalize(b);
+    const limit = Number.isFinite(maxDistance) ? maxDistance : 2;
+    if (!left || !right) return Number.POSITIVE_INFINITY;
+    if (left === right) return 0;
+    if (Math.abs(left.length - right.length) > limit) return Number.POSITIVE_INFINITY;
+    const rows = Array.from({ length: left.length + 1 }, (_, i) => i);
+    for (let j = 1; j <= right.length; j += 1) {
+      let previous = rows[0];
+      rows[0] = j;
+      let rowMin = rows[0];
+      for (let i = 1; i <= left.length; i += 1) {
+        const current = rows[i];
+        const cost = left[i - 1] === right[j - 1] ? 0 : 1;
+        rows[i] = Math.min(
+          rows[i] + 1,
+          rows[i - 1] + 1,
+          previous + cost
+        );
+        previous = current;
+        if (rows[i] < rowMin) rowMin = rows[i];
+      }
+      if (rowMin > limit) return Number.POSITIVE_INFINITY;
+    }
+    return rows[left.length] <= limit ? rows[left.length] : Number.POSITIVE_INFINITY;
+  }
+
+  function isTypoCloseMatch(a, b){
+    const na = normalize(a);
+    const nb = normalize(b);
+    if (!na || !nb) return false;
+    if (Math.min(na.length, nb.length) < 4) return false;
+    const limit = Math.max(1, Math.min(2, Math.floor(Math.min(na.length, nb.length) / 4)));
+    return boundedEditDistance(na, nb, limit) <= limit;
   }
 
   function countKeywordMatches(keywords, input){
@@ -5332,6 +5369,8 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       if (aliases.map(normalize).includes(normalized)) score += 120;
       if (fuzzyIncludes(row.display_name, input)) score += 45;
       if (aliases.some(v => fuzzyIncludes(v, input))) score += 35;
+      if (isTypoCloseMatch(row.display_name, input)) score += 52;
+      if (aliases.some(v => isTypoCloseMatch(v, input))) score += 44;
       if (keywordMatchCount) score += 18 + (keywordMatchCount * 8);
       if (fuzzyIncludes(getTrackLabel(profile.track_category || row.track_category || ''), input)) score += 12;
       if ((profile.display_name || '').includes(input)) score += 18;
@@ -5374,6 +5413,14 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       return buildResolved(exactProfile, 'exact_major_name', input);
     }
 
+    const typoProfileCandidates = state.profiles.filter(row => isTypoCloseMatch(row.display_name, input) || isTypoCloseMatch(stripMajorSuffix(row.display_name), input));
+    if (typoProfileCandidates.length === 1) {
+      const profile = typoProfileCandidates[0];
+      state.selectedMajorId = profile.major_id || '';
+      state.selectedMajorName = profile.display_name || '';
+      return buildResolved(profile, 'typo_major_name', input);
+    }
+
     const aliasRow = state.aliasRows.find(row => row.normalized_aliases.includes(normalized) || normalize(stripMajorSuffix(row.display_name)) === normalized);
     if (aliasRow) {
       const profile = state.profileByMajorId.get(aliasRow.major_id) || state.profileByName.get(aliasRow.display_name);
@@ -5381,6 +5428,17 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         state.selectedMajorId = profile.major_id || '';
         state.selectedMajorName = profile.display_name || '';
         return buildResolved(profile, 'alias_match', input, aliasRow);
+      }
+    }
+
+    const typoAliasRows = state.aliasRows.filter(row => (row.aliases || []).some(alias => isTypoCloseMatch(alias, input)) || isTypoCloseMatch(row.display_name, input));
+    if (typoAliasRows.length === 1) {
+      const row = typoAliasRows[0];
+      const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name);
+      if (profile) {
+        state.selectedMajorId = profile.major_id || '';
+        state.selectedMajorName = profile.display_name || '';
+        return buildResolved(profile, 'typo_alias_match', input, row);
       }
     }
 
