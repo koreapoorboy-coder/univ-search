@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.69-foreign-language-label-fixed";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.70-foreign-language-order-fixed";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -337,24 +337,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.69-foreign-language-label-fixed";
     renderMajorSummary();
     startMiniPayloadPatch();
   }
-
-Object.assign(GROUP_META_OVERRIDES, {
-  "러시아어·문학·지역이해": { id:'russian_language_region', label:'러시아어·문학·지역이해', desc:'러시아어와 러시아권 문학, 문화, 지역 이해를 함께 다루는 학과입니다.' },
-  "독일어·문학·문화해석": { id:'german_language_culture', label:'독일어·문학·문화해석', desc:'독일어와 독일권 문학, 문화, 사상을 텍스트 해석으로 배우는 학과입니다.' },
-  "프랑스어·문학·문화해석": { id:'french_language_culture', label:'프랑스어·문학·문화해석', desc:'프랑스어와 프랑스권 문학, 문화, 사회를 함께 해석하는 학과입니다.' },
-  "일본어·문학·문화해석": { id:'japanese_language_culture', label:'일본어·문학·문화해석', desc:'일본어와 일본 문학, 문화, 사회를 텍스트 해석과 번역으로 배우는 학과입니다.' },
-  "중국어·문학·동아시아이해": { id:'chinese_language_eastasia', label:'중국어·문학·동아시아이해', desc:'중국어와 중국권 문학, 문화, 동아시아 맥락을 함께 이해하는 학과입니다.' },
-  "아랍어·중동지역이해": { id:'arabic_middleeast', label:'아랍어·중동지역이해', desc:'아랍어와 중동 지역의 문화, 사회, 국제 맥락을 함께 배우는 학과입니다.' }
-});
-
-Object.assign(MAJOR_COPY_OVERRIDES, {
-  "노어노문학과": { ...(MAJOR_COPY_OVERRIDES["노어노문학과"] || {}), group_label: "러시아어·문학·지역이해" },
-  "독어독문학과": { ...(MAJOR_COPY_OVERRIDES["독어독문학과"] || {}), group_label: "독일어·문학·문화해석" },
-  "불어불문학과": { ...(MAJOR_COPY_OVERRIDES["불어불문학과"] || {}), group_label: "프랑스어·문학·문화해석" },
-  "일어일문학과": { ...(MAJOR_COPY_OVERRIDES["일어일문학과"] || {}), group_label: "일본어·문학·문화해석" },
-  "중어중문학과": { ...(MAJOR_COPY_OVERRIDES["중어중문학과"] || {}), group_label: "중국어·문학·동아시아이해" },
-  "아랍어과": { ...(MAJOR_COPY_OVERRIDES["아랍어과"] || {}), group_label: "아랍어·중동지역이해" }
-});
 
   async function loadAll(){
     if (state.loaded || state.loading) return;
