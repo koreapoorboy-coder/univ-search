@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.65-humanities-label-fixes";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -339,32 +339,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.65-humanities-label-fixes";
   }
 
 
-  Object.assign(MAJOR_COPY_OVERRIDES, {
-    "고고학과": {
-      ...(MAJOR_COPY_OVERRIDES["고고학과"] || {}),
-      group_label: "유적·역사·문화복원"
-    },
-    "문화유산학과": {
-      ...(MAJOR_COPY_OVERRIDES["문화유산학과"] || {}),
-      group_label: "유산·기록·보존해석"
-    },
-    "미학과": {
-      ...(MAJOR_COPY_OVERRIDES["미학과"] || {}),
-      group_label: "예술·미학·가치해석"
-    },
-    "언어학과": {
-      ...(MAJOR_COPY_OVERRIDES["언어학과"] || {}),
-      group_label: "언어·의미·구조분석"
-    },
-    "한국어학과": {
-      ...(MAJOR_COPY_OVERRIDES["한국어학과"] || {}),
-      group_label: "한국어·문법·표현분석"
-    },
-    "한문학과": {
-      ...(MAJOR_COPY_OVERRIDES["한문학과"] || {}),
-      group_label: "한문·고전·사상해석"
-    }
-  });
+  
 
   async function loadAll(){
     if (state.loaded || state.loading) return;
@@ -4554,6 +4529,33 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.65-humanities-label-fixes";
         "search_aliases": []
     }
 };
+
+Object.assign(MAJOR_COPY_OVERRIDES, {
+    "고고학과": {
+      ...(MAJOR_COPY_OVERRIDES["고고학과"] || {}),
+      group_label: "유적·역사·문화복원"
+    },
+    "문화유산학과": {
+      ...(MAJOR_COPY_OVERRIDES["문화유산학과"] || {}),
+      group_label: "유산·기록·보존해석"
+    },
+    "미학과": {
+      ...(MAJOR_COPY_OVERRIDES["미학과"] || {}),
+      group_label: "예술·미학·가치해석"
+    },
+    "언어학과": {
+      ...(MAJOR_COPY_OVERRIDES["언어학과"] || {}),
+      group_label: "언어·의미·구조분석"
+    },
+    "한국어학과": {
+      ...(MAJOR_COPY_OVERRIDES["한국어학과"] || {}),
+      group_label: "한국어·문법·표현분석"
+    },
+    "한문학과": {
+      ...(MAJOR_COPY_OVERRIDES["한문학과"] || {}),
+      group_label: "한문·고전·사상해석"
+    }
+  });
 
   Object.assign(MAJOR_COPY_OVERRIDES, REMAINING_MISC_FIRSTPASS_OVERRIDES);
 
