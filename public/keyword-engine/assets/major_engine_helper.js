@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.67-humanities-label-fixes-runtime-safe";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -337,10 +337,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
     renderMajorSummary();
     startMiniPayloadPatch();
   }
-
-
-  
-
   async function loadAll(){
     if (state.loaded || state.loading) return;
     state.loading = true;
@@ -2251,6 +2247,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "발굴 자료와 유물, 과거 생활 흔적을 근거로 시대를 해석하고 싶은 학생에게 잘 맞습니다.",
         "intro": "고고학과는 유적과 유물, 발굴 기록을 통해 과거 사회의 생활상과 문화, 교류 구조를 복원하고 해석하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "유적·역사·문화복원",
         "compare": [
             "사학과",
             "문화유산학과",
@@ -2442,6 +2439,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "과거의 흔적을 지키고 해석해 오늘의 문화로 연결하고 싶은 학생에게 잘 맞습니다.",
         "intro": "문화유산학과는 유형·무형 문화유산을 기록하고 보존하며 전승과 활용, 해설 방식을 함께 배우는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "유산·기록·보존해석",
         "compare": [
             "고고학과",
             "사학과",
@@ -2478,6 +2476,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "예술을 감상하는 데서 나아가 왜 아름답다고 느끼는지 근거를 따져 보고 싶은 학생에게 잘 맞습니다.",
         "intro": "미학과는 예술과 아름다움, 감각 경험과 가치 판단의 원리를 철학적으로 탐구하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "예술·미학·가치해석",
         "compare": [
             "철학과",
             "시각디자인학과",
@@ -2628,6 +2627,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "말과 글을 쓰는 데서 나아가 언어가 어떤 구조로 의미를 만드는지 알고 싶은 학생에게 잘 맞습니다.",
         "intro": "언어학과는 음운, 문법, 의미, 언어 변화 원리를 분석하며 인간 언어의 구조를 과학적으로 탐구하는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "언어·의미·구조분석",
         "compare": [
             "국어국문학과",
             "영어영문학과",
@@ -2745,6 +2745,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "한국어를 잘 쓰는 데서 나아가 언어 구조를 깊이 있게 이해하고 싶은 학생에게 잘 맞습니다.",
         "intro": "한국어학과는 한국어의 음운, 문법, 의미, 표현 구조를 분석하며 언어 원리를 체계적으로 배우는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "한국어·문법·표현분석",
         "compare": [
             "국어국문학과",
             "언어학과",
@@ -2781,6 +2782,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "fit": "고전 텍스트를 바탕으로 사상과 문화를 해석하고 싶은 학생에게 잘 맞습니다.",
         "intro": "한문학과는 한문 고전과 문헌을 읽고 해석하며 한자 문화권의 사상과 문화 전통을 배우는 학과입니다.",
         "group": "인문·어문·문화",
+        "group_label": "한문·고전·사상해석",
         "compare": [
             "국어국문학과",
             "사학과",
@@ -4529,33 +4531,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.66-humanities-order-fix";
         "search_aliases": []
     }
 };
-
-Object.assign(MAJOR_COPY_OVERRIDES, {
-    "고고학과": {
-      ...(MAJOR_COPY_OVERRIDES["고고학과"] || {}),
-      group_label: "유적·역사·문화복원"
-    },
-    "문화유산학과": {
-      ...(MAJOR_COPY_OVERRIDES["문화유산학과"] || {}),
-      group_label: "유산·기록·보존해석"
-    },
-    "미학과": {
-      ...(MAJOR_COPY_OVERRIDES["미학과"] || {}),
-      group_label: "예술·미학·가치해석"
-    },
-    "언어학과": {
-      ...(MAJOR_COPY_OVERRIDES["언어학과"] || {}),
-      group_label: "언어·의미·구조분석"
-    },
-    "한국어학과": {
-      ...(MAJOR_COPY_OVERRIDES["한국어학과"] || {}),
-      group_label: "한국어·문법·표현분석"
-    },
-    "한문학과": {
-      ...(MAJOR_COPY_OVERRIDES["한문학과"] || {}),
-      group_label: "한문·고전·사상해석"
-    }
-  });
 
   Object.assign(MAJOR_COPY_OVERRIDES, REMAINING_MISC_FIRSTPASS_OVERRIDES);
 
