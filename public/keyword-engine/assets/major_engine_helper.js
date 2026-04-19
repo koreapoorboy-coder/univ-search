@@ -17,7 +17,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.60-corrected-compare-fixes";
     wrapped: false,
     catalog: [],
     profiles: [],
-    aliases: [],a
+    aliases: [],
     router: {},
     bridges: [],
     profileByMajorId: new Map(),
