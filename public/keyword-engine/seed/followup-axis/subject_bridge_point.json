@@ -1,6 +1,6 @@
 [
   {
-    "subject_name": "통합과학",
+    "subject_name": "통합과학1",
     "bridge_points": [
       {
         "bridge_id": "system_measurement",
@@ -16,13 +16,15 @@
           "data",
           "chemistry",
           "biology",
-          "earth_env"
+          "earth_env",
+          "engineering"
         ],
         "next_subject_candidates": [
           "물리학",
           "화학",
           "생명과학",
-          "지구과학"
+          "지구과학",
+          "정보"
         ],
         "bridge_desc": "기초 과학 개념과 시스템 관점에서 여러 전공 축으로 확장 가능한 출발점"
       },
@@ -38,66 +40,130 @@
         "mapped_axis_domains": [
           "chemistry",
           "physics",
-          "earth_env"
+          "earth_env",
+          "engineering"
         ],
         "next_subject_candidates": [
           "화학",
-          "물리학"
+          "물리학",
+          "과학탐구실험1"
         ],
         "bridge_desc": "물질의 구조와 성질을 바탕으로 재료, 반응, 분석 탐구로 이어질 수 있음"
       }
     ]
   },
   {
-    "subject_name": "대수",
+    "subject_name": "과학탐구실험1",
     "bridge_points": [
       {
-        "bridge_id": "logic_structure",
+        "bridge_id": "experiment_design",
         "bridge_keywords": [
-          "함수",
-          "규칙",
-          "논리",
-          "구조",
-          "모델링"
+          "변인",
+          "가설",
+          "실험 설계",
+          "측정",
+          "오차",
+          "기록"
         ],
         "mapped_axis_domains": [
-          "math",
-          "info",
-          "data"
+          "physics",
+          "chemistry",
+          "biology",
+          "data",
+          "engineering"
         ],
         "next_subject_candidates": [
-          "미적분",
-          "확률과 통계",
+          "과학탐구실험2",
+          "물리학",
+          "화학",
+          "생명과학",
           "정보"
         ],
-        "bridge_desc": "논리 구조와 규칙 기반 문제 해결을 통해 알고리즘/모델링으로 이어질 수 있음"
+        "bridge_desc": "실험 설계와 변인 통제를 중심으로 후속 심화 탐구로 확장 가능"
       }
     ]
   },
   {
-    "subject_name": "확률과 통계",
+    "subject_name": "과학탐구실험2",
     "bridge_points": [
       {
-        "bridge_id": "data_pattern",
+        "bridge_id": "experimental_analysis",
         "bridge_keywords": [
-          "데이터",
-          "분포",
-          "평균",
-          "패턴",
-          "예측",
-          "비교"
+          "자료 해석",
+          "그래프",
+          "분석",
+          "재현",
+          "검증"
         ],
         "mapped_axis_domains": [
           "data",
-          "math",
+          "physics",
+          "chemistry",
           "biology",
-          "social_policy"
+          "engineering"
+        ],
+        "next_subject_candidates": [
+          "물리학",
+          "화학",
+          "생명과학",
+          "정보"
+        ],
+        "bridge_desc": "실험 결과 해석과 검증을 중심으로 심화 분석형 탐구로 확장 가능"
+      }
+    ]
+  },
+  {
+    "subject_name": "공통수학1",
+    "bridge_points": [
+      {
+        "bridge_id": "math_rule_logic",
+        "bridge_keywords": [
+          "규칙",
+          "함수",
+          "논리",
+          "조건",
+          "모형화"
+        ],
+        "mapped_axis_domains": [
+          "math",
+          "info",
+          "data",
+          "engineering"
+        ],
+        "next_subject_candidates": [
+          "공통수학2",
+          "정보",
+          "화학",
+          "물리학"
+        ],
+        "bridge_desc": "수학적 규칙성과 구조를 바탕으로 알고리즘 및 모델링 탐구로 이어질 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "공통수학2",
+    "bridge_points": [
+      {
+        "bridge_id": "math_modeling_problem",
+        "bridge_keywords": [
+          "수식",
+          "모델링",
+          "변화",
+          "관계",
+          "최적화"
+        ],
+        "mapped_axis_domains": [
+          "math",
+          "data",
+          "physics",
+          "engineering"
         ],
         "next_subject_candidates": [
           "정보",
-          "생명과학"
+          "물리학",
+          "화학"
         ],
-        "bridge_desc": "자료 해석과 패턴 분석을 통해 데이터 기반 탐구로 확장 가능"
+        "bridge_desc": "관계와 변화를 식으로 해석하며 문제 해결형 탐구로 확장 가능"
       }
     ]
   },
@@ -118,11 +184,13 @@
           "info",
           "data",
           "math",
-          "physics"
+          "physics",
+          "engineering"
         ],
         "next_subject_candidates": [
-          "확률과 통계",
-          "물리학"
+          "공통수학2",
+          "물리학",
+          "과학탐구실험2"
         ],
         "bridge_desc": "구현과 자동화 중심 활동을 통해 프로그래밍 및 데이터 처리로 이어질 수 있음"
       }
@@ -145,13 +213,154 @@
           "chemistry",
           "physics",
           "biology",
-          "earth_env"
+          "earth_env",
+          "engineering"
         ],
         "next_subject_candidates": [
           "물리학",
-          "생명과학"
+          "생명과학",
+          "과학탐구실험2"
         ],
         "bridge_desc": "물질 구조와 반응을 바탕으로 재료, 약물, 환경 관련 확장 가능"
+      }
+    ]
+  },
+  {
+    "subject_name": "생명과학",
+    "bridge_points": [
+      {
+        "bridge_id": "bio_function_health",
+        "bridge_keywords": [
+          "인체",
+          "기능",
+          "반응",
+          "조절",
+          "건강",
+          "질환"
+        ],
+        "mapped_axis_domains": [
+          "biology",
+          "chemistry",
+          "data",
+          "social_policy"
+        ],
+        "next_subject_candidates": [
+          "화학",
+          "통합사회",
+          "과학탐구실험2"
+        ],
+        "bridge_desc": "생명 현상 이해를 건강, 질환, 사례 분석 중심 탐구로 확장 가능"
+      }
+    ]
+  },
+  {
+    "subject_name": "물리학",
+    "bridge_points": [
+      {
+        "bridge_id": "measurement_system_signal",
+        "bridge_keywords": [
+          "힘",
+          "에너지",
+          "전기",
+          "신호",
+          "센서",
+          "측정"
+        ],
+        "mapped_axis_domains": [
+          "physics",
+          "engineering",
+          "info",
+          "data",
+          "chemistry"
+        ],
+        "next_subject_candidates": [
+          "정보",
+          "과학탐구실험2",
+          "화학"
+        ],
+        "bridge_desc": "물리량 해석과 시스템 이해를 바탕으로 센서·회로·응용 탐구로 이어질 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "통합사회",
+    "bridge_points": [
+      {
+        "bridge_id": "policy_ethics_society",
+        "bridge_keywords": [
+          "사회문제",
+          "정책",
+          "윤리",
+          "지속가능성",
+          "시민성"
+        ],
+        "mapped_axis_domains": [
+          "social_policy",
+          "earth_env",
+          "data",
+          "biology"
+        ],
+        "next_subject_candidates": [
+          "공통국어",
+          "공통영어",
+          "생명과학"
+        ],
+        "bridge_desc": "사회적 쟁점과 정책 관점에서 환경, 보건, 기술의 사회적 의미로 확장 가능"
+      }
+    ]
+  },
+  {
+    "subject_name": "공통국어",
+    "bridge_points": [
+      {
+        "bridge_id": "reading_argument_expression",
+        "bridge_keywords": [
+          "독해",
+          "비판",
+          "논증",
+          "표현",
+          "요약",
+          "설득"
+        ],
+        "mapped_axis_domains": [
+          "social_policy",
+          "data",
+          "biology",
+          "earth_env",
+          "info"
+        ],
+        "next_subject_candidates": [
+          "통합사회",
+          "공통영어"
+        ],
+        "bridge_desc": "자료를 해석하고 주장을 구성하는 역량을 바탕으로 보고서 완성도를 높일 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "공통영어",
+    "bridge_points": [
+      {
+        "bridge_id": "global_source_communication",
+        "bridge_keywords": [
+          "자료 탐색",
+          "영문 자료",
+          "용어 이해",
+          "의사소통",
+          "요약"
+        ],
+        "mapped_axis_domains": [
+          "info",
+          "biology",
+          "earth_env",
+          "social_policy",
+          "engineering"
+        ],
+        "next_subject_candidates": [
+          "공통국어",
+          "통합사회"
+        ],
+        "bridge_desc": "영문 자료와 용어를 바탕으로 전공 관련 해외 사례 및 자료 확장에 활용 가능"
       }
     ]
   }
