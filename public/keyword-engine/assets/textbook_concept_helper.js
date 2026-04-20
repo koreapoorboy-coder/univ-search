@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -15,6 +15,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   const UI_SEED_URL = "seed/textbook-v1/subject_concept_ui_seed.json";
   const ENGINE_MAP_URL = "seed/textbook-v1/subject_concept_engine_map.json";
   const TOPIC_MATRIX_URL = "seed/textbook-v1/topic_matrix_seed.json";
+  const FOLLOWUP_SUBJECT_URL = "seed/followup-axis/subject_bridge_point.json";
+  const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
 
   const state = {
     subject: "",
@@ -157,6 +159,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   let uiSeed = null;
   let engineMap = null;
   let topicMatrix = null;
+  let subjectBridgePoint = [];
+  let majorFollowupAxis = [];
 
   function normalize(v) {
     return String(v || "")
@@ -178,10 +182,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
 
   async function init() {
     try {
-      const [uiRes, engineRes, matrixRes] = await Promise.all([
+      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes] = await Promise.all([
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" }),
-        fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null)
+        fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null),
+        fetch(FOLLOWUP_SUBJECT_URL, { cache: "no-store" }).catch(() => null),
+        fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null)
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
@@ -192,6 +198,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
       uiSeed = await uiRes.json();
       engineMap = await engineRes.json();
       topicMatrix = matrixRes && matrixRes.ok ? await matrixRes.json() : null;
+      subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
+      majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
 
       injectStyles();
       injectUI();
@@ -1227,7 +1235,77 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   }
 
 
+  function getResolvedTrackId() {
+    const meta = getTrackMeta(state.linkTrack);
+    return mapAxisDomainToLegacyTrack(meta?.axisDomain || meta?.id || state.linkTrack || "");
+  }
+
+  function mapAxisDomainToLegacyTrack(axisDomain) {
+    const domain = String(axisDomain || "").trim().toLowerCase();
+    if (!domain) return "";
+    if (domain === "chemistry") return "chemistry";
+    if (domain === "physics") return "physics";
+    if (domain === "biology") return "biology";
+    if (domain === "earth" || domain === "earth_env" || domain === "environment") return "earth";
+    if (domain === "data") return "physics";
+    if (domain === "math") return "physics";
+    if (domain === "info") return "physics";
+    if (domain === "social_policy") return "biology";
+    return "";
+  }
+
+  function getFollowupSubjectEntry(subject) {
+    if (!subject || !Array.isArray(subjectBridgePoint)) return null;
+    return subjectBridgePoint.find(item => fuzzyIncludes(item?.subject_name, subject)) || null;
+  }
+
+  function getFollowupAxisCandidates() {
+    if (!state.subject || !state.majorSelectedName || !Array.isArray(majorFollowupAxis)) return [];
+    const subject = state.subject;
+    const majorName = state.majorSelectedName;
+    return majorFollowupAxis
+      .filter(item => item && item.active !== false)
+      .filter(item => fuzzyIncludes(item.major_name, majorName))
+      .filter(item => fuzzyIncludes(item.base_subject, subject))
+      .sort((a, b) => {
+        const ao = Number(a.axis_order || 999);
+        const bo = Number(b.axis_order || 999);
+        if (ao !== bo) return ao - bo;
+        if (!!a.is_primary !== !!b.is_primary) return a.is_primary ? -1 : 1;
+        return String(a.axis_title || "").localeCompare(String(b.axis_title || ""), "ko");
+      })
+      .map(item => ({
+        id: item.axis_id,
+        title: item.axis_title,
+        short: Array.isArray(item.extension_keywords) && item.extension_keywords.length
+          ? item.extension_keywords.slice(0, 3).join("·")
+          : (item.axis_domain || "후속 연계"),
+        nextSubject: Array.isArray(item.grade2_next_subjects) && item.grade2_next_subjects.length
+          ? item.grade2_next_subjects.join(" / ")
+          : (Array.isArray(item.linked_subjects) ? item.linked_subjects.join(" / ") : ""),
+        desc: item.axis_desc || "",
+        reason: item.record_continuity_point || "",
+        easy: item.axis_desc || "",
+        axisDomain: item.axis_domain || "",
+        extensionKeywords: Array.isArray(item.extension_keywords) ? item.extension_keywords : [],
+        activityExamples: Array.isArray(item.activity_examples) ? item.activity_examples : [],
+        linkedSubjects: Array.isArray(item.linked_subjects) ? item.linked_subjects : [],
+        grade2NextSubjects: Array.isArray(item.grade2_next_subjects) ? item.grade2_next_subjects : [],
+        recordContinuityPoint: item.record_continuity_point || "",
+        isPrimary: !!item.is_primary
+      }));
+  }
+
+  function getSelectedFollowupAxisDetail(trackId) {
+    if (!trackId) return null;
+    return getFollowupAxisCandidates().find(item => item.id === trackId) || null;
+  }
+
+
   function getTrackOptions() {
+    const followupCandidates = getFollowupAxisCandidates();
+    if (followupCandidates.length) return followupCandidates;
+
     const bucket = detectCareerBucket(state.career || "");
     const majorLabel = getMajorGroupLabel();
     const majorText = getMajorTextBag();
@@ -1309,6 +1387,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   }
 
   function getTrackMeta(trackId) {
+    const followup = getSelectedFollowupAxisDetail(trackId);
+    if (followup) return followup;
     return TRACK_HELP[trackId] || null;
   }
 
@@ -1363,7 +1443,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
 
   function getPreferredConceptSequence() {
     const majorText = getMajorTextBag();
-    const track = state.linkTrack || '';
+    const track = getResolvedTrackId() || '';
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') return ['물질 구성과 분류', '규칙성 발견과 주기율표', '과학의 측정과 우리 사회', '기본량과 단위', '역학 시스템'];
@@ -1396,7 +1476,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
 
   function getPreferredKeywordSequence() {
     const majorText = getMajorTextBag();
-    const track = state.linkTrack || '';
+    const track = getResolvedTrackId() || '';
     const concept = state.concept || '';
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') {
@@ -1427,7 +1507,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
 
   function getKeywordPriority(keyword, entry) {
     const majorText = getMajorTextBag();
-    const track = state.linkTrack || '';
+    const track = getResolvedTrackId() || '';
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
@@ -1505,7 +1585,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
   function scoreConcept(concept, entry) {
     const career = state.career || "";
     const bucket = detectCareerBucket(career);
-    const track = state.linkTrack || "";
+    const track = getResolvedTrackId() || "";
     const majorText = getMajorTextBag();
     const preferred = getPreferredConceptSequence();
     const textBag = [
@@ -1709,9 +1789,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
     const options = getTrackOptions();
     const recommended = options[0];
     const autoHint = recommended?.reason || recommended?.easy || '';
-    const guide = state.majorSelectedName
-      ? `${escapeHtml(state.majorSelectedName)} 기준으로는 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하는 것이 가장 자연스럽습니다.`
-      : `학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.`;
+    const usingFollowupAxis = !!getFollowupAxisCandidates().length;
+    const guide = usingFollowupAxis
+      ? `이 단계는 보고서 형식을 확정하는 것이 아니라, <strong>${escapeHtml(state.subject || '현재 과목')}</strong> 탐구를 <strong>${escapeHtml(state.majorSelectedName || state.career || '희망 학과')}</strong> 기준으로 다음 학년 활동까지 이어갈 방향을 고르는 단계입니다.`
+      : (state.majorSelectedName
+          ? `${escapeHtml(state.majorSelectedName)} 기준으로는 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하는 것이 가장 자연스럽습니다.`
+          : `학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.`);
     el.innerHTML = `
       <div class="engine-help">${guide}</div>
       ${autoHint ? `<div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(autoHint)}</div>` : ''}
@@ -1721,9 +1804,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
             <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
-          <div class="engine-track-next">연계 과목: ${escapeHtml(item.nextSubject)}</div>
-          <div class="engine-track-desc">${escapeHtml(item.desc)}</div>
-          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy)}</div>
+          <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
+          <div class="engine-track-desc">${escapeHtml(item.desc || "")}</div>
+          ${Array.isArray(item.activityExamples) && item.activityExamples.length ? `<div class="engine-track-desc" style="margin-top:6px;">활동 예시: ${escapeHtml(item.activityExamples.slice(0,2).join(', '))}</div>` : ''}
+          <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy || "")}</div>
         </button>
       `).join("")}</div>
       <div class="engine-auto-row">
@@ -1799,7 +1883,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
     el.innerHTML = window.renderBookSelectionHTML({
       subject: state.subject,
       career: state.career,
-      linkTrack: state.linkTrack,
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -1816,7 +1901,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
       subject: state.subject,
       career: state.career,
-      linkTrack: state.linkTrack,
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -1880,7 +1966,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
       subject: state.subject,
       career: state.career,
-      linkTrack: state.linkTrack,
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -1942,6 +2029,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
       최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
       기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
       연계 축: ${escapeHtml(payload.track_context.label || "-")}<br>
+      축 도메인: ${escapeHtml(payload.track_context.axis_domain || payload.track_context.legacy_track || "-")}<br>
+      종단 포인트: ${escapeHtml(payload.track_context.record_continuity_point || "-")}<br>
       교과 개념: ${escapeHtml(payload.concept_context.concept || "-")}<br>
       교과 키워드: ${escapeHtml(payload.concept_context.keyword || "-")}<br>
       도서: ${escapeHtml(payload.book_context.title || "-")}<br>
@@ -2013,7 +2102,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v24.6-major-concept-priority";
       track_context: {
         id: state.linkTrack,
         label: getTrackMeta(state.linkTrack)?.title || "",
-        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || ""
+        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || "",
+        legacy_track: getResolvedTrackId() || "",
+        axis_domain: getTrackMeta(state.linkTrack)?.axisDomain || "",
+        extension_keywords: getTrackMeta(state.linkTrack)?.extensionKeywords || [],
+        activity_examples: getTrackMeta(state.linkTrack)?.activityExamples || [],
+        record_continuity_point: getTrackMeta(state.linkTrack)?.recordContinuityPoint || ""
       },
       concept_context: {
         concept: state.concept,
