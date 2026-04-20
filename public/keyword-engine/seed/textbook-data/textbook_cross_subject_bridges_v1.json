@@ -1,0 +1,251 @@
+{
+  "meta": {
+    "dataset_name": "textbook_cross_subject_bridges",
+    "version": "v1",
+    "bridge_count": 15,
+    "note": "과목 간 종단·횡단 확장을 위한 1차 bridge 포인트"
+  },
+  "bridges": [
+    {
+      "bridge_id": "bridge_001",
+      "source_subject_id": "integrated_science1",
+      "target_subject_id": "integrated_science2",
+      "source_segment_title": "자연의 변화 측정과 현대 문명",
+      "target_segment_title": "과학 기술 사회에서 빅데이터 활용",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "센서",
+        "디지털 정보",
+        "분석",
+        "데이터"
+      ],
+      "bridge_reason": "통합과학1의 측정·센서·디지털 정보 개념을 통합과학2의 빅데이터 활용과 연결하기 좋음",
+      "recommended_use": "1학년 기초 개념 탐구 → 2학년 데이터 해석형 보고서 확장"
+    },
+    {
+      "bridge_id": "bridge_002",
+      "source_subject_id": "integrated_science1",
+      "target_subject_id": "integrated_science2",
+      "source_segment_title": "원소의 주기성과 화학 결합",
+      "target_segment_title": "산화와 환원",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "전자 배치",
+        "결합",
+        "반응",
+        "산화수"
+      ],
+      "bridge_reason": "결합과 전자 이동 이해가 산화·환원 반응 해석의 기반이 됨",
+      "recommended_use": "개념 설명형 보고서 → 반응 비교·실생활 적용 보고서"
+    },
+    {
+      "bridge_id": "bridge_003",
+      "source_subject_id": "integrated_science1",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "물질의 전기적 성질",
+      "target_segment_title": "각종 센서를 활용한 생활 발명품 아이디어 고안 및 시제품 발표하기",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "반도체",
+        "센서",
+        "전기적 성질",
+        "시제품"
+      ],
+      "bridge_reason": "반도체·센서의 원리 개념을 실제 장치 설계 활동으로 연결 가능",
+      "recommended_use": "원리 이해형 → 제작·설계형 결과물"
+    },
+    {
+      "bridge_id": "bridge_004",
+      "source_subject_id": "integrated_science2",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "지구 환경 변화와 인간 생활",
+      "target_segment_title": "오염 물질 측정 장치를 활용한 학교 주변 환경 탐구하기",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "기후 변화",
+        "환경 데이터",
+        "측정",
+        "저감 방안"
+      ],
+      "bridge_reason": "환경 변화의 거시 개념을 학교 주변 실제 데이터 측정 활동으로 구체화할 수 있음",
+      "recommended_use": "환경 변화 개념 탐구 → 지역 데이터 기반 보고서"
+    },
+    {
+      "bridge_id": "bridge_005",
+      "source_subject_id": "integrated_science2",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "에너지 효율과 신재생 에너지",
+      "target_segment_title": "마이크로컨트롤러를 활용하여 스마트 온실 설계하기",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "에너지 효율",
+        "센서",
+        "제어",
+        "스마트 시스템"
+      ],
+      "bridge_reason": "에너지 효율 개념이 스마트 제어와 환경 관리 장치 설계로 이어짐",
+      "recommended_use": "이론형 보고서 → 제어 시스템 설계형 프로젝트"
+    },
+    {
+      "bridge_id": "bridge_006",
+      "source_subject_id": "science_inquiry1",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기",
+      "target_segment_title": "오염 물질 측정 장치를 활용한 학교 주변 환경 탐구하기",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "기후 데이터",
+        "측정",
+        "그래프",
+        "지역 비교"
+      ],
+      "bridge_reason": "과학탐구실험1의 거시 데이터 해석 경험이 과학탐구실험2의 현장 측정 탐구로 확장됨",
+      "recommended_use": "공공 데이터 분석 → 직접 측정·비교 분석"
+    },
+    {
+      "bridge_id": "bridge_007",
+      "source_subject_id": "common_math1",
+      "target_subject_id": "common_math2",
+      "source_segment_title": "다항식의 연산",
+      "target_segment_title": "함수",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "식 정리",
+        "모델링",
+        "함수식",
+        "그래프"
+      ],
+      "bridge_reason": "다항식 연산 능력이 함수식 해석과 그래프 읽기의 기초가 됨",
+      "recommended_use": "식 중심 해석 → 그래프 중심 해석"
+    },
+    {
+      "bridge_id": "bridge_008",
+      "source_subject_id": "common_math1",
+      "target_subject_id": "info",
+      "source_segment_title": "경우의 수",
+      "target_segment_title": "자료와 정보의 분석",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "조합",
+        "선택",
+        "분류",
+        "데이터 해석"
+      ],
+      "bridge_reason": "경우의 수의 조합적 사고가 데이터 분류·분석 구조 이해와 맞닿아 있음",
+      "recommended_use": "수학적 선택 구조 → 데이터 분석 프레임"
+    },
+    {
+      "bridge_id": "bridge_009",
+      "source_subject_id": "common_math1",
+      "target_subject_id": "info",
+      "source_segment_title": "행렬",
+      "target_segment_title": "자료와 정보의 분석",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "배열",
+        "정보 구조",
+        "행과 열",
+        "데이터 관리"
+      ],
+      "bridge_reason": "행렬 개념이 테이블·데이터 구조 이해로 자연스럽게 이어짐",
+      "recommended_use": "수학 배열 모델 → 데이터베이스/테이블 이해"
+    },
+    {
+      "bridge_id": "bridge_010",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "info",
+      "source_segment_title": "명제",
+      "target_segment_title": "알고리즘",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "조건",
+        "논리",
+        "참거짓",
+        "제어 구조"
+      ],
+      "bridge_reason": "명제의 참거짓과 조건 구조가 알고리즘의 선택 구조 이해에 직접 연결됨",
+      "recommended_use": "논리 서술 → if 조건 설계"
+    },
+    {
+      "bridge_id": "bridge_011",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "info",
+      "source_segment_title": "함수",
+      "target_segment_title": "프로그래밍",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "입력",
+        "출력",
+        "합성함수",
+        "역함수",
+        "함수"
+      ],
+      "bridge_reason": "수학 함수 개념이 프로그래밍 함수·입출력 흐름 이해에 도움을 줌",
+      "recommended_use": "수학 함수 해석 → 코드 함수 설계"
+    },
+    {
+      "bridge_id": "bridge_012",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "info",
+      "source_segment_title": "도형의 이동",
+      "target_segment_title": "프로그래밍",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "좌표",
+        "변환",
+        "이동",
+        "패턴"
+      ],
+      "bridge_reason": "좌표 이동과 대칭 변환이 그래픽/게임형 프로그래밍 활동과 잘 연결됨",
+      "recommended_use": "수학적 변환 → 시각화/그래픽 코드 구현"
+    },
+    {
+      "bridge_id": "bridge_013",
+      "source_subject_id": "info",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "피지컬 컴퓨팅",
+      "target_segment_title": "마이크로컨트롤러를 활용하여 스마트 온실 설계하기",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "아두이노",
+        "센서",
+        "마이크로컨트롤러",
+        "자동 제어"
+      ],
+      "bridge_reason": "정보 교과의 피지컬 컴퓨팅이 과학탐구실험2의 스마트 온실 설계와 거의 직접적으로 연결됨",
+      "recommended_use": "코드·회로 기초 → 융합 장치 설계"
+    },
+    {
+      "bridge_id": "bridge_014",
+      "source_subject_id": "info",
+      "target_subject_id": "science_inquiry1",
+      "source_segment_title": "자료와 정보의 분석",
+      "target_segment_title": "관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "자료 수집",
+        "빅데이터",
+        "시각화",
+        "추세선"
+      ],
+      "bridge_reason": "정보 교과의 데이터 분석 개념을 과학탐구실험의 실제 기후 데이터 해석에 적용 가능",
+      "recommended_use": "데이터 처리 개념 → 과학 데이터 보고서"
+    },
+    {
+      "bridge_id": "bridge_015",
+      "source_subject_id": "info",
+      "target_subject_id": "science_inquiry2",
+      "source_segment_title": "정보 윤리",
+      "target_segment_title": "우주 개발 사례 조사를 통해 과학 기술의 발전 방향 평가하기",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "윤리",
+        "공공성",
+        "안전",
+        "기술 발전"
+      ],
+      "bridge_reason": "정보 윤리에서 다룬 책임·정의·해악 금지가 미래 과학기술 평가와 연결됨",
+      "recommended_use": "정보 윤리 토론 → 과학기술 윤리 평가 보고서"
+    }
+  ]
+}
