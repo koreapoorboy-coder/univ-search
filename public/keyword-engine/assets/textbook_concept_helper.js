@@ -521,8 +521,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
     section.innerHTML = `
       <div class="engine-flow-card">
         <div class="engine-flow-kicker">학생이 직접 선택해서 MINI 보고서를 만드는 흐름</div>
-        <h2 class="engine-flow-title">과목 → 진로 → 연계 축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
-        <p class="engine-flow-desc">학생이 학과만 알아도 선택할 수 있도록, 진로 다음에 먼저 <strong>연계 축</strong>을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조로 바꿨습니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결을 생각하며 선택할 수 있습니다.</p>
+        <h2 class="engine-flow-title">과목 → 학과 검색 → 후속 연계축 → 추천 개념·키워드 → 도서 → 보고서 방식 → 관점</h2>
+        <p class="engine-flow-desc">학생이 학과명만 알아도 선택할 수 있도록, 학과 검색 다음에 먼저 <strong>후속 연계축</strong>을 고르고 그 축에 맞는 추천 개념과 키워드를 보여주는 구조입니다. 고1은 고2 과목, 고2는 고3 심화 과목과의 연결까지 생각하며 선택할 수 있습니다.</p>
 
         <div class="engine-status-row">
           <div class="engine-status-box">
@@ -530,7 +530,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
             <div id="engineSubjectSummary" class="engine-status-value">선택 전</div>
           </div>
           <div class="engine-status-box">
-            <div class="engine-status-label">2. 진로</div>
+            <div class="engine-status-label">2. 학과</div>
             <div id="engineCareerSummary" class="engine-status-value">입력 전</div>
           </div>
           <div class="engine-status-box">
@@ -542,10 +542,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
         <div id="engineTrackBlock" class="engine-step-block" data-step="3">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">3. 후속 과목 연계 축 선택</h3>
-              <div class="engine-step-copy">학과를 어떤 과학 축으로 연결할지 먼저 고릅니다. 학생은 어려운 교과 개념 대신, 익숙한 과목 축으로 먼저 방향을 정하면 됩니다.</div>
+              <h3 class="engine-step-title">3. 후속 연계축 선택</h3>
+              <div class="engine-step-copy">학과에서 중요하게 보는 축과 현재 선택 과목이 만나는 지점을 먼저 고릅니다. 이 단계는 보고서 형식을 확정하는 것이 아니라, 다음 학년까지 이어질 확장 방향을 정하는 단계입니다.</div>
             </div>
-            <div class="engine-step-guide">물리 / 화학 / 생명 / 지구</div>
+            <div class="engine-step-guide">수학 / 정보 / 데이터 / 과학</div>
           </div>
           <div id="engineTrackArea"></div>
         </div>
@@ -635,7 +635,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
 
     normalizeBaseLabels();
     augmentTaskOptions();
-    injectGeneralContextPanel();
+    cleanupMinimalForm();
 
     injectHiddenInput("linkedTrack");
     injectHiddenInput("selectedConcept");
@@ -670,13 +670,45 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
     const taskDescSpan = taskDescription?.closest("label")?.querySelector("span");
     const usageSpan = usagePurpose?.closest("label")?.querySelector("span");
 
-    if (taskNameSpan) taskNameSpan.textContent = "활동/과제 이름";
-    if (taskTypeSpan) taskTypeSpan.textContent = "기본 결과물";
-    if (taskDescSpan) taskDescSpan.textContent = "선생님이 준 설명 / 활동 안내";
-    if (usageSpan) usageSpan.textContent = "이 프로그램을 쓰는 목적";
+    if (taskNameSpan) taskNameSpan.textContent = "활동 과제 이름";
+    if (taskTypeSpan) taskTypeSpan.textContent = "결과물 유형";
+    if (taskDescSpan) taskDescSpan.textContent = "선생님 안내문";
+    if (usageSpan) usageSpan.textContent = "사용 목적";
 
     if (taskName) taskName.placeholder = "예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리";
+    const careerInput = $("career");
+    const careerSpan = careerInput?.closest("label")?.querySelector("span");
+    if (careerSpan) careerSpan.textContent = "학과 검색";
+    if (careerInput) careerInput.placeholder = "예: 컴퓨터, 반도체, 간호, 신소재, 환경";
     if (taskDescription) taskDescription.placeholder = "예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심";
+  }
+
+
+  function cleanupMinimalForm() {
+    const usagePurpose = $("usagePurpose");
+    const keywordInput = $("keyword");
+    const taskType = $("taskType");
+    const taskDescription = $("taskDescription");
+    const careerInput = $("career");
+
+    const usageLabel = usagePurpose?.closest("label");
+    if (usageLabel) usageLabel.style.display = "none";
+
+    const keywordLabel = keywordInput?.closest("label");
+    if (keywordLabel) keywordLabel.style.display = "none";
+    if (keywordInput && keywordInput.type !== "hidden") {
+      keywordInput.type = "hidden";
+    }
+
+    const careerSpan = careerInput?.closest("label")?.querySelector("span");
+    if (careerSpan) careerSpan.textContent = "학과 검색";
+    if (careerInput) careerInput.placeholder = "예: 컴퓨터, 반도체, 간호, 신소재, 환경";
+
+    const taskTypeSpan = taskType?.closest("label")?.querySelector("span");
+    if (taskTypeSpan) taskTypeSpan.textContent = "결과물 유형";
+
+    const taskDescSpan = taskDescription?.closest("label")?.querySelector("span");
+    if (taskDescSpan) taskDescSpan.textContent = "선생님 안내문";
   }
 
   function ensureSelectOption(selectEl, value, label) {
@@ -708,6 +740,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
   }
 
   function injectGeneralContextPanel() {
+    // 최소 입력 폼 운영을 위해 현재는 추가 패널을 생성하지 않습니다.
+    return;
     if ($("engineGeneralContextPanel")) return;
     const formGrid = document.querySelector(".form-grid");
     const actions = document.querySelector(".actions");
@@ -1794,7 +1828,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
       ? `이 단계는 보고서 형식을 확정하는 것이 아니라, <strong>${escapeHtml(state.subject || '현재 과목')}</strong> 탐구를 <strong>${escapeHtml(state.majorSelectedName || state.career || '희망 학과')}</strong> 기준으로 다음 학년 활동까지 이어갈 방향을 고르는 단계입니다.`
       : (state.majorSelectedName
           ? `${escapeHtml(state.majorSelectedName)} 기준으로는 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하는 것이 가장 자연스럽습니다.`
-          : `학생은 어려운 개념을 고르기보다, 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong> 같은 쉬운 과학 축부터 고르면 됩니다.`);
+          : `학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계축')}</strong>처럼 현재 과목과 학과를 연결해 주는 방향부터 고르면 됩니다.`);
     el.innerHTML = `
       <div class="engine-help">${guide}</div>
       ${autoHint ? `<div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(autoHint)}</div>` : ''}
@@ -2024,7 +2058,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
       <strong>MINI 전달 구조</strong><br>
       학교/학년: ${escapeHtml(payload.student_context.school_name || "-")} / ${escapeHtml(payload.student_context.grade || "-")}<br>
       과목: ${escapeHtml(payload.student_context.subject || "-")}<br>
-      진로: ${escapeHtml(payload.student_context.career || "-")}<br>
+      학과: ${escapeHtml(payload.student_context.career || "-")}<br>
       활용 영역: ${escapeHtml(payload.activity_context.activity_area || "-")}<br>
       최종 결과물: ${escapeHtml(payload.activity_context.output_goal || "-")}<br>
       기본 결과물: ${escapeHtml(payload.task_context.task_type || "-")}<br>
