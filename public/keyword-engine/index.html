@@ -52,12 +52,12 @@
         </label>
 
         <label>
-          <span>수행평가명</span>
-          <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 정책 제안 발표" />
+          <span>활동 과제 이름</span>
+          <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리" />
         </label>
 
         <label>
-          <span>수행평가 형태</span>
+          <span>결과물 유형</span>
           <select id="taskType">
             <option value="">선택</option>
             <option>탐구 보고서</option>
@@ -69,33 +69,20 @@
             <option>제작·설계형</option>
           </select>
         </label>
-
-        <label>
-          <span>사용 목적</span>
-          <select id="usagePurpose">
-            <option value="">선택</option>
-            <option>수행평가 주제 선정</option>
-            <option>보고서 구조 잡기</option>
-            <option>발표 주제 정리</option>
-            <option>생기부 확장 아이디어</option>
-            <option>탐구 방향 점검</option>
-          </select>
-        </label>
+        <select id="usagePurpose" hidden>
+          <option value=""></option>
+        </select>
 
         <label class="full">
-          <span>수행평가 설명</span>
-          <textarea id="taskDescription" rows="4" placeholder="예: 교과서 개념과 연결한 자료조사형 수행평가, 실험은 어려움, 발표 포함"></textarea>
+          <span>선생님 안내문</span>
+          <textarea id="taskDescription" rows="4" placeholder="예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심"></textarea>
         </label>
 
         <label>
-          <span>희망 진로</span>
-          <input id="career" type="text" placeholder="예: 신소재공학, 반도체공학, 간호학" />
+          <span>학과 검색</span>
+          <input id="career" type="text" placeholder="예: 컴퓨터, 반도체, 간호, 신소재, 환경" />
         </label>
-
-        <label>
-          <span>키워드</span>
-          <input id="keyword" type="text" placeholder="예: 이차전지, 반도체, 폐배터리" />
-        </label>
+        <input id="keyword" type="hidden" value="" />
       </div>
 
       <div class="actions">
