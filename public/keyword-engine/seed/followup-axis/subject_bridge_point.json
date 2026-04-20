@@ -1,0 +1,158 @@
+[
+  {
+    "subject_name": "통합과학",
+    "bridge_points": [
+      {
+        "bridge_id": "system_measurement",
+        "bridge_keywords": [
+          "시스템",
+          "측정",
+          "단위",
+          "자료",
+          "상호작용"
+        ],
+        "mapped_axis_domains": [
+          "physics",
+          "data",
+          "chemistry",
+          "biology",
+          "earth_env"
+        ],
+        "next_subject_candidates": [
+          "물리학",
+          "화학",
+          "생명과학",
+          "지구과학"
+        ],
+        "bridge_desc": "기초 과학 개념과 시스템 관점에서 여러 전공 축으로 확장 가능한 출발점"
+      },
+      {
+        "bridge_id": "matter_change",
+        "bridge_keywords": [
+          "물질",
+          "구성",
+          "변화",
+          "성질",
+          "규칙성"
+        ],
+        "mapped_axis_domains": [
+          "chemistry",
+          "physics",
+          "earth_env"
+        ],
+        "next_subject_candidates": [
+          "화학",
+          "물리학"
+        ],
+        "bridge_desc": "물질의 구조와 성질을 바탕으로 재료, 반응, 분석 탐구로 이어질 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "대수",
+    "bridge_points": [
+      {
+        "bridge_id": "logic_structure",
+        "bridge_keywords": [
+          "함수",
+          "규칙",
+          "논리",
+          "구조",
+          "모델링"
+        ],
+        "mapped_axis_domains": [
+          "math",
+          "info",
+          "data"
+        ],
+        "next_subject_candidates": [
+          "미적분",
+          "확률과 통계",
+          "정보"
+        ],
+        "bridge_desc": "논리 구조와 규칙 기반 문제 해결을 통해 알고리즘/모델링으로 이어질 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "확률과 통계",
+    "bridge_points": [
+      {
+        "bridge_id": "data_pattern",
+        "bridge_keywords": [
+          "데이터",
+          "분포",
+          "평균",
+          "패턴",
+          "예측",
+          "비교"
+        ],
+        "mapped_axis_domains": [
+          "data",
+          "math",
+          "biology",
+          "social_policy"
+        ],
+        "next_subject_candidates": [
+          "정보",
+          "생명과학"
+        ],
+        "bridge_desc": "자료 해석과 패턴 분석을 통해 데이터 기반 탐구로 확장 가능"
+      }
+    ]
+  },
+  {
+    "subject_name": "정보",
+    "bridge_points": [
+      {
+        "bridge_id": "programming_automation",
+        "bridge_keywords": [
+          "프로그래밍",
+          "입력",
+          "처리",
+          "출력",
+          "구현",
+          "자동화"
+        ],
+        "mapped_axis_domains": [
+          "info",
+          "data",
+          "math",
+          "physics"
+        ],
+        "next_subject_candidates": [
+          "확률과 통계",
+          "물리학"
+        ],
+        "bridge_desc": "구현과 자동화 중심 활동을 통해 프로그래밍 및 데이터 처리로 이어질 수 있음"
+      }
+    ]
+  },
+  {
+    "subject_name": "화학",
+    "bridge_points": [
+      {
+        "bridge_id": "structure_reaction",
+        "bridge_keywords": [
+          "구조",
+          "결합",
+          "성질",
+          "반응",
+          "조건",
+          "분석"
+        ],
+        "mapped_axis_domains": [
+          "chemistry",
+          "physics",
+          "biology",
+          "earth_env"
+        ],
+        "next_subject_candidates": [
+          "물리학",
+          "생명과학"
+        ],
+        "bridge_desc": "물질 구조와 반응을 바탕으로 재료, 약물, 환경 관련 확장 가능"
+      }
+    ]
+  }
+]
