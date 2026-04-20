@@ -725,11 +725,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
   function augmentTaskOptions() {
     const taskType = $("taskType");
     const usagePurpose = $("usagePurpose");
+
     [
-      "활동 기록형 정리",
-      "생기부형 요약",
-      "아이디어 스케치"
-    ].forEach(v => ensureSelectOption(taskType, v, v));
+      ["탐구보고서", "탐구보고서"],
+      ["실험보고서", "실험보고서"],
+      ["자료조사 보고서", "자료조사 보고서"],
+      ["발표보고서", "발표보고서"]
+    ].forEach(([value, label]) => ensureSelectOption(taskType, value, label));
 
     [
       "동아리 주제 정리",
@@ -774,12 +776,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
           <span>어떤 결과물이 필요하나요?</span>
           <select id="outputGoal">
             <option value="">선택</option>
-            <option value="탐구 보고서">탐구 보고서</option>
+            <option value="탐구보고서">탐구보고서</option>
+            <option value="실험보고서">실험보고서</option>
             <option value="자료조사 보고서">자료조사 보고서</option>
-            <option value="발표 개요">발표 개요</option>
-            <option value="포스터 문안">포스터 문안</option>
-            <option value="활동 기록형 정리">활동 기록형 정리</option>
-            <option value="생기부형 요약">생기부형 요약</option>
+            <option value="발표보고서">발표보고서</option>
           </select>
         </label>
         <label>
