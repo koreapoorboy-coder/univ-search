@@ -190,3 +190,67 @@
 - 통합과학1: 완료권
 - 공통수학1: 완료권
 - 다음 작업은 정보 과목부터 이어가면 된다
+
+
+## 새 채팅에서 어떤 원본 데이터를 주는 게 가장 좋은가
+
+### 가장 추천하는 방식
+**`public/keyword-engine/` 폴더 전체를 ZIP으로 압축해서 주는 것**이 가장 안전하다.
+
+이유:
+1. `index.html`
+2. `assets/`
+3. `seed/`
+4. CSS/보조 JS/기타 연결 파일
+
+이 서로 맞물려 있어서, 일부만 주면
+- 화면은 최신인데 helper는 예전 버전
+- seed는 최신인데 index나 assets가 예전 버전
+처럼 **파일 버전이 섞여 오류가 나는 경우가 많다.**
+
+즉, 새 채팅에서 가장 좋은 원본 데이터는:
+
+- **`public/keyword-engine/` 전체 ZIP**
+
+이다.
+
+### 두 번째로 괜찮은 방식
+만약 용량 때문에 전체 폴더를 주기 어렵다면 최소한 아래는 꼭 같이 줘야 한다.
+
+- `public/keyword-engine/index.html`
+- `public/keyword-engine/assets/`
+- `public/keyword-engine/seed/`
+
+즉, **최소 단위는 `index.html + assets + seed`** 이다.
+
+### 추천하지 않는 방식
+- `assets`만 주기
+- `seed`만 주기
+- 특정 js 파일 1~2개만 주기
+
+이 방식은 현재 프로젝트처럼
+- 화면 순서
+- helper 로직
+- seed 데이터
+- followup-axis 연결
+이 동시에 바뀌는 구조에서는 **오류 추적이 매우 어려워진다.**
+
+### 실제 판단 기준
+#### 1) 흐름/UI/선택 순서까지 수정할 가능성이 있으면
+- **무조건 `public/keyword-engine/` 전체 ZIP**
+
+#### 2) seed 데이터만 검수하거나 종단 연결 맵만 추가하는 날이면
+- `assets/`
+- `seed/`
+- `index.html`
+이 세 개만 줘도 작업 가능
+
+### 결론
+새 채팅에서 원본 데이터를 줄 때는 아래 우선순위로 판단한다.
+
+1. **최선: `public/keyword-engine/` 전체 ZIP**
+2. **차선: `index.html + assets + seed`**
+3. **비추천: assets만 또는 seed만**
+
+현재 프로젝트 단계에서는 흐름 구조와 helper 수정이 자주 일어나므로,
+**앞으로는 가능하면 `public/keyword-engine/` 전체 ZIP을 주는 것을 기본 권장**한다.
