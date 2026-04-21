@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -637,6 +637,27 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     augmentTaskOptions();
     cleanupMinimalForm();
 
+    const flowCard = section.querySelector(".engine-flow-card");
+    const conceptBlock = section.querySelector("#engineConceptBlock");
+    const trackBlock = section.querySelector("#engineTrackBlock");
+    if (flowCard && conceptBlock && trackBlock) {
+      flowCard.insertBefore(conceptBlock, trackBlock);
+
+      const conceptTitle = conceptBlock.querySelector(".engine-step-title");
+      const conceptCopy = conceptBlock.querySelector(".engine-step-copy");
+      const conceptGuide = conceptBlock.querySelector(".engine-step-guide");
+      if (conceptTitle) conceptTitle.textContent = "3. 교과 개념·키워드 선택";
+      if (conceptCopy) conceptCopy.textContent = "먼저 현재 과목 안에서 어떤 교과 개념과 키워드로 출발할지 고릅니다. 종단 연결성은 이 선택을 바탕으로 열립니다.";
+      if (conceptGuide) conceptGuide.textContent = "교과 개념 → 핵심 키워드";
+
+      const trackTitle = trackBlock.querySelector(".engine-step-title");
+      const trackCopy = trackBlock.querySelector(".engine-step-copy");
+      const trackGuide = trackBlock.querySelector(".engine-step-guide");
+      if (trackTitle) trackTitle.textContent = "4. 교과 개념 기반 후속 연계축 선택";
+      if (trackCopy) trackCopy.textContent = "선택한 교과 개념이 다음 학년 과목으로 어떻게 이어지는지 먼저 보고, 학과 입력은 그 축의 우선순위를 조정하는 데만 사용합니다.";
+      if (trackGuide) trackGuide.textContent = "종단 연결 → 학과 보정";
+    }
+
     injectHiddenInput("linkedTrack");
     injectHiddenInput("selectedConcept");
     injectHiddenInput("selectedBookId");
@@ -1067,8 +1088,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
       ["input", "change"].forEach(evt => {
         careerEl.addEventListener(evt, function () {
           syncCareerFromInput();
-          clearFrom("track");
-          state.linkTrackSource = "";
+          state.linkTrackSource = state.linkTrackSource || "";
           renderAll();
           scheduleMajorPreviewSync();
         });
@@ -1082,49 +1102,42 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
 
     document.addEventListener("click", function (event) {
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
-      if (autoTrackBtn && isStepEnabled(3)) {
+      if (autoTrackBtn && isStepEnabled(4)) {
         const topTrack = getTrackOptions()[0];
+        clearFrom("track");
         state.linkTrack = topTrack ? topTrack.id : "";
         state.linkTrackSource = topTrack ? 'auto' : '';
-        clearFrom("concept");
         syncOutputFields();
         renderAll();
         return;
       }
 
       const trackCard = event.target.closest(".engine-track-card");
-      if (trackCard && isStepEnabled(3)) {
-        state.linkTrack = trackCard.getAttribute("data-track") || "";
+      if (trackCard && isStepEnabled(4)) {
+        const nextTrack = trackCard.getAttribute("data-track") || "";
+        clearFrom("track");
+        state.linkTrack = nextTrack;
         state.linkTrackSource = 'manual';
-        clearFrom("concept");
         syncOutputFields();
         renderAll();
         return;
       }
 
       const conceptCard = event.target.closest(".engine-concept-card");
-      if (conceptCard && isStepEnabled(4)) {
+      if (conceptCard && isStepEnabled(3)) {
         const value = conceptCard.getAttribute("data-concept") || "";
         state.concept = value;
         state.keyword = "";
-        state.selectedBook = "";
-        state.selectedBookTitle = "";
-        state.reportMode = "";
-        state.reportView = "";
-        state.reportLine = "";
+        clearFrom("track");
         syncOutputFields();
         renderAll();
         return;
       }
 
       const keywordBtn = event.target.closest(".engine-chip[data-action='keyword']");
-      if (keywordBtn && isStepEnabled(4)) {
+      if (keywordBtn && isStepEnabled(3)) {
         state.keyword = keywordBtn.getAttribute("data-value") || "";
-        state.selectedBook = "";
-        state.selectedBookTitle = "";
-        state.reportMode = "";
-        state.reportView = "";
-        state.reportLine = "";
+        clearFrom("track");
         syncOutputFields();
         renderAll();
         return;
@@ -1156,6 +1169,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
         state.reportView = viewBtn.getAttribute("data-value") || "";
         syncOutputFields();
         renderAll();
+        return;
+      }
+
+      const lineCard = event.target.closest(".engine-mode-card[data-action='line']");
+      if (lineCard && isStepEnabled(8)) {
+        state.reportLine = lineCard.getAttribute("data-value") || "";
+        syncOutputFields();
+        renderAll();
+        return;
       }
     });
 
@@ -1221,22 +1243,23 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
   function clearFrom(stepName) {
     if (stepName === "track") {
       state.linkTrack = "";
-      state.concept = "";
-      state.keyword = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
       state.reportMode = "";
       state.reportView = "";
+      state.reportLine = "";
       syncOutputFields();
       return;
     }
     if (stepName === "concept") {
       state.concept = "";
       state.keyword = "";
+      state.linkTrack = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
       state.reportMode = "";
       state.reportView = "";
+      state.reportLine = "";
       syncOutputFields();
     }
   }
@@ -1304,44 +1327,208 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     return subjectBridgePoint.find(item => fuzzyIncludes(item?.subject_name, subject)) || null;
   }
 
-  function getFollowupAxisCandidates() {
-    if (!state.subject || !state.majorSelectedName || !Array.isArray(majorFollowupAxis)) return [];
-    const subject = state.subject;
-    const majorName = state.majorSelectedName;
-    return majorFollowupAxis
-      .filter(item => item && item.active !== false)
-      .filter(item => fuzzyIncludes(item.major_name, majorName))
-      .filter(item => fuzzyIncludes(item.base_subject, subject))
-      .sort((a, b) => {
-        const ao = Number(a.axis_order || 999);
-        const bo = Number(b.axis_order || 999);
-        if (ao !== bo) return ao - bo;
-        if (!!a.is_primary !== !!b.is_primary) return a.is_primary ? -1 : 1;
-        return String(a.axis_title || "").localeCompare(String(b.axis_title || ""), "ko");
-      })
-      .map(item => ({
-        id: item.axis_id,
-        title: item.axis_title,
-        short: Array.isArray(item.extension_keywords) && item.extension_keywords.length
-          ? item.extension_keywords.slice(0, 3).join("·")
-          : (item.axis_domain || "후속 연계"),
-        nextSubject: Array.isArray(item.grade2_next_subjects) && item.grade2_next_subjects.length
-          ? item.grade2_next_subjects.join(" / ")
-          : (Array.isArray(item.linked_subjects) ? item.linked_subjects.join(" / ") : ""),
-        desc: item.axis_desc || "",
-        reason: item.record_continuity_point || "",
-        easy: item.axis_desc || "",
-        axisDomain: item.axis_domain || "",
-        extensionKeywords: Array.isArray(item.extension_keywords) ? item.extension_keywords : [],
-        activityExamples: Array.isArray(item.activity_examples) ? item.activity_examples : [],
-        linkedSubjects: Array.isArray(item.linked_subjects) ? item.linked_subjects : [],
-        grade2NextSubjects: Array.isArray(item.grade2_next_subjects) ? item.grade2_next_subjects : [],
-        recordContinuityPoint: item.record_continuity_point || "",
-        isPrimary: !!item.is_primary
-      }));
+  function getConceptTextBag() {
+    const entry = getConceptEntry();
+    const followupEntry = getFollowupSubjectEntry(state.subject);
+    const followupKeywords = Array.isArray(followupEntry?.bridge_points)
+      ? followupEntry.bridge_points.flatMap(point => point?.bridge_keywords || [])
+      : [];
+    return [
+      state.subject || "",
+      state.concept || "",
+      state.keyword || "",
+      ...(entry?.core_concepts || []),
+      ...(entry?.micro_keywords || []),
+      ...(entry?.linked_career_bridge || []),
+      ...followupKeywords
+    ].join(" ");
   }
 
-  function getSelectedFollowupAxisDetail(trackId) {
+  function getConceptDrivenNextSubjects() {
+    const followupEntry = getFollowupSubjectEntry(state.subject);
+    const fromFollowup = Array.isArray(followupEntry?.bridge_points)
+      ? followupEntry.bridge_points.flatMap(point => point?.next_subject_candidates || [])
+      : [];
+    const conceptBag = getConceptTextBag();
+
+    const subjectMap = [
+      { domain: "data", subjects: ["대수", "확률과 통계", "정보"], regex: /(측정|단위|자료|데이터|그래프|정량|오차|패턴|규칙|함수|모델|정보|분석)/ },
+      { domain: "physics", subjects: ["물리", "역학과 에너지", "전자기와 양자"], regex: /(측정|단위|힘|운동|에너지|전류|전압|센서|시스템|벡터|구조|안정성|회로|장치)/ },
+      { domain: "chemistry", subjects: ["화학", "물질과 에너지", "전자기와 양자"], regex: /(물질|원소|주기율|결합|산화|환원|분자|이온|재료|구성|성질|규칙성|화학)/ },
+      { domain: "biology", subjects: ["생명과학", "세포와 물질대사", "화학"], regex: /(생명|항상성|세포|대사|효소|호흡|광합성|면역|건강|조절|생체)/ },
+      { domain: "earth_env", subjects: ["지구과학", "지구시스템과학", "확률과 통계"], regex: /(지구|환경|기후|천체|우주|대기|해양|순환|지질|시공간|관측)/ },
+      { domain: "engineering", subjects: ["기하", "물리", "역학과 에너지"], regex: /(공간|좌표|벡터|정사영|입체|구조|모형|설계)/ }
+    ];
+
+    const inferred = subjectMap
+      .filter(item => item.regex.test(conceptBag))
+      .flatMap(item => item.subjects);
+
+    return uniq([...fromFollowup, ...inferred]);
+  }
+
+  function getConceptDrivenAxisSeeds() {
+    return [
+      {
+        id: "data_math",
+        title: "수리·데이터 모델링 축",
+        short: "대수·확통·정보",
+        axisDomain: "data",
+        linkedSubjects: ["대수", "확률과 통계", "정보"],
+        extensionKeywords: ["데이터", "정량 분석", "모델링"],
+        activityExamples: ["데이터 비교", "그래프 해석", "패턴 분석"],
+        desc: "선택한 교과 개념을 수치화·비교·예측 관점으로 확장하는 방향입니다.",
+        pattern: /(측정|단위|자료|데이터|그래프|정량|오차|패턴|규칙|함수|모델|정보|분석)/
+      },
+      {
+        id: "physics_system",
+        title: "물리·시스템 해석 축",
+        short: "물리·역학·전자기",
+        axisDomain: "physics",
+        linkedSubjects: ["물리", "역학과 에너지", "전자기와 양자"],
+        extensionKeywords: ["힘", "운동", "에너지"],
+        activityExamples: ["센서 원리 설명", "시스템 구조 분석", "운동·에너지 해석"],
+        desc: "현재 개념을 힘·운동·전기·시스템 원리로 이어서 해석하는 방향입니다.",
+        pattern: /(측정|단위|힘|운동|에너지|전류|전압|센서|시스템|벡터|구조|안정성|회로|장치)/
+      },
+      {
+        id: "chem_material",
+        title: "화학·재료 분석 축",
+        short: "화학·물질·재료",
+        axisDomain: "chemistry",
+        linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자"],
+        extensionKeywords: ["물질", "결합", "성질"],
+        activityExamples: ["재료 성질 비교", "결합 구조 설명", "반응 조건 분석"],
+        desc: "물질 구성과 성질, 결합과 반응을 바탕으로 재료·화학 방향으로 확장하는 축입니다.",
+        pattern: /(물질|원소|주기율|결합|산화|환원|분자|이온|재료|구성|성질|규칙성|화학)/
+      },
+      {
+        id: "bio_cell",
+        title: "생명·세포 심화 축",
+        short: "생명·세포·대사",
+        axisDomain: "biology",
+        linkedSubjects: ["생명과학", "세포와 물질대사", "화학"],
+        extensionKeywords: ["생명", "세포", "대사"],
+        activityExamples: ["생명 시스템 설명", "세포 수준 원리 정리", "건강 반응 해석"],
+        desc: "생명 현상과 세포 수준 원리를 중심으로 건강·생명과학 방향으로 확장하는 축입니다.",
+        pattern: /(생명|항상성|세포|대사|효소|호흡|광합성|면역|건강|조절|생체)/
+      },
+      {
+        id: "earth_env",
+        title: "지구·환경 해석 축",
+        short: "지구·기후·환경",
+        axisDomain: "earth_env",
+        linkedSubjects: ["지구과학", "지구시스템과학", "확률과 통계"],
+        extensionKeywords: ["환경", "기후", "순환"],
+        activityExamples: ["기후 자료 비교", "지구 시스템 정리", "환경 변화 해석"],
+        desc: "지구 시스템과 환경 변화, 관측 자료 해석으로 이어지는 축입니다.",
+        pattern: /(지구|환경|기후|천체|우주|대기|해양|순환|지질|시공간|관측)/
+      },
+      {
+        id: "space_structure",
+        title: "공간·구조 모델링 축",
+        short: "기하·구조·설계",
+        axisDomain: "engineering",
+        linkedSubjects: ["기하", "물리", "역학과 에너지"],
+        extensionKeywords: ["좌표", "공간", "벡터"],
+        activityExamples: ["공간 구조 분석", "정사영·좌표 모델링", "설계 조건 비교"],
+        desc: "공간도형, 좌표, 벡터와 같은 구조적 사고로 확장하는 축입니다.",
+        pattern: /(공간|좌표|벡터|정사영|입체|구조|모형|설계)/
+      }
+    ];
+  }
+
+  function getCareerAxisBoost(axis) {
+    const bucket = detectCareerBucket(state.career || "");
+    let score = 0;
+    if (bucket === "it") {
+      if (axis.axisDomain === "data") score += 14;
+      if (axis.axisDomain === "physics") score += 6;
+    } else if (bucket === "electronic") {
+      if (axis.axisDomain === "physics") score += 14;
+      if (axis.axisDomain === "chemistry") score += 8;
+      if (axis.axisDomain === "data") score += 4;
+    } else if (bucket === "materials") {
+      if (axis.axisDomain === "chemistry") score += 14;
+      if (axis.axisDomain === "physics") score += 8;
+      if (axis.axisDomain === "engineering") score += 5;
+    } else if (bucket === "mechanical") {
+      if (axis.axisDomain === "physics") score += 14;
+      if (axis.axisDomain === "engineering") score += 10;
+      if (axis.axisDomain === "data") score += 3;
+    } else if (bucket === "bio") {
+      if (axis.axisDomain === "biology") score += 14;
+      if (axis.axisDomain === "chemistry") score += 6;
+    } else if (bucket === "env") {
+      if (axis.axisDomain === "earth_env") score += 16;
+      if (axis.axisDomain === "data") score += 4;
+    }
+    return score;
+  }
+
+  function getMajorAxisBoost(axis) {
+    if (!state.majorSelectedName || !Array.isArray(majorFollowupAxis)) return 0;
+    const matches = majorFollowupAxis.filter(item =>
+      item && item.active !== false &&
+      fuzzyIncludes(item.major_name, state.majorSelectedName) &&
+      fuzzyIncludes(item.base_subject, state.subject)
+    );
+    let score = 0;
+    matches.forEach(item => {
+      const linked = Array.isArray(item.linked_subjects) ? item.linked_subjects : [];
+      if (linked.some(subject => axis.linkedSubjects.some(linkedSubject => fuzzyIncludes(linkedSubject, subject)))) {
+        score += item.is_primary ? 14 : 8;
+      }
+      if (item.axis_domain && item.axis_domain === axis.axisDomain) {
+        score += item.is_primary ? 10 : 5;
+      }
+    });
+    return score;
+  }
+
+  function getFollowupAxisCandidates() {
+    if (!state.subject || !state.concept || !state.keyword) return [];
+    const conceptBag = getConceptTextBag();
+    const nextSubjects = getConceptDrivenNextSubjects();
+    const seeds = getConceptDrivenAxisSeeds();
+
+    const scored = seeds.map(seed => {
+      let score = 0;
+      if (seed.pattern.test(conceptBag)) score += 18;
+      if (seed.linkedSubjects.some(subject => nextSubjects.some(next => fuzzyIncludes(subject, next)))) score += 16;
+      score += getCareerAxisBoost(seed);
+      score += getMajorAxisBoost(seed);
+
+      return {
+        id: seed.id,
+        title: seed.title,
+        short: seed.short,
+        nextSubject: seed.linkedSubjects.join(" / "),
+        desc: `${state.concept} 개념을 바탕으로 ${seed.desc}`,
+        reason: state.career
+          ? `${state.career} 입력 시 이 축이 우선순위 조정에 반영됩니다.`
+          : "학과를 입력하면 이 축의 우선순위가 달라집니다.",
+        easy: seed.desc,
+        axisDomain: seed.axisDomain,
+        extensionKeywords: seed.extensionKeywords,
+        activityExamples: seed.activityExamples,
+        linkedSubjects: seed.linkedSubjects,
+        grade2NextSubjects: seed.linkedSubjects,
+        recordContinuityPoint: `${state.subject}의 ${state.concept} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
+        isPrimary: score >= 26,
+        __score: score
+      };
+    });
+
+    const filtered = scored
+      .filter(item => item.__score > 0)
+      .sort((a, b) => b.__score - a.__score || a.title.localeCompare(b.title, "ko"));
+
+    return filtered.slice(0, 3);
+  }
+
+
+function getSelectedFollowupAxisDetail(trackId) {
     if (!trackId) return null;
     return getFollowupAxisCandidates().find(item => item.id === trackId) || null;
   }
@@ -1352,86 +1539,36 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     if (followupCandidates.length) return followupCandidates;
 
     const bucket = detectCareerBucket(state.career || "");
-    const majorLabel = getMajorGroupLabel();
-    const majorText = getMajorTextBag();
     const base = [
-      { ...TRACK_HELP.physics, score: 4 },
-      { ...TRACK_HELP.chemistry, score: 4 },
-      { ...TRACK_HELP.biology, score: 4 },
-      { ...TRACK_HELP.earth, score: 4 }
+      { ...TRACK_HELP.physics, score: 4, axisDomain: "physics", linkedSubjects: ["물리", "역학과 에너지", "전자기와 양자"] },
+      { ...TRACK_HELP.chemistry, score: 4, axisDomain: "chemistry", linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자"] },
+      { ...TRACK_HELP.biology, score: 4, axisDomain: "biology", linkedSubjects: ["생명과학", "세포와 물질대사", "화학"] },
+      { ...TRACK_HELP.earth, score: 4, axisDomain: "earth_env", linkedSubjects: ["지구과학", "지구시스템과학", "확률과 통계"] }
     ];
 
     base.forEach(item => {
-      if (bucket === "materials") {
-        if (item.id === "chemistry") item.score += 12;
-        if (item.id === "physics") item.score += 9;
-        if (item.id === "earth") item.score += 2;
-        if (item.id === "biology") item.score -= 8;
-      } else if (bucket === "mechanical") {
-        if (item.id === "physics") item.score += 12;
-        if (item.id === "chemistry") item.score += 4;
-        if (item.id === "biology") item.score -= 10;
-      } else if (bucket === "electronic" || bucket === "it") {
-        if (item.id === "physics") item.score += 11;
-        if (item.id === "chemistry") item.score += 5;
-        if (item.id === "earth") item.score += 1;
-        if (item.id === "biology") item.score -= 8;
-      } else if (bucket === "bio") {
-        if (item.id === "biology") item.score += 12;
-        if (item.id === "chemistry") item.score += 3;
-      } else if (bucket === "env") {
-        if (item.id === "earth") item.score += 12;
-        if (item.id === "physics") item.score += 3;
-      }
-
-      if (majorLabel.includes('환자 진료') || majorLabel.includes('회복 지원')) {
-        if (item.id === 'biology') item.score += 14;
-        if (item.id === 'chemistry') item.score += 2;
-        if (/방사선/.test(majorText) && item.id === 'physics') item.score += 6;
-      }
-      if (majorLabel.includes('실험·기술 응용')) {
-        if (item.id === 'chemistry') item.score += 10;
-        if (item.id === 'biology') item.score += 7;
-      }
-      if (majorLabel.includes('기초 생명과학')) {
-        if (item.id === 'biology') item.score += 14;
-        if (item.id === 'chemistry') item.score += 3;
-      }
-      if (majorLabel.includes('의료기기')) {
-        if (item.id === 'physics') item.score += 10;
-        if (item.id === 'chemistry') item.score += 6;
-      }
-      if (majorLabel.includes('반도체')) {
-        if (item.id === 'physics') item.score += 13;
-        if (item.id === 'chemistry') item.score += 9;
-        if (item.id === 'biology') item.score -= 10;
-      }
-      if (majorLabel.includes('국제 이슈')) {
-        if (item.id === 'earth') item.score += 8;
-        if (item.id === 'chemistry') item.score += 4;
-      }
-      if (majorLabel.includes('기업 운영')) {
-        if (item.id === 'chemistry') item.score += 6;
-        if (item.id === 'physics') item.score += 2;
-      }
-      if (majorLabel.includes('환경')) {
-        if (item.id === 'earth') item.score += 12;
-        if (item.id === 'chemistry') item.score += 4;
-      }
-      if (/간호|임상병리|보건관리|언어치료|물리치료|작업치료/.test(majorText)) {
-        if (item.id === 'biology') item.score += 6;
-      }
-      if (/제약|화공|식품|발효|미생물/.test(majorText)) {
-        if (item.id === 'chemistry') item.score += 6;
-      }
+      item.score += getCareerAxisBoost(item);
+      if (bucket === "mechanical" && item.id === "physics") item.score += 6;
+      if (bucket === "materials" && item.id === "chemistry") item.score += 6;
+      if (bucket === "bio" && item.id === "biology") item.score += 6;
+      if (bucket === "env" && item.id === "earth") item.score += 6;
     });
 
     return base
       .sort((a, b) => b.score - a.score)
-      .map(item => ({ ...item, reason: getTrackReason(item) }));
+      .map(item => ({
+        ...item,
+        nextSubject: (item.linkedSubjects || []).join(" / "),
+        extensionKeywords: [],
+        activityExamples: [],
+        grade2NextSubjects: item.linkedSubjects || [],
+        recordContinuityPoint: "현재 개념과 가장 가까운 후속 과목 방향",
+        reason: getTrackReason(item)
+      }));
   }
 
-  function getTrackMeta(trackId) {
+
+function getTrackMeta(trackId) {
     const followup = getSelectedFollowupAxisDetail(trackId);
     if (followup) return followup;
     return TRACK_HELP[trackId] || null;
@@ -1784,9 +1921,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
   function isStepEnabled(step) {
     if (step === 1) return true;
     if (step === 2) return !!state.subject;
-    if (step === 3) return !!state.subject && !!state.career;
-    if (step === 4) return isStepEnabled(3) && !!state.linkTrack;
-    if (step === 5) return isStepEnabled(4) && !!state.concept && !!state.keyword;
+    if (step === 3) return !!state.subject;
+    if (step === 4) return isStepEnabled(3) && !!state.concept && !!state.keyword;
+    if (step === 5) return isStepEnabled(4) && !!state.linkTrack;
     if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
     if (step === 8) return isStepEnabled(7) && !!state.reportView;
@@ -1813,10 +1950,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
     if (careerEl) careerEl.textContent = state.career || "입력 전";
 
-    let progress = "연계 축 선택 대기";
-    if (state.subject && state.career && !state.linkTrack) progress = "연계 축 선택 중";
-    if (state.linkTrack && !state.keyword) progress = "추천 개념/키워드 선택 중";
-    if (state.keyword && !state.selectedBook) progress = "도서 선택 대기";
+    let progress = "교과 개념 선택 대기";
+    if (state.subject && !state.concept) progress = "교과 개념 선택 중";
+    if (state.concept && !state.keyword) progress = "핵심 키워드 선택 중";
+    if (state.keyword && !state.linkTrack) progress = "후속 연계축 선택 중";
+    if (state.linkTrack && !state.selectedBook) progress = "도서 선택 대기";
     if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
     if (state.reportView && !state.reportLine) progress = "보고서 라인 선택 대기";
@@ -1827,19 +1965,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
   function renderTrackArea() {
     const el = $("engineTrackArea");
     if (!el) return;
-    if (!isStepEnabled(3)) {
-      el.innerHTML = `<div class="engine-empty">먼저 과목과 진로를 정해야 연계 축 선택이 열립니다.</div>`;
+    if (!isStepEnabled(4)) {
+      el.innerHTML = `<div class="engine-empty">먼저 현재 과목에서 출발할 교과 개념과 핵심 키워드를 고르면, 그 개념이 이어지는 후속 과목 축이 열립니다.</div>`;
       return;
     }
     const options = getTrackOptions();
+    if (!options.length) {
+      el.innerHTML = `<div class="engine-empty">현재 선택한 교과 개념과 키워드에 연결된 후속 과목 축이 아직 준비되지 않았습니다.</div>`;
+      return;
+    }
     const recommended = options[0];
     const autoHint = recommended?.reason || recommended?.easy || '';
-    const usingFollowupAxis = !!getFollowupAxisCandidates().length;
-    const guide = usingFollowupAxis
-      ? `이 단계는 보고서 형식을 확정하는 것이 아니라, <strong>${escapeHtml(state.subject || '현재 과목')}</strong> 탐구를 <strong>${escapeHtml(state.majorSelectedName || state.career || '희망 학과')}</strong> 기준으로 다음 학년 활동까지 이어갈 방향을 고르는 단계입니다.`
-      : (state.majorSelectedName
-          ? `${escapeHtml(state.majorSelectedName)} 기준으로는 <strong>${escapeHtml(recommended?.title || '추천 연계 축')}</strong>부터 시작하는 것이 가장 자연스럽습니다.`
-          : `학생은 먼저 <strong>${escapeHtml(recommended?.title || '추천 연계축')}</strong>처럼 현재 과목과 학과를 연결해 주는 방향부터 고르면 됩니다.`);
+    const guide = state.career
+      ? `먼저 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>이 어디로 이어지는지 보고, <strong>${escapeHtml(state.career)}</strong> 입력은 그 축의 우선순위만 조정합니다.`
+      : `지금은 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>에서 갈 수 있는 종단 연결을 먼저 펼쳐 보여줍니다. 학과를 입력하면 이 축들의 우선순위가 바뀝니다.`;
     el.innerHTML = `
       <div class="engine-help">${guide}</div>
       ${autoHint ? `<div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(autoHint)}</div>` : ''}
@@ -1856,7 +1995,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
         </button>
       `).join("")}</div>
       <div class="engine-auto-row">
-        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 추천 연계 축 자동 선택</button>
+        <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 대표 종단축 자동 선택</button>
       </div>
     `;
   }
@@ -1866,9 +2005,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     const keywordWrap = $("engineKeywordButtons");
     if (!conceptWrap || !keywordWrap) return;
 
-    if (!isStepEnabled(4)) {
-      conceptWrap.innerHTML = `<div class="engine-empty">먼저 연계 축을 선택해야 추천 개념이 열립니다.</div>`;
-      keywordWrap.innerHTML = `<div class="engine-empty">추천 개념을 먼저 선택하면 그 안의 추천 키워드가 열립니다.</div>`;
+    if (!isStepEnabled(3)) {
+      conceptWrap.innerHTML = `<div class="engine-empty">먼저 과목을 선택해야 추천 교과 개념이 열립니다.</div>`;
+      keywordWrap.innerHTML = `<div class="engine-empty">교과 개념을 먼저 고르면 해당 개념의 핵심 키워드가 열립니다.</div>`;
       return;
     }
 
@@ -1895,7 +2034,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     }).join("")}</div>`;
 
     if (!state.concept) {
-      keywordWrap.innerHTML = `<div class="engine-empty">왼쪽에서 개념을 먼저 고르면 해당 개념의 키워드가 열립니다.</div>`;
+      keywordWrap.innerHTML = `<div class="engine-empty">왼쪽에서 교과 개념을 먼저 고르면 해당 개념의 키워드가 열립니다.</div>`;
       return;
     }
 
@@ -1907,11 +2046,33 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
     }
 
     keywordWrap.innerHTML = `
-      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong></div>
+      <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 아래 키워드를 고르면 그 개념이 이어질 후속 과목 축이 열립니다.</div>
       <div class="engine-chip-wrap">${keywords.map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
       `).join("")}</div>
     `;
+  }
+
+  function renderBookArea() {
+    const el = $("engineBookArea");
+    if (!el) return;
+    if (!isStepEnabled(5)) {
+      el.innerHTML = `<div class="engine-empty">먼저 교과 개념 기반 후속 연계축을 선택해야 도서 추천이 열립니다.</div>`;
+      return;
+    }
+    if (!window.renderBookSelectionHTML) {
+      el.innerHTML = `<div class="engine-empty">도서 추천 기능을 불러오는 중입니다.</div>`;
+      return;
+    }
+    el.innerHTML = window.renderBookSelectionHTML({
+      subject: state.subject,
+      career: state.career,
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
+      concept: state.concept,
+      keyword: state.keyword,
+      selectedBook: state.selectedBook
+    });
   }
 
   function renderBookArea() {
