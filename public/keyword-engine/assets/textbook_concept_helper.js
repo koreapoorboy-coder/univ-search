@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudinal-tuning";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -17,6 +17,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
   const TOPIC_MATRIX_URL = "seed/textbook-v1/topic_matrix_seed.json";
   const FOLLOWUP_SUBJECT_URL = "seed/followup-axis/subject_bridge_point.json";
   const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
+  const CONCEPT_LONGITUDINAL_URL = "seed/followup-axis/integrated_science1_concept_longitudinal_map.json";
 
   const state = {
     subject: "",
@@ -161,6 +162,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
   let topicMatrix = null;
   let subjectBridgePoint = [];
   let majorFollowupAxis = [];
+  let conceptLongitudinalMap = null;
 
   function normalize(v) {
     return String(v || "")
@@ -182,12 +184,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
 
   async function init() {
     try {
-      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes] = await Promise.all([
+      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, conceptLongitudinalRes] = await Promise.all([
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" }),
         fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_SUBJECT_URL, { cache: "no-store" }).catch(() => null),
-        fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null)
+        fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null),
+        fetch(CONCEPT_LONGITUDINAL_URL, { cache: "no-store" }).catch(() => null)
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
@@ -200,6 +203,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
       topicMatrix = matrixRes && matrixRes.ok ? await matrixRes.json() : null;
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
+      conceptLongitudinalMap = conceptLongitudinalRes && conceptLongitudinalRes.ok ? await conceptLongitudinalRes.json() : null;
 
       injectStyles();
       injectUI();
@@ -1486,8 +1490,56 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.2-concept-first-followup-order";
     return score;
   }
 
+
+  function getConceptLongitudinalEntry() {
+    if (!state.subject || !state.concept || !conceptLongitudinalMap) return null;
+    if (!fuzzyIncludes(conceptLongitudinalMap.subject_name, state.subject)) return null;
+    const items = Array.isArray(conceptLongitudinalMap.concept_longitudinal_map)
+      ? conceptLongitudinalMap.concept_longitudinal_map
+      : [];
+    return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
+  }
+
+  function buildConceptMappedAxes(entry) {
+    if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
+    return entry.longitudinal_axes.map(axis => ({
+      id: axis.axis_id,
+      title: axis.axis_title,
+      short: entry.concept_label || state.concept,
+      nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
+      desc: axis.why || "",
+      reason: state.career
+        ? `${state.career} 입력 시 이 축의 우선순위만 조정됩니다.`
+        : "학과를 입력하면 이 축의 우선순위만 달라집니다.",
+      easy: axis.student_output_hint || "",
+      axisDomain: axis.axis_domain || "",
+      extensionKeywords: [],
+      activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
+      linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
+      grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
+      recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
+      isPrimary: Number(axis.priority || 99) === 1,
+      __priority: Number(axis.priority || 99)
+    }));
+  }
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
+
+    const mappedEntry = getConceptLongitudinalEntry();
+    if (mappedEntry) {
+      const mappedAxes = buildConceptMappedAxes(mappedEntry).map(axis => {
+        let score = 100 - (axis.__priority * 12);
+        score += getCareerAxisBoost(axis);
+        score += getMajorAxisBoost(axis);
+        return { ...axis, __score: score };
+      });
+
+      return mappedAxes
+        .sort((a, b) => b.__score - a.__score || a.__priority - b.__priority || a.title.localeCompare(b.title, "ko"))
+        .slice(0, 3);
+    }
+
     const conceptBag = getConceptTextBag();
     const nextSubjects = getConceptDrivenNextSubjects();
     const seeds = getConceptDrivenAxisSeeds();
