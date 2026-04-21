@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.1-subject-fallback-fix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1244,7 +1244,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
   function syncSubjectFromSelect() {
     const el = $("subject");
     const raw = el ? ((el.value || "").trim() || (el.options?.[el.selectedIndex]?.text || "").trim()) : "";
-    state.subject = findSubjectKey(raw);
+    state.subject = findSubjectKey(raw) || raw;
   }
 
   function syncCareerFromInput() {
@@ -1255,17 +1255,28 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.0-followup-axis-runtime";
   }
 
   function findSubjectKey(raw) {
-    if (!raw || !uiSeed) return "";
+    if (!raw) return "";
     const cleaned = normalize(raw);
-    const keys = Object.keys(uiSeed);
-    for (const key of keys) {
+
+    const seedKeys = uiSeed ? Object.keys(uiSeed) : [];
+    for (const key of seedKeys) {
       if (normalize(key) === cleaned) return key;
     }
-    for (const key of keys) {
+    for (const key of seedKeys) {
       const nk = normalize(key);
       if (cleaned.includes(nk) || nk.includes(cleaned)) return key;
     }
-    return "";
+
+    const engineKeys = engineMap ? Object.keys(engineMap) : [];
+    for (const key of engineKeys) {
+      if (normalize(key) === cleaned) return key;
+    }
+    for (const key of engineKeys) {
+      const nk = normalize(key);
+      if (cleaned.includes(nk) || nk.includes(cleaned)) return key;
+    }
+
+    return raw;
   }
 
 
