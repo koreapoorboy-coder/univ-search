@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.0.0";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.0";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -11,7 +11,27 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.0.0";
     "과학탐구실험2": "science_inquiry2",
     "공통수학1": "common_math1",
     "공통수학2": "common_math2",
-    "정보": "info"
+    "공통국어1": "common_korean1",
+    "공통국어2": "common_korean2",
+    "공통국어": "common_korean1",
+    "통합사회": "integrated_society",
+    "통합사회2": "integrated_society2",
+    "정보": "info",
+    "대수": "algebra",
+    "확률과 통계": "probability_statistics",
+    "미적분1": "calculus1",
+    "미적분": "calculus1",
+    "기하": "geometry",
+    "물리": "physics1",
+    "물리학": "physics1",
+    "화학": "chemistry1",
+    "생명과학": "life_science",
+    "지구과학": "earth_science",
+    "역학과 에너지": "mechanics_energy",
+    "전자기와 양자": "electromagnetism_quantum",
+    "물질과 에너지": "matter_energy",
+    "세포와 물질대사": "cell_metabolism",
+    "지구시스템과학": "earth_system_science"
   };
 
   const TASK_HINTS = {
@@ -111,7 +131,7 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.0.0";
       ...(segment.major_bridge_tags || [])
     ];
 
-    if (segment.subject_name === state.subject) score += 10;
+    if (includesNormalized(segment.subject_name, state.subject) || includesNormalized(segment.display_name, state.subject)) score += 10;
     if (segment.subject_id === state.subjectId) score += 10;
 
     if (state.career) {
@@ -142,7 +162,7 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.0.0";
 
   function getTopSegments(state, limit = 3) {
     return flattened
-      .filter(s => s.subject_name === state.subject || s.subject_id === state.subjectId)
+      .filter(s => s.subject_id === state.subjectId || includesNormalized(s.subject_name, state.subject) || includesNormalized(s.display_name, state.subject))
       .map(s => ({ ...s, __score: scoreSegment(s, state) }))
       .sort((a, b) => b.__score - a.__score || a.segment_title.localeCompare(b.segment_title, "ko"))
       .slice(0, limit);
