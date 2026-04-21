@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudinal-tuning";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4-common-math1-longitudinal-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -17,7 +17,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudin
   const TOPIC_MATRIX_URL = "seed/textbook-v1/topic_matrix_seed.json";
   const FOLLOWUP_SUBJECT_URL = "seed/followup-axis/subject_bridge_point.json";
   const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
-  const CONCEPT_LONGITUDINAL_URL = "seed/followup-axis/integrated_science1_concept_longitudinal_map.json";
+  const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
+    "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
+    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json"
+  };
 
   const state = {
     subject: "",
@@ -162,7 +165,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudin
   let topicMatrix = null;
   let subjectBridgePoint = [];
   let majorFollowupAxis = [];
-  let conceptLongitudinalMap = null;
+  let conceptLongitudinalMaps = {};
 
   function normalize(v) {
     return String(v || "")
@@ -182,15 +185,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudin
     return Array.from(new Set((arr || []).filter(Boolean)));
   }
 
+  async function loadSubjectConceptLongitudinalMaps() {
+    const result = {};
+    const entries = Object.entries(SUBJECT_CONCEPT_LONGITUDINAL_URLS || {});
+    await Promise.all(entries.map(async ([subjectName, url]) => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return;
+        result[subjectName] = await res.json();
+      } catch (error) {
+        console.warn("subject concept longitudinal map load skipped:", subjectName, error);
+      }
+    }));
+    return result;
+  }
+
   async function init() {
     try {
-      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, conceptLongitudinalRes] = await Promise.all([
+      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps] = await Promise.all([
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" }),
         fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_SUBJECT_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null),
-        fetch(CONCEPT_LONGITUDINAL_URL, { cache: "no-store" }).catch(() => null)
+        loadSubjectConceptLongitudinalMaps()
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
@@ -203,7 +221,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudin
       topicMatrix = matrixRes && matrixRes.ok ? await matrixRes.json() : null;
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
-      conceptLongitudinalMap = conceptLongitudinalRes && conceptLongitudinalRes.ok ? await conceptLongitudinalRes.json() : null;
+      conceptLongitudinalMaps = loadedConceptMaps || {};
 
       injectStyles();
       injectUI();
@@ -1491,11 +1509,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.3-integrated-science1-longitudin
   }
 
 
+  function getCurrentConceptLongitudinalMap() {
+    if (!state.subject || !conceptLongitudinalMaps) return null;
+    if (conceptLongitudinalMaps[state.subject]) return conceptLongitudinalMaps[state.subject];
+    const values = Object.values(conceptLongitudinalMaps || {});
+    return values.find(map => fuzzyIncludes(map?.subject_name, state.subject)) || null;
+  }
+
   function getConceptLongitudinalEntry() {
-    if (!state.subject || !state.concept || !conceptLongitudinalMap) return null;
-    if (!fuzzyIncludes(conceptLongitudinalMap.subject_name, state.subject)) return null;
-    const items = Array.isArray(conceptLongitudinalMap.concept_longitudinal_map)
-      ? conceptLongitudinalMap.concept_longitudinal_map
+    const currentMap = getCurrentConceptLongitudinalMap();
+    if (!state.subject || !state.concept || !currentMap) return null;
+    const items = Array.isArray(currentMap.concept_longitudinal_map)
+      ? currentMap.concept_longitudinal_map
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
