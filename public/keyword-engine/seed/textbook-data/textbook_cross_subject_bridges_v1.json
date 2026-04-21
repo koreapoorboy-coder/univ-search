@@ -1,109 +1,77 @@
 {
   "meta": {
     "dataset_name": "textbook_cross_subject_bridges",
-    "version": "v1",
-    "bridge_count": 15,
-    "note": "과목 간 종단·횡단 확장을 위한 1차 bridge 포인트"
+    "version": "v2_phase2_2026-04-21",
+    "bridge_count": 39,
+    "note": "현재 GitHub 교과서 원본 기준으로 전체 과목을 반영해 확장한 브리지 파일"
   },
   "bridges": [
     {
       "bridge_id": "bridge_001",
       "source_subject_id": "integrated_science1",
       "target_subject_id": "integrated_science2",
-      "source_segment_title": "자연의 변화 측정과 현대 문명",
-      "target_segment_title": "과학 기술 사회에서 빅데이터 활용",
+      "source_segment_title": "자연 세계의 시간과 공간",
+      "target_segment_title": "지구 환경 변화",
       "bridge_type": "longitudinal",
       "bridge_keywords": [
-        "센서",
-        "디지털 정보",
-        "분석",
+        "측정",
+        "시스템",
+        "환경 변화",
         "데이터"
       ],
-      "bridge_reason": "통합과학1의 측정·센서·디지털 정보 개념을 통합과학2의 빅데이터 활용과 연결하기 좋음",
-      "recommended_use": "1학년 기초 개념 탐구 → 2학년 데이터 해석형 보고서 확장"
+      "bridge_reason": "통합과학1의 기초 개념과 측정 감각이 통합과학2의 환경·시스템 해석으로 이어짐",
+      "recommended_use": "기초 개념 탐구 → 자료 해석형 보고서"
     },
     {
       "bridge_id": "bridge_002",
       "source_subject_id": "integrated_science1",
-      "target_subject_id": "integrated_science2",
-      "source_segment_title": "원소의 주기성과 화학 결합",
-      "target_segment_title": "산화와 환원",
-      "bridge_type": "longitudinal",
+      "target_subject_id": "science_inquiry1",
+      "source_segment_title": "자연 세계의 시간과 공간",
+      "target_segment_title": "갈릴레이의 경사면을 이용한 질량이 다른 물체의 낙하 운동 실험하기",
+      "bridge_type": "cross_subject",
       "bridge_keywords": [
-        "전자 배치",
-        "결합",
-        "반응",
-        "산화수"
+        "관찰",
+        "측정",
+        "실험 설계",
+        "그래프"
       ],
-      "bridge_reason": "결합과 전자 이동 이해가 산화·환원 반응 해석의 기반이 됨",
-      "recommended_use": "개념 설명형 보고서 → 반응 비교·실생활 적용 보고서"
+      "bridge_reason": "통합과학1에서 익힌 관찰·측정 개념을 과학탐구실험1의 실험 설계와 데이터 정리로 연결하기 좋음",
+      "recommended_use": "교과 개념 이해 → 탐구 실험 설계"
     },
     {
       "bridge_id": "bridge_003",
-      "source_subject_id": "integrated_science1",
+      "source_subject_id": "integrated_science2",
       "target_subject_id": "science_inquiry2",
-      "source_segment_title": "물질의 전기적 성질",
-      "target_segment_title": "각종 센서를 활용한 생활 발명품 아이디어 고안 및 시제품 발표하기",
-      "bridge_type": "cross_subject",
+      "source_segment_title": "지구 환경 변화",
+      "target_segment_title": "오염 물질 측정 장치를 활용한 학교 주변 환경 탐구하기",
+      "bridge_type": "longitudinal",
       "bridge_keywords": [
-        "반도체",
-        "센서",
-        "전기적 성질",
-        "시제품"
+        "환경",
+        "측정",
+        "데이터",
+        "비교"
       ],
-      "bridge_reason": "반도체·센서의 원리 개념을 실제 장치 설계 활동으로 연결 가능",
-      "recommended_use": "원리 이해형 → 제작·설계형 결과물"
+      "bridge_reason": "통합과학2의 환경 변화 개념이 과학탐구실험2의 현장 측정과 비교 분석 활동으로 확장됨",
+      "recommended_use": "이론 탐구 → 지역 데이터 기반 탐구"
     },
     {
       "bridge_id": "bridge_004",
-      "source_subject_id": "integrated_science2",
+      "source_subject_id": "science_inquiry1",
       "target_subject_id": "science_inquiry2",
-      "source_segment_title": "지구 환경 변화와 인간 생활",
-      "target_segment_title": "오염 물질 측정 장치를 활용한 학교 주변 환경 탐구하기",
+      "source_segment_title": "갈릴레이의 경사면을 이용한 질량이 다른 물체의 낙하 운동 실험하기",
+      "target_segment_title": "마이크로컨트롤러를 활용하여 스마트 온실 설계하기",
       "bridge_type": "longitudinal",
       "bridge_keywords": [
-        "기후 변화",
-        "환경 데이터",
+        "실험",
         "측정",
-        "저감 방안"
+        "설계",
+        "제어"
       ],
-      "bridge_reason": "환경 변화의 거시 개념을 학교 주변 실제 데이터 측정 활동으로 구체화할 수 있음",
-      "recommended_use": "환경 변화 개념 탐구 → 지역 데이터 기반 보고서"
+      "bridge_reason": "과학탐구실험1의 실험 기초가 과학탐구실험2의 설계·제작형 탐구로 이어짐",
+      "recommended_use": "실험 수행 → 설계·제작형 프로젝트"
     },
     {
       "bridge_id": "bridge_005",
-      "source_subject_id": "integrated_science2",
-      "target_subject_id": "science_inquiry2",
-      "source_segment_title": "에너지 효율과 신재생 에너지",
-      "target_segment_title": "마이크로컨트롤러를 활용하여 스마트 온실 설계하기",
-      "bridge_type": "cross_subject",
-      "bridge_keywords": [
-        "에너지 효율",
-        "센서",
-        "제어",
-        "스마트 시스템"
-      ],
-      "bridge_reason": "에너지 효율 개념이 스마트 제어와 환경 관리 장치 설계로 이어짐",
-      "recommended_use": "이론형 보고서 → 제어 시스템 설계형 프로젝트"
-    },
-    {
-      "bridge_id": "bridge_006",
-      "source_subject_id": "science_inquiry1",
-      "target_subject_id": "science_inquiry2",
-      "source_segment_title": "관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기",
-      "target_segment_title": "오염 물질 측정 장치를 활용한 학교 주변 환경 탐구하기",
-      "bridge_type": "longitudinal",
-      "bridge_keywords": [
-        "기후 데이터",
-        "측정",
-        "그래프",
-        "지역 비교"
-      ],
-      "bridge_reason": "과학탐구실험1의 거시 데이터 해석 경험이 과학탐구실험2의 현장 측정 탐구로 확장됨",
-      "recommended_use": "공공 데이터 분석 → 직접 측정·비교 분석"
-    },
-    {
-      "bridge_id": "bridge_007",
       "source_subject_id": "common_math1",
       "target_subject_id": "common_math2",
       "source_segment_title": "다항식의 연산",
@@ -111,31 +79,14 @@
       "bridge_type": "longitudinal",
       "bridge_keywords": [
         "식 정리",
-        "모델링",
-        "함수식",
+        "함수",
         "그래프"
       ],
-      "bridge_reason": "다항식 연산 능력이 함수식 해석과 그래프 읽기의 기초가 됨",
-      "recommended_use": "식 중심 해석 → 그래프 중심 해석"
+      "bridge_reason": "공통수학1의 식 정리 능력이 공통수학2의 함수와 그래프 해석의 기초가 됨",
+      "recommended_use": "계산형 문제 → 구조 해석형 문제"
     },
     {
-      "bridge_id": "bridge_008",
-      "source_subject_id": "common_math1",
-      "target_subject_id": "info",
-      "source_segment_title": "경우의 수",
-      "target_segment_title": "자료와 정보의 분석",
-      "bridge_type": "cross_subject",
-      "bridge_keywords": [
-        "조합",
-        "선택",
-        "분류",
-        "데이터 해석"
-      ],
-      "bridge_reason": "경우의 수의 조합적 사고가 데이터 분류·분석 구조 이해와 맞닿아 있음",
-      "recommended_use": "수학적 선택 구조 → 데이터 분석 프레임"
-    },
-    {
-      "bridge_id": "bridge_009",
+      "bridge_id": "bridge_006",
       "source_subject_id": "common_math1",
       "target_subject_id": "info",
       "source_segment_title": "행렬",
@@ -144,108 +95,535 @@
       "bridge_keywords": [
         "배열",
         "정보 구조",
-        "행과 열",
-        "데이터 관리"
+        "데이터",
+        "표"
       ],
-      "bridge_reason": "행렬 개념이 테이블·데이터 구조 이해로 자연스럽게 이어짐",
-      "recommended_use": "수학 배열 모델 → 데이터베이스/테이블 이해"
+      "bridge_reason": "행렬과 배열 구조에 대한 감각이 정보 과목의 데이터 구조 이해와 연결됨",
+      "recommended_use": "수학 배열 모델 → 데이터 구조 이해"
+    },
+    {
+      "bridge_id": "bridge_007",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "algebra",
+      "source_segment_title": "함수",
+      "target_segment_title": "지수함수의 뜻과 그래프",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "함수",
+        "그래프",
+        "변화"
+      ],
+      "bridge_reason": "공통수학2의 함수 감각이 대수의 지수함수와 로그함수 이해로 자연스럽게 이어짐",
+      "recommended_use": "기초 함수 → 성장·감쇠 모델링"
+    },
+    {
+      "bridge_id": "bridge_008",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "probability_statistics",
+      "source_segment_title": "경우의 수",
+      "target_segment_title": "여러 가지 순열과 중복조합",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "경우의 수",
+        "조합",
+        "확률"
+      ],
+      "bridge_reason": "공통수학2의 경우의 수가 확률과 통계의 직접 선행 개념 역할을 함",
+      "recommended_use": "경우의 수 → 확률 모델"
+    },
+    {
+      "bridge_id": "bridge_009",
+      "source_subject_id": "common_math2",
+      "target_subject_id": "geometry",
+      "source_segment_title": "평면좌표와 직선의 방정식",
+      "target_segment_title": "포물선",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "좌표",
+        "직선",
+        "도형",
+        "방정식"
+      ],
+      "bridge_reason": "공통수학2의 좌표와 직선 개념이 기하의 이차곡선과 공간좌표 학습으로 확장됨",
+      "recommended_use": "좌표 기초 → 공간·곡선 모델링"
     },
     {
       "bridge_id": "bridge_010",
-      "source_subject_id": "common_math2",
-      "target_subject_id": "info",
-      "source_segment_title": "명제",
-      "target_segment_title": "알고리즘",
-      "bridge_type": "cross_subject",
+      "source_subject_id": "common_korean1",
+      "target_subject_id": "common_korean2",
+      "source_segment_title": "서정 갈래",
+      "target_segment_title": "매체를 보는 다양한 시선",
+      "bridge_type": "longitudinal",
       "bridge_keywords": [
-        "조건",
-        "논리",
-        "참거짓",
-        "제어 구조"
+        "표현",
+        "해석",
+        "비판적 읽기"
       ],
-      "bridge_reason": "명제의 참거짓과 조건 구조가 알고리즘의 선택 구조 이해에 직접 연결됨",
-      "recommended_use": "논리 서술 → if 조건 설계"
+      "bridge_reason": "공통국어1의 표현·해석 경험이 공통국어2의 비판적 매체 읽기로 연결됨",
+      "recommended_use": "감상형 독해 → 비판적 해석"
     },
     {
       "bridge_id": "bridge_011",
-      "source_subject_id": "common_math2",
-      "target_subject_id": "info",
-      "source_segment_title": "함수",
-      "target_segment_title": "프로그래밍",
+      "source_subject_id": "common_korean2",
+      "target_subject_id": "integrated_society2",
+      "source_segment_title": "매체를 보는 다양한 시선",
+      "target_segment_title": "인권의 의미와 변화 양상",
       "bridge_type": "cross_subject",
       "bridge_keywords": [
-        "입력",
-        "출력",
-        "합성함수",
-        "역함수",
-        "함수"
+        "담론",
+        "매체",
+        "사회 쟁점",
+        "비판적 읽기"
       ],
-      "bridge_reason": "수학 함수 개념이 프로그래밍 함수·입출력 흐름 이해에 도움을 줌",
-      "recommended_use": "수학 함수 해석 → 코드 함수 설계"
+      "bridge_reason": "매체 해석 능력이 사회 쟁점과 인권 문제를 비판적으로 읽는 데 직접 활용될 수 있음",
+      "recommended_use": "텍스트 분석 → 사회 쟁점 보고서"
     },
     {
       "bridge_id": "bridge_012",
-      "source_subject_id": "common_math2",
-      "target_subject_id": "info",
-      "source_segment_title": "도형의 이동",
-      "target_segment_title": "프로그래밍",
-      "bridge_type": "cross_subject",
+      "source_subject_id": "integrated_society",
+      "target_subject_id": "integrated_society2",
+      "source_segment_title": "통합적 관점의 이해",
+      "target_segment_title": "인권의 의미와 변화 양상",
+      "bridge_type": "longitudinal",
       "bridge_keywords": [
-        "좌표",
-        "변환",
-        "이동",
-        "패턴"
+        "사회 구조",
+        "관점",
+        "가치 판단"
       ],
-      "bridge_reason": "좌표 이동과 대칭 변환이 그래픽/게임형 프로그래밍 활동과 잘 연결됨",
-      "recommended_use": "수학적 변환 → 시각화/그래픽 코드 구현"
+      "bridge_reason": "통합사회의 기본 관점 이해가 통합사회2의 쟁점 분석과 가치 판단으로 이어짐",
+      "recommended_use": "기초 사회 개념 → 쟁점 분석"
     },
     {
       "bridge_id": "bridge_013",
-      "source_subject_id": "info",
-      "target_subject_id": "science_inquiry2",
-      "source_segment_title": "피지컬 컴퓨팅",
-      "target_segment_title": "마이크로컨트롤러를 활용하여 스마트 온실 설계하기",
+      "source_subject_id": "integrated_society",
+      "target_subject_id": "info",
+      "source_segment_title": "통합적 관점의 이해",
+      "target_segment_title": "자료와 정보의 분석",
       "bridge_type": "cross_subject",
       "bridge_keywords": [
-        "아두이노",
-        "센서",
-        "마이크로컨트롤러",
-        "자동 제어"
+        "자료",
+        "사회 문제",
+        "정보",
+        "분석"
       ],
-      "bridge_reason": "정보 교과의 피지컬 컴퓨팅이 과학탐구실험2의 스마트 온실 설계와 거의 직접적으로 연결됨",
-      "recommended_use": "코드·회로 기초 → 융합 장치 설계"
+      "bridge_reason": "사회 현상 분석이 정보 과목의 자료 분석과 시각화 활동으로 확장되기 좋음",
+      "recommended_use": "사회 탐구 → 데이터 시각화"
     },
     {
       "bridge_id": "bridge_014",
-      "source_subject_id": "info",
-      "target_subject_id": "science_inquiry1",
-      "source_segment_title": "자료와 정보의 분석",
-      "target_segment_title": "관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기",
+      "source_subject_id": "integrated_society2",
+      "target_subject_id": "probability_statistics",
+      "source_segment_title": "사회 변화와 불평등",
+      "target_segment_title": "통계적 추정",
       "bridge_type": "cross_subject",
       "bridge_keywords": [
         "자료 수집",
-        "빅데이터",
-        "시각화",
-        "추세선"
+        "비교",
+        "통계",
+        "해석"
       ],
-      "bridge_reason": "정보 교과의 데이터 분석 개념을 과학탐구실험의 실제 기후 데이터 해석에 적용 가능",
-      "recommended_use": "데이터 처리 개념 → 과학 데이터 보고서"
+      "bridge_reason": "통합사회2의 사회 데이터 해석이 확률과 통계의 추론 활동과 잘 연결됨",
+      "recommended_use": "사회 현상 해석 → 통계 기반 비교"
     },
     {
       "bridge_id": "bridge_015",
       "source_subject_id": "info",
-      "target_subject_id": "science_inquiry2",
-      "source_segment_title": "정보 윤리",
-      "target_segment_title": "우주 개발 사례 조사를 통해 과학 기술의 발전 방향 평가하기",
+      "target_subject_id": "algebra",
+      "source_segment_title": "알고리즘",
+      "target_segment_title": "로그의 뜻과 성질",
       "bridge_type": "cross_subject",
       "bridge_keywords": [
-        "윤리",
-        "공공성",
-        "안전",
-        "기술 발전"
+        "복잡도",
+        "규모",
+        "로그",
+        "효율"
       ],
-      "bridge_reason": "정보 윤리에서 다룬 책임·정의·해악 금지가 미래 과학기술 평가와 연결됨",
-      "recommended_use": "정보 윤리 토론 → 과학기술 윤리 평가 보고서"
+      "bridge_reason": "정보 과목의 알고리즘 효율 감각이 대수의 로그 개념과 연결되며 계산 효율 해석에 도움이 됨",
+      "recommended_use": "알고리즘 사고 → 로그 모델"
+    },
+    {
+      "bridge_id": "bridge_016",
+      "source_subject_id": "info",
+      "target_subject_id": "electromagnetism_quantum",
+      "source_segment_title": "논리 회로",
+      "target_segment_title": "반도체 소자를 활용한 전자 회로",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "논리",
+        "회로",
+        "트랜지스터",
+        "반도체"
+      ],
+      "bridge_reason": "정보의 논리회로가 전자기와 양자의 반도체·트랜지스터 회로 학습으로 확장됨",
+      "recommended_use": "디지털 논리 → 회로 제작"
+    },
+    {
+      "bridge_id": "bridge_017",
+      "source_subject_id": "algebra",
+      "target_subject_id": "probability_statistics",
+      "source_segment_title": "로그의 뜻과 성질",
+      "target_segment_title": "확률분포",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "로그",
+        "데이터",
+        "척도",
+        "분석"
+      ],
+      "bridge_reason": "로그 개념은 지진 규모, 소음, 데이터 스케일 해석과 연결되어 확률·통계적 데이터 읽기에 활용 가능함",
+      "recommended_use": "함수 개념 → 데이터 척도 해석"
+    },
+    {
+      "bridge_id": "bridge_018",
+      "source_subject_id": "algebra",
+      "target_subject_id": "calculus1",
+      "source_segment_title": "지수함수의 뜻과 그래프",
+      "target_segment_title": "수열의 극한",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "함수",
+        "그래프",
+        "증가",
+        "변화"
+      ],
+      "bridge_reason": "대수의 지수·로그 함수 이해가 미적분1의 연속 변화 해석과 극한 감각으로 이어짐",
+      "recommended_use": "함수 성질 → 변화 해석"
+    },
+    {
+      "bridge_id": "bridge_019",
+      "source_subject_id": "probability_statistics",
+      "target_subject_id": "info",
+      "source_segment_title": "자료의 정리와 해석",
+      "target_segment_title": "자료와 정보의 분석",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "자료",
+        "통계",
+        "시각화",
+        "예측"
+      ],
+      "bridge_reason": "확률과 통계의 자료 해석이 정보 과목의 데이터 처리·시각화와 직접 연결됨",
+      "recommended_use": "통계 해석 → 데이터 기반 보고서"
+    },
+    {
+      "bridge_id": "bridge_020",
+      "source_subject_id": "calculus1",
+      "target_subject_id": "physics1",
+      "source_segment_title": "함수의 극한과 연속",
+      "target_segment_title": "힘과 운동",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "변화율",
+        "그래프",
+        "운동",
+        "속도"
+      ],
+      "bridge_reason": "미적분1의 변화 해석은 물리 과목의 운동 그래프와 현상 분석을 더 정밀하게 이해하는 데 도움을 줌",
+      "recommended_use": "수학 변화 해석 → 물리 모델링"
+    },
+    {
+      "bridge_id": "bridge_021",
+      "source_subject_id": "geometry",
+      "target_subject_id": "physics1",
+      "source_segment_title": "포물선",
+      "target_segment_title": "힘과 운동",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "포물선",
+        "궤적",
+        "운동",
+        "좌표"
+      ],
+      "bridge_reason": "기하의 포물선 이해가 물리의 투사체 운동과 궤적 해석으로 연결됨",
+      "recommended_use": "수학 모델 → 운동 분석"
+    },
+    {
+      "bridge_id": "bridge_022",
+      "source_subject_id": "geometry",
+      "target_subject_id": "earth_science",
+      "source_segment_title": "타원",
+      "target_segment_title": "태양계 천체의 관측과 운동",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "타원",
+        "초점",
+        "행성",
+        "궤도"
+      ],
+      "bridge_reason": "기하의 타원은 지구과학의 행성 궤도 이해와 직접 연결됨",
+      "recommended_use": "이차곡선 → 천문 모델"
+    },
+    {
+      "bridge_id": "bridge_023",
+      "source_subject_id": "physics1",
+      "target_subject_id": "mechanics_energy",
+      "source_segment_title": "힘과 운동",
+      "target_segment_title": "힘의 합성과 운동 예측",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "힘",
+        "운동",
+        "에너지",
+        "벡터"
+      ],
+      "bridge_reason": "물리의 기초 역학 개념이 역학과 에너지 과목에서 더 정량적이고 복합적인 문제로 확장됨",
+      "recommended_use": "기초 역학 → 심화 역학"
+    },
+    {
+      "bridge_id": "bridge_024",
+      "source_subject_id": "physics1",
+      "target_subject_id": "electromagnetism_quantum",
+      "source_segment_title": "물질의 전기적 특성",
+      "target_segment_title": "전기장",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "전기",
+        "자기",
+        "전자기",
+        "회로"
+      ],
+      "bridge_reason": "물리의 전기적 성질 개념이 전자기와 양자의 전기장·회로·반도체 이해로 이어짐",
+      "recommended_use": "기초 전기 개념 → 심화 전자기"
+    },
+    {
+      "bridge_id": "bridge_025",
+      "source_subject_id": "chemistry1",
+      "target_subject_id": "matter_energy",
+      "source_segment_title": "화학 결합",
+      "target_segment_title": "액체",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "분자",
+        "결합",
+        "극성",
+        "분자 간 힘"
+      ],
+      "bridge_reason": "화학의 결합과 극성 개념이 물질과 에너지의 액체 성질과 끓는점 해석에 연결됨",
+      "recommended_use": "결합 구조 → 물질 상태 해석"
+    },
+    {
+      "bridge_id": "bridge_026",
+      "source_subject_id": "chemistry1",
+      "target_subject_id": "cell_metabolism",
+      "source_segment_title": "탄소 화합물의 유용성",
+      "target_segment_title": "생물체의 구성 물질",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "탄소 화합물",
+        "분자",
+        "생체물질",
+        "기능"
+      ],
+      "bridge_reason": "화학의 탄소 화합물 이해가 세포와 물질대사의 생체 분자 학습으로 확장됨",
+      "recommended_use": "유기 분자 → 생명 분자 탐구"
+    },
+    {
+      "bridge_id": "bridge_027",
+      "source_subject_id": "life_science",
+      "target_subject_id": "cell_metabolism",
+      "source_segment_title": "물질대사와 에너지",
+      "target_segment_title": "세포의 물질대사와 에너지",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "물질대사",
+        "에너지",
+        "ATP",
+        "세포"
+      ],
+      "bridge_reason": "생명과학의 물질대사 개념이 세포 수준에서 더 세밀하게 심화됨",
+      "recommended_use": "개념 소개 → 세포 수준 심화"
+    },
+    {
+      "bridge_id": "bridge_028",
+      "source_subject_id": "earth_science",
+      "target_subject_id": "earth_system_science",
+      "source_segment_title": "지구의 역사와 한반도의 암석",
+      "target_segment_title": "판 구조론과 플룸 구조론",
+      "bridge_type": "longitudinal",
+      "bridge_keywords": [
+        "지질",
+        "판 구조",
+        "지구 내부",
+        "암석"
+      ],
+      "bridge_reason": "지구과학의 지질 기초가 지구시스템과학의 시스템적 지구 진화 해석으로 이어짐",
+      "recommended_use": "지질 기초 → 시스템적 지구 해석"
+    },
+    {
+      "bridge_id": "bridge_029",
+      "source_subject_id": "mechanics_energy",
+      "target_subject_id": "electromagnetism_quantum",
+      "source_segment_title": "탄성파와 소리",
+      "target_segment_title": "빛의 간섭과 회절",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "파동",
+        "간섭",
+        "회절",
+        "센서"
+      ],
+      "bridge_reason": "역학과 에너지의 파동 기초가 전자기와 양자의 빛 간섭·회절 이해로 확장됨",
+      "recommended_use": "탄성파 → 광학 파동"
+    },
+    {
+      "bridge_id": "bridge_030",
+      "source_subject_id": "matter_energy",
+      "target_subject_id": "chemistry1",
+      "source_segment_title": "기체",
+      "target_segment_title": "물질의 양과 화학 반응식",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "기체",
+        "몰",
+        "압력",
+        "부피"
+      ],
+      "bridge_reason": "물질과 에너지의 기체 법칙은 화학의 몰·양적 관계와 함께 해석될 때 더 탄탄해짐",
+      "recommended_use": "상태 변화 → 화학 계산"
+    },
+    {
+      "bridge_id": "bridge_031",
+      "source_subject_id": "cell_metabolism",
+      "target_subject_id": "chemistry1",
+      "source_segment_title": "효소",
+      "target_segment_title": "화학 반응과 열의 출입",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "반응",
+        "촉매",
+        "에너지",
+        "활성화"
+      ],
+      "bridge_reason": "효소 개념은 화학 반응 속도와 촉매, 에너지 변화 해석으로 자연스럽게 연결됨",
+      "recommended_use": "생명 촉매 → 화학 반응 해석"
+    },
+    {
+      "bridge_id": "bridge_032",
+      "source_subject_id": "earth_system_science",
+      "target_subject_id": "earth_science",
+      "source_segment_title": "지구시스템의 진화",
+      "target_segment_title": "지구의 기후 변화",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "지구 시스템",
+        "탄소 순환",
+        "기후",
+        "환경 변화"
+      ],
+      "bridge_reason": "지구시스템과학의 거시적 순환 개념을 지구과학의 기후 변화 주제와 연결해 확장할 수 있음",
+      "recommended_use": "시스템 해석 → 기후 변화 보고서"
+    },
+    {
+      "bridge_id": "bridge_033",
+      "source_subject_id": "electromagnetism_quantum",
+      "target_subject_id": "info",
+      "source_segment_title": "반도체 소자를 활용한 전자 회로",
+      "target_segment_title": "알고리즘",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "회로",
+        "센서",
+        "제어",
+        "피지컬 컴퓨팅"
+      ],
+      "bridge_reason": "전자기와 양자의 회로 개념이 정보 과목의 제어·센서 활용 활동과 연결됨",
+      "recommended_use": "회로 원리 → 제어형 제작"
+    },
+    {
+      "bridge_id": "bridge_034",
+      "source_subject_id": "probability_statistics",
+      "target_subject_id": "integrated_society2",
+      "source_segment_title": "통계적 추정",
+      "target_segment_title": "사회 변화와 불평등",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "통계",
+        "표본",
+        "비교",
+        "사회 자료"
+      ],
+      "bridge_reason": "통계적 추정은 사회 불평등·변화 자료를 읽고 해석하는 데 직접 활용할 수 있음",
+      "recommended_use": "통계 개념 → 사회 데이터 보고서"
+    },
+    {
+      "bridge_id": "bridge_035",
+      "source_subject_id": "geometry",
+      "target_subject_id": "electromagnetism_quantum",
+      "source_segment_title": "벡터의 내적",
+      "target_segment_title": "전기장",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "벡터",
+        "방향",
+        "내적",
+        "장"
+      ],
+      "bridge_reason": "기하의 벡터 내적은 전기장·자기장의 방향성과 투영 해석에 도움이 됨",
+      "recommended_use": "벡터 기초 → 전자기 방향 해석"
+    },
+    {
+      "bridge_id": "bridge_036",
+      "source_subject_id": "cell_metabolism",
+      "target_subject_id": "life_science",
+      "source_segment_title": "광합성",
+      "target_segment_title": "생물의 분류 체계",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "광합성",
+        "식물",
+        "생명 현상",
+        "분류"
+      ],
+      "bridge_reason": "세포와 물질대사의 광합성 이해가 생명과학의 식물계·생물 다양성 이해와도 연결될 수 있음",
+      "recommended_use": "세포 수준 과정 → 생물 다양성 해석"
+    },
+    {
+      "bridge_id": "bridge_037",
+      "source_subject_id": "matter_energy",
+      "target_subject_id": "cell_metabolism",
+      "source_segment_title": "액체",
+      "target_segment_title": "세포막을 통한 물질 이동",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "분자 간 상호 작용",
+        "확산",
+        "삼투",
+        "막"
+      ],
+      "bridge_reason": "물질과 에너지의 액체·분자 간 힘 개념이 세포막 수송과 삼투 이해에 연결됨",
+      "recommended_use": "물질 상태 → 세포막 현상"
+    },
+    {
+      "bridge_id": "bridge_038",
+      "source_subject_id": "earth_system_science",
+      "target_subject_id": "mechanics_energy",
+      "source_segment_title": "지구 내부 구조",
+      "target_segment_title": "케플러 법칙과 중력",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "구조",
+        "중력",
+        "행성",
+        "모형"
+      ],
+      "bridge_reason": "지구 내부 구조와 행성·중력 모형을 연결하면 지구와 우주를 함께 보는 시각을 확장할 수 있음",
+      "recommended_use": "지구 구조 → 천체·중력 모델"
+    },
+    {
+      "bridge_id": "bridge_039",
+      "source_subject_id": "common_korean2",
+      "target_subject_id": "info",
+      "source_segment_title": "매체를 보는 다양한 시선",
+      "target_segment_title": "정보 문화",
+      "bridge_type": "cross_subject",
+      "bridge_keywords": [
+        "매체",
+        "디지털",
+        "정보",
+        "비판적 읽기"
+      ],
+      "bridge_reason": "공통국어2의 매체 비판 읽기가 정보 과목의 디지털 정보 문화와 연결됨",
+      "recommended_use": "매체 해석 → 정보 윤리 보고서"
     }
   ]
 }
