@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.9-calculus1-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-geometry-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -55,6 +55,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.9-calculus1-support";
     "대수": "seed/followup-axis/algebra_concept_longitudinal_map.json",
     "확률과 통계": "seed/followup-axis/probability_statistics_concept_longitudinal_map.json",
     "미적분1": "seed/followup-axis/calculus1_concept_longitudinal_map.json",
+    "기하": "seed/followup-axis/geometry_concept_longitudinal_map.json",
   }
 
   const state = {
