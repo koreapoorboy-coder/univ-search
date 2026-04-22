@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v28.0-physics1-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v29.0-chemistry1-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -42,7 +42,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v28.0-physics1-support";
     "물리학1": "물리",
     "물리학 1": "물리",
     "물리학I": "물리",
-    "물리학Ⅰ": "물리"
+    "물리학Ⅰ": "물리",
+    "화학학": "화학",
+    "화학1": "화학",
+    "화학 1": "화학",
+    "화학I": "화학",
+    "화학Ⅰ": "화학"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -64,6 +69,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v28.0-physics1-support";
     "물리": "seed/followup-axis/physics1_concept_longitudinal_map.json",
     "물리학": "seed/followup-axis/physics1_concept_longitudinal_map.json",
     "물리학Ⅰ": "seed/followup-axis/physics1_concept_longitudinal_map.json",
+    "화학": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
+    "화학Ⅰ": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
+    "화학1": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
   }
 
   const state = {
