@@ -1,0 +1,504 @@
+{
+  "subject_name": "통합과학2",
+  "version": "v1_concept_longitudinal_map_2026-04-22",
+  "policy": {
+    "priority_rule": "교과 개념을 먼저 기준으로 삼고, 학과 입력은 축의 우선순위만 조정한다."
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "지구 환경 변화",
+      "concept_label": "지구 환경·변화 해석",
+      "core_focus": "화석, 지질 시대, 환경 변화, 과거 환경 추론, 생물 변천의 기록 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "earth_environment_change",
+          "axis_title": "지구 환경 변화 해석 축",
+          "axis_domain": "environment",
+          "priority": 1,
+          "next_subjects": [
+            "지구과학",
+            "지구시스템과학",
+            "통합사회1"
+          ],
+          "why": "지질 시대와 화석 자료를 통해 지구 환경이 어떻게 달라졌는지 읽는 힘이 환경 해석과 지구 시스템 이해의 기초가 됨",
+          "student_output_hint": "시대별 환경 변화 비교표, 화석 근거 해석, 지구 변화 보고서"
+        },
+        {
+          "axis_id": "bio_history_inference",
+          "axis_title": "생물 변천·환경 추론 축",
+          "axis_domain": "biology",
+          "priority": 2,
+          "next_subjects": [
+            "생명과학",
+            "환경",
+            "지구과학"
+          ],
+          "why": "환경 변화와 생물 기록을 함께 보면 생물다양성과 적응의 출발점을 추론하는 탐구로 이어지기 쉬움",
+          "student_output_hint": "화석 자료 해석, 생물 변천 정리, 환경 추론 활동"
+        }
+      ]
+    },
+    {
+      "concept_name": "진화와 생물다양성",
+      "concept_label": "진화·다양성·보전",
+      "core_focus": "진화, 적응, 변이, 생물다양성, 서식지, 보전의 의미 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "biodiversity_interpretation",
+          "axis_title": "생명·환경 해석 축",
+          "axis_domain": "biology",
+          "priority": 1,
+          "next_subjects": [
+            "생명과학",
+            "환경",
+            "수의·보건"
+          ],
+          "why": "적응과 변이를 바탕으로 생물다양성을 이해하는 힘이 생명 현상과 생태 탐구의 기초가 됨",
+          "student_output_hint": "생물 비교표, 적응 사례 분석, 다양성 해석 보고서"
+        },
+        {
+          "axis_id": "conservation_sustainability",
+          "axis_title": "보전·지속가능성 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "환경",
+            "통합사회1",
+            "생명과학"
+          ],
+          "why": "보전과 서식지 문제를 함께 보면 인간과 생태계의 관계를 지속가능성 관점으로 확장하기 쉬움",
+          "student_output_hint": "보전 방안 정리, 서식지 변화 사례 조사, 지속가능성 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "산화와 환원",
+      "concept_label": "산화·환원·전자 이동",
+      "core_focus": "산화, 환원, 전자 이동, 산화수 변화, 부식과 연소 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "chem_redox_interpretation",
+          "axis_title": "화학 반응 해석 축",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "신소재",
+            "반도체공학"
+          ],
+          "why": "전자 이동과 산화수 변화를 읽는 힘이 이후 화학 반응식 해석과 재료 반응 이해의 핵심 기초가 됨",
+          "student_output_hint": "산화수 비교표, 반응 전후 해석, 전자 이동 설명 보고서"
+        },
+        {
+          "axis_id": "materials_corrosion_application",
+          "axis_title": "재료·보존 응용 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "신소재",
+            "화학공학",
+            "환경공학"
+          ],
+          "why": "부식과 보존 사례를 연결하면 재료의 안정성과 활용 조건을 공학적으로 해석하는 방향으로 확장되기 쉬움",
+          "student_output_hint": "부식 비교 실험 정리, 보존 방법 조사, 재료 활용 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "산과 염기",
+      "concept_label": "산·염기·중화",
+      "core_focus": "산, 염기, 중화, pH, 지시약, 산성화 문제의 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "acid_base_life_environment",
+          "axis_title": "생활·환경 화학 축",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "환경공학",
+            "식품영양"
+          ],
+          "why": "산과 염기의 성질을 생활과 환경 사례에 연결하면 물질 성질 해석과 정화 문제 탐구로 이어지기 쉬움",
+          "student_output_hint": "pH 비교표, 중화 사례 분석, 생활 화학 보고서"
+        },
+        {
+          "axis_id": "health_condition_interpretation",
+          "axis_title": "보건·생명 조건 해석 축",
+          "axis_domain": "biology",
+          "priority": 2,
+          "next_subjects": [
+            "간호",
+            "생명과학",
+            "보건"
+          ],
+          "why": "pH와 중화 원리를 몸과 환경 조건 변화에 연결하면 건강·생명 유지 조건을 읽는 탐구로 확장 가능",
+          "student_output_hint": "산성·염기성 사례 조사, 조건 변화 비교, 보건 연계 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "물질 변화에서 에너지의 출입",
+      "concept_label": "발열·흡열·에너지 변화",
+      "core_focus": "발열, 흡열, 에너지 출입, 온도 변화, 화학 변화와 효율 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "chemical_energy_change",
+          "axis_title": "에너지 변화 해석 축",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "에너지공학",
+            "물리"
+          ],
+          "why": "화학 변화에서 에너지가 드나드는 방식을 읽는 힘이 이후 반응 해석과 에너지 전환 이해의 기초가 됨",
+          "student_output_hint": "발열·흡열 비교표, 온도 변화 해석, 반응 에너지 보고서"
+        },
+        {
+          "axis_id": "process_efficiency_analysis",
+          "axis_title": "공정·효율 분석 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "에너지공학",
+            "환경공학",
+            "화학공학"
+          ],
+          "why": "에너지 출입을 효율 관점으로 보면 장치와 공정을 비교·개선하는 탐구로 이어지기 쉬움",
+          "student_output_hint": "효율 비교표, 공정 사례 조사, 에너지 활용 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "생물과 환경",
+      "concept_label": "생물·환경 상호작용",
+      "core_focus": "생물, 환경, 생태계, 서식지, 상호작용 관계의 구조 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ecology_interaction_base",
+          "axis_title": "생태 상호작용 축",
+          "axis_domain": "biology",
+          "priority": 1,
+          "next_subjects": [
+            "생명과학",
+            "환경",
+            "지구과학"
+          ],
+          "why": "생물과 환경 요소의 관계를 읽는 힘이 생태계 구조와 상호작용 탐구의 기본 축이 됨",
+          "student_output_hint": "생태 관계도, 상호작용 비교표, 서식지 분석 보고서"
+        },
+        {
+          "axis_id": "environment_factor_data",
+          "axis_title": "환경 요인 데이터 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "환경",
+            "정보",
+            "통합사회1"
+          ],
+          "why": "환경 요인과 생물 반응을 자료로 정리하면 지역 생태 데이터 해석과 변화 추론으로 확장하기 쉬움",
+          "student_output_hint": "환경 요인 표 정리, 생물 반응 비교, 지역 생태 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "생태계평형",
+      "concept_label": "생태계평형·안정성",
+      "core_focus": "생태계평형, 먹이 관계, 물질 순환, 개체 수 변화, 안정성 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ecosystem_stability",
+          "axis_title": "생태계 안정성 축",
+          "axis_domain": "biology",
+          "priority": 1,
+          "next_subjects": [
+            "생명과학",
+            "환경",
+            "지구과학"
+          ],
+          "why": "먹이 관계와 물질 순환을 함께 보면 생태계가 어떻게 균형을 유지하는지 구조적으로 이해하기 쉬움",
+          "student_output_hint": "먹이 그물 비교, 평형 조건 정리, 생태 안정성 보고서"
+        },
+        {
+          "axis_id": "environment_change_response",
+          "axis_title": "환경 변화 대응 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "환경",
+            "통합사회1",
+            "생명과학"
+          ],
+          "why": "평형이 깨지는 조건을 탐구하면 환경 변화 대응과 복원 방향을 제안하는 활동으로 이어지기 쉬움",
+          "student_output_hint": "환경 변화 사례 분석, 복원 방안 정리, 대응 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "지구 환경 변화와 인간 생활",
+      "concept_label": "환경 변화·인간 생활",
+      "core_focus": "기후 변화, 환경 문제, 인간 생활 영향, 적응과 대응 전략 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "environment_problem_solving",
+          "axis_title": "환경 문제 해결 축",
+          "axis_domain": "environment",
+          "priority": 1,
+          "next_subjects": [
+            "환경",
+            "통합사회1",
+            "지구과학"
+          ],
+          "why": "지구 환경 변화가 생활에 미치는 영향을 읽는 힘이 환경 문제 해결과 지속가능성 탐구의 출발점이 됨",
+          "student_output_hint": "생활 영향 비교표, 환경 사례 조사, 문제 해결 보고서"
+        },
+        {
+          "axis_id": "policy_society_connection",
+          "axis_title": "사회·정책 연계 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "통합사회1",
+            "환경",
+            "정책"
+          ],
+          "why": "환경 문제를 사회 제도와 연결하면 정책·실천 중심의 탐구로 확장되기 쉬움",
+          "student_output_hint": "환경 정책 비교, 실천 방안 제안, 사회 연계 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "태양 에너지의 생성과 전환",
+      "concept_label": "태양 에너지·전환 원리",
+      "core_focus": "태양 에너지, 에너지 전환, 복사, 저장, 활용 구조 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "solar_energy_principle",
+          "axis_title": "에너지 전환 원리 축",
+          "axis_domain": "physics",
+          "priority": 1,
+          "next_subjects": [
+            "물리",
+            "에너지공학",
+            "지구과학"
+          ],
+          "why": "태양 에너지가 생성·전달·전환되는 원리를 이해하면 이후 에너지 시스템 해석의 기초가 됨",
+          "student_output_hint": "에너지 전환 흐름도, 사례 비교, 원리 설명 보고서"
+        },
+        {
+          "axis_id": "renewable_technology_extension",
+          "axis_title": "신재생 기술 확장 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "에너지공학",
+            "환경공학",
+            "전자공학"
+          ],
+          "why": "태양 에너지 활용을 장치와 기술 관점으로 보면 신재생 에너지 설계와 효율 비교로 이어지기 쉬움",
+          "student_output_hint": "태양광 활용 사례 조사, 장치 비교표, 기술 확장 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "발전과 에너지원",
+      "concept_label": "발전·에너지원 비교",
+      "core_focus": "발전 방식, 에너지원, 전환 과정, 장단점, 자원 의존 구조 비교",
+      "longitudinal_axes": [
+        {
+          "axis_id": "power_generation_comparison",
+          "axis_title": "발전 시스템 비교 축",
+          "axis_domain": "engineering",
+          "priority": 1,
+          "next_subjects": [
+            "에너지공학",
+            "물리",
+            "환경"
+          ],
+          "why": "발전 방식과 에너지원의 차이를 비교하는 힘이 에너지 시스템 분석과 선택의 핵심 기초가 됨",
+          "student_output_hint": "발전 방식 비교표, 원리 정리, 시스템 분석 보고서"
+        },
+        {
+          "axis_id": "resource_society_impact",
+          "axis_title": "자원·사회 영향 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "통합사회1",
+            "환경",
+            "에너지공학"
+          ],
+          "why": "에너지원 선택이 자원과 환경, 사회에 미치는 영향을 함께 보면 통합적 의사결정 탐구로 확장되기 쉬움",
+          "student_output_hint": "에너지원 장단점 비교, 사회 영향 정리, 선택 기준 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "에너지 효율과 신재생 에너지",
+      "concept_label": "효율·신재생·지속가능성",
+      "core_focus": "에너지 효율, 신재생 에너지, 절약, 지속가능성, 적용 조건 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "efficiency_sustainability",
+          "axis_title": "효율·지속가능성 축",
+          "axis_domain": "environment",
+          "priority": 1,
+          "next_subjects": [
+            "환경",
+            "에너지공학",
+            "통합사회1"
+          ],
+          "why": "효율과 지속가능성을 함께 보면 에너지 사용을 평가하고 개선 방향을 제안하는 탐구로 이어지기 쉬움",
+          "student_output_hint": "효율 비교표, 절약 방안 제안, 지속가능성 보고서"
+        },
+        {
+          "axis_id": "engineering_design_extension",
+          "axis_title": "공학 설계 확장 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "에너지공학",
+            "전자공학",
+            "기계공학"
+          ],
+          "why": "신재생 에너지 적용 조건을 장치·설계 관점으로 보면 공학적 개선과 시스템 설계로 확장 가능",
+          "student_output_hint": "에너지 장치 비교, 설계 조건 정리, 공학 확장 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "과학의 유용성과 필요성",
+      "concept_label": "과학·문제 해결·사회",
+      "core_focus": "과학의 유용성, 문제 해결, 생활 적용, 사회적 필요성의 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "science_problem_solving",
+          "axis_title": "과학 문제 해결 축",
+          "axis_domain": "engineering",
+          "priority": 1,
+          "next_subjects": [
+            "통합사회1",
+            "정보",
+            "통합과학2"
+          ],
+          "why": "과학이 생활과 사회 문제를 해결하는 방식을 읽는 힘이 이후 실제 사례 기반 탐구의 출발점이 됨",
+          "student_output_hint": "문제 상황 정리, 해결 사례 비교, 과학 역할 보고서"
+        },
+        {
+          "axis_id": "life_society_application",
+          "axis_title": "생활·사회 적용 축",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "통합사회1",
+            "공통국어1",
+            "정보"
+          ],
+          "why": "과학의 필요성을 사회와 삶의 맥락에 연결하면 발표·토론·정책 제안형 활동으로 확장되기 쉬움",
+          "student_output_hint": "생활 적용 사례 조사, 사회적 필요성 정리, 적용 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "과학 기술 사회에서 빅데이터 활용",
+      "concept_label": "빅데이터·예측·분석",
+      "core_focus": "빅데이터, 패턴, 예측, 데이터 분석, 스마트 사회 활용 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "data_prediction_analysis",
+          "axis_title": "데이터 예측·해석 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "컴퓨터공학"
+          ],
+          "why": "데이터에서 패턴을 읽고 예측하는 사고가 이후 정보 처리와 데이터 기반 의사결정의 핵심 기초가 됨",
+          "student_output_hint": "패턴 비교표, 데이터 해석, 예측 보고서"
+        },
+        {
+          "axis_id": "info_automation_application",
+          "axis_title": "정보·자동화 응용 축",
+          "axis_domain": "info",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "컴퓨터공학",
+            "전자공학"
+          ],
+          "why": "빅데이터 활용을 시스템 관점으로 보면 자동화와 스마트 기술 응용 탐구로 이어지기 쉬움",
+          "student_output_hint": "활용 사례 조사, 시스템 흐름도, 정보 기술 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "과학 기술과 미래 사회",
+      "concept_label": "미래 사회·자동화·기술",
+      "core_focus": "미래 사회, 자동화, 센서, 인공지능, 기술 변화와 생활 변화 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "automation_future_design",
+          "axis_title": "자동화·미래 설계 축",
+          "axis_domain": "engineering",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "기계공학"
+          ],
+          "why": "기술 발전이 사회를 바꾸는 흐름을 읽는 힘이 자동화 시스템과 미래 설계 탐구의 출발점이 됨",
+          "student_output_hint": "미래 기술 사례 분석, 변화 예측, 설계 보고서"
+        },
+        {
+          "axis_id": "sensor_system_application",
+          "axis_title": "센서·시스템 응용 축",
+          "axis_domain": "physics",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "컴퓨터공학"
+          ],
+          "why": "센서 데이터와 시스템 작동을 연결하면 장치 구조와 디지털 시스템 해석으로 확장되기 쉬움",
+          "student_output_hint": "센서 활용 사례 조사, 시스템 구조 정리, 응용 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "과학 관련 사회적 쟁점과 과학 윤리",
+      "concept_label": "과학 윤리·쟁점 판단",
+      "core_focus": "사회적 쟁점, 과학 윤리, 책임, 안전, 공공성, 판단 기준 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "science_ethics_judgment",
+          "axis_title": "과학 윤리 판단 축",
+          "axis_domain": "social",
+          "priority": 1,
+          "next_subjects": [
+            "통합사회1",
+            "공통국어1",
+            "생명과학"
+          ],
+          "why": "과학 기술의 편익과 위험을 함께 보는 힘이 윤리 판단과 책임 있는 활용 논의의 핵심 기초가 됨",
+          "student_output_hint": "찬반 근거표, 윤리 판단 정리, 쟁점 보고서"
+        },
+        {
+          "axis_id": "social_decision_making",
+          "axis_title": "사회적 의사결정 축",
+          "axis_domain": "social",
+          "priority": 2,
+          "next_subjects": [
+            "통합사회1",
+            "공통국어1",
+            "법·정책"
+          ],
+          "why": "사회적 합의와 공공성 기준을 연결하면 토론·정책 제안형 탐구로 확장되기 쉬움",
+          "student_output_hint": "위험·편익 비교, 공공성 기준 정리, 의사결정 보고서"
+        }
+      ]
+    }
+  ]
+}
