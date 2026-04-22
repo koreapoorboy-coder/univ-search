@@ -5461,5 +5461,444 @@
         ]
       }
     }
+  },
+  "대수": {
+    "meta": {
+      "subject_kr": "대수",
+      "subject_en": "Algebra",
+      "publisher": "비상교육",
+      "curriculum": "2022 개정 교육과정",
+      "source_name": "algebra_structure_db",
+      "version": "0.1.0-longitudinal-start"
+    },
+    "concepts": {
+      "거듭제곱과 거듭제곱근": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "거듭제곱과 거듭제곱근의 뜻을 바탕으로 지수 표현과 근호 연산의 기초를 이해한다.",
+        "core_concepts": [
+          "거듭제곱",
+          "거듭제곱근",
+          "n제곱근",
+          "근호",
+          "실수인 근"
+        ],
+        "micro_keywords": [
+          "거듭제곱",
+          "거듭제곱근",
+          "n제곱근",
+          "근호",
+          "실수인 근",
+          "근호 정리",
+          "밑",
+          "지수"
+        ],
+        "student_topics": [
+          "거듭제곱근은 왜 지수함수 학습의 기초가 될까?",
+          "근호와 거듭제곱 표현을 바꾸면 어떤 현상을 더 쉽게 설명할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "원리 이해형",
+          "식 변형형",
+          "현상 모델링형"
+        ],
+        "linked_career_bridge": [
+          "수학 모델링",
+          "물리량 표현",
+          "음향·주파수 해석"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학2",
+            "concept": "자연 세계의 시간과 공간",
+            "evaluation_focus": "큰 수와 작은 수를 지수 표현으로 다루는 사고를 연결할 수 있는가",
+            "inquiry_extension": "천체 거리나 미시 세계 규모를 지수 표현으로 정리해 보기"
+          },
+          {
+            "subject": "과학탐구실험1",
+            "concept": "과학의 단위 및 도량형의 역사 추적하기",
+            "evaluation_focus": "수의 표현 방식과 표준 단위를 연결해 해석할 수 있는가",
+            "inquiry_extension": "단위 접두어와 지수 표현을 연결한 비교 자료 만들기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "물리 / 역학과 에너지",
+            "connection_point": "물리량의 규모와 단위, 지수 표현으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "지구과학 / 천문 관련 탐구",
+            "connection_point": "천체 규모와 거리 표현에 활용"
+          }
+        ]
+      },
+      "지수의 확장": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "정수·유리수·실수 지수로 확장하며 지수법칙의 성립 조건을 이해한다.",
+        "core_concepts": [
+          "정수 지수",
+          "유리수 지수",
+          "실수 지수",
+          "지수법칙",
+          "밑의 조건"
+        ],
+        "micro_keywords": [
+          "정수 지수",
+          "유리수 지수",
+          "실수 지수",
+          "지수법칙",
+          "밑의 조건",
+          "식 변형",
+          "대소 비교"
+        ],
+        "student_topics": [
+          "정수 지수에서 실수 지수까지 확장하면 어떤 문제를 다룰 수 있을까?",
+          "지수법칙은 왜 조건을 정확히 따져야 할까?"
+        ],
+        "linked_activity_types": [
+          "조건 해석형",
+          "식 변형형",
+          "패턴 확장형"
+        ],
+        "linked_career_bridge": [
+          "데이터 해석",
+          "컴퓨터공학",
+          "생명 변화 모델"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "알고리즘 설계와 분석",
+            "evaluation_focus": "규칙을 조건에 따라 적용하는 절차적 사고를 보이는가",
+            "inquiry_extension": "지수법칙 적용 과정을 단계별 알고리즘으로 구조화하기"
+          },
+          {
+            "subject": "통합과학1",
+            "concept": "규칙성 발견과 주기율표",
+            "evaluation_focus": "규칙을 일반화하고 조건을 따져 해석하는 사고를 연결할 수 있는가",
+            "inquiry_extension": "수학 규칙과 과학 규칙의 공통점 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "확률과 통계 / 정보",
+            "connection_point": "데이터의 비율 변화와 계산 구조 이해로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "생명과학 / 화학",
+            "connection_point": "성장·감소 현상의 수학적 표현과 연결"
+          }
+        ]
+      },
+      "로그의 뜻과 성질": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "로그의 정의와 성질, 밑의 변환을 활용해 복잡한 곱셈·나눗셈 문제를 단순화한다.",
+        "core_concepts": [
+          "로그",
+          "밑",
+          "진수",
+          "로그의 성질",
+          "밑의 변환"
+        ],
+        "micro_keywords": [
+          "로그",
+          "밑",
+          "진수",
+          "로그의 성질",
+          "밑의 변환",
+          "지수-로그 변환",
+          "문자식 정리"
+        ],
+        "student_topics": [
+          "로그는 왜 큰 수의 계산과 비교를 간단하게 만들어 줄까?",
+          "지수식과 로그식을 서로 바꾸어 보면 무엇이 더 잘 보일까?"
+        ],
+        "linked_activity_types": [
+          "계산 단순화형",
+          "변환 해석형",
+          "구조 분석형"
+        ],
+        "linked_career_bridge": [
+          "컴퓨터공학",
+          "데이터사이언스",
+          "정보통신"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "자료와 정보의 분석",
+            "evaluation_focus": "복잡한 정보를 변환해 더 효율적으로 다룰 수 있는가",
+            "inquiry_extension": "로그 변환을 이용한 데이터 축약 사례 조사하기"
+          },
+          {
+            "subject": "공통수학2",
+            "concept": "도형의 이동",
+            "evaluation_focus": "변환 규칙을 수학적 구조로 해석하는 태도를 연결할 수 있는가",
+            "inquiry_extension": "로그식 변환과 그래프 변환의 공통점 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 / 데이터 관련 탐구",
+            "connection_point": "데이터 변환·압축·규모 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "확률과 통계",
+            "connection_point": "로그 변환을 활용한 자료 해석으로 확장"
+          }
+        ]
+      },
+      "상용로그": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "상용로그를 이용해 지진 규모, 데시벨, pH처럼 크기 차이가 큰 현상을 간결하게 표현하고 해석한다.",
+        "core_concepts": [
+          "상용로그",
+          "리히터 규모",
+          "데시벨",
+          "pH",
+          "로그표"
+        ],
+        "micro_keywords": [
+          "상용로그",
+          "리히터 규모",
+          "데시벨",
+          "pH",
+          "로그표",
+          "어림값",
+          "규모 해석",
+          "강도 비교"
+        ],
+        "student_topics": [
+          "리히터 규모와 데시벨은 왜 로그로 표현할까?",
+          "상용로그를 알면 실생활의 큰 차이를 어떻게 해석할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "실생활 해석형",
+          "규모 비교형",
+          "자료 시각화형"
+        ],
+        "linked_career_bridge": [
+          "환경공학",
+          "지구과학",
+          "음향공학",
+          "의학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학2",
+            "concept": "미래와 지속 가능한 삶",
+            "evaluation_focus": "환경·건강 지표를 로그 규모로 이해할 수 있는가",
+            "inquiry_extension": "소음, pH, 지진 규모를 비교한 생활 데이터 보고서 작성하기"
+          },
+          {
+            "subject": "과학탐구실험2",
+            "concept": "생활 자료를 활용한 과학적 의사결정 탐구",
+            "evaluation_focus": "실생활 수치를 비교·판단하는 데 로그 표현을 활용할 수 있는가",
+            "inquiry_extension": "데시벨이나 pH 자료를 활용해 의사결정 기준 만들기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "지구과학 / 환경 탐구",
+            "connection_point": "지진·환경 데이터 해석으로 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "화학 / 생명과학",
+            "connection_point": "pH와 농도 변화 해석으로 확장"
+          }
+        ]
+      },
+      "지수함수의 뜻과 그래프": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "지수함수의 그래프와 성질을 바탕으로 빠른 증가·감소 현상을 시각적으로 이해한다.",
+        "core_concepts": [
+          "지수함수",
+          "그래프",
+          "점근선",
+          "증가와 감소",
+          "평행이동"
+        ],
+        "micro_keywords": [
+          "지수함수",
+          "그래프",
+          "점근선",
+          "증가",
+          "감소",
+          "평행이동",
+          "치역",
+          "정의역"
+        ],
+        "student_topics": [
+          "지수적으로 증가·감소하는 현상은 어떤 그래프로 보일까?",
+          "점근선은 왜 변화의 한계를 읽는 데 중요할까?"
+        ],
+        "linked_activity_types": [
+          "그래프 해석형",
+          "변화 비교형",
+          "모델 시각화형"
+        ],
+        "linked_career_bridge": [
+          "컴퓨터공학",
+          "인공지능",
+          "생명과학",
+          "데이터사이언스"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "정보",
+            "concept": "자료와 정보의 표현",
+            "evaluation_focus": "변화를 그래프와 데이터로 시각화할 수 있는가",
+            "inquiry_extension": "지수적 증가 현상을 그래프와 디지털 데이터로 비교해 보기"
+          },
+          {
+            "subject": "과학탐구실험2",
+            "concept": "첨단 센서와 디지털 정보 탐구",
+            "evaluation_focus": "센서 데이터 변화 패턴을 수학 그래프로 해석할 수 있는가",
+            "inquiry_extension": "센서 측정값의 증가·감소를 지수함수 그래프 관점에서 해석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "미적분1",
+            "connection_point": "지수함수 변화율 해석으로 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "생명과학 / 정보",
+            "connection_point": "성장·감소와 데이터 모델링으로 연결"
+          }
+        ]
+      },
+      "로그함수의 뜻과 그래프": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "로그함수를 지수함수의 역함수로 이해하고 그래프의 대칭 관계와 성질을 해석한다.",
+        "core_concepts": [
+          "로그함수",
+          "역함수",
+          "대칭",
+          "점근선",
+          "정의역과 치역"
+        ],
+        "micro_keywords": [
+          "로그함수",
+          "역함수",
+          "대칭",
+          "점근선",
+          "정의역",
+          "치역",
+          "그래프 해석"
+        ],
+        "student_topics": [
+          "로그함수와 지수함수는 왜 서로 거울처럼 연결될까?",
+          "대칭 관계를 이용하면 어떤 현상을 더 잘 해석할 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "그래프 대칭형",
+          "함수 비교형",
+          "역관계 해석형"
+        ],
+        "linked_career_bridge": [
+          "수학",
+          "데이터 분석",
+          "컴퓨터공학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학2",
+            "concept": "도형의 이동",
+            "evaluation_focus": "대칭과 변환의 수학적 의미를 함수 그래프에 연결할 수 있는가",
+            "inquiry_extension": "로그함수의 대칭과 좌표 변환을 비교 분석하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "자료와 정보의 표현",
+            "evaluation_focus": "서로 역관계인 구조를 정보 표현 방식과 연결할 수 있는가",
+            "inquiry_extension": "함수 변환과 정보 변환의 구조 비교하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "미적분1",
+            "connection_point": "함수의 성질과 그래프 해석 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "정보 / 확률과 통계",
+            "connection_point": "로그 변환과 데이터 구조 해석으로 확장"
+          }
+        ]
+      },
+      "지수함수와 로그함수의 활용": {
+        "unit": "지수함수와 로그함수",
+        "lesson_focus": "지수·로그 모델을 활용해 성장, 감소, 강도, 용량 같은 실생활 변화를 해석한다.",
+        "core_concepts": [
+          "지수모델",
+          "로그모델",
+          "성장",
+          "감소",
+          "실생활 적용"
+        ],
+        "micro_keywords": [
+          "지수모델",
+          "로그모델",
+          "성장",
+          "감소",
+          "방사성 붕괴",
+          "별의 등급",
+          "충전 증가",
+          "채널 용량"
+        ],
+        "student_topics": [
+          "성장과 감소를 지수·로그 모델로 보면 어떤 예측이 가능할까?",
+          "방사성 붕괴나 전기차 충전 변화는 왜 지수 모델로 설명하기 좋을까?"
+        ],
+        "linked_activity_types": [
+          "실생활 모델링형",
+          "예측 분석형",
+          "데이터 해석형"
+        ],
+        "linked_career_bridge": [
+          "전자공학",
+          "컴퓨터공학",
+          "통계학",
+          "천문학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "통합과학2",
+            "concept": "과학 기술과 미래 사회",
+            "evaluation_focus": "기술 변화와 성장을 지수 모델 관점에서 설명할 수 있는가",
+            "inquiry_extension": "전기차 충전기 증가나 기술 확산을 지수 모델로 분석하기"
+          },
+          {
+            "subject": "과학탐구실험2",
+            "concept": "첨단 과학 기술의 사회 적용 탐구",
+            "evaluation_focus": "미래 기술 확산을 지수·로그 모델과 연결해 해석할 수 있는가",
+            "inquiry_extension": "기술 도입 속도와 사회 적용 변화를 수학 모델로 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "미적분1 / 확률과 통계",
+            "connection_point": "변화율·데이터 예측 해석으로 심화"
+          },
+          {
+            "grade": "2학년",
+            "subject": "전자기와 양자 / 정보",
+            "connection_point": "용량·강도·신호 변화 해석으로 연결"
+          }
+        ]
+      }
+    }
   }
 }
