@@ -1,0 +1,200 @@
+{
+  "subject_name": "과학탐구실험2",
+  "display_name": "고등학교 과학탐구실험2",
+  "curriculum": "2022 개정 교육과정",
+  "version": "0.1.0-longitudinal-start",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "충격을 줄이는 방법과 안전장치 탐구",
+      "concept_label": "충돌-안전-설계",
+      "longitudinal_axes": [
+        {
+          "axis_id": "impact_safety_engineering",
+          "axis_title": "충돌·안전 설계 축",
+          "axis_domain": "physics",
+          "priority": 1,
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "기계공학"
+          ],
+          "why": "충돌 상황을 힘과 운동량 관점으로 해석하고 안전장치를 비교하는 힘이 이후 역학과 안전 설계 탐구의 핵심 기초가 됩니다.",
+          "student_output_hint": "에어백·헬멧 구조 비교, 충격 흡수 원리 설명, 안전장치 개선 보고서"
+        },
+        {
+          "axis_id": "collision_data_modeling",
+          "axis_title": "충격 데이터·모델링 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학2",
+            "정보",
+            "확률과 통계"
+          ],
+          "why": "충돌 조건과 감속 변화를 수치로 정리하면 데이터 비교와 모델링 탐구로 자연스럽게 이어질 수 있습니다.",
+          "student_output_hint": "충돌 조건 표 정리, 감속 비교 그래프, 안전 기준 해석 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "내진 설계와 구조 안정성 탐구",
+      "concept_label": "구조-진동-안정성",
+      "longitudinal_axes": [
+        {
+          "axis_id": "seismic_structure_stability",
+          "axis_title": "내진·구조 안정성 축",
+          "axis_domain": "engineering",
+          "priority": 1,
+          "next_subjects": [
+            "기하",
+            "물리",
+            "건축공학"
+          ],
+          "why": "하중 전달과 진동 억제를 구조 관점으로 이해하는 힘이 내진 설계와 구조 안정성 탐구의 출발점이 됩니다.",
+          "student_output_hint": "댐퍼 구조 비교, 내진 모형 실험, 구조 안정성 분석 보고서"
+        },
+        {
+          "axis_id": "vibration_measurement_analysis",
+          "axis_title": "진동 측정·해석 축",
+          "axis_domain": "physics",
+          "priority": 2,
+          "next_subjects": [
+            "역학과 에너지",
+            "공통수학2",
+            "정보"
+          ],
+          "why": "진동 크기와 흔들림 변화를 측정하고 해석하는 힘이 역학 데이터 분석과 시스템 제어 탐구로 이어집니다.",
+          "student_output_hint": "진동 데이터 기록, 구조별 흔들림 비교, 감쇠 해석 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "생활 자료를 활용한 과학적 의사결정 탐구",
+      "concept_label": "자료-판단-의사결정",
+      "longitudinal_axes": [
+        {
+          "axis_id": "evidence_based_decision",
+          "axis_title": "근거 기반 판단 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "통합사회2"
+          ],
+          "why": "자료를 비교하고 선택 근거를 설명하는 힘이 데이터 해석과 과학적 의사결정 탐구의 핵심이 됩니다.",
+          "student_output_hint": "생활 자료 비교표, 선택 근거 정리, 의사결정 보고서"
+        },
+        {
+          "axis_id": "public_policy_data",
+          "axis_title": "생활 데이터·사회 판단 축",
+          "axis_domain": "social_policy",
+          "priority": 2,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "사회와 문화"
+          ],
+          "why": "생활 자료를 사회 문제와 연결해 판단하면 정책 비교와 공공의사결정 탐구로 확장할 수 있습니다.",
+          "student_output_hint": "생활 문제 사례 비교, 정책 선택 근거 정리, 자료 해석 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "생체 신호와 건강 데이터 탐구",
+      "concept_label": "생체신호-건강-측정",
+      "longitudinal_axes": [
+        {
+          "axis_id": "bio_signal_health",
+          "axis_title": "생체 신호·건강 해석 축",
+          "axis_domain": "biology",
+          "priority": 1,
+          "next_subjects": [
+            "생명과학",
+            "세포와 물질대사",
+            "보건의료"
+          ],
+          "why": "심박과 체온 같은 생체 신호를 항상성과 연결해 해석하는 힘이 건강 데이터 탐구의 중요한 기초가 됩니다.",
+          "student_output_hint": "운동 전후 생체 신호 비교, 항상성 설명, 건강 변화 보고서"
+        },
+        {
+          "axis_id": "biosensor_data_analysis",
+          "axis_title": "바이오센서·데이터 분석 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "전자공학"
+          ],
+          "why": "센서로 얻은 건강 데이터를 정량 분석하면 바이오센서와 데이터 기반 건강관리 탐구로 이어질 수 있습니다.",
+          "student_output_hint": "생체 데이터 그래프 해석, 센서 측정 비교, 건강관리 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "첨단 센서와 디지털 정보 탐구",
+      "concept_label": "센서-디지털-시스템",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sensor_digital_system",
+          "axis_title": "센서·디지털 시스템 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "컴퓨터공학"
+          ],
+          "why": "센서가 데이터를 수집하고 디지털 정보로 바꾸는 과정을 이해하면 스마트 시스템 탐구의 기반이 됩니다.",
+          "student_output_hint": "센서 종류 비교, 데이터 로깅 구조 설명, 스마트 기기 보고서"
+        },
+        {
+          "axis_id": "measurement_visualization",
+          "axis_title": "측정·시각화 해석 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학2",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "실시간 측정값을 저장하고 그래프로 읽는 힘이 데이터 시각화와 정량 분석 탐구로 확장됩니다.",
+          "student_output_hint": "센서 데이터 그래프 정리, 환경 조건 비교, 시각화 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "첨단 과학 기술의 사회 적용 탐구",
+      "concept_label": "첨단기술-사회-윤리",
+      "longitudinal_axes": [
+        {
+          "axis_id": "advanced_tech_social_ethics",
+          "axis_title": "기술 사회 적용·윤리 축",
+          "axis_domain": "social_policy",
+          "priority": 1,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "법·정책"
+          ],
+          "why": "첨단 기술이 사회 문제 해결에 어떻게 쓰이는지 판단하는 힘이 기술 윤리와 사회 적용 탐구의 중심이 됩니다.",
+          "student_output_hint": "첨단 기술 사례 비교, 사회적 영향 정리, 기술 윤리 보고서"
+        },
+        {
+          "axis_id": "future_technology_system_design",
+          "axis_title": "미래 기술·시스템 설계 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "융합기술"
+          ],
+          "why": "첨단 과학 기술을 시스템 관점으로 이해하면 자동화와 미래 기술 설계 탐구로 이어질 수 있습니다.",
+          "student_output_hint": "기술 적용 시나리오 분석, 자동화 구조 정리, 미래 기술 설계 보고서"
+        }
+      ]
+    }
+  ]
+}
