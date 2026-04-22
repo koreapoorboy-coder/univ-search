@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.1-subject-alias-fix";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.2-physics1-alias";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -25,6 +25,10 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.1-subject-alias-fix";
     "기하": "geometry",
     "물리": "physics1",
     "물리학": "physics1",
+    "물리학1": "physics1",
+    "물리학 1": "physics1",
+    "물리학I": "physics1",
+    "물리학Ⅰ": "physics1",
     "화학": "chemistry1",
     "생명과학": "life_science",
     "지구과학": "earth_science",
