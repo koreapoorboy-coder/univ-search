@@ -1,0 +1,229 @@
+{
+  "subject_name": "물리",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "힘과 운동",
+      "concept_label": "속도-가속도-등가속도 운동",
+      "longitudinal_axes": [
+        {
+          "axis_id": "motion_force_analysis_axis",
+          "axis_title": "운동·힘 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "역학과 에너지",
+            "기계공학",
+            "자동차공학"
+          ],
+          "why": "속도·가속도·힘·운동량을 함께 해석하는 사고가 역학 문제와 구조 안전성 분석으로 자연스럽게 이어짐",
+          "student_output_hint": "운동 그래프 비교, 충돌 안전 장치 분석, 힘-시간 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "mobility_safety_design_axis",
+          "axis_title": "모빌리티·안전 설계 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "자동차공학",
+            "항공우주공학",
+            "스포츠과학"
+          ],
+          "why": "충돌과 충격량을 정량적으로 해석하는 관점이 이동체 설계와 스포츠 움직임 분석으로 확장됨",
+          "student_output_hint": "에어백 원리 비교, 충격 완화 구조 설계, 스포츠 동작 분석 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "에너지와 열",
+      "concept_label": "일-운동 에너지-퍼텐셜 에너지",
+      "longitudinal_axes": [
+        {
+          "axis_id": "energy_conversion_axis",
+          "axis_title": "에너지 전환 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "역학과 에너지",
+            "에너지공학",
+            "환경공학"
+          ],
+          "why": "일·열·내부에너지·효율을 함께 해석하는 사고가 에너지 시스템 분석과 열역학 심화로 이어짐",
+          "student_output_hint": "열기관 효율 비교, 에너지 손실 분석, 전환 과정 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "thermal_system_design_axis",
+          "axis_title": "열·시스템 설계 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "기계공학",
+            "화학공학",
+            "에너지공학"
+          ],
+          "why": "열과 일의 관계를 정량적으로 다루는 관점이 냉각·발전·공정 시스템 설계로 확장됨",
+          "student_output_hint": "냉각 장치 비교, 열교환 구조 분석, 효율 개선 아이디어 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "시간과 공간",
+      "concept_label": "상대성 원리-광속 불변-동시성 불일치",
+      "longitudinal_axes": [
+        {
+          "axis_id": "modern_physics_axis",
+          "axis_title": "현대 물리 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "물리학",
+            "원자핵공학"
+          ],
+          "why": "상대성·질량에너지 동등성·핵반응 해석이 현대 물리와 원자핵 분야의 핵심 사고로 이어짐",
+          "student_output_hint": "시간 지연 사례 비교, 핵반응 질량 결손 분석, 현대 물리 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "space_nuclear_application_axis",
+          "axis_title": "우주·핵 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "천문우주학",
+            "에너지공학",
+            "신소재공학"
+          ],
+          "why": "시공간과 에너지 개념을 새롭게 보는 관점이 우주 탐사와 핵에너지·고에너지 소재 이해로 확장됨",
+          "student_output_hint": "우주 이동 시간 해석, 핵융합 에너지 비교, 고에너지 환경 소재 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "물질의 전기적 특성",
+      "concept_label": "전하-전기력-원자 구조",
+      "longitudinal_axes": [
+        {
+          "axis_id": "electrical_material_axis",
+          "axis_title": "전기적 물성 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "반도체공학",
+            "전자공학"
+          ],
+          "why": "전하·에너지띠·도핑을 통해 물질의 전기적 성질을 해석하는 사고가 반도체와 전자소자 이해로 이어짐",
+          "student_output_hint": "도체·반도체 비교, 에너지띠 구조 분석, 다이오드 원리 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "material_structure_device_axis",
+          "axis_title": "물질 구조·소자 설계 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학",
+            "신소재공학",
+            "나노공학"
+          ],
+          "why": "원자 구조와 물성의 관계를 보는 관점이 소재 설계와 나노 수준 구조 해석으로 확장됨",
+          "student_output_hint": "도핑 소재 비교, 물성 변화 분석, 소자 재료 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "물질의 자기적 특성",
+      "concept_label": "자기장-전류-전자석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "electromagnetic_induction_axis",
+          "axis_title": "전자기 유도 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "전기공학",
+            "에너지공학"
+          ],
+          "why": "전류와 자기장의 상호작용을 해석하는 사고가 발전·송전·전자기 장치 이해로 이어짐",
+          "student_output_hint": "전자기 유도 실생활 사례, 발전기 구조 비교, 변압기 원리 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "power_system_application_axis",
+          "axis_title": "전력·장치 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "전기공학",
+            "전자공학",
+            "의공학"
+          ],
+          "why": "자기장과 유도 전류를 장치 수준에서 설명하는 관점이 전력 시스템과 의료·센서 장비 응용으로 확장됨",
+          "student_output_hint": "모터·센서 비교, 자기장 응용 장치 분석, 전력 전달 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "파동의 성질과 활용",
+      "concept_label": "파동-진동수-파장",
+      "longitudinal_axes": [
+        {
+          "axis_id": "wave_signal_axis",
+          "axis_title": "파동·신호 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "정보통신공학",
+            "광학공학"
+          ],
+          "why": "파동의 속력·굴절·간섭을 해석하는 사고가 빛과 신호 전달 구조 분석으로 자연스럽게 이어짐",
+          "student_output_hint": "굴절 비교 실험 정리, 간섭 현상 분석, 광통신 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "communication_device_axis",
+          "axis_title": "통신·장치 응용 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "의공학"
+          ],
+          "why": "파동을 정보 전달 수단으로 이해하는 관점이 통신 장치와 센서 시스템 해석으로 확장됨",
+          "student_output_hint": "광통신 구조 비교, 전자기파 활용 분류, 센서 응용 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "빛과 물질의 이중성",
+      "concept_label": "빛의 파동설-빛의 입자설-광전 효과",
+      "longitudinal_axes": [
+        {
+          "axis_id": "quantum_light_matter_axis",
+          "axis_title": "빛·물질 양자 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "반도체공학",
+            "원자핵공학"
+          ],
+          "why": "빛과 물질의 이중성을 해석하는 관점이 양자 현상과 광전자 소자 이해의 출발점이 됨",
+          "student_output_hint": "광전 효과 사례 분석, 물질파 비교, 전자 현미경 원리 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "nano_device_application_axis",
+          "axis_title": "나노·소자 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "나노공학",
+            "광학공학",
+            "전자공학"
+          ],
+          "why": "광자와 물질파 개념을 응용하는 사고가 나노 관측 기술과 정밀 소자 설계로 확장됨",
+          "student_output_hint": "전자 현미경 해상도 비교, 광센서 구조 분석, 나노 장치 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
