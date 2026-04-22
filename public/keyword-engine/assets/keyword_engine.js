@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v36-collect-enabled";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -70,7 +70,7 @@ function getFormValues(){
     subject:$("subject")?.value?.trim()||"",
     taskName:$("taskName")?.value?.trim()||"",
     taskType:$("taskType")?.value?.trim()||"",
-    usagePurpose:$("usagePurpose")?.value?.trim()||"",
+    usagePurpose:$("usagePurpose")?.value?.trim()||"학생용 MINI 보고서 작성",
     taskDescription:$("taskDescription")?.value?.trim()||"",
     career:$("career")?.value?.trim()||"",
     keyword:$("keyword")?.value?.trim()||"",
@@ -80,7 +80,7 @@ function getFormValues(){
 }
 
 function validateInput(data){
-  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["usagePurpose","사용 목적"],["career","희망 진로"],["keyword","키워드"]];
+  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["career","희망 진로"],["keyword","키워드"]];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
@@ -244,7 +244,7 @@ function buildCollectPayload(formValues){
     subject: formValues.subject || "",
     task_name: formValues.taskName || "",
     task_type: formValues.taskType || "",
-    usage_purpose: formValues.usagePurpose || "",
+    usage_purpose: formValues.usagePurpose || "학생용 MINI 보고서 작성",
     task_description: formValues.taskDescription || "",
     career: formValues.career || "",
     activity_area: readValue("activityType") || readValue("activityArea"),
@@ -277,7 +277,7 @@ function buildCollectPayload(formValues){
     subject: formValues.subject || "",
     task_name: formValues.taskName || "",
     task_type: formValues.taskType || "",
-    usage_purpose: formValues.usagePurpose || "",
+    usage_purpose: formValues.usagePurpose || "학생용 MINI 보고서 작성",
     task_description: formValues.taskDescription || "",
     career: formValues.career || "",
     link_track: student_input.linked_track,
