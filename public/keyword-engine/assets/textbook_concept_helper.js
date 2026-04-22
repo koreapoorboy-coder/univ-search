@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.7.1-algebra-hotfix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.8-probability-statistics-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -53,6 +53,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.7.1-algebra-hotfix";
     "과학탐구실험1": "seed/followup-axis/science_inquiry1_concept_longitudinal_map.json",
     "과학탐구실험2": "seed/followup-axis/science_inquiry2_concept_longitudinal_map.json",
     "대수": "seed/followup-axis/algebra_concept_longitudinal_map.json",
+    "확률과 통계": "seed/followup-axis/probability_statistics_concept_longitudinal_map.json",
   }
 
   const state = {
