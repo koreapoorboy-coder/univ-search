@@ -1,0 +1,245 @@
+{
+  "subject_name": "정보",
+  "version": "v1_concept_longitudinal_map_2026-04-22",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ]
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "지식·정보 사회와 정보 문화",
+      "concept_label": "디지털 시민성·사회 변화",
+      "core_focus": "정보 사회, 디지털 시민성, 정보 윤리, 기술 변화, 미래 직업, AI·IoT 활용",
+      "longitudinal_axes": [
+        {
+          "axis_id": "digital_citizenship_ethics",
+          "axis_title": "디지털 시민성·정보윤리 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "통합사회2",
+            "대수"
+          ],
+          "why": "정보 보호, 저작권, AI 활용 책임처럼 기술 사용의 기준을 세우는 방향으로 확장되기 쉬움",
+          "student_output_hint": "정보 윤리 사례 비교, 개인정보 보호 기준 정리, 디지털 시민성 보고서"
+        },
+        {
+          "axis_id": "smart_society_data_service",
+          "axis_title": "스마트 사회·서비스 분석 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "확률과 통계",
+            "대수",
+            "통합사회2"
+          ],
+          "why": "스마트시티, 자율주행, AI 서비스처럼 사회 변화와 데이터 활용을 함께 해석하는 방향으로 이어질 수 있음",
+          "student_output_hint": "스마트 기술 사례 분석, 사회 변화 데이터 해석, 미래 서비스 비교 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "자료와 정보의 표현",
+      "concept_label": "디지털 표현·부호화",
+      "core_focus": "아날로그와 디지털, 진법, 문자 코드, 표본화, 양자화, 압축, 표현 방식",
+      "longitudinal_axes": [
+        {
+          "axis_id": "digital_encoding_representation",
+          "axis_title": "디지털 표현·부호화 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "전자기와 양자"
+          ],
+          "why": "숫자·문자·소리·이미지를 디지털 규칙으로 바꾸는 사고는 정보 처리의 핵심 기초가 됨",
+          "student_output_hint": "진법 변환 비교, 문자 코드 정리, 디지털 표현 방식 설명 보고서"
+        },
+        {
+          "axis_id": "signal_media_processing_base",
+          "axis_title": "신호·미디어 처리 기초 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "물리",
+            "전자기와 양자",
+            "대수"
+          ],
+          "why": "표본화와 압축 개념은 소리·영상 신호 처리와 전자 시스템 이해로 확장 가능함",
+          "student_output_hint": "이미지·음성 압축 비교, 표본화 원리 설명, 신호 처리 기초 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "자료와 정보의 분석",
+      "concept_label": "데이터 수집·구조화·시각화",
+      "core_focus": "자료 수집, 빅데이터, 구조화, 데이터베이스, 정보 관리, 시각화, 인포그래픽",
+      "longitudinal_axes": [
+        {
+          "axis_id": "data_collection_visualization",
+          "axis_title": "데이터 수집·시각화 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "대수",
+            "통합사회2"
+          ],
+          "why": "자료를 모으고 패턴을 찾는 활동이 통계 해석과 사회·과학 데이터 분석으로 직접 이어짐",
+          "student_output_hint": "설문·측정 자료 수집, 그래프 시각화, 데이터 해석 보고서"
+        },
+        {
+          "axis_id": "database_information_structure",
+          "axis_title": "데이터베이스·정보구조 축",
+          "axis_domain": "info",
+          "priority": 2,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "정보를 체계적으로 저장하고 검색하는 구조 이해는 데이터베이스와 소프트웨어 설계의 기초가 됨",
+          "student_output_hint": "데이터 항목 설계, 분류 체계 정리, DB 구조 설명 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "추상화와 문제 분해",
+      "concept_label": "문제 구조화·모델링",
+      "core_focus": "문제 이해, 추상화, 핵심 요소 추출, 문제 분해, 모델링",
+      "longitudinal_axes": [
+        {
+          "axis_id": "problem_structuring_algorithm_base",
+          "axis_title": "문제 구조화·알고리즘 설계 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "물리"
+          ],
+          "why": "복잡한 문제를 단계화하고 핵심 조건만 남기는 사고는 알고리즘 설계의 직접 기반이 됨",
+          "student_output_hint": "문제 분해 과정 정리, 핵심 요소 추출, 해결 절차 설계 보고서"
+        },
+        {
+          "axis_id": "mathematical_modeling_extension",
+          "axis_title": "수리 모델링 확장 축",
+          "axis_domain": "math",
+          "priority": 2,
+          "next_subjects": [
+            "대수",
+            "미적분1",
+            "물리"
+          ],
+          "why": "현실 상황을 변수와 관계식으로 바꾸는 과정은 수학적 모델링과 과학 문제 해결로 확장되기 쉬움",
+          "student_output_hint": "상황 모델링, 변수 관계 정리, 문제 해결 구조 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "알고리즘 설계와 분석",
+      "concept_label": "절차·효율·최적화",
+      "core_focus": "알고리즘, 순차·선택·반복 구조, 정렬, 탐색, 효율성, 수행 시간",
+      "longitudinal_axes": [
+        {
+          "axis_id": "algorithm_optimization",
+          "axis_title": "알고리즘 최적화 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "미적분1"
+          ],
+          "why": "같은 문제를 더 적은 시간과 단계로 해결하는 비교는 소프트웨어 문제 해결의 핵심 감각을 길러 줌",
+          "student_output_hint": "알고리즘 절차 비교, 수행 시간 분석, 효율성 판단 보고서"
+        },
+        {
+          "axis_id": "data_processing_prediction",
+          "axis_title": "데이터 처리·예측 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "확률과 통계",
+            "대수",
+            "전자기와 양자"
+          ],
+          "why": "정렬·탐색·반복 구조는 대량 데이터 처리와 자동화된 판단 구조로도 이어질 수 있음",
+          "student_output_hint": "자료 정렬 규칙 설계, 탐색 과정 시각화, 데이터 처리 절차 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "프로그래밍과 자동화",
+      "concept_label": "코드 구현·자동 처리",
+      "core_focus": "프로그래밍 언어, 변수, 조건문, 반복문, 배열, 함수, 자동화 구현",
+      "longitudinal_axes": [
+        {
+          "axis_id": "programming_implementation",
+          "axis_title": "프로그래밍 구현 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "과학탐구실험2"
+          ],
+          "why": "입력-처리-출력 구조를 실제 코드로 구현하는 경험은 컴퓨터공학형 탐구의 직접 출발점이 됨",
+          "student_output_hint": "변수·조건·반복문 코드 작성, 자동화 절차 구현, 프로그램 설명 보고서"
+        },
+        {
+          "axis_id": "logic_control_automation",
+          "axis_title": "논리·제어 확장 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "전자기와 양자",
+            "물리",
+            "대수"
+          ],
+          "why": "프로그래밍 흐름은 센서 입력 처리, 제어 로직, 임베디드 자동화 구조로도 자연스럽게 이어짐",
+          "student_output_hint": "입출력 제어 설계, 자동화 흐름도 작성, 센서 제어 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "컴퓨팅 시스템과 네트워크",
+      "concept_label": "시스템·네트워크·센서",
+      "core_focus": "운영체제, 프로세스, 자원 관리, 네트워크, IP, 공유, 피지컬 컴퓨팅, 센서, 회로",
+      "longitudinal_axes": [
+        {
+          "axis_id": "system_network_architecture",
+          "axis_title": "시스템·네트워크 구조 축",
+          "axis_domain": "info",
+          "priority": 1,
+          "next_subjects": [
+            "전자기와 양자",
+            "대수",
+            "확률과 통계"
+          ],
+          "why": "운영체제와 네트워크의 동작 원리를 이해하면 컴퓨팅 환경 전체를 구조적으로 해석하는 방향으로 확장 가능함",
+          "student_output_hint": "네트워크 구조 정리, 시스템 동작 흐름 설명, 자원 관리 보고서"
+        },
+        {
+          "axis_id": "sensor_embedded_control",
+          "axis_title": "센서·임베디드 제어 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "물리",
+            "전자기와 양자",
+            "과학탐구실험2"
+          ],
+          "why": "피지컬 컴퓨팅은 센서 입력, 회로, 출력 제어를 연결해 전자·로봇 응용 탐구로 이어지기 좋음",
+          "student_output_hint": "센서 데이터 처리, 회로 구성 설명, 피지컬 컴퓨팅 보고서"
+        }
+      ]
+    }
+  ]
+}
