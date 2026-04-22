@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.3-subject-select-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.7-algebra-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -48,7 +48,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.3-subject-select-fix";
     "통합사회1": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
     "통합사회": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
     "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json"
-  };
+    "공통국어2": "seed/followup-axis/common_korean2_concept_longitudinal_map.json",
+    "통합사회2": "seed/followup-axis/integrated_society2_concept_longitudinal_map.json",
+    "과학탐구실험1": "seed/followup-axis/science_inquiry1_concept_longitudinal_map.json",
+    "과학탐구실험2": "seed/followup-axis/science_inquiry2_concept_longitudinal_map.json",
+    "대수": "seed/followup-axis/algebra_concept_longitudinal_map.json",
+  }
 
   const state = {
     subject: "",
