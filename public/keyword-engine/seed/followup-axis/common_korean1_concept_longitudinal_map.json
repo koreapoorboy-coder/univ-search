@@ -1,0 +1,278 @@
+{
+  "subject_name": "공통국어1",
+  "version": "v1_concept_longitudinal_map_2026-04-22",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ]
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "서정 갈래와 시적 표현",
+      "concept_label": "시·정서·표현",
+      "core_focus": "시적 화자, 운율, 심상, 비유, 상징, 정서 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "literature_appreciation_extension",
+          "axis_title": "문학 감상·해석 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "문학",
+            "공통국어2",
+            "독서와 작문"
+          ],
+          "why": "시의 정서와 표현을 읽는 힘이 이후 문학 갈래 해석과 감상 심화의 기초가 됨",
+          "student_output_hint": "시 감상 비교표, 표현 효과 분석, 주제 해석 보고서"
+        },
+        {
+          "axis_id": "creative_expression_extension",
+          "axis_title": "표현·창작 확장 축",
+          "axis_domain": "media",
+          "priority": 2,
+          "next_subjects": [
+            "문학",
+            "매체 의사소통",
+            "독서와 작문"
+          ],
+          "why": "시적 표현을 자신의 언어와 매체 표현으로 바꾸면 창작과 콘텐츠 해석으로 이어지기 쉬움",
+          "student_output_hint": "시어 바꾸기, 감상 카드뉴스, 표현 방식 비교 활동"
+        }
+      ]
+    },
+    {
+      "concept_name": "서사·극 갈래와 이야기 구성",
+      "concept_label": "서사·극·갈등",
+      "core_focus": "시점, 인물, 사건, 갈등, 대사, 장면 구성, 주제 파악",
+      "longitudinal_axes": [
+        {
+          "axis_id": "narrative_structure_analysis",
+          "axis_title": "서사 구조 분석 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "문학",
+            "매체 의사소통",
+            "공통국어2"
+          ],
+          "why": "이야기 구조를 읽는 힘이 문학 해석과 매체 서사 이해로 자연스럽게 이어짐",
+          "student_output_hint": "인물 관계도, 갈등 구조도, 장면 비교 보고서"
+        },
+        {
+          "axis_id": "storytelling_media_extension",
+          "axis_title": "스토리텔링·매체 축",
+          "axis_domain": "media",
+          "priority": 2,
+          "next_subjects": [
+            "매체 의사소통",
+            "문학",
+            "화법과 언어"
+          ],
+          "why": "서사와 극의 장면 구성을 매체 표현과 연결하면 스토리텔링 확장이 쉬움",
+          "student_output_hint": "서사 재구성, 장면 대본 바꾸기, 매체 비교 감상"
+        }
+      ]
+    },
+    {
+      "concept_name": "교술 갈래와 성찰적 표현",
+      "concept_label": "관찰·성찰·설명",
+      "core_focus": "관찰, 묘사, 설명, 태도, 주제 의식, 자기 성찰",
+      "longitudinal_axes": [
+        {
+          "axis_id": "reflective_writing_extension",
+          "axis_title": "성찰 글쓰기 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "독서와 작문",
+            "공통국어2",
+            "화법과 언어"
+          ],
+          "why": "관찰과 성찰을 글로 구조화하는 힘이 이후 설명·성찰 글쓰기의 기초가 됨",
+          "student_output_hint": "관찰 기록, 성찰 에세이, 설명과 해석 비교 글"
+        },
+        {
+          "axis_id": "observation_interpretation_extension",
+          "axis_title": "관찰·해석 확장 축",
+          "axis_domain": "inquiry",
+          "priority": 2,
+          "next_subjects": [
+            "독서와 작문",
+            "통합사회2",
+            "통합과학2"
+          ],
+          "why": "대상을 관찰하고 의미를 해석하는 과정이 교과 탐구 기록과도 잘 연결됨",
+          "student_output_hint": "현상 관찰 기록, 사례 해설문, 경험 해석 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "음운 변동과 국어 규범",
+      "concept_label": "발음·규범·언어",
+      "core_focus": "교체, 탈락, 축약, 첨가, 표준 발음, 국어 규범",
+      "longitudinal_axes": [
+        {
+          "axis_id": "language_rule_extension",
+          "axis_title": "언어 규범 탐구 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "화법과 언어",
+            "공통국어2",
+            "독서와 작문"
+          ],
+          "why": "언어 규칙과 발음 체계를 이해하는 힘이 이후 문법·언어생활 학습의 기반이 됨",
+          "student_output_hint": "발음 규칙 정리표, 오류 사례 분석, 규범 설명 보고서"
+        },
+        {
+          "axis_id": "accurate_expression_extension",
+          "axis_title": "정확한 표현 축",
+          "axis_domain": "communication",
+          "priority": 2,
+          "next_subjects": [
+            "화법과 언어",
+            "매체 의사소통",
+            "공통국어2"
+          ],
+          "why": "정확한 발음과 표현은 말하기·듣기·매체 표현의 기본 토대가 됨",
+          "student_output_hint": "발음 비교, 표현 교정, 전달력 점검 활동"
+        }
+      ]
+    },
+    {
+      "concept_name": "공동체 의사소통과 공감",
+      "concept_label": "소통·공감·협업",
+      "core_focus": "공감, 배려, 상호작용, 경청, 공동체 소통 문화",
+      "longitudinal_axes": [
+        {
+          "axis_id": "speech_empathy_extension",
+          "axis_title": "화법·공감 소통 축",
+          "axis_domain": "communication",
+          "priority": 1,
+          "next_subjects": [
+            "화법과 언어",
+            "공통국어2",
+            "매체 의사소통"
+          ],
+          "why": "공감과 배려를 바탕으로 한 소통 경험이 이후 발표·토론·대화 수행으로 이어짐",
+          "student_output_hint": "대화 분석표, 공감 표현 점검, 역할극 성찰 보고서"
+        },
+        {
+          "axis_id": "community_collaboration_extension",
+          "axis_title": "공동체 협업 축",
+          "axis_domain": "social",
+          "priority": 2,
+          "next_subjects": [
+            "화법과 언어",
+            "통합사회2",
+            "매체 의사소통"
+          ],
+          "why": "공동체 소통 문제를 관계·참여 문제로 확장하면 사회적 협업 탐구로 연결 가능",
+          "student_output_hint": "학교 소통 문제 해결안, 공동체 규칙 제안, 참여형 발표"
+        }
+      ]
+    },
+    {
+      "concept_name": "문학·독서와 주체적 수용",
+      "concept_label": "독서·감상·성찰",
+      "core_focus": "문학 감상, 독서 계획, 독서 과정, 성찰, 삶의 해석, 주체적 수용",
+      "longitudinal_axes": [
+        {
+          "axis_id": "reading_interpretation_extension",
+          "axis_title": "독서 해석 심화 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "독서와 작문",
+            "문학",
+            "공통국어2"
+          ],
+          "why": "읽은 내용을 자신의 관점으로 해석하고 정리하는 힘이 이후 독서·문학 활동의 중심 역량이 됨",
+          "student_output_hint": "독서 기록장, 감상 비교표, 삶 연결 성찰문"
+        },
+        {
+          "axis_id": "life_connection_extension",
+          "axis_title": "삶 연결 성찰 축",
+          "axis_domain": "inquiry",
+          "priority": 2,
+          "next_subjects": [
+            "독서와 작문",
+            "문학",
+            "통합사회2"
+          ],
+          "why": "문학과 독서를 삶의 문제와 연결하면 주제 탐구와 자기 성찰형 보고서로 확장 가능",
+          "student_output_hint": "도서-삶 연결 글, 가치 성찰 보고서, 작품 적용 사례 정리"
+        }
+      ]
+    },
+    {
+      "concept_name": "비판적 읽기와 토론",
+      "concept_label": "논증·쟁점·토론",
+      "core_focus": "비판적 읽기, 주장, 근거, 타당성, 토론, 입론, 반론, 재반론",
+      "longitudinal_axes": [
+        {
+          "axis_id": "argument_debate_extension",
+          "axis_title": "논증·토론 축",
+          "axis_domain": "communication",
+          "priority": 1,
+          "next_subjects": [
+            "화법과 언어",
+            "독서와 작문",
+            "공통국어2"
+          ],
+          "why": "주장과 근거를 검토하는 힘이 이후 토론·발표·논증 글쓰기의 직접적인 기반이 됨",
+          "student_output_hint": "찬반 논거표, 쟁점 정리, 토론 대본 설계"
+        },
+        {
+          "axis_id": "critical_reading_extension",
+          "axis_title": "비판 해석 확장 축",
+          "axis_domain": "social",
+          "priority": 2,
+          "next_subjects": [
+            "독서와 작문",
+            "매체 의사소통",
+            "통합사회2"
+          ],
+          "why": "비판적으로 읽는 태도를 사회 자료·매체 자료 해석으로 넓히면 탐구형 읽기로 이어짐",
+          "student_output_hint": "기사 비판 읽기, 근거 점검표, 자료 해석 보고서"
+        }
+      ]
+    },
+    {
+      "concept_name": "사회적 쟁점 글쓰기와 문장 구성",
+      "concept_label": "주장·근거·글쓰기",
+      "core_focus": "사회적 쟁점, 주장, 근거, 개요, 문장 구성, 문법 요소, 수정",
+      "longitudinal_axes": [
+        {
+          "axis_id": "argument_writing_extension",
+          "axis_title": "주장 글쓰기 축",
+          "axis_domain": "korean",
+          "priority": 1,
+          "next_subjects": [
+            "독서와 작문",
+            "화법과 언어",
+            "공통국어2"
+          ],
+          "why": "쟁점에 대해 개요를 짜고 근거를 배치하는 힘이 이후 작문과 발표의 핵심이 됨",
+          "student_output_hint": "주장 글 개요, 근거 배치표, 수정 전후 비교"
+        },
+        {
+          "axis_id": "public_media_expression_extension",
+          "axis_title": "공공·매체 표현 축",
+          "axis_domain": "media",
+          "priority": 2,
+          "next_subjects": [
+            "매체 의사소통",
+            "독서와 작문",
+            "통합사회2"
+          ],
+          "why": "사회적 쟁점을 글로 다루는 경험이 카드뉴스·논평·제안서 같은 공공 표현으로 확장되기 쉬움",
+          "student_output_hint": "논평문, 카드뉴스 원고, 정책 제안 글쓰기"
+        }
+      ]
+    }
+  ]
+}
