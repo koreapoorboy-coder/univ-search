@@ -1,0 +1,168 @@
+{
+  "subject_name": "통합사회2",
+  "display_name": "고등학교 통합사회2",
+  "curriculum": "2022 개정 교육과정",
+  "version": "0.1.0-longitudinal-start",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "인권 보장과 헌법",
+      "concept_label": "인권-헌법-참여",
+      "longitudinal_axes": [
+        {
+          "axis_id": "rights_constitution_judgment",
+          "axis_title": "인권·헌법 판단 축",
+          "axis_domain": "social_policy",
+          "priority": 1,
+          "next_subjects": [
+            "정치",
+            "법·정책",
+            "행정"
+          ],
+          "why": "인권과 헌법, 기본권 판단은 사회 제도와 공공 정책을 해석하는 기초가 됩니다.",
+          "student_output_hint": "인권 사례 분석표, 헌법 판단 보고서, 시민 참여 제안서"
+        },
+        {
+          "axis_id": "civic_participation_public",
+          "axis_title": "시민 참여·공공의사결정 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "행정",
+            "정치",
+            "사회 문제 탐구"
+          ],
+          "why": "권익 보호와 시민 참여를 실제 의사결정 구조와 연결하면 공공문제 해결 탐구로 확장됩니다.",
+          "student_output_hint": "참여 제도 비교, 공공 문제 해결 제안, 정책 피드백 자료"
+        }
+      ]
+    },
+    {
+      "concept_name": "사회 정의와 불평등",
+      "concept_label": "정의-불평등-복지",
+      "longitudinal_axes": [
+        {
+          "axis_id": "justice_inequality_policy",
+          "axis_title": "정의·불평등 해석 축",
+          "axis_domain": "social_policy",
+          "priority": 1,
+          "next_subjects": [
+            "사회·문화",
+            "경제",
+            "사회복지"
+          ],
+          "why": "정의관과 불평등 문제를 비교하는 힘이 복지와 정책 판단 탐구로 이어집니다.",
+          "student_output_hint": "정의관 비교표, 불평등 자료 해석, 복지 정책 보고서"
+        },
+        {
+          "axis_id": "equity_data_comparison",
+          "axis_title": "공정성·자료 비교 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학2",
+            "정보",
+            "경제"
+          ],
+          "why": "격차와 불평등을 자료로 읽고 비교하면 수리·데이터 기반 사회 문제 분석으로 확장할 수 있습니다.",
+          "student_output_hint": "격차 그래프 해석, 데이터 비교표, 기준별 공정성 판단 자료"
+        }
+      ]
+    },
+    {
+      "concept_name": "시장경제와 지속가능발전",
+      "concept_label": "시장-선택-지속가능",
+      "longitudinal_axes": [
+        {
+          "axis_id": "market_choice_finance",
+          "axis_title": "시장 판단·금융 설계 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "경제",
+            "금융",
+            "정보"
+          ],
+          "why": "합리적 선택과 금융 생활 설계는 데이터 기반 의사결정과 경제 탐구의 출발점이 됩니다.",
+          "student_output_hint": "소비 비교표, 금융 설계안, 선택 기준 보고서"
+        },
+        {
+          "axis_id": "sustainable_market_responsibility",
+          "axis_title": "지속가능 소비·기업 책임 축",
+          "axis_domain": "social_policy",
+          "priority": 2,
+          "next_subjects": [
+            "경제",
+            "경영",
+            "환경·에너지"
+          ],
+          "why": "시장 참여자의 책임과 지속가능성 판단은 윤리적 소비와 기업 책임 탐구로 이어집니다.",
+          "student_output_hint": "친환경 소비 사례, ESG 비교, 지속가능 경영 제안"
+        }
+      ]
+    },
+    {
+      "concept_name": "세계화와 평화",
+      "concept_label": "세계화-평화-연대",
+      "longitudinal_axes": [
+        {
+          "axis_id": "globalization_peace_issue",
+          "axis_title": "세계화·평화 이슈 축",
+          "axis_domain": "social_policy",
+          "priority": 1,
+          "next_subjects": [
+            "정치",
+            "세계 문제 탐구",
+            "국제학"
+          ],
+          "why": "세계화와 국제 갈등을 해석하는 힘이 국제 이슈와 평화 문제 탐구로 연결됩니다.",
+          "student_output_hint": "국제 이슈 브리핑, 갈등 구조 비교, 평화 실천 보고서"
+        },
+        {
+          "axis_id": "global_network_media",
+          "axis_title": "국제 네트워크·미디어 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "언론·미디어",
+            "국제통상"
+          ],
+          "why": "세계화의 상호 의존 구조를 정보 흐름과 네트워크 관점으로 보면 국제 커뮤니케이션 탐구가 가능합니다.",
+          "student_output_hint": "세계화 데이터 맵, 국제 뉴스 비교, 네트워크 구조 정리"
+        }
+      ]
+    },
+    {
+      "concept_name": "미래와 지속가능한 삶",
+      "concept_label": "미래-인구-기후",
+      "longitudinal_axes": [
+        {
+          "axis_id": "future_population_resource",
+          "axis_title": "인구·자원 변화 해석 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "지리",
+            "경제",
+            "공통수학2"
+          ],
+          "why": "인구 구조와 자원 소비 변화를 자료로 읽는 힘이 미래 사회 분석의 기초가 됩니다.",
+          "student_output_hint": "인구 구조 그래프, 자원 소비 비교, 미래 변화 예측 보고서"
+        },
+        {
+          "axis_id": "climate_sustainability_policy",
+          "axis_title": "기후·지속가능 정책 축",
+          "axis_domain": "earth_env",
+          "priority": 2,
+          "next_subjects": [
+            "환경·에너지",
+            "지구과학",
+            "행정"
+          ],
+          "why": "기후변화 대응과 지속가능한 삶의 방향은 환경 정책과 기술 탐구로 확장될 수 있습니다.",
+          "student_output_hint": "기후변화 대응안, 지속가능 생활 설계, 정책 비교 보고서"
+        }
+      ]
+    }
+  ]
+}
