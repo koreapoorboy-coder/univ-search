@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.2-structure-cleanup";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.3-subject-select-fix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -223,7 +223,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.2-structure-cleanup";
     for (const [alias, canonical] of Object.entries(SUBJECT_NAME_ALIASES)) {
       if (normalize(alias) === cleaned) return canonical;
     }
-    return getCanonicalSubjectName(raw);
+    return raw;
   }
 
   function applySubjectAliasesToMap(source) {
