@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.6-integrated-society-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -19,10 +19,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.6-integrated-society-support";
   const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
-    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
-    "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
-    "통합사회": "seed/followup-axis/integrated_society_concept_longitudinal_map.json",
-    "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json"
+    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json"
   };
 
   const state = {
@@ -442,6 +439,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.6-integrated-society-support";
       .engine-mode-title { font-size:16px; font-weight:800; color:#172033; }
       .engine-mode-desc { color:#66748c; font-size:13px; line-height:1.55; margin-top:6px; }
       .engine-selection-box { margin-top:18px; border:1px solid #d8e0ee; border-radius:20px; padding:18px; background:#f8fbff; }
+      .engine-flow-kicker, .engine-flow-title, .engine-flow-desc, .engine-selection-box { display:none; }
       .engine-selection-title { margin:0 0 10px; font-size:20px; font-weight:800; color:#172033; }
       .engine-selection-payload { margin-top:12px; padding:14px 16px; border-radius:16px; background:#fff; border:1px dashed #d6deef; color:#33435f; font-size:14px; line-height:1.7; }
       .engine-selection-payload strong { color:#172033; }
