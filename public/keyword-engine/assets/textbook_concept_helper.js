@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.2-structure-cleanup";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -12,13 +12,36 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
       .replace(/'/g, "&#39;");
   }
 
-  const UI_SEED_URL = "seed/textbook-v1/subject_concept_ui_seed.json";
-  const ENGINE_MAP_URL = "seed/textbook-v1/subject_concept_engine_map.json";
-  const TOPIC_MATRIX_URL = "seed/textbook-v1/topic_matrix_seed.json";
-  const FOLLOWUP_SUBJECT_URL = "seed/followup-axis/subject_bridge_point.json";
-  const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
+  // 구조 정리 기준
+  // - 교과 원본 SSOT: seed/textbook-data/
+  // - 3번 화면 런타임 데이터: seed/textbook-v1/
+  // - 4번 종단 연결/브리지 데이터: seed/followup-axis/
+  //
+  // 실무 원칙:
+  // 1) 과목 수정은 textbook-data부터
+  // 2) 화면 반영은 textbook-v1 갱신 후 확인
+  // 3) 후속 연계축은 followup-axis에서 별도 관리
+  const DATA_SOURCE_POLICY = Object.freeze({
+    sourceOfTruth: "seed/textbook-data/",
+    runtimeUi: "seed/textbook-v1/",
+    followupAxis: "seed/followup-axis/"
+  });
+
+  const UI_SEED_URL = `${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`;
+  const ENGINE_MAP_URL = `${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`;
+  const TOPIC_MATRIX_URL = `${DATA_SOURCE_POLICY.runtimeUi}topic_matrix_seed.json`;
+  const FOLLOWUP_SUBJECT_URL = `${DATA_SOURCE_POLICY.followupAxis}subject_bridge_point.json`;
+  const FOLLOWUP_MAJOR_URL = `${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`;
+
+  const SUBJECT_NAME_ALIASES = Object.freeze({
+    "통합사회": "통합사회1",
+    "통합사회 1": "통합사회1",
+    "통합사회I": "통합사회1",
+    "통합사회Ⅰ": "통합사회1"
+  });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
+    "통합과학2": "seed/followup-axis/integrated_science2_concept_longitudinal_map.json",
     "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
     "공통수학2": "seed/followup-axis/common_math2_concept_longitudinal_map.json",
     "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
@@ -190,6 +213,31 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
     return Array.from(new Set((arr || []).filter(Boolean)));
   }
 
+
+  function getCanonicalSubjectName(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    if (SUBJECT_NAME_ALIASES[raw]) return SUBJECT_NAME_ALIASES[raw];
+
+    const cleaned = normalize(raw);
+    for (const [alias, canonical] of Object.entries(SUBJECT_NAME_ALIASES)) {
+      if (normalize(alias) === cleaned) return canonical;
+    }
+    return getCanonicalSubjectName(raw);
+  }
+
+  function applySubjectAliasesToMap(source) {
+    if (!source || typeof source !== "object" || Array.isArray(source)) return source;
+    const cloned = { ...source };
+
+    Object.entries(SUBJECT_NAME_ALIASES).forEach(([alias, canonical]) => {
+      if (canonical in cloned && !(alias in cloned)) cloned[alias] = cloned[canonical];
+      if (alias in cloned && !(canonical in cloned)) cloned[canonical] = cloned[alias];
+    });
+
+    return cloned;
+  }
+
   async function loadSubjectConceptLongitudinalMaps() {
     const result = {};
     const entries = Object.entries(SUBJECT_CONCEPT_LONGITUDINAL_URLS || {});
@@ -221,12 +269,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
         return;
       }
 
-      uiSeed = await uiRes.json();
-      engineMap = await engineRes.json();
+      uiSeed = applySubjectAliasesToMap(await uiRes.json());
+      engineMap = applySubjectAliasesToMap(await engineRes.json());
       topicMatrix = matrixRes && matrixRes.ok ? await matrixRes.json() : null;
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
-      conceptLongitudinalMaps = loadedConceptMaps || {};
+      conceptLongitudinalMaps = applySubjectAliasesToMap(loadedConceptMaps || {});
 
       injectStyles();
       injectUI();
@@ -1295,7 +1343,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
   function syncSubjectFromSelect() {
     const el = $("subject");
     const raw = el ? ((el.value || "").trim() || (el.options?.[el.selectedIndex]?.text || "").trim()) : "";
-    state.subject = findSubjectKey(raw) || raw;
+    state.subject = getCanonicalSubjectName(findSubjectKey(raw) || raw);
     if (state.subject === "통합사회") state.subject = "통합사회1";
   }
 
@@ -1308,7 +1356,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v26.0-common-math2-support";
 
   function findSubjectKey(raw) {
     if (!raw) return "";
-    const cleaned = normalize(raw);
+    const canonicalRaw = getCanonicalSubjectName(raw);
+    const cleaned = normalize(canonicalRaw);
     if (cleaned === normalize("통합사회")) return "통합사회1";
 
     const seedKeys = uiSeed ? Object.keys(uiSeed) : [];
