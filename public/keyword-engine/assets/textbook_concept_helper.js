@@ -21,7 +21,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.6-integrated-society-support";
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
     "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
     "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
-    "통합사회": "seed/followup-axis/integrated_society_concept_longitudinal_map.json"
+    "통합사회": "seed/followup-axis/integrated_society_concept_longitudinal_map.json",
+    "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json"
   };
 
   const state = {
