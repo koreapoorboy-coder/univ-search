@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.8-common-korean1-bridge-fix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.9-integrated-society1-rename";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -21,7 +21,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.8-common-korean1-bridge-fix";
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
     "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
     "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
-    "통합사회": "seed/followup-axis/integrated_society_concept_longitudinal_map.json",
+    "통합사회1": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
+    "통합사회": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
     "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json"
   };
 
@@ -1294,6 +1295,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.8-common-korean1-bridge-fix";
     const el = $("subject");
     const raw = el ? ((el.value || "").trim() || (el.options?.[el.selectedIndex]?.text || "").trim()) : "";
     state.subject = findSubjectKey(raw) || raw;
+    if (state.subject === "통합사회") state.subject = "통합사회1";
   }
 
   function syncCareerFromInput() {
@@ -1306,6 +1308,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.8-common-korean1-bridge-fix";
   function findSubjectKey(raw) {
     if (!raw) return "";
     const cleaned = normalize(raw);
+    if (cleaned === normalize("통합사회")) return "통합사회1";
 
     const seedKeys = uiSeed ? Object.keys(uiSeed) : [];
     for (const key of seedKeys) {
