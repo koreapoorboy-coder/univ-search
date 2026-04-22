@@ -1,0 +1,229 @@
+{
+  "subject_name": "대수",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "거듭제곱과 거듭제곱근",
+      "concept_label": "지수-근호-규모",
+      "longitudinal_axes": [
+        {
+          "axis_id": "scale_expression_axis",
+          "axis_title": "규모·단위 해석 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "통합과학2",
+            "지구과학",
+            "물리"
+          ],
+          "why": "큰 수·작은 수와 단위 규모를 지수 표현으로 해석하는 사고가 과학 자료 읽기의 기초가 됨",
+          "student_output_hint": "천체 거리·미시 세계 크기 비교, 단위 접두어 탐구 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "wave_frequency_axis",
+          "axis_title": "파동·주파수 모델링 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "전자기와 양자"
+          ],
+          "why": "거듭제곱과 근호 관계는 주파수·에너지 규모를 해석하는 수학적 표현으로 이어짐",
+          "student_output_hint": "음계와 주파수, 파동 세기 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "지수의 확장",
+      "concept_label": "지수법칙-조건-확장",
+      "longitudinal_axes": [
+        {
+          "axis_id": "rule_generalization_axis",
+          "axis_title": "규칙 일반화·조건 해석 축",
+          "axis_domain": "math",
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "미적분1"
+          ],
+          "why": "지수법칙이 성립하는 조건을 따져 일반화하는 사고가 수학·정보 규칙 해석으로 확장됨",
+          "student_output_hint": "지수법칙 적용 조건 비교, 오류 사례 분석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "growth_change_axis",
+          "axis_title": "성장·감소 변화 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "통합과학2",
+            "정보"
+          ],
+          "why": "실수 지수 표현은 생명·기술 변화의 성장과 감소를 설명하는 기초가 됨",
+          "student_output_hint": "인구·세포·기술 확산 변화 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "로그의 뜻과 성질",
+      "concept_label": "로그-변환-효율",
+      "longitudinal_axes": [
+        {
+          "axis_id": "data_transform_axis",
+          "axis_title": "데이터 변환·효율 축",
+          "axis_domain": "info",
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "컴퓨터공학"
+          ],
+          "why": "로그 변환은 큰 범위의 데이터를 압축하고 비교하는 정보 처리 사고로 이어짐",
+          "student_output_hint": "로그 변환 사례 조사, 데이터 압축·시각화 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "function_structure_axis",
+          "axis_title": "함수 구조 해석 축",
+          "axis_domain": "math",
+          "next_subjects": [
+            "미적분1",
+            "공통수학2",
+            "확률과 통계"
+          ],
+          "why": "지수식과 로그식의 변환 구조를 이해하면 함수 관계와 그래프 해석으로 확장되기 쉬움",
+          "student_output_hint": "지수-로그 변환 정리, 함수 구조 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "상용로그",
+      "concept_label": "로그-규모-비교",
+      "longitudinal_axes": [
+        {
+          "axis_id": "environment_scale_axis",
+          "axis_title": "환경·규모 지표 축",
+          "axis_domain": "earth_env",
+          "next_subjects": [
+            "지구과학",
+            "환경공학",
+            "통합사회2"
+          ],
+          "why": "지진 규모, 데시벨, pH처럼 차이가 큰 현상을 로그 지표로 해석하는 능력이 환경·지구 데이터 이해로 이어짐",
+          "student_output_hint": "지진 규모·소음·산성도 비교 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "health_signal_axis",
+          "axis_title": "건강·생체 수치 해석 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "화학",
+            "과학탐구실험2"
+          ],
+          "why": "pH와 농도, 감각 강도 같은 수치를 해석하는 능력이 생명·건강 데이터 이해로 연결됨",
+          "student_output_hint": "pH·농도·생체 신호 수치 해석 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "지수함수의 뜻과 그래프",
+      "concept_label": "지수함수-그래프-변화",
+      "longitudinal_axes": [
+        {
+          "axis_id": "growth_graph_axis",
+          "axis_title": "성장·감소 그래프 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "미적분1",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "지수 그래프를 읽는 능력이 데이터 변화 해석과 예측 모델링으로 이어짐",
+          "student_output_hint": "성장·감소 그래프 비교, 변화 예측 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "technology_diffusion_axis",
+          "axis_title": "기술 확산·사회 변화 축",
+          "axis_domain": "social_policy",
+          "next_subjects": [
+            "통합사회2",
+            "정보",
+            "통합과학2"
+          ],
+          "why": "기술 보급과 감염 확산 같은 사회 변화 현상을 지수적으로 해석하는 사고로 확장됨",
+          "student_output_hint": "기술 확산, 바이러스 감소 사례 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "로그함수의 뜻과 그래프",
+      "concept_label": "로그함수-역함수-대칭",
+      "longitudinal_axes": [
+        {
+          "axis_id": "inverse_structure_axis",
+          "axis_title": "역함수·대칭 해석 축",
+          "axis_domain": "math",
+          "next_subjects": [
+            "공통수학2",
+            "미적분1",
+            "기하"
+          ],
+          "why": "로그함수와 지수함수의 역관계와 대칭 구조를 이해하면 함수·좌표 변환 사고가 심화됨",
+          "student_output_hint": "대칭 관계, 그래프 변환 비교 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "information_conversion_axis",
+          "axis_title": "정보 변환·구조 축",
+          "axis_domain": "info",
+          "next_subjects": [
+            "정보",
+            "컴퓨터공학",
+            "확률과 통계"
+          ],
+          "why": "역관계와 변환 구조를 읽는 사고가 정보 표현과 변환 알고리즘 이해로 이어짐",
+          "student_output_hint": "정보 변환 구조, 함수 변환 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "지수함수와 로그함수의 활용",
+      "concept_label": "모델-예측-실생활",
+      "longitudinal_axes": [
+        {
+          "axis_id": "prediction_model_axis",
+          "axis_title": "예측·모델링 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "확률과 통계",
+            "미적분1",
+            "정보"
+          ],
+          "why": "성장·감소 모델을 세우고 해석하는 능력이 데이터 예측과 모델링 탐구의 핵심이 됨",
+          "student_output_hint": "방사성 붕괴·충전 증가·용량 변화 모델링 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "science_technology_application_axis",
+          "axis_title": "과학·기술 적용 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "물리",
+            "통합과학2"
+          ],
+          "why": "지수·로그 모델은 신호 세기, 용량, 기술 변화 해석을 통해 과학기술 적용 탐구로 이어짐",
+          "student_output_hint": "별의 등급, 채널 용량, 기술 변화 사례 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
