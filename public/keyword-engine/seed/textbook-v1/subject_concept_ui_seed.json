@@ -1533,5 +1533,64 @@
         ]
       }
     ]
+  },
+  "확률과 통계": {
+    "meta": {
+      "subject_kr": "확률과 통계",
+      "subject_en": "Probability and Statistics",
+      "publisher": "비상교육",
+      "curriculum": "2022 개정 교육과정",
+      "source_name": "probability_statistics_structure_db",
+      "version": "0.1.0-longitudinal-start"
+    },
+    "concept_order": [
+      "경우의 수와 이항정리",
+      "확률과 조건부확률",
+      "확률분포와 통계적 추정"
+    ],
+    "concept_buttons": [
+      {
+        "concept": "경우의 수와 이항정리",
+        "unit": "경우의 수",
+        "student_topics": [
+          "배열과 선택의 구조를 식으로 표현하면 어떤 문제를 더 빠르게 해결할 수 있을까?",
+          "이항계수와 파스칼의 삼각형은 왜 데이터 패턴 이해와 연결될까?"
+        ],
+        "core_preview": [
+          "순열",
+          "조합",
+          "중복조합",
+          "이항정리"
+        ]
+      },
+      {
+        "concept": "확률과 조건부확률",
+        "unit": "확률",
+        "student_topics": [
+          "조건이 달라질 때 확률이 바뀌는 이유를 실제 데이터로 설명할 수 있을까?",
+          "독립과 종속을 구분하면 어떤 판단 오류를 줄일 수 있을까?"
+        ],
+        "core_preview": [
+          "표본공간",
+          "사건",
+          "조건부확률",
+          "독립"
+        ]
+      },
+      {
+        "concept": "확률분포와 통계적 추정",
+        "unit": "통계",
+        "student_topics": [
+          "기댓값과 분포를 알면 데이터의 전체 경향을 어떻게 해석할 수 있을까?",
+          "표본평균과 모평균 추정은 왜 실험·사회 조사 결과 해석의 핵심이 될까?"
+        ],
+        "core_preview": [
+          "확률변수",
+          "정규분포",
+          "표본평균",
+          "추정"
+        ]
+      }
+    ]
   }
 }
