@@ -1,0 +1,101 @@
+{
+  "subject_name": "확률과 통계",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "경우의 수와 이항정리",
+      "concept_label": "조합-계수-패턴",
+      "longitudinal_axes": [
+        {
+          "axis_id": "combinatorics_algorithm_axis",
+          "axis_title": "조합·알고리즘 구조 축",
+          "axis_domain": "info",
+          "next_subjects": [
+            "정보",
+            "컴퓨터공학",
+            "산업공학"
+          ],
+          "why": "경우를 나누고 계수 구조를 세는 사고가 탐색·알고리즘 설계의 기초로 이어짐",
+          "student_output_hint": "순열·조합 계산 절차 정리, 탐색 구조 비교 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "coefficient_pattern_axis",
+          "axis_title": "계수·패턴 일반화 축",
+          "axis_domain": "math",
+          "next_subjects": [
+            "대수",
+            "미적분1",
+            "공통수학2"
+          ],
+          "why": "이항계수와 파스칼 배열을 해석하는 사고가 식의 패턴 일반화와 함수 구조 해석으로 확장됨",
+          "student_output_hint": "이항계수 패턴, 파스칼의 삼각형 구조 분석 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "확률과 조건부확률",
+      "concept_label": "사건-조건-판단",
+      "longitudinal_axes": [
+        {
+          "axis_id": "risk_decision_axis",
+          "axis_title": "리스크·의사결정 축",
+          "axis_domain": "social_policy",
+          "next_subjects": [
+            "통합사회2",
+            "정보",
+            "경제학"
+          ],
+          "why": "조건에 따라 확률이 달라지는 구조를 해석하면 사회·경제 판단과 위험 비교 사고로 이어짐",
+          "student_output_hint": "조건부확률 사례 비교, 위험 판단 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "experiment_probability_axis",
+          "axis_title": "실험·상대도수 해석 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "과학탐구실험2",
+            "정보",
+            "생명과학"
+          ],
+          "why": "반복 시행과 상대도수 해석 능력이 실험 데이터 읽기와 근거 기반 판단의 기초가 됨",
+          "student_output_hint": "실험 반복 자료 비교, 상대도수·확률 연결 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "확률분포와 통계적 추정",
+      "concept_label": "분포-평균-추정",
+      "longitudinal_axes": [
+        {
+          "axis_id": "data_prediction_inference_axis",
+          "axis_title": "데이터 예측·추정 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "정보",
+            "미적분1",
+            "데이터사이언스"
+          ],
+          "why": "분포와 추정을 바탕으로 전체 경향을 해석하는 사고가 데이터 예측과 모델링 탐구로 이어짐",
+          "student_output_hint": "정규분포·표본평균 비교, 추정 결과 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "bio_social_distribution_axis",
+          "axis_title": "생명·사회 데이터 해석 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "과학탐구실험2",
+            "통합사회2"
+          ],
+          "why": "평균·분산·분포 해석 능력이 건강 데이터와 사회 조사 자료를 읽는 핵심 도구가 됨",
+          "student_output_hint": "건강 신호 분포 비교, 사회 조사 데이터 해석 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
