@@ -1,0 +1,101 @@
+{
+  "subject_name": "미적분1",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "수열의 극한과 급수",
+      "concept_label": "수열-극한-급수",
+      "longitudinal_axes": [
+        {
+          "axis_id": "scale_limit_interpretation_axis",
+          "axis_title": "규모·수렴 해석 축",
+          "axis_domain": "math",
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "수열과 급수의 수렴 구조를 해석하는 사고가 규모 변화와 누적 경향을 수식·데이터 관점으로 읽는 기초가 됨",
+          "student_output_hint": "부분합 비교, 수렴·발산 판정, 누적 변화 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "wave_frequency_limit_axis",
+          "axis_title": "파동·주기 모델링 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "전자기와 양자"
+          ],
+          "why": "반복과 주기, 무한 과정을 해석하는 사고가 파동·진동과 주파수 모델 탐구로 이어짐",
+          "student_output_hint": "주기 수열 비교, 파동 패턴 해석, 진동 모델 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "미분과 변화율 해석",
+      "concept_label": "미분-변화율-접선",
+      "longitudinal_axes": [
+        {
+          "axis_id": "change_optimization_axis",
+          "axis_title": "변화·최적화 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "역학과 에너지",
+            "물리",
+            "기하"
+          ],
+          "why": "순간 변화와 그래프 개형을 해석하는 사고가 속도·가속도와 최적화 문제 해석의 핵심 도구가 됨",
+          "student_output_hint": "그래프 개형 비교, 변화율 해석, 최적화 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "data_efficiency_axis",
+          "axis_title": "데이터 변환·효율 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "정보",
+            "컴퓨터공학",
+            "산업공학"
+          ],
+          "why": "변화율을 비교하는 사고가 데이터 처리 효율과 알고리즘 성능 판단 구조로 확장됨",
+          "student_output_hint": "센서 데이터 변화 비교, 효율 분석, 최적화 사례 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "적분과 누적량 모델링",
+      "concept_label": "적분-누적량-모델링",
+      "longitudinal_axes": [
+        {
+          "axis_id": "area_volume_modeling_axis",
+          "axis_title": "넓이·부피 모델링 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "기하",
+            "건축공학",
+            "항공우주공학"
+          ],
+          "why": "정적분을 누적량으로 해석하는 사고가 넓이·부피·구조 해석과 공간 모델링의 기초가 됨",
+          "student_output_hint": "단면 부피 모델, 넓이·거리 비교, 공간 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "motion_accumulation_axis",
+          "axis_title": "운동·누적 데이터 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "물리",
+            "과학탐구실험1",
+            "정보"
+          ],
+          "why": "변화가 누적된 결과를 계산하는 사고가 운동 데이터와 누적 측정값 해석으로 이어짐",
+          "student_output_hint": "거리-시간 자료 해석, 누적 데이터 그래프, 이동량 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
