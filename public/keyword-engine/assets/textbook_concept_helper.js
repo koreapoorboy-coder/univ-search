@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v29.0-chemistry1-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -47,7 +47,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v29.0-chemistry1-support";
     "화학1": "화학",
     "화학 1": "화학",
     "화학I": "화학",
-    "화학Ⅰ": "화학"
+    "화학Ⅰ": "화학",
+    "생명과학1": "생명과학",
+    "생명과학 1": "생명과학",
+    "생명과학I": "생명과학",
+    "생명과학Ⅰ": "생명과학"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -72,6 +76,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v29.0-chemistry1-support";
     "화학": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
     "화학Ⅰ": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
     "화학1": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
+    "생명과학": "seed/followup-axis/life_science_concept_longitudinal_map.json",
+    "생명과학Ⅰ": "seed/followup-axis/life_science_concept_longitudinal_map.json",
+    "생명과학1": "seed/followup-axis/life_science_concept_longitudinal_map.json",
   }
 
   const state = {
