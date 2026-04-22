@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.3-chemistry1-alias";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.4-life-science-alias";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -35,6 +35,10 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.3-chemistry1-alias";
     "화학I": "chemistry1",
     "화학Ⅰ": "chemistry1",
     "생명과학": "life_science",
+    "생명과학1": "life_science",
+    "생명과학 1": "life_science",
+    "생명과학I": "life_science",
+    "생명과학Ⅰ": "life_science",
     "지구과학": "earth_science",
     "역학과 에너지": "mechanics_energy",
     "전자기와 양자": "electromagnetism_quantum",
