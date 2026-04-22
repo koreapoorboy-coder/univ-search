@@ -51,7 +51,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
     "생명과학1": "생명과학",
     "생명과학 1": "생명과학",
     "생명과학I": "생명과학",
-    "생명과학Ⅰ": "생명과학"
+    "생명과학Ⅰ": "생명과학",
+    "지구과학1": "지구과학",
+    "지구과학 1": "지구과학",
+    "지구과학I": "지구과학",
+    "지구과학Ⅰ": "지구과학"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -79,6 +83,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
     "생명과학": "seed/followup-axis/life_science_concept_longitudinal_map.json",
     "생명과학Ⅰ": "seed/followup-axis/life_science_concept_longitudinal_map.json",
     "생명과학1": "seed/followup-axis/life_science_concept_longitudinal_map.json",
+    "지구과학": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
+    "지구과학Ⅰ": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
+    "지구과학1": "seed/followup-axis/earth_science_concept_longitudinal_map.json"
   }
 
   const state = {
