@@ -1,0 +1,325 @@
+{
+  "subject_name": "화학",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "화학과 우리 생활",
+      "concept_label": "질소 비료-암모니아 합성-합성 섬유",
+      "longitudinal_axes": [
+        {
+          "axis_id": "chemistry_life_application_axis",
+          "axis_title": "생활 화학 적용 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "화학공학",
+            "환경공학"
+          ],
+          "why": "비료·합성섬유·제련 같은 생활 기술을 화학 원리로 설명하는 사고가 산업·환경 문제 해석으로 이어짐",
+          "student_output_hint": "생활 속 화학 기술 비교, 재료 활용 사례 분석, 화학 기술 영향 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "material_industry_bridge_axis",
+          "axis_title": "재료·산업 연결 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "신소재공학",
+            "식품공학",
+            "환경공학"
+          ],
+          "why": "생활 재료와 공정에 화학이 작동하는 방식을 이해하는 관점이 산업 소재와 친환경 공정 해석으로 확장됨",
+          "student_output_hint": "합성 섬유 비교, 제련 공정 분석, 생활 소재 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "탄소 화합물의 유용성",
+      "concept_label": "탄소 화합물-공유 결합-메테인",
+      "longitudinal_axes": [
+        {
+          "axis_id": "organic_structure_axis",
+          "axis_title": "유기 물질 구조 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "생명공학",
+            "고분자공학"
+          ],
+          "why": "탄소 골격과 작용기, 생활 속 유기 화합물의 성질을 해석하는 사고가 유기 물질 이해의 핵심으로 이어짐",
+          "student_output_hint": "탄소 화합물 구조 비교, 생활 소재 성질 분석, 유기 화합물 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "bio_material_application_axis",
+          "axis_title": "바이오·소재 응용 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명공학",
+            "식품공학",
+            "신소재공학"
+          ],
+          "why": "탄소 화합물의 구조와 성질을 생활·생명·소재와 연결하는 관점이 바이오 및 고분자 응용으로 확장됨",
+          "student_output_hint": "에탄올·아세트산 비교, 생체 분자 연결, 소재 응용 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "물질의 양과 화학 반응식",
+      "concept_label": "원자량-분자량-화학식량",
+      "longitudinal_axes": [
+        {
+          "axis_id": "stoichiometry_axis",
+          "axis_title": "화학량론 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "화학공학",
+            "환경공학"
+          ],
+          "why": "몰과 입자 수, 질량비를 정량적으로 해석하는 사고가 반응식 계산과 공정 해석으로 자연스럽게 이어짐",
+          "student_output_hint": "몰비 계산, 반응식 계수 해석, 수율 비교 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "process_calculation_axis",
+          "axis_title": "공정 계산 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "화학공학",
+            "식품공학",
+            "과학수사학"
+          ],
+          "why": "정량 계산 관점을 실제 반응 수율과 생산·분석 과정에 적용하는 사고가 공정 최적화와 분석 실험으로 확장됨",
+          "student_output_hint": "반응 수율 비교, 시약 사용량 계산, 분석 실험 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "원자의 구조",
+      "concept_label": "전자-양성자-중성자",
+      "longitudinal_axes": [
+        {
+          "axis_id": "atomic_structure_axis",
+          "axis_title": "원자 구조 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "물리학",
+            "원자핵공학"
+          ],
+          "why": "전자·양성자·중성자의 구조를 이해하는 사고가 원자 모형과 미시 세계 해석의 기초로 이어짐",
+          "student_output_hint": "원자 모형 비교, 입자 구성 정리, 원자 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "micro_world_bridge_axis",
+          "axis_title": "미시 세계 연결 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "원자핵공학",
+            "신소재공학"
+          ],
+          "why": "원자 수준 구조를 보는 관점이 전하·핵·물질 특성 해석으로 확장됨",
+          "student_output_hint": "원자와 전하 관계 비교, 핵 구조 설명, 미시 세계 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "현대의 원자 모형과 전자 배치",
+      "concept_label": "보어 모형-선 스펙트럼-에너지 준위",
+      "longitudinal_axes": [
+        {
+          "axis_id": "electron_configuration_axis",
+          "axis_title": "전자 배치 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "전자기와 양자",
+            "반도체공학"
+          ],
+          "why": "오비탈과 전자 배치를 통해 원소 성질을 해석하는 사고가 전자 구조와 재료 물성 이해로 이어짐",
+          "student_output_hint": "전자 배치 작성, 오비탈 비교, 스펙트럼 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "quantum_material_bridge_axis",
+          "axis_title": "양자·재료 연결 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "나노공학",
+            "신소재공학"
+          ],
+          "why": "에너지 준위와 스펙트럼을 양자적 관점으로 이해하는 사고가 반도체·나노 수준 물성 해석으로 확장됨",
+          "student_output_hint": "에너지 준위 비교, 스펙트럼 해석, 나노 소재 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "원소의 주기적 성질",
+      "concept_label": "주기율표-주기-족",
+      "longitudinal_axes": [
+        {
+          "axis_id": "periodic_property_axis",
+          "axis_title": "주기성 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "재료공학",
+            "반도체공학"
+          ],
+          "why": "주기율표의 반복성과 원소 성질 변화를 해석하는 사고가 재료 선택과 물성 판단의 기초가 됨",
+          "student_output_hint": "주기성 비교표, 반지름 변화 분석, 원소 선택 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "material_selection_axis",
+          "axis_title": "재료 선택 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "반도체공학",
+            "전자공학",
+            "환경공학"
+          ],
+          "why": "원소 주기성을 재료 성능과 연결하는 관점이 전자 재료와 환경 소재 설계로 확장됨",
+          "student_output_hint": "원소 특성 비교, 재료 선택 기준 정리, 응용 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 결합",
+      "concept_label": "원자가 전자-이온 결합-공유 결합",
+      "longitudinal_axes": [
+        {
+          "axis_id": "bonding_axis",
+          "axis_title": "화학 결합 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "신소재공학",
+            "생명공학"
+          ],
+          "why": "이온 결합과 공유 결합, 극성을 해석하는 사고가 분자 구조와 물질 성질 이해의 핵심이 됨",
+          "student_output_hint": "전자점식 작성, 결합 비교, 극성 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "molecular_design_axis",
+          "axis_title": "분자 설계 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "신소재공학",
+            "생명공학",
+            "식품공학"
+          ],
+          "why": "결합과 전자쌍을 바탕으로 물질을 설계하는 관점이 생명·소재·식품 분자 응용으로 확장됨",
+          "student_output_hint": "분자 구조 비교, 재료 결합 분석, 응용 분자 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "분자의 구조와 성질",
+      "concept_label": "분자의 구조-전자쌍 반발-결합각",
+      "longitudinal_axes": [
+        {
+          "axis_id": "molecular_property_axis",
+          "axis_title": "분자 구조·성질 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "의약학",
+            "식품공학"
+          ],
+          "why": "분자 모양과 극성, 분자 사이 힘을 해석하는 사고가 끓는점·용해도 같은 물성 설명으로 이어짐",
+          "student_output_hint": "분자 구조 판정, 성질 비교, 용해도 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "bio_drug_material_axis",
+          "axis_title": "바이오·의약 응용 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "의약학",
+            "재료공학"
+          ],
+          "why": "분자 구조와 성질을 생체 작용과 약물·소재 설계와 연결하는 관점이 바이오·의약 응용으로 확장됨",
+          "student_output_hint": "친수성·소수성 비교, 약물 용해성 분석, 생체 물질 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 반응에서의 동적 평형",
+      "concept_label": "가역 반응-정반응-역반응",
+      "longitudinal_axes": [
+        {
+          "axis_id": "equilibrium_axis",
+          "axis_title": "화학 평형 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "환경공학",
+            "생명과학"
+          ],
+          "why": "정반응과 역반응, 산·염기·pH를 평형 관점에서 해석하는 사고가 반응 조건 분석으로 이어짐",
+          "student_output_hint": "평형 상태 설명, pH 비교, 산·염기 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "homeostasis_bridge_axis",
+          "axis_title": "환경·항상성 연결 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "식품공학",
+            "환경공학"
+          ],
+          "why": "평형 개념을 생체 조절과 환경 시스템으로 확장하는 관점이 항상성·수질·발효 해석으로 이어짐",
+          "student_output_hint": "체액 pH 비교, 수질 평형 분석, 항상성 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 반응과 열의 출입",
+      "concept_label": "중화 반응-알짜 이온 반응식-산화",
+      "longitudinal_axes": [
+        {
+          "axis_id": "reaction_energy_axis",
+          "axis_title": "반응 에너지 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학Ⅰ",
+            "에너지공학",
+            "과학수사학"
+          ],
+          "why": "산화·환원과 발열·흡열을 함께 해석하는 사고가 반응의 방향성과 에너지 분석으로 이어짐",
+          "student_output_hint": "산화수 판정, 발열·흡열 비교, 반응 열 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "battery_process_application_axis",
+          "axis_title": "전지·공정 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "에너지공학",
+            "환경공학",
+            "화학공학"
+          ],
+          "why": "전자 이동과 열 출입을 실제 전지·공정 장치로 설명하는 관점이 에너지 기술과 분석 응용으로 확장됨",
+          "student_output_hint": "전지 원리 비교, 반응 공정 분석, 장치 응용 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
