@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.2-physics1-alias";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.3-chemistry1-alias";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -30,6 +30,10 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.2-physics1-alias";
     "물리학I": "physics1",
     "물리학Ⅰ": "physics1",
     "화학": "chemistry1",
+    "화학1": "chemistry1",
+    "화학 1": "chemistry1",
+    "화학I": "chemistry1",
+    "화학Ⅰ": "chemistry1",
     "생명과학": "life_science",
     "지구과학": "earth_science",
     "역학과 에너지": "mechanics_energy",
