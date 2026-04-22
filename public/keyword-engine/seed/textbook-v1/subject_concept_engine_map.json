@@ -5900,5 +5900,205 @@
         ]
       }
     }
+  },
+  "확률과 통계": {
+    "meta": {
+      "subject_kr": "확률과 통계",
+      "subject_en": "Probability and Statistics",
+      "publisher": "비상교육",
+      "curriculum": "2022 개정 교육과정",
+      "source_name": "probability_statistics_structure_db",
+      "version": "0.1.0-longitudinal-start"
+    },
+    "concepts": {
+      "경우의 수와 이항정리": {
+        "unit": "경우의 수",
+        "lesson_focus": "배열과 선택의 구조를 세어 식으로 모델링하고, 이항계수와 계수 패턴을 일반화하는 기초를 익힌다.",
+        "core_concepts": [
+          "순열",
+          "조합",
+          "중복조합",
+          "이항정리",
+          "이항계수"
+        ],
+        "micro_keywords": [
+          "순열",
+          "조합",
+          "중복조합",
+          "이항정리",
+          "이항계수",
+          "파스칼의 삼각형",
+          "경우의 수",
+          "계수"
+        ],
+        "student_topics": [
+          "배열과 선택의 구조를 식으로 표현하면 어떤 문제를 더 빠르게 해결할 수 있을까?",
+          "이항계수와 파스칼의 삼각형은 왜 데이터 패턴 이해와 연결될까?"
+        ],
+        "linked_activity_types": [
+          "조합 모델링형",
+          "패턴 일반화형",
+          "알고리즘 구조형"
+        ],
+        "linked_career_bridge": [
+          "통계학",
+          "데이터사이언스",
+          "컴퓨터공학",
+          "산업공학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "공통수학1",
+            "concept": "경우의 수, 순열, 조합",
+            "evaluation_focus": "세기 문제를 식으로 구조화하는 사고를 심화할 수 있는가",
+            "inquiry_extension": "원순열·중복조합과 일반 조합의 차이를 실제 사례로 비교하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "알고리즘 설계와 분석",
+            "evaluation_focus": "경우를 나누고 절차를 설계하는 사고를 알고리즘 구조와 연결할 수 있는가",
+            "inquiry_extension": "순열·조합 계산 과정을 단계별 알고리즘으로 정리하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "정보 / 컴퓨터공학",
+            "connection_point": "조합 구조를 알고리즘·탐색 문제로 확장"
+          },
+          {
+            "grade": "2학년",
+            "subject": "대수 / 미적분1",
+            "connection_point": "계수·패턴 일반화를 함수·식 해석으로 심화"
+          }
+        ]
+      },
+      "확률과 조건부확률": {
+        "unit": "확률",
+        "lesson_focus": "표본공간과 사건을 바탕으로 확률을 모델링하고, 조건부확률과 독립을 이용해 판단 기준을 세운다.",
+        "core_concepts": [
+          "표본공간",
+          "사건",
+          "조건부확률",
+          "독립",
+          "상대도수"
+        ],
+        "micro_keywords": [
+          "표본공간",
+          "사건",
+          "조건부확률",
+          "독립",
+          "상대도수",
+          "확률의 덧셈정리",
+          "확률의 곱셈정리",
+          "판단 기준"
+        ],
+        "student_topics": [
+          "조건이 달라질 때 확률이 바뀌는 이유를 실제 데이터로 설명할 수 있을까?",
+          "독립과 종속을 구분하면 어떤 판단 오류를 줄일 수 있을까?"
+        ],
+        "linked_activity_types": [
+          "판단 비교형",
+          "자료 해석형",
+          "의사결정형"
+        ],
+        "linked_career_bridge": [
+          "통계학",
+          "경제학",
+          "보험계리학",
+          "심리학",
+          "사회조사"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "과학탐구실험2",
+            "concept": "생활 자료를 활용한 과학적 의사결정 탐구",
+            "evaluation_focus": "자료에 근거해 선택 기준을 정하는 사고를 연결할 수 있는가",
+            "inquiry_extension": "생활 데이터에서 사건을 정의하고 조건부확률 해석 사례 만들기"
+          },
+          {
+            "subject": "통합사회2",
+            "concept": "사회 정의와 불평등",
+            "evaluation_focus": "확률과 통계 자료를 사회 판단의 근거로 활용할 수 있는가",
+            "inquiry_extension": "위험·격차 자료를 같은 기준으로 비교해 해석하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "통합사회2 / 경제·사회 자료 분석",
+            "connection_point": "확률적 판단을 사회 자료 해석과 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "정보 / 데이터 분석",
+            "connection_point": "조건부 판단을 데이터 필터링·분류 구조로 확장"
+          }
+        ]
+      },
+      "확률분포와 통계적 추정": {
+        "unit": "통계",
+        "lesson_focus": "확률변수와 분포, 표본평균과 추정을 통해 데이터 전체의 경향과 불확실성을 해석한다.",
+        "core_concepts": [
+          "확률변수",
+          "기댓값",
+          "정규분포",
+          "표본평균",
+          "모평균의 추정"
+        ],
+        "micro_keywords": [
+          "확률변수",
+          "기댓값",
+          "표준편차",
+          "이항분포",
+          "정규분포",
+          "표본평균",
+          "신뢰구간",
+          "모평균 추정"
+        ],
+        "student_topics": [
+          "기댓값과 분포를 알면 데이터의 전체 경향을 어떻게 해석할 수 있을까?",
+          "표본평균과 모평균 추정은 왜 실험·사회 조사 결과 해석의 핵심이 될까?"
+        ],
+        "linked_activity_types": [
+          "데이터 예측형",
+          "분포 해석형",
+          "추정 보고형"
+        ],
+        "linked_career_bridge": [
+          "통계학",
+          "데이터사이언스",
+          "인공지능",
+          "보건통계",
+          "경제학"
+        ],
+        "horizontal_links": [
+          {
+            "subject": "과학탐구실험2",
+            "concept": "생체 신호와 건강 데이터 탐구",
+            "evaluation_focus": "분포와 평균 개념을 실제 건강 데이터 해석에 적용할 수 있는가",
+            "inquiry_extension": "심박·체온 데이터 분포를 비교하고 표본평균 해석하기"
+          },
+          {
+            "subject": "정보",
+            "concept": "자료와 정보의 분석",
+            "evaluation_focus": "데이터 분포와 예측을 정보 처리 과정과 연결할 수 있는가",
+            "inquiry_extension": "정규분포·이상치 개념을 데이터 시각화와 함께 설명하기"
+          }
+        ],
+        "vertical_links": [
+          {
+            "grade": "2학년",
+            "subject": "미적분1 / 정보",
+            "connection_point": "데이터 변화율·예측 모델과 연결"
+          },
+          {
+            "grade": "2학년",
+            "subject": "생명과학 / 보건 데이터 해석",
+            "connection_point": "건강·생명 데이터의 평균과 분포 해석으로 확장"
+          }
+        ]
+      }
+    }
   }
 }
