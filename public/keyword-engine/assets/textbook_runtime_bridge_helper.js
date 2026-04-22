@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.0";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.1-subject-alias-fix";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -15,6 +15,7 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.0";
     "공통국어2": "common_korean2",
     "공통국어": "common_korean1",
     "통합사회": "integrated_society",
+    "통합사회1": "integrated_society",
     "통합사회2": "integrated_society2",
     "정보": "info",
     "대수": "algebra",
