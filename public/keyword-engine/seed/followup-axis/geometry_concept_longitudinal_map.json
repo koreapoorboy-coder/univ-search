@@ -1,0 +1,101 @@
+{
+  "subject_name": "기하",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "이차곡선과 자취 해석",
+      "concept_label": "이차곡선-자취-초점",
+      "longitudinal_axes": [
+        {
+          "axis_id": "curve_reflection_orbit_axis",
+          "axis_title": "반사·궤도 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "전자기와 양자",
+            "항공우주공학"
+          ],
+          "why": "포물선·타원·쌍곡선의 초점과 자취 구조를 해석하는 사고가 반사, 파동, 궤도 모델 탐구로 이어짐",
+          "student_output_hint": "포물선 반사 성질 비교, 타원 궤도 해석, 신호 위치 추정 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "signal_location_model_axis",
+          "axis_title": "신호·위치 추정 모델 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "정보",
+            "전자공학",
+            "데이터사이언스"
+          ],
+          "why": "이차곡선의 거리 조건을 수식으로 표현하는 사고가 신호 위치 추정과 데이터 모델링 구조로 확장됨",
+          "student_output_hint": "쌍곡선 위치 추정, 신호 도달 차이 해석, 데이터 모델 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "공간도형과 정사영·위치 관계",
+      "concept_label": "공간도형-정사영-위치관계",
+      "longitudinal_axes": [
+        {
+          "axis_id": "space_structure_design_axis",
+          "axis_title": "공간·구조 설계 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "건축공학",
+            "토목공학",
+            "기계공학"
+          ],
+          "why": "정사영과 직선·평면의 위치 관계를 해석하는 사고가 구조 설계와 투영도 해석의 기초가 됨",
+          "student_output_hint": "정사영 구조 비교, 투영도 해석, 공간 설계 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "stability_projection_axis",
+          "axis_title": "안정성·투영 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "과학탐구실험2"
+          ],
+          "why": "공간 구조를 평면으로 해석하는 사고가 힘 전달, 구조 안정성, 내진 설계 분석으로 이어짐",
+          "student_output_hint": "구조 안정성 비교, 정사영과 하중 전달 해석, 내진 구조 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "공간좌표와 구의 방정식",
+      "concept_label": "공간좌표-구-모델링",
+      "longitudinal_axes": [
+        {
+          "axis_id": "coordinate_graphic_model_axis",
+          "axis_title": "좌표·그래픽 모델링 축",
+          "axis_domain": "data",
+          "next_subjects": [
+            "정보",
+            "컴퓨터공학",
+            "게임공학"
+          ],
+          "why": "3차원 좌표를 수식으로 표현하는 사고가 그래픽스, 공간 데이터 시각화, 디지털 모델링으로 확장됨",
+          "student_output_hint": "3차원 좌표 모델, 구의 방정식 시각화, 그래픽 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "space_motion_tracking_axis",
+          "axis_title": "공간·운동 추적 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리",
+            "항공우주공학",
+            "공간정보공학"
+          ],
+          "why": "공간좌표와 구의 방정식을 이용한 위치 표현이 공간 운동 추적과 항법 해석의 기초가 됨",
+          "student_output_hint": "위치 추적 모델, 공간 좌표 비교, 항법 해석 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
