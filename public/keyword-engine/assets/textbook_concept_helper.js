@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-geometry-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v28.0-physics1-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -37,7 +37,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-geometry-support";
     "통합사회": "통합사회1",
     "통합사회 1": "통합사회1",
     "통합사회I": "통합사회1",
-    "통합사회Ⅰ": "통합사회1"
+    "통합사회Ⅰ": "통합사회1",
+    "물리학": "물리",
+    "물리학1": "물리",
+    "물리학 1": "물리",
+    "물리학I": "물리",
+    "물리학Ⅰ": "물리"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -56,6 +61,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v27.0-geometry-support";
     "확률과 통계": "seed/followup-axis/probability_statistics_concept_longitudinal_map.json",
     "미적분1": "seed/followup-axis/calculus1_concept_longitudinal_map.json",
     "기하": "seed/followup-axis/geometry_concept_longitudinal_map.json",
+    "물리": "seed/followup-axis/physics1_concept_longitudinal_map.json",
+    "물리학": "seed/followup-axis/physics1_concept_longitudinal_map.json",
+    "물리학Ⅰ": "seed/followup-axis/physics1_concept_longitudinal_map.json",
   }
 
   const state = {
