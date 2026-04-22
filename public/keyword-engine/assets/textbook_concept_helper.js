@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.8-common-korean1-bridge-fix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -19,7 +19,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
   const FOLLOWUP_MAJOR_URL = "seed/followup-axis/major_followup_axis.json";
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
-    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json"
+    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
+    "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
+    "통합사회": "seed/followup-axis/integrated_society_concept_longitudinal_map.json",
+    "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json"
   };
 
   const state = {
@@ -1525,28 +1528,119 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
+  function getAxisCareerRelationMeta(subjectName, axisLike) {
+    const careerText = [
+      state.career || "",
+      state.majorSelectedName || "",
+      ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
+      state.majorComparison?.group_label || "",
+      state.majorComparison?.selected_focus || ""
+    ].join(" ").trim();
+
+    if (!careerText) {
+      return {
+        type: "none",
+        label: "",
+        score: 0,
+        message: "학과를 입력하면 이 축의 우선순위만 달라집니다."
+      };
+    }
+
+    const subjectText = String(subjectName || state.subject || "");
+    const axisText = [
+      axisLike?.axis_domain || axisLike?.axisDomain || "",
+      axisLike?.axis_title || axisLike?.title || "",
+      ...(Array.isArray(axisLike?.next_subjects) ? axisLike.next_subjects : []),
+      ...(Array.isArray(axisLike?.linkedSubjects) ? axisLike.linkedSubjects : [])
+    ].join(" ");
+
+    let type = "general";
+
+    if (/공통국어|국어|문학|독서와 작문|독서와작문|매체 의사소통|매체의사소통/.test(subjectText)) {
+      if (/(국어국문|국문|문예창작|문학|국어교육|언론|신문방송|미디어|콘텐츠|광고홍보|출판|작가|스토리|문화콘텐츠)/.test(careerText)) {
+        type = "direct";
+      } else if (/(컴퓨터|소프트웨어|인공지능|데이터|정보|전자|반도체|기계|공학|생명|화학|간호|의학|경영|경제|법|행정|정치|심리|사회|교육|디자인)/.test(careerText)) {
+        type = "bridge";
+      }
+    } else if (/통합사회|사회/.test(subjectText)) {
+      if (/(정치|행정|사회|경영|경제|무역|국제|지리|법|교육|언론|미디어|사회복지|심리|도시|환경)/.test(careerText)) {
+        type = "direct";
+      } else if (/(컴퓨터|소프트웨어|인공지능|데이터|정보|전자|반도체|기계|공학|생명|화학|간호|의학|건축)/.test(careerText)) {
+        type = "bridge";
+      }
+    } else if (/정보/.test(subjectText)) {
+      if (/(컴퓨터|소프트웨어|인공지능|데이터|정보|전자|반도체|로봇|전기|통신|디지털|AI)/i.test(careerText)) {
+        type = "direct";
+      } else if (/(경영|경제|산업|미디어|디자인|교육|심리|사회|생명|화학|환경|수학)/.test(careerText)) {
+        type = "bridge";
+      }
+    } else {
+      const domain = String(axisLike?.axis_domain || axisLike?.axisDomain || "").toLowerCase();
+      if ((/physics|engineering/.test(domain) || /물리|역학|기하|전자기/.test(axisText)) && /(기계|전자|전기|반도체|로봇|자동차|항공|공학|컴퓨터|소프트웨어|정보)/.test(careerText)) {
+        type = "direct";
+      } else if ((/chemistry/.test(domain) || /화학|물질|재료/.test(axisText)) && /(화학|신소재|재료|고분자|배터리|생명|바이오|제약|화공|식품)/.test(careerText)) {
+        type = "direct";
+      } else if ((/biology/.test(domain) || /생명|세포|건강/.test(axisText)) && /(생명|바이오|간호|의학|보건|수의|약학|임상)/.test(careerText)) {
+        type = "direct";
+      } else if ((/earth|environment/.test(domain) || /환경|기후|지구/.test(axisText)) && /(환경|기후|지구|에너지|해양|천문|우주)/.test(careerText)) {
+        type = "direct";
+      } else if ((/data|info|math/.test(domain) || /데이터|통계|정보|수리/.test(axisText)) && /(컴퓨터|소프트웨어|인공지능|데이터|정보|경영|경제|통계)/.test(careerText)) {
+        type = "direct";
+      } else if (/(컴퓨터|소프트웨어|인공지능|데이터|정보|전자|반도체|기계|공학|경영|경제|심리|사회|교육|디자인|환경|생명|간호|의학)/.test(careerText)) {
+        type = "bridge";
+      }
+    }
+
+    if (type === "direct") {
+      return {
+        type,
+        label: "직접 연계 강함",
+        score: 12,
+        message: `${state.career}와 바로 이어지는 축입니다.`
+      };
+    }
+    if (type === "bridge") {
+      return {
+        type,
+        label: "역량 브리지",
+        score: 6,
+        message: `${state.career}와 직접 일치하지 않아도 역량 연결이 가능한 축입니다.`
+      };
+    }
+    return {
+      type: "general",
+      label: "일반 탐구",
+      score: 0,
+      message: `${state.career}와 직접 매핑이 약해도 탐구 확장용으로 활용 가능한 축입니다.`
+    };
+  }
+
 
   function buildConceptMappedAxes(entry) {
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
-    return entry.longitudinal_axes.map(axis => ({
-      id: axis.axis_id,
-      title: axis.axis_title,
-      short: entry.concept_label || state.concept,
-      nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-      desc: axis.why || "",
-      reason: state.career
-        ? `${state.career} 입력 시 이 축의 우선순위만 조정됩니다.`
-        : "학과를 입력하면 이 축의 우선순위만 달라집니다.",
-      easy: axis.student_output_hint || "",
-      axisDomain: axis.axis_domain || "",
-      extensionKeywords: [],
-      activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
-      linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
-      grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
-      recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
-      isPrimary: Number(axis.priority || 99) === 1,
-      __priority: Number(axis.priority || 99)
-    }));
+    return entry.longitudinal_axes.map(axis => {
+      const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
+      return {
+        id: axis.axis_id,
+        title: axis.axis_title,
+        short: entry.concept_label || state.concept,
+        nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
+        desc: axis.why || "",
+        reason: relationMeta.message,
+        relationLabel: relationMeta.label,
+        relationType: relationMeta.type,
+        easy: axis.student_output_hint || "",
+        axisDomain: axis.axis_domain || "",
+        extensionKeywords: [],
+        activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
+        linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
+        grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
+        recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
+        isPrimary: Number(axis.priority || 99) === 1,
+        __relationScore: relationMeta.score,
+        __priority: Number(axis.priority || 99)
+      };
+    });
   }
 
   function getFollowupAxisCandidates() {
@@ -1558,6 +1652,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
         let score = 100 - (axis.__priority * 12);
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
+        score += Number(axis.__relationScore || 0);
         return { ...axis, __score: score };
       });
 
@@ -1576,6 +1671,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
       if (seed.linkedSubjects.some(subject => nextSubjects.some(next => fuzzyIncludes(subject, next)))) score += 16;
       score += getCareerAxisBoost(seed);
       score += getMajorAxisBoost(seed);
+      const relationMeta = getAxisCareerRelationMeta(state.subject, seed);
+      score += relationMeta.score;
 
       return {
         id: seed.id,
@@ -1583,9 +1680,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v25.4.1-video-cleanup";
         short: seed.short,
         nextSubject: seed.linkedSubjects.join(" / "),
         desc: `${state.concept} 개념을 바탕으로 ${seed.desc}`,
-        reason: state.career
-          ? `${state.career} 입력 시 이 축이 우선순위 조정에 반영됩니다.`
-          : "학과를 입력하면 이 축의 우선순위가 달라집니다.",
+        reason: relationMeta.message,
+        relationLabel: relationMeta.label,
+        relationType: relationMeta.type,
         easy: seed.desc,
         axisDomain: seed.axisDomain,
         extensionKeywords: seed.extensionKeywords,
@@ -2063,7 +2160,7 @@ function getTrackMeta(trackId) {
       <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
