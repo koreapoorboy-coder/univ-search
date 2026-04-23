@@ -1,0 +1,101 @@
+{
+  "subject_name": "세포와 물질대사",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "세포의 구조와 물질 이동",
+      "concept_label": "세포막-확산-삼투",
+      "longitudinal_axes": [
+        {
+          "axis_id": "cell_structure_analysis_axis",
+          "axis_title": "세포 구조 해석 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "의생명공학과",
+            "생명공학과"
+          ],
+          "why": "세포막과 소기관, 물질 이동을 함께 해석하는 사고가 세포 수준 구조·기능 이해와 바이오 기초 해석으로 직접 이어짐",
+          "student_output_hint": "세포 소기관 비교, 확산·삼투 사례 분석, 세포막 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "bio_medical_transport_axis",
+          "axis_title": "바이오·의약 응용 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "의약학계열",
+            "간호학과",
+            "식품영양학과"
+          ],
+          "why": "세포막 투과와 물질 이동을 약물 전달·영양 흡수·생체 조절 사례에 연결하는 관점이 바이오·보건 응용으로 확장됨",
+          "student_output_hint": "약물 흡수 사례 조사, 영양소 이동 비교, 생체 막 기능 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "효소와 대사 반응",
+      "concept_label": "효소-기질 특이성-대사 조절",
+      "longitudinal_axes": [
+        {
+          "axis_id": "metabolic_reaction_analysis_axis",
+          "axis_title": "대사 반응 해석 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "화학",
+            "생명과학",
+            "생화학과"
+          ],
+          "why": "효소와 활성화 에너지, 대사 조절을 함께 보는 사고가 세포 내 반응 경로와 생화학적 해석의 핵심으로 이어짐",
+          "student_output_hint": "효소 조건 비교, 저해제 사례 분석, 대사 경로 정리 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "fermentation_food_application_axis",
+          "axis_title": "발효·식품 응용 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "식품공학과",
+            "화학공학과",
+            "생명공학과"
+          ],
+          "why": "효소 반응을 실제 공정과 발효 시스템에 적용하는 관점이 식품·화공·바이오 공정 설계로 확장됨",
+          "student_output_hint": "발효 사례 비교, 효소 활용 식품 조사, 반응 조건 설계 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "광합성과 세포 호흡",
+      "concept_label": "광합성-세포 호흡-ATP",
+      "longitudinal_axes": [
+        {
+          "axis_id": "energy_conversion_analysis_axis",
+          "axis_title": "에너지 전환 해석 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "생명과학",
+            "통합과학2",
+            "의생명공학과"
+          ],
+          "why": "광합성과 세포 호흡을 ATP 중심으로 해석하는 사고가 생명 시스템의 에너지 유지 원리 이해로 직접 이어짐",
+          "student_output_hint": "광합성·호흡 비교표, ATP 생성 과정 분석, 에너지 전환 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "environment_bioprocess_axis",
+          "axis_title": "환경·바이오 공정 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "환경공학과",
+            "식품공학과",
+            "신재생에너지공학과"
+          ],
+          "why": "생명체의 에너지 전환 구조를 미생물 공정·환경 순환·에너지 활용 사례에 연결하는 관점이 응용 설계로 확장됨",
+          "student_output_hint": "미생물 활용 사례 조사, 바이오 공정 비교, 생명 에너지 응용 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
