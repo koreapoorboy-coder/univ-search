@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.2-integrated-science1-keyword-axis";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -273,6 +273,96 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
 
   function uniq(arr) {
     return Array.from(new Set((arr || []).filter(Boolean)));
+  }
+
+  function normalizeKeywordText(value) {
+    return String(value || "")
+      .replace(/\s+/g, " ")
+      .replace(/[()\-_/·.,:]/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function getKeywordTokens(value) {
+    return normalizeKeywordText(value)
+      .split(" ")
+      .map(token => token.trim())
+      .filter(Boolean);
+  }
+
+  function matchKeywordAgainstCandidates(selectedKeyword, candidates) {
+    const source = normalizeKeywordText(selectedKeyword);
+    const sourceTokens = getKeywordTokens(selectedKeyword);
+    if (!source || !sourceTokens.length) return { matched: false, exact: false, overlap: 0, matchedKeyword: "" };
+
+    let best = { matched: false, exact: false, overlap: 0, matchedKeyword: "" };
+    (candidates || []).forEach(candidate => {
+      const target = normalizeKeywordText(candidate);
+      if (!target) return;
+
+      if (source === target || source.includes(target) || target.includes(source)) {
+        best = { matched: true, exact: true, overlap: 1, matchedKeyword: candidate };
+        return;
+      }
+
+      const targetTokens = getKeywordTokens(candidate);
+      if (!targetTokens.length) return;
+      let overlapCount = 0;
+      sourceTokens.forEach(token => { if (targetTokens.includes(token)) overlapCount += 1; });
+      const overlap = overlapCount / Math.max(sourceTokens.length, targetTokens.length);
+      if (overlap >= 0.5 && overlap > best.overlap) {
+        best = { matched: true, exact: false, overlap, matchedKeyword: candidate };
+      }
+    });
+
+    return best;
+  }
+
+  function getConceptAxisKeywordMeta(entry, axis) {
+    const selectedKeyword = state.keyword || "";
+    if (!selectedKeyword) return { score: 0, label: "", message: "", matchedKeyword: "" };
+
+    const rules = Array.isArray(axis?.keyword_rules)
+      ? axis.keyword_rules
+      : Array.isArray(entry?.keyword_axis_rules)
+        ? entry.keyword_axis_rules.filter(rule => rule.axis_id === axis.axis_id)
+        : [];
+
+    let best = { score: 0, label: "", message: "", matchedKeyword: "" };
+    rules.forEach(rule => {
+      const match = matchKeywordAgainstCandidates(selectedKeyword, rule?.keywords || []);
+      if (!match.matched) return;
+      let score = Number(rule?.boost || 0);
+      if (!match.exact) score = Math.max(Math.round(score * 0.7), 6);
+      if (score > best.score) {
+        best = {
+          score,
+          label: rule?.label || (match.exact ? "키워드 직접 반영" : "키워드 보정"),
+          message: rule?.message || `${selectedKeyword} 키워드가 이 축의 설명 방향과 직접 맞물립니다.`,
+          matchedKeyword: match.matchedKeyword || selectedKeyword
+        };
+      }
+    });
+
+    if (best.score > 0) return best;
+
+    const fallbackTexts = [
+      axis?.axis_title || "",
+      axis?.why || "",
+      axis?.student_output_hint || "",
+      ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : [])
+    ];
+    const fallbackMatch = matchKeywordAgainstCandidates(selectedKeyword, fallbackTexts);
+    if (fallbackMatch.matched) {
+      return {
+        score: fallbackMatch.exact ? 8 : 5,
+        label: fallbackMatch.exact ? "키워드 반영" : "키워드 보정",
+        message: `${selectedKeyword} 키워드가 이 축의 설명 문구와 연결됩니다.`,
+        matchedKeyword: fallbackMatch.matchedKeyword || selectedKeyword
+      };
+    }
+
+    return { score: 0, label: "", message: "", matchedKeyword: "" };
   }
 
 
@@ -1627,77 +1717,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
     return score;
   }
 
-  function normalizeLooseKeywordText(value) {
-    return String(value || '')
-      .toLowerCase()
-      .replace(/[\-_\/]+/g, ' ')
-      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  function tokenizeLooseKeywordText(value) {
-    return normalizeLooseKeywordText(value)
-      .split(' ')
-      .map(item => item.trim())
-      .filter(item => item && item.length >= 2);
-  }
-
-  function getKeywordAxisBoost(axis) {
-    const keyword = String(state.keyword || '').trim();
-    if (!keyword) return { score: 0, label: '', note: '' };
-
-    const keywordText = normalizeLooseKeywordText(keyword);
-    const keywordTokens = tokenizeLooseKeywordText(keyword);
-    if (!keywordText || !keywordTokens.length) {
-      return { score: 0, label: '', note: '' };
-    }
-
-    const axisText = normalizeLooseKeywordText([
-      axis?.axis_domain || axis?.axisDomain || '',
-      axis?.axis_title || axis?.title || '',
-      axis?.why || axis?.desc || '',
-      axis?.student_output_hint || axis?.easy || '',
-      ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : []),
-      ...(Array.isArray(axis?.linkedSubjects) ? axis.linkedSubjects : []),
-      ...(Array.isArray(axis?.extensionKeywords) ? axis.extensionKeywords : []),
-      ...(Array.isArray(axis?.activityExamples) ? axis.activityExamples : [])
-    ].join(' '));
-
-    if (!axisText) return { score: 0, label: '', note: '' };
-
-    if (axisText.includes(keywordText)) {
-      return {
-        score: 26,
-        label: '키워드 직접 반영',
-        note: `선택 키워드 "${keyword}"가 이 연계축 설명과 직접 맞물립니다.`
-      };
-    }
-
-    let matched = 0;
-    keywordTokens.forEach(token => {
-      if (axisText.includes(token)) matched += 1;
-    });
-
-    if (matched >= Math.max(2, Math.ceil(keywordTokens.length * 0.6))) {
-      return {
-        score: 18,
-        label: '키워드 반영',
-        note: `선택 키워드 "${keyword}"의 핵심 요소가 이 연계축에 반영됩니다.`
-      };
-    }
-
-    if (matched >= 1) {
-      return {
-        score: 10,
-        label: '키워드 보정',
-        note: `선택 키워드 "${keyword}"와 일부 요소가 겹쳐 우선순위를 보정합니다.`
-      };
-    }
-
-    return { score: 0, label: '', note: '' };
-  }
-
 
   function getCurrentConceptLongitudinalMap() {
     if (!state.subject || !conceptLongitudinalMaps) return null;
@@ -1806,17 +1825,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const keywordMeta = getKeywordAxisBoost(axis);
+      const keywordMeta = getConceptAxisKeywordMeta(entry, axis);
       return {
         id: axis.axis_id,
         title: axis.axis_title,
         short: entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
         desc: axis.why || "",
-        reason: keywordMeta.note || relationMeta.message,
+        reason: relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
         keywordLabel: keywordMeta.label,
+        keywordReason: keywordMeta.message,
         easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
         extensionKeywords: [],
@@ -1862,9 +1882,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
       score += getCareerAxisBoost(seed);
       score += getMajorAxisBoost(seed);
       const relationMeta = getAxisCareerRelationMeta(state.subject, seed);
-      const keywordMeta = getKeywordAxisBoost(seed);
       score += relationMeta.score;
-      score += keywordMeta.score;
 
       return {
         id: seed.id,
@@ -1872,10 +1890,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
         short: seed.short,
         nextSubject: seed.linkedSubjects.join(" / "),
         desc: `${state.concept} 개념을 바탕으로 ${seed.desc}`,
-        reason: keywordMeta.note || relationMeta.message,
+        reason: relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
-        keywordLabel: keywordMeta.label,
         easy: seed.desc,
         axisDomain: seed.axisDomain,
         extensionKeywords: seed.extensionKeywords,
@@ -2353,11 +2370,12 @@ function getTrackMeta(trackId) {
       <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''} ${item.keywordLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.keywordLabel)}</span>` : ''}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.keywordLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.keywordLabel)}</span>` : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
           <div class="engine-track-desc">${escapeHtml(item.desc || "")}</div>
+          ${item.keywordReason ? `<div class="engine-track-desc" style="margin-top:6px; color:#0f766e; font-weight:700;">${escapeHtml(item.keywordReason)}</div>` : ''}
           ${Array.isArray(item.activityExamples) && item.activityExamples.length ? `<div class="engine-track-desc" style="margin-top:6px;">활동 예시: ${escapeHtml(item.activityExamples.slice(0,2).join(', '))}</div>` : ''}
           <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy || "")}</div>
         </button>
