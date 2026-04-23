@@ -1643,6 +1643,47 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
+
+  function getAxisKeywordRefinement(axis) {
+    const keyword = String(state.keyword || "").trim();
+    if (!keyword || !axis || !Array.isArray(axis.keyword_signals)) return null;
+
+    const axisBag = [
+      axis.axis_title || "",
+      axis.axis_short || "",
+      axis.why || "",
+      axis.student_output_hint || "",
+      ...(Array.isArray(axis.next_subjects) ? axis.next_subjects : [])
+    ].join(" ");
+
+    let best = null;
+
+    axis.keyword_signals.forEach(signal => {
+      const rawKeywords = Array.isArray(signal?.keywords)
+        ? signal.keywords
+        : (signal?.keywords ? [signal.keywords] : []);
+      const keywords = rawKeywords.map(item => String(item || "").trim()).filter(Boolean);
+      if (!keywords.length) return;
+
+      let matched = 0;
+      keywords.forEach(token => {
+        if (fuzzyIncludes(keyword, token) || fuzzyIncludes(token, keyword)) matched += 1;
+      });
+
+      if (!matched && (fuzzyIncludes(axisBag, keyword) || fuzzyIncludes(keyword, axisBag))) {
+        matched = 1;
+      }
+
+      if (!matched) return;
+
+      const score = Number(signal?.boost || 0) + (matched * 3);
+      if (!best || score > best.__score) {
+        best = { ...signal, __score: score };
+      }
+    });
+
+    return best;
+  }
   function getAxisCareerRelationMeta(subjectName, axisLike) {
     const careerText = [
       state.career || "",
@@ -1731,66 +1772,32 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
   }
 
 
-  function getAxisKeywordRefinementMeta(entry, axis) {
-    const keywordText = String(state.keyword || "").trim();
-    if (!keywordText || !axis || !Array.isArray(axis.keyword_signals)) return null;
-
-    let best = null;
-
-    axis.keyword_signals.forEach(signal => {
-      const signalKeywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
-      const isMatched = signalKeywords.some(word => fuzzyIncludes(keywordText, word) || fuzzyIncludes(word, keywordText));
-      if (!isMatched) return;
-
-      const score = Number(signal?.boost || 0);
-      if (!best || score > best.score) {
-        best = {
-          score,
-          label: String(signal?.label || "키워드 반영"),
-          message: String(signal?.message || ""),
-          short: String(signal?.short_label || signal?.short || ""),
-          desc: String(signal?.desc || signal?.description || ""),
-          activityExamples: Array.isArray(signal?.activity_examples) ? signal.activity_examples : []
-        };
-      }
-    });
-
-    return best;
-  }
-
-
   function buildConceptMappedAxes(entry) {
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const keywordMeta = getAxisKeywordRefinementMeta(entry, axis);
-      const relationLabels = [keywordMeta?.label || "", relationMeta.label || ""].filter(Boolean);
-      const activityExamples = Array.isArray(keywordMeta?.activityExamples) && keywordMeta.activityExamples.length
-        ? keywordMeta.activityExamples
-        : (axis.student_output_hint ? [axis.student_output_hint] : []);
-      const reasonText = [keywordMeta?.message || "", relationMeta.message || ""]
-        .filter((value, index, arr) => value && arr.indexOf(value) === index)
-        .join(" ");
+      const refinement = getAxisKeywordRefinement(axis);
+      const activityHint = refinement?.activity_hint || axis.student_output_hint || "";
       return {
         id: axis.axis_id,
-        title: axis.axis_title,
-        short: keywordMeta?.short || axis.axis_short || entry.concept_label || state.concept,
+        title: refinement?.title || axis.axis_title,
+        short: refinement?.short || axis.axis_short || entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: keywordMeta?.desc || axis.why || "",
-        reason: reasonText,
-        relationLabel: relationLabels.join(" · "),
+        desc: refinement?.desc || axis.why || "",
+        reason: refinement?.reason || relationMeta.message,
+        relationLabel: relationMeta.label,
         relationType: relationMeta.type,
-        easy: axis.student_output_hint || "",
+        easy: activityHint,
         axisDomain: axis.axis_domain || "",
-        extensionKeywords: Array.isArray(axis.extension_keywords) ? axis.extension_keywords : [],
-        activityExamples,
+        extensionKeywords: [],
+        activityExamples: activityHint ? [activityHint] : [],
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
-        __keywordScore: Number(keywordMeta?.score || 0),
-        __priority: Number(axis.priority || 99)
+        __priority: Number(axis.priority || 99),
+        __keywordBoost: Number(refinement?.boost || 0)
       };
     });
   }
@@ -1805,7 +1812,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
-        score += Number(axis.__keywordScore || 0);
+        score += Number(axis.__keywordBoost || 0);
         return { ...axis, __score: score };
       });
 
