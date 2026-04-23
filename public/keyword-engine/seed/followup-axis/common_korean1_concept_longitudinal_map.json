@@ -1,23 +1,25 @@
 {
   "subject_name": "공통국어1",
-  "version": "v1_concept_longitudinal_map_2026-04-22",
+  "version": "v3.4.8-common-korean1-refined-fixed",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
       "학과 입력 전에는 가능한 종단축 전체를 보여준다",
       "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
       "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
-    ]
+    ],
+    "keyword_refinement_rule": "같은 개념 안에서는 추천 키워드가 4번 후속 연계축의 점수, 짧은 라벨, 설명 문구, 활동 예시를 미세 조정한다."
   },
   "concept_longitudinal_map": [
     {
       "concept_name": "서정 갈래와 시적 표현",
-      "concept_label": "시·정서·표현",
-      "core_focus": "시적 화자, 운율, 심상, 비유, 상징, 정서 해석",
+      "concept_label": "시·정서·표현 해석",
+      "core_focus": "시적 화자, 운율, 심상, 비유, 상징, 정서와 주제 해석",
       "longitudinal_axes": [
         {
-          "axis_id": "literature_appreciation_extension",
+          "axis_id": "lyric_appreciation_interpretation",
           "axis_title": "문학 감상·해석 축",
+          "axis_short": "시 감상 해석",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -25,12 +27,51 @@
             "공통국어2",
             "독서와 작문"
           ],
-          "why": "시의 정서와 표현을 읽는 힘이 이후 문학 갈래 해석과 감상 심화의 기초가 됨",
-          "student_output_hint": "시 감상 비교표, 표현 효과 분석, 주제 해석 보고서"
+          "why": "시의 정서와 표현 효과를 읽는 힘이 이후 문학 갈래 해석과 감상 심화의 기초가 됨",
+          "student_output_hint": "시 감상 비교표, 표현 효과 분석, 주제 해석 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "시적 화자",
+                "정서",
+                "주제",
+                "감상",
+                "화자의 태도"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "화자-정서 해석",
+              "message": "선택한 키워드가 시의 화자와 정서 해석을 중심으로 감상 방향을 강화합니다.",
+              "desc": "시적 화자의 태도와 정서 흐름을 중심으로 작품의 주제와 감상 포인트를 읽는 축입니다.",
+              "activity_examples": [
+                "시적 화자와 정서 변화를 표로 정리하기",
+                "같은 정서를 다르게 드러낸 작품 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "심상",
+                "비유",
+                "상징",
+                "표현",
+                "운율"
+              ],
+              "boost": 17,
+              "label": "키워드 반영",
+              "short_label": "표현 효과 분석",
+              "message": "선택한 키워드가 심상·비유·상징의 표현 효과를 해석하는 방향을 보강합니다.",
+              "desc": "시어와 표현 장치가 정서와 의미 형성에 어떤 역할을 하는지 분석하는 축입니다.",
+              "activity_examples": [
+                "비유와 상징 표현의 의미 변화를 정리하기",
+                "운율과 정서의 관계를 사례로 설명하기"
+              ]
+            }
+          ]
         },
         {
           "axis_id": "creative_expression_extension",
           "axis_title": "표현·창작 확장 축",
+          "axis_short": "표현·창작",
           "axis_domain": "media",
           "priority": 2,
           "next_subjects": [
@@ -38,19 +79,92 @@
             "매체 의사소통",
             "독서와 작문"
           ],
-          "why": "시적 표현을 자신의 언어와 매체 표현으로 바꾸면 창작과 콘텐츠 해석으로 이어지기 쉬움",
-          "student_output_hint": "시어 바꾸기, 감상 카드뉴스, 표현 방식 비교 활동"
+          "why": "시적 표현을 자신의 언어와 다른 매체 표현으로 바꾸면 창작과 콘텐츠 해석으로 이어지기 쉬움",
+          "student_output_hint": "시어 바꾸기, 감상 카드뉴스, 창작 시도 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "운율",
+                "리듬",
+                "낭송",
+                "창작",
+                "시어"
+              ],
+              "boost": 19,
+              "label": "키워드 직접 반영",
+              "short_label": "낭송·창작 확장",
+              "message": "선택한 키워드가 시적 리듬과 창작 표현으로 이어지는 방향을 강화합니다.",
+              "desc": "운율과 시어를 바탕으로 낭송, 창작, 변형 표현으로 확장하는 축입니다.",
+              "activity_examples": [
+                "시의 운율을 살려 낭송 구성하기",
+                "원작 분위기를 살려 짧은 창작 시 쓰기"
+              ]
+            },
+            {
+              "keywords": [
+                "상징",
+                "이미지",
+                "카드뉴스",
+                "영상",
+                "매체"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "매체 표현 변환",
+              "message": "선택한 키워드가 시의 이미지를 카드뉴스·영상 등 매체 표현으로 바꾸는 방향을 보강합니다.",
+              "desc": "시적 상징과 이미지를 시각·매체 표현으로 전환하는 축입니다.",
+              "activity_examples": [
+                "시의 핵심 이미지를 카드뉴스로 재구성하기",
+                "상징 장면을 짧은 영상 콘티로 바꾸기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "emotion_media_translation",
+          "axis_title": "정서·매체 변환 축",
+          "axis_short": "정서·매체",
+          "axis_domain": "media",
+          "priority": 3,
+          "next_subjects": [
+            "매체 의사소통",
+            "공통국어2",
+            "문학"
+          ],
+          "why": "정서와 분위기를 다른 장르나 매체로 바꿔보면 감상과 표현을 연결하는 힘이 커짐",
+          "student_output_hint": "배경음악 매칭, 감정선 시각화, 장르 전환 활동",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "분위기",
+                "정서",
+                "배경음악",
+                "장면",
+                "이미지"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "감정선 시각화",
+              "message": "선택한 키워드가 시의 분위기와 감정선을 매체적으로 시각화하는 방향을 더 선명하게 만듭니다.",
+              "desc": "작품의 분위기와 정서를 이미지·음악·장면으로 바꾸어 해석하는 축입니다.",
+              "activity_examples": [
+                "시의 감정선과 배경음악을 연결해 보기",
+                "정서 변화 흐름을 색상과 장면으로 표현하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "서사·극 갈래와 이야기 구성",
-      "concept_label": "서사·극·갈등",
-      "core_focus": "시점, 인물, 사건, 갈등, 대사, 장면 구성, 주제 파악",
+      "concept_label": "서사·갈등·구조 해석",
+      "core_focus": "시점, 인물, 사건, 갈등, 장면, 대사, 이야기 구조와 주제 파악",
       "longitudinal_axes": [
         {
           "axis_id": "narrative_structure_analysis",
           "axis_title": "서사 구조 분석 축",
+          "axis_short": "서사 구조 분석",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -59,11 +173,50 @@
             "공통국어2"
           ],
           "why": "이야기 구조를 읽는 힘이 문학 해석과 매체 서사 이해로 자연스럽게 이어짐",
-          "student_output_hint": "인물 관계도, 갈등 구조도, 장면 비교 보고서"
+          "student_output_hint": "인물 관계도, 갈등 구조도, 장면 전개 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "시점",
+                "인물",
+                "사건",
+                "배경",
+                "구성"
+              ],
+              "boost": 21,
+              "label": "키워드 직접 반영",
+              "short_label": "인물-사건 구조",
+              "message": "선택한 키워드가 인물·사건·시점 중심의 서사 구조 해석을 강화합니다.",
+              "desc": "인물과 사건 전개, 시점 변화를 바탕으로 이야기 구조를 읽는 축입니다.",
+              "activity_examples": [
+                "인물 관계와 사건 흐름을 도식화하기",
+                "같은 사건을 다른 시점에서 해석해 보기"
+              ]
+            },
+            {
+              "keywords": [
+                "갈등",
+                "전개",
+                "절정",
+                "결말",
+                "반전"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "갈등 전개 해석",
+              "message": "선택한 키워드가 갈등과 전개 구조를 중심으로 이야기의 긴장을 해석하게 합니다.",
+              "desc": "갈등의 형성·심화·해결 과정을 통해 작품의 구조와 주제를 읽는 축입니다.",
+              "activity_examples": [
+                "갈등 구조도를 그리고 해결 방식 비교하기",
+                "전개-절정-결말 흐름을 작품별로 비교하기"
+              ]
+            }
+          ]
         },
         {
           "axis_id": "storytelling_media_extension",
           "axis_title": "스토리텔링·매체 축",
+          "axis_short": "스토리텔링",
           "axis_domain": "media",
           "priority": 2,
           "next_subjects": [
@@ -72,18 +225,91 @@
             "화법과 언어"
           ],
           "why": "서사와 극의 장면 구성을 매체 표현과 연결하면 스토리텔링 확장이 쉬움",
-          "student_output_hint": "서사 재구성, 장면 대본 바꾸기, 매체 비교 감상"
+          "student_output_hint": "장면 재구성, 대본 바꾸기, 스토리보드 만들기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "극",
+                "대사",
+                "장면",
+                "무대",
+                "대본"
+              ],
+              "boost": 19,
+              "label": "키워드 직접 반영",
+              "short_label": "장면·대본 구성",
+              "message": "선택한 키워드가 대사와 장면을 바탕으로 스토리텔링을 구성하는 방향을 강화합니다.",
+              "desc": "극적 장면 구성과 대사 표현을 중심으로 이야기를 매체적으로 재구성하는 축입니다.",
+              "activity_examples": [
+                "핵심 장면을 짧은 대본으로 바꾸기",
+                "장면 전환을 고려한 스토리보드 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "서사",
+                "영상",
+                "웹툰",
+                "콘티",
+                "장면 전환"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "매체 서사 변환",
+              "message": "선택한 키워드가 작품을 영상·웹툰 등 다른 매체 서사로 바꾸는 방향을 보강합니다.",
+              "desc": "서사 요소를 시각 매체나 장면 중심 콘텐츠로 변환해 보는 축입니다.",
+              "activity_examples": [
+                "작품을 웹툰 콘티 형식으로 재구성하기",
+                "장면 전환 기준으로 영상 시나리오 초안 만들기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "character_conflict_interpretation",
+          "axis_title": "인물·갈등 해석 축",
+          "axis_short": "인물·갈등",
+          "axis_domain": "social",
+          "priority": 3,
+          "next_subjects": [
+            "공통국어2",
+            "통합사회2",
+            "문학"
+          ],
+          "why": "인물의 선택과 갈등을 관계·가치 판단 문제로 확장하면 사회적 해석과 연결되기 쉬움",
+          "student_output_hint": "인물 선택 비교, 갈등 원인 분석, 가치 판단 토의",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "인물",
+                "선택",
+                "갈등",
+                "관계",
+                "가치"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "관계·갈등 해석",
+              "message": "선택한 키워드가 인물의 선택과 갈등을 가치 판단 문제로 읽는 방향을 강화합니다.",
+              "desc": "인물 관계와 갈등의 원인을 분석하며 작품의 주제를 사회적 의미와 연결하는 축입니다.",
+              "activity_examples": [
+                "인물 선택의 근거를 비교해 가치 판단표 만들기",
+                "갈등의 원인을 관계 변화 중심으로 분석하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "교술 갈래와 성찰적 표현",
-      "concept_label": "관찰·성찰·설명",
-      "core_focus": "관찰, 묘사, 설명, 태도, 주제 의식, 자기 성찰",
+      "concept_label": "관찰·성찰·설명 표현",
+      "core_focus": "관찰, 묘사, 설명, 태도, 주제 의식, 자기 성찰과 해석",
       "longitudinal_axes": [
         {
           "axis_id": "reflective_writing_extension",
           "axis_title": "성찰 글쓰기 축",
+          "axis_short": "성찰 글쓰기",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -92,11 +318,50 @@
             "화법과 언어"
           ],
           "why": "관찰과 성찰을 글로 구조화하는 힘이 이후 설명·성찰 글쓰기의 기초가 됨",
-          "student_output_hint": "관찰 기록, 성찰 에세이, 설명과 해석 비교 글"
+          "student_output_hint": "관찰 기록, 성찰 에세이, 태도 변화 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "성찰",
+                "태도",
+                "경험",
+                "자기 이해",
+                "느낀 점"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "경험 성찰 글쓰기",
+              "message": "선택한 키워드가 자신의 경험과 태도 변화를 성찰적으로 정리하는 방향을 강화합니다.",
+              "desc": "경험을 되돌아보고 태도와 의미 변화를 성찰 글로 구조화하는 축입니다.",
+              "activity_examples": [
+                "경험 전후의 생각 변화를 성찰 글로 정리하기",
+                "태도 변화의 이유를 문장으로 구조화하기"
+              ]
+            },
+            {
+              "keywords": [
+                "묘사",
+                "표현",
+                "감정",
+                "서술",
+                "장면"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "묘사·표현 강화",
+              "message": "선택한 키워드가 관찰한 대상을 묘사와 표현으로 풀어내는 방향을 보강합니다.",
+              "desc": "느낌과 인상을 구체적 묘사로 드러내며 성찰 글의 표현력을 높이는 축입니다.",
+              "activity_examples": [
+                "같은 장면을 사실 묘사와 감정 묘사로 나누어 쓰기",
+                "대상 묘사를 통해 성찰 주제를 드러내기"
+              ]
+            }
+          ]
         },
         {
           "axis_id": "observation_interpretation_extension",
           "axis_title": "관찰·해석 확장 축",
+          "axis_short": "관찰·해석",
           "axis_domain": "inquiry",
           "priority": 2,
           "next_subjects": [
@@ -105,18 +370,91 @@
             "통합과학2"
           ],
           "why": "대상을 관찰하고 의미를 해석하는 과정이 교과 탐구 기록과도 잘 연결됨",
-          "student_output_hint": "현상 관찰 기록, 사례 해설문, 경험 해석 보고서"
+          "student_output_hint": "관찰 노트, 대상 특징 분석, 해석 메모",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "관찰",
+                "대상",
+                "특징",
+                "변화",
+                "기록"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "관찰 기록 해석",
+              "message": "선택한 키워드가 대상을 관찰하고 특징을 기록하며 해석하는 방향을 강화합니다.",
+              "desc": "관찰한 사실을 근거로 대상의 의미와 특징을 해석하는 축입니다.",
+              "activity_examples": [
+                "대상 특징을 관찰 노트로 정리하기",
+                "관찰 사실과 해석을 구분해 기록하기"
+              ]
+            },
+            {
+              "keywords": [
+                "설명",
+                "분석",
+                "해석",
+                "의미",
+                "관점"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "설명·해석 연결",
+              "message": "선택한 키워드가 관찰 결과를 설명과 해석으로 확장하는 방향을 보강합니다.",
+              "desc": "관찰 자료를 바탕으로 의미를 분석하고 설명하는 축입니다.",
+              "activity_examples": [
+                "관찰 결과의 의미를 설명 문장으로 정리하기",
+                "같은 대상을 다른 관점으로 해석해 보기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "explanatory_recording_extension",
+          "axis_title": "설명·기록 확장 축",
+          "axis_short": "설명·기록",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "공통국어2",
+            "독서와 작문",
+            "화법과 언어"
+          ],
+          "why": "대상과 경험을 설명하는 방식이 정리되면 기록형 글쓰기와 발표 자료 구성으로 이어지기 쉬움",
+          "student_output_hint": "설명문 초안, 기록 카드, 발표용 개요",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "설명",
+                "정리",
+                "기록",
+                "순서",
+                "구조"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "구조화 설명",
+              "message": "선택한 키워드가 내용을 순서와 구조에 따라 설명·기록하는 방향을 선명하게 만듭니다.",
+              "desc": "관찰과 성찰 내용을 구조적으로 정리해 전달 가능한 글로 만드는 축입니다.",
+              "activity_examples": [
+                "관찰 내용을 순서도 형태로 정리하기",
+                "설명문과 성찰문을 구분해 구성하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "음운 변동과 국어 규범",
-      "concept_label": "발음·규범·언어",
-      "core_focus": "교체, 탈락, 축약, 첨가, 표준 발음, 국어 규범",
+      "concept_label": "언어 규범·발음 적용",
+      "core_focus": "교체, 탈락, 축약, 첨가, 표준 발음, 국어 규범의 실제 적용",
       "longitudinal_axes": [
         {
-          "axis_id": "language_rule_extension",
+          "axis_id": "language_norm_inquiry",
           "axis_title": "언어 규범 탐구 축",
+          "axis_short": "언어 규범",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -125,11 +463,51 @@
             "독서와 작문"
           ],
           "why": "언어 규칙과 발음 체계를 이해하는 힘이 이후 문법·언어생활 학습의 기반이 됨",
-          "student_output_hint": "발음 규칙 정리표, 오류 사례 분석, 규범 설명 보고서"
+          "student_output_hint": "음운 변동 정리표, 규범 적용 사례 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "음운",
+                "교체",
+                "탈락",
+                "축약",
+                "첨가",
+                "규칙"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "음운 규칙 분석",
+              "message": "선택한 키워드가 음운 변동의 유형과 규칙을 분석하는 방향을 강화합니다.",
+              "desc": "교체·탈락·축약·첨가의 원리를 바탕으로 음운 변동을 체계적으로 정리하는 축입니다.",
+              "activity_examples": [
+                "음운 변동 유형별 예시를 표로 정리하기",
+                "비슷한 발음 변화의 규칙을 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "표준 발음",
+                "규범",
+                "표기",
+                "맞춤법",
+                "발음"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "규범 적용 해석",
+              "message": "선택한 키워드가 국어 규범을 실제 언어생활에 적용하는 방향을 보강합니다.",
+              "desc": "표준 발음과 표기 규범을 사례에 적용하며 정확성을 점검하는 축입니다.",
+              "activity_examples": [
+                "자주 헷갈리는 발음과 표기를 사례별로 정리하기",
+                "표준 발음 규정을 적용해 문장을 점검하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "accurate_expression_extension",
+          "axis_id": "accurate_expression",
           "axis_title": "정확한 표현 축",
+          "axis_short": "정확한 표현",
           "axis_domain": "communication",
           "priority": 2,
           "next_subjects": [
@@ -138,18 +516,73 @@
             "공통국어2"
           ],
           "why": "정확한 발음과 표현은 말하기·듣기·매체 표현의 기본 토대가 됨",
-          "student_output_hint": "발음 비교, 표현 교정, 전달력 점검 활동"
+          "student_output_hint": "발음 교정 기록, 표현 점검표, 말하기 준비 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "발음",
+                "표현",
+                "낭독",
+                "말하기",
+                "듣기"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "발음·표현 점검",
+              "message": "선택한 키워드가 정확한 발음과 표현을 말하기 상황에 적용하는 방향을 강화합니다.",
+              "desc": "언어 규범을 바탕으로 실제 말하기·듣기 상황의 정확성을 높이는 축입니다.",
+              "activity_examples": [
+                "낭독 문장의 발음 오류를 스스로 점검하기",
+                "말하기 상황에 맞는 표현을 규범 기준으로 수정하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "language_life_application",
+          "axis_title": "언어생활 적용 축",
+          "axis_short": "언어생활 적용",
+          "axis_domain": "social",
+          "priority": 3,
+          "next_subjects": [
+            "매체 의사소통",
+            "화법과 언어",
+            "통합사회2"
+          ],
+          "why": "규범을 실제 언어생활과 매체 언어에 적용해 보면 사회적 의사소통 문제와도 연결됨",
+          "student_output_hint": "생활 언어 사례 분석, 온라인 표현 점검",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "생활 언어",
+                "온라인 언어",
+                "관용",
+                "표현 습관",
+                "매체 언어"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "생활 언어 점검",
+              "message": "선택한 키워드가 실제 생활 언어와 매체 표현을 규범 관점에서 돌아보게 합니다.",
+              "desc": "일상과 온라인 언어의 표현 습관을 국어 규범과 연결해 점검하는 축입니다.",
+              "activity_examples": [
+                "온라인 댓글 표현을 규범 관점에서 수정해 보기",
+                "생활 속 발음·표기 사례를 모아 분석하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "공동체 의사소통과 공감",
-      "concept_label": "소통·공감·협업",
-      "core_focus": "공감, 배려, 상호작용, 경청, 공동체 소통 문화",
+      "concept_label": "공감·협력·의사소통",
+      "core_focus": "공감, 배려, 상호작용, 공동체, 갈등 조정, 바람직한 의사소통 문화",
       "longitudinal_axes": [
         {
-          "axis_id": "speech_empathy_extension",
+          "axis_id": "empathetic_communication",
           "axis_title": "화법·공감 소통 축",
+          "axis_short": "공감 소통",
           "axis_domain": "communication",
           "priority": 1,
           "next_subjects": [
@@ -158,11 +591,50 @@
             "매체 의사소통"
           ],
           "why": "공감과 배려를 바탕으로 한 소통 경험이 이후 발표·토론·대화 수행으로 이어짐",
-          "student_output_hint": "대화 분석표, 공감 표현 점검, 역할극 성찰 보고서"
+          "student_output_hint": "대화 사례 분석, 공감 표현 정리, 역할극 준비",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "공감",
+                "배려",
+                "경청",
+                "말하기",
+                "대화"
+              ],
+              "boost": 21,
+              "label": "키워드 직접 반영",
+              "short_label": "공감 대화",
+              "message": "선택한 키워드가 상대를 이해하고 공감하며 대화하는 방향을 강화합니다.",
+              "desc": "공감과 경청을 바탕으로 바람직한 의사소통 태도를 형성하는 축입니다.",
+              "activity_examples": [
+                "공감 표현이 드러난 대화 사례를 비교하기",
+                "경청 태도를 반영한 역할극 대본 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "의사소통",
+                "상호작용",
+                "관계",
+                "표현",
+                "피드백"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "상호작용 분석",
+              "message": "선택한 키워드가 의사소통 과정의 상호작용을 분석하는 방향을 보강합니다.",
+              "desc": "표현과 피드백의 흐름을 살펴 공동체 소통 구조를 해석하는 축입니다.",
+              "activity_examples": [
+                "대화 속 피드백 유형을 분류하기",
+                "관계 개선에 도움이 되는 표현을 정리하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "community_collaboration_extension",
+          "axis_id": "community_collaboration",
           "axis_title": "공동체 협업 축",
+          "axis_short": "공동체 협업",
           "axis_domain": "social",
           "priority": 2,
           "next_subjects": [
@@ -171,18 +643,73 @@
             "매체 의사소통"
           ],
           "why": "공동체 소통 문제를 관계·참여 문제로 확장하면 사회적 협업 탐구로 연결 가능",
-          "student_output_hint": "학교 소통 문제 해결안, 공동체 규칙 제안, 참여형 발표"
+          "student_output_hint": "협업 규칙 정리, 공동 문제 해결 방안 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "공동체",
+                "협력",
+                "참여",
+                "규칙",
+                "팀"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "협력 규칙 설계",
+              "message": "선택한 키워드가 공동체 안에서 협력 규칙과 참여 방식을 설계하는 방향을 강화합니다.",
+              "desc": "공동체의 의사소통 규칙과 협업 문화를 정리하고 개선하는 축입니다.",
+              "activity_examples": [
+                "팀 활동을 위한 의사소통 규칙 만들기",
+                "공동체 갈등을 줄이는 협력 방안 제안하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "conflict_mediation_dialogue",
+          "axis_title": "갈등 조정·대화 축",
+          "axis_short": "갈등 조정",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "화법과 언어",
+            "통합사회2",
+            "독서와 작문"
+          ],
+          "why": "의사소통 과정에서 갈등을 조정하는 경험은 토론·협상·문제 해결형 대화로 이어지기 쉬움",
+          "student_output_hint": "갈등 상황 대화문, 해결 절차 정리, 협상 표현 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "갈등",
+                "조정",
+                "협상",
+                "문제 해결",
+                "중재"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "협상·중재 대화",
+              "message": "선택한 키워드가 갈등 상황을 조정하고 해결하는 대화 방향을 보강합니다.",
+              "desc": "갈등 원인을 파악하고 협상·중재를 통해 해결책을 찾는 축입니다.",
+              "activity_examples": [
+                "갈등 상황별 중재 표현을 정리하기",
+                "문제 해결 중심 협상 대화문 만들기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "문학·독서와 주체적 수용",
-      "concept_label": "독서·감상·성찰",
-      "core_focus": "문학 감상, 독서 계획, 독서 과정, 성찰, 삶의 해석, 주체적 수용",
+      "concept_label": "읽기·성찰·주체적 수용",
+      "core_focus": "문학 감상, 독서 과정, 독서 결과 공유, 성찰, 삶과 연결한 주체적 수용",
       "longitudinal_axes": [
         {
-          "axis_id": "reading_interpretation_extension",
+          "axis_id": "reading_interpretation_deepening",
           "axis_title": "독서 해석 심화 축",
+          "axis_short": "독서 해석",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -191,11 +718,50 @@
             "공통국어2"
           ],
           "why": "읽은 내용을 자신의 관점으로 해석하고 정리하는 힘이 이후 독서·문학 활동의 중심 역량이 됨",
-          "student_output_hint": "독서 기록장, 감상 비교표, 삶 연결 성찰문"
+          "student_output_hint": "핵심 문장 정리, 감상 메모, 작품 해석 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "독서",
+                "감상",
+                "해석",
+                "관점",
+                "주체적 수용"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "관점 중심 독서",
+              "message": "선택한 키워드가 작품과 글을 자신의 관점에서 해석하는 방향을 강화합니다.",
+              "desc": "읽은 내용을 단순 요약이 아니라 자신의 언어와 관점으로 재해석하는 축입니다.",
+              "activity_examples": [
+                "같은 작품을 서로 다른 관점으로 해석해 보기",
+                "읽은 내용이 자신에게 남긴 의미를 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "문학",
+                "작품",
+                "주제",
+                "인상",
+                "의미"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "작품 의미 해석",
+              "message": "선택한 키워드가 작품의 주제와 의미를 주체적으로 해석하는 방향을 보강합니다.",
+              "desc": "문학 작품을 읽고 핵심 주제와 인상, 의미를 자신의 방식으로 구조화하는 축입니다.",
+              "activity_examples": [
+                "작품의 주제와 인상 깊은 장면을 연결해 설명하기",
+                "감상과 해석의 차이를 비교해 보기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "life_connection_extension",
+          "axis_id": "life_connected_reflection",
           "axis_title": "삶 연결 성찰 축",
+          "axis_short": "삶 연결 성찰",
           "axis_domain": "inquiry",
           "priority": 2,
           "next_subjects": [
@@ -204,18 +770,73 @@
             "통합사회2"
           ],
           "why": "문학과 독서를 삶의 문제와 연결하면 주제 탐구와 자기 성찰형 보고서로 확장 가능",
-          "student_output_hint": "도서-삶 연결 글, 가치 성찰 보고서, 작품 적용 사례 정리"
+          "student_output_hint": "삶 연결 질문, 가치 성찰 기록, 독서 후 변화 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "삶",
+                "경험",
+                "가치",
+                "성찰",
+                "변화"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "가치·성찰 연결",
+              "message": "선택한 키워드가 독서를 삶과 가치 성찰 문제로 확장하는 방향을 강화합니다.",
+              "desc": "작품이나 글이 자신의 경험과 가치 판단에 어떤 영향을 주는지 탐색하는 축입니다.",
+              "activity_examples": [
+                "독서 후 생각이 바뀐 지점을 성찰 기록으로 남기기",
+                "작품의 문제를 자신의 삶과 연결해 질문 만들기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "reading_sharing_review",
+          "axis_title": "독서 공유·서평 축",
+          "axis_short": "독서 공유",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "독서와 작문",
+            "화법과 언어",
+            "매체 의사소통"
+          ],
+          "why": "읽은 내용을 공유하고 추천하는 경험은 서평, 발표, 독서 기록 활동으로 이어지기 쉬움",
+          "student_output_hint": "서평 카드, 추천 이유 정리, 발표 개요",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "공유",
+                "추천",
+                "서평",
+                "발표",
+                "기록"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "서평·공유 표현",
+              "message": "선택한 키워드가 읽은 내용을 다른 사람과 나누는 표현 활동으로 이어지게 합니다.",
+              "desc": "독서 결과를 서평, 추천 글, 발표 형식으로 정리해 전달하는 축입니다.",
+              "activity_examples": [
+                "친구에게 추천하는 짧은 서평 쓰기",
+                "독서 후 핵심 내용을 발표용 개요로 정리하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "비판적 읽기와 토론",
-      "concept_label": "논증·쟁점·토론",
-      "core_focus": "비판적 읽기, 주장, 근거, 타당성, 토론, 입론, 반론, 재반론",
+      "concept_label": "주장·근거·토론",
+      "core_focus": "주장과 근거의 타당성 판단, 비판적 읽기, 반론 검토, 토론 절차와 해결 방안 탐색",
       "longitudinal_axes": [
         {
-          "axis_id": "argument_debate_extension",
+          "axis_id": "argument_discussion",
           "axis_title": "논증·토론 축",
+          "axis_short": "논증·토론",
           "axis_domain": "communication",
           "priority": 1,
           "next_subjects": [
@@ -224,11 +845,50 @@
             "공통국어2"
           ],
           "why": "주장과 근거를 검토하는 힘이 이후 토론·발표·논증 글쓰기의 직접적인 기반이 됨",
-          "student_output_hint": "찬반 논거표, 쟁점 정리, 토론 대본 설계"
+          "student_output_hint": "주장-근거 구조도, 찬반 토론 개요, 반론 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "주장",
+                "근거",
+                "반론",
+                "토론",
+                "타당성"
+              ],
+              "boost": 23,
+              "label": "키워드 직접 반영",
+              "short_label": "근거-반론 검토",
+              "message": "선택한 키워드가 주장과 근거, 반론을 검토하는 논증 중심 방향을 강화합니다.",
+              "desc": "주장의 타당성을 따지고 반론을 점검하며 토론 구조를 세우는 축입니다.",
+              "activity_examples": [
+                "주장-근거-반론 구조를 한눈에 정리하기",
+                "토론 쟁점별 핵심 근거를 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "쟁점",
+                "해결 방안",
+                "의견",
+                "입장",
+                "찬반"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "쟁점 토론 설계",
+              "message": "선택한 키워드가 쟁점별 입장과 해결 방안을 설계하는 방향을 보강합니다.",
+              "desc": "사회적 문제나 논쟁적 주제를 토론 구조로 정리하고 해결책을 탐색하는 축입니다.",
+              "activity_examples": [
+                "찬반 입장별 핵심 논거를 정리하기",
+                "토론 후 해결 방안 제안서를 간단히 작성하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "critical_reading_extension",
+          "axis_id": "critical_interpretation_extension",
           "axis_title": "비판 해석 확장 축",
+          "axis_short": "비판 해석",
           "axis_domain": "social",
           "priority": 2,
           "next_subjects": [
@@ -237,18 +897,73 @@
             "통합사회2"
           ],
           "why": "비판적으로 읽는 태도를 사회 자료·매체 자료 해석으로 넓히면 탐구형 읽기로 이어짐",
-          "student_output_hint": "기사 비판 읽기, 근거 점검표, 자료 해석 보고서"
+          "student_output_hint": "자료 비교표, 관점 분석, 매체 해석 메모",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "비판적 읽기",
+                "관점",
+                "해석",
+                "자료",
+                "매체"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "관점 비교 해석",
+              "message": "선택한 키워드가 자료와 매체를 여러 관점에서 비교 해석하는 방향을 강화합니다.",
+              "desc": "한 자료를 여러 시각으로 읽고 편향과 한계를 점검하는 축입니다.",
+              "activity_examples": [
+                "같은 주제 자료를 관점별로 비교하기",
+                "기사와 영상 자료의 표현 차이를 분석하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "evidence_verification_analysis",
+          "axis_title": "자료 검증·쟁점 분석 축",
+          "axis_short": "자료 검증",
+          "axis_domain": "inquiry",
+          "priority": 3,
+          "next_subjects": [
+            "독서와 작문",
+            "통합사회2",
+            "정보"
+          ],
+          "why": "자료의 신뢰성과 근거를 검증하는 습관은 탐구 보고서와 데이터 해석 활동으로도 이어질 수 있음",
+          "student_output_hint": "출처 신뢰도 점검, 근거 비교표, 검증 질문 만들기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "출처",
+                "신뢰성",
+                "사실",
+                "근거 검증",
+                "자료 분석"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "출처·근거 검증",
+              "message": "선택한 키워드가 자료의 신뢰성과 근거를 점검하는 방향을 더 선명하게 만듭니다.",
+              "desc": "자료의 출처와 근거 수준을 비교하며 쟁점 판단의 신뢰도를 높이는 축입니다.",
+              "activity_examples": [
+                "자료 출처와 근거 수준을 표로 비교하기",
+                "검증이 필요한 문장을 찾아 질문 목록 만들기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "사회적 쟁점 글쓰기와 문장 구성",
-      "concept_label": "주장·근거·글쓰기",
-      "core_focus": "사회적 쟁점, 주장, 근거, 개요, 문장 구성, 문법 요소, 수정",
+      "concept_label": "쟁점 글쓰기·문장 다듬기",
+      "core_focus": "사회적 쟁점, 주장과 근거, 개요 작성, 문장 구성, 문법 요소 점검, 수정·보완",
       "longitudinal_axes": [
         {
-          "axis_id": "argument_writing_extension",
+          "axis_id": "argumentative_writing",
           "axis_title": "주장 글쓰기 축",
+          "axis_short": "주장 글쓰기",
           "axis_domain": "korean",
           "priority": 1,
           "next_subjects": [
@@ -257,11 +972,50 @@
             "공통국어2"
           ],
           "why": "쟁점에 대해 개요를 짜고 근거를 배치하는 힘이 이후 작문과 발표의 핵심이 됨",
-          "student_output_hint": "주장 글 개요, 근거 배치표, 수정 전후 비교"
+          "student_output_hint": "개요표, 논지 전개표, 주장문 초안",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "사회적 쟁점",
+                "주장",
+                "근거",
+                "개요",
+                "논지"
+              ],
+              "boost": 23,
+              "label": "키워드 직접 반영",
+              "short_label": "논지-근거 글쓰기",
+              "message": "선택한 키워드가 사회적 쟁점에 대한 주장과 근거를 구조화하는 방향을 강화합니다.",
+              "desc": "쟁점에 대한 입장을 정하고 근거를 체계적으로 배치해 주장 글을 구성하는 축입니다.",
+              "activity_examples": [
+                "쟁점별 주장-근거 개요표 만들기",
+                "도입-본론-결론 구조로 글 초안 쓰기"
+              ]
+            },
+            {
+              "keywords": [
+                "수정",
+                "보완",
+                "퇴고",
+                "문장",
+                "표현"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "문장 수정·퇴고",
+              "message": "선택한 키워드가 문장 표현을 점검하고 글을 다듬는 방향을 보강합니다.",
+              "desc": "작성한 글의 문장 구성과 표현을 점검하며 논리성과 정확성을 높이는 축입니다.",
+              "activity_examples": [
+                "중복 표현과 모호한 문장을 찾아 수정하기",
+                "근거가 약한 부분을 보완해 글을 퇴고하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "public_media_expression_extension",
+          "axis_id": "public_media_expression",
           "axis_title": "공공·매체 표현 축",
+          "axis_short": "공공·매체 표현",
           "axis_domain": "media",
           "priority": 2,
           "next_subjects": [
@@ -270,7 +1024,61 @@
             "통합사회2"
           ],
           "why": "사회적 쟁점을 글로 다루는 경험이 카드뉴스·논평·제안서 같은 공공 표현으로 확장되기 쉬움",
-          "student_output_hint": "논평문, 카드뉴스 원고, 정책 제안 글쓰기"
+          "student_output_hint": "카드뉴스 문안, 논평 초안, 제안서 구성표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "논평",
+                "제안",
+                "공공",
+                "매체",
+                "카드뉴스"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "논평·제안 표현",
+              "message": "선택한 키워드가 사회적 쟁점을 공공적 매체 표현으로 확장하는 방향을 강화합니다.",
+              "desc": "논평, 제안서, 카드뉴스처럼 대중에게 전달하는 공공 표현으로 글쓰기를 넓히는 축입니다.",
+              "activity_examples": [
+                "쟁점별 카드뉴스 문안을 구성하기",
+                "학교나 지역사회에 제안하는 짧은 글 작성하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "sentence_revision_editing",
+          "axis_title": "문장 점검·수정 축",
+          "axis_short": "문장 점검",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "독서와 작문",
+            "공통국어2",
+            "화법과 언어"
+          ],
+          "why": "문장 구성과 문법 요소를 점검하는 습관은 모든 글쓰기와 발표 자료 구성의 기본이 됨",
+          "student_output_hint": "문장 점검표, 수정 전후 비교, 표현 다듬기 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "문장 구성",
+                "문법",
+                "호응",
+                "표현 정확성",
+                "수정"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "문장 정확성 점검",
+              "message": "선택한 키워드가 문장 구조와 문법 정확성을 점검하는 방향을 선명하게 만듭니다.",
+              "desc": "문장의 호응, 연결, 표현 정확성을 점검하며 전달력을 높이는 축입니다.",
+              "activity_examples": [
+                "수정 전후 문장을 비교해 효과를 설명하기",
+                "문법과 표현 정확성 체크리스트로 글을 점검하기"
+              ]
+            }
+          ]
         }
       ]
     }
