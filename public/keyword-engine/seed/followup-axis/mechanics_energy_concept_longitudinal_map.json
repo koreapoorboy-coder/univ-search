@@ -1,0 +1,101 @@
+{
+  "subject_name": "역학과 에너지",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "시공간과 운동",
+      "concept_label": "벡터-포물선 운동-케플러 법칙",
+      "longitudinal_axes": [
+        {
+          "axis_id": "advanced_mechanics_analysis_axis",
+          "axis_title": "고급 역학 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "기계공학",
+            "항공우주공학"
+          ],
+          "why": "벡터·운동 법칙·에너지 보존을 함께 해석하는 사고가 장의 상호작용 이해와 구조·운동 시스템 분석으로 자연스럽게 이어짐",
+          "student_output_hint": "발사체 궤도 비교, 원운동 모델 분석, 힘-에너지 통합 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "orbit_space_application_axis",
+          "axis_title": "우주·궤도 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "천문우주학",
+            "항공우주공학",
+            "데이터사이언스학과"
+          ],
+          "why": "중력과 궤도 운동을 정량적으로 다루는 관점이 위성 관측, 궤도 설계, 우주 데이터 해석으로 확장됨",
+          "student_output_hint": "인공위성 궤도 비교, 탈출 속도 분석, 우주 관측 데이터 정리 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "열과 에너지",
+      "concept_label": "열전달-이상 기체-열역학",
+      "longitudinal_axes": [
+        {
+          "axis_id": "thermodynamics_analysis_axis",
+          "axis_title": "열역학 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물질과 에너지",
+            "에너지공학",
+            "기계공학"
+          ],
+          "why": "기체 상태 변화와 열역학 법칙을 정량적으로 해석하는 사고가 물성·에너지 시스템 분석으로 직접 이어짐",
+          "student_output_hint": "기체 상태 변화 비교, 열효율 분석, 열역학 과정 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "process_efficiency_design_axis",
+          "axis_title": "공정·효율 설계 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "화학공학",
+            "환경공학",
+            "신재생에너지공학"
+          ],
+          "why": "열 손실과 효율 한계를 시스템 관점에서 보는 사고가 공정 최적화와 에너지 절감 설계로 확장됨",
+          "student_output_hint": "냉각 장치 비교, 열교환 구조 분석, 에너지 절감 아이디어 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "탄성파와 소리",
+      "concept_label": "단진동-도플러 효과-정상파",
+      "longitudinal_axes": [
+        {
+          "axis_id": "wave_signal_analysis_axis",
+          "axis_title": "파동·신호 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자기와 양자",
+            "정보통신공학",
+            "의공학"
+          ],
+          "why": "진동과 파동의 전달을 정량적으로 해석하는 사고가 전자기파·센서·의료 신호 이해로 자연스럽게 이어짐",
+          "student_output_hint": "도플러 효과 사례 분석, 파형 비교, 신호 전달 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "vibration_device_application_axis",
+          "axis_title": "진동·장치 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "전자공학",
+            "기계공학",
+            "건축공학"
+          ],
+          "why": "소리와 진동을 제어하는 관점이 센서 장치·기계 진동 해석·소음 저감 설계로 확장됨",
+          "student_output_hint": "소음 제어 방법 비교, 진동 센서 분석, 음향·구조 설계 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
