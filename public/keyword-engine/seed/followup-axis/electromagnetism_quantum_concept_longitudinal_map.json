@@ -1,0 +1,101 @@
+{
+  "subject_name": "전자기와 양자",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "전기장과 자기장",
+      "concept_label": "전기장-자기장-로런츠 힘",
+      "longitudinal_axes": [
+        {
+          "axis_id": "field_interaction_analysis_axis",
+          "axis_title": "장·입자 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물리학과",
+            "전자공학과",
+            "의공학과"
+          ],
+          "why": "전기장·자기장·하전 입자의 운동을 함께 해석하는 사고가 장의 상호작용과 정밀 측정 장치 이해로 직접 이어짐",
+          "student_output_hint": "전기장·자기장 비교, 입자 궤적 분석, 로런츠 힘 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "sensor_device_application_axis",
+          "axis_title": "센서·장치 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "전자공학과",
+            "반도체공학과",
+            "신소재공학과"
+          ],
+          "why": "장의 제어 관점을 센서·모터·전자 소자와 연결하면 실제 장치 구조와 소재 설계 탐구로 확장됨",
+          "student_output_hint": "홀 효과 센서 비교, 모터 구조 분석, 자기장 활용 장치 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "전자기 유도와 전자기파",
+      "concept_label": "전자기 유도-자기선속-전자기파",
+      "longitudinal_axes": [
+        {
+          "axis_id": "electromagnetic_signal_axis",
+          "axis_title": "전자기 신호 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "전자공학과",
+            "정보통신공학과",
+            "전기공학과"
+          ],
+          "why": "유도 전류와 전자기파의 생성·전달을 정량적으로 해석하는 사고가 회로·통신·전력 시스템 이해로 이어짐",
+          "student_output_hint": "발전기·변압기 비교, 안테나 원리 분석, 전자기 신호 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "power_communication_application_axis",
+          "axis_title": "전력·통신 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "의공학과",
+            "항공전자공학과",
+            "데이터사이언스학과"
+          ],
+          "why": "전자기 유도와 파동 전달을 실제 장비·통신·영상 데이터와 연결하는 관점이 응용 기술 탐구로 확장됨",
+          "student_output_hint": "무선 통신 비교, MRI·레이더 사례 조사, 전력 손실 분석 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "양자와 물질의 상호작용",
+      "concept_label": "광전 효과-에너지 준위-반도체",
+      "longitudinal_axes": [
+        {
+          "axis_id": "quantum_material_analysis_axis",
+          "axis_title": "양자·소자 해석 축",
+          "axis_domain": "physics",
+          "next_subjects": [
+            "물질과 에너지",
+            "반도체공학과",
+            "물리학과"
+          ],
+          "why": "광전 효과와 에너지 준위, 반도체를 함께 해석하는 사고가 현대 물성 이해와 양자 기반 소자 해석으로 직접 이어짐",
+          "student_output_hint": "스펙트럼 비교, 광전 효과 실험 해석, 밴드 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "semiconductor_photonics_application_axis",
+          "axis_title": "반도체·광소자 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "신소재공학과",
+            "전자공학과",
+            "광공학과"
+          ],
+          "why": "양자 개념을 소재·광소자 설계와 연결하는 관점이 LED·태양전지·센서 기술 탐구로 확장됨",
+          "student_output_hint": "LED·태양전지 비교, 광센서 구조 분석, 반도체 소재 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
