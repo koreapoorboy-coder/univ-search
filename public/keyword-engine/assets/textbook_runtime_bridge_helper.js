@@ -59,7 +59,10 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.7-cell-metabolism-alias"
     "세포와물질대사": "cell_metabolism",
     "고등 세포와 물질대사": "cell_metabolism",
     "고등학교 세포와 물질대사": "cell_metabolism",
-    "지구시스템과학": "earth_system_science"
+    "지구시스템과학": "earth_system_science",
+    "지구시스템 과학": "earth_system_science",
+    "고등 지구시스템과학": "earth_system_science",
+    "고등학교 지구시스템과학": "earth_system_science"
   };
 
   const TASK_HINTS = {
