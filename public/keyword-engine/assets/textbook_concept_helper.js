@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.1-keyword-axis-boost";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1627,6 +1627,77 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
     return score;
   }
 
+  function normalizeLooseKeywordText(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[\-_\/]+/g, ' ')
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function tokenizeLooseKeywordText(value) {
+    return normalizeLooseKeywordText(value)
+      .split(' ')
+      .map(item => item.trim())
+      .filter(item => item && item.length >= 2);
+  }
+
+  function getKeywordAxisBoost(axis) {
+    const keyword = String(state.keyword || '').trim();
+    if (!keyword) return { score: 0, label: '', note: '' };
+
+    const keywordText = normalizeLooseKeywordText(keyword);
+    const keywordTokens = tokenizeLooseKeywordText(keyword);
+    if (!keywordText || !keywordTokens.length) {
+      return { score: 0, label: '', note: '' };
+    }
+
+    const axisText = normalizeLooseKeywordText([
+      axis?.axis_domain || axis?.axisDomain || '',
+      axis?.axis_title || axis?.title || '',
+      axis?.why || axis?.desc || '',
+      axis?.student_output_hint || axis?.easy || '',
+      ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : []),
+      ...(Array.isArray(axis?.linkedSubjects) ? axis.linkedSubjects : []),
+      ...(Array.isArray(axis?.extensionKeywords) ? axis.extensionKeywords : []),
+      ...(Array.isArray(axis?.activityExamples) ? axis.activityExamples : [])
+    ].join(' '));
+
+    if (!axisText) return { score: 0, label: '', note: '' };
+
+    if (axisText.includes(keywordText)) {
+      return {
+        score: 26,
+        label: '키워드 직접 반영',
+        note: `선택 키워드 "${keyword}"가 이 연계축 설명과 직접 맞물립니다.`
+      };
+    }
+
+    let matched = 0;
+    keywordTokens.forEach(token => {
+      if (axisText.includes(token)) matched += 1;
+    });
+
+    if (matched >= Math.max(2, Math.ceil(keywordTokens.length * 0.6))) {
+      return {
+        score: 18,
+        label: '키워드 반영',
+        note: `선택 키워드 "${keyword}"의 핵심 요소가 이 연계축에 반영됩니다.`
+      };
+    }
+
+    if (matched >= 1) {
+      return {
+        score: 10,
+        label: '키워드 보정',
+        note: `선택 키워드 "${keyword}"와 일부 요소가 겹쳐 우선순위를 보정합니다.`
+      };
+    }
+
+    return { score: 0, label: '', note: '' };
+  }
+
 
   function getCurrentConceptLongitudinalMap() {
     if (!state.subject || !conceptLongitudinalMaps) return null;
@@ -1735,15 +1806,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
+      const keywordMeta = getKeywordAxisBoost(axis);
       return {
         id: axis.axis_id,
         title: axis.axis_title,
         short: entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
         desc: axis.why || "",
-        reason: relationMeta.message,
+        reason: keywordMeta.note || relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
+        keywordLabel: keywordMeta.label,
         easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
         extensionKeywords: [],
@@ -1753,6 +1826,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
+        __keywordScore: keywordMeta.score,
         __priority: Number(axis.priority || 99)
       };
     });
@@ -1768,6 +1842,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
+        score += Number(axis.__keywordScore || 0);
         return { ...axis, __score: score };
       });
 
@@ -1787,7 +1862,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
       score += getCareerAxisBoost(seed);
       score += getMajorAxisBoost(seed);
       const relationMeta = getAxisCareerRelationMeta(state.subject, seed);
+      const keywordMeta = getKeywordAxisBoost(seed);
       score += relationMeta.score;
+      score += keywordMeta.score;
 
       return {
         id: seed.id,
@@ -1795,9 +1872,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         short: seed.short,
         nextSubject: seed.linkedSubjects.join(" / "),
         desc: `${state.concept} 개념을 바탕으로 ${seed.desc}`,
-        reason: relationMeta.message,
+        reason: keywordMeta.note || relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
+        keywordLabel: keywordMeta.label,
         easy: seed.desc,
         axisDomain: seed.axisDomain,
         extensionKeywords: seed.extensionKeywords,
@@ -2275,7 +2353,7 @@ function getTrackMeta(trackId) {
       <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''} ${item.keywordLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.keywordLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
