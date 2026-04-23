@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v32.0-matter-energy-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -64,7 +64,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v32.0-matter-energy-support";
     "고등학교 전자기와 양자": "전자기와 양자",
     "물질과에너지": "물질과 에너지",
     "고등 물질과 에너지": "물질과 에너지",
-    "고등학교 물질과 에너지": "물질과 에너지"
+    "고등학교 물질과 에너지": "물질과 에너지",
+    "세포와물질대사": "세포와 물질대사",
+    "고등 세포와 물질대사": "세포와 물질대사",
+    "고등학교 세포와 물질대사": "세포와 물질대사"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -100,7 +103,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v32.0-matter-energy-support";
     "전자기와 양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json",
     "전자기와양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json",
     "물질과 에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
-    "물질과에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json"
+    "물질과에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
+    "세포와 물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json",
+    "세포와물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json"
   }
 
   const state = {
