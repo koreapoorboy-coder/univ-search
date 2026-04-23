@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.5-electromagnetism-quantum-alias";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.6-matter-energy-alias";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -52,6 +52,9 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.5-electromagnetism-quant
     "고등학교 전자기와 양자": "electromagnetism_quantum",
     "전자기와 양자": "electromagnetism_quantum",
     "물질과 에너지": "matter_energy",
+    "물질과에너지": "matter_energy",
+    "고등 물질과 에너지": "matter_energy",
+    "고등학교 물질과 에너지": "matter_energy",
     "세포와 물질대사": "cell_metabolism",
     "지구시스템과학": "earth_system_science"
   };
