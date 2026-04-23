@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v31.0-electromagnetism-quantum-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -58,7 +58,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
     "지구과학Ⅰ": "지구과학",
     "역학과에너지": "역학과 에너지",
     "고등 역학과 에너지": "역학과 에너지",
-    "고등학교 역학과 에너지": "역학과 에너지"
+    "고등학교 역학과 에너지": "역학과 에너지",
+    "전자기와양자": "전자기와 양자",
+    "고등 전자기와 양자": "전자기와 양자",
+    "고등학교 전자기와 양자": "전자기와 양자"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
@@ -90,7 +93,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v30.0-life-science-support";
     "지구과학Ⅰ": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
     "지구과학1": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
     "역학과 에너지": "seed/followup-axis/mechanics_energy_concept_longitudinal_map.json",
-    "역학과에너지": "seed/followup-axis/mechanics_energy_concept_longitudinal_map.json"
+    "역학과에너지": "seed/followup-axis/mechanics_energy_concept_longitudinal_map.json",
+    "전자기와 양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json",
+    "전자기와양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json"
   }
 
   const state = {
