@@ -1,58 +1,77 @@
 {
   "subject_name": "통합과학1",
-  "version": "v1_concept_longitudinal_map_2026-04-21",
+  "version": "v2_concept_longitudinal_map_2026-04-23",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
       "학과 입력 전에는 가능한 종단축 전체를 보여준다",
       "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
-      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다",
+      "같은 개념 안에서는 선택 키워드에 따라 4번 후속 연계축의 우선순위·설명 문구가 달라진다"
     ]
   },
   "concept_longitudinal_map": [
     {
-      "concept_name": "과학의 측정과 우리 사회",
-      "concept_label": "센서·측정·데이터",
-      "core_focus": "측정, 단위, 센서, 디지털 정보, 정밀 측정, 데이터 해석",
+      "concept_name": "자연 세계의 시간과 공간",
+      "concept_label": "관측 규모·시공간",
+      "core_focus": "시간 규모, 공간 규모, 미시/거시, 관측 범위, 시공간 이해",
       "longitudinal_axes": [
         {
-          "axis_id": "measurement_data_modeling",
-          "axis_title": "수리·데이터 모델링 축",
-          "axis_domain": "data",
+          "axis_id": "earth_observation_scale",
+          "axis_title": "지구·우주 관측 축",
+          "axis_domain": "earth_env",
           "priority": 1,
           "next_subjects": [
-            "대수",
-            "확률과 통계",
-            "정보"
+            "지구과학",
+            "지구시스템과학"
           ],
-          "why": "측정값을 수치화하고 비교·예측하는 방향으로 확장되기 쉬움",
-          "student_output_hint": "측정값 비교, 그래프 해석, 데이터 기반 분석 보고서"
+          "why": "관측 규모와 시공간 개념은 지구·우주·환경 해석으로 자연스럽게 이어짐",
+          "student_output_hint": "관측 규모 비교, 우주·지구 사례 정리, 시공간 해석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "천체",
+                "위성 위치 확인 시스템",
+                "세슘 원자 시계",
+                "위치 측정",
+                "거시 세계",
+                "공간 규모",
+                "관측 범위 확장"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 관측 범위·우주·위치 추적 쪽이라 지구·우주 관측 축이 우선됩니다."
+            }
+          ]
         },
         {
-          "axis_id": "measurement_physics_system",
-          "axis_title": "물리·시스템 해석 축",
+          "axis_id": "physics_scale_analysis",
+          "axis_title": "물리·규모 해석 축",
           "axis_domain": "physics",
           "priority": 2,
           "next_subjects": [
             "물리",
-            "역학과 에너지",
-            "전자기와 양자"
+            "역학과 에너지"
           ],
-          "why": "센서, 전류, 측정 장치, 시스템 작동 원리 해석으로 이어지기 쉬움",
-          "student_output_hint": "센서 원리 설명, 장치 구조 분석, 측정 시스템 보고서"
-        },
-        {
-          "axis_id": "measurement_environment_data",
-          "axis_title": "지구·환경 데이터 해석 축",
-          "axis_domain": "earth_env",
-          "priority": 3,
-          "next_subjects": [
-            "지구과학",
-            "지구시스템과학",
-            "확률과 통계"
-          ],
-          "why": "미세먼지·소음·기후·환경 측정 데이터를 해석하는 방향으로 확장 가능",
-          "student_output_hint": "환경 측정 데이터 비교, 지역 자료 해석, 관측 보고서"
+          "why": "시간·공간 규모를 운동과 관측 문제로 연결해 물리적 해석이 가능함",
+          "student_output_hint": "시간·거리 스케일 비교, 운동 해석, 관측 문제 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "수소 원자",
+                "물 분자",
+                "나트륨 이온",
+                "세포",
+                "시간 측정",
+                "미시 세계",
+                "시간 규모",
+                "정밀 측정"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 미시 규모·시간 측정 쪽이라 물리·규모 해석 축이 더 앞에 옵니다."
+            }
+          ]
         }
       ]
     },
@@ -72,7 +91,23 @@
             "전자기와 양자"
           ],
           "why": "전류, 시간, 길이, 질량 같은 기초량은 물리학의 핵심 출발점임",
-          "student_output_hint": "단위 비교, 물리량 해석, 측정 정확도 보고서"
+          "student_output_hint": "단위 비교, 물리량 해석, 측정 정확도 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "시간",
+                "길이",
+                "질량",
+                "전류",
+                "온도",
+                "속력",
+                "힘"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 물리량 자체라 물리 기초량·측정 축이 우선됩니다."
+            }
+          ]
         },
         {
           "axis_id": "unit_data_standardization",
@@ -85,7 +120,121 @@
             "정보"
           ],
           "why": "단위와 측정 표준은 데이터 비교·정량 분석의 기초가 됨",
-          "student_output_hint": "표준 단위 비교, 수치 데이터 정리, 자료 해석 보고서"
+          "student_output_hint": "표준 단위 비교, 수치 데이터 정리, 자료 해석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "SI",
+                "국제도량형총회",
+                "단위 환산",
+                "공통 기준",
+                "기본량",
+                "유도량",
+                "국제단위계",
+                "단위 표준화",
+                "측정 기준",
+                "넓이",
+                "부피",
+                "밀도"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 표준화·환산·비교 기준 쪽이라 정량·데이터 표준화 축이 더 강해집니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "과학의 측정과 우리 사회",
+      "concept_label": "센서·측정·데이터",
+      "core_focus": "측정, 단위, 센서, 디지털 정보, 정밀 측정, 데이터 해석",
+      "longitudinal_axes": [
+        {
+          "axis_id": "measurement_data_modeling",
+          "axis_title": "수리·데이터 모델링 축",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "대수",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "측정값을 수치화하고 비교·예측하는 방향으로 확장되기 쉬움",
+          "student_output_hint": "측정값 비교, 그래프 해석, 데이터 기반 분석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "디지털 데이터",
+                "그래프 저장",
+                "측정값 비교",
+                "데이터 분석",
+                "그래프 해석",
+                "디지털 정보"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 측정값 비교·그래프 해석·디지털 기록 쪽이라 수리·데이터 모델링 축이 더 앞에 옵니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "measurement_physics_system",
+          "axis_title": "물리·시스템 해석 축",
+          "axis_domain": "physics",
+          "priority": 2,
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "전자기와 양자"
+          ],
+          "why": "센서, 전류, 측정 장치, 시스템 작동 원리 해석으로 이어지기 쉬움",
+          "student_output_hint": "센서 원리 설명, 장치 구조 분석, 측정 시스템 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "온도 센서",
+                "센서",
+                "스마트 기기",
+                "속도 측정 카메라",
+                "전자저울",
+                "측정 도구",
+                "눈금 실린더",
+                "물의 부피 읽기"
+              ],
+              "boost": 26,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 센서·장치·측정 도구 쪽이라 물리·시스템 해석 축이 더 강해집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "measurement_environment_data",
+          "axis_title": "지구·환경 데이터 해석 축",
+          "axis_domain": "earth_env",
+          "priority": 3,
+          "next_subjects": [
+            "지구과학",
+            "지구시스템과학",
+            "확률과 통계"
+          ],
+          "why": "미세먼지·소음·기후·환경 측정 데이터를 해석하는 방향으로 확장 가능",
+          "student_output_hint": "환경 측정 데이터 비교, 지역 자료 해석, 관측 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "미세먼지 농도",
+                "데시벨",
+                "소음 규제",
+                "폭염주의보",
+                "냉난방기 가동 전후 변화",
+                "위치별 온도 차이"
+              ],
+              "boost": 26,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 환경·기후·생활 측정 자료 쪽이라 지구·환경 데이터 해석 축이 더 앞에 옵니다."
+            }
+          ]
         }
       ]
     },
@@ -104,7 +253,27 @@
             "물질과 에너지"
           ],
           "why": "원소·분자·이온과 물질 분류는 화학의 직접 선행 개념임",
-          "student_output_hint": "물질 분류 기준 비교, 구조와 성질 연결 보고서"
+          "student_output_hint": "물질 분류 기준 비교, 구조와 성질 연결 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "원소",
+                "원자",
+                "분자",
+                "이온",
+                "산",
+                "염기",
+                "염",
+                "산화",
+                "금속",
+                "비금속",
+                "성질 비교"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 원소·분자·이온·성질 해석 쪽이라 화학·물질 구조 분석 축이 우선됩니다."
+            }
+          ]
         },
         {
           "axis_id": "matter_materials_engineering",
@@ -117,7 +286,22 @@
             "전자기와 양자"
           ],
           "why": "재료의 구조·성질을 기능성 소재나 반도체 재료 이해로 확장 가능",
-          "student_output_hint": "재료 성질 비교, 소재 사례 조사, 구조-기능 보고서"
+          "student_output_hint": "재료 성질 비교, 소재 사례 조사, 구조-기능 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "원자 번호",
+                "양성자 수",
+                "분류 기준 설정",
+                "물질 구성",
+                "분류 기준",
+                "자연에 존재하는 원소"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 구성 기준·재료 구분 쪽이라 재료·신소재 확장 축이 더 앞에 옵니다."
+            }
+          ]
         }
       ]
     },
@@ -136,7 +320,22 @@
             "물질과 에너지"
           ],
           "why": "원소 배열과 성질 예측은 화학 개념 심화의 핵심 출발점임",
-          "student_output_hint": "주기성 비교, 원소 성질 예측, 배열 규칙 설명"
+          "student_output_hint": "주기성 비교, 원소 성질 예측, 배열 규칙 설명",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "주기율표",
+                "원자 번호",
+                "규칙성",
+                "분류 체계",
+                "표 구성",
+                "과학의 본성"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 배열 원리와 규칙 이해 쪽이라 화학·성질 예측 축이 우선됩니다."
+            }
+          ]
         },
         {
           "axis_id": "periodic_material_design",
@@ -149,70 +348,24 @@
             "물질과 에너지"
           ],
           "why": "원소의 성질 차이를 이용해 재료와 소자 특성 이해로 확장 가능",
-          "student_output_hint": "원소 특성 비교, 재료 선택 이유 분석, 기능성 소재 보고서"
-        }
-      ]
-    },
-    {
-      "concept_name": "생명 시스템",
-      "concept_label": "생명·건강·반응",
-      "core_focus": "생명 시스템, 항상성, 반응, 조절, 생체 데이터, 건강",
-      "longitudinal_axes": [
-        {
-          "axis_id": "bio_health_system",
-          "axis_title": "생명·건강 해석 축",
-          "axis_domain": "biology",
-          "priority": 1,
-          "next_subjects": [
-            "생명과학",
-            "세포와 물질대사"
-          ],
-          "why": "항상성과 조절, 반응은 생명과학과 건강 해석의 직접 기반이 됨",
-          "student_output_hint": "생명 현상 설명, 건강 사례 분석, 항상성 보고서"
-        },
-        {
-          "axis_id": "bio_medical_data",
-          "axis_title": "생명·데이터 분석 축",
-          "axis_domain": "data",
-          "priority": 2,
-          "next_subjects": [
-            "생명과학",
-            "확률과 통계",
-            "화학"
-          ],
-          "why": "생체 반응이나 건강 데이터를 비교·분석하는 방향으로도 확장 가능",
-          "student_output_hint": "건강 데이터 비교, 생명 현상 수치화, 자료 해석 보고서"
-        }
-      ]
-    },
-    {
-      "concept_name": "자연 세계의 시간과 공간",
-      "concept_label": "관측 규모·시공간",
-      "core_focus": "시간 규모, 공간 규모, 미시/거시, 관측 범위, 시공간 이해",
-      "longitudinal_axes": [
-        {
-          "axis_id": "earth_observation_scale",
-          "axis_title": "지구·우주 관측 축",
-          "axis_domain": "earth_env",
-          "priority": 1,
-          "next_subjects": [
-            "지구과학",
-            "지구시스템과학"
-          ],
-          "why": "관측 규모와 시공간 개념은 지구·우주·환경 해석으로 자연스럽게 이어짐",
-          "student_output_hint": "관측 규모 비교, 우주·지구 사례 정리, 시공간 해석 보고서"
-        },
-        {
-          "axis_id": "physics_scale_analysis",
-          "axis_title": "물리·규모 해석 축",
-          "axis_domain": "physics",
-          "priority": 2,
-          "next_subjects": [
-            "물리",
-            "역학과 에너지"
-          ],
-          "why": "시간·공간 규모를 운동과 관측 문제로 연결해 물리적 해석이 가능함",
-          "student_output_hint": "시간·거리 스케일 비교, 운동 해석, 관측 문제 보고서"
+          "student_output_hint": "원소 특성 비교, 재료 선택 이유 분석, 기능성 소재 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "원소 배열",
+                "성질 예측",
+                "빈칸 예측",
+                "주기성",
+                "성질의 반복",
+                "모델 형성",
+                "멘델레예프",
+                "과학사"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 성질 예측·모형화 쪽이라 재료·소자 설계 기초 축이 더 강해집니다."
+            }
+          ]
         }
       ]
     },
@@ -231,7 +384,28 @@
             "지구시스템과학"
           ],
           "why": "지구 시스템과 순환 개념은 환경·기후·관측 탐구의 직접 기반이 됨",
-          "student_output_hint": "기후 변화 설명, 환경 상호작용 정리, 지구 시스템 보고서"
+          "student_output_hint": "기후 변화 설명, 환경 상호작용 정리, 지구 시스템 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "지구",
+                "화성",
+                "목성",
+                "지구계",
+                "대기권",
+                "수권",
+                "지권",
+                "생물권",
+                "태양계",
+                "지구시스템",
+                "권역",
+                "상호작용"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 지구 권역·환경 상호작용 쪽이라 지구·환경 해석 축이 우선됩니다."
+            }
+          ]
         },
         {
           "axis_id": "earth_environment_data",
@@ -244,7 +418,150 @@
             "지구시스템과학"
           ],
           "why": "환경 변화와 관측 자료를 데이터 해석 중심으로 확장 가능",
-          "student_output_hint": "환경 자료 시각화, 기후 데이터 비교, 관측값 분석 보고서"
+          "student_output_hint": "환경 자료 시각화, 기후 데이터 비교, 관측값 분석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "천체 분류",
+                "물의 순환",
+                "권역 간 이동",
+                "물질 순환",
+                "에너지 흐름",
+                "시스템 구성 요소"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 순환 경로·분류·자료 정리 쪽이라 환경 데이터 분석 축이 더 강해집니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "역학 시스템",
+      "concept_label": "힘·운동·안정성",
+      "core_focus": "힘, 운동, 진동, 구조 안정성, 하중 전달, 시스템 응답",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mechanics_physics_analysis",
+          "axis_title": "물리·운동 해석 축",
+          "axis_domain": "physics",
+          "priority": 1,
+          "next_subjects": [
+            "물리",
+            "역학과 에너지"
+          ],
+          "why": "힘과 운동, 진동과 응답을 해석하는 방향은 물리 심화의 직접 출발점이 됨",
+          "student_output_hint": "운동 상태 비교, 진동 원인 해석, 힘-응답 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "힘",
+                "운동",
+                "진자",
+                "흔들림 감소",
+                "충격 완화",
+                "진동 억제",
+                "시스템 응답"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 힘·운동·진동 해석 쪽이라 물리·운동 해석 축이 우선됩니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "mechanics_structure_design",
+          "axis_title": "구조·설계 확장 축",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "역학과 에너지",
+            "물리",
+            "기하"
+          ],
+          "why": "구조 안정성과 하중 전달을 설계 관점으로 확장해 공학적 해석이 가능함",
+          "student_output_hint": "내진 설계 사례 정리, 구조 보강 비교, 안정성 분석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "지진",
+                "댐퍼",
+                "구조물 연결",
+                "외벽과 중심부 연결",
+                "내진 설계",
+                "하중 전달",
+                "안정성 확보",
+                "구조 안정성"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 구조 안정성·설계 보강 쪽이라 구조·설계 확장 축이 더 앞에 옵니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "생명 시스템",
+      "concept_label": "생명·건강·반응",
+      "core_focus": "생명 시스템, 항상성, 반응, 조절, 생체 데이터, 건강",
+      "longitudinal_axes": [
+        {
+          "axis_id": "bio_health_system",
+          "axis_title": "생명·건강 해석 축",
+          "axis_domain": "biology",
+          "priority": 1,
+          "next_subjects": [
+            "생명과학",
+            "세포와 물질대사"
+          ],
+          "why": "항상성과 조절, 반응은 생명과학과 건강 해석의 직접 기반이 됨",
+          "student_output_hint": "생명 현상 설명, 건강 사례 분석, 항상성 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "생명 시스템",
+                "항상성",
+                "조절",
+                "반응",
+                "내부 환경",
+                "내부 환경 유지",
+                "균형 유지",
+                "생명 유지",
+                "자극 반응",
+                "항상성 유지"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 항상성·조절·반응 쪽이라 생명·건강 해석 축이 우선됩니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "bio_medical_data",
+          "axis_title": "생명·데이터 분석 축",
+          "axis_domain": "data",
+          "priority": 2,
+          "next_subjects": [
+            "생명과학",
+            "확률과 통계",
+            "화학"
+          ],
+          "why": "생체 반응이나 건강 데이터를 비교·분석하는 방향으로도 확장 가능",
+          "student_output_hint": "건강 데이터 비교, 생명 현상 수치화, 자료 해석 보고서",
+          "keyword_rules": [
+            {
+              "keywords": [
+                "생체 데이터",
+                "시스템 수준 해석",
+                "변화 대응"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "message": "선택한 키워드가 생체 자료 비교·수치화 쪽이라 생명·데이터 분석 축이 더 강해집니다."
+            }
+          ]
         }
       ]
     }
