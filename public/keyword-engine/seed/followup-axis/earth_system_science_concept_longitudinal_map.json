@@ -1,0 +1,101 @@
+{
+  "subject_name": "지구시스템과학",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "지구 탄생과 시스템 진화",
+      "concept_label": "성운설-분화-탄소 순환",
+      "longitudinal_axes": [
+        {
+          "axis_id": "planet_system_evolution_axis",
+          "axis_title": "행성·환경 진화 해석 축",
+          "axis_domain": "earth_env",
+          "next_subjects": [
+            "지구과학",
+            "환경공학과",
+            "천문우주학과"
+          ],
+          "why": "태양계 형성과 원시 지구, 탄소 순환을 함께 해석하는 사고가 행성 환경과 지구시스템 진화를 이해하는 핵심으로 이어짐",
+          "student_output_hint": "태양계 형성 연표, 지구 분화 도식, 탄소 순환 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "climate_biosystem_bridge_axis",
+          "axis_title": "기후·생명 시스템 연결 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "세포와 물질대사",
+            "환경생태학과",
+            "기후과학과"
+          ],
+          "why": "탄소·산소 순환을 생명체 활동과 연결하는 관점이 기후 변화와 생명 시스템 상호작용 해석으로 확장됨",
+          "student_output_hint": "탄소·산소 순환 흐름도, 광합성 연결 자료, 환경 변화 비교 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "판 구조와 지구 내부",
+      "concept_label": "판 구조론-지진파-외핵",
+      "longitudinal_axes": [
+        {
+          "axis_id": "geology_internal_structure_axis",
+          "axis_title": "지질·지구 내부 해석 축",
+          "axis_domain": "earth_env",
+          "next_subjects": [
+            "지질학과",
+            "지구과학과",
+            "자원공학과"
+          ],
+          "why": "판 구조와 지진파 자료를 함께 해석하는 사고가 지구 내부 구조와 지각 변동을 자료 기반으로 이해하는 핵심으로 이어짐",
+          "student_output_hint": "판 경계 분류표, 지진파 비교, 지구 내부 구조 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "disaster_geophysics_application_axis",
+          "axis_title": "재난·지구물리 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "재난안전공학과",
+            "토목공학과",
+            "지구물리학"
+          ],
+          "why": "지진·화산·지반 구조를 해석하는 관점이 실제 재난 대응과 구조 안전, 지구물리 자료 활용으로 확장됨",
+          "student_output_hint": "지진 사례 분석, 화산 활동 비교, 재난 대응 자료 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "대기·해양 순환과 기후",
+      "concept_label": "단열 변화-편서풍-밀도류",
+      "longitudinal_axes": [
+        {
+          "axis_id": "atmosphere_ocean_analysis_axis",
+          "axis_title": "대기·해양 자료 해석 축",
+          "axis_domain": "earth_env",
+          "next_subjects": [
+            "지구과학",
+            "대기과학과",
+            "해양학과"
+          ],
+          "why": "단열 변화와 편서풍, 밀도류를 함께 해석하는 사고가 기상·해양 자료를 읽는 핵심 축으로 이어짐",
+          "student_output_hint": "일기도 비교, 해양 순환 정리, 기후 자료 분석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "climate_disaster_application_axis",
+          "axis_title": "기후·재난 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "환경공학과",
+            "재난안전공학과",
+            "기상학과"
+          ],
+          "why": "대기와 해양의 순환을 재난·기후 위기 관점에서 해석하는 관점이 예측·대응 중심 응용 탐구로 확장됨",
+          "student_output_hint": "강수 과정 분석, 해일·조석 비교, 기후 재난 대응 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
