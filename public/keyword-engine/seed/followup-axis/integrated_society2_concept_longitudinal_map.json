@@ -1,166 +1,568 @@
 {
   "subject_name": "통합사회2",
-  "display_name": "고등학교 통합사회2",
-  "curriculum": "2022 개정 교육과정",
-  "version": "0.1.0-longitudinal-start",
+  "version": "v3.5.1-integrated-society2-refined-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": "같은 개념 안에서는 추천 키워드가 4번 후속 연계축의 점수, 짧은 라벨, 설명 문구, 활동 예시를 미세 조정한다."
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "인권 보장과 헌법",
-      "concept_label": "인권-헌법-참여",
+      "concept_label": "헌법·기본권·시민 참여",
+      "core_focus": "헌법, 기본권, 자유권, 평등권, 사회권, 참정권, 권리 충돌, 시민 참여",
       "longitudinal_axes": [
         {
-          "axis_id": "rights_constitution_judgment",
-          "axis_title": "인권·헌법 판단 축",
-          "axis_domain": "social_policy",
+          "axis_id": "constitutional_rights_analysis",
+          "axis_title": "헌법·기본권 해석 축",
+          "axis_short": "기본권 해석",
+          "axis_domain": "law_civics",
           "priority": 1,
           "next_subjects": [
-            "정치",
-            "법·정책",
-            "행정"
+            "정치와 법",
+            "사회와 문화",
+            "국제관계의 이해"
           ],
-          "why": "인권과 헌법, 기본권 판단은 사회 제도와 공공 정책을 해석하는 기초가 됩니다.",
-          "student_output_hint": "인권 사례 분석표, 헌법 판단 보고서, 시민 참여 제안서"
+          "why": "기본권의 의미와 제한 요건을 이해하는 힘이 이후 법·정치 제도 해석의 기준이 됨",
+          "student_output_hint": "기본권 충돌 사례 분석표, 헌법 조항 읽기 노트, 권리 보장 카드뉴스",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "헌법",
+                "기본권",
+                "자유권",
+                "평등권",
+                "사회권",
+                "청구권",
+                "참정권"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "기본권 조항 읽기",
+              "message": "선택한 키워드가 헌법 조항과 기본권 유형을 직접 해석하는 방향을 강화합니다.",
+              "desc": "기본권의 종류와 보장 범위를 비교하며 헌법의 원리를 읽는 축입니다.",
+              "activity_hint": "기본권 유형별 실제 사례를 표로 정리해 보기"
+            },
+            {
+              "keywords": [
+                "권리 충돌",
+                "표현의 자유",
+                "사생활",
+                "차별",
+                "평등"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short": "권리 충돌 판단",
+              "message": "선택한 키워드가 서로 다른 권리의 충돌 상황을 판단하는 방향을 보강합니다.",
+              "desc": "표현의 자유, 평등권, 사생활 보호처럼 충돌 가능한 권리를 비교해 해석하는 축입니다.",
+              "activity_hint": "권리 충돌 사례를 쟁점-근거-대안 형식으로 정리하기"
+            }
+          ]
         },
         {
-          "axis_id": "civic_participation_public",
-          "axis_title": "시민 참여·공공의사결정 축",
-          "axis_domain": "data",
+          "axis_id": "citizenship_participation_design",
+          "axis_title": "시민 참여·제도 이해 축",
+          "axis_short": "시민 참여 설계",
+          "axis_domain": "civic_participation",
           "priority": 2,
           "next_subjects": [
-            "행정",
-            "정치",
-            "사회 문제 탐구"
+            "정치와 법",
+            "사회문제 탐구",
+            "국제관계의 이해"
           ],
-          "why": "권익 보호와 시민 참여를 실제 의사결정 구조와 연결하면 공공문제 해결 탐구로 확장됩니다.",
-          "student_output_hint": "참여 제도 비교, 공공 문제 해결 제안, 정책 피드백 자료"
+          "why": "권리를 보장받는 시민이 제도 안에서 어떻게 참여하는지 이해하면 정치적 실천과 연결됨",
+          "student_output_hint": "청원서 초안, 학생 자치 참여 제안서, 시민 참여 절차 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "시민 참여",
+                "청원",
+                "참정권",
+                "선거",
+                "민주주의"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short": "참여 절차 설계",
+              "message": "선택한 키워드가 시민이 제도에 참여하는 과정 설계를 강화합니다.",
+              "desc": "권리 보장을 실제 참여와 연결해 제도 안에서 실천하는 방법을 설계하는 축입니다.",
+              "activity_hint": "학교 문제를 주제로 청원·토론·의견수렴 절차를 설계하기"
+            },
+            {
+              "keywords": [
+                "법률",
+                "국가 기관",
+                "제도",
+                "절차"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short": "제도 작동 이해",
+              "message": "선택한 키워드가 헌법과 국가 기관의 역할을 절차적으로 이해하는 방향을 보강합니다.",
+              "desc": "헌법과 법률, 기관, 절차가 권리 보장에 어떻게 연결되는지를 구조적으로 읽는 축입니다.",
+              "activity_hint": "기본권 보장과 관련된 기관 역할을 흐름도로 정리하기"
+            }
+          ]
+        },
+        {
+          "axis_id": "human_rights_issue_communication",
+          "axis_title": "인권 쟁점 소통 축",
+          "axis_short": "인권 쟁점 토론",
+          "axis_domain": "ethics_communication",
+          "priority": 3,
+          "next_subjects": [
+            "사회문제 탐구",
+            "윤리문제 탐구",
+            "공통국어2"
+          ],
+          "why": "인권 문제를 사례와 언어로 설명하는 힘이 토론·보고서 활동으로 확장됨",
+          "student_output_hint": "인권 쟁점 토론문, 차별 사례 분석 보고서, 인권 캠페인 기획",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "인권 침해",
+                "차별",
+                "난민",
+                "소수자",
+                "노동권"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short": "인권 사례 토론",
+              "message": "선택한 키워드가 구체적 인권 문제를 토론하고 설득하는 방향을 강화합니다.",
+              "desc": "현실의 인권 침해 사례를 읽고 차별 구조와 개선 방향을 토론하는 축입니다.",
+              "activity_hint": "인권 이슈 하나를 골라 사례·원인·대안을 발표문으로 정리하기"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "사회 정의와 불평등",
-      "concept_label": "정의-불평등-복지",
+      "concept_label": "정의·불평등·복지",
+      "core_focus": "정의, 분배, 공정, 평등, 형평성, 빈곤, 계층, 사회 이동, 복지",
       "longitudinal_axes": [
         {
-          "axis_id": "justice_inequality_policy",
-          "axis_title": "정의·불평등 해석 축",
+          "axis_id": "justice_distribution_analysis",
+          "axis_title": "정의·분배 원리 해석 축",
+          "axis_short": "분배 원리 비교",
           "axis_domain": "social_policy",
           "priority": 1,
           "next_subjects": [
-            "사회·문화",
-            "경제",
-            "사회복지"
+            "사회와 문화",
+            "정치와 법",
+            "사회문제 탐구"
           ],
-          "why": "정의관과 불평등 문제를 비교하는 힘이 복지와 정책 판단 탐구로 이어집니다.",
-          "student_output_hint": "정의관 비교표, 불평등 자료 해석, 복지 정책 보고서"
+          "why": "정의와 분배의 기준을 이해하면 사회 정책과 제도 평가의 출발점이 됨",
+          "student_output_hint": "정의 이론 비교표, 분배 기준 카드 정리, 복지 정책 평가표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "정의",
+                "공정",
+                "분배",
+                "형평성",
+                "평등"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "정의 기준 비교",
+              "message": "선택한 키워드가 정의와 분배 기준을 비교하는 방향을 강화합니다.",
+              "desc": "평등과 형평, 공정과 효율 사이의 기준을 비교하며 사회 제도를 평가하는 축입니다.",
+              "activity_hint": "하나의 복지 정책을 평등·형평 기준으로 나누어 평가하기"
+            }
+          ]
         },
         {
-          "axis_id": "equity_data_comparison",
-          "axis_title": "공정성·자료 비교 축",
-          "axis_domain": "data",
+          "axis_id": "inequality_structure_reading",
+          "axis_title": "불평등 구조 해석 축",
+          "axis_short": "격차 구조 읽기",
+          "axis_domain": "social_structure",
           "priority": 2,
           "next_subjects": [
-            "공통수학2",
-            "정보",
+            "사회와 문화",
+            "경제",
+            "사회문제 탐구"
+          ],
+          "why": "불평등을 개인 문제가 아니라 구조의 문제로 보는 시각이 사회 분석으로 이어짐",
+          "student_output_hint": "소득·교육 격차 그래프 해석, 계층 이동 분석, 지역 격차 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "빈곤",
+                "격차",
+                "계층",
+                "사회 이동",
+                "불평등"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short": "격차 데이터 해석",
+              "message": "선택한 키워드가 계층과 격차를 구조적으로 읽는 방향을 강화합니다.",
+              "desc": "소득, 교육, 지역, 세대 격차를 데이터와 구조의 관점에서 분석하는 축입니다.",
+              "activity_hint": "청소년 관점에서 체감되는 격차 사례를 자료와 함께 분석하기"
+            },
+            {
+              "keywords": [
+                "교육 격차",
+                "지역 격차",
+                "세대 격차",
+                "젠더"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short": "차별 구조 분석",
+              "message": "선택한 키워드가 특정 집단이나 영역에서 나타나는 격차를 세분화해 읽는 방향을 보강합니다.",
+              "desc": "집단과 영역에 따라 다른 불평등의 모습을 구체적으로 해석하는 축입니다.",
+              "activity_hint": "한 가지 격차 유형을 골라 원인-영향-대안을 도식화하기"
+            }
+          ]
+        },
+        {
+          "axis_id": "welfare_policy_design",
+          "axis_title": "복지·정책 대안 설계 축",
+          "axis_short": "복지 대안 설계",
+          "axis_domain": "public_policy",
+          "priority": 3,
+          "next_subjects": [
+            "사회문제 탐구",
+            "정치와 법",
             "경제"
           ],
-          "why": "격차와 불평등을 자료로 읽고 비교하면 수리·데이터 기반 사회 문제 분석으로 확장할 수 있습니다.",
-          "student_output_hint": "격차 그래프 해석, 데이터 비교표, 기준별 공정성 판단 자료"
+          "why": "불평등 해석을 넘어 해결 정책을 제안하는 힘이 실천형 탐구와 연결됨",
+          "student_output_hint": "복지 제안서, 청소년 정책 카드뉴스, 지원 기준 설계안",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "복지",
+                "사회 안전망",
+                "기초생활",
+                "지원 정책",
+                "재분배"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short": "지원 정책 제안",
+              "message": "선택한 키워드가 복지와 재분배 대안을 설계하는 방향을 강화합니다.",
+              "desc": "불평등 문제를 해결하기 위한 공공 지원 체계와 정책 수단을 설계하는 축입니다.",
+              "activity_hint": "학생·청소년 대상 복지 정책 하나를 제안서로 작성하기"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "시장경제와 지속가능발전",
-      "concept_label": "시장-선택-지속가능",
+      "concept_label": "시장·금융·지속가능성",
+      "core_focus": "시장경제, 가격, 수요와 공급, 금융, 소비, 기업, 지속가능발전, ESG, 공정무역",
       "longitudinal_axes": [
         {
-          "axis_id": "market_choice_finance",
-          "axis_title": "시장 판단·금융 설계 축",
-          "axis_domain": "data",
+          "axis_id": "market_decision_structure",
+          "axis_title": "시장 구조·의사결정 축",
+          "axis_short": "시장 판단 구조",
+          "axis_domain": "economics",
           "priority": 1,
           "next_subjects": [
             "경제",
-            "금융",
-            "정보"
+            "사회와 문화",
+            "국제관계의 이해"
           ],
-          "why": "합리적 선택과 금융 생활 설계는 데이터 기반 의사결정과 경제 탐구의 출발점이 됩니다.",
-          "student_output_hint": "소비 비교표, 금융 설계안, 선택 기준 보고서"
+          "why": "가격과 선택의 원리를 이해하면 경제 행위와 제도 분석의 기초가 됨",
+          "student_output_hint": "수요·공급 사례 분석, 소비 판단표, 시장 사례 카드뉴스",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "시장경제",
+                "가격",
+                "수요",
+                "공급",
+                "합리적 선택",
+                "소비자",
+                "생산자"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "시장 원리 해석",
+              "message": "선택한 키워드가 시장의 작동 원리와 의사결정 구조를 해석하는 방향을 강화합니다.",
+              "desc": "가격, 수요·공급, 소비자와 생산자의 상호작용을 구조적으로 읽는 축입니다.",
+              "activity_hint": "하나의 상품 가격 변동 사례를 수요·공급 관점으로 설명하기"
+            }
+          ]
         },
         {
-          "axis_id": "sustainable_market_responsibility",
-          "axis_title": "지속가능 소비·기업 책임 축",
-          "axis_domain": "social_policy",
+          "axis_id": "finance_consumption_literacy",
+          "axis_title": "금융 생활·소비 판단 축",
+          "axis_short": "금융 생활 설계",
+          "axis_domain": "finance",
           "priority": 2,
           "next_subjects": [
             "경제",
-            "경영",
-            "환경·에너지"
+            "사회문제 탐구",
+            "실용경제"
           ],
-          "why": "시장 참여자의 책임과 지속가능성 판단은 윤리적 소비와 기업 책임 탐구로 이어집니다.",
-          "student_output_hint": "친환경 소비 사례, ESG 비교, 지속가능 경영 제안"
+          "why": "시장 이해가 실제 금융 생활과 소비 판단으로 이어질 때 생활 적용성이 높아짐",
+          "student_output_hint": "예산표, 금융상품 비교표, 합리적 소비 체크리스트",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "금융",
+                "예산",
+                "저축",
+                "투자",
+                "대출",
+                "이자",
+                "소비"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short": "소비·금융 판단",
+              "message": "선택한 키워드가 생활 속 금융과 소비 결정을 설계하는 방향을 강화합니다.",
+              "desc": "가계 예산, 금융 상품, 소비 선택을 비교·판단하는 생활형 경제 축입니다.",
+              "activity_hint": "청소년 관점의 예산표와 소비 우선순위표 만들기"
+            }
+          ]
+        },
+        {
+          "axis_id": "sustainability_economic_transition",
+          "axis_title": "지속가능 경제 전환 축",
+          "axis_short": "지속가능 경제",
+          "axis_domain": "sustainability",
+          "priority": 3,
+          "next_subjects": [
+            "지리",
+            "사회문제 탐구",
+            "기후 변화와 지속가능한 세계"
+          ],
+          "why": "경제 활동을 환경·사회 책임과 함께 보는 관점이 지속가능발전 탐구로 연결됨",
+          "student_output_hint": "ESG 사례 분석, 공정무역 조사, 친환경 소비 캠페인 기획",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지속가능발전",
+                "ESG",
+                "공정무역",
+                "친환경",
+                "기업 책임",
+                "탄소중립"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short": "친환경 경제 전환",
+              "message": "선택한 키워드가 시장경제를 지속가능성 관점에서 재해석하는 방향을 강화합니다.",
+              "desc": "환경 보호, 기업 책임, 윤리적 소비를 시장경제와 연결해 해석하는 축입니다.",
+              "activity_hint": "지속가능한 소비 사례를 조사해 생활 실천안을 정리하기"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "세계화와 평화",
-      "concept_label": "세계화-평화-연대",
+      "concept_label": "세계화·갈등·국제 협력",
+      "core_focus": "세계화, 국제 교류, 문화 교류, 국제 분업, 갈등, 평화, 국제기구, 협력",
       "longitudinal_axes": [
         {
-          "axis_id": "globalization_peace_issue",
-          "axis_title": "세계화·평화 이슈 축",
-          "axis_domain": "social_policy",
+          "axis_id": "global_interdependence_analysis",
+          "axis_title": "세계화·상호의존 해석 축",
+          "axis_short": "세계화 구조 읽기",
+          "axis_domain": "global_studies",
           "priority": 1,
           "next_subjects": [
-            "정치",
-            "세계 문제 탐구",
-            "국제학"
+            "국제관계의 이해",
+            "세계시민과 지리",
+            "경제"
           ],
-          "why": "세계화와 국제 갈등을 해석하는 힘이 국제 이슈와 평화 문제 탐구로 연결됩니다.",
-          "student_output_hint": "국제 이슈 브리핑, 갈등 구조 비교, 평화 실천 보고서"
+          "why": "세계화의 흐름을 상호의존 구조로 읽을 수 있어야 국제 문제를 폭넓게 해석할 수 있음",
+          "student_output_hint": "국제 교류 사례 분석, 생산-소비 경로 지도, 세계화 장단점 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "세계화",
+                "상호의존",
+                "국제 분업",
+                "무역",
+                "교류"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "상호의존 구조 읽기",
+              "message": "선택한 키워드가 국가 간 연결과 교류 구조를 해석하는 방향을 강화합니다.",
+              "desc": "상품, 문화, 정보가 국가를 넘어 이동하는 구조와 상호의존을 읽는 축입니다.",
+              "activity_hint": "일상 물품 하나를 골라 생산-유통-소비의 국제 연결망을 그리기"
+            }
+          ]
         },
         {
-          "axis_id": "global_network_media",
-          "axis_title": "국제 네트워크·미디어 축",
-          "axis_domain": "data",
+          "axis_id": "conflict_peace_resolution",
+          "axis_title": "갈등·평화 해결 축",
+          "axis_short": "갈등 해결 설계",
+          "axis_domain": "peace_studies",
           "priority": 2,
           "next_subjects": [
-            "정보",
-            "언론·미디어",
-            "국제통상"
+            "국제관계의 이해",
+            "윤리문제 탐구",
+            "사회문제 탐구"
           ],
-          "why": "세계화의 상호 의존 구조를 정보 흐름과 네트워크 관점으로 보면 국제 커뮤니케이션 탐구가 가능합니다.",
-          "student_output_hint": "세계화 데이터 맵, 국제 뉴스 비교, 네트워크 구조 정리"
+          "why": "갈등을 원인-이해관계-해결 방식으로 보는 시각이 평화 문제 탐구로 이어짐",
+          "student_output_hint": "국제 갈등 쟁점표, 평화 협상 시뮬레이션, 해결 방안 제안서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "분쟁",
+                "갈등",
+                "난민",
+                "전쟁",
+                "평화",
+                "협상",
+                "중재"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short": "평화 협상 설계",
+              "message": "선택한 키워드가 갈등 원인과 해결 방안을 설계하는 방향을 강화합니다.",
+              "desc": "국제 갈등의 원인과 이해관계를 분석하고 평화적 해결 방안을 모색하는 축입니다.",
+              "activity_hint": "국제 갈등 사례를 이해관계자별로 정리하고 협상안을 만들기"
+            }
+          ]
+        },
+        {
+          "axis_id": "global_citizenship_communication",
+          "axis_title": "세계시민·국제 소통 축",
+          "axis_short": "세계시민 실천",
+          "axis_domain": "citizenship",
+          "priority": 3,
+          "next_subjects": [
+            "세계시민과 지리",
+            "공통국어2",
+            "국제관계의 이해"
+          ],
+          "why": "세계화 시대의 시민 역할을 이해하면 국제 이슈를 실천적으로 다룰 수 있음",
+          "student_output_hint": "세계시민 선언문, 국제 이슈 카드뉴스, 문화 다양성 캠페인",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "문화 다양성",
+                "국제기구",
+                "세계시민",
+                "인권",
+                "연대"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short": "국제 연대 실천",
+              "message": "선택한 키워드가 세계시민의 관점에서 국제 문제를 실천적으로 다루는 방향을 강화합니다.",
+              "desc": "문화 다양성과 국제 협력을 바탕으로 연대와 실천 방안을 모색하는 축입니다.",
+              "activity_hint": "하나의 국제 이슈를 골라 세계시민 실천 방안을 카드뉴스로 만들기"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "미래와 지속가능한 삶",
-      "concept_label": "미래-인구-기후",
+      "concept_label": "미래 사회·기후 위기·지속가능성",
+      "core_focus": "미래 사회, 인공지능, 인구 변화, 기후 위기, 탄소중립, 지속가능성, 삶의 전환",
       "longitudinal_axes": [
         {
-          "axis_id": "future_population_resource",
-          "axis_title": "인구·자원 변화 해석 축",
-          "axis_domain": "data",
+          "axis_id": "future_change_forecasting",
+          "axis_title": "미래 변화 예측 축",
+          "axis_short": "미래 변화 읽기",
+          "axis_domain": "future_studies",
           "priority": 1,
           "next_subjects": [
-            "지리",
-            "경제",
-            "공통수학2"
+            "기후 변화와 지속가능한 세계",
+            "사회문제 탐구",
+            "정보"
           ],
-          "why": "인구 구조와 자원 소비 변화를 자료로 읽는 힘이 미래 사회 분석의 기초가 됩니다.",
-          "student_output_hint": "인구 구조 그래프, 자원 소비 비교, 미래 변화 예측 보고서"
+          "why": "기술·환경·인구 변화가 사회를 어떻게 바꾸는지 읽는 힘이 미래 사회 탐구의 기초가 됨",
+          "student_output_hint": "미래 사회 변화 예측표, 기술 변화 영향 분석, 생활 변화 시나리오",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "미래 사회",
+                "인공지능",
+                "자동화",
+                "인구 변화",
+                "고령화",
+                "디지털 전환"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "사회 변화 예측",
+              "message": "선택한 키워드가 미래 사회의 구조 변화를 예측하는 방향을 강화합니다.",
+              "desc": "기술 혁신과 인구 구조 변화가 삶과 일자리를 어떻게 바꾸는지 읽는 축입니다.",
+              "activity_hint": "미래 직업 또는 생활 변화 시나리오를 표로 정리하기"
+            }
+          ]
         },
         {
-          "axis_id": "climate_sustainability_policy",
-          "axis_title": "기후·지속가능 정책 축",
-          "axis_domain": "earth_env",
+          "axis_id": "climate_sustainability_action",
+          "axis_title": "기후 위기·지속가능 실천 축",
+          "axis_short": "기후 실천 설계",
+          "axis_domain": "climate_action",
           "priority": 2,
           "next_subjects": [
-            "환경·에너지",
-            "지구과학",
-            "행정"
+            "기후 변화와 지속가능한 세계",
+            "지리",
+            "통합과학2"
           ],
-          "why": "기후변화 대응과 지속가능한 삶의 방향은 환경 정책과 기술 탐구로 확장될 수 있습니다.",
-          "student_output_hint": "기후변화 대응안, 지속가능 생활 설계, 정책 비교 보고서"
+          "why": "지속가능성을 실제 생활과 정책의 문제로 보는 시각이 기후 위기 대응 역량으로 이어짐",
+          "student_output_hint": "탄소중립 실천안, 학교 생활 개선 제안서, 환경 실천 체크리스트",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "기후 위기",
+                "탄소중립",
+                "재생에너지",
+                "지속가능성",
+                "친환경",
+                "자원 순환"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short": "탄소중립 실천",
+              "message": "선택한 키워드가 기후 위기 대응과 지속가능한 생활 설계를 강화합니다.",
+              "desc": "기후 위기와 자원 문제를 생활 실천, 정책, 기술 전환과 연결해 다루는 축입니다.",
+              "activity_hint": "학교나 지역에서 실천 가능한 탄소중립 방안을 제안서로 만들기"
+            }
+          ]
+        },
+        {
+          "axis_id": "life_transition_value_design",
+          "axis_title": "삶의 전환·가치 설계 축",
+          "axis_short": "지속가능 삶 설계",
+          "axis_domain": "ethics_lifestyle",
+          "priority": 3,
+          "next_subjects": [
+            "윤리문제 탐구",
+            "사회문제 탐구",
+            "공통국어2"
+          ],
+          "why": "미래 사회를 단순한 기술 변화가 아니라 삶의 방식과 가치 전환으로 보는 시각이 중요함",
+          "student_output_hint": "지속가능 생활 선언문, 가치 선택표, 미래 삶 설계 에세이",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "삶의 방식",
+                "가치",
+                "공존",
+                "책임",
+                "지속가능한 삶",
+                "생활 전환"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short": "생활 전환 설계",
+              "message": "선택한 키워드가 미래 사회 속 지속가능한 삶의 방식과 가치를 설계하는 방향을 강화합니다.",
+              "desc": "지속가능한 삶을 개인의 선택, 공동체 책임, 생활 전환의 관점에서 해석하는 축입니다.",
+              "activity_hint": "나의 생활 습관을 돌아보고 지속가능한 전환 계획을 작성하기"
+            }
+          ]
         }
       ]
     }
