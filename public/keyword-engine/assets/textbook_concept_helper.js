@@ -67,7 +67,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
     "고등학교 물질과 에너지": "물질과 에너지",
     "세포와물질대사": "세포와 물질대사",
     "고등 세포와 물질대사": "세포와 물질대사",
-    "고등학교 세포와 물질대사": "세포와 물질대사"
+    "고등학교 세포와 물질대사": "세포와 물질대사",
+    "지구시스템과학": "지구시스템과학",
+    "지구시스템 과학": "지구시스템과학",
+    "고등 지구시스템과학": "지구시스템과학",
+    "고등학교 지구시스템과학": "지구시스템과학"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
