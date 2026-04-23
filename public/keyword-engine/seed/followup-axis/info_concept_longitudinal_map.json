@@ -1,243 +1,715 @@
 {
   "subject_name": "정보",
-  "version": "v1_concept_longitudinal_map_2026-04-22",
+  "version": "v3.4.7-information-refined-fixed",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
       "학과 입력 전에는 가능한 종단축 전체를 보여준다",
       "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
       "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
-    ]
+    ],
+    "keyword_refinement_rule": "같은 개념 안에서는 추천 키워드가 4번 후속 연계축의 점수, 짧은 라벨, 설명 문구, 활동 예시를 미세 조정한다."
   },
   "concept_longitudinal_map": [
     {
       "concept_name": "지식·정보 사회와 정보 문화",
-      "concept_label": "디지털 시민성·사회 변화",
-      "core_focus": "정보 사회, 디지털 시민성, 정보 윤리, 기술 변화, 미래 직업, AI·IoT 활용",
+      "concept_label": "정보 문화",
+      "core_focus": "정보 사회, 디지털 시민성, 정보 윤리, 정보 보호, 협업 문화, 기술 변화",
       "longitudinal_axes": [
         {
-          "axis_id": "digital_citizenship_ethics",
+          "axis_id": "info_ethics",
           "axis_title": "디지털 시민성·정보윤리 축",
-          "axis_domain": "info",
+          "axis_short": "디지털 윤리",
+          "axis_domain": "info_ethics",
           "priority": 1,
           "next_subjects": [
-            "확률과 통계",
             "통합사회2",
-            "대수"
+            "공통국어2",
+            "정보"
           ],
-          "why": "정보 보호, 저작권, AI 활용 책임처럼 기술 사용의 기준을 세우는 방향으로 확장되기 쉬움",
-          "student_output_hint": "정보 윤리 사례 비교, 개인정보 보호 기준 정리, 디지털 시민성 보고서"
+          "why": "정보 사회에서 책임 있는 참여와 정보 보호 원칙을 중심으로 탐구를 확장하는 축",
+          "student_output_hint": "디지털 시민성 사례를 비교하고 정보 윤리 기준을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "정보 윤리",
+                "디지털 시민성",
+                "정보 보호",
+                "개인정보",
+                "저작권",
+                "사이버 폭력"
+              ],
+              "short": "디지털 윤리",
+              "desc": "정보 윤리와 권리 보호를 중심으로 정보 사회의 책임 있는 참여 방식을 해석하는 축",
+              "activity_hint": "플랫폼·저작권·개인정보 사례를 비교해 윤리 기준표 만들기",
+              "boost": 24
+            },
+            {
+              "keywords": [
+                "사회 구성원",
+                "협업",
+                "공유",
+                "의사소통"
+              ],
+              "short": "협업 문화",
+              "desc": "공동체 안에서 정보 공유와 디지털 소통 규칙을 해석하는 축",
+              "activity_hint": "온라인 협업 규칙과 바람직한 소통 사례를 정리하기",
+              "boost": 14
+            }
+          ]
         },
         {
-          "axis_id": "smart_society_data_service",
+          "axis_id": "smart_service",
           "axis_title": "스마트 사회·서비스 분석 축",
-          "axis_domain": "data",
+          "axis_short": "스마트 사회",
+          "axis_domain": "smart_service",
           "priority": 2,
           "next_subjects": [
+            "통합과학2",
             "확률과 통계",
-            "대수",
-            "통합사회2"
+            "정보"
           ],
-          "why": "스마트시티, 자율주행, AI 서비스처럼 사회 변화와 데이터 활용을 함께 해석하는 방향으로 이어질 수 있음",
-          "student_output_hint": "스마트 기술 사례 분석, 사회 변화 데이터 해석, 미래 서비스 비교 보고서"
+          "why": "AI·IoT·플랫폼 서비스가 사회를 바꾸는 방식을 구조적으로 이해하는 축",
+          "student_output_hint": "스마트 기기·플랫폼 서비스가 생활을 바꾸는 사례를 분석하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "AI",
+                "인공지능",
+                "IoT",
+                "스마트",
+                "플랫폼",
+                "서비스"
+              ],
+              "short": "스마트 사회",
+              "desc": "지능형 서비스와 연결 기술이 사회 구조를 어떻게 바꾸는지 분석하는 축",
+              "activity_hint": "AI·IoT 기반 생활 서비스 사례를 기능별로 비교하기",
+              "boost": 22
+            },
+            {
+              "keywords": [
+                "기술 변화",
+                "미래 직업",
+                "자동화"
+              ],
+              "short": "미래 변화",
+              "desc": "기술 변화가 직업과 일상에 미치는 영향을 전망하는 축",
+              "activity_hint": "자동화와 미래 직업 변화를 표로 정리하기",
+              "boost": 16
+            }
+          ]
+        },
+        {
+          "axis_id": "policy_issue",
+          "axis_title": "정보 정책·사회 쟁점 해석 축",
+          "axis_short": "사회 쟁점",
+          "axis_domain": "policy_issue",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "확률과 통계"
+          ],
+          "why": "디지털 격차, 알고리즘 편향, 가짜 정보 같은 사회 쟁점을 근거 중심으로 해석하는 축",
+          "student_output_hint": "정보 기술 관련 사회 쟁점을 찬반 근거로 구조화하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "가짜뉴스",
+                "허위 정보",
+                "알고리즘 편향",
+                "디지털 격차",
+                "정책",
+                "법"
+              ],
+              "short": "사회 쟁점",
+              "desc": "정보 기술이 만드는 사회 문제와 제도적 대응을 해석하는 축",
+              "activity_hint": "디지털 격차나 알고리즘 편향 사례를 원인-영향-대응으로 정리하기",
+              "boost": 24
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "자료와 정보의 표현",
-      "concept_label": "디지털 표현·부호화",
-      "core_focus": "아날로그와 디지털, 진법, 문자 코드, 표본화, 양자화, 압축, 표현 방식",
+      "concept_label": "정보 표현",
+      "core_focus": "아날로그와 디지털, 진법, 문자 코드, 표본화, 양자화, 압축, 전송",
       "longitudinal_axes": [
         {
-          "axis_id": "digital_encoding_representation",
+          "axis_id": "encoding",
           "axis_title": "디지털 표현·부호화 축",
-          "axis_domain": "info",
+          "axis_short": "부호화",
+          "axis_domain": "encoding",
           "priority": 1,
           "next_subjects": [
-            "대수",
-            "확률과 통계",
-            "전자기와 양자"
+            "공통수학1",
+            "정보",
+            "통합과학1"
           ],
-          "why": "숫자·문자·소리·이미지를 디지털 규칙으로 바꾸는 사고는 정보 처리의 핵심 기초가 됨",
-          "student_output_hint": "진법 변환 비교, 문자 코드 정리, 디지털 표현 방식 설명 보고서"
+          "why": "정보를 약속된 규칙으로 표현하고 부호화하는 과정을 중심으로 확장하는 축",
+          "student_output_hint": "아날로그 자료를 디지털 규칙으로 바꾸는 과정을 단계별로 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "아날로그",
+                "디지털",
+                "자료 표현",
+                "표현의 약속"
+              ],
+              "short": "표현 변환",
+              "desc": "아날로그 정보를 디지털 규칙으로 바꾸는 표현 체계를 이해하는 축",
+              "activity_hint": "같은 정보를 그림·문자·이진 표현으로 바꾸어 비교하기",
+              "boost": 20
+            },
+            {
+              "keywords": [
+                "모스부호",
+                "문자 코드",
+                "ASCII",
+                "유니코드",
+                "부호화"
+              ],
+              "short": "부호화",
+              "desc": "문자와 신호를 코드 체계로 표현하는 원리를 해석하는 축",
+              "activity_hint": "문자 코드와 부호화 규칙을 예시 데이터로 설명하기",
+              "boost": 24
+            }
+          ]
         },
         {
-          "axis_id": "signal_media_processing_base",
+          "axis_id": "signal_media",
           "axis_title": "신호·미디어 처리 기초 축",
-          "axis_domain": "engineering",
+          "axis_short": "신호 처리",
+          "axis_domain": "signal_media",
           "priority": 2,
           "next_subjects": [
+            "통합과학1",
             "물리",
-            "전자기와 양자",
-            "대수"
+            "정보"
           ],
-          "why": "표본화와 압축 개념은 소리·영상 신호 처리와 전자 시스템 이해로 확장 가능함",
-          "student_output_hint": "이미지·음성 압축 비교, 표본화 원리 설명, 신호 처리 기초 보고서"
+          "why": "소리·빛·이미지 같은 신호를 디지털 정보로 바꾸고 다루는 기초 축",
+          "student_output_hint": "소리·이미지 데이터가 디지털 정보로 바뀌는 흐름을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "표본화",
+                "양자화",
+                "샘플링"
+              ],
+              "short": "신호 처리",
+              "desc": "연속적인 신호를 디지털 데이터로 바꾸는 처리 과정을 이해하는 축",
+              "activity_hint": "소리나 이미지가 디지털 파일이 되는 과정을 도식화하기",
+              "boost": 24
+            },
+            {
+              "keywords": [
+                "이미지",
+                "소리",
+                "영상",
+                "미디어"
+              ],
+              "short": "미디어 처리",
+              "desc": "미디어 정보를 디지털 신호로 다루는 기초 축",
+              "activity_hint": "이미지·소리·영상 파일의 표현 차이를 비교하기",
+              "boost": 14
+            }
+          ]
+        },
+        {
+          "axis_id": "compression_transfer",
+          "axis_title": "압축·전송 설계 축",
+          "axis_short": "압축·전송",
+          "axis_domain": "compression_transfer",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "전자기와 양자",
+            "공통수학2"
+          ],
+          "why": "효율적인 저장과 전달을 위해 정보 크기와 전송 방식을 설계하는 축",
+          "student_output_hint": "같은 자료를 압축 전후로 비교하며 전달 효율을 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "압축",
+                "전송",
+                "저장",
+                "용량"
+              ],
+              "short": "압축·전송",
+              "desc": "정보량과 저장·전송 효율을 함께 고려하는 축",
+              "activity_hint": "파일 압축 전후의 장단점을 비교하고 전달 효율을 설명하기",
+              "boost": 22
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "자료와 정보의 분석",
-      "concept_label": "데이터 수집·구조화·시각화",
-      "core_focus": "자료 수집, 빅데이터, 구조화, 데이터베이스, 정보 관리, 시각화, 인포그래픽",
+      "concept_label": "데이터 분석",
+      "core_focus": "자료 수집, 구조화, 정렬, 탐색, 비교, 데이터베이스, 시각화, 의사결정",
       "longitudinal_axes": [
         {
-          "axis_id": "data_collection_visualization",
+          "axis_id": "data_visual",
           "axis_title": "데이터 수집·시각화 축",
-          "axis_domain": "data",
+          "axis_short": "시각화",
+          "axis_domain": "data_visual",
           "priority": 1,
           "next_subjects": [
             "확률과 통계",
-            "대수",
-            "통합사회2"
-          ],
-          "why": "자료를 모으고 패턴을 찾는 활동이 통계 해석과 사회·과학 데이터 분석으로 직접 이어짐",
-          "student_output_hint": "설문·측정 자료 수집, 그래프 시각화, 데이터 해석 보고서"
-        },
-        {
-          "axis_id": "database_information_structure",
-          "axis_title": "데이터베이스·정보구조 축",
-          "axis_domain": "info",
-          "priority": 2,
-          "next_subjects": [
-            "대수",
-            "확률과 통계",
+            "통합과학2",
             "정보"
           ],
-          "why": "정보를 체계적으로 저장하고 검색하는 구조 이해는 데이터베이스와 소프트웨어 설계의 기초가 됨",
-          "student_output_hint": "데이터 항목 설계, 분류 체계 정리, DB 구조 설명 보고서"
+          "why": "자료를 수집하고 정리해 시각적으로 해석 가능한 정보로 바꾸는 축",
+          "student_output_hint": "생활 자료를 표와 그래프로 바꾸어 의미를 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "자료 수집",
+                "자료 분석",
+                "비교 기준",
+                "표",
+                "그래프",
+                "시각화"
+              ],
+              "short": "시각화",
+              "desc": "자료를 구조화하고 시각적으로 표현해 해석하는 축",
+              "activity_hint": "생활 데이터를 표·그래프·인포그래픽으로 바꾸어 비교하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "database",
+          "axis_title": "데이터베이스·정보구조 축",
+          "axis_short": "정보구조",
+          "axis_domain": "database",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "공통수학1",
+            "통합사회2"
+          ],
+          "why": "자료를 체계적으로 저장·검색·관리하는 구조를 이해하는 축",
+          "student_output_hint": "자료를 항목별로 분류해 데이터베이스 구조로 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터베이스",
+                "구조화",
+                "정렬",
+                "탐색",
+                "검색"
+              ],
+              "short": "정보구조",
+              "desc": "자료를 항목화하고 효율적으로 저장·검색하는 구조를 이해하는 축",
+              "activity_hint": "관심 주제를 항목별 데이터베이스 표로 설계하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "data_decision",
+          "axis_title": "데이터 해석·의사결정 축",
+          "axis_short": "의사결정",
+          "axis_domain": "data_decision",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "통합사회2",
+            "정보"
+          ],
+          "why": "분석한 자료를 근거로 판단과 선택을 내리는 사고로 확장하는 축",
+          "student_output_hint": "분석 결과를 근거로 합리적 선택 기준을 제시하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "빅데이터",
+                "의미 있는 정보",
+                "예측",
+                "판단",
+                "의사결정"
+              ],
+              "short": "의사결정",
+              "desc": "데이터를 해석해 예측과 판단으로 연결하는 축",
+              "activity_hint": "데이터 기반으로 선택 기준을 세우고 결론을 제시하기",
+              "boost": 22
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "추상화와 문제 분해",
-      "concept_label": "문제 구조화·모델링",
-      "core_focus": "문제 이해, 추상화, 핵심 요소 추출, 문제 분해, 모델링",
+      "concept_label": "문제 분해",
+      "core_focus": "현재 상태, 목표 상태, 조건 분석, 핵심 요소 추출, 문제 분해, 모델링",
       "longitudinal_axes": [
         {
-          "axis_id": "problem_structuring_algorithm_base",
+          "axis_id": "problem_design",
           "axis_title": "문제 구조화·알고리즘 설계 축",
-          "axis_domain": "info",
+          "axis_short": "구조화",
+          "axis_domain": "problem_design",
           "priority": 1,
           "next_subjects": [
-            "대수",
-            "확률과 통계",
-            "물리"
+            "공통수학1",
+            "정보",
+            "통합과학1"
           ],
-          "why": "복잡한 문제를 단계화하고 핵심 조건만 남기는 사고는 알고리즘 설계의 직접 기반이 됨",
-          "student_output_hint": "문제 분해 과정 정리, 핵심 요소 추출, 해결 절차 설계 보고서"
+          "why": "복잡한 문제를 단계와 조건으로 나누어 해결 절차를 설계하는 축",
+          "student_output_hint": "생활 문제를 단계별 흐름도로 나누어 해결 절차를 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "현재 상태",
+                "목표 상태",
+                "조건 분석",
+                "작은 문제로 나누기",
+                "문제 분해"
+              ],
+              "short": "문제 구조화",
+              "desc": "문제를 조건과 단계로 나누어 해결 흐름을 설계하는 축",
+              "activity_hint": "일상 문제를 입력-처리-출력 흐름으로 나누어 설계하기",
+              "boost": 24
+            }
+          ]
         },
         {
-          "axis_id": "mathematical_modeling_extension",
+          "axis_id": "math_modeling",
           "axis_title": "수리 모델링 확장 축",
-          "axis_domain": "math",
+          "axis_short": "모델링",
+          "axis_domain": "math_modeling",
           "priority": 2,
           "next_subjects": [
-            "대수",
-            "미적분1",
-            "물리"
+            "공통수학1",
+            "공통수학2",
+            "통합과학2"
           ],
-          "why": "현실 상황을 변수와 관계식으로 바꾸는 과정은 수학적 모델링과 과학 문제 해결로 확장되기 쉬움",
-          "student_output_hint": "상황 모델링, 변수 관계 정리, 문제 해결 구조 보고서"
+          "why": "핵심 요소만 남겨 수학적·논리적 모델로 단순화하는 축",
+          "student_output_hint": "현상을 변수와 조건으로 줄여 간단한 모델로 표현하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "모델",
+                "모델링",
+                "핵심 요소",
+                "불필요한 요소 제거"
+              ],
+              "short": "모델링",
+              "desc": "복잡한 현상을 핵심 변수만 남겨 모델로 표현하는 축",
+              "activity_hint": "교실·생활 상황을 변수 중심 모델로 단순화하기",
+              "boost": 22
+            }
+          ]
+        },
+        {
+          "axis_id": "process_optimization",
+          "axis_title": "시스템 설계·절차 최적화 축",
+          "axis_short": "절차 설계",
+          "axis_domain": "process_optimization",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "통합과학2",
+            "확률과 통계"
+          ],
+          "why": "여러 단계의 절차를 비교하고 더 효율적인 구조로 고치는 축",
+          "student_output_hint": "동일한 문제를 다른 절차로 풀고 더 효율적인 구조를 비교하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "절차",
+                "흐름도",
+                "효율",
+                "개선"
+              ],
+              "short": "절차 설계",
+              "desc": "문제 해결 과정을 비교하고 더 효율적인 절차를 선택하는 축",
+              "activity_hint": "비상 대피도나 주문 과정을 흐름도로 만들고 개선점 찾기",
+              "boost": 18
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "알고리즘 설계와 분석",
-      "concept_label": "절차·효율·최적화",
-      "core_focus": "알고리즘, 순차·선택·반복 구조, 정렬, 탐색, 효율성, 수행 시간",
+      "concept_label": "알고리즘",
+      "core_focus": "순차·선택·반복, 정렬, 탐색, 효율성, 성능 비교, 예측",
       "longitudinal_axes": [
         {
-          "axis_id": "algorithm_optimization",
+          "axis_id": "algo_opt",
           "axis_title": "알고리즘 최적화 축",
-          "axis_domain": "info",
+          "axis_short": "최적화",
+          "axis_domain": "algo_opt",
           "priority": 1,
           "next_subjects": [
-            "대수",
-            "확률과 통계",
-            "미적분1"
+            "공통수학1",
+            "정보",
+            "확률과 통계"
           ],
-          "why": "같은 문제를 더 적은 시간과 단계로 해결하는 비교는 소프트웨어 문제 해결의 핵심 감각을 길러 줌",
-          "student_output_hint": "알고리즘 절차 비교, 수행 시간 분석, 효율성 판단 보고서"
+          "why": "알고리즘의 효율성과 수행 과정을 비교해 더 나은 방법을 찾는 축",
+          "student_output_hint": "같은 문제를 여러 알고리즘으로 풀고 효율을 비교하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "효율성",
+                "성능 비교",
+                "수행 시간",
+                "최적화"
+              ],
+              "short": "최적화",
+              "desc": "알고리즘의 효율을 비교해 더 적절한 방식을 고르는 축",
+              "activity_hint": "정렬 방법별 수행 과정을 비교해 장단점을 표로 정리하기",
+              "boost": 24
+            }
+          ]
         },
         {
-          "axis_id": "data_processing_prediction",
-          "axis_title": "데이터 처리·예측 축",
-          "axis_domain": "data",
+          "axis_id": "search_sort",
+          "axis_title": "탐색·정렬 구현 축",
+          "axis_short": "탐색·정렬",
+          "axis_domain": "search_sort",
           "priority": 2,
           "next_subjects": [
-            "확률과 통계",
-            "대수",
-            "전자기와 양자"
+            "정보",
+            "공통수학1",
+            "공통수학2"
           ],
-          "why": "정렬·탐색·반복 구조는 대량 데이터 처리와 자동화된 판단 구조로도 이어질 수 있음",
-          "student_output_hint": "자료 정렬 규칙 설계, 탐색 과정 시각화, 데이터 처리 절차 보고서"
+          "why": "자료를 탐색하고 정렬하는 절차를 구현 중심으로 확장하는 축",
+          "student_output_hint": "정렬·탐색 절차를 순서도나 코드로 구현하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "버블 정렬",
+                "선택 정렬",
+                "순차 탐색",
+                "이진 탐색",
+                "정렬",
+                "탐색"
+              ],
+              "short": "탐색·정렬",
+              "desc": "정렬과 탐색 절차를 구현하고 비교하는 축",
+              "activity_hint": "버블 정렬과 이진 탐색을 단계별 그림 또는 코드로 표현하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "data_prediction",
+          "axis_title": "데이터 처리·예측 축",
+          "axis_short": "예측 처리",
+          "axis_domain": "data_prediction",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "통합과학2",
+            "정보"
+          ],
+          "why": "규칙과 반복 구조를 데이터 처리와 간단한 예측 문제로 확장하는 축",
+          "student_output_hint": "반복 구조를 활용해 규칙을 찾고 예측값을 제안하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "순차",
+                "선택",
+                "반복",
+                "규칙",
+                "예측"
+              ],
+              "short": "예측 처리",
+              "desc": "반복과 조건 구조를 데이터 처리 및 예측 문제에 적용하는 축",
+              "activity_hint": "반복 패턴이 있는 자료에서 다음 값을 예측하는 절차를 설계하기",
+              "boost": 18
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "프로그래밍과 자동화",
-      "concept_label": "코드 구현·자동 처리",
-      "core_focus": "프로그래밍 언어, 변수, 조건문, 반복문, 배열, 함수, 자동화 구현",
+      "concept_label": "프로그래밍",
+      "core_focus": "프로그래밍 언어, 변수, 입출력, 조건문, 반복문, 리스트, 함수, 자동화",
       "longitudinal_axes": [
         {
-          "axis_id": "programming_implementation",
+          "axis_id": "programming_impl",
           "axis_title": "프로그래밍 구현 축",
-          "axis_domain": "info",
+          "axis_short": "코드 구현",
+          "axis_domain": "programming_impl",
           "priority": 1,
           "next_subjects": [
-            "대수",
-            "확률과 통계",
-            "과학탐구실험2"
+            "정보",
+            "공통수학1",
+            "통합과학1"
           ],
-          "why": "입력-처리-출력 구조를 실제 코드로 구현하는 경험은 컴퓨터공학형 탐구의 직접 출발점이 됨",
-          "student_output_hint": "변수·조건·반복문 코드 작성, 자동화 절차 구현, 프로그램 설명 보고서"
+          "why": "문제 해결 절차를 실제 코드로 구현하고 실행 결과를 확인하는 축",
+          "student_output_hint": "입력-처리-출력 구조를 코드로 작성하고 결과를 확인하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "Python",
+                "변수 설계",
+                "입력과 출력",
+                "함수",
+                "원시 코드"
+              ],
+              "short": "코드 구현",
+              "desc": "입력과 처리 과정을 코드로 구현하는 기본 축",
+              "activity_hint": "간단한 계산이나 분류 문제를 Python 코드로 구현하기",
+              "boost": 24
+            }
+          ]
         },
         {
-          "axis_id": "logic_control_automation",
+          "axis_id": "logic_control",
           "axis_title": "논리·제어 확장 축",
-          "axis_domain": "engineering",
+          "axis_short": "조건·반복",
+          "axis_domain": "logic_control",
           "priority": 2,
           "next_subjects": [
-            "전자기와 양자",
-            "물리",
-            "대수"
+            "공통수학1",
+            "통합과학1",
+            "정보"
           ],
-          "why": "프로그래밍 흐름은 센서 입력 처리, 제어 로직, 임베디드 자동화 구조로도 자연스럽게 이어짐",
-          "student_output_hint": "입출력 제어 설계, 자동화 흐름도 작성, 센서 제어 보고서"
+          "why": "조건과 반복 구조를 활용해 논리적 제어와 분기 설계를 확장하는 축",
+          "student_output_hint": "조건문과 반복문으로 제어 흐름을 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조건문",
+                "반복문",
+                "리스트",
+                "리스트 내포"
+              ],
+              "short": "조건·반복",
+              "desc": "분기와 반복 구조를 통해 문제 해결 절차를 제어하는 축",
+              "activity_hint": "조건문·반복문을 이용해 점수 처리나 목록 정리 프로그램 만들기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "automation_sim",
+          "axis_title": "자동화·시뮬레이션 축",
+          "axis_short": "자동화",
+          "axis_domain": "automation_sim",
+          "priority": 3,
+          "next_subjects": [
+            "통합과학1",
+            "물리",
+            "정보"
+          ],
+          "why": "코드를 이용해 자동화, 간단한 시뮬레이션, 시각적 결과물을 만드는 축",
+          "student_output_hint": "반복되는 작업을 자동화하거나 시각적 결과를 출력하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "random 모듈",
+                "turtle 그래픽",
+                "자동화",
+                "시뮬레이션"
+              ],
+              "short": "자동화",
+              "desc": "프로그래밍을 활용해 자동 실행과 간단한 시뮬레이션으로 확장하는 축",
+              "activity_hint": "무작위 실험이나 도형 그리기 자동화 프로그램 만들기",
+              "boost": 22
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "컴퓨팅 시스템과 네트워크",
-      "concept_label": "시스템·네트워크·센서",
-      "core_focus": "운영체제, 프로세스, 자원 관리, 네트워크, IP, 공유, 피지컬 컴퓨팅, 센서, 회로",
+      "concept_label": "시스템·네트워크",
+      "core_focus": "컴퓨팅 시스템, 네트워크, 공유, 협업, 통신 구조, 센서, 피지컬 컴퓨팅",
       "longitudinal_axes": [
         {
-          "axis_id": "system_network_architecture",
+          "axis_id": "network_system",
           "axis_title": "시스템·네트워크 구조 축",
-          "axis_domain": "info",
+          "axis_short": "네트워크 구조",
+          "axis_domain": "network_system",
           "priority": 1,
           "next_subjects": [
             "전자기와 양자",
-            "대수",
-            "확률과 통계"
+            "통합과학1",
+            "정보"
           ],
-          "why": "운영체제와 네트워크의 동작 원리를 이해하면 컴퓨팅 환경 전체를 구조적으로 해석하는 방향으로 확장 가능함",
-          "student_output_hint": "네트워크 구조 정리, 시스템 동작 흐름 설명, 자원 관리 보고서"
+          "why": "컴퓨팅 시스템과 네트워크가 연결·공유·유통을 가능하게 하는 구조를 이해하는 축",
+          "student_output_hint": "컴퓨팅 시스템과 네트워크 구성 요소의 역할을 도식화하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "네트워크",
+                "공유",
+                "의사소통",
+                "협업",
+                "통신"
+              ],
+              "short": "네트워크 구조",
+              "desc": "네트워크 기반으로 정보가 연결·유통되는 구조를 해석하는 축",
+              "activity_hint": "네트워크에서 정보가 이동하는 경로를 그림으로 설명하기",
+              "boost": 24
+            }
+          ]
         },
         {
-          "axis_id": "sensor_embedded_control",
+          "axis_id": "embedded_control",
           "axis_title": "센서·임베디드 제어 축",
-          "axis_domain": "engineering",
+          "axis_short": "센서 제어",
+          "axis_domain": "embedded_control",
           "priority": 2,
           "next_subjects": [
+            "통합과학1",
             "물리",
-            "전자기와 양자",
-            "과학탐구실험2"
+            "전자기와 양자"
           ],
-          "why": "피지컬 컴퓨팅은 센서 입력, 회로, 출력 제어를 연결해 전자·로봇 응용 탐구로 이어지기 좋음",
-          "student_output_hint": "센서 데이터 처리, 회로 구성 설명, 피지컬 컴퓨팅 보고서"
+          "why": "센서와 피지컬 컴퓨팅을 활용해 실제 장치 제어로 확장하는 축",
+          "student_output_hint": "센서 입력을 받아 동작하는 장치 구조를 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "센서",
+                "피지컬 컴퓨팅",
+                "회로",
+                "임베디드",
+                "장치"
+              ],
+              "short": "센서 제어",
+              "desc": "센서 데이터를 받아 장치를 제어하는 구조로 확장하는 축",
+              "activity_hint": "빛·온도 센서를 활용한 장치 제어 아이디어를 설계하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "platform_security",
+          "axis_title": "협업 플랫폼·보안 운영 축",
+          "axis_short": "플랫폼 보안",
+          "axis_domain": "platform_security",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "정보"
+          ],
+          "why": "협업 플랫폼 운영과 보안, 계정 관리, 안전한 소통 환경 설계로 이어지는 축",
+          "student_output_hint": "플랫폼 협업 환경에서 필요한 보안 원칙을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "보안",
+                "계정",
+                "접근 권한",
+                "플랫폼",
+                "협업 도구"
+              ],
+              "short": "플랫폼 보안",
+              "desc": "협업 환경을 안전하게 운영하기 위한 보안 원칙을 해석하는 축",
+              "activity_hint": "학교 협업 플랫폼에 필요한 보안 규칙과 관리 원칙을 정리하기",
+              "boost": 20
+            }
+          ]
         }
       ]
     }
