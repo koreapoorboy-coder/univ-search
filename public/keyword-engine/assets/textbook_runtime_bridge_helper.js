@@ -45,6 +45,8 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.4-life-science-alias";
     "지구과학I": "earth_science",
     "지구과학Ⅰ": "earth_science",
     "역학과 에너지": "mechanics_energy",
+    "역학과에너지": "mechanics_energy",
+    "고등학교 역학과 에너지": "mechanics_energy",
     "전자기와 양자": "electromagnetism_quantum",
     "물질과 에너지": "matter_energy",
     "세포와 물질대사": "cell_metabolism",
