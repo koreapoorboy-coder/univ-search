@@ -1,0 +1,101 @@
+{
+  "subject_name": "물질과 에너지",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "기체 상태와 법칙",
+      "concept_label": "압력-부피-이상 기체",
+      "longitudinal_axes": [
+        {
+          "axis_id": "gas_state_analysis_axis",
+          "axis_title": "기체 상태 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "역학과 에너지",
+            "화학공학",
+            "에너지공학과"
+          ],
+          "why": "압력·부피·온도 관계를 식과 그래프로 해석하는 사고가 열역학과 공정 시스템 분석으로 자연스럽게 이어짐",
+          "student_output_hint": "보일 법칙-샤를 법칙 비교, 이상 기체 방정식 적용, 상태 변화 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "process_energy_application_axis",
+          "axis_title": "에너지·공정 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "기계공학",
+            "환경공학",
+            "신재생에너지공학"
+          ],
+          "why": "기체 시스템의 변화 조건을 실제 장치와 에너지 효율 관점으로 해석하는 관점이 공정 설계와 환경 제어로 확장됨",
+          "student_output_hint": "타이어·에어백·냉매 사례 비교, 압력 제어 장치 분석, 에너지 효율 아이디어 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "혼합 기체와 조성",
+      "concept_label": "부분 압력-달톤 법칙-몰분율",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mixed_gas_analysis_axis",
+          "axis_title": "혼합 기체 분석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "지구시스템과학",
+            "환경공학",
+            "대기과학과"
+          ],
+          "why": "부분 압력과 몰분율로 혼합 기체를 해석하는 사고가 대기 조성·환경 데이터·가스 분석 이해로 직접 이어짐",
+          "student_output_hint": "공기 조성 비교, 혼합 기체 계산, 기체 분석 자료 해석 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "gas_sensor_process_axis",
+          "axis_title": "가스 공정·센서 응용 축",
+          "axis_domain": "engineering",
+          "next_subjects": [
+            "전자기와 양자",
+            "화학공학",
+            "보건환경학과"
+          ],
+          "why": "기체 조성과 농도를 정량적으로 다루는 관점이 공정 제어·가스 센서·안전 관리 기술로 확장됨",
+          "student_output_hint": "가스 센서 사례 조사, 공정 조성 관리 비교, 실내 공기 질 분석 보고서",
+          "priority": 2
+        }
+      ]
+    },
+    {
+      "concept_name": "액체의 물성과 분자 간 힘",
+      "concept_label": "수소 결합-분산력-증기 압력",
+      "longitudinal_axes": [
+        {
+          "axis_id": "molecular_property_analysis_axis",
+          "axis_title": "분자 물성 해석 축",
+          "axis_domain": "chemistry",
+          "next_subjects": [
+            "화학",
+            "재료공학과",
+            "생명공학과"
+          ],
+          "why": "분자 간 힘과 구조-성질 관계를 해석하는 사고가 재료 물성 비교와 분자 설계 이해로 이어짐",
+          "student_output_hint": "끓는점 비교, 증기 압력 곡선 분석, 구조-성질 연결 보고서",
+          "priority": 1
+        },
+        {
+          "axis_id": "bio_medical_material_axis",
+          "axis_title": "바이오·의약 응용 축",
+          "axis_domain": "biology",
+          "next_subjects": [
+            "세포와 물질대사",
+            "의약학계열",
+            "식품공학과"
+          ],
+          "why": "수소 결합과 극성 개념을 생체 분자와 용액 환경에 연결하는 관점이 바이오·의약·식품 소재 이해로 확장됨",
+          "student_output_hint": "물·에탄올 비교, 생체 분자 구조 사례 조사, 용매-용질 특성 보고서",
+          "priority": 2
+        }
+      ]
+    }
+  ]
+}
