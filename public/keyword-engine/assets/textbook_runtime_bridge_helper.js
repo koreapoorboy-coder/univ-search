@@ -1,4 +1,4 @@
-window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.6-matter-energy-alias";
+window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.7-cell-metabolism-alias";
 
 (function () {
   const FLATTENED_URL = "seed/textbook-data/textbook_flattened_segments_v1.json";
@@ -56,6 +56,9 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.6-matter-energy-alias";
     "고등 물질과 에너지": "matter_energy",
     "고등학교 물질과 에너지": "matter_energy",
     "세포와 물질대사": "cell_metabolism",
+    "세포와물질대사": "cell_metabolism",
+    "고등 세포와 물질대사": "cell_metabolism",
+    "고등학교 세포와 물질대사": "cell_metabolism",
     "지구시스템과학": "earth_system_science"
   };
 
