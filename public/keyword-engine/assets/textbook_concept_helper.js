@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.2-integrated-science1-keyword-axis";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -273,96 +273,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.2-integrated-science1-keyword-ax
 
   function uniq(arr) {
     return Array.from(new Set((arr || []).filter(Boolean)));
-  }
-
-  function normalizeKeywordText(value) {
-    return String(value || "")
-      .replace(/\s+/g, " ")
-      .replace(/[()\-_/·.,:]/g, " ")
-      .trim()
-      .toLowerCase();
-  }
-
-  function getKeywordTokens(value) {
-    return normalizeKeywordText(value)
-      .split(" ")
-      .map(token => token.trim())
-      .filter(Boolean);
-  }
-
-  function matchKeywordAgainstCandidates(selectedKeyword, candidates) {
-    const source = normalizeKeywordText(selectedKeyword);
-    const sourceTokens = getKeywordTokens(selectedKeyword);
-    if (!source || !sourceTokens.length) return { matched: false, exact: false, overlap: 0, matchedKeyword: "" };
-
-    let best = { matched: false, exact: false, overlap: 0, matchedKeyword: "" };
-    (candidates || []).forEach(candidate => {
-      const target = normalizeKeywordText(candidate);
-      if (!target) return;
-
-      if (source === target || source.includes(target) || target.includes(source)) {
-        best = { matched: true, exact: true, overlap: 1, matchedKeyword: candidate };
-        return;
-      }
-
-      const targetTokens = getKeywordTokens(candidate);
-      if (!targetTokens.length) return;
-      let overlapCount = 0;
-      sourceTokens.forEach(token => { if (targetTokens.includes(token)) overlapCount += 1; });
-      const overlap = overlapCount / Math.max(sourceTokens.length, targetTokens.length);
-      if (overlap >= 0.5 && overlap > best.overlap) {
-        best = { matched: true, exact: false, overlap, matchedKeyword: candidate };
-      }
-    });
-
-    return best;
-  }
-
-  function getConceptAxisKeywordMeta(entry, axis) {
-    const selectedKeyword = state.keyword || "";
-    if (!selectedKeyword) return { score: 0, label: "", message: "", matchedKeyword: "" };
-
-    const rules = Array.isArray(axis?.keyword_rules)
-      ? axis.keyword_rules
-      : Array.isArray(entry?.keyword_axis_rules)
-        ? entry.keyword_axis_rules.filter(rule => rule.axis_id === axis.axis_id)
-        : [];
-
-    let best = { score: 0, label: "", message: "", matchedKeyword: "" };
-    rules.forEach(rule => {
-      const match = matchKeywordAgainstCandidates(selectedKeyword, rule?.keywords || []);
-      if (!match.matched) return;
-      let score = Number(rule?.boost || 0);
-      if (!match.exact) score = Math.max(Math.round(score * 0.7), 6);
-      if (score > best.score) {
-        best = {
-          score,
-          label: rule?.label || (match.exact ? "키워드 직접 반영" : "키워드 보정"),
-          message: rule?.message || `${selectedKeyword} 키워드가 이 축의 설명 방향과 직접 맞물립니다.`,
-          matchedKeyword: match.matchedKeyword || selectedKeyword
-        };
-      }
-    });
-
-    if (best.score > 0) return best;
-
-    const fallbackTexts = [
-      axis?.axis_title || "",
-      axis?.why || "",
-      axis?.student_output_hint || "",
-      ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : [])
-    ];
-    const fallbackMatch = matchKeywordAgainstCandidates(selectedKeyword, fallbackTexts);
-    if (fallbackMatch.matched) {
-      return {
-        score: fallbackMatch.exact ? 8 : 5,
-        label: fallbackMatch.exact ? "키워드 반영" : "키워드 보정",
-        message: `${selectedKeyword} 키워드가 이 축의 설명 문구와 연결됩니다.`,
-        matchedKeyword: fallbackMatch.matchedKeyword || selectedKeyword
-      };
-    }
-
-    return { score: 0, label: "", message: "", matchedKeyword: "" };
   }
 
 
@@ -1821,32 +1731,65 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34.2-integrated-science1-keyword-ax
   }
 
 
+  function getAxisKeywordRefinementMeta(entry, axis) {
+    const keywordText = String(state.keyword || "").trim();
+    if (!keywordText || !axis || !Array.isArray(axis.keyword_signals)) return null;
+
+    let best = null;
+
+    axis.keyword_signals.forEach(signal => {
+      const signalKeywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
+      const isMatched = signalKeywords.some(word => fuzzyIncludes(keywordText, word) || fuzzyIncludes(word, keywordText));
+      if (!isMatched) return;
+
+      const score = Number(signal?.boost || 0);
+      if (!best || score > best.score) {
+        best = {
+          score,
+          label: String(signal?.label || "키워드 반영"),
+          message: String(signal?.message || ""),
+          short: String(signal?.short_label || signal?.short || ""),
+          desc: String(signal?.desc || signal?.description || ""),
+          activityExamples: Array.isArray(signal?.activity_examples) ? signal.activity_examples : []
+        };
+      }
+    });
+
+    return best;
+  }
+
+
   function buildConceptMappedAxes(entry) {
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const keywordMeta = getConceptAxisKeywordMeta(entry, axis);
+      const keywordMeta = getAxisKeywordRefinementMeta(entry, axis);
+      const relationLabels = [keywordMeta?.label || "", relationMeta.label || ""].filter(Boolean);
+      const activityExamples = Array.isArray(keywordMeta?.activityExamples) && keywordMeta.activityExamples.length
+        ? keywordMeta.activityExamples
+        : (axis.student_output_hint ? [axis.student_output_hint] : []);
+      const reasonText = [keywordMeta?.message || "", relationMeta.message || ""]
+        .filter((value, index, arr) => value && arr.indexOf(value) === index)
+        .join(" ");
       return {
         id: axis.axis_id,
         title: axis.axis_title,
-        short: entry.concept_label || state.concept,
+        short: keywordMeta?.short || axis.axis_short || entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: axis.why || "",
-        reason: relationMeta.message,
-        relationLabel: relationMeta.label,
+        desc: keywordMeta?.desc || axis.why || "",
+        reason: reasonText,
+        relationLabel: relationLabels.join(" · "),
         relationType: relationMeta.type,
-        keywordLabel: keywordMeta.label,
-        keywordReason: keywordMeta.message,
         easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
-        extensionKeywords: [],
-        activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
+        extensionKeywords: Array.isArray(axis.extension_keywords) ? axis.extension_keywords : [],
+        activityExamples,
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
-        __keywordScore: keywordMeta.score,
+        __keywordScore: Number(keywordMeta?.score || 0),
         __priority: Number(axis.priority || 99)
       };
     });
@@ -2370,12 +2313,11 @@ function getTrackMeta(trackId) {
       <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.keywordLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.keywordLabel)}</span>` : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
           <div class="engine-track-desc">${escapeHtml(item.desc || "")}</div>
-          ${item.keywordReason ? `<div class="engine-track-desc" style="margin-top:6px; color:#0f766e; font-weight:700;">${escapeHtml(item.keywordReason)}</div>` : ''}
           ${Array.isArray(item.activityExamples) && item.activityExamples.length ? `<div class="engine-track-desc" style="margin-top:6px;">활동 예시: ${escapeHtml(item.activityExamples.slice(0,2).join(', '))}</div>` : ''}
           <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy || "")}</div>
         </button>
