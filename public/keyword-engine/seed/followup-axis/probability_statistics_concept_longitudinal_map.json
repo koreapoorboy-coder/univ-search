@@ -1,99 +1,387 @@
 {
   "subject_name": "확률과 통계",
+  "version": "v355-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "경우의 수와 이항정리",
       "concept_label": "조합-계수-패턴",
+      "core_focus": "순열, 조합, 이항정리, 이항계수, 파스칼의 삼각형, 계수와 패턴 일반화",
       "longitudinal_axes": [
         {
           "axis_id": "combinatorics_algorithm_axis",
           "axis_title": "조합·알고리즘 구조 축",
-          "axis_domain": "info",
+          "axis_short": "조합 구조",
+          "axis_domain": "math_info",
+          "priority": 1,
           "next_subjects": [
             "정보",
             "컴퓨터공학",
             "산업공학"
           ],
-          "why": "경우를 나누고 계수 구조를 세는 사고가 탐색·알고리즘 설계의 기초로 이어짐",
-          "student_output_hint": "순열·조합 계산 절차 정리, 탐색 구조 비교 보고서",
-          "priority": 1
+          "why": "경우를 체계적으로 나누고 계수 구조를 세는 사고가 탐색, 경우 분기, 알고리즘 설계의 기초로 이어진다.",
+          "student_output_hint": "순열·조합 계산 절차 비교, 탐색 구조 정리 카드, 경우 분기 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "순열",
+                "조합",
+                "경우의 수",
+                "중복조합",
+                "원순열"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "탐색·조합",
+              "message": "선택한 키워드가 경우를 나누고 배열하는 핵심이라 조합·알고리즘 구조 축이 1순위로 강화됩니다.",
+              "desc": "경우 분기와 탐색 구조를 설계하는 방향의 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "조건별 경우 나누기 표 만들기",
+                "순열·조합을 탐색 알고리즘 구조와 연결한 정리 카드 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "중복순열",
+                "분할",
+                "배열"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "분기 설계",
+              "message": "선택한 키워드가 분기와 배열 설계와 맞닿아 조합 구조 축이 보강됩니다.",
+              "desc": "경우를 체계적으로 나누는 설계 중심 탐구로 이어집니다."
+            }
+          ]
         },
         {
           "axis_id": "coefficient_pattern_axis",
           "axis_title": "계수·패턴 일반화 축",
+          "axis_short": "계수 패턴",
           "axis_domain": "math",
+          "priority": 2,
           "next_subjects": [
             "대수",
             "미적분1",
             "공통수학2"
           ],
-          "why": "이항계수와 파스칼 배열을 해석하는 사고가 식의 패턴 일반화와 함수 구조 해석으로 확장됨",
-          "student_output_hint": "이항계수 패턴, 파스칼의 삼각형 구조 분석 보고서",
-          "priority": 2
+          "why": "이항계수와 파스칼 배열을 해석하는 사고는 식의 패턴 일반화와 함수 구조 해석으로 확장된다.",
+          "student_output_hint": "이항계수 패턴표, 파스칼의 삼각형 규칙 분석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "이항정리",
+                "이항계수",
+                "파스칼의 삼각형",
+                "계수"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "패턴 일반화",
+              "message": "선택한 키워드가 계수 규칙과 패턴 일반화의 핵심이라 계수·패턴 일반화 축이 강하게 올라갑니다.",
+              "desc": "식 전개와 배열 속 규칙을 일반화하는 탐구 방향이 선명해집니다.",
+              "activity_examples": [
+                "파스칼의 삼각형 규칙 시각화",
+                "이항계수 패턴을 식 전개와 연결한 보고서"
+              ]
+            },
+            {
+              "keywords": [
+                "전개식",
+                "계수 비교"
+              ],
+              "boost": 11,
+              "label": "키워드 반영",
+              "short_label": "식 패턴",
+              "message": "선택한 키워드가 전개식 규칙과 맞아 패턴 일반화 축이 보강됩니다.",
+              "desc": "식의 구조와 계수 변화를 정리하는 방향으로 연결됩니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "design_strategy_axis",
+          "axis_title": "탐구 설계·전략 비교 축",
+          "axis_short": "전략 비교",
+          "axis_domain": "inquiry",
+          "priority": 3,
+          "next_subjects": [
+            "과학탐구실험1",
+            "정보",
+            "통합사회1"
+          ],
+          "why": "경우를 정리하는 방법은 조건 설정과 전략 비교가 필요한 탐구 설계 활동과도 자연스럽게 연결된다.",
+          "student_output_hint": "조건별 분류 기준표, 전략 비교 포스터",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조건",
+                "분류",
+                "전략",
+                "비교"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "조건 비교",
+              "message": "선택한 키워드가 조건을 나눠 비교하는 활동과 맞아 탐구 설계·전략 비교 축이 보조 강화됩니다.",
+              "desc": "경우를 정리한 뒤 전략을 비교하는 탐구 방향으로 확장됩니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "확률과 조건부확률",
       "concept_label": "사건-조건-판단",
+      "core_focus": "확률, 조건부확률, 독립과 종속, 사건의 연산, 기대값, 위험 비교와 판단",
       "longitudinal_axes": [
         {
           "axis_id": "risk_decision_axis",
           "axis_title": "리스크·의사결정 축",
-          "axis_domain": "social_policy",
+          "axis_short": "위험 판단",
+          "axis_domain": "social_data",
+          "priority": 1,
           "next_subjects": [
             "통합사회2",
             "정보",
             "경제학"
           ],
-          "why": "조건에 따라 확률이 달라지는 구조를 해석하면 사회·경제 판단과 위험 비교 사고로 이어짐",
-          "student_output_hint": "조건부확률 사례 비교, 위험 판단 보고서",
-          "priority": 1
+          "why": "조건에 따라 확률이 달라지는 구조를 해석하면 사회·경제적 판단과 위험 비교 사고로 이어진다.",
+          "student_output_hint": "조건부확률 사례 비교, 위험 판단 카드, 의사결정 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조건부확률",
+                "독립",
+                "종속",
+                "위험",
+                "판단"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "리스크 판단",
+              "message": "선택한 키워드가 조건에 따른 판단과 위험 비교의 핵심이라 리스크·의사결정 축이 1순위로 강화됩니다.",
+              "desc": "상황별 확률 차이를 근거로 결정을 내리는 방향의 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "조건에 따라 달라지는 사건 확률 비교표 만들기",
+                "실생활 위험 판단 사례를 조건부확률로 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "기대값",
+                "선택",
+                "의사결정"
+              ],
+              "boost": 13,
+              "label": "키워드 반영",
+              "short_label": "선택 기준",
+              "message": "선택한 키워드가 기준 비교와 선택 판단과 맞아 의사결정 축이 보강됩니다.",
+              "desc": "근거를 세워 선택 기준을 비교하는 탐구로 이어집니다."
+            }
+          ]
         },
         {
           "axis_id": "experiment_probability_axis",
           "axis_title": "실험·상대도수 해석 축",
-          "axis_domain": "data",
+          "axis_short": "실험 확률",
+          "axis_domain": "science_data",
+          "priority": 2,
           "next_subjects": [
             "과학탐구실험2",
-            "정보",
-            "생명과학"
+            "생명과학",
+            "정보"
           ],
-          "why": "반복 시행과 상대도수 해석 능력이 실험 데이터 읽기와 근거 기반 판단의 기초가 됨",
-          "student_output_hint": "실험 반복 자료 비교, 상대도수·확률 연결 보고서",
-          "priority": 2
+          "why": "반복 시행과 상대도수 해석 능력은 실험 데이터 읽기와 근거 기반 판단의 기초가 된다.",
+          "student_output_hint": "반복 시행 데이터 표, 상대도수와 확률 비교 그래프",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "상대도수",
+                "반복 시행",
+                "실험",
+                "시행"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "반복 실험",
+              "message": "선택한 키워드가 반복 시행과 실험 데이터의 핵심이라 실험·상대도수 해석 축이 크게 강화됩니다.",
+              "desc": "반복 실험 결과를 확률과 연결해 읽는 방향으로 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "동전·주사위 반복 시행 결과 그래프 작성",
+                "상대도수와 이론확률 차이 해석 보고서"
+              ]
+            },
+            {
+              "keywords": [
+                "표본",
+                "오차",
+                "근사"
+              ],
+              "boost": 11,
+              "label": "키워드 반영",
+              "short_label": "실험 오차",
+              "message": "선택한 키워드가 실험 결과의 차이와 근사 해석과 맞아 실험 확률 축이 보강됩니다.",
+              "desc": "데이터 차이와 변동을 해석하는 탐구 방향으로 연결됩니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "statistical_communication_axis",
+          "axis_title": "통계 근거·소통 축",
+          "axis_short": "근거 소통",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "공통국어2",
+            "통합사회1",
+            "과학탐구실험1"
+          ],
+          "why": "확률 판단을 근거로 설명하는 활동은 자료 해석과 의사소통 능력으로도 이어진다.",
+          "student_output_hint": "확률 근거 카드뉴스, 조건 비교 설명문 작성",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "근거",
+                "설명",
+                "비교",
+                "자료"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "근거 설명",
+              "message": "선택한 키워드가 설명과 비교 중심이라 통계 근거·소통 축이 보조 강화됩니다.",
+              "desc": "확률 판단을 다른 사람에게 전달하는 방향의 탐구가 살아납니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "확률분포와 통계적 추정",
       "concept_label": "분포-평균-추정",
+      "core_focus": "확률분포, 평균과 분산, 정규분포, 표본평균, 통계적 추정, 데이터 해석",
       "longitudinal_axes": [
         {
           "axis_id": "data_prediction_inference_axis",
           "axis_title": "데이터 예측·추정 축",
+          "axis_short": "예측·추정",
           "axis_domain": "data",
+          "priority": 1,
           "next_subjects": [
             "정보",
             "미적분1",
             "데이터사이언스"
           ],
-          "why": "분포와 추정을 바탕으로 전체 경향을 해석하는 사고가 데이터 예측과 모델링 탐구로 이어짐",
-          "student_output_hint": "정규분포·표본평균 비교, 추정 결과 해석 보고서",
-          "priority": 1
+          "why": "분포와 추정을 바탕으로 전체 경향을 해석하는 사고는 데이터 예측과 모델링 탐구로 이어진다.",
+          "student_output_hint": "정규분포 비교 그래프, 표본평균 추정 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "확률분포",
+                "정규분포",
+                "통계적 추정",
+                "표본평균",
+                "모평균"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "데이터 추정",
+              "message": "선택한 키워드가 분포와 추정의 핵심이라 데이터 예측·추정 축이 1순위로 강화됩니다.",
+              "desc": "표본을 바탕으로 전체를 예측하고 해석하는 방향의 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "분포 모양 비교 그래프 작성",
+                "표본평균으로 전체 경향 추정하기"
+              ]
+            },
+            {
+              "keywords": [
+                "평균",
+                "분산",
+                "표준편차",
+                "산포"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "분포 해석",
+              "message": "선택한 키워드가 데이터의 중심과 퍼짐을 읽는 방향과 맞아 예측·추정 축이 보강됩니다.",
+              "desc": "분포의 특성을 비교하고 해석하는 탐구 방향으로 연결됩니다."
+            }
+          ]
         },
         {
           "axis_id": "bio_social_distribution_axis",
           "axis_title": "생명·사회 데이터 해석 축",
-          "axis_domain": "biology",
+          "axis_short": "생명·사회 분포",
+          "axis_domain": "bio_social",
+          "priority": 2,
           "next_subjects": [
             "생명과학",
             "과학탐구실험2",
             "통합사회2"
           ],
-          "why": "평균·분산·분포 해석 능력이 건강 데이터와 사회 조사 자료를 읽는 핵심 도구가 됨",
-          "student_output_hint": "건강 신호 분포 비교, 사회 조사 데이터 해석 보고서",
-          "priority": 2
+          "why": "평균·분산·분포 해석 능력은 건강 데이터와 사회 조사 자료를 읽는 핵심 도구가 된다.",
+          "student_output_hint": "건강 신호 분포 비교, 사회 조사 자료 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "건강",
+                "조사",
+                "자료",
+                "분포",
+                "통계"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "실생활 데이터",
+              "message": "선택한 키워드가 건강·사회 자료 해석과 맞아 생명·사회 데이터 해석 축이 함께 강화됩니다.",
+              "desc": "실생활 조사 자료와 분포를 연결해 해석하는 방향으로 이어집니다.",
+              "activity_examples": [
+                "생활 데이터 분포 비교 카드 만들기",
+                "건강·사회 조사 결과를 그래프로 해석하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "visualization_decision_axis",
+          "axis_title": "시각화·의사결정 지원 축",
+          "axis_short": "시각화 판단",
+          "axis_domain": "communication_data",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "공통국어2",
+            "통합과학2"
+          ],
+          "why": "통계량과 분포를 보기 좋게 정리하는 힘은 데이터 시각화와 의사결정 지원 활동으로 이어진다.",
+          "student_output_hint": "히스토그램·상자그림 비교, 판단 근거 시각화 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "시각화",
+                "비교",
+                "판단"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "그래프 해석",
+              "message": "선택한 키워드가 시각화와 비교 중심이라 시각화·의사결정 지원 축이 보조 강화됩니다.",
+              "desc": "데이터를 보이게 정리해 판단을 돕는 탐구 방향이 살아납니다."
+            }
+          ]
         }
       ]
     }
