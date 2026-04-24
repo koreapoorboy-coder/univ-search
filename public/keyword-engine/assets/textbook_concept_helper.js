@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1643,47 +1643,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
-
-  function getAxisKeywordRefinement(axis) {
-    const keyword = String(state.keyword || "").trim();
-    if (!keyword || !axis || !Array.isArray(axis.keyword_signals)) return null;
-
-    const axisBag = [
-      axis.axis_title || "",
-      axis.axis_short || "",
-      axis.why || "",
-      axis.student_output_hint || "",
-      ...(Array.isArray(axis.next_subjects) ? axis.next_subjects : [])
-    ].join(" ");
-
-    let best = null;
-
-    axis.keyword_signals.forEach(signal => {
-      const rawKeywords = Array.isArray(signal?.keywords)
-        ? signal.keywords
-        : (signal?.keywords ? [signal.keywords] : []);
-      const keywords = rawKeywords.map(item => String(item || "").trim()).filter(Boolean);
-      if (!keywords.length) return;
-
-      let matched = 0;
-      keywords.forEach(token => {
-        if (fuzzyIncludes(keyword, token) || fuzzyIncludes(token, keyword)) matched += 1;
-      });
-
-      if (!matched && (fuzzyIncludes(axisBag, keyword) || fuzzyIncludes(keyword, axisBag))) {
-        matched = 1;
-      }
-
-      if (!matched) return;
-
-      const score = Number(signal?.boost || 0) + (matched * 3);
-      if (!best || score > best.__score) {
-        best = { ...signal, __score: score };
-      }
-    });
-
-    return best;
-  }
   function getAxisCareerRelationMeta(subjectName, axisLike) {
     const careerText = [
       state.career || "",
@@ -1776,28 +1735,25 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const refinement = getAxisKeywordRefinement(axis);
-      const activityHint = refinement?.activity_hint || axis.student_output_hint || "";
       return {
         id: axis.axis_id,
-        title: refinement?.title || axis.axis_title,
-        short: refinement?.short || axis.axis_short || entry.concept_label || state.concept,
+        title: axis.axis_title,
+        short: entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: refinement?.desc || axis.why || "",
-        reason: refinement?.reason || relationMeta.message,
+        desc: axis.why || "",
+        reason: relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
-        easy: activityHint,
+        easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
         extensionKeywords: [],
-        activityExamples: activityHint ? [activityHint] : [],
+        activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
-        __priority: Number(axis.priority || 99),
-        __keywordBoost: Number(refinement?.boost || 0)
+        __priority: Number(axis.priority || 99)
       };
     });
   }
@@ -1812,7 +1768,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
-        score += Number(axis.__keywordBoost || 0);
         return { ...axis, __score: score };
       });
 
@@ -2457,15 +2412,35 @@ function getTrackMeta(trackId) {
     `).join("")}</div>`;
   }
 
+  function getReportLineMeta() {
+    return window.getReportOptionMeta ? window.getReportOptionMeta({
+      subject: state.subject,
+      career: state.career,
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
+      concept: state.concept,
+      keyword: state.keyword,
+      selectedBook: state.selectedBook,
+      reportMode: state.reportMode,
+      grade: ($("grade")?.value || "").trim()
+    }) : { reportLines: [], recommendedLine: "" };
+  }
+
   function getRecommendedReportLine() {
+    const meta = getReportLineMeta();
+    const reportLines = meta.reportLines || [];
+    const recommended = meta.recommendedLine || "";
+    const lineMap = { "기본형": "basic", "확장형": "standard", "심화형": "advanced", basic: "basic", standard: "standard", advanced: "advanced" };
+    if (recommended && lineMap[recommended]) return lineMap[recommended];
+
     const grade = ($("grade")?.value || "").trim();
     const taskType = ($("taskType")?.value || "").trim();
-    if (state.reportMode === "major") return "advanced";
-    if (grade === "고3") return "advanced";
-    if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return "standard";
-    if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return "standard";
-    if (grade === "고2") return "standard";
-    return "basic";
+    if (state.reportMode === "major") return reportLines.includes("심화형") ? "advanced" : "advanced";
+    if (grade === "고3") return reportLines.includes("심화형") ? "advanced" : "advanced";
+    if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return reportLines.includes("확장형") ? "standard" : "standard";
+    if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return reportLines.includes("확장형") ? "standard" : "standard";
+    if (grade === "고2") return reportLines.includes("확장형") ? "standard" : "standard";
+    return reportLines.includes("기본형") ? "basic" : "basic";
   }
 
   function renderReportLineArea() {
@@ -2475,10 +2450,14 @@ function getTrackMeta(trackId) {
       el.innerHTML = `<div class="engine-empty">먼저 보고서 관점을 선택해야 보고서 라인이 열립니다.</div>`;
       return;
     }
+    const meta = getReportLineMeta();
+    const allowedLabels = meta.reportLines || [];
+    const labelToId = { "기본형": "basic", "확장형": "standard", "심화형": "advanced", basic: "basic", standard: "standard", advanced: "advanced" };
+    const allowedIds = allowedLabels.map(label => labelToId[label]).filter(Boolean);
     if (!state.reportLine) {
       state.reportLine = getRecommendedReportLine();
     }
-    const entries = Object.values(REPORT_LINE_HELP);
+    const entries = (allowedIds.length ? Object.values(REPORT_LINE_HELP).filter(item => allowedIds.includes(item.id)) : Object.values(REPORT_LINE_HELP));
     const recommended = getRecommendedReportLine();
     const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || entries[0];
     el.innerHTML = `
