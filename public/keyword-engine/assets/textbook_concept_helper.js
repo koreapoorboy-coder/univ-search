@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
 
 (function () {
   function $(id) { return document.getElementById(id); }
