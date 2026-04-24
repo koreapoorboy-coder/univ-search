@@ -1193,22 +1193,28 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
     }
   }
 
+  let __majorPreviewSyncTimer = null;
+  let __majorPreviewFrame = null;
+
   function scheduleMajorPreviewSync() {
-    const refresh = function () {
-      try {
-        if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
-          window.__MAJOR_ENGINE_RENDER__();
+    if (__majorPreviewSyncTimer) clearTimeout(__majorPreviewSyncTimer);
+    if (__majorPreviewFrame) cancelAnimationFrame(__majorPreviewFrame);
+    __majorPreviewSyncTimer = setTimeout(function () {
+      __majorPreviewFrame = requestAnimationFrame(function () {
+        try {
+          if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
+            window.__MAJOR_ENGINE_RENDER__();
+          }
+        } catch (error) {
+          console.warn("major render refresh failed:", error);
         }
-      } catch (error) {
-        console.warn("major render refresh failed:", error);
-      }
-      syncMajorSelectionDetail(null);
-      if (!state.keyword) {
-        renderCareerKeywordPreview();
-      }
-      syncOutputFields();
-    };
-    [0, 80, 220].forEach(delay => setTimeout(refresh, delay));
+        syncMajorSelectionDetail(null);
+        if (!state.keyword) {
+          renderCareerKeywordPreview();
+        }
+        syncOutputFields();
+      });
+    }, 140);
   }
 
   function bindEvents() {
@@ -1223,19 +1229,46 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
 
     const careerEl = $("career");
     if (careerEl) {
-      ["input", "change"].forEach(evt => {
-        careerEl.addEventListener(evt, function () {
+      let careerInputDebounce = null;
+      const runCareerUpdate = function (immediate) {
+        const apply = function () {
           syncCareerFromInput();
           state.linkTrackSource = state.linkTrackSource || "";
           renderAll();
           scheduleMajorPreviewSync();
-        });
+        };
+        if (careerInputDebounce) clearTimeout(careerInputDebounce);
+        if (immediate) {
+          apply();
+          return;
+        }
+        careerInputDebounce = setTimeout(apply, 160);
+      };
+      careerEl.addEventListener("input", function () {
+        runCareerUpdate(false);
+      });
+      careerEl.addEventListener("change", function () {
+        runCareerUpdate(true);
       });
     }
 
+    let lastMajorSelectionSignature = "";
+    let majorSelectionRenderTimer = null;
     window.addEventListener("major-engine-selection-changed", function (event) {
-      syncMajorSelectionDetail(event?.detail || null);
-      renderAll();
+      const detail = event?.detail || null;
+      const signature = JSON.stringify({
+        display_name: detail?.display_name || "",
+        core_keywords: Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 8) : [],
+        group_label: detail?.comparison?.group_label || "",
+        selected_focus: detail?.comparison?.selected_focus || ""
+      });
+      if (signature === lastMajorSelectionSignature) return;
+      lastMajorSelectionSignature = signature;
+      syncMajorSelectionDetail(detail);
+      if (majorSelectionRenderTimer) clearTimeout(majorSelectionRenderTimer);
+      majorSelectionRenderTimer = setTimeout(function () {
+        renderAll();
+      }, 0);
     });
 
     document.addEventListener("click", function (event) {
