@@ -1,99 +1,447 @@
 {
   "subject_name": "미적분1",
+  "version": "v356-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "수열의 극한과 급수",
+      "concept_key": "수열의 극한과 급수",
       "concept_label": "수열-극한-급수",
+      "core_focus": "수열의 수렴과 발산, 등비수열, 수열의 극한, 무한급수, 부분합, 누적 변화와 규칙 해석",
       "longitudinal_axes": [
         {
-          "axis_id": "scale_limit_interpretation_axis",
+          "axis_id": "series_convergence_analysis_axis",
           "axis_title": "규모·수렴 해석 축",
-          "axis_domain": "math",
+          "axis_short": "수렴·규모 해석",
+          "axis_domain": "math_data",
+          "priority": 1,
           "next_subjects": [
-            "대수",
             "확률과 통계",
-            "정보"
+            "정보",
+            "대수"
           ],
-          "why": "수열과 급수의 수렴 구조를 해석하는 사고가 규모 변화와 누적 경향을 수식·데이터 관점으로 읽는 기초가 됨",
-          "student_output_hint": "부분합 비교, 수렴·발산 판정, 누적 변화 해석 보고서",
-          "priority": 1
+          "why": "수열과 급수의 수렴 구조를 읽는 힘은 누적 변화와 규모 차이를 데이터로 해석하는 기초가 된다.",
+          "student_output_hint": "부분합 비교표, 수렴·발산 판정 카드, 누적 변화 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "수렴",
+                "발산",
+                "극한",
+                "무한급수",
+                "부분합"
+              ],
+              "boost": 20,
+              "short": "수렴 판정",
+              "short_label": "수렴 판정",
+              "desc": "선택한 키워드가 수열의 수렴과 발산을 직접 다루어 규모·수렴 해석 축이 1순위로 강화됩니다.",
+              "reason": "극한값의 존재 여부와 누적 패턴을 해석하는 방향으로 종단 연결이 선명해집니다.",
+              "message": "극한값의 존재 여부와 누적 패턴을 해석하는 방향으로 종단 연결이 선명해집니다.",
+              "activity_hint": "부분합 변화 그래프 그리기 / 수렴·발산 사례 비교 카드 작성",
+              "activity_examples": [
+                "부분합 변화 그래프 그리기",
+                "수렴·발산 사례 비교 카드 작성"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "등비수열",
+                "비율",
+                "일반항"
+              ],
+              "boost": 14,
+              "short": "비율 누적",
+              "short_label": "비율 누적",
+              "desc": "선택한 키워드가 비율 변화와 누적 구조를 읽는 방향과 맞아 규모·수렴 해석 축이 보강됩니다.",
+              "reason": "비율과 일반항을 통해 장기 변화를 예측하는 탐구로 이어집니다.",
+              "message": "비율과 일반항을 통해 장기 변화를 예측하는 탐구로 이어집니다.",
+              "activity_hint": "등비수열과 실제 성장 자료 연결하기",
+              "activity_examples": [
+                "등비수열과 실제 성장 자료 연결하기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
         },
         {
-          "axis_id": "wave_frequency_limit_axis",
+          "axis_id": "wave_periodic_model_axis",
           "axis_title": "파동·주기 모델링 축",
+          "axis_short": "주기 모델링",
           "axis_domain": "physics",
+          "priority": 2,
           "next_subjects": [
             "물리",
             "역학과 에너지",
             "전자기와 양자"
           ],
-          "why": "반복과 주기, 무한 과정을 해석하는 사고가 파동·진동과 주파수 모델 탐구로 이어짐",
-          "student_output_hint": "주기 수열 비교, 파동 패턴 해석, 진동 모델 보고서",
-          "priority": 2
+          "why": "반복과 누적을 해석하는 사고는 파동, 진동, 주기 현상을 수학적으로 읽는 모델로 확장되기 쉽다.",
+          "student_output_hint": "주기 수열 패턴과 파동 자료를 비교한 모델링 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "주기",
+                "반복",
+                "진동",
+                "파동"
+              ],
+              "boost": 18,
+              "short": "주기·진동",
+              "short_label": "주기·진동",
+              "desc": "선택한 키워드가 반복과 주기 현상을 직접 가리켜 파동·주기 모델링 축이 강하게 올라갑니다.",
+              "reason": "수열 패턴을 파동과 진동 데이터 해석으로 연결하는 방향이 강화됩니다.",
+              "message": "수열 패턴을 파동과 진동 데이터 해석으로 연결하는 방향이 강화됩니다.",
+              "activity_hint": "반복 수열과 파동 그래프 대응표 만들기",
+              "activity_examples": [
+                "반복 수열과 파동 그래프 대응표 만들기"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "규칙",
+                "패턴"
+              ],
+              "boost": 10,
+              "short": "패턴 연결",
+              "short_label": "패턴 연결",
+              "desc": "선택한 키워드가 규칙 반복 구조와 맞아 파동·주기 모델링 축이 보조 강화됩니다.",
+              "reason": "규칙이 반복되는 현상을 물리적 주기 모델과 연결해 보는 탐구입니다.",
+              "message": "규칙이 반복되는 현상을 물리적 주기 모델과 연결해 보는 탐구입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "finance_accumulation_prediction_axis",
+          "axis_title": "금융·누적 데이터 예측 축",
+          "axis_short": "누적 예측",
+          "axis_domain": "social_data",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회1",
+            "통합사회2",
+            "확률과 통계"
+          ],
+          "why": "급수와 누적량 해석은 복리, 상환, 장기 누적 데이터처럼 사회·경제 자료를 읽는 힘으로도 연결된다.",
+          "student_output_hint": "복리·저축 누적표, 장기 변화 예측 자료 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "복리",
+                "누적",
+                "증가",
+                "감소",
+                "예측"
+              ],
+              "boost": 16,
+              "short": "금융 예측",
+              "short_label": "금융 예측",
+              "desc": "선택한 키워드가 장기 누적과 예측 판단에 맞닿아 금융·누적 데이터 예측 축이 강화됩니다.",
+              "reason": "수열과 급수를 실제 저축·감소 모델과 연결하는 탐구 방향입니다.",
+              "message": "수열과 급수를 실제 저축·감소 모델과 연결하는 탐구 방향입니다.",
+              "activity_hint": "복리 증가 자료를 수열로 표현하기",
+              "activity_examples": [
+                "복리 증가 자료를 수열로 표현하기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "미분과 변화율 해석",
+      "concept_key": "미분과 변화율 해석",
       "concept_label": "미분-변화율-접선",
+      "core_focus": "미분계수, 순간변화율, 접선의 기울기, 그래프 개형, 증가·감소, 최댓값과 최솟값, 최적화",
       "longitudinal_axes": [
         {
           "axis_id": "change_optimization_axis",
           "axis_title": "변화·최적화 해석 축",
-          "axis_domain": "physics",
+          "axis_short": "변화·최적화",
+          "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
+            "기하",
             "역학과 에너지",
-            "물리",
-            "기하"
+            "정보"
           ],
-          "why": "순간 변화와 그래프 개형을 해석하는 사고가 속도·가속도와 최적화 문제 해석의 핵심 도구가 됨",
-          "student_output_hint": "그래프 개형 비교, 변화율 해석, 최적화 보고서",
-          "priority": 1
+          "why": "순간변화율과 접선 기울기를 읽는 힘은 최적화와 그래프 기반 판단의 핵심 도구가 된다.",
+          "student_output_hint": "함수 증가·감소 표, 최적화 조건 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "미분계수",
+                "순간변화율",
+                "접선의 기울기",
+                "증가와 감소"
+              ],
+              "boost": 20,
+              "short": "변화율 해석",
+              "short_label": "변화율 해석",
+              "desc": "선택한 키워드가 변화율 해석의 핵심이라 변화·최적화 해석 축이 1순위로 강화됩니다.",
+              "reason": "그래프의 기울기와 변화 방향을 읽는 종단 연결이 선명해집니다.",
+              "message": "그래프의 기울기와 변화 방향을 읽는 종단 연결이 선명해집니다.",
+              "activity_hint": "접선 기울기와 변화율 비교표 작성 / 그래프 증가·감소 구간 설명 카드 만들기",
+              "activity_examples": [
+                "접선 기울기와 변화율 비교표 작성",
+                "그래프 증가·감소 구간 설명 카드 만들기"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "최댓값",
+                "최솟값",
+                "최적화"
+              ],
+              "boost": 16,
+              "short": "최적화 판단",
+              "short_label": "최적화 판단",
+              "desc": "선택한 키워드가 최적 조건 판단과 맞닿아 변화·최적화 해석 축을 보강합니다.",
+              "reason": "문제를 가장 효율적인 상태로 만드는 수학적 판단 탐구로 이어집니다.",
+              "message": "문제를 가장 효율적인 상태로 만드는 수학적 판단 탐구로 이어집니다.",
+              "activity_hint": "최적화 사례를 그래프로 해석하기",
+              "activity_examples": [
+                "최적화 사례를 그래프로 해석하기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
         },
         {
-          "axis_id": "data_efficiency_axis",
-          "axis_title": "데이터 변환·효율 축",
-          "axis_domain": "data",
+          "axis_id": "motion_speed_acceleration_axis",
+          "axis_title": "운동·속도 분석 축",
+          "axis_short": "속도·가속도",
+          "axis_domain": "physics",
+          "priority": 2,
+          "next_subjects": [
+            "물리",
+            "역학과 에너지",
+            "과학탐구실험2"
+          ],
+          "why": "변화율 해석은 속도와 가속도, 운동 상태 변화처럼 물리 현상을 설명하는 직접 도구로 이어진다.",
+          "student_output_hint": "속도-시간 자료 해석, 운동 그래프 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "속도",
+                "가속도",
+                "위치",
+                "시간"
+              ],
+              "boost": 18,
+              "short": "운동 해석",
+              "short_label": "운동 해석",
+              "desc": "선택한 키워드가 운동량 변화를 직접 가리켜 운동·속도 분석 축이 강하게 올라갑니다.",
+              "reason": "변화율을 실제 운동 데이터와 연결해 설명하는 방향이 강화됩니다.",
+              "message": "변화율을 실제 운동 데이터와 연결해 설명하는 방향이 강화됩니다.",
+              "activity_hint": "위치-속도-가속도 관계 정리하기",
+              "activity_examples": [
+                "위치-속도-가속도 관계 정리하기"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "그래프",
+                "접선"
+              ],
+              "boost": 11,
+              "short": "그래프 분석",
+              "short_label": "그래프 분석",
+              "desc": "선택한 키워드가 운동 그래프 해석과 맞아 운동·속도 분석 축이 보조 강화됩니다.",
+              "reason": "그래프 접선의 의미를 실제 운동 상황으로 옮겨 보는 탐구입니다.",
+              "message": "그래프 접선의 의미를 실제 운동 상황으로 옮겨 보는 탐구입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "data_efficiency_trend_axis",
+          "axis_title": "데이터 변화율·효율 축",
+          "axis_short": "데이터 효율",
+          "axis_domain": "data_info",
+          "priority": 3,
           "next_subjects": [
             "정보",
-            "컴퓨터공학",
-            "산업공학"
+            "확률과 통계",
+            "통합사회2"
           ],
-          "why": "변화율을 비교하는 사고가 데이터 처리 효율과 알고리즘 성능 판단 구조로 확장됨",
-          "student_output_hint": "센서 데이터 변화 비교, 효율 분석, 최적화 사례 보고서",
-          "priority": 2
+          "why": "변화량을 비교하는 사고는 센서 데이터 변화, 효율 판단, 추세 비교와 같은 데이터 해석 활동에도 자연스럽게 이어진다.",
+          "student_output_hint": "효율 변화 그래프, 추세 비교 카드, 데이터 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "효율",
+                "추세",
+                "증가율",
+                "감소율",
+                "데이터"
+              ],
+              "boost": 15,
+              "short": "효율 판단",
+              "short_label": "효율 판단",
+              "desc": "선택한 키워드가 데이터의 변화 속도와 효율 판단에 맞아 데이터 변화율·효율 축이 강화됩니다.",
+              "reason": "변화율을 수치 데이터의 추세 비교와 의사결정으로 연결하는 탐구 방향입니다.",
+              "message": "변화율을 수치 데이터의 추세 비교와 의사결정으로 연결하는 탐구 방향입니다.",
+              "activity_hint": "센서 데이터 증가율 비교하기",
+              "activity_examples": [
+                "센서 데이터 증가율 비교하기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "적분과 누적량 모델링",
+      "concept_key": "적분과 누적량 모델링",
       "concept_label": "적분-누적량-모델링",
+      "core_focus": "부정적분, 정적분, 넓이, 누적량, 속도와 이동거리, 곡선 아래 넓이, 실제 자료의 누적 해석",
       "longitudinal_axes": [
         {
-          "axis_id": "area_volume_modeling_axis",
-          "axis_title": "넓이·부피 모델링 축",
-          "axis_domain": "engineering",
+          "axis_id": "area_accumulation_model_axis",
+          "axis_title": "넓이·누적량 모델링 축",
+          "axis_short": "넓이·누적량",
+          "axis_domain": "math_engineering",
+          "priority": 1,
           "next_subjects": [
             "기하",
-            "건축공학",
-            "항공우주공학"
+            "건축학",
+            "건축공학"
           ],
-          "why": "정적분을 누적량으로 해석하는 사고가 넓이·부피·구조 해석과 공간 모델링의 기초가 됨",
-          "student_output_hint": "단면 부피 모델, 넓이·거리 비교, 공간 구조 보고서",
-          "priority": 1
+          "why": "정적분을 넓이와 누적량으로 읽는 힘은 공간 모델과 구조적 누적 해석의 핵심 기초가 된다.",
+          "student_output_hint": "곡선 아래 넓이 비교표, 누적량 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "정적분",
+                "넓이",
+                "누적량",
+                "곡선 아래 넓이"
+              ],
+              "boost": 20,
+              "short": "누적량 모델링",
+              "short_label": "누적량 모델링",
+              "desc": "선택한 키워드가 적분의 핵심 의미를 직접 가리켜 넓이·누적량 모델링 축이 1순위로 강화됩니다.",
+              "reason": "넓이와 누적량을 실제 모델로 바꾸어 해석하는 종단 연결이 선명해집니다.",
+              "message": "넓이와 누적량을 실제 모델로 바꾸어 해석하는 종단 연결이 선명해집니다.",
+              "activity_hint": "곡선 아래 넓이로 누적량 설명하기 / 정적분과 실제 누적 데이터 연결하기",
+              "activity_examples": [
+                "곡선 아래 넓이로 누적량 설명하기",
+                "정적분과 실제 누적 데이터 연결하기"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "부정적분",
+                "원시함수"
+              ],
+              "boost": 12,
+              "short": "역관계 해석",
+              "short_label": "역관계 해석",
+              "desc": "선택한 키워드가 적분의 역관계를 이해하는 방향과 맞아 넓이·누적량 모델링 축이 보강됩니다.",
+              "reason": "변화와 누적의 역관계를 구조적으로 설명하는 탐구입니다.",
+              "message": "변화와 누적의 역관계를 구조적으로 설명하는 탐구입니다."
+            }
+          ]
         },
         {
-          "axis_id": "motion_accumulation_axis",
-          "axis_title": "운동·누적 데이터 축",
-          "axis_domain": "data",
+          "axis_id": "motion_distance_data_axis",
+          "axis_title": "운동·면적 데이터 해석 축",
+          "axis_short": "운동 누적 해석",
+          "axis_domain": "physics_data",
+          "priority": 2,
           "next_subjects": [
             "물리",
-            "과학탐구실험1",
-            "정보"
+            "역학과 에너지",
+            "과학탐구실험2"
           ],
-          "why": "변화가 누적된 결과를 계산하는 사고가 운동 데이터와 누적 측정값 해석으로 이어짐",
-          "student_output_hint": "거리-시간 자료 해석, 누적 데이터 그래프, 이동량 보고서",
-          "priority": 2
+          "why": "속도-시간 그래프 아래 넓이처럼 적분은 운동 자료를 누적 이동거리로 해석하는 데 직접 연결된다.",
+          "student_output_hint": "속도-시간 그래프와 이동거리 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "속도",
+                "이동거리",
+                "시간",
+                "면적"
+              ],
+              "boost": 18,
+              "short": "운동 누적",
+              "short_label": "운동 누적",
+              "desc": "선택한 키워드가 속도-시간 자료의 누적 해석과 맞닿아 운동·면적 데이터 해석 축이 강하게 올라갑니다.",
+              "reason": "그래프 면적을 이동거리와 연결해 읽는 방향이 강화됩니다.",
+              "message": "그래프 면적을 이동거리와 연결해 읽는 방향이 강화됩니다.",
+              "activity_hint": "속도-시간 그래프 아래 넓이로 이동거리 구하기",
+              "activity_examples": [
+                "속도-시간 그래프 아래 넓이로 이동거리 구하기"
+              ],
+              "label": "키워드 직접 반영"
+            },
+            {
+              "keywords": [
+                "그래프",
+                "구간"
+              ],
+              "boost": 10,
+              "short": "구간 누적",
+              "short_label": "구간 누적",
+              "desc": "선택한 키워드가 구간별 누적량 해석과 맞아 운동·면적 데이터 해석 축이 보조 강화됩니다.",
+              "reason": "구간별 면적과 누적량을 비교하는 탐구입니다.",
+              "message": "구간별 면적과 누적량을 비교하는 탐구입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "bio_env_accumulation_axis",
+          "axis_title": "생명·환경 누적 변화 축",
+          "axis_short": "생명·환경 누적",
+          "axis_domain": "bio_env",
+          "priority": 3,
+          "next_subjects": [
+            "세포와 물질대사",
+            "지구시스템과학",
+            "통합과학2"
+          ],
+          "why": "적분의 누적 관점은 농도 변화, 에너지 누적, 오염 축적처럼 생명·환경 자료를 장기적으로 읽는 힘으로 확장된다.",
+          "student_output_hint": "농도·오염 누적 변화 시각화 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "농도",
+                "에너지",
+                "축적",
+                "오염",
+                "누적 변화"
+              ],
+              "boost": 15,
+              "short": "환경 누적",
+              "short_label": "환경 누적",
+              "desc": "선택한 키워드가 장기 축적과 변화 누적에 맞아 생명·환경 누적 변화 축이 강화됩니다.",
+              "reason": "적분 개념을 실제 생명·환경 데이터의 누적 해석으로 연결하는 방향입니다.",
+              "message": "적분 개념을 실제 생명·환경 데이터의 누적 해석으로 연결하는 방향입니다.",
+              "activity_hint": "미세먼지 농도 누적 그래프 해석하기",
+              "activity_examples": [
+                "미세먼지 농도 누적 그래프 해석하기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
         }
       ]
     }
