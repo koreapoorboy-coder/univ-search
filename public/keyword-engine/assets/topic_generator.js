@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
+window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
 
 (function(){
   const BOOK_URLS = [
@@ -103,6 +103,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
       evidence_types: uniq(coerceArray(card.evidence_types)),
       direct_match: direct,
       expand_reference: expand,
+      axis_profile: card.axis_profile || null,
       card_version: card.card_version || "draft_v1"
     };
   }
@@ -349,9 +350,29 @@ window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
     };
   }
 
+  function getCardAxisProfile(reportCard){
+    const profile = reportCard?.axis_profile || {};
+    return {
+      primary_axis: String(profile?.primary_axis || "").trim(),
+      secondary_axes: uniq(coerceArray(profile?.secondary_axes).map(v => String(v || "").trim())),
+      axis_domains: uniq(coerceArray(profile?.axis_domains).map(v => String(v || "").trim().toLowerCase()))
+    };
+  }
+
+  function getAxisDomainFromTitle(axisTitle){
+    const registry = getAxisPatternRegistry();
+    const entry = Object.entries(registry).find(([, meta]) =>
+      axisTitle && meta.titles.some(title => fuzzyIncludes(axisTitle, title) || fuzzyIncludes(title, axisTitle))
+    );
+    return entry ? entry[0] : "";
+  }
+
   function detectBookAxisDomains(book){
     const reportCard = getReportCardByBookId(book?.book_id);
+    const profile = getCardAxisProfile(reportCard);
     const axes = uniq([
+      profile.primary_axis,
+      ...profile.secondary_axes,
       ...coerceArray(reportCard?.direct_match?.followup_axes),
       ...coerceArray(reportCard?.expand_reference?.followup_axes)
     ]);
@@ -366,7 +387,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
       ...axes
     ].join(" ");
     const registry = getAxisPatternRegistry();
-    const domains = [];
+    const domains = [...profile.axis_domains];
     Object.entries(registry).forEach(([domain, meta]) => {
       if (axes.some(v => meta.titles.some(title => fuzzyIncludes(v, title)))) {
         domains.push(domain);
@@ -380,20 +401,33 @@ window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
   function getAxisAffinity(book, ctx){
     const axis = getSelectedAxisContext(ctx);
     if (!axis.id && !axis.title && !axis.domain && !axis.legacyTrack) {
-      return { score: 0, reasons: [], exactTitleHit: false, domainHit: false, legacyHit: false, anyHit: false };
+      return {
+        score: 0,
+        reasons: [],
+        primaryTitleHit: false,
+        secondaryTitleHit: false,
+        exactTitleHit: false,
+        domainHit: false,
+        legacyHit: false,
+        anyHit: false
+      };
     }
 
     const reportCard = getReportCardByBookId(book?.book_id);
+    const profile = getCardAxisProfile(reportCard);
     const explicitAxes = uniq([
+      profile.primary_axis,
+      ...profile.secondary_axes,
       ...coerceArray(reportCard?.direct_match?.followup_axes),
       ...coerceArray(reportCard?.expand_reference?.followup_axes)
     ]);
     const inferredDomains = detectBookAxisDomains(book);
     const registry = getAxisPatternRegistry();
 
+    const primaryTitleHit = !!axis.title && !!profile.primary_axis && fuzzyIncludes(profile.primary_axis, axis.title);
+    const secondaryTitleHit = !!axis.title && profile.secondary_axes.some(v => fuzzyIncludes(v, axis.title));
     const exactTitleHit = !!axis.title && explicitAxes.some(v => fuzzyIncludes(v, axis.title));
-    const titleRegistryEntry = Object.entries(registry).find(([, meta]) => axis.title && meta.titles.some(title => fuzzyIncludes(axis.title, title) || fuzzyIncludes(title, axis.title)));
-    const titleDomain = titleRegistryEntry ? titleRegistryEntry[0] : "";
+    const titleDomain = axis.title ? (getAxisDomainFromTitle(axis.title) || getAxisDomainFromTitle(profile.primary_axis)) : "";
     const domainTarget = axis.domain || titleDomain || (axis.legacyTrack === 'earth' ? 'earth_env' : axis.legacyTrack);
     const domainHit = !!domainTarget && inferredDomains.includes(domainTarget);
     const legacyTarget = axis.legacyTrack === 'earth' ? 'earth_env' : axis.legacyTrack;
@@ -401,31 +435,50 @@ window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
 
     let score = 0;
     const reasons = [];
-    if (exactTitleHit) {
-      score += 34;
+
+    if (primaryTitleHit) {
+      score += 42;
+      reasons.push("대표 축 일치");
+    } else if (exactTitleHit) {
+      score += 28;
       reasons.push("선택 축 직접 일치");
     }
-    if (!exactTitleHit && domainHit) {
-      score += 24;
+
+    if (!primaryTitleHit && secondaryTitleHit) {
+      score += 16;
+      reasons.push("보조 축 일치");
+    }
+
+    if (!primaryTitleHit && !exactTitleHit && domainHit) {
+      score += 18;
       reasons.push("선택 축 핵심 연계");
     }
-    if (!exactTitleHit && !domainHit && legacyHit) {
-      score += 12;
+
+    if (!primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && legacyHit) {
+      score += 10;
       reasons.push("선택 축 보조 연계");
     }
-    if ((axis.title || axis.domain || axis.legacyTrack) && !exactTitleHit && !domainHit && !legacyHit) {
+
+    if ((axis.title || axis.domain || axis.legacyTrack) && profile.primary_axis && !primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && !legacyHit) {
+      score -= 16;
+      reasons.push("대표 축 불일치");
+    } else if ((axis.title || axis.domain || axis.legacyTrack) && !primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && !legacyHit) {
       score -= 10;
     }
 
     return {
       score,
       reasons,
+      primaryTitleHit,
+      secondaryTitleHit,
       exactTitleHit,
       domainHit,
       legacyHit,
-      anyHit: exactTitleHit || domainHit || legacyHit,
+      anyHit: primaryTitleHit || exactTitleHit || secondaryTitleHit || domainHit || legacyHit,
       explicitAxes,
-      inferredDomains
+      inferredDomains,
+      profilePrimary: profile.primary_axis,
+      profileSecondary: profile.secondary_axes
     };
   }
 
@@ -733,7 +786,9 @@ function classifyRecommendation(item, ctx){
     );
 
     if (hasAxisContext) {
+      if (axisAffinity.primaryTitleHit && item.score >= 16) return "direct";
       if (axisAffinity.exactTitleHit && item.score >= 18) return "direct";
+      if (axisAffinity.secondaryTitleHit && isDirectBase && item.score >= 16) return "direct";
       if (axisAffinity.anyHit && isDirectBase && item.score >= 16) return "direct";
       if (isDirectBase && !axisAffinity.anyHit) return strictBucket ? "drop" : "explore";
     }
@@ -771,9 +826,15 @@ function getBookRecommendationSections(ctx){
     const targetDirectMin = isStrictCareerBucket(bucket) ? 2 : (bucket === "bio" ? 3 : 2);
 
     const axisAwareDirect = directCandidates.slice().sort((a, b) => {
+      const aPrimary = a.axisAffinity?.primaryTitleHit ? 1 : 0;
+      const bPrimary = b.axisAffinity?.primaryTitleHit ? 1 : 0;
+      if (bPrimary !== aPrimary) return bPrimary - aPrimary;
       const aExact = a.axisAffinity?.exactTitleHit ? 1 : 0;
       const bExact = b.axisAffinity?.exactTitleHit ? 1 : 0;
       if (bExact !== aExact) return bExact - aExact;
+      const aSecondary = a.axisAffinity?.secondaryTitleHit ? 1 : 0;
+      const bSecondary = b.axisAffinity?.secondaryTitleHit ? 1 : 0;
+      if (bSecondary !== aSecondary) return bSecondary - aSecondary;
       const aAny = a.axisAffinity?.anyHit ? 1 : 0;
       const bAny = b.axisAffinity?.anyHit ? 1 : 0;
       if (bAny !== aAny) return bAny - aAny;
