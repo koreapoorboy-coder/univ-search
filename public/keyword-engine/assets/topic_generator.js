@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.6-integrated-master-priority";
+window.__TOPIC_GENERATOR_VERSION = "v24.7-is2-recovery";
 
 (function(){
   const BOOK_URLS = [
@@ -146,10 +146,87 @@ window.__TOPIC_GENERATOR_VERSION = "v24.6-integrated-master-priority";
     };
   }
 
+  function buildFallbackBookId(book, index){
+    const uid = String(book?.book_uid || book?.source_book_uid || book?.catalog_no || '').trim();
+    if (uid) return uid;
+    const title = String(book?.title || '').trim();
+    if (title) return `book_auto_${normalize(title).slice(0, 40)}`;
+    return `book_auto_${index}`;
+  }
+
+  function normalizeIntegratedMasterBook(book, index){
+    if (!book || typeof book !== "object") return null;
+    const conceptRoutes = coerceArray(book.concept_bridges).map(bridge => ({
+      subject: bridge?.subject || "",
+      concept: bridge?.concept || "",
+      micro_keywords: coerceArray(bridge?.micro_keywords),
+      why_linked: bridge?.why_linked || "",
+      activity_types: coerceArray(bridge?.activity_types),
+      career_bridge: coerceArray(bridge?.career_bridge)
+    }));
+    return {
+      ...book,
+      book_id: String(book.book_id || '').trim() || buildFallbackBookId(book, index),
+      source_book_uid: String(book.source_book_uid || book.book_uid || '').trim() || buildFallbackBookId(book, index),
+      summary_short: String(book.summary_short || book.selection_summary || '').trim(),
+      book_core_summary: String(book.book_core_summary || book.selection_summary || book.summary_short || '').trim(),
+      linked_subjects: uniq([
+        ...coerceArray(book.linked_subjects),
+        ...coerceArray(book.linked_subjects_runtime),
+        ...coerceArray(book?.direct_match?.subjects),
+        ...coerceArray(book?.expand_reference?.subjects),
+        ...conceptRoutes.map(route => route.subject)
+      ]),
+      linked_majors: uniq([
+        ...coerceArray(book.linked_majors),
+        ...coerceArray(book.linked_majors_runtime),
+        ...coerceArray(book?.direct_match?.majors),
+        ...coerceArray(book?.expand_reference?.majors)
+      ]),
+      related_majors: uniq([
+        ...coerceArray(book.related_majors),
+        ...coerceArray(book.linked_majors_runtime),
+        ...coerceArray(book.bridge_major_candidates)
+      ]),
+      fit_keywords: uniq([
+        ...coerceArray(book.fit_keywords),
+        ...coerceArray(book.fit_keywords_raw),
+        ...coerceArray(book?.direct_match?.keywords),
+        ...coerceArray(book?.expand_reference?.fit_keywords)
+      ]),
+      broad_theme: uniq([
+        ...coerceArray(book.broad_theme),
+        ...coerceArray(book.broad_theme_runtime),
+        ...coerceArray(book.recommended_themes_raw),
+        ...coerceArray(book?.expand_reference?.themes)
+      ]),
+      book_keywords: uniq([
+        ...coerceArray(book.book_keywords),
+        ...coerceArray(book.fit_keywords_raw),
+        ...coerceArray(book.recommended_themes_raw),
+        ...coerceArray(book.inquiry_points_raw)
+      ]),
+      engine_subject_routes: conceptRoutes,
+      connectable_concepts: uniq([
+        ...coerceArray(book.connectable_concepts),
+        ...coerceArray(book?.direct_match?.concepts),
+        ...conceptRoutes.map(route => route.concept)
+      ]),
+      report_modes: uniq(coerceArray(book.report_modes).map(v => v === "case" ? "application" : (v === "career" ? "major" : v))),
+      perspectives: uniq(coerceArray(book.perspectives)),
+      report_lines: uniq(coerceArray(book.report_lines)),
+      question_seeds: uniq(coerceArray(book.question_seeds)),
+      evidence_types: uniq(coerceArray(book.evidence_types))
+    };
+  }
+
   function extractIntegratedBooks(data){
     if (!data || typeof data !== "object") return [];
     const list = Array.isArray(data?.books) ? data.books : [];
-    return list.filter(book => book && typeof book === "object" && book.book_card_ready !== false);
+    return list
+      .filter(book => book && typeof book === "object" && book.book_card_ready !== false)
+      .map((book, index) => normalizeIntegratedMasterBook(book, index))
+      .filter(Boolean);
   }
 
 function getReportCardByBookId(bookId){
