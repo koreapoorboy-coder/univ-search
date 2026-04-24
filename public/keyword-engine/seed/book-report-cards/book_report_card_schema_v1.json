@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0-draft",
+  "description": "5번 도서 선택 + 6/7/8번 보고서 전개 연결용 도서 재료 카드 스키마",
+  "top_level_fields": {
+    "book_id": "string",
+    "source_book_uid": "string",
+    "catalog_no": "integer|null",
+    "title": "string",
+    "author": "string",
+    "publisher": "string",
+    "status": "string",
+    "card_version": "string",
+    "summary_short": "string",
+    "direct_match": {
+      "subjects": [
+        "string"
+      ],
+      "concepts": [
+        "string"
+      ],
+      "keywords": [
+        "string"
+      ]
+    },
+    "expand_reference": {
+      "subjects": [
+        "string"
+      ],
+      "majors": [
+        "string"
+      ],
+      "themes": [
+        "string"
+      ],
+      "fit_keywords": [
+        "string"
+      ],
+      "followup_axes": [
+        "string"
+      ]
+    },
+    "report_modes": [
+      "principle|compare|data|case|major"
+    ],
+    "perspectives": [
+      "원리|구조|기능|변화|효율|데이터 처리|정확도|비교"
+    ],
+    "report_lines": [
+      "기본형|확장형|심화형"
+    ],
+    "question_seeds": [
+      "string"
+    ],
+    "evidence_types": [
+      "원리|데이터|사례|실험"
+    ],
+    "concept_bridges": [
+      {
+        "subject": "string",
+        "concept": "string",
+        "unit": "string",
+        "micro_keywords": [
+          "string"
+        ],
+        "why_linked": "string",
+        "activity_types": [
+          "string"
+        ],
+        "career_bridge": [
+          "string"
+        ]
+      }
+    ],
+    "ui_hints": {
+      "preferred_slot": "direct_match|expand_reference",
+      "needs_human_review": "boolean",
+      "review_reason": [
+        "string"
+      ]
+    }
+  },
+  "ui_usage": {
+    "step5": {
+      "direct_match_books": "direct_match.concepts 또는 direct_match.keywords가 현재 1~4번 선택과 직접 연결되는 도서",
+      "expand_reference_books": "expand_reference.followup_axes 또는 expand_reference.majors로 확장 참고 역할을 하는 도서"
+    },
+    "step6": {
+      "mode_labels": {
+        "principle": "원리 파악형",
+        "compare": "비교 분석형",
+        "data": "데이터 확장형",
+        "case": "사례 적용형",
+        "major": "전공 확장형"
+      }
+    },
+    "step7": {
+      "perspective_labels": [
+        "원리",
+        "구조",
+        "기능",
+        "변화",
+        "효율",
+        "데이터 처리",
+        "정확도",
+        "비교"
+      ]
+    },
+    "step8": {
+      "line_labels": [
+        "기본형",
+        "확장형",
+        "심화형"
+      ]
+    }
+  },
+  "engine_policy": {
+    "step5_priority": [
+      "1~4번에서 선택된 subject/concept/keyword 직접 일치 우선",
+      "그다음 followup_axis 1~3순위 일치",
+      "그다음 major 일치",
+      "마지막으로 확장 참고 도서 후보 제시"
+    ],
+    "open_release_scope": [
+      "status=active 도서만 사용",
+      "5번은 direct_match 1~2권 + expand_reference 1권 구조 권장",
+      "raw starter_questions 전체 노출 금지, question_seeds만 정제 후 사용"
+    ]
+  }
+}
