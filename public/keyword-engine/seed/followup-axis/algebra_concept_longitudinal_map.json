@@ -1,227 +1,1050 @@
 {
   "subject_name": "대수",
+  "version": "v354-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": "같은 개념 안에서는 추천 키워드가 4번 후속 연계축의 점수, 짧은 라벨, 설명 문구를 미세 조정한다."
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "거듭제곱과 거듭제곱근",
-      "concept_label": "지수-근호-규모",
-      "longitudinal_axes": [
+      "concept_key": "거듭제곱과 거듭제곱근",
+      "concept_label": "지수 표현·근호 기초",
+      "core_focus": "거듭제곱, 거듭제곱근, n제곱근, 근호, 실수인 근, 지수 표현과 근호 연산의 기초",
+      "axes": [
         {
-          "axis_id": "scale_expression_axis",
-          "axis_title": "규모·단위 해석 축",
-          "axis_domain": "data",
+          "axis_id": "exponential_representation_base",
+          "axis_title": "지수 표현·수량 해석 축",
+          "axis_short": "지수 표현",
+          "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
-            "통합과학2",
-            "지구과학",
-            "물리"
+            "대수",
+            "물리",
+            "지구과학"
           ],
-          "why": "큰 수·작은 수와 단위 규모를 지수 표현으로 해석하는 사고가 과학 자료 읽기의 기초가 됨",
-          "student_output_hint": "천체 거리·미시 세계 크기 비교, 단위 접두어 탐구 보고서",
-          "priority": 1
+          "why": "큰 수와 작은 수를 지수와 근호로 표현하는 기초가 이후 과학·공학 수량 해석으로 이어짐",
+          "student_output_hint": "지수·근호 변환표, 수량 규모 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "거듭제곱",
+                "거듭제곱근",
+                "n제곱근",
+                "근호"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "근호·지수",
+              "message": "선택한 키워드가 지수 표현과 근호 해석의 핵심이라 지수 표현·수량 해석 축이 1순위로 강화됩니다.",
+              "desc": "수량을 지수와 근호로 바꾸어 해석하는 방향의 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "근호와 지수 표현 비교표 만들기",
+                "큰 수·작은 수의 지수 표현 사례 정리"
+              ]
+            },
+            {
+              "keywords": [
+                "실수인 근",
+                "밑",
+                "지수"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "표현 조건",
+              "message": "선택한 키워드가 표현 조건과 수 체계 이해를 요구해 지수 표현 축이 보강됩니다.",
+              "desc": "표현 가능 조건과 수의 범위를 따지는 탐구로 이어집니다."
+            }
+          ]
         },
         {
-          "axis_id": "wave_frequency_axis",
-          "axis_title": "파동·주파수 모델링 축",
-          "axis_domain": "physics",
+          "axis_id": "physical_quantity_scale",
+          "axis_title": "물리량 규모·단위 해석 축",
+          "axis_short": "규모·단위",
+          "axis_domain": "science",
+          "priority": 2,
           "next_subjects": [
-            "물리",
-            "역학과 에너지",
-            "전자기와 양자"
+            "통합과학2",
+            "과학탐구실험1",
+            "물리"
           ],
-          "why": "거듭제곱과 근호 관계는 주파수·에너지 규모를 해석하는 수학적 표현으로 이어짐",
-          "student_output_hint": "음계와 주파수, 파동 세기 비교 보고서",
-          "priority": 2
+          "why": "지수 표현은 과학에서 단위 접두어, 규모 비교, 물리량 해석과 자연스럽게 연결됨",
+          "student_output_hint": "단위 접두어와 지수 표현 연결 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "근호 정리",
+                "실수인 근"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "수량 해석",
+              "message": "선택한 키워드가 수량의 범위와 표현 가능성을 따지는 방향이라 물리량 규모 해석 축이 함께 강화됩니다.",
+              "desc": "단위와 규모를 연결해 수량을 읽는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "sound_frequency_modeling",
+          "axis_title": "음향·주파수 모델링 축",
+          "axis_short": "주파수 모델링",
+          "axis_domain": "engineering",
+          "priority": 3,
+          "next_subjects": [
+            "전자기와 양자",
+            "정보",
+            "물리"
+          ],
+          "why": "거듭제곱과 근호는 주파수 비, 음향 규모, 신호 해석의 기초 모델로 확장 가능함",
+          "student_output_hint": "주파수 비율·규모 해석 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "밑",
+                "지수"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "비율 해석",
+              "message": "선택한 키워드가 비율과 배수를 읽는 방향과 맞아 음향·주파수 모델링 축이 보조 강화됩니다.",
+              "desc": "배수 관계를 신호나 주파수로 바꾸어 설명하는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "지수의 확장",
-      "concept_label": "지수법칙-조건-확장",
-      "longitudinal_axes": [
+      "concept_key": "지수의 확장",
+      "concept_label": "조건·법칙 확장",
+      "core_focus": "정수 지수, 유리수 지수, 실수 지수, 지수법칙, 밑의 조건, 식 변형, 대소 비교",
+      "axes": [
         {
-          "axis_id": "rule_generalization_axis",
-          "axis_title": "규칙 일반화·조건 해석 축",
+          "axis_id": "condition_extension_reasoning",
+          "axis_title": "조건 해석·법칙 확장 축",
+          "axis_short": "조건·법칙",
           "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
+            "대수",
             "확률과 통계",
-            "정보",
-            "미적분1"
-          ],
-          "why": "지수법칙이 성립하는 조건을 따져 일반화하는 사고가 수학·정보 규칙 해석으로 확장됨",
-          "student_output_hint": "지수법칙 적용 조건 비교, 오류 사례 분석 보고서",
-          "priority": 1
-        },
-        {
-          "axis_id": "growth_change_axis",
-          "axis_title": "성장·감소 변화 축",
-          "axis_domain": "biology",
-          "next_subjects": [
-            "생명과학",
-            "통합과학2",
             "정보"
           ],
-          "why": "실수 지수 표현은 생명·기술 변화의 성장과 감소를 설명하는 기초가 됨",
-          "student_output_hint": "인구·세포·기술 확산 변화 비교 보고서",
-          "priority": 2
+          "why": "지수의 범위를 확장하며 법칙이 언제 성립하는지 따지는 사고가 대수의 핵심 추론으로 이어짐",
+          "student_output_hint": "지수법칙 성립 조건 정리표, 반례 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "정수 지수",
+                "유리수 지수",
+                "실수 지수",
+                "지수법칙"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "법칙 확장",
+              "message": "선택한 키워드가 지수의 범위 확장과 법칙 적용 조건을 직접 가리켜 조건 해석·법칙 확장 축이 1순위로 강화됩니다.",
+              "desc": "법칙이 성립하는 조건과 확장 과정을 설명하는 방향으로 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "지수법칙 조건별 비교표 작성",
+                "실수 지수 확장 과정 설명"
+              ]
+            },
+            {
+              "keywords": [
+                "밑의 조건",
+                "대소 비교"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "조건 판단",
+              "message": "선택한 키워드가 적용 가능 조건과 비교 판단을 요구해 조건 해석 축이 보강됩니다.",
+              "desc": "조건을 따져 규칙을 적용하는 탐구로 이어집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "algorithmic_rule_application",
+          "axis_title": "규칙 적용·알고리즘 축",
+          "axis_short": "절차 적용",
+          "axis_domain": "info",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "대수",
+            "과학탐구실험1"
+          ],
+          "why": "지수법칙을 단계적으로 적용하는 사고는 절차적 문제 해결과 연결되기 쉬움",
+          "student_output_hint": "지수법칙 적용 순서도, 단계별 계산 알고리즘",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "식 변형",
+                "지수법칙"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "절차화",
+              "message": "선택한 키워드가 규칙을 순서대로 적용하는 성격을 보여 규칙 적용·알고리즘 축이 함께 강화됩니다.",
+              "desc": "규칙 적용 과정을 절차와 순서도로 바꾸어 설명하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "growth_change_representation",
+          "axis_title": "성장·변화 표현 축",
+          "axis_short": "변화 표현",
+          "axis_domain": "science",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "화학",
+            "통합과학2"
+          ],
+          "why": "지수의 확장은 성장·감소 현상을 수식으로 표현하는 준비 단계가 됨",
+          "student_output_hint": "증가·감소 현상 지수식 표현 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "실수 지수",
+                "대소 비교"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "증가·감소",
+              "message": "선택한 키워드가 연속적 변화 해석과 연결되어 성장·변화 표현 축이 보조 강화됩니다.",
+              "desc": "변화율과 증감 패턴을 수식으로 설명하는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "로그의 뜻과 성질",
-      "concept_label": "로그-변환-효율",
-      "longitudinal_axes": [
+      "concept_key": "로그의 뜻과 성질",
+      "concept_label": "변환·비교·단순화",
+      "core_focus": "로그, 밑, 진수, 로그의 성질, 밑의 변환, 지수-로그 변환, 문자식 정리",
+      "axes": [
         {
-          "axis_id": "data_transform_axis",
-          "axis_title": "데이터 변환·효율 축",
-          "axis_domain": "info",
+          "axis_id": "log_transform_reasoning",
+          "axis_title": "로그 변환·식 단순화 축",
+          "axis_short": "로그 변환",
+          "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
-            "정보",
-            "확률과 통계",
-            "컴퓨터공학"
+            "대수",
+            "미적분1",
+            "정보"
           ],
-          "why": "로그 변환은 큰 범위의 데이터를 압축하고 비교하는 정보 처리 사고로 이어짐",
-          "student_output_hint": "로그 변환 사례 조사, 데이터 압축·시각화 보고서",
-          "priority": 1
+          "why": "로그는 곱셈과 거듭제곱을 덧셈 구조로 바꾸어 식을 단순화하는 핵심 도구이므로 이후 함수 해석의 기초가 됨",
+          "student_output_hint": "지수식-로그식 변환표, 로그 성질 적용 노트",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "로그",
+                "로그의 성질",
+                "지수-로그 변환",
+                "밑의 변환"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "변환·단순화",
+              "message": "선택한 키워드가 로그의 변환 기능과 직접 연결되어 로그 변환·식 단순화 축이 1순위로 강화됩니다.",
+              "desc": "복잡한 계산을 구조적으로 단순화하는 방향의 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "지수식과 로그식 상호 변환 정리",
+                "로그 성질 적용 사례 분석"
+              ]
+            },
+            {
+              "keywords": [
+                "밑",
+                "진수"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "조건 확인",
+              "message": "선택한 키워드가 로그의 구성 조건을 확인하는 성격이라 변환 축이 보강됩니다.",
+              "desc": "밑과 진수 조건을 따져 로그식을 해석하는 탐구입니다."
+            }
+          ]
         },
         {
-          "axis_id": "function_structure_axis",
-          "axis_title": "함수 구조 해석 축",
-          "axis_domain": "math",
+          "axis_id": "information_scale_interpretation",
+          "axis_title": "정보량·규모 해석 축",
+          "axis_short": "정보·규모",
+          "axis_domain": "info",
+          "priority": 2,
           "next_subjects": [
-            "미적분1",
-            "공통수학2",
-            "확률과 통계"
+            "정보",
+            "전자기와 양자",
+            "통계"
           ],
-          "why": "지수식과 로그식의 변환 구조를 이해하면 함수 관계와 그래프 해석으로 확장되기 쉬움",
-          "student_output_hint": "지수-로그 변환 정리, 함수 구조 비교 보고서",
-          "priority": 2
+          "why": "로그는 정보량, 용량, 강도와 같이 규모를 압축해 해석하는 여러 분야의 기초 언어가 됨",
+          "student_output_hint": "정보량·용량 로그 표현 사례 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "상용로그",
+                "밑의 변환"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "규모 해석",
+              "message": "선택한 키워드가 규모를 비교 가능하게 바꾸는 방향과 맞아 정보량·규모 해석 축이 강화됩니다.",
+              "desc": "크기 차이가 큰 데이터를 로그로 읽는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "scientific_measurement_scale",
+          "axis_title": "과학 측정·스케일 해석 축",
+          "axis_short": "측정 스케일",
+          "axis_domain": "science",
+          "priority": 3,
+          "next_subjects": [
+            "화학",
+            "통합과학2",
+            "과학탐구실험2"
+          ],
+          "why": "pH, 데시벨, 지진 규모처럼 로그 척도를 사용하는 과학 주제와 연결되기 쉬움",
+          "student_output_hint": "로그 척도 사례 조사 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "로그",
+                "상용로그"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "척도 해석",
+              "message": "선택한 키워드가 로그 척도와 이어져 과학 측정·스케일 해석 축이 보조 강화됩니다.",
+              "desc": "pH·데시벨 등 로그 척도를 실제 측정과 연결하는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "상용로그",
-      "concept_label": "로그-규모-비교",
-      "longitudinal_axes": [
+      "concept_key": "상용로그",
+      "concept_label": "실용 계산·척도 해석",
+      "core_focus": "상용로그, 로그표, 자리수, 근삿값, 계산의 편리성, 규모 비교",
+      "axes": [
         {
-          "axis_id": "environment_scale_axis",
-          "axis_title": "환경·규모 지표 축",
-          "axis_domain": "earth_env",
+          "axis_id": "practical_calculation_scale",
+          "axis_title": "실용 계산·규모 비교 축",
+          "axis_short": "실용 계산",
+          "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
-            "지구과학",
-            "환경공학",
-            "통합사회2"
+            "대수",
+            "통계",
+            "정보"
           ],
-          "why": "지진 규모, 데시벨, pH처럼 차이가 큰 현상을 로그 지표로 해석하는 능력이 환경·지구 데이터 이해로 이어짐",
-          "student_output_hint": "지진 규모·소음·산성도 비교 보고서",
-          "priority": 1
+          "why": "상용로그는 실제 계산을 간단하게 하고 규모 차이를 비교하는 실용 수학으로 이어짐",
+          "student_output_hint": "상용로그 계산 사례 노트, 자리수 예측 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "상용로그",
+                "로그표",
+                "자리수",
+                "근삿값"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "계산·비교",
+              "message": "선택한 키워드가 상용로그의 실용 계산 기능을 직접 가리켜 실용 계산·규모 비교 축이 1순위로 강화됩니다.",
+              "desc": "큰 수를 빠르게 비교하고 계산하는 탐구로 연결됩니다.",
+              "activity_examples": [
+                "상용로그로 자리수 예측하기",
+                "로그표 활용 계산 사례 정리"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "health_signal_axis",
-          "axis_title": "건강·생체 수치 해석 축",
-          "axis_domain": "biology",
+          "axis_id": "measurement_scale_reading",
+          "axis_title": "측정 척도·데이터 읽기 축",
+          "axis_short": "척도 읽기",
+          "axis_domain": "science",
+          "priority": 2,
           "next_subjects": [
-            "생명과학",
-            "화학",
-            "과학탐구실험2"
+            "통합과학2",
+            "과학탐구실험2",
+            "지구과학"
           ],
-          "why": "pH와 농도, 감각 강도 같은 수치를 해석하는 능력이 생명·건강 데이터 이해로 연결됨",
-          "student_output_hint": "pH·농도·생체 신호 수치 해석 보고서",
-          "priority": 2
+          "why": "상용로그는 지진 규모, 소리 세기, 산성도처럼 척도 읽기와 직접 맞닿아 있음",
+          "student_output_hint": "로그 척도 데이터 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "규모 비교",
+                "근삿값"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "척도 비교",
+              "message": "선택한 키워드가 로그 척도 데이터를 비교하는 방향과 맞아 측정 척도·데이터 읽기 축이 강화됩니다.",
+              "desc": "규모 차이가 큰 데이터를 압축해 해석하는 탐구입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "financial_growth_comparison",
+          "axis_title": "증가율·금융 비교 축",
+          "axis_short": "증가율 비교",
+          "axis_domain": "economy",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회1",
+            "통계",
+            "정보"
+          ],
+          "why": "증가율과 규모 차이를 비교하는 사고는 금융·경제 데이터 해석으로도 확장될 수 있음",
+          "student_output_hint": "증가율 비교 차트, 규모 변화 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "자리수",
+                "규모 비교"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "규모 변화",
+              "message": "선택한 키워드가 증가 규모 비교와 연결돼 증가율·금융 비교 축이 보조 강화됩니다.",
+              "desc": "규모 차이를 수치적으로 비교하는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "지수함수의 뜻과 그래프",
-      "concept_label": "지수함수-그래프-변화",
-      "longitudinal_axes": [
+      "concept_key": "지수함수의 뜻과 그래프",
+      "concept_label": "증가·감소 그래프",
+      "core_focus": "지수함수, 밑의 범위, 증가와 감소, 정의역과 치역, 그래프, 점근선",
+      "axes": [
         {
-          "axis_id": "growth_graph_axis",
-          "axis_title": "성장·감소 그래프 축",
-          "axis_domain": "data",
+          "axis_id": "graph_change_interpretation",
+          "axis_title": "그래프·변화 해석 축",
+          "axis_short": "그래프 해석",
+          "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
             "미적분1",
-            "확률과 통계",
-            "정보"
+            "대수",
+            "통계"
           ],
-          "why": "지수 그래프를 읽는 능력이 데이터 변화 해석과 예측 모델링으로 이어짐",
-          "student_output_hint": "성장·감소 그래프 비교, 변화 예측 보고서",
-          "priority": 1
+          "why": "지수함수의 증가·감소와 그래프 특징을 읽는 힘은 이후 변화율 해석의 핵심 기초가 됨",
+          "student_output_hint": "그래프 비교 보고서, 증가·감소 해석 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지수함수",
+                "증가",
+                "감소",
+                "그래프",
+                "점근선"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "증가·감소",
+              "message": "선택한 키워드가 그래프의 증가·감소 성격을 직접 드러내 그래프·변화 해석 축이 1순위로 강화됩니다.",
+              "desc": "그래프 모양과 변화 방향을 읽어 설명하는 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "밑의 값에 따른 그래프 변화 비교",
+                "점근선 의미 설명 자료 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "정의역",
+                "치역"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "함수 범위",
+              "message": "선택한 키워드가 함수의 범위와 해석 조건을 읽는 방향이라 그래프 해석 축이 보강됩니다.",
+              "desc": "함수의 범위와 그래프 특성을 연결하는 탐구입니다."
+            }
+          ]
         },
         {
-          "axis_id": "technology_diffusion_axis",
-          "axis_title": "기술 확산·사회 변화 축",
-          "axis_domain": "social_policy",
+          "axis_id": "growth_decay_model_base",
+          "axis_title": "성장·감소 모델 기초 축",
+          "axis_short": "모델 기초",
+          "axis_domain": "science",
+          "priority": 2,
           "next_subjects": [
-            "통합사회2",
-            "정보",
-            "통합과학2"
+            "통합과학2",
+            "생명과학",
+            "화학"
           ],
-          "why": "기술 보급과 감염 확산 같은 사회 변화 현상을 지수적으로 해석하는 사고로 확장됨",
-          "student_output_hint": "기술 확산, 바이러스 감소 사례 비교 보고서",
-          "priority": 2
+          "why": "지수함수 그래프는 성장과 감소를 표현하는 대표 모델로 실생활 변화 해석에 바로 연결됨",
+          "student_output_hint": "증가·감소 현상 지수 모델 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "증가",
+                "감소",
+                "밑의 범위"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "성장·감소",
+              "message": "선택한 키워드가 변화 패턴 모델링과 맞아 성장·감소 모델 기초 축이 강화됩니다.",
+              "desc": "실제 변화 현상을 지수 그래프로 설명하는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "data_prediction_visualization",
+          "axis_title": "데이터 예측·시각화 축",
+          "axis_short": "예측·시각화",
+          "axis_domain": "info",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "통계",
+            "과학탐구실험2"
+          ],
+          "why": "그래프를 시각적으로 읽고 भविष्य 변화를 예측하는 사고는 데이터 해석과 이어짐",
+          "student_output_hint": "지수 그래프 예측 슬라이드, 시각화 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "증가",
+                "감소"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "예측 시각화",
+              "message": "선택한 키워드가 시각적 추세 예측과 연결돼 데이터 예측·시각화 축이 보조 강화됩니다.",
+              "desc": "그래프 추세를 읽고 이후 변화를 예상하는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "로그함수의 뜻과 그래프",
-      "concept_label": "로그함수-역함수-대칭",
-      "longitudinal_axes": [
+      "concept_key": "로그함수의 뜻과 그래프",
+      "concept_label": "역관계·대칭 해석",
+      "core_focus": "로그함수, 역함수 관계, 그래프 대칭, 정의역과 치역, 증가와 감소, 점근선",
+      "axes": [
         {
-          "axis_id": "inverse_structure_axis",
-          "axis_title": "역함수·대칭 해석 축",
+          "axis_id": "inverse_relation_graph",
+          "axis_title": "역관계·대칭 해석 축",
+          "axis_short": "역관계·대칭",
           "axis_domain": "math",
+          "priority": 1,
           "next_subjects": [
             "공통수학2",
             "미적분1",
-            "기하"
+            "정보"
           ],
-          "why": "로그함수와 지수함수의 역관계와 대칭 구조를 이해하면 함수·좌표 변환 사고가 심화됨",
-          "student_output_hint": "대칭 관계, 그래프 변환 비교 보고서",
-          "priority": 1
+          "why": "로그함수는 지수함수와의 역관계를 그래프로 읽는 대표 사례라 변환과 대칭 해석으로 이어짐",
+          "student_output_hint": "지수함수-로그함수 대칭 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "로그함수",
+                "역함수",
+                "그래프 대칭",
+                "점근선"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "대칭·역관계",
+              "message": "선택한 키워드가 지수함수와 로그함수의 역관계와 대칭 구조를 직접 보여 역관계·대칭 해석 축이 1순위로 강화됩니다.",
+              "desc": "함수 사이 대응과 대칭 구조를 시각적으로 해석하는 방향입니다.",
+              "activity_examples": [
+                "y=x 기준 대칭 비교 그래프 그리기",
+                "역함수 관계 설명 카드 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "정의역",
+                "치역",
+                "증가"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "그래프 조건",
+              "message": "선택한 키워드가 함수 범위와 증가 성질을 읽는 방향이라 역관계 축이 보강됩니다.",
+              "desc": "그래프 조건과 함수 범위를 연결해 해석하는 탐구입니다."
+            }
+          ]
         },
         {
-          "axis_id": "information_conversion_axis",
-          "axis_title": "정보 변환·구조 축",
+          "axis_id": "coordinate_transform_application",
+          "axis_title": "좌표 변환·그래픽 축",
+          "axis_short": "좌표 변환",
           "axis_domain": "info",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학2",
+            "정보",
+            "기하"
+          ],
+          "why": "대칭과 변환 해석은 좌표 이동, 시각화, 그래픽 구조와 연결되기 쉬움",
+          "student_output_hint": "대칭 변환 시각화 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프 대칭",
+                "역함수"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "변환 시각화",
+              "message": "선택한 키워드가 그래프 변환과 시각화 사고를 요구해 좌표 변환·그래픽 축이 강화됩니다.",
+              "desc": "대칭과 변환을 좌표 변화로 나타내는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "data_scale_conversion",
+          "axis_title": "데이터 스케일 변환 축",
+          "axis_short": "스케일 변환",
+          "axis_domain": "data",
+          "priority": 3,
           "next_subjects": [
             "정보",
-            "컴퓨터공학",
-            "확률과 통계"
+            "통계",
+            "과학탐구실험2"
           ],
-          "why": "역관계와 변환 구조를 읽는 사고가 정보 표현과 변환 알고리즘 이해로 이어짐",
-          "student_output_hint": "정보 변환 구조, 함수 변환 비교 보고서",
-          "priority": 2
+          "why": "로그함수는 큰 범위의 데이터를 다른 스케일로 읽는 감각을 길러 데이터 변환과 이어짐",
+          "student_output_hint": "로그 스케일 그래프 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "로그함수",
+                "증가"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "스케일 읽기",
+              "message": "선택한 키워드가 로그 스케일 변화 해석과 연결돼 데이터 스케일 변환 축이 보조 강화됩니다.",
+              "desc": "값의 범위를 압축해 읽는 탐구 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "지수함수와 로그함수의 활용",
-      "concept_label": "모델-예측-실생활",
-      "longitudinal_axes": [
+      "concept_key": "지수함수와 로그함수의 활용",
+      "concept_label": "실생활 변화 모델링",
+      "core_focus": "지수모델, 로그모델, 성장, 감소, 방사성 붕괴, 별의 등급, 충전 증가, 채널 용량",
+      "axes": [
         {
-          "axis_id": "prediction_model_axis",
-          "axis_title": "예측·모델링 축",
-          "axis_domain": "data",
+          "axis_id": "real_world_change_modeling",
+          "axis_title": "실생활 변화 모델링 축",
+          "axis_short": "변화 모델링",
+          "axis_domain": "engineering",
+          "priority": 1,
           "next_subjects": [
-            "확률과 통계",
-            "미적분1",
-            "정보"
+            "통합과학2",
+            "전자기와 양자",
+            "미적분1"
           ],
-          "why": "성장·감소 모델을 세우고 해석하는 능력이 데이터 예측과 모델링 탐구의 핵심이 됨",
-          "student_output_hint": "방사성 붕괴·충전 증가·용량 변화 모델링 보고서",
-          "priority": 1
+          "why": "지수·로그 함수 활용은 실제 변화 현상을 모델로 표현하는 대표 장면이라 응용 연결성이 매우 높음",
+          "student_output_hint": "성장·감소 사례 모델링 보고서, 예측 그래프",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지수모델",
+                "로그모델",
+                "성장",
+                "감소"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "현상 모델링",
+              "message": "선택한 키워드가 실제 변화를 수학 모델로 해석하는 성격을 직접 보여 실생활 변화 모델링 축이 1순위로 강화됩니다.",
+              "desc": "현상을 함수로 세우고 예측하는 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "방사성 붕괴 곡선 모델링",
+                "충전 증가 데이터 함수화"
+              ]
+            },
+            {
+              "keywords": [
+                "방사성 붕괴",
+                "별의 등급"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "과학 적용",
+              "message": "선택한 키워드가 과학 현상 적용과 직접 연결돼 변화 모델링 축이 보강됩니다.",
+              "desc": "자연 현상을 지수·로그 모델로 해석하는 탐구입니다."
+            }
+          ]
         },
         {
-          "axis_id": "science_technology_application_axis",
-          "axis_title": "과학·기술 적용 축",
-          "axis_domain": "physics",
+          "axis_id": "signal_capacity_interpretation",
+          "axis_title": "신호·용량 해석 축",
+          "axis_short": "신호·용량",
+          "axis_domain": "info",
+          "priority": 2,
           "next_subjects": [
+            "정보",
             "전자기와 양자",
-            "물리",
-            "통합과학2"
+            "컴퓨터공학"
           ],
-          "why": "지수·로그 모델은 신호 세기, 용량, 기술 변화 해석을 통해 과학기술 적용 탐구로 이어짐",
-          "student_output_hint": "별의 등급, 채널 용량, 기술 변화 사례 보고서",
-          "priority": 2
+          "why": "채널 용량, 신호 세기, 데이터 전송량 같은 정보·전자 분야와 로그 모델이 자연스럽게 연결됨",
+          "student_output_hint": "채널 용량·신호 세기 해석 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "채널 용량",
+                "로그모델"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "정보 해석",
+              "message": "선택한 키워드가 정보량과 신호 해석을 강조해 신호·용량 해석 축이 강화됩니다.",
+              "desc": "전송량과 신호 세기를 로그로 읽는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "future_prediction_data",
+          "axis_title": "예측·데이터 해석 축",
+          "axis_short": "예측·데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "과학탐구실험2"
+          ],
+          "why": "함수 활용은 데이터의 추세를 읽고 미래 값을 예측하는 탐구로 확장되기 쉬움",
+          "student_output_hint": "데이터 예측 슬라이드, 변화 추세 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "충전 증가",
+                "성장",
+                "감소"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "추세 예측",
+              "message": "선택한 키워드가 변화 추세 예측과 연결돼 예측·데이터 해석 축이 보조 강화됩니다.",
+              "desc": "데이터 흐름을 읽고 이후 변화를 예측하는 탐구 방향입니다."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "concept_key": "거듭제곱과 거듭제곱근",
+      "concept_name": "거듭제곱과 거듭제곱근",
+      "label": "지수 표현·근호 기초",
+      "summary": "거듭제곱, 거듭제곱근, n제곱근, 근호, 실수인 근, 지수 표현과 근호 연산의 기초",
+      "axes": [
+        {
+          "axis_key": "exponential_representation_base",
+          "axis_title": "지수 표현·수량 해석 축",
+          "axis_summary": "큰 수와 작은 수를 지수와 근호로 표현하는 기초가 이후 과학·공학 수량 해석으로 이어짐",
+          "base_score": 90,
+          "tags": [
+            "n제곱근",
+            "거듭제곱",
+            "거듭제곱근",
+            "근호",
+            "밑",
+            "실수인 근",
+            "지수"
+          ]
+        },
+        {
+          "axis_key": "physical_quantity_scale",
+          "axis_title": "물리량 규모·단위 해석 축",
+          "axis_summary": "지수 표현은 과학에서 단위 접두어, 규모 비교, 물리량 해석과 자연스럽게 연결됨",
+          "base_score": 82,
+          "tags": [
+            "근호 정리",
+            "실수인 근"
+          ]
+        },
+        {
+          "axis_key": "sound_frequency_modeling",
+          "axis_title": "음향·주파수 모델링 축",
+          "axis_summary": "거듭제곱과 근호는 주파수 비, 음향 규모, 신호 해석의 기초 모델로 확장 가능함",
+          "base_score": 74,
+          "tags": [
+            "밑",
+            "지수"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "지수의 확장",
+      "concept_name": "지수의 확장",
+      "label": "조건·법칙 확장",
+      "summary": "정수 지수, 유리수 지수, 실수 지수, 지수법칙, 밑의 조건, 식 변형, 대소 비교",
+      "axes": [
+        {
+          "axis_key": "condition_extension_reasoning",
+          "axis_title": "조건 해석·법칙 확장 축",
+          "axis_summary": "지수의 범위를 확장하며 법칙이 언제 성립하는지 따지는 사고가 대수의 핵심 추론으로 이어짐",
+          "base_score": 90,
+          "tags": [
+            "대소 비교",
+            "밑의 조건",
+            "실수 지수",
+            "유리수 지수",
+            "정수 지수",
+            "지수법칙"
+          ]
+        },
+        {
+          "axis_key": "algorithmic_rule_application",
+          "axis_title": "규칙 적용·알고리즘 축",
+          "axis_summary": "지수법칙을 단계적으로 적용하는 사고는 절차적 문제 해결과 연결되기 쉬움",
+          "base_score": 82,
+          "tags": [
+            "식 변형",
+            "지수법칙"
+          ]
+        },
+        {
+          "axis_key": "growth_change_representation",
+          "axis_title": "성장·변화 표현 축",
+          "axis_summary": "지수의 확장은 성장·감소 현상을 수식으로 표현하는 준비 단계가 됨",
+          "base_score": 74,
+          "tags": [
+            "대소 비교",
+            "실수 지수"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "로그의 뜻과 성질",
+      "concept_name": "로그의 뜻과 성질",
+      "label": "변환·비교·단순화",
+      "summary": "로그, 밑, 진수, 로그의 성질, 밑의 변환, 지수-로그 변환, 문자식 정리",
+      "axes": [
+        {
+          "axis_key": "log_transform_reasoning",
+          "axis_title": "로그 변환·식 단순화 축",
+          "axis_summary": "로그는 곱셈과 거듭제곱을 덧셈 구조로 바꾸어 식을 단순화하는 핵심 도구이므로 이후 함수 해석의 기초가 됨",
+          "base_score": 90,
+          "tags": [
+            "로그",
+            "로그의 성질",
+            "밑",
+            "밑의 변환",
+            "지수-로그 변환",
+            "진수"
+          ]
+        },
+        {
+          "axis_key": "information_scale_interpretation",
+          "axis_title": "정보량·규모 해석 축",
+          "axis_summary": "로그는 정보량, 용량, 강도와 같이 규모를 압축해 해석하는 여러 분야의 기초 언어가 됨",
+          "base_score": 82,
+          "tags": [
+            "밑의 변환",
+            "상용로그"
+          ]
+        },
+        {
+          "axis_key": "scientific_measurement_scale",
+          "axis_title": "과학 측정·스케일 해석 축",
+          "axis_summary": "pH, 데시벨, 지진 규모처럼 로그 척도를 사용하는 과학 주제와 연결되기 쉬움",
+          "base_score": 74,
+          "tags": [
+            "로그",
+            "상용로그"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "상용로그",
+      "concept_name": "상용로그",
+      "label": "실용 계산·척도 해석",
+      "summary": "상용로그, 로그표, 자리수, 근삿값, 계산의 편리성, 규모 비교",
+      "axes": [
+        {
+          "axis_key": "practical_calculation_scale",
+          "axis_title": "실용 계산·규모 비교 축",
+          "axis_summary": "상용로그는 실제 계산을 간단하게 하고 규모 차이를 비교하는 실용 수학으로 이어짐",
+          "base_score": 90,
+          "tags": [
+            "근삿값",
+            "로그표",
+            "상용로그",
+            "자리수"
+          ]
+        },
+        {
+          "axis_key": "measurement_scale_reading",
+          "axis_title": "측정 척도·데이터 읽기 축",
+          "axis_summary": "상용로그는 지진 규모, 소리 세기, 산성도처럼 척도 읽기와 직접 맞닿아 있음",
+          "base_score": 82,
+          "tags": [
+            "규모 비교",
+            "근삿값"
+          ]
+        },
+        {
+          "axis_key": "financial_growth_comparison",
+          "axis_title": "증가율·금융 비교 축",
+          "axis_summary": "증가율과 규모 차이를 비교하는 사고는 금융·경제 데이터 해석으로도 확장될 수 있음",
+          "base_score": 74,
+          "tags": [
+            "규모 비교",
+            "자리수"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "지수함수의 뜻과 그래프",
+      "concept_name": "지수함수의 뜻과 그래프",
+      "label": "증가·감소 그래프",
+      "summary": "지수함수, 밑의 범위, 증가와 감소, 정의역과 치역, 그래프, 점근선",
+      "axes": [
+        {
+          "axis_key": "graph_change_interpretation",
+          "axis_title": "그래프·변화 해석 축",
+          "axis_summary": "지수함수의 증가·감소와 그래프 특징을 읽는 힘은 이후 변화율 해석의 핵심 기초가 됨",
+          "base_score": 90,
+          "tags": [
+            "감소",
+            "그래프",
+            "점근선",
+            "정의역",
+            "증가",
+            "지수함수",
+            "치역"
+          ]
+        },
+        {
+          "axis_key": "growth_decay_model_base",
+          "axis_title": "성장·감소 모델 기초 축",
+          "axis_summary": "지수함수 그래프는 성장과 감소를 표현하는 대표 모델로 실생활 변화 해석에 바로 연결됨",
+          "base_score": 82,
+          "tags": [
+            "감소",
+            "밑의 범위",
+            "증가"
+          ]
+        },
+        {
+          "axis_key": "data_prediction_visualization",
+          "axis_title": "데이터 예측·시각화 축",
+          "axis_summary": "그래프를 시각적으로 읽고 भविष्य 변화를 예측하는 사고는 데이터 해석과 이어짐",
+          "base_score": 74,
+          "tags": [
+            "감소",
+            "그래프",
+            "증가"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "로그함수의 뜻과 그래프",
+      "concept_name": "로그함수의 뜻과 그래프",
+      "label": "역관계·대칭 해석",
+      "summary": "로그함수, 역함수 관계, 그래프 대칭, 정의역과 치역, 증가와 감소, 점근선",
+      "axes": [
+        {
+          "axis_key": "inverse_relation_graph",
+          "axis_title": "역관계·대칭 해석 축",
+          "axis_summary": "로그함수는 지수함수와의 역관계를 그래프로 읽는 대표 사례라 변환과 대칭 해석으로 이어짐",
+          "base_score": 90,
+          "tags": [
+            "그래프 대칭",
+            "로그함수",
+            "역함수",
+            "점근선",
+            "정의역",
+            "증가",
+            "치역"
+          ]
+        },
+        {
+          "axis_key": "coordinate_transform_application",
+          "axis_title": "좌표 변환·그래픽 축",
+          "axis_summary": "대칭과 변환 해석은 좌표 이동, 시각화, 그래픽 구조와 연결되기 쉬움",
+          "base_score": 82,
+          "tags": [
+            "그래프 대칭",
+            "역함수"
+          ]
+        },
+        {
+          "axis_key": "data_scale_conversion",
+          "axis_title": "데이터 스케일 변환 축",
+          "axis_summary": "로그함수는 큰 범위의 데이터를 다른 스케일로 읽는 감각을 길러 데이터 변환과 이어짐",
+          "base_score": 74,
+          "tags": [
+            "로그함수",
+            "증가"
+          ]
+        }
+      ]
+    },
+    {
+      "concept_key": "지수함수와 로그함수의 활용",
+      "concept_name": "지수함수와 로그함수의 활용",
+      "label": "실생활 변화 모델링",
+      "summary": "지수모델, 로그모델, 성장, 감소, 방사성 붕괴, 별의 등급, 충전 증가, 채널 용량",
+      "axes": [
+        {
+          "axis_key": "real_world_change_modeling",
+          "axis_title": "실생활 변화 모델링 축",
+          "axis_summary": "지수·로그 함수 활용은 실제 변화 현상을 모델로 표현하는 대표 장면이라 응용 연결성이 매우 높음",
+          "base_score": 90,
+          "tags": [
+            "감소",
+            "로그모델",
+            "방사성 붕괴",
+            "별의 등급",
+            "성장",
+            "지수모델"
+          ]
+        },
+        {
+          "axis_key": "signal_capacity_interpretation",
+          "axis_title": "신호·용량 해석 축",
+          "axis_summary": "채널 용량, 신호 세기, 데이터 전송량 같은 정보·전자 분야와 로그 모델이 자연스럽게 연결됨",
+          "base_score": 82,
+          "tags": [
+            "로그모델",
+            "채널 용량"
+          ]
+        },
+        {
+          "axis_key": "future_prediction_data",
+          "axis_title": "예측·데이터 해석 축",
+          "axis_summary": "함수 활용은 데이터의 추세를 읽고 미래 값을 예측하는 탐구로 확장되기 쉬움",
+          "base_score": 74,
+          "tags": [
+            "감소",
+            "성장",
+            "충전 증가"
+          ]
         }
       ]
     }
