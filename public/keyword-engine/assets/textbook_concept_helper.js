@@ -2359,6 +2359,8 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
+      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
+      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2381,6 +2383,8 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
+      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
+      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2399,6 +2403,8 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
+      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
+      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2488,6 +2494,8 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
+      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
+      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
