@@ -1,323 +1,1320 @@
 {
   "subject_name": "화학",
+  "version": "v359-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "화학과 우리 생활",
-      "concept_label": "질소 비료-암모니아 합성-합성 섬유",
+      "concept_key": "화학과 우리 생활",
+      "concept_label": "생활 화학·재료 적용",
+      "core_focus": "질소 비료, 암모니아 합성, 합성 섬유, 제련, 생활 재료와 산업 공정의 화학 원리",
       "longitudinal_axes": [
         {
           "axis_id": "chemistry_life_application_axis",
           "axis_title": "생활 화학 적용 축",
+          "axis_short": "생활 화학",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
             "화학공학",
             "환경공학"
           ],
-          "why": "비료·합성섬유·제련 같은 생활 기술을 화학 원리로 설명하는 사고가 산업·환경 문제 해석으로 이어짐",
+          "why": "비료·합성섬유·제련 같은 생활 기술을 화학 원리로 설명하는 사고가 산업·환경 문제 해석으로 이어진다.",
           "student_output_hint": "생활 속 화학 기술 비교, 재료 활용 사례 분석, 화학 기술 영향 보고서",
-          "priority": 1
+          "keyword_signals": [
+            {
+              "keywords": [
+                "질소 비료",
+                "암모니아 합성",
+                "합성 섬유",
+                "나일론",
+                "케블라"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "생활 재료 응용",
+              "message": "선택한 키워드가 생활 재료와 화학 기술 활용과 직접 맞닿아 생활 화학 적용 축이 1순위로 강화됩니다.",
+              "desc": "생활 속 제품과 산업 공정을 화학 원리로 풀어내는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "비료·섬유 사례를 화학 원리로 비교 정리하기",
+                "생활 화학 기술의 장단점을 정리한 카드뉴스 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "비누",
+                "세제",
+                "의약품",
+                "생활 화학",
+                "재료"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "생활 제품 분석",
+              "message": "선택한 키워드가 생활 제품의 성질과 활용과 맞아 생활 화학 적용 축을 보강합니다.",
+              "desc": "제품의 기능을 화학 성질로 설명하는 탐구 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "material_industry_bridge_axis",
           "axis_title": "재료·산업 연결 축",
+          "axis_short": "재료 공정",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "신소재공학",
             "식품공학",
             "환경공학"
           ],
-          "why": "생활 재료와 공정에 화학이 작동하는 방식을 이해하는 관점이 산업 소재와 친환경 공정 해석으로 확장됨",
-          "student_output_hint": "합성 섬유 비교, 제련 공정 분석, 생활 소재 보고서",
-          "priority": 2
+          "why": "생활 재료와 공정에 화학이 작동하는 방식을 이해하면 산업 소재와 친환경 공정 해석으로 자연스럽게 확장된다.",
+          "student_output_hint": "합성 섬유 비교, 제련 공정 분석, 소재 공정 흐름 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "합성 섬유",
+                "나일론",
+                "케블라",
+                "철의 제련",
+                "제련"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "소재·공정",
+              "message": "선택한 키워드가 재료 생산과 산업 공정에 직접 연결되어 재료·산업 연결 축이 크게 강화됩니다.",
+              "desc": "소재의 구조와 생산 공정을 함께 보는 탐구 방향입니다.",
+              "activity_examples": [
+                "합성섬유별 특성과 활용 비교표 만들기",
+                "제련 공정의 화학 원리를 단계별로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "촉매",
+                "공정",
+                "효율",
+                "생산"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "공정 효율",
+              "message": "선택한 키워드가 생산 과정의 효율과 연결되어 재료·산업 연결 축을 보강합니다.",
+              "desc": "산업 공정 최적화와 효율 해석으로 이어지는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "environment_chemistry_judgement_axis",
+          "axis_title": "환경·공정 판단 축",
+          "axis_short": "환경 판단",
+          "axis_domain": "environment",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회2",
+            "환경공학",
+            "과학탐구실험2"
+          ],
+          "why": "화학 기술의 편익과 부작용을 함께 보는 관점은 환경 영향 평가와 사회적 의사결정 역량으로 이어진다.",
+          "student_output_hint": "화학 기술의 환경 영향 비교, 지속가능성 판단 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "환경 오염",
+                "지속 가능성",
+                "폐기물",
+                "친환경",
+                "탄소"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "환경 영향",
+              "message": "선택한 키워드가 화학 기술의 환경 영향 판단과 맞아 환경·공정 판단 축이 보조 강화됩니다.",
+              "desc": "기술의 효율뿐 아니라 환경성과 지속가능성을 함께 보는 방향입니다.",
+              "activity_examples": [
+                "화학 기술의 장점과 환경 부담을 함께 비교하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "탄소 화합물의 유용성",
-      "concept_label": "탄소 화합물-공유 결합-메테인",
+      "concept_key": "탄소 화합물의 유용성",
+      "concept_label": "유기 구조·바이오 소재",
+      "core_focus": "탄소 화합물, 공유 결합, 메테인, 에탄올, 아세트산, 폼알데하이드, 생활 속 유기 화합물 구조와 성질",
       "longitudinal_axes": [
         {
           "axis_id": "organic_structure_axis",
           "axis_title": "유기 물질 구조 해석 축",
+          "axis_short": "유기 구조",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
             "생명공학",
             "고분자공학"
           ],
-          "why": "탄소 골격과 작용기, 생활 속 유기 화합물의 성질을 해석하는 사고가 유기 물질 이해의 핵심으로 이어짐",
+          "why": "탄소 골격과 작용기, 생활 속 유기 화합물의 성질을 구조와 연결해 해석하는 힘이 유기 화학 이해의 핵심이 된다.",
           "student_output_hint": "탄소 화합물 구조 비교, 생활 소재 성질 분석, 유기 화합물 보고서",
-          "priority": 1
+          "keyword_signals": [
+            {
+              "keywords": [
+                "탄소 화합물",
+                "공유 결합",
+                "메테인",
+                "에탄올",
+                "아세트산"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "유기 구조",
+              "message": "선택한 키워드가 탄소 골격과 작용기 해석에 직접 맞닿아 유기 물질 구조 해석 축이 1순위로 강화됩니다.",
+              "desc": "분자 구조와 성질을 함께 읽는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "탄소 화합물 구조식과 성질을 연결해 정리하기",
+                "알코올과 산의 성질 차이를 구조로 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "작용기",
+                "분자식",
+                "구조식",
+                "이성질체"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "구조 비교",
+              "message": "선택한 키워드가 구조 차이와 성질 비교에 초점을 두어 유기 물질 구조 해석 축을 보강합니다.",
+              "desc": "같은 원소 조합이라도 구조에 따라 성질이 달라짐을 추적하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "bio_material_application_axis",
           "axis_title": "바이오·소재 응용 축",
+          "axis_short": "바이오 소재",
           "axis_domain": "biology",
+          "priority": 2,
           "next_subjects": [
             "생명공학",
             "식품공학",
             "신소재공학"
           ],
-          "why": "탄소 화합물의 구조와 성질을 생활·생명·소재와 연결하는 관점이 바이오 및 고분자 응용으로 확장됨",
-          "student_output_hint": "에탄올·아세트산 비교, 생체 분자 연결, 소재 응용 보고서",
-          "priority": 2
+          "why": "탄소 화합물의 구조와 성질을 생활·생명·소재와 연결하는 관점이 바이오 및 고분자 응용으로 확장된다.",
+          "student_output_hint": "생체 분자와 생활 소재 연결, 고분자·식품 응용 사례 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "에탄올",
+                "아세트산",
+                "폼알데하이드",
+                "고분자",
+                "플라스틱"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "생활 소재",
+              "message": "선택한 키워드가 생활 소재와 바이오 응용에 직접 연결되어 바이오·소재 응용 축이 크게 강화됩니다.",
+              "desc": "식품·의약·고분자 소재 쪽으로 연결되는 탐구 방향입니다.",
+              "activity_examples": [
+                "생활 소재 속 탄소 화합물 활용 사례 조사하기",
+                "생체 분자와 고분자 소재의 공통점 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "식품",
+                "발효",
+                "향료",
+                "의약"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "생명 응용",
+              "message": "선택한 키워드가 생명·식품 응용과 맞아 바이오·소재 응용 축을 보강합니다.",
+              "desc": "탄소 화합물을 생명과 생활 문제와 연결해 보는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "safety_impact_axis",
+          "axis_title": "생활 안전·영향 축",
+          "axis_short": "안전 영향",
+          "axis_domain": "health",
+          "priority": 3,
+          "next_subjects": [
+            "보건",
+            "환경공학",
+            "통합사회2"
+          ],
+          "why": "탄소 화합물의 유용성과 위험성을 함께 보는 시각은 안전, 규제, 환경 영향 판단으로 이어진다.",
+          "student_output_hint": "생활 화학물질 안전성 비교, 노출 위험 판단 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "폼알데하이드",
+                "독성",
+                "안전",
+                "노출",
+                "환경호르몬"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "유해성 판단",
+              "message": "선택한 키워드가 생활 화학물질의 안전성과 직결되어 생활 안전·영향 축이 보조 강화됩니다.",
+              "desc": "유용성과 위험성을 함께 평가하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "물질의 양과 화학 반응식",
-      "concept_label": "원자량-분자량-화학식량",
+      "concept_key": "물질의 양과 화학 반응식",
+      "concept_label": "화학량론·정량 계산",
+      "core_focus": "원자량, 분자량, 화학식량, 아보가드로수, 몰, 몰 질량, 반응식 계수와 정량 관계",
       "longitudinal_axes": [
         {
           "axis_id": "stoichiometry_axis",
           "axis_title": "화학량론 해석 축",
+          "axis_short": "화학량론",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
             "화학공학",
             "환경공학"
           ],
-          "why": "몰과 입자 수, 질량비를 정량적으로 해석하는 사고가 반응식 계산과 공정 해석으로 자연스럽게 이어짐",
-          "student_output_hint": "몰비 계산, 반응식 계수 해석, 수율 비교 보고서",
-          "priority": 1
+          "why": "몰과 입자 수, 질량비를 정량적으로 해석하는 사고가 반응식 계산과 공정 해석의 출발점이 된다.",
+          "student_output_hint": "몰비 계산, 반응식 계수 해석, 질량 관계 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "원자량",
+                "분자량",
+                "화학식량",
+                "몰",
+                "몰 질량"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "몰 계산",
+              "message": "선택한 키워드가 물질의 양과 정량 계산에 직접 맞닿아 화학량론 해석 축이 1순위로 강화됩니다.",
+              "desc": "반응 전후의 양적 관계를 계산하고 해석하는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "몰 개념을 활용해 반응 전후 물질량 계산하기",
+                "반응식 계수와 질량비를 표로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "반응식",
+                "계수",
+                "입자 수",
+                "비율"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "반응식 정량",
+              "message": "선택한 키워드가 반응식과 비율 해석에 초점을 두어 화학량론 해석 축을 보강합니다.",
+              "desc": "반응식을 양적 정보로 해석하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "process_calculation_axis",
           "axis_title": "공정 계산 응용 축",
+          "axis_short": "공정 계산",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "화학공학",
             "식품공학",
             "과학수사학"
           ],
-          "why": "정량 계산 관점을 실제 반응 수율과 생산·분석 과정에 적용하는 사고가 공정 최적화와 분석 실험으로 확장됨",
-          "student_output_hint": "반응 수율 비교, 시약 사용량 계산, 분석 실험 보고서",
-          "priority": 2
+          "why": "정량 계산 관점을 실제 반응 수율과 생산·분석 과정에 적용하는 힘이 공정 최적화와 실험 설계로 확장된다.",
+          "student_output_hint": "수율 비교, 시약 사용량 계산, 생산 공정 시뮬레이션",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "수율",
+                "생산량",
+                "시약",
+                "공정",
+                "효율"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "수율 분석",
+              "message": "선택한 키워드가 실제 공정 계산과 직접 연결되어 공정 계산 응용 축이 크게 강화됩니다.",
+              "desc": "계산 결과를 실제 생산·분석 상황에 적용하는 탐구 방향입니다.",
+              "activity_examples": [
+                "시약 사용량과 이론 수율 계산하기",
+                "반응 수율을 높이는 조건 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "혼합물",
+                "농도",
+                "희석",
+                "용액"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "농도 계산",
+              "message": "선택한 키워드가 농도·용액 계산과 맞아 공정 계산 응용 축을 보강합니다.",
+              "desc": "실험실과 산업 현장의 정량 계산으로 이어지는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "experiment_analysis_axis",
+          "axis_title": "실험 설계·분석 축",
+          "axis_short": "실험 분석",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "과학탐구실험1",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "정량 계산을 실험 데이터와 연결하면 측정 오차 판단과 결과 해석 능력으로 이어진다.",
+          "student_output_hint": "실험 전 계산표 작성, 데이터 비교 그래프 만들기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "실험",
+                "오차",
+                "데이터",
+                "비교",
+                "그래프"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "정량 데이터",
+              "message": "선택한 키워드가 실험 데이터 해석과 맞아 실험 설계·분석 축이 보조 강화됩니다.",
+              "desc": "계산값과 실험값을 비교해 해석하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "원자의 구조",
-      "concept_label": "전자-양성자-중성자",
+      "concept_key": "원자의 구조",
+      "concept_label": "입자·동위원소 해석",
+      "core_focus": "전자, 양성자, 중성자, 원자핵, 원자 번호, 질량수, 동위원소와 원자 구조 이해",
       "longitudinal_axes": [
         {
-          "axis_id": "atomic_structure_axis",
-          "axis_title": "원자 구조 해석 축",
+          "axis_id": "atomic_particle_axis",
+          "axis_title": "입자·원자 구조 해석 축",
+          "axis_short": "원자 구조",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
-            "물리학",
-            "원자핵공학"
+            "물리학Ⅰ",
+            "재료공학"
           ],
-          "why": "전자·양성자·중성자의 구조를 이해하는 사고가 원자 모형과 미시 세계 해석의 기초로 이어짐",
-          "student_output_hint": "원자 모형 비교, 입자 구성 정리, 원자 구조 보고서",
-          "priority": 1
+          "why": "전자·양성자·중성자의 역할을 구분해 원자 구조를 이해하는 힘이 이후 원소 성질과 결합 해석의 기반이 된다.",
+          "student_output_hint": "원자 구조 모형 정리, 입자 수 비교표, 동위원소 개념 설명",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "전자",
+                "양성자",
+                "중성자",
+                "원자핵",
+                "원자 번호",
+                "질량수"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "입자 구조",
+              "message": "선택한 키워드가 원자의 기본 입자 구조와 직접 맞닿아 입자·원자 구조 해석 축이 1순위로 강화됩니다.",
+              "desc": "원자의 구성과 전하·질량 관계를 정리하는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "입자별 역할과 특징을 표로 비교하기",
+                "원자 번호와 질량수의 차이를 사례로 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "보어 이전 모형",
+                "실험",
+                "산란"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "모형 변화",
+              "message": "선택한 키워드가 원자 모형 형성 과정과 맞아 입자·원자 구조 해석 축을 보강합니다.",
+              "desc": "원자 이해가 어떻게 발전했는지 추적하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "micro_world_bridge_axis",
-          "axis_title": "미시 세계 연결 축",
+          "axis_id": "isotope_mass_analysis_axis",
+          "axis_title": "동위원소·질량 분석 축",
+          "axis_short": "동위원소 분석",
           "axis_domain": "physics",
+          "priority": 2,
           "next_subjects": [
-            "물리",
-            "원자핵공학",
-            "신소재공학"
+            "물리학Ⅰ",
+            "과학탐구실험1",
+            "지구과학"
           ],
-          "why": "원자 수준 구조를 보는 관점이 전하·핵·물질 특성 해석으로 확장됨",
-          "student_output_hint": "원자와 전하 관계 비교, 핵 구조 설명, 미시 세계 보고서",
-          "priority": 2
+          "why": "질량수와 동위원소를 해석하는 관점은 방사성 동위원소, 연대 측정, 질량 분석 쪽으로 자연스럽게 연결된다.",
+          "student_output_hint": "동위원소 비교, 질량 분석 원리 정리, 연대 측정 사례 조사",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "동위원소",
+                "질량수",
+                "질량 분석",
+                "평균 원자량"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "질량 추적",
+              "message": "선택한 키워드가 동위원소와 질량 분석에 직접 연결되어 동위원소·질량 분석 축이 크게 강화됩니다.",
+              "desc": "원자의 질량 차이를 활용한 분석과 추적의 방향입니다.",
+              "activity_examples": [
+                "동위원소 활용 사례 조사하기",
+                "평균 원자량 계산 원리를 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "방사성",
+                "연대",
+                "추적"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "연대 측정",
+              "message": "선택한 키워드가 추적·연대 판단과 맞아 동위원소·질량 분석 축을 보강합니다.",
+              "desc": "동위원소를 활용한 시간·물질 추적의 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "medical_radiation_application_axis",
+          "axis_title": "의학·방사선 응용 축",
+          "axis_short": "의학 응용",
+          "axis_domain": "health",
+          "priority": 3,
+          "next_subjects": [
+            "보건",
+            "의공학",
+            "생명과학"
+          ],
+          "why": "원자 구조 이해를 의료 영상과 방사선 활용으로 연결하면 화학 지식의 실제 적용 범위를 넓힐 수 있다.",
+          "student_output_hint": "방사선 활용 사례 카드, 의료 영상 원리 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "방사선",
+                "의료",
+                "영상",
+                "치료"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "방사선 활용",
+              "message": "선택한 키워드가 의료·방사선 활용과 맞아 의학·방사선 응용 축이 보조 강화됩니다.",
+              "desc": "원자 구조 지식을 실제 의료 기술과 연결해 보는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "현대의 원자 모형과 전자 배치",
-      "concept_label": "보어 모형-선 스펙트럼-에너지 준위",
+      "concept_key": "현대의 원자 모형과 전자 배치",
+      "concept_label": "전자배치·스펙트럼",
+      "core_focus": "보어 모형, 선 스펙트럼, 에너지 준위, 오비탈, 주 양자수, 방위 양자수, 전자 배치",
       "longitudinal_axes": [
         {
           "axis_id": "electron_configuration_axis",
-          "axis_title": "전자 배치 해석 축",
+          "axis_title": "전자배치·스펙트럼 축",
+          "axis_short": "전자배치",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
-            "전자기와 양자",
+            "물리학Ⅰ",
             "반도체공학"
           ],
-          "why": "오비탈과 전자 배치를 통해 원소 성질을 해석하는 사고가 전자 구조와 재료 물성 이해로 이어짐",
-          "student_output_hint": "전자 배치 작성, 오비탈 비교, 스펙트럼 보고서",
-          "priority": 1
+          "why": "에너지 준위와 전자 배치를 해석하는 힘은 원소 성질과 스펙트럼 이해의 핵심 기반이 된다.",
+          "student_output_hint": "전자배치 쓰기, 오비탈 모식도 정리, 스펙트럼 원리 설명",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "보어 모형",
+                "선 스펙트럼",
+                "에너지 준위",
+                "오비탈",
+                "전자 배치"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "전자배치 해석",
+              "message": "선택한 키워드가 에너지 준위와 전자 배치 해석에 직접 맞닿아 전자배치·스펙트럼 축이 1순위로 강화됩니다.",
+              "desc": "전자가 어떤 준위에 배치되는지와 빛의 방출·흡수를 함께 해석하는 방향입니다.",
+              "activity_examples": [
+                "원소별 전자배치를 표로 정리하기",
+                "선 스펙트럼과 에너지 준위 관계를 그림으로 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "주 양자수",
+                "방위 양자수",
+                "껍질",
+                "전자껍질"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "준위 구조",
+              "message": "선택한 키워드가 준위 구조와 맞아 전자배치·스펙트럼 축을 보강합니다.",
+              "desc": "전자 배치를 계층적으로 이해하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "quantum_material_bridge_axis",
-          "axis_title": "양자·재료 연결 축",
+          "axis_id": "light_energy_transition_axis",
+          "axis_title": "에너지 준위·빛 해석 축",
+          "axis_short": "빛·준위",
           "axis_domain": "physics",
+          "priority": 2,
           "next_subjects": [
+            "물리학Ⅰ",
             "전자기와 양자",
-            "나노공학",
-            "신소재공학"
+            "지구과학"
           ],
-          "why": "에너지 준위와 스펙트럼을 양자적 관점으로 이해하는 사고가 반도체·나노 수준 물성 해석으로 확장됨",
-          "student_output_hint": "에너지 준위 비교, 스펙트럼 해석, 나노 소재 보고서",
-          "priority": 2
+          "why": "전자 전이와 빛의 방출을 함께 보면 스펙트럼 분석과 천체·광원 해석으로 확장될 수 있다.",
+          "student_output_hint": "스펙트럼 비교, 광원별 선 스펙트럼 관찰, 에너지 전이 설명",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "선 스펙트럼",
+                "빛",
+                "전자 전이",
+                "광원"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "스펙트럼 분석",
+              "message": "선택한 키워드가 빛과 전자 전이 해석에 직접 연결되어 에너지 준위·빛 해석 축이 크게 강화됩니다.",
+              "desc": "빛의 색과 에너지 차이를 스펙트럼으로 읽는 방향입니다.",
+              "activity_examples": [
+                "광원에 따른 선 스펙트럼 차이 조사하기"
+              ]
+            },
+            {
+              "keywords": [
+                "흡수",
+                "방출",
+                "파장"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "광원 해석",
+              "message": "선택한 키워드가 파장·광원 해석과 맞아 에너지 준위·빛 해석 축을 보강합니다.",
+              "desc": "빛과 물질 상호작용을 읽는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "semiconductor_electronic_material_axis",
+          "axis_title": "소재·전자 구조 응용 축",
+          "axis_short": "전자 소재",
+          "axis_domain": "engineering",
+          "priority": 3,
+          "next_subjects": [
+            "반도체공학",
+            "신소재공학",
+            "전자공학"
+          ],
+          "why": "전자 배치 관점은 이후 전기적 물성, 반도체, 기능성 소재 이해의 기초로 이어진다.",
+          "student_output_hint": "원소 전자배치와 전기적 성질 연결, 반도체 기초 카드 작성",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "반도체",
+                "전도성",
+                "소재",
+                "전기적 성질"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "소재 연결",
+              "message": "선택한 키워드가 전자 구조와 소재 응용을 연결해 소재·전자 구조 응용 축이 보조 강화됩니다.",
+              "desc": "전자 배치를 기능성 소재와 연결해 보는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "원소의 주기적 성질",
-      "concept_label": "주기율표-주기-족",
+      "concept_key": "원소의 주기적 성질",
+      "concept_label": "주기율·성질 예측",
+      "core_focus": "주기율표, 주기, 족, 유효 핵전하, 가려막기 효과, 원자 반지름, 이온화 에너지, 전자친화도",
       "longitudinal_axes": [
         {
           "axis_id": "periodic_property_axis",
-          "axis_title": "주기성 해석 축",
+          "axis_title": "주기율·성질 예측 축",
+          "axis_short": "주기 성질",
           "axis_domain": "chemistry",
-          "next_subjects": [
-            "화학Ⅰ",
-            "재료공학",
-            "반도체공학"
-          ],
-          "why": "주기율표의 반복성과 원소 성질 변화를 해석하는 사고가 재료 선택과 물성 판단의 기초가 됨",
-          "student_output_hint": "주기성 비교표, 반지름 변화 분석, 원소 선택 보고서",
-          "priority": 1
-        },
-        {
-          "axis_id": "material_selection_axis",
-          "axis_title": "재료 선택 응용 축",
-          "axis_domain": "engineering",
-          "next_subjects": [
-            "반도체공학",
-            "전자공학",
-            "환경공학"
-          ],
-          "why": "원소 주기성을 재료 성능과 연결하는 관점이 전자 재료와 환경 소재 설계로 확장됨",
-          "student_output_hint": "원소 특성 비교, 재료 선택 기준 정리, 응용 보고서",
-          "priority": 2
-        }
-      ]
-    },
-    {
-      "concept_name": "화학 결합",
-      "concept_label": "원자가 전자-이온 결합-공유 결합",
-      "longitudinal_axes": [
-        {
-          "axis_id": "bonding_axis",
-          "axis_title": "화학 결합 해석 축",
-          "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
             "신소재공학",
             "생명공학"
           ],
-          "why": "이온 결합과 공유 결합, 극성을 해석하는 사고가 분자 구조와 물질 성질 이해의 핵심이 됨",
-          "student_output_hint": "전자점식 작성, 결합 비교, 극성 해석 보고서",
-          "priority": 1
+          "why": "주기율표를 통해 원자 반지름, 이온화 에너지, 전기음성도 같은 성질을 예측하는 힘이 화학 해석의 중심이 된다.",
+          "student_output_hint": "주기성 비교표, 원소 성질 예측 카드, 주기율표 탐구 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "주기율표",
+                "주기",
+                "족",
+                "유효 핵전하",
+                "가려막기 효과"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "주기율 해석",
+              "message": "선택한 키워드가 주기율과 성질 예측에 직접 맞닿아 주기율·성질 예측 축이 1순위로 강화됩니다.",
+              "desc": "주기율표를 근거로 원소의 성질 변화를 설명하는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "주기와 족에 따른 성질 변화를 표로 정리하기",
+                "원소 위치만 보고 성질을 예측해 보기"
+              ]
+            },
+            {
+              "keywords": [
+                "원자 반지름",
+                "이온화 에너지",
+                "전자친화도",
+                "전기음성도"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "성질 비교",
+              "message": "선택한 키워드가 정량적 성질 비교와 맞아 주기율·성질 예측 축을 보강합니다.",
+              "desc": "원소 성질의 증감 경향을 비교 분석하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "molecular_design_axis",
-          "axis_title": "분자 설계 응용 축",
+          "axis_id": "material_selection_axis",
+          "axis_title": "재료 선택·설계 축",
+          "axis_short": "재료 선택",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "신소재공학",
+            "반도체공학",
+            "환경공학"
+          ],
+          "why": "원소 성질의 차이를 이해하면 재료 선택과 기능성 소재 설계 판단으로 이어질 수 있다.",
+          "student_output_hint": "원소별 용도 비교, 기능성 소재 사례 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "금속",
+                "비금속",
+                "반도체",
+                "재료",
+                "소재"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "소재 선택",
+              "message": "선택한 키워드가 원소 성질과 재료 선택에 직접 연결되어 재료 선택·설계 축이 크게 강화됩니다.",
+              "desc": "원소의 성질을 실제 소재 용도와 연결해 보는 방향입니다.",
+              "activity_examples": [
+                "금속·비금속·반도체의 성질과 용도 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "전도성",
+                "내식성",
+                "반응성"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "성질 적용",
+              "message": "선택한 키워드가 재료의 기능 판단과 맞아 재료 선택·설계 축을 보강합니다.",
+              "desc": "원소 성질을 기능과 연결하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "bio_environment_ion_axis",
+          "axis_title": "환경·생체 이온 해석 축",
+          "axis_short": "생체 이온",
+          "axis_domain": "biology",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "환경공학",
+            "보건"
+          ],
+          "why": "원소와 이온의 성질을 생체·환경 현상과 연결하면 화학 지식의 적용 범위가 넓어진다.",
+          "student_output_hint": "생체 필수 원소 조사, 환경 이온 사례 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "이온",
+                "무기염류",
+                "영양소",
+                "환경 이온"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "이온 활용",
+              "message": "선택한 키워드가 생체·환경 이온 해석과 맞아 환경·생체 이온 해석 축이 보조 강화됩니다.",
+              "desc": "원소 성질을 생명·환경 조건과 연결해 보는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 결합",
+      "concept_key": "화학 결합",
+      "concept_label": "결합·물성 예측",
+      "core_focus": "원자가 전자, 이온 결합, 공유 결합, 결합의 극성, 전기음성도, 루이스 전자점식",
+      "longitudinal_axes": [
+        {
+          "axis_id": "bond_structure_axis",
+          "axis_title": "결합 구조 해석 축",
+          "axis_short": "결합 구조",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학Ⅰ",
             "생명공학",
+            "신소재공학"
+          ],
+          "why": "이온 결합과 공유 결합, 전기음성도를 바탕으로 결합 구조를 해석하는 힘이 분자와 물질 성질 예측의 시작점이 된다.",
+          "student_output_hint": "결합 종류 비교, 루이스 전자점식 그리기, 극성 판단 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "원자가 전자",
+                "이온 결합",
+                "공유 결합",
+                "전기음성도",
+                "루이스 전자점식"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "결합 해석",
+              "message": "선택한 키워드가 결합 형성과 구조 해석에 직접 맞닿아 결합 구조 해석 축이 1순위로 강화됩니다.",
+              "desc": "전자 분포와 결합 종류를 근거로 물질을 해석하는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "이온 결합과 공유 결합의 형성 과정을 그림으로 정리하기",
+                "전기음성도 차이로 결합 극성 판단하기"
+              ]
+            },
+            {
+              "keywords": [
+                "전자쌍",
+                "팔전자 규칙",
+                "결합 전자"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "전자 분포",
+              "message": "선택한 키워드가 전자 분포와 맞아 결합 구조 해석 축을 보강합니다.",
+              "desc": "전자 배치를 통해 결합 안정성을 읽는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "material_property_design_axis",
+          "axis_title": "물성·소재 설계 축",
+          "axis_short": "물성 설계",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "신소재공학",
+            "화학공학",
+            "전자공학"
+          ],
+          "why": "결합 종류에 따른 물성 차이를 이해하면 재료 설계와 기능성 소재 해석으로 확장된다.",
+          "student_output_hint": "물질별 물성 비교, 결합 종류와 소재 특성 연결 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "결합의 극성",
+                "전도성",
+                "녹는점",
+                "재료",
+                "소재"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "물성 예측",
+              "message": "선택한 키워드가 결합과 물성 예측에 직접 연결되어 물성·소재 설계 축이 크게 강화됩니다.",
+              "desc": "결합 구조가 실제 물성 차이로 이어지는 방향입니다.",
+              "activity_examples": [
+                "결합 종류와 녹는점·전도성의 관계 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "결정",
+                "격자",
+                "강도"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "소재 구조",
+              "message": "선택한 키워드가 결합과 구조적 성질의 연결에 맞아 물성·소재 설계 축을 보강합니다.",
+              "desc": "미시적 결합이 거시적 물성으로 이어지는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "bio_molecular_interaction_axis",
+          "axis_title": "생체 분자 상호작용 축",
+          "axis_short": "생체 결합",
+          "axis_domain": "biology",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "의약학",
             "식품공학"
           ],
-          "why": "결합과 전자쌍을 바탕으로 물질을 설계하는 관점이 생명·소재·식품 분자 응용으로 확장됨",
-          "student_output_hint": "분자 구조 비교, 재료 결합 분석, 응용 분자 보고서",
-          "priority": 2
+          "why": "결합과 극성 이해는 단백질, 용해, 약물 상호작용 같은 생체 분자 문제로도 이어질 수 있다.",
+          "student_output_hint": "용해도 비교, 분자 상호작용 사례 조사",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "극성",
+                "용해",
+                "수소 결합",
+                "생체 분자"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "분자 상호작용",
+              "message": "선택한 키워드가 생체 분자 상호작용과 맞아 생체 분자 상호작용 축이 보조 강화됩니다.",
+              "desc": "극성과 분자 간 상호작용을 생명 현상과 연결하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "분자의 구조와 성질",
-      "concept_label": "분자의 구조-전자쌍 반발-결합각",
+      "concept_key": "분자의 구조와 성질",
+      "concept_label": "분자 구조·극성",
+      "core_focus": "분자의 구조, 전자쌍 반발, 결합각, 분자의 극성, 분자 사이 힘, 끓는점, 용해도",
       "longitudinal_axes": [
         {
-          "axis_id": "molecular_property_axis",
-          "axis_title": "분자 구조·성질 해석 축",
+          "axis_id": "molecular_shape_axis",
+          "axis_title": "분자 구조·극성 축",
+          "axis_short": "분자 구조",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
-            "의약학",
-            "식품공학"
+            "생명과학",
+            "신소재공학"
           ],
-          "why": "분자 모양과 극성, 분자 사이 힘을 해석하는 사고가 끓는점·용해도 같은 물성 설명으로 이어짐",
-          "student_output_hint": "분자 구조 판정, 성질 비교, 용해도 보고서",
-          "priority": 1
+          "why": "전자쌍 반발과 분자 모양, 극성을 함께 해석하는 힘이 분자 성질 예측의 핵심이 된다.",
+          "student_output_hint": "분자 모형 만들기, 결합각 비교, 극성 예측 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "전자쌍 반발",
+                "결합각",
+                "분자의 구조",
+                "분자의 극성"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "극성 해석",
+              "message": "선택한 키워드가 분자 모양과 극성 해석에 직접 맞닿아 분자 구조·극성 축이 1순위로 강화됩니다.",
+              "desc": "분자의 입체 구조가 극성과 성질에 어떻게 연결되는지 읽는 방향입니다.",
+              "activity_examples": [
+                "분자 모형으로 결합각과 구조를 비교하기",
+                "분자의 극성을 예측하고 근거 쓰기"
+              ]
+            },
+            {
+              "keywords": [
+                "쌍극자",
+                "비대칭",
+                "구조식"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "입체 구조",
+              "message": "선택한 키워드가 입체 구조 판단과 맞아 분자 구조·극성 축을 보강합니다.",
+              "desc": "분자의 대칭성과 극성 관계를 해석하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "bio_drug_material_axis",
-          "axis_title": "바이오·의약 응용 축",
+          "axis_id": "intermolecular_force_axis",
+          "axis_title": "분자 사이 힘·물성 축",
+          "axis_short": "분자 힘",
+          "axis_domain": "chemistry",
+          "priority": 2,
+          "next_subjects": [
+            "화학공학",
+            "식품공학",
+            "의약학"
+          ],
+          "why": "분자 사이 힘과 끓는점·용해도 관계를 해석하면 물질의 거시적 성질 예측으로 확장된다.",
+          "student_output_hint": "끓는점 비교, 용해도 실험 설계, 분자간 힘 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "분자 사이 힘",
+                "끓는점",
+                "용해도",
+                "수소 결합"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "물성 비교",
+              "message": "선택한 키워드가 분자간 힘과 물성 비교에 직접 연결되어 분자 사이 힘·물성 축이 크게 강화됩니다.",
+              "desc": "분자 사이 상호작용이 실제 성질 차이로 이어지는 방향입니다.",
+              "activity_examples": [
+                "분자간 힘에 따른 끓는점 차이 비교하기",
+                "용해도 차이를 극성과 연결해 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "증발",
+                "응축",
+                "상변화"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "상변화 해석",
+              "message": "선택한 키워드가 상변화와 맞아 분자 사이 힘·물성 축을 보강합니다.",
+              "desc": "분자간 힘을 거시적 변화와 연결하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "life_material_application_axis",
+          "axis_title": "생활·생체 물질 적용 축",
+          "axis_short": "생활 적용",
           "axis_domain": "biology",
+          "priority": 3,
           "next_subjects": [
             "생명과학",
-            "의약학",
-            "재료공학"
+            "보건",
+            "식품공학"
           ],
-          "why": "분자 구조와 성질을 생체 작용과 약물·소재 설계와 연결하는 관점이 바이오·의약 응용으로 확장됨",
-          "student_output_hint": "친수성·소수성 비교, 약물 용해성 분석, 생체 물질 보고서",
-          "priority": 2
+          "why": "분자 구조와 극성 이해를 용매, 생체막, 약물 전달 같은 문제로 연결하면 실생활 적용 폭이 넓어진다.",
+          "student_output_hint": "생활 용매 비교, 약물 전달 사례 조사",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "물",
+                "지질",
+                "용매",
+                "약물",
+                "막"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "생체 적용",
+              "message": "선택한 키워드가 생체·생활 물질 적용과 맞아 생활·생체 물질 적용 축이 보조 강화됩니다.",
+              "desc": "분자의 극성과 구조를 생명 현상 및 생활 재료와 연결하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "화학 반응에서의 동적 평형",
-      "concept_label": "가역 반응-정반응-역반응",
+      "concept_key": "화학 반응에서의 동적 평형",
+      "concept_label": "평형·산염기 조절",
+      "core_focus": "가역 반응, 정반응, 역반응, 동적 평형, 르샤틀리에 원리, 산, 염기, pH",
       "longitudinal_axes": [
         {
-          "axis_id": "equilibrium_axis",
-          "axis_title": "화학 평형 해석 축",
+          "axis_id": "equilibrium_analysis_axis",
+          "axis_title": "평형 이동 해석 축",
+          "axis_short": "평형 해석",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
-            "환경공학",
-            "생명과학"
-          ],
-          "why": "정반응과 역반응, 산·염기·pH를 평형 관점에서 해석하는 사고가 반응 조건 분석으로 이어짐",
-          "student_output_hint": "평형 상태 설명, pH 비교, 산·염기 보고서",
-          "priority": 1
-        },
-        {
-          "axis_id": "homeostasis_bridge_axis",
-          "axis_title": "환경·항상성 연결 축",
-          "axis_domain": "biology",
-          "next_subjects": [
-            "생명과학",
-            "식품공학",
+            "화학공학",
             "환경공학"
           ],
-          "why": "평형 개념을 생체 조절과 환경 시스템으로 확장하는 관점이 항상성·수질·발효 해석으로 이어짐",
-          "student_output_hint": "체액 pH 비교, 수질 평형 분석, 항상성 보고서",
-          "priority": 2
+          "why": "정반응과 역반응, 르샤틀리에 원리를 해석하는 힘이 반응 조건 변화와 공정 조절의 핵심이 된다.",
+          "student_output_hint": "평형 이동 조건표, 반응 조건 변화 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "가역 반응",
+                "정반응",
+                "역반응",
+                "동적 평형",
+                "르샤틀리에 원리"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "평형 이동",
+              "message": "선택한 키워드가 평형 이동 해석에 직접 맞닿아 평형 이동 해석 축이 1순위로 강화됩니다.",
+              "desc": "조건 변화에 따라 반응이 어떻게 이동하는지 읽는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "온도·농도·압력 변화에 따른 평형 이동 정리하기",
+                "평형 조건 변화 예측 카드 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "농도",
+                "압력",
+                "온도",
+                "촉매"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "조건 조절",
+              "message": "선택한 키워드가 반응 조건 조절과 맞아 평형 이동 해석 축을 보강합니다.",
+              "desc": "조건 변화를 통해 평형을 제어하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "acid_base_environment_axis",
+          "axis_title": "산염기·환경 조절 축",
+          "axis_short": "산염기 조절",
+          "axis_domain": "environment",
+          "priority": 2,
+          "next_subjects": [
+            "생명과학",
+            "환경공학",
+            "보건"
+          ],
+          "why": "산·염기와 pH를 해석하는 관점은 수질, 생체 항상성, 중화 반응 해석으로도 이어질 수 있다.",
+          "student_output_hint": "pH 비교, 중화 사례 조사, 산성·염기성 환경 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "산",
+                "염기",
+                "pH",
+                "중화",
+                "지시약"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "산염기 판단",
+              "message": "선택한 키워드가 산염기와 pH 해석에 직접 연결되어 산염기·환경 조절 축이 크게 강화됩니다.",
+              "desc": "산성·염기성 조건을 생활·환경 문제와 연결하는 방향입니다.",
+              "activity_examples": [
+                "생활 용액의 pH를 비교하고 중화 원리 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "수질",
+                "토양",
+                "체액",
+                "완충"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "환경·생체",
+              "message": "선택한 키워드가 환경 및 생체 조절과 맞아 산염기·환경 조절 축을 보강합니다.",
+              "desc": "pH와 완충 작용을 실제 시스템과 연결하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "process_optimization_axis",
+          "axis_title": "공정 최적화 축",
+          "axis_short": "공정 제어",
+          "axis_domain": "engineering",
+          "priority": 3,
+          "next_subjects": [
+            "화학공학",
+            "식품공학",
+            "배터리공학"
+          ],
+          "why": "평형을 생산성과 연결해 보면 조건 제어와 공정 최적화 문제로 확장할 수 있다.",
+          "student_output_hint": "조건 조절 설계, 수율 변화 비교 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "수율",
+                "생산",
+                "공정",
+                "최적화"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "수율 제어",
+              "message": "선택한 키워드가 공정 조건 제어와 맞아 공정 최적화 축이 보조 강화됩니다.",
+              "desc": "평형을 생산 효율과 연결해 해석하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "화학 반응과 열의 출입",
-      "concept_label": "중화 반응-알짜 이온 반응식-산화",
+      "concept_key": "화학 반응과 열의 출입",
+      "concept_label": "열화학·전기화학",
+      "core_focus": "중화 반응, 알짜 이온 반응식, 산화, 환원, 산화수, 발열 반응, 흡열 반응, 전지",
       "longitudinal_axes": [
         {
-          "axis_id": "reaction_energy_axis",
-          "axis_title": "반응 에너지 해석 축",
+          "axis_id": "thermochemistry_axis",
+          "axis_title": "열화학·반응 에너지 축",
+          "axis_short": "반응 에너지",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
             "화학Ⅰ",
             "에너지공학",
-            "과학수사학"
+            "환경공학"
           ],
-          "why": "산화·환원과 발열·흡열을 함께 해석하는 사고가 반응의 방향성과 에너지 분석으로 이어짐",
-          "student_output_hint": "산화수 판정, 발열·흡열 비교, 반응 열 보고서",
-          "priority": 1
+          "why": "발열·흡열과 반응 에너지 출입을 해석하는 힘이 열화학과 에너지 전환 이해의 핵심이 된다.",
+          "student_output_hint": "발열·흡열 비교표, 반응 에너지 흐름 정리, 생활 사례 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "발열 반응",
+                "흡열 반응",
+                "중화 반응",
+                "알짜 이온 반응식"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "열 출입 해석",
+              "message": "선택한 키워드가 반응에서의 열 출입 해석에 직접 맞닿아 열화학·반응 에너지 축이 1순위로 강화됩니다.",
+              "desc": "반응 전후 에너지 변화를 생활 사례와 연결해 읽는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "발열·흡열 반응 사례를 분류해 보기",
+                "중화 반응의 열 변화를 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "에너지",
+                "온도 변화",
+                "열량",
+                "흡수"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "에너지 변화",
+              "message": "선택한 키워드가 에너지 변화와 맞아 열화학·반응 에너지 축을 보강합니다.",
+              "desc": "반응과 에너지 흐름을 정량적으로 해석하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "battery_process_application_axis",
-          "axis_title": "전지·공정 응용 축",
+          "axis_id": "electrochemistry_battery_axis",
+          "axis_title": "전기화학·배터리 기초 축",
+          "axis_short": "전기화학",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
-            "에너지공학",
-            "환경공학",
-            "화학공학"
+            "배터리공학",
+            "신소재공학",
+            "전자공학"
           ],
-          "why": "전자 이동과 열 출입을 실제 전지·공정 장치로 설명하는 관점이 에너지 기술과 분석 응용으로 확장됨",
-          "student_output_hint": "전지 원리 비교, 반응 공정 분석, 장치 응용 보고서",
-          "priority": 2
+          "why": "산화·환원과 전자 이동을 연결하면 전지, 배터리, 전기화학 공정 이해로 자연스럽게 이어진다.",
+          "student_output_hint": "산화환원 반응 비교, 전지 원리 정리, 배터리 기초 카드 작성",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "산화",
+                "환원",
+                "산화수",
+                "전자 이동",
+                "전지"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "배터리 기초",
+              "message": "선택한 키워드가 산화·환원과 전지 원리에 직접 연결되어 전기화학·배터리 기초 축이 크게 강화됩니다.",
+              "desc": "전자 이동과 전위차를 전지·배터리 원리와 연결하는 방향입니다.",
+              "activity_examples": [
+                "산화수 변화로 산화·환원 반응 판별하기",
+                "간단한 전지 작동 원리 설명 카드 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "배터리",
+                "전극",
+                "충전",
+                "방전"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "전지 응용",
+              "message": "선택한 키워드가 배터리 응용과 맞아 전기화학·배터리 기초 축을 보강합니다.",
+              "desc": "전기화학 반응을 에너지 저장 기술과 연결하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "energy_safety_axis",
+          "axis_title": "에너지·안전 판단 축",
+          "axis_short": "에너지 안전",
+          "axis_domain": "environment",
+          "priority": 3,
+          "next_subjects": [
+            "물리학Ⅰ",
+            "통합사회2",
+            "과학탐구실험2"
+          ],
+          "why": "화학 반응의 열과 에너지 변화를 실제 안전 문제와 연결하면 에너지 효율과 위험 판단 역량으로 이어진다.",
+          "student_output_hint": "발열 반응 안전수칙 정리, 에너지 효율 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "연소",
+                "안전",
+                "폭발",
+                "효율",
+                "연료"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "연소 안전",
+              "message": "선택한 키워드가 에너지 활용과 안전 판단에 맞아 에너지·안전 판단 축이 보조 강화됩니다.",
+              "desc": "열을 내는 반응을 효율과 안전의 관점에서 함께 보는 방향입니다."
+            }
+          ]
         }
       ]
     }
