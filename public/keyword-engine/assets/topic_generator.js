@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.5-bookseed-direct-tuning";
+window.__TOPIC_GENERATOR_VERSION = "v24.6-integrated-master-priority";
 
 (function(){
   const BOOK_URLS = [
@@ -6,6 +6,10 @@ window.__TOPIC_GENERATOR_VERSION = "v24.5-bookseed-direct-tuning";
   ];
   const REPORT_CARD_URLS = [
     "seed/book-report-cards/book_report_cards_active_draft_v1.json"
+  ];
+  const MASTER_BOOK_URLS = [
+    "../book-engine/source/book_master_integrated_v1.json",
+    "book-engine/source/book_master_integrated_v1.json"
   ];
   const FILTER_URLS = [
     "seed/book-engine/book_recommendation_filter_mapping.json"
@@ -79,22 +83,54 @@ window.__TOPIC_GENERATOR_VERSION = "v24.5-bookseed-direct-tuning";
       career_bridge: coerceArray(bridge?.career_bridge)
     }));
     const reportModes = coerceArray(card.report_modes).map(v => v === "case" ? "application" : (v === "career" ? "major" : v));
+    const linkedSubjects = uniq([
+      ...coerceArray(direct.subjects),
+      ...coerceArray(expand.subjects),
+      ...coerceArray(card.related_subjects_highschool),
+      ...coerceArray(card.linked_subjects_runtime)
+    ]);
+    const linkedMajors = uniq([
+      ...coerceArray(direct.majors),
+      ...coerceArray(expand.majors),
+      ...coerceArray(card.related_majors),
+      ...coerceArray(card.linked_majors_runtime)
+    ]);
+    const axisProfile = card.axis_profile || {
+      primary_axis: card.primary_axis || "",
+      secondary_axes: coerceArray(card.secondary_axes),
+      axis_domains: coerceArray(card.axis_domains)
+    };
+    const coreSummary = String(card.selection_summary || card.summary_short || "").trim();
+    const coreKeywords = uniq([
+      ...coerceArray(card.core_keywords),
+      ...coerceArray(card.fit_keywords_raw),
+      ...coerceArray(card.fit_keywords),
+      ...coerceArray(direct.keywords),
+      ...coerceArray(expand.fit_keywords)
+    ]);
     return {
-      book_id: card.book_id || card.source_book_uid || "",
-      source_book_uid: card.source_book_uid || "",
+      book_id: card.book_id || card.book_uid || card.source_book_uid || "",
+      source_book_uid: card.source_book_uid || card.book_uid || card.book_id || "",
       title: card.title || "",
-      author: card.author || "",
+      author: card.author || (Array.isArray(card.authors) ? card.authors.join(', ') : ""),
       publisher: card.publisher || "",
       status: card.status || "active",
-      summary_short: card.summary_short || "",
-      linked_subjects: uniq([...coerceArray(direct.subjects), ...coerceArray(expand.subjects)]),
-      linked_majors: uniq([...coerceArray(direct.majors), ...coerceArray(expand.majors)]),
-      related_majors: uniq(coerceArray(expand.majors)),
-      fit_keywords: uniq([...coerceArray(direct.keywords), ...coerceArray(expand.fit_keywords)]),
-      broad_theme: uniq(coerceArray(expand.themes)),
+      summary_short: coreSummary,
+      book_core_summary: coreSummary,
+      linked_subjects: linkedSubjects,
+      linked_majors: linkedMajors,
+      related_subjects_highschool: coerceArray(card.related_subjects_highschool),
+      related_majors: coerceArray(card.related_majors || card.linked_majors_runtime),
+      related_majors_runtime: coerceArray(card.linked_majors_runtime),
+      fit_keywords: uniq([...coerceArray(card.fit_keywords_raw), ...coerceArray(direct.keywords), ...coerceArray(expand.fit_keywords)]),
+      broad_theme: uniq([...coerceArray(card.recommended_themes_raw), ...coerceArray(expand.themes), ...coerceArray(card.broad_theme_runtime)]),
+      book_keywords: coreKeywords,
+      core_keywords: coreKeywords,
       engine_subject_routes: conceptRoutes,
       connectable_concepts: uniq([...coerceArray(direct.concepts), ...conceptRoutes.map(route => route.concept)]),
-      book_content_points: [],
+      book_content_points: coerceArray(card.book_content_points),
+      book_format: coerceArray(card.book_format),
+      book_approach: card.book_approach || "",
       fit_modes: reportModes,
       report_modes: reportModes,
       perspectives: uniq(coerceArray(card.perspectives)),
@@ -103,12 +139,20 @@ window.__TOPIC_GENERATOR_VERSION = "v24.5-bookseed-direct-tuning";
       evidence_types: uniq(coerceArray(card.evidence_types)),
       direct_match: direct,
       expand_reference: expand,
-      axis_profile: card.axis_profile || null,
-      card_version: card.card_version || "draft_v1"
+      axis_profile: axisProfile,
+      ui_hints: card.ui_hints || {},
+      card_version: card.card_version || "integrated_v1",
+      selection_summary: coreSummary
     };
   }
 
-  function getReportCardByBookId(bookId){
+  function extractIntegratedBooks(data){
+    if (!data || typeof data !== "object") return [];
+    const list = Array.isArray(data?.books) ? data.books : [];
+    return list.filter(book => book && typeof book === "object" && book.book_card_ready !== false);
+  }
+
+function getReportCardByBookId(bookId){
     return reportCards.find(card => card.book_id === bookId || card.source_book_uid === bookId) || null;
   }
 
@@ -1547,7 +1591,8 @@ function renderBookSummary(selectedBook, ctx, sectionType){
   };
 
   async function init(){
-    const [reportCardData, bookData, filterData, lookupData, matrixData] = await Promise.all([
+    const [masterData, reportCardData, bookData, filterData, lookupData, matrixData] = await Promise.all([
+      loadJSON(MASTER_BOOK_URLS, null),
       loadJSON(REPORT_CARD_URLS, []),
       loadJSON(BOOK_URLS, []),
       loadJSON(FILTER_URLS, { subject_keyword_rules: [] }),
@@ -1555,13 +1600,22 @@ function renderBookSummary(selectedBook, ctx, sectionType){
       loadJSON(TOPIC_MATRIX_URLS, null)
     ]);
 
-    reportCards = Array.isArray(reportCardData) ? reportCardData : [];
+    const masterBooks = extractIntegratedBooks(masterData);
+    const preferredCards = masterBooks.length ? masterBooks : (Array.isArray(reportCardData) ? reportCardData : []);
+    reportCards = preferredCards;
+
     const normalizedCards = reportCards.map(normalizeCardToBook).filter(Boolean);
     const legacyBooks = Array.isArray(bookData) ? bookData : [];
     const merged = [];
     const seen = new Set();
-    normalizedCards.forEach(book => { if (book?.book_id && !seen.has(book.book_id)) { seen.add(book.book_id); merged.push(book); } });
-    legacyBooks.forEach(book => { if (book?.book_id && !seen.has(book.book_id)) { seen.add(book.book_id); merged.push(book); } });
+    normalizedCards.forEach(book => {
+      const key = book?.book_id || book?.source_book_uid;
+      if (key && !seen.has(key)) { seen.add(key); merged.push(book); }
+    });
+    legacyBooks.forEach(book => {
+      const key = book?.book_id || book?.source_book_uid;
+      if (key && !seen.has(key)) { seen.add(key); merged.push(book); }
+    });
     books = merged;
     filterMap = filterData || { subject_keyword_rules: [] };
     lookup = lookupData || { career_index: {}, subject_index: {}, theme_index: {} };
@@ -1574,5 +1628,5 @@ function renderBookSummary(selectedBook, ctx, sectionType){
     }
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", init);
 })();
