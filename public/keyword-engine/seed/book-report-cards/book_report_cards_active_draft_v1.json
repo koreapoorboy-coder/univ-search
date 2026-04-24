@@ -485,7 +485,14 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "biology"
+      ],
+      "direct_axis_boost_domains": [
+        "data",
+        "argument"
+      ]
     },
     "axis_profile": {
       "primary_axis": "수리·데이터 모델링 축",
@@ -799,7 +806,16 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "physics",
+        "biology",
+        "earth_env"
+      ],
+      "direct_axis_boost_domains": [
+        "data",
+        "social"
+      ]
     },
     "axis_profile": {
       "primary_axis": "수리·데이터 모델링 축",
@@ -2238,7 +2254,16 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "physics",
+        "data",
+        "materials",
+        "earth_env"
+      ],
+      "direct_axis_boost_domains": [
+        "biology"
+      ]
     },
     "axis_profile": {
       "primary_axis": "생명·건강 해석 축",
@@ -3711,7 +3736,18 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "physics",
+        "chemistry",
+        "materials",
+        "biology"
+      ],
+      "direct_axis_boost_domains": [
+        "social",
+        "argument",
+        "data"
+      ]
     },
     "axis_profile": {
       "primary_axis": "사회 문제 통합해석 축",
@@ -4370,7 +4406,15 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "biology",
+        "social"
+      ],
+      "direct_axis_boost_domains": [
+        "physics",
+        "earth_env"
+      ]
     },
     "axis_profile": {
       "primary_axis": "물리·시스템 해석 축",
@@ -7591,7 +7635,18 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "physics",
+        "data",
+        "earth_env",
+        "materials",
+        "chemistry"
+      ],
+      "direct_axis_boost_domains": [
+        "social",
+        "argument"
+      ]
     },
     "axis_profile": {
       "primary_axis": "사회 문제 통합해석 축",
@@ -10172,7 +10227,14 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "biology"
+      ],
+      "direct_axis_boost_domains": [
+        "data",
+        "physics"
+      ]
     },
     "axis_profile": {
       "primary_axis": "수리·데이터 모델링 축",
@@ -10411,7 +10473,15 @@
     "ui_hints": {
       "preferred_slot": "direct_match",
       "needs_human_review": true,
-      "review_reason": []
+      "review_reason": [],
+      "direct_axis_exclude_domains": [
+        "biology",
+        "data"
+      ],
+      "direct_axis_boost_domains": [
+        "earth_env",
+        "physics"
+      ]
     },
     "axis_profile": {
       "primary_axis": "지구·환경 데이터 해석 축",
