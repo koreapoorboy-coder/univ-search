@@ -4,6 +4,9 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
   const BOOK_URLS = [
     "seed/book-engine/mini_book_engine_books_starter.json"
   ];
+  const REPORT_CARD_URLS = [
+    "seed/book-report-cards/book_report_cards_active_draft_v1.json"
+  ];
   const FILTER_URLS = [
     "seed/book-engine/book_recommendation_filter_mapping.json"
   ];
@@ -26,6 +29,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
   const DEFAULT_VIEW_OPTIONS = ["원리", "구조", "기능", "변화", "비교", "효율", "데이터"];
 
   let books = [];
+  let reportCards = [];
   let filterMap = { subject_keyword_rules: [] };
   let lookup = { career_index: {}, subject_index: {}, theme_index: {} };
   let topicMatrix = null;
@@ -56,6 +60,55 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
 
   function uniq(arr){
     return Array.from(new Set((arr || []).filter(Boolean)));
+  }
+
+  function coerceArray(value){
+    return Array.isArray(value) ? value.filter(Boolean) : [];
+  }
+
+  function normalizeCardToBook(card){
+    if (!card || typeof card !== "object") return null;
+    const direct = card.direct_match || {};
+    const expand = card.expand_reference || {};
+    const conceptRoutes = coerceArray(card.concept_bridges).map(bridge => ({
+      subject: bridge?.subject || "",
+      concept: bridge?.concept || "",
+      micro_keywords: coerceArray(bridge?.micro_keywords),
+      why_linked: bridge?.why_linked || "",
+      activity_types: coerceArray(bridge?.activity_types),
+      career_bridge: coerceArray(bridge?.career_bridge)
+    }));
+    const reportModes = coerceArray(card.report_modes).map(v => v === "case" ? "application" : (v === "career" ? "major" : v));
+    return {
+      book_id: card.book_id || card.source_book_uid || "",
+      source_book_uid: card.source_book_uid || "",
+      title: card.title || "",
+      author: card.author || "",
+      publisher: card.publisher || "",
+      status: card.status || "active",
+      summary_short: card.summary_short || "",
+      linked_subjects: uniq([...coerceArray(direct.subjects), ...coerceArray(expand.subjects)]),
+      linked_majors: uniq([...coerceArray(direct.majors), ...coerceArray(expand.majors)]),
+      related_majors: uniq(coerceArray(expand.majors)),
+      fit_keywords: uniq([...coerceArray(direct.keywords), ...coerceArray(expand.fit_keywords)]),
+      broad_theme: uniq(coerceArray(expand.themes)),
+      engine_subject_routes: conceptRoutes,
+      connectable_concepts: uniq([...coerceArray(direct.concepts), ...conceptRoutes.map(route => route.concept)]),
+      book_content_points: [],
+      fit_modes: reportModes,
+      report_modes: reportModes,
+      perspectives: uniq(coerceArray(card.perspectives)),
+      report_lines: uniq(coerceArray(card.report_lines)),
+      question_seeds: uniq(coerceArray(card.question_seeds)),
+      evidence_types: uniq(coerceArray(card.evidence_types)),
+      direct_match: direct,
+      expand_reference: expand,
+      card_version: card.card_version || "draft_v1"
+    };
+  }
+
+  function getReportCardByBookId(bookId){
+    return reportCards.find(card => card.book_id === bookId || card.source_book_uid === bookId) || null;
   }
 
   async function loadJSON(urls, fallback){
@@ -325,9 +378,27 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     const routes = getRouteMatches(book, subject, concept, keyword);
     const bucketAlignment = getBucketAlignment(book, bucket);
     const trackAlignment = getTrackAlignment(book, linkTrack);
+    const reportCard = getReportCardByBookId(book.book_id);
+    const direct = reportCard?.direct_match || {};
+    const expand = reportCard?.expand_reference || {};
 
     let score = 0;
     const reasons = [];
+
+    const directSubjectHit = coerceArray(direct.subjects).some(v => fuzzyIncludes(v, subject));
+    const directConceptHit = coerceArray(direct.concepts).some(v => fuzzyIncludes(v, concept));
+    const directKeywordHit = coerceArray(direct.keywords).some(v => fuzzyIncludes(v, keyword));
+    const expandSubjectHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, subject));
+    const expandMajorHit = coerceArray(expand.majors).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
+    const expandAxisHit = coerceArray(expand.followup_axes).some(v => fuzzyIncludes(v, ctx?.followupAxisId || ctx?.linkTrack || ""));
+
+    if (directSubjectHit) { score += 24; reasons.push("직접 일치 과목"); }
+    if (directConceptHit) { score += 28; reasons.push("직접 일치 개념"); }
+    if (directKeywordHit) { score += 30; reasons.push("직접 일치 키워드"); }
+    if (directConceptHit && directKeywordHit) { score += 12; reasons.push("직접 일치 도서"); }
+    if (!directKeywordHit && expandSubjectHit) { score += 10; reasons.push("확장 참고 과목"); }
+    if (expandMajorHit) { score += 12; reasons.push("확장 학과 연결"); }
+    if (expandAxisHit) { score += 8; reasons.push("후속 축 연결"); }
 
     if ((book.linked_subjects || []).some(v => fuzzyIncludes(v, subject))) {
       score += 16;
@@ -504,8 +575,19 @@ function classifyRecommendation(item, ctx){
     const strictBucket = isStrictCareerBucket(bucket);
     const signals = getMatchSignals(item.book, ctx);
     const reasonSet = new Set(item.reasons || []);
+    const reportCard = getReportCardByBookId(item.book.book_id);
+    const direct = reportCard?.direct_match || {};
+    const expand = reportCard?.expand_reference || {};
+    const directHit = coerceArray(direct.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) && (
+      coerceArray(direct.concepts).some(v => fuzzyIncludes(v, ctx?.concept || "")) ||
+      coerceArray(direct.keywords).some(v => fuzzyIncludes(v, ctx?.keyword || ""))
+    );
+    const expandHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) ||
+      coerceArray(expand.majors).some(v => tokenizeCareer(ctx?.career || "").some(token => fuzzyIncludes(v, token))) ||
+      coerceArray(expand.followup_axes).some(v => fuzzyIncludes(v, ctx?.followupAxisId || ctx?.linkTrack || ""));
 
     const isDirect = (
+      directHit ||
       signals.routes.length > 0 ||
       reasonSet.has("개념-키워드 직접 연결") ||
       reasonSet.has("연계 축 적합") ||
@@ -528,6 +610,7 @@ function classifyRecommendation(item, ctx){
       return "explore";
     }
 
+    if (expandHit && item.score >= 8) return "explore";
     if (signals.bucketAffinity && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit) && item.score >= 12) return "explore";
     if (signals.lookupCareerHit && item.score >= 12) return "explore";
     if (item.score >= 16 && !isClearlyOffTopicBook(item.book, bucket)) return "explore";
@@ -918,8 +1001,10 @@ function buildBookContentPoints(book){
   const keywords = buildBookCoreKeywords(book, {}).slice(0, 4);
   const subjects = getDisplaySubjects(book).slice(0, 3);
   const majors = getDisplayMajors(book).slice(0, 3);
+  const questionSeeds = coerceArray(book?.question_seeds).slice(0, 2);
   const points = [];
   if (summary) points.push(summary);
+  questionSeeds.forEach(seed => points.push(seed));
   if (keywords.length) points.push(`핵심 키워드는 ${keywords.join(', ')}이며, 이 개념들을 중심으로 책의 내용을 이해할 수 있다.`);
   if (subjects.length) points.push(`${subjects.join('·')} 교과와 연결해 개념을 정리하기 좋다.`);
   if (majors.length) points.push(`${majors.join('·')} 관심 분야와 연결해 책의 의미를 파악할 수 있다.`);
@@ -984,7 +1069,7 @@ function buildConnectableConcepts(book, ctx){
 
     const modeIds = uniq([
       ...matchedRules.flatMap(rule => rule.recommended_modes || []),
-      ...(selected?.fit_modes || []),
+      ...(selected?.report_modes || selected?.fit_modes || []),
       "principle",
       "compare",
       "data",
@@ -1001,12 +1086,24 @@ function buildConnectableConcepts(book, ctx){
 
     const viewOptions = uniq([
       ...matchedRules.flatMap(rule => rule.recommended_views || []),
+      ...(selected?.perspectives || []),
       ...(keywordProfile?.perspectives || []),
       ...(careerProfile?.perspectives || []),
       ...DEFAULT_VIEW_OPTIONS
     ]).slice(0, 8);
 
-    return { selectedBook: selected, modeOptions, viewOptions };
+    const reportLines = uniq([
+      ...(selected?.report_lines || []),
+      "기본형",
+      "확장형",
+      "심화형"
+    ]).slice(0, 3);
+
+    let recommendedLine = reportLines[0] || "기본형";
+    if (reportLines.includes("확장형") && ["data", "compare", "application"].includes(ctx?.reportMode || "")) recommendedLine = "확장형";
+    if (reportLines.includes("심화형") && (ctx?.reportMode === "major" || /(고3)/.test(ctx?.grade || ""))) recommendedLine = "심화형";
+
+    return { selectedBook: selected, modeOptions, viewOptions, reportLines, recommendedLine };
   }
 
   function renderBookCard(item, active, index, sectionType){
@@ -1085,6 +1182,18 @@ function renderBookSummary(selectedBook, ctx, sectionType){
         ${conceptHTML}
       </div>
       <div class="engine-summary-section">
+        <div class="engine-summary-section-title">이 책으로 출발할 수 있는 궁금증</div>
+        ${coerceArray(selectedBook?.question_seeds).length ? `<ul class="engine-summary-list">${coerceArray(selectedBook.question_seeds).slice(0,3).map(item => `<li>${esc(item)}</li>`).join("")}</ul>` : `<div class="engine-summary-empty">궁금증 문장을 보강 중입니다.</div>`}
+      </div>
+      <div class="engine-summary-section">
+        <div class="engine-summary-section-title">추천 보고서 전개 방식</div>
+        <div class="engine-tag-wrap">${coerceArray(selectedBook?.report_modes).length ? coerceArray(selectedBook.report_modes).map(item => `<span class="engine-tag">${esc((DEFAULT_MODE_OPTIONS.find(v => v.id === item) || {}).label || item)}</span>`).join("") : `<span class="engine-tag">원리 파악형</span>`}</div>
+      </div>
+      <div class="engine-summary-section">
+        <div class="engine-summary-section-title">추천 관점 / 라인</div>
+        <div class="engine-tag-wrap">${coerceArray(selectedBook?.perspectives).slice(0,4).map(item => `<span class="engine-tag subtle">${esc(item)}</span>`).join("") || `<span class="engine-tag subtle">원리</span>`}${coerceArray(selectedBook?.report_lines).slice(0,3).map(item => `<span class="engine-tag">${esc(item)}</span>`).join("")}</div>
+      </div>
+      <div class="engine-summary-section">
         <div class="engine-summary-section-title">관련 교과</div>
         <div class="engine-tag-wrap">${subjectTags || `<span class="engine-tag">관련 교과 보강 중</span>`}</div>
       </div>
@@ -1159,14 +1268,22 @@ function renderBookSummary(selectedBook, ctx, sectionType){
   };
 
   async function init(){
-    const [bookData, filterData, lookupData, matrixData] = await Promise.all([
+    const [reportCardData, bookData, filterData, lookupData, matrixData] = await Promise.all([
+      loadJSON(REPORT_CARD_URLS, []),
       loadJSON(BOOK_URLS, []),
       loadJSON(FILTER_URLS, { subject_keyword_rules: [] }),
       loadJSON(LOOKUP_URLS, { career_index: {}, subject_index: {}, theme_index: {} }),
       loadJSON(TOPIC_MATRIX_URLS, null)
     ]);
 
-    books = Array.isArray(bookData) ? bookData : [];
+    reportCards = Array.isArray(reportCardData) ? reportCardData : [];
+    const normalizedCards = reportCards.map(normalizeCardToBook).filter(Boolean);
+    const legacyBooks = Array.isArray(bookData) ? bookData : [];
+    const merged = [];
+    const seen = new Set();
+    normalizedCards.forEach(book => { if (book?.book_id && !seen.has(book.book_id)) { seen.add(book.book_id); merged.push(book); } });
+    legacyBooks.forEach(book => { if (book?.book_id && !seen.has(book.book_id)) { seen.add(book.book_id); merged.push(book); } });
+    books = merged;
     filterMap = filterData || { subject_keyword_rules: [] };
     lookup = lookupData || { career_index: {}, subject_index: {}, theme_index: {} };
     topicMatrix = matrixData || null;
