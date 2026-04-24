@@ -1764,29 +1764,72 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
   }
 
 
+  function getAxisKeywordSignal(axis) {
+    if (!axis || !Array.isArray(axis.keyword_signals) || !state.keyword) return null;
+    const selectedKeyword = String(state.keyword || "").trim();
+    const selectedTokens = selectedKeyword.split(/\s+/).filter(Boolean);
+    let best = null;
+
+    axis.keyword_signals.forEach(signal => {
+      const keywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
+      let hit = false;
+      let partialHits = 0;
+      keywords.forEach(keyword => {
+        if (!keyword) return;
+        if (fuzzyIncludes(keyword, selectedKeyword) || fuzzyIncludes(selectedKeyword, keyword)) {
+          hit = true;
+          return;
+        }
+        const keywordTokens = String(keyword || '').split(/\s+/).filter(Boolean);
+        if (keywordTokens.some(token => selectedTokens.some(sel => fuzzyIncludes(token, sel) || fuzzyIncludes(sel, token)))) {
+          partialHits += 1;
+        }
+      });
+
+      if (!hit && partialHits === 0) return;
+      const signalScore = Number(signal?.boost || 0) + (hit ? 100 : partialHits * 10);
+      if (!best || signalScore > best.__score) {
+        best = { ...signal, __score: signalScore, __exactHit: hit, __partialHits: partialHits };
+      }
+    });
+
+    return best;
+  }
+
   function buildConceptMappedAxes(entry) {
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
+      const keywordSignal = getAxisKeywordSignal(axis);
+      const signalActivities = Array.isArray(keywordSignal?.activity_examples) ? keywordSignal.activity_examples : [];
+      const mergedActivities = uniq([
+        ...(axis.student_output_hint ? [axis.student_output_hint] : []),
+        ...signalActivities
+      ]);
+      const mergedReason = [
+        keywordSignal?.message || "",
+        relationMeta.message || ""
+      ].filter(Boolean).join(" ");
       return {
         id: axis.axis_id,
         title: axis.axis_title,
-        short: entry.concept_label || state.concept,
+        short: keywordSignal?.short_label || axis.axis_short || entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: axis.why || "",
-        reason: relationMeta.message,
-        relationLabel: relationMeta.label,
+        desc: keywordSignal?.desc || axis.why || "",
+        reason: mergedReason || relationMeta.message,
+        relationLabel: keywordSignal?.label || relationMeta.label,
         relationType: relationMeta.type,
-        easy: axis.student_output_hint || "",
+        easy: mergedActivities[0] || axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
-        extensionKeywords: [],
-        activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
+        extensionKeywords: Array.isArray(keywordSignal?.keywords) ? keywordSignal.keywords : [],
+        activityExamples: mergedActivities,
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
-        __priority: Number(axis.priority || 99)
+        __priority: Number(axis.priority || 99),
+        __keywordSignalBoost: Number(keywordSignal?.boost || 0)
       };
     });
   }
@@ -1801,6 +1844,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
+        score += Number(axis.__keywordSignalBoost || 0);
         return { ...axis, __score: score };
       });
 
