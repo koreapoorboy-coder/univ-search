@@ -1,227 +1,899 @@
 {
   "subject_name": "물리",
+  "version": "v358-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "힘과 운동",
-      "concept_label": "속도-가속도-등가속도 운동",
+      "concept_key": "힘과 운동",
+      "concept_label": "속도·힘·충격 해석",
+      "core_focus": "속도, 가속도, 뉴턴 운동 법칙, 운동량, 충격량, 그래프 해석, 안전장치와 운동 분석",
       "longitudinal_axes": [
         {
           "axis_id": "motion_force_analysis_axis",
           "axis_title": "운동·힘 해석 축",
+          "axis_short": "운동 해석",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "역학과 에너지",
-            "기계공학",
-            "자동차공학"
+            "과학탐구실험2",
+            "기계공학"
           ],
-          "why": "속도·가속도·힘·운동량을 함께 해석하는 사고가 역학 문제와 구조 안전성 분석으로 자연스럽게 이어짐",
-          "student_output_hint": "운동 그래프 비교, 충돌 안전 장치 분석, 힘-시간 해석 보고서",
-          "priority": 1
+          "why": "속도와 가속도, 힘의 관계를 정량적으로 읽는 힘이 이후 역학 문제 해석과 실험 검증의 핵심이 된다.",
+          "student_output_hint": "운동 그래프 분석, 힘-시간 관계 정리, 충격량 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "속도",
+                "가속도",
+                "뉴턴 운동 법칙",
+                "힘",
+                "운동량"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "힘-운동 법칙",
+              "message": "선택한 키워드가 힘과 운동의 기본 법칙 해석과 직접 맞닿아 운동·힘 해석 축이 1순위로 강화됩니다.",
+              "desc": "속도·가속도·힘·운동량의 관계를 수식과 그래프로 해석하는 방향의 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "등가속도 운동 그래프와 힘의 관계 비교하기",
+                "운동량 변화와 충격량을 사례로 설명하는 보고서 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "그래프",
+                "위치",
+                "시간",
+                "변화율"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "그래프 해석",
+              "message": "선택한 키워드가 운동 그래프와 변화 해석에 초점을 두어 운동·힘 해석 축을 보강합니다.",
+              "desc": "그래프를 바탕으로 운동 상태를 추론하는 탐구 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "mobility_safety_design_axis",
           "axis_title": "모빌리티·안전 설계 축",
+          "axis_short": "안전 설계",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "자동차공학",
             "항공우주공학",
             "스포츠과학"
           ],
-          "why": "충돌과 충격량을 정량적으로 해석하는 관점이 이동체 설계와 스포츠 움직임 분석으로 확장됨",
-          "student_output_hint": "에어백 원리 비교, 충격 완화 구조 설계, 스포츠 동작 분석 보고서",
-          "priority": 2
+          "why": "충격량과 힘의 작용 시간을 이해하면 이동체 안전 구조와 스포츠 동작 분석으로 자연스럽게 확장된다.",
+          "student_output_hint": "에어백·범퍼 구조 비교, 충격 완화 아이디어 설계",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "충격량",
+                "충돌",
+                "에어백",
+                "안전벨트",
+                "범퍼"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "충돌 안전",
+              "message": "선택한 키워드가 충격 완화와 안전장치 설계에 직접 연결되어 모빌리티·안전 설계 축이 크게 강화됩니다.",
+              "desc": "충돌 상황에서 힘을 줄이는 구조와 설계 원리를 탐구하는 방향입니다.",
+              "activity_examples": [
+                "안전장치별 충격 완화 원리 비교표 만들기",
+                "충돌 시간을 늘려 힘을 줄이는 구조 설계하기"
+              ]
+            },
+            {
+              "keywords": [
+                "마찰",
+                "제동",
+                "스포츠",
+                "동작"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "동작 분석",
+              "message": "선택한 키워드가 제동·마찰·움직임 분석과 맞아 안전 설계 축이 보강됩니다.",
+              "desc": "움직임을 안전성과 효율의 관점에서 분석하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "data_measurement_motion_axis",
+          "axis_title": "측정 데이터·모델링 축",
+          "axis_short": "데이터 모델링",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "과학탐구실험1"
+          ],
+          "why": "운동 현상을 데이터로 수집하고 비교하는 과정은 센서 측정과 데이터 모델링 능력으로 이어진다.",
+          "student_output_hint": "센서 측정값 정리, 운동 데이터 시각화, 비교 분석 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "측정",
+                "센서",
+                "데이터",
+                "실험",
+                "기록"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "측정 데이터",
+              "message": "선택한 키워드가 운동 현상을 데이터로 기록·비교하는 방향과 맞아 측정 데이터·모델링 축이 보조 강화됩니다.",
+              "desc": "실험 데이터를 수집하고 시각화해 운동을 해석하는 탐구 방향입니다.",
+              "activity_examples": [
+                "움직임 측정 데이터를 표와 그래프로 정리하기",
+                "센서 기록값으로 속도 변화를 추정하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "에너지와 열",
-      "concept_label": "일-운동 에너지-퍼텐셜 에너지",
+      "concept_key": "에너지와 열",
+      "concept_label": "에너지 전환·효율",
+      "core_focus": "일, 운동 에너지, 퍼텐셜 에너지, 열, 내부 에너지, 열기관, 에너지 보존, 효율",
       "longitudinal_axes": [
         {
           "axis_id": "energy_conversion_axis",
           "axis_title": "에너지 전환 해석 축",
+          "axis_short": "에너지 전환",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "역학과 에너지",
             "에너지공학",
             "환경공학"
           ],
-          "why": "일·열·내부에너지·효율을 함께 해석하는 사고가 에너지 시스템 분석과 열역학 심화로 이어짐",
-          "student_output_hint": "열기관 효율 비교, 에너지 손실 분석, 전환 과정 보고서",
-          "priority": 1
+          "why": "일과 열, 에너지 보존을 함께 해석하는 사고가 열역학과 시스템 효율 분석의 기초가 된다.",
+          "student_output_hint": "에너지 전환 단계도, 열기관 효율 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "일",
+                "운동 에너지",
+                "퍼텐셜 에너지",
+                "에너지 보존",
+                "전환"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "보존·전환",
+              "message": "선택한 키워드가 에너지의 형태 변화와 보존 관계를 직접 가리켜 에너지 전환 해석 축이 1순위로 강화됩니다.",
+              "desc": "에너지 보존과 전환 과정을 수식·사례로 해석하는 방향이 강화됩니다.",
+              "activity_examples": [
+                "높이와 속도 변화에 따른 에너지 전환 설명하기",
+                "놀이기구나 진자 운동의 에너지 보존 사례 분석"
+              ]
+            },
+            {
+              "keywords": [
+                "열",
+                "온도",
+                "내부 에너지",
+                "열평형"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "열 해석",
+              "message": "선택한 키워드가 열과 내부 에너지 해석에 초점을 두어 에너지 전환 축을 보강합니다.",
+              "desc": "에너지 이동을 열의 관점에서 읽는 탐구 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "thermal_system_design_axis",
           "axis_title": "열·시스템 설계 축",
+          "axis_short": "열 시스템",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "기계공학",
             "화학공학",
             "에너지공학"
           ],
-          "why": "열과 일의 관계를 정량적으로 다루는 관점이 냉각·발전·공정 시스템 설계로 확장됨",
-          "student_output_hint": "냉각 장치 비교, 열교환 구조 분석, 효율 개선 아이디어 보고서",
-          "priority": 2
+          "why": "열기관과 효율을 장치 수준에서 해석하는 힘은 냉각·발전·공정 설계와 자연스럽게 연결된다.",
+          "student_output_hint": "냉각 장치 비교, 열기관 구조 분석, 효율 개선 제안서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "열기관",
+                "효율",
+                "엔진",
+                "냉각",
+                "발전"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "장치 효율",
+              "message": "선택한 키워드가 열기관과 효율 개선을 직접 겨냥해 열·시스템 설계 축이 크게 강화됩니다.",
+              "desc": "열을 이용하는 장치의 구조와 효율을 설계 관점으로 해석하는 방향입니다.",
+              "activity_examples": [
+                "열기관 종류별 효율 비교 카드 만들기",
+                "냉각·발전 장치의 에너지 손실 줄이기 아이디어 제안"
+              ]
+            },
+            {
+              "keywords": [
+                "단열",
+                "전도",
+                "대류",
+                "복사"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "열 전달",
+              "message": "선택한 키워드가 열 전달 방식과 맞아 열 시스템 축이 보강됩니다.",
+              "desc": "에너지 손실을 열 전달의 관점에서 분석하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "environment_energy_efficiency_axis",
+          "axis_title": "환경·효율 데이터 축",
+          "axis_short": "환경 효율",
+          "axis_domain": "earth_env",
+          "priority": 3,
+          "next_subjects": [
+            "통합과학2",
+            "지구과학",
+            "확률과 통계"
+          ],
+          "why": "에너지 소비와 효율을 생활·환경 데이터와 연결하면 지속가능한 에너지 해석으로 이어진다.",
+          "student_output_hint": "전력 소비 비교표, 단열 효과 데이터 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "전력 소비",
+                "효율",
+                "절약",
+                "온실가스",
+                "신재생"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "에너지 절약",
+              "message": "선택한 키워드가 에너지 효율과 환경 문제를 함께 보게 해 환경·효율 데이터 축이 보조 강화됩니다.",
+              "desc": "에너지 사용량을 비교하고 지속가능성을 따지는 방향의 횡단 연결입니다.",
+              "activity_examples": [
+                "가전제품 전력 소비 비교 그래프 만들기",
+                "효율 개선이 환경에 미치는 영향 정리하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "시간과 공간",
-      "concept_label": "상대성 원리-광속 불변-동시성 불일치",
+      "concept_key": "시간과 공간",
+      "concept_label": "상대성·시공간",
+      "core_focus": "상대성 원리, 광속 불변, 동시성, 시간 지연, 길이 수축, 질량-에너지 관계, 우주와 핵반응",
       "longitudinal_axes": [
         {
           "axis_id": "modern_physics_axis",
           "axis_title": "현대 물리 해석 축",
+          "axis_short": "현대 물리",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "전자기와 양자",
-            "물리학",
-            "원자핵공학"
+            "원자핵공학",
+            "물리"
           ],
-          "why": "상대성·질량에너지 동등성·핵반응 해석이 현대 물리와 원자핵 분야의 핵심 사고로 이어짐",
-          "student_output_hint": "시간 지연 사례 비교, 핵반응 질량 결손 분석, 현대 물리 보고서",
-          "priority": 1
+          "why": "상대성과 질량-에너지 관계를 이해하는 힘은 현대 물리 전반을 해석하는 출발점이 된다.",
+          "student_output_hint": "시간 지연 사례 정리, 질량 결손 분석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "상대성 원리",
+                "광속 불변",
+                "동시성",
+                "시간 지연",
+                "길이 수축"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "상대성 해석",
+              "message": "선택한 키워드가 시공간 해석의 핵심이라 현대 물리 해석 축이 1순위로 강화됩니다.",
+              "desc": "고전적 시간·공간 개념이 어떻게 바뀌는지 설명하는 종단 연결이 강화됩니다.",
+              "activity_examples": [
+                "상대성 개념 변화 전후 비교 카드 만들기",
+                "빛의 속도와 시간 지연 사례를 설명하는 보고서 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "질량-에너지",
+                "핵반응",
+                "질량 결손"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "질량-에너지",
+              "message": "선택한 키워드가 질량과 에너지의 관계를 직접 드러내 현대 물리 축을 보강합니다.",
+              "desc": "핵반응과 에너지 방출을 연결해 해석하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "space_nuclear_application_axis",
           "axis_title": "우주·핵 응용 축",
+          "axis_short": "우주·핵 응용",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "천문우주학",
             "에너지공학",
             "신소재공학"
           ],
-          "why": "시공간과 에너지 개념을 새롭게 보는 관점이 우주 탐사와 핵에너지·고에너지 소재 이해로 확장됨",
-          "student_output_hint": "우주 이동 시간 해석, 핵융합 에너지 비교, 고에너지 환경 소재 보고서",
-          "priority": 2
+          "why": "시공간과 질량·에너지 개념은 우주 이동과 핵에너지 활용, 고에너지 환경 소재 이해로 확장된다.",
+          "student_output_hint": "우주 이동 시간 해석, 핵융합과 핵분열 비교 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "우주",
+                "로켓",
+                "항법",
+                "핵융합",
+                "핵분열"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "우주·에너지",
+              "message": "선택한 키워드가 우주 탐사와 핵에너지 응용으로 직접 이어져 우주·핵 응용 축이 크게 강화됩니다.",
+              "desc": "시공간과 고에너지 환경을 실제 응용 분야와 연결하는 탐구 방향입니다.",
+              "activity_examples": [
+                "우주 이동 시간과 거리 개념 비교하기",
+                "핵융합·핵분열 에너지 특성 비교 보고서 작성"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "science_history_reasoning_axis",
+          "axis_title": "과학사·개념 전환 축",
+          "axis_short": "개념 전환",
+          "axis_domain": "science_history",
+          "priority": 3,
+          "next_subjects": [
+            "과학탐구실험1",
+            "공통국어2",
+            "통합사회2"
+          ],
+          "why": "기존의 절대적 시공간 개념이 바뀌는 과정을 따라가면 과학사와 개념 전환의 의미를 해석할 수 있다.",
+          "student_output_hint": "뉴턴과 아인슈타인 관점 비교, 과학사 발표 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "아인슈타인",
+                "뉴턴",
+                "관점 변화",
+                "과학사"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "과학사 비교",
+              "message": "선택한 키워드가 과학사 속 개념 전환과 맞아 과학사·개념 전환 축이 보조 강화됩니다.",
+              "desc": "패러다임 변화와 개념 혁신의 의미를 비교하는 횡단 연결입니다.",
+              "activity_examples": [
+                "뉴턴 역학과 상대성 이론 차이를 표로 정리하기",
+                "과학사 관점에서 시간·공간 개념 변화를 설명하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "물질의 전기적 특성",
-      "concept_label": "전하-전기력-원자 구조",
+      "concept_key": "물질의 전기적 특성",
+      "concept_label": "전하·전기력·도핑",
+      "core_focus": "전하, 전기력, 전기장, 전위차, 원자 구조, 에너지띠, 반도체, 도핑, 전기적 성질",
       "longitudinal_axes": [
         {
           "axis_id": "electrical_material_axis",
           "axis_title": "전기적 물성 해석 축",
+          "axis_short": "전기 물성",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "전자기와 양자",
             "반도체공학",
             "전자공학"
           ],
-          "why": "전하·에너지띠·도핑을 통해 물질의 전기적 성질을 해석하는 사고가 반도체와 전자소자 이해로 이어짐",
-          "student_output_hint": "도체·반도체 비교, 에너지띠 구조 분석, 다이오드 원리 보고서",
-          "priority": 1
+          "why": "전하와 에너지띠를 통해 물질의 전기적 성질을 해석하는 힘은 전자소자 이해의 핵심이 된다.",
+          "student_output_hint": "도체·반도체·절연체 비교표, 에너지띠 구조 설명 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "전하",
+                "전기장",
+                "전위차",
+                "에너지띠",
+                "반도체"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "전기 물성",
+              "message": "선택한 키워드가 전기적 성질과 에너지띠 해석을 직접 가리켜 전기적 물성 해석 축이 1순위로 강화됩니다.",
+              "desc": "전하 이동과 에너지 상태 차이로 물질의 전기적 성질을 설명하는 방향입니다.",
+              "activity_examples": [
+                "도체·반도체·절연체의 전하 이동 차이 정리하기",
+                "에너지띠 개념으로 반도체 성질을 설명하는 보고서 작성"
+              ]
+            },
+            {
+              "keywords": [
+                "도핑",
+                "다이오드",
+                "트랜지스터"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "소자 이해",
+              "message": "선택한 키워드가 전기적 물성을 소자와 연결해 해석하게 하여 전기적 물성 축을 보강합니다.",
+              "desc": "반도체 물성이 전자소자 동작으로 이어지는 탐구 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "material_structure_device_axis",
           "axis_title": "물질 구조·소자 설계 축",
-          "axis_domain": "chemistry",
+          "axis_short": "구조·소자",
+          "axis_domain": "materials",
+          "priority": 2,
           "next_subjects": [
             "화학",
             "신소재공학",
             "나노공학"
           ],
-          "why": "원자 구조와 물성의 관계를 보는 관점이 소재 설계와 나노 수준 구조 해석으로 확장됨",
-          "student_output_hint": "도핑 소재 비교, 물성 변화 분석, 소자 재료 보고서",
-          "priority": 2
+          "why": "원자 구조와 물성의 관계를 이해하면 소재 설계와 기능성 재료 해석으로 확장된다.",
+          "student_output_hint": "소재 구조와 물성 비교, 기능성 재료 사례 조사",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "원자 구조",
+                "결정",
+                "결합",
+                "재료",
+                "소재"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "재료 설계",
+              "message": "선택한 키워드가 원자 구조와 재료 성질 연결에 직접 닿아 물질 구조·소자 설계 축이 크게 강화됩니다.",
+              "desc": "구조에 따른 물성 차이를 바탕으로 재료를 해석하는 방향입니다.",
+              "activity_examples": [
+                "구조와 물성의 관계를 재료 사례로 비교하기",
+                "기능성 소재가 소자에 쓰이는 이유 설명하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "circuit_measurement_data_axis",
+          "axis_title": "회로·측정 데이터 축",
+          "axis_short": "회로 측정",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "과학탐구실험2",
+            "전자기와 양자"
+          ],
+          "why": "전류와 전압을 측정하고 회로 데이터를 읽는 과정은 센서·회로 측정 활동과 자연스럽게 연결된다.",
+          "student_output_hint": "회로 측정 기록, 전압·전류 변화 그래프",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "전류",
+                "전압",
+                "회로",
+                "센서",
+                "측정"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "전기 측정",
+              "message": "선택한 키워드가 회로와 측정 활동을 강조해 회로·측정 데이터 축이 보조 강화됩니다.",
+              "desc": "전기 현상을 센서·측정 데이터로 해석하는 횡단 연결입니다.",
+              "activity_examples": [
+                "간단한 회로의 전압·전류 측정값 비교하기",
+                "센서 입력과 회로 반응을 기록해 보기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "물질의 자기적 특성",
-      "concept_label": "자기장-전류-전자석",
+      "concept_key": "물질의 자기적 특성",
+      "concept_label": "자기장·유도·전력",
+      "core_focus": "자기장, 자기력, 전류와 자기장, 전자석, 자기 유도, 발전기, 모터, 전력 전달",
       "longitudinal_axes": [
         {
           "axis_id": "electromagnetic_induction_axis",
           "axis_title": "전자기 유도 해석 축",
+          "axis_short": "전자기 유도",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "전자기와 양자",
             "전기공학",
             "에너지공학"
           ],
-          "why": "전류와 자기장의 상호작용을 해석하는 사고가 발전·송전·전자기 장치 이해로 이어짐",
-          "student_output_hint": "전자기 유도 실생활 사례, 발전기 구조 비교, 변압기 원리 보고서",
-          "priority": 1
+          "why": "전류와 자기장의 상호작용을 이해하는 힘은 발전·송전·전자기 장치 해석의 핵심이 된다.",
+          "student_output_hint": "유도 전류 발생 조건 정리, 발전기 원리 설명 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "자기장",
+                "전자석",
+                "전자기 유도",
+                "유도 전류",
+                "코일"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "유도 원리",
+              "message": "선택한 키워드가 전자기 유도의 핵심 원리와 직접 연결되어 전자기 유도 해석 축이 1순위로 강화됩니다.",
+              "desc": "자기장 변화와 유도 전류 발생을 장치 원리와 연결해 설명하는 방향입니다.",
+              "activity_examples": [
+                "코일 수와 자기장 변화에 따른 유도 전류 조건 정리하기",
+                "발전기와 변압기 작동 원리 비교 보고서 작성"
+              ]
+            }
+          ]
         },
         {
           "axis_id": "power_system_application_axis",
           "axis_title": "전력·장치 응용 축",
+          "axis_short": "전력 장치",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "전기공학",
             "전자공학",
             "의공학"
           ],
-          "why": "자기장과 유도 전류를 장치 수준에서 설명하는 관점이 전력 시스템과 의료·센서 장비 응용으로 확장됨",
-          "student_output_hint": "모터·센서 비교, 자기장 응용 장치 분석, 전력 전달 보고서",
-          "priority": 2
+          "why": "자기장과 전류의 관계를 장치 수준으로 확장하면 모터, 발전기, 의료 기기 응용까지 이어진다.",
+          "student_output_hint": "모터·센서 비교, 전력 전달 장치 분석 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "모터",
+                "발전기",
+                "변압기",
+                "전력",
+                "송전"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "장치 응용",
+              "message": "선택한 키워드가 전력 장치와 직접 이어져 전력·장치 응용 축이 크게 강화됩니다.",
+              "desc": "자기장을 활용한 장치의 구조와 역할을 응용 중심으로 해석하는 방향입니다.",
+              "activity_examples": [
+                "모터와 발전기의 공통점·차이점 비교하기",
+                "송전 효율과 변압기 역할을 설명하는 자료 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "MRI",
+                "의료 기기",
+                "센서"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "의료 응용",
+              "message": "선택한 키워드가 자기장 기반 의료 장비와 맞아 장치 응용 축이 보강됩니다.",
+              "desc": "전자기 원리가 의료·센서 장비로 이어지는 횡단 연결입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "energy_transfer_design_axis",
+          "axis_title": "에너지 전달 설계 축",
+          "axis_short": "에너지 전달",
+          "axis_domain": "energy",
+          "priority": 3,
+          "next_subjects": [
+            "통합과학2",
+            "역학과 에너지",
+            "과학탐구실험2"
+          ],
+          "why": "전자기 유도는 에너지 전달과 변환의 관점에서 해석할 때 지속가능한 전력 시스템 이해로 이어진다.",
+          "student_output_hint": "발전 방식 비교표, 에너지 전달 효율 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "재생에너지",
+                "발전",
+                "에너지 전환",
+                "효율"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "전환 효율",
+              "message": "선택한 키워드가 발전과 에너지 전달 효율에 초점을 두어 에너지 전달 설계 축이 보조 강화됩니다.",
+              "desc": "발전과 송전의 효율을 지속가능성 관점에서 읽는 방향입니다.",
+              "activity_examples": [
+                "발전 방식별 전환 효율 비교하기",
+                "전기에너지 전달 과정의 손실 요인 정리하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "파동의 성질과 활용",
-      "concept_label": "파동-진동수-파장",
+      "concept_key": "파동의 성질과 활용",
+      "concept_label": "파동·빛·신호",
+      "core_focus": "진동수, 파장, 파동의 속력, 굴절, 반사, 간섭, 공명, 소리와 빛의 전달, 광통신과 센서",
       "longitudinal_axes": [
         {
           "axis_id": "wave_signal_axis",
           "axis_title": "파동·신호 해석 축",
+          "axis_short": "파동 신호",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "전자기와 양자",
             "정보통신공학",
             "광학공학"
           ],
-          "why": "파동의 속력·굴절·간섭을 해석하는 사고가 빛과 신호 전달 구조 분석으로 자연스럽게 이어짐",
-          "student_output_hint": "굴절 비교 실험 정리, 간섭 현상 분석, 광통신 보고서",
-          "priority": 1
+          "why": "파동의 전달과 간섭을 해석하는 힘은 빛·소리·신호 전달 구조를 이해하는 기초가 된다.",
+          "student_output_hint": "굴절·간섭 현상 비교, 파장과 진동수 관계 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "파동",
+                "진동수",
+                "파장",
+                "속력",
+                "간섭"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "파동 해석",
+              "message": "선택한 키워드가 파동의 기본 성질과 직접 맞닿아 파동·신호 해석 축이 1순위로 강화됩니다.",
+              "desc": "파장·진동수·속력 관계를 이용해 파동 현상을 해석하는 방향입니다.",
+              "activity_examples": [
+                "파동의 3요소 관계를 사례로 설명하기",
+                "간섭·회절 현상을 비교하는 실험 정리 카드 만들기"
+              ]
+            },
+            {
+              "keywords": [
+                "굴절",
+                "반사",
+                "매질",
+                "임계각"
+              ],
+              "boost": 15,
+              "label": "키워드 반영",
+              "short_label": "빛 전달",
+              "message": "선택한 키워드가 빛의 전달 경로 해석에 초점을 두어 파동·신호 해석 축을 보강합니다.",
+              "desc": "매질에 따른 빛의 이동과 경계면 현상을 설명하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "communication_device_axis",
           "axis_title": "통신·장치 응용 축",
-          "axis_domain": "data",
+          "axis_short": "통신 응용",
+          "axis_domain": "info",
+          "priority": 2,
           "next_subjects": [
             "정보",
             "전자공학",
             "의공학"
           ],
-          "why": "파동을 정보 전달 수단으로 이해하는 관점이 통신 장치와 센서 시스템 해석으로 확장됨",
-          "student_output_hint": "광통신 구조 비교, 전자기파 활용 분류, 센서 응용 보고서",
-          "priority": 2
+          "why": "파동을 정보 전달의 수단으로 이해하면 광통신, 센서, 진단 장치 해석으로 확장되기 쉽다.",
+          "student_output_hint": "광통신 구조 비교, 초음파 센서 응용 조사",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "광통신",
+                "통신",
+                "센서",
+                "초음파",
+                "레이더"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "통신·센서",
+              "message": "선택한 키워드가 파동의 통신·센서 활용과 직접 이어져 통신·장치 응용 축이 크게 강화됩니다.",
+              "desc": "파동이 정보를 전달하고 감지하는 장치 응용 방향입니다.",
+              "activity_examples": [
+                "광통신과 전파 통신의 차이를 정리하기",
+                "초음파 센서의 원리를 생활 사례와 연결하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "medical_environment_wave_axis",
+          "axis_title": "의료·환경 파동 활용 축",
+          "axis_short": "의료·환경 활용",
+          "axis_domain": "bio_env",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "지구과학",
+            "과학탐구실험2"
+          ],
+          "why": "파동은 진단 장비와 환경 관측에서도 널리 쓰여 의료·환경 데이터 해석으로 연결된다.",
+          "student_output_hint": "초음파 진단 사례, 소음·지진파 데이터 해석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "소리",
+                "초음파",
+                "지진파",
+                "진단",
+                "환경"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "관측 활용",
+              "message": "선택한 키워드가 진단과 환경 관측 활용과 맞아 의료·환경 파동 활용 축이 보조 강화됩니다.",
+              "desc": "파동을 관측과 진단의 도구로 활용하는 횡단 연결입니다.",
+              "activity_examples": [
+                "초음파 진단과 지진파 관측의 공통점 찾기",
+                "소음·파동 데이터를 생활 환경과 연결해 해석하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "빛과 물질의 이중성",
-      "concept_label": "빛의 파동설-빛의 입자설-광전 효과",
+      "concept_key": "빛과 물질의 이중성",
+      "concept_label": "양자·광전 효과",
+      "core_focus": "빛의 파동설, 입자설, 광전 효과, 물질파, 전자, 광자, 이중성, 양자 개념",
       "longitudinal_axes": [
         {
           "axis_id": "quantum_light_matter_axis",
           "axis_title": "빛·물질 양자 해석 축",
+          "axis_short": "양자 해석",
           "axis_domain": "physics",
+          "priority": 1,
           "next_subjects": [
             "전자기와 양자",
             "반도체공학",
             "원자핵공학"
           ],
-          "why": "빛과 물질의 이중성을 해석하는 관점이 양자 현상과 광전자 소자 이해의 출발점이 됨",
-          "student_output_hint": "광전 효과 사례 분석, 물질파 비교, 전자 현미경 원리 보고서",
-          "priority": 1
+          "why": "빛과 물질의 이중성을 이해하는 힘은 광전 효과와 양자 현상을 해석하는 핵심 출발점이 된다.",
+          "student_output_hint": "광전 효과 조건 비교, 입자·파동 관점 정리 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "광전 효과",
+                "광자",
+                "물질파",
+                "이중성",
+                "전자"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "광자·물질파",
+              "message": "선택한 키워드가 빛과 물질의 양자 해석을 직접 가리켜 빛·물질 양자 해석 축이 1순위로 강화됩니다.",
+              "desc": "광자와 물질파 개념을 통해 양자 현상을 설명하는 방향입니다.",
+              "activity_examples": [
+                "빛의 파동설과 입자설 설명 비교하기",
+                "광전 효과 실험 결과를 조건별로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "파동설",
+                "입자설",
+                "관점",
+                "모형"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "모형 비교",
+              "message": "선택한 키워드가 서로 다른 설명 모형 비교와 맞아 양자 해석 축을 보강합니다.",
+              "desc": "서로 다른 모형이 같은 현상을 어떻게 설명하는지 비교하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "nano_device_application_axis",
           "axis_title": "나노·소자 응용 축",
+          "axis_short": "나노·소자",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
             "나노공학",
             "광학공학",
             "전자공학"
           ],
-          "why": "광자와 물질파 개념을 응용하는 사고가 나노 관측 기술과 정밀 소자 설계로 확장됨",
-          "student_output_hint": "전자 현미경 해상도 비교, 광센서 구조 분석, 나노 장치 보고서",
-          "priority": 2
+          "why": "빛과 전자의 양자적 거동을 이해하면 광센서, 디스플레이, 나노 소자 해석으로 이어진다.",
+          "student_output_hint": "광센서 구조 조사, 디스플레이 원리 정리 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "광센서",
+                "태양전지",
+                "LED",
+                "디스플레이",
+                "반도체"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "광전자 소자",
+              "message": "선택한 키워드가 광전자 소자와 직접 이어져 나노·소자 응용 축이 크게 강화됩니다.",
+              "desc": "빛과 전자의 상호작용이 소자 설계로 이어지는 탐구 방향입니다.",
+              "activity_examples": [
+                "LED와 태양전지의 공통 원리 비교하기",
+                "광센서가 작동하는 과정을 그림으로 정리하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "science_philosophy_axis",
+          "axis_title": "과학사·모형 해석 축",
+          "axis_short": "모형 해석",
+          "axis_domain": "science_history",
+          "priority": 3,
+          "next_subjects": [
+            "과학탐구실험1",
+            "공통국어2",
+            "통합사회2"
+          ],
+          "why": "빛과 물질을 설명하는 모형이 바뀌는 과정은 과학적 설명의 한계와 개념 전환을 생각하게 한다.",
+          "student_output_hint": "과학자별 관점 변화 정리, 개념 전환 발표 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "과학사",
+                "아인슈타인",
+                "드브로이",
+                "설명",
+                "모형"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "설명 모형",
+              "message": "선택한 키워드가 과학자별 설명 모형과 맞아 과학사·모형 해석 축이 보조 강화됩니다.",
+              "desc": "과학적 설명이 어떻게 바뀌는지 비교하는 횡단 연결입니다.",
+              "activity_examples": [
+                "빛을 설명하는 과학자들의 관점 변화를 표로 정리하기",
+                "모형 전환이 과학 발전에 미친 영향 발표하기"
+              ]
+            }
+          ]
         }
       ]
     }
