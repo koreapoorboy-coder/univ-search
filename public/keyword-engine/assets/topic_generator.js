@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
+window.__TOPIC_GENERATOR_VERSION = "v24.5-bookseed-direct-tuning";
 
 (function(){
   const BOOK_URLS = [
@@ -422,7 +422,6 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
       ...coerceArray(reportCard?.expand_reference?.followup_axes)
     ]);
     const inferredDomains = detectBookAxisDomains(book);
-    const registry = getAxisPatternRegistry();
 
     const primaryTitleHit = !!axis.title && !!profile.primary_axis && fuzzyIncludes(profile.primary_axis, axis.title);
     const secondaryTitleHit = !!axis.title && profile.secondary_axes.some(v => fuzzyIncludes(v, axis.title));
@@ -437,33 +436,33 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
     const reasons = [];
 
     if (primaryTitleHit) {
-      score += 42;
+      score += 48;
       reasons.push("대표 축 일치");
     } else if (exactTitleHit) {
-      score += 28;
+      score += 32;
       reasons.push("선택 축 직접 일치");
     }
 
     if (!primaryTitleHit && secondaryTitleHit) {
-      score += 16;
+      score += 12;
       reasons.push("보조 축 일치");
     }
 
     if (!primaryTitleHit && !exactTitleHit && domainHit) {
-      score += 18;
+      score += 20;
       reasons.push("선택 축 핵심 연계");
     }
 
     if (!primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && legacyHit) {
-      score += 10;
+      score += 8;
       reasons.push("선택 축 보조 연계");
     }
 
     if ((axis.title || axis.domain || axis.legacyTrack) && profile.primary_axis && !primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && !legacyHit) {
-      score -= 16;
+      score -= 18;
       reasons.push("대표 축 불일치");
     } else if ((axis.title || axis.domain || axis.legacyTrack) && !primaryTitleHit && !exactTitleHit && !secondaryTitleHit && !domainHit && !legacyHit) {
-      score -= 10;
+      score -= 12;
     }
 
     return {
@@ -478,8 +477,65 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
       explicitAxes,
       inferredDomains,
       profilePrimary: profile.primary_axis,
-      profileSecondary: profile.secondary_axes
+      profileSecondary: profile.secondary_axes,
+      targetDomain: domainTarget,
+      primaryDomain: getAxisDomainFromTitle(profile.primary_axis)
     };
+  }
+
+  function getAxisProfileControls(reportCard){
+    const ui = reportCard?.ui_hints || {};
+    return {
+      directAxisExcludeDomains: uniq(coerceArray(ui?.direct_axis_exclude_domains).map(v => String(v || '').trim().toLowerCase())),
+      directAxisBoostDomains: uniq(coerceArray(ui?.direct_axis_boost_domains).map(v => String(v || '').trim().toLowerCase()))
+    };
+  }
+
+  function getAxisDirectTuning(book, ctx, axisAffinity){
+    const reportCard = getReportCardByBookId(book?.book_id);
+    const controls = getAxisProfileControls(reportCard);
+    const targetDomain = String(axisAffinity?.targetDomain || '').trim().toLowerCase();
+    const primaryDomain = String(axisAffinity?.primaryDomain || '').trim().toLowerCase();
+
+    let score = 0;
+    const reasons = [];
+
+    if (!targetDomain) return { score, reasons, controls, primaryDomain, targetDomain };
+
+    if (controls.directAxisBoostDomains.includes(targetDomain)) {
+      score += 14;
+      reasons.push('선택 축 우선 도서');
+    }
+
+    if (controls.directAxisExcludeDomains.includes(targetDomain) && !axisAffinity?.primaryTitleHit && !axisAffinity?.exactTitleHit) {
+      score -= 32;
+      reasons.push('선택 축 direct 제외');
+    }
+
+    if (primaryDomain && targetDomain && primaryDomain !== targetDomain) {
+      if (axisAffinity?.primaryTitleHit || axisAffinity?.exactTitleHit) {
+        score += 0;
+      } else if (axisAffinity?.domainHit) {
+        score -= 6;
+      } else if (axisAffinity?.secondaryTitleHit) {
+        score -= 12;
+      } else {
+        score -= 22;
+        reasons.push('선택 축 대표 불일치');
+      }
+    }
+
+    if (targetDomain === 'physics' && /생명|의학|보건|의예|간호|의료/.test(`${(book?.linked_majors || []).join(' ')} ${(book?.title || '')}`) && !axisAffinity?.primaryTitleHit && !axisAffinity?.exactTitleHit) {
+      score -= 18;
+      reasons.push('생명 중심 direct 감점');
+    }
+
+    if (targetDomain === 'data' && /의학|보건|간호|의료/.test(`${(book?.linked_majors || []).join(' ')} ${(book?.title || '')}`) && !axisAffinity?.primaryTitleHit && !axisAffinity?.exactTitleHit) {
+      score -= 16;
+      reasons.push('전용 데이터 direct 감점');
+    }
+
+    return { score, reasons, controls, primaryDomain, targetDomain };
   }
 
 
@@ -559,6 +615,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
     const trackAlignment = getTrackAlignment(book, linkTrack);
     const axisAffinity = getAxisAffinity(book, ctx);
     const reportCard = getReportCardByBookId(book.book_id);
+    const axisDirectTuning = getAxisDirectTuning(book, ctx, axisAffinity);
     const direct = reportCard?.direct_match || {};
     const expand = reportCard?.expand_reference || {};
 
@@ -578,7 +635,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
     if (directConceptHit && directKeywordHit) { score += 12; reasons.push("직접 일치 도서"); }
     if (!directKeywordHit && expandSubjectHit) { score += 10; reasons.push("확장 참고 과목"); }
     if (expandMajorHit) { score += 12; reasons.push("확장 학과 연결"); }
-    if (expandAxisHit) { score += 10; reasons.push("후속 축 연결"); }
+    if (expandAxisHit) { score += 8; reasons.push("후속 축 연결"); }
 
     if ((book.linked_subjects || []).some(v => fuzzyIncludes(v, subject))) {
       score += 16;
@@ -629,6 +686,9 @@ window.__TOPIC_GENERATOR_VERSION = "v24.3-bookseed-axis-profile";
 
     score += axisAffinity.score;
     reasons.push(...axisAffinity.reasons);
+
+    score += axisDirectTuning.score;
+    reasons.push(...axisDirectTuning.reasons);
 
     if (["materials", "mechanical", "electronic", "it"].includes(bucket)) {
       const selectedBioConcept = /(생명|세포|항상성|자극|내부 환경|변화 대응)/.test(`${concept} ${keyword}`);
@@ -786,11 +846,18 @@ function classifyRecommendation(item, ctx){
     );
 
     if (hasAxisContext) {
-      if (axisAffinity.primaryTitleHit && item.score >= 16) return "direct";
-      if (axisAffinity.exactTitleHit && item.score >= 18) return "direct";
-      if (axisAffinity.secondaryTitleHit && isDirectBase && item.score >= 16) return "direct";
-      if (axisAffinity.anyHit && isDirectBase && item.score >= 16) return "direct";
-      if (isDirectBase && !axisAffinity.anyHit) return strictBucket ? "drop" : "explore";
+      const axisControls = getAxisProfileControls(reportCard);
+      const targetDomain = String(axisAffinity?.targetDomain || '').trim().toLowerCase();
+      const primaryDomain = String(axisAffinity?.primaryDomain || '').trim().toLowerCase();
+      const blockedDirect = !!targetDomain && axisControls.directAxisExcludeDomains.includes(targetDomain) && !axisAffinity.primaryTitleHit && !axisAffinity.exactTitleHit;
+      const severeMismatch = !!targetDomain && !!primaryDomain && targetDomain !== primaryDomain && !axisAffinity.primaryTitleHit && !axisAffinity.exactTitleHit && !axisAffinity.domainHit;
+
+      if (blockedDirect) return strictBucket ? 'drop' : 'explore';
+      if (axisAffinity.primaryTitleHit && item.score >= 14) return 'direct';
+      if (axisAffinity.exactTitleHit && item.score >= 18) return 'direct';
+      if (axisAffinity.domainHit && isDirectBase && item.score >= 20) return 'direct';
+      if (axisAffinity.secondaryTitleHit && isDirectBase && !severeMismatch && item.score >= 24) return 'direct';
+      if (isDirectBase) return strictBucket ? 'drop' : 'explore';
     }
 
     if (isDirectBase) return "direct";
@@ -832,6 +899,9 @@ function getBookRecommendationSections(ctx){
       const aExact = a.axisAffinity?.exactTitleHit ? 1 : 0;
       const bExact = b.axisAffinity?.exactTitleHit ? 1 : 0;
       if (bExact !== aExact) return bExact - aExact;
+      const aDomain = a.axisAffinity?.domainHit ? 1 : 0;
+      const bDomain = b.axisAffinity?.domainHit ? 1 : 0;
+      if (bDomain !== aDomain) return bDomain - aDomain;
       const aSecondary = a.axisAffinity?.secondaryTitleHit ? 1 : 0;
       const bSecondary = b.axisAffinity?.secondaryTitleHit ? 1 : 0;
       if (bSecondary !== aSecondary) return bSecondary - aSecondary;
