@@ -1,5 +1,5 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.80-performance-debounce";
 
 (function(){
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
@@ -30,7 +30,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
     selectedMajorName: '',
     loading: false,
     delegatedCareerBound: false,
-    inputObserverBound: false
+    inputObserverBound: false,
+    inputDebounceTimer: null,
+    lastRenderedInput: ''
   };
 
   function $(id){ return document.getElementById(id); }
@@ -384,28 +386,22 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
       state.selectedMajorId = '';
       state.selectedMajorName = '';
     }
+    if (raw === state.lastRenderedInput && !state.selectedMajorName) return;
+    state.lastRenderedInput = raw;
     renderMajorSummary();
-    startMiniPayloadPatch();
   }
 
   function bindCareerInput(){
     const el = getCareerInput();
     if (el && el.dataset.majorBound !== '1') {
       el.dataset.majorBound = '1';
-      ['input','change','focus','blur'].forEach(evt => {
-        el.addEventListener(evt, () => onCareerInputEvent(el));
+      el.addEventListener('input', () => {
+        if (state.inputDebounceTimer) clearTimeout(state.inputDebounceTimer);
+        state.inputDebounceTimer = setTimeout(() => onCareerInputEvent(el), 180);
       });
-    }
-
-    if (!state.delegatedCareerBound) {
-      state.delegatedCareerBound = true;
-      const handler = (event) => {
-        const current = getCareerInput();
-        if (!current) return;
-        if (event.target === current) onCareerInputEvent(current);
-      };
-      ['input','change','focus','blur'].forEach(evt => {
-        document.addEventListener(evt, handler, true);
+      el.addEventListener('change', () => {
+        if (state.inputDebounceTimer) clearTimeout(state.inputDebounceTimer);
+        onCareerInputEvent(el);
       });
     }
 
