@@ -1,99 +1,365 @@
 {
   "subject_name": "물질과 에너지",
+  "version": "v364_matter_energy_refined_2026-04-24",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "기체 상태와 법칙",
-      "concept_label": "압력-부피-이상 기체",
+      "concept_key": "기체 상태와 법칙",
+      "concept_label": "기체 상태·열역학 해석",
+      "core_focus": "압력, 부피, 온도, 보일 법칙, 샤를 법칙, 이상 기체 방정식, 상태 변화, 기체 거동 해석",
       "longitudinal_axes": [
         {
-          "axis_id": "gas_state_analysis_axis",
-          "axis_title": "기체 상태 해석 축",
+          "axis_id": "gas_state_thermo_axis",
+          "axis_title": "기체 상태·열역학 해석 축",
+          "axis_short": "기체 상태 해석",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
+            "화학Ⅰ",
             "역학과 에너지",
-            "화학공학",
-            "에너지공학과"
+            "화학공학과"
           ],
-          "why": "압력·부피·온도 관계를 식과 그래프로 해석하는 사고가 열역학과 공정 시스템 분석으로 자연스럽게 이어짐",
-          "student_output_hint": "보일 법칙-샤를 법칙 비교, 이상 기체 방정식 적용, 상태 변화 해석 보고서",
-          "priority": 1
+          "why": "압력·부피·온도 관계를 식과 그래프로 읽는 힘이 열역학과 물질 상태 해석의 핵심 기초가 된다.",
+          "student_output_hint": "보일 법칙과 샤를 법칙 비교표, 상태 변화 그래프 해석, 이상 기체 방정식 적용 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "압력",
+                "부피",
+                "보일 법칙",
+                "샤를 법칙",
+                "기체 법칙",
+                "이상 기체 방정식"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "기체 법칙 해석",
+              "message": "선택한 키워드가 기체 법칙과 상태 관계를 직접 다루어 기체 상태·열역학 해석 축이 1순위로 강화됩니다.",
+              "desc": "압력·부피·온도 사이의 정량 관계를 식과 그래프로 읽는 방향으로 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "보일 법칙과 샤를 법칙 그래프를 비교해 상태 변화를 설명하기",
+                "이상 기체 방정식으로 생활 속 기체 팽창 사례를 계산하기"
+              ]
+            },
+            {
+              "keywords": [
+                "온도",
+                "상태 변화",
+                "팽창",
+                "수축"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "상태 변화",
+              "message": "선택한 키워드가 온도와 상태 변화 해석을 강조해 기체 상태 해석 축이 우선됩니다.",
+              "desc": "기체의 팽창·수축과 상태 변화 조건을 중심으로 해석하는 축입니다.",
+              "activity_examples": [
+                "온도 변화에 따른 기체 부피 변화를 사례별로 정리하기"
+              ]
+            }
+          ]
         },
         {
           "axis_id": "process_energy_application_axis",
-          "axis_title": "에너지·공정 응용 축",
+          "axis_title": "공정·에너지 응용 축",
+          "axis_short": "공정·효율 응용",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
-            "기계공학",
-            "환경공학",
-            "신재생에너지공학"
+            "역학과 에너지",
+            "기계공학과",
+            "에너지공학과"
           ],
-          "why": "기체 시스템의 변화 조건을 실제 장치와 에너지 효율 관점으로 해석하는 관점이 공정 설계와 환경 제어로 확장됨",
-          "student_output_hint": "타이어·에어백·냉매 사례 비교, 압력 제어 장치 분석, 에너지 효율 아이디어 보고서",
-          "priority": 2
+          "why": "기체 시스템의 조건 변화를 장치와 효율 관점으로 해석하면 냉각·압축·에너지 제어 문제로 확장된다.",
+          "student_output_hint": "압축기·냉매 장치 사례 비교, 에너지 효율 아이디어 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "압축",
+                "냉매",
+                "열기관",
+                "에너지 효율",
+                "공정",
+                "냉각"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "공정·효율 설계",
+              "message": "선택한 키워드가 장치와 효율 문제를 직접 가리켜 공정·에너지 응용 축이 크게 강화됩니다.",
+              "desc": "기체 상태 변화를 실제 장치와 에너지 효율 관점으로 연결하는 축입니다.",
+              "activity_examples": [
+                "에어컨과 냉장고의 냉매 순환 구조를 비교 설명하기",
+                "압축 과정과 에너지 소비 관계를 정리한 탐구 개요 만들기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "measurement_modeling_axis",
+          "axis_title": "측정 데이터·모델링 축",
+          "axis_short": "데이터 모델링",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "통합과학2"
+          ],
+          "why": "기체 상태를 수치로 기록하고 그래프로 표현하는 활동이 데이터 모델링과 예측 해석으로 이어진다.",
+          "student_output_hint": "압력-부피 그래프 작성, 센서 측정값 비교, 데이터 기반 예측 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "데이터",
+                "측정",
+                "센서",
+                "예측"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "측정 데이터",
+              "message": "선택한 키워드가 측정과 그래프 해석에 맞닿아 측정 데이터·모델링 축이 강해집니다.",
+              "desc": "기체 상태를 표·그래프·센서 데이터로 표현하고 해석하는 축입니다.",
+              "activity_examples": [
+                "압력-부피 측정값으로 그래프를 작성해 패턴을 설명하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "혼합 기체와 조성",
-      "concept_label": "부분 압력-달톤 법칙-몰분율",
+      "concept_key": "혼합 기체와 조성",
+      "concept_label": "기체 조성·환경 해석",
+      "core_focus": "부분 압력, 달톤 법칙, 몰분율, 기체 조성, 대기 구성, 혼합 기체 해석, 환경 가스 분석",
       "longitudinal_axes": [
         {
-          "axis_id": "mixed_gas_analysis_axis",
-          "axis_title": "혼합 기체 분석 축",
+          "axis_id": "mixed_gas_composition_axis",
+          "axis_title": "혼합 기체 조성 해석 축",
+          "axis_short": "조성·부분압력",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
-            "지구시스템과학",
-            "환경공학",
-            "대기과학과"
+            "화학Ⅰ",
+            "지구과학",
+            "환경공학과"
           ],
-          "why": "부분 압력과 몰분율로 혼합 기체를 해석하는 사고가 대기 조성·환경 데이터·가스 분석 이해로 직접 이어짐",
-          "student_output_hint": "공기 조성 비교, 혼합 기체 계산, 기체 분석 자료 해석 보고서",
-          "priority": 1
+          "why": "부분 압력과 몰분율로 혼합 기체를 해석하는 힘이 대기 조성, 실험 기체 분석, 환경 화학 이해의 기초가 된다.",
+          "student_output_hint": "달톤 법칙 적용, 혼합 기체 조성 계산, 부분 압력 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "부분 압력",
+                "달톤 법칙",
+                "몰분율",
+                "기체 조성",
+                "혼합 기체"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "조성 계산",
+              "message": "선택한 키워드가 부분 압력과 몰분율 계산과 직접 연결되어 혼합 기체 조성 해석 축이 1순위로 강화됩니다.",
+              "desc": "혼합 기체의 비율과 부분 압력을 정량적으로 계산하고 해석하는 축입니다.",
+              "activity_examples": [
+                "달톤 법칙을 적용한 생활 속 혼합 기체 사례 계산하기",
+                "몰분율과 부분 압력 관계를 표로 정리하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "gas_sensor_process_axis",
-          "axis_title": "가스 공정·센서 응용 축",
-          "axis_domain": "engineering",
+          "axis_id": "atmosphere_environment_axis",
+          "axis_title": "대기·환경 데이터 해석 축",
+          "axis_short": "대기·환경 해석",
+          "axis_domain": "earth_env",
+          "priority": 2,
           "next_subjects": [
-            "전자기와 양자",
-            "화학공학",
-            "보건환경학과"
+            "지구과학",
+            "지구시스템과학",
+            "환경공학과"
           ],
-          "why": "기체 조성과 농도를 정량적으로 다루는 관점이 공정 제어·가스 센서·안전 관리 기술로 확장됨",
-          "student_output_hint": "가스 센서 사례 조사, 공정 조성 관리 비교, 실내 공기 질 분석 보고서",
-          "priority": 2
+          "why": "혼합 기체 조성 개념을 대기와 환경 문제에 적용하면 대기 오염, 기후 변화, 실내 공기질 해석으로 확장된다.",
+          "student_output_hint": "대기 조성 변화 비교, 오염 기체 분석, 환경 데이터 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "대기",
+                "이산화탄소",
+                "산소",
+                "오염",
+                "공기질",
+                "온실가스"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "대기 조성",
+              "message": "선택한 키워드가 대기 조성과 환경 문제에 직결되어 대기·환경 데이터 해석 축이 크게 강화됩니다.",
+              "desc": "혼합 기체 개념을 대기 조성 변화와 환경 데이터 해석으로 연결하는 축입니다.",
+              "activity_examples": [
+                "이산화탄소 농도 변화와 대기 조성 변화를 함께 정리하기",
+                "실내 공기질 문제를 혼합 기체 조성 관점에서 설명하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "gas_sensor_analysis_axis",
+          "axis_title": "가스 센서·측정 응용 축",
+          "axis_short": "가스 센서 응용",
+          "axis_domain": "engineering",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "전자기와 양자",
+            "의공학과"
+          ],
+          "why": "기체 조성과 농도를 측정하는 관점을 센서와 안전 장치에 연결하면 데이터 기반 장치 해석으로 이어진다.",
+          "student_output_hint": "가스 센서 원리 비교, 농도 경보 장치 사례 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "센서",
+                "농도 측정",
+                "경보기",
+                "가스 누출",
+                "안전 장치"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "센서·농도 측정",
+              "message": "선택한 키워드가 가스 농도 측정과 안전 장치 활용에 맞닿아 가스 센서·측정 응용 축이 강화됩니다.",
+              "desc": "혼합 기체의 농도와 조성을 센서 데이터와 안전 시스템으로 연결하는 축입니다.",
+              "activity_examples": [
+                "가스 누출 경보기와 센서 작동 원리를 비교 정리하기"
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "액체의 물성과 분자 간 힘",
-      "concept_label": "수소 결합-분산력-증기 압력",
+      "concept_key": "액체의 물성과 분자 간 힘",
+      "concept_label": "분자 간 힘·소재 성질 해석",
+      "core_focus": "수소 결합, 분산력, 쌍극자 상호작용, 끓는점, 증기 압력, 점성, 표면 장력, 액체 성질과 구조",
       "longitudinal_axes": [
         {
-          "axis_id": "molecular_property_analysis_axis",
-          "axis_title": "분자 물성 해석 축",
+          "axis_id": "intermolecular_force_axis",
+          "axis_title": "분자 간 힘·물성 해석 축",
+          "axis_short": "분자 간 힘",
           "axis_domain": "chemistry",
+          "priority": 1,
           "next_subjects": [
-            "화학",
-            "재료공학과",
-            "생명공학과"
+            "화학Ⅰ",
+            "세포와 물질대사",
+            "신소재공학과"
           ],
-          "why": "분자 간 힘과 구조-성질 관계를 해석하는 사고가 재료 물성 비교와 분자 설계 이해로 이어짐",
-          "student_output_hint": "끓는점 비교, 증기 압력 곡선 분석, 구조-성질 연결 보고서",
-          "priority": 1
+          "why": "분자 간 힘을 바탕으로 끓는점·증기 압력·점성 차이를 설명하는 힘이 물질 구조와 성질 예측의 핵심이 된다.",
+          "student_output_hint": "분자 간 힘 비교표, 끓는점·점성 차이 해석, 액체 물성 설명 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "수소 결합",
+                "분산력",
+                "쌍극자",
+                "분자 간 힘",
+                "증기 압력"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "분자 간 힘 해석",
+              "message": "선택한 키워드가 분자 간 힘과 물성 설명의 핵심을 직접 건드려 분자 간 힘·물성 해석 축이 1순위로 강화됩니다.",
+              "desc": "액체의 성질을 분자 구조와 상호작용으로 설명하는 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "수소 결합 유무에 따른 물질 성질 차이를 비교 설명하기",
+                "분자 간 힘과 증기 압력 관계를 도식으로 정리하기"
+              ]
+            }
+          ]
         },
         {
-          "axis_id": "bio_medical_material_axis",
-          "axis_title": "바이오·의약 응용 축",
-          "axis_domain": "biology",
+          "axis_id": "material_property_design_axis",
+          "axis_title": "소재 성질·설계 축",
+          "axis_short": "소재 성질 설계",
+          "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
-            "세포와 물질대사",
-            "의약학계열",
-            "식품공학과"
+            "화학Ⅰ",
+            "신소재공학과",
+            "화학공학과"
           ],
-          "why": "수소 결합과 극성 개념을 생체 분자와 용액 환경에 연결하는 관점이 바이오·의약·식품 소재 이해로 확장됨",
-          "student_output_hint": "물·에탄올 비교, 생체 분자 구조 사례 조사, 용매-용질 특성 보고서",
-          "priority": 2
+          "why": "액체의 점성·표면 장력·용해 성질을 소재와 공정 관점으로 읽으면 코팅·접착·분리 기술 해석으로 확장된다.",
+          "student_output_hint": "코팅·세정·접착 사례 분석, 소재 물성 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "표면 장력",
+                "점성",
+                "코팅",
+                "세정",
+                "접착",
+                "소재"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "표면·점성 설계",
+              "message": "선택한 키워드가 표면 장력과 점성의 공학적 활용과 맞닿아 소재 성질·설계 축이 크게 강화됩니다.",
+              "desc": "액체 물성을 코팅·세정·접착 같은 소재 적용으로 연결하는 축입니다.",
+              "activity_examples": [
+                "표면 장력을 활용한 코팅 사례를 정리해 보기",
+                "점성 차이가 큰 액체의 사용 목적을 비교 설명하기"
+              ]
+            }
+          ]
+        },
+        {
+          "axis_id": "bio_fluid_axis",
+          "axis_title": "생명·용액 환경 해석 축",
+          "axis_short": "생명·용액 해석",
+          "axis_domain": "biology",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "세포와 물질대사",
+            "간호학과"
+          ],
+          "why": "액체의 성질과 용액 조건을 생체 환경과 연결하면 막 이동, 체액, 세포 수준 물질 이동 해석으로 이어진다.",
+          "student_output_hint": "생체 용액 비교, 체액과 물질 이동 설명, 세포 환경 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "용액",
+                "물",
+                "생체",
+                "세포",
+                "체액",
+                "확산"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "용액·생체 환경",
+              "message": "선택한 키워드가 용액과 생체 환경 해석으로 이어져 생명·용액 환경 해석 축이 강화됩니다.",
+              "desc": "액체 성질을 세포와 체액, 생체 환경의 물질 이동 문제로 연결하는 축입니다.",
+              "activity_examples": [
+                "체액과 세포 외액의 공통점을 액체 성질 관점에서 설명하기"
+              ]
+            }
+          ]
         }
       ]
     }
