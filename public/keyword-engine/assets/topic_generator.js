@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
+window.__TOPIC_GENERATOR_VERSION = "v24.2-bookseed-axis-split";
 
 (function(){
   const BOOK_URLS = [
@@ -303,6 +303,132 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     if (!majorHit && !subjectHit && !themeHit) score -= 8;
     return { score, reasons, themeHit, majorHit, subjectHit };
   }
+  function getSelectedAxisContext(ctx){
+    return {
+      id: String(ctx?.followupAxisId || "").trim(),
+      title: String(ctx?.followupAxisTitle || "").trim(),
+      domain: String(ctx?.followupAxisDomain || "").trim().toLowerCase(),
+      legacyTrack: String(ctx?.linkTrack || "").trim().toLowerCase()
+    };
+  }
+
+  function getAxisPatternRegistry(){
+    return {
+      data: {
+        titles: ["수리·데이터 모델링 축", "정량·데이터 표준화 축", "데이터 예측·해석 축", "데이터 예측·추정 축", "기후 데이터 예측 축", "건강 데이터 시각화 축"],
+        regex: /(데이터|그래프|통계|예측|추정|수치|정량|표준|시각화|분석|모델링|비교|패턴|측정값|기록|시계열|표본|정확도)/
+      },
+      physics: {
+        titles: ["물리·시스템 해석 축", "물리 기초량·측정 축", "운동·힘 해석 축", "고급 역학 해석 축", "파동·신호 해석 축", "전자기 신호 해석 축"],
+        regex: /(물리|운동|힘|가속도|전류|전압|센서|시스템|장치|회로|전자기|파동|에너지|역학|측정|속력|질량|시간|길이|전기|자기|신호)/
+      },
+      chemistry: {
+        titles: ["화학·성질 예측 축", "화학 반응 해석 축", "주기율·성질 예측 축", "열화학·반응 에너지 축", "기체 상태·열역학 해석 축"],
+        regex: /(화학|원소|주기율|성질|반응|이온|분자|결합|산화|환원|열화학|몰|기체|용액|산|염기|전자 이동)/
+      },
+      materials: {
+        titles: ["재료·소자 설계 기초 축", "재료·소자 설계 축", "재료 선택·설계 축", "반도체·소재 설계 축", "가스 센서·측정 응용 축"],
+        regex: /(재료|소자|반도체|배터리|부식|소재|코팅|접착|금속|세라믹|고분자|센서 범위|가스 센서|보존|제련|도핑|p형|n형)/
+      },
+      biology: {
+        titles: ["생명·건강 해석 축", "세포 에너지 해석 축", "면역 반응 해석 축", "유전 정보 해석 축", "생체 신호·건강 해석 축"],
+        regex: /(생명|세포|대사|효소|면역|백신|유전자|건강|생체|호흡|광합성|질병|영양|호르몬|항체|DNA|염색체)/
+      },
+      earth_env: {
+        titles: ["지구·환경 데이터 해석 축", "지구·환경 해석 축", "대기·해양 자료 해석 축", "기후 시스템 해석 축", "재난·지구물리 응용 축"],
+        regex: /(환경|지구|기후|대기|해양|미세먼지|기상|재난|천체|우주|해수면|탄소중립|온실가스|지진|화산|관측|폭염|한파)/
+      },
+      social: {
+        titles: ["사회 문제 통합해석 축", "시민 참여·제도 이해 축", "정의·분배 원리 해석 축", "불평등 구조 해석 축"],
+        regex: /(사회|정책|문제|시민|헌법|인권|정의|불평등|복지|시장|경제|세계화|평화|지속가능)/
+      },
+      argument: {
+        titles: ["논증·비판적 읽기 축", "매체 비평·판단 축", "자료 검증·팩트체크 축"],
+        regex: /(논증|비판|읽기|토론|근거|주장|반론|매체|검증|팩트체크|신뢰성|출처)/
+      }
+    };
+  }
+
+  function detectBookAxisDomains(book){
+    const reportCard = getReportCardByBookId(book?.book_id);
+    const axes = uniq([
+      ...coerceArray(reportCard?.direct_match?.followup_axes),
+      ...coerceArray(reportCard?.expand_reference?.followup_axes)
+    ]);
+    const bag = [
+      book?.title || "",
+      book?.summary_short || "",
+      ...(book?.linked_subjects || []),
+      ...(book?.linked_majors || []),
+      ...(book?.related_majors || []),
+      ...(book?.fit_keywords || []),
+      ...(book?.broad_theme || []),
+      ...axes
+    ].join(" ");
+    const registry = getAxisPatternRegistry();
+    const domains = [];
+    Object.entries(registry).forEach(([domain, meta]) => {
+      if (axes.some(v => meta.titles.some(title => fuzzyIncludes(v, title)))) {
+        domains.push(domain);
+        return;
+      }
+      if (meta.regex.test(bag)) domains.push(domain);
+    });
+    return uniq(domains);
+  }
+
+  function getAxisAffinity(book, ctx){
+    const axis = getSelectedAxisContext(ctx);
+    if (!axis.id && !axis.title && !axis.domain && !axis.legacyTrack) {
+      return { score: 0, reasons: [], exactTitleHit: false, domainHit: false, legacyHit: false, anyHit: false };
+    }
+
+    const reportCard = getReportCardByBookId(book?.book_id);
+    const explicitAxes = uniq([
+      ...coerceArray(reportCard?.direct_match?.followup_axes),
+      ...coerceArray(reportCard?.expand_reference?.followup_axes)
+    ]);
+    const inferredDomains = detectBookAxisDomains(book);
+    const registry = getAxisPatternRegistry();
+
+    const exactTitleHit = !!axis.title && explicitAxes.some(v => fuzzyIncludes(v, axis.title));
+    const titleRegistryEntry = Object.entries(registry).find(([, meta]) => axis.title && meta.titles.some(title => fuzzyIncludes(axis.title, title) || fuzzyIncludes(title, axis.title)));
+    const titleDomain = titleRegistryEntry ? titleRegistryEntry[0] : "";
+    const domainTarget = axis.domain || titleDomain || (axis.legacyTrack === 'earth' ? 'earth_env' : axis.legacyTrack);
+    const domainHit = !!domainTarget && inferredDomains.includes(domainTarget);
+    const legacyTarget = axis.legacyTrack === 'earth' ? 'earth_env' : axis.legacyTrack;
+    const legacyHit = !!legacyTarget && inferredDomains.includes(legacyTarget);
+
+    let score = 0;
+    const reasons = [];
+    if (exactTitleHit) {
+      score += 34;
+      reasons.push("선택 축 직접 일치");
+    }
+    if (!exactTitleHit && domainHit) {
+      score += 24;
+      reasons.push("선택 축 핵심 연계");
+    }
+    if (!exactTitleHit && !domainHit && legacyHit) {
+      score += 12;
+      reasons.push("선택 축 보조 연계");
+    }
+    if ((axis.title || axis.domain || axis.legacyTrack) && !exactTitleHit && !domainHit && !legacyHit) {
+      score -= 10;
+    }
+
+    return {
+      score,
+      reasons,
+      exactTitleHit,
+      domainHit,
+      legacyHit,
+      anyHit: exactTitleHit || domainHit || legacyHit,
+      explicitAxes,
+      inferredDomains
+    };
+  }
+
 
   function getBucketAlignment(book, bucket){
     const patterns = getBucketPatterns(bucket);
@@ -378,6 +504,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     const routes = getRouteMatches(book, subject, concept, keyword);
     const bucketAlignment = getBucketAlignment(book, bucket);
     const trackAlignment = getTrackAlignment(book, linkTrack);
+    const axisAffinity = getAxisAffinity(book, ctx);
     const reportCard = getReportCardByBookId(book.book_id);
     const direct = reportCard?.direct_match || {};
     const expand = reportCard?.expand_reference || {};
@@ -390,7 +517,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     const directKeywordHit = coerceArray(direct.keywords).some(v => fuzzyIncludes(v, keyword));
     const expandSubjectHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, subject));
     const expandMajorHit = coerceArray(expand.majors).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
-    const expandAxisHit = coerceArray(expand.followup_axes).some(v => fuzzyIncludes(v, ctx?.followupAxisId || ctx?.linkTrack || ""));
+    const expandAxisHit = axisAffinity.anyHit;
 
     if (directSubjectHit) { score += 24; reasons.push("직접 일치 과목"); }
     if (directConceptHit) { score += 28; reasons.push("직접 일치 개념"); }
@@ -398,7 +525,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
     if (directConceptHit && directKeywordHit) { score += 12; reasons.push("직접 일치 도서"); }
     if (!directKeywordHit && expandSubjectHit) { score += 10; reasons.push("확장 참고 과목"); }
     if (expandMajorHit) { score += 12; reasons.push("확장 학과 연결"); }
-    if (expandAxisHit) { score += 8; reasons.push("후속 축 연결"); }
+    if (expandAxisHit) { score += 10; reasons.push("후속 축 연결"); }
 
     if ((book.linked_subjects || []).some(v => fuzzyIncludes(v, subject))) {
       score += 16;
@@ -446,6 +573,9 @@ window.__TOPIC_GENERATOR_VERSION = "v24.1-bookseed-concept-tag-clean";
 
     score += trackAlignment.score;
     reasons.push(...trackAlignment.reasons);
+
+    score += axisAffinity.score;
+    reasons.push(...axisAffinity.reasons);
 
     if (["materials", "mechanical", "electronic", "it"].includes(bucket)) {
       const selectedBioConcept = /(생명|세포|항상성|자극|내부 환경|변화 대응)/.test(`${concept} ${keyword}`);
@@ -578,15 +708,17 @@ function classifyRecommendation(item, ctx){
     const reportCard = getReportCardByBookId(item.book.book_id);
     const direct = reportCard?.direct_match || {};
     const expand = reportCard?.expand_reference || {};
+    const axisAffinity = item.axisAffinity || getAxisAffinity(item.book, ctx);
     const directHit = coerceArray(direct.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) && (
       coerceArray(direct.concepts).some(v => fuzzyIncludes(v, ctx?.concept || "")) ||
       coerceArray(direct.keywords).some(v => fuzzyIncludes(v, ctx?.keyword || ""))
     );
     const expandHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) ||
       coerceArray(expand.majors).some(v => tokenizeCareer(ctx?.career || "").some(token => fuzzyIncludes(v, token))) ||
-      coerceArray(expand.followup_axes).some(v => fuzzyIncludes(v, ctx?.followupAxisId || ctx?.linkTrack || ""));
+      axisAffinity.anyHit;
 
-    const isDirect = (
+    const hasAxisContext = !!(ctx?.followupAxisTitle || ctx?.followupAxisDomain || ctx?.followupAxisId || ctx?.linkTrack);
+    const isDirectBase = (
       directHit ||
       signals.routes.length > 0 ||
       reasonSet.has("개념-키워드 직접 연결") ||
@@ -600,7 +732,13 @@ function classifyRecommendation(item, ctx){
       (signals.lookupCareerHit && signals.subjectHit && item.score >= 14)
     );
 
-    if (isDirect) return "direct";
+    if (hasAxisContext) {
+      if (axisAffinity.exactTitleHit && item.score >= 18) return "direct";
+      if (axisAffinity.anyHit && isDirectBase && item.score >= 16) return "direct";
+      if (isDirectBase && !axisAffinity.anyHit) return strictBucket ? "drop" : "explore";
+    }
+
+    if (isDirectBase) return "direct";
 
     if (strictBucket) {
       if (isClearlyOffTopicBook(item.book, bucket)) return "drop";
@@ -632,7 +770,16 @@ function getBookRecommendationSections(ctx){
     const bucket = detectCareerBucket(ctx?.career || "");
     const targetDirectMin = isStrictCareerBucket(bucket) ? 2 : (bucket === "bio" ? 3 : 2);
 
-    const directLimited = selectDiverseItems(directCandidates, ctx, 4, "direct");
+    const axisAwareDirect = directCandidates.slice().sort((a, b) => {
+      const aExact = a.axisAffinity?.exactTitleHit ? 1 : 0;
+      const bExact = b.axisAffinity?.exactTitleHit ? 1 : 0;
+      if (bExact !== aExact) return bExact - aExact;
+      const aAny = a.axisAffinity?.anyHit ? 1 : 0;
+      const bAny = b.axisAffinity?.anyHit ? 1 : 0;
+      if (bAny !== aAny) return bAny - aAny;
+      return b.score - a.score;
+    });
+    const directLimited = selectDiverseItems(axisAwareDirect, ctx, 4, "direct");
     const usedIds = new Set(directLimited.map(item => item.book.book_id));
 
     if (directLimited.length < targetDirectMin) {
@@ -687,7 +834,8 @@ function getRecommendedBooks(ctx){
         score: meta.score,
         reasons: meta.reasons,
         matchedRules: meta.matchedRules,
-        routes: meta.routes
+        routes: meta.routes,
+        axisAffinity: meta.axisAffinity
       };
     });
 
