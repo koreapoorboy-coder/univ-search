@@ -1,323 +1,1440 @@
 {
   "subject_name": "지구과학",
+  "version": "v361-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": [
+      "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+      "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+    ]
+  },
   "concept_longitudinal_map": [
     {
       "concept_name": "해수의 성질",
+      "concept_key": "해수의 성질",
       "concept_label": "수온-염분-밀도",
+      "core_focus": "수온, 염분, 밀도, 용존 산소를 함께 해석하며 해양 환경의 상태를 읽는 기본 개념",
       "longitudinal_axes": [
         {
           "axis_id": "ocean_property_axis",
           "axis_title": "해양 성질 해석 축",
+          "axis_short": "해양 성질",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
             "해양학",
             "환경공학"
           ],
-          "why": "수온·염분·밀도를 함께 해석하는 사고가 해양 환경 자료 분석의 기초로 이어짐",
-          "student_output_hint": "수온·염분 비교표, 연직 분포 해석, 해양 환경 보고서",
-          "priority": 1
+          "why": "수온·염분·밀도를 함께 읽는 힘이 해양 환경 자료 해석과 수괴 이해의 출발점이 된다.",
+          "student_output_hint": "수온·염분 비교표, 연직 분포 해석, 해양 환경 기초 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "수온",
+                "염분",
+                "밀도",
+                "용존 산소",
+                "염도"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "수온·염분",
+              "message": "선택한 키워드가 해수의 기본 물리·화학 성질과 직접 맞닿아 해양 성질 해석 축이 1순위로 강화됩니다.",
+              "desc": "해수의 상태를 정량 자료로 읽는 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "수온·염분 자료를 표로 정리하고 밀도와 연결해 설명하기",
+                "표층과 심층의 성질 차이를 그래프로 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "표층수",
+                "심층수",
+                "염분 분포",
+                "밀도 차"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "성질 비교",
+              "message": "선택한 키워드가 해수 성질 비교와 연결되어 해양 성질 해석 축을 보강합니다.",
+              "desc": "조건별 해수 성질 차이를 분석하는 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "marine_environment_application_axis",
           "axis_title": "해양·환경 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "해양 환경",
+          "axis_domain": "environment",
+          "priority": 2,
           "next_subjects": [
-            "해양생명과학과",
-            "환경공학과",
-            "기후과학과"
+            "해양생명과학",
+            "환경공학",
+            "기후과학"
           ],
-          "why": "해수 성질을 생태·환경 변화와 연결하는 관점이 해양 자원과 기후 응용 탐구로 확장됨",
-          "student_output_hint": "해양 생태 영향 분석, 지역 바다 비교, 환경 주제 보고서",
-          "priority": 2
+          "why": "해수 성질을 생태·오염·기후 변화와 연결하면 해양 환경 응용 탐구로 확장된다.",
+          "student_output_hint": "해양 생태 영향 분석, 지역 바다 비교, 환경 주제 카드뉴스",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "적조",
+                "오염",
+                "생태계",
+                "수질",
+                "부영양화"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "해양 환경",
+              "message": "선택한 키워드가 해양 환경 문제와 직접 연결되어 해양·환경 응용 축이 크게 강화됩니다.",
+              "desc": "해수 성질을 생태계 변화와 연결하는 탐구 방향입니다.",
+              "activity_examples": [
+                "적조 발생 조건과 수온·염분의 관계 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "기후 변화",
+                "해양 생물",
+                "산성화"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "생태 영향",
+              "message": "선택한 키워드가 해수 성질의 생태 영향과 연결되어 해양·환경 응용 축을 보강합니다.",
+              "desc": "해양 환경 변화의 영향 분석으로 이어집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "ocean_data_visual_axis",
+          "axis_title": "해양 데이터 시각화 축",
+          "axis_short": "해양 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "지구시스템과학"
+          ],
+          "why": "해수 성질을 그래프와 지도 자료로 표현하면 데이터 기반 지구과학 탐구 역량이 커진다.",
+          "student_output_hint": "수온·염분 그래프, 해양 단면도 시각화, 데이터 해석 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "시각화",
+                "관측 자료",
+                "지도"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "관측 데이터",
+              "message": "선택한 키워드가 관측 자료 정리와 맞아 해양 데이터 시각화 축이 강화됩니다.",
+              "desc": "자료를 읽고 표현하는 횡단 탐구 방향이 살아납니다.",
+              "activity_examples": [
+                "수온·염분 분포를 그래프와 색지도 형태로 재구성하기"
+              ]
+            },
+            {
+              "keywords": [
+                "데이터",
+                "표",
+                "분석"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 정리",
+              "message": "선택한 키워드가 자료 정리와 연결되어 해양 데이터 시각화 축을 보조 강화합니다.",
+              "desc": "정량 자료를 읽고 설명하는 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "해수의 순환",
+      "concept_key": "해수의 순환",
       "concept_label": "표층 순환-심층 순환-열염 순환",
+      "core_focus": "바람, 코리올리 효과, 밀도 차에 따른 표층·심층 순환과 열염 순환의 연결을 이해하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "ocean_circulation_axis",
           "axis_title": "해양 순환 해석 축",
+          "axis_short": "해양 순환",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
             "해양학",
             "기후과학"
           ],
-          "why": "해류와 열염 순환을 보는 사고가 해양-대기 상호작용 해석으로 이어짐",
-          "student_output_hint": "해류 지도 비교, 순환 모형 설명, 기후 연결 보고서",
-          "priority": 1
+          "why": "표층 순환과 심층 순환을 연결해 보는 사고가 해양-대기 상호작용 해석의 기초가 된다.",
+          "student_output_hint": "표층·심층 순환 비교도, 해류 흐름 설명, 순환 구조 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "표층 순환",
+                "심층 순환",
+                "열염 순환",
+                "해류",
+                "코리올리"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "해류 해석",
+              "message": "선택한 키워드가 해수 순환의 핵심 원리와 직접 맞닿아 해양 순환 해석 축이 1순위로 강화됩니다.",
+              "desc": "해수의 이동과 에너지 전달 구조를 해석하는 방향입니다.",
+              "activity_examples": [
+                "표층 해류와 심층 순환을 도식으로 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "밀도 차",
+                "침강",
+                "용승"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "순환 원리",
+              "message": "선택한 키워드가 순환 발생 원리와 연결되어 해양 순환 해석 축을 보강합니다.",
+              "desc": "밀도와 이동 경로를 함께 보는 탐구 방향입니다."
+            }
+          ]
         },
         {
           "axis_id": "climate_ocean_application_axis",
           "axis_title": "기후·해양 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "기후 응용",
+          "axis_domain": "environment",
+          "priority": 2,
           "next_subjects": [
-            "기후과학과",
-            "환경공학과",
-            "지리학과"
+            "기후과학",
+            "환경공학",
+            "통합사회2"
           ],
-          "why": "순환 구조를 기후 예측과 지역 환경 변화에 연결하는 관점이 응용 탐구로 확장됨",
-          "student_output_hint": "우리나라 주변 해류 분석, 기후 영향 정리, 지역 환경 보고서",
-          "priority": 2
+          "why": "해양 순환은 기후 조절, 어장 형성, 탄소 저장과 맞물려 환경·사회 문제 해석으로 이어진다.",
+          "student_output_hint": "엘니뇨 비교, 기후 영향 분석, 어장 변화 탐구 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "엘니뇨",
+                "라니냐",
+                "기후 변화",
+                "어장",
+                "탄소 저장"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "기후 영향",
+              "message": "선택한 키워드가 해양 순환의 기후·생태 영향과 직접 연결되어 기후·해양 응용 축이 크게 강화됩니다.",
+              "desc": "해류 변화가 기후와 생태계에 미치는 영향을 탐구하는 방향입니다.",
+              "activity_examples": [
+                "엘니뇨 시기 해류 변화와 기후 영향을 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "생태계",
+                "환경",
+                "해양 자원"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "환경 연결",
+              "message": "선택한 키워드가 환경 변화와 맞아 기후·해양 응용 축을 보강합니다.",
+              "desc": "해양 순환을 생태와 자원 문제까지 확장하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "circulation_data_model_axis",
+          "axis_title": "순환 데이터 모델링 축",
+          "axis_short": "순환 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "지구시스템과학"
+          ],
+          "why": "해류 방향, 수온 변화, 순환 경로를 데이터로 표현하면 모델링 기반 지구과학 탐구가 가능해진다.",
+          "student_output_hint": "해류 지도 분석, 순환 경로 시뮬레이션, 데이터 기반 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지도",
+                "경로",
+                "모델링",
+                "시뮬레이션"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "경로 모델링",
+              "message": "선택한 키워드가 순환 경로의 자료화와 맞아 순환 데이터 모델링 축이 강화됩니다.",
+              "desc": "해류를 데이터 흐름으로 다루는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "해류 경로를 화살표 지도와 표로 재구성하기"
+              ]
+            },
+            {
+              "keywords": [
+                "자료",
+                "그래프",
+                "분석"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 모델",
+              "message": "선택한 키워드가 자료 분석과 연결되어 순환 데이터 모델링 축을 보조 강화합니다.",
+              "desc": "순환 자료를 읽고 설명하는 탐구 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "날씨의 변화",
+      "concept_key": "날씨의 변화",
       "concept_label": "기압-바람-일기도",
+      "core_focus": "기압 차, 전선, 바람, 기단, 일기도를 통해 날씨 변화를 해석하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "weather_data_axis",
           "axis_title": "기상 자료 해석 축",
+          "axis_short": "기상 자료",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "대기과학과",
-            "기상학과"
+            "기후과학",
+            "환경공학"
           ],
-          "why": "기압과 바람, 일기도를 읽는 사고가 실제 기상 관측 자료 해석으로 이어짐",
-          "student_output_hint": "일기도 분석, 위성영상 비교, 날씨 예측 보고서",
-          "priority": 1
+          "why": "기압과 전선, 바람을 일기도와 연결해 읽는 힘이 날씨 해석과 예보의 기본이 된다.",
+          "student_output_hint": "일기도 판독, 기단 비교, 날씨 변화 설명 카드 제작",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "기압",
+                "바람",
+                "전선",
+                "기단",
+                "일기도"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "일기도 해석",
+              "message": "선택한 키워드가 날씨 변화의 핵심 자료와 직접 맞닿아 기상 자료 해석 축이 1순위로 강화됩니다.",
+              "desc": "날씨 현상을 일기도와 기압 배치로 설명하는 종단 연결입니다.",
+              "activity_examples": [
+                "일기도를 보고 전선과 바람 방향을 해석하기"
+              ]
+            },
+            {
+              "keywords": [
+                "저기압",
+                "고기압",
+                "풍향",
+                "풍속"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "기압 분석",
+              "message": "선택한 키워드가 기압 배치와 바람 해석과 연결되어 기상 자료 해석 축을 보강합니다.",
+              "desc": "대기 흐름의 기본 원리를 읽는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "forecast_disaster_application_axis",
+          "axis_id": "forecast_disaster_axis",
           "axis_title": "예보·재난 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "예보·재난",
+          "axis_domain": "safety",
+          "priority": 2,
           "next_subjects": [
-            "재난안전공학과",
-            "환경공학과",
-            "데이터사이언스학과"
+            "과학탐구실험2",
+            "통합사회2",
+            "환경공학"
           ],
-          "why": "기상 자료를 예보와 위험 판단에 연결하는 관점이 재난 대응과 데이터 활용으로 확장됨",
-          "student_output_hint": "강수대 분석, 예보 정확도 비교, 재난 대응 자료",
-          "priority": 2
+          "why": "날씨 변화 해석은 생활 안전, 예보 활용, 재난 대응 판단으로 이어진다.",
+          "student_output_hint": "생활 예보 활용 사례, 재난 대응 안내문, 학교 안전 캠페인",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "예보",
+                "폭우",
+                "한파",
+                "폭염",
+                "재난"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "생활 예보",
+              "message": "선택한 키워드가 날씨 해석을 생활 안전과 연결해 예보·재난 응용 축을 크게 강화합니다.",
+              "desc": "날씨 자료를 행동 판단으로 전환하는 방향입니다.",
+              "activity_examples": [
+                "폭염·한파 대응 수칙을 기상 자료와 연결해 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "생활 안전",
+                "경보",
+                "주의보"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "안전 판단",
+              "message": "선택한 키워드가 경보와 생활 안전과 맞아 예보·재난 응용 축을 보강합니다.",
+              "desc": "자료를 안전 행동으로 연결하는 탐구 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "weather_visualization_axis",
+          "axis_title": "기상 데이터 시각화 축",
+          "axis_short": "기상 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "공통수학2"
+          ],
+          "why": "기온·기압·강수 데이터를 시계열과 지도 형태로 표현하면 데이터 기반 분석 역량이 강화된다.",
+          "student_output_hint": "기상 그래프 작성, 강수량 비교, 자료 시각화 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "기온",
+                "강수량",
+                "시계열",
+                "자료"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "날씨 그래프",
+              "message": "선택한 키워드가 기상 자료 표현과 맞아 기상 데이터 시각화 축이 강화됩니다.",
+              "desc": "날씨 변화를 정량 자료로 표현하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "기온·강수량 변화를 시계열 그래프로 나타내기"
+              ]
+            },
+            {
+              "keywords": [
+                "표",
+                "분석",
+                "비교"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 비교",
+              "message": "선택한 키워드가 자료 비교와 연결되어 기상 데이터 시각화 축을 보조 강화합니다.",
+              "desc": "자료 기반 설명 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "태풍과 악기상",
+      "concept_key": "태풍과 악기상",
       "concept_label": "태풍-잠열-집중 호우",
+      "core_focus": "태풍의 발생 조건, 에너지 공급, 이동 경로와 집중 호우·폭설 같은 악기상의 특성을 이해하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "severe_weather_axis",
           "axis_title": "악기상 재난 해석 축",
+          "axis_short": "악기상 재난",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "대기과학과",
-            "재난안전공학과"
+            "기후과학",
+            "방재공학"
           ],
-          "why": "태풍 구조와 악기상을 해석하는 사고가 재난 위험 이해의 핵심으로 이어짐",
-          "student_output_hint": "태풍 경로 비교, 피해 사례 분석, 악기상 보고서",
-          "priority": 1
+          "why": "태풍과 집중 호우의 발생 조건과 이동 경로를 읽는 힘이 재난 해석의 핵심이 된다.",
+          "student_output_hint": "태풍 경로 해석, 악기상 원인 정리, 재난 사례 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "태풍",
+                "잠열",
+                "집중 호우",
+                "폭설",
+                "경로"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "태풍 해석",
+              "message": "선택한 키워드가 악기상 발생 메커니즘과 직접 맞닿아 악기상 재난 해석 축이 1순위로 강화됩니다.",
+              "desc": "대기 에너지와 경로 변화를 함께 해석하는 종단 연결입니다.",
+              "activity_examples": [
+                "태풍의 이동 경로와 피해 요인을 단계별로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "강풍",
+                "저기압",
+                "해수면 온도"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "발생 조건",
+              "message": "선택한 키워드가 태풍 발생 조건과 연결되어 악기상 재난 해석 축을 보강합니다.",
+              "desc": "발생 환경과 에너지 공급을 함께 보는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "safety_prevention_application_axis",
+          "axis_id": "safety_prevention_axis",
           "axis_title": "안전·방재 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "안전·방재",
+          "axis_domain": "safety",
+          "priority": 2,
           "next_subjects": [
-            "토목공학과",
-            "환경공학과",
-            "도시공학과"
+            "통합사회2",
+            "과학탐구실험2",
+            "건축공학"
           ],
-          "why": "기상 재해를 사회 기반 시설과 안전 설계 문제에 연결하는 관점이 방재 응용으로 확장됨",
-          "student_output_hint": "방재 구조 비교, 피해 저감 아이디어, 안전 설계 보고서",
-          "priority": 2
+          "why": "악기상 해석은 예방 행동, 방재 체계, 시설 안전성 판단으로 이어진다.",
+          "student_output_hint": "방재 안내문, 지역 재난 대응 계획, 시설 안전 체크리스트",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "대피",
+                "방재",
+                "안전",
+                "피해",
+                "경보"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "재난 대응",
+              "message": "선택한 키워드가 재난 대응과 직접 연결되어 안전·방재 응용 축이 크게 강화됩니다.",
+              "desc": "지구과학 지식을 생활 안전과 사회 대응으로 확장하는 방향입니다.",
+              "activity_examples": [
+                "태풍 대비 행동 요령과 경보 체계를 카드뉴스로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "시설",
+                "재난 예방",
+                "도시"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "예방 설계",
+              "message": "선택한 키워드가 방재 설계와 연결되어 안전·방재 응용 축을 보강합니다.",
+              "desc": "시설과 시스템 차원의 예방 탐구로 이어집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "climate_risk_communication_axis",
+          "axis_title": "기후위기 소통 축",
+          "axis_short": "기후위기 소통",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "공통국어2",
+            "통합사회2",
+            "환경공학"
+          ],
+          "why": "악기상 자료를 사회적 위험 소통으로 연결하면 기후위기 커뮤니케이션 역량이 커진다.",
+          "student_output_hint": "기후위기 설명 글, 피해 사례 자료 정리, 정책 제안 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "기후위기",
+                "피해 사례",
+                "정책",
+                "소통"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "위험 소통",
+              "message": "선택한 키워드가 악기상과 사회적 소통을 연결해 기후위기 소통 축이 강화됩니다.",
+              "desc": "자료를 사회적 메시지로 전환하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "태풍 피해 사례를 바탕으로 지역 안전 제안문 쓰기"
+              ]
+            },
+            {
+              "keywords": [
+                "캠페인",
+                "인식",
+                "공공"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "공공 소통",
+              "message": "선택한 키워드가 공공 소통과 연결되어 기후위기 소통 축을 보조 강화합니다.",
+              "desc": "과학 자료를 시민 소통으로 전환하는 방향입니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "지구의 기후 변화",
+      "concept_key": "지구의 기후 변화",
       "concept_label": "엘니뇨-라니냐-온실 효과",
+      "core_focus": "엘니뇨·라니냐, 온실 효과, 복사 평형, 인간 활동과 기후 변화의 상관을 이해하는 개념",
       "longitudinal_axes": [
         {
-          "axis_id": "climate_change_axis",
+          "axis_id": "climate_system_axis",
           "axis_title": "기후 시스템 해석 축",
+          "axis_short": "기후 시스템",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "기후과학과",
-            "대기과학과"
+            "기후과학",
+            "환경공학"
           ],
-          "why": "엘니뇨·라니냐와 온실 효과를 함께 해석하는 사고가 기후 시스템 이해로 이어짐",
-          "student_output_hint": "기후 자료 비교, 원인 분류표, 기후 변화 보고서",
-          "priority": 1
+          "why": "대기·해양 상호작용과 복사 평형을 함께 읽는 힘이 기후 변화 해석의 뼈대가 된다.",
+          "student_output_hint": "엘니뇨 비교, 온실 효과 설명도, 기후 시스템 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "엘니뇨",
+                "라니냐",
+                "온실 효과",
+                "복사 평형",
+                "기후 변화"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "기후 해석",
+              "message": "선택한 키워드가 기후 변화의 핵심 원리와 직접 맞닿아 기후 시스템 해석 축이 1순위로 강화됩니다.",
+              "desc": "대기와 해양의 상호작용을 함께 보는 종단 연결입니다.",
+              "activity_examples": [
+                "엘니뇨와 라니냐의 특징을 비교해 기후 영향 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "온실기체",
+                "복사",
+                "지구 복사 에너지"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "온실 효과",
+              "message": "선택한 키워드가 지구 에너지 수지와 연결되어 기후 시스템 해석 축을 보강합니다.",
+              "desc": "에너지 흐름 중심의 기후 해석 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "sustainability_policy_axis",
+          "axis_id": "sustainability_axis",
           "axis_title": "환경·지속가능 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "지속가능",
+          "axis_domain": "environment",
+          "priority": 2,
           "next_subjects": [
-            "환경공학과",
-            "환경정책학과",
-            "지리학과"
+            "통합사회2",
+            "환경공학",
+            "생명과학"
           ],
-          "why": "기후 변화 문제를 대응 기술과 정책 설계에 연결하는 관점이 지속가능 탐구로 확장됨",
-          "student_output_hint": "탄소 저감 방안 비교, 지역 기후 대응안, 지속가능성 보고서",
-          "priority": 2
+          "why": "기후 변화 해석을 에너지 전환과 지속가능한 삶의 문제로 확장하면 환경 실천 판단으로 이어진다.",
+          "student_output_hint": "탄소중립 제안, 생활 실천 비교, 지속가능성 판단 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "탄소중립",
+                "지속 가능성",
+                "재생에너지",
+                "기후 정책"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "지속가능 전환",
+              "message": "선택한 키워드가 기후 문제의 대응 전략과 직접 연결되어 환경·지속가능 응용 축이 크게 강화됩니다.",
+              "desc": "과학 개념을 생활·사회 실천과 연결하는 방향입니다.",
+              "activity_examples": [
+                "탄소중립 실천 방안을 학교 생활과 연결해 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "에너지 전환",
+                "생활 실천",
+                "환경 정책"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "대응 전략",
+              "message": "선택한 키워드가 대응 전략과 맞아 환경·지속가능 응용 축을 보강합니다.",
+              "desc": "기후 변화 대응안을 설계하는 탐구로 이어집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "climate_data_prediction_axis",
+          "axis_title": "기후 데이터 예측 축",
+          "axis_short": "기후 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "공통수학2"
+          ],
+          "why": "기온, 이산화탄소, 해수면 변화를 데이터로 읽으면 예측 기반 탐구 역량이 커진다.",
+          "student_output_hint": "기후 그래프 해석, 장기 변화 추세 비교, 데이터 기반 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "이산화탄소",
+                "기온 변화",
+                "해수면",
+                "예측"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "추세 예측",
+              "message": "선택한 키워드가 기후 자료의 추세 해석과 맞아 기후 데이터 예측 축이 강화됩니다.",
+              "desc": "장기 변화 자료를 읽고 예측하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "기온·이산화탄소 변화 그래프를 비교해 추세 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "데이터",
+                "통계",
+                "모형"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 예측",
+              "message": "선택한 키워드가 데이터 해석과 연결되어 기후 데이터 예측 축을 보조 강화합니다.",
+              "desc": "자료 기반 판단과 설명으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "지층과 지질시대",
+      "concept_key": "지층과 지질시대",
       "concept_label": "지층-화석-상대 연령",
+      "core_focus": "지층의 형성 원리, 화석, 상대 연령과 절대 연령, 지질시대 구분을 이해하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "geologic_record_axis",
           "axis_title": "지질 기록 해석 축",
+          "axis_short": "지질 기록",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "지질학과",
-            "지구환경과학과"
+            "지질학",
+            "환경공학"
           ],
-          "why": "지층과 화석을 시간 순서로 해석하는 사고가 지구 역사 복원의 기초가 됨",
-          "student_output_hint": "지층 대비표, 화석 비교, 지질시대 보고서",
-          "priority": 1
+          "why": "지층과 화석을 시간의 기록으로 읽는 힘이 지구 역사 해석의 기초가 된다.",
+          "student_output_hint": "지층 단면 해석, 화석 비교, 지질시대 정리 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지층",
+                "화석",
+                "상대 연령",
+                "절대 연령",
+                "부정합"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "지층 기록",
+              "message": "선택한 키워드가 지질 기록 해석과 직접 맞닿아 지질 기록 해석 축이 1순위로 강화됩니다.",
+              "desc": "지층을 통해 지구의 시간을 읽는 종단 연결이 선명해집니다.",
+              "activity_examples": [
+                "지층 단면도와 화석 분포를 보고 상대 연령 추론하기"
+              ]
+            },
+            {
+              "keywords": [
+                "퇴적암",
+                "층서",
+                "연대"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "연대 추론",
+              "message": "선택한 키워드가 연대 추론과 연결되어 지질 기록 해석 축을 보강합니다.",
+              "desc": "증거를 바탕으로 과거를 복원하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "earth_history_application_axis",
+          "axis_id": "earth_history_axis",
           "axis_title": "지구 역사 응용 축",
-          "axis_domain": "engineering",
+          "axis_short": "지구 역사",
+          "axis_domain": "science_history",
+          "priority": 2,
           "next_subjects": [
-            "고생물학",
-            "환경과학과",
-            "지구과학교육과"
+            "지구시스템과학",
+            "생명과학",
+            "통합사회1"
           ],
-          "why": "지구 환경 변화와 생물 변화를 연결하는 관점이 환경 역사와 교육 탐구로 확장됨",
-          "student_output_hint": "지질시대 환경 변화 정리, 화석 사례 조사, 교육 자료 제작",
-          "priority": 2
+          "why": "지질시대를 생명 진화와 환경 변화와 연결하면 장기적 변화 관점이 확장된다.",
+          "student_output_hint": "생명 진화 연표, 대멸종 사례 분석, 지구 역사 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지질시대",
+                "대멸종",
+                "진화",
+                "환경 변화"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "역사 변화",
+              "message": "선택한 키워드가 지구 역사와 생명 변화와 직접 연결되어 지구 역사 응용 축이 크게 강화됩니다.",
+              "desc": "지질 자료를 생명과 환경의 장기 변화와 함께 보는 방향입니다.",
+              "activity_examples": [
+                "지질시대별 환경 변화와 생물 변화를 연표로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "생물 변화",
+                "지구 환경",
+                "역사"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "장기 변화",
+              "message": "선택한 키워드가 장기 변화 관점과 맞아 지구 역사 응용 축을 보강합니다.",
+              "desc": "시간 축을 넓혀 보는 탐구로 이어집니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "fossil_data_axis",
+          "axis_title": "화석·연대 자료 분석 축",
+          "axis_short": "화석 자료",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "생명과학",
+            "확률과 통계",
+            "공통국어1"
+          ],
+          "why": "화석과 연대 자료를 정리하고 비교하면 증거 기반 설명 능력이 커진다.",
+          "student_output_hint": "화석 표본 비교, 연대 자료 정리, 근거 제시 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "비교",
+                "근거",
+                "자료 정리",
+                "표본"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "증거 비교",
+              "message": "선택한 키워드가 화석과 연대 자료의 비교와 맞아 화석·연대 자료 분석 축이 강화됩니다.",
+              "desc": "증거를 표와 설명으로 조직하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "화석 자료를 표로 정리하고 지질시대와 연결해 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "설명",
+                "발표",
+                "자료"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 설명",
+              "message": "선택한 키워드가 근거 제시와 연결되어 화석·연대 자료 분석 축을 보조 강화합니다.",
+              "desc": "지구과학 근거를 소통하는 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "판 구조와 암석 변화",
+      "concept_key": "판 구조와 암석 변화",
       "concept_label": "판 구조론-화성암-변성암",
+      "core_focus": "판의 경계, 지진·화산 활동, 암석의 생성과 순환을 함께 해석하는 개념",
       "longitudinal_axes": [
         {
-          "axis_id": "tectonic_rock_axis",
+          "axis_id": "tectonic_axis",
           "axis_title": "지각 변동 해석 축",
+          "axis_short": "지각 변동",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "지질학과",
-            "자원공학과"
+            "지질학",
+            "지구물리학"
           ],
-          "why": "판 이동과 암석 변화를 함께 해석하는 사고가 지각 변동과 자원 형성 이해로 이어짐",
-          "student_output_hint": "판 경계 비교, 암석 분류, 지질 구조 보고서",
-          "priority": 1
+          "why": "판의 이동과 경계 유형을 해석하는 힘이 지진·화산·조산 운동 이해의 핵심이 된다.",
+          "student_output_hint": "판 경계 비교도, 지진·화산 분포 해석, 판 구조 요약 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "판 구조론",
+                "판 경계",
+                "지진",
+                "화산",
+                "섭입"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "판 경계",
+              "message": "선택한 키워드가 판 구조와 지각 변동의 핵심 원리와 직접 맞닿아 지각 변동 해석 축이 1순위로 강화됩니다.",
+              "desc": "판의 이동을 지진·화산과 연결하는 종단 방향입니다.",
+              "activity_examples": [
+                "판 경계 유형별 지진·화산 분포를 지도에 표시하기"
+              ]
+            },
+            {
+              "keywords": [
+                "발산형",
+                "수렴형",
+                "보존형"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "경계 유형",
+              "message": "선택한 키워드가 판 경계 유형과 연결되어 지각 변동 해석 축을 보강합니다.",
+              "desc": "경계별 특징과 현상을 비교하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "geo_hazard_resource_axis",
+          "axis_id": "resource_disaster_axis",
           "axis_title": "자원·재난 응용 축",
+          "axis_short": "자원·재난",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
-            "재난안전공학과",
-            "토목공학과",
-            "자원공학과"
+            "환경공학",
+            "자원공학",
+            "통합사회2"
           ],
-          "why": "지질 구조를 재난 위험과 자원 분포 문제에 연결하는 관점이 실제 지반·자원 응용으로 확장됨",
-          "student_output_hint": "지반 위험 분석, 지질공원 조사, 자원 탐사 보고서",
-          "priority": 2
+          "why": "판 구조와 암석 변화는 광물 자원 분포와 재난 대비 판단으로 이어진다.",
+          "student_output_hint": "광물 자원 사례 조사, 재난 위험 지도 읽기, 지역 안전 제안",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "광물",
+                "자원",
+                "재난",
+                "안전",
+                "화산재"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "자원·재난",
+              "message": "선택한 키워드가 자원 분포와 재난 판단과 직접 연결되어 자원·재난 응용 축이 크게 강화됩니다.",
+              "desc": "지구과학 개념을 자원과 사회 안전 문제로 확장하는 방향입니다.",
+              "activity_examples": [
+                "지진·화산 위험 지역과 자원 분포를 비교 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "지열",
+                "지반",
+                "피해"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "지반 판단",
+              "message": "선택한 키워드가 지반·피해 판단과 연결되어 자원·재난 응용 축을 보강합니다.",
+              "desc": "지역 기반 안전성과 자원 활용을 함께 보는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "rock_cycle_axis",
+          "axis_title": "암석·자원 순환 분석 축",
+          "axis_short": "암석 순환",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "화학Ⅰ",
+            "과학탐구실험1",
+            "환경공학"
+          ],
+          "why": "화성암·퇴적암·변성암의 순환을 자료화하면 물질 순환 관점의 횡단 연결이 강화된다.",
+          "student_output_hint": "암석 분류표, 순환 도식화, 사례 기반 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "화성암",
+                "퇴적암",
+                "변성암",
+                "암석 순환"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "암석 분류",
+              "message": "선택한 키워드가 암석의 생성·변화 과정과 맞아 암석·자원 순환 분석 축이 강화됩니다.",
+              "desc": "암석 종류와 변화 조건을 체계적으로 정리하는 방향입니다.",
+              "activity_examples": [
+                "암석 종류별 생성 환경과 변화를 도식으로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "성분",
+                "분류",
+                "과정"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "암석 과정",
+              "message": "선택한 키워드가 암석 변화 과정과 연결되어 암석·자원 순환 분석 축을 보조 강화합니다.",
+              "desc": "분류와 과정 비교 중심의 탐구로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "태양계 천체의 관측과 운동",
+      "concept_key": "태양계 천체의 관측과 운동",
       "concept_label": "행성-위상 변화-케플러 법칙",
+      "core_focus": "행성의 공전, 위상 변화, 케플러 법칙, 관측 자료를 통해 태양계 운동을 이해하는 개념",
       "longitudinal_axes": [
         {
-          "axis_id": "solar_system_observation_axis",
+          "axis_id": "astronomy_observation_axis",
           "axis_title": "천체 관측 해석 축",
+          "axis_short": "천체 관측",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "천문우주학과",
-            "물리학과"
+            "천문학",
+            "물리학Ⅰ"
           ],
-          "why": "행성의 관측과 운동 법칙을 해석하는 사고가 천체 관측의 기본 축으로 이어짐",
-          "student_output_hint": "행성 관측 기록, 위상 변화 설명, 태양계 보고서",
-          "priority": 1
+          "why": "행성과 달의 운동을 관측 자료와 연결해 해석하는 힘이 천체 관측의 기본이 된다.",
+          "student_output_hint": "행성 관측 기록, 위상 변화 설명도, 태양계 운동 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "행성",
+                "위상 변화",
+                "케플러 법칙",
+                "공전",
+                "관측"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "행성 관측",
+              "message": "선택한 키워드가 태양계 천체 관측과 직접 맞닿아 천체 관측 해석 축이 1순위로 강화됩니다.",
+              "desc": "관측 사실을 운동 법칙과 연결하는 종단 방향입니다.",
+              "activity_examples": [
+                "행성의 위상 변화와 공전 위치를 그림으로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "달",
+                "망원경",
+                "시야"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "관측 기록",
+              "message": "선택한 키워드가 관측 기록과 연결되어 천체 관측 해석 축을 보강합니다.",
+              "desc": "관측 장면을 자료로 해석하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "space_navigation_application_axis",
+          "axis_id": "space_navigation_axis",
           "axis_title": "우주항법 응용 축",
+          "axis_short": "우주항법",
           "axis_domain": "engineering",
+          "priority": 2,
           "next_subjects": [
-            "항공우주공학과",
-            "우주과학과",
-            "전자공학과"
+            "물리학Ⅰ",
+            "기하",
+            "항공우주공학"
           ],
-          "why": "천체 위치와 궤도 해석을 위성·항법 기술과 연결하는 관점이 우주 응용 탐구로 확장됨",
-          "student_output_hint": "위성 궤도 비교, 항법 원리 조사, 우주 기술 보고서",
-          "priority": 2
+          "why": "천체 운동 법칙은 궤도 예측, 위성 경로, 우주 탐사 설계와 연결된다.",
+          "student_output_hint": "궤도 비교, 위성 경로 설명, 우주 탐사 기초 제안서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "궤도",
+                "위성",
+                "항법",
+                "탐사선",
+                "중력"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "궤도 설계",
+              "message": "선택한 키워드가 천체 운동을 우주항법과 직접 연결해 우주항법 응용 축이 크게 강화됩니다.",
+              "desc": "관측 법칙을 공학적 경로 설계로 확장하는 방향입니다.",
+              "activity_examples": [
+                "케플러 법칙과 위성 궤도를 연결해 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "로켓",
+                "경로",
+                "탐사"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "탐사 응용",
+              "message": "선택한 키워드가 우주 탐사와 맞아 우주항법 응용 축을 보강합니다.",
+              "desc": "천문 관측을 공학 응용으로 잇는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "space_data_model_axis",
+          "axis_title": "관측 데이터 모델링 축",
+          "axis_short": "우주 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "공통수학2"
+          ],
+          "why": "관측 주기, 거리, 공전 자료를 모델로 표현하면 데이터 기반 우주 탐구 역량이 커진다.",
+          "student_output_hint": "천체 주기 표 정리, 거리 비교 그래프, 데이터 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "주기",
+                "거리",
+                "데이터",
+                "그래프"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "주기 데이터",
+              "message": "선택한 키워드가 천체 자료의 정량 표현과 맞아 관측 데이터 모델링 축이 강화됩니다.",
+              "desc": "천체 운동을 수치와 그래프로 표현하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "행성 공전 주기와 거리 자료를 그래프로 비교하기"
+              ]
+            },
+            {
+              "keywords": [
+                "비교",
+                "모델",
+                "분석"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 모델",
+              "message": "선택한 키워드가 자료 분석과 연결되어 관측 데이터 모델링 축을 보조 강화합니다.",
+              "desc": "정량 자료 중심의 설명 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "별의 특성과 진화",
+      "concept_key": "별의 특성과 진화",
       "concept_label": "밝기-스펙트럼-H-R도",
+      "core_focus": "별의 밝기, 표면 온도, 스펙트럼, H-R도와 별의 진화 단계를 이해하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "stellar_evolution_axis",
           "axis_title": "항성 진화 해석 축",
+          "axis_short": "항성 진화",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "천문우주학과",
-            "물리학과"
+            "천문학",
+            "물리학Ⅰ"
           ],
-          "why": "별의 밝기와 스펙트럼, H-R도를 해석하는 사고가 항성 진화 이해의 핵심이 됨",
-          "student_output_hint": "H-R도 해석, 별 분류 비교, 항성 진화 보고서",
-          "priority": 1
+          "why": "밝기와 온도, 질량에 따른 별의 생애를 해석하는 힘이 항성 진화 이해의 중심이 된다.",
+          "student_output_hint": "H-R도 해석, 별의 진화 단계 정리, 항성 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "밝기",
+                "표면 온도",
+                "H-R도",
+                "적색거성",
+                "백색왜성"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "별의 생애",
+              "message": "선택한 키워드가 항성 진화의 핵심 지표와 직접 맞닿아 항성 진화 해석 축이 1순위로 강화됩니다.",
+              "desc": "별의 특성을 진화 단계와 연결하는 종단 방향입니다.",
+              "activity_examples": [
+                "H-R도에서 별의 위치와 진화 단계를 연결해 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "질량",
+                "주계열성",
+                "초신성"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "진화 단계",
+              "message": "선택한 키워드가 질량과 진화 단계와 연결되어 항성 진화 해석 축을 보강합니다.",
+              "desc": "별의 생애를 조건별로 비교하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "astro_physics_bridge_axis",
+          "axis_id": "astrophysics_bridge_axis",
           "axis_title": "천체물리 연결 축",
+          "axis_short": "천체물리",
           "axis_domain": "physics",
+          "priority": 2,
           "next_subjects": [
-            "물리학과",
-            "우주과학과",
-            "데이터사이언스학과"
+            "물리학Ⅰ",
+            "전자기와 양자",
+            "천문학"
           ],
-          "why": "별의 물리적 성질을 데이터와 수식으로 연결하는 관점이 천체물리와 관측 데이터 분석으로 확장됨",
-          "student_output_hint": "스펙트럼 비교, 밝기 자료 분석, 천체 데이터 보고서",
-          "priority": 2
+          "why": "스펙트럼과 에너지 방출을 물리 개념과 연결하면 천체물리적 사고가 강화된다.",
+          "student_output_hint": "스펙트럼 분석, 복사 에너지 설명, 천체물리 연결 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "스펙트럼",
+                "복사",
+                "에너지",
+                "흡수선",
+                "방출선"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "스펙트럼 해석",
+              "message": "선택한 키워드가 빛과 에너지 해석과 직접 연결되어 천체물리 연결 축이 크게 강화됩니다.",
+              "desc": "지구과학과 물리 개념을 잇는 횡단 방향입니다.",
+              "activity_examples": [
+                "별 스펙트럼 자료를 보고 온도와 성질 추론하기"
+              ]
+            },
+            {
+              "keywords": [
+                "빛",
+                "파장",
+                "관측 장비"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "빛 분석",
+              "message": "선택한 키워드가 관측 물리와 연결되어 천체물리 연결 축을 보강합니다.",
+              "desc": "관측 자료를 물리 해석으로 확장하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "spectrum_data_axis",
+          "axis_title": "스펙트럼 데이터 분석 축",
+          "axis_short": "스펙트럼 데이터",
+          "axis_domain": "data",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "공통수학1"
+          ],
+          "why": "H-R도와 스펙트럼 자료를 정리하면 분류·비교 기반 데이터 탐구가 가능해진다.",
+          "student_output_hint": "분류표 작성, H-R도 재구성, 데이터 비교 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "분류",
+                "그래프",
+                "자료 비교",
+                "데이터"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "별 분류",
+              "message": "선택한 키워드가 별 자료의 분류와 비교와 맞아 스펙트럼 데이터 분석 축이 강화됩니다.",
+              "desc": "별의 특성을 데이터로 분류하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "별의 밝기와 온도 자료로 H-R도를 직접 구성하기"
+              ]
+            },
+            {
+              "keywords": [
+                "시각화",
+                "표",
+                "비교"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "자료 비교",
+              "message": "선택한 키워드가 시각화와 연결되어 스펙트럼 데이터 분석 축을 보조 강화합니다.",
+              "desc": "자료 기반 설명 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     },
     {
       "concept_name": "은하와 우주의 진화",
+      "concept_key": "은하와 우주의 진화",
       "concept_label": "외부 은하-적색 편이-우주 팽창",
+      "core_focus": "은하의 분류, 적색 편이, 허블 법칙, 우주 팽창과 우주 진화 과정을 이해하는 개념",
       "longitudinal_axes": [
         {
           "axis_id": "cosmic_structure_axis",
           "axis_title": "우주 구조 해석 축",
+          "axis_short": "우주 구조",
           "axis_domain": "earth_env",
+          "priority": 1,
           "next_subjects": [
             "지구시스템과학",
-            "천문우주학과",
-            "우주과학과"
+            "천문학",
+            "물리학Ⅰ"
           ],
-          "why": "은하 분류와 적색 편이를 해석하는 사고가 우주 구조와 진화 이해로 이어짐",
-          "student_output_hint": "은하 비교표, 적색 편이 해석, 우주 팽창 보고서",
-          "priority": 1
+          "why": "은하의 분포와 적색 편이를 통해 우주 팽창을 해석하는 힘이 우주 구조 이해의 핵심이 된다.",
+          "student_output_hint": "은하 분류표, 허블 법칙 설명, 우주 진화 요약 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "은하",
+                "적색 편이",
+                "허블 법칙",
+                "우주 팽창",
+                "빅뱅"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "우주 팽창",
+              "message": "선택한 키워드가 우주의 구조와 진화 원리와 직접 맞닿아 우주 구조 해석 축이 1순위로 강화됩니다.",
+              "desc": "관측 자료를 우주 진화 해석으로 잇는 종단 방향입니다.",
+              "activity_examples": [
+                "적색 편이와 우주 팽창의 관계를 그림과 식으로 설명하기"
+              ]
+            },
+            {
+              "keywords": [
+                "외부 은하",
+                "은하 분류",
+                "우주 배경 복사"
+              ],
+              "boost": 14,
+              "label": "키워드 반영",
+              "short_label": "은하 해석",
+              "message": "선택한 키워드가 은하의 특성과 연결되어 우주 구조 해석 축을 보강합니다.",
+              "desc": "은하 관측을 우주론으로 확장하는 방향입니다."
+            }
+          ]
         },
         {
-          "axis_id": "space_data_application_axis",
+          "axis_id": "cosmic_data_axis",
           "axis_title": "우주 데이터 응용 축",
+          "axis_short": "우주 데이터",
           "axis_domain": "data",
+          "priority": 2,
           "next_subjects": [
-            "데이터사이언스학과",
-            "항공우주공학과",
-            "전자공학과"
+            "확률과 통계",
+            "정보",
+            "기하"
           ],
-          "why": "관측 데이터를 분류·시각화하는 관점이 우주 정보 처리와 탐사 기술 응용으로 확장됨",
-          "student_output_hint": "우주 관측 데이터 시각화, 은하 데이터 정리, 탐사 기술 보고서",
-          "priority": 2
+          "why": "거리-속도 자료, 적색 편이 자료를 모델로 읽으면 우주 데이터 탐구 역량이 커진다.",
+          "student_output_hint": "허블 그래프 해석, 우주 거리 자료 비교, 데이터 기반 발표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "그래프",
+                "거리",
+                "속도",
+                "데이터",
+                "비교"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "허블 그래프",
+              "message": "선택한 키워드가 우주 자료의 정량 해석과 직접 연결되어 우주 데이터 응용 축이 크게 강화됩니다.",
+              "desc": "거리와 속도의 관계를 그래프로 분석하는 횡단 방향입니다.",
+              "activity_examples": [
+                "거리-속도 자료를 바탕으로 허블 그래프를 그려 보기"
+              ]
+            },
+            {
+              "keywords": [
+                "모형",
+                "분석",
+                "시각화"
+              ],
+              "boost": 12,
+              "label": "키워드 반영",
+              "short_label": "우주 자료",
+              "message": "선택한 키워드가 자료 시각화와 맞아 우주 데이터 응용 축을 보강합니다.",
+              "desc": "관측 자료를 정량 모델로 읽는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "cosmic_inquiry_communication_axis",
+          "axis_title": "우주 관측·모형화 축",
+          "axis_short": "우주 모형",
+          "axis_domain": "communication",
+          "priority": 3,
+          "next_subjects": [
+            "공통국어2",
+            "과학탐구실험1",
+            "전자기와 양자"
+          ],
+          "why": "우주 기원과 진화 모델을 설명하고 비교하면 과학 모형 이해와 소통 역량이 강화된다.",
+          "student_output_hint": "우주 기원 모델 비교, 발표 자료 제작, 과학사 연결 글쓰기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "모형",
+                "가설",
+                "우주 기원",
+                "설명"
+              ],
+              "boost": 15,
+              "label": "키워드 직접 반영",
+              "short_label": "우주 모형",
+              "message": "선택한 키워드가 우주 기원 모델 비교와 맞아 우주 관측·모형화 축이 강화됩니다.",
+              "desc": "과학 모형을 비교·설명하는 횡단 탐구 방향입니다.",
+              "activity_examples": [
+                "빅뱅 우주론과 관련 증거를 발표 자료로 정리하기"
+              ]
+            },
+            {
+              "keywords": [
+                "과학사",
+                "논쟁",
+                "발표"
+              ],
+              "boost": 10,
+              "label": "키워드 보정",
+              "short_label": "모형 설명",
+              "message": "선택한 키워드가 과학사와 소통과 연결되어 우주 관측·모형화 축을 보조 강화합니다.",
+              "desc": "관측 증거를 설명하는 활동으로 이어집니다."
+            }
+          ]
         }
       ]
     }
