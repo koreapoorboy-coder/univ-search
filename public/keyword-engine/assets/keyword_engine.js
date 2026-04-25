@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v36.2-hybrid-quickstart";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -63,33 +63,24 @@ function uniq(arr){
 }
 
 function getFormValues(){
-  const schoolName = $("schoolName")?.value?.trim() || "";
-  const grade = $("grade")?.value?.trim() || "";
-  const subject = $("subject")?.value?.trim() || "";
-  const taskName = $("taskName")?.value?.trim() || "";
-  const taskType = $("taskType")?.value?.trim() || "";
-  const taskDescription = $("taskDescription")?.value?.trim() || "";
-  const career = $("career")?.value?.trim() || "";
-  const keyword = $("keyword")?.value?.trim() || career;
-
   return {
     sessionId:createSessionId(),
-    schoolName: schoolName || "미입력",
-    grade,
-    subject,
-    taskName: taskName || `${subject || "선택 과목"} 탐구 보고서`,
-    taskType: taskType || "탐구보고서",
+    schoolName:$("schoolName")?.value?.trim()||"",
+    grade:$("grade")?.value?.trim()||"",
+    subject:$("subject")?.value?.trim()||"",
+    taskName:$("taskName")?.value?.trim()||"",
+    taskType:$("taskType")?.value?.trim()||"",
     usagePurpose:$("usagePurpose")?.value?.trim()||"학생용 MINI 보고서 작성",
-    taskDescription: taskDescription || `${subject || "해당 과목"} 교과 개념과 진로를 연결한 탐구보고서`,
-    career,
-    keyword,
-    major: career || "",
-    track: career || ""
+    taskDescription:$("taskDescription")?.value?.trim()||"",
+    career:$("career")?.value?.trim()||"",
+    keyword:$("keyword")?.value?.trim()||"",
+    major:$("career")?.value?.trim()||"",
+    track:$("career")?.value?.trim()||""
   };
 }
 
 function validateInput(data){
-  const required=[["grade","학년"],["subject","과목"],["career","희망 진로"]];
+  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["career","희망 진로"],["keyword","키워드"]];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
@@ -765,7 +756,6 @@ async function handleGenerate(){
     try { await callGenerateAPI(payload); } catch (e) { console.warn("generate api fallback:", e); }
 
     renderStudentView(payload);
-    $("resultSection")?.scrollIntoView({ behavior:"smooth", block:"start" });
     return true;
   }catch(error){
     console.error("handleGenerate error:", error);
