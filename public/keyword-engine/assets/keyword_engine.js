@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v36.2-quickstart-ux";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 
 function $(id){ return document.getElementById(id); }
@@ -35,6 +35,13 @@ function clearIfExists(ids){
     if (el) el.innerHTML = "";
   });
 }
+function scrollToResults(){
+  const resultSection = $("resultSection");
+  if (!resultSection) return;
+  requestAnimationFrame(() => {
+    resultSection.scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+}
 function ensureContentOutputSection(){
   let el = $("contentOutputSection");
   if (el) return el;
@@ -63,24 +70,35 @@ function uniq(arr){
 }
 
 function getFormValues(){
+  const subject = $("subject")?.value?.trim() || "";
+  const career = $("career")?.value?.trim() || "";
+  const schoolName = $("schoolName")?.value?.trim() || "미입력";
+  const taskType = $("taskType")?.value?.trim() || "탐구보고서";
+  const taskName = $("taskName")?.value?.trim() || (subject ? `${subject} 탐구 보고서` : "탐구 보고서");
+  const taskDescription = $("taskDescription")?.value?.trim() || (subject && career ? `${subject} 교과 개념을 ${career} 진로와 연결하는 탐구 방향 설계` : "교과 개념과 진로를 연결하는 탐구 방향 설계");
+  const keyword = $("keyword")?.value?.trim() || career;
   return {
     sessionId:createSessionId(),
-    schoolName:$("schoolName")?.value?.trim()||"",
+    schoolName,
     grade:$("grade")?.value?.trim()||"",
-    subject:$("subject")?.value?.trim()||"",
-    taskName:$("taskName")?.value?.trim()||"",
-    taskType:$("taskType")?.value?.trim()||"",
+    subject,
+    taskName,
+    taskType,
     usagePurpose:$("usagePurpose")?.value?.trim()||"학생용 MINI 보고서 작성",
-    taskDescription:$("taskDescription")?.value?.trim()||"",
-    career:$("career")?.value?.trim()||"",
-    keyword:$("keyword")?.value?.trim()||"",
-    major:$("career")?.value?.trim()||"",
-    track:$("career")?.value?.trim()||""
+    taskDescription,
+    career,
+    keyword,
+    major:career,
+    track:career
   };
 }
 
 function validateInput(data){
-  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["career","희망 진로"],["keyword","키워드"]];
+  const required=[
+    ["grade","학년"],
+    ["subject","과목"],
+    ["career","학과 검색"]
+  ];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
@@ -726,7 +744,7 @@ function renderStudentView(payload){
   hideBlock("finalMode");
   setText("finalReason", "");
   setText("finalTopic", content.one_line_pick);
-  setText("topicSub", `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다.`);
+  setText("topicSub", `${payload.subject} · ${payload.career} 기준으로 가장 읽기 쉬운 방향으로 다시 정리한 결과입니다. 필요한 세부 입력은 나중에 추가해도 됩니다.`);
   setHTML("actionSteps", renderStepList(content.steps));
 
   const root = ensureContentOutputSection();
@@ -734,6 +752,7 @@ function renderStudentView(payload){
 
   hideLegacySections();
   showBlock("resultSection", "grid");
+  scrollToResults();
 }
 
 async function handleGenerate(){
@@ -769,6 +788,8 @@ function handleReset(){
   ["schoolName","grade","subject","taskName","taskType","usagePurpose","taskDescription","career","keyword"].forEach(id=>{
     const el=$(id); if(el) el.value="";
   });
+  const advanced = $("advancedOptions");
+  if (advanced) advanced.open = false;
   clearError();
   clearResults();
 }
