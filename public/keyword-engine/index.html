@@ -16,13 +16,13 @@
     </section>
 
     <section class="panel form-panel">
-      <div class="form-grid single-column-form">
-        <label>
-          <span>학교명</span>
-          <input id="schoolName" type="text" placeholder="예: 알과영고" />
-        </label>
+      <div class="quick-start-banner">
+        <div class="quick-start-badge">빠른 시작</div>
+        <div class="quick-start-title">학년 · 과목 · 학과만 먼저 고르면 아래 추천이 바로 열립니다.</div>
+        <div class="quick-start-sub">학교명, 활동명, 선생님 안내문은 필요한 경우에만 아래 세부 옵션에서 추가하세요.</div>
+      </div>
 
-        <label>
+      <div class="form-grid single-column-form">        <label>
           <span>학년</span>
           <select id="grade">
             <option value="">선택</option>
@@ -64,37 +64,48 @@
         </label>
 
         <label>
-          <span>활동 과제 이름</span>
-          <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리" />
-        </label>
-
-        <label>
-          <span>결과물 유형</span>
-          <select id="taskType">
-            <option value="">선택</option>
-                        <option value="탐구보고서">탐구보고서</option>
-            <option value="실험보고서">실험보고서</option>
-            <option value="자료조사 보고서">자료조사 보고서</option>
-            <option value="발표보고서">발표보고서</option>
-          </select>
-        </label>
-        <select id="usagePurpose" hidden>
-          <option value=""></option>
-        </select>
-
-        <label class="full">
-          <span>선생님 안내문</span>
-          <textarea id="taskDescription" rows="4" placeholder="예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심"></textarea>
-        </label>
-
-        <label>
           <span>학과 검색</span>
           <input id="career" type="text" placeholder="예: 컴퓨터, 반도체, 간호, 신소재, 환경" />
         </label>
         <input id="keyword" type="hidden" value="" />
+
+        <details id="advancedOptions" class="advanced-options full">
+          <summary>세부 옵션은 필요할 때만 입력하기</summary>
+          <div class="advanced-options-grid">
+            <label>
+              <span>학교명</span>
+              <input id="schoolName" type="text" placeholder="예: 알과영고" />
+            </label>
+
+            <label>
+              <span>활동 과제 이름</span>
+              <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리" />
+            </label>
+
+            <label>
+              <span>결과물 유형</span>
+              <select id="taskType">
+                <option value="">자동 추천</option>
+                <option value="탐구보고서">탐구보고서</option>
+                <option value="실험보고서">실험보고서</option>
+                <option value="자료조사 보고서">자료조사 보고서</option>
+                <option value="발표보고서">발표보고서</option>
+              </select>
+            </label>
+            <select id="usagePurpose" hidden>
+              <option value=""></option>
+            </select>
+
+            <label class="full">
+              <span>선생님 안내문</span>
+              <textarea id="taskDescription" rows="4" placeholder="예: 교과 개념과 연결한 자료조사형 보고서, 실험은 어렵고 발표 포함 / 동아리에서 실제 사례 조사 중심"></textarea>
+            </label>
+          </div>
+        </details>
       </div>
 
       <div class="actions">
+        <div class="quick-generate-note">학년 · 과목 · 학과만 입력해도 바로 추천을 볼 수 있어요.</div>
         <button id="generateBtn" class="primary-btn">학생용 결과 생성</button>
         <button id="resetBtn" class="secondary-btn" type="button">초기화</button>
         <div id="loadingMessage" class="loading-text" style="display:none;">생성 중...</div>
