@@ -1996,6 +1996,18 @@ function getTrackMeta(trackId) {
     const subject = state.subject || '';
     const bucket = detectCareerBucket(majorText);
 
+    if (subject === '통합과학1') {
+      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|전자|전기|회로|센서|소자|통신/.test(majorText)) {
+        return ['기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '규칙성 발견과 주기율표', '지구시스템'];
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
+        return ['과학의 측정과 우리 사회', '지구시스템', '자연 세계의 시간과 공간', '기본량과 단위', '역학 시스템'];
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
+        return ['규칙성 발견과 주기율표', '기본량과 단위', '과학의 측정과 우리 사회', '물질 구성과 분류', '역학 시스템'];
+      }
+    }
+
     if (subject === '통합과학2') {
       if (bucket === 'energy' || /에너지공학|신재생|전력|에너지시스템|에너지자원|원자력/.test(majorText)) {
         return ['에너지 효율과 신재생 에너지', '발전과 에너지원', '태양 에너지의 생성과 전환', '물질 변화에서 에너지의 출입', '지구 환경 변화와 인간 생활'];
@@ -2161,6 +2173,7 @@ function getTrackMeta(trackId) {
     ].join(" ").trim();
     const bucket = detectCareerBucket(effectiveCareer);
     const track = getResolvedTrackId() || "";
+    const subject = state.subject || "";
     const majorText = getMajorTextBag();
     const preferred = getPreferredConceptSequence();
     const textBag = [
@@ -2188,6 +2201,21 @@ function getTrackMeta(trackId) {
 
     let score = 0;
     const reasons = [];
+
+    if (subject === '통합과학1') {
+      if ((bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText))) {
+        if (/지구시스템|자연 세계의 시간과 공간|과학의 측정과 우리 사회/.test(concept)) { score += 22; reasons.push('진로 연결'); }
+        if (/규칙성 발견과 주기율표/.test(concept)) score -= 10;
+      }
+      if ((bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText))) {
+        if (/규칙성 발견과 주기율표|기본량과 단위|과학의 측정과 우리 사회|물질 구성과 분류/.test(concept)) { score += 20; reasons.push('진로 연결'); }
+        if (/역학 시스템/.test(concept)) score -= 8;
+      }
+      if ((bucket === 'electronic' || /전자공학|전기공학|반도체공학|전자|전기|회로|센서|소자|통신/.test(majorText))) {
+        if (/기본량과 단위|과학의 측정과 우리 사회|역학 시스템/.test(concept)) { score += 18; reasons.push('진로 연결'); }
+        if (/지구시스템|자연 세계의 시간과 공간/.test(concept)) score -= 10;
+      }
+    }
 
     if (bucket === "materials") {
       if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 16; reasons.push("진로 연결"); }
