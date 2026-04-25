@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.1-common-math1-major-reweight";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2072,6 +2072,19 @@ function getTrackMeta(trackId) {
       return ['과학 기술 사회에서 빅데이터 활용', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '산화와 환원', '과학 관련 사회적 쟁점과 과학 윤리'];
     }
 
+    if (subject === '공통수학1') {
+      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
+        return ['행렬과 행렬의 연산', '경우의 수, 순열, 조합', '이차방정식과 이차함수', '다항식의 연산', '나머지정리와 인수분해'];
+      }
+      if (bucket === 'mechanical' || /기계공학|자동차공학|항공우주공학|모빌리티|로봇공학|메카트로닉스|기구|설계|제어/.test(majorText)) {
+        return ['이차방정식과 이차함수', '다항식의 연산', '행렬과 행렬의 연산', '나머지정리와 인수분해', '경우의 수, 순열, 조합'];
+      }
+      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|통신공학|제어계측공학|전자|전기|회로|센서|소자/.test(majorText)) {
+        return ['행렬과 행렬의 연산', '이차방정식과 이차함수', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해'];
+      }
+      return ['이차방정식과 이차함수', '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해'];
+    }
+
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') return ['물질 구성과 분류', '규칙성 발견과 주기율표', '과학의 측정과 우리 사회', '기본량과 단위', '역학 시스템'];
       if (track === 'physics') return ['기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '물질 구성과 분류', '규칙성 발견과 주기율표'];
@@ -2323,7 +2336,7 @@ function getTrackMeta(trackId) {
     const majorHintPairs = [
       { pattern: /(컴퓨터|소프트웨어|데이터|AI|인공지능|정보|통계|코딩|알고리즘)/i, concept: /(자료|데이터|정보|분석|표현|그래프|확률|경우의 수|행렬|측정|단위|빅데이터|자동화|시스템)/ },
       { pattern: /(전자|전기|반도체|회로|센서|통신|로봇|메카트로닉스)/, concept: /(측정|단위|역학|전기|전자기|센서|시스템|파동|신호|양자|에너지|회로|시간과 공간)/ },
-      { pattern: /(기계|자동차|항공|모빌리티|기구|설계|제어)/, concept: /(운동|힘|역학|에너지|구조|정사영|도형의 이동|물리|측정|효율|시뮬레이션)/ },
+      { pattern: /(기계|자동차|항공|모빌리티|기구|설계|제어)/, concept: /(운동|힘|역학|에너지|구조|정사영|도형의 이동|물리|측정|효율|시뮬레이션|이차함수|다항식|행렬|모델링)/ },
       { pattern: /(화학공학|화공|화학|신소재|재료|고분자|금속|배터리)/, concept: /(물질|원자|주기율|결합|산화|염기|반응|소재|전지|에너지 출입)/ },
       { pattern: /(에너지공학|신재생|전력|에너지시스템|에너지자원|원자력)/, concept: /(에너지 효율|신재생|발전|에너지원|태양 에너지|에너지 전환|에너지 출입|풍력|태양광|수력)/ },
       { pattern: /(생명|바이오|의학|의료|간호|보건|제약|약학|수의|임상)/, concept: /(생명|세포|항상성|건강|면역|유전자|산과 염기|대사|효소|백신|물질 이동)/ },
@@ -2359,6 +2372,32 @@ function getTrackMeta(trackId) {
           reasons.push('정보 전공 맞춤');
         }
         if (/발전과 에너지원|태양 에너지의 생성과 전환/.test(concept)) score -= 12;
+      }
+    }
+
+    if (state.subject === '공통수학1') {
+      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
+        if (/행렬과 행렬의 연산|경우의 수, 순열, 조합/.test(concept)) {
+          score += 30;
+          reasons.push('정보·데이터 수학 맞춤');
+        }
+        if (/이차방정식과 이차함수/.test(concept)) score += 10;
+        if (/나머지정리와 인수분해|다항식의 연산/.test(concept)) score -= 6;
+      }
+      if (bucket === 'mechanical' || /기계공학|자동차공학|항공우주공학|모빌리티|로봇공학|메카트로닉스|기구|설계|제어/.test(majorText)) {
+        if (/이차방정식과 이차함수|다항식의 연산|행렬과 행렬의 연산/.test(concept)) {
+          score += 28;
+          reasons.push('기계·모델링 수학 맞춤');
+        }
+        if (/나머지정리와 인수분해/.test(concept)) score += 8;
+        if (/경우의 수, 순열, 조합/.test(concept)) score -= 8;
+      }
+      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|통신공학|제어계측공학|전자|전기|회로|센서|소자/.test(majorText)) {
+        if (/행렬과 행렬의 연산|이차방정식과 이차함수|경우의 수, 순열, 조합/.test(concept)) {
+          score += 24;
+          reasons.push('전자·계산 수학 맞춤');
+        }
+        if (/나머지정리와 인수분해/.test(concept)) score -= 4;
       }
     }
 
