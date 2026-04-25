@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-split";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -32,6 +32,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-spli
   const TOPIC_MATRIX_URL = `${DATA_SOURCE_POLICY.runtimeUi}topic_matrix_seed.json`;
   const FOLLOWUP_SUBJECT_URL = `${DATA_SOURCE_POLICY.followupAxis}subject_bridge_point.json`;
   const FOLLOWUP_MAJOR_URL = `${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`;
+  const COMPETENCY_AXES_URL = `seed/competency/subject_competency_axes_master_v1.json`;
+  const CONCEPT_COMPETENCY_URL = `seed/competency/concept_competency_map_core_v1.json`;
 
   const SUBJECT_NAME_ALIASES = Object.freeze({
     "통합사회": "통합사회1",
@@ -256,6 +258,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-spli
   let subjectBridgePoint = [];
   let majorFollowupAxis = [];
   let conceptLongitudinalMaps = {};
+  let subjectCompetencyAxesMap = {};
+  let conceptCompetencyMap = {};
 
   function normalize(v) {
     return String(v || "")
@@ -300,6 +304,166 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-spli
     return cloned;
   }
 
+
+  function mapSubjectKeyToName(subjectKey) {
+    const map = {
+      integrated_science1: "통합과학1",
+      integrated_science2: "통합과학2",
+      common_math1: "공통수학1",
+      common_math2: "공통수학2",
+      information: "정보",
+      info: "정보",
+      common_korean1: "공통국어1",
+      common_korean2: "공통국어2",
+      integrated_society1: "통합사회1",
+      integrated_society2: "통합사회2",
+      science_inquiry1: "과학탐구실험1",
+      science_inquiry2: "과학탐구실험2",
+      algebra: "대수",
+      probability_statistics: "확률과 통계",
+      calculus1: "미적분1",
+      geometry: "기하",
+      physics1: "물리",
+      chemistry1: "화학",
+      life_science: "생명과학",
+      earth_science: "지구과학",
+      mechanics_energy: "역학과 에너지",
+      electromagnetism_quantum: "전자기와 양자",
+      matter_energy: "물질과 에너지",
+      cell_metabolism: "세포와 물질대사",
+      earth_system_science: "지구시스템과학"
+    };
+    return map[subjectKey] || subjectKey;
+  }
+
+  function normalizeSubjectCompetencyAxes(raw) {
+    const result = {};
+    const subjects = Array.isArray(raw?.subjects) ? raw.subjects : [];
+    subjects.forEach(subject => {
+      const subjectName = normalizeSubjectName(subject?.subject_name || mapSubjectKeyToName(subject?.subject_key || ""));
+      if (!subjectName) return;
+      result[subjectName] = {
+        ...(subject || {}),
+        subject_name: subjectName,
+        competency_axes: Array.isArray(subject?.competency_axes) ? subject.competency_axes : []
+      };
+    });
+    return applySubjectAliasesToMap(result);
+  }
+
+  function normalizeConceptCompetencyMap(raw) {
+    const result = {};
+    const subjects = Array.isArray(raw?.subjects) ? raw.subjects : [];
+    subjects.forEach(subject => {
+      const subjectName = normalizeSubjectName(subject?.subject_name || mapSubjectKeyToName(subject?.subject_key || ""));
+      if (!subjectName) return;
+      const concepts = {};
+      (Array.isArray(subject?.concepts) ? subject.concepts : []).forEach(item => {
+        const conceptName = String(item?.concept_name || "").trim();
+        if (!conceptName) return;
+        concepts[conceptName] = item;
+      });
+      result[subjectName] = {
+        ...(subject || {}),
+        subject_name: subjectName,
+        concepts
+      };
+    });
+    return applySubjectAliasesToMap(result);
+  }
+
+  function getSubjectCompetencyEntry(subjectName) {
+    const normalized = normalizeSubjectName(subjectName || state.subject || "");
+    return subjectCompetencyAxesMap?.[normalized] || null;
+  }
+
+  function getConceptCompetencyEntry(subjectName, conceptName) {
+    const normalizedSubject = normalizeSubjectName(subjectName || state.subject || "");
+    const normalizedConcept = String(conceptName || state.concept || "").trim();
+    if (!normalizedSubject || !normalizedConcept) return null;
+    return conceptCompetencyMap?.[normalizedSubject]?.concepts?.[normalizedConcept] || null;
+  }
+
+  function getAxisMajorAffinity(axis, majorText, bucket) {
+    if (!axis) return 0;
+    const majors = Array.isArray(axis?.favored_majors) ? axis.favored_majors : [];
+    let score = 0;
+    majors.forEach(label => {
+      const text = String(label || "");
+      if (!text) return;
+      if (/전\s*(과학|이공)·?공학\s*계열|전\s*이공계열|전\s*과학·공학\s*계열/.test(text)) {
+        if (bucket && bucket !== 'default') score = Math.max(score, 8);
+        return;
+      }
+      if (fuzzyIncludes(majorText, text)) {
+        score = Math.max(score, 18);
+        return;
+      }
+      const favBucket = detectCareerBucket(text);
+      if (favBucket && favBucket !== 'default' && favBucket === bucket) {
+        score = Math.max(score, 12);
+      }
+    });
+    return score;
+  }
+
+  function getCompetencyPreferredConceptSequence(subjectName, majorText) {
+    const subjectEntry = getSubjectCompetencyEntry(subjectName);
+    const conceptEntry = conceptCompetencyMap?.[normalizeSubjectName(subjectName)] || null;
+    if (!subjectEntry || !conceptEntry) return [];
+    const bucket = detectCareerBucket(majorText || "");
+    if (!majorText && bucket === 'default') return [];
+
+    const axisMap = {};
+    (Array.isArray(subjectEntry?.competency_axes) ? subjectEntry.competency_axes : []).forEach(axis => {
+      if (axis?.axis_id) axisMap[axis.axis_id] = axis;
+    });
+
+    const ranked = Object.values(conceptEntry?.concepts || {}).map(item => {
+      const weights = item?.axis_weights || {};
+      let total = 0;
+      Object.entries(weights).forEach(([axisId, weight]) => {
+        const affinity = getAxisMajorAffinity(axisMap[axisId], majorText, bucket);
+        total += Number(weight || 0) * affinity;
+      });
+      (Array.isArray(item?.primary_axes) ? item.primary_axes : []).forEach(axisId => {
+        total += getAxisMajorAffinity(axisMap[axisId], majorText, bucket) * 0.8;
+      });
+      return { name: item?.concept_name, score: total };
+    }).filter(item => item.name && item.score > 0)
+      .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, 'ko'));
+
+    return ranked.map(item => item.name);
+  }
+
+  function getConceptCompetencyBoost(subjectName, conceptName, majorText) {
+    const subjectEntry = getSubjectCompetencyEntry(subjectName);
+    const conceptEntry = getConceptCompetencyEntry(subjectName, conceptName);
+    if (!subjectEntry || !conceptEntry) return { score: 0, reasons: [] };
+
+    const bucket = detectCareerBucket(majorText || "");
+    const axisMap = {};
+    (Array.isArray(subjectEntry?.competency_axes) ? subjectEntry.competency_axes : []).forEach(axis => {
+      if (axis?.axis_id) axisMap[axis.axis_id] = axis;
+    });
+
+    let rawScore = 0;
+    const matchedAxes = [];
+    Object.entries(conceptEntry?.axis_weights || {}).forEach(([axisId, weight]) => {
+      const affinity = getAxisMajorAffinity(axisMap[axisId], majorText, bucket);
+      if (affinity > 0) {
+        rawScore += affinity * Number(weight || 0);
+        matchedAxes.push(axisMap[axisId]?.axis_name || axisId);
+      }
+    });
+
+    const score = Math.min(26, Math.round(rawScore / 6));
+    const reasons = [];
+    if (score > 0) reasons.push('역량 적합');
+    matchedAxes.slice(0, 2).forEach(name => reasons.push(name));
+    return { score, reasons: uniq(reasons) };
+  }
+
   async function loadSubjectConceptLongitudinalMaps() {
     const result = {};
     const entries = Object.entries(SUBJECT_CONCEPT_LONGITUDINAL_URLS || {});
@@ -317,13 +481,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-spli
 
   async function init() {
     try {
-      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps] = await Promise.all([
+      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps, competencyAxesRes, conceptCompetencyRes] = await Promise.all([
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" }),
         fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_SUBJECT_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null),
-        loadSubjectConceptLongitudinalMaps()
+        loadSubjectConceptLongitudinalMaps(),
+        fetch(COMPETENCY_AXES_URL, { cache: "no-store" }).catch(() => null),
+        fetch(CONCEPT_COMPETENCY_URL, { cache: "no-store" }).catch(() => null)
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
@@ -337,6 +503,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-spli
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
       conceptLongitudinalMaps = applySubjectAliasesToMap(loadedConceptMaps || {});
+      subjectCompetencyAxesMap = competencyAxesRes && competencyAxesRes.ok ? normalizeSubjectCompetencyAxes(await competencyAxesRes.json()) : {};
+      conceptCompetencyMap = conceptCompetencyRes && conceptCompetencyRes.ok ? normalizeConceptCompetencyMap(await conceptCompetencyRes.json()) : {};
 
       injectStyles();
       injectUI();
@@ -2063,46 +2231,73 @@ function getTrackMeta(trackId) {
     const track = getResolvedTrackId() || '';
     const subject = state.subject || '';
     const bucket = detectCareerBucket(majorText);
+    const competencyPreferred = getCompetencyPreferredConceptSequence(subject, majorText);
 
     if (subject === '통합과학1') {
       if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|전자|전기|회로|센서|소자|통신/.test(majorText)) {
-        return ['기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '규칙성 발견과 주기율표', '지구시스템'];
+        return uniq([...competencyPreferred, '기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '규칙성 발견과 주기율표', '지구시스템']);
       }
       if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
-        return ['과학의 측정과 우리 사회', '지구시스템', '자연 세계의 시간과 공간', '기본량과 단위', '역학 시스템'];
+        return uniq([...competencyPreferred, '과학의 측정과 우리 사회', '지구시스템', '자연 세계의 시간과 공간', '기본량과 단위', '역학 시스템']);
       }
       if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
-        return ['규칙성 발견과 주기율표', '기본량과 단위', '과학의 측정과 우리 사회', '물질 구성과 분류', '역학 시스템'];
+        return uniq([...competencyPreferred, '규칙성 발견과 주기율표', '기본량과 단위', '과학의 측정과 우리 사회', '물질 구성과 분류', '역학 시스템']);
       }
     }
 
     if (subject === '통합과학2') {
       if (bucket === 'energy' || /에너지공학|신재생|전력|에너지시스템|에너지자원|원자력/.test(majorText)) {
-        return ['에너지 효율과 신재생 에너지', '발전과 에너지원', '태양 에너지의 생성과 전환', '물질 변화에서 에너지의 출입', '지구 환경 변화와 인간 생활'];
+        return uniq([...competencyPreferred, '에너지 효율과 신재생 에너지', '발전과 에너지원', '태양 에너지의 생성과 전환', '물질 변화에서 에너지의 출입', '지구 환경 변화와 인간 생활']);
       }
       if (/화학공학|화공|화학|신소재|재료|배터리|고분자/.test(majorText)) {
-        return ['산화와 환원', '산과 염기', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '발전과 에너지원'];
+        return uniq([...competencyPreferred, '산화와 환원', '산과 염기', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '발전과 에너지원']);
       }
       if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|통계|보안/.test(majorText)) {
-        return ['과학 기술 사회에서 빅데이터 활용', '과학 기술과 미래 사회', '과학 관련 사회적 쟁점과 과학 윤리', '에너지 효율과 신재생 에너지', '발전과 에너지원'];
+        return uniq([...competencyPreferred, '과학 기술 사회에서 빅데이터 활용', '과학 기술과 미래 사회', '과학 관련 사회적 쟁점과 과학 윤리', '에너지 효율과 신재생 에너지', '발전과 에너지원']);
       }
       if (bucket === 'env' || /환경|기후|지구|해양|천문|우주/.test(majorText)) {
         return ['지구 환경 변화', '지구 환경 변화와 인간 생활', '생태계평형', '에너지 효율과 신재생 에너지', '과학 관련 사회적 쟁점과 과학 윤리'];
       }
-      return ['과학 기술 사회에서 빅데이터 활용', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '산화와 환원', '과학 관련 사회적 쟁점과 과학 윤리'];
+      return uniq([...competencyPreferred, '과학 기술 사회에서 빅데이터 활용', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '산화와 환원', '과학 관련 사회적 쟁점과 과학 윤리']);
+    }
+
+    if (subject === '공통국어1') {
+      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
+        return ['비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감', '문학·독서와 주체적 수용'];
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
+        return ['비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '음운 변동과 국어 규범'];
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
+        return ['교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범', '문학·독서와 주체적 수용'];
+      }
+      return ['공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론', '음운 변동과 국어 규범'];
     }
 
     if (subject === '공통수학1') {
       if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
-        return ['행렬과 행렬의 연산', '경우의 수, 순열, 조합', '이차방정식과 이차함수', '다항식의 연산', '나머지정리와 인수분해'];
+        return uniq([...competencyPreferred, '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '이차방정식과 이차함수', '다항식의 연산', '나머지정리와 인수분해']);
       }
       if (bucket === 'mechanical' || /기계공학|자동차공학|항공우주공학|모빌리티|로봇공학|메카트로닉스|기구|설계|제어/.test(majorText)) {
-        return ['이차방정식과 이차함수', '다항식의 연산', '행렬과 행렬의 연산', '나머지정리와 인수분해', '경우의 수, 순열, 조합'];
+        return uniq([...competencyPreferred, '이차방정식과 이차함수', '다항식의 연산', '행렬과 행렬의 연산', '나머지정리와 인수분해', '경우의 수, 순열, 조합']);
       }
       if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|통신공학|제어계측공학|전자|전기|회로|센서|소자/.test(majorText)) {
-        return ['행렬과 행렬의 연산', '이차방정식과 이차함수', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해'];
+        return uniq([...competencyPreferred, '행렬과 행렬의 연산', '이차방정식과 이차함수', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해']);
       }
-      return ['이차방정식과 이차함수', '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해'];
+      return uniq([...competencyPreferred, '이차방정식과 이차함수', '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해']);
+    }
+
+    if (subject === '공통국어1') {
+      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
+        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
+      }
+      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
     }
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
@@ -2131,6 +2326,7 @@ function getTrackMeta(trackId) {
       if (track === 'chemistry') return ['과학의 측정과 우리 사회', '물질 구성과 분류', '지구시스템'];
     }
 
+    if (competencyPreferred.length) return competencyPreferred;
     return [];
   }
 
@@ -2138,6 +2334,19 @@ function getTrackMeta(trackId) {
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
     const concept = state.concept || '';
+    if (subject === '공통국어1') {
+      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
+        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
+      }
+      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
+    }
+
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') {
         if (/물질 구성과 분류/.test(concept)) return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '금속', '비금속', '산화', '환원', '성질 비교'];
@@ -2171,6 +2380,19 @@ function getTrackMeta(trackId) {
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
+
+    if (subject === '공통국어1') {
+      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
+        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
+        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
+      }
+      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
+    }
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry' && /과학의 측정과 우리 사회/.test(concept)) {
@@ -2419,6 +2641,54 @@ function getTrackMeta(trackId) {
         }
         if (/나머지정리와 인수분해/.test(concept)) score -= 4;
       }
+    }
+
+    if (state.subject === '공통국어1') {
+      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
+        if (/비판적 읽기와 토론|교술 갈래와 성찰적 표현/.test(concept)) {
+          score += 28;
+          reasons.push('정보·논리 국어 맞춤');
+        }
+        if (/음운 변동과 국어 규범/.test(concept)) score += 10;
+        if (/문학·독서와 주체적 수용/.test(concept)) score -= 6;
+      }
+      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
+        if (/비판적 읽기와 토론|공동체 의사소통과 공감|교술 갈래와 성찰적 표현/.test(concept)) {
+          score += 26;
+          reasons.push('환경·공공 소통 맞춤');
+        }
+        if (/음운 변동과 국어 규범/.test(concept)) score -= 12;
+      }
+      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
+        if (/교술 갈래와 성찰적 표현|비판적 읽기와 토론/.test(concept)) {
+          score += 26;
+          reasons.push('재료·설명 국어 맞춤');
+        }
+        if (/공동체 의사소통과 공감/.test(concept)) score += 8;
+        if (/음운 변동과 국어 규범/.test(concept)) score -= 10;
+      }
+    }
+
+    if (state.subject === '공통국어1') {
+      if ((bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) && /비판적 읽기와 토론|교술 갈래와 성찰적 표현|음운 변동과 국어 규범/.test(concept)) {
+        score += 20;
+        reasons.push('국어 역량 맞춤');
+      }
+      if ((bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) && /비판적 읽기와 토론|공동체 의사소통과 공감|교술 갈래와 성찰적 표현/.test(concept)) {
+        score += 20;
+        reasons.push('국어 역량 맞춤');
+      }
+      if ((bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) && /교술 갈래와 성찰적 표현|비판적 읽기와 토론|공동체 의사소통과 공감/.test(concept)) {
+        score += 18;
+        reasons.push('국어 역량 맞춤');
+      }
+      if ((bucket === 'env' || bucket === 'materials') && /음운 변동과 국어 규범/.test(concept)) score -= 10;
+    }
+
+    const competencyBoost = getConceptCompetencyBoost(subject, concept, effectiveCareer);
+    if (competencyBoost.score) {
+      score += competencyBoost.score;
+      reasons.push(...competencyBoost.reasons);
     }
 
     const prefIndex = preferred.indexOf(concept);
