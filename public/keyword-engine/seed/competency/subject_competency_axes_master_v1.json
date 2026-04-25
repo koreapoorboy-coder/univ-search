@@ -1,0 +1,1406 @@
+{
+  "version": "v1",
+  "purpose": "교과별 역량축 마스터",
+  "usage_note": "학과 보정 이전에 교과 역량축을 먼저 계산하고, 학과는 선호 역량 보정값으로 얹는 구조를 전제로 함",
+  "subjects": [
+    {
+      "subject_key": "integrated_science1",
+      "subject_name": "통합과학1",
+      "competency_axes": [
+        {
+          "axis_id": "scientific_observation_measurement",
+          "axis_name": "과학적 관찰·측정 역량",
+          "description": "현상을 정량적으로 관찰하고 측정 기준을 세워 데이터를 신뢰도 있게 다루는 역량",
+          "evaluation_signals": [
+            "측정 기준 설정",
+            "오차 인식",
+            "센서·기기 활용",
+            "단위·기준 비교"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "기계공학과",
+            "환경공학과",
+            "신소재공학과"
+          ]
+        },
+        {
+          "axis_id": "pattern_classification_prediction",
+          "axis_name": "규칙성 발견·분류 예측 역량",
+          "description": "관측 자료나 물질 배열 속 규칙을 찾아 분류하고 성질을 예측하는 역량",
+          "evaluation_signals": [
+            "패턴 찾기",
+            "분류 체계화",
+            "주기성 해석",
+            "예측 근거 제시"
+          ],
+          "favored_majors": [
+            "화학공학과",
+            "신소재공학과",
+            "반도체공학과"
+          ]
+        },
+        {
+          "axis_id": "systemic_interpretation",
+          "axis_name": "시스템 해석 역량",
+          "description": "구성 요소와 상호작용을 연결해 현상을 시스템 관점으로 설명하는 역량",
+          "evaluation_signals": [
+            "구조-기능 연결",
+            "입력-출력 해석",
+            "상호작용 설명",
+            "모형 사용"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "환경공학과",
+            "기계공학과"
+          ]
+        },
+        {
+          "axis_id": "environmental_data_reasoning",
+          "axis_name": "환경·지구 데이터 해석 역량",
+          "description": "환경·지구 현상을 데이터와 조건 변화로 해석하고 지역·사회와 연결하는 역량",
+          "evaluation_signals": [
+            "환경 데이터 비교",
+            "지역 차이 분석",
+            "시계열 해석",
+            "사회 적용 연결"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "지구환경과학과"
+          ]
+        },
+        {
+          "axis_id": "scientific_communication",
+          "axis_name": "과학적 설명·소통 역량",
+          "description": "과학 개념을 표, 그래프, 설명문으로 재구성해 전달하는 역량",
+          "evaluation_signals": [
+            "그래프 설명",
+            "개념 도식화",
+            "근거 기반 설명",
+            "발표·보고서 구조화"
+          ],
+          "favored_majors": [
+            "전 과학·공학 계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "integrated_science2",
+      "subject_name": "통합과학2",
+      "competency_axes": [
+        {
+          "axis_id": "reaction_energy_interpretation",
+          "axis_name": "반응·에너지 해석 역량",
+          "description": "물질 변화, 에너지 출입, 효율 문제를 정량·정성적으로 설명하는 역량",
+          "evaluation_signals": [
+            "반응 원리 설명",
+            "에너지 흐름 해석",
+            "효율 비교",
+            "조건 변화 분석"
+          ],
+          "favored_majors": [
+            "화학공학과",
+            "에너지공학과",
+            "신소재공학과"
+          ]
+        },
+        {
+          "axis_id": "data_prediction_automation",
+          "axis_name": "데이터 예측·자동화 역량",
+          "description": "데이터를 바탕으로 미래 변화를 예측하고 기술·자동화 적용 가능성을 연결하는 역량",
+          "evaluation_signals": [
+            "예측 모델 해석",
+            "자동화 사례 연결",
+            "정보 처리 이해",
+            "기술사회 적용"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "인공지능학과",
+            "데이터사이언스학과"
+          ]
+        },
+        {
+          "axis_id": "sustainability_design",
+          "axis_name": "지속가능 설계 역량",
+          "description": "신재생 에너지, 환경 문제, 지속가능한 시스템 전환을 설계 관점으로 해석하는 역량",
+          "evaluation_signals": [
+            "에너지 대안 비교",
+            "장치 설계 제안",
+            "지속가능성 판단",
+            "정책·실천 연결"
+          ],
+          "favored_majors": [
+            "에너지공학과",
+            "환경공학과",
+            "기계공학과"
+          ]
+        },
+        {
+          "axis_id": "science_society_ethics",
+          "axis_name": "과학기술·사회·윤리 판단 역량",
+          "description": "과학기술 쟁점을 사회적 영향과 윤리 기준으로 해석하는 역량",
+          "evaluation_signals": [
+            "찬반 근거 정리",
+            "윤리 쟁점 분석",
+            "사회적 파급효과 설명",
+            "책임 있는 판단"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "생명공학과",
+            "환경공학과"
+          ]
+        },
+        {
+          "axis_id": "evidence_based_problem_solving",
+          "axis_name": "증거 기반 문제 해결 역량",
+          "description": "교과 개념과 사례 데이터를 함께 활용해 현실 문제의 해결 방향을 제시하는 역량",
+          "evaluation_signals": [
+            "근거 자료 활용",
+            "대안 제시",
+            "현실 적용성 평가",
+            "문제 해결 구조화"
+          ],
+          "favored_majors": [
+            "전 과학·공학 계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "common_math1",
+      "subject_name": "공통수학1",
+      "competency_axes": [
+        {
+          "axis_id": "algebraic_structure_reasoning",
+          "axis_name": "대수 구조화·추론 역량",
+          "description": "식을 구조적으로 해석하고 규칙을 이용해 문제를 단계적으로 해결하는 역량",
+          "evaluation_signals": [
+            "식 변형",
+            "조건 분리",
+            "규칙 적용",
+            "근거 있는 계산 과정 제시"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "신소재공학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "combinatorial_algorithmic_thinking",
+          "axis_name": "조합·알고리즘 사고 역량",
+          "description": "경우를 체계적으로 나누고 순서를 고려해 탐색 구조를 설계하는 역량",
+          "evaluation_signals": [
+            "경우 나누기",
+            "순서 고려",
+            "조합 구조화",
+            "탐색 과정 설명"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "데이터사이언스학과"
+          ]
+        },
+        {
+          "axis_id": "function_graph_modeling",
+          "axis_name": "함수·그래프 모델링 역량",
+          "description": "식과 그래프를 연결해 변화와 관계를 시각화하고 해석하는 역량",
+          "evaluation_signals": [
+            "그래프 해석",
+            "최댓값·최솟값 설명",
+            "식-그래프 대응",
+            "상황 모델링"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "전자공학과",
+            "물리학과"
+          ]
+        },
+        {
+          "axis_id": "matrix_data_representation",
+          "axis_name": "행렬·자료 표현 역량",
+          "description": "자료를 구조화하고 연산을 통해 관계를 표현하는 역량",
+          "evaluation_signals": [
+            "배열 구조화",
+            "행렬 연산 규칙 적용",
+            "정보 표현",
+            "계산 효율 설명"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "데이터사이언스학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "mathematical_communication",
+          "axis_name": "수학적 의사소통 역량",
+          "description": "풀이 과정과 결론을 논리적으로 서술하는 역량",
+          "evaluation_signals": [
+            "과정 설명",
+            "기호와 말의 연결",
+            "오답 수정",
+            "정리된 풀이 제시"
+          ],
+          "favored_majors": [
+            "전 이공계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "common_math2",
+      "subject_name": "공통수학2",
+      "competency_axes": [
+        {
+          "axis_id": "coordinate_geometric_reasoning",
+          "axis_name": "좌표·도형 해석 역량",
+          "description": "좌표와 도형의 관계를 해석하고 위치 정보를 수학적으로 표현하는 역량",
+          "evaluation_signals": [
+            "좌표 해석",
+            "거리·기울기 활용",
+            "도형 위치 관계 설명",
+            "정확한 도식 표현"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "건축공학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "transformation_visualization",
+          "axis_name": "변환·시각화 역량",
+          "description": "이동·대칭·회전 등 변환을 시각적으로 이해하고 표현하는 역량",
+          "evaluation_signals": [
+            "도형 이동 설명",
+            "변환 규칙 적용",
+            "시각화",
+            "그래픽 연결"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "디자인공학과",
+            "건축학과"
+          ]
+        },
+        {
+          "axis_id": "spatial_modeling_basics",
+          "axis_name": "공간 모델링 기초 역량",
+          "description": "2차원 표현을 통해 공간과 설계 문제로 확장하는 기초 역량",
+          "evaluation_signals": [
+            "도면 이해",
+            "투영 감각",
+            "공간 관계 예측",
+            "설계 연결"
+          ],
+          "favored_majors": [
+            "건축학과",
+            "기계공학과",
+            "토목공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "information",
+      "subject_name": "정보",
+      "competency_axes": [
+        {
+          "axis_id": "data_representation_processing",
+          "axis_name": "데이터 표현·처리 역량",
+          "description": "자료를 디지털 형태로 표현하고 처리 방식의 특성을 이해하는 역량",
+          "evaluation_signals": [
+            "부호화 이해",
+            "압축·저장 비교",
+            "표현 방식 선택",
+            "전송 효율 해석"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "데이터사이언스학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "data_analysis_visualization",
+          "axis_name": "데이터 분석·시각화 역량",
+          "description": "데이터를 구조화해 패턴을 찾고 시각적으로 해석하는 역량",
+          "evaluation_signals": [
+            "그래프 해석",
+            "데이터베이스 이해",
+            "패턴 찾기",
+            "시각화 설계"
+          ],
+          "favored_majors": [
+            "데이터사이언스학과",
+            "통계학과",
+            "컴퓨터공학과"
+          ]
+        },
+        {
+          "axis_id": "abstraction_algorithm_design",
+          "axis_name": "추상화·알고리즘 설계 역량",
+          "description": "문제를 분해하고 절차를 설계하는 컴퓨팅 사고 역량",
+          "evaluation_signals": [
+            "문제 분해",
+            "알고리즘 단계화",
+            "조건문·반복문 구조화",
+            "효율 비교"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "인공지능학과"
+          ]
+        },
+        {
+          "axis_id": "programming_automation",
+          "axis_name": "프로그래밍·자동화 역량",
+          "description": "코드를 활용해 문제를 구현하고 자동화 가능성을 연결하는 역량",
+          "evaluation_signals": [
+            "코드 작성",
+            "입출력 설계",
+            "자동화 사례 연결",
+            "시뮬레이션 활용"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "전자공학과",
+            "메카트로닉스공학과"
+          ]
+        },
+        {
+          "axis_id": "digital_ethics_network",
+          "axis_name": "디지털 윤리·네트워크 이해 역량",
+          "description": "정보 사회의 윤리와 네트워크 구조를 함께 이해하는 역량",
+          "evaluation_signals": [
+            "보안 인식",
+            "플랫폼 영향 분석",
+            "네트워크 구조 설명",
+            "윤리 판단"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "미디어학과",
+            "정보보호학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "common_korean1",
+      "subject_name": "공통국어1",
+      "competency_axes": [
+        {
+          "axis_id": "critical_reading_judgment",
+          "axis_name": "비판적 읽기·판단 역량",
+          "description": "자료와 글의 주장·근거를 분석하고 타당성을 판단하는 역량",
+          "evaluation_signals": [
+            "주장 파악",
+            "근거 검토",
+            "반론 구성",
+            "자료 신뢰성 판단"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "환경공학과",
+            "신소재공학과"
+          ]
+        },
+        {
+          "axis_id": "expository_reflective_expression",
+          "axis_name": "설명·성찰 표현 역량",
+          "description": "개념을 설명하고 자신의 관점과 해석을 구조적으로 표현하는 역량",
+          "evaluation_signals": [
+            "교술형 정리",
+            "개념 설명",
+            "성찰 서술",
+            "설명 구조화"
+          ],
+          "favored_majors": [
+            "신소재공학과",
+            "생명공학과",
+            "컴퓨터공학과"
+          ]
+        },
+        {
+          "axis_id": "community_communication_empathy",
+          "axis_name": "공동체 의사소통·공감 역량",
+          "description": "다양한 관점을 이해하고 공동체 맥락에서 소통하는 역량",
+          "evaluation_signals": [
+            "공감적 표현",
+            "상황 고려",
+            "협력 소통",
+            "공공 문제 연결"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "간호학과",
+            "사회계열"
+          ]
+        },
+        {
+          "axis_id": "language_norm_structure",
+          "axis_name": "언어 규범·구조 인식 역량",
+          "description": "언어의 규칙과 구조를 분석해 정확성을 높이는 역량",
+          "evaluation_signals": [
+            "문장 정확성",
+            "음운·문법 규칙 이해",
+            "표현 교정",
+            "구조 분석"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "국어국문학과",
+            "언어학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "common_korean2",
+      "subject_name": "공통국어2",
+      "competency_axes": [
+        {
+          "axis_id": "media_critical_literacy",
+          "axis_name": "매체 비판·리터러시 역량",
+          "description": "매체 정보의 관점, 의도, 신뢰성을 비판적으로 해석하는 역량",
+          "evaluation_signals": [
+            "매체 의도 분석",
+            "팩트체크",
+            "출처 비교",
+            "비판적 수용"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "미디어학과",
+            "데이터사이언스학과"
+          ]
+        },
+        {
+          "axis_id": "report_collaboration_writing",
+          "axis_name": "자료 기반 보고서·협업 글쓰기 역량",
+          "description": "자료를 수집·정리해 협업 가능한 보고서 형태로 구성하는 역량",
+          "evaluation_signals": [
+            "자료 수집",
+            "보고서 구성",
+            "협업 문서화",
+            "발표 자료 설계"
+          ],
+          "favored_majors": [
+            "전 이공계열",
+            "환경공학과",
+            "컴퓨터공학과"
+          ]
+        },
+        {
+          "axis_id": "science_technology_ethics_discourse",
+          "axis_name": "과학기술·윤리 담론 역량",
+          "description": "과학기술의 사회적 영향과 윤리를 논증하는 역량",
+          "evaluation_signals": [
+            "쟁점 정리",
+            "찬반 논증",
+            "기술 영향 분석",
+            "윤리 판단"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "컴퓨터공학과",
+            "환경공학과"
+          ]
+        },
+        {
+          "axis_id": "public_persuasive_expression",
+          "axis_name": "공공 설득·표현 역량",
+          "description": "홍보·제안·공공 글쓰기를 통해 메시지를 설계하는 역량",
+          "evaluation_signals": [
+            "카드뉴스·발표",
+            "제안문 구조",
+            "대상 고려",
+            "설득 전략"
+          ],
+          "favored_majors": [
+            "미디어학과",
+            "사회계열",
+            "환경공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "integrated_society1",
+      "subject_name": "통합사회1",
+      "competency_axes": [
+        {
+          "axis_id": "integrated_social_reasoning",
+          "axis_name": "통합 사회문제 해석 역량",
+          "description": "시간·공간·사회·윤리 관점을 통합해 사회 현상을 해석하는 역량",
+          "evaluation_signals": [
+            "복합 관점 적용",
+            "행복·삶의 질 해석",
+            "사회문제 구조 파악"
+          ],
+          "favored_majors": [
+            "사회계열",
+            "환경공학과",
+            "행정학과"
+          ]
+        },
+        {
+          "axis_id": "economic_financial_decision",
+          "axis_name": "경제·금융 의사결정 역량",
+          "description": "시장 구조와 금융 생활을 근거 기반으로 판단하는 역량",
+          "evaluation_signals": [
+            "기회비용 설명",
+            "자산 관리 판단",
+            "시장 구조 해석"
+          ],
+          "favored_majors": [
+            "경영학과",
+            "경제학과",
+            "데이터사이언스학과"
+          ]
+        },
+        {
+          "axis_id": "sustainability_citizenship",
+          "axis_name": "지속가능 시민성 역량",
+          "description": "환경·인권·세계화 문제를 시민 실천과 연결하는 역량",
+          "evaluation_signals": [
+            "인권 쟁점 연결",
+            "지속가능성 판단",
+            "세계 시민 관점"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "국제학과",
+            "사회계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "integrated_society2",
+      "subject_name": "통합사회2",
+      "competency_axes": [
+        {
+          "axis_id": "constitutional_rights_citizenship",
+          "axis_name": "헌법·시민 참여 역량",
+          "description": "권리와 참여 제도를 이해하고 시민적 판단을 수행하는 역량",
+          "evaluation_signals": [
+            "기본권 해석",
+            "제도 이해",
+            "시민 참여 사례 분석"
+          ],
+          "favored_majors": [
+            "행정학과",
+            "법학과",
+            "사회계열"
+          ]
+        },
+        {
+          "axis_id": "justice_inequality_policy",
+          "axis_name": "정의·불평등·정책 역량",
+          "description": "불평등 구조를 이해하고 정책 대안을 비교하는 역량",
+          "evaluation_signals": [
+            "불평등 원인 분석",
+            "복지 정책 비교",
+            "정의 기준 적용"
+          ],
+          "favored_majors": [
+            "사회복지학과",
+            "행정학과",
+            "환경공학과"
+          ]
+        },
+        {
+          "axis_id": "global_sustainability_transition",
+          "axis_name": "세계화·지속가능 전환 역량",
+          "description": "세계화와 지속가능발전 문제를 구조적으로 해석하는 역량",
+          "evaluation_signals": [
+            "세계화 영향 비교",
+            "지속가능 경제 전환 해석",
+            "평화·협력 관점"
+          ],
+          "favored_majors": [
+            "국제학과",
+            "환경공학과",
+            "경제학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "science_inquiry1",
+      "subject_name": "과학탐구실험1",
+      "competency_axes": [
+        {
+          "axis_id": "question_design",
+          "axis_name": "탐구 질문 설계 역량",
+          "description": "생활 현상과 교과 개념을 연결해 좋은 탐구 질문을 만드는 역량",
+          "evaluation_signals": [
+            "문제 인식",
+            "질문 구체화",
+            "교과 연결"
+          ],
+          "favored_majors": [
+            "전 과학·공학 계열"
+          ]
+        },
+        {
+          "axis_id": "experiment_variable_control",
+          "axis_name": "실험 설계·변인 통제 역량",
+          "description": "가설을 세우고 변인을 통제하며 탐구를 설계하는 역량",
+          "evaluation_signals": [
+            "가설 설정",
+            "변인 통제",
+            "조건 설계",
+            "반복·비교"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "화학공학과",
+            "기계공학과"
+          ]
+        },
+        {
+          "axis_id": "data_analysis_reporting",
+          "axis_name": "자료 분석·보고 역량",
+          "description": "실험 자료를 해석하고 보고서로 구조화하는 역량",
+          "evaluation_signals": [
+            "그래프 작성",
+            "결론 도출",
+            "보고서 구조화",
+            "성찰 서술"
+          ],
+          "favored_majors": [
+            "전 과학·공학 계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "science_inquiry2",
+      "subject_name": "과학탐구실험2",
+      "competency_axes": [
+        {
+          "axis_id": "applied_problem_solving",
+          "axis_name": "생활·산업 문제 적용 역량",
+          "description": "과학 개념을 생활·산업 문제 해결과 연결하는 역량",
+          "evaluation_signals": [
+            "안전장치 분석",
+            "생활 자료 활용",
+            "실생활 적용"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "환경공학과",
+            "보건계열"
+          ]
+        },
+        {
+          "axis_id": "sensor_health_data_interpretation",
+          "axis_name": "센서·건강 데이터 해석 역량",
+          "description": "생체 신호와 센서 데이터를 읽고 의미를 해석하는 역량",
+          "evaluation_signals": [
+            "생체신호 분석",
+            "센서 입력·출력 이해",
+            "기록 데이터 시각화"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "간호학과",
+            "컴퓨터공학과"
+          ]
+        },
+        {
+          "axis_id": "technology_society_connection",
+          "axis_name": "첨단기술·사회 연결 역량",
+          "description": "첨단 과학기술을 사회 문제와 연결해 해석하는 역량",
+          "evaluation_signals": [
+            "기술 활용 사례",
+            "사회 적용성 판단",
+            "윤리·정책 연결"
+          ],
+          "favored_majors": [
+            "컴퓨터공학과",
+            "환경공학과",
+            "생명공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "algebra",
+      "subject_name": "대수",
+      "competency_axes": [
+        {
+          "axis_id": "exponential_logarithmic_modeling",
+          "axis_name": "지수·로그 모델링 역량",
+          "description": "성장·감소·누적 현상을 지수와 로그로 모델링하는 역량",
+          "evaluation_signals": [
+            "로그 해석",
+            "성장·감소 표현",
+            "실생활 모델 연결"
+          ],
+          "favored_majors": [
+            "에너지공학과",
+            "컴퓨터공학과",
+            "경제학과"
+          ]
+        },
+        {
+          "axis_id": "rule_expansion_comparison",
+          "axis_name": "법칙 확장·비교 역량",
+          "description": "지수법칙과 로그 성질을 확장하고 조건을 비교하는 역량",
+          "evaluation_signals": [
+            "법칙 적용",
+            "대소 비교",
+            "조건 해석"
+          ],
+          "favored_majors": [
+            "전 이공계열"
+          ]
+        },
+        {
+          "axis_id": "signal_scale_interpretation",
+          "axis_name": "규모·신호 해석 역량",
+          "description": "로그 스케일과 규모 차이를 해석하는 역량",
+          "evaluation_signals": [
+            "스케일 이해",
+            "주파수·데시벨 연결",
+            "규모 차이 설명"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "환경공학과",
+            "물리학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "probability_statistics",
+      "subject_name": "확률과 통계",
+      "competency_axes": [
+        {
+          "axis_id": "probabilistic_reasoning",
+          "axis_name": "확률적 추론 역량",
+          "description": "불확실한 상황에서 조건과 경우를 바탕으로 추론하는 역량",
+          "evaluation_signals": [
+            "조건부확률 해석",
+            "독립·종속 판단",
+            "상대도수 비교"
+          ],
+          "favored_majors": [
+            "데이터사이언스학과",
+            "컴퓨터공학과",
+            "생명과학과"
+          ]
+        },
+        {
+          "axis_id": "distribution_estimation",
+          "axis_name": "분포·추정 역량",
+          "description": "자료의 분포를 이해하고 표본을 통해 추정하는 역량",
+          "evaluation_signals": [
+            "정규분포 이해",
+            "표본·모집단 구분",
+            "추정 근거 설명"
+          ],
+          "favored_majors": [
+            "데이터사이언스학과",
+            "의학계열",
+            "사회조사계열"
+          ]
+        },
+        {
+          "axis_id": "data_based_decision",
+          "axis_name": "데이터 기반 의사결정 역량",
+          "description": "통계 자료를 근거로 판단과 선택을 수행하는 역량",
+          "evaluation_signals": [
+            "그래프 비교",
+            "근거 제시",
+            "오해 가능성 검토"
+          ],
+          "favored_majors": [
+            "경영학과",
+            "컴퓨터공학과",
+            "환경공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "calculus1",
+      "subject_name": "미적분1",
+      "competency_axes": [
+        {
+          "axis_id": "change_rate_analysis",
+          "axis_name": "변화율 해석 역량",
+          "description": "순간 변화와 추세를 해석하고 의미를 설명하는 역량",
+          "evaluation_signals": [
+            "미분계수 해석",
+            "증가·감소 판단",
+            "속도·가속도 연결"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "전자공학과",
+            "물리학과"
+          ]
+        },
+        {
+          "axis_id": "accumulation_integral_modeling",
+          "axis_name": "누적량 모델링 역량",
+          "description": "정적분을 활용해 누적량과 면적 문제를 모델링하는 역량",
+          "evaluation_signals": [
+            "넓이 계산",
+            "누적량 해석",
+            "거리·면적 연결"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "생명공학과",
+            "기계공학과"
+          ]
+        },
+        {
+          "axis_id": "sequence_limit_interpretation",
+          "axis_name": "수열·극한 해석 역량",
+          "description": "수렴·발산과 무한 과정을 직관과 식으로 연결하는 역량",
+          "evaluation_signals": [
+            "수렴 판단",
+            "부분합 해석",
+            "무한 과정 설명"
+          ],
+          "favored_majors": [
+            "수학과",
+            "컴퓨터공학과",
+            "경제학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "geometry",
+      "subject_name": "기하",
+      "competency_axes": [
+        {
+          "axis_id": "curve_spatial_reasoning",
+          "axis_name": "곡선·공간 해석 역량",
+          "description": "이차곡선과 공간 구조를 기하적으로 해석하는 역량",
+          "evaluation_signals": [
+            "초점·준선 이해",
+            "자취 해석",
+            "공간 관계 설명"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "건축학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "projection_visual_design",
+          "axis_name": "투영·시각 설계 역량",
+          "description": "정사영과 투영을 통해 공간을 시각화하는 역량",
+          "evaluation_signals": [
+            "도면 이해",
+            "투영 표현",
+            "입체 구조 예측"
+          ],
+          "favored_majors": [
+            "건축학과",
+            "토목공학과",
+            "컴퓨터그래픽스 계열"
+          ]
+        },
+        {
+          "axis_id": "trajectory_sensor_range_modeling",
+          "axis_name": "궤적·범위 모델링 역량",
+          "description": "궤적, 범위, 위치 추정을 수학적으로 표현하는 역량",
+          "evaluation_signals": [
+            "위치 추정",
+            "구의 방정식 이해",
+            "센서 범위 설명"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "항공우주공학과",
+            "로봇공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "physics1",
+      "subject_name": "물리학Ⅰ",
+      "competency_axes": [
+        {
+          "axis_id": "force_motion_interpretation",
+          "axis_name": "힘·운동 해석 역량",
+          "description": "힘과 운동의 관계를 정량·정성적으로 설명하는 역량",
+          "evaluation_signals": [
+            "운동 법칙 적용",
+            "그래프 해석",
+            "충돌·안전 사례 연결"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "자동차공학과",
+            "물리학과"
+          ]
+        },
+        {
+          "axis_id": "energy_system_efficiency",
+          "axis_name": "에너지·시스템 효율 역량",
+          "description": "에너지 전환과 열 문제를 시스템 효율 관점에서 해석하는 역량",
+          "evaluation_signals": [
+            "에너지 보존",
+            "효율 비교",
+            "열기관 이해"
+          ],
+          "favored_majors": [
+            "에너지공학과",
+            "기계공학과",
+            "환경공학과"
+          ]
+        },
+        {
+          "axis_id": "electric_wave_material_application",
+          "axis_name": "전기·파동·물성 응용 역량",
+          "description": "전기적 성질과 파동 현상을 장치·재료 응용으로 연결하는 역량",
+          "evaluation_signals": [
+            "전기장·자기장 이해",
+            "반도체 연결",
+            "파동 활용 사례"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "반도체공학과",
+            "신소재공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "chemistry1",
+      "subject_name": "화학Ⅰ",
+      "competency_axes": [
+        {
+          "axis_id": "matter_structure_prediction",
+          "axis_name": "물질 구조·성질 예측 역량",
+          "description": "원자 구조와 주기율을 바탕으로 물질 성질을 예측하는 역량",
+          "evaluation_signals": [
+            "전자배치 해석",
+            "주기성 설명",
+            "결합 구조 예측"
+          ],
+          "favored_majors": [
+            "화학공학과",
+            "신소재공학과",
+            "약학과"
+          ]
+        },
+        {
+          "axis_id": "reaction_energy_interpretation",
+          "axis_name": "반응·에너지 해석 역량",
+          "description": "화학 반응과 에너지 출입을 해석하는 역량",
+          "evaluation_signals": [
+            "반응식 작성",
+            "열 출입 설명",
+            "평형 해석"
+          ],
+          "favored_majors": [
+            "화학공학과",
+            "에너지공학과",
+            "생명공학과"
+          ]
+        },
+        {
+          "axis_id": "life_material_application",
+          "axis_name": "생활·소재 응용 역량",
+          "description": "탄소 화합물과 생활 화학을 소재·환경·생명 맥락으로 연결하는 역량",
+          "evaluation_signals": [
+            "생활 사례 연결",
+            "소재 특성 비교",
+            "환경 영향 고려"
+          ],
+          "favored_majors": [
+            "신소재공학과",
+            "환경공학과",
+            "생명공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "life_science",
+      "subject_name": "생명과학",
+      "competency_axes": [
+        {
+          "axis_id": "biological_system_homeostasis",
+          "axis_name": "생명 시스템·항상성 역량",
+          "description": "생명체의 조절과 항상성을 구조적으로 해석하는 역량",
+          "evaluation_signals": [
+            "신경계 해석",
+            "항상성 연결",
+            "조절 구조 설명"
+          ],
+          "favored_majors": [
+            "간호학과",
+            "의학계열",
+            "생명공학과"
+          ]
+        },
+        {
+          "axis_id": "metabolism_health_application",
+          "axis_name": "대사·건강 응용 역량",
+          "description": "물질대사와 건강 문제를 연결해 이해하는 역량",
+          "evaluation_signals": [
+            "대사 경로 설명",
+            "영양·건강 연결",
+            "에너지 활용 해석"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "간호학과",
+            "식품영양학과"
+          ]
+        },
+        {
+          "axis_id": "genetic_data_ethics",
+          "axis_name": "유전 정보·윤리 역량",
+          "description": "유전 정보와 생명윤리를 함께 해석하는 역량",
+          "evaluation_signals": [
+            "DNA·염색체 이해",
+            "유전 정보 설명",
+            "윤리 쟁점 판단"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "의생명공학과",
+            "의학계열"
+          ]
+        },
+        {
+          "axis_id": "ecology_evolution_interpretation",
+          "axis_name": "생태·진화 해석 역량",
+          "description": "생태계 상호작용과 진화를 데이터와 사례로 해석하는 역량",
+          "evaluation_signals": [
+            "생태계 구조 설명",
+            "진화 근거 제시",
+            "물질 순환 이해"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "생물학과",
+            "생명공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "earth_science",
+      "subject_name": "지구과학",
+      "competency_axes": [
+        {
+          "axis_id": "climate_weather_data",
+          "axis_name": "기후·기상 데이터 해석 역량",
+          "description": "날씨와 기후 변화를 자료와 시계열로 해석하는 역량",
+          "evaluation_signals": [
+            "기압·기온 자료 해석",
+            "일기도 읽기",
+            "재난 예보 연결"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "지구환경과학과"
+          ]
+        },
+        {
+          "axis_id": "earth_system_geologic_reasoning",
+          "axis_name": "지구시스템·지질 해석 역량",
+          "description": "지층, 판 구조, 해수 순환을 시스템적으로 해석하는 역량",
+          "evaluation_signals": [
+            "판 구조 설명",
+            "지질 자료 해석",
+            "순환 구조 연결"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "지질학과",
+            "토목공학과"
+          ]
+        },
+        {
+          "axis_id": "astronomical_observation_modeling",
+          "axis_name": "천체 관측·모델링 역량",
+          "description": "천체 운동과 우주 진화를 관측과 모델링으로 설명하는 역량",
+          "evaluation_signals": [
+            "궤도 해석",
+            "관측 자료 비교",
+            "우주 진화 설명"
+          ],
+          "favored_majors": [
+            "천문학과",
+            "항공우주공학과",
+            "물리학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "mechanics_energy",
+      "subject_name": "역학과 에너지",
+      "competency_axes": [
+        {
+          "axis_id": "advanced_mechanics_modeling",
+          "axis_name": "고급 역학 모델링 역량",
+          "description": "벡터, 운동량, 궤도 운동을 수학적으로 해석하는 역량",
+          "evaluation_signals": [
+            "벡터 해석",
+            "궤도 운동 설명",
+            "운동량 보존 적용"
+          ],
+          "favored_majors": [
+            "기계공학과",
+            "항공우주공학과"
+          ]
+        },
+        {
+          "axis_id": "thermodynamic_system_design",
+          "axis_name": "열역학·시스템 설계 역량",
+          "description": "열과 에너지 문제를 공학 시스템으로 해석하는 역량",
+          "evaluation_signals": [
+            "기체 상태 이해",
+            "효율 비교",
+            "열기관 설계 연결"
+          ],
+          "favored_majors": [
+            "에너지공학과",
+            "기계공학과"
+          ]
+        },
+        {
+          "axis_id": "wave_signal_interpretation",
+          "axis_name": "파동·신호 해석 역량",
+          "description": "탄성파와 소리를 신호·장치 관점으로 해석하는 역량",
+          "evaluation_signals": [
+            "주파수·파장 이해",
+            "도플러 효과 연결",
+            "센서 활용"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "의공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "electromagnetism_quantum",
+      "subject_name": "전자기와 양자",
+      "competency_axes": [
+        {
+          "axis_id": "field_signal_interpretation",
+          "axis_name": "장·신호 해석 역량",
+          "description": "전기장, 자기장, 전자기파를 신호와 장치로 연결하는 역량",
+          "evaluation_signals": [
+            "장 분포 해석",
+            "전자기 유도 이해",
+            "파형·주파수 비교"
+          ],
+          "favored_majors": [
+            "전자공학과",
+            "전기공학과"
+          ]
+        },
+        {
+          "axis_id": "semiconductor_device_design",
+          "axis_name": "반도체·소자 설계 역량",
+          "description": "양자와 물질 상호작용을 반도체와 소자 설계 문제로 연결하는 역량",
+          "evaluation_signals": [
+            "에너지띠 이해",
+            "p-n 접합 설명",
+            "LED·태양전지 연결"
+          ],
+          "favored_majors": [
+            "반도체공학과",
+            "신소재공학과",
+            "전자공학과"
+          ]
+        },
+        {
+          "axis_id": "quantum_technology_application",
+          "axis_name": "양자기술 응용 역량",
+          "description": "양자 개념을 차세대 기술과 연결하는 역량",
+          "evaluation_signals": [
+            "광전효과 설명",
+            "양자센서·양자통신 사례 연결",
+            "기술 가능성 판단"
+          ],
+          "favored_majors": [
+            "물리학과",
+            "전자공학과",
+            "양자정보계열"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "matter_energy",
+      "subject_name": "물질과 에너지",
+      "competency_axes": [
+        {
+          "axis_id": "thermodynamic_material_state",
+          "axis_name": "상태 변화·열역학 해석 역량",
+          "description": "기체와 액체의 상태, 에너지, 조성을 해석하는 역량",
+          "evaluation_signals": [
+            "상태 방정식 활용",
+            "조성 해석",
+            "상태 변화 설명"
+          ],
+          "favored_majors": [
+            "화학공학과",
+            "에너지공학과"
+          ]
+        },
+        {
+          "axis_id": "material_property_design",
+          "axis_name": "물성·소재 설계 역량",
+          "description": "분자 간 힘과 물성을 소재 설계로 연결하는 역량",
+          "evaluation_signals": [
+            "점성·표면장력 이해",
+            "코팅·접착 사례 연결",
+            "물성 비교"
+          ],
+          "favored_majors": [
+            "신소재공학과",
+            "화학공학과"
+          ]
+        },
+        {
+          "axis_id": "environment_gas_sensor_interpretation",
+          "axis_name": "대기·가스·센서 해석 역량",
+          "description": "혼합 기체와 대기 조성을 환경·센서 문제로 연결하는 역량",
+          "evaluation_signals": [
+            "부분압 이해",
+            "대기 데이터 연결",
+            "가스 센서 활용"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "전자공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "cell_metabolism",
+      "subject_name": "세포와 물질대사",
+      "competency_axes": [
+        {
+          "axis_id": "cell_transport_regulation",
+          "axis_name": "세포 물질 이동·조절 역량",
+          "description": "세포막과 물질 이동을 구조·기능으로 해석하는 역량",
+          "evaluation_signals": [
+            "확산·삼투 설명",
+            "능동 수송 비교",
+            "막 구조 연결"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "간호학과",
+            "약학과"
+          ]
+        },
+        {
+          "axis_id": "enzyme_metabolic_interpretation",
+          "axis_name": "효소·대사 해석 역량",
+          "description": "효소 작용과 대사 반응을 조건 변화와 연결해 해석하는 역량",
+          "evaluation_signals": [
+            "기질 특이성 이해",
+            "최적 조건 비교",
+            "대사 경로 설명"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "식품공학과",
+            "의생명공학과"
+          ]
+        },
+        {
+          "axis_id": "bioenergy_environment_application",
+          "axis_name": "생명 에너지·환경 응용 역량",
+          "description": "광합성, 세포 호흡을 바이오에너지와 환경 문제로 연결하는 역량",
+          "evaluation_signals": [
+            "ATP 생성 이해",
+            "탄소 순환 연결",
+            "환경 응용 사례"
+          ],
+          "favored_majors": [
+            "생명공학과",
+            "환경공학과",
+            "에너지공학과"
+          ]
+        }
+      ]
+    },
+    {
+      "subject_key": "earth_system_science",
+      "subject_name": "지구시스템과학",
+      "competency_axes": [
+        {
+          "axis_id": "earth_system_evolution",
+          "axis_name": "지구시스템 진화 해석 역량",
+          "description": "지구 탄생과 시스템 진화를 통합적으로 해석하는 역량",
+          "evaluation_signals": [
+            "연표 해석",
+            "순환 구조 설명",
+            "환경 진화 연결"
+          ],
+          "favored_majors": [
+            "지구환경과학과",
+            "환경공학과"
+          ]
+        },
+        {
+          "axis_id": "geophysical_disaster_reasoning",
+          "axis_name": "지구물리·재난 해석 역량",
+          "description": "지진, 판 구조, 내부 구조를 데이터와 재난 문제로 연결하는 역량",
+          "evaluation_signals": [
+            "지진파 해석",
+            "재난 사례 연결",
+            "지구 내부 구조 설명"
+          ],
+          "favored_majors": [
+            "토목공학과",
+            "환경공학과",
+            "지구과학과"
+          ]
+        },
+        {
+          "axis_id": "climate_ocean_prediction",
+          "axis_name": "기후·해양 예측 역량",
+          "description": "대기·해양 순환과 기후를 데이터 기반으로 예측하는 역량",
+          "evaluation_signals": [
+            "시계열 자료 해석",
+            "기후 변수 연결",
+            "예측 근거 제시"
+          ],
+          "favored_majors": [
+            "환경공학과",
+            "해양학과",
+            "지구환경과학과"
+          ]
+        }
+      ]
+    }
+  ]
+}
