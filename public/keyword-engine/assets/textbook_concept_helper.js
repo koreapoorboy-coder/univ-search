@@ -2132,8 +2132,14 @@ function getTrackMeta(trackId) {
   }
 
   function scoreConcept(concept, entry) {
-    const career = state.career || "";
-    const bucket = detectCareerBucket(career);
+    const effectiveCareer = [
+      state.career || "",
+      state.majorSelectedName || "",
+      ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
+      state.majorComparison?.group_label || "",
+      state.majorComparison?.selected_focus || ""
+    ].join(" ").trim();
+    const bucket = detectCareerBucket(effectiveCareer);
     const track = getResolvedTrackId() || "";
     const majorText = getMajorTextBag();
     const preferred = getPreferredConceptSequence();
@@ -2213,10 +2219,26 @@ function getTrackMeta(trackId) {
       if (/국제|환경|기후|지구|우주/.test(majorText) && /지구시스템|자연 세계의 시간과 공간|과학의 측정과 우리 사회/.test(concept)) score += 12;
     }
 
-    if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
+    if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, effectiveCareer))) {
       score += 10;
       reasons.push("진로 브리지 일치");
     }
+
+    const majorHintPairs = [
+      { pattern: /(컴퓨터|소프트웨어|데이터|AI|인공지능|정보|통계|코딩|알고리즘)/i, concept: /(자료|데이터|정보|분석|표현|그래프|확률|경우의 수|행렬|측정|단위|빅데이터|자동화|시스템)/ },
+      { pattern: /(전자|전기|반도체|회로|센서|통신|로봇|메카트로닉스)/, concept: /(측정|단위|역학|전기|전자기|센서|시스템|파동|신호|양자|에너지|회로|시간과 공간)/ },
+      { pattern: /(기계|자동차|항공|모빌리티|기구|설계|제어)/, concept: /(운동|힘|역학|에너지|구조|정사영|도형의 이동|물리|측정|효율|시뮬레이션)/ },
+      { pattern: /(화학공학|화학|신소재|재료|고분자|금속|배터리|에너지공학)/, concept: /(물질|원자|주기율|결합|산화|염기|에너지|신재생|반응|소재|전지)/ },
+      { pattern: /(생명|바이오|의학|의료|간호|보건|제약|약학|수의|임상)/, concept: /(생명|세포|항상성|건강|면역|유전자|산과 염기|대사|효소|백신|물질 이동)/ },
+      { pattern: /(환경|기후|지구|해양|우주|천문|지리)/, concept: /(환경|기후|지구|해양|천체|우주|지구시스템|생태|순환|관측|미세먼지|에너지 효율)/ },
+      { pattern: /(경영|경제|무역|국제|행정|사회|정책|미디어|언론|광고)/, concept: /(데이터|사회|빅데이터|과학 기술|윤리|시장|금융|지속가능|문화|토론|글쓰기|매체)/ }
+    ];
+    majorHintPairs.forEach(rule => {
+      if (rule.pattern.test(effectiveCareer) && rule.concept.test(textBag)) {
+        score += 14;
+        reasons.push("학과 맞춤 추천");
+      }
+    });
 
     const prefIndex = preferred.indexOf(concept);
     if (prefIndex >= 0) {
@@ -2224,7 +2246,7 @@ function getTrackMeta(trackId) {
       reasons.unshift("전공 맞춤 추천");
     }
 
-    const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(career)];
+    const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(effectiveCareer)];
     if (profile && Array.isArray(profile.categories)) {
       const combined = textBag;
       if (profile.categories.some(cat => fuzzyIncludes(combined, cat))) score += 6;
@@ -2243,7 +2265,8 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
     const topScore = ranked[0]?.score ?? 0;
-    let filtered = ranked.filter(item => item.score >= topScore - 12 && item.score > -18);
+    const hasMajorSelection = !!(state.majorSelectedName || state.career);
+    let filtered = ranked.filter(item => item.score >= topScore - (hasMajorSelection ? 18 : 12) && item.score > -24);
 
     if (preferred.length) {
       const preferredItems = preferred.map(name => filtered.find(item => item.concept === name)).filter(Boolean);
@@ -2262,6 +2285,9 @@ function getTrackMeta(trackId) {
       const others = ranked.filter(item => !fallback.includes(item));
       filtered = [...fallback, ...others];
     }
+
+    // 학생 화면은 전체 개념을 다 보여주기보다, 과목+학과 기준 추천 개념 3개만 먼저 보여준다.
+    // 데이터는 전체를 유지하되, UI는 선택하기 쉬운 상위 3개만 노출한다.
     return uniq(filtered).slice(0, 3);
   }
 
