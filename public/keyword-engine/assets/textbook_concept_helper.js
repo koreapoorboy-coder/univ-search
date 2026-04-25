@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.1-common-math1-major-reweight";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-common-math1-keyword-axis-split";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1841,6 +1841,26 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.1-common-math1-major-reweight";
     const keyword = String(state.keyword || '');
     const axisTitle = `${axis?.title || ''} ${axis?.short || ''} ${axis?.desc || ''} ${axis?.reason || ''} ${axis?.easy || ''}`;
     let boost = 0;
+
+
+    if (subject === '공통수학1') {
+      if (concept === '경우의 수, 순열, 조합') {
+        if (/순서\s*고려|순열|배열/.test(keyword)) {
+          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost += 34;
+          if (/확률.?통계 추론/.test(axisTitle)) boost -= 8;
+          if (/탐구 설계 조합/.test(axisTitle)) boost -= 4;
+        }
+        if (/순서\s*미고려|조합|선택|중복\s*없는\s*선택/.test(keyword)) {
+          if (/확률.?통계 추론/.test(axisTitle)) boost += 20;
+          if (/탐구 설계 조합/.test(axisTitle)) boost += 12;
+          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost -= 10;
+        }
+        if (/경우\s*나누기|경우의\s*수|계산\s*전략/.test(keyword)) {
+          if (/확률.?통계 추론/.test(axisTitle)) boost += 12;
+          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost += 6;
+        }
+      }
+    }
 
     if (subject === '통합과학2') {
       if (concept === '산화와 환원') {
