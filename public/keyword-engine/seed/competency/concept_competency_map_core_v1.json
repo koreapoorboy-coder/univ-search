@@ -1,0 +1,444 @@
+{
+  "version": "v1",
+  "type": "practical_concept_competency_map",
+  "notes": "실무형 역량축-개념 매핑. 학과 직접 보정보다 교과 역량 적합도를 먼저 계산한 뒤 학과는 선호 역량에 가중치를 더하는 구조를 전제로 함.",
+  "subjects": [
+    {
+      "subject_key": "integrated_science1",
+      "subject_name": "통합과학1",
+      "axes_ref": [
+        "scientific_observation_measurement",
+        "pattern_classification_prediction",
+        "systemic_interpretation",
+        "environmental_data_reasoning",
+        "scientific_communication"
+      ],
+      "concepts": [
+        {
+          "concept_name": "과학의 측정과 우리 사회",
+          "primary_axes": [
+            "scientific_observation_measurement",
+            "scientific_communication"
+          ],
+          "secondary_axes": [
+            "systemic_interpretation",
+            "environmental_data_reasoning"
+          ],
+          "axis_weights": {
+            "scientific_observation_measurement": 5,
+            "scientific_communication": 4,
+            "systemic_interpretation": 3,
+            "environmental_data_reasoning": 3
+          },
+          "why": "측정 기준, 오차, 센서, 사회 문제와 연결된 데이터 해석이 핵심이므로 관찰·측정 역량이 최우선이다."
+        },
+        {
+          "concept_name": "기본량과 단위",
+          "primary_axes": [
+            "scientific_observation_measurement",
+            "scientific_communication"
+          ],
+          "secondary_axes": [
+            "systemic_interpretation"
+          ],
+          "axis_weights": {
+            "scientific_observation_measurement": 5,
+            "scientific_communication": 3,
+            "systemic_interpretation": 2
+          },
+          "why": "단위, 기준, 측정, 비교 가능성 확보가 핵심이라 과학적 관찰·측정 역량이 가장 강하게 반영된다."
+        },
+        {
+          "concept_name": "규칙성 발견과 주기율표",
+          "primary_axes": [
+            "pattern_classification_prediction"
+          ],
+          "secondary_axes": [
+            "systemic_interpretation",
+            "scientific_communication"
+          ],
+          "axis_weights": {
+            "pattern_classification_prediction": 5,
+            "systemic_interpretation": 3,
+            "scientific_communication": 2
+          },
+          "why": "주기성·분류·성질 예측이 중심이므로 규칙성 발견·분류 예측 역량이 핵심이다."
+        },
+        {
+          "concept_name": "자연 세계의 시간과 공간",
+          "primary_axes": [
+            "environmental_data_reasoning",
+            "systemic_interpretation"
+          ],
+          "secondary_axes": [
+            "scientific_communication"
+          ],
+          "axis_weights": {
+            "environmental_data_reasoning": 4,
+            "systemic_interpretation": 4,
+            "scientific_communication": 2
+          },
+          "why": "시간·공간 규모를 지구·우주 데이터와 연결해 해석하는 성격이 강하다."
+        },
+        {
+          "concept_name": "지구시스템",
+          "primary_axes": [
+            "systemic_interpretation",
+            "environmental_data_reasoning"
+          ],
+          "secondary_axes": [
+            "scientific_communication"
+          ],
+          "axis_weights": {
+            "systemic_interpretation": 5,
+            "environmental_data_reasoning": 4,
+            "scientific_communication": 2
+          },
+          "why": "지권·수권·기권·생물권 상호작용을 시스템적으로 보는 단원이므로 시스템 해석 역량이 핵심이다."
+        },
+        {
+          "concept_name": "역학 시스템",
+          "primary_axes": [
+            "systemic_interpretation",
+            "scientific_observation_measurement"
+          ],
+          "secondary_axes": [
+            "scientific_communication"
+          ],
+          "axis_weights": {
+            "systemic_interpretation": 5,
+            "scientific_observation_measurement": 4,
+            "scientific_communication": 2
+          },
+          "why": "힘, 구조, 상호작용, 측정값 해석이 함께 들어가므로 시스템 해석과 관찰·측정이 강하다."
+        }
+      ]
+    },
+    {
+      "subject_key": "integrated_science2",
+      "subject_name": "통합과학2",
+      "axes_ref": [
+        "reaction_energy_interpretation",
+        "data_prediction_automation",
+        "sustainability_design",
+        "science_society_ethics",
+        "evidence_based_problem_solving"
+      ],
+      "concepts": [
+        {
+          "concept_name": "산화와 환원",
+          "primary_axes": [
+            "reaction_energy_interpretation"
+          ],
+          "secondary_axes": [
+            "evidence_based_problem_solving",
+            "sustainability_design"
+          ],
+          "axis_weights": {
+            "reaction_energy_interpretation": 5,
+            "evidence_based_problem_solving": 3,
+            "sustainability_design": 2
+          },
+          "why": "전자 이동, 반응 해석, 전지·부식·보존 응용이 중심이라 반응·에너지 해석 역량이 핵심이다."
+        },
+        {
+          "concept_name": "산과 염기",
+          "primary_axes": [
+            "reaction_energy_interpretation",
+            "evidence_based_problem_solving"
+          ],
+          "secondary_axes": [
+            "science_society_ethics"
+          ],
+          "axis_weights": {
+            "reaction_energy_interpretation": 4,
+            "evidence_based_problem_solving": 4,
+            "science_society_ethics": 2
+          },
+          "why": "생활 화학, 중화, 건강·환경 적용까지 이어져 증거 기반 문제 해결과 반응 해석이 함께 중요하다."
+        },
+        {
+          "concept_name": "물질 변화에서 에너지의 출입",
+          "primary_axes": [
+            "reaction_energy_interpretation"
+          ],
+          "secondary_axes": [
+            "sustainability_design"
+          ],
+          "axis_weights": {
+            "reaction_energy_interpretation": 5,
+            "sustainability_design": 3
+          },
+          "why": "에너지 출입과 변화 원리를 설명하는 역량이 핵심이며 공정·효율 문제로 확장된다."
+        },
+        {
+          "concept_name": "에너지 효율과 신재생 에너지",
+          "primary_axes": [
+            "sustainability_design"
+          ],
+          "secondary_axes": [
+            "reaction_energy_interpretation",
+            "evidence_based_problem_solving"
+          ],
+          "axis_weights": {
+            "sustainability_design": 5,
+            "reaction_energy_interpretation": 3,
+            "evidence_based_problem_solving": 3
+          },
+          "why": "효율 개선, 장치 설계, 지속가능한 전환이 중심이라 지속가능 설계 역량이 최우선이다."
+        },
+        {
+          "concept_name": "발전과 에너지원",
+          "primary_axes": [
+            "sustainability_design",
+            "reaction_energy_interpretation"
+          ],
+          "secondary_axes": [
+            "science_society_ethics"
+          ],
+          "axis_weights": {
+            "sustainability_design": 4,
+            "reaction_energy_interpretation": 4,
+            "science_society_ethics": 2
+          },
+          "why": "발전 원리와 에너지원 비교, 사회적 전환 판단이 함께 들어간다."
+        },
+        {
+          "concept_name": "태양 에너지의 생성과 전환",
+          "primary_axes": [
+            "sustainability_design",
+            "reaction_energy_interpretation"
+          ],
+          "secondary_axes": [
+            "evidence_based_problem_solving"
+          ],
+          "axis_weights": {
+            "sustainability_design": 4,
+            "reaction_energy_interpretation": 4,
+            "evidence_based_problem_solving": 2
+          },
+          "why": "에너지 생성 원리와 전환 장치 해석이 함께 필요하다."
+        },
+        {
+          "concept_name": "과학 기술 사회에서 빅데이터 활용",
+          "primary_axes": [
+            "data_prediction_automation"
+          ],
+          "secondary_axes": [
+            "science_society_ethics",
+            "evidence_based_problem_solving"
+          ],
+          "axis_weights": {
+            "data_prediction_automation": 5,
+            "science_society_ethics": 3,
+            "evidence_based_problem_solving": 3
+          },
+          "why": "예측, 자동화, 정보 처리와 사회 적용을 함께 보므로 데이터 예측·자동화 역량이 핵심이다."
+        },
+        {
+          "concept_name": "과학 기술과 미래 사회",
+          "primary_axes": [
+            "science_society_ethics",
+            "data_prediction_automation"
+          ],
+          "secondary_axes": [
+            "evidence_based_problem_solving"
+          ],
+          "axis_weights": {
+            "science_society_ethics": 4,
+            "data_prediction_automation": 4,
+            "evidence_based_problem_solving": 2
+          },
+          "why": "기술 변화의 사회적 의미와 적용 가능성을 함께 판단해야 한다."
+        },
+        {
+          "concept_name": "과학 관련 사회적 쟁점과 과학 윤리",
+          "primary_axes": [
+            "science_society_ethics"
+          ],
+          "secondary_axes": [
+            "evidence_based_problem_solving"
+          ],
+          "axis_weights": {
+            "science_society_ethics": 5,
+            "evidence_based_problem_solving": 3
+          },
+          "why": "쟁점 분석과 윤리 판단이 중심이므로 과학기술·사회·윤리 판단 역량이 핵심이다."
+        }
+      ]
+    },
+    {
+      "subject_key": "common_math1",
+      "subject_name": "공통수학1",
+      "axes_ref": [
+        "algebraic_structure_reasoning",
+        "combinatorial_algorithmic_thinking",
+        "function_graph_modeling",
+        "matrix_data_representation",
+        "mathematical_communication"
+      ],
+      "concepts": [
+        {
+          "concept_name": "다항식의 연산",
+          "primary_axes": [
+            "algebraic_structure_reasoning"
+          ],
+          "secondary_axes": [
+            "mathematical_communication"
+          ],
+          "axis_weights": {
+            "algebraic_structure_reasoning": 5,
+            "mathematical_communication": 2
+          },
+          "why": "식의 구조를 파악하고 규칙적으로 변형하는 대수적 추론이 핵심이다."
+        },
+        {
+          "concept_name": "나머지정리와 인수분해",
+          "primary_axes": [
+            "algebraic_structure_reasoning"
+          ],
+          "secondary_axes": [
+            "function_graph_modeling"
+          ],
+          "axis_weights": {
+            "algebraic_structure_reasoning": 5,
+            "function_graph_modeling": 2
+          },
+          "why": "조건 해석과 구조 분해가 중심이므로 대수 구조화·추론 역량이 강하다."
+        },
+        {
+          "concept_name": "이차방정식과 이차함수",
+          "primary_axes": [
+            "function_graph_modeling"
+          ],
+          "secondary_axes": [
+            "algebraic_structure_reasoning",
+            "mathematical_communication"
+          ],
+          "axis_weights": {
+            "function_graph_modeling": 5,
+            "algebraic_structure_reasoning": 3,
+            "mathematical_communication": 2
+          },
+          "why": "그래프와 식을 연결해 변화와 관계를 해석하는 모델링 역량이 핵심이다."
+        },
+        {
+          "concept_name": "경우의 수, 순열, 조합",
+          "primary_axes": [
+            "combinatorial_algorithmic_thinking"
+          ],
+          "secondary_axes": [
+            "mathematical_communication"
+          ],
+          "axis_weights": {
+            "combinatorial_algorithmic_thinking": 5,
+            "mathematical_communication": 2
+          },
+          "why": "경우 나누기, 순서 고려, 선택 구조가 중심이라 조합·알고리즘 사고가 핵심이다."
+        },
+        {
+          "concept_name": "행렬과 행렬의 연산",
+          "primary_axes": [
+            "matrix_data_representation"
+          ],
+          "secondary_axes": [
+            "algebraic_structure_reasoning",
+            "mathematical_communication"
+          ],
+          "axis_weights": {
+            "matrix_data_representation": 5,
+            "algebraic_structure_reasoning": 3,
+            "mathematical_communication": 2
+          },
+          "why": "자료를 구조화하고 연산 규칙으로 관계를 표현하는 역량이 중심이다."
+        }
+      ]
+    },
+    {
+      "subject_key": "common_korean1",
+      "subject_name": "공통국어1",
+      "axes_ref": [
+        "critical_reading_judgment",
+        "expository_reflective_expression",
+        "community_communication_empathy",
+        "language_norm_structure"
+      ],
+      "concepts": [
+        {
+          "concept_name": "비판적 읽기와 토론",
+          "primary_axes": [
+            "critical_reading_judgment"
+          ],
+          "secondary_axes": [
+            "community_communication_empathy",
+            "expository_reflective_expression"
+          ],
+          "axis_weights": {
+            "critical_reading_judgment": 5,
+            "community_communication_empathy": 3,
+            "expository_reflective_expression": 3
+          },
+          "why": "주장·근거·반론·판단이 중심이라 비판적 읽기·판단 역량이 핵심이다."
+        },
+        {
+          "concept_name": "교술 갈래와 성찰적 표현",
+          "primary_axes": [
+            "expository_reflective_expression"
+          ],
+          "secondary_axes": [
+            "critical_reading_judgment"
+          ],
+          "axis_weights": {
+            "expository_reflective_expression": 5,
+            "critical_reading_judgment": 2
+          },
+          "why": "개념 설명, 자기 해석, 성찰 서술이 중심이라 설명·성찰 표현 역량이 핵심이다."
+        },
+        {
+          "concept_name": "공동체 의사소통과 공감",
+          "primary_axes": [
+            "community_communication_empathy"
+          ],
+          "secondary_axes": [
+            "critical_reading_judgment"
+          ],
+          "axis_weights": {
+            "community_communication_empathy": 5,
+            "critical_reading_judgment": 2
+          },
+          "why": "다양한 관점, 협력적 소통, 공동체 문제 이해가 중심이다."
+        },
+        {
+          "concept_name": "음운 변동과 국어 규범",
+          "primary_axes": [
+            "language_norm_structure"
+          ],
+          "secondary_axes": [
+            "expository_reflective_expression"
+          ],
+          "axis_weights": {
+            "language_norm_structure": 5,
+            "expository_reflective_expression": 2
+          },
+          "why": "언어 구조와 규범을 분석하고 정확하게 적용하는 역량이 중심이다."
+        },
+        {
+          "concept_name": "문학·독서와 주체적 수용",
+          "primary_axes": [
+            "expository_reflective_expression",
+            "critical_reading_judgment"
+          ],
+          "secondary_axes": [
+            "community_communication_empathy"
+          ],
+          "axis_weights": {
+            "expository_reflective_expression": 4,
+            "critical_reading_judgment": 3,
+            "community_communication_empathy": 2
+          },
+          "why": "작품 수용과 해석을 주체적으로 서술하는 성격이 강하다."
+        }
+      ]
+    }
+  ]
+}
