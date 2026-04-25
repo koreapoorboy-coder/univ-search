@@ -474,9 +474,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
       .major-engine-candidate-keywords { margin-top:8px; color:#5c6c86; font-size:12px; line-height:1.5; }
       .major-engine-candidate.is-selected .major-engine-candidate-keywords { color:rgba(255,255,255,.92); }
       .major-engine-help { margin-top:8px; color:#6a7891; font-size:12px; }
-      .major-engine-more { margin-top:10px; }
-      .major-engine-more summary { cursor:pointer; list-style:none; font-size:12px; font-weight:800; color:#245ee8; }
-      .major-engine-more summary::-webkit-details-marker { display:none; }
       .major-engine-group-list { margin-top: 12px; display:grid; gap:14px; }
       .major-engine-group { border:1px solid #dbe5f4; background:#fff; border-radius:18px; padding:14px; }
       .major-engine-group-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
@@ -5677,23 +5674,47 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
         ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
       </div>
+      <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+      <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
           <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
-          <div class="major-engine-chip-wrap">${(data.core_keywords || []).length ? data.core_keywords.slice(0,6).map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
+          <div class="major-engine-chip-wrap">${(data.core_keywords || []).length ? data.core_keywords.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
         </div>
         <div class="major-engine-box">
           <div class="major-engine-box-title">선택 과목 안 추천 개념</div>
-          <div class="major-engine-chip-wrap">${(data.related_subject_hints || []).length ? data.related_subject_hints.slice(0,6).map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
+          <div class="major-engine-chip-wrap">${(data.related_subject_hints || []).length ? data.related_subject_hints.map(v => `<span class="major-engine-chip">${escapeHtml(v)}</span>`).join('') : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}</div>
+        </div>
+        <div class="major-engine-box">
+          <div class="major-engine-box-title">추천 탐구 방향</div>
+          ${(data.inquiry_topics_raw || []).length ? `<ul class="major-engine-list">${data.inquiry_topics_raw.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>` : '<div class="major-engine-empty">아직 입력 전입니다.</div>'}
+        </div>
+        <div class="major-engine-box">
+          <div class="major-engine-box-title">참고 도서</div>
+          ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
-      <details class="major-engine-more">
-        <summary>자세히 보기</summary>
-        <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
-        <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
-        ${(data.inquiry_topics_raw || []).length ? `<div class="major-engine-box" style="margin-top:10px;"><div class="major-engine-box-title">추천 탐구 방향</div><ul class="major-engine-list">${data.inquiry_topics_raw.slice(0,4).map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul></div>` : ''}
-        ${(data.bridge_books || []).length ? `<div class="major-engine-box" style="margin-top:10px;"><div class="major-engine-box-title">참고 도서</div><ul class="major-engine-list">${data.bridge_books.slice(0,4).map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul></div>` : ''}
-      </details>
+      ${(data.comparison && Array.isArray(data.comparison.peers) && data.comparison.peers.length) ? `
+      <div class="major-engine-compare">
+        <div class="major-engine-compare-head">
+          <div>
+            <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
+            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) ${escapeHtml(buildStudentDescription(data.profile || {}, { label: data.comparison.group_label || '' }))} 같은 묶음 안에서도 아래 학과들과 배우는 초점이 조금씩 다릅니다.</div>
+          </div>
+          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
+        </div>
+        <div class="major-engine-compare-grid">
+          ${data.comparison.peers.map(peer => `
+            <div class="major-engine-compare-card">
+              <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
+              <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
+              <div class="major-engine-compare-focus">${escapeHtml(peer.focus || buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
+      <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
     dispatchMajorSelection(data);
   }
