@@ -1834,6 +1834,53 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
     });
   }
 
+
+  function getSubjectSpecificAxisBoost(axis) {
+    const subject = String(state.subject || '');
+    const concept = String(state.concept || '');
+    const keyword = String(state.keyword || '');
+    const axisTitle = `${axis?.title || ''} ${axis?.short || ''} ${axis?.desc || ''} ${axis?.reason || ''} ${axis?.easy || ''}`;
+    let boost = 0;
+
+    if (subject === '통합과학2') {
+      if (concept === '산화와 환원') {
+        if (/부식\s*방지|부식\s*비교|보존\s*방법\s*탐색|문화재\s*보존/.test(keyword)) {
+          if (/재료|보존|부식/.test(axisTitle)) boost += 42;
+          if (/전기화학|배터리/.test(axisTitle)) boost -= 8;
+          if (/화학 반응 해석/.test(axisTitle)) boost -= 10;
+        }
+        if (/전자\s*이동|산화수\s*변화/.test(keyword)) {
+          if (/화학 반응 해석/.test(axisTitle)) boost += 18;
+          if (/전기화학|배터리/.test(axisTitle)) boost += 8;
+        }
+      }
+
+      if (concept === '에너지 효율과 신재생 에너지') {
+        if (/장치\s*설계|프로젝트\s*연결|친환경\s*설계/.test(keyword)) {
+          if (/공학 설계 확장/.test(axisTitle)) boost += 28;
+          if (/효율|지속가능/.test(axisTitle)) boost -= 6;
+        }
+        if (/태양광|풍력|지열|바이오에너지|신재생\s*에너지/.test(keyword)) {
+          if (/공학 설계 확장/.test(axisTitle)) boost += 12;
+          if (/효율|지속가능/.test(axisTitle)) boost += 4;
+        }
+      }
+
+      if (concept === '과학 기술 사회에서 빅데이터 활용') {
+        if (/스마트\s*사회|활용\s*방안\s*정리|데이터\s*사례\s*조사/.test(keyword)) {
+          if (/정보.?자동화 응용/.test(axisTitle)) boost += 34;
+          if (/데이터 판단.?윤리/.test(axisTitle)) boost += 10;
+          if (/데이터 예측.?해석/.test(axisTitle)) boost -= 8;
+        }
+        if (/예측|패턴\s*해석/.test(keyword)) {
+          if (/데이터 예측.?해석/.test(axisTitle)) boost += 18;
+        }
+      }
+    }
+
+    return boost;
+  }
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
 
@@ -1845,6 +1892,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.0-cell-metabolism-support";
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
         score += Number(axis.__keywordSignalBoost || 0);
+        score += getSubjectSpecificAxisBoost(axis);
         return { ...axis, __score: score };
       });
 
