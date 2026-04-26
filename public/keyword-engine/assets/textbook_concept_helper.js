@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.16-major-bridge-hardfix";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_14_common_korean1_lock";
+  const ASSET_VERSION_QUERY = "v33_16_major_bridge_hardfix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2579,22 +2579,50 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
       : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 바뀝니다.";
   }
 
-  function syncMajorSelectionDetail(detail) {
-    const fallback = detail || derivePreviewDetailFromPayload(getMajorEngineSnapshot());
-    const rawCareer = ($('career')?.value || '').trim();
-    const resolvedName = (fallback?.display_name || '').trim();
-
-    state.majorSelectedName = resolvedName || '';
-    state.majorCoreKeywords = Array.isArray(fallback?.core_keywords) ? fallback.core_keywords.slice(0, 8) : [];
-    state.majorComparison = fallback?.comparison || null;
-
-    // v33.15: 학과 검색 엔진에서 확인된 학과명이 3번 교과 개념 추천 엔진으로 넘어가지 않는 문제 보정.
-    // resolvedName이 있으면 2번 학과 상태값과 추천 개념 보정 기준을 그 학과명으로 통일합니다.
-    // 아직 resolvedName이 없더라도 입력창 값이 있으면 최소한 그 입력값으로 학과 보정을 시도합니다.
-    const nextCareer = resolvedName || rawCareer;
-    if (nextCareer) {
-      state.career = nextCareer;
+  function getMajorPanelResolvedName() {
+    try {
+      const title = document.querySelector('.major-engine-title')?.textContent?.trim() || '';
+      if (!title) return '';
+      if (/관련 학과|표준화|찾지 못했|전공 후보|학과명을/.test(title)) return '';
+      return title;
+    } catch (error) {
+      return '';
     }
+  }
+
+  function getMajorGlobalDetail() {
+    try {
+      const data = window.__MAJOR_ENGINE_SELECTED__ || null;
+      if (data && data.display_name) return data;
+    } catch (error) {}
+    return null;
+  }
+
+  function getCareerInputText() {
+    return ($('career')?.value || '').trim();
+  }
+
+  function getEffectiveCareerName() {
+    const globalDetail = getMajorGlobalDetail();
+    const snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot());
+    const panelName = getMajorPanelResolvedName();
+    return (globalDetail?.display_name || snapshotDetail?.display_name || state.majorSelectedName || panelName || state.career || getCareerInputText() || '').trim();
+  }
+
+  function syncMajorSelectionDetail(detail) {
+    const globalDetail = getMajorGlobalDetail();
+    const snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot());
+    const panelName = getMajorPanelResolvedName();
+    const fallback = detail || globalDetail || snapshotDetail || (panelName ? { display_name: panelName, core_keywords: [], comparison: null } : null);
+    const rawCareer = getCareerInputText();
+    const resolvedName = (fallback?.display_name || panelName || '').trim();
+
+    if (resolvedName) state.majorSelectedName = resolvedName;
+    state.majorCoreKeywords = Array.isArray(fallback?.core_keywords) ? fallback.core_keywords.slice(0, 8) : (state.majorCoreKeywords || []);
+    state.majorComparison = fallback?.comparison || state.majorComparison || null;
+
+    const nextCareer = resolvedName || panelName || rawCareer;
+    if (nextCareer) state.career = nextCareer;
 
     if (!state.linkTrack && state.subject && state.career) {
       const autoTrack = getAutoTrackDetail();
@@ -2612,15 +2640,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
       core: Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords.join('|') : ''
     };
 
-    const rawCareer = ($('career')?.value || '').trim();
-    const snapshot = getMajorEngineSnapshot();
-    const detail = derivePreviewDetailFromPayload(snapshot);
-
-    if (detail?.display_name) {
-      syncMajorSelectionDetail(detail);
-    } else if (rawCareer && !state.career) {
-      state.career = rawCareer;
-    }
+    syncMajorSelectionDetail(null);
 
     const after = {
       career: state.career || '',
@@ -2631,13 +2651,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
   }
 
   function startMajorBridgePolling() {
-    let count = 0;
-    const timer = setInterval(function () {
-      count += 1;
+    if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_16__) return;
+    window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_16__ = true;
+    setInterval(function () {
       const changed = syncMajorBridgeState();
       if (changed) renderAll();
-      if (count > 32) clearInterval(timer);
-    }, 250);
+    }, 350);
   }
 
   function scheduleMajorPreviewSync() {
@@ -3941,6 +3960,8 @@ function getTrackMeta(trackId) {
 
   function getMajorTextBag() {
     return [
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
       state.majorSelectedName || "",
       ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
       state.majorComparison?.group_label || "",
@@ -4294,7 +4315,7 @@ function getTrackMeta(trackId) {
   }
 
   function scoreConcept(concept, entry) {
-    const career = state.career || "";
+    const career = getEffectiveCareerName() || state.career || "";
     const bucket = detectCareerBucket(career);
     const track = getResolvedTrackId() || "";
     const majorText = getMajorTextBag();
@@ -4496,7 +4517,7 @@ function getTrackMeta(trackId) {
     const careerEl = $("engineCareerSummary");
     const progressEl = $("engineProgressSummary");
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
-    if (careerEl) careerEl.textContent = state.career || state.majorSelectedName || "입력 전";
+    if (careerEl) careerEl.textContent = getEffectiveCareerName() || "입력 전";
 
     let progress = "교과 개념 선택 대기";
     if (state.subject && !state.concept) progress = "교과 개념 선택 중";
@@ -4932,6 +4953,22 @@ function getTrackMeta(trackId) {
       }
     };
   }
+
+
+  window.__TEXTBOOK_MAJOR_BRIDGE_DIAG__ = function () {
+    return {
+      version: window.__TEXTBOOK_CONCEPT_HELPER_VERSION || '',
+      inputCareer: getCareerInputText(),
+      stateCareer: state.career || '',
+      stateMajor: state.majorSelectedName || '',
+      panelMajor: getMajorPanelResolvedName(),
+      globalMajor: getMajorGlobalDetail()?.display_name || '',
+      snapshotMajor: derivePreviewDetailFromPayload(getMajorEngineSnapshot())?.display_name || '',
+      effectiveCareer: getEffectiveCareerName(),
+      subject: state.subject || '',
+      concept: state.concept || ''
+    };
+  };
 
   document.addEventListener("DOMContentLoaded", init);
 })();
