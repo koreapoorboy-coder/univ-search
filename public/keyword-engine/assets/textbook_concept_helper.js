@@ -1721,6 +1721,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
       syncCareerFromInput();
       renderCareerKeywordPreview();
       renderAll();
+      startMajorBridgePolling();
       renderUploadSummary();
     } catch (error) {
       console.warn("textbook concept helper init error:", error);
@@ -2580,9 +2581,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
 
   function syncMajorSelectionDetail(detail) {
     const fallback = detail || derivePreviewDetailFromPayload(getMajorEngineSnapshot());
-    state.majorSelectedName = fallback?.display_name || '';
+    const rawCareer = ($('career')?.value || '').trim();
+    const resolvedName = (fallback?.display_name || '').trim();
+
+    state.majorSelectedName = resolvedName || '';
     state.majorCoreKeywords = Array.isArray(fallback?.core_keywords) ? fallback.core_keywords.slice(0, 8) : [];
     state.majorComparison = fallback?.comparison || null;
+
+    // v33.15: 학과 검색 엔진에서 확인된 학과명이 3번 교과 개념 추천 엔진으로 넘어가지 않는 문제 보정.
+    // resolvedName이 있으면 2번 학과 상태값과 추천 개념 보정 기준을 그 학과명으로 통일합니다.
+    // 아직 resolvedName이 없더라도 입력창 값이 있으면 최소한 그 입력값으로 학과 보정을 시도합니다.
+    const nextCareer = resolvedName || rawCareer;
+    if (nextCareer) {
+      state.career = nextCareer;
+    }
+
     if (!state.linkTrack && state.subject && state.career) {
       const autoTrack = getAutoTrackDetail();
       if (autoTrack?.id) {
@@ -2590,6 +2603,41 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
         state.linkTrackSource = 'auto';
       }
     }
+  }
+
+  function syncMajorBridgeState() {
+    const before = {
+      career: state.career || '',
+      major: state.majorSelectedName || '',
+      core: Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords.join('|') : ''
+    };
+
+    const rawCareer = ($('career')?.value || '').trim();
+    const snapshot = getMajorEngineSnapshot();
+    const detail = derivePreviewDetailFromPayload(snapshot);
+
+    if (detail?.display_name) {
+      syncMajorSelectionDetail(detail);
+    } else if (rawCareer && !state.career) {
+      state.career = rawCareer;
+    }
+
+    const after = {
+      career: state.career || '',
+      major: state.majorSelectedName || '',
+      core: Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords.join('|') : ''
+    };
+    return before.career !== after.career || before.major !== after.major || before.core !== after.core;
+  }
+
+  function startMajorBridgePolling() {
+    let count = 0;
+    const timer = setInterval(function () {
+      count += 1;
+      const changed = syncMajorBridgeState();
+      if (changed) renderAll();
+      if (count > 32) clearInterval(timer);
+    }, 250);
   }
 
   function scheduleMajorPreviewSync() {
@@ -4430,6 +4478,7 @@ function getTrackMeta(trackId) {
   }
 
   function renderAll() {
+    syncMajorBridgeState();
     renderStatus();
     renderTrackArea();
     renderConceptArea();
@@ -4447,7 +4496,7 @@ function getTrackMeta(trackId) {
     const careerEl = $("engineCareerSummary");
     const progressEl = $("engineProgressSummary");
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
-    if (careerEl) careerEl.textContent = state.career || "입력 전";
+    if (careerEl) careerEl.textContent = state.career || state.majorSelectedName || "입력 전";
 
     let progress = "교과 개념 선택 대기";
     if (state.subject && !state.concept) progress = "교과 개념 선택 중";
