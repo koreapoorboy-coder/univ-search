@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.1-is1-concept-followup-bundle";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1643,47 +1643,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
-
-  function getAxisKeywordRefinement(axis) {
-    const keyword = String(state.keyword || "").trim();
-    if (!keyword || !axis || !Array.isArray(axis.keyword_signals)) return null;
-
-    const axisBag = [
-      axis.axis_title || "",
-      axis.axis_short || "",
-      axis.why || "",
-      axis.student_output_hint || "",
-      ...(Array.isArray(axis.next_subjects) ? axis.next_subjects : [])
-    ].join(" ");
-
-    let best = null;
-
-    axis.keyword_signals.forEach(signal => {
-      const rawKeywords = Array.isArray(signal?.keywords)
-        ? signal.keywords
-        : (signal?.keywords ? [signal.keywords] : []);
-      const keywords = rawKeywords.map(item => String(item || "").trim()).filter(Boolean);
-      if (!keywords.length) return;
-
-      let matched = 0;
-      keywords.forEach(token => {
-        if (fuzzyIncludes(keyword, token) || fuzzyIncludes(token, keyword)) matched += 1;
-      });
-
-      if (!matched && (fuzzyIncludes(axisBag, keyword) || fuzzyIncludes(keyword, axisBag))) {
-        matched = 1;
-      }
-
-      if (!matched) return;
-
-      const score = Number(signal?.boost || 0) + (matched * 3);
-      if (!best || score > best.__score) {
-        best = { ...signal, __score: score };
-      }
-    });
-
-    return best;
-  }
   function getAxisCareerRelationMeta(subjectName, axisLike) {
     const careerText = [
       state.career || "",
@@ -1776,28 +1735,25 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const refinement = getAxisKeywordRefinement(axis);
-      const activityHint = refinement?.activity_hint || axis.student_output_hint || "";
       return {
         id: axis.axis_id,
-        title: refinement?.title || axis.axis_title,
-        short: refinement?.short || axis.axis_short || entry.concept_label || state.concept,
+        title: axis.axis_title,
+        short: entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: refinement?.desc || axis.why || "",
-        reason: refinement?.reason || relationMeta.message,
+        desc: axis.why || "",
+        reason: relationMeta.message,
         relationLabel: relationMeta.label,
         relationType: relationMeta.type,
-        easy: activityHint,
+        easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
         extensionKeywords: [],
-        activityExamples: activityHint ? [activityHint] : [],
+        activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
-        __priority: Number(axis.priority || 99),
-        __keywordBoost: Number(refinement?.boost || 0)
+        __priority: Number(axis.priority || 99)
       };
     });
   }
@@ -1812,7 +1768,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
-        score += Number(axis.__keywordBoost || 0);
+        score += getMappedKeywordAxisBoost(mappedEntry, axis);
         return { ...axis, __score: score };
       });
 
@@ -1929,6 +1885,53 @@ function getTrackMeta(trackId) {
     return Object.entries(concepts).map(([concept, value]) => ({ concept, value }));
   }
 
+  function getIntegratedScience1PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+
+    if (!majorText) {
+      return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "기본량과 단위", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "역학 시스템", "생명 시스템"];
+    }
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍)/i.test(majorText) || bucket === "it") {
+      return ["과학의 측정과 우리 사회", "기본량과 단위", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체)/.test(majorText) || bucket === "electronic") {
+      return ["과학의 측정과 우리 사회", "기본량과 단위", "역학 시스템", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "생명 시스템"];
+    }
+    if (/(기계|자동차|로봇|항공|모빌리티)/.test(majorText) || bucket === "mechanical") {
+      return ["역학 시스템", "기본량과 단위", "과학의 측정과 우리 사회", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "물질 구성과 분류", "지구시스템", "생명 시스템"];
+    }
+    if (/(신소재|재료|배터리|에너지|화학공학|고분자|금속)/.test(majorText) || bucket === "materials") {
+      return ["규칙성 발견과 주기율표", "물질 구성과 분류", "기본량과 단위", "과학의 측정과 우리 사회", "역학 시스템", "자연 세계의 시간과 공간", "지구시스템", "생명 시스템"];
+    }
+    if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상)/.test(majorText) || bucket === "bio") {
+      return ["생명 시스템", "과학의 측정과 우리 사회", "물질 구성과 분류", "기본량과 단위", "규칙성 발견과 주기율표", "지구시스템", "자연 세계의 시간과 공간", "역학 시스템"];
+    }
+    if (/(환경|기후|지구|천문|우주|해양)/.test(majorText) || bucket === "env") {
+      return ["지구시스템", "자연 세계의 시간과 공간", "과학의 측정과 우리 사회", "기본량과 단위", "물질 구성과 분류", "규칙성 발견과 주기율표", "역학 시스템", "생명 시스템"];
+    }
+
+    return ["과학의 측정과 우리 사회", "기본량과 단위", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "역학 시스템", "생명 시스템"];
+  }
+
+  function getMappedKeywordAxisBoost(entry, axis) {
+    if (!entry || !state.keyword || !entry.keyword_signals) return 0;
+    let best = 0;
+    Object.entries(entry.keyword_signals).forEach(([keywordLike, axisScores]) => {
+      if (!fuzzyIncludes(keywordLike, state.keyword) && !fuzzyIncludes(state.keyword, keywordLike)) return;
+      if (typeof axisScores === "number") {
+        best = Math.max(best, axisScores);
+        return;
+      }
+      if (axisScores && typeof axisScores === "object") {
+        const score = Number(axisScores[axis.id] ?? axisScores[axis.axis_id] ?? axisScores[axis.title] ?? axisScores[axis.axis_title] ?? 0);
+        best = Math.max(best, score);
+      }
+    });
+    return best;
+  }
+
   function getMajorGroupLabel() {
     return String(state.majorComparison?.group_label || "");
   }
@@ -1959,6 +1962,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (state.subject === "통합과학1") {
+      return getIntegratedScience1PreferredConceptSequence();
+    }
+
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
 
@@ -2210,6 +2217,15 @@ function getTrackMeta(trackId) {
   function getDisplayConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+    if (state.subject === "통합과학1") {
+      const ordered = preferred.length
+        ? preferred.map(name => ranked.find(item => item.concept === name)).filter(Boolean)
+        : ranked.slice();
+      const merged = [...ordered, ...ranked.filter(item => !ordered.includes(item))];
+      return uniq(merged).slice(0, 3);
+    }
+
     const topScore = ranked[0]?.score ?? 0;
     let filtered = ranked.filter(item => item.score >= topScore - 12 && item.score > -18);
 
