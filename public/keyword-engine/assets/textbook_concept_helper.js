@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.12-info-hard-fallback-lock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.13-info-cache-bust-lock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,11 +27,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.12-info-hard-fallback-lock";
     followupAxis: "seed/followup-axis/"
   });
 
-  const UI_SEED_URL = `${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`;
-  const ENGINE_MAP_URL = `${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`;
-  const TOPIC_MATRIX_URL = `${DATA_SOURCE_POLICY.runtimeUi}topic_matrix_seed.json`;
-  const FOLLOWUP_SUBJECT_URL = `${DATA_SOURCE_POLICY.followupAxis}subject_bridge_point.json`;
-  const FOLLOWUP_MAJOR_URL = `${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`;
+  const ASSET_VERSION_QUERY = "v33_13_info_lock";
+  const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
+  const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
+  const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
+  const TOPIC_MATRIX_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}topic_matrix_seed.json`);
+  const FOLLOWUP_SUBJECT_URL = addAssetVersion(`${DATA_SOURCE_POLICY.followupAxis}subject_bridge_point.json`);
+  const FOLLOWUP_MAJOR_URL = addAssetVersion(`${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`);
 
   const SUBJECT_NAME_ALIASES = Object.freeze({
     "정보과목": "정보",
@@ -84,7 +86,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.12-info-hard-fallback-lock";
     "통합과학2": "seed/followup-axis/integrated_science2_concept_longitudinal_map.json",
     "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
     "공통수학2": "seed/followup-axis/common_math2_concept_longitudinal_map.json",
-    "정보": "seed/followup-axis/info_concept_longitudinal_map.json",
+    "정보": addAssetVersion("seed/followup-axis/info_concept_longitudinal_map.json"),
     "통합사회1": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
     "통합사회": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
     "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json",
@@ -263,6 +265,19 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.12-info-hard-fallback-lock";
   let subjectBridgePoint = [];
   let majorFollowupAxis = [];
   let conceptLongitudinalMaps = {};
+
+  window.__TEXTBOOK_CONCEPT_HELPER_DIAG__ = function () {
+    const subject = state?.subject || "";
+    const engineKeys = engineMap ? Object.keys(engineMap) : [];
+    return {
+      version: window.__TEXTBOOK_CONCEPT_HELPER_VERSION,
+      subject,
+      hasInfoEngine: !!(engineMap && engineMap["정보"] && engineMap["정보"].concepts),
+      infoConceptCount: engineMap && engineMap["정보"] && engineMap["정보"].concepts ? Object.keys(engineMap["정보"].concepts).length : 0,
+      hasInfoUi: !!(uiSeed && uiSeed["정보"]),
+      engineKeySample: engineKeys.slice(0, 30)
+    };
+  };
 
 
   const INFO_FALLBACK_UI_SEED = {
