@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.11-info-seed-fallback-lock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.12-info-hard-fallback-lock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1647,6 +1647,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.11-info-seed-fallback-lock";
     return result;
   }
 
+  function isInfoSubjectName(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return false;
+    const canonical = getCanonicalSubjectName(raw);
+    return normalize(raw) === normalize('정보') || normalize(canonical) === normalize('정보') || /^(info|information)$/i.test(raw);
+  }
+
+  function ensureInfoFallbackSeeds() {
+    try {
+      if (!uiSeed || typeof uiSeed !== 'object' || Array.isArray(uiSeed)) uiSeed = {};
+      if (!engineMap || typeof engineMap !== 'object' || Array.isArray(engineMap)) engineMap = {};
+      if (!uiSeed['정보']) uiSeed['정보'] = INFO_FALLBACK_UI_SEED;
+      if (!engineMap['정보'] || !engineMap['정보'].concepts || !Object.keys(engineMap['정보'].concepts || {}).length) {
+        engineMap['정보'] = INFO_FALLBACK_ENGINE_MAP;
+      }
+      if (!conceptLongitudinalMaps || typeof conceptLongitudinalMaps !== 'object' || Array.isArray(conceptLongitudinalMaps)) conceptLongitudinalMaps = {};
+      if (!conceptLongitudinalMaps['정보'] || !Array.isArray(conceptLongitudinalMaps['정보']?.concepts)) {
+        conceptLongitudinalMaps['정보'] = INFO_FALLBACK_LONGITUDINAL_MAP;
+      }
+    } catch (error) {
+      console.warn('info fallback seed merge failed:', error);
+    }
+  }
+
   async function init() {
     try {
       const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps] = await Promise.all([
@@ -3269,7 +3293,11 @@ function getTrackMeta(trackId) {
   function getSubjectConceptEntries(subject) {
     const canonical = getCanonicalSubjectName(subject);
     const resolved = findSubjectKey(canonical) || canonical;
-    const entry = engineMap?.[subject] || engineMap?.[canonical] || engineMap?.[resolved];
+    let entry = engineMap?.[subject] || engineMap?.[canonical] || engineMap?.[resolved];
+    if ((!entry || !entry.concepts || !Object.keys(entry.concepts || {}).length) && isInfoSubjectName(subject || canonical || resolved)) {
+      ensureInfoFallbackSeeds();
+      entry = engineMap?.['정보'] || INFO_FALLBACK_ENGINE_MAP;
+    }
     const concepts = entry?.concepts || {};
     return Object.entries(concepts).map(([concept, value]) => ({ concept, value }));
   }
@@ -3805,15 +3833,6 @@ function getTrackMeta(trackId) {
       return getIntegratedScience1PreferredConceptSequence();
     }
 
-    if (state.subject === "정보") {
-      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
-        if (/알고리즘 설계와 분석/.test(concept) && /효율성|성능 비교|이진 탐색|정렬|탐색|수행 시간|버블 정렬|선택 정렬|순차 탐색/.test(text)) score += 30;
-        if (/프로그래밍과 자동화/.test(concept) && /Python|변수 설계|조건문|반복문|입력과 출력|리스트|random 모듈|turtle 그래픽|자동화/.test(text)) score += 30;
-        if (/자료와 정보의 분석/.test(concept) && /자료 분석|자료 수집|비교 기준|정렬|탐색|의미 있는 정보|컴퓨팅 도구/.test(text)) score += 28;
-        if (/추상화와 문제 분해/.test(concept) && /문제 분해|조건 분석|현재 상태|목표 상태|모델링|작은 문제로 나누기/.test(text)) score += 24;
-        if (/자료와 정보의 표현/.test(concept) && /디지털 정보|자료 표현|부호화|아날로그 정보|모스부호/.test(text)) score += 20;
-      }
-    }
 
     if (state.subject === "통합과학2") {
       return getIntegratedScience2PreferredConceptSequence();
