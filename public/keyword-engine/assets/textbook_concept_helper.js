@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.9-info-34-prelock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.11-info-seed-fallback-lock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -34,6 +34,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.9-info-34-prelock";
   const FOLLOWUP_MAJOR_URL = `${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`;
 
   const SUBJECT_NAME_ALIASES = Object.freeze({
+    "정보과목": "정보",
+    "정보 교과": "정보",
+    "Information": "정보",
+    "information": "정보",
+    "INFO": "정보",
+    "info": "정보",
     "통합사회": "통합사회1",
     "통합사회 1": "통합사회1",
     "통합사회I": "통합사회1",
@@ -258,6 +264,1331 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.9-info-34-prelock";
   let majorFollowupAxis = [];
   let conceptLongitudinalMaps = {};
 
+
+  const INFO_FALLBACK_UI_SEED = {
+  "meta": {
+    "subject_kr": "정보",
+    "subject_en": "Information",
+    "publisher": "Cmas",
+    "curriculum": "2015 Revised Curriculum",
+    "source_name": "information_structure_db",
+    "version": "0.2.0-cross-evaluation"
+  },
+  "concept_order": [
+    "지식·정보 사회와 정보 문화",
+    "자료와 정보의 표현",
+    "자료와 정보의 분석",
+    "추상화와 문제 분해",
+    "알고리즘 설계와 분석",
+    "프로그래밍과 자동화",
+    "컴퓨팅 시스템과 네트워크"
+  ],
+  "concept_buttons": [
+    {
+      "concept": "지식·정보 사회와 정보 문화",
+      "unit": "정보 문화",
+      "student_topics": [
+        "정보 사회에서 필요한 태도와 역량은 무엇일까?",
+        "디지털 환경에서는 왜 정보 윤리와 정보 보호가 중요할까?",
+        "정보 문화 소양은 다른 과목 학습에도 어떻게 도움이 될까?"
+      ],
+      "core_preview": [
+        "정보 문화",
+        "지식·정보 사회",
+        "정보 문화 소양",
+        "정보 윤리"
+      ]
+    },
+    {
+      "concept": "자료와 정보의 표현",
+      "unit": "자료와 정보",
+      "student_topics": [
+        "정보는 왜 약속된 표현 방식이 있어야 전달될까?",
+        "아날로그 정보를 디지털로 바꾸는 이유는 무엇일까?",
+        "같은 정보도 표현 방식에 따라 왜 다르게 보일까?"
+      ],
+      "core_preview": [
+        "자료",
+        "정보",
+        "표현 체계",
+        "디지털 변환"
+      ]
+    },
+    {
+      "concept": "자료와 정보의 분석",
+      "unit": "자료와 정보",
+      "student_topics": [
+        "자료를 그냥 모으는 것과 분석하는 것은 왜 다를까?",
+        "의미 있는 정보는 어떻게 만들어질까?",
+        "문제 해결에 필요한 자료는 어떤 기준으로 모아야 할까?"
+      ],
+      "core_preview": [
+        "자료 수집",
+        "자료 분석",
+        "정보 구성",
+        "의미 도출"
+      ]
+    },
+    {
+      "concept": "추상화와 문제 분해",
+      "unit": "문제 해결과 프로그래밍",
+      "student_topics": [
+        "복잡한 문제는 왜 바로 풀기보다 먼저 단순화해야 할까?",
+        "중요한 요소만 남기는 추상화는 어떻게 이루어질까?",
+        "문제 분해는 왜 실제 문제 해결을 더 쉽게 만들까?"
+      ],
+      "core_preview": [
+        "추상화",
+        "문제 이해",
+        "문제 분해",
+        "모델링"
+      ]
+    },
+    {
+      "concept": "알고리즘 설계와 분석",
+      "unit": "문제 해결과 프로그래밍",
+      "student_topics": [
+        "같은 문제도 왜 알고리즘에 따라 효율이 달라질까?",
+        "정렬과 탐색은 왜 데이터를 빠르게 처리하게 해 줄까?",
+        "반복과 선택 구조는 어떤 문제에서 특히 유용할까?"
+      ],
+      "core_preview": [
+        "알고리즘",
+        "순차 구조",
+        "선택 구조",
+        "반복 구조"
+      ]
+    },
+    {
+      "concept": "프로그래밍과 자동화",
+      "unit": "문제 해결과 프로그래밍",
+      "student_topics": [
+        "사람의 언어와 컴퓨터 언어는 왜 번역 과정이 필요할까?",
+        "프로그래밍은 어떻게 반복되는 문제를 자동화할까?",
+        "좋은 프로그램은 왜 변수와 흐름 설계가 중요할까?"
+      ],
+      "core_preview": [
+        "프로그래밍 언어",
+        "고급 언어",
+        "저급 언어",
+        "컴파일러"
+      ]
+    },
+    {
+      "concept": "컴퓨팅 시스템과 네트워크",
+      "unit": "컴퓨팅 시스템",
+      "student_topics": [
+        "네트워크는 왜 단순 연결을 넘어 협업의 기반이 될까?",
+        "컴퓨팅 시스템은 어떻게 정보를 공유하고 유통할까?",
+        "협업적 문제 해결에는 왜 네트워크 환경이 중요할까?"
+      ],
+      "core_preview": [
+        "컴퓨팅 시스템",
+        "네트워크",
+        "공유",
+        "유통"
+      ]
+    }
+  ]
+};
+
+  const INFO_FALLBACK_ENGINE_MAP = {
+  "meta": {
+    "subject_kr": "정보",
+    "subject_en": "Information",
+    "publisher": "Cmas",
+    "curriculum": "2015 Revised Curriculum",
+    "source_name": "information_structure_db",
+    "version": "0.2.0-cross-evaluation"
+  },
+  "concepts": {
+    "지식·정보 사회와 정보 문화": {
+      "unit": "정보 문화",
+      "lesson_focus": "지식·정보 사회의 특징을 이해하고 사회 구성원으로서 정보 문화 소양을 기른다.",
+      "core_concepts": [
+        "정보 문화",
+        "지식·정보 사회",
+        "정보 문화 소양",
+        "정보 윤리",
+        "디지털 시민성"
+      ],
+      "micro_keywords": [
+        "지식·정보 사회",
+        "사회 구성원",
+        "정보 문화 소양",
+        "정보 윤리 의식",
+        "정보 보호",
+        "정보 기술 활용",
+        "디지털 의사소통",
+        "공유와 협업"
+      ],
+      "student_topics": [
+        "정보 사회에서 필요한 태도와 역량은 무엇일까?",
+        "디지털 환경에서는 왜 정보 윤리와 정보 보호가 중요할까?",
+        "정보 문화 소양은 다른 과목 학습에도 어떻게 도움이 될까?"
+      ],
+      "linked_activity_types": [
+        "사례 분석형",
+        "토론형",
+        "생활 적용형"
+      ],
+      "linked_career_bridge": [
+        "디지털 시민성",
+        "정보 윤리",
+        "정보 보호",
+        "협업 문화"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "통합사회1",
+          "concept": "사회 구성원과 규범",
+          "evaluation_focus": "정보 사회의 규범과 시민적 책임을 설명할 수 있는가",
+          "inquiry_extension": "디지털 시민성 사례를 사회 규범과 함께 분석하기"
+        },
+        {
+          "subject": "국어",
+          "concept": "정보 해석과 의사소통",
+          "evaluation_focus": "정보를 올바르게 해석하고 근거 있게 전달할 수 있는가",
+          "inquiry_extension": "가짜 정보와 신뢰 가능한 정보를 구분해 설명하기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "정보 심화/인공지능 기초",
+          "connection_point": "디지털 시민성과 기술 활용 태도의 심화"
+        }
+      ]
+    },
+    "자료와 정보의 표현": {
+      "unit": "자료와 정보",
+      "lesson_focus": "아날로그 정보를 디지털로 변환하고 약속된 표현 체계를 통해 정보를 전달하는 방식을 이해한다.",
+      "core_concepts": [
+        "자료",
+        "정보",
+        "표현 체계",
+        "디지털 변환",
+        "부호화"
+      ],
+      "micro_keywords": [
+        "아날로그 정보",
+        "디지털 정보",
+        "모스부호",
+        "표현의 약속",
+        "자료 표현",
+        "부호화",
+        "표현 방식 선택"
+      ],
+      "student_topics": [
+        "정보는 왜 약속된 표현 방식이 있어야 전달될까?",
+        "아날로그 정보를 디지털로 바꾸는 이유는 무엇일까?",
+        "같은 정보도 표현 방식에 따라 왜 다르게 보일까?"
+      ],
+      "linked_activity_types": [
+        "표현 변환형",
+        "자료 해석형",
+        "문제 해결형"
+      ],
+      "linked_career_bridge": [
+        "데이터 표현",
+        "디지털 신호",
+        "정보 전달",
+        "암호와 부호"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "통합과학1",
+          "concept": "센서와 디지털 정보",
+          "evaluation_focus": "과학 측정값이 어떻게 디지털 정보로 표현되는지 설명할 수 있는가",
+          "inquiry_extension": "온도·속도·소리 데이터를 디지털 정보 관점으로 정리하기"
+        },
+        {
+          "subject": "공통수학1",
+          "concept": "수치화",
+          "evaluation_focus": "현상을 수치와 규칙으로 바꾸어 표현할 수 있는가",
+          "inquiry_extension": "생활 자료를 수치 데이터로 바꾸어 표로 나타내기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "정보/인공지능 기초",
+          "connection_point": "데이터 표현과 처리의 심화"
+        },
+        {
+          "grade": "2학년",
+          "subject": "과학탐구실험2",
+          "connection_point": "센서 데이터와 디지털 정보 탐구로 확장"
+        }
+      ]
+    },
+    "자료와 정보의 분석": {
+      "unit": "자료와 정보",
+      "lesson_focus": "문제 해결을 위해 필요한 자료를 수집하고 분석하여 의미 있는 정보로 구성하는 과정을 이해한다.",
+      "core_concepts": [
+        "자료 수집",
+        "자료 분석",
+        "정보 구성",
+        "의미 도출",
+        "문제 해결"
+      ],
+      "micro_keywords": [
+        "자료 수집",
+        "자료 분석",
+        "컴퓨팅 도구",
+        "의미 있는 정보",
+        "분석 과정",
+        "정렬",
+        "탐색",
+        "비교 기준"
+      ],
+      "student_topics": [
+        "자료를 그냥 모으는 것과 분석하는 것은 왜 다를까?",
+        "의미 있는 정보는 어떻게 만들어질까?",
+        "문제 해결에 필요한 자료는 어떤 기준으로 모아야 할까?"
+      ],
+      "linked_activity_types": [
+        "데이터분석형",
+        "비교판단형",
+        "도구활용형"
+      ],
+      "linked_career_bridge": [
+        "데이터 분석",
+        "정보 관리",
+        "컴퓨팅 도구 활용",
+        "문제 해결"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "공통수학1",
+          "concept": "표와 그래프 해석",
+          "evaluation_focus": "자료를 표·그래프로 정리하고 비교·분석할 수 있는가",
+          "inquiry_extension": "생활 자료를 표와 그래프로 정리하고 패턴 해석하기"
+        },
+        {
+          "subject": "통합과학1",
+          "concept": "측정 데이터 분석",
+          "evaluation_focus": "과학 실험·측정 자료를 정보 분석 관점에서 다룰 수 있는가",
+          "inquiry_extension": "센서 측정값을 수집·분석하여 결론 도출하기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "과학탐구실험2",
+          "connection_point": "생활 자료와 건강·환경 데이터 분석 탐구로 연결"
+        },
+        {
+          "grade": "2학년",
+          "subject": "정보 심화",
+          "connection_point": "데이터 처리와 분석 알고리즘 심화"
+        }
+      ]
+    },
+    "추상화와 문제 분해": {
+      "unit": "문제 해결과 프로그래밍",
+      "lesson_focus": "복잡한 문제를 이해하고 분석하여 핵심 요소만 남기고 구조화하는 추상화 과정을 익힌다.",
+      "core_concepts": [
+        "추상화",
+        "문제 이해",
+        "문제 분해",
+        "모델링",
+        "구조화"
+      ],
+      "micro_keywords": [
+        "현재 상태",
+        "목표 상태",
+        "조건 분석",
+        "불필요한 요소 제거",
+        "작은 문제로 나누기",
+        "모델",
+        "모델링",
+        "비상 대피도"
+      ],
+      "student_topics": [
+        "복잡한 문제는 왜 바로 풀기보다 먼저 단순화해야 할까?",
+        "중요한 요소만 남기는 추상화는 어떻게 이루어질까?",
+        "문제 분해는 왜 실제 문제 해결을 더 쉽게 만들까?"
+      ],
+      "linked_activity_types": [
+        "문제구조화형",
+        "모델링형",
+        "프로젝트형"
+      ],
+      "linked_career_bridge": [
+        "컴퓨팅 사고",
+        "문제 구조화",
+        "모델링",
+        "프로젝트 설계"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "과학탐구실험1",
+          "concept": "탐구 설계",
+          "evaluation_focus": "탐구 문제를 핵심 요소 중심으로 구조화할 수 있는가",
+          "inquiry_extension": "과학 탐구 주제를 현재 상태-목표 상태-조건으로 정리하기"
+        },
+        {
+          "subject": "공통수학1",
+          "concept": "조건 정리와 구조화",
+          "evaluation_focus": "문제의 조건을 체계적으로 정리하고 경우를 나눌 수 있는가",
+          "inquiry_extension": "복잡한 상황을 표나 도식으로 구조화해 보기"
+        },
+        {
+          "subject": "통합사회1",
+          "concept": "현실 문제의 구조 분석",
+          "evaluation_focus": "생활 속 문제를 사회적 맥락까지 고려해 구조화할 수 있는가",
+          "inquiry_extension": "학교 안전 문제를 정보·사회 관점에서 분석하기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "융합과학 탐구",
+          "connection_point": "프로젝트 문제 정의와 연구 설계의 기초로 연결"
+        },
+        {
+          "grade": "2학년",
+          "subject": "정보 심화",
+          "connection_point": "알고리즘 설계 전 추상화 단계의 정교화"
+        }
+      ]
+    },
+    "알고리즘 설계와 분석": {
+      "unit": "문제 해결과 프로그래밍",
+      "lesson_focus": "문제 해결 절차를 순차·선택·반복 구조로 설계하고 수행 시간 관점에서 분석한다.",
+      "core_concepts": [
+        "알고리즘",
+        "순차 구조",
+        "선택 구조",
+        "반복 구조",
+        "수행 시간",
+        "정렬",
+        "탐색"
+      ],
+      "micro_keywords": [
+        "순차",
+        "선택",
+        "반복",
+        "버블 정렬",
+        "선택 정렬",
+        "순차 탐색",
+        "이진 탐색",
+        "성능 비교",
+        "효율성"
+      ],
+      "student_topics": [
+        "같은 문제도 왜 알고리즘에 따라 효율이 달라질까?",
+        "정렬과 탐색은 왜 데이터를 빠르게 처리하게 해 줄까?",
+        "반복과 선택 구조는 어떤 문제에서 특히 유용할까?"
+      ],
+      "linked_activity_types": [
+        "알고리즘설계형",
+        "효율비교형",
+        "문제해결형"
+      ],
+      "linked_career_bridge": [
+        "알고리즘 사고",
+        "효율성 분석",
+        "자동화 설계",
+        "컴퓨팅 문제 해결"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "공통수학1",
+          "concept": "경우의 수와 절차적 사고",
+          "evaluation_focus": "문제 해결 절차를 논리적 순서로 설계할 수 있는가",
+          "inquiry_extension": "경우의 수 문제를 알고리즘 흐름으로 바꾸어 보기"
+        },
+        {
+          "subject": "과학탐구실험1",
+          "concept": "탐구 절차 설계",
+          "evaluation_focus": "탐구 실험 절차를 순차·선택·반복 구조로 설명할 수 있는가",
+          "inquiry_extension": "실험 절차를 순서도 형태로 표현하기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "정보 심화/프로그래밍",
+          "connection_point": "자료구조와 알고리즘 심화로 연결"
+        }
+      ]
+    },
+    "프로그래밍과 자동화": {
+      "unit": "문제 해결과 프로그래밍",
+      "lesson_focus": "프로그래밍 언어와 번역 과정을 이해하고 변수를 활용해 문제 해결을 자동화한다.",
+      "core_concepts": [
+        "프로그래밍 언어",
+        "고급 언어",
+        "저급 언어",
+        "컴파일러",
+        "인터프리터",
+        "변수",
+        "제어 구조",
+        "자동화"
+      ],
+      "micro_keywords": [
+        "Python",
+        "기계어",
+        "어셈블리어",
+        "원시 코드",
+        "언어 번역 프로그램",
+        "변수 설계",
+        "입력과 출력",
+        "반복문",
+        "조건문",
+        "random 모듈",
+        "turtle 그래픽",
+        "리스트",
+        "리스트 내포"
+      ],
+      "student_topics": [
+        "사람의 언어와 컴퓨터 언어는 왜 번역 과정이 필요할까?",
+        "프로그래밍은 어떻게 반복되는 문제를 자동화할까?",
+        "좋은 프로그램은 왜 변수와 흐름 설계가 중요할까?"
+      ],
+      "linked_activity_types": [
+        "프로그래밍실습형",
+        "자동화형",
+        "시각화형"
+      ],
+      "linked_career_bridge": [
+        "소프트웨어 개발",
+        "자동화",
+        "프로그래밍",
+        "컴퓨터 공학"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "공통수학1",
+          "concept": "반복 계산과 구조화",
+          "evaluation_focus": "수학적 규칙이나 반복 계산을 코드로 구현할 수 있는가",
+          "inquiry_extension": "경우의 수 계산이나 수열 규칙을 간단한 프로그램으로 구현하기"
+        },
+        {
+          "subject": "통합과학1",
+          "concept": "측정 데이터 자동 처리",
+          "evaluation_focus": "과학 데이터를 코드로 정리·출력하는 기초 사고를 보이는가",
+          "inquiry_extension": "센서 데이터나 실험 결과를 출력하는 간단한 코드 설계하기"
+        },
+        {
+          "subject": "미술",
+          "concept": "그래픽과 알고리즘",
+          "evaluation_focus": "알고리즘을 시각적 결과물로 표현할 수 있는가",
+          "inquiry_extension": "turtle을 이용한 도형·패턴 그리기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "정보 심화/AI 기초",
+          "connection_point": "코딩, 자동화, 데이터 처리의 심화"
+        },
+        {
+          "grade": "2학년",
+          "subject": "공학 관련 탐구",
+          "connection_point": "프로그래밍 기반 문제 해결 프로젝트로 확장"
+        }
+      ]
+    },
+    "컴퓨팅 시스템과 네트워크": {
+      "unit": "컴퓨팅 시스템",
+      "lesson_focus": "컴퓨팅 시스템과 네트워크 기반에서 정보를 공유·유통·소통하는 구조를 이해한다.",
+      "core_concepts": [
+        "컴퓨팅 시스템",
+        "네트워크",
+        "공유",
+        "유통",
+        "소통",
+        "협업"
+      ],
+      "micro_keywords": [
+        "컴퓨팅 네트워크 환경",
+        "지식 공동체",
+        "학습 공동체",
+        "공유",
+        "의사소통",
+        "협업",
+        "네트워크 기반 문제 해결"
+      ],
+      "student_topics": [
+        "네트워크는 왜 단순 연결을 넘어 협업의 기반이 될까?",
+        "컴퓨팅 시스템은 어떻게 정보를 공유하고 유통할까?",
+        "협업적 문제 해결에는 왜 네트워크 환경이 중요할까?"
+      ],
+      "linked_activity_types": [
+        "시스템이해형",
+        "협업형",
+        "사례분석형"
+      ],
+      "linked_career_bridge": [
+        "네트워크",
+        "정보 시스템",
+        "협업 도구",
+        "디지털 소통"
+      ],
+      "horizontal_links": [
+        {
+          "subject": "통합과학1",
+          "concept": "시스템과 상호작용",
+          "evaluation_focus": "컴퓨팅 시스템도 여러 요소가 상호작용하는 시스템임을 설명할 수 있는가",
+          "inquiry_extension": "지구시스템과 컴퓨팅 시스템의 공통 구조 비교하기"
+        },
+        {
+          "subject": "국어",
+          "concept": "디지털 의사소통",
+          "evaluation_focus": "네트워크 환경에서 적절한 소통과 협업 방식을 설명할 수 있는가",
+          "inquiry_extension": "온라인 협업 규칙과 의사소통 원칙 정리하기"
+        }
+      ],
+      "vertical_links": [
+        {
+          "grade": "2학년",
+          "subject": "정보 심화",
+          "connection_point": "네트워크와 시스템 구조 이해의 심화"
+        },
+        {
+          "grade": "2학년",
+          "subject": "공학 관련 탐구",
+          "connection_point": "스마트 시스템과 IoT 탐구로 확장"
+        }
+      ]
+    }
+  }
+};
+
+  const INFO_FALLBACK_LONGITUDINAL_MAP = {
+  "subject_name": "정보",
+  "version": "v3.4.7-information-refined-fixed",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다",
+      "키워드는 다음 단계에서 같은 개념 안의 세부 정렬·설명 보정에 사용한다"
+    ],
+    "keyword_refinement_rule": "같은 개념 안에서는 추천 키워드가 4번 후속 연계축의 점수, 짧은 라벨, 설명 문구, 활동 예시를 미세 조정한다."
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "지식·정보 사회와 정보 문화",
+      "concept_label": "정보 문화",
+      "core_focus": "정보 사회, 디지털 시민성, 정보 윤리, 정보 보호, 협업 문화, 기술 변화",
+      "longitudinal_axes": [
+        {
+          "axis_id": "info_ethics",
+          "axis_title": "디지털 시민성·정보윤리 축",
+          "axis_short": "디지털 윤리",
+          "axis_domain": "info_ethics",
+          "priority": 1,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "정보"
+          ],
+          "why": "정보 사회에서 책임 있는 참여와 정보 보호 원칙을 중심으로 탐구를 확장하는 축",
+          "student_output_hint": "디지털 시민성 사례를 비교하고 정보 윤리 기준을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "정보 윤리",
+                "디지털 시민성",
+                "정보 보호",
+                "개인정보",
+                "저작권",
+                "사이버 폭력"
+              ],
+              "short": "디지털 윤리",
+              "desc": "정보 윤리와 권리 보호를 중심으로 정보 사회의 책임 있는 참여 방식을 해석하는 축",
+              "activity_hint": "플랫폼·저작권·개인정보 사례를 비교해 윤리 기준표 만들기",
+              "boost": 24
+            },
+            {
+              "keywords": [
+                "사회 구성원",
+                "협업",
+                "공유",
+                "의사소통"
+              ],
+              "short": "협업 문화",
+              "desc": "공동체 안에서 정보 공유와 디지털 소통 규칙을 해석하는 축",
+              "activity_hint": "온라인 협업 규칙과 바람직한 소통 사례를 정리하기",
+              "boost": 14
+            }
+          ]
+        },
+        {
+          "axis_id": "smart_service",
+          "axis_title": "스마트 사회·서비스 분석 축",
+          "axis_short": "스마트 사회",
+          "axis_domain": "smart_service",
+          "priority": 2,
+          "next_subjects": [
+            "통합과학2",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "AI·IoT·플랫폼 서비스가 사회를 바꾸는 방식을 구조적으로 이해하는 축",
+          "student_output_hint": "스마트 기기·플랫폼 서비스가 생활을 바꾸는 사례를 분석하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "AI",
+                "인공지능",
+                "IoT",
+                "스마트",
+                "플랫폼",
+                "서비스"
+              ],
+              "short": "스마트 사회",
+              "desc": "지능형 서비스와 연결 기술이 사회 구조를 어떻게 바꾸는지 분석하는 축",
+              "activity_hint": "AI·IoT 기반 생활 서비스 사례를 기능별로 비교하기",
+              "boost": 22
+            },
+            {
+              "keywords": [
+                "기술 변화",
+                "미래 직업",
+                "자동화"
+              ],
+              "short": "미래 변화",
+              "desc": "기술 변화가 직업과 일상에 미치는 영향을 전망하는 축",
+              "activity_hint": "자동화와 미래 직업 변화를 표로 정리하기",
+              "boost": 16
+            }
+          ]
+        },
+        {
+          "axis_id": "policy_issue",
+          "axis_title": "정보 정책·사회 쟁점 해석 축",
+          "axis_short": "사회 쟁점",
+          "axis_domain": "policy_issue",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "확률과 통계"
+          ],
+          "why": "디지털 격차, 알고리즘 편향, 가짜 정보 같은 사회 쟁점을 근거 중심으로 해석하는 축",
+          "student_output_hint": "정보 기술 관련 사회 쟁점을 찬반 근거로 구조화하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "가짜뉴스",
+                "허위 정보",
+                "알고리즘 편향",
+                "디지털 격차",
+                "정책",
+                "법"
+              ],
+              "short": "사회 쟁점",
+              "desc": "정보 기술이 만드는 사회 문제와 제도적 대응을 해석하는 축",
+              "activity_hint": "디지털 격차나 알고리즘 편향 사례를 원인-영향-대응으로 정리하기",
+              "boost": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "자료와 정보의 표현",
+      "concept_label": "정보 표현",
+      "core_focus": "아날로그와 디지털, 진법, 문자 코드, 표본화, 양자화, 압축, 전송",
+      "longitudinal_axes": [
+        {
+          "axis_id": "encoding",
+          "axis_title": "디지털 표현·부호화 축",
+          "axis_short": "부호화",
+          "axis_domain": "encoding",
+          "priority": 1,
+          "next_subjects": [
+            "공통수학1",
+            "정보",
+            "통합과학1"
+          ],
+          "why": "정보를 약속된 규칙으로 표현하고 부호화하는 과정을 중심으로 확장하는 축",
+          "student_output_hint": "아날로그 자료를 디지털 규칙으로 바꾸는 과정을 단계별로 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "아날로그",
+                "디지털",
+                "자료 표현",
+                "표현의 약속"
+              ],
+              "short": "표현 변환",
+              "desc": "아날로그 정보를 디지털 규칙으로 바꾸는 표현 체계를 이해하는 축",
+              "activity_hint": "같은 정보를 그림·문자·이진 표현으로 바꾸어 비교하기",
+              "boost": 20
+            },
+            {
+              "keywords": [
+                "모스부호",
+                "문자 코드",
+                "ASCII",
+                "유니코드",
+                "부호화"
+              ],
+              "short": "부호화",
+              "desc": "문자와 신호를 코드 체계로 표현하는 원리를 해석하는 축",
+              "activity_hint": "문자 코드와 부호화 규칙을 예시 데이터로 설명하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "signal_media",
+          "axis_title": "신호·미디어 처리 기초 축",
+          "axis_short": "신호 처리",
+          "axis_domain": "signal_media",
+          "priority": 2,
+          "next_subjects": [
+            "통합과학1",
+            "물리",
+            "정보"
+          ],
+          "why": "소리·빛·이미지 같은 신호를 디지털 정보로 바꾸고 다루는 기초 축",
+          "student_output_hint": "소리·이미지 데이터가 디지털 정보로 바뀌는 흐름을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "표본화",
+                "양자화",
+                "샘플링"
+              ],
+              "short": "신호 처리",
+              "desc": "연속적인 신호를 디지털 데이터로 바꾸는 처리 과정을 이해하는 축",
+              "activity_hint": "소리나 이미지가 디지털 파일이 되는 과정을 도식화하기",
+              "boost": 24
+            },
+            {
+              "keywords": [
+                "이미지",
+                "소리",
+                "영상",
+                "미디어"
+              ],
+              "short": "미디어 처리",
+              "desc": "미디어 정보를 디지털 신호로 다루는 기초 축",
+              "activity_hint": "이미지·소리·영상 파일의 표현 차이를 비교하기",
+              "boost": 14
+            }
+          ]
+        },
+        {
+          "axis_id": "compression_transfer",
+          "axis_title": "압축·전송 설계 축",
+          "axis_short": "압축·전송",
+          "axis_domain": "compression_transfer",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "전자기와 양자",
+            "공통수학2"
+          ],
+          "why": "효율적인 저장과 전달을 위해 정보 크기와 전송 방식을 설계하는 축",
+          "student_output_hint": "같은 자료를 압축 전후로 비교하며 전달 효율을 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "압축",
+                "전송",
+                "저장",
+                "용량"
+              ],
+              "short": "압축·전송",
+              "desc": "정보량과 저장·전송 효율을 함께 고려하는 축",
+              "activity_hint": "파일 압축 전후의 장단점을 비교하고 전달 효율을 설명하기",
+              "boost": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "자료와 정보의 분석",
+      "concept_label": "데이터 분석",
+      "core_focus": "자료 수집, 구조화, 정렬, 탐색, 비교, 데이터베이스, 시각화, 의사결정",
+      "longitudinal_axes": [
+        {
+          "axis_id": "data_visual",
+          "axis_title": "데이터 수집·시각화 축",
+          "axis_short": "시각화",
+          "axis_domain": "data_visual",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "통합과학2",
+            "정보"
+          ],
+          "why": "자료를 수집하고 정리해 시각적으로 해석 가능한 정보로 바꾸는 축",
+          "student_output_hint": "생활 자료를 표와 그래프로 바꾸어 의미를 설명하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "자료 수집",
+                "자료 분석",
+                "비교 기준",
+                "표",
+                "그래프",
+                "시각화"
+              ],
+              "short": "시각화",
+              "desc": "자료를 구조화하고 시각적으로 표현해 해석하는 축",
+              "activity_hint": "생활 데이터를 표·그래프·인포그래픽으로 바꾸어 비교하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "database",
+          "axis_title": "데이터베이스·정보구조 축",
+          "axis_short": "정보구조",
+          "axis_domain": "database",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "공통수학1",
+            "통합사회2"
+          ],
+          "why": "자료를 체계적으로 저장·검색·관리하는 구조를 이해하는 축",
+          "student_output_hint": "자료를 항목별로 분류해 데이터베이스 구조로 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터베이스",
+                "구조화",
+                "정렬",
+                "탐색",
+                "검색"
+              ],
+              "short": "정보구조",
+              "desc": "자료를 항목화하고 효율적으로 저장·검색하는 구조를 이해하는 축",
+              "activity_hint": "관심 주제를 항목별 데이터베이스 표로 설계하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "data_decision",
+          "axis_title": "데이터 해석·의사결정 축",
+          "axis_short": "의사결정",
+          "axis_domain": "data_decision",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "통합사회2",
+            "정보"
+          ],
+          "why": "분석한 자료를 근거로 판단과 선택을 내리는 사고로 확장하는 축",
+          "student_output_hint": "분석 결과를 근거로 합리적 선택 기준을 제시하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "빅데이터",
+                "의미 있는 정보",
+                "예측",
+                "판단",
+                "의사결정"
+              ],
+              "short": "의사결정",
+              "desc": "데이터를 해석해 예측과 판단으로 연결하는 축",
+              "activity_hint": "데이터 기반으로 선택 기준을 세우고 결론을 제시하기",
+              "boost": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "추상화와 문제 분해",
+      "concept_label": "문제 분해",
+      "core_focus": "현재 상태, 목표 상태, 조건 분석, 핵심 요소 추출, 문제 분해, 모델링",
+      "longitudinal_axes": [
+        {
+          "axis_id": "problem_design",
+          "axis_title": "문제 구조화·알고리즘 설계 축",
+          "axis_short": "구조화",
+          "axis_domain": "problem_design",
+          "priority": 1,
+          "next_subjects": [
+            "공통수학1",
+            "정보",
+            "통합과학1"
+          ],
+          "why": "복잡한 문제를 단계와 조건으로 나누어 해결 절차를 설계하는 축",
+          "student_output_hint": "생활 문제를 단계별 흐름도로 나누어 해결 절차를 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "현재 상태",
+                "목표 상태",
+                "조건 분석",
+                "작은 문제로 나누기",
+                "문제 분해"
+              ],
+              "short": "문제 구조화",
+              "desc": "문제를 조건과 단계로 나누어 해결 흐름을 설계하는 축",
+              "activity_hint": "일상 문제를 입력-처리-출력 흐름으로 나누어 설계하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "math_modeling",
+          "axis_title": "수리 모델링 확장 축",
+          "axis_short": "모델링",
+          "axis_domain": "math_modeling",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학1",
+            "공통수학2",
+            "통합과학2"
+          ],
+          "why": "핵심 요소만 남겨 수학적·논리적 모델로 단순화하는 축",
+          "student_output_hint": "현상을 변수와 조건으로 줄여 간단한 모델로 표현하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "모델",
+                "모델링",
+                "핵심 요소",
+                "불필요한 요소 제거"
+              ],
+              "short": "모델링",
+              "desc": "복잡한 현상을 핵심 변수만 남겨 모델로 표현하는 축",
+              "activity_hint": "교실·생활 상황을 변수 중심 모델로 단순화하기",
+              "boost": 22
+            }
+          ]
+        },
+        {
+          "axis_id": "process_optimization",
+          "axis_title": "시스템 설계·절차 최적화 축",
+          "axis_short": "절차 설계",
+          "axis_domain": "process_optimization",
+          "priority": 3,
+          "next_subjects": [
+            "정보",
+            "통합과학2",
+            "확률과 통계"
+          ],
+          "why": "여러 단계의 절차를 비교하고 더 효율적인 구조로 고치는 축",
+          "student_output_hint": "동일한 문제를 다른 절차로 풀고 더 효율적인 구조를 비교하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "절차",
+                "흐름도",
+                "효율",
+                "개선"
+              ],
+              "short": "절차 설계",
+              "desc": "문제 해결 과정을 비교하고 더 효율적인 절차를 선택하는 축",
+              "activity_hint": "비상 대피도나 주문 과정을 흐름도로 만들고 개선점 찾기",
+              "boost": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "알고리즘 설계와 분석",
+      "concept_label": "알고리즘",
+      "core_focus": "순차·선택·반복, 정렬, 탐색, 효율성, 성능 비교, 예측",
+      "longitudinal_axes": [
+        {
+          "axis_id": "algo_opt",
+          "axis_title": "알고리즘 최적화 축",
+          "axis_short": "최적화",
+          "axis_domain": "algo_opt",
+          "priority": 1,
+          "next_subjects": [
+            "공통수학1",
+            "정보",
+            "확률과 통계"
+          ],
+          "why": "알고리즘의 효율성과 수행 과정을 비교해 더 나은 방법을 찾는 축",
+          "student_output_hint": "같은 문제를 여러 알고리즘으로 풀고 효율을 비교하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "효율성",
+                "성능 비교",
+                "수행 시간",
+                "최적화"
+              ],
+              "short": "최적화",
+              "desc": "알고리즘의 효율을 비교해 더 적절한 방식을 고르는 축",
+              "activity_hint": "정렬 방법별 수행 과정을 비교해 장단점을 표로 정리하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "search_sort",
+          "axis_title": "탐색·정렬 구현 축",
+          "axis_short": "탐색·정렬",
+          "axis_domain": "search_sort",
+          "priority": 2,
+          "next_subjects": [
+            "정보",
+            "공통수학1",
+            "공통수학2"
+          ],
+          "why": "자료를 탐색하고 정렬하는 절차를 구현 중심으로 확장하는 축",
+          "student_output_hint": "정렬·탐색 절차를 순서도나 코드로 구현하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "버블 정렬",
+                "선택 정렬",
+                "순차 탐색",
+                "이진 탐색",
+                "정렬",
+                "탐색"
+              ],
+              "short": "탐색·정렬",
+              "desc": "정렬과 탐색 절차를 구현하고 비교하는 축",
+              "activity_hint": "버블 정렬과 이진 탐색을 단계별 그림 또는 코드로 표현하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "data_prediction",
+          "axis_title": "데이터 처리·예측 축",
+          "axis_short": "예측 처리",
+          "axis_domain": "data_prediction",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "통합과학2",
+            "정보"
+          ],
+          "why": "규칙과 반복 구조를 데이터 처리와 간단한 예측 문제로 확장하는 축",
+          "student_output_hint": "반복 구조를 활용해 규칙을 찾고 예측값을 제안하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "순차",
+                "선택",
+                "반복",
+                "규칙",
+                "예측"
+              ],
+              "short": "예측 처리",
+              "desc": "반복과 조건 구조를 데이터 처리 및 예측 문제에 적용하는 축",
+              "activity_hint": "반복 패턴이 있는 자료에서 다음 값을 예측하는 절차를 설계하기",
+              "boost": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "프로그래밍과 자동화",
+      "concept_label": "프로그래밍",
+      "core_focus": "프로그래밍 언어, 변수, 입출력, 조건문, 반복문, 리스트, 함수, 자동화",
+      "longitudinal_axes": [
+        {
+          "axis_id": "programming_impl",
+          "axis_title": "프로그래밍 구현 축",
+          "axis_short": "코드 구현",
+          "axis_domain": "programming_impl",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "공통수학1",
+            "통합과학1"
+          ],
+          "why": "문제 해결 절차를 실제 코드로 구현하고 실행 결과를 확인하는 축",
+          "student_output_hint": "입력-처리-출력 구조를 코드로 작성하고 결과를 확인하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "Python",
+                "변수 설계",
+                "입력과 출력",
+                "함수",
+                "원시 코드"
+              ],
+              "short": "코드 구현",
+              "desc": "입력과 처리 과정을 코드로 구현하는 기본 축",
+              "activity_hint": "간단한 계산이나 분류 문제를 Python 코드로 구현하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "logic_control",
+          "axis_title": "논리·제어 확장 축",
+          "axis_short": "조건·반복",
+          "axis_domain": "logic_control",
+          "priority": 2,
+          "next_subjects": [
+            "공통수학1",
+            "통합과학1",
+            "정보"
+          ],
+          "why": "조건과 반복 구조를 활용해 논리적 제어와 분기 설계를 확장하는 축",
+          "student_output_hint": "조건문과 반복문으로 제어 흐름을 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조건문",
+                "반복문",
+                "리스트",
+                "리스트 내포"
+              ],
+              "short": "조건·반복",
+              "desc": "분기와 반복 구조를 통해 문제 해결 절차를 제어하는 축",
+              "activity_hint": "조건문·반복문을 이용해 점수 처리나 목록 정리 프로그램 만들기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "automation_sim",
+          "axis_title": "자동화·시뮬레이션 축",
+          "axis_short": "자동화",
+          "axis_domain": "automation_sim",
+          "priority": 3,
+          "next_subjects": [
+            "통합과학1",
+            "물리",
+            "정보"
+          ],
+          "why": "코드를 이용해 자동화, 간단한 시뮬레이션, 시각적 결과물을 만드는 축",
+          "student_output_hint": "반복되는 작업을 자동화하거나 시각적 결과를 출력하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "random 모듈",
+                "turtle 그래픽",
+                "자동화",
+                "시뮬레이션"
+              ],
+              "short": "자동화",
+              "desc": "프로그래밍을 활용해 자동 실행과 간단한 시뮬레이션으로 확장하는 축",
+              "activity_hint": "무작위 실험이나 도형 그리기 자동화 프로그램 만들기",
+              "boost": 22
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "컴퓨팅 시스템과 네트워크",
+      "concept_label": "시스템·네트워크",
+      "core_focus": "컴퓨팅 시스템, 네트워크, 공유, 협업, 통신 구조, 센서, 피지컬 컴퓨팅",
+      "longitudinal_axes": [
+        {
+          "axis_id": "network_system",
+          "axis_title": "시스템·네트워크 구조 축",
+          "axis_short": "네트워크 구조",
+          "axis_domain": "network_system",
+          "priority": 1,
+          "next_subjects": [
+            "전자기와 양자",
+            "통합과학1",
+            "정보"
+          ],
+          "why": "컴퓨팅 시스템과 네트워크가 연결·공유·유통을 가능하게 하는 구조를 이해하는 축",
+          "student_output_hint": "컴퓨팅 시스템과 네트워크 구성 요소의 역할을 도식화하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "네트워크",
+                "공유",
+                "의사소통",
+                "협업",
+                "통신"
+              ],
+              "short": "네트워크 구조",
+              "desc": "네트워크 기반으로 정보가 연결·유통되는 구조를 해석하는 축",
+              "activity_hint": "네트워크에서 정보가 이동하는 경로를 그림으로 설명하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "embedded_control",
+          "axis_title": "센서·임베디드 제어 축",
+          "axis_short": "센서 제어",
+          "axis_domain": "embedded_control",
+          "priority": 2,
+          "next_subjects": [
+            "통합과학1",
+            "물리",
+            "전자기와 양자"
+          ],
+          "why": "센서와 피지컬 컴퓨팅을 활용해 실제 장치 제어로 확장하는 축",
+          "student_output_hint": "센서 입력을 받아 동작하는 장치 구조를 설계하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "센서",
+                "피지컬 컴퓨팅",
+                "회로",
+                "임베디드",
+                "장치"
+              ],
+              "short": "센서 제어",
+              "desc": "센서 데이터를 받아 장치를 제어하는 구조로 확장하는 축",
+              "activity_hint": "빛·온도 센서를 활용한 장치 제어 아이디어를 설계하기",
+              "boost": 24
+            }
+          ]
+        },
+        {
+          "axis_id": "platform_security",
+          "axis_title": "협업 플랫폼·보안 운영 축",
+          "axis_short": "플랫폼 보안",
+          "axis_domain": "platform_security",
+          "priority": 3,
+          "next_subjects": [
+            "통합사회2",
+            "공통국어2",
+            "정보"
+          ],
+          "why": "협업 플랫폼 운영과 보안, 계정 관리, 안전한 소통 환경 설계로 이어지는 축",
+          "student_output_hint": "플랫폼 협업 환경에서 필요한 보안 원칙을 정리하기",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "보안",
+                "계정",
+                "접근 권한",
+                "플랫폼",
+                "협업 도구"
+              ],
+              "short": "플랫폼 보안",
+              "desc": "협업 환경을 안전하게 운영하기 위한 보안 원칙을 해석하는 축",
+              "activity_hint": "학교 협업 플랫폼에 필요한 보안 규칙과 관리 원칙을 정리하기",
+              "boost": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+  function ensureInfoRuntimeSeed() {
+    if (!uiSeed || typeof uiSeed !== "object" || Array.isArray(uiSeed)) uiSeed = {};
+    if (!engineMap || typeof engineMap !== "object" || Array.isArray(engineMap)) engineMap = {};
+    if (!conceptLongitudinalMaps || typeof conceptLongitudinalMaps !== "object" || Array.isArray(conceptLongitudinalMaps)) conceptLongitudinalMaps = {};
+
+    const infoAliases = ["정보", "정보과목", "정보 교과", "Information", "information", "INFO", "info"];
+    infoAliases.forEach((name) => {
+      if (!uiSeed[name]) uiSeed[name] = INFO_FALLBACK_UI_SEED;
+      if (!engineMap[name]) engineMap[name] = INFO_FALLBACK_ENGINE_MAP;
+      if (!conceptLongitudinalMaps[name]) conceptLongitudinalMaps[name] = INFO_FALLBACK_LONGITUDINAL_MAP;
+    });
+  }
+
   function normalize(v) {
     return String(v || "")
       .replace(/\s+/g, "")
@@ -328,16 +1659,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.9-info-34-prelock";
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
-        console.warn("textbook concept seed load failed", uiRes.status, engineRes.status);
-        return;
+        console.warn("textbook concept seed load fallback mode", uiRes.status, engineRes.status);
       }
 
-      uiSeed = applySubjectAliasesToMap(await uiRes.json());
-      engineMap = applySubjectAliasesToMap(await engineRes.json());
+      uiSeed = applySubjectAliasesToMap(uiRes.ok ? await uiRes.json() : {});
+      engineMap = applySubjectAliasesToMap(engineRes.ok ? await engineRes.json() : {});
       topicMatrix = matrixRes && matrixRes.ok ? await matrixRes.json() : null;
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
       conceptLongitudinalMaps = applySubjectAliasesToMap(loadedConceptMaps || {});
+      ensureInfoRuntimeSeed();
 
       injectStyles();
       injectUI();
@@ -1936,7 +3267,9 @@ function getTrackMeta(trackId) {
   }
 
   function getSubjectConceptEntries(subject) {
-    const entry = engineMap?.[subject];
+    const canonical = getCanonicalSubjectName(subject);
+    const resolved = findSubjectKey(canonical) || canonical;
+    const entry = engineMap?.[subject] || engineMap?.[canonical] || engineMap?.[resolved];
     const concepts = entry?.concepts || {};
     return Object.entries(concepts).map(([concept, value]) => ({ concept, value }));
   }
