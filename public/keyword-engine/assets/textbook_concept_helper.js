@@ -1894,7 +1894,7 @@ function getTrackMeta(trackId) {
     }
 
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍)/i.test(majorText) || bucket === "it") {
-      return ["과학의 측정과 우리 사회", "기본량과 단위", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
+      return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "기본량과 단위", "역학 시스템", "물질 구성과 분류", "지구시스템", "생명 시스템"];
     }
     if (/(전자|전기|회로|센서|통신|반도체)/.test(majorText) || bucket === "electronic") {
       return ["과학의 측정과 우리 사회", "기본량과 단위", "역학 시스템", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "생명 시스템"];
@@ -2157,9 +2157,17 @@ function getTrackMeta(trackId) {
       if (hasBio) { score += 16; reasons.push("진로 연결"); }
       if (hasMech && !hasBio) score -= 10;
     }
-    if (bucket === "env") {
-      if (hasEnv) { score += 16; reasons.push("진로 연결"); }
-      if (scaleStrong) score += 8;
+    if (state.subject === "통합과학1" && bucket === "it") {
+      if (/규칙성 발견과 주기율표/.test(concept)) {
+        score += 18;
+        reasons.push("정보계열 패턴·예측 강화");
+      }
+      if (/기본량과 단위/.test(concept)) {
+        score -= 10;
+      }
+      if (/자연 세계의 시간과 공간/.test(concept)) {
+        score += 4;
+      }
     }
 
     if (track === "physics") {
