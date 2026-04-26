@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.7-common-math1-34-prelock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.8-common-math2-34-prelock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1920,7 +1920,10 @@ function getTrackMeta(trackId) {
       "이차방정식과 이차함수": "그래프·변화·모델링",
       "여러 가지 방정식과 부등식": "조건·범위·판단",
       "경우의 수, 순열, 조합": "선택·배열·탐색",
-      "행렬과 행렬의 연산": "자료 배열·구조 처리"
+      "행렬과 행렬의 연산": "자료 배열·구조 처리",
+      "평면좌표와 직선의 방정식": "좌표·직선·모델링",
+      "원의 방정식": "원·범위·곡선 설계",
+      "도형의 이동": "좌표 변환·그래픽"
     };
     return map[concept] || "";
   }
@@ -2002,6 +2005,37 @@ function getTrackMeta(trackId) {
     }
     if (/(환경|기후|지구|천문|우주|해양|지리|도시)/.test(majorText) || bucket === "env") {
       return ["이차방정식과 이차함수", "여러 가지 방정식과 부등식", "경우의 수, 순열, 조합", "행렬과 행렬의 연산", "다항식의 연산", "나머지정리와 인수분해", "복소수와 이차방정식"];
+    }
+
+    return defaultSequence;
+  }
+
+  function getCommonMath2PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "평면좌표와 직선의 방정식",
+      "원의 방정식",
+      "도형의 이동"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test(majorText) || bucket === "it") {
+      return [
+        "평면좌표와 직선의 방정식",
+        "도형의 이동",
+        "원의 방정식"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇)/.test(majorText) || bucket === "electronic") {
+      return ["원의 방정식", "평면좌표와 직선의 방정식", "도형의 이동"];
+    }
+    if (/(기계|자동차|항공|모빌리티|건축|토목|도시|공간|설계)/.test(majorText) || bucket === "mechanical") {
+      return ["평면좌표와 직선의 방정식", "도형의 이동", "원의 방정식"];
+    }
+    if (/(환경|기후|지구|천문|우주|해양|지리)/.test(majorText) || bucket === "env") {
+      return ["평면좌표와 직선의 방정식", "원의 방정식", "도형의 이동"];
     }
 
     return defaultSequence;
@@ -2181,6 +2215,41 @@ function getTrackMeta(trackId) {
     }
 
 
+    if (fuzzyIncludes(state.subject, "공통수학2")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/평면좌표와 직선의 방정식/.test(concept)) {
+        if (hit("좌표", "좌표평면", "내분점", "거리 공식")) {
+          if (/coordinate_geometry_interpretation/.test(axisId) || /좌표·기하 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+          if (/motion_position_modeling_base/.test(axisId) || /위치·운동 모델링 기초 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 12);
+        }
+        if (hit("기울기", "직선의 방정식", "평행", "수직", "일치", "y=mx+n", "Ax+By+C=0")) {
+          if (/coordinate_geometry_interpretation/.test(axisId) || /좌표·기하 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 50);
+          if (/design_drawing_coordinate_application/.test(axisId) || /도면·설계 좌표 적용 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, isItMajor ? 22 : 14);
+        }
+      }
+      if (/도형의 이동/.test(concept)) {
+        if (hit("이동 전후 좌표", "좌표 변화", "식의 치환", "직선 이동", "원 이동")) {
+          if (/coordinate_transform_graphics/.test(axisId) || /좌표 변환·그래픽 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, isItMajor ? 56 : 42);
+          if (/transformation_symmetry_analysis/.test(axisId) || /변환·대칭 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 14);
+        }
+        if (hit("평행이동 벡터", "x축 대칭", "y축 대칭", "원점 대칭", "대칭이동")) {
+          if (/transformation_symmetry_analysis/.test(axisId) || /변환·대칭 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 48);
+          if (/coordinate_transform_graphics/.test(axisId) || /좌표 변환·그래픽 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, isItMajor ? 24 : 10);
+        }
+      }
+      if (/원의 방정식/.test(concept)) {
+        if (hit("반지름", "중심좌표", "원과 직선", "접선의 방정식")) {
+          if (/sensor_range_curve_design/.test(axisId) || /센서 범위·곡선 설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, isItMajor ? 52 : 30);
+          if (/circle_geometry_reasoning/.test(axisId) || /도형 관계·기하 추론 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 18);
+        }
+        if (hit("원의 방정식", "x²+y²=r²", "판별식", "한 점에서 만남", "두 점에서 만남", "만나지 않음")) {
+          if (/circle_geometry_reasoning/.test(axisId) || /도형 관계·기하 추론 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 48);
+          if (/orbit_rotation_modeling_base/.test(axisId) || /회전·궤도 모델링 기초 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 12);
+        }
+      }
+    }
+
+
     if (fuzzyIncludes(state.subject, "공통수학1")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test([state.career || "", getMajorTextBag()].join(" "));
       if (/이차방정식과 이차함수/.test(concept)) {
@@ -2264,6 +2333,9 @@ function getTrackMeta(trackId) {
     if (state.subject === "공통수학1") {
       return getCommonMath1PreferredConceptSequence();
     }
+    if (state.subject === "공통수학2") {
+      return getCommonMath2PreferredConceptSequence();
+    }
 
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -2323,6 +2395,29 @@ function getTrackMeta(trackId) {
   }
 
 
+  function getCommonMath2PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/평면좌표와 직선의 방정식/.test(concept)) return ["좌표", "기울기", "거리 공식", "직선의 방정식", "평행", "수직", "내분점", "좌표평면", "Ax+By+C=0", "y=mx+n"];
+      if (/도형의 이동/.test(concept)) return ["이동 전후 좌표", "좌표 변화", "식의 치환", "평행이동 벡터", "직선 이동", "원 이동", "x축 대칭", "y축 대칭", "원점 대칭"];
+      if (/원의 방정식/.test(concept)) return ["중심좌표", "반지름", "원과 직선", "접선의 방정식", "원의 방정식", "판별식", "기울기", "x²+y²=r²"];
+    }
+
+    if (/(전자|전기|회로|센서|통신|반도체|로봇)/.test(majorText) || bucket === "electronic") {
+      if (/원의 방정식/.test(concept)) return ["반지름", "중심좌표", "원과 직선", "접선의 방정식", "기울기", "판별식"];
+      if (/평면좌표와 직선의 방정식/.test(concept)) return ["좌표", "거리 공식", "기울기", "평행", "수직", "직선의 방정식"];
+      if (/도형의 이동/.test(concept)) return ["이동 전후 좌표", "좌표 변화", "직선 이동", "원 이동", "평행이동 벡터"];
+    }
+
+    return [];
+  }
+
+
+
   function getIntegratedScience2PreferredKeywordSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -2358,6 +2453,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "공통수학1") {
       const cm1Preferred = getCommonMath1PreferredKeywordSequence();
       if (cm1Preferred.length) return cm1Preferred;
+    }
+    if (state.subject === "공통수학2") {
+      const cm2Preferred = getCommonMath2PreferredKeywordSequence();
+      if (cm2Preferred.length) return cm2Preferred;
     }
     if (state.subject === "통합과학2") {
       const is2Preferred = getIntegratedScience2PreferredKeywordSequence();
@@ -2399,6 +2498,14 @@ function getTrackMeta(trackId) {
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
+
+    if (state.subject === "공통수학2") {
+      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test(majorText)) {
+        if (/평면좌표와 직선의 방정식/.test(concept) && /좌표|좌표평면|기울기|직선의 방정식|평행|수직|내분점|거리 공식|y=mx\+n|Ax\+By\+C=0/.test(text)) score += 28;
+        if (/도형의 이동/.test(concept) && /이동 전후 좌표|좌표 변화|식의 치환|평행이동 벡터|직선 이동|원 이동|x축 대칭|y축 대칭|원점 대칭/.test(text)) score += 30;
+        if (/원의 방정식/.test(concept) && /중심좌표|반지름|원과 직선|접선의 방정식|원의 방정식|판별식|x²\+y²=r²/.test(text)) score += 24;
+      }
+    }
 
     if (state.subject === "공통수학1") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText)) {
@@ -2608,7 +2715,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
