@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.5-concept-free-select";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -126,7 +126,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
     majorSelectedName: "",
     majorCoreKeywords: [],
     majorComparison: null,
-    linkTrackSource: ""
+    linkTrackSource: "",
+    showAllConcepts: false
   };
 
   const REPORT_LINE_HELP = {
@@ -463,6 +464,29 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
       }
       .engine-concept-card:hover { border-color:#b6c7ef; transform: translateY(-1px); }
       .engine-concept-card.is-active { border-color:#2764ff; box-shadow: 0 0 0 2px rgba(39, 100, 255, .08); background:#f7faff; }
+      .engine-concept-card.is-secondary { background:#ffffff; }
+      .engine-concept-toggle-row {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-top:12px;
+        padding-top:10px;
+        border-top:1px dashed #d9e2f2;
+      }
+      .engine-concept-toggle-help { color:#6b7890; font-size:13px; line-height:1.5; }
+      .engine-concept-toggle-btn {
+        border:1px solid #cfdaf0;
+        background:#f8fbff;
+        color:#2b5de8;
+        border-radius:999px;
+        padding:8px 13px;
+        font-size:13px;
+        font-weight:800;
+        cursor:pointer;
+        white-space:nowrap;
+      }
+      .engine-concept-toggle-btn:hover { border-color:#91a9e8; background:#eef4ff; }
       .engine-concept-name { font-size:17px; font-weight:800; color:#172033; }
       .engine-concept-tags, .engine-chip-wrap, .engine-tag-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
       .engine-mini-tag, .engine-chip, .engine-tag {
@@ -1216,6 +1240,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
     if (subjectEl) {
       subjectEl.addEventListener("change", function () {
         syncSubjectFromSelect();
+        state.showAllConcepts = false;
         clearFrom("concept");
         renderAll();
       });
@@ -1239,6 +1264,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
     });
 
     document.addEventListener("click", function (event) {
+      const conceptToggleBtn = event.target.closest(".engine-concept-toggle-btn[data-action='concept-display-toggle']");
+      if (conceptToggleBtn && isStepEnabled(3)) {
+        state.showAllConcepts = !state.showAllConcepts;
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
       const autoTrackBtn = event.target.closest(".engine-auto-btn[data-action='auto-track']");
       if (autoTrackBtn && isStepEnabled(4)) {
         const topTrack = getTrackOptions()[0];
@@ -1581,28 +1614,33 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
 
   function getCareerAxisBoost(axis) {
     const bucket = detectCareerBucket(state.career || "");
+    const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
     if (bucket === "it") {
-      if (axis.axisDomain === "data") score += 14;
-      if (axis.axisDomain === "physics") score += 6;
+      if (domain === "data" || domain === "info") score += 16;
+      if (domain === "engineering") score += 10;
+      if (domain === "physics") score += 5;
     } else if (bucket === "electronic") {
-      if (axis.axisDomain === "physics") score += 14;
-      if (axis.axisDomain === "chemistry") score += 8;
-      if (axis.axisDomain === "data") score += 4;
+      if (domain === "physics") score += 14;
+      if (domain === "engineering") score += 10;
+      if (domain === "chemistry") score += 8;
+      if (domain === "data" || domain === "info") score += 4;
     } else if (bucket === "materials") {
-      if (axis.axisDomain === "chemistry") score += 14;
-      if (axis.axisDomain === "physics") score += 8;
-      if (axis.axisDomain === "engineering") score += 5;
+      if (domain === "chemistry") score += 14;
+      if (domain === "engineering") score += 8;
+      if (domain === "physics") score += 8;
     } else if (bucket === "mechanical") {
-      if (axis.axisDomain === "physics") score += 14;
-      if (axis.axisDomain === "engineering") score += 10;
-      if (axis.axisDomain === "data") score += 3;
+      if (domain === "physics") score += 14;
+      if (domain === "engineering") score += 12;
+      if (domain === "data" || domain === "info") score += 4;
     } else if (bucket === "bio") {
-      if (axis.axisDomain === "biology") score += 14;
-      if (axis.axisDomain === "chemistry") score += 6;
+      if (domain === "biology") score += 14;
+      if (domain === "chemistry") score += 6;
+      if (domain === "data") score += 3;
     } else if (bucket === "env") {
-      if (axis.axisDomain === "earth_env") score += 16;
-      if (axis.axisDomain === "data") score += 4;
+      if (domain === "earth_env" || domain === "environment" || domain === "earth") score += 16;
+      if (domain === "data") score += 5;
+      if (domain === "engineering") score += 4;
     }
     return score;
   }
@@ -1747,6 +1785,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
         easy: axis.student_output_hint || "",
         axisDomain: axis.axis_domain || "",
         extensionKeywords: [],
+        keywordSignals: Array.isArray(axis.keyword_signals) ? axis.keyword_signals : [],
         activityExamples: axis.student_output_hint ? [axis.student_output_hint] : [],
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
@@ -1915,6 +1954,68 @@ function getTrackMeta(trackId) {
     return ["과학의 측정과 우리 사회", "기본량과 단위", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "역학 시스템", "생명 시스템"];
   }
 
+
+  function getIntegratedScience2PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "과학 기술 사회에서 빅데이터 활용",
+      "에너지 효율과 신재생 에너지",
+      "발전과 에너지원",
+      "과학 기술과 미래 사회",
+      "태양 에너지의 생성과 전환",
+      "지구 환경 변화와 인간 생활",
+      "산화와 환원",
+      "물질 변화에서 에너지의 출입",
+      "생물과 환경",
+      "진화와 생물다양성",
+      "생태계평형",
+      "산과 염기",
+      "지구 환경 변화",
+      "과학의 유용성과 필요성",
+      "과학 관련 사회적 쟁점과 과학 윤리"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText) || bucket === "it") {
+      return [
+        "과학 기술 사회에서 빅데이터 활용",
+        "과학 기술과 미래 사회",
+        "발전과 에너지원",
+        "에너지 효율과 신재생 에너지",
+        "태양 에너지의 생성과 전환",
+        "과학의 유용성과 필요성",
+        "과학 관련 사회적 쟁점과 과학 윤리",
+        "물질 변화에서 에너지의 출입",
+        "지구 환경 변화와 인간 생활",
+        "산화와 환원",
+        "생물과 환경",
+        "생태계평형",
+        "진화와 생물다양성",
+        "산과 염기",
+        "지구 환경 변화"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇)/.test(majorText) || bucket === "electronic") {
+      return ["발전과 에너지원", "과학 기술과 미래 사회", "에너지 효율과 신재생 에너지", "태양 에너지의 생성과 전환", "산화와 환원", "과학 기술 사회에서 빅데이터 활용", "물질 변화에서 에너지의 출입", "과학의 유용성과 필요성", "산과 염기", "지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "진화와 생물다양성", "지구 환경 변화", "과학 관련 사회적 쟁점과 과학 윤리"];
+    }
+    if (/(기계|자동차|항공|모빌리티|에너지시스템)/.test(majorText) || bucket === "mechanical") {
+      return ["발전과 에너지원", "에너지 효율과 신재생 에너지", "태양 에너지의 생성과 전환", "물질 변화에서 에너지의 출입", "과학 기술과 미래 사회", "과학 기술 사회에서 빅데이터 활용", "산화와 환원", "과학의 유용성과 필요성", "지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "산과 염기", "진화와 생물다양성", "지구 환경 변화", "과학 관련 사회적 쟁점과 과학 윤리"];
+    }
+    if (/(신소재|재료|배터리|에너지|화학공학|고분자|금속|화공)/.test(majorText) || bucket === "materials") {
+      return ["산화와 환원", "물질 변화에서 에너지의 출입", "발전과 에너지원", "에너지 효율과 신재생 에너지", "산과 염기", "태양 에너지의 생성과 전환", "과학 기술과 미래 사회", "과학 기술 사회에서 빅데이터 활용", "과학의 유용성과 필요성", "지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "진화와 생물다양성", "지구 환경 변화", "과학 관련 사회적 쟁점과 과학 윤리"];
+    }
+    if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상)/.test(majorText) || bucket === "bio") {
+      return ["진화와 생물다양성", "생물과 환경", "생태계평형", "산과 염기", "과학 기술 사회에서 빅데이터 활용", "지구 환경 변화", "지구 환경 변화와 인간 생활", "물질 변화에서 에너지의 출입", "산화와 환원", "과학의 유용성과 필요성", "과학 관련 사회적 쟁점과 과학 윤리", "에너지 효율과 신재생 에너지", "발전과 에너지원", "과학 기술과 미래 사회", "태양 에너지의 생성과 전환"];
+    }
+    if (/(환경|기후|지구|천문|우주|해양|지리|도시)/.test(majorText) || bucket === "env") {
+      return ["지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "지구 환경 변화", "에너지 효율과 신재생 에너지", "진화와 생물다양성", "발전과 에너지원", "태양 에너지의 생성과 전환", "과학 기술 사회에서 빅데이터 활용", "과학의 유용성과 필요성", "과학 관련 사회적 쟁점과 과학 윤리", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "과학 기술과 미래 사회"];
+    }
+
+    return defaultSequence;
+  }
+
   function getMappedKeywordAxisBoost(entry, axis) {
     const concept = String(entry?.concept_name || state.concept || "");
     const keyword = String(state.keyword || "");
@@ -1938,6 +2039,16 @@ function getTrackMeta(trackId) {
         const score = Number(axisScores[axisId] ?? axisScores[axisTitle] ?? axisScores[axisDomain] ?? 0);
         best = Math.max(best, score);
       }
+    });
+
+    const axisKeywordSignals = Array.isArray(axis?.keywordSignals)
+      ? axis.keywordSignals
+      : (Array.isArray(axis?.keyword_signals) ? axis.keyword_signals : []);
+    axisKeywordSignals.forEach(signal => {
+      const signalKeywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
+      if (!signalKeywords.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword))) return;
+      const boost = Number(signal?.boost || 0);
+      if (Number.isFinite(boost)) best = Math.max(best, boost);
     });
 
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
@@ -1969,6 +2080,49 @@ function getTrackMeta(trackId) {
         if (hit("주기성", "성질 예측", "원자 번호", "원소 배열")) {
           if (/chemistry_prediction/.test(axisId) || /화학·성질 예측 축/.test(axisTitle) || axisDomain === "chemistry") fallback = Math.max(fallback, 40);
           if (/pattern_classification_modeling/.test(axisId) || /패턴·분류 모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 10);
+        }
+      }
+    }
+
+    if (fuzzyIncludes(state.subject, "통합과학2")) {
+      if (/과학 기술 사회에서 빅데이터 활용/.test(concept)) {
+        if (hit("빅데이터", "데이터", "분석", "예측", "패턴", "데이터 분석")) {
+          if (/data_prediction_interpretation/.test(axisId) || /데이터 예측·해석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 52);
+          if (/info_automation_application/.test(axisId) || /정보·자동화 응용 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, 8);
+        }
+        if (hit("자동화", "시스템", "처리", "활용")) {
+          if (/info_automation_application/.test(axisId) || /정보·자동화 응용 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, 50);
+          if (/data_prediction_interpretation/.test(axisId) || /데이터 예측·해석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 10);
+        }
+      }
+      if (/과학 기술과 미래 사회/.test(concept)) {
+        if (hit("센서", "시스템", "제어", "연결")) {
+          if (/sensor_system_application/.test(axisId) || /센서·시스템 응용 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 52);
+          if (/automation_future_design/.test(axisId) || /자동화·미래 설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 8);
+        }
+        if (hit("미래 기술", "자동화", "로봇", "미래 사회")) {
+          if (/automation_future_design/.test(axisId) || /자동화·미래 설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 50);
+          if (/sensor_system_application/.test(axisId) || /센서·시스템 응용 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 8);
+        }
+      }
+      if (/발전과 에너지원/.test(concept)) {
+        if (hit("발전 방식", "발전", "에너지원", "비교", "장단점")) {
+          if (/power_generation_comparison/.test(axisId) || /발전 시스템 비교 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 50);
+          if (/resource_social_impact/.test(axisId) || /자원·사회 영향 축/.test(axisTitle) || axisDomain === "environment") fallback = Math.max(fallback, 6);
+        }
+        if (hit("지속가능성", "사회·환경 영향", "환경 영향", "자원")) {
+          if (/resource_social_impact/.test(axisId) || /자원·사회 영향 축/.test(axisTitle) || axisDomain === "environment") fallback = Math.max(fallback, 48);
+          if (/energy_policy_choice/.test(axisId) || /에너지 선택·정책 축/.test(axisTitle) || axisDomain === "social") fallback = Math.max(fallback, 8);
+        }
+      }
+      if (/에너지 효율과 신재생 에너지/.test(concept)) {
+        if (hit("신재생 에너지", "장치", "설계", "활용")) {
+          if (/engineering_design_extension/.test(axisId) || /공학 설계 확장 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 50);
+          if (/efficiency_sustainability/.test(axisId) || /효율·지속가능성 축/.test(axisTitle) || axisDomain === "environment") fallback = Math.max(fallback, 8);
+        }
+        if (hit("에너지 효율", "효율", "절감", "지속가능성")) {
+          if (/efficiency_sustainability/.test(axisId) || /효율·지속가능성 축/.test(axisTitle) || axisDomain === "environment") fallback = Math.max(fallback, 48);
+          if (/engineering_design_extension/.test(axisId) || /공학 설계 확장 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 8);
         }
       }
     }
@@ -2009,6 +2163,9 @@ function getTrackMeta(trackId) {
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
     }
+    if (state.subject === "통합과학2") {
+      return getIntegratedScience2PreferredConceptSequence();
+    }
 
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -2042,7 +2199,42 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+  function getIntegratedScience2PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText) || bucket === "it";
+    if (isIt) {
+      if (/과학 기술 사회에서 빅데이터 활용/.test(concept)) return ["빅데이터", "데이터", "분석", "예측", "패턴", "자동화", "시스템", "처리", "활용", "사회 문제"];
+      if (/과학 기술과 미래 사회/.test(concept)) return ["미래 기술", "자동화", "로봇", "센서", "시스템", "제어", "연결", "기술 영향", "사회 변화"];
+      if (/발전과 에너지원/.test(concept)) return ["발전 방식", "비교", "장단점", "에너지원", "발전", "지속가능성", "사회·환경 영향", "환경 영향"];
+      if (/에너지 효율과 신재생 에너지/.test(concept)) return ["에너지 효율", "효율", "신재생 에너지", "장치", "설계", "절감", "지속가능성", "활용"];
+      if (/태양 에너지의 생성과 전환/.test(concept)) return ["전환", "활용 원리", "태양광", "장치", "복사", "에너지 흐름", "태양 에너지"];
+    }
+    if (/(환경|기후|지구|해양|도시)/.test(majorText) || bucket === "env") {
+      if (/지구 환경 변화와 인간 생활/.test(concept)) return ["기후 변화", "환경 재해", "인간 생활", "대응 전략", "사회적 영향", "정책"];
+      if (/생물과 환경/.test(concept)) return ["환경 요인", "자료 해석", "조건 비교", "그래프", "생태계", "서식지"];
+      if (/생태계평형/.test(concept)) return ["생태계평형", "안정성", "변화 요인", "회복", "교란", "대응"];
+    }
+    if (/(간호|의학|보건|생명|바이오|수의|약학)/.test(majorText) || bucket === "bio") {
+      if (/진화와 생물다양성/.test(concept)) return ["생물다양성", "진화", "적응", "변이", "보전", "서식지"];
+      if (/생물과 환경/.test(concept)) return ["상호작용", "생물과 환경", "개체군", "군집", "환경 요인"];
+      if (/생태계평형/.test(concept)) return ["생태계평형", "먹이 관계", "물질 순환", "안정성", "회복"];
+      if (/산과 염기/.test(concept)) return ["pH", "산", "염기", "중화", "생활 화학", "산성·염기성"];
+    }
+    if (/(신소재|재료|배터리|화학공학|고분자|금속|반도체)/.test(majorText) || bucket === "materials") {
+      if (/산화와 환원/.test(concept)) return ["전자 이동", "산화", "환원", "산화수", "부식", "부식 방지", "산화·환원 활용"];
+      if (/물질 변화에서 에너지의 출입/.test(concept)) return ["에너지 출입", "발열", "흡열", "온도 변화", "효율 분석", "생활 장치 원리"];
+      if (/산과 염기/.test(concept)) return ["pH", "중화", "지시약", "산", "염기", "환경 정화"];
+    }
+    return [];
+  }
+
   function getPreferredKeywordSequence() {
+    if (state.subject === "통합과학2") {
+      const is2Preferred = getIntegratedScience2PreferredKeywordSequence();
+      if (is2Preferred.length) return is2Preferred;
+    }
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
     const concept = state.concept || '';
@@ -2079,6 +2271,15 @@ function getTrackMeta(trackId) {
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
+
+    if (state.subject === "통합과학2") {
+      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText)) {
+        if (/과학 기술 사회에서 빅데이터 활용/.test(concept) && /빅데이터|데이터|분석|예측|패턴|자동화|시스템|처리|활용/.test(text)) score += 26;
+        if (/과학 기술과 미래 사회/.test(concept) && /미래 기술|자동화|로봇|센서|시스템|제어|연결/.test(text)) score += 24;
+        if (/발전과 에너지원/.test(concept) && /발전 방식|비교|장단점|에너지원|발전|지속가능성/.test(text)) score += 20;
+        if (/에너지 효율과 신재생 에너지/.test(concept) && /에너지 효율|효율|신재생 에너지|장치|설계|절감|지속가능성/.test(text)) score += 20;
+      }
+    }
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry' && /과학의 측정과 우리 사회/.test(concept)) {
@@ -2258,16 +2459,20 @@ function getTrackMeta(trackId) {
       .sort((a, b) => b.score - a.score || a.concept.localeCompare(b.concept, 'ko'));
   }
 
-  function getDisplayConcepts(ranked) {
+  function getOrderedConceptsForAll(ranked) {
+    if (!Array.isArray(ranked) || !ranked.length) return [];
+    const preferred = getPreferredConceptSequence();
+    const preferredItems = preferred.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+    const others = ranked.filter(item => !preferred.includes(item.concept));
+    return uniq([...preferredItems, ...others]);
+  }
+
+  function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1") {
-      const ordered = preferred.length
-        ? preferred.map(name => ranked.find(item => item.concept === name)).filter(Boolean)
-        : ranked.slice();
-      const merged = [...ordered, ...ranked.filter(item => !ordered.includes(item))];
-      return uniq(merged).slice(0, 3);
+    if (state.subject === "통합과학1" || state.subject === "통합과학2") {
+      return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
     const topScore = ranked[0]?.score ?? 0;
@@ -2291,6 +2496,11 @@ function getTrackMeta(trackId) {
       filtered = [...fallback, ...others];
     }
     return uniq(filtered).slice(0, 3);
+  }
+
+  function getDisplayConcepts(ranked) {
+    if (!Array.isArray(ranked) || !ranked.length) return [];
+    return state.showAllConcepts ? getOrderedConceptsForAll(ranked) : getPrimaryConcepts(ranked);
   }
 
   function getConceptEntry() {
@@ -2407,26 +2617,44 @@ function getTrackMeta(trackId) {
     }
 
     const ranked = getRankedConcepts();
+    const primaryConcepts = getPrimaryConcepts(ranked);
     const displayConcepts = getDisplayConcepts(ranked);
+    const allConcepts = getOrderedConceptsForAll(ranked);
+    const primaryConceptNames = new Set(primaryConcepts.map(item => item.concept));
+    const canShowAllConcepts = allConcepts.length > primaryConcepts.length;
     if (!displayConcepts.length) {
       conceptWrap.innerHTML = `<div class="engine-empty">등록된 교과 개념 데이터가 없습니다.</div>`;
       keywordWrap.innerHTML = `<div class="engine-empty">등록된 키워드 데이터가 없습니다.</div>`;
       return;
     }
 
+    const conceptToggleHtml = canShowAllConcepts ? `
+      <div class="engine-concept-toggle-row">
+        <div class="engine-concept-toggle-help">
+          ${state.showAllConcepts
+            ? `전체 교과 개념 ${allConcepts.length}개를 펼친 상태입니다. 추천 개념 외에도 학생이 원하는 개념을 직접 선택할 수 있습니다.`
+            : `현재는 학과 기준 추천 개념 3개만 먼저 보여줍니다. 다른 개념으로 탐구하고 싶으면 전체 개념을 펼쳐서 선택하면 됩니다.`}
+        </div>
+        <button type="button" class="engine-concept-toggle-btn" data-action="concept-display-toggle">
+          ${state.showAllConcepts ? "추천 개념만 보기" : `다른 교과 개념 보기 (${allConcepts.length}개)`}
+        </button>
+      </div>
+    ` : "";
+
     conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
       const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
       const why = item.reasons[0] || "추천 개념";
       const alias = getConceptFriendlyLabel(item.concept);
+      const isPrimary = primaryConceptNames.has(item.concept);
       return `
-        <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""}" data-concept="${escapeHtml(item.concept)}">
-          <div class="engine-concept-name">${escapeHtml(item.concept)}</div>
+        <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""} ${isPrimary ? "" : "is-secondary"}" data-concept="${escapeHtml(item.concept)}">
+          <div class="engine-concept-name">${escapeHtml(item.concept)} ${state.showAllConcepts ? `<span class="engine-mini-tag" style="margin-left:6px;">${isPrimary ? "추천" : "직접 선택"}</span>` : ""}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
           <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)}</div>
           <div class="engine-concept-tags">${tags}</div>
         </button>
       `;
-    }).join("")}</div>`;
+    }).join("")}</div>${conceptToggleHtml}`;
 
     if (!state.concept) {
       keywordWrap.innerHTML = `<div class="engine-empty">왼쪽에서 교과 개념을 먼저 고르면 해당 개념의 키워드가 열립니다.</div>`;
