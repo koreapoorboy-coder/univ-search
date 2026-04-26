@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.8-common-math2-34-prelock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.9-info-34-prelock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1923,7 +1923,14 @@ function getTrackMeta(trackId) {
       "행렬과 행렬의 연산": "자료 배열·구조 처리",
       "평면좌표와 직선의 방정식": "좌표·직선·모델링",
       "원의 방정식": "원·범위·곡선 설계",
-      "도형의 이동": "좌표 변환·그래픽"
+      "도형의 이동": "좌표 변환·그래픽",
+      "지식·정보 사회와 정보 문화": "정보 문화·윤리",
+      "자료와 정보의 표현": "디지털 표현·부호화",
+      "자료와 정보의 분석": "데이터 분석·해석",
+      "추상화와 문제 분해": "문제 분해·모델링",
+      "알고리즘 설계와 분석": "알고리즘·효율성",
+      "프로그래밍과 자동화": "코드 구현·자동화",
+      "컴퓨팅 시스템과 네트워크": "시스템·네트워크"
     };
     return map[concept] || "";
   }
@@ -2036,6 +2043,82 @@ function getTrackMeta(trackId) {
     }
     if (/(환경|기후|지구|천문|우주|해양|지리)/.test(majorText) || bucket === "env") {
       return ["평면좌표와 직선의 방정식", "원의 방정식", "도형의 이동"];
+    }
+
+    return defaultSequence;
+  }
+
+
+
+  function getInfoPreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "지식·정보 사회와 정보 문화",
+      "자료와 정보의 표현",
+      "자료와 정보의 분석",
+      "추상화와 문제 분해",
+      "알고리즘 설계와 분석",
+      "프로그래밍과 자동화",
+      "컴퓨팅 시스템과 네트워크"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
+      return [
+        "알고리즘 설계와 분석",
+        "프로그래밍과 자동화",
+        "자료와 정보의 분석",
+        "추상화와 문제 분해",
+        "자료와 정보의 표현",
+        "컴퓨팅 시스템과 네트워크",
+        "지식·정보 사회와 정보 문화"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|임베디드|제어)/.test(majorText) || bucket === "electronic") {
+      return [
+        "컴퓨팅 시스템과 네트워크",
+        "프로그래밍과 자동화",
+        "자료와 정보의 표현",
+        "알고리즘 설계와 분석",
+        "자료와 정보의 분석",
+        "추상화와 문제 분해",
+        "지식·정보 사회와 정보 문화"
+      ];
+    }
+    if (/(기계|자동차|항공|모빌리티|로봇|스마트팩토리)/.test(majorText) || bucket === "mechanical") {
+      return [
+        "프로그래밍과 자동화",
+        "추상화와 문제 분해",
+        "알고리즘 설계와 분석",
+        "컴퓨팅 시스템과 네트워크",
+        "자료와 정보의 분석",
+        "자료와 정보의 표현",
+        "지식·정보 사회와 정보 문화"
+      ];
+    }
+    if (/(경영|경제|통계|심리|사회|행정|정책|미디어|마케팅)/.test(majorText)) {
+      return [
+        "자료와 정보의 분석",
+        "지식·정보 사회와 정보 문화",
+        "자료와 정보의 표현",
+        "알고리즘 설계와 분석",
+        "추상화와 문제 분해",
+        "프로그래밍과 자동화",
+        "컴퓨팅 시스템과 네트워크"
+      ];
+    }
+    if (/(환경|기후|지구|도시|건축|보건|간호|의학|생명|바이오)/.test(majorText) || bucket === "env" || bucket === "bio") {
+      return [
+        "자료와 정보의 분석",
+        "추상화와 문제 분해",
+        "지식·정보 사회와 정보 문화",
+        "프로그래밍과 자동화",
+        "알고리즘 설계와 분석",
+        "자료와 정보의 표현",
+        "컴퓨팅 시스템과 네트워크"
+      ];
     }
 
     return defaultSequence;
@@ -2291,6 +2374,67 @@ function getTrackMeta(trackId) {
       }
     }
 
+
+    if (fuzzyIncludes(state.subject, "정보")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/알고리즘 설계와 분석/.test(concept)) {
+        if (hit("효율성", "성능 비교", "수행 시간", "최적화")) {
+          if (/algo_opt/.test(axisId) || /알고리즘 최적화 축/.test(axisTitle) || axisDomain === "algo_opt") fallback = Math.max(fallback, isItMajor ? 56 : 48);
+          if (/search_sort/.test(axisId) || /탐색·정렬 구현 축/.test(axisTitle) || axisDomain === "search_sort") fallback = Math.max(fallback, 12);
+        }
+        if (hit("이진 탐색", "순차 탐색", "버블 정렬", "선택 정렬", "정렬", "탐색")) {
+          if (/search_sort/.test(axisId) || /탐색·정렬 구현 축/.test(axisTitle) || axisDomain === "search_sort") fallback = Math.max(fallback, isItMajor ? 56 : 48);
+          if (/algo_opt/.test(axisId) || /알고리즘 최적화 축/.test(axisTitle) || axisDomain === "algo_opt") fallback = Math.max(fallback, 14);
+        }
+      }
+      if (/프로그래밍과 자동화/.test(concept)) {
+        if (hit("Python", "변수 설계", "입력과 출력", "코드", "프로그래밍")) {
+          if (/programming_impl/.test(axisId) || /프로그래밍 구현 축/.test(axisTitle) || axisDomain === "programming_impl") fallback = Math.max(fallback, 54);
+          if (/logic_control/.test(axisId) || /논리·제어 확장 축/.test(axisTitle) || axisDomain === "logic_control") fallback = Math.max(fallback, 12);
+        }
+        if (hit("조건문", "반복문", "리스트", "리스트 내포")) {
+          if (/logic_control/.test(axisId) || /논리·제어 확장 축/.test(axisTitle) || axisDomain === "logic_control") fallback = Math.max(fallback, 54);
+          if (/programming_impl/.test(axisId) || /프로그래밍 구현 축/.test(axisTitle) || axisDomain === "programming_impl") fallback = Math.max(fallback, 12);
+        }
+        if (hit("자동화", "random 모듈", "turtle 그래픽")) {
+          if (/automation_sim/.test(axisId) || /자동화·시뮬레이션 축/.test(axisTitle) || axisDomain === "automation_sim") fallback = Math.max(fallback, 54);
+          if (/programming_impl/.test(axisId) || /프로그래밍 구현 축/.test(axisTitle) || axisDomain === "programming_impl") fallback = Math.max(fallback, 10);
+        }
+      }
+      if (/자료와 정보의 분석/.test(concept)) {
+        if (hit("자료 수집", "자료 분석", "비교 기준", "분석 과정", "컴퓨팅 도구")) {
+          if (/data_visual/.test(axisId) || /데이터 수집·시각화 축/.test(axisTitle) || axisDomain === "data_visual") fallback = Math.max(fallback, 54);
+          if (/data_decision/.test(axisId) || /데이터 해석·의사결정 축/.test(axisTitle) || axisDomain === "data_decision") fallback = Math.max(fallback, 12);
+        }
+        if (hit("정렬", "탐색", "구조화", "정보 관리")) {
+          if (/database/.test(axisId) || /데이터베이스·정보구조 축/.test(axisTitle) || axisDomain === "database") fallback = Math.max(fallback, 52);
+          if (/data_visual/.test(axisId) || /데이터 수집·시각화 축/.test(axisTitle) || axisDomain === "data_visual") fallback = Math.max(fallback, 10);
+        }
+        if (hit("의미 있는 정보", "예측", "의사결정", "빅데이터")) {
+          if (/data_decision/.test(axisId) || /데이터 해석·의사결정 축/.test(axisTitle) || axisDomain === "data_decision") fallback = Math.max(fallback, 52);
+          if (/data_visual/.test(axisId) || /데이터 수집·시각화 축/.test(axisTitle) || axisDomain === "data_visual") fallback = Math.max(fallback, 10);
+        }
+      }
+      if (/추상화와 문제 분해/.test(concept)) {
+        if (hit("문제 분해", "조건 분석", "현재 상태", "목표 상태", "작은 문제로 나누기")) {
+          if (/problem_design/.test(axisId) || /문제 구조화·알고리즘 설계 축/.test(axisTitle) || axisDomain === "problem_design") fallback = Math.max(fallback, 52);
+        }
+        if (hit("모델", "모델링", "핵심 요소")) {
+          if (/math_modeling/.test(axisId) || /수리 모델링 확장 축/.test(axisTitle) || axisDomain === "math_modeling") fallback = Math.max(fallback, 50);
+        }
+      }
+      if (/자료와 정보의 표현/.test(concept)) {
+        if (hit("디지털 정보", "자료 표현", "부호화", "아날로그 정보", "모스부호")) {
+          if (/encoding/.test(axisId) || /디지털 표현·부호화 축/.test(axisTitle) || axisDomain === "encoding") fallback = Math.max(fallback, 52);
+        }
+      }
+      if (/컴퓨팅 시스템과 네트워크/.test(concept)) {
+        if (hit("네트워크", "공유", "의사소통", "협업", "컴퓨팅 네트워크 환경")) {
+          if (/network_system/.test(axisId) || /시스템·네트워크 구조 축/.test(axisTitle) || axisDomain === "network_system") fallback = Math.max(fallback, 52);
+        }
+      }
+    }
+
     return Math.max(best, fallback);
   }
 
@@ -2327,6 +2471,17 @@ function getTrackMeta(trackId) {
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
     }
+
+    if (state.subject === "정보") {
+      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
+        if (/알고리즘 설계와 분석/.test(concept) && /효율성|성능 비교|이진 탐색|정렬|탐색|수행 시간|버블 정렬|선택 정렬|순차 탐색/.test(text)) score += 30;
+        if (/프로그래밍과 자동화/.test(concept) && /Python|변수 설계|조건문|반복문|입력과 출력|리스트|random 모듈|turtle 그래픽|자동화/.test(text)) score += 30;
+        if (/자료와 정보의 분석/.test(concept) && /자료 분석|자료 수집|비교 기준|정렬|탐색|의미 있는 정보|컴퓨팅 도구/.test(text)) score += 28;
+        if (/추상화와 문제 분해/.test(concept) && /문제 분해|조건 분석|현재 상태|목표 상태|모델링|작은 문제로 나누기/.test(text)) score += 24;
+        if (/자료와 정보의 표현/.test(concept) && /디지털 정보|자료 표현|부호화|아날로그 정보|모스부호/.test(text)) score += 20;
+      }
+    }
+
     if (state.subject === "통합과학2") {
       return getIntegratedScience2PreferredConceptSequence();
     }
@@ -2335,6 +2490,9 @@ function getTrackMeta(trackId) {
     }
     if (state.subject === "공통수학2") {
       return getCommonMath2PreferredConceptSequence();
+    }
+    if (state.subject === "정보") {
+      return getInfoPreferredConceptSequence();
     }
 
     const majorText = getMajorTextBag();
@@ -2368,6 +2526,33 @@ function getTrackMeta(trackId) {
 
     return [];
   }
+
+
+  function getInfoPreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/알고리즘 설계와 분석/.test(concept)) return ["효율성", "성능 비교", "이진 탐색", "정렬", "탐색", "순차 탐색", "선택 정렬", "버블 정렬", "수행 시간", "반복", "선택", "순차"];
+      if (/프로그래밍과 자동화/.test(concept)) return ["Python", "변수 설계", "조건문", "반복문", "입력과 출력", "리스트", "리스트 내포", "random 모듈", "turtle 그래픽", "자동화"];
+      if (/자료와 정보의 분석/.test(concept)) return ["자료 분석", "자료 수집", "비교 기준", "정렬", "탐색", "의미 있는 정보", "컴퓨팅 도구", "분석 과정"];
+      if (/추상화와 문제 분해/.test(concept)) return ["문제 분해", "조건 분석", "현재 상태", "목표 상태", "모델링", "작은 문제로 나누기", "불필요한 요소 제거"];
+      if (/자료와 정보의 표현/.test(concept)) return ["디지털 정보", "자료 표현", "부호화", "아날로그 정보", "모스부호", "표현 방식 선택"];
+      if (/컴퓨팅 시스템과 네트워크/.test(concept)) return ["네트워크", "공유", "의사소통", "협업", "컴퓨팅 네트워크 환경", "네트워크 기반 문제 해결"];
+      if (/지식·정보 사회와 정보 문화/.test(concept)) return ["정보 윤리", "정보 보호", "디지털 시민성", "정보 기술 활용", "공유와 협업", "디지털 의사소통"];
+    }
+
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|임베디드|제어)/.test(majorText) || bucket === "electronic") {
+      if (/컴퓨팅 시스템과 네트워크/.test(concept)) return ["네트워크", "컴퓨팅 네트워크 환경", "공유", "의사소통", "협업"];
+      if (/프로그래밍과 자동화/.test(concept)) return ["자동화", "조건문", "반복문", "입력과 출력", "변수 설계", "Python"];
+      if (/자료와 정보의 표현/.test(concept)) return ["디지털 정보", "부호화", "자료 표현", "표현 방식 선택"];
+    }
+
+    return [];
+  }
+
 
   function getCommonMath1PreferredKeywordSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
@@ -2457,6 +2642,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "공통수학2") {
       const cm2Preferred = getCommonMath2PreferredKeywordSequence();
       if (cm2Preferred.length) return cm2Preferred;
+    }
+    if (state.subject === "정보") {
+      const infoPreferred = getInfoPreferredKeywordSequence();
+      if (infoPreferred.length) return infoPreferred;
     }
     if (state.subject === "통합과학2") {
       const is2Preferred = getIntegratedScience2PreferredKeywordSequence();
@@ -2715,7 +2904,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
