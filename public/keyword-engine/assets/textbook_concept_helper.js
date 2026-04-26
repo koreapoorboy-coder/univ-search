@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-is1-keyword-lock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.3-is1-34-lock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1894,7 +1894,7 @@ function getTrackMeta(trackId) {
     }
 
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍)/i.test(majorText) || bucket === "it") {
-      return ["과학의 측정과 우리 사회", "기본량과 단위", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
+      return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "기본량과 단위", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
     }
     if (/(전자|전기|회로|센서|통신|반도체)/.test(majorText) || bucket === "electronic") {
       return ["과학의 측정과 우리 사회", "기본량과 단위", "역학 시스템", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "생명 시스템"];
