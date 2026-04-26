@@ -16,9 +16,9 @@
       "core_focus": "측정, 눈금 읽기, 센서, 정밀 측정, 데이터 해석, 환경 기준",
       "keyword_signals": {
         "온도 센서": {
-          "measurement_physics_system": 26,
-          "measurement_data_modeling": 10,
-          "measurement_environment_data": 4
+          "measurement_physics_system": 62,
+          "measurement_data_modeling": 8,
+          "measurement_environment_data": 0
         },
         "속도 측정 카메라": {
           "measurement_physics_system": 22,
@@ -48,12 +48,14 @@
           "measurement_data_modeling": 20
         },
         "미세먼지 농도": {
-          "measurement_environment_data": 26,
-          "measurement_data_modeling": 10
+          "measurement_environment_data": 62,
+          "measurement_data_modeling": 8,
+          "measurement_physics_system": 0
         },
         "데시벨": {
-          "measurement_environment_data": 24,
-          "measurement_physics_system": 8
+          "measurement_environment_data": 56,
+          "measurement_physics_system": 10,
+          "measurement_data_modeling": 0
         },
         "소음 규제": {
           "measurement_environment_data": 24
@@ -400,17 +402,19 @@
       "core_focus": "시간 규모, 공간 규모, 미시/거시, 관측 범위, 정밀 측정, 좌표와 위치",
       "keyword_signals": {
         "물 분자": {
-          "scale_structure_modeling": 26,
-          "physics_scale_analysis": 14,
+          "physics_scale_analysis": 58,
+          "scale_structure_modeling": 16,
           "earth_observation_scale": 0
         },
         "수소 원자": {
-          "scale_structure_modeling": 24,
-          "physics_scale_analysis": 14
+          "physics_scale_analysis": 52,
+          "scale_structure_modeling": 18,
+          "earth_observation_scale": 0
         },
         "나트륨 이온": {
-          "scale_structure_modeling": 24,
-          "physics_scale_analysis": 12
+          "physics_scale_analysis": 48,
+          "scale_structure_modeling": 18,
+          "earth_observation_scale": 0
         },
         "세포": {
           "scale_structure_modeling": 20,
