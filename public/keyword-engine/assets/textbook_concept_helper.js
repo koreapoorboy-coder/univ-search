@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.16-major-bridge-hardfix";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.17-major-bridge-fullfix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2598,8 +2598,49 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.16-major-bridge-hardfix";
     return null;
   }
 
+  function getCareerInputCandidates() {
+    const seen = new Set();
+    const list = [];
+    const add = (el) => {
+      if (!el || seen.has(el)) return;
+      seen.add(el);
+      list.push(el);
+    };
+    add($('career'));
+    document.querySelectorAll('input, textarea').forEach(el => {
+      const id = String(el.id || '').toLowerCase();
+      const name = String(el.name || '').toLowerCase();
+      const placeholder = String(el.getAttribute('placeholder') || '');
+      if (id === 'career' || name.includes('career') || name.includes('major') || /학과|진로|전공|컴퓨터|반도체|간호|신소재|환경/.test(placeholder)) add(el);
+    });
+    document.querySelectorAll('input[type="text"], input:not([type]), textarea').forEach(add);
+    return list;
+  }
+
+  function looksLikeMajorInput(value) {
+    const text = String(value || '').trim();
+    if (!text) return false;
+    if (/(학교|고등학교|보고서|발표|탐구|수행평가|선생님|자료조사|실험|활동)/.test(text) && !/(학과|공학|컴퓨터|소프트웨어|정보|데이터|AI|인공지능|반도체|간호|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어|교육|건축|도시|전자|기계|의학|약학)/.test(text)) return false;
+    return /(학과|공학|컴퓨터|소프트웨어|정보|데이터|AI|인공지능|반도체|간호|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어|교육|건축|도시|전자|전기|기계|의학|약학|보건|미디어|콘텐츠|사회|정치|행정|법|통계)/.test(text);
+  }
+
   function getCareerInputText() {
-    return ($('career')?.value || '').trim();
+    const candidates = getCareerInputCandidates();
+    const primary = $('career');
+    const primaryValue = (primary?.value || '').trim();
+    if (primaryValue) return primaryValue;
+
+    const explicit = candidates
+      .map(el => (el?.value || '').trim())
+      .find(value => looksLikeMajorInput(value));
+    if (explicit) return explicit;
+
+    try {
+      const lastRaw = String(window.__MAJOR_ENGINE_LAST_RAW__ || window.__MAJOR_ENGINE_LAST_INPUT__ || '').trim();
+      if (lastRaw) return lastRaw;
+    } catch (error) {}
+
+    return '';
   }
 
   function getEffectiveCareerName() {
@@ -2793,6 +2834,35 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.16-major-bridge-hardfix";
         return;
       }
     });
+
+    document.addEventListener('input', function (event) {
+      const target = event.target;
+      if (!target || !target.matches || !target.matches('input, textarea, select')) return;
+      const before = state.career || '';
+      syncSubjectFromSelect();
+      syncMajorSelectionDetail(null);
+      if (!state.keyword) renderCareerKeywordPreview();
+      const after = state.career || '';
+      if (before !== after || target.id === 'career') {
+        setTimeout(renderAll, 0);
+      }
+    }, true);
+
+    document.addEventListener('change', function (event) {
+      const target = event.target;
+      if (!target || !target.matches || !target.matches('input, textarea, select')) return;
+      syncSubjectFromSelect();
+      syncMajorSelectionDetail(null);
+      if (!state.keyword) renderCareerKeywordPreview();
+      setTimeout(renderAll, 0);
+    }, true);
+
+    try {
+      const observer = new MutationObserver(function () {
+        if (syncMajorBridgeState()) renderAll();
+      });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    } catch (error) {}
 
     bindContextInputs();
 
@@ -4965,6 +5035,8 @@ function getTrackMeta(trackId) {
       globalMajor: getMajorGlobalDetail()?.display_name || '',
       snapshotMajor: derivePreviewDetailFromPayload(getMajorEngineSnapshot())?.display_name || '',
       effectiveCareer: getEffectiveCareerName(),
+      scannedCareerInput: getCareerInputText(),
+      scannedCareerCandidates: getCareerInputCandidates().map(el => ({ id: el.id || '', name: el.name || '', value: el.value || '', placeholder: el.getAttribute('placeholder') || '' })).slice(0, 8),
       subject: state.subject || '',
       concept: state.concept || ''
     };
