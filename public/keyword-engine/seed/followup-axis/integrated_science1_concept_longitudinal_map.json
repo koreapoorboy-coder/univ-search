@@ -1,6 +1,6 @@
 {
   "subject_name": "통합과학1",
-  "version": "v2_concept_longitudinal_map_2026-04-26",
+  "version": "v1.3-is1-34-lock",
   "policy": {
     "priority_rule": [
       "통합과학1은 전체 8개 개념을 풀로 유지한다",
@@ -16,8 +16,8 @@
       "core_focus": "측정, 눈금 읽기, 센서, 정밀 측정, 데이터 해석, 환경 기준",
       "keyword_signals": {
         "온도 센서": {
-          "measurement_physics_system": 62,
-          "measurement_data_modeling": 8,
+          "measurement_physics_system": 72,
+          "measurement_data_modeling": 6,
           "measurement_environment_data": 0
         },
         "속도 측정 카메라": {
@@ -48,8 +48,8 @@
           "measurement_data_modeling": 20
         },
         "미세먼지 농도": {
-          "measurement_environment_data": 62,
-          "measurement_data_modeling": 8,
+          "measurement_environment_data": 72,
+          "measurement_data_modeling": 6,
           "measurement_physics_system": 0
         },
         "데시벨": {
@@ -402,18 +402,18 @@
       "core_focus": "시간 규모, 공간 규모, 미시/거시, 관측 범위, 정밀 측정, 좌표와 위치",
       "keyword_signals": {
         "물 분자": {
-          "physics_scale_analysis": 58,
-          "scale_structure_modeling": 16,
+          "physics_scale_analysis": 72,
+          "scale_structure_modeling": 10,
           "earth_observation_scale": 0
         },
         "수소 원자": {
-          "physics_scale_analysis": 52,
-          "scale_structure_modeling": 18,
+          "physics_scale_analysis": 66,
+          "scale_structure_modeling": 10,
           "earth_observation_scale": 0
         },
         "나트륨 이온": {
-          "physics_scale_analysis": 48,
-          "scale_structure_modeling": 18,
+          "physics_scale_analysis": 62,
+          "scale_structure_modeling": 10,
           "earth_observation_scale": 0
         },
         "세포": {
@@ -429,8 +429,9 @@
           "scale_structure_modeling": 12
         },
         "천체": {
-          "earth_observation_scale": 26,
-          "physics_scale_analysis": 10
+          "earth_observation_scale": 70,
+          "physics_scale_analysis": 8,
+          "scale_structure_modeling": 4
         },
         "위성 위치 확인 시스템": {
           "physics_scale_analysis": 22,
@@ -450,8 +451,9 @@
           "scale_structure_modeling": 10
         },
         "관측 범위 확장": {
-          "earth_observation_scale": 24,
-          "physics_scale_analysis": 10
+          "earth_observation_scale": 70,
+          "physics_scale_analysis": 8,
+          "scale_structure_modeling": 4
         },
         "공간 규모": {
           "physics_scale_analysis": 18,
@@ -460,10 +462,22 @@
       },
       "longitudinal_axes": [
         {
+          "axis_id": "physics_scale_analysis",
+          "axis_title": "물리·규모 해석 축",
+          "axis_domain": "physics",
+          "priority": 1,
+          "next_subjects": [
+            "물리",
+            "역학과 에너지"
+          ],
+          "why": "미시 세계의 원자·분자와 거시 세계의 시간·공간 규모를 먼저 물리적 크기·관측 한계·측정 기준으로 해석하는 방향으로 이어지기 좋습니다.",
+          "student_output_hint": "물 분자·수소 원자처럼 작은 대상을 고를 때는 크기 비교, 관측 방법, 측정 한계를 중심으로 물리적 규모 해석을 정리할 수 있습니다."
+        },
+        {
           "axis_id": "scale_structure_modeling",
           "axis_title": "공간·좌표 모델링 축",
           "axis_domain": "data",
-          "priority": 1,
+          "priority": 2,
           "next_subjects": [
             "대수",
             "정보",
@@ -471,18 +485,6 @@
           ],
           "why": "미시·거시 구조와 위치·좌표 관계를 모델로 표현하면 구조 해석과 모델링으로 확장할 수 있습니다.",
           "student_output_hint": "좌표 모델 만들기, 구조 비교표, 위치·규모 설명 카드"
-        },
-        {
-          "axis_id": "physics_scale_analysis",
-          "axis_title": "물리·규모 해석 축",
-          "axis_domain": "physics",
-          "priority": 2,
-          "next_subjects": [
-            "물리",
-            "역학과 에너지"
-          ],
-          "why": "시간·공간 규모를 운동과 관측 문제로 연결하면 물리적 해석이 가능합니다.",
-          "student_output_hint": "시간·거리 스케일 비교, 운동 해석, 관측 문제 보고서"
         },
         {
           "axis_id": "earth_observation_scale",
@@ -493,7 +495,7 @@
             "지구과학",
             "지구시스템과학"
           ],
-          "why": "관측 범위와 시공간 개념은 지구·우주·환경 해석으로 자연스럽게 이어집니다.",
+          "why": "천체·관측 범위·지구 규모 자료를 선택한 경우 지구·우주·환경 해석으로 자연스럽게 이어집니다.",
           "student_output_hint": "관측 규모 비교, 우주·지구 사례 정리, 시공간 해석 보고서"
         }
       ]
