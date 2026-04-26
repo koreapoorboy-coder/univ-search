@@ -2,7 +2,7 @@
 window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = "v33.16-major-bridge-hardfix";
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v33.17-major-bridge-fullfix';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -5737,6 +5737,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     } : null;
     window.__MAJOR_ENGINE_SELECTED__ = detail;
     window.__MAJOR_ENGINE_LAST_RAW__ = getCareerInput()?.value || '';
+    window.__MAJOR_ENGINE_LAST_INPUT__ = getCareerInput()?.value || '';
     window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
   }
 
