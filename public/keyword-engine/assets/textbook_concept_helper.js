@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.1-is1-concept-followup-bundle";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.2-is1-keyword-lock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1894,7 +1894,7 @@ function getTrackMeta(trackId) {
     }
 
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍)/i.test(majorText) || bucket === "it") {
-      return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "기본량과 단위", "역학 시스템", "물질 구성과 분류", "지구시스템", "생명 시스템"];
+      return ["과학의 측정과 우리 사회", "기본량과 단위", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
     }
     if (/(전자|전기|회로|센서|통신|반도체)/.test(majorText) || bucket === "electronic") {
       return ["과학의 측정과 우리 사회", "기본량과 단위", "역학 시스템", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "생명 시스템"];
@@ -1916,20 +1916,64 @@ function getTrackMeta(trackId) {
   }
 
   function getMappedKeywordAxisBoost(entry, axis) {
-    if (!entry || !state.keyword || !entry.keyword_signals) return 0;
+    const concept = String(entry?.concept_name || state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+
+    const axisId = String(axis?.id || axis?.axis_id || "");
+    const axisTitle = String(axis?.title || axis?.axis_title || "");
+    const axisDomain = String(axis?.axisDomain || axis?.axis_domain || "");
+    const keywordSignals = entry?.keyword_signals && typeof entry.keyword_signals === "object"
+      ? entry.keyword_signals
+      : {};
     let best = 0;
-    Object.entries(entry.keyword_signals).forEach(([keywordLike, axisScores]) => {
-      if (!fuzzyIncludes(keywordLike, state.keyword) && !fuzzyIncludes(state.keyword, keywordLike)) return;
+
+    Object.entries(keywordSignals).forEach(([keywordLike, axisScores]) => {
+      if (!fuzzyIncludes(keywordLike, keyword) && !fuzzyIncludes(keyword, keywordLike)) return;
       if (typeof axisScores === "number") {
         best = Math.max(best, axisScores);
         return;
       }
       if (axisScores && typeof axisScores === "object") {
-        const score = Number(axisScores[axis.id] ?? axisScores[axis.axis_id] ?? axisScores[axis.title] ?? axisScores[axis.axis_title] ?? 0);
+        const score = Number(axisScores[axisId] ?? axisScores[axisTitle] ?? axisScores[axisDomain] ?? 0);
         best = Math.max(best, score);
       }
     });
-    return best;
+
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+    let fallback = 0;
+
+    if (fuzzyIncludes(state.subject, "통합과학1")) {
+      if (/과학의 측정과 우리 사회/.test(concept)) {
+        if (hit("온도 센서", "속도 측정 카메라", "전자저울", "냉난방기 가동 전후 변화", "위치별 온도 차이", "센서", "측정 도구")) {
+          if (/measurement_physics_system/.test(axisId) || /물리·시스템 해석 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 46);
+          if (/measurement_data_modeling/.test(axisId) || /수리·데이터 모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 4);
+        }
+        if (hit("미세먼지 농도", "데시벨", "소음 규제")) {
+          if (/measurement_environment_data/.test(axisId) || /지구·환경 데이터 해석 축/.test(axisTitle) || axisDomain === "earth_env") fallback = Math.max(fallback, 50);
+          if (/measurement_data_modeling/.test(axisId) || /수리·데이터 모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 4);
+        }
+      }
+
+      if (/자연 세계의 시간과 공간/.test(concept)) {
+        if (hit("물 분자", "수소 원자", "나트륨 이온")) {
+          if (/physics_scale_analysis/.test(axisId) || /물리·규모 해석 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 52);
+          if (/scale_structure_modeling/.test(axisId) || /공간·좌표 모델링 축/.test(axisTitle) || axisDomain === "engineering" || axisDomain === "data") fallback = Math.max(fallback, 8);
+        }
+        if (hit("관측 범위 확장", "천체", "세슘 원자 시계")) {
+          if (/earth_observation_scale/.test(axisId) || /지구·우주 관측 축/.test(axisTitle) || axisDomain === "earth_env") fallback = Math.max(fallback, 34);
+        }
+      }
+
+      if (/규칙성 발견과 주기율표/.test(concept)) {
+        if (hit("주기성", "성질 예측", "원자 번호", "원소 배열")) {
+          if (/chemistry_prediction/.test(axisId) || /화학·성질 예측 축/.test(axisTitle) || axisDomain === "chemistry") fallback = Math.max(fallback, 40);
+          if (/pattern_classification_modeling/.test(axisId) || /패턴·분류 모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 10);
+        }
+      }
+    }
+
+    return Math.max(best, fallback);
   }
 
   function getMajorGroupLabel() {
@@ -2157,17 +2201,9 @@ function getTrackMeta(trackId) {
       if (hasBio) { score += 16; reasons.push("진로 연결"); }
       if (hasMech && !hasBio) score -= 10;
     }
-    if (state.subject === "통합과학1" && bucket === "it") {
-      if (/규칙성 발견과 주기율표/.test(concept)) {
-        score += 18;
-        reasons.push("정보계열 패턴·예측 강화");
-      }
-      if (/기본량과 단위/.test(concept)) {
-        score -= 10;
-      }
-      if (/자연 세계의 시간과 공간/.test(concept)) {
-        score += 4;
-      }
+    if (bucket === "env") {
+      if (hasEnv) { score += 16; reasons.push("진로 연결"); }
+      if (scaleStrong) score += 8;
     }
 
     if (track === "physics") {
