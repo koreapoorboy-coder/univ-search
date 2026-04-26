@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.5-concept-free-select";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.7-common-math1-34-prelock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -1913,7 +1913,14 @@ function getTrackMeta(trackId) {
       "자연 세계의 시간과 공간": "관측·규모·시공간",
       "생명 시스템": "생명·건강·반응",
       "역학 시스템": "힘·운동·안정성",
-      "지구시스템": "환경·기후·지구"
+      "지구시스템": "환경·기후·지구",
+      "다항식의 연산": "식·구조·연산",
+      "나머지정리와 인수분해": "구조 분해·조건",
+      "복소수와 이차방정식": "해의 확장·방정식",
+      "이차방정식과 이차함수": "그래프·변화·모델링",
+      "여러 가지 방정식과 부등식": "조건·범위·판단",
+      "경우의 수, 순열, 조합": "선택·배열·탐색",
+      "행렬과 행렬의 연산": "자료 배열·구조 처리"
     };
     return map[concept] || "";
   }
@@ -1952,6 +1959,52 @@ function getTrackMeta(trackId) {
     }
 
     return ["과학의 측정과 우리 사회", "기본량과 단위", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "역학 시스템", "생명 시스템"];
+  }
+
+
+  function getCommonMath1PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "다항식의 연산",
+      "나머지정리와 인수분해",
+      "복소수와 이차방정식",
+      "이차방정식과 이차함수",
+      "여러 가지 방정식과 부등식",
+      "경우의 수, 순열, 조합",
+      "행렬과 행렬의 연산"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText) || bucket === "it") {
+      return [
+        "이차방정식과 이차함수",
+        "행렬과 행렬의 연산",
+        "경우의 수, 순열, 조합",
+        "여러 가지 방정식과 부등식",
+        "다항식의 연산",
+        "나머지정리와 인수분해",
+        "복소수와 이차방정식"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇)/.test(majorText) || bucket === "electronic") {
+      return ["이차방정식과 이차함수", "행렬과 행렬의 연산", "복소수와 이차방정식", "여러 가지 방정식과 부등식", "경우의 수, 순열, 조합", "다항식의 연산", "나머지정리와 인수분해"];
+    }
+    if (/(기계|자동차|항공|모빌리티|에너지시스템)/.test(majorText) || bucket === "mechanical") {
+      return ["이차방정식과 이차함수", "여러 가지 방정식과 부등식", "행렬과 행렬의 연산", "복소수와 이차방정식", "경우의 수, 순열, 조합", "다항식의 연산", "나머지정리와 인수분해"];
+    }
+    if (/(신소재|재료|배터리|에너지|화학공학|고분자|금속|화공)/.test(majorText) || bucket === "materials") {
+      return ["여러 가지 방정식과 부등식", "이차방정식과 이차함수", "복소수와 이차방정식", "다항식의 연산", "나머지정리와 인수분해", "행렬과 행렬의 연산", "경우의 수, 순열, 조합"];
+    }
+    if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상)/.test(majorText) || bucket === "bio") {
+      return ["경우의 수, 순열, 조합", "여러 가지 방정식과 부등식", "이차방정식과 이차함수", "다항식의 연산", "나머지정리와 인수분해", "행렬과 행렬의 연산", "복소수와 이차방정식"];
+    }
+    if (/(환경|기후|지구|천문|우주|해양|지리|도시)/.test(majorText) || bucket === "env") {
+      return ["이차방정식과 이차함수", "여러 가지 방정식과 부등식", "경우의 수, 순열, 조합", "행렬과 행렬의 연산", "다항식의 연산", "나머지정리와 인수분해", "복소수와 이차방정식"];
+    }
+
+    return defaultSequence;
   }
 
 
@@ -2127,6 +2180,48 @@ function getTrackMeta(trackId) {
       }
     }
 
+
+    if (fuzzyIncludes(state.subject, "공통수학1")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/이차방정식과 이차함수/.test(concept)) {
+        if (hit("그래프 해석", "함수와 방정식의 관계", "최댓값", "최솟값", "꼭짓점 좌표", "축")) {
+          if (isItMajor && (/math_modeling_visualization/.test(axisId) || /수리 모델링·시각화 축/.test(axisTitle) || axisDomain === "data")) fallback = Math.max(fallback, 56);
+          if (/graph_change_interpretation/.test(axisId) || /그래프·변화 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, isItMajor ? 18 : 46);
+          if (/physics_motion_graph_bridge/.test(axisId) || /물리 운동 그래프 연결 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 10);
+        }
+      }
+      if (/행렬과 행렬의 연산/.test(concept)) {
+        if (hit("행과 열", "자료 배열", "표 데이터", "행렬")) {
+          if (/matrix_data_structure_processing/.test(axisId) || /데이터 구조·행렬 처리 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 54);
+          if (/information_visualization_operation/.test(axisId) || /정보·시각화 연산 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, 12);
+        }
+        if (hit("행렬의 연산", "효율적 처리", "연산 규칙")) {
+          if (/engineering_calculation_system/.test(axisId) || /공학 계산·시스템 표현 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 50);
+          if (/matrix_data_structure_processing/.test(axisId) || /데이터 구조·행렬 처리 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 16);
+        }
+      }
+      if (/경우의 수, 순열, 조합/.test(concept)) {
+        if (hit("순열", "조합", "순서 고려", "순서 미고려", "배열")) {
+          if (/algorithm_search_structure/.test(axisId) || /알고리즘·탐색 구조 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, 54);
+          if (/probability_statistics_inference/.test(axisId) || /확률·통계 추론 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 12);
+        }
+        if (hit("경우 나누기", "계산 전략", "선택", "경우의 수")) {
+          if (/probability_statistics_inference/.test(axisId) || /확률·통계 추론 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 48);
+          if (/algorithm_search_structure/.test(axisId) || /알고리즘·탐색 구조 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, 14);
+        }
+      }
+      if (/여러 가지 방정식과 부등식/.test(concept)) {
+        if (hit("조건 해석", "해집합", "범위 판단")) {
+          if (/condition_range_interpretation/.test(axisId) || /조건·범위 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 48);
+          if (/measurement_threshold_modeling/.test(axisId) || /기준·허용범위 모델링 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 10);
+        }
+        if (hit("연립일차부등식", "이차부등식", "연립이차부등식")) {
+          if (/optimization_decision_extension/.test(axisId) || /최적화·의사결정 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 50);
+          if (/condition_range_interpretation/.test(axisId) || /조건·범위 해석 축/.test(axisTitle) || axisDomain === "math") fallback = Math.max(fallback, 12);
+        }
+      }
+    }
+
     return Math.max(best, fallback);
   }
 
@@ -2166,6 +2261,9 @@ function getTrackMeta(trackId) {
     if (state.subject === "통합과학2") {
       return getIntegratedScience2PreferredConceptSequence();
     }
+    if (state.subject === "공통수학1") {
+      return getCommonMath1PreferredConceptSequence();
+    }
 
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -2199,6 +2297,32 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+  function getCommonMath1PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/이차방정식과 이차함수/.test(concept)) return ["그래프 해석", "함수와 방정식의 관계", "최댓값", "최솟값", "꼭짓점 좌표", "축", "이차함수", "이차방정식"];
+      if (/행렬과 행렬의 연산/.test(concept)) return ["행과 열", "자료 배열", "표 데이터", "행렬", "행렬의 연산", "효율적 처리", "연산 규칙"];
+      if (/경우의 수, 순열, 조합/.test(concept)) return ["순열", "조합", "순서 고려", "순서 미고려", "경우 나누기", "계산 전략", "선택", "배열"];
+      if (/여러 가지 방정식과 부등식/.test(concept)) return ["조건 해석", "해집합", "범위 판단", "연립일차부등식", "이차부등식", "연립이차부등식"];
+      if (/다항식의 연산/.test(concept)) return ["전개", "분배법칙", "정리", "곱셈", "나눗셈", "몫", "나머지", "동류항"];
+      if (/나머지정리와 인수분해/.test(concept)) return ["구조 분해", "인수", "인수분해", "다항식의 나눗셈", "나머지", "해의 조건", "항등식의 성질"];
+      if (/복소수와 이차방정식/.test(concept)) return ["판별식", "해의 존재", "방정식 해석", "근", "계수", "복소수", "허수", "허근"];
+    }
+
+    if (/(전자|전기|반도체|기계|로봇|공학|환경|기후|지구)/.test(majorText)) {
+      if (/이차방정식과 이차함수/.test(concept)) return ["그래프 해석", "최댓값", "최솟값", "꼭짓점 좌표", "축", "함수와 방정식의 관계"];
+      if (/여러 가지 방정식과 부등식/.test(concept)) return ["조건 해석", "범위 판단", "해집합", "이차부등식", "연립일차부등식"];
+      if (/행렬과 행렬의 연산/.test(concept)) return ["행과 열", "자료 배열", "표 데이터", "연산 규칙", "효율적 처리"];
+    }
+
+    return [];
+  }
+
+
   function getIntegratedScience2PreferredKeywordSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -2231,6 +2355,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "공통수학1") {
+      const cm1Preferred = getCommonMath1PreferredKeywordSequence();
+      if (cm1Preferred.length) return cm1Preferred;
+    }
     if (state.subject === "통합과학2") {
       const is2Preferred = getIntegratedScience2PreferredKeywordSequence();
       if (is2Preferred.length) return is2Preferred;
@@ -2271,6 +2399,15 @@ function getTrackMeta(trackId) {
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
+
+    if (state.subject === "공통수학1") {
+      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText)) {
+        if (/이차방정식과 이차함수/.test(concept) && /그래프 해석|함수와 방정식의 관계|최댓값|최솟값|꼭짓점 좌표|축/.test(text)) score += 26;
+        if (/행렬과 행렬의 연산/.test(concept) && /행과 열|자료 배열|표 데이터|행렬|행렬의 연산|효율적 처리|연산 규칙/.test(text)) score += 28;
+        if (/경우의 수, 순열, 조합/.test(concept) && /순열|조합|순서 고려|순서 미고려|경우 나누기|계산 전략|선택|배열/.test(text)) score += 26;
+        if (/여러 가지 방정식과 부등식/.test(concept) && /조건 해석|해집합|범위 판단|연립일차부등식|이차부등식|연립이차부등식/.test(text)) score += 20;
+      }
+    }
 
     if (state.subject === "통합과학2") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText)) {
@@ -2471,7 +2608,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
