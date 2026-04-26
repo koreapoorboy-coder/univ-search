@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.13-info-cache-bust-lock";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.14-common-korean1-prelock";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.13-info-cache-bust-lock";
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_13_info_lock";
+  const ASSET_VERSION_QUERY = "v33_14_common_korean1_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -42,6 +42,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.13-info-cache-bust-lock";
     "information": "정보",
     "INFO": "정보",
     "info": "정보",
+    "공통국어": "공통국어1",
+    "국어1": "공통국어1",
+    "국어 1": "공통국어1",
+    "공통 국어1": "공통국어1",
+    "공통 국어 1": "공통국어1",
     "통합사회": "통합사회1",
     "통합사회 1": "통합사회1",
     "통합사회I": "통합사회1",
@@ -2986,6 +2991,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v33.13-info-cache-bust-lock";
     const bucket = detectCareerBucket(state.career || "");
     const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
+
+    if (state.subject === "공통국어1" || state.subject === "공통국어") {
+      if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
+        if (/비판적 읽기와 토론/.test(concept)) {
+          if (/근거|타당성|반론|재반론|토론|입론|쟁점|주장/.test(text)) score += 28;
+          if (/비판적 읽기|자료 검증|출처|신뢰성|관점 비교|해결 방안/.test(text)) score += 24;
+        }
+        if (/사회적 쟁점 글쓰기와 문장 구성/.test(concept)) {
+          if (/사회적 쟁점|주장|근거|개요|글쓰기|논증/.test(text)) score += 28;
+          if (/문장 구성|표현 선택|수정|퇴고|문법 요소|규범/.test(text)) score += 22;
+        }
+        if (/음운 변동과 국어 규범/.test(concept) && /음운|교체|탈락|축약|첨가|발음 규칙|국어 규범|표준 발음|정확한 표현/.test(text)) score += 24;
+        if (/공동체 의사소통과 공감/.test(concept) && /의사소통|공감|배려|상호작용|협력|소통/.test(text)) score += 18;
+      }
+    }
     if (bucket === "it") {
       if (domain === "data" || domain === "info") score += 16;
       if (domain === "engineering") score += 10;
@@ -3300,7 +3320,15 @@ function getTrackMeta(trackId) {
       "추상화와 문제 분해": "문제 분해·모델링",
       "알고리즘 설계와 분석": "알고리즘·효율성",
       "프로그래밍과 자동화": "코드 구현·자동화",
-      "컴퓨팅 시스템과 네트워크": "시스템·네트워크"
+      "컴퓨팅 시스템과 네트워크": "시스템·네트워크",
+      "서정 갈래와 시적 표현": "시·정서·표현",
+      "서사·극 갈래와 이야기 구성": "이야기·갈등·구성",
+      "교술 갈래와 성찰적 표현": "관찰·성찰·설명",
+      "음운 변동과 국어 규범": "언어 규칙·규범",
+      "공동체 의사소통과 공감": "소통·공감·상호작용",
+      "문학·독서와 주체적 수용": "독서·성찰·수용",
+      "비판적 읽기와 토론": "근거·검증·토론",
+      "사회적 쟁점 글쓰기와 문장 구성": "쟁점·주장·문장"
     };
     return map[concept] || "";
   }
@@ -3425,6 +3453,17 @@ function getTrackMeta(trackId) {
   }
 
 
+
+  function getCommonKorean1PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = ["서정 갈래와 시적 표현", "서사·극 갈래와 이야기 구성", "교술 갈래와 성찰적 표현", "음운 변동과 국어 규범", "공동체 의사소통과 공감", "문학·독서와 주체적 수용", "비판적 읽기와 토론", "사회적 쟁점 글쓰기와 문장 구성"];
+    if (!majorText) return defaultSequence;
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") return ["비판적 읽기와 토론", "사회적 쟁점 글쓰기와 문장 구성", "음운 변동과 국어 규범", "공동체 의사소통과 공감", "문학·독서와 주체적 수용", "교술 갈래와 성찰적 표현", "서사·극 갈래와 이야기 구성", "서정 갈래와 시적 표현"];
+    if (/(경영|경제|행정|정치|사회|심리|미디어|교육|법|국제|언론)/.test(majorText)) return ["비판적 읽기와 토론", "사회적 쟁점 글쓰기와 문장 구성", "공동체 의사소통과 공감", "문학·독서와 주체적 수용", "교술 갈래와 성찰적 표현", "음운 변동과 국어 규범", "서사·극 갈래와 이야기 구성", "서정 갈래와 시적 표현"];
+    if (/(간호|의학|보건|생명|바이오|약학|수의|의료)/.test(majorText)) return ["비판적 읽기와 토론", "사회적 쟁점 글쓰기와 문장 구성", "교술 갈래와 성찰적 표현", "공동체 의사소통과 공감", "문학·독서와 주체적 수용", "음운 변동과 국어 규범", "서정 갈래와 시적 표현", "서사·극 갈래와 이야기 구성"];
+    return defaultSequence;
+  }
 
   function getInfoPreferredConceptSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
@@ -3751,6 +3790,40 @@ function getTrackMeta(trackId) {
     }
 
 
+
+    if (fuzzyIncludes(state.subject, "공통국어1") || fuzzyIncludes(state.subject, "공통국어")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/비판적 읽기와 토론/.test(concept)) {
+        if (hit("근거", "타당성", "반론", "재반론", "토론", "입론", "주장", "쟁점")) {
+          if (/argument_discussion/.test(axisId) || /논증·토론 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, isItMajor ? 56 : 48);
+          if (/evidence_verification_analysis/.test(axisId) || /자료 검증·쟁점 분석 축/.test(axisTitle) || axisDomain === "inquiry") fallback = Math.max(fallback, 14);
+        }
+        if (hit("비판적 읽기", "자료 검증", "출처", "신뢰성", "관점 비교", "해결 방안")) {
+          if (/evidence_verification_analysis/.test(axisId) || /자료 검증·쟁점 분석 축/.test(axisTitle) || axisDomain === "inquiry") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+          if (/critical_interpretation_extension/.test(axisId) || /비판 해석 확장 축/.test(axisTitle) || axisDomain === "social") fallback = Math.max(fallback, 16);
+        }
+      }
+      if (/사회적 쟁점 글쓰기와 문장 구성/.test(concept)) {
+        if (hit("사회적 쟁점", "주장", "근거", "개요", "글쓰기", "논증")) {
+          if (/argumentative_writing/.test(axisId) || /주장 글쓰기 축/.test(axisTitle) || axisDomain === "korean") fallback = Math.max(fallback, isItMajor ? 54 : 48);
+          if (/public_media_expression/.test(axisId) || /공공·매체 표현 축/.test(axisTitle) || axisDomain === "media") fallback = Math.max(fallback, 14);
+        }
+        if (hit("문장 구성", "표현 선택", "수정", "퇴고", "문법 요소", "규범")) {
+          if (/sentence_revision_editing/.test(axisId) || /문장 점검·수정 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, isItMajor ? 52 : 46);
+          if (/argumentative_writing/.test(axisId) || /주장 글쓰기 축/.test(axisTitle) || axisDomain === "korean") fallback = Math.max(fallback, 12);
+        }
+      }
+      if (/음운 변동과 국어 규범/.test(concept)) {
+        if (hit("음운", "교체", "탈락", "축약", "첨가", "발음 규칙", "국어 규범")) {
+          if (/language_norm_inquiry/.test(axisId) || /언어 규범 탐구 축/.test(axisTitle) || axisDomain === "korean") fallback = Math.max(fallback, isItMajor ? 52 : 48);
+          if (/accurate_expression/.test(axisId) || /정확한 표현 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, 12);
+        }
+        if (hit("표준 발음", "정확한 표현", "언어생활")) {
+          if (/accurate_expression/.test(axisId) || /정확한 표현 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, 50);
+          if (/language_life_application/.test(axisId) || /언어생활 적용 축/.test(axisTitle) || axisDomain === "social") fallback = Math.max(fallback, 12);
+        }
+      }
+    }
     if (fuzzyIncludes(state.subject, "정보")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test([state.career || "", getMajorTextBag()].join(" "));
       if (/알고리즘 설계와 분석/.test(concept)) {
@@ -3861,6 +3934,9 @@ function getTrackMeta(trackId) {
     if (state.subject === "정보") {
       return getInfoPreferredConceptSequence();
     }
+    if (state.subject === "공통국어1" || state.subject === "공통국어") {
+      return getCommonKorean1PreferredConceptSequence();
+    }
 
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -3894,6 +3970,20 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+
+  function getCommonKorean1PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it";
+    if (isIt) {
+      if (/비판적 읽기와 토론/.test(concept)) return ["근거", "타당성", "반론", "토론", "비판적 읽기", "쟁점", "주장", "입론", "재반론", "해결 방안"];
+      if (/사회적 쟁점 글쓰기와 문장 구성/.test(concept)) return ["사회적 쟁점", "주장", "근거", "개요", "문장 구성", "표현 선택", "수정", "문법 요소"];
+      if (/음운 변동과 국어 규범/.test(concept)) return ["음운", "교체", "탈락", "축약", "첨가", "표준 발음", "발음 규칙", "국어 규범", "정확한 표현"];
+      if (/공동체 의사소통과 공감/.test(concept)) return ["의사소통", "공감", "배려", "상호작용", "협력", "소통"];
+    }
+    return [];
+  }
 
   function getInfoPreferredKeywordSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
@@ -4009,6 +4099,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "공통수학2") {
       const cm2Preferred = getCommonMath2PreferredKeywordSequence();
       if (cm2Preferred.length) return cm2Preferred;
+    }
+    if (state.subject === "공통국어1" || state.subject === "공통국어") {
+      const ck1Preferred = getCommonKorean1PreferredKeywordSequence();
+      if (ck1Preferred.length) return ck1Preferred;
     }
     if (state.subject === "정보") {
       const infoPreferred = getInfoPreferredKeywordSequence();
