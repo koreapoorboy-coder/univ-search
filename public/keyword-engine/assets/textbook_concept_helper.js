@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core";
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v361-fixed-earthscience";
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -32,8 +32,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
   const TOPIC_MATRIX_URL = `${DATA_SOURCE_POLICY.runtimeUi}topic_matrix_seed.json`;
   const FOLLOWUP_SUBJECT_URL = `${DATA_SOURCE_POLICY.followupAxis}subject_bridge_point.json`;
   const FOLLOWUP_MAJOR_URL = `${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`;
-  const COMPETENCY_AXES_URL = `seed/competency/subject_competency_axes_master_v1.json`;
-  const CONCEPT_COMPETENCY_URL = `seed/competency/concept_competency_map_core_v1.json`;
 
   const SUBJECT_NAME_ALIASES = Object.freeze({
     "통합사회": "통합사회1",
@@ -258,8 +256,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
   let subjectBridgePoint = [];
   let majorFollowupAxis = [];
   let conceptLongitudinalMaps = {};
-  let subjectCompetencyAxesMap = {};
-  let conceptCompetencyMap = {};
 
   function normalize(v) {
     return String(v || "")
@@ -304,166 +300,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
     return cloned;
   }
 
-
-  function mapSubjectKeyToName(subjectKey) {
-    const map = {
-      integrated_science1: "통합과학1",
-      integrated_science2: "통합과학2",
-      common_math1: "공통수학1",
-      common_math2: "공통수학2",
-      information: "정보",
-      info: "정보",
-      common_korean1: "공통국어1",
-      common_korean2: "공통국어2",
-      integrated_society1: "통합사회1",
-      integrated_society2: "통합사회2",
-      science_inquiry1: "과학탐구실험1",
-      science_inquiry2: "과학탐구실험2",
-      algebra: "대수",
-      probability_statistics: "확률과 통계",
-      calculus1: "미적분1",
-      geometry: "기하",
-      physics1: "물리",
-      chemistry1: "화학",
-      life_science: "생명과학",
-      earth_science: "지구과학",
-      mechanics_energy: "역학과 에너지",
-      electromagnetism_quantum: "전자기와 양자",
-      matter_energy: "물질과 에너지",
-      cell_metabolism: "세포와 물질대사",
-      earth_system_science: "지구시스템과학"
-    };
-    return map[subjectKey] || subjectKey;
-  }
-
-  function normalizeSubjectCompetencyAxes(raw) {
-    const result = {};
-    const subjects = Array.isArray(raw?.subjects) ? raw.subjects : [];
-    subjects.forEach(subject => {
-      const subjectName = normalizeSubjectName(subject?.subject_name || mapSubjectKeyToName(subject?.subject_key || ""));
-      if (!subjectName) return;
-      result[subjectName] = {
-        ...(subject || {}),
-        subject_name: subjectName,
-        competency_axes: Array.isArray(subject?.competency_axes) ? subject.competency_axes : []
-      };
-    });
-    return applySubjectAliasesToMap(result);
-  }
-
-  function normalizeConceptCompetencyMap(raw) {
-    const result = {};
-    const subjects = Array.isArray(raw?.subjects) ? raw.subjects : [];
-    subjects.forEach(subject => {
-      const subjectName = normalizeSubjectName(subject?.subject_name || mapSubjectKeyToName(subject?.subject_key || ""));
-      if (!subjectName) return;
-      const concepts = {};
-      (Array.isArray(subject?.concepts) ? subject.concepts : []).forEach(item => {
-        const conceptName = String(item?.concept_name || "").trim();
-        if (!conceptName) return;
-        concepts[conceptName] = item;
-      });
-      result[subjectName] = {
-        ...(subject || {}),
-        subject_name: subjectName,
-        concepts
-      };
-    });
-    return applySubjectAliasesToMap(result);
-  }
-
-  function getSubjectCompetencyEntry(subjectName) {
-    const normalized = normalizeSubjectName(subjectName || state.subject || "");
-    return subjectCompetencyAxesMap?.[normalized] || null;
-  }
-
-  function getConceptCompetencyEntry(subjectName, conceptName) {
-    const normalizedSubject = normalizeSubjectName(subjectName || state.subject || "");
-    const normalizedConcept = String(conceptName || state.concept || "").trim();
-    if (!normalizedSubject || !normalizedConcept) return null;
-    return conceptCompetencyMap?.[normalizedSubject]?.concepts?.[normalizedConcept] || null;
-  }
-
-  function getAxisMajorAffinity(axis, majorText, bucket) {
-    if (!axis) return 0;
-    const majors = Array.isArray(axis?.favored_majors) ? axis.favored_majors : [];
-    let score = 0;
-    majors.forEach(label => {
-      const text = String(label || "");
-      if (!text) return;
-      if (/전\s*(과학|이공)·?공학\s*계열|전\s*이공계열|전\s*과학·공학\s*계열/.test(text)) {
-        if (bucket && bucket !== 'default') score = Math.max(score, 8);
-        return;
-      }
-      if (fuzzyIncludes(majorText, text)) {
-        score = Math.max(score, 18);
-        return;
-      }
-      const favBucket = detectCareerBucket(text);
-      if (favBucket && favBucket !== 'default' && favBucket === bucket) {
-        score = Math.max(score, 12);
-      }
-    });
-    return score;
-  }
-
-  function getCompetencyPreferredConceptSequence(subjectName, majorText) {
-    const subjectEntry = getSubjectCompetencyEntry(subjectName);
-    const conceptEntry = conceptCompetencyMap?.[normalizeSubjectName(subjectName)] || null;
-    if (!subjectEntry || !conceptEntry) return [];
-    const bucket = detectCareerBucket(majorText || "");
-    if (!majorText && bucket === 'default') return [];
-
-    const axisMap = {};
-    (Array.isArray(subjectEntry?.competency_axes) ? subjectEntry.competency_axes : []).forEach(axis => {
-      if (axis?.axis_id) axisMap[axis.axis_id] = axis;
-    });
-
-    const ranked = Object.values(conceptEntry?.concepts || {}).map(item => {
-      const weights = item?.axis_weights || {};
-      let total = 0;
-      Object.entries(weights).forEach(([axisId, weight]) => {
-        const affinity = getAxisMajorAffinity(axisMap[axisId], majorText, bucket);
-        total += Number(weight || 0) * affinity;
-      });
-      (Array.isArray(item?.primary_axes) ? item.primary_axes : []).forEach(axisId => {
-        total += getAxisMajorAffinity(axisMap[axisId], majorText, bucket) * 0.8;
-      });
-      return { name: item?.concept_name, score: total };
-    }).filter(item => item.name && item.score > 0)
-      .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, 'ko'));
-
-    return ranked.map(item => item.name);
-  }
-
-  function getConceptCompetencyBoost(subjectName, conceptName, majorText) {
-    const subjectEntry = getSubjectCompetencyEntry(subjectName);
-    const conceptEntry = getConceptCompetencyEntry(subjectName, conceptName);
-    if (!subjectEntry || !conceptEntry) return { score: 0, reasons: [] };
-
-    const bucket = detectCareerBucket(majorText || "");
-    const axisMap = {};
-    (Array.isArray(subjectEntry?.competency_axes) ? subjectEntry.competency_axes : []).forEach(axis => {
-      if (axis?.axis_id) axisMap[axis.axis_id] = axis;
-    });
-
-    let rawScore = 0;
-    const matchedAxes = [];
-    Object.entries(conceptEntry?.axis_weights || {}).forEach(([axisId, weight]) => {
-      const affinity = getAxisMajorAffinity(axisMap[axisId], majorText, bucket);
-      if (affinity > 0) {
-        rawScore += affinity * Number(weight || 0);
-        matchedAxes.push(axisMap[axisId]?.axis_name || axisId);
-      }
-    });
-
-    const score = Math.min(26, Math.round(rawScore / 6));
-    const reasons = [];
-    if (score > 0) reasons.push('역량 적합');
-    matchedAxes.slice(0, 2).forEach(name => reasons.push(name));
-    return { score, reasons: uniq(reasons) };
-  }
-
   async function loadSubjectConceptLongitudinalMaps() {
     const result = {};
     const entries = Object.entries(SUBJECT_CONCEPT_LONGITUDINAL_URLS || {});
@@ -481,15 +317,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
 
   async function init() {
     try {
-      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps, competencyAxesRes, conceptCompetencyRes] = await Promise.all([
+      const [uiRes, engineRes, matrixRes, followupSubjectRes, followupMajorRes, loadedConceptMaps] = await Promise.all([
         fetch(UI_SEED_URL, { cache: "no-store" }),
         fetch(ENGINE_MAP_URL, { cache: "no-store" }),
         fetch(TOPIC_MATRIX_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_SUBJECT_URL, { cache: "no-store" }).catch(() => null),
         fetch(FOLLOWUP_MAJOR_URL, { cache: "no-store" }).catch(() => null),
-        loadSubjectConceptLongitudinalMaps(),
-        fetch(COMPETENCY_AXES_URL, { cache: "no-store" }).catch(() => null),
-        fetch(CONCEPT_COMPETENCY_URL, { cache: "no-store" }).catch(() => null)
+        loadSubjectConceptLongitudinalMaps()
       ]);
 
       if (!uiRes.ok || !engineRes.ok) {
@@ -503,8 +337,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
       subjectBridgePoint = followupSubjectRes && followupSubjectRes.ok ? await followupSubjectRes.json() : [];
       majorFollowupAxis = followupMajorRes && followupMajorRes.ok ? await followupMajorRes.json() : [];
       conceptLongitudinalMaps = applySubjectAliasesToMap(loadedConceptMaps || {});
-      subjectCompetencyAxesMap = competencyAxesRes && competencyAxesRes.ok ? normalizeSubjectCompetencyAxes(await competencyAxesRes.json()) : {};
-      conceptCompetencyMap = conceptCompetencyRes && conceptCompetencyRes.ok ? normalizeConceptCompetencyMap(await conceptCompetencyRes.json()) : {};
 
       injectStyles();
       injectUI();
@@ -1361,28 +1193,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
     }
   }
 
-  let __majorPreviewSyncTimer = null;
-  let __majorPreviewFrame = null;
-
   function scheduleMajorPreviewSync() {
-    if (__majorPreviewSyncTimer) clearTimeout(__majorPreviewSyncTimer);
-    if (__majorPreviewFrame) cancelAnimationFrame(__majorPreviewFrame);
-    __majorPreviewSyncTimer = setTimeout(function () {
-      __majorPreviewFrame = requestAnimationFrame(function () {
-        try {
-          if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
-            window.__MAJOR_ENGINE_RENDER__();
-          }
-        } catch (error) {
-          console.warn("major render refresh failed:", error);
+    const refresh = function () {
+      try {
+        if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
+          window.__MAJOR_ENGINE_RENDER__();
         }
-        syncMajorSelectionDetail(null);
-        if (!state.keyword) {
-          renderCareerKeywordPreview();
-        }
-        syncOutputFields();
-      });
-    }, 140);
+      } catch (error) {
+        console.warn("major render refresh failed:", error);
+      }
+      syncMajorSelectionDetail(null);
+      if (!state.keyword) {
+        renderCareerKeywordPreview();
+      }
+      syncOutputFields();
+    };
+    [0, 80, 220].forEach(delay => setTimeout(refresh, delay));
   }
 
   function bindEvents() {
@@ -1397,46 +1223,19 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
 
     const careerEl = $("career");
     if (careerEl) {
-      let careerInputDebounce = null;
-      const runCareerUpdate = function (immediate) {
-        const apply = function () {
+      ["input", "change"].forEach(evt => {
+        careerEl.addEventListener(evt, function () {
           syncCareerFromInput();
           state.linkTrackSource = state.linkTrackSource || "";
           renderAll();
           scheduleMajorPreviewSync();
-        };
-        if (careerInputDebounce) clearTimeout(careerInputDebounce);
-        if (immediate) {
-          apply();
-          return;
-        }
-        careerInputDebounce = setTimeout(apply, 160);
-      };
-      careerEl.addEventListener("input", function () {
-        runCareerUpdate(false);
-      });
-      careerEl.addEventListener("change", function () {
-        runCareerUpdate(true);
+        });
       });
     }
 
-    let lastMajorSelectionSignature = "";
-    let majorSelectionRenderTimer = null;
     window.addEventListener("major-engine-selection-changed", function (event) {
-      const detail = event?.detail || null;
-      const signature = JSON.stringify({
-        display_name: detail?.display_name || "",
-        core_keywords: Array.isArray(detail?.core_keywords) ? detail.core_keywords.slice(0, 8) : [],
-        group_label: detail?.comparison?.group_label || "",
-        selected_focus: detail?.comparison?.selected_focus || ""
-      });
-      if (signature === lastMajorSelectionSignature) return;
-      lastMajorSelectionSignature = signature;
-      syncMajorSelectionDetail(detail);
-      if (majorSelectionRenderTimer) clearTimeout(majorSelectionRenderTimer);
-      majorSelectionRenderTimer = setTimeout(function () {
-        renderAll();
-      }, 0);
+      syncMajorSelectionDetail(event?.detail || null);
+      renderAll();
     });
 
     document.addEventListener("click", function (event) {
@@ -1844,6 +1643,47 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
       : [];
     return items.find(item => fuzzyIncludes(item.concept_name, state.concept)) || null;
   }
+
+  function getAxisKeywordRefinement(axis) {
+    const keyword = String(state.keyword || "").trim();
+    if (!keyword || !axis || !Array.isArray(axis.keyword_signals)) return null;
+
+    const axisBag = [
+      axis.axis_title || "",
+      axis.axis_short || "",
+      axis.why || "",
+      axis.student_output_hint || "",
+      ...(Array.isArray(axis.next_subjects) ? axis.next_subjects : [])
+    ].join(" ");
+
+    let best = null;
+
+    axis.keyword_signals.forEach(signal => {
+      const rawKeywords = Array.isArray(signal?.keywords)
+        ? signal.keywords
+        : (signal?.keywords ? [signal.keywords] : []);
+      const keywords = rawKeywords.map(item => String(item || "").trim()).filter(Boolean);
+      if (!keywords.length) return;
+
+      let matched = 0;
+      keywords.forEach(token => {
+        if (fuzzyIncludes(keyword, token) || fuzzyIncludes(token, keyword)) matched += 1;
+      });
+
+      if (!matched && (fuzzyIncludes(axisBag, keyword) || fuzzyIncludes(keyword, axisBag))) {
+        matched = 1;
+      }
+
+      if (!matched) return;
+
+      const score = Number(signal?.boost || 0) + (matched * 3);
+      if (!best || score > best.__score) {
+        best = { ...signal, __score: score };
+      }
+    });
+
+    return best;
+  }
   function getAxisCareerRelationMeta(subjectName, axisLike) {
     const careerText = [
       state.career || "",
@@ -1932,141 +1772,34 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
   }
 
 
-  function getAxisKeywordSignal(axis) {
-    if (!axis || !Array.isArray(axis.keyword_signals) || !state.keyword) return null;
-    const selectedKeyword = String(state.keyword || "").trim();
-    const selectedTokens = selectedKeyword.split(/\s+/).filter(Boolean);
-    let best = null;
-
-    axis.keyword_signals.forEach(signal => {
-      const keywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
-      let hit = false;
-      let partialHits = 0;
-      keywords.forEach(keyword => {
-        if (!keyword) return;
-        if (fuzzyIncludes(keyword, selectedKeyword) || fuzzyIncludes(selectedKeyword, keyword)) {
-          hit = true;
-          return;
-        }
-        const keywordTokens = String(keyword || '').split(/\s+/).filter(Boolean);
-        if (keywordTokens.some(token => selectedTokens.some(sel => fuzzyIncludes(token, sel) || fuzzyIncludes(sel, token)))) {
-          partialHits += 1;
-        }
-      });
-
-      if (!hit && partialHits === 0) return;
-      const signalScore = Number(signal?.boost || 0) + (hit ? 100 : partialHits * 10);
-      if (!best || signalScore > best.__score) {
-        best = { ...signal, __score: signalScore, __exactHit: hit, __partialHits: partialHits };
-      }
-    });
-
-    return best;
-  }
-
   function buildConceptMappedAxes(entry) {
     if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
     return entry.longitudinal_axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
-      const keywordSignal = getAxisKeywordSignal(axis);
-      const signalActivities = Array.isArray(keywordSignal?.activity_examples) ? keywordSignal.activity_examples : [];
-      const mergedActivities = uniq([
-        ...(axis.student_output_hint ? [axis.student_output_hint] : []),
-        ...signalActivities
-      ]);
-      const mergedReason = [
-        keywordSignal?.message || "",
-        relationMeta.message || ""
-      ].filter(Boolean).join(" ");
+      const refinement = getAxisKeywordRefinement(axis);
+      const activityHint = refinement?.activity_hint || axis.student_output_hint || "";
       return {
         id: axis.axis_id,
-        title: axis.axis_title,
-        short: keywordSignal?.short_label || axis.axis_short || entry.concept_label || state.concept,
+        title: refinement?.title || axis.axis_title,
+        short: refinement?.short || axis.axis_short || entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
-        desc: keywordSignal?.desc || axis.why || "",
-        reason: mergedReason || relationMeta.message,
-        relationLabel: keywordSignal?.label || relationMeta.label,
+        desc: refinement?.desc || axis.why || "",
+        reason: refinement?.reason || relationMeta.message,
+        relationLabel: relationMeta.label,
         relationType: relationMeta.type,
-        easy: mergedActivities[0] || axis.student_output_hint || "",
+        easy: activityHint,
         axisDomain: axis.axis_domain || "",
-        extensionKeywords: Array.isArray(keywordSignal?.keywords) ? keywordSignal.keywords : [],
-        activityExamples: mergedActivities,
+        extensionKeywords: [],
+        activityExamples: activityHint ? [activityHint] : [],
         linkedSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         grade2NextSubjects: Array.isArray(axis.next_subjects) ? axis.next_subjects : [],
         recordContinuityPoint: `${state.subject}의 ${entry.concept_name} 개념을 다음 과목으로 연결하는 종단 확장 포인트`,
         isPrimary: Number(axis.priority || 99) === 1,
         __relationScore: relationMeta.score,
         __priority: Number(axis.priority || 99),
-        __keywordSignalBoost: Number(keywordSignal?.boost || 0)
+        __keywordBoost: Number(refinement?.boost || 0)
       };
     });
-  }
-
-
-  function getSubjectSpecificAxisBoost(axis) {
-    const subject = String(state.subject || '');
-    const concept = String(state.concept || '');
-    const keyword = String(state.keyword || '');
-    const axisTitle = `${axis?.title || ''} ${axis?.short || ''} ${axis?.desc || ''} ${axis?.reason || ''} ${axis?.easy || ''}`;
-    let boost = 0;
-
-
-    if (subject === '공통수학1') {
-      if (concept === '경우의 수, 순열, 조합') {
-        if (/순서\s*고려|순열|배열/.test(keyword)) {
-          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost += 34;
-          if (/확률.?통계 추론/.test(axisTitle)) boost -= 8;
-          if (/탐구 설계 조합/.test(axisTitle)) boost -= 4;
-        }
-        if (/순서\s*미고려|조합|선택|중복\s*없는\s*선택/.test(keyword)) {
-          if (/확률.?통계 추론/.test(axisTitle)) boost += 20;
-          if (/탐구 설계 조합/.test(axisTitle)) boost += 12;
-          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost -= 10;
-        }
-        if (/경우\s*나누기|경우의\s*수|계산\s*전략/.test(keyword)) {
-          if (/확률.?통계 추론/.test(axisTitle)) boost += 12;
-          if (/알고리즘.?탐색 구조/.test(axisTitle)) boost += 6;
-        }
-      }
-    }
-
-    if (subject === '통합과학2') {
-      if (concept === '산화와 환원') {
-        if (/부식\s*방지|부식\s*비교|보존\s*방법\s*탐색|문화재\s*보존/.test(keyword)) {
-          if (/재료|보존|부식/.test(axisTitle)) boost += 42;
-          if (/전기화학|배터리/.test(axisTitle)) boost -= 8;
-          if (/화학 반응 해석/.test(axisTitle)) boost -= 10;
-        }
-        if (/전자\s*이동|산화수\s*변화/.test(keyword)) {
-          if (/화학 반응 해석/.test(axisTitle)) boost += 18;
-          if (/전기화학|배터리/.test(axisTitle)) boost += 8;
-        }
-      }
-
-      if (concept === '에너지 효율과 신재생 에너지') {
-        if (/장치\s*설계|프로젝트\s*연결|친환경\s*설계/.test(keyword)) {
-          if (/공학 설계 확장/.test(axisTitle)) boost += 28;
-          if (/효율|지속가능/.test(axisTitle)) boost -= 6;
-        }
-        if (/태양광|풍력|지열|바이오에너지|신재생\s*에너지/.test(keyword)) {
-          if (/공학 설계 확장/.test(axisTitle)) boost += 12;
-          if (/효율|지속가능/.test(axisTitle)) boost += 4;
-        }
-      }
-
-      if (concept === '과학 기술 사회에서 빅데이터 활용') {
-        if (/스마트\s*사회|활용\s*방안\s*정리|데이터\s*사례\s*조사/.test(keyword)) {
-          if (/정보.?자동화 응용/.test(axisTitle)) boost += 34;
-          if (/데이터 판단.?윤리/.test(axisTitle)) boost += 10;
-          if (/데이터 예측.?해석/.test(axisTitle)) boost -= 8;
-        }
-        if (/예측|패턴\s*해석/.test(keyword)) {
-          if (/데이터 예측.?해석/.test(axisTitle)) boost += 18;
-        }
-      }
-    }
-
-    return boost;
   }
 
   function getFollowupAxisCandidates() {
@@ -2079,8 +1812,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = "v34-competency-axis-integration-core
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
-        score += Number(axis.__keywordSignalBoost || 0);
-        score += getSubjectSpecificAxisBoost(axis);
+        score += Number(axis.__keywordBoost || 0);
         return { ...axis, __score: score };
       });
 
@@ -2229,76 +1961,6 @@ function getTrackMeta(trackId) {
   function getPreferredConceptSequence() {
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
-    const subject = state.subject || '';
-    const bucket = detectCareerBucket(majorText);
-    const competencyPreferred = getCompetencyPreferredConceptSequence(subject, majorText);
-
-    if (subject === '통합과학1') {
-      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|전자|전기|회로|센서|소자|통신/.test(majorText)) {
-        return uniq([...competencyPreferred, '기본량과 단위', '과학의 측정과 우리 사회', '역학 시스템', '규칙성 발견과 주기율표', '지구시스템']);
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
-        return uniq([...competencyPreferred, '과학의 측정과 우리 사회', '지구시스템', '자연 세계의 시간과 공간', '기본량과 단위', '역학 시스템']);
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
-        return uniq([...competencyPreferred, '규칙성 발견과 주기율표', '기본량과 단위', '과학의 측정과 우리 사회', '물질 구성과 분류', '역학 시스템']);
-      }
-    }
-
-    if (subject === '통합과학2') {
-      if (bucket === 'energy' || /에너지공학|신재생|전력|에너지시스템|에너지자원|원자력/.test(majorText)) {
-        return uniq([...competencyPreferred, '에너지 효율과 신재생 에너지', '발전과 에너지원', '태양 에너지의 생성과 전환', '물질 변화에서 에너지의 출입', '지구 환경 변화와 인간 생활']);
-      }
-      if (/화학공학|화공|화학|신소재|재료|배터리|고분자/.test(majorText)) {
-        return uniq([...competencyPreferred, '산화와 환원', '산과 염기', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '발전과 에너지원']);
-      }
-      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|통계|보안/.test(majorText)) {
-        return uniq([...competencyPreferred, '과학 기술 사회에서 빅데이터 활용', '과학 기술과 미래 사회', '과학 관련 사회적 쟁점과 과학 윤리', '에너지 효율과 신재생 에너지', '발전과 에너지원']);
-      }
-      if (bucket === 'env' || /환경|기후|지구|해양|천문|우주/.test(majorText)) {
-        return ['지구 환경 변화', '지구 환경 변화와 인간 생활', '생태계평형', '에너지 효율과 신재생 에너지', '과학 관련 사회적 쟁점과 과학 윤리'];
-      }
-      return uniq([...competencyPreferred, '과학 기술 사회에서 빅데이터 활용', '물질 변화에서 에너지의 출입', '에너지 효율과 신재생 에너지', '산화와 환원', '과학 관련 사회적 쟁점과 과학 윤리']);
-    }
-
-    if (subject === '공통국어1') {
-      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
-        return ['비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감', '문학·독서와 주체적 수용'];
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
-        return ['비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '음운 변동과 국어 규범'];
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
-        return ['교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범', '문학·독서와 주체적 수용'];
-      }
-      return ['공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론', '음운 변동과 국어 규범'];
-    }
-
-    if (subject === '공통수학1') {
-      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
-        return uniq([...competencyPreferred, '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '이차방정식과 이차함수', '다항식의 연산', '나머지정리와 인수분해']);
-      }
-      if (bucket === 'mechanical' || /기계공학|자동차공학|항공우주공학|모빌리티|로봇공학|메카트로닉스|기구|설계|제어/.test(majorText)) {
-        return uniq([...competencyPreferred, '이차방정식과 이차함수', '다항식의 연산', '행렬과 행렬의 연산', '나머지정리와 인수분해', '경우의 수, 순열, 조합']);
-      }
-      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|통신공학|제어계측공학|전자|전기|회로|센서|소자/.test(majorText)) {
-        return uniq([...competencyPreferred, '행렬과 행렬의 연산', '이차방정식과 이차함수', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해']);
-      }
-      return uniq([...competencyPreferred, '이차방정식과 이차함수', '행렬과 행렬의 연산', '경우의 수, 순열, 조합', '다항식의 연산', '나머지정리와 인수분해']);
-    }
-
-    if (subject === '공통국어1') {
-      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
-        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
-      }
-      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
-    }
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') return ['물질 구성과 분류', '규칙성 발견과 주기율표', '과학의 측정과 우리 사회', '기본량과 단위', '역학 시스템'];
@@ -2326,7 +1988,6 @@ function getTrackMeta(trackId) {
       if (track === 'chemistry') return ['과학의 측정과 우리 사회', '물질 구성과 분류', '지구시스템'];
     }
 
-    if (competencyPreferred.length) return competencyPreferred;
     return [];
   }
 
@@ -2334,19 +1995,6 @@ function getTrackMeta(trackId) {
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
     const concept = state.concept || '';
-    if (subject === '공통국어1') {
-      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
-        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
-      }
-      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
-    }
-
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry') {
         if (/물질 구성과 분류/.test(concept)) return ['원소', '원자', '분자', '이온', '물질 구성', '분류 기준', '금속', '비금속', '산화', '환원', '성질 비교'];
@@ -2380,19 +2028,6 @@ function getTrackMeta(trackId) {
     const concept = state.concept || '';
     const text = `${keyword} ${(entry?.unit || '')} ${concept}`;
     let score = 0;
-
-    if (subject === '공통국어1') {
-      if (bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범', '공동체 의사소통과 공감']);
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) {
-        return uniq([...competencyPreferred, '비판적 읽기와 토론', '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '음운 변동과 국어 규범']);
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) {
-        return uniq([...competencyPreferred, '교술 갈래와 성찰적 표현', '비판적 읽기와 토론', '공동체 의사소통과 공감', '음운 변동과 국어 규범']);
-      }
-      return uniq([...competencyPreferred, '공동체 의사소통과 공감', '교술 갈래와 성찰적 표현', '문학·독서와 주체적 수용', '비판적 읽기와 토론']);
-    }
 
     if (/반도체|신소재|전자|소자|회로|센서|재료/.test(majorText)) {
       if (track === 'chemistry' && /과학의 측정과 우리 사회/.test(concept)) {
@@ -2441,8 +2076,7 @@ function getTrackMeta(trackId) {
 
   function detectCareerBucket(career) {
     const text = String(career || "");
-    if (/(에너지공학|신재생|전력|전기에너지|에너지시스템|에너지자원|원자력)/.test(text)) return "energy";
-    if (/(신소재|재료|반도체|배터리|화학공학|고분자|금속|화공)/.test(text)) return "materials";
+    if (/(신소재|재료|반도체|배터리|에너지|화학공학|고분자|금속)/.test(text)) return "materials";
     if (/(기계|자동차|로봇|항공|모빌리티)/.test(text)) return "mechanical";
     if (/(전기|전자|회로|센서|통신)/.test(text)) return "electronic";
     if (/(컴퓨터|소프트웨어|인공지능|AI|데이터|보안|정보|통계)/i.test(text)) return "it";
@@ -2454,7 +2088,6 @@ function getTrackMeta(trackId) {
   function getCareerProfileKey(career) {
     const bucket = detectCareerBucket(career);
     const map = {
-      energy: "재료공학",
       materials: "재료공학",
       mechanical: "기계공학",
       electronic: "전자공학",
@@ -2467,16 +2100,9 @@ function getTrackMeta(trackId) {
   }
 
   function scoreConcept(concept, entry) {
-    const effectiveCareer = [
-      state.career || "",
-      state.majorSelectedName || "",
-      ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
-      state.majorComparison?.group_label || "",
-      state.majorComparison?.selected_focus || ""
-    ].join(" ").trim();
-    const bucket = detectCareerBucket(effectiveCareer);
+    const career = state.career || "";
+    const bucket = detectCareerBucket(career);
     const track = getResolvedTrackId() || "";
-    const subject = state.subject || "";
     const majorText = getMajorTextBag();
     const preferred = getPreferredConceptSequence();
     const textBag = [
@@ -2504,21 +2130,6 @@ function getTrackMeta(trackId) {
 
     let score = 0;
     const reasons = [];
-
-    if (subject === '통합과학1') {
-      if ((bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText))) {
-        if (/지구시스템|자연 세계의 시간과 공간|과학의 측정과 우리 사회/.test(concept)) { score += 22; reasons.push('진로 연결'); }
-        if (/규칙성 발견과 주기율표/.test(concept)) score -= 10;
-      }
-      if ((bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText))) {
-        if (/규칙성 발견과 주기율표|기본량과 단위|과학의 측정과 우리 사회|물질 구성과 분류/.test(concept)) { score += 20; reasons.push('진로 연결'); }
-        if (/역학 시스템/.test(concept)) score -= 8;
-      }
-      if ((bucket === 'electronic' || /전자공학|전기공학|반도체공학|전자|전기|회로|센서|소자|통신/.test(majorText))) {
-        if (/기본량과 단위|과학의 측정과 우리 사회|역학 시스템/.test(concept)) { score += 18; reasons.push('진로 연결'); }
-        if (/지구시스템|자연 세계의 시간과 공간/.test(concept)) score -= 10;
-      }
-    }
 
     if (bucket === "materials") {
       if (/(물질|규칙성|원소|주기율|측정|단위|역학|구조|안정성|에너지|재료)/.test(textBag)) { score += 16; reasons.push("진로 연결"); }
@@ -2570,125 +2181,9 @@ function getTrackMeta(trackId) {
       if (/국제|환경|기후|지구|우주/.test(majorText) && /지구시스템|자연 세계의 시간과 공간|과학의 측정과 우리 사회/.test(concept)) score += 12;
     }
 
-    if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, effectiveCareer))) {
+    if ((entry?.linked_career_bridge || []).some(v => fuzzyIncludes(v, career))) {
       score += 10;
       reasons.push("진로 브리지 일치");
-    }
-
-    const majorHintPairs = [
-      { pattern: /(컴퓨터|소프트웨어|데이터|AI|인공지능|정보|통계|코딩|알고리즘)/i, concept: /(자료|데이터|정보|분석|표현|그래프|확률|경우의 수|행렬|측정|단위|빅데이터|자동화|시스템)/ },
-      { pattern: /(전자|전기|반도체|회로|센서|통신|로봇|메카트로닉스)/, concept: /(측정|단위|역학|전기|전자기|센서|시스템|파동|신호|양자|에너지|회로|시간과 공간)/ },
-      { pattern: /(기계|자동차|항공|모빌리티|기구|설계|제어)/, concept: /(운동|힘|역학|에너지|구조|정사영|도형의 이동|물리|측정|효율|시뮬레이션|이차함수|다항식|행렬|모델링)/ },
-      { pattern: /(화학공학|화공|화학|신소재|재료|고분자|금속|배터리)/, concept: /(물질|원자|주기율|결합|산화|염기|반응|소재|전지|에너지 출입)/ },
-      { pattern: /(에너지공학|신재생|전력|에너지시스템|에너지자원|원자력)/, concept: /(에너지 효율|신재생|발전|에너지원|태양 에너지|에너지 전환|에너지 출입|풍력|태양광|수력)/ },
-      { pattern: /(생명|바이오|의학|의료|간호|보건|제약|약학|수의|임상)/, concept: /(생명|세포|항상성|건강|면역|유전자|산과 염기|대사|효소|백신|물질 이동)/ },
-      { pattern: /(환경|기후|지구|해양|우주|천문|지리)/, concept: /(환경|기후|지구|해양|천체|우주|지구시스템|생태|순환|관측|미세먼지|에너지 효율)/ },
-      { pattern: /(경영|경제|무역|국제|행정|사회|정책|미디어|언론|광고)/, concept: /(데이터|사회|빅데이터|과학 기술|윤리|시장|금융|지속가능|문화|토론|글쓰기|매체)/ }
-    ];
-    majorHintPairs.forEach(rule => {
-      if (rule.pattern.test(effectiveCareer) && rule.concept.test(textBag)) {
-        score += 14;
-        reasons.push("학과 맞춤 추천");
-      }
-    });
-
-    if (state.subject === '통합과학2') {
-      if (bucket === 'energy') {
-        if (/에너지 효율과 신재생 에너지|발전과 에너지원|태양 에너지의 생성과 전환|물질 변화에서 에너지의 출입/.test(concept)) {
-          score += 28;
-          reasons.push('에너지 전공 맞춤');
-        }
-        if (/과학 기술 사회에서 빅데이터 활용|과학 관련 사회적 쟁점과 과학 윤리/.test(concept)) score -= 10;
-      }
-      if (bucket === 'materials') {
-        if (/산화와 환원|산과 염기|물질 변화에서 에너지의 출입/.test(concept)) {
-          score += 28;
-          reasons.push('화공·재료 맞춤');
-        }
-        if (/발전과 에너지원|태양 에너지의 생성과 전환/.test(concept)) score += 6;
-        if (/과학 관련 사회적 쟁점과 과학 윤리|과학 기술과 미래 사회/.test(concept)) score -= 8;
-      }
-      if (bucket === 'it') {
-        if (/과학 기술 사회에서 빅데이터 활용|과학 기술과 미래 사회|과학 관련 사회적 쟁점과 과학 윤리/.test(concept)) {
-          score += 28;
-          reasons.push('정보 전공 맞춤');
-        }
-        if (/발전과 에너지원|태양 에너지의 생성과 전환/.test(concept)) score -= 12;
-      }
-    }
-
-    if (state.subject === '공통수학1') {
-      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
-        if (/행렬과 행렬의 연산|경우의 수, 순열, 조합/.test(concept)) {
-          score += 30;
-          reasons.push('정보·데이터 수학 맞춤');
-        }
-        if (/이차방정식과 이차함수/.test(concept)) score += 10;
-        if (/나머지정리와 인수분해|다항식의 연산/.test(concept)) score -= 6;
-      }
-      if (bucket === 'mechanical' || /기계공학|자동차공학|항공우주공학|모빌리티|로봇공학|메카트로닉스|기구|설계|제어/.test(majorText)) {
-        if (/이차방정식과 이차함수|다항식의 연산|행렬과 행렬의 연산/.test(concept)) {
-          score += 28;
-          reasons.push('기계·모델링 수학 맞춤');
-        }
-        if (/나머지정리와 인수분해/.test(concept)) score += 8;
-        if (/경우의 수, 순열, 조합/.test(concept)) score -= 8;
-      }
-      if (bucket === 'electronic' || /전자공학|전기공학|반도체공학|통신공학|제어계측공학|전자|전기|회로|센서|소자/.test(majorText)) {
-        if (/행렬과 행렬의 연산|이차방정식과 이차함수|경우의 수, 순열, 조합/.test(concept)) {
-          score += 24;
-          reasons.push('전자·계산 수학 맞춤');
-        }
-        if (/나머지정리와 인수분해/.test(concept)) score -= 4;
-      }
-    }
-
-    if (state.subject === '공통국어1') {
-      if (bucket === 'it' || /컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터|정보보호|통계|보안/.test(majorText)) {
-        if (/비판적 읽기와 토론|교술 갈래와 성찰적 표현/.test(concept)) {
-          score += 28;
-          reasons.push('정보·논리 국어 맞춤');
-        }
-        if (/음운 변동과 국어 규범/.test(concept)) score += 10;
-        if (/문학·독서와 주체적 수용/.test(concept)) score -= 6;
-      }
-      if (bucket === 'env' || /환경공학|환경|기후|지구|해양|천문|우주/.test(majorText)) {
-        if (/비판적 읽기와 토론|공동체 의사소통과 공감|교술 갈래와 성찰적 표현/.test(concept)) {
-          score += 26;
-          reasons.push('환경·공공 소통 맞춤');
-        }
-        if (/음운 변동과 국어 규범/.test(concept)) score -= 12;
-      }
-      if (bucket === 'materials' || /신소재공학|재료공학|신소재|재료|배터리|금속|고분자/.test(majorText)) {
-        if (/교술 갈래와 성찰적 표현|비판적 읽기와 토론/.test(concept)) {
-          score += 26;
-          reasons.push('재료·설명 국어 맞춤');
-        }
-        if (/공동체 의사소통과 공감/.test(concept)) score += 8;
-        if (/음운 변동과 국어 규범/.test(concept)) score -= 10;
-      }
-    }
-
-    if (state.subject === '공통국어1') {
-      if ((bucket === 'it' || /컴퓨터|소프트웨어|인공지능|AI|데이터|정보|보안/.test(majorText)) && /비판적 읽기와 토론|교술 갈래와 성찰적 표현|음운 변동과 국어 규범/.test(concept)) {
-        score += 20;
-        reasons.push('국어 역량 맞춤');
-      }
-      if ((bucket === 'env' || /환경공학|환경|기후|지구|해양/.test(majorText)) && /비판적 읽기와 토론|공동체 의사소통과 공감|교술 갈래와 성찰적 표현/.test(concept)) {
-        score += 20;
-        reasons.push('국어 역량 맞춤');
-      }
-      if ((bucket === 'materials' || /신소재공학|재료공학|신소재|재료|화학공학|배터리/.test(majorText)) && /교술 갈래와 성찰적 표현|비판적 읽기와 토론|공동체 의사소통과 공감/.test(concept)) {
-        score += 18;
-        reasons.push('국어 역량 맞춤');
-      }
-      if ((bucket === 'env' || bucket === 'materials') && /음운 변동과 국어 규범/.test(concept)) score -= 10;
-    }
-
-    const competencyBoost = getConceptCompetencyBoost(subject, concept, effectiveCareer);
-    if (competencyBoost.score) {
-      score += competencyBoost.score;
-      reasons.push(...competencyBoost.reasons);
     }
 
     const prefIndex = preferred.indexOf(concept);
@@ -2697,7 +2192,7 @@ function getTrackMeta(trackId) {
       reasons.unshift("전공 맞춤 추천");
     }
 
-    const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(effectiveCareer)];
+    const profile = topicMatrix?.careerProfiles?.[getCareerProfileKey(career)];
     if (profile && Array.isArray(profile.categories)) {
       const combined = textBag;
       if (profile.categories.some(cat => fuzzyIncludes(combined, cat))) score += 6;
@@ -2716,8 +2211,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
     const topScore = ranked[0]?.score ?? 0;
-    const hasMajorSelection = !!(state.majorSelectedName || state.career);
-    let filtered = ranked.filter(item => item.score >= topScore - (hasMajorSelection ? 18 : 12) && item.score > -24);
+    let filtered = ranked.filter(item => item.score >= topScore - 12 && item.score > -18);
 
     if (preferred.length) {
       const preferredItems = preferred.map(name => filtered.find(item => item.concept === name)).filter(Boolean);
@@ -2736,9 +2230,6 @@ function getTrackMeta(trackId) {
       const others = ranked.filter(item => !fallback.includes(item));
       filtered = [...fallback, ...others];
     }
-
-    // 학생 화면은 전체 개념을 다 보여주기보다, 과목+학과 기준 추천 개념 3개만 먼저 보여준다.
-    // 데이터는 전체를 유지하되, UI는 선택하기 쉬운 상위 3개만 노출한다.
     return uniq(filtered).slice(0, 3);
   }
 
@@ -2913,8 +2404,6 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
-      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
-      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2937,8 +2426,6 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
-      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
-      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2957,8 +2444,6 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
-      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
-      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
@@ -2972,35 +2457,15 @@ function getTrackMeta(trackId) {
     `).join("")}</div>`;
   }
 
-  function getReportLineMeta() {
-    return window.getReportOptionMeta ? window.getReportOptionMeta({
-      subject: state.subject,
-      career: state.career,
-      linkTrack: getResolvedTrackId() || state.linkTrack,
-      followupAxisId: state.linkTrack,
-      concept: state.concept,
-      keyword: state.keyword,
-      selectedBook: state.selectedBook,
-      reportMode: state.reportMode,
-      grade: ($("grade")?.value || "").trim()
-    }) : { reportLines: [], recommendedLine: "" };
-  }
-
   function getRecommendedReportLine() {
-    const meta = getReportLineMeta();
-    const reportLines = meta.reportLines || [];
-    const recommended = meta.recommendedLine || "";
-    const lineMap = { "기본형": "basic", "확장형": "standard", "심화형": "advanced", basic: "basic", standard: "standard", advanced: "advanced" };
-    if (recommended && lineMap[recommended]) return lineMap[recommended];
-
     const grade = ($("grade")?.value || "").trim();
     const taskType = ($("taskType")?.value || "").trim();
-    if (state.reportMode === "major") return reportLines.includes("심화형") ? "advanced" : "advanced";
-    if (grade === "고3") return reportLines.includes("심화형") ? "advanced" : "advanced";
-    if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return reportLines.includes("확장형") ? "standard" : "standard";
-    if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return reportLines.includes("확장형") ? "standard" : "standard";
-    if (grade === "고2") return reportLines.includes("확장형") ? "standard" : "standard";
-    return reportLines.includes("기본형") ? "basic" : "basic";
+    if (state.reportMode === "major") return "advanced";
+    if (grade === "고3") return "advanced";
+    if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return "standard";
+    if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return "standard";
+    if (grade === "고2") return "standard";
+    return "basic";
   }
 
   function renderReportLineArea() {
@@ -3010,14 +2475,10 @@ function getTrackMeta(trackId) {
       el.innerHTML = `<div class="engine-empty">먼저 보고서 관점을 선택해야 보고서 라인이 열립니다.</div>`;
       return;
     }
-    const meta = getReportLineMeta();
-    const allowedLabels = meta.reportLines || [];
-    const labelToId = { "기본형": "basic", "확장형": "standard", "심화형": "advanced", basic: "basic", standard: "standard", advanced: "advanced" };
-    const allowedIds = allowedLabels.map(label => labelToId[label]).filter(Boolean);
     if (!state.reportLine) {
       state.reportLine = getRecommendedReportLine();
     }
-    const entries = (allowedIds.length ? Object.values(REPORT_LINE_HELP).filter(item => allowedIds.includes(item.id)) : Object.values(REPORT_LINE_HELP));
+    const entries = Object.values(REPORT_LINE_HELP);
     const recommended = getRecommendedReportLine();
     const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || entries[0];
     el.innerHTML = `
@@ -3048,8 +2509,6 @@ function getTrackMeta(trackId) {
       career: state.career,
       linkTrack: getResolvedTrackId() || state.linkTrack,
       followupAxisId: state.linkTrack,
-      followupAxisTitle: getTrackMeta(state.linkTrack)?.title || "",
-      followupAxisDomain: getTrackMeta(state.linkTrack)?.axisDomain || "",
       concept: state.concept,
       keyword: state.keyword,
       selectedBook: state.selectedBook
