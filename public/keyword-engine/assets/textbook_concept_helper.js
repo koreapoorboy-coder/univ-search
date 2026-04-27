@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.27-integrated-society2-it-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.28-algebra-it-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.27-integrated-society2-it-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_27_integrated_society2_it_lock";
+  const ASSET_VERSION_QUERY = "v33_28_algebra_it_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4438,6 +4438,78 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+
+  function isAlgebraComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getAlgebraPreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "거듭제곱과 거듭제곱근",
+      "지수의 확장",
+      "로그의 뜻과 성질",
+      "상용로그",
+      "지수함수의 뜻과 그래프",
+      "로그함수의 뜻과 그래프",
+      "지수함수와 로그함수의 활용"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it") {
+      return [
+        "지수함수와 로그함수의 활용",
+        "로그함수의 뜻과 그래프",
+        "지수함수의 뜻과 그래프",
+        "로그의 뜻과 성질",
+        "상용로그",
+        "지수의 확장",
+        "거듭제곱과 거듭제곱근"
+      ];
+    }
+
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|임베디드|제어|신호)/.test(majorText) || bucket === "electronic") {
+      return [
+        "지수함수와 로그함수의 활용",
+        "로그의 뜻과 성질",
+        "상용로그",
+        "지수함수의 뜻과 그래프",
+        "로그함수의 뜻과 그래프",
+        "지수의 확장",
+        "거듭제곱과 거듭제곱근"
+      ];
+    }
+
+    if (/(기계|자동차|항공|모빌리티|물리|에너지|화학|생명|보건|간호|의학|바이오|환경|기후|지구)/.test(majorText) || bucket === "mechanical" || bucket === "bio" || bucket === "env" || bucket === "materials") {
+      return [
+        "지수함수의 뜻과 그래프",
+        "지수함수와 로그함수의 활용",
+        "로그함수의 뜻과 그래프",
+        "상용로그",
+        "로그의 뜻과 성질",
+        "지수의 확장",
+        "거듭제곱과 거듭제곱근"
+      ];
+    }
+
+    return defaultSequence;
+  }
+
   function isIntegratedSociety1ComputerMajorContext() {
     const primaryText = [
       state.career || "",
@@ -4587,6 +4659,9 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
   function getPreferredConceptSequence() {
+    if (state.subject === "대수") {
+      return getAlgebraPreferredConceptSequence();
+    }
     if (state.subject === "통합사회1" || state.subject === "통합사회") {
       return getIntegratedSociety1PreferredConceptSequence();
     }
@@ -4650,6 +4725,26 @@ function getTrackMeta(trackId) {
     if (/환경|기후|지구|해양|천문|우주/.test(majorText)) {
       if (track === 'earth') return ['지구시스템', '자연 세계의 시간과 공간', '과학의 측정과 우리 사회'];
       if (track === 'chemistry') return ['과학의 측정과 우리 사회', '물질 구성과 분류', '지구시스템'];
+    }
+
+    return [];
+  }
+
+
+  function getAlgebraPreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "로그모델", "성장", "감소", "충전 증가", "채널 용량", "로그모델", "방사성 붕괴", "별의 등급"];
+      if (/로그함수의 뜻과 그래프/.test(concept)) return ["로그함수", "역함수", "그래프 대칭", "점근선", "정의역", "치역", "증가", "스케일 변환"];
+      if (/지수함수의 뜻과 그래프/.test(concept)) return ["지수함수", "그래프", "증가", "감소", "점근선", "정의역", "치역", "밑의 범위"];
+      if (/로그의 뜻과 성질/.test(concept)) return ["로그", "로그의 성질", "지수-로그 변환", "밑의 변환", "밑", "진수", "상용로그"];
+      if (/상용로그/.test(concept)) return ["상용로그", "로그표", "자리수", "근삿값", "규모 비교"];
+      if (/지수의 확장/.test(concept)) return ["정수 지수", "유리수 지수", "실수 지수", "지수법칙", "밑의 조건", "식 변형", "대소 비교"];
+      if (/거듭제곱과 거듭제곱근/.test(concept)) return ["거듭제곱", "거듭제곱근", "n제곱근", "근호", "실수인 근", "밑", "지수"];
     }
 
     return [];
@@ -4853,6 +4948,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "대수") {
+      const algebraPreferred = getAlgebraPreferredKeywordSequence();
+      if (algebraPreferred.length) return algebraPreferred;
+    }
     if (state.subject === "통합사회1" || state.subject === "통합사회") {
       const isoc1Preferred = getIntegratedSociety1PreferredKeywordSequence();
       if (isoc1Preferred.length) return isoc1Preferred;
@@ -5164,6 +5263,17 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
+    if (state.subject === "대수" && isAlgebraComputerMajorContext()) {
+      const forced = [
+        "지수함수와 로그함수의 활용",
+        "로그함수의 뜻과 그래프",
+        "지수함수의 뜻과 그래프"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if (state.subject === "과학탐구실험2" && isScienceInquiry2ComputerMajorContext()) {
       const forced = [
         "첨단 센서와 디지털 정보 탐구",
@@ -5175,7 +5285,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
