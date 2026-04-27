@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.40-chemistry1-bond-axis-performance-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.40-chemistry1-bond-axis-performa
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_40_chemistry1_bond_axis_performance_fix";
+  const ASSET_VERSION_QUERY = "v33_41_life_science_computer_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4899,6 +4899,31 @@ function getTrackMeta(trackId) {
 
 
 
+  function isLifeScienceComputerMajorContext() {
+    const localBag = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag() || ""].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getLifeSciencePreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
+    if (!majorText) return defaultSequence;
+    if (isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it") {
+      return ["유전자와 염색체", "신경 자극 전도와 전달", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "물질대사와 건강", "진화와 생물 다양성", "생식과 생명의 연속성"];
+    }
+    if (/(간호|의학|보건|약학|수의|의료|임상|바이오|생명|제약|식품|화공)/.test(majorText) || bucket === "bio") {
+      return ["물질대사와 건강", "면역과 백신", "신경계와 항상성", "물질대사와 에너지", "유전자와 염색체", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달"];
+    }
+    return defaultSequence;
+  }
+
+
   function isChemistry1ComputerMajorContext() {
     const localBag = [
       state.career || "",
@@ -5060,6 +5085,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") {
+      return getLifeSciencePreferredConceptSequence();
+    }
     if (state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
       return getChemistry1PreferredConceptSequence();
     }
@@ -5412,6 +5440,27 @@ function getTrackMeta(trackId) {
 
 
 
+  function getLifeSciencePreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it";
+    if (isIt) {
+      if (/유전자와 염색체/.test(concept)) return ["DNA", "유전 정보", "유전자", "염색체", "정보 저장", "염기 서열", "형질 발현", "돌연변이", "유전 정보 해석", "생명 정보"];
+      if (/신경 자극 전도와 전달/.test(concept)) return ["뉴런", "막전위", "활동 전위", "시냅스", "자극", "전도", "전달", "이온 이동", "신호 전달", "반응 시간"];
+      if (/신경계와 항상성/.test(concept)) return ["중추 신경계", "말초 신경계", "체온 조절", "혈당 조절", "항상성", "피드백", "조절", "감각", "반응", "내부 환경"];
+      if (/생태계의 물질 순환과 상호 작용/.test(concept)) return ["생태계", "물질 순환", "에너지 흐름", "개체군", "상호 작용", "먹이 그물", "개체군 변동", "생태계 평형", "모델링", "네트워크"];
+      if (/생명과학의 이해/.test(concept)) return ["생물의 특징", "세포", "물질대사", "항상성", "구성 단계", "시스템", "생명 현상", "데이터 관찰"];
+      if (/물질대사와 에너지/.test(concept)) return ["물질대사", "ATP", "광합성", "세포 호흡", "에너지 전환", "효소", "대사 경로", "반응 속도"];
+      if (/면역과 백신/.test(concept)) return ["병원체", "선천 면역", "항원", "항체", "백신", "면역 반응", "감염", "데이터 추적"];
+      if (/물질대사와 건강/.test(concept)) return ["대사성 질환", "당뇨병", "고혈압", "예방과 관리", "건강 데이터", "혈당", "생활 습관"];
+      if (/진화와 생물 다양성/.test(concept)) return ["진화", "자연선택", "분류", "생물 다양성", "계통수", "종 다양성", "비교 분석"];
+      if (/생식과 생명의 연속성/.test(concept)) return ["감수 분열", "생식 세포", "수정", "생명의 연속성", "염색체 분리", "유전적 다양성"];
+    }
+    return [];
+  }
+
+
   function getChemistry1PreferredKeywordSequence() {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -5462,6 +5511,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") {
+      const lifePreferred = getLifeSciencePreferredKeywordSequence();
+      if (lifePreferred.length) return lifePreferred;
+    }
     if (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ") {
       const physicsPreferred = getPhysics1PreferredKeywordSequence();
       if (physicsPreferred.length) return physicsPreferred;
