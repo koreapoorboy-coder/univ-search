@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.29-algebra-sequence-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.30-algebra-followup-axis-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -115,7 +115,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.29-algebra-sequence-lock';
     "통합사회2": "seed/followup-axis/integrated_society2_concept_longitudinal_map.json",
     "과학탐구실험1": "seed/followup-axis/science_inquiry1_concept_longitudinal_map.json",
     "과학탐구실험2": "seed/followup-axis/science_inquiry2_concept_longitudinal_map.json",
-    "대수": "seed/followup-axis/algebra_concept_longitudinal_map.json",
+    "대수": addAssetVersion("seed/followup-axis/algebra_concept_longitudinal_map.json"),
     "확률과 통계": "seed/followup-axis/probability_statistics_concept_longitudinal_map.json",
     "미적분1": "seed/followup-axis/calculus1_concept_longitudinal_map.json",
     "기하": "seed/followup-axis/geometry_concept_longitudinal_map.json",
@@ -3359,13 +3359,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.29-algebra-sequence-lock';
 
 
   function buildConceptMappedAxes(entry) {
-    if (!entry || !Array.isArray(entry.longitudinal_axes)) return [];
-    return entry.longitudinal_axes.map(axis => {
+    const axes = entry && Array.isArray(entry.longitudinal_axes)
+      ? entry.longitudinal_axes
+      : (entry && Array.isArray(entry.axes) ? entry.axes : []);
+    if (!entry || !axes.length) return [];
+    return axes.map(axis => {
       const relationMeta = getAxisCareerRelationMeta(state.subject, axis);
       return {
         id: axis.axis_id,
         title: axis.axis_title,
-        short: entry.concept_label || state.concept,
+        short: axis.axis_short || entry.concept_label || state.concept,
         nextSubject: Array.isArray(axis.next_subjects) ? axis.next_subjects.join(" / ") : "",
         desc: axis.why || "",
         reason: relationMeta.message,
