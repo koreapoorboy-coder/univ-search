@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.21-science-inquiry1-prelock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.23-science-inquiry2-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.21-science-inquiry1-prelock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_20_major_search_performance_fix";
+  const ASSET_VERSION_QUERY = "v33_23_science_inquiry2_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3978,6 +3978,76 @@ function getTrackMeta(trackId) {
     }
 
 
+    if (fuzzyIncludes(state.subject, "과학탐구실험2")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|센서|자동화)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/첨단 센서와 디지털 정보 탐구/.test(concept)) {
+        if (hit("센서", "입력", "출력", "측정", "신호", "자동화", "제어", "장치", "시스템")) {
+          if (/sensor_system_engineering/.test(axisId) || /센서·시스템 설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, isItMajor ? 58 : 48);
+          if (/digital_information_processing/.test(axisId) || /디지털 정보 처리 축/.test(axisTitle) || axisDomain === "information") fallback = Math.max(fallback, 16);
+        }
+        if (hit("디지털 정보", "데이터", "저장", "전송", "디지털", "코드", "압축", "기록", "통신")) {
+          if (/digital_information_processing/.test(axisId) || /디지털 정보 처리 축/.test(axisTitle) || axisDomain === "information") fallback = Math.max(fallback, isItMajor ? 58 : 48);
+          if (/sensor_system_engineering/.test(axisId) || /센서·시스템 설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 14);
+        }
+        if (hit("스마트홈", "스마트시티", "생활", "활용")) {
+          if (/smart_life_application/.test(axisId) || /스마트 생활 적용 축/.test(axisTitle) || axisDomain === "life") fallback = Math.max(fallback, 44);
+        }
+      }
+
+      if (/생활 자료를 활용한 과학적 의사결정 탐구/.test(concept)) {
+        if (hit("그래프", "통계", "설문", "자료", "시각화", "수집", "정리", "분석")) {
+          if (/daily_life_data_analysis/.test(axisId) || /생활 데이터 해석 축/.test(axisTitle) || axisDomain === "statistics") fallback = Math.max(fallback, isItMajor ? 56 : 48);
+          if (/evidence_based_decision/.test(axisId) || /근거 기반 판단 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 14);
+        }
+        if (hit("근거", "선택", "판단", "의사결정", "비교", "장단점", "기준", "합리적")) {
+          if (/evidence_based_decision/.test(axisId) || /근거 기반 판단 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 54 : 48);
+          if (/daily_life_data_analysis/.test(axisId) || /생활 데이터 해석 축/.test(axisTitle) || axisDomain === "statistics") fallback = Math.max(fallback, 12);
+        }
+      }
+
+      if (/첨단 과학 기술의 사회 적용 탐구/.test(concept)) {
+        if (hit("인공지능", "로봇", "바이오", "우주", "반도체", "산업", "미래 사회", "변화")) {
+          if (/future_technology_application/.test(axisId) || /미래 기술·응용 해석 축/.test(axisTitle) || axisDomain === "technology") fallback = Math.max(fallback, isItMajor ? 56 : 46);
+          if (/technology_society_ethics/.test(axisId) || /과학기술·사회·윤리 축/.test(axisTitle) || axisDomain === "ethics") fallback = Math.max(fallback, 14);
+        }
+        if (hit("윤리", "위험", "책임", "규제", "부작용", "찬반", "쟁점", "토론", "사회 영향")) {
+          if (/technology_society_ethics/.test(axisId) || /과학기술·사회·윤리 축/.test(axisTitle) || axisDomain === "ethics") fallback = Math.max(fallback, isItMajor ? 54 : 48);
+          if (/future_technology_application/.test(axisId) || /미래 기술·응용 해석 축/.test(axisTitle) || axisDomain === "technology") fallback = Math.max(fallback, 12);
+        }
+      }
+
+      if (/생체 신호와 건강 데이터 탐구/.test(concept)) {
+        if (hit("심박수", "체온", "호흡", "혈압", "맥박", "건강 상태", "운동", "휴식", "스트레스")) {
+          if (/biomedical_signal_analysis/.test(axisId) || /생체 신호·건강 해석 축/.test(axisTitle) || axisDomain === "biology") fallback = Math.max(fallback, 52);
+        }
+        if (hit("그래프", "기록", "앱", "추적", "패턴", "비교", "평균", "변화량")) {
+          if (/health_data_visualization/.test(axisId) || /건강 데이터 시각화 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+        }
+        if (hit("웨어러블", "스마트워치", "센서", "헬스케어")) {
+          if (/digital_healthcare_application/.test(axisId) || /디지털 헬스케어 적용 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, isItMajor ? 54 : 44);
+        }
+      }
+
+      if (/내진 설계와 구조 안정성 탐구/.test(concept)) {
+        if (hit("내진", "면진", "제진", "구조", "하중", "건물", "교량", "설계 개선", "보강")) {
+          if (/seismic_structure_engineering/.test(axisId) || /내진 구조·설계 축/.test(axisTitle) || axisDomain === "engineering") fallback = Math.max(fallback, 52);
+        }
+        if (hit("진동", "주기", "공진", "지진파", "흔들림", "파동", "진폭", "주파수")) {
+          if (/vibration_wave_analysis/.test(axisId) || /진동·파동 해석 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 50);
+        }
+      }
+
+      if (/충격을 줄이는 방법과 안전장치 탐구/.test(concept)) {
+        if (hit("에어백", "헬멧", "범퍼", "안전벨트", "충격 흡수", "구조", "설계", "재료", "완충")) {
+          if (/impact_safety_engineering/.test(axisId) || /충돌·안전 설계 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 52);
+        }
+        if (hit("속도", "감속", "그래프", "데이터", "측정", "기준", "비교", "수치", "모델")) {
+          if (/collision_data_modeling/.test(axisId) || /충격 데이터·모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+        }
+      }
+    }
+
+
     if (fuzzyIncludes(state.subject, "공통수학2")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test([state.career || "", getMajorTextBag()].join(" "));
       if (/평면좌표와 직선의 방정식/.test(concept)) {
@@ -4244,6 +4314,69 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+
+
+  function getScienceInquiry2PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "생활 자료를 활용한 과학적 의사결정 탐구",
+      "첨단 센서와 디지털 정보 탐구",
+      "첨단 과학 기술의 사회 적용 탐구",
+      "생체 신호와 건강 데이터 탐구",
+      "충격을 줄이는 방법과 안전장치 탐구",
+      "내진 설계와 구조 안정성 탐구"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
+      return [
+        "첨단 센서와 디지털 정보 탐구",
+        "생활 자료를 활용한 과학적 의사결정 탐구",
+        "첨단 과학 기술의 사회 적용 탐구",
+        "생체 신호와 건강 데이터 탐구",
+        "내진 설계와 구조 안정성 탐구",
+        "충격을 줄이는 방법과 안전장치 탐구"
+      ];
+    }
+
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|임베디드|제어)/.test(majorText) || bucket === "electronic") {
+      return [
+        "첨단 센서와 디지털 정보 탐구",
+        "내진 설계와 구조 안정성 탐구",
+        "충격을 줄이는 방법과 안전장치 탐구",
+        "첨단 과학 기술의 사회 적용 탐구",
+        "생활 자료를 활용한 과학적 의사결정 탐구",
+        "생체 신호와 건강 데이터 탐구"
+      ];
+    }
+
+    if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상)/.test(majorText) || bucket === "bio") {
+      return [
+        "생체 신호와 건강 데이터 탐구",
+        "생활 자료를 활용한 과학적 의사결정 탐구",
+        "첨단 센서와 디지털 정보 탐구",
+        "첨단 과학 기술의 사회 적용 탐구",
+        "충격을 줄이는 방법과 안전장치 탐구",
+        "내진 설계와 구조 안정성 탐구"
+      ];
+    }
+
+    if (/(건축|토목|도시|기계|재난|안전|구조)/.test(majorText)) {
+      return [
+        "내진 설계와 구조 안정성 탐구",
+        "충격을 줄이는 방법과 안전장치 탐구",
+        "첨단 센서와 디지털 정보 탐구",
+        "생활 자료를 활용한 과학적 의사결정 탐구",
+        "첨단 과학 기술의 사회 적용 탐구",
+        "생체 신호와 건강 데이터 탐구"
+      ];
+    }
+
+    return defaultSequence;
+  }
+
   function getPreferredConceptSequence() {
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
@@ -4255,6 +4388,9 @@ function getTrackMeta(trackId) {
     }
     if (state.subject === "과학탐구실험1") {
       return getScienceInquiry1PreferredConceptSequence();
+    }
+    if (state.subject === "과학탐구실험2") {
+      return getScienceInquiry2PreferredConceptSequence();
     }
     if (state.subject === "공통수학1") {
       return getCommonMath1PreferredConceptSequence();
@@ -4445,6 +4581,26 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+
+
+  function getScienceInquiry2PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/첨단 센서와 디지털 정보 탐구/.test(concept)) return ["센서", "디지털 정보", "데이터", "측정", "신호", "입력", "출력", "자동화", "제어", "시스템", "저장", "전송", "통신", "코드"];
+      if (/생활 자료를 활용한 과학적 의사결정 탐구/.test(concept)) return ["자료", "그래프", "통계", "설문", "수집", "정리", "분석", "비교", "기준", "근거", "판단", "의사결정", "시각화"];
+      if (/첨단 과학 기술의 사회 적용 탐구/.test(concept)) return ["인공지능", "로봇", "반도체", "미래 사회", "사회 영향", "윤리", "책임", "위험", "규제", "찬반", "쟁점", "토론"];
+      if (/생체 신호와 건강 데이터 탐구/.test(concept)) return ["심박수", "체온", "호흡", "혈압", "맥박", "건강 데이터", "그래프", "앱", "센서", "스마트워치", "패턴", "비교"];
+      if (/내진 설계와 구조 안정성 탐구/.test(concept)) return ["내진", "면진", "제진", "구조", "진동", "주기", "공진", "지진파", "센서", "데이터", "설계 개선"];
+      if (/충격을 줄이는 방법과 안전장치 탐구/.test(concept)) return ["충돌", "충격", "감속", "에어백", "헬멧", "범퍼", "안전벨트", "충격 흡수", "그래프", "데이터", "측정", "모델"];
+    }
+
+    return [];
+  }
+
   function getPreferredKeywordSequence() {
     if (state.subject === "공통수학1") {
       const cm1Preferred = getCommonMath1PreferredKeywordSequence();
@@ -4469,6 +4625,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "과학탐구실험1") {
       const si1Preferred = getScienceInquiry1PreferredKeywordSequence();
       if (si1Preferred.length) return si1Preferred;
+    }
+    if (state.subject === "과학탐구실험2") {
+      const si2Preferred = getScienceInquiry2PreferredKeywordSequence();
+      if (si2Preferred.length) return si2Preferred;
     }
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -4723,7 +4883,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
