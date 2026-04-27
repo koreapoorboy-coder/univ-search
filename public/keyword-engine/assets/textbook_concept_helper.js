@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.37-physics1-computer-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.38-chemistry1-computer-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.37-physics1-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_37_physics1_computer_lock";
+  const ASSET_VERSION_QUERY = "v33_38_chemistry1_computer_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4877,6 +4877,69 @@ function getTrackMeta(trackId) {
   }
 
 
+
+  function isChemistry1ComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/s+/g, " ");
+      if (/2.s*학과s*컴퓨터공학과/.test(bodyText) || /학과s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getChemistry1PreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "화학과 우리 생활",
+      "탄소 화합물의 유용성",
+      "물질의 양과 화학 반응식",
+      "원자의 구조",
+      "현대의 원자 모형과 전자 배치",
+      "원소의 주기적 성질",
+      "화학 결합",
+      "분자의 구조와 성질",
+      "화학 반응에서의 동적 평형",
+      "화학 반응과 열의 출입"
+    ];
+    if (!majorText) return defaultSequence;
+    if (isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(majorText) || bucket === "it" || bucket === "electronic") {
+      return [
+        "현대의 원자 모형과 전자 배치",
+        "원소의 주기적 성질",
+        "화학 결합",
+        "원자의 구조",
+        "분자의 구조와 성질",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "탄소 화합물의 유용성",
+        "화학 반응에서의 동적 평형",
+        "화학과 우리 생활"
+      ];
+    }
+    if (/(신소재|재료|반도체|배터리|에너지|화학공학|화공|고분자|금속)/.test(majorText) || bucket === "materials") {
+      return [
+        "화학 결합",
+        "원소의 주기적 성질",
+        "분자의 구조와 성질",
+        "현대의 원자 모형과 전자 배치",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
+    return defaultSequence;
+  }
+
   function isPhysicsComputerMajorContext() {
     const localBag = [
       state.career || "",
@@ -4976,6 +5039,13 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
+      return getChemistry1PreferredConceptSequence();
+    }
+    if (state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
+      const chemPreferred = getChemistry1PreferredKeywordSequence();
+      if (chemPreferred.length) return chemPreferred;
+    }
     if (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ") {
       return getPhysics1PreferredConceptSequence();
     }
@@ -5319,6 +5389,24 @@ function getTrackMeta(trackId) {
 
 
 
+
+
+  function getChemistry1PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    if (isIt) {
+      if (/현대의 원자 모형과 전자 배치/.test(concept)) return ["에너지 준위", "오비탈", "전자 배치 작성", "오비탈 해석", "선 스펙트럼", "보어 모형", "주 양자수", "방위 양자수", "전자 스핀", "쌓음 원리", "파울리 배타 원리", "훈트 규칙"];
+      if (/원소의 주기적 성질/.test(concept)) return ["주기율표", "유효 핵전하", "이온화 에너지", "원자 반지름", "금속", "비금속", "주기성 비교", "가려막기 효과", "이온 반지름", "주기", "족"];
+      if (/화학 결합/.test(concept)) return ["원자가 전자", "공유 결합", "이온 결합", "전기음성도", "결합의 극성", "루이스 전자점식", "비공유 전자쌍", "결합 종류 판별", "극성 판단", "분자 모형 해석"];
+      if (/원자의 구조/.test(concept)) return ["전자", "원자핵", "양성자", "중성자", "원자 번호", "질량수", "동위원소", "평균 원자량"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자의 구조", "전자쌍 반발", "결합각", "분자의 극성", "쌍극자", "구조식", "수소 결합", "분자 사이 힘"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "아보가드로수", "화학식량", "분자량", "반응식", "계수", "몰 질량", "비율"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["산화", "환원", "중화 반응", "반응열", "발열 반응", "흡열 반응", "에너지 출입"];
+    }
+    return [];
+  }
 
   function getPhysics1PreferredKeywordSequence() {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
@@ -5732,6 +5820,18 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
 
 
+
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && isChemistry1ComputerMajorContext()) {
+      const forced = [
+        "현대의 원자 모형과 전자 배치",
+        "원소의 주기적 성질",
+        "화학 결합"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if (state.subject === "기하" && isGeometryComputerMajorContext()) {
       const forced = [
         "벡터의 성분과 내적",
@@ -5743,7 +5843,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1" || state.subject === "기하") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1" || state.subject === "기하" || state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
