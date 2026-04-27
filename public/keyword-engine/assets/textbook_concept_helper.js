@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.20-major-search-performance-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.21-science-inquiry1-prelock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -36,6 +36,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.20-major-search-performance-fix'
   const FOLLOWUP_MAJOR_URL = addAssetVersion(`${DATA_SOURCE_POLICY.followupAxis}major_followup_axis.json`);
 
   const SUBJECT_NAME_ALIASES = Object.freeze({
+    "과학탐구실험 1": "과학탐구실험1",
+    "과탐실험1": "과학탐구실험1",
+    "과탐 실험1": "과학탐구실험1",
+    "과학 탐구 실험1": "과학탐구실험1",
+    "과학탐구실험 2": "과학탐구실험2",
+    "과탐실험2": "과학탐구실험2",
+    "과탐 실험2": "과학탐구실험2",
+    "과학 탐구 실험2": "과학탐구실험2",
     "정보과목": "정보",
     "정보 교과": "정보",
     "Information": "정보",
@@ -3922,6 +3930,54 @@ function getTrackMeta(trackId) {
     }
 
 
+    if (fuzzyIncludes(state.subject, "과학탐구실험1")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/자료 수집·분석·결론 도출/.test(concept)) {
+        if (hit("자료 수집", "분석", "그래프", "표", "데이터", "평균", "비교", "경향")) {
+          if (/data_collection_analysis/.test(axisId) || /자료 수집·분석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 56 : 46);
+          if (/error_interpretation_validation/.test(axisId) || /오차 해석·검증 축/.test(axisTitle) || axisDomain === "experimental_design") fallback = Math.max(fallback, 10);
+        }
+        if (hit("오차", "신뢰도", "검증", "정확도", "정밀도", "보정")) {
+          if (/error_interpretation_validation/.test(axisId) || /오차 해석·검증 축/.test(axisTitle) || axisDomain === "experimental_design") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+          if (/data_collection_analysis/.test(axisId) || /자료 수집·분석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 10);
+        }
+        if (hit("결론", "근거", "해석", "증거 기반 설명")) {
+          if (/conclusion_argumentation_reporting/.test(axisId) || /결론 도출·논증 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, 50);
+          if (/data_collection_analysis/.test(axisId) || /자료 수집·분석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 10);
+        }
+      }
+      if (/가설 설정과 탐구 설계/.test(concept)) {
+        if (hit("가설", "조작변인", "통제변인", "종속변인", "변인", "대조 실험")) {
+          if (/hypothesis_variable_design/.test(axisId) || /가설·변인 설계 축/.test(axisTitle) || axisDomain === "inquiry_method") fallback = Math.max(fallback, isItMajor ? 56 : 48);
+          if (/procedure_reproducibility/.test(axisId) || /절차 설계·재현성 축/.test(axisTitle) || axisDomain === "experimental_design") fallback = Math.max(fallback, 12);
+        }
+        if (hit("실험 설계", "탐구 절차", "절차", "순서", "도구", "기구", "안전")) {
+          if (/procedure_reproducibility/.test(axisId) || /절차 설계·재현성 축/.test(axisTitle) || axisDomain === "experimental_design") fallback = Math.max(fallback, 52);
+          if (/hypothesis_variable_design/.test(axisId) || /가설·변인 설계 축/.test(axisTitle) || axisDomain === "inquiry_method") fallback = Math.max(fallback, 10);
+        }
+        if (hit("예상 결과", "그래프", "패턴")) {
+          if (/logic_prediction_modeling/.test(axisId) || /논리 예측·모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 52 : 44);
+        }
+      }
+      if (/문제 인식과 탐구 질문 설정/.test(concept)) {
+        if (hit("문제 인식", "탐구 질문", "질문 설정", "궁금증", "탐구 주제", "탐구 목적")) {
+          if (/inquiry_question_design/.test(axisId) || /탐구 질문 설계 축/.test(axisTitle) || axisDomain === "inquiry_method") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+        }
+        if (hit("주제", "범위", "구체화", "생활 속 현상", "관찰", "사례")) {
+          if (/phenomenon_observation_subject_link/.test(axisId) || /현상 관찰·교과 연결 축/.test(axisTitle) || axisDomain === "observation") fallback = Math.max(fallback, 48);
+        }
+      }
+      if (/탐구 보고서 작성/.test(concept)) {
+        if (hit("보고서", "구성", "서론", "결과", "결론", "탐구 주제", "탐구 목적", "탐구 문제")) {
+          if (/report_writing_structure/.test(axisId) || /탐구 보고서 구조화 축/.test(axisTitle) || axisDomain === "communication") fallback = Math.max(fallback, 52);
+        }
+        if (hit("발표", "슬라이드", "그래프", "시각화", "포스터", "카드뉴스")) {
+          if (/visual_presentation_design/.test(axisId) || /시각화·발표 설계 축/.test(axisTitle) || axisDomain === "presentation") fallback = Math.max(fallback, isItMajor ? 50 : 42);
+        }
+      }
+    }
+
+
     if (fuzzyIncludes(state.subject, "공통수학2")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|그래픽|시뮬레이션)/i.test([state.career || "", getMajorTextBag()].join(" "));
       if (/평면좌표와 직선의 방정식/.test(concept)) {
@@ -4127,6 +4183,67 @@ function getTrackMeta(trackId) {
     return item.easy || '';
   }
 
+
+  function getScienceInquiry1PreferredConceptSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "문제 인식과 탐구 질문 설정",
+      "가설 설정과 탐구 설계",
+      "자료 수집·분석·결론 도출",
+      "탐구 보고서 작성",
+      "갈릴레이의 경사면 실험과 낙하 운동",
+      "멘델레예프의 주기율표 만들기",
+      "과학의 단위 및 도량형의 역사 추적하기",
+      "과학사에서 동시 발견으로 이룬 과학 발전 추적하기",
+      "우리 선조들의 과학 기술 발전 사례 찾기"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
+      return [
+        "자료 수집·분석·결론 도출",
+        "가설 설정과 탐구 설계",
+        "문제 인식과 탐구 질문 설정",
+        "탐구 보고서 작성",
+        "과학의 단위 및 도량형의 역사 추적하기",
+        "갈릴레이의 경사면 실험과 낙하 운동",
+        "멘델레예프의 주기율표 만들기",
+        "과학사에서 동시 발견으로 이룬 과학 발전 추적하기",
+        "우리 선조들의 과학 기술 발전 사례 찾기"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|임베디드|제어)/.test(majorText) || bucket === "electronic") {
+      return [
+        "가설 설정과 탐구 설계",
+        "자료 수집·분석·결론 도출",
+        "갈릴레이의 경사면 실험과 낙하 운동",
+        "과학의 단위 및 도량형의 역사 추적하기",
+        "탐구 보고서 작성",
+        "문제 인식과 탐구 질문 설정",
+        "멘델레예프의 주기율표 만들기",
+        "과학사에서 동시 발견으로 이룬 과학 발전 추적하기",
+        "우리 선조들의 과학 기술 발전 사례 찾기"
+      ];
+    }
+    if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상|화학|신소재|재료|환경|기후)/.test(majorText) || bucket === "bio" || bucket === "materials" || bucket === "env") {
+      return [
+        "가설 설정과 탐구 설계",
+        "자료 수집·분석·결론 도출",
+        "문제 인식과 탐구 질문 설정",
+        "탐구 보고서 작성",
+        "멘델레예프의 주기율표 만들기",
+        "과학의 단위 및 도량형의 역사 추적하기",
+        "갈릴레이의 경사면 실험과 낙하 운동",
+        "과학사에서 동시 발견으로 이룬 과학 발전 추적하기",
+        "우리 선조들의 과학 기술 발전 사례 찾기"
+      ];
+    }
+
+    return defaultSequence;
+  }
+
   function getPreferredConceptSequence() {
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
@@ -4135,6 +4252,9 @@ function getTrackMeta(trackId) {
 
     if (state.subject === "통합과학2") {
       return getIntegratedScience2PreferredConceptSequence();
+    }
+    if (state.subject === "과학탐구실험1") {
+      return getScienceInquiry1PreferredConceptSequence();
     }
     if (state.subject === "공통수학1") {
       return getCommonMath1PreferredConceptSequence();
@@ -4305,6 +4425,26 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+
+  function getScienceInquiry1PreferredKeywordSequence() {
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/자료 수집·분석·결론 도출/.test(concept)) return ["자료 수집", "분석", "그래프", "표", "데이터", "결론", "증거 기반 설명", "오차", "신뢰도", "평균", "비교", "경향"];
+      if (/가설 설정과 탐구 설계/.test(concept)) return ["가설", "조작변인", "통제변인", "종속변인", "변인", "대조 실험", "탐구 절차", "실험 설계", "예상 결과", "그래프", "패턴"];
+      if (/문제 인식과 탐구 질문 설정/.test(concept)) return ["문제 인식", "탐구 질문", "질문 설정", "탐구 주제", "탐구 목적", "주제", "범위", "구체화"];
+      if (/탐구 보고서 작성/.test(concept)) return ["보고서", "구성", "탐구 주제", "탐구 목적", "탐구 문제", "결과 및 토의", "결론 및 제언", "그래프", "시각화", "발표"];
+      if (/과학의 단위 및 도량형의 역사 추적하기/.test(concept)) return ["단위", "도량형", "표준", "표준화", "공통 기준", "측정값", "환산", "비교"];
+      if (/갈릴레이의 경사면 실험과 낙하 운동/.test(concept)) return ["경사면 실험", "낙하 운동", "속도", "시간", "거리", "그래프", "데이터", "오차", "비교", "분석"];
+      if (/멘델레예프의 주기율표 만들기/.test(concept)) return ["주기율표", "원소 배열", "규칙성", "분류", "패턴", "예측", "원자 번호"];
+    }
+
+    return [];
+  }
+
   function getPreferredKeywordSequence() {
     if (state.subject === "공통수학1") {
       const cm1Preferred = getCommonMath1PreferredKeywordSequence();
@@ -4325,6 +4465,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "통합과학2") {
       const is2Preferred = getIntegratedScience2PreferredKeywordSequence();
       if (is2Preferred.length) return is2Preferred;
+    }
+    if (state.subject === "과학탐구실험1") {
+      const si1Preferred = getScienceInquiry1PreferredKeywordSequence();
+      if (si1Preferred.length) return si1Preferred;
     }
     const majorText = getMajorTextBag();
     const track = getResolvedTrackId() || '';
@@ -4579,7 +4723,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
