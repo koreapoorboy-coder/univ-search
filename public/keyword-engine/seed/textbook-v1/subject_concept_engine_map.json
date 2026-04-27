@@ -6622,194 +6622,219 @@
       "publisher": "비상교육",
       "curriculum": "2022 개정 교육과정",
       "source_name": "calculus1_structure_db",
-      "version": "0.1.0-longitudinal-start"
+      "version": "v33.33-expanded-lock"
     },
     "concepts": {
-      "수열의 극한과 급수": {
+      "수열의 극한": {
         "unit": "수열의 극한",
-        "lesson_focus": "수열과 급수의 변화가 어떤 값에 가까워지는지 해석하고, 무한히 반복되는 구조를 식과 그래프로 설명하는 단원이다.",
+        "lesson_focus": "수열이 어떤 값에 가까워지는지 수렴·발산을 판정하고 장기 변화 경향을 해석하는 단원이다.",
         "core_concepts": [
           "수열",
           "극한",
           "수렴",
-          "급수",
-          "등비급수"
+          "발산"
         ],
         "micro_keywords": [
           "수열",
           "극한",
           "수렴",
           "발산",
+          "무한대",
+          "등비수열",
+          "장기 변화",
+          "반복"
+        ],
+        "student_topics": [],
+        "linked_activity_types": [],
+        "linked_career_bridge": [
+          "수학과",
+          "통계학과",
+          "데이터사이언스",
+          "컴퓨터공학과"
+        ],
+        "horizontal_links": [],
+        "vertical_links": []
+      },
+      "급수": {
+        "unit": "수열의 극한",
+        "lesson_focus": "부분합과 무한급수를 통해 끝없이 더해지는 양의 누적 구조를 해석하는 단원이다.",
+        "core_concepts": [
           "급수",
           "부분합",
           "등비급수",
           "무한합"
         ],
-        "student_topics": [
-          "수열의 극한을 이용하면 반복되는 변화의 경향을 어떻게 예측할 수 있을까?",
-          "급수와 부분합 해석은 성장·감소 현상이나 누적 구조를 설명하는 데 왜 유용할까?"
+        "micro_keywords": [
+          "급수",
+          "부분합",
+          "등비급수",
+          "수렴",
+          "발산",
+          "무한합",
+          "프랙털",
+          "누적"
         ],
-        "linked_activity_types": [
-          "변화 경향 해석형",
-          "패턴 일반화형",
-          "모델링 보고형"
-        ],
+        "student_topics": [],
+        "linked_activity_types": [],
         "linked_career_bridge": [
           "수학과",
-          "통계학과",
+          "금융공학과",
           "데이터사이언스",
-          "금융공학"
+          "컴퓨터공학과"
         ],
-        "horizontal_links": [
-          {
-            "subject": "대수",
-            "concept": "지수함수와 로그함수의 활용",
-            "evaluation_focus": "지수적 변화와 수열의 극한을 같은 변화 구조로 연결해 해석할 수 있는가",
-            "inquiry_extension": "지수 증가·감소 상황을 수열과 함수로 각각 표현해 차이를 비교하기"
-          },
-          {
-            "subject": "확률과 통계",
-            "concept": "확률분포와 통계적 추정",
-            "evaluation_focus": "부분합과 평균·분포의 경향 해석을 연결해 데이터 전체 흐름을 읽을 수 있는가",
-            "inquiry_extension": "부분합의 변화와 누적 데이터 평균 변화를 같은 기준으로 비교하기"
-          }
-        ],
-        "vertical_links": [
-          {
-            "grade": "2학년",
-            "subject": "정보 / 데이터 모델링",
-            "connection_point": "반복 구조와 수렴 경향을 데이터 예측 모델로 확장"
-          },
-          {
-            "grade": "2학년",
-            "subject": "물리 / 파동·진동 해석",
-            "connection_point": "주기적 변화와 무한 과정 해석을 파동·진동 모델로 연결"
-          }
-        ]
+        "horizontal_links": [],
+        "vertical_links": []
       },
-      "미분과 변화율 해석": {
+      "여러 가지 함수의 미분": {
         "unit": "미분법",
-        "lesson_focus": "도함수와 접선, 극값과 그래프 개형을 이용해 변화율을 정량적으로 해석하고 실제 현상을 분석하는 단원이다.",
+        "lesson_focus": "지수·로그·삼각함수의 도함수를 구하고 변화율을 함수별 특성에 따라 해석하는 단원이다.",
         "core_concepts": [
           "도함수",
+          "지수함수 미분",
+          "로그함수 미분",
+          "삼각함수 미분"
+        ],
+        "micro_keywords": [
+          "도함수",
+          "지수함수 미분",
+          "로그함수 미분",
+          "삼각함수 미분",
+          "자연로그",
+          "실수 e",
+          "표준 극한",
+          "변화율"
+        ],
+        "student_topics": [],
+        "linked_activity_types": [],
+        "linked_career_bridge": [
+          "컴퓨터공학과",
+          "전자공학과",
+          "데이터사이언스",
+          "물리학과"
+        ],
+        "horizontal_links": [],
+        "vertical_links": []
+      },
+      "여러 가지 미분법": {
+        "unit": "미분법",
+        "lesson_focus": "합성함수·곱·몫의 미분법을 이용해 복잡한 함수의 변화율을 체계적으로 계산하는 단원이다.",
+        "core_concepts": [
+          "합성함수 미분",
+          "곱의 미분",
+          "몫의 미분",
+          "연쇄법칙"
+        ],
+        "micro_keywords": [
+          "합성함수",
+          "연쇄법칙",
+          "곱의 미분",
+          "몫의 미분",
+          "매개변수",
+          "음함수",
+          "변화율 계산"
+        ],
+        "student_topics": [],
+        "linked_activity_types": [],
+        "linked_career_bridge": [
+          "컴퓨터공학과",
+          "데이터사이언스",
+          "공학계열",
+          "수학과"
+        ],
+        "horizontal_links": [],
+        "vertical_links": []
+      },
+      "도함수의 활용": {
+        "unit": "미분법",
+        "lesson_focus": "접선·증가와 감소·극값을 이용해 변화의 방향과 최적 조건을 해석하는 단원이다.",
+        "core_concepts": [
           "변화율",
           "접선",
           "극값",
-          "그래프 해석"
+          "최적화"
         ],
         "micro_keywords": [
-          "도함수",
           "변화율",
           "접선",
+          "증가",
+          "감소",
           "극대",
           "극소",
-          "변곡점",
-          "속도",
-          "가속도"
+          "최댓값",
+          "최솟값",
+          "최적화",
+          "그래프 개형"
         ],
-        "student_topics": [
-          "미분을 이용하면 함수의 순간 변화와 전체 그래프 구조를 어떻게 함께 설명할 수 있을까?",
-          "변화율 해석은 속도·효율·최적화 문제를 왜 더 정확하게 판단하게 해 줄까?"
-        ],
-        "linked_activity_types": [
-          "변화 분석형",
-          "최적화 보고형",
-          "그래프 해석형"
-        ],
+        "student_topics": [],
+        "linked_activity_types": [],
         "linked_career_bridge": [
-          "기계공학",
-          "전자공학",
-          "산업공학",
-          "물리학"
+          "컴퓨터공학과",
+          "산업공학과",
+          "데이터사이언스",
+          "전자공학과"
         ],
-        "horizontal_links": [
-          {
-            "subject": "공통수학2",
-            "concept": "평면좌표와 직선의 방정식",
-            "evaluation_focus": "기울기와 접선의 의미를 좌표 해석과 연결할 수 있는가",
-            "inquiry_extension": "직선의 기울기와 곡선의 접선 기울기를 같은 좌표 평면에서 비교하기"
-          },
-          {
-            "subject": "과학탐구실험2",
-            "concept": "첨단 센서와 디지털 정보 탐구",
-            "evaluation_focus": "센서 데이터의 변화율을 그래프와 도함수 관점으로 설명할 수 있는가",
-            "inquiry_extension": "시간에 따른 센서 측정값 변화를 그래프로 그리고 증가·감소 구간을 해석하기"
-          }
-        ],
-        "vertical_links": [
-          {
-            "grade": "2학년",
-            "subject": "기하 / 역학과 에너지",
-            "connection_point": "공간 운동과 물리량 변화를 변화율로 해석"
-          },
-          {
-            "grade": "2학년",
-            "subject": "정보 / 컴퓨터공학",
-            "connection_point": "최적화와 알고리즘 효율 판단으로 확장"
-          }
-        ]
+        "horizontal_links": [],
+        "vertical_links": []
       },
-      "적분과 누적량 모델링": {
+      "여러 가지 적분법": {
         "unit": "적분법",
-        "lesson_focus": "정적분을 이용해 넓이·부피·거리처럼 누적된 양을 계산하고 실제 현상을 모델링하는 단원이다.",
+        "lesson_focus": "치환적분과 부분적분 등을 이용해 누적량을 계산하고 함수 구조를 변환해 해석하는 단원이다.",
         "core_concepts": [
-          "적분",
+          "부정적분",
           "정적분",
-          "넓이",
-          "부피",
-          "누적량"
+          "치환적분",
+          "부분적분"
         ],
         "micro_keywords": [
+          "부정적분",
           "정적분",
-          "리만 합",
+          "치환적분",
+          "부분적분",
+          "적분상수",
+          "적분 계산",
+          "함수 변환"
+        ],
+        "student_topics": [],
+        "linked_activity_types": [],
+        "linked_career_bridge": [
+          "수학과",
+          "공학계열",
+          "데이터사이언스",
+          "물리학과"
+        ],
+        "horizontal_links": [],
+        "vertical_links": []
+      },
+      "정적분의 활용": {
+        "unit": "적분법",
+        "lesson_focus": "정적분을 넓이·부피·이동거리 같은 누적량과 연결해 실제 현상을 모델링하는 단원이다.",
+        "core_concepts": [
+          "누적량",
+          "넓이",
+          "부피",
+          "이동거리"
+        ],
+        "micro_keywords": [
+          "누적량",
           "넓이",
           "부피",
           "이동거리",
-          "곡선의 길이",
-          "누적량",
-          "면적"
+          "면적",
+          "속도",
+          "거리",
+          "리만 합",
+          "모델링"
         ],
-        "student_topics": [
-          "정적분은 변화가 누적된 결과를 어떤 방식으로 계산하고 해석하게 해 줄까?",
-          "넓이·부피·거리 계산을 같은 누적량 관점으로 보면 어떤 공통 구조가 보일까?"
-        ],
-        "linked_activity_types": [
-          "누적량 해석형",
-          "공간 모델링형",
-          "적용 사례 보고형"
-        ],
+        "student_topics": [],
+        "linked_activity_types": [],
         "linked_career_bridge": [
-          "건축공학",
-          "항공우주공학",
-          "물리학",
-          "데이터사이언스"
+          "컴퓨터공학과",
+          "데이터사이언스",
+          "물리학과",
+          "공학계열"
         ],
-        "horizontal_links": [
-          {
-            "subject": "공통수학2",
-            "concept": "원의 방정식",
-            "evaluation_focus": "곡선과 도형을 넓이·부피 계산으로 연결해 해석할 수 있는가",
-            "inquiry_extension": "원의 단면과 회전체를 이용한 부피 모델을 적분과 연결해 설명하기"
-          },
-          {
-            "subject": "과학탐구실험1",
-            "concept": "자료 수집·분석·결론 도출",
-            "evaluation_focus": "측정값이 누적되는 구조를 그래프와 면적 해석으로 연결할 수 있는가",
-            "inquiry_extension": "속도·시간 자료를 누적해 이동거리로 해석하는 보고서 구조 만들기"
-          }
-        ],
-        "vertical_links": [
-          {
-            "grade": "2학년",
-            "subject": "기하 / 공간 구조 모델링",
-            "connection_point": "면적·부피 해석을 공간 구조와 좌표 모델로 확장"
-          },
-          {
-            "grade": "2학년",
-            "subject": "물리 / 역학과 에너지",
-            "connection_point": "거리·변위·누적량 해석을 운동 모델로 연결"
-          }
-        ]
+        "horizontal_links": [],
+        "vertical_links": []
       }
     }
   },
