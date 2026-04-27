@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.24-science-inquiry2-priority-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.25-integrated-society1-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.24-science-inquiry2-priority-fix
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_24_science_inquiry2_priority_fix";
+  const ASSET_VERSION_QUERY = "v33_25_integrated_society1_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3856,6 +3856,47 @@ function getTrackMeta(trackId) {
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let fallback = 0;
 
+    if (fuzzyIncludes(state.subject, "통합사회1") || fuzzyIncludes(state.subject, "통합사회")) {
+      const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test([state.career || "", getMajorTextBag()].join(" "));
+      if (/생활 공간 변화와 지역 이해/.test(concept)) {
+        if (hit("정보화", "네트워크", "통신 발달", "교통 발달", "공간 압축", "정보 격차")) {
+          if (/mobility_network_society/.test(axisId) || /교통·네트워크 사회 축/.test(axisTitle) || axisDomain === "info") fallback = Math.max(fallback, isItMajor ? 58 : 48);
+          if (/spatial_data_local_planning/.test(axisId) || /공간 자료·지역 기획 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 14);
+        }
+        if (hit("지역 조사", "지역 발전", "지역 변화", "생활 공간", "도시 문제")) {
+          if (/spatial_data_local_planning/.test(axisId) || /공간 자료·지역 기획 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 54 : 46);
+          if (/urban_regional_change_analysis/.test(axisId) || /도시·지역 변화 분석 축/.test(axisTitle) || axisDomain === "social_policy") fallback = Math.max(fallback, 12);
+        }
+      }
+      if (/시장 경제와 금융 생활/.test(concept)) {
+        if (hit("합리적 선택", "기회비용", "시장 참여자", "효율성", "가계", "기업", "정부", "경제 윤리")) {
+          if (/market_structure_decision/.test(axisId) || /시장 구조·경제 의사결정 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 54 : 48);
+        }
+        if (hit("금융 자산", "자산 관리", "생애 주기", "위험 관리")) {
+          if (/finance_life_design/.test(axisId) || /금융 생활·자산 관리 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 50 : 46);
+        }
+        if (hit("무역", "국제 분업", "자유 무역", "보호 무역", "상호 의존")) {
+          if (/trade_interdependence_analysis/.test(axisId) || /무역·상호의존 해석 축/.test(axisTitle) || axisDomain === "social_policy") fallback = Math.max(fallback, 46);
+        }
+      }
+      if (/미래와 지속 가능한 삶/.test(concept)) {
+        if (hit("인구 변화", "저출산", "고령화", "인구 이동", "자원", "자원 분포", "소비 실태", "지속 가능한 발전", "지속 가능성")) {
+          if (/population_resource_sustainability/.test(axisId) || /인구·자원·지속가능성 축/.test(axisTitle) || axisDomain === "earth_env") fallback = Math.max(fallback, isItMajor ? 52 : 48);
+        }
+        if (hit("미래 직업", "미래 사회", "미래 지구촌", "삶의 방향", "공동체")) {
+          if (/future_society_design/.test(axisId) || /미래 사회 설계 축/.test(axisTitle) || axisDomain === "social_policy") fallback = Math.max(fallback, isItMajor ? 52 : 46);
+        }
+      }
+      if (/통합적 관점과 행복/.test(concept)) {
+        if (hit("시간적 관점", "공간적 관점", "사회적 관점", "윤리적 관점", "통합적 사고력")) {
+          if (/social_issue_integrated_analysis/.test(axisId) || /사회문제 통합해석 축/.test(axisTitle) || axisDomain === "social_policy") fallback = Math.max(fallback, 48);
+        }
+        if (hit("행복 지수", "삶의 질", "객관적 기준", "주관적 기준")) {
+          if (/quality_of_life_data_axis/.test(axisId) || /삶의 질 지표 해석 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, isItMajor ? 48 : 42);
+        }
+      }
+    }
+
     if (fuzzyIncludes(state.subject, "통합과학1")) {
       if (/과학의 측정과 우리 사회/.test(concept)) {
         if (hit("온도 센서", "속도 측정 카메라", "전자저울", "냉난방기 가동 전후 변화", "위치별 온도 차이", "센서", "측정 도구")) {
@@ -4394,7 +4435,81 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+  function getIntegratedSociety1PreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "통합적 관점과 행복",
+      "자연환경과 인간의 공존",
+      "생활 공간 변화와 지역 이해",
+      "인권 보장과 시민 참여",
+      "시장 경제와 금융 생활",
+      "사회 정의와 불평등",
+      "문화 다양성과 세계화",
+      "미래와 지속 가능한 삶"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it") {
+      return [
+        "생활 공간 변화와 지역 이해",
+        "시장 경제와 금융 생활",
+        "미래와 지속 가능한 삶",
+        "통합적 관점과 행복",
+        "인권 보장과 시민 참여",
+        "사회 정의와 불평등",
+        "문화 다양성과 세계화",
+        "자연환경과 인간의 공존"
+      ];
+    }
+
+    if (/(환경|기후|지구|도시|건축|토목|지역|지리|해양)/.test(majorText) || bucket === "env") {
+      return [
+        "자연환경과 인간의 공존",
+        "생활 공간 변화와 지역 이해",
+        "미래와 지속 가능한 삶",
+        "통합적 관점과 행복",
+        "사회 정의와 불평등",
+        "시장 경제와 금융 생활",
+        "문화 다양성과 세계화",
+        "인권 보장과 시민 참여"
+      ];
+    }
+
+    if (/(경영|경제|금융|무역|국제|통상|회계|세무|소비자)/.test(majorText)) {
+      return [
+        "시장 경제와 금융 생활",
+        "미래와 지속 가능한 삶",
+        "문화 다양성과 세계화",
+        "통합적 관점과 행복",
+        "사회 정의와 불평등",
+        "생활 공간 변화와 지역 이해",
+        "인권 보장과 시민 참여",
+        "자연환경과 인간의 공존"
+      ];
+    }
+
+    if (/(법|행정|정치|사회복지|교육|언론|미디어|국제관계|외교)/.test(majorText)) {
+      return [
+        "인권 보장과 시민 참여",
+        "사회 정의와 불평등",
+        "문화 다양성과 세계화",
+        "통합적 관점과 행복",
+        "미래와 지속 가능한 삶",
+        "시장 경제와 금융 생활",
+        "생활 공간 변화와 지역 이해",
+        "자연환경과 인간의 공존"
+      ];
+    }
+
+    return defaultSequence;
+  }
+
   function getPreferredConceptSequence() {
+    if (state.subject === "통합사회1" || state.subject === "통합사회") {
+      return getIntegratedSociety1PreferredConceptSequence();
+    }
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
     }
@@ -4457,6 +4572,23 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+  function getIntegratedSociety1PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/생활 공간 변화와 지역 이해/.test(concept)) return ["정보화", "네트워크", "통신 발달", "교통 발달", "공간 압축", "정보 격차", "지역 조사", "지역 변화", "도시 문제", "생활 공간"];
+      if (/시장 경제와 금융 생활/.test(concept)) return ["합리적 선택", "기회비용", "효율성", "시장 참여자", "자산 관리", "위험 관리", "금융 자산", "무역", "상호 의존", "경제 윤리"];
+      if (/미래와 지속 가능한 삶/.test(concept)) return ["미래 사회", "미래 직업", "지속 가능한 발전", "지속 가능성", "자원", "소비 실태", "인구 변화", "저출산", "고령화", "공동체"];
+      if (/통합적 관점과 행복/.test(concept)) return ["통합적 사고력", "시간적 관점", "공간적 관점", "사회적 관점", "윤리적 관점", "행복 지수", "삶의 질", "문제 해결"];
+      if (/인권 보장과 시민 참여/.test(concept)) return ["인권", "현대 인권", "시민 참여", "민주 시민", "헌법", "차별", "국제 인권", "해결 방안"];
+      if (/사회 정의와 불평등/.test(concept)) return ["공정성", "불평등", "소득 격차", "기회 불평등", "사회 정의", "분배", "해결 노력"];
+    }
+
+    return [];
+  }
 
   function getCommonKorean1PreferredKeywordSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
@@ -4619,6 +4751,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "통합사회1" || state.subject === "통합사회") {
+      const isoc1Preferred = getIntegratedSociety1PreferredKeywordSequence();
+      if (isoc1Preferred.length) return isoc1Preferred;
+    }
     if (state.subject === "공통수학1") {
       const cm1Preferred = getCommonMath1PreferredKeywordSequence();
       if (cm1Preferred.length) return cm1Preferred;
@@ -4911,7 +5047,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
