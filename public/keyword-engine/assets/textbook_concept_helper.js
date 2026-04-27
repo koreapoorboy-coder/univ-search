@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.23-science-inquiry2-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.24-science-inquiry2-priority-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.23-science-inquiry2-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_23_science_inquiry2_lock";
+  const ASSET_VERSION_QUERY = "v33_24_science_inquiry2_priority_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4316,8 +4316,25 @@ function getTrackMeta(trackId) {
 
 
 
+  function isScienceInquiry2ComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
   function getScienceInquiry2PreferredConceptSequence() {
-    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const defaultSequence = [
       "생활 자료를 활용한 과학적 의사결정 탐구",
@@ -4330,7 +4347,7 @@ function getTrackMeta(trackId) {
 
     if (!majorText) return defaultSequence;
 
-    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
+    if (isScienceInquiry2ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
       return [
         "첨단 센서와 디지털 정보 탐구",
         "생활 자료를 활용한 과학적 의사결정 탐구",
@@ -4882,6 +4899,17 @@ function getTrackMeta(trackId) {
   function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+    if (state.subject === "과학탐구실험2" && isScienceInquiry2ComputerMajorContext()) {
+      const forced = [
+        "첨단 센서와 디지털 정보 탐구",
+        "생활 자료를 활용한 과학적 의사결정 탐구",
+        "첨단 과학 기술의 사회 적용 탐구"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
