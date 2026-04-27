@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.35-geometry-vector-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.36-geometry-axis-split';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3861,6 +3861,67 @@ function getTrackMeta(trackId) {
 
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let fallback = 0;
+
+
+    // v33.36 geometry keyword-level axis split: prevent every keyword in one geometry concept from falling into the same default axis.
+    if (state.subject === "기하") {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      if (/벡터의 성분과 내적/.test(concept)) {
+        if (hit("내적", "방향 유사도", "코사인 유사도", "정규화", "유사도")) {
+          if (/vector_similarity_model_axis|벡터·유사도|유사도 모델/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("성분", "벡터의 크기", "각", "방향", "그래픽스", "그래픽", "벡터 해석")) {
+          if (/graphics_vector_axis|그래픽·물리 벡터|그래픽 벡터/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("투영", "거리", "공간 계산")) {
+          if (/projection_space_calc_axis|투영·공간 계산|투영 계산/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+      }
+      if (/공간좌표와 구의 방정식/.test(concept)) {
+        if (hit("공간좌표", "3차원 좌표", "좌표", "그래픽스", "그래픽", "공간 데이터")) {
+          if (/coordinate_3d_graphics_axis|3차원 좌표·그래픽스|좌표.*그래픽스/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("구의 방정식", "중심", "반지름", "거리", "충돌 판정", "센서 범위")) {
+          if (/sensor_range_collision_axis|센서 범위·충돌 판정|충돌 판정/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("위치 추적", "공간 데이터", "내분점", "중점", "좌표 데이터")) {
+          if (/position_tracking_spatial_data_axis|위치 추적·공간 데이터|공간 데이터/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+      }
+      if (/이차곡선과 자취 해석/.test(concept)) {
+        if (hit("쌍곡선", "위치 추정", "신호", "거리 조건")) {
+          if (/signal_position_estimation_axis|신호·위치 추정|위치 추정/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("포물선", "타원", "초점", "반사 성질", "궤도")) {
+          if (/reflection_orbit_interpretation_axis|반사·궤도 해석|궤도/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("자취", "표준형", "점근선", "그래프", "곡선", "설계")) {
+          if (/curve_design_visualization_axis|곡선·설계 시각화|설계 시각화/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+      }
+      if (/평면벡터와 벡터의 연산/.test(concept)) {
+        if (hit("벡터", "벡터의 덧셈", "벡터의 뺄셈", "실수배", "이동")) {
+          if (/movement_direction_modeling_axis|이동·방향 모델링|이동.*방향/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("방향", "크기", "합성", "힘", "물리량")) {
+          if (/physical_quantity_force_vector_axis|물리량·힘 벡터|힘 벡터/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("위치벡터", "좌표", "경로", "알고리즘", "경로 계산")) {
+          if (/algorithmic_path_calculation_axis|알고리즘 경로 계산|경로 계산/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+      }
+      if (/공간도형과 정사영·위치 관계/.test(concept)) {
+        if (hit("정사영", "투영", "3D 모델링", "입체도형")) {
+          if (/projection_3d_modeling_axis|투영·3D 모델링|3D 모델링/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("직선과 평면", "수직", "평행", "거리", "구조 해석", "설계")) {
+          if (/structure_design_interpretation_axis|구조·설계 해석|설계 해석/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+        if (hit("삼수선 정리", "평면 결정", "수직 관계", "위치 관계")) {
+          if (/position_relation_proof_axis|위치 관계 증명|관계 증명/.test(axisText)) fallback = Math.max(fallback, 72);
+        }
+      }
+    }
 
     if (fuzzyIncludes(state.subject, "통합사회1") || fuzzyIncludes(state.subject, "통합사회")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test([state.career || "", getMajorTextBag()].join(" "));
