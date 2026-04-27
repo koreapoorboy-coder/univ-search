@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.25-integrated-society1-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.26-integrated-society1-it-priority-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.25-integrated-society1-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_25_integrated_society1_lock";
+  const ASSET_VERSION_QUERY = "v33_26_integrated_society1_it_priority_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4435,6 +4435,27 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+  function isIntegratedSociety1ComputerMajorContext() {
+    const primaryText = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+
+    let visibleMajorText = "";
+    try {
+      const nodes = Array.from(document.querySelectorAll('.top-summary-card, .summary-card, .major-engine-title, .major-engine-candidate.is-selected, [data-major-select], [data-selected-major], [data-major-name]'));
+      visibleMajorText = nodes.map(node => String(node.textContent || node.getAttribute?.('data-major-select') || node.getAttribute?.('data-selected-major') || node.getAttribute?.('data-major-name') || '')).join(' ');
+      if (!visibleMajorText) visibleMajorText = String(document.body?.innerText || '').slice(0, 5000);
+    } catch (error) {}
+
+    const text = `${primaryText} ${visibleMajorText}`;
+    return /(컴퓨터공학|컴퓨터|소프트웨어|AI|인공지능|데이터|정보보호|정보보안|정보통신|프로그래밍|통계|네트워크|플랫폼|웹|앱|게임)/i.test(text);
+  }
+
   function getIntegratedSociety1PreferredConceptSequence() {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -4451,7 +4472,7 @@ function getTrackMeta(trackId) {
 
     if (!majorText) return defaultSequence;
 
-    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it") {
+    if (isIntegratedSociety1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it") {
       return [
         "생활 공간 변화와 지역 이해",
         "시장 경제와 금융 생활",
@@ -4576,7 +4597,7 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
-    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it";
+    const isIt = isIntegratedSociety1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test(majorText) || bucket === "it";
 
     if (isIt) {
       if (/생활 공간 변화와 지역 이해/.test(concept)) return ["정보화", "네트워크", "통신 발달", "교통 발달", "공간 압축", "정보 격차", "지역 조사", "지역 변화", "도시 문제", "생활 공간"];
@@ -5035,6 +5056,17 @@ function getTrackMeta(trackId) {
   function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+    if ((state.subject === "통합사회1" || state.subject === "통합사회") && isIntegratedSociety1ComputerMajorContext()) {
+      const forced = [
+        "생활 공간 변화와 지역 이해",
+        "시장 경제와 금융 생활",
+        "미래와 지속 가능한 삶"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if (state.subject === "과학탐구실험2" && isScienceInquiry2ComputerMajorContext()) {
       const forced = [
