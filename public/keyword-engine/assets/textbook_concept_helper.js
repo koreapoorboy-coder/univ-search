@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.38-chemistry1-computer-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.39-chemistry1-bond-axis-split';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.38-chemistry1-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_38_chemistry1_computer_lock";
+  const ASSET_VERSION_QUERY = "v33_39_chemistry1_bond_axis_split";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
