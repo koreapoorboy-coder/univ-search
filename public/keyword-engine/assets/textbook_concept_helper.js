@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_18_korean_major_bridge_lock";
+  const ASSET_VERSION_QUERY = "v33_19_korean_major_subject_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -47,6 +47,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
     "국어 1": "공통국어1",
     "공통 국어1": "공통국어1",
     "공통 국어 1": "공통국어1",
+    "공통국어 2": "공통국어2",
+    "국어2": "공통국어2",
+    "국어 2": "공통국어2",
+    "공통 국어2": "공통국어2",
+    "공통 국어 2": "공통국어2",
     "통합사회": "통합사회1",
     "통합사회 1": "통합사회1",
     "통합사회I": "통합사회1",
@@ -2581,10 +2586,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
 
   function getMajorPanelResolvedName() {
     try {
-      const title = document.querySelector('.major-engine-title')?.textContent?.trim() || '';
-      if (!title) return '';
-      if (/관련 학과|표준화|찾지 못했|전공 후보|학과명을/.test(title)) return '';
-      return title;
+      const blocked = /관련 학과|표준화|찾지 못했|전공 후보|학과명을|먼저 고르세요|입력 전/;
+      const titleNodes = Array.from(document.querySelectorAll('.major-engine-title, .major-engine-candidate.is-selected .major-engine-candidate-title, [data-major-select].is-selected'));
+      const names = titleNodes
+        .map(node => String(node.textContent || node.getAttribute?.('data-major-select') || '').replace(/\s+/g, ' ').trim())
+        .filter(text => text && !blocked.test(text));
+      const strong = names.find(text => /(학과|학부|전공|공학|의예|약학|간호|교육|컴퓨터|소프트웨어|정보|데이터|AI|인공지능|반도체|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어)/.test(text));
+      return strong || names[0] || '';
     } catch (error) {
       return '';
     }
@@ -2596,37 +2604,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
       if (data && data.display_name) return data;
     } catch (error) {}
     return null;
-  }
-
-  function inferMajorNameFromVisibleDom() {
-    const candidates = [];
-    const add = (value) => {
-      const text = String(value || '').replace(/\s+/g, ' ').trim();
-      if (text) candidates.push(text);
-    };
-    try {
-      const panel = document.getElementById('majorEngineSummary');
-      if (panel && panel.style.display !== 'none') {
-        add(panel.querySelector('.major-engine-title')?.textContent || '');
-        const panelText = panel.textContent || '';
-        const explicit = panelText.match(/(컴퓨터공학과|소프트웨어학과|인공지능학과|정보보호학과|데이터사이언스학과|통계학과|전자공학과|반도체공학과|신소재공학과|간호학과|생명과학과|환경공학과|경영학과|경제학과|심리학과|미디어커뮤니케이션학과)/);
-        if (explicit) add(explicit[1]);
-      }
-    } catch (error) {}
-    try { add(document.getElementById('career')?.value || ''); } catch (error) {}
-    const blocked = /관련 학과|표준화|찾지 못했|전공 후보|학과명을|입력 전|선택 전/;
-    return candidates.find(value => !blocked.test(value) && looksLikeMajorInput(value)) || '';
-  }
-
-  function hardSyncCareerFromDom() {
-    const effective = inferMajorNameFromVisibleDom();
-    if (effective) {
-      state.career = effective;
-      if (!state.majorSelectedName && /학과|전공|공학|컴퓨터|소프트웨어|정보|데이터|인공지능|AI|반도체|간호|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어|교육/.test(effective)) {
-        state.majorSelectedName = effective;
-      }
-    }
-    return effective;
   }
 
   function getCareerInputCandidates() {
@@ -2678,8 +2655,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
     const globalDetail = getMajorGlobalDetail();
     const snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot());
     const panelName = getMajorPanelResolvedName();
-    const domName = inferMajorNameFromVisibleDom();
-    return (globalDetail?.display_name || snapshotDetail?.display_name || state.majorSelectedName || panelName || state.career || domName || getCareerInputText() || '').trim();
+    const inputText = getCareerInputText();
+    return (globalDetail?.display_name || snapshotDetail?.display_name || state.majorSelectedName || panelName || state.career || inputText || '').trim();
   }
 
   function syncMajorSelectionDetail(detail) {
@@ -2714,7 +2691,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
     };
 
     syncMajorSelectionDetail(null);
-    hardSyncCareerFromDom();
 
     const after = {
       career: state.career || '',
@@ -3158,7 +3134,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.18-korean-major-bridge-lock';
   }
 
   function getCareerAxisBoost(axis) {
-    const bucket = detectCareerBucket(state.career || "");
+    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const concept = state.concept || "";
+    const text = [state.keyword || "", concept, axis?.title || axis?.axis_title || "", axis?.short || "", axis?.axisDomain || axis?.axis_domain || ""].join(" ");
+    const bucket = detectCareerBucket(majorText || state.career || "");
     const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
 
@@ -3498,7 +3477,11 @@ function getTrackMeta(trackId) {
       "공동체 의사소통과 공감": "소통·공감·상호작용",
       "문학·독서와 주체적 수용": "독서·성찰·수용",
       "비판적 읽기와 토론": "근거·검증·토론",
-      "사회적 쟁점 글쓰기와 문장 구성": "쟁점·주장·문장"
+      "사회적 쟁점 글쓰기와 문장 구성": "쟁점·주장·문장",
+      "매체 비평과 비판적 수용": "매체·비판·검증",
+      "공동 보고서 글쓰기와 자료 활용": "자료·보고서·협업",
+      "과학 기술과 인간·미래 사회 성찰": "기술·윤리·미래",
+      "다양한 분야 독서와 홍보 표현": "독서·홍보·표현"
     };
     return map[concept] || "";
   }
@@ -3638,21 +3621,16 @@ function getTrackMeta(trackId) {
   function getCommonKorean2PreferredConceptSequence() {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
-    const defaultSequence = [
-      "매체 비평과 비판적 수용",
-      "공동 보고서 글쓰기와 자료 활용",
-      "과학 기술과 인간·미래 사회 성찰",
-      "다양한 분야 독서와 홍보 표현"
-    ];
+    const defaultSequence = ["매체 비평과 비판적 수용", "공동 보고서 글쓰기와 자료 활용", "과학 기술과 인간·미래 사회 성찰", "다양한 분야 독서와 홍보 표현"];
     if (!majorText) return defaultSequence;
-    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|미디어|콘텐츠)/i.test(majorText) || bucket === "it") {
+    if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
       return ["매체 비평과 비판적 수용", "공동 보고서 글쓰기와 자료 활용", "과학 기술과 인간·미래 사회 성찰", "다양한 분야 독서와 홍보 표현"];
     }
     if (/(경영|경제|행정|정치|사회|심리|미디어|교육|법|국제|언론|광고|홍보)/.test(majorText)) {
-      return ["매체 비평과 비판적 수용", "다양한 분야 독서와 홍보 표현", "공동 보고서 글쓰기와 자료 활용", "과학 기술과 인간·미래 사회 성찰"];
+      return ["매체 비평과 비판적 수용", "공동 보고서 글쓰기와 자료 활용", "다양한 분야 독서와 홍보 표현", "과학 기술과 인간·미래 사회 성찰"];
     }
-    if (/(간호|의학|보건|생명|바이오|약학|수의|의료|환경|기후|공학)/.test(majorText)) {
-      return ["과학 기술과 인간·미래 사회 성찰", "공동 보고서 글쓰기와 자료 활용", "매체 비평과 비판적 수용", "다양한 분야 독서와 홍보 표현"];
+    if (/(간호|의학|보건|생명|바이오|약학|수의|의료|화학|환경)/.test(majorText)) {
+      return ["공동 보고서 글쓰기와 자료 활용", "과학 기술과 인간·미래 사회 성찰", "매체 비평과 비판적 수용", "다양한 분야 독서와 홍보 표현"];
     }
     return defaultSequence;
   }
@@ -4086,7 +4064,6 @@ function getTrackMeta(trackId) {
   function getMajorTextBag() {
     return [
       getEffectiveCareerName() || "",
-      inferMajorNameFromVisibleDom() || "",
       getCareerInputText() || "",
       state.majorSelectedName || "",
       ...(Array.isArray(state.majorCoreKeywords) ? state.majorCoreKeywords : []),
@@ -4179,20 +4156,6 @@ function getTrackMeta(trackId) {
       if (/사회적 쟁점 글쓰기와 문장 구성/.test(concept)) return ["사회적 쟁점", "주장", "근거", "개요", "문장 구성", "표현 선택", "수정", "문법 요소"];
       if (/음운 변동과 국어 규범/.test(concept)) return ["음운", "교체", "탈락", "축약", "첨가", "표준 발음", "발음 규칙", "국어 규범", "정확한 표현"];
       if (/공동체 의사소통과 공감/.test(concept)) return ["의사소통", "공감", "배려", "상호작용", "협력", "소통"];
-    }
-    return [];
-  }
-
-  function getCommonKorean2PreferredKeywordSequence() {
-    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
-    const bucket = detectCareerBucket(majorText);
-    const concept = state.concept || "";
-    const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|미디어|콘텐츠)/i.test(majorText) || bucket === "it";
-    if (isIt) {
-      if (/매체 비평과 비판적 수용/.test(concept)) return ["신뢰성", "타당성", "관점", "의도", "공정성", "표현 전략", "디지털", "온라인", "콘텐츠", "팩트체크", "자료 검증"];
-      if (/공동 보고서 글쓰기와 자료 활용/.test(concept)) return ["자료 활용", "출처", "근거", "보고서 구성", "협업", "역할 분담", "인용", "표와 그래프", "자료 정리"];
-      if (/과학 기술과 인간·미래 사회 성찰/.test(concept)) return ["과학 기술", "미래 사회", "인간", "윤리", "인공지능", "기술 영향", "사회 변화", "문제 해결"];
-      if (/다양한 분야 독서와 홍보 표현/.test(concept)) return ["정보 전달", "독자", "홍보 문구", "핵심 메시지", "표현 전략", "카드뉴스", "콘텐츠 구성"];
     }
     return [];
   }
@@ -4315,10 +4278,6 @@ function getTrackMeta(trackId) {
     if (state.subject === "공통국어1" || state.subject === "공통국어") {
       const ck1Preferred = getCommonKorean1PreferredKeywordSequence();
       if (ck1Preferred.length) return ck1Preferred;
-    }
-    if (state.subject === "공통국어2") {
-      const ck2Preferred = getCommonKorean2PreferredKeywordSequence();
-      if (ck2Preferred.length) return ck2Preferred;
     }
     if (state.subject === "정보") {
       const infoPreferred = getInfoPreferredKeywordSequence();
@@ -4581,7 +4540,7 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
-    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어2" || state.subject === "공통국어") {
+    if (state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
@@ -4647,7 +4606,6 @@ function getTrackMeta(trackId) {
 
   function renderAll() {
     syncMajorBridgeState();
-    hardSyncCareerFromDom();
     renderStatus();
     renderTrackArea();
     renderConceptArea();
@@ -4664,10 +4622,10 @@ function getTrackMeta(trackId) {
     const subjectEl = $("engineSubjectSummary");
     const careerEl = $("engineCareerSummary");
     const progressEl = $("engineProgressSummary");
+    const effectiveCareerName = getEffectiveCareerName();
+    if (!state.career && effectiveCareerName) state.career = effectiveCareerName;
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
-    const effectiveCareerForStatus = getEffectiveCareerName();
-    if (effectiveCareerForStatus) state.career = effectiveCareerForStatus;
-    if (careerEl) careerEl.textContent = effectiveCareerForStatus || "입력 전";
+    if (careerEl) careerEl.textContent = effectiveCareerName || state.career || "입력 전";
 
     let progress = "교과 개념 선택 대기";
     if (state.subject && !state.concept) progress = "교과 개념 선택 중";
