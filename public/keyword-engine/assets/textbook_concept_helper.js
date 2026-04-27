@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.39-chemistry1-bond-axis-split';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.40-chemistry1-bond-axis-performance-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.39-chemistry1-bond-axis-split';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_39_chemistry1_bond_axis_split";
+  const ASSET_VERSION_QUERY = "v33_40_chemistry1_bond_axis_performance_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2845,7 +2845,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.39-chemistry1-bond-axis-split';
         state.keyword = keywordBtn.getAttribute("data-value") || "";
         clearFrom("track");
         syncOutputFields();
-        renderAll();
+        renderAfterKeywordSelectionFast();
         return;
       }
 
@@ -3923,6 +3923,27 @@ function getTrackMeta(trackId) {
       }
     }
 
+
+
+    // v33.40 chemistry1 keyword-level axis hard split: make chemical bonding keywords branch instead of all falling into material-property axis.
+    if (fuzzyIncludes(state.subject, "화학") || fuzzyIncludes(state.subject, "화학Ⅰ") || fuzzyIncludes(state.subject, "화학1")) {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      if (/화학 결합/.test(concept)) {
+        if (hit("원자가 전자", "이온 결합", "공유 결합", "루이스 전자점식", "비공유 전자쌍", "전자쌍", "결합 종류 판별", "결합 종류", "팔전자 규칙")) {
+          if (/bond_structure_axis|결합 구조 해석|결합 구조|전자 분포/.test(axisText)) fallback = Math.max(fallback, 96);
+          if (/material_property_design_axis|물성·소재 설계|물성 설계/.test(axisText)) fallback = Math.max(fallback, 6);
+        }
+        if (hit("결합의 극성", "전기음성도", "극성 판단", "분자 모형 해석", "분자 모형", "극성 분자", "무극성 분자", "전도성", "녹는점", "끓는점", "물성", "소재", "재료")) {
+          if (/material_property_design_axis|물성·소재 설계|물성 설계|물성 예측/.test(axisText)) fallback = Math.max(fallback, 96);
+          if (/bond_structure_axis|결합 구조 해석|결합 구조/.test(axisText)) fallback = Math.max(fallback, 8);
+        }
+        if (hit("용해", "수소 결합", "생체 분자", "분자 간 힘", "분자 상호작용")) {
+          if (/bio_molecular_interaction_axis|분자 상호작용·용해|분자 상호작용/.test(axisText)) fallback = Math.max(fallback, 96);
+          if (/material_property_design_axis|물성·소재 설계|물성 설계/.test(axisText)) fallback = Math.max(fallback, 8);
+        }
+      }
+    }
+
     if (fuzzyIncludes(state.subject, "통합사회1") || fuzzyIncludes(state.subject, "통합사회")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test([state.career || "", getMajorTextBag()].join(" "));
       if (/생활 공간 변화와 지역 이해/.test(concept)) {
@@ -4889,8 +4910,8 @@ function getTrackMeta(trackId) {
     ].join(" ");
     if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(localBag)) return true;
     try {
-      const bodyText = String(document.body?.innerText || "").replace(/s+/g, " ");
-      if (/2.s*학과s*컴퓨터공학과/.test(bodyText) || /학과s*컴퓨터공학과/.test(bodyText)) return true;
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
     } catch (error) {}
     return false;
   }
@@ -5912,6 +5933,30 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
     renderStatus();
     renderTrackArea();
     renderConceptArea();
+    renderBookArea();
+    renderModeArea();
+    renderViewArea();
+    renderReportLineArea();
+    renderSelectionSummary();
+    applyLocks();
+    syncOutputFields();
+  }
+
+
+  function syncKeywordActiveButtons() {
+    try {
+      document.querySelectorAll(".engine-chip[data-action='keyword']").forEach(btn => {
+        const value = btn.getAttribute("data-value") || "";
+        btn.classList.toggle("is-active", value === state.keyword);
+      });
+    } catch (error) {}
+  }
+
+  function renderAfterKeywordSelectionFast() {
+    // v33.40 performance fix: keyword clicks only need 4~8 downstream refresh, not full 3번 concept-grid rebuild.
+    renderStatus();
+    syncKeywordActiveButtons();
+    renderTrackArea();
     renderBookArea();
     renderModeArea();
     renderViewArea();
