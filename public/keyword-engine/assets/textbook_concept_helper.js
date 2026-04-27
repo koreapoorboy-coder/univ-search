@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.36-geometry-axis-split';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.37-physics1-computer-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.36-geometry-axis-split';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_34_calculus1_derivative_axis_split";
+  const ASSET_VERSION_QUERY = "v33_37_physics1_computer_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -119,9 +119,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.36-geometry-axis-split';
     "확률과 통계": addAssetVersion("seed/followup-axis/probability_statistics_concept_longitudinal_map.json"),
     "미적분1": addAssetVersion("seed/followup-axis/calculus1_concept_longitudinal_map.json"),
     "기하": addAssetVersion("seed/followup-axis/geometry_concept_longitudinal_map.json"),
-    "물리": "seed/followup-axis/physics1_concept_longitudinal_map.json",
-    "물리학": "seed/followup-axis/physics1_concept_longitudinal_map.json",
-    "물리학Ⅰ": "seed/followup-axis/physics1_concept_longitudinal_map.json",
+    "물리": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
+    "물리학": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
+    "물리학Ⅰ": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
     "화학": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
     "화학Ⅰ": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
     "화학1": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
@@ -4876,6 +4876,73 @@ function getTrackMeta(trackId) {
     return false;
   }
 
+
+  function isPhysicsComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|로봇|자율주행|그래픽|게임)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getPhysics1PreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "힘과 운동",
+      "에너지와 열",
+      "물질의 전기적 특성",
+      "물질의 자기적 특성",
+      "파동의 성질과 활용",
+      "빛과 물질의 이중성",
+      "시간과 공간"
+    ];
+    if (!majorText) return defaultSequence;
+    if (isPhysicsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|로봇|자율주행|그래픽|게임)/i.test(majorText) || bucket === "it") {
+      return [
+        "물질의 전기적 특성",
+        "파동의 성질과 활용",
+        "물질의 자기적 특성",
+        "빛과 물질의 이중성",
+        "힘과 운동",
+        "에너지와 열",
+        "시간과 공간"
+      ];
+    }
+    if (/(전자|전기|반도체|통신|센서|로봇|제어)/.test(majorText) || bucket === "electronic") {
+      return [
+        "물질의 전기적 특성",
+        "물질의 자기적 특성",
+        "파동의 성질과 활용",
+        "빛과 물질의 이중성",
+        "에너지와 열",
+        "힘과 운동",
+        "시간과 공간"
+      ];
+    }
+    if (/(기계|자동차|항공|모빌리티|건축|토목|물리|에너지)/.test(majorText) || bucket === "mechanical") {
+      return [
+        "힘과 운동",
+        "에너지와 열",
+        "물질의 자기적 특성",
+        "파동의 성질과 활용",
+        "물질의 전기적 특성",
+        "빛과 물질의 이중성",
+        "시간과 공간"
+      ];
+    }
+    return defaultSequence;
+  }
+
   function getGeometryPreferredConceptSequence() {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -4909,6 +4976,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ") {
+      return getPhysics1PreferredConceptSequence();
+    }
     if (state.subject === "미적분1") {
       return getCalculus1PreferredConceptSequence();
     }
@@ -5249,6 +5319,24 @@ function getTrackMeta(trackId) {
 
 
 
+
+  function getPhysics1PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isPhysicsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|로봇|자율주행|그래픽|게임)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    if (isIt) {
+      if (/물질의 전기적 특성/.test(concept)) return ["전하", "전기력", "원자 구조", "스펙트럼", "전자", "전기장", "반도체", "소자", "회로", "센서 신호"];
+      if (/파동의 성질과 활용/.test(concept)) return ["진동수", "파장", "파동의 속력", "파동", "주파수", "신호", "통신", "대역폭", "데이터 전송", "간섭"];
+      if (/물질의 자기적 특성/.test(concept)) return ["전류", "자기장", "전자석", "자성", "코일", "모터", "제어", "저장장치", "전류-자기장 관계"];
+      if (/빛과 물질의 이중성/.test(concept)) return ["광전 효과", "광자", "빛의 입자설", "빛의 파동설", "센서", "광센서", "양자", "반도체 소자"];
+      if (/힘과 운동/.test(concept)) return ["속도", "가속도", "운동 그래프 해석", "뉴턴 운동 법칙", "운동량", "충격량", "시뮬레이션", "제어"];
+      if (/에너지와 열/.test(concept)) return ["일", "운동 에너지", "역학적 에너지 보존", "열효율", "에너지 전환", "열 관리", "냉각", "시스템 효율"];
+      if (/시간과 공간/.test(concept)) return ["시간 지연", "광속 불변", "동시성 불일치", "정밀 시간", "GPS", "동기화", "상대성 원리"];
+    }
+    return [];
+  }
+
   function getGeometryPreferredKeywordSequence() {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
@@ -5265,6 +5353,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ") {
+      const physicsPreferred = getPhysics1PreferredKeywordSequence();
+      if (physicsPreferred.length) return physicsPreferred;
+    }
     if (state.subject === "미적분1") {
       const calculusPreferred = getCalculus1PreferredKeywordSequence();
       if (calculusPreferred.length) return calculusPreferred;
