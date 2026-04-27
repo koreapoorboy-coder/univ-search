@@ -1,6 +1,6 @@
 {
   "subject_name": "미적분1",
-  "version": "v33.33-calculus1-expanded-lock",
+  "version": "v33.34-calculus1-derivative-axis-split",
   "policy": {
     "priority_rule": [
       "교과 개념별 종단 연결 후보를 먼저 제시한다",
@@ -197,10 +197,10 @@
       "concept_name": "여러 가지 함수의 미분",
       "concept_key": "여러 가지 함수의 미분",
       "concept_label": "함수-미분",
-      "core_focus": "지수·로그·삼각함수의 변화율 계산과 해석",
+      "core_focus": "지수·로그·삼각함수의 미분을 함수 유형별 변화율·모델링·신호 해석으로 구분한다.",
       "longitudinal_axes": [
         {
-          "axis_id": "function_derivative_axis",
+          "axis_id": "function_derivative_rate_axis",
           "axis_title": "함수 변화율 해석 축",
           "axis_short": "변화율 해석",
           "axis_domain": "math_model",
@@ -210,76 +210,94 @@
             "정보",
             "물리"
           ],
-          "why": "여러 함수의 도함수는 복잡한 변화 현상을 정량적으로 해석하는 기초가 된다.",
+          "why": "도함수와 변화율은 함수가 입력 변화에 따라 어떻게 달라지는지 정량적으로 설명하는 핵심 도구다.",
           "student_output_hint": "함수별 변화율 비교표, 도함수 해석 보고서",
           "keyword_signals": [
             {
               "keywords": [
                 "도함수",
-                "지수함수 미분",
-                "로그함수 미분",
-                "삼각함수 미분"
+                "변화율"
               ],
-              "boost": 24,
-              "short": "도함수 해석",
-              "short_label": "도함수 해석",
-              "desc": "도함수 해석 키워드와 직접 연결됩니다.",
-              "reason": "",
+              "boost": 40,
+              "short": "변화율 해석",
+              "short_label": "변화율 해석",
+              "desc": "도함수와 변화율 키워드는 함수의 순간 변화와 그래프 해석으로 이어진다.",
+              "reason": "도함수는 변화율을 수학적으로 표현하는 도구입니다.",
               "message": "",
-              "activity_hint": "함수별 도함수 그래프 비교하기",
+              "activity_hint": "서로 다른 함수의 도함수 그래프와 원래 그래프를 비교하기",
               "activity_examples": [
-                "함수별 도함수 그래프 비교하기"
-              ],
-              "label": "키워드 반영"
-            },
-            {
-              "keywords": [
-                "실수 e",
-                "자연로그"
-              ],
-              "boost": 16,
-              "short": "로그·지수 변화",
-              "short_label": "로그·지수 변화",
-              "desc": "로그·지수 변화 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "e 기반 변화율 사례 정리하기",
-              "activity_examples": [
-                "e 기반 변화율 사례 정리하기"
+                "함수별 도함수 그래프 비교하기",
+                "입력값 변화에 따른 출력 변화율 표 만들기"
               ],
               "label": "키워드 반영"
             }
           ]
         },
         {
-          "axis_id": "signal_change_axis",
-          "axis_title": "신호·주기 변화 축",
-          "axis_short": "신호 변화",
-          "axis_domain": "physics_data",
+          "axis_id": "exponential_log_derivative_model_axis",
+          "axis_title": "지수·로그 변화 모델링 축",
+          "axis_short": "지수·로그 변화",
+          "axis_domain": "data_model",
           "priority": 2,
           "next_subjects": [
-            "전자공학",
-            "물리",
+            "대수",
+            "확률과 통계",
             "정보"
           ],
-          "why": "삼각함수와 지수·로그 변화율은 신호·주기·감쇠 모델로 확장된다.",
-          "student_output_hint": "신호 변화율 해석 카드",
+          "why": "지수함수와 로그함수의 미분은 성장·감소, 스케일 변환, 데이터 변화 모델을 해석하는 데 활용된다.",
+          "student_output_hint": "성장·감소 모델 변화율 비교 보고서, 로그 스케일 해석 카드",
           "keyword_signals": [
             {
               "keywords": [
-                "삼각함수",
-                "주기",
-                "도함수"
+                "지수함수 미분",
+                "로그함수 미분",
+                "실수 e",
+                "자연로그"
               ],
-              "boost": 18,
-              "short": "주기 변화",
-              "short_label": "주기 변화",
-              "desc": "주기 변화 키워드와 직접 연결됩니다.",
-              "reason": "",
+              "boost": 44,
+              "short": "지수·로그 변화",
+              "short_label": "지수·로그 변화",
+              "desc": "지수·로그 미분 키워드는 성장·감소 모델과 로그 스케일 해석으로 이어진다.",
+              "reason": "e와 자연로그는 지수·로그 변화율을 해석하는 핵심 개념입니다.",
               "message": "",
-              "activity_hint": "주기 함수 변화율 그래프 보기",
+              "activity_hint": "지수 성장 모델과 로그 스케일 자료를 변화율 관점에서 비교하기",
               "activity_examples": [
-                "주기 함수 변화율 그래프 보기"
+                "e 기반 성장 모델 변화율 비교",
+                "로그 스케일 자료 해석 카드 만들기"
+              ],
+              "label": "키워드 반영"
+            }
+          ]
+        },
+        {
+          "axis_id": "trig_signal_derivative_axis",
+          "axis_title": "삼각함수·신호 변화 축",
+          "axis_short": "신호·주기 변화",
+          "axis_domain": "physics_data",
+          "priority": 3,
+          "next_subjects": [
+            "물리",
+            "전자공학",
+            "정보"
+          ],
+          "why": "삼각함수의 미분과 표준 극한은 주기적 변화, 파동, 신호 변화율을 해석하는 기초가 된다.",
+          "student_output_hint": "주기 함수 변화율 그래프 카드, 신호 변화율 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "삼각함수 미분",
+                "표준 극한"
+              ],
+              "boost": 46,
+              "short": "신호·주기 변화",
+              "short_label": "신호·주기 변화",
+              "desc": "삼각함수 미분과 표준 극한은 주기적 변화와 신호 변화율 해석으로 이어진다.",
+              "reason": "삼각함수의 변화율은 주기 신호와 파동 해석의 기초가 됩니다.",
+              "message": "",
+              "activity_hint": "sin, cos 그래프와 도함수 그래프를 비교해 주기 변화 설명하기",
+              "activity_examples": [
+                "삼각함수 도함수 그래프 비교",
+                "표준 극한을 이용한 변화율 설명 카드"
               ],
               "label": "키워드 반영"
             }
