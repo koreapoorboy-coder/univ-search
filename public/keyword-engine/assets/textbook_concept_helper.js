@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.32-probability-statistics-expanded-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.33-calculus1-expanded-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.32-probability-statistics-expand
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_32_probability_statistics_expanded_lock";
+  const ASSET_VERSION_QUERY = "v33_33_calculus1_expanded_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -117,7 +117,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.32-probability-statistics-expand
     "과학탐구실험2": "seed/followup-axis/science_inquiry2_concept_longitudinal_map.json",
     "대수": addAssetVersion("seed/followup-axis/algebra_concept_longitudinal_map.json"),
     "확률과 통계": addAssetVersion("seed/followup-axis/probability_statistics_concept_longitudinal_map.json"),
-    "미적분1": "seed/followup-axis/calculus1_concept_longitudinal_map.json",
+    "미적분1": addAssetVersion("seed/followup-axis/calculus1_concept_longitudinal_map.json"),
     "기하": "seed/followup-axis/geometry_concept_longitudinal_map.json",
     "물리": "seed/followup-axis/physics1_concept_longitudinal_map.json",
     "물리학": "seed/followup-axis/physics1_concept_longitudinal_map.json",
@@ -4520,6 +4520,72 @@ function getTrackMeta(trackId) {
   }
 
 
+  function isCalculus1ComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getCalculus1PreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "수열의 극한",
+      "급수",
+      "여러 가지 함수의 미분",
+      "여러 가지 미분법",
+      "도함수의 활용",
+      "여러 가지 적분법",
+      "정적분의 활용"
+    ];
+    if (!majorText) return defaultSequence;
+    if (isCalculus1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(majorText) || bucket === "it") {
+      return [
+        "도함수의 활용",
+        "여러 가지 함수의 미분",
+        "수열의 극한",
+        "정적분의 활용",
+        "급수",
+        "여러 가지 미분법",
+        "여러 가지 적분법"
+      ];
+    }
+    if (/(전자|전기|회로|센서|통신|반도체|로봇|제어|신호|물리|기계|항공|모빌리티)/.test(majorText) || bucket === "electronic" || bucket === "mechanical") {
+      return [
+        "도함수의 활용",
+        "여러 가지 함수의 미분",
+        "정적분의 활용",
+        "여러 가지 미분법",
+        "여러 가지 적분법",
+        "수열의 극한",
+        "급수"
+      ];
+    }
+    if (/(통계|데이터|금융|경제|경영|보험|사회|보건|의학|바이오|환경)/.test(majorText) || bucket === "bio" || bucket === "env") {
+      return [
+        "정적분의 활용",
+        "수열의 극한",
+        "급수",
+        "도함수의 활용",
+        "여러 가지 함수의 미분",
+        "여러 가지 미분법",
+        "여러 가지 적분법"
+      ];
+    }
+    return defaultSequence;
+  }
+
   function isProbabilityStatisticsComputerMajorContext() {
     const localBag = [
       state.career || "",
@@ -4731,6 +4797,9 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
   function getPreferredConceptSequence() {
+    if (state.subject === "미적분1") {
+      return getCalculus1PreferredConceptSequence();
+    }
     if (state.subject === "대수") {
       return getAlgebraPreferredConceptSequence();
     }
@@ -5046,7 +5115,28 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+  function getCalculus1PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isCalculus1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(majorText) || bucket === "it";
+    if (isIt) {
+      if (/도함수의 활용/.test(concept)) return ["변화율", "최적화", "극값", "접선", "증가", "감소", "최댓값", "최솟값", "그래프 개형", "의사결정"];
+      if (/여러 가지 함수의 미분/.test(concept)) return ["도함수", "지수함수 미분", "로그함수 미분", "삼각함수 미분", "실수 e", "자연로그", "변화율", "표준 극한"];
+      if (/수열의 극한/.test(concept)) return ["수열", "극한", "수렴", "발산", "반복", "장기 변화", "등비수열", "수렴 판정"];
+      if (/정적분의 활용/.test(concept)) return ["누적량", "넓이", "부피", "이동거리", "리만 합", "면적", "모델링", "수치 근사"];
+      if (/급수/.test(concept)) return ["급수", "부분합", "등비급수", "무한합", "수렴", "발산", "누적", "프랙털"];
+      if (/여러 가지 미분법/.test(concept)) return ["합성함수 미분", "연쇄법칙", "곱의 미분", "몫의 미분", "변화율 계산", "모델 변화", "매개변수"];
+      if (/여러 가지 적분법/.test(concept)) return ["부정적분", "정적분", "치환적분", "부분적분", "적분 계산", "함수 변환", "누적 계산"];
+    }
+    return [];
+  }
+
   function getPreferredKeywordSequence() {
+    if (state.subject === "미적분1") {
+      const calculusPreferred = getCalculus1PreferredKeywordSequence();
+      if (calculusPreferred.length) return calculusPreferred;
+    }
     if (state.subject === "대수") {
       const algebraPreferred = getAlgebraPreferredKeywordSequence();
       if (algebraPreferred.length) return algebraPreferred;
@@ -5366,6 +5456,17 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
+    if (state.subject === "미적분1" && isCalculus1ComputerMajorContext()) {
+      const forced = [
+        "도함수의 활용",
+        "여러 가지 함수의 미분",
+        "수열의 극한"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if (state.subject === "대수" && isAlgebraComputerMajorContext()) {
       const forced = [
         "지수함수와 로그함수의 활용",
@@ -5401,7 +5502,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
