@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.34-calculus1-derivative-axis-split';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.35-geometry-vector-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -118,7 +118,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.34-calculus1-derivative-axis-spl
     "대수": addAssetVersion("seed/followup-axis/algebra_concept_longitudinal_map.json"),
     "확률과 통계": addAssetVersion("seed/followup-axis/probability_statistics_concept_longitudinal_map.json"),
     "미적분1": addAssetVersion("seed/followup-axis/calculus1_concept_longitudinal_map.json"),
-    "기하": "seed/followup-axis/geometry_concept_longitudinal_map.json",
+    "기하": addAssetVersion("seed/followup-axis/geometry_concept_longitudinal_map.json"),
     "물리": "seed/followup-axis/physics1_concept_longitudinal_map.json",
     "물리학": "seed/followup-axis/physics1_concept_longitudinal_map.json",
     "물리학Ⅰ": "seed/followup-axis/physics1_concept_longitudinal_map.json",
@@ -4796,9 +4796,63 @@ function getTrackMeta(trackId) {
 
     return defaultSequence;
   }
+
+
+  function isGeometryComputerMajorContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|그래픽|그래픽스|공간정보|로봇|자율주행|메타버스|영상|비전)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getGeometryPreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "이차곡선과 자취 해석",
+      "평면벡터와 벡터의 연산",
+      "벡터의 성분과 내적",
+      "공간도형과 정사영·위치 관계",
+      "공간좌표와 구의 방정식"
+    ];
+    if (!majorText) return defaultSequence;
+    if (isGeometryComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|그래픽|그래픽스|공간정보|로봇|자율주행|메타버스|영상|비전)/i.test(majorText) || bucket === "it") {
+      return [
+        "벡터의 성분과 내적",
+        "공간좌표와 구의 방정식",
+        "이차곡선과 자취 해석",
+        "평면벡터와 벡터의 연산",
+        "공간도형과 정사영·위치 관계"
+      ];
+    }
+    if (/(건축|토목|도시|공간|설계|기계|자동차|항공|로봇|구조|디자인)/.test(majorText) || bucket === "mechanical") {
+      return [
+        "공간도형과 정사영·위치 관계",
+        "공간좌표와 구의 방정식",
+        "벡터의 성분과 내적",
+        "평면벡터와 벡터의 연산",
+        "이차곡선과 자취 해석"
+      ];
+    }
+    return defaultSequence;
+  }
+
   function getPreferredConceptSequence() {
     if (state.subject === "미적분1") {
       return getCalculus1PreferredConceptSequence();
+    }
+    if (state.subject === "기하") {
+      return getGeometryPreferredConceptSequence();
     }
     if (state.subject === "대수") {
       return getAlgebraPreferredConceptSequence();
@@ -5132,10 +5186,31 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+
+
+  function getGeometryPreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isGeometryComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|그래픽|그래픽스|공간정보|로봇|자율주행|메타버스|영상|비전)/i.test(majorText) || bucket === "it";
+    if (isIt) {
+      if (/벡터의 성분과 내적/.test(concept)) return ["내적", "성분", "좌표", "벡터의 크기", "각", "방향 유사도", "코사인 유사도", "투영", "정규화", "거리"];
+      if (/공간좌표와 구의 방정식/.test(concept)) return ["공간좌표", "3차원 좌표", "구의 방정식", "중심", "반지름", "거리", "위치 추적", "충돌 판정", "그래픽스", "공간 데이터"];
+      if (/이차곡선과 자취 해석/.test(concept)) return ["쌍곡선", "위치 추정", "신호", "포물선", "타원", "초점", "자취", "거리 조건", "반사 성질", "궤도"];
+      if (/평면벡터와 벡터의 연산/.test(concept)) return ["벡터", "벡터의 덧셈", "벡터의 뺄셈", "실수배", "위치벡터", "방향", "크기", "이동", "경로", "합성"];
+      if (/공간도형과 정사영·위치 관계/.test(concept)) return ["정사영", "투영", "직선과 평면", "수직", "평행", "거리", "입체도형", "평면 결정", "3D 모델링", "구조 해석"];
+    }
+    return [];
+  }
+
   function getPreferredKeywordSequence() {
     if (state.subject === "미적분1") {
       const calculusPreferred = getCalculus1PreferredKeywordSequence();
       if (calculusPreferred.length) return calculusPreferred;
+    }
+    if (state.subject === "기하") {
+      const geometryPreferred = getGeometryPreferredKeywordSequence();
+      if (geometryPreferred.length) return geometryPreferred;
     }
     if (state.subject === "대수") {
       const algebraPreferred = getAlgebraPreferredKeywordSequence();
@@ -5502,7 +5577,20 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1") {
+
+
+    if (state.subject === "기하" && isGeometryComputerMajorContext()) {
+      const forced = [
+        "벡터의 성분과 내적",
+        "공간좌표와 구의 방정식",
+        "이차곡선과 자취 해석"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1" || state.subject === "기하") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
