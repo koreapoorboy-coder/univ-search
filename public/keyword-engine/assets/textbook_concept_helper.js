@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.20-major-search-performance-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_19_korean_major_subject_fix";
+  const ASSET_VERSION_QUERY = "v33_20_major_search_performance_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2700,13 +2700,40 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
     return before.career !== after.career || before.major !== after.major || before.core !== after.core;
   }
 
+  let majorBridgeRenderTimer = null;
+  let majorBridgeLastRenderedKey = "";
+
+  function getMajorBridgeRenderKey() {
+    return [state.subject || "", state.career || "", state.majorSelectedName || ""].join("||");
+  }
+
+  function scheduleBridgeRender(delay = 180) {
+    const nextKey = getMajorBridgeRenderKey();
+    if (nextKey === majorBridgeLastRenderedKey && majorBridgeRenderTimer) return;
+    clearTimeout(majorBridgeRenderTimer);
+    majorBridgeRenderTimer = setTimeout(function () {
+      majorBridgeRenderTimer = null;
+      majorBridgeLastRenderedKey = getMajorBridgeRenderKey();
+      renderAll();
+    }, delay);
+  }
+
+  function isTypingInMajorSearch() {
+    const active = document.activeElement;
+    if (!active) return false;
+    if (active.id === "career") return true;
+    const placeholder = String(active.getAttribute?.("placeholder") || "");
+    const name = String(active.getAttribute?.("name") || "").toLowerCase();
+    return /학과|진로|전공/.test(placeholder) || name.includes("major") || name.includes("career");
+  }
+
   function startMajorBridgePolling() {
-    if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_16__) return;
-    window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_16__ = true;
+    if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__) return;
+    window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__ = true;
     setInterval(function () {
       const changed = syncMajorBridgeState();
-      if (changed) renderAll();
-    }, 350);
+      if (changed && !isTypingInMajorSearch()) scheduleBridgeRender(260);
+    }, 900);
   }
 
   function scheduleMajorPreviewSync() {
@@ -2740,19 +2767,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
 
     const careerEl = $("career");
     if (careerEl) {
-      ["input", "change"].forEach(evt => {
-        careerEl.addEventListener(evt, function () {
-          syncCareerFromInput();
-          state.linkTrackSource = state.linkTrackSource || "";
-          renderAll();
-          scheduleMajorPreviewSync();
-        });
+      careerEl.addEventListener("input", function () {
+        syncCareerFromInput();
+        state.linkTrackSource = state.linkTrackSource || "";
+        // 학과 검색 입력 중에는 3~8 전체 재렌더를 즉시 반복하지 않는다.
+        // 전공 후보 패널 검색은 major_engine_helper가 처리하고, 아래 교과 추천은 입력이 멈춘 뒤 가볍게 동기화한다.
+        scheduleBridgeRender(420);
+      });
+      careerEl.addEventListener("change", function () {
+        syncCareerFromInput();
+        state.linkTrackSource = state.linkTrackSource || "";
+        scheduleMajorPreviewSync();
+        scheduleBridgeRender(80);
       });
     }
 
     window.addEventListener("major-engine-selection-changed", function (event) {
       syncMajorSelectionDetail(event?.detail || null);
-      renderAll();
+      scheduleBridgeRender(80);
     });
 
     document.addEventListener("click", function (event) {
@@ -2847,13 +2879,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
     document.addEventListener('input', function (event) {
       const target = event.target;
       if (!target || !target.matches || !target.matches('input, textarea, select')) return;
+      // 학과 검색창은 전용 리스너에서 debounce 처리한다. 여기서 다시 전체 렌더하면 입력 지연이 커진다.
+      if (target.id === 'career' || isTypingInMajorSearch()) return;
       const before = state.career || '';
       syncSubjectFromSelect();
       syncMajorSelectionDetail(null);
       if (!state.keyword) renderCareerKeywordPreview();
       const after = state.career || '';
-      if (before !== after || target.id === 'career') {
-        setTimeout(renderAll, 0);
+      if (before !== after) {
+        scheduleBridgeRender(180);
       }
     }, true);
 
@@ -2863,12 +2897,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.19-korean-major-subject-fix';
       syncSubjectFromSelect();
       syncMajorSelectionDetail(null);
       if (!state.keyword) renderCareerKeywordPreview();
-      setTimeout(renderAll, 0);
+      scheduleBridgeRender(80);
     }, true);
 
     try {
+      let mutationTimer = null;
       const observer = new MutationObserver(function () {
-        if (syncMajorBridgeState()) renderAll();
+        if (isTypingInMajorSearch()) return;
+        clearTimeout(mutationTimer);
+        mutationTimer = setTimeout(function () {
+          if (syncMajorBridgeState()) scheduleBridgeRender(140);
+        }, 180);
       });
       observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     } catch (error) {}
@@ -5066,6 +5105,7 @@ function getTrackMeta(trackId) {
   window.__TEXTBOOK_MAJOR_BRIDGE_DIAG__ = function () {
     return {
       version: window.__TEXTBOOK_CONCEPT_HELPER_VERSION || '',
+      performanceFix: 'major-search-debounce-v33.20',
       inputCareer: getCareerInputText(),
       stateCareer: state.career || '',
       stateMajor: state.majorSelectedName || '',
