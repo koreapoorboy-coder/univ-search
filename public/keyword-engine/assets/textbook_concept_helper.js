@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.31-probability-statistics-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.32-probability-statistics-expanded-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.31-probability-statistics-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_31_probability_statistics_lock";
+  const ASSET_VERSION_QUERY = "v33_32_probability_statistics_expanded_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4541,26 +4541,41 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const defaultSequence = [
-      "경우의 수와 이항정리",
-      "확률과 조건부확률",
-      "확률분포와 통계적 추정"
+      "순열과 조합",
+      "이항정리",
+      "확률의 뜻과 기본 성질",
+      "조건부확률과 사건의 독립",
+      "확률변수와 확률분포",
+      "이항분포와 정규분포",
+      "모집단과 표본",
+      "통계적 추정"
     ];
 
     if (!majorText) return defaultSequence;
 
     if (isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it") {
       return [
-        "경우의 수와 이항정리",
-        "확률분포와 통계적 추정",
-        "확률과 조건부확률"
+        "순열과 조합",
+        "조건부확률과 사건의 독립",
+        "확률변수와 확률분포",
+        "이항분포와 정규분포",
+        "통계적 추정",
+        "모집단과 표본",
+        "이항정리",
+        "확률의 뜻과 기본 성질"
       ];
     }
 
     if (/(경영|경제|금융|무역|사회|행정|심리|교육|언론|미디어|보건|간호|의학|바이오)/.test(majorText) || bucket === "bio") {
       return [
-        "확률분포와 통계적 추정",
-        "확률과 조건부확률",
-        "경우의 수와 이항정리"
+        "통계적 추정",
+        "모집단과 표본",
+        "이항분포와 정규분포",
+        "확률변수와 확률분포",
+        "조건부확률과 사건의 독립",
+        "확률의 뜻과 기본 성질",
+        "순열과 조합",
+        "이항정리"
       ];
     }
 
@@ -4820,9 +4835,14 @@ function getTrackMeta(trackId) {
     const isIt = isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
 
     if (isIt) {
-      if (/경우의 수와 이항정리/.test(concept)) return ["순열", "조합", "경우의 수", "중복조합", "이항정리", "이항계수", "파스칼의 삼각형", "계수", "전개식", "배열", "선택"];
-      if (/확률분포와 통계적 추정/.test(concept)) return ["확률분포", "정규분포", "표본평균", "통계적 추정", "모평균", "평균", "분산", "표준편차", "그래프", "시각화", "예측", "비교"];
-      if (/확률과 조건부확률/.test(concept)) return ["조건부확률", "독립", "종속", "사건", "확률", "상대도수", "반복 시행", "기대값", "의사결정", "위험", "판단"];
+      if (/순열과 조합/.test(concept)) return ["순열", "조합", "경우의 수", "중복순열", "중복조합", "배열", "선택", "경우 나누기", "탐색", "분기"];
+      if (/이항정리/.test(concept)) return ["이항정리", "이항계수", "파스칼의 삼각형", "계수", "전개식", "계수 비교", "패턴", "배열", "조합"];
+      if (/확률의 뜻과 기본 성질/.test(concept)) return ["표본공간", "사건", "확률", "상대도수", "반복 시행", "시행", "결과", "불확실성", "확률의 덧셈정리"];
+      if (/조건부확률과 사건의 독립/.test(concept)) return ["조건부확률", "독립", "종속", "사건", "확률의 곱셈정리", "기대값", "판단", "위험", "의사결정", "베이즈"];
+      if (/확률변수와 확률분포/.test(concept)) return ["확률변수", "확률분포", "기댓값", "분산", "표준편차", "평균", "그래프", "분포", "예측", "데이터"];
+      if (/이항분포와 정규분포/.test(concept)) return ["이항분포", "정규분포", "표준화", "표준정규분포", "근사", "분포 비교", "그래프", "성공 확률", "평균", "표준편차"];
+      if (/모집단과 표본/.test(concept)) return ["모집단", "표본", "표본추출", "표본오차", "대표성", "무작위 추출", "편향", "조사", "자료 수집", "신뢰도"];
+      if (/통계적 추정/.test(concept)) return ["통계적 추정", "표본평균", "모평균", "신뢰구간", "추정", "추정 오차", "신뢰도", "표준오차", "데이터 해석", "의사결정"];
     }
 
     return [];
@@ -5357,11 +5377,12 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajorContext()) {
+    
+if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajorContext()) {
       const forced = [
-        "경우의 수와 이항정리",
-        "확률분포와 통계적 추정",
-        "확률과 조건부확률"
+        "순열과 조합",
+        "조건부확률과 사건의 독립",
+        "확률변수와 확률분포"
       ];
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
       const others = ranked.filter(item => !forced.includes(item.concept));
