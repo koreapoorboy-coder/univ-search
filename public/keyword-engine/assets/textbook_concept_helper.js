@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.28-algebra-it-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.29-algebra-sequence-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.28-algebra-it-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_28_algebra_it_lock";
+  const ASSET_VERSION_QUERY = "v33_29_algebra_sequence_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4466,7 +4466,10 @@ function getTrackMeta(trackId) {
       "상용로그",
       "지수함수의 뜻과 그래프",
       "로그함수의 뜻과 그래프",
-      "지수함수와 로그함수의 활용"
+      "지수함수와 로그함수의 활용",
+      "등차수열과 등비수열",
+      "수열의 합",
+      "수학적 귀납법"
     ];
 
     if (!majorText) return defaultSequence;
@@ -4474,6 +4477,9 @@ function getTrackMeta(trackId) {
     if (isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it") {
       return [
         "지수함수와 로그함수의 활용",
+        "등차수열과 등비수열",
+        "수학적 귀납법",
+        "수열의 합",
         "로그함수의 뜻과 그래프",
         "지수함수의 뜻과 그래프",
         "로그의 뜻과 성질",
@@ -4739,6 +4745,9 @@ function getTrackMeta(trackId) {
 
     if (isIt) {
       if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "로그모델", "성장", "감소", "충전 증가", "채널 용량", "로그모델", "방사성 붕괴", "별의 등급"];
+      if (/등차수열과 등비수열/.test(concept)) return ["등차수열", "등비수열", "일반항", "공차", "공비", "규칙성", "반복 규칙", "패턴", "증가 규칙"];
+      if (/수열의 합/.test(concept)) return ["시그마", "합", "부분합", "누적합", "합 공식", "등차수열의 합", "등비수열의 합", "반복 계산", "누적 데이터"];
+      if (/수학적 귀납법/.test(concept)) return ["수학적 귀납법", "명제", "자연수", "귀납 가정", "귀납 단계", "증명", "반복 논리", "재귀", "알고리즘 정당성"];
       if (/로그함수의 뜻과 그래프/.test(concept)) return ["로그함수", "역함수", "그래프 대칭", "점근선", "정의역", "치역", "증가", "스케일 변환"];
       if (/지수함수의 뜻과 그래프/.test(concept)) return ["지수함수", "그래프", "증가", "감소", "점근선", "정의역", "치역", "밑의 범위"];
       if (/로그의 뜻과 성질/.test(concept)) return ["로그", "로그의 성질", "지수-로그 변환", "밑의 변환", "밑", "진수", "상용로그"];
@@ -5266,8 +5275,8 @@ function getTrackMeta(trackId) {
     if (state.subject === "대수" && isAlgebraComputerMajorContext()) {
       const forced = [
         "지수함수와 로그함수의 활용",
-        "로그함수의 뜻과 그래프",
-        "지수함수의 뜻과 그래프"
+        "등차수열과 등비수열",
+        "수학적 귀납법"
       ];
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
       const others = ranked.filter(item => !forced.includes(item.concept));
