@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.26-integrated-society1-it-priority-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.27-integrated-society2-it-lock';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.26-integrated-society1-it-priori
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_26_integrated_society1_it_priority_fix";
+  const ASSET_VERSION_QUERY = "v33_27_integrated_society2_it_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -62,6 +62,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.26-integrated-society1-it-priori
     "공통 국어 2": "공통국어2",
     "통합사회": "통합사회1",
     "통합사회 1": "통합사회1",
+    "통합사회 2": "통합사회2",
+    "통합사회II": "통합사회2",
+    "통합사회Ⅱ": "통합사회2",
     "통합사회I": "통합사회1",
     "통합사회Ⅰ": "통합사회1",
     "물리학": "물리",
@@ -4527,9 +4530,68 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+
+  function getIntegratedSociety2PreferredConceptSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const defaultSequence = [
+      "인권 보장과 헌법",
+      "사회 정의와 불평등",
+      "시장경제와 지속가능발전",
+      "세계화와 평화",
+      "미래와 지속가능한 삶"
+    ];
+
+    if (!majorText) return defaultSequence;
+
+    if (isIntegratedSociety1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크|알고리즘)/i.test(majorText) || bucket === "it") {
+      return [
+        "미래와 지속가능한 삶",
+        "시장경제와 지속가능발전",
+        "인권 보장과 헌법",
+        "세계화와 평화",
+        "사회 정의와 불평등"
+      ];
+    }
+
+    if (/(경영|경제|금융|무역|국제|통상|회계|세무|소비자|물류|플랫폼)/.test(majorText)) {
+      return [
+        "시장경제와 지속가능발전",
+        "세계화와 평화",
+        "미래와 지속가능한 삶",
+        "사회 정의와 불평등",
+        "인권 보장과 헌법"
+      ];
+    }
+
+    if (/(법|행정|정치|사회복지|교육|언론|미디어|국제관계|외교|경찰)/.test(majorText)) {
+      return [
+        "인권 보장과 헌법",
+        "사회 정의와 불평등",
+        "세계화와 평화",
+        "미래와 지속가능한 삶",
+        "시장경제와 지속가능발전"
+      ];
+    }
+
+    if (/(환경|기후|지구|도시|건축|토목|지역|지리|해양|에너지)/.test(majorText) || bucket === "env") {
+      return [
+        "미래와 지속가능한 삶",
+        "시장경제와 지속가능발전",
+        "세계화와 평화",
+        "사회 정의와 불평등",
+        "인권 보장과 헌법"
+      ];
+    }
+
+    return defaultSequence;
+  }
   function getPreferredConceptSequence() {
     if (state.subject === "통합사회1" || state.subject === "통합사회") {
       return getIntegratedSociety1PreferredConceptSequence();
+    }
+    if (state.subject === "통합사회2") {
+      return getIntegratedSociety2PreferredConceptSequence();
     }
     if (state.subject === "통합과학1") {
       return getIntegratedScience1PreferredConceptSequence();
@@ -4606,6 +4668,25 @@ function getTrackMeta(trackId) {
       if (/통합적 관점과 행복/.test(concept)) return ["통합적 사고력", "시간적 관점", "공간적 관점", "사회적 관점", "윤리적 관점", "행복 지수", "삶의 질", "문제 해결"];
       if (/인권 보장과 시민 참여/.test(concept)) return ["인권", "현대 인권", "시민 참여", "민주 시민", "헌법", "차별", "국제 인권", "해결 방안"];
       if (/사회 정의와 불평등/.test(concept)) return ["공정성", "불평등", "소득 격차", "기회 불평등", "사회 정의", "분배", "해결 노력"];
+    }
+
+    return [];
+  }
+
+
+
+  function getIntegratedSociety2PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const concept = state.concept || "";
+    const isIt = isIntegratedSociety1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크|알고리즘)/i.test(majorText) || bucket === "it";
+
+    if (isIt) {
+      if (/미래와 지속가능한 삶/.test(concept)) return ["미래 사회", "인공지능", "자동화", "디지털 전환", "기술 변화", "미래 직업", "인구 변화", "지속가능성", "기후 위기", "탄소중립"];
+      if (/시장경제와 지속가능발전/.test(concept)) return ["시장경제", "가격", "수요", "공급", "합리적 선택", "소비자", "생산자", "금융", "소비", "지속가능발전", "ESG", "공정무역"];
+      if (/세계화와 평화/.test(concept)) return ["세계화", "상호의존", "국제 분업", "무역", "교류", "국제기구", "문화 다양성", "세계시민", "갈등", "평화"];
+      if (/인권 보장과 헌법/.test(concept)) return ["헌법", "기본권", "자유권", "평등권", "사회권", "권리 충돌", "시민 참여", "인권", "정보 인권", "개인정보"];
+      if (/사회 정의와 불평등/.test(concept)) return ["공정성", "사회 정의", "불평등", "소득 격차", "기회 불평등", "복지", "정책", "디지털 격차"];
     }
 
     return [];
@@ -4775,6 +4856,10 @@ function getTrackMeta(trackId) {
     if (state.subject === "통합사회1" || state.subject === "통합사회") {
       const isoc1Preferred = getIntegratedSociety1PreferredKeywordSequence();
       if (isoc1Preferred.length) return isoc1Preferred;
+    }
+    if (state.subject === "통합사회2") {
+      const isoc2Preferred = getIntegratedSociety2PreferredKeywordSequence();
+      if (isoc2Preferred.length) return isoc2Preferred;
     }
     if (state.subject === "공통수학1") {
       const cm1Preferred = getCommonMath1PreferredKeywordSequence();
@@ -5068,6 +5153,17 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
+    if (state.subject === "통합사회2" && isIntegratedSociety1ComputerMajorContext()) {
+      const forced = [
+        "미래와 지속가능한 삶",
+        "시장경제와 지속가능발전",
+        "인권 보장과 헌법"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if (state.subject === "과학탐구실험2" && isScienceInquiry2ComputerMajorContext()) {
       const forced = [
         "첨단 센서와 디지털 정보 탐구",
@@ -5079,7 +5175,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
