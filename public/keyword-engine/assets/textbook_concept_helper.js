@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_50_earth_major_exact_routing";
+  const ASSET_VERSION_QUERY = "v33_51_earth_atmosphere_major_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5358,7 +5358,7 @@ function getTrackMeta(trackId) {
     const parts = [];
     const push = (value) => {
       const text = String(value || '').replace(/\s+/g, ' ').trim();
-      if (!text || /입력 전|선택 전|대기/.test(text)) return;
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기/.test(text)) return;
       parts.push(text);
     };
     try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
@@ -5382,6 +5382,7 @@ function getTrackMeta(trackId) {
     const has = (pattern) => pattern.test(text) || pattern.test(compact);
 
     // 정확한 학과명 우선. 환경/천체/해수 같은 교과 개념 단어에 끌려가지 않게 한다.
+    // 주의: 대기과학과의 "대기"는 waiting 상태값이 아니라 atmosphere 전공명이다.
     if (has(/천문우주학과|천문우주|천문학과|우주과학과|우주공학과|항공우주공학과|물리천문학부|천체/)) return "astronomy";
     if (has(/대기과학과|대기과학|기상학과|기상|기후과학과|기후학과/)) return "atmosphere";
     if (has(/해양학과|해양과학과|해양생명|해양수산|해양공학|수산생명|해양/)) return "ocean";
