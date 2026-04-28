@@ -2598,7 +2598,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
   function getMajorPanelResolvedName() {
     try {
       const blocked = /관련 학과|표준화|찾지 못했|전공 후보|학과명을|먼저 고르세요|입력 전/;
-      const titleNodes = Array.from(document.querySelectorAll('.major-engine-title, .major-engine-candidate.is-selected .major-engine-candidate-title, [data-major-select].is-selected'));
+      const titleNodes = Array.from(document.querySelectorAll('#engineCareerSummary, .major-engine-title, .major-engine-candidate.is-selected .major-engine-candidate-title, [data-major-select].is-selected'));
       const names = titleNodes
         .map(node => String(node.textContent || node.getAttribute?.('data-major-select') || '').replace(/\s+/g, ' ').trim())
         .filter(text => text && !blocked.test(text));
@@ -5049,12 +5049,21 @@ function getTrackMeta(trackId) {
   }
 
   function getLifeSciencePreferredConceptSequence() {
-    const majorTextRaw = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    // v33.47 life-science selected-major guard:
+    // 일부 학과 프로필/화면 텍스트에 식품·환경·보건 키워드가 함께 섞이면
+    // 생명공학과가 식품/보건 일반 분기로 밀리는 문제가 있어, 상단 상태 카드의 실제 선택 학과를 우선 읽는다.
+    let statusMajorText = "";
+    try {
+      statusMajorText = String($("engineCareerSummary")?.textContent || "").replace(/\s+/g, " ").trim();
+      if (/입력 전|선택 전|대기/.test(statusMajorText)) statusMajorText = "";
+    } catch (error) {}
+    const majorTextRaw = [statusMajorText || "", state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     let visibleMajorText = "";
     try {
       visibleMajorText = String(document.body?.innerText || "").replace(/\s+/g, " ");
     } catch (error) {}
     const majorText = [majorTextRaw, visibleMajorText].join(" ").trim();
+    const selectedMajorText = [statusMajorText || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || ""].join(" ").trim();
     const bucket = detectCareerBucket(majorTextRaw || majorText);
     const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
     if (!majorTextRaw && !visibleMajorText) return defaultSequence;
@@ -5068,22 +5077,27 @@ function getTrackMeta(trackId) {
     const topPharmacy = /(2\.\s*학과\s*약학과|학과\s*약학과)/.test(visibleTopMajor);
     const topFoodNutrition = /(2\.\s*학과\s*식품영양학과|학과\s*식품영양학과)/.test(visibleTopMajor);
     const topEnv = /(2\.\s*학과\s*환경공학과|학과\s*환경공학과|2\.\s*학과\s*환경생태학과|학과\s*환경생태학과)/.test(visibleTopMajor);
+    const selectedNursing = /(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)/.test(selectedMajorText);
+    const selectedBioEng = /(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|바이오공학|바이오테크|바이오메디컬)/.test(selectedMajorText);
+    const selectedPharmacy = /(약학과|약학|제약|신약|약물|약대|화공)/.test(selectedMajorText);
+    const selectedFoodNutrition = /(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(selectedMajorText);
+    const selectedEnv = /(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(selectedMajorText);
 
-    if (topNursing || /(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)/.test(explicitMajorText)) {
+    if (topNursing || selectedNursing || /(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)/.test(explicitMajorText)) {
       return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
     }
-    if (topPharmacy || /(약학과|약학|제약|신약|약물|약대|화공)/.test(explicitMajorText)) {
+    if (topPharmacy || selectedPharmacy || /(약학과|약학|제약|신약|약물|약대|화공)/.test(explicitMajorText)) {
       return ["물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "물질대사와 건강", "유전자와 염색체", "신경계와 항상성", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
     }
-    if (topFoodNutrition || /(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(explicitMajorText)) {
+    if (topFoodNutrition || selectedFoodNutrition || /(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(explicitMajorText)) {
       return ["물질대사와 에너지", "물질대사와 건강", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "면역과 백신", "진화와 생물 다양성", "유전자와 염색체", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
     }
-    if (topEnv || /(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(explicitMajorText) || bucket === "env") {
+    if (topEnv || selectedEnv || /(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(explicitMajorText) || bucket === "env") {
       return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
     }
     // 생명공학과는 major profile 안에 환경/생태 키워드가 함께 들어오는 경우가 있어 환경 branch보다 먼저 판별하되,
     // 실제 상단 선택값이 간호/약학/식품/환경이면 위 분기가 먼저 처리한다.
-    if (topBioEng || /(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(explicitMajorText)) {
+    if (topBioEng || selectedBioEng || /(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|바이오공학|바이오테크|바이오메디컬)/.test(explicitMajorText)) {
       return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
     }
 
@@ -5630,7 +5644,12 @@ function getTrackMeta(trackId) {
 
 
   function getLifeSciencePreferredKeywordSequence() {
-    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    let statusMajorText = "";
+    try {
+      statusMajorText = String($("engineCareerSummary")?.textContent || "").replace(/\s+/g, " ").trim();
+      if (/입력 전|선택 전|대기/.test(statusMajorText)) statusMajorText = "";
+    } catch (error) {}
+    const majorText = [statusMajorText || "", state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isNursingHealth = /(간호학과|간호|보건|임상병리|의료|재활|물리치료|작업치료)/.test(majorText);
