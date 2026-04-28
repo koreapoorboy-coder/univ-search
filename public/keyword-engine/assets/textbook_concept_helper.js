@@ -4023,6 +4023,59 @@ function getTrackMeta(trackId) {
       }
     }
 
+    // v34.10 mechanics-energy keyword-level axis split:
+    // 역학과 에너지는 같은 3개 개념 안에서도 학과와 추천 키워드에 따라 4번 축이 달라져야 한다.
+    if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      const kind = getMechanicsEnergyMajorKind();
+      const isData = kind === "data";
+      const isCivil = kind === "civil";
+      const isArch = kind === "architecture";
+      const isAero = kind === "aerospace";
+      const isAuto = kind === "automotive";
+      const isMech = kind === "mechanical";
+      const isEnergy = kind === "energy";
+
+      if (/시공간과 운동/.test(concept)) {
+        if (hit("벡터", "벡터의 합성", "벡터의 분해", "포물선 운동", "등속 원운동", "구심력", "구심 가속도", "운동량")) {
+          if (/advanced_mechanics_analysis_axis|고급 역학 해석 축|역학 해석/.test(axisText)) fallback = Math.max(fallback, (isMech || isAuto || isCivil || isArch) ? 132 : 112);
+        }
+        if (hit("케플러 법칙", "인공위성", "행성", "중력", "탈출 속도", "궤도")) {
+          if (/orbit_space_application_axis|우주·궤도 응용 축|우주 궤도/.test(axisText)) fallback = Math.max(fallback, isAero ? 142 : 112);
+        }
+        if (hit("운동 데이터", "시뮬레이션", "모델링", "그래프", "위치-시간", "속도-시간", "센서 데이터", "자료 분석")) {
+          if (/motion_data_simulation_axis|운동 데이터·시뮬레이션 축|시뮬레이션/.test(axisText)) fallback = Math.max(fallback, isData ? 146 : 112);
+        }
+      }
+
+      if (/열과 에너지/.test(concept)) {
+        if (hit("이상 기체", "내부 에너지", "열역학 제1법칙", "열역학 제2법칙", "열역학", "엔트로피", "상태 변화")) {
+          if (/thermodynamics_analysis_axis|열역학 해석 축|열역학/.test(axisText)) fallback = Math.max(fallback, 122);
+        }
+        if (hit("효율", "열효율", "열기관", "냉각", "단열", "열교환", "열손실", "열전달", "건물 에너지", "냉난방")) {
+          if (/process_efficiency_design_axis|공정·효율 설계 축|효율 설계/.test(axisText)) fallback = Math.max(fallback, (isMech || isAuto || isArch || isEnergy) ? 138 : 116);
+        }
+        if (hit("전력 소비", "온실가스", "에너지 절약", "탄소 배출", "신재생 에너지", "열 데이터", "온도 센서", "그래프", "자료 분석")) {
+          if (/energy_environment_data_axis|에너지·환경 데이터 축|환경 에너지/.test(axisText)) fallback = Math.max(fallback, (isData || isEnergy) ? 132 : 104);
+        }
+      }
+
+      if (/탄성파와 소리/.test(concept)) {
+        if (hit("지진파", "진동", "공진", "감쇠", "구조 안전", "내진", "탄성파")) {
+          if (/structure_vibration_seismic_axis|구조 진동·내진 해석 축|내진/.test(axisText)) fallback = Math.max(fallback, (isCivil || isArch) ? 148 : 116);
+        }
+        if (hit("단진동", "파장", "진동수", "도플러 효과", "정상파", "공명", "주파수")) {
+          if (/wave_signal_analysis_axis|파동·신호 해석 축|파동 신호/.test(axisText)) fallback = Math.max(fallback, 122);
+        }
+        if (hit("초음파", "의료 진단", "음향 센서", "소음 저감", "스피커", "소음")) {
+          if (/acoustic_medical_device_axis|음향·의료 장치 응용 축|음향 장치/.test(axisText)) fallback = Math.max(fallback, 120);
+        }
+        if (hit("파형", "그래프", "스펙트럼", "데이터", "센서", "센서 데이터", "신호 처리")) {
+          if (/signal_data_visualization_axis|신호 데이터 시각화 축|신호 데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 142 : 110);
+        }
+      }
+    }
+
 
     // v33.36 geometry keyword-level axis split: prevent every keyword in one geometry concept from falling into the same default axis.
     if (state.subject === "기하") {
@@ -5504,6 +5557,96 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+  function getMechanicsEnergyMajorTextBundle() {
+    // 역학과 에너지는 화면 전체를 읽으면 개념 카드의 '운동/열/소리' 단어가 섞여
+    // 모든 공학계열이 같은 기본값으로 수렴하기 쉽다. 실제 선택 학과명 중심으로만 판별한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    return Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function getMechanicsEnergyMajorKind() {
+    const rawText = getMechanicsEnergyMajorTextBundle();
+    const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
+
+    // 정확한 학과명 우선. '운동/열/소리' 같은 교과 키워드에 끌려가지 않게 한다.
+    if (has(/항공우주공학과|항공우주|우주공학|항공공학|항공|우주/)) return "aerospace";
+    if (has(/자동차공학과|자동차|모빌리티|미래자동차|차량|자율주행/)) return "automotive";
+    if (has(/건축공학과|건축공학|건축설비|건축환경|건축/)) return "architecture";
+    if (has(/토목공학과|토목|건설|도시공학|도시|지반|교량|구조공학/)) return "civil";
+    if (has(/컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|시뮬레이션|모델링/)) return "data";
+    if (has(/기계공학과|기계|로봇|메카트로닉스|기계설계|생산공학/)) return "mechanical";
+    if (has(/에너지공학|신재생|화학공학|환경공학|에너지/)) return "energy";
+    return "default";
+  }
+
+  function getMechanicsEnergyPreferredConceptSequence() {
+    const kind = getMechanicsEnergyMajorKind();
+    const defaultSequence = ["시공간과 운동", "열과 에너지", "탄성파와 소리"];
+    if (kind === "aerospace") return ["시공간과 운동", "열과 에너지", "탄성파와 소리"];
+    if (kind === "automotive") return ["시공간과 운동", "열과 에너지", "탄성파와 소리"];
+    if (kind === "mechanical") return ["시공간과 운동", "열과 에너지", "탄성파와 소리"];
+    if (kind === "architecture") return ["탄성파와 소리", "열과 에너지", "시공간과 운동"];
+    if (kind === "civil") return ["탄성파와 소리", "시공간과 운동", "열과 에너지"];
+    if (kind === "data") return ["시공간과 운동", "탄성파와 소리", "열과 에너지"];
+    if (kind === "energy") return ["열과 에너지", "시공간과 운동", "탄성파와 소리"];
+    return defaultSequence;
+  }
+
+  function getMechanicsEnergyPreferredKeywordSequence() {
+    const concept = state.concept || "";
+    const kind = getMechanicsEnergyMajorKind();
+    const isData = kind === "data";
+    const isAero = kind === "aerospace";
+    const isAuto = kind === "automotive";
+    const isMech = kind === "mechanical";
+    const isCivil = kind === "civil";
+    const isArch = kind === "architecture";
+    const isEnergy = kind === "energy";
+
+    if (/시공간과 운동/.test(concept)) {
+      if (isAero) return ["케플러 법칙", "인공위성", "등속 원운동", "구심력", "구심 가속도", "포물선 운동", "벡터", "벡터의 분해", "탈출 속도", "운동 데이터", "시뮬레이션", "모델링"];
+      if (isData) return ["운동 데이터", "시뮬레이션", "모델링", "그래프", "위치-시간", "속도-시간", "벡터", "포물선 운동", "등속 원운동", "케플러 법칙", "센서 데이터", "자료 분석"];
+      if (isCivil || isArch) return ["벡터", "벡터의 합성", "벡터의 분해", "하중", "힘의 평형", "구조 안정", "포물선 운동", "그래프", "모델링", "스칼라량", "운동 데이터"];
+      if (isAuto || isMech) return ["벡터", "벡터의 합성", "벡터의 분해", "포물선 운동", "등속 원운동", "구심력", "구심 가속도", "운동량", "운동 데이터", "시뮬레이션", "모델링", "스칼라량"];
+      return ["벡터", "포물선 운동", "등속 원운동", "케플러 법칙", "구심력", "구심 가속도", "운동 데이터", "시뮬레이션", "모델링"];
+    }
+
+    if (/열과 에너지/.test(concept)) {
+      if (isArch) return ["열전달", "전도", "복사", "대류", "단열", "열팽창", "열손실", "열효율", "건물 에너지", "냉난방", "엔트로피", "이상 기체 법칙"];
+      if (isAuto || isMech) return ["열전달", "열효율", "열기관", "냉각", "내부 에너지", "이상 기체 법칙", "열역학 제1법칙", "열역학", "엔트로피", "전도", "대류", "복사"];
+      if (isEnergy) return ["열효율", "열기관", "열전달", "에너지 절약", "전력 소비", "탄소 배출", "온실가스", "신재생 에너지", "엔트로피", "열역학 제1법칙"];
+      if (isData) return ["열 데이터", "온도 센서", "그래프", "시뮬레이션", "열손실", "열효율", "전력 소비", "자료 분석", "전도", "대류", "복사"];
+      return ["열전달", "전도", "대류", "복사", "열팽창", "이상 기체 법칙", "열효율", "엔트로피"];
+    }
+
+    if (/탄성파와 소리/.test(concept)) {
+      if (isCivil || isArch) return ["지진파", "탄성파", "진동", "공진", "단진동", "감쇠", "구조 안전", "내진", "정상파", "종파", "횡파", "센서 데이터"];
+      if (isData) return ["파형", "센서 데이터", "그래프", "스펙트럼", "주파수", "데이터", "신호 처리", "단진동", "도플러 효과", "정상파", "탄성파"];
+      if (isAuto || isMech || isAero) return ["진동", "단진동", "공진", "탄성파", "감쇠", "도플러 효과", "주파수", "정상파", "센서 데이터", "소음", "파형", "그래프"];
+      return ["단진동", "탄성파", "도플러 효과", "정상파", "공진", "파형", "주파수", "센서 데이터"];
+    }
+
+    return [];
+  }
+
 
   function getEarthScienceMajorTextBundle() {
     // 지구과학은 화면 전체 텍스트를 읽으면 개념 카드의 '천체/해수/기후' 단어가 섞여
@@ -5662,6 +5805,17 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
+      return getMechanicsEnergyPreferredConceptSequence();
+    }
+
+    if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
+      const forced = getMechanicsEnergyPreferredConceptSequence().slice(0, 3);
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
       return getEarthSciencePreferredConceptSequence();
     }
@@ -6109,6 +6263,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
+      const mechanicsPreferred = getMechanicsEnergyPreferredKeywordSequence();
+      if (mechanicsPreferred.length) return mechanicsPreferred;
+    }
     if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
       const earthPreferred = getEarthSciencePreferredKeywordSequence();
       if (earthPreferred.length) return earthPreferred;
