@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_24_matter_energy_followup_priority_v2";
+  const ASSET_VERSION_QUERY = "v34_25_cell_metabolism_axis_v1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3413,6 +3413,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
         score += getMappedKeywordAxisBoost(mappedEntry, axis);
+        score += getCellMetabolismHardAxisBoost(axis);
         score += getElectromagnetismQuantumHardAxisBoost(axis);
         score += getMatterEnergyHardAxisBoost(axis);
         return { ...axis, __score: score };
@@ -5798,6 +5799,170 @@ function getTrackMeta(trackId) {
     return text === "물질과에너지" || text === "MatterandEnergy";
   }
 
+
+  function isCellMetabolismSubject() {
+    const s = String(state.subject || "").replace(/\s+/g, "");
+    return s === "세포와물질대사" || /세포와물질대사/.test(s);
+  }
+
+  function getCellMetabolismMajorTextBundle() {
+    // 세포와 물질대사는 화면 전체를 읽으면 '광합성/효소/세포막' 같은 교과어가 섞여
+    // 학과 분기가 약해진다. 실제 선택 학과명과 입력창/상단 상태값만 우선 사용한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    return Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function getCellMetabolismMajorKind() {
+    const rawText = getCellMetabolismMajorTextBundle();
+    const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
+
+    // 정확한 학과명 우선. 생명공학/의생명은 환경·식품 일반보다 먼저 판별한다.
+    if (has(/컴퓨터공학과|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|통계|생명정보|바이오인포매틱스|시뮬레이션|모델링/)) return "data";
+    if (has(/생명공학과|의생명공학과|의생명공학|생명공학|바이오공학|분자생명|유전공학|세포공학|바이오헬스|바이오메디컬|생명과학과|생명과학/)) return "bioengineering";
+    if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
+    if (has(/의예과|의학과|의대|의예|의학|의료|임상병리|보건|간호학과|간호|치의예|치의학/)) return "medical";
+    if (has(/식품공학과|식품영양학과|식품공학|식품영양|식품|영양|발효|미생물|푸드/)) return "food";
+    if (has(/환경공학과|환경공학|환경생태|환경과학|환경보건|기후환경|생태|농생명|산림|해양생명|환경/)) return "environment";
+    if (has(/에너지공학과|에너지공학|신재생에너지|바이오에너지|수소에너지|탄소중립|에너지시스템/)) return "energy";
+    if (has(/화학과|생화학|화학|화학생명|응용화학/)) return "chemistry";
+    return "default";
+  }
+
+  function getCellMetabolismPreferredConceptSequence() {
+    const kind = getCellMetabolismMajorKind();
+    const defaultSequence = ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
+    if (kind === "bioengineering") return ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
+    if (kind === "medical") return ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
+    if (kind === "pharmacy") return ["효소와 대사 반응", "세포의 구조와 물질 이동", "광합성과 세포 호흡"];
+    if (kind === "food") return ["효소와 대사 반응", "광합성과 세포 호흡", "세포의 구조와 물질 이동"];
+    if (kind === "environment") return ["광합성과 세포 호흡", "효소와 대사 반응", "세포의 구조와 물질 이동"];
+    if (kind === "energy") return ["광합성과 세포 호흡", "효소와 대사 반응", "세포의 구조와 물질 이동"];
+    if (kind === "chemistry") return ["효소와 대사 반응", "세포의 구조와 물질 이동", "광합성과 세포 호흡"];
+    if (kind === "data") return ["세포의 구조와 물질 이동", "광합성과 세포 호흡", "효소와 대사 반응"];
+    return defaultSequence;
+  }
+
+  function getCellMetabolismPreferredKeywordSequence() {
+    const concept = state.concept || "";
+    const kind = getCellMetabolismMajorKind();
+    const isBio = kind === "bioengineering";
+    const isMedical = kind === "medical";
+    const isPharmacy = kind === "pharmacy";
+    const isFood = kind === "food";
+    const isEnv = kind === "environment";
+    const isEnergy = kind === "energy";
+    const isChem = kind === "chemistry";
+    const isData = kind === "data";
+
+    if (/세포의 구조와 물질 이동/.test(concept)) {
+      if (isBio) return ["세포막", "막단백질", "선택적 투과", "능동 수송", "인지질 이중층", "세포 소기관", "세포 배양", "세포막 투과성", "확산", "삼투", "Na-K 펌프", "막 수송"];
+      if (isMedical) return ["세포막", "삼투", "선택적 투과", "체액", "세포막 투과성", "확산", "능동 수송", "약물 전달", "적혈구", "수분 균형", "막단백질", "세포 소기관"];
+      if (isPharmacy) return ["세포막", "막단백질", "약물 전달", "선택적 투과", "확산", "능동 수송", "수용체", "세포막 투과성", "인지질 이중층", "삼투", "흡수", "수송체"];
+      if (isData) return ["세포 이미지", "세포 소기관", "세포 데이터", "분류", "모델링", "세포막 투과성", "그래프", "확산", "삼투", "이미지 분석", "시뮬레이션"];
+      return ["세포막", "인지질 이중층", "선택적 투과", "막단백질", "확산", "삼투", "능동 수송", "세포 소기관", "미토콘드리아", "엽록체", "세포막 투과성"];
+    }
+
+    if (/효소와 대사 반응/.test(concept)) {
+      if (isPharmacy) return ["효소", "저해제", "기질 특이성", "반응 속도", "활성화 에너지", "대사 경로", "약물 대사", "효소 저해", "최적 pH", "최적 온도", "기질", "대사 조절"];
+      if (isFood) return ["효소", "발효", "최적 pH", "최적 온도", "기질 특이성", "반응 속도", "식품 공정", "미생물", "활성화 에너지", "대사 경로", "효소 활성"];
+      if (isMedical) return ["효소", "대사 조절", "반응 속도", "최적 pH", "최적 온도", "체온", "소화", "대사 질환", "활성화 에너지", "저해제", "건강 지표"];
+      if (isBio) return ["효소", "기질", "기질 특이성", "활성화 에너지", "대사 경로", "피드백 조절", "효소-기질 복합체", "저해제", "반응 속도", "대사 조절"];
+      if (isChem) return ["효소", "활성화 에너지", "반응 속도", "촉매", "기질", "기질 특이성", "최적 pH", "최적 온도", "저해제", "대사 반응"];
+      if (isData) return ["반응 속도", "효소 활성 데이터", "그래프", "모델링", "최적 pH", "최적 온도", "효소", "대사 경로", "피드백 조절", "데이터 비교"];
+      return ["효소", "기질", "기질 특이성", "활성화 에너지", "반응 속도", "저해제", "최적 pH", "최적 온도", "대사 경로", "발효"];
+    }
+
+    if (/광합성과 세포 호흡/.test(concept)) {
+      if (isEnv) return ["광합성", "탄소 고정", "탄소 순환", "이산화탄소", "세포 호흡", "ATP", "엽록체", "미토콘드리아", "생태계", "환경 정화", "바이오매스"];
+      if (isEnergy) return ["ATP", "세포 호흡", "광합성", "바이오에너지", "에너지 효율", "탄소 고정", "전자 전달계", "미토콘드리아", "엽록체", "생성량", "효율 비교"];
+      if (isFood) return ["세포 호흡", "발효", "ATP", "포도당", "효모", "미생물", "광합성", "당 생성", "대사 경로", "식품 저장", "품질 변화"];
+      if (isData) return ["ATP", "대사 경로", "데이터", "그래프", "모델링", "세포 호흡", "광합성", "효율", "생성량", "비교 분석", "시뮬레이션"];
+      return ["광합성", "세포 호흡", "ATP", "엽록체", "미토콘드리아", "명반응", "탄소 고정", "포도당", "전자 전달계", "에너지 전환"];
+    }
+
+    return [];
+  }
+
+  function getCellMetabolismHardAxisBoost(axis) {
+    if (!isCellMetabolismSubject()) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    const kind = getCellMetabolismMajorKind();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+    let boost = 0;
+
+    if (/세포의 구조와 물질 이동/.test(concept)) {
+      if (hit("세포막", "막단백질", "선택적 투과", "인지질 이중층", "확산", "삼투", "능동 수송", "Na-K 펌프")) {
+        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축|세포 구조|물질 이동/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "data") ? 420 : 300);
+        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 410 : 170);
+      }
+      if (hit("약물 전달", "흡수", "수용체", "체액", "수분 균형", "투석")) {
+        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 430 : 190);
+      }
+      if (hit("세포 이미지", "세포 데이터", "분류", "모델링", "그래프", "시뮬레이션", "이미지 분석")) {
+        if (/membrane_data_experiment_axis|세포 데이터·투과성 실험 축|데이터|실험/.test(axisText)) boost = Math.max(boost, kind === "data" ? 420 : 180);
+      }
+    }
+
+    if (/효소와 대사 반응/.test(concept)) {
+      if (hit("효소", "기질", "기질 특이성", "활성화 에너지", "반응 속도", "대사 경로", "피드백 조절")) {
+        if (/metabolic_reaction_analysis_axis|효소 반응·대사 조절 해석 축|대사 반응|효소/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "chemistry") ? 400 : 280);
+      }
+      if (hit("저해제", "약물 대사", "효소 저해", "약물", "대사 조절")) {
+        if (/drug_enzyme_axis|약물 작용·효소 반응 해석 축|약물|의약/.test(axisText)) boost = Math.max(boost, kind === "pharmacy" ? 440 : 190);
+      }
+      if (hit("발효", "미생물", "식품 공정", "최적 pH", "최적 온도", "효소 활성")) {
+        if (/fermentation_bioprocess_axis|식품 발효·공정 응용 축|발효|공정/.test(axisText)) boost = Math.max(boost, kind === "food" ? 430 : 190);
+        if (/health_condition_control_axis|건강·조건 조절 해석 축|조건|건강/.test(axisText)) boost = Math.max(boost, kind === "medical" ? 390 : 160);
+      }
+      if (hit("효소 활성 데이터", "그래프", "모델링", "데이터 비교")) {
+        if (/enzyme_data_model_axis|효소 데이터·모델링 축|데이터|모델링/.test(axisText)) boost = Math.max(boost, kind === "data" ? 410 : 170);
+      }
+    }
+
+    if (/광합성과 세포 호흡/.test(concept)) {
+      if (hit("광합성", "탄소 고정", "탄소 순환", "이산화탄소", "환경 정화", "바이오매스")) {
+        if (/carbon_environment_axis|탄소 순환·환경 정화 응용 축|탄소|환경/.test(axisText)) boost = Math.max(boost, kind === "environment" ? 440 : 190);
+      }
+      if (hit("ATP", "세포 호흡", "전자 전달계", "에너지 효율", "바이오에너지", "효율 비교")) {
+        if (/energy_conversion_analysis_axis|생명 에너지 전환 해석 축|에너지 전환/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "medical") ? 360 : 220);
+        if (/bioenergy_efficiency_axis|바이오에너지·효율 응용 축|바이오에너지|효율/.test(axisText)) boost = Math.max(boost, kind === "energy" ? 430 : 190);
+      }
+      if (hit("대사 경로", "데이터", "그래프", "모델링", "생성량", "비교 분석", "시뮬레이션")) {
+        if (/metabolic_data_model_axis|생명 데이터·대사 모델링 축|데이터|모델링/.test(axisText)) boost = Math.max(boost, kind === "data" ? 430 : 180);
+      }
+      if (hit("발효", "효모", "미생물", "식품 저장", "품질 변화")) {
+        if (/fermentation_bioprocess_axis|식품 발효·공정 응용 축|발효|공정/.test(axisText)) boost = Math.max(boost, kind === "food" ? 420 : 180);
+      }
+    }
+    return boost;
+  }
+
   function isMatterEnergySubject() {
     return isMatterEnergySubjectName(state.subject || "");
   }
@@ -6217,6 +6382,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (isCellMetabolismSubject()) {
+      return getCellMetabolismPreferredConceptSequence();
+    }
     if (isMatterEnergySubject()) {
       return getMatterEnergyPreferredConceptSequence();
     }
@@ -6681,6 +6849,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (isCellMetabolismSubject()) {
+      const cellPreferred = getCellMetabolismPreferredKeywordSequence();
+      if (cellPreferred.length) return cellPreferred;
+    }
     if (isMatterEnergySubject()) {
       const matterPreferred = getMatterEnergyPreferredKeywordSequence();
       if (matterPreferred.length) return matterPreferred;
