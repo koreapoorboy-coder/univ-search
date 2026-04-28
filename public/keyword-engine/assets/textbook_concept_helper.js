@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_41_life_science_computer_lock";
+  const ASSET_VERSION_QUERY = "v34_00_life_science_axis_v2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4914,12 +4914,29 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
     if (!majorText) return defaultSequence;
+
     if (isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it") {
-      return ["유전자와 염색체", "신경 자극 전도와 전달", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "물질대사와 건강", "진화와 생물 다양성", "생식과 생명의 연속성"];
+      return ["유전자와 염색체", "신경 자극 전도와 전달", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 건강", "면역과 백신", "물질대사와 에너지", "생식과 생명의 연속성"];
     }
-    if (/(간호|의학|보건|약학|수의|의료|임상|바이오|생명|제약|식품|화공)/.test(majorText) || bucket === "bio") {
-      return ["물질대사와 건강", "면역과 백신", "신경계와 항상성", "물질대사와 에너지", "유전자와 염색체", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달"];
+    if (/(환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(majorText) || bucket === "env") {
+      return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
     }
+    if (/(식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(majorText)) {
+      return ["물질대사와 에너지", "물질대사와 건강", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "면역과 백신", "진화와 생물 다양성", "유전자와 염색체", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (/(약학|제약|신약|약물|약대|화공)/.test(majorText)) {
+      return ["물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "물질대사와 건강", "유전자와 염색체", "신경계와 항상성", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (/(의예|의학|의료|임상|치의|한의|수의|병리)/.test(majorText)) {
+      return ["면역과 백신", "신경계와 항상성", "물질대사와 건강", "유전자와 염색체", "신경 자극 전도와 전달", "물질대사와 에너지", "생식과 생명의 연속성", "생명과학의 이해", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (/(간호|보건|재활|물리치료|작업치료|임상병리)/.test(majorText)) {
+      return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (/(생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보)/.test(majorText) || bucket === "bio") {
+      return ["유전자와 염색체", "생명과학의 이해", "생식과 생명의 연속성", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+    }
+
     return defaultSequence;
   }
 
