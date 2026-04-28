@@ -3853,6 +3853,13 @@ function getTrackMeta(trackId) {
       ? axis.keywordSignals
       : (Array.isArray(axis?.keyword_signals) ? axis.keyword_signals : []);
     axisKeywordSignals.forEach(signal => {
+      const lifeDiagnosticGeneKeyword = /(유전자\s*검사|정밀의학|돌연변이|질병|진단|유전\s*질환)/.test(keyword);
+      if (lifeDiagnosticGeneKeyword
+        && (fuzzyIncludes(state.subject, "생명과학") || fuzzyIncludes(state.subject, "생명과학Ⅰ") || fuzzyIncludes(state.subject, "생명과학1"))
+        && /유전자와 염색체/.test(concept)
+        && /genetic_information_axis|유전 정보 해석 축|유전 정보/.test([axisId, axisTitle, axisDomain].join(" "))) {
+        return;
+      }
       const signalKeywords = Array.isArray(signal?.keywords) ? signal.keywords : [];
       if (!signalKeywords.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword))) return;
       const boost = Number(signal?.boost || 0);
@@ -3960,7 +3967,7 @@ function getTrackMeta(trackId) {
       const isBioInfo = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|통계|알고리즘|바이오인포매틱스|생명정보|헬스케어)/i.test(majorText);
 
       if (/유전자와 염색체/.test(concept)) {
-        if (hit("DNA", "유전자", "염색체", "유전 정보")) {
+        if (hit("DNA", "유전자", "염색체", "유전 정보") && !hit("유전자 검사", "정밀의학", "돌연변이", "질병", "진단", "유전 질환")) {
           if (/genetic_information_axis|유전 정보 해석 축|유전 정보/.test(axisText)) fallback = Math.max(fallback, 96);
           if (/bio_data_bridge_axis|바이오 데이터 연결 축/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 18 : 6);
         }
@@ -3973,7 +3980,7 @@ function getTrackMeta(trackId) {
           if (/genetic_information_axis|유전 정보 해석 축/.test(axisText)) fallback = Math.max(fallback, 10);
         }
         if (hit("유전자 검사", "정밀의학", "돌연변이", "질병", "진단", "유전 질환")) {
-          if (/genetic_diagnosis_precision_axis|유전 진단·정밀의학 축|질병·진단/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 106 : 100);
+          if (/genetic_diagnosis_precision_axis|유전 진단·정밀의학 축|질병·진단/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 160 : 140);
           if (/genetic_ethics_axis|유전 윤리·사회 축|유전 윤리/.test(axisText)) fallback = Math.max(fallback, 16);
           if (/bio_data_bridge_axis|바이오 데이터 연결 축/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 18 : 8);
         }
@@ -3985,12 +3992,12 @@ function getTrackMeta(trackId) {
 
       if (/물질대사와 에너지/.test(concept)) {
         if (hit("효소", "기질", "반응 속도", "촉매", "효소 반응", "약물 대사")) {
-          if (/cell_energy_axis|세포 에너지 해석 축|효소/.test(axisText)) fallback = Math.max(fallback, isPharmacy ? 102 : 96);
-          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, isFoodNutrition ? 18 : 8);
+          if (/cell_energy_axis|세포 에너지 해석 축|효소/.test(axisText)) fallback = Math.max(fallback, isPharmacy ? 102 : (isNursingHealth ? 70 : 96));
+          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isFoodNutrition) ? 126 : 8);
         }
         if (hit("ATP", "ADP", "세포 호흡", "광합성", "에너지 전환", "물질대사", "대사 경로")) {
-          if (/cell_energy_axis|세포 에너지 해석 축/.test(axisText)) fallback = Math.max(fallback, 98);
-          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, isFoodNutrition ? 16 : 6);
+          if (/cell_energy_axis|세포 에너지 해석 축/.test(axisText)) fallback = Math.max(fallback, isNursingHealth ? 76 : 98);
+          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isFoodNutrition) ? 120 : 6);
         }
         if (hit("영양소", "식단", "칼로리", "탄수화물", "지방", "단백질", "운동", "포도당")) {
           if (/health_nutrition_application_axis|건강·영양 응용 축|건강 영양/.test(axisText)) fallback = Math.max(fallback, 100);
@@ -5052,9 +5059,31 @@ function getTrackMeta(trackId) {
     const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
     if (!majorTextRaw && !visibleMajorText) return defaultSequence;
 
-    // 생명공학과는 major profile 안에 환경/생태 키워드가 함께 들어오는 경우가 있어
-    // 환경 branch보다 먼저 판별해야 3번 추천 개념이 생태계 쪽으로 쏠리지 않는다.
-    if (/(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText)) {
+    // v33.44 life science major-order guard:
+    // 화면 본문/학과 프로필 안의 다른 학과명이 섞여 들어와도, 상단에서 실제 선택한 학과가 먼저 이기도록 한다.
+    const explicitMajorText = majorTextRaw;
+    const visibleTopMajor = visibleMajorText;
+    const topNursing = /(2\.\s*학과\s*간호학과|학과\s*간호학과)/.test(visibleTopMajor);
+    const topBioEng = /(2\.\s*학과\s*생명공학과|학과\s*생명공학과)/.test(visibleTopMajor);
+    const topPharmacy = /(2\.\s*학과\s*약학과|학과\s*약학과)/.test(visibleTopMajor);
+    const topFoodNutrition = /(2\.\s*학과\s*식품영양학과|학과\s*식품영양학과)/.test(visibleTopMajor);
+    const topEnv = /(2\.\s*학과\s*환경공학과|학과\s*환경공학과|2\.\s*학과\s*환경생태학과|학과\s*환경생태학과)/.test(visibleTopMajor);
+
+    if (topNursing || /(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)/.test(explicitMajorText)) {
+      return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (topPharmacy || /(약학과|약학|제약|신약|약물|약대|화공)/.test(explicitMajorText)) {
+      return ["물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "물질대사와 건강", "유전자와 염색체", "신경계와 항상성", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (topFoodNutrition || /(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(explicitMajorText)) {
+      return ["물질대사와 에너지", "물질대사와 건강", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "면역과 백신", "진화와 생물 다양성", "유전자와 염색체", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (topEnv || /(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(explicitMajorText) || bucket === "env") {
+      return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    // 생명공학과는 major profile 안에 환경/생태 키워드가 함께 들어오는 경우가 있어 환경 branch보다 먼저 판별하되,
+    // 실제 상단 선택값이 간호/약학/식품/환경이면 위 분기가 먼저 처리한다.
+    if (topBioEng || /(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(explicitMajorText)) {
       return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
     }
 
@@ -5604,7 +5633,20 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
+    const isNursingHealth = /(간호학과|간호|보건|임상병리|의료|재활|물리치료|작업치료)/.test(majorText);
+    const isBioEngMajor = /(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText);
     const isIt = isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it";
+    if (isNursingHealth) {
+      if (/물질대사와 건강/.test(concept)) return ["혈당", "인슐린", "당뇨병", "고혈압", "대사 증후군", "건강 데이터", "생활 습관", "예방", "비만", "콜레스테롤"];
+      if (/신경계와 항상성/.test(concept)) return ["항상성", "호르몬", "체온 조절", "혈당 조절", "피드백", "중추 신경계", "말초 신경계", "자율 신경", "건강 관리", "의사결정"];
+      if (/면역과 백신/.test(concept)) return ["병원체", "항원", "항체", "백신", "면역 반응", "면역 기억", "감염", "예방", "집단 면역", "공중보건"];
+      if (/물질대사와 에너지/.test(concept)) return ["영양소", "ATP", "세포 호흡", "효소", "대사 경로", "에너지 전환", "포도당", "반응 속도", "기질", "ADP"];
+      if (/신경 자극 전도와 전달/.test(concept)) return ["뉴런", "시냅스", "막전위", "활동 전위", "신경전달물질", "수용체", "자극", "전도", "전달", "반응 시간"];
+      if (/유전자와 염색체/.test(concept)) return ["유전자 검사", "정밀의학", "돌연변이", "유전 질환", "DNA", "염색체", "유전자", "염기 서열", "유전 정보", "개인정보"];
+    }
+    if (isBioEngMajor) {
+      if (/유전자와 염색체/.test(concept)) return ["DNA", "유전자", "염색체", "염기 서열", "복제", "전사", "번역", "단백질 합성", "바이오 데이터", "유전자 검사", "유전체", "정밀의학"];
+    }
     if (isIt) {
       if (/유전자와 염색체/.test(concept)) return ["DNA", "유전 정보", "유전자", "염색체", "정보 저장", "염기 서열", "형질 발현", "돌연변이", "유전 정보 해석", "생명 정보"];
       if (/신경 자극 전도와 전달/.test(concept)) return ["뉴런", "막전위", "활동 전위", "시냅스", "자극", "전도", "전달", "이온 이동", "신호 전달", "반응 시간"];
