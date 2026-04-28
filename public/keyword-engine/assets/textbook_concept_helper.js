@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.23-matter-energy-axis-v1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priority-v2';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.23-matter-energy-axis-v1';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_23_matter_energy_axis_v1";
+  const ASSET_VERSION_QUERY = "v34_24_matter_energy_followup_priority_v2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5915,11 +5915,17 @@ function getTrackMeta(trackId) {
 
     if (/기체 상태와 법칙/.test(concept)) {
       if (hit("압력", "부피", "온도", "몰수", "보일 법칙", "샤를 법칙", "이상 기체 방정식", "PV=nRT")) {
-        if (/gas_state_thermo_axis|기체 상태·열역학 해석 축|기체 상태/.test(axisText)) boost = Math.max(boost, kind === "chemistry" ? 360 : 130);
-        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 380 : ((kind === "energy" || kind === "mechanical") ? 320 : 110));
+        // 화학공학은 공정 조건, 에너지·기계는 기체 상태/열역학 해석을 먼저 보여준다.
+        if (/gas_state_thermo_axis|기체 상태·열역학 해석 축|기체 상태/.test(axisText)) {
+          boost = Math.max(boost, (kind === "energy" || kind === "mechanical") ? 430 : (kind === "chemistry" ? 360 : 150));
+        }
+        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) {
+          boost = Math.max(boost, kind === "chemical_engineering" ? 430 : ((kind === "energy" || kind === "mechanical") ? 180 : 120));
+        }
       }
       if (hit("공정", "반응 조건", "압축", "냉매", "열기관", "에너지 효율", "냉각", "상태 변화")) {
-        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) boost = Math.max(boost, (kind === "chemical_engineering" || kind === "energy" || kind === "mechanical") ? 390 : 140);
+        if (/gas_state_thermo_axis|기체 상태·열역학 해석 축|기체 상태/.test(axisText)) boost = Math.max(boost, (kind === "energy" || kind === "mechanical") ? 410 : 150);
+        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 390 : ((kind === "energy" || kind === "mechanical") ? 260 : 140));
       }
       if (hit("그래프", "데이터", "측정", "센서", "예측", "모델링")) {
         if (/measurement_modeling_axis|측정 데이터·모델링 축|데이터|모델링/.test(axisText)) boost = Math.max(boost, kind === "data" ? 360 : 150);
@@ -5928,10 +5934,12 @@ function getTrackMeta(trackId) {
 
     if (/혼합 기체와 조성/.test(concept)) {
       if (hit("부분 압력", "달톤 법칙", "몰분율", "기체 조성", "혼합 기체")) {
-        if (/mixed_gas_composition_axis|혼합 기체 조성 해석 축|조성/.test(axisText)) boost = Math.max(boost, (kind === "chemistry" || kind === "chemical_engineering") ? 360 : 150);
+        // 환경공학은 조성 계산 자체보다 대기 조성·오염 해석을 먼저 보이게 한다.
+        if (/mixed_gas_composition_axis|혼합 기체 조성 해석 축|조성/.test(axisText)) boost = Math.max(boost, (kind === "chemistry" || kind === "chemical_engineering") ? 360 : (kind === "environment" ? 120 : 150));
+        if (/atmosphere_pollution_axis|대기 조성·오염 분석 축|대기|오염/.test(axisText)) boost = Math.max(boost, kind === "environment" ? 430 : 130);
       }
       if (hit("대기", "이산화탄소", "온실가스", "공기질", "오염", "산소", "질소", "환경")) {
-        if (/atmosphere_pollution_axis|대기 조성·오염 분석 축|대기|오염/.test(axisText)) boost = Math.max(boost, kind === "environment" ? 390 : 150);
+        if (/atmosphere_pollution_axis|대기 조성·오염 분석 축|대기|오염/.test(axisText)) boost = Math.max(boost, kind === "environment" ? 430 : 150);
       }
       if (hit("센서", "농도 측정", "가스 누출", "경보기", "안전", "조성 데이터", "그래프")) {
         if (/gas_sensor_safety_axis|가스 센서·안전 응용 축|센서|안전/.test(axisText)) boost = Math.max(boost, kind === "data" ? 340 : 170);
