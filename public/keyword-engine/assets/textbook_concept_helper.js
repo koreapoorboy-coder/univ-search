@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priority-v2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.27-earth-system-keyword-split-v2';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_26_cell_metabolism_keyword_split_v3";
+  const ASSET_VERSION_QUERY = "v34_27_earth_system_keyword_split_v2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3418,6 +3418,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
         score += getCellMetabolismHardAxisBoost(axis);
         score += getElectromagnetismQuantumHardAxisBoost(axis);
         score += getMatterEnergyHardAxisBoost(axis);
+        score += getEarthSystemScienceForcedAxisBoost(axis);
         score += getEarthSystemScienceHardAxisBoost(axis);
         return { ...axis, __score: score };
       });
@@ -5895,7 +5896,64 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+
+  function getEarthSystemScienceForcedAxisId() {
+    if (!isEarthSystemScienceSubject()) return "";
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "").replace(/\s+/g, " ").trim();
+    if (!concept || !keyword) return "";
+    const has = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+
+    // v34.27 earth-system keyword split lock:
+    // 추천 키워드가 4번 축 우선순위를 직접 바꾸도록, 학과 보정보다 강한 키워드-축 매핑을 먼저 건다.
+    if (/대기·해양 순환과 기후/.test(concept)) {
+      if (has("기후 데이터", "시계열", "그래프", "예측 모델", "예측 모형", "자료 분석", "시각화", "해양 데이터", "기상 데이터", "데이터")) return "climate_data_prediction_axis";
+      if (has("해일", "기후 재난", "재난 대응", "위험도", "예보", "강수량", "기후 변화", "온실가스", "환경 변화")) return "climate_disaster_application_axis";
+      if (has("단열 변화", "대기 안정도", "기압 경도력", "전향력", "편서풍 파동", "바람의 종류", "기압", "밀도류", "해파", "조석", "해양 순환", "대기 조성")) return "atmosphere_ocean_analysis_axis";
+    }
+
+    if (/판 구조와 지구 내부/.test(concept)) {
+      if (has("지진파 데이터", "도달 시간", "그래프", "모델링", "관측 자료", "진앙 거리", "시각화", "데이터")) return "seismic_data_modeling_axis";
+      if (has("지진", "화산", "지진파", "P파", "S파", "내진", "지반", "재난 대응", "구조 안전", "위험도")) return "disaster_geophysics_application_axis";
+      if (has("판 구조론", "플룸", "외핵", "내핵", "맨틀", "맨틀 대류", "해양저 확장", "발산 경계", "수렴 경계", "보존 경계", "고지자기")) return "geology_internal_structure_axis";
+    }
+
+    if (/지구 탄생과 시스템 진화/.test(concept)) {
+      if (has("시간축", "연표", "그래프", "시각화", "데이터", "모델링")) return "earth_history_data_visual_axis";
+      if (has("탄소 순환", "산소 순환", "지구시스템", "대기 조성", "대기 조성 변화", "생물권", "광합성 생물", "환경 변화", "남세균", "순환도")) return "carbon_climate_biosystem_axis";
+      if (has("태양계 성운", "성운설", "원시 태양", "미행성체", "원시 행성", "원시 지구", "분화", "행성 형성", "원시 대기", "원시 해양")) return "planet_system_evolution_axis";
+    }
+
+    return "";
+  }
+
+  function getEarthSystemScienceForcedAxisBoost(axis) {
+    const forcedId = getEarthSystemScienceForcedAxisId();
+    if (!forcedId) return 0;
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    if (axisText.includes(forcedId)) return 900;
+    const titleById = {
+      atmosphere_ocean_analysis_axis: /대기·해양 자료 해석 축|대기·해양/i,
+      climate_disaster_application_axis: /기후·재난 응용 축|기후·재난/i,
+      climate_data_prediction_axis: /기후 데이터 예측·시각화 축|기후 데이터/i,
+      geology_internal_structure_axis: /지질·지구 내부 해석 축|지구 내부/i,
+      disaster_geophysics_application_axis: /재난·지구물리 응용 축|재난·지구물리/i,
+      seismic_data_modeling_axis: /지진파 데이터·모델링 축|지진파 데이터/i,
+      planet_system_evolution_axis: /행성·환경 진화 해석 축|행성 진화/i,
+      carbon_climate_biosystem_axis: /탄소·기후·생명 시스템 연결 축|탄소 순환/i,
+      earth_history_data_visual_axis: /지구 역사 데이터·시각화 축|지구 역사 데이터/i
+    };
+    return titleById[forcedId]?.test(axisText) ? 900 : 0;
+  }
+
   function getEarthSystemScienceHardAxisBoost(axis) {
+    const forcedBoost = getEarthSystemScienceForcedAxisBoost(axis);
+    if (forcedBoost) return forcedBoost;
     if (!isEarthSystemScienceSubject()) return 0;
     const concept = String(state.concept || "");
     const keyword = String(state.keyword || "");
