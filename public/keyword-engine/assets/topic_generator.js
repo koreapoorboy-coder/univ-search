@@ -1,4 +1,4 @@
-window.__TOPIC_GENERATOR_VERSION = "v24.7-is2-recovery";
+window.__TOPIC_GENERATOR_VERSION = "v25.0-book-payload-bridge";
 
 (function(){
   const BOOK_URLS = [
@@ -8,6 +8,7 @@ window.__TOPIC_GENERATOR_VERSION = "v24.7-is2-recovery";
     "seed/book-report-cards/book_report_cards_active_draft_v1.json"
   ];
   const MASTER_BOOK_URLS = [
+    "seed/book-engine/source/book_master_integrated_v1.json",
     "../book-engine/source/book_master_integrated_v1.json",
     "book-engine/source/book_master_integrated_v1.json"
   ];
@@ -279,9 +280,9 @@ function getReportCardByBookId(bookId){
   }
 
   function getMatchedRules(ctx){
-    const subject = ctx?.subject || "";
-    const concept = ctx?.concept || "";
-    const keyword = ctx?.keyword || "";
+    const subject = ctx?.selectedSubject || ctx?.subject || "";
+    const concept = ctx?.selectedConcept || ctx?.concept || "";
+    const keyword = ctx?.selectedKeyword || ctx?.keyword || "";
     const rules = Array.isArray(filterMap?.subject_keyword_rules) ? filterMap.subject_keyword_rules : [];
 
     return rules.filter(rule => {
@@ -426,11 +427,17 @@ function getReportCardByBookId(bookId){
     return { score, reasons, themeHit, majorHit, subjectHit };
   }
   function getSelectedAxisContext(ctx){
+    const linkedSubjects = coerceArray(ctx?.linkedSubjects).map(v => String(v || "").trim()).filter(Boolean);
+    const title = String(ctx?.selectedFollowupAxis || ctx?.followupAxisTitle || "").trim();
     return {
       id: String(ctx?.followupAxisId || "").trim(),
-      title: String(ctx?.followupAxisTitle || "").trim(),
+      title,
+      axisLabel: String(ctx?.axisLabel || "").trim(),
       domain: String(ctx?.followupAxisDomain || "").trim().toLowerCase(),
-      legacyTrack: String(ctx?.linkTrack || "").trim().toLowerCase()
+      legacyTrack: String(ctx?.linkTrack || "").trim().toLowerCase(),
+      linkedSubjects,
+      activityExample: String(ctx?.activityExample || "").trim(),
+      longitudinalPath: String(ctx?.longitudinalPath || "").trim()
     };
   }
 
@@ -722,10 +729,10 @@ function getReportCardByBookId(bookId){
   }
 
   function scoreBook(book, ctx){
-    const subject = ctx?.subject || "";
-    const concept = ctx?.concept || "";
-    const keyword = ctx?.keyword || "";
-    const career = ctx?.career || "";
+    const subject = ctx?.selectedSubject || ctx?.subject || "";
+    const concept = ctx?.selectedConcept || ctx?.concept || "";
+    const keyword = ctx?.selectedKeyword || ctx?.keyword || "";
+    const career = ctx?.selectedMajor || ctx?.career || "";
     const linkTrack = ctx?.linkTrack || "";
     const bucket = detectCareerBucket(career);
     const careerTokens = tokenizeCareer(career);
@@ -739,6 +746,7 @@ function getReportCardByBookId(bookId){
     const axisDirectTuning = getAxisDirectTuning(book, ctx, axisAffinity);
     const direct = reportCard?.direct_match || {};
     const expand = reportCard?.expand_reference || {};
+    const selectedAxis = getSelectedAxisContext(ctx);
 
     let score = 0;
     const reasons = [];
@@ -757,6 +765,13 @@ function getReportCardByBookId(bookId){
     if (!directKeywordHit && expandSubjectHit) { score += 10; reasons.push("확장 참고 과목"); }
     if (expandMajorHit) { score += 12; reasons.push("확장 학과 연결"); }
     if (expandAxisHit) { score += 8; reasons.push("후속 축 연결"); }
+    if (selectedAxis.linkedSubjects.length && (book.linked_subjects || []).some(v => selectedAxis.linkedSubjects.some(subjectName => fuzzyIncludes(v, subjectName)))) {
+      score += 10;
+      reasons.push("후속 과목 연결");
+    }
+    if (selectedAxis.activityExample && themes.some(v => fuzzyIncludes(v, selectedAxis.activityExample))) {
+      score += 4;
+    }
 
     if ((book.linked_subjects || []).some(v => fuzzyIncludes(v, subject))) {
       score += 16;
@@ -831,10 +846,10 @@ function getReportCardByBookId(bookId){
   }
 
   function getMatchSignals(book, ctx){
-    const subject = ctx?.subject || "";
-    const concept = ctx?.concept || "";
-    const keyword = ctx?.keyword || "";
-    const careerTokens = tokenizeCareer(ctx?.career || "");
+    const subject = ctx?.selectedSubject || ctx?.subject || "";
+    const concept = ctx?.selectedConcept || ctx?.concept || "";
+    const keyword = ctx?.selectedKeyword || ctx?.keyword || "";
+    const careerTokens = tokenizeCareer(ctx?.selectedMajor || ctx?.career || "");
     const themes = getBookThemeArray(book);
     const routes = getRouteMatches(book, subject, concept, keyword);
     const subjectHit = (book?.linked_subjects || []).some(v => fuzzyIncludes(v, subject));
@@ -922,7 +937,7 @@ function selectDiverseItems(items, ctx, limit, mode, anchorItems){
     if (!chosen) break;
 
     const adjustedChosen = chosen.score - getDiversityPenalty(chosen, [...anchors, ...selected], ctx, mode);
-    const bucket = detectCareerBucket(ctx?.career || "");
+    const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
     const strict = isStrictCareerBucket(bucket);
     const minFollowup = strict ? 18 : (bucket === "bio" ? 8 : 10);
     if (selected.length > 0 && adjustedChosen < minFollowup) continue;
@@ -935,7 +950,7 @@ function selectDiverseItems(items, ctx, limit, mode, anchorItems){
 
   
 function classifyRecommendation(item, ctx){
-    const bucket = detectCareerBucket(ctx?.career || "");
+    const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
     const strictBucket = isStrictCareerBucket(bucket);
     const signals = getMatchSignals(item.book, ctx);
     const reasonSet = new Set(item.reasons || []);
@@ -943,15 +958,15 @@ function classifyRecommendation(item, ctx){
     const direct = reportCard?.direct_match || {};
     const expand = reportCard?.expand_reference || {};
     const axisAffinity = item.axisAffinity || getAxisAffinity(item.book, ctx);
-    const directHit = coerceArray(direct.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) && (
-      coerceArray(direct.concepts).some(v => fuzzyIncludes(v, ctx?.concept || "")) ||
-      coerceArray(direct.keywords).some(v => fuzzyIncludes(v, ctx?.keyword || ""))
+    const directHit = coerceArray(direct.subjects).some(v => fuzzyIncludes(v, ctx?.selectedSubject || ctx?.subject || "")) && (
+      coerceArray(direct.concepts).some(v => fuzzyIncludes(v, ctx?.selectedConcept || ctx?.concept || "")) ||
+      coerceArray(direct.keywords).some(v => fuzzyIncludes(v, ctx?.selectedKeyword || ctx?.keyword || ""))
     );
-    const expandHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, ctx?.subject || "")) ||
-      coerceArray(expand.majors).some(v => tokenizeCareer(ctx?.career || "").some(token => fuzzyIncludes(v, token))) ||
+    const expandHit = coerceArray(expand.subjects).some(v => fuzzyIncludes(v, ctx?.selectedSubject || ctx?.subject || "")) ||
+      coerceArray(expand.majors).some(v => tokenizeCareer(ctx?.selectedMajor || ctx?.career || "").some(token => fuzzyIncludes(v, token))) ||
       axisAffinity.anyHit;
 
-    const hasAxisContext = !!(ctx?.followupAxisTitle || ctx?.followupAxisDomain || ctx?.followupAxisId || ctx?.linkTrack);
+    const hasAxisContext = !!(ctx?.selectedFollowupAxis || ctx?.followupAxisTitle || ctx?.followupAxisDomain || ctx?.followupAxisId || ctx?.linkTrack);
     const isDirectBase = (
       directHit ||
       signals.routes.length > 0 ||
@@ -1010,7 +1025,7 @@ function getBookRecommendationSections(ctx){
       else if (section === "explore") exploreCandidates.push(item);
     });
 
-    const bucket = detectCareerBucket(ctx?.career || "");
+    const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
     const targetDirectMin = isStrictCareerBucket(bucket) ? 2 : (bucket === "bio" ? 3 : 2);
 
     const axisAwareDirect = directCandidates.slice().sort((a, b) => {
@@ -1070,13 +1085,29 @@ function getBookRecommendationSections(ctx){
       exploreLimited = selectDiverseItems(remainingExplore, ctx, 2, "explore", directLimited);
     }
 
-    return { direct: directLimited, explore: exploreLimited, all: [...directLimited, ...exploreLimited] };
+    exploreLimited.forEach(item => usedIds.add(item.book.book_id));
+
+    const supportPool = recommended
+      .filter(item => !usedIds.has(item.book.book_id) && isReportSupportItem(item, ctx))
+      .sort((a, b) => {
+        const aModes = coerceArray(a.book?.report_modes || a.book?.fit_modes).length;
+        const bModes = coerceArray(b.book?.report_modes || b.book?.fit_modes).length;
+        const aPerspectives = coerceArray(a.book?.perspectives).length;
+        const bPerspectives = coerceArray(b.book?.perspectives).length;
+        const aEvidence = coerceArray(a.book?.evidence_types).length;
+        const bEvidence = coerceArray(b.book?.evidence_types).length;
+        return (bModes + bPerspectives + bEvidence) - (aModes + aPerspectives + aEvidence) || b.score - a.score;
+      });
+
+    const supportLimited = selectDiverseItems(supportPool, ctx, directLimited.length ? 2 : 3, "support", [...directLimited, ...exploreLimited]);
+
+    return { direct: directLimited, explore: exploreLimited, support: supportLimited, all: [...directLimited, ...exploreLimited, ...supportLimited] };
   }
 
   
 function getRecommendedBooks(ctx){
     if (!loaded || !Array.isArray(books) || books.length === 0) return [];
-    const bucket = detectCareerBucket(ctx?.career || "");
+    const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
     const strictBucket = isStrictCareerBucket(bucket);
 
     const scored = books.map(book => {
@@ -1147,18 +1178,18 @@ function getRecommendedBooks(ctx){
     const hasStrongReason = strongReasons.some(reason => reasonSet.has(reason));
     const hasRoute = Array.isArray(item.routes) && item.routes.length > 0;
     const themes = getBookThemeArray(item.book);
-    const hasKeywordTheme = themes.some(v => fuzzyIncludes(v, ctx?.keyword)) || (item.book?.fit_keywords || []).some(v => fuzzyIncludes(v, ctx?.keyword));
-    const careerTokens = tokenizeCareer(ctx?.career || "");
+    const hasKeywordTheme = themes.some(v => fuzzyIncludes(v, ctx?.selectedKeyword || ctx?.keyword)) || (item.book?.fit_keywords || []).some(v => fuzzyIncludes(v, ctx?.selectedKeyword || ctx?.keyword));
+    const careerTokens = tokenizeCareer(ctx?.selectedMajor || ctx?.career || "");
     const hasCareerMajor = (item.book?.linked_majors || []).some(v => careerTokens.some(token => fuzzyIncludes(v, token)));
     return hasRoute || hasStrongReason || (hasKeywordTheme && hasCareerMajor);
   }
 
   function getScoreCutoff(sorted, ctx){
     if (!Array.isArray(sorted) || !sorted.length) return Infinity;
-    const bucket = detectCareerBucket(ctx?.career || "");
+    const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
     const strict = isStrictCareerBucket(bucket);
-    const hasConceptKeyword = !!(ctx?.concept && ctx?.keyword);
-    const hasTrack = !!(ctx?.linkTrack);
+    const hasConceptKeyword = !!((ctx?.selectedConcept || ctx?.concept) && (ctx?.selectedKeyword || ctx?.keyword));
+    const hasTrack = !!(ctx?.followupAxisId || ctx?.selectedFollowupAxis || ctx?.linkTrack);
     const topScore = sorted[0]?.score ?? -999;
 
     let baseCutoff;
@@ -1226,20 +1257,20 @@ function getBookCareerBucket(book){
 }
 
 function hasCareerBucketAffinity(book, ctx){
-  const targetBucket = detectCareerBucket(ctx?.career || "");
+  const targetBucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
   if (!targetBucket || targetBucket === "default") return false;
   return getBookCareerBucket(book) === targetBucket;
 }
 
 function hasLookupCareerHit(book, ctx){
-  const hits = getCareerLookupCandidates(ctx?.career || "");
+  const hits = getCareerLookupCandidates(ctx?.selectedMajor || ctx?.career || "");
   return hits.some(item => item.book_id === book?.book_id);
 }
 
 function shouldPromoteToDirect(item, ctx){
   if (!item?.book) return false;
   const signals = getMatchSignals(item.book, ctx);
-  const bucket = detectCareerBucket(ctx?.career || "");
+  const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
   const sameBucket = signals.bucketAffinity || hasCareerBucketAffinity(item.book, ctx);
   const lookupHit = signals.lookupCareerHit || hasLookupCareerHit(item.book, ctx);
   if (sameBucket && (signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit) && item.score >= (bucket === "bio" ? 14 : 16)) return true;
@@ -1274,11 +1305,11 @@ function getCareerBucketRegex(bucket){
 }
 
 function getSupplementalRecommendationPool(ctx, usedIds){
-  const bucket = detectCareerBucket(ctx?.career || "");
+  const bucket = detectCareerBucket(ctx?.selectedMajor || ctx?.career || "");
   const bucketRegex = getCareerBucketRegex(bucket);
-  const subject = String(ctx?.subject || "");
-  const concept = String(ctx?.concept || "");
-  const keyword = String(ctx?.keyword || "");
+  const subject = String(ctx?.selectedSubject || ctx?.subject || "");
+  const concept = String(ctx?.selectedConcept || ctx?.concept || "");
+  const keyword = String(ctx?.selectedKeyword || ctx?.keyword || "");
   const used = new Set(Array.isArray(usedIds) ? usedIds : []);
   const pool = [];
 
@@ -1336,7 +1367,7 @@ function buildBookCoreKeywords(book, ctx){
     ...(book?.fit_keywords || []),
     ...(book?.book_keywords || []),
     ...(book?.broad_theme || []),
-    String(ctx?.keyword || '').trim()
+    String(ctx?.selectedKeyword || ctx?.keyword || '').trim()
   ]).filter(Boolean).slice(0, 10);
 }
 
@@ -1442,7 +1473,7 @@ function buildConnectableConcepts(book, ctx){
     .map(route => String(route?.concept || '').trim())
     .filter(isDisplayConceptTag));
 
-  const ctxConcept = String(ctx?.concept || '').trim();
+  const ctxConcept = String(ctx?.selectedConcept || ctx?.concept || '').trim();
   const concepts = uniq([
     ...routeConcepts,
     ctxConcept
@@ -1464,8 +1495,8 @@ function buildConnectableConcepts(book, ctx){
     const recommendations = sections.all || [];
     const selected = recommendations.find(item => item.book.book_id === ctx?.selectedBook)?.book || recommendations[0]?.book || null;
     const matchedRules = getMatchedRules(ctx);
-    const keywordProfile = getKeywordProfile(ctx?.keyword);
-    const careerProfile = getCareerProfile(ctx?.career);
+    const keywordProfile = getKeywordProfile(ctx?.selectedKeyword || ctx?.keyword);
+    const careerProfile = getCareerProfile(ctx?.selectedMajor || ctx?.career);
 
     const modeIds = uniq([
       ...matchedRules.flatMap(rule => rule.recommended_modes || []),
@@ -1506,12 +1537,97 @@ function buildConnectableConcepts(book, ctx){
     return { selectedBook: selected, modeOptions, viewOptions, reportLines, recommendedLine };
   }
 
+
+  function getRecommendationTypeLabel(sectionType){
+    if (sectionType === "support") return "보고서 관점 보강 도서";
+    if (sectionType === "explore") return "확장 참고 도서";
+    return "직접 일치 도서";
+  }
+
+  function getReportSupportRole(book, ctx, sectionType){
+    const modeLabels = coerceArray(book?.report_modes || book?.fit_modes)
+      .map(mode => (DEFAULT_MODE_OPTIONS.find(item => item.id === mode) || {}).label || mode)
+      .filter(Boolean);
+    const perspectives = coerceArray(book?.perspectives).filter(Boolean);
+    const evidenceTypes = coerceArray(book?.evidence_types).filter(Boolean);
+    if (sectionType === "direct") {
+      return "선택 개념·키워드와 직접 연결되는 보고서의 이론적 근거 도서";
+    }
+    if (sectionType === "explore") {
+      return "4번 후속 연계축을 넓혀 사례·자료를 보강하는 확장 참고 도서";
+    }
+    if (modeLabels.length || perspectives.length || evidenceTypes.length) {
+      const parts = [];
+      if (modeLabels.length) parts.push(`${modeLabels.slice(0,2).join("·")} 전개`);
+      if (perspectives.length) parts.push(`${perspectives.slice(0,2).join("·")} 관점`);
+      if (evidenceTypes.length) parts.push(`${evidenceTypes.slice(0,2).join("·")} 근거`);
+      return `${parts.join(" / ")}을 보강하는 도서`;
+    }
+    return "보고서 방식과 관점 선택을 보강하는 참고 도서";
+  }
+
+  function buildMatchReason(item, ctx, sectionType){
+    const reasons = coerceArray(item?.reasons).filter(Boolean);
+    const direct = [];
+    if (ctx?.selectedConcept || ctx?.concept) direct.push(`개념 '${ctx.selectedConcept || ctx.concept}'`);
+    if (ctx?.selectedKeyword || ctx?.keyword) direct.push(`키워드 '${ctx.selectedKeyword || ctx.keyword}'`);
+    if (ctx?.selectedFollowupAxis || ctx?.followupAxisTitle) direct.push(`후속축 '${ctx.selectedFollowupAxis || ctx.followupAxisTitle}'`);
+    if (sectionType === "direct") {
+      return `${direct.join(" · ")}와 직접 연결되어 추천되었습니다.${reasons.length ? ` (${reasons.slice(0,3).join(" · ")})` : ""}`;
+    }
+    if (sectionType === "explore") {
+      return `${ctx?.selectedFollowupAxis || ctx?.followupAxisTitle || "선택 후속축"}을 확장하는 참고 자료로 추천되었습니다.${reasons.length ? ` (${reasons.slice(0,3).join(" · ")})` : ""}`;
+    }
+    return `선택 도서를 보고서 방식·관점으로 전개할 때 보강 자료로 활용할 수 있어 추천되었습니다.${reasons.length ? ` (${reasons.slice(0,3).join(" · ")})` : ""}`;
+  }
+
+  function buildBookRecommendationDetail(item, ctx, sectionType){
+    const book = item?.book || null;
+    if (!book) return null;
+    return {
+      book_id: book.book_id || "",
+      title: book.title || "",
+      author: book.author || "",
+      recommendation_type: getRecommendationTypeLabel(sectionType),
+      match_reason: buildMatchReason(item, ctx, sectionType),
+      report_support_role: getReportSupportRole(book, ctx, sectionType),
+      matched_subject: ctx?.selectedSubject || ctx?.subject || "",
+      matched_major: ctx?.selectedMajor || ctx?.career || "",
+      matched_concept: ctx?.selectedConcept || ctx?.concept || "",
+      matched_keyword: ctx?.selectedKeyword || ctx?.keyword || "",
+      matched_followup_axis: ctx?.selectedFollowupAxis || ctx?.followupAxisTitle || "",
+      matched_axis_label: ctx?.axisLabel || "",
+      linked_subjects: coerceArray(ctx?.linkedSubjects),
+      activity_example: ctx?.activityExample || "",
+      longitudinal_path: ctx?.longitudinalPath || "",
+      evidence_types: coerceArray(book?.evidence_types),
+      report_modes: coerceArray(book?.report_modes || book?.fit_modes),
+      perspectives: coerceArray(book?.perspectives),
+      reasons: coerceArray(item?.reasons)
+    };
+  }
+
+  function isReportSupportItem(item, ctx){
+    if (!item?.book) return false;
+    const book = item.book;
+    const hasReportMeta = coerceArray(book?.report_modes || book?.fit_modes).length > 0 ||
+      coerceArray(book?.perspectives).length > 0 ||
+      coerceArray(book?.report_lines).length > 0 ||
+      coerceArray(book?.evidence_types).length > 0 ||
+      coerceArray(book?.question_seeds).length > 0;
+    if (!hasReportMeta) return false;
+    const signals = getMatchSignals(book, ctx);
+    const axisHit = item.axisAffinity?.anyHit || false;
+    return axisHit || signals.subjectHit || signals.themeConceptHit || signals.themeKeywordHit || signals.careerMajorHit || signals.bucketAffinity || item.score >= 12;
+  }
+
   function renderBookCard(item, active, index, sectionType){
     const book = item.book;
     const labels = (item.reasons || []).slice(0, 2);
     if (sectionType === "direct") labels.push("직접 일치");
     if (sectionType === "explore") labels.push("확장 참고");
-    const reasonText = labels.length ? labels.join(" · ") : (sectionType === "explore" ? "확장 참고" : "과목 기준 추천");
+    if (sectionType === "support") labels.push("관점 보강");
+    const reasonText = labels.length ? labels.join(" · ") : getRecommendationTypeLabel(sectionType);
     const subjectTag = getDisplaySubjects(book)[0] || "교과 연결";
     const previewText = buildBookPreviewText(book);
     return `
@@ -1533,7 +1649,7 @@ function renderBookSummary(selectedBook, ctx, sectionType){
   }
   const subjectTags = getDisplaySubjects(selectedBook).map(v => `<span class="engine-tag">${esc(v)}</span>`).join("");
   const majorTags = getDisplayMajors(selectedBook).map(v => `<span class="engine-tag subtle">${esc(v)}</span>`).join("");
-  const badgeText = sectionType === "explore" ? "확장 참고 도서" : "직접 일치 도서";
+  const badgeText = getRecommendationTypeLabel(sectionType);
   const summaryText = buildBookSummaryText(selectedBook);
   const formatText = buildBookFormatText(selectedBook);
   const contentPoints = buildBookContentPoints(selectedBook);
@@ -1560,6 +1676,11 @@ function renderBookSummary(selectedBook, ctx, sectionType){
           <div class="engine-summary-meta">${esc(selectedBook.author || "")}</div>
         </div>
         <div class="engine-summary-badge">${esc(badgeText)}</div>
+      </div>
+      <div class="engine-summary-section">
+        <div class="engine-summary-section-title">MINI 전달 추천 근거</div>
+        <p class="engine-summary-note">${esc(buildMatchReason({ book: selectedBook, reasons: [] }, ctx, sectionType))}</p>
+        <p class="engine-summary-note">${esc(getReportSupportRole(selectedBook, ctx, sectionType))}</p>
       </div>
       <div class="engine-summary-section">
         <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
@@ -1606,11 +1727,14 @@ function renderBookSummary(selectedBook, ctx, sectionType){
 }
 
   window.renderBookSelectionHTML = function(ctx){
-    if (!ctx?.subject || !ctx?.career) {
+    if (!(ctx?.selectedSubject || ctx?.subject) || !(ctx?.selectedMajor || ctx?.career)) {
       return `<div class="engine-empty">먼저 과목과 진로를 입력하세요.</div>`;
     }
-    if (!ctx?.keyword) {
+    if (!(ctx?.selectedKeyword || ctx?.keyword)) {
       return `<div class="engine-empty">먼저 개념과 키워드를 선택해야 도서 추천이 열립니다.</div>`;
+    }
+    if (!ctx?.followupAxisId && !ctx?.selectedFollowupAxis) {
+      return `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 도서 추천이 열립니다.</div>`;
     }
     if (!loaded) {
       return `<div class="engine-empty">도서 추천 데이터를 불러오는 중입니다.</div>`;
@@ -1619,15 +1743,19 @@ function renderBookSummary(selectedBook, ctx, sectionType){
     const sections = getBookRecommendationSections(ctx);
     const direct = sections.direct || [];
     const explore = sections.explore || [];
+    const support = sections.support || [];
     const all = sections.all || [];
 
     if (!all.length) {
       return `<div class="engine-empty">현재 선택한 진로·개념·키워드와 직접 연결되는 도서 데이터가 아직 충분하지 않습니다. 관련 도서가 있을 때만 보여줍니다.</div>`;
     }
 
-    const selectedItem = all.find(item => item.book.book_id === ctx.selectedBook) || direct[0] || explore[0] || null;
+    const selectedItem = all.find(item => item.book.book_id === ctx.selectedBook) || direct[0] || explore[0] || support[0] || null;
     const selectedBook = selectedItem?.book || null;
-    const selectedSection = selectedItem ? (direct.some(item => item.book.book_id === selectedItem.book.book_id) ? "direct" : "explore") : "direct";
+    const selectedSection = selectedItem
+      ? (direct.some(item => item.book.book_id === selectedItem.book.book_id) ? "direct"
+        : (explore.some(item => item.book.book_id === selectedItem.book.book_id) ? "explore" : "support"))
+      : "direct";
 
     const directHTML = direct.length
       ? direct.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index, "direct")).join("")
@@ -1637,8 +1765,18 @@ function renderBookSummary(selectedBook, ctx, sectionType){
       ? `
         <div style="margin-top:18px;">
           <div class="engine-subtitle">확장 참고 도서</div>
-          <div class="engine-help">직접 일치 도서가 부족할 때, 보고서 확장에 참고할 수 있는 범용 과학 도서만 보여줍니다.</div>
+          <div class="engine-help">4번 후속 연계축과 연결되어 보고서 확장에 참고할 수 있는 도서입니다.</div>
           ${explore.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index, "explore")).join("")}
+        </div>
+      `
+      : "";
+
+    const supportHTML = support.length
+      ? `
+        <div style="margin-top:18px;">
+          <div class="engine-subtitle">보고서 관점 보강 도서</div>
+          <div class="engine-help">6번 보고서 전개 방식과 7번 관점 선택에 근거를 보강하는 도서입니다.</div>
+          ${support.map((item, index) => renderBookCard(item, selectedBook && item.book.book_id === selectedBook.book_id, index, "support")).join("")}
         </div>
       `
       : "";
@@ -1647,9 +1785,10 @@ function renderBookSummary(selectedBook, ctx, sectionType){
       <div class="engine-book-layout">
         <div class="engine-book-list">
           <div class="engine-subtitle">직접 일치 도서</div>
-          <div class="engine-help">진로 + 개념 + 키워드와 직접 연결되는 도서만 먼저 보여줍니다.</div>
+          <div class="engine-help">3번 선택 개념·키워드와 4번 후속 연계축을 함께 반영해 직접 연결되는 도서를 먼저 보여줍니다.</div>
           ${directHTML}
           ${exploreHTML}
+          ${supportHTML}
         </div>
         <div class="engine-book-summary">
           <div class="engine-subtitle">선택 도서 요약</div>
@@ -1657,6 +1796,20 @@ function renderBookSummary(selectedBook, ctx, sectionType){
         </div>
       </div>
     `;
+  };
+
+  window.getBookRecommendationDetail = function(bookId, ctx){
+    if (!bookId) return null;
+    const sections = getBookRecommendationSections(ctx || {});
+    const allWithTypes = [
+      ...(sections.direct || []).map(item => ({ item, type: "direct" })),
+      ...(sections.explore || []).map(item => ({ item, type: "explore" })),
+      ...(sections.support || []).map(item => ({ item, type: "support" }))
+    ];
+    const found = allWithTypes.find(entry => entry.item?.book?.book_id === bookId);
+    if (found) return buildBookRecommendationDetail(found.item, ctx || {}, found.type);
+    const book = books.find(item => item.book_id === bookId) || null;
+    return book ? buildBookRecommendationDetail({ book, reasons: [] }, ctx || {}, "direct") : null;
   };
 
   window.getReportOptionMeta = function(ctx){
