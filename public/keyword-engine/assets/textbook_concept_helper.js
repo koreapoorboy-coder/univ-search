@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.21-electromagnetism-quantum-followup-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.22-electromagnetism-quantum-hard-followup-priority';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3413,6 +3413,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.21-electromagnetism-quantum-foll
         score += getMajorAxisBoost(axis);
         score += Number(axis.__relationScore || 0);
         score += getMappedKeywordAxisBoost(mappedEntry, axis);
+        score += getElectromagnetismQuantumHardAxisBoost(axis);
         return { ...axis, __score: score };
       });
 
@@ -3835,6 +3836,68 @@ function getTrackMeta(trackId) {
     }
 
     return defaultSequence;
+  }
+
+
+  function getElectromagnetismQuantumHardAxisBoost(axis) {
+    if (!isElectromagnetismQuantumSubject()) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    const kind = getElectromagnetismQuantumMajorKind();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+
+    let boost = 0;
+
+    // 전자공학/전기전자: 전자기 유도 키워드는 일반 신호 해석보다 전력·통신/회로 응용을 우선한다.
+    if (/전자기 유도와 전자기파/.test(concept)) {
+      if ((kind === "electronics" || kind === "electrical") && hit("전자기 유도", "유도 전류", "유도 기전력", "렌츠 법칙", "패러데이 법칙", "변압기", "발전기", "전자기파", "안테나", "통신", "주파수")) {
+        if (/power_communication_application_axis|전력·통신 응용 축|전력|통신/.test(axisText)) boost = Math.max(boost, 360);
+        if (/electromagnetic_signal_axis|전자기 신호 해석 축/.test(axisText)) boost = Math.max(boost, 120);
+      }
+      if (kind === "computing" && hit("신호 데이터", "데이터 전송", "무선 통신", "주파수", "신호", "스펙트럼")) {
+        if (/signal_data_visual_axis|신호 데이터·시각화 축|신호 데이터/.test(axisText)) boost = Math.max(boost, 360);
+      }
+      if (kind === "energy" && hit("발전기", "변압기", "전력", "전력 송전", "효율", "전자기 유도")) {
+        if (/energy_power_axis|에너지 전환·송전 축|에너지|송전|power_communication_application_axis|전력·통신 응용 축/.test(axisText)) boost = Math.max(boost, 360);
+      }
+    }
+
+    // 반도체: 광전 효과/에너지 준위도 '양자 일반'보다 반도체·소자 설계가 먼저다.
+    if (/양자와 물질의 상호작용/.test(concept)) {
+      if (kind === "semiconductor" && hit("광전 효과", "에너지 준위", "반도체", "밴드갭", "LED", "전자 전이", "태양전지", "터널 효과", "양자 터널링", "소자")) {
+        if (/semiconductor_material_design_axis|반도체·소재 설계 축|반도체.*소재|소재 설계/.test(axisText)) boost = Math.max(boost, 380);
+        if (/quantum_device_analysis_axis|양자·소자 해석 축/.test(axisText)) boost = Math.max(boost, 120);
+      }
+
+      // 신소재: 광전 효과는 양자 원리보다 광·소재 응용을 더 먼저 보여준다.
+      if (kind === "materials" && hit("광전 효과", "레이저", "광센서", "광자", "에너지 준위", "원자 스펙트럼", "반도체", "밴드갭", "LED")) {
+        if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) boost = Math.max(boost, 380);
+        if (/quantum_device_analysis_axis|양자·소자 해석 축/.test(axisText)) boost = Math.max(boost, 120);
+        if (/semiconductor_material_design_axis|반도체·소재 설계 축/.test(axisText)) boost = Math.max(boost, 110);
+      }
+
+      if (kind === "computing" && hit("양자 컴퓨터", "큐비트", "중첩", "양자 암호", "양자 정보", "보안")) {
+        if (/quantum_information_computing_axis|양자 정보·컴퓨팅 축|양자 정보|컴퓨팅/.test(axisText)) boost = Math.max(boost, 380);
+      }
+    }
+
+    // 의공학: 센서/MRI/생체 신호는 일반 센서·장치보다 의료 센서·영상 응용이 1순위다.
+    if (/전기장과 자기장/.test(concept) || /전자기 유도와 전자기파/.test(concept) || /양자와 물질의 상호작용/.test(concept)) {
+      if (kind === "biomedical" && hit("센서", "MRI", "의료 영상", "생체 신호", "전극", "자기장", "전위차", "검출", "영상 데이터", "광센서")) {
+        if (/medical_field_sensor_axis|의료 센서·영상 응용 축|의료.*센서|의료.*영상/.test(axisText)) boost = Math.max(boost, 380);
+        if (/sensor_device_application_axis|센서·장치 응용 축|센서·장치/.test(axisText)) boost = Math.max(boost, 120);
+      }
+    }
+
+    return boost;
   }
 
   function getMappedKeywordAxisBoost(entry, axis) {
