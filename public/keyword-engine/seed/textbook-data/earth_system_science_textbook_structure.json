@@ -7,9 +7,16 @@
     "source_files": [
       "22개정 동아 지구시스템과학.pdf"
     ],
-    "version": "v3_keyword_tagging",
+    "version": "v4_earth_system_keyword_logic",
     "partial_extract": true,
-    "note": "지구시스템과학 발췌본 기반 엔진용 추천 키워드 태그화본"
+    "note": "지구시스템과학 발췌본 기반 엔진용 추천 키워드 태그화본",
+    "engine_policy": {
+      "keyword_refinement_rule": [
+        "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
+        "대기·해양 순환과 기후는 대기/해양/환경/데이터/안전 학과에 따라 키워드 배열을 다르게 둔다",
+        "학과명은 major_catalog_198 등록 학과명 기준으로만 검수한다"
+      ]
+    }
   },
   "unit_keyword_map": [
     {
