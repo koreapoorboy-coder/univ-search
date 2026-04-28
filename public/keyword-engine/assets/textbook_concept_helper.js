@@ -138,7 +138,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
     "물질과 에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
     "물질과에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
     "세포와 물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json",
-    "세포와물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json"
+    "세포와물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json",
+    "지구시스템과학": addAssetVersion("seed/followup-axis/earth_system_science_concept_longitudinal_map.json"),
+    "지구시스템 과학": addAssetVersion("seed/followup-axis/earth_system_science_concept_longitudinal_map.json")
   }
 
   const state = {
@@ -3416,6 +3418,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
         score += getCellMetabolismHardAxisBoost(axis);
         score += getElectromagnetismQuantumHardAxisBoost(axis);
         score += getMatterEnergyHardAxisBoost(axis);
+        score += getEarthSystemScienceHardAxisBoost(axis);
         return { ...axis, __score: score };
       });
 
@@ -5794,6 +5797,165 @@ function getTrackMeta(trackId) {
   }
 
 
+
+  function isEarthSystemScienceSubject() {
+    const text = String(state.subject || "").replace(/\s+/g, "").trim();
+    return text === "지구시스템과학" || /지구시스템과학/.test(text);
+  }
+
+  function getEarthSystemMajorTextBundle() {
+    // 지구시스템과학은 화면 전체를 읽으면 '대기/해양/판/지구' 같은 교과어가 섞여
+    // 학과 분기가 약해진다. 실제 선택 학과명과 입력창/상단 상태값만 우선 사용한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try { push(getMajorTextBag() || ""); } catch (error) {}
+    return uniq(parts).join(" ").trim();
+  }
+
+  function getEarthSystemMajorKind() {
+    const majorText = getEarthSystemMajorTextBundle();
+    // 실제 major_catalog_198에 존재하는 학과명 기준 우선 판별
+    if (/(천문우주학과)/.test(majorText)) return "astronomy";
+    if (/(대기과학과)/.test(majorText)) return "atmosphere";
+    if (/(해양학과|해양공학과|조선해양공학과)/.test(majorText)) return "ocean";
+    if (/(안전공학과)/.test(majorText)) return "safety";
+    if (/(토목공학과|토목환경공학과|건설환경공학과|건축공학과)/.test(majorText)) return "civil";
+    if (/(컴퓨터공학과|데이터사이언스학과|소프트웨어학과|인공지능학과|정보보호학과|통계학과)/.test(majorText)) return "data";
+    if (/(지구환경과학과|지리학과)/.test(majorText)) return "geoscience";
+    if (/(환경공학과|도시공학과)/.test(majorText)) return "environment";
+    if (/(에너지공학과)/.test(majorText)) return "energy";
+    if (/(생명과학과|생명공학과)/.test(majorText)) return "biology";
+    return "";
+  }
+
+  function getEarthSystemSciencePreferredConceptSequence() {
+    const kind = getEarthSystemMajorKind();
+    const defaultSequence = ["대기·해양 순환과 기후", "지구 탄생과 시스템 진화", "판 구조와 지구 내부"];
+    if (kind === "geoscience") return ["판 구조와 지구 내부", "지구 탄생과 시스템 진화", "대기·해양 순환과 기후"];
+    if (kind === "environment") return ["대기·해양 순환과 기후", "지구 탄생과 시스템 진화", "판 구조와 지구 내부"];
+    if (kind === "atmosphere") return ["대기·해양 순환과 기후", "지구 탄생과 시스템 진화", "판 구조와 지구 내부"];
+    if (kind === "ocean") return ["대기·해양 순환과 기후", "지구 탄생과 시스템 진화", "판 구조와 지구 내부"];
+    if (kind === "safety") return ["판 구조와 지구 내부", "대기·해양 순환과 기후", "지구 탄생과 시스템 진화"];
+    if (kind === "civil") return ["판 구조와 지구 내부", "대기·해양 순환과 기후", "지구 탄생과 시스템 진화"];
+    if (kind === "data") return ["대기·해양 순환과 기후", "판 구조와 지구 내부", "지구 탄생과 시스템 진화"];
+    if (kind === "astronomy") return ["지구 탄생과 시스템 진화", "판 구조와 지구 내부", "대기·해양 순환과 기후"];
+    if (kind === "energy") return ["판 구조와 지구 내부", "지구 탄생과 시스템 진화", "대기·해양 순환과 기후"];
+    if (kind === "biology") return ["지구 탄생과 시스템 진화", "대기·해양 순환과 기후", "판 구조와 지구 내부"];
+    return defaultSequence;
+  }
+
+  function getEarthSystemSciencePreferredKeywordSequence() {
+    const concept = String(state.concept || "");
+    const kind = getEarthSystemMajorKind();
+    const isEnv = kind === "environment";
+    const isAtmos = kind === "atmosphere";
+    const isOcean = kind === "ocean";
+    const isSafety = kind === "safety";
+    const isCivil = kind === "civil";
+    const isData = kind === "data";
+    const isAstro = kind === "astronomy";
+    const isGeo = kind === "geoscience";
+    const isEnergy = kind === "energy";
+    const isBio = kind === "biology";
+
+    if (/대기·해양 순환과 기후/.test(concept)) {
+      if (isAtmos) return ["단열 변화", "대기 안정도", "기압 경도력", "전향력", "편서풍 파동", "바람의 종류", "기압", "강수 과정", "기상 자료", "대기 자료", "밀도류", "해일", "조석"];
+      if (isOcean) return ["밀도류", "해파", "해일", "조석", "해양 순환", "수온", "염분", "해양 재난", "연안 변화", "기후", "편서풍 파동", "단열 변화"];
+      if (isEnv) return ["기후 데이터", "기후 변화", "대기 안정도", "강수량", "해양 순환", "해일", "밀도류", "온실가스", "대기 조성", "기온 변화", "재난 대응", "시계열"];
+      if (isSafety) return ["해일", "강수량", "기후 재난", "대기 안정도", "편서풍 파동", "재난 대응", "예보", "위험도", "해양 재난", "단열 변화"];
+      if (isData) return ["기후 데이터", "시계열", "그래프", "예측 모델", "강수량", "기온 변화", "해양 데이터", "기상 자료", "대기 안정도", "밀도류", "자료 분석", "시각화"];
+      return ["단열 변화", "대기 안정도", "기압 경도력", "전향력", "편서풍 파동", "밀도류", "해파", "해일", "조석", "기후 데이터", "강수량", "해양 순환"];
+    }
+
+    if (/판 구조와 지구 내부/.test(concept)) {
+      if (isSafety) return ["지진", "지진파", "P파", "S파", "화산", "재난 대응", "위험도", "내진", "판 경계", "수렴 경계", "지반", "관측 자료"];
+      if (isCivil) return ["지반", "내진", "지진파", "판 경계", "지질 구조", "수렴 경계", "보존 경계", "암석권", "구조 안전", "P파", "S파", "관측 자료"];
+      if (isData) return ["지진파 데이터", "P파", "S파", "도달 시간", "그래프", "모델링", "관측 자료", "진앙 거리", "시각화", "판 경계", "지진"];
+      if (isGeo || isEnergy) return ["판 구조론", "지진파", "P파", "S파", "외핵", "내핵", "맨틀 대류", "플룸", "해양저 확장", "수렴 경계", "발산 경계", "고지자기"];
+      return ["판 구조론", "플룸", "지진파", "P파", "S파", "외핵", "내핵", "맨틀 대류", "해양저 확장", "판 경계"];
+    }
+
+    if (/지구 탄생과 시스템 진화/.test(concept)) {
+      if (isAstro) return ["태양계 성운", "성운설", "원시 태양", "미행성체", "원시 행성", "원시 지구", "분화", "행성 형성", "원시 대기", "원시 해양", "시간축", "모형"];
+      if (isEnv || isBio) return ["탄소 순환", "산소 순환", "지구시스템", "대기 조성 변화", "원시 대기", "원시 해양", "생물권", "광합성 생물", "환경 변화", "남세균", "순환도"];
+      if (isData) return ["시간축", "연표", "그래프", "시각화", "지구시스템", "탄소 순환", "산소 순환", "데이터", "환경 변화", "모델링"];
+      return ["태양계 성운", "원시 지구", "성운설", "미행성체", "분화", "원시 대기", "원시 해양", "탄소 순환", "산소 순환", "지구시스템"];
+    }
+
+    return [];
+  }
+
+  function getEarthSystemScienceHardAxisBoost(axis) {
+    if (!isEarthSystemScienceSubject()) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    const kind = getEarthSystemMajorKind();
+    const hit = (...values) => values.some(value => keyword.includes(value) || axisText.includes(value));
+
+    if (/대기·해양 순환과 기후/.test(concept)) {
+      if ((kind === "data") && hit("기후 데이터", "시계열", "그래프", "예측 모델", "시각화", "자료 분석")) {
+        return /기후 데이터|예측|시각화|data|climate_data/i.test(axisText) ? 160 : 0;
+      }
+      if ((kind === "environment") && hit("기후 데이터", "기후 변화", "온실가스", "강수량", "재난 대응")) {
+        return /기후|재난|환경|climate|disaster/i.test(axisText) ? 150 : 0;
+      }
+      if ((kind === "atmosphere") && hit("단열 변화", "대기 안정도", "기압 경도력", "전향력", "편서풍 파동", "바람")) {
+        return /대기|해양 자료|자료 해석|atmosphere|ocean/i.test(axisText) ? 150 : 0;
+      }
+      if ((kind === "ocean") && hit("밀도류", "해파", "해일", "조석", "해양")) {
+        return /대기|해양 자료|해양|ocean|해석/i.test(axisText) ? 150 : 0;
+      }
+      if ((kind === "safety") && hit("해일", "기후 재난", "재난", "위험도", "예보")) {
+        return /재난|disaster|응용/i.test(axisText) ? 170 : 0;
+      }
+    }
+
+    if (/판 구조와 지구 내부/.test(concept)) {
+      if ((kind === "safety" || kind === "civil") && hit("지진", "지진파", "P파", "S파", "내진", "지반", "화산")) {
+        return /재난|지구물리|disaster|응용|지질|내부/i.test(axisText) ? 170 : 0;
+      }
+      if (kind === "data" && hit("지진파 데이터", "도달 시간", "그래프", "모델링", "관측 자료")) {
+        return /데이터|모델링|data|지진파/i.test(axisText) ? 170 : 0;
+      }
+      if ((kind === "geoscience" || kind === "energy") && hit("판 구조론", "플룸", "외핵", "내핵", "맨틀")) {
+        return /지질|지구 내부|geology|structure/i.test(axisText) ? 150 : 0;
+      }
+    }
+
+    if (/지구 탄생과 시스템 진화/.test(concept)) {
+      if (kind === "astronomy" && hit("태양계 성운", "성운설", "원시 태양", "미행성체", "행성")) {
+        return /행성|환경 진화|planet|evolution/i.test(axisText) ? 170 : 0;
+      }
+      if ((kind === "environment" || kind === "biology") && hit("탄소 순환", "산소 순환", "지구시스템", "대기 조성", "생물권")) {
+        return /탄소|기후|생명|biosystem|climate/i.test(axisText) ? 160 : 0;
+      }
+      if (kind === "data" && hit("시간축", "연표", "그래프", "시각화", "데이터")) {
+        return /데이터|시각화|data|history/i.test(axisText) ? 160 : 0;
+      }
+    }
+
+    return 0;
+  }
+
+
   function isMatterEnergySubjectName(value) {
     const text = String(value || "").replace(/\s+/g, "").trim();
     return text === "물질과에너지" || text === "MatterandEnergy";
@@ -6401,6 +6563,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (isEarthSystemScienceSubject()) {
+      return getEarthSystemSciencePreferredConceptSequence();
+    }
     if (isCellMetabolismSubject()) {
       return getCellMetabolismPreferredConceptSequence();
     }
@@ -6868,6 +7033,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (isEarthSystemScienceSubject()) {
+      const earthSystemPreferred = getEarthSystemSciencePreferredKeywordSequence();
+      if (earthSystemPreferred.length) return earthSystemPreferred;
+    }
     if (isCellMetabolismSubject()) {
       const cellPreferred = getCellMetabolismPreferredKeywordSequence();
       if (cellPreferred.length) return cellPreferred;
