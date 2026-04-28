@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.53-earth-locked-major-buffer-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_52_earth_keyword_logic_fix";
+  const ASSET_VERSION_QUERY = "v33_53_major_search_buffer_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2676,7 +2676,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     const panelName = getMajorPanelResolvedName();
     const fallback = detail || globalDetail || snapshotDetail || (panelName ? { display_name: panelName, core_keywords: [], comparison: null } : null);
     const rawCareer = getCareerInputText();
-    const resolvedName = (fallback?.display_name || panelName || '').trim();
+    let resolvedName = (fallback?.display_name || panelName || '').trim();
+
+    // 학과 검색창에서 기존 학과(예: 컴퓨터공학과)를 지우지 않고 바로 다른 학과(예: 대기과학과)를 입력할 때,
+    // major helper의 이전 선택값과 현재 입력값이 잠시 다를 수 있다. 이때 예전 선택값으로 3~4번을 반복 렌더하면
+    // 검색 후보 패널이 버퍼링처럼 보이므로, 현재 입력값을 우선 기준으로 두고 이전 선택 프리셋을 잠시 비운다.
+    const rawNorm = normalize(rawCareer || '');
+    const resolvedNorm = normalize(resolvedName || '');
+    if (rawCareer && resolvedName && rawNorm && resolvedNorm && rawNorm !== resolvedNorm) {
+      state.majorSelectedName = rawCareer;
+      state.majorCoreKeywords = [];
+      state.majorComparison = null;
+      state.career = rawCareer;
+      return;
+    }
 
     if (resolvedName) state.majorSelectedName = resolvedName;
     state.majorCoreKeywords = Array.isArray(fallback?.core_keywords) ? fallback.core_keywords.slice(0, 8) : (state.majorCoreKeywords || []);
