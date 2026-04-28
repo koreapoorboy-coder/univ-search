@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.24-matter-energy-followup-priori
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_25_cell_metabolism_axis_v1";
+  const ASSET_VERSION_QUERY = "v34_26_cell_metabolism_keyword_split_v3";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5917,15 +5917,34 @@ function getTrackMeta(trackId) {
     let boost = 0;
 
     if (/세포의 구조와 물질 이동/.test(concept)) {
-      if (hit("세포막", "막단백질", "선택적 투과", "인지질 이중층", "확산", "삼투", "능동 수송", "Na-K 펌프")) {
-        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축|세포 구조|물질 이동/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "data") ? 420 : 300);
-        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 410 : 170);
+      // v34.26 cell-metabolism keyword split:
+      // 생명공학과에서는 같은 '세포의 구조와 물질 이동' 개념 안에서도
+      // 세포막/수송/수용체/소기관/데이터 키워드가 서로 다른 4번 축을 열어야 한다.
+      if (hit("세포막", "인지질 이중층", "선택적 투과", "막 구조", "세포막 구조")) {
+        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축|세포 시스템|물질 이동/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "medical" || kind === "pharmacy") ? 460 : 330);
+        if (/membrane_transport_gradient_axis|막수송·농도 기울기 해석 축|농도 기울기|막수송/.test(axisText)) boost = Math.max(boost, 135);
       }
-      if (hit("약물 전달", "흡수", "수용체", "체액", "수분 균형", "투석")) {
-        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 430 : 190);
+      if (hit("확산", "삼투", "능동 수송", "Na-K 펌프", "나트륨-칼륨 펌프", "농도 기울기", "막 수송", "수송")) {
+        if (/membrane_transport_gradient_axis|막수송·농도 기울기 해석 축|농도 기울기|막수송/.test(axisText)) boost = Math.max(boost, 470);
+        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축|세포 시스템|물질 이동/.test(axisText)) boost = Math.max(boost, 210);
+        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 390 : 150);
       }
-      if (hit("세포 이미지", "세포 데이터", "분류", "모델링", "그래프", "시뮬레이션", "이미지 분석")) {
-        if (/membrane_data_experiment_axis|세포 데이터·투과성 실험 축|데이터|실험/.test(axisText)) boost = Math.max(boost, kind === "data" ? 420 : 180);
+      if (hit("막단백질", "수용체", "채널", "운반체", "세포 신호", "신호 전달", "리간드", "수송체")) {
+        if (/receptor_signal_application_axis|세포 신호·수용체 응용 축|수용체|세포 신호/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "pharmacy" || kind === "medical") ? 470 : 300);
+        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축|세포 시스템|물질 이동/.test(axisText)) boost = Math.max(boost, 190);
+      }
+      if (hit("세포 소기관", "소기관", "미토콘드리아", "엽록체", "리보솜", "핵", "세포 기능")) {
+        if (/organelle_function_axis|세포 소기관 기능 해석 축|소기관/.test(axisText)) boost = Math.max(boost, (kind === "bioengineering" || kind === "medical") ? 455 : 300);
+        if (/cell_system_transport_axis|세포 시스템·물질 이동 해석 축/.test(axisText)) boost = Math.max(boost, 160);
+      }
+      if (hit("세포 배양", "세포주", "배양 조건", "무균 조작", "배지", "세포공학")) {
+        if (/cell_culture_bioprocess_axis|세포 배양·공정 응용 축|세포 배양|배양/.test(axisText)) boost = Math.max(boost, kind === "bioengineering" ? 480 : 300);
+      }
+      if (hit("약물 전달", "흡수", "체액", "수분 균형", "투석", "영양소 이동", "투과성")) {
+        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, (kind === "medical" || kind === "pharmacy") ? 450 : 210);
+      }
+      if (hit("세포 이미지", "세포 데이터", "분류", "모델링", "그래프", "시뮬레이션", "이미지 분석", "투과성 실험")) {
+        if (/membrane_data_experiment_axis|세포 데이터·투과성 실험 축|데이터|실험/.test(axisText)) boost = Math.max(boost, kind === "data" ? 470 : (kind === "bioengineering" ? 360 : 210));
       }
     }
 
