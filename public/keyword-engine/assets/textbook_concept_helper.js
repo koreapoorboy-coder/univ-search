@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.53-earth-locked-major-buffer-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.20-electromagnetism-quantum-axis';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3882,6 +3882,69 @@ function getTrackMeta(trackId) {
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let fallback = 0;
 
+
+
+    // v34.20 electromagnetism-quantum keyword-level axis split:
+    // 전자기와 양자는 같은 3개 개념 안에서도 학과와 추천 키워드에 따라 4번 축이 달라져야 한다.
+    if (isElectromagnetismQuantumSubject()) {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      const kind = getElectromagnetismQuantumMajorKind();
+      const isElectrical = kind === "electrical";
+      const isElectronics = kind === "electronics";
+      const isSemi = kind === "semiconductor";
+      const isMaterials = kind === "materials";
+      const isBiomedical = kind === "biomedical";
+      const isComputing = kind === "computing";
+      const isEnergy = kind === "energy";
+      const isPhysics = kind === "physics";
+
+      if (/전기장과 자기장/.test(concept)) {
+        if (hit("전기장", "전위", "전위차", "등전위면", "전하 분포", "점전하", "쿨롱 법칙", "전류", "자기장", "로런츠 힘", "하전 입자")) {
+          if (/field_particle_analysis_axis|장·입자 해석 축|장-입자|장·입자/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 140 : 118);
+        }
+        if (hit("센서", "전자석", "코일", "홀 효과", "전기 신호", "생체 신호", "전극", "MRI", "의료 영상", "자기장")) {
+          if (/sensor_device_application_axis|센서·장치 응용 축|센서|장치|medical_field_sensor_axis|의료 센서·영상 응용 축/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 146 : (isElectrical || isElectronics || isSemi ? 132 : 112));
+        }
+        if (hit("측정 데이터", "센서 데이터", "시각화", "신호 처리", "데이터", "그래프")) {
+          if (/measurement_data_visual_axis|측정 데이터·시각화 축|데이터|시각화/.test(axisText)) fallback = Math.max(fallback, isComputing ? 142 : 108);
+        }
+      }
+
+      if (/전자기 유도와 전자기파/.test(concept)) {
+        if (hit("전자기 유도", "자기선속", "유도 전류", "렌츠 법칙", "패러데이 법칙", "유도 기전력")) {
+          if (/electromagnetic_signal_axis|전자기 신호 해석 축|전자기 신호/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 128 : 116);
+        }
+        if (hit("발전기", "변압기", "전력", "전력 송전", "효율", "코일", "전력전자", "전자기 유도")) {
+          if (/power_communication_application_axis|전력·통신 응용 축|전력|통신|energy_power_axis|에너지 전환·송전 축/.test(axisText)) fallback = Math.max(fallback, (isElectrical || isEnergy) ? 146 : 118);
+        }
+        if (hit("전자기파", "안테나", "통신", "주파수", "무선 통신", "데이터 전송", "신호", "신호 데이터", "노이즈", "스펙트럼")) {
+          if (/signal_data_visual_axis|신호 데이터·시각화 축|신호 데이터/.test(axisText)) fallback = Math.max(fallback, isComputing ? 146 : (isElectronics ? 136 : 112));
+          if (/power_communication_application_axis|전력·통신 응용 축|통신/.test(axisText)) fallback = Math.max(fallback, isElectronics ? 140 : 112);
+        }
+        if (hit("MRI", "의료 영상", "생체 신호", "검출", "영상 데이터")) {
+          if (/medical_field_sensor_axis|의료 센서·영상 응용 축|의료|영상|센서/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 146 : 108);
+        }
+      }
+
+      if (/양자와 물질의 상호작용/.test(concept)) {
+        if (hit("반도체", "밴드갭", "소자", "LED", "태양전지", "나노소자", "터널 효과", "양자 터널링")) {
+          if (/semiconductor_material_design_axis|반도체·소재 설계 축|반도체|소재/.test(axisText)) fallback = Math.max(fallback, (isSemi || isMaterials) ? 150 : 124);
+          if (/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/.test(axisText)) fallback = Math.max(fallback, isSemi ? 136 : 118);
+        }
+        if (hit("광전 효과", "에너지 준위", "원자 스펙트럼", "보어 모형", "광자", "전자 전이", "파동-입자", "불연속 스펙트럼", "양자")) {
+          if (/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 140 : 118);
+          if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) fallback = Math.max(fallback, isMaterials ? 134 : 108);
+        }
+        if (hit("양자 컴퓨터", "양자 암호", "큐비트", "중첩", "측정", "양자 정보", "양자 알고리즘", "보안")) {
+          if (/quantum_information_computing_axis|양자 정보·컴퓨팅 축|양자 정보|컴퓨팅/.test(axisText)) fallback = Math.max(fallback, isComputing ? 152 : 122);
+          if (/quantum_technology_society_axis|양자 기술·사회 적용 축|양자 기술/.test(axisText)) fallback = Math.max(fallback, 108);
+        }
+        if (hit("광센서", "의료 영상", "레이저", "방사선 검출", "영상 데이터", "진단 장치")) {
+          if (/medical_field_sensor_axis|의료 센서·영상 응용 축|의료|영상|센서/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 142 : 106);
+        }
+      }
+    }
+
     // v33.52 earth science keyword-level axis split:
     // 지구과학 추천 키워드가 4번 축으로 갈 때, 학과군과 키워드 성격을 함께 반영한다.
     // 목적: 오른쪽 추천 키워드는 달라졌는데 4번 첫 카드가 의미 없이 고정되는 현상을 막는다.
@@ -5557,6 +5620,110 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+
+
+  function isElectromagnetismQuantumSubject() {
+    return state.subject === "전자기와 양자" || state.subject === "전자기와양자" || state.subject === "고등 전자기와 양자";
+  }
+
+  function getElectromagnetismQuantumMajorTextBundle() {
+    // 전자기와 양자는 화면 전체를 읽으면 '전자기/양자/전기장' 같은 교과 단어가 섞여
+    // 모든 학과가 양자 또는 전자기 기본값으로 수렴하기 쉽다. 실제 선택 학과명 중심으로만 판별한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    return Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function getElectromagnetismQuantumMajorKind() {
+    const rawText = getElectromagnetismQuantumMajorTextBundle();
+    const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
+
+    // 정확한 학과명 우선. 교과 키워드의 '전자기/양자'에 끌려가지 않게 한다.
+    if (has(/반도체공학과|반도체|나노반도체|시스템반도체|반도체시스템|소자공학|전자소자/)) return "semiconductor";
+    if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|금속|고분자|소재/)) return "materials";
+    if (has(/의공학과|바이오메디컬공학|생체의공|의료공학|의료기기|방사선|영상의학|의료영상/)) return "biomedical";
+    if (has(/컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|정보보안|보안|암호|양자컴퓨터|양자정보/)) return "computing";
+    if (has(/전기전자공학과|전기전자|전자전기|전기공학과|전기공학|전력|전력전자|에너지전기/)) return "electrical";
+    if (has(/전자공학과|전자공학|통신공학|정보통신|전파공학|회로|통신|RF|안테나/)) return "electronics";
+    if (has(/에너지공학과|에너지공학|신재생에너지|전력에너지|에너지시스템|배터리|이차전지|전지|태양전지/)) return "energy";
+    if (has(/물리학과|응용물리|물리|광학|양자물리|나노과학/)) return "physics";
+    return "default";
+  }
+
+  function getElectromagnetismQuantumPreferredConceptSequence() {
+    const kind = getElectromagnetismQuantumMajorKind();
+    const defaultSequence = ["전기장과 자기장", "전자기 유도와 전자기파", "양자와 물질의 상호작용"];
+    if (kind === "electrical") return ["전자기 유도와 전자기파", "전기장과 자기장", "양자와 물질의 상호작용"];
+    if (kind === "electronics") return ["전자기 유도와 전자기파", "양자와 물질의 상호작용", "전기장과 자기장"];
+    if (kind === "semiconductor") return ["양자와 물질의 상호작용", "전기장과 자기장", "전자기 유도와 전자기파"];
+    if (kind === "materials") return ["양자와 물질의 상호작용", "전기장과 자기장", "전자기 유도와 전자기파"];
+    if (kind === "physics") return ["전기장과 자기장", "양자와 물질의 상호작용", "전자기 유도와 전자기파"];
+    if (kind === "biomedical") return ["전기장과 자기장", "전자기 유도와 전자기파", "양자와 물질의 상호작용"];
+    if (kind === "computing") return ["양자와 물질의 상호작용", "전자기 유도와 전자기파", "전기장과 자기장"];
+    if (kind === "energy") return ["전자기 유도와 전자기파", "전기장과 자기장", "양자와 물질의 상호작용"];
+    return defaultSequence;
+  }
+
+  function getElectromagnetismQuantumPreferredKeywordSequence() {
+    const concept = state.concept || "";
+    const kind = getElectromagnetismQuantumMajorKind();
+    const isElectrical = kind === "electrical";
+    const isElectronics = kind === "electronics";
+    const isSemi = kind === "semiconductor";
+    const isMaterials = kind === "materials";
+    const isBiomedical = kind === "biomedical";
+    const isComputing = kind === "computing";
+    const isEnergy = kind === "energy";
+    const isPhysics = kind === "physics";
+
+    if (/전기장과 자기장/.test(concept)) {
+      if (isBiomedical) return ["MRI", "자기장", "생체 신호", "센서", "전극", "전위차", "전기 신호", "의료 영상", "로런츠 힘", "전기장", "자기장", "측정 데이터"];
+      if (isSemi || isMaterials) return ["전기장", "전하 이동", "전위차", "전하 분포", "자기장", "로런츠 힘", "홀 효과", "센서", "소자", "전류", "등전위면", "전위"];
+      if (isElectrical || isElectronics || isEnergy) return ["전기장", "전위차", "전하 분포", "전류", "자기장", "로런츠 힘", "코일", "센서", "전자석", "전기 신호", "등전위면", "전위"];
+      if (isComputing) return ["센서 데이터", "전기 신호", "자기장", "전류", "전위차", "로런츠 힘", "측정 데이터", "시각화", "전기장", "센서", "신호 처리"];
+      if (isPhysics) return ["전기장", "자기장", "로런츠 힘", "전위", "등전위면", "점전하", "쿨롱 법칙", "하전 입자", "전하 분포", "자기력선"];
+      return ["전기장", "자기장", "로런츠 힘", "전위차", "전위", "전하 분포", "센서", "전류", "자기력선"];
+    }
+
+    if (/전자기 유도와 전자기파/.test(concept)) {
+      if (isElectrical || isEnergy) return ["전자기 유도", "자기선속", "유도 전류", "렌츠 법칙", "발전기", "변압기", "코일", "전력 송전", "전자기파", "효율", "전력", "유도 기전력"];
+      if (isElectronics) return ["전자기파", "안테나", "통신", "주파수", "전자기 유도", "유도 전류", "렌츠 법칙", "코일", "신호", "무선 통신", "데이터 전송", "스펙트럼"];
+      if (isComputing) return ["전자기파", "신호", "통신", "주파수", "무선 통신", "데이터 전송", "안테나", "신호 데이터", "노이즈", "전자기 유도", "센서", "시각화"];
+      if (isBiomedical) return ["전자기파", "의료 영상", "MRI", "센서", "신호", "주파수", "전자기 유도", "코일", "생체 신호", "검출", "영상 데이터"];
+      if (isPhysics) return ["전자기 유도", "자기선속", "유도 전류", "렌츠 법칙", "패러데이 법칙", "전자기파", "변하는 자기장", "변하는 전기장", "파동", "스펙트럼"];
+      return ["전자기 유도", "자기선속", "유도 전류", "렌츠 법칙", "전자기파", "발전기", "변압기", "통신", "신호"];
+    }
+
+    if (/양자와 물질의 상호작용/.test(concept)) {
+      if (isSemi) return ["반도체", "밴드갭", "에너지 준위", "광전 효과", "터널 효과", "양자 터널링", "전자 전이", "소자", "LED", "태양전지", "센서", "나노소자"];
+      if (isMaterials) return ["광전 효과", "에너지 준위", "밴드갭", "반도체", "레이저", "LED", "태양전지", "소재", "전자 전이", "원자 스펙트럼", "나노소재", "광소재"];
+      if (isComputing) return ["양자 컴퓨터", "양자 암호", "큐비트", "중첩", "측정", "양자 정보", "보안", "양자 알고리즘", "터널 효과", "광자", "양자 센서", "반도체"];
+      if (isElectronics || isElectrical) return ["광전 효과", "반도체", "에너지 준위", "밴드갭", "소자", "센서", "LED", "광센서", "전자 전이", "원자 스펙트럼", "양자", "태양전지"];
+      if (isBiomedical) return ["광센서", "의료 영상", "레이저", "광전 효과", "센서", "방사선 검출", "에너지 준위", "스펙트럼", "영상 데이터", "진단 장치"];
+      if (isPhysics) return ["광전 효과", "에너지 준위", "원자 스펙트럼", "보어 모형", "광자", "파동-입자 이중성", "양자", "전자 전이", "불연속 스펙트럼", "반도체"];
+      return ["광전 효과", "에너지 준위", "반도체", "밴드갭", "원자 스펙트럼", "보어 모형", "양자", "센서", "소자"];
+    }
+    return [];
+  }
+
+
   function getMechanicsEnergyMajorTextBundle() {
     // 역학과 에너지는 화면 전체를 읽으면 개념 카드의 '운동/열/소리' 단어가 섞여
     // 모든 공학계열이 같은 기본값으로 수렴하기 쉽다. 실제 선택 학과명 중심으로만 판별한다.
@@ -5805,6 +5972,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (isElectromagnetismQuantumSubject()) {
+      return getElectromagnetismQuantumPreferredConceptSequence();
+    }
     if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
       return getMechanicsEnergyPreferredConceptSequence();
     }
@@ -6263,6 +6433,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (isElectromagnetismQuantumSubject()) {
+      const eqPreferred = getElectromagnetismQuantumPreferredKeywordSequence();
+      if (eqPreferred.length) return eqPreferred;
+    }
     if (state.subject === "역학과 에너지" || state.subject === "역학과에너지") {
       const mechanicsPreferred = getMechanicsEnergyPreferredKeywordSequence();
       if (mechanicsPreferred.length) return mechanicsPreferred;
