@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_00_life_science_axis_v2";
+  const ASSET_VERSION_QUERY = "v34_01_life_science_axis_v3";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4934,7 +4934,7 @@ function getTrackMeta(trackId) {
       return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
     }
     if (/(생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보)/.test(majorText) || bucket === "bio") {
-      return ["유전자와 염색체", "생명과학의 이해", "생식과 생명의 연속성", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+      return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
     }
 
     return defaultSequence;
@@ -5934,7 +5934,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1" || state.subject === "기하" || state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
+    if (state.subject === "통합사회1" || state.subject === "통합사회" || state.subject === "통합사회2" || state.subject === "통합과학1" || state.subject === "통합과학2" || state.subject === "과학탐구실험1" || state.subject === "과학탐구실험2" || state.subject === "공통수학1" || state.subject === "공통수학2" || state.subject === "정보" || state.subject === "공통국어1" || state.subject === "공통국어" || state.subject === "공통국어2" || state.subject === "대수" || state.subject === "확률과 통계" || state.subject === "미적분1" || state.subject === "기하" || state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1" || state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") {
       return getOrderedConceptsForAll(ranked).slice(0, 3);
     }
 
