@@ -7776,48 +7776,56 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
     `;
   }
 
-  function renderBookArea() {
-    const el = $("engineBookArea");
-    if (!el) return;
-    if (!isStepEnabled(5)) {
-      el.innerHTML = `<div class="engine-empty">먼저 교과 개념 기반 후속 연계축을 선택해야 도서 추천이 열립니다.</div>`;
-      return;
-    }
-    if (!window.renderBookSelectionHTML) {
-      el.innerHTML = `<div class="engine-empty">도서 추천 기능을 불러오는 중입니다.</div>`;
-      return;
-    }
-    el.innerHTML = window.renderBookSelectionHTML({
+  function buildBookRecommendationContext(extra = {}) {
+    const trackMeta = getTrackMeta(state.linkTrack) || {};
+    const selectedMajor = state.majorSelectedName || getEffectiveCareerName() || state.career || "";
+    const linkedSubjects = Array.isArray(trackMeta.linkedSubjects)
+      ? trackMeta.linkedSubjects.filter(Boolean)
+      : (trackMeta.nextSubject ? String(trackMeta.nextSubject).split(/\s*\/\s*/).filter(Boolean) : []);
+    const activityExamples = Array.isArray(trackMeta.activityExamples) ? trackMeta.activityExamples.filter(Boolean) : [];
+    const selectedFollowupAxis = trackMeta.title || trackMeta.axis_title || trackMeta.label || state.linkTrack || "";
+
+    return {
       subject: state.subject,
-      career: state.career,
-      linkTrack: getResolvedTrackId() || state.linkTrack,
-      followupAxisId: state.linkTrack,
+      career: selectedMajor || state.career,
       concept: state.concept,
       keyword: state.keyword,
-      selectedBook: state.selectedBook
-    });
+      linkTrack: getResolvedTrackId() || state.linkTrack,
+      followupAxisId: state.linkTrack,
+      followupAxisTitle: selectedFollowupAxis,
+      followupAxisDomain: trackMeta.axisDomain || trackMeta.axis_domain || "",
+      selectedSubject: state.subject,
+      selectedMajor,
+      selectedConcept: state.concept,
+      selectedKeyword: state.keyword,
+      selectedFollowupAxis,
+      axisLabel: trackMeta.relationLabel || trackMeta.axisLabel || "",
+      linkedSubjects,
+      activityExample: activityExamples[0] || trackMeta.studentOutputHint || "",
+      activityExamples,
+      longitudinalPath: trackMeta.recordContinuityPoint || trackMeta.longitudinalPath || "",
+      selectedBook: state.selectedBook,
+      selectedBookTitle: state.selectedBookTitle,
+      reportMode: state.reportMode,
+      reportView: state.reportView,
+      reportLine: state.reportLine,
+      grade: $("grade")?.value || "",
+      ...extra
+    };
   }
 
   function renderBookArea() {
     const el = $("engineBookArea");
     if (!el) return;
-    if (!isStepEnabled(4)) {
-      el.innerHTML = `<div class="engine-empty">먼저 개념과 키워드를 선택해야 도서 추천이 열립니다.</div>`;
+    if (!isStepEnabled(5)) {
+      el.innerHTML = `<div class="engine-empty">먼저 4번 교과 개념 기반 후속 연계축을 선택해야 도서 추천이 열립니다.</div>`;
       return;
     }
     if (!window.renderBookSelectionHTML) {
       el.innerHTML = `<div class="engine-empty">도서 추천 기능을 불러오는 중입니다.</div>`;
       return;
     }
-    el.innerHTML = window.renderBookSelectionHTML({
-      subject: state.subject,
-      career: state.career,
-      linkTrack: getResolvedTrackId() || state.linkTrack,
-      followupAxisId: state.linkTrack,
-      concept: state.concept,
-      keyword: state.keyword,
-      selectedBook: state.selectedBook
-    });
+    el.innerHTML = window.renderBookSelectionHTML(buildBookRecommendationContext());
   }
 
   function renderModeArea() {
@@ -7827,15 +7835,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       el.innerHTML = `<div class="engine-empty">먼저 도서를 선택해야 보고서 전개 방식을 고를 수 있습니다.</div>`;
       return;
     }
-    const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
-      subject: state.subject,
-      career: state.career,
-      linkTrack: getResolvedTrackId() || state.linkTrack,
-      followupAxisId: state.linkTrack,
-      concept: state.concept,
-      keyword: state.keyword,
-      selectedBook: state.selectedBook
-    }) : { modeOptions: [] };
+    const meta = window.getReportOptionMeta ? window.getReportOptionMeta(buildBookRecommendationContext()) : { modeOptions: [] };
     const options = meta.modeOptions || [];
     el.innerHTML = `<div class="engine-mode-grid">${options.map(option => `
       <button type="button" class="engine-mode-card ${state.reportMode === option.id ? "is-active" : ""}" data-action="mode" data-value="${escapeHtml(option.id)}">
@@ -7892,15 +7892,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       el.innerHTML = `<div class="engine-empty">먼저 보고서 전개 방식을 선택해야 관점 선택이 열립니다.</div>`;
       return;
     }
-    const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
-      subject: state.subject,
-      career: state.career,
-      linkTrack: getResolvedTrackId() || state.linkTrack,
-      followupAxisId: state.linkTrack,
-      concept: state.concept,
-      keyword: state.keyword,
-      selectedBook: state.selectedBook
-    }) : { viewOptions: [] };
+    const meta = window.getReportOptionMeta ? window.getReportOptionMeta(buildBookRecommendationContext()) : { viewOptions: [] };
     const options = meta.viewOptions || [];
     const selectedView = state.reportView || options[0] || "";
     const viewMeta = VIEW_HELP[selectedView] || {
@@ -8008,7 +8000,9 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
   }
 
   function buildMiniPayload() {
+    const bookCtx = buildBookRecommendationContext();
     const bookDetail = window.getSelectedBookDetail ? window.getSelectedBookDetail(state.selectedBook) : null;
+    const bookRecommendation = window.getBookRecommendationDetail ? window.getBookRecommendationDetail(state.selectedBook, bookCtx) : null;
     const lineMeta = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[getRecommendedReportLine()] || REPORT_LINE_HELP.basic;
     const constraints = getStructuredConstraints();
     return {
@@ -8016,7 +8010,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
         school_name: $("schoolName")?.value || "",
         grade: $("grade")?.value || "",
         subject: state.subject,
-        career: state.career
+        career: bookCtx.selectedMajor || state.career
       },
       activity_context: {
         activity_area: $("activityArea")?.value || "",
@@ -8030,23 +8024,44 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       },
       track_context: {
         id: state.linkTrack,
-        label: getTrackMeta(state.linkTrack)?.title || "",
-        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || "",
+        label: bookCtx.selectedFollowupAxis || "",
+        selected_followup_axis: bookCtx.selectedFollowupAxis || "",
+        axis_label: bookCtx.axisLabel || "",
+        next_subject: getTrackMeta(state.linkTrack)?.nextSubject || bookCtx.linkedSubjects.join(" / ") || "",
+        linked_subjects: bookCtx.linkedSubjects || [],
         legacy_track: getResolvedTrackId() || "",
-        axis_domain: getTrackMeta(state.linkTrack)?.axisDomain || "",
+        axis_domain: bookCtx.followupAxisDomain || "",
         extension_keywords: getTrackMeta(state.linkTrack)?.extensionKeywords || [],
-        activity_examples: getTrackMeta(state.linkTrack)?.activityExamples || [],
-        record_continuity_point: getTrackMeta(state.linkTrack)?.recordContinuityPoint || ""
+        activity_examples: bookCtx.activityExamples || [],
+        activity_example: bookCtx.activityExample || "",
+        record_continuity_point: bookCtx.longitudinalPath || ""
       },
       concept_context: {
         concept: state.concept,
-        keyword: state.keyword
+        keyword: state.keyword,
+        selected_subject: bookCtx.selectedSubject || state.subject,
+        selected_major: bookCtx.selectedMajor || state.career
       },
       book_context: {
         book_id: state.selectedBook,
         title: state.selectedBookTitle,
         author: bookDetail?.author || "",
-        summary_short: bookDetail?.summary_short || ""
+        summary_short: bookDetail?.summary_short || "",
+        recommendation_type: bookRecommendation?.recommendation_type || "",
+        match_reason: bookRecommendation?.match_reason || "",
+        report_support_role: bookRecommendation?.report_support_role || "",
+        matched_subject: bookRecommendation?.matched_subject || bookCtx.selectedSubject || "",
+        matched_major: bookRecommendation?.matched_major || bookCtx.selectedMajor || "",
+        matched_concept: bookRecommendation?.matched_concept || bookCtx.selectedConcept || "",
+        matched_keyword: bookRecommendation?.matched_keyword || bookCtx.selectedKeyword || "",
+        matched_followup_axis: bookRecommendation?.matched_followup_axis || bookCtx.selectedFollowupAxis || "",
+        matched_axis_label: bookRecommendation?.matched_axis_label || bookCtx.axisLabel || "",
+        linked_subjects: bookRecommendation?.linked_subjects || bookCtx.linkedSubjects || [],
+        activity_example: bookRecommendation?.activity_example || bookCtx.activityExample || "",
+        evidence_types: bookRecommendation?.evidence_types || bookDetail?.evidence_types || [],
+        report_modes: bookRecommendation?.report_modes || bookDetail?.report_modes || [],
+        perspectives: bookRecommendation?.perspectives || bookDetail?.perspectives || [],
+        recommendation_reasons: bookRecommendation?.reasons || []
       },
       major_compare_context: {
         selected_major: state.majorSelectedName || '',
