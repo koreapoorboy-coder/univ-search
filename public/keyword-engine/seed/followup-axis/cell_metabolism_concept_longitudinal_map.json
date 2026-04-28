@@ -1,6 +1,6 @@
 {
   "subject_name": "세포와 물질대사",
-  "version": "v365_cell_metabolism_refined_2026-04-24_policy_restored_v2",
+  "version": "v366_cell_metabolism_keyword_split_2026-04-28_v3",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
@@ -11,7 +11,8 @@
     "keyword_refinement_rule": [
       "추천 키워드는 같은 개념 안에서 4번 후속 연계축의 우선순위를 정교화한다",
       "키워드가 축과 직접 맞닿으면 1순위 축, 짧은 라벨, 설명 문구, 활동 예시까지 함께 바뀐다",
-      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다"
+      "직접 일치가 약한 경우에도 보조축이 살아 있도록 하여 학생 선택 폭을 남긴다",
+      "같은 개념 안에서도 세포막·수송·수용체·소기관·데이터 키워드는 서로 다른 1순위 축을 가질 수 있다"
     ]
   },
   "concept_longitudinal_map": [
@@ -33,29 +34,135 @@
             "생명공학과",
             "의생명공학과"
           ],
-          "why": "세포막과 세포 소기관의 구조를 바탕으로 물질 이동 방식을 해석하면 세포 수준 생명 현상의 핵심을 이해할 수 있다.",
-          "student_output_hint": "세포막 구조와 확산·삼투·능동 수송 비교표, 세포 수준 항상성 보고서",
+          "why": "세포막과 인지질 이중층, 선택적 투과 개념을 바탕으로 세포가 외부 환경과 물질을 교환하는 구조를 해석한다.",
+          "student_output_hint": "세포막 구조와 선택적 투과 방식 비교, 세포 수준 항상성 보고서",
           "keyword_signals": [
             {
               "keywords": [
                 "세포막",
-                "막단백질",
-                "선택적 투과",
                 "인지질 이중층",
+                "선택적 투과",
+                "세포막 구조",
+                "막 구조"
+              ],
+              "boost": 80
+            }
+          ]
+        },
+        {
+          "axis_id": "membrane_transport_gradient_axis",
+          "axis_title": "막수송·농도 기울기 해석 축",
+          "axis_short": "막수송",
+          "axis_domain": "biology",
+          "priority": 2,
+          "next_subjects": [
+            "생명과학",
+            "세포와 물질대사",
+            "생명공학과",
+            "간호학과"
+          ],
+          "why": "확산, 삼투, 능동 수송은 농도 기울기와 에너지 사용 여부에 따라 물질 이동이 달라지는 핵심 과정이다.",
+          "student_output_hint": "확산·삼투·능동 수송 비교표, 농도 조건별 물질 이동 해석 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
                 "확산",
                 "삼투",
                 "능동 수송",
-                "Na-K 펌프"
+                "Na-K 펌프",
+                "나트륨-칼륨 펌프",
+                "농도 기울기",
+                "막 수송",
+                "수송"
               ],
-              "boost": 28,
-              "label": "키워드 직접 반영",
-              "short_label": "막·이동 원리",
-              "message": "선택 키워드가 세포막 구조와 물질 이동 원리를 직접 다루어 세포 시스템·물질 이동 해석 축이 강화됩니다.",
-              "desc": "세포 구조와 이동 방식 차이를 중심으로 기능을 해석하는 축입니다.",
-              "activity_examples": [
-                "확산·삼투·능동 수송 조건 비교표 작성",
-                "세포막 구조와 선택적 투과 관계 도식화"
-              ]
+              "boost": 92
+            }
+          ]
+        },
+        {
+          "axis_id": "receptor_signal_application_axis",
+          "axis_title": "세포 신호·수용체 응용 축",
+          "axis_short": "수용체",
+          "axis_domain": "biology",
+          "priority": 3,
+          "next_subjects": [
+            "생명공학과",
+            "의생명공학과",
+            "약학과",
+            "간호학과"
+          ],
+          "why": "막단백질과 수용체는 세포 외부 신호를 내부 반응으로 연결하며, 약물 작용과 세포 신호 전달 탐구로 확장된다.",
+          "student_output_hint": "막단백질·수용체 작용 사례 비교, 세포 신호 전달 탐구 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "막단백질",
+                "수용체",
+                "채널",
+                "운반체",
+                "세포 신호",
+                "신호 전달",
+                "리간드",
+                "수송체"
+              ],
+              "boost": 96
+            }
+          ]
+        },
+        {
+          "axis_id": "organelle_function_axis",
+          "axis_title": "세포 소기관 기능 해석 축",
+          "axis_short": "소기관",
+          "axis_domain": "biology",
+          "priority": 4,
+          "next_subjects": [
+            "생명과학",
+            "세포와 물질대사",
+            "생명공학과",
+            "의생명공학과"
+          ],
+          "why": "미토콘드리아, 엽록체, 리보솜 등 소기관의 구조와 기능을 연결하면 세포 전체 시스템을 이해할 수 있다.",
+          "student_output_hint": "세포 소기관별 기능 비교, 소기관 이상과 세포 기능 변화 탐구",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "세포 소기관",
+                "소기관",
+                "미토콘드리아",
+                "엽록체",
+                "리보솜",
+                "핵",
+                "세포 기능"
+              ],
+              "boost": 90
+            }
+          ]
+        },
+        {
+          "axis_id": "cell_culture_bioprocess_axis",
+          "axis_title": "세포 배양·공정 응용 축",
+          "axis_short": "세포 배양",
+          "axis_domain": "biology_engineering",
+          "priority": 5,
+          "next_subjects": [
+            "생명공학과",
+            "의생명공학과",
+            "생명과학실험",
+            "바이오공정"
+          ],
+          "why": "세포 배양은 세포 구조와 물질 이동 이해를 실제 바이오 실험·공정 조건 설계로 확장하는 응용 축이다.",
+          "student_output_hint": "세포 배양 조건 비교, 세포 생존율과 배지 조건 탐구 설계",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "세포 배양",
+                "세포주",
+                "배양 조건",
+                "무균 조작",
+                "배지",
+                "세포공학"
+              ],
+              "boost": 98
             }
           ]
         },
@@ -63,37 +170,28 @@
           "axis_id": "bio_medical_transport_axis",
           "axis_title": "의약·영양 전달 응용 축",
           "axis_short": "의약 전달",
-          "axis_domain": "medical",
-          "priority": 2,
+          "axis_domain": "medical_biology",
+          "priority": 6,
           "next_subjects": [
             "간호학과",
             "약학과",
             "의생명공학과",
             "식품영양학과"
           ],
-          "why": "세포막 투과와 물질 이동은 약물 전달, 영양 흡수, 체액 조절과 연결되어 의약·보건 응용으로 확장된다.",
+          "why": "세포막 투과와 물질 이동은 약물 전달, 체액 조절, 영양소 이동 경로와 연결되어 의약·보건 응용으로 확장된다.",
           "student_output_hint": "약물 흡수 사례 비교, 영양소 이동 경로 정리, 체액 조절 사례 보고서",
           "keyword_signals": [
             {
               "keywords": [
                 "약물 전달",
                 "흡수",
-                "수용체",
                 "체액",
                 "수분 균형",
                 "투석",
-                "삼투",
-                "세포막 투과성"
+                "영양소 이동",
+                "투과성"
               ],
-              "boost": 26,
-              "label": "전공 맞춤",
-              "short_label": "생체 전달",
-              "message": "선택 키워드가 약물·영양·체액 이동과 연결되어 의약·영양 전달 응용 축이 강화됩니다.",
-              "desc": "세포막 투과 원리를 의약·보건 사례로 확장하는 축입니다.",
-              "activity_examples": [
-                "약물 흡수와 세포막 투과성 관계 정리",
-                "체액 농도 변화와 삼투 사례 비교"
-              ]
+              "boost": 88
             }
           ]
         },
@@ -101,16 +199,16 @@
           "axis_id": "membrane_data_experiment_axis",
           "axis_title": "세포 데이터·투과성 실험 축",
           "axis_short": "세포 데이터",
-          "axis_domain": "data",
-          "priority": 3,
+          "axis_domain": "data_biology",
+          "priority": 7,
           "next_subjects": [
             "정보",
             "과학탐구실험2",
             "컴퓨터공학과",
             "생명정보학"
           ],
-          "why": "세포 이미지, 확산·삼투 그래프, 투과성 실험값은 데이터 해석과 모델링 탐구로 연결될 수 있다.",
-          "student_output_hint": "세포 이미지 분류표, 투과성 실험 그래프, 확산·삼투 데이터 모델링 보고서",
+          "why": "세포 이미지, 확산·삼투 그래프, 투과성 실험은 데이터 해석과 모델링 탐구로 연결된다.",
+          "student_output_hint": "세포 이미지 분류, 투과성 실험 그래프, 확산·삼투 데이터 모델링 보고서",
           "keyword_signals": [
             {
               "keywords": [
@@ -120,17 +218,10 @@
                 "모델링",
                 "그래프",
                 "시뮬레이션",
-                "이미지 분석"
+                "이미지 분석",
+                "투과성 실험"
               ],
-              "boost": 24,
-              "label": "데이터 연결",
-              "short_label": "세포 데이터",
-              "message": "선택 키워드가 세포 관찰 자료와 데이터 분석으로 이어져 세포 데이터·투과성 실험 축이 강화됩니다.",
-              "desc": "세포 관찰과 물질 이동 실험을 데이터로 해석하는 축입니다.",
-              "activity_examples": [
-                "세포 이미지 특징 분류",
-                "확산·삼투 실험 결과 그래프 분석"
-              ]
+              "boost": 94
             }
           ]
         }
@@ -439,5 +530,5 @@
     }
   ],
   "policy_enforced": true,
-  "patch_note": "cell_metabolism_axis_patch_v1의 학과별 3번/4번 보정은 유지하고, 기존 v365 기준의 종단축 우선순위 및 키워드 세부 보정 정책을 복구함."
+  "patch_note": "v3: 생명공학과에서 세포의 구조와 물질 이동 개념의 추천 키워드별 4번 후속 연계축 분화를 강화함."
 }
