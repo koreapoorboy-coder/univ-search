@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_01_life_science_axis_v3";
+  const ASSET_VERSION_QUERY = "v33_42_life_science_bioengineering_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4910,16 +4910,24 @@ function getTrackMeta(trackId) {
   }
 
   function getLifeSciencePreferredConceptSequence() {
-    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
-    const bucket = detectCareerBucket(majorText);
+    const majorTextRaw = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    let visibleMajorText = "";
+    try {
+      visibleMajorText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+    } catch (error) {}
+    const majorText = [majorTextRaw, visibleMajorText].join(" ").trim();
+    const bucket = detectCareerBucket(majorTextRaw || majorText);
     const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
-    if (!majorText) return defaultSequence;
+    if (!majorTextRaw && !visibleMajorText) return defaultSequence;
+
+    // 생명공학과는 major profile 안에 환경/생태 키워드가 함께 들어오는 경우가 있어
+    // 환경 branch보다 먼저 판별해야 3번 추천 개념이 생태계 쪽으로 쏠리지 않는다.
+    if (/(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText)) {
+      return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+    }
 
     if (isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it") {
       return ["유전자와 염색체", "신경 자극 전도와 전달", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 건강", "면역과 백신", "물질대사와 에너지", "생식과 생명의 연속성"];
-    }
-    if (/(환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(majorText) || bucket === "env") {
-      return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
     }
     if (/(식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(majorText)) {
       return ["물질대사와 에너지", "물질대사와 건강", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "면역과 백신", "진화와 생물 다양성", "유전자와 염색체", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
@@ -4933,8 +4941,11 @@ function getTrackMeta(trackId) {
     if (/(간호|보건|재활|물리치료|작업치료|임상병리)/.test(majorText)) {
       return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
     }
-    if (/(생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보)/.test(majorText) || bucket === "bio") {
-      return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+    if (/(환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(majorText) || bucket === "env") {
+      return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (/(간호|의학|보건|약학|수의|의료|임상|바이오|생명|제약|식품|화공)/.test(majorText) || bucket === "bio") {
+      return ["물질대사와 건강", "면역과 백신", "신경계와 항상성", "물질대사와 에너지", "유전자와 염색체", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달"];
     }
 
     return defaultSequence;
@@ -5929,6 +5940,13 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
         "공간좌표와 구의 방정식",
         "이차곡선과 자취 해석"
       ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") {
+      const forced = getLifeSciencePreferredConceptSequence().slice(0, 3);
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
       const others = ranked.filter(item => !forced.includes(item.concept));
       return uniq([...forcedItems, ...others]).slice(0, 3);
