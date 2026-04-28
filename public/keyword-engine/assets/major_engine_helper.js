@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.80-major-search-buffer-fix";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v33.17-major-bridge-fullfix';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v33.18-major-search-buffer-fix';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -31,7 +31,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
     selectedMajorName: '',
     loading: false,
     delegatedCareerBound: false,
-    inputObserverBound: false
+    inputObserverBound: false,
+    majorInputTimer: null,
+    lastRenderedCareerRaw: ""
   };
 
   function $(id){ return document.getElementById(id); }
@@ -375,18 +377,47 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
     }
   }
 
-  function onCareerInputEvent(el){
+  function flushMajorInputRender(){
+    if (state.majorInputTimer) {
+      clearTimeout(state.majorInputTimer);
+      state.majorInputTimer = null;
+    }
+    state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
+    renderMajorSummary();
+    startMiniPayloadPatch();
+  }
+
+  function scheduleMajorInputRender(delay = 180){
+    if (state.majorInputTimer) clearTimeout(state.majorInputTimer);
+    state.majorInputTimer = setTimeout(() => {
+      state.majorInputTimer = null;
+      state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
+      renderMajorSummary();
+      startMiniPayloadPatch();
+    }, delay);
+  }
+
+  function onCareerInputEvent(el, event){
     if (!el) return;
     const raw = String(el.value || '').trim();
     if (!raw) {
       state.selectedMajorId = '';
       state.selectedMajorName = '';
     } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
+      // 이전에 선택했던 학과가 남아 있으면 다음 입력에서 후보 패널/교과 추천이 서로 렌더를 반복한다.
+      // 새 학과명을 입력하기 시작하면 기존 선택을 즉시 비우고, 검색 결과는 입력이 멈춘 뒤 한 번만 렌더한다.
       state.selectedMajorId = '';
       state.selectedMajorName = '';
+      window.__MAJOR_ENGINE_SELECTED__ = null;
+      window.__MAJOR_ENGINE_LAST_RAW__ = raw;
+      window.__MAJOR_ENGINE_LAST_INPUT__ = raw;
     }
-    renderMajorSummary();
-    startMiniPayloadPatch();
+    const eventType = String(event?.type || '');
+    if (eventType === 'input') {
+      scheduleMajorInputRender(180);
+      return;
+    }
+    flushMajorInputRender();
   }
 
   function bindCareerInput(){
@@ -394,7 +425,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
     if (el && el.dataset.majorBound !== '1') {
       el.dataset.majorBound = '1';
       ['input','change','focus','blur'].forEach(evt => {
-        el.addEventListener(evt, () => onCareerInputEvent(el));
+        el.addEventListener(evt, (event) => onCareerInputEvent(el, event));
       });
     }
 
@@ -403,7 +434,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.79-direct-query-routing-fix";
       const handler = (event) => {
         const current = getCareerInput();
         if (!current) return;
-        if (event.target === current) onCareerInputEvent(current);
+        if (event.target === current) onCareerInputEvent(current, event);
       };
       ['input','change','focus','blur'].forEach(evt => {
         document.addEventListener(evt, handler, true);
