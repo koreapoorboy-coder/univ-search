@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_51_earth_atmosphere_major_fix";
+  const ASSET_VERSION_QUERY = "v33_52_earth_keyword_logic_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3869,6 +3869,147 @@ function getTrackMeta(trackId) {
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let fallback = 0;
 
+    // v33.52 earth science keyword-level axis split:
+    // 지구과학 추천 키워드가 4번 축으로 갈 때, 학과군과 키워드 성격을 함께 반영한다.
+    // 목적: 오른쪽 추천 키워드는 달라졌는데 4번 첫 카드가 의미 없이 고정되는 현상을 막는다.
+    if (fuzzyIncludes(state.subject, "지구과학") || fuzzyIncludes(state.subject, "지구과학Ⅰ") || fuzzyIncludes(state.subject, "지구과학1")) {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      const kind = getEarthScienceMajorKind();
+      const isData = kind === "data";
+      const isAtmosphere = kind === "atmosphere";
+      const isEnvironment = kind === "environment";
+      const isOcean = kind === "ocean";
+      const isAstronomy = kind === "astronomy";
+      const isCivil = kind === "civil";
+      const isDisaster = kind === "disaster";
+      const isGeo = kind === "geoscience";
+
+      if (/해수의 성질/.test(concept)) {
+        if (hit("수온", "염분", "밀도", "용존 산소", "수온 염분도", "혼합층", "수온 약층")) {
+          if (/ocean_property_axis|해양 성질 해석 축|해양 성질/.test(axisText)) fallback = Math.max(fallback, 112);
+        }
+        if (hit("수질", "해양 산성화", "해양 생물", "환경 변화")) {
+          if (/marine_environment_application_axis|해양·환경 응용 축|해양 환경/.test(axisText)) fallback = Math.max(fallback, isEnvironment ? 124 : 96);
+        }
+        if (hit("관측 자료", "해수 데이터", "그래프", "시각화", "자료 분석")) {
+          if (/ocean_data_visual_axis|해양 데이터 시각화 축|데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 132 : 98);
+        }
+      }
+
+      if (/해수의 순환/.test(concept)) {
+        if (hit("해류", "표층 순환", "심층 순환", "열염 순환", "난류", "한류", "수괴", "용승")) {
+          if (/ocean_circulation_axis|해양 순환 해석 축|해양 순환/.test(axisText)) fallback = Math.max(fallback, 112);
+        }
+        if (hit("기후 변화", "탄소 저장", "엘니뇨", "라니냐", "어장", "해양 자원", "생태계")) {
+          if (/climate_ocean_application_axis|기후·해양 응용 축|기후.*해양/.test(axisText)) fallback = Math.max(fallback, (isEnvironment || isOcean) ? 126 : 100);
+        }
+        if (hit("순환 모형", "시뮬레이션", "지도", "모델링", "그래프", "자료 분석")) {
+          if (/circulation_data_model_axis|순환 데이터 모델링 축|데이터 모델링/.test(axisText)) fallback = Math.max(fallback, isData ? 132 : 96);
+        }
+      }
+
+      if (/날씨의 변화/.test(concept)) {
+        if (hit("기압", "고기압", "저기압", "바람", "전선", "기단", "기압 경도력")) {
+          if (/weather_data_axis|기상 자료 해석 축|기상 자료/.test(axisText)) fallback = Math.max(fallback, isData ? 76 : 118);
+        }
+        if (hit("일기도", "위성 영상", "레이더 영상", "강수대", "기상 자료")) {
+          if (/weather_data_axis|기상 자료 해석 축|기상 자료/.test(axisText)) fallback = Math.max(fallback, isData ? 82 : 120);
+          if (/weather_visualization_axis|기상 데이터 시각화 축|기상 데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 138 : 88);
+        }
+        if (hit("기상 데이터", "시계열", "강수량", "그래프", "자료 분석", "예측 모형")) {
+          if (/weather_visualization_axis|기상 데이터 시각화 축|기상 데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 144 : 104);
+        }
+        if (hit("날씨 예측", "예보", "경보", "재난", "안전")) {
+          if (/forecast_disaster_axis|예보·재난 응용 축|예보.*재난/.test(axisText)) fallback = Math.max(fallback, (isAtmosphere || isDisaster) ? 124 : 104);
+        }
+      }
+
+      if (/태풍과 악기상/.test(concept)) {
+        if (hit("태풍", "열대 저기압", "태풍의 눈", "잠열", "해수면 온도", "기압 분포", "풍속", "강수량", "집중 호우")) {
+          if (/severe_weather_axis|악기상 재난 해석 축|악기상/.test(axisText)) fallback = Math.max(fallback, 120);
+        }
+        if (hit("경보", "방재", "피해", "도시 침수", "재난 예방", "안전", "대피")) {
+          if (/safety_prevention_axis|안전·방재 응용 축|방재/.test(axisText)) fallback = Math.max(fallback, (isCivil || isDisaster) ? 134 : 104);
+        }
+        if (hit("태풍 경로", "위성 영상", "시뮬레이션", "데이터", "예측 모형", "그래프")) {
+          if (/severe_weather_axis|악기상 재난 해석 축/.test(axisText)) fallback = Math.max(fallback, isData ? 92 : 116);
+          if (/climate_risk_communication_axis|기후위기 소통 축|기후위기/.test(axisText)) fallback = Math.max(fallback, 80);
+        }
+      }
+
+      if (/지구의 기후 변화/.test(concept)) {
+        if (hit("기후 변화", "온실 효과", "온실기체", "이산화탄소", "엘니뇨", "라니냐", "남방진동")) {
+          if (/climate_system_axis|기후 시스템 해석 축|기후 시스템/.test(axisText)) fallback = Math.max(fallback, 122);
+        }
+        if (hit("탄소중립", "재생에너지", "기후 대응", "지속가능", "환경 정책")) {
+          if (/sustainability_axis|환경·지속가능 응용 축|지속가능/.test(axisText)) fallback = Math.max(fallback, isEnvironment ? 134 : 102);
+        }
+        if (hit("기후 데이터", "기온 변화", "해수면 상승", "그래프", "통계", "예측 모형", "시계열")) {
+          if (/climate_data_prediction_axis|기후 데이터 예측 축|기후 데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 142 : 108);
+        }
+      }
+
+      if (/지층과 지질시대/.test(concept)) {
+        if (hit("지층", "화석", "상대 연령", "절대 연령", "부정합", "퇴적암", "층서", "지질 기록")) {
+          if (/geologic_record_axis|지질 기록 해석 축|지질 기록/.test(axisText)) fallback = Math.max(fallback, 120);
+        }
+        if (hit("지질시대", "대멸종", "환경 변화", "생물 변화")) {
+          if (/earth_history_axis|지구 역사 응용 축|지구 역사/.test(axisText)) fallback = Math.max(fallback, isGeo ? 120 : 102);
+        }
+        if (hit("방사성 동위 원소", "자료", "비교", "표본", "분석")) {
+          if (/fossil_data_axis|화석·연대 자료 분석 축|연대 자료/.test(axisText)) fallback = Math.max(fallback, isData ? 126 : 98);
+        }
+      }
+
+      if (/판 구조와 암석 변화/.test(concept)) {
+        if (hit("판 구조론", "판 경계", "해양저 확장", "섭입", "발산 경계", "수렴 경계", "지진", "화산")) {
+          if (/tectonic_axis|지각 변동 해석 축|지각 변동/.test(axisText)) fallback = Math.max(fallback, 122);
+        }
+        if (hit("지반", "지질도", "재난", "안전", "화산재", "피해", "방재", "자원")) {
+          if (/resource_disaster_axis|자원·재난 응용 축|재난 응용/.test(axisText)) fallback = Math.max(fallback, (isCivil || isDisaster) ? 136 : 102);
+        }
+        if (hit("화성암", "변성암", "암석 순환", "고지자기", "지질공원")) {
+          if (/rock_cycle_axis|암석·자원 순환 분석 축|암석/.test(axisText)) fallback = Math.max(fallback, isGeo ? 124 : 100);
+        }
+      }
+
+      if (/태양계 천체의 관측과 운동/.test(concept)) {
+        if (hit("관측", "케플러 법칙", "행성", "위성", "위상 변화", "공전", "망원경")) {
+          if (/astronomy_observation_axis|천체 관측 해석 축|천체 관측/.test(axisText)) fallback = Math.max(fallback, 124);
+        }
+        if (hit("궤도", "위성", "항법", "탐사", "거리", "주기")) {
+          if (/space_navigation_axis|우주항법 응용 축|우주항법/.test(axisText)) fallback = Math.max(fallback, isAstronomy ? 120 : 96);
+        }
+        if (hit("관측 자료", "천체 데이터", "데이터", "그래프", "모델링")) {
+          if (/space_data_model_axis|관측 데이터 모델링 축|데이터 모델링/.test(axisText)) fallback = Math.max(fallback, isData ? 136 : 104);
+        }
+      }
+
+      if (/별의 특성과 진화/.test(concept)) {
+        if (hit("별의 밝기", "겉보기 등급", "절대 등급", "표면 온도", "H-R도", "주계열성", "적색거성", "백색왜성", "초신성")) {
+          if (/stellar_evolution_axis|항성 진화 해석 축|항성 진화/.test(axisText)) fallback = Math.max(fallback, 124);
+        }
+        if (hit("스펙트럼", "핵융합", "질량", "파장", "복사")) {
+          if (/astrophysics_bridge_axis|천체물리 연결 축|천체물리/.test(axisText)) fallback = Math.max(fallback, isAstronomy ? 122 : 104);
+        }
+        if (hit("데이터", "그래프", "분류", "시각화", "자료 비교")) {
+          if (/spectrum_data_axis|스펙트럼 데이터 분석 축|데이터 분석/.test(axisText)) fallback = Math.max(fallback, isData ? 136 : 98);
+        }
+      }
+
+      if (/은하와 우주의 진화/.test(concept)) {
+        if (hit("외부 은하", "은하 분류", "적색 편이", "허블 법칙", "우주 팽창", "빅뱅", "우주 배경 복사")) {
+          if (/cosmic_structure_axis|우주 구조 해석 축|우주 구조/.test(axisText)) fallback = Math.max(fallback, 124);
+        }
+        if (hit("우주 데이터", "거리", "속도", "그래프", "데이터", "비교")) {
+          if (/cosmic_data_axis|우주 데이터 응용 축|우주 데이터/.test(axisText)) fallback = Math.max(fallback, isData ? 138 : 104);
+        }
+        if (hit("모형", "가설", "우주 기원", "논쟁", "발표")) {
+          if (/cosmic_inquiry_communication_axis|우주 관측·모형화 축|모형화/.test(axisText)) fallback = Math.max(fallback, 108);
+        }
+      }
+    }
+
 
     // v33.36 geometry keyword-level axis split: prevent every keyword in one geometry concept from falling into the same default axis.
     if (state.subject === "기하") {
@@ -5440,65 +5581,72 @@ function getTrackMeta(trackId) {
     const concept = state.concept || "";
     const kind = getEarthScienceMajorKind();
 
+    // v33.52 지구과학 추천 키워드 정리 원칙
+    // 1) 오른쪽 추천 키워드는 개념 카드에 붙은 원자료를 무작위로 보여주지 않고, 학과군별로 4번 축이 분화되도록 정렬한다.
+    // 2) 너무 넓은 표현은 뒤로 보내고, 학생이 눌렀을 때 4번 축이 명확하게 갈라지는 키워드를 앞에 둔다.
+    // 3) 컴퓨터/데이터 계열은 관측자료·시계열·예측모형이 앞으로 오도록 별도 정렬한다.
+
     if (/해수의 성질/.test(concept)) {
-      if (kind === "data") return ["수온", "염분", "밀도", "그래프", "관측 자료", "수온 염분도", "용존 산소", "혼합층", "수온 약층", "심해층"];
-      if (kind === "environment" || kind === "ocean") return ["수온", "염분", "밀도", "용존 산소", "해양 산성화", "수질", "혼합층", "수온 약층", "표층 염분", "해양 생물"];
-      return ["수온", "염분", "밀도", "용존 산소", "혼합층", "수온 약층", "심해층", "수온 염분도", "표층 수온", "표층 염분"];
+      if (kind === "data") return ["관측 자료", "수온 염분도", "그래프", "수온", "염분", "밀도", "용존 산소", "해수 데이터", "시각화", "자료 분석", "혼합층", "수온 약층"];
+      if (kind === "environment") return ["수온", "염분", "용존 산소", "수질", "해양 산성화", "해양 생물", "밀도", "혼합층", "수온 약층", "관측 자료", "해수 데이터", "환경 변화"];
+      if (kind === "ocean") return ["수온", "염분", "밀도", "용존 산소", "혼합층", "수온 약층", "심해층", "수온 염분도", "표층 수온", "표층 염분", "관측 자료", "해수 데이터"];
+      return ["수온", "염분", "밀도", "용존 산소", "혼합층", "수온 약층", "심해층", "수온 염분도", "표층 수온", "표층 염분", "관측 자료", "해수 데이터"];
     }
 
     if (/해수의 순환/.test(concept)) {
-      if (kind === "environment" || kind === "ocean") return ["해류", "열염 순환", "심층 순환", "표층 순환", "기후 변화", "탄소 저장", "엘니뇨", "라니냐", "용승", "어장"];
-      if (kind === "data") return ["해류", "순환 모형", "지도", "모델링", "시뮬레이션", "그래프", "열염 순환", "표층 순환", "심층 순환"];
-      return ["표층 순환", "심층 순환", "열염 순환", "해류", "난류", "한류", "수괴", "기후 변화", "용승", "코리올리"];
+      if (kind === "data") return ["순환 모형", "시뮬레이션", "지도", "해류", "표층 순환", "심층 순환", "열염 순환", "그래프", "모델링", "엘니뇨", "라니냐", "자료 분석"];
+      if (kind === "environment") return ["기후 변화", "탄소 저장", "엘니뇨", "라니냐", "해류", "열염 순환", "표층 순환", "심층 순환", "용승", "어장", "해양 자원", "생태계"];
+      if (kind === "ocean") return ["해류", "표층 순환", "심층 순환", "열염 순환", "난류", "한류", "수괴", "용승", "엘니뇨", "라니냐", "순환 모형", "기후 변화"];
+      return ["표층 순환", "심층 순환", "열염 순환", "해류", "난류", "한류", "수괴", "용승", "엘니뇨", "라니냐", "순환 모형", "기후 변화"];
     }
 
     if (/날씨의 변화/.test(concept)) {
-      if (kind === "data") return ["위성 영상", "레이더 영상", "일기도", "기상 데이터", "예보", "기압", "바람", "강수량", "시계열", "자료 분석"];
-      if (kind === "atmosphere" || kind === "disaster") return ["일기도", "기압", "바람", "전선", "기단", "위성 영상", "레이더 영상", "예보", "저기압", "강수대"];
-      return ["기압", "바람", "일기도", "위성 영상", "레이더 영상", "전선", "기단", "저기압", "고기압", "날씨 예측"];
+      if (kind === "data") return ["기상 데이터", "위성 영상", "레이더 영상", "일기도", "시계열", "강수량", "예측 모형", "그래프", "자료 분석", "기압", "바람", "날씨 예측"];
+      if (kind === "atmosphere") return ["일기도", "위성 영상", "레이더 영상", "기압", "고기압", "저기압", "바람", "전선", "기단", "강수대", "기상 데이터", "날씨 예측"];
+      if (kind === "disaster") return ["위성 영상", "레이더 영상", "강수량", "날씨 예측", "예보", "경보", "저기압", "기압", "바람", "일기도", "재난", "안전"];
+      return ["기압", "고기압", "저기압", "바람", "전선", "기단", "일기도", "위성 영상", "레이더 영상", "강수대", "기상 데이터", "날씨 예측"];
     }
 
     if (/태풍과 악기상/.test(concept)) {
-      if (kind === "disaster" || kind === "civil") return ["태풍", "집중 호우", "경로", "방재", "피해", "경보", "강풍", "해수면 온도", "도시 침수", "재난 예방"];
-      if (kind === "data") return ["태풍 경로", "위성 영상", "강수량", "풍속", "기압 분포", "예측", "데이터", "시뮬레이션"];
-      return ["태풍", "잠열", "태풍의 눈", "집중 호우", "열대 저기압", "풍속 분포", "기압 분포", "악기상", "해수면 온도"];
+      if (kind === "data") return ["태풍 경로", "위성 영상", "강수량", "풍속", "기압 분포", "예측 모형", "시뮬레이션", "데이터", "그래프", "해수면 온도", "태풍", "집중 호우"];
+      if (kind === "disaster" || kind === "civil") return ["태풍", "집중 호우", "태풍 경로", "강풍", "풍속", "기압 분포", "경보", "방재", "피해", "도시 침수", "해수면 온도", "재난 예방"];
+      return ["태풍", "열대 저기압", "태풍의 눈", "잠열", "해수면 온도", "기압 분포", "풍속", "강수량", "집중 호우", "악기상", "경보", "방재"];
     }
 
     if (/지구의 기후 변화/.test(concept)) {
-      if (kind === "data") return ["기후 데이터", "기온 변화", "이산화탄소", "해수면", "그래프", "통계", "예측", "모형", "시계열"];
-      if (kind === "environment" || kind === "atmosphere") return ["기후 변화", "온실 효과", "온실기체", "엘니뇨", "라니냐", "남방진동", "탄소중립", "해수면 상승", "재생에너지"];
-      return ["엘니뇨", "라니냐", "남방진동", "온실 효과", "기후 변화", "온실기체", "복사 평형", "해수면", "이산화탄소"];
+      if (kind === "data") return ["기후 데이터", "기온 변화", "이산화탄소", "해수면 상승", "그래프", "통계", "예측 모형", "시계열", "온실 효과", "기후 변화", "엘니뇨", "라니냐"];
+      if (kind === "environment" || kind === "atmosphere") return ["기후 변화", "온실 효과", "온실기체", "이산화탄소", "탄소중립", "해수면 상승", "엘니뇨", "라니냐", "남방진동", "기후 데이터", "재생에너지", "기후 대응"];
+      return ["기후 변화", "온실 효과", "온실기체", "이산화탄소", "엘니뇨", "라니냐", "남방진동", "해수면 상승", "기후 데이터", "탄소중립", "예측 모형", "기후 대응"];
     }
 
     if (/지층과 지질시대/.test(concept)) {
-      if (kind === "geoscience" || kind === "civil") return ["지층", "화석", "상대 연령", "절대 연령", "부정합", "퇴적암", "층서", "지질시대", "대멸종"];
-      return ["지층", "화석", "상대 연령", "절대 연령", "지질시대", "대멸종", "환경 변화", "퇴적암", "부정합"];
+      if (kind === "geoscience" || kind === "civil") return ["지층", "화석", "상대 연령", "절대 연령", "부정합", "퇴적암", "층서", "지질시대", "방사성 동위 원소", "지질 기록", "환경 변화", "대멸종"];
+      return ["지층", "화석", "상대 연령", "절대 연령", "지질시대", "부정합", "퇴적암", "방사성 동위 원소", "환경 변화", "대멸종", "지질 기록", "생물 변화"];
     }
 
     if (/판 구조와 암석 변화/.test(concept)) {
-      if (kind === "civil" || kind === "disaster") return ["판 구조론", "지진", "화산", "판 경계", "지반", "재난", "안전", "화산재", "피해", "지질도"];
-      if (kind === "geoscience") return ["판 구조론", "판 경계", "화성암", "변성암", "암석 순환", "해양저 확장", "섭입", "고지자기", "지질공원"];
-      return ["판 구조론", "화성암", "변성암", "지질공원", "판 경계", "지진", "화산", "암석 순환", "섭입"];
+      if (kind === "civil" || kind === "disaster") return ["판 구조론", "지진", "화산", "판 경계", "지반", "지질도", "재난", "안전", "화산재", "피해", "방재", "암석 순환"];
+      if (kind === "geoscience") return ["판 구조론", "판 경계", "해양저 확장", "섭입", "발산 경계", "수렴 경계", "화성암", "변성암", "암석 순환", "고지자기", "지질도", "지질공원"];
+      return ["판 구조론", "판 경계", "지진", "화산", "해양저 확장", "섭입", "화성암", "변성암", "암석 순환", "지질도", "지질공원", "재난"];
     }
 
     if (/태양계 천체의 관측과 운동/.test(concept)) {
-      if (kind === "astronomy" || kind === "data") return ["관측", "케플러 법칙", "행성", "위상 변화", "궤도", "위성", "망원경", "주기", "거리", "데이터"];
-      return ["행성", "위상 변화", "케플러 법칙", "관측", "공전", "달", "망원경", "궤도", "위성"];
+      if (kind === "astronomy" || kind === "data") return ["관측", "케플러 법칙", "행성", "위성", "위상 변화", "궤도", "공전", "망원경", "주기", "거리", "관측 자료", "천체 데이터"];
+      return ["행성", "위성", "위상 변화", "케플러 법칙", "관측", "공전", "궤도", "망원경", "주기", "거리", "관측 자료", "천체 데이터"];
     }
 
     if (/별의 특성과 진화/.test(concept)) {
-      if (kind === "astronomy" || kind === "data") return ["H-R도", "스펙트럼", "별의 밝기", "표면 온도", "핵융합", "질량", "주계열성", "적색거성", "백색왜성", "초신성"];
-      return ["별의 밝기", "스펙트럼", "H-R도", "핵융합", "표면 온도", "질량", "주계열성", "적색거성", "백색왜성"];
+      if (kind === "astronomy" || kind === "data") return ["H-R도", "스펙트럼", "별의 밝기", "표면 온도", "겉보기 등급", "절대 등급", "질량", "핵융합", "주계열성", "적색거성", "백색왜성", "초신성"];
+      return ["별의 밝기", "겉보기 등급", "절대 등급", "스펙트럼", "표면 온도", "H-R도", "주계열성", "적색거성", "백색왜성", "질량", "핵융합", "별의 진화"];
     }
 
     if (/은하와 우주의 진화/.test(concept)) {
-      if (kind === "astronomy" || kind === "data") return ["적색 편이", "허블 법칙", "우주 팽창", "빅뱅", "외부 은하", "은하 분류", "우주 배경 복사", "거리", "속도", "그래프"];
-      return ["외부 은하", "적색 편이", "우주 팽창", "빅뱅", "허블 법칙", "은하 분류", "우주 배경 복사"];
+      if (kind === "astronomy" || kind === "data") return ["적색 편이", "허블 법칙", "우주 팽창", "빅뱅", "외부 은하", "은하 분류", "우주 배경 복사", "거리", "속도", "그래프", "우주 데이터", "암흑 물질"];
+      return ["외부 은하", "은하 분류", "적색 편이", "허블 법칙", "우주 팽창", "빅뱅", "우주 배경 복사", "암흑 물질", "암흑 에너지", "우주 데이터", "우주 진화"];
     }
 
     return [];
   }
-
 
   function getPreferredConceptSequence() {
     if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
