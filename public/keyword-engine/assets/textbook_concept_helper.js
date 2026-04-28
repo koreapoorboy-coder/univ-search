@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_48_life_science_bioengineering_exact_fix";
+  const ASSET_VERSION_QUERY = "v33_49_earth_science_axis_start";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5350,7 +5350,161 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+
+  function getEarthScienceMajorTextBundle() {
+    let statusMajorText = "";
+    try {
+      statusMajorText = String($("engineCareerSummary")?.textContent || "").replace(/\s+/g, " ").trim();
+      if (/입력 전|선택 전|대기/.test(statusMajorText)) statusMajorText = "";
+    } catch (error) {}
+    let visibleMajorText = "";
+    try {
+      visibleMajorText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+    } catch (error) {}
+    return [
+      statusMajorText || "",
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || "",
+      visibleMajorText || ""
+    ].join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  function getEarthScienceMajorKind() {
+    const text = getEarthScienceMajorTextBundle();
+    const selectedText = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || ""
+    ].join(" ").replace(/\s+/g, " ").trim();
+
+    const exact = (pattern) => pattern.test(selectedText) || pattern.test(text);
+    if (exact(/(천문우주|천문|우주과학|우주공학|항공우주|항공|물리천문|천체|우주)/)) return "astronomy";
+    if (exact(/(대기과학|기상|기후과학|기후|기상학|대기)/)) return "atmosphere";
+    if (exact(/(해양학|해양과학|해양생명|해양수산|해양공학|수산|해양)/)) return "ocean";
+    if (exact(/(재난안전|방재|안전공학|소방|도시방재|재난)/)) return "disaster";
+    if (exact(/(토목|건축|도시공학|건설|지반|공간정보|측량)/)) return "civil";
+    if (exact(/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|통계|GIS|지리정보|공간데이터|빅데이터)/i)) return "data";
+    if (exact(/(지구환경과학|지구과학|지질|지질학|자원|광물|에너지자원|지구시스템)/)) return "geoscience";
+    if (exact(/(환경공학|환경생태|환경|생태|지속가능|에너지환경|기후에너지|탄소중립)/)) return "environment";
+    return "default";
+  }
+
+  function getEarthSciencePreferredConceptSequence() {
+    const kind = getEarthScienceMajorKind();
+    const defaultSequence = [
+      "해수의 성질",
+      "해수의 순환",
+      "날씨의 변화",
+      "태풍과 악기상",
+      "지구의 기후 변화",
+      "지층과 지질시대",
+      "판 구조와 암석 변화",
+      "태양계 천체의 관측과 운동",
+      "별의 특성과 진화",
+      "은하와 우주의 진화"
+    ];
+
+    if (kind === "environment") {
+      return ["지구의 기후 변화", "해수의 순환", "태풍과 악기상", "해수의 성질", "날씨의 변화", "판 구조와 암석 변화", "지층과 지질시대", "태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "atmosphere") {
+      return ["날씨의 변화", "태풍과 악기상", "지구의 기후 변화", "해수의 순환", "해수의 성질", "태양계 천체의 관측과 운동", "판 구조와 암석 변화", "지층과 지질시대", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "ocean") {
+      return ["해수의 성질", "해수의 순환", "지구의 기후 변화", "태풍과 악기상", "날씨의 변화", "지층과 지질시대", "판 구조와 암석 변화", "태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "astronomy") {
+      return ["태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화", "지구의 기후 변화", "날씨의 변화", "해수의 순환", "판 구조와 암석 변화", "지층과 지질시대", "해수의 성질", "태풍과 악기상"];
+    }
+    if (kind === "geoscience") {
+      return ["판 구조와 암석 변화", "지층과 지질시대", "지구의 기후 변화", "해수의 순환", "해수의 성질", "날씨의 변화", "태풍과 악기상", "태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "disaster") {
+      return ["태풍과 악기상", "날씨의 변화", "판 구조와 암석 변화", "지구의 기후 변화", "해수의 순환", "지층과 지질시대", "해수의 성질", "태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "civil") {
+      return ["판 구조와 암석 변화", "지층과 지질시대", "태풍과 악기상", "날씨의 변화", "지구의 기후 변화", "해수의 성질", "해수의 순환", "태양계 천체의 관측과 운동", "별의 특성과 진화", "은하와 우주의 진화"];
+    }
+    if (kind === "data") {
+      return ["날씨의 변화", "지구의 기후 변화", "은하와 우주의 진화", "태양계 천체의 관측과 운동", "해수의 순환", "해수의 성질", "별의 특성과 진화", "태풍과 악기상", "판 구조와 암석 변화", "지층과 지질시대"];
+    }
+    return defaultSequence;
+  }
+
+  function getEarthSciencePreferredKeywordSequence() {
+    const concept = state.concept || "";
+    const kind = getEarthScienceMajorKind();
+
+    if (/해수의 성질/.test(concept)) {
+      if (kind === "data") return ["수온", "염분", "밀도", "그래프", "관측 자료", "수온 염분도", "용존 산소", "혼합층", "수온 약층", "심해층"];
+      if (kind === "environment" || kind === "ocean") return ["수온", "염분", "밀도", "용존 산소", "해양 산성화", "수질", "혼합층", "수온 약층", "표층 염분", "해양 생물"];
+      return ["수온", "염분", "밀도", "용존 산소", "혼합층", "수온 약층", "심해층", "수온 염분도", "표층 수온", "표층 염분"];
+    }
+
+    if (/해수의 순환/.test(concept)) {
+      if (kind === "environment" || kind === "ocean") return ["해류", "열염 순환", "심층 순환", "표층 순환", "기후 변화", "탄소 저장", "엘니뇨", "라니냐", "용승", "어장"];
+      if (kind === "data") return ["해류", "순환 모형", "지도", "모델링", "시뮬레이션", "그래프", "열염 순환", "표층 순환", "심층 순환"];
+      return ["표층 순환", "심층 순환", "열염 순환", "해류", "난류", "한류", "수괴", "기후 변화", "용승", "코리올리"];
+    }
+
+    if (/날씨의 변화/.test(concept)) {
+      if (kind === "data") return ["위성 영상", "레이더 영상", "일기도", "기상 데이터", "예보", "기압", "바람", "강수량", "시계열", "자료 분석"];
+      if (kind === "atmosphere" || kind === "disaster") return ["일기도", "기압", "바람", "전선", "기단", "위성 영상", "레이더 영상", "예보", "저기압", "강수대"];
+      return ["기압", "바람", "일기도", "위성 영상", "레이더 영상", "전선", "기단", "저기압", "고기압", "날씨 예측"];
+    }
+
+    if (/태풍과 악기상/.test(concept)) {
+      if (kind === "disaster" || kind === "civil") return ["태풍", "집중 호우", "경로", "방재", "피해", "경보", "강풍", "해수면 온도", "도시 침수", "재난 예방"];
+      if (kind === "data") return ["태풍 경로", "위성 영상", "강수량", "풍속", "기압 분포", "예측", "데이터", "시뮬레이션"];
+      return ["태풍", "잠열", "태풍의 눈", "집중 호우", "열대 저기압", "풍속 분포", "기압 분포", "악기상", "해수면 온도"];
+    }
+
+    if (/지구의 기후 변화/.test(concept)) {
+      if (kind === "data") return ["기후 데이터", "기온 변화", "이산화탄소", "해수면", "그래프", "통계", "예측", "모형", "시계열"];
+      if (kind === "environment" || kind === "atmosphere") return ["기후 변화", "온실 효과", "온실기체", "엘니뇨", "라니냐", "남방진동", "탄소중립", "해수면 상승", "재생에너지"];
+      return ["엘니뇨", "라니냐", "남방진동", "온실 효과", "기후 변화", "온실기체", "복사 평형", "해수면", "이산화탄소"];
+    }
+
+    if (/지층과 지질시대/.test(concept)) {
+      if (kind === "geoscience" || kind === "civil") return ["지층", "화석", "상대 연령", "절대 연령", "부정합", "퇴적암", "층서", "지질시대", "대멸종"];
+      return ["지층", "화석", "상대 연령", "절대 연령", "지질시대", "대멸종", "환경 변화", "퇴적암", "부정합"];
+    }
+
+    if (/판 구조와 암석 변화/.test(concept)) {
+      if (kind === "civil" || kind === "disaster") return ["판 구조론", "지진", "화산", "판 경계", "지반", "재난", "안전", "화산재", "피해", "지질도"];
+      if (kind === "geoscience") return ["판 구조론", "판 경계", "화성암", "변성암", "암석 순환", "해양저 확장", "섭입", "고지자기", "지질공원"];
+      return ["판 구조론", "화성암", "변성암", "지질공원", "판 경계", "지진", "화산", "암석 순환", "섭입"];
+    }
+
+    if (/태양계 천체의 관측과 운동/.test(concept)) {
+      if (kind === "astronomy" || kind === "data") return ["관측", "케플러 법칙", "행성", "위상 변화", "궤도", "위성", "망원경", "주기", "거리", "데이터"];
+      return ["행성", "위상 변화", "케플러 법칙", "관측", "공전", "달", "망원경", "궤도", "위성"];
+    }
+
+    if (/별의 특성과 진화/.test(concept)) {
+      if (kind === "astronomy" || kind === "data") return ["H-R도", "스펙트럼", "별의 밝기", "표면 온도", "핵융합", "질량", "주계열성", "적색거성", "백색왜성", "초신성"];
+      return ["별의 밝기", "스펙트럼", "H-R도", "핵융합", "표면 온도", "질량", "주계열성", "적색거성", "백색왜성"];
+    }
+
+    if (/은하와 우주의 진화/.test(concept)) {
+      if (kind === "astronomy" || kind === "data") return ["적색 편이", "허블 법칙", "우주 팽창", "빅뱅", "외부 은하", "은하 분류", "우주 배경 복사", "거리", "속도", "그래프"];
+      return ["외부 은하", "적색 편이", "우주 팽창", "빅뱅", "허블 법칙", "은하 분류", "우주 배경 복사"];
+    }
+
+    return [];
+  }
+
+
   function getPreferredConceptSequence() {
+    if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
+      return getEarthSciencePreferredConceptSequence();
+    }
     if (state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") {
       return getLifeSciencePreferredConceptSequence();
     }
@@ -5795,6 +5949,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
+      const earthPreferred = getEarthSciencePreferredKeywordSequence();
+      if (earthPreferred.length) return earthPreferred;
+    }
     if (state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") {
       const lifePreferred = getLifeSciencePreferredKeywordSequence();
       if (lifePreferred.length) return lifePreferred;
@@ -6196,6 +6354,13 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
         "공간좌표와 구의 방정식",
         "이차곡선과 자취 해석"
       ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (state.subject === "지구과학" || state.subject === "지구과학Ⅰ" || state.subject === "지구과학1") {
+      const forced = getEarthSciencePreferredConceptSequence().slice(0, 3);
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
       const others = ranked.filter(item => !forced.includes(item.concept));
       return uniq([...forcedItems, ...others]).slice(0, 3);
