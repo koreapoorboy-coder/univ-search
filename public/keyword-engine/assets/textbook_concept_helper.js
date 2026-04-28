@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_42_life_science_bioengineering_fix";
+  const ASSET_VERSION_QUERY = "v33_43_life_science_keyword_followup_split";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3943,6 +3943,138 @@ function getTrackMeta(trackId) {
         }
       }
     }
+
+
+    // v33.43 life science keyword-level axis split:
+    // 3번 오른쪽 추천 키워드마다 4번 후속 연계축 1순위가 실제 의미에 맞게 갈라지도록 보정한다.
+    // 핵심: 같은 생명과학 개념 안에서도 DNA / 바이오 데이터 / 유전자 검사 / 복제·전사·번역 / 백신 등이 같은 4번 축으로 고정되지 않게 한다.
+    if (fuzzyIncludes(state.subject, "생명과학") || fuzzyIncludes(state.subject, "생명과학Ⅰ") || fuzzyIncludes(state.subject, "생명과학1")) {
+      const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      const majorText = [state.career || "", getMajorTextBag()].join(" ");
+      const isNursingHealth = /(간호|보건|임상병리|의료|재활|물리치료|작업치료)/.test(majorText);
+      const isMedical = /(의예|의학|의료|임상|치의|한의|수의|병리)/.test(majorText);
+      const isPharmacy = /(약학|제약|신약|약물|약대|화공)/.test(majorText);
+      const isBioEng = /(생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText);
+      const isFoodNutrition = /(식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(majorText);
+      const isEnv = /(환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(majorText);
+      const isBioInfo = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|통계|알고리즘|바이오인포매틱스|생명정보|헬스케어)/i.test(majorText);
+
+      if (/유전자와 염색체/.test(concept)) {
+        if (hit("DNA", "유전자", "염색체", "유전 정보")) {
+          if (/genetic_information_axis|유전 정보 해석 축|유전 정보/.test(axisText)) fallback = Math.max(fallback, 96);
+          if (/bio_data_bridge_axis|바이오 데이터 연결 축/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 18 : 6);
+        }
+        if (hit("염기 서열", "유전체", "바이오 데이터", "생명 정보", "시퀀싱", "서열 데이터", "데이터")) {
+          if (/bio_data_bridge_axis|바이오 데이터 연결 축|바이오 데이터/.test(axisText)) fallback = Math.max(fallback, 98);
+          if (/genetic_information_axis|유전 정보 해석 축/.test(axisText)) fallback = Math.max(fallback, 12);
+        }
+        if (hit("복제", "전사", "번역", "단백질 합성", "형질 발현", "발현")) {
+          if (/gene_expression_protein_axis|유전자 발현·단백질 합성 축|단백질 합성/.test(axisText)) fallback = Math.max(fallback, 98);
+          if (/genetic_information_axis|유전 정보 해석 축/.test(axisText)) fallback = Math.max(fallback, 10);
+        }
+        if (hit("유전자 검사", "정밀의학", "돌연변이", "질병", "진단", "유전 질환")) {
+          if (/genetic_diagnosis_precision_axis|유전 진단·정밀의학 축|질병·진단/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 106 : 100);
+          if (/genetic_ethics_axis|유전 윤리·사회 축|유전 윤리/.test(axisText)) fallback = Math.max(fallback, 16);
+          if (/bio_data_bridge_axis|바이오 데이터 연결 축/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 18 : 8);
+        }
+        if (hit("유전자 편집", "개인정보", "생명 윤리", "윤리", "차별", "정보 보호")) {
+          if (/genetic_ethics_axis|유전 윤리·사회 축|유전 윤리/.test(axisText)) fallback = Math.max(fallback, 100);
+          if (/genetic_diagnosis_precision_axis|유전 진단·정밀의학 축/.test(axisText)) fallback = Math.max(fallback, 10);
+        }
+      }
+
+      if (/물질대사와 에너지/.test(concept)) {
+        if (hit("효소", "기질", "반응 속도", "촉매", "효소 반응", "약물 대사")) {
+          if (/cell_energy_axis|세포 에너지 해석 축|효소/.test(axisText)) fallback = Math.max(fallback, isPharmacy ? 102 : 96);
+          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, isFoodNutrition ? 18 : 8);
+        }
+        if (hit("ATP", "ADP", "세포 호흡", "광합성", "에너지 전환", "물질대사", "대사 경로")) {
+          if (/cell_energy_axis|세포 에너지 해석 축/.test(axisText)) fallback = Math.max(fallback, 98);
+          if (/health_nutrition_application_axis|건강·영양 응용 축/.test(axisText)) fallback = Math.max(fallback, isFoodNutrition ? 16 : 6);
+        }
+        if (hit("영양소", "식단", "칼로리", "탄수화물", "지방", "단백질", "운동", "포도당")) {
+          if (/health_nutrition_application_axis|건강·영양 응용 축|건강 영양/.test(axisText)) fallback = Math.max(fallback, 100);
+          if (/cell_energy_axis|세포 에너지 해석 축/.test(axisText)) fallback = Math.max(fallback, 8);
+        }
+        if (hit("탄소 순환", "생태계", "산소", "에너지 흐름")) {
+          if (/bioenergy_environment_axis|생명·환경 에너지 축|생명 환경/.test(axisText)) fallback = Math.max(fallback, 96);
+        }
+      }
+
+      if (/물질대사와 건강/.test(concept)) {
+        if (hit("혈당", "인슐린", "당뇨병", "고혈압", "대사성 질환", "비만", "질병")) {
+          if (/metabolic_health_axis|건강 대사 분석 축|대사 건강/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 104 : 98);
+        }
+        if (hit("생활 습관", "예방", "관리", "식단", "운동", "보건")) {
+          if (/public_health_habit_axis|보건·생활습관 설계 축|생활습관/.test(axisText)) fallback = Math.max(fallback, 98);
+        }
+        if (hit("건강 데이터", "혈당 데이터", "측정", "모니터링", "데이터")) {
+          if (/health_data_monitor_axis|건강 데이터 모니터링 축|건강 데이터/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 104 : 96);
+        }
+      }
+
+      if (/신경 자극 전도와 전달/.test(concept)) {
+        if (hit("뉴런", "막전위", "활동 전위", "이온 이동", "전도", "자극")) {
+          if (/neural_signal_axis|신경 신호 해석 축|신경 신호/.test(axisText)) fallback = Math.max(fallback, 98);
+        }
+        if (hit("시냅스", "전달", "신경전달물질", "수용체", "약물", "반응 시간")) {
+          if (/bio_signal_application_axis|생체 정보 응용 축|생체 정보/.test(axisText)) fallback = Math.max(fallback, (isPharmacy || isBioInfo) ? 104 : 96);
+          if (/neural_signal_axis|신경 신호 해석 축/.test(axisText)) fallback = Math.max(fallback, 10);
+        }
+        if (hit("행동", "감각", "학습", "심리", "반응")) {
+          if (/neuro_psychology_bridge_axis|신경·행동 연결 축|신경 행동/.test(axisText)) fallback = Math.max(fallback, 96);
+        }
+      }
+
+      if (/신경계와 항상성/.test(concept)) {
+        if (hit("항상성", "호르몬", "체온 조절", "혈당 조절", "피드백", "내부 환경", "인슐린")) {
+          if (/homeostasis_control_axis|항상성 조절 해석 축|항상성/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 104 : 98);
+        }
+        if (hit("중추 신경계", "말초 신경계", "자율 신경", "감각", "반응")) {
+          if (/health_monitoring_axis|인체 조절 데이터 축|인체 조절/.test(axisText)) fallback = Math.max(fallback, 96);
+        }
+        if (hit("건강 관리", "생활 습관", "측정", "건강 데이터", "의사결정")) {
+          if (/healthcare_decision_axis|건강 관리 의사결정 축/.test(axisText)) fallback = Math.max(fallback, 98);
+        }
+      }
+
+      if (/면역과 백신/.test(concept)) {
+        if (hit("항원", "항체", "면역 반응", "선천 면역", "후천 면역", "면역 기억")) {
+          if (/immune_response_axis|면역 반응 해석 축|면역 반응/.test(axisText)) fallback = Math.max(fallback, 100);
+        }
+        if (hit("백신", "병원체", "감염", "예방", "진단", "집단 면역")) {
+          if (/infection_prevention_axis|감염병 예방 응용 축|감염병 예방/.test(axisText)) fallback = Math.max(fallback, (isNursingHealth || isMedical) ? 104 : 98);
+        }
+        if (hit("접종", "공중보건", "사회", "윤리", "안전성")) {
+          if (/bioethics_vaccine_axis|의생명 윤리 판단 축|의생명 윤리/.test(axisText)) fallback = Math.max(fallback, 96);
+        }
+      }
+
+      if (/생태계의 물질 순환과 상호 작용/.test(concept)) {
+        if (hit("생태계", "먹이 그물", "상호 작용", "개체군", "생태계 평형")) {
+          if (/ecosystem_analysis_axis|생태계 해석 축|생태계/.test(axisText)) fallback = Math.max(fallback, isEnv ? 104 : 98);
+        }
+        if (hit("물질 순환", "탄소 순환", "질소 순환", "자원", "환경", "오염")) {
+          if (/environment_resource_application_axis|환경·자원 응용 축|환경 자원/.test(axisText)) fallback = Math.max(fallback, isEnv ? 106 : 98);
+        }
+        if (hit("데이터", "변동", "모델링", "네트워크", "지표", "예측")) {
+          if (/ecosystem_data_decision_axis|생태 데이터 판단 축|생태 데이터/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 104 : 96);
+        }
+      }
+
+      if (/진화와 생물 다양성/.test(concept)) {
+        if (hit("진화", "자연선택", "분류", "계통수", "종 다양성")) {
+          if (/evolution_diversity_axis|진화·분류 해석 축|진화/.test(axisText)) fallback = Math.max(fallback, 98);
+        }
+        if (hit("생물 다양성", "생물 자원", "보전", "멸종", "자원")) {
+          if (/bio_resource_application_axis|생물 자원 응용 축|생물 자원/.test(axisText)) fallback = Math.max(fallback, isEnv ? 104 : 96);
+        }
+        if (hit("비교 분석", "데이터", "분류 데이터", "계통")) {
+          if (/evolution_data_communication_axis|진화 데이터 소통 축|진화 데이터/.test(axisText)) fallback = Math.max(fallback, isBioInfo ? 104 : 96);
+        }
+      }
+    }
+
 
     if (fuzzyIncludes(state.subject, "통합사회1") || fuzzyIncludes(state.subject, "통합사회")) {
       const isItMajor = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹|플랫폼|네트워크)/i.test([state.career || "", getMajorTextBag()].join(" "));
