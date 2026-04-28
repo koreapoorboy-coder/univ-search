@@ -1,6 +1,6 @@
 {
   "subject_name": "역학과 에너지",
-  "version": "v362-fixed",
+  "version": "v34.10-mechanics-energy-major-keyword-routing",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
@@ -281,11 +281,48 @@
       "core_focus": "단진동, 파동의 전파, 도플러 효과, 정상파, 공명, 음향 장치와 의료·통신 응용",
       "longitudinal_axes": [
         {
+          "axis_id": "structure_vibration_seismic_axis",
+          "axis_title": "구조 진동·내진 해석 축",
+          "axis_short": "내진·진동",
+          "axis_domain": "engineering",
+          "priority": 1,
+          "next_subjects": [
+            "역학과 에너지",
+            "건축공학",
+            "토목공학",
+            "과학탐구실험2"
+          ],
+          "why": "탄성파, 지진파, 공진, 감쇠를 구조물의 진동과 내진 안전 문제로 연결하면 건축·토목 계열의 후속 탐구 축이 선명해진다.",
+          "student_output_hint": "지진파와 구조물 공진 비교, 감쇠·내진 설계 자료 정리, 진동 센서 데이터 해석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "지진파",
+                "탄성파",
+                "진동",
+                "공진",
+                "감쇠",
+                "구조 안전",
+                "내진"
+              ],
+              "boost": 28,
+              "label": "키워드 직접 반영",
+              "short_label": "내진·구조 진동",
+              "message": "선택한 키워드가 구조물 진동과 내진 안전 문제에 직접 연결되어 구조 진동·내진 해석 축이 1순위로 강화됩니다.",
+              "desc": "파동과 진동 개념을 건축·토목 구조 안전, 지진파 해석, 감쇠 설계로 확장하는 연결입니다.",
+              "activity_examples": [
+                "지진파와 건물 고유진동수의 관계 정리하기",
+                "감쇠 구조와 내진 설계 사례 비교하기"
+              ]
+            }
+          ]
+        },
+        {
           "axis_id": "wave_signal_analysis_axis",
           "axis_title": "파동·신호 해석 축",
           "axis_short": "파동 신호",
           "axis_domain": "physics",
-          "priority": 1,
+          "priority": 2,
           "next_subjects": [
             "전자기와 양자",
             "정보",
@@ -332,7 +369,7 @@
           "axis_title": "음향·의료 장치 응용 축",
           "axis_short": "음향 장치",
           "axis_domain": "engineering",
-          "priority": 2,
+          "priority": 3,
           "next_subjects": [
             "의공학",
             "정보통신공학",
@@ -366,7 +403,7 @@
           "axis_title": "신호 데이터 시각화 축",
           "axis_short": "신호 데이터",
           "axis_domain": "data",
-          "priority": 3,
+          "priority": 4,
           "next_subjects": [
             "정보",
             "과학탐구실험2",
@@ -391,6 +428,26 @@
               "activity_examples": [
                 "소리 파형을 캡처해 진동수 차이를 비교하기",
                 "센서로 수집한 진동 데이터를 그래프로 시각화하기"
+              ]
+            },
+            {
+              "keywords": [
+                "파형",
+                "그래프",
+                "스펙트럼",
+                "주파수",
+                "센서 데이터",
+                "신호 처리",
+                "데이터"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short_label": "센서·신호 데이터",
+              "message": "파형·센서 데이터 키워드가 선택되어 신호 데이터 시각화 축이 강화됩니다.",
+              "desc": "진동과 소리를 데이터로 수집하고 그래프·스펙트럼으로 해석하는 탐구 방향입니다.",
+              "activity_examples": [
+                "센서로 수집한 진동 데이터를 그래프로 시각화하기",
+                "소리 파형의 주파수 차이 비교하기"
               ]
             }
           ]
