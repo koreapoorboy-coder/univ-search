@@ -1191,41 +1191,6 @@
   },
   {
     "major_name": "간호학과",
-    "base_subject": "생명과학",
-    "axis_order": 1,
-    "axis_id": "health_regulation",
-    "axis_title": "건강·항상성 확장 축",
-    "axis_domain": "biology",
-    "linked_subjects": [
-      "생명과학",
-      "세포와 물질대사",
-      "화학"
-    ],
-    "extension_keywords": [
-      "항상성",
-      "면역",
-      "조절",
-      "건강",
-      "질환",
-      "반응"
-    ],
-    "activity_examples": [
-      "질환 사례 정리",
-      "항상성 설명",
-      "면역 반응 비교"
-    ],
-    "axis_desc": "생명과학의 항상성과 면역 개념을 건강·간호 사례 해석으로 이어가기 좋은 축",
-    "grade2_next_subjects": [
-      "세포와 물질대사",
-      "화학",
-      "통합사회2"
-    ],
-    "record_continuity_point": "1학년 생명 현상 이해를 2학년 건강·질환 해석 활동으로 확장",
-    "is_primary": true,
-    "active": true
-  },
-  {
-    "major_name": "간호학과",
     "base_subject": "화학",
     "axis_order": 1,
     "axis_id": "bio_chemistry",
@@ -1291,41 +1256,6 @@
       "물질과 에너지"
     ],
     "record_continuity_point": "2학년 세포 수준 이해를 건강·생리 중심 활동으로 확장",
-    "is_primary": true,
-    "active": true
-  },
-  {
-    "major_name": "생명공학과",
-    "base_subject": "생명과학",
-    "axis_order": 1,
-    "axis_id": "bio_system",
-    "axis_title": "생명 시스템 확장 축",
-    "axis_domain": "biology",
-    "linked_subjects": [
-      "생명과학",
-      "세포와 물질대사",
-      "화학"
-    ],
-    "extension_keywords": [
-      "생명 시스템",
-      "유전",
-      "항상성",
-      "면역",
-      "대사",
-      "조절"
-    ],
-    "activity_examples": [
-      "생명 현상 비교",
-      "시스템 정리",
-      "유전·대사 흐름 설명"
-    ],
-    "axis_desc": "생명과학의 핵심 시스템 개념을 세포·분자 수준 생명공학 탐구로 이어가기 좋은 축",
-    "grade2_next_subjects": [
-      "세포와 물질대사",
-      "화학",
-      "물질과 에너지"
-    ],
-    "record_continuity_point": "1학년 생명 시스템 이해를 2학년 세포·분자 중심 탐구로 확장",
     "is_primary": true,
     "active": true
   },
@@ -1571,6 +1501,320 @@
       "공통국어2"
     ],
     "record_continuity_point": "1학년 생명 개념을 2학년 행동·자료 해석 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "간호학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "homeostasis_health",
+    "axis_title": "건강·항상성 간호 확장 축",
+    "axis_domain": "biology",
+    "linked_subjects": [
+      "생명과학",
+      "간호학과",
+      "보건학과",
+      "의예과"
+    ],
+    "extension_keywords": [
+      "항상성",
+      "혈당",
+      "체온",
+      "면역",
+      "건강 데이터",
+      "환자 관찰"
+    ],
+    "activity_examples": [
+      "혈당 조절 피드백 구조 정리",
+      "감염병 예방 간호 자료 만들기"
+    ],
+    "axis_desc": "생명과학의 항상성·면역·대사 건강 개념을 간호학의 환자 상태 관찰과 건강관리로 이어 가는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "보건",
+      "확률과 통계"
+    ],
+    "record_continuity_point": "대사 건강·면역·항상성 탐구를 2학년 보건/간호형 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "의예과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "clinical_biology",
+    "axis_title": "질병 원리·임상 생명 확장 축",
+    "axis_domain": "biology",
+    "linked_subjects": [
+      "생명과학",
+      "의예과",
+      "약학과",
+      "임상병리학과"
+    ],
+    "extension_keywords": [
+      "면역",
+      "질병 원인",
+      "신경 조절",
+      "유전 정보",
+      "대사 이상"
+    ],
+    "activity_examples": [
+      "면역 반응과 질병 사례 분석",
+      "대사 이상과 질환 원리 비교"
+    ],
+    "axis_desc": "면역, 항상성, 유전, 대사 개념을 질병 원리와 임상적 판단으로 연결하는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "화학",
+      "확률과 통계"
+    ],
+    "record_continuity_point": "생명과학 개념을 질병 원인·진단·자료 분석 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "약학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "enzyme_drug",
+    "axis_title": "효소·수용체·약물 작용 확장 축",
+    "axis_domain": "chemistry",
+    "linked_subjects": [
+      "생명과학",
+      "약학과",
+      "화학",
+      "세포와 물질대사"
+    ],
+    "extension_keywords": [
+      "효소",
+      "수용체",
+      "신경전달물질",
+      "면역",
+      "약물 대사",
+      "항체"
+    ],
+    "activity_examples": [
+      "효소와 약물 대사 사례 조사",
+      "수용체와 신경전달물질 작용 비교"
+    ],
+    "axis_desc": "효소·수용체·면역 개념을 약물 작용과 제약 탐구로 이어 가는 축",
+    "grade2_next_subjects": [
+      "화학",
+      "세포와 물질대사",
+      "생명과학"
+    ],
+    "record_continuity_point": "생명과학의 대사·면역·신경 전달 개념을 약학형 탐구로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "생명공학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "genetic_bioengineering",
+    "axis_title": "유전 정보·바이오공학 확장 축",
+    "axis_domain": "engineering",
+    "linked_subjects": [
+      "생명과학",
+      "생명공학과",
+      "의생명공학과",
+      "생명정보학과"
+    ],
+    "extension_keywords": [
+      "DNA",
+      "유전자",
+      "바이오 데이터",
+      "유전체",
+      "발생",
+      "세포 배양"
+    ],
+    "activity_examples": [
+      "염기서열 데이터 활용 사례 조사",
+      "유전자 정보와 단백질 합성 관계도 작성"
+    ],
+    "axis_desc": "유전 정보와 생명 시스템 개념을 바이오 기술·생명정보·의생명공학으로 확장하는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "정보",
+      "세포와 물질대사"
+    ],
+    "record_continuity_point": "유전자·세포·생명정보 탐구를 생명공학형 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "식품영양학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "nutrition_metabolism",
+    "axis_title": "영양 대사·건강 설계 확장 축",
+    "axis_domain": "health",
+    "linked_subjects": [
+      "생명과학",
+      "식품영양학과",
+      "보건학과",
+      "화학"
+    ],
+    "extension_keywords": [
+      "영양소",
+      "ATP",
+      "대사",
+      "혈당",
+      "식단",
+      "건강관리"
+    ],
+    "activity_examples": [
+      "영양소별 에너지 대사 비교",
+      "식단과 혈당 변화 자료 정리"
+    ],
+    "axis_desc": "물질대사와 건강 개념을 식품영양·생활습관·건강관리 탐구로 연결하는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "화학",
+      "확률과 통계"
+    ],
+    "record_continuity_point": "영양소 대사와 건강 지표 분석을 식품영양형 탐구로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "환경공학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "ecosystem_environment",
+    "axis_title": "생태계·환경 데이터 확장 축",
+    "axis_domain": "environment",
+    "linked_subjects": [
+      "생명과학",
+      "환경공학과",
+      "환경생태학과",
+      "통합사회2"
+    ],
+    "extension_keywords": [
+      "생태계",
+      "물질 순환",
+      "생물 다양성",
+      "환경 지표",
+      "보전",
+      "복원"
+    ],
+    "activity_examples": [
+      "생물 다양성 지표 비교",
+      "서식지 훼손과 복원 사례 분석"
+    ],
+    "axis_desc": "생태계와 생물 다양성 개념을 환경공학의 자료 기반 문제 해결로 연결하는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "통합사회2",
+      "확률과 통계"
+    ],
+    "record_continuity_point": "생태계 자료 해석과 환경 보전 설계를 환경공학형 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "환경생태학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "ecosystem_conservation",
+    "axis_title": "생물 다양성·보전 확장 축",
+    "axis_domain": "environment",
+    "linked_subjects": [
+      "생명과학",
+      "환경생태학과",
+      "산림자원학과",
+      "지구과학"
+    ],
+    "extension_keywords": [
+      "생물 다양성",
+      "진화",
+      "분류",
+      "생태계",
+      "보전",
+      "서식지"
+    ],
+    "activity_examples": [
+      "멸종위기종 보전 사례 조사",
+      "생물 다양성과 생태계 안정성 정리"
+    ],
+    "axis_desc": "진화·분류·생태계 개념을 생물 다양성 보전과 생태계 관리로 연결하는 축",
+    "grade2_next_subjects": [
+      "생명과학",
+      "지구과학",
+      "통합사회2"
+    ],
+    "record_continuity_point": "생물 다양성·보전 탐구를 환경생태형 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "컴퓨터공학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "bio_data_computing",
+    "axis_title": "바이오 데이터·생체 신호 확장 축",
+    "axis_domain": "data",
+    "linked_subjects": [
+      "생명과학",
+      "컴퓨터공학과",
+      "정보",
+      "데이터사이언스학과"
+    ],
+    "extension_keywords": [
+      "유전체",
+      "염기서열",
+      "바이오 데이터",
+      "생체 신호",
+      "센서",
+      "알고리즘"
+    ],
+    "activity_examples": [
+      "DNA 염기서열을 문자열 데이터로 비교",
+      "생체 신호 데이터 활용 사례 조사"
+    ],
+    "axis_desc": "유전 정보와 생체 신호를 데이터 구조·분류·분석 관점으로 연결하는 축",
+    "grade2_next_subjects": [
+      "정보",
+      "확률과 통계",
+      "생명과학"
+    ],
+    "record_continuity_point": "생명과학 탐구를 바이오 데이터 및 컴퓨팅 기반 활동으로 확장",
+    "is_primary": true,
+    "active": true
+  },
+  {
+    "major_name": "데이터사이언스학과",
+    "base_subject": "생명과학",
+    "axis_order": 1,
+    "axis_id": "bio_health_data",
+    "axis_title": "건강·유전체 데이터 분석 확장 축",
+    "axis_domain": "data",
+    "linked_subjects": [
+      "생명과학",
+      "데이터사이언스학과",
+      "정보",
+      "확률과 통계"
+    ],
+    "extension_keywords": [
+      "건강 데이터",
+      "유전체 데이터",
+      "환경 지표",
+      "분류",
+      "예측",
+      "시각화"
+    ],
+    "activity_examples": [
+      "건강 지표 변화 그래프 분석",
+      "생물 다양성 지표 시각화"
+    ],
+    "axis_desc": "생명과학의 유전·건강·생태 자료를 데이터 분석 문제로 전환하는 축",
+    "grade2_next_subjects": [
+      "정보",
+      "확률과 통계",
+      "생명과학"
+    ],
+    "record_continuity_point": "생명 데이터를 수집·분류·시각화하는 데이터사이언스형 활동으로 확장",
     "is_primary": true,
     "active": true
   }
