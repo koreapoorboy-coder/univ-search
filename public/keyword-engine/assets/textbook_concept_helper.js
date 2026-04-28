@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_43_life_science_keyword_followup_split";
+  const ASSET_VERSION_QUERY = "v33_48_life_science_bioengineering_exact_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5048,6 +5048,48 @@ function getTrackMeta(trackId) {
     return false;
   }
 
+
+  function getLifeScienceExactMajorText() {
+    const exactParts = [];
+    try {
+      const summary = String($("engineCareerSummary")?.textContent || "").replace(/s+/g, " ").trim();
+      if (summary && !/입력 전|선택 전|대기|찾지 못했|추천/.test(summary)) exactParts.push(summary);
+    } catch (error) {}
+    try {
+      const input = String(getCareerInputText?.() || "").replace(/s+/g, " ").trim();
+      if (input && !/입력 전|선택 전|대기|찾지 못했|추천/.test(input)) exactParts.push(input);
+    } catch (error) {}
+    [state.majorSelectedName, getEffectiveCareerName?.(), getMajorPanelResolvedName?.(), state.career].forEach(value => {
+      const text = String(value || "").replace(/s+/g, " ").trim();
+      if (text && !/입력 전|선택 전|대기|찾지 못했|추천/.test(text)) exactParts.push(text);
+    });
+    return uniq(exactParts).join(" ").trim();
+  }
+
+  function getLifeScienceMajorKind() {
+    const exact = getLifeScienceExactMajorText();
+    if (/(^|s)(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|생명정보|바이오공학|바이오테크|바이오메디컬)(s|$)/.test(exact)) return "bioengineering";
+    if (/(^|s)(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)(s|$)/.test(exact)) return "nursing";
+    if (/(^|s)(약학과|약학|제약|신약|약물|약대|화공)(s|$)/.test(exact)) return "pharmacy";
+    if (/(^|s)(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)(s|$)/.test(exact)) return "food";
+    if (/(^|s)(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)(s|$)/.test(exact)) return "environment";
+    if (/(^|s)(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|신경망|뉴럴|센서|헬스케어)(s|$)/i.test(exact)) return "computer";
+
+    let mixed = exact;
+    try { mixed += " " + String(document.body?.innerText || "").replace(/s+/g, " "); } catch (error) {}
+    if (/2.s*학과s*생명공학과|학과s*생명공학과/.test(mixed)) return "bioengineering";
+    if (/2.s*학과s*간호학과|학과s*간호학과/.test(mixed)) return "nursing";
+    if (/2.s*학과s*약학과|학과s*약학과/.test(mixed)) return "pharmacy";
+    if (/2.s*학과s*식품영양학과|학과s*식품영양학과/.test(mixed)) return "food";
+    if (/2.s*학과s*환경공학과|학과s*환경공학과|2.s*학과s*환경생태학과|학과s*환경생태학과/.test(mixed)) return "environment";
+    if (/2.s*학과s*컴퓨터공학과|학과s*컴퓨터공학과/.test(mixed)) return "computer";
+    return "";
+  }
+
+  function isLifeScienceBioengineeringMajorContext() {
+    return getLifeScienceMajorKind() === "bioengineering";
+  }
+
   function getLifeSciencePreferredConceptSequence() {
     // v33.47 life-science selected-major guard:
     // 일부 학과 프로필/화면 텍스트에 식품·환경·보건 키워드가 함께 섞이면
@@ -5068,6 +5110,27 @@ function getTrackMeta(trackId) {
     const defaultSequence = ["생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "생태계의 물질 순환과 상호 작용", "신경 자극 전도와 전달", "신경계와 항상성", "면역과 백신", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성"];
     if (!majorTextRaw && !visibleMajorText) return defaultSequence;
 
+    const exactMajorKind = getLifeScienceMajorKind();
+    if (exactMajorKind === "bioengineering") {
+      return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (exactMajorKind === "nursing") {
+      return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (exactMajorKind === "pharmacy") {
+      return ["물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "물질대사와 건강", "유전자와 염색체", "신경계와 항상성", "생명과학의 이해", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (exactMajorKind === "food") {
+      return ["물질대사와 에너지", "물질대사와 건강", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "생명과학의 이해", "면역과 백신", "진화와 생물 다양성", "유전자와 염색체", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (exactMajorKind === "environment") {
+      return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (exactMajorKind === "computer") {
+      return ["유전자와 염색체", "신경 자극 전도와 전달", "신경계와 항상성", "생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 건강", "면역과 백신", "물질대사와 에너지", "생식과 생명의 연속성"];
+    }
+
+    // v33.48 life science exact-major guard is above. Legacy mixed-text guard remains as fallback.
     // v33.44 life science major-order guard:
     // 화면 본문/학과 프로필 안의 다른 학과명이 섞여 들어와도, 상단에서 실제 선택한 학과가 먼저 이기도록 한다.
     const explicitMajorText = majorTextRaw;
@@ -6318,8 +6381,17 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
     }
 
     const ranked = getRankedConcepts();
-    const primaryConcepts = getPrimaryConcepts(ranked);
-    const displayConcepts = getDisplayConcepts(ranked);
+    let primaryConcepts = getPrimaryConcepts(ranked);
+    let displayConcepts = getDisplayConcepts(ranked);
+    if ((state.subject === "생명과학" || state.subject === "생명과학Ⅰ" || state.subject === "생명과학1") && !state.showAllConcepts) {
+      const forcedLife = getLifeSciencePreferredConceptSequence().slice(0, 3);
+      const forcedItems = forcedLife.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      if (forcedItems.length) {
+        const others = ranked.filter(item => !forcedLife.includes(item.concept));
+        primaryConcepts = uniq([...forcedItems, ...others]).slice(0, 3);
+        displayConcepts = primaryConcepts;
+      }
+    }
     const allConcepts = getOrderedConceptsForAll(ranked);
     const primaryConceptNames = new Set(primaryConcepts.map(item => item.concept));
     const canShowAllConcepts = allConcepts.length > primaryConcepts.length;
