@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v33.41-life-science-computer-lock';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_49_earth_science_axis_start";
+  const ASSET_VERSION_QUERY = "v33_50_earth_major_exact_routing";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5352,46 +5352,44 @@ function getTrackMeta(trackId) {
 
 
   function getEarthScienceMajorTextBundle() {
-    let statusMajorText = "";
+    // 지구과학은 화면 전체 텍스트를 읽으면 개념 카드의 '천체/해수/기후' 단어가 섞여
+    // 모든 학과가 천문/해양/환경처럼 오판되는 문제가 생긴다.
+    // 따라서 실제 선택 학과명과 입력창/상단 상태값만 사용한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|대기/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
     try {
-      statusMajorText = String($("engineCareerSummary")?.textContent || "").replace(/\s+/g, " ").trim();
-      if (/입력 전|선택 전|대기/.test(statusMajorText)) statusMajorText = "";
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
     } catch (error) {}
-    let visibleMajorText = "";
-    try {
-      visibleMajorText = String(document.body?.innerText || "").replace(/\s+/g, " ");
-    } catch (error) {}
-    return [
-      statusMajorText || "",
-      state.career || "",
-      state.majorSelectedName || "",
-      getEffectiveCareerName() || "",
-      getCareerInputText() || "",
-      getMajorPanelResolvedName() || "",
-      getMajorTextBag() || "",
-      visibleMajorText || ""
-    ].join(" ").replace(/\s+/g, " ").trim();
+    return Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
   }
 
   function getEarthScienceMajorKind() {
-    const text = getEarthScienceMajorTextBundle();
-    const selectedText = [
-      state.career || "",
-      state.majorSelectedName || "",
-      getEffectiveCareerName() || "",
-      getCareerInputText() || "",
-      getMajorPanelResolvedName() || ""
-    ].join(" ").replace(/\s+/g, " ").trim();
+    const rawText = getEarthScienceMajorTextBundle();
+    const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
 
-    const exact = (pattern) => pattern.test(selectedText) || pattern.test(text);
-    if (exact(/(천문우주|천문|우주과학|우주공학|항공우주|항공|물리천문|천체|우주)/)) return "astronomy";
-    if (exact(/(대기과학|기상|기후과학|기후|기상학|대기)/)) return "atmosphere";
-    if (exact(/(해양학|해양과학|해양생명|해양수산|해양공학|수산|해양)/)) return "ocean";
-    if (exact(/(재난안전|방재|안전공학|소방|도시방재|재난)/)) return "disaster";
-    if (exact(/(토목|건축|도시공학|건설|지반|공간정보|측량)/)) return "civil";
-    if (exact(/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|통계|GIS|지리정보|공간데이터|빅데이터)/i)) return "data";
-    if (exact(/(지구환경과학|지구과학|지질|지질학|자원|광물|에너지자원|지구시스템)/)) return "geoscience";
-    if (exact(/(환경공학|환경생태|환경|생태|지속가능|에너지환경|기후에너지|탄소중립)/)) return "environment";
+    // 정확한 학과명 우선. 환경/천체/해수 같은 교과 개념 단어에 끌려가지 않게 한다.
+    if (has(/천문우주학과|천문우주|천문학과|우주과학과|우주공학과|항공우주공학과|물리천문학부|천체/)) return "astronomy";
+    if (has(/대기과학과|대기과학|기상학과|기상|기후과학과|기후학과/)) return "atmosphere";
+    if (has(/해양학과|해양과학과|해양생명|해양수산|해양공학|수산생명|해양/)) return "ocean";
+    if (has(/재난안전공학과|재난안전|방재공학과|방재|안전공학과|소방방재|소방|재난/)) return "disaster";
+    if (has(/토목공학과|토목|건축공학과|건축공학|도시공학과|도시공학|건설|지반|측량|공간정보/)) return "civil";
+    if (has(/컴퓨터공학과|컴퓨터|소프트웨어학과|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보통계|통계|GIS|지리정보|공간데이터|빅데이터/)) return "data";
+    if (has(/지구환경과학과|지구환경과학|지구과학과|지질학과|지질|자원공학과|광물|에너지자원|지구시스템/)) return "geoscience";
+    if (has(/환경공학과|환경생태학과|환경공학|환경생태|생태|환경|지속가능|에너지환경|기후에너지|탄소중립/)) return "environment";
     return "default";
   }
 
