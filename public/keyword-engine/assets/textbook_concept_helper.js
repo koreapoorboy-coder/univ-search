@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.22-electromagnetism-quantum-hard-followup-priority';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.23-matter-energy-axis-v1';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.22-electromagnetism-quantum-hard
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v33_53_major_search_buffer_fix";
+  const ASSET_VERSION_QUERY = "v34_23_matter_energy_axis_v1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3414,6 +3414,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.22-electromagnetism-quantum-hard
         score += Number(axis.__relationScore || 0);
         score += getMappedKeywordAxisBoost(mappedEntry, axis);
         score += getElectromagnetismQuantumHardAxisBoost(axis);
+        score += getMatterEnergyHardAxisBoost(axis);
         return { ...axis, __score: score };
       });
 
@@ -5792,6 +5793,174 @@ function getTrackMeta(trackId) {
   }
 
 
+  function isMatterEnergySubjectName(value) {
+    const text = String(value || "").replace(/\s+/g, "").trim();
+    return text === "물질과에너지" || text === "MatterandEnergy";
+  }
+
+  function isMatterEnergySubject() {
+    return isMatterEnergySubjectName(state.subject || "");
+  }
+
+  function getMatterEnergyMajorTextBundle() {
+    // 물질과 에너지는 화면 전체를 읽으면 '액체/기체/혼합' 교과어가 섞여 학과 분기가 약해진다.
+    // 실제 선택 학과명과 입력창/상단 상태값만 우선 사용한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    return Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function getMatterEnergyMajorKind() {
+    const rawText = getMatterEnergyMajorTextBundle();
+    const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
+
+    // 정확한 학과명 우선. 화학공학은 '화학과'보다 먼저, 환경공학은 '공학' 일반보다 먼저 본다.
+    if (has(/화학공학과|화공|공업화학|화공생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
+    if (has(/환경공학과|환경공학|대기환경|보건환경|환경보건|환경에너지|기후환경|환경과학|환경/)) return "environment";
+    if (has(/식품공학과|식품영양학과|식품공학|식품영양|식품|영양|조리|푸드/)) return "food";
+    if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
+    if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/)) return "materials";
+    if (has(/에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지/)) return "energy";
+    if (has(/기계공학과|기계|자동차|항공|열유체|냉동공조|공조|로봇|메카트로닉스/)) return "mechanical";
+    if (has(/화학과|응용화학|화학생명|화학/)) return "chemistry";
+    if (has(/컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|통계/)) return "data";
+    return "default";
+  }
+
+  function getMatterEnergyPreferredConceptSequence() {
+    const kind = getMatterEnergyMajorKind();
+    const defaultSequence = ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+    if (kind === "chemical_engineering") return ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+    if (kind === "chemistry") return ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+    if (kind === "materials") return ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+    if (kind === "environment") return ["혼합 기체와 조성", "기체 상태와 법칙", "액체의 물성과 분자 간 힘"];
+    if (kind === "food") return ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+    if (kind === "energy") return ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+    if (kind === "pharmacy") return ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+    if (kind === "mechanical") return ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+    if (kind === "data") return ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+    return defaultSequence;
+  }
+
+  function getMatterEnergyPreferredKeywordSequence() {
+    const concept = state.concept || "";
+    const kind = getMatterEnergyMajorKind();
+    const isChemEng = kind === "chemical_engineering";
+    const isChemistry = kind === "chemistry";
+    const isMaterials = kind === "materials";
+    const isEnv = kind === "environment";
+    const isFood = kind === "food";
+    const isEnergy = kind === "energy";
+    const isPharmacy = kind === "pharmacy";
+    const isMechanical = kind === "mechanical";
+    const isData = kind === "data";
+
+    if (/기체 상태와 법칙/.test(concept)) {
+      if (isChemEng) return ["이상 기체 방정식", "압력", "부피", "온도", "몰수", "보일 법칙", "샤를 법칙", "반응 조건", "공정", "압축", "그래프", "데이터"];
+      if (isEnergy || isMechanical) return ["압력", "부피", "온도", "이상 기체 방정식", "압축", "열기관", "냉매", "에너지 효율", "보일 법칙", "샤를 법칙", "상태 변화", "그래프"];
+      if (isData) return ["압력 데이터", "온도 데이터", "그래프", "모델링", "이상 기체 방정식", "압력", "부피", "온도", "예측", "센서"];
+      return ["압력", "부피", "온도", "몰수", "보일 법칙", "샤를 법칙", "이상 기체 방정식", "기체 상수", "절대 온도", "상태 변화"];
+    }
+
+    if (/혼합 기체와 조성/.test(concept)) {
+      if (isEnv) return ["대기", "이산화탄소", "온실가스", "공기질", "오염", "산소", "질소", "기체 조성", "부분 압력", "몰분율", "달톤 법칙", "가스 센서"];
+      if (isChemEng || isEnergy) return ["기체 조성", "부분 압력", "몰분율", "달톤 법칙", "혼합 기체", "공정 가스", "기체 분리", "산소", "질소", "LPG", "조성 분석", "센서"];
+      if (isData) return ["조성 데이터", "센서", "농도 측정", "그래프", "부분 압력", "몰분율", "기체 조성", "공기질", "예측", "자료 분석"];
+      return ["부분 압력", "전체 압력", "달톤 법칙", "몰분율", "기체 조성", "혼합 기체", "공기 조성", "산소", "질소", "이산화탄소"];
+    }
+
+    if (/액체의 물성과 분자 간 힘/.test(concept)) {
+      if (isMaterials) return ["수소 결합", "분산력", "분자 간 힘", "표면 장력", "점성", "끓는점", "증기 압력", "코팅", "소재", "접착", "세정", "고분자"];
+      if (isPharmacy) return ["수소 결합", "분자 간 힘", "용해도", "증기 압력", "끓는점", "분산력", "약물", "제형", "흡수", "용액", "체액", "확산"];
+      if (isFood) return ["수소 결합", "물", "수분", "끓는점", "증기 압력", "점성", "표면 장력", "분자 간 힘", "식품 물성", "가공", "유화", "용액"];
+      if (isChemEng) return ["분자 간 힘", "수소 결합", "증기 압력", "끓는점", "점성", "표면 장력", "분리 공정", "용매", "코팅", "세정"];
+      if (isChemistry) return ["분자 간 힘", "수소 결합", "분산력", "쌍극자", "끓는점", "증기 압력", "점성", "표면 장력", "용액", "물성"];
+      return ["분자 간 힘", "수소 결합", "분산력", "쌍극자", "끓는점", "증기 압력", "점성", "표면 장력", "용액"];
+    }
+
+    return [];
+  }
+
+  function getMatterEnergyHardAxisBoost(axis) {
+    if (!isMatterEnergySubject()) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    const kind = getMatterEnergyMajorKind();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+    let boost = 0;
+
+    if (/기체 상태와 법칙/.test(concept)) {
+      if (hit("압력", "부피", "온도", "몰수", "보일 법칙", "샤를 법칙", "이상 기체 방정식", "PV=nRT")) {
+        if (/gas_state_thermo_axis|기체 상태·열역학 해석 축|기체 상태/.test(axisText)) boost = Math.max(boost, kind === "chemistry" ? 360 : 130);
+        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 380 : ((kind === "energy" || kind === "mechanical") ? 320 : 110));
+      }
+      if (hit("공정", "반응 조건", "압축", "냉매", "열기관", "에너지 효율", "냉각", "상태 변화")) {
+        if (/process_reaction_condition_axis|공정·반응 조건 해석 축|공정|반응 조건/.test(axisText)) boost = Math.max(boost, (kind === "chemical_engineering" || kind === "energy" || kind === "mechanical") ? 390 : 140);
+      }
+      if (hit("그래프", "데이터", "측정", "센서", "예측", "모델링")) {
+        if (/measurement_modeling_axis|측정 데이터·모델링 축|데이터|모델링/.test(axisText)) boost = Math.max(boost, kind === "data" ? 360 : 150);
+      }
+    }
+
+    if (/혼합 기체와 조성/.test(concept)) {
+      if (hit("부분 압력", "달톤 법칙", "몰분율", "기체 조성", "혼합 기체")) {
+        if (/mixed_gas_composition_axis|혼합 기체 조성 해석 축|조성/.test(axisText)) boost = Math.max(boost, (kind === "chemistry" || kind === "chemical_engineering") ? 360 : 150);
+      }
+      if (hit("대기", "이산화탄소", "온실가스", "공기질", "오염", "산소", "질소", "환경")) {
+        if (/atmosphere_pollution_axis|대기 조성·오염 분석 축|대기|오염/.test(axisText)) boost = Math.max(boost, kind === "environment" ? 390 : 150);
+      }
+      if (hit("센서", "농도 측정", "가스 누출", "경보기", "안전", "조성 데이터", "그래프")) {
+        if (/gas_sensor_safety_axis|가스 센서·안전 응용 축|센서|안전/.test(axisText)) boost = Math.max(boost, kind === "data" ? 340 : 170);
+      }
+    }
+
+    if (/액체의 물성과 분자 간 힘/.test(concept)) {
+      if (hit("수소 결합", "분산력", "쌍극자", "분자 간 힘", "증기 압력", "끓는점")) {
+        if (/intermolecular_force_axis|분자 간 힘·물성 해석 축|분자 간 힘/.test(axisText)) boost = Math.max(boost, kind === "chemistry" ? 360 : 150);
+        if (/material_property_design_axis|소재 물성 설계 축|소재/.test(axisText)) boost = Math.max(boost, kind === "materials" ? 390 : 130);
+        if (/drug_solubility_axis|약물 물성·용해도 해석 축|약물|용해도/.test(axisText)) boost = Math.max(boost, kind === "pharmacy" ? 390 : 125);
+        if (/food_processing_axis|식품 물성·가공 응용 축|식품|가공/.test(axisText)) boost = Math.max(boost, kind === "food" ? 390 : 125);
+      }
+      if (hit("표면 장력", "점성", "코팅", "세정", "접착", "소재", "고분자")) {
+        if (/material_property_design_axis|소재 물성 설계 축|소재/.test(axisText)) boost = Math.max(boost, kind === "materials" ? 390 : ((kind === "chemical_engineering") ? 250 : 150));
+      }
+      if (hit("용해도", "약물", "제형", "흡수", "용액", "체액", "확산")) {
+        if (/drug_solubility_axis|약물 물성·용해도 해석 축|약물|용해도/.test(axisText)) boost = Math.max(boost, kind === "pharmacy" ? 390 : 145);
+        if (/bio_fluid_axis|생명·용액 환경 해석 축|생명|용액/.test(axisText)) boost = Math.max(boost, 150);
+      }
+      if (hit("식품", "수분", "물", "가공", "점성", "유화", "끓는점", "증기 압력")) {
+        if (/food_processing_axis|식품 물성·가공 응용 축|식품|가공/.test(axisText)) boost = Math.max(boost, kind === "food" ? 390 : 145);
+      }
+    }
+
+    return boost;
+  }
+
+
   function getMechanicsEnergyMajorTextBundle() {
     // 역학과 에너지는 화면 전체를 읽으면 개념 카드의 '운동/열/소리' 단어가 섞여
     // 모든 공학계열이 같은 기본값으로 수렴하기 쉽다. 실제 선택 학과명 중심으로만 판별한다.
@@ -6040,6 +6209,9 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredConceptSequence() {
+    if (isMatterEnergySubject()) {
+      return getMatterEnergyPreferredConceptSequence();
+    }
     if (isElectromagnetismQuantumSubject()) {
       return getElectromagnetismQuantumPreferredConceptSequence();
     }
@@ -6501,6 +6673,10 @@ function getTrackMeta(trackId) {
   }
 
   function getPreferredKeywordSequence() {
+    if (isMatterEnergySubject()) {
+      const matterPreferred = getMatterEnergyPreferredKeywordSequence();
+      if (matterPreferred.length) return matterPreferred;
+    }
     if (isElectromagnetismQuantumSubject()) {
       const eqPreferred = getElectromagnetismQuantumPreferredKeywordSequence();
       if (eqPreferred.length) return eqPreferred;
