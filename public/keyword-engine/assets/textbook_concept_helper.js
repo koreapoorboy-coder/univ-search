@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.20-electromagnetism-quantum-axis';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v34.21-electromagnetism-quantum-followup-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3903,7 +3903,9 @@ function getTrackMeta(trackId) {
           if (/field_particle_analysis_axis|장·입자 해석 축|장-입자|장·입자/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 140 : 118);
         }
         if (hit("센서", "전자석", "코일", "홀 효과", "전기 신호", "생체 신호", "전극", "MRI", "의료 영상", "자기장")) {
-          if (/sensor_device_application_axis|센서·장치 응용 축|센서|장치|medical_field_sensor_axis|의료 센서·영상 응용 축/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 146 : (isElectrical || isElectronics || isSemi ? 132 : 112));
+          // v34.21: 의공학과에서는 일반 센서·장치보다 의료 센서·영상 축이 먼저 와야 한다.
+          if (/medical_field_sensor_axis|의료 센서·영상 응용 축|의료|영상/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 160 : 110);
+          if (/sensor_device_application_axis|센서·장치 응용 축|센서|장치/.test(axisText)) fallback = Math.max(fallback, isBiomedical ? 128 : (isElectrical || isElectronics || isSemi ? 132 : 112));
         }
         if (hit("측정 데이터", "센서 데이터", "시각화", "신호 처리", "데이터", "그래프")) {
           if (/measurement_data_visual_axis|측정 데이터·시각화 축|데이터|시각화/.test(axisText)) fallback = Math.max(fallback, isComputing ? 142 : 108);
@@ -3912,10 +3914,11 @@ function getTrackMeta(trackId) {
 
       if (/전자기 유도와 전자기파/.test(concept)) {
         if (hit("전자기 유도", "자기선속", "유도 전류", "렌츠 법칙", "패러데이 법칙", "유도 기전력")) {
-          if (/electromagnetic_signal_axis|전자기 신호 해석 축|전자기 신호/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 128 : 116);
+          if (/power_communication_application_axis|전력·통신 응용 축|전력|통신/.test(axisText)) fallback = Math.max(fallback, isElectronics ? 150 : 118);
+          if (/electromagnetic_signal_axis|전자기 신호 해석 축|전자기 신호/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 128 : (isElectronics ? 124 : 116));
         }
         if (hit("발전기", "변압기", "전력", "전력 송전", "효율", "코일", "전력전자", "전자기 유도")) {
-          if (/power_communication_application_axis|전력·통신 응용 축|전력|통신|energy_power_axis|에너지 전환·송전 축/.test(axisText)) fallback = Math.max(fallback, (isElectrical || isEnergy) ? 146 : 118);
+          if (/power_communication_application_axis|전력·통신 응용 축|전력|통신|energy_power_axis|에너지 전환·송전 축/.test(axisText)) fallback = Math.max(fallback, (isElectrical || isEnergy) ? 148 : (isElectronics ? 150 : 118));
         }
         if (hit("전자기파", "안테나", "통신", "주파수", "무선 통신", "데이터 전송", "신호", "신호 데이터", "노이즈", "스펙트럼")) {
           if (/signal_data_visual_axis|신호 데이터·시각화 축|신호 데이터/.test(axisText)) fallback = Math.max(fallback, isComputing ? 146 : (isElectronics ? 136 : 112));
@@ -3932,8 +3935,10 @@ function getTrackMeta(trackId) {
           if (/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/.test(axisText)) fallback = Math.max(fallback, isSemi ? 136 : 118);
         }
         if (hit("광전 효과", "에너지 준위", "원자 스펙트럼", "보어 모형", "광자", "전자 전이", "파동-입자", "불연속 스펙트럼", "양자")) {
-          if (/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 140 : 118);
-          if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) fallback = Math.max(fallback, isMaterials ? 134 : 108);
+          // v34.21: 반도체공학과는 광전 효과도 소자/밴드 설계로, 신소재공학과는 광·소재 응용으로 우선 연결한다.
+          if (/semiconductor_material_design_axis|반도체·소재 설계 축|반도체|소재/.test(axisText)) fallback = Math.max(fallback, isSemi ? 154 : (isMaterials ? 128 : 108));
+          if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) fallback = Math.max(fallback, isMaterials ? 154 : (isSemi ? 130 : 108));
+          if (/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/.test(axisText)) fallback = Math.max(fallback, isPhysics ? 140 : ((isSemi || isMaterials) ? 130 : 118));
         }
         if (hit("양자 컴퓨터", "양자 암호", "큐비트", "중첩", "측정", "양자 정보", "양자 알고리즘", "보안")) {
           if (/quantum_information_computing_axis|양자 정보·컴퓨팅 축|양자 정보|컴퓨팅/.test(axisText)) fallback = Math.max(fallback, isComputing ? 152 : 122);
