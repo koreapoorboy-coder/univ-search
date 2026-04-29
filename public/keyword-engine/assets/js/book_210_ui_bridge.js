@@ -5,7 +5,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v3-domain-summary";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v4-major-domain-gate";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
 
   const DEFAULT_MODE_OPTIONS = [
