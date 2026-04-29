@@ -7,10 +7,13 @@
     body { font-family: system-ui, sans-serif; padding: 24px; line-height: 1.5; }
     pre { background:#f6f8fa; padding:16px; border-radius:10px; white-space:pre-wrap; }
     button { padding:10px 14px; border-radius:8px; border:1px solid #ccc; cursor:pointer; }
+    .ok { color: #096; font-weight: 700; }
+    .bad { color: #c00; font-weight: 700; }
   </style>
 </head>
 <body>
   <h1>210권 도서 추천 어댑터 테스트</h1>
+  <p>이 테스트 파일은 경로를 자동 탐색합니다. 더 이상 <code>/keyword-engine</code> 고정 경로를 쓰지 않습니다.</p>
   <button onclick="runTest()">테스트 실행</button>
   <pre id="out">대기 중</pre>
 
@@ -19,7 +22,9 @@
     async function runTest() {
       const out = document.getElementById("out");
       try {
-        const master = await BookRecommendationAdapter.loadBookMaster("../../data/books/book_source_master_210.json");
+        const resolved = await BookRecommendationAdapter.resolveBookEngineBase();
+        const master = resolved.master;
+
         const payload = {
           subject: "통합과학",
           department: "환경공학과",
@@ -27,14 +32,33 @@
           selectedRecommendedKeyword: "지속가능성",
           followupAxis: "기후 위기와 에너지 시스템"
         };
+
         const result = BookRecommendationAdapter.recommendBooks(payload, master.books);
+
+        const blocked = BookRecommendationAdapter.recommendBooks({
+          subject: "통합과학",
+          department: "환경공학과"
+        }, master.books);
+
         out.textContent = JSON.stringify({
+          status: "OK",
+          detectedBase: resolved.base,
+          totalBooks: master.totalBooks,
           directBooks: result.directBooks.map(b => [b.managementNo, b.title, b.matchScore, b.matchReasons]),
           expansionBooks: result.expansionBooks.map(b => [b.managementNo, b.title, b.matchScore, b.matchReasons]),
-          warning: result.warning || null
+          majorOnlyDefense: {
+            warning: blocked.warning,
+            directCount: blocked.directBooks.length,
+            expansionCount: blocked.expansionBooks.length
+          },
+          tried: resolved.tried
         }, null, 2);
       } catch (e) {
-        out.textContent = e.stack || String(e);
+        out.textContent = JSON.stringify({
+          status: "ERROR",
+          message: e.message,
+          tried: e.tried || null
+        }, null, 2);
       }
     }
   </script>
