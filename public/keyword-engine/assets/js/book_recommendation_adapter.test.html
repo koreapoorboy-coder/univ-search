@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>210권 도서 추천 어댑터 테스트</h1>
-  <p>이 테스트 파일은 v1.4 어댑터를 캐시 우회 방식으로 로드합니다.</p>
+  <p>이 테스트 파일은 v1.5 토큰 보정 어댑터를 캐시 우회 방식으로 로드합니다.</p>
   <button onclick="runTest()">테스트 실행</button>
   <pre id="out">대기 중</pre>
 
@@ -22,7 +22,7 @@
 
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = "./book_recommendation_adapter.js?v=v1.4-direct-promotion-fix&t=" + Date.now();
+        script.src = "./book_recommendation_adapter.js?v=v1.5-token-fallback-fix&t=" + Date.now();
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
@@ -38,18 +38,18 @@
         const master = resolved.master;
 
         const payload = {
-          subject: "통합과학",
-          department: "환경공학과",
-          selectedConcept: "에너지 전환",
-          selectedRecommendedKeyword: "지속가능성",
-          followupAxis: "기후 위기와 에너지 시스템"
+          subject: "통합과학1",
+          department: "컴퓨터공학과",
+          selectedConcept: "과학의 측정과 우리 사회",
+          selectedRecommendedKeyword: "디지털 데이터",
+          followupAxis: "물리-시스템 해석 축 센서 측정 데이터"
         };
 
         const result = BookRecommendationAdapter.recommendBooks(payload, master.books);
 
         const blocked = BookRecommendationAdapter.recommendBooks({
-          subject: "통합과학",
-          department: "환경공학과"
+          subject: "통합과학1",
+          department: "컴퓨터공학과"
         }, master.books);
 
         out.textContent = JSON.stringify({
