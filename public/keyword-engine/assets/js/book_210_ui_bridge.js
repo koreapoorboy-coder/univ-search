@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v1";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v2-token-fallback";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
 
   const DEFAULT_MODE_OPTIONS = [
