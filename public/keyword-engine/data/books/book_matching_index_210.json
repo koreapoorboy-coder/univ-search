@@ -1,0 +1,11054 @@
+{
+  "createdAt": "2026-04-29T12:32:58",
+  "version": "book-210-stage3-runtime-index-v1",
+  "totalBooks": 210,
+  "policy": {
+    "recommendationFlow": "subject -> department -> selectedConcept -> recommendedKeyword -> followupAxis -> books",
+    "forbidden": [
+      "department-only recommendation",
+      "general book recommendation independent from step 3 and step 4 payload",
+      "modifying existing step 3/step 4 logic"
+    ]
+  },
+  "byManagementNo": {
+    "1": "booksrc_0001",
+    "2": "booksrc_0002",
+    "3": "booksrc_0003",
+    "4": "booksrc_0004",
+    "5": "booksrc_0005",
+    "6": "booksrc_0006",
+    "7": "booksrc_0007",
+    "8": "booksrc_0008",
+    "9": "booksrc_0009",
+    "10": "booksrc_0010",
+    "11": "booksrc_0011",
+    "12": "booksrc_0012",
+    "13": "booksrc_0013",
+    "14": "booksrc_0014",
+    "15": "booksrc_0015",
+    "16": "booksrc_0016",
+    "17": "booksrc_0017",
+    "18": "booksrc_0018",
+    "19": "booksrc_0019",
+    "20": "booksrc_0020",
+    "21": "booksrc_0021",
+    "22": "booksrc_0022",
+    "23": "booksrc_0023",
+    "24": "booksrc_0024",
+    "25": "booksrc_0025",
+    "26": "booksrc_0026",
+    "27": "booksrc_0027",
+    "28": "booksrc_0028",
+    "29": "booksrc_0029",
+    "30": "booksrc_0030",
+    "31": "booksrc_0031",
+    "32": "booksrc_0032",
+    "33": "booksrc_0033",
+    "34": "booksrc_0034",
+    "35": "booksrc_0035",
+    "36": "booksrc_0036",
+    "37": "booksrc_0037",
+    "38": "booksrc_0038",
+    "39": "booksrc_0039",
+    "40": "booksrc_0040",
+    "41": "booksrc_0041",
+    "42": "booksrc_0042",
+    "43": "booksrc_0043",
+    "44": "booksrc_0044",
+    "45": "booksrc_0045",
+    "46": "booksrc_0046",
+    "47": "booksrc_0047",
+    "48": "booksrc_0048",
+    "49": "booksrc_0049",
+    "50": "booksrc_0050",
+    "51": "booksrc_0051",
+    "52": "booksrc_0052",
+    "53": "booksrc_0053",
+    "54": "booksrc_0054",
+    "55": "booksrc_0055",
+    "56": "booksrc_0056",
+    "57": "booksrc_0057",
+    "58": "booksrc_0058",
+    "59": "booksrc_0059",
+    "60": "booksrc_0060",
+    "61": "booksrc_0061",
+    "62": "booksrc_0062",
+    "63": "booksrc_0063",
+    "64": "booksrc_0064",
+    "65": "booksrc_0065",
+    "66": "booksrc_0066",
+    "67": "booksrc_0067",
+    "68": "booksrc_0068",
+    "69": "booksrc_0069",
+    "70": "booksrc_0070",
+    "71": "booksrc_0071",
+    "72": "booksrc_0072",
+    "73": "booksrc_0073",
+    "74": "booksrc_0074",
+    "75": "booksrc_0075",
+    "76": "booksrc_0076",
+    "77": "booksrc_0077",
+    "78": "booksrc_0078",
+    "79": "booksrc_0079",
+    "80": "booksrc_0080",
+    "81": "booksrc_0081",
+    "82": "booksrc_0082",
+    "83": "booksrc_0083",
+    "84": "booksrc_0084",
+    "85": "booksrc_0085",
+    "86": "booksrc_0156",
+    "87": "booksrc_0157",
+    "88": "booksrc_0158",
+    "89": "booksrc_0159",
+    "90": "booksrc_0160",
+    "91": "booksrc_0161",
+    "92": "booksrc_0162",
+    "93": "booksrc_0163",
+    "94": "booksrc_0164",
+    "95": "booksrc_0165",
+    "96": "booksrc_0166",
+    "97": "booksrc_0167",
+    "98": "booksrc_0168",
+    "99": "booksrc_0169",
+    "100": "booksrc_0170",
+    "101": "booksrc_0171",
+    "102": "booksrc_0172",
+    "103": "booksrc_0173",
+    "104": "booksrc_0174",
+    "105": "booksrc_0175",
+    "106": "booksrc_0176",
+    "107": "booksrc_0177",
+    "108": "booksrc_0178",
+    "109": "booksrc_0179",
+    "110": "booksrc_0180",
+    "111": "booksrc_0181",
+    "112": "booksrc_0182",
+    "113": "booksrc_0183",
+    "114": "booksrc_0184",
+    "115": "booksrc_0185",
+    "116": "booksrc_0186",
+    "117": "booksrc_0187",
+    "118": "booksrc_0188",
+    "119": "booksrc_0189",
+    "120": "booksrc_0190",
+    "121": "booksrc_0191",
+    "122": "booksrc_0192",
+    "123": "booksrc_0193",
+    "124": "booksrc_0194",
+    "125": "booksrc_0195",
+    "126": "booksrc_0196",
+    "127": "booksrc_0197",
+    "128": "booksrc_0198",
+    "129": "booksrc_0199",
+    "130": "booksrc_0200",
+    "131": "booksrc_0201",
+    "132": "booksrc_0202",
+    "133": "booksrc_0203",
+    "134": "booksrc_0204",
+    "135": "booksrc_0205",
+    "136": "booksrc_0206",
+    "137": "booksrc_0207",
+    "138": "booksrc_0208",
+    "139": "booksrc_0209",
+    "140": "booksrc_0210",
+    "141": "booksrc_0071",
+    "142": "booksrc_0072",
+    "143": "booksrc_0073",
+    "144": "booksrc_0074",
+    "145": "booksrc_0075",
+    "146": "booksrc_0076",
+    "147": "booksrc_0077",
+    "148": "booksrc_0078",
+    "149": "booksrc_0079",
+    "150": "booksrc_0080",
+    "151": "booksrc_0081",
+    "152": "booksrc_0082",
+    "153": "booksrc_0083",
+    "154": "booksrc_0084",
+    "155": "booksrc_0085",
+    "156": "booksrc_0086",
+    "157": "booksrc_0087",
+    "158": "booksrc_0088",
+    "159": "booksrc_0089",
+    "160": "booksrc_0090",
+    "161": "booksrc_0091",
+    "162": "booksrc_0092",
+    "163": "booksrc_0093",
+    "164": "booksrc_0094",
+    "165": "booksrc_0095",
+    "166": "booksrc_0096",
+    "167": "booksrc_0097",
+    "168": "booksrc_0098",
+    "169": "booksrc_0099",
+    "170": "booksrc_0100",
+    "171": "booksrc_0101",
+    "172": "booksrc_0102",
+    "173": "booksrc_0103",
+    "174": "booksrc_0104",
+    "175": "booksrc_0105",
+    "176": "booksrc_0106",
+    "177": "booksrc_0107",
+    "178": "booksrc_0108",
+    "179": "booksrc_0109",
+    "180": "booksrc_0110",
+    "181": "booksrc_0111",
+    "182": "booksrc_0112",
+    "183": "booksrc_0113",
+    "184": "booksrc_0114",
+    "185": "booksrc_0115",
+    "186": "booksrc_0116",
+    "187": "booksrc_0117",
+    "188": "booksrc_0118",
+    "189": "booksrc_0119",
+    "190": "booksrc_0120",
+    "191": "booksrc_0121",
+    "192": "booksrc_0122",
+    "193": "booksrc_0123",
+    "194": "booksrc_0124",
+    "195": "booksrc_0125",
+    "196": "booksrc_0126",
+    "197": "booksrc_0127",
+    "198": "booksrc_0128",
+    "199": "booksrc_0129",
+    "200": "booksrc_0130",
+    "201": "booksrc_0131",
+    "202": "booksrc_0132",
+    "203": "booksrc_0133",
+    "204": "booksrc_0134",
+    "205": "booksrc_0135",
+    "206": "booksrc_0136",
+    "207": "booksrc_0137",
+    "208": "booksrc_0138",
+    "209": "booksrc_0139",
+    "210": "booksrc_0140"
+  },
+  "bySourceId": {
+    "booksrc_0001": 1,
+    "booksrc_0002": 2,
+    "booksrc_0003": 3,
+    "booksrc_0004": 4,
+    "booksrc_0005": 5,
+    "booksrc_0006": 6,
+    "booksrc_0007": 7,
+    "booksrc_0008": 8,
+    "booksrc_0009": 9,
+    "booksrc_0010": 10,
+    "booksrc_0011": 11,
+    "booksrc_0012": 12,
+    "booksrc_0013": 13,
+    "booksrc_0014": 14,
+    "booksrc_0015": 15,
+    "booksrc_0016": 16,
+    "booksrc_0017": 17,
+    "booksrc_0018": 18,
+    "booksrc_0019": 19,
+    "booksrc_0020": 20,
+    "booksrc_0021": 21,
+    "booksrc_0022": 22,
+    "booksrc_0023": 23,
+    "booksrc_0024": 24,
+    "booksrc_0025": 25,
+    "booksrc_0026": 26,
+    "booksrc_0027": 27,
+    "booksrc_0028": 28,
+    "booksrc_0029": 29,
+    "booksrc_0030": 30,
+    "booksrc_0031": 31,
+    "booksrc_0032": 32,
+    "booksrc_0033": 33,
+    "booksrc_0034": 34,
+    "booksrc_0035": 35,
+    "booksrc_0036": 36,
+    "booksrc_0037": 37,
+    "booksrc_0038": 38,
+    "booksrc_0039": 39,
+    "booksrc_0040": 40,
+    "booksrc_0041": 41,
+    "booksrc_0042": 42,
+    "booksrc_0043": 43,
+    "booksrc_0044": 44,
+    "booksrc_0045": 45,
+    "booksrc_0046": 46,
+    "booksrc_0047": 47,
+    "booksrc_0048": 48,
+    "booksrc_0049": 49,
+    "booksrc_0050": 50,
+    "booksrc_0051": 51,
+    "booksrc_0052": 52,
+    "booksrc_0053": 53,
+    "booksrc_0054": 54,
+    "booksrc_0055": 55,
+    "booksrc_0056": 56,
+    "booksrc_0057": 57,
+    "booksrc_0058": 58,
+    "booksrc_0059": 59,
+    "booksrc_0060": 60,
+    "booksrc_0061": 61,
+    "booksrc_0062": 62,
+    "booksrc_0063": 63,
+    "booksrc_0064": 64,
+    "booksrc_0065": 65,
+    "booksrc_0066": 66,
+    "booksrc_0067": 67,
+    "booksrc_0068": 68,
+    "booksrc_0069": 69,
+    "booksrc_0070": 70,
+    "booksrc_0071": 141,
+    "booksrc_0072": 142,
+    "booksrc_0073": 143,
+    "booksrc_0074": 144,
+    "booksrc_0075": 145,
+    "booksrc_0076": 146,
+    "booksrc_0077": 147,
+    "booksrc_0078": 148,
+    "booksrc_0079": 149,
+    "booksrc_0080": 150,
+    "booksrc_0081": 151,
+    "booksrc_0082": 152,
+    "booksrc_0083": 153,
+    "booksrc_0084": 154,
+    "booksrc_0085": 155,
+    "booksrc_0156": 86,
+    "booksrc_0157": 87,
+    "booksrc_0158": 88,
+    "booksrc_0159": 89,
+    "booksrc_0160": 90,
+    "booksrc_0161": 91,
+    "booksrc_0162": 92,
+    "booksrc_0163": 93,
+    "booksrc_0164": 94,
+    "booksrc_0165": 95,
+    "booksrc_0166": 96,
+    "booksrc_0167": 97,
+    "booksrc_0168": 98,
+    "booksrc_0169": 99,
+    "booksrc_0170": 100,
+    "booksrc_0171": 101,
+    "booksrc_0172": 102,
+    "booksrc_0173": 103,
+    "booksrc_0174": 104,
+    "booksrc_0175": 105,
+    "booksrc_0176": 106,
+    "booksrc_0177": 107,
+    "booksrc_0178": 108,
+    "booksrc_0179": 109,
+    "booksrc_0180": 110,
+    "booksrc_0181": 111,
+    "booksrc_0182": 112,
+    "booksrc_0183": 113,
+    "booksrc_0184": 114,
+    "booksrc_0185": 115,
+    "booksrc_0186": 116,
+    "booksrc_0187": 117,
+    "booksrc_0188": 118,
+    "booksrc_0189": 119,
+    "booksrc_0190": 120,
+    "booksrc_0191": 121,
+    "booksrc_0192": 122,
+    "booksrc_0193": 123,
+    "booksrc_0194": 124,
+    "booksrc_0195": 125,
+    "booksrc_0196": 126,
+    "booksrc_0197": 127,
+    "booksrc_0198": 128,
+    "booksrc_0199": 129,
+    "booksrc_0200": 130,
+    "booksrc_0201": 131,
+    "booksrc_0202": 132,
+    "booksrc_0203": 133,
+    "booksrc_0204": 134,
+    "booksrc_0205": 135,
+    "booksrc_0206": 136,
+    "booksrc_0207": 137,
+    "booksrc_0208": 138,
+    "booksrc_0209": 139,
+    "booksrc_0210": 140,
+    "booksrc_0086": 156,
+    "booksrc_0087": 157,
+    "booksrc_0088": 158,
+    "booksrc_0089": 159,
+    "booksrc_0090": 160,
+    "booksrc_0091": 161,
+    "booksrc_0092": 162,
+    "booksrc_0093": 163,
+    "booksrc_0094": 164,
+    "booksrc_0095": 165,
+    "booksrc_0096": 166,
+    "booksrc_0097": 167,
+    "booksrc_0098": 168,
+    "booksrc_0099": 169,
+    "booksrc_0100": 170,
+    "booksrc_0101": 171,
+    "booksrc_0102": 172,
+    "booksrc_0103": 173,
+    "booksrc_0104": 174,
+    "booksrc_0105": 175,
+    "booksrc_0106": 176,
+    "booksrc_0107": 177,
+    "booksrc_0108": 178,
+    "booksrc_0109": 179,
+    "booksrc_0110": 180,
+    "booksrc_0111": 181,
+    "booksrc_0112": 182,
+    "booksrc_0113": 183,
+    "booksrc_0114": 184,
+    "booksrc_0115": 185,
+    "booksrc_0116": 186,
+    "booksrc_0117": 187,
+    "booksrc_0118": 188,
+    "booksrc_0119": 189,
+    "booksrc_0120": 190,
+    "booksrc_0121": 191,
+    "booksrc_0122": 192,
+    "booksrc_0123": 193,
+    "booksrc_0124": 194,
+    "booksrc_0125": 195,
+    "booksrc_0126": 196,
+    "booksrc_0127": 197,
+    "booksrc_0128": 198,
+    "booksrc_0129": 199,
+    "booksrc_0130": 200,
+    "booksrc_0131": 201,
+    "booksrc_0132": 202,
+    "booksrc_0133": 203,
+    "booksrc_0134": 204,
+    "booksrc_0135": 205,
+    "booksrc_0136": 206,
+    "booksrc_0137": 207,
+    "booksrc_0138": 208,
+    "booksrc_0139": 209,
+    "booksrc_0140": 210
+  },
+  "byTitle": {
+    "1984": [
+      "booksrc_0001"
+    ],
+    "갈매기": [
+      "booksrc_0002"
+    ],
+    "객관성의 칼날": [
+      "booksrc_0003"
+    ],
+    "겐지 이야기": [
+      "booksrc_0004"
+    ],
+    "경영학 콘서트": [
+      "booksrc_0005"
+    ],
+    "고리오 영감": [
+      "booksrc_0006"
+    ],
+    "고향": [
+      "booksrc_0007"
+    ],
+    "공정하다는 착각": [
+      "booksrc_0008"
+    ],
+    "광장": [
+      "booksrc_0009"
+    ],
+    "국가": [
+      "booksrc_0010"
+    ],
+    "국화와 칼": [
+      "booksrc_0011"
+    ],
+    "그리스 비극 걸작선": [
+      "booksrc_0012"
+    ],
+    "난장이가 쏘아올린 작은 공": [
+      "booksrc_0013"
+    ],
+    "누구나 한번쯤 읽어야 할 목민심서": [
+      "booksrc_0014"
+    ],
+    "닥터스 씽킹": [
+      "booksrc_0015"
+    ],
+    "데미안": [
+      "booksrc_0016"
+    ],
+    "돈으로 살 수 없는 것들": [
+      "booksrc_0017"
+    ],
+    "동방견문록": [
+      "booksrc_0018"
+    ],
+    "루쉰 소설전집": [
+      "booksrc_0019"
+    ],
+    "마음": [
+      "booksrc_0020"
+    ],
+    "맹자": [
+      "booksrc_0021"
+    ],
+    "무정": [
+      "booksrc_0022"
+    ],
+    "문학과 예술의 사회사": [
+      "booksrc_0023"
+    ],
+    "미디어의 이해": [
+      "booksrc_0024"
+    ],
+    "반지성주의": [
+      "booksrc_0025"
+    ],
+    "백범일지": [
+      "booksrc_0026"
+    ],
+    "변신": [
+      "booksrc_0027"
+    ],
+    "부분과 전체": [
+      "booksrc_0028"
+    ],
+    "빌러비드": [
+      "booksrc_0029"
+    ],
+    "사람아, 아 사람아!": [
+      "booksrc_0030"
+    ],
+    "삼국유사": [
+      "booksrc_0031"
+    ],
+    "서유견문": [
+      "booksrc_0032"
+    ],
+    "성의 역사 1": [
+      "booksrc_0033"
+    ],
+    "성호사설": [
+      "booksrc_0034"
+    ],
+    "수호전": [
+      "booksrc_0035"
+    ],
+    "슬픈 열대": [
+      "booksrc_0036"
+    ],
+    "시학": [
+      "booksrc_0037"
+    ],
+    "신약의 탄생": [
+      "booksrc_0038"
+    ],
+    "실낙원": [
+      "booksrc_0039"
+    ],
+    "아라비안 나이트": [
+      "booksrc_0040"
+    ],
+    "아함경": [
+      "booksrc_0041"
+    ],
+    "앵무새 죽이기": [
+      "booksrc_0042"
+    ],
+    "어둠의 속": [
+      "booksrc_0043"
+    ],
+    "어둠의 심장": [
+      "booksrc_0043"
+    ],
+    "역사": [
+      "booksrc_0044"
+    ],
+    "역사와 계급의식": [
+      "booksrc_0045"
+    ],
+    "영국 노동계급의 형성": [
+      "booksrc_0046"
+    ],
+    "오리엔탈리즘": [
+      "booksrc_0047"
+    ],
+    "왜 세계의 절반은 굶주리는가": [
+      "booksrc_0048"
+    ],
+    "우리 시대의 영웅": [
+      "booksrc_0049"
+    ],
+    "위대하고 위험한 약 이야기": [
+      "booksrc_0050"
+    ],
+    "의무론": [
+      "booksrc_0051"
+    ],
+    "의사와 수의사가 만나다": [
+      "booksrc_0052"
+    ],
+    "이기적 유전자": [
+      "booksrc_0053"
+    ],
+    "이상한 정상가족": [
+      "booksrc_0054",
+      "booksrc_0054"
+    ],
+    "인간문제": [
+      "booksrc_0055"
+    ],
+    "인간 문제": [
+      "booksrc_0055"
+    ],
+    "인물로 읽는 장자": [
+      "booksrc_0056"
+    ],
+    "잃어버린 시간을 찾아서": [
+      "booksrc_0057"
+    ],
+    "자유론": [
+      "booksrc_0058"
+    ],
+    "젊은 예술가의 초상": [
+      "booksrc_0059"
+    ],
+    "정신현상학": [
+      "booksrc_0060"
+    ],
+    "정지용전집": [
+      "booksrc_0061"
+    ],
+    "제국의 시대": [
+      "booksrc_0062"
+    ],
+    "종의 기원": [
+      "booksrc_0063"
+    ],
+    "죽은 시인의 사회": [
+      "booksrc_0064"
+    ],
+    "짜라투스트라는 이렇게 말했다": [
+      "booksrc_0065"
+    ],
+    "천변풍경": [
+      "booksrc_0066"
+    ],
+    "치과의사가 말하는 치과의사": [
+      "booksrc_0067"
+    ],
+    "카라마조프 가의 형제들": [
+      "booksrc_0068"
+    ],
+    "카오스": [
+      "booksrc_0069"
+    ],
+    "코스모스": [
+      "booksrc_0070"
+    ],
+    "20세기 수학의 다섯가지 황금률": [
+      "booksrc_0071"
+    ],
+    "감시와 처벌": [
+      "booksrc_0072"
+    ],
+    "건건록": [
+      "booksrc_0073"
+    ],
+    "계몽의 변증법": [
+      "booksrc_0074"
+    ],
+    "고백록": [
+      "booksrc_0075"
+    ],
+    "공공선택론": [
+      "booksrc_0076"
+    ],
+    "공학이란 무엇인가": [
+      "booksrc_0077"
+    ],
+    "국가론": [
+      "booksrc_0078"
+    ],
+    "군주론": [
+      "booksrc_0079"
+    ],
+    "꿈의 해석": [
+      "booksrc_0080"
+    ],
+    "넛지": [
+      "booksrc_0081"
+    ],
+    "니코마코스 윤리학": [
+      "booksrc_0082"
+    ],
+    "데카메론": [
+      "booksrc_0083"
+    ],
+    "돈키호테": [
+      "booksrc_0084"
+    ],
+    "디자인 인문학": [
+      "booksrc_0085"
+    ],
+    "리바이어던": [
+      "booksrc_0156"
+    ],
+    "마의 산": [
+      "booksrc_0157"
+    ],
+    "멋진 신세계": [
+      "booksrc_0158"
+    ],
+    "문명의 충돌": [
+      "booksrc_0159"
+    ],
+    "물질문명과 자본주의": [
+      "booksrc_0160"
+    ],
+    "미스터 나이팅게일": [
+      "booksrc_0161"
+    ],
+    "방법서설": [
+      "booksrc_0162"
+    ],
+    "백석 시 전집": [
+      "booksrc_0163"
+    ],
+    "분배냐, 인정이냐": [
+      "booksrc_0164"
+    ],
+    "사기열전": [
+      "booksrc_0165"
+    ],
+    "사피엔스": [
+      "booksrc_0166"
+    ],
+    "삼대": [
+      "booksrc_0167"
+    ],
+    "선량한 차별주의자": [
+      "booksrc_0168"
+    ],
+    "성학십도": [
+      "booksrc_0169"
+    ],
+    "소비의 사회": [
+      "booksrc_0170"
+    ],
+    "시간의 역사": [
+      "booksrc_0171"
+    ],
+    "신곡": [
+      "booksrc_0172"
+    ],
+    "실천이성비판": [
+      "booksrc_0173"
+    ],
+    "아리랑": [
+      "booksrc_0174"
+    ],
+    "악의 꽃": [
+      "booksrc_0175"
+    ],
+    "양명학연론": [
+      "booksrc_0176"
+    ],
+    "에밀": [
+      "booksrc_0177"
+    ],
+    "역사란 무엇인가": [
+      "booksrc_0178"
+    ],
+    "연금술사": [
+      "booksrc_0179"
+    ],
+    "오만과 편견": [
+      "booksrc_0180"
+    ],
+    "욕망 이론": [
+      "booksrc_0181"
+    ],
+    "우리는 왜 개는 사랑하고 돼지는 먹고 소는 신을까": [
+      "booksrc_0182"
+    ],
+    "위대한 유산": [
+      "booksrc_0183"
+    ],
+    "의사 지바고": [
+      "booksrc_0184"
+    ],
+    "의학, 인문으로 치유하다": [
+      "booksrc_0185"
+    ],
+    "이반 데니소비치의 하루": [
+      "booksrc_0186"
+    ],
+    "이중나선": [
+      "booksrc_0187"
+    ],
+    "인간실격": [
+      "booksrc_0188"
+    ],
+    "인수공통 모든 전염병의 열쇠": [
+      "booksrc_0189"
+    ],
+    "입속에서 시작하는 미생물 이야기": [
+      "booksrc_0190"
+    ],
+    "자존감 수업": [
+      "booksrc_0191"
+    ],
+    "젊은 음악가를 위한 슈만의 조언": [
+      "booksrc_0192"
+    ],
+    "정의란 무엇인가": [
+      "booksrc_0193"
+    ],
+    "제2의 성": [
+      "booksrc_0194"
+    ],
+    "제인 에어 1,2": [
+      "booksrc_0195"
+    ],
+    "주홍글씨": [
+      "booksrc_0196"
+    ],
+    "참을 수 없는 존재의 가벼움": [
+      "booksrc_0197"
+    ],
+    "철학적 탐구": [
+      "booksrc_0198"
+    ],
+    "치과의사는 입만 진료하지 않는다": [
+      "booksrc_0199"
+    ],
+    "칸트와 헤겔의 철학": [
+      "booksrc_0200"
+    ],
+    "택리지": [
+      "booksrc_0201"
+    ],
+    "퇴계선집": [
+      "booksrc_0202"
+    ],
+    "팩트풀니스": [
+      "booksrc_0203"
+    ],
+    "페스트": [
+      "booksrc_0204"
+    ],
+    "평균의 종말": [
+      "booksrc_0205"
+    ],
+    "필경사 바틀비": [
+      "booksrc_0206"
+    ],
+    "한국통사": [
+      "booksrc_0207"
+    ],
+    "허클베리 핀의 모험": [
+      "booksrc_0208"
+    ],
+    "혁명의 시대": [
+      "booksrc_0209"
+    ],
+    "황야의 늑대": [
+      "booksrc_0210"
+    ],
+    "간디 자서전": [
+      "booksrc_0071"
+    ],
+    "같기도 하고 아니 같기도 하고": [
+      "booksrc_0072",
+      "booksrc_0072"
+    ],
+    "검찰관": [
+      "booksrc_0073"
+    ],
+    "고도를 기다리며": [
+      "booksrc_0074"
+    ],
+    "고용, 이자 및 화폐의 일반이론": [
+      "booksrc_0075"
+    ],
+    "과학혁명의 구조": [
+      "booksrc_0076"
+    ],
+    "구운몽": [
+      "booksrc_0077"
+    ],
+    "국부론": [
+      "booksrc_0078"
+    ],
+    "그람시의 옥중수고": [
+      "booksrc_0079"
+    ],
+    "금오신화": [
+      "booksrc_0080"
+    ],
+    "나는 간호사, 사람입니다": [
+      "booksrc_0081"
+    ],
+    "논어": [
+      "booksrc_0082"
+    ],
+    "다정한 것이 살아남는다": [
+      "booksrc_0083"
+    ],
+    "대한민국의 시험": [
+      "booksrc_0084"
+    ],
+    "도덕적 인간과 비도덕적 사회": [
+      "booksrc_0085"
+    ],
+    "동물들의 인간 심판": [
+      "booksrc_0086"
+    ],
+    "딥스": [
+      "booksrc_0087"
+    ],
+    "말테의 수기": [
+      "booksrc_0088"
+    ],
+    "모비딕": [
+      "booksrc_0089"
+    ],
+    "문명화 과정": [
+      "booksrc_0090"
+    ],
+    "미국의 민주주의": [
+      "booksrc_0091"
+    ],
+    "미움받을 용기": [
+      "booksrc_0092"
+    ],
+    "백년 동안의 고독": [
+      "booksrc_0093"
+    ],
+    "법의 정신": [
+      "booksrc_0094"
+    ],
+    "변신이야기": [
+      "booksrc_0095"
+    ],
+    "보바리 부인": [
+      "booksrc_0096"
+    ],
+    "비통한 자들을 위한 정치학": [
+      "booksrc_0097"
+    ],
+    "사람, 장소, 환대": [
+      "booksrc_0098"
+    ],
+    "사회계약론": [
+      "booksrc_0099"
+    ],
+    "새로운 약은 어떻게 창조되나": [
+      "booksrc_0100"
+    ],
+    "설국": [
+      "booksrc_0101"
+    ],
+    "성학집요": [
+      "booksrc_0102"
+    ],
+    "수레바퀴 아래서": [
+      "booksrc_0103"
+    ],
+    "숨결이 바람 될 때": [
+      "booksrc_0104"
+    ],
+    "시경": [
+      "booksrc_0105"
+    ],
+    "신기관": [
+      "booksrc_0106"
+    ],
+    "아내를 모자로 착각한 남자": [
+      "booksrc_0107"
+    ],
+    "아픔이 길이 되려면": [
+      "booksrc_0108"
+    ],
+    "안나 카레니나": [
+      "booksrc_0109"
+    ],
+    "양철북": [
+      "booksrc_0110"
+    ],
+    "엔트로피": [
+      "booksrc_0111"
+    ],
+    "역사를 위한 변명": [
+      "booksrc_0112"
+    ],
+    "열하일기": [
+      "booksrc_0113"
+    ],
+    "오래된 미래": [
+      "booksrc_0114"
+    ],
+    "우리 시대의 동물 해방": [
+      "booksrc_0115"
+    ],
+    "우파니샤드": [
+      "booksrc_0116"
+    ],
+    "의사소통 행위이론": [
+      "booksrc_0117"
+    ],
+    "이것은 미술이 아니다": [
+      "booksrc_0118"
+    ],
+    "이방인": [
+      "booksrc_0119"
+    ],
+    "이탈리아 르네상스 문화": [
+      "booksrc_0120"
+    ],
+    "인간의 조건": [
+      "booksrc_0121"
+    ],
+    "일차원적 인간": [
+      "booksrc_0122"
+    ],
+    "자본론": [
+      "booksrc_0123"
+    ],
+    "적과 흑": [
+      "booksrc_0124"
+    ],
+    "정의론": [
+      "booksrc_0125"
+    ],
+    "제3의 물결": [
+      "booksrc_0126"
+    ],
+    "죽은 경제학자의 살아있는 아이디어": [
+      "booksrc_0127"
+    ],
+    "채식주의자": [
+      "booksrc_0128"
+    ],
+    "총, 균, 쇠": [
+      "booksrc_0129"
+    ],
+    "침묵의 봄": [
+      "booksrc_0130"
+    ],
+    "카인의 후예": [
+      "booksrc_0131"
+    ],
+    "태평천하": [
+      "booksrc_0132"
+    ],
+    "통치론": [
+      "booksrc_0133"
+    ],
+    "파타고니아, 파도가 칠 때는 서핑을": [
+      "booksrc_0134"
+    ],
+    "페르마의 마지막 정리": [
+      "booksrc_0135"
+    ],
+    "펭귄과 리바이어던": [
+      "booksrc_0136"
+    ],
+    "프로테스탄트 윤리와 자본주의 정신": [
+      "booksrc_0137"
+    ],
+    "하노버에서 온 음악편지": [
+      "booksrc_0138"
+    ],
+    "한중록": [
+      "booksrc_0139"
+    ],
+    "혼돈으로부터의 질서": [
+      "booksrc_0140"
+    ]
+  },
+  "byKeyword": {
+    "1984": [
+      "booksrc_0001"
+    ],
+    "가정": [
+      "booksrc_0001",
+      "booksrc_0010",
+      "booksrc_0024",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0054"
+    ],
+    "감시": [
+      "booksrc_0001",
+      "booksrc_0072"
+    ],
+    "개인의": [
+      "booksrc_0001",
+      "booksrc_0008",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0033",
+      "booksrc_0051",
+      "booksrc_0157",
+      "booksrc_0161",
+      "booksrc_0186",
+      "booksrc_0193",
+      "booksrc_0196",
+      "booksrc_0197",
+      "booksrc_0205",
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0088",
+      "booksrc_0103",
+      "booksrc_0109",
+      "booksrc_0131",
+      "booksrc_0136"
+    ],
+    "공통국어": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009"
+    ],
+    "과학": [
+      "booksrc_0001",
+      "booksrc_0003",
+      "booksrc_0015",
+      "booksrc_0028",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0076",
+      "booksrc_0115",
+      "booksrc_0135"
+    ],
+    "광고홍보학과": [
+      "booksrc_0001"
+    ],
+    "기술": [
+      "booksrc_0001",
+      "booksrc_0010",
+      "booksrc_0024",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0054",
+      "booksrc_0074",
+      "booksrc_0077",
+      "booksrc_0123",
+      "booksrc_0126",
+      "booksrc_0127",
+      "booksrc_0129"
+    ],
+    "도덕": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0165",
+      "booksrc_0173",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0105",
+      "booksrc_0119"
+    ],
+    "문헌정보학과": [
+      "booksrc_0001",
+      "booksrc_0004"
+    ],
+    "문화": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0004",
+      "booksrc_0032",
+      "booksrc_0036",
+      "booksrc_0159",
+      "booksrc_0182",
+      "booksrc_0183",
+      "booksrc_0079",
+      "booksrc_0090",
+      "booksrc_0113",
+      "booksrc_0117",
+      "booksrc_0120"
+    ],
+    "미디어커뮤니케이션학과": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0033",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0047",
+      "booksrc_0072",
+      "booksrc_0074"
+    ],
+    "사고가": [
+      "booksrc_0001"
+    ],
+    "사상": [
+      "booksrc_0001",
+      "booksrc_0176"
+    ],
+    "사회문제": [
+      "booksrc_0001",
+      "booksrc_0004",
+      "booksrc_0006",
+      "booksrc_0048"
+    ],
+    "사회복지학과": [
+      "booksrc_0001",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0027",
+      "booksrc_0041",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0048",
+      "booksrc_0054"
+    ],
+    "사회와": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0126"
+    ],
+    "사회학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0039",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0072",
+      "booksrc_0074"
+    ],
+    "속에서": [
+      "booksrc_0001",
+      "booksrc_0003",
+      "booksrc_0009",
+      "booksrc_0023",
+      "booksrc_0030",
+      "booksrc_0046",
+      "booksrc_0160"
+    ],
+    "수학": [
+      "booksrc_0001",
+      "booksrc_0003",
+      "booksrc_0028",
+      "booksrc_0038",
+      "booksrc_0071",
+      "booksrc_0135"
+    ],
+    "심리학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0011",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0020",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0033",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0049",
+      "booksrc_0053",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0072",
+      "booksrc_0075"
+    ],
+    "어떻게": [
+      "booksrc_0001",
+      "booksrc_0009",
+      "booksrc_0015",
+      "booksrc_0017",
+      "booksrc_0025",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0032",
+      "booksrc_0054",
+      "booksrc_0073",
+      "booksrc_0100"
+    ],
+    "언론정보학과": [
+      "booksrc_0001",
+      "booksrc_0013",
+      "booksrc_0024",
+      "booksrc_0025"
+    ],
+    "언어": [
+      "booksrc_0001",
+      "booksrc_0046",
+      "booksrc_0181",
+      "booksrc_0198"
+    ],
+    "역사": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0004",
+      "booksrc_0007",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0016",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0160",
+      "booksrc_0165",
+      "booksrc_0166",
+      "booksrc_0171",
+      "booksrc_0174",
+      "booksrc_0178",
+      "booksrc_0207",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0093",
+      "booksrc_0112",
+      "booksrc_0139"
+    ],
+    "역사학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0009",
+      "booksrc_0012",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0029",
+      "booksrc_0042",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0073"
+    ],
+    "오웰": [
+      "booksrc_0001"
+    ],
+    "윤리": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0004",
+      "booksrc_0008",
+      "booksrc_0028",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0043",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0176",
+      "booksrc_0182",
+      "booksrc_0186",
+      "booksrc_0187",
+      "booksrc_0072",
+      "booksrc_0095",
+      "booksrc_0098",
+      "booksrc_0137"
+    ],
+    "윤리와": [
+      "booksrc_0001",
+      "booksrc_0014",
+      "booksrc_0182",
+      "booksrc_0137"
+    ],
+    "자유": [
+      "booksrc_0001",
+      "booksrc_0158",
+      "booksrc_0186",
+      "booksrc_0193",
+      "booksrc_0200",
+      "booksrc_0208",
+      "booksrc_0210",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0085",
+      "booksrc_0097",
+      "booksrc_0099",
+      "booksrc_0128",
+      "booksrc_0133"
+    ],
+    "전체주의": [
+      "booksrc_0001",
+      "booksrc_0186"
+    ],
+    "정보": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0040",
+      "booksrc_0071",
+      "booksrc_0072"
+    ],
+    "정치와": [
+      "booksrc_0001"
+    ],
+    "조지": [
+      "booksrc_0001"
+    ],
+    "진실": [
+      "booksrc_0001",
+      "booksrc_0128"
+    ],
+    "철학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0010",
+      "booksrc_0012",
+      "booksrc_0016",
+      "booksrc_0021",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0030",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0053",
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0116"
+    ],
+    "체제": [
+      "booksrc_0001"
+    ],
+    "컴퓨터공학과": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0028",
+      "booksrc_0071"
+    ],
+    "통합사회": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003"
+    ],
+    "현대사회와": [
+      "booksrc_0001",
+      "booksrc_0002"
+    ],
+    "갈매기": [
+      "booksrc_0002"
+    ],
+    "국어국문학과": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0016",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0043",
+      "booksrc_0049",
+      "booksrc_0157"
+    ],
+    "노어노문학과": [
+      "booksrc_0002"
+    ],
+    "러시아어": [
+      "booksrc_0002"
+    ],
+    "러시아어문학과": [
+      "booksrc_0002"
+    ],
+    "문예창작학과": [
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0016",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0043",
+      "booksrc_0049",
+      "booksrc_0157",
+      "booksrc_0075"
+    ],
+    "문학": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0175",
+      "booksrc_0195",
+      "booksrc_0210",
+      "booksrc_0077",
+      "booksrc_0089"
+    ],
+    "문화인류학과": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0011",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0036",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0159"
+    ],
+    "문화콘텐츠학과": [
+      "booksrc_0002",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0031",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0074"
+    ],
+    "사랑과": [
+      "booksrc_0002",
+      "booksrc_0022",
+      "booksrc_0195"
+    ],
+    "세계사": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0209"
+    ],
+    "안톤": [
+      "booksrc_0002"
+    ],
+    "연극": [
+      "booksrc_0002"
+    ],
+    "연극영화학과": [
+      "booksrc_0002",
+      "booksrc_0012"
+    ],
+    "예술가의": [
+      "booksrc_0002",
+      "booksrc_0023",
+      "booksrc_0059",
+      "booksrc_0175"
+    ],
+    "욕구가": [
+      "booksrc_0002"
+    ],
+    "욕망과": [
+      "booksrc_0002"
+    ],
+    "이상": [
+      "booksrc_0002",
+      "booksrc_0026"
+    ],
+    "인간의": [
+      "booksrc_0002",
+      "booksrc_0012",
+      "booksrc_0019",
+      "booksrc_0024",
+      "booksrc_0027",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0158",
+      "booksrc_0186",
+      "booksrc_0208",
+      "booksrc_0115",
+      "booksrc_0121"
+    ],
+    "인문학과": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0039",
+      "booksrc_0040"
+    ],
+    "인물들을": [
+      "booksrc_0002"
+    ],
+    "인정": [
+      "booksrc_0002",
+      "booksrc_0164",
+      "booksrc_0092"
+    ],
+    "자아": [
+      "booksrc_0002",
+      "booksrc_0016",
+      "booksrc_0041",
+      "booksrc_0179",
+      "booksrc_0210",
+      "booksrc_0103"
+    ],
+    "좌절을": [
+      "booksrc_0002"
+    ],
+    "체호프": [
+      "booksrc_0002"
+    ],
+    "충돌하는": [
+      "booksrc_0002",
+      "booksrc_0022"
+    ],
+    "통해": [
+      "booksrc_0002",
+      "booksrc_0007",
+      "booksrc_0010",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0016",
+      "booksrc_0018",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0049",
+      "booksrc_0156",
+      "booksrc_0158",
+      "booksrc_0071",
+      "booksrc_0075"
+    ],
+    "현실과": [
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0084"
+    ],
+    "객관성의": [
+      "booksrc_0003"
+    ],
+    "고정된": [
+      "booksrc_0003"
+    ],
+    "과학교육과": [
+      "booksrc_0003",
+      "booksrc_0028"
+    ],
+    "관점": [
+      "booksrc_0003",
+      "booksrc_0008",
+      "booksrc_0166",
+      "booksrc_0188",
+      "booksrc_0080"
+    ],
+    "길리스피": [
+      "booksrc_0003"
+    ],
+    "모델": [
+      "booksrc_0003",
+      "booksrc_0202",
+      "booksrc_0082"
+    ],
+    "물리학과": [
+      "booksrc_0003",
+      "booksrc_0028"
+    ],
+    "변화해": [
+      "booksrc_0003"
+    ],
+    "생명과학": [
+      "booksrc_0003",
+      "booksrc_0187",
+      "booksrc_0190"
+    ],
+    "생명과학과": [
+      "booksrc_0003",
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0052",
+      "booksrc_0053"
+    ],
+    "생활과": [
+      "booksrc_0003"
+    ],
+    "수학과": [
+      "booksrc_0003",
+      "booksrc_0071"
+    ],
+    "수학교육과": [
+      "booksrc_0003",
+      "booksrc_0028",
+      "booksrc_0071"
+    ],
+    "수학적": [
+      "booksrc_0003",
+      "booksrc_0071",
+      "booksrc_0135"
+    ],
+    "시대와": [
+      "booksrc_0003",
+      "booksrc_0192"
+    ],
+    "아니라": [
+      "booksrc_0003",
+      "booksrc_0024",
+      "booksrc_0033",
+      "booksrc_0071"
+    ],
+    "언제나": [
+      "booksrc_0003"
+    ],
+    "역사교육과": [
+      "booksrc_0003",
+      "booksrc_0207"
+    ],
+    "영어": [
+      "booksrc_0003",
+      "booksrc_0012",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0043"
+    ],
+    "영어교육학과": [
+      "booksrc_0003"
+    ],
+    "왔음을": [
+      "booksrc_0003"
+    ],
+    "지구과학": [
+      "booksrc_0003"
+    ],
+    "지식이": [
+      "booksrc_0003"
+    ],
+    "직업": [
+      "booksrc_0003",
+      "booksrc_0010",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0161"
+    ],
+    "진로와": [
+      "booksrc_0003",
+      "booksrc_0010",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0053",
+      "booksrc_0054"
+    ],
+    "진리가": [
+      "booksrc_0003"
+    ],
+    "찰스": [
+      "booksrc_0003",
+      "booksrc_0063",
+      "booksrc_0183"
+    ],
+    "철학적": [
+      "booksrc_0003",
+      "booksrc_0028",
+      "booksrc_0198"
+    ],
+    "칼날": [
+      "booksrc_0003"
+    ],
+    "통합과학": [
+      "booksrc_0003"
+    ],
+    "형성되고": [
+      "booksrc_0003"
+    ],
+    "화학": [
+      "booksrc_0003",
+      "booksrc_0050"
+    ],
+    "겐지": [
+      "booksrc_0004"
+    ],
+    "관계를": [
+      "booksrc_0004",
+      "booksrc_0020",
+      "booksrc_0023",
+      "booksrc_0033",
+      "booksrc_0040",
+      "booksrc_0044",
+      "booksrc_0156",
+      "booksrc_0165"
+    ],
+    "국어": [
+      "booksrc_0004",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "권력": [
+      "booksrc_0004",
+      "booksrc_0033",
+      "booksrc_0044",
+      "booksrc_0156",
+      "booksrc_0165",
+      "booksrc_0073",
+      "booksrc_0079",
+      "booksrc_0085",
+      "booksrc_0094",
+      "booksrc_0095"
+    ],
+    "귀족": [
+      "booksrc_0004"
+    ],
+    "기행": [
+      "booksrc_0004"
+    ],
+    "동아시아": [
+      "booksrc_0004",
+      "booksrc_0073"
+    ],
+    "무라사키": [
+      "booksrc_0004"
+    ],
+    "미술": [
+      "booksrc_0004",
+      "booksrc_0012",
+      "booksrc_0023",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040"
+    ],
+    "미의식": [
+      "booksrc_0004"
+    ],
+    "배경으로": [
+      "booksrc_0004",
+      "booksrc_0006",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0157"
+    ],
+    "보여주는": [
+      "booksrc_0004",
+      "booksrc_0006",
+      "booksrc_0009",
+      "booksrc_0013",
+      "booksrc_0073"
+    ],
+    "사랑": [
+      "booksrc_0004",
+      "booksrc_0184",
+      "booksrc_0075",
+      "booksrc_0109"
+    ],
+    "사학과": [
+      "booksrc_0004",
+      "booksrc_0026",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0040",
+      "booksrc_0044",
+      "booksrc_0046"
+    ],
+    "사회를": [
+      "booksrc_0004",
+      "booksrc_0006",
+      "booksrc_0042"
+    ],
+    "생활": [
+      "booksrc_0004",
+      "booksrc_0011"
+    ],
+    "섬세하게": [
+      "booksrc_0004"
+    ],
+    "시대": [
+      "booksrc_0004",
+      "booksrc_0023",
+      "booksrc_0043",
+      "booksrc_0062",
+      "booksrc_0177",
+      "booksrc_0207",
+      "booksrc_0209"
+    ],
+    "시키부": [
+      "booksrc_0004"
+    ],
+    "음악": [
+      "booksrc_0004",
+      "booksrc_0012",
+      "booksrc_0023",
+      "booksrc_0029",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0138"
+    ],
+    "이야기": [
+      "booksrc_0004",
+      "booksrc_0040",
+      "booksrc_0050",
+      "booksrc_0190"
+    ],
+    "일본": [
+      "booksrc_0004",
+      "booksrc_0011",
+      "booksrc_0020"
+    ],
+    "일본어": [
+      "booksrc_0004",
+      "booksrc_0011"
+    ],
+    "일어일문학과": [
+      "booksrc_0004"
+    ],
+    "젠더": [
+      "booksrc_0004",
+      "booksrc_0194"
+    ],
+    "헤이안": [
+      "booksrc_0004"
+    ],
+    "가격": [
+      "booksrc_0005"
+    ],
+    "경영": [
+      "booksrc_0005",
+      "booksrc_0134"
+    ],
+    "경영학": [
+      "booksrc_0005"
+    ],
+    "교체는": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "근거": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0015",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025"
+    ],
+    "기록한다": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "기업의": [
+      "booksrc_0005",
+      "booksrc_0048",
+      "booksrc_0134"
+    ],
+    "단계에서": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "데이터": [
+      "booksrc_0005",
+      "booksrc_0187",
+      "booksrc_0203",
+      "booksrc_0100"
+    ],
+    "도서이다": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0048"
+    ],
+    "또는": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0008"
+    ],
+    "마케팅": [
+      "booksrc_0005"
+    ],
+    "보고서의": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074"
+    ],
+    "보상": [
+      "booksrc_0005"
+    ],
+    "분석이": [
+      "booksrc_0005"
+    ],
+    "분석형": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0074"
+    ],
+    "사례": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0073"
+    ],
+    "선택에": [
+      "booksrc_0005"
+    ],
+    "설계": [
+      "booksrc_0005",
+      "booksrc_0077",
+      "booksrc_0081"
+    ],
+    "설명하는": [
+      "booksrc_0005",
+      "booksrc_0159"
+    ],
+    "소비자의": [
+      "booksrc_0005",
+      "booksrc_0122"
+    ],
+    "않는다": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0199"
+    ],
+    "어떤": [
+      "booksrc_0005"
+    ],
+    "영향을": [
+      "booksrc_0005",
+      "booksrc_0072"
+    ],
+    "융합": [
+      "booksrc_0005",
+      "booksrc_0050",
+      "booksrc_0138"
+    ],
+    "의사결정": [
+      "booksrc_0005",
+      "booksrc_0025"
+    ],
+    "의사결정과": [
+      "booksrc_0005"
+    ],
+    "장영재": [
+      "booksrc_0005"
+    ],
+    "주는지": [
+      "booksrc_0005"
+    ],
+    "카드": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0055",
+      "booksrc_0056",
+      "booksrc_0057",
+      "booksrc_0058",
+      "booksrc_0059",
+      "booksrc_0060",
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0161",
+      "booksrc_0162",
+      "booksrc_0163",
+      "booksrc_0164",
+      "booksrc_0165",
+      "booksrc_0166",
+      "booksrc_0167",
+      "booksrc_0168",
+      "booksrc_0169",
+      "booksrc_0170",
+      "booksrc_0171",
+      "booksrc_0172",
+      "booksrc_0173",
+      "booksrc_0174",
+      "booksrc_0175",
+      "booksrc_0176",
+      "booksrc_0177",
+      "booksrc_0178",
+      "booksrc_0179",
+      "booksrc_0180",
+      "booksrc_0181",
+      "booksrc_0182",
+      "booksrc_0183",
+      "booksrc_0184",
+      "booksrc_0185",
+      "booksrc_0186",
+      "booksrc_0187",
+      "booksrc_0188",
+      "booksrc_0189",
+      "booksrc_0190",
+      "booksrc_0191",
+      "booksrc_0192",
+      "booksrc_0193",
+      "booksrc_0194",
+      "booksrc_0195",
+      "booksrc_0196",
+      "booksrc_0197",
+      "booksrc_0198",
+      "booksrc_0199",
+      "booksrc_0200",
+      "booksrc_0201",
+      "booksrc_0202",
+      "booksrc_0203",
+      "booksrc_0204",
+      "booksrc_0205",
+      "booksrc_0206",
+      "booksrc_0207",
+      "booksrc_0208",
+      "booksrc_0209",
+      "booksrc_0210"
+    ],
+    "콘서트": [
+      "booksrc_0005"
+    ],
+    "파일": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "하지": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "현재": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0092"
+    ],
+    "후보로": [
+      "booksrc_0005",
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008"
+    ],
+    "가족": [
+      "booksrc_0006",
+      "booksrc_0013",
+      "booksrc_0054",
+      "booksrc_0198"
+    ],
+    "고리오": [
+      "booksrc_0006"
+    ],
+    "근대": [
+      "booksrc_0006",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0157",
+      "booksrc_0175",
+      "booksrc_0200",
+      "booksrc_0072",
+      "booksrc_0073"
+    ],
+    "도덕성의": [
+      "booksrc_0006",
+      "booksrc_0053"
+    ],
+    "문제를": [
+      "booksrc_0006",
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0013",
+      "booksrc_0025",
+      "booksrc_0027",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0047",
+      "booksrc_0050",
+      "booksrc_0157",
+      "booksrc_0072",
+      "booksrc_0075"
+    ],
+    "발자크": [
+      "booksrc_0006"
+    ],
+    "상승": [
+      "booksrc_0006",
+      "booksrc_0124"
+    ],
+    "신분": [
+      "booksrc_0006",
+      "booksrc_0124"
+    ],
+    "심리": [
+      "booksrc_0006",
+      "booksrc_0041",
+      "booksrc_0074"
+    ],
+    "영감": [
+      "booksrc_0006"
+    ],
+    "오노레": [
+      "booksrc_0006"
+    ],
+    "욕망": [
+      "booksrc_0006",
+      "booksrc_0175",
+      "booksrc_0181",
+      "booksrc_0077",
+      "booksrc_0095",
+      "booksrc_0116",
+      "booksrc_0124"
+    ],
+    "인물": [
+      "booksrc_0006",
+      "booksrc_0037",
+      "booksrc_0195"
+    ],
+    "프랑스": [
+      "booksrc_0006",
+      "booksrc_0209",
+      "booksrc_0096"
+    ],
+    "계급": [
+      "booksrc_0007",
+      "booksrc_0010",
+      "booksrc_0096"
+    ],
+    "고향": [
+      "booksrc_0007"
+    ],
+    "공동체": [
+      "booksrc_0007",
+      "booksrc_0010",
+      "booksrc_0030",
+      "booksrc_0035",
+      "booksrc_0042",
+      "booksrc_0156",
+      "booksrc_0163",
+      "booksrc_0196",
+      "booksrc_0204",
+      "booksrc_0078",
+      "booksrc_0098",
+      "booksrc_0126",
+      "booksrc_0131"
+    ],
+    "구조": [
+      "booksrc_0007",
+      "booksrc_0008",
+      "booksrc_0022",
+      "booksrc_0037",
+      "booksrc_0045",
+      "booksrc_0181",
+      "booksrc_0187",
+      "booksrc_0193",
+      "booksrc_0209",
+      "booksrc_0076",
+      "booksrc_0077",
+      "booksrc_0093",
+      "booksrc_0127"
+    ],
+    "구조를": [
+      "booksrc_0007",
+      "booksrc_0011",
+      "booksrc_0024",
+      "booksrc_0047",
+      "booksrc_0160",
+      "booksrc_0162",
+      "booksrc_0164"
+    ],
+    "노동": [
+      "booksrc_0007",
+      "booksrc_0013",
+      "booksrc_0206",
+      "booksrc_0123"
+    ],
+    "농민의": [
+      "booksrc_0007"
+    ],
+    "삶과": [
+      "booksrc_0007",
+      "booksrc_0109",
+      "booksrc_0116",
+      "booksrc_0137",
+      "booksrc_0138"
+    ],
+    "이기영": [
+      "booksrc_0007"
+    ],
+    "일제강점기": [
+      "booksrc_0007",
+      "booksrc_0022",
+      "booksrc_0174"
+    ],
+    "저항의": [
+      "booksrc_0007"
+    ],
+    "탐구하게": [
+      "booksrc_0007",
+      "booksrc_0012",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0045",
+      "booksrc_0047"
+    ],
+    "하는": [
+      "booksrc_0007",
+      "booksrc_0012",
+      "booksrc_0015",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0024",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0047",
+      "booksrc_0158"
+    ],
+    "개념을": [
+      "booksrc_0008"
+    ],
+    "검토하며": [
+      "booksrc_0008"
+    ],
+    "공정성": [
+      "booksrc_0008",
+      "booksrc_0193",
+      "booksrc_0125"
+    ],
+    "공정하다는": [
+      "booksrc_0008"
+    ],
+    "노력": [
+      "booksrc_0008"
+    ],
+    "능력주의와": [
+      "booksrc_0008"
+    ],
+    "마이클": [
+      "booksrc_0008",
+      "booksrc_0017",
+      "booksrc_0193"
+    ],
+    "불평등": [
+      "booksrc_0008",
+      "booksrc_0013",
+      "booksrc_0048",
+      "booksrc_0164",
+      "booksrc_0168",
+      "booksrc_0185",
+      "booksrc_0194",
+      "booksrc_0123",
+      "booksrc_0124",
+      "booksrc_0126",
+      "booksrc_0127",
+      "booksrc_0132"
+    ],
+    "비교": [
+      "booksrc_0008",
+      "booksrc_0073"
+    ],
+    "비판적으로": [
+      "booksrc_0008",
+      "booksrc_0013",
+      "booksrc_0043",
+      "booksrc_0054",
+      "booksrc_0074"
+    ],
+    "샌델": [
+      "booksrc_0008",
+      "booksrc_0017",
+      "booksrc_0193"
+    ],
+    "연결하는": [
+      "booksrc_0008",
+      "booksrc_0025"
+    ],
+    "이론": [
+      "booksrc_0008",
+      "booksrc_0171",
+      "booksrc_0181",
+      "booksrc_0140"
+    ],
+    "쟁점": [
+      "booksrc_0008",
+      "booksrc_0025"
+    ],
+    "정의의": [
+      "booksrc_0008",
+      "booksrc_0035"
+    ],
+    "착각": [
+      "booksrc_0008",
+      "booksrc_0101"
+    ],
+    "핵심": [
+      "booksrc_0008"
+    ],
+    "active": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0034",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042"
+    ],
+    "card": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0020",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030"
+    ],
+    "duplicate": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0034",
+      "booksrc_0036"
+    ],
+    "existing": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0020",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0034",
+      "booksrc_0036"
+    ],
+    "갈등": [
+      "booksrc_0009",
+      "booksrc_0167",
+      "booksrc_0174",
+      "booksrc_0208",
+      "booksrc_0210",
+      "booksrc_0131"
+    ],
+    "개인이": [
+      "booksrc_0009"
+    ],
+    "광장": [
+      "booksrc_0009"
+    ],
+    "분단": [
+      "booksrc_0009",
+      "booksrc_0131"
+    ],
+    "삶의": [
+      "booksrc_0009",
+      "booksrc_0017",
+      "booksrc_0198",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0077",
+      "booksrc_0104",
+      "booksrc_0107",
+      "booksrc_0116"
+    ],
+    "선택하는지": [
+      "booksrc_0009"
+    ],
+    "소설이다": [
+      "booksrc_0009",
+      "booksrc_0042"
+    ],
+    "의미를": [
+      "booksrc_0009",
+      "booksrc_0031",
+      "booksrc_0032"
+    ],
+    "이념": [
+      "booksrc_0009",
+      "booksrc_0174",
+      "booksrc_0131"
+    ],
+    "인간다운": [
+      "booksrc_0009"
+    ],
+    "자유와": [
+      "booksrc_0009",
+      "booksrc_0033",
+      "booksrc_0161",
+      "booksrc_0197",
+      "booksrc_0072"
+    ],
+    "정치외교학과": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0051",
+      "booksrc_0156",
+      "booksrc_0158",
+      "booksrc_0159",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074"
+    ],
+    "책임": [
+      "booksrc_0009",
+      "booksrc_0030",
+      "booksrc_0049",
+      "booksrc_0054",
+      "booksrc_0179",
+      "booksrc_0184",
+      "booksrc_0197",
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0077",
+      "booksrc_0085",
+      "booksrc_0110",
+      "booksrc_0112",
+      "booksrc_0121",
+      "booksrc_0134"
+    ],
+    "최인훈": [
+      "booksrc_0009"
+    ],
+    "고전이다": [
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0021",
+      "booksrc_0028",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0049",
+      "booksrc_0156"
+    ],
+    "교육": [
+      "booksrc_0010",
+      "booksrc_0177",
+      "booksrc_0205",
+      "booksrc_0077",
+      "booksrc_0084",
+      "booksrc_0103",
+      "booksrc_0112",
+      "booksrc_0120",
+      "booksrc_0125"
+    ],
+    "교육학과": [
+      "booksrc_0010",
+      "booksrc_0014",
+      "booksrc_0022",
+      "booksrc_0026",
+      "booksrc_0054"
+    ],
+    "국가": [
+      "booksrc_0010",
+      "booksrc_0026",
+      "booksrc_0032",
+      "booksrc_0156",
+      "booksrc_0159",
+      "booksrc_0186",
+      "booksrc_0204",
+      "booksrc_0073",
+      "booksrc_0078",
+      "booksrc_0113",
+      "booksrc_0133"
+    ],
+    "국가와": [
+      "booksrc_0010",
+      "booksrc_0054"
+    ],
+    "윤리교육과": [
+      "booksrc_0010",
+      "booksrc_0017",
+      "booksrc_0026",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0051",
+      "booksrc_0075"
+    ],
+    "이상적인": [
+      "booksrc_0010"
+    ],
+    "자격을": [
+      "booksrc_0010"
+    ],
+    "정의로운": [
+      "booksrc_0010"
+    ],
+    "정치": [
+      "booksrc_0010",
+      "booksrc_0048",
+      "booksrc_0097",
+      "booksrc_0105"
+    ],
+    "체제를": [
+      "booksrc_0010"
+    ],
+    "탐구하는": [
+      "booksrc_0010",
+      "booksrc_0039",
+      "booksrc_0075"
+    ],
+    "통치자의": [
+      "booksrc_0010",
+      "booksrc_0021"
+    ],
+    "플라톤": [
+      "booksrc_0010"
+    ],
+    "행정학과": [
+      "booksrc_0010",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0021",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0051",
+      "booksrc_0156"
+    ],
+    "관점을": [
+      "booksrc_0011",
+      "booksrc_0024",
+      "booksrc_0033",
+      "booksrc_0156"
+    ],
+    "국제학과": [
+      "booksrc_0011",
+      "booksrc_0018",
+      "booksrc_0032",
+      "booksrc_0036",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0073"
+    ],
+    "국화와": [
+      "booksrc_0011"
+    ],
+    "루스": [
+      "booksrc_0011"
+    ],
+    "문화의": [
+      "booksrc_0011",
+      "booksrc_0046"
+    ],
+    "문화인류학": [
+      "booksrc_0011"
+    ],
+    "베네딕트": [
+      "booksrc_0011"
+    ],
+    "분석하며": [
+      "booksrc_0011",
+      "booksrc_0045"
+    ],
+    "수치문화": [
+      "booksrc_0011"
+    ],
+    "양면성과": [
+      "booksrc_0011"
+    ],
+    "위계": [
+      "booksrc_0011"
+    ],
+    "이해하는": [
+      "booksrc_0011"
+    ],
+    "일본학과": [
+      "booksrc_0011",
+      "booksrc_0020",
+      "booksrc_0073"
+    ],
+    "제시하는": [
+      "booksrc_0011"
+    ],
+    "체면의": [
+      "booksrc_0011"
+    ],
+    "타문화를": [
+      "booksrc_0011"
+    ],
+    "갈등을": [
+      "booksrc_0012",
+      "booksrc_0035",
+      "booksrc_0161"
+    ],
+    "걸작선": [
+      "booksrc_0012"
+    ],
+    "고고미술사학과": [
+      "booksrc_0012",
+      "booksrc_0018"
+    ],
+    "고전": [
+      "booksrc_0012",
+      "booksrc_0021",
+      "booksrc_0051",
+      "booksrc_0072",
+      "booksrc_0075",
+      "booksrc_0089",
+      "booksrc_0105",
+      "booksrc_0120"
+    ],
+    "그리스": [
+      "booksrc_0012"
+    ],
+    "도덕적": [
+      "booksrc_0012",
+      "booksrc_0051",
+      "booksrc_0165",
+      "booksrc_0175",
+      "booksrc_0176",
+      "booksrc_0085",
+      "booksrc_0102",
+      "booksrc_0115"
+    ],
+    "법의": [
+      "booksrc_0012",
+      "booksrc_0094"
+    ],
+    "비극": [
+      "booksrc_0012",
+      "booksrc_0110"
+    ],
+    "비극을": [
+      "booksrc_0012"
+    ],
+    "선택": [
+      "booksrc_0012",
+      "booksrc_0161",
+      "booksrc_0165",
+      "booksrc_0197",
+      "booksrc_0075",
+      "booksrc_0081",
+      "booksrc_0092",
+      "booksrc_0127"
+    ],
+    "소포클레스": [
+      "booksrc_0012"
+    ],
+    "안티고네": [
+      "booksrc_0012"
+    ],
+    "영어영문학과": [
+      "booksrc_0012",
+      "booksrc_0029",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0047"
+    ],
+    "오이디푸스와": [
+      "booksrc_0012"
+    ],
+    "운명": [
+      "booksrc_0012",
+      "booksrc_0179"
+    ],
+    "윤리학과": [
+      "booksrc_0012",
+      "booksrc_0014",
+      "booksrc_0030",
+      "booksrc_0053"
+    ],
+    "자유의지": [
+      "booksrc_0012",
+      "booksrc_0039",
+      "booksrc_0049",
+      "booksrc_0172",
+      "booksrc_0184",
+      "booksrc_0075",
+      "booksrc_0109"
+    ],
+    "작품집이다": [
+      "booksrc_0012",
+      "booksrc_0019"
+    ],
+    "정의와": [
+      "booksrc_0012",
+      "booksrc_0085"
+    ],
+    "1970년대": [
+      "booksrc_0013"
+    ],
+    "난장이가": [
+      "booksrc_0013"
+    ],
+    "도시": [
+      "booksrc_0013",
+      "booksrc_0175"
+    ],
+    "도시공학과": [
+      "booksrc_0013"
+    ],
+    "빈민의": [
+      "booksrc_0013"
+    ],
+    "산업화와": [
+      "booksrc_0013"
+    ],
+    "삶을": [
+      "booksrc_0013",
+      "booksrc_0021",
+      "booksrc_0026"
+    ],
+    "쏘아올린": [
+      "booksrc_0013"
+    ],
+    "연작소설이다": [
+      "booksrc_0013"
+    ],
+    "작은": [
+      "booksrc_0013"
+    ],
+    "조세희": [
+      "booksrc_0013"
+    ],
+    "주거권": [
+      "booksrc_0013"
+    ],
+    "해체": [
+      "booksrc_0013",
+      "booksrc_0035"
+    ],
+    "환경": [
+      "booksrc_0013",
+      "booksrc_0036",
+      "booksrc_0111",
+      "booksrc_0130",
+      "booksrc_0134"
+    ],
+    "공직자의": [
+      "booksrc_0014"
+    ],
+    "누구나": [
+      "booksrc_0014"
+    ],
+    "리더십": [
+      "booksrc_0014",
+      "booksrc_0202",
+      "booksrc_0079",
+      "booksrc_0082",
+      "booksrc_0089",
+      "booksrc_0102",
+      "booksrc_0137"
+    ],
+    "목민": [
+      "booksrc_0014"
+    ],
+    "목민심서": [
+      "booksrc_0014"
+    ],
+    "미리내공방": [
+      "booksrc_0014"
+    ],
+    "바탕으로": [
+      "booksrc_0014",
+      "booksrc_0036"
+    ],
+    "법학과": [
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0025",
+      "booksrc_0035",
+      "booksrc_0042",
+      "booksrc_0051",
+      "booksrc_0054",
+      "booksrc_0156",
+      "booksrc_0072"
+    ],
+    "애민": [
+      "booksrc_0014"
+    ],
+    "연결해": [
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0026"
+    ],
+    "읽어야": [
+      "booksrc_0014"
+    ],
+    "읽을": [
+      "booksrc_0014"
+    ],
+    "있는": [
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0018",
+      "booksrc_0026",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0049",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0156"
+    ],
+    "정신을": [
+      "booksrc_0014"
+    ],
+    "정약용의": [
+      "booksrc_0014"
+    ],
+    "제도적": [
+      "booksrc_0014",
+      "booksrc_0054"
+    ],
+    "책이다": [
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0159",
+      "booksrc_0160"
+    ],
+    "책임을": [
+      "booksrc_0014",
+      "booksrc_0026",
+      "booksrc_0034"
+    ],
+    "청렴": [
+      "booksrc_0014"
+    ],
+    "한번쯤": [
+      "booksrc_0014"
+    ],
+    "행정": [
+      "booksrc_0014"
+    ],
+    "현대": [
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0024",
+      "booksrc_0041",
+      "booksrc_0164",
+      "booksrc_0170",
+      "booksrc_0202",
+      "booksrc_0210",
+      "booksrc_0088",
+      "booksrc_0097",
+      "booksrc_0099",
+      "booksrc_0120"
+    ],
+    "간호학과": [
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "과정에서": [
+      "booksrc_0015"
+    ],
+    "균형을": [
+      "booksrc_0015",
+      "booksrc_0051"
+    ],
+    "그루프먼": [
+      "booksrc_0015"
+    ],
+    "기반": [
+      "booksrc_0015",
+      "booksrc_0100"
+    ],
+    "다루며": [
+      "booksrc_0015",
+      "booksrc_0042"
+    ],
+    "닥터스": [
+      "booksrc_0015"
+    ],
+    "데이터가": [
+      "booksrc_0015"
+    ],
+    "발생할": [
+      "booksrc_0015"
+    ],
+    "보건": [
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0054"
+    ],
+    "보건학과": [
+      "booksrc_0015",
+      "booksrc_0052",
+      "booksrc_0054"
+    ],
+    "사고": [
+      "booksrc_0015",
+      "booksrc_0162",
+      "booksrc_0122",
+      "booksrc_0135"
+    ],
+    "생각하게": [
+      "booksrc_0015",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0044"
+    ],
+    "씽킹": [
+      "booksrc_0015",
+      "booksrc_0085"
+    ],
+    "오류와": [
+      "booksrc_0015"
+    ],
+    "의사가": [
+      "booksrc_0015"
+    ],
+    "의학과": [
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0185",
+      "booksrc_0104"
+    ],
+    "의학적": [
+      "booksrc_0015"
+    ],
+    "이루어야": [
+      "booksrc_0015"
+    ],
+    "인지": [
+      "booksrc_0015",
+      "booksrc_0081"
+    ],
+    "제롬": [
+      "booksrc_0015"
+    ],
+    "직관과": [
+      "booksrc_0015"
+    ],
+    "진단하고": [
+      "booksrc_0015"
+    ],
+    "치료하는": [
+      "booksrc_0015"
+    ],
+    "판단에서": [
+      "booksrc_0015"
+    ],
+    "편향을": [
+      "booksrc_0015"
+    ],
+    "하는지": [
+      "booksrc_0015"
+    ],
+    "환자를": [
+      "booksrc_0015"
+    ],
+    "갈등과": [
+      "booksrc_0016"
+    ],
+    "과정을": [
+      "booksrc_0016",
+      "booksrc_0046"
+    ],
+    "내면의": [
+      "booksrc_0016",
+      "booksrc_0043"
+    ],
+    "다루는": [
+      "booksrc_0016",
+      "booksrc_0020",
+      "booksrc_0157",
+      "booksrc_0072",
+      "booksrc_0074"
+    ],
+    "데미안": [
+      "booksrc_0016"
+    ],
+    "상담심리학과": [
+      "booksrc_0016",
+      "booksrc_0020"
+    ],
+    "선과": [
+      "booksrc_0016",
+      "booksrc_0039"
+    ],
+    "성장": [
+      "booksrc_0016",
+      "booksrc_0157",
+      "booksrc_0179",
+      "booksrc_0208",
+      "booksrc_0084",
+      "booksrc_0103",
+      "booksrc_0114",
+      "booksrc_0134"
+    ],
+    "성장소설이다": [
+      "booksrc_0016"
+    ],
+    "싱클레어의": [
+      "booksrc_0016"
+    ],
+    "악의": [
+      "booksrc_0016",
+      "booksrc_0175"
+    ],
+    "이분법": [
+      "booksrc_0016"
+    ],
+    "탐색": [
+      "booksrc_0016",
+      "booksrc_0179",
+      "booksrc_0210"
+    ],
+    "통합을": [
+      "booksrc_0016"
+    ],
+    "헤르만": [
+      "booksrc_0016",
+      "booksrc_0210",
+      "booksrc_0103"
+    ],
+    "헤세": [
+      "booksrc_0016",
+      "booksrc_0210",
+      "booksrc_0103"
+    ],
+    "가치와": [
+      "booksrc_0017"
+    ],
+    "것들": [
+      "booksrc_0017"
+    ],
+    "경영학과": [
+      "booksrc_0017",
+      "booksrc_0160"
+    ],
+    "경제학과": [
+      "booksrc_0017",
+      "booksrc_0034",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0048",
+      "booksrc_0160"
+    ],
+    "공공선이": [
+      "booksrc_0017"
+    ],
+    "논리가": [
+      "booksrc_0017",
+      "booksrc_0073"
+    ],
+    "돈으로": [
+      "booksrc_0017"
+    ],
+    "사고팔": [
+      "booksrc_0017"
+    ],
+    "시장의": [
+      "booksrc_0017"
+    ],
+    "없는": [
+      "booksrc_0017",
+      "booksrc_0197"
+    ],
+    "여러": [
+      "booksrc_0017"
+    ],
+    "영역으로": [
+      "booksrc_0017"
+    ],
+    "있는지": [
+      "booksrc_0017",
+      "booksrc_0158"
+    ],
+    "질문하는": [
+      "booksrc_0017"
+    ],
+    "확장될": [
+      "booksrc_0017"
+    ],
+    "훼손될": [
+      "booksrc_0017"
+    ],
+    "13세기": [
+      "booksrc_0018"
+    ],
+    "교류": [
+      "booksrc_0018",
+      "booksrc_0113"
+    ],
+    "기록을": [
+      "booksrc_0018"
+    ],
+    "동방견문록": [
+      "booksrc_0018"
+    ],
+    "동서": [
+      "booksrc_0018"
+    ],
+    "마르코": [
+      "booksrc_0018"
+    ],
+    "무역": [
+      "booksrc_0018"
+    ],
+    "무역학과": [
+      "booksrc_0018"
+    ],
+    "문명": [
+      "booksrc_0018",
+      "booksrc_0157",
+      "booksrc_0159",
+      "booksrc_0206",
+      "booksrc_0111"
+    ],
+    "문화적": [
+      "booksrc_0018",
+      "booksrc_0047"
+    ],
+    "바라본": [
+      "booksrc_0018"
+    ],
+    "살펴볼": [
+      "booksrc_0018"
+    ],
+    "아시아를": [
+      "booksrc_0018"
+    ],
+    "여행과": [
+      "booksrc_0018"
+    ],
+    "오해를": [
+      "booksrc_0018"
+    ],
+    "유럽인이": [
+      "booksrc_0018"
+    ],
+    "인식과": [
+      "booksrc_0018"
+    ],
+    "지리학과": [
+      "booksrc_0018",
+      "booksrc_0036"
+    ],
+    "타문화": [
+      "booksrc_0018"
+    ],
+    "폴로": [
+      "booksrc_0018"
+    ],
+    "함께": [
+      "booksrc_0018",
+      "booksrc_0021",
+      "booksrc_0031",
+      "booksrc_0050"
+    ],
+    "210": [
+      "booksrc_0019"
+    ],
+    "candidate": [
+      "booksrc_0019",
+      "booksrc_0031"
+    ],
+    "current": [
+      "booksrc_0019"
+    ],
+    "found": [
+      "booksrc_0019"
+    ],
+    "in": [
+      "booksrc_0019"
+    ],
+    "new": [
+      "booksrc_0019",
+      "booksrc_0031",
+      "booksrc_0073"
+    ],
+    "not": [
+      "booksrc_0019"
+    ],
+    "or": [
+      "booksrc_0019"
+    ],
+    "구습": [
+      "booksrc_0019"
+    ],
+    "드러내며": [
+      "booksrc_0019"
+    ],
+    "루쉰": [
+      "booksrc_0019"
+    ],
+    "모순과": [
+      "booksrc_0019"
+    ],
+    "무기력": [
+      "booksrc_0019"
+    ],
+    "문학의": [
+      "booksrc_0019",
+      "booksrc_0105"
+    ],
+    "변화를": [
+      "booksrc_0019",
+      "booksrc_0022",
+      "booksrc_0159"
+    ],
+    "봉건적": [
+      "booksrc_0019"
+    ],
+    "사회의": [
+      "booksrc_0019",
+      "booksrc_0041",
+      "booksrc_0202",
+      "booksrc_0210",
+      "booksrc_0072",
+      "booksrc_0096"
+    ],
+    "소설로": [
+      "booksrc_0019"
+    ],
+    "소설전집": [
+      "booksrc_0019"
+    ],
+    "역할을": [
+      "booksrc_0019",
+      "booksrc_0029"
+    ],
+    "위한": [
+      "booksrc_0019",
+      "booksrc_0192",
+      "booksrc_0097",
+      "booksrc_0110",
+      "booksrc_0112"
+    ],
+    "자기비판을": [
+      "booksrc_0019"
+    ],
+    "중국": [
+      "booksrc_0019"
+    ],
+    "중어중문학과": [
+      "booksrc_0019",
+      "booksrc_0035"
+    ],
+    "지식인의": [
+      "booksrc_0019",
+      "booksrc_0030",
+      "booksrc_0034",
+      "booksrc_0079",
+      "booksrc_0113"
+    ],
+    "한문": [
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0027",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037"
+    ],
+    "고독": [
+      "booksrc_0020",
+      "booksrc_0049",
+      "booksrc_0088",
+      "booksrc_0093"
+    ],
+    "근대문학": [
+      "booksrc_0020"
+    ],
+    "나쓰메": [
+      "booksrc_0020"
+    ],
+    "나와": [
+      "booksrc_0020"
+    ],
+    "마음": [
+      "booksrc_0020"
+    ],
+    "불안을": [
+      "booksrc_0020"
+    ],
+    "상담심리학": [
+      "booksrc_0020"
+    ],
+    "선생님의": [
+      "booksrc_0020"
+    ],
+    "소세키": [
+      "booksrc_0020"
+    ],
+    "양심": [
+      "booksrc_0020",
+      "booksrc_0030",
+      "booksrc_0071"
+    ],
+    "인간관계의": [
+      "booksrc_0020"
+    ],
+    "작품이다": [
+      "booksrc_0020",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0157",
+      "booksrc_0158"
+    ],
+    "전환기": [
+      "booksrc_0020"
+    ],
+    "죄책감": [
+      "booksrc_0020"
+    ],
+    "국제": [
+      "booksrc_0021",
+      "booksrc_0159"
+    ],
+    "기준으로": [
+      "booksrc_0021"
+    ],
+    "맹자": [
+      "booksrc_0021"
+    ],
+    "민본정치": [
+      "booksrc_0021"
+    ],
+    "민주주의": [
+      "booksrc_0021",
+      "booksrc_0025",
+      "booksrc_0044",
+      "booksrc_0168",
+      "booksrc_0079",
+      "booksrc_0085",
+      "booksrc_0091",
+      "booksrc_0097",
+      "booksrc_0102",
+      "booksrc_0137"
+    ],
+    "백성의": [
+      "booksrc_0021"
+    ],
+    "본성의": [
+      "booksrc_0021"
+    ],
+    "분석의": [
+      "booksrc_0021"
+    ],
+    "분쟁과": [
+      "booksrc_0021"
+    ],
+    "선함과": [
+      "booksrc_0021"
+    ],
+    "오늘날": [
+      "booksrc_0021",
+      "booksrc_0037"
+    ],
+    "왕도정치": [
+      "booksrc_0021"
+    ],
+    "인간": [
+      "booksrc_0021",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0052",
+      "booksrc_0157",
+      "booksrc_0165",
+      "booksrc_0166",
+      "booksrc_0169",
+      "booksrc_0172",
+      "booksrc_0201",
+      "booksrc_0204",
+      "booksrc_0071",
+      "booksrc_0074",
+      "booksrc_0077",
+      "booksrc_0086",
+      "booksrc_0095",
+      "booksrc_0098",
+      "booksrc_0114",
+      "booksrc_0120",
+      "booksrc_0121",
+      "booksrc_0122",
+      "booksrc_0128",
+      "booksrc_0130",
+      "booksrc_0139"
+    ],
+    "인권": [
+      "booksrc_0021",
+      "booksrc_0036"
+    ],
+    "정치사상을": [
+      "booksrc_0021"
+    ],
+    "좋다": [
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0031"
+    ],
+    "책임과": [
+      "booksrc_0021",
+      "booksrc_0188"
+    ],
+    "탐구하기": [
+      "booksrc_0021",
+      "booksrc_0023",
+      "booksrc_0031"
+    ],
+    "혁명론을": [
+      "booksrc_0021"
+    ],
+    "가치가": [
+      "booksrc_0022",
+      "booksrc_0027"
+    ],
+    "가치관": [
+      "booksrc_0022",
+      "booksrc_0156",
+      "booksrc_0139"
+    ],
+    "계몽": [
+      "booksrc_0022",
+      "booksrc_0074"
+    ],
+    "근대문학을": [
+      "booksrc_0022"
+    ],
+    "근대소설이다": [
+      "booksrc_0022"
+    ],
+    "근대적": [
+      "booksrc_0022",
+      "booksrc_0162"
+    ],
+    "근대화": [
+      "booksrc_0022"
+    ],
+    "다룬": [
+      "booksrc_0022"
+    ],
+    "무정": [
+      "booksrc_0022"
+    ],
+    "민족개조론을": [
+      "booksrc_0022"
+    ],
+    "변화와": [
+      "booksrc_0022",
+      "booksrc_0038",
+      "booksrc_0127"
+    ],
+    "분석하기": [
+      "booksrc_0022"
+    ],
+    "분석하는": [
+      "booksrc_0022",
+      "booksrc_0025",
+      "booksrc_0048",
+      "booksrc_0160",
+      "booksrc_0161",
+      "booksrc_0162",
+      "booksrc_0163",
+      "booksrc_0164",
+      "booksrc_0165",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074"
+    ],
+    "사회적": [
+      "booksrc_0022",
+      "booksrc_0029",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0049",
+      "booksrc_0054",
+      "booksrc_0161",
+      "booksrc_0164",
+      "booksrc_0180",
+      "booksrc_0182",
+      "booksrc_0183",
+      "booksrc_0188",
+      "booksrc_0194",
+      "booksrc_0206",
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0079",
+      "booksrc_0081",
+      "booksrc_0087",
+      "booksrc_0101",
+      "booksrc_0108",
+      "booksrc_0109",
+      "booksrc_0110",
+      "booksrc_0112",
+      "booksrc_0124",
+      "booksrc_0126",
+      "booksrc_0127",
+      "booksrc_0132",
+      "booksrc_0134"
+    ],
+    "신교육": [
+      "booksrc_0022"
+    ],
+    "이광수": [
+      "booksrc_0022"
+    ],
+    "자유연애": [
+      "booksrc_0022"
+    ],
+    "지점을": [
+      "booksrc_0022"
+    ],
+    "초기의": [
+      "booksrc_0022"
+    ],
+    "한국": [
+      "booksrc_0022"
+    ],
+    "경제적": [
+      "booksrc_0023",
+      "booksrc_0164",
+      "booksrc_0183",
+      "booksrc_0137"
+    ],
+    "구조와": [
+      "booksrc_0023",
+      "booksrc_0172",
+      "booksrc_0113"
+    ],
+    "대중문화와": [
+      "booksrc_0023",
+      "booksrc_0178",
+      "booksrc_0122"
+    ],
+    "맥락": [
+      "booksrc_0023"
+    ],
+    "문학과": [
+      "booksrc_0023"
+    ],
+    "미술사학과": [
+      "booksrc_0023"
+    ],
+    "변화": [
+      "booksrc_0023",
+      "booksrc_0046",
+      "booksrc_0167",
+      "booksrc_0189",
+      "booksrc_0192",
+      "booksrc_0129"
+    ],
+    "보지": [
+      "booksrc_0023"
+    ],
+    "사회사": [
+      "booksrc_0023"
+    ],
+    "아르놀트": [
+      "booksrc_0023"
+    ],
+    "않고": [
+      "booksrc_0023"
+    ],
+    "양식": [
+      "booksrc_0023"
+    ],
+    "예술을": [
+      "booksrc_0023"
+    ],
+    "예술의": [
+      "booksrc_0023",
+      "booksrc_0118",
+      "booksrc_0138"
+    ],
+    "예술학과": [
+      "booksrc_0023"
+    ],
+    "이론적": [
+      "booksrc_0023"
+    ],
+    "지위": [
+      "booksrc_0023"
+    ],
+    "창작물로만": [
+      "booksrc_0023"
+    ],
+    "창작의": [
+      "booksrc_0023"
+    ],
+    "하우저": [
+      "booksrc_0023"
+    ],
+    "해석하는": [
+      "booksrc_0023"
+    ],
+    "ai": [
+      "booksrc_0024",
+      "booksrc_0177",
+      "booksrc_0207",
+      "booksrc_0076",
+      "booksrc_0100",
+      "booksrc_0123"
+    ],
+    "감각과": [
+      "booksrc_0024"
+    ],
+    "단순한": [
+      "booksrc_0024"
+    ],
+    "도구가": [
+      "booksrc_0024",
+      "booksrc_0071"
+    ],
+    "디지털": [
+      "booksrc_0024",
+      "booksrc_0072"
+    ],
+    "라는": [
+      "booksrc_0024"
+    ],
+    "마셜": [
+      "booksrc_0024"
+    ],
+    "맥루언": [
+      "booksrc_0024"
+    ],
+    "메시지다": [
+      "booksrc_0024"
+    ],
+    "문제와": [
+      "booksrc_0024",
+      "booksrc_0041"
+    ],
+    "미디어": [
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0203"
+    ],
+    "미디어는": [
+      "booksrc_0024"
+    ],
+    "미디어를": [
+      "booksrc_0024"
+    ],
+    "미디어의": [
+      "booksrc_0024"
+    ],
+    "바꾸는": [
+      "booksrc_0024"
+    ],
+    "연결할": [
+      "booksrc_0024",
+      "booksrc_0041"
+    ],
+    "이해": [
+      "booksrc_0024",
+      "booksrc_0166",
+      "booksrc_0071",
+      "booksrc_0107"
+    ],
+    "이해하게": [
+      "booksrc_0024"
+    ],
+    "있다": [
+      "booksrc_0024",
+      "booksrc_0039"
+    ],
+    "전달": [
+      "booksrc_0024"
+    ],
+    "정보사회학과": [
+      "booksrc_0024"
+    ],
+    "플랫폼": [
+      "booksrc_0024",
+      "booksrc_0072",
+      "booksrc_0100",
+      "booksrc_0136"
+    ],
+    "환경과": [
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0203"
+    ],
+    "환경으로": [
+      "booksrc_0024"
+    ],
+    "가짜뉴스": [
+      "booksrc_0025"
+    ],
+    "강준만": [
+      "booksrc_0025"
+    ],
+    "대한": [
+      "booksrc_0025"
+    ],
+    "문제로": [
+      "booksrc_0025"
+    ],
+    "민주주의의": [
+      "booksrc_0025"
+    ],
+    "반지성주의": [
+      "booksrc_0025"
+    ],
+    "불신": [
+      "booksrc_0025"
+    ],
+    "시민의": [
+      "booksrc_0025"
+    ],
+    "양극화가": [
+      "booksrc_0025"
+    ],
+    "음모론": [
+      "booksrc_0025"
+    ],
+    "전문가에": [
+      "booksrc_0025"
+    ],
+    "정치적": [
+      "booksrc_0025",
+      "booksrc_0097"
+    ],
+    "지식과": [
+      "booksrc_0025"
+    ],
+    "판단을": [
+      "booksrc_0025"
+    ],
+    "플랫폼과": [
+      "booksrc_0025"
+    ],
+    "합리적": [
+      "booksrc_0025"
+    ],
+    "확장하기": [
+      "booksrc_0025"
+    ],
+    "흔드는지": [
+      "booksrc_0025"
+    ],
+    "공동체적": [
+      "booksrc_0026"
+    ],
+    "김구": [
+      "booksrc_0026"
+    ],
+    "김구의": [
+      "booksrc_0026"
+    ],
+    "독립운동과": [
+      "booksrc_0026"
+    ],
+    "문화국가": [
+      "booksrc_0026"
+    ],
+    "백범일지": [
+      "booksrc_0026"
+    ],
+    "사회교육과": [
+      "booksrc_0026"
+    ],
+    "사회참여": [
+      "booksrc_0026"
+    ],
+    "세대의": [
+      "booksrc_0026"
+    ],
+    "자서전이다": [
+      "booksrc_0026"
+    ],
+    "정체성": [
+      "booksrc_0026",
+      "booksrc_0159",
+      "booksrc_0163",
+      "booksrc_0170",
+      "booksrc_0183",
+      "booksrc_0188",
+      "booksrc_0207",
+      "booksrc_0075",
+      "booksrc_0088",
+      "booksrc_0095"
+    ],
+    "청년": [
+      "booksrc_0026",
+      "booksrc_0174"
+    ],
+    "탐구할": [
+      "booksrc_0026",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0156"
+    ],
+    "가족의": [
+      "booksrc_0027"
+    ],
+    "그레고르의": [
+      "booksrc_0027"
+    ],
+    "독어독문학과": [
+      "booksrc_0027",
+      "booksrc_0037"
+    ],
+    "반응을": [
+      "booksrc_0027"
+    ],
+    "변신": [
+      "booksrc_0027",
+      "booksrc_0095"
+    ],
+    "변신과": [
+      "booksrc_0027"
+    ],
+    "생산성": [
+      "booksrc_0027"
+    ],
+    "역할": [
+      "booksrc_0027",
+      "booksrc_0089",
+      "booksrc_0113"
+    ],
+    "유용성으로": [
+      "booksrc_0027"
+    ],
+    "카프카": [
+      "booksrc_0027"
+    ],
+    "평가되는": [
+      "booksrc_0027"
+    ],
+    "프란츠": [
+      "booksrc_0027"
+    ],
+    "공학계열": [
+      "booksrc_0028"
+    ],
+    "과정과": [
+      "booksrc_0028"
+    ],
+    "과학자의": [
+      "booksrc_0028",
+      "booksrc_0072"
+    ],
+    "과학적": [
+      "booksrc_0028",
+      "booksrc_0162",
+      "booksrc_0187",
+      "booksrc_0106"
+    ],
+    "대화를": [
+      "booksrc_0028"
+    ],
+    "발견이": [
+      "booksrc_0028"
+    ],
+    "베르너": [
+      "booksrc_0028"
+    ],
+    "보여": [
+      "booksrc_0028"
+    ],
+    "부분과": [
+      "booksrc_0028"
+    ],
+    "사고와": [
+      "booksrc_0028",
+      "booksrc_0106"
+    ],
+    "양자역학": [
+      "booksrc_0028",
+      "booksrc_0171"
+    ],
+    "연결되는지": [
+      "booksrc_0028",
+      "booksrc_0029"
+    ],
+    "자연관": [
+      "booksrc_0028"
+    ],
+    "전체": [
+      "booksrc_0028"
+    ],
+    "주는": [
+      "booksrc_0028"
+    ],
+    "하이젠베르크": [
+      "booksrc_0028"
+    ],
+    "형성": [
+      "booksrc_0028",
+      "booksrc_0046",
+      "booksrc_0181",
+      "booksrc_0191",
+      "booksrc_0203",
+      "booksrc_0075",
+      "booksrc_0095"
+    ],
+    "공동체의": [
+      "booksrc_0029",
+      "booksrc_0051"
+    ],
+    "기억": [
+      "booksrc_0029",
+      "booksrc_0080",
+      "booksrc_0110"
+    ],
+    "노예제의": [
+      "booksrc_0029"
+    ],
+    "모리슨": [
+      "booksrc_0029"
+    ],
+    "빌러비드": [
+      "booksrc_0029"
+    ],
+    "상처가": [
+      "booksrc_0029"
+    ],
+    "역사와": [
+      "booksrc_0029",
+      "booksrc_0031",
+      "booksrc_0045"
+    ],
+    "인문학계열": [
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031"
+    ],
+    "토니": [
+      "booksrc_0029"
+    ],
+    "트라우마": [
+      "booksrc_0029"
+    ],
+    "폭력과": [
+      "booksrc_0029"
+    ],
+    "격변": [
+      "booksrc_0030"
+    ],
+    "규범의": [
+      "booksrc_0030",
+      "booksrc_0109"
+    ],
+    "다이허우잉": [
+      "booksrc_0030"
+    ],
+    "문화대혁명이라는": [
+      "booksrc_0030"
+    ],
+    "사람아": [
+      "booksrc_0030"
+    ],
+    "시대적": [
+      "booksrc_0030",
+      "booksrc_0049"
+    ],
+    "신념": [
+      "booksrc_0030",
+      "booksrc_0165",
+      "booksrc_0174",
+      "booksrc_0121"
+    ],
+    "중국어중문학과": [
+      "booksrc_0030"
+    ],
+    "충돌을": [
+      "booksrc_0030"
+    ],
+    "book": [
+      "booksrc_0031"
+    ],
+    "pending": [
+      "booksrc_0031"
+    ],
+    "review": [
+      "booksrc_0031"
+    ],
+    "경계": [
+      "booksrc_0031"
+    ],
+    "고대": [
+      "booksrc_0031",
+      "booksrc_0037",
+      "booksrc_0116"
+    ],
+    "고전으로": [
+      "booksrc_0031"
+    ],
+    "담긴": [
+      "booksrc_0031"
+    ],
+    "문화재학과": [
+      "booksrc_0031"
+    ],
+    "문화정체성": [
+      "booksrc_0031"
+    ],
+    "삼국유사": [
+      "booksrc_0031"
+    ],
+    "설화": [
+      "booksrc_0031"
+    ],
+    "신화가": [
+      "booksrc_0031"
+    ],
+    "신화와": [
+      "booksrc_0031"
+    ],
+    "역사교육": [
+      "booksrc_0031",
+      "booksrc_0112"
+    ],
+    "일연": [
+      "booksrc_0031"
+    ],
+    "자료의": [
+      "booksrc_0031"
+    ],
+    "한국사학과": [
+      "booksrc_0031"
+    ],
+    "한국의": [
+      "booksrc_0031"
+    ],
+    "해석의": [
+      "booksrc_0031"
+    ],
+    "개화기": [
+      "booksrc_0032"
+    ],
+    "문명과": [
+      "booksrc_0032",
+      "booksrc_0036",
+      "booksrc_0159",
+      "booksrc_0208"
+    ],
+    "받아들이고": [
+      "booksrc_0032"
+    ],
+    "번역했는지를": [
+      "booksrc_0032"
+    ],
+    "변동": [
+      "booksrc_0032"
+    ],
+    "서구": [
+      "booksrc_0032"
+    ],
+    "서유견문": [
+      "booksrc_0032"
+    ],
+    "선택적": [
+      "booksrc_0032"
+    ],
+    "수용": [
+      "booksrc_0032"
+    ],
+    "수용의": [
+      "booksrc_0032"
+    ],
+    "유길준": [
+      "booksrc_0032"
+    ],
+    "인식": [
+      "booksrc_0032",
+      "booksrc_0178",
+      "booksrc_0182",
+      "booksrc_0191",
+      "booksrc_0207",
+      "booksrc_0122"
+    ],
+    "제도를": [
+      "booksrc_0032"
+    ],
+    "지식": [
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0047",
+      "booksrc_0126"
+    ],
+    "지식인이": [
+      "booksrc_0032"
+    ],
+    "규범": [
+      "booksrc_0033",
+      "booksrc_0194",
+      "booksrc_0196",
+      "booksrc_0096",
+      "booksrc_0109",
+      "booksrc_0119"
+    ],
+    "담론이": [
+      "booksrc_0033"
+    ],
+    "문제가": [
+      "booksrc_0033"
+    ],
+    "미셸": [
+      "booksrc_0033",
+      "booksrc_0072"
+    ],
+    "사적인": [
+      "booksrc_0033",
+      "booksrc_0139"
+    ],
+    "성의": [
+      "booksrc_0033"
+    ],
+    "연결되어": [
+      "booksrc_0033",
+      "booksrc_0052"
+    ],
+    "인문사회": [
+      "booksrc_0033",
+      "booksrc_0036"
+    ],
+    "체계와": [
+      "booksrc_0033"
+    ],
+    "통제의": [
+      "booksrc_0033"
+    ],
+    "푸코": [
+      "booksrc_0033",
+      "booksrc_0072"
+    ],
+    "형성된다는": [
+      "booksrc_0033"
+    ],
+    "개혁": [
+      "booksrc_0034"
+    ],
+    "비판을": [
+      "booksrc_0034"
+    ],
+    "성호사설": [
+      "booksrc_0034"
+    ],
+    "실용적": [
+      "booksrc_0034"
+    ],
+    "실학자의": [
+      "booksrc_0034"
+    ],
+    "이익": [
+      "booksrc_0034",
+      "booksrc_0051",
+      "booksrc_0073"
+    ],
+    "제도": [
+      "booksrc_0034",
+      "booksrc_0180",
+      "booksrc_0123",
+      "booksrc_0127"
+    ],
+    "조선": [
+      "booksrc_0034",
+      "booksrc_0174",
+      "booksrc_0176",
+      "booksrc_0201",
+      "booksrc_0080"
+    ],
+    "지식관과": [
+      "booksrc_0034"
+    ],
+    "지역사회": [
+      "booksrc_0034"
+    ],
+    "해결": [
+      "booksrc_0034",
+      "booksrc_0085"
+    ],
+    "후기": [
+      "booksrc_0034",
+      "booksrc_0176",
+      "booksrc_0201"
+    ],
+    "둘러싼": [
+      "booksrc_0035"
+    ],
+    "수호전": [
+      "booksrc_0035"
+    ],
+    "시내암": [
+      "booksrc_0035"
+    ],
+    "실현": [
+      "booksrc_0035"
+    ],
+    "영웅": [
+      "booksrc_0035",
+      "booksrc_0049"
+    ],
+    "의리와": [
+      "booksrc_0035"
+    ],
+    "정당성": [
+      "booksrc_0035"
+    ],
+    "정의": [
+      "booksrc_0035",
+      "booksrc_0042",
+      "booksrc_0051",
+      "booksrc_0164",
+      "booksrc_0078",
+      "booksrc_0125"
+    ],
+    "질서를": [
+      "booksrc_0035"
+    ],
+    "집단의": [
+      "booksrc_0035"
+    ],
+    "집단행동": [
+      "booksrc_0035"
+    ],
+    "탐구로": [
+      "booksrc_0035"
+    ],
+    "토론형": [
+      "booksrc_0035"
+    ],
+    "폭력의": [
+      "booksrc_0035"
+    ],
+    "형성과": [
+      "booksrc_0035",
+      "booksrc_0083"
+    ],
+    "확장할": [
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0040"
+    ],
+    "경험을": [
+      "booksrc_0036"
+    ],
+    "다양성": [
+      "booksrc_0036",
+      "booksrc_0054",
+      "booksrc_0161",
+      "booksrc_0205",
+      "booksrc_0130"
+    ],
+    "레비스트로스": [
+      "booksrc_0036"
+    ],
+    "비판하고": [
+      "booksrc_0036"
+    ],
+    "사회통합의": [
+      "booksrc_0036"
+    ],
+    "상대주의와": [
+      "booksrc_0036"
+    ],
+    "슬픈": [
+      "booksrc_0036"
+    ],
+    "야만의": [
+      "booksrc_0036"
+    ],
+    "열대": [
+      "booksrc_0036"
+    ],
+    "이분법을": [
+      "booksrc_0036"
+    ],
+    "인류학자의": [
+      "booksrc_0036"
+    ],
+    "클로드": [
+      "booksrc_0036"
+    ],
+    "현장": [
+      "booksrc_0036"
+    ],
+    "환경학과": [
+      "booksrc_0036"
+    ],
+    "감정": [
+      "booksrc_0037",
+      "booksrc_0131",
+      "booksrc_0139"
+    ],
+    "그리스의": [
+      "booksrc_0037"
+    ],
+    "기준까지": [
+      "booksrc_0037"
+    ],
+    "몰입의": [
+      "booksrc_0037"
+    ],
+    "미학과": [
+      "booksrc_0037"
+    ],
+    "비극과": [
+      "booksrc_0037"
+    ],
+    "살피며": [
+      "booksrc_0037"
+    ],
+    "서사시의": [
+      "booksrc_0037"
+    ],
+    "시학": [
+      "booksrc_0037"
+    ],
+    "아리스토텔레스": [
+      "booksrc_0037",
+      "booksrc_0082"
+    ],
+    "언어학과": [
+      "booksrc_0037"
+    ],
+    "예술": [
+      "booksrc_0037",
+      "booksrc_0192",
+      "booksrc_0118",
+      "booksrc_0120",
+      "booksrc_0138"
+    ],
+    "원리를": [
+      "booksrc_0037"
+    ],
+    "이론을": [
+      "booksrc_0037"
+    ],
+    "콘텐츠": [
+      "booksrc_0037"
+    ],
+    "플롯": [
+      "booksrc_0037"
+    ],
+    "adc": [
+      "booksrc_0038"
+    ],
+    "car": [
+      "booksrc_0038"
+    ],
+    "rna": [
+      "booksrc_0038"
+    ],
+    "개발": [
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0114"
+    ],
+    "기술을": [
+      "booksrc_0038"
+    ],
+    "바이오기술": [
+      "booksrc_0038"
+    ],
+    "방식의": [
+      "booksrc_0038"
+    ],
+    "생명공학과": [
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0158"
+    ],
+    "신약": [
+      "booksrc_0038",
+      "booksrc_0100"
+    ],
+    "신약의": [
+      "booksrc_0038"
+    ],
+    "약학과": [
+      "booksrc_0038",
+      "booksrc_0050"
+    ],
+    "윤태진": [
+      "booksrc_0038"
+    ],
+    "인공지능": [
+      "booksrc_0038",
+      "booksrc_0091"
+    ],
+    "임상병리학과": [
+      "booksrc_0038"
+    ],
+    "임상시험의": [
+      "booksrc_0038"
+    ],
+    "제약공학과": [
+      "booksrc_0038"
+    ],
+    "종교학과": [
+      "booksrc_0038",
+      "booksrc_0039"
+    ],
+    "질병": [
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0157"
+    ],
+    "차세대": [
+      "booksrc_0038"
+    ],
+    "치료": [
+      "booksrc_0038"
+    ],
+    "치료제": [
+      "booksrc_0038",
+      "booksrc_0100"
+    ],
+    "탄생": [
+      "booksrc_0038"
+    ],
+    "프로탁": [
+      "booksrc_0038"
+    ],
+    "화학공학과": [
+      "booksrc_0038"
+    ],
+    "화학과": [
+      "booksrc_0038",
+      "booksrc_0050"
+    ],
+    "미디어학과": [
+      "booksrc_0039"
+    ],
+    "밀턴": [
+      "booksrc_0039"
+    ],
+    "복종과": [
+      "booksrc_0039"
+    ],
+    "본질을": [
+      "booksrc_0039"
+    ],
+    "분석에": [
+      "booksrc_0039",
+      "booksrc_0167",
+      "booksrc_0168",
+      "booksrc_0169",
+      "booksrc_0170",
+      "booksrc_0172",
+      "booksrc_0173",
+      "booksrc_0174",
+      "booksrc_0175",
+      "booksrc_0181",
+      "booksrc_0182",
+      "booksrc_0183",
+      "booksrc_0184",
+      "booksrc_0185",
+      "booksrc_0186",
+      "booksrc_0187",
+      "booksrc_0188",
+      "booksrc_0189",
+      "booksrc_0191",
+      "booksrc_0192",
+      "booksrc_0193",
+      "booksrc_0194",
+      "booksrc_0195",
+      "booksrc_0196",
+      "booksrc_0197",
+      "booksrc_0198",
+      "booksrc_0199",
+      "booksrc_0200",
+      "booksrc_0201",
+      "booksrc_0203",
+      "booksrc_0204",
+      "booksrc_0205",
+      "booksrc_0206",
+      "booksrc_0207",
+      "booksrc_0208",
+      "booksrc_0209",
+      "booksrc_0210",
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0076",
+      "booksrc_0077",
+      "booksrc_0078",
+      "booksrc_0079",
+      "booksrc_0080",
+      "booksrc_0081",
+      "booksrc_0083",
+      "booksrc_0084",
+      "booksrc_0085",
+      "booksrc_0086",
+      "booksrc_0087",
+      "booksrc_0088",
+      "booksrc_0089",
+      "booksrc_0090",
+      "booksrc_0091",
+      "booksrc_0092",
+      "booksrc_0093",
+      "booksrc_0094",
+      "booksrc_0095",
+      "booksrc_0096",
+      "booksrc_0097",
+      "booksrc_0098",
+      "booksrc_0099",
+      "booksrc_0100",
+      "booksrc_0101",
+      "booksrc_0102",
+      "booksrc_0103",
+      "booksrc_0104",
+      "booksrc_0105",
+      "booksrc_0106",
+      "booksrc_0107",
+      "booksrc_0108",
+      "booksrc_0109",
+      "booksrc_0110",
+      "booksrc_0111",
+      "booksrc_0112",
+      "booksrc_0113",
+      "booksrc_0114",
+      "booksrc_0115",
+      "booksrc_0116",
+      "booksrc_0117",
+      "booksrc_0118",
+      "booksrc_0119",
+      "booksrc_0120",
+      "booksrc_0121",
+      "booksrc_0122",
+      "booksrc_0123",
+      "booksrc_0124",
+      "booksrc_0125",
+      "booksrc_0126",
+      "booksrc_0127",
+      "booksrc_0128",
+      "booksrc_0129",
+      "booksrc_0130",
+      "booksrc_0131",
+      "booksrc_0132",
+      "booksrc_0133",
+      "booksrc_0134",
+      "booksrc_0135",
+      "booksrc_0136",
+      "booksrc_0137",
+      "booksrc_0138",
+      "booksrc_0139",
+      "booksrc_0140"
+    ],
+    "서사시로": [
+      "booksrc_0039"
+    ],
+    "실낙원": [
+      "booksrc_0039"
+    ],
+    "이야기를": [
+      "booksrc_0039"
+    ],
+    "저항": [
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0174",
+      "booksrc_0079",
+      "booksrc_0110"
+    ],
+    "종교": [
+      "booksrc_0039",
+      "booksrc_0137"
+    ],
+    "천사와": [
+      "booksrc_0039"
+    ],
+    "철학": [
+      "booksrc_0039",
+      "booksrc_0200",
+      "booksrc_0204",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0138"
+    ],
+    "타락한": [
+      "booksrc_0039"
+    ],
+    "활용할": [
+      "booksrc_0039"
+    ],
+    "나이트": [
+      "booksrc_0040"
+    ],
+    "리처드": [
+      "booksrc_0040",
+      "booksrc_0053",
+      "booksrc_0081"
+    ],
+    "문화콘텐츠": [
+      "booksrc_0040"
+    ],
+    "버턴": [
+      "booksrc_0040"
+    ],
+    "생존": [
+      "booksrc_0040",
+      "booksrc_0186",
+      "booksrc_0121"
+    ],
+    "서사": [
+      "booksrc_0040",
+      "booksrc_0044",
+      "booksrc_0174",
+      "booksrc_0083",
+      "booksrc_0093",
+      "booksrc_0097"
+    ],
+    "셰에라자드의": [
+      "booksrc_0040"
+    ],
+    "아라비안": [
+      "booksrc_0040"
+    ],
+    "이야기의": [
+      "booksrc_0040",
+      "booksrc_0044"
+    ],
+    "전략으로": [
+      "booksrc_0040"
+    ],
+    "전략을": [
+      "booksrc_0040"
+    ],
+    "중동학과": [
+      "booksrc_0040"
+    ],
+    "지혜": [
+      "booksrc_0040"
+    ],
+    "탐구하고": [
+      "booksrc_0040"
+    ],
+    "현실의": [
+      "booksrc_0040"
+    ],
+    "환상과": [
+      "booksrc_0040"
+    ],
+    "경전이다": [
+      "booksrc_0041"
+    ],
+    "고통": [
+      "booksrc_0041",
+      "booksrc_0157",
+      "booksrc_0128"
+    ],
+    "관계의": [
+      "booksrc_0041"
+    ],
+    "무아와": [
+      "booksrc_0041"
+    ],
+    "미상": [
+      "booksrc_0041",
+      "booksrc_0105"
+    ],
+    "불교": [
+      "booksrc_0041"
+    ],
+    "불교학과": [
+      "booksrc_0041"
+    ],
+    "사상을": [
+      "booksrc_0041"
+    ],
+    "아함경": [
+      "booksrc_0041"
+    ],
+    "연기": [
+      "booksrc_0041"
+    ],
+    "자아정체성": [
+      "booksrc_0041",
+      "booksrc_0080",
+      "booksrc_0092"
+    ],
+    "작자": [
+      "booksrc_0041",
+      "booksrc_0105"
+    ],
+    "중심으로": [
+      "booksrc_0041",
+      "booksrc_0044"
+    ],
+    "집착": [
+      "booksrc_0041"
+    ],
+    "탐구하며": [
+      "booksrc_0041"
+    ],
+    "한문학과": [
+      "booksrc_0041"
+    ],
+    "1930년대": [
+      "booksrc_0042"
+    ],
+    "남부의": [
+      "booksrc_0042"
+    ],
+    "미국": [
+      "booksrc_0042",
+      "booksrc_0091"
+    ],
+    "법과": [
+      "booksrc_0042",
+      "booksrc_0094"
+    ],
+    "분석할": [
+      "booksrc_0042"
+    ],
+    "성장의": [
+      "booksrc_0042",
+      "booksrc_0114"
+    ],
+    "앵무새": [
+      "booksrc_0042"
+    ],
+    "용기": [
+      "booksrc_0042",
+      "booksrc_0084",
+      "booksrc_0092"
+    ],
+    "윤리를": [
+      "booksrc_0042"
+    ],
+    "인류학과": [
+      "booksrc_0042"
+    ],
+    "인종차별": [
+      "booksrc_0042",
+      "booksrc_0208"
+    ],
+    "죽이기": [
+      "booksrc_0042"
+    ],
+    "차별": [
+      "booksrc_0042",
+      "booksrc_0168",
+      "booksrc_0108"
+    ],
+    "편견": [
+      "booksrc_0042",
+      "booksrc_0161",
+      "booksrc_0180"
+    ],
+    "하퍼": [
+      "booksrc_0042"
+    ],
+    "alias": [
+      "booksrc_0043",
+      "booksrc_0055"
+    ],
+    "고립": [
+      "booksrc_0043",
+      "booksrc_0126"
+    ],
+    "담론의": [
+      "booksrc_0043"
+    ],
+    "문명화": [
+      "booksrc_0043",
+      "booksrc_0090"
+    ],
+    "보정": [
+      "booksrc_0043",
+      "booksrc_0055"
+    ],
+    "살피는": [
+      "booksrc_0043"
+    ],
+    "시선을": [
+      "booksrc_0043"
+    ],
+    "아프리카를": [
+      "booksrc_0043"
+    ],
+    "어둠": [
+      "booksrc_0043"
+    ],
+    "어둠의": [
+      "booksrc_0043"
+    ],
+    "인간 내면의 어둠": [
+      "booksrc_0043"
+    ],
+    "제국주의": [
+      "booksrc_0043",
+      "booksrc_0073"
+    ],
+    "제목": [
+      "booksrc_0043",
+      "booksrc_0055",
+      "booksrc_0072"
+    ],
+    "조셉": [
+      "booksrc_0043"
+    ],
+    "콘래드": [
+      "booksrc_0043"
+    ],
+    "타자화": [
+      "booksrc_0043",
+      "booksrc_0047"
+    ],
+    "타자화의": [
+      "booksrc_0043"
+    ],
+    "탐욕": [
+      "booksrc_0043"
+    ],
+    "폭력성": [
+      "booksrc_0043"
+    ],
+    "필요": [
+      "booksrc_0043",
+      "booksrc_0055",
+      "booksrc_0056",
+      "booksrc_0072",
+      "booksrc_0075",
+      "booksrc_0086"
+    ],
+    "고대기반": [
+      "booksrc_0044"
+    ],
+    "고대기반 서사": [
+      "booksrc_0044"
+    ],
+    "그리스와": [
+      "booksrc_0044"
+    ],
+    "다양한": [
+      "booksrc_0044"
+    ],
+    "민족과": [
+      "booksrc_0044"
+    ],
+    "방식": [
+      "booksrc_0044",
+      "booksrc_0087"
+    ],
+    "사건을": [
+      "booksrc_0044"
+    ],
+    "사실과": [
+      "booksrc_0044",
+      "booksrc_0178"
+    ],
+    "서술의": [
+      "booksrc_0044",
+      "booksrc_0178",
+      "booksrc_0112"
+    ],
+    "서술하며": [
+      "booksrc_0044"
+    ],
+    "역설": [
+      "booksrc_0044"
+    ],
+    "이야기식": [
+      "booksrc_0044"
+    ],
+    "이야기식 역사": [
+      "booksrc_0044"
+    ],
+    "전쟁을": [
+      "booksrc_0044"
+    ],
+    "페르시아": [
+      "booksrc_0044"
+    ],
+    "헤로도토스": [
+      "booksrc_0044"
+    ],
+    "게오르그": [
+      "booksrc_0045"
+    ],
+    "계급의식": [
+      "booksrc_0045",
+      "booksrc_0046"
+    ],
+    "계급의식과": [
+      "booksrc_0045"
+    ],
+    "루카치": [
+      "booksrc_0045"
+    ],
+    "물화": [
+      "booksrc_0045"
+    ],
+    "변증법": [
+      "booksrc_0045",
+      "booksrc_0200",
+      "booksrc_0074"
+    ],
+    "변화의": [
+      "booksrc_0045"
+    ],
+    "사물화": [
+      "booksrc_0045"
+    ],
+    "사회에서": [
+      "booksrc_0045"
+    ],
+    "사회철학": [
+      "booksrc_0045"
+    ],
+    "소외": [
+      "booksrc_0045",
+      "booksrc_0206"
+    ],
+    "자본주의": [
+      "booksrc_0045",
+      "booksrc_0160",
+      "booksrc_0167",
+      "booksrc_0206",
+      "booksrc_0078",
+      "booksrc_0122",
+      "booksrc_0137"
+    ],
+    "조건을": [
+      "booksrc_0045"
+    ],
+    "총체성": [
+      "booksrc_0045"
+    ],
+    "현상을": [
+      "booksrc_0045"
+    ],
+    "경제": [
+      "booksrc_0046",
+      "booksrc_0048",
+      "booksrc_0114",
+      "booksrc_0136"
+    ],
+    "경험": [
+      "booksrc_0046",
+      "booksrc_0085"
+    ],
+    "계급으로": [
+      "booksrc_0046"
+    ],
+    "노동계급": [
+      "booksrc_0046"
+    ],
+    "노동계급의": [
+      "booksrc_0046"
+    ],
+    "노동자들이": [
+      "booksrc_0046"
+    ],
+    "문화와": [
+      "booksrc_0046"
+    ],
+    "문화와 언어": [
+      "booksrc_0046"
+    ],
+    "분석한": [
+      "booksrc_0046"
+    ],
+    "산업혁명": [
+      "booksrc_0046",
+      "booksrc_0209",
+      "booksrc_0127"
+    ],
+    "산업혁명기": [
+      "booksrc_0046"
+    ],
+    "역사사회학": [
+      "booksrc_0046"
+    ],
+    "역사적": [
+      "booksrc_0046",
+      "booksrc_0165",
+      "booksrc_0197",
+      "booksrc_0110"
+    ],
+    "역사적 주체성": [
+      "booksrc_0046"
+    ],
+    "영국": [
+      "booksrc_0046"
+    ],
+    "영국의": [
+      "booksrc_0046"
+    ],
+    "주체성": [
+      "booksrc_0046",
+      "booksrc_0194",
+      "booksrc_0195",
+      "booksrc_0096",
+      "booksrc_0103"
+    ],
+    "톰슨": [
+      "booksrc_0046"
+    ],
+    "하나의": [
+      "booksrc_0046"
+    ],
+    "형성되는": [
+      "booksrc_0046"
+    ],
+    "권력과": [
+      "booksrc_0047",
+      "booksrc_0072",
+      "booksrc_0133"
+    ],
+    "권력과 지식": [
+      "booksrc_0047"
+    ],
+    "권력의": [
+      "booksrc_0047",
+      "booksrc_0165"
+    ],
+    "담론": [
+      "booksrc_0047",
+      "booksrc_0113",
+      "booksrc_0118"
+    ],
+    "대표": [
+      "booksrc_0047"
+    ],
+    "동양을": [
+      "booksrc_0047"
+    ],
+    "문화적 식민주의": [
+      "booksrc_0047"
+    ],
+    "비판하며": [
+      "booksrc_0047"
+    ],
+    "사이드": [
+      "booksrc_0047"
+    ],
+    "서구가": [
+      "booksrc_0047"
+    ],
+    "식민주의": [
+      "booksrc_0047"
+    ],
+    "에드워드": [
+      "booksrc_0047"
+    ],
+    "오리엔탈리즘": [
+      "booksrc_0047"
+    ],
+    "재현의": [
+      "booksrc_0047"
+    ],
+    "재현의 정치성": [
+      "booksrc_0047"
+    ],
+    "재현하고": [
+      "booksrc_0047"
+    ],
+    "저작이다": [
+      "booksrc_0047"
+    ],
+    "정치성": [
+      "booksrc_0047"
+    ],
+    "지배하는": [
+      "booksrc_0047"
+    ],
+    "타자화와": [
+      "booksrc_0047"
+    ],
+    "관점에서": [
+      "booksrc_0048",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0159"
+    ],
+    "구조적": [
+      "booksrc_0048",
+      "booksrc_0108"
+    ],
+    "구조적 폭력": [
+      "booksrc_0048"
+    ],
+    "국제기구": [
+      "booksrc_0048"
+    ],
+    "굶주리는가": [
+      "booksrc_0048"
+    ],
+    "굶주림이": [
+      "booksrc_0048"
+    ],
+    "기업": [
+      "booksrc_0048"
+    ],
+    "다국적": [
+      "booksrc_0048"
+    ],
+    "다국적 기업": [
+      "booksrc_0048"
+    ],
+    "분배": [
+      "booksrc_0048",
+      "booksrc_0164",
+      "booksrc_0125"
+    ],
+    "분배 문제": [
+      "booksrc_0048"
+    ],
+    "세계": [
+      "booksrc_0048"
+    ],
+    "세계의": [
+      "booksrc_0048"
+    ],
+    "식량": [
+      "booksrc_0048"
+    ],
+    "식량 불평등": [
+      "booksrc_0048"
+    ],
+    "식량 주권": [
+      "booksrc_0048"
+    ],
+    "식량은": [
+      "booksrc_0048"
+    ],
+    "식품공학과": [
+      "booksrc_0048"
+    ],
+    "원인을": [
+      "booksrc_0048"
+    ],
+    "절반은": [
+      "booksrc_0048"
+    ],
+    "주권": [
+      "booksrc_0048",
+      "booksrc_0073"
+    ],
+    "지글러": [
+      "booksrc_0048"
+    ],
+    "지리": [
+      "booksrc_0048",
+      "booksrc_0201"
+    ],
+    "지속되는": [
+      "booksrc_0048"
+    ],
+    "충분하지만": [
+      "booksrc_0048"
+    ],
+    "폭력": [
+      "booksrc_0048",
+      "booksrc_0121",
+      "booksrc_0128"
+    ],
+    "19세기": [
+      "booksrc_0049",
+      "booksrc_0096"
+    ],
+    "권태": [
+      "booksrc_0049"
+    ],
+    "러시아": [
+      "booksrc_0049"
+    ],
+    "러시아어학과": [
+      "booksrc_0049"
+    ],
+    "레르몬토프": [
+      "booksrc_0049"
+    ],
+    "문학을": [
+      "booksrc_0049"
+    ],
+    "미하일": [
+      "booksrc_0049"
+    ],
+    "시대의": [
+      "booksrc_0049",
+      "booksrc_0115"
+    ],
+    "염세주의": [
+      "booksrc_0049"
+    ],
+    "우리": [
+      "booksrc_0049",
+      "booksrc_0115"
+    ],
+    "잉여인간": [
+      "booksrc_0049"
+    ],
+    "자기": [
+      "booksrc_0049",
+      "booksrc_0191",
+      "booksrc_0075",
+      "booksrc_0084"
+    ],
+    "파괴적": [
+      "booksrc_0049"
+    ],
+    "허무": [
+      "booksrc_0049"
+    ],
+    "허무를": [
+      "booksrc_0049"
+    ],
+    "공중보건": [
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "규제와": [
+      "booksrc_0050"
+    ],
+    "다룰": [
+      "booksrc_0050"
+    ],
+    "도서다": [
+      "booksrc_0050"
+    ],
+    "독성": [
+      "booksrc_0050"
+    ],
+    "딜레마": [
+      "booksrc_0050"
+    ],
+    "보건행정학과": [
+      "booksrc_0050"
+    ],
+    "부작용": [
+      "booksrc_0050"
+    ],
+    "수의예과": [
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "약의": [
+      "booksrc_0050"
+    ],
+    "약의 양면성": [
+      "booksrc_0050"
+    ],
+    "양면성": [
+      "booksrc_0050"
+    ],
+    "오남용": [
+      "booksrc_0050"
+    ],
+    "위대하고": [
+      "booksrc_0050"
+    ],
+    "위험한": [
+      "booksrc_0050"
+    ],
+    "윤리적": [
+      "booksrc_0050",
+      "booksrc_0184",
+      "booksrc_0202",
+      "booksrc_0085",
+      "booksrc_0105",
+      "booksrc_0121",
+      "booksrc_0131"
+    ],
+    "윤리적 딜레마": [
+      "booksrc_0050"
+    ],
+    "의약품의": [
+      "booksrc_0050"
+    ],
+    "의예과": [
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "인류의": [
+      "booksrc_0050"
+    ],
+    "인류의 딜레마": [
+      "booksrc_0050"
+    ],
+    "정진호": [
+      "booksrc_0050"
+    ],
+    "효과": [
+      "booksrc_0050"
+    ],
+    "공동선": [
+      "booksrc_0051",
+      "booksrc_0082",
+      "booksrc_0099"
+    ],
+    "공익": [
+      "booksrc_0051",
+      "booksrc_0076"
+    ],
+    "도덕적 선": [
+      "booksrc_0051"
+    ],
+    "의무": [
+      "booksrc_0051"
+    ],
+    "의무론": [
+      "booksrc_0051",
+      "booksrc_0173"
+    ],
+    "의무의": [
+      "booksrc_0051"
+    ],
+    "자유권": [
+      "booksrc_0051"
+    ],
+    "키케로": [
+      "booksrc_0051",
+      "booksrc_0078"
+    ],
+    "건강이": [
+      "booksrc_0052"
+    ],
+    "공중보건을": [
+      "booksrc_0052"
+    ],
+    "동물": [
+      "booksrc_0052",
+      "booksrc_0182",
+      "booksrc_0083",
+      "booksrc_0115"
+    ],
+    "만나다": [
+      "booksrc_0052"
+    ],
+    "바워스": [
+      "booksrc_0052"
+    ],
+    "생명": [
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0182"
+    ],
+    "생명윤리": [
+      "booksrc_0052",
+      "booksrc_0158"
+    ],
+    "생명윤리와": [
+      "booksrc_0052"
+    ],
+    "생태계의": [
+      "booksrc_0052"
+    ],
+    "서로": [
+      "booksrc_0052"
+    ],
+    "수의사가": [
+      "booksrc_0052"
+    ],
+    "수의학": [
+      "booksrc_0052"
+    ],
+    "원헬스": [
+      "booksrc_0052",
+      "booksrc_0189"
+    ],
+    "의사와": [
+      "booksrc_0052"
+    ],
+    "있다는": [
+      "booksrc_0052"
+    ],
+    "주비퀴티": [
+      "booksrc_0052"
+    ],
+    "캐스린": [
+      "booksrc_0052"
+    ],
+    "학제": [
+      "booksrc_0052"
+    ],
+    "학제 간 협력": [
+      "booksrc_0052"
+    ],
+    "협력": [
+      "booksrc_0052",
+      "booksrc_0082"
+    ],
+    "근거를": [
+      "booksrc_0053"
+    ],
+    "도킨스": [
+      "booksrc_0053"
+    ],
+    "생명체의": [
+      "booksrc_0053"
+    ],
+    "유전자": [
+      "booksrc_0053",
+      "booksrc_0158",
+      "booksrc_0166",
+      "booksrc_0072"
+    ],
+    "유전자 중심 진화론": [
+      "booksrc_0053"
+    ],
+    "유전자의": [
+      "booksrc_0053"
+    ],
+    "윤리적으로": [
+      "booksrc_0053"
+    ],
+    "이기적": [
+      "booksrc_0053"
+    ],
+    "이타적": [
+      "booksrc_0053"
+    ],
+    "이타적 행동": [
+      "booksrc_0053"
+    ],
+    "적응도": [
+      "booksrc_0053"
+    ],
+    "중심": [
+      "booksrc_0053",
+      "booksrc_0185",
+      "booksrc_0205",
+      "booksrc_0076",
+      "booksrc_0084",
+      "booksrc_0107",
+      "booksrc_0112",
+      "booksrc_0114",
+      "booksrc_0120"
+    ],
+    "진화": [
+      "booksrc_0053"
+    ],
+    "진화론": [
+      "booksrc_0053"
+    ],
+    "진화를": [
+      "booksrc_0053"
+    ],
+    "포괄적": [
+      "booksrc_0053"
+    ],
+    "포괄적 적응도": [
+      "booksrc_0053"
+    ],
+    "해석하며": [
+      "booksrc_0053"
+    ],
+    "행동": [
+      "booksrc_0053",
+      "booksrc_0083"
+    ],
+    "행동과": [
+      "booksrc_0053"
+    ],
+    "가족 다양성": [
+      "booksrc_0054"
+    ],
+    "가족상담학과": [
+      "booksrc_0054"
+    ],
+    "기준이": [
+      "booksrc_0054"
+    ],
+    "김희경": [
+      "booksrc_0054"
+    ],
+    "돌봄": [
+      "booksrc_0054",
+      "booksrc_0161"
+    ],
+    "돌봄 책임 전가": [
+      "booksrc_0054"
+    ],
+    "돌봄을": [
+      "booksrc_0054"
+    ],
+    "만들어지고": [
+      "booksrc_0054"
+    ],
+    "바라보는지": [
+      "booksrc_0054"
+    ],
+    "배제": [
+      "booksrc_0054"
+    ],
+    "사회보장": [
+      "booksrc_0054"
+    ],
+    "아동": [
+      "booksrc_0054",
+      "booksrc_0087"
+    ],
+    "아동권리": [
+      "booksrc_0054"
+    ],
+    "아동학과": [
+      "booksrc_0054"
+    ],
+    "이상한": [
+      "booksrc_0054"
+    ],
+    "전가": [
+      "booksrc_0054"
+    ],
+    "정상": [
+      "booksrc_0054"
+    ],
+    "정상 가족": [
+      "booksrc_0054"
+    ],
+    "정상가족": [
+      "booksrc_0054"
+    ],
+    "정상가족이라는": [
+      "booksrc_0054"
+    ],
+    "제도가": [
+      "booksrc_0054"
+    ],
+    "제도적 배제": [
+      "booksrc_0054"
+    ],
+    "인간문제": [
+      "booksrc_0055"
+    ],
+    "인물로": [
+      "booksrc_0056"
+    ],
+    "읽는": [
+      "booksrc_0056"
+    ],
+    "장자": [
+      "booksrc_0056"
+    ],
+    "저자": [
+      "booksrc_0056",
+      "booksrc_0075",
+      "booksrc_0086"
+    ],
+    "표기": [
+      "booksrc_0056",
+      "booksrc_0072",
+      "booksrc_0075",
+      "booksrc_0086"
+    ],
+    "확인": [
+      "booksrc_0056",
+      "booksrc_0072",
+      "booksrc_0075",
+      "booksrc_0086"
+    ],
+    "시간을": [
+      "booksrc_0057"
+    ],
+    "잃어버린": [
+      "booksrc_0057"
+    ],
+    "찾아서": [
+      "booksrc_0057"
+    ],
+    "자유론": [
+      "booksrc_0058"
+    ],
+    "젊은": [
+      "booksrc_0059",
+      "booksrc_0192"
+    ],
+    "초상": [
+      "booksrc_0059"
+    ],
+    "정신현상학": [
+      "booksrc_0060"
+    ],
+    "정지용": [
+      "booksrc_0061"
+    ],
+    "정지용전집": [
+      "booksrc_0061"
+    ],
+    "에릭": [
+      "booksrc_0062",
+      "booksrc_0209"
+    ],
+    "제국의": [
+      "booksrc_0062"
+    ],
+    "홉스봄": [
+      "booksrc_0062",
+      "booksrc_0209"
+    ],
+    "기원": [
+      "booksrc_0063",
+      "booksrc_0171"
+    ],
+    "다윈": [
+      "booksrc_0063"
+    ],
+    "종의": [
+      "booksrc_0063"
+    ],
+    "시인의": [
+      "booksrc_0064"
+    ],
+    "죽은": [
+      "booksrc_0064",
+      "booksrc_0127"
+    ],
+    "클라인바움": [
+      "booksrc_0064"
+    ],
+    "니체": [
+      "booksrc_0065"
+    ],
+    "말했다": [
+      "booksrc_0065"
+    ],
+    "이렇게": [
+      "booksrc_0065"
+    ],
+    "짜라투스트라는": [
+      "booksrc_0065"
+    ],
+    "프리드리히": [
+      "booksrc_0065"
+    ],
+    "박태원": [
+      "booksrc_0066"
+    ],
+    "천변풍경": [
+      "booksrc_0066"
+    ],
+    "말하는": [
+      "booksrc_0067"
+    ],
+    "안유석": [
+      "booksrc_0067"
+    ],
+    "치과의사": [
+      "booksrc_0067"
+    ],
+    "치과의사가": [
+      "booksrc_0067"
+    ],
+    "가의": [
+      "booksrc_0068"
+    ],
+    "도스토옙스키": [
+      "booksrc_0068"
+    ],
+    "카라마조프": [
+      "booksrc_0068"
+    ],
+    "표도르": [
+      "booksrc_0068"
+    ],
+    "형제들": [
+      "booksrc_0068"
+    ],
+    "글릭": [
+      "booksrc_0069"
+    ],
+    "제임스": [
+      "booksrc_0069",
+      "booksrc_0187"
+    ],
+    "카오스": [
+      "booksrc_0069",
+      "booksrc_0140"
+    ],
+    "세이건": [
+      "booksrc_0070"
+    ],
+    "코스모스": [
+      "booksrc_0070"
+    ],
+    "1999": [
+      "booksrc_0071"
+    ],
+    "20세기": [
+      "booksrc_0071"
+    ],
+    "경문사": [
+      "booksrc_0071"
+    ],
+    "계산": [
+      "booksrc_0071"
+    ],
+    "공정한": [
+      "booksrc_0193",
+      "booksrc_0071"
+    ],
+    "공정한 판단": [
+      "booksrc_0071"
+    ],
+    "기하": [
+      "booksrc_0071"
+    ],
+    "다섯가지": [
+      "booksrc_0071"
+    ],
+    "단순": [
+      "booksrc_0071"
+    ],
+    "대표적": [
+      "booksrc_0071"
+    ],
+    "데이터사이언스학과": [
+      "booksrc_0071"
+    ],
+    "만남": [
+      "booksrc_0071"
+    ],
+    "문제해결": [
+      "booksrc_0071",
+      "booksrc_0077",
+      "booksrc_0135"
+    ],
+    "미적분": [
+      "booksrc_0071"
+    ],
+    "사고력": [
+      "booksrc_0071",
+      "booksrc_0135"
+    ],
+    "수학과 철학의 만남": [
+      "booksrc_0071"
+    ],
+    "수학의": [
+      "booksrc_0071"
+    ],
+    "수학이": [
+      "booksrc_0071"
+    ],
+    "수학적 사고력": [
+      "booksrc_0071"
+    ],
+    "수학적 알고리즘": [
+      "booksrc_0071"
+    ],
+    "알고리즘": [
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0117"
+    ],
+    "알고리즘적": [
+      "booksrc_0071"
+    ],
+    "인공지능학과": [
+      "booksrc_0071"
+    ],
+    "창의적": [
+      "booksrc_0071",
+      "booksrc_0135"
+    ],
+    "창의적 문제해결": [
+      "booksrc_0071"
+    ],
+    "철학의": [
+      "booksrc_0200",
+      "booksrc_0071"
+    ],
+    "캐스티": [
+      "booksrc_0071"
+    ],
+    "통계": [
+      "booksrc_0203",
+      "booksrc_0071"
+    ],
+    "통계학과": [
+      "booksrc_0071"
+    ],
+    "판단": [
+      "booksrc_0162",
+      "booksrc_0173",
+      "booksrc_0071"
+    ],
+    "확률과": [
+      "booksrc_0071"
+    ],
+    "황금률": [
+      "booksrc_0071"
+    ],
+    "흐름을": [
+      "booksrc_0071"
+    ],
+    "2020": [
+      "booksrc_0165",
+      "booksrc_0072"
+    ],
+    "cctv": [
+      "booksrc_0072"
+    ],
+    "감시와": [
+      "booksrc_0072"
+    ],
+    "권력과 자유": [
+      "booksrc_0072"
+    ],
+    "규율": [
+      "booksrc_0072"
+    ],
+    "규율 시스템": [
+      "booksrc_0072"
+    ],
+    "규율권력": [
+      "booksrc_0072"
+    ],
+    "나남": [
+      "booksrc_0072"
+    ],
+    "미치는": [
+      "booksrc_0205",
+      "booksrc_0072",
+      "booksrc_0109",
+      "booksrc_0115",
+      "booksrc_0123",
+      "booksrc_0128",
+      "booksrc_0136"
+    ],
+    "시스템": [
+      "booksrc_0199",
+      "booksrc_0072",
+      "booksrc_0140"
+    ],
+    "시스템이": [
+      "booksrc_0072"
+    ],
+    "자동화된": [
+      "booksrc_0072"
+    ],
+    "자동화된 감시": [
+      "booksrc_0072"
+    ],
+    "정보보호학과": [
+      "booksrc_0072"
+    ],
+    "주체성에": [
+      "booksrc_0072"
+    ],
+    "처벌": [
+      "booksrc_0072",
+      "booksrc_0095"
+    ],
+    "2021": [
+      "booksrc_0073"
+    ],
+    "건건록": [
+      "booksrc_0073"
+    ],
+    "국제관계": [
+      "booksrc_0159",
+      "booksrc_0073"
+    ],
+    "국제관계의": [
+      "booksrc_0073"
+    ],
+    "논형": [
+      "booksrc_0073"
+    ],
+    "동아시아 국제관계": [
+      "booksrc_0073"
+    ],
+    "동아시아학과": [
+      "booksrc_0073"
+    ],
+    "명분과": [
+      "booksrc_0073"
+    ],
+    "무네미쓰": [
+      "booksrc_0073"
+    ],
+    "무츠": [
+      "booksrc_0073"
+    ],
+    "실제를": [
+      "booksrc_0073"
+    ],
+    "실질": [
+      "booksrc_0073"
+    ],
+    "외교": [
+      "booksrc_0073"
+    ],
+    "외교와": [
+      "booksrc_0073"
+    ],
+    "외교의": [
+      "booksrc_0073"
+    ],
+    "외교의 명분과 실질": [
+      "booksrc_0073"
+    ],
+    "이익의": [
+      "booksrc_0073"
+    ],
+    "자료": [
+      "booksrc_0073"
+    ],
+    "자료로": [
+      "booksrc_0073"
+    ],
+    "작동했는지를": [
+      "booksrc_0073"
+    ],
+    "전쟁": [
+      "booksrc_0073"
+    ],
+    "2001": [
+      "booksrc_0074"
+    ],
+    "계몽과": [
+      "booksrc_0074"
+    ],
+    "계몽의": [
+      "booksrc_0074"
+    ],
+    "도구적": [
+      "booksrc_0074"
+    ],
+    "도구적 이성": [
+      "booksrc_0074"
+    ],
+    "동시에": [
+      "booksrc_0074"
+    ],
+    "되면서도": [
+      "booksrc_0074"
+    ],
+    "문예출판사": [
+      "booksrc_0074"
+    ],
+    "문화산업": [
+      "booksrc_0074"
+    ],
+    "변질될": [
+      "booksrc_0074"
+    ],
+    "비판적": [
+      "booksrc_0074",
+      "booksrc_0085",
+      "booksrc_0106",
+      "booksrc_0122"
+    ],
+    "사회 진보": [
+      "booksrc_0074"
+    ],
+    "아도르노": [
+      "booksrc_0074"
+    ],
+    "양면성을": [
+      "booksrc_0074"
+    ],
+    "원리가": [
+      "booksrc_0074"
+    ],
+    "이성": [
+      "booksrc_0162",
+      "booksrc_0210",
+      "booksrc_0074",
+      "booksrc_0116"
+    ],
+    "이성으로": [
+      "booksrc_0074"
+    ],
+    "있음을": [
+      "booksrc_0074"
+    ],
+    "진보": [
+      "booksrc_0074"
+    ],
+    "진보의": [
+      "booksrc_0074"
+    ],
+    "테오도르": [
+      "booksrc_0074"
+    ],
+    "합리성": [
+      "booksrc_0074"
+    ],
+    "합리성이": [
+      "booksrc_0074"
+    ],
+    "해방의": [
+      "booksrc_0074"
+    ],
+    "2023": [
+      "booksrc_0075"
+    ],
+    "고백록": [
+      "booksrc_0075"
+    ],
+    "고백을": [
+      "booksrc_0075"
+    ],
+    "성찰": [
+      "booksrc_0075",
+      "booksrc_0103"
+    ],
+    "성찰과": [
+      "booksrc_0075"
+    ],
+    "세부": [
+      "booksrc_0075"
+    ],
+    "신학과": [
+      "booksrc_0075"
+    ],
+    "아우구스티누스": [
+      "booksrc_0075"
+    ],
+    "역자": [
+      "booksrc_0075"
+    ],
+    "연대": [
+      "booksrc_0075",
+      "booksrc_0121",
+      "booksrc_0128"
+    ],
+    "인문학부": [
+      "booksrc_0075"
+    ],
+    "자유의지와": [
+      "booksrc_0075"
+    ],
+    "존엄": [
+      "booksrc_0075",
+      "booksrc_0121",
+      "booksrc_0128"
+    ],
+    "죄의식": [
+      "booksrc_0175",
+      "booksrc_0196",
+      "booksrc_0075"
+    ],
+    "참회의": [
+      "booksrc_0075"
+    ],
+    "참회의 선택": [
+      "booksrc_0075"
+    ],
+    "현대지성": [
+      "booksrc_0075"
+    ],
+    "형성을": [
+      "booksrc_0075"
+    ],
+    "공공선택론": [
+      "booksrc_0076"
+    ],
+    "김성준": [
+      "booksrc_0076"
+    ],
+    "이해관계": [
+      "booksrc_0159",
+      "booksrc_0076"
+    ],
+    "정부실패": [
+      "booksrc_0076"
+    ],
+    "정책결정": [
+      "booksrc_0076"
+    ],
+    "정책실패": [
+      "booksrc_0076"
+    ],
+    "공학": [
+      "booksrc_0077"
+    ],
+    "공학윤리": [
+      "booksrc_0077"
+    ],
+    "공학이란": [
+      "booksrc_0077"
+    ],
+    "공학적": [
+      "booksrc_0077"
+    ],
+    "공학적 설계": [
+      "booksrc_0077"
+    ],
+    "기술 책임": [
+      "booksrc_0077"
+    ],
+    "기술과": [
+      "booksrc_0077"
+    ],
+    "기술과 사회": [
+      "booksrc_0077"
+    ],
+    "무엇인가": [
+      "booksrc_0178",
+      "booksrc_0193",
+      "booksrc_0077"
+    ],
+    "성풍현": [
+      "booksrc_0077"
+    ],
+    "공화정": [
+      "booksrc_0078"
+    ],
+    "국가론": [
+      "booksrc_0078"
+    ],
+    "마르쿠스": [
+      "booksrc_0078"
+    ],
+    "시민": [
+      "booksrc_0071",
+      "booksrc_0078",
+      "booksrc_0099"
+    ],
+    "툴리우스": [
+      "booksrc_0078"
+    ],
+    "합의": [
+      "booksrc_0078"
+    ],
+    "군주론": [
+      "booksrc_0079"
+    ],
+    "마키아벨리": [
+      "booksrc_0079",
+      "booksrc_0102"
+    ],
+    "마키아벨리즘": [
+      "booksrc_0079"
+    ],
+    "전략": [
+      "booksrc_0079"
+    ],
+    "정치전략": [
+      "booksrc_0079"
+    ],
+    "현실주의": [
+      "booksrc_0079"
+    ],
+    "꿈의": [
+      "booksrc_0080"
+    ],
+    "무의식": [
+      "booksrc_0181",
+      "booksrc_0080"
+    ],
+    "상징": [
+      "booksrc_0080"
+    ],
+    "심리치료": [
+      "booksrc_0080"
+    ],
+    "지그문트": [
+      "booksrc_0080"
+    ],
+    "프로이트": [
+      "booksrc_0080"
+    ],
+    "해석": [
+      "booksrc_0178",
+      "booksrc_0192",
+      "booksrc_0080",
+      "booksrc_0112"
+    ],
+    "개입": [
+      "booksrc_0075",
+      "booksrc_0081",
+      "booksrc_0087"
+    ],
+    "넛지": [
+      "booksrc_0081"
+    ],
+    "선택 설계": [
+      "booksrc_0081"
+    ],
+    "소비자": [
+      "booksrc_0081"
+    ],
+    "소비자 선택": [
+      "booksrc_0081"
+    ],
+    "인지 편향": [
+      "booksrc_0081"
+    ],
+    "자유주의적": [
+      "booksrc_0081"
+    ],
+    "자유주의적 개입": [
+      "booksrc_0081"
+    ],
+    "정책": [
+      "booksrc_0081"
+    ],
+    "정책 개입": [
+      "booksrc_0081"
+    ],
+    "탈러": [
+      "booksrc_0081"
+    ],
+    "편향": [
+      "booksrc_0203",
+      "booksrc_0081"
+    ],
+    "행동경제학": [
+      "booksrc_0081"
+    ],
+    "규칙": [
+      "booksrc_0082"
+    ],
+    "니코마코스": [
+      "booksrc_0082"
+    ],
+    "시민의식": [
+      "booksrc_0082"
+    ],
+    "윤리학": [
+      "booksrc_0082"
+    ],
+    "자율성": [
+      "booksrc_0173",
+      "booksrc_0177",
+      "booksrc_0180",
+      "booksrc_0208",
+      "booksrc_0082",
+      "booksrc_0104"
+    ],
+    "중용": [
+      "booksrc_0082"
+    ],
+    "행복": [
+      "booksrc_0082"
+    ],
+    "데카메론": [
+      "booksrc_0083"
+    ],
+    "르네상스": [
+      "booksrc_0083",
+      "booksrc_0120",
+      "booksrc_0140"
+    ],
+    "보카치오": [
+      "booksrc_0083"
+    ],
+    "사회비판": [
+      "booksrc_0083"
+    ],
+    "인간본성": [
+      "booksrc_0083"
+    ],
+    "인문주의": [
+      "booksrc_0083",
+      "booksrc_0112",
+      "booksrc_0120"
+    ],
+    "흑사병": [
+      "booksrc_0083"
+    ],
+    "기사도": [
+      "booksrc_0084"
+    ],
+    "기사도 정신": [
+      "booksrc_0084"
+    ],
+    "돈키호테": [
+      "booksrc_0084"
+    ],
+    "무모함과": [
+      "booksrc_0084"
+    ],
+    "무모함과 용기": [
+      "booksrc_0084"
+    ],
+    "문학적": [
+      "booksrc_0084"
+    ],
+    "문학적 상상력": [
+      "booksrc_0084"
+    ],
+    "상상력": [
+      "booksrc_0084"
+    ],
+    "세르반테스": [
+      "booksrc_0084"
+    ],
+    "이상주의": [
+      "booksrc_0084"
+    ],
+    "정신": [
+      "booksrc_0084",
+      "booksrc_0094",
+      "booksrc_0137"
+    ],
+    "충돌": [
+      "booksrc_0159",
+      "booksrc_0084"
+    ],
+    "풍자": [
+      "booksrc_0073",
+      "booksrc_0084",
+      "booksrc_0105"
+    ],
+    "현실과 충돌": [
+      "booksrc_0084"
+    ],
+    "디자인": [
+      "booksrc_0085"
+    ],
+    "디자인 씽킹": [
+      "booksrc_0085"
+    ],
+    "디자인 인문학": [
+      "booksrc_0085"
+    ],
+    "문제 해결": [
+      "booksrc_0085"
+    ],
+    "사용자": [
+      "booksrc_0085"
+    ],
+    "사용자 경험": [
+      "booksrc_0085"
+    ],
+    "소비문화": [
+      "booksrc_0170",
+      "booksrc_0085"
+    ],
+    "윤리적 책임": [
+      "booksrc_0085"
+    ],
+    "인문학": [
+      "booksrc_0085"
+    ],
+    "최경원": [
+      "booksrc_0085"
+    ],
+    "혁신": [
+      "booksrc_0085",
+      "booksrc_0126"
+    ],
+    "국가 권력": [
+      "booksrc_0156"
+    ],
+    "권리": [
+      "booksrc_0156",
+      "booksrc_0081"
+    ],
+    "권위를": [
+      "booksrc_0156"
+    ],
+    "리바이어던": [
+      "booksrc_0156",
+      "booksrc_0136"
+    ],
+    "벗어나기": [
+      "booksrc_0156"
+    ],
+    "사회계약": [
+      "booksrc_0156"
+    ],
+    "사회계약과": [
+      "booksrc_0156"
+    ],
+    "상태의": [
+      "booksrc_0156"
+    ],
+    "위해": [
+      "booksrc_0156"
+    ],
+    "인간관": [
+      "booksrc_0156"
+    ],
+    "인간이": [
+      "booksrc_0156"
+    ],
+    "자연": [
+      "booksrc_0156",
+      "booksrc_0201",
+      "booksrc_0140"
+    ],
+    "자연권": [
+      "booksrc_0156",
+      "booksrc_0133"
+    ],
+    "절대적": [
+      "booksrc_0156"
+    ],
+    "절대적 가치관": [
+      "booksrc_0156"
+    ],
+    "정치철학": [
+      "booksrc_0156"
+    ],
+    "질서의": [
+      "booksrc_0156",
+      "booksrc_0159",
+      "booksrc_0196"
+    ],
+    "토마스": [
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0076"
+    ],
+    "필요로": [
+      "booksrc_0156"
+    ],
+    "한다는": [
+      "booksrc_0156"
+    ],
+    "혼란을": [
+      "booksrc_0156"
+    ],
+    "홉스": [
+      "booksrc_0156"
+    ],
+    "공간을": [
+      "booksrc_0157"
+    ],
+    "근대 문명": [
+      "booksrc_0157"
+    ],
+    "내면": [
+      "booksrc_0157",
+      "booksrc_0139"
+    ],
+    "마의": [
+      "booksrc_0157"
+    ],
+    "문명의": [
+      "booksrc_0157",
+      "booksrc_0159"
+    ],
+    "성장과": [
+      "booksrc_0157"
+    ],
+    "요양원이라는": [
+      "booksrc_0157"
+    ],
+    "인간 내면": [
+      "booksrc_0157"
+    ],
+    "정신성": [
+      "booksrc_0157"
+    ],
+    "결합된": [
+      "booksrc_0158"
+    ],
+    "과학기술과": [
+      "booksrc_0158",
+      "booksrc_0072"
+    ],
+    "관련": [
+      "booksrc_0158"
+    ],
+    "멋진": [
+      "booksrc_0158"
+    ],
+    "미래사회를": [
+      "booksrc_0158"
+    ],
+    "소마": [
+      "booksrc_0158"
+    ],
+    "신세계": [
+      "booksrc_0158"
+    ],
+    "안정과": [
+      "booksrc_0158"
+    ],
+    "올더스": [
+      "booksrc_0158"
+    ],
+    "우선될": [
+      "booksrc_0158"
+    ],
+    "유전자 조작": [
+      "booksrc_0158"
+    ],
+    "자유보다": [
+      "booksrc_0158"
+    ],
+    "전공": [
+      "booksrc_0158"
+    ],
+    "정보사회": [
+      "booksrc_0158"
+    ],
+    "조작": [
+      "booksrc_0158"
+    ],
+    "질문하게": [
+      "booksrc_0158"
+    ],
+    "쾌락": [
+      "booksrc_0158"
+    ],
+    "통제가": [
+      "booksrc_0158"
+    ],
+    "통제사회": [
+      "booksrc_0158"
+    ],
+    "행복이": [
+      "booksrc_0158"
+    ],
+    "헉슬리": [
+      "booksrc_0158"
+    ],
+    "국가 이해관계": [
+      "booksrc_0159"
+    ],
+    "냉전": [
+      "booksrc_0159"
+    ],
+    "문명 충돌": [
+      "booksrc_0159"
+    ],
+    "문화 정체성": [
+      "booksrc_0159"
+    ],
+    "문화권의": [
+      "booksrc_0159"
+    ],
+    "분쟁": [
+      "booksrc_0159"
+    ],
+    "새뮤얼": [
+      "booksrc_0159"
+    ],
+    "세계질서": [
+      "booksrc_0159"
+    ],
+    "이후": [
+      "booksrc_0159"
+    ],
+    "헌팅턴": [
+      "booksrc_0159"
+    ],
+    "경제사": [
+      "booksrc_0160"
+    ],
+    "경제와": [
+      "booksrc_0160"
+    ],
+    "교역": [
+      "booksrc_0160"
+    ],
+    "물질문명": [
+      "booksrc_0160"
+    ],
+    "물질문명과": [
+      "booksrc_0160"
+    ],
+    "브로델": [
+      "booksrc_0160"
+    ],
+    "세계체제": [
+      "booksrc_0160"
+    ],
+    "장기적인": [
+      "booksrc_0160"
+    ],
+    "장기지속": [
+      "booksrc_0160"
+    ],
+    "페르낭": [
+      "booksrc_0160"
+    ],
+    "흐름": [
+      "booksrc_0160"
+    ],
+    "2014": [
+      "booksrc_0161",
+      "booksrc_0164"
+    ],
+    "간호": [
+      "booksrc_0161",
+      "booksrc_0081"
+    ],
+    "근거로": [
+      "booksrc_0161",
+      "booksrc_0162",
+      "booksrc_0163",
+      "booksrc_0164",
+      "booksrc_0165"
+    ],
+    "김영사": [
+      "booksrc_0161"
+    ],
+    "나이팅게일": [
+      "booksrc_0161"
+    ],
+    "다양성 존중": [
+      "booksrc_0161"
+    ],
+    "문광기": [
+      "booksrc_0161"
+    ],
+    "미스터": [
+      "booksrc_0161"
+    ],
+    "보고서": [
+      "booksrc_0161",
+      "booksrc_0162",
+      "booksrc_0163",
+      "booksrc_0164",
+      "booksrc_0165"
+    ],
+    "사이의": [
+      "booksrc_0161"
+    ],
+    "사회적 편견": [
+      "booksrc_0161"
+    ],
+    "선택과": [
+      "booksrc_0161",
+      "booksrc_0165",
+      "booksrc_0179",
+      "booksrc_0131"
+    ],
+    "소명": [
+      "booksrc_0161"
+    ],
+    "존중": [
+      "booksrc_0161"
+    ],
+    "직업 선택": [
+      "booksrc_0161"
+    ],
+    "직업적": [
+      "booksrc_0161"
+    ],
+    "2019": [
+      "booksrc_0162"
+    ],
+    "기준": [
+      "booksrc_0162",
+      "booksrc_0173"
+    ],
+    "논리": [
+      "booksrc_0162"
+    ],
+    "데카르트": [
+      "booksrc_0162"
+    ],
+    "돋을새김": [
+      "booksrc_0162"
+    ],
+    "르네": [
+      "booksrc_0162"
+    ],
+    "방법": [
+      "booksrc_0162",
+      "booksrc_0106"
+    ],
+    "방법서설": [
+      "booksrc_0162"
+    ],
+    "이성적": [
+      "booksrc_0162"
+    ],
+    "주체": [
+      "booksrc_0162",
+      "booksrc_0181"
+    ],
+    "판단 기준": [
+      "booksrc_0162"
+    ],
+    "합리주의": [
+      "booksrc_0162"
+    ],
+    "형성의": [
+      "booksrc_0162"
+    ],
+    "회의": [
+      "booksrc_0162"
+    ],
+    "2012": [
+      "booksrc_0163"
+    ],
+    "모더니즘": [
+      "booksrc_0163"
+    ],
+    "묘사와": [
+      "booksrc_0163"
+    ],
+    "문예나무": [
+      "booksrc_0163"
+    ],
+    "민족": [
+      "booksrc_0163",
+      "booksrc_0207"
+    ],
+    "민족 정체성": [
+      "booksrc_0163"
+    ],
+    "방식과": [
+      "booksrc_0163"
+    ],
+    "백석": [
+      "booksrc_0163"
+    ],
+    "시어": [
+      "booksrc_0163"
+    ],
+    "시의": [
+      "booksrc_0163"
+    ],
+    "전집": [
+      "booksrc_0163"
+    ],
+    "전통": [
+      "booksrc_0163",
+      "booksrc_0167"
+    ],
+    "정체성을": [
+      "booksrc_0163"
+    ],
+    "표현": [
+      "booksrc_0163"
+    ],
+    "향토성": [
+      "booksrc_0163"
+    ],
+    "회화적": [
+      "booksrc_0163"
+    ],
+    "낸시": [
+      "booksrc_0164"
+    ],
+    "다차원적": [
+      "booksrc_0164"
+    ],
+    "다차원적 정의": [
+      "booksrc_0164"
+    ],
+    "분배냐": [
+      "booksrc_0164"
+    ],
+    "분배와": [
+      "booksrc_0164"
+    ],
+    "사월의책": [
+      "booksrc_0164"
+    ],
+    "사회정책": [
+      "booksrc_0164"
+    ],
+    "인정의": [
+      "booksrc_0164"
+    ],
+    "인정이냐": [
+      "booksrc_0164"
+    ],
+    "프레이저": [
+      "booksrc_0164"
+    ],
+    "군상": [
+      "booksrc_0165"
+    ],
+    "민음사": [
+      "booksrc_0165"
+    ],
+    "본성": [
+      "booksrc_0165",
+      "booksrc_0169"
+    ],
+    "본성과": [
+      "booksrc_0165"
+    ],
+    "사기열전": [
+      "booksrc_0165"
+    ],
+    "사마천": [
+      "booksrc_0165"
+    ],
+    "역사적 통찰": [
+      "booksrc_0165"
+    ],
+    "인간 군상": [
+      "booksrc_0165"
+    ],
+    "인간 본성": [
+      "booksrc_0165"
+    ],
+    "인물의": [
+      "booksrc_0165"
+    ],
+    "통찰": [
+      "booksrc_0165"
+    ],
+    "과학혁명": [
+      "booksrc_0166",
+      "booksrc_0076"
+    ],
+    "사피엔스": [
+      "booksrc_0166"
+    ],
+    "사피엔스와": [
+      "booksrc_0166"
+    ],
+    "유발": [
+      "booksrc_0166"
+    ],
+    "인류": [
+      "booksrc_0166"
+    ],
+    "편집": [
+      "booksrc_0166"
+    ],
+    "포스트휴먼": [
+      "booksrc_0166"
+    ],
+    "하라리": [
+      "booksrc_0166"
+    ],
+    "호모": [
+      "booksrc_0166"
+    ],
+    "가족주의": [
+      "booksrc_0167"
+    ],
+    "가치의": [
+      "booksrc_0167"
+    ],
+    "근대화의": [
+      "booksrc_0167"
+    ],
+    "붕괴": [
+      "booksrc_0167"
+    ],
+    "삼대": [
+      "booksrc_0167"
+    ],
+    "세대": [
+      "booksrc_0167"
+    ],
+    "염상섭": [
+      "booksrc_0167"
+    ],
+    "공정함": [
+      "booksrc_0168"
+    ],
+    "구조화된": [
+      "booksrc_0168"
+    ],
+    "김지혜": [
+      "booksrc_0168"
+    ],
+    "선량한": [
+      "booksrc_0168"
+    ],
+    "위험": [
+      "booksrc_0168"
+    ],
+    "차별주의자": [
+      "booksrc_0168"
+    ],
+    "특권": [
+      "booksrc_0168"
+    ],
+    "표현과": [
+      "booksrc_0168"
+    ],
+    "혐오": [
+      "booksrc_0168"
+    ],
+    "감정의": [
+      "booksrc_0169"
+    ],
+    "도덕성": [
+      "booksrc_0169",
+      "booksrc_0177"
+    ],
+    "사단칠정": [
+      "booksrc_0169"
+    ],
+    "성학십도": [
+      "booksrc_0169"
+    ],
+    "수양": [
+      "booksrc_0169"
+    ],
+    "이기이원론": [
+      "booksrc_0169"
+    ],
+    "이황": [
+      "booksrc_0169",
+      "booksrc_0202"
+    ],
+    "퇴계": [
+      "booksrc_0169"
+    ],
+    "sns": [
+      "booksrc_0170"
+    ],
+    "기호소비": [
+      "booksrc_0170"
+    ],
+    "보드리야르": [
+      "booksrc_0170"
+    ],
+    "소비사회와": [
+      "booksrc_0170"
+    ],
+    "소비의": [
+      "booksrc_0170"
+    ],
+    "시뮬라시옹": [
+      "booksrc_0170"
+    ],
+    "차이화": [
+      "booksrc_0170"
+    ],
+    "가설": [
+      "booksrc_0171"
+    ],
+    "무경계": [
+      "booksrc_0171"
+    ],
+    "블랙홀": [
+      "booksrc_0171"
+    ],
+    "빅뱅": [
+      "booksrc_0171"
+    ],
+    "상대성": [
+      "booksrc_0171"
+    ],
+    "스티븐": [
+      "booksrc_0171",
+      "booksrc_0192"
+    ],
+    "시간": [
+      "booksrc_0171",
+      "booksrc_0081"
+    ],
+    "시간의": [
+      "booksrc_0171"
+    ],
+    "우주": [
+      "booksrc_0171"
+    ],
+    "호킹": [
+      "booksrc_0171"
+    ],
+    "구원": [
+      "booksrc_0172",
+      "booksrc_0184"
+    ],
+    "구원관": [
+      "booksrc_0172"
+    ],
+    "단테": [
+      "booksrc_0172"
+    ],
+    "단테의": [
+      "booksrc_0172"
+    ],
+    "순례": [
+      "booksrc_0172"
+    ],
+    "신곡": [
+      "booksrc_0172"
+    ],
+    "알리기에리": [
+      "booksrc_0172"
+    ],
+    "종교관": [
+      "booksrc_0172"
+    ],
+    "중세": [
+      "booksrc_0172"
+    ],
+    "지옥": [
+      "booksrc_0172"
+    ],
+    "법칙": [
+      "booksrc_0173"
+    ],
+    "선의지": [
+      "booksrc_0173"
+    ],
+    "실천이성비판": [
+      "booksrc_0173"
+    ],
+    "임마누엘": [
+      "booksrc_0173"
+    ],
+    "정언명령": [
+      "booksrc_0173"
+    ],
+    "칸트": [
+      "booksrc_0173",
+      "booksrc_0200"
+    ],
+    "아리랑": [
+      "booksrc_0174"
+    ],
+    "웨일즈": [
+      "booksrc_0174"
+    ],
+    "혁명과": [
+      "booksrc_0174",
+      "booksrc_0184"
+    ],
+    "보들레르": [
+      "booksrc_0175"
+    ],
+    "샤를": [
+      "booksrc_0175"
+    ],
+    "정체성과": [
+      "booksrc_0175",
+      "booksrc_0095"
+    ],
+    "퇴폐미": [
+      "booksrc_0175"
+    ],
+    "한계": [
+      "booksrc_0175",
+      "booksrc_0086",
+      "booksrc_0096",
+      "booksrc_0129"
+    ],
+    "교육철학": [
+      "booksrc_0176",
+      "booksrc_0177"
+    ],
+    "실천": [
+      "booksrc_0176"
+    ],
+    "양명학": [
+      "booksrc_0176"
+    ],
+    "양명학연론": [
+      "booksrc_0176"
+    ],
+    "정인보": [
+      "booksrc_0176"
+    ],
+    "지행합일": [
+      "booksrc_0176"
+    ],
+    "판단과": [
+      "booksrc_0176"
+    ],
+    "단계별": [
+      "booksrc_0177"
+    ],
+    "루소": [
+      "booksrc_0177",
+      "booksrc_0099"
+    ],
+    "발달": [
+      "booksrc_0177"
+    ],
+    "에밀": [
+      "booksrc_0177"
+    ],
+    "자연주의": [
+      "booksrc_0177"
+    ],
+    "자크": [
+      "booksrc_0177",
+      "booksrc_0181",
+      "booksrc_0099"
+    ],
+    "문제점": [
+      "booksrc_0178"
+    ],
+    "역사란": [
+      "booksrc_0178"
+    ],
+    "재현": [
+      "booksrc_0178"
+    ],
+    "꿈과": [
+      "booksrc_0179"
+    ],
+    "서사와": [
+      "booksrc_0179",
+      "booksrc_0080"
+    ],
+    "연금술사": [
+      "booksrc_0179"
+    ],
+    "직관": [
+      "booksrc_0179"
+    ],
+    "진로": [
+      "booksrc_0179",
+      "booksrc_0125"
+    ],
+    "코엘료": [
+      "booksrc_0179"
+    ],
+    "파울로": [
+      "booksrc_0179"
+    ],
+    "결혼": [
+      "booksrc_0180"
+    ],
+    "기준과": [
+      "booksrc_0180"
+    ],
+    "선택의": [
+      "booksrc_0180",
+      "booksrc_0125"
+    ],
+    "오만": [
+      "booksrc_0180"
+    ],
+    "오만과": [
+      "booksrc_0180"
+    ],
+    "오스틴": [
+      "booksrc_0180"
+    ],
+    "제인": [
+      "booksrc_0180",
+      "booksrc_0195"
+    ],
+    "sns와": [
+      "booksrc_0181"
+    ],
+    "라캉": [
+      "booksrc_0181"
+    ],
+    "상징계와": [
+      "booksrc_0181"
+    ],
+    "청소년": [
+      "booksrc_0181",
+      "booksrc_0191",
+      "booksrc_0083",
+      "booksrc_0119",
+      "booksrc_0125"
+    ],
+    "타자의": [
+      "booksrc_0181"
+    ],
+    "개는": [
+      "booksrc_0182"
+    ],
+    "돼지는": [
+      "booksrc_0182"
+    ],
+    "먹고": [
+      "booksrc_0182"
+    ],
+    "멜라니": [
+      "booksrc_0182"
+    ],
+    "비건": [
+      "booksrc_0182"
+    ],
+    "사랑하고": [
+      "booksrc_0182"
+    ],
+    "소는": [
+      "booksrc_0182"
+    ],
+    "신을까": [
+      "booksrc_0182"
+    ],
+    "우리는": [
+      "booksrc_0182"
+    ],
+    "육식주의": [
+      "booksrc_0182"
+    ],
+    "조이": [
+      "booksrc_0182"
+    ],
+    "종차별주의": [
+      "booksrc_0182"
+    ],
+    "계층": [
+      "booksrc_0183",
+      "booksrc_0132"
+    ],
+    "디킨스": [
+      "booksrc_0183"
+    ],
+    "산업사회와": [
+      "booksrc_0183"
+    ],
+    "성공": [
+      "booksrc_0183",
+      "booksrc_0137"
+    ],
+    "신사": [
+      "booksrc_0183"
+    ],
+    "위대한": [
+      "booksrc_0183"
+    ],
+    "유산": [
+      "booksrc_0183"
+    ],
+    "이동": [
+      "booksrc_0183"
+    ],
+    "후원": [
+      "booksrc_0183"
+    ],
+    "보리스": [
+      "booksrc_0184"
+    ],
+    "예술가": [
+      "booksrc_0184"
+    ],
+    "의사": [
+      "booksrc_0184"
+    ],
+    "전쟁과": [
+      "booksrc_0184"
+    ],
+    "지바고": [
+      "booksrc_0184"
+    ],
+    "파스테르나크": [
+      "booksrc_0184"
+    ],
+    "혁명": [
+      "booksrc_0184",
+      "booksrc_0209"
+    ],
+    "맞춤형": [
+      "booksrc_0185"
+    ],
+    "예병일": [
+      "booksrc_0185"
+    ],
+    "의료": [
+      "booksrc_0185",
+      "booksrc_0199",
+      "booksrc_0081",
+      "booksrc_0107"
+    ],
+    "의료문학": [
+      "booksrc_0185"
+    ],
+    "의료윤리": [
+      "booksrc_0185"
+    ],
+    "의학": [
+      "booksrc_0185"
+    ],
+    "인문으로": [
+      "booksrc_0185"
+    ],
+    "치유하다": [
+      "booksrc_0185"
+    ],
+    "통합치료": [
+      "booksrc_0185"
+    ],
+    "환자": [
+      "booksrc_0185",
+      "booksrc_0104",
+      "booksrc_0107"
+    ],
+    "데니소비치의": [
+      "booksrc_0186"
+    ],
+    "솔제니친": [
+      "booksrc_0186"
+    ],
+    "수용소": [
+      "booksrc_0186"
+    ],
+    "안보": [
+      "booksrc_0186"
+    ],
+    "알렉산드르": [
+      "booksrc_0186"
+    ],
+    "이반": [
+      "booksrc_0186"
+    ],
+    "이사예비치": [
+      "booksrc_0186"
+    ],
+    "존엄성": [
+      "booksrc_0186",
+      "booksrc_0204"
+    ],
+    "체제와": [
+      "booksrc_0186"
+    ],
+    "하루": [
+      "booksrc_0186"
+    ],
+    "dna": [
+      "booksrc_0187"
+    ],
+    "경쟁": [
+      "booksrc_0187"
+    ],
+    "과정": [
+      "booksrc_0187",
+      "booksrc_0090"
+    ],
+    "발견": [
+      "booksrc_0187"
+    ],
+    "왓슨": [
+      "booksrc_0187"
+    ],
+    "이중나선": [
+      "booksrc_0187"
+    ],
+    "협력과": [
+      "booksrc_0187"
+    ],
+    "다자이": [
+      "booksrc_0188"
+    ],
+    "소외감": [
+      "booksrc_0188"
+    ],
+    "오사무": [
+      "booksrc_0188"
+    ],
+    "인간관계": [
+      "booksrc_0188"
+    ],
+    "인간실격": [
+      "booksrc_0188"
+    ],
+    "자기파괴": [
+      "booksrc_0188"
+    ],
+    "정신건강": [
+      "booksrc_0188",
+      "booksrc_0190"
+    ],
+    "혼란": [
+      "booksrc_0188"
+    ],
+    "국제협력": [
+      "booksrc_0189"
+    ],
+    "데이비드": [
+      "booksrc_0189"
+    ],
+    "모든": [
+      "booksrc_0189"
+    ],
+    "생태계": [
+      "booksrc_0189",
+      "booksrc_0114",
+      "booksrc_0130"
+    ],
+    "열쇠": [
+      "booksrc_0189"
+    ],
+    "예방과": [
+      "booksrc_0189"
+    ],
+    "인수공통": [
+      "booksrc_0189"
+    ],
+    "인수공통감염병": [
+      "booksrc_0189"
+    ],
+    "전염병": [
+      "booksrc_0189"
+    ],
+    "전염병의": [
+      "booksrc_0189"
+    ],
+    "콰먼": [
+      "booksrc_0189"
+    ],
+    "환경보전": [
+      "booksrc_0189"
+    ],
+    "건강지표": [
+      "booksrc_0190"
+    ],
+    "구강": [
+      "booksrc_0190",
+      "booksrc_0199"
+    ],
+    "김혜성": [
+      "booksrc_0190"
+    ],
+    "맞춤치료": [
+      "booksrc_0190"
+    ],
+    "미생물": [
+      "booksrc_0190"
+    ],
+    "시작하는": [
+      "booksrc_0190"
+    ],
+    "입속에서": [
+      "booksrc_0190"
+    ],
+    "치의학": [
+      "booksrc_0190"
+    ],
+    "탐구에": [
+      "booksrc_0190"
+    ],
+    "표준화": [
+      "booksrc_0190"
+    ],
+    "또래관계": [
+      "booksrc_0191"
+    ],
+    "사회관계망": [
+      "booksrc_0191"
+    ],
+    "서비스와": [
+      "booksrc_0191"
+    ],
+    "수업": [
+      "booksrc_0191"
+    ],
+    "윤홍균": [
+      "booksrc_0191"
+    ],
+    "인권의식": [
+      "booksrc_0191"
+    ],
+    "자존감": [
+      "booksrc_0191"
+    ],
+    "따른": [
+      "booksrc_0192"
+    ],
+    "문화에": [
+      "booksrc_0192"
+    ],
+    "성취": [
+      "booksrc_0192"
+    ],
+    "슈만의": [
+      "booksrc_0192"
+    ],
+    "연주자의": [
+      "booksrc_0192"
+    ],
+    "음악가를": [
+      "booksrc_0192"
+    ],
+    "음악적": [
+      "booksrc_0192"
+    ],
+    "의도": [
+      "booksrc_0192"
+    ],
+    "이설리스": [
+      "booksrc_0192"
+    ],
+    "조언": [
+      "booksrc_0192"
+    ],
+    "표현성": [
+      "booksrc_0192"
+    ],
+    "능력주의": [
+      "booksrc_0193",
+      "booksrc_0124",
+      "booksrc_0125"
+    ],
+    "분배정의": [
+      "booksrc_0193"
+    ],
+    "사회정의": [
+      "booksrc_0193"
+    ],
+    "정의란": [
+      "booksrc_0193"
+    ],
+    "가부장제": [
+      "booksrc_0194"
+    ],
+    "보부아르": [
+      "booksrc_0194"
+    ],
+    "사회통합": [
+      "booksrc_0194"
+    ],
+    "성평등": [
+      "booksrc_0194"
+    ],
+    "시몬": [
+      "booksrc_0194"
+    ],
+    "여성": [
+      "booksrc_0194",
+      "booksrc_0195",
+      "booksrc_0096"
+    ],
+    "정책과": [
+      "booksrc_0194"
+    ],
+    "제2의": [
+      "booksrc_0194"
+    ],
+    "강화": [
+      "booksrc_0195"
+    ],
+    "브론테": [
+      "booksrc_0195"
+    ],
+    "사회참여와": [
+      "booksrc_0195"
+    ],
+    "샬럿": [
+      "booksrc_0195"
+    ],
+    "에어": [
+      "booksrc_0195"
+    ],
+    "자아실현": [
+      "booksrc_0195"
+    ],
+    "공적": [
+      "booksrc_0196",
+      "booksrc_0097"
+    ],
+    "나다니엘": [
+      "booksrc_0196"
+    ],
+    "낙인": [
+      "booksrc_0196"
+    ],
+    "비밀과": [
+      "booksrc_0196"
+    ],
+    "사회변화": [
+      "booksrc_0196"
+    ],
+    "주홍글씨": [
+      "booksrc_0196"
+    ],
+    "호손": [
+      "booksrc_0196"
+    ],
+    "가벼움": [
+      "booksrc_0197"
+    ],
+    "가벼움과": [
+      "booksrc_0197"
+    ],
+    "무거움": [
+      "booksrc_0197"
+    ],
+    "밀란": [
+      "booksrc_0197"
+    ],
+    "실존주의적": [
+      "booksrc_0197"
+    ],
+    "영원회귀": [
+      "booksrc_0197"
+    ],
+    "존재의": [
+      "booksrc_0197"
+    ],
+    "참을": [
+      "booksrc_0197"
+    ],
+    "쿤데라": [
+      "booksrc_0197"
+    ],
+    "키치": [
+      "booksrc_0197"
+    ],
+    "놀이": [
+      "booksrc_0198"
+    ],
+    "비트겐슈타인": [
+      "booksrc_0198"
+    ],
+    "사적": [
+      "booksrc_0198"
+    ],
+    "언어와": [
+      "booksrc_0198"
+    ],
+    "유사성": [
+      "booksrc_0198"
+    ],
+    "의미의": [
+      "booksrc_0198"
+    ],
+    "형식": [
+      "booksrc_0198"
+    ],
+    "감염": [
+      "booksrc_0199"
+    ],
+    "건강": [
+      "booksrc_0199"
+    ],
+    "관리": [
+      "booksrc_0199"
+    ],
+    "내과": [
+      "booksrc_0199"
+    ],
+    "병소": [
+      "booksrc_0199"
+    ],
+    "상류": [
+      "booksrc_0199"
+    ],
+    "오시로": [
+      "booksrc_0199"
+    ],
+    "이마타": [
+      "booksrc_0199"
+    ],
+    "입만": [
+      "booksrc_0199"
+    ],
+    "전신": [
+      "booksrc_0199"
+    ],
+    "진료하지": [
+      "booksrc_0199"
+    ],
+    "치과": [
+      "booksrc_0199"
+    ],
+    "치과의사는": [
+      "booksrc_0199"
+    ],
+    "협진": [
+      "booksrc_0199"
+    ],
+    "개념": [
+      "booksrc_0200"
+    ],
+    "백종현": [
+      "booksrc_0200"
+    ],
+    "선험적": [
+      "booksrc_0200"
+    ],
+    "이성주의": [
+      "booksrc_0200"
+    ],
+    "자율": [
+      "booksrc_0200"
+    ],
+    "정언명령과": [
+      "booksrc_0200"
+    ],
+    "칸트와": [
+      "booksrc_0200"
+    ],
+    "헤겔": [
+      "booksrc_0200"
+    ],
+    "헤겔의": [
+      "booksrc_0200"
+    ],
+    "거주지": [
+      "booksrc_0201"
+    ],
+    "산수": [
+      "booksrc_0201"
+    ],
+    "생리": [
+      "booksrc_0201"
+    ],
+    "이중환": [
+      "booksrc_0201"
+    ],
+    "인심": [
+      "booksrc_0201"
+    ],
+    "조건과": [
+      "booksrc_0201"
+    ],
+    "택리지": [
+      "booksrc_0201"
+    ],
+    "풍수": [
+      "booksrc_0201"
+    ],
+    "비교에": [
+      "booksrc_0202"
+    ],
+    "성리학": [
+      "booksrc_0202"
+    ],
+    "인간상": [
+      "booksrc_0202"
+    ],
+    "주리론": [
+      "booksrc_0202"
+    ],
+    "퇴계선집": [
+      "booksrc_0202"
+    ],
+    "대중의": [
+      "booksrc_0203"
+    ],
+    "로슬링": [
+      "booksrc_0203"
+    ],
+    "리터러시": [
+      "booksrc_0203"
+    ],
+    "세계관": [
+      "booksrc_0203",
+      "booksrc_0111"
+    ],
+    "언론": [
+      "booksrc_0203"
+    ],
+    "팩트풀니스": [
+      "booksrc_0203"
+    ],
+    "한스": [
+      "booksrc_0203"
+    ],
+    "실존": [
+      "booksrc_0204"
+    ],
+    "알베르": [
+      "booksrc_0204",
+      "booksrc_0119"
+    ],
+    "자유의": [
+      "booksrc_0204",
+      "booksrc_0086",
+      "booksrc_0094",
+      "booksrc_0122"
+    ],
+    "재난": [
+      "booksrc_0204"
+    ],
+    "재난과": [
+      "booksrc_0204"
+    ],
+    "카뮈": [
+      "booksrc_0204",
+      "booksrc_0119"
+    ],
+    "페스트": [
+      "booksrc_0204"
+    ],
+    "개별화": [
+      "booksrc_0205"
+    ],
+    "로즈": [
+      "booksrc_0205"
+    ],
+    "사회가": [
+      "booksrc_0205"
+    ],
+    "존중에": [
+      "booksrc_0205"
+    ],
+    "종말": [
+      "booksrc_0205",
+      "booksrc_0118"
+    ],
+    "창의성": [
+      "booksrc_0205",
+      "booksrc_0120"
+    ],
+    "토드": [
+      "booksrc_0205",
+      "booksrc_0127"
+    ],
+    "평균": [
+      "booksrc_0205"
+    ],
+    "평균의": [
+      "booksrc_0205"
+    ],
+    "평균주의": [
+      "booksrc_0205"
+    ],
+    "단절": [
+      "booksrc_0206"
+    ],
+    "멜빌": [
+      "booksrc_0206",
+      "booksrc_0089"
+    ],
+    "바틀비": [
+      "booksrc_0206"
+    ],
+    "수동적": [
+      "booksrc_0206"
+    ],
+    "저항과": [
+      "booksrc_0206"
+    ],
+    "질서": [
+      "booksrc_0206",
+      "booksrc_0140"
+    ],
+    "필경사": [
+      "booksrc_0206"
+    ],
+    "허먼": [
+      "booksrc_0206",
+      "booksrc_0089"
+    ],
+    "민족사관": [
+      "booksrc_0207"
+    ],
+    "민족정신": [
+      "booksrc_0207"
+    ],
+    "박은식": [
+      "booksrc_0207"
+    ],
+    "역사서술": [
+      "booksrc_0207"
+    ],
+    "한국통사": [
+      "booksrc_0207"
+    ],
+    "도덕의": [
+      "booksrc_0208"
+    ],
+    "마크": [
+      "booksrc_0208"
+    ],
+    "모험": [
+      "booksrc_0208"
+    ],
+    "트웨인": [
+      "booksrc_0208"
+    ],
+    "핀의": [
+      "booksrc_0208"
+    ],
+    "허클베리": [
+      "booksrc_0208"
+    ],
+    "사회변동과": [
+      "booksrc_0209"
+    ],
+    "자유주의": [
+      "booksrc_0209"
+    ],
+    "혁명의": [
+      "booksrc_0209"
+    ],
+    "개인과": [
+      "booksrc_0210"
+    ],
+    "고독한": [
+      "booksrc_0210"
+    ],
+    "늑대": [
+      "booksrc_0210"
+    ],
+    "분열": [
+      "booksrc_0210"
+    ],
+    "황야의": [
+      "booksrc_0210"
+    ],
+    "source": [
+      "booksrc_0071",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075",
+      "booksrc_0076",
+      "booksrc_0077",
+      "booksrc_0078",
+      "booksrc_0079",
+      "booksrc_0080",
+      "booksrc_0081",
+      "booksrc_0082",
+      "booksrc_0083",
+      "booksrc_0084",
+      "booksrc_0085",
+      "booksrc_0086",
+      "booksrc_0087",
+      "booksrc_0088",
+      "booksrc_0089",
+      "booksrc_0090",
+      "booksrc_0091",
+      "booksrc_0092",
+      "booksrc_0093",
+      "booksrc_0094",
+      "booksrc_0095",
+      "booksrc_0096",
+      "booksrc_0097",
+      "booksrc_0098",
+      "booksrc_0099",
+      "booksrc_0100",
+      "booksrc_0101",
+      "booksrc_0102",
+      "booksrc_0103",
+      "booksrc_0104",
+      "booksrc_0105",
+      "booksrc_0106",
+      "booksrc_0107",
+      "booksrc_0108",
+      "booksrc_0109",
+      "booksrc_0110",
+      "booksrc_0111",
+      "booksrc_0112",
+      "booksrc_0113",
+      "booksrc_0114",
+      "booksrc_0115",
+      "booksrc_0116",
+      "booksrc_0117",
+      "booksrc_0118",
+      "booksrc_0119",
+      "booksrc_0120",
+      "booksrc_0121",
+      "booksrc_0122",
+      "booksrc_0123",
+      "booksrc_0124",
+      "booksrc_0125",
+      "booksrc_0126",
+      "booksrc_0127",
+      "booksrc_0128",
+      "booksrc_0129",
+      "booksrc_0130",
+      "booksrc_0131",
+      "booksrc_0132",
+      "booksrc_0133",
+      "booksrc_0134",
+      "booksrc_0135",
+      "booksrc_0136",
+      "booksrc_0137",
+      "booksrc_0138",
+      "booksrc_0139",
+      "booksrc_0140"
+    ],
+    "간디": [
+      "booksrc_0071"
+    ],
+    "마하트마": [
+      "booksrc_0071"
+    ],
+    "법적": [
+      "booksrc_0071",
+      "booksrc_0119"
+    ],
+    "불복종": [
+      "booksrc_0071"
+    ],
+    "비폭력주의": [
+      "booksrc_0071"
+    ],
+    "신념과": [
+      "booksrc_0071"
+    ],
+    "자서전": [
+      "booksrc_0071"
+    ],
+    "정당화": [
+      "booksrc_0071"
+    ],
+    "같기도": [
+      "booksrc_0072"
+    ],
+    "로얼드": [
+      "booksrc_0072"
+    ],
+    "아니": [
+      "booksrc_0072"
+    ],
+    "커뮤니케이션": [
+      "booksrc_0072"
+    ],
+    "편집과": [
+      "booksrc_0072"
+    ],
+    "하고": [
+      "booksrc_0072"
+    ],
+    "호프만": [
+      "booksrc_0072"
+    ],
+    "검찰관": [
+      "booksrc_0073"
+    ],
+    "고골": [
+      "booksrc_0073"
+    ],
+    "니콜라이": [
+      "booksrc_0073"
+    ],
+    "부패": [
+      "booksrc_0073"
+    ],
+    "사회제도와": [
+      "booksrc_0073"
+    ],
+    "표현의": [
+      "booksrc_0073"
+    ],
+    "고도를": [
+      "booksrc_0074"
+    ],
+    "기다리며": [
+      "booksrc_0074"
+    ],
+    "기다림": [
+      "booksrc_0074"
+    ],
+    "베케트": [
+      "booksrc_0074"
+    ],
+    "부조리극": [
+      "booksrc_0074"
+    ],
+    "불확실성": [
+      "booksrc_0074"
+    ],
+    "사무엘": [
+      "booksrc_0074"
+    ],
+    "실존주의": [
+      "booksrc_0074",
+      "booksrc_0088"
+    ],
+    "의미와": [
+      "booksrc_0074",
+      "booksrc_0077"
+    ],
+    "경기": [
+      "booksrc_0075"
+    ],
+    "경제정책과": [
+      "booksrc_0075"
+    ],
+    "고용": [
+      "booksrc_0075"
+    ],
+    "대응": [
+      "booksrc_0075"
+    ],
+    "불황": [
+      "booksrc_0075"
+    ],
+    "유효수요": [
+      "booksrc_0075"
+    ],
+    "이자": [
+      "booksrc_0075"
+    ],
+    "일반이론": [
+      "booksrc_0075"
+    ],
+    "정부": [
+      "booksrc_0075"
+    ],
+    "케인스": [
+      "booksrc_0075"
+    ],
+    "화폐의": [
+      "booksrc_0075"
+    ],
+    "공약불가능성": [
+      "booksrc_0076"
+    ],
+    "과학혁명의": [
+      "booksrc_0076"
+    ],
+    "연구와": [
+      "booksrc_0076",
+      "booksrc_0115"
+    ],
+    "전환": [
+      "booksrc_0076",
+      "booksrc_0111",
+      "booksrc_0136"
+    ],
+    "정상과학": [
+      "booksrc_0076"
+    ],
+    "패러다임": [
+      "booksrc_0076"
+    ],
+    "구운몽": [
+      "booksrc_0077"
+    ],
+    "김만중": [
+      "booksrc_0077"
+    ],
+    "문학치료": [
+      "booksrc_0077"
+    ],
+    "세속적": [
+      "booksrc_0077"
+    ],
+    "인생무상": [
+      "booksrc_0077"
+    ],
+    "국부론": [
+      "booksrc_0078"
+    ],
+    "도덕감정론": [
+      "booksrc_0078"
+    ],
+    "보이지": [
+      "booksrc_0078"
+    ],
+    "보호무역": [
+      "booksrc_0078"
+    ],
+    "사회복지의": [
+      "booksrc_0078"
+    ],
+    "스미스": [
+      "booksrc_0078"
+    ],
+    "시장": [
+      "booksrc_0078",
+      "booksrc_0127"
+    ],
+    "않는": [
+      "booksrc_0078"
+    ],
+    "애덤": [
+      "booksrc_0078"
+    ],
+    "원리와": [
+      "booksrc_0078"
+    ],
+    "자유무역": [
+      "booksrc_0078"
+    ],
+    "계급투쟁": [
+      "booksrc_0079"
+    ],
+    "그람시": [
+      "booksrc_0079"
+    ],
+    "그람시의": [
+      "booksrc_0079"
+    ],
+    "안토니오": [
+      "booksrc_0079"
+    ],
+    "역할과": [
+      "booksrc_0079"
+    ],
+    "옥중수고": [
+      "booksrc_0079"
+    ],
+    "헤게모니": [
+      "booksrc_0079"
+    ],
+    "결말": [
+      "booksrc_0080"
+    ],
+    "금오신화": [
+      "booksrc_0080"
+    ],
+    "김시습": [
+      "booksrc_0080"
+    ],
+    "독자성": [
+      "booksrc_0080"
+    ],
+    "문학사적": [
+      "booksrc_0080"
+    ],
+    "비극적": [
+      "booksrc_0080"
+    ],
+    "외재적": [
+      "booksrc_0080"
+    ],
+    "의의": [
+      "booksrc_0080"
+    ],
+    "전기": [
+      "booksrc_0080"
+    ],
+    "환상성": [
+      "booksrc_0080"
+    ],
+    "간호사": [
+      "booksrc_0081"
+    ],
+    "교대제": [
+      "booksrc_0081"
+    ],
+    "근로": [
+      "booksrc_0081"
+    ],
+    "김현아": [
+      "booksrc_0081"
+    ],
+    "나는": [
+      "booksrc_0081"
+    ],
+    "배치": [
+      "booksrc_0081"
+    ],
+    "보장과": [
+      "booksrc_0081"
+    ],
+    "비용": [
+      "booksrc_0081"
+    ],
+    "사람입니다": [
+      "booksrc_0081"
+    ],
+    "산업화": [
+      "booksrc_0081"
+    ],
+    "수가체계": [
+      "booksrc_0081"
+    ],
+    "인력": [
+      "booksrc_0081"
+    ],
+    "개발에": [
+      "booksrc_0082"
+    ],
+    "공자": [
+      "booksrc_0082"
+    ],
+    "논어": [
+      "booksrc_0082"
+    ],
+    "자기주도학습": [
+      "booksrc_0082"
+    ],
+    "현대사회": [
+      "booksrc_0082",
+      "booksrc_0105",
+      "booksrc_0106",
+      "booksrc_0116"
+    ],
+    "것이": [
+      "booksrc_0083"
+    ],
+    "다정한": [
+      "booksrc_0083"
+    ],
+    "다정함": [
+      "booksrc_0083"
+    ],
+    "브라이언": [
+      "booksrc_0083"
+    ],
+    "사회성": [
+      "booksrc_0083"
+    ],
+    "살아남는다": [
+      "booksrc_0083"
+    ],
+    "헤어": [
+      "booksrc_0083"
+    ],
+    "협동": [
+      "booksrc_0083"
+    ],
+    "협력성": [
+      "booksrc_0083"
+    ],
+    "호르몬": [
+      "booksrc_0083"
+    ],
+    "ib": [
+      "booksrc_0084"
+    ],
+    "pisa": [
+      "booksrc_0084"
+    ],
+    "대한민국의": [
+      "booksrc_0084"
+    ],
+    "시험": [
+      "booksrc_0084"
+    ],
+    "역량": [
+      "booksrc_0084"
+    ],
+    "이혜정": [
+      "booksrc_0084"
+    ],
+    "주도": [
+      "booksrc_0084"
+    ],
+    "평가": [
+      "booksrc_0084"
+    ],
+    "프로그램": [
+      "booksrc_0084"
+    ],
+    "학교": [
+      "booksrc_0084"
+    ],
+    "학생": [
+      "booksrc_0084",
+      "booksrc_0103"
+    ],
+    "학습": [
+      "booksrc_0084"
+    ],
+    "니버": [
+      "booksrc_0085"
+    ],
+    "라인홀드": [
+      "booksrc_0085"
+    ],
+    "비도덕적": [
+      "booksrc_0085"
+    ],
+    "시민사회": [
+      "booksrc_0085"
+    ],
+    "운동": [
+      "booksrc_0085"
+    ],
+    "인간과": [
+      "booksrc_0085"
+    ],
+    "제도의": [
+      "booksrc_0085"
+    ],
+    "기후": [
+      "booksrc_0086",
+      "booksrc_0129",
+      "booksrc_0140"
+    ],
+    "다문화주의": [
+      "booksrc_0086"
+    ],
+    "동물권": [
+      "booksrc_0086",
+      "booksrc_0115"
+    ],
+    "동물들의": [
+      "booksrc_0086"
+    ],
+    "소비": [
+      "booksrc_0086"
+    ],
+    "심판": [
+      "booksrc_0086"
+    ],
+    "위기": [
+      "booksrc_0086"
+    ],
+    "인간중심주의와": [
+      "booksrc_0086"
+    ],
+    "환경윤리": [
+      "booksrc_0086"
+    ],
+    "놀이치료": [
+      "booksrc_0087"
+    ],
+    "딥스": [
+      "booksrc_0087"
+    ],
+    "물리치료": [
+      "booksrc_0087"
+    ],
+    "버지니아": [
+      "booksrc_0087"
+    ],
+    "심리와": [
+      "booksrc_0087"
+    ],
+    "액슬린": [
+      "booksrc_0087"
+    ],
+    "언어치료": [
+      "booksrc_0087"
+    ],
+    "예술치료": [
+      "booksrc_0087"
+    ],
+    "도시사회": [
+      "booksrc_0088"
+    ],
+    "라이너": [
+      "booksrc_0088"
+    ],
+    "릴케": [
+      "booksrc_0088"
+    ],
+    "마리아": [
+      "booksrc_0088"
+    ],
+    "말테의": [
+      "booksrc_0088"
+    ],
+    "소통": [
+      "booksrc_0088"
+    ],
+    "수기": [
+      "booksrc_0088"
+    ],
+    "휴머니즘": [
+      "booksrc_0088",
+      "booksrc_0089"
+    ],
+    "리더의": [
+      "booksrc_0089"
+    ],
+    "모비": [
+      "booksrc_0089"
+    ],
+    "모비딕": [
+      "booksrc_0089"
+    ],
+    "복수심과": [
+      "booksrc_0089"
+    ],
+    "노르베르트": [
+      "booksrc_0090"
+    ],
+    "매너": [
+      "booksrc_0090"
+    ],
+    "문명화와": [
+      "booksrc_0090"
+    ],
+    "본능": [
+      "booksrc_0090"
+    ],
+    "스포츠": [
+      "booksrc_0090"
+    ],
+    "억제": [
+      "booksrc_0090"
+    ],
+    "엘리아스": [
+      "booksrc_0090"
+    ],
+    "자연스러운": [
+      "booksrc_0090"
+    ],
+    "주식": [
+      "booksrc_0090"
+    ],
+    "가치": [
+      "booksrc_0091",
+      "booksrc_0101",
+      "booksrc_0104",
+      "booksrc_0118"
+    ],
+    "다수의": [
+      "booksrc_0091"
+    ],
+    "미국의": [
+      "booksrc_0091"
+    ],
+    "알렉시스": [
+      "booksrc_0091"
+    ],
+    "압력": [
+      "booksrc_0091"
+    ],
+    "여론과": [
+      "booksrc_0091"
+    ],
+    "토크빌": [
+      "booksrc_0091"
+    ],
+    "평등": [
+      "booksrc_0091",
+      "booksrc_0125"
+    ],
+    "고가": [
+      "booksrc_0092"
+    ],
+    "기시미": [
+      "booksrc_0092"
+    ],
+    "미움받을": [
+      "booksrc_0092"
+    ],
+    "욕구": [
+      "booksrc_0092"
+    ],
+    "이치로": [
+      "booksrc_0092"
+    ],
+    "인정과": [
+      "booksrc_0092"
+    ],
+    "자기결정성": [
+      "booksrc_0092"
+    ],
+    "자아형성의": [
+      "booksrc_0092"
+    ],
+    "타인의": [
+      "booksrc_0092",
+      "booksrc_0119"
+    ],
+    "후미타케": [
+      "booksrc_0092"
+    ],
+    "고독과": [
+      "booksrc_0093"
+    ],
+    "동안의": [
+      "booksrc_0093"
+    ],
+    "라틴아메리카": [
+      "booksrc_0093"
+    ],
+    "리얼리즘": [
+      "booksrc_0093",
+      "booksrc_0122"
+    ],
+    "마르케스": [
+      "booksrc_0093"
+    ],
+    "마술적": [
+      "booksrc_0093"
+    ],
+    "백년": [
+      "booksrc_0093"
+    ],
+    "혈통과": [
+      "booksrc_0093"
+    ],
+    "환상": [
+      "booksrc_0093"
+    ],
+    "계몽주의": [
+      "booksrc_0094",
+      "booksrc_0099"
+    ],
+    "몽테스키외": [
+      "booksrc_0094"
+    ],
+    "민주사회에서": [
+      "booksrc_0094"
+    ],
+    "분립": [
+      "booksrc_0094"
+    ],
+    "자연민주주의": [
+      "booksrc_0094"
+    ],
+    "변신이야기": [
+      "booksrc_0095"
+    ],
+    "오비디우스": [
+      "booksrc_0095"
+    ],
+    "의식": [
+      "booksrc_0095",
+      "booksrc_0096"
+    ],
+    "귀스타브": [
+      "booksrc_0096"
+    ],
+    "보바리": [
+      "booksrc_0096"
+    ],
+    "부인": [
+      "booksrc_0096"
+    ],
+    "자기실현": [
+      "booksrc_0096"
+    ],
+    "플로베르": [
+      "booksrc_0096"
+    ],
+    "공감": [
+      "booksrc_0097"
+    ],
+    "마음의": [
+      "booksrc_0097"
+    ],
+    "민주주의와": [
+      "booksrc_0097",
+      "booksrc_0099",
+      "booksrc_0117"
+    ],
+    "분노": [
+      "booksrc_0097"
+    ],
+    "비통한": [
+      "booksrc_0097"
+    ],
+    "자들을": [
+      "booksrc_0097"
+    ],
+    "정치학": [
+      "booksrc_0097"
+    ],
+    "초월": [
+      "booksrc_0097"
+    ],
+    "파머": [
+      "booksrc_0097"
+    ],
+    "파커": [
+      "booksrc_0097"
+    ],
+    "회복": [
+      "booksrc_0097",
+      "booksrc_0114"
+    ],
+    "김현경": [
+      "booksrc_0098"
+    ],
+    "난민": [
+      "booksrc_0098"
+    ],
+    "사람": [
+      "booksrc_0098"
+    ],
+    "상호문화": [
+      "booksrc_0098"
+    ],
+    "소속감": [
+      "booksrc_0098"
+    ],
+    "이민정책": [
+      "booksrc_0098"
+    ],
+    "장소": [
+      "booksrc_0098"
+    ],
+    "장소성과": [
+      "booksrc_0098"
+    ],
+    "환대": [
+      "booksrc_0098"
+    ],
+    "사회계약론": [
+      "booksrc_0099"
+    ],
+    "일반의지": [
+      "booksrc_0099"
+    ],
+    "정치사상": [
+      "booksrc_0099"
+    ],
+    "dds": [
+      "booksrc_0100"
+    ],
+    "개발과": [
+      "booksrc_0100"
+    ],
+    "교토대학교대학원약학연구과": [
+      "booksrc_0100"
+    ],
+    "새로운": [
+      "booksrc_0100",
+      "booksrc_0137"
+    ],
+    "약은": [
+      "booksrc_0100"
+    ],
+    "엑소좀": [
+      "booksrc_0100"
+    ],
+    "임상시험": [
+      "booksrc_0100"
+    ],
+    "창조되나": [
+      "booksrc_0100"
+    ],
+    "효율화": [
+      "booksrc_0100"
+    ],
+    "가와바타": [
+      "booksrc_0101"
+    ],
+    "대하는": [
+      "booksrc_0101"
+    ],
+    "무력감": [
+      "booksrc_0101"
+    ],
+    "설국": [
+      "booksrc_0101"
+    ],
+    "야스나리": [
+      "booksrc_0101"
+    ],
+    "인간을": [
+      "booksrc_0101"
+    ],
+    "인지적": [
+      "booksrc_0101"
+    ],
+    "자기합리화": [
+      "booksrc_0101"
+    ],
+    "진정으로": [
+      "booksrc_0101"
+    ],
+    "태도와": [
+      "booksrc_0101"
+    ],
+    "학습된": [
+      "booksrc_0101"
+    ],
+    "허무주의": [
+      "booksrc_0101"
+    ],
+    "능력과": [
+      "booksrc_0102"
+    ],
+    "대통령": [
+      "booksrc_0102"
+    ],
+    "성학집요": [
+      "booksrc_0102"
+    ],
+    "수양의": [
+      "booksrc_0102"
+    ],
+    "율곡": [
+      "booksrc_0102"
+    ],
+    "이이": [
+      "booksrc_0102"
+    ],
+    "통치": [
+      "booksrc_0102"
+    ],
+    "고유성과": [
+      "booksrc_0103"
+    ],
+    "상실": [
+      "booksrc_0103"
+    ],
+    "수레바퀴": [
+      "booksrc_0103"
+    ],
+    "시스템과": [
+      "booksrc_0103"
+    ],
+    "아래서": [
+      "booksrc_0103"
+    ],
+    "획일화된": [
+      "booksrc_0103"
+    ],
+    "바람": [
+      "booksrc_0104"
+    ],
+    "본질": [
+      "booksrc_0104",
+      "booksrc_0138"
+    ],
+    "생명의": [
+      "booksrc_0104"
+    ],
+    "숨결이": [
+      "booksrc_0104"
+    ],
+    "의미": [
+      "booksrc_0104",
+      "booksrc_0135"
+    ],
+    "죽음": [
+      "booksrc_0104",
+      "booksrc_0116"
+    ],
+    "추구": [
+      "booksrc_0104"
+    ],
+    "칼라니티": [
+      "booksrc_0104"
+    ],
+    "가능성": [
+      "booksrc_0105"
+    ],
+    "교훈과": [
+      "booksrc_0105"
+    ],
+    "시경": [
+      "booksrc_0105"
+    ],
+    "적용": [
+      "booksrc_0105"
+    ],
+    "풍속": [
+      "booksrc_0105"
+    ],
+    "경험주의": [
+      "booksrc_0106",
+      "booksrc_0133"
+    ],
+    "귀납법": [
+      "booksrc_0106"
+    ],
+    "베이컨": [
+      "booksrc_0106"
+    ],
+    "신기관": [
+      "booksrc_0106"
+    ],
+    "우상": [
+      "booksrc_0106"
+    ],
+    "프랜시스": [
+      "booksrc_0106"
+    ],
+    "공감과": [
+      "booksrc_0107"
+    ],
+    "남자": [
+      "booksrc_0107"
+    ],
+    "모자로": [
+      "booksrc_0107"
+    ],
+    "색스": [
+      "booksrc_0107"
+    ],
+    "시각": [
+      "booksrc_0107"
+    ],
+    "신경학적": [
+      "booksrc_0107"
+    ],
+    "실인증": [
+      "booksrc_0107"
+    ],
+    "아내를": [
+      "booksrc_0107"
+    ],
+    "올리버": [
+      "booksrc_0107"
+    ],
+    "장애": [
+      "booksrc_0107"
+    ],
+    "질환": [
+      "booksrc_0107"
+    ],
+    "착각한": [
+      "booksrc_0107"
+    ],
+    "건강권": [
+      "booksrc_0108"
+    ],
+    "건강불평등": [
+      "booksrc_0108"
+    ],
+    "건강의": [
+      "booksrc_0108"
+    ],
+    "길이": [
+      "booksrc_0108"
+    ],
+    "김승섭": [
+      "booksrc_0108"
+    ],
+    "되려면": [
+      "booksrc_0108"
+    ],
+    "불평등과": [
+      "booksrc_0108",
+      "booksrc_0125",
+      "booksrc_0132"
+    ],
+    "사회역학": [
+      "booksrc_0108"
+    ],
+    "아픔이": [
+      "booksrc_0108"
+    ],
+    "레프": [
+      "booksrc_0109"
+    ],
+    "안나": [
+      "booksrc_0109"
+    ],
+    "카레니나": [
+      "booksrc_0109"
+    ],
+    "톨스토이": [
+      "booksrc_0109"
+    ],
+    "평판": [
+      "booksrc_0109"
+    ],
+    "행복에": [
+      "booksrc_0109"
+    ],
+    "귄터": [
+      "booksrc_0110"
+    ],
+    "그라스": [
+      "booksrc_0110"
+    ],
+    "망각": [
+      "booksrc_0110"
+    ],
+    "방지를": [
+      "booksrc_0110"
+    ],
+    "상흔": [
+      "booksrc_0110"
+    ],
+    "양철북": [
+      "booksrc_0110"
+    ],
+    "재발": [
+      "booksrc_0110"
+    ],
+    "전쟁의": [
+      "booksrc_0110"
+    ],
+    "집단": [
+      "booksrc_0110"
+    ],
+    "고갈": [
+      "booksrc_0111"
+    ],
+    "기계론적": [
+      "booksrc_0111"
+    ],
+    "리프킨": [
+      "booksrc_0111"
+    ],
+    "에너지": [
+      "booksrc_0111",
+      "booksrc_0136"
+    ],
+    "에너지와": [
+      "booksrc_0111"
+    ],
+    "엔트로피": [
+      "booksrc_0111"
+    ],
+    "열역학": [
+      "booksrc_0111"
+    ],
+    "재생": [
+      "booksrc_0111"
+    ],
+    "제2법칙": [
+      "booksrc_0111"
+    ],
+    "제레미": [
+      "booksrc_0111"
+    ],
+    "지속가능성": [
+      "booksrc_0111"
+    ],
+    "파괴": [
+      "booksrc_0111"
+    ],
+    "객관성과": [
+      "booksrc_0112"
+    ],
+    "관점과": [
+      "booksrc_0112",
+      "booksrc_0139"
+    ],
+    "마르크": [
+      "booksrc_0112"
+    ],
+    "변명": [
+      "booksrc_0112"
+    ],
+    "블로크": [
+      "booksrc_0112"
+    ],
+    "엘리트": [
+      "booksrc_0112"
+    ],
+    "역사를": [
+      "booksrc_0112"
+    ],
+    "주관성": [
+      "booksrc_0112"
+    ],
+    "과거제": [
+      "booksrc_0113"
+    ],
+    "박지원": [
+      "booksrc_0113"
+    ],
+    "사화": [
+      "booksrc_0113"
+    ],
+    "양반과": [
+      "booksrc_0113"
+    ],
+    "연암": [
+      "booksrc_0113"
+    ],
+    "열하일기": [
+      "booksrc_0113"
+    ],
+    "공동체와": [
+      "booksrc_0114"
+    ],
+    "균형": [
+      "booksrc_0114"
+    ],
+    "노르베리": [
+      "booksrc_0114"
+    ],
+    "농촌": [
+      "booksrc_0114"
+    ],
+    "물질적": [
+      "booksrc_0114"
+    ],
+    "미래": [
+      "booksrc_0114"
+    ],
+    "오래된": [
+      "booksrc_0114"
+    ],
+    "지속가능발전": [
+      "booksrc_0114"
+    ],
+    "지역": [
+      "booksrc_0114"
+    ],
+    "헬레나": [
+      "booksrc_0114"
+    ],
+    "호지": [
+      "booksrc_0114"
+    ],
+    "공장식": [
+      "booksrc_0115"
+    ],
+    "동물에": [
+      "booksrc_0115"
+    ],
+    "복지": [
+      "booksrc_0115"
+    ],
+    "산업이": [
+      "booksrc_0115"
+    ],
+    "식물": [
+      "booksrc_0115"
+    ],
+    "싱어": [
+      "booksrc_0115"
+    ],
+    "잣대": [
+      "booksrc_0115"
+    ],
+    "축산": [
+      "booksrc_0115"
+    ],
+    "피터": [
+      "booksrc_0115"
+    ],
+    "해방": [
+      "booksrc_0115",
+      "booksrc_0131"
+    ],
+    "명상": [
+      "booksrc_0116"
+    ],
+    "무집착": [
+      "booksrc_0116"
+    ],
+    "범아일여": [
+      "booksrc_0116"
+    ],
+    "신앙": [
+      "booksrc_0116"
+    ],
+    "우파니샤드": [
+      "booksrc_0116"
+    ],
+    "윤회": [
+      "booksrc_0116"
+    ],
+    "인도": [
+      "booksrc_0116"
+    ],
+    "정창영": [
+      "booksrc_0116"
+    ],
+    "태도": [
+      "booksrc_0116"
+    ],
+    "공론장": [
+      "booksrc_0117"
+    ],
+    "댓글": [
+      "booksrc_0117"
+    ],
+    "동등성": [
+      "booksrc_0117"
+    ],
+    "심의민주주의": [
+      "booksrc_0117"
+    ],
+    "온라인": [
+      "booksrc_0117"
+    ],
+    "위르겐": [
+      "booksrc_0117"
+    ],
+    "의사소통": [
+      "booksrc_0117"
+    ],
+    "토론": [
+      "booksrc_0117"
+    ],
+    "하버마스": [
+      "booksrc_0117"
+    ],
+    "행위이론": [
+      "booksrc_0117"
+    ],
+    "공공미술": [
+      "booksrc_0118"
+    ],
+    "다원주의": [
+      "booksrc_0118"
+    ],
+    "맥락에서": [
+      "booksrc_0118"
+    ],
+    "메리": [
+      "booksrc_0118"
+    ],
+    "미술이": [
+      "booksrc_0118"
+    ],
+    "사회문화적": [
+      "booksrc_0118"
+    ],
+    "스타니스제프스키": [
+      "booksrc_0118"
+    ],
+    "시각중심주의": [
+      "booksrc_0118"
+    ],
+    "아니다": [
+      "booksrc_0118"
+    ],
+    "이것은": [
+      "booksrc_0118"
+    ],
+    "해석과": [
+      "booksrc_0118"
+    ],
+    "법치와": [
+      "booksrc_0119"
+    ],
+    "부조리": [
+      "booksrc_0119"
+    ],
+    "비행": [
+      "booksrc_0119"
+    ],
+    "사법": [
+      "booksrc_0119"
+    ],
+    "시선과": [
+      "booksrc_0119"
+    ],
+    "이방인": [
+      "booksrc_0119"
+    ],
+    "판단의": [
+      "booksrc_0119"
+    ],
+    "회복적": [
+      "booksrc_0119"
+    ],
+    "결합": [
+      "booksrc_0120"
+    ],
+    "발전": [
+      "booksrc_0120",
+      "booksrc_0123",
+      "booksrc_0137"
+    ],
+    "부르크하르트": [
+      "booksrc_0120"
+    ],
+    "사상과": [
+      "booksrc_0120"
+    ],
+    "삽입성": [
+      "booksrc_0120"
+    ],
+    "야코프": [
+      "booksrc_0120"
+    ],
+    "예술과": [
+      "booksrc_0120"
+    ],
+    "이탈리아": [
+      "booksrc_0120"
+    ],
+    "딜레마와": [
+      "booksrc_0121"
+    ],
+    "말로": [
+      "booksrc_0121"
+    ],
+    "앙드레": [
+      "booksrc_0121"
+    ],
+    "조건": [
+      "booksrc_0121",
+      "booksrc_0129"
+    ],
+    "폭력적": [
+      "booksrc_0121"
+    ],
+    "현실": [
+      "booksrc_0121"
+    ],
+    "대안": [
+      "booksrc_0122"
+    ],
+    "마르쿠제": [
+      "booksrc_0122"
+    ],
+    "부재": [
+      "booksrc_0122"
+    ],
+    "일차원적": [
+      "booksrc_0122"
+    ],
+    "제한": [
+      "booksrc_0122"
+    ],
+    "노동시장과": [
+      "booksrc_0123"
+    ],
+    "마르크스": [
+      "booksrc_0123"
+    ],
+    "발전이": [
+      "booksrc_0123"
+    ],
+    "양극화에": [
+      "booksrc_0123"
+    ],
+    "일자리": [
+      "booksrc_0123"
+    ],
+    "자동화와": [
+      "booksrc_0123"
+    ],
+    "자본": [
+      "booksrc_0123",
+      "booksrc_0124"
+    ],
+    "자본론": [
+      "booksrc_0123"
+    ],
+    "카를": [
+      "booksrc_0123"
+    ],
+    "구조의": [
+      "booksrc_0124"
+    ],
+    "노력과": [
+      "booksrc_0124"
+    ],
+    "스탕달": [
+      "booksrc_0124"
+    ],
+    "적과": [
+      "booksrc_0124"
+    ],
+    "기회의": [
+      "booksrc_0125"
+    ],
+    "롤스": [
+      "booksrc_0125"
+    ],
+    "정의론": [
+      "booksrc_0125"
+    ],
+    "물결": [
+      "booksrc_0126"
+    ],
+    "발전의": [
+      "booksrc_0126"
+    ],
+    "앨빈": [
+      "booksrc_0126"
+    ],
+    "정보화": [
+      "booksrc_0126"
+    ],
+    "제3의": [
+      "booksrc_0126"
+    ],
+    "지속가능한": [
+      "booksrc_0126"
+    ],
+    "토플러": [
+      "booksrc_0126"
+    ],
+    "격차": [
+      "booksrc_0127",
+      "booksrc_0132"
+    ],
+    "경제학자의": [
+      "booksrc_0127"
+    ],
+    "부크홀츠": [
+      "booksrc_0127"
+    ],
+    "살아있는": [
+      "booksrc_0127"
+    ],
+    "아이디어": [
+      "booksrc_0127"
+    ],
+    "비폭력적": [
+      "booksrc_0128"
+    ],
+    "사회에": [
+      "booksrc_0128"
+    ],
+    "신체와": [
+      "booksrc_0128"
+    ],
+    "저항이": [
+      "booksrc_0128"
+    ],
+    "채식주의자": [
+      "booksrc_0128"
+    ],
+    "한강": [
+      "booksrc_0128"
+    ],
+    "경제성장": [
+      "booksrc_0129"
+    ],
+    "기후와": [
+      "booksrc_0129"
+    ],
+    "다이아몬드": [
+      "booksrc_0129"
+    ],
+    "발전과": [
+      "booksrc_0129",
+      "booksrc_0135"
+    ],
+    "재레드": [
+      "booksrc_0129"
+    ],
+    "지리적": [
+      "booksrc_0129"
+    ],
+    "교란의": [
+      "booksrc_0130"
+    ],
+    "레이첼": [
+      "booksrc_0130"
+    ],
+    "생물": [
+      "booksrc_0130"
+    ],
+    "유기화합물": [
+      "booksrc_0130"
+    ],
+    "침묵의": [
+      "booksrc_0130"
+    ],
+    "카슨": [
+      "booksrc_0130"
+    ],
+    "편의와": [
+      "booksrc_0130"
+    ],
+    "합성": [
+      "booksrc_0130"
+    ],
+    "화학물질": [
+      "booksrc_0130"
+    ],
+    "극단적": [
+      "booksrc_0131"
+    ],
+    "카인의": [
+      "booksrc_0131"
+    ],
+    "황순원": [
+      "booksrc_0131"
+    ],
+    "후예": [
+      "booksrc_0131"
+    ],
+    "기득권": [
+      "booksrc_0132"
+    ],
+    "세습": [
+      "booksrc_0132"
+    ],
+    "이동의": [
+      "booksrc_0132"
+    ],
+    "재생산": [
+      "booksrc_0132"
+    ],
+    "채만식": [
+      "booksrc_0132"
+    ],
+    "태평천하": [
+      "booksrc_0132"
+    ],
+    "개인주의": [
+      "booksrc_0133"
+    ],
+    "교육관": [
+      "booksrc_0133"
+    ],
+    "로크": [
+      "booksrc_0133"
+    ],
+    "시민권": [
+      "booksrc_0133"
+    ],
+    "재산권의": [
+      "booksrc_0133"
+    ],
+    "통치론": [
+      "booksrc_0133"
+    ],
+    "esg": [
+      "booksrc_0134"
+    ],
+    "기업철학": [
+      "booksrc_0134"
+    ],
+    "때는": [
+      "booksrc_0134"
+    ],
+    "보호와": [
+      "booksrc_0134"
+    ],
+    "브랜드": [
+      "booksrc_0134"
+    ],
+    "서핑을": [
+      "booksrc_0134"
+    ],
+    "쉬나드": [
+      "booksrc_0134"
+    ],
+    "이본": [
+      "booksrc_0134"
+    ],
+    "지속": [
+      "booksrc_0134"
+    ],
+    "파도가": [
+      "booksrc_0134"
+    ],
+    "파타고니아": [
+      "booksrc_0134"
+    ],
+    "과정의": [
+      "booksrc_0135"
+    ],
+    "마지막": [
+      "booksrc_0135"
+    ],
+    "사이먼": [
+      "booksrc_0135"
+    ],
+    "실생활": [
+      "booksrc_0135"
+    ],
+    "정리": [
+      "booksrc_0135"
+    ],
+    "증명": [
+      "booksrc_0135"
+    ],
+    "페르마의": [
+      "booksrc_0135"
+    ],
+    "공유": [
+      "booksrc_0136"
+    ],
+    "벤클러": [
+      "booksrc_0136"
+    ],
+    "요차이": [
+      "booksrc_0136"
+    ],
+    "자발적": [
+      "booksrc_0136"
+    ],
+    "지성": [
+      "booksrc_0136"
+    ],
+    "참여와": [
+      "booksrc_0136"
+    ],
+    "창의성에": [
+      "booksrc_0136"
+    ],
+    "펭귄과": [
+      "booksrc_0136"
+    ],
+    "협력이": [
+      "booksrc_0136"
+    ],
+    "협력적": [
+      "booksrc_0136"
+    ],
+    "금욕적": [
+      "booksrc_0137"
+    ],
+    "막스": [
+      "booksrc_0137"
+    ],
+    "베버": [
+      "booksrc_0137"
+    ],
+    "프로테스탄트": [
+      "booksrc_0137"
+    ],
+    "국악과": [
+      "booksrc_0138"
+    ],
+    "서양": [
+      "booksrc_0138"
+    ],
+    "손열음": [
+      "booksrc_0138"
+    ],
+    "음악가의": [
+      "booksrc_0138"
+    ],
+    "음악편지": [
+      "booksrc_0138"
+    ],
+    "창작": [
+      "booksrc_0138"
+    ],
+    "추상표현주의": [
+      "booksrc_0138"
+    ],
+    "하노버에서": [
+      "booksrc_0138"
+    ],
+    "객관적": [
+      "booksrc_0139"
+    ],
+    "기록과": [
+      "booksrc_0139"
+    ],
+    "기록자의": [
+      "booksrc_0139"
+    ],
+    "사실": [
+      "booksrc_0139"
+    ],
+    "유교적": [
+      "booksrc_0139"
+    ],
+    "창선감의록": [
+      "booksrc_0139"
+    ],
+    "한중록": [
+      "booksrc_0139"
+    ],
+    "혜경궁": [
+      "booksrc_0139"
+    ],
+    "홍씨": [
+      "booksrc_0139"
+    ],
+    "가능성과": [
+      "booksrc_0140"
+    ],
+    "스텐저스": [
+      "booksrc_0140"
+    ],
+    "예측": [
+      "booksrc_0140"
+    ],
+    "이자벨": [
+      "booksrc_0140"
+    ],
+    "일리야": [
+      "booksrc_0140"
+    ],
+    "창의성의": [
+      "booksrc_0140"
+    ],
+    "프리고진": [
+      "booksrc_0140"
+    ],
+    "혼돈과": [
+      "booksrc_0140"
+    ],
+    "혼돈으로부터의": [
+      "booksrc_0140"
+    ]
+  },
+  "bySubject": {
+    "공통국어": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009"
+    ],
+    "역사": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0016",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "도덕": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "수학": [
+      "booksrc_0001",
+      "booksrc_0003",
+      "booksrc_0028",
+      "booksrc_0038",
+      "booksrc_0071"
+    ],
+    "과학": [
+      "booksrc_0001",
+      "booksrc_0003",
+      "booksrc_0015",
+      "booksrc_0028",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0071",
+      "booksrc_0072"
+    ],
+    "기술·가정": [
+      "booksrc_0001",
+      "booksrc_0010",
+      "booksrc_0024",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0054"
+    ],
+    "정보": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0040",
+      "booksrc_0071",
+      "booksrc_0072"
+    ],
+    "통합사회": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003"
+    ],
+    "사회와 문화": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004"
+    ],
+    "현대사회와 윤리": [
+      "booksrc_0001",
+      "booksrc_0002"
+    ],
+    "정치와 법": [
+      "booksrc_0001"
+    ],
+    "윤리와 사상": [
+      "booksrc_0001"
+    ],
+    "사회문제 탐구": [
+      "booksrc_0001",
+      "booksrc_0004"
+    ],
+    "문학": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0030"
+    ],
+    "세계사": [
+      "booksrc_0002",
+      "booksrc_0004"
+    ],
+    "러시아어": [
+      "booksrc_0002"
+    ],
+    "연극": [
+      "booksrc_0002"
+    ],
+    "인문학과 윤리": [
+      "booksrc_0002",
+      "booksrc_0004"
+    ],
+    "사회": [
+      "booksrc_0003",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0049",
+      "booksrc_0050",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "영어": [
+      "booksrc_0003",
+      "booksrc_0012",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0036",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0043"
+    ],
+    "진로와 직업": [
+      "booksrc_0003",
+      "booksrc_0010",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0041",
+      "booksrc_0053",
+      "booksrc_0054"
+    ],
+    "통합과학": [
+      "booksrc_0003"
+    ],
+    "생활과 윤리": [
+      "booksrc_0003"
+    ],
+    "지구과학": [
+      "booksrc_0003"
+    ],
+    "화학": [
+      "booksrc_0003",
+      "booksrc_0050"
+    ],
+    "생명과학": [
+      "booksrc_0003"
+    ],
+    "국어": [
+      "booksrc_0004",
+      "booksrc_0011",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0017",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0038",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "음악": [
+      "booksrc_0004",
+      "booksrc_0012",
+      "booksrc_0023",
+      "booksrc_0029",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0040"
+    ],
+    "미술": [
+      "booksrc_0004",
+      "booksrc_0012",
+      "booksrc_0023",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040"
+    ],
+    "생활 일본어": [
+      "booksrc_0004",
+      "booksrc_0011"
+    ],
+    "일본어": [
+      "booksrc_0004"
+    ],
+    "동아시아 역사 기행": [
+      "booksrc_0004"
+    ],
+    "환경": [
+      "booksrc_0013",
+      "booksrc_0036"
+    ],
+    "보건": [
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0054"
+    ],
+    "한문": [
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0027",
+      "booksrc_0030",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037"
+    ],
+    "상담심리학": [
+      "booksrc_0020"
+    ],
+    "윤리": [
+      "booksrc_0041"
+    ],
+    "지리": [
+      "booksrc_0048"
+    ],
+    "경제": [
+      "booksrc_0048"
+    ],
+    "생명": [
+      "booksrc_0052",
+      "booksrc_0053"
+    ],
+    "미적분": [
+      "booksrc_0071"
+    ],
+    "확률과 통계": [
+      "booksrc_0071"
+    ],
+    "기하": [
+      "booksrc_0071"
+    ],
+    "철학": [
+      "booksrc_0074",
+      "booksrc_0075"
+    ]
+  },
+  "byMajor": {
+    "광고홍보학과": [
+      "booksrc_0001"
+    ],
+    "컴퓨터공학과": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0028",
+      "booksrc_0071"
+    ],
+    "문헌정보학과": [
+      "booksrc_0001",
+      "booksrc_0004"
+    ],
+    "미디어커뮤니케이션학과": [
+      "booksrc_0001",
+      "booksrc_0024",
+      "booksrc_0033",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0047",
+      "booksrc_0072",
+      "booksrc_0074"
+    ],
+    "사회복지학과": [
+      "booksrc_0001",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0027",
+      "booksrc_0041",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0048",
+      "booksrc_0054"
+    ],
+    "사회학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0039",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0053",
+      "booksrc_0054",
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0072",
+      "booksrc_0074"
+    ],
+    "심리학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0011",
+      "booksrc_0015",
+      "booksrc_0016",
+      "booksrc_0020",
+      "booksrc_0024",
+      "booksrc_0025",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0033",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0049",
+      "booksrc_0053",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0072",
+      "booksrc_0075"
+    ],
+    "언론정보학과": [
+      "booksrc_0001",
+      "booksrc_0013",
+      "booksrc_0024",
+      "booksrc_0025"
+    ],
+    "역사학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0003",
+      "booksrc_0009",
+      "booksrc_0012",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0029",
+      "booksrc_0042",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0073"
+    ],
+    "철학과": [
+      "booksrc_0001",
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0010",
+      "booksrc_0012",
+      "booksrc_0016",
+      "booksrc_0021",
+      "booksrc_0027",
+      "booksrc_0028",
+      "booksrc_0030",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0036",
+      "booksrc_0039",
+      "booksrc_0041",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0049",
+      "booksrc_0051",
+      "booksrc_0053",
+      "booksrc_0156",
+      "booksrc_0157",
+      "booksrc_0158",
+      "booksrc_0074",
+      "booksrc_0075"
+    ],
+    "국어국문학과": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0009",
+      "booksrc_0016",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0026",
+      "booksrc_0027",
+      "booksrc_0029",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0043",
+      "booksrc_0049",
+      "booksrc_0157"
+    ],
+    "노어노문학과": [
+      "booksrc_0002"
+    ],
+    "러시아어문학과": [
+      "booksrc_0002"
+    ],
+    "문예창작학과": [
+      "booksrc_0002",
+      "booksrc_0009",
+      "booksrc_0012",
+      "booksrc_0013",
+      "booksrc_0016",
+      "booksrc_0019",
+      "booksrc_0020",
+      "booksrc_0022",
+      "booksrc_0023",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0040",
+      "booksrc_0043",
+      "booksrc_0049",
+      "booksrc_0157",
+      "booksrc_0075"
+    ],
+    "문화인류학과": [
+      "booksrc_0002",
+      "booksrc_0004",
+      "booksrc_0011",
+      "booksrc_0018",
+      "booksrc_0019",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0036",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0159"
+    ],
+    "문화콘텐츠학과": [
+      "booksrc_0002",
+      "booksrc_0023",
+      "booksrc_0024",
+      "booksrc_0031",
+      "booksrc_0037",
+      "booksrc_0040",
+      "booksrc_0074"
+    ],
+    "연극영화학과": [
+      "booksrc_0002",
+      "booksrc_0012"
+    ],
+    "과학교육과": [
+      "booksrc_0003",
+      "booksrc_0028"
+    ],
+    "물리학과": [
+      "booksrc_0003",
+      "booksrc_0028"
+    ],
+    "생명과학과": [
+      "booksrc_0003",
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0052",
+      "booksrc_0053"
+    ],
+    "수학교육과": [
+      "booksrc_0003",
+      "booksrc_0028",
+      "booksrc_0071"
+    ],
+    "수학과": [
+      "booksrc_0003",
+      "booksrc_0071"
+    ],
+    "역사교육과": [
+      "booksrc_0003"
+    ],
+    "영어교육학과": [
+      "booksrc_0003"
+    ],
+    "일어일문학과": [
+      "booksrc_0004"
+    ],
+    "사학과": [
+      "booksrc_0004",
+      "booksrc_0026",
+      "booksrc_0031",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0036",
+      "booksrc_0040",
+      "booksrc_0044",
+      "booksrc_0046"
+    ],
+    "정치외교학과": [
+      "booksrc_0009",
+      "booksrc_0010",
+      "booksrc_0011",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0021",
+      "booksrc_0022",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0030",
+      "booksrc_0032",
+      "booksrc_0033",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0051",
+      "booksrc_0156",
+      "booksrc_0158",
+      "booksrc_0159",
+      "booksrc_0072",
+      "booksrc_0073",
+      "booksrc_0074"
+    ],
+    "행정학과": [
+      "booksrc_0010",
+      "booksrc_0013",
+      "booksrc_0014",
+      "booksrc_0017",
+      "booksrc_0021",
+      "booksrc_0025",
+      "booksrc_0026",
+      "booksrc_0032",
+      "booksrc_0034",
+      "booksrc_0035",
+      "booksrc_0051",
+      "booksrc_0156"
+    ],
+    "교육학과": [
+      "booksrc_0010",
+      "booksrc_0014",
+      "booksrc_0022",
+      "booksrc_0026",
+      "booksrc_0054"
+    ],
+    "윤리교육과": [
+      "booksrc_0010",
+      "booksrc_0017",
+      "booksrc_0026",
+      "booksrc_0041",
+      "booksrc_0042",
+      "booksrc_0051",
+      "booksrc_0075"
+    ],
+    "일본학과": [
+      "booksrc_0011",
+      "booksrc_0020",
+      "booksrc_0073"
+    ],
+    "국제학과": [
+      "booksrc_0011",
+      "booksrc_0018",
+      "booksrc_0032",
+      "booksrc_0036",
+      "booksrc_0043",
+      "booksrc_0044",
+      "booksrc_0047",
+      "booksrc_0048",
+      "booksrc_0159",
+      "booksrc_0160",
+      "booksrc_0073"
+    ],
+    "고고미술사학과": [
+      "booksrc_0012",
+      "booksrc_0018"
+    ],
+    "윤리학과": [
+      "booksrc_0012",
+      "booksrc_0014",
+      "booksrc_0030",
+      "booksrc_0053"
+    ],
+    "영어영문학과": [
+      "booksrc_0012",
+      "booksrc_0029",
+      "booksrc_0037",
+      "booksrc_0039",
+      "booksrc_0042",
+      "booksrc_0043",
+      "booksrc_0047"
+    ],
+    "도시공학과": [
+      "booksrc_0013"
+    ],
+    "법학과": [
+      "booksrc_0014",
+      "booksrc_0021",
+      "booksrc_0025",
+      "booksrc_0035",
+      "booksrc_0042",
+      "booksrc_0051",
+      "booksrc_0054",
+      "booksrc_0156",
+      "booksrc_0072"
+    ],
+    "의학과": [
+      "booksrc_0015",
+      "booksrc_0038"
+    ],
+    "간호학과": [
+      "booksrc_0015",
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "보건학과": [
+      "booksrc_0015",
+      "booksrc_0052",
+      "booksrc_0054"
+    ],
+    "상담심리학과": [
+      "booksrc_0016",
+      "booksrc_0020"
+    ],
+    "경제학과": [
+      "booksrc_0017",
+      "booksrc_0034",
+      "booksrc_0045",
+      "booksrc_0046",
+      "booksrc_0048",
+      "booksrc_0160"
+    ],
+    "경영학과": [
+      "booksrc_0017",
+      "booksrc_0160"
+    ],
+    "무역학과": [
+      "booksrc_0018"
+    ],
+    "지리학과": [
+      "booksrc_0018",
+      "booksrc_0036"
+    ],
+    "중어중문학과": [
+      "booksrc_0019",
+      "booksrc_0035"
+    ],
+    "미술사학과": [
+      "booksrc_0023"
+    ],
+    "예술학과": [
+      "booksrc_0023"
+    ],
+    "정보사회학과": [
+      "booksrc_0024"
+    ],
+    "사회교육과": [
+      "booksrc_0026"
+    ],
+    "독어독문학과": [
+      "booksrc_0027",
+      "booksrc_0037"
+    ],
+    "공학계열": [
+      "booksrc_0028"
+    ],
+    "인문학계열": [
+      "booksrc_0029",
+      "booksrc_0030",
+      "booksrc_0031"
+    ],
+    "중국어중문학과": [
+      "booksrc_0030"
+    ],
+    "한국사학과": [
+      "booksrc_0031"
+    ],
+    "문화재학과": [
+      "booksrc_0031"
+    ],
+    "환경학과": [
+      "booksrc_0036"
+    ],
+    "미학과": [
+      "booksrc_0037"
+    ],
+    "언어학과": [
+      "booksrc_0037"
+    ],
+    "약학과": [
+      "booksrc_0038",
+      "booksrc_0050"
+    ],
+    "생명공학과": [
+      "booksrc_0038",
+      "booksrc_0050",
+      "booksrc_0052",
+      "booksrc_0053",
+      "booksrc_0158"
+    ],
+    "임상병리학과": [
+      "booksrc_0038"
+    ],
+    "화학과": [
+      "booksrc_0038",
+      "booksrc_0050"
+    ],
+    "화학공학과": [
+      "booksrc_0038"
+    ],
+    "제약공학과": [
+      "booksrc_0038"
+    ],
+    "종교학과": [
+      "booksrc_0038",
+      "booksrc_0039"
+    ],
+    "미디어학과": [
+      "booksrc_0039"
+    ],
+    "인문학과": [
+      "booksrc_0039",
+      "booksrc_0040"
+    ],
+    "중동학과": [
+      "booksrc_0040"
+    ],
+    "불교학과": [
+      "booksrc_0041"
+    ],
+    "한문학과": [
+      "booksrc_0041"
+    ],
+    "인류학과": [
+      "booksrc_0042"
+    ],
+    "식품공학과": [
+      "booksrc_0048"
+    ],
+    "러시아어학과": [
+      "booksrc_0049"
+    ],
+    "의예과": [
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "보건행정학과": [
+      "booksrc_0050"
+    ],
+    "수의예과": [
+      "booksrc_0050",
+      "booksrc_0052"
+    ],
+    "아동학과": [
+      "booksrc_0054"
+    ],
+    "가족상담학과": [
+      "booksrc_0054"
+    ],
+    "통계학과": [
+      "booksrc_0071"
+    ],
+    "인공지능학과": [
+      "booksrc_0071"
+    ],
+    "데이터사이언스학과": [
+      "booksrc_0071"
+    ],
+    "정보보호학과": [
+      "booksrc_0072"
+    ],
+    "동아시아학과": [
+      "booksrc_0073"
+    ],
+    "신학과": [
+      "booksrc_0075"
+    ],
+    "인문학부": [
+      "booksrc_0075"
+    ],
+    "정보사회 관련 전공": [
+      "booksrc_0158"
+    ]
+  }
+}
