@@ -10,7 +10,7 @@
 (function (global) {
   "use strict";
 
-  const ADAPTER_VERSION = "v1.6-domain-summary-fix";
+  const ADAPTER_VERSION = "v1.7-major-domain-gate-fix";
   const MASTER_FILE = "book_source_master_210.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
@@ -24,6 +24,9 @@
   const STEM_PAYLOAD_RE = /(통합과학|물리|화학|생명|지구|수학|정보|공학|반도체|컴퓨터|전자|전기|기계|신소재|데이터|인공지능|AI|환경|에너지|의학|약학|간호|보건)/i;
   const STEM_BOOK_RE = /(통합과학|물리|화학|생명|지구|수학|정보|공학|반도체|컴퓨터|전자|전기|기계|신소재|데이터과학|인공지능|AI|환경|에너지|의학|약학|간호|보건|열역학|카오스|우주|천문|센서|측정|표준|시스템|알고리즘|DNA|유전자|미생물|신약|기후|기술|실험|공식|증명|통계|감염병|질병)/i;
   const SOCIAL_BOOK_RE = /(철학|윤리|정치|사회학|사회와문화|통합사회|법학|경제학|경영학|교육학|문학|역사|국어|사학|문화|심리)/i;
+  const ENGINEERING_PAYLOAD_RE = /(반도체|전자|전기|컴퓨터|기계|신소재|재료|로봇|항공|자동차|에너지공학|화학공학|산업공학|데이터|인공지능|AI|공학)/i;
+  const ENGINEERING_BOOK_RE = /(반도체|전자|전기|컴퓨터|기계|신소재|재료|공학|센서|측정|표준|물리|시스템|데이터|인공지능|AI|기술|열역학|카오스|수학|알고리즘|통계|실험|증명|에너지|환경|화학)/i;
+  const MED_LIFE_BOOK_RE = /(의학|의예|간호|보건|약학|치의|수의|생명과학|생명공학|생명|질병|환자|진단|치료|건강|병원|의사|약|신약|미생물|DNA|유전자|감염병)/i;
   const GENERIC_STRONG_TOKENS = new Set(["데이터", "시스템", "표준", "정보"]);
 
   function toText(value) {
@@ -207,11 +210,13 @@
     const strongTokens = uniq(conceptTokens.concat(keywordTokens, axisTokens));
     const payloadText = normalize([subject, department, selectedConcept, selectedKeyword, axis, reportIntent].join(" "));
     const isStemPayload = STEM_PAYLOAD_RE.test(payloadText);
+    const isEngineeringPayload = ENGINEERING_PAYLOAD_RE.test(payloadText);
 
     return {
       subject, department, selectedConcept, selectedKeyword, axis, reportIntent,
       conceptTokens, keywordTokens, axisTokens, strongTokens,
       isStemPayload,
+      isEngineeringPayload,
       strongTerms: uniq([selectedConcept, selectedKeyword].concat(Array.isArray(axis) ? axis : [axis]).map(toText).filter(Boolean)),
       weakTerms: uniq([subject, department, reportIntent].map(toText).filter(Boolean))
     };
@@ -254,6 +259,31 @@
     return primaryHasStem || fullHasStrongStem;
   }
 
+  function isEngineeringCompatibleBook(book) {
+    const texts = getBookTexts(book);
+    const relatedMajors = normalize((book.relatedMajors || []).join(" "));
+    const relatedSubjects = normalize((book.relatedSubjects || []).join(" "));
+    const primary = texts.primary;
+    const full = texts.full;
+
+    const hasEngineeringSignal =
+      ENGINEERING_BOOK_RE.test(primary) ||
+      ENGINEERING_BOOK_RE.test(relatedMajors) ||
+      ENGINEERING_BOOK_RE.test(relatedSubjects) ||
+      /(센서|측정|표준|물리|시스템|데이터|반도체|전자|전기|공학|수학|통계|알고리즘|열역학|카오스|에너지|환경)/i.test(full);
+
+    const hasMedicalLifeSignal =
+      MED_LIFE_BOOK_RE.test(primary) ||
+      MED_LIFE_BOOK_RE.test(relatedMajors) ||
+      MED_LIFE_BOOK_RE.test(relatedSubjects);
+
+    // 반도체·전자·공학 계열 선택에서는 의학/생명/약학 도서가
+    // "과학", "측정", "데이터" 같은 공통어 때문에 직접 일치로 올라오지 않도록 차단한다.
+    if (hasMedicalLifeSignal && !hasEngineeringSignal) return false;
+
+    return hasEngineeringSignal;
+  }
+
   function scoreBook(book, terms) {
     const texts = getBookTexts(book);
     const bookText = texts.full;
@@ -261,6 +291,12 @@
     // 과학/공학 선택에서는 사회·윤리 도서가 "데이터/구조/비교" 같은 일반 단어로 올라오는 것을 차단
     if (terms.isStemPayload && !isSTEMCompatibleBook(book)) {
       return { score: 0, reasons: [], strongDirectHit: false, strongTokenHitCount: 0, type: "none", blockedByDomain: true };
+    }
+
+    // 반도체·전자·컴퓨터·공학 계열에서는 의학/생명/사회계열 도서가
+    // 공통 과학어 때문에 직접 일치로 올라오는 것을 한 번 더 차단한다.
+    if (terms.isEngineeringPayload && !isEngineeringCompatibleBook(book)) {
+      return { score: 0, reasons: [], strongDirectHit: false, strongTokenHitCount: 0, type: "none", blockedByDomain: true, blockedByMajorDomain: true };
     }
 
     let score = 0;
@@ -411,7 +447,8 @@
         scoredCount: scored.length,
         directCandidateCount: scored.filter(isDirectReason).length,
         strongTokens: terms.strongTokens,
-        isStemPayload: terms.isStemPayload
+        isStemPayload: terms.isStemPayload,
+        isEngineeringPayload: terms.isEngineeringPayload
       }
     };
   }
