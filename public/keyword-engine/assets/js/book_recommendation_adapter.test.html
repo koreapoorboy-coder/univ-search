@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Book Adapter Test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 24px; line-height: 1.5; }
+    pre { background:#f6f8fa; padding:16px; border-radius:10px; white-space:pre-wrap; }
+    button { padding:10px 14px; border-radius:8px; border:1px solid #ccc; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>210권 도서 추천 어댑터 테스트</h1>
+  <button onclick="runTest()">테스트 실행</button>
+  <pre id="out">대기 중</pre>
+
+  <script src="./book_recommendation_adapter.js"></script>
+  <script>
+    async function runTest() {
+      const out = document.getElementById("out");
+      try {
+        const master = await BookRecommendationAdapter.loadBookMaster("../../data/books/book_source_master_210.json");
+        const payload = {
+          subject: "통합과학",
+          department: "환경공학과",
+          selectedConcept: "에너지 전환",
+          selectedRecommendedKeyword: "지속가능성",
+          followupAxis: "기후 위기와 에너지 시스템"
+        };
+        const result = BookRecommendationAdapter.recommendBooks(payload, master.books);
+        out.textContent = JSON.stringify({
+          directBooks: result.directBooks.map(b => [b.managementNo, b.title, b.matchScore, b.matchReasons]),
+          expansionBooks: result.expansionBooks.map(b => [b.managementNo, b.title, b.matchScore, b.matchReasons]),
+          warning: result.warning || null
+        }, null, 2);
+      } catch (e) {
+        out.textContent = e.stack || String(e);
+      }
+    }
+  </script>
+</body>
+</html>
