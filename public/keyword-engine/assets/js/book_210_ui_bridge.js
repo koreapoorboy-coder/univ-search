@@ -1,10 +1,11 @@
 /* book_210_ui_bridge.js
- * 210권 도서 추천 화면 연결 브리지 v1
- * 기존 3번 교과 개념·추천 키워드 + 4번 후속 연계축 payload를 상속해 5번 도서 추천으로 연결합니다.
+ * 210권 도서 추천 화면 연결 브리지 v3
+ * - 4번 활동 예시의 "구조/비교/분석" 같은 일반어를 도서 매칭 payload에서 제외
+ * - 선택 도서 요약을 기존 상세 카드형 구조로 복구
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v2-token-fallback";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v3-domain-summary";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
 
   const DEFAULT_MODE_OPTIONS = [
@@ -62,13 +63,14 @@
 
   function buildPayload(ctx){
     ctx = ctx || {};
+    // 중요: activityExample에는 "구조, 비교, 분석"처럼 너무 일반적인 단어가 많아 도서 매칭을 오염시킨다.
+    // 따라서 5번 도서 추천 payload에서는 제외하고, 요약 카드의 보고서 활용 문구에서만 사용한다.
     const axisText = uniq([
       ctx.axisLabel,
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisDomain,
       ...arr(ctx.linkedSubjects),
-      ctx.activityExample,
       ctx.longitudinalPath
     ].map(val)).join(" ");
 
@@ -119,12 +121,12 @@
       fit_keywords: arr(book.keywords),
       core_keywords: arr(book.keywords),
       book_keywords: arr(book.keywords),
-      book_content_points: [book.summary, book.reportUse].filter(Boolean),
-      report_modes: ["principle", "compare", "data", "application", "major"],
-      fit_modes: ["principle", "compare", "data", "application", "major"],
+      book_content_points: arr(book.bookContentPoints).length ? arr(book.bookContentPoints) : [book.summary, book.reportUse].filter(Boolean),
+      report_modes: arr(book.fitModes).length ? arr(book.fitModes) : ["principle", "compare", "data", "application", "major"],
+      fit_modes: arr(book.fitModes).length ? arr(book.fitModes) : ["principle", "compare", "data", "application", "major"],
       perspectives: arr(book.keywords).slice(0, 4).concat(["원리", "비교", "사회적 의미"]),
       report_lines: ["기본형", "확장형", "심화형"],
-      question_seeds: [book.reportUse || book.summary || "이 도서를 근거로 선택 키워드와 후속 연계축을 어떻게 설명할 수 있을까?"],
+      question_seeds: arr(book.starterQuestions).length ? arr(book.starterQuestions) : [book.reportUse || book.summary || "이 도서를 근거로 선택 키워드와 후속 연계축을 어떻게 설명할 수 있을까?"],
       selection_summary: book.summary || book.reportUse || ""
     };
   }
@@ -133,7 +135,7 @@
     const key = bookKey(book);
     const badge = sectionType === "direct" ? "직접 일치" : "확장 참고";
     const reason = arr(book.matchReasons).join(" · ") || (sectionType === "direct" ? "선택 키워드 직접 연결" : "보고서 확장 참고");
-    const subjectTag = arr(book.relatedSubjects)[0] || "교과 연결";
+    const subjectTag = arr(book.relatedSubjects)[0] || arr(book.relatedThemes)[0] || "교과 연결";
     const preview = book.summary || book.reportUse || "선택한 개념·키워드·후속 연계축과 연결해 보고서 근거로 활용할 수 있습니다.";
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}">
@@ -148,13 +150,28 @@
     `;
   }
 
+  function listHTML(items, fallback){
+    items = arr(items).slice(0, 5);
+    if (!items.length) return `<div class="engine-summary-empty">${esc(fallback || "보강 중입니다.")}</div>`;
+    return `<ul class="engine-summary-list">${items.map(item => `<li>${esc(item)}</li>`).join("")}</ul>`;
+  }
+
+  function tagHTML(items, fallback){
+    items = arr(items).slice(0, 10);
+    if (!items.length && fallback) items = [fallback];
+    return `<div class="engine-tag-wrap">${items.map(k => `<span class="engine-tag subtle">${esc(k)}</span>`).join("")}</div>`;
+  }
+
   function renderBookSummary(book, ctx, sectionType){
     if (!book) return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
     const badge = sectionType === "expansion" ? "확장 참고 도서" : "직접 일치 도서";
-    const keywords = arr(book.keywords).slice(0, 8);
-    const subjects = arr(book.relatedSubjects).slice(0, 6);
-    const majors = arr(book.relatedMajors).slice(0, 6);
+    const keywords = arr(book.keywords).slice(0, 10);
+    const subjects = arr(book.relatedSubjects).slice(0, 8);
+    const majors = arr(book.relatedMajors).slice(0, 8);
     const reasons = arr(book.matchReasons);
+    const contentPoints = arr(book.bookContentPoints).length ? arr(book.bookContentPoints) : [book.summary, book.reportUse].filter(Boolean);
+    const reportTopics = arr(book.reportExpansionTopics).length ? arr(book.reportExpansionTopics) : arr(book.advancedQuestions);
+
     return `
       <div class="engine-summary-box">
         <div class="engine-summary-top">
@@ -164,29 +181,50 @@
           </div>
           <div class="engine-summary-badge">${esc(badge)}</div>
         </div>
+
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
           <p class="engine-summary-text">${esc(book.summary || book.reportUse || "도서 요약을 보강 중입니다.")}</p>
         </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">도서 내용</div>
+          ${listHTML(contentPoints, "도서의 핵심 내용을 보강 중입니다.")}
+        </div>
+
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">선택 흐름과 연결된 근거</div>
-          ${reasons.length ? `<ul class="engine-summary-list">${reasons.map(r => `<li>${esc(r)}</li>`).join("")}</ul>` : `<div class="engine-summary-empty">선택 키워드와 후속 연계축 기준으로 추천되었습니다.</div>`}
+          ${reasons.length ? listHTML(reasons) : `<div class="engine-summary-empty">선택 키워드와 후속 연계축 기준으로 추천되었습니다.</div>`}
         </div>
+
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">보고서에서의 역할</div>
+          <div class="engine-summary-section-title">책의 접근 방식 / 형태</div>
           <p class="engine-summary-note">${esc(book.reportUse || "보고서의 근거 자료와 확장 관점으로 활용할 수 있습니다.")}</p>
         </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">추천 보고서 전개 방식</div>
+          ${listHTML(reportTopics, ctx.activityExample || "선택 개념을 도서의 관점으로 해석해 보고서의 근거를 확장할 수 있습니다.")}
+        </div>
+
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책의 핵심 키워드</div>
-          <div class="engine-tag-wrap">${keywords.map(k => `<span class="engine-tag">${esc(k)}</span>`).join("") || `<span class="engine-tag">${esc(ctx.keyword || "핵심 키워드")}</span>`}</div>
+          ${tagHTML(keywords, ctx.keyword || "핵심 키워드")}
         </div>
+
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">연결 가능한 교과 개념</div>
-          <div class="engine-tag-wrap"><span class="engine-tag subtle">${esc(ctx.concept || "선택 개념")}</span>${subjects.map(s => `<span class="engine-tag subtle">${esc(s)}</span>`).join("")}</div>
+          ${tagHTML([ctx.concept || "선택 개념"].concat(subjects), ctx.concept || "선택 개념")}
         </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">관련 교과</div>
+          ${tagHTML(subjects, ctx.subject || "선택 과목")}
+        </div>
+
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">관련 학과</div>
-          <div class="engine-tag-wrap">${majors.map(m => `<span class="engine-tag subtle">${esc(m)}</span>`).join("") || `<span class="engine-tag subtle">${esc(ctx.career || "선택 학과")}</span>`}</div>
+          ${tagHTML(majors, ctx.career || "선택 학과")}
         </div>
       </div>
     `;
