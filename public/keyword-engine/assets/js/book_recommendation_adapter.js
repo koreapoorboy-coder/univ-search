@@ -1,16 +1,17 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.3 direct-match-cache-fix
- * 핵심 수정:
- * 1) directBooks 판정 기준 재수정
- * 2) 현재 로드된 어댑터 버전을 window.BOOK_ADAPTER_VERSION으로 표시
- * 3) 학과 단독 추천 방어 유지
+ * 210권 도서 추천 어댑터 v1.4 direct-promotion-fix
+ *
+ * 수정 목적:
+ * - v1.3에서도 expansionBooks에 "추천 키워드 직접 연결" 도서가 남는 문제를 강제로 보정
+ * - matchReasons에 직접 연결 근거가 있으면 directBooks로 승격
+ * - 학과 단독 추천 방어 로직은 유지
+ * - 기존 3번·4번 로직은 수정하지 않음
  */
 (function (global) {
   "use strict";
 
-  const ADAPTER_VERSION = "v1.3-direct-match-cache-fix";
+  const ADAPTER_VERSION = "v1.4-direct-promotion-fix";
   const MASTER_FILE = "book_source_master_210.json";
-
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
   function toText(value) {
@@ -36,14 +37,14 @@
     });
   }
 
+  function trimTrailingSlash(path) {
+    return String(path || "").replace(/\/+$/, "");
+  }
+
   function stripFile(pathname) {
     if (!pathname) return "/";
     if (pathname.endsWith("/")) return pathname;
     return pathname.replace(/\/[^/]*$/, "/");
-  }
-
-  function trimTrailingSlash(path) {
-    return String(path || "").replace(/\/+$/, "");
   }
 
   function buildBaseCandidates() {
@@ -83,7 +84,6 @@
     add("/univ-search/keyword-engine");
     add("/univ-search/public/keyword-engine");
     add("/public/keyword-engine");
-
     add("./keyword-engine");
     add("./public/keyword-engine");
     add("../keyword-engine");
@@ -106,8 +106,7 @@
     }
 
     try {
-      const data = JSON.parse(text);
-      return { ok: true, status: res.status, url: url, data: data };
+      return { ok: true, status: res.status, url: url, data: JSON.parse(text) };
     } catch (e) {
       return { ok: false, status: "JSON_PARSE_ERROR", url: url, error: e.message, preview: text.slice(0, 120) };
     }
@@ -214,7 +213,7 @@
     }
     if (axisHit) {
       score += 30;
-      reasons.push("4번 후속 연계축 연결");
+      reasons.push("4번 후속 연계축 직접 연결");
     }
     if (majorHit) {
       score += 15;
@@ -229,16 +228,20 @@
       reasons.push("보고서 방향 보조 연결");
     }
 
-    // 핵심: 학과/과목만으로는 직접 일치 불가.
-    // 선택 개념, 추천 키워드, 후속 연계축 중 하나라도 직접 맞으면 직접 일치로 분류.
     const strongDirectHit = conceptHit || keywordHit || axisHit;
 
     return {
       score: score,
       reasons: reasons,
-      strongDirectHit: strongDirectHit,
-      type: strongDirectHit ? "direct" : (score >= 20 ? "expansion" : "none")
+      strongDirectHit: strongDirectHit
     };
+  }
+
+  function isDirectReason(book) {
+    if (book.strongDirectHit) return true;
+    return (book.matchReasons || []).some(function (reason) {
+      return String(reason).indexOf("직접 연결") >= 0;
+    });
   }
 
   function recommendBooks(payload, books, options) {
@@ -259,14 +262,20 @@
 
     const scored = books.map(function (book) {
       const s = scoreBook(book, terms);
-      return Object.assign({}, book, {
+      const decorated = Object.assign({}, book, {
         matchScore: s.score,
-        matchType: s.type,
         strongDirectHit: s.strongDirectHit,
         matchReasons: s.reasons,
         directMatchReason: s.reasons.join(" · "),
-        expansionReason: s.type === "expansion" ? s.reasons.join(" · ") : ""
+        expansionReason: "",
+        adapterVersion: ADAPTER_VERSION
       });
+
+      decorated.matchType = isDirectReason(decorated) ? "direct" : (s.score >= 20 ? "expansion" : "none");
+      if (decorated.matchType === "expansion") {
+        decorated.expansionReason = decorated.matchReasons.join(" · ");
+      }
+      return decorated;
     }).filter(function (book) {
       return book.matchType !== "none";
     }).sort(function (a, b) {
@@ -277,10 +286,15 @@
     const directLimit = options.directLimit || 3;
     const expansionLimit = options.expansionLimit || 5;
 
-    const directBooks = scored.filter(function (b) { return b.matchType === "direct"; }).slice(0, directLimit);
+    // v1.4 핵심: matchType이 혹시 잘못 내려와도 직접 연결 근거가 있으면 direct로 다시 승격
+    const directBooks = scored.filter(function (b) {
+      return b.matchType === "direct" || isDirectReason(b);
+    }).slice(0, directLimit);
+
     const directIds = new Set(directBooks.map(function (b) { return b.sourceId; }));
+
     const expansionBooks = scored.filter(function (b) {
-      return b.matchType === "expansion" && !directIds.has(b.sourceId);
+      return !directIds.has(b.sourceId) && !isDirectReason(b) && b.matchScore >= 20;
     }).slice(0, expansionLimit);
 
     return {
@@ -289,7 +303,11 @@
       selectedBookSummary: directBooks[0] || expansionBooks[0] || null,
       inheritedPayload: payload || {},
       terms: terms,
-      adapterVersion: ADAPTER_VERSION
+      adapterVersion: ADAPTER_VERSION,
+      debug: {
+        scoredCount: scored.length,
+        directCandidateCount: scored.filter(isDirectReason).length
+      }
     };
   }
 
