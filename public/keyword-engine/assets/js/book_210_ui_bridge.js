@@ -5,8 +5,9 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v4-major-domain-gate";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v5-late-override";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
+  global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
   const DEFAULT_MODE_OPTIONS = [
     { id: "principle", label: "원리 파악형", desc: "핵심 개념이 왜 성립하는지 설명합니다." },
@@ -33,12 +34,30 @@
   function val(v){ return String(v || "").trim(); }
   function uniq(list){ return Array.from(new Set((list || []).filter(Boolean))); }
 
-  function rerenderSoon(){
-    setTimeout(function(){
-      if (typeof global.__BOOK_ENGINE_REQUEST_RERENDER__ === "function") {
-        try { global.__BOOK_ENGINE_REQUEST_RERENDER__(); } catch(e) {}
+  function requestEngineRerender(reason){
+    if (typeof global.__BOOK_ENGINE_REQUEST_RERENDER__ === "function") {
+      try {
+        global.__BOOK_ENGINE_REQUEST_RERENDER__();
+        return true;
+      } catch(e) {
+        console.warn("book 210 bridge rerender failed", reason || "", e);
       }
-    }, 80);
+    }
+    if (typeof global.__TEXTBOOK_HELPER_RENDER__ === "function") {
+      try {
+        global.__TEXTBOOK_HELPER_RENDER__();
+        return true;
+      } catch(e) {
+        console.warn("book 210 bridge helper render failed", reason || "", e);
+      }
+    }
+    return false;
+  }
+
+  function rerenderSoon(reason){
+    [50, 180, 450, 900, 1500].forEach(function(delay){
+      setTimeout(function(){ requestEngineRerender(reason || "book-210-bridge"); }, delay);
+    });
   }
 
   async function ensureMaster(){
@@ -303,8 +322,20 @@
 
   global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
 
-  ensureMaster();
+  // late-override patch:
+  // 이 파일은 topic_generator/textbook helper 이후에 로드되어야 하며,
+  // 로드 즉시 기존 5번 도서 영역을 210권 브리지 렌더러로 다시 그린다.
+  rerenderSoon("bridge-loaded");
+
+  ensureMaster().then(function(){
+    rerenderSoon("master-loaded");
+  });
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", ensureMaster);
+    document.addEventListener("DOMContentLoaded", function(){
+      ensureMaster().then(function(){ rerenderSoon("dom-loaded"); });
+    });
+  } else {
+    rerenderSoon("dom-already-ready");
   }
 })(typeof window !== "undefined" ? window : globalThis);
