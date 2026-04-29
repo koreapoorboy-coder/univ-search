@@ -1,8 +1,9 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.1 path-fix
+ * 210권 도서 추천 어댑터 v1.2 direct-match-fix
  * 수정 목적:
- * - /keyword-engine 고정 경로 때문에 GitHub Pages/Cloudflare에서 404가 나는 문제 해결
- * - 현재 실행 위치, script 위치, GitHub repo 경로를 자동 탐색해서 master JSON을 로드
+ * - v1.1에서 추천 키워드 직접 일치(+35) 또는 선택 개념 직접 일치(+40)만으로는
+ *   directBooks에 올라오지 않던 분류 기준 오류 수정
+ * - 학과 단독 추천 방어 로직은 그대로 유지
  * - 기존 3번·4번 로직은 수정하지 않음
  */
 (function (global) {
@@ -54,19 +55,14 @@
     const loc = global.location;
     const pathname = loc ? loc.pathname : "";
 
-    // 1) 현재 URL 안에 keyword-engine이 이미 있으면 그 앞까지를 base로 사용
-    // 예: /univ-search/keyword-engine/index.html -> /univ-search/keyword-engine
     const keywordMatch = pathname.match(/^(.*?\/keyword-engine)(?:\/|$)/);
     if (keywordMatch) add(keywordMatch[1]);
 
-    // 2) 현재 페이지 기준 상대 경로 후보
-    // 예: /keyword-engine/index.html에서 실행 중이면 ./data/books가 맞을 수 있음
     const currentDir = stripFile(pathname);
     add(currentDir.replace(/\/$/, ""));
     add(currentDir.replace(/\/assets\/js\/?$/, ""));
     add(currentDir.replace(/\/seed\/book_210_stage2\/?$/, ""));
 
-    // 3) 현재 로드된 script src에서 역산
     const scripts = global.document ? Array.from(global.document.scripts || []) : [];
     scripts.forEach(function (script) {
       const src = script && script.src ? script.src : "";
@@ -81,13 +77,11 @@
       } catch (e) {}
     });
 
-    // 4) 배포 환경별 고정 후보
     add("/keyword-engine");
     add("/univ-search/keyword-engine");
     add("/univ-search/public/keyword-engine");
     add("/public/keyword-engine");
 
-    // 5) 상대 후보
     add("./keyword-engine");
     add("./public/keyword-engine");
     add("../keyword-engine");
@@ -99,34 +93,20 @@
 
   async function tryFetchJson(url) {
     const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) {
-      return { ok: false, status: res.status, url: url };
-    }
+    if (!res.ok) return { ok: false, status: res.status, url: url };
 
     const contentType = res.headers.get("content-type") || "";
     const text = await res.text();
 
-    // 404 페이지가 HTML로 오는 경우를 명확히 방지
     if (/^\s*</.test(text)) {
-      return {
-        ok: false,
-        status: "HTML_INSTEAD_OF_JSON",
-        url: url,
-        contentType: contentType
-      };
+      return { ok: false, status: "HTML_INSTEAD_OF_JSON", url: url, contentType: contentType };
     }
 
     try {
       const data = JSON.parse(text);
       return { ok: true, status: res.status, url: url, data: data };
     } catch (e) {
-      return {
-        ok: false,
-        status: "JSON_PARSE_ERROR",
-        url: url,
-        error: e.message,
-        preview: text.slice(0, 120)
-      };
+      return { ok: false, status: "JSON_PARSE_ERROR", url: url, error: e.message, preview: text.slice(0, 120) };
     }
   }
 
@@ -142,20 +122,10 @@
         const result = await tryFetchJson(url);
         tried.push({ base: base, url: url, status: result.status });
 
-        if (
-          result.ok &&
-          result.data &&
-          Number(result.data.totalBooks) === 210 &&
-          Array.isArray(result.data.books)
-        ) {
+        if (result.ok && result.data && Number(result.data.totalBooks) === 210 && Array.isArray(result.data.books)) {
           global.BOOK_ENGINE_BASE = trimTrailingSlash(base);
           global.BOOK_SOURCE_MASTER_210 = result.data;
-          return {
-            base: global.BOOK_ENGINE_BASE,
-            url: url,
-            master: result.data,
-            tried: tried
-          };
+          return { base: global.BOOK_ENGINE_BASE, url: url, master: result.data, tried: tried };
         }
       } catch (e) {
         tried.push({ base: base, url: url, status: "FETCH_ERROR", error: e.message });
@@ -168,7 +138,6 @@
   }
 
   async function loadBookMaster(options) {
-    // 하위 호환: 문자열 URL이 들어오면 직접 URL로 처리
     if (typeof options === "string") {
       const result = await tryFetchJson(options);
       if (!result.ok) {
@@ -200,15 +169,12 @@
       selectedKeyword: selectedKeyword,
       axis: axis,
       reportIntent: reportIntent,
-      strongTerms: uniq([selectedConcept, selectedKeyword].concat(
-        Array.isArray(axis) ? axis : [axis]
-      ).map(toText).filter(Boolean)),
+      strongTerms: uniq([selectedConcept, selectedKeyword].concat(Array.isArray(axis) ? axis : [axis]).map(toText).filter(Boolean)),
       weakTerms: uniq([subject, department, reportIntent].map(toText).filter(Boolean))
     };
   }
 
   function hasRequiredPayload(terms) {
-    // 학과만으로 추천되는 것을 막기 위해 개념/추천키워드/후속축 중 하나 이상이 있어야 한다.
     return !!(normalize(terms.selectedConcept) || normalize(terms.selectedKeyword) || normalize(terms.axis));
   }
 
@@ -228,37 +194,43 @@
     let score = 0;
     const reasons = [];
 
-    if (includesAny(bookText, [terms.selectedConcept])) {
+    const conceptHit = includesAny(bookText, [terms.selectedConcept]);
+    const keywordHit = includesAny(bookText, [terms.selectedKeyword]);
+    const axisHit = includesAny(bookText, [terms.axis]);
+    const majorHit = includesAny((book.relatedMajors || []).join(" ") + " " + bookText, [terms.department]);
+    const subjectHit = includesAny((book.relatedSubjects || []).join(" ") + " " + bookText, [terms.subject]);
+    const reportHit = includesAny(bookText, [terms.reportIntent]);
+
+    if (conceptHit) {
       score += 40;
       reasons.push("3번 선택 개념 직접 연결");
     }
-    if (includesAny(bookText, [terms.selectedKeyword])) {
+    if (keywordHit) {
       score += 35;
       reasons.push("추천 키워드 직접 연결");
     }
-    if (includesAny(bookText, [terms.axis])) {
+    if (axisHit) {
       score += 30;
       reasons.push("4번 후속 연계축 연결");
     }
-    if (includesAny((book.relatedMajors || []).join(" ") + " " + bookText, [terms.department])) {
+    if (majorHit) {
       score += 15;
       reasons.push("학과/전공군 보조 연결");
     }
-    if (includesAny((book.relatedSubjects || []).join(" ") + " " + bookText, [terms.subject])) {
+    if (subjectHit) {
       score += 10;
       reasons.push("과목/교과군 보조 연결");
     }
-    if (includesAny(bookText, [terms.reportIntent])) {
+    if (reportHit) {
       score += 5;
       reasons.push("보고서 방향 보조 연결");
     }
 
-    const direct = (
-      score >= 45 &&
-      (includesAny(bookText, [terms.selectedConcept]) ||
-       includesAny(bookText, [terms.selectedKeyword]) ||
-       includesAny(bookText, [terms.axis]))
-    );
+    // v1.2 핵심 수정:
+    // 학과/과목 보조 연결만으로는 direct가 될 수 없지만,
+    // 선택 개념/추천 키워드/후속 연계축 중 하나라도 직접 맞으면 directBooks에 올린다.
+    const strongDirectHit = conceptHit || keywordHit || axisHit;
+    const direct = strongDirectHit && score >= 30;
 
     return {
       score: score,
