@@ -1,18 +1,24 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.4 direct-promotion-fix
+ * 210권 도서 추천 어댑터 v1.5 token-fallback-fix
  *
  * 수정 목적:
- * - v1.3에서도 expansionBooks에 "추천 키워드 직접 연결" 도서가 남는 문제를 강제로 보정
- * - matchReasons에 직접 연결 근거가 있으면 directBooks로 승격
- * - 학과 단독 추천 방어 로직은 유지
- * - 기존 3번·4번 로직은 수정하지 않음
+ * - "디지털 데이터", "센서·측정·데이터", "물리-시스템 해석 축"처럼
+ *   책 데이터에 완전 문장으로 들어 있지 않은 선택값도 토큰 단위로 매칭
+ * - 3번 선택 개념 / 추천 키워드 / 4번 후속 연계축이 있을 때만 추천
+ * - 학과 단독 추천 방어 유지
+ * - 기존 3번·4번 로직 수정 없음
  */
 (function (global) {
   "use strict";
 
-  const ADAPTER_VERSION = "v1.4-direct-promotion-fix";
+  const ADAPTER_VERSION = "v1.5-token-fallback-fix";
   const MASTER_FILE = "book_source_master_210.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
+
+  const STOP_TOKENS = new Set([
+    "과학", "사회", "우리", "기반", "후속", "연계", "해석", "선택", "개념",
+    "키워드", "보고서", "탐구", "축", "직접", "확장", "추천", "교과", "학과"
+  ]);
 
   function toText(value) {
     if (value == null) return "";
@@ -22,11 +28,18 @@
   }
 
   function normalize(value) {
-    return toText(value).toLowerCase().replace(/\s+/g, " ").trim();
+    return toText(value).toLowerCase().replace(/[·ㆍ/|,;:()[\]{}<>]/g, " ").replace(/\s+/g, " ").trim();
   }
 
   function uniq(arr) {
     return Array.from(new Set((arr || []).filter(Boolean)));
+  }
+
+  function tokenize(value) {
+    const text = normalize(value);
+    return uniq((text.match(/[가-힣A-Za-z0-9]+/g) || [])
+      .map(v => v.trim())
+      .filter(v => v.length >= 2 && !STOP_TOKENS.has(v)));
   }
 
   function includesAny(haystack, needles) {
@@ -35,6 +48,11 @@
       const v = normalize(n);
       return v && h.indexOf(v) >= 0;
     });
+  }
+
+  function tokenHits(haystack, tokens) {
+    const h = normalize(haystack);
+    return uniq((tokens || []).filter(t => t && h.indexOf(normalize(t)) >= 0));
   }
 
   function trimTrailingSlash(path) {
@@ -164,6 +182,11 @@
     const axis = payload.followupAxis || payload.axis || payload.axisPayload || payload.step4Axis || "";
     const reportIntent = payload.reportIntent || payload.reportMode || "";
 
+    const conceptTokens = tokenize(selectedConcept);
+    const keywordTokens = tokenize(selectedKeyword);
+    const axisTokens = tokenize(axis);
+    const strongTokens = uniq(conceptTokens.concat(keywordTokens, axisTokens));
+
     return {
       subject: subject,
       department: department,
@@ -171,6 +194,10 @@
       selectedKeyword: selectedKeyword,
       axis: axis,
       reportIntent: reportIntent,
+      conceptTokens: conceptTokens,
+      keywordTokens: keywordTokens,
+      axisTokens: axisTokens,
+      strongTokens: strongTokens,
       strongTerms: uniq([selectedConcept, selectedKeyword].concat(Array.isArray(axis) ? axis : [axis]).map(toText).filter(Boolean)),
       weakTerms: uniq([subject, department, reportIntent].map(toText).filter(Boolean))
     };
@@ -199,6 +226,11 @@
     const conceptHit = includesAny(bookText, [terms.selectedConcept]);
     const keywordHit = includesAny(bookText, [terms.selectedKeyword]);
     const axisHit = includesAny(bookText, [terms.axis]);
+
+    const conceptTokenHits = tokenHits(bookText, terms.conceptTokens);
+    const keywordTokenHits = tokenHits(bookText, terms.keywordTokens);
+    const axisTokenHits = tokenHits(bookText, terms.axisTokens);
+
     const majorHit = includesAny((book.relatedMajors || []).join(" ") + " " + bookText, [terms.department]);
     const subjectHit = includesAny((book.relatedSubjects || []).join(" ") + " " + bookText, [terms.subject]);
     const reportHit = includesAny(bookText, [terms.reportIntent]);
@@ -206,15 +238,27 @@
     if (conceptHit) {
       score += 40;
       reasons.push("3번 선택 개념 직접 연결");
+    } else if (conceptTokenHits.length) {
+      score += Math.min(24, conceptTokenHits.length * 8);
+      reasons.push("3번 선택 개념 토큰 연결: " + conceptTokenHits.slice(0, 3).join(", "));
     }
+
     if (keywordHit) {
       score += 35;
       reasons.push("추천 키워드 직접 연결");
+    } else if (keywordTokenHits.length) {
+      score += Math.min(36, keywordTokenHits.length * 18);
+      reasons.push("추천 키워드 토큰 연결: " + keywordTokenHits.slice(0, 3).join(", "));
     }
+
     if (axisHit) {
       score += 30;
       reasons.push("4번 후속 연계축 직접 연결");
+    } else if (axisTokenHits.length) {
+      score += Math.min(30, axisTokenHits.length * 10);
+      reasons.push("4번 후속 연계축 토큰 연결: " + axisTokenHits.slice(0, 3).join(", "));
     }
+
     if (majorHit) {
       score += 15;
       reasons.push("학과/전공군 보조 연결");
@@ -228,19 +272,26 @@
       reasons.push("보고서 방향 보조 연결");
     }
 
-    const strongDirectHit = conceptHit || keywordHit || axisHit;
+    const strongDirectHit = conceptHit || keywordHit || axisHit || keywordTokenHits.length > 0 || axisTokenHits.length > 0 || conceptTokenHits.length >= 2;
+    const strongTokenHitCount = uniq(conceptTokenHits.concat(keywordTokenHits, axisTokenHits)).length;
+
+    // 강한 토큰이 하나라도 있으면 직접 일치 후보.
+    // 단, 점수가 너무 낮은 단일 일반 토큰은 제외하기 위해 18점 이상을 요구한다.
+    const direct = strongDirectHit && score >= 18;
 
     return {
       score: score,
       reasons: reasons,
-      strongDirectHit: strongDirectHit
+      strongDirectHit: strongDirectHit,
+      strongTokenHitCount: strongTokenHitCount,
+      type: direct ? "direct" : (score >= 18 ? "expansion" : "none")
     };
   }
 
   function isDirectReason(book) {
     if (book.strongDirectHit) return true;
     return (book.matchReasons || []).some(function (reason) {
-      return String(reason).indexOf("직접 연결") >= 0;
+      return String(reason).indexOf("직접 연결") >= 0 || String(reason).indexOf("토큰 연결") >= 0;
     });
   }
 
@@ -264,14 +315,14 @@
       const s = scoreBook(book, terms);
       const decorated = Object.assign({}, book, {
         matchScore: s.score,
+        matchType: s.type,
         strongDirectHit: s.strongDirectHit,
+        strongTokenHitCount: s.strongTokenHitCount,
         matchReasons: s.reasons,
         directMatchReason: s.reasons.join(" · "),
         expansionReason: "",
         adapterVersion: ADAPTER_VERSION
       });
-
-      decorated.matchType = isDirectReason(decorated) ? "direct" : (s.score >= 20 ? "expansion" : "none");
       if (decorated.matchType === "expansion") {
         decorated.expansionReason = decorated.matchReasons.join(" · ");
       }
@@ -280,13 +331,13 @@
       return book.matchType !== "none";
     }).sort(function (a, b) {
       if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+      if ((b.strongTokenHitCount || 0) !== (a.strongTokenHitCount || 0)) return (b.strongTokenHitCount || 0) - (a.strongTokenHitCount || 0);
       return a.managementNo - b.managementNo;
     });
 
     const directLimit = options.directLimit || 3;
     const expansionLimit = options.expansionLimit || 5;
 
-    // v1.4 핵심: matchType이 혹시 잘못 내려와도 직접 연결 근거가 있으면 direct로 다시 승격
     const directBooks = scored.filter(function (b) {
       return b.matchType === "direct" || isDirectReason(b);
     }).slice(0, directLimit);
@@ -294,7 +345,7 @@
     const directIds = new Set(directBooks.map(function (b) { return b.sourceId; }));
 
     const expansionBooks = scored.filter(function (b) {
-      return !directIds.has(b.sourceId) && !isDirectReason(b) && b.matchScore >= 20;
+      return !directIds.has(b.sourceId) && !isDirectReason(b) && b.matchScore >= 18;
     }).slice(0, expansionLimit);
 
     return {
@@ -306,7 +357,8 @@
       adapterVersion: ADAPTER_VERSION,
       debug: {
         scoredCount: scored.length,
-        directCandidateCount: scored.filter(isDirectReason).length
+        directCandidateCount: scored.filter(isDirectReason).length,
+        strongTokens: terms.strongTokens
       }
     };
   }
