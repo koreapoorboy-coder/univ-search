@@ -1,15 +1,17 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.2 direct-match-fix
- * 수정 목적:
- * - v1.1에서 추천 키워드 직접 일치(+35) 또는 선택 개념 직접 일치(+40)만으로는
- *   directBooks에 올라오지 않던 분류 기준 오류 수정
- * - 학과 단독 추천 방어 로직은 그대로 유지
- * - 기존 3번·4번 로직은 수정하지 않음
+ * 210권 도서 추천 어댑터 v1.3 direct-match-cache-fix
+ * 핵심 수정:
+ * 1) directBooks 판정 기준 재수정
+ * 2) 현재 로드된 어댑터 버전을 window.BOOK_ADAPTER_VERSION으로 표시
+ * 3) 학과 단독 추천 방어 유지
  */
 (function (global) {
   "use strict";
 
+  const ADAPTER_VERSION = "v1.3-direct-match-cache-fix";
   const MASTER_FILE = "book_source_master_210.json";
+
+  global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
   function toText(value) {
     if (value == null) return "";
@@ -92,7 +94,8 @@
   }
 
   async function tryFetchJson(url) {
-    const res = await fetch(url, { cache: "no-store" });
+    const bust = (url.indexOf("?") >= 0 ? "&" : "?") + "v=" + encodeURIComponent(ADAPTER_VERSION) + "&t=" + Date.now();
+    const res = await fetch(url + bust, { cache: "no-store" });
     if (!res.ok) return { ok: false, status: res.status, url: url };
 
     const contentType = res.headers.get("content-type") || "";
@@ -226,16 +229,15 @@
       reasons.push("보고서 방향 보조 연결");
     }
 
-    // v1.2 핵심 수정:
-    // 학과/과목 보조 연결만으로는 direct가 될 수 없지만,
-    // 선택 개념/추천 키워드/후속 연계축 중 하나라도 직접 맞으면 directBooks에 올린다.
+    // 핵심: 학과/과목만으로는 직접 일치 불가.
+    // 선택 개념, 추천 키워드, 후속 연계축 중 하나라도 직접 맞으면 직접 일치로 분류.
     const strongDirectHit = conceptHit || keywordHit || axisHit;
-    const direct = strongDirectHit && score >= 30;
 
     return {
       score: score,
       reasons: reasons,
-      type: direct ? "direct" : (score >= 20 ? "expansion" : "none")
+      strongDirectHit: strongDirectHit,
+      type: strongDirectHit ? "direct" : (score >= 20 ? "expansion" : "none")
     };
   }
 
@@ -250,6 +252,7 @@
         expansionBooks: [],
         selectedBookSummary: null,
         inheritedPayload: payload || {},
+        adapterVersion: ADAPTER_VERSION,
         warning: "도서 추천은 학과 단독 추천으로 실행하지 않습니다. 3번 선택 개념, 추천 키워드, 4번 후속 연계축 중 하나 이상이 필요합니다."
       };
     }
@@ -259,6 +262,7 @@
       return Object.assign({}, book, {
         matchScore: s.score,
         matchType: s.type,
+        strongDirectHit: s.strongDirectHit,
         matchReasons: s.reasons,
         directMatchReason: s.reasons.join(" · "),
         expansionReason: s.type === "expansion" ? s.reasons.join(" · ") : ""
@@ -284,11 +288,13 @@
       expansionBooks: expansionBooks,
       selectedBookSummary: directBooks[0] || expansionBooks[0] || null,
       inheritedPayload: payload || {},
-      terms: terms
+      terms: terms,
+      adapterVersion: ADAPTER_VERSION
     };
   }
 
   global.BookRecommendationAdapter = {
+    version: ADAPTER_VERSION,
     collectPayloadTerms: collectPayloadTerms,
     recommendBooks: recommendBooks,
     loadBookMaster: loadBookMaster,
