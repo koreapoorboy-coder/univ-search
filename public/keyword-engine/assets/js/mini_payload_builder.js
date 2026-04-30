@@ -324,7 +324,9 @@
         department: payload.department || "",
         selectedConcept: payload.selectedConcept || "",
         selectedRecommendedKeyword: payload.selectedRecommendedKeyword || "",
+        selectedKeyword: payload.selectedRecommendedKeyword || "",
         followupAxis: payload.followupAxis || "",
+        selectedFollowupAxis: payload.followupAxis || "",
         reportIntent: payload.reportIntent || ""
       },
       selectedBook: selectedBook ? {
