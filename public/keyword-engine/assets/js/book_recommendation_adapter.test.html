@@ -10,7 +10,7 @@
   </style>
 </head>
 <body>
-  <h1>210권 도서 보고서 역할 엔진 테스트</h1>
+  <h1>210권 도서 축별 차등 추천 엔진 테스트</h1>
   <button onclick="runTest()">테스트 실행</button>
   <pre id="out">대기 중</pre>
 
@@ -20,7 +20,7 @@
       delete window.BOOK_ADAPTER_VERSION;
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = "./book_recommendation_adapter.js?v=v22_report_role_engine&t=" + Date.now();
+        script.src = "./book_recommendation_adapter.js?v=v24_axis_diversity_engine&t=" + Date.now();
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
@@ -50,6 +50,7 @@
           adapterVersion: window.BOOK_ADAPTER_VERSION,
           totalBooks: master.totalBooks,
           majorGroup: result.majorGroup,
+          axisProfile: result.debug && result.debug.axisProfile,
           directBooks: result.directBooks.map(b => ({
             no: b.managementNo,
             title: b.title,
