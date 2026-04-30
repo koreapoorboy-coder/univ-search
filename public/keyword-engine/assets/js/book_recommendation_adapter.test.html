@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>210권 도서 추천 어댑터 테스트</h1>
-  <p>v1.7 전공 도메인 게이트 테스트입니다.</p>
+  <p>v1.8 엄격 전공 도메인 게이트 테스트입니다.</p>
   <button onclick="runTest()">테스트 실행</button>
   <pre id="out">대기 중</pre>
 
@@ -22,7 +22,7 @@
 
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = "./book_recommendation_adapter.js?v=v1.7-major-domain-gate-fix&t=" + Date.now();
+        script.src = "./book_recommendation_adapter.js?v=v1.8-strict-engineering-gate&t=" + Date.now();
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
