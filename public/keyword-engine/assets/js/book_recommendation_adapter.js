@@ -1,15 +1,16 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.8 strict-engineering-gate
+ * 210권 도서 추천 어댑터 v1.9 hard-exclude-gate
  *
  * 수정 목적:
- * - 컴퓨터/반도체/공학 계열 선택에서 의학·생명·사회·경영·문학 도서가 직접 일치로 뜨는 문제 차단
- * - 측정/데이터/시스템 같은 일반 과학어는 전공 도메인 게이트를 통과한 도서에서만 점수화
+ * - 컴퓨터/반도체/공학 계열 선택에서 의학·생명·사회·경영 도서가
+ *   "측정/데이터/과학" 같은 공통어로 직접 일치에 뜨는 문제 강제 차단
+ * - 컴퓨터공학과 + 폭염주의보 + 수리 데이터 모델링축에서도 의학/약학 도서 제외
  * - 학과 단독 추천 방어 유지
  */
 (function (global) {
   "use strict";
 
-  const ADAPTER_VERSION = "v1.8-strict-engineering-gate";
+  const ADAPTER_VERSION = "v1.9-hard-exclude-gate";
   const MASTER_FILE = "book_source_master_210.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
@@ -17,16 +18,20 @@
     "과학", "사회", "우리", "기반", "후속", "연계", "해석", "선택", "개념",
     "키워드", "보고서", "탐구", "직접", "확장", "추천", "교과", "학과",
     "구조", "비교", "분석", "설명", "원인", "사례", "중심", "관련", "영향",
-    "관점", "흐름", "활동", "형태", "좋습니다", "좋은"
+    "관점", "흐름", "활동", "형태", "좋습니다", "좋은", "주의보"
   ]);
 
   const ENGINEERING_PAYLOAD_RE = /(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|반도체|전자|전기|기계|신소재|재료|로봇|항공|자동차|산업공학|공학)/i;
-  const STEM_PAYLOAD_RE = /(통합과학|물리|화학|생명|지구|수학|정보|공학|반도체|컴퓨터|전자|전기|기계|신소재|데이터|인공지능|AI|환경|에너지|의학|약학|간호|보건)/i;
+  const STEM_PAYLOAD_RE = /(통합과학|물리|화학|생명|지구|수학|정보|공학|반도체|컴퓨터|전자|전기|기계|신소재|데이터|인공지능|AI|환경|에너지|기후|폭염|의학|약학|간호|보건)/i;
 
-  const ENGINEERING_BOOK_PRIMARY_RE = /(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|알고리즘|통계|수학|물리|센서|측정|표준|시스템|반도체|전자|전기|기계|신소재|재료|공학|기술|열역학|엔트로피|카오스|혼돈|우주|코스모스|객관성|페르마|과학혁명|과학철학|과학사|환경|에너지|화학|지구)/i;
-  const MED_LIFE_PRIMARY_RE = /(의학|의예|의대|간호|보건|약학|약대|치의|수의|생명공학|생명과학|생명|질병|환자|진단|치료|병원|건강|의사|약|신약|미생물|DNA|유전자|감염병)/i;
-  const SOCIAL_HUMAN_PRIMARY_RE = /(공정하다는|굶주리는가|경영학|공정|기아|굶주|경영|경제|마케팅|정치|법|사회학|사회와문화|윤리|철학|르네상스|예술|문학|난민|환대|민주주의|계약론|자본론|정의론|프로테스탄트|한중록|구운몽|태평천하|카인의|이방인|보바리|안나|설국|수레바퀴)/i;
-  const GENERIC_STRONG_TOKENS = new Set(["데이터", "시스템", "표준", "정보", "측정"]);
+  // 공학/데이터/물리·환경 도메인에서 "살릴 수 있는" 강한 신호
+  const ENGINEERING_HARD_RE = /(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|알고리즘|통계|수학|모델링|물리|센서|측정|표준|시스템|속도|카메라|반도체|전자|전기|기계|신소재|재료|공학|기술|열역학|엔트로피|카오스|혼돈|우주|코스모스|객관성|페르마|과학혁명|환경|에너지|기후|폭염|기상|지구|화학|총균쇠|총 균 쇠|침묵의 봄|부분과 전체|객관성의 칼날|엔트로피|혼돈으로부터의 질서|코스모스|페르마의 마지막 정리)/i;
+
+  // 공학 payload에서 원칙적으로 제외할 도메인. 단, ENGINEERING_HARD_RE가 제목/교과/전공에 강하게 있을 때만 예외 허용.
+  const EXCLUDE_FOR_ENGINEERING_RE = /(의학|의예|의대|간호|보건|약학|약대|치의|수의|생명공학|생명과학|생명|질병|환자|진단|치료|병원|건강|의사|약 이야기|신약|미생물|DNA|유전자|감염병|공정하다는|굶주리는가|경영학|공정|기아|굶주|경영|경제|마케팅|정치|법학|사회학|사회와문화|윤리|철학|르네상스|예술|문학|난민|환대|민주주의|계약론|자본론|정의론|프로테스탄트|한중록|구운몽|태평천하|카인의|이방인|보바리|안나|설국|수레바퀴|닥터스 씽킹|위대하고 위험한 약 이야기|공정하다는 착각|왜 세계의 절반은 굶주리는가|경영학 콘서트)/i;
+
+  const SOCIAL_HUMAN_PRIMARY_RE = /(공정하다는|굶주리는가|경영학|경영|경제|마케팅|정치|법학|사회학|윤리|철학|르네상스|예술|문학|난민|환대|민주주의|계약론|자본론|정의론|프로테스탄트|한중록|구운몽|태평천하|카인의|이방인|보바리|안나|설국|수레바퀴)/i;
+  const GENERIC_STRONG_TOKENS = new Set(["데이터", "시스템", "표준", "정보", "측정", "모델링"]);
 
   function toText(value) {
     if (value == null) return "";
@@ -48,7 +53,7 @@
 
   function expandCompoundToken(token) {
     const out = [token];
-    ["속도", "측정", "표준", "디지털", "데이터", "물리", "시스템", "센서", "카메라", "반도체", "공정", "에너지", "기후", "열역학", "카오스", "수학", "알고리즘", "생명"].forEach(function(k){
+    ["폭염", "기후", "속도", "측정", "표준", "디지털", "데이터", "모델링", "물리", "시스템", "센서", "카메라", "반도체", "공정", "에너지", "열역학", "카오스", "수학", "알고리즘", "통계", "환경", "지구"].forEach(function(k){
       if (String(token).indexOf(k) >= 0) out.push(k);
     });
     return out;
@@ -219,9 +224,8 @@
   }
 
   function getBookTexts(book) {
-    const primary = normalize([
-      book.title,
-      book.author,
+    const titleText = normalize([book.title, (book.titleAliases || []).join(" "), book.author].join(" "));
+    const metaText = normalize([
       (book.relatedSubjects || []).join(" "),
       (book.relatedMajors || []).join(" "),
       (book.relatedThemes || []).join(" "),
@@ -231,7 +235,8 @@
     ].join(" "));
 
     const full = normalize([
-      primary,
+      titleText,
+      metaText,
       (book.keywords || []).join(" "),
       book.searchText,
       (book.starterQuestions || []).join(" "),
@@ -239,30 +244,32 @@
       (book.inquiryPoints || []).join(" ")
     ].join(" "));
 
-    return { primary, full };
+    return { titleText, metaText, primary: titleText + " " + metaText, full };
   }
 
   function isEngineeringCompatibleBook(book) {
     const texts = getBookTexts(book);
-    const primary = texts.primary;
-    const full = texts.full;
+    const hardInTitle = ENGINEERING_HARD_RE.test(texts.titleText);
+    const hardInMeta = ENGINEERING_HARD_RE.test(texts.metaText);
+    const excludedInTitle = EXCLUDE_FOR_ENGINEERING_RE.test(texts.titleText);
+    const excludedInMeta = EXCLUDE_FOR_ENGINEERING_RE.test(texts.metaText);
+    const excludedInFull = EXCLUDE_FOR_ENGINEERING_RE.test(texts.full);
 
-    const engineeringPrimary = ENGINEERING_BOOK_PRIMARY_RE.test(primary);
-    const engineeringFullStrong = /(속도|카메라|센서|측정|표준|물리|시스템|데이터|반도체|전자|전기|컴퓨터|소프트웨어|알고리즘|수학|통계|열역학|카오스|혼돈|엔트로피|우주|코스모스|페르마|객관성|과학혁명|에너지|환경|공학)/i.test(full);
-    const medicalPrimary = MED_LIFE_PRIMARY_RE.test(primary);
-    const socialPrimary = SOCIAL_HUMAN_PRIMARY_RE.test(primary);
+    // 제목이나 핵심 메타가 명백히 의학/생명/사회/경영/문학이면 차단.
+    // "데이터/측정"이 질문 예시나 상세 설명에 섞여 있어도 살리지 않는다.
+    if ((excludedInTitle || excludedInMeta) && !(hardInTitle || hardInMeta)) return false;
 
-    // 컴퓨터/반도체/공학 payload에서 의학·생명·사회·경영·문학 도서는
-    // 공통어(과학, 측정, 데이터 등)만으로는 절대 직접 추천하지 않는다.
-    if ((medicalPrimary || socialPrimary) && !engineeringPrimary) return false;
+    // 전체 텍스트에 제외 도메인이 있고, 강한 공학 신호가 제목/메타에 없으면 차단.
+    if (excludedInFull && !(hardInTitle || hardInMeta)) return false;
 
-    return engineeringPrimary || engineeringFullStrong;
+    // 공학 계열에서는 제목/메타에 강한 공학·물리·환경·수학 신호가 있어야 한다.
+    return hardInTitle || hardInMeta;
   }
 
   function isSTEMCompatibleBook(book) {
     const texts = getBookTexts(book);
-    if (SOCIAL_HUMAN_PRIMARY_RE.test(texts.primary) && !ENGINEERING_BOOK_PRIMARY_RE.test(texts.primary)) return false;
-    return ENGINEERING_BOOK_PRIMARY_RE.test(texts.primary) || /(물리|화학|생명|지구|수학|공학|기술|실험|측정|센서|기후|에너지|환경|우주|과학혁명|객관성|페르마|엔트로피|카오스|혼돈)/i.test(texts.full);
+    if (SOCIAL_HUMAN_PRIMARY_RE.test(texts.primary) && !ENGINEERING_HARD_RE.test(texts.primary)) return false;
+    return ENGINEERING_HARD_RE.test(texts.primary) || /(물리|화학|생명|지구|수학|공학|기술|실험|측정|센서|기후|에너지|환경|우주|과학혁명|객관성|페르마|엔트로피|카오스|혼돈)/i.test(texts.full);
   }
 
   function scoreBook(book, terms) {
@@ -306,7 +313,7 @@
     } else if (keywordTokenHits.length) {
       let kwScore = 0;
       keywordTokenHits.forEach(function(t) {
-        kwScore += GENERIC_STRONG_TOKENS.has(t) ? 6 : 18;
+        kwScore += GENERIC_STRONG_TOKENS.has(t) ? 5 : 18;
       });
       score += Math.min(36, kwScore);
       reasons.push("추천 키워드 토큰 연결: " + keywordTokenHits.slice(0, 3).join(", "));
@@ -340,7 +347,6 @@
     const strongTokenHits = uniq(conceptTokenHits.concat(keywordTokenHits, axisTokenHits));
     const nonGenericStrongHits = strongTokenHits.filter(t => !GENERIC_STRONG_TOKENS.has(t));
     const strongDirectHit = conceptHit || keywordHit || axisHit || nonGenericStrongHits.length > 0 || strongTokenHits.length >= 2;
-
     const direct = strongDirectHit && score >= 18;
 
     return {
