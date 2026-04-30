@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v9-report-role";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v10-student-ui-selection";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -150,12 +150,25 @@
     return `<div class="engine-tag-wrap">${items.map(k => `<span class="engine-tag subtle">${esc(k)}</span>`).join("")}</div>`;
   }
 
-  function renderBookSummary(book, ctx, sectionType){
-    if (!book) return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
-    const sc = book.selectedBookContext || {};
-    const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
+  function buildStudentContentPoints(book){
+    const points = [];
+    const summary = val(book.summary || book.reportUse || "");
+    if (summary) points.push(summary);
+
+    arr(book.bookContentPoints).forEach(p => points.push(p));
+
+    const themes = arr(book.relatedThemes).slice(0, 3);
+    if (themes.length) points.push("주요 관점: " + themes.join(", "));
+
+    const subjects = arr(book.relatedSubjects).slice(0, 3);
+    if (subjects.length) points.push("연결 교과: " + subjects.join(", "));
+
+    return uniq(points).slice(0, 5);
+  }
+
+  function buildStudentReportUseItems(book, sc){
     const use = sc.useInReport || {};
-    const useItems = [
+    const items = [
       use.intro,
       use.conceptExplanation,
       use.analysisFrame,
@@ -163,6 +176,27 @@
       use.limitationDiscussion,
       use.conclusionExpansion
     ].filter(Boolean);
+
+    if (items.length) return items;
+
+    const roles = arr(sc.reportRoleLabels);
+    if (roles.length) {
+      return roles.map(r => r + "로 활용할 수 있습니다.");
+    }
+
+    return ["선택한 개념과 후속 연계축을 설명하는 참고 관점으로 활용할 수 있습니다."];
+  }
+
+  function renderBookSummary(book, ctx, sectionType){
+    if (!book) return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
+
+    const sc = book.selectedBookContext || {};
+    const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
+    const contentPoints = buildStudentContentPoints(book);
+    const useItems = buildStudentReportUseItems(book, sc);
+    const reasons = arr(book.matchReasons);
+    const roleLabels = arr(sc.reportRoleLabels);
+    const keywords = arr(book.keywords).filter(k => !["duplicate", "existing", "active", "card"].includes(String(k).toLowerCase())).slice(0, 10);
 
     return `
       <div class="engine-summary-box">
@@ -175,39 +209,33 @@
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">이 책은 왜 이 보고서에 필요한가</div>
-          <p class="engine-summary-text">${esc(sc.recommendationReason || book.summary || book.reportUse || "보고서 근거 도서로 활용할 수 있습니다.")}</p>
+          <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
+          <p class="engine-summary-text">${esc(book.summary || book.reportUse || "이 도서는 선택한 주제와 연결해 생각해 볼 수 있는 관점을 제공합니다.")}</p>
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">보고서에서 사용할 위치</div>
-          ${listHTML(useItems, "분석 관점 또는 결론 확장 부분에서 활용합니다.")}
+          <div class="engine-summary-section-title">도서 내용</div>
+          ${listHTML(contentPoints, "도서의 핵심 내용을 보강 중입니다.")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">선택 흐름과 연결된 근거</div>
-          ${listHTML(book.matchReasons || [], "선택 개념·키워드·후속 연계축과 연결됩니다.")}
+          ${reasons.length ? listHTML(reasons) : `<div class="engine-summary-empty">선택한 개념·키워드·후속 연계축과 연결됩니다.</div>`}
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">MINI 참고 지시</div>
-          <p class="engine-summary-note">${esc(sc.miniInstruction || "이 책을 단순 요약하지 말고 보고서의 근거 프레임으로 활용합니다.")}</p>
+          <div class="engine-summary-section-title">보고서에서 활용할 수 있는 방식</div>
+          ${listHTML(useItems, "분석 관점 또는 결론 확장 부분에서 활용할 수 있습니다.")}
         </div>
-
-        ${sc.doNotUseAs ? `
-        <div class="engine-summary-section">
-          <div class="engine-summary-section-title">주의: 이렇게 쓰지 않기</div>
-          <p class="engine-summary-note">${esc(sc.doNotUseAs)}</p>
-        </div>` : ""}
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">보고서 역할</div>
-          ${tagHTML(sc.reportRoleLabels || [], "분석 관점 확장")}
+          ${tagHTML(roleLabels, sectionType === "direct" ? "핵심 근거" : "확장 참고")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책의 핵심 키워드</div>
-          ${tagHTML(book.keywords || [], ctx.keyword || "핵심 키워드")}
+          ${tagHTML(keywords, ctx.keyword || "핵심 키워드")}
         </div>
 
         <div class="engine-summary-section">
@@ -222,6 +250,7 @@
       </div>
     `;
   }
+
 
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
@@ -355,6 +384,34 @@
     }
   }
 
+  function installBridgeBookClickHandler(){
+    if (global.__BOOK_210_BOOK_CLICK_HANDLER__) return;
+    global.__BOOK_210_BOOK_CLICK_HANDLER__ = true;
+
+    document.addEventListener("click", function(event){
+      const btn = event.target && event.target.closest ? event.target.closest(".book-chip[data-kind='book']") : null;
+      if (!btn) return;
+
+      const value = btn.getAttribute("data-value") || "";
+      const title = btn.getAttribute("data-title") || "";
+      const state = global.__TEXTBOOK_HELPER_STATE__;
+
+      if (state) {
+        state.selectedBook = value;
+        state.selectedBookTitle = title;
+        state.reportMode = "";
+        state.reportView = "";
+        state.reportLine = "";
+      }
+
+      global.__BOOK_210_LAST_CLICKED_BOOK__ = { value, title, at: new Date().toISOString() };
+
+      setTimeout(function(){
+        forceRenderBookArea("bridge-book-click");
+      }, 80);
+    }, true);
+  }
+
   function installObserver(){
     if (global.__BOOK_210_BOOK_AREA_OBSERVER__) return;
     try {
@@ -373,6 +430,7 @@
   global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
   global.__BOOK_210_FORCE_RENDER__ = function(){ return forceRenderBookArea("manual-console"); };
 
+  installBridgeBookClickHandler();
   installObserver();
   ensureEngine().then(()=>{
     [100, 300, 700, 1200].forEach(delay => setTimeout(()=>forceRenderBookArea("init-" + delay), delay));
@@ -382,6 +440,6 @@
   });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", installObserver);
+    document.addEventListener("DOMContentLoaded", function(){ installBridgeBookClickHandler(); installObserver(); });
   }
 })(typeof window !== "undefined" ? window : globalThis);
