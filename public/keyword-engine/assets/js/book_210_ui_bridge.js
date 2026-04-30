@@ -1,25 +1,16 @@
 /* book_210_ui_bridge.js
- * 210권 도서 추천 화면 연결 브리지 v3
- * - 4번 활동 예시의 "구조/비교/분석" 같은 일반어를 도서 매칭 payload에서 제외
- * - 선택 도서 요약을 기존 상세 카드형 구조로 복구
+ * 210권 도서 추천 화면 연결 브리지 v9
+ * - report-role-engine 결과를 화면과 MINI payload에 연결
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v8-hard-exclude";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v9-report-role";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
-  const DEFAULT_MODE_OPTIONS = [
-    { id: "principle", label: "원리 파악형", desc: "핵심 개념이 왜 성립하는지 설명합니다." },
-    { id: "compare", label: "비교 분석형", desc: "두 사례나 조건의 차이를 비교합니다." },
-    { id: "data", label: "데이터 확장형", desc: "자료·수치·그래프를 해석하며 확장합니다." },
-    { id: "application", label: "사례 적용형", desc: "실생활·산업 사례에 적용합니다." },
-    { id: "major", label: "전공 확장형", desc: "희망 진로와 직접 연결해 정리합니다." }
-  ];
-  const DEFAULT_VIEW_OPTIONS = ["원리", "구조", "기능", "변화", "비교", "효율", "데이터", "사회적 의미"];
-
   let master = null;
-  let masterLoading = null;
+  let rules = null;
+  let loading = null;
   let lastResult = null;
 
   function esc(v){
@@ -34,70 +25,72 @@
   function val(v){ return String(v || "").trim(); }
   function uniq(list){ return Array.from(new Set((list || []).filter(Boolean))); }
 
-  function requestEngineRerender(reason){
+  async function ensureEngine(){
+    if (master) return master;
+    if (loading) return loading;
+    if (!global.BookRecommendationAdapter) return null;
+    loading = Promise.all([
+      global.BookRecommendationAdapter.loadBookMaster(),
+      global.BookRecommendationAdapter.loadRules ? global.BookRecommendationAdapter.loadRules() : Promise.resolve(null)
+    ]).then(([m, r]) => {
+      master = m;
+      rules = r;
+      global.BOOK_SOURCE_MASTER_210 = m;
+      return m;
+    }).catch(error => {
+      console.error("book 210 role engine load failed", error);
+      return null;
+    });
+    return loading;
+  }
+
+  function requestEngineRerender(){
     if (typeof global.__BOOK_ENGINE_REQUEST_RERENDER__ === "function") {
-      try {
-        global.__BOOK_ENGINE_REQUEST_RERENDER__();
-        return true;
-      } catch(e) {
-        console.warn("book 210 bridge rerender failed", reason || "", e);
-      }
+      try { global.__BOOK_ENGINE_REQUEST_RERENDER__(); return true; } catch(e){}
     }
     if (typeof global.__TEXTBOOK_HELPER_RENDER__ === "function") {
-      try {
-        global.__TEXTBOOK_HELPER_RENDER__();
-        return true;
-      } catch(e) {
-        console.warn("book 210 bridge helper render failed", reason || "", e);
-      }
+      try { global.__TEXTBOOK_HELPER_RENDER__(); return true; } catch(e){}
     }
     return false;
   }
 
-  function rerenderSoon(reason){
-    [50, 180, 450, 900, 1500].forEach(function(delay){
-      setTimeout(function(){ requestEngineRerender(reason || "book-210-bridge"); }, delay);
-    });
+  function getStateContext(){
+    const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+    return {
+      subject: state.subject || "",
+      career: state.career || state.selectedMajor || "",
+      linkTrack: state.linkTrack || state.followupAxisId || "",
+      followupAxisId: state.linkTrack || state.followupAxisId || "",
+      concept: state.concept || state.selectedConcept || "",
+      keyword: state.keyword || state.selectedKeyword || "",
+      selectedBook: state.selectedBook || "",
+      axisLabel: state.axisLabel || state.trackLabel || state.linkTrackLabel || "",
+      axisDomain: state.axisDomain || "",
+      linkedSubjects: Array.isArray(state.linkedSubjects) ? state.linkedSubjects : [],
+      activityExample: state.activityExample || "",
+      longitudinalPath: state.longitudinalPath || ""
+    };
   }
 
-  async function ensureMaster(){
-    if (master) return master;
-    if (masterLoading) return masterLoading;
-    if (!global.BookRecommendationAdapter || typeof global.BookRecommendationAdapter.loadBookMaster !== "function") {
-      return null;
-    }
-    masterLoading = global.BookRecommendationAdapter.loadBookMaster()
-      .then(function(data){
-        master = data;
-        global.BOOK_SOURCE_MASTER_210 = data;
-        rerenderSoon();
-        return data;
-      })
-      .catch(function(error){
-        console.error("book 210 master load failed", error);
-        return null;
-      });
-    return masterLoading;
+  function canRender(ctx){
+    return !!(ctx && ctx.subject && ctx.career && ctx.concept && ctx.keyword && (ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel));
   }
 
   function buildPayload(ctx){
-    ctx = ctx || {};
-    // 중요: activityExample에는 "구조, 비교, 분석"처럼 너무 일반적인 단어가 많아 도서 매칭을 오염시킨다.
-    // 따라서 5번 도서 추천 payload에서는 제외하고, 요약 카드의 보고서 활용 문구에서만 사용한다.
     const axisText = uniq([
       ctx.axisLabel,
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisDomain,
-      ...arr(ctx.linkedSubjects),
+      ...(Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects : []),
       ctx.longitudinalPath
     ].map(val)).join(" ");
 
     return {
       subject: ctx.subject || "",
-      department: ctx.selectedMajor || ctx.career || "",
-      selectedConcept: ctx.concept || ctx.selectedConcept || "",
-      selectedRecommendedKeyword: ctx.keyword || ctx.selectedKeyword || "",
+      department: ctx.career || "",
+      selectedConcept: ctx.concept || "",
+      selectedRecommendedKeyword: ctx.keyword || "",
       followupAxis: axisText,
       axisPayload: {
         id: ctx.followupAxisId || ctx.linkTrack || "",
@@ -112,84 +105,64 @@
   }
 
   function bookKey(book){
-    return val(book && (book.sourceId || book.bookId || book.book_id || book.source_book_uid || book.managementNo));
+    return val(book && (book.sourceId || book.bookId || book.book_id || book.managementNo));
   }
 
   function findBook(bookId){
     const id = val(bookId);
     if (!id || !master || !Array.isArray(master.books)) return null;
-    return master.books.find(function(book){
-      return [book.sourceId, book.bookId, book.book_id, book.source_book_uid, String(book.managementNo), book.title].map(val).includes(id);
-    }) || null;
+    return master.books.find(book => [book.sourceId, book.bookId, String(book.managementNo), book.title].map(val).includes(id)) || null;
   }
 
-  function toLegacyBook(book){
-    if (!book) return null;
-    return {
-      ...book,
-      book_id: bookKey(book),
-      source_book_uid: book.sourceId || book.source_book_uid || "",
-      title: book.title || "",
-      author: book.author || "",
-      summary_short: book.summary || book.reportUse || "",
-      book_core_summary: book.summary || book.reportUse || "",
-      linked_subjects: arr(book.relatedSubjects),
-      linked_majors: arr(book.relatedMajors),
-      related_subjects_highschool: arr(book.relatedSubjects),
-      related_majors: arr(book.relatedMajors),
-      fit_keywords: arr(book.keywords),
-      core_keywords: arr(book.keywords),
-      book_keywords: arr(book.keywords),
-      book_content_points: arr(book.bookContentPoints).length ? arr(book.bookContentPoints) : [book.summary, book.reportUse].filter(Boolean),
-      report_modes: arr(book.fitModes).length ? arr(book.fitModes) : ["principle", "compare", "data", "application", "major"],
-      fit_modes: arr(book.fitModes).length ? arr(book.fitModes) : ["principle", "compare", "data", "application", "major"],
-      perspectives: arr(book.keywords).slice(0, 4).concat(["원리", "비교", "사회적 의미"]),
-      report_lines: ["기본형", "확장형", "심화형"],
-      question_seeds: arr(book.starterQuestions).length ? arr(book.starterQuestions) : [book.reportUse || book.summary || "이 도서를 근거로 선택 키워드와 후속 연계축을 어떻게 설명할 수 있을까?"],
-      selection_summary: book.summary || book.reportUse || ""
-    };
+  function getCurrentEvaluatedBook(bookId){
+    if (!lastResult) return null;
+    const all = (lastResult.result.directBooks || []).concat(lastResult.result.expansionBooks || []);
+    return all.find(book => [bookKey(book), book.title].includes(val(bookId))) || null;
   }
 
   function renderBookCard(book, active, index, sectionType){
     const key = bookKey(book);
-    const badge = sectionType === "direct" ? "직접 일치" : "확장 참고";
-    const reason = arr(book.matchReasons).join(" · ") || (sectionType === "direct" ? "선택 키워드 직접 연결" : "보고서 확장 참고");
-    const subjectTag = arr(book.relatedSubjects)[0] || arr(book.relatedThemes)[0] || "교과 연결";
-    const preview = book.summary || book.reportUse || "선택한 개념·키워드·후속 연계축과 연결해 보고서 근거로 활용할 수 있습니다.";
+    const ctx = book.selectedBookContext || {};
+    const role = arr(ctx.reportRoleLabels)[0] || (sectionType === "direct" ? "보고서 핵심 근거" : "보고서 확장 참고");
+    const reason = arr(book.matchReasons).join(" · ") || ctx.recommendationReason || role;
+    const preview = ctx.recommendationReason || book.summary || book.reportUse || "선택한 흐름에서 보고서 근거로 활용할 수 있습니다.";
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}">
         <div class="engine-book-order">${index + 1}</div>
         <div class="engine-book-main">
           <div class="engine-book-title">${esc(book.title)}</div>
-          <div class="engine-book-meta">${esc(book.author || "저자 정보 없음")} · ${esc(subjectTag)}</div>
+          <div class="engine-book-meta">${esc(book.author || "저자 정보 없음")} · ${esc(role)}</div>
           <div class="engine-book-preview">${esc(preview)}</div>
-          <div class="engine-book-reason">${esc(reason)} · ${esc(badge)}</div>
+          <div class="engine-book-reason">${esc(reason)} · ${sectionType === "direct" ? "직접 일치" : "확장 참고"}</div>
         </div>
       </button>
     `;
   }
 
   function listHTML(items, fallback){
-    items = arr(items).slice(0, 5);
+    items = arr(items).filter(Boolean).slice(0, 6);
     if (!items.length) return `<div class="engine-summary-empty">${esc(fallback || "보강 중입니다.")}</div>`;
     return `<ul class="engine-summary-list">${items.map(item => `<li>${esc(item)}</li>`).join("")}</ul>`;
   }
-
   function tagHTML(items, fallback){
-    items = arr(items).slice(0, 10);
+    items = arr(items).filter(Boolean).slice(0, 10);
     if (!items.length && fallback) items = [fallback];
     return `<div class="engine-tag-wrap">${items.map(k => `<span class="engine-tag subtle">${esc(k)}</span>`).join("")}</div>`;
   }
 
   function renderBookSummary(book, ctx, sectionType){
     if (!book) return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
-    const badge = sectionType === "expansion" ? "확장 참고 도서" : "직접 일치 도서";
-    const keywords = arr(book.keywords).slice(0, 10);
-    const subjects = arr(book.relatedSubjects).slice(0, 8);
-    const majors = arr(book.relatedMajors).slice(0, 8);
-    const reasons = arr(book.matchReasons);
-    const contentPoints = arr(book.bookContentPoints).length ? arr(book.bookContentPoints) : [book.summary, book.reportUse].filter(Boolean);
-    const reportTopics = arr(book.reportExpansionTopics).length ? arr(book.reportExpansionTopics) : arr(book.advancedQuestions);
+    const sc = book.selectedBookContext || {};
+    const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
+    const use = sc.useInReport || {};
+    const useItems = [
+      use.intro,
+      use.conceptExplanation,
+      use.analysisFrame,
+      use.comparisonFrame,
+      use.limitationDiscussion,
+      use.conclusionExpansion
+    ].filter(Boolean);
 
     return `
       <div class="engine-summary-box">
@@ -202,56 +175,52 @@
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
-          <p class="engine-summary-text">${esc(book.summary || book.reportUse || "도서 요약을 보강 중입니다.")}</p>
+          <div class="engine-summary-section-title">이 책은 왜 이 보고서에 필요한가</div>
+          <p class="engine-summary-text">${esc(sc.recommendationReason || book.summary || book.reportUse || "보고서 근거 도서로 활용할 수 있습니다.")}</p>
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">도서 내용</div>
-          ${listHTML(contentPoints, "도서의 핵심 내용을 보강 중입니다.")}
+          <div class="engine-summary-section-title">보고서에서 사용할 위치</div>
+          ${listHTML(useItems, "분석 관점 또는 결론 확장 부분에서 활용합니다.")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">선택 흐름과 연결된 근거</div>
-          ${reasons.length ? listHTML(reasons) : `<div class="engine-summary-empty">선택 키워드와 후속 연계축 기준으로 추천되었습니다.</div>`}
+          ${listHTML(book.matchReasons || [], "선택 개념·키워드·후속 연계축과 연결됩니다.")}
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">책의 접근 방식 / 형태</div>
-          <p class="engine-summary-note">${esc(book.reportUse || "보고서의 근거 자료와 확장 관점으로 활용할 수 있습니다.")}</p>
+          <div class="engine-summary-section-title">MINI 참고 지시</div>
+          <p class="engine-summary-note">${esc(sc.miniInstruction || "이 책을 단순 요약하지 말고 보고서의 근거 프레임으로 활용합니다.")}</p>
         </div>
 
+        ${sc.doNotUseAs ? `
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">추천 보고서 전개 방식</div>
-          ${listHTML(reportTopics, ctx.activityExample || "선택 개념을 도서의 관점으로 해석해 보고서의 근거를 확장할 수 있습니다.")}
+          <div class="engine-summary-section-title">주의: 이렇게 쓰지 않기</div>
+          <p class="engine-summary-note">${esc(sc.doNotUseAs)}</p>
+        </div>` : ""}
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">보고서 역할</div>
+          ${tagHTML(sc.reportRoleLabels || [], "분석 관점 확장")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책의 핵심 키워드</div>
-          ${tagHTML(keywords, ctx.keyword || "핵심 키워드")}
-        </div>
-
-        <div class="engine-summary-section">
-          <div class="engine-summary-section-title">연결 가능한 교과 개념</div>
-          ${tagHTML([ctx.concept || "선택 개념"].concat(subjects), ctx.concept || "선택 개념")}
+          ${tagHTML(book.keywords || [], ctx.keyword || "핵심 키워드")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">관련 교과</div>
-          ${tagHTML(subjects, ctx.subject || "선택 과목")}
+          ${tagHTML(book.relatedSubjects || [], ctx.subject || "선택 과목")}
         </div>
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">관련 학과</div>
-          ${tagHTML(majors, ctx.career || "선택 학과")}
+          ${tagHTML(book.relatedMajors || [], ctx.career || "선택 학과")}
         </div>
       </div>
     `;
-  }
-
-  function renderLoading(message){
-    ensureMaster();
-    return `<div class="engine-empty">${esc(message || "210권 도서 추천 데이터를 불러오는 중입니다.")}</div>`;
   }
 
   global.renderBookSelectionHTML = function(ctx){
@@ -260,7 +229,10 @@
     if (!ctx.concept || !ctx.keyword) return `<div class="engine-empty">먼저 3번 교과 개념과 추천 키워드를 선택해야 도서 추천이 열립니다.</div>`;
     if (!(ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel)) return `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 5번 도서 추천이 열립니다.</div>`;
     if (!global.BookRecommendationAdapter) return `<div class="engine-empty">210권 도서 추천 어댑터를 불러오는 중입니다.</div>`;
-    if (!master) return renderLoading();
+    if (!master) {
+      ensureEngine().then(()=>forceRenderBookArea("master-loaded"));
+      return `<div class="engine-empty">210권 도서 추천 데이터를 불러오는 중입니다.</div>`;
+    }
 
     const payload = buildPayload(ctx);
     const result = global.BookRecommendationAdapter.recommendBooks(payload, master.books, { directLimit: 3, expansionLimit: 5 });
@@ -270,7 +242,10 @@
     const direct = result.directBooks || [];
     const expansion = result.expansionBooks || [];
     const all = direct.concat(expansion);
-    if (!all.length) return `<div class="engine-empty">현재 선택한 개념·키워드·후속 연계축에 맞는 도서가 아직 충분하지 않습니다. 키워드나 연계축을 바꿔 보세요.</div>`;
+
+    if (!all.length) {
+      return `<div class="engine-empty">현재 선택한 전공군·개념·후속 연계축에 맞는 도서가 아직 충분하지 않습니다. 키워드나 연계축을 바꿔 보세요.</div>`;
+    }
 
     const selected = all.find(book => [bookKey(book), book.title].includes(val(ctx.selectedBook))) || all[0];
     const selectedSection = direct.some(book => bookKey(book) === bookKey(selected)) ? "direct" : "expansion";
@@ -282,7 +257,7 @@
     const expansionHTML = expansion.length ? `
       <div style="margin-top:18px;">
         <div class="engine-subtitle">확장 참고 도서</div>
-        <div class="engine-help">직접 일치 도서보다 우선순위는 낮지만, 보고서의 비교·사회적 의미·확장 관점에 활용할 수 있는 도서입니다.</div>
+        <div class="engine-help">핵심 도서는 아니지만, 보고서의 비교·한계·사회적 의미 확장에 활용할 수 있는 도서입니다.</div>
         ${expansion.map((book, index) => renderBookCard(book, bookKey(book) === bookKey(selected), index, "expansion")).join("")}
       </div>
     ` : "";
@@ -291,7 +266,7 @@
       <div class="engine-book-layout">
         <div class="engine-book-list">
           <div class="engine-subtitle">직접 일치 도서</div>
-          <div class="engine-help">3번 선택 개념·추천 키워드·4번 후속 연계축과 직접 연결되는 도서만 먼저 보여줍니다.</div>
+          <div class="engine-help">전공군·교과 개념·후속 연계축이 모두 맞아 보고서 핵심 근거로 쓸 수 있는 도서입니다.</div>
           ${directHTML}
           ${expansionHTML}
         </div>
@@ -304,24 +279,38 @@
   };
 
   global.getSelectedBookDetail = function(bookId){
-    return toLegacyBook(findBook(bookId));
+    const evaluated = getCurrentEvaluatedBook(bookId);
+    const raw = evaluated || findBook(bookId);
+    if (!raw) return null;
+    return {
+      ...raw,
+      book_id: bookKey(raw),
+      source_book_uid: raw.sourceId || "",
+      title: raw.title || "",
+      author: raw.author || "",
+      summary_short: raw.summary || raw.reportUse || "",
+      book_core_summary: raw.summary || raw.reportUse || "",
+      linked_subjects: raw.relatedSubjects || [],
+      linked_majors: raw.relatedMajors || [],
+      fit_keywords: raw.keywords || [],
+      selectedBookContext: raw.selectedBookContext || null,
+      miniUseGuide: raw.selectedBookContext || null
+    };
   };
 
   global.getReportOptionMeta = function(ctx){
-    const selected = toLegacyBook(findBook(ctx && ctx.selectedBook));
-    const modeOptions = DEFAULT_MODE_OPTIONS.slice();
-    const viewOptions = uniq([
-      ...(selected ? arr(selected.perspectives) : []),
-      ...(ctx && ctx.keyword ? [ctx.keyword] : []),
-      ...DEFAULT_VIEW_OPTIONS
-    ]).slice(0, 8);
-    const reportLines = ["기본형", "확장형", "심화형"];
-    const recommendedLine = (ctx && ["data", "compare", "application"].includes(ctx.reportMode)) ? "확장형" : "기본형";
-    return { selectedBook: selected, modeOptions, viewOptions, reportLines, recommendedLine };
+    const selected = global.getSelectedBookDetail(ctx && ctx.selectedBook);
+    const roles = selected && selected.selectedBookContext ? selected.selectedBookContext.reportRole || [] : [];
+    const modeOptions = [
+      { id: "principle", label: "원리 파악형", desc: "핵심 개념이 왜 성립하는지 설명합니다." },
+      { id: "compare", label: "비교 분석형", desc: "두 사례나 조건의 차이를 비교합니다." },
+      { id: "data", label: "데이터 확장형", desc: "자료·수치·그래프를 해석하며 확장합니다." },
+      { id: "application", label: "사례 적용형", desc: "실생활·산업 사례에 적용합니다." },
+      { id: "major", label: "전공 확장형", desc: "희망 진로와 직접 연결해 정리합니다." }
+    ];
+    const viewOptions = ["원리", "자료 해석", "모델링", "한계", "비교", "사회적 의미", "진로 확장"].concat(roles);
+    return { selectedBook: selected, modeOptions, viewOptions, reportLines: ["기본형","확장형","심화형"], recommendedLine: roles.includes("conclusionExpansion") ? "확장형" : "기본형" };
   };
-
-  global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
-
 
   function getStateContext(){
     const state = global.__TEXTBOOK_HELPER_STATE__ || {};
@@ -348,84 +337,51 @@
   function forceRenderBookArea(reason){
     const el = document.getElementById("engineBookArea");
     if (!el) return false;
-
     const ctx = getStateContext();
     global.__BOOK_210_FORCE_RENDER_CONTEXT__ = ctx;
-
-    if (!canForceRender(ctx)) {
-      return false;
-    }
-
+    if (!canForceRender(ctx)) return false;
     if (!master) {
-      ensureMaster().then(function(){
-        forceRenderBookArea("master-loaded-after-force");
-      });
+      ensureEngine().then(()=>forceRenderBookArea("master-loaded-after-force"));
       return false;
     }
-
     try {
-      const html = global.renderBookSelectionHTML(ctx);
-      if (html && typeof html === "string") {
-        el.innerHTML = html;
-        global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
-        global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "";
-        return true;
-      }
-    } catch (error) {
+      el.innerHTML = global.renderBookSelectionHTML(ctx);
+      global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
+      global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "";
+      return true;
+    } catch(error){
       console.error("book 210 force render failed", error);
+      return false;
     }
-    return false;
   }
 
-  function installBookAreaObserver(){
+  function installObserver(){
     if (global.__BOOK_210_BOOK_AREA_OBSERVER__) return;
     try {
       const observer = new MutationObserver(function(){
         if (!document.getElementById("engineBookArea")) return;
         if (canForceRender(getStateContext())) {
           clearTimeout(global.__BOOK_210_FORCE_RENDER_TIMER__);
-          global.__BOOK_210_FORCE_RENDER_TIMER__ = setTimeout(function(){
-            forceRenderBookArea("mutation-observer");
-          }, 60);
+          global.__BOOK_210_FORCE_RENDER_TIMER__ = setTimeout(()=>forceRenderBookArea("mutation-observer"), 60);
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
       global.__BOOK_210_BOOK_AREA_OBSERVER__ = observer;
-    } catch (error) {
-      console.warn("book 210 observer install failed", error);
-    }
+    } catch(e){}
   }
 
-  global.__BOOK_210_FORCE_RENDER__ = function(){
-    return forceRenderBookArea("manual-console");
-  };
+  global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
+  global.__BOOK_210_FORCE_RENDER__ = function(){ return forceRenderBookArea("manual-console"); };
 
-
-  // late-override patch:
-  // 이 파일은 topic_generator/textbook helper 이후에 로드되어야 하며,
-  // 로드 즉시 기존 5번 도서 영역을 210권 브리지 렌더러로 다시 그린다.
-  installBookAreaObserver();
-  rerenderSoon("bridge-loaded");
-  setTimeout(function(){ forceRenderBookArea("bridge-loaded-force"); }, 120);
-  setTimeout(function(){ forceRenderBookArea("bridge-loaded-force-2"); }, 500);
-
-  ensureMaster().then(function(){
-    rerenderSoon("master-loaded");
-    forceRenderBookArea("master-loaded-force");
-    setTimeout(function(){ forceRenderBookArea("master-loaded-force-2"); }, 300);
+  installObserver();
+  ensureEngine().then(()=>{
+    [100, 300, 700, 1200].forEach(delay => setTimeout(()=>forceRenderBookArea("init-" + delay), delay));
+    if (typeof global.__BOOK_ENGINE_REQUEST_RERENDER__ === "function") {
+      try { global.__BOOK_ENGINE_REQUEST_RERENDER__(); } catch(e){}
+    }
   });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function(){
-      installBookAreaObserver();
-      ensureMaster().then(function(){
-        rerenderSoon("dom-loaded");
-        forceRenderBookArea("dom-loaded-force");
-      });
-    });
-  } else {
-    installBookAreaObserver();
-    rerenderSoon("dom-already-ready");
-    forceRenderBookArea("dom-ready-force");
+    document.addEventListener("DOMContentLoaded", installObserver);
   }
 })(typeof window !== "undefined" ? window : globalThis);
