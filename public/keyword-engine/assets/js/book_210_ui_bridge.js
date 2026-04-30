@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v10-student-ui-selection";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v11-axis-click-fix";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -363,6 +363,20 @@
     return !!(ctx && ctx.subject && ctx.career && ctx.concept && ctx.keyword && (ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel));
   }
 
+
+  function buildRenderKey(ctx){
+    return [
+      ctx.subject || "",
+      ctx.career || "",
+      ctx.concept || "",
+      ctx.keyword || "",
+      ctx.followupAxisId || "",
+      ctx.linkTrack || "",
+      ctx.axisLabel || "",
+      ctx.selectedBook || ""
+    ].join("||");
+  }
+
   function forceRenderBookArea(reason){
     const el = document.getElementById("engineBookArea");
     if (!el) return false;
@@ -373,16 +387,27 @@
       ensureEngine().then(()=>forceRenderBookArea("master-loaded-after-force"));
       return false;
     }
+
+    const renderKey = buildRenderKey(ctx);
+    if (el.getAttribute("data-book-210-render-key") === renderKey && global.__BOOK_210_LAST_RESULT__) {
+      return true;
+    }
+
     try {
+      global.__BOOK_210_IS_RENDERING__ = true;
       el.innerHTML = global.renderBookSelectionHTML(ctx);
+      el.setAttribute("data-book-210-render-key", renderKey);
       global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
       global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "";
+      setTimeout(()=>{ global.__BOOK_210_IS_RENDERING__ = false; }, 80);
       return true;
     } catch(error){
+      global.__BOOK_210_IS_RENDERING__ = false;
       console.error("book 210 force render failed", error);
       return false;
     }
   }
+
 
   function installBridgeBookClickHandler(){
     if (global.__BOOK_210_BOOK_CLICK_HANDLER__) return;
@@ -391,6 +416,10 @@
     document.addEventListener("click", function(event){
       const btn = event.target && event.target.closest ? event.target.closest(".book-chip[data-kind='book']") : null;
       if (!btn) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
 
       const value = btn.getAttribute("data-value") || "";
       const title = btn.getAttribute("data-title") || "";
@@ -405,21 +434,23 @@
       }
 
       global.__BOOK_210_LAST_CLICKED_BOOK__ = { value, title, at: new Date().toISOString() };
+      const el = document.getElementById("engineBookArea");
+      if (el) el.removeAttribute("data-book-210-render-key");
 
-      setTimeout(function(){
-        forceRenderBookArea("bridge-book-click");
-      }, 80);
+      forceRenderBookArea("bridge-book-click");
     }, true);
   }
+
 
   function installObserver(){
     if (global.__BOOK_210_BOOK_AREA_OBSERVER__) return;
     try {
       const observer = new MutationObserver(function(){
+        if (global.__BOOK_210_IS_RENDERING__) return;
         if (!document.getElementById("engineBookArea")) return;
         if (canForceRender(getStateContext())) {
           clearTimeout(global.__BOOK_210_FORCE_RENDER_TIMER__);
-          global.__BOOK_210_FORCE_RENDER_TIMER__ = setTimeout(()=>forceRenderBookArea("mutation-observer"), 60);
+          global.__BOOK_210_FORCE_RENDER_TIMER__ = setTimeout(()=>forceRenderBookArea("mutation-observer"), 180);
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
