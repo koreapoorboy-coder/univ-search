@@ -5,7 +5,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v5-late-override";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v6-force-dom-render";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -322,20 +322,110 @@
 
   global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
 
+
+  function getStateContext(){
+    const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+    return {
+      subject: state.subject || "",
+      career: state.career || state.selectedMajor || "",
+      linkTrack: state.linkTrack || state.followupAxisId || "",
+      followupAxisId: state.linkTrack || state.followupAxisId || "",
+      concept: state.concept || state.selectedConcept || "",
+      keyword: state.keyword || state.selectedKeyword || "",
+      selectedBook: state.selectedBook || "",
+      axisLabel: state.axisLabel || state.trackLabel || state.linkTrackLabel || "",
+      axisDomain: state.axisDomain || "",
+      linkedSubjects: Array.isArray(state.linkedSubjects) ? state.linkedSubjects : [],
+      activityExample: state.activityExample || "",
+      longitudinalPath: state.longitudinalPath || ""
+    };
+  }
+
+  function canForceRender(ctx){
+    return !!(ctx && ctx.subject && ctx.career && ctx.concept && ctx.keyword && (ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel));
+  }
+
+  function forceRenderBookArea(reason){
+    const el = document.getElementById("engineBookArea");
+    if (!el) return false;
+
+    const ctx = getStateContext();
+    global.__BOOK_210_FORCE_RENDER_CONTEXT__ = ctx;
+
+    if (!canForceRender(ctx)) {
+      return false;
+    }
+
+    if (!master) {
+      ensureMaster().then(function(){
+        forceRenderBookArea("master-loaded-after-force");
+      });
+      return false;
+    }
+
+    try {
+      const html = global.renderBookSelectionHTML(ctx);
+      if (html && typeof html === "string") {
+        el.innerHTML = html;
+        global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
+        global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "";
+        return true;
+      }
+    } catch (error) {
+      console.error("book 210 force render failed", error);
+    }
+    return false;
+  }
+
+  function installBookAreaObserver(){
+    if (global.__BOOK_210_BOOK_AREA_OBSERVER__) return;
+    try {
+      const observer = new MutationObserver(function(){
+        if (!document.getElementById("engineBookArea")) return;
+        if (canForceRender(getStateContext())) {
+          clearTimeout(global.__BOOK_210_FORCE_RENDER_TIMER__);
+          global.__BOOK_210_FORCE_RENDER_TIMER__ = setTimeout(function(){
+            forceRenderBookArea("mutation-observer");
+          }, 60);
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+      global.__BOOK_210_BOOK_AREA_OBSERVER__ = observer;
+    } catch (error) {
+      console.warn("book 210 observer install failed", error);
+    }
+  }
+
+  global.__BOOK_210_FORCE_RENDER__ = function(){
+    return forceRenderBookArea("manual-console");
+  };
+
+
   // late-override patch:
   // 이 파일은 topic_generator/textbook helper 이후에 로드되어야 하며,
   // 로드 즉시 기존 5번 도서 영역을 210권 브리지 렌더러로 다시 그린다.
+  installBookAreaObserver();
   rerenderSoon("bridge-loaded");
+  setTimeout(function(){ forceRenderBookArea("bridge-loaded-force"); }, 120);
+  setTimeout(function(){ forceRenderBookArea("bridge-loaded-force-2"); }, 500);
 
   ensureMaster().then(function(){
     rerenderSoon("master-loaded");
+    forceRenderBookArea("master-loaded-force");
+    setTimeout(function(){ forceRenderBookArea("master-loaded-force-2"); }, 300);
   });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function(){
-      ensureMaster().then(function(){ rerenderSoon("dom-loaded"); });
+      installBookAreaObserver();
+      ensureMaster().then(function(){
+        rerenderSoon("dom-loaded");
+        forceRenderBookArea("dom-loaded-force");
+      });
     });
   } else {
+    installBookAreaObserver();
     rerenderSoon("dom-already-ready");
+    forceRenderBookArea("dom-ready-force");
   }
 })(typeof window !== "undefined" ? window : globalThis);
