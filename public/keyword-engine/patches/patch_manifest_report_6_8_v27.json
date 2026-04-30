@@ -1,22 +1,18 @@
 {
-  "patch": "report_6_8_student_choice_patch_v27",
-  "createdAt": "2026-04-30",
-  "purpose": "Restore student-facing 6~8 selection flow and make MINI payload targetStructure change by report choices",
+  "patch": "report_6_8_student_result_guard_patch_v28",
+  "version": "v28",
+  "created": "2026-04-30",
   "files": [
     "keyword-engine/index.html",
-    "keyword-engine/assets/js/mini_payload_builder.js",
-    "keyword-engine/assets/js/report_6_8_flow_bridge.js",
-    "keyword-engine/data/reports/report_example_pattern_rules_v27.json",
-    "keyword-engine/docs/README_REPORT_6_8_PATCH_V27.md",
-    "keyword-engine/patches/patch_manifest_report_6_8_v27.json"
+    "keyword-engine/assets/js/student_result_output_bridge.js",
+    "keyword-engine/docs/README_REPORT_6_8_PATCH_V28.md",
+    "keyword-engine/patches/patch_manifest_report_6_8_v28.json"
   ],
-  "versions": {
-    "__MINI_PAYLOAD_BUILDER_VERSION__": "mini-payload-builder-v2-report-choice-aware",
-    "__REPORT_6_8_FLOW_BRIDGE_VERSION__": "report-6-8-flow-bridge-v27-student-choice"
-  },
-  "keptIntact": [
-    "1~4 subject/concept/keyword/followup-axis logic",
-    "5 book recommendation adapter/bridge logic",
-    "student selected book context"
+  "purpose": "Prevent blank screen after student result generation and render final student report output using 6~8 report choices.",
+  "does_not_modify": [
+    "book_recommendation_adapter.js",
+    "book_210_ui_bridge.js",
+    "textbook_concept_helper.js",
+    "mini_payload_builder.js"
   ]
 }
