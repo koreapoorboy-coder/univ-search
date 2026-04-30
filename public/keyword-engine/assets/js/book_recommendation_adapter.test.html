@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>210권 도서 추천 어댑터 테스트</h1>
-  <p>v1.8 엄격 전공 도메인 게이트 테스트입니다.</p>
+  <p>v1.9 강제 제외 게이트 테스트입니다.</p>
   <button onclick="runTest()">테스트 실행</button>
   <pre id="out">대기 중</pre>
 
@@ -22,7 +22,7 @@
 
       await new Promise((resolve, reject) => {
         const script = document.createElement("script");
-        script.src = "./book_recommendation_adapter.js?v=v1.8-strict-engineering-gate&t=" + Date.now();
+        script.src = "./book_recommendation_adapter.js?v=v1.9-hard-exclude-gate&t=" + Date.now();
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
@@ -40,8 +40,8 @@
           subject: "통합과학1",
           department: "반도체공학과",
           selectedConcept: "과학의 측정과 우리 사회",
-          selectedRecommendedKeyword: "측정표준",
-          followupAxis: "물리 시스템 해석 축 센서 측정 데이터"
+          selectedRecommendedKeyword: "폭염주의보",
+          followupAxis: "수리 데이터 모델링 축"
         };
 
         const result = BookRecommendationAdapter.recommendBooks(payload, master.books);
