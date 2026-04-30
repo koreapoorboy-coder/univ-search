@@ -9,7 +9,7 @@
 (function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v2.0-report-role-engine";
+  const ADAPTER_VERSION = "v2.1-axis-diversity-engine";
   const MASTER_FILE = "book_source_master_210.json";
   const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
@@ -476,6 +476,163 @@
     "limitationDiscussion": "자료 해석의 한계·오차·판단 편향 논의",
     "conclusionExpansion": "보고서 결론에서 사회적 의미나 진로 확장으로 연결",
     "application": "실생활·산업·진로 사례 적용"
+  },
+  "axisProfiles": {
+    "math_data_modeling": {
+      "label": "수리·데이터 모델링 축",
+      "patterns": [
+        "수리",
+        "데이터",
+        "모델링",
+        "통계",
+        "알고리즘",
+        "예측",
+        "시뮬레이션",
+        "그래프",
+        "자료"
+      ],
+      "preferredDomains": [
+        "engineering_information",
+        "engineering_data",
+        "engineering_physics_math",
+        "science_method"
+      ],
+      "expansionDomains": [
+        "science_philosophy",
+        "science_history",
+        "environment_energy"
+      ],
+      "titleBoost": [
+        "페르마의 마지막 정리",
+        "혼돈으로부터의 질서",
+        "객관성의 칼날",
+        "부분과 전체"
+      ],
+      "titleDemote": [
+        "총, 균, 쇠",
+        "침묵의 봄"
+      ],
+      "reportRolePriority": [
+        "analysisFrame",
+        "limitationDiscussion",
+        "conceptExplanation"
+      ]
+    },
+    "physics_system": {
+      "label": "물리·시스템 해석 축",
+      "patterns": [
+        "물리",
+        "시스템",
+        "센서",
+        "측정",
+        "속도",
+        "카메라",
+        "에너지",
+        "전자기",
+        "양자",
+        "오차"
+      ],
+      "preferredDomains": [
+        "engineering_physics_math",
+        "science_method",
+        "science_philosophy",
+        "environment_energy"
+      ],
+      "expansionDomains": [
+        "science_history",
+        "engineering_data"
+      ],
+      "titleBoost": [
+        "부분과 전체",
+        "엔트로피",
+        "객관성의 칼날",
+        "혼돈으로부터의 질서",
+        "코스모스"
+      ],
+      "titleDemote": [
+        "총, 균, 쇠",
+        "침묵의 봄",
+        "경영학 콘서트"
+      ],
+      "reportRolePriority": [
+        "conceptExplanation",
+        "analysisFrame",
+        "limitationDiscussion"
+      ]
+    },
+    "earth_environment_data": {
+      "label": "지구·환경 데이터 해석 축",
+      "patterns": [
+        "지구",
+        "환경",
+        "기후",
+        "폭염",
+        "생태",
+        "대기",
+        "기상",
+        "지속가능",
+        "에너지",
+        "사회적 영향"
+      ],
+      "preferredDomains": [
+        "environment_energy",
+        "environment_social",
+        "science_method",
+        "science_history"
+      ],
+      "expansionDomains": [
+        "engineering_data",
+        "science_philosophy",
+        "social_policy"
+      ],
+      "titleBoost": [
+        "엔트로피",
+        "침묵의 봄",
+        "총, 균, 쇠",
+        "코스모스",
+        "객관성의 칼날"
+      ],
+      "titleDemote": [
+        "페르마의 마지막 정리",
+        "부분과 전체"
+      ],
+      "reportRolePriority": [
+        "conclusionExpansion",
+        "analysisFrame",
+        "comparisonFrame"
+      ]
+    },
+    "generic_science_method": {
+      "label": "과학 방법·측정 일반 축",
+      "patterns": [
+        "측정",
+        "표준",
+        "관찰",
+        "객관성",
+        "과학적 판단"
+      ],
+      "preferredDomains": [
+        "science_method",
+        "science_philosophy",
+        "engineering_physics_math"
+      ],
+      "expansionDomains": [
+        "science_history",
+        "engineering_data",
+        "environment_energy"
+      ],
+      "titleBoost": [
+        "객관성의 칼날",
+        "부분과 전체",
+        "코스모스"
+      ],
+      "titleDemote": [],
+      "reportRolePriority": [
+        "conceptExplanation",
+        "analysisFrame",
+        "limitationDiscussion"
+      ]
+    }
   }
 };
 
@@ -799,18 +956,89 @@
     };
   }
 
+
+  function inferAxisProfile(terms, rules){
+    const text = normalize([terms.selectedConcept, terms.selectedKeyword, terms.axis].join(" "));
+    const profiles = rules.axisProfiles || {};
+    let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {} };
+
+    Object.entries(profiles).forEach(([id, profile]) => {
+      let score = 0;
+      (profile.patterns || []).forEach(p => {
+        if (text.includes(normalize(p))) score += 1;
+      });
+      if (score > best.score) best = { id, score, profile };
+    });
+
+    return best;
+  }
+
+  function axisFit(book, domain, role, axisInfo){
+    const profile = axisInfo.profile || {};
+    const title = book.title || "";
+    let boost = 0;
+    const reasons = [];
+
+    if ((profile.preferredDomains || []).some(d => (domain.domains || []).includes(d))) {
+      boost += 24;
+      reasons.push("후속 연계축 우선 도메인");
+    } else if ((profile.expansionDomains || []).some(d => (domain.domains || []).includes(d))) {
+      boost += 10;
+      reasons.push("후속 연계축 확장 도메인");
+    } else {
+      boost -= 18;
+      reasons.push("후속 연계축 도메인 약함");
+    }
+
+    if ((profile.titleBoost || []).includes(title)) {
+      boost += 28;
+      reasons.push("후속 연계축 대표 도서");
+    }
+    if ((profile.titleDemote || []).includes(title)) {
+      boost -= 28;
+      reasons.push("후속 연계축 직접성 낮음");
+    }
+
+    const rolePriority = profile.reportRolePriority || [];
+    const roleHits = (role.roles || []).filter(r => rolePriority.includes(r));
+    if (roleHits.length) {
+      boost += Math.min(18, roleHits.length * 8);
+      reasons.push("후속 연계축 보고서 역할 적합");
+    }
+
+    return { score: boost, reasons };
+  }
+
+
   function evaluateBook(book, terms, majorGroup, rules){
     const domain = domainFit(book, majorGroup, rules);
     if (domain.level === "excluded") {
-      return { include:false, type:"excluded", score:0, domain, role:null };
+      return { include:false, type:"excluded", score:0, domain, role:null, axis:null, axisProfile:"" };
     }
+
     const role = roleFit(book, terms, rules);
+    const axisInfo = inferAxisProfile(terms, rules);
+    const axis = axisFit(book, domain, role, axisInfo);
+
     const domainScore = domain.level === "direct" ? 55 : 25;
-    const score = domainScore + role.score;
-    const type = (domain.level === "direct" && role.score >= 20) ? "direct" : (role.score >= 15 ? "expansion" : "excluded");
-    if (type === "excluded") return { include:false, type, score, domain, role };
-    return { include:true, type, score, domain, role };
+    const score = domainScore + role.score + axis.score;
+
+    let type = "excluded";
+    if (domain.level === "direct" && role.score >= 20 && axis.score >= 5) {
+      type = "direct";
+    } else if (role.score >= 15 && score >= 45) {
+      type = "expansion";
+    }
+
+    if (type === "excluded") return { include:false, type, score, domain, role, axis, axisProfile: axisInfo.id };
+
+    if (type === "direct" && axis.score < 15 && score < 95) {
+      type = "expansion";
+    }
+
+    return { include:true, type, score, domain, role, axis, axisProfile: axisInfo.id };
   }
+
 
   function recommendBooks(payload, books, options){
     options = options || {};
@@ -835,9 +1063,11 @@
       return Object.assign({}, book, {
         matchScore: ev.score,
         matchType: ev.type,
-        matchReasons: ev.role ? ev.role.reasons : [ev.domain.reason],
+        matchReasons: (ev.role ? ev.role.reasons : [ev.domain.reason]).concat(ev.axis ? ev.axis.reasons : []),
         reportRoles: ev.role ? ev.role.roles : [],
         bookDomains: ev.domain.domains,
+        axisProfile: ev.axisProfile || "",
+        axisFitReasons: ev.axis ? ev.axis.reasons : [],
         selectedBookContext,
         adapterVersion: ADAPTER_VERSION
       });
@@ -864,6 +1094,7 @@
       adapterVersion: ADAPTER_VERSION,
       debug: {
         majorGroup,
+        axisProfile: inferAxisProfile(terms, rules).id,
         strongTokens: terms.strongTokens,
         evaluatedCount: evaluated.length,
         directCount: directBooks.length,
