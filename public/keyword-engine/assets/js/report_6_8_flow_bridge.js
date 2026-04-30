@@ -1,11 +1,14 @@
 /* report_6_8_flow_bridge.js
- * v26: 6번 보고서 구조 설계 → 7번 MINI payload → 8번 최종 출력 흐름 보정 브리지
- * 기존 1~5번/도서 추천 로직은 건드리지 않고, __BUILD_MINI_REPORT_PAYLOAD__ 결과를 화면에 연결한다.
+ * v27: 학생용 6~8번 선택 UI 복구 + 운영자용 MINI payload 패널 분리
+ * - 6번은 보고서 전개 방식 선택
+ * - 7번은 보고서 관점 선택
+ * - 8번은 보고서 라인 선택
+ * - 내부 payload/targetStructure는 접힌 운영자용 영역으로만 제공
  */
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v26-mini-output";
+  const VERSION = "report-6-8-flow-bridge-v27-student-choice";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -17,6 +20,46 @@
     .replace(/>/g, "&gt;")
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
+
+  const LINE_HELP = {
+    basic: {
+      id: "basic",
+      title: "기본형",
+      desc: "개념을 먼저 정리하고 사례와 느낀점으로 마무리하는 짧은 보고서 구조입니다.",
+      fit: "처음 쓰는 학생 / 교과 개념 설명 중심",
+      sections: ["추천 주제", "탐구 동기", "핵심 개념 정리", "교과 연계", "느낀점", "세특 문구"]
+    },
+    standard: {
+      id: "standard",
+      title: "확장형",
+      desc: "교과 개념에 사례·도서·자료 중 하나를 붙여 수행평가 제출용으로 확장하는 구조입니다.",
+      fit: "일반 수행평가 / 사례·자료·도서 확장",
+      sections: ["중요성", "주제", "키워드", "탐구 동기", "개념 설명", "문제 해결", "적용 과정", "교과 연계", "심화 방안", "참고자료"]
+    },
+    advanced: {
+      id: "advanced",
+      title: "심화형",
+      desc: "현재 과목, 후속 과목, 도서, 전공 연결까지 모두 반영하는 심화 보고서 구조입니다.",
+      fit: "세특·심화탐구 / 후속 과목·진로 연결",
+      sections: ["중요성", "추천 주제", "관련 키워드", "탐구 동기", "느낀점", "세특 문구", "개념의 생기부 연결", "원리 설명", "문제 해결 의미", "실제 적용", "교과목 연계", "심화 탐구", "참고문헌"]
+    }
+  };
+
+  const VIEW_HELP = {
+    "원리": { title:"원리 관점", desc:"왜 그런 현상이 일어나는지, 어떤 교과 개념이 작동하는지 중심으로 풀이합니다.", example:"핵심 개념 → 원리 → 선택 키워드 적용 순서로 정리" },
+    "자료 해석": { title:"자료 해석 관점", desc:"수치, 그래프, 관측 자료를 해석해서 의미를 찾는 방식입니다.", example:"변수 설정 → 자료 해석 → 그래프 의미 → 한계" },
+    "데이터": { title:"데이터 관점", desc:"자료 수집 방식과 해석 기준을 중심으로 결론을 만드는 방식입니다.", example:"데이터 출처와 변수, 비교 기준을 먼저 세우기" },
+    "모델링": { title:"모델링 관점", desc:"복잡한 현상을 변수와 관계로 단순화해 설명합니다.", example:"현상 → 변수 → 관계 → 예측 또는 해석" },
+    "한계": { title:"한계 관점", desc:"해결 방안이나 자료 해석의 조건, 오차, 적용 범위를 비판적으로 봅니다.", example:"가능성뿐 아니라 적용 조건과 한계를 함께 제시" },
+    "비교": { title:"비교 관점", desc:"두 사례나 두 조건을 나란히 놓고 차이점과 공통점을 정리합니다.", example:"비교 기준 2~3개를 먼저 세운 뒤 차이 해석" },
+    "사회적 의미": { title:"사회적 의미 관점", desc:"과학·기술 개념이 실제 사회 문제, 정책, 윤리와 연결되는 지점을 봅니다.", example:"기술 원리 → 사회 문제 → 대응 방향" },
+    "진로 확장": { title:"진로 확장 관점", desc:"선택 학과와 직무에서 이 개념이 어떻게 쓰이는지 연결합니다.", example:"교과 개념 → 전공 문제 상황 → 후속 탐구" },
+    "구조": { title:"구조 관점", desc:"대상이 어떤 요소로 이루어지고 각 요소가 어떻게 연결되는지 봅니다.", example:"구성 요소와 역할을 나누어 설명" },
+    "기능": { title:"기능 관점", desc:"대상이 실제로 어떤 역할을 수행하는지 중심으로 정리합니다.", example:"작동 과정과 기능을 단계별로 설명" },
+    "안정성": { title:"안정성 관점", desc:"시스템이나 구조가 안정적으로 유지되는 조건을 분석합니다.", example:"위험 요인과 안정 조건을 함께 제시" },
+    "효율": { title:"효율 관점", desc:"같은 결과를 더 적은 자원·시간·에너지로 얻는 방식을 비교합니다.", example:"효율 기준을 세우고 대안을 비교" },
+    "변화": { title:"변화 관점", desc:"시간이나 조건 변화에 따른 값과 상태의 변화를 해석합니다.", example:"전후 변화 또는 조건별 변화를 그래프로 해석" }
+  };
 
   function getState(){
     return global.__TEXTBOOK_HELPER_STATE__ || {};
@@ -36,89 +79,9 @@
     return null;
   }
 
-  function selectedBookReady(payload){
+  function hasSelectedBook(payload){
     const state = getState();
     return !!(payload && payload.selectedBook && (state.selectedBook || payload.selectedBook.title));
-  }
-
-  function compactObjectText(obj, fallback){
-    if (!obj) return fallback || "-";
-    if (typeof obj === "string") return obj;
-    if (Array.isArray(obj)) return obj.join(" / ") || (fallback || "-");
-    if (typeof obj === "object") {
-      return Object.entries(obj)
-        .filter(([, value]) => value != null && String(value).trim() !== "")
-        .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(", ") : value}`)
-        .slice(0, 6)
-        .join(" / ") || (fallback || "-");
-    }
-    return String(obj);
-  }
-
-  function inferReportMode(payload){
-    const axis = val(payload?.selectionPayload?.followupAxis).toLowerCase();
-    const keyword = val(payload?.selectionPayload?.selectedRecommendedKeyword).toLowerCase();
-    const hay = `${axis} ${keyword}`;
-    if (/데이터|data|그래프|시각화|모델|예측|통계|수치|자료/.test(hay)) return "data";
-    if (/비교|대조|차이|한계|쟁점/.test(hay)) return "compare";
-    if (/실험|측정|센서|검증|관찰/.test(hay)) return "application";
-    if (/전공|공학|의학|약학|간호|환경|컴퓨터|반도체/.test(hay)) return "major";
-    return "principle";
-  }
-
-  function inferReportView(payload){
-    const axis = val(payload?.selectionPayload?.followupAxis);
-    const keyword = val(payload?.selectionPayload?.selectedRecommendedKeyword);
-    const hay = `${axis} ${keyword}`;
-    if (/데이터|시각화|그래프|예측|모델|통계|자료/.test(hay)) return "자료 해석";
-    if (/측정|센서|진단|실험|검증|관찰/.test(hay)) return "측정·검증";
-    if (/소재|반도체|물성|공정|소자/.test(hay)) return "설계·응용";
-    if (/윤리|사회|정책|환경|기후|재난/.test(hay)) return "문제 해결";
-    return "원리";
-  }
-
-  function inferReportLine(payload){
-    const target = arr(payload?.reportGenerationContext?.targetStructure);
-    if (target.length >= 13) return "mini-13-section";
-    return "mini-standard";
-  }
-
-  function ensureProgressState(payload){
-    const state = getState();
-    if (!selectedBookReady(payload)) return false;
-    let changed = false;
-    if (!state.reportMode) { state.reportMode = inferReportMode(payload); changed = true; }
-    if (!state.reportView) { state.reportView = inferReportView(payload); changed = true; }
-    if (!state.reportLine) { state.reportLine = inferReportLine(payload); changed = true; }
-    return changed;
-  }
-
-  function ensureStyle(){
-    if (q("reportBridgeStyle")) return;
-    const style = document.createElement("style");
-    style.id = "reportBridgeStyle";
-    style.textContent = `
-      .report-bridge-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px; }
-      .report-bridge-grid.three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-      .report-bridge-card { border:1px solid #d8e0ee; border-radius:16px; background:#fff; padding:14px; }
-      .report-bridge-card.strong { border-color:#b9cbf3; background:#f8fbff; }
-      .report-bridge-title { font-size:15px; font-weight:900; color:#172033; margin-bottom:6px; }
-      .report-bridge-desc { font-size:13px; line-height:1.65; color:#52617b; }
-      .report-bridge-kv { display:grid; grid-template-columns: 120px 1fr; gap:7px 10px; font-size:13px; line-height:1.55; color:#465570; }
-      .report-bridge-kv b { color:#172033; }
-      .report-bridge-list { margin:8px 0 0; padding-left:18px; color:#47556e; font-size:13px; line-height:1.65; }
-      .report-bridge-pillrow { display:flex; flex-wrap:wrap; gap:7px; margin-top:8px; }
-      .report-bridge-pill { display:inline-flex; padding:6px 9px; border-radius:999px; background:#edf3ff; color:#2f5be8; font-size:12px; font-weight:800; }
-      .report-bridge-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-      .report-bridge-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:9px 12px; font-size:13px; font-weight:900; cursor:pointer; }
-      .report-bridge-btn.primary { background:#2f66ff; color:#fff; border-color:#2f66ff; }
-      .report-bridge-pre { margin-top:10px; max-height:260px; overflow:auto; white-space:pre-wrap; background:#111827; color:#f8fafc; border-radius:14px; padding:12px; font-size:12px; line-height:1.55; }
-      .report-bridge-check { display:flex; align-items:flex-start; gap:8px; padding:8px 0; font-size:13px; color:#47556e; }
-      .report-bridge-check:before { content:'✓'; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:999px; background:#eaf2ff; color:#2563eb; font-weight:900; flex:0 0 18px; }
-      .report-bridge-muted { color:#6b7890; font-size:12px; line-height:1.55; margin-top:6px; }
-      @media (max-width:1100px){ .report-bridge-grid, .report-bridge-grid.three { grid-template-columns:1fr; } .report-bridge-kv { grid-template-columns: 1fr; } }
-    `;
-    document.head.appendChild(style);
   }
 
   function setStepHead(blockId, title, copy, guide){
@@ -132,244 +95,310 @@
     if (guideEl) guideEl.textContent = guide;
   }
 
-  function renderKey(payload){
+  function ensureStyle(){
+    if (q("reportChoiceBridgeStyle")) return;
+    const style = document.createElement("style");
+    style.id = "reportChoiceBridgeStyle";
+    style.textContent = `
+      .report-choice-note { margin-top:10px; padding:12px 14px; border:1px solid #d9e4fb; border-radius:14px; background:#f8fbff; color:#47556e; font-size:13px; line-height:1.65; }
+      .report-choice-preview { margin-top:12px; padding:14px; border:1px solid #d8e0ee; border-radius:16px; background:#fff; }
+      .report-choice-preview-title { font-weight:900; color:#172033; margin-bottom:7px; font-size:15px; }
+      .report-choice-preview-desc { color:#52617b; font-size:13px; line-height:1.65; }
+      .report-choice-pillrow { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+      .report-choice-pill { display:inline-flex; align-items:center; border-radius:999px; padding:6px 9px; background:#edf3ff; color:#275fe8; font-size:12px; font-weight:900; }
+      .report-choice-operator { margin-top:12px; border:1px dashed #b9c7e7; border-radius:14px; background:#fbfdff; padding:10px 12px; }
+      .report-choice-operator > summary { cursor:pointer; font-weight:900; color:#334155; }
+      .report-choice-operator-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px; }
+      .report-choice-operator-card { border:1px solid #e0e7f3; border-radius:12px; background:#fff; padding:10px; font-size:12px; color:#475569; line-height:1.55; }
+      .report-choice-operator-title { font-weight:900; color:#111827; margin-bottom:5px; }
+      .report-choice-pre { max-height:220px; overflow:auto; white-space:pre-wrap; background:#111827; color:#f8fafc; border-radius:12px; padding:10px; font-size:12px; line-height:1.55; margin-top:10px; }
+      .report-choice-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+      .report-choice-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:8px 12px; font-size:12px; font-weight:900; cursor:pointer; }
+      .report-choice-btn.primary { background:#2f66ff; color:#fff; border-color:#2f66ff; }
+      @media (max-width:1100px){ .report-choice-operator-grid { grid-template-columns:1fr; } }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function buildContext(){
     const state = getState();
-    return [
-      VERSION,
-      payload?.createdAt ? "payload" : "no-payload",
-      payload?.selectionPayload?.subject,
-      payload?.selectionPayload?.department,
-      payload?.selectionPayload?.selectedConcept,
-      payload?.selectionPayload?.selectedRecommendedKeyword,
-      payload?.selectionPayload?.followupAxis,
-      payload?.selectedBook?.sourceId || payload?.selectedBook?.managementNo || payload?.selectedBook?.title,
-      state.reportMode,
-      state.reportView,
-      state.reportLine
-    ].map(v => val(v)).join("||");
-  }
-
-  function selectionSummaryHTML(payload){
+    const payload = getPayload();
     const s = payload?.selectionPayload || {};
-    const b = payload?.selectedBook || {};
-    return `
-      <div class="report-bridge-kv">
-        <b>과목</b><span>${esc(s.subject || "-")}</span>
-        <b>학과</b><span>${esc(s.department || "-")}</span>
-        <b>교과 개념</b><span>${esc(s.selectedConcept || "-")}</span>
-        <b>추천 키워드</b><span>${esc(s.selectedRecommendedKeyword || "-")}</span>
-        <b>후속 연계축</b><span>${esc(s.followupAxis || "-")}</span>
-        <b>선택 도서</b><span>${esc(b.title || "-")}</span>
-      </div>
-    `;
+    return {
+      state,
+      payload,
+      subject: s.subject || state.subject || "",
+      major: s.department || state.career || state.majorSelectedName || "",
+      concept: s.selectedConcept || state.concept || "",
+      keyword: s.selectedKeyword || s.selectedRecommendedKeyword || state.keyword || "",
+      axis: s.selectedFollowupAxis || s.followupAxis || state.linkTrack || "",
+      selectedBook: payload?.selectedBook || null,
+      ctx: payload?.reportGenerationContext || {}
+    };
   }
 
-  function sectionCardsHTML(payload){
-    const ctx = payload?.reportGenerationContext || {};
-    const target = arr(ctx.targetStructure);
-    const purposes = ctx.sectionPurpose || {};
-    const templates = ctx.sectionTemplates || {};
-    if (!target.length) return `<div class="engine-empty">보고서 구조 데이터가 아직 없습니다.</div>`;
-    return `<div class="report-bridge-grid">${target.map((name, idx) => {
-      const purpose = purposes[name] || templates[name]?.prompt || "선택 흐름에 맞춰 작성 방향을 보강합니다.";
-      return `<div class="report-bridge-card">
-        <div class="report-bridge-title">${idx + 1}. ${esc(name)}</div>
-        <div class="report-bridge-desc">${esc(purpose)}</div>
-      </div>`;
-    }).join("")}</div>`;
+  function getMeta(ctx){
+    const state = getState();
+    if (typeof global.getReportOptionMeta === "function") {
+      try {
+        return global.getReportOptionMeta({
+          subject: ctx.subject,
+          career: ctx.major,
+          selectedMajor: ctx.major,
+          linkTrack: state.linkTrack || ctx.axis,
+          followupAxisId: state.linkTrack || ctx.axis,
+          concept: ctx.concept,
+          keyword: ctx.keyword,
+          selectedBook: state.selectedBook || ctx.selectedBook?.sourceId || ctx.selectedBook?.title || ""
+        }) || {};
+      } catch(error) {}
+    }
+    return {};
   }
 
-  function axisRuleHTML(payload){
-    const ctx = payload?.reportGenerationContext || {};
-    const axisRule = ctx.axisDevelopmentRule;
-    const keywordFrame = ctx.keywordReportFrame;
-    const bookUse = ctx.selectedBookUse || {};
-    const use = bookUse.useInReport || {};
-    const roleLabels = arr(bookUse.reportRoleLabels);
-    const useItems = Object.entries(use).filter(([, v]) => !!v).map(([k, v]) => `${k}: ${v}`);
-    return `
-      <div class="report-bridge-grid three">
-        <div class="report-bridge-card strong">
-          <div class="report-bridge-title">축 기반 전개 규칙</div>
-          <div class="report-bridge-desc">${esc(compactObjectText(axisRule, "선택 후속축에 맞춘 전개 규칙을 적용합니다."))}</div>
-        </div>
-        <div class="report-bridge-card strong">
-          <div class="report-bridge-title">키워드 보고서 프레임</div>
-          <div class="report-bridge-desc">${esc(compactObjectText(keywordFrame, "선택 키워드 중심으로 보고서 질문을 좁힙니다."))}</div>
-        </div>
-        <div class="report-bridge-card strong">
-          <div class="report-bridge-title">선택 도서 활용 위치</div>
-          <div class="report-bridge-desc">${esc(roleLabels.join(" / ") || bookUse.recommendationReason || "보고서 근거·비교·확장에 배치합니다.")}</div>
-          ${useItems.length ? `<ul class="report-bridge-list">${useItems.slice(0,5).map(item => `<li>${esc(item)}</li>`).join("")}</ul>` : ""}
-        </div>
-      </div>
-    `;
+  function modeOptions(ctx){
+    const meta = getMeta(ctx);
+    const base = arr(meta.modeOptions);
+    const fallback = [
+      { id: "principle", label: "원리 파악형", desc: "핵심 개념이 왜 성립하는지 설명합니다." },
+      { id: "compare", label: "비교 분석형", desc: "두 사례나 조건의 차이를 비교합니다." },
+      { id: "data", label: "데이터 확장형", desc: "자료·수치·그래프를 해석하며 확장합니다." },
+      { id: "application", label: "사례 적용형", desc: "실생활·산업 사례에 적용합니다." },
+      { id: "major", label: "전공 확장형", desc: "희망 진로와 직접 연결해 정리합니다." },
+      { id: "book", label: "도서 근거형", desc: "선택 도서를 보고서 근거와 비교 관점으로 활용합니다." }
+    ];
+    const merged = [];
+    const seen = new Set();
+    base.concat(fallback).forEach(item => {
+      if (!item || !item.id || seen.has(item.id)) return;
+      seen.add(item.id);
+      merged.push(item);
+    });
+    const priority = arr(ctx.ctx?.examplePattern?.modePriority);
+    if (priority.length) {
+      merged.sort((a,b) => {
+        const ai = priority.includes(a.id) ? priority.indexOf(a.id) : 99;
+        const bi = priority.includes(b.id) ? priority.indexOf(b.id) : 99;
+        return ai - bi;
+      });
+    }
+    return merged;
   }
 
-  function renderStep6(payload){
+  function recommendedModeId(ctx, options){
+    const patternPriority = arr(ctx.ctx?.examplePattern?.modePriority);
+    if (patternPriority.length) return patternPriority.find(id => options.some(o => o.id === id)) || options[0]?.id || "";
+    const text = [ctx.axis, ctx.keyword, ctx.concept].join(" ");
+    if (/데이터|data|그래프|모델|예측|통계|자료|시각화/.test(text)) return "data";
+    if (/비교|차이|쟁점|한계|정책|윤리/.test(text)) return "compare";
+    if (/사례|적용|해결|실험|측정|센서/.test(text)) return "application";
+    if (/전공|공학|의학|약학|간호|컴퓨터/.test(text)) return "major";
+    return "principle";
+  }
+
+  function renderModeArea(ctx){
     const el = q("engineModeButtons");
     if (!el) return;
-    if (!selectedBookReady(payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번에서 도서를 선택하면 6번 보고서 구조 설계가 열립니다.</div>`;
+    if (!hasSelectedBook(ctx.payload)) {
+      el.innerHTML = `<div class="engine-empty">먼저 5번에서 도서를 선택해야 보고서 전개 방식을 고를 수 있습니다.</div>`;
       return;
     }
-    const key = renderKey(payload) + "::step6";
-    if (el.getAttribute("data-report-bridge-key") === key) return;
-    el.setAttribute("data-report-bridge-key", key);
+    const options = modeOptions(ctx);
+    const recommended = recommendedModeId(ctx, options);
+    const active = ctx.state.reportMode || "";
+    const key = `${VERSION}:mode:${active}:${recommended}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${options.map(o=>o.id).join(",")}`;
+    if (el.getAttribute("data-report-choice-key") === key) return;
+    el.setAttribute("data-report-choice-key", key);
     el.innerHTML = `
-      <div class="report-bridge-card strong">
-        <div class="report-bridge-title">선택 흐름 요약</div>
-        ${selectionSummaryHTML(payload)}
-        <div class="report-bridge-muted">6번은 보고서 형식을 새로 만드는 단계가 아니라, 3번 교과 개념·키워드와 4번 후속 연계축, 5번 선택 도서를 상속해 목차를 고정하는 단계입니다.</div>
-      </div>
-      <div style="margin-top:14px;" class="engine-subtitle">보고서 목표 구조</div>
-      ${sectionCardsHTML(payload)}
-      ${axisRuleHTML(payload)}
+      <div class="engine-mode-grid">${options.map(option => `
+        <button type="button" class="engine-mode-card ${active === option.id ? "is-active" : ""}" data-action="mode" data-value="${esc(option.id)}">
+          <div class="engine-mode-title">${esc(option.label)} ${option.id === recommended ? '<span class="engine-mini-tag" style="margin-left:6px;">추천</span>' : ''}</div>
+          <div class="engine-mode-desc">${esc(option.desc || "")}</div>
+        </button>
+      `).join("")}</div>
+      <div class="report-choice-note">여기서 선택한 전개 방식은 MINI payload의 <b>reportMode</b>와 <b>targetStructure</b>를 바꿉니다. 같은 주제라도 원리형·데이터형·비교형을 다르게 고르면 보고서 문단 흐름이 달라집니다.</div>
     `;
   }
 
-  function buildMiniPrompt(payload){
-    const s = payload?.selectionPayload || {};
-    const ctx = payload?.reportGenerationContext || {};
-    const book = payload?.selectedBook || {};
+  function viewOptionsFor(ctx){
+    const meta = getMeta(ctx);
+    const base = arr(meta.viewOptions);
+    const mode = ctx.state.reportMode || ctx.ctx?.reportChoices?.mode || "";
+    const byMode = {
+      principle: ["원리","구조","기능","한계"],
+      data: ["자료 해석","데이터","모델링","한계"],
+      compare: ["비교","한계","사회적 의미","원리"],
+      application: ["사회적 의미","기능","효율","안정성"],
+      major: ["진로 확장","기능","구조","한계"],
+      book: ["한계","사회적 의미","원리","비교"]
+    };
+    const merged = [];
+    const seen = new Set();
+    (byMode[mode] || []).concat(base, ["원리","자료 해석","모델링","한계","비교","사회적 의미","진로 확장"]).forEach(item => {
+      if (!item || seen.has(item)) return;
+      seen.add(item);
+      merged.push(item);
+    });
+    return merged;
+  }
+
+  function renderViewArea(ctx){
+    const el = q("engineViewButtons");
+    if (!el) return;
+    if (!hasSelectedBook(ctx.payload)) {
+      el.innerHTML = `<div class="engine-empty">먼저 5번 도서를 선택해 주세요.</div>`;
+      return;
+    }
+    if (!ctx.state.reportMode) {
+      el.innerHTML = `<div class="engine-empty">먼저 6번에서 보고서 전개 방식을 선택하면 관점 선택이 열립니다.</div>`;
+      return;
+    }
+    const options = viewOptionsFor(ctx);
+    const active = ctx.state.reportView || "";
+    const current = VIEW_HELP[active] || VIEW_HELP[options[0]] || { title:"관점 선택", desc:"보고서를 어떤 시선으로 정리할지 고릅니다.", example:"선택한 관점에 따라 세부 문장과 강조점이 바뀝니다." };
+    const key = `${VERSION}:view:${ctx.state.reportMode}:${active}:${options.join(",")}`;
+    if (el.getAttribute("data-report-choice-key") === key) return;
+    el.setAttribute("data-report-choice-key", key);
+    el.innerHTML = `
+      <div class="engine-chip-wrap">${options.map(view => `
+        <button type="button" class="engine-chip ${active === view ? "is-active" : ""}" data-action="view" data-value="${esc(view)}">${esc(view)}</button>
+      `).join("")}</div>
+      <div class="engine-view-guide">
+        <div class="engine-view-guide-title">${esc(current.title)}</div>
+        <div class="engine-view-guide-desc">${esc(current.desc)}</div>
+        <div class="engine-view-guide-example">${esc(current.example)}</div>
+      </div>
+    `;
+  }
+
+  function recommendedLine(ctx){
+    const mode = ctx.state.reportMode || "";
+    const pattern = ctx.ctx?.examplePattern?.id || "";
+    if (mode === "major" || pattern === "bio_mechanism" || pattern === "physics_energy_system") return "advanced";
+    if (["data","compare","application","book"].includes(mode)) return "standard";
+    return "basic";
+  }
+
+  function renderLineArea(ctx){
+    const el = q("engineLineArea");
+    if (!el) return;
+    if (!hasSelectedBook(ctx.payload)) {
+      el.innerHTML = `<div class="engine-empty">먼저 5번 도서를 선택해 주세요.</div>`;
+      return;
+    }
+    if (!ctx.state.reportMode || !ctx.state.reportView) {
+      el.innerHTML = `<div class="engine-empty">먼저 6번 전개 방식과 7번 관점을 선택하면 보고서 라인을 고를 수 있습니다.</div>`;
+      return;
+    }
+    const entries = Object.values(LINE_HELP);
+    const rec = recommendedLine(ctx);
+    const active = ctx.state.reportLine || "";
+    const current = LINE_HELP[active] || LINE_HELP[rec] || LINE_HELP.standard;
+    const payloadSections = arr(ctx.ctx?.targetStructure);
+    const previewSections = payloadSections.length ? payloadSections : current.sections;
+    const key = `${VERSION}:line:${ctx.state.reportMode}:${ctx.state.reportView}:${active}:${rec}:${previewSections.join(">")}`;
+    if (el.getAttribute("data-report-choice-key") === key) return;
+    el.setAttribute("data-report-choice-key", key);
+    el.innerHTML = `
+      <div class="engine-mode-grid">${entries.map(item => `
+        <button type="button" class="engine-mode-card ${active === item.id ? "is-active" : ""}" data-action="line" data-value="${esc(item.id)}">
+          <div class="engine-mode-title">${esc(item.title)} ${item.id === rec ? '<span class="engine-mini-tag" style="margin-left:6px;">추천</span>' : ''}</div>
+          <div class="engine-mode-desc">${esc(item.desc)}</div>
+          <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${esc(item.fit)}</div>
+        </button>
+      `).join("")}</div>
+      <div class="engine-view-guide">
+        <div class="engine-view-guide-title">${esc(current.title)} 보고서 라인</div>
+        <div class="engine-view-guide-desc">${esc(current.desc)}</div>
+        <div class="engine-view-guide-example">문단 흐름: ${current.sections.map((section, idx) => `${idx + 1}. ${section}`).join(" → ")}</div>
+      </div>
+      <div class="report-choice-preview">
+        <div class="report-choice-preview-title">선택 결과 미리보기</div>
+        <div class="report-choice-preview-desc">
+          현재 선택: ${esc(ctx.state.reportMode || "-")} / ${esc(ctx.state.reportView || "-")} / ${esc(active || "라인 선택 대기")}<br>
+          MINI에 전달될 구조: ${esc(previewSections.slice(0, 8).join(" → "))}${previewSections.length > 8 ? " ..." : ""}
+        </div>
+        <div class="report-choice-pillrow">
+          <span class="report-choice-pill">${esc(ctx.ctx?.examplePattern?.label || "예시 패턴 대기")}</span>
+          <span class="report-choice-pill">섹션 ${previewSections.length}개</span>
+          <span class="report-choice-pill">${esc(ctx.ctx?.reportChoices?.modeLabel || "전개 방식 반영")}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function operatorSummaryHTML(ctx){
+    const p = ctx.payload || {};
+    const gen = p.reportGenerationContext || {};
+    const choices = gen.reportChoices || {};
+    const sections = arr(gen.targetStructure);
+    const bookUse = gen.selectedBookUse || {};
+    return `
+      <details class="report-choice-operator">
+        <summary>운영/분석용 참고 보기 — 학생 화면에는 이 내용을 안내하지 않습니다</summary>
+        <div class="report-choice-operator-grid">
+          <div class="report-choice-operator-card">
+            <div class="report-choice-operator-title">선택 흐름</div>
+            과목: ${esc(ctx.subject || "-")}<br>
+            학과: ${esc(ctx.major || "-")}<br>
+            개념: ${esc(ctx.concept || "-")}<br>
+            키워드: ${esc(ctx.keyword || "-")}<br>
+            후속축: ${esc(ctx.axis || "-")}<br>
+            도서: ${esc(ctx.selectedBook?.title || "-")}
+          </div>
+          <div class="report-choice-operator-card">
+            <div class="report-choice-operator-title">6~8번 선택값</div>
+            전개 방식: ${esc(choices.modeLabel || ctx.state.reportMode || "-")}<br>
+            관점: ${esc(choices.viewLabel || ctx.state.reportView || "-")}<br>
+            라인: ${esc(choices.lineLabel || ctx.state.reportLine || "-")}<br>
+            예시 패턴: ${esc(gen.examplePattern?.label || "-")}<br>
+            섹션 수: ${sections.length}
+          </div>
+          <div class="report-choice-operator-card">
+            <div class="report-choice-operator-title">도서 활용 위치</div>
+            ${esc(arr(bookUse.reportRoleLabels).join(" / ") || bookUse.recommendationReason || "-")}
+          </div>
+          <div class="report-choice-operator-card">
+            <div class="report-choice-operator-title">targetStructure</div>
+            ${esc(sections.join(" → ") || "-")}
+          </div>
+        </div>
+        <div class="report-choice-actions">
+          <button type="button" class="report-choice-btn primary" data-report-copy="payload">payload JSON 복사</button>
+          <button type="button" class="report-choice-btn" data-report-copy="prompt">MINI 요청문 복사</button>
+        </div>
+        <details>
+          <summary style="cursor:pointer; margin-top:10px; font-weight:800;">payload 원문 보기</summary>
+          <pre class="report-choice-pre">${esc(JSON.stringify(p, null, 2))}</pre>
+        </details>
+      </details>
+    `;
+  }
+
+  function buildMiniPrompt(ctx){
+    const p = ctx.payload || {};
+    const s = p.selectionPayload || {};
+    const gen = p.reportGenerationContext || {};
+    const choices = gen.reportChoices || {};
     return [
       "아래 payload를 기준으로 고등학생 수행평가용 MINI 보고서 초안을 작성해줘.",
       "",
       `과목: ${s.subject || "-"}`,
       `학과: ${s.department || "-"}`,
       `교과 개념: ${s.selectedConcept || "-"}`,
-      `추천 키워드: ${s.selectedRecommendedKeyword || "-"}`,
-      `후속 연계축: ${s.followupAxis || "-"}`,
-      `선택 도서: ${book.title || "-"}`,
+      `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || "-"}`,
+      `후속 연계축: ${s.selectedFollowupAxis || s.followupAxis || "-"}`,
+      `선택 도서: ${p.selectedBook?.title || "-"}`,
+      `보고서 전개 방식: ${choices.modeLabel || s.reportMode || "-"}`,
+      `보고서 관점: ${choices.viewLabel || s.reportView || "-"}`,
+      `보고서 라인: ${choices.lineLabel || s.reportLine || "-"}`,
       "",
       "작성 구조:",
-      arr(ctx.targetStructure).map((name, idx) => `${idx + 1}. ${name}`).join("\n"),
+      arr(gen.targetStructure).map((name, idx) => `${idx + 1}. ${name}`).join("\n"),
       "",
       "작성 원칙:",
-      arr(ctx.writingRules).map(rule => `- ${rule}`).join("\n")
+      arr(gen.writingRules).map(rule => `- ${rule}`).join("\n")
     ].join("\n");
-  }
-
-  function payloadStatusHTML(payload){
-    const s = payload?.selectionPayload || {};
-    const checks = [
-      ["선택 과목", s.subject],
-      ["선택 학과", s.department],
-      ["선택 교과 개념", s.selectedConcept],
-      ["선택 추천 키워드", s.selectedRecommendedKeyword],
-      ["선택 후속 연계축", s.followupAxis],
-      ["선택 도서", payload?.selectedBook?.title],
-      ["targetStructure 13개 항목", arr(payload?.reportGenerationContext?.targetStructure).length >= 13],
-      ["selectedBookUse", payload?.reportGenerationContext?.selectedBookUse]
-    ];
-    return `<div class="report-bridge-grid">${checks.map(([label, ok]) => `
-      <div class="report-bridge-check">${esc(label)}: ${ok ? "준비됨" : "대기"}</div>
-    `).join("")}</div>`;
-  }
-
-  function renderStep7(payload){
-    const el = q("engineViewButtons");
-    if (!el) return;
-    if (!selectedBookReady(payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번 도서를 선택하고 6번 구조를 확인하면 MINI payload를 생성할 수 있습니다.</div>`;
-      return;
-    }
-    const json = JSON.stringify(payload, null, 2);
-    const prompt = buildMiniPrompt(payload);
-    const key = renderKey(payload) + "::step7";
-    if (el.getAttribute("data-report-bridge-key") === key) return;
-    el.setAttribute("data-report-bridge-key", key);
-    el.innerHTML = `
-      <div class="report-bridge-card strong">
-        <div class="report-bridge-title">MINI payload 생성 상태</div>
-        <div class="report-bridge-desc">이 단계는 학생 화면용 설명이 아니라, MINI가 보고서 초안을 만들 때 사용할 구조 데이터를 확인·복사하는 단계입니다.</div>
-        ${payloadStatusHTML(payload)}
-        <div class="report-bridge-actions">
-          <button type="button" class="report-bridge-btn primary" data-report-copy="payload">payload JSON 복사</button>
-          <button type="button" class="report-bridge-btn" data-report-copy="prompt">MINI 요청문 복사</button>
-          <button type="button" class="report-bridge-btn" data-report-refresh="1">payload 새로고침</button>
-        </div>
-        <details style="margin-top:12px;">
-          <summary class="report-bridge-title" style="cursor:pointer; margin-bottom:0;">운영자용 payload 미리보기</summary>
-          <pre class="report-bridge-pre" data-report-payload-json>${esc(json)}</pre>
-        </details>
-        <pre class="report-bridge-pre" data-report-prompt style="display:none;">${esc(prompt)}</pre>
-      </div>
-    `;
-    const hidden = q("miniNavigationPayload");
-    if (hidden) hidden.value = json;
-  }
-
-  function finalReportOutlineHTML(payload){
-    const s = payload?.selectionPayload || {};
-    const ctx = payload?.reportGenerationContext || {};
-    const book = payload?.selectedBook || {};
-    const axis = s.followupAxis || "후속 연계축";
-    const keyword = s.selectedRecommendedKeyword || "선택 키워드";
-    const concept = s.selectedConcept || "교과 개념";
-    const major = s.department || "희망 학과";
-    const title = `${keyword}를 ${axis} 관점에서 해석한 ${major} 연계 탐구`;
-    const sections = arr(ctx.targetStructure);
-    return `
-      <div class="report-bridge-card strong">
-        <div class="report-bridge-title">최종 보고서 제목 예시</div>
-        <div class="report-bridge-desc" style="font-size:15px; color:#172033; font-weight:800;">${esc(title)}</div>
-      </div>
-      <div class="report-bridge-grid">
-        <div class="report-bridge-card">
-          <div class="report-bridge-title">보고서 본문</div>
-          <ul class="report-bridge-list">
-            ${sections.slice(0, 8).map((name, idx) => `<li>${idx + 1}. ${esc(name)}: ${esc(concept)} → ${esc(keyword)} → ${esc(axis)} 흐름으로 작성</li>`).join("")}
-          </ul>
-        </div>
-        <div class="report-bridge-card">
-          <div class="report-bridge-title">세특 문구 예시</div>
-          <div class="report-bridge-desc">${esc(concept)}을 바탕으로 ${esc(keyword)}를 분석하고, ${esc(axis)} 관점에서 자료 해석과 전공 연계를 수행함. 선택 도서 『${esc(book.title || "선택 도서")}』를 단순 독후감이 아닌 보고서 근거와 확장 관점으로 활용함.</div>
-        </div>
-        <div class="report-bridge-card">
-          <div class="report-bridge-title">심화 탐구 발전 방안</div>
-          <ul class="report-bridge-list">
-            <li>선택 키워드와 후속 연계축을 기준으로 추가 변수 또는 비교 대상을 설정한다.</li>
-            <li>관련 교과의 그래프·자료·실험 결과 중 하나를 근거로 연결한다.</li>
-            <li>${esc(major)}에서 실제로 다루는 문제 상황으로 결론을 확장한다.</li>
-          </ul>
-        </div>
-        <div class="report-bridge-card">
-          <div class="report-bridge-title">참고문헌 및 자료</div>
-          <ul class="report-bridge-list">
-            <li>선택 도서: ${esc(book.title || "-")} ${book.author ? ` / ${esc(book.author)}` : ""}</li>
-            <li>교과 자료: ${esc(s.subject || "선택 과목")} 교과 개념 ${esc(concept)}</li>
-            <li>추가 자료: 관련 기관 자료, 통계/그래프 자료, 전공 소개 자료를 보조 근거로 활용</li>
-          </ul>
-        </div>
-      </div>
-    `;
-  }
-
-  function renderStep8(payload){
-    const el = q("engineLineArea");
-    if (!el) return;
-    if (!selectedBookReady(payload)) {
-      el.innerHTML = `<div class="engine-empty">MINI payload가 준비되면 최종 출력 흐름을 확인할 수 있습니다.</div>`;
-      return;
-    }
-    const key = renderKey(payload) + "::step8";
-    if (el.getAttribute("data-report-bridge-key") === key) return;
-    el.setAttribute("data-report-bridge-key", key);
-    el.innerHTML = `
-      <div class="report-bridge-card strong">
-        <div class="report-bridge-title">최종 출력 흐름</div>
-        <div class="report-bridge-desc">8번은 실제 보고서 생성 화면으로 넘기기 전, 최종 산출물이 어떤 묶음으로 출력될지 보여주는 단계입니다.</div>
-        <div class="report-bridge-pillrow">
-          <span class="report-bridge-pill">보고서 본문</span>
-          <span class="report-bridge-pill">세특 문구 예시</span>
-          <span class="report-bridge-pill">심화 탐구 발전 방안</span>
-          <span class="report-bridge-pill">참고문헌 및 자료</span>
-          <span class="report-bridge-pill">MINI payload 확인/복사</span>
-        </div>
-      </div>
-      ${finalReportOutlineHTML(payload)}
-    `;
   }
 
   async function copyText(text){
@@ -388,91 +417,102 @@
   }
 
   function installCopyHandlers(){
-    if (global.__REPORT_6_8_COPY_HANDLER__) return;
-    global.__REPORT_6_8_COPY_HANDLER__ = true;
+    if (global.__REPORT_6_8_COPY_HANDLER_V27__) return;
+    global.__REPORT_6_8_COPY_HANDLER_V27__ = true;
     document.addEventListener("click", async function(event){
-      const copyBtn = event.target && event.target.closest ? event.target.closest("[data-report-copy]") : null;
-      const refreshBtn = event.target && event.target.closest ? event.target.closest("[data-report-refresh]") : null;
-      if (copyBtn) {
-        event.preventDefault();
-        const payload = getPayload();
-        const type = copyBtn.getAttribute("data-report-copy");
-        const text = type === "prompt" ? buildMiniPrompt(payload) : JSON.stringify(payload, null, 2);
-        await copyText(text);
-        const old = copyBtn.textContent;
-        copyBtn.textContent = "복사 완료";
-        setTimeout(()=>{ copyBtn.textContent = old; }, 1200);
-      }
-      if (refreshBtn) {
-        event.preventDefault();
-        apply(true);
-      }
+      const btn = event.target && event.target.closest ? event.target.closest("[data-report-copy]") : null;
+      if (!btn) return;
+      event.preventDefault();
+      const ctx = buildContext();
+      const type = btn.getAttribute("data-report-copy");
+      const text = type === "prompt" ? buildMiniPrompt(ctx) : JSON.stringify(ctx.payload, null, 2);
+      await copyText(text);
+      const old = btn.textContent;
+      btn.textContent = "복사 완료";
+      setTimeout(()=>{ btn.textContent = old; }, 1200);
     }, true);
   }
 
-  let applying = false;
-  function apply(force){
-    if (applying) return;
-    const flow = q("engineFlowSection");
-    if (!flow) return;
-    const payload = getPayload();
-    ensureStyle();
-    installCopyHandlers();
+  function renderOperatorPanel(ctx){
+    const payloadEl = q("engineMiniPayload");
+    if (!payloadEl) return;
+    if (!hasSelectedBook(ctx.payload)) {
+      payloadEl.innerHTML = `<strong>MINI 전달 구조</strong><br>5번 도서 선택 후 운영/분석용 payload가 준비됩니다.`;
+      return;
+    }
+    const key = `${VERSION}:operator:${ctx.state.reportMode}:${ctx.state.reportView}:${ctx.state.reportLine}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${arr(ctx.ctx?.targetStructure).join(">")}`;
+    if (payloadEl.getAttribute("data-report-choice-key") === key) return;
+    payloadEl.setAttribute("data-report-choice-key", key);
+    payloadEl.innerHTML = operatorSummaryHTML(ctx);
+    const hidden = q("miniNavigationPayload");
+    if (hidden && ctx.payload) hidden.value = JSON.stringify(ctx.payload);
+  }
 
-    setStepHead(
-      "engineModeBlock",
-      "6. 보고서 구조 설계",
-      "선택한 교과 개념·키워드·후속 연계축·도서를 상속해 보고서 목차와 섹션별 작성 방향을 설계합니다.",
-      "targetStructure / sectionPurpose"
-    );
-    setStepHead(
-      "engineViewBlock",
-      "7. MINI 보고서 초안 payload 생성",
-      "MINI가 보고서 초안을 만들 수 있도록 선택 흐름과 보고서 생성 규칙을 payload로 묶습니다.",
-      "payload 생성 / 복사"
-    );
-    setStepHead(
-      "engineLineBlock",
-      "8. 최종 보고서 출력 흐름",
-      "보고서 본문, 세특 문구, 심화 탐구 발전, 참고문헌 출력 묶음을 확인합니다.",
-      "최종 출력"
-    );
-
-    if (payload) ensureProgressState(payload);
-
-    const readyForReport = selectedBookReady(payload);
-    ["engineModeBlock", "engineViewBlock", "engineLineBlock"].forEach(function(id){
+  function applyLocks(ctx){
+    const readyBook = hasSelectedBook(ctx.payload);
+    const blocks = [
+      ["engineModeBlock", readyBook],
+      ["engineViewBlock", readyBook && !!ctx.state.reportMode],
+      ["engineLineBlock", readyBook && !!ctx.state.reportMode && !!ctx.state.reportView]
+    ];
+    blocks.forEach(([id, open]) => {
       const block = q(id);
-      if (block) block.classList.toggle("locked", !readyForReport);
+      if (block) block.classList.toggle("locked", !open);
     });
+  }
 
+  let applying = false;
+  function apply(){
+    if (applying) return;
+    if (!q("engineFlowSection")) return;
     applying = true;
     try {
-      renderStep6(payload);
-      renderStep7(payload);
-      renderStep8(payload);
-      const hidden = q("miniNavigationPayload");
-      if (hidden && payload) hidden.value = JSON.stringify(payload);
-      global.__REPORT_6_8_LAST_PAYLOAD__ = payload || null;
+      ensureStyle();
+      installCopyHandlers();
+      const ctx = buildContext();
+
+      setStepHead(
+        "engineModeBlock",
+        "6. 보고서 전개 방식 선택",
+        "같은 개념과 도서라도 어떻게 풀어 쓸지에 따라 보고서 방향이 달라집니다.",
+        "원리 / 비교 / 데이터"
+      );
+      setStepHead(
+        "engineViewBlock",
+        "7. 보고서 관점 선택",
+        "보고서를 어떤 시선으로 정리할지 마지막 관점을 고릅니다.",
+        "관점 선택"
+      );
+      setStepHead(
+        "engineLineBlock",
+        "8. 보고서 라인 선택",
+        "보고서를 어떤 순서와 비중으로 쓸지 뼈대를 고릅니다. 같은 주제라도 라인에 따라 결과물이 달라집니다.",
+        "기본형 / 확장형 / 심화형"
+      );
+
+      applyLocks(ctx);
+      renderModeArea(ctx);
+      renderViewArea(ctx);
+      renderLineArea(ctx);
+      renderOperatorPanel(ctx);
+
+      global.__REPORT_6_8_LAST_PAYLOAD__ = ctx.payload || null;
       global.__REPORT_6_8_LAST_BOOK_RESULT__ = getBookResult();
-      if (force && typeof global.__TEXTBOOK_HELPER_RENDER__ === "function") {
-        setTimeout(()=>{ try { global.__TEXTBOOK_HELPER_RENDER__(); } catch(e){} }, 0);
-      }
     } finally {
-      setTimeout(()=>{ applying = false; }, 20);
+      setTimeout(()=>{ applying = false; }, 30);
     }
   }
 
   function boot(){
-    apply(false);
-    [300, 800, 1500].forEach(delay => setTimeout(()=>apply(false), delay));
+    apply();
+    [250, 700, 1400].forEach(delay => setTimeout(apply, delay));
     try {
       const observer = new MutationObserver(function(){
-        clearTimeout(global.__REPORT_6_8_APPLY_TIMER__);
-        global.__REPORT_6_8_APPLY_TIMER__ = setTimeout(()=>apply(false), 120);
+        clearTimeout(global.__REPORT_6_8_APPLY_TIMER_V27__);
+        global.__REPORT_6_8_APPLY_TIMER_V27__ = setTimeout(apply, 100);
       });
       observer.observe(document.body, { childList:true, subtree:true });
-      global.__REPORT_6_8_OBSERVER__ = observer;
+      global.__REPORT_6_8_OBSERVER_V27__ = observer;
     } catch(error) {}
   }
 
