@@ -1,231 +1,630 @@
 /* book_recommendation_adapter.js
- * 210권 도서 추천 어댑터 v1.9 hard-exclude-gate
+ * 210권 도서 추천 어댑터 v2.0 report-role-engine
  *
- * 수정 목적:
- * - 컴퓨터/반도체/공학 계열 선택에서 의학·생명·사회·경영 도서가
- *   "측정/데이터/과학" 같은 공통어로 직접 일치에 뜨는 문제 강제 차단
- * - 컴퓨터공학과 + 폭염주의보 + 수리 데이터 모델링축에서도 의학/약학 도서 제외
- * - 학과 단독 추천 방어 유지
+ * 원칙:
+ * - 책 추천이 아니라 보고서 근거 도서 선택 엔진으로 작동한다.
+ * - 1차 전공군 필터 → 2차 도서 도메인 필터 → 3차 보고서 역할 적합성 → 4차 키워드/후속축 보조 점수
+ * - MINI에 selectedBookContext 형태로 "왜/어디에/어떻게" 쓸지 넘긴다.
  */
-(function (global) {
+(function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v1.9-hard-exclude-gate";
+  const ADAPTER_VERSION = "v2.0-report-role-engine";
   const MASTER_FILE = "book_source_master_210.json";
+  const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
-  const STOP_TOKENS = new Set([
-    "과학", "사회", "우리", "기반", "후속", "연계", "해석", "선택", "개념",
-    "키워드", "보고서", "탐구", "직접", "확장", "추천", "교과", "학과",
-    "구조", "비교", "분석", "설명", "원인", "사례", "중심", "관련", "영향",
-    "관점", "흐름", "활동", "형태", "좋습니다", "좋은", "주의보"
+  const FALLBACK_RULES = {
+  "version": "book-report-role-rules-v22",
+  "createdAt": "2026-04-30T07:30:15",
+  "principle": "도서 추천은 단어 매칭이 아니라 보고서 내 역할 기반으로 분류한다.",
+  "majorGroups": {
+    "engineering_information": {
+      "patterns": [
+        "컴퓨터",
+        "소프트웨어",
+        "정보",
+        "데이터",
+        "인공지능",
+        "AI",
+        "통계",
+        "산업공학"
+      ],
+      "directDomains": [
+        "engineering_information",
+        "engineering_data",
+        "engineering_physics_math",
+        "science_method",
+        "environment_energy"
+      ],
+      "expansionDomains": [
+        "science_history",
+        "science_philosophy",
+        "environment_social"
+      ],
+      "excludedDomains": [
+        "medical_life",
+        "medical_health",
+        "social_business",
+        "social_policy",
+        "humanities_literature",
+        "arts_culture"
+      ]
+    },
+    "engineering_semiconductor": {
+      "patterns": [
+        "반도체",
+        "전자",
+        "전기",
+        "신소재",
+        "재료",
+        "기계",
+        "로봇",
+        "공학"
+      ],
+      "directDomains": [
+        "engineering_semiconductor",
+        "engineering_physics_math",
+        "engineering_data",
+        "science_method",
+        "environment_energy"
+      ],
+      "expansionDomains": [
+        "science_history",
+        "science_philosophy"
+      ],
+      "excludedDomains": [
+        "medical_life",
+        "medical_health",
+        "social_business",
+        "social_policy",
+        "humanities_literature",
+        "arts_culture"
+      ]
+    },
+    "environment_energy": {
+      "patterns": [
+        "환경",
+        "에너지",
+        "기후",
+        "도시",
+        "지구"
+      ],
+      "directDomains": [
+        "environment_energy",
+        "environment_social",
+        "engineering_data",
+        "science_method",
+        "engineering_physics_math"
+      ],
+      "expansionDomains": [
+        "science_history",
+        "science_philosophy",
+        "social_policy"
+      ],
+      "excludedDomains": [
+        "medical_health",
+        "humanities_literature",
+        "arts_culture"
+      ]
+    },
+    "medical_life": {
+      "patterns": [
+        "의학",
+        "의예",
+        "간호",
+        "보건",
+        "약학",
+        "생명",
+        "생명공학",
+        "수의",
+        "치의"
+      ],
+      "directDomains": [
+        "medical_life",
+        "medical_health",
+        "bio_science",
+        "science_method"
+      ],
+      "expansionDomains": [
+        "science_philosophy",
+        "engineering_data",
+        "social_policy"
+      ],
+      "excludedDomains": [
+        "social_business",
+        "humanities_literature",
+        "arts_culture"
+      ]
+    },
+    "social_business": {
+      "patterns": [
+        "경영",
+        "경제",
+        "사회",
+        "정치",
+        "법",
+        "행정",
+        "교육",
+        "심리"
+      ],
+      "directDomains": [
+        "social_business",
+        "social_policy",
+        "humanities_social",
+        "science_philosophy"
+      ],
+      "expansionDomains": [
+        "engineering_data",
+        "environment_social"
+      ],
+      "excludedDomains": [
+        "medical_health"
+      ]
+    },
+    "humanities": {
+      "patterns": [
+        "국문",
+        "문학",
+        "사학",
+        "역사",
+        "철학",
+        "윤리",
+        "문화",
+        "예술"
+      ],
+      "directDomains": [
+        "humanities_literature",
+        "humanities_social",
+        "arts_culture",
+        "science_philosophy"
+      ],
+      "expansionDomains": [
+        "social_policy",
+        "science_history"
+      ],
+      "excludedDomains": []
+    }
+  },
+  "domainOverrideByTitle": {
+    "닥터스 씽킹": {
+      "domains": [
+        "medical_health",
+        "medical_life"
+      ],
+      "bestFor": [
+        "의학계열",
+        "간호보건계열",
+        "생명과학계열"
+      ],
+      "avoidDirectFor": [
+        "engineering_information",
+        "engineering_semiconductor"
+      ],
+      "expansionOnlyIf": [
+        "진단",
+        "의료 AI",
+        "의사결정 오류",
+        "판단 편향",
+        "의료 데이터"
+      ],
+      "doNotUseAs": "컴퓨터공학·반도체공학의 기술/측정/모델링 직접 근거 도서로 사용하지 않는다."
+    },
+    "위대하고 위험한 약 이야기": {
+      "domains": [
+        "medical_life",
+        "medical_health",
+        "bio_science"
+      ],
+      "bestFor": [
+        "약학계열",
+        "생명과학계열",
+        "의학계열"
+      ],
+      "avoidDirectFor": [
+        "engineering_information",
+        "engineering_semiconductor"
+      ],
+      "expansionOnlyIf": [
+        "약물",
+        "신약",
+        "의료 데이터",
+        "생명 윤리"
+      ],
+      "doNotUseAs": "컴퓨터공학·반도체공학의 직접 도서로 사용하지 않는다."
+    },
+    "부분과 전체": {
+      "domains": [
+        "engineering_physics_math",
+        "science_method",
+        "science_philosophy"
+      ],
+      "bestFor": [
+        "물리학",
+        "공학계열",
+        "수학·데이터 계열"
+      ],
+      "reportRoles": [
+        "conceptExplanation",
+        "analysisFrame",
+        "limitationDiscussion"
+      ],
+      "triggers": [
+        "측정",
+        "관찰",
+        "물리",
+        "시스템",
+        "모델링",
+        "과학의 측정"
+      ]
+    },
+    "객관성의 칼날": {
+      "domains": [
+        "science_method",
+        "science_history",
+        "science_philosophy"
+      ],
+      "bestFor": [
+        "자연과학",
+        "공학계열",
+        "사회과학 방법론"
+      ],
+      "reportRoles": [
+        "analysisFrame",
+        "comparisonFrame",
+        "limitationDiscussion"
+      ],
+      "triggers": [
+        "측정",
+        "객관성",
+        "표준",
+        "과학사",
+        "과학적 판단"
+      ]
+    },
+    "엔트로피": {
+      "domains": [
+        "environment_energy",
+        "engineering_physics_math"
+      ],
+      "bestFor": [
+        "환경공학",
+        "에너지공학",
+        "물리학"
+      ],
+      "reportRoles": [
+        "conceptExplanation",
+        "analysisFrame",
+        "conclusionExpansion"
+      ],
+      "triggers": [
+        "에너지",
+        "열역학",
+        "시스템",
+        "환경",
+        "지속가능성"
+      ]
+    },
+    "혼돈으로부터의 질서": {
+      "domains": [
+        "engineering_physics_math",
+        "science_method"
+      ],
+      "bestFor": [
+        "수학",
+        "물리학",
+        "컴퓨터공학",
+        "데이터과학"
+      ],
+      "reportRoles": [
+        "analysisFrame",
+        "limitationDiscussion"
+      ],
+      "triggers": [
+        "혼돈",
+        "카오스",
+        "모델링",
+        "시스템",
+        "예측"
+      ]
+    },
+    "페르마의 마지막 정리": {
+      "domains": [
+        "engineering_physics_math"
+      ],
+      "bestFor": [
+        "수학",
+        "컴퓨터공학",
+        "데이터과학"
+      ],
+      "reportRoles": [
+        "analysisFrame",
+        "conceptExplanation"
+      ],
+      "triggers": [
+        "수리",
+        "수학",
+        "증명",
+        "모델링",
+        "논리"
+      ]
+    },
+    "코스모스": {
+      "domains": [
+        "science_method",
+        "science_history",
+        "environment_energy"
+      ],
+      "bestFor": [
+        "물리학",
+        "천문학",
+        "지구과학",
+        "공학계열"
+      ],
+      "reportRoles": [
+        "intro",
+        "conclusionExpansion"
+      ],
+      "triggers": [
+        "우주",
+        "지구",
+        "기후",
+        "과학적 관점"
+      ]
+    },
+    "침묵의 봄": {
+      "domains": [
+        "environment_energy",
+        "environment_social",
+        "bio_science"
+      ],
+      "bestFor": [
+        "환경공학",
+        "화학",
+        "생명과학"
+      ],
+      "reportRoles": [
+        "comparisonFrame",
+        "conclusionExpansion",
+        "limitationDiscussion"
+      ],
+      "triggers": [
+        "환경",
+        "화학물질",
+        "생태계",
+        "위험",
+        "사회적 영향"
+      ]
+    },
+    "총, 균, 쇠": {
+      "domains": [
+        "environment_social",
+        "science_history"
+      ],
+      "bestFor": [
+        "지리",
+        "환경",
+        "사회과학"
+      ],
+      "reportRoles": [
+        "comparisonFrame",
+        "conclusionExpansion"
+      ],
+      "triggers": [
+        "기후",
+        "환경",
+        "지리",
+        "문명",
+        "사회적 확장"
+      ]
+    },
+    "경영학 콘서트": {
+      "domains": [
+        "social_business",
+        "engineering_data"
+      ],
+      "bestFor": [
+        "경영학",
+        "산업공학",
+        "데이터분석"
+      ],
+      "reportRoles": [
+        "application",
+        "comparisonFrame"
+      ],
+      "triggers": [
+        "데이터",
+        "마케팅",
+        "의사결정",
+        "최적화"
+      ],
+      "avoidDirectFor": [
+        "engineering_semiconductor"
+      ]
+    },
+    "공정하다는 착각": {
+      "domains": [
+        "social_policy",
+        "humanities_social"
+      ],
+      "bestFor": [
+        "사회학",
+        "교육학",
+        "정치외교",
+        "윤리"
+      ],
+      "reportRoles": [
+        "conclusionExpansion",
+        "comparisonFrame"
+      ],
+      "triggers": [
+        "공정",
+        "능력주의",
+        "불평등"
+      ],
+      "avoidDirectFor": [
+        "engineering_information",
+        "engineering_semiconductor"
+      ]
+    }
+  },
+  "reportRoleDefinitions": {
+    "intro": "문제의식과 탐구 필요성을 제시하는 도입부 근거",
+    "conceptExplanation": "선택 개념을 설명하는 핵심 이론/원리 근거",
+    "analysisFrame": "자료·사례·현상을 분석하는 관점 제공",
+    "comparisonFrame": "비교 기준이나 대조 관점 제공",
+    "limitationDiscussion": "자료 해석의 한계·오차·판단 편향 논의",
+    "conclusionExpansion": "보고서 결론에서 사회적 의미나 진로 확장으로 연결",
+    "application": "실생활·산업·진로 사례 적용"
+  }
+};
+
+  const GENERIC_TOKENS = new Set([
+    "과학","사회","우리","기반","후속","연계","해석","선택","개념","키워드","보고서","탐구",
+    "직접","확장","추천","교과","학과","구조","비교","분석","설명","원인","사례","중심",
+    "관련","영향","관점","흐름","활동","형태","좋습니다","좋은","데이터","시스템","측정","표준"
   ]);
 
-  const ENGINEERING_PAYLOAD_RE = /(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|반도체|전자|전기|기계|신소재|재료|로봇|항공|자동차|산업공학|공학)/i;
-  const STEM_PAYLOAD_RE = /(통합과학|물리|화학|생명|지구|수학|정보|공학|반도체|컴퓨터|전자|전기|기계|신소재|데이터|인공지능|AI|환경|에너지|기후|폭염|의학|약학|간호|보건)/i;
+  const STRONG_CONCEPT_TOKENS = new Set([
+    "폭염","기후","환경","에너지","열역학","엔트로피","모델링","수리","통계","알고리즘",
+    "센서","카메라","속도","반도체","전자","전기","물리","수학","카오스","혼돈","우주",
+    "화학","생태계","측정오차","오차","표준화","예측","시뮬레이션","정보","디지털"
+  ]);
 
-  // 공학/데이터/물리·환경 도메인에서 "살릴 수 있는" 강한 신호
-  const ENGINEERING_HARD_RE = /(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|알고리즘|통계|수학|모델링|물리|센서|측정|표준|시스템|속도|카메라|반도체|전자|전기|기계|신소재|재료|공학|기술|열역학|엔트로피|카오스|혼돈|우주|코스모스|객관성|페르마|과학혁명|환경|에너지|기후|폭염|기상|지구|화학|총균쇠|총 균 쇠|침묵의 봄|부분과 전체|객관성의 칼날|엔트로피|혼돈으로부터의 질서|코스모스|페르마의 마지막 정리)/i;
-
-  // 공학 payload에서 원칙적으로 제외할 도메인. 단, ENGINEERING_HARD_RE가 제목/교과/전공에 강하게 있을 때만 예외 허용.
-  const EXCLUDE_FOR_ENGINEERING_RE = /(의학|의예|의대|간호|보건|약학|약대|치의|수의|생명공학|생명과학|생명|질병|환자|진단|치료|병원|건강|의사|약 이야기|신약|미생물|DNA|유전자|감염병|공정하다는|굶주리는가|경영학|공정|기아|굶주|경영|경제|마케팅|정치|법학|사회학|사회와문화|윤리|철학|르네상스|예술|문학|난민|환대|민주주의|계약론|자본론|정의론|프로테스탄트|한중록|구운몽|태평천하|카인의|이방인|보바리|안나|설국|수레바퀴|닥터스 씽킹|위대하고 위험한 약 이야기|공정하다는 착각|왜 세계의 절반은 굶주리는가|경영학 콘서트)/i;
-
-  const SOCIAL_HUMAN_PRIMARY_RE = /(공정하다는|굶주리는가|경영학|경영|경제|마케팅|정치|법학|사회학|윤리|철학|르네상스|예술|문학|난민|환대|민주주의|계약론|자본론|정의론|프로테스탄트|한중록|구운몽|태평천하|카인의|이방인|보바리|안나|설국|수레바퀴)/i;
-  const GENERIC_STRONG_TOKENS = new Set(["데이터", "시스템", "표준", "정보", "측정", "모델링"]);
-
-  function toText(value) {
-    if (value == null) return "";
-    if (Array.isArray(value)) return value.map(toText).join(" ");
-    if (typeof value === "object") return Object.values(value).map(toText).join(" ");
-    return String(value);
+  function toText(v){
+    if (v == null) return "";
+    if (Array.isArray(v)) return v.map(toText).join(" ");
+    if (typeof v === "object") return Object.values(v).map(toText).join(" ");
+    return String(v);
   }
-
-  function normalize(value) {
-    return toText(value).toLowerCase()
-      .replace(/[·ㆍ/|,;:()[\]{}<>_\-]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+  function normalize(v){
+    return toText(v).toLowerCase().replace(/[·ㆍ/|,;:()[\]{}<>_\-]/g," ").replace(/\s+/g," ").trim();
   }
-
-  function uniq(arr) {
+  function uniq(arr){
     return Array.from(new Set((arr || []).filter(Boolean)));
   }
-
-  function expandCompoundToken(token) {
-    const out = [token];
-    ["폭염", "기후", "속도", "측정", "표준", "디지털", "데이터", "모델링", "물리", "시스템", "센서", "카메라", "반도체", "공정", "에너지", "열역학", "카오스", "수학", "알고리즘", "통계", "환경", "지구"].forEach(function(k){
-      if (String(token).indexOf(k) >= 0) out.push(k);
+  function arr(v){
+    if (!v) return [];
+    return Array.isArray(v) ? v.filter(Boolean) : [v];
+  }
+  function intersect(a,b){
+    const set = new Set(a || []);
+    return (b || []).filter(x => set.has(x));
+  }
+  function hasAny(text, list){
+    const t = normalize(text);
+    return (list || []).some(x => {
+      const n = normalize(x);
+      return n && t.includes(n);
+    });
+  }
+  function expandToken(t){
+    const out = [t];
+    ["폭염","기후","환경","에너지","열역학","엔트로피","디지털","데이터","모델링","수리","통계","알고리즘","센서","카메라","속도","반도체","전자","전기","물리","수학","카오스","혼돈","우주","화학","생태계","오차","측정","표준","정보"].forEach(k=>{
+      if (String(t).includes(k)) out.push(k);
     });
     return out;
   }
-
-  function tokenize(value) {
-    const text = normalize(value);
-    const raw = (text.match(/[가-힣A-Za-z0-9]+/g) || [])
-      .map(v => v.trim())
-      .filter(v => v.length >= 2);
-
+  function tokenize(v){
+    const raw = (normalize(v).match(/[가-힣A-Za-z0-9]+/g) || []).filter(x => x.length >= 2);
     const expanded = [];
-    raw.forEach(t => expandCompoundToken(t).forEach(x => expanded.push(x)));
-    return uniq(expanded.filter(v => !STOP_TOKENS.has(v)));
+    raw.forEach(x => expandToken(x).forEach(y => expanded.push(y)));
+    return uniq(expanded.filter(x => !GENERIC_TOKENS.has(x) || STRONG_CONCEPT_TOKENS.has(x)));
+  }
+  function tokenHits(text, tokens){
+    const t = normalize(text);
+    return uniq((tokens || []).filter(x => t.includes(normalize(x))));
   }
 
-  function includesAny(haystack, needles) {
-    const h = normalize(haystack);
-    return (needles || []).some(function (n) {
-      const v = normalize(n);
-      return v && h.indexOf(v) >= 0;
-    });
-  }
-
-  function tokenHits(haystack, tokens) {
-    const h = normalize(haystack);
-    return uniq((tokens || []).filter(t => t && h.indexOf(normalize(t)) >= 0));
-  }
-
-  function trimTrailingSlash(path) {
-    return String(path || "").replace(/\/+$/, "");
-  }
-
-  function stripFile(pathname) {
+  function trimTrailingSlash(path){ return String(path || "").replace(/\/+$/,""); }
+  function stripFile(pathname){
     if (!pathname) return "/";
     if (pathname.endsWith("/")) return pathname;
-    return pathname.replace(/\/[^/]*$/, "/");
+    return pathname.replace(/\/[^/]*$/,"/");
   }
-
-  function buildBaseCandidates() {
+  function buildBaseCandidates(){
     const candidates = [];
-    function add(base) {
+    function add(base){
       base = trimTrailingSlash(base);
       if (base && !candidates.includes(base)) candidates.push(base);
     }
-
     const loc = global.location;
     const pathname = loc ? loc.pathname : "";
     const keywordMatch = pathname.match(/^(.*?\/keyword-engine)(?:\/|$)/);
     if (keywordMatch) add(keywordMatch[1]);
 
     const currentDir = stripFile(pathname);
-    add(currentDir.replace(/\/$/, ""));
-    add(currentDir.replace(/\/assets\/js\/?$/, ""));
-    add(currentDir.replace(/\/seed\/book_210_stage2\/?$/, ""));
-
-    const scripts = global.document ? Array.from(global.document.scripts || []) : [];
-    scripts.forEach(function (script) {
-      const src = script && script.src ? script.src : "";
-      if (!src) return;
-      try {
-        const u = new URL(src, loc ? loc.href : undefined);
-        const p = u.pathname;
-        const m = p.match(/^(.*?\/keyword-engine)\/assets\/js\/book_recommendation_adapter\.js(?:\?.*)?$/);
-        if (m) add(m[1]);
-        const m2 = p.match(/^(.*?\/keyword-engine)\/assets\/js\/[^/]+$/);
-        if (m2) add(m2[1]);
-      } catch (e) {}
-    });
-
+    add(currentDir.replace(/\/$/,""));
+    add(currentDir.replace(/\/assets\/js\/?$/,""));
     add("/keyword-engine");
     add("/univ-search/keyword-engine");
     add("/univ-search/public/keyword-engine");
     add("/public/keyword-engine");
-    add("./keyword-engine");
-    add("./public/keyword-engine");
-    add("../keyword-engine");
-    add("../public/keyword-engine");
     add(".");
     return candidates;
   }
-
-  async function tryFetchJson(url) {
+  async function tryFetchJson(url){
     const bust = (url.indexOf("?") >= 0 ? "&" : "?") + "v=" + encodeURIComponent(ADAPTER_VERSION) + "&t=" + Date.now();
     const res = await fetch(url + bust, { cache: "no-store" });
-    if (!res.ok) return { ok: false, status: res.status, url: url };
-    const contentType = res.headers.get("content-type") || "";
+    if (!res.ok) return { ok:false, status:res.status, url };
     const text = await res.text();
-    if (/^\s*</.test(text)) {
-      return { ok: false, status: "HTML_INSTEAD_OF_JSON", url: url, contentType: contentType };
-    }
-    try {
-      return { ok: true, status: res.status, url: url, data: JSON.parse(text) };
-    } catch (e) {
-      return { ok: false, status: "JSON_PARSE_ERROR", url: url, error: e.message, preview: text.slice(0, 120) };
-    }
+    if (/^\s*</.test(text)) return { ok:false, status:"HTML_INSTEAD_OF_JSON", url };
+    try { return { ok:true, status:res.status, url, data:JSON.parse(text) }; }
+    catch(e){ return { ok:false, status:"JSON_PARSE_ERROR", url, error:e.message }; }
   }
-
-  async function resolveBookEngineBase(options) {
+  async function resolveBookEngineBase(options){
     options = options || {};
     const explicit = options.base || global.BOOK_ENGINE_BASE;
     const candidates = explicit ? [explicit].concat(buildBaseCandidates()) : buildBaseCandidates();
     const tried = [];
-
-    for (const base of uniq(candidates)) {
+    for (const base of uniq(candidates)){
       const url = trimTrailingSlash(base) + "/data/books/" + MASTER_FILE;
       try {
         const result = await tryFetchJson(url);
-        tried.push({ base: base, url: url, status: result.status });
-        if (result.ok && result.data && Number(result.data.totalBooks) === 210 && Array.isArray(result.data.books)) {
+        tried.push({ base, url, status: result.status });
+        if (result.ok && result.data && Number(result.data.totalBooks) === 210 && Array.isArray(result.data.books)){
           global.BOOK_ENGINE_BASE = trimTrailingSlash(base);
           global.BOOK_SOURCE_MASTER_210 = result.data;
-          return { base: global.BOOK_ENGINE_BASE, url: url, master: result.data, tried: tried };
+          return { base: global.BOOK_ENGINE_BASE, url, master: result.data, tried };
         }
-      } catch (e) {
-        tried.push({ base: base, url: url, status: "FETCH_ERROR", error: e.message });
+      } catch(e){
+        tried.push({ base, url, status:"FETCH_ERROR", error:e.message });
       }
     }
-
     const err = new Error("210권 도서 master 경로를 찾지 못했습니다.");
     err.tried = tried;
     throw err;
   }
-
-  async function loadBookMaster(options) {
-    if (typeof options === "string") {
-      const result = await tryFetchJson(options);
-      if (!result.ok) {
-        const err = new Error("도서 master 로드 실패: " + result.status);
-        err.detail = result;
-        throw err;
-      }
-      global.BOOK_SOURCE_MASTER_210 = result.data;
-      return result.data;
-    }
+  async function loadBookMaster(options){
     const resolved = await resolveBookEngineBase(options || {});
     return resolved.master;
   }
-
-  function collectPayloadTerms(payload) {
-    payload = payload || {};
-    const subject = payload.subject || payload.selectedSubject || payload.course || "";
-    const department = payload.department || payload.major || payload.selectedDepartment || "";
-    const selectedConcept = payload.selectedConcept || payload.concept || payload.step3Concept || "";
-    const selectedKeyword = payload.selectedRecommendedKeyword || payload.recommendedKeyword || payload.keyword || payload.step3Keyword || "";
-    const axis = payload.followupAxis || payload.axis || payload.axisPayload || payload.step4Axis || "";
-    const reportIntent = payload.reportIntent || payload.reportMode || "";
-
-    const conceptTokens = tokenize(selectedConcept);
-    const keywordTokens = tokenize(selectedKeyword);
-    const axisTokens = tokenize(axis);
-    const strongTokens = uniq(conceptTokens.concat(keywordTokens, axisTokens));
-    const payloadText = normalize([subject, department, selectedConcept, selectedKeyword, axis, reportIntent].join(" "));
-    const isStemPayload = STEM_PAYLOAD_RE.test(payloadText);
-    const isEngineeringPayload = ENGINEERING_PAYLOAD_RE.test(payloadText);
-
-    return {
-      subject, department, selectedConcept, selectedKeyword, axis, reportIntent,
-      conceptTokens, keywordTokens, axisTokens, strongTokens,
-      isStemPayload, isEngineeringPayload,
-      strongTerms: uniq([selectedConcept, selectedKeyword].concat(Array.isArray(axis) ? axis : [axis]).map(toText).filter(Boolean)),
-      weakTerms: uniq([subject, department, reportIntent].map(toText).filter(Boolean))
-    };
+  async function loadRules(options){
+    try {
+      const resolved = await resolveBookEngineBase(options || {});
+      const url = resolved.base + "/data/books/" + RULE_FILE;
+      const result = await tryFetchJson(url);
+      if (result.ok && result.data) {
+        global.BOOK_RECOMMENDATION_RULES_V22 = result.data;
+        return result.data;
+      }
+    } catch(e){}
+    global.BOOK_RECOMMENDATION_RULES_V22 = FALLBACK_RULES;
+    return FALLBACK_RULES;
   }
 
-  function hasRequiredPayload(terms) {
-    return !!(normalize(terms.selectedConcept) || normalize(terms.selectedKeyword) || normalize(terms.axis));
+  function inferMajorGroup(payload, rules){
+    const text = normalize([payload.department, payload.subject, payload.reportIntent].join(" "));
+    const groups = rules.majorGroups || {};
+    for (const [id, rule] of Object.entries(groups)){
+      if ((rule.patterns || []).some(p => text.includes(normalize(p)))) return id;
+    }
+    return "engineering_information";
   }
 
-  function getBookTexts(book) {
-    const titleText = normalize([book.title, (book.titleAliases || []).join(" "), book.author].join(" "));
-    const metaText = normalize([
+  function getBookTexts(book){
+    const title = normalize([book.title, (book.titleAliases || []).join(" "), book.author].join(" "));
+    const meta = normalize([
       (book.relatedSubjects || []).join(" "),
       (book.relatedMajors || []).join(" "),
       (book.relatedThemes || []).join(" "),
@@ -233,145 +632,192 @@
       book.reportUse,
       book.primarySearchText
     ].join(" "));
-
     const full = normalize([
-      titleText,
-      metaText,
+      title, meta,
       (book.keywords || []).join(" "),
       book.searchText,
       (book.starterQuestions || []).join(" "),
       (book.advancedQuestions || []).join(" "),
       (book.inquiryPoints || []).join(" ")
     ].join(" "));
-
-    return { titleText, metaText, primary: titleText + " " + metaText, full };
+    return { title, meta, full, primary: title + " " + meta };
   }
 
-  function isEngineeringCompatibleBook(book) {
-    const texts = getBookTexts(book);
-    const hardInTitle = ENGINEERING_HARD_RE.test(texts.titleText);
-    const hardInMeta = ENGINEERING_HARD_RE.test(texts.metaText);
-    const excludedInTitle = EXCLUDE_FOR_ENGINEERING_RE.test(texts.titleText);
-    const excludedInMeta = EXCLUDE_FOR_ENGINEERING_RE.test(texts.metaText);
-    const excludedInFull = EXCLUDE_FOR_ENGINEERING_RE.test(texts.full);
-
-    // 제목이나 핵심 메타가 명백히 의학/생명/사회/경영/문학이면 차단.
-    // "데이터/측정"이 질문 예시나 상세 설명에 섞여 있어도 살리지 않는다.
-    if ((excludedInTitle || excludedInMeta) && !(hardInTitle || hardInMeta)) return false;
-
-    // 전체 텍스트에 제외 도메인이 있고, 강한 공학 신호가 제목/메타에 없으면 차단.
-    if (excludedInFull && !(hardInTitle || hardInMeta)) return false;
-
-    // 공학 계열에서는 제목/메타에 강한 공학·물리·환경·수학 신호가 있어야 한다.
-    return hardInTitle || hardInMeta;
+  function getOverride(book, rules){
+    const title = book.title || "";
+    const overrides = rules.domainOverrideByTitle || {};
+    return overrides[title] || null;
   }
 
-  function isSTEMCompatibleBook(book) {
-    const texts = getBookTexts(book);
-    if (SOCIAL_HUMAN_PRIMARY_RE.test(texts.primary) && !ENGINEERING_HARD_RE.test(texts.primary)) return false;
-    return ENGINEERING_HARD_RE.test(texts.primary) || /(물리|화학|생명|지구|수학|공학|기술|실험|측정|센서|기후|에너지|환경|우주|과학혁명|객관성|페르마|엔트로피|카오스|혼돈)/i.test(texts.full);
+  function inferDomains(book, rules){
+    const override = getOverride(book, rules);
+    if (override && override.domains) return override.domains.slice();
+
+    const t = getBookTexts(book).primary;
+    const domains = [];
+
+    if (/(컴퓨터|소프트웨어|정보|데이터|인공지능|AI|알고리즘|통계|모델링)/i.test(t)) domains.push("engineering_information","engineering_data");
+    if (/(반도체|전자|전기|신소재|재료|기계|공학|센서|측정|표준|물리|수학)/i.test(t)) domains.push("engineering_physics_math");
+    if (/(환경|기후|폭염|에너지|열역학|엔트로피|생태계|지구)/i.test(t)) domains.push("environment_energy");
+    if (/(의학|의사|환자|진단|치료|건강|약|신약|간호|보건|생명|DNA|유전자|미생물)/i.test(t)) domains.push("medical_health","medical_life");
+    if (/(경영|경제|마케팅|사회|정치|법|윤리|공정|불평등|기아|교육)/i.test(t)) domains.push("social_business","social_policy");
+    if (/(소설|문학|예술|미술|음악|역사|철학|르네상스|한중록|구운몽|이방인|보바리|안나)/i.test(t)) domains.push("humanities_literature");
+
+    if (!domains.length && /(과학|객관성|코스모스|페르마|부분과 전체|혼돈|카오스)/i.test(t)) domains.push("science_method","science_philosophy");
+    return uniq(domains.length ? domains : ["general_science"]);
   }
 
-  function scoreBook(book, terms) {
-    const texts = getBookTexts(book);
-    const bookText = texts.full;
-
-    if (terms.isEngineeringPayload && !isEngineeringCompatibleBook(book)) {
-      return { score: 0, reasons: [], strongDirectHit: false, strongTokenHitCount: 0, type: "none", blockedByDomain: true, blockedByMajorDomain: true };
+  function domainFit(book, majorGroup, rules){
+    const domains = inferDomains(book, rules);
+    const group = (rules.majorGroups || {})[majorGroup] || {};
+    const override = getOverride(book, rules);
+    if (override && (override.avoidDirectFor || []).includes(majorGroup)) {
+      return { level:"excluded", domains, reason:"전공군 직접 사용 제한" };
     }
-
-    if (!terms.isEngineeringPayload && terms.isStemPayload && !isSTEMCompatibleBook(book)) {
-      return { score: 0, reasons: [], strongDirectHit: false, strongTokenHitCount: 0, type: "none", blockedByDomain: true };
+    if (intersect(domains, group.excludedDomains || []).length) {
+      return { level:"excluded", domains, reason:"전공군 제외 도메인" };
     }
+    if (intersect(domains, group.directDomains || []).length) {
+      return { level:"direct", domains, reason:"전공군 직접 도메인" };
+    }
+    if (intersect(domains, group.expansionDomains || []).length) {
+      return { level:"expansion", domains, reason:"전공군 확장 도메인" };
+    }
+    return { level:"excluded", domains, reason:"전공군 도메인 불일치" };
+  }
+
+  function collectPayloadTerms(payload){
+    payload = payload || {};
+    const subject = payload.subject || payload.selectedSubject || payload.course || "";
+    const department = payload.department || payload.major || payload.selectedDepartment || "";
+    const selectedConcept = payload.selectedConcept || payload.concept || payload.step3Concept || "";
+    const selectedKeyword = payload.selectedRecommendedKeyword || payload.recommendedKeyword || payload.keyword || payload.step3Keyword || "";
+    const axis = payload.followupAxis || payload.axis || payload.axisPayload || payload.step4Axis || "";
+    const reportIntent = payload.reportIntent || payload.reportMode || "";
+    const conceptTokens = tokenize(selectedConcept);
+    const keywordTokens = tokenize(selectedKeyword);
+    const axisTokens = tokenize(axis);
+    return {
+      subject, department, selectedConcept, selectedKeyword, axis, reportIntent,
+      conceptTokens, keywordTokens, axisTokens,
+      strongTokens: uniq(conceptTokens.concat(keywordTokens, axisTokens))
+    };
+  }
+  function hasRequiredPayload(terms){
+    return !!(normalize(terms.selectedConcept) || normalize(terms.selectedKeyword) || normalize(terms.axis));
+  }
+
+  function roleFit(book, terms, rules){
+    const override = getOverride(book, rules);
+    const texts = getBookTexts(book);
+    const hitTokens = uniq(
+      tokenHits(texts.full, terms.conceptTokens)
+        .concat(tokenHits(texts.full, terms.keywordTokens))
+        .concat(tokenHits(texts.full, terms.axisTokens))
+    );
+    const strongHits = hitTokens.filter(t => STRONG_CONCEPT_TOKENS.has(t));
+    const triggers = override ? arr(override.triggers) : [];
+    const triggerHits = triggers.filter(t => hasAny([terms.selectedConcept, terms.selectedKeyword, terms.axis].join(" "), [t]) || hasAny(texts.full, [t]));
 
     let score = 0;
     const reasons = [];
-
-    const conceptHit = includesAny(bookText, [terms.selectedConcept]);
-    const keywordHit = includesAny(bookText, [terms.selectedKeyword]);
-    const axisHit = includesAny(bookText, [terms.axis]);
-
-    const conceptTokenHits = tokenHits(bookText, terms.conceptTokens);
-    const keywordTokenHits = tokenHits(bookText, terms.keywordTokens);
-    const axisTokenHits = tokenHits(bookText, terms.axisTokens);
-
-    const majorHit = includesAny(texts.primary + " " + bookText, [terms.department]);
-    const subjectHit = includesAny(texts.primary + " " + bookText, [terms.subject]);
-    const reportHit = includesAny(bookText, [terms.reportIntent]);
-
-    if (conceptHit) {
-      score += 40;
-      reasons.push("3번 선택 개념 직접 연결");
-    } else if (conceptTokenHits.length) {
-      score += Math.min(24, conceptTokenHits.length * 8);
-      reasons.push("3번 선택 개념 토큰 연결: " + conceptTokenHits.slice(0, 3).join(", "));
+    if (strongHits.length) {
+      score += Math.min(35, strongHits.length * 10);
+      reasons.push("핵심 개념 연결: " + strongHits.slice(0,3).join(", "));
     }
-
-    if (keywordHit) {
-      score += 35;
-      reasons.push("추천 키워드 직접 연결");
-    } else if (keywordTokenHits.length) {
-      let kwScore = 0;
-      keywordTokenHits.forEach(function(t) {
-        kwScore += GENERIC_STRONG_TOKENS.has(t) ? 5 : 18;
-      });
-      score += Math.min(36, kwScore);
-      reasons.push("추천 키워드 토큰 연결: " + keywordTokenHits.slice(0, 3).join(", "));
+    if (triggerHits.length) {
+      score += 25;
+      reasons.push("보고서 역할 트리거 연결: " + triggerHits.slice(0,3).join(", "));
     }
-
-    if (axisHit) {
-      score += 30;
-      reasons.push("4번 후속 연계축 직접 연결");
-    } else if (axisTokenHits.length) {
-      let axScore = 0;
-      axisTokenHits.forEach(function(t) {
-        axScore += GENERIC_STRONG_TOKENS.has(t) ? 4 : 10;
-      });
-      score += Math.min(30, axScore);
-      reasons.push("4번 후속 연계축 토큰 연결: " + axisTokenHits.slice(0, 3).join(", "));
+    if (hasAny(texts.full, [terms.selectedKeyword])) {
+      score += 20;
+      reasons.push("추천 키워드 문맥 연결");
     }
-
-    if (majorHit) {
-      score += 15;
-      reasons.push("학과/전공군 보조 연결");
+    if (hasAny(texts.full, [terms.axis])) {
+      score += 20;
+      reasons.push("후속 연계축 문맥 연결");
     }
-    if (subjectHit) {
+    if (hasAny(texts.full, [terms.department])) {
       score += 10;
-      reasons.push("과목/교과군 보조 연결");
-    }
-    if (reportHit) {
-      score += 5;
-      reasons.push("보고서 방향 보조 연결");
+      reasons.push("학과 문맥 보조 연결");
     }
 
-    const strongTokenHits = uniq(conceptTokenHits.concat(keywordTokenHits, axisTokenHits));
-    const nonGenericStrongHits = strongTokenHits.filter(t => !GENERIC_STRONG_TOKENS.has(t));
-    const strongDirectHit = conceptHit || keywordHit || axisHit || nonGenericStrongHits.length > 0 || strongTokenHits.length >= 2;
-    const direct = strongDirectHit && score >= 18;
+    const roles = override && override.reportRoles ? override.reportRoles.slice() : inferReportRoles(book, terms, texts);
+    return { score, reasons, roles, hitTokens, triggerHits };
+  }
+
+  function inferReportRoles(book, terms, texts){
+    const roles = [];
+    const text = texts.full;
+    if (/(원리|개념|이론|법칙|측정|표준|물리|수학|열역학|엔트로피)/i.test(text)) roles.push("conceptExplanation");
+    if (/(데이터|모델링|분석|해석|시스템|예측|통계|알고리즘|카오스|혼돈)/i.test(text)) roles.push("analysisFrame");
+    if (/(비교|차이|한계|오류|편향|불확실|객관성|관찰)/i.test(text)) roles.push("limitationDiscussion","comparisonFrame");
+    if (/(환경|기후|사회|윤리|지속가능|정책|문명|생태계)/i.test(text)) roles.push("conclusionExpansion");
+    if (/(사례|적용|산업|기술|의사결정)/i.test(text)) roles.push("application");
+    return uniq(roles.length ? roles : ["analysisFrame"]);
+  }
+
+  function buildSelectedBookContext(book, terms, majorGroup, domain, role, type, rules){
+    const roleDefinitions = rules.reportRoleDefinitions || {};
+    const roles = role.roles || [];
+    const roleLabels = roles.map(r => roleDefinitions[r] || r);
+    const override = getOverride(book, rules);
+    const title = book.title || "";
+    const reason = type === "direct"
+      ? `${title}은(는) 선택한 전공군·교과 개념·후속 연계축 안에서 보고서의 핵심 논지를 설명하거나 분석하는 데 사용할 수 있는 도서입니다.`
+      : `${title}은(는) 핵심 개념과 완전히 같은 도서는 아니지만, 보고서의 비교·한계·사회적 의미를 확장하는 참고 도서로 사용할 수 있습니다.`;
 
     return {
-      score,
-      reasons,
-      strongDirectHit,
-      strongTokenHitCount: strongTokenHits.length,
-      type: direct ? "direct" : (score >= 18 ? "expansion" : "none"),
-      blockedByDomain: false
+      title: book.title,
+      author: book.author || "",
+      recommendationType: type,
+      majorGroup,
+      bookDomains: domain.domains,
+      domainFit: domain.level,
+      recommendationReason: reason,
+      matchReasons: role.reasons,
+      reportRole: roles,
+      reportRoleLabels: roleLabels,
+      useInReport: {
+        intro: roles.includes("intro") ? "탐구 문제의식과 배경을 제시할 때 활용합니다." : "",
+        conceptExplanation: roles.includes("conceptExplanation") ? "선택 개념의 원리·측정·자료 해석 기준을 설명할 때 활용합니다." : "",
+        analysisFrame: roles.includes("analysisFrame") ? "자료를 해석하거나 현상을 모델링하는 분석 프레임으로 활용합니다." : "",
+        comparisonFrame: roles.includes("comparisonFrame") ? "다른 사례·조건·관점과 비교하는 기준으로 활용합니다." : "",
+        limitationDiscussion: roles.includes("limitationDiscussion") ? "데이터 해석의 한계, 오차, 판단 편향을 논의할 때 활용합니다." : "",
+        conclusionExpansion: roles.includes("conclusionExpansion") ? "결론에서 사회적 의미나 진로 확장으로 연결할 때 활용합니다." : ""
+      },
+      miniInstruction: "이 책을 단순 독후감처럼 요약하지 말고, 선택 개념과 후속 연계축을 설명하는 근거 프레임으로 사용한다. 책의 줄거리보다 보고서에서 맡는 역할과 관점을 우선 반영한다.",
+      doNotUseAs: (override && override.doNotUseAs) || "",
+      bestFor: (override && override.bestFor) || [],
+      connectionToPayload: {
+        subject: terms.subject,
+        department: terms.department,
+        selectedConcept: terms.selectedConcept,
+        selectedKeyword: terms.selectedKeyword,
+        followupAxis: terms.axis
+      }
     };
   }
 
-  function isDirectReason(book) {
-    if (book.strongDirectHit) return true;
-    return (book.matchReasons || []).some(function (reason) {
-      return String(reason).indexOf("직접 연결") >= 0 || String(reason).indexOf("토큰 연결") >= 0;
-    });
+  function evaluateBook(book, terms, majorGroup, rules){
+    const domain = domainFit(book, majorGroup, rules);
+    if (domain.level === "excluded") {
+      return { include:false, type:"excluded", score:0, domain, role:null };
+    }
+    const role = roleFit(book, terms, rules);
+    const domainScore = domain.level === "direct" ? 55 : 25;
+    const score = domainScore + role.score;
+    const type = (domain.level === "direct" && role.score >= 20) ? "direct" : (role.score >= 15 ? "expansion" : "excluded");
+    if (type === "excluded") return { include:false, type, score, domain, role };
+    return { include:true, type, score, domain, role };
   }
 
-  function recommendBooks(payload, books, options) {
+  function recommendBooks(payload, books, options){
     options = options || {};
     books = books || (global.BOOK_SOURCE_MASTER_210 && global.BOOK_SOURCE_MASTER_210.books) || [];
+    const rules = global.BOOK_RECOMMENDATION_RULES_V22 || FALLBACK_RULES;
     const terms = collectPayloadTerms(payload);
-
-    if (!hasRequiredPayload(terms)) {
+    if (!hasRequiredPayload(terms)){
       return {
         directBooks: [],
         expansionBooks: [],
@@ -382,44 +828,31 @@
       };
     }
 
-    const scored = books.map(function (book) {
-      const s = scoreBook(book, terms);
-      const decorated = Object.assign({}, book, {
-        matchScore: s.score,
-        matchType: s.type,
-        strongDirectHit: s.strongDirectHit,
-        strongTokenHitCount: s.strongTokenHitCount,
-        blockedByDomain: s.blockedByDomain,
-        blockedByMajorDomain: s.blockedByMajorDomain,
-        matchReasons: s.reasons,
-        directMatchReason: s.reasons.join(" · "),
-        expansionReason: "",
+    const majorGroup = inferMajorGroup(terms, rules);
+    const evaluated = books.map(book => {
+      const ev = evaluateBook(book, terms, majorGroup, rules);
+      const selectedBookContext = ev.include ? buildSelectedBookContext(book, terms, majorGroup, ev.domain, ev.role, ev.type, rules) : null;
+      return Object.assign({}, book, {
+        matchScore: ev.score,
+        matchType: ev.type,
+        matchReasons: ev.role ? ev.role.reasons : [ev.domain.reason],
+        reportRoles: ev.role ? ev.role.roles : [],
+        bookDomains: ev.domain.domains,
+        selectedBookContext,
         adapterVersion: ADAPTER_VERSION
       });
-      if (decorated.matchType === "expansion") {
-        decorated.expansionReason = decorated.matchReasons.join(" · ");
-      }
-      return decorated;
-    }).filter(function (book) {
-      return book.matchType !== "none";
-    }).sort(function (a, b) {
-      if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
-      if ((b.strongTokenHitCount || 0) !== (a.strongTokenHitCount || 0)) return (b.strongTokenHitCount || 0) - (a.strongTokenHitCount || 0);
-      return a.managementNo - b.managementNo;
-    });
+    }).filter(book => book.matchType === "direct" || book.matchType === "expansion")
+      .sort((a,b) => {
+        if (a.matchType !== b.matchType) return a.matchType === "direct" ? -1 : 1;
+        if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
+        return a.managementNo - b.managementNo;
+      });
 
     const directLimit = options.directLimit || 3;
     const expansionLimit = options.expansionLimit || 5;
-
-    const directBooks = scored.filter(function (b) {
-      return b.matchType === "direct" || isDirectReason(b);
-    }).slice(0, directLimit);
-
-    const directIds = new Set(directBooks.map(function (b) { return b.sourceId; }));
-
-    const expansionBooks = scored.filter(function (b) {
-      return !directIds.has(b.sourceId) && !isDirectReason(b) && b.matchScore >= 18;
-    }).slice(0, expansionLimit);
+    const directBooks = evaluated.filter(b => b.matchType === "direct").slice(0, directLimit);
+    const directIds = new Set(directBooks.map(b => b.sourceId));
+    const expansionBooks = evaluated.filter(b => b.matchType === "expansion" && !directIds.has(b.sourceId)).slice(0, expansionLimit);
 
     return {
       directBooks,
@@ -427,13 +860,14 @@
       selectedBookSummary: directBooks[0] || expansionBooks[0] || null,
       inheritedPayload: payload || {},
       terms,
+      majorGroup,
       adapterVersion: ADAPTER_VERSION,
       debug: {
-        scoredCount: scored.length,
-        directCandidateCount: scored.filter(isDirectReason).length,
+        majorGroup,
         strongTokens: terms.strongTokens,
-        isStemPayload: terms.isStemPayload,
-        isEngineeringPayload: terms.isEngineeringPayload
+        evaluatedCount: evaluated.length,
+        directCount: directBooks.length,
+        expansionCount: expansionBooks.length
       }
     };
   }
@@ -443,7 +877,8 @@
     collectPayloadTerms,
     recommendBooks,
     loadBookMaster,
+    loadRules,
     resolveBookEngineBase,
-    buildBaseCandidates
+    inferMajorGroup
   };
 })(typeof window !== "undefined" ? window : globalThis);
