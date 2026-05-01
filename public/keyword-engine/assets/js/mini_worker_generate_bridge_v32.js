@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v33-existing-worker-payload-with-6-8";
+  const VERSION = "mini-worker-generate-bridge-v34-worker-json-to-report-render";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -434,31 +434,195 @@
     return data;
   }
 
-  function extractGeneratedText(data){
-    if(data == null) return "";
-    if(typeof data === "string") return data;
-    const candidates = [
-      data.report,
-      data.result,
-      data.content,
-      data.text,
-      data.output,
-      data.generated,
-      data.generatedText,
-      data.answer,
-      data.message,
-      data.data?.report,
-      data.data?.result,
-      data.data?.content,
-      data.data?.text,
-      data.data?.output,
-      data.choices?.[0]?.message?.content,
-      data.choices?.[0]?.text
-    ];
-    for(const v of candidates){
+
+  function tryParseJsonText(value){
+    if(typeof value !== "string") return null;
+    const t = value.trim();
+    if(!t || !/^[\[{]/.test(t)) return null;
+    try{ return JSON.parse(t); }catch(e){ return null; }
+  }
+
+  function looksLikeRawJsonText(value){
+    if(typeof value !== "string") return false;
+    const t = value.trim();
+    if(!t) return false;
+    if(/^[\[{][\s\S]*[\]}]$/.test(t)) return true;
+    return /"ok"\s*:|"patternRule"\s*:|"clusters"\s*:|"resolved"\s*:|"source"\s*:/.test(t);
+  }
+
+  function firstNonEmpty(){
+    for(const v of arguments){
       if(typeof v === "string" && v.trim()) return v.trim();
     }
-    return JSON.stringify(data, null, 2);
+    return "";
+  }
+
+  function normalizeGeneratedCandidate(value){
+    if(value == null) return "";
+    if(typeof value === "string"){
+      const parsed = tryParseJsonText(value);
+      if(parsed) return normalizeGeneratedCandidate(parsed);
+      return value.trim();
+    }
+    if(typeof value === "object"){
+      const candidates = [
+        value.report,
+        value.reportText,
+        value.report_text,
+        value.generatedReport,
+        value.generated_report,
+        value.finalReport,
+        value.final_report,
+        value.studentReport,
+        value.student_report,
+        value.content,
+        value.text,
+        value.output,
+        value.generated,
+        value.generatedText,
+        value.answer,
+        value.message,
+        value.response,
+        value.data?.report,
+        value.data?.result,
+        value.data?.content,
+        value.data?.text,
+        value.data?.output,
+        value.data?.generatedReport,
+        value.data?.studentReport,
+        value.result?.report,
+        value.result?.content,
+        value.result?.text,
+        value.result?.output,
+        value.result?.generatedReport,
+        value.result?.studentReport,
+        value.openai?.choices?.[0]?.message?.content,
+        value.choices?.[0]?.message?.content,
+        value.choices?.[0]?.text
+      ];
+      for(const c of candidates){
+        const out = normalizeGeneratedCandidate(c);
+        if(out && !looksLikeRawJsonText(out)) return out;
+      }
+    }
+    return "";
+  }
+
+  function getWorkerResolved(rawData){
+    if(!rawData || typeof rawData !== "object") return {};
+    return rawData.resolved || rawData.data?.resolved || rawData.result?.resolved || rawData.output?.resolved || {};
+  }
+
+  function getWorkerPatternRule(rawData){
+    if(!rawData || typeof rawData !== "object") return null;
+    return rawData.patternRule || rawData.pattern_rule || rawData.data?.patternRule || rawData.result?.patternRule || null;
+  }
+
+  function getSelectedBookUse(req){
+    return req?.mini_payload?.reportGenerationContext?.selectedBookUse || req?.mini_payload?.selectedBook?.selectedBookContext || req?.selectedBook?.selectedBookContext || null;
+  }
+
+  function buildReportTitle(req, rawData){
+    const s = req?.mini_payload?.selectionPayload || {};
+    const kw = s.selectedKeyword || req.keyword || getWorkerResolved(rawData).keyword || "선택 키워드";
+    const major = s.department || req.career || getWorkerResolved(rawData).major || "선택 학과";
+    const view = req.report_choices?.view || s.reportView || "자료 해석";
+    if(/판단|자료|데이터|모델|시스템/.test(`${req.selectedFollowupAxis} ${view}`)){
+      return `${kw}를 자료로 해석해 ${major} 관점의 판단 기준 세우기`;
+    }
+    if(/비교/.test(view)) return `${kw}의 원리와 실제 사례를 비교해 ${major} 관점으로 해석하기`;
+    if(/진로|전공/.test(view)) return `${kw}를 ${major} 진로 문제와 연결한 확장 탐구`;
+    return `${kw}의 핵심 개념과 실제 적용을 중심으로 한 탐구보고서`;
+  }
+
+  function buildStudentReportFromPayload(req, rawData){
+    const s = req?.mini_payload?.selectionPayload || {};
+    const resolved = getWorkerResolved(rawData);
+    const workerPattern = getWorkerPatternRule(rawData) || {};
+    const pattern = req.report_dataset_pattern || {};
+    const book = req.selectedBook || req?.mini_payload?.selectedBook || {};
+    const bookUse = getSelectedBookUse(req) || {};
+    const choices = req.report_choices || getReportChoices(req.mini_payload || {});
+
+    const subject = firstNonEmpty(s.subject, req.subject, resolved.subject, "선택 과목");
+    const major = firstNonEmpty(s.department, req.career, resolved.major, resolved.track, "선택 학과");
+    const concept = firstNonEmpty(s.selectedConcept, req.selectedConcept, "선택 교과 개념");
+    const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
+    const axisRaw = firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축");
+    const axis = compactAxis(axisRaw);
+    const mode = firstNonEmpty(choices.mode, s.reportMode, "보고서 전개 방식");
+    const view = firstNonEmpty(choices.view, s.reportView, "보고서 관점");
+    const line = firstNonEmpty(choices.line, s.reportLine, "보고서 라인");
+    const patternName = firstNonEmpty(pattern.selectedPattern, workerPattern.label, "교과 개념-실제 사례 해석형");
+    const refs = (pattern.referenceReports || []).join(", ") || "RPT001, RPT005";
+    const bookTitle = firstNonEmpty(book.title, req.selectedBookTitle, "선택 도서");
+    const bookUseText = firstNonEmpty(
+      bookUse.useInReport,
+      Array.isArray(bookUse.reportRoleLabels) ? bookUse.reportRoleLabels.join(", ") : "",
+      "근거 프레임과 비교 관점으로 활용"
+    );
+    const topic = buildReportTitle(req, rawData);
+
+    const problemContext = /폭염|기후|재난|주의보|대기|환경/.test(keyword + axisRaw)
+      ? "일상에서 접하는 기상 정보와 경보 기준은 단순한 안내 문구가 아니라, 관측 자료와 판단 기준이 결합된 사회적 의사결정 결과이다."
+      : /데이터|모델|그래프|측정|통계|예측/.test(keyword + axisRaw)
+        ? "현상은 눈에 보이는 결과만으로 해석하기 어렵기 때문에, 자료를 수집하고 기준을 세워 판단하는 과정이 필요하다."
+        : "교과 개념은 실제 문제 상황을 해석하고 해결 방향을 세울 때 의미가 분명해진다.";
+
+    const principle = /데이터|모델|그래프|측정|통계|예측/.test(keyword + axisRaw)
+      ? `${keyword}를 해석할 때 핵심은 관측값을 그대로 외우는 것이 아니라, 어떤 변수를 기준으로 삼고 어떤 조건에서 차이가 발생하는지 비교하는 것이다.`
+      : `${keyword}는 ${concept}에서 다루는 핵심 개념을 실제 상황에 적용해 볼 수 있는 출발점이다.`;
+
+    const process = [
+      `1단계에서는 ${keyword}와 관련된 현상 또는 사례를 정하고, ${subject}에서 배운 ${concept} 개념과 연결한다.`,
+      `2단계에서는 관측 자료, 기사, 기관 자료, 그래프 등 비교 가능한 근거를 모아 ${axis} 관점에서 정리한다.`,
+      `3단계에서는 자료를 단순 나열하지 않고 기준을 세워 차이와 원인을 해석한다.`,
+      `4단계에서는 ${major} 진로와 연결해 문제 해결 가능성, 한계, 추가 탐구 방향을 제시한다.`
+    ];
+
+    const sections = [
+      {title:"보고서 제목", body:topic},
+      {title:"중요성", body:`${problemContext} 따라서 이 보고서는 ${keyword}를 ${concept}의 교과 개념에서 출발해 ${axis}으로 확장하고, ${major} 관점에서 자료를 해석하는 방식으로 구성한다. 이 과정은 단순 설명형 보고서보다 학생의 개념 이해, 자료 해석력, 진로 연결성을 함께 보여줄 수 있다.`},
+      {title:"추천 주제", body:topic},
+      {title:"탐구 동기", body:`평소 ${keyword}가 실제 생활이나 사회 문제에서 어떻게 판단 기준으로 쓰이는지 궁금했다. 특히 ${subject}에서 배운 ${concept}이 단순 개념 암기가 아니라 실제 자료 해석과 연결될 수 있다는 점에 주목했다. 그래서 이 주제를 통해 ${major} 진로와 연결되는 탐구 흐름을 만들고자 했다.`},
+      {title:"관련 키워드", body:`핵심 키워드는 ${keyword}, ${concept}, ${axis}, 자료 수집, 비교 기준, 판단 근거, 한계 분석이다. 이 키워드들은 개념 설명, 실제 사례 해석, 문제 해결 과정, 진로 확장 문단으로 나누어 보고서 전체의 흐름을 만든다.`},
+      {title:"이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?", body:`${concept}은 ${subject}에서 배운 내용을 실제 문제와 연결하는 핵심 개념이다. ${keyword}를 이 개념으로 해석하면 학생이 단순히 사례를 조사한 것이 아니라, 교과 지식을 사용해 문제를 구조화하고 판단 기준을 세웠다는 점이 드러난다. 이는 생기부에서 교과 이해도, 자료 해석력, 진로 연계 탐구 역량으로 기록될 수 있다.`},
+      {title:"이 개념이 무엇이며 어떤 원리인가?", body:`${principle} ${axis}은 이 개념을 다음 과목이나 심화 탐구로 확장하는 연결축이다. 따라서 보고서에서는 정의를 길게 나열하기보다, 실제 사례에서 어떤 변수와 조건을 보아야 하는지 설명하는 방식으로 원리를 정리한다.`},
+      {title:"어떤 문제를 해결할 수 있고, 왜 중요한가?", body:`이 탐구는 ${keyword}와 관련된 현상을 더 정확하게 판단하는 문제와 연결된다. 특히 자료가 많아도 기준이 없으면 결론이 모호해질 수 있으므로, ${axis} 관점에서 기준을 세우는 것이 중요하다. 이런 방식은 ${major} 분야에서 문제를 분석하고 해결 방안을 설계하는 기본 사고 과정과도 이어진다.`},
+      {title:"실제 적용 및 문제 해결 과정", body:process.join("\n")},
+      {title:"교과목 연계 및 이론적 설명", body:`현재 과목인 ${subject}에서는 ${concept}을 통해 기본 원리를 정리한다. 이후 ${axisRaw} 흐름으로 확장하면 수학적 자료 해석, 과학적 측정, 정보 처리, 시각화 활동과 연결할 수 있다. 이때 ${major} 진로는 단순 배경이 아니라 자료를 어떻게 해석하고 어떤 기준으로 판단할지 정하는 관점으로 작용한다.`},
+      {title:"선택 도서 활용", body:`선택 도서 『${bookTitle}』는 보고서의 중심을 독후감으로 바꾸기 위한 자료가 아니라, 탐구 관점을 넓히는 참고 근거로 활용한다. 이 책은 ${bookUseText} 위치에 배치하는 것이 적절하다. 따라서 본문에서는 도서 내용을 길게 요약하기보다, ${keyword}를 해석하는 기준이나 한계 논의, 결론 확장 부분에서 짧게 연결한다.`},
+      {title:"심화 탐구 발전 방안", body:`후속 탐구에서는 ${keyword}와 관련된 사례를 2개 이상 비교하거나, 시간·지역·조건별 차이를 표나 그래프로 정리할 수 있다. 또한 ${axis} 관점에서 판단 기준을 직접 설정하고, 그 기준이 실제 문제 해결에 충분한지 검토하면 심화성이 높아진다. 마지막으로 ${major} 분야에서 이 문제가 어떻게 응용될 수 있는지 한계와 개선 방향까지 제시할 수 있다.`},
+      {title:"느낀점", body:`이번 탐구를 통해 교과 개념은 교과서 안에서만 의미를 갖는 것이 아니라 실제 자료와 사례를 해석하는 기준이 될 수 있음을 알게 되었다. 특히 ${keyword}를 ${axis}으로 바라보니, 같은 현상도 어떤 기준을 세우느냐에 따라 결론이 달라질 수 있다는 점을 이해했다. 앞으로도 진로와 연결되는 문제를 단순 조사보다 근거 기반 분석으로 확장하고 싶다.`},
+      {title:"세특 문구 예시", body:`${subject}의 ${concept} 개념을 바탕으로 ${keyword}를 탐구하며, 실제 사례와 자료를 ${axis} 관점에서 해석하려는 모습을 보임. 선택 도서와 기관 자료를 단순 요약하지 않고 비교 기준과 한계 논의에 활용하며, ${major} 진로와 연결해 문제 해결 가능성을 구체화함.`},
+      {title:"참고문헌 및 자료", body:`선택 도서: 『${bookTitle}』. 추가 자료는 관련 기관 통계, 공공 데이터, 기사 자료, 그래프 자료, 교과서의 ${concept} 단원을 활용한다. 보고서에서는 출처별 역할을 구분해 도서는 관점 확장, 기관 자료는 근거, 그래프는 분석 자료로 배치한다.`}
+    ];
+
+    const text = sections.map((sec, idx) => `${idx + 1}. ${sec.title}\n${sec.body}`).join("\n\n");
+    return {
+      text,
+      title: topic,
+      source: "worker-json-normalized",
+      note: "기존 Worker가 완성 본문 문자열이 아니라 구조 JSON을 반환해, 응답의 resolved/patternRule과 MINI payload를 결합해 제출형 보고서로 정리했습니다.",
+      diagnostics: { patternName, referenceReports: refs, mode, view, line }
+    };
+  }
+
+  function hideBuiltInResultShell(){
+    const resultSection = $("resultSection");
+    if(!resultSection) return;
+    [".student-top", ".action-card", ".student-grid", ".report-panel", ".details-panel"].forEach(sel => {
+      resultSection.querySelectorAll(sel).forEach(el => { el.style.display = "none"; });
+    });
+  }
+
+  function extractGeneratedText(data, req){
+    const direct = normalizeGeneratedCandidate(data);
+    if(direct && !looksLikeRawJsonText(direct)){
+      return { text: direct, source: "worker-generated-text", fallback: false };
+    }
+    const composed = buildStudentReportFromPayload(req, data);
+    return { text: composed.text, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
 
   function splitSections(text){
@@ -484,12 +648,15 @@
     return out;
   }
 
-  function renderGeneratedReport(text, req, rawData){
+  function renderGeneratedReport(text, req, rawData, extraction){
+    hideBuiltInResultShell();
     const root = ensureResultRoot();
     const sections = splitSections(text);
     const s = req.mini_payload?.selectionPayload || {};
     const pattern = req.report_dataset_pattern || {};
     const book = req.selectedBook || {};
+    const isFallback = Boolean(extraction?.fallback);
+    const sourceLabel = isFallback ? "Worker 응답 구조를 보고서 문장으로 정리한 결과" : "기존 Worker /generate가 반환한 MINI 생성 결과";
 
     const sectionHtml = sections.length ? sections.map(sec => `
       <article class="mini-v32-section">
@@ -524,7 +691,7 @@
           <button type="button" id="miniV32CopyPayloadBtn">payload 복사</button>
         </div>
         <h2 class="mini-v32-title">${escapeHtml((sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 탐구보고서`)}</h2>
-        <p class="mini-v32-sub">기존 Worker <code>/generate</code>에 MINI payload를 전송해 받은 실제 생성 결과입니다.</p>
+        <p class="mini-v32-sub">${escapeHtml(sourceLabel)}입니다.</p>
         <div class="mini-v32-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
           <span>${escapeHtml(s.department || req.career)}</span>
@@ -550,6 +717,8 @@
             역할: 보고서 예시의 섹션 구조와 문장 기능을 MINI 생성 조건으로 사용</p>
           </div>
         </div>
+
+        ${isFallback ? `<div class="mini-v32-card" style="margin:12px 0;border-color:#f0d28a;background:#fffdf4"><h4>생성 방식 안내</h4><p>${escapeHtml(extraction?.note || "Worker가 완성 본문 대신 구조 데이터를 반환해, 선택값과 응답 구조를 결합해 제출형 보고서로 정리했습니다.")}</p></div>` : ""}
 
         <div class="mini-v32-sections">
           ${sectionHtml}
@@ -604,8 +773,9 @@
 
       const data = await postJson(GENERATE_ENDPOINT, req);
       global.__LAST_MINI_WORKER_RESPONSE_V32__ = data;
-      const generatedText = extractGeneratedText(data);
-      renderGeneratedReport(generatedText, req, data);
+      const extraction = extractGeneratedText(data, req);
+      global.__LAST_MINI_WORKER_EXTRACTION_V34__ = extraction;
+      renderGeneratedReport(extraction.text, req, data, extraction);
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
@@ -626,7 +796,9 @@
   }
 
   global.__BUILD_MINI_WORKER_REQUEST_V32__ = buildWorkerRequest;
+  global.__BUILD_MINI_WORKER_REQUEST_V34__ = buildWorkerRequest;
   global.__RUN_MINI_WORKER_GENERATE_V32__ = handleGenerateV32;
+  global.__RUN_MINI_WORKER_GENERATE_V34__ = handleGenerateV32;
   global.__DIAGNOSE_MINI_WORKER_V32__ = function(){
     const req = buildWorkerRequest();
     return {
@@ -636,6 +808,24 @@
       collectEndpoint: COLLECT_ENDPOINT,
       missing: validateRequest(req),
       request: req
+    };
+  };
+
+
+  global.__DIAGNOSE_MINI_WORKER_V34__ = function(){
+    const req = buildWorkerRequest();
+    const last = global.__LAST_MINI_WORKER_RESPONSE_V32__ || null;
+    const extraction = last ? extractGeneratedText(last, req) : null;
+    return {
+      version: VERSION,
+      workerBaseUrl: WORKER_BASE_URL,
+      generateEndpoint: GENERATE_ENDPOINT,
+      collectEndpoint: COLLECT_ENDPOINT,
+      missing: validateRequest(req),
+      request: req,
+      lastResponseKeys: last && typeof last === "object" ? Object.keys(last) : [],
+      extractionSource: extraction?.source || null,
+      usedFallback: extraction?.fallback || false
     };
   };
 
