@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v46-natural-book-bridge";
+  const VERSION = "mini-worker-generate-bridge-v47-choice-driven-report-pattern";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -820,33 +820,33 @@
 
     const sections = [
       {title:"오늘의 핵심 방향", body:[
-        `중심 질문: ${focusQuestion}`,
+        `탐구 방향: ${keyword}를 하나의 정답으로 판단하지 않고, 내가 정한 기준과 자료로 해석한다.`,
         `최종 목표: ${goal}`,
-        "오늘 할 일: 기준 찾기 → 자료 3개 찾기 → 표로 비교하기 → 내 기준 설명하기"
+        "진행 순서: 질문 변형하기 → 비교할 자료 정하기 → 표에 넣기 → 기준의 장점과 한계 쓰기"
       ].join("\n")},
-      {title:"1단계. 중심 질문 고르기", body:[
-        `추천 질문: ${focusQuestion}`,
+      {title:"1단계. 나만의 질문 만들기", body:[
+        `질문 원형 A: ${q[0]}`,
+        `질문 원형 B: ${q[1]}`,
+        `질문 원형 C: ${q[2]}`,
         "",
-        `다른 선택 A: ${q[1]}`,
-        `다른 선택 B: ${q[2]}`,
-        "",
-        "사용 방법: 세 질문 중 하나만 골라 보고서의 중심 질문으로 쓴다."
+        "중요: 위 질문을 그대로 쓰지 말고, 지역·기간·대상·비교 기준 중 하나를 넣어 내 질문으로 바꾼다.",
+        "예시: ‘폭염주의보는 기온 하나만으로 판단해도 충분할까?’ → ‘서울의 7월 폭염주의보는 기온과 체감온도를 함께 볼 때 판단이 달라질까?’"
       ].join("\n")},
       {title:"2단계. 자료 3개 찾기", body:["자료 | 찾는 곳 | 보고서 위치", ...dataRows.map(r=>r.join(" | "))].join("\n")},
       {title:"3단계. 비교 표 만들기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
       {title:"4단계. 보고서에 쓰기", body:[
-        "Ⅰ. 탐구 동기: 왜 이 기준이 궁금했는지 쓴다.",
-        `Ⅱ. 교과 개념: ${subject}의 '${concept}' 개념을 쉬운 말로 설명한다.`,
-        "Ⅲ. 자료 정리: 찾은 자료를 표로 보여준다.",
-        "Ⅳ. 전공 개념 적용: 입력값 → 조건문 → 판단 결과 → 오류 검증 순서로 해석한다.",
-        "Ⅴ. 결론: 내가 세운 기준의 장점과 부족한 점을 함께 쓴다."
+        "Ⅰ. 문제 제기: 내가 바꾼 질문과 이 질문을 고른 이유를 쓴다.",
+        `Ⅱ. 교과 개념 적용: ${subject}의 '${concept}' 개념을 자료 해석 기준으로 설명한다.`,
+        "Ⅲ. 자료 분석: 공식 기준, 실제 자료, 비교 자료를 표로 정리한다.",
+        "Ⅳ. 판단 기준 설계: 입력값 → 조건 → 판단 결과 → 오류 가능성 순서로 해석한다.",
+        "Ⅴ. 결론과 확장: 내 기준의 장점, 한계, 추가로 필요한 자료를 정리한다."
       ].join("\n")},
-      {title:"내 말로 바꾸는 문장 틀", body:[
-        `처음에는 ${keyword}를 단순히 ________라고 생각했다.`,
-        `하지만 자료를 찾아보니 ${keyword}는 하나의 수치가 아니라 ________ 조건을 함께 보아야 판단할 수 있었다.`,
-        `나는 ________ 자료를 입력값으로 두고, ________을 판단 조건으로 비교했다.`,
-        `그 결과 ________을 추가했을 때 판단 결과가 달라질 수 있음을 확인했다.`,
-        `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 넣어 기준을 보완하고 싶다.`
+      {title:"보고서 문장 구조", body:[
+        "문단 1. 문제 제기: 나는 [현상/사례]를 보며, 이것이 단순한 안내가 아니라 [기준]에 따라 판단되는 정보라는 점에 주목했다.",
+        `문단 2. 교과 개념: ${concept} 개념을 적용하면, 측정값은 그 자체보다 어떤 조건에서 해석되는지가 중요하다는 점을 설명할 수 있다.`,
+        "문단 3. 자료 분석: [자료 1]과 [자료 2]를 비교한 결과, [공통점/차이점]이 나타났고 이는 판단 기준을 세울 때 중요한 근거가 되었다.",
+        "문단 4. 전공 개념 적용: 이 과정은 자료를 입력값으로 정하고, 조건에 따라 판단 결과를 달리하는 구조로 해석할 수 있다.",
+        "문단 5. 결론: 내가 세운 기준은 [장점]이 있지만, [한계]가 있어 이후에는 [추가 자료]를 더해 보완할 필요가 있다."
       ].join("\n")},
       {title:"도서·전공 개념 연결", body:[
         `왜 이 책인가?: ${bookGuide.reason}`,
@@ -858,7 +858,8 @@
         `주의할 점: ${bookGuide.caution}`
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
-        "□ 중심 질문을 하나만 골랐는가?",
+        "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
+        "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
         "□ 자료 출처를 2개 이상 적었는가?",
         "□ 표에 실제 자료가 들어갔는가?",
         "□ 교과 개념을 자료 해석에 사용했는가?",
@@ -896,7 +897,7 @@
   }
 
   function extractGeneratedText(data, req){
-    // v46부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮고 도서별 연결 내용이 자연스럽게 보이는
+    // v47부터는 중심 질문을 그대로 제공하지 않고 학생이 지역·기간·대상·비교 기준으로 변형하도록 안내하며, 보고서 데이터형 문장 구조가 보이는
     // 학생용 탐구 실행 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
@@ -1277,12 +1278,12 @@
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v46 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV46Bound === "1") return;
+    if(btn.dataset.miniWorkerV47Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
     btn.dataset.miniWorkerV46Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v46";
+    btn.dataset.miniWorkerV32Bound = "v47";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
