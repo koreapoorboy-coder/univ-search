@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v36-clean-student-report-render";
+  const VERSION = "mini-worker-generate-bridge-v37-force-clean-rebind";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -42,7 +42,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "MINI 생성 중..." : "학생용 결과 생성";
+      btn.textContent = isLoading ? "보고서 생성 중..." : "학생용 결과 생성";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -88,7 +88,7 @@
       subject: readValue("subject"),
       taskName: readValue("taskName"),
       taskType: readValue("taskType"),
-      usagePurpose: readValue("usagePurpose") || "학생용 MINI 보고서 작성",
+      usagePurpose: readValue("usagePurpose") || "학생 제출형 탐구보고서 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
@@ -590,7 +590,7 @@
     const sections = [
       {title:"보고서 제목", body:topic},
       {title:"중요성", body:`${problemContext} 따라서 이 보고서는 ${keyword}를 ${concept}의 교과 개념에서 출발해 ${axis}으로 확장하고, ${major} 관점에서 자료를 해석하는 방식으로 구성한다. 이 과정은 단순 설명형 보고서보다 학생의 개념 이해, 자료 해석력, 진로 연결성을 함께 보여줄 수 있다.`},
-      {title:"추천 주제", body:topic},
+      {title:"탐구 주제", body:topic},
       {title:"탐구 동기", body:`평소 ${keyword}가 실제 생활이나 사회 문제에서 어떻게 판단 기준으로 쓰이는지 궁금했다. 특히 ${subject}에서 배운 ${concept}이 단순 개념 암기가 아니라 실제 자료 해석과 연결될 수 있다는 점에 주목했다. 그래서 이 주제를 통해 ${major} 진로와 연결되는 탐구 흐름을 만들고자 했다.`},
       {title:"관련 키워드", body:`핵심 키워드는 ${keyword}, ${concept}, ${axis}, 자료 수집, 비교 기준, 판단 근거, 한계 분석이다. 이 키워드들은 개념 설명, 실제 사례 해석, 문제 해결 과정, 진로 확장 문단으로 나누어 보고서 전체의 흐름을 만든다.`},
       {title:"이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?", body:`${concept}은 ${subject}에서 배운 내용을 실제 문제와 연결하는 핵심 개념이다. ${keyword}를 이 개념으로 해석하면 학생이 단순히 사례를 조사한 것이 아니라, 교과 지식을 사용해 문제를 구조화하고 판단 기준을 세웠다는 점이 드러난다. 이는 생기부에서 교과 이해도, 자료 해석력, 진로 연계 탐구 역량으로 기록될 수 있다.`},
@@ -648,7 +648,7 @@
       }else if(current){
         current.body += (current.body ? "\n" : "") + line;
       }else{
-        current = { title: "MINI 생성 결과", body: line };
+        current = { title: "보고서 내용", body: line };
       }
     });
     if(current) out.push(current);
@@ -703,14 +703,25 @@
   function renderGeneratedReport(text, req, rawData, extraction){
     hideBuiltInResultShell();
     const root = ensureResultRoot();
-    const sections = splitSections(text);
+    const sections = dedupeSections(splitSections(text));
     const s = req.mini_payload?.selectionPayload || {};
-    const pattern = req.report_dataset_pattern || {};
     const book = req.selectedBook || {};
-    const isFallback = Boolean(extraction?.fallback);
-    const sourceLabel = isFallback ? "Worker 응답 구조를 보고서 문장으로 정리한 결과" : "기존 Worker /generate가 반환한 MINI 생성 결과";
+    const titleSection = sections.find(sec => /^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)));
+    const reportTitle = firstNonEmpty(
+      titleSection?.body?.split(/\n/)[0],
+      extraction?.title,
+      `${s.selectedKeyword || req.keyword || "선택 키워드"} 기반 탐구보고서`
+    );
 
-    const sectionHtml = sections.length ? sections.map(sec => `
+    const displaySections = sections
+      .filter(sec => !/^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)))
+      .map(sec => {
+        const title = normalizeSectionTitle(sec.title);
+        const cleanTitle = title === "추천 주제" ? "탐구 주제" : (title === "느낀점" ? "느낀 점" : title);
+        return { title: cleanTitle, body: sec.body };
+      });
+
+    const sectionHtml = displaySections.length ? displaySections.map(sec => `
       <article class="mini-v32-section">
         <h4>${escapeHtml(sec.title)}</h4>
         <p>${nl2br(sec.body)}</p>
@@ -720,30 +731,33 @@
     root.innerHTML = `
       <style>
         .mini-v32-result{border:1px solid #b8cdfd;border-radius:18px;background:#fff;padding:22px;margin-top:18px;box-shadow:0 12px 28px rgba(50,87,180,.08)}
+        .mini-v32-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
         .mini-v32-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#eaf1ff;color:#2454d8;font-weight:800;font-size:12px;padding:6px 10px;margin-bottom:10px}
         .mini-v32-title{font-size:24px;line-height:1.35;margin:0 0 8px;color:#111827}
         .mini-v32-sub{font-size:13px;color:#526070;margin:0 0 16px}
         .mini-v32-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
         .mini-v32-tags span{font-size:12px;border:1px solid #d5e0ff;background:#f6f8ff;border-radius:999px;padding:5px 9px;color:#2446a5}
-        .mini-v32-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
-        .mini-v32-card,.mini-v32-section{border:1px solid #dbe5ff;background:#fbfdff;border-radius:14px;padding:14px}
-        .mini-v32-card h4,.mini-v32-section h4{font-size:14px;margin:0 0 8px;color:#111827}
-        .mini-v32-card p,.mini-v32-section p{font-size:13px;line-height:1.7;margin:0;color:#263445;white-space:normal}
-        .mini-v32-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin:10px 0 16px}
+        .mini-v32-section{border:1px solid #dbe5ff;background:#fbfdff;border-radius:14px;padding:15px;margin-bottom:10px}
+        .mini-v32-section h4{font-size:14px;margin:0 0 8px;color:#111827}
+        .mini-v32-section p{font-size:13px;line-height:1.75;margin:0;color:#263445;white-space:normal}
+        .mini-v32-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin:0 0 12px}
         .mini-v32-actions button{border:1px solid #c6d5ff;background:#fff;color:#2454d8;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}
         .mini-v32-actions button.primary{background:#2f5bff;color:#fff;border-color:#2f5bff}
-        .mini-v32-raw{white-space:pre-wrap;font-size:12px;line-height:1.55;background:#0f172a;color:#e5edff;border-radius:12px;padding:14px;overflow:auto;max-height:420px}
-        @media (max-width: 780px){.mini-v32-grid{grid-template-columns:1fr}}
+        @media (max-width: 780px){.mini-v32-head{display:block}.mini-v32-actions{justify-content:flex-start}}
       </style>
 
       <section class="mini-v32-result">
-        <div class="mini-v32-kicker">MINI가 작성한 학생 제출형 보고서</div>
-        <div class="mini-v32-actions">
-          <button type="button" id="miniV32CopyReportBtn" class="primary">MINI 보고서 복사</button>
-          <button type="button" id="miniV32CopyPayloadBtn">payload 복사</button>
+        <div class="mini-v32-head">
+          <div>
+            <div class="mini-v32-kicker">학생 제출형 탐구보고서</div>
+            <h2 class="mini-v32-title">${escapeHtml(reportTitle)}</h2>
+            <p class="mini-v32-sub">선택한 교과 개념·추천 키워드·후속 연계축·도서를 반영해 정리한 보고서 초안입니다.</p>
+          </div>
+          <div class="mini-v32-actions">
+            <button type="button" id="miniV32CopyReportBtn" class="primary">보고서 복사</button>
+          </div>
         </div>
-        <h2 class="mini-v32-title">${escapeHtml((sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 탐구보고서`)}</h2>
-        <p class="mini-v32-sub">${escapeHtml(sourceLabel)}입니다.</p>
+
         <div class="mini-v32-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
           <span>${escapeHtml(s.department || req.career)}</span>
@@ -751,45 +765,20 @@
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
-          <span>${escapeHtml(pattern.selectedPattern || "보고서 패턴")}</span>
         </div>
-
-        <div class="mini-v32-grid">
-          <div class="mini-v32-card">
-            <h4>반영된 선택 구조</h4>
-            <p>교과 개념: ${escapeHtml(s.selectedConcept || req.selectedConcept)}<br>
-            추천 키워드: ${escapeHtml(s.selectedKeyword || req.keyword)}<br>
-            후속 연계축: ${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}<br>
-            선택 도서: ${escapeHtml(book.title || "선택 도서 없음")}</p>
-          </div>
-          <div class="mini-v32-card">
-            <h4>보고서 데이터셋 반영 기준</h4>
-            <p>패턴: ${escapeHtml(pattern.selectedPattern || "")}<br>
-            참고 리포트: ${escapeHtml((pattern.referenceReports || []).join(", "))}<br>
-            역할: 보고서 예시의 섹션 구조와 문장 기능을 MINI 생성 조건으로 사용</p>
-          </div>
-        </div>
-
-        ${isFallback ? `<div class="mini-v32-card" style="margin:12px 0;border-color:#f0d28a;background:#fffdf4"><h4>생성 방식 안내</h4><p>${escapeHtml(extraction?.note || "Worker가 완성 본문 대신 구조 데이터를 반환해, 선택값과 응답 구조를 결합해 제출형 보고서로 정리했습니다.")}</p></div>` : ""}
 
         <div class="mini-v32-sections">
           ${sectionHtml}
         </div>
-
-        <details style="margin-top:14px">
-          <summary style="cursor:pointer;font-weight:800;color:#2454d8">운영/분석용 원본 응답 보기</summary>
-          <pre class="mini-v32-raw">${escapeHtml(JSON.stringify(rawData, null, 2))}</pre>
-        </details>
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(text));
-    $("miniV32CopyPayloadBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(JSON.stringify(req, null, 2)));
 
     const finalTopic = $("finalTopic");
-    if(finalTopic) finalTopic.textContent = (sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 MINI 보고서`;
+    if(finalTopic) finalTopic.textContent = reportTitle;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "MINI/Worker가 payload를 받아 작성한 실제 보고서 결과입니다.";
+    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 보고서 결과입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
@@ -831,7 +820,7 @@
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
-      showError("MINI 보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
+      showError("보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
       return false;
     }finally{
       setLoading(false);
@@ -839,11 +828,17 @@
   }
 
   function bindGenerateButton(){
-    const btn = $("generateBtn");
-    if(!btn || btn.dataset.miniWorkerV32Bound === "1") return;
-    btn.dataset.miniWorkerV32Bound = "1";
+    let btn = $("generateBtn");
+    if(!btn) return;
 
-    // 기존 keyword_engine.js의 구형 handleGenerate보다 먼저 실행되도록 capture 단계에서 차단한다.
+    // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
+    // 버튼 노드를 한 번 교체한 뒤 v37 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV37Bound === "1") return;
+    const cleanBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(cleanBtn, btn);
+    btn = cleanBtn;
+    btn.dataset.miniWorkerV37Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v37";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
