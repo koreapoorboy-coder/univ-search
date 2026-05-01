@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v49-curriculum-concept-insertion";
+  const VERSION = "mini-worker-generate-bridge-v50-curriculum-as-interpretation-lens";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -773,9 +773,9 @@
       ["결론", "판단 A", "판단 B", "더 타당한 기준은 무엇인가"]
     ];
     let majorConnect = `전공 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 배우는 핵심 개념을 자료 해석 기준으로 사용하는 것이다.`;
-    let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
-    let conceptUse = `${concept}에서 배운 핵심 말을 먼저 쉬운 말로 바꾸고, 내가 찾은 자료를 어떤 기준으로 해석할지 연결한다.`;
-    let conceptExample = `${concept} 개념을 통해 자료를 단순한 정보가 아니라 판단 근거로 해석할 수 있다.`;
+    let conceptConnect = `선택한 교과 내용은 이름을 드러내기보다, 자료를 어떤 기준으로 읽을지 정하는 해석 기준으로 사용한다.`;
+    let conceptUse = `자료를 단순 정보로 나열하지 않고, 무엇을 기준으로 비교하고 판단할지 먼저 정한다. ${keyword}를 볼 때 수치·사례·조건 중 무엇이 판단을 바꾸는지 설명한다.`;
+    let conceptExample = `${keyword}를 볼 때 자료 하나만으로 결론을 내리지 않고, 조건과 기준이 달라지면 판단도 달라질 수 있음을 보여준다.`;
 
     if(isWeather && isComputer){
       title = `${keyword}, 기온 하나만 보고 판단해도 될까?`;
@@ -799,9 +799,9 @@
         ["오류 가능성", "습도·취약계층을 놓칠 수 있음", "자료가 많아 해석 기준이 복잡해짐", "기준의 장점과 한계를 함께 쓴다"]
       ];
       majorConnect = "전공 연결은 컴퓨터공학과를 희망한다는 말이 아니라, 입력값을 정하고 조건문으로 판단하며 결과의 오류를 검증하는 구조를 보여주는 것이다.";
-      conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
-      conceptUse = "교과에서 배운 '측정값은 사회적 판단에 쓰일 수 있다'는 내용을 먼저 쓰고, 기온·습도·체감온도를 폭염 판단 기준으로 해석한다고 연결한다.";
-      conceptExample = "예: 기온은 숫자 자료이지만, 사회에서는 폭염주의보를 내릴지 판단하는 기준이 된다. 그래서 이 탐구에서는 기온 하나가 아니라 습도·체감온도·지속 시간을 함께 보며 판단 기준을 세운다.";
+      conceptConnect = `교과명이나 단원명을 직접 쓰기보다, 측정된 값이 실제 판단 기준으로 바뀌는 과정을 보여준다.`;
+      conceptUse = "기온은 하나의 숫자지만, 실제 판단에서는 습도·체감온도·지속 시간처럼 함께 봐야 할 조건이 붙는다. 그래서 이 탐구에서는 ‘기온만 볼 때’와 ‘여러 조건을 함께 볼 때’ 판단이 어떻게 달라지는지 비교한다.";
+      conceptExample = "예: 기온만 보면 같은 수준의 더위처럼 보일 수 있지만, 습도와 체감온도, 지속 시간을 함께 보면 실제 위험 판단이 달라질 수 있다. 그래서 이 보고서는 ‘어떤 조건을 함께 볼 때 판단이 더 설득력 있는가’를 비교한다.";
     }else if(isBio){
       title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
       goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
@@ -854,7 +854,7 @@
     const paragraphRows = [
       ["문단", "역할", "학생이 실제로 채울 내용"],
       ["1. 문제 제기", "왜 이 주제를 보는지 밝히기", "내가 바꾼 질문과 궁금해진 이유"],
-      ["2. 교과 개념", "자료를 읽는 기준 만들기", conceptUse],
+      ["2. 자료 해석 기준", "왜 이 자료를 이렇게 읽는지 설명하기", conceptUse],
       ["3. 자료 분석", "근거 보여주기", "공식 기준·실제 자료·비교 자료를 표로 정리"],
       ["4. 전공 개념", "분석 방법 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증" : lens.process],
       ["5. 결론", "내 기준 완성하기", "장점·한계·다음에 더 볼 자료"]
@@ -868,8 +868,8 @@
       {title:"4단계. 문단별로 조립하기", body:paragraphRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 문장 구조", body:[
         "문제 제기: [내가 바꾼 질문]을 먼저 제시하고, 왜 이 기준이 필요한지 쓴다.",
-        `교과 개념 넣기: ${conceptUse}`,
-        `교과 개념 예시: ${conceptExample}`,
+        `자료 해석 기준: ${conceptUse}`,
+        `활용 예시: ${conceptExample}`,
         "자료 분석: [자료 1]과 [자료 2]의 차이를 비교하고, 표에서 보이는 차이를 근거로 해석한다.",
         isComputer ? "전공 개념 적용: 자료를 입력값으로 두고, 조건문에 따라 판단 결과가 달라지는 구조로 설명한다." : `전공 개념 적용: ${lens.shortLabel} 관점으로 자료를 나누고 비교하는 방식을 설명한다.`,
         "결론: 내가 세운 기준의 장점과 한계를 함께 쓰고, 다음에 더 필요한 자료를 제안한다."
@@ -888,7 +888,7 @@
         "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
         "□ 자료가 어느 문단에 들어갈지 정했는가?",
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
-        "□ 교과 개념을 자료 해석에 사용했는가?",
+        "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
         "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
         "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
@@ -1101,7 +1101,7 @@
     const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
     return lines.map(line => {
       if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
-      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|교과 개념 넣기|교과 개념 예시|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|자료 해석 기준|활용 예시|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
         const parts = line.split(":");
         const label = parts.shift();
         return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
@@ -1209,7 +1209,7 @@
           <div>
             <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 질문을 내 사례로 바꾸고, 자료를 어느 문단에 넣을지 정한 뒤, 표와 결론으로 완성합니다.</p>
+            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 단원명은 드러내기보다, 자료를 읽는 기준과 판단 과정 속에 자연스럽게 녹였습니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -1226,7 +1226,7 @@
           <span>${escapeHtml(s.subject || req.subject)}</span>
           ${majorLensTag ? `<span>전공 개념: ${escapeHtml(majorLensTag)}</span>` : ""}
           ${majorKeywordTag ? `<span>핵심 키워드: ${escapeHtml(majorKeywordTag)}</span>` : ""}
-          <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
+          <span>해석 기준: ${escapeHtml(keyword || s.selectedKeyword || req.keyword)}를 어떤 조건으로 판단할지</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
@@ -1309,7 +1309,8 @@
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
     btn.dataset.miniWorkerV49Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v49";
+    btn.dataset.miniWorkerV32Bound = "v50";
+    btn.dataset.miniWorkerV50Bound = "1";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
