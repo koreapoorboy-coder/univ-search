@@ -1,12 +1,18 @@
 {
-  "patch": "report_6_8_book_to_student_choice_restore_v33",
-  "createdAt": "2026-05-01",
-  "purpose": "Restore 6-8 student choice UI after book selection while keeping existing Worker /generate structure.",
+  "patch": "report_6_8_worker_json_render_patch_v34",
+  "version": "v34",
   "files": [
     "keyword-engine/index.html",
-    "keyword-engine/assets/js/mini_payload_builder.js",
-    "keyword-engine/assets/js/report_6_8_flow_bridge.js",
     "keyword-engine/assets/js/mini_worker_generate_bridge_v32.js",
-    "keyword-engine/docs/README_REPORT_6_8_PATCH_V33.md"
+    "keyword-engine/docs/README_REPORT_6_8_PATCH_V34.md",
+    "keyword-engine/patches/patch_manifest_report_6_8_v34.json"
+  ],
+  "purpose": "Render existing Worker JSON response as student-facing report instead of exposing raw JSON.",
+  "kept": [
+    "existing Cloudflare Worker base URL",
+    "/collect endpoint",
+    "/generate endpoint",
+    "1~5 selection logic",
+    "6~8 student choice flow"
   ]
 }
