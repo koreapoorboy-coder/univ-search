@@ -1,18 +1,17 @@
 {
-  "patch": "report_6_8_student_result_patch_v30",
-  "version": "v30",
-  "createdAt": "2026-05-01",
-  "purpose": "Fix false missing selection on generate and make student output use report dataset pattern structure.",
+  "version": "v32",
+  "name": "report_6_8_mini_worker_generate_patch_v32",
+  "createdAt": "2026-05-01T06:29:04.761547",
   "files": [
     "keyword-engine/index.html",
-    "keyword-engine/assets/js/student_result_output_bridge.js",
-    "keyword-engine/data/reports/report_pattern_library_v30.json",
-    "keyword-engine/docs/README_REPORT_6_8_PATCH_V30.md",
-    "keyword-engine/patches/patch_manifest_report_6_8_v30.json"
+    "keyword-engine/assets/js/mini_worker_generate_bridge_v32.js",
+    "keyword-engine/docs/README_REPORT_6_8_PATCH_V32.md",
+    "keyword-engine/patches/patch_manifest_report_6_8_v32.json"
   ],
-  "check": [
-    "window.__STUDENT_RESULT_OUTPUT_BRIDGE_VERSION__ === 'student-result-output-bridge-v30-dataset-pattern-result'",
-    "window.__REPORT_DATASET_PATTERN_LIBRARY_VERSION__ === 'report-pattern-library-v30-from-RPT001-010'",
-    "window.__DIAGNOSE_REPORT_SELECTION_V30__().missing should be [] after all selections"
+  "principle": "Do not create new API route. Keep existing Cloudflare Worker /collect and /generate, send full MINI payload, render Worker/MINI response.",
+  "checks": [
+    "window.__MINI_WORKER_GENERATE_BRIDGE_VERSION__",
+    "window.__DIAGNOSE_MINI_WORKER_V32__().missing",
+    "window.__BUILD_MINI_WORKER_REQUEST_V32__()"
   ]
 }
