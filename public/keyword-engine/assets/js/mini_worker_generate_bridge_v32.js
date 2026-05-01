@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v47-choice-driven-report-pattern";
+  const VERSION = "mini-worker-generate-bridge-v48-report-assembly-map";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -88,7 +88,7 @@
       subject: readValue("subject"),
       taskName: readValue("taskName"),
       taskType: readValue("taskType"),
-      usagePurpose: readValue("usagePurpose") || "학생용 탐구 실행 지도 작성",
+      usagePurpose: readValue("usagePurpose") || "학생용 탐구 조립 지도 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
@@ -818,35 +818,56 @@
       ];
     }
 
+    const assemblyRows = [
+      ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
+      ["내 질문", "지역·기간·대상·비교 기준을 넣어 바꾼 질문", "서론 마지막"],
+      ["판단 기준", isComputer ? "입력값·조건문·오류 가능성" : "비교 기준·근거·한계", "본론 도입"],
+      ["자료 3개", "공식 기준 + 실제 자료 + 비교/사례 자료", "본론 1~2"],
+      ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
+      ["결론", "내 기준의 장점·한계·보완 자료", "결론"]
+    ];
+
+    const questionRows = [
+      ["질문 원형", "그대로 쓰지 말고 이렇게 바꾸기"],
+      [q[0], "지역·기간·대상 중 하나를 넣는다"],
+      [q[1], "비교할 자료를 구체적으로 정한다"],
+      [q[2], "판단 기준이나 조건을 직접 넣는다"]
+    ];
+    if(isWeather && isComputer){
+      questionRows.push(["예시", "서울의 7월 폭염주의보는 기온과 체감온도를 함께 볼 때 판단이 달라질까?"]);
+    }else{
+      questionRows.push(["예시", `${keyword}를 ${axis || "선택한 기준"}으로 볼 때 어떤 조건에서 결과가 달라질까?`]);
+    }
+
+    const dataPlanRows = [
+      ["자료", "보고서에서 하는 역할", "찾는 곳", "넣을 문단"],
+      ...dataRows.map((r, i) => {
+        const role = i === 0 ? "기준을 설명하는 근거" : (i === 1 ? "내 비교의 중심 자료" : "판단을 보완하는 사례");
+        return [r[0], role, r[1], r[2]];
+      })
+    ];
+
+    const paragraphRows = [
+      ["문단", "역할", "학생이 실제로 채울 내용"],
+      ["1. 문제 제기", "왜 이 주제를 보는지 밝히기", "내가 바꾼 질문과 궁금해진 이유"],
+      ["2. 교과 개념", "교과와 연결하기", `${concept} 개념이 자료 판단에 쓰이는 방식`],
+      ["3. 자료 분석", "근거 보여주기", "공식 기준·실제 자료·비교 자료를 표로 정리"],
+      ["4. 전공 개념", "분석 방법 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증" : lens.process],
+      ["5. 결론", "내 기준 완성하기", "장점·한계·다음에 더 볼 자료"]
+    ];
+
     const sections = [
-      {title:"오늘의 핵심 방향", body:[
-        `탐구 방향: ${keyword}를 하나의 정답으로 판단하지 않고, 내가 정한 기준과 자료로 해석한다.`,
-        `최종 목표: ${goal}`,
-        "진행 순서: 질문 변형하기 → 비교할 자료 정하기 → 표에 넣기 → 기준의 장점과 한계 쓰기"
-      ].join("\n")},
-      {title:"1단계. 나만의 질문 만들기", body:[
-        `질문 원형 A: ${q[0]}`,
-        `질문 원형 B: ${q[1]}`,
-        `질문 원형 C: ${q[2]}`,
-        "",
-        "중요: 위 질문을 그대로 쓰지 말고, 지역·기간·대상·비교 기준 중 하나를 넣어 내 질문으로 바꾼다.",
-        "예시: ‘폭염주의보는 기온 하나만으로 판단해도 충분할까?’ → ‘서울의 7월 폭염주의보는 기온과 체감온도를 함께 볼 때 판단이 달라질까?’"
-      ].join("\n")},
-      {title:"2단계. 자료 3개 찾기", body:["자료 | 찾는 곳 | 보고서 위치", ...dataRows.map(r=>r.join(" | "))].join("\n")},
-      {title:"3단계. 비교 표 만들기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"4단계. 보고서에 쓰기", body:[
-        "Ⅰ. 문제 제기: 내가 바꾼 질문과 이 질문을 고른 이유를 쓴다.",
-        `Ⅱ. 교과 개념 적용: ${subject}의 '${concept}' 개념을 자료 해석 기준으로 설명한다.`,
-        "Ⅲ. 자료 분석: 공식 기준, 실제 자료, 비교 자료를 표로 정리한다.",
-        "Ⅳ. 판단 기준 설계: 입력값 → 조건 → 판단 결과 → 오류 가능성 순서로 해석한다.",
-        "Ⅴ. 결론과 확장: 내 기준의 장점, 한계, 추가로 필요한 자료를 정리한다."
-      ].join("\n")},
+      {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"1단계. 질문을 내 사례로 바꾸기", body:questionRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"2단계. 자료를 어디에 넣을지 정하기", body:dataPlanRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"3단계. 비교 표로 증명하기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"4단계. 문단별로 조립하기", body:paragraphRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 문장 구조", body:[
-        "문단 1. 문제 제기: 나는 [현상/사례]를 보며, 이것이 단순한 안내가 아니라 [기준]에 따라 판단되는 정보라는 점에 주목했다.",
-        `문단 2. 교과 개념: ${concept} 개념을 적용하면, 측정값은 그 자체보다 어떤 조건에서 해석되는지가 중요하다는 점을 설명할 수 있다.`,
-        "문단 3. 자료 분석: [자료 1]과 [자료 2]를 비교한 결과, [공통점/차이점]이 나타났고 이는 판단 기준을 세울 때 중요한 근거가 되었다.",
-        "문단 4. 전공 개념 적용: 이 과정은 자료를 입력값으로 정하고, 조건에 따라 판단 결과를 달리하는 구조로 해석할 수 있다.",
-        "문단 5. 결론: 내가 세운 기준은 [장점]이 있지만, [한계]가 있어 이후에는 [추가 자료]를 더해 보완할 필요가 있다."
+        "문제 제기: [내가 바꾼 질문]을 먼저 제시하고, 왜 이 기준이 필요한지 쓴다.",
+        `교과 개념: ${concept} 개념을 이용해 자료가 단순 수치가 아니라 조건에 따라 해석된다는 점을 설명한다.`,
+        "자료 분석: [자료 1]과 [자료 2]의 차이를 비교하고, 표에서 보이는 차이를 근거로 해석한다.",
+        isComputer ? "전공 개념 적용: 자료를 입력값으로 두고, 조건문에 따라 판단 결과가 달라지는 구조로 설명한다." : `전공 개념 적용: ${lens.shortLabel} 관점으로 자료를 나누고 비교하는 방식을 설명한다.`,
+        "결론: 내가 세운 기준의 장점과 한계를 함께 쓰고, 다음에 더 필요한 자료를 제안한다."
       ].join("\n")},
       {title:"도서·전공 개념 연결", body:[
         `왜 이 책인가?: ${bookGuide.reason}`,
@@ -860,8 +881,8 @@
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
         "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
-        "□ 자료 출처를 2개 이상 적었는가?",
-        "□ 표에 실제 자료가 들어갔는가?",
+        "□ 자료가 어느 문단에 들어갈지 정했는가?",
+        "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
         "□ 교과 개념을 자료 해석에 사용했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
         "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
@@ -898,7 +919,7 @@
 
   function extractGeneratedText(data, req){
     // v47부터는 중심 질문을 그대로 제공하지 않고 학생이 지역·기간·대상·비교 기준으로 변형하도록 안내하며, 보고서 데이터형 문장 구조가 보이는
-    // 학생용 탐구 실행 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
+    // 학생용 탐구 조립 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
@@ -1088,7 +1109,7 @@
     const title = normalizeSectionTitle(sec.title);
     const body = cleanReportText(sec.body);
     const isStep = /^\d단계/.test(title);
-    const isCore = /오늘의 핵심 방향/.test(title);
+    const isCore = /오늘의 핵심 방향|보고서 완성 그림|탐구 조립 지도/.test(title);
     const isCheck = /제출 전/.test(title);
     const icon = isCore ? "★" : (isStep ? String(index) : (isCheck ? "✓" : "•"));
     const table = isTableSection({body}) ? renderTableFromText(body) : "";
@@ -1181,9 +1202,9 @@
       <section class="mini-v43-result">
         <div class="mini-v43-head">
           <div>
-            <div class="mini-v43-kicker">학생용 탐구 실행 지도</div>
+            <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">긴 설명보다 먼저 해야 할 일을 보이게 정리했습니다. 질문 하나를 고르고, 자료를 찾고, 표로 비교하면 보고서 흐름이 잡힙니다.</p>
+            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 질문을 내 사례로 바꾸고, 자료를 어느 문단에 넣을지 정한 뒤, 표와 결론으로 완성합니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -1191,9 +1212,9 @@
         </div>
 
         <div class="mini-v43-quick">
-          <div><b>STEP 1</b><span>중심 질문 1개 고르기</span></div>
-          <div><b>STEP 2</b><span>자료 3개 찾기</span></div>
-          <div><b>STEP 3</b><span>표로 비교하고 결론 쓰기</span></div>
+          <div><b>STEP 1</b><span>질문을 내 사례로 바꾸기</span></div>
+          <div><b>STEP 2</b><span>자료를 문단에 배치하기</span></div>
+          <div><b>STEP 3</b><span>표와 결론으로 완성하기</span></div>
         </div>
 
         <div class="mini-v43-tags">
@@ -1223,7 +1244,7 @@
     const finalTopic = $("finalTopic");
     if(finalTopic) finalTopic.textContent = reportTitle;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 탐구 실행 지도입니다.";
+    if(topicSub) topicSub.textContent = "질문·자료·표·문단·결론의 흐름으로 정리한 탐구 조립 지도입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
@@ -1278,12 +1299,12 @@
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v46 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV47Bound === "1") return;
+    if(btn.dataset.miniWorkerV48Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV46Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v47";
+    btn.dataset.miniWorkerV48Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v48";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
