@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v42-easy-student-blueprint";
+  const VERSION = "mini-worker-generate-bridge-v43-visual-action-map";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -42,7 +42,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "설계서 생성 중..." : "쉬운 탐구 설계서 생성";
+      btn.textContent = isLoading ? "실행 지도 생성 중..." : "탐구 실행 지도 생성";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -88,7 +88,7 @@
       subject: readValue("subject"),
       taskName: readValue("taskName"),
       taskType: readValue("taskType"),
-      usagePurpose: readValue("usagePurpose") || "학생 실행형 탐구 설계서 작성",
+      usagePurpose: readValue("usagePurpose") || "학생용 탐구 실행 지도 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
@@ -307,16 +307,16 @@
       `라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
       "",
       "[출력 형식]",
-      "다음 구조로 작성하라.",
+      "다음 구조로 작성하라. 단, 화면에는 학생이 바로 볼 수 있는 실행 지도 형태로 정리한다.",
       "1. 설계서 제목",
-      "2. 한 줄 탐구 목표",
-      "3. 학생이 고를 탐구 질문 3개",
-      "4. 오늘 바로 할 일 4단계",
-      "5. 찾아볼 자료 4가지",
-      "6. 보고서 목차",
-      "7. 내 말로 채우는 문장 틀",
-      "8. 도서와 진로 연결 방법",
-      "9. 제출 전 확인"
+      "2. 오늘의 핵심 방향",
+      "3. 1단계. 중심 질문 고르기",
+      "4. 2단계. 자료 3개 찾기",
+      "5. 3단계. 비교 표 만들기",
+      "6. 4단계. 보고서에 쓰기",
+      "7. 내 말로 바꾸는 문장 틀",
+      "8. 도서·진로 연결",
+      "9. 제출 전 5분 점검"
     ].join("\n");
   }
 
@@ -699,45 +699,64 @@
     const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
     const isEnergy = /물리|에너지|역학|전자기|파동|열|전기|배터리|전지/.test(allText + " " + major);
 
-    let title = `${keyword}를 자료로 비교해 보는 탐구 설계`;
-    let goal = `${keyword}가 어떤 기준으로 설명되는지 찾아보고, 실제 자료를 비교해 나만의 판단 기준을 정리한다.`;
+    let title = `${keyword}는 어떤 기준으로 판단할 수 있을까?`;
+    let goal = `${keyword}와 관련된 기준을 찾고, 실제 자료를 비교해 나만의 판단 기준을 만든다.`;
+    let focusQuestion = `${keyword}를 판단하려면 어떤 자료와 기준이 필요할까?`;
     let q = [
-      `${keyword}는 어떤 기준으로 판단할 수 있을까?`,
+      focusQuestion,
       `자료를 한 가지만 볼 때와 여러 자료를 함께 볼 때 결론은 어떻게 달라질까?`,
       `내가 세운 기준에는 어떤 장점과 한계가 있을까?`
     ];
     let dataRows = [
-      [`${keyword}의 기본 기준`, "교과서·공식 기관 자료", "서론"],
-      ["비교할 수 있는 자료 2개 이상", "공공데이터·통계·기사", "본론 1"],
-      ["표나 그래프로 만들 자료", "직접 정리한 수치·사례", "본론 2"],
-      ["한계나 예외 사례", "뉴스·기관 보고서", "결론"]
+      [`${keyword}의 기본 기준`, "교과서·공식 기관", "서론"],
+      ["비교 자료 1", "공공데이터·통계·기사", "본론 1"],
+      ["비교 자료 2", "공공데이터·통계·기사", "본론 2"]
     ];
+    let tableRows = [
+      ["비교 항목", "자료 1", "자료 2", "내 해석"],
+      ["기준", "공식 기준", "내가 세운 기준", "무엇이 다른가"],
+      ["자료", "사례/수치 1", "사례/수치 2", "왜 차이가 나는가"],
+      ["결론", "판단 A", "판단 B", "더 타당한 기준은 무엇인가"]
+    ];
+    let majorConnect = `진로 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 중요하게 보는 생각 방식으로 자료를 해석하는 것이다.`;
+    let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
 
     if(isWeather && isComputer){
-      title = `${keyword}를 데이터로 판단하는 탐구 설계`;
-      goal = `${keyword}가 언제 내려지는지 기준을 찾아보고, 기온·습도·체감온도 같은 자료를 비교해 '기준을 세워 판단하는 과정'을 이해한다.`;
+      title = `${keyword}, 기온만 보고 판단해도 될까?`;
+      goal = `기온·습도·체감온도를 비교해 ${keyword}가 어떤 기준으로 판단되는지 확인한다.`;
+      focusQuestion = `${keyword}는 기온만으로 판단해도 충분할까?`;
       q = [
-        `${keyword}는 어떤 기준으로 내려질까?`,
-        `기온만 볼 때와 체감온도까지 함께 볼 때 판단은 어떻게 달라질까?`,
+        `${keyword}는 기온만으로 판단해도 충분할까?`,
+        `기온과 체감온도를 함께 보면 판단 결과가 어떻게 달라질까?`,
         `컴퓨터가 ${keyword} 위험을 알려준다면 어떤 자료와 기준이 필요할까?`
       ];
       dataRows = [
         [`${keyword}의 공식 기준`, "기상청·공공기관 자료", "서론"],
         ["기온 자료", "기상자료개방포털·날씨 통계", "본론 1"],
-        ["습도 또는 체감온도 자료", "기상청·공공데이터", "본론 2"],
-        ["피해 사례 또는 대응 정책", "뉴스·지자체·보도자료", "결론"]
+        ["습도 또는 체감온도 자료", "기상청·공공데이터", "본론 2"]
       ];
+      tableRows = [
+        ["비교 항목", "자료 1", "자료 2", "내 해석"],
+        ["공식 기준", "폭염주의보 기준", "내가 추가한 기준", "기준이 왜 달라져야 하는가"],
+        ["기온", "날짜/지역 A", "날짜/지역 B", "기온만 보면 무엇이 보이는가"],
+        ["습도·체감온도", "체감온도 A", "체감온도 B", "실제 위험 판단이 어떻게 달라지는가"],
+        ["최종 판단", "단일 기준", "복합 기준", "어느 기준이 더 설득력 있는가"]
+      ];
+      majorConnect = "컴퓨터공학과 연결은 학과 이름을 붙이는 것이 아니라, 자료를 입력하고 기준에 따라 판단하는 과정으로 보여주면 된다.";
+      conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
     }else if(isBio){
-      title = `${keyword}를 근거 자료로 설명하는 탐구 설계`;
+      title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
       goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
+      focusQuestion = `${keyword}는 몸이나 생명 현상에서 어떤 변화와 연결될까?`;
       q = [
         `${keyword}는 몸이나 생명 현상에서 어떤 변화와 연결될까?`,
         `관련 자료를 비교하면 원인이나 조건을 어떻게 설명할 수 있을까?`,
         `예방·관리·개선 방향을 제안하려면 어떤 근거가 더 필요할까?`
       ];
     }else if(isEnergy){
-      title = `${keyword}의 조건 변화를 비교하는 탐구 설계`;
-      goal = `${keyword}에 영향을 주는 조건을 찾고, 조건이 달라질 때 결과가 어떻게 바뀌는지 표나 그래프로 정리한다.`;
+      title = `${keyword}, 조건을 바꾸면 결과가 달라질까?`;
+      goal = `${keyword}에 영향을 주는 조건을 찾고, 조건이 달라질 때 결과가 어떻게 바뀌는지 표로 정리한다.`;
+      focusQuestion = `${keyword}의 결과를 바꾸는 조건은 무엇일까?`;
       q = [
         `${keyword}의 결과를 바꾸는 조건은 무엇일까?`,
         `조건을 다르게 하면 효율·안정성·성능은 어떻게 달라질까?`,
@@ -745,44 +764,47 @@
       ];
     }
 
-    const easyMajor = isComputer
-      ? "컴퓨터공학과 연결은 학과 이름을 붙이는 것이 아니라, 자료를 입력하고 기준에 따라 판단하는 과정으로 보여주면 된다."
-      : `진로 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 중요하게 보는 생각 방식으로 자료를 해석하는 것이다.`;
-
     const sections = [
-      {title:"한 줄 탐구 목표", body:goal},
-      {title:"학생이 고를 탐구 질문 3개", body:q.map((v,i)=>`${String.fromCharCode(65+i)}. ${v}`).join("\n") + "\n\n추천: 세 질문 중 하나만 골라 보고서의 중심 질문으로 사용한다."},
-      {title:"오늘 바로 할 일 4단계", body:[
-        `1단계. ${keyword}의 공식 기준 또는 기본 설명을 찾는다.`,
-        `2단계. 비교할 자료를 2개 이상 고른다. 예: 날짜, 지역, 조건, 집단, 사례.`,
-        `3단계. 자료를 표로 정리하고, 차이가 나는 부분에 표시한다.`,
-        `4단계. 왜 그런 차이가 생겼는지 ${concept} 개념과 연결해 설명한다.`
+      {title:"오늘의 핵심 방향", body:[
+        `중심 질문: ${focusQuestion}`,
+        `최종 목표: ${goal}`,
+        "오늘 할 일: 기준 찾기 → 자료 3개 찾기 → 표로 비교하기 → 내 기준 설명하기"
       ].join("\n")},
-      {title:"찾아볼 자료 4가지", body:["자료 | 찾는 곳 | 보고서 위치", ...dataRows.map(r=>r.join(" | "))].join("\n")},
-      {title:"보고서 목차", body:[
-        "Ⅰ. 탐구 동기: 이 주제를 왜 다시 보게 되었는지 쓴다.",
+      {title:"1단계. 중심 질문 고르기", body:[
+        `추천 질문: ${focusQuestion}`,
+        "",
+        `다른 선택 A: ${q[1]}`,
+        `다른 선택 B: ${q[2]}`,
+        "",
+        "사용 방법: 세 질문 중 하나만 골라 보고서의 중심 질문으로 쓴다."
+      ].join("\n")},
+      {title:"2단계. 자료 3개 찾기", body:["자료 | 찾는 곳 | 보고서 위치", ...dataRows.map(r=>r.join(" | "))].join("\n")},
+      {title:"3단계. 비교 표 만들기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"4단계. 보고서에 쓰기", body:[
+        "Ⅰ. 탐구 동기: 왜 이 기준이 궁금했는지 쓴다.",
         `Ⅱ. 교과 개념: ${subject}의 '${concept}' 개념을 쉬운 말로 설명한다.`,
-        "Ⅲ. 자료 정리: 내가 찾은 자료를 표나 그래프로 보여준다.",
+        "Ⅲ. 자료 정리: 찾은 자료를 표로 보여준다.",
         "Ⅳ. 자료 해석: 어떤 기준으로 판단했는지 설명한다.",
-        "Ⅴ. 결론과 한계: 내가 세운 기준의 장점과 부족한 점을 함께 쓴다."
+        "Ⅴ. 결론: 내가 세운 기준의 장점과 부족한 점을 함께 쓴다."
       ].join("\n")},
-      {title:"내 말로 채우는 문장 틀", body:[
+      {title:"내 말로 바꾸는 문장 틀", body:[
         `처음에는 ${keyword}를 ________라고만 생각했다.`,
         `하지만 자료를 찾아보니 ${keyword}는 ________ 기준으로 판단된다는 점을 알게 되었다.`,
         `나는 ________ 자료와 ________ 자료를 비교해 보았다.`,
         `그 결과 ________일 때 판단 결과가 달라질 수 있음을 확인했다.`,
         `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 찾아보고 싶다.`
       ].join("\n")},
-      {title:"도서와 진로 연결 방법", body:[
+      {title:"도서·진로 연결", body:[
         `도서 『${bookTitle}』는 책 내용을 길게 요약하지 말고, 내 탐구를 바라보는 관점을 넓히는 용도로만 사용한다.`,
-        `예: 하나의 기준만 보지 않고 여러 조건의 관계를 함께 보아야 한다는 식으로 연결한다.`,
-        easyMajor,
-        `선택한 후속 연계축 '${axis}'은 자료를 어떤 기준으로 나누고 비교할지 정하는 역할로 사용한다.`
+        `도서 연결 문장: 하나의 기준만 보지 않고 여러 조건의 관계를 함께 보아야 한다는 관점으로 연결한다.`,
+        `진로 연결 문장: ${majorConnect}`,
+        `교과 연결 문장: ${conceptConnect}`,
+        `후속 연계축 '${axis}'은 자료를 어떤 기준으로 나누고 비교할지 정하는 역할로 사용한다.`
       ].join("\n")},
-      {title:"제출 전 확인", body:[
+      {title:"제출 전 5분 점검", body:[
         "□ 중심 질문을 하나만 골랐는가?",
         "□ 자료 출처를 2개 이상 적었는가?",
-        "□ 표나 그래프에 넣을 실제 자료가 있는가?",
+        "□ 표에 실제 자료가 들어갔는가?",
         "□ 교과 개념을 자료 해석에 사용했는가?",
         "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
       ].join("\n")}
@@ -793,13 +815,14 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-easy-student-blueprint",
-      note: "학생이 바로 이해할 수 있도록 쉬운 문장과 실행 단계 중심으로 줄였습니다.",
+      source: "payload-visual-action-map-blueprint",
+      note: "학생이 한눈에 볼 수 있도록 핵심 질문, 자료 찾기, 표 만들기 중심으로 재구성했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "easy_student_research_blueprint",
+        productMode: "visual_action_map_blueprint",
+        focusQuestion,
         majorLens: isComputer ? "자료를 기준에 따라 판단하는 사고" : lens.shortLabel,
         majorKeywords: isComputer ? ["자료", "기준", "비교", "판단"] : lens.keywords.slice(0,4)
       }
@@ -816,7 +839,7 @@
 
   function extractGeneratedText(data, req){
     // v41부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮은
-    // 학생 실행형 탐구 설계서를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
+    // 학생용 탐구 실행 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
@@ -967,6 +990,61 @@
     });
     return out;
   }
+  function isTableSection(sec){
+    const lines = String(sec?.body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
+    return lines.length >= 2 && lines[0].includes("|") && lines[1].includes("|");
+  }
+
+  function renderTableFromText(body){
+    const rows = String(body || "").split(/\n/).map(line => line.trim()).filter(Boolean).map(line => line.split("|").map(cell => cell.trim()));
+    if(!rows.length) return "";
+    const head = rows[0];
+    const bodyRows = rows.slice(1);
+    return `
+      <div class="mini-v43-table-wrap">
+        <table class="mini-v43-table">
+          <thead><tr>${head.map(cell => `<th>${escapeHtml(cell)}</th>`).join("")}</tr></thead>
+          <tbody>
+            ${bodyRows.map(row => `<tr>${head.map((_, i) => `<td>${escapeHtml(row[i] || "")}</td>`).join("")}</tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function renderLineList(body){
+    const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
+    return lines.map(line => {
+      if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|도서 연결 문장|진로 연결 문장|교과 연결 문장)/.test(line)){
+        const parts = line.split(":");
+        const label = parts.shift();
+        return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
+      }
+      return `<li>${escapeHtml(line)}</li>`;
+    }).join("");
+  }
+
+  function renderMiniV43Section(sec, index){
+    const title = normalizeSectionTitle(sec.title);
+    const body = cleanReportText(sec.body);
+    const isStep = /^\d단계/.test(title);
+    const isCore = /오늘의 핵심 방향/.test(title);
+    const isCheck = /제출 전/.test(title);
+    const icon = isCore ? "★" : (isStep ? String(index) : (isCheck ? "✓" : "•"));
+    const table = isTableSection({body}) ? renderTableFromText(body) : "";
+    const content = table || `<ul class="mini-v43-list">${renderLineList(body)}</ul>`;
+    return `
+      <article class="mini-v43-card ${isCore ? "core" : ""} ${isStep ? "step" : ""} ${isCheck ? "check" : ""}">
+        <div class="mini-v43-card-head">
+          <span class="mini-v43-icon">${escapeHtml(icon)}</span>
+          <h4>${escapeHtml(title)}</h4>
+        </div>
+        ${content}
+      </article>
+    `;
+  }
+
   function renderGeneratedReport(text, req, rawData, extraction){
     hideBuiltInResultShell();
     const root = ensureResultRoot();
@@ -981,10 +1059,11 @@
     const reportTitle = firstNonEmpty(
       titleSection?.body?.split(/\n/)[0],
       extraction?.title,
-      `${s.selectedKeyword || req.keyword || "선택 키워드"} 기반 탐구보고서`
+      `${s.selectedKeyword || req.keyword || "선택 키워드"} 기반 탐구 설계`
     );
 
     const diag = extraction?.diagnostics || {};
+    const focusQuestion = diag.focusQuestion || "";
     const majorKeywordTag = Array.isArray(diag.majorKeywords) && diag.majorKeywords.length ? diag.majorKeywords.slice(0,4).join(" · ") : "";
     const majorLensTag = diag.majorLens || "";
 
@@ -992,51 +1071,74 @@
       .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
       .map(sec => {
         const title = normalizeSectionTitle(sec.title);
-        const cleanTitle = title === "추천 주제" ? "탐구 주제" : (title === "느낀점" ? "느낀 점" : title);
-        return { title: cleanTitle, body: sec.body };
+        return { title, body: sec.body };
       });
 
-    const sectionHtml = displaySections.length ? displaySections.map(sec => `
-      <article class="mini-v32-section">
-        <h4>${escapeHtml(sec.title)}</h4>
-        <p>${nl2br(sec.body)}</p>
-      </article>
-    `).join("") : `<article class="mini-v32-section"><p>${nl2br(text)}</p></article>`;
+    const sectionHtml = displaySections.length
+      ? displaySections.map((sec, i) => renderMiniV43Section(sec, i + 1)).join("")
+      : `<article class="mini-v43-card core"><div class="mini-v43-card-head"><span class="mini-v43-icon">★</span><h4>탐구 설계</h4></div><ul class="mini-v43-list">${renderLineList(text)}</ul></article>`;
 
     root.style.display = "block";
     root.innerHTML = `
       <style>
-        .mini-v32-result{border:1px solid #b8cdfd;border-radius:18px;background:#fff;padding:22px;margin-top:18px;box-shadow:0 12px 28px rgba(50,87,180,.08)}
-        .mini-v32-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-        .mini-v32-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#eaf1ff;color:#2454d8;font-weight:800;font-size:12px;padding:6px 10px;margin-bottom:10px}
-        .mini-v32-title{font-size:24px;line-height:1.35;margin:0 0 8px;color:#111827}
-        .mini-v32-sub{font-size:13px;color:#526070;margin:0 0 16px}
-        .mini-v32-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
-        .mini-v32-tags span{font-size:12px;border:1px solid #d5e0ff;background:#f6f8ff;border-radius:999px;padding:5px 9px;color:#2446a5}
-        .mini-v32-section{border:1px solid #dbe5ff;background:#fbfdff;border-radius:14px;padding:15px;margin-bottom:10px}
-        .mini-v32-section h4{font-size:14px;margin:0 0 8px;color:#111827}
-        .mini-v32-section p{font-size:13px;line-height:1.75;margin:0;color:#263445;white-space:normal}
-        .mini-v32-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin:0 0 12px}
-        .mini-v32-actions button{border:1px solid #c6d5ff;background:#fff;color:#2454d8;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}
-        .mini-v32-actions button.primary{background:#2f5bff;color:#fff;border-color:#2f5bff}
-        @media (max-width: 780px){.mini-v32-head{display:block}.mini-v32-actions{justify-content:flex-start}}
+        .mini-v43-result{border:1px solid #b8cdfd;border-radius:22px;background:linear-gradient(180deg,#ffffff 0%,#f7faff 100%);padding:24px;margin-top:18px;box-shadow:0 14px 32px rgba(50,87,180,.10)}
+        .mini-v43-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start;margin-bottom:18px}
+        .mini-v43-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#eaf1ff;color:#2454d8;font-weight:900;font-size:12px;padding:6px 11px;margin-bottom:10px}
+        .mini-v43-title{font-size:27px;line-height:1.28;margin:0 0 8px;color:#0f172a;letter-spacing:-.02em}
+        .mini-v43-sub{font-size:14px;color:#475569;margin:0;line-height:1.6}
+        .mini-v43-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+        .mini-v43-actions button{border:1px solid #2f5bff;background:#2f5bff;color:#fff;border-radius:999px;padding:9px 14px;font-weight:900;cursor:pointer}
+        .mini-v43-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 18px}
+        .mini-v43-quick div{border:1px solid #d8e3ff;background:#fff;border-radius:16px;padding:13px 14px;min-height:66px}
+        .mini-v43-quick b{display:block;color:#2454d8;font-size:13px;margin-bottom:5px}
+        .mini-v43-quick span{display:block;color:#1f2937;font-size:14px;font-weight:800;line-height:1.35}
+        .mini-v43-tags{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 18px}
+        .mini-v43-tags span{font-size:12px;border:1px solid #d5e0ff;background:#fff;border-radius:999px;padding:5px 9px;color:#2446a5}
+        .mini-v43-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+        .mini-v43-card{border:1px solid #dbe5ff;background:#fff;border-radius:18px;padding:16px;box-shadow:0 6px 16px rgba(50,87,180,.045)}
+        .mini-v43-card.core{grid-column:1/-1;background:#f4f8ff;border-color:#bcd0ff}
+        .mini-v43-card.check{grid-column:1/-1}
+        .mini-v43-card-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+        .mini-v43-icon{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#2f5bff;color:#fff;font-size:12px;font-weight:900;flex:0 0 auto}
+        .mini-v43-card h4{font-size:16px;margin:0;color:#111827;letter-spacing:-.01em}
+        .mini-v43-list{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+        .mini-v43-list li{font-size:14px;line-height:1.65;color:#243244;background:#f8fbff;border-radius:10px;padding:7px 9px}
+        .mini-v43-list li strong{color:#173ea9}
+        .mini-v43-check{font-weight:700}
+        .mini-v43-table-wrap{overflow-x:auto}
+        .mini-v43-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+        .mini-v43-table th{background:#eef4ff;color:#173ea9;text-align:left;padding:9px;border-top:1px solid #dbe5ff;border-bottom:1px solid #dbe5ff}
+        .mini-v43-table td{padding:9px;border-bottom:1px solid #e5edff;color:#243244;vertical-align:top}
+        .mini-v43-table th:first-child,.mini-v43-table td:first-child{border-left:1px solid #dbe5ff}
+        .mini-v43-table th:last-child,.mini-v43-table td:last-child{border-right:1px solid #dbe5ff}
+        @media (max-width: 820px){
+          .mini-v43-head{grid-template-columns:1fr}
+          .mini-v43-actions{justify-content:flex-start}
+          .mini-v43-quick,.mini-v43-grid{grid-template-columns:1fr}
+          .mini-v43-title{font-size:23px}
+        }
       </style>
 
-      <section class="mini-v32-result">
-        <div class="mini-v32-head">
+      <section class="mini-v43-result">
+        <div class="mini-v43-head">
           <div>
-            <div class="mini-v32-kicker">학생 실행형 탐구 설계서</div>
-            <h2 class="mini-v32-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v32-sub">어려운 설명을 줄이고, 학생이 오늘 바로 조사하고 쓸 수 있게 정리한 실행 가이드입니다.</p>
+            <div class="mini-v43-kicker">학생용 탐구 실행 지도</div>
+            <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
+            <p class="mini-v43-sub">긴 설명보다 먼저 해야 할 일을 보이게 정리했습니다. 질문 하나를 고르고, 자료를 찾고, 표로 비교하면 보고서 흐름이 잡힙니다.</p>
           </div>
-          <div class="mini-v32-actions">
-            <button type="button" id="miniV32CopyReportBtn" class="primary">설계서 복사</button>
+          <div class="mini-v43-actions">
+            <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
           </div>
         </div>
 
-        <div class="mini-v32-tags">
+        <div class="mini-v43-quick">
+          <div><b>STEP 1</b><span>중심 질문 1개 고르기</span></div>
+          <div><b>STEP 2</b><span>자료 3개 찾기</span></div>
+          <div><b>STEP 3</b><span>표로 비교하고 결론 쓰기</span></div>
+        </div>
+
+        <div class="mini-v43-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
-          <span>진로 분야: ${escapeHtml(s.department || req.career)}</span>
           ${majorLensTag ? `<span>진로 연결: ${escapeHtml(majorLensTag)}</span>` : ""}
           ${majorKeywordTag ? `<span>핵심 생각: ${escapeHtml(majorKeywordTag)}</span>` : ""}
           <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
@@ -1045,7 +1147,7 @@
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
         </div>
 
-        <div class="mini-v32-sections">
+        <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
       </section>
@@ -1062,7 +1164,7 @@
     const finalTopic = $("finalTopic");
     if(finalTopic) finalTopic.textContent = reportTitle;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 탐구 설계 결과입니다.";
+    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 탐구 실행 지도입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
@@ -1104,7 +1206,7 @@
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
-      showError("설계서 생성 중 오류가 발생했습니다.", e.message || String(e));
+      showError("탐구 실행 지도 생성 중 오류가 발생했습니다.", e.message || String(e));
       return false;
     }finally{
       setLoading(false);
@@ -1116,13 +1218,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v42 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV42Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v43 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV43Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV42Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v42";
+    btn.dataset.miniWorkerV43Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v43";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
