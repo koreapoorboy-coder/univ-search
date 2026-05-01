@@ -1,18 +1,20 @@
 {
-  "patch": "report_6_8_student_result_guard_patch_v28",
-  "version": "v28",
+  "patch": "report_6_8_selection_hydration_patch_v29",
   "created": "2026-04-30",
+  "purpose": "Fix false missing validation for selected step 3 concept/keyword and step 4 followup axis after student result generation.",
   "files": [
     "keyword-engine/index.html",
+    "keyword-engine/assets/js/mini_payload_builder.js",
     "keyword-engine/assets/js/student_result_output_bridge.js",
-    "keyword-engine/docs/README_REPORT_6_8_PATCH_V28.md",
-    "keyword-engine/patches/patch_manifest_report_6_8_v28.json"
+    "keyword-engine/docs/README_REPORT_6_8_PATCH_V29.md",
+    "keyword-engine/patches/patch_manifest_report_6_8_v29.json"
   ],
-  "purpose": "Prevent blank screen after student result generation and render final student report output using 6~8 report choices.",
-  "does_not_modify": [
-    "book_recommendation_adapter.js",
-    "book_210_ui_bridge.js",
-    "textbook_concept_helper.js",
-    "mini_payload_builder.js"
+  "versions": {
+    "mini_payload_builder": "mini-payload-builder-v3-selection-hydration",
+    "student_result_output_bridge": "student-result-output-bridge-v29-selection-hydration"
+  },
+  "apply_after": [
+    "report_6_8_student_choice_patch_v27",
+    "report_6_8_student_result_guard_patch_v28"
   ]
 }
