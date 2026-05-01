@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v51-structured-book-and-writing-guide";
+  const VERSION = "mini-worker-generate-bridge-v52-fixed-structured-guide";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -876,8 +876,7 @@
         isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
         "문단 5. 결론 | 꼭 넣을 내용: 내가 세운 기준의 장점, 부족한 점, 더 보면 좋은 자료를 함께 쓴다.",
         "문단 5. 결론 | 마무리 문장: 이번 탐구를 통해 어떤 기준이 더 설득력 있었는지와 다음 탐구 방향을 짧게 적는다."
-      ].join("
-")},
+      ].join("\n")},
       {title:"도서·전공 개념 연결", body:[
         `1) 이 카드의 기준: 책 내용을 많이 쓰는 것이 아니라, 내 판단 기준을 왜 넓혀야 하는지 설명하는 데만 사용한다.`,
         `2) 책에서 가져올 핵심 한 줄: ${bookGuide.content}`,
@@ -886,14 +885,13 @@
         `5) 이렇게 활용하면 된다: ${bookGuide.sentence}`,
         `6) 전공 개념 활용: ${majorConnect}`,
         `7) 주의할 점: ${bookGuide.caution}`
-      ].join("
-")},
+      ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
         "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
         "□ 자료가 어느 문단에 들어갈지 정했는가?",
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
-        "□ 교과 개념을 자료 해석에 사용했는가?",
+        "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
         "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
         "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
@@ -1308,13 +1306,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v46 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV49Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v52 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV52Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV49Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v49";
+    btn.dataset.miniWorkerV52Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v52";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
