@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v50-curriculum-as-interpretation-lens";
+  const VERSION = "mini-worker-generate-bridge-v51-structured-book-and-writing-guide";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -773,9 +773,9 @@
       ["결론", "판단 A", "판단 B", "더 타당한 기준은 무엇인가"]
     ];
     let majorConnect = `전공 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 배우는 핵심 개념을 자료 해석 기준으로 사용하는 것이다.`;
-    let conceptConnect = `선택한 교과 내용은 이름을 드러내기보다, 자료를 어떤 기준으로 읽을지 정하는 해석 기준으로 사용한다.`;
-    let conceptUse = `자료를 단순 정보로 나열하지 않고, 무엇을 기준으로 비교하고 판단할지 먼저 정한다. ${keyword}를 볼 때 수치·사례·조건 중 무엇이 판단을 바꾸는지 설명한다.`;
-    let conceptExample = `${keyword}를 볼 때 자료 하나만으로 결론을 내리지 않고, 조건과 기준이 달라지면 판단도 달라질 수 있음을 보여준다.`;
+    let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
+    let conceptUse = `${concept}에서 배운 핵심 말을 먼저 쉬운 말로 바꾸고, 내가 찾은 자료를 어떤 기준으로 해석할지 연결한다.`;
+    let conceptExample = `${concept} 개념을 통해 자료를 단순한 정보가 아니라 판단 근거로 해석할 수 있다.`;
 
     if(isWeather && isComputer){
       title = `${keyword}, 기온 하나만 보고 판단해도 될까?`;
@@ -799,9 +799,9 @@
         ["오류 가능성", "습도·취약계층을 놓칠 수 있음", "자료가 많아 해석 기준이 복잡해짐", "기준의 장점과 한계를 함께 쓴다"]
       ];
       majorConnect = "전공 연결은 컴퓨터공학과를 희망한다는 말이 아니라, 입력값을 정하고 조건문으로 판단하며 결과의 오류를 검증하는 구조를 보여주는 것이다.";
-      conceptConnect = `교과명이나 단원명을 직접 쓰기보다, 측정된 값이 실제 판단 기준으로 바뀌는 과정을 보여준다.`;
-      conceptUse = "기온은 하나의 숫자지만, 실제 판단에서는 습도·체감온도·지속 시간처럼 함께 봐야 할 조건이 붙는다. 그래서 이 탐구에서는 ‘기온만 볼 때’와 ‘여러 조건을 함께 볼 때’ 판단이 어떻게 달라지는지 비교한다.";
-      conceptExample = "예: 기온만 보면 같은 수준의 더위처럼 보일 수 있지만, 습도와 체감온도, 지속 시간을 함께 보면 실제 위험 판단이 달라질 수 있다. 그래서 이 보고서는 ‘어떤 조건을 함께 볼 때 판단이 더 설득력 있는가’를 비교한다.";
+      conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
+      conceptUse = "교과에서 배운 '측정값은 사회적 판단에 쓰일 수 있다'는 내용을 먼저 쓰고, 기온·습도·체감온도를 폭염 판단 기준으로 해석한다고 연결한다.";
+      conceptExample = "예: 기온은 숫자 자료이지만, 사회에서는 폭염주의보를 내릴지 판단하는 기준이 된다. 그래서 이 탐구에서는 기온 하나가 아니라 습도·체감온도·지속 시간을 함께 보며 판단 기준을 세운다.";
     }else if(isBio){
       title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
       goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
@@ -853,11 +853,11 @@
 
     const paragraphRows = [
       ["문단", "역할", "학생이 실제로 채울 내용"],
-      ["1. 문제 제기", "왜 이 주제를 보는지 밝히기", "내가 바꾼 질문과 궁금해진 이유"],
-      ["2. 자료 해석 기준", "왜 이 자료를 이렇게 읽는지 설명하기", conceptUse],
-      ["3. 자료 분석", "근거 보여주기", "공식 기준·실제 자료·비교 자료를 표로 정리"],
-      ["4. 전공 개념", "분석 방법 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증" : lens.process],
-      ["5. 결론", "내 기준 완성하기", "장점·한계·다음에 더 볼 자료"]
+      ["1. 문제 제기", "왜 이 질문을 선택했는지 밝히기", "내가 바꾼 질문 + 이 질문이 궁금해진 이유 + 왜 한 가지 기준으로는 부족하다고 느꼈는지"],
+      ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", isWeather ? "기온은 단순 숫자지만 실제 판단에서는 습도·체감온도·지속 시간까지 함께 봐야 한다는 점을 먼저 밝힌다." : conceptUse],
+      ["3. 자료 분석", "표와 근거로 비교하기", "공식 기준·실제 자료·비교 자료를 표로 정리하고, 어떤 차이가 보였는지 한 줄 해석을 붙인다."],
+      ["4. 전공 개념 활용", "내가 어떤 방식으로 판단했는지 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증 순서로, 내가 어떤 기준으로 판단했는지 설명한다." : lens.process],
+      ["5. 결론", "내 기준의 장단점 정리하기", "내가 세운 기준의 장점·한계·보완 자료·다음에 더 조사할 방향을 함께 쓴다."]
     ];
 
     const sections = [
@@ -867,28 +867,33 @@
       {title:"3단계. 비교 표로 증명하기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
       {title:"4단계. 문단별로 조립하기", body:paragraphRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 문장 구조", body:[
-        "문제 제기: [내가 바꾼 질문]을 먼저 제시하고, 왜 이 기준이 필요한지 쓴다.",
-        `자료 해석 기준: ${conceptUse}`,
-        `활용 예시: ${conceptExample}`,
-        "자료 분석: [자료 1]과 [자료 2]의 차이를 비교하고, 표에서 보이는 차이를 근거로 해석한다.",
-        isComputer ? "전공 개념 적용: 자료를 입력값으로 두고, 조건문에 따라 판단 결과가 달라지는 구조로 설명한다." : `전공 개념 적용: ${lens.shortLabel} 관점으로 자료를 나누고 비교하는 방식을 설명한다.`,
-        "결론: 내가 세운 기준의 장점과 한계를 함께 쓰고, 다음에 더 필요한 자료를 제안한다."
-      ].join("\n")},
+        "문단 1. 문제 제기 | 시작 문장: 내가 바꾼 질문을 먼저 쓰고, 왜 이 질문이 궁금해졌는지 밝힌다.",
+        "문단 1. 문제 제기 | 꼭 넣을 내용: 한 가지 기준만으로는 부족하다고 느낀 이유를 짧게 쓴다.",
+        `문단 2. 자료 해석 기준 | 시작 문장: ${isWeather ? "기온은 숫자 자료이지만 실제 판단에서는 다른 조건도 함께 봐야 한다." : "자료는 단순 정보가 아니라 어떤 기준으로 읽느냐에 따라 의미가 달라진다."}`,
+        `문단 2. 자료 해석 기준 | 활용 예시: ${conceptExample}`,
+        "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
+        "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
+        isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
+        "문단 5. 결론 | 꼭 넣을 내용: 내가 세운 기준의 장점, 부족한 점, 더 보면 좋은 자료를 함께 쓴다.",
+        "문단 5. 결론 | 마무리 문장: 이번 탐구를 통해 어떤 기준이 더 설득력 있었는지와 다음 탐구 방향을 짧게 적는다."
+      ].join("
+")},
       {title:"도서·전공 개념 연결", body:[
-        `왜 이 책인가?: ${bookGuide.reason}`,
-        `책에서 가져올 내용: ${bookGuide.content}`,
-        `내 주제와 연결되는 부분: ${bookGuide.topicLink}`,
-        `보고서에 넣는 위치: ${bookGuide.position}`,
-        `이렇게 쓰면 자연스럽다: ${bookGuide.sentence}`,
-        `전공 개념은 이렇게 연결한다: ${majorConnect}`,
-        `주의할 점: ${bookGuide.caution}`
-      ].join("\n")},
+        `1) 이 카드의 기준: 책 내용을 많이 쓰는 것이 아니라, 내 판단 기준을 왜 넓혀야 하는지 설명하는 데만 사용한다.`,
+        `2) 책에서 가져올 핵심 한 줄: ${bookGuide.content}`,
+        `3) 내 탐구에 적용하는 구조: ${bookGuide.topicLink}`,
+        `4) 보고서에 넣는 위치: ${bookGuide.position}`,
+        `5) 이렇게 활용하면 된다: ${bookGuide.sentence}`,
+        `6) 전공 개념 활용: ${majorConnect}`,
+        `7) 주의할 점: ${bookGuide.caution}`
+      ].join("
+")},
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
         "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
         "□ 자료가 어느 문단에 들어갈지 정했는가?",
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
-        "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
+        "□ 교과 개념을 자료 해석에 사용했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
         "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
         "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
@@ -901,7 +906,7 @@
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
       source: "payload-major-concept-book-bridge-blueprint",
-      note: "학생이 한눈에 볼 수 있도록 핵심 질문, 자료 찾기, 표 만들기, 도서·전공 개념 연결을 정리했습니다.",
+      note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
         view,
@@ -1101,7 +1106,7 @@
     const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
     return lines.map(line => {
       if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
-      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|자료 해석 기준|활용 예시|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|교과 개념 넣기|교과 개념 예시|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의|이 카드의 기준|책에서 가져올 핵심 한 줄|내 탐구에 적용하는 구조|이렇게 활용하면 된다|전공 개념 활용|문단 1\. 문제 제기 \| 시작 문장|문단 1\. 문제 제기 \| 꼭 넣을 내용|문단 2\. 자료 해석 기준 \| 시작 문장|문단 2\. 자료 해석 기준 \| 활용 예시|문단 3\. 자료 분석 \| 쓰는 방법|문단 3\. 자료 분석 \| 해석 포인트|문단 4\. 전공 개념 활용 \| 쓰는 방법|문단 5\. 결론 \| 꼭 넣을 내용|문단 5\. 결론 \| 마무리 문장)/.test(line)){
         const parts = line.split(":");
         const label = parts.shift();
         return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
@@ -1209,7 +1214,7 @@
           <div>
             <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 단원명은 드러내기보다, 자료를 읽는 기준과 판단 과정 속에 자연스럽게 녹였습니다.</p>
+            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 질문을 내 사례로 바꾸고, 자료를 어느 문단에 넣을지 정한 뒤, 표와 결론으로 완성합니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -1226,7 +1231,7 @@
           <span>${escapeHtml(s.subject || req.subject)}</span>
           ${majorLensTag ? `<span>전공 개념: ${escapeHtml(majorLensTag)}</span>` : ""}
           ${majorKeywordTag ? `<span>핵심 키워드: ${escapeHtml(majorKeywordTag)}</span>` : ""}
-          <span>해석 기준: ${escapeHtml(keyword || s.selectedKeyword || req.keyword)}를 어떤 조건으로 판단할지</span>
+          <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
@@ -1309,8 +1314,7 @@
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
     btn.dataset.miniWorkerV49Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v50";
-    btn.dataset.miniWorkerV50Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v49";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
