@@ -1,0 +1,647 @@
+/* mini_worker_generate_bridge_v32.js
+ * 기존 Cloudflare Worker(/collect, /generate)를 유지하면서
+ * __BUILD_MINI_REPORT_PAYLOAD__ 전체 데이터를 /generate로 보내고,
+ * Worker/MINI 응답을 화면에 실제 결과로 출력하는 브리지.
+ */
+(function(global){
+  "use strict";
+
+  const VERSION = "mini-worker-generate-bridge-v32-existing-worker-payload";
+  const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
+  const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
+  const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
+
+  global.__MINI_WORKER_GENERATE_BRIDGE_VERSION__ = VERSION;
+  global.__MINI_WORKER_GENERATE_ENDPOINT__ = GENERATE_ENDPOINT;
+  global.__MINI_WORKER_COLLECT_ENDPOINT__ = COLLECT_ENDPOINT;
+
+  function $(id){ return document.getElementById(id); }
+  function escapeHtml(value){
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+  function nl2br(value){ return escapeHtml(value).replace(/\n/g,"<br>"); }
+  function readValue(id){
+    const el = $(id);
+    if(!el) return "";
+    return String(el.value ?? "").trim();
+  }
+  function show(el, display="block"){
+    if(el) el.style.display = display;
+  }
+  function hide(el){
+    if(el) el.style.display = "none";
+  }
+  function setLoading(isLoading){
+    const btn = $("generateBtn");
+    const resetBtn = $("resetBtn");
+    const loading = $("loadingMessage");
+    if(btn){
+      btn.disabled = isLoading;
+      btn.textContent = isLoading ? "MINI 생성 중..." : "학생용 결과 생성";
+    }
+    if(resetBtn) resetBtn.disabled = isLoading;
+    if(loading) loading.style.display = isLoading ? "block" : "none";
+  }
+  function clearError(){
+    const el = $("errorMessage");
+    if(el){
+      el.innerHTML = "";
+      el.style.display = "none";
+    }
+  }
+  function showError(message, detail){
+    const el = $("errorMessage");
+    if(el){
+      el.innerHTML = `<strong>오류</strong><br>${escapeHtml(message)}${detail ? `<pre class="mini-v32-error-detail">${escapeHtml(detail)}</pre>` : ""}`;
+      el.style.display = "block";
+    }else{
+      alert(message);
+    }
+  }
+  function ensureResultRoot(){
+    const resultSection = $("resultSection");
+    if(resultSection){
+      resultSection.style.display = "grid";
+    }
+    let root = $("contentOutputSection");
+    if(!root && resultSection){
+      root = document.createElement("div");
+      root.id = "contentOutputSection";
+      resultSection.appendChild(root);
+    }
+    return root || document.body;
+  }
+  function createSessionId(){
+    return `session_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
+  }
+
+  function getFormValues(){
+    return {
+      sessionId: createSessionId(),
+      schoolName: readValue("schoolName"),
+      grade: readValue("grade"),
+      subject: readValue("subject"),
+      taskName: readValue("taskName"),
+      taskType: readValue("taskType"),
+      usagePurpose: readValue("usagePurpose") || "학생용 MINI 보고서 작성",
+      taskDescription: readValue("taskDescription"),
+      career: readValue("career"),
+      keyword: readValue("keyword"),
+      major: readValue("career"),
+      track: readValue("career")
+    };
+  }
+
+  function compactAxis(value){
+    const raw = String(value || "").trim();
+    if(!raw) return "";
+    const m = raw.match(/^(.+?축)(?:\s|$)/);
+    return m ? m[1].trim() : raw.split(/\s+/)[0] || raw;
+  }
+
+  function getActiveText(selectors){
+    for(const sel of selectors){
+      const el = document.querySelector(sel);
+      if(el && String(el.textContent || "").trim()) return String(el.textContent || "").trim();
+      if(el && String(el.value || "").trim()) return String(el.value || "").trim();
+    }
+    return "";
+  }
+
+  function hydrateMiniPayload(mini, form){
+    const payload = JSON.parse(JSON.stringify(mini || {}));
+    payload.selectionPayload = payload.selectionPayload || {};
+    payload.reportGenerationContext = payload.reportGenerationContext || {};
+
+    const s = payload.selectionPayload;
+    s.subject = s.subject || form.subject || readValue("subject");
+    s.department = s.department || form.career || readValue("career");
+    s.selectedConcept = s.selectedConcept || getActiveText([
+      ".concept-card.active .concept-title",
+      ".concept-card.is-active .concept-title",
+      ".concept-card.selected .concept-title",
+      "[data-concept].active",
+      "[data-concept].is-active",
+      "[data-selected-concept]",
+      "#selectedConcept",
+      "input[name='selectedConcept']"
+    ]);
+    s.selectedRecommendedKeyword = s.selectedRecommendedKeyword || s.selectedKeyword || form.keyword || getActiveText([
+      ".keyword-chip.active",
+      ".keyword-chip.is-active",
+      ".keyword-chip.selected",
+      ".keyword-btn.active",
+      ".keyword-btn.is-active",
+      ".keyword-btn.selected",
+      "[data-keyword].active",
+      "[data-keyword].is-active",
+      "#selectedKeyword",
+      "input[name='selectedKeyword']"
+    ]);
+    s.selectedKeyword = s.selectedKeyword || s.selectedRecommendedKeyword;
+    s.followupAxis = s.followupAxis || s.selectedFollowupAxis || getActiveText([
+      ".followup-axis-card.active .axis-title",
+      ".followup-axis-card.is-active .axis-title",
+      ".followup-axis-card.selected .axis-title",
+      ".axis-card.active .axis-title",
+      ".axis-card.is-active .axis-title",
+      ".axis-card.selected .axis-title",
+      "[data-axis].active",
+      "[data-axis].is-active",
+      "#selectedFollowupAxis",
+      "input[name='selectedFollowupAxis']"
+    ]);
+    s.selectedFollowupAxis = s.selectedFollowupAxis || s.followupAxis;
+    s.axisLabel = s.axisLabel || compactAxis(s.selectedFollowupAxis || s.followupAxis);
+    s.reportIntent = s.reportIntent || "학생용 수행평가 탐구보고서 생성";
+
+    payload.reportGenerationContext.selectedBookContext =
+      payload.reportGenerationContext.selectedBookContext ||
+      payload.selectedBook?.selectedBookContext ||
+      null;
+
+    return payload;
+  }
+
+  function buildMiniPayload(form){
+    let mini = null;
+    if(typeof global.__BUILD_MINI_REPORT_PAYLOAD__ === "function"){
+      try{ mini = global.__BUILD_MINI_REPORT_PAYLOAD__(); }
+      catch(e){ console.warn("mini payload builder failed:", e); }
+    }
+    return hydrateMiniPayload(mini || {
+      version: "fallback-mini-payload-v32",
+      source: "keyword-engine",
+      selectionPayload: {
+        subject: form.subject,
+        department: form.career,
+        selectedConcept: "",
+        selectedRecommendedKeyword: form.keyword,
+        selectedKeyword: form.keyword,
+        followupAxis: "",
+        selectedFollowupAxis: "",
+        reportIntent: "학생용 수행평가 탐구보고서 생성"
+      },
+      selectedBook: null,
+      reportGenerationContext: {}
+    }, form);
+  }
+
+  function getReportChoices(mini){
+    const ctx = mini?.reportGenerationContext || {};
+    return ctx.reportChoices || {
+      mode: mini?.selectionPayload?.reportMode || readValue("reportMode") || "",
+      view: mini?.selectionPayload?.reportView || readValue("reportView") || "",
+      line: mini?.selectionPayload?.reportLine || readValue("reportLine") || ""
+    };
+  }
+
+  function buildReportDatasetPattern(mini){
+    const s = mini?.selectionPayload || {};
+    const axis = `${s.selectedFollowupAxis || s.followupAxis || ""}`;
+    const kw = `${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`;
+    const text = `${axis} ${kw}`;
+    let pattern = "교과 개념-실제 사례 해석형";
+    let refs = ["RPT001", "RPT005"];
+
+    if(/데이터|모델|그래프|통계|예측|시각|측정/.test(text)){
+      pattern = "시스템·데이터 판단 기준형";
+      refs = ["RPT001", "RPT005", "RPT010"];
+    }else if(/기후|대기|해양|지구|환경|폭염|재난/.test(text)){
+      pattern = "지구·환경 데이터 해석형";
+      refs = ["RPT002", "RPT007"];
+    }else if(/물리|에너지|역학|전자기|파동|열역학/.test(text)){
+      pattern = "물리·에너지 시스템 해석형";
+      refs = ["RPT003", "RPT008"];
+    }else if(/세포|생명|유전자|효소|대사|약물|면역/.test(text)){
+      pattern = "생명·분자 기전 해석형";
+      refs = ["RPT004", "RPT009"];
+    }else if(/사회|윤리|정책|규제|쟁점/.test(text)){
+      pattern = "사회·정책 쟁점 분석형";
+      refs = ["RPT006", "RPT010"];
+    }
+
+    return {
+      version: "report-dataset-pattern-v32-rpt001-010",
+      selectedPattern: pattern,
+      referenceReports: refs,
+      fixedSections: [
+        "중요성",
+        "추천 주제",
+        "탐구 동기",
+        "관련 키워드",
+        "실제 적용 및 문제 해결 과정",
+        "심화 탐구 발전 방안",
+        "이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?",
+        "이 개념이 무엇이며 어떤 원리인가?",
+        "어떤 문제를 해결할 수 있고, 왜 중요한가?",
+        "교과목 연계 및 이론적 설명",
+        "느낀점",
+        "세특 문구 예시",
+        "참고문헌 및 자료"
+      ],
+      writingPrinciples: [
+        "단순 교과 설명이 아니라 실제 현상·사례·자료를 먼저 제시한다.",
+        "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
+        "선택 도서는 독후감이 아니라 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
+        "학생이 바로 제출할 수 있는 문단형 보고서로 작성한다.",
+        "고등학생 수준을 넘는 전문 알고리즘·대학 수식은 개념 설명 중심으로 낮춘다."
+      ]
+    };
+  }
+
+  function buildMiniInstruction(form, mini, pattern){
+    const s = mini.selectionPayload || {};
+    const book = mini.selectedBook || {};
+    const ctx = mini.reportGenerationContext || {};
+    const choices = getReportChoices(mini);
+    const sections = pattern.fixedSections || ctx.targetStructure || [];
+
+    return [
+      "너는 고등학생 수행평가 탐구보고서 작성 도우미다.",
+      "아래 payload를 바탕으로 학생이 제출 가능한 완성형 보고서 초안을 작성하라.",
+      "",
+      "[절대 조건]",
+      "1. 선택한 교과 개념, 추천 키워드, 4번 후속 연계축, 선택 도서를 반드시 반영한다.",
+      "2. 보고서 예시 데이터셋(RPT001~RPT010)의 구조처럼 문단별 목적이 분명한 결과를 작성한다.",
+      "3. 도서는 단순 독후감으로 요약하지 말고, 보고서의 근거 프레임·비교 관점·한계 논의·결론 확장에만 배치한다.",
+      "4. 학생 화면에 내부 payload, API, prompt 같은 표현을 쓰지 않는다.",
+      "5. 고등학생이 이해 가능한 문장으로 쓰되, 내용은 수행평가 제출용으로 구체화한다.",
+      "",
+      "[학생 기본 정보]",
+      `학교: ${form.schoolName || "미입력"}`,
+      `학년: ${form.grade || "미입력"}`,
+      `과목: ${s.subject || form.subject || "미입력"}`,
+      `수행평가명: ${form.taskName || "미입력"}`,
+      `수행평가 형태: ${form.taskType || "미입력"}`,
+      `희망 진로/학과: ${s.department || form.career || "미입력"}`,
+      "",
+      "[선택 흐름]",
+      `교과 개념: ${s.selectedConcept || ""}`,
+      `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
+      `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
+      `후속 연계축 원문: ${s.selectedFollowupAxis || s.followupAxis || ""}`,
+      `선택 도서: ${book.title || ""}${book.author ? " / " + book.author : ""}`,
+      "",
+      "[학생이 선택한 보고서 구조]",
+      `보고서 전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
+      `보고서 관점: ${choices.view || ctx.reportView || "선택값 기준"}`,
+      `보고서 라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
+      "",
+      "[보고서 데이터셋 반영 기준]",
+      `적용 패턴: ${pattern.selectedPattern}`,
+      `참고 리포트: ${(pattern.referenceReports || []).join(", ")}`,
+      "필수 섹션: " + sections.join(" / "),
+      "",
+      "[출력 형식]",
+      "다음 제목과 순서로 작성하라.",
+      "1. 보고서 제목",
+      ...sections.map((section, idx) => `${idx + 2}. ${section}`),
+      "",
+      "[문장 기준]",
+      "- 각 섹션은 제목 + 2~5문장으로 작성한다.",
+      "- '추천 주제'는 실제 보고서 제목으로 쓸 수 있게 1개를 제안한다.",
+      "- '실제 적용 및 문제 해결 과정'은 단계형으로 쓴다.",
+      "- '세특 문구 예시'는 교사가 그대로 복사하는 문장이 아니라, 학생 활동의 관찰 가능 요소 중심으로 2~3문장 제안한다.",
+      "- '참고문헌 및 자료'에는 선택 도서와 기관/통계/기사/논문 자료 유형을 함께 제시한다."
+    ].join("\n");
+  }
+
+  function buildWorkerRequest(){
+    const form = getFormValues();
+    const mini = buildMiniPayload(form);
+    const pattern = buildReportDatasetPattern(mini);
+    const miniInstruction = buildMiniInstruction(form, mini, pattern);
+
+    const s = mini.selectionPayload || {};
+    const choice = getReportChoices(mini);
+
+    return {
+      // 기존 Worker 호환용 최상위 필드
+      sessionId: form.sessionId,
+      schoolName: form.schoolName,
+      grade: form.grade,
+      subject: s.subject || form.subject,
+      taskName: form.taskName,
+      taskType: form.taskType,
+      usagePurpose: form.usagePurpose,
+      taskDescription: form.taskDescription || miniInstruction,
+      career: s.department || form.career,
+      major: s.department || form.career,
+      track: s.department || form.career,
+      keyword: s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword,
+      selectedConcept: s.selectedConcept || "",
+      selectedKeyword: s.selectedKeyword || s.selectedRecommendedKeyword || "",
+      selectedFollowupAxis: s.selectedFollowupAxis || s.followupAxis || "",
+      selectedBookTitle: mini.selectedBook?.title || "",
+
+      // 새 MINI 생성용 확장 필드
+      mode: "mini_report_generation_v32",
+      generationMode: "real_mini_report",
+      prompt: miniInstruction,
+      miniInstruction,
+      mini_payload: mini,
+      report_dataset_pattern: pattern,
+      report_choices: choice,
+      reportGenerationContext: mini.reportGenerationContext || {},
+      selectedBook: mini.selectedBook || null,
+
+      // Worker가 messages 형태를 받는 경우 대비
+      messages: [
+        { role: "system", content: "너는 고등학생 수행평가 탐구보고서를 작성하는 전문 도우미다. 반드시 사용자가 제공한 payload와 보고서 데이터셋 구조를 반영한다." },
+        { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
+      ]
+    };
+  }
+
+  function buildCollectRequest(workerRequest){
+    return {
+      session_id: workerRequest.sessionId,
+      collected_at: new Date().toISOString(),
+      school_name: workerRequest.schoolName || "",
+      grade: workerRequest.grade || "",
+      subject: workerRequest.subject || "",
+      task_name: workerRequest.taskName || "",
+      task_type: workerRequest.taskType || "",
+      usage_purpose: workerRequest.usagePurpose || "",
+      career: workerRequest.career || "",
+      link_track: workerRequest.selectedFollowupAxis || "",
+      concept: workerRequest.selectedConcept || "",
+      keyword: workerRequest.selectedKeyword || workerRequest.keyword || "",
+      selected_book: workerRequest.selectedBookTitle || "",
+      report_mode: workerRequest.report_choices?.mode || "",
+      report_view: workerRequest.report_choices?.view || "",
+      report_line: workerRequest.report_choices?.line || "",
+      mini_payload: workerRequest.mini_payload,
+      report_dataset_pattern: workerRequest.report_dataset_pattern,
+      student_input: {
+        session_id: workerRequest.sessionId,
+        school_name: workerRequest.schoolName || "",
+        grade: workerRequest.grade || "",
+        subject: workerRequest.subject || "",
+        task_name: workerRequest.taskName || "",
+        task_type: workerRequest.taskType || "",
+        career: workerRequest.career || "",
+        selected_concept: workerRequest.selectedConcept || "",
+        selected_keyword: workerRequest.selectedKeyword || workerRequest.keyword || "",
+        linked_track: workerRequest.selectedFollowupAxis || "",
+        selected_book_title: workerRequest.selectedBookTitle || "",
+        report_mode: workerRequest.report_choices?.mode || "",
+        report_view: workerRequest.report_choices?.view || "",
+        report_line: workerRequest.report_choices?.line || ""
+      }
+    };
+  }
+
+  function validateRequest(req){
+    const missing = [];
+    const checks = [
+      ["schoolName", "학교명"],
+      ["grade", "학년"],
+      ["subject", "과목"],
+      ["taskName", "수행평가명"],
+      ["taskType", "수행평가 형태"],
+      ["career", "희망 진로/학과"],
+      ["selectedConcept", "3번 교과 개념"],
+      ["selectedKeyword", "3번 추천 키워드"],
+      ["selectedFollowupAxis", "4번 후속 연계축"]
+    ];
+    checks.forEach(([key, label]) => {
+      if(!String(req[key] || "").trim()) missing.push(label);
+    });
+    return missing;
+  }
+
+  async function postJson(url, payload){
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const text = await response.text();
+    let data = null;
+    try{ data = JSON.parse(text); }
+    catch(e){ data = { ok: response.ok, text }; }
+    if(!response.ok || data?.ok === false){
+      const msg = data?.error || data?.message || data?.text || `요청 실패 (${response.status})`;
+      throw new Error(msg);
+    }
+    return data;
+  }
+
+  function extractGeneratedText(data){
+    if(data == null) return "";
+    if(typeof data === "string") return data;
+    const candidates = [
+      data.report,
+      data.result,
+      data.content,
+      data.text,
+      data.output,
+      data.generated,
+      data.generatedText,
+      data.answer,
+      data.message,
+      data.data?.report,
+      data.data?.result,
+      data.data?.content,
+      data.data?.text,
+      data.data?.output,
+      data.choices?.[0]?.message?.content,
+      data.choices?.[0]?.text
+    ];
+    for(const v of candidates){
+      if(typeof v === "string" && v.trim()) return v.trim();
+    }
+    return JSON.stringify(data, null, 2);
+  }
+
+  function splitSections(text){
+    const raw = String(text || "").trim();
+    if(!raw) return [];
+    const lines = raw.split(/\n+/).map(v => v.trim()).filter(Boolean);
+    const out = [];
+    let current = null;
+    const titleRegex = /^(\d{1,2}[.)]\s*)?(.{1,45}?)(?:\s*[:：])$/;
+    const numberedRegex = /^(\d{1,2}[.)]\s+)(.+)$/;
+
+    lines.forEach(line => {
+      if(numberedRegex.test(line) || titleRegex.test(line)){
+        if(current) out.push(current);
+        current = { title: line.replace(/^\d{1,2}[.)]\s*/, ""), body: "" };
+      }else if(current){
+        current.body += (current.body ? "\n" : "") + line;
+      }else{
+        current = { title: "MINI 생성 결과", body: line };
+      }
+    });
+    if(current) out.push(current);
+    return out;
+  }
+
+  function renderGeneratedReport(text, req, rawData){
+    const root = ensureResultRoot();
+    const sections = splitSections(text);
+    const s = req.mini_payload?.selectionPayload || {};
+    const pattern = req.report_dataset_pattern || {};
+    const book = req.selectedBook || {};
+
+    const sectionHtml = sections.length ? sections.map(sec => `
+      <article class="mini-v32-section">
+        <h4>${escapeHtml(sec.title)}</h4>
+        <p>${nl2br(sec.body)}</p>
+      </article>
+    `).join("") : `<article class="mini-v32-section"><p>${nl2br(text)}</p></article>`;
+
+    root.innerHTML = `
+      <style>
+        .mini-v32-result{border:1px solid #b8cdfd;border-radius:18px;background:#fff;padding:22px;margin-top:18px;box-shadow:0 12px 28px rgba(50,87,180,.08)}
+        .mini-v32-kicker{display:inline-flex;align-items:center;border-radius:999px;background:#eaf1ff;color:#2454d8;font-weight:800;font-size:12px;padding:6px 10px;margin-bottom:10px}
+        .mini-v32-title{font-size:24px;line-height:1.35;margin:0 0 8px;color:#111827}
+        .mini-v32-sub{font-size:13px;color:#526070;margin:0 0 16px}
+        .mini-v32-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}
+        .mini-v32-tags span{font-size:12px;border:1px solid #d5e0ff;background:#f6f8ff;border-radius:999px;padding:5px 9px;color:#2446a5}
+        .mini-v32-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}
+        .mini-v32-card,.mini-v32-section{border:1px solid #dbe5ff;background:#fbfdff;border-radius:14px;padding:14px}
+        .mini-v32-card h4,.mini-v32-section h4{font-size:14px;margin:0 0 8px;color:#111827}
+        .mini-v32-card p,.mini-v32-section p{font-size:13px;line-height:1.7;margin:0;color:#263445;white-space:normal}
+        .mini-v32-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin:10px 0 16px}
+        .mini-v32-actions button{border:1px solid #c6d5ff;background:#fff;color:#2454d8;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}
+        .mini-v32-actions button.primary{background:#2f5bff;color:#fff;border-color:#2f5bff}
+        .mini-v32-raw{white-space:pre-wrap;font-size:12px;line-height:1.55;background:#0f172a;color:#e5edff;border-radius:12px;padding:14px;overflow:auto;max-height:420px}
+        @media (max-width: 780px){.mini-v32-grid{grid-template-columns:1fr}}
+      </style>
+
+      <section class="mini-v32-result">
+        <div class="mini-v32-kicker">MINI가 작성한 학생 제출형 보고서</div>
+        <div class="mini-v32-actions">
+          <button type="button" id="miniV32CopyReportBtn" class="primary">MINI 보고서 복사</button>
+          <button type="button" id="miniV32CopyPayloadBtn">payload 복사</button>
+        </div>
+        <h2 class="mini-v32-title">${escapeHtml((sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 탐구보고서`)}</h2>
+        <p class="mini-v32-sub">기존 Worker <code>/generate</code>에 MINI payload를 전송해 받은 실제 생성 결과입니다.</p>
+        <div class="mini-v32-tags">
+          <span>${escapeHtml(s.subject || req.subject)}</span>
+          <span>${escapeHtml(s.department || req.career)}</span>
+          <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
+          <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
+          <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
+          ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
+          <span>${escapeHtml(pattern.selectedPattern || "보고서 패턴")}</span>
+        </div>
+
+        <div class="mini-v32-grid">
+          <div class="mini-v32-card">
+            <h4>반영된 선택 구조</h4>
+            <p>교과 개념: ${escapeHtml(s.selectedConcept || req.selectedConcept)}<br>
+            추천 키워드: ${escapeHtml(s.selectedKeyword || req.keyword)}<br>
+            후속 연계축: ${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}<br>
+            선택 도서: ${escapeHtml(book.title || "선택 도서 없음")}</p>
+          </div>
+          <div class="mini-v32-card">
+            <h4>보고서 데이터셋 반영 기준</h4>
+            <p>패턴: ${escapeHtml(pattern.selectedPattern || "")}<br>
+            참고 리포트: ${escapeHtml((pattern.referenceReports || []).join(", "))}<br>
+            역할: 보고서 예시의 섹션 구조와 문장 기능을 MINI 생성 조건으로 사용</p>
+          </div>
+        </div>
+
+        <div class="mini-v32-sections">
+          ${sectionHtml}
+        </div>
+
+        <details style="margin-top:14px">
+          <summary style="cursor:pointer;font-weight:800;color:#2454d8">운영/분석용 원본 응답 보기</summary>
+          <pre class="mini-v32-raw">${escapeHtml(JSON.stringify(rawData, null, 2))}</pre>
+        </details>
+      </section>
+    `;
+
+    $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(text));
+    $("miniV32CopyPayloadBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(JSON.stringify(req, null, 2)));
+
+    const finalTopic = $("finalTopic");
+    if(finalTopic) finalTopic.textContent = (sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 MINI 보고서`;
+    const topicSub = $("topicSub");
+    if(topicSub) topicSub.textContent = "MINI/Worker가 payload를 받아 작성한 실제 보고서 결과입니다.";
+    const finalMode = $("finalMode");
+    if(finalMode) finalMode.style.display = "none";
+    const actionSteps = $("actionSteps");
+    if(actionSteps) actionSteps.innerHTML = "";
+  }
+
+  async function handleGenerateV32(event){
+    if(event){
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+    }
+
+    clearError();
+    setLoading(true);
+
+    try{
+      const req = buildWorkerRequest();
+      const missing = validateRequest(req);
+      if(missing.length){
+        showError("아직 선택되지 않은 항목이 있습니다.", missing.join(" / "));
+        return false;
+      }
+
+      global.__LAST_MINI_WORKER_REQUEST_V32__ = req;
+
+      // 기존 로그 수집은 유지하되, 실패해도 생성 자체는 막지 않는다.
+      try{
+        await postJson(COLLECT_ENDPOINT, buildCollectRequest(req));
+      }catch(e){
+        console.warn("v32 collect failed, continue generate:", e);
+      }
+
+      const data = await postJson(GENERATE_ENDPOINT, req);
+      global.__LAST_MINI_WORKER_RESPONSE_V32__ = data;
+      const generatedText = extractGeneratedText(data);
+      renderGeneratedReport(generatedText, req, data);
+      return true;
+    }catch(e){
+      console.error("v32 generate failed:", e);
+      showError("MINI 보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
+      return false;
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  function bindGenerateButton(){
+    const btn = $("generateBtn");
+    if(!btn || btn.dataset.miniWorkerV32Bound === "1") return;
+    btn.dataset.miniWorkerV32Bound = "1";
+
+    // 기존 keyword_engine.js의 구형 handleGenerate보다 먼저 실행되도록 capture 단계에서 차단한다.
+    btn.addEventListener("click", handleGenerateV32, true);
+  }
+
+  global.__BUILD_MINI_WORKER_REQUEST_V32__ = buildWorkerRequest;
+  global.__RUN_MINI_WORKER_GENERATE_V32__ = handleGenerateV32;
+  global.__DIAGNOSE_MINI_WORKER_V32__ = function(){
+    const req = buildWorkerRequest();
+    return {
+      version: VERSION,
+      workerBaseUrl: WORKER_BASE_URL,
+      generateEndpoint: GENERATE_ENDPOINT,
+      collectEndpoint: COLLECT_ENDPOINT,
+      missing: validateRequest(req),
+      request: req
+    };
+  };
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", bindGenerateButton);
+  }else{
+    bindGenerateButton();
+  }
+})(typeof window !== "undefined" ? window : globalThis);
