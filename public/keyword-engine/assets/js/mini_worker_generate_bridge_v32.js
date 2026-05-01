@@ -703,20 +703,14 @@
   function renderGeneratedReport(text, req, rawData, extraction){
     hideBuiltInResultShell();
     const root = ensureResultRoot();
-    const sections = dedupeSections(splitSections(text));
+    const sections = splitSections(text);
     const s = req.mini_payload?.selectionPayload || {};
     const pattern = req.report_dataset_pattern || {};
     const book = req.selectedBook || {};
-    const titleSection = sections.find(sec => /^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)));
-    const reportTitle = firstNonEmpty(
-      titleSection?.body?.split(/\n/)[0],
-      extraction?.title,
-      `${s.selectedKeyword || req.keyword || "선택 키워드"} 기반 탐구보고서`
-    );
-    const displaySections = sections.filter(sec => !/^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)));
-    const sourceLabel = "선택값과 보고서 데이터셋 기준을 반영한 학생 제출형 보고서 초안입니다.";
+    const isFallback = Boolean(extraction?.fallback);
+    const sourceLabel = isFallback ? "Worker 응답 구조를 보고서 문장으로 정리한 결과" : "기존 Worker /generate가 반환한 MINI 생성 결과";
 
-    const sectionHtml = displaySections.length ? displaySections.map(sec => `
+    const sectionHtml = sections.length ? sections.map(sec => `
       <article class="mini-v32-section">
         <h4>${escapeHtml(sec.title)}</h4>
         <p>${nl2br(sec.body)}</p>
@@ -743,11 +737,12 @@
       </style>
 
       <section class="mini-v32-result">
-        <div class="mini-v32-kicker">학생 제출형 탐구보고서</div>
+        <div class="mini-v32-kicker">MINI가 작성한 학생 제출형 보고서</div>
         <div class="mini-v32-actions">
-          <button type="button" id="miniV32CopyReportBtn" class="primary">보고서 복사</button>
+          <button type="button" id="miniV32CopyReportBtn" class="primary">MINI 보고서 복사</button>
+          <button type="button" id="miniV32CopyPayloadBtn">payload 복사</button>
         </div>
-        <h2 class="mini-v32-title">${escapeHtml(reportTitle)}</h2>
+        <h2 class="mini-v32-title">${escapeHtml((sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 탐구보고서`)}</h2>
         <p class="mini-v32-sub">${escapeHtml(sourceLabel)}입니다.</p>
         <div class="mini-v32-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
@@ -775,6 +770,7 @@
           </div>
         </div>
 
+        ${isFallback ? `<div class="mini-v32-card" style="margin:12px 0;border-color:#f0d28a;background:#fffdf4"><h4>생성 방식 안내</h4><p>${escapeHtml(extraction?.note || "Worker가 완성 본문 대신 구조 데이터를 반환해, 선택값과 응답 구조를 결합해 제출형 보고서로 정리했습니다.")}</p></div>` : ""}
 
         <div class="mini-v32-sections">
           ${sectionHtml}
@@ -788,11 +784,12 @@
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(text));
+    $("miniV32CopyPayloadBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(JSON.stringify(req, null, 2)));
 
     const finalTopic = $("finalTopic");
-    if(finalTopic) finalTopic.textContent = reportTitle;
+    if(finalTopic) finalTopic.textContent = (sections[0]?.title && sections[0].title !== "MINI 생성 결과") ? sections[0].title : `${s.selectedKeyword || req.keyword} 기반 MINI 보고서`;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 보고서 결과입니다.";
+    if(topicSub) topicSub.textContent = "MINI/Worker가 payload를 받아 작성한 실제 보고서 결과입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
