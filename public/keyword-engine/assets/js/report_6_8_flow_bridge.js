@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v27-student-choice";
+  const VERSION = "report-6-8-flow-bridge-v33-student-choice-book-state-fix";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -79,9 +79,35 @@
     return null;
   }
 
-  function hasSelectedBook(payload){
+  function getSelectedBookFallback(payload){
     const state = getState();
-    return !!(payload && payload.selectedBook && (state.selectedBook || payload.selectedBook.title));
+    if (payload && payload.selectedBook && (payload.selectedBook.title || payload.selectedBook.sourceId || payload.selectedBook.managementNo)) return payload.selectedBook;
+    if (state && state.selectedBook) return state.selectedBook;
+    if (global.__BOOK_210_LAST_CLICKED_BOOK__) return global.__BOOK_210_LAST_CLICKED_BOOK__;
+    const r = getBookResult();
+    const candidates = [
+      r?.selectedBook,
+      r?.book,
+      r?.lastSelectedBook,
+      r?.result?.selectedBook,
+      r?.result?.lastSelectedBook,
+      r?.result?.clickedBook,
+      r?.result?.activeBook
+    ];
+    for (const b of candidates){
+      if (b && (b.title || b.sourceId || b.managementNo)) return b;
+    }
+    const domBook = document.querySelector("[data-book-selected=\"1\"], .book-card.is-active, .book-card.active, .book-card.selected, .book-210-card.is-active, .book-210-card.active, .book-210-card.selected, [data-book-id].is-active, [data-book-id].active, [data-book-id].selected");
+    if (domBook){
+      const title = domBook.getAttribute("data-title") || domBook.getAttribute("data-book-title") || (domBook.querySelector(".book-title, .engine-book-title, h4, h3")?.textContent || "").trim();
+      const id = domBook.getAttribute("data-book-id") || domBook.getAttribute("data-source-id") || domBook.getAttribute("data-management-no") || "";
+      if (title || id) return { title, sourceId:id, managementNo:id, fromDom:true };
+    }
+    return null;
+  }
+
+  function hasSelectedBook(payload){
+    return !!getSelectedBookFallback(payload);
   }
 
   function setStepHead(blockId, title, copy, guide){
@@ -124,6 +150,7 @@
     const state = getState();
     const payload = getPayload();
     const s = payload?.selectionPayload || {};
+    const selectedBook = getSelectedBookFallback(payload);
     return {
       state,
       payload,
@@ -132,7 +159,7 @@
       concept: s.selectedConcept || state.concept || "",
       keyword: s.selectedKeyword || s.selectedRecommendedKeyword || state.keyword || "",
       axis: s.selectedFollowupAxis || s.followupAxis || state.linkTrack || "",
-      selectedBook: payload?.selectedBook || null,
+      selectedBook: selectedBook || null,
       ctx: payload?.reportGenerationContext || {}
     };
   }
@@ -517,6 +544,10 @@
   }
 
   global.__REPORT_6_8_APPLY__ = apply;
+  global.__DIAGNOSE_REPORT_6_8_V33__ = function(){
+    const ctx = buildContext();
+    return { version: VERSION, hasSelectedBook: hasSelectedBook(ctx.payload), selectedBook: ctx.selectedBook, reportMode: ctx.state.reportMode || "", reportView: ctx.state.reportView || "", reportLine: ctx.state.reportLine || "", payload: ctx.payload };
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);
