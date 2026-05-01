@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v52-fixed-structured-guide";
+  const VERSION = "mini-worker-generate-bridge-v53-conclusion-guide";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -857,7 +857,7 @@
       ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", isWeather ? "기온은 단순 숫자지만 실제 판단에서는 습도·체감온도·지속 시간까지 함께 봐야 한다는 점을 먼저 밝힌다." : conceptUse],
       ["3. 자료 분석", "표와 근거로 비교하기", "공식 기준·실제 자료·비교 자료를 표로 정리하고, 어떤 차이가 보였는지 한 줄 해석을 붙인다."],
       ["4. 전공 개념 활용", "내가 어떤 방식으로 판단했는지 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증 순서로, 내가 어떤 기준으로 판단했는지 설명한다." : lens.process],
-      ["5. 결론", "내 기준의 장단점 정리하기", "내가 세운 기준의 장점·한계·보완 자료·다음에 더 조사할 방향을 함께 쓴다."]
+      ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
     ];
 
     const sections = [
@@ -874,8 +874,8 @@
         "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
         "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
         isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
-        "문단 5. 결론 | 꼭 넣을 내용: 내가 세운 기준의 장점, 부족한 점, 더 보면 좋은 자료를 함께 쓴다.",
-        "문단 5. 결론 | 마무리 문장: 이번 탐구를 통해 어떤 기준이 더 설득력 있었는지와 다음 탐구 방향을 짧게 적는다."
+        "문단 5. 결론 | 꼭 넣을 내용: 표에서 확인한 결과 + 내가 선택한 기준이 설득력 있었던 이유 + 부족했던 점을 순서대로 쓴다.",
+        "문단 5. 결론 | 마무리 문장: 그래서 나는 폭염주의보를 판단할 때 한 가지 기준보다 여러 조건을 함께 보는 기준이 더 설득력 있다고 정리했다."
       ].join("\n")},
       {title:"도서·전공 개념 연결", body:[
         `1) 이 카드의 기준: 책 내용을 많이 쓰는 것이 아니라, 내 판단 기준을 왜 넓혀야 하는지 설명하는 데만 사용한다.`,
@@ -894,7 +894,7 @@
         "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
         "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
-        "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
+        "□ 결론에 표에서 확인한 결과, 내 기준의 장점, 부족한 점을 적었는가?"
       ].join("\n")}
     ];
 
@@ -1306,13 +1306,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v52 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV52Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v53 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV53Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV52Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v52";
+    btn.dataset.miniWorkerV53Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v53";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
