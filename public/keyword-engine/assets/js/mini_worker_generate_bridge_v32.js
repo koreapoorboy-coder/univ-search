@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v41-major-keyword-lens-blueprint";
+  const VERSION = "mini-worker-generate-bridge-v42-easy-student-blueprint";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -42,7 +42,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "설계서 생성 중..." : "학생용 설계서 생성";
+      btn.textContent = isLoading ? "설계서 생성 중..." : "쉬운 탐구 설계서 생성";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -263,7 +263,7 @@
         "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
         "선택 도서는 독후감이 아니라 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
         "완성문을 대신 써주지 말고, 학생이 직접 조사·분석·작성할 수 있는 실행형 설계서로 작성한다.",
-        "고등학생 수준을 넘는 전문 알고리즘·대학 수식은 개념 설명 중심으로 낮춘다."
+        "중학생도 이해할 수 있을 정도로 짧고 쉬운 문장으로 쓴다. 어려운 전공 용어는 일상어로 풀어서 쓴다."
       ]
     };
   }
@@ -275,7 +275,7 @@
     const choices = getReportChoices(mini);
 
     return [
-      "너는 고등학생 수행평가 탐구 설계서를 만드는 도우미다.",
+      "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 도우미다.",
       "아래 선택값을 바탕으로 완성 보고서를 대신 쓰지 말고, 학생이 직접 자료를 조사하고 자기 말로 보고서를 완성할 수 있는 실행형 로드맵을 작성하라.",
       "",
       "[절대 조건]",
@@ -309,20 +309,14 @@
       "[출력 형식]",
       "다음 구조로 작성하라.",
       "1. 설계서 제목",
-      "2. 선택 기반 탐구 경로 요약",
-      "3. 학과 키워드 → 탐구 기준 변환",
-      "4. 최종 추천 탐구 방향",
-      "5. 학생이 선택할 탐구 질문 3개",
-      "6. 개인화 분기 선택지",
-      "7. 실제 조사 자료와 출처 계획",
-      "8. 자료 정리 표 양식",
-      "9. 보고서 목차 설계",
-      "10. 문단별 작성 가이드",
-      "11. 학생이 직접 채워 쓸 문장 시작 틀",
-      "12. 선택 도서 활용 방식",
-      "13. 교과 개념·전공 개념 연결 포인트",
-      "14. 심화 확장 방향",
-      "15. 제출 전 체크리스트"
+      "2. 한 줄 탐구 목표",
+      "3. 학생이 고를 탐구 질문 3개",
+      "4. 오늘 바로 할 일 4단계",
+      "5. 찾아볼 자료 4가지",
+      "6. 보고서 목차",
+      "7. 내 말로 채우는 문장 틀",
+      "8. 도서와 진로 연결 방법",
+      "9. 제출 전 확인"
     ].join("\n");
   }
 
@@ -367,7 +361,7 @@
 
       // Worker가 messages 형태를 받는 경우 대비
       messages: [
-        { role: "system", content: "너는 고등학생 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 학생이 직접 조사·분석·작성할 수 있는 로드맵을 제공한다." },
+        { role: "system", content: "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 학생이 직접 고르고 채우는 로드맵을 제공한다." },
         { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
       ]
     };
@@ -683,10 +677,7 @@
   function buildStudentReportFromPayload(req, rawData){
     const s = req?.mini_payload?.selectionPayload || {};
     const resolved = getWorkerResolved(rawData);
-    const workerPattern = getWorkerPatternRule(rawData) || {};
-    const pattern = req.report_dataset_pattern || {};
     const book = req.selectedBook || req?.mini_payload?.selectedBook || {};
-    const bookUse = getSelectedBookUse(req) || {};
     const choices = req.report_choices || getReportChoices(req.mini_payload || {});
     const majorContext = getMajorContext(req);
 
@@ -699,200 +690,118 @@
     const mode = firstNonEmpty(choices.mode, choices.modeLabel, s.reportMode, "전개 방식 선택값");
     const view = firstNonEmpty(choices.view, choices.viewLabel, s.reportView, "관점 선택값");
     const line = firstNonEmpty(choices.line, choices.lineLabel, s.reportLine, "라인 선택값");
-    const patternName = firstNonEmpty(pattern.selectedPattern, workerPattern.label, "교과 개념-실제 사례 해석형");
     const bookTitle = firstNonEmpty(book.title, req.selectedBookTitle, "선택 도서");
-    const bookUseText = firstNonEmpty(
-      bookUse.useInReport,
-      Array.isArray(bookUse.reportRoleLabels) ? bookUse.reportRoleLabels.join(", ") : "",
-      "탐구 관점과 한계 논의"
-    );
 
     const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
     const lens = deriveMajorLens(major, majorContext, allText);
-    const bridgeRows = makeMajorBridgeRows(lens, keyword);
-
     const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
-    const isData = /데이터|모델|그래프|통계|예측|시각|측정|수리|자료|판단/.test(allText + " " + lens.keywords.join(" "));
-    const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + lens.keywords.join(" "));
-    const isEnergy = /물리|에너지|역학|전자기|파동|열|전기|배터리|전지/.test(allText + " " + lens.keywords.join(" "));
-    const isPolicy = /사회|윤리|정책|규제|쟁점|공공|법|경제/.test(allText + " " + lens.keywords.join(" "));
+    const isComputer = /컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(`${major} ${lens.keywords.join(" ")}`);
+    const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
+    const isEnergy = /물리|에너지|역학|전자기|파동|열|전기|배터리|전지/.test(allText + " " + major);
 
-    const title = `${keyword}의 판단 기준을 ${lens.domainLabel} 관점으로 설계하기`;
+    let title = `${keyword}를 자료로 비교해 보는 탐구 설계`;
+    let goal = `${keyword}가 어떤 기준으로 설명되는지 찾아보고, 실제 자료를 비교해 나만의 판단 기준을 정리한다.`;
+    let q = [
+      `${keyword}는 어떤 기준으로 판단할 수 있을까?`,
+      `자료를 한 가지만 볼 때와 여러 자료를 함께 볼 때 결론은 어떻게 달라질까?`,
+      `내가 세운 기준에는 어떤 장점과 한계가 있을까?`
+    ];
+    let dataRows = [
+      [`${keyword}의 기본 기준`, "교과서·공식 기관 자료", "서론"],
+      ["비교할 수 있는 자료 2개 이상", "공공데이터·통계·기사", "본론 1"],
+      ["표나 그래프로 만들 자료", "직접 정리한 수치·사례", "본론 2"],
+      ["한계나 예외 사례", "뉴스·기관 보고서", "결론"]
+    ];
 
-    let direction = `${keyword}를 단순한 사례 조사 주제가 아니라, ${subject}의 ${concept} 개념으로 해석하고 ${axis}과 ${lens.shortLabel}을 함께 사용해 판단 기준을 설계한다.`;
-    if(isWeather && /시스템|알고리즘|데이터|조건 분기|모델링/.test(lens.keywords.join(" "))){
-      direction = `${keyword}를 단순한 기상 정보가 아니라, 관측 자료가 입력되고 기준에 따라 위험 판단이 이루어지는 시스템 사례로 분석한다. 학생은 기온·습도·체감온도 같은 변수를 비교해 어떤 조건에서 판단 결과가 달라지는지 설명한다.`;
-    }else if(isWeather){
-      direction = `${keyword}를 단순한 기상 정보가 아니라, 관측 자료와 발령 기준이 결합된 사회적 판단 사례로 보고 ${concept}와 ${axis} 관점에서 분석한다.`;
-    }else if(isData){
-      direction = `${keyword}를 자료 수집, 변수 설정, 비교 기준, 판단 결과의 흐름으로 나누어 해석하고 ${lens.shortLabel}에서 필요한 기준 설계와 검증 과정으로 연결한다.`;
+    if(isWeather && isComputer){
+      title = `${keyword}를 데이터로 판단하는 탐구 설계`;
+      goal = `${keyword}가 언제 내려지는지 기준을 찾아보고, 기온·습도·체감온도 같은 자료를 비교해 '기준을 세워 판단하는 과정'을 이해한다.`;
+      q = [
+        `${keyword}는 어떤 기준으로 내려질까?`,
+        `기온만 볼 때와 체감온도까지 함께 볼 때 판단은 어떻게 달라질까?`,
+        `컴퓨터가 ${keyword} 위험을 알려준다면 어떤 자료와 기준이 필요할까?`
+      ];
+      dataRows = [
+        [`${keyword}의 공식 기준`, "기상청·공공기관 자료", "서론"],
+        ["기온 자료", "기상자료개방포털·날씨 통계", "본론 1"],
+        ["습도 또는 체감온도 자료", "기상청·공공데이터", "본론 2"],
+        ["피해 사례 또는 대응 정책", "뉴스·지자체·보도자료", "결론"]
+      ];
     }else if(isBio){
-      direction = `${keyword}를 생명 현상의 단순 설명이 아니라 원인, 조건, 반응, 결과의 흐름으로 해석하고 근거 기반 판단과 연결한다.`;
+      title = `${keyword}를 근거 자료로 설명하는 탐구 설계`;
+      goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
+      q = [
+        `${keyword}는 몸이나 생명 현상에서 어떤 변화와 연결될까?`,
+        `관련 자료를 비교하면 원인이나 조건을 어떻게 설명할 수 있을까?`,
+        `예방·관리·개선 방향을 제안하려면 어떤 근거가 더 필요할까?`
+      ];
     }else if(isEnergy){
-      direction = `${keyword}를 물리적 원리와 실제 시스템의 관계로 보고, 측정값과 조건 변화가 결과에 미치는 영향을 ${lens.shortLabel}으로 분석한다.`;
-    }else if(isPolicy){
-      direction = `${keyword}를 사회적 쟁점으로만 보지 않고, 근거 자료와 판단 기준이 의사결정에 어떻게 반영되는지 분석한다.`;
+      title = `${keyword}의 조건 변화를 비교하는 탐구 설계`;
+      goal = `${keyword}에 영향을 주는 조건을 찾고, 조건이 달라질 때 결과가 어떻게 바뀌는지 표나 그래프로 정리한다.`;
+      q = [
+        `${keyword}의 결과를 바꾸는 조건은 무엇일까?`,
+        `조건을 다르게 하면 효율·안정성·성능은 어떻게 달라질까?`,
+        `더 나은 결과를 얻기 위해 어떤 개선 방향을 생각할 수 있을까?`
+      ];
     }
 
-    const q = [];
-    if(isWeather && /시스템|알고리즘|데이터|조건 분기|모델링/.test(lens.keywords.join(" "))){
-      q.push(`${keyword}를 판단하기 위해 어떤 자료를 입력값으로 삼아야 하며, 어떤 조건이 기준값이 되는가?`);
-      q.push(`기온만 기준으로 삼을 때와 습도·체감온도까지 함께 고려할 때 판단 결과는 어떻게 달라지는가?`);
-      q.push(`이 판단 기준을 간단한 조건 분기나 절차도로 표현한다면 어떤 예외와 한계가 생기는가?`);
-    }else if(isWeather){
-      q.push(`${keyword}는 어떤 기준으로 판단되며, 그 기준은 실제 위험을 충분히 설명하는가?`);
-      q.push(`기온, 습도, 체감온도처럼 서로 다른 자료를 함께 보면 판단 결과는 어떻게 달라지는가?`);
-      q.push(`같은 ${keyword} 상황이라도 지역, 시간대, 생활환경에 따라 위험도는 어떻게 달라질 수 있는가?`);
-    }else if(isData){
-      q.push(`${keyword}를 판단하기 위해 어떤 자료를 수집하고 어떤 변수를 기준으로 삼아야 하는가?`);
-      q.push(`단일 기준과 복합 기준으로 분석했을 때 결론은 어떻게 달라지는가?`);
-      q.push(`${lens.shortLabel} 관점에서 이 문제를 간단한 판단 모델이나 분류 기준으로 표현할 수 있는가?`);
-    }else if(isBio){
-      q.push(`${keyword}와 관련된 현상은 어떤 조건에서 달라지며, 그 원인은 무엇인가?`);
-      q.push(`자료나 사례를 비교했을 때 공통적으로 드러나는 반응 과정 또는 위험 요인은 무엇인가?`);
-      q.push(`이 탐구 결과를 예방, 진단, 관리, 설명 중 어떤 방향으로 활용할 수 있는가?`);
-    }else if(isEnergy){
-      q.push(`${keyword} 현상을 설명하는 핵심 물리량 또는 조건은 무엇인가?`);
-      q.push(`조건을 바꾸면 측정값이나 결과가 어떻게 달라지는가?`);
-      q.push(`${lens.shortLabel} 관점에서 효율, 안정성, 예측 가능성 중 어떤 기준을 중심으로 해석할 수 있는가?`);
-    }else if(isPolicy){
-      q.push(`${keyword}와 관련된 판단 기준은 어떤 근거 자료를 바탕으로 만들어지는가?`);
-      q.push(`서로 다른 이해관계자나 집단에 따라 문제 해석은 어떻게 달라지는가?`);
-      q.push(`자료 기반 판단과 사회적 가치 판단을 어떻게 함께 고려할 수 있는가?`);
-    }else{
-      q.push(`${keyword}는 ${concept} 개념으로 어떻게 설명할 수 있는가?`);
-      q.push(`실제 사례나 자료를 비교하면 어떤 차이와 원인이 드러나는가?`);
-      q.push(`${lens.shortLabel}으로 연결했을 때 이 주제는 어떤 문제 해결 가능성을 보여주는가?`);
-    }
-
-    const dataPlan = [];
-    if(isWeather){
-      dataPlan.push([`${keyword}의 공식 기준`, "기상청·공공기관 자료", "서론과 교과 개념 연결"]);
-      dataPlan.push(["일별 기온·습도·체감온도 자료", "기상자료개방포털·공공데이터", "본론의 표·그래프 분석"]);
-      dataPlan.push(["지역별 또는 시간대별 차이", "지자체 자료·뉴스·통계", "비교 분석 문단"]);
-      dataPlan.push(["피해 사례 또는 대응 정책", "보도자료·기관 보고서", "결론의 사회적 의미 확장"]);
-    }else if(isData){
-      dataPlan.push(["핵심 현상을 보여주는 원자료", "공공데이터·기관 통계·관찰 자료", "분석 대상 설정"]);
-      dataPlan.push(["비교할 변수 2~3개", "표본 자료·측정값·그래프", "기준 설정과 비교"]);
-      dataPlan.push(["기준을 적용한 결과", "직접 만든 표·그래프", "판단 과정 설명"]);
-      dataPlan.push(["오차·한계 사례", "기사·보고서·추가 통계", "한계와 개선 방향"]);
-    }else{
-      dataPlan.push([`${keyword}의 기본 사례`, "교과서·기관 자료·기사", "탐구 배경 설명"]);
-      dataPlan.push([`${concept}와 연결되는 근거 자료`, "교과서 단원·실험 자료·통계", "교과 개념 설명"]);
-      dataPlan.push(["비교 가능한 사례 2개", "뉴스·논문 요약·공공 자료", "본론 비교 분석"]);
-      dataPlan.push([`${lens.shortLabel}과 연결되는 활용 사례`, "학과 소개·진로 자료·산업 사례", "결론과 확장"]);
-    }
-
-    const branch = [
-      `탐구 질문 선택: A안은 기준의 타당성, B안은 자료 비교, C안은 ${lens.shortLabel} 적용 중심으로 선택한다.`,
-      `조사 범위 선택: 지역 1곳을 깊게 볼지, 지역 2~3곳을 비교할지 먼저 정한다.`,
-      `비교 기준 선택: 단일 기준, 복합 기준, 시간 변화, 집단 차이 중 하나를 주된 분석 기준으로 삼는다.`,
-      `결론 방향 선택: 원인 설명형, 기준 개선형, 시스템 제안형, 사회적 대응형 중 하나로 마무리한다.`
-    ];
-
-    const tableText = [
-      "정리 항목 | 학생이 채울 내용 | 보고서 활용 위치",
-      `${keyword}의 기준 또는 정의 | 공식 기준을 직접 적기 | 서론`,
-      `입력 자료 또는 관찰 자료 | 수치·사례·관찰 내용 입력 | 본론 1`,
-      `비교 변수 | 기온/습도/시간/지역/집단 등 조건 입력 | 본론 2`,
-      `판단 결과 | 기준 적용 후 달라지는 점 해석 | 본론 3`,
-      `${lens.shortLabel} 연결 | 어떤 기준·절차·검증이 필요한지 정리 | 결론`
-    ];
-
-    const outline = [
-      `Ⅰ. 탐구 동기: ${keyword}를 처음 어떻게 보았고, 왜 기준이나 자료로 다시 보게 되었는지 쓴다.`,
-      `Ⅱ. 교과 개념 연결: ${subject}의 ${concept}가 이 주제를 설명하는 데 어떤 역할을 하는지 정리한다.`,
-      `Ⅲ. 자료 수집과 비교: 학생이 직접 찾은 자료를 표나 그래프로 정리하고 차이를 설명한다.`,
-      `Ⅳ. 전공 개념 적용: ${lens.keywords.slice(0,3).join("·")} 개념을 사용해 판단 기준, 절차, 검증 가능성 중 하나를 분석한다.`,
-      `Ⅴ. 결론과 한계: 내가 세운 기준의 의미와 한계, 추가 탐구 방향을 제시한다.`
-    ];
-
-    const paragraphGuide = [
-      "서론 문단: 주제 소개보다 '왜 이 기준을 다시 보게 되었는가'를 중심으로 쓴다.",
-      "개념 문단: 교과서 정의를 그대로 옮기지 말고, 내가 분석할 자료와 연결되는 개념만 고른다.",
-      "분석 문단: 자료를 나열하지 말고, 비교 기준을 먼저 말한 뒤 표·그래프·사례를 해석한다.",
-      `전공 연결 문단: 학과명을 붙이지 말고 ${lens.keywords.slice(0,4).join("·")} 같은 개념이 왜 필요한지 설명한다.`,
-      "결론 문단: 정답을 단정하지 말고, 내가 세운 기준의 장점과 한계를 함께 쓴다."
-    ];
-
-    const templates = [
-      `처음에는 ${keyword}를 ________로만 생각했다. 그러나 자료를 찾아보니 이 주제는 ________을 기준으로 판단되는 문제라는 점을 알게 되었다.`,
-      `${subject}의 ${concept} 개념은 이 탐구에서 ________을 설명하는 데 활용할 수 있다. 특히 내가 비교한 자료에서는 ________ 차이가 드러났다.`,
-      `나는 자료를 정리할 때 ________을 기준으로 삼았다. 그 이유는 이 기준이 ${keyword}의 ________을 더 잘 보여준다고 판단했기 때문이다.`,
-      `${lens.shortLabel} 관점에서 이 탐구는 ________와 연결된다. 단순히 사례를 조사한 것이 아니라, 자료를 바탕으로 ________을 판단하는 과정이라는 점에서 의미가 있다.`,
-      `다만 이번 탐구에는 ________라는 한계가 있다. 후속 탐구에서는 ________ 자료를 추가해 기준의 타당성을 더 확인하고 싶다.`
-    ];
-
-    const bookGuide = [
-      `『${bookTitle}』는 보고서의 중심 내용을 대신하는 책 요약 자료가 아니라, 탐구 관점을 넓히는 보조 근거로 사용한다.`,
-      `활용 위치는 ${bookUseText} 부분이 적절하다.`,
-      `본문에서는 책 내용을 길게 소개하지 말고, '${keyword}를 단일 원인으로 보지 않고 여러 조건의 관계로 해석한다'는 관점처럼 한 문장 수준으로 연결한다.`,
-      `도서 연결 문장은 결론 또는 한계 문단에 배치하면 억지 독후감처럼 보이지 않는다.`
-    ];
-
-    const connect = [
-      `교과 개념: ${concept}는 탐구의 설명 기준이다. 교과서 개념을 외운 흔적보다 실제 자료를 해석하는 데 사용한 흔적이 보여야 한다.`,
-      `후속 연계축: ${axis}은 탐구의 분석 방식이다. 자료를 어떤 기준으로 나누고 비교할지 정하는 역할을 한다.`,
-      `전공 개념: ${lens.displayName}이라는 학과명보다 ${lens.keywords.slice(0,5).join("·")} 같은 학습 개념을 보고서의 해석 기준으로 사용한다.`,
-      `선택 구조: ${mode} / ${view} / ${line} 선택값은 보고서의 전개 방식, 해석 관점, 결론 방향을 정하는 기준으로 사용한다.`
-    ];
-
-    const advanced = [
-      `기본형: 자료 2개를 비교해 ${keyword}의 판단 기준을 설명한다.`,
-      `심화형: 자료 3개 이상을 표·그래프로 정리하고, 기준을 바꾸었을 때 결론이 어떻게 달라지는지 비교한다.`,
-      `전공형: ${lens.process} 흐름으로 보고서를 재구성해 기준 설계 능력을 드러낸다.`,
-      `확장형: 한계 요인을 추가해 '내 기준이 항상 맞는가'를 검토한다.`
-    ];
-
-    const checklist = [
-      "선택한 탐구 질문 1개가 보고서 전체를 관통하는가?",
-      "자료 출처를 최소 2종 이상 확보했는가?",
-      "표나 그래프에 들어갈 수치 또는 사례가 실제로 있는가?",
-      "교과 개념이 정의 설명에서 끝나지 않고 자료 해석에 쓰였는가?",
-      "학과명을 억지로 붙이지 않고 전공 키워드가 분석 기준으로 사용되었는가?",
-      "선택 도서가 독후감처럼 길게 들어가지 않았는가?",
-      "결론에 한계와 후속 탐구가 포함되어 있는가?"
-    ];
-
-    const bridgeTable = [
-      "학과 키워드 | 보고서에서의 역할 | 학생이 실제로 할 일",
-      ...bridgeRows.map(row => row.join(" | "))
-    ];
+    const easyMajor = isComputer
+      ? "컴퓨터공학과 연결은 학과 이름을 붙이는 것이 아니라, 자료를 입력하고 기준에 따라 판단하는 과정으로 보여주면 된다."
+      : `진로 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 중요하게 보는 생각 방식으로 자료를 해석하는 것이다.`;
 
     const sections = [
-      {title:"설계서 제목", body:title},
-      {title:"선택 기반 탐구 경로 요약", body:`과목은 ${subject}, 진로 분야는 ${major}, 교과 개념은 ${concept}, 추천 키워드는 ${keyword}, 후속 연계축은 ${axis}이다. 이 설계서는 완성 보고서를 대신 제공하는 것이 아니라, 학생이 직접 자료를 찾고 비교 기준을 세워 자기 보고서로 완성하도록 안내한다. 핵심은 '${major} 관점'이라는 표현을 반복하는 것이 아니라 ${lens.keywords.slice(0,4).join("·")} 같은 전공 학습 키워드를 탐구 기준으로 바꾸는 것이다.`},
-      {title:"학과 키워드 → 탐구 기준 변환", body:`전공 렌즈: ${lens.shortLabel}\n분석 흐름: ${lens.process}\n\n${bridgeTable.join("\n")}`},
-      {title:"최종 추천 탐구 방향", body:direction},
-      {title:"학생이 선택할 탐구 질문 3개", body:q.map((v,i)=>`${String.fromCharCode(65+i)}안. ${v}`).join("\n") + "\n\n권장: 세 질문 중 1개만 최종 질문으로 고른 뒤, 나머지는 비교 관점이나 한계 문단에 보조적으로 사용한다."},
-      {title:"개인화 분기 선택지", body:branch.join("\n")},
-      {title:"실제 조사 자료와 출처 계획", body:dataPlan.map(row=>`- ${row[0]}: ${row[1]}에서 찾고, ${row[2]}에 사용한다.`).join("\n")},
-      {title:"자료 정리 표 양식", body:tableText.join("\n")},
-      {title:"보고서 목차 설계", body:outline.join("\n")},
-      {title:"문단별 작성 가이드", body:paragraphGuide.join("\n")},
-      {title:"학생이 직접 채워 쓸 문장 시작 틀", body:templates.join("\n")},
-      {title:"선택 도서 활용 방식", body:bookGuide.join("\n")},
-      {title:"교과 개념·전공 개념 연결 포인트", body:connect.join("\n")},
-      {title:"심화 확장 방향", body:advanced.join("\n")},
-      {title:"제출 전 체크리스트", body:checklist.map(v=>`□ ${v}`).join("\n")}
+      {title:"한 줄 탐구 목표", body:goal},
+      {title:"학생이 고를 탐구 질문 3개", body:q.map((v,i)=>`${String.fromCharCode(65+i)}. ${v}`).join("\n") + "\n\n추천: 세 질문 중 하나만 골라 보고서의 중심 질문으로 사용한다."},
+      {title:"오늘 바로 할 일 4단계", body:[
+        `1단계. ${keyword}의 공식 기준 또는 기본 설명을 찾는다.`,
+        `2단계. 비교할 자료를 2개 이상 고른다. 예: 날짜, 지역, 조건, 집단, 사례.`,
+        `3단계. 자료를 표로 정리하고, 차이가 나는 부분에 표시한다.`,
+        `4단계. 왜 그런 차이가 생겼는지 ${concept} 개념과 연결해 설명한다.`
+      ].join("\n")},
+      {title:"찾아볼 자료 4가지", body:["자료 | 찾는 곳 | 보고서 위치", ...dataRows.map(r=>r.join(" | "))].join("\n")},
+      {title:"보고서 목차", body:[
+        "Ⅰ. 탐구 동기: 이 주제를 왜 다시 보게 되었는지 쓴다.",
+        `Ⅱ. 교과 개념: ${subject}의 '${concept}' 개념을 쉬운 말로 설명한다.`,
+        "Ⅲ. 자료 정리: 내가 찾은 자료를 표나 그래프로 보여준다.",
+        "Ⅳ. 자료 해석: 어떤 기준으로 판단했는지 설명한다.",
+        "Ⅴ. 결론과 한계: 내가 세운 기준의 장점과 부족한 점을 함께 쓴다."
+      ].join("\n")},
+      {title:"내 말로 채우는 문장 틀", body:[
+        `처음에는 ${keyword}를 ________라고만 생각했다.`,
+        `하지만 자료를 찾아보니 ${keyword}는 ________ 기준으로 판단된다는 점을 알게 되었다.`,
+        `나는 ________ 자료와 ________ 자료를 비교해 보았다.`,
+        `그 결과 ________일 때 판단 결과가 달라질 수 있음을 확인했다.`,
+        `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 찾아보고 싶다.`
+      ].join("\n")},
+      {title:"도서와 진로 연결 방법", body:[
+        `도서 『${bookTitle}』는 책 내용을 길게 요약하지 말고, 내 탐구를 바라보는 관점을 넓히는 용도로만 사용한다.`,
+        `예: 하나의 기준만 보지 않고 여러 조건의 관계를 함께 보아야 한다는 식으로 연결한다.`,
+        easyMajor,
+        `선택한 후속 연계축 '${axis}'은 자료를 어떤 기준으로 나누고 비교할지 정하는 역할로 사용한다.`
+      ].join("\n")},
+      {title:"제출 전 확인", body:[
+        "□ 중심 질문을 하나만 골랐는가?",
+        "□ 자료 출처를 2개 이상 적었는가?",
+        "□ 표나 그래프에 넣을 실제 자료가 있는가?",
+        "□ 교과 개념을 자료 해석에 사용했는가?",
+        "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
+      ].join("\n")}
     ];
 
-    const text = sections.map((sec, idx) => `${idx + 1}. ${sec.title}\n${sec.body}`).join("\n\n");
+    const text = [`설계서 제목\n${title}`, ...sections.map((sec, idx) => `${idx + 1}. ${sec.title}\n${sec.body}`)].join("\n\n");
     return {
       text,
-      sections,
+      sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-blueprint-major-keyword-lens",
-      note: "학과명을 억지로 붙이지 않고 학과 키워드와 학습 개념을 탐구 기준으로 변환했습니다.",
+      source: "payload-easy-student-blueprint",
+      note: "학생이 바로 이해할 수 있도록 쉬운 문장과 실행 단계 중심으로 줄였습니다.",
       diagnostics: {
-        patternName,
         mode,
         view,
         line,
-        productMode: "student_research_blueprint",
-        majorLens: lens.shortLabel,
-        majorKeywords: lens.keywords,
-        majorProcess: lens.process
+        productMode: "easy_student_research_blueprint",
+        majorLens: isComputer ? "자료를 기준에 따라 판단하는 사고" : lens.shortLabel,
+        majorKeywords: isComputer ? ["자료", "기준", "비교", "판단"] : lens.keywords.slice(0,4)
       }
     };
   }
@@ -1118,7 +1027,7 @@
           <div>
             <div class="mini-v32-kicker">학생 실행형 탐구 설계서</div>
             <h2 class="mini-v32-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v32-sub">선택한 교과 개념·추천 키워드·후속 연계축·도서를 바탕으로, 학과명보다 학과 핵심 키워드를 탐구 기준으로 바꾸어 정리한 실행 가이드입니다.</p>
+            <p class="mini-v32-sub">어려운 설명을 줄이고, 학생이 오늘 바로 조사하고 쓸 수 있게 정리한 실행 가이드입니다.</p>
           </div>
           <div class="mini-v32-actions">
             <button type="button" id="miniV32CopyReportBtn" class="primary">설계서 복사</button>
@@ -1128,8 +1037,8 @@
         <div class="mini-v32-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
           <span>진로 분야: ${escapeHtml(s.department || req.career)}</span>
-          ${majorLensTag ? `<span>전공 렌즈: ${escapeHtml(majorLensTag)}</span>` : ""}
-          ${majorKeywordTag ? `<span>전공 키워드: ${escapeHtml(majorKeywordTag)}</span>` : ""}
+          ${majorLensTag ? `<span>진로 연결: ${escapeHtml(majorLensTag)}</span>` : ""}
+          ${majorKeywordTag ? `<span>핵심 생각: ${escapeHtml(majorKeywordTag)}</span>` : ""}
           <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
@@ -1207,13 +1116,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v41 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV41Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v42 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV42Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV41Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v41";
+    btn.dataset.miniWorkerV42Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v42";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
