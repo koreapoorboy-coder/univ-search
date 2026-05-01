@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v38-clean-axis-and-topic-quality";
+  const VERSION = "mini-worker-generate-bridge-v40-student-research-blueprint";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -42,7 +42,7 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "보고서 생성 중..." : "학생용 결과 생성";
+      btn.textContent = isLoading ? "설계서 생성 중..." : "학생용 설계서 생성";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading) loading.style.display = isLoading ? "block" : "none";
@@ -88,7 +88,7 @@
       subject: readValue("subject"),
       taskName: readValue("taskName"),
       taskType: readValue("taskType"),
-      usagePurpose: readValue("usagePurpose") || "학생 제출형 탐구보고서 작성",
+      usagePurpose: readValue("usagePurpose") || "학생 실행형 탐구 설계서 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
@@ -185,7 +185,7 @@
         selectedKeyword: form.keyword,
         followupAxis: "",
         selectedFollowupAxis: "",
-        reportIntent: "학생용 수행평가 탐구보고서 생성"
+        reportIntent: "학생 실행형 수행평가 탐구 설계서 생성"
       },
       selectedBook: null,
       reportGenerationContext: {}
@@ -249,7 +249,7 @@
         "단순 교과 설명이 아니라 실제 현상·사례·자료를 먼저 제시한다.",
         "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
         "선택 도서는 독후감이 아니라 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
-        "학생이 바로 제출할 수 있는 문단형 보고서로 작성한다.",
+        "완성문을 대신 써주지 말고, 학생이 직접 조사·분석·작성할 수 있는 실행형 설계서로 작성한다.",
         "고등학생 수준을 넘는 전문 알고리즘·대학 수식은 개념 설명 중심으로 낮춘다."
       ]
     };
@@ -260,18 +260,17 @@
     const book = mini.selectedBook || {};
     const ctx = mini.reportGenerationContext || {};
     const choices = getReportChoices(mini);
-    const sections = pattern.fixedSections || ctx.targetStructure || [];
 
     return [
-      "너는 고등학생 수행평가 탐구보고서 작성 도우미다.",
-      "아래 payload를 바탕으로 학생이 제출 가능한 완성형 보고서 초안을 작성하라.",
+      "너는 고등학생 수행평가 탐구 설계서를 만드는 도우미다.",
+      "아래 선택값을 바탕으로 완성 보고서를 대신 쓰지 말고, 학생이 직접 자료를 조사하고 자기 말로 보고서를 완성할 수 있는 실행형 로드맵을 작성하라.",
       "",
       "[절대 조건]",
-      "1. 선택한 교과 개념, 추천 키워드, 4번 후속 연계축, 선택 도서를 반드시 반영한다.",
-      "2. 보고서 예시 데이터셋(RPT001~RPT010)의 구조처럼 문단별 목적이 분명한 결과를 작성한다.",
-      "3. 도서는 단순 독후감으로 요약하지 말고, 보고서의 근거 프레임·비교 관점·한계 논의·결론 확장에만 배치한다.",
-      "4. 학생 화면에 내부 payload, API, prompt 같은 표현을 쓰지 않는다.",
-      "5. 고등학생이 이해 가능한 문장으로 쓰되, 내용은 수행평가 제출용으로 구체화한다.",
+      "1. 완성 문단을 길게 대신 써주지 않는다. 학생이 직접 채울 수 있는 질문, 자료 수집 계획, 비교 기준, 빈칸형 문장 틀을 제공한다.",
+      "2. 같은 주제를 선택한 학생도 결과가 달라질 수 있도록 탐구 질문·조사 범위·비교 기준·결론 방향의 선택지를 반드시 제시한다.",
+      "3. 선택한 교과 개념, 추천 키워드, 후속 연계축, 선택 도서를 모두 설계서 안에서 역할이 보이게 반영한다.",
+      "4. 도서는 독후감이 아니라 탐구 관점, 비교 기준, 한계 논의, 결론 확장에 쓰는 방식으로 안내한다.",
+      "5. 내부 데이터명, payload, API, Worker, MINI 같은 표현은 학생 화면에 쓰지 않는다.",
       "",
       "[학생 기본 정보]",
       `학교: ${form.schoolName || "미입력"}`,
@@ -285,30 +284,29 @@
       `교과 개념: ${s.selectedConcept || ""}`,
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
       `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
-      `후속 연계축 원문: ${s.selectedFollowupAxis || s.followupAxis || ""}`,
       `선택 도서: ${book.title || ""}${book.author ? " / " + book.author : ""}`,
       "",
-      "[학생이 선택한 보고서 구조]",
-      `보고서 전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
-      `보고서 관점: ${choices.view || ctx.reportView || "선택값 기준"}`,
-      `보고서 라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
-      "",
-      "[보고서 데이터셋 반영 기준]",
-      `적용 패턴: ${pattern.selectedPattern}`,
-      `참고 리포트: ${(pattern.referenceReports || []).join(", ")}`,
-      "필수 섹션: " + sections.join(" / "),
+      "[학생이 선택한 설계 방향]",
+      `전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
+      `관점: ${choices.view || ctx.reportView || "선택값 기준"}`,
+      `라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
       "",
       "[출력 형식]",
-      "다음 제목과 순서로 작성하라.",
-      "1. 보고서 제목",
-      ...sections.map((section, idx) => `${idx + 2}. ${section}`),
-      "",
-      "[문장 기준]",
-      "- 각 섹션은 제목 + 2~5문장으로 작성한다.",
-      "- '추천 주제'는 실제 보고서 제목으로 쓸 수 있게 1개를 제안한다.",
-      "- '실제 적용 및 문제 해결 과정'은 단계형으로 쓴다.",
-      "- '세특 문구 예시'는 교사가 그대로 복사하는 문장이 아니라, 학생 활동의 관찰 가능 요소 중심으로 2~3문장 제안한다.",
-      "- '참고문헌 및 자료'에는 선택 도서와 기관/통계/기사/논문 자료 유형을 함께 제시한다."
+      "다음 구조로 작성하라.",
+      "1. 설계서 제목",
+      "2. 선택 기반 탐구 경로 요약",
+      "3. 최종 추천 탐구 방향",
+      "4. 학생이 선택할 탐구 질문 3개",
+      "5. 개인화 분기 선택지",
+      "6. 실제 조사 자료와 출처 계획",
+      "7. 자료 정리 표 양식",
+      "8. 보고서 목차 설계",
+      "9. 문단별 작성 가이드",
+      "10. 학생이 직접 채워 쓸 문장 시작 틀",
+      "11. 선택 도서 활용 방식",
+      "12. 교과 개념·진로 연결 포인트",
+      "13. 심화 확장 방향",
+      "14. 제출 전 체크리스트"
     ].join("\n");
   }
 
@@ -353,7 +351,7 @@
 
       // Worker가 messages 형태를 받는 경우 대비
       messages: [
-        { role: "system", content: "너는 고등학생 수행평가 탐구보고서를 작성하는 전문 도우미다. 반드시 사용자가 제공한 payload와 보고서 데이터셋 구조를 반영한다." },
+        { role: "system", content: "너는 고등학생 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 학생이 직접 조사·분석·작성할 수 있는 로드맵을 제공한다." },
         { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
       ]
     };
@@ -469,15 +467,29 @@
     return String(value || "")
       .replace(/\b[a-z][a-z0-9-]*(?:_[a-z0-9-]+)+\b/gi, " ")
       .replace(/\b(?:physics|chemistry|biology|earth|science|math|data|subject|career|report|followup|axis|keyword|concept)\b/gi, " ")
-      .replace(/\s{2,}/g, " ")
+      .replace(/[ \t]{2,}/g, " ")
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .trim();
+  }
+
+  function cleanReportLine(value){
+    return String(value || "")
+      .replace(/\b[a-z][a-z0-9-]*(?:_[a-z0-9-]+)+\b/gi, " ")
+      .replace(/\b(?:MINI|payload|Worker|API|prompt)\b/gi, " ")
+      .replace(/\b(?:physics|chemistry|biology|earth|science|math|data|subject|career|report|followup|axis|keyword|concept)\b/gi, " ")
+      .replace(/[ \t]{2,}/g, " ")
       .replace(/\s+([,.;:!?])/g, "$1")
       .trim();
   }
 
   function cleanReportText(value){
-    return cleanDisplayText(value)
-      .replace(/MINI|payload|Worker/gi, "")
-      .replace(/\s{2,}/g, " ")
+    return String(value || "")
+      .replace(/\r\n/g, "\n")
+      .replace(/\r/g, "\n")
+      .split("\n")
+      .map(cleanReportLine)
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n")
       .trim();
   }
 
@@ -574,62 +586,179 @@
     const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
     const axisRaw = cleanDisplayText(firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축"));
     const axis = cleanDisplayText(compactAxis(axisRaw));
-    const mode = firstNonEmpty(choices.mode, s.reportMode, "보고서 전개 방식");
-    const view = firstNonEmpty(choices.view, s.reportView, "보고서 관점");
-    const line = firstNonEmpty(choices.line, s.reportLine, "보고서 라인");
+    const mode = firstNonEmpty(choices.mode, s.reportMode, "전개 방식 선택값");
+    const view = firstNonEmpty(choices.view, s.reportView, "관점 선택값");
+    const line = firstNonEmpty(choices.line, s.reportLine, "라인 선택값");
     const patternName = firstNonEmpty(pattern.selectedPattern, workerPattern.label, "교과 개념-실제 사례 해석형");
-    const refs = (pattern.referenceReports || []).join(", ") || "RPT001, RPT005";
     const bookTitle = firstNonEmpty(book.title, req.selectedBookTitle, "선택 도서");
     const bookUseText = firstNonEmpty(
       bookUse.useInReport,
       Array.isArray(bookUse.reportRoleLabels) ? bookUse.reportRoleLabels.join(", ") : "",
-      "근거 프레임과 비교 관점으로 활용"
+      "탐구 관점과 한계 논의"
     );
-    const topic = cleanDisplayText(buildReportTitle(req, rawData));
-    const inquiryTopic = cleanDisplayText(`${keyword}를 ${concept} 개념으로 해석하고 ${axis} 관점에서 ${major} 분야의 판단 기준과 연결하기`);
 
-    const problemContext = /폭염|기후|재난|주의보|대기|환경/.test(keyword + axisRaw)
-      ? "일상에서 접하는 기상 정보와 경보 기준은 단순한 안내 문구가 아니라, 관측 자료와 판단 기준이 결합된 사회적 의사결정 결과이다."
-      : /데이터|모델|그래프|측정|통계|예측/.test(keyword + axisRaw)
-        ? "현상은 눈에 보이는 결과만으로 해석하기 어렵기 때문에, 자료를 수집하고 기준을 세워 판단하는 과정이 필요하다."
-        : "교과 개념은 실제 문제 상황을 해석하고 해결 방향을 세울 때 의미가 분명해진다.";
+    const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
+    const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
+    const isData = /데이터|모델|그래프|통계|예측|시각|측정|수리|자료|판단/.test(allText);
+    const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText);
+    const isEnergy = /물리|에너지|역학|전자기|파동|열|전기|배터리|전지/.test(allText);
+    const isPolicy = /사회|윤리|정책|규제|쟁점|공공|법|경제/.test(allText);
 
-    const principle = /데이터|모델|그래프|측정|통계|예측/.test(keyword + axisRaw)
-      ? `${keyword}를 해석할 때 핵심은 관측값을 그대로 외우는 것이 아니라, 어떤 변수를 기준으로 삼고 어떤 조건에서 차이가 발생하는지 비교하는 것이다.`
-      : `${keyword}는 ${concept}에서 다루는 핵심 개념을 실제 상황에 적용해 볼 수 있는 출발점이다.`;
+    const title = `${keyword}를 ${concept}로 해석해 ${major} 관점의 탐구 기준 설계하기`;
 
-    const process = [
-      `1단계에서는 ${keyword}와 관련된 현상 또는 사례를 정하고, ${subject}에서 배운 ${concept} 개념과 연결한다.`,
-      `2단계에서는 관측 자료, 기사, 기관 자료, 그래프 등 비교 가능한 근거를 모아 ${axis} 관점에서 정리한다.`,
-      `3단계에서는 자료를 단순 나열하지 않고 기준을 세워 차이와 원인을 해석한다.`,
-      `4단계에서는 ${major} 진로와 연결해 문제 해결 가능성, 한계, 추가 탐구 방향을 제시한다.`
+    let direction = `${keyword}를 단순한 사례 조사 주제가 아니라, ${subject}의 ${concept} 개념으로 해석하고 ${axis} 관점에서 판단 기준을 세우는 탐구로 설계한다.`;
+    if(isWeather){
+      direction = `${keyword}를 단순한 기상 정보가 아니라, 관측 자료와 발령 기준이 결합된 사회적 판단 사례로 보고 ${concept}와 ${axis} 관점에서 분석한다.`;
+    }else if(isData){
+      direction = `${keyword}를 자료 수집, 변수 설정, 비교 기준, 판단 결과의 흐름으로 나누어 해석하고 ${major}에서 필요한 데이터 기반 사고와 연결한다.`;
+    }else if(isBio){
+      direction = `${keyword}를 생명 현상의 단순 설명이 아니라 원인, 조건, 반응, 결과의 흐름으로 해석하고 ${major} 진로에서 필요한 근거 기반 판단과 연결한다.`;
+    }else if(isEnergy){
+      direction = `${keyword}를 물리적 원리와 실제 시스템의 관계로 보고, 측정값과 조건 변화가 결과에 미치는 영향을 ${major} 관점에서 분석한다.`;
+    }else if(isPolicy){
+      direction = `${keyword}를 사회적 쟁점으로만 보지 않고, 근거 자료와 판단 기준이 정책 또는 의사결정에 어떻게 반영되는지 분석한다.`;
+    }
+
+    const q = [];
+    if(isWeather){
+      q.push(`${keyword}는 어떤 기준으로 판단되며, 그 기준은 실제 위험을 충분히 설명하는가?`);
+      q.push(`기온, 습도, 체감온도처럼 서로 다른 자료를 함께 보면 판단 결과는 어떻게 달라지는가?`);
+      q.push(`같은 ${keyword} 상황이라도 지역, 시간대, 생활환경에 따라 위험도는 어떻게 달라질 수 있는가?`);
+    }else if(isData){
+      q.push(`${keyword}를 판단하기 위해 어떤 자료를 수집하고 어떤 변수를 기준으로 삼아야 하는가?`);
+      q.push(`단일 기준과 복합 기준으로 분석했을 때 결론은 어떻게 달라지는가?`);
+      q.push(`${major} 관점에서 이 문제를 간단한 판단 모델이나 분류 기준으로 표현할 수 있는가?`);
+    }else if(isBio){
+      q.push(`${keyword}와 관련된 생명 현상은 어떤 조건에서 달라지며, 그 원인은 무엇인가?`);
+      q.push(`자료나 사례를 비교했을 때 공통적으로 드러나는 반응 과정 또는 위험 요인은 무엇인가?`);
+      q.push(`${major} 진로에서는 이 탐구 결과를 예방, 진단, 관리, 설명 중 어떤 방향으로 활용할 수 있는가?`);
+    }else if(isEnergy){
+      q.push(`${keyword} 현상을 설명하는 핵심 물리량 또는 조건은 무엇인가?`);
+      q.push(`조건을 바꾸면 측정값이나 결과가 어떻게 달라지는가?`);
+      q.push(`${major} 관점에서 효율, 안정성, 예측 가능성 중 어떤 기준을 중심으로 해석할 수 있는가?`);
+    }else if(isPolicy){
+      q.push(`${keyword}와 관련된 판단 기준은 어떤 근거 자료를 바탕으로 만들어지는가?`);
+      q.push(`서로 다른 이해관계자나 집단에 따라 문제 해석은 어떻게 달라지는가?`);
+      q.push(`${major} 관점에서 자료 기반 판단과 사회적 가치 판단을 어떻게 함께 고려할 수 있는가?`);
+    }else{
+      q.push(`${keyword}는 ${concept} 개념으로 어떻게 설명할 수 있는가?`);
+      q.push(`실제 사례나 자료를 비교하면 어떤 차이와 원인이 드러나는가?`);
+      q.push(`${major} 진로와 연결했을 때 이 주제는 어떤 문제 해결 가능성을 보여주는가?`);
+    }
+
+    const dataPlan = [];
+    if(isWeather){
+      dataPlan.push([`${keyword}의 공식 기준`, "기상청·공공기관 자료", "서론과 교과 개념 연결"]);
+      dataPlan.push(["일별 기온·습도·체감온도 자료", "기상자료개방포털·공공데이터", "본론의 표·그래프 분석"]);
+      dataPlan.push(["지역별 또는 시간대별 차이", "지자체 자료·뉴스·통계", "비교 분석 문단"]);
+      dataPlan.push(["피해 사례 또는 대응 정책", "보도자료·기관 보고서", "결론의 사회적 의미 확장"]);
+    }else if(isData){
+      dataPlan.push(["핵심 현상을 보여주는 원자료", "공공데이터·기관 통계·관찰 자료", "분석 대상 설정"]);
+      dataPlan.push(["비교할 변수 2~3개", "표본 자료·측정값·그래프", "기준 설정과 비교"]);
+      dataPlan.push(["기준을 적용한 결과", "직접 만든 표·그래프", "판단 과정 설명"]);
+      dataPlan.push(["오차·한계 사례", "기사·보고서·추가 통계", "한계와 개선 방향"]);
+    }else{
+      dataPlan.push([`${keyword}의 기본 사례`, "교과서·기관 자료·기사", "탐구 배경 설명"]);
+      dataPlan.push([`${concept}와 연결되는 근거 자료`, "교과서 단원·실험 자료·통계", "교과 개념 설명"]);
+      dataPlan.push(["비교 가능한 사례 2개", "뉴스·논문 요약·공공 자료", "본론 비교 분석"]);
+      dataPlan.push([`${major}와 연결되는 활용 사례`, "학과 소개·진로 자료·산업 사례", "결론과 진로 확장"]);
+    }
+
+    const branch = [
+      `탐구 질문 선택: A안은 기준의 타당성, B안은 자료 비교, C안은 진로 적용 중심으로 선택한다.`,
+      `조사 범위 선택: 지역 1곳을 깊게 볼지, 지역 2~3곳을 비교할지 먼저 정한다.`,
+      `비교 기준 선택: 단일 기준, 복합 기준, 시간 변화, 집단 차이 중 하나를 주된 분석 기준으로 삼는다.`,
+      `결론 방향 선택: 원인 설명형, 기준 개선형, 시스템 제안형, 사회적 대응형 중 하나로 마무리한다.`
+    ];
+
+    const tableText = [
+      "정리 항목 | 학생이 채울 내용 | 보고서 활용 위치",
+      `${keyword}의 기준 또는 정의 | 공식 기준을 직접 적기 | 서론`,
+      `비교 자료 1 | 수치·사례·관찰 내용 입력 | 본론 1`,
+      `비교 자료 2 | 조건이 다른 자료 입력 | 본론 2`,
+      `차이와 원인 | 왜 결과가 달라졌는지 해석 | 본론 3`,
+      `${major} 연결 | 진로 분야에서 이 기준이 왜 필요한지 정리 | 결론`
+    ];
+
+    const outline = [
+      `Ⅰ. 탐구 동기: ${keyword}를 처음 어떻게 보았고, 왜 기준이나 자료로 다시 보게 되었는지 쓴다.`,
+      `Ⅱ. 교과 개념 연결: ${subject}의 ${concept}가 이 주제를 설명하는 데 어떤 역할을 하는지 정리한다.`,
+      `Ⅲ. 자료 수집과 비교: 학생이 직접 찾은 자료를 표나 그래프로 정리하고 차이를 설명한다.`,
+      `Ⅳ. ${major} 관점 해석: ${axis}을 활용해 판단 기준, 시스템, 문제 해결 가능성 중 하나를 분석한다.`,
+      `Ⅴ. 결론과 한계: 내가 세운 기준의 의미와 한계, 추가 탐구 방향을 제시한다.`
+    ];
+
+    const paragraphGuide = [
+      "서론 문단: 주제 소개보다 '왜 이 기준을 다시 보게 되었는가'를 중심으로 쓴다.",
+      "개념 문단: 교과서 정의를 그대로 옮기지 말고, 내가 분석할 자료와 연결되는 개념만 고른다.",
+      "분석 문단: 자료를 나열하지 말고, 비교 기준을 먼저 말한 뒤 표·그래프·사례를 해석한다.",
+      "진로 문단: 학과명을 붙이는 데서 끝내지 말고, 그 분야에서 어떤 판단이나 설계가 필요한지 설명한다.",
+      "결론 문단: 정답을 단정하지 말고, 내가 세운 기준의 장점과 한계를 함께 쓴다."
+    ];
+
+    const templates = [
+      `처음에는 ${keyword}를 ________로만 생각했다. 그러나 자료를 찾아보니 이 주제는 ________을 기준으로 판단되는 문제라는 점을 알게 되었다.`,
+      `${subject}의 ${concept} 개념은 이 탐구에서 ________을 설명하는 데 활용할 수 있다. 특히 내가 비교한 자료에서는 ________ 차이가 드러났다.`,
+      `나는 자료를 정리할 때 ________을 기준으로 삼았다. 그 이유는 이 기준이 ${keyword}의 ________을 더 잘 보여준다고 판단했기 때문이다.`,
+      `${major} 관점에서 이 탐구는 ________와 연결된다. 단순히 사례를 조사한 것이 아니라, 자료를 바탕으로 ________을 판단하는 과정이라는 점에서 의미가 있다.`,
+      `다만 이번 탐구에는 ________라는 한계가 있다. 후속 탐구에서는 ________ 자료를 추가해 기준의 타당성을 더 확인하고 싶다.`
+    ];
+
+    const bookGuide = [
+      `『${bookTitle}』는 보고서의 중심 내용을 대신하는 책 요약 자료가 아니라, 탐구 관점을 넓히는 보조 근거로 사용한다.`,
+      `활용 위치는 ${bookUseText} 부분이 적절하다.`,
+      `본문에서는 책 내용을 길게 소개하지 말고, '${keyword}를 단일 원인으로 보지 않고 여러 조건의 관계로 해석한다'는 관점처럼 한 문장 수준으로 연결한다.`,
+      `도서 연결 문장은 결론 또는 한계 문단에 배치하면 억지 독후감처럼 보이지 않는다.`
+    ];
+
+    const connect = [
+      `교과 개념: ${concept}는 탐구의 설명 기준이다. 교과서 개념을 외운 흔적보다 실제 자료를 해석하는 데 사용한 흔적이 보여야 한다.`,
+      `후속 연계축: ${axis}은 탐구의 분석 방식이다. 자료를 어떤 기준으로 나누고 비교할지 정하는 역할을 한다.`,
+      `진로 연결: ${major}는 결론의 장식이 아니라 문제를 바라보는 관점이다. '${major}에서는 왜 이런 기준이 필요한가'를 한 문단으로 설명한다.`,
+      `선택 구조: ${mode} / ${view} / ${line} 선택값은 보고서의 전개 방식, 해석 관점, 결론 방향을 정하는 기준으로 사용한다.`
+    ];
+
+    const advanced = [
+      `기본형: 자료 2개를 비교해 ${keyword}의 판단 기준을 설명한다.`,
+      `심화형: 자료 3개 이상을 표·그래프로 정리하고, 기준을 바꾸었을 때 결론이 어떻게 달라지는지 비교한다.`,
+      `진로형: ${major} 분야에서 이 기준을 실제 시스템, 정책, 서비스, 실험 설계 중 하나로 어떻게 응용할 수 있는지 제안한다.`,
+      `확장형: 한계 요인을 추가해 '내 기준이 항상 맞는가'를 검토한다.`
+    ];
+
+    const checklist = [
+      "선택한 탐구 질문 1개가 보고서 전체를 관통하는가?",
+      "자료 출처를 최소 2종 이상 확보했는가?",
+      "표나 그래프에 들어갈 수치 또는 사례가 실제로 있는가?",
+      "교과 개념이 정의 설명에서 끝나지 않고 자료 해석에 쓰였는가?",
+      "선택 도서가 독후감처럼 길게 들어가지 않았는가?",
+      "진로 연결이 학과명 나열이 아니라 판단 기준 또는 문제 해결 방식으로 드러나는가?",
+      "결론에 한계와 후속 탐구가 포함되어 있는가?"
     ];
 
     const sections = [
-      {title:"보고서 제목", body:topic},
-      {title:"중요성", body:`${problemContext} 따라서 이 보고서는 ${keyword}를 ${concept}의 교과 개념에서 출발해 ${axis}으로 확장하고, ${major} 관점에서 자료를 해석하는 방식으로 구성한다. 이 과정은 단순 설명형 보고서보다 학생의 개념 이해, 자료 해석력, 진로 연결성을 함께 보여줄 수 있다.`},
-      {title:"탐구 주제", body:inquiryTopic},
-      {title:"탐구 동기", body:`평소 ${keyword}가 실제 생활이나 사회 문제에서 어떻게 판단 기준으로 쓰이는지 궁금했다. 특히 ${subject}에서 배운 ${concept}이 단순 개념 암기가 아니라 실제 자료 해석과 연결될 수 있다는 점에 주목했다. 그래서 이 주제를 통해 ${major} 진로와 연결되는 탐구 흐름을 만들고자 했다.`},
-      {title:"관련 키워드", body:`핵심 키워드는 ${keyword}, ${concept}, ${axis}, 자료 수집, 비교 기준, 판단 근거, 한계 분석이다. 이 키워드들은 개념 설명, 실제 사례 해석, 문제 해결 과정, 진로 확장 문단으로 나누어 보고서 전체의 흐름을 만든다.`},
-      {title:"이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?", body:`${concept}은 ${subject}에서 배운 내용을 실제 문제와 연결하는 핵심 개념이다. ${keyword}를 이 개념으로 해석하면 학생이 단순히 사례를 조사한 것이 아니라, 교과 지식을 사용해 문제를 구조화하고 판단 기준을 세웠다는 점이 드러난다. 이는 생기부에서 교과 이해도, 자료 해석력, 진로 연계 탐구 역량으로 기록될 수 있다.`},
-      {title:"이 개념이 무엇이며 어떤 원리인가?", body:`${principle} ${axis}은 이 개념을 다음 과목이나 심화 탐구로 확장하는 연결축이다. 따라서 보고서에서는 정의를 길게 나열하기보다, 실제 사례에서 어떤 변수와 조건을 보아야 하는지 설명하는 방식으로 원리를 정리한다.`},
-      {title:"어떤 문제를 해결할 수 있고, 왜 중요한가?", body:`이 탐구는 ${keyword}와 관련된 현상을 더 정확하게 판단하는 문제와 연결된다. 특히 자료가 많아도 기준이 없으면 결론이 모호해질 수 있으므로, ${axis} 관점에서 기준을 세우는 것이 중요하다. 이런 방식은 ${major} 분야에서 문제를 분석하고 해결 방안을 설계하는 기본 사고 과정과도 이어진다.`},
-      {title:"실제 적용 및 문제 해결 과정", body:process.join("\n")},
-      {title:"교과목 연계 및 이론적 설명", body:`현재 과목인 ${subject}에서는 ${concept}을 통해 기본 원리를 정리한다. 이후 ${axis} 흐름으로 확장하면 수학적 자료 해석, 과학적 측정, 정보 처리, 시각화 활동과 연결할 수 있다. 이때 ${major} 진로는 단순 배경이 아니라 자료를 어떻게 해석하고 어떤 기준으로 판단할지 정하는 관점으로 작용한다.`},
-      {title:"선택 도서 활용", body:`선택 도서 『${bookTitle}』는 보고서의 중심을 독후감으로 바꾸기 위한 자료가 아니라, 탐구 관점을 넓히는 참고 근거로 활용한다. 이 책은 ${bookUseText} 위치에 배치하는 것이 적절하다. 따라서 본문에서는 도서 내용을 길게 요약하기보다, ${keyword}를 해석하는 기준이나 한계 논의, 결론 확장 부분에서 짧게 연결한다.`},
-      {title:"심화 탐구 발전 방안", body:`후속 탐구에서는 ${keyword}와 관련된 사례를 2개 이상 비교하거나, 시간·지역·조건별 차이를 표나 그래프로 정리할 수 있다. 또한 ${axis} 관점에서 판단 기준을 직접 설정하고, 그 기준이 실제 문제 해결에 충분한지 검토하면 심화성이 높아진다. 마지막으로 ${major} 분야에서 이 문제가 어떻게 응용될 수 있는지 한계와 개선 방향까지 제시할 수 있다.`},
-      {title:"느낀점", body:`이번 탐구를 통해 교과 개념은 교과서 안에서만 의미를 갖는 것이 아니라 실제 자료와 사례를 해석하는 기준이 될 수 있음을 알게 되었다. 특히 ${keyword}를 ${axis}으로 바라보니, 같은 현상도 어떤 기준을 세우느냐에 따라 결론이 달라질 수 있다는 점을 이해했다. 앞으로도 진로와 연결되는 문제를 단순 조사보다 근거 기반 분석으로 확장하고 싶다.`},
-      {title:"세특 문구 예시", body:`${subject}의 ${concept} 개념을 바탕으로 ${keyword}를 탐구하며, 실제 사례와 자료를 ${axis} 관점에서 해석하려는 모습을 보임. 선택 도서와 기관 자료를 단순 요약하지 않고 비교 기준과 한계 논의에 활용하며, ${major} 진로와 연결해 문제 해결 가능성을 구체화함.`},
-      {title:"참고문헌 및 자료", body:`선택 도서: 『${bookTitle}』. 추가 자료는 관련 기관 통계, 공공 데이터, 기사 자료, 그래프 자료, 교과서의 ${concept} 단원을 활용한다. 보고서에서는 출처별 역할을 구분해 도서는 관점 확장, 기관 자료는 근거, 그래프는 분석 자료로 배치한다.`}
+      {title:"설계서 제목", body:title},
+      {title:"선택 기반 탐구 경로 요약", body:`과목은 ${subject}, 희망 진로는 ${major}, 교과 개념은 ${concept}, 추천 키워드는 ${keyword}, 후속 연계축은 ${axis}이다. 이 설계서는 완성 보고서를 대신 제공하는 것이 아니라, 학생이 직접 자료를 찾고 비교 기준을 세워 자기 보고서로 완성하도록 안내한다. 적용 패턴은 ${patternName}이며, 선택 도서 『${bookTitle}』는 관점 확장 자료로만 사용한다.`},
+      {title:"최종 추천 탐구 방향", body:direction},
+      {title:"학생이 선택할 탐구 질문 3개", body:q.map((v,i)=>`${String.fromCharCode(65+i)}안. ${v}`).join("\n") + "\n\n권장: 세 질문 중 1개만 최종 질문으로 고른 뒤, 나머지는 비교 관점이나 한계 문단에 보조적으로 사용한다."},
+      {title:"개인화 분기 선택지", body:branch.join("\n")},
+      {title:"실제 조사 자료와 출처 계획", body:dataPlan.map(row=>`- ${row[0]}: ${row[1]}에서 찾고, ${row[2]}에 사용한다.`).join("\n")},
+      {title:"자료 정리 표 양식", body:tableText.join("\n")},
+      {title:"보고서 목차 설계", body:outline.join("\n")},
+      {title:"문단별 작성 가이드", body:paragraphGuide.join("\n")},
+      {title:"학생이 직접 채워 쓸 문장 시작 틀", body:templates.join("\n")},
+      {title:"선택 도서 활용 방식", body:bookGuide.join("\n")},
+      {title:"교과 개념·진로 연결 포인트", body:connect.join("\n")},
+      {title:"심화 확장 방향", body:advanced.join("\n")},
+      {title:"제출 전 체크리스트", body:checklist.map(v=>`□ ${v}`).join("\n")}
     ];
 
     const text = sections.map((sec, idx) => `${idx + 1}. ${sec.title}\n${sec.body}`).join("\n\n");
     return {
       text,
-      title: topic,
-      source: "worker-json-normalized",
-      note: "기존 Worker가 완성 본문 문자열이 아니라 구조 JSON을 반환해, 응답의 resolved/patternRule과 MINI payload를 결합해 제출형 보고서로 정리했습니다.",
-      diagnostics: { patternName, referenceReports: refs, mode, view, line }
+      title,
+      source: "payload-blueprint-normalized",
+      note: "완성 보고서가 아니라 학생 실행형 탐구 설계서로 재구성했습니다.",
+      diagnostics: { patternName, mode, view, line, productMode: "student_research_blueprint" }
     };
   }
 
@@ -642,34 +771,108 @@
   }
 
   function extractGeneratedText(data, req){
-    const direct = normalizeGeneratedCandidate(data);
-    if(direct && !looksLikeRawJsonText(direct)){
-      return { text: direct, source: "worker-generated-text", fallback: false };
-    }
+    // v40부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮은
+    // 학생 실행형 탐구 설계서를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
 
-  function splitSections(text){
-    const raw = String(text || "").trim();
-    if(!raw) return [];
-    const lines = raw.split(/\n+/).map(v => v.trim()).filter(Boolean);
-    const out = [];
-    let current = null;
-    const titleRegex = /^(\d{1,2}[.)]\s*)?(.{1,45}?)(?:\s*[:：])$/;
-    const numberedRegex = /^(\d{1,2}[.)]\s+)(.+)$/;
+  const KNOWN_SECTION_TITLES = [
+    "설계서 제목",
+    "선택 기반 탐구 경로 요약",
+    "최종 추천 탐구 방향",
+    "학생이 선택할 탐구 질문 3개",
+    "개인화 분기 선택지",
+    "실제 조사 자료와 출처 계획",
+    "자료 정리 표 양식",
+    "보고서 목차 설계",
+    "문단별 작성 가이드",
+    "학생이 직접 채워 쓸 문장 시작 틀",
+    "선택 도서 활용 방식",
+    "교과 개념·진로 연결 포인트",
+    "심화 확장 방향",
+    "제출 전 체크리스트",
+    "보고서 제목",
+    "중요성",
+    "탐구 주제",
+    "탐구 동기",
+    "관련 키워드",
+    "이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?",
+    "이 개념이 무엇이며 어떤 원리인가?",
+    "어떤 문제를 해결할 수 있고, 왜 중요한가?",
+    "실제 적용 및 문제 해결 과정",
+    "교과목 연계 및 이론적 설명",
+    "선택 도서 활용",
+    "심화 탐구 발전 방안",
+    "느낀점",
+    "느낀 점",
+    "세특 문구 예시",
+    "참고문헌 및 자료"
+  ];
 
-    lines.forEach(line => {
-      if(numberedRegex.test(line) || titleRegex.test(line)){
-        if(current) out.push(current);
-        current = { title: line.replace(/^\d{1,2}[.)]\s*/, ""), body: "" };
-      }else if(current){
-        current.body += (current.body ? "\n" : "") + line;
-      }else{
-        current = { title: "보고서 내용", body: line };
+  function escapeRegex(value){
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function splitInlineHeading(value){
+    const raw = String(value || "").trim().replace(/[:：]$/, "");
+    for(const title of KNOWN_SECTION_TITLES){
+      if(raw === title) return { title, body: "" };
+      if(raw.startsWith(title + " ")){
+        return { title, body: raw.slice(title.length).trim() };
       }
+    }
+    return { title: raw, body: "" };
+  }
+
+  function splitSections(text){
+    const raw0 = String(text || "")
+      .replace(/\r\n/g, "\n")
+      .replace(/\r/g, "\n")
+      .trim();
+    if(!raw0) return [];
+
+    const headingAlternation = KNOWN_SECTION_TITLES.map(escapeRegex).join("|");
+    const raw = raw0
+      .replace(new RegExp("\\s+(?=\\d{1,2}[.)]\\s*(?:" + headingAlternation + "))", "g"), "\n")
+      .replace(new RegExp("(?<!^)\\s+(?=(?:" + headingAlternation + ")\\s)", "g"), "\n");
+
+    const blocks = raw.split(/\n(?=\d{1,2}[.)]\s*)/).map(v => v.trim()).filter(Boolean);
+    const out = [];
+
+    blocks.forEach(block => {
+      const lines = block.split(/\n+/).map(v => v.trim()).filter(Boolean);
+      if(!lines.length) return;
+      const first = lines.shift();
+      const numbered = first.match(/^\d{1,2}[.)]\s*(.+)$/);
+      const head = splitInlineHeading(numbered ? numbered[1] : first);
+      let body = [head.body].concat(lines).filter(Boolean).join("\n").trim();
+      let title = head.title.trim();
+      if(!title && body){ title = "보고서 내용"; }
+      out.push({ title: title || "보고서 내용", body });
     });
-    if(current) out.push(current);
+
+    if(out.length <= 1){
+      const lines = raw.split(/\n+/).map(v => v.trim()).filter(Boolean);
+      const rebuilt = [];
+      let current = null;
+      lines.forEach(line => {
+        const numbered = line.match(/^\d{1,2}[.)]\s*(.+)$/);
+        const maybe = splitInlineHeading(numbered ? numbered[1] : line);
+        const isHeading = !!numbered || KNOWN_SECTION_TITLES.includes(maybe.title);
+        if(isHeading){
+          if(current) rebuilt.push(current);
+          current = { title: maybe.title, body: maybe.body || "" };
+        }else if(current){
+          current.body += (current.body ? "\n" : "") + line;
+        }else{
+          current = { title: "보고서 내용", body: line };
+        }
+      });
+      if(current) rebuilt.push(current);
+      if(rebuilt.length > out.length) return rebuilt;
+    }
+
     return out;
   }
 
@@ -725,7 +928,7 @@
     const sections = dedupeSections(splitSections(sanitizedText));
     const s = req.mini_payload?.selectionPayload || {};
     const book = req.selectedBook || {};
-    const titleSection = sections.find(sec => /^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)));
+    const titleSection = sections.find(sec => /^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)));
     const reportTitle = firstNonEmpty(
       titleSection?.body?.split(/\n/)[0],
       extraction?.title,
@@ -733,7 +936,7 @@
     );
 
     const displaySections = sections
-      .filter(sec => !/^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)))
+      .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
       .map(sec => {
         const title = normalizeSectionTitle(sec.title);
         const cleanTitle = title === "추천 주제" ? "탐구 주제" : (title === "느낀점" ? "느낀 점" : title);
@@ -747,6 +950,7 @@
       </article>
     `).join("") : `<article class="mini-v32-section"><p>${nl2br(text)}</p></article>`;
 
+    root.style.display = "block";
     root.innerHTML = `
       <style>
         .mini-v32-result{border:1px solid #b8cdfd;border-radius:18px;background:#fff;padding:22px;margin-top:18px;box-shadow:0 12px 28px rgba(50,87,180,.08)}
@@ -768,12 +972,12 @@
       <section class="mini-v32-result">
         <div class="mini-v32-head">
           <div>
-            <div class="mini-v32-kicker">학생 제출형 탐구보고서</div>
+            <div class="mini-v32-kicker">학생 실행형 탐구 설계서</div>
             <h2 class="mini-v32-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v32-sub">선택한 교과 개념·추천 키워드·후속 연계축·도서를 반영해 정리한 보고서 초안입니다.</p>
+            <p class="mini-v32-sub">선택한 교과 개념·추천 키워드·후속 연계축·도서를 바탕으로 학생이 직접 조사·분석·작성할 수 있게 정리한 실행 가이드입니다.</p>
           </div>
           <div class="mini-v32-actions">
-            <button type="button" id="miniV32CopyReportBtn" class="primary">보고서 복사</button>
+            <button type="button" id="miniV32CopyReportBtn" class="primary">설계서 복사</button>
           </div>
         </div>
 
@@ -794,10 +998,16 @@
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(sanitizedText));
 
+    const builtInStudentReport = $("studentReport");
+    if(builtInStudentReport) builtInStudentReport.innerHTML = "";
+    hideBuiltInResultShell();
+    setTimeout(hideBuiltInResultShell, 0);
+    setTimeout(hideBuiltInResultShell, 80);
+
     const finalTopic = $("finalTopic");
     if(finalTopic) finalTopic.textContent = reportTitle;
     const topicSub = $("topicSub");
-    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 보고서 결과입니다.";
+    if(topicSub) topicSub.textContent = "선택한 교과 개념·키워드·후속 연계축·도서가 반영된 탐구 설계 결과입니다.";
     const finalMode = $("finalMode");
     if(finalMode) finalMode.style.display = "none";
     const actionSteps = $("actionSteps");
@@ -839,7 +1049,7 @@
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
-      showError("보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
+      showError("설계서 생성 중 오류가 발생했습니다.", e.message || String(e));
       return false;
     }finally{
       setLoading(false);
@@ -851,13 +1061,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v37 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV38Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v40 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV40Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV38Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v38";
+    btn.dataset.miniWorkerV40Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v40";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
