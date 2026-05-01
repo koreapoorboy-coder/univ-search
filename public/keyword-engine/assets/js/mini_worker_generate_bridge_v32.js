@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v44-major-concept-book-bridge";
+  const VERSION = "mini-worker-generate-bridge-v45-book-specific-connection";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -674,6 +674,54 @@
     return rows;
   }
 
+
+  function deriveBookGuide(bookTitle, keyword, concept, axis, lens){
+    const title = cleanDisplayText(bookTitle || "선택 도서");
+    const hay = `${title} ${keyword} ${concept} ${axis} ${(lens?.keywords || []).join(" ")}`;
+    let guide = {
+      reason: `『${title}』는 보고서 분량을 채우기 위한 책이 아니라, ${keyword}를 한 가지 기준만으로 판단하면 부족하다는 점을 설명하는 근거로 사용한다.`,
+      content: `책에서 연결할 부분은 ‘하나의 현상을 여러 조건과 관계 속에서 보아야 한다’는 관점이다.`,
+      position: `서론 마지막 또는 결론 첫 문단에 2~3문장만 넣는다. 책 요약은 길게 쓰지 않는다.`,
+      sentence: `『${title}』를 읽고 하나의 기준만으로 전체 상황을 판단하기 어렵다는 점에 주목했다. 그래서 이번 탐구에서는 ${keyword}를 ${axis} 관점에서 여러 자료로 나누어 비교했다.`,
+      caution: `책의 줄거리를 요약하지 말고, 내 탐구 기준을 왜 이렇게 세웠는지 설명하는 근거로만 사용한다.`
+    };
+
+    if(/부분과\s*전체|part\s*and\s*whole|하이젠베르크/i.test(hay)){
+      guide = {
+        reason: `『부분과 전체』를 넣는 이유는 ‘부분 자료 하나만으로 전체 현상을 판단하기 어렵다’는 관점을 세우기 위해서다. 폭염주의보도 기온 하나만 보면 단순하지만, 습도·체감온도·지속 시간·피해 사례까지 함께 보아야 판단 기준이 더 설득력 있어진다.`,
+        content: `연결되는 책 내용은 하이젠베르크가 과학을 단순 공식 암기가 아니라, 관찰·측정·해석의 관계 속에서 이해해야 한다고 말하는 부분이다. 즉 하나의 측정값보다 그 값이 놓인 조건과 전체 맥락을 함께 보는 태도와 연결된다.`,
+        position: `보고서에서는 서론 끝에 “왜 한 가지 기준만으로 판단하면 부족한가”를 설명할 때 넣거나, 결론에서 “내 기준의 한계와 보완점”을 말할 때 넣는다.`,
+        sentence: `『부분과 전체』에서 과학적 판단은 하나의 값만 보는 것이 아니라 관찰 조건과 전체 관계 속에서 이루어진다는 점에 주목했다. 그래서 이번 탐구에서는 ${keyword}를 기온 하나가 아니라 습도·체감온도·지속 시간 같은 여러 입력값을 함께 고려해 판단해 보았다.`,
+        caution: `이 책을 독후감처럼 길게 요약하면 안 된다. “부분 자료 → 전체 판단”이라는 관점만 뽑아 내 탐구의 기준 설정 이유와 연결한다.`
+      };
+    }else if(/침묵의\s*봄|silent\s*spring|레이첼/i.test(hay)){
+      guide = {
+        reason: `『침묵의 봄』은 한 가지 물질이나 사건이 생태계 전체에 어떤 영향을 줄 수 있는지 보여주는 책이다. 그래서 ${keyword}를 단일 현상이 아니라 주변 조건과 장기적 영향까지 함께 보는 근거로 사용할 수 있다.`,
+        content: `연결되는 책 내용은 환경 문제를 눈앞의 결과만이 아니라 생물·토양·물·인간 생활이 이어진 전체 영향으로 보아야 한다는 부분이다.`,
+        position: `본론에서 피해 사례나 영향 범위를 설명한 뒤, 결론에서 “단일 기준보다 누적 영향과 관계를 함께 봐야 한다”는 근거로 짧게 사용한다.`,
+        sentence: `『침묵의 봄』을 통해 한 가지 환경 변화가 여러 대상에게 연쇄적으로 영향을 줄 수 있음을 알게 되었다. 그래서 이번 탐구에서도 ${keyword}를 단일 수치보다 관련 조건과 영향 범위를 함께 비교해 보았다.`,
+        caution: `책의 역사적 배경을 길게 쓰기보다, 내 탐구가 왜 여러 조건을 함께 보려는지 설명하는 근거로 사용한다.`
+      };
+    }else if(/이기적\s*유전자|selfish\s*gene|도킨스/i.test(hay)){
+      guide = {
+        reason: `『이기적 유전자』는 생명 현상을 겉으로 보이는 결과가 아니라 정보와 선택의 관점에서 해석하게 해 주는 책이다. 그래서 ${keyword}를 단순 현상이 아니라 조건에 따라 달라지는 결과로 분석할 때 사용할 수 있다.`,
+        content: `연결되는 책 내용은 생명 현상을 개체의 의도보다 유전 정보, 선택 압력, 환경 조건의 관계로 설명하는 부분이다.`,
+        position: `교과 개념을 설명한 뒤, 특정 현상을 어떤 기준으로 해석할 것인지 밝히는 문단에 사용한다.`,
+        sentence: `『이기적 유전자』를 읽으며 생명 현상은 겉으로 보이는 결과보다 그 결과를 만든 정보와 조건을 함께 보아야 한다는 점에 주목했다. 그래서 이번 탐구에서는 ${keyword}를 조건 변화와 결과 차이의 관계로 정리했다.`,
+        caution: `책 내용을 생명과학 지식 자랑처럼 쓰지 말고, 탐구에서 사용할 해석 기준 하나만 가져온다.`
+      };
+    }else if(/엔트로피|entropy|리프킨/i.test(hay)){
+      guide = {
+        reason: `『엔트로피』는 에너지와 사회 시스템을 연결해 생각하게 해 주는 책이다. 그래서 ${keyword}를 단순 과학 개념이 아니라 효율·손실·한계가 있는 시스템으로 볼 때 사용할 수 있다.`,
+        content: `연결되는 책 내용은 어떤 시스템도 에너지를 쓰는 과정에서 손실과 한계를 가진다는 관점이다.`,
+        position: `결론에서 내가 세운 기준의 한계, 또는 더 효율적인 개선 방향을 제안할 때 짧게 넣는다.`,
+        sentence: `『엔트로피』를 통해 시스템은 항상 효율과 손실, 한계를 함께 가진다는 점을 생각하게 되었다. 그래서 이번 탐구에서는 ${keyword}를 결과만 보지 않고 조건과 한계까지 함께 비교했다.`,
+        caution: `책의 철학적 내용을 길게 설명하지 말고, 효율·손실·한계라는 기준만 탐구에 연결한다.`
+      };
+    }
+    return guide;
+  }
+
   function buildStudentReportFromPayload(req, rawData){
     const s = req?.mini_payload?.selectionPayload || {};
     const resolved = getWorkerResolved(rawData);
@@ -694,6 +742,7 @@
 
     const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
     const lens = deriveMajorLens(major, majorContext, allText);
+    const bookGuide = deriveBookGuide(bookTitle, keyword, concept, axis, lens);
     const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
     const isComputer = /컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(`${major} ${lens.keywords.join(" ")}`);
     const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
@@ -795,12 +844,13 @@
         `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 넣어 기준을 보완하고 싶다.`
       ].join("\n")},
       {title:"도서·전공 개념 연결", body:[
-        `도서를 넣는 이유: 『${bookTitle}』는 독후감용이 아니라, 하나의 수치만 보지 않고 여러 조건의 관계를 함께 보게 해 주는 해석 렌즈로 사용한다.`,
-        `도서를 쓰는 위치: 서론 끝이나 결론 앞에서 ‘왜 단일 기준보다 관계와 조건을 함께 봐야 하는가’를 설명할 때 짧게 넣는다.`,
-        `도서 연결 문장: 하나의 부분 자료만으로 전체 위험을 판단하기 어렵기 때문에, 기온·습도·체감온도처럼 여러 조건의 관계를 함께 보아야 한다.`,
+        `이 책을 쓰는 이유: ${bookGuide.reason}`,
+        `연결되는 책 내용: ${bookGuide.content}`,
+        `보고서에 넣는 위치: ${bookGuide.position}`,
+        `도서 연결 문장: ${bookGuide.sentence}`,
         `전공 개념 연결: ${majorConnect}`,
         `보고서에 쓰는 말: 이 탐구에서는 ${axis}을 자료를 나누는 기준으로 삼고, 입력값·조건·판단 결과·오류 가능성을 순서대로 비교한다.`,
-        `주의: “${major}에 관심이 있어서”라고 쓰기보다, 전공에서 배우는 개념을 실제 자료 분석에 사용했다는 점을 보여준다.`
+        `학생이 쓸 때 주의: ${bookGuide.caution}`
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 중심 질문을 하나만 골랐는가?",
@@ -841,7 +891,7 @@
   }
 
   function extractGeneratedText(data, req){
-    // v44부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮고 도서·전공 개념 연결이 보이는
+    // v45부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮고 도서별 연결 내용이 보이는
     // 학생용 탐구 실행 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
@@ -1019,7 +1069,7 @@
     const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
     return lines.map(line => {
       if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
-      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|도서를 넣는 이유|도서를 쓰는 위치|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|주의)/.test(line)){
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|이 책을 쓰는 이유|연결되는 책 내용|보고서에 넣는 위치|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
         const parts = line.split(":");
         const label = parts.shift();
         return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
@@ -1221,13 +1271,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v44 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV44Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v45 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV45Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV44Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v44";
+    btn.dataset.miniWorkerV45Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v45";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
