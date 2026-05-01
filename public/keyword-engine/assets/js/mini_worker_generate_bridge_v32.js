@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v37-force-clean-rebind";
+  const VERSION = "mini-worker-generate-bridge-v38-clean-axis-and-topic-quality";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -464,6 +464,23 @@
     return "";
   }
 
+
+  function cleanDisplayText(value){
+    return String(value || "")
+      .replace(/\b[a-z][a-z0-9-]*(?:_[a-z0-9-]+)+\b/gi, " ")
+      .replace(/\b(?:physics|chemistry|biology|earth|science|math|data|subject|career|report|followup|axis|keyword|concept)\b/gi, " ")
+      .replace(/\s{2,}/g, " ")
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .trim();
+  }
+
+  function cleanReportText(value){
+    return cleanDisplayText(value)
+      .replace(/MINI|payload|Worker/gi, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  }
+
   function normalizeGeneratedCandidate(value){
     if(value == null) return "";
     if(typeof value === "string"){
@@ -555,8 +572,8 @@
     const major = firstNonEmpty(s.department, req.career, resolved.major, resolved.track, "선택 학과");
     const concept = firstNonEmpty(s.selectedConcept, req.selectedConcept, "선택 교과 개념");
     const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
-    const axisRaw = firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축");
-    const axis = compactAxis(axisRaw);
+    const axisRaw = cleanDisplayText(firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축"));
+    const axis = cleanDisplayText(compactAxis(axisRaw));
     const mode = firstNonEmpty(choices.mode, s.reportMode, "보고서 전개 방식");
     const view = firstNonEmpty(choices.view, s.reportView, "보고서 관점");
     const line = firstNonEmpty(choices.line, s.reportLine, "보고서 라인");
@@ -568,7 +585,8 @@
       Array.isArray(bookUse.reportRoleLabels) ? bookUse.reportRoleLabels.join(", ") : "",
       "근거 프레임과 비교 관점으로 활용"
     );
-    const topic = buildReportTitle(req, rawData);
+    const topic = cleanDisplayText(buildReportTitle(req, rawData));
+    const inquiryTopic = cleanDisplayText(`${keyword}를 ${concept} 개념으로 해석하고 ${axis} 관점에서 ${major} 분야의 판단 기준과 연결하기`);
 
     const problemContext = /폭염|기후|재난|주의보|대기|환경/.test(keyword + axisRaw)
       ? "일상에서 접하는 기상 정보와 경보 기준은 단순한 안내 문구가 아니라, 관측 자료와 판단 기준이 결합된 사회적 의사결정 결과이다."
@@ -590,14 +608,14 @@
     const sections = [
       {title:"보고서 제목", body:topic},
       {title:"중요성", body:`${problemContext} 따라서 이 보고서는 ${keyword}를 ${concept}의 교과 개념에서 출발해 ${axis}으로 확장하고, ${major} 관점에서 자료를 해석하는 방식으로 구성한다. 이 과정은 단순 설명형 보고서보다 학생의 개념 이해, 자료 해석력, 진로 연결성을 함께 보여줄 수 있다.`},
-      {title:"탐구 주제", body:topic},
+      {title:"탐구 주제", body:inquiryTopic},
       {title:"탐구 동기", body:`평소 ${keyword}가 실제 생활이나 사회 문제에서 어떻게 판단 기준으로 쓰이는지 궁금했다. 특히 ${subject}에서 배운 ${concept}이 단순 개념 암기가 아니라 실제 자료 해석과 연결될 수 있다는 점에 주목했다. 그래서 이 주제를 통해 ${major} 진로와 연결되는 탐구 흐름을 만들고자 했다.`},
       {title:"관련 키워드", body:`핵심 키워드는 ${keyword}, ${concept}, ${axis}, 자료 수집, 비교 기준, 판단 근거, 한계 분석이다. 이 키워드들은 개념 설명, 실제 사례 해석, 문제 해결 과정, 진로 확장 문단으로 나누어 보고서 전체의 흐름을 만든다.`},
       {title:"이 개념을 왜 알아야 하며, 생기부와 어떻게 연결되는가?", body:`${concept}은 ${subject}에서 배운 내용을 실제 문제와 연결하는 핵심 개념이다. ${keyword}를 이 개념으로 해석하면 학생이 단순히 사례를 조사한 것이 아니라, 교과 지식을 사용해 문제를 구조화하고 판단 기준을 세웠다는 점이 드러난다. 이는 생기부에서 교과 이해도, 자료 해석력, 진로 연계 탐구 역량으로 기록될 수 있다.`},
       {title:"이 개념이 무엇이며 어떤 원리인가?", body:`${principle} ${axis}은 이 개념을 다음 과목이나 심화 탐구로 확장하는 연결축이다. 따라서 보고서에서는 정의를 길게 나열하기보다, 실제 사례에서 어떤 변수와 조건을 보아야 하는지 설명하는 방식으로 원리를 정리한다.`},
       {title:"어떤 문제를 해결할 수 있고, 왜 중요한가?", body:`이 탐구는 ${keyword}와 관련된 현상을 더 정확하게 판단하는 문제와 연결된다. 특히 자료가 많아도 기준이 없으면 결론이 모호해질 수 있으므로, ${axis} 관점에서 기준을 세우는 것이 중요하다. 이런 방식은 ${major} 분야에서 문제를 분석하고 해결 방안을 설계하는 기본 사고 과정과도 이어진다.`},
       {title:"실제 적용 및 문제 해결 과정", body:process.join("\n")},
-      {title:"교과목 연계 및 이론적 설명", body:`현재 과목인 ${subject}에서는 ${concept}을 통해 기본 원리를 정리한다. 이후 ${axisRaw} 흐름으로 확장하면 수학적 자료 해석, 과학적 측정, 정보 처리, 시각화 활동과 연결할 수 있다. 이때 ${major} 진로는 단순 배경이 아니라 자료를 어떻게 해석하고 어떤 기준으로 판단할지 정하는 관점으로 작용한다.`},
+      {title:"교과목 연계 및 이론적 설명", body:`현재 과목인 ${subject}에서는 ${concept}을 통해 기본 원리를 정리한다. 이후 ${axis} 흐름으로 확장하면 수학적 자료 해석, 과학적 측정, 정보 처리, 시각화 활동과 연결할 수 있다. 이때 ${major} 진로는 단순 배경이 아니라 자료를 어떻게 해석하고 어떤 기준으로 판단할지 정하는 관점으로 작용한다.`},
       {title:"선택 도서 활용", body:`선택 도서 『${bookTitle}』는 보고서의 중심을 독후감으로 바꾸기 위한 자료가 아니라, 탐구 관점을 넓히는 참고 근거로 활용한다. 이 책은 ${bookUseText} 위치에 배치하는 것이 적절하다. 따라서 본문에서는 도서 내용을 길게 요약하기보다, ${keyword}를 해석하는 기준이나 한계 논의, 결론 확장 부분에서 짧게 연결한다.`},
       {title:"심화 탐구 발전 방안", body:`후속 탐구에서는 ${keyword}와 관련된 사례를 2개 이상 비교하거나, 시간·지역·조건별 차이를 표나 그래프로 정리할 수 있다. 또한 ${axis} 관점에서 판단 기준을 직접 설정하고, 그 기준이 실제 문제 해결에 충분한지 검토하면 심화성이 높아진다. 마지막으로 ${major} 분야에서 이 문제가 어떻게 응용될 수 있는지 한계와 개선 방향까지 제시할 수 있다.`},
       {title:"느낀점", body:`이번 탐구를 통해 교과 개념은 교과서 안에서만 의미를 갖는 것이 아니라 실제 자료와 사례를 해석하는 기준이 될 수 있음을 알게 되었다. 특히 ${keyword}를 ${axis}으로 바라보니, 같은 현상도 어떤 기준을 세우느냐에 따라 결론이 달라질 수 있다는 점을 이해했다. 앞으로도 진로와 연결되는 문제를 단순 조사보다 근거 기반 분석으로 확장하고 싶다.`},
@@ -703,7 +721,8 @@
   function renderGeneratedReport(text, req, rawData, extraction){
     hideBuiltInResultShell();
     const root = ensureResultRoot();
-    const sections = dedupeSections(splitSections(text));
+    const sanitizedText = cleanReportText(text);
+    const sections = dedupeSections(splitSections(sanitizedText));
     const s = req.mini_payload?.selectionPayload || {};
     const book = req.selectedBook || {};
     const titleSection = sections.find(sec => /^보고서\s*제목$/.test(normalizeSectionTitle(sec.title)));
@@ -773,7 +792,7 @@
       </section>
     `;
 
-    $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(text));
+    $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(sanitizedText));
 
     const finalTopic = $("finalTopic");
     if(finalTopic) finalTopic.textContent = reportTitle;
@@ -833,12 +852,12 @@
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v37 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV37Bound === "1") return;
+    if(btn.dataset.miniWorkerV38Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV37Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v37";
+    btn.dataset.miniWorkerV38Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v38";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
