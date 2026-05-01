@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v48-report-assembly-map";
+  const VERSION = "mini-worker-generate-bridge-v49-curriculum-concept-insertion";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -774,6 +774,8 @@
     ];
     let majorConnect = `전공 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 배우는 핵심 개념을 자료 해석 기준으로 사용하는 것이다.`;
     let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
+    let conceptUse = `${concept}에서 배운 핵심 말을 먼저 쉬운 말로 바꾸고, 내가 찾은 자료를 어떤 기준으로 해석할지 연결한다.`;
+    let conceptExample = `${concept} 개념을 통해 자료를 단순한 정보가 아니라 판단 근거로 해석할 수 있다.`;
 
     if(isWeather && isComputer){
       title = `${keyword}, 기온 하나만 보고 판단해도 될까?`;
@@ -798,6 +800,8 @@
       ];
       majorConnect = "전공 연결은 컴퓨터공학과를 희망한다는 말이 아니라, 입력값을 정하고 조건문으로 판단하며 결과의 오류를 검증하는 구조를 보여주는 것이다.";
       conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
+      conceptUse = "교과에서 배운 '측정값은 사회적 판단에 쓰일 수 있다'는 내용을 먼저 쓰고, 기온·습도·체감온도를 폭염 판단 기준으로 해석한다고 연결한다.";
+      conceptExample = "예: 기온은 숫자 자료이지만, 사회에서는 폭염주의보를 내릴지 판단하는 기준이 된다. 그래서 이 탐구에서는 기온 하나가 아니라 습도·체감온도·지속 시간을 함께 보며 판단 기준을 세운다.";
     }else if(isBio){
       title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
       goal = `${keyword}와 관련된 원인·조건·영향을 자료로 찾아보고, 어떤 근거가 설명에 필요한지 정리한다.`;
@@ -850,7 +854,7 @@
     const paragraphRows = [
       ["문단", "역할", "학생이 실제로 채울 내용"],
       ["1. 문제 제기", "왜 이 주제를 보는지 밝히기", "내가 바꾼 질문과 궁금해진 이유"],
-      ["2. 교과 개념", "교과와 연결하기", `${concept} 개념이 자료 판단에 쓰이는 방식`],
+      ["2. 교과 개념", "자료를 읽는 기준 만들기", conceptUse],
       ["3. 자료 분석", "근거 보여주기", "공식 기준·실제 자료·비교 자료를 표로 정리"],
       ["4. 전공 개념", "분석 방법 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증" : lens.process],
       ["5. 결론", "내 기준 완성하기", "장점·한계·다음에 더 볼 자료"]
@@ -864,7 +868,8 @@
       {title:"4단계. 문단별로 조립하기", body:paragraphRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 문장 구조", body:[
         "문제 제기: [내가 바꾼 질문]을 먼저 제시하고, 왜 이 기준이 필요한지 쓴다.",
-        `교과 개념: ${concept} 개념을 이용해 자료가 단순 수치가 아니라 조건에 따라 해석된다는 점을 설명한다.`,
+        `교과 개념 넣기: ${conceptUse}`,
+        `교과 개념 예시: ${conceptExample}`,
         "자료 분석: [자료 1]과 [자료 2]의 차이를 비교하고, 표에서 보이는 차이를 근거로 해석한다.",
         isComputer ? "전공 개념 적용: 자료를 입력값으로 두고, 조건문에 따라 판단 결과가 달라지는 구조로 설명한다." : `전공 개념 적용: ${lens.shortLabel} 관점으로 자료를 나누고 비교하는 방식을 설명한다.`,
         "결론: 내가 세운 기준의 장점과 한계를 함께 쓰고, 다음에 더 필요한 자료를 제안한다."
@@ -1096,7 +1101,7 @@
     const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
     return lines.map(line => {
       if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
-      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|교과 개념 넣기|교과 개념 예시|왜 이 책인가\?|책에서 가져올 내용|내 주제와 연결되는 부분|보고서에 넣는 위치|이렇게 쓰면 자연스럽다|전공 개념은 이렇게 연결한다|주의할 점|이 책을 쓰는 이유|연결되는 책 내용|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|학생이 쓸 때 주의)/.test(line)){
         const parts = line.split(":");
         const label = parts.shift();
         return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
@@ -1299,12 +1304,12 @@
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v46 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV48Bound === "1") return;
+    if(btn.dataset.miniWorkerV49Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV48Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v48";
+    btn.dataset.miniWorkerV49Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v49";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
