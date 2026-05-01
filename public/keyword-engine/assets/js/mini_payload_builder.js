@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v2-report-choice-aware";
+  const BUILDER_VERSION = "mini-payload-builder-v3-selection-hydration";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -250,8 +250,63 @@
   function arr(v){ return Array.isArray(v) ? v.filter(Boolean) : []; }
   function normalize(v){ return String(v || "").toLowerCase().replace(/\s+/g, " ").trim(); }
 
+  function readDomValue(id){
+    const el = global.document?.getElementById?.(id);
+    return val(el?.value || "");
+  }
+
+  function readActiveAttr(selector, attr){
+    const el = global.document?.querySelector?.(selector);
+    return val(el?.getAttribute?.(attr) || "");
+  }
+
+  function readActiveText(selector){
+    const el = global.document?.querySelector?.(selector);
+    return val(el?.textContent || "");
+  }
+
+  function compactTrackTitle(text){
+    const v = val(text).replace(/\s+/g, " ");
+    if (!v) return "";
+    const m = v.match(/^[^0-9\n]+?축/);
+    return val(m ? m[0] : v.replace(/\s*1순위.*$/,"").replace(/\s*직접 연계.*$/,""));
+  }
+
+  function getDomState(){
+    const activeConcept = readActiveAttr(".engine-concept-card.is-active[data-concept]", "data-concept");
+    const activeKeyword = readActiveAttr(".engine-chip.is-active[data-action='keyword'][data-value]", "data-value");
+    const activeTrack = readActiveAttr(".engine-track-card.is-active[data-track]", "data-track");
+    const activeTrackLabel = compactTrackTitle(readActiveText(".engine-track-card.is-active .engine-track-title"));
+    return {
+      subject: readDomValue("subject"),
+      career: readDomValue("career"),
+      majorSelectedName: readDomValue("career"),
+      concept: readDomValue("selectedConcept") || activeConcept,
+      selectedConcept: readDomValue("selectedConcept") || activeConcept,
+      keyword: readDomValue("keyword") || activeKeyword,
+      selectedKeyword: readDomValue("keyword") || activeKeyword,
+      linkTrack: readDomValue("linkedTrack") || activeTrack,
+      followupAxisId: readDomValue("linkedTrack") || activeTrack,
+      axisLabel: activeTrackLabel || readDomValue("linkedTrack") || activeTrack,
+      selectedBook: readDomValue("selectedBookId"),
+      selectedBookTitle: readDomValue("selectedBookTitle"),
+      reportMode: readDomValue("reportMode"),
+      reportView: readDomValue("reportView"),
+      reportLine: readDomValue("reportLine")
+    };
+  }
+
+  function mergeState(base, dom){
+    const out = { ...(base || {}) };
+    Object.keys(dom || {}).forEach(k => {
+      const v = val(dom[k]);
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+
   function getState(){
-    return global.__TEXTBOOK_HELPER_STATE__ || {};
+    return mergeState(global.__TEXTBOOK_HELPER_STATE__ || {}, getDomState());
   }
 
   function getBookResult(){
@@ -482,13 +537,15 @@
   function buildMiniPayload(overrides){
     const state = getState();
     const result = getBookResult();
-    const payload = result?.payload || {
-      subject: state.subject || "",
-      department: state.career || state.selectedMajor || state.majorSelectedName || "",
-      selectedConcept: state.concept || state.selectedConcept || "",
-      selectedRecommendedKeyword: state.keyword || state.selectedKeyword || "",
-      followupAxis: state.axisLabel || state.linkTrack || state.followupAxisId || "",
-      reportIntent: "보고서 근거 도서"
+    const rawPayload = result?.payload || {};
+    const payload = {
+      ...rawPayload,
+      subject: val(rawPayload.subject) || state.subject || "",
+      department: val(rawPayload.department) || state.career || state.selectedMajor || state.majorSelectedName || "",
+      selectedConcept: val(rawPayload.selectedConcept) || state.concept || state.selectedConcept || "",
+      selectedRecommendedKeyword: val(rawPayload.selectedRecommendedKeyword) || state.keyword || state.selectedKeyword || "",
+      followupAxis: val(rawPayload.followupAxis) || state.axisLabel || state.linkTrack || state.followupAxisId || "",
+      reportIntent: val(rawPayload.reportIntent) || "보고서 근거 도서"
     };
 
     const selectedBook = getSelectedBookFromResult(result, state);
