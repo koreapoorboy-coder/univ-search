@@ -1,0 +1,16 @@
+{
+  "patch_id": "report_6_8_clean_student_report_render_v36",
+  "version": "v36",
+  "created_at": "2026-05-01",
+  "files": [
+    "index.html",
+    "assets/js/mini_worker_generate_bridge_v32.js",
+    "docs/README_REPORT_RENDER_CLEANUP_V36.md"
+  ],
+  "purpose": "보고서 생성 화면에서 내부 안내문/제목 반복/중복 섹션을 정리하고 v35 선택 누락 검증을 유지한다.",
+  "verify": {
+    "version_global": "window.__MINI_WORKER_GENERATE_BRIDGE_VERSION__",
+    "expected": "mini-worker-generate-bridge-v36-clean-student-report-render",
+    "diagnose": "window.__DIAGNOSE_MINI_WORKER_V34__?.().missing"
+  }
+}
