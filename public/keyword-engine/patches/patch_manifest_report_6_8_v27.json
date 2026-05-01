@@ -1,17 +1,12 @@
 {
-  "version": "v32",
-  "name": "report_6_8_mini_worker_generate_patch_v32",
-  "createdAt": "2026-05-01T06:29:04.761547",
+  "patch": "report_6_8_book_to_student_choice_restore_v33",
+  "createdAt": "2026-05-01",
+  "purpose": "Restore 6-8 student choice UI after book selection while keeping existing Worker /generate structure.",
   "files": [
     "keyword-engine/index.html",
+    "keyword-engine/assets/js/mini_payload_builder.js",
+    "keyword-engine/assets/js/report_6_8_flow_bridge.js",
     "keyword-engine/assets/js/mini_worker_generate_bridge_v32.js",
-    "keyword-engine/docs/README_REPORT_6_8_PATCH_V32.md",
-    "keyword-engine/patches/patch_manifest_report_6_8_v32.json"
-  ],
-  "principle": "Do not create new API route. Keep existing Cloudflare Worker /collect and /generate, send full MINI payload, render Worker/MINI response.",
-  "checks": [
-    "window.__MINI_WORKER_GENERATE_BRIDGE_VERSION__",
-    "window.__DIAGNOSE_MINI_WORKER_V32__().missing",
-    "window.__BUILD_MINI_WORKER_REQUEST_V32__()"
+    "keyword-engine/docs/README_REPORT_6_8_PATCH_V33.md"
   ]
 }
