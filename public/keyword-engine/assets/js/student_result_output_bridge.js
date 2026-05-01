@@ -3,7 +3,7 @@
  */
 (function(global){
   "use strict";
-  const VERSION = "student-result-output-bridge-v28-result-guard";
+  const VERSION = "student-result-output-bridge-v29-selection-hydration";
   global.__STUDENT_RESULT_OUTPUT_BRIDGE_VERSION__ = VERSION;
 
   const $ = (id) => document.getElementById(id);
@@ -16,7 +16,51 @@
   const LINE = { basic:"기본형", standard:"확장형", advanced:"심화형" };
   const AXIS = { measurement_data_modeling:"수리·데이터 모델링 축", physics_system:"물리·시스템 해석 축", earth_environment_data:"지구·환경 데이터 해석 축", science_measurement:"과학 방법·측정 일반 축" };
 
-  function state(){ return global.__TEXTBOOK_HELPER_STATE__ || {}; }
+  function form(id){ return val($(id)?.value); }
+  function activeAttr(selector, attr){
+    const el = document.querySelector(selector);
+    return val(el?.getAttribute?.(attr) || "");
+  }
+  function activeText(selector){
+    const el = document.querySelector(selector);
+    return val(el?.textContent || "");
+  }
+  function compactTrackTitle(text){
+    const v = val(text).replace(/\s+/g, " ");
+    if (!v) return "";
+    const m = v.match(/^[^0-9\n]+?축/);
+    return val(m ? m[0] : v.replace(/\s*1순위.*$/,"").replace(/\s*직접 연계.*$/,""));
+  }
+  function domState(){
+    const concept = form("selectedConcept") || activeAttr(".engine-concept-card.is-active[data-concept]", "data-concept");
+    const keyword = form("keyword") || activeAttr(".engine-chip.is-active[data-action='keyword'][data-value]", "data-value");
+    const track = form("linkedTrack") || activeAttr(".engine-track-card.is-active[data-track]", "data-track");
+    const trackLabel = compactTrackTitle(activeText(".engine-track-card.is-active .engine-track-title")) || track;
+    return {
+      subject: form("subject"),
+      career: form("career"),
+      majorSelectedName: form("career"),
+      concept,
+      selectedConcept: concept,
+      keyword,
+      selectedKeyword: keyword,
+      linkTrack: track,
+      followupAxisId: track,
+      axisLabel: trackLabel,
+      selectedBook: form("selectedBookId"),
+      selectedBookTitle: form("selectedBookTitle"),
+      reportMode: form("reportMode"),
+      reportView: form("reportView"),
+      reportLine: form("reportLine")
+    };
+  }
+  function state(){
+    const base = global.__TEXTBOOK_HELPER_STATE__ || {};
+    const dom = domState();
+    const out = { ...base };
+    Object.keys(dom).forEach(k => { if (val(dom[k])) out[k] = dom[k]; });
+    return out;
+  }
   function payload(){
     try { return typeof global.__BUILD_MINI_REPORT_PAYLOAD__ === "function" ? global.__BUILD_MINI_REPORT_PAYLOAD__() : null; }
     catch(e){ console.error(e); return null; }
@@ -28,7 +72,6 @@
     const m = v.match(/[가-힣A-Za-z0-9·\/\- ]+축/);
     return m ? m[0].trim() : (AXIS[v] || v);
   }
-  function form(id){ return val($(id)?.value); }
 
   function ensureStyle(){
     if($("studentResultV28Style")) return;
@@ -90,14 +133,14 @@
     if(!val(s.subject||st.subject||form("subject"))) out.push("과목");
     if(!form("taskName")) out.push("활동 과제 이름");
     if(!form("taskType")) out.push("결과물 유형");
-    if(!val(s.department||st.career||form("career"))) out.push("학과");
-    if(!val(s.selectedConcept||st.concept)) out.push("3번 교과 개념");
-    if(!val(s.selectedKeyword||s.selectedRecommendedKeyword||st.keyword)) out.push("3번 추천 키워드");
-    if(!val(s.selectedFollowupAxis||s.followupAxis||st.linkTrack)) out.push("4번 후속 연계축");
-    if(!p?.selectedBook&&!st.selectedBook) out.push("5번 도서");
-    if(!val(s.reportMode||st.reportMode||g.reportChoices?.mode)) out.push("6번 보고서 전개 방식");
-    if(!val(s.reportView||st.reportView||g.reportChoices?.view)) out.push("7번 보고서 관점");
-    if(!val(s.reportLine||st.reportLine||g.reportChoices?.line)) out.push("8번 보고서 라인");
+    if(!val(s.department||st.career||st.majorSelectedName||form("career"))) out.push("학과");
+    if(!val(s.selectedConcept||st.concept||st.selectedConcept||form("selectedConcept"))) out.push("3번 교과 개념");
+    if(!val(s.selectedKeyword||s.selectedRecommendedKeyword||st.keyword||st.selectedKeyword||form("keyword"))) out.push("3번 추천 키워드");
+    if(!val(s.selectedFollowupAxis||s.followupAxis||st.axisLabel||st.linkTrack||st.followupAxisId||form("linkedTrack"))) out.push("4번 후속 연계축");
+    if(!p?.selectedBook&&!st.selectedBook&&!form("selectedBookId")&&!form("selectedBookTitle")) out.push("5번 도서");
+    if(!val(s.reportMode||st.reportMode||g.reportChoices?.mode||form("reportMode"))) out.push("6번 보고서 전개 방식");
+    if(!val(s.reportView||st.reportView||g.reportChoices?.view||form("reportView"))) out.push("7번 보고서 관점");
+    if(!val(s.reportLine||st.reportLine||g.reportChoices?.line||form("reportLine"))) out.push("8번 보고서 라인");
     return out;
   }
 
