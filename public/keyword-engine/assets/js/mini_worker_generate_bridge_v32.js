@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v43-visual-action-map";
+  const VERSION = "mini-worker-generate-bridge-v44-major-concept-book-bridge";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -282,9 +282,9 @@
       "1. 완성 문단을 길게 대신 써주지 않는다. 학생이 직접 채울 수 있는 질문, 자료 수집 계획, 비교 기준, 빈칸형 문장 틀을 제공한다.",
       "2. 같은 주제를 선택한 학생도 결과가 달라질 수 있도록 탐구 질문·조사 범위·비교 기준·결론 방향의 선택지를 반드시 제시한다.",
       "3. 선택한 교과 개념, 추천 키워드, 후속 연계축, 선택 도서를 모두 설계서 안에서 역할이 보이게 반영한다.",
-      "4. 학과명 자체를 제목이나 결론에 억지로 붙이지 말고, 학과에서 배우는 핵심 키워드·개념을 탐구 기준으로 변환해 사용한다.",
-      "5. 예: 컴퓨터공학과라면 '컴퓨터공학과 관점'이 아니라 시스템, 알고리즘, 데이터 처리, 조건 분기, 모델링, 검증 같은 개념으로 연결한다.",
-      "6. 도서는 독후감이 아니라 탐구 관점, 비교 기준, 한계 논의, 결론 확장에 쓰는 방식으로 안내한다.",
+      "4. 학과명 자체를 제목이나 결론에 억지로 붙이지 말고, 학과에서 배우는 핵심 개념·이론·사고 과정을 탐구 기준으로 변환해 사용한다.",
+      "5. 예: 컴퓨터공학과라면 '컴퓨터공학과에 관심이 있다'가 아니라 입력값, 조건문, 알고리즘, 데이터 처리, 시스템 설계, 오류 검증 같은 개념으로 연결한다.",
+      "6. 도서는 독후감이 아니라 왜 이 자료를 여러 조건으로 보아야 하는지 설명하는 해석 렌즈로 안내한다.",
       "5. 내부 데이터명, payload, API, Worker, MINI 같은 표현은 학생 화면에 쓰지 않는다.",
       "",
       "[학생 기본 정보]",
@@ -626,14 +626,14 @@
 
     if(/컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(hay)){
       lens.domainLabel = "데이터 처리·시스템 설계";
-      lens.shortLabel = "시스템·알고리즘 사고";
-      lens.process = "입력 자료 수집 → 변수 설정 → 조건 분기 → 판단 결과 → 오류·한계 검증";
-      lens.concepts = uniqClean(["시스템", "알고리즘", "데이터 처리", "조건 분기", "모델링", "검증", ...rawKeywords]).slice(0, 7);
+      lens.shortLabel = "입력값·조건문·알고리즘";
+      lens.process = "입력값 정하기 → 조건문 만들기 → 판단 결과 비교 → 오류·예외 검증";
+      lens.concepts = uniqClean(["입력값", "조건문", "알고리즘", "데이터 처리", "시스템 설계", "오류 검증", ...rawKeywords]).slice(0, 7);
       lens.actions = [
-        "현상을 입력 자료와 판단 기준으로 나눈다",
-        "어떤 변수를 기준으로 삼을지 정한다",
-        "단일 기준과 복합 기준의 결과 차이를 비교한다",
-        "판단 기준이 틀릴 수 있는 예외 상황을 찾는다"
+        "기온·습도·체감온도처럼 판단에 필요한 입력값을 정한다",
+        "주의보를 내릴 조건을 조건문처럼 표현한다",
+        "기준을 바꾸면 판단 결과가 어떻게 달라지는지 비교한다",
+        "예외 상황과 오류 가능성을 찾아 기준을 보완한다"
       ];
     }else if(/간호|보건|의학|임상|치료|약학|생명|바이오|의공/i.test(hay)){
       lens.domainLabel = "위험 요인·근거 기반 판단";
@@ -718,31 +718,31 @@
       ["자료", "사례/수치 1", "사례/수치 2", "왜 차이가 나는가"],
       ["결론", "판단 A", "판단 B", "더 타당한 기준은 무엇인가"]
     ];
-    let majorConnect = `진로 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 중요하게 보는 생각 방식으로 자료를 해석하는 것이다.`;
+    let majorConnect = `전공 연결은 '${major}'라는 이름을 반복하는 것이 아니라, 이 분야에서 배우는 핵심 개념을 자료 해석 기준으로 사용하는 것이다.`;
     let conceptConnect = `${concept} 개념은 자료를 해석할 때 쓰는 기본 설명으로 사용한다.`;
 
     if(isWeather && isComputer){
-      title = `${keyword}, 기온만 보고 판단해도 될까?`;
-      goal = `기온·습도·체감온도를 비교해 ${keyword}가 어떤 기준으로 판단되는지 확인한다.`;
-      focusQuestion = `${keyword}는 기온만으로 판단해도 충분할까?`;
+      title = `${keyword}, 기온 하나만 보고 판단해도 될까?`;
+      goal = `기온·습도·체감온도를 입력값으로 보고, 어떤 조건을 기준으로 ${keyword}를 판단할지 직접 설계한다.`;
+      focusQuestion = `${keyword}는 기온 하나만으로 판단해도 충분할까?`;
       q = [
-        `${keyword}는 기온만으로 판단해도 충분할까?`,
-        `기온과 체감온도를 함께 보면 판단 결과가 어떻게 달라질까?`,
-        `컴퓨터가 ${keyword} 위험을 알려준다면 어떤 자료와 기준이 필요할까?`
+        `${keyword}는 기온 하나만으로 판단해도 충분할까?`,
+        `기온·습도·체감온도를 함께 보면 판단 결과가 어떻게 달라질까?`,
+        `주의보를 자동으로 판단하는 시스템을 만든다면 어떤 입력값과 조건문이 필요할까?`
       ];
       dataRows = [
-        [`${keyword}의 공식 기준`, "기상청·공공기관 자료", "서론"],
-        ["기온 자료", "기상자료개방포털·날씨 통계", "본론 1"],
-        ["습도 또는 체감온도 자료", "기상청·공공데이터", "본론 2"]
+        [`${keyword}의 공식 발령 기준`, "기상청·공공기관 자료", "서론"],
+        ["기온·습도·체감온도 자료", "기상자료개방포털·공공데이터", "본론 1"],
+        ["폭염 피해 또는 주의 안내 사례", "뉴스·지자체·보도자료", "본론 2"]
       ];
       tableRows = [
-        ["비교 항목", "자료 1", "자료 2", "내 해석"],
-        ["공식 기준", "폭염주의보 기준", "내가 추가한 기준", "기준이 왜 달라져야 하는가"],
-        ["기온", "날짜/지역 A", "날짜/지역 B", "기온만 보면 무엇이 보이는가"],
-        ["습도·체감온도", "체감온도 A", "체감온도 B", "실제 위험 판단이 어떻게 달라지는가"],
-        ["최종 판단", "단일 기준", "복합 기준", "어느 기준이 더 설득력 있는가"]
+        ["비교 항목", "기온만 볼 때", "기온+습도/체감온도", "내 해석"],
+        ["입력값", "최고기온", "기온·습도·체감온도", "판단에 필요한 자료가 늘어난다"],
+        ["조건문", "기온이 기준 이상이면 주의", "체감온도와 지속 시간까지 확인", "조건이 세밀해진다"],
+        ["판단 결과", "주의보 여부만 확인", "실제 위험 정도까지 해석", "단순 안내에서 위험 판단으로 확장된다"],
+        ["오류 가능성", "습도·취약계층을 놓칠 수 있음", "자료가 많아 해석 기준이 복잡해짐", "기준의 장점과 한계를 함께 쓴다"]
       ];
-      majorConnect = "컴퓨터공학과 연결은 학과 이름을 붙이는 것이 아니라, 자료를 입력하고 기준에 따라 판단하는 과정으로 보여주면 된다.";
+      majorConnect = "전공 연결은 컴퓨터공학과를 희망한다는 말이 아니라, 입력값을 정하고 조건문으로 판단하며 결과의 오류를 검증하는 구조를 보여주는 것이다.";
       conceptConnect = `${concept} 개념은 '측정값이 사회적 판단에 어떻게 쓰이는가'를 설명하는 부분에 넣는다.`;
     }else if(isBio){
       title = `${keyword}, 어떤 근거로 설명할 수 있을까?`;
@@ -784,28 +784,31 @@
         "Ⅰ. 탐구 동기: 왜 이 기준이 궁금했는지 쓴다.",
         `Ⅱ. 교과 개념: ${subject}의 '${concept}' 개념을 쉬운 말로 설명한다.`,
         "Ⅲ. 자료 정리: 찾은 자료를 표로 보여준다.",
-        "Ⅳ. 자료 해석: 어떤 기준으로 판단했는지 설명한다.",
+        "Ⅳ. 전공 개념 적용: 입력값 → 조건문 → 판단 결과 → 오류 검증 순서로 해석한다.",
         "Ⅴ. 결론: 내가 세운 기준의 장점과 부족한 점을 함께 쓴다."
       ].join("\n")},
       {title:"내 말로 바꾸는 문장 틀", body:[
-        `처음에는 ${keyword}를 ________라고만 생각했다.`,
-        `하지만 자료를 찾아보니 ${keyword}는 ________ 기준으로 판단된다는 점을 알게 되었다.`,
-        `나는 ________ 자료와 ________ 자료를 비교해 보았다.`,
-        `그 결과 ________일 때 판단 결과가 달라질 수 있음을 확인했다.`,
-        `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 찾아보고 싶다.`
+        `처음에는 ${keyword}를 단순히 ________라고 생각했다.`,
+        `하지만 자료를 찾아보니 ${keyword}는 하나의 수치가 아니라 ________ 조건을 함께 보아야 판단할 수 있었다.`,
+        `나는 ________ 자료를 입력값으로 두고, ________을 판단 조건으로 비교했다.`,
+        `그 결과 ________을 추가했을 때 판단 결과가 달라질 수 있음을 확인했다.`,
+        `이번 탐구의 한계는 ________이다. 다음에는 ________ 자료를 더 넣어 기준을 보완하고 싶다.`
       ].join("\n")},
-      {title:"도서·진로 연결", body:[
-        `도서 『${bookTitle}』는 책 내용을 길게 요약하지 말고, 내 탐구를 바라보는 관점을 넓히는 용도로만 사용한다.`,
-        `도서 연결 문장: 하나의 기준만 보지 않고 여러 조건의 관계를 함께 보아야 한다는 관점으로 연결한다.`,
-        `진로 연결 문장: ${majorConnect}`,
-        `교과 연결 문장: ${conceptConnect}`,
-        `후속 연계축 '${axis}'은 자료를 어떤 기준으로 나누고 비교할지 정하는 역할로 사용한다.`
+      {title:"도서·전공 개념 연결", body:[
+        `도서를 넣는 이유: 『${bookTitle}』는 독후감용이 아니라, 하나의 수치만 보지 않고 여러 조건의 관계를 함께 보게 해 주는 해석 렌즈로 사용한다.`,
+        `도서를 쓰는 위치: 서론 끝이나 결론 앞에서 ‘왜 단일 기준보다 관계와 조건을 함께 봐야 하는가’를 설명할 때 짧게 넣는다.`,
+        `도서 연결 문장: 하나의 부분 자료만으로 전체 위험을 판단하기 어렵기 때문에, 기온·습도·체감온도처럼 여러 조건의 관계를 함께 보아야 한다.`,
+        `전공 개념 연결: ${majorConnect}`,
+        `보고서에 쓰는 말: 이 탐구에서는 ${axis}을 자료를 나누는 기준으로 삼고, 입력값·조건·판단 결과·오류 가능성을 순서대로 비교한다.`,
+        `주의: “${major}에 관심이 있어서”라고 쓰기보다, 전공에서 배우는 개념을 실제 자료 분석에 사용했다는 점을 보여준다.`
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 중심 질문을 하나만 골랐는가?",
         "□ 자료 출처를 2개 이상 적었는가?",
         "□ 표에 실제 자료가 들어갔는가?",
         "□ 교과 개념을 자료 해석에 사용했는가?",
+        "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
+        "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
         "□ 결론에 한계와 다음 탐구 방향을 적었는가?"
       ].join("\n")}
     ];
@@ -815,16 +818,16 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-visual-action-map-blueprint",
-      note: "학생이 한눈에 볼 수 있도록 핵심 질문, 자료 찾기, 표 만들기 중심으로 재구성했습니다.",
+      source: "payload-major-concept-book-bridge-blueprint",
+      note: "학생이 한눈에 볼 수 있도록 핵심 질문, 자료 찾기, 표 만들기, 도서·전공 개념 연결을 정리했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "visual_action_map_blueprint",
+        productMode: "major_concept_book_bridge_blueprint",
         focusQuestion,
-        majorLens: isComputer ? "자료를 기준에 따라 판단하는 사고" : lens.shortLabel,
-        majorKeywords: isComputer ? ["자료", "기준", "비교", "판단"] : lens.keywords.slice(0,4)
+        majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
+        majorKeywords: isComputer ? ["입력값", "조건문", "알고리즘", "오류 검증"] : lens.keywords.slice(0,4)
       }
     };
   }
@@ -838,7 +841,7 @@
   }
 
   function extractGeneratedText(data, req){
-    // v41부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮은
+    // v44부터는 Worker가 완성문을 반환하더라도 화면에는 동일 문장 대량 생성 위험이 낮고 도서·전공 개념 연결이 보이는
     // 학생용 탐구 실행 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
@@ -1016,7 +1019,7 @@
     const lines = String(body || "").split(/\n/).map(v => v.trim()).filter(Boolean);
     return lines.map(line => {
       if(/^□/.test(line)) return `<li class="mini-v43-check">${escapeHtml(line)}</li>`;
-      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|도서 연결 문장|진로 연결 문장|교과 연결 문장)/.test(line)){
+      if(/^(추천 질문|다른 선택|사용 방법|중심 질문|최종 목표|오늘 할 일|도서를 넣는 이유|도서를 쓰는 위치|도서 연결 문장|전공 개념 연결|진로 연결 문장|교과 연결 문장|보고서에 쓰는 말|주의)/.test(line)){
         const parts = line.split(":");
         const label = parts.shift();
         return `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(parts.join(":").trim())}</li>`;
@@ -1139,8 +1142,8 @@
 
         <div class="mini-v43-tags">
           <span>${escapeHtml(s.subject || req.subject)}</span>
-          ${majorLensTag ? `<span>진로 연결: ${escapeHtml(majorLensTag)}</span>` : ""}
-          ${majorKeywordTag ? `<span>핵심 생각: ${escapeHtml(majorKeywordTag)}</span>` : ""}
+          ${majorLensTag ? `<span>전공 개념: ${escapeHtml(majorLensTag)}</span>` : ""}
+          ${majorKeywordTag ? `<span>핵심 키워드: ${escapeHtml(majorKeywordTag)}</span>` : ""}
           <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
@@ -1218,13 +1221,13 @@
     if(!btn) return;
 
     // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v43 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV43Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v44 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV44Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV43Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v43";
+    btn.dataset.miniWorkerV44Bound = "1";
+    btn.dataset.miniWorkerV32Bound = "v44";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
