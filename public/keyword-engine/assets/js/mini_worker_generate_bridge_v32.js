@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v55-book-scenario-precision";
+  const VERSION = "mini-worker-generate-bridge-v56-report-choice-payload-precision";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -305,6 +305,9 @@
       `전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
       `관점: ${choices.view || ctx.reportView || "선택값 기준"}`,
       `라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
+      `선택값 해석: ${ctx.reportChoiceBlueprint?.choiceSummary || "선택값을 보고서 전체에 반영"}`,
+      `선택값에 따른 제목 방향: ${ctx.reportChoiceBlueprint?.title || "전개 방식·관점·라인에 따라 제목을 조정"}`,
+      `선택값에 따른 비교 표 기준: ${(ctx.reportChoiceBlueprint?.tableRows?.[0] || []).join(" / ") || "선택 관점에 맞춰 표 항목 조정"}`,
       "",
       "[출력 형식]",
       "다음 구조로 작성하라. 단, 화면에는 학생이 바로 볼 수 있는 실행 지도 형태로 정리한다.",
@@ -328,6 +331,29 @@
 
     const s = mini.selectionPayload || {};
     const choice = getReportChoices(mini);
+
+    const reqSubject = s.subject || form.subject || "";
+    const reqMajor = s.department || form.career || "";
+    const reqConcept = s.selectedConcept || "";
+    const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || "";
+    const reqAxisRaw = s.selectedFollowupAxis || s.followupAxis || "";
+    const reqAxis = compactAxis(reqAxisRaw);
+    const reqMajorContext = mini.major_context || mini.reportGenerationContext?.majorContext || null;
+    const reqLens = deriveMajorLens(reqMajor, reqMajorContext, `${reqKeyword} ${reqAxisRaw} ${reqConcept} ${reqMajor}`);
+    const reqChoiceBlueprint = buildReportChoiceBlueprint({
+      mode: choice.mode || s.reportMode,
+      view: choice.view || s.reportView,
+      line: choice.line || s.reportLine,
+      keyword: reqKeyword,
+      concept: reqConcept,
+      axis: reqAxis,
+      lens: reqLens,
+      bookTitle: mini.selectedBook?.title || "",
+      subject: reqSubject,
+      major: reqMajor
+    });
+    mini.reportGenerationContext = mini.reportGenerationContext || {};
+    mini.reportGenerationContext.reportChoiceBlueprint = reqChoiceBlueprint;
 
     return {
       // 기존 Worker 호환용 최상위 필드
@@ -773,6 +799,200 @@
   }
 
 
+  function normalizeReportModeKey(value){
+    const v = String(value || "").trim();
+    const hay = v.toLowerCase();
+    if(!v) return "standard";
+    if(/data|데이터|자료|그래프|모델/.test(hay)) return "data";
+    if(/compare|비교|대조/.test(hay)) return "compare";
+    if(/application|사례|적용|실생활/.test(hay)) return "application";
+    if(/major|전공|진로/.test(hay)) return "major";
+    if(/book|도서|책|근거/.test(hay)) return "book";
+    if(/principle|원리|과학/.test(hay)) return "principle";
+    return hay;
+  }
+
+  function normalizeReportLineKey(value){
+    const v = String(value || "").trim();
+    const hay = v.toLowerCase();
+    if(/advanced|심화/.test(hay)) return "advanced";
+    if(/standard|확장/.test(hay)) return "standard";
+    if(/basic|기본/.test(hay)) return "basic";
+    return v || "standard";
+  }
+
+  function normalizeReportViewKey(value){
+    const v = String(value || "").trim();
+    if(!v) return "자료 해석";
+    if(/데이터/.test(v)) return "데이터";
+    if(/자료/.test(v)) return "자료 해석";
+    if(/모델/.test(v)) return "모델링";
+    if(/한계|오차|편향/.test(v)) return "한계";
+    if(/비교|대조/.test(v)) return "비교";
+    if(/사회|정책|윤리|의미/.test(v)) return "사회적 의미";
+    if(/진로|전공/.test(v)) return "진로 확장";
+    if(/원리/.test(v)) return "원리";
+    if(/구조/.test(v)) return "구조";
+    if(/기능/.test(v)) return "기능";
+    if(/안정/.test(v)) return "안정성";
+    if(/효율/.test(v)) return "효율";
+    if(/변화/.test(v)) return "변화";
+    return v;
+  }
+
+  function buildReportChoiceBlueprint({ mode, view, line, keyword, concept, axis, lens, bookTitle, subject, major }){
+    const modeKey = normalizeReportModeKey(mode);
+    const viewKey = normalizeReportViewKey(view);
+    const lineKey = normalizeReportLineKey(line);
+    const k = keyword || "선택 키워드";
+    const c = concept || "선택 교과 개념";
+    const a = axis || "선택한 기준";
+    const l = lens || { shortLabel:"자료 해석", process:"자료 수집 → 기준 설정 → 해석 → 한계 점검", keywords:["자료","기준","해석","한계"] };
+    const book = bookTitle || "선택 도서";
+
+    const modeProfiles = {
+      principle: {
+        label:"원리 과학형",
+        title:`${k}, 어떤 원리 때문에 이런 기준이 필요할까?`,
+        goal:`${c}의 원리를 먼저 설명하고, ${k} 사례가 그 원리와 어떻게 연결되는지 정리한다.`,
+        focus:`${k}를 설명하는 핵심 원리는 무엇이고, 그 원리는 실제 판단 기준과 어떻게 이어질까?`,
+        q:[`${k}를 설명하는 핵심 원리는 무엇일까?`, `${c} 개념을 적용하면 ${k}의 기준은 어떻게 이해될까?`, `원리 설명만으로 부족한 부분은 어떤 자료로 보완해야 할까?`],
+        dataRows:[[`${c} 원리 설명 자료`, "교과서·수업 자료", "서론"], [`${k} 공식 기준 또는 사례`, "공공기관·전문기관 자료", "본론 1"], ["원리 적용의 한계 자료", "기사·실험·비교 사례", "본론 2"]],
+        paragraph2:`${c}의 핵심 원리를 먼저 쉬운 말로 정리한 뒤, 그 원리가 ${k} 판단 기준으로 바뀌는 과정을 설명한다.`,
+        conclusion:`그래서 나는 ${k}를 설명할 때 사례만 나열하기보다 ${c}의 원리와 실제 자료를 함께 보는 방식이 더 설득력 있다고 정리했다.`
+      },
+      compare: {
+        label:"비교 분석형",
+        title:`${k}, 기준을 바꾸면 판단은 어떻게 달라질까?`,
+        goal:`두 사례나 두 조건을 정해 ${k}의 판단 결과가 어떻게 달라지는지 비교한다.`,
+        focus:`${k}는 어떤 기준으로 비교할 때 차이가 가장 잘 드러날까?`,
+        q:[`${k}를 두 기준으로 비교하면 판단 결과가 어떻게 달라질까?`, `조건 A와 조건 B에서 가장 큰 차이는 무엇일까?`, `내가 선택한 비교 기준은 어떤 장점과 한계를 가질까?`],
+        dataRows:[["비교 기준 A 자료", "공식 기준·교과서·기관 자료", "서론"], ["비교 기준 B 자료", "공공데이터·통계·사례", "본론 1"], ["차이를 설명할 보조 자료", "기사·전문기관·보고서", "본론 2"]],
+        paragraph2:`비교 기준을 먼저 세우고, ${k}를 한쪽 기준으로만 보았을 때와 다른 조건을 함께 보았을 때의 차이를 설명한다.`,
+        conclusion:`그래서 나는 ${k}를 판단할 때 한 기준만 고정하기보다 비교 기준을 명확히 세우고 차이를 해석하는 방식이 더 설득력 있다고 정리했다.`
+      },
+      data: {
+        label:"데이터 확장형",
+        title:`${k}, 어떤 자료를 함께 볼 때 판단이 달라질까?`,
+        goal:`${k}를 수치·자료·그래프 관점에서 해석하고, 변수와 자료 출처에 따라 결론이 어떻게 달라지는지 확인한다.`,
+        focus:`${k}를 판단할 때 어떤 자료와 변수를 함께 보아야 할까?`,
+        q:[`${k}를 판단할 때 어떤 자료와 변수를 함께 보아야 할까?`, `수치 자료나 그래프를 함께 보면 기존 판단은 어떻게 달라질까?`, `자료 출처나 변수 설정이 달라지면 결론의 한계는 무엇일까?`],
+        dataRows:[[`${k}의 공식 기준 자료`, "공공기관·전문기관 자료", "서론"], ["수치·그래프 자료", "공공데이터·통계·관측 자료", "본론 1"], ["비교·검증 자료", "지역별·기간별·사례별 자료", "본론 2"]],
+        paragraph2:`자료를 단순 설명으로 쓰지 않고, 변수·수치·그래프가 어떤 판단 근거가 되는지 먼저 밝힌다.`,
+        conclusion:`그래서 나는 ${k}를 판단할 때 인상이나 단일 사례보다 자료 출처, 변수, 그래프 해석, 한계를 함께 보는 기준이 더 설득력 있다고 정리했다.`
+      },
+      application: {
+        label:"사례 적용형",
+        title:`${k}, 실제 사례에 적용하면 어떤 판단이 가능할까?`,
+        goal:`${k}를 실제 생활·지역·학교 사례에 적용해 교과 개념이 문제 해결에 어떻게 쓰이는지 보여준다.`,
+        focus:`${k}를 실제 사례에 적용하면 어떤 문제를 설명하거나 해결할 수 있을까?`,
+        q:[`${k}를 실제 사례에 적용하면 어떤 문제가 보일까?`, `교과 개념을 적용하기 전과 후에 해석은 어떻게 달라질까?`, `실제 적용에서 생기는 한계와 보완점은 무엇일까?`],
+        dataRows:[["적용할 실제 사례", "학교·지역·생활 사례·기사", "서론"], [`${c} 적용 자료`, "교과서·전문기관 자료", "본론 1"], ["적용 결과와 한계 자료", "보도자료·통계·비교 사례", "본론 2"]],
+        paragraph2:`내가 고른 실제 사례를 먼저 제시하고, ${c} 개념이 그 사례의 어떤 부분을 설명하는지 연결한다.`,
+        conclusion:`그래서 나는 ${k}를 실제 사례에 적용해 보면서 교과 개념이 문제를 설명하고 보완 방향을 찾는 기준이 될 수 있다고 정리했다.`
+      },
+      major: {
+        label:"전공 확장형",
+        title:`${k}, ${l.shortLabel} 관점으로 확장하면 무엇이 보일까?`,
+        goal:`선택 학과명을 반복하지 않고, ${major || "선택 학과"}에서 쓰는 ${l.shortLabel} 사고방식으로 ${k}를 재해석한다.`,
+        focus:`${k}를 ${major || "선택 학과"}의 ${l.shortLabel} 관점으로 보면 어떤 판단 기준이 필요할까?`,
+        q:[`${k}를 ${l.shortLabel} 관점으로 보면 어떤 기준이 필요할까?`, `${l.process} 순서로 자료를 정리하면 결론은 어떻게 달라질까?`, `이 탐구를 후속 전공 탐구로 확장하려면 무엇을 더 확인해야 할까?`],
+        dataRows:[["교과 개념 자료", "교과서·수업 자료", "서론"], [`${l.shortLabel} 관련 자료`, "전공 소개·기관 자료·기술 기사", "본론 1"], ["후속 탐구 자료", "논문 요약·공공데이터·사례 보고서", "본론 2"]],
+        paragraph2:`학과명 자체를 쓰기보다 ${l.shortLabel} 관점에서 자료를 어떻게 나누고 해석할지 먼저 설명한다.`,
+        conclusion:`그래서 나는 ${k}를 ${major || "선택 학과"}와 연결할 때 학과명보다 ${l.shortLabel} 사고방식을 활용하는 것이 더 설득력 있다고 정리했다.`
+      },
+      book: {
+        label:"도서 근거형",
+        title:`${k}, 『${book}』의 관점으로 다시 보면 어떤 기준이 필요할까?`,
+        goal:`선택 도서를 줄거리 요약이 아니라 ${k}의 판단 기준을 넓히는 근거로 사용한다.`,
+        focus:`『${book}』의 관점은 ${k}를 해석하는 기준을 어떻게 바꾸어 줄까?`,
+        q:[`『${book}』의 관점은 ${k}를 해석하는 기준을 어떻게 바꾸어 줄까?`, `책의 관점을 적용하면 어떤 자료나 조건을 더 보게 될까?`, `도서 관점을 넣었을 때 결론의 장점과 한계는 무엇일까?`],
+        dataRows:[["도서에서 가져올 관점", "선택 도서의 핵심 문장·관점", "서론"], [`${k} 관련 실제 자료`, "공공기관·통계·기사", "본론 1"], ["도서 관점으로 보완할 자료", "비교 사례·한계 자료", "본론 2"]],
+        paragraph2:`도서 내용을 길게 요약하지 않고, ${k}를 왜 다른 기준으로 보아야 하는지 설명하는 근거로만 사용한다.`,
+        conclusion:`그래서 나는 ${k}를 판단할 때 도서의 관점을 근거로 삼아 단일 기준보다 넓은 해석 기준을 세우는 것이 더 설득력 있다고 정리했다.`
+      },
+      standard: {
+        label:"선택값 기준형",
+        title:`${k}의 기준을 자료로 정리하면 무엇이 보일까?`,
+        goal:`선택값에 맞춰 ${k}의 자료와 기준을 정리한다.`,
+        focus:`${k}를 판단하려면 어떤 자료와 기준이 필요할까?`,
+        q:[`${k}를 판단하려면 어떤 자료와 기준이 필요할까?`, `자료를 여러 개 비교하면 결론은 어떻게 달라질까?`, `내 기준의 한계와 보완점은 무엇일까?`],
+        dataRows:[["기본 기준 자료", "교과서·공공기관", "서론"], ["실제 사례 자료", "통계·기사·공공데이터", "본론 1"], ["보완 자료", "전문기관·보고서", "본론 2"]],
+        paragraph2:`자료를 어떤 기준으로 읽을지 먼저 정하고, 각 자료가 결론에서 어떤 역할을 하는지 설명한다.`,
+        conclusion:`그래서 나는 ${k}를 판단할 때 자료와 기준, 한계를 함께 정리하는 방식이 더 설득력 있다고 정리했다.`
+      }
+    };
+    const modeProfile = modeProfiles[modeKey] || modeProfiles.standard;
+
+    const viewProfiles = {
+      "자료 해석": { label:"자료 해석", table:["비교 항목", "기준 자료", "실제 자료", "내 해석"], focus:"수치와 출처가 판단에 어떤 근거가 되는지 해석한다." },
+      "데이터": { label:"데이터", table:["비교 항목", "변수", "자료/그래프", "내 해석"], focus:"변수·수치·그래프를 근거로 결론을 만든다." },
+      "모델링": { label:"모델링", table:["비교 항목", "입력 변수", "예상 결과", "모델 한계"], focus:"현상을 단순화해 입력값과 결과 관계로 정리한다." },
+      "한계": { label:"한계", table:["비교 항목", "가능한 판단", "놓치는 점", "보완 자료"], focus:"자료나 기준이 놓치는 부분과 오차 가능성을 함께 쓴다." },
+      "비교": { label:"비교", table:["비교 항목", "조건 A", "조건 B", "차이 해석"], focus:"두 조건·사례의 차이가 결론에 미치는 영향을 분석한다." },
+      "사회적 의미": { label:"사회적 의미", table:["비교 항목", "과학/자료 기준", "생활·사회 영향", "내 해석"], focus:"교과 기준이 실제 생활·정책·윤리 문제와 어떻게 연결되는지 밝힌다." },
+      "진로 확장": { label:"진로 확장", table:["비교 항목", "교과 개념", "전공 개념", "확장 방향"], focus:"교과 개념이 전공의 문제 해결 방식으로 확장되는 과정을 보여준다." },
+      "원리": { label:"원리", table:["비교 항목", "핵심 원리", "적용 사례", "내 해석"], focus:"원리가 실제 사례에서 어떻게 작동하는지 설명한다." },
+      "구조": { label:"구조", table:["비교 항목", "구성 요소", "관계", "내 해석"], focus:"대상을 여러 요소와 관계로 나누어 분석한다." },
+      "기능": { label:"기능", table:["비교 항목", "역할", "작동 방식", "내 해석"], focus:"대상이 어떤 역할을 하고 어떻게 작동하는지 설명한다." },
+      "안정성": { label:"안정성", table:["비교 항목", "안정 조건", "위험 조건", "보완 기준"], focus:"시스템이 안전하게 유지되기 위한 조건과 위험 요인을 본다." },
+      "효율": { label:"효율", table:["비교 항목", "자원/시간", "결과", "효율 해석"], focus:"같은 결과를 더 적은 자원이나 시간으로 얻는 조건을 비교한다." },
+      "변화": { label:"변화", table:["비교 항목", "이전 상태", "변화 후", "변화 원인"], focus:"시간이나 조건 변화에 따라 값이나 상태가 달라지는 흐름을 분석한다." }
+    };
+    const viewProfile = viewProfiles[viewKey] || viewProfiles["자료 해석"];
+
+    const lineProfiles = {
+      basic: { label:"기본형", dataLabel:"핵심 자료 2~3개", paragraphRule:"처음 쓰는 학생용으로 개념 설명과 대표 자료를 중심으로 간결하게 쓴다.", extraRow:["라인", "기본형", "개념 설명 중심", "문단을 길게 늘리지 않는다"] },
+      standard: { label:"확장형", dataLabel:"자료 3개+도서/데이터 확장", paragraphRule:"수행평가 제출용으로 자료·표·도서 연결을 모두 포함한다.", extraRow:["라인", "확장형", "자료·도서·비교 기준", "본문에서 근거를 충분히 보여준다"] },
+      advanced: { label:"심화형", dataLabel:"자료 3개+후속 탐구+한계 논의", paragraphRule:"고2~고3 심화 탐구처럼 한계와 후속 과목 연결까지 정리한다.", extraRow:["라인", "심화형", "한계·후속 탐구", "결론에서 다음 탐구 방향을 제안한다"] }
+    };
+    const lineProfile = lineProfiles[lineKey] || lineProfiles.standard;
+
+    const tableRows = [
+      viewProfile.table,
+      ["기준", modeProfile.label, viewProfile.label, `${modeProfile.label}으로 전개하되 ${viewProfile.label} 관점을 중심에 둔다`],
+      ["자료", modeProfile.dataRows?.[1]?.[0] || "중심 자료", lineProfile.dataLabel, "자료의 역할이 라인에 따라 달라진다"],
+      ["해석", modeProfile.paragraph2, viewProfile.focus, "전개 방식과 관점이 결론 방향을 바꾼다"],
+      lineProfile.extraRow
+    ];
+
+    return {
+      modeKey, viewKey, lineKey,
+      modeLabel: modeProfile.label,
+      viewLabel: viewProfile.label,
+      lineLabel: lineProfile.label,
+      title: modeProfile.title,
+      goal: modeProfile.goal,
+      focusQuestion: modeProfile.focus,
+      q: modeProfile.q,
+      dataRows: modeProfile.dataRows,
+      tableRows,
+      paragraphRule: lineProfile.paragraphRule,
+      viewFocus: viewProfile.focus,
+      paragraph2: modeProfile.paragraph2,
+      conclusionSentence: modeProfile.conclusion,
+      choiceSummary: `${lineProfile.label} / ${modeProfile.label} / ${viewProfile.label} 관점`,
+      majorConnect: `전공 연결은 '${major || l.displayName || "선택 학과"}'라는 이름을 붙이는 것이 아니라, ${l.shortLabel} 관점으로 ${modeProfile.label}과 ${viewProfile.label} 기준을 함께 적용하는 것이다.`
+    };
+  }
+
+  function applyReportChoiceBlueprint(current, blueprint){
+    if(!blueprint) return current;
+    const out = Object.assign({}, current);
+    out.title = blueprint.title || out.title;
+    out.goal = blueprint.goal || out.goal;
+    out.focusQuestion = blueprint.focusQuestion || out.focusQuestion;
+    out.q = Array.isArray(blueprint.q) && blueprint.q.length ? blueprint.q : out.q;
+    out.dataRows = Array.isArray(blueprint.dataRows) && blueprint.dataRows.length ? blueprint.dataRows : out.dataRows;
+    out.tableRows = Array.isArray(blueprint.tableRows) && blueprint.tableRows.length ? blueprint.tableRows : out.tableRows;
+    out.majorConnect = blueprint.majorConnect || out.majorConnect;
+    out.conceptUse = `${out.conceptUse || ""} 선택한 보고서 방식은 ${blueprint.choiceSummary}이므로, 이 문단에서는 ${blueprint.paragraph2 || blueprint.viewFocus || "자료를 해석하는 기준"}을 중심으로 쓴다.`.replace(/^\s+/, "");
+    out.conceptExample = `${out.conceptExample || ""} 예를 들어 같은 주제라도 ${blueprint.modeLabel}을 고르면 전개 순서가 바뀌고, ${blueprint.viewLabel} 관점을 고르면 표의 비교 항목과 결론 근거가 달라진다.`.replace(/^\s+/, "");
+    out.conclusionSentence = blueprint.conclusionSentence || out.conclusionSentence;
+    return out;
+  }
+
+
   function deriveSubjectLens(subject, concept, keyword){
     const hay = `${subject || ""} ${concept || ""} ${keyword || ""}`;
     const lens = {
@@ -996,6 +1216,7 @@
     const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
     const lens = deriveMajorLens(major, majorContext, allText);
     const bookGuide = deriveBookGuide(bookTitle, keyword, concept, axis, lens);
+    const choiceBlueprint = buildReportChoiceBlueprint({ mode, view, line, keyword, concept, axis, lens, bookTitle, subject, major });
     const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
     const isComputer = /컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(`${major} ${lens.keywords.join(" ")}`);
     const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
@@ -1086,11 +1307,26 @@
       ];
     }
 
+    const choiceAdjusted = applyReportChoiceBlueprint({
+      title, goal, focusQuestion, q, dataRows, tableRows, majorConnect, conceptUse, conceptExample, conclusionSentence
+    }, choiceBlueprint);
+    title = choiceAdjusted.title;
+    goal = choiceAdjusted.goal;
+    focusQuestion = choiceAdjusted.focusQuestion;
+    q = choiceAdjusted.q;
+    dataRows = choiceAdjusted.dataRows;
+    tableRows = choiceAdjusted.tableRows;
+    majorConnect = choiceAdjusted.majorConnect;
+    conceptUse = choiceAdjusted.conceptUse;
+    conceptExample = choiceAdjusted.conceptExample;
+    conclusionSentence = choiceAdjusted.conclusionSentence;
+
     const assemblyRows = [
       ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
       ["내 질문", "지역·기간·대상·비교 기준을 넣어 바꾼 질문", "서론 마지막"],
-      ["판단 기준", isComputer ? "입력값·조건문·오류 가능성" : "비교 기준·근거·한계", "본론 도입"],
-      ["자료 3개", "공식 기준 + 실제 자료 + 비교/사례 자료", "본론 1~2"],
+      ["선택값", choiceBlueprint.choiceSummary, "보고서 전체 방향"],
+      ["판단 기준", isComputer ? `입력값·조건문·오류 가능성 + ${choiceBlueprint.viewLabel}` : `${choiceBlueprint.modeLabel} + ${choiceBlueprint.viewLabel}`, "본론 도입"],
+      ["자료 3개", choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계/후속 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교/사례 자료"), "본론 1~2"],
       ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
       ["결론", "내 기준의 장점·한계·보완 자료", "결론"]
     ];
@@ -1118,9 +1354,9 @@
     const paragraphRows = [
       ["문단", "역할", "학생이 실제로 채울 내용"],
       ["1. 문제 제기", "왜 이 질문을 선택했는지 밝히기", "내가 바꾼 질문 + 이 질문이 궁금해진 이유 + 왜 한 가지 기준으로는 부족하다고 느꼈는지"],
-      ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", isWeather ? "기온은 단순 숫자지만 실제 판단에서는 습도·체감온도·지속 시간까지 함께 봐야 한다는 점을 먼저 밝힌다." : conceptUse],
-      ["3. 자료 분석", "표와 근거로 비교하기", "공식 기준·실제 자료·비교 자료를 표로 정리하고, 어떤 차이가 보였는지 한 줄 해석을 붙인다."],
-      ["4. 전공 개념 활용", "내가 어떤 방식으로 판단했는지 보여주기", isComputer ? "입력값 → 조건문 → 판단 결과 → 오류 검증 순서로, 내가 어떤 기준으로 판단했는지 설명한다." : lens.process],
+      ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", conceptUse],
+      ["3. 자료 분석", `${choiceBlueprint.viewLabel} 관점으로 표와 근거 비교하기`, `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, 각 행마다 선택값 때문에 해석이 어떻게 달라졌는지 한 줄씩 적는다.`],
+      ["4. 전공 개념 활용", `${choiceBlueprint.modeLabel} 방식으로 판단 과정 보여주기`, isComputer ? `입력값 → 조건문 → 판단 결과 → 오류 검증 순서에 ${choiceBlueprint.viewLabel} 관점을 붙여 설명한다.` : `${lens.process} 흐름에 ${choiceBlueprint.modeLabel}과 ${choiceBlueprint.viewLabel} 기준을 붙여 설명한다.`],
       ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
     ];
 
@@ -1133,8 +1369,9 @@
       {title:"보고서 문장 구조", body:[
         "문단 1. 문제 제기 | 시작 문장: 내가 바꾼 질문을 먼저 쓰고, 왜 이 질문이 궁금해졌는지 밝힌다.",
         "문단 1. 문제 제기 | 꼭 넣을 내용: 한 가지 기준만으로는 부족하다고 느낀 이유를 짧게 쓴다.",
-        `문단 2. 자료 해석 기준 | 시작 문장: ${isWeather ? "기온은 숫자 자료이지만 실제 판단에서는 다른 조건도 함께 봐야 한다." : "자료는 단순 정보가 아니라 어떤 기준으로 읽느냐에 따라 의미가 달라진다."}`,
+        `문단 2. 자료 해석 기준 | 시작 문장: 이번 보고서는 ${choiceBlueprint.choiceSummary}으로 전개하므로 자료를 단순 정보가 아니라 선택한 관점의 근거로 읽는다.`,
         `문단 2. 자료 해석 기준 | 활용 예시: ${conceptExample}`,
+        `문단 2. 선택값 반영 | 6번 전개 방식은 ${choiceBlueprint.modeLabel}, 7번 관점은 ${choiceBlueprint.viewLabel}, 8번 라인은 ${choiceBlueprint.lineLabel}이므로 문단의 강조점은 ${choiceBlueprint.paragraphRule}`,
         "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
         "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
         isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
@@ -1173,7 +1410,8 @@
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v55_book_scenario_precision",
+        productMode: "major_concept_book_bridge_blueprint_v56_report_choice_payload_precision",
+        reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         focusQuestion,
         majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
         majorKeywords: isComputer ? ["입력값", "조건문", "알고리즘", "오류 검증"] : lens.keywords.slice(0,4)
