@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.92-major-search-lite-index";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v62-major-search-lite-index';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v63-major-search-global-lite';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -40,7 +40,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.92-major-search-lite-index";
     isComposing: false,
     searchLiteCache: new Map(),
     careerInput: null,
-    lastCareerInputLookupAt: 0
+    lastCareerInputLookupAt: 0,
+    initStarted: false
   };
 
   function $(id){ return document.getElementById(id); }
@@ -388,7 +389,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.92-major-search-lite-index";
       state.loaded = true;
       injectStyles();
       bindCareerInput();
-      renderMajorSummary();
+      if (!window.__MAJOR_ENGINE_TYPING__) {
+        renderMajorSummary({ dispatch: false, reason: 'load' });
+      }
       startMiniPayloadPatch();
     } catch (error) {
       console.warn('major engine helper load failed:', error);
@@ -509,7 +512,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.92-major-search-lite-index";
         if (!current) return;
         if (event.target === current) onCareerInputEvent(current, event);
       };
-      ['input','change','focus','blur'].forEach(evt => {
+      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
         document.addEventListener(evt, handler, true);
       });
     }
@@ -5885,7 +5888,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     if (renderReason === 'search' && state.renderCache.has(cacheKey)) {
       data = state.renderCache.get(cacheKey);
     } else {
-      data = renderReason === 'search' ? buildLightweightSearchData(raw) : getSummaryData();
+      data = (renderReason === 'search' || (!state.loaded && raw)) ? buildLightweightSearchData(raw) : getSummaryData();
       if (renderReason === 'search') {
         if (state.renderCache.size > 30) state.renderCache.clear();
         state.renderCache.set(cacheKey, data);
@@ -6108,10 +6111,24 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     }, 250);
   }
 
-  async function bootMajorEngine(){
-    await loadAll();
+  function bootMajorEngine(){
+    if (state.initStarted && state.loaded) {
+      bindCareerInput();
+      renderMajorSummary({ dispatch: false, reason: 'boot' });
+      return;
+    }
+    state.initStarted = true;
+    injectStyles();
     bindCareerInput();
-    renderMajorSummary({ dispatch: false, reason: 'boot' });
+    // 학과 JSON 로드가 끝나기 전에도 검색창은 즉시 반응해야 한다.
+    // 따라서 먼저 가벼운 후보 패널을 띄우고, 데이터 로드는 뒤에서 비동기로 완료한다.
+    renderMajorSummary({ dispatch: false, reason: 'search' });
+    loadAll().then(() => {
+      bindCareerInput();
+      if (!window.__MAJOR_ENGINE_TYPING__) {
+        renderMajorSummary({ dispatch: false, reason: 'load-complete' });
+      }
+    });
   }
 
   window.getMajorEngineSelectionData = buildMajorPayload;
