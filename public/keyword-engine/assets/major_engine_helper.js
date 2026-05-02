@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v82-e-bio-food-pharma-major-data-lock";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v83-medical-engineering-residual-major-data-lock";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v82-e-bio-food-pharma-major-data-lock';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v83-medical-engineering-residual-major-data-lock';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -761,6 +761,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v82-e-bio-food-pharma-major-data-lock"
     const input = normalize(rawInput || '');
     if (!input) return null;
     if (input.includes('체육') || input.includes('스포츠') || input.includes('레저') || input.includes('운동')) return new Set(['sports_leisure']);
+    // v83: medical direct and residual engineering broad queries should not be pulled into unrelated tourism/service or generic groups.
+    if (input === '항공' || input.includes('항공우주') || input.includes('항공기계') || input.includes('항공정비') || input.includes('항공공') || input.includes('조선') || input.includes('해양공') || input.includes('원자력') || input.includes('원전') || input.includes('핵공') || input.includes('기계시스템') || input.includes('메카트로닉스') || input.includes('로봇') || input.includes('자동차') || input.includes('모빌리티') || input.includes('정보통신') || input.includes('고분자') || input.includes('안전공학') || input.includes('소방방재')) return new Set(['materials_devices','city_infra','chem_energy_materials','computing_ai']);
+    if (input.includes('의대') || input.includes('의예') || input.includes('의학') || input.includes('치대') || input.includes('치의') || input.includes('한의') || input.includes('수의') || input.includes('약대') || input.includes('약학') || input.includes('한약') || input.includes('메디컬') || input.includes('의약')) return new Set(['clinical_health','bio_engineering','bio_science','bio_materials_devices']);
     if (input.includes('보건')) return new Set(['clinical_health','rehab_therapy']);
     if (input.includes('간호') || input.includes('방사선') || input.includes('임상병리') || input.includes('보건관리') || input.includes('안경광학')) return new Set(['clinical_health']);
     if (input.includes('물리치료') || input.includes('작업치료') || input.includes('언어치료') || input.includes('재활')) return new Set(['rehab_therapy']);
@@ -5048,7 +5051,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
 
     const rules = [
       { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활(?!용))/ },
-      { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건|안경광학)/ },
+      { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|의학|치의예|치의|약학|한약학|한의|수의|보건|안경광학)/ },
       { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.', test: /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/ },
       { id:'chem_energy_materials', label:'화학·에너지·소재 쪽', desc:'화학 반응, 공정 설계, 에너지 변환, 소재 응용과 연결된 학과입니다.', test: /(화학과|화학공학|에너지공학|신소재공학|화공생명|촉매|반응공학|전기화학|배터리|이차전지|고분자|정제|분석화학|유기화학|무기화학|소재|에너지)/ },
       { id:'bio_engineering', label:'실험·기술 응용 쪽', desc:'생명 현상을 실험과 기술로 연결하는 학과입니다.', test: /(식품생명공학|제약공학|화공생명|생명공학|바이오|미생물|유전|세포|단백질|발효|식품)/ },
@@ -5064,7 +5067,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       { id:'business_service', label:'기업 운영·서비스 쪽', desc:'기업 운영, 소비자, 관광·호텔 같은 서비스 산업과 연결된 학과입니다.', test: /(경영|관광|호텔|회계|세무|부동산|소비자)/ },
       { id:'law_public', label:'행정·정책·법', desc:'정책, 제도, 행정, 공공 문제 해결과 연결된 학과입니다.', test: /(행정|정책|법학|정치외교|공공|경찰|군사|외교)/ },
       { id:'computing_ai', label:'컴퓨터·AI 쪽', desc:'프로그래밍, 알고리즘, 데이터, 시스템 설계와 연결된 학과입니다.', test: /(컴퓨터공학|소프트웨어학|인공지능학|데이터사이언스학|정보보호학|산업공학|프로그래밍|알고리즘|인공지능|AI|데이터분석|보안|암호|시스템설계|소프트웨어)/i },
-      { id:'materials_devices', label:'반도체·소자 설계 쪽', desc:'재료, 반도체, 회로, 장치 설계와 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|로봇|기계|자동차)/ },
+      { id:'materials_devices', label:'기계·전자·모빌리티 쪽', desc:'기계, 전자, 로봇, 항공우주, 자동차, 정밀 장치와 시스템 설계로 연결된 학과입니다.', test: /(신소재|재료|반도체|금속|전자|전기|센서|정보통신|로봇|기계|기계시스템|메카트로닉스|자동차|모빌리티|항공우주|항공기계|항공정비|조선해양|해양공학|원자력|안전공학|소방방재|고분자|산업공학|산업경영공학)/ },
       { id:'data_statistics', label:'데이터·통계', desc:'수치, 데이터 해석, 모델링과 연결된 학과입니다.', test: /(통계|응용통계|확률|모델링|수리|정량)/ },
       { id:'russian_language_region', label:'러시아어·문학·지역이해', desc:'러시아어와 러시아권 문학, 문화, 지역 이해를 함께 다루는 학과입니다.', test: /(노어노문|러시아어|러시아문학|노문과|노어과)/ },
       { id:'german_language_culture', label:'독일어·문학·문화해석', desc:'독일어와 독일권 문학, 문화, 사상을 텍스트 해석으로 배우는 학과입니다.', test: /(독어독문|독일어|독문과|독어과)/ },
@@ -6185,6 +6188,211 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         { display_name: '제약공학과', track_category: '제약/약물전달/생산공정', focus: '의약품의 제형 설계, 약물전달, 생산 공정, 품질 관리를 공학적으로 다루는 학과입니다.', hint: '화장품 제형과 유사한 제형·품질관리 원리를 의약품으로 확장하고 싶은 학생에게 잘 맞습니다.' }
       ]
     }
+  });
+
+
+
+  // v83 medical direct-search and residual engineering major data lock
+  // - UI/report flow is not changed.
+  // - Keeps v81 D-line and v82 E-line fixes intact.
+  // - Locks broad/direct routing before generic fuzzy scoring for medical and remaining engineering lines.
+  Object.assign(DIRECT_QUERY_MAJOR_MAP, {
+    '의': ['의예과'],
+    '의대': ['의예과'],
+    '의예': ['의예과'],
+    '의학': ['의예과'],
+    '의과대': ['의예과'],
+    '치의': ['치의예과'],
+    '치대': ['치의예과'],
+    '치의예': ['치의예과'],
+    '치의학': ['치의예과'],
+    '한의': ['한의예과'],
+    '한의대': ['한의예과'],
+    '한의예': ['한의예과'],
+    '한의학': ['한의예과'],
+    '수의': ['수의예과'],
+    '수의대': ['수의예과'],
+    '수의예': ['수의예과'],
+    '수의학': ['수의예과'],
+    '약대': ['약학과'],
+    '의공': ['의공학과'],
+    '의공학': ['의공학과'],
+    '의료공학': ['의공학과'],
+    '의료기기': ['의공학과'],
+    '바이오의공': ['의공학과'],
+    '바이오메디컬': ['의공학과'],
+    '바이오메디컬공': ['의공학과'],
+    '치기공': ['치기공학과'],
+    '치기공학': ['치기공학과'],
+
+    '기계': ['기계공학과'],
+    '기계공': ['기계공학과'],
+    '기계공학': ['기계공학과'],
+    '기계시스템': ['기계시스템공학과'],
+    '기계시스템공': ['기계시스템공학과'],
+    '기계시스템공학': ['기계시스템공학과'],
+    '메카': ['메카트로닉스공학과'],
+    '메카트로닉스': ['메카트로닉스공학과'],
+    '메카트로닉스공': ['메카트로닉스공학과'],
+    '로봇': ['로봇공학과'],
+    '로봇공': ['로봇공학과'],
+    '로봇공학': ['로봇공학과'],
+    '자동차': ['자동차공학과'],
+    '자동차공': ['자동차공학과'],
+    '자동차공학': ['자동차공학과'],
+    '모빌리티': ['자동차공학과'],
+    '미래자동차': ['자동차공학과'],
+    '항공우주': ['항공우주공학과'],
+    '항공우주공': ['항공우주공학과'],
+    '항공우주공학': ['항공우주공학과'],
+    '우주공학': ['항공우주공학과'],
+    '항공기계': ['항공기계공학과'],
+    '항공기계공': ['항공기계공학과'],
+    '항공기계공학': ['항공기계공학과'],
+    '항공정비': ['항공정비학과'],
+    '항공정비학': ['항공정비학과'],
+    '항공운항': ['항공운항학과'],
+    '항공서비스': ['항공서비스학과'],
+    '조선': ['조선해양공학과'],
+    '조선해양': ['조선해양공학과'],
+    '조선해양공': ['조선해양공학과'],
+    '조선해양공학': ['조선해양공학과'],
+    '해양공': ['해양공학과'],
+    '해양공학': ['해양공학과'],
+    '원자력': ['원자력공학과'],
+    '원자력공': ['원자력공학과'],
+    '원자력공학': ['원자력공학과'],
+    '원전': ['원자력공학과'],
+    '핵공학': ['원자력공학과'],
+    '산공': ['산업공학과'],
+    '산업공': ['산업공학과'],
+    '산업공학': ['산업공학과'],
+    '산업경영': ['산업경영공학과'],
+    '산업경영공': ['산업경영공학과'],
+    '산업경영공학': ['산업경영공학과'],
+    '정보통신': ['정보통신공학과'],
+    '정보통신공': ['정보통신공학과'],
+    '정보통신공학': ['정보통신공학과'],
+    '건축학': ['건축학과'],
+    '건축공': ['건축공학과'],
+    '건축공학': ['건축공학과'],
+    '토목': ['토목공학과'],
+    '토목공': ['토목공학과'],
+    '토목공학': ['토목공학과'],
+    '건설환경': ['건설환경공학과'],
+    '건설환경공': ['건설환경공학과'],
+    '건설환경공학': ['건설환경공학과'],
+    '토목환경': ['토목환경공학과'],
+    '토목환경공': ['토목환경공학과'],
+    '토목환경공학': ['토목환경공학과'],
+    '건설시스템': ['건설시스템공학과'],
+    '건설시스템공': ['건설시스템공학과'],
+    '건설시스템공학': ['건설시스템공학과'],
+    '교통': ['교통공학과'],
+    '교통공': ['교통공학과'],
+    '교통공학': ['교통공학과'],
+    '안전': ['안전공학과'],
+    '안전공': ['안전공학과'],
+    '안전공학': ['안전공학과'],
+    '소방': ['소방방재학과'],
+    '소방방재': ['소방방재학과'],
+    '방재': ['소방방재학과'],
+    '고분자': ['고분자공학과'],
+    '고분자공': ['고분자공학과'],
+    '고분자공학': ['고분자공학과']
+  });
+
+  Object.assign(DIRECT_QUERY_BROAD_MAP, {
+    '메디컬': ['의예과','치의예과','한의예과','수의예과','약학과','간호학과'],
+    '의료': ['의예과','간호학과','의공학과','임상병리학과','방사선학과','응급구조학과'],
+    '의약': ['의예과','약학과','제약공학과','한약학과','생명공학과'],
+    '의치한': ['의예과','치의예과','한의예과'],
+    '의치한약수': ['의예과','치의예과','한의예과','약학과','수의예과'],
+    '공학': ['기계공학과','전자공학과','전기공학과','산업공학과','화학공학과','토목공학과'],
+    '기계계열': ['기계공학과','기계시스템공학과','메카트로닉스공학과','로봇공학과','자동차공학과'],
+    '모빌리티계열': ['자동차공학과','기계공학과','전기공학과','로봇공학과'],
+    '항공': ['항공우주공학과','항공기계공학과','항공정비학과','항공운항학과','항공서비스학과'],
+    '건축': ['건축학과','건축공학과','도시공학과','토목공학과'],
+    '건설': ['건설시스템공학과','건설환경공학과','토목공학과','건축공학과'],
+    '인프라': ['토목공학과','건설환경공학과','도시공학과','교통공학과'],
+    '해양': ['해양공학과','조선해양공학과','해양학과'],
+    '안전': ['안전공학과','소방방재학과','산업공학과','응급구조학과']
+  });
+
+  ['메디컬','의료','의약','의치한','의치한약수','공학','기계계열','모빌리티계열','항공','건축','건설','인프라','해양','안전'].forEach(keyword => BROAD_QUERY_KEYWORDS.add(keyword));
+
+  QUERY_BOOST_RULES.unshift(
+    { queries:['의대','의예','의학'], test: /(의예과)/, boost: 112 },
+    { queries:['치대','치의','치의예','치의학'], test: /(치의예과|치위생학과|치기공학과)/, boost: 108 },
+    { queries:['한의','한의대','한의예','한의학'], test: /(한의예과|한약학과|약학과)/, boost: 108 },
+    { queries:['수의','수의대','수의예','수의학'], test: /(수의예과|동물자원학과|생명과학과)/, boost: 108 },
+    { queries:['의공','의료공학','의료기기','바이오의공','바이오메디컬'], test: /(의공학과|전자공학과|생명공학과|기계공학과)/, boost: 104 },
+    { queries:['기계','기계공학'], test: /(기계공학과|기계시스템공학과|메카트로닉스공학과|자동차공학과|로봇공학과)/, boost: 104 },
+    { queries:['로봇','메카트로닉스'], test: /(로봇공학과|메카트로닉스공학과|기계공학과|전자공학과)/, boost: 104 },
+    { queries:['자동차','모빌리티','미래자동차'], test: /(자동차공학과|기계공학과|전기공학과|로봇공학과)/, boost: 104 },
+    { queries:['항공','항공우주','항공기계','항공정비'], test: /(항공우주공학과|항공기계공학과|항공정비학과|항공운항학과|항공서비스학과)/, boost: 102 },
+    { queries:['조선','조선해양','해양공학'], test: /(조선해양공학과|해양공학과|해양학과)/, boost: 102 },
+    { queries:['원자력','원전','핵공학'], test: /(원자력공학과|에너지공학과|물리학과)/, boost: 104 },
+    { queries:['산업공학','산공','산업경영'], test: /(산업공학과|산업경영공학과|데이터사이언스학과|경영정보학과)/, boost: 104 },
+    { queries:['정보통신'], test: /(정보통신공학과|전자공학과|컴퓨터공학과|정보보호학과)/, boost: 104 },
+    { queries:['건축','건축학','건축공학'], test: /(건축학과|건축공학과|도시공학과|토목공학과|실내디자인학과)/, boost: 102 },
+    { queries:['토목','건설','건설환경','토목환경','건설시스템','인프라'], test: /(토목공학과|건설환경공학과|토목환경공학과|건설시스템공학과|도시공학과|교통공학과)/, boost: 104 },
+    { queries:['안전','소방','방재'], test: /(안전공학과|소방방재학과|산업공학과|응급구조학과)/, boost: 104 },
+    { queries:['고분자'], test: /(고분자공학과|신소재공학과|화학공학과|화학과)/, boost: 104 }
+  );
+
+  const V83_MAJOR_OVERRIDE_PATCH = {
+    '의예과': { group_label: '보건·임상', track_category: '의학/진단/치료', search_aliases: ['의','의대','의예','의학','의과대'], compare: ['치의예과','한의예과','수의예과'] },
+    '치의예과': { group_label: '보건·임상', track_category: '치의학/구강/예방진료', search_aliases: ['치대','치의','치의예','치의학'], compare: ['의예과','치위생학과','치기공학과'] },
+    '한의예과': { group_label: '보건·임상', track_category: '한의학/진단/예방', search_aliases: ['한의','한의대','한의예','한의학'], compare: ['의예과','약학과','한약학과'] },
+    '수의예과': { group_label: '보건·임상', track_category: '수의/동물의학/공중보건', search_aliases: ['수의','수의대','수의예','수의학'], compare: ['의예과','생명과학과','동물자원학과'] },
+    '약학과': { group_label: '보건·임상', track_category: '약학/약물/조제', search_aliases: ['약','약대','약학'], compare: ['제약공학과','한약학과','화학과'] },
+    '의공학과': { group_label: '의료기기·바이오소재 쪽', track_category: '의료기기/바이오센서/진단공학', search_aliases: ['의공','의공학','의료공학','의료기기','바이오의공','바이오메디컬','바이오메디컬공'], compare: ['전자공학과','생명공학과','기계공학과'] },
+    '치기공학과': { group_label: '보건·임상', track_category: '치과장치/보철/정밀제작', search_aliases: ['치기공','치기공학'], compare: ['치위생학과','치의예과','의공학과'] },
+
+    '기계공학과': { group_label: '반도체·전자', track_category: '기계/설계/열유체', search_aliases: ['기계','기계공','기계공학'], compare: ['기계시스템공학과','메카트로닉스공학과','자동차공학과'] },
+    '기계시스템공학과': { group_label: '반도체·전자', track_category: '기계시스템/제어/동력', search_aliases: ['기계시스템','기계시스템공','기계시스템공학'], compare: ['기계공학과','메카트로닉스공학과','로봇공학과'] },
+    '메카트로닉스공학과': { group_label: '반도체·전자', track_category: '메카트로닉스/센서/제어', search_aliases: ['메카','메카트로닉스','메카트로닉스공'], compare: ['로봇공학과','기계시스템공학과','전자공학과'] },
+    '로봇공학과': { group_label: '반도체·전자', track_category: '로봇/제어/자동화', search_aliases: ['로봇','로봇공','로봇공학'], compare: ['메카트로닉스공학과','기계공학과','전자공학과'] },
+    '자동차공학과': { group_label: '반도체·전자', track_category: '자동차/모빌리티/동력시스템', search_aliases: ['자동차','자동차공','자동차공학','모빌리티','미래자동차'], compare: ['기계공학과','전기공학과','로봇공학과'] },
+    '항공우주공학과': { group_label: '반도체·전자', track_category: '항공우주/비행체/추진제어', search_aliases: ['항공우주','항공우주공','항공우주공학','우주공학'], compare: ['항공기계공학과','기계공학과','원자력공학과'] },
+    '항공기계공학과': { group_label: '반도체·전자', track_category: '항공기계/엔진/구조', search_aliases: ['항공기계','항공기계공','항공기계공학'], compare: ['항공우주공학과','기계공학과','항공정비학과'] },
+    '항공정비학과': { group_label: '반도체·전자', track_category: '항공정비/엔진/안전점검', search_aliases: ['항공정비','항공정비학'], compare: ['항공기계공학과','기계공학과','항공운항학과'] },
+    '항공운항학과': { group_label: '기업 운영·서비스 쪽', track_category: '항공운항/비행절차/안전', search_aliases: ['항공운항','운항'], compare: ['항공정비학과','항공우주공학과','항공서비스학과'] },
+    '항공서비스학과': { group_label: '기업 운영·서비스 쪽', track_category: '항공서비스/승무/고객응대', search_aliases: ['항공서비스','승무','승무원'], compare: ['항공운항학과','호텔경영학과','관광학과'] },
+    '조선해양공학과': { group_label: '반도체·전자', track_category: '조선해양/선박/해양구조물', search_aliases: ['조선','조선해양','조선해양공','조선해양공학'], compare: ['해양공학과','기계공학과','토목공학과'] },
+    '해양공학과': { group_label: '도시·인프라', track_category: '해양공학/해양구조/연안시스템', search_aliases: ['해양공','해양공학'], compare: ['조선해양공학과','해양학과','토목환경공학과'] },
+    '원자력공학과': { group_label: '화학·에너지·소재', track_category: '원자력/에너지/안전시스템', search_aliases: ['원자력','원자력공','원자력공학','원전','핵공학'], compare: ['에너지공학과','물리학과','기계공학과'] },
+    '산업공학과': { group_label: '컴퓨터·AI·데이터', track_category: '산업공학/최적화/시스템분석', search_aliases: ['산공','산업공','산업공학'], compare: ['산업경영공학과','데이터사이언스학과','컴퓨터공학과'] },
+    '산업경영공학과': { group_label: '컴퓨터·AI·데이터', track_category: '산업경영/최적화/운영분석', search_aliases: ['산업경영','산업경영공','산업경영공학'], compare: ['산업공학과','경영정보학과','경영학과'] },
+    '정보통신공학과': { group_label: '컴퓨터·AI·데이터', track_category: '정보통신/네트워크/신호시스템', search_aliases: ['정보통신','정보통신공','정보통신공학','통신공학'], compare: ['전자공학과','컴퓨터공학과','정보보호학과'] },
+    '건축학과': { group_label: '건축·디자인', track_category: '건축설계/공간/도시맥락', search_aliases: ['건축학','건축설계'], compare: ['건축공학과','도시공학과','실내디자인학과'] },
+    '건축공학과': { group_label: '도시·인프라', track_category: '건축공학/구조/시공설비', search_aliases: ['건축공','건축공학'], compare: ['건축학과','토목공학과','건설시스템공학과'] },
+    '토목공학과': { group_label: '도시·인프라', track_category: '토목/인프라/구조설계', search_aliases: ['토목','토목공','토목공학','인프라'], compare: ['건설환경공학과','토목환경공학과','도시공학과'] },
+    '건설환경공학과': { group_label: '도시·인프라', track_category: '건설환경/인프라/환경관리', search_aliases: ['건설환경','건설환경공','건설환경공학'], compare: ['토목환경공학과','토목공학과','환경공학과'] },
+    '토목환경공학과': { group_label: '도시·인프라', track_category: '토목환경/수질/인프라관리', search_aliases: ['토목환경','토목환경공','토목환경공학'], compare: ['건설환경공학과','토목공학과','환경공학과'] },
+    '건설시스템공학과': { group_label: '도시·인프라', track_category: '건설시스템/시공/구조관리', search_aliases: ['건설시스템','건설시스템공','건설시스템공학'], compare: ['토목공학과','건축공학과','건설환경공학과'] },
+    '교통공학과': { group_label: '도시·인프라', track_category: '교통/이동/운영시스템', search_aliases: ['교통','교통공','교통공학'], compare: ['도시공학과','산업공학과','토목공학과'] },
+    '안전공학과': { group_label: '반도체·전자', track_category: '안전공학/위험관리/시스템안전', search_aliases: ['안전','안전공','안전공학','산업안전'], compare: ['소방방재학과','산업공학과','기계공학과'] },
+    '소방방재학과': { group_label: '반도체·전자', track_category: '소방방재/재난대응/안전관리', search_aliases: ['소방','소방방재','방재','재난안전'], compare: ['안전공학과','응급구조학과','건축공학과'] },
+    '고분자공학과': { group_label: '화학·에너지·소재', track_category: '고분자/소재/화학공정', search_aliases: ['고분자','고분자공','고분자공학'], compare: ['신소재공학과','화학공학과','화학과'] }
+  };
+
+  Object.keys(V83_MAJOR_OVERRIDE_PATCH).forEach(name => {
+    const previous = MAJOR_COPY_OVERRIDES[name] || {};
+    const patch = V83_MAJOR_OVERRIDE_PATCH[name] || {};
+    const mergedAliases = uniq([
+      ...((previous.aliases || [])),
+      ...((previous.search_aliases || [])),
+      ...((patch.aliases || [])),
+      ...((patch.search_aliases || []))
+    ]).filter(Boolean);
+    MAJOR_COPY_OVERRIDES[name] = {
+      ...previous,
+      ...patch,
+      aliases: mergedAliases,
+      search_aliases: mergedAliases
+    };
   });
 
   function buildMajorPayload(){
