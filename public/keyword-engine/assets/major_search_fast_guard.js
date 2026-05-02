@@ -1,4 +1,4 @@
-window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v68-business-search-filter';
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v71-major-search-department-exact-fix';
 
 (function(){
   if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
@@ -46,6 +46,8 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v68-business-search-filter';
     '전자공학과': { track:'반도체·전자', keywords:['회로','센서','신호','전자 장치'], aliases:['전자','전자공','전자공학'] },
     '전기공학과': { track:'반도체·전자', keywords:['전기','전력','회로','에너지 변환'], aliases:['전기','전기공','전기공학'] },
     '신소재공학과': { track:'화학·에너지·소재', keywords:['소재','물성','재료','결정 구조','배터리'], aliases:['신소재','소재','재료','신소재공'] },
+    '화학공학과': { track:'화학·공정·소재', keywords:['화학공정','반응 조건','소재 제조','공정 설계','물질 변화'], aliases:['화학','화공','화학공','화학공학','화학공학과','화학공정'] },
+    '화학과': { track:'화학·물질 분석', keywords:['화학','물질 구조','반응','원소','결합'], aliases:['화학','화학과','물질','반응','결합'] },
 
     '환경공학과': { track:'환경·도시 시스템', keywords:['환경 변수','기후','오염','위험도','저감 기준'], aliases:['환경','환경공','환경공학','기후','대기'] },
     '지구환경과학과': { track:'환경·도시 시스템', keywords:['지구환경','기후 자료','대기','해양','관측'], aliases:['지구','지구환경','기후','대기'] },
@@ -63,7 +65,9 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v68-business-search-filter';
     { test: /(컴|컴퓨터|컴공|소프트|소프트웨어|인공지능|\bai\b|데이터|보안|프로그래밍|개발)/i, names:['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과'] },
     { test: /(간|간호|보건|임상|물리치료|작업치료|재활|치료|의료)/, names:['간호학과','보건관리학과','물리치료학과','임상병리학과','작업치료학과'] },
     { test: /(반|반도|반도체|전자|전기|소자|회로)/, names:['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
-    { test: /(신소재|소재|재료|배터리|이차전지|화학|화공|에너지)/, names:['신소재공학과','반도체공학과','전자공학과','환경공학과'] },
+    { test: /(화학공학|화학공|화공|화학공정)/, names:['화학공학과','화학과','신소재공학과','반도체공학과'] },
+    { test: /(화학|반응|결합|물질)/, names:['화학공학과','화학과','신소재공학과','반도체공학과'] },
+    { test: /(신소재|소재|재료|배터리|이차전지|에너지)/, names:['신소재공학과','화학공학과','반도체공학과','전자공학과'] },
     { test: /(환경|기후|대기|지구|도시|인프라|토목|건설|열섬|녹지)/, names:['환경공학과','지구환경과학과','대기과학과','도시공학과','건설환경공학과'] },
     { test: /(경영|경제|금융|회계|마케팅|무역|통상)/, names:['경영학과','경제학과'] },
     { test: /(심리|상담|교육|복지)/, names:['심리학과','보건관리학과'] },
@@ -136,6 +140,20 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v68-business-search-filter';
     if (businessIntent && !dataIntent) {
       score.delete('데이터사이언스학과');
     }
+
+    // v71: 사용자가 실제 학과명을 거의 그대로 입력한 경우, 그룹 후보보다 해당 학과를 최우선으로 고정한다.
+    // 예: '화학공학과' / '화학공학' / '화공' 입력 시 신소재·반도체보다 화학공학과가 먼저 떠야 한다.
+    Object.keys(CANDIDATE_PROFILES).forEach(name => {
+      const nameN = norm(name);
+      const baseNameN = norm(String(name).replace(/학과$/,''));
+      const aliases = CANDIDATE_PROFILES[name]?.aliases || [];
+      const aliasExact = aliases.some(alias => norm(alias) === nq);
+      if (nameN === nq || baseNameN === nq || aliasExact) {
+        score.set(name, Math.max(score.get(name) || 0, 240));
+      } else if (nameN.startsWith(nq) && nq.length >= 2) {
+        score.set(name, Math.max(score.get(name) || 0, 150));
+      }
+    });
 
     const rows = Array.from(score.entries())
       .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))
