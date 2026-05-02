@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v60-major-search-input-throttle';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v61-major-search-hard-freeze';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -36,7 +36,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
     majorTypingClearTimer: null,
     renderCache: new Map(),
     lastRenderedCareerRaw: "",
-    lastRenderedDispatchKey: ""
+    lastRenderedDispatchKey: "",
+    isComposing: false,
+    searchLiteCache: new Map()
   };
 
   function $(id){ return document.getElementById(id); }
@@ -387,7 +389,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
       state.majorTypingClearTimer = setTimeout(() => {
         window.__MAJOR_ENGINE_TYPING__ = false;
         state.majorTypingClearTimer = null;
-      }, 900);
+      }, 1400);
     } else {
       state.majorTypingClearTimer = null;
     }
@@ -399,6 +401,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
 
   function clearMajorRenderCache(){
     try { state.renderCache.clear(); } catch (error) {}
+    try { state.searchLiteCache.clear(); } catch (error) {}
   }
 
   function flushMajorInputRender(){
@@ -412,15 +415,16 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
     startMiniPayloadPatch();
   }
 
-  function scheduleMajorInputRender(delay = 320){
+  function scheduleMajorInputRender(delay = 520){
     if (state.majorInputTimer) clearTimeout(state.majorInputTimer);
     state.majorInputTimer = setTimeout(() => {
       state.majorInputTimer = null;
       const raw = String(getCareerInput()?.value || '').trim();
       if (raw === state.lastRenderedCareerRaw) return;
       state.lastRenderedCareerRaw = raw;
+      if (state.isComposing) return;
       renderMajorSummary({ dispatch: false, reason: 'search' });
-      startMiniPayloadPatch();
+      // 검색 중에는 MINI payload wrapper를 반복 확인하지 않는다. 실제 선택/change 시점에만 갱신한다.
     }, delay);
   }
 
@@ -431,6 +435,18 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
 
     const raw = String(el.value || '').trim();
     const eventType = String(event?.type || '');
+
+    if (eventType === 'compositionstart') {
+      state.isComposing = true;
+      setMajorTypingFlag(true);
+      return;
+    }
+    if (eventType === 'compositionend') {
+      state.isComposing = false;
+      setMajorTypingFlag(true);
+      scheduleMajorInputRender(180);
+      return;
+    }
 
     if (eventType === 'focus') {
       // focus만으로 후보/후속 영역을 다시 그리면 입력 시작 전에 렌더가 겹친다.
@@ -453,7 +469,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
 
     if (eventType === 'input') {
       setMajorTypingFlag(true);
-      scheduleMajorInputRender(320);
+      if (event?.isComposing || state.isComposing) return;
+      scheduleMajorInputRender(520);
       return;
     }
 
@@ -465,7 +482,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
     const el = getCareerInput();
     if (el && el.dataset.majorBound !== '1') {
       el.dataset.majorBound = '1';
-      ['input','change','focus','blur'].forEach(evt => {
+      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
         el.addEventListener(evt, (event) => onCareerInputEvent(el, event));
       });
     }
@@ -5654,6 +5671,106 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     };
   }
 
+  function getCompactTrackLabel(track){
+    return String(track || '').replace(/계열/g,'').trim() || '관련 계열';
+  }
+
+  function findLightweightCandidates(rawInput){
+    const input = String(rawInput || '').trim();
+    const normalized = normalize(input);
+    if (!normalized || normalized.length < 2) return [];
+    const cacheKey = normalized;
+    if (state.searchLiteCache.has(cacheKey)) return state.searchLiteCache.get(cacheKey);
+
+    const broadNames = DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null;
+    let rows = [];
+    if (Array.isArray(broadNames) && broadNames.length) {
+      rows = broadNames.map((name, idx) => {
+        const profile = getProfileByIdOrName('', name) || state.profiles.find(row => normalize(row.display_name) === normalize(name));
+        if (!profile) return null;
+        return {
+          major_id: profile.major_id || '',
+          display_name: profile.display_name || name,
+          track_category: profile.track_category || '',
+          match_label: idx === 0 ? '대표 후보' : '관련 후보',
+          keywords: getMeaningfulKeywords(profile).slice(0, 3),
+          score: 200 - idx,
+          profile
+        };
+      }).filter(Boolean);
+    } else {
+      rows = state.catalog.map(row => {
+        const display = String(row.display_name || '');
+        const displayNorm = normalize(display);
+        const profile = state.profileByMajorId.get(row.major_id) || state.profileByName.get(row.display_name) || row;
+        const aliasRow = state.aliasRows.find(a => a.major_id === row.major_id || a.display_name === row.display_name);
+        const aliases = uniq([...(aliasRow?.aliases || []), display]);
+        const aliasNorms = aliases.map(normalize).filter(Boolean);
+        let score = 0;
+        if (displayNorm === normalized) score += 140;
+        else if (displayNorm.startsWith(normalized)) score += 90;
+        else if (displayNorm.includes(normalized) || normalized.includes(displayNorm)) score += 52;
+        if (aliasNorms.includes(normalized)) score += 120;
+        else if (aliasNorms.some(v => v.startsWith(normalized))) score += 74;
+        else if (aliasNorms.some(v => v.includes(normalized) || normalized.includes(v))) score += 42;
+        score += applyQueryBoost(input, display);
+        if (!score) return null;
+        return {
+          major_id: row.major_id,
+          display_name: display,
+          track_category: profile.track_category || row.track_category || '',
+          profile,
+          score,
+          match_label: deriveMatchLabel(score),
+          keywords: getMeaningfulKeywords(profile).slice(0, 3)
+        };
+      }).filter(Boolean)
+        .sort((a,b)=> b.score - a.score || a.display_name.localeCompare(b.display_name,'ko'))
+        .slice(0, 8);
+    }
+    if (state.searchLiteCache.size > 40) state.searchLiteCache.clear();
+    state.searchLiteCache.set(cacheKey, rows);
+    return rows;
+  }
+
+  function buildLightweightSearchData(rawInput){
+    const input = String(rawInput || '').trim();
+    const normalized = normalize(input);
+    if (!input) return { input, status: 'empty' };
+    if (!normalized || normalized.length < 2) {
+      return { input, normalized, status: 'typing', suggestions: [] };
+    }
+    const candidates = findLightweightCandidates(input);
+    if (!candidates.length) return { input, normalized, status: 'not_found', suggestions: [] };
+    return {
+      input,
+      normalized,
+      status: 'ambiguous',
+      grouped_suggestions: [{
+        id: 'search_preview',
+        label: '학과 후보',
+        desc: '입력 중에는 후보만 가볍게 보여주고, 학과를 클릭하면 아래 단계가 갱신됩니다.',
+        items: candidates.map(row => ({
+          major_id: row.major_id,
+          display_name: row.display_name,
+          track_category: row.track_category,
+          match_label: row.match_label,
+          keywords: (row.keywords || []).slice(0, 3),
+          score: row.score,
+          profile: row.profile || null
+        }))
+      }],
+      suggestions: candidates.map(row => ({
+        major_id: row.major_id,
+        display_name: row.display_name,
+        track_category: row.track_category,
+        match_label: row.match_label,
+        keywords: (row.keywords || []).slice(0, 3)
+      }))
+    };
+  }
+
+
   function getSummaryData(){
     const input = getCareerInput();
     const raw = input?.value || '';
@@ -5686,7 +5803,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     if (renderReason === 'search' && state.renderCache.has(cacheKey)) {
       data = state.renderCache.get(cacheKey);
     } else {
-      data = getSummaryData();
+      data = renderReason === 'search' ? buildLightweightSearchData(raw) : getSummaryData();
       if (renderReason === 'search') {
         if (state.renderCache.size > 30) state.renderCache.clear();
         state.renderCache.set(cacheKey, data);
@@ -5728,8 +5845,13 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
                       <span class="major-engine-candidate-track">${escapeHtml(row.track_category || '-')}</span>
                       <span class="major-engine-candidate-score">${escapeHtml(row.match_label || '관련 추천')}</span>
                     </div>
+                    ${renderReason === 'search' ? `
+                    <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 3).join(' · ') || getCompactTrackLabel(row.track_category))}</div>
+                    <div class="major-engine-help">후보를 클릭하면 전공 프리셋과 4번 후속 연계축이 갱신됩니다.</div>
+                    ` : `
                     <div class="major-engine-candidate-keywords">${escapeHtml(buildStudentDescription(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
                     <div class="major-engine-help">${escapeHtml(buildStudentFit(row.profile || {}, classifyCandidateGroup(row, data.input || '')))}</div>
+                    `}
                   </button>
                 `).join('')}
               </div>
@@ -5739,6 +5861,15 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         <div class="major-engine-help">입력한 단어를 바탕으로 비슷한 학과를 묶어서 보여줍니다. 먼저 묶음을 보고, 그 안에서 가장 가까운 학과를 클릭하면 전공 프리셋과 자동 키워드가 함께 바뀝니다.</div>
       `;
       if (dispatchEnabled) dispatchMajorSelection(null);
+      return;
+    }
+
+    if (data.status === 'typing') {
+      panel.innerHTML = `
+        <div class="major-engine-kicker">학과 검색</div>
+        <h4 class="major-engine-title">두 글자 이상 입력하면 후보를 보여줍니다</h4>
+        <div class="major-engine-sub">입력 중에는 아래 교과 선택 영역을 다시 계산하지 않아 검색 속도를 우선 확보합니다.</div>
+      `;
       return;
     }
 
@@ -5898,7 +6029,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
   async function bootMajorEngine(){
     await loadAll();
     bindCareerInput();
-    renderMajorSummary();
+    renderMajorSummary({ dispatch: false, reason: 'boot' });
   }
 
   window.getMajorEngineSelectionData = buildMajorPayload;
