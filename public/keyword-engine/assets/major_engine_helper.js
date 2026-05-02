@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-summary-side-compare";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v64-major-search-live-composition';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v72-major-summary-side-compare';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -440,8 +440,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
       const raw = String(getCareerInput()?.value || '').trim();
       if (raw === state.lastRenderedCareerRaw) return;
       state.lastRenderedCareerRaw = raw;
-      // 한글 조합 중에도 후보 목록은 즉시 갱신한다.
-      // 확정 dispatch만 막고, search 렌더는 계속 허용해야 Enter 없이 후보가 뜬다.
+      if (state.isComposing) return;
       renderMajorSummary({ dispatch: false, reason: 'search' });
       // 검색 중에는 MINI payload wrapper를 반복 확인하지 않는다. 실제 선택/change 시점에만 갱신한다.
     }, delay);
@@ -458,35 +457,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
     if (eventType === 'compositionstart') {
       state.isComposing = true;
       setMajorTypingFlag(true);
-      scheduleMajorInputRender(80);
-      return;
-    }
-    if (eventType === 'compositionupdate') {
-      state.isComposing = true;
-      setMajorTypingFlag(true);
-      scheduleMajorInputRender(60);
       return;
     }
     if (eventType === 'compositionend') {
       state.isComposing = false;
       setMajorTypingFlag(true);
-      scheduleMajorInputRender(40);
-      return;
-    }
-
-    if (eventType === 'keydown' && event?.key === 'Enter' && raw && !/(학과|학부|전공|예과)$/.test(raw)) {
-      // 부분 검색어에서 Enter가 change/commit처럼 동작하면 전체 resolve가 돌며 멈춰 보인다.
-      // Enter는 후보 목록 즉시 표시로만 처리하고, 실제 확정은 후보 클릭으로 진행한다.
-      event.preventDefault?.();
-      event.stopPropagation?.();
-      setMajorTypingFlag(true);
-      scheduleMajorInputRender(0);
-      return;
-    }
-
-    if (eventType === 'keyup') {
-      setMajorTypingFlag(true);
-      scheduleMajorInputRender(40);
+      scheduleMajorInputRender(180);
       return;
     }
 
@@ -511,9 +487,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
 
     if (eventType === 'input') {
       setMajorTypingFlag(true);
-      // 한글 IME에서는 isComposing=true인 동안에도 value가 갱신된다.
-      // 이때 후보를 미루면 Enter를 눌러야 검색되는 것처럼 보이므로 search 렌더는 허용한다.
-      scheduleMajorInputRender(event?.isComposing || state.isComposing ? 80 : 50);
+      if (event?.isComposing || state.isComposing) return;
+      scheduleMajorInputRender(70);
       return;
     }
 
@@ -525,7 +500,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
     const el = getCareerInput();
     if (el && el.dataset.majorBound !== '1') {
       el.dataset.majorBound = '1';
-      ['keydown','input','keyup','change','focus','blur','compositionstart','compositionupdate','compositionend'].forEach(evt => {
+      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
         el.addEventListener(evt, (event) => onCareerInputEvent(el, event));
       });
     }
@@ -537,7 +512,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
         if (!current) return;
         if (event.target === current) onCareerInputEvent(current, event);
       };
-      ['keydown','input','keyup','change','focus','blur','compositionstart','compositionupdate','compositionend'].forEach(evt => {
+      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
         document.addEventListener(evt, handler, true);
       });
     }
@@ -587,6 +562,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
       .major-engine-kicker { display:inline-flex; padding:4px 10px; border-radius:999px; background:#eef4ff; color:#245ee8; font-size:12px; font-weight:800; margin-bottom:8px; }
       .major-engine-title { font-size:18px; font-weight:800; color:#152033; margin:0; }
       .major-engine-sub { color:#65748c; font-size:13px; line-height:1.55; margin-top:6px; }
+      .major-engine-summary-grid { display:grid; grid-template-columns:minmax(0, 1.05fr) minmax(300px, .95fr); gap:12px; align-items:start; margin-top:8px; }
+      .major-engine-main-card { border:1px solid #e2e8f4; background:#fff; border-radius:16px; padding:14px; }
       .major-engine-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
       .major-engine-box { border:1px solid #e2e8f4; background:#fff; border-radius:14px; padding:12px; }
       .major-engine-box-title { font-size:13px; font-weight:800; color:#172033; margin-bottom:8px; }
@@ -616,16 +593,20 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
       .major-engine-group-count { display:inline-flex; padding:4px 10px; border-radius:999px; background:#f3f6fd; color:#40506a; font-size:12px; font-weight:700; white-space:nowrap; }
       .major-engine-candidates { display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-top:12px; }
       .major-engine-compare { margin-top:14px; padding:14px; border:1px solid #dbe5f4; background:#fbfdff; border-radius:16px; }
+      .major-engine-summary-grid > .major-engine-compare { margin-top:0; height:100%; }
       .major-engine-compare-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
       .major-engine-compare-title { font-size:15px; font-weight:800; color:#172033; }
-      .major-engine-compare-desc { margin-top:4px; color:#5c6c86; font-size:13px; line-height:1.55; }
+      .major-engine-compare-desc { margin-top:4px; color:#5c6c86; font-size:12px; line-height:1.45; }
       .major-engine-compare-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:10px; }
+      .major-engine-summary-grid .major-engine-compare-grid { grid-template-columns:1fr; gap:8px; }
       .major-engine-compare-card { border:1px solid #d7e4fb; background:#fff; border-radius:14px; padding:12px; }
       .major-engine-compare-name { font-size:14px; font-weight:800; color:#172033; }
       .major-engine-compare-track { margin-top:6px; display:inline-flex; padding:3px 8px; border-radius:999px; background:#eef4ff; color:#245ee8; font-size:11px; font-weight:700; }
       .major-engine-compare-focus { margin-top:8px; color:#33435f; font-size:13px; line-height:1.55; }
       .major-engine-compare-hint { margin-top:8px; color:#61708c; font-size:12px; line-height:1.5; }
-      @media (max-width: 900px){ .major-engine-grid { grid-template-columns: 1fr; } }
+      .major-engine-summary-grid .major-engine-compare-focus { font-size:12px; line-height:1.45; }
+      .major-engine-summary-grid .major-engine-compare-hint { display:none; }
+      @media (max-width: 900px){ .major-engine-grid, .major-engine-summary-grid { grid-template-columns: 1fr; } }
     `;
     document.head.appendChild(style);
   }
@@ -655,12 +636,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
   const DIRECT_QUERY_BROAD_MAP = {
     '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과'],
     '도시': ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'],
-    '반': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
-    '반도': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
-    '반도체': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
-    '반도체공': ['반도체공학과','전자공학과','신소재공학과'],
-    '전자': ['전자공학과','반도체공학과','전기공학과','정보통신공학과'],
-    '전기': ['전기공학과','전자공학과','반도체공학과'],
     '컴퓨터': ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'],
     '컴공': ['컴퓨터공학과','소프트웨어학과','인공지능학과','정보보호학과'],
     '소프트웨어': ['소프트웨어학과','컴퓨터공학과','소프트웨어융합학과','인공지능학과'],
@@ -672,7 +647,6 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition
 
   const INSTANT_MAJOR_SEARCH_RULES = [
     { test: /^(컴|컴퓨|컴퓨터|컴공|소프트|소프트웨어|인공지능|ai|데이터|정보|보안)/i, names: ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'] },
-    { test: /^(반|반도|반도체|반도체공|반도체공학|전자|전기|소자|칩|나노)/, names: ['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
     { test: /^(환경|기후|지구환경|대기|생태)/, names: ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','도시공학과','주거환경학과'] },
     { test: /^(도시|건축|토목|주거|인프라|공간)/, names: ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'] },
     { test: /^(간호|보건|의학|의료|약학|생명|바이오)/, names: ['간호학과','보건학과','의생명과학과','생명과학과','바이오메디컬공학과'] },
@@ -5795,17 +5769,11 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
   function findLightweightCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
-    if (!normalized) return [];
+    if (!normalized || normalized.length < 2) return [];
     const cacheKey = normalized;
     if (state.searchLiteCache.has(cacheKey)) return state.searchLiteCache.get(cacheKey);
 
     let rows = buildInstantCandidateRows(input);
-    // 컴/반처럼 한 글자만 입력해도 instant rule에 걸리면 즉시 후보를 보여준다.
-    if (normalized.length < 2) {
-      if (state.searchLiteCache.size > 40) state.searchLiteCache.clear();
-      state.searchLiteCache.set(cacheKey, rows);
-      return rows;
-    }
     const broadNames = rows.length ? null : (DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null);
     if (Array.isArray(broadNames) && broadNames.length) {
       rows = broadNames.map((name, idx) => {
@@ -5860,10 +5828,10 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
     if (!input) return { input, status: 'empty' };
-    const candidates = findLightweightCandidates(input);
-    if ((!normalized || normalized.length < 2) && !candidates.length) {
+    if (!normalized || normalized.length < 2) {
       return { input, normalized, status: 'typing', suggestions: [] };
     }
+    const candidates = findLightweightCandidates(input);
     if (!candidates.length) return { input, normalized, status: 'not_found', suggestions: [] };
     return {
       input,
@@ -6008,16 +5976,42 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     }
 
     const profileReady = data.source_status !== 'skeleton_only';
+    const comparisonPeers = data.comparison && Array.isArray(data.comparison.peers) ? data.comparison.peers.slice(0, 3) : [];
+    const comparisonHtml = comparisonPeers.length ? `
+      <div class="major-engine-compare">
+        <div class="major-engine-compare-head">
+          <div>
+            <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
+            <div class="major-engine-compare-desc">옆 학과와 배우는 초점만 짧게 비교합니다.</div>
+          </div>
+          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비교')}</div>
+        </div>
+        <div class="major-engine-compare-grid">
+          ${comparisonPeers.map(peer => `
+            <div class="major-engine-compare-card">
+              <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
+              <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
+              <div class="major-engine-compare-focus">${escapeHtml(peer.focus || buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : '';
     panel.innerHTML = `
-      <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
-      <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
-      <div class="major-engine-sub">
-        입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
-        계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
-        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
+      <div class="major-engine-summary-grid">
+        <div class="major-engine-main-card">
+          <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
+          <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
+          <div class="major-engine-sub">
+            입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
+            계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
+            ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
+          </div>
+          <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+          <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+        </div>
+        ${comparisonHtml}
       </div>
-      <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
-      <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
           <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
@@ -6036,26 +6030,6 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
-      ${(data.comparison && Array.isArray(data.comparison.peers) && data.comparison.peers.length) ? `
-      <div class="major-engine-compare">
-        <div class="major-engine-compare-head">
-          <div>
-            <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
-            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) ${escapeHtml(buildStudentDescription(data.profile || {}, { label: data.comparison.group_label || '' }))} 같은 묶음 안에서도 아래 학과들과 배우는 초점이 조금씩 다릅니다.</div>
-          </div>
-          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
-        </div>
-        <div class="major-engine-compare-grid">
-          ${data.comparison.peers.map(peer => `
-            <div class="major-engine-compare-card">
-              <div class="major-engine-compare-name">${escapeHtml(peer.display_name)}</div>
-              <div class="major-engine-compare-track">${escapeHtml(peer.track_category || '-')}</div>
-              <div class="major-engine-compare-focus">${escapeHtml(peer.focus || buildStudentDescription(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
-              <div class="major-engine-compare-hint">${escapeHtml(peer.hint || buildStudentFit(getProfileByIdOrName(peer.major_id, peer.display_name) || { display_name: peer.display_name }, { label: data.comparison.group_label || '' }))}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>` : ''}
       <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
     if (dispatchEnabled) dispatchMajorSelection(data);
