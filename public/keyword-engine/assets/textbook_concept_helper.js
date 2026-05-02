@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-routing';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-priority';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v67_followup_axis_priority_fix";
+  const ASSET_VERSION_QUERY = "v70_semiconductor_axis_display_priority";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3301,31 +3301,107 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
   function detectMajorRoutingBucket(text) {
     const t = String(text || "").trim();
     if (!t) return "default";
+    if (/(반도체공학|반도체시스템|반도체|나노반도체|시스템반도체)/.test(t)) return "semiconductor";
+    if (/(전자공학|전기전자|전기공학|전자전기|회로|센서|통신|전파|임베디드)/.test(t)) return "electronics";
+    if (/(신소재|재료공학|재료|소재|고분자|금속|세라믹|나노소재)/.test(t)) return "materials";
+    if (/(화학공학|화공|공업화학|응용화학|화학생명공학)/.test(t)) return "chemeng";
     if (/(컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|정보|보안|프로그래밍|통계)/i.test(t)) return "it";
     if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(t)) return "urban";
     if (/(환경공학|환경|기후|대기|지구|해양|생태|자원|에너지환경|지리)/.test(t)) return "env";
     if (/(간호|의학|의예|보건|약학|치의|수의|생명|바이오|의생명|재활|치위생|의료)/.test(t)) return "health";
     if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|경영정보|MIS)/.test(t)) return "business";
-    if (/(전기|전자|회로|센서|통신|반도체)/.test(t)) return "engineering";
-    if (/(기계|자동차|로봇|항공|모빌리티|신소재|재료|화학공학|고분자|금속|배터리)/.test(t)) return "engineering";
+    if (/(전기|전자|회로|센서|통신|기계|자동차|로봇|항공|모빌리티|배터리)/.test(t)) return "engineering";
     return "default";
   }
 
-  function getMajorRoutingText() {
-    return [
-      state.career || "",
+  function cleanMajorRoutingString(text) {
+    return String(text || "")
+      .replace(/\s+/g, " ")
+      .replace(/(컴퓨터공학과\s*){2,}/g, "컴퓨터공학과 ")
+      .replace(/(반도체공학과\s*){2,}/g, "반도체공학과 ")
+      .replace(/(전자공학과\s*){2,}/g, "전자공학과 ")
+      .replace(/(신소재공학과\s*){2,}/g, "신소재공학과 ")
+      .replace(/(화학공학과\s*){2,}/g, "화학공학과 ")
+      .trim();
+  }
+
+  function getPrimaryMajorRoutingText() {
+    const candidates = [
       state.majorSelectedName || "",
       (typeof getEffectiveCareerName === "function" ? getEffectiveCareerName() : "") || "",
+      state.career || "",
       (typeof getCareerInputText === "function" ? getCareerInputText() : "") || "",
-      (typeof getMajorPanelResolvedName === "function" ? getMajorPanelResolvedName() : "") || "",
+      (typeof getMajorPanelResolvedName === "function" ? getMajorPanelResolvedName() : "") || ""
+    ].map(cleanMajorRoutingString).filter(Boolean);
+    const majorLike = candidates.find(text => /(학과|학부|전공|공학|반도체|컴퓨터|소프트웨어|인공지능|데이터|간호|환경|도시|경영|경제|전자|전기|신소재|재료|화학)/.test(text));
+    return majorLike || candidates[0] || "";
+  }
+
+  function inferDisplayMajorName(text) {
+    const t = cleanMajorRoutingString(text || getPrimaryMajorRoutingText() || getMajorRoutingText());
+    const rules = [
+      [/반도체공학과|반도체시스템공학과|반도체|시스템반도체/, "반도체공학과"],
+      [/신소재공학과|신소재|재료공학과|재료|소재/, "신소재공학과"],
+      [/전자공학과|전기전자공학과|전자전기공학과|전자|전기전자|회로|센서|통신/, "전자공학과"],
+      [/화학공학과|화공|화학생명공학|공업화학/, "화학공학과"],
+      [/컴퓨터공학과|컴퓨터|소프트웨어/, "컴퓨터공학과"],
+      [/인공지능학과|인공지능|AI/, "인공지능학과"],
+      [/데이터사이언스학과|데이터사이언스|빅데이터|데이터/, "데이터사이언스학과"],
+      [/환경공학과|환경/, "환경공학과"],
+      [/도시공학과|도시/, "도시공학과"],
+      [/간호학과|간호/, "간호학과"],
+      [/경영학과|경영/, "경영학과"],
+      [/경제학과|경제/, "경제학과"]
+    ];
+    for (const [re, label] of rules) if (re.test(t)) return label;
+    const match = t.match(/[가-힣A-Za-z0-9·]+(?:학과|학부|전공)/);
+    return match ? match[0] : (t.split(" ")[0] || "학과");
+  }
+
+  function getMajorRoutingText() {
+    const primary = getPrimaryMajorRoutingText();
+    return [
+      primary,
+      state.career || "",
+      state.majorSelectedName || "",
       (typeof getMajorTextBag === "function" ? getMajorTextBag() : "") || ""
-    ].join(" ").trim();
+    ].map(cleanMajorRoutingString).join(" ").trim();
   }
 
   function buildMajorRoutingProfile(text) {
-    const majorName = (text || getMajorRoutingText() || state.career || state.majorSelectedName || "").trim();
-    const bucket = detectMajorRoutingBucket(majorName);
+    const primaryText = getPrimaryMajorRoutingText();
+    const routingText = cleanMajorRoutingString(text || primaryText || getMajorRoutingText() || state.career || state.majorSelectedName || "");
+    const bucket = detectMajorRoutingBucket(primaryText || routingText);
+    const majorName = inferDisplayMajorName(primaryText || routingText);
     const profiles = {
+      semiconductor: {
+        bucket: "semiconductor",
+        lens: "반도체 물성·소자 작동·재료 구조",
+        directAxisDomains: ["engineering", "chemistry", "physics"],
+        bridgeAxisDomains: ["data", "info", "math"],
+        resultKeywords: ["반도체", "전기적 성질", "도핑", "전자 이동", "소자 작동", "재료 구조"]
+      },
+      electronics: {
+        bucket: "electronics",
+        lens: "전자 이동·회로·소자 시스템",
+        directAxisDomains: ["engineering", "physics"],
+        bridgeAxisDomains: ["chemistry", "data", "info", "math"],
+        resultKeywords: ["전자 이동", "전류", "회로", "소자", "신호", "장치 구조"]
+      },
+      materials: {
+        bucket: "materials",
+        lens: "원자 배열·결합·물성·소재 설계",
+        directAxisDomains: ["chemistry", "engineering"],
+        bridgeAxisDomains: ["physics", "data", "info"],
+        resultKeywords: ["원자 배열", "결정 구조", "결합 방식", "물성", "소재 설계", "재료 선택"]
+      },
+      chemeng: {
+        bucket: "chemeng",
+        lens: "물질 변화·반응 조건·공정·소재 제조",
+        directAxisDomains: ["chemistry"],
+        bridgeAxisDomains: ["engineering", "data", "physics"],
+        resultKeywords: ["물질 변화", "반응 조건", "공정", "화학적 처리", "소재 제조", "제어 조건"]
+      },
       it: {
         bucket: "it",
         lens: "입력값·조건문·오류 검증",
@@ -3466,6 +3542,45 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
     return 0;
   }
 
+  function isSemiconductorFollowupContext() {
+    const text = [state.subject || "", state.concept || "", state.keyword || ""].join(" ");
+    return /통합과학1/.test(text) && /(물질 구성과 분류|규칙성 발견과 주기율표)/.test(text) && /(반도체|도핑|전기 전도성|재료 성질|원소|금속|비금속|원자|주기율|원소 배열)/.test(text);
+  }
+
+  function getSemiconductorAxisContextBoost(axisLike) {
+    if (!isSemiconductorFollowupContext()) return 0;
+    const profile = buildMajorRoutingProfile(getPrimaryMajorRoutingText() || getMajorRoutingText());
+    const domain = getAxisDomainForRouting(axisLike);
+    if (profile.bucket === "electronics") {
+      if (domain === "engineering") return 88;
+      if (domain === "physics") return 72;
+      if (domain === "chemistry") return 14;
+      if (domain === "data" || domain === "info") return 4;
+      return 0;
+    }
+    if (profile.bucket === "materials") {
+      if (domain === "chemistry") return 88;
+      if (domain === "engineering") return 42;
+      if (domain === "physics") return 16;
+      if (domain === "data" || domain === "info") return 6;
+      return 0;
+    }
+    if (profile.bucket === "chemeng") {
+      if (domain === "chemistry") return 92;
+      if (domain === "engineering") return 24;
+      if (domain === "data" || domain === "info") return 6;
+      return 0;
+    }
+    if (profile.bucket === "semiconductor") {
+      if (domain === "chemistry") return 56;
+      if (domain === "engineering") return 52;
+      if (domain === "physics") return 34;
+      if (domain === "data" || domain === "info") return 8;
+      return 0;
+    }
+    return 0;
+  }
+
   function makeContextFollowupAxis(seed) {
     const relationMeta = getAxisCareerRelationMeta(state.subject, {
       axis_domain: seed.axisDomain,
@@ -3559,6 +3674,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
     let score = 0;
     score += getMajorRoutingAxisBoost(axis);
     score += getHeatwaveAxisContextBoost(axis);
+    score += getSemiconductorAxisContextBoost(axis);
 
     if (state.subject === "공통국어1" || state.subject === "공통국어") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
@@ -3647,6 +3763,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
       state.majorComparison?.group_label || "",
       state.majorComparison?.selected_focus || ""
     ].join(" ").trim();
+    const displayCareerName = inferDisplayMajorName(careerText || getPrimaryMajorRoutingText());
 
     if (!careerText) {
       return {
@@ -3710,7 +3827,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
         type,
         label: "직접 연계 강함",
         score: 12,
-        message: `${state.career}와 바로 이어지는 축입니다.`
+        message: `${displayCareerName}와 바로 이어지는 축입니다.`
       };
     }
     if (type === "bridge") {
@@ -3718,14 +3835,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-
         type,
         label: "역량 브리지",
         score: 6,
-        message: `${state.career}와 직접 일치하지 않아도 역량 연결이 가능한 축입니다.`
+        message: `${displayCareerName}와 직접 일치하지 않아도 역량 연결이 가능한 축입니다.`
       };
     }
     return {
       type: "general",
       label: "일반 탐구",
       score: 0,
-      message: `${state.career}와 직접 매핑이 약해도 탐구 확장용으로 활용 가능한 축입니다.`
+      message: `${displayCareerName}와 직접 매핑이 약해도 탐구 확장용으로 활용 가능한 축입니다.`
     };
   }
 
@@ -8039,9 +8156,10 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
     const careerEl = $("engineCareerSummary");
     const progressEl = $("engineProgressSummary");
     const effectiveCareerName = getEffectiveCareerName();
+    const displayCareerName = inferDisplayMajorName(effectiveCareerName || state.career || state.majorSelectedName || "");
     if (!state.career && effectiveCareerName) state.career = effectiveCareerName;
     if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
-    if (careerEl) careerEl.textContent = effectiveCareerName || state.career || "입력 전";
+    if (careerEl) careerEl.textContent = (effectiveCareerName || state.career || state.majorSelectedName) ? displayCareerName : "입력 전";
 
     let progress = "교과 개념 선택 대기";
     if (state.subject && !state.concept) progress = "교과 개념 선택 중";
@@ -8069,8 +8187,9 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
     }
     const recommended = options[0];
     const autoHint = recommended?.reason || recommended?.easy || '';
+    const displayCareerName = inferDisplayMajorName(state.career || state.majorSelectedName || getPrimaryMajorRoutingText());
     const guide = state.career
-      ? `먼저 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>이 어디로 이어지는지 보고, <strong>${escapeHtml(state.career)}</strong> 입력은 그 축의 우선순위만 조정합니다.`
+      ? `먼저 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>이 어디로 이어지는지 보고, <strong>${escapeHtml(displayCareerName)}</strong> 입력은 그 축의 우선순위만 조정합니다.`
       : `지금은 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>에서 갈 수 있는 종단 연결을 먼저 펼쳐 보여줍니다. 학과를 입력하면 이 축들의 우선순위가 바뀝니다.`;
     el.innerHTML = `
       <div class="engine-help">${guide}</div>
