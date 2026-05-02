@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v57-student-facing-major-lens-precision";
+  const VERSION = "mini-worker-generate-bridge-v58-student-display-major-diff-precision";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -906,6 +906,61 @@
     return rows;
   }
 
+
+  function makeStudentFacingChoicePhrases({ modeKey, viewKey, lineKey, modeProfile, viewProfile, lineProfile, keyword, concept, axis, lens, subject, major }){
+    const k = keyword || "선택 키워드";
+    const c = concept || "교과 개념";
+    const l = lens || { shortLabel:"자료 기반 판단", process:"자료 수집 → 기준 설정 → 비교·해석 → 결론 검증" };
+    const hay = `${subject || ""} ${major || ""} ${k} ${c} ${axis || ""} ${l.shortLabel || ""}`;
+    const isWeather = /폭염|기후|주의보|재난|체감온도|날씨|기상/i.test(hay);
+    const isComputer = /컴퓨터|소프트웨어|정보|알고리즘|AI|인공지능|데이터|시스템|오류|조건문/i.test(hay);
+    const isEnv = /환경공학|환경|대기|기후|지구환경/i.test(hay);
+    const isUrban = /도시|건축|주거|토목|인프라|공간/i.test(hay);
+    const isHealth = /간호|보건|의학|임상|생명|약학|건강|질병/i.test(hay);
+    const isBusiness = /경영|경제|마케팅|금융|회계|소비|시장/i.test(hay);
+    let routeSummary = "자료를 비교해 판단 기준과 결론 방향을 정한다.";
+    let modePlain = "자료를 비교해 판단 근거를 정리한다";
+    if(modeKey === "principle"){ routeSummary = `${c}의 핵심 원리를 먼저 정리하고 실제 사례에 적용한다.`; modePlain = "원리를 먼저 설명하고 사례에 적용한다"; }
+    else if(modeKey === "compare"){ routeSummary = `두 조건이나 사례를 비교해 ${k} 판단이 어떻게 달라지는지 확인한다.`; modePlain = "두 조건을 비교해 차이를 설명한다"; }
+    else if(modeKey === "data"){ routeSummary = `수치·그래프·자료 출처를 추가해 ${k} 판단 기준을 넓힌다.`; modePlain = "수치와 그래프를 근거로 판단한다"; }
+    else if(modeKey === "application"){ routeSummary = `실제 생활·지역 사례에 ${c} 개념을 적용해 설명한다.`; modePlain = "실제 사례에 교과 개념을 적용한다"; }
+    else if(modeKey === "major"){ routeSummary = `${l.shortLabel} 사고방식으로 교과 개념을 전공 탐구로 확장한다.`; modePlain = `${l.shortLabel} 사고방식으로 확장한다`; }
+    else if(modeKey === "book"){ routeSummary = `선택 도서를 기준을 넓히는 근거로 사용해 ${k}를 다시 본다.`; modePlain = "도서 관점으로 판단 기준을 넓힌다"; }
+    let judgmentBasis = `${k}의 공식 기준과 실제 자료를 비교해 판단한다.`;
+    let majorGuide = `${l.process || "자료 수집 → 기준 설정 → 비교·해석 → 결론 검증"} 흐름으로 자료를 정리한다.`;
+    if(isWeather && isComputer){
+      judgmentBasis = "기온·습도·체감온도를 입력값으로 두고, 조건을 바꿨을 때 판단 결과와 오류 가능성을 확인한다.";
+      majorGuide = "자료를 입력값으로 정리한 뒤 조건문처럼 판단 기준을 세우고, 예외 상황에서 판단이 흔들리는지 점검한다.";
+    }else if(isWeather && isEnv){
+      judgmentBasis = "기온·습도·노출 시간·취약성을 환경 변수로 보고, 위험도와 저감 기준을 함께 확인한다.";
+      majorGuide = "자료를 환경 변수로 나누어 위험 요인, 피해 가능성, 저감 방안을 순서대로 비교한다.";
+    }else if(isWeather && isUrban){
+      judgmentBasis = "기온 자료를 공간 구조, 녹지, 포장 면적, 인프라 조건과 함께 비교한다.";
+      majorGuide = "지역별 공간 조건을 비교해 같은 기온에서도 생활 위험이 달라지는 이유를 설명한다.";
+    }else if(isHealth){
+      judgmentBasis = "생체 반응, 위험 요인, 관리 기준을 근거 자료로 나누어 판단한다.";
+      majorGuide = "증상이나 현상을 관찰 기준으로 나누고, 위험 요인과 관리 방향을 근거 자료로 연결한다.";
+    }else if(isBusiness){
+      judgmentBasis = "비용, 편익, 위험을 함께 비교해 의사결정 기준을 세운다.";
+      majorGuide = "선택 상황을 비용·편익·위험으로 나누고, 어떤 기준이 더 합리적인지 설명한다.";
+    }else if(/공학|신소재|재료|전자|전기|기계|화학공학|반도체/i.test(hay)){
+      judgmentBasis = "구조, 조건, 성능, 안정성을 비교해 개선 기준을 세운다.";
+      majorGuide = "구조와 조건이 결과를 어떻게 바꾸는지 비교하고, 성능과 안정성의 균형을 설명한다.";
+    }
+    let dataDepthText = "공식 기준, 실제 자료, 비교·검증 자료를 순서대로 배치한다.";
+    if(lineKey === "basic") dataDepthText = "공식 기준과 대표 사례 자료를 중심으로 간단히 배치한다.";
+    if(lineKey === "advanced") dataDepthText = "공식 기준, 실제 자료, 한계 보완 자료를 함께 배치한다.";
+    let tableGuide = viewProfile?.focus || "자료 차이를 근거로 내 해석을 정리한다.";
+    if(viewKey === "자료 해석") tableGuide = "기준 자료와 실제 자료의 차이가 내 판단에 어떤 근거가 되는지 정리한다.";
+    if(viewKey === "모델링") tableGuide = "입력 변수, 예상 결과, 모델 한계를 나누어 표로 정리한다.";
+    if(viewKey === "한계") tableGuide = "가능한 판단과 놓치는 점, 보완 자료를 함께 표에 넣는다.";
+    if(viewKey === "비교") tableGuide = "조건 A와 조건 B를 나누어 차이와 해석을 정리한다.";
+    if(viewKey === "사회적 의미") tableGuide = "과학 기준이 생활·사회 영향으로 이어지는 지점을 표에 넣는다.";
+    if(viewKey === "진로 확장") tableGuide = "교과 개념이 전공 개념으로 확장되는 과정을 표에 넣는다.";
+    const paragraphGuide = `${modePlain}. ${tableGuide} ${dataDepthText}`;
+    return { routeSummary, judgmentBasis, dataDepthText, tableGuide, paragraphGuide, majorGuide };
+  }
+
   function buildReportChoiceBlueprint({ mode, view, line, keyword, concept, axis, lens, bookTitle, subject, major }){
     const modeKey = normalizeReportModeKey(mode);
     const viewKey = normalizeReportViewKey(view);
@@ -1008,14 +1063,17 @@
     const viewProfile = viewProfiles[viewKey] || viewProfiles["자료 해석"];
 
     const lineProfiles = {
-      basic: { label:"기본형", dataLabel:"핵심 자료 2~3개", paragraphRule:"처음 쓰는 학생용으로 개념 설명과 대표 자료를 중심으로 간결하게 쓴다.", extraRow:["라인", "기본형", "개념 설명 중심", "문단을 길게 늘리지 않는다"] },
-      standard: { label:"확장형", dataLabel:"자료 3개+도서/데이터 확장", paragraphRule:"수행평가 제출용으로 자료·표·도서 연결을 모두 포함한다.", extraRow:["라인", "확장형", "자료·도서·비교 기준", "본문에서 근거를 충분히 보여준다"] },
-      advanced: { label:"심화형", dataLabel:"자료 3개+후속 탐구+한계 논의", paragraphRule:"고2~고3 심화 탐구처럼 한계와 후속 과목 연결까지 정리한다.", extraRow:["라인", "심화형", "한계·후속 탐구", "결론에서 다음 탐구 방향을 제안한다"] }
+      basic: { label:"기본형", dataLabel:"공식 기준과 대표 사례 자료", paragraphRule:"개념 설명과 대표 자료를 중심으로 간단히 정리한다.", extraRow:["라인", "기본형", "개념 설명 중심", "문단을 길게 늘리지 않는다"] },
+      standard: { label:"확장형", dataLabel:"공식 기준·실제 수치·비교 검증 자료", paragraphRule:"자료, 표, 도서 연결을 모두 포함해 수행평가 제출용으로 정리한다.", extraRow:["라인", "확장형", "자료·도서·비교 기준", "본문에서 근거를 충분히 보여준다"] },
+      advanced: { label:"심화형", dataLabel:"공식 기준·실제 수치·한계 보완 자료", paragraphRule:"한계와 후속 탐구 방향까지 포함해 심화 탐구처럼 정리한다.", extraRow:["라인", "심화형", "한계·후속 탐구", "결론에서 다음 탐구 방향을 제안한다"] }
     };
     const lineProfile = lineProfiles[lineKey] || lineProfiles.standard;
 
     const tableRows = buildStudentFacingChoiceTableRows({
       viewKey, viewProfile, modeProfile, lineProfile, keyword:k, concept:c, axis:a, lens:l, subject, major
+    });
+    const studentPhrases = makeStudentFacingChoicePhrases({
+      modeKey, viewKey, lineKey, modeProfile, viewProfile, lineProfile, keyword:k, concept:c, axis:a, lens:l, subject, major
     });
 
     return {
@@ -1031,10 +1089,16 @@
       tableRows,
       paragraphRule: lineProfile.paragraphRule,
       viewFocus: viewProfile.focus,
+      routeSummary: studentPhrases.routeSummary,
+      judgmentBasis: studentPhrases.judgmentBasis,
+      dataDepthText: studentPhrases.dataDepthText,
+      tableGuide: studentPhrases.tableGuide,
+      paragraphGuide: studentPhrases.paragraphGuide,
+      majorGuide: studentPhrases.majorGuide,
       paragraph2: modeProfile.paragraph2,
       conclusionSentence: modeProfile.conclusion,
-      choiceSummary: `${lineProfile.label} / ${modeProfile.label} / ${viewProfile.label} 관점`,
-      majorConnect: `전공 연결은 '${major || l.displayName || "선택 학과"}'라는 이름을 붙이는 것이 아니라, ${l.shortLabel} 관점으로 ${modeProfile.label}과 ${viewProfile.label} 기준을 함께 적용하는 것이다.`
+      choiceSummary: studentPhrases.routeSummary,
+      majorConnect: `전공 연결은 '${major || l.displayName || "선택 학과"}'라는 이름을 붙이는 것이 아니라, ${l.shortLabel} 사고방식으로 자료를 나누고 판단 기준을 세우는 것이다.`
     };
   }
 
@@ -1387,9 +1451,9 @@
     const assemblyRows = [
       ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
       ["내 질문", "지역·기간·대상·비교 기준을 넣어 바꾼 질문", "서론 마지막"],
-      ["전개 방향", choiceBlueprint.choiceSummary, "보고서 전체 방향"],
-      ["판단 기준", isComputer ? `입력값·조건문·오류 가능성 + ${choiceBlueprint.viewLabel}` : `${choiceBlueprint.modeLabel} + ${choiceBlueprint.viewLabel}`, "본론 도입"],
-      ["자료 3개", choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계/후속 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교/사례 자료"), "본론 1~2"],
+      ["전개 방향", choiceBlueprint.routeSummary || choiceBlueprint.choiceSummary, "보고서 전체 방향"],
+      ["판단 기준", choiceBlueprint.judgmentBasis || (isComputer ? "입력값·조건문·오류 가능성으로 판단 기준을 세운다" : "자료 차이를 근거로 판단 기준을 세운다"), "본론 도입"],
+      ["자료 3개", choiceBlueprint.dataDepthText || (choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계 보완 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교 검증 자료")), "본론 1~2"],
       ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
       ["결론", "내 기준의 장점·한계·보완 자료", "결론"]
     ];
@@ -1418,8 +1482,8 @@
       ["문단", "역할", "학생이 실제로 채울 내용"],
       ["1. 문제 제기", "왜 이 질문을 선택했는지 밝히기", "내가 바꾼 질문 + 이 질문이 궁금해진 이유 + 왜 한 가지 기준으로는 부족하다고 느꼈는지"],
       ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", conceptUse],
-      ["3. 자료 분석", `${choiceBlueprint.viewLabel} 관점으로 표와 근거 비교하기`, `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, 각 행마다 자료 차이와 내가 해석한 이유를 한 줄씩 적는다.`],
-      ["4. 전공 개념 활용", `${choiceBlueprint.modeLabel} 방식으로 판단 과정 보여주기`, isComputer ? `입력값 → 조건문 → 판단 결과 → 오류 검증 순서에 ${choiceBlueprint.viewLabel} 관점을 붙여 설명한다.` : `${lens.process} 흐름에 ${choiceBlueprint.modeLabel}과 ${choiceBlueprint.viewLabel} 기준을 붙여 설명한다.`],
+      ["3. 자료 분석", "표와 근거 비교하기", `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, ${choiceBlueprint.tableGuide || "자료 차이와 내가 해석한 이유를 한 줄씩 적는다."}`],
+      ["4. 전공 개념 활용", "전공 개념으로 판단 과정 보여주기", choiceBlueprint.majorGuide || (isComputer ? "자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `${lens.process} 흐름으로 자료를 나누고 비교한다.`)],
       ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
     ];
 
@@ -1434,7 +1498,7 @@
         "문단 1. 문제 제기 | 꼭 넣을 내용: 한 가지 기준만으로는 부족하다고 느낀 이유를 짧게 쓴다.",
         `문단 2. 자료 해석 기준 | 시작 문장: 이번 보고서는 자료를 단순 정보로 나열하지 않고, 판단 근거가 되는 조건과 차이를 중심으로 읽는다.`,
         `문단 2. 자료 해석 기준 | 활용 예시: ${conceptExample}`,
-        `문단 2. 관점 반영 | 자료를 고를 때는 ${choiceBlueprint.viewLabel} 관점을 먼저 세우고, 문단 깊이는 ${choiceBlueprint.paragraphRule}`,
+        `문단 2. 자료 선택 기준 | ${choiceBlueprint.paragraphGuide || "공식 기준과 실제 자료, 보완 자료가 각각 어떤 근거가 되는지 먼저 정한다."}`,
         "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
         "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
         isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
@@ -1473,7 +1537,7 @@
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v57_student_facing_major_lens_precision",
+        productMode: "major_concept_book_bridge_blueprint_v58_student_display_major_diff_precision",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         focusQuestion,
         majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
@@ -1871,17 +1935,18 @@
     if(!btn) return;
 
     // v34~v56 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v57 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV57Bound === "1") return;
+    // 버튼 노드를 한 번 교체한 뒤 v58 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV58Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
+    btn.dataset.miniWorkerV58Bound = "1";
     btn.dataset.miniWorkerV57Bound = "1";
     btn.dataset.miniWorkerV56Bound = "1";
     btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV54Bound = "1";
     btn.dataset.miniWorkerV53Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v57";
+    btn.dataset.miniWorkerV32Bound = "v58";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
