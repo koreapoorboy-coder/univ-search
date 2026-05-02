@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v56-report-choice-payload-precision";
+  const VERSION = "mini-worker-generate-bridge-v57-student-facing-major-lens-precision";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -840,6 +840,72 @@
     return v;
   }
 
+  function buildStudentFacingChoiceTableRows({ viewKey, viewProfile, modeProfile, lineProfile, keyword, concept, axis, lens, subject, major }){
+    const k = keyword || "선택 키워드";
+    const c = concept || "교과 개념";
+    const a = axis || "선택 기준";
+    const l = lens || { shortLabel:"자료 해석", process:"자료 수집 → 기준 설정 → 해석 → 한계 점검" };
+    const subjectHay = `${subject || ""} ${c} ${k}`;
+    const majorHay = `${major || ""} ${l.shortLabel || ""} ${(l.keywords || []).join(" ")}`;
+    const isWeather = /폭염|기후|주의보|재난|체감온도|날씨|기상/i.test(`${subjectHay} ${a}`);
+    const isComputer = /컴퓨터|소프트웨어|정보|알고리즘|AI|인공지능|데이터|시스템|오류|조건문/i.test(majorHay);
+    const isHealth = /간호|보건|의학|생명|약학|바이오|건강|질병/i.test(`${majorHay} ${subjectHay}`);
+    const isSpaceEnv = /환경|도시|건축|토목|공간|대기|기후/i.test(majorHay);
+    const baseHeader = viewProfile?.table || ["비교 항목", "기준 자료", "실제 자료", "내 해석"];
+
+    let rows;
+    if(viewKey === "모델링"){
+      rows = [
+        baseHeader,
+        ["입력 변수", isWeather ? "기온·습도·체감온도" : `${k}에 영향을 주는 핵심 조건`, isComputer ? "조건문에 넣을 입력값" : "결과를 바꾸는 변수", "어떤 값을 넣느냐에 따라 판단이 달라진다"],
+        ["판단 규칙", "공식 기준 또는 교과 원리", "내가 단순화한 판단 흐름", "모델은 현실을 줄여서 보기 때문에 예외가 생긴다"],
+        ["예상 결과", "기준에 따른 판단", "자료를 넣었을 때 달라진 결과", "예상과 실제 차이를 확인한다"],
+        ["한계", "모델에 넣지 못한 조건", "추가로 필요한 자료", "다음 탐구에서 보완할 변수를 정한다"]
+      ];
+    }else if(viewKey === "한계"){
+      rows = [
+        baseHeader,
+        ["가능한 판단", `${k}의 공식 기준으로 판단`, "실제 자료로 판단", "공식 기준이 설명하는 범위를 확인한다"],
+        ["놓치는 점", "한 가지 기준이 설명하지 못하는 조건", isWeather ? "습도·지속 시간·취약 지역" : "개인차·지역차·조건차", "빠지는 조건이 있으면 결론이 약해진다"],
+        ["보완 자료", "공공기관 기준", "사례·통계·전문기관 자료", "부족한 근거를 다른 자료로 보충한다"],
+        ["결론 한계", "내 기준의 장점", "내 기준의 부족한 점", "끝에서 보완 방향을 함께 쓴다"]
+      ];
+    }else if(viewKey === "비교"){
+      rows = [
+        baseHeader,
+        ["비교 기준", "조건 A", "조건 B", "두 조건의 차이를 먼저 정한다"],
+        ["자료 차이", "공식 기준 또는 대표 사례", "지역·기간·대상별 실제 자료", "같은 주제라도 조건이 다르면 결과가 달라진다"],
+        ["판단 결과", "한 기준으로 본 결론", "다른 기준을 넣은 결론", "어떤 기준이 더 설득력 있는지 판단한다"],
+        ["보완점", "비교가 쉬운 장점", "비교가 놓치는 부분", "결론에서 비교 기준의 한계를 쓴다"]
+      ];
+    }else if(viewKey === "사회적 의미"){
+      rows = [
+        baseHeader,
+        ["과학/자료 기준", `${c} 또는 공식 기준`, `${k} 관련 실제 자료`, "교과 기준이 생활 판단으로 바뀌는 지점을 본다"],
+        ["생활 영향", "수치로 보이는 변화", isWeather ? "건강·이동·학습·노동 영향" : "개인·지역·집단에 미치는 영향", "자료가 실제 삶에서 어떤 의미인지 해석한다"],
+        ["사회적 판단", "기준 충족 여부", "대응·정책·안내 필요성", "판단이 개인 문제가 아니라 사회적 선택과 연결된다"],
+        ["결론 방향", "교과 개념 설명", "생활·사회 영향까지 포함", "보고서 결론을 실제 문제 해결로 확장한다"]
+      ];
+    }else if(viewKey === "진로 확장"){
+      rows = [
+        baseHeader,
+        ["교과 개념", c, `${k}를 설명하는 기본 원리`, "교과에서 배운 내용을 출발점으로 둔다"],
+        ["전공 개념", l.shortLabel || "전공 사고", l.process || "전공식 분석 과정", "학과명보다 사고 과정을 보여준다"],
+        ["확장 자료", "교과서·공식 기준", "전공 소개·기술 기사·사례 자료", "전공에서 어떤 자료를 더 보는지 연결한다"],
+        ["후속 방향", "현재 탐구의 결론", "다음에 더 확인할 변수", "탐구가 진로 활동으로 이어지게 만든다"]
+      ];
+    }else{
+      rows = [
+        baseHeader,
+        ["판단 기준", `${k}의 공식 기준`, isComputer ? "입력값·조건문으로 바꾼 기준" : (isHealth ? "위험 요인·관리 기준" : (isSpaceEnv ? "공간·환경 변수 기준" : "내가 세운 비교 기준")), "기준을 숫자나 조건으로 분명히 만든다"],
+        ["중심 자료", modeProfile?.dataRows?.[1]?.[0] || (isWeather ? "기온·습도·체감온도 자료" : "실제 자료"), lineProfile?.dataLabel || "자료 3개", "자료가 결론의 근거가 되도록 배치한다"],
+        ["추가 변수", isWeather ? "체감온도·습도·지속 시간" : `${a}와 관련된 추가 조건`, isComputer ? "오류·예외 상황" : (isHealth ? "개인차·취약 요인" : (isSpaceEnv ? "지역·공간 차이" : "조건 차이")), "한 가지 자료로 부족한 이유를 설명한다"],
+        ["결론 방향", "자료 차이 확인", viewProfile?.focus || "자료를 해석한다", "내가 선택한 기준의 장점과 한계를 함께 쓴다"]
+      ];
+    }
+    return rows;
+  }
+
   function buildReportChoiceBlueprint({ mode, view, line, keyword, concept, axis, lens, bookTitle, subject, major }){
     const modeKey = normalizeReportModeKey(mode);
     const viewKey = normalizeReportViewKey(view);
@@ -948,13 +1014,9 @@
     };
     const lineProfile = lineProfiles[lineKey] || lineProfiles.standard;
 
-    const tableRows = [
-      viewProfile.table,
-      ["기준", modeProfile.label, viewProfile.label, `${modeProfile.label}으로 전개하되 ${viewProfile.label} 관점을 중심에 둔다`],
-      ["자료", modeProfile.dataRows?.[1]?.[0] || "중심 자료", lineProfile.dataLabel, "자료의 역할이 라인에 따라 달라진다"],
-      ["해석", modeProfile.paragraph2, viewProfile.focus, "전개 방식과 관점이 결론 방향을 바꾼다"],
-      lineProfile.extraRow
-    ];
+    const tableRows = buildStudentFacingChoiceTableRows({
+      viewKey, viewProfile, modeProfile, lineProfile, keyword:k, concept:c, axis:a, lens:l, subject, major
+    });
 
     return {
       modeKey, viewKey, lineKey,
@@ -986,8 +1048,9 @@
     out.dataRows = Array.isArray(blueprint.dataRows) && blueprint.dataRows.length ? blueprint.dataRows : out.dataRows;
     out.tableRows = Array.isArray(blueprint.tableRows) && blueprint.tableRows.length ? blueprint.tableRows : out.tableRows;
     out.majorConnect = blueprint.majorConnect || out.majorConnect;
-    out.conceptUse = `${out.conceptUse || ""} 선택한 보고서 방식은 ${blueprint.choiceSummary}이므로, 이 문단에서는 ${blueprint.paragraph2 || blueprint.viewFocus || "자료를 해석하는 기준"}을 중심으로 쓴다.`.replace(/^\s+/, "");
-    out.conceptExample = `${out.conceptExample || ""} 예를 들어 같은 주제라도 ${blueprint.modeLabel}을 고르면 전개 순서가 바뀌고, ${blueprint.viewLabel} 관점을 고르면 표의 비교 항목과 결론 근거가 달라진다.`.replace(/^\s+/, "");
+    const paragraphFocus = blueprint.paragraph2 || blueprint.viewFocus || "자료를 해석하는 기준";
+    out.conceptUse = `${out.conceptUse || ""} 이 문단에서는 ${paragraphFocus}을 중심으로 자료를 읽는다.`.replace(/^\s+/, "");
+    out.conceptExample = `${out.conceptExample || ""} 예를 들어 표의 비교 항목을 바꾸면 같은 주제라도 결론의 근거가 달라진다.`.replace(/^\s+/, "");
     out.conclusionSentence = blueprint.conclusionSentence || out.conclusionSentence;
     return out;
   }
@@ -1324,7 +1387,7 @@
     const assemblyRows = [
       ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
       ["내 질문", "지역·기간·대상·비교 기준을 넣어 바꾼 질문", "서론 마지막"],
-      ["선택값", choiceBlueprint.choiceSummary, "보고서 전체 방향"],
+      ["전개 방향", choiceBlueprint.choiceSummary, "보고서 전체 방향"],
       ["판단 기준", isComputer ? `입력값·조건문·오류 가능성 + ${choiceBlueprint.viewLabel}` : `${choiceBlueprint.modeLabel} + ${choiceBlueprint.viewLabel}`, "본론 도입"],
       ["자료 3개", choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계/후속 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교/사례 자료"), "본론 1~2"],
       ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
@@ -1355,7 +1418,7 @@
       ["문단", "역할", "학생이 실제로 채울 내용"],
       ["1. 문제 제기", "왜 이 질문을 선택했는지 밝히기", "내가 바꾼 질문 + 이 질문이 궁금해진 이유 + 왜 한 가지 기준으로는 부족하다고 느꼈는지"],
       ["2. 자료 해석 기준", "자료를 어떤 기준으로 읽을지 설명하기", conceptUse],
-      ["3. 자료 분석", `${choiceBlueprint.viewLabel} 관점으로 표와 근거 비교하기`, `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, 각 행마다 선택값 때문에 해석이 어떻게 달라졌는지 한 줄씩 적는다.`],
+      ["3. 자료 분석", `${choiceBlueprint.viewLabel} 관점으로 표와 근거 비교하기`, `${choiceBlueprint.tableRows[0].join(" / ")} 구조로 표를 만들고, 각 행마다 자료 차이와 내가 해석한 이유를 한 줄씩 적는다.`],
       ["4. 전공 개념 활용", `${choiceBlueprint.modeLabel} 방식으로 판단 과정 보여주기`, isComputer ? `입력값 → 조건문 → 판단 결과 → 오류 검증 순서에 ${choiceBlueprint.viewLabel} 관점을 붙여 설명한다.` : `${lens.process} 흐름에 ${choiceBlueprint.modeLabel}과 ${choiceBlueprint.viewLabel} 기준을 붙여 설명한다.`],
       ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
     ];
@@ -1369,9 +1432,9 @@
       {title:"보고서 문장 구조", body:[
         "문단 1. 문제 제기 | 시작 문장: 내가 바꾼 질문을 먼저 쓰고, 왜 이 질문이 궁금해졌는지 밝힌다.",
         "문단 1. 문제 제기 | 꼭 넣을 내용: 한 가지 기준만으로는 부족하다고 느낀 이유를 짧게 쓴다.",
-        `문단 2. 자료 해석 기준 | 시작 문장: 이번 보고서는 ${choiceBlueprint.choiceSummary}으로 전개하므로 자료를 단순 정보가 아니라 선택한 관점의 근거로 읽는다.`,
+        `문단 2. 자료 해석 기준 | 시작 문장: 이번 보고서는 자료를 단순 정보로 나열하지 않고, 판단 근거가 되는 조건과 차이를 중심으로 읽는다.`,
         `문단 2. 자료 해석 기준 | 활용 예시: ${conceptExample}`,
-        `문단 2. 선택값 반영 | 6번 전개 방식은 ${choiceBlueprint.modeLabel}, 7번 관점은 ${choiceBlueprint.viewLabel}, 8번 라인은 ${choiceBlueprint.lineLabel}이므로 문단의 강조점은 ${choiceBlueprint.paragraphRule}`,
+        `문단 2. 관점 반영 | 자료를 고를 때는 ${choiceBlueprint.viewLabel} 관점을 먼저 세우고, 문단 깊이는 ${choiceBlueprint.paragraphRule}`,
         "문단 3. 자료 분석 | 쓰는 방법: [자료 1]·[자료 2]·[자료 3]을 표로 정리하고, 각 행마다 내가 본 차이를 한 줄씩 적는다.",
         "문단 3. 자료 분석 | 해석 포인트: 표에 보이는 차이를 근거로 ‘어떤 조건에서 판단이 달라지는지’를 설명한다.",
         isComputer ? "문단 4. 전공 개념 활용 | 쓰는 방법: 자료를 입력값으로 보고, 어떤 조건을 넣었을 때 판단 결과가 달라지는지 순서대로 설명한다." : `문단 4. 전공 개념 활용 | 쓰는 방법: ${lens.shortLabel} 관점으로 자료를 나누고 비교한 방식을 설명한다.`,
@@ -1410,7 +1473,7 @@
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v56_report_choice_payload_precision",
+        productMode: "major_concept_book_bridge_blueprint_v57_student_facing_major_lens_precision",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         focusQuestion,
         majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
@@ -1807,16 +1870,18 @@
     let btn = $("generateBtn");
     if(!btn) return;
 
-    // v34~v36 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
-    // 버튼 노드를 한 번 교체한 뒤 v54 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV54Bound === "1") return;
+    // v34~v56 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
+    // 버튼 노드를 한 번 교체한 뒤 v57 핸들러만 다시 연결한다.
+    if(btn.dataset.miniWorkerV57Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
+    btn.dataset.miniWorkerV57Bound = "1";
+    btn.dataset.miniWorkerV56Bound = "1";
+    btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV54Bound = "1";
-      btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV53Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v55";
+    btn.dataset.miniWorkerV32Bound = "v57";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
