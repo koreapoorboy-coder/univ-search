@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.80-major-search-buffer-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.90-major-search-input-throttle";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v33.18-major-search-buffer-fix';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v60-major-search-input-throttle';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -33,7 +33,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.80-major-search-buffer-fix";
     delegatedCareerBound: false,
     inputObserverBound: false,
     majorInputTimer: null,
-    lastRenderedCareerRaw: ""
+    majorTypingClearTimer: null,
+    renderCache: new Map(),
+    lastRenderedCareerRaw: "",
+    lastRenderedDispatchKey: ""
   };
 
   function $(id){ return document.getElementById(id); }
@@ -377,46 +380,84 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.80-major-search-buffer-fix";
     }
   }
 
+  function setMajorTypingFlag(active){
+    window.__MAJOR_ENGINE_TYPING__ = !!active;
+    if (state.majorTypingClearTimer) clearTimeout(state.majorTypingClearTimer);
+    if (active) {
+      state.majorTypingClearTimer = setTimeout(() => {
+        window.__MAJOR_ENGINE_TYPING__ = false;
+        state.majorTypingClearTimer = null;
+      }, 900);
+    } else {
+      state.majorTypingClearTimer = null;
+    }
+  }
+
+  function getRenderCacheKey(raw){
+    return [normalize(raw || ''), state.selectedMajorId || '', state.selectedMajorName || ''].join('||');
+  }
+
+  function clearMajorRenderCache(){
+    try { state.renderCache.clear(); } catch (error) {}
+  }
+
   function flushMajorInputRender(){
     if (state.majorInputTimer) {
       clearTimeout(state.majorInputTimer);
       state.majorInputTimer = null;
     }
+    setMajorTypingFlag(false);
     state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
-    renderMajorSummary();
+    renderMajorSummary({ dispatch: true, reason: 'commit' });
     startMiniPayloadPatch();
   }
 
-  function scheduleMajorInputRender(delay = 180){
+  function scheduleMajorInputRender(delay = 320){
     if (state.majorInputTimer) clearTimeout(state.majorInputTimer);
     state.majorInputTimer = setTimeout(() => {
       state.majorInputTimer = null;
-      state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
-      renderMajorSummary();
+      const raw = String(getCareerInput()?.value || '').trim();
+      if (raw === state.lastRenderedCareerRaw) return;
+      state.lastRenderedCareerRaw = raw;
+      renderMajorSummary({ dispatch: false, reason: 'search' });
       startMiniPayloadPatch();
     }, delay);
   }
 
   function onCareerInputEvent(el, event){
     if (!el) return;
+    if (event && event.__majorEngineHandled) return;
+    if (event) event.__majorEngineHandled = true;
+
     const raw = String(el.value || '').trim();
+    const eventType = String(event?.type || '');
+
+    if (eventType === 'focus') {
+      // focus만으로 후보/후속 영역을 다시 그리면 입력 시작 전에 렌더가 겹친다.
+      return;
+    }
+
     if (!raw) {
       state.selectedMajorId = '';
       state.selectedMajorName = '';
-    } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
-      // 이전에 선택했던 학과가 남아 있으면 다음 입력에서 후보 패널/교과 추천이 서로 렌더를 반복한다.
-      // 새 학과명을 입력하기 시작하면 기존 선택을 즉시 비우고, 검색 결과는 입력이 멈춘 뒤 한 번만 렌더한다.
+      clearMajorRenderCache();
+    } else if (eventType === 'input' && state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
+      // 이전 선택값은 즉시 비우되, 교과 추천/4번 축 확정은 입력 중에는 발생시키지 않는다.
       state.selectedMajorId = '';
       state.selectedMajorName = '';
       window.__MAJOR_ENGINE_SELECTED__ = null;
       window.__MAJOR_ENGINE_LAST_RAW__ = raw;
       window.__MAJOR_ENGINE_LAST_INPUT__ = raw;
+      clearMajorRenderCache();
     }
-    const eventType = String(event?.type || '');
+
     if (eventType === 'input') {
-      scheduleMajorInputRender(180);
+      setMajorTypingFlag(true);
+      scheduleMajorInputRender(320);
       return;
     }
+
+    // change/blur 시점만 실제 학과 확정 신호를 아래 엔진으로 보낸다.
     flushMajorInputRender();
   }
 
@@ -4935,7 +4976,9 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     state.selectedMajorId = profile.major_id || majorId || '';
     state.selectedMajorName = profile.display_name || displayName || '';
     input.value = state.selectedMajorName;
-    renderMajorSummary();
+    setMajorTypingFlag(false);
+    clearMajorRenderCache();
+    renderMajorSummary({ dispatch: true, reason: 'select' });
     startMiniPayloadPatch();
     input.dispatchEvent(new Event('change', { bubbles:true }));
   }
@@ -5630,17 +5673,30 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     };
   }
 
-  function renderMajorSummary(){
+  function renderMajorSummary(options = {}){
+    const dispatchEnabled = options && Object.prototype.hasOwnProperty.call(options, 'dispatch') ? !!options.dispatch : !window.__MAJOR_ENGINE_TYPING__;
+    const renderReason = String(options?.reason || 'auto');
     injectStyles();
     bindCareerInput();
     const panel = ensureMajorPanel();
     if (!panel) return;
-    const data = getSummaryData();
+    const raw = String(getCareerInput()?.value || '').trim();
+    const cacheKey = getRenderCacheKey(raw);
+    let data = null;
+    if (renderReason === 'search' && state.renderCache.has(cacheKey)) {
+      data = state.renderCache.get(cacheKey);
+    } else {
+      data = getSummaryData();
+      if (renderReason === 'search') {
+        if (state.renderCache.size > 30) state.renderCache.clear();
+        state.renderCache.set(cacheKey, data);
+      }
+    }
     state.activeResolved = data && data.status === 'resolved' ? data : null;
     if (!data || data.status === 'empty') {
       panel.style.display = 'none';
       panel.innerHTML = '';
-      dispatchMajorSelection(null);
+      if (dispatchEnabled) dispatchMajorSelection(null);
       return;
     }
     panel.style.display = 'block';
@@ -5682,7 +5738,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         </div>
         <div class="major-engine-help">입력한 단어를 바탕으로 비슷한 학과를 묶어서 보여줍니다. 먼저 묶음을 보고, 그 안에서 가장 가까운 학과를 클릭하면 전공 프리셋과 자동 키워드가 함께 바뀝니다.</div>
       `;
-      dispatchMajorSelection(null);
+      if (dispatchEnabled) dispatchMajorSelection(null);
       return;
     }
 
@@ -5693,7 +5749,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         <div class="major-engine-sub">입력값: <strong>${escapeHtml(data.input || '-')}</strong></div>
         <div class="major-engine-suggest">비슷한 학과를 찾지 못했습니다. 더 구체적인 학과명이나 관심 키워드를 입력해 보세요.</div>
       `;
-      dispatchMajorSelection(null);
+      if (dispatchEnabled) dispatchMajorSelection(null);
       return;
     }
 
@@ -5748,7 +5804,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       </div>` : ''}
       <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
-    dispatchMajorSelection(data);
+    if (dispatchEnabled) dispatchMajorSelection(data);
   }
 
   function onPanelClick(event){
@@ -5766,9 +5822,13 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       track_category: data.track_category || '',
       comparison: data.comparison || null
     } : null;
+    const raw = getCareerInput()?.value || '';
+    const dispatchKey = [raw, detail?.display_name || '', (detail?.core_keywords || []).join('|')].join('||');
     window.__MAJOR_ENGINE_SELECTED__ = detail;
-    window.__MAJOR_ENGINE_LAST_RAW__ = getCareerInput()?.value || '';
-    window.__MAJOR_ENGINE_LAST_INPUT__ = getCareerInput()?.value || '';
+    window.__MAJOR_ENGINE_LAST_RAW__ = raw;
+    window.__MAJOR_ENGINE_LAST_INPUT__ = raw;
+    if (dispatchKey === state.lastRenderedDispatchKey) return;
+    state.lastRenderedDispatchKey = dispatchKey;
     window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
   }
 
