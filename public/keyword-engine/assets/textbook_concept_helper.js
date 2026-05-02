@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v67.0-followup-axis-priority-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v69.0-semiconductor-concept-keyword-routing';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3929,18 +3929,25 @@ function getTrackMeta(trackId) {
   }
 
   function getIntegratedScience1PreferredConceptSequence() {
-    const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
 
     if (!majorText) {
       return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "기본량과 단위", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "역학 시스템", "생명 시스템"];
     }
 
+    // v69: 반도체/소자 계열은 통합과학1에서 센서·측정 축으로만 들어가면 안 된다.
+    // 먼저 물질 구성·주기율표 쪽 개념을 보여야, 이후 키워드 "반도체"를 골라
+    // 화학·소재/물리·시스템 후속 연계축으로 정상 이동할 수 있다.
+    if (/(반도체|반도체공학|소자|칩|웨이퍼|도핑|집적회로|파운드리|공정|밴드갭)/.test(majorText)) {
+      return ["물질 구성과 분류", "규칙성 발견과 주기율표", "기본량과 단위", "과학의 측정과 우리 사회", "역학 시스템", "자연 세계의 시간과 공간", "지구시스템", "생명 시스템"];
+    }
+
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍)/i.test(majorText) || bucket === "it") {
       return ["과학의 측정과 우리 사회", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "기본량과 단위", "역학 시스템", "지구시스템", "물질 구성과 분류", "생명 시스템"];
     }
-    if (/(전자|전기|회로|센서|통신|반도체)/.test(majorText) || bucket === "electronic") {
-      return ["과학의 측정과 우리 사회", "기본량과 단위", "역학 시스템", "규칙성 발견과 주기율표", "자연 세계의 시간과 공간", "물질 구성과 분류", "지구시스템", "생명 시스템"];
+    if (/(전자|전기|회로|센서|통신)/.test(majorText) || bucket === "electronic") {
+      return ["기본량과 단위", "과학의 측정과 우리 사회", "역학 시스템", "규칙성 발견과 주기율표", "물질 구성과 분류", "자연 세계의 시간과 공간", "지구시스템", "생명 시스템"];
     }
     if (/(기계|자동차|로봇|항공|모빌리티)/.test(majorText) || bucket === "mechanical") {
       return ["역학 시스템", "기본량과 단위", "과학의 측정과 우리 사회", "자연 세계의 시간과 공간", "규칙성 발견과 주기율표", "물질 구성과 분류", "지구시스템", "생명 시스템"];
@@ -7447,7 +7454,30 @@ function getTrackMeta(trackId) {
     return [];
   }
 
+  function getIntegratedScience1PreferredKeywordSequence() {
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
+    if (!/(반도체|반도체공학|소자|칩|웨이퍼|도핑|집적회로|파운드리|공정|밴드갭)/.test(majorText)) return [];
+    const concept = state.concept || "";
+    if (/물질 구성과 분류/.test(concept)) {
+      return ["반도체", "도핑", "전기 전도성", "재료 성질", "원소", "금속", "비금속", "분류 기준", "구조와 성질의 관계"];
+    }
+    if (/규칙성 발견과 주기율표/.test(concept)) {
+      return ["반도체", "원소 배열", "성질 예측", "주기성", "원자 번호", "재료공학", "소자", "밴드갭", "예측 모델"];
+    }
+    if (/기본량과 단위/.test(concept)) {
+      return ["전류", "전압", "전기 전도성", "측정 표준", "단위 환산", "공학 계산", "반도체", "측정 기준"];
+    }
+    if (/과학의 측정과 우리 사회/.test(concept)) {
+      return ["반도체", "센서", "측정값 비교", "디지털 데이터", "공정 조건", "오차 기준", "측정 표준"];
+    }
+    return ["반도체", "소자", "도핑", "전기 전도성", "재료 성질", "공정 조건"];
+  }
+
   function getPreferredKeywordSequence() {
+    if (state.subject === "통합과학1") {
+      const isci1Preferred = getIntegratedScience1PreferredKeywordSequence();
+      if (isci1Preferred.length) return isci1Preferred;
+    }
     if (isEarthSystemScienceSubject()) {
       const earthSystemPreferred = getEarthSystemSciencePreferredKeywordSequence();
       if (earthSystemPreferred.length) return earthSystemPreferred;
@@ -7934,8 +7964,14 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
   }
 
   function getKeywordList(entry) {
-    const base = uniq([...(entry?.micro_keywords || []), ...(entry?.core_concepts || [])]);
+    let base = uniq([...(entry?.micro_keywords || []), ...(entry?.core_concepts || [])]);
     const preferred = getPreferredKeywordSequence();
+    // v69: 통합과학1 + 반도체 계열에서는 원본 교과 키워드에 "반도체"가 없어도
+    // 검수 흐름상 반도체 키워드를 선택할 수 있어야 한다.
+    // 단, 전체 과목 데이터에 주입하지 않고 현재 선택 개념·학과 맥락에서만 보강한다.
+    if (state.subject === "통합과학1" && preferred.length && /(반도체|소자|도핑|전기 전도성|밴드갭)/.test(preferred.join(" "))) {
+      base = uniq([...preferred, ...base]);
+    }
     const preferredIndex = new Map(preferred.map((item, idx) => [item, idx]));
     return base
       .map((keyword, index) => ({
