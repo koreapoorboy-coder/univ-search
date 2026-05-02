@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-search';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v70_semiconductor_axis_display_priority";
+  const ASSET_VERSION_QUERY = "v78_followup_axis_b_energy_direct_search";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2616,7 +2616,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       const names = titleNodes
         .map(node => String(node.textContent || node.getAttribute?.('data-major-select') || '').replace(/\s+/g, ' ').trim())
         .filter(text => text && !blocked.test(text));
-      const strong = names.find(text => /(학과|학부|전공|공학|의예|약학|간호|교육|컴퓨터|소프트웨어|정보|데이터|AI|인공지능|반도체|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어)/.test(text));
+      const strong = names.find(text => /(학과|학부|전공|공학|의예|약학|간호|교육|컴퓨터|소프트웨어|정보|데이터|AI|인공지능|반도체|신소재|환경|경영|경제|심리|생명|화학|물리|수학|국어|에너지)/.test(text));
       return strong || names[0] || '';
     } catch (error) {
       return '';
@@ -3319,6 +3319,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       system: "physics",
       physics: "physics",
       engineering: "engineering",
+      electronics: "electronics",
+      energy: "energy",
       urban: "urban",
       spatial: "urban",
       space: "urban",
@@ -3349,7 +3351,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
     if (/지구|환경|기후|대기|해양|체감온도|습도/.test(text)) return "earth_env";
     if (/자료|데이터|통계|그래프|수리|모델링|예측|비교/.test(text)) return "data";
     if (/정보|알고리즘|프로그래밍|입력|출력|조건문/.test(text)) return "info";
-    if (/물리|시스템|센서|장치|역학|전자기|속도|전류|전압/.test(text)) return "physics";
+    if (/전자|소자|회로|신호|통신|센서|전자장치/.test(text)) return "electronics";
+    if (/에너지|전환|저장|효율|신재생|전력|배터리/.test(text)) return "energy";
+    if (/물리|시스템|장치|역학|전자기|속도|전류|전압/.test(text)) return "physics";
     if (/생명|건강|간호|보건|의학|생체|온열|질환|취약/.test(text)) return "health";
     if (/경영|경제|의사결정|비용|편익|위험 관리|우선순위/.test(text)) return "decision";
     return "";
@@ -3362,6 +3366,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
     if (/(전자공학|전기전자|전기공학|전자전기|회로|센서|통신|전파|임베디드)/.test(t)) return "electronics";
     if (/(신소재|재료공학|재료|소재|고분자|금속|세라믹|나노소재)/.test(t)) return "materials";
     if (/(화학공학|화공|공업화학|응용화학|화학생명공학)/.test(t)) return "chemeng";
+    if (/(에너지공학|신재생에너지|에너지시스템|에너지|전력|배터리)/.test(t)) return "energy";
     if (/(컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|정보|보안|프로그래밍|통계)/i.test(t)) return "it";
     if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(t)) return "urban";
     if (/(환경공학|환경|기후|대기|지구|해양|생태|자원|에너지환경|지리)/.test(t)) return "env";
@@ -3379,6 +3384,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       .replace(/(전자공학과\s*){2,}/g, "전자공학과 ")
       .replace(/(신소재공학과\s*){2,}/g, "신소재공학과 ")
       .replace(/(화학공학과\s*){2,}/g, "화학공학과 ")
+      .replace(/(에너지공학과\s*){2,}/g, "에너지공학과 ")
       .trim();
   }
 
@@ -3401,6 +3407,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       [/신소재공학과|신소재|재료공학과|재료|소재/, "신소재공학과"],
       [/전자공학과|전기전자공학과|전자전기공학과|전자|전기전자|회로|센서|통신/, "전자공학과"],
       [/화학공학과|화공|화학생명공학|공업화학/, "화학공학과"],
+      [/에너지공학과|에너지공학|신재생에너지|에너지시스템|에너지/, "에너지공학과"],
       [/컴퓨터공학과|컴퓨터|소프트웨어/, "컴퓨터공학과"],
       [/인공지능학과|인공지능|AI/, "인공지능학과"],
       [/데이터사이언스학과|데이터사이언스|빅데이터|데이터/, "데이터사이언스학과"],
@@ -3434,15 +3441,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       semiconductor: {
         bucket: "semiconductor",
         lens: "반도체 물성·소자 작동·재료 구조",
-        directAxisDomains: ["engineering", "chemistry", "physics"],
-        bridgeAxisDomains: ["data", "info", "math"],
+        directAxisDomains: ["engineering", "chemistry", "physics", "electronics"],
+        bridgeAxisDomains: ["energy", "data", "info", "math"],
         resultKeywords: ["반도체", "전기적 성질", "도핑", "전자 이동", "소자 작동", "재료 구조"]
       },
       electronics: {
         bucket: "electronics",
         lens: "전자 이동·회로·소자 시스템",
-        directAxisDomains: ["engineering", "physics"],
-        bridgeAxisDomains: ["chemistry", "data", "info", "math"],
+        directAxisDomains: ["electronics", "engineering", "physics"],
+        bridgeAxisDomains: ["chemistry", "energy", "data", "info", "math"],
         resultKeywords: ["전자 이동", "전류", "회로", "소자", "신호", "장치 구조"]
       },
       materials: {
@@ -3456,8 +3463,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
         bucket: "chemeng",
         lens: "물질 변화·반응 조건·공정·소재 제조",
         directAxisDomains: ["chemistry"],
-        bridgeAxisDomains: ["engineering", "data", "physics"],
+        bridgeAxisDomains: ["engineering", "energy", "data", "physics"],
         resultKeywords: ["물질 변화", "반응 조건", "공정", "화학적 처리", "소재 제조", "제어 조건"]
+      },
+      energy: {
+        bucket: "energy",
+        lens: "에너지 전환·저장·효율·시스템 설계",
+        directAxisDomains: ["energy", "engineering", "physics", "chemistry"],
+        bridgeAxisDomains: ["data", "electronics", "info"],
+        resultKeywords: ["에너지 전환", "저장 효율", "전력", "배터리", "신재생", "시스템 설계"]
       },
       it: {
         bucket: "it",
@@ -3625,9 +3639,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
     // - 전자공학과: 재료·소자 기초 또는 물리·시스템 해석
     // - 화학공학과: 화학·물질 구조 분석
     if (profile.bucket === "electronics") {
+      if (domain === "electronics") return 430;
       if (domain === "engineering") return 330;
       if (domain === "physics") return 260;
       if (domain === "chemistry") return 65;
+      if (domain === "energy") return 40;
       if (domain === "data" || domain === "info") return -50;
       return 0;
     }
@@ -3652,10 +3668,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
       if (domain === "data" || domain === "info") return -45;
       return 0;
     }
+    if (profile.bucket === "energy") {
+      if (domain === "energy") return 460;
+      if (domain === "engineering") return 310;
+      if (domain === "physics") return 240;
+      if (domain === "chemistry") return 220;
+      if (domain === "electronics") return 95;
+      if (domain === "data" || domain === "info") return -35;
+      return 0;
+    }
     if (profile.bucket === "engineering") {
       if (domain === "engineering") return 220;
       if (domain === "physics") return 160;
       if (domain === "chemistry") return 80;
+      if (domain === "energy") return 120;
       if (domain === "data" || domain === "info") return -35;
       return 0;
     }
@@ -3677,10 +3703,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
     }
     if (isSemiconductorFollowupContext()) {
       const order = {
-        semiconductor: { chemistry: 980, engineering: 970, physics: 360, data: -160, info: -160 },
+        semiconductor: { chemistry: 980, engineering: 970, electronics: 760, physics: 360, energy: 180, data: -160, info: -160 },
         materials: { chemistry: 980, engineering: 460, physics: 120, data: -160, info: -160 },
-        electronics: { engineering: 980, physics: 840, chemistry: 220, data: -160, info: -160 },
-        chemeng: { chemistry: 980, engineering: 280, physics: 80, data: -160, info: -160 },
+        electronics: { electronics: 1000, engineering: 940, physics: 820, chemistry: 220, energy: 120, data: -160, info: -160 },
+        chemeng: { chemistry: 980, engineering: 280, energy: 120, physics: 80, data: -160, info: -160 },
+        energy: { energy: 1000, engineering: 720, physics: 560, chemistry: 520, electronics: 240, data: -120, info: -120 },
         engineering: { engineering: 760, physics: 600, chemistry: 240, data: -120, info: -120 }
       };
       return (order[profile.bucket] && Object.prototype.hasOwnProperty.call(order[profile.bucket], domain)) ? order[profile.bucket][domain] : 0;
@@ -3721,57 +3748,88 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
 
   function addContextualFollowupAxes(axes) {
     const list = Array.isArray(axes) ? [...axes] : [];
-    if (!isHeatwaveFollowupContext()) return list;
     const profile = buildMajorRoutingProfile(getMajorRoutingText());
     const hasDomain = (...domains) => list.some(axis => domains.includes(getAxisDomainForRouting(axis)));
     const pushIfMissing = (seed, ...domains) => {
       if (!hasDomain(...domains)) list.push(makeContextFollowupAxis(seed));
     };
 
-    if (profile.bucket === "urban") {
-      pushIfMissing({
-        id: "measurement_urban_spatial",
-        title: "도시·공간 환경 분석 축",
-        short: "도시·열섬·생활권",
-        axisDomain: "urban",
-        priority: 1,
-        linkedSubjects: ["지구과학", "지구시스템과학", "통합사회1", "한국지리 탐구"],
-        desc: "폭염주의보 자료를 도시 열섬, 녹지, 포장 면적, 생활권 차이와 연결해 해석하는 방향입니다.",
-        easy: "지역별 기온·체감온도 비교, 녹지·포장 면적 자료 해석, 생활권별 폭염 위험 비교",
-        activityExamples: ["도시 열섬 자료 비교", "녹지·포장 면적과 체감온도 관계 정리", "생활권별 폭염 대응 기준 제안"]
-      }, "urban");
+    if (isHeatwaveFollowupContext()) {
+      if (profile.bucket === "urban") {
+        pushIfMissing({
+          id: "measurement_urban_spatial",
+          title: "도시·공간 환경 분석 축",
+          short: "도시·열섬·생활권",
+          axisDomain: "urban",
+          priority: 1,
+          linkedSubjects: ["지구과학", "지구시스템과학", "통합사회1", "한국지리 탐구"],
+          desc: "폭염주의보 자료를 도시 열섬, 녹지, 포장 면적, 생활권 차이와 연결해 해석하는 방향입니다.",
+          easy: "지역별 기온·체감온도 비교, 녹지·포장 면적 자료 해석, 생활권별 폭염 위험 비교",
+          activityExamples: ["도시 열섬 자료 비교", "녹지·포장 면적과 체감온도 관계 정리", "생활권별 폭염 대응 기준 제안"]
+        }, "urban");
+      }
+
+      if (profile.bucket === "health") {
+        pushIfMissing({
+          id: "measurement_health_risk",
+          title: "생명·건강 위험 해석 축",
+          short: "온열질환·취약 대상",
+          axisDomain: "health",
+          priority: 1,
+          linkedSubjects: ["생명과학", "세포와 물질대사", "보건", "확률과 통계"],
+          desc: "폭염주의보 자료를 체온 조절, 온열질환, 취약 대상 관찰과 건강 관리 기준으로 연결하는 방향입니다.",
+          easy: "온열질환 위험 요인 정리, 취약 대상별 관리 기준 비교, 폭염 대응 건강 자료 보고서",
+          activityExamples: ["체온 조절과 온열질환 위험 요인 정리", "노약자·야외근로자 등 취약 대상 관리 기준 비교", "폭염 대응 간호·보건 안내 자료 구성"]
+        }, "health", "biology");
+      }
+
+      if (profile.bucket === "business") {
+        pushIfMissing({
+          id: "measurement_decision_risk",
+          title: "의사결정·위험 관리 축",
+          short: "비용·편익·우선순위",
+          axisDomain: "decision",
+          priority: 1,
+          linkedSubjects: ["통합사회1", "확률과 통계", "경제", "정보"],
+          desc: "폭염주의보 자료를 위험 관리, 대응 우선순위, 비용·편익, 의사결정 기준으로 연결하는 방향입니다.",
+          easy: "폭염 대응 우선순위 비교, 비용·편익 기준 정리, 의사결정 표 작성",
+          activityExamples: ["냉방 지원 정책의 비용·편익 비교", "위험도 기준에 따른 대응 우선순위 설계", "자료 기반 의사결정 표 작성"]
+        }, "decision", "business");
+      }
     }
 
-    if (profile.bucket === "health") {
-      pushIfMissing({
-        id: "measurement_health_risk",
-        title: "생명·건강 위험 해석 축",
-        short: "온열질환·취약 대상",
-        axisDomain: "health",
-        priority: 1,
-        linkedSubjects: ["생명과학", "세포와 물질대사", "보건", "확률과 통계"],
-        desc: "폭염주의보 자료를 체온 조절, 온열질환, 취약 대상 관찰과 건강 관리 기준으로 연결하는 방향입니다.",
-        easy: "온열질환 위험 요인 정리, 취약 대상별 관리 기준 비교, 폭염 대응 건강 자료 보고서",
-        activityExamples: ["체온 조절과 온열질환 위험 요인 정리", "노약자·야외근로자 등 취약 대상 관리 기준 비교", "폭염 대응 간호·보건 안내 자료 구성"]
-      }, "health", "biology");
-    }
-
-    if (profile.bucket === "business") {
-      pushIfMissing({
-        id: "measurement_decision_risk",
-        title: "의사결정·위험 관리 축",
-        short: "비용·편익·우선순위",
-        axisDomain: "decision",
-        priority: 1,
-        linkedSubjects: ["통합사회1", "확률과 통계", "경제", "정보"],
-        desc: "폭염주의보 자료를 위험 관리, 대응 우선순위, 비용·편익, 의사결정 기준으로 연결하는 방향입니다.",
-        easy: "폭염 대응 우선순위 비교, 비용·편익 기준 정리, 의사결정 표 작성",
-        activityExamples: ["냉방 지원 정책의 비용·편익 비교", "위험도 기준에 따른 대응 우선순위 설계", "자료 기반 의사결정 표 작성"]
-      }, "decision", "business");
+    if (isSemiconductorFollowupContext()) {
+      if (profile.bucket === "electronics") {
+        pushIfMissing({
+          id: "semiconductor_electronic_device_system",
+          title: "전자·소자 시스템 분석 축",
+          short: "회로·신호·전자장치",
+          axisDomain: "electronics",
+          priority: 1,
+          linkedSubjects: ["전자기와 양자", "물리", "정보"],
+          desc: "반도체를 전자 이동, 회로, 센서, 신호 처리, 장치 구조와 연결해 해석하는 방향입니다.",
+          easy: "전자 이동과 회로 작동, 센서·신호 처리, 반도체 소자 구조 비교",
+          activityExamples: ["반도체 소자 작동 원리 정리", "센서와 신호 처리 사례 비교", "회로 속 반도체 역할 보고서"]
+        }, "electronics");
+      }
+      if (profile.bucket === "energy") {
+        pushIfMissing({
+          id: "semiconductor_energy_conversion_storage",
+          title: "에너지·소재 변환 축",
+          short: "전환·저장·효율",
+          axisDomain: "energy",
+          priority: 1,
+          linkedSubjects: ["물질과 에너지", "전자기와 양자", "화학"],
+          desc: "반도체·소재 개념을 에너지 전환, 저장 효율, 전력 시스템, 신재생 에너지 활용과 연결하는 방향입니다.",
+          easy: "에너지 변환 효율 비교, 저장 장치 소재 특성 정리, 전력·신재생 시스템 연결",
+          activityExamples: ["반도체 소재와 태양전지 효율 비교", "배터리·전력 저장 소재 특성 정리", "에너지 변환 장치의 물질 특성 보고서"]
+        }, "energy");
+      }
     }
 
     return list;
   }
+
 
   function getCareerAxisBoost(axis) {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
