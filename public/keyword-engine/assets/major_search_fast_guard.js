@@ -1,4 +1,4 @@
-window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v71-major-search-department-exact-fix';
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
 
 (function(){
   if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
@@ -63,16 +63,59 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v71-major-search-department-exact-fi
 
   const QUERY_GROUPS = [
     { test: /(컴|컴퓨터|컴공|소프트|소프트웨어|인공지능|\bai\b|데이터|보안|프로그래밍|개발)/i, names:['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과'] },
-    { test: /(간|간호|보건|임상|물리치료|작업치료|재활|치료|의료)/, names:['간호학과','보건관리학과','물리치료학과','임상병리학과','작업치료학과'] },
-    { test: /(반|반도|반도체|전자|전기|소자|회로)/, names:['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
+
+    // v74: 보건/치료 세부 검색은 한 묶음으로 뭉개지지 않게 분리한다.
+    // 보건은 간호·보건관리·임상 중심, 물리치료/작업치료는 재활 계열 후보 중심으로 제한한다.
+    { test: /(간|간호|간호학|간호사)/, names:['간호학과','보건관리학과','임상병리학과'] },
+    { test: /(보건|공중보건|보건관리|의료)/, names:['간호학과','보건관리학과','임상병리학과'] },
+    { test: /(물리치료)/, names:['물리치료학과','작업치료학과','보건관리학과'] },
+    { test: /(작업치료)/, names:['작업치료학과','물리치료학과','보건관리학과'] },
+    { test: /(재활|치료)/, names:['물리치료학과','작업치료학과','보건관리학과'] },
+    { test: /(임상|병리|검사)/, names:['임상병리학과','보건관리학과','간호학과'] },
+
+    // v74: 회로는 전자공학과를 우선한다. 반도체·전기공학은 보조 후보로 둔다.
+    { test: /(회로|센서|신호|전자장치)/, names:['전자공학과','반도체공학과','전기공학과'] },
+    { test: /(반|반도|반도체|소자)/, names:['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
+    { test: /(전자|전자공|전자공학)/, names:['전자공학과','반도체공학과','전기공학과'] },
+    { test: /(전기|전기공|전기공학|전력)/, names:['전기공학과','전자공학과','반도체공학과'] },
+
     { test: /(화학공학|화학공|화공|화학공정)/, names:['화학공학과','화학과','신소재공학과','반도체공학과'] },
     { test: /(화학|반응|결합|물질)/, names:['화학공학과','화학과','신소재공학과','반도체공학과'] },
     { test: /(신소재|소재|재료|배터리|이차전지|에너지)/, names:['신소재공학과','화학공학과','반도체공학과','전자공학과'] },
-    { test: /(환경|기후|대기|지구|도시|인프라|토목|건설|열섬|녹지)/, names:['환경공학과','지구환경과학과','대기과학과','도시공학과','건설환경공학과'] },
+
+    // v74: 기후는 환경공학과를 1순위로 고정한다. 도시/건설은 기후 직접 검색에서는 제외하고 도시·인프라 검색에서만 노출한다.
+    { test: /(기후|환경|환경공|환경공학|오염|저감)/, names:['환경공학과','지구환경과학과','대기과학과'] },
+    { test: /(대기|대기과학|기상)/, names:['대기과학과','환경공학과','지구환경과학과'] },
+    { test: /(지구|지구환경|해양|관측)/, names:['지구환경과학과','환경공학과','대기과학과'] },
+    { test: /(도시|인프라|토목|건설|열섬|녹지|생활권)/, names:['도시공학과','건설환경공학과','환경공학과'] },
+
     { test: /(경영|경제|금융|회계|마케팅|무역|통상)/, names:['경영학과','경제학과'] },
     { test: /(심리|상담|교육|복지)/, names:['심리학과','보건관리학과'] },
     { test: /(미디어|언론|콘텐츠|광고|홍보)/, names:['미디어커뮤니케이션학과','경영학과'] }
   ];
+
+
+  const STRICT_QUERY_ORDER = [
+    { test: /^(보건|보건학|보건계열|의료보건)$/, names:['간호학과','보건관리학과','임상병리학과'] },
+    { test: /^(물리치료|물리치료학|물리치료학과)$/, names:['물리치료학과','작업치료학과','보건관리학과'] },
+    { test: /^(작업치료|작업치료학|작업치료학과)$/, names:['작업치료학과','물리치료학과','보건관리학과'] },
+    { test: /^(회로|회로설계|전자회로|신호회로)$/, names:['전자공학과','반도체공학과','전기공학과'] },
+    { test: /^(기후|기후변화|기후자료|기후환경)$/, names:['환경공학과','지구환경과학과','대기과학과'] }
+  ];
+
+  function applyStrictQueryOrder(raw, score){
+    const nq = norm(raw);
+    const rule = STRICT_QUERY_ORDER.find(item => item.test.test(nq));
+    if (!rule) return false;
+    const allowed = new Set(rule.names);
+    Array.from(score.keys()).forEach(name => {
+      if (!allowed.has(name)) score.delete(name);
+    });
+    rule.names.forEach((name, idx) => {
+      score.set(name, Math.max(score.get(name) || 0, 420 - idx * 20));
+    });
+    return true;
+  }
 
   function getInput(){
     return document.getElementById('career') || document.querySelector('input[name="career"], textarea[name="career"], input[data-field="career"], textarea[data-field="career"]');
@@ -154,6 +197,8 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v71-major-search-department-exact-fi
         score.set(name, Math.max(score.get(name) || 0, 150));
       }
     });
+
+    applyStrictQueryOrder(q, score);
 
     const rows = Array.from(score.entries())
       .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))
