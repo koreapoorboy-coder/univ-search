@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v67.0-followup-axis-priority-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v34_27_earth_system_keyword_split_v2";
+  const ASSET_VERSION_QUERY = "v67_followup_axis_priority_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -103,8 +103,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
     "고등학교 지구시스템과학": "지구시스템과학"
   });
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
-    "통합과학1": "seed/followup-axis/integrated_science1_concept_longitudinal_map.json",
-    "통합과학2": "seed/followup-axis/integrated_science2_concept_longitudinal_map.json",
+    "통합과학1": addAssetVersion("seed/followup-axis/integrated_science1_concept_longitudinal_map.json"),
+    "통합과학2": addAssetVersion("seed/followup-axis/integrated_science2_concept_longitudinal_map.json"),
     "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
     "공통수학2": "seed/followup-axis/common_math2_concept_longitudinal_map.json",
     "정보": addAssetVersion("seed/followup-axis/info_concept_longitudinal_map.json"),
@@ -3247,6 +3247,309 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
     ];
   }
 
+
+  function normalizeAxisDomain(domain) {
+    const value = String(domain || "").trim().toLowerCase();
+    const map = {
+      earth: "earth_env",
+      earthenv: "earth_env",
+      environment: "earth_env",
+      climate: "earth_env",
+      info: "info",
+      information: "info",
+      statistics: "data",
+      math: "data",
+      system: "physics",
+      physics: "physics",
+      engineering: "engineering",
+      urban: "urban",
+      spatial: "urban",
+      space: "urban",
+      biology: "biology",
+      bio: "biology",
+      health: "health",
+      medical: "health",
+      decision: "decision",
+      risk: "decision",
+      business: "business",
+      social: "social_policy",
+      social_policy: "social_policy"
+    };
+    return map[value] || value;
+  }
+
+  function getAxisDomainForRouting(axisLike) {
+    const raw = axisLike?.axis_domain || axisLike?.axisDomain || axisLike?.domain || "";
+    const normalized = normalizeAxisDomain(raw);
+    if (normalized) return normalized;
+    const text = [
+      axisLike?.axis_title || axisLike?.title || "",
+      axisLike?.short || axisLike?.axis_short || "",
+      ...(Array.isArray(axisLike?.next_subjects) ? axisLike.next_subjects : []),
+      ...(Array.isArray(axisLike?.linkedSubjects) ? axisLike.linkedSubjects : [])
+    ].join(" ");
+    if (/도시|공간|생활권|인프라|교통|녹지|열섬|포장|주거/.test(text)) return "urban";
+    if (/지구|환경|기후|대기|해양|체감온도|습도/.test(text)) return "earth_env";
+    if (/자료|데이터|통계|그래프|수리|모델링|예측|비교/.test(text)) return "data";
+    if (/정보|알고리즘|프로그래밍|입력|출력|조건문/.test(text)) return "info";
+    if (/물리|시스템|센서|장치|역학|전자기|속도|전류|전압/.test(text)) return "physics";
+    if (/생명|건강|간호|보건|의학|생체|온열|질환|취약/.test(text)) return "health";
+    if (/경영|경제|의사결정|비용|편익|위험 관리|우선순위/.test(text)) return "decision";
+    return "";
+  }
+
+  function detectMajorRoutingBucket(text) {
+    const t = String(text || "").trim();
+    if (!t) return "default";
+    if (/(컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|정보|보안|프로그래밍|통계)/i.test(t)) return "it";
+    if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(t)) return "urban";
+    if (/(환경공학|환경|기후|대기|지구|해양|생태|자원|에너지환경|지리)/.test(t)) return "env";
+    if (/(간호|의학|의예|보건|약학|치의|수의|생명|바이오|의생명|재활|치위생|의료)/.test(t)) return "health";
+    if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|경영정보|MIS)/.test(t)) return "business";
+    if (/(전기|전자|회로|센서|통신|반도체)/.test(t)) return "engineering";
+    if (/(기계|자동차|로봇|항공|모빌리티|신소재|재료|화학공학|고분자|금속|배터리)/.test(t)) return "engineering";
+    return "default";
+  }
+
+  function getMajorRoutingText() {
+    return [
+      state.career || "",
+      state.majorSelectedName || "",
+      (typeof getEffectiveCareerName === "function" ? getEffectiveCareerName() : "") || "",
+      (typeof getCareerInputText === "function" ? getCareerInputText() : "") || "",
+      (typeof getMajorPanelResolvedName === "function" ? getMajorPanelResolvedName() : "") || "",
+      (typeof getMajorTextBag === "function" ? getMajorTextBag() : "") || ""
+    ].join(" ").trim();
+  }
+
+  function buildMajorRoutingProfile(text) {
+    const majorName = (text || getMajorRoutingText() || state.career || state.majorSelectedName || "").trim();
+    const bucket = detectMajorRoutingBucket(majorName);
+    const profiles = {
+      it: {
+        bucket: "it",
+        lens: "입력값·조건문·오류 검증",
+        directAxisDomains: ["data", "info", "math"],
+        bridgeAxisDomains: ["physics", "engineering", "earth_env"],
+        resultKeywords: ["입력값", "조건문", "판단 결과", "오류 가능성", "예외 상황", "알고리즘"]
+      },
+      env: {
+        bucket: "env",
+        lens: "환경 변수·노출·취약성·저감 기준",
+        directAxisDomains: ["earth_env", "environment", "climate"],
+        bridgeAxisDomains: ["data", "chemistry", "physics", "engineering"],
+        resultKeywords: ["환경 변수", "노출 시간", "취약성", "위험도", "피해 가능성", "저감 기준"]
+      },
+      urban: {
+        bucket: "urban",
+        lens: "공간 구조·도시 열섬·녹지·인프라",
+        directAxisDomains: ["urban", "spatial", "earth_env", "environment"],
+        bridgeAxisDomains: ["data", "physics", "engineering"],
+        resultKeywords: ["공간 구조", "도시 열섬", "녹지", "포장 면적", "생활권 차이", "인프라"]
+      },
+      health: {
+        bucket: "health",
+        lens: "생체 반응·위험 요인·관리 기준",
+        directAxisDomains: ["biology", "health"],
+        bridgeAxisDomains: ["data", "chemistry", "earth_env", "environment", "physics"],
+        resultKeywords: ["항상성", "생체 반응", "증상 관찰", "위험 요인", "관리 기준", "간호적 판단"]
+      },
+      business: {
+        bucket: "business",
+        lens: "비용·편익·의사결정·위험 관리",
+        directAxisDomains: ["decision", "business", "social_policy", "data"],
+        bridgeAxisDomains: ["earth_env", "environment", "info", "math", "statistics"],
+        resultKeywords: ["비용", "편익", "선택 기준", "위험 관리", "의사결정", "시장 반응"]
+      },
+      engineering: {
+        bucket: "engineering",
+        lens: "공학 시스템·설계 조건·검증",
+        directAxisDomains: ["physics", "engineering", "chemistry"],
+        bridgeAxisDomains: ["data", "info", "earth_env"],
+        resultKeywords: ["구조", "시스템", "설계 조건", "검증", "성능", "안정성"]
+      }
+    };
+    const profile = profiles[bucket] || {
+      bucket: "default",
+      lens: "교과 개념 기반 종단 연결",
+      directAxisDomains: [],
+      bridgeAxisDomains: [],
+      resultKeywords: []
+    };
+    return { ...profile, majorName };
+  }
+
+  function getAxisRelationByMajorProfile(profile, axisLike) {
+    const domain = getAxisDomainForRouting(axisLike);
+    if (!profile || profile.bucket === "default") return null;
+    const direct = (profile.directAxisDomains || []).map(normalizeAxisDomain);
+    const bridge = (profile.bridgeAxisDomains || []).map(normalizeAxisDomain);
+    if (direct.includes(domain)) {
+      return {
+        type: "direct",
+        label: "직접 연계 강함",
+        score: 12,
+        message: `${profile.majorName || state.career}와 바로 이어지는 축입니다.`
+      };
+    }
+    if (bridge.includes(domain)) {
+      return {
+        type: "bridge",
+        label: "역량 브리지",
+        score: 6,
+        message: `${profile.majorName || state.career}와 직접 일치하지 않아도 역량 연결이 가능한 축입니다.`
+      };
+    }
+    return {
+      type: "general",
+      label: "보조 확장",
+      score: 0,
+      message: `${profile.majorName || state.career}와 직접 연결은 약하지만 보조 자료로 활용할 수 있는 축입니다.`
+    };
+  }
+
+  function getMajorRoutingAxisBoost(axisLike) {
+    const profile = buildMajorRoutingProfile(getMajorRoutingText());
+    const domain = getAxisDomainForRouting(axisLike);
+    if (!profile || profile.bucket === "default") return 0;
+    const direct = (profile.directAxisDomains || []).map(normalizeAxisDomain);
+    const bridge = (profile.bridgeAxisDomains || []).map(normalizeAxisDomain);
+    if (direct.includes(domain)) return 22;
+    if (bridge.includes(domain)) {
+      if (profile.bucket === "urban" && (domain === "physics" || domain === "engineering")) return 4;
+      if (profile.bucket === "it" && domain === "earth_env") return 2;
+      if (profile.bucket === "business" && domain === "earth_env") return 10;
+      return 8;
+    }
+    return 0;
+  }
+
+  function isHeatwaveFollowupContext() {
+    const text = [state.subject || "", state.concept || "", state.keyword || ""].join(" ");
+    return /통합과학1/.test(text) && /과학의 측정과 우리 사회/.test(text) && /(폭염|폭염주의보|기온|체감온도|습도|열섬|그늘|녹지|포장 면적|생활환경|취약 계층|취약계층|온열|무더위)/.test(text);
+  }
+
+  function getHeatwaveAxisContextBoost(axisLike) {
+    if (!isHeatwaveFollowupContext()) return 0;
+    const profile = buildMajorRoutingProfile(getMajorRoutingText());
+    const domain = getAxisDomainForRouting(axisLike);
+    if (profile.bucket === "it") {
+      if (domain === "data" || domain === "info") return 82;
+      if (domain === "physics") return 8;
+      if (domain === "earth_env") return 4;
+      return 0;
+    }
+    if (profile.bucket === "env") {
+      if (domain === "earth_env") return 88;
+      if (domain === "data") return 14;
+      return 0;
+    }
+    if (profile.bucket === "urban") {
+      if (domain === "urban") return 96;
+      if (domain === "earth_env") return 82;
+      if (domain === "data") return 30;
+      return 0;
+    }
+    if (profile.bucket === "health") {
+      if (domain === "health" || domain === "biology") return 90;
+      if (domain === "earth_env" || domain === "data") return 18;
+      return 0;
+    }
+    if (profile.bucket === "business") {
+      if (domain === "decision" || domain === "business") return 92;
+      if (domain === "data") return 52;
+      if (domain === "earth_env") return 18;
+      return 0;
+    }
+    if (domain === "earth_env") return 24;
+    if (domain === "data") return 10;
+    return 0;
+  }
+
+  function makeContextFollowupAxis(seed) {
+    const relationMeta = getAxisCareerRelationMeta(state.subject, {
+      axis_domain: seed.axisDomain,
+      axis_title: seed.title,
+      next_subjects: seed.linkedSubjects || []
+    });
+    return {
+      id: seed.id,
+      title: seed.title,
+      short: seed.short,
+      nextSubject: (seed.linkedSubjects || []).join(" / "),
+      desc: seed.desc,
+      reason: relationMeta.message,
+      relationLabel: relationMeta.label,
+      relationType: relationMeta.type,
+      easy: seed.easy || seed.desc,
+      axisDomain: seed.axisDomain,
+      extensionKeywords: seed.extensionKeywords || [],
+      keywordSignals: [],
+      activityExamples: seed.activityExamples || [],
+      linkedSubjects: seed.linkedSubjects || [],
+      grade2NextSubjects: seed.linkedSubjects || [],
+      recordContinuityPoint: `${state.subject}의 ${state.concept} 개념을 ${seed.title}으로 연결하는 종단 확장 포인트`,
+      isPrimary: false,
+      __relationScore: relationMeta.score,
+      __priority: seed.priority || 4,
+      __contextAxis: true
+    };
+  }
+
+  function addContextualFollowupAxes(axes) {
+    const list = Array.isArray(axes) ? [...axes] : [];
+    if (!isHeatwaveFollowupContext()) return list;
+    const profile = buildMajorRoutingProfile(getMajorRoutingText());
+    const hasDomain = (...domains) => list.some(axis => domains.includes(getAxisDomainForRouting(axis)));
+    const pushIfMissing = (seed, ...domains) => {
+      if (!hasDomain(...domains)) list.push(makeContextFollowupAxis(seed));
+    };
+
+    if (profile.bucket === "urban") {
+      pushIfMissing({
+        id: "measurement_urban_spatial",
+        title: "도시·공간 환경 분석 축",
+        short: "도시·열섬·생활권",
+        axisDomain: "urban",
+        priority: 4,
+        linkedSubjects: ["지구과학", "지구시스템과학", "통합사회1", "한국지리 탐구"],
+        desc: "폭염주의보 자료를 도시 열섬, 녹지, 포장 면적, 생활권 차이와 연결해 해석하는 방향입니다.",
+        easy: "지역별 기온·체감온도 비교, 녹지·포장 면적 자료 해석, 생활권별 폭염 위험 비교",
+        activityExamples: ["도시 열섬 자료 비교", "녹지·포장 면적과 체감온도 관계 정리", "생활권별 폭염 대응 기준 제안"]
+      }, "urban");
+    }
+
+    if (profile.bucket === "health") {
+      pushIfMissing({
+        id: "measurement_health_risk",
+        title: "생명·건강 위험 해석 축",
+        short: "온열질환·취약 대상",
+        axisDomain: "health",
+        priority: 4,
+        linkedSubjects: ["생명과학", "세포와 물질대사", "보건", "확률과 통계"],
+        desc: "폭염주의보 자료를 체온 조절, 온열질환, 취약 대상 관찰과 건강 관리 기준으로 연결하는 방향입니다.",
+        easy: "온열질환 위험 요인 정리, 취약 대상별 관리 기준 비교, 폭염 대응 건강 자료 보고서",
+        activityExamples: ["체온 조절과 온열질환 위험 요인 정리", "노약자·야외근로자 등 취약 대상 관리 기준 비교", "폭염 대응 간호·보건 안내 자료 구성"]
+      }, "health", "biology");
+    }
+
+    if (profile.bucket === "business") {
+      pushIfMissing({
+        id: "measurement_decision_risk",
+        title: "의사결정·위험 관리 축",
+        short: "비용·편익·우선순위",
+        axisDomain: "decision",
+        priority: 4,
+        linkedSubjects: ["통합사회1", "확률과 통계", "경제", "정보"],
+        desc: "폭염주의보 자료를 위험 관리, 대응 우선순위, 비용·편익, 의사결정 기준으로 연결하는 방향입니다.",
+        easy: "폭염 대응 우선순위 비교, 비용·편익 기준 정리, 의사결정 표 작성",
+        activityExamples: ["냉방 지원 정책의 비용·편익 비교", "위험도 기준에 따른 대응 우선순위 설계", "자료 기반 의사결정 표 작성"]
+      }, "decision", "business");
+    }
+
+    return list;
+  }
+
   function getCareerAxisBoost(axis) {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const concept = state.concept || "";
@@ -3254,6 +3557,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
     const bucket = detectCareerBucket(majorText || state.career || "");
     const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
+    score += getMajorRoutingAxisBoost(axis);
+    score += getHeatwaveAxisContextBoost(axis);
 
     if (state.subject === "공통국어1" || state.subject === "공통국어") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
@@ -3360,6 +3665,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
       ...(Array.isArray(axisLike?.linkedSubjects) ? axisLike.linkedSubjects : [])
     ].join(" ");
 
+    const profileRelation = getAxisRelationByMajorProfile(buildMajorRoutingProfile(getMajorRoutingText() || careerText), axisLike);
+    if (profileRelation) return profileRelation;
+
     let type = "general";
 
     if (/공통국어|국어|문학|독서와 작문|독서와작문|매체 의사소통|매체의사소통/.test(subjectText)) {
@@ -3458,7 +3766,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix'
 
     const mappedEntry = getConceptLongitudinalEntry();
     if (mappedEntry) {
-      const mappedAxes = buildConceptMappedAxes(mappedEntry).map(axis => {
+      const mappedAxes = addContextualFollowupAxes(buildConceptMappedAxes(mappedEntry)).map(axis => {
         let score = 100 - (axis.__priority * 12);
         score += getCareerAxisBoost(axis);
         score += getMajorAxisBoost(axis);
@@ -7338,8 +7646,10 @@ function getTrackMeta(trackId) {
     if (/(기계|자동차|로봇|항공|모빌리티)/.test(text)) return "mechanical";
     if (/(전기|전자|회로|센서|통신)/.test(text)) return "electronic";
     if (/(컴퓨터|소프트웨어|인공지능|AI|데이터|보안|정보|통계)/i.test(text)) return "it";
+    if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(text)) return "urban";
     if (/(간호|의학|의예|치의|약학|보건|수의|생명|바이오|의료)/.test(text)) return "bio";
     if (/(환경|기후|지구|우주|천문|해양|지리)/.test(text)) return "env";
+    if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|경영정보|MIS)/.test(text)) return "business";
     return "default";
   }
 
@@ -7351,7 +7661,9 @@ function getTrackMeta(trackId) {
       electronic: "전자공학",
       it: "정보",
       bio: "생명과학 탐구",
+      urban: "_default",
       env: "_default",
+      business: "_default",
       default: "_default"
     };
     return map[bucket] || "_default";
