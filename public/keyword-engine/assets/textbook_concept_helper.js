@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v63.0-major-search-global-lite';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2844,12 +2844,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v63.0-major-search-global-lite';
 
     const careerEl = $("career");
     if (careerEl) {
-      careerEl.addEventListener("input", function () {
+      const markCareerTypingOnly = function () {
         // 학과 검색 중에는 교과/연계/도서/보고서 영역을 절대 다시 계산하지 않는다.
         // 후보 검색은 major_engine_helper의 lightweight 패널만 담당한다.
         markMajorSearchTyping();
         state.career = (careerEl.value || '').trim();
         state.majorSelectedName = state.career;
+      };
+      careerEl.addEventListener("compositionstart", markCareerTypingOnly);
+      careerEl.addEventListener("compositionupdate", markCareerTypingOnly);
+      careerEl.addEventListener("input", markCareerTypingOnly);
+      careerEl.addEventListener("keyup", markCareerTypingOnly);
+      careerEl.addEventListener("keydown", function (event) {
+        const raw = (careerEl.value || '').trim();
+        if (event.key === 'Enter' && raw && !/(학과|학부|전공|예과)$/.test(raw)) {
+          markCareerTypingOnly();
+          event.preventDefault?.();
+          event.stopPropagation?.();
+        }
       });
       careerEl.addEventListener("change", function () {
         clearMajorSearchTypingFlag();
