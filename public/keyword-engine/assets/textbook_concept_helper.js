@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v60.0-major-search-input-throttle';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v61.0-major-search-hard-freeze';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2783,8 +2783,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v60.0-major-search-input-throttle';
   function scheduleMajorPreviewSync() {
     const refresh = function () {
       try {
-        if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
-          window.__MAJOR_ENGINE_RENDER__();
+        if (!window.__MAJOR_ENGINE_TYPING__ && typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
+          window.__MAJOR_ENGINE_RENDER__({ dispatch: true, reason: 'commit' });
         }
       } catch (error) {
         console.warn("major render refresh failed:", error);
@@ -2811,17 +2811,26 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v60.0-major-search-input-throttle';
 
     const careerEl = $("career");
     if (careerEl) {
+      careerEl.addEventListener("compositionstart", function () {
+        window.__MAJOR_ENGINE_TYPING__ = true;
+      });
+      careerEl.addEventListener("compositionend", function () {
+        window.__MAJOR_ENGINE_TYPING__ = true;
+      });
       careerEl.addEventListener("input", function () {
-        syncCareerFromInput();
+        // 학과 검색 입력 중에는 절대 syncMajorSelectionDetail/renderCareerKeywordPreview를 호출하지 않는다.
+        // 기존 v60은 여기서 3~8번 상태 동기화가 다시 발생해 입력 버퍼링이 남았다.
+        state.career = (careerEl?.value || "").trim();
+        state.majorSelectedName = "";
+        state.majorCoreKeywords = [];
+        state.majorComparison = null;
         state.linkTrackSource = state.linkTrackSource || "";
-        // 학과 검색 입력 중에는 후보 패널만 갱신한다.
-        // 3~8번 교과/도서/보고서 영역은 학과 선택 또는 change/blur 이후에만 다시 계산한다.
         window.__MAJOR_ENGINE_TYPING__ = true;
       });
       careerEl.addEventListener("change", function () {
+        window.__MAJOR_ENGINE_TYPING__ = false;
         syncCareerFromInput();
         state.linkTrackSource = state.linkTrackSource || "";
-        window.__MAJOR_ENGINE_TYPING__ = false;
         scheduleMajorPreviewSync();
         forceBridgeRender(120);
       });
