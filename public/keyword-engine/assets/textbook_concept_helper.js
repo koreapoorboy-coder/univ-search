@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-priority';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v75.0-major-reselect-freeze-guard';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2597,6 +2597,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
       : "학과를 고르면 먼저 전공 키워드가 보이고, 아래에서 교과 개념을 고르면 최종 키워드가 바뀝니다.";
   }
 
+
+  function isMajorSearchEditingLocked() {
+    try {
+      const lockUntil = Number(window.__MAJOR_SEARCH_LOCK_UNTIL__ || 0);
+      if (lockUntil && Date.now() < lockUntil) return true;
+      if (window.__MAJOR_SEARCH_EDITING_LOCK__) return true;
+      return !!window.__MAJOR_SEARCH_IS_TYPING__;
+    } catch (error) {
+      return false;
+    }
+  }
+
   function getMajorPanelResolvedName() {
     try {
       const blocked = /관련 학과|표준화|찾지 못했|전공 후보|학과명을|먼저 고르세요|입력 전/;
@@ -2696,6 +2708,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
     const confirmedName = String(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || '').trim();
     const confirmedNorm = normalize(confirmedName || '');
 
+    // v75: 4번 이후 단계에서 학과 검색창을 다시 누른 직후에는
+    // 기존 DOM 스캔/4번 재계산을 멈춘다. 후보 학과가 확정된 이벤트(detail)만 통과시킨다.
+    if (isMajorSearchEditingLocked() && !explicitDetail) {
+      if (rawCareer) state.career = rawCareer;
+      state.majorSelectedName = '';
+      state.majorCoreKeywords = [];
+      state.majorComparison = null;
+      return;
+    }
+
     // v66: 입력 중에는 major helper의 이전 확정값을 사용하지 않는다.
     // 예: 기존 선택이 컴퓨터공학과인 상태에서 간호를 치면 즉시 간호 기준으로 표시하고,
     // 후보 클릭 전까지는 majorSelectedName을 비워 둔다.
@@ -2763,6 +2785,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
   }
 
   function scheduleBridgeRender(delay = 180) {
+    if (isMajorSearchEditingLocked()) return;
     const nextKey = getMajorBridgeRenderKey();
     if (nextKey === majorBridgeLastRenderedKey && majorBridgeRenderTimer) return;
     clearTimeout(majorBridgeRenderTimer);
@@ -2786,6 +2809,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
     if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__) return;
     window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__ = true;
     setInterval(function () {
+      if (isMajorSearchEditingLocked()) return;
       const changed = syncMajorBridgeState();
       if (changed && !isTypingInMajorSearch()) scheduleBridgeRender(260);
     }, 900);
@@ -2793,6 +2817,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
 
   function scheduleMajorPreviewSync() {
     const refresh = function () {
+      if (isMajorSearchEditingLocked()) return;
       try {
         if (typeof window.__MAJOR_ENGINE_RENDER__ === "function") {
           window.__MAJOR_ENGINE_RENDER__();
@@ -2833,6 +2858,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
         syncOutputFields();
       });
       careerEl.addEventListener("change", function () {
+        if (isMajorSearchEditingLocked()) {
+          renderStatus();
+          syncOutputFields();
+          return;
+        }
         syncCareerFromInput();
         state.linkTrackSource = state.linkTrackSource || "";
         scheduleMajorPreviewSync();
@@ -2969,6 +2999,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
     document.addEventListener('change', function (event) {
       const target = event.target;
       if (!target || !target.matches || !target.matches('input, textarea, select')) return;
+      if ((target.id === 'career' || isTypingInMajorSearch()) && isMajorSearchEditingLocked()) return;
       syncSubjectFromSelect();
       syncMajorSelectionDetail(null);
       if (!state.keyword) renderCareerKeywordPreview();
@@ -2978,7 +3009,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v70.0-semiconductor-axis-display-pri
     try {
       let mutationTimer = null;
       const observer = new MutationObserver(function () {
-        if (isTypingInMajorSearch()) return;
+        if (isMajorSearchEditingLocked() || isTypingInMajorSearch()) return;
         clearTimeout(mutationTimer);
         mutationTimer = setTimeout(function () {
           if (syncMajorBridgeState()) scheduleBridgeRender(140);
