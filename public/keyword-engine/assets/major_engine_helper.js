@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v83-medical-engineering-residual-major-data-lock";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v83-medical-engineering-residual-major-data-lock';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v84-direct-routing-compare-lock';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -6392,6 +6392,183 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       ...patch,
       aliases: mergedAliases,
       search_aliases: mergedAliases
+    };
+  });
+
+
+  // v84 direct routing and comparison lock
+  // - Keeps native major_engine_helper flow only; does not add major_search_fast_guard.js.
+  // - Locks short/clear major queries before fuzzy candidate grouping.
+  // - Replaces stale compare_profiles that were preserved from older overrides.
+  Object.assign(DIRECT_QUERY_MAJOR_MAP, {
+    '치과': ['치의예과'],
+    '치과대학': ['치의예과'],
+    '치의예과': ['치의예과'],
+
+    '의공학과': ['의공학과'],
+    '의료기기공학': ['의공학과'],
+    '의료기기공학과': ['의공학과'],
+    '생체의공': ['의공학과'],
+    '생체의공학': ['의공학과'],
+    '바이오메디컬공학': ['의공학과'],
+    '바이오메디컬공학과': ['의공학과'],
+
+    '로봇공학과': ['로봇공학과'],
+    '자동차공학과': ['자동차공학과'],
+    '조선해양공학과': ['조선해양공학과'],
+    '해양공학과': ['해양공학과'],
+    '산업공학과': ['산업공학과'],
+    '산업경영공학과': ['산업경영공학과'],
+    '소방방재학과': ['소방방재학과'],
+
+    // v84 audit found that the broad word "보건" was drifting to 식품영양학과 by alias_match.
+    // It is locked back to 보건관리학과 to preserve the v81 D-line intent.
+    '보건': ['보건관리학과'],
+    '보건학': ['보건관리학과'],
+    '보건관리': ['보건관리학과']
+  });
+
+  QUERY_BOOST_RULES.unshift(
+    { queries:['치과','치과대학','치의예과'], test: /(치의예과)/, boost: 130 },
+    { queries:['의공학과','의료기기공학','생체의공','바이오메디컬공학'], test: /(의공학과|전자공학과|기계공학과|생명공학과)/, boost: 126 },
+    { queries:['로봇공학과'], test: /(로봇공학과|메카트로닉스공학과|기계공학과|전자공학과|컴퓨터공학과|인공지능학과)/, boost: 122 },
+    { queries:['자동차공학과'], test: /(자동차공학과|기계공학과|전기공학과|전자공학과|로봇공학과)/, boost: 122 },
+    { queries:['조선해양공학과'], test: /(조선해양공학과|해양공학과|기계공학과|전기공학과|항공우주공학과)/, boost: 122 },
+    { queries:['해양공학과'], test: /(해양공학과|조선해양공학과|해양학과|기계공학과|환경공학과)/, boost: 122 },
+    { queries:['산업공학과'], test: /(산업공학과|산업경영공학과|경영정보학과|데이터사이언스학과|컴퓨터공학과)/, boost: 122 },
+    { queries:['산업경영공학과'], test: /(산업경영공학과|산업공학과|경영정보학과|데이터사이언스학과|경영학과)/, boost: 122 },
+    { queries:['소방방재학과'], test: /(소방방재학과|안전공학과|응급구조학과|건설환경공학과)/, boost: 122 },
+    { queries:['보건','보건학','보건관리'], test: /(보건관리학과|간호학과|임상병리학과|방사선학과)/, boost: 124 }
+  );
+
+  const V84_MAJOR_OVERRIDE_PATCH = {
+    '치의예과': {
+      group_label: '보건·임상',
+      track_category: '치의학/구강진단/치료기초',
+      search_aliases: ['치대','치과','치과대학','치의','치의학','치의예','치의예과'],
+      compare_profiles: [
+        { display_name: '의예과', track_category: '의학/진단/치료', focus: '인체 질환의 진단과 치료를 전반적으로 배우는 의학 진로 준비 학과입니다.', hint: '구강과 치아보다 인체 전체의 진단·치료에 관심이 크면 의예과가 더 가깝습니다.' },
+        { display_name: '한의예과', track_category: '한의학/진단/예방', focus: '한의학적 진단, 예방, 치료 체계를 배우는 한의학 진로 준비 학과입니다.', hint: '현대 치의학보다 한의학적 건강 관리와 예방 체계에 관심이 크면 한의예과가 더 가깝습니다.' },
+        { display_name: '약학과', track_category: '약학/약물/조제', focus: '약물의 성질, 조제, 약효와 안전성을 배우는 약학 계열 학과입니다.', hint: '진단·치료 행위보다 약물 작용과 복약 안전성에 관심이 크면 약학과가 더 가깝습니다.' },
+        { display_name: '수의예과', track_category: '수의/동물의학/공중보건', focus: '동물 질환과 공중보건, 수의학 진로의 기초를 배우는 학과입니다.', hint: '사람의 구강 건강보다 동물의 질병과 생명 관리에 관심이 크면 수의예과가 더 가깝습니다.' }
+      ]
+    },
+    '의공학과': {
+      group_label: '의료기기·바이오소재 쪽',
+      track_category: '의료기기/바이오센서/진단공학',
+      search_aliases: ['의공','의공학','의공학과','의료공학','의료기기','의료기기공학','의료기기공학과','생체의공','생체의공학','바이오의공','바이오메디컬','바이오메디컬공','바이오메디컬공학','바이오메디컬공학과'],
+      compare_profiles: [
+        { display_name: '전자공학과', track_category: '회로/센서/신호처리', focus: '회로, 센서, 신호 처리와 전자 장치 설계를 배우는 공학 학과입니다.', hint: '의료 장비보다 센서와 전자 회로 자체의 원리에 더 관심이 크면 전자공학과가 더 가깝습니다.' },
+        { display_name: '기계공학과', track_category: '기계/설계/열유체', focus: '기계 구조, 힘, 에너지 전달과 장치 설계를 배우는 공학 학과입니다.', hint: '생체신호보다 의료기기의 구조와 구동 장치 설계에 관심이 크면 기계공학과가 더 가깝습니다.' },
+        { display_name: '생명공학과', track_category: '유전자/세포/바이오기술', focus: '세포와 유전자, 미생물 기술을 의약·식품·환경 기술로 연결하는 학과입니다.', hint: '의료기기보다 생명 현상을 실험 기술로 응용하는 데 관심이 크면 생명공학과가 더 가깝습니다.' },
+        { display_name: '고분자공학과', track_category: '고분자/소재/화학공정', focus: '고분자 소재의 구조와 성질을 이해하고 바이오소재·의료용 재료로 확장하는 학과입니다.', hint: '의료기기 시스템보다 생체재료와 의료용 소재에 관심이 크면 고분자공학과가 더 가깝습니다.' }
+      ]
+    },
+    '로봇공학과': {
+      group_label: '기계·전자·모빌리티 쪽',
+      track_category: '로봇/제어/자동화',
+      search_aliases: ['로봇','로봇공','로봇공학','로봇공학과'],
+      compare_profiles: [
+        { display_name: '메카트로닉스공학과', track_category: '메카트로닉스/센서/제어', focus: '기계, 전자, 센서, 제어를 결합해 자동화 시스템을 설계하는 학과입니다.', hint: '로봇 자체보다 기계·전자 융합 시스템 전반에 관심이 크면 메카트로닉스공학과가 더 가깝습니다.' },
+        { display_name: '기계공학과', track_category: '기계/설계/열유체', focus: '힘과 운동, 구조 설계와 기계 장치 제작 원리를 배우는 학과입니다.', hint: '제어와 인공지능보다 로봇의 몸체 구조와 구동부 설계에 관심이 크면 기계공학과가 더 가깝습니다.' },
+        { display_name: '전자공학과', track_category: '회로/센서/신호처리', focus: '회로, 센서, 신호 처리와 전자 장치 설계를 배우는 학과입니다.', hint: '로봇의 구조보다 센서, 회로, 제어 신호에 관심이 크면 전자공학과가 더 가깝습니다.' },
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '알고리즘과 시스템 구현을 바탕으로 소프트웨어 구조를 설계하는 학과입니다.', hint: '로봇 하드웨어보다 로봇을 움직이는 소프트웨어와 시스템에 관심이 크면 컴퓨터공학과가 더 가깝습니다.' },
+        { display_name: '인공지능학과', track_category: 'AI/데이터/모델링', focus: '데이터와 모델을 바탕으로 인식, 판단, 추천 같은 지능형 시스템을 배우는 학과입니다.', hint: '로봇의 자율 판단과 인식 알고리즘에 관심이 크면 인공지능학과가 더 가깝습니다.' }
+      ]
+    },
+    '자동차공학과': {
+      group_label: '기계·전자·모빌리티 쪽',
+      track_category: '자동차/모빌리티/동력시스템',
+      search_aliases: ['자동차','자동차공','자동차공학','자동차공학과','모빌리티','미래자동차'],
+      compare_profiles: [
+        { display_name: '기계공학과', track_category: '기계/설계/열유체', focus: '기계 구조와 운동, 에너지 전달, 설계 원리를 바탕으로 장치를 만드는 학과입니다.', hint: '자동차에 한정하지 않고 기계 시스템 전반을 보고 싶으면 기계공학과가 더 가깝습니다.' },
+        { display_name: '메카트로닉스공학과', track_category: '메카트로닉스/센서/제어', focus: '기계와 전자, 센서와 제어를 결합해 자동화 시스템을 배우는 학과입니다.', hint: '자동차 동력보다 센서·제어·자동화 융합에 관심이 크면 메카트로닉스공학과가 더 가깝습니다.' },
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력, 모터, 에너지 변환과 제어 시스템을 배우는 학과입니다.', hint: '자동차 중에서도 전기차 구동, 배터리, 모터 제어에 관심이 크면 전기공학과가 더 가깝습니다.' },
+        { display_name: '전자공학과', track_category: '회로/센서/신호처리', focus: '회로와 센서, 신호 처리 장치 설계를 배우는 학과입니다.', hint: '차량용 센서와 전장 시스템에 관심이 크면 전자공학과가 더 가깝습니다.' },
+        { display_name: '로봇공학과', track_category: '로봇/제어/자동화', focus: '로봇의 구동, 센서, 제어와 자동화를 배우는 학과입니다.', hint: '자동차보다 자율주행과 이동 로봇의 제어 구조에 관심이 크면 로봇공학과가 더 가깝습니다.' }
+      ]
+    },
+    '조선해양공학과': {
+      group_label: '기계·전자·모빌리티 쪽',
+      track_category: '조선해양/선박/해양구조물',
+      search_aliases: ['조선','조선해양','조선해양공','조선해양공학','조선해양공학과'],
+      compare_profiles: [
+        { display_name: '해양공학과', track_category: '해양공학/해양구조/연안시스템', focus: '해양 구조물, 연안 시스템, 해양 시설을 공학적으로 다루는 학과입니다.', hint: '선박 자체보다 해양 공간과 시설 시스템에 관심이 크면 해양공학과가 더 가깝습니다.' },
+        { display_name: '기계공학과', track_category: '기계/설계/열유체', focus: '힘, 운동, 에너지 전달과 기계 장치 설계를 배우는 학과입니다.', hint: '선박·해양 분야보다 기계 설계 원리 전반에 관심이 크면 기계공학과가 더 가깝습니다.' },
+        { display_name: '전기공학과', track_category: '전기/에너지/제어', focus: '전력 시스템, 모터, 에너지 변환과 제어를 배우는 학과입니다.', hint: '선박 구조보다 전력·제어·추진 시스템에 관심이 크면 전기공학과가 더 가깝습니다.' },
+        { display_name: '항공우주공학과', track_category: '항공우주/비행체/추진제어', focus: '비행체 구조, 추진, 제어와 우주 시스템을 배우는 학과입니다.', hint: '해양 이동체보다 항공·우주 이동체의 구조와 추진에 관심이 크면 항공우주공학과가 더 가깝습니다.' }
+      ]
+    },
+    '해양공학과': {
+      group_label: '해양·구조시스템 쪽',
+      track_category: '해양공학/해양구조/연안시스템',
+      search_aliases: ['해양공','해양공학','해양공학과'],
+      compare_profiles: [
+        { display_name: '조선해양공학과', track_category: '조선해양/선박/해양구조물', focus: '선박과 해양 구조물, 해양 이동체 설계를 배우는 공학 학과입니다.', hint: '해양 시설보다 선박과 해양 이동체 설계에 관심이 크면 조선해양공학과가 더 가깝습니다.' },
+        { display_name: '해양학과', track_category: '해양/지구환경/관측', focus: '바다의 물리·화학·생물·지질 현상을 관측하고 해석하는 자연과학 학과입니다.', hint: '공학 설계보다 해양 현상 자체의 원리와 관측에 관심이 크면 해양학과가 더 가깝습니다.' },
+        { display_name: '기계공학과', track_category: '기계/설계/열유체', focus: '구조와 힘, 유체와 에너지 전달을 바탕으로 기계 시스템을 배우는 학과입니다.', hint: '해양 시설보다 구조·유체·기계 설계 원리 전반에 관심이 크면 기계공학과가 더 가깝습니다.' },
+        { display_name: '환경공학과', track_category: '환경/수질/대기/폐기물', focus: '수질, 대기, 폐기물과 환경 시스템 개선을 다루는 공학 학과입니다.', hint: '해양 구조물보다 해양 환경 관리와 오염 저감에 관심이 크면 환경공학과가 더 가깝습니다.' }
+      ]
+    },
+    '산업공학과': {
+      group_label: '시스템·최적화·데이터 쪽',
+      track_category: '산업공학/최적화/시스템분석',
+      search_aliases: ['산공','산업공','산업공학','산업공학과'],
+      compare_profiles: [
+        { display_name: '산업경영공학과', track_category: '산업경영/최적화/운영분석', focus: '생산과 운영 시스템, 데이터 분석과 경영 판단 구조를 함께 배우는 융합형 공학 학과입니다.', hint: '공정 최적화와 함께 경영 의사결정까지 보고 싶으면 산업경영공학과가 더 가깝습니다.' },
+        { display_name: '경영정보학과', track_category: '경영/정보시스템/데이터', focus: '기업 운영을 정보시스템, 데이터, 디지털 전략으로 해결하는 학과입니다.', hint: '제조·물류 시스템보다 기업 정보시스템과 비즈니스 데이터에 관심이 크면 경영정보학과가 더 가깝습니다.' },
+        { display_name: '데이터사이언스학과', track_category: '데이터/통계/AI응용', focus: '데이터를 수집·정제·분석·시각화해 의미 있는 의사결정을 돕는 학과입니다.', hint: '운영 시스템 개선보다 데이터 분석과 모델링 자체에 관심이 크면 데이터사이언스학과가 더 가깝습니다.' },
+        { display_name: '컴퓨터공학과', track_category: '컴퓨터/시스템/개발', focus: '컴퓨터 구조, 운영체제, 네트워크, 알고리즘을 바탕으로 시스템을 설계하는 학과입니다.', hint: '최적화 분석보다 소프트웨어 시스템 구현에 관심이 크면 컴퓨터공학과가 더 가깝습니다.' }
+      ]
+    },
+    '산업경영공학과': {
+      group_label: '시스템·최적화·데이터 쪽',
+      track_category: '산업경영/최적화/운영분석',
+      search_aliases: ['산업경영','산업경영공','산업경영공학','산업경영공학과'],
+      compare_profiles: [
+        { display_name: '산업공학과', track_category: '산업공학/최적화/시스템분석', focus: '생산·물류·서비스 시스템을 데이터와 최적화 기법으로 개선하는 학과입니다.', hint: '경영 판단보다 공정·물류·품질 시스템 개선 자체에 관심이 크면 산업공학과가 더 가깝습니다.' },
+        { display_name: '경영정보학과', track_category: '경영/정보시스템/데이터', focus: '기업 운영을 데이터와 정보시스템 관점에서 해결하는 융합형 상경계열 학과입니다.', hint: '공학적 최적화보다 기업 정보시스템과 디지털 경영에 관심이 크면 경영정보학과가 더 가깝습니다.' },
+        { display_name: '데이터사이언스학과', track_category: '데이터/통계/AI응용', focus: '데이터 분석, 예측 모델, 시각화를 통해 의사결정을 돕는 학과입니다.', hint: '운영과 경영보다 데이터 모델링 자체에 관심이 크면 데이터사이언스학과가 더 가깝습니다.' },
+        { display_name: '경영학과', track_category: '경영/조직/전략', focus: '기업 운영, 조직, 마케팅, 재무와 전략을 폭넓게 배우는 학과입니다.', hint: '공학적 분석보다 기업 운영과 전략 전반에 관심이 크면 경영학과가 더 가깝습니다.' }
+      ]
+    },
+    '소방방재학과': {
+      group_label: '방재·재난안전 쪽',
+      track_category: '소방방재/재난대응/안전관리',
+      search_aliases: ['소방','소방방재','소방방재학과','방재','재난안전'],
+      compare_profiles: [
+        { display_name: '안전공학과', track_category: '안전/리스크관리/방재', focus: '위험 요소를 분석하고 사고를 예방하는 설계와 관리 기준을 배우는 학과입니다.', hint: '화재·재난 대응보다 사고 예방과 위험 관리 설계에 관심이 크면 안전공학과가 더 가깝습니다.' },
+        { display_name: '응급구조학과', track_category: '응급구조/응급처치/현장대응', focus: '응급 상황에서 환자를 평가하고 구조·이송하는 현장 대응과 처치 원리를 배우는 학과입니다.', hint: '재난 시스템보다 사람을 직접 구조하고 응급 처치하는 현장 실무에 관심이 크면 응급구조학과가 더 가깝습니다.' },
+        { display_name: '건설환경공학과', track_category: '건설/환경/인프라', focus: '도시 기반시설의 설계·시공·유지관리와 환경 문제 해결을 함께 다루는 학과입니다.', hint: '화재 대응보다 시설·인프라와 재난 예방 구조에 관심이 크면 건설환경공학과가 보조 비교가 됩니다.' }
+      ]
+    },
+    '보건관리학과': {
+      group_label: '보건·임상',
+      track_category: '보건/예방/건강관리',
+      search_aliases: ['보건','보건학','보건관리','보건관리학과'],
+      compare_profiles: [
+        { display_name: '간호학과', track_category: '간호/환자돌봄/임상판단', focus: '환자 상태를 지속적으로 관찰하고 직접 간호를 수행하는 임상 실천 중심 학과입니다.', hint: '예방·정책보다 환자 돌봄과 임상 현장 대응에 관심이 크면 간호학과가 더 가깝습니다.' },
+        { display_name: '임상병리학과', track_category: '임상검사/진단보조', focus: '혈액·조직·체액 검사를 통해 질병 원인을 찾고 진단을 돕는 검사 중심 학과입니다.', hint: '지역사회 보건보다 검사 데이터와 진단 보조에 관심이 크면 임상병리학과가 더 가깝습니다.' },
+        { display_name: '방사선학과', track_category: '의료영상/방사선안전', focus: 'X선, CT, MRI 등 의료영상 장비와 방사선 안전관리를 배우는 학과입니다.', hint: '보건 행정보다 의료영상 장비와 촬영 기술에 관심이 크면 방사선학과가 더 가깝습니다.' }
+      ]
+    }
+  };
+
+  Object.keys(V84_MAJOR_OVERRIDE_PATCH).forEach(name => {
+    const previous = MAJOR_COPY_OVERRIDES[name] || {};
+    const patch = V84_MAJOR_OVERRIDE_PATCH[name] || {};
+    const mergedAliases = uniq([
+      ...((previous.aliases || [])),
+      ...((previous.search_aliases || [])),
+      ...((patch.aliases || [])),
+      ...((patch.search_aliases || []))
+    ]).filter(Boolean);
+    MAJOR_COPY_OVERRIDES[name] = {
+      ...previous,
+      ...patch,
+      aliases: mergedAliases,
+      search_aliases: mergedAliases,
+      compare_profiles: Array.isArray(patch.compare_profiles) ? patch.compare_profiles : previous.compare_profiles
     };
   });
 
