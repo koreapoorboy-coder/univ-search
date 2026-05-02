@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.92-major-search-lite-index";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v61-major-search-hard-freeze';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v62-major-search-lite-index';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -38,7 +38,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
     lastRenderedCareerRaw: "",
     lastRenderedDispatchKey: "",
     isComposing: false,
-    searchLiteCache: new Map()
+    searchLiteCache: new Map(),
+    careerInput: null,
+    lastCareerInputLookupAt: 0
   };
 
   function $(id){ return document.getElementById(id); }
@@ -96,21 +98,34 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
   }
 
   function getCareerInput(){
-    return $('career')
+    if (state.careerInput && document.contains(state.careerInput)) return state.careerInput;
+
+    const direct = $('career')
       || document.querySelector('input[name="career"]')
       || document.querySelector('textarea[name="career"]')
       || document.querySelector('input[data-field="career"]')
       || document.querySelector('textarea[data-field="career"]')
       || document.querySelector('#career input, #career textarea')
-      || getInputByLabelText('희망 진로')
-      || getInputByLabelText('희망진로')
-      || getInputByLabelText('희망 전공')
-      || getInputByLabelText('희망전공')
       || document.querySelector('input[placeholder*="희망 진로"]')
       || document.querySelector('textarea[placeholder*="희망 진로"]')
       || document.querySelector('input[placeholder*="희망진로"]')
       || document.querySelector('textarea[placeholder*="희망진로"]')
       || null;
+    if (direct) {
+      state.careerInput = direct;
+      return direct;
+    }
+
+    // label 기반 DOM 전체 검색은 매우 비싸므로, 입력 중에는 반복 실행하지 않는다.
+    const now = Date.now();
+    if (window.__MAJOR_ENGINE_TYPING__ && state.lastCareerInputLookupAt && now - state.lastCareerInputLookupAt < 2000) return null;
+    state.lastCareerInputLookupAt = now;
+    state.careerInput = getInputByLabelText('희망 진로')
+      || getInputByLabelText('희망진로')
+      || getInputByLabelText('희망 전공')
+      || getInputByLabelText('희망전공')
+      || null;
+    return state.careerInput;
   }
 
   function stripMajorSuffix(value){
@@ -415,7 +430,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
     startMiniPayloadPatch();
   }
 
-  function scheduleMajorInputRender(delay = 520){
+  function scheduleMajorInputRender(delay = 70){
     if (state.majorInputTimer) clearTimeout(state.majorInputTimer);
     state.majorInputTimer = setTimeout(() => {
       state.majorInputTimer = null;
@@ -470,7 +485,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
     if (eventType === 'input') {
       setMajorTypingFlag(true);
       if (event?.isComposing || state.isComposing) return;
-      scheduleMajorInputRender(520);
+      scheduleMajorInputRender(70);
       return;
     }
 
@@ -490,7 +505,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
     if (!state.delegatedCareerBound) {
       state.delegatedCareerBound = true;
       const handler = (event) => {
-        const current = getCareerInput();
+        const current = state.careerInput && document.contains(state.careerInput) ? state.careerInput : getCareerInput();
         if (!current) return;
         if (event.target === current) onCareerInputEvent(current, event);
       };
@@ -502,7 +517,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
     if (!state.inputObserverBound && typeof MutationObserver !== 'undefined') {
       state.inputObserverBound = true;
       const observer = new MutationObserver(() => {
-        const current = getCareerInput();
+        if (window.__MAJOR_ENGINE_TYPING__) return;
+        const current = state.careerInput && document.contains(state.careerInput) ? state.careerInput : getCareerInput();
         if (current && current.dataset.majorBound !== '1') bindCareerInput();
         const panel = $('majorEngineSummary');
         if (panel && current && panel.previousElementSibling !== current) {
@@ -609,8 +625,24 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.91-major-search-hard-freeze";
   };
 
   const DIRECT_QUERY_BROAD_MAP = {
-    '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과']
+    '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과'],
+    '도시': ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'],
+    '컴퓨터': ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'],
+    '컴공': ['컴퓨터공학과','소프트웨어학과','인공지능학과','정보보호학과'],
+    '소프트웨어': ['소프트웨어학과','컴퓨터공학과','소프트웨어융합학과','인공지능학과'],
+    '인공지능': ['인공지능학과','데이터사이언스학과','컴퓨터공학과','소프트웨어학과'],
+    'ai': ['인공지능학과','데이터사이언스학과','소프트웨어학과','컴퓨터공학과'],
+    '데이터': ['데이터사이언스학과','인공지능학과','컴퓨터공학과','산업공학과'],
+    '보안': ['정보보호학과','컴퓨터공학과','소프트웨어학과']
   };
+
+  const INSTANT_MAJOR_SEARCH_RULES = [
+    { test: /^(컴|컴퓨|컴퓨터|컴공|소프트|소프트웨어|인공지능|ai|데이터|정보|보안)/i, names: ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'] },
+    { test: /^(환경|기후|지구환경|대기|생태)/, names: ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','도시공학과','주거환경학과'] },
+    { test: /^(도시|건축|토목|주거|인프라|공간)/, names: ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'] },
+    { test: /^(간호|보건|의학|의료|약학|생명|바이오)/, names: ['간호학과','보건학과','의생명과학과','생명과학과','바이오메디컬공학과'] },
+    { test: /^(경영|경제|금융|회계|무역|마케팅)/, names: ['경영학과','경제학과','금융학과','회계학과','무역학과','경영정보학과'] }
+  ];
 
   const QUERY_BOOST_RULES = [
     { queries:['환경'], test: /(환경공학과|건설환경공학|토목환경공학|지구환경과학|주거환경|도시공학)/, boost: 38 },
@@ -4988,7 +5020,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
 
   function applySelectedMajor(majorId, displayName){
     const input = getCareerInput();
-    const profile = getProfileByIdOrName(majorId, displayName);
+    const profile = getProfileByIdOrName(majorId, displayName) || buildInstantProfile(displayName);
     if (!profile || !input) return;
     state.selectedMajorId = profile.major_id || majorId || '';
     state.selectedMajorName = profile.display_name || displayName || '';
@@ -5675,6 +5707,56 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     return String(track || '').replace(/계열/g,'').trim() || '관련 계열';
   }
 
+  function getInstantMajorNames(rawInput){
+    const input = String(rawInput || '').trim();
+    const normalized = normalize(input);
+    if (!normalized) return [];
+    const direct = DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null;
+    if (Array.isArray(direct) && direct.length) return direct;
+    const rule = INSTANT_MAJOR_SEARCH_RULES.find(item => item.test.test(normalized));
+    return rule?.names || [];
+  }
+
+  function buildInstantProfile(name){
+    const existing = getProfileByIdOrName('', name) || state.profiles.find(row => normalize(row.display_name) === normalize(name));
+    if (existing) return existing;
+    const override = getMajorOverride(name) || {};
+    return {
+      major_id: `instant:${normalize(name)}`,
+      display_name: name,
+      track_category: override.track_category || override.track || override.group_label || override.group || '관련 학과',
+      source_status: 'instant_search_preview',
+      core_keywords: Array.isArray(override.core_keywords) ? override.core_keywords.slice() : [],
+      related_subject_hints: Array.isArray(override.subjects) ? override.subjects.slice() : [],
+      inquiry_topics_raw: Array.isArray(override.topics) ? override.topics.slice() : [],
+      recommended_books_raw: Array.isArray(override.recommended_books_raw) ? override.recommended_books_raw.slice() : []
+    };
+  }
+
+  function buildInstantCandidateRows(rawInput){
+    const input = String(rawInput || '').trim();
+    const names = getInstantMajorNames(input);
+    if (!names.length) return [];
+    return names.map((name, idx) => {
+      const profile = buildInstantProfile(name);
+      const override = getMajorOverride(name) || {};
+      const keywords = uniq([
+        ...(Array.isArray(override.core_keywords) ? override.core_keywords : []),
+        ...(Array.isArray(profile.core_keywords) ? profile.core_keywords : []),
+        ...(Array.isArray(override.search_aliases) ? override.search_aliases : [])
+      ]).slice(0, 3);
+      return {
+        major_id: profile.major_id || `instant:${normalize(name)}`,
+        display_name: profile.display_name || name,
+        track_category: override.track_category || profile.track_category || override.group_label || '관련 학과',
+        profile,
+        score: 300 - idx,
+        match_label: idx === 0 ? '대표 후보' : '관련 후보',
+        keywords: keywords.length ? keywords : [stripMajorSuffix(name), getCompactTrackLabel(override.track_category || profile.track_category || '')].filter(Boolean)
+      };
+    });
+  }
+
   function findLightweightCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
@@ -5682,8 +5764,8 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     const cacheKey = normalized;
     if (state.searchLiteCache.has(cacheKey)) return state.searchLiteCache.get(cacheKey);
 
-    const broadNames = DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null;
-    let rows = [];
+    let rows = buildInstantCandidateRows(input);
+    const broadNames = rows.length ? null : (DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null);
     if (Array.isArray(broadNames) && broadNames.length) {
       rows = broadNames.map((name, idx) => {
         const profile = getProfileByIdOrName('', name) || state.profiles.find(row => normalize(row.display_name) === normalize(name));
@@ -5698,7 +5780,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
           profile
         };
       }).filter(Boolean);
-    } else {
+    } else if (!rows.length) {
       rows = state.catalog.map(row => {
         const display = String(row.display_name || '');
         const displayNorm = normalize(display);
