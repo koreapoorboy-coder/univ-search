@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v66.0-major-authoritative-input-fix';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v63_major_search_global_lite";
+  const ASSET_VERSION_QUERY = "v34_27_earth_system_keyword_split_v2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -158,7 +158,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     majorCoreKeywords: [],
     majorComparison: null,
     linkTrackSource: "",
-    majorRoutingKey: "",
     showAllConcepts: false
   };
 
@@ -2582,40 +2581,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     return null;
   }
 
-  let textbookMajorTypingTimer = null;
-  function markMajorSearchTyping() {
-    try {
-      window.__MAJOR_ENGINE_TYPING__ = true;
-      clearTimeout(textbookMajorTypingTimer);
-      textbookMajorTypingTimer = setTimeout(function () {
-        window.__MAJOR_ENGINE_TYPING__ = false;
-        textbookMajorTypingTimer = null;
-      }, 1600);
-    } catch (error) {}
-  }
-
-  function clearMajorSearchTypingFlag() {
-    try {
-      clearTimeout(textbookMajorTypingTimer);
-      textbookMajorTypingTimer = null;
-      window.__MAJOR_ENGINE_TYPING__ = false;
-    } catch (error) {}
-  }
-
-  function isMajorSearchGloballyTyping() {
-    try {
-      return !!window.__MAJOR_ENGINE_TYPING__;
-    } catch (error) {
-      return false;
-    }
-  }
-
   function renderCareerKeywordPreview() {
     const keywordInput = $("keyword");
     if (!keywordInput) return;
-    if (isMajorSearchGloballyTyping() && !state.keyword) {
-      return;
-    }
     if (state.keyword) {
       keywordInput.value = state.keyword;
       keywordInput.placeholder = "교과 개념 키워드가 자동 입력된 상태입니다.";
@@ -2630,7 +2598,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   }
 
   function getMajorPanelResolvedName() {
-    if (isMajorSearchGloballyTyping()) return '';
     try {
       const blocked = /관련 학과|표준화|찾지 못했|전공 후보|학과명을|먼저 고르세요|입력 전/;
       const titleNodes = Array.from(document.querySelectorAll('#engineCareerSummary, .major-engine-title, .major-engine-candidate.is-selected .major-engine-candidate-title, [data-major-select].is-selected'));
@@ -2679,11 +2646,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   }
 
   function getCareerInputText() {
+    const candidates = getCareerInputCandidates();
     const primary = $('career');
     const primaryValue = (primary?.value || '').trim();
     if (primaryValue) return primaryValue;
-    if (isMajorSearchGloballyTyping()) return '';
-    const candidates = getCareerInputCandidates();
 
     const explicit = candidates
       .map(el => (el?.value || '').trim())
@@ -2699,42 +2665,60 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   }
 
   function getEffectiveCareerName() {
-    const globalDetail = getMajorGlobalDetail();
-    const snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot());
-    const panelName = getMajorPanelResolvedName();
     const inputText = getCareerInputText();
+    const inputNorm = normalize(inputText || '');
+    let globalDetail = null;
+    let snapshotDetail = null;
+    let panelName = '';
+    try { globalDetail = getMajorGlobalDetail(); } catch (error) {}
+    try { snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot()); } catch (error) {}
+    try { panelName = getMajorPanelResolvedName(); } catch (error) {}
+
+    const selectedName = (globalDetail?.display_name || snapshotDetail?.display_name || state.majorSelectedName || panelName || state.career || '').trim();
+    const selectedNorm = normalize(selectedName || '');
+    const confirmedName = String(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || '').trim();
+    const confirmedNorm = normalize(confirmedName || '');
+    const isTyping = !!window.__MAJOR_SEARCH_IS_TYPING__;
+
+    // v66: 학과 검색창에 새 글자를 입력하는 동안에는 이전 선택 학과(예: 컴퓨터공학과)를
+    // 화면 요약과 4번 연계축이 계속 물고 있으면 안 된다. 현재 입력값을 우선한다.
+    if (inputText && isTyping && (!confirmedNorm || inputNorm !== confirmedNorm)) return inputText;
+    if (inputText && selectedNorm && inputNorm && inputNorm !== selectedNorm && (!confirmedNorm || inputNorm !== confirmedNorm)) return inputText;
+
     return (globalDetail?.display_name || snapshotDetail?.display_name || state.majorSelectedName || panelName || state.career || inputText || '').trim();
   }
 
   function syncMajorSelectionDetail(detail) {
-    if (!detail && isMajorSearchGloballyTyping()) {
-      const raw = ($('career')?.value || '').trim();
-      if (raw) {
-        state.career = raw;
-        state.majorSelectedName = raw;
-        state.majorCoreKeywords = [];
-        state.majorComparison = null;
-      }
+    const rawCareer = getCareerInputText();
+    const rawNorm = normalize(rawCareer || '');
+    const explicitDetail = detail && detail.display_name ? detail : null;
+    const isTyping = !!window.__MAJOR_SEARCH_IS_TYPING__;
+    const confirmedName = String(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || '').trim();
+    const confirmedNorm = normalize(confirmedName || '');
+
+    // v66: 입력 중에는 major helper의 이전 확정값을 사용하지 않는다.
+    // 예: 기존 선택이 컴퓨터공학과인 상태에서 간호를 치면 즉시 간호 기준으로 표시하고,
+    // 후보 클릭 전까지는 majorSelectedName을 비워 둔다.
+    if (rawCareer && isTyping && !explicitDetail && (!confirmedNorm || rawNorm !== confirmedNorm)) {
+      state.career = rawCareer;
+      state.majorSelectedName = '';
+      state.majorCoreKeywords = [];
+      state.majorComparison = null;
       return;
     }
+
     const globalDetail = getMajorGlobalDetail();
     const snapshotDetail = derivePreviewDetailFromPayload(getMajorEngineSnapshot());
     const panelName = getMajorPanelResolvedName();
-    const fallback = detail || globalDetail || snapshotDetail || (panelName ? { display_name: panelName, core_keywords: [], comparison: null } : null);
-    const rawCareer = getCareerInputText();
+    const fallback = explicitDetail || globalDetail || snapshotDetail || (panelName ? { display_name: panelName, core_keywords: [], comparison: null } : null);
     let resolvedName = (fallback?.display_name || panelName || '').trim();
-
-    // 학과 검색창에서 기존 학과(예: 컴퓨터공학과)를 지우지 않고 바로 다른 학과(예: 대기과학과)를 입력할 때,
-    // major helper의 이전 선택값과 현재 입력값이 잠시 다를 수 있다. 이때 예전 선택값으로 3~4번을 반복 렌더하면
-    // 검색 후보 패널이 버퍼링처럼 보이므로, 현재 입력값을 우선 기준으로 두고 이전 선택 프리셋을 잠시 비운다.
-    const rawNorm = normalize(rawCareer || '');
     const resolvedNorm = normalize(resolvedName || '');
-    if (rawCareer && resolvedName && rawNorm && resolvedNorm && rawNorm !== resolvedNorm) {
-      resetMajorDependentSelections(rawCareer);
-      state.majorSelectedName = rawCareer;
+
+    if (rawCareer && resolvedName && rawNorm && resolvedNorm && rawNorm !== resolvedNorm && (!confirmedNorm || rawNorm !== confirmedNorm)) {
+      state.career = rawCareer;
+      state.majorSelectedName = '';
       state.majorCoreKeywords = [];
       state.majorComparison = null;
-      state.career = rawCareer;
       return;
     }
 
@@ -2743,10 +2727,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     state.majorComparison = fallback?.comparison || state.majorComparison || null;
 
     const nextCareer = resolvedName || panelName || rawCareer;
-    if (nextCareer) {
-      resetMajorDependentSelections(nextCareer);
-      state.career = nextCareer;
-    }
+    if (nextCareer) state.career = nextCareer;
 
     if (!state.linkTrack && state.subject && state.career) {
       const autoTrack = getAutoTrackDetail();
@@ -2758,7 +2739,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   }
 
   function syncMajorBridgeState() {
-    if (isMajorSearchGloballyTyping()) return false;
     const before = {
       career: state.career || '',
       major: state.majorSelectedName || '',
@@ -2783,7 +2763,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   }
 
   function scheduleBridgeRender(delay = 180) {
-    if (isMajorSearchGloballyTyping()) return;
     const nextKey = getMajorBridgeRenderKey();
     if (nextKey === majorBridgeLastRenderedKey && majorBridgeRenderTimer) return;
     clearTimeout(majorBridgeRenderTimer);
@@ -2807,10 +2786,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__) return;
     window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__ = true;
     setInterval(function () {
-      if (isMajorSearchGloballyTyping()) return;
       const changed = syncMajorBridgeState();
-      if (changed) scheduleBridgeRender(260);
-    }, 1200);
+      if (changed && !isTypingInMajorSearch()) scheduleBridgeRender(260);
+    }, 900);
   }
 
   function scheduleMajorPreviewSync() {
@@ -2844,43 +2822,44 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
 
     const careerEl = $("career");
     if (careerEl) {
-      const markCareerTypingOnly = function () {
-        // 학과 검색 중에는 교과/연계/도서/보고서 영역을 절대 다시 계산하지 않는다.
-        // 후보 검색은 major_engine_helper의 lightweight 패널만 담당한다.
-        markMajorSearchTyping();
-        state.career = (careerEl.value || '').trim();
-        state.majorSelectedName = state.career;
-      };
-      careerEl.addEventListener("compositionstart", markCareerTypingOnly);
-      careerEl.addEventListener("compositionupdate", markCareerTypingOnly);
-      careerEl.addEventListener("input", markCareerTypingOnly);
-      careerEl.addEventListener("keyup", markCareerTypingOnly);
-      careerEl.addEventListener("keydown", function (event) {
-        const raw = (careerEl.value || '').trim();
-        if (event.key === 'Enter' && raw && !/(학과|학부|전공|예과)$/.test(raw)) {
-          markCareerTypingOnly();
-          event.preventDefault?.();
-          event.stopPropagation?.();
-        }
+      careerEl.addEventListener("input", function () {
+        syncCareerFromInput();
+        state.majorSelectedName = "";
+        state.majorCoreKeywords = [];
+        state.majorComparison = null;
+        // v66: 학과 검색 입력 중에는 3~8번 전체 재렌더를 예약하지 않는다.
+        // 후보 클릭 또는 change 확정 때만 후속 연계축을 다시 계산한다.
+        renderStatus();
+        syncOutputFields();
       });
       careerEl.addEventListener("change", function () {
-        clearMajorSearchTypingFlag();
         syncCareerFromInput();
         state.linkTrackSource = state.linkTrackSource || "";
         scheduleMajorPreviewSync();
         scheduleBridgeRender(80);
       });
-      careerEl.addEventListener("blur", function () {
-        clearMajorSearchTypingFlag();
-      });
     }
+
+    window.addEventListener("major-engine-input-preview", function (event) {
+      const raw = String(event?.detail?.raw || $("career")?.value || "").trim();
+      if (!raw) return;
+      state.career = raw;
+      state.majorSelectedName = "";
+      state.majorCoreKeywords = [];
+      state.majorComparison = null;
+      renderStatus();
+      syncOutputFields();
+    });
 
     window.addEventListener("major-engine-selection-changed", function (event) {
       const detail = event?.detail || null;
-      if (!detail && isMajorSearchGloballyTyping()) return;
-      clearMajorSearchTypingFlag();
       syncMajorSelectionDetail(detail);
-      scheduleBridgeRender(80);
+      if (detail && detail.display_name) {
+        scheduleBridgeRender(80);
+      } else {
+        renderStatus();
+        syncOutputFields();
+      }
     });
 
     document.addEventListener("click", function (event) {
@@ -2990,7 +2969,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     document.addEventListener('change', function (event) {
       const target = event.target;
       if (!target || !target.matches || !target.matches('input, textarea, select')) return;
-      if (target.id === 'career') return;
       syncSubjectFromSelect();
       syncMajorSelectionDetail(null);
       if (!state.keyword) renderCareerKeywordPreview();
@@ -3000,7 +2978,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     try {
       let mutationTimer = null;
       const observer = new MutationObserver(function () {
-        if (isMajorSearchGloballyTyping()) return;
+        if (isTypingInMajorSearch()) return;
         clearTimeout(mutationTimer);
         mutationTimer = setTimeout(function () {
           if (syncMajorBridgeState()) scheduleBridgeRender(140);
@@ -3071,7 +3049,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
   function clearFrom(stepName) {
     if (stepName === "track") {
       state.linkTrack = "";
-      state.linkTrackSource = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
       state.reportMode = "";
@@ -3084,7 +3061,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
       state.concept = "";
       state.keyword = "";
       state.linkTrack = "";
-      state.linkTrackSource = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
       state.reportMode = "";
@@ -3271,224 +3247,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     ];
   }
 
-  function normalizeAxisDomain(domain) {
-    const value = String(domain || "").trim().toLowerCase();
-    const map = {
-      earth: "earth_env",
-      earthenv: "earth_env",
-      environment: "earth_env",
-      climate: "earth_env",
-      info: "info",
-      information: "info",
-      statistics: "data",
-      math: "math",
-      system: "system",
-      physics: "physics",
-      engineering: "engineering",
-      urban: "urban",
-      spatial: "spatial",
-      biology: "biology",
-      health: "health",
-      decision: "decision",
-      business: "business",
-      social: "social_policy",
-      social_policy: "social_policy"
-    };
-    return map[value] || value;
-  }
-
-  function getAxisDomainForRouting(axisLike) {
-    const raw = axisLike?.axis_domain || axisLike?.axisDomain || axisLike?.domain || "";
-    const normalized = normalizeAxisDomain(raw);
-    if (normalized) return normalized;
-    const text = [
-      axisLike?.axis_title || axisLike?.title || "",
-      axisLike?.short || axisLike?.axis_short || "",
-      ...(Array.isArray(axisLike?.next_subjects) ? axisLike.next_subjects : []),
-      ...(Array.isArray(axisLike?.linkedSubjects) ? axisLike.linkedSubjects : [])
-    ].join(" ");
-    if (/도시|공간|생활권|인프라|교통|녹지|열섬/.test(text)) return "urban";
-    if (/지구|환경|기후|대기|해양/.test(text)) return "earth_env";
-    if (/자료|데이터|통계|그래프|수리|모델링/.test(text)) return "data";
-    if (/정보|알고리즘|프로그래밍|입력|출력/.test(text)) return "info";
-    if (/물리|시스템|센서|장치|역학|전자기/.test(text)) return "physics";
-    if (/생명|건강|간호|보건|의학/.test(text)) return "biology";
-    if (/경영|경제|의사결정|비용|편익/.test(text)) return "business";
-    return "";
-  }
-
-  function detectMajorRoutingBucket(text) {
-    const t = String(text || "").trim();
-    if (!t) return "default";
-    if (/(컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|정보|보안|프로그래밍|통계)/i.test(t)) return "it";
-    if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(t)) return "urban";
-    if (/(환경공학|환경|기후|대기|지구|해양|생태|자원|에너지환경|지리)/.test(t)) return "env";
-    if (/(간호|의학|의예|보건|약학|치의|수의|생명|바이오|의생명|재활|치위생|의료)/.test(t)) return "health";
-    if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학)/.test(t)) return "business";
-    if (/(전기|전자|회로|센서|통신|반도체)/.test(t)) return "engineering";
-    if (/(기계|자동차|로봇|항공|모빌리티|신소재|재료|화학공학|고분자|금속|배터리)/.test(t)) return "engineering";
-    return "default";
-  }
-
-  function getMajorRoutingText() {
-    return [
-      state.career || "",
-      state.majorSelectedName || "",
-      getEffectiveCareerName?.() || "",
-      getCareerInputText?.() || "",
-      getMajorPanelResolvedName?.() || "",
-      getMajorTextBag?.() || ""
-    ].join(" ").trim();
-  }
-
-  function buildMajorRoutingProfile(text) {
-    const majorName = (text || getMajorRoutingText() || state.career || state.majorSelectedName || "").trim();
-    const bucket = detectMajorRoutingBucket(majorName);
-    const profiles = {
-      it: {
-        bucket: "it",
-        lens: "입력값·조건문·오류 검증",
-        directAxisDomains: ["data", "info", "math"],
-        bridgeAxisDomains: ["physics", "system", "engineering", "earth_env"],
-        resultKeywords: ["입력값", "조건문", "판단 결과", "오류 가능성", "예외 상황", "알고리즘"]
-      },
-      env: {
-        bucket: "env",
-        lens: "환경 변수·노출·취약성·저감 기준",
-        directAxisDomains: ["earth_env", "environment", "climate"],
-        bridgeAxisDomains: ["data", "chemistry", "physics", "system", "engineering"],
-        resultKeywords: ["환경 변수", "노출 시간", "취약성", "위험도", "피해 가능성", "저감 기준"]
-      },
-      urban: {
-        bucket: "urban",
-        lens: "공간 구조·도시 열섬·녹지·인프라",
-        directAxisDomains: ["urban", "spatial", "earth_env", "environment"],
-        bridgeAxisDomains: ["data", "physics", "system", "engineering"],
-        resultKeywords: ["공간 구조", "도시 열섬", "녹지", "포장 면적", "생활권 차이", "인프라"]
-      },
-      health: {
-        bucket: "health",
-        lens: "생체 반응·위험 요인·관리 기준",
-        directAxisDomains: ["biology", "health"],
-        bridgeAxisDomains: ["data", "chemistry", "earth_env", "environment"],
-        resultKeywords: ["항상성", "생체 반응", "증상 관찰", "위험 요인", "관리 기준", "간호적 판단"]
-      },
-      business: {
-        bucket: "business",
-        lens: "비용·편익·의사결정·위험 관리",
-        directAxisDomains: ["decision", "business", "social_policy", "data"],
-        bridgeAxisDomains: ["info", "math", "statistics"],
-        resultKeywords: ["비용", "편익", "선택 기준", "위험 관리", "의사결정", "시장 반응"]
-      },
-      engineering: {
-        bucket: "engineering",
-        lens: "공학 시스템·설계 조건·검증",
-        directAxisDomains: ["physics", "engineering", "chemistry"],
-        bridgeAxisDomains: ["data", "info", "earth_env"],
-        resultKeywords: ["구조", "시스템", "설계 조건", "검증", "성능", "안정성"]
-      }
-    };
-    const profile = profiles[bucket] || {
-      bucket: "default",
-      lens: "교과 개념 기반 종단 연결",
-      directAxisDomains: [],
-      bridgeAxisDomains: [],
-      resultKeywords: []
-    };
-    return { ...profile, majorName };
-  }
-
-  function getAxisRelationByMajorProfile(profile, axisLike) {
-    const domain = getAxisDomainForRouting(axisLike);
-    if (!profile || profile.bucket === "default") return null;
-    const direct = (profile.directAxisDomains || []).map(normalizeAxisDomain);
-    const bridge = (profile.bridgeAxisDomains || []).map(normalizeAxisDomain);
-    if (direct.includes(domain)) {
-      return {
-        type: "direct",
-        label: "직접 연계 강함",
-        score: 12,
-        message: `${profile.majorName || state.career}와 바로 이어지는 축입니다.`
-      };
-    }
-    if (bridge.includes(domain)) {
-      return {
-        type: "bridge",
-        label: "역량 브리지",
-        score: 6,
-        message: `${profile.majorName || state.career}와 직접 일치하지 않아도 역량 연결이 가능한 축입니다.`
-      };
-    }
-    return {
-      type: "general",
-      label: "보조 확장",
-      score: 0,
-      message: `${profile.majorName || state.career}와 직접 연결은 약하지만 보조 자료로 활용할 수 있는 축입니다.`
-    };
-  }
-
-  function getMajorRoutingAxisBoost(axisLike) {
-    const profile = buildMajorRoutingProfile(getMajorRoutingText());
-    const domain = getAxisDomainForRouting(axisLike);
-    if (!profile || profile.bucket === "default") return 0;
-    const direct = (profile.directAxisDomains || []).map(normalizeAxisDomain);
-    const bridge = (profile.bridgeAxisDomains || []).map(normalizeAxisDomain);
-    if (direct.includes(domain)) return 22;
-    if (bridge.includes(domain)) {
-      if (profile.bucket === "urban" && (domain === "physics" || domain === "engineering" || domain === "system")) return 4;
-      if (profile.bucket === "it" && domain === "earth_env") return 2;
-      return 8;
-    }
-    return 0;
-  }
-
-  function getHeatwaveAxisContextBoost(axisLike) {
-    const keywordText = [state.keyword || "", state.concept || ""].join(" ");
-    if (!/(폭염|폭염주의보|기온|체감온도|습도|열섬|그늘|녹지|포장 면적|생활환경|취약 계층|취약계층|온열|무더위)/.test(keywordText)) return 0;
-    const profile = buildMajorRoutingProfile(getMajorRoutingText());
-    const domain = getAxisDomainForRouting(axisLike);
-    if (profile.bucket === "it") {
-      if (domain === "data" || domain === "info" || domain === "math") return 46;
-      if (domain === "earth_env") return 14;
-      return 0;
-    }
-    if (profile.bucket === "env") {
-      if (domain === "earth_env" || domain === "environment" || domain === "climate") return 60;
-      if (domain === "data") return 12;
-      return 0;
-    }
-    if (profile.bucket === "urban") {
-      if (domain === "earth_env" || domain === "urban" || domain === "spatial" || domain === "environment") return 66;
-      if (domain === "data") return 28;
-      return 0;
-    }
-    if (profile.bucket === "health") {
-      if (domain === "biology" || domain === "health") return 46;
-      if (domain === "earth_env" || domain === "data") return 18;
-      return 0;
-    }
-    if (domain === "earth_env") return 24;
-    if (domain === "data") return 10;
-    return 0;
-  }
-
-  function resetMajorDependentSelections(nextMajor) {
-    const nextKey = normalize(nextMajor || "");
-    if (!nextKey) return;
-    const prevKey = state.majorRoutingKey || "";
-    if (prevKey && prevKey !== nextKey) {
-      state.linkTrack = "";
-      state.linkTrackSource = "";
-      state.selectedBook = "";
-      state.selectedBookTitle = "";
-      state.reportMode = "";
-      state.reportView = "";
-      state.reportLine = "";
-      syncOutputFields();
-    }
-    state.majorRoutingKey = nextKey;
-  }
-
   function getCareerAxisBoost(axis) {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const concept = state.concept || "";
@@ -3496,8 +3254,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
     const bucket = detectCareerBucket(majorText || state.career || "");
     const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
-    score += getMajorRoutingAxisBoost(axis);
-    score += getHeatwaveAxisContextBoost(axis);
 
     if (state.subject === "공통국어1" || state.subject === "공통국어") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
@@ -3595,10 +3351,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v64.0-major-search-live-composition'
         message: "학과를 입력하면 이 축의 우선순위만 달라집니다."
       };
     }
-
-    const profile = buildMajorRoutingProfile(careerText);
-    const profileRelation = getAxisRelationByMajorProfile(profile, axisLike);
-    if (profileRelation) return profileRelation;
 
     const subjectText = String(subjectName || state.subject || "");
     const axisText = [
@@ -4767,18 +4519,6 @@ function getTrackMeta(trackId) {
 
     if (fuzzyIncludes(state.subject, "통합과학1")) {
       if (/과학의 측정과 우리 사회/.test(concept)) {
-        if (hit("폭염", "폭염주의보", "기온", "체감온도", "습도", "도시 열섬", "녹지", "그늘", "포장 면적", "취약 계층", "온열 질환")) {
-          const profile = buildMajorRoutingProfile(getMajorRoutingText());
-          if (/measurement_environment_data/.test(axisId) || /지구·환경 데이터 해석 축/.test(axisTitle) || axisDomain === "earth_env") {
-            fallback = Math.max(fallback, profile.bucket === "urban" ? 66 : (profile.bucket === "env" ? 60 : (profile.bucket === "it" ? 14 : 34)));
-          }
-          if (/measurement_data_modeling/.test(axisId) || /수리·데이터 모델링 축/.test(axisTitle) || axisDomain === "data") {
-            fallback = Math.max(fallback, profile.bucket === "it" ? 46 : (profile.bucket === "urban" ? 28 : 12));
-          }
-          if (/measurement_physics_system/.test(axisId) || /물리·시스템 해석 축/.test(axisTitle) || axisDomain === "physics") {
-            fallback = Math.max(fallback, profile.bucket === "it" ? 0 : 0);
-          }
-        }
         if (hit("온도 센서", "속도 측정 카메라", "전자저울", "냉난방기 가동 전후 변화", "위치별 온도 차이", "센서", "측정 도구")) {
           if (/measurement_physics_system/.test(axisId) || /물리·시스템 해석 축/.test(axisTitle) || axisDomain === "physics") fallback = Math.max(fallback, 46);
           if (/measurement_data_modeling/.test(axisId) || /수리·데이터 모델링 축/.test(axisTitle) || axisDomain === "data") fallback = Math.max(fallback, 4);
@@ -7975,11 +7715,6 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return;
     }
     const options = getTrackOptions();
-    if (state.linkTrack && options.length && !options.some(item => item.id === state.linkTrack)) {
-      state.linkTrack = "";
-      state.linkTrackSource = "";
-      syncOutputFields();
-    }
     if (!options.length) {
       el.innerHTML = `<div class="engine-empty">현재 선택한 교과 개념과 키워드에 연결된 후속 과목 축이 아직 준비되지 않았습니다.</div>`;
       return;
