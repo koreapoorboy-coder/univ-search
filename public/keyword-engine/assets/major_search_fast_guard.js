@@ -1,4 +1,4 @@
-window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v75-major-reselect-freeze-guard';
 
 (function(){
   if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
@@ -12,7 +12,9 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
     confirmedName: '',
     isComposing: false,
     renderTimer: null,
-    candidateCache: new Map()
+    candidateCache: new Map(),
+    editHoldTimer: null,
+    lastEditReason: ''
   };
 
   const norm = (value) => String(value || '')
@@ -250,18 +252,51 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
     `;
   }
 
-  function publishPreview(raw){
+
+  function getPanel(){
+    return state.panel || document.getElementById('majorEngineSummary');
+  }
+
+  function setEditingLock(raw, reason, options = {}) {
     const q = String(raw || '').trim();
     state.lastRaw = q;
+    state.lastEditReason = reason || 'edit';
     window.__MAJOR_SEARCH_IS_TYPING__ = true;
+    window.__MAJOR_SEARCH_EDITING_LOCK__ = true;
+    window.__MAJOR_SEARCH_LOCK_UNTIL__ = Date.now() + 8000;
     window.__MAJOR_SEARCH_RAW__ = q;
     window.__MAJOR_ENGINE_LAST_RAW__ = q;
     window.__MAJOR_ENGINE_LAST_INPUT__ = q;
-    if (state.confirmedName && norm(q) !== norm(state.confirmedName)) {
+
+    if (options.clearConfirmed && state.confirmedName && norm(q) !== norm(state.confirmedName)) {
       state.confirmedName = '';
       window.__MAJOR_SEARCH_CONFIRMED_NAME__ = '';
       window.__MAJOR_ENGINE_SELECTED__ = null;
     }
+
+    clearTimeout(state.editHoldTimer);
+    state.editHoldTimer = setTimeout(() => {
+      const input = getInput();
+      const panel = getPanel();
+      const active = document.activeElement;
+      const stillEditing = !!input && (active === input || panel?.contains?.(active));
+      if (!stillEditing && window.__MAJOR_SEARCH_EDITING_LOCK__) {
+        window.__MAJOR_SEARCH_EDITING_LOCK__ = false;
+        window.__MAJOR_SEARCH_IS_TYPING__ = false;
+      }
+    }, 8200);
+  }
+
+  function releaseEditingLock() {
+    clearTimeout(state.editHoldTimer);
+    window.__MAJOR_SEARCH_EDITING_LOCK__ = false;
+    window.__MAJOR_SEARCH_IS_TYPING__ = false;
+    window.__MAJOR_SEARCH_LOCK_UNTIL__ = 0;
+  }
+
+  function publishPreview(raw){
+    const q = String(raw || '').trim();
+    setEditingLock(q, 'input', { clearConfirmed: true });
     window.dispatchEvent(new CustomEvent('major-engine-input-preview', { detail: { raw:q, version:VERSION } }));
   }
 
@@ -269,6 +304,17 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
     clearTimeout(state.renderTimer);
     renderCandidates(raw);
     state.renderTimer = setTimeout(() => renderCandidates(raw), 60);
+  }
+
+
+  function handleFocusForReselect(event){
+    const input = getInput();
+    if (!input || event.target !== input) return;
+    // v75: 4번 이후 단계가 렌더된 상태에서 학과 검색창을 다시 누르면
+    // 기존 4번/도서/보고서 렌더 타이머가 검색 입력과 충돌할 수 있다.
+    // 포커스 시점부터 후속 렌더를 잠시 멈추고, 후보 선택 확정 때만 다시 계산한다.
+    setEditingLock(input.value || '', 'focus', { clearConfirmed: false });
+    if (String(input.value || '').trim()) scheduleRender(input.value || '');
   }
 
   function handleTextInput(event){
@@ -286,7 +332,7 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
     const input = getInput();
     if (!input || !name) return;
     state.confirmedName = name;
-    window.__MAJOR_SEARCH_IS_TYPING__ = false;
+    releaseEditingLock();
     window.__MAJOR_SEARCH_RAW__ = name;
     window.__MAJOR_SEARCH_CONFIRMED_NAME__ = name;
     window.__MAJOR_ENGINE_LAST_RAW__ = name;
@@ -340,10 +386,26 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v74-major-search-group-refine';
     if (!input) return;
     state.input = input;
     ensurePanel();
+    ['pointerdown','focus','click'].forEach(type => {
+      input.addEventListener(type, handleFocusForReselect, true);
+    });
     ['compositionstart','compositionupdate','compositionend','input','keyup','paste'].forEach(type => {
       input.addEventListener(type, handleTextInput, true);
     });
     input.addEventListener('keydown', handleKeydown, true);
+    input.addEventListener('blur', function(){
+      setTimeout(() => {
+        const panel = getPanel();
+        const active = document.activeElement;
+        if (!panel?.contains?.(active)) releaseEditingLock();
+      }, 240);
+    }, true);
+    document.addEventListener('pointerdown', function(event){
+      const inputNow = getInput();
+      const panel = getPanel();
+      if (inputNow && (event.target === inputNow || panel?.contains?.(event.target))) return;
+      releaseEditingLock();
+    }, true);
     document.addEventListener('click', handleClick, true);
   }
 
