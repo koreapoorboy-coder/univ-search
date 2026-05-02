@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatwave-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v60.0-major-search-input-throttle';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2739,8 +2739,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatw
   }
 
   function scheduleBridgeRender(delay = 180) {
+    if (window.__MAJOR_ENGINE_TYPING__ || isTypingInMajorSearch()) return;
     const nextKey = getMajorBridgeRenderKey();
     if (nextKey === majorBridgeLastRenderedKey && majorBridgeRenderTimer) return;
+    clearTimeout(majorBridgeRenderTimer);
+    majorBridgeRenderTimer = setTimeout(function () {
+      majorBridgeRenderTimer = null;
+      if (window.__MAJOR_ENGINE_TYPING__ || isTypingInMajorSearch()) return;
+      majorBridgeLastRenderedKey = getMajorBridgeRenderKey();
+      renderAll();
+    }, delay);
+  }
+
+
+  function forceBridgeRender(delay = 80) {
     clearTimeout(majorBridgeRenderTimer);
     majorBridgeRenderTimer = setTimeout(function () {
       majorBridgeRenderTimer = null;
@@ -2762,8 +2774,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatw
     if (window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__) return;
     window.__TEXTBOOK_MAJOR_BRIDGE_POLLING_V33_20__ = true;
     setInterval(function () {
+      if (window.__MAJOR_ENGINE_TYPING__ || isTypingInMajorSearch()) return;
       const changed = syncMajorBridgeState();
-      if (changed && !isTypingInMajorSearch()) scheduleBridgeRender(260);
+      if (changed) scheduleBridgeRender(260);
     }, 900);
   }
 
@@ -2782,7 +2795,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatw
       }
       syncOutputFields();
     };
-    [0, 80, 220].forEach(delay => setTimeout(refresh, delay));
+    [0].forEach(delay => setTimeout(refresh, delay));
   }
 
   function bindEvents() {
@@ -2801,21 +2814,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatw
       careerEl.addEventListener("input", function () {
         syncCareerFromInput();
         state.linkTrackSource = state.linkTrackSource || "";
-        // 학과 검색 입력 중에는 3~8 전체 재렌더를 즉시 반복하지 않는다.
-        // 전공 후보 패널 검색은 major_engine_helper가 처리하고, 아래 교과 추천은 입력이 멈춘 뒤 가볍게 동기화한다.
-        scheduleBridgeRender(420);
+        // 학과 검색 입력 중에는 후보 패널만 갱신한다.
+        // 3~8번 교과/도서/보고서 영역은 학과 선택 또는 change/blur 이후에만 다시 계산한다.
+        window.__MAJOR_ENGINE_TYPING__ = true;
       });
       careerEl.addEventListener("change", function () {
         syncCareerFromInput();
         state.linkTrackSource = state.linkTrackSource || "";
+        window.__MAJOR_ENGINE_TYPING__ = false;
         scheduleMajorPreviewSync();
-        scheduleBridgeRender(80);
+        forceBridgeRender(120);
       });
     }
 
     window.addEventListener("major-engine-selection-changed", function (event) {
+      if (window.__MAJOR_ENGINE_TYPING__ && !event?.detail) return;
+      window.__MAJOR_ENGINE_TYPING__ = false;
       syncMajorSelectionDetail(event?.detail || null);
-      scheduleBridgeRender(80);
+      forceBridgeRender(120);
     });
 
     document.addEventListener("click", function (event) {
@@ -2925,6 +2941,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v59.0-axis-major-routing-urban-heatw
     document.addEventListener('change', function (event) {
       const target = event.target;
       if (!target || !target.matches || !target.matches('input, textarea, select')) return;
+      if (target.id === 'career' || isTypingInMajorSearch()) return;
       syncSubjectFromSelect();
       syncMajorSelectionDetail(null);
       if (!state.keyword) renderCareerKeywordPreview();
