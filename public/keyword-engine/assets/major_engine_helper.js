@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.102-major-panel-revert-vertical";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.103-major-guard-aware";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v73-major-panel-revert-vertical';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v76-major-guard-aware';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -422,6 +422,16 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.102-major-panel-revert-vertical";
     try { state.searchLiteCache.clear(); } catch (error) {}
   }
 
+  function isFastGuardEditing(){
+    try {
+      const lockUntil = Number(window.__MAJOR_SEARCH_LOCK_UNTIL__ || 0);
+      if (lockUntil && Date.now() < lockUntil) return true;
+      return !!(window.__MAJOR_SEARCH_EDITING_LOCK__ || window.__MAJOR_SEARCH_IS_TYPING__);
+    } catch (error) {
+      return false;
+    }
+  }
+
   function flushMajorInputRender(){
     if (state.majorInputTimer) {
       clearTimeout(state.majorInputTimer);
@@ -453,6 +463,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.102-major-panel-revert-vertical";
 
     const raw = String(el.value || '').trim();
     const eventType = String(event?.type || '');
+
+    // v76: 빠른 검색 가드가 학과 입력을 처리하는 동안에는 기존 대형 학과 엔진이
+    // 후보 검색·패널 렌더·payload 패치를 같이 돌리지 않는다. 후보 클릭/확정 뒤에만 실행한다.
+    if (isFastGuardEditing() && !['change','blur'].includes(eventType)) {
+      return;
+    }
 
     if (eventType === 'compositionstart') {
       state.isComposing = true;
@@ -520,7 +536,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.102-major-panel-revert-vertical";
     if (!state.inputObserverBound && typeof MutationObserver !== 'undefined') {
       state.inputObserverBound = true;
       const observer = new MutationObserver(() => {
-        if (window.__MAJOR_ENGINE_TYPING__) return;
+        if (window.__MAJOR_ENGINE_TYPING__ || isFastGuardEditing()) return;
         const current = state.careerInput && document.contains(state.careerInput) ? state.careerInput : getCareerInput();
         if (current && current.dataset.majorBound !== '1') bindCareerInput();
         const panel = $('majorEngineSummary');
@@ -5884,6 +5900,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
   function renderMajorSummary(options = {}){
     const dispatchEnabled = options && Object.prototype.hasOwnProperty.call(options, 'dispatch') ? !!options.dispatch : !window.__MAJOR_ENGINE_TYPING__;
     const renderReason = String(options?.reason || 'auto');
+    if (isFastGuardEditing() && !['commit','selected','apply'].includes(renderReason)) return;
     injectStyles();
     bindCareerInput();
     const panel = ensureMajorPanel();
