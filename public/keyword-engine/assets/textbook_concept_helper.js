@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v75.0-major-reselect-freeze-guard';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -2883,9 +2883,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v75.0-major-reselect-freeze-guard';
 
     window.addEventListener("major-engine-selection-changed", function (event) {
       const detail = event?.detail || null;
+      const prevMajor = state.majorSelectedName || state.career || "";
+      const nextMajor = String(detail?.display_name || "").trim();
+      const majorChanged = !!nextMajor && normalize(prevMajor || "") !== normalize(nextMajor || "");
+
+      // v76: 학과가 확정 변경되면 3번 추천 개념/키워드부터 다시 계산해야 한다.
+      // 이전 학과에서 고른 concept/keyword/linkTrack/book/report 선택값을 남기면
+      // 4번만 새 학과처럼 보이고 실제 출발점은 이전 학과인 상태가 된다.
+      if (majorChanged) {
+        clearFrom("major");
+        majorBridgeLastRenderedKey = "";
+      }
+
       syncMajorSelectionDetail(detail);
       if (detail && detail.display_name) {
-        scheduleBridgeRender(80);
+        scheduleBridgeRender(majorChanged ? 20 : 80);
       } else {
         renderStatus();
         syncOutputFields();
@@ -3078,6 +3090,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v75.0-major-reselect-freeze-guard';
   }
 
   function clearFrom(stepName) {
+    if (stepName === "major") {
+      state.concept = "";
+      state.keyword = "";
+      state.linkTrack = "";
+      state.linkTrackSource = "";
+      state.selectedBook = "";
+      state.selectedBookTitle = "";
+      state.reportMode = "";
+      state.reportView = "";
+      state.reportLine = "";
+      state.showAllConcepts = false;
+      syncOutputFields();
+      return;
+    }
     if (stepName === "track") {
       state.linkTrack = "";
       state.selectedBook = "";
