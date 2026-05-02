@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-search-live-composition";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v63-major-search-global-lite';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v64-major-search-live-composition';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -440,7 +440,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
       const raw = String(getCareerInput()?.value || '').trim();
       if (raw === state.lastRenderedCareerRaw) return;
       state.lastRenderedCareerRaw = raw;
-      if (state.isComposing) return;
+      // 한글 조합 중에도 후보 목록은 즉시 갱신한다.
+      // 확정 dispatch만 막고, search 렌더는 계속 허용해야 Enter 없이 후보가 뜬다.
       renderMajorSummary({ dispatch: false, reason: 'search' });
       // 검색 중에는 MINI payload wrapper를 반복 확인하지 않는다. 실제 선택/change 시점에만 갱신한다.
     }, delay);
@@ -457,12 +458,35 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
     if (eventType === 'compositionstart') {
       state.isComposing = true;
       setMajorTypingFlag(true);
+      scheduleMajorInputRender(80);
+      return;
+    }
+    if (eventType === 'compositionupdate') {
+      state.isComposing = true;
+      setMajorTypingFlag(true);
+      scheduleMajorInputRender(60);
       return;
     }
     if (eventType === 'compositionend') {
       state.isComposing = false;
       setMajorTypingFlag(true);
-      scheduleMajorInputRender(180);
+      scheduleMajorInputRender(40);
+      return;
+    }
+
+    if (eventType === 'keydown' && event?.key === 'Enter' && raw && !/(학과|학부|전공|예과)$/.test(raw)) {
+      // 부분 검색어에서 Enter가 change/commit처럼 동작하면 전체 resolve가 돌며 멈춰 보인다.
+      // Enter는 후보 목록 즉시 표시로만 처리하고, 실제 확정은 후보 클릭으로 진행한다.
+      event.preventDefault?.();
+      event.stopPropagation?.();
+      setMajorTypingFlag(true);
+      scheduleMajorInputRender(0);
+      return;
+    }
+
+    if (eventType === 'keyup') {
+      setMajorTypingFlag(true);
+      scheduleMajorInputRender(40);
       return;
     }
 
@@ -487,8 +511,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
 
     if (eventType === 'input') {
       setMajorTypingFlag(true);
-      if (event?.isComposing || state.isComposing) return;
-      scheduleMajorInputRender(70);
+      // 한글 IME에서는 isComposing=true인 동안에도 value가 갱신된다.
+      // 이때 후보를 미루면 Enter를 눌러야 검색되는 것처럼 보이므로 search 렌더는 허용한다.
+      scheduleMajorInputRender(event?.isComposing || state.isComposing ? 80 : 50);
       return;
     }
 
@@ -500,7 +525,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
     const el = getCareerInput();
     if (el && el.dataset.majorBound !== '1') {
       el.dataset.majorBound = '1';
-      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
+      ['keydown','input','keyup','change','focus','blur','compositionstart','compositionupdate','compositionend'].forEach(evt => {
         el.addEventListener(evt, (event) => onCareerInputEvent(el, event));
       });
     }
@@ -512,7 +537,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
         if (!current) return;
         if (event.target === current) onCareerInputEvent(current, event);
       };
-      ['input','change','focus','blur','compositionstart','compositionend'].forEach(evt => {
+      ['keydown','input','keyup','change','focus','blur','compositionstart','compositionupdate','compositionend'].forEach(evt => {
         document.addEventListener(evt, handler, true);
       });
     }
@@ -630,6 +655,12 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
   const DIRECT_QUERY_BROAD_MAP = {
     '환경': ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','주거환경학과','도시공학과'],
     '도시': ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'],
+    '반': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
+    '반도': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
+    '반도체': ['반도체공학과','전자공학과','전기공학과','신소재공학과'],
+    '반도체공': ['반도체공학과','전자공학과','신소재공학과'],
+    '전자': ['전자공학과','반도체공학과','전기공학과','정보통신공학과'],
+    '전기': ['전기공학과','전자공학과','반도체공학과'],
     '컴퓨터': ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'],
     '컴공': ['컴퓨터공학과','소프트웨어학과','인공지능학과','정보보호학과'],
     '소프트웨어': ['소프트웨어학과','컴퓨터공학과','소프트웨어융합학과','인공지능학과'],
@@ -641,6 +672,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.100-major-search-global-lite";
 
   const INSTANT_MAJOR_SEARCH_RULES = [
     { test: /^(컴|컴퓨|컴퓨터|컴공|소프트|소프트웨어|인공지능|ai|데이터|정보|보안)/i, names: ['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과','소프트웨어융합학과'] },
+    { test: /^(반|반도|반도체|반도체공|반도체공학|전자|전기|소자|칩|나노)/, names: ['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
     { test: /^(환경|기후|지구환경|대기|생태)/, names: ['환경공학과','지구환경과학과','건설환경공학과','토목환경공학과','도시공학과','주거환경학과'] },
     { test: /^(도시|건축|토목|주거|인프라|공간)/, names: ['도시공학과','도시설계학과','건축학과','토목공학과','주거환경학과','건설환경공학과'] },
     { test: /^(간호|보건|의학|의료|약학|생명|바이오)/, names: ['간호학과','보건학과','의생명과학과','생명과학과','바이오메디컬공학과'] },
@@ -5763,11 +5795,17 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
   function findLightweightCandidates(rawInput){
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
-    if (!normalized || normalized.length < 2) return [];
+    if (!normalized) return [];
     const cacheKey = normalized;
     if (state.searchLiteCache.has(cacheKey)) return state.searchLiteCache.get(cacheKey);
 
     let rows = buildInstantCandidateRows(input);
+    // 컴/반처럼 한 글자만 입력해도 instant rule에 걸리면 즉시 후보를 보여준다.
+    if (normalized.length < 2) {
+      if (state.searchLiteCache.size > 40) state.searchLiteCache.clear();
+      state.searchLiteCache.set(cacheKey, rows);
+      return rows;
+    }
     const broadNames = rows.length ? null : (DIRECT_QUERY_BROAD_MAP[normalized] || DIRECT_QUERY_MAJOR_MAP[normalized] || null);
     if (Array.isArray(broadNames) && broadNames.length) {
       rows = broadNames.map((name, idx) => {
@@ -5822,10 +5860,10 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     const input = String(rawInput || '').trim();
     const normalized = normalize(input);
     if (!input) return { input, status: 'empty' };
-    if (!normalized || normalized.length < 2) {
+    const candidates = findLightweightCandidates(input);
+    if ((!normalized || normalized.length < 2) && !candidates.length) {
       return { input, normalized, status: 'typing', suggestions: [] };
     }
-    const candidates = findLightweightCandidates(input);
     if (!candidates.length) return { input, normalized, status: 'not_found', suggestions: [] };
     return {
       input,
