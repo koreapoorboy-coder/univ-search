@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-search';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v85.0-step3-4-route-stabilizer';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -27,7 +27,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v78_followup_axis_b_energy_direct_search";
+  const ASSET_VERSION_QUERY = "v85_step3_4_route_stabilizer";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -105,16 +105,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
   const SUBJECT_CONCEPT_LONGITUDINAL_URLS = {
     "통합과학1": addAssetVersion("seed/followup-axis/integrated_science1_concept_longitudinal_map.json"),
     "통합과학2": addAssetVersion("seed/followup-axis/integrated_science2_concept_longitudinal_map.json"),
-    "공통수학1": "seed/followup-axis/common_math1_concept_longitudinal_map.json",
-    "공통수학2": "seed/followup-axis/common_math2_concept_longitudinal_map.json",
+    "공통수학1": addAssetVersion("seed/followup-axis/common_math1_concept_longitudinal_map.json"),
+    "공통수학2": addAssetVersion("seed/followup-axis/common_math2_concept_longitudinal_map.json"),
     "정보": addAssetVersion("seed/followup-axis/info_concept_longitudinal_map.json"),
-    "통합사회1": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
-    "통합사회": "seed/followup-axis/integrated_society1_concept_longitudinal_map.json",
-    "공통국어1": "seed/followup-axis/common_korean1_concept_longitudinal_map.json",
-    "공통국어2": "seed/followup-axis/common_korean2_concept_longitudinal_map.json",
-    "통합사회2": "seed/followup-axis/integrated_society2_concept_longitudinal_map.json",
-    "과학탐구실험1": "seed/followup-axis/science_inquiry1_concept_longitudinal_map.json",
-    "과학탐구실험2": "seed/followup-axis/science_inquiry2_concept_longitudinal_map.json",
+    "통합사회1": addAssetVersion("seed/followup-axis/integrated_society1_concept_longitudinal_map.json"),
+    "통합사회": addAssetVersion("seed/followup-axis/integrated_society1_concept_longitudinal_map.json"),
+    "공통국어1": addAssetVersion("seed/followup-axis/common_korean1_concept_longitudinal_map.json"),
+    "공통국어2": addAssetVersion("seed/followup-axis/common_korean2_concept_longitudinal_map.json"),
+    "통합사회2": addAssetVersion("seed/followup-axis/integrated_society2_concept_longitudinal_map.json"),
+    "과학탐구실험1": addAssetVersion("seed/followup-axis/science_inquiry1_concept_longitudinal_map.json"),
+    "과학탐구실험2": addAssetVersion("seed/followup-axis/science_inquiry2_concept_longitudinal_map.json"),
     "대수": addAssetVersion("seed/followup-axis/algebra_concept_longitudinal_map.json"),
     "확률과 통계": addAssetVersion("seed/followup-axis/probability_statistics_concept_longitudinal_map.json"),
     "미적분1": addAssetVersion("seed/followup-axis/calculus1_concept_longitudinal_map.json"),
@@ -122,23 +122,23 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
     "물리": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
     "물리학": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
     "물리학Ⅰ": addAssetVersion("seed/followup-axis/physics1_concept_longitudinal_map.json"),
-    "화학": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
-    "화학Ⅰ": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
-    "화학1": "seed/followup-axis/chemistry1_concept_longitudinal_map.json",
-    "생명과학": "seed/followup-axis/life_science_concept_longitudinal_map.json",
-    "생명과학Ⅰ": "seed/followup-axis/life_science_concept_longitudinal_map.json",
-    "생명과학1": "seed/followup-axis/life_science_concept_longitudinal_map.json",
-    "지구과학": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
-    "지구과학Ⅰ": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
-    "지구과학1": "seed/followup-axis/earth_science_concept_longitudinal_map.json",
-    "역학과 에너지": "seed/followup-axis/mechanics_energy_concept_longitudinal_map.json",
-    "역학과에너지": "seed/followup-axis/mechanics_energy_concept_longitudinal_map.json",
-    "전자기와 양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json",
-    "전자기와양자": "seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json",
-    "물질과 에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
-    "물질과에너지": "seed/followup-axis/matter_energy_concept_longitudinal_map.json",
-    "세포와 물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json",
-    "세포와물질대사": "seed/followup-axis/cell_metabolism_concept_longitudinal_map.json",
+    "화학": addAssetVersion("seed/followup-axis/chemistry1_concept_longitudinal_map.json"),
+    "화학Ⅰ": addAssetVersion("seed/followup-axis/chemistry1_concept_longitudinal_map.json"),
+    "화학1": addAssetVersion("seed/followup-axis/chemistry1_concept_longitudinal_map.json"),
+    "생명과학": addAssetVersion("seed/followup-axis/life_science_concept_longitudinal_map.json"),
+    "생명과학Ⅰ": addAssetVersion("seed/followup-axis/life_science_concept_longitudinal_map.json"),
+    "생명과학1": addAssetVersion("seed/followup-axis/life_science_concept_longitudinal_map.json"),
+    "지구과학": addAssetVersion("seed/followup-axis/earth_science_concept_longitudinal_map.json"),
+    "지구과학Ⅰ": addAssetVersion("seed/followup-axis/earth_science_concept_longitudinal_map.json"),
+    "지구과학1": addAssetVersion("seed/followup-axis/earth_science_concept_longitudinal_map.json"),
+    "역학과 에너지": addAssetVersion("seed/followup-axis/mechanics_energy_concept_longitudinal_map.json"),
+    "역학과에너지": addAssetVersion("seed/followup-axis/mechanics_energy_concept_longitudinal_map.json"),
+    "전자기와 양자": addAssetVersion("seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json"),
+    "전자기와양자": addAssetVersion("seed/followup-axis/electromagnetism_quantum_concept_longitudinal_map.json"),
+    "물질과 에너지": addAssetVersion("seed/followup-axis/matter_energy_concept_longitudinal_map.json"),
+    "물질과에너지": addAssetVersion("seed/followup-axis/matter_energy_concept_longitudinal_map.json"),
+    "세포와 물질대사": addAssetVersion("seed/followup-axis/cell_metabolism_concept_longitudinal_map.json"),
+    "세포와물질대사": addAssetVersion("seed/followup-axis/cell_metabolism_concept_longitudinal_map.json"),
     "지구시스템과학": addAssetVersion("seed/followup-axis/earth_system_science_concept_longitudinal_map.json"),
     "지구시스템 과학": addAssetVersion("seed/followup-axis/earth_system_science_concept_longitudinal_map.json")
   }
@@ -3169,6 +3169,32 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
   }
 
 
+  function getSubjectRuntimeKeys(subject) {
+    const raw = String(subject || "").trim();
+    const canonical = getCanonicalSubjectName(raw);
+    const resolvedFromRaw = raw ? findSubjectKey(raw) : "";
+    const resolvedFromCanonical = canonical ? findSubjectKey(canonical) : "";
+    return uniq([raw, canonical, resolvedFromRaw, resolvedFromCanonical].filter(Boolean));
+  }
+
+  function getEngineSubjectEntry(subject) {
+    const keys = getSubjectRuntimeKeys(subject);
+    for (const key of keys) {
+      const entry = engineMap?.[key];
+      if (entry && entry.concepts && Object.keys(entry.concepts || {}).length) return entry;
+    }
+    const canonical = getCanonicalSubjectName(subject);
+    const targetKeys = keys.length ? keys : [canonical, subject].filter(Boolean);
+    const engineKeys = engineMap ? Object.keys(engineMap) : [];
+    for (const key of engineKeys) {
+      if (targetKeys.some(target => fuzzyIncludes(key, target))) {
+        const entry = engineMap?.[key];
+        if (entry && entry.concepts && Object.keys(entry.concepts || {}).length) return entry;
+      }
+    }
+    return null;
+  }
+
   function getResolvedTrackId() {
     const meta = getTrackMeta(state.linkTrack);
     return mapAxisDomainToLegacyTrack(meta?.axisDomain || meta?.id || state.linkTrack || "");
@@ -3181,16 +3207,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
     if (domain === "physics") return "physics";
     if (domain === "biology") return "biology";
     if (domain === "earth" || domain === "earth_env" || domain === "environment") return "earth";
-    if (domain === "data") return "physics";
-    if (domain === "math") return "physics";
-    if (domain === "info") return "physics";
-    if (domain === "social_policy") return "biology";
+    // v85 step3-4 stabilizer: followup-axis data uses several newer domains.
+    // Map them back to the legacy 5~8 report/book track buckets so selecting a 4번 axis
+    // never leaves downstream book/report routing with an empty track id.
+    if (/^(data|data_visual|math|math_data|info|programming|encoding|signal_media|compression_transfer|smart_service|policy_issue|inquiry|inquiry_method)$/.test(domain)) return "physics";
+    if (/^(engineering|energy|biomedical)$/.test(domain)) return "physics";
+    if (/^(medical|health)$/.test(domain)) return "biology";
+    if (/^(social|social_policy|public_policy|civic_participation|ethics|ethics_communication|law_civics|communication|media|korean)$/.test(domain)) return "biology";
     return "";
   }
 
   function getFollowupSubjectEntry(subject) {
     if (!subject || !Array.isArray(subjectBridgePoint)) return null;
-    return subjectBridgePoint.find(item => fuzzyIncludes(item?.subject_name, subject)) || null;
+    const keys = getSubjectRuntimeKeys(subject);
+    return subjectBridgePoint.find(item => keys.some(key => fuzzyIncludes(item?.subject_name, key))) || null;
   }
 
   function getConceptTextBag() {
@@ -3831,6 +3861,80 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
   }
 
 
+  function getStep34AxisStabilizerBoost(axis) {
+    const majorText = [state.career || "", getMajorTextBag(), state.majorSelectedName || ""].join(" ").trim();
+    const bucket = detectCareerBucket(majorText || state.career || "");
+    const subject = String(state.subject || "");
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
+    const axisText = [domain, axis?.title || axis?.axis_title || "", axis?.short || axis?.axis_short || "", axis?.desc || axis?.why || "", ...(Array.isArray(axis?.linkedSubjects) ? axis.linkedSubjects : []), ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : [])].join(" ");
+    const bag = [subject, concept, keyword, axisText].join(" ");
+    let score = 0;
+
+    const domainIs = (...values) => values.includes(domain);
+    const axisHas = (...values) => values.some(value => new RegExp(value).test(axisText));
+    const bagHas = (...values) => values.some(value => new RegExp(value).test(bag));
+
+    // 전공군별 4번 축 1순위 안정화
+    if (bucket === "it") {
+      if (domainIs("info", "programming", "data", "data_visual", "math", "math_data", "encoding", "signal_media", "compression_transfer")) score += 24;
+      if (axisHas("알고리즘|프로그래밍|데이터|정보|부호화|압축|전송|시각화|예측|자동화")) score += 12;
+      if (domainIs("biology", "medical", "health", "earth_env", "environment")) score -= 8;
+    } else if (bucket === "mechanical") {
+      if (domainIs("engineering", "physics", "data")) score += 22;
+      if (axisHas("운동|역학|구조|설계|제어|센서|충돌|안전|시뮬레이션|궤도|열역학")) score += 12;
+      if (domainIs("biology", "health", "medical", "social_policy")) score -= 8;
+    } else if (bucket === "electronic") {
+      if (domainIs("engineering", "physics", "data", "info", "signal_media", "biomedical")) score += 22;
+      if (axisHas("전기|전자|회로|신호|센서|장치|통신|전력|반도체|소자|전자기")) score += 12;
+    } else if (bucket === "materials") {
+      if (domainIs("chemistry", "engineering", "physics", "energy")) score += 22;
+      if (axisHas("물질|재료|소재|결합|분자|원소|주기|공정|반응|에너지|소자")) score += 12;
+      if (domainIs("biology", "health", "medical") && !/바이오|생명|제약|식품/.test(majorText)) score -= 6;
+    } else if (bucket === "bio") {
+      if (domainIs("biology", "medical", "biomedical", "health", "chemistry", "data")) score += 22;
+      if (axisHas("세포|생명|대사|효소|건강|영양|면역|의료|진단|바이오|약물|수용체")) score += 12;
+      if (domainIs("engineering") && /의공|의료기기|바이오메디컬/.test(majorText)) score += 16;
+      if (domainIs("earth_env", "environment") && !/환경|보건환경|생태/.test(majorText)) score -= 6;
+    } else if (bucket === "env") {
+      if (domainIs("earth_env", "environment", "earth", "data", "energy", "social_policy")) score += 22;
+      if (axisHas("지구|환경|기후|해양|대기|수권|탄소|재난|지속가능|에너지")) score += 12;
+      if (domainIs("medical", "health") && !/보건|환경보건/.test(majorText)) score -= 8;
+    } else if (bucket === "urban") {
+      if (domainIs("engineering", "earth_env", "environment", "data", "social_policy")) score += 18;
+      if (axisHas("도시|공간|구조|설계|교통|환경|재난|데이터|지속가능")) score += 12;
+    } else if (bucket === "business") {
+      if (domainIs("data", "data_visual", "math_data", "social_policy", "public_policy", "info", "smart_service")) score += 18;
+      if (axisHas("데이터|의사결정|시장|정책|지표|비교|시각화|정보구조")) score += 12;
+    }
+
+    // 키워드별 미세 분기: 같은 개념 안에서 모든 키워드가 같은 4번 축으로 고정되는 현상 완화
+    if (bagHas("알고리즘|프로그래밍|자동화|코드|입력|출력|재귀|탐색|정렬")) {
+      if (domainIs("programming", "info", "data", "math_data")) score += 18;
+    }
+    if (bagHas("데이터|그래프|통계|분포|확률|표본|시각화|예측|모델")) {
+      if (domainIs("data", "data_visual", "math_data", "info")) score += 18;
+    }
+    if (bagHas("센서|측정|전류|전압|회로|신호|전자기|유도|파동|통신")) {
+      if (domainIs("engineering", "physics", "data", "signal_media", "biomedical")) score += 18;
+    }
+    if (bagHas("힘|운동|충돌|하중|구조|진동|열|에너지|궤도|안전장치")) {
+      if (domainIs("physics", "engineering", "data", "energy")) score += 18;
+    }
+    if (bagHas("원소|주기율|결합|분자|이온|산화|환원|기체|혼합|조성|공정")) {
+      if (domainIs("chemistry", "engineering", "environment", "data")) score += 18;
+    }
+    if (bagHas("세포|효소|대사|막|수송|건강|면역|유전자|질병|진단|약물")) {
+      if (domainIs("biology", "medical", "biomedical", "health", "chemistry", "data")) score += 18;
+    }
+    if (bagHas("환경|기후|해양|대기|탄소|생태|지구|재난|지속가능|오염")) {
+      if (domainIs("earth_env", "environment", "earth", "data", "energy", "social_policy")) score += 18;
+    }
+
+    return score;
+  }
+
   function getCareerAxisBoost(axis) {
     const majorText = [state.career || "", getMajorTextBag()].join(" ").trim();
     const concept = state.concept || "";
@@ -3841,6 +3945,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
     score += getMajorRoutingAxisBoost(axis);
     score += getHeatwaveAxisContextBoost(axis);
     score += getSemiconductorAxisContextBoost(axis);
+    score += getStep34AxisStabilizerBoost(axis);
 
     if (state.subject === "공통국어1" || state.subject === "공통국어") {
       if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText)) {
@@ -3908,9 +4013,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v78.0-followup-axis-b-energy-direct-
 
   function getCurrentConceptLongitudinalMap() {
     if (!state.subject || !conceptLongitudinalMaps) return null;
-    if (conceptLongitudinalMaps[state.subject]) return conceptLongitudinalMaps[state.subject];
+    const keys = getSubjectRuntimeKeys(state.subject);
+    for (const key of keys) {
+      if (conceptLongitudinalMaps[key]) return conceptLongitudinalMaps[key];
+    }
     const values = Object.values(conceptLongitudinalMaps || {});
-    return values.find(map => fuzzyIncludes(map?.subject_name, state.subject)) || null;
+    return values.find(map => keys.some(key => fuzzyIncludes(map?.subject_name, key))) || null;
   }
 
   function getConceptLongitudinalEntry() {
@@ -4202,9 +4310,8 @@ function getTrackMeta(trackId) {
 
   function getSubjectConceptEntries(subject) {
     const canonical = getCanonicalSubjectName(subject);
-    const resolved = findSubjectKey(canonical) || canonical;
-    let entry = engineMap?.[subject] || engineMap?.[canonical] || engineMap?.[resolved];
-    if ((!entry || !entry.concepts || !Object.keys(entry.concepts || {}).length) && isInfoSubjectName(subject || canonical || resolved)) {
+    let entry = getEngineSubjectEntry(subject || canonical);
+    if ((!entry || !entry.concepts || !Object.keys(entry.concepts || {}).length) && isInfoSubjectName(subject || canonical)) {
       ensureInfoFallbackSeeds();
       entry = engineMap?.['정보'] || INFO_FALLBACK_ENGINE_MAP;
     }
@@ -7956,14 +8063,14 @@ function getTrackMeta(trackId) {
 
   function detectCareerBucket(career) {
     const text = String(career || "");
-    if (/(신소재|재료|반도체|배터리|에너지|화학공학|고분자|금속)/.test(text)) return "materials";
-    if (/(기계|자동차|로봇|항공|모빌리티)/.test(text)) return "mechanical";
-    if (/(전기|전자|회로|센서|통신)/.test(text)) return "electronic";
-    if (/(컴퓨터|소프트웨어|인공지능|AI|데이터|보안|정보|통계)/i.test(text)) return "it";
+    if (/(신소재|재료|반도체|배터리|에너지|화학공학|화공|고분자|금속|소재|세라믹|나노)/.test(text)) return "materials";
+    if (/(기계|자동차|로봇|항공|모빌리티|메카트로닉스|조선|해양공학|제어|산업기계)/.test(text)) return "mechanical";
+    if (/(전기|전자|회로|센서|통신|전파|임베디드|의공|의료기기|바이오메디컬)/.test(text)) return "electronic";
+    if (/(컴퓨터|소프트웨어|인공지능|AI|데이터|보안|정보|통계|게임|앱|웹|네트워크|빅데이터)/i.test(text)) return "it";
     if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(text)) return "urban";
-    if (/(간호|의학|의예|치의|약학|보건|수의|생명|바이오|의료)/.test(text)) return "bio";
-    if (/(환경|기후|지구|우주|천문|해양|지리)/.test(text)) return "env";
-    if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|경영정보|MIS)/.test(text)) return "business";
+    if (/(간호|의학|의예|치의|약학|보건|수의|생명|바이오|의료|임상|재활|물리치료|작업치료|언어치료|방사선|응급구조|제약|식품영양)/.test(text)) return "bio";
+    if (/(환경|기후|지구|우주|천문|해양|지리|소방|방재|안전|재난)/.test(text)) return "env";
+    if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|산업경영|경영정보|MIS|행정|정책)/.test(text)) return "business";
     return "default";
   }
 
@@ -7985,9 +8092,9 @@ function getTrackMeta(trackId) {
 
   function scoreConcept(concept, entry) {
     const career = getEffectiveCareerName() || state.career || "";
-    const bucket = detectCareerBucket(career);
-    const track = getResolvedTrackId() || "";
     const majorText = getMajorTextBag();
+    const bucket = detectCareerBucket([career, majorText, state.majorSelectedName || ""].join(" "));
+    const track = getResolvedTrackId() || "";
     const preferred = getPreferredConceptSequence();
     const textBag = [
       concept,
@@ -8244,7 +8351,11 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
   function getConceptEntry() {
     if (!state.subject || !state.concept) return null;
-    return engineMap?.[state.subject]?.concepts?.[state.concept] || null;
+    const entry = getEngineSubjectEntry(state.subject);
+    const concepts = entry?.concepts || {};
+    if (concepts[state.concept]) return concepts[state.concept];
+    const matchedKey = Object.keys(concepts).find(key => fuzzyIncludes(key, state.concept));
+    return matchedKey ? concepts[matchedKey] : null;
   }
 
   function getKeywordList(entry) {
