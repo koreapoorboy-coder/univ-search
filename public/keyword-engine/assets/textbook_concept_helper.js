@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v77.0-followup-axis-lock-a-b-c';
 
 (function () {
   function $(id) { return document.getElementById(id); }
@@ -3566,32 +3566,41 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
     if (!isHeatwaveFollowupContext()) return 0;
     const profile = buildMajorRoutingProfile(getMajorRoutingText());
     const domain = getAxisDomainForRouting(axisLike);
+
+    // v77 lock rule:
+    // 폭염주의보는 같은 키워드라도 학과 렌즈에 따라 1순위 축이 확실히 달라져야 한다.
+    // 기존 priority(물리=1, 데이터=2, 환경=3)가 너무 강해서 도시/간호/경영 맥락이 흔들리던 문제를 여기서 보정한다.
     if (profile.bucket === "it") {
-      if (domain === "data" || domain === "info") return 82;
-      if (domain === "physics") return 8;
-      if (domain === "earth_env") return 4;
+      if (domain === "data" || domain === "info") return 260;
+      if (domain === "earth_env") return 30;
+      if (domain === "physics") return -40;
       return 0;
     }
     if (profile.bucket === "env") {
-      if (domain === "earth_env") return 88;
-      if (domain === "data") return 14;
+      if (domain === "earth_env") return 270;
+      if (domain === "data") return 55;
+      if (domain === "physics") return -45;
       return 0;
     }
     if (profile.bucket === "urban") {
-      if (domain === "urban") return 96;
-      if (domain === "earth_env") return 82;
-      if (domain === "data") return 30;
+      if (domain === "urban") return 360;
+      if (domain === "earth_env") return 140;
+      if (domain === "data") return 60;
+      if (domain === "physics" || domain === "engineering") return -80;
       return 0;
     }
     if (profile.bucket === "health") {
-      if (domain === "health" || domain === "biology") return 90;
-      if (domain === "earth_env" || domain === "data") return 18;
+      if (domain === "health" || domain === "biology") return 360;
+      if (domain === "earth_env") return 75;
+      if (domain === "data") return 55;
+      if (domain === "physics" || domain === "engineering") return -80;
       return 0;
     }
     if (profile.bucket === "business") {
-      if (domain === "decision" || domain === "business") return 92;
-      if (domain === "data") return 52;
-      if (domain === "earth_env") return 18;
+      if (domain === "decision" || domain === "business") return 340;
+      if (domain === "data" || domain === "info") return 120;
+      if (domain === "earth_env") return 70;
+      if (domain === "physics" || domain === "engineering") return -80;
       return 0;
     }
     if (domain === "earth_env") return 24;
@@ -3608,35 +3617,77 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
     if (!isSemiconductorFollowupContext()) return 0;
     const profile = buildMajorRoutingProfile(getPrimaryMajorRoutingText() || getMajorRoutingText());
     const domain = getAxisDomainForRouting(axisLike);
+
+    // v77 lock rule:
+    // 반도체 키워드는 학과별로 1순위 축이 갈라져야 한다.
+    // - 반도체공학과: 화학·물질 구조 분석 또는 재료·소자 기초
+    // - 신소재공학과: 화학·물질 구조 분석
+    // - 전자공학과: 재료·소자 기초 또는 물리·시스템 해석
+    // - 화학공학과: 화학·물질 구조 분석
     if (profile.bucket === "electronics") {
-      if (domain === "engineering") return 88;
-      if (domain === "physics") return 72;
-      if (domain === "chemistry") return 14;
-      if (domain === "data" || domain === "info") return 4;
+      if (domain === "engineering") return 330;
+      if (domain === "physics") return 260;
+      if (domain === "chemistry") return 65;
+      if (domain === "data" || domain === "info") return -50;
       return 0;
     }
     if (profile.bucket === "materials") {
-      if (domain === "chemistry") return 88;
-      if (domain === "engineering") return 42;
-      if (domain === "physics") return 16;
-      if (domain === "data" || domain === "info") return 6;
+      if (domain === "chemistry") return 340;
+      if (domain === "engineering") return 165;
+      if (domain === "physics") return 35;
+      if (domain === "data" || domain === "info") return -50;
       return 0;
     }
     if (profile.bucket === "chemeng") {
-      if (domain === "chemistry") return 92;
-      if (domain === "engineering") return 24;
-      if (domain === "data" || domain === "info") return 6;
+      if (domain === "chemistry") return 360;
+      if (domain === "engineering") return 105;
+      if (domain === "physics") return 20;
+      if (domain === "data" || domain === "info") return -55;
       return 0;
     }
     if (profile.bucket === "semiconductor") {
-      if (domain === "chemistry") return 56;
-      if (domain === "engineering") return 52;
-      if (domain === "physics") return 34;
-      if (domain === "data" || domain === "info") return 8;
+      if (domain === "chemistry") return 300;
+      if (domain === "engineering") return 295;
+      if (domain === "physics") return 145;
+      if (domain === "data" || domain === "info") return -45;
+      return 0;
+    }
+    if (profile.bucket === "engineering") {
+      if (domain === "engineering") return 220;
+      if (domain === "physics") return 160;
+      if (domain === "chemistry") return 80;
+      if (domain === "data" || domain === "info") return -35;
       return 0;
     }
     return 0;
   }
+
+  function getLockedFollowupAxisOrderBoost(axisLike) {
+    const domain = getAxisDomainForRouting(axisLike);
+    const profile = buildMajorRoutingProfile(getPrimaryMajorRoutingText() || getMajorRoutingText());
+    if (isHeatwaveFollowupContext()) {
+      const order = {
+        it: { data: 900, info: 880, earth_env: 120, physics: -160, engineering: -160 },
+        env: { earth_env: 900, data: 160, physics: -150, engineering: -140 },
+        urban: { urban: 980, earth_env: 430, data: 180, physics: -180, engineering: -170 },
+        health: { health: 980, biology: 960, earth_env: 180, data: 150, physics: -180, engineering: -170 },
+        business: { decision: 980, business: 960, data: 360, info: 220, earth_env: 160, physics: -180, engineering: -170 }
+      };
+      return (order[profile.bucket] && Object.prototype.hasOwnProperty.call(order[profile.bucket], domain)) ? order[profile.bucket][domain] : 0;
+    }
+    if (isSemiconductorFollowupContext()) {
+      const order = {
+        semiconductor: { chemistry: 980, engineering: 970, physics: 360, data: -160, info: -160 },
+        materials: { chemistry: 980, engineering: 460, physics: 120, data: -160, info: -160 },
+        electronics: { engineering: 980, physics: 840, chemistry: 220, data: -160, info: -160 },
+        chemeng: { chemistry: 980, engineering: 280, physics: 80, data: -160, info: -160 },
+        engineering: { engineering: 760, physics: 600, chemistry: 240, data: -120, info: -120 }
+      };
+      return (order[profile.bucket] && Object.prototype.hasOwnProperty.call(order[profile.bucket], domain)) ? order[profile.bucket][domain] : 0;
+    }
+    return 0;
+  }
+
 
   function makeContextFollowupAxis(seed) {
     const relationMeta = getAxisCareerRelationMeta(state.subject, {
@@ -3683,7 +3734,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
         title: "도시·공간 환경 분석 축",
         short: "도시·열섬·생활권",
         axisDomain: "urban",
-        priority: 4,
+        priority: 1,
         linkedSubjects: ["지구과학", "지구시스템과학", "통합사회1", "한국지리 탐구"],
         desc: "폭염주의보 자료를 도시 열섬, 녹지, 포장 면적, 생활권 차이와 연결해 해석하는 방향입니다.",
         easy: "지역별 기온·체감온도 비교, 녹지·포장 면적 자료 해석, 생활권별 폭염 위험 비교",
@@ -3697,7 +3748,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
         title: "생명·건강 위험 해석 축",
         short: "온열질환·취약 대상",
         axisDomain: "health",
-        priority: 4,
+        priority: 1,
         linkedSubjects: ["생명과학", "세포와 물질대사", "보건", "확률과 통계"],
         desc: "폭염주의보 자료를 체온 조절, 온열질환, 취약 대상 관찰과 건강 관리 기준으로 연결하는 방향입니다.",
         easy: "온열질환 위험 요인 정리, 취약 대상별 관리 기준 비교, 폭염 대응 건강 자료 보고서",
@@ -3711,7 +3762,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
         title: "의사결정·위험 관리 축",
         short: "비용·편익·우선순위",
         axisDomain: "decision",
-        priority: 4,
+        priority: 1,
         linkedSubjects: ["통합사회1", "확률과 통계", "경제", "정보"],
         desc: "폭염주의보 자료를 위험 관리, 대응 우선순위, 비용·편익, 의사결정 기준으로 연결하는 방향입니다.",
         easy: "폭염 대응 우선순위 비교, 비용·편익 기준 정리, 의사결정 표 작성",
@@ -3969,6 +4020,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v76.0-major-reselect-full-reset';
       if (seed.linkedSubjects.some(subject => nextSubjects.some(next => fuzzyIncludes(subject, next)))) score += 16;
       score += getCareerAxisBoost(seed);
       score += getMajorAxisBoost(seed);
+      score += getLockedFollowupAxisOrderBoost(seed);
       const relationMeta = getAxisCareerRelationMeta(state.subject, seed);
       score += relationMeta.score;
 
