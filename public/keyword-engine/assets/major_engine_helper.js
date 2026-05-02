@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v80-c-environment-major-data-fix";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v81-d-rehab-physical-therapy-major-data-fix";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v80-c-environment-major-data-fix';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v81-d-rehab-physical-therapy-major-data-fix';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -5854,6 +5854,61 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     window.__MAJOR_ENGINE_LAST_INPUT__ = getCareerInput()?.value || '';
     window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
   }
+
+
+
+  // v81 D-line rehab/physical-therapy data connection lock
+  // - UI/report flow is not changed.
+  // - Prevents "재활" from drifting into environmental majors through "재활용" keyword matches.
+  // - Locks physical therapy comparison peers inside the rehab/therapy family.
+  Object.assign(DIRECT_QUERY_MAJOR_MAP, {
+    '물치': ['물리치료학과'],
+    '언치': ['언어치료학과'],
+    '언어치료': ['언어치료학과'],
+    '언어치료학과': ['언어치료학과'],
+    '언어재활': ['언어치료학과'],
+    '응급': ['응급구조학과'],
+    '응구': ['응급구조학과'],
+    '응급구조': ['응급구조학과'],
+    '응급구조학과': ['응급구조학과'],
+    '재활상담': ['재활상담학과'],
+    '재활상담학과': ['재활상담학과']
+  });
+
+  Object.assign(DIRECT_QUERY_BROAD_MAP, {
+    '재활': ['물리치료학과','작업치료학과','언어치료학과','재활상담학과','스포츠의학과'],
+    '재활치료': ['물리치료학과','작업치료학과','언어치료학과','재활상담학과','스포츠의학과'],
+    '보건재활': ['물리치료학과','작업치료학과','언어치료학과','재활상담학과','스포츠의학과'],
+    '운동재활': ['물리치료학과','스포츠의학과','작업치료학과','재활상담학과']
+  });
+
+  ['재활','재활치료','보건재활','운동재활'].forEach(keyword => BROAD_QUERY_KEYWORDS.add(keyword));
+
+  QUERY_BOOST_RULES.unshift(
+    { queries:['재활','재활치료','보건재활'], test: /(물리치료학과|작업치료학과|언어치료학과|재활상담학과|스포츠의학과)/, boost: 80 },
+    { queries:['운동재활'], test: /(물리치료학과|스포츠의학과|작업치료학과|재활상담학과)/, boost: 76 },
+    { queries:['언어치료','언어재활'], test: /(언어치료학과)/, boost: 90 },
+    { queries:['응급','응급구조'], test: /(응급구조학과)/, boost: 90 }
+  );
+
+  Object.assign(MAJOR_COPY_OVERRIDES, {
+    '물리치료학과': {
+      card: '움직임 평가와 재활 운동을 통해 신체 기능 회복을 돕는 학과입니다.',
+      fit: '근육·관절·신경계 움직임을 분석하고 운동을 통한 회복 지원에 관심 있는 학생에게 잘 맞습니다.',
+      intro: '물리치료학과는 근골격계와 신경계 기능을 이해하고 운동치료, 재활치료, 기능평가를 통해 통증 완화와 움직임 회복을 돕는 학과입니다.',
+      subjects: ['보건', '생명과학', '물리학', '운동과 건강', '공통수학1'],
+      topics: ['근골격계 손상 후 재활 단계별 목표와 평가 요소 비교', '자세 불균형이 통증과 움직임 효율에 미치는 영향 탐구', '운동치료 프로그램이 기능 회복에 기여하는 원리 분석'],
+      group_label: '재활·치료',
+      track_category: '재활/운동치료/기능회복',
+      search_aliases: ['물리치료','물치','보건재활','운동재활'],
+      compare: ['작업치료학과','언어치료학과','재활상담학과'],
+      compare_profiles: [
+        { display_name: '작업치료학과', track_category: '재활/작업치료/일상기능회복', focus: '일상생활·학습·직업 활동 복귀를 돕는 활동 훈련 중심 재활 학과입니다.', hint: '신체 움직임뿐 아니라 인지와 생활 적응까지 함께 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '언어치료학과', track_category: '재활/언어치료/의사소통', focus: '말·언어·의사소통의 어려움을 평가하고 중재하는 의사소통 재활 학과입니다.', hint: '언어 발달과 의사소통 지원을 회복 관점에서 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '재활상담학과', track_category: '재활/상담/사회복귀지원', focus: '질환이나 장애 이후의 학교·직업·사회 복귀를 상담과 지원 관점에서 다루는 학과입니다.', hint: '기능 회복 이후의 적응, 진로 복귀, 상담 지원 체계에 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    }
+  });
 
   function buildMajorPayload(){
     const data = getSummaryData();
