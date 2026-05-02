@@ -1,4 +1,4 @@
-window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v66-major-search-guard-authoritative-input';
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v68-business-search-filter';
 
 (function(){
   if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
@@ -65,7 +65,7 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v66-major-search-guard-authoritative
     { test: /(반|반도|반도체|전자|전기|소자|회로)/, names:['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
     { test: /(신소재|소재|재료|배터리|이차전지|화학|화공|에너지)/, names:['신소재공학과','반도체공학과','전자공학과','환경공학과'] },
     { test: /(환경|기후|대기|지구|도시|인프라|토목|건설|열섬|녹지)/, names:['환경공학과','지구환경과학과','대기과학과','도시공학과','건설환경공학과'] },
-    { test: /(경영|경제|금융|회계|마케팅|무역|통상)/, names:['경영학과','경제학과','데이터사이언스학과'] },
+    { test: /(경영|경제|금융|회계|마케팅|무역|통상)/, names:['경영학과','경제학과'] },
     { test: /(심리|상담|교육|복지)/, names:['심리학과','보건관리학과'] },
     { test: /(미디어|언론|콘텐츠|광고|홍보)/, names:['미디어커뮤니케이션학과','경영학과'] }
   ];
@@ -128,6 +128,14 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v66-major-search-guard-authoritative
       if (!group.test.test(q) && !group.test.test(nq)) return;
       group.names.forEach((name, idx) => score.set(name, Math.max(score.get(name) || 0, 70 - idx * 4)));
     });
+
+    // v68: 경영/경제 계열 입력에서는 '데이터사이언스학과'를 즉시 후보로 섞지 않는다.
+    // 데이터사이언스는 사용자가 데이터/통계/빅데이터/분석 등을 직접 입력했을 때만 노출한다.
+    const businessIntent = /(경영|경제|금융|회계|마케팅|무역|통상)/.test(q) || /(경영|경제|금융|회계|마케팅|무역|통상)/.test(nq);
+    const dataIntent = /(데이터|데이터사이언스|빅데이터|통계|시각화|예측|분석)/.test(q) || /(데이터|데이터사이언스|빅데이터|통계|시각화|예측|분석)/.test(nq);
+    if (businessIntent && !dataIntent) {
+      score.delete('데이터사이언스학과');
+    }
 
     const rows = Array.from(score.entries())
       .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))
