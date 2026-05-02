@@ -1,4 +1,4 @@
-window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v75-major-reselect-freeze-guard';
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v76-major-reselect-full-reset';
 
 (function(){
   if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
@@ -381,11 +381,47 @@ window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v75-major-reselect-freeze-guard';
     confirmMajor(name);
   }
 
+  function isCareerTarget(target){
+    const input = getInput();
+    return !!input && target === input;
+  }
+
+  function handleGuardCapture(event){
+    const input = getInput();
+    if (!input || event.target !== input) return;
+    const type = String(event.type || '');
+    // 문서 캡처 단계에서 먼저 잡아 기존 major_engine/textbook의 무거운 캡처 리스너가
+    // 4번 이후 재검색 중 실행되지 않게 한다. 이 파일은 major_engine_helper보다 먼저 로드된다.
+    event.__majorSearchFastGuardHandled = true;
+    if (type === 'focus' || type === 'click' || type === 'pointerdown') {
+      handleFocusForReselect(event);
+      event.stopImmediatePropagation();
+      return;
+    }
+    if (type === 'compositionstart' || type === 'compositionupdate' || type === 'compositionend' || type === 'input' || type === 'keyup' || type === 'paste') {
+      handleTextInput(event);
+      event.stopImmediatePropagation();
+      return;
+    }
+    // Enter는 부분 검색어를 확정 후보로 바꾸는 경우만 가로챈다.
+    if (type === 'keydown' && event.key === 'Enter') {
+      handleKeydown(event);
+      event.stopImmediatePropagation();
+      return;
+    }
+  }
+
   function bind(){
     const input = getInput();
     if (!input) return;
     state.input = input;
     ensurePanel();
+    if (!window.__MAJOR_SEARCH_FAST_GUARD_DOC_CAPTURE_BOUND__) {
+      window.__MAJOR_SEARCH_FAST_GUARD_DOC_CAPTURE_BOUND__ = true;
+      ['pointerdown','focus','click','compositionstart','compositionupdate','compositionend','input','keyup','paste','keydown'].forEach(type => {
+        document.addEventListener(type, handleGuardCapture, true);
+      });
+    }
     ['pointerdown','focus','click'].forEach(type => {
       input.addEventListener(type, handleFocusForReselect, true);
     });
