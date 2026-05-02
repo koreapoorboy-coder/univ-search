@@ -1,294 +1,286 @@
+window.__MAJOR_SEARCH_FAST_GUARD_VERSION = 'v66-major-search-guard-authoritative-input';
+
 (function(){
-  'use strict';
+  if (window.__MAJOR_SEARCH_FAST_GUARD_BOUND__) return;
+  window.__MAJOR_SEARCH_FAST_GUARD_BOUND__ = true;
 
-  const VERSION = 'v65-major-search-fast-guard';
-  window.__MAJOR_SEARCH_FAST_GUARD_VERSION = VERSION;
-
+  const VERSION = window.__MAJOR_SEARCH_FAST_GUARD_VERSION;
   const state = {
-    typingTimer: null,
-    renderTimer: null,
+    input: null,
+    panel: null,
     lastRaw: '',
-    lastHtmlKey: '',
-    lastCandidates: [],
-    installed: false
+    confirmedName: '',
+    isComposing: false,
+    renderTimer: null,
+    candidateCache: new Map()
   };
 
-  const $ = (id) => document.getElementById(id);
-  const normalize = (value) => String(value || '')
-    .trim()
+  const norm = (value) => String(value || '')
     .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(/[·ㆍ.\-_]/g, '')
-    .replace(/학과$|학부$|전공$|과$/g, '');
-  const escapeHtml = (value) => String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/\s+/g,'')
+    .replace(/[()\-_/·.,]/g,'')
+    .replace(/학과|학부|전공|예과/g,'')
+    .trim();
 
-  const MAJORS = [
-    { name:'컴퓨터공학과', group:'컴퓨터·AI', aliases:['컴퓨터','컴공','computer','소프트웨어','코딩','프로그래밍'], keywords:['프로그래밍','알고리즘','데이터'] },
-    { name:'소프트웨어학과', group:'컴퓨터·AI', aliases:['소프트웨어','SW','sw','앱개발','개발자'], keywords:['소프트웨어','앱 개발','시스템'] },
-    { name:'인공지능학과', group:'컴퓨터·AI', aliases:['인공지능','AI','ai','머신러닝','딥러닝'], keywords:['AI','모델','데이터'] },
-    { name:'데이터사이언스학과', group:'컴퓨터·AI', aliases:['데이터','데이터사이언스','빅데이터','통계데이터'], keywords:['데이터','통계','시각화'] },
-    { name:'정보보호학과', group:'컴퓨터·AI', aliases:['보안','정보보호','사이버보안','해킹'], keywords:['보안','암호','네트워크'] },
-    { name:'산업공학과', group:'컴퓨터·AI', aliases:['산업공학','최적화','공정','시스템'], keywords:['최적화','의사결정','시스템'] },
+  const escapeHtml = (value) => String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
 
-    { name:'반도체공학과', group:'반도체·전자', aliases:['반','반도','반도체','반도체공','semiconductor','칩','웨이퍼'], keywords:['반도체','소자','공정'] },
-    { name:'반도체시스템공학과', group:'반도체·전자', aliases:['반도체시스템','시스템반도체','반도체설계','칩설계'], keywords:['시스템반도체','회로','설계'] },
-    { name:'전자공학과', group:'반도체·전자', aliases:['전자','전자공','회로','센서','디바이스'], keywords:['회로','센서','디바이스'] },
-    { name:'전기전자공학과', group:'반도체·전자', aliases:['전기전자','전기','전자','전력','회로'], keywords:['전기','회로','시스템'] },
-    { name:'신소재공학과', group:'반도체·전자', aliases:['신소재','소재','재료','나노소재','반도체소재'], keywords:['소재','물성','나노'] },
-    { name:'재료공학과', group:'반도체·전자', aliases:['재료','금속','세라믹','고분자'], keywords:['재료','구조','물성'] },
+  const CANDIDATE_PROFILES = {
+    '컴퓨터공학과': { track:'컴퓨터·AI·데이터', keywords:['프로그래밍','알고리즘','데이터','시스템','오류 검증'], aliases:['컴','컴퓨터','컴공','컴퓨터공','프로그래밍','개발자'] },
+    '소프트웨어학과': { track:'컴퓨터·AI·데이터', keywords:['소프트웨어','앱 개발','시스템 설계','알고리즘'], aliases:['소프트','소프트웨어','SW','앱','개발'] },
+    '인공지능학과': { track:'컴퓨터·AI·데이터', keywords:['AI','모델','학습 데이터','예측','분류'], aliases:['인공지능','ai','AI','머신러닝','딥러닝'] },
+    '데이터사이언스학과': { track:'컴퓨터·AI·데이터', keywords:['데이터','통계','시각화','예측','분석'], aliases:['데이터','데이터사이언스','빅데이터'] },
+    '정보보호학과': { track:'컴퓨터·AI·데이터', keywords:['보안','암호','네트워크','위험 탐지'], aliases:['보안','정보보호','사이버보안'] },
 
-    { name:'환경공학과', group:'환경·도시', aliases:['환경','환경공','환경공학','기후','대기','수질','폐기물'], keywords:['환경 변수','오염','저감'] },
-    { name:'기후에너지공학과', group:'환경·도시', aliases:['기후','에너지','기후에너지','탄소','재생에너지'], keywords:['기후','에너지','탄소'] },
-    { name:'지구환경과학과', group:'환경·도시', aliases:['지구환경','지구과학','대기','해양','기후'], keywords:['기후 자료','대기','지구환경'] },
-    { name:'도시공학과', group:'환경·도시', aliases:['도시','도시공','도시공학','도시설계','도시계획','열섬','인프라'], keywords:['도시 열섬','공간 구조','인프라'] },
-    { name:'도시계획학과', group:'환경·도시', aliases:['도시계획','도시설계','공간계획','생활권'], keywords:['도시계획','생활권','공간'] },
-    { name:'교통공학과', group:'환경·도시', aliases:['교통','교통공','교통공학','모빌리티'], keywords:['교통','이동','도시 인프라'] },
-    { name:'건축공학과', group:'환경·도시', aliases:['건축','건축공','건축공학','건물','구조'], keywords:['건축','구조','환경'] },
-    { name:'토목공학과', group:'환경·도시', aliases:['토목','토목공학','건설','인프라'], keywords:['토목','인프라','구조'] },
+    '간호학과': { track:'보건·임상', keywords:['간호','환자 관찰','생체 반응','위험 요인','관리 기준'], aliases:['간','간호','간호학','간호사','보건','임상'] },
+    '보건관리학과': { track:'보건·임상', keywords:['보건','예방','건강 지표','위험 관리'], aliases:['보건','보건관리','공중보건'] },
+    '물리치료학과': { track:'재활·치료', keywords:['재활','운동 기능','회복','치료 계획'], aliases:['물리치료','재활','치료'] },
+    '임상병리학과': { track:'보건·임상', keywords:['검사','진단 지표','검체','임상 자료'], aliases:['임상병리','병리','검사'] },
+    '작업치료학과': { track:'재활·치료', keywords:['작업치료','일상 기능','재활','회복 지원'], aliases:['작업치료'] },
 
-    { name:'간호학과', group:'보건·생명', aliases:['간호','간호학','보건','환자','의료'], keywords:['간호','증상 관찰','관리 기준'] },
-    { name:'의생명과학과', group:'보건·생명', aliases:['의생명','생명','바이오','의학'], keywords:['생명 현상','질병','바이오'] },
-    { name:'생명과학과', group:'보건·생명', aliases:['생명과학','생명','유전','세포'], keywords:['세포','유전','생명'] },
-    { name:'바이오메디컬공학과', group:'보건·생명', aliases:['바이오메디컬','의공학','의료기기','생체'], keywords:['의료기기','생체 신호','공학'] },
-    { name:'임상병리학과', group:'보건·생명', aliases:['임상병리','검사','진단검사'], keywords:['검사','진단','생체 자료'] },
-    { name:'물리치료학과', group:'보건·생명', aliases:['물리치료','재활','운동치료'], keywords:['재활','운동','신체 기능'] },
+    '반도체공학과': { track:'반도체·전자', keywords:['반도체','소자','회로','재료','공정'], aliases:['반','반도','반도체','반도체공','반도체공학'] },
+    '전자공학과': { track:'반도체·전자', keywords:['회로','센서','신호','전자 장치'], aliases:['전자','전자공','전자공학'] },
+    '전기공학과': { track:'반도체·전자', keywords:['전기','전력','회로','에너지 변환'], aliases:['전기','전기공','전기공학'] },
+    '신소재공학과': { track:'화학·에너지·소재', keywords:['소재','물성','재료','결정 구조','배터리'], aliases:['신소재','소재','재료','신소재공'] },
 
-    { name:'화학공학과', group:'화학·에너지', aliases:['화공','화학공학','화학','공정','촉매'], keywords:['공정','촉매','반응'] },
-    { name:'에너지공학과', group:'화학·에너지', aliases:['에너지','배터리','이차전지','전지'], keywords:['에너지','배터리','전환'] },
-    { name:'배터리공학과', group:'화학·에너지', aliases:['배터리','이차전지','전고체','전지'], keywords:['배터리','전극','전해질'] },
+    '환경공학과': { track:'환경·도시 시스템', keywords:['환경 변수','기후','오염','위험도','저감 기준'], aliases:['환경','환경공','환경공학','기후','대기'] },
+    '지구환경과학과': { track:'환경·도시 시스템', keywords:['지구환경','기후 자료','대기','해양','관측'], aliases:['지구','지구환경','기후','대기'] },
+    '대기과학과': { track:'환경·도시 시스템', keywords:['대기','기온','습도','기상 자료','예보'], aliases:['대기','대기과학','기상'] },
+    '도시공학과': { track:'도시·인프라', keywords:['도시','공간 구조','인프라','열섬','생활권'], aliases:['도시','도시공','도시공학','인프라','생활권'] },
+    '건설환경공학과': { track:'도시·인프라', keywords:['건설','환경','수자원','인프라','토목'], aliases:['건설환경','토목환경','토목','건설'] },
 
-    { name:'경영학과', group:'사회·경영', aliases:['경영','마케팅','기업','경영학'], keywords:['의사결정','비용','시장'] },
-    { name:'경제학과', group:'사회·경영', aliases:['경제','금융','시장','통계'], keywords:['시장','수요','자료 분석'] },
-    { name:'미디어커뮤니케이션학과', group:'사회·경영', aliases:['미디어','언론','방송','콘텐츠','커뮤니케이션'], keywords:['미디어','콘텐츠','사회 인식'] },
-    { name:'광고홍보학과', group:'사회·경영', aliases:['광고','홍보','PR','마케팅'], keywords:['광고','브랜드','소비자'] }
+    '경영학과': { track:'경영·서비스', keywords:['경영','시장','소비자','의사결정','전략'], aliases:['경영','마케팅','기업'] },
+    '경제학과': { track:'경제·금융·회계', keywords:['경제','시장','지표','자원 배분','정책 효과'], aliases:['경제','금융','시장'] },
+    '심리학과': { track:'심리·상담', keywords:['심리','인지','정서','행동','상담'], aliases:['심리','상담','마음'] },
+    '미디어커뮤니케이션학과': { track:'미디어·콘텐츠', keywords:['미디어','콘텐츠','여론','커뮤니케이션'], aliases:['미디어','언론','커뮤니케이션','콘텐츠'] }
+  };
+
+  const QUERY_GROUPS = [
+    { test: /(컴|컴퓨터|컴공|소프트|소프트웨어|인공지능|\bai\b|데이터|보안|프로그래밍|개발)/i, names:['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과'] },
+    { test: /(간|간호|보건|임상|물리치료|작업치료|재활|치료|의료)/, names:['간호학과','보건관리학과','물리치료학과','임상병리학과','작업치료학과'] },
+    { test: /(반|반도|반도체|전자|전기|소자|회로)/, names:['반도체공학과','전자공학과','전기공학과','신소재공학과'] },
+    { test: /(신소재|소재|재료|배터리|이차전지|화학|화공|에너지)/, names:['신소재공학과','반도체공학과','전자공학과','환경공학과'] },
+    { test: /(환경|기후|대기|지구|도시|인프라|토목|건설|열섬|녹지)/, names:['환경공학과','지구환경과학과','대기과학과','도시공학과','건설환경공학과'] },
+    { test: /(경영|경제|금융|회계|마케팅|무역|통상)/, names:['경영학과','경제학과','데이터사이언스학과'] },
+    { test: /(심리|상담|교육|복지)/, names:['심리학과','보건관리학과'] },
+    { test: /(미디어|언론|콘텐츠|광고|홍보)/, names:['미디어커뮤니케이션학과','경영학과'] }
   ];
 
-  const PRIORITY_BY_QUERY = [
-    { test:/^(반|반도|반도체|칩|웨이퍼|시스템반도체)/, names:['반도체공학과','반도체시스템공학과','전자공학과','전기전자공학과','신소재공학과'] },
-    { test:/^(컴|컴공|컴퓨터|소프트|소프트웨어|인공지능|ai|데이터|보안|정보보호)/, names:['컴퓨터공학과','소프트웨어학과','인공지능학과','데이터사이언스학과','정보보호학과'] },
-    { test:/^(환경|기후|대기|수질|탄소|에너지환경)/, names:['환경공학과','기후에너지공학과','지구환경과학과','에너지공학과'] },
-    { test:/^(도시|도시공|도시설계|도시계획|교통|인프라|토목|건축|열섬)/, names:['도시공학과','도시계획학과','교통공학과','건축공학과','토목공학과'] },
-    { test:/^(간호|보건|의료|임상|물리치료|재활)/, names:['간호학과','임상병리학과','물리치료학과','의생명과학과','바이오메디컬공학과'] },
-    { test:/^(생명|바이오|의생명|유전|세포)/, names:['생명과학과','의생명과학과','바이오메디컬공학과','간호학과'] },
-    { test:/^(화학|화공|촉매|공정)/, names:['화학공학과','에너지공학과','신소재공학과'] },
-    { test:/^(배터리|이차전지|전고체|전지)/, names:['배터리공학과','에너지공학과','화학공학과','신소재공학과'] },
-    { test:/^(경영|경제|마케팅|광고|미디어|콘텐츠)/, names:['경영학과','경제학과','미디어커뮤니케이션학과','광고홍보학과'] }
-  ];
-
-  function getCareerInput(){
-    return $('career')
-      || document.querySelector('input[name="career"], textarea[name="career"], input[data-field="career"], textarea[data-field="career"]')
-      || document.querySelector('input[placeholder*="학과"], input[placeholder*="진로"], input[placeholder*="전공"], textarea[placeholder*="학과"], textarea[placeholder*="진로"], textarea[placeholder*="전공"]');
+  function getInput(){
+    return document.getElementById('career') || document.querySelector('input[name="career"], textarea[name="career"], input[data-field="career"], textarea[data-field="career"]');
   }
 
-  function isCareerTarget(target){
-    const input = getCareerInput();
-    return !!input && target === input;
-  }
-
-  function markTyping(active){
-    window.__MAJOR_ENGINE_TYPING__ = !!active;
-    window.__MAJOR_FAST_SEARCH_ACTIVE__ = !!active;
-    clearTimeout(state.typingTimer);
-    if (active) {
-      state.typingTimer = setTimeout(() => {
-        window.__MAJOR_ENGINE_TYPING__ = false;
-        window.__MAJOR_FAST_SEARCH_ACTIVE__ = false;
-      }, 2600);
-    }
-  }
-
-  function scoreMajor(item, raw){
-    const q = normalize(raw);
-    const name = normalize(item.name);
-    const aliases = (item.aliases || []).map(normalize);
-    if (!q) return 0;
-    let score = 0;
-    if (name === q) score += 200;
-    if (name.startsWith(q)) score += 120;
-    if (name.includes(q)) score += 70;
-    if (aliases.includes(q)) score += 160;
-    if (aliases.some(a => a.startsWith(q))) score += 115;
-    if (aliases.some(a => a.includes(q) || q.includes(a))) score += 75;
-    if ((item.keywords || []).some(k => normalize(k).includes(q) || q.includes(normalize(k)))) score += 35;
-    return score;
-  }
-
-  function candidatesFor(raw){
-    const q = normalize(raw);
-    if (!q) return [];
-    const byName = new Map(MAJORS.map(item => [item.name, item]));
-    const prioritized = [];
-    for (const rule of PRIORITY_BY_QUERY) {
-      if (rule.test.test(q)) {
-        rule.names.forEach((name, idx) => {
-          const item = byName.get(name);
-          if (item) prioritized.push({ ...item, score: 500 - idx });
-        });
-        break;
-      }
-    }
-    const scored = MAJORS.map(item => ({ ...item, score: Math.max(scoreMajor(item, raw), 0) }))
-      .filter(item => item.score > 0);
-    const merged = new Map();
-    [...prioritized, ...scored].forEach(item => {
-      const prev = merged.get(item.name);
-      if (!prev || item.score > prev.score) merged.set(item.name, item);
-    });
-    return Array.from(merged.values())
-      .sort((a,b) => b.score - a.score || a.name.localeCompare(b.name, 'ko'))
-      .slice(0, 8);
-  }
-
-  function ensurePanel(){
-    const input = getCareerInput();
-    if (!input) return null;
-    let panel = $('majorEngineSummary');
-    if (!panel) {
-      panel = document.createElement('div');
-      panel.id = 'majorEngineSummary';
-      input.insertAdjacentElement('afterend', panel);
-    } else if (panel.previousElementSibling !== input) {
-      input.insertAdjacentElement('afterend', panel);
-    }
-    return panel;
-  }
-
-  function injectStyle(){
-    if ($('majorFastSearchGuardStyle')) return;
+  function ensureStyles(){
+    if (document.getElementById('majorSearchFastGuardStyles')) return;
     const style = document.createElement('style');
-    style.id = 'majorFastSearchGuardStyle';
+    style.id = 'majorSearchFastGuardStyles';
     style.textContent = `
-      #majorEngineSummary.major-fast-guard-panel { display:block; margin-top:10px; border:1px solid #dbe5f4; background:#fff; border-radius:18px; padding:14px; box-shadow:0 8px 22px rgba(15,23,42,.06); }
-      .major-fast-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
-      .major-fast-title { font-size:15px; font-weight:900; color:#172033; }
-      .major-fast-desc { margin-top:4px; font-size:12px; color:#66758f; line-height:1.45; }
-      .major-fast-badge { display:inline-flex; padding:4px 9px; border-radius:999px; background:#eef4ff; color:#245ee8; font-size:11px; font-weight:800; white-space:nowrap; }
-      .major-fast-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:8px; }
-      .major-fast-btn { text-align:left; cursor:pointer; border:1px solid #cfe0ff; background:#fff; border-radius:14px; padding:11px; color:#172033; }
-      .major-fast-btn:hover { background:#eef4ff; border-color:#9ec0ff; }
-      .major-fast-name { font-size:14px; font-weight:900; color:#245ee8; }
-      .major-fast-meta { margin-top:5px; display:flex; flex-wrap:wrap; gap:5px; }
-      .major-fast-chip { display:inline-flex; padding:3px 7px; border-radius:999px; background:#f3f6fd; color:#52627c; font-size:11px; font-weight:700; }
-      .major-fast-empty { color:#66758f; font-size:13px; line-height:1.55; }
+      .major-engine-panel[data-fast-guard="1"] { display:block; margin-top:12px; padding:16px; border:1px solid #dbe5f4; border-radius:16px; background:#fbfdff; box-shadow:0 8px 20px rgba(15,23,42,.04); }
+      .major-engine-fast-note { margin-top:8px; color:#6b7890; font-size:12px; line-height:1.45; }
     `;
     document.head.appendChild(style);
   }
 
-  function renderFast(raw){
-    injectStyle();
-    const input = getCareerInput();
+  function ensurePanel(){
+    const input = getInput();
+    if (!input) return null;
+    let panel = document.getElementById('majorEngineSummary');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'majorEngineSummary';
+      panel.className = 'major-engine-panel';
+      input.insertAdjacentElement('afterend', panel);
+    } else if (panel.previousElementSibling !== input) {
+      input.insertAdjacentElement('afterend', panel);
+    }
+    state.panel = panel;
+    return panel;
+  }
+
+  function findCandidates(raw){
+    const q = String(raw || '').trim();
+    const nq = norm(q);
+    if (!nq) return [];
+    if (state.candidateCache.has(nq)) return state.candidateCache.get(nq);
+
+    const score = new Map();
+    Object.entries(CANDIDATE_PROFILES).forEach(([name, profile]) => {
+      const nameN = norm(name);
+      const aliases = [name, ...(profile.aliases || []), ...(profile.keywords || [])];
+      let s = 0;
+      if (nameN === nq || norm(name.replace(/학과$/,'')) === nq) s += 120;
+      else if (nameN.startsWith(nq) || nq.startsWith(nameN)) s += 80;
+      aliases.forEach(alias => {
+        const a = norm(alias);
+        if (!a) return;
+        if (a === nq) s += 90;
+        else if (a.startsWith(nq) || nq.startsWith(a)) s += 55;
+        else if (a.includes(nq) || nq.includes(a)) s += 32;
+      });
+      if (s > 0) score.set(name, Math.max(score.get(name) || 0, s));
+    });
+
+    QUERY_GROUPS.forEach(group => {
+      if (!group.test.test(q) && !group.test.test(nq)) return;
+      group.names.forEach((name, idx) => score.set(name, Math.max(score.get(name) || 0, 70 - idx * 4)));
+    });
+
+    const rows = Array.from(score.entries())
+      .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'))
+      .slice(0, 8)
+      .map(([name, s]) => ({ name, score:s, ...(CANDIDATE_PROFILES[name] || {}) }));
+    state.candidateCache.set(nq, rows);
+    return rows;
+  }
+
+  function renderCandidates(raw){
+    ensureStyles();
     const panel = ensurePanel();
-    if (!input || !panel) return;
-    const query = String(raw ?? input.value ?? '').trim();
-    const candidates = candidatesFor(query);
-    state.lastRaw = query;
-    state.lastCandidates = candidates;
-    if (!query) {
-      panel.classList.remove('major-fast-guard-panel');
+    if (!panel) return;
+    const q = String(raw || '').trim();
+    if (!q) {
       panel.style.display = 'none';
       panel.innerHTML = '';
+      panel.removeAttribute('data-fast-guard');
       return;
     }
-    const htmlKey = query + '|' + candidates.map(c => c.name).join('|');
-    if (htmlKey === state.lastHtmlKey) return;
-    state.lastHtmlKey = htmlKey;
-    panel.classList.add('major-fast-guard-panel');
+    const rows = findCandidates(q);
+    panel.setAttribute('data-fast-guard', '1');
     panel.style.display = 'block';
+    if (!rows.length) {
+      panel.innerHTML = `
+        <div class="major-engine-kicker">학과 검색</div>
+        <h4 class="major-engine-title">관련 학과 후보를 찾는 중입니다</h4>
+        <div class="major-engine-sub"><strong>${escapeHtml(q)}</strong>와 연결되는 학과가 없으면 학과명을 조금 더 구체적으로 입력해 주세요.</div>
+      `;
+      return;
+    }
     panel.innerHTML = `
-      <div class="major-fast-head">
-        <div>
-          <div class="major-fast-title">학과 후보를 바로 고르세요</div>
-          <div class="major-fast-desc"><strong>${escapeHtml(query)}</strong> 입력 중에는 검색 후보만 표시하고, 아래 교과·도서·보고서 단계는 다시 계산하지 않습니다.</div>
-        </div>
-        <div class="major-fast-badge">${escapeHtml(String(candidates.length))}개 후보</div>
+      <div class="major-engine-kicker">학과 검색 후보</div>
+      <h4 class="major-engine-title">관련 학과를 선택하세요</h4>
+      <div class="major-engine-sub"><strong>${escapeHtml(q)}</strong> 입력 기준으로 바로 선택 가능한 후보입니다. Enter가 아니라 후보 버튼을 클릭해야 아래 단계가 확정됩니다.</div>
+      <div class="major-engine-candidates">
+        ${rows.map(row => `
+          <button type="button" class="major-engine-candidate" data-major-id="fast:${escapeHtml(norm(row.name))}" data-major-select="${escapeHtml(row.name)}" data-fast-major-select="${escapeHtml(row.name)}">
+            <div class="major-engine-candidate-title">${escapeHtml(row.name)}</div>
+            <div class="major-engine-candidate-meta">
+              <span class="major-engine-candidate-track">${escapeHtml(row.track || '관련 학과')}</span>
+              <span class="major-engine-candidate-score">즉시 후보</span>
+            </div>
+            <div class="major-engine-candidate-keywords">${escapeHtml((row.keywords || []).slice(0, 5).join(' · '))}</div>
+          </button>
+        `).join('')}
       </div>
-      ${candidates.length ? `<div class="major-fast-grid">
-        ${candidates.map(item => `<button type="button" class="major-fast-btn" data-fast-major="${escapeHtml(item.name)}">
-          <div class="major-fast-name">${escapeHtml(item.name)}</div>
-          <div class="major-fast-meta">
-            <span class="major-fast-chip">${escapeHtml(item.group || '관련 학과')}</span>
-            ${(item.keywords || []).slice(0,2).map(k => `<span class="major-fast-chip">${escapeHtml(k)}</span>`).join('')}
-          </div>
-        </button>`).join('')}
-      </div>` : `<div class="major-fast-empty">아직 바로 연결되는 후보가 없습니다. 예: 컴퓨터, 반도체, 환경, 도시, 간호, 신소재처럼 입력해 보세요.</div>`}
+      <div class="major-engine-fast-note">입력 중에는 3~8번 단계 계산을 멈추고, 학과를 클릭한 뒤에만 후속 연계축을 다시 계산합니다. (${escapeHtml(VERSION)})</div>
     `;
   }
 
-  function scheduleRender(raw, delay){
-    clearTimeout(state.renderTimer);
-    state.renderTimer = setTimeout(() => renderFast(raw), delay || 0);
-  }
-
-  function commitMajor(name){
-    const input = getCareerInput();
-    if (!input || !name) return;
-    clearTimeout(state.renderTimer);
-    clearTimeout(state.typingTimer);
-    window.__MAJOR_ENGINE_TYPING__ = false;
-    window.__MAJOR_FAST_SEARCH_ACTIVE__ = false;
-    input.value = name;
-    state.lastRaw = name;
-    const panel = ensurePanel();
-    if (panel) {
-      panel.classList.remove('major-fast-guard-panel');
-      panel.style.display = 'none';
+  function publishPreview(raw){
+    const q = String(raw || '').trim();
+    state.lastRaw = q;
+    window.__MAJOR_SEARCH_IS_TYPING__ = true;
+    window.__MAJOR_SEARCH_RAW__ = q;
+    window.__MAJOR_ENGINE_LAST_RAW__ = q;
+    window.__MAJOR_ENGINE_LAST_INPUT__ = q;
+    if (state.confirmedName && norm(q) !== norm(state.confirmedName)) {
+      state.confirmedName = '';
+      window.__MAJOR_SEARCH_CONFIRMED_NAME__ = '';
+      window.__MAJOR_ENGINE_SELECTED__ = null;
     }
-    input.dispatchEvent(new Event('change', { bubbles:true }));
-    setTimeout(() => {
-      try {
-        if (typeof window.__MAJOR_ENGINE_RENDER__ === 'function') {
-          window.__MAJOR_ENGINE_RENDER__({ dispatch:true, reason:'commit' });
-        }
-      } catch (error) {}
-    }, 80);
+    window.dispatchEvent(new CustomEvent('major-engine-input-preview', { detail: { raw:q, version:VERSION } }));
   }
 
-  function interceptSearchEvent(event){
-    const target = event.target;
-    if (!isCareerTarget(target)) return;
-    const type = event.type;
-    const raw = String(target.value || '').trim();
-    if (type === 'keydown' && event.key === 'Enter') {
+  function scheduleRender(raw){
+    clearTimeout(state.renderTimer);
+    renderCandidates(raw);
+    state.renderTimer = setTimeout(() => renderCandidates(raw), 60);
+  }
+
+  function handleTextInput(event){
+    const input = getInput();
+    if (!input || event.target !== input) return;
+    const raw = String(input.value || '').trim();
+    publishPreview(raw);
+    scheduleRender(raw);
+    if (event.type === 'input' || event.type === 'keyup' || event.type === 'compositionupdate') {
+      event.stopImmediatePropagation();
+    }
+  }
+
+  function confirmMajor(name){
+    const input = getInput();
+    if (!input || !name) return;
+    state.confirmedName = name;
+    window.__MAJOR_SEARCH_IS_TYPING__ = false;
+    window.__MAJOR_SEARCH_RAW__ = name;
+    window.__MAJOR_SEARCH_CONFIRMED_NAME__ = name;
+    window.__MAJOR_ENGINE_LAST_RAW__ = name;
+    window.__MAJOR_ENGINE_LAST_INPUT__ = name;
+    const profile = CANDIDATE_PROFILES[name] || {};
+    window.__MAJOR_ENGINE_SELECTED__ = {
+      display_name: name,
+      core_keywords: profile.keywords || [],
+      track_category: profile.track || '',
+      comparison: null,
+      source: 'major_search_fast_guard'
+    };
+    input.value = name;
+    renderCandidates(name);
+    const panel = ensurePanel();
+    panel?.querySelectorAll('[data-major-select]').forEach(btn => {
+      btn.classList.toggle('is-selected', String(btn.getAttribute('data-major-select') || '') === name);
+    });
+    window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail: window.__MAJOR_ENGINE_SELECTED__ }));
+    setTimeout(() => {
+      try { if (typeof window.__MAJOR_ENGINE_RENDER__ === 'function') window.__MAJOR_ENGINE_RENDER__(); } catch (error) {}
+      input.dispatchEvent(new Event('change', { bubbles:true }));
+    }, 0);
+  }
+
+  function handleKeydown(event){
+    const input = getInput();
+    if (!input || event.target !== input) return;
+    if (event.key !== 'Enter') return;
+    const rows = findCandidates(input.value || '');
+    if (rows.length) {
       event.preventDefault();
       event.stopImmediatePropagation();
-      markTyping(true);
-      scheduleRender(raw, 0);
-      return;
+      // 부분 검색어에서 Enter를 누르면 오래 걸리는 전체 resolve를 돌리지 않고 첫 후보를 확정한다.
+      confirmMajor(rows[0].name);
     }
-    if (type === 'change' || type === 'blur') return;
-    // 입력 중에는 기존 major/textbook helper의 무거운 input/key/composition 리스너로 이벤트가 내려가지 않게 막는다.
-    event.stopImmediatePropagation();
-    markTyping(true);
-    scheduleRender(raw, type === 'paste' ? 0 : 0);
   }
 
-  function onCandidateClick(event){
-    const btn = event.target && event.target.closest ? event.target.closest('[data-fast-major]') : null;
+  function handleClick(event){
+    const btn = event.target?.closest?.('[data-fast-major-select], [data-major-select]');
     if (!btn) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    commitMajor(btn.getAttribute('data-fast-major') || '');
+    const panel = ensurePanel();
+    if (panel && !panel.contains(btn)) return;
+    const name = btn.getAttribute('data-fast-major-select') || btn.getAttribute('data-major-select') || '';
+    if (!name) return;
+    confirmMajor(name);
   }
 
-  function install(){
-    if (state.installed) return;
-    state.installed = true;
-    ['beforeinput','input','keyup','keydown','compositionstart','compositionupdate','compositionend','paste'].forEach(type => {
-      document.addEventListener(type, interceptSearchEvent, true);
+  function bind(){
+    const input = getInput();
+    if (!input) return;
+    state.input = input;
+    ensurePanel();
+    ['compositionstart','compositionupdate','compositionend','input','keyup','paste'].forEach(type => {
+      input.addEventListener(type, handleTextInput, true);
     });
-    document.addEventListener('click', onCandidateClick, true);
-    injectStyle();
+    input.addEventListener('keydown', handleKeydown, true);
+    document.addEventListener('click', handleClick, true);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', install);
+    document.addEventListener('DOMContentLoaded', bind);
   } else {
-    install();
+    bind();
   }
+  window.addEventListener('load', bind);
+  setTimeout(bind, 300);
 })();
