@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.101-major-summary-side-compare";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v0.7.102-major-panel-revert-vertical";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v72-major-summary-side-compare';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v73-major-panel-revert-vertical';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -5982,9 +5982,9 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         <div class="major-engine-compare-head">
           <div>
             <div class="major-engine-compare-title">비슷한 학과와 빠른 비교</div>
-            <div class="major-engine-compare-desc">옆 학과와 배우는 초점만 짧게 비교합니다.</div>
+            <div class="major-engine-compare-desc">선택한 <strong>${escapeHtml(data.display_name)}</strong>은(는) ${escapeHtml(buildStudentDescription(data.profile || {}, { label: data.comparison.group_label || '' }))} 같은 묶음 안에서도 아래 학과들과 배우는 초점이 조금씩 다릅니다.</div>
           </div>
-          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비교')}</div>
+          <div class="major-engine-group-count">${escapeHtml(data.comparison.group_label || '비슷한 학과')}</div>
         </div>
         <div class="major-engine-compare-grid">
           ${comparisonPeers.map(peer => `
@@ -5998,20 +5998,15 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
         </div>
       </div>` : '';
     panel.innerHTML = `
-      <div class="major-engine-summary-grid">
-        <div class="major-engine-main-card">
-          <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
-          <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
-          <div class="major-engine-sub">
-            입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
-            계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
-            ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
-          </div>
-          <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
-          <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
-        </div>
-        ${comparisonHtml}
+      <div class="major-engine-kicker">전공 기반 추천 프리셋</div>
+      <h4 class="major-engine-title">${escapeHtml(data.display_name)}</h4>
+      <div class="major-engine-sub">
+        입력한 진로 키워드 <strong>${escapeHtml(data.input)}</strong>를 기준으로 가장 가까운 학과를 <strong>${escapeHtml(data.display_name)}</strong>로 연결했습니다.<br>
+        계열: ${escapeHtml(data.track_category || '-')} · 선택 과목: ${escapeHtml($('subject')?.value || '') || '-'}
+        ${profileReady ? '' : '<br><strong>현재는 기본 정보 중심으로 먼저 보여주고 있습니다.</strong>'}
       </div>
+      <div class="major-engine-suggest"><strong>이 학과는?</strong> ${escapeHtml(data.major_intro || buildStudentDescription(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
+      <div class="major-engine-suggest"><strong>이런 학생에게 잘 맞음:</strong> ${escapeHtml(buildStudentFit(data.profile || {}, data.comparison ? { label: data.comparison.group_label } : null))}</div>
       <div class="major-engine-grid">
         <div class="major-engine-box">
           <div class="major-engine-box-title">전공 핵심 키워드 요약</div>
@@ -6030,6 +6025,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
           ${(data.bridge_books || []).length ? `<ul class="major-engine-list">${data.bridge_books.map(v => `<li>${escapeHtml(v.title || v.book_id || '')}</li>`).join('')}</ul>` : '<div class="major-engine-empty">현재 연결된 도서가 없습니다.</div>'}
         </div>
       </div>
+      ${comparisonHtml}
       <div class="major-engine-help">학과를 고르면 오른쪽 입력칸에 학과 선택 키워드가 자동 반영됩니다. 이후 아래 공용 엔진에서 교과 개념·보고서 방식까지 이어서 고르면 됩니다.</div>
     `;
     if (dispatchEnabled) dispatchMajorSelection(data);
