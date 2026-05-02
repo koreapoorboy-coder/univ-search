@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v79-native-major-search-no-fast-guard";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v80-c-environment-major-data-fix";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v79-native-major-search-no-fast-guard';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v80-c-environment-major-data-fix';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -786,9 +786,9 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v79-native-major-search-no-fast-guard"
     if (input.includes('국문') || input.includes('문학') || input.includes('영문') || input.includes('영어영문') || input.includes('역사') || input.includes('사학') || input.includes('철학') || input.includes('문헌') || input.includes('도서관') || input.includes('어문')) return new Set(['humanities_language_culture','media_content']);
     if (input.includes('미디어') || input.includes('광고') || input.includes('홍보') || input.includes('언론') || input.includes('방송') || input.includes('콘텐츠') || input.includes('신문')) return new Set(['media_content','humanities_language_culture','performing_visual_arts']);
     if (input.includes('연극') || input.includes('영화') || input.includes('공연') || input.includes('영상') || input.includes('애니') || input.includes('애니메이션') || input.includes('실용음악') || input.includes('음악') || input.includes('뮤지컬')) return new Set(['performing_visual_arts','media_content','architecture_design']);
-    if (input.includes('수학') || input.includes('물리') || input.includes('통계') || input.includes('지구과학') || input.includes('지구') || input.includes('천문') || input.includes('우주')) return new Set(['natural_math_stats']);
+    if (input.includes('지구환경') || input.includes('기후') || input.includes('대기') || input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
+    if (input.includes('수학') || input.includes('물리') || input.includes('통계') || input.includes('지구과학') || input.includes('지구') || input.includes('천문') || input.includes('우주')) return new Set(['natural_math_stats','environment']);
     if (input.includes('식품') || input.includes('영양') || input.includes('농업') || input.includes('농경제') || input.includes('동물자원') || input.includes('축산') || input.includes('원예') || input.includes('산림') || input.includes('임업') || input.includes('식물')) return new Set(['food_agri_life','bio_science','bio_engineering','chem_energy_materials']);
-    if (input.includes('환경') || input.includes('도시') || input.includes('주거') || input.includes('건설') || input.includes('토목') || input.includes('인프라')) return new Set(['environment','space_housing','city_infra','architecture_design']);
     return null;
   }
 
@@ -798,6 +798,21 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v79-native-major-search-no-fast-guard"
   }
 
   const MAJOR_COPY_OVERRIDES = {
+    '환경공학과': {
+      card: '대기·수질·폐기물·재활용 같은 환경 문제를 과학과 공학으로 해결하는 학과입니다.',
+      fit: '오염 원인 분석과 정화·처리 기술, 지속가능한 시스템 설계를 함께 탐구하고 싶은 학생에게 잘 맞습니다.',
+      intro: '환경공학과는 대기·수질·폐기물·재활용 같은 환경 문제를 과학과 공학으로 해결하는 학과입니다. 오염 원인 분석, 정화·처리 기술, 지속가능한 시스템 설계까지 함께 다루는 전공입니다.',
+      track_category: '환경/오염저감/처리공학',
+      core_keywords: ['환경공학','대기','수질','폐기물','재활용','지속가능성'],
+      subjects: ['화학', '지구과학', '생명과학', '미적분', '정보'],
+      topics: ['대기오염이 인체 건강에 미치는 영향 탐구', '수질오염의 원인과 정화 기술 비교 분석', '폐기물 재활용 기술과 기존 처리 방식 비교'],
+      group_label: '환경 관련 추천',
+      compare_profiles: [
+        { display_name: '지구환경과학과', track_category: '환경/기후/지구시스템', focus: '기후·대기·지질·해양·수문 같은 지구 시스템 변화를 관측 자료와 데이터로 분석하는 학과입니다.', hint: '오염 처리 기술보다 기후와 지구 환경 변화를 넓게 해석하고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '건설환경공학과', track_category: '건설/환경/인프라', focus: '도시 기반시설의 설계·시공·유지관리를 배우며 수질·대기·폐기물 같은 환경 문제를 함께 해결하는 학과입니다.', hint: '환경 문제를 도시 인프라와 시설 운영까지 연결해 보고 싶은 학생에게 잘 맞습니다.' },
+        { display_name: '대기과학과', track_category: '대기/기상/기후분석', focus: '기상과 기후, 대기 순환을 관측 자료와 모델로 배우는 학과입니다.', hint: '수질·폐기물 처리보다 날씨와 기후 변화, 대기 자료 해석에 더 관심 있는 학생에게 잘 맞습니다.' }
+      ]
+    },
     '안경광학과': {
       card: '시각 기능 평가와 렌즈·굴절·광학 기초를 바탕으로 검사 중심 의료 보조를 배우는 학과입니다.',
       fit: '시각 검사, 광학 기초, 렌즈·정밀 측정에 관심 있는 학생에게 잘 맞습니다.',
@@ -5032,7 +5047,7 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
     }
 
     const rules = [
-      { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활)/ },
+      { id:'rehab_therapy', label:'회복 지원·치료 쪽', desc:'기능 회복, 재활, 의사소통 지원처럼 회복을 돕는 학과입니다.', test: /(물리치료|작업치료|언어치료|재활상담|재활(?!용))/ },
       { id:'clinical_health', label:'환자 진료·검사 쪽', desc:'환자 돌봄, 검사, 영상, 보건관리처럼 의료 현장과 가까운 학과입니다.', test: /(보건관리|간호|방사선|임상병리|치위생|치기공|응급구조|의예|약학|한의|수의|보건|안경광학)/ },
       { id:'bio_materials_devices', label:'의료기기·바이오소재 쪽', desc:'의료기기, 바이오소재, 생체재료처럼 공학과 생명 기술이 만나는 학과입니다.', test: /(의공|고분자|생체재료|바이오소재|의료기기|바이오센서)/ },
       { id:'chem_energy_materials', label:'화학·에너지·소재 쪽', desc:'화학 반응, 공정 설계, 에너지 변환, 소재 응용과 연결된 학과입니다.', test: /(화학과|화학공학|에너지공학|신소재공학|화공생명|촉매|반응공학|전기화학|배터리|이차전지|고분자|정제|분석화학|유기화학|무기화학|소재|에너지)/ },
