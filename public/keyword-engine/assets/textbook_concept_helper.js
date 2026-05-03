@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.1-bioengineering-prelock-b1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.2-bio-chemistry-lock-b2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_1_bioengineering_prelock_b1";
+  const ASSET_VERSION_QUERY = "v88_2_bio_chemistry_lock_b2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -6568,11 +6568,13 @@ function getTrackMeta(trackId) {
     // 정확한 학과명 우선: 화학공학/에너지공학은 기존 materials 버킷으로 빨려 들어가면 안 된다.
     if (has(/화학공학과|화공|공업화학|화공생명공학|화학생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
     if (has(/에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지/)) return "energy";
+    // v88.2 B2-lock: 생명공학과는 화면/프로필에 '바이오소재·생체재료' 같은 단어가 섞여도
+    // 신소재(materials)나 반도체/전자형 화학 대표 개념으로 밀리면 안 된다.
+    if (has(/생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/)) return "bioengineering";
     if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) return "materials";
     if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/)) return "materials";
     if (has(/반도체공학과|반도체|나노반도체|시스템반도체|소자공학|전자소자/)) return "semiconductor";
     if (has(/전자공학과|전기전자|전기공학과|전자전기|회로|센서|통신|전파|임베디드/)) return "electronics";
-    if (has(/생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/)) return "bioengineering";
     if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
     if (has(/환경공학과|환경공학|대기환경|보건환경|환경보건|환경에너지|기후환경|환경과학|환경/)) return "environment";
     if (has(/화학과|응용화학|화학생명|화학/)) return "chemistry";
@@ -6582,6 +6584,10 @@ function getTrackMeta(trackId) {
 
 
   function isChemistry1ComputerMajorContext() {
+    // v88.2 B2-lock: 생명공학과는 생명정보/바이오 데이터/센서 같은 단어가 있어도
+    // 컴퓨터·반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
+    if (getChemistry1MajorKind() === "bioengineering") return false;
+
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
     if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) return false;
@@ -6832,6 +6838,8 @@ function getTrackMeta(trackId) {
 
     const selectedText = Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
     const selectedCompact = selectedText.replace(/\s+/g, '');
+    const bioEngineeringPattern = /생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/;
+    if (bioEngineeringPattern.test(selectedText) || bioEngineeringPattern.test(selectedCompact)) return false;
     const materialPattern = /신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/;
     const semiconductorOnlyPattern = /반도체공학과|나노반도체|시스템반도체|반도체시스템|전자소자/;
     if ((materialPattern.test(selectedText) || materialPattern.test(selectedCompact))
@@ -8816,6 +8824,17 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
 
 
+
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "bioengineering") {
+      const forced = [
+        "탄소 화합물의 유용성",
+        "분자의 구조와 성질",
+        "화학 반응에서의 동적 평형"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "chemical_engineering") {
       const forced = [
