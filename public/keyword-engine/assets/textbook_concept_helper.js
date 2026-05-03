@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.2-bio-chemistry-lock-b2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.3-bio-chemistry-final-guard-b3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_2_bio_chemistry_lock_b2";
+  const ASSET_VERSION_QUERY = "v88_3_bio_chemistry_final_guard_b3";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -6559,7 +6559,45 @@ function getTrackMeta(trackId) {
     return uniq(parts).join(" ").replace(/\s+/g, " ").trim();
   }
 
+  function isChemistry1BioengineeringSelectedContext() {
+    // v88.3 B3-lock:
+    // 생명공학과 + 화학에서 getMajorTextBag/profile 안의 반도체·전자·소재 키워드가
+    // 최종 추천 개념을 다시 덮어쓰는 문제가 있어, 화면 상단의 실제 선택 학과를 최우선으로 판별한다.
+    const selectedParts = [];
+    const push = (value) => {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천 개념/.test(text)) return;
+      selectedParts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+    } catch (error) {}
+
+    const selectedText = selectedParts.join(" ").replace(/\s+/g, " ").trim();
+    const selectedCompact = selectedText.replace(/\s+/g, "");
+    const bioPattern = /(생명공학과|생명공학|의생명공학과|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학)/;
+    const otherExactPattern = /(화학공학과|화공|공업화학|에너지공학과|신소재공학과|재료공학과|반도체공학과|전자공학과|전기공학과|약학과|식품영양학과|환경공학과|간호학과)/;
+    if (bioPattern.test(selectedText) || bioPattern.test(selectedCompact)) {
+      if (!otherExactPattern.test(selectedText) || /생명공학과|생명공학|의생명공학|바이오공학/.test(selectedText + selectedCompact)) return true;
+    }
+
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      const bodyCompact = bodyText.replace(/\s+/g, "");
+      // 상태 카드/상단 요약에 실제로 '학과 생명공학과'가 찍힌 경우만 body fallback 사용.
+      if (/학과\s*[:：]?\s*생명공학과/.test(bodyText) || /2\.\s*학과\s*생명공학과/.test(bodyText) || /학과생명공학과/.test(bodyCompact) || /2\.학과생명공학과/.test(bodyCompact)) return true;
+    } catch (error) {}
+    return false;
+  }
+
   function getChemistry1MajorKind() {
+    if (isChemistry1BioengineeringSelectedContext()) return "bioengineering";
     const rawText = getChemistry1MajorTextBundle();
     const text = String(rawText || "").replace(/\s+/g, " ").trim();
     const compact = text.replace(/\s+/g, "");
@@ -6633,8 +6671,8 @@ function getTrackMeta(trackId) {
       "화학 반응에서의 동적 평형",
       "화학 반응과 열의 출입"
     ];
-    if (!majorText) return defaultSequence;
     const chemistryMajorKind = getChemistry1MajorKind();
+    if (!majorText && chemistryMajorKind === "default") return defaultSequence;
     if (chemistryMajorKind === "chemical_engineering") {
       return [
         "물질의 양과 화학 반응식",
