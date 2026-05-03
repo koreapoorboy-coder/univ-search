@@ -3944,30 +3944,18 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       if (subject === "대수") {
         if (/지수함수와 로그함수의 활용/.test(concept)) {
-          // v87 A-1 lock: 기존 3개 축만 사용해 키워드 성격별 1순위를 고정한다.
-          // - 채널 용량: 신호·용량 해석 축
-          // - 충전 증가: 예측·데이터 해석 축
-          // - 지수/로그 모델, 성장/감소, 방사성 붕괴, 별의 등급, 실생활 적용: 실생활 변화 모델링 축
-          if (/채널 용량/.test(keyword)) {
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 104);
+          if (/로그모델|채널 용량/.test(keyword)) {
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 96);
             boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 64);
             boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 42);
-          } else if (/충전 증가/.test(keyword)) {
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 104);
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 72);
+          } else if (/성장|감소|충전 증가/.test(keyword)) {
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 94);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 70);
             boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 38);
-          } else if (/로그모델/.test(keyword)) {
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 142);
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 50);
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 52);
-          } else if (/성장|감소/.test(keyword)) {
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 118);
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 66);
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 30);
           } else {
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 104);
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 56);
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 32);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 88);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 58);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 36);
           }
         }
         if (/등차수열과 등비수열/.test(concept)) {
@@ -8602,7 +8590,7 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       <div class="engine-track-grid">${options.map((item, index) => `
         <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
           <div class="engine-track-top">
-            <div class="engine-track-title">${escapeHtml(item.title)} ${index === 0 ? '<span class="engine-mini-tag" style="margin-left:6px;">1순위</span>' : ''} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
+            <div class="engine-track-title">${escapeHtml(item.title)} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
           </div>
           <div class="engine-track-next">연결 과목: ${escapeHtml(item.nextSubject || "-")}</div>
