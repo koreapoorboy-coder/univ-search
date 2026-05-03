@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.4-env-f1-axis-f3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.5-env-f1-direct-return-f4';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4612,10 +4612,105 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     });
   }
 
+  function isIntegratedScience2EnvironmentEngineeringF1Context(mappedEntry) {
+    try {
+      const subjectText = String(state.subject || "").replace(/\s+/g, "");
+      if (!/^(통합과학2|통합과학Ⅱ|통합과학II)$/.test(subjectText)) return false;
+
+      let statusMajorText = "";
+      try {
+        statusMajorText = String($("engineCareerSummary")?.textContent || "").replace(/\s+/g, " ").trim();
+        if (/입력 전|선택 전|대기|찾지 못했/.test(statusMajorText)) statusMajorText = "";
+      } catch (error) {}
+
+      const selectedMajorText = [
+        statusMajorText || "",
+        state.majorSelectedName || "",
+        getEffectiveCareerName?.() || "",
+        getCareerInputText?.() || "",
+        getMajorPanelResolvedName?.() || "",
+        state.career || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+
+      const isExactEnvironmentEngineering = /(환경공학과|환경공학|환경과학|기후환경|지구환경|탄소중립|대기환경|수질|폐기물|환경보건)/.test(selectedMajorText);
+      const isClearlyUrbanCivil = /(도시공학과|도시공학|건축공학과|건축공학|토목공학과|토목공학|건설환경공학과|교통공학과|공간정보)/.test(selectedMajorText);
+      if (!isExactEnvironmentEngineering || isClearlyUrbanCivil) return false;
+
+      const conceptText = [
+        state.concept || "",
+        mappedEntry?.concept_name || "",
+        mappedEntry?.concept_label || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      if (!/지구\s*환경\s*변화|지구 환경 변화와 인간 생활/.test(conceptText)) return false;
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function buildIntegratedScience2EnvironmentF1ForcedAxes() {
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "환경공학과와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 40,
+        __score: 1000 - index
+      };
+    };
+    return [
+      make({
+        id: "env_climate_impact_analysis_axis",
+        title: "기후·환경 영향 분석 축",
+        short: "기후·환경 영향",
+        axisDomain: "earth_env",
+        priority: 1,
+        linkedSubjects: ["지구시스템과학", "통합사회1", "환경", "확률과 통계"],
+        desc: "지구 환경 변화 개념을 기후 변화, 온실가스, 생활환경 변화, 지역별 환경 영향 분석으로 연결하는 방향입니다.",
+        easy: "기후 변화 원인·영향 비교, 온실가스 자료 해석, 생활환경 변화 사례 분석 보고서",
+        activityExamples: ["기후 변화가 인간 생활에 미치는 영향 비교표", "온실가스와 생활환경 변화 자료 해석", "지역별 환경 변화 사례 조사"]
+      }, 0),
+      make({
+        id: "env_risk_response_management_axis",
+        title: "환경 위험·대응 관리 축",
+        short: "위험 대응·관리",
+        axisDomain: "earth_env",
+        priority: 2,
+        linkedSubjects: ["지구시스템과학", "통합사회1", "환경", "공통국어1"],
+        desc: "환경 변화 자료를 폭염, 침수, 대기오염 같은 환경 위험 대응과 적응 전략 제안으로 확장하는 방향입니다.",
+        easy: "환경 위험 요인 분류, 대응 전략 비교, 지역 환경 위험 저감 방안 제안",
+        activityExamples: ["폭염·침수·대기오염 위험 대응 카드 정리", "환경 변화 대응 전략 비교", "지역 환경 위험 저감 방안 제안"]
+      }, 1),
+      make({
+        id: "env_data_monitoring_axis",
+        title: "환경 자료·모니터링 축",
+        short: "자료·모니터링",
+        axisDomain: "data",
+        priority: 3,
+        linkedSubjects: ["확률과 통계", "정보", "지구시스템과학", "환경"],
+        desc: "환경 변화 자료를 표·그래프·시계열로 정리해 환경 지표와 모니터링 기준으로 해석하는 방향입니다.",
+        easy: "기온·강수·대기질 자료 그래프, 환경 지표 비교, 자료 기반 모니터링 보고서",
+        activityExamples: ["기후·대기질 자료 그래프화", "환경 지표 변화 추세 분석", "자료 기반 환경 관리 기준 제안"]
+      }, 2)
+    ];
+  }
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v89.5 F4-lock: 환경공학과 + 통합과학2 + 지구 환경 변화 계열은
+    // 기존 mappedEntry의 일반 지질/연표형 축이 최종 3개를 다시 차지하는 문제가 있었다.
+    // 이 조합에서는 4번 후보를 환경공학형 3개 축으로 직접 반환해 화면 후보군을 확정한다.
+    if (isIntegratedScience2EnvironmentEngineeringF1Context(mappedEntry)) {
+      return buildIntegratedScience2EnvironmentF1ForcedAxes();
+    }
+
     if (mappedEntry) {
       const mappedAxes = addContextualFollowupAxes(buildConceptMappedAxes(mappedEntry)).map(axis => {
         let score = 100 - (axis.__priority * 12);
