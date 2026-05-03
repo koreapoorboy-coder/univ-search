@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.1-data-science-axis-d4';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.2-environment-urban-prelock-f1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4565,6 +4565,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         score += getChemistry1HardAxisBoost(axis);
         score += getEarthSystemScienceForcedAxisBoost(axis);
         score += getEarthSystemScienceHardAxisBoost(axis);
+        score += getEnvironmentUrbanHardAxisBoost(axis);
         return { ...axis, __score: score };
       });
 
@@ -5001,11 +5002,79 @@ function getTrackMeta(trackId) {
     if (/(간호|의학|보건|수의|약학|생명|바이오|의료|임상)/.test(majorText) || bucket === "bio") {
       return ["진화와 생물다양성", "생물과 환경", "생태계평형", "산과 염기", "과학 기술 사회에서 빅데이터 활용", "지구 환경 변화", "지구 환경 변화와 인간 생활", "물질 변화에서 에너지의 출입", "산화와 환원", "과학의 유용성과 필요성", "과학 관련 사회적 쟁점과 과학 윤리", "에너지 효율과 신재생 에너지", "발전과 에너지원", "과학 기술과 미래 사회", "태양 에너지의 생성과 전환"];
     }
-    if (/(환경|기후|지구|천문|우주|해양|지리|도시)/.test(majorText) || bucket === "env") {
+    // v89.2 F1-lock: 환경공학/도시·토목·건축 계열은 통합과학2에서
+    // 생태 일반보다 생활환경·기후위험·공간/에너지 설계가 먼저 보여야 한다.
+    if (/(도시공학|도시계획|도시설계|건축|토목|건설환경|토목환경|교통|인프라|주거|조경|공간)/.test(majorText) || bucket === "urban") {
+      return ["지구 환경 변화와 인간 생활", "에너지 효율과 신재생 에너지", "과학 기술과 미래 사회", "생물과 환경", "생태계평형", "지구 환경 변화", "발전과 에너지원", "과학 기술 사회에서 빅데이터 활용", "과학 관련 사회적 쟁점과 과학 윤리", "자연환경과 인간의 공존", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "진화와 생물다양성", "태양 에너지의 생성과 전환"];
+    }
+    if (/(환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|수질|대기|폐기물|생태|환경|기후|지구|천문|우주|해양|지리)/.test(majorText) || bucket === "env") {
       return ["지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "지구 환경 변화", "에너지 효율과 신재생 에너지", "진화와 생물다양성", "발전과 에너지원", "태양 에너지의 생성과 전환", "과학 기술 사회에서 빅데이터 활용", "과학의 유용성과 필요성", "과학 관련 사회적 쟁점과 과학 윤리", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "과학 기술과 미래 사회"];
     }
 
     return defaultSequence;
+  }
+
+
+  function getEnvironmentUrbanHardAxisBoost(axis) {
+    const subjectText = String(state.subject || "");
+    if (!/(통합과학2|통합과학Ⅱ|지구시스템과학|지구과학|통합사회1|통합사회2|통합사회)/.test(subjectText)) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag() || ""].join(" ").trim();
+    const bucket = detectCareerBucket(majorText);
+    const isUrban = /(도시공학|도시계획|도시설계|건축|토목|건설환경|토목환경|교통|인프라|주거|생활권|녹지|열섬|조경|공간정보)/.test(majorText) || bucket === "urban";
+    const isEnv = /(환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|수질|대기|폐기물|생태|환경|기후)/.test(majorText) || bucket === "env";
+    const isSafety = /(안전공학|재난안전|방재|소방|재난|위험도|방재공학)/.test(majorText);
+    if (!isUrban && !isEnv && !isSafety) return 0;
+
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || ""),
+      Array.isArray(axis?.keywordSignals) ? axis.keywordSignals.join(" ") : ""
+    ].join(" ");
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword) || axisText.includes(value));
+
+    let boost = 0;
+
+    if (/지구 환경 변화와 인간 생활|미래와 지속가능한 삶|자연환경과 인간의 공존/.test(concept)) {
+      if (isEnv && hit("기후 변화", "환경 문제", "탄소중립", "온실가스", "수질", "대기", "폐기물", "지속가능", "환경 변화")) {
+        if (/환경|기후|지속가능|위험|대응|정책|환경 문제|sustainable|climate/i.test(axisText)) boost = Math.max(boost, 420);
+      }
+      if (isUrban && hit("도시", "생활 공간", "교통", "인프라", "열섬", "침수", "녹지", "주거", "공간", "지역")) {
+        if (/도시|공간|지역|생활|인프라|위험|설계|기획|공간 자료|지역 기획|미래 사회|sustainable/i.test(axisText)) boost = Math.max(boost, 420);
+      }
+      if (isSafety && hit("재난", "위험도", "침수", "폭염", "태풍", "강수량", "방재", "대응")) {
+        if (/재난|위험|대응|방재|예측|소통/i.test(axisText)) boost = Math.max(boost, 450);
+      }
+    }
+
+    if (/생물과 환경|생태계평형|진화와 생물다양성/.test(concept)) {
+      if (isEnv && hit("생태", "생물다양성", "환경 요인", "보전", "복원", "수질", "서식지", "생태계")) {
+        if (/생태|환경 요인|보전|지속가능|생태 관리|환경/i.test(axisText)) boost = Math.max(boost, 380);
+      }
+      if (isUrban && hit("녹지", "생태", "열섬", "도시", "공원", "보전", "서식지")) {
+        if (/생태|환경|관리|설계|지속가능/i.test(axisText)) boost = Math.max(boost, 300);
+      }
+    }
+
+    if (/에너지 효율과 신재생 에너지|발전과 에너지원|과학 기술과 미래 사회/.test(concept)) {
+      if (isUrban && hit("에너지 효율", "신재생", "스마트", "센서", "자동화", "도시", "건물", "전력", "교통")) {
+        if (/효율|지속가능|공학 설계|센서|시스템|미래|자동화|에너지/i.test(axisText)) boost = Math.max(boost, 360);
+      }
+      if (isEnv && hit("신재생", "탄소중립", "에너지 전환", "발전", "효율", "지역 에너지")) {
+        if (/효율|지속가능|에너지|자원|사회 영향|정책/i.test(axisText)) boost = Math.max(boost, 360);
+      }
+    }
+
+    if (/판 구조와 지구 내부|판 구조와 암석 변화|태풍과 악기상|날씨의 변화/.test(concept)) {
+      if ((isUrban || isSafety) && hit("지진", "지반", "내진", "태풍", "침수", "강수량", "방재", "구조 안전", "위험도")) {
+        if (/재난|안전|방재|지구물리|구조|지반|위험|예보/i.test(axisText)) boost = Math.max(boost, 420);
+      }
+    }
+
+    return boost;
   }
 
 
