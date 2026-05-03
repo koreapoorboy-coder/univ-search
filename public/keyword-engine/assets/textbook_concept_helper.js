@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.6-pharmacy-prelock-p1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.7-food-nutrition-prelock-g1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4613,6 +4613,108 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   }
 
 
+
+  function isChemistry1FoodContext(mappedEntry) {
+    try {
+      const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
+      if (!isChemSubject) return false;
+      if (typeof getChemistry1MajorKind !== "function" || getChemistry1MajorKind() !== "food") return false;
+      const conceptText = [
+        state.concept || "",
+        mappedEntry?.concept_name || "",
+        mappedEntry?.concept_label || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      return /탄소 화합물의 유용성|분자의 구조와 성질|화학 반응에서의 동적 평형|물질의 양과 화학 반응식|화학 반응과 열의 출입/.test(conceptText);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function buildChemistry1FoodForcedAxes() {
+    const conceptText = String(state.concept || "");
+    const keywordText = String(state.keyword || "");
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "식품영양/식품공학과와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 42,
+        __score: 1100 - index
+      };
+    };
+    const nutrientAxis = {
+      id: "food_nutrient_structure_axis",
+      title: "식품 성분·영양 구조 해석 축",
+      short: "식품 성분·영양 구조",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["화학", "생명과학", "세포와 물질대사", "식품영양학과"],
+      desc: "탄수화물, 단백질, 지질, 작용기와 같은 탄소 화합물 개념을 식품 성분과 영양소 구조 분석으로 연결하는 방향입니다.",
+      easy: "식품 성분표를 바탕으로 탄수화물·단백질·지질 구조와 기능을 비교하는 보고서",
+      activityExamples: ["식품 성분표에서 주요 영양소 분류", "탄수화물·단백질·지질 구조 비교", "작용기와 식품 성분 기능 연결"]
+    };
+    const propertyAxis = {
+      id: "food_solubility_texture_axis",
+      title: "식품 물성·용해도 해석 축",
+      short: "식품 물성·용해도",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "물질과 에너지", "생명과학", "식품공학과"],
+      desc: "분자 구조, 극성, 수소 결합, 분자 사이 힘을 식품의 용해도, 점성, 유화, 수분 보유와 연결하는 방향입니다.",
+      easy: "수분·점성·유화·용해도 같은 식품 물성을 분자 구조와 연결해 해석하는 보고서",
+      activityExamples: ["극성과 용해도 비교", "식품의 점성·유화 사례 조사", "수소 결합과 수분 보유 특성 연결"]
+    };
+    const phAxis = {
+      id: "food_ph_preservation_axis",
+      title: "식품 pH·보존 안정성 축",
+      short: "pH·보존 안정성",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["화학", "세포와 물질대사", "생명과학", "식품영양학과"],
+      desc: "pH, 산·염기, 완충, 평형 개념을 식품 산도, 발효, 미생물 성장, 보존 안정성과 연결하는 방향입니다.",
+      easy: "pH 변화가 식품 보존성·발효·품질 변화에 미치는 영향을 정리하는 보고서",
+      activityExamples: ["식품별 pH 비교표 작성", "발효 식품 산도 변화 조사", "pH와 미생물 성장 조건 연결"]
+    };
+    const quantAxis = {
+      id: "food_concentration_quant_axis",
+      title: "식품 농도·정량 분석 축",
+      short: "농도·정량 분석",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "확률과 통계", "생명과학", "식품공학과"],
+      desc: "몰 농도, 희석, 용액, 정량 분석 개념을 당도·염도·시료 분석과 연결하는 방향입니다.",
+      easy: "당도·염도·농도 계산과 시료 분석 오차를 정리하는 보고서",
+      activityExamples: ["희석 배율과 농도 계산", "당도·염도 측정값 비교", "시료 분석 오차 요인 정리"]
+    };
+    const heatAxis = {
+      id: "food_heat_quality_axis",
+      title: "식품 열처리·품질 변화 축",
+      short: "열처리·품질 변화",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "물질과 에너지", "생명과학", "식품공학과"],
+      desc: "발열·흡열, 산화·환원, 온도 조건을 식품 저장, 갈변, 열처리와 품질 변화로 연결하는 방향입니다.",
+      easy: "가열·냉각·산화 조건에 따른 식품 품질 변화를 분석하는 보고서",
+      activityExamples: ["저장 온도와 품질 변화 비교", "갈변 반응 사례 조사", "열처리와 안정성 조건 정리"]
+    };
+    if (/화학 반응에서의 동적 평형/.test(conceptText) || /pH|산도|완충|발효|부패|미생물|보존/.test(keywordText)) {
+      return [make(phAxis, 0), make(nutrientAxis, 1), make(quantAxis, 2)];
+    }
+    if (/분자의 구조와 성질/.test(conceptText) || /용해도|극성|수소 결합|유화|점성|수분|물성/.test(keywordText)) {
+      return [make(propertyAxis, 0), make(nutrientAxis, 1), make(phAxis, 2)];
+    }
+    if (/물질의 양과 화학 반응식/.test(conceptText) || /농도|희석|정량|당도|염도|시료/.test(keywordText)) {
+      return [make(quantAxis, 0), make(nutrientAxis, 1), make(propertyAxis, 2)];
+    }
+    if (/화학 반응과 열의 출입/.test(conceptText) || /가열|냉각|갈변|산화|열|저장/.test(keywordText)) {
+      return [make(heatAxis, 0), make(phAxis, 1), make(propertyAxis, 2)];
+    }
+    return [make(nutrientAxis, 0), make(propertyAxis, 1), make(phAxis, 2)];
+  }
+
   function isChemistry1PharmacyContext(mappedEntry) {
     try {
       const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
@@ -4802,6 +4904,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v89.7 G1-lock: 식품영양/식품공학과 + 화학은 식품 성분·물성·pH·농도 분석 축을 직접 반환해
+    // 약학/생명/화공 일반 축으로 다시 밀리는 것을 막는다.
+    if (isChemistry1FoodContext(mappedEntry)) {
+      return buildChemistry1FoodForcedAxes();
+    }
 
     // v89.6 P1-lock: 약학과 + 화학은 의약품 구조/용해도/pH/농도 계산 축을 직접 반환해
     // 신소재·화공·간호 일반 축으로 다시 밀리는 것을 막는다.
@@ -7219,6 +7327,8 @@ function getTrackMeta(trackId) {
     // v88.2 B2-lock: 생명공학과는 화면/프로필에 '바이오소재·생체재료' 같은 단어가 섞여도
     // 신소재(materials)나 반도체/전자형 화학 대표 개념으로 밀리면 안 된다.
     if (has(/생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/)) return "bioengineering";
+    // v89.7 G1-lock: 식품영양/식품공학 계열은 화학에서 식품 성분·물성·pH·농도 중심으로 분기한다.
+    if (has(/식품공학과|식품영양학과|식품공학|식품영양|식품|영양|조리|푸드|발효|식품생명/)) return "food";
     if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) return "materials";
     if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/)) return "materials";
     if (has(/반도체공학과|반도체|나노반도체|시스템반도체|소자공학|전자소자/)) return "semiconductor";
@@ -7234,7 +7344,7 @@ function getTrackMeta(trackId) {
   function isChemistry1ComputerMajorContext() {
     // v88.2 B2-lock: 생명공학과는 생명정보/바이오 데이터/센서 같은 단어가 있어도
     // 컴퓨터·반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
-    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing" || getChemistry1MajorKind() === "pharmacy") return false;
+    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing" || getChemistry1MajorKind() === "pharmacy" || getChemistry1MajorKind() === "food") return false;
 
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
@@ -7349,6 +7459,22 @@ function getTrackMeta(trackId) {
         "원소의 주기적 성질",
         "현대의 원자 모형과 전자 배치",
         "화학과 우리 생활"
+      ];
+    }
+    // v89.7 G1-lock: 식품영양/식품공학 계열의 화학 대표 개념은
+    // 식품 성분(탄수화물·단백질·지질) → 분자 구조·물성 → pH·보존 안정성 흐름을 우선한다.
+    if (chemistryMajorKind === "food") {
+      return [
+        "탄소 화합물의 유용성",
+        "분자의 구조와 성질",
+        "화학 반응에서의 동적 평형",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "화학과 우리 생활",
+        "화학 결합",
+        "원자의 구조",
+        "원소의 주기적 성질",
+        "현대의 원자 모형과 전자 배치"
       ];
     }
     if (chemistryMajorKind === "materials") {
@@ -8995,7 +9121,16 @@ function getTrackMeta(trackId) {
     const isBioEng = chemistryMajorKind === "bioengineering";
     const isNursing = chemistryMajorKind === "nursing";
     const isPharmacy = chemistryMajorKind === "pharmacy";
+    const isFood = chemistryMajorKind === "food";
     const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
+    if (isFood) {
+      if (/탄소 화합물의 유용성/.test(concept)) return ["탄수화물", "단백질", "지질", "아미노산", "당", "식품 성분", "영양소", "작용기", "고분자", "식품 첨가물", "분자 구조", "생체 분자"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "유화", "점성", "식품 물성", "수분", "보존성"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["pH", "완충 용액", "산", "염기", "중화", "식품 보존", "발효", "산도", "부패", "미생물", "보존 안정성", "품질 변화"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "농도", "식품 분석", "정량 분석", "당도", "염도", "시료", "오차", "용액", "농도 계산"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["발열 반응", "흡열 반응", "반응열", "가열", "냉각", "갈변", "산화", "환원", "저장 온도", "품질 변화", "열 안정성"];
+      if (/화학과 우리 생활/.test(concept)) return ["식품", "영양", "첨가물", "보존료", "산도", "당도", "염도", "생활 화학", "안전", "표시 기준"];
+    }
     if (isPharmacy) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["의약품", "작용기", "탄소 화합물", "고분자", "약물 구조", "생체 분자", "단백질", "아미노산", "지질", "친수성", "소수성", "분자 구조"];
       if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "제형", "수용체", "분자 상호작용"];
@@ -9066,6 +9201,31 @@ function getTrackMeta(trackId) {
     const kind = getChemistry1MajorKind();
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let boost = 0;
+
+    if (kind === "food") {
+      if (/탄소 화합물의 유용성/.test(concept) && hit("탄수화물", "단백질", "지질", "아미노산", "당", "식품 성분", "영양소", "작용기", "식품 첨가물")) {
+        if (/food_nutrient_structure_axis|식품 성분|영양 구조/.test(axisText)) boost = Math.max(boost, 760);
+        if (/food_solubility_texture_axis|식품 물성|용해도/.test(axisText)) boost = Math.max(boost, 560);
+        if (/health_nutrition_application_axis|건강·영양 응용 축|영양/.test(axisText)) boost = Math.max(boost, 420);
+      }
+      if (/분자의 구조와 성질/.test(concept) && hit("분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "유화", "점성", "식품 물성", "수분")) {
+        if (/food_solubility_texture_axis|식품 물성|용해도/.test(axisText)) boost = Math.max(boost, 780);
+        if (/food_nutrient_structure_axis|식품 성분|영양 구조/.test(axisText)) boost = Math.max(boost, 560);
+        if (/intermolecular_force_axis|분자 간 힘/.test(axisText)) boost = Math.max(boost, 360);
+      }
+      if (/화학 반응에서의 동적 평형/.test(concept) && hit("pH", "완충", "산", "염기", "중화", "식품 보존", "발효", "산도", "부패", "미생물", "보존 안정성")) {
+        if (/food_ph_preservation_axis|식품 pH|보존 안정성/.test(axisText)) boost = Math.max(boost, 800);
+        if (/food_concentration_quant_axis|식품 농도|정량 분석/.test(axisText)) boost = Math.max(boost, 520);
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost -= 120;
+      }
+      if (/물질의 양과 화학 반응식/.test(concept) && hit("몰", "몰 농도", "희석", "농도", "식품 분석", "정량 분석", "당도", "염도", "시료", "농도 계산")) {
+        if (/food_concentration_quant_axis|식품 농도|정량 분석/.test(axisText)) boost = Math.max(boost, 790);
+        if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, 320);
+      }
+      if (/화학 반응과 열의 출입/.test(concept) && hit("발열", "흡열", "가열", "냉각", "갈변", "산화", "환원", "저장 온도", "품질 변화", "열 안정성")) {
+        if (/food_heat_quality_axis|식품 열처리|품질 변화/.test(axisText)) boost = Math.max(boost, 780);
+      }
+    }
 
     if (kind === "pharmacy") {
       if (/탄소 화합물의 유용성/.test(concept) && hit("의약품", "작용기", "약물 구조", "탄소 화합물", "생체 분자", "친수성", "소수성")) {
