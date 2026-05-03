@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.5-env-f1-direct-return-f4';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.6-pharmacy-prelock-p1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4612,6 +4612,105 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     });
   }
 
+
+  function isChemistry1PharmacyContext(mappedEntry) {
+    try {
+      const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
+      if (!isChemSubject) return false;
+      if (typeof getChemistry1MajorKind !== "function" || getChemistry1MajorKind() !== "pharmacy") return false;
+      const conceptText = [
+        state.concept || "",
+        mappedEntry?.concept_name || "",
+        mappedEntry?.concept_label || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      return /탄소 화합물의 유용성|분자의 구조와 성질|화학 반응에서의 동적 평형|물질의 양과 화학 반응식/.test(conceptText);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function buildChemistry1PharmacyForcedAxes() {
+    const conceptText = String(state.concept || "");
+    const keywordText = String(state.keyword || "");
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "약학과와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 42,
+        __score: 1100 - index
+      };
+    };
+    const drugStructureAxis = {
+      id: "drug_structure_function_axis",
+      title: "의약품 구조·작용기 해석 축",
+      short: "의약품 구조·작용기",
+      axisDomain: "health",
+      priority: 1,
+      linkedSubjects: ["화학", "세포와 물질대사", "생명과학", "약학과"],
+      desc: "탄소 화합물과 작용기 개념을 의약품 구조, 생체 분자, 약물 작용 원리와 연결하는 방향입니다.",
+      easy: "의약품 구조식의 작용기 표시, 친수성·소수성 비교, 약물 작용 원리 정리",
+      activityExamples: ["대표 의약품 구조식에서 작용기 찾기", "작용기와 물성·흡수 가능성 연결", "의약품 구조와 생체 분자 상호작용 비교"]
+    };
+    const solubilityAxis = {
+      id: "drug_solubility_absorption_axis",
+      title: "약물 용해도·흡수 해석 축",
+      short: "용해도·흡수",
+      axisDomain: "health",
+      priority: 2,
+      linkedSubjects: ["화학", "세포와 물질대사", "생명과학", "약학과"],
+      desc: "분자 구조, 극성, 수소 결합, 분자 사이 힘을 약물 용해도, 세포막 통과, 흡수 과정과 연결하는 방향입니다.",
+      easy: "극성·수소 결합에 따른 용해도 비교, 약물 흡수 조건 정리",
+      activityExamples: ["극성과 용해도 관계 비교표", "친수성·소수성 약물의 흡수 조건 비교", "분자 사이 힘과 제형 특성 연결"]
+    };
+    const dosageAxis = {
+      id: "dosage_concentration_quant_axis",
+      title: "투약 농도·정량 계산 축",
+      short: "농도·정량 계산",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "확률과 통계", "생명과학", "약학과"],
+      desc: "몰, 몰 농도, 희석, 반응식 개념을 투약 농도, 용액 조제, 정량 분석으로 연결하는 방향입니다.",
+      easy: "몰 농도와 희석 계산, 투약 농도 비교, 정량 분석 오차 정리",
+      activityExamples: ["희석 배율과 농도 계산표 작성", "투약 농도 변화 시뮬레이션", "정량 분석 오차 요인 정리"]
+    };
+    const phStabilityAxis = {
+      id: "drug_ph_stability_axis",
+      title: "약물 pH·안정성 해석 축",
+      short: "pH·약물 안정성",
+      axisDomain: "health",
+      priority: 1,
+      linkedSubjects: ["화학", "생명과학", "세포와 물질대사", "약학과"],
+      desc: "pH, 완충 용액, 동적 평형 개념을 약물 안정성, 체액 환경, 제형 조건과 연결하는 방향입니다.",
+      easy: "pH 변화와 약물 안정성, 완충 용액, 체액 환경 비교 보고서",
+      activityExamples: ["pH 조건에 따른 약물 안정성 사례 조사", "완충 용액과 체액 pH 연결", "제형 안정성에 영향을 주는 조건 정리"]
+    };
+    const bufferAxis = {
+      id: "body_fluid_buffer_homeostasis_axis",
+      title: "체액 pH·완충 항상성 축",
+      short: "체액 pH·완충",
+      axisDomain: "health",
+      priority: 2,
+      linkedSubjects: ["화학", "생명과학", "보건", "약학과"],
+      desc: "산·염기와 완충 용액을 혈액 pH, 체액 조절, 약물 작용 환경과 연결해 해석하는 방향입니다.",
+      easy: "혈액 pH, 완충 작용, 체액 조절과 약물 작용 환경 정리",
+      activityExamples: ["혈액 pH 유지 범위 조사", "완충 용액 원리 카드 만들기", "체액 환경과 약물 작용 조건 연결"]
+    };
+    if (/화학 반응에서의 동적 평형/.test(conceptText) || /pH|완충|산|염기|중화|안정성|체액/.test(keywordText)) {
+      return [make(phStabilityAxis, 0), make(bufferAxis, 1), make(dosageAxis, 2)];
+    }
+    if (/물질의 양과 화학 반응식/.test(conceptText) || /몰|농도|희석|정량|투약|용량/.test(keywordText)) {
+      return [make(dosageAxis, 0), make(drugStructureAxis, 1), make(solubilityAxis, 2)];
+    }
+    if (/분자의 구조와 성질/.test(conceptText) || /용해도|극성|수소 결합|흡수|세포막|제형/.test(keywordText)) {
+      return [make(solubilityAxis, 0), make(drugStructureAxis, 1), make(dosageAxis, 2)];
+    }
+    return [make(drugStructureAxis, 0), make(solubilityAxis, 1), make(dosageAxis, 2)];
+  }
+
   function isIntegratedScience2EnvironmentEngineeringF1Context(mappedEntry) {
     try {
       const subjectText = String(state.subject || "").replace(/\s+/g, "");
@@ -4703,6 +4802,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v89.6 P1-lock: 약학과 + 화학은 의약품 구조/용해도/pH/농도 계산 축을 직접 반환해
+    // 신소재·화공·간호 일반 축으로 다시 밀리는 것을 막는다.
+    if (isChemistry1PharmacyContext(mappedEntry)) {
+      return buildChemistry1PharmacyForcedAxes();
+    }
 
     // v89.5 F4-lock: 환경공학과 + 통합과학2 + 지구 환경 변화 계열은
     // 기존 mappedEntry의 일반 지질/연표형 축이 최종 3개를 다시 차지하는 문제가 있었다.
@@ -7129,7 +7234,7 @@ function getTrackMeta(trackId) {
   function isChemistry1ComputerMajorContext() {
     // v88.2 B2-lock: 생명공학과는 생명정보/바이오 데이터/센서 같은 단어가 있어도
     // 컴퓨터·반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
-    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing") return false;
+    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing" || getChemistry1MajorKind() === "pharmacy") return false;
 
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
@@ -7228,6 +7333,22 @@ function getTrackMeta(trackId) {
         "화학 결합",
         "원자의 구조",
         "원소의 주기적 성질"
+      ];
+    }
+    // v89.6 P1-lock: 약학/제약 계열은 화학에서 전자배치·주기율표형으로 끌려가면 안 된다.
+    // 의약품 구조, 분자 구조·용해도, pH·완충/안정성, 농도 정량 계산을 우선한다.
+    if (chemistryMajorKind === "pharmacy") {
+      return [
+        "탄소 화합물의 유용성",
+        "분자의 구조와 성질",
+        "화학 반응에서의 동적 평형",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "화학 결합",
+        "원자의 구조",
+        "원소의 주기적 성질",
+        "현대의 원자 모형과 전자 배치",
+        "화학과 우리 생활"
       ];
     }
     if (chemistryMajorKind === "materials") {
@@ -8873,7 +8994,16 @@ function getTrackMeta(trackId) {
     const isMaterials = chemistryMajorKind === "materials";
     const isBioEng = chemistryMajorKind === "bioengineering";
     const isNursing = chemistryMajorKind === "nursing";
+    const isPharmacy = chemistryMajorKind === "pharmacy";
     const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
+    if (isPharmacy) {
+      if (/탄소 화합물의 유용성/.test(concept)) return ["의약품", "작용기", "탄소 화합물", "고분자", "약물 구조", "생체 분자", "단백질", "아미노산", "지질", "친수성", "소수성", "분자 구조"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "제형", "수용체", "분자 상호작용"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["pH", "완충 용액", "산", "염기", "중화", "약물 안정성", "체액", "혈액 pH", "평형 이동", "농도", "반응 조건", "제형 안정성"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "용액", "투약 농도", "정량 분석", "시료", "오차", "화학 반응식", "계수비", "용량", "농도 계산"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["반응열", "발열 반응", "흡열 반응", "안정성", "산화", "환원", "분해", "보관 조건", "온도", "반응 속도"];
+      if (/화학 결합/.test(concept)) return ["공유 결합", "수소 결합", "이온 결합", "전기음성도", "결합의 극성", "작용기", "약물 구조", "분자 상호작용"];
+    }
     if (isNursing) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "의약품", "고분자", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "작용기", "분자 구조", "생활 화학", "인체 적용"];
       if (/화학 반응에서의 동적 평형/.test(concept)) return ["pH", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "평형 이동", "농도", "반응 조건", "수질", "건강 지표"];
@@ -8936,6 +9066,31 @@ function getTrackMeta(trackId) {
     const kind = getChemistry1MajorKind();
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let boost = 0;
+
+    if (kind === "pharmacy") {
+      if (/탄소 화합물의 유용성/.test(concept) && hit("의약품", "작용기", "약물 구조", "탄소 화합물", "생체 분자", "친수성", "소수성")) {
+        if (/drug_structure_function_axis|의약품 구조|작용기/.test(axisText)) boost = Math.max(boost, 760);
+        if (/drug_solubility_absorption_axis|약물 용해도|흡수/.test(axisText)) boost = Math.max(boost, 620);
+        if (/organic_structure_axis|유기 물질 구조 해석 축|유기 물질/.test(axisText)) boost = Math.max(boost, 420);
+      }
+      if (/분자의 구조와 성질/.test(concept) && hit("분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "제형")) {
+        if (/drug_solubility_absorption_axis|약물 용해도|흡수/.test(axisText)) boost = Math.max(boost, 760);
+        if (/drug_structure_function_axis|의약품 구조|작용기/.test(axisText)) boost = Math.max(boost, 610);
+        if (/bio_molecular_interaction_axis|분자 상호작용|bio_molecule|생체 분자/.test(axisText)) boost = Math.max(boost, 420);
+      }
+      if (/화학 반응에서의 동적 평형/.test(concept) && hit("pH", "완충", "완충 용액", "산", "염기", "중화", "약물 안정성", "체액", "혈액 pH", "제형 안정성")) {
+        if (/drug_ph_stability_axis|약물 pH|약물 안정성|pH·약물 안정성/.test(axisText)) boost = Math.max(boost, 780);
+        if (/body_fluid_buffer_homeostasis_axis|체액 pH|완충 항상성/.test(axisText)) boost = Math.max(boost, 660);
+        if (/dosage_concentration_quant_axis|투약 농도|농도·정량/.test(axisText)) boost = Math.max(boost, 520);
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost -= 300;
+        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText)) boost -= 120;
+      }
+      if (/물질의 양과 화학 반응식/.test(concept) && hit("몰", "몰 농도", "희석", "용액", "투약 농도", "정량 분석", "시료", "용량", "농도 계산")) {
+        if (/dosage_concentration_quant_axis|투약 농도|농도·정량/.test(axisText)) boost = Math.max(boost, 780);
+        if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, 430);
+        if (/experiment_analysis_axis|실험 설계·분석 축|실험 설계|분석/.test(axisText)) boost = Math.max(boost, 350);
+      }
+    }
 
     if (kind === "nursing") {
       if (/탄소 화합물의 유용성/.test(concept) && hit("탄소 화합물", "의약품", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "생활 화학")) {
