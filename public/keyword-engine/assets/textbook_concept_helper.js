@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v87.3-materials-m3-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.0-advanced-prelock-e1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v87_3_materials_m3_lock";
+  const ASSET_VERSION_QUERY = "v88_0_advanced_prelock_e1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4377,6 +4377,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         score += getCellMetabolismHardAxisBoost(axis);
         score += getElectromagnetismQuantumHardAxisBoost(axis);
         score += getMatterEnergyHardAxisBoost(axis);
+        score += getChemistry1HardAxisBoost(axis);
         score += getEarthSystemScienceForcedAxisBoost(axis);
         score += getEarthSystemScienceHardAxisBoost(axis);
         return { ...axis, __score: score };
@@ -6500,6 +6501,50 @@ function getTrackMeta(trackId) {
   }
 
 
+  function getChemistry1MajorTextBundle() {
+    // 1학년 이후 선택과목은 화면 전체 텍스트에 교과어가 섞여 학과 분기가 흔들릴 수 있어
+    // 상단 상태값/선택 학과명/입력값만 우선으로 모아 판별한다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || "").replace(/\s+/g, " ").trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName() || ""); } catch (error) {}
+    try { push(getCareerInputText() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    return uniq(parts).join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  function getChemistry1MajorKind() {
+    const rawText = getChemistry1MajorTextBundle();
+    const text = String(rawText || "").replace(/\s+/g, " ").trim();
+    const compact = text.replace(/\s+/g, "");
+    const has = (pattern) => pattern.test(text) || pattern.test(compact);
+
+    // 정확한 학과명 우선: 화학공학/에너지공학은 기존 materials 버킷으로 빨려 들어가면 안 된다.
+    if (has(/화학공학과|화공|공업화학|화공생명공학|화학생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
+    if (has(/에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지/)) return "energy";
+    if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) return "materials";
+    if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/)) return "materials";
+    if (has(/반도체공학과|반도체|나노반도체|시스템반도체|소자공학|전자소자/)) return "semiconductor";
+    if (has(/전자공학과|전기전자|전기공학과|전자전기|회로|센서|통신|전파|임베디드/)) return "electronics";
+    if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
+    if (has(/환경공학과|환경공학|대기환경|보건환경|환경보건|환경에너지|기후환경|환경과학|환경/)) return "environment";
+    if (has(/화학과|응용화학|화학생명|화학/)) return "chemistry";
+    if (has(/컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|통계/)) return "data";
+    return "default";
+  }
+
+
   function isChemistry1ComputerMajorContext() {
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
@@ -6547,7 +6592,34 @@ function getTrackMeta(trackId) {
       "화학 반응과 열의 출입"
     ];
     if (!majorText) return defaultSequence;
-    if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) {
+    const chemistryMajorKind = getChemistry1MajorKind();
+    if (chemistryMajorKind === "chemical_engineering") {
+      return [
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "화학 반응에서의 동적 평형",
+        "분자의 구조와 성질",
+        "탄소 화합물의 유용성",
+        "화학 결합",
+        "원소의 주기적 성질",
+        "현대의 원자 모형과 전자 배치",
+        "화학과 우리 생활"
+      ];
+    }
+    if (chemistryMajorKind === "energy") {
+      return [
+        "화학 반응과 열의 출입",
+        "물질의 양과 화학 반응식",
+        "화학 반응에서의 동적 평형",
+        "화학 결합",
+        "원소의 주기적 성질",
+        "분자의 구조와 성질",
+        "현대의 원자 모형과 전자 배치",
+        "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
+    if (chemistryMajorKind === "materials") {
       return [
         "화학 결합",
         "원소의 주기적 성질",
@@ -8078,8 +8150,24 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
-    const isMaterials = /(신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재)/.test(majorText) || bucket === "materials";
-    const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    const chemistryMajorKind = getChemistry1MajorKind();
+    const isChemEng = chemistryMajorKind === "chemical_engineering";
+    const isEnergy = chemistryMajorKind === "energy";
+    const isMaterials = chemistryMajorKind === "materials";
+    const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
+    if (isChemEng) {
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "화학 반응식", "계수비", "몰 질량", "수율", "생산량", "공정", "효율", "몰 농도", "희석", "오차", "그래프"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["반응 엔탈피", "발열 반응", "흡열 반응", "열량", "중화 반응", "산화", "환원", "산화수", "전자 이동", "전지", "효율", "안전"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["동적 평형", "가역 반응", "정반응", "역반응", "pH", "산", "염기", "중화", "완충", "공정", "최적화", "수율"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "분자 사이 힘", "끓는점", "용해도", "물성", "용매", "분리 공정"];
+      if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "고분자", "플라스틱", "에탄올", "아세트산", "공유 결합", "분자 구조", "공정"];
+    }
+    if (isEnergy) {
+      if (/화학 반응과 열의 출입/.test(concept)) return ["산화", "환원", "산화수", "전자 이동", "전지", "배터리", "전극", "충전", "방전", "발열 반응", "흡열 반응", "열량"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "화학 반응식", "계수비", "수율", "효율", "반응물", "생성물", "몰 질량", "공정 계산"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["동적 평형", "농도", "압력", "온도", "평형 이동", "공정", "수율", "최적화"];
+      if (/화학 결합/.test(concept)) return ["원자가 전자", "이온 결합", "공유 결합", "전기음성도", "전도성", "전극 소재", "결합의 극성"];
+    }
     if (isMaterials) {
       if (/화학 결합/.test(concept)) return ["원자가 전자", "공유 결합", "이온 결합", "전기음성도", "결합의 극성", "루이스 전자점식", "비공유 전자쌍", "결합 종류 판별", "극성 판단", "분자 모형 해석", "전도성", "녹는점"];
       if (/원소의 주기적 성질/.test(concept)) return ["이온화 에너지", "금속", "원자 반지름", "전기음성도", "주기율표", "유효 핵전하", "비금속", "주기성 비교", "이온 반지름", "재료 선택", "족", "주기"];
@@ -8098,6 +8186,73 @@ function getTrackMeta(trackId) {
       if (/화학 반응과 열의 출입/.test(concept)) return ["산화", "환원", "중화 반응", "반응열", "발열 반응", "흡열 반응", "에너지 출입"];
     }
     return [];
+  }
+
+
+  function getChemistry1HardAxisBoost(axis) {
+    if (!(state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1")) return 0;
+    const concept = String(state.concept || "");
+    const keyword = String(state.keyword || "");
+    if (!concept || !keyword) return 0;
+    const axisText = [
+      String(axis?.id || axis?.axis_id || ""),
+      String(axis?.title || axis?.axis_title || ""),
+      String(axis?.short || axis?.axis_short || ""),
+      String(axis?.axisDomain || axis?.axis_domain || "")
+    ].join(" ");
+    const kind = getChemistry1MajorKind();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
+    let boost = 0;
+
+    if (/물질의 양과 화학 반응식/.test(concept)) {
+      if (hit("몰", "몰 질량", "화학식량", "원자량", "분자량", "화학 반응식", "계수비", "입자 수", "비율")) {
+        if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 390 : 330);
+        if (/process_calculation_axis|공정 계산 응용 축|공정 계산/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 310 : 170);
+      }
+      if (hit("수율", "생산량", "시약", "공정", "효율", "농도", "희석", "용액")) {
+        if (/process_calculation_axis|공정 계산 응용 축|공정 계산/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 440 : 230);
+        if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, 270);
+      }
+      if (hit("실험", "오차", "데이터", "비교", "그래프")) {
+        if (/experiment_analysis_axis|실험 설계·분석 축|실험 설계|분석/.test(axisText)) boost = Math.max(boost, 240);
+      }
+    }
+
+    if (/화학 반응에서의 동적 평형/.test(concept)) {
+      if (hit("동적 평형", "가역 반응", "정반응", "역반응", "평형", "농도", "압력", "온도")) {
+        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 390 : 330);
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 330 : 170);
+      }
+      if (hit("산", "염기", "pH", "중화", "지시약", "수질", "토양", "체액", "완충")) {
+        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 380 : 330);
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 240 : 120);
+      }
+      if (hit("수율", "생산", "공정", "최적화")) {
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 440 : 220);
+      }
+    }
+
+    if (/화학 반응과 열의 출입/.test(concept)) {
+      if (hit("산화", "환원", "산화수", "전자 이동", "전지", "배터리", "전극", "충전", "방전")) {
+        if (/electrochemistry_battery_axis|전기화학·배터리 기초 축|전기화학|배터리/.test(axisText)) boost = Math.max(boost, (kind === "energy" || kind === "chemical_engineering") ? 450 : 330);
+      }
+      if (hit("발열 반응", "흡열 반응", "중화 반응", "반응 엔탈피", "열량", "에너지", "온도 변화", "흡수")) {
+        if (/thermochemistry_axis|열화학·반응 에너지 축|열화학|반응 에너지/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 410 : 340);
+        if (/energy_safety_axis|에너지·안전 판단 축|에너지|안전/.test(axisText)) boost = Math.max(boost, kind === "energy" ? 260 : 180);
+      }
+      if (hit("연소", "안전", "폭발", "효율", "연료")) {
+        if (/energy_safety_axis|에너지·안전 판단 축|에너지|안전/.test(axisText)) boost = Math.max(boost, 330);
+      }
+    }
+
+    if (/탄소 화합물의 유용성/.test(concept)) {
+      if (hit("고분자", "플라스틱", "의약품", "탄소 화합물", "공유 결합", "분자 구조")) {
+        if (/organic_structure_axis|유기 물질 구조 해석 축|유기 물질/.test(axisText)) boost = Math.max(boost, 330);
+        if (/bio_material_application_axis|바이오·소재 응용 축|소재 응용/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 270 : 190);
+      }
+    }
+
+    return boost;
   }
 
   function getPhysics1PreferredKeywordSequence() {
@@ -8584,6 +8739,42 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
 
 
+
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "chemical_engineering") {
+      const forced = [
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "화학 반응에서의 동적 평형"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "energy") {
+      const forced = [
+        "화학 반응과 열의 출입",
+        "물질의 양과 화학 반응식",
+        "화학 반응에서의 동적 평형"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isMatterEnergySubject() && getMatterEnergyMajorKind() === "chemical_engineering") {
+      const forced = ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isMatterEnergySubject() && getMatterEnergyMajorKind() === "energy") {
+      const forced = ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && isMaterialsMajorSelectedContext()) {
       const forced = [
