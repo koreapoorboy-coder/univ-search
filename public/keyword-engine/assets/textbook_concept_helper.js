@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.8-data-science-prelock-d1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.9-data-science-final-lock-d2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_8_data_science_prelock_d1";
+  const ASSET_VERSION_QUERY = "v88_9_data_science_final_lock_d2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -6152,6 +6152,7 @@ function getTrackMeta(trackId) {
 
 
   function isAlgebraComputerMajorContext() {
+    if (isDataScienceMajorSelectedContext()) return false;
     const localBag = [
       state.career || "",
       state.majorSelectedName || "",
@@ -6160,7 +6161,7 @@ function getTrackMeta(trackId) {
       getMajorPanelResolvedName() || "",
       getMajorTextBag() || ""
     ].join(" ");
-    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(localBag)) return true;
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(localBag)) return true;
     try {
       const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
       if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
@@ -6245,6 +6246,7 @@ function getTrackMeta(trackId) {
 
 
   function isCalculus1ComputerMajorContext() {
+    if (isDataScienceMajorSelectedContext()) return false;
     const localBag = [
       state.career || "",
       state.majorSelectedName || "",
@@ -6253,7 +6255,7 @@ function getTrackMeta(trackId) {
       getMajorPanelResolvedName() || "",
       getMajorTextBag() || ""
     ].join(" ");
-    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(localBag)) return true;
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(localBag)) return true;
     try {
       const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
       if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
@@ -6339,6 +6341,7 @@ function getTrackMeta(trackId) {
   }
 
   function isProbabilityStatisticsComputerMajorContext() {
+    if (isDataScienceMajorSelectedContext()) return false;
     const localBag = [
       state.career || "",
       state.majorSelectedName || "",
@@ -6347,7 +6350,7 @@ function getTrackMeta(trackId) {
       getMajorPanelResolvedName() || "",
       getMajorTextBag() || ""
     ].join(" ");
-    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(localBag)) return true;
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(localBag)) return true;
     try {
       const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
       if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
@@ -8242,7 +8245,7 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
-    const isIt = isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
+    const isIt = !isDataScienceMajorSelectedContext() && (isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it");
 
     if (isDataScienceMajorSelectedContext()) {
       if (/확률변수와 확률분포/.test(concept)) return ["확률분포", "확률변수", "기댓값", "분산", "표준편차", "평균", "분포 비교", "그래프", "데이터", "예측", "모델링"];
@@ -9192,7 +9195,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "미적분1" && isCalculus1ComputerMajorContext()) {
+    if (state.subject === "미적분1" && !isDataScienceMajorSelectedContext() && isCalculus1ComputerMajorContext()) {
       const forced = [
         "도함수의 활용",
         "여러 가지 함수의 미분",
@@ -9203,7 +9206,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "대수" && isAlgebraComputerMajorContext()) {
+    if (state.subject === "대수" && !isDataScienceMajorSelectedContext() && isAlgebraComputerMajorContext()) {
       const forced = [
         "지수함수와 로그함수의 활용",
         "등차수열과 등비수열",
@@ -9214,8 +9217,55 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
+
+    // v88.9 D2-lock: 데이터사이언스/통계학과는 컴퓨터공학형 순열·조합 우선 가드보다
+    // 분포·정규분포·추정 중심 대표 개념 3개가 최종 화면에서 먼저 이기도록 고정한다.
+    if (isDataScienceMajorSelectedContext() && state.subject === "확률과 통계") {
+      const forced = [
+        "확률변수와 확률분포",
+        "이항분포와 정규분포",
+        "통계적 추정"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isDataScienceMajorSelectedContext() && state.subject === "정보") {
+      const forced = [
+        "자료와 정보의 분석",
+        "알고리즘 설계와 분석",
+        "추상화와 문제 분해"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isDataScienceMajorSelectedContext() && state.subject === "대수") {
+      const forced = [
+        "지수함수와 로그함수의 활용",
+        "로그함수의 뜻과 그래프",
+        "등차수열과 등비수열"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isDataScienceMajorSelectedContext() && (state.subject === "미적분1" || state.subject === "미적분Ⅰ" || state.subject === "미적분")) {
+      const forced = [
+        "도함수의 활용",
+        "정적분의 활용",
+        "수열의 극한"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     
-if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajorContext()) {
+if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext() && isProbabilityStatisticsComputerMajorContext()) {
       const forced = [
         "순열과 조합",
         "조건부확률과 사건의 독립",
