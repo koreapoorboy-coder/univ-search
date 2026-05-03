@@ -3357,6 +3357,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       space: "urban",
       biology: "biology",
       bio: "biology",
+      chemical: "chemistry",
+      chemistry: "chemistry",
+      chem: "chemistry",
+      material: "engineering",
+      materials: "engineering",
+      material_science: "engineering",
+      bio_chemistry: "chemistry",
+      food_science: "biology",
       health: "health",
       medical: "health",
       decision: "decision",
@@ -3382,6 +3390,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     if (/지구|환경|기후|대기|해양|체감온도|습도/.test(text)) return "earth_env";
     if (/자료|데이터|통계|그래프|수리|모델링|예측|비교/.test(text)) return "data";
     if (/정보|알고리즘|프로그래밍|입력|출력|조건문/.test(text)) return "info";
+    if (/화학|물질|재료|소재|결합|분자|원소|주기|물성|고분자|금속|세라믹|표면|점성|분산력|수소 결합/.test(text)) return "chemistry";
     if (/전자|소자|회로|신호|통신|센서|전자장치/.test(text)) return "electronics";
     if (/에너지|전환|저장|효율|신재생|전력|배터리/.test(text)) return "energy";
     if (/물리|시스템|장치|역학|전자기|속도|전류|전압/.test(text)) return "physics";
@@ -3486,7 +3495,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       materials: {
         bucket: "materials",
         lens: "원자 배열·결합·물성·소재 설계",
-        directAxisDomains: ["chemistry", "engineering"],
+        directAxisDomains: ["chemistry", "engineering", "materials"],
         bridgeAxisDomains: ["physics", "data", "info"],
         resultKeywords: ["원자 배열", "결정 구조", "결합 방식", "물성", "소재 설계", "재료 선택"]
       },
@@ -3868,7 +3877,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const subject = String(state.subject || "");
     const concept = String(state.concept || "");
     const keyword = String(state.keyword || "");
-    const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
+    const domain = normalizeAxisDomain(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     const axisText = [domain, axis?.title || axis?.axis_title || "", axis?.short || axis?.axis_short || "", axis?.desc || axis?.why || "", ...(Array.isArray(axis?.linkedSubjects) ? axis.linkedSubjects : []), ...(Array.isArray(axis?.next_subjects) ? axis.next_subjects : [])].join(" ");
     const bag = [subject, concept, keyword, axisText].join(" ");
     let score = 0;
@@ -3933,6 +3942,81 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       if (domainIs("earth_env", "environment", "earth", "data", "energy", "social_policy")) score += 18;
     }
 
+    // v87 M-pack lock: 신소재공학과/재료계열은 3번 추천 키워드 선택 후 4번 축이
+    // 생명·의료·사회 축으로 밀리지 않도록, 기존 JSON에 존재하는 축의 정렬 점수만 보정한다.
+    const isMMaterialsContext = bucket === "materials" || /(신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재)/.test(majorText);
+    if (isMMaterialsContext && (/통합과학1|화학|물질과 에너지|전자기와 양자/.test(subject))) {
+      const axisKey = [String(axis?.id || axis?.axis_id || ""), axisText].join(" ");
+      const boostAxis = (pattern, amount) => {
+        if (pattern.test(axisKey)) score += amount;
+      };
+      const suppressAxis = (pattern, amount) => {
+        if (pattern.test(axisKey)) score -= amount;
+      };
+
+      if (subject === "통합과학1") {
+        if (/물질 구성과 분류/.test(concept)) {
+          boostAxis(/matter_chemistry_structure|화학·물질 구조 분석 축|화학.*물질 구조/, 170);
+          boostAxis(/matter_material_design|재료·소자 기초 축|재료.*소자/, 150);
+          boostAxis(/matter_data_classification|분류·기준 모델링 축|분류.*모델링/, 80);
+        }
+        if (/규칙성 발견과 주기율표/.test(concept)) {
+          boostAxis(/chemistry_prediction|화학·성질 예측 축|성질 예측/, 170);
+          boostAxis(/material_design_foundation|재료·소자 설계 기초 축|재료.*소자 설계/, 150);
+          boostAxis(/pattern_classification_modeling|패턴·분류 모델링 축|패턴.*분류/, 82);
+        }
+      }
+
+      if (/^화학|화학Ⅰ|화학1$/.test(subject)) {
+        if (/화학 결합/.test(concept)) {
+          boostAxis(/bond_structure_axis|결합 구조 해석 축|결합 구조/, 190);
+          boostAxis(/material_property_design_axis|물성·소재 설계 축|물성.*소재/, 185);
+          boostAxis(/bio_molecular_interaction_axis|분자 상호작용·용해 축|분자 상호작용|용해/, 80);
+          suppressAxis(/bio_environment_ion_axis|life_material_application_axis|환경·생체|생활·생체/, 80);
+        }
+        if (/원소의 주기적 성질/.test(concept)) {
+          boostAxis(/material_selection_axis|재료 선택·설계 축|재료 선택|설계/, 185);
+          boostAxis(/periodic_property_axis|주기율·성질 예측 축|주기율.*성질/, 180);
+          boostAxis(/bio_environment_ion_axis|환경·생체 이온 해석 축|이온 해석/, 60);
+        }
+        if (/분자의 구조와 성질/.test(concept)) {
+          boostAxis(/molecular_shape_axis|분자 구조·극성 축|분자 구조|극성/, 180);
+          boostAxis(/intermolecular_force_axis|분자 사이 힘·물성 축|분자 사이 힘|물성/, 170);
+          suppressAxis(/life_material_application_axis|생활·생체 물질 적용 축|생활·생체/, 120);
+        }
+      }
+
+      if (/물질과 에너지/.test(subject)) {
+        if (/액체의 물성과 분자 간 힘/.test(concept)) {
+          if (/표면 장력|점성|코팅|세정|접착|소재|고분자/.test(keyword)) {
+            boostAxis(/material_property_design_axis|소재 물성 설계 축|소재 물성|물성 설계/, 210);
+            boostAxis(/intermolecular_force_axis|분자 간 힘·물성 해석 축|분자 간 힘/, 150);
+          } else {
+            boostAxis(/intermolecular_force_axis|분자 간 힘·물성 해석 축|분자 간 힘/, 195);
+            boostAxis(/material_property_design_axis|소재 물성 설계 축|소재 물성|물성 설계/, 185);
+          }
+          suppressAxis(/drug_solubility_axis|food_processing_axis|bio_fluid_axis|약물|식품|생명·용액/, 180);
+        }
+      }
+
+      if (/전자기와 양자/.test(subject)) {
+        if (/양자와 물질의 상호작용/.test(concept)) {
+          if (/광전 효과|레이저|광센서|광자|LED|밴드갭|반도체|소재|나노소재|에너지 준위|원자 스펙트럼/.test(keyword)) {
+            boostAxis(/optical_material_application_axis|광·소재 응용 축|광.*소재/, 220);
+            boostAxis(/semiconductor_material_design_axis|반도체·소재 설계 축|반도체.*소재/, 200);
+            boostAxis(/quantum_device_analysis_axis|양자·소자 해석 축|양자.*소자/, 130);
+          }
+          suppressAxis(/quantum_information_computing_axis|quantum_technology_society_axis|양자 정보|사회 적용/, 140);
+        }
+        if (/전기장과 자기장/.test(concept)) {
+          boostAxis(/sensor_device_application_axis|센서·장치 응용 축|센서.*장치/, 170);
+          boostAxis(/field_particle_analysis_axis|장·입자 해석 축|장·입자/, 160);
+          boostAxis(/measurement_data_visual_axis|측정 데이터·시각화 축|측정 데이터/, 100);
+          suppressAxis(/medical_field_sensor_axis|의료 센서·영상 응용 축|의료.*영상|의료.*센서/, 180);
+        }
+      }
+    }
+
     // v86 A-pack lock: 기존 followup-axis 데이터 안에서만 컴퓨터공학과 + 대수/정보의 4번 축 정렬을 고정한다.
     // 새 축이나 새 키워드를 만들지 않고, 현재 JSON에 존재하는 axis_id/axis_title만 가산한다.
     const isAComputerContext = bucket === "it" || /(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|게임|앱|웹|네트워크)/i.test(majorText);
@@ -3944,18 +4028,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       if (subject === "대수") {
         if (/지수함수와 로그함수의 활용/.test(concept)) {
-          if (/로그모델|채널 용량/.test(keyword)) {
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 96);
+          // v87 A-1 lock: 기존 3개 축만 사용해 키워드 성격별 1순위를 고정한다.
+          // - 채널 용량: 신호·용량 해석 축
+          // - 충전 증가: 예측·데이터 해석 축
+          // - 지수/로그 모델, 성장/감소, 방사성 붕괴, 별의 등급, 실생활 적용: 실생활 변화 모델링 축
+          if (/채널 용량/.test(keyword)) {
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 104);
             boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 64);
             boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 42);
-          } else if (/성장|감소|충전 증가/.test(keyword)) {
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 94);
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 70);
+          } else if (/충전 증가/.test(keyword)) {
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 104);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 72);
             boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 38);
+          } else if (/로그모델/.test(keyword)) {
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 142);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 50);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 52);
+          } else if (/성장|감소/.test(keyword)) {
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 118);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 66);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 30);
           } else {
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 88);
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 58);
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 36);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 104);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 56);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 32);
           }
         }
         if (/등차수열과 등비수열/.test(concept)) {
@@ -4055,7 +4151,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const concept = state.concept || "";
     const text = [state.keyword || "", concept, axis?.title || axis?.axis_title || "", axis?.short || "", axis?.axisDomain || axis?.axis_domain || ""].join(" ");
     const bucket = detectCareerBucket(majorText || state.career || "");
-    const domain = String(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
+    const domain = normalizeAxisDomain(axis?.axisDomain || axis?.axis_domain || "").toLowerCase();
     let score = 0;
     score += getMajorRoutingAxisBoost(axis);
     score += getHeatwaveAxisContextBoost(axis);
@@ -6405,6 +6501,16 @@ function getTrackMeta(trackId) {
 
 
   function isChemistry1ComputerMajorContext() {
+    const selectedMajorBag = [
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      state.career || ""
+    ].join(" ");
+    if (/(신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재)/.test(selectedMajorBag)
+      && !/(반도체공학과|반도체|전자공학과|전자|전기|소자)/.test(selectedMajorBag)) return false;
+
     const localBag = [
       state.career || "",
       state.majorSelectedName || "",
@@ -6413,7 +6519,7 @@ function getTrackMeta(trackId) {
       getMajorPanelResolvedName() || "",
       getMajorTextBag() || ""
     ].join(" ");
-    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(localBag)) return true;
+    if (/(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(localBag)) return true;
     try {
       const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
       if (/2\.\s*학과\s*컴퓨터공학과/.test(bodyText) || /학과\s*컴퓨터공학과/.test(bodyText)) return true;
@@ -6437,7 +6543,7 @@ function getTrackMeta(trackId) {
       "화학 반응과 열의 출입"
     ];
     if (!majorText) return defaultSequence;
-    if (isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(majorText) || bucket === "it" || bucket === "electronic") {
+    if (isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic") {
       return [
         "현대의 원자 모형과 전자 배치",
         "원소의 주기적 성질",
@@ -7915,7 +8021,16 @@ function getTrackMeta(trackId) {
     const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ").trim();
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
-    const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자|재료|신소재)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    const isMaterials = /(신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재)/.test(majorText) || bucket === "materials";
+    const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    if (isMaterials) {
+      if (/화학 결합/.test(concept)) return ["원자가 전자", "공유 결합", "이온 결합", "전기음성도", "결합의 극성", "루이스 전자점식", "비공유 전자쌍", "결합 종류 판별", "극성 판단", "분자 모형 해석", "전도성", "녹는점"];
+      if (/원소의 주기적 성질/.test(concept)) return ["이온화 에너지", "금속", "원자 반지름", "전기음성도", "주기율표", "유효 핵전하", "비금속", "주기성 비교", "이온 반지름", "재료 선택", "족", "주기"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자의 극성", "분자 사이 힘", "끓는점", "전자쌍 반발", "결합각", "쌍극자", "수소 결합", "구조식", "용해도", "물성", "비대칭"];
+      if (/현대의 원자 모형과 전자 배치/.test(concept)) return ["에너지 준위", "오비탈", "전자 배치 작성", "선 스펙트럼", "오비탈 해석", "전자 스핀", "쌓음 원리", "파울리 배타 원리", "훈트 규칙"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "반응식", "계수", "몰 질량", "화학식량", "분자량", "비율", "공정 계산"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["반응열", "발열 반응", "흡열 반응", "에너지 출입", "산화", "환원", "소재 반응", "열 안정성"];
+    }
     if (isIt) {
       if (/현대의 원자 모형과 전자 배치/.test(concept)) return ["에너지 준위", "오비탈", "전자 배치 작성", "오비탈 해석", "선 스펙트럼", "보어 모형", "주 양자수", "방위 양자수", "전자 스핀", "쌓음 원리", "파울리 배타 원리", "훈트 규칙"];
       if (/원소의 주기적 성질/.test(concept)) return ["주기율표", "유효 핵전하", "이온화 에너지", "원자 반지름", "금속", "비금속", "주기성 비교", "가려막기 효과", "이온 반지름", "주기", "족"];
