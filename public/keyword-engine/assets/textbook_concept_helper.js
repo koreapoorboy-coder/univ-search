@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v86.0-a-pack-existing-data-sort-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v87.3-materials-m3-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v86_a_pack_existing_data_sort_lock";
+  const ASSET_VERSION_QUERY = "v87_3_materials_m3_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -6501,6 +6501,10 @@ function getTrackMeta(trackId) {
 
 
   function isChemistry1ComputerMajorContext() {
+    // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
+    // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
+    if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) return false;
+
     const selectedMajorBag = [
       state.majorSelectedName || "",
       getEffectiveCareerName() || "",
@@ -6543,6 +6547,18 @@ function getTrackMeta(trackId) {
       "화학 반응과 열의 출입"
     ];
     if (!majorText) return defaultSequence;
+    if (typeof isMaterialsMajorSelectedContext === "function" && isMaterialsMajorSelectedContext()) {
+      return [
+        "화학 결합",
+        "원소의 주기적 성질",
+        "분자의 구조와 성질",
+        "현대의 원자 모형과 전자 배치",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
     if (isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic") {
       return [
         "현대의 원자 모형과 전자 배치",
@@ -6705,6 +6721,7 @@ function getTrackMeta(trackId) {
       const bodyCompact = bodyText.replace(/\s+/g, '');
       if (/2\.\s*학과\s*(신소재공학과|재료공학과|나노소재공학과|고분자공학과)|학과\s*(신소재공학과|재료공학과|나노소재공학과|고분자공학과)/.test(bodyText)) return true;
       if (/2\.학과(신소재공학과|재료공학과|나노소재공학과|고분자공학과)|학과(신소재공학과|재료공학과|나노소재공학과|고분자공학과)/.test(bodyCompact)) return true;
+      if (/신소재공학과/.test(bodyText) && !/반도체공학과/.test(bodyText)) return true;
     } catch (error) {}
     return false;
   }
@@ -8567,6 +8584,17 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
 
 
+
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && isMaterialsMajorSelectedContext()) {
+      const forced = [
+        "화학 결합",
+        "원소의 주기적 성질",
+        "분자의 구조와 성질"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && isChemistry1ComputerMajorContext()) {
       const forced = [
