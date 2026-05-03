@@ -4851,9 +4851,9 @@ function getTrackMeta(trackId) {
 
       // 신소재: 광전 효과는 양자 원리보다 광·소재 응용을 더 먼저 보여준다.
       if (kind === "materials" && hit("광전 효과", "레이저", "광센서", "광자", "에너지 준위", "원자 스펙트럼", "반도체", "밴드갭", "LED")) {
-        if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) boost = Math.max(boost, 380);
-        if (/quantum_device_analysis_axis|양자·소자 해석 축/.test(axisText)) boost = Math.max(boost, 120);
-        if (/semiconductor_material_design_axis|반도체·소재 설계 축/.test(axisText)) boost = Math.max(boost, 110);
+        if (/optical_material_application_axis|광·소재 응용 축|광.*소재|광소재/.test(axisText)) boost = Math.max(boost, 420);
+        if (/semiconductor_material_design_axis|반도체·소재 설계 축/.test(axisText)) boost = Math.max(boost, 300);
+        if (/quantum_device_analysis_axis|양자·소자 해석 축/.test(axisText)) boost = Math.max(boost, 240);
       }
 
       if (kind === "computing" && hit("양자 컴퓨터", "큐비트", "중첩", "양자 암호", "양자 정보", "보안")) {
@@ -6672,6 +6672,44 @@ function getTrackMeta(trackId) {
 
 
 
+  function isMaterialsMajorSelectedContext() {
+    // v87 M2-lock: 신소재/재료계열은 화면 전체 텍스트보다 상단 실제 선택 학과를 우선한다.
+    // 3번 대표 개념과 4번 후속 연계축이 반도체/전자/의료 보조축으로 끌려가는 것을 막기 위한 최소 가드.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+
+    const selectedText = Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+    const selectedCompact = selectedText.replace(/\s+/g, '');
+    const materialPattern = /신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/;
+    const semiconductorOnlyPattern = /반도체공학과|나노반도체|시스템반도체|반도체시스템|전자소자/;
+    if ((materialPattern.test(selectedText) || materialPattern.test(selectedCompact))
+      && !(semiconductorOnlyPattern.test(selectedText) || semiconductorOnlyPattern.test(selectedCompact))) return true;
+
+    try {
+      const bodyText = String(document.body?.innerText || '').replace(/\s+/g, ' ');
+      const bodyCompact = bodyText.replace(/\s+/g, '');
+      if (/2\.\s*학과\s*(신소재공학과|재료공학과|나노소재공학과|고분자공학과)|학과\s*(신소재공학과|재료공학과|나노소재공학과|고분자공학과)/.test(bodyText)) return true;
+      if (/2\.학과(신소재공학과|재료공학과|나노소재공학과|고분자공학과)|학과(신소재공학과|재료공학과|나노소재공학과|고분자공학과)/.test(bodyCompact)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+
   function isElectromagnetismQuantumSubject() {
     return state.subject === "전자기와 양자" || state.subject === "전자기와양자" || state.subject === "고등 전자기와 양자";
   }
@@ -6706,6 +6744,7 @@ function getTrackMeta(trackId) {
     const has = (pattern) => pattern.test(text) || pattern.test(compact);
 
     // 정확한 학과명 우선. 교과 키워드의 '전자기/양자'에 끌려가지 않게 한다.
+    if (isMaterialsMajorSelectedContext()) return "materials";
     if (has(/반도체공학과|반도체|나노반도체|시스템반도체|반도체시스템|소자공학|전자소자/)) return "semiconductor";
     if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|금속|고분자|소재/)) return "materials";
     if (has(/의공학과|바이오메디컬공학|생체의공|의료공학|의료기기|방사선|영상의학|의료영상/)) return "biomedical";
@@ -7212,6 +7251,7 @@ function getTrackMeta(trackId) {
     const has = (pattern) => pattern.test(text) || pattern.test(compact);
 
     // 정확한 학과명 우선. 화학공학은 '화학과'보다 먼저, 환경공학은 '공학' 일반보다 먼저 본다.
+    if (isMaterialsMajorSelectedContext()) return "materials";
     if (has(/화학공학과|화공|공업화학|화공생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
     if (has(/환경공학과|환경공학|대기환경|보건환경|환경보건|환경에너지|기후환경|환경과학|환경/)) return "environment";
     if (has(/식품공학과|식품영양학과|식품공학|식품영양|식품|영양|조리|푸드/)) return "food";
@@ -7328,8 +7368,8 @@ function getTrackMeta(trackId) {
 
     if (/액체의 물성과 분자 간 힘/.test(concept)) {
       if (hit("수소 결합", "분산력", "쌍극자", "분자 간 힘", "증기 압력", "끓는점")) {
-        if (/intermolecular_force_axis|분자 간 힘·물성 해석 축|분자 간 힘/.test(axisText)) boost = Math.max(boost, kind === "chemistry" ? 360 : 150);
-        if (/material_property_design_axis|소재 물성 설계 축|소재/.test(axisText)) boost = Math.max(boost, kind === "materials" ? 390 : 130);
+        if (/intermolecular_force_axis|분자 간 힘·물성 해석 축|분자 간 힘/.test(axisText)) boost = Math.max(boost, kind === "materials" ? 360 : (kind === "chemistry" ? 360 : 150));
+        if (/material_property_design_axis|소재 물성 설계 축|소재/.test(axisText)) boost = Math.max(boost, kind === "materials" ? 420 : 130);
         if (/drug_solubility_axis|약물 물성·용해도 해석 축|약물|용해도/.test(axisText)) boost = Math.max(boost, kind === "pharmacy" ? 390 : 125);
         if (/food_processing_axis|식품 물성·가공 응용 축|식품|가공/.test(axisText)) boost = Math.max(boost, kind === "food" ? 390 : 125);
       }
@@ -8439,6 +8479,23 @@ function getTrackMeta(trackId) {
   function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+    // v87 M2-lock: 신소재공학과 대표 검수용 강제 3개 노출.
+    // 기존 점수 필터가 먼저 적용되면 물질과 에너지/전자기와 양자의 핵심 개념이 화면에 안 뜨는 경우가 있어,
+    // 실제 존재하는 3개 개념만 순서 고정하고 나머지 구조는 그대로 둔다.
+    if (isMaterialsMajorSelectedContext() && isMatterEnergySubject()) {
+      const forced = ["액체의 물성과 분자 간 힘", "기체 상태와 법칙", "혼합 기체와 조성"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isMaterialsMajorSelectedContext() && isElectromagnetismQuantumSubject()) {
+      const forced = ["양자와 물질의 상호작용", "전기장과 자기장", "전자기 유도와 전자기파"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if ((state.subject === "통합사회1" || state.subject === "통합사회") && isIntegratedSociety1ComputerMajorContext()) {
       const forced = [
