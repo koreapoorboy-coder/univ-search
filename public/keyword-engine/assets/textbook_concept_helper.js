@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.0-data-science-ui-order-lock-d3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.1-data-science-axis-d4';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4258,19 +4258,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const suppressAxis = (pattern, amount) => { if (pattern.test(axisKey)) score -= amount; };
       if (/확률과 통계/.test(subject)) {
         if (/확률변수와 확률분포/.test(concept)) {
-          boostAxis(/distribution_modeling_axis|데이터 분포·모델링 축|분포.*모델링/, 190);
-          boostAxis(/expected_value_decision_axis|기댓값·의사결정 축|기댓값/, 150);
-          boostAxis(/visual_pattern_interpretation_axis|시각화·패턴 해석 축|시각화/, 130);
+          boostAxis(/distribution_modeling_axis|데이터 분포·모델링 축|분포.*모델링/, 260);
+          boostAxis(/statistical_indicator_interpretation_axis|통계 지표 해석 축|통계 지표|기댓값|분산|표준편차/, 230);
+          boostAxis(/data_visualization_distribution_axis|데이터 시각화 축|시각화|그래프/, 210);
+          suppressAxis(/expected_value_decision_axis|의사결정|게임|조합|경우의 수/, 90);
         }
         if (/이항분포와 정규분포/.test(concept)) {
-          boostAxis(/distribution_prediction_model_axis|분포 모델·예측 축|예측/, 190);
-          boostAxis(/normal_standardization_axis|정규분포·표준화 해석 축|표준화/, 160);
-          boostAxis(/model_approximation_axis|모델 비교·근사 축|근사/, 120);
+          boostAxis(/distribution_prediction_model_axis|분포 모델·예측 축|분포.*예측/, 260);
+          boostAxis(/standardization_comparison_axis|표준화·비교 분석 축|표준화.*비교|표준화/, 230);
+          boostAxis(/data_based_decision_axis|데이터 기반 의사결정 축|데이터 기반|의사결정/, 205);
+          suppressAxis(/model_approximation_axis|근사|게임|조합|경우의 수/, 80);
         }
         if (/통계적 추정/.test(concept)) {
-          boostAxis(/statistical_inference_confidence_axis|추정·신뢰구간 해석 축|신뢰구간/, 190);
-          boostAxis(/data_decision_support_axis|데이터 기반 의사결정 축|데이터 기반/, 160);
-          boostAxis(/model_evaluation_uncertainty_axis|모델 평가·불확실성 축|불확실성/, 130);
+          boostAxis(/sampling_estimation_design_axis|표본·추정 설계 축|표본.*추정|표본 설계/, 260);
+          boostAxis(/confidence_interval_error_axis|신뢰구간·오차 해석 축|신뢰구간|추정 오차|표준오차/, 235);
+          boostAxis(/model_evaluation_uncertainty_axis|모델 평가 축|모델 평가|불확실성/, 210);
+          suppressAxis(/data_decision_support_axis|경제|경영|사회/, 70);
         }
         if (/모집단과 표본/.test(concept)) {
           boostAxis(/sampling_design_axis|표본 설계·자료 수집 축|표본 설계/, 180);
@@ -4282,7 +4285,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
           boostAxis(/conditional_decision_risk_axis|조건부 판단·리스크 해석 축|조건부 판단/, 150);
           boostAxis(/independence_validation_axis|독립성 검증 축|독립성/, 120);
         }
-        suppressAxis(/충돌|기계|소재|의료|간호|공정|부식|회로/, 70);
+        suppressAxis(/충돌|기계|소재|의료|간호|공정|부식|회로|안전 설계/, 110);
       }
       if (subject === "정보") {
         if (/자료와 정보의 분석/.test(concept)) {
@@ -4303,19 +4306,24 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       }
       if (/대수/.test(subject)) {
         if (/지수함수와 로그함수의 활용/.test(concept)) {
-          boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 150);
-          boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 150);
-          boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 70);
+          boostAxis(/data_change_modeling_axis|변화 모델링 축|변화 모델링/, 240);
+          boostAxis(/log_scale_data_interpretation_axis|로그 스케일 해석 축|로그 스케일/, 220);
+          boostAxis(/data_prediction_trend_axis|데이터 예측 축|데이터 예측|예측/, 205);
+          suppressAxis(/signal_capacity_interpretation|신호·용량|회로|전자|반도체/, 100);
         }
       }
       if (/미적분1/.test(subject)) {
         if (/도함수의 활용/.test(concept)) {
-          boostAxis(/optimization|최적화·변화율 판단 축|변화율/, 150);
-          boostAxis(/model|모델|예측|데이터/, 120);
+          boostAxis(/optimization_gradient_axis|변화율·최적화 축|변화율.*최적화|최적화/, 240);
+          boostAxis(/model_sensitivity_analysis_axis|모델 민감도 분석 축|민감도/, 220);
+          boostAxis(/data_prediction_rate_axis|데이터 기반 예측 축|데이터.*예측|예측/, 205);
+          suppressAxis(/tangent_graph_axis|접선|motion_rate_mechanics_axis|기계|운동 변화율/, 95);
         }
         if (/정적분의 활용/.test(concept)) {
-          boostAxis(/accumulation|누적량·면적 모델링 축|누적량|면적/, 150);
-          boostAxis(/simulation|시뮬레이션·수치 근사 축|수치 근사/, 130);
+          boostAxis(/accumulated_data_model_axis|누적 데이터 해석 축|누적 데이터/, 235);
+          boostAxis(/numerical_approximation_simulation_axis|수치 근사·시뮬레이션 축|수치 근사/, 215);
+          boostAxis(/distribution_area_interpretation_axis|분포 면적·확률 해석 축|분포 면적|확률/, 195);
+          suppressAxis(/work_energy_accumulation_axis|일·에너지|기계/, 90);
         }
       }
     }
