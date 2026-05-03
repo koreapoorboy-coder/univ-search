@@ -1,6 +1,6 @@
 {
   "subject_name": "확률과 통계",
-  "version": "v33.32-expanded-concepts",
+  "version": "v89.1-data-science-axis-d4",
   "policy": {
     "priority_rule": [
       "먼저 교과 개념별 종단 연결 후보를 제시한다",
@@ -408,7 +408,7 @@
     {
       "concept_name": "확률변수와 확률분포",
       "concept_label": "변수-분포-기댓값",
-      "core_focus": "확률변수, 확률분포, 기댓값, 분산, 표준편차",
+      "core_focus": "확률변수, 확률분포, 기댓값, 분산, 표준편차, 데이터 분포 모델링",
       "longitudinal_axes": [
         {
           "axis_id": "distribution_modeling_axis",
@@ -421,80 +421,84 @@
             "데이터사이언스",
             "미적분1"
           ],
-          "why": "확률변수와 분포는 불확실한 데이터를 모델로 표현하고 예측하는 기초가 된다.",
+          "why": "확률변수와 분포는 불확실한 데이터를 구조화하고 예측 모델의 입력 형태로 해석하는 기초가 된다.",
           "student_output_hint": "확률분포표 작성, 분포 그래프 비교, 데이터 모델링 보고서",
           "keyword_signals": [
             {
               "keywords": [
-                "확률변수",
                 "확률분포",
+                "확률변수",
                 "분포",
-                "그래프"
+                "모델링",
+                "데이터"
               ],
-              "boost": 22,
+              "boost": 30,
               "label": "키워드 직접 반영",
               "short_label": "분포 모델",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "expected_value_decision_axis",
-          "axis_title": "기댓값·의사결정 축",
-          "axis_short": "기댓값 판단",
-          "axis_domain": "data_decision",
+          "axis_id": "statistical_indicator_interpretation_axis",
+          "axis_title": "통계 지표 해석 축",
+          "axis_short": "통계 지표",
+          "axis_domain": "statistics",
           "priority": 2,
           "next_subjects": [
-            "통합사회2",
-            "경제",
-            "정보"
+            "정보",
+            "데이터사이언스",
+            "확률과 통계"
           ],
-          "why": "기댓값은 여러 선택지의 평균적 결과를 비교하는 의사결정 기준으로 쓰인다.",
-          "student_output_hint": "기댓값 기반 선택 비교표, 기대 손익 분석 카드",
+          "why": "기댓값·분산·표준편차는 데이터의 중심과 변동성을 설명하는 핵심 지표다.",
+          "student_output_hint": "기댓값·분산·표준편차 비교표, 데이터 지표 해석 카드",
           "keyword_signals": [
             {
               "keywords": [
                 "기댓값",
-                "평균",
                 "분산",
-                "표준편차"
+                "표준편차",
+                "평균",
+                "통계 지표"
               ],
-              "boost": 18,
+              "boost": 28,
               "label": "키워드 직접 반영",
-              "short_label": "기댓값",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "short_label": "통계 지표",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "visual_pattern_interpretation_axis",
-          "axis_title": "시각화·패턴 해석 축",
+          "axis_id": "data_visualization_distribution_axis",
+          "axis_title": "데이터 시각화 축",
           "axis_short": "시각화",
           "axis_domain": "data_visual",
           "priority": 3,
           "next_subjects": [
             "정보",
-            "공통국어2"
+            "공통국어2",
+            "데이터사이언스"
           ],
-          "why": "분포를 시각화하면 데이터의 중심과 퍼짐, 이상값을 더 쉽게 해석할 수 있다.",
-          "student_output_hint": "분포 그래프 해석 카드",
+          "why": "분포를 그래프와 표로 시각화하면 데이터의 중심·퍼짐·이상값을 한눈에 비교할 수 있다.",
+          "student_output_hint": "분포 그래프 해석 카드, 히스토그램·상자그림 비교 보고서",
           "keyword_signals": [
             {
               "keywords": [
                 "시각화",
-                "비교",
-                "패턴",
-                "데이터"
+                "그래프",
+                "분포 비교",
+                "데이터",
+                "패턴"
               ],
-              "boost": 10,
-              "label": "키워드 보정",
-              "short_label": "그래프 해석",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "시각화",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
@@ -504,7 +508,7 @@
     {
       "concept_name": "이항분포와 정규분포",
       "concept_label": "이항-정규-표준화",
-      "core_focus": "이항분포, 정규분포, 표준화, 근사, 분포 비교",
+      "core_focus": "이항분포, 정규분포, 표준화, 분포 비교, 예측 모델",
       "longitudinal_axes": [
         {
           "axis_id": "distribution_prediction_model_axis",
@@ -517,7 +521,7 @@
             "인공지능",
             "데이터사이언스"
           ],
-          "why": "이항분포와 정규분포는 반복 자료와 많은 데이터를 예측 모델로 해석하는 데 쓰인다.",
+          "why": "이항분포와 정규분포는 반복 자료와 대규모 데이터를 예측 모델로 해석하는 데 쓰인다.",
           "student_output_hint": "이항분포와 정규분포 그래프 비교, 모델 선택 기준 보고서",
           "keyword_signals": [
             {
@@ -525,72 +529,76 @@
                 "이항분포",
                 "정규분포",
                 "성공 확률",
+                "예측 모델",
                 "분포 비교"
               ],
-              "boost": 22,
+              "boost": 30,
               "label": "키워드 직접 반영",
               "short_label": "분포 예측",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "normal_standardization_axis",
-          "axis_title": "정규분포·표준화 해석 축",
-          "axis_short": "표준화",
+          "axis_id": "standardization_comparison_axis",
+          "axis_title": "표준화·비교 분석 축",
+          "axis_short": "표준화 비교",
           "axis_domain": "statistics",
           "priority": 2,
           "next_subjects": [
             "정보",
-            "보건통계",
+            "데이터사이언스",
             "사회조사"
           ],
-          "why": "표준화는 서로 다른 데이터를 같은 기준으로 비교하게 해 준다.",
-          "student_output_hint": "표준정규분포표 해석, z값 비교 카드",
+          "why": "표준화는 서로 다른 척도의 데이터를 같은 기준으로 바꾸어 비교하게 해 준다.",
+          "student_output_hint": "z값 비교 카드, 표준정규분포 기반 데이터 비교표",
           "keyword_signals": [
             {
               "keywords": [
                 "표준화",
                 "표준정규분포",
                 "평균",
-                "표준편차"
+                "표준편차",
+                "비교"
               ],
-              "boost": 18,
+              "boost": 28,
               "label": "키워드 직접 반영",
-              "short_label": "표준화",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "short_label": "표준화 비교",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "model_approximation_axis",
-          "axis_title": "모델 비교·근사 축",
-          "axis_short": "모델 근사",
-          "axis_domain": "math",
+          "axis_id": "data_based_decision_axis",
+          "axis_title": "데이터 기반 의사결정 축",
+          "axis_short": "데이터 판단",
+          "axis_domain": "data_decision",
           "priority": 3,
           "next_subjects": [
-            "미적분1",
-            "정보"
+            "정보",
+            "통합사회2",
+            "경제"
           ],
-          "why": "근사와 모델 비교는 실제 데이터에 맞는 수학적 표현을 선택하는 사고로 이어진다.",
-          "student_output_hint": "이항분포-정규분포 근사 비교 보고서",
+          "why": "분포 모델과 표준화 결과는 실제 판단 기준과 예측 의사결정으로 확장될 수 있다.",
+          "student_output_hint": "분포 기반 판단 기준 보고서, 예측 결과 비교 카드",
           "keyword_signals": [
             {
               "keywords": [
-                "근사",
-                "모델",
-                "비교",
-                "그래프"
+                "의사결정",
+                "예측",
+                "판단",
+                "분포 비교",
+                "모델"
               ],
-              "boost": 12,
-              "label": "키워드 보정",
-              "short_label": "근사 비교",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "의사결정",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
@@ -697,94 +705,97 @@
     {
       "concept_name": "통계적 추정",
       "concept_label": "표본평균-신뢰구간-추정",
-      "core_focus": "표본평균, 모평균, 통계적 추정, 신뢰구간, 추정 오차",
+      "core_focus": "표본평균, 모평균, 신뢰구간, 추정 오차, 모델 평가",
       "longitudinal_axes": [
         {
-          "axis_id": "statistical_inference_confidence_axis",
-          "axis_title": "추정·신뢰구간 해석 축",
-          "axis_short": "추정 해석",
+          "axis_id": "sampling_estimation_design_axis",
+          "axis_title": "표본·추정 설계 축",
+          "axis_short": "표본 추정",
           "axis_domain": "statistics",
           "priority": 1,
           "next_subjects": [
             "정보",
             "데이터사이언스",
-            "보건통계"
+            "사회조사"
           ],
-          "why": "표본 자료로 모집단을 추정하고 신뢰구간을 해석하는 힘은 데이터 기반 판단의 핵심이다.",
-          "student_output_hint": "표본평균 추정 보고서, 신뢰구간 시각화 카드",
+          "why": "표본을 어떻게 뽑고 추정할지 설계하는 과정은 데이터 분석의 신뢰도를 결정한다.",
+          "student_output_hint": "표본 설계표, 추정 절차 설계 카드",
           "keyword_signals": [
             {
               "keywords": [
-                "통계적 추정",
+                "표본",
                 "표본평균",
                 "모평균",
-                "신뢰구간",
+                "통계적 추정",
                 "추정"
               ],
-              "boost": 22,
+              "boost": 30,
               "label": "키워드 직접 반영",
-              "short_label": "통계 추정",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "short_label": "표본 추정",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "data_decision_support_axis",
-          "axis_title": "데이터 기반 의사결정 축",
-          "axis_short": "데이터 판단",
-          "axis_domain": "data_decision",
+          "axis_id": "confidence_interval_error_axis",
+          "axis_title": "신뢰구간·오차 해석 축",
+          "axis_short": "신뢰구간",
+          "axis_domain": "statistics",
           "priority": 2,
           "next_subjects": [
             "정보",
-            "통합사회2",
-            "경제"
+            "데이터사이언스",
+            "보건통계"
           ],
-          "why": "추정 결과를 바탕으로 판단할 때는 신뢰도와 한계를 함께 제시해야 한다.",
-          "student_output_hint": "추정 결과 기반 선택 기준 보고서",
+          "why": "신뢰구간과 추정 오차는 결과의 불확실성과 해석 한계를 함께 제시하게 한다.",
+          "student_output_hint": "신뢰구간 시각화 카드, 추정 오차 해석 보고서",
           "keyword_signals": [
             {
               "keywords": [
-                "의사결정",
-                "판단",
+                "신뢰구간",
+                "추정 오차",
+                "표준오차",
                 "신뢰도",
-                "추정 오차"
+                "오차"
               ],
-              "boost": 16,
+              "boost": 28,
               "label": "키워드 직접 반영",
-              "short_label": "의사결정",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "short_label": "신뢰구간",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
         },
         {
           "axis_id": "model_evaluation_uncertainty_axis",
-          "axis_title": "모델 평가·불확실성 축",
+          "axis_title": "모델 평가 축",
           "axis_short": "모델 평가",
           "axis_domain": "data",
           "priority": 3,
           "next_subjects": [
             "인공지능",
-            "컴퓨터공학"
+            "컴퓨터공학",
+            "데이터사이언스"
           ],
-          "why": "추정과 오차 해석은 예측 모델의 성능과 불확실성을 평가하는 기초가 된다.",
+          "why": "추정값과 실제값의 차이를 해석하는 과정은 예측 모델의 성능 평가로 이어진다.",
           "student_output_hint": "예측값과 실제값 비교, 오차 범위 해석 보고서",
           "keyword_signals": [
             {
               "keywords": [
+                "모델 평가",
                 "예측",
                 "오차",
-                "모델",
-                "불확실성"
+                "불확실성",
+                "데이터 해석"
               ],
-              "boost": 12,
-              "label": "키워드 보정",
+              "boost": 22,
+              "label": "키워드 직접 반영",
               "short_label": "모델 평가",
-              "desc": "선택 키워드와 맞닿은 후속 연계축이 강화됩니다.",
-              "message": "선택한 키워드가 이 축의 핵심 개념과 직접 연결되어 1순위 축이 강화됩니다.",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
               "activity_examples": []
             }
           ]
