@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.0-advanced-prelock-e1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.1-bioengineering-prelock-b1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_0_advanced_prelock_e1";
+  const ASSET_VERSION_QUERY = "v88_1_bioengineering_prelock_b1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3448,6 +3448,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       [/전자공학과|전기전자공학과|전자전기공학과|전자|전기전자|회로|센서|통신/, "전자공학과"],
       [/화학공학과|화공|화학생명공학|공업화학/, "화학공학과"],
       [/에너지공학과|에너지공학|신재생에너지|에너지시스템|에너지/, "에너지공학과"],
+      [/생명공학과|의생명공학과|생명공학|의생명|바이오공학|분자생명|유전공학|세포공학|생명과학과/, "생명공학과"],
       [/컴퓨터공학과|컴퓨터|소프트웨어/, "컴퓨터공학과"],
       [/인공지능학과|인공지능|AI/, "인공지능학과"],
       [/데이터사이언스학과|데이터사이언스|빅데이터|데이터/, "데이터사이언스학과"],
@@ -3512,6 +3513,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         directAxisDomains: ["energy", "engineering", "physics", "chemistry"],
         bridgeAxisDomains: ["data", "electronics", "info"],
         resultKeywords: ["에너지 전환", "저장 효율", "전력", "배터리", "신재생", "시스템 설계"]
+      },
+      bioengineering: {
+        bucket: "bioengineering",
+        lens: "유전 정보·세포 시스템·효소 반응·바이오공정",
+        directAxisDomains: ["biology", "chemistry", "engineering"],
+        bridgeAxisDomains: ["data", "health", "info"],
+        resultKeywords: ["DNA", "유전자", "세포막", "효소", "대사 경로", "바이오공정"]
       },
       it: {
         bucket: "it",
@@ -5246,6 +5254,17 @@ function getTrackMeta(trackId) {
     // v33.40 chemistry1 keyword-level axis hard split: make chemical bonding keywords branch instead of all falling into material-property axis.
     if (fuzzyIncludes(state.subject, "화학") || fuzzyIncludes(state.subject, "화학Ⅰ") || fuzzyIncludes(state.subject, "화학1")) {
       const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
+      const chemistryKindForAxis = (typeof getChemistry1MajorKind === "function" ? getChemistry1MajorKind() : "");
+      if (chemistryKindForAxis === "bioengineering") {
+        if (/탄소 화합물의 유용성|분자의 구조와 성질|화학 결합/.test(concept) && hit("탄소 화합물", "고분자", "단백질", "아미노산", "생체 분자", "분자 구조", "수소 결합", "공유 결합", "분자 상호작용", "친수성", "소수성")) {
+          if (/bio_molecule|생체 분자 구조|bio_molecular_interaction_axis|분자 상호작용/.test(axisText)) fallback = Math.max(fallback, 156);
+          if (/cell_engineering|세포·대사 심화|genetic_bioengineering|유전 정보·바이오공학/.test(axisText)) fallback = Math.max(fallback, 118);
+        }
+        if (/화학 반응에서의 동적 평형/.test(concept) && hit("동적 평형", "pH", "완충", "산", "염기", "효소 반응", "대사 조건", "반응 조건")) {
+          if (/enzyme_drug|효소·수용체·약물 작용|cell_engineering|세포·대사 심화|metabolic_reaction_analysis_axis|효소 반응/.test(axisText)) fallback = Math.max(fallback, 145);
+          if (/bio_molecule|생체 분자 구조/.test(axisText)) fallback = Math.max(fallback, 112);
+        }
+      }
       if (/화학 결합/.test(concept)) {
         if (hit("원자가 전자", "이온 결합", "공유 결합", "루이스 전자점식", "비공유 전자쌍", "전자쌍", "결합 종류 판별", "결합 종류", "팔전자 규칙")) {
           if (/bond_structure_axis|결합 구조 해석|결합 구조|전자 분포/.test(axisText)) fallback = Math.max(fallback, 96);
@@ -5268,7 +5287,7 @@ function getTrackMeta(trackId) {
     // 핵심: 같은 생명과학 개념 안에서도 DNA / 바이오 데이터 / 유전자 검사 / 복제·전사·번역 / 백신 등이 같은 4번 축으로 고정되지 않게 한다.
     if (fuzzyIncludes(state.subject, "생명과학") || fuzzyIncludes(state.subject, "생명과학Ⅰ") || fuzzyIncludes(state.subject, "생명과학1")) {
       const axisText = [axisId, axisTitle, axisDomain, String(axis?.short || axis?.axis_short || "")].join(" ");
-      const majorText = [state.career || "", getMajorTextBag()].join(" ");
+      const majorText = [state.career || "", state.majorSelectedName || "", getEffectiveCareerName() || "", getCareerInputText() || "", getMajorPanelResolvedName() || "", getMajorTextBag()].join(" ");
       const isNursingHealth = /(간호|보건|임상병리|의료|재활|물리치료|작업치료)/.test(majorText);
       const isMedical = /(의예|의학|의료|임상|치의|한의|수의|병리)/.test(majorText);
       const isPharmacy = /(약학|제약|신약|약물|약대|화공)/.test(majorText);
@@ -5276,6 +5295,22 @@ function getTrackMeta(trackId) {
       const isFoodNutrition = /(식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(majorText);
       const isEnv = /(환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(majorText);
       const isBioInfo = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|통계|알고리즘|바이오인포매틱스|생명정보|헬스케어)/i.test(majorText);
+
+      if (isBioEng) {
+        if (/유전자와 염색체/.test(concept) && hit("DNA", "유전자", "염색체", "염기 서열", "복제", "전사", "번역", "단백질 합성", "유전체")) {
+          if (/genetic_bioengineering|유전 정보·바이오공학|유전 정보.*바이오공학/.test(axisText)) fallback = Math.max(fallback, 165);
+          if (/genetic_information_axis|유전 정보 해석 축/.test(axisText)) fallback = Math.max(fallback, 120);
+          if (/gene_expression_protein_axis|유전자 발현·단백질 합성 축/.test(axisText)) fallback = Math.max(fallback, 118);
+        }
+        if (/생명과학의 이해/.test(concept) && hit("생명 시스템", "세포", "항상성", "바이오 기술", "생체 모방", "응용")) {
+          if (/genetic_bioengineering|유전 정보·바이오공학|bio_convergence_intro_axis|바이오 융합/.test(axisText)) fallback = Math.max(fallback, 132);
+          if (/life_system_intro_axis|생명 시스템 이해 축/.test(axisText)) fallback = Math.max(fallback, 112);
+        }
+        if (/물질대사와 에너지/.test(concept) && hit("ATP", "세포 호흡", "광합성", "효소", "대사 경로", "에너지 전환", "대사 조절", "바이오공정")) {
+          if (/cell_engineering|세포·대사 심화|cell_energy_axis|세포 에너지|cell_culture_bioprocess_axis|세포 배양/.test(axisText)) fallback = Math.max(fallback, 150);
+          if (/genetic_bioengineering|유전 정보·바이오공학/.test(axisText)) fallback = Math.max(fallback, 115);
+        }
+      }
 
       if (/유전자와 염색체/.test(concept)) {
         if (hit("DNA", "유전자", "염색체", "유전 정보") && !hit("유전자 검사", "정밀의학", "돌연변이", "질병", "진단", "유전 질환")) {
@@ -6537,6 +6572,7 @@ function getTrackMeta(trackId) {
     if (has(/신소재공학과|재료공학과|신소재|재료|나노소재|고분자|금속|세라믹|소재/)) return "materials";
     if (has(/반도체공학과|반도체|나노반도체|시스템반도체|소자공학|전자소자/)) return "semiconductor";
     if (has(/전자공학과|전기전자|전기공학과|전자전기|회로|센서|통신|전파|임베디드/)) return "electronics";
+    if (has(/생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/)) return "bioengineering";
     if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
     if (has(/환경공학과|환경공학|대기환경|보건환경|환경보건|환경에너지|기후환경|환경과학|환경/)) return "environment";
     if (has(/화학과|응용화학|화학생명|화학/)) return "chemistry";
@@ -6616,6 +6652,19 @@ function getTrackMeta(trackId) {
         "분자의 구조와 성질",
         "현대의 원자 모형과 전자 배치",
         "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
+    if (chemistryMajorKind === "bioengineering") {
+      return [
+        "탄소 화합물의 유용성",
+        "분자의 구조와 성질",
+        "화학 반응에서의 동적 평형",
+        "화학 결합",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "원자의 구조",
+        "원소의 주기적 성질",
         "화학과 우리 생활"
       ];
     }
@@ -7239,6 +7288,21 @@ function getTrackMeta(trackId) {
     const kind = getCellMetabolismMajorKind();
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let boost = 0;
+
+    if (kind === "bioengineering") {
+      if (/세포의 구조와 물질 이동/.test(concept) && hit("세포막", "막단백질", "선택적 투과", "능동 수송", "세포 배양", "세포 소기관", "인지질 이중층", "확산", "삼투")) {
+        if (/cell_engineering|세포·대사 심화|cell_system_transport_axis|세포 시스템|cell_culture_bioprocess_axis|세포 배양/.test(axisText)) boost = Math.max(boost, 520);
+        if (/phase_biomaterial|물질 상태·생체 재료|bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 250);
+      }
+      if (/효소와 대사 반응/.test(concept) && hit("효소", "기질", "기질 특이성", "반응 속도", "대사 경로", "피드백 조절", "활성화 에너지", "저해제")) {
+        if (/cell_engineering|세포·대사 심화|metabolic_reaction_analysis_axis|효소 반응|enzyme_drug|효소·수용체/.test(axisText)) boost = Math.max(boost, 520);
+        if (/bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 230);
+      }
+      if (/광합성과 세포 호흡/.test(concept) && hit("ATP", "세포 호흡", "광합성", "전자 전달계", "대사 경로", "에너지 전환", "바이오에너지")) {
+        if (/cell_engineering|세포·대사 심화|energy_conversion_analysis_axis|생명 에너지 전환/.test(axisText)) boost = Math.max(boost, 500);
+        if (/bioenergy_efficiency_axis|바이오에너지/.test(axisText)) boost = Math.max(boost, 260);
+      }
+    }
 
     if (/세포의 구조와 물질 이동/.test(concept)) {
       // v34.26 cell-metabolism keyword split:
@@ -8129,6 +8193,10 @@ function getTrackMeta(trackId) {
     }
     if (isBioEngMajor) {
       if (/유전자와 염색체/.test(concept)) return ["DNA", "유전자", "염색체", "염기 서열", "복제", "전사", "번역", "단백질 합성", "바이오 데이터", "유전자 검사", "유전체", "정밀의학"];
+      if (/생명과학의 이해/.test(concept)) return ["생명 시스템", "세포", "항상성", "생명 현상", "바이오 기술", "생체 모방", "탐구 대상", "구성 단계", "시스템", "응용"];
+      if (/물질대사와 에너지/.test(concept)) return ["ATP", "세포 호흡", "광합성", "효소", "대사 경로", "에너지 전환", "피드백 조절", "반응 속도", "바이오공정", "대사 조절"];
+      if (/면역과 백신/.test(concept)) return ["항원", "항체", "면역 반응", "백신", "면역 기억", "병원체", "진단", "감염", "바이오의약", "안전성"];
+      if (/진화와 생물 다양성/.test(concept)) return ["진화", "자연선택", "생물 다양성", "계통수", "종 다양성", "생물 자원", "분류", "비교 분석"];
     }
     if (isIt) {
       if (/유전자와 염색체/.test(concept)) return ["DNA", "유전 정보", "유전자", "염색체", "정보 저장", "염기 서열", "형질 발현", "돌연변이", "유전 정보 해석", "생명 정보"];
@@ -8154,7 +8222,15 @@ function getTrackMeta(trackId) {
     const isChemEng = chemistryMajorKind === "chemical_engineering";
     const isEnergy = chemistryMajorKind === "energy";
     const isMaterials = chemistryMajorKind === "materials";
+    const isBioEng = chemistryMajorKind === "bioengineering";
     const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
+    if (isBioEng) {
+      if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "고분자", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "작용기", "분자 구조", "바이오 소재", "분자 상호작용"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "분자 사이 힘", "수소 결합", "단백질 구조", "생체 분자", "용해도", "친수성", "소수성", "물성"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["동적 평형", "pH", "완충 용액", "산", "염기", "효소 반응", "대사 조건", "평형 이동", "세포 환경", "반응 조건"];
+      if (/화학 결합/.test(concept)) return ["공유 결합", "수소 결합", "이온 결합", "전기음성도", "결합의 극성", "생체 분자", "단백질", "분자 상호작용", "분자 모형"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "반응식", "수율", "농도", "시료", "오차", "정량 분석"];
+    }
     if (isChemEng) {
       if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "화학 반응식", "계수비", "몰 질량", "수율", "생산량", "공정", "효율", "몰 농도", "희석", "오차", "그래프"];
       if (/화학 반응과 열의 출입/.test(concept)) return ["반응 엔탈피", "발열 반응", "흡열 반응", "열량", "중화 반응", "산화", "환원", "산화수", "전자 이동", "전지", "효율", "안전"];
@@ -8510,6 +8586,7 @@ function getTrackMeta(trackId) {
     if (/(전기|전자|회로|센서|통신|전파|임베디드|의공|의료기기|바이오메디컬)/.test(text)) return "electronic";
     if (/(컴퓨터|소프트웨어|인공지능|AI|데이터|보안|정보|통계|게임|앱|웹|네트워크|빅데이터)/i.test(text)) return "it";
     if (/(도시공학|도시설계|도시계획|도시|건축|토목|공간|교통|인프라|주거|생활권|녹지|열섬|조경)/.test(text)) return "urban";
+    if (/(생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|생명과학과|바이오테크|바이오헬스)/.test(text)) return "bio";
     if (/(간호|의학|의예|치의|약학|보건|수의|생명|바이오|의료|임상|재활|물리치료|작업치료|언어치료|방사선|응급구조|제약|식품영양)/.test(text)) return "bio";
     if (/(환경|기후|지구|우주|천문|해양|지리|소방|방재|안전|재난)/.test(text)) return "env";
     if (/(경영|경제|회계|무역|마케팅|금융|창업|산업공학|산업경영|경영정보|MIS|행정|정책)/.test(text)) return "business";
