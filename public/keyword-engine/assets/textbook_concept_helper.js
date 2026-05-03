@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.7-mechanical-axis-c2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.8-data-science-prelock-d1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_7_mechanical_axis_c2";
+  const ASSET_VERSION_QUERY = "v88_8_data_science_prelock_d1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4211,6 +4211,76 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       }
     }
 
+    // v88.8 D1-lock: 데이터사이언스/통계 계열은 4번 후보가 프로그래밍/공학 일반 축으로만 몰리지 않고
+    // 데이터 분포·표본·추정·시각화·의사결정 축이 먼저 보이도록 보정한다.
+    if (isDataScienceMajorSelectedContext()) {
+      const axisKey = [String(axis?.id || axis?.axis_id || ""), axisText].join(" ");
+      const boostAxis = (pattern, amount) => { if (pattern.test(axisKey)) score += amount; };
+      const suppressAxis = (pattern, amount) => { if (pattern.test(axisKey)) score -= amount; };
+      if (/확률과 통계/.test(subject)) {
+        if (/확률변수와 확률분포/.test(concept)) {
+          boostAxis(/distribution_modeling_axis|데이터 분포·모델링 축|분포.*모델링/, 190);
+          boostAxis(/expected_value_decision_axis|기댓값·의사결정 축|기댓값/, 150);
+          boostAxis(/visual_pattern_interpretation_axis|시각화·패턴 해석 축|시각화/, 130);
+        }
+        if (/이항분포와 정규분포/.test(concept)) {
+          boostAxis(/distribution_prediction_model_axis|분포 모델·예측 축|예측/, 190);
+          boostAxis(/normal_standardization_axis|정규분포·표준화 해석 축|표준화/, 160);
+          boostAxis(/model_approximation_axis|모델 비교·근사 축|근사/, 120);
+        }
+        if (/통계적 추정/.test(concept)) {
+          boostAxis(/statistical_inference_confidence_axis|추정·신뢰구간 해석 축|신뢰구간/, 190);
+          boostAxis(/data_decision_support_axis|데이터 기반 의사결정 축|데이터 기반/, 160);
+          boostAxis(/model_evaluation_uncertainty_axis|모델 평가·불확실성 축|불확실성/, 130);
+        }
+        if (/모집단과 표본/.test(concept)) {
+          boostAxis(/sampling_design_axis|표본 설계·자료 수집 축|표본 설계/, 180);
+          boostAxis(/sampling_error_reliability_axis|표본오차·신뢰도 축|신뢰도/, 160);
+          boostAxis(/survey_data_interpretation_axis|조사 데이터 해석 축|조사 데이터/, 120);
+        }
+        if (/조건부확률과 사건의 독립/.test(concept)) {
+          boostAxis(/data_classification_prediction_axis|데이터 분류·예측 판단 축|분류.*예측/, 170);
+          boostAxis(/conditional_decision_risk_axis|조건부 판단·리스크 해석 축|조건부 판단/, 150);
+          boostAxis(/independence_validation_axis|독립성 검증 축|독립성/, 120);
+        }
+        suppressAxis(/충돌|기계|소재|의료|간호|공정|부식|회로/, 70);
+      }
+      if (subject === "정보") {
+        if (/자료와 정보의 분석/.test(concept)) {
+          boostAxis(/data_visual|데이터 수집·시각화 축|시각화/, 180);
+          boostAxis(/database|데이터베이스·정보구조 축|정보구조/, 160);
+          boostAxis(/data_decision|데이터 해석·의사결정 축|의사결정/, 150);
+        }
+        if (/알고리즘 설계와 분석/.test(concept)) {
+          boostAxis(/algo_opt|알고리즘 최적화 축|최적화/, 160);
+          boostAxis(/search_sort|탐색·정렬 구현 축|탐색·정렬/, 150);
+          boostAxis(/data_prediction|데이터 처리·예측 축|예측 처리/, 140);
+        }
+        if (/추상화와 문제 분해/.test(concept)) {
+          boostAxis(/problem_design|문제 구조화·알고리즘 설계 축|구조화/, 160);
+          boostAxis(/math_modeling|수리 모델링 확장 축|모델링/, 150);
+          boostAxis(/process_optimization|시스템 설계·절차 최적화 축|절차 설계/, 110);
+        }
+      }
+      if (/대수/.test(subject)) {
+        if (/지수함수와 로그함수의 활용/.test(concept)) {
+          boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 150);
+          boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 150);
+          boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 70);
+        }
+      }
+      if (/미적분1/.test(subject)) {
+        if (/도함수의 활용/.test(concept)) {
+          boostAxis(/optimization|최적화·변화율 판단 축|변화율/, 150);
+          boostAxis(/model|모델|예측|데이터/, 120);
+        }
+        if (/정적분의 활용/.test(concept)) {
+          boostAxis(/accumulation|누적량·면적 모델링 축|누적량|면적/, 150);
+          boostAxis(/simulation|시뮬레이션·수치 근사 축|수치 근사/, 130);
+        }
+      }
+    }
+
     return score;
   }
 
@@ -4757,6 +4827,18 @@ function getTrackMeta(trackId) {
     ];
 
     if (!majorText) return defaultSequence;
+
+    if (isDataScienceMajorSelectedContext()) {
+      return [
+        "자료와 정보의 분석",
+        "알고리즘 설계와 분석",
+        "추상화와 문제 분해",
+        "자료와 정보의 표현",
+        "프로그래밍과 자동화",
+        "컴퓨팅 시스템과 네트워크",
+        "지식·정보 사회와 정보 문화"
+      ];
+    }
 
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
       return [
@@ -6104,6 +6186,21 @@ function getTrackMeta(trackId) {
 
     if (!majorText) return defaultSequence;
 
+    if (isDataScienceMajorSelectedContext()) {
+      return [
+        "지수함수와 로그함수의 활용",
+        "로그함수의 뜻과 그래프",
+        "등차수열과 등비수열",
+        "수열의 합",
+        "수학적 귀납법",
+        "지수함수의 뜻과 그래프",
+        "로그의 뜻과 성질",
+        "상용로그",
+        "지수의 확장",
+        "거듭제곱과 거듭제곱근"
+      ];
+    }
+
     if (isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it") {
       return [
         "지수함수와 로그함수의 활용",
@@ -6177,6 +6274,17 @@ function getTrackMeta(trackId) {
       "정적분의 활용"
     ];
     if (!majorText) return defaultSequence;
+    if (isDataScienceMajorSelectedContext()) {
+      return [
+        "도함수의 활용",
+        "정적분의 활용",
+        "수열의 극한",
+        "급수",
+        "여러 가지 함수의 미분",
+        "여러 가지 미분법",
+        "여러 가지 적분법"
+      ];
+    }
     if (isCalculus1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(majorText) || bucket === "it") {
       return [
         "도함수의 활용",
@@ -6213,6 +6321,23 @@ function getTrackMeta(trackId) {
     return defaultSequence;
   }
 
+  function isDataScienceMajorSelectedContext() {
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+    if (/(데이터사이언스학과|데이터사이언스|데이터과학|빅데이터|데이터분석|데이터공학|AI데이터|인공지능데이터|통계학과|응용통계|산업데이터|정보통계|수리데이터|데이터애널리틱스|데이터 분석)/i.test(localBag)) return true;
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*(데이터사이언스학과|통계학과|빅데이터)/.test(bodyText) || /학과\s*(데이터사이언스학과|통계학과|빅데이터)/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
   function isProbabilityStatisticsComputerMajorContext() {
     const localBag = [
       state.career || "",
@@ -6245,6 +6370,19 @@ function getTrackMeta(trackId) {
     ];
 
     if (!majorText) return defaultSequence;
+
+    if (isDataScienceMajorSelectedContext()) {
+      return [
+        "확률변수와 확률분포",
+        "이항분포와 정규분포",
+        "통계적 추정",
+        "모집단과 표본",
+        "조건부확률과 사건의 독립",
+        "확률의 뜻과 기본 성질",
+        "순열과 조합",
+        "이항정리"
+      ];
+    }
 
     if (isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it") {
       return [
@@ -8076,6 +8214,14 @@ function getTrackMeta(trackId) {
     const concept = state.concept || "";
     const isIt = isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
 
+    if (isDataScienceMajorSelectedContext()) {
+      if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "로그모델", "성장", "감소", "예측", "스케일 변환", "데이터 추세", "실생활 적용", "방사성 붕괴"];
+      if (/로그함수의 뜻과 그래프/.test(concept)) return ["로그함수", "스케일 변환", "그래프 대칭", "증가", "점근선", "역함수", "데이터 변환", "로그 스케일"];
+      if (/등차수열과 등비수열/.test(concept)) return ["등차수열", "등비수열", "일반항", "증가 규칙", "반복 규칙", "패턴", "시계열", "예측"];
+      if (/수열의 합/.test(concept)) return ["누적합", "부분합", "시그마", "합 공식", "누적 데이터", "누적 변화", "반복 계산", "집계"];
+      if (/수학적 귀납법/.test(concept)) return ["수학적 귀납법", "명제", "귀납 가정", "귀납 단계", "반복 논리", "알고리즘 정당성", "재귀", "검증"];
+    }
+
     if (isIt) {
       if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "성장", "감소", "충전 증가", "채널 용량", "로그모델", "방사성 붕괴", "별의 등급", "실생활 적용"];
       if (/등차수열과 등비수열/.test(concept)) return ["등차수열", "등비수열", "일반항", "공차", "공비", "규칙성", "반복 규칙", "패턴", "증가 규칙"];
@@ -8097,6 +8243,17 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isIt = isProbabilityStatisticsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
+
+    if (isDataScienceMajorSelectedContext()) {
+      if (/확률변수와 확률분포/.test(concept)) return ["확률분포", "확률변수", "기댓값", "분산", "표준편차", "평균", "분포 비교", "그래프", "데이터", "예측", "모델링"];
+      if (/이항분포와 정규분포/.test(concept)) return ["정규분포", "이항분포", "표준화", "표준정규분포", "근사", "분포 비교", "평균", "표준편차", "성공 확률", "예측 모델"];
+      if (/통계적 추정/.test(concept)) return ["통계적 추정", "표본평균", "모평균", "신뢰구간", "추정 오차", "표준오차", "신뢰도", "데이터 해석", "모델 평가", "의사결정"];
+      if (/모집단과 표본/.test(concept)) return ["모집단", "표본", "표본추출", "표본오차", "대표성", "무작위 추출", "편향", "자료 수집", "신뢰도", "조사 데이터"];
+      if (/조건부확률과 사건의 독립/.test(concept)) return ["조건부확률", "독립", "종속", "사건", "베이즈", "예측", "분류", "판단", "위험", "의사결정"];
+      if (/확률의 뜻과 기본 성질/.test(concept)) return ["표본공간", "사건", "확률", "상대도수", "반복 시행", "불확실성", "데이터", "모델링"];
+      if (/순열과 조합/.test(concept)) return ["조합", "순열", "경우의 수", "선택", "배열", "탐색", "분기", "추천 조합"];
+      if (/이항정리/.test(concept)) return ["이항정리", "이항계수", "파스칼의 삼각형", "계수", "패턴", "조합", "규칙 일반화"];
+    }
 
     if (isIt) {
       if (/순열과 조합/.test(concept)) return ["순열", "조합", "경우의 수", "중복순열", "중복조합", "배열", "선택", "경우 나누기", "탐색", "분기"];
@@ -8169,6 +8326,16 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isIt = /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it";
+
+    if (isDataScienceMajorSelectedContext()) {
+      if (/자료와 정보의 분석/.test(concept)) return ["자료 분석", "자료 수집", "비교 기준", "시각화", "정렬", "탐색", "의미 있는 정보", "데이터베이스", "분석 과정", "의사결정"];
+      if (/알고리즘 설계와 분석/.test(concept)) return ["효율성", "성능 비교", "탐색", "정렬", "이진 탐색", "수행 시간", "반복", "예측 처리", "알고리즘 최적화"];
+      if (/추상화와 문제 분해/.test(concept)) return ["문제 분해", "조건 분석", "모델링", "현재 상태", "목표 상태", "작은 문제로 나누기", "변수", "기준 설정"];
+      if (/자료와 정보의 표현/.test(concept)) return ["디지털 정보", "자료 표현", "부호화", "표현 방식 선택", "데이터 변환", "저장", "전송"];
+      if (/프로그래밍과 자동화/.test(concept)) return ["Python", "변수 설계", "조건문", "반복문", "리스트", "자료 처리", "자동화", "데이터 처리"];
+      if (/컴퓨팅 시스템과 네트워크/.test(concept)) return ["네트워크", "공유", "협업", "데이터 전송", "플랫폼", "보안", "컴퓨팅 네트워크 환경"];
+      if (/지식·정보 사회와 정보 문화/.test(concept)) return ["정보 윤리", "데이터 윤리", "개인정보", "정보 보호", "디지털 시민성", "공유와 협업"];
+    }
 
     if (isIt) {
       if (/알고리즘 설계와 분석/.test(concept)) return ["효율성", "성능 비교", "이진 탐색", "정렬", "탐색", "순차 탐색", "선택 정렬", "버블 정렬", "수행 시간", "반복", "선택", "순차"];
@@ -8316,6 +8483,16 @@ function getTrackMeta(trackId) {
     const concept = state.concept || "";
     const isIt = isCalculus1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(majorText) || bucket === "it";
     const isMechanical = isMechanicalEngineeringMajorSelectedContext() || /(기계공학과|기계|자동차|모빌리티|항공|로봇|메카트로닉스|열유체|냉동공조)/.test(majorText) || bucket === "mechanical";
+    // v88.8 D1-lock: 데이터사이언스/통계 계열은 변화율·누적량·수렴을
+    // 모델 학습, 예측, 데이터 해석과 연결하는 키워드를 먼저 노출한다.
+    if (isDataScienceMajorSelectedContext()) {
+      if (/도함수의 활용/.test(concept)) return ["변화율", "최적화", "극값", "최댓값", "최솟값", "그래프 개형", "모델 오차", "학습률", "예측 모델", "의사결정"];
+      if (/정적분의 활용/.test(concept)) return ["누적량", "면적", "리만 합", "수치 근사", "누적 데이터", "분포 면적", "모델링", "시뮬레이션"];
+      if (/수열의 극한/.test(concept)) return ["수렴", "발산", "장기 변화", "반복", "수열", "극한", "모델 안정성", "수렴 판정"];
+      if (/급수/.test(concept)) return ["급수", "부분합", "누적", "무한합", "수렴", "발산", "오차", "근사"];
+      if (/여러 가지 함수의 미분/.test(concept)) return ["도함수", "지수함수 미분", "로그함수 미분", "변화율", "표준 극한", "모델 변화", "데이터 변환"];
+    }
+
     // v88.7 C2-lock: 기계계열 미적분1은 컴퓨터/데이터형 키워드가 아니라
     // 변화율·속도·가속도·누적량·일/에너지처럼 기계 시스템 해석에 필요한 키워드를 먼저 노출한다.
     if (isMechanical) {
