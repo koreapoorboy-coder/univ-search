@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.2-environment-urban-prelock-f1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.3-env-urban-final-lock-f2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -4770,6 +4770,31 @@ function getTrackMeta(trackId) {
 
     if (!majorText) return defaultSequence;
 
+    // v89.3 F2-lock: 환경공학/도시공학 계열은 생태·바이오 일반 분기보다 먼저 판별한다.
+    // "환경공학과" 화면 텍스트에 생태/생물 단어가 함께 섞이면 기존 생명·바이오 분기로 끌려가
+    // `진화와 생물다양성`이 1번으로 뜨는 문제가 있어, 실제 선택 학과를 우선한다.
+    const f2SelectedMajorText = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ").trim();
+    const f2IsUrban = /(도시공학과|도시공학|도시계획|도시설계|건축공학|건축|토목공학|토목|건설환경|토목환경|교통공학|교통|인프라|주거|조경|공간정보)/.test(f2SelectedMajorText) || bucket === "urban";
+    const f2IsEnvironment = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|수질|대기|폐기물|환경보건|생태공학)/.test(f2SelectedMajorText) || bucket === "env";
+    const f2IsSafety = /(안전공학과|안전공학|재난안전|방재|소방|위험도|방재공학)/.test(f2SelectedMajorText);
+
+    if (f2IsUrban) {
+      return ["지구 환경 변화와 인간 생활", "에너지 효율과 신재생 에너지", "과학 기술과 미래 사회", "생물과 환경", "생태계평형", "지구 환경 변화", "발전과 에너지원", "과학 기술 사회에서 빅데이터 활용", "과학 관련 사회적 쟁점과 과학 윤리", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "진화와 생물다양성", "태양 에너지의 생성과 전환", "과학의 유용성과 필요성"];
+    }
+    if (f2IsEnvironment) {
+      return ["지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형", "지구 환경 변화", "에너지 효율과 신재생 에너지", "과학 기술 사회에서 빅데이터 활용", "과학 관련 사회적 쟁점과 과학 윤리", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "발전과 에너지원", "태양 에너지의 생성과 전환", "진화와 생물다양성", "과학의 유용성과 필요성", "과학 기술과 미래 사회"];
+    }
+    if (f2IsSafety) {
+      return ["지구 환경 변화와 인간 생활", "과학 기술과 미래 사회", "과학 관련 사회적 쟁점과 과학 윤리", "생물과 환경", "생태계평형", "지구 환경 변화", "에너지 효율과 신재생 에너지", "발전과 에너지원", "과학 기술 사회에서 빅데이터 활용", "산과 염기", "산화와 환원", "물질 변화에서 에너지의 출입", "진화와 생물다양성", "태양 에너지의 생성과 전환", "과학의 유용성과 필요성"];
+    }
+
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계)/i.test(majorText) || bucket === "it") {
       return [
         "이차방정식과 이차함수",
@@ -5052,10 +5077,11 @@ function getTrackMeta(trackId) {
 
     if (/생물과 환경|생태계평형|진화와 생물다양성/.test(concept)) {
       if (isEnv && hit("생태", "생물다양성", "환경 요인", "보전", "복원", "수질", "서식지", "생태계")) {
-        if (/생태|환경 요인|보전|지속가능|생태 관리|환경/i.test(axisText)) boost = Math.max(boost, 380);
+        if (/환경 요인|환경 변화|보전|복원|지속가능|생태 관리|환경|수질|서식지/i.test(axisText)) boost = Math.max(boost, 430);
+        if (/biology|생명·환경 해석 축|생명 다양성 해석/i.test(axisText) && !/환경|보전|생태 관리|환경 요인/i.test(axisText)) boost = Math.max(boost - 120, 0);
       }
       if (isUrban && hit("녹지", "생태", "열섬", "도시", "공원", "보전", "서식지")) {
-        if (/생태|환경|관리|설계|지속가능/i.test(axisText)) boost = Math.max(boost, 300);
+        if (/생태|환경|관리|설계|지속가능|녹지|도시/i.test(axisText)) boost = Math.max(boost, 330);
       }
     }
 
@@ -9249,6 +9275,35 @@ function getTrackMeta(trackId) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
 
+    // v89.3 F2-lock: 통합과학2 환경공학/도시·토목·건축 대표 3개 최종 고정.
+    // 점수 계산에서 생태/바이오 키워드가 강하게 잡혀도 화면 최종 3개는 검수 기준을 따른다.
+    const f2PrimarySubject = String(state.subject || "").replace(/\s+/g, "");
+    if (/^(통합과학2|통합과학Ⅱ|통합과학II)$/.test(f2PrimarySubject)) {
+      const f2PrimaryMajorText = [
+        state.career || "",
+        state.majorSelectedName || "",
+        getEffectiveCareerName() || "",
+        getCareerInputText() || "",
+        getMajorPanelResolvedName() || "",
+        getMajorTextBag() || ""
+      ].join(" ").trim();
+      const f2PrimaryIsUrban = /(도시공학과|도시공학|도시계획|도시설계|건축공학|건축|토목공학|토목|건설환경|토목환경|교통공학|교통|인프라|주거|조경|공간정보)/.test(f2PrimaryMajorText);
+      const f2PrimaryIsEnv = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|수질|대기|폐기물|환경보건|생태공학)/.test(f2PrimaryMajorText);
+      const f2PrimaryIsSafety = /(안전공학과|안전공학|재난안전|방재|소방|위험도|방재공학)/.test(f2PrimaryMajorText);
+      let forced = [];
+      if (f2PrimaryIsUrban) {
+        forced = ["지구 환경 변화와 인간 생활", "에너지 효율과 신재생 에너지", "과학 기술과 미래 사회"];
+      } else if (f2PrimaryIsEnv) {
+        forced = ["지구 환경 변화와 인간 생활", "생물과 환경", "생태계평형"];
+      } else if (f2PrimaryIsSafety) {
+        forced = ["지구 환경 변화와 인간 생활", "과학 기술과 미래 사회", "과학 관련 사회적 쟁점과 과학 윤리"];
+      }
+      if (forced.length) {
+        const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+        const others = ranked.filter(item => !forced.includes(item.concept));
+        return uniq([...forcedItems, ...others]).slice(0, 3);
+      }
+    }
 
     // v88.6 C1-lock: 기계공학과 대표 검수용 고급 선택과목 3개 노출.
     // 1학년 이후 과목은 화면 점수 필터가 다른 계열 키워드에 끌리는 경우가 있어,
