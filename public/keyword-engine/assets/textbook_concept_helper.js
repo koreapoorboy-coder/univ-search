@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.3-env-urban-final-lock-f2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.4-env-f1-axis-f3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -3897,6 +3897,70 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
           desc: "pH나 농도 자료를 표·그래프로 정리해 건강 지표와 간호·보건 판단으로 연결하는 방향입니다.",
           easy: "pH 측정값 비교표, 건강 지표 그래프, 자료 기반 판단 보고서",
           activityExamples: ["pH 측정값을 표와 그래프로 정리", "정상 범위와 이상 범위 비교", "자료 기반 건강 관리 판단 기준 제안"]
+        });
+      }
+    } catch (error) {}
+
+    // v89.4 F3-lock: 환경공학과 + 통합과학2의 '지구 환경 변화' 계열은
+    // 기존 일반 축(지구 환경 변화 해석 / 생물 변천 환경 추론 / 증거자료 연표 해석)만 보이면
+    // 환경공학 선택지로는 너무 약하다. 4번 후보를 기후·환경 영향, 위험 대응,
+    // 자료 기반 환경 관리 방향으로 보강한다.
+    try {
+      const subjectText = String(state.subject || "");
+      const conceptText = String(state.concept || "");
+      const keywordText = String(state.keyword || "");
+      const majorText = [
+        state.career || "",
+        state.majorSelectedName || "",
+        getEffectiveCareerName?.() || "",
+        getCareerInputText?.() || "",
+        getMajorPanelResolvedName?.() || "",
+        getMajorTextBag?.() || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      const bucket = detectCareerBucket(majorText);
+      const isEnvMajor = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|수질|대기|폐기물|환경|기후)/.test(majorText) || bucket === "env";
+      const isIntegratedScience2 = /통합과학2|통합과학Ⅱ/.test(subjectText);
+      const isEarthEnvChangeConcept = /지구 환경 변화|지구 환경 변화와 인간 생활/.test(conceptText);
+      const isF1Keyword = !keywordText || /지구 환경 변화|기후 변화|환경 변화|환경 재해|환경 문제|탄소중립|온실가스|인간 생활|대응|사회적 영향|정책|생물 변천|증거자료|연표/.test(keywordText);
+
+      if (isIntegratedScience2 && isEnvMajor && isEarthEnvChangeConcept && isF1Keyword) {
+        const pushUniqueContextAxis = (seed) => {
+          if (!list.some(axis => String(axis.id || axis.axis_id || "") === seed.id)) {
+            list.push(makeContextFollowupAxis(seed));
+          }
+        };
+        pushUniqueContextAxis({
+          id: "env_climate_impact_response_axis",
+          title: "기후·환경 영향 분석 축",
+          short: "기후·환경 영향",
+          axisDomain: "earth_env",
+          priority: -30,
+          linkedSubjects: ["지구시스템과학", "통합사회1", "환경", "확률과 통계"],
+          desc: "지구 환경 변화 개념을 기후 변화, 생활환경 변화, 온실가스, 환경 재해의 영향 분석으로 연결하는 방향입니다.",
+          easy: "기후 변화 원인·영향 비교, 생활환경 변화 사례 정리, 환경 문제 영향 분석 보고서",
+          activityExamples: ["기후 변화가 인간 생활에 미치는 영향 비교표", "온실가스와 생활환경 변화 자료 해석", "지역별 환경 변화 사례 조사"]
+        });
+        pushUniqueContextAxis({
+          id: "env_risk_response_management_axis",
+          title: "환경 위험·대응 관리 축",
+          short: "위험 대응·관리",
+          axisDomain: "earth_env",
+          priority: -29,
+          linkedSubjects: ["지구시스템과학", "통합사회1", "환경", "공통국어1"],
+          desc: "환경 변화 자료를 환경 재해, 위험 대응, 적응 전략, 정책 제안과 연결해 환경공학형 문제 해결로 확장하는 방향입니다.",
+          easy: "환경 재해 대응 전략, 위험 요인 분류, 적응·완화 정책 제안",
+          activityExamples: ["폭염·침수·대기오염 위험 대응 카드 정리", "환경 변화 대응 전략 비교", "지역 환경 위험 저감 방안 제안"]
+        });
+        pushUniqueContextAxis({
+          id: "env_data_monitoring_axis",
+          title: "환경 자료·모니터링 축",
+          short: "자료·모니터링",
+          axisDomain: "data",
+          priority: -28,
+          linkedSubjects: ["확률과 통계", "정보", "지구시스템과학", "환경"],
+          desc: "환경 변화 자료를 표·그래프·시계열로 정리해 환경 지표와 모니터링 기준으로 해석하는 방향입니다.",
+          easy: "기온·강수·대기질 자료 그래프, 환경 지표 비교, 자료 기반 모니터링 보고서",
+          activityExamples: ["기후·대기질 자료 그래프화", "환경 지표 변화 추세 분석", "자료 기반 환경 관리 기준 제안"]
         });
       }
     } catch (error) {}
