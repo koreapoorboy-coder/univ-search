@@ -1,4 +1,5 @@
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v85.0-step3-4-route-stabilizer';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
   function $(id) { return document.getElementById(id); }
