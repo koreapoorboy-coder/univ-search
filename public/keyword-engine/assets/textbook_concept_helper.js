@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.4-nursing-health-prelock-h1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.5-nursing-chem-acidbase-h2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_4_nursing_health_prelock_h1";
+  const ASSET_VERSION_QUERY = "v88_5_nursing_chem_acidbase_h2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3801,6 +3801,57 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const pushIfMissing = (seed, ...domains) => {
       if (!hasDomain(...domains)) list.push(makeContextFollowupAxis(seed));
     };
+
+    // v88.5 H2-lock: 간호학과 + 화학 + '화학 반응에서의 동적 평형'은
+    // 공정/평형 일반 축보다 체액 pH·완충·항상성·건강 관리 축을 먼저 보여준다.
+    // 기존 JSON 축을 새로 지우지 않고, 간호/보건 맥락에서만 선택 후보를 보강한다.
+    try {
+      const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
+      const isNursingChem = isChemSubject && typeof getChemistry1MajorKind === "function" && getChemistry1MajorKind() === "nursing";
+      const isAcidBaseConcept = /화학 반응에서의 동적 평형/.test(String(state.concept || ""));
+      const kw = String(state.keyword || "");
+      const isHealthAcidBaseKeyword = /pH|완충|완충 용액|산|염기|중화|체액|혈액|혈액 pH|건강 지표|농도|수질/.test(kw);
+      if (isNursingChem && isAcidBaseConcept && isHealthAcidBaseKeyword) {
+        const pushUniqueContextAxis = (seed) => {
+          if (!list.some(axis => String(axis.id || axis.axis_id || "") === seed.id)) {
+            list.push(makeContextFollowupAxis(seed));
+          }
+        };
+        pushUniqueContextAxis({
+          id: "body_fluid_buffer_homeostasis_axis",
+          title: "체액 pH·완충 항상성 축",
+          short: "체액 pH·완충",
+          axisDomain: "health",
+          priority: 1,
+          linkedSubjects: ["생명과학", "세포와 물질대사", "보건", "간호학과"],
+          desc: "산·염기와 완충 용액 개념을 혈액 pH, 체액 조절, 내부 환경 유지와 연결해 해석하는 방향입니다.",
+          easy: "혈액 pH와 완충 작용, 체액 조절, 내부 환경 유지 사례 정리",
+          activityExamples: ["혈액 pH가 좁은 범위로 유지되는 이유 정리", "완충 용액과 체액 항상성 연결 카드 만들기", "산·염기 변화가 인체 조절에 미치는 영향 비교"]
+        });
+        pushUniqueContextAxis({
+          id: "acid_base_health_management_axis",
+          title: "산염기·건강 관리 축",
+          short: "산염기·건강",
+          axisDomain: "health",
+          priority: 2,
+          linkedSubjects: ["화학", "생명과학", "보건", "간호학과"],
+          desc: "pH, 중화, 산·염기 판단을 생활 건강, 체액 균형, 간호·보건 관리 기준과 연결하는 방향입니다.",
+          easy: "생활 용액 pH 비교, 산염기 균형, 건강 관리 기준 정리",
+          activityExamples: ["생활 용액 pH를 건강·안전 기준과 비교", "중화 반응을 응급·생활 보건 상황과 연결", "체액 균형 관리 기준 조사"]
+        });
+        pushUniqueContextAxis({
+          id: "health_ph_data_interpretation_axis",
+          title: "건강 지표·pH 데이터 해석 축",
+          short: "pH 데이터·건강 지표",
+          axisDomain: "data",
+          priority: 3,
+          linkedSubjects: ["확률과 통계", "생명과학", "보건", "화학"],
+          desc: "pH나 농도 자료를 표·그래프로 정리해 건강 지표와 간호·보건 판단으로 연결하는 방향입니다.",
+          easy: "pH 측정값 비교표, 건강 지표 그래프, 자료 기반 판단 보고서",
+          activityExamples: ["pH 측정값을 표와 그래프로 정리", "정상 범위와 이상 범위 비교", "자료 기반 건강 관리 판단 기준 제안"]
+        });
+      }
+    } catch (error) {}
 
     if (isHeatwaveFollowupContext()) {
       if (profile.bucket === "urban") {
@@ -8356,10 +8407,15 @@ function getTrackMeta(trackId) {
         if (/bio_material_application_axis|바이오·소재 응용 축|소재 응용|bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 340);
         if (/health_nutrition_application_axis|건강·영양 응용 축|건강/.test(axisText)) boost = Math.max(boost, 250);
       }
-      if (/화학 반응에서의 동적 평형/.test(concept) && hit("pH", "완충", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "수질", "건강 지표")) {
-        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, 410);
-        if (/homeostasis_control_axis|항상성 조절 해석 축|항상성/.test(axisText)) boost = Math.max(boost, 280);
-        if (/healthcare_decision_axis|건강 관리 의사결정 축/.test(axisText)) boost = Math.max(boost, 230);
+      if (/화학 반응에서의 동적 평형/.test(concept) && hit("pH", "완충", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "수질", "건강 지표", "농도")) {
+        if (/body_fluid_buffer_homeostasis_axis|체액 pH·완충 항상성 축|체액 pH|완충 항상성/.test(axisText)) boost = Math.max(boost, 720);
+        if (/acid_base_health_management_axis|산염기·건강 관리 축|산염기·건강|건강 관리/.test(axisText)) boost = Math.max(boost, 680);
+        if (/health_ph_data_interpretation_axis|건강 지표·pH 데이터 해석 축|pH 데이터|건강 지표/.test(axisText)) boost = Math.max(boost, 620);
+        if (/homeostasis_control_axis|항상성 조절 해석 축|항상성/.test(axisText)) boost = Math.max(boost, 560);
+        if (/healthcare_decision_axis|건강 관리 의사결정 축/.test(axisText)) boost = Math.max(boost, 520);
+        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, 180);
+        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText)) boost -= 120;
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost -= 260;
       }
       if (/분자의 구조와 성질/.test(concept) && hit("분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "생체 분자")) {
         if (/bio_molecular_interaction_axis|분자 상호작용·용해|분자 상호작용|bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 390);
@@ -8387,15 +8443,20 @@ function getTrackMeta(trackId) {
 
     if (/화학 반응에서의 동적 평형/.test(concept)) {
       if (hit("동적 평형", "가역 반응", "정반응", "역반응", "평형", "농도", "압력", "온도")) {
-        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 390 : 330);
-        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 330 : 170);
+        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 390 : (kind === "nursing" ? 95 : 330));
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 330 : (kind === "nursing" ? 0 : 170));
       }
       if (hit("산", "염기", "pH", "중화", "지시약", "수질", "토양", "체액", "완충")) {
-        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 380 : 330);
-        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 240 : 120);
+        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 380 : (kind === "nursing" ? 150 : 330));
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 240 : (kind === "nursing" ? 0 : 120));
       }
       if (hit("수율", "생산", "공정", "최적화")) {
-        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 440 : 220);
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost = Math.max(boost, kind === "chemical_engineering" ? 440 : (kind === "nursing" ? 0 : 220));
+      }
+      if (kind === "nursing") {
+        if (/process_optimization_axis|공정 최적화 축|공정 최적화/.test(axisText)) boost -= 300;
+        if (/equilibrium_analysis_axis|평형 이동 해석 축|평형 이동/.test(axisText) && hit("pH", "완충", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "수질", "건강 지표")) boost -= 180;
+        if (/acid_base_environment_axis|산염기·환경 조절 축|환경 조절/.test(axisText) && hit("체액", "혈액 pH", "완충", "완충 용액", "건강 지표")) boost -= 90;
       }
     }
 
