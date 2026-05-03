@@ -3944,18 +3944,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       if (subject === "대수") {
         if (/지수함수와 로그함수의 활용/.test(concept)) {
-          if (/로그모델|채널 용량/.test(keyword)) {
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 96);
+          // v87 A-1 lock: 기존 3개 축만 사용해 키워드 성격별 1순위를 고정한다.
+          // - 채널 용량: 신호·용량 해석 축
+          // - 충전 증가: 예측·데이터 해석 축
+          // - 지수/로그 모델, 성장/감소, 방사성 붕괴, 별의 등급, 실생활 적용: 실생활 변화 모델링 축
+          if (/채널 용량/.test(keyword)) {
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 104);
             boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 64);
             boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 42);
-          } else if (/성장|감소|충전 증가/.test(keyword)) {
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 94);
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 70);
+          } else if (/충전 증가/.test(keyword)) {
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 104);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 72);
             boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 38);
+          } else if (/로그모델/.test(keyword)) {
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 142);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 50);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 52);
+          } else if (/성장|감소/.test(keyword)) {
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 118);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 66);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 30);
           } else {
-            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 88);
-            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 58);
-            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 36);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 104);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 56);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 32);
           }
         }
         if (/등차수열과 등비수열/.test(concept)) {
