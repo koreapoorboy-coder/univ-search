@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.5-nursing-chem-acidbase-h2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.6-mechanical-prelock-c1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_5_nursing_chem_acidbase_h2";
+  const ASSET_VERSION_QUERY = "v88_6_mechanical_prelock_c1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3403,6 +3403,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const t = String(text || "").trim();
     if (!t) return "default";
     if (/(반도체공학|반도체시스템|반도체|나노반도체|시스템반도체)/.test(t)) return "semiconductor";
+    if (/(기계공학|기계|자동차공학|자동차|모빌리티|항공우주공학|항공|로봇공학|로봇|메카트로닉스|기계설계|생산공학|열유체|냉동공조)/.test(t)) return "mechanical";
     if (/(전자공학|전기전자|전기공학|전자전기|회로|센서|통신|전파|임베디드)/.test(t)) return "electronics";
     if (/(신소재|재료공학|재료|소재|고분자|금속|세라믹|나노소재)/.test(t)) return "materials";
     if (/(화학공학|화공|공업화학|응용화학|화학생명공학)/.test(t)) return "chemeng";
@@ -3445,6 +3446,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const rules = [
       [/반도체공학과|반도체시스템공학과|반도체|시스템반도체/, "반도체공학과"],
       [/신소재공학과|신소재|재료공학과|재료|소재/, "신소재공학과"],
+      [/기계공학과|기계공학|기계|자동차공학과|자동차|항공우주공학과|항공|로봇공학과|로봇|메카트로닉스|열유체|냉동공조/, "기계공학과"],
       [/전자공학과|전기전자공학과|전자전기공학과|전자|전기전자|회로|센서|통신/, "전자공학과"],
       [/화학공학과|화공|화학생명공학|공업화학/, "화학공학과"],
       [/에너지공학과|에너지공학|신재생에너지|에너지시스템|에너지/, "에너지공학과"],
@@ -3492,6 +3494,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         directAxisDomains: ["electronics", "engineering", "physics"],
         bridgeAxisDomains: ["chemistry", "energy", "data", "info", "math"],
         resultKeywords: ["전자 이동", "전류", "회로", "소자", "신호", "장치 구조"]
+      },
+      mechanical: {
+        bucket: "mechanical",
+        lens: "운동·힘·열·진동·기계 시스템 설계",
+        directAxisDomains: ["physics", "engineering", "mechanical"],
+        bridgeAxisDomains: ["data", "math", "info", "energy", "electronics"],
+        resultKeywords: ["힘과 운동", "벡터", "열효율", "진동", "시뮬레이션", "기계 설계"]
       },
       materials: {
         bucket: "materials",
@@ -6920,6 +6929,44 @@ function getTrackMeta(trackId) {
 
 
 
+  function isMechanicalEngineeringMajorSelectedContext() {
+    // v88.6 C1-lock: 기계/로봇/자동차/항공 계열은 선택 학과명을 우선해
+    // 3번 대표 개념과 4번 후속축이 IT/전자/보건 축으로 끌려가는 것을 막는다.
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+
+    const selectedText = Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+    const selectedCompact = selectedText.replace(/\s+/g, '');
+    const mechanicalPattern = /기계공학과|기계공학|기계설계|생산공학|열유체|냉동공조|자동차공학과|자동차|모빌리티|항공우주공학과|항공우주|항공공학|항공|로봇공학과|로봇|메카트로닉스/;
+    const electronicOnlyPattern = /전자공학과|전기공학과|전기전자|반도체공학과|통신공학과|임베디드|회로/;
+    if ((mechanicalPattern.test(selectedText) || mechanicalPattern.test(selectedCompact))
+      && !(electronicOnlyPattern.test(selectedText) || electronicOnlyPattern.test(selectedCompact))) return true;
+
+    try {
+      const bodyText = String(document.body?.innerText || '').replace(/\s+/g, ' ');
+      const bodyCompact = bodyText.replace(/\s+/g, '');
+      if (/2\.\s*학과\s*(기계공학과|로봇공학과|자동차공학과|항공우주공학과)|학과\s*(기계공학과|로봇공학과|자동차공학과|항공우주공학과)/.test(bodyText)) return true;
+      if (/2\.학과(기계공학과|로봇공학과|자동차공학과|항공우주공학과)|학과(기계공학과|로봇공학과|자동차공학과|항공우주공학과)/.test(bodyCompact)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+
   function isMaterialsMajorSelectedContext() {
     // v87 M2-lock: 신소재/재료계열은 화면 전체 텍스트보다 상단 실제 선택 학과를 우선한다.
     // 3번 대표 개념과 4번 후속 연계축이 반도체/전자/의료 보조축으로 끌려가는 것을 막기 위한 최소 가드.
@@ -8880,6 +8927,31 @@ function getTrackMeta(trackId) {
   function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+
+    // v88.6 C1-lock: 기계공학과 대표 검수용 고급 선택과목 3개 노출.
+    // 1학년 이후 과목은 화면 점수 필터가 다른 계열 키워드에 끌리는 경우가 있어,
+    // 실제 존재하는 개념명만 선제 고정한다.
+    if (isMechanicalEngineeringMajorSelectedContext() && (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ" || state.subject === "물리학1")) {
+      const forced = ["힘과 운동", "에너지와 열", "파동의 성질과 활용"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isMechanicalEngineeringMajorSelectedContext() && (state.subject === "기하" || state.subject === "고등 기하")) {
+      const forced = ["평면벡터와 벡터의 연산", "벡터의 성분과 내적", "공간도형과 정사영·위치 관계"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isMechanicalEngineeringMajorSelectedContext() && (state.subject === "미적분1" || state.subject === "미적분Ⅰ" || state.subject === "미적분")) {
+      const forced = ["도함수의 활용", "여러 가지 함수의 미분", "정적분의 활용"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     // v87 M2-lock: 신소재공학과 대표 검수용 강제 3개 노출.
     // 기존 점수 필터가 먼저 적용되면 물질과 에너지/전자기와 양자의 핵심 개념이 화면에 안 뜨는 경우가 있어,
