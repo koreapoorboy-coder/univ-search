@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.3-bio-chemistry-final-guard-b3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.4-nursing-health-prelock-h1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_3_bio_chemistry_final_guard_b3";
+  const ASSET_VERSION_QUERY = "v88_4_nursing_health_prelock_h1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -6606,6 +6606,9 @@ function getTrackMeta(trackId) {
     // 정확한 학과명 우선: 화학공학/에너지공학은 기존 materials 버킷으로 빨려 들어가면 안 된다.
     if (has(/화학공학과|화공|공업화학|화공생명공학|화학생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
     if (has(/에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지/)) return "energy";
+    // v88.4 H1-lock: 간호/보건 계열은 화면 안의 생명·바이오·의료 키워드 때문에
+    // 생명공학/반도체형 화학 대표 개념으로 밀리지 않도록 별도 분기한다.
+    if (has(/간호학과|간호|보건학과|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|응급구조|재활|의료|의학/)) return "nursing";
     // v88.2 B2-lock: 생명공학과는 화면/프로필에 '바이오소재·생체재료' 같은 단어가 섞여도
     // 신소재(materials)나 반도체/전자형 화학 대표 개념으로 밀리면 안 된다.
     if (has(/생명공학과|의생명공학과|생명공학|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|생명과학과|생명과학/)) return "bioengineering";
@@ -6624,7 +6627,7 @@ function getTrackMeta(trackId) {
   function isChemistry1ComputerMajorContext() {
     // v88.2 B2-lock: 생명공학과는 생명정보/바이오 데이터/센서 같은 단어가 있어도
     // 컴퓨터·반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
-    if (getChemistry1MajorKind() === "bioengineering") return false;
+    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing") return false;
 
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
@@ -6710,6 +6713,19 @@ function getTrackMeta(trackId) {
         "원자의 구조",
         "원소의 주기적 성질",
         "화학과 우리 생활"
+      ];
+    }
+    if (chemistryMajorKind === "nursing") {
+      return [
+        "탄소 화합물의 유용성",
+        "화학 반응에서의 동적 평형",
+        "분자의 구조와 성질",
+        "물질의 양과 화학 반응식",
+        "화학과 우리 생활",
+        "화학 반응과 열의 출입",
+        "화학 결합",
+        "원자의 구조",
+        "원소의 주기적 성질"
       ];
     }
     if (chemistryMajorKind === "materials") {
@@ -8269,7 +8285,15 @@ function getTrackMeta(trackId) {
     const isEnergy = chemistryMajorKind === "energy";
     const isMaterials = chemistryMajorKind === "materials";
     const isBioEng = chemistryMajorKind === "bioengineering";
+    const isNursing = chemistryMajorKind === "nursing";
     const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
+    if (isNursing) {
+      if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "의약품", "고분자", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "작용기", "분자 구조", "생활 화학", "인체 적용"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["pH", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "평형 이동", "농도", "반응 조건", "수질", "건강 지표"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "생체 분자", "물성"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "용액", "투약 농도", "정량 분석", "시료", "오차", "화학 반응식", "계수비"];
+      if (/화학과 우리 생활/.test(concept)) return ["생활 화학", "의약품", "소독", "세정", "식품", "안전", "농도", "환경 보건", "건강", "자료 조사"];
+    }
     if (isBioEng) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "고분자", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "작용기", "분자 구조", "바이오 소재", "분자 상호작용"];
       if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "분자 사이 힘", "수소 결합", "단백질 구조", "생체 분자", "용해도", "친수성", "소수성", "물성"];
@@ -8325,6 +8349,27 @@ function getTrackMeta(trackId) {
     const kind = getChemistry1MajorKind();
     const hit = (...values) => values.some(value => fuzzyIncludes(keyword, value) || fuzzyIncludes(value, keyword));
     let boost = 0;
+
+    if (kind === "nursing") {
+      if (/탄소 화합물의 유용성/.test(concept) && hit("탄소 화합물", "의약품", "단백질", "아미노산", "탄수화물", "지질", "생체 분자", "생활 화학")) {
+        if (/organic_structure_axis|유기 물질 구조 해석 축|유기 물질/.test(axisText)) boost = Math.max(boost, 380);
+        if (/bio_material_application_axis|바이오·소재 응용 축|소재 응용|bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 340);
+        if (/health_nutrition_application_axis|건강·영양 응용 축|건강/.test(axisText)) boost = Math.max(boost, 250);
+      }
+      if (/화학 반응에서의 동적 평형/.test(concept) && hit("pH", "완충", "완충 용액", "산", "염기", "중화", "체액", "혈액 pH", "수질", "건강 지표")) {
+        if (/acid_base_environment_axis|산염기·환경 조절 축|산염기|환경 조절/.test(axisText)) boost = Math.max(boost, 410);
+        if (/homeostasis_control_axis|항상성 조절 해석 축|항상성/.test(axisText)) boost = Math.max(boost, 280);
+        if (/healthcare_decision_axis|건강 관리 의사결정 축/.test(axisText)) boost = Math.max(boost, 230);
+      }
+      if (/분자의 구조와 성질/.test(concept) && hit("분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "생체 분자")) {
+        if (/bio_molecular_interaction_axis|분자 상호작용·용해|분자 상호작용|bio_molecule|생체 분자 구조/.test(axisText)) boost = Math.max(boost, 390);
+        if (/bio_medical_transport_axis|의약·영양 전달 응용 축|의약|전달/.test(axisText)) boost = Math.max(boost, 310);
+      }
+      if (/물질의 양과 화학 반응식/.test(concept) && hit("몰", "몰 농도", "희석", "용액", "투약 농도", "정량 분석", "시료", "오차")) {
+        if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, 300);
+        if (/experiment_analysis_axis|실험 설계·분석 축|실험 설계|분석/.test(axisText)) boost = Math.max(boost, 290);
+      }
+    }
 
     if (/물질의 양과 화학 반응식/.test(concept)) {
       if (hit("몰", "몰 질량", "화학식량", "원자량", "분자량", "화학 반응식", "계수비", "입자 수", "비율")) {
@@ -8874,6 +8919,17 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "nursing") {
+      const forced = [
+        "탄소 화합물의 유용성",
+        "화학 반응에서의 동적 평형",
+        "분자의 구조와 성질"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "chemical_engineering") {
       const forced = [
         "물질의 양과 화학 반응식",
@@ -8905,6 +8961,13 @@ if (state.subject === "확률과 통계" && isProbabilityStatisticsComputerMajor
 
     if (isMatterEnergySubject() && getMatterEnergyMajorKind() === "energy") {
       const forced = ["기체 상태와 법칙", "혼합 기체와 조성", "액체의 물성과 분자 간 힘"];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
+
+    if (isCellMetabolismSubject() && getCellMetabolismMajorKind() === "medical") {
+      const forced = ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
       const others = ranked.filter(item => !forced.includes(item.concept));
       return uniq([...forcedItems, ...others]).slice(0, 3);
