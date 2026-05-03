@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v85.0-step3-4-route-stabilizer';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v86.0-a-pack-existing-data-sort-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v85_step3_4_route_stabilizer";
+  const ASSET_VERSION_QUERY = "v86_a_pack_existing_data_sort_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -3933,6 +3933,120 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       if (domainIs("earth_env", "environment", "earth", "data", "energy", "social_policy")) score += 18;
     }
 
+    // v86 A-pack lock: 기존 followup-axis 데이터 안에서만 컴퓨터공학과 + 대수/정보의 4번 축 정렬을 고정한다.
+    // 새 축이나 새 키워드를 만들지 않고, 현재 JSON에 존재하는 axis_id/axis_title만 가산한다.
+    const isAComputerContext = bucket === "it" || /(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|게임|앱|웹|네트워크)/i.test(majorText);
+    if (isAComputerContext && (subject === "대수" || subject === "정보")) {
+      const axisKey = [String(axis?.id || axis?.axis_id || ""), axisText].join(" ");
+      const boostAxis = (pattern, amount) => {
+        if (pattern.test(axisKey)) score += amount;
+      };
+
+      if (subject === "대수") {
+        if (/지수함수와 로그함수의 활용/.test(concept)) {
+          if (/로그모델|채널 용량/.test(keyword)) {
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 96);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 64);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 42);
+          } else if (/성장|감소|충전 증가/.test(keyword)) {
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 94);
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 70);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 38);
+          } else {
+            boostAxis(/real_world_change_modeling|실생활 변화 모델링 축|변화 모델링/, 88);
+            boostAxis(/future_prediction_data|예측·데이터 해석 축|예측·데이터/, 58);
+            boostAxis(/signal_capacity_interpretation|신호·용량 해석 축|신호·용량/, 36);
+          }
+        }
+        if (/등차수열과 등비수열/.test(concept)) {
+          if (/반복 규칙|패턴|규칙성/.test(keyword)) {
+            boostAxis(/sequence_algorithm_loop|반복 구조·알고리즘 축|반복 구조/, 96);
+            boostAxis(/sequence_prediction_model|수열 모델링·예측 축|수열 예측/, 72);
+            boostAxis(/sequence_pattern_search|규칙·패턴 탐색 축|패턴 탐색/, 58);
+          } else {
+            boostAxis(/sequence_prediction_model|수열 모델링·예측 축|수열 예측/, 94);
+            boostAxis(/sequence_algorithm_loop|반복 구조·알고리즘 축|반복 구조/, 72);
+            boostAxis(/sequence_pattern_search|규칙·패턴 탐색 축|패턴 탐색/, 56);
+          }
+        }
+        if (/수학적 귀납법/.test(concept)) {
+          if (/재귀|반복 논리|알고리즘 정당성/.test(keyword)) {
+            boostAxis(/recursive_algorithm_validity|재귀·알고리즘 정당성 축|재귀 검증/, 98);
+            boostAxis(/induction_proof_logic|귀납 증명·논리 구조 축|귀납 증명/, 70);
+            boostAxis(/iterative_condition_validation|반복 조건 검증 축|조건 검증/, 56);
+          } else {
+            boostAxis(/induction_proof_logic|귀납 증명·논리 구조 축|귀납 증명/, 96);
+            boostAxis(/recursive_algorithm_validity|재귀·알고리즘 정당성 축|재귀 검증/, 74);
+            boostAxis(/iterative_condition_validation|반복 조건 검증 축|조건 검증/, 50);
+          }
+        }
+      }
+
+      if (subject === "정보") {
+        if (/자료와 정보의 분석/.test(concept)) {
+          if (/정렬|탐색|검색|데이터베이스|구조/.test(keyword)) {
+            boostAxis(/database|데이터베이스·정보구조 축|정보구조/, 96);
+            boostAxis(/data_visual|데이터 수집·시각화 축|시각화/, 60);
+            boostAxis(/data_decision|데이터 해석·의사결정 축|의사결정/, 50);
+          } else if (/의미 있는 정보|예측|판단|의사결정/.test(keyword)) {
+            boostAxis(/data_decision|데이터 해석·의사결정 축|의사결정/, 96);
+            boostAxis(/data_visual|데이터 수집·시각화 축|시각화/, 60);
+            boostAxis(/database|데이터베이스·정보구조 축|정보구조/, 50);
+          } else {
+            boostAxis(/data_visual|데이터 수집·시각화 축|시각화/, 92);
+            boostAxis(/database|데이터베이스·정보구조 축|정보구조/, 68);
+            boostAxis(/data_decision|데이터 해석·의사결정 축|의사결정/, 54);
+          }
+        }
+        if (/추상화와 문제 분해/.test(concept)) {
+          boostAxis(/problem_design|문제 구조화·알고리즘 설계 축|구조화/, 94);
+          boostAxis(/math_modeling|수리 모델링 확장 축|모델링/, 68);
+          boostAxis(/process_optimization|시스템 설계·절차 최적화 축|절차 설계/, 58);
+        }
+        if (/알고리즘 설계와 분석/.test(concept)) {
+          if (/정렬|탐색|이진 탐색|순차 탐색|버블 정렬|선택 정렬/.test(keyword)) {
+            boostAxis(/search_sort|탐색·정렬 구현 축|탐색·정렬/, 98);
+            boostAxis(/algo_opt|알고리즘 최적화 축|최적화/, 74);
+            boostAxis(/data_prediction|데이터 처리·예측 축|예측 처리/, 54);
+          } else {
+            boostAxis(/algo_opt|알고리즘 최적화 축|최적화/, 96);
+            boostAxis(/search_sort|탐색·정렬 구현 축|탐색·정렬/, 72);
+            boostAxis(/data_prediction|데이터 처리·예측 축|예측 처리/, 56);
+          }
+        }
+        if (/프로그래밍과 자동화/.test(concept)) {
+          if (/조건문|반복문|리스트|리스트 내포/.test(keyword)) {
+            boostAxis(/logic_control|논리·제어 확장 축|조건·반복/, 98);
+            boostAxis(/programming_impl|프로그래밍 구현 축|코드 구현/, 72);
+            boostAxis(/automation_sim|자동화·시뮬레이션 축|자동화/, 58);
+          } else if (/random 모듈|turtle 그래픽|자동화|시뮬레이션/.test(keyword)) {
+            boostAxis(/automation_sim|자동화·시뮬레이션 축|자동화/, 98);
+            boostAxis(/programming_impl|프로그래밍 구현 축|코드 구현/, 70);
+            boostAxis(/logic_control|논리·제어 확장 축|조건·반복/, 56);
+          } else {
+            boostAxis(/programming_impl|프로그래밍 구현 축|코드 구현/, 96);
+            boostAxis(/logic_control|논리·제어 확장 축|조건·반복/, 72);
+            boostAxis(/automation_sim|자동화·시뮬레이션 축|자동화/, 58);
+          }
+        }
+        if (/컴퓨팅 시스템과 네트워크/.test(concept)) {
+          if (/센서|피지컬 컴퓨팅|회로|임베디드|장치/.test(keyword)) {
+            boostAxis(/embedded_control|센서·임베디드 제어 축|센서 제어/, 96);
+            boostAxis(/network_system|시스템·네트워크 구조 축|네트워크 구조/, 68);
+            boostAxis(/platform_security|협업 플랫폼·보안 운영 축|플랫폼 보안/, 50);
+          } else if (/보안|계정|접근 권한|플랫폼|협업 도구/.test(keyword)) {
+            boostAxis(/platform_security|협업 플랫폼·보안 운영 축|플랫폼 보안/, 96);
+            boostAxis(/network_system|시스템·네트워크 구조 축|네트워크 구조/, 68);
+            boostAxis(/embedded_control|센서·임베디드 제어 축|센서 제어/, 48);
+          } else {
+            boostAxis(/network_system|시스템·네트워크 구조 축|네트워크 구조/, 94);
+            boostAxis(/embedded_control|센서·임베디드 제어 축|센서 제어/, 60);
+            boostAxis(/platform_security|협업 플랫폼·보안 운영 축|플랫폼 보안/, 52);
+          }
+        }
+      }
+    }
+
     return score;
   }
 
@@ -7504,7 +7618,7 @@ function getTrackMeta(trackId) {
     const isIt = isAlgebraComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText) || bucket === "it";
 
     if (isIt) {
-      if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "로그모델", "성장", "감소", "충전 증가", "채널 용량", "로그모델", "방사성 붕괴", "별의 등급"];
+      if (/지수함수와 로그함수의 활용/.test(concept)) return ["지수모델", "성장", "감소", "충전 증가", "채널 용량", "로그모델", "방사성 붕괴", "별의 등급", "실생활 적용"];
       if (/등차수열과 등비수열/.test(concept)) return ["등차수열", "등비수열", "일반항", "공차", "공비", "규칙성", "반복 규칙", "패턴", "증가 규칙"];
       if (/수열의 합/.test(concept)) return ["시그마", "합", "부분합", "누적합", "합 공식", "등차수열의 합", "등비수열의 합", "반복 계산", "누적 데이터"];
       if (/수학적 귀납법/.test(concept)) return ["수학적 귀납법", "명제", "자연수", "귀납 가정", "귀납 단계", "증명", "반복 논리", "재귀", "알고리즘 정당성"];
