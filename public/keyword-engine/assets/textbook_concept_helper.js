@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.9-data-science-final-lock-d2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.0-data-science-ui-order-lock-d3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -1644,6 +1644,45 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
   function uniq(arr) {
     return Array.from(new Set((arr || []).filter(Boolean)));
+  }
+
+  // v89.0 D3-lock: 화면 최종 렌더 단계에서도 데이터사이언스/통계 계열의
+  // 대표 개념 순서가 점수 정렬이나 기존 컴퓨터공학형 가드에 의해 다시 섞이지 않도록 한다.
+  function isSameConceptName(a, b) {
+    return normalize(a) === normalize(b) || fuzzyIncludes(a, b);
+  }
+
+  function pickConceptItemsByForcedOrder(ranked, forced) {
+    if (!Array.isArray(ranked) || !ranked.length || !Array.isArray(forced) || !forced.length) return ranked || [];
+    const used = new Set();
+    const forcedItems = [];
+    forced.forEach(name => {
+      const foundIndex = ranked.findIndex((item, idx) => !used.has(idx) && isSameConceptName(item?.concept || "", name));
+      if (foundIndex >= 0) {
+        used.add(foundIndex);
+        forcedItems.push(ranked[foundIndex]);
+      }
+    });
+    const forcedConcepts = new Set(forcedItems.map(item => item.concept));
+    const others = ranked.filter(item => !forcedConcepts.has(item.concept));
+    return uniq([...forcedItems, ...others]);
+  }
+
+  function getDataScienceForcedConceptOrderForSubject() {
+    if (!isDataScienceMajorSelectedContext()) return [];
+    if (state.subject === "확률과 통계") {
+      return ["확률변수와 확률분포", "이항분포와 정규분포", "통계적 추정"];
+    }
+    if (state.subject === "정보") {
+      return ["자료와 정보의 분석", "알고리즘 설계와 분석", "추상화와 문제 분해"];
+    }
+    if (state.subject === "대수") {
+      return ["지수함수와 로그함수의 활용", "로그함수의 뜻과 그래프", "등차수열과 등비수열"];
+    }
+    if (state.subject === "미적분1" || state.subject === "미적분Ⅰ" || state.subject === "미적분") {
+      return ["도함수의 활용", "정적분의 활용", "수열의 극한"];
+    }
+    return [];
   }
 
 
@@ -9121,6 +9160,8 @@ function getTrackMeta(trackId) {
 
   function getOrderedConceptsForAll(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
+    const dataScienceForced = getDataScienceForcedConceptOrderForSubject();
+    if (dataScienceForced.length) return pickConceptItemsByForcedOrder(ranked, dataScienceForced);
     const preferred = getPreferredConceptSequence();
     const preferredItems = preferred.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
     const others = ranked.filter(item => !preferred.includes(item.concept));
@@ -9220,48 +9261,9 @@ function getTrackMeta(trackId) {
 
     // v88.9 D2-lock: 데이터사이언스/통계학과는 컴퓨터공학형 순열·조합 우선 가드보다
     // 분포·정규분포·추정 중심 대표 개념 3개가 최종 화면에서 먼저 이기도록 고정한다.
-    if (isDataScienceMajorSelectedContext() && state.subject === "확률과 통계") {
-      const forced = [
-        "확률변수와 확률분포",
-        "이항분포와 정규분포",
-        "통계적 추정"
-      ];
-      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
-      const others = ranked.filter(item => !forced.includes(item.concept));
-      return uniq([...forcedItems, ...others]).slice(0, 3);
-    }
-
-    if (isDataScienceMajorSelectedContext() && state.subject === "정보") {
-      const forced = [
-        "자료와 정보의 분석",
-        "알고리즘 설계와 분석",
-        "추상화와 문제 분해"
-      ];
-      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
-      const others = ranked.filter(item => !forced.includes(item.concept));
-      return uniq([...forcedItems, ...others]).slice(0, 3);
-    }
-
-    if (isDataScienceMajorSelectedContext() && state.subject === "대수") {
-      const forced = [
-        "지수함수와 로그함수의 활용",
-        "로그함수의 뜻과 그래프",
-        "등차수열과 등비수열"
-      ];
-      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
-      const others = ranked.filter(item => !forced.includes(item.concept));
-      return uniq([...forcedItems, ...others]).slice(0, 3);
-    }
-
-    if (isDataScienceMajorSelectedContext() && (state.subject === "미적분1" || state.subject === "미적분Ⅰ" || state.subject === "미적분")) {
-      const forced = [
-        "도함수의 활용",
-        "정적분의 활용",
-        "수열의 극한"
-      ];
-      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
-      const others = ranked.filter(item => !forced.includes(item.concept));
-      return uniq([...forcedItems, ...others]).slice(0, 3);
+    const dataScienceForced = getDataScienceForcedConceptOrderForSubject();
+    if (dataScienceForced.length) {
+      return pickConceptItemsByForcedOrder(ranked, dataScienceForced).slice(0, 3);
     }
 
     
@@ -9596,6 +9598,13 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       if (forcedItems.length) {
         const others = ranked.filter(item => !forcedLife.includes(item.concept));
         primaryConcepts = uniq([...forcedItems, ...others]).slice(0, 3);
+        displayConcepts = primaryConcepts;
+      }
+    }
+    if (isDataScienceMajorSelectedContext() && !state.showAllConcepts) {
+      const forcedDataScience = getDataScienceForcedConceptOrderForSubject();
+      if (forcedDataScience.length) {
+        primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
         displayConcepts = primaryConcepts;
       }
     }
