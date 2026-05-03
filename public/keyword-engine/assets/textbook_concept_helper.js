@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.6-mechanical-prelock-c1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v88.7-mechanical-axis-c2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_6_mechanical_prelock_c1";
+  const ASSET_VERSION_QUERY = "v88_7_mechanical_axis_c2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -8315,6 +8315,14 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isIt = isCalculus1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|최적화)/i.test(majorText) || bucket === "it";
+    const isMechanical = isMechanicalEngineeringMajorSelectedContext() || /(기계공학과|기계|자동차|모빌리티|항공|로봇|메카트로닉스|열유체|냉동공조)/.test(majorText) || bucket === "mechanical";
+    // v88.7 C2-lock: 기계계열 미적분1은 컴퓨터/데이터형 키워드가 아니라
+    // 변화율·속도·가속도·누적량·일/에너지처럼 기계 시스템 해석에 필요한 키워드를 먼저 노출한다.
+    if (isMechanical) {
+      if (/도함수의 활용/.test(concept)) return ["변화율", "속도", "가속도", "최적화", "극값", "최댓값", "최솟값", "접선", "그래프 개형", "제어", "시뮬레이션", "기계 시스템"];
+      if (/여러 가지 함수의 미분/.test(concept)) return ["도함수", "삼각함수 미분", "지수함수 미분", "로그함수 미분", "변화율", "진동 모델", "신호 변화", "실수 e", "자연로그", "표준 극한"];
+      if (/정적분의 활용/.test(concept)) return ["이동거리", "누적량", "일", "에너지", "면적", "부피", "리만 합", "수치 근사", "시뮬레이션", "유량", "누적 변화"];
+    }
     if (isIt) {
       if (/도함수의 활용/.test(concept)) return ["변화율", "최적화", "극값", "접선", "증가", "감소", "최댓값", "최솟값", "그래프 개형", "의사결정"];
       if (/여러 가지 함수의 미분/.test(concept)) return ["도함수", "지수함수 미분", "로그함수 미분", "삼각함수 미분", "실수 e", "자연로그", "변화율", "표준 극한"];
@@ -8535,6 +8543,14 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isIt = isPhysicsComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|로봇|자율주행|그래픽|게임)/i.test(majorText) || bucket === "it" || bucket === "electronic";
+    const isMechanical = isMechanicalEngineeringMajorSelectedContext() || /(기계공학과|기계|자동차|모빌리티|항공|로봇|메카트로닉스|열유체|냉동공조)/.test(majorText) || bucket === "mechanical";
+    // v88.7 C2-lock: 기계공학과 + 물리는 전자/IT형 키워드보다
+    // 힘·운동·열·진동·시뮬레이션 키워드를 우선 노출한다.
+    if (isMechanical) {
+      if (/힘과 운동/.test(concept)) return ["속도", "가속도", "운동 그래프 해석", "뉴턴 운동 법칙", "힘", "운동량", "충격량", "힘의 평형", "토크", "제어", "시뮬레이션", "기계 시스템"];
+      if (/에너지와 열/.test(concept)) return ["열효율", "열기관", "냉각", "열 관리", "열전달", "마찰열", "에너지 전환", "일", "운동 에너지", "내부 에너지", "시스템 효율", "엔진"];
+      if (/파동의 성질과 활용/.test(concept)) return ["진동", "공진", "감쇠", "소음", "주파수", "파장", "파동의 속력", "센서", "신호", "스펙트럼", "진동 제어", "기계 진동"];
+    }
     if (isIt) {
       if (/물질의 전기적 특성/.test(concept)) return ["전하", "전기력", "원자 구조", "스펙트럼", "전자", "전기장", "반도체", "소자", "회로", "센서 신호"];
       if (/파동의 성질과 활용/.test(concept)) return ["진동수", "파장", "파동의 속력", "파동", "주파수", "신호", "통신", "대역폭", "데이터 전송", "간섭"];
@@ -8558,6 +8574,13 @@ function getTrackMeta(trackId) {
       if (/이차곡선과 자취 해석/.test(concept)) return ["쌍곡선", "위치 추정", "신호", "포물선", "타원", "초점", "자취", "거리 조건", "반사 성질", "궤도"];
       if (/평면벡터와 벡터의 연산/.test(concept)) return ["벡터", "벡터의 덧셈", "벡터의 뺄셈", "실수배", "위치벡터", "방향", "크기", "이동", "경로", "합성"];
       if (/공간도형과 정사영·위치 관계/.test(concept)) return ["정사영", "투영", "직선과 평면", "수직", "평행", "거리", "입체도형", "평면 결정", "3D 모델링", "구조 해석"];
+    }
+    const isMechanical = isMechanicalEngineeringMajorSelectedContext() || /(기계공학과|기계|자동차|모빌리티|항공|로봇|메카트로닉스|구조|설계)/.test(majorText) || bucket === "mechanical";
+    // v88.7 C2-lock: 기계계열 기하는 벡터·힘 분해·구조 모델링 키워드를 우선 노출한다.
+    if (isMechanical) {
+      if (/평면벡터와 벡터의 연산/.test(concept)) return ["벡터", "벡터의 합성", "벡터의 분해", "힘의 합성", "힘의 분해", "방향", "크기", "이동", "경로", "기계 운동"];
+      if (/벡터의 성분과 내적/.test(concept)) return ["성분", "내적", "방향", "각", "힘의 분해", "일", "투영", "벡터의 크기", "구조 해석", "운동 모델링"];
+      if (/공간도형과 정사영·위치 관계/.test(concept)) return ["정사영", "투영", "직선과 평면", "수직", "평행", "거리", "입체도형", "3D 모델링", "구조 해석", "설계 조건"];
     }
     return [];
   }
