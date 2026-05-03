@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v88_9_data_science_final_lock_d2";
+  const ASSET_VERSION_QUERY = "v89_8_electronics_prelock_el1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4813,6 +4813,147 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     return [make(drugStructureAxis, 0), make(solubilityAxis, 1), make(dosageAxis, 2)];
   }
 
+
+  function isElectronicsEngineeringSelectedContext() {
+    try {
+      const selectedMajorText = [
+        state.majorSelectedName || "",
+        state.career || "",
+        getEffectiveCareerName?.() || "",
+        getCareerInputText?.() || "",
+        getMajorPanelResolvedName?.() || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      const compact = selectedMajorText.replace(/\s+/g, "");
+      const has = (pattern) => pattern.test(selectedMajorText) || pattern.test(compact);
+      if (!selectedMajorText) return false;
+      if (has(/반도체공학과|반도체|나노반도체|시스템반도체|반도체시스템/)) return false;
+      if (has(/신소재공학과|재료공학과|신소재|재료|소재|고분자|세라믹|금속/)) return false;
+      if (has(/기계공학과|기계|자동차|항공|로봇|메카트로닉스|모빌리티/)) return false;
+      if (has(/화학공학과|화공|에너지공학과|배터리|이차전지|생명|바이오|간호|보건|약학|식품|환경/)) return false;
+      return has(/전자공학과|전기전자공학과|전자전기공학과|전기공학과|정보통신공학과|통신공학과|전파공학과|제어계측공학과|임베디드|회로|전자공학|전기전자|전자전기|전기공학|정보통신|통신공학|전파공학|제어계측/);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function pickForcedConceptItems(ranked, forced) {
+    const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+    const others = ranked.filter(item => !forced.includes(item.concept));
+    return uniq([...forcedItems, ...others]).slice(0, 3);
+  }
+
+  function isElectronicsEngineeringAxisContext(mappedEntry) {
+    if (!isElectronicsEngineeringSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    if (/^(물리|물리학|물리학Ⅰ|물리학1)$/.test(subjectText) && /물질의 전기적 특성|물질의 자기적 특성|파동의 성질과 활용/.test(conceptText)) return true;
+    if (/^(전자기와양자|전자기와양자|고등전자기와양자)$/.test(subjectText) && /전기장과 자기장|전자기 유도와 전자기파|양자와 물질의 상호작용/.test(conceptText)) return true;
+    if (/^정보$/.test(subjectText) && /컴퓨팅 시스템과 네트워크|프로그래밍과 자동화|자료와 정보의 표현|자료와 정보의 분석/.test(conceptText)) return true;
+    return false;
+  }
+
+  function buildElectronicsEngineeringForcedAxes(mappedEntry) {
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    const keywordText = String(state.keyword || "").replace(/\s+/g, " ").trim();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keywordText, value) || fuzzyIncludes(value, keywordText));
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "전자공학·전기전자 계열과 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 40,
+        __score: 1000 - index
+      };
+    };
+    const circuitAxis = {
+      id: "electronics_signal_circuit_axis",
+      title: "전기 신호·회로 응용 축",
+      short: "신호·회로",
+      axisDomain: "electronics",
+      priority: 1,
+      linkedSubjects: ["전자기와 양자", "정보", "미적분1"],
+      desc: "전류, 전압, 저항, 전위차 개념을 전기 신호 해석과 회로 구성 원리로 연결하는 방향입니다.",
+      easy: "전압·전류 변화 그래프, 회로 조건 비교, 신호 흐름 해석",
+      activityExamples: ["전압·전류 변화 그래프 해석", "간단한 회로 조건 비교", "센서 신호의 회로 전달 과정 정리"]
+    };
+    const deviceAxis = {
+      id: "electronics_device_sensor_axis",
+      title: "전자소자·센서 장치 축",
+      short: "소자·센서",
+      axisDomain: "electronics",
+      priority: 2,
+      linkedSubjects: ["전자기와 양자", "물리", "정보"],
+      desc: "전기적 특성, 자기장, 광전 효과를 센서, 전자소자, 측정 장치의 작동 원리로 확장하는 방향입니다.",
+      easy: "센서 구조, 전자소자 작동, 측정 신호 변환 과정 정리",
+      activityExamples: ["홀 센서 작동 원리 카드", "LED·광센서 원리 비교", "센서 신호 변환 흐름도 작성"]
+    };
+    const commAxis = {
+      id: "electronics_communication_signal_axis",
+      title: "통신 신호·주파수 해석 축",
+      short: "통신·주파수",
+      axisDomain: "signal_media",
+      priority: 3,
+      linkedSubjects: ["전자기와 양자", "정보", "확률과 통계"],
+      desc: "파동, 전자기파, 주파수 개념을 통신 신호, 안테나, 데이터 전송 원리로 연결하는 방향입니다.",
+      easy: "전자기파와 통신 신호, 주파수·대역폭, 신호 전송 과정 정리",
+      activityExamples: ["전자기파 통신 활용 사례 조사", "주파수와 데이터 전송 관계 정리", "무선 통신 신호 흐름도 작성"]
+    };
+    const embeddedAxis = {
+      id: "electronics_embedded_network_axis",
+      title: "임베디드·네트워크 제어 축",
+      short: "임베디드·제어",
+      axisDomain: "info",
+      priority: 4,
+      linkedSubjects: ["정보", "물리", "전자기와 양자"],
+      desc: "컴퓨팅 시스템과 네트워크 개념을 센서 입력, 제어 알고리즘, 임베디드 장치 연결로 확장하는 방향입니다.",
+      easy: "센서 입력-처리-출력, 네트워크 연결, 제어 흐름 정리",
+      activityExamples: ["센서-제어-출력 흐름도 작성", "임베디드 장치 네트워크 구조 정리", "간단한 자동화 제어 알고리즘 설계"]
+    };
+    const powerAxis = {
+      id: "electronics_power_induction_axis",
+      title: "전자기 유도·전력 응용 축",
+      short: "유도·전력",
+      axisDomain: "energy",
+      priority: 5,
+      linkedSubjects: ["전자기와 양자", "물질과 에너지", "물리"],
+      desc: "전자기 유도, 코일, 변압기 개념을 전력 변환과 전력전자 시스템으로 연결하는 방향입니다.",
+      easy: "유도 전류, 변압기, 전력 변환 효율 비교",
+      activityExamples: ["전자기 유도 실험 결과 해석", "변압기 원리와 전력 손실 조사", "무선 충전 원리 보고서"]
+    };
+    const quantumAxis = {
+      id: "electronics_quantum_device_axis",
+      title: "광센서·양자소자 응용 축",
+      short: "광센서·소자",
+      axisDomain: "physics",
+      priority: 6,
+      linkedSubjects: ["전자기와 양자", "물리", "화학"],
+      desc: "광전 효과, 에너지 준위, 밴드갭 개념을 LED, 광센서, 양자소자의 작동 원리로 연결하는 방향입니다.",
+      easy: "LED·광센서 원리, 밴드갭, 전자 전이 비교 정리",
+      activityExamples: ["LED와 광센서 작동 비교", "에너지 준위와 빛 방출 과정 정리", "양자소자 활용 사례 조사"]
+    };
+
+    if (/컴퓨팅 시스템과 네트워크|프로그래밍과 자동화|자료와 정보의 표현|자료와 정보의 분석/.test(conceptText)) {
+      if (hit("센서", "네트워크", "임베디드", "제어", "자동화", "시스템", "통신")) return [make(embeddedAxis, 0), make(commAxis, 1), make(circuitAxis, 2)];
+      return [make(embeddedAxis, 0), make(circuitAxis, 1), make(commAxis, 2)];
+    }
+    if (/파동의 성질과 활용/.test(conceptText)) return [make(commAxis, 0), make(circuitAxis, 1), make(embeddedAxis, 2)];
+    if (/물질의 전기적 특성/.test(conceptText)) {
+      if (hit("반도체", "소자", "센서", "전기 전도성")) return [make(deviceAxis, 0), make(circuitAxis, 1), make(embeddedAxis, 2)];
+      return [make(circuitAxis, 0), make(deviceAxis, 1), make(embeddedAxis, 2)];
+    }
+    if (/물질의 자기적 특성/.test(conceptText)) return [make(deviceAxis, 0), make(powerAxis, 1), make(circuitAxis, 2)];
+    if (/전자기 유도와 전자기파/.test(conceptText)) {
+      if (hit("전자기파", "안테나", "통신", "주파수", "무선 통신", "데이터 전송")) return [make(commAxis, 0), make(powerAxis, 1), make(circuitAxis, 2)];
+      return [make(powerAxis, 0), make(commAxis, 1), make(circuitAxis, 2)];
+    }
+    if (/전기장과 자기장/.test(conceptText)) return [make(deviceAxis, 0), make(circuitAxis, 1), make(embeddedAxis, 2)];
+    if (/양자와 물질의 상호작용/.test(conceptText)) return [make(quantumAxis, 0), make(deviceAxis, 1), make(commAxis, 2)];
+    return [make(circuitAxis, 0), make(deviceAxis, 1), make(commAxis, 2)];
+  }
+
   function isIntegratedScience2EnvironmentEngineeringF1Context(mappedEntry) {
     try {
       const subjectText = String(state.subject || "").replace(/\s+/g, "");
@@ -4904,6 +5045,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v89.8 EL1-lock: 전자공학/전기전자/통신 계열은 물리·전자기와 양자·정보에서
+    // 회로/센서/통신/임베디드 축을 직접 반환해 반도체·컴퓨터·일반 물리 축으로 밀리지 않게 한다.
+    if (isElectronicsEngineeringAxisContext(mappedEntry)) {
+      return buildElectronicsEngineeringForcedAxes(mappedEntry);
+    }
 
     // v89.7 G1-lock: 식품영양/식품공학과 + 화학은 식품 성분·물성·pH·농도 분석 축을 직접 반환해
     // 약학/생명/화공 일반 축으로 다시 밀리는 것을 막는다.
@@ -9777,6 +9924,20 @@ function getTrackMeta(trackId) {
         const others = ranked.filter(item => !forced.includes(item.concept));
         return uniq([...forcedItems, ...others]).slice(0, 3);
       }
+    }
+
+    // v89.8 EL1-lock: 전자공학/전기전자/통신 계열 대표 3개 최종 고정.
+    // 반도체/컴퓨터형 가드에 끌리지 않도록 실제 선택 학과가 전자계열일 때만 적용한다.
+    if (isElectronicsEngineeringSelectedContext() && (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ" || state.subject === "물리학1")) {
+      return pickForcedConceptItems(ranked, ["물질의 전기적 특성", "물질의 자기적 특성", "파동의 성질과 활용"]);
+    }
+
+    if (isElectronicsEngineeringSelectedContext() && isElectromagnetismQuantumSubject()) {
+      return pickForcedConceptItems(ranked, ["전자기 유도와 전자기파", "전기장과 자기장", "양자와 물질의 상호작용"]);
+    }
+
+    if (isElectronicsEngineeringSelectedContext() && state.subject === "정보") {
+      return pickForcedConceptItems(ranked, ["컴퓨팅 시스템과 네트워크", "프로그래밍과 자동화", "자료와 정보의 표현"]);
     }
 
     // v88.6 C1-lock: 기계공학과 대표 검수용 고급 선택과목 3개 노출.
