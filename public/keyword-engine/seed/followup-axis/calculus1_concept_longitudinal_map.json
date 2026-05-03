@@ -1,6 +1,6 @@
 {
   "subject_name": "미적분1",
-  "version": "v33.34-calculus1-derivative-axis-split",
+  "version": "v89.1-data-science-axis-d4",
   "policy": {
     "priority_rule": [
       "교과 개념별 종단 연결 후보를 먼저 제시한다",
@@ -399,91 +399,101 @@
       "concept_name": "도함수의 활용",
       "concept_key": "도함수의 활용",
       "concept_label": "도함수-최적화",
-      "core_focus": "접선·증가감소·극값을 이용한 최적화와 그래프 해석",
+      "core_focus": "변화율, 최적화, 그래프 개형, 모델 민감도, 예측 모델 해석",
       "longitudinal_axes": [
         {
           "axis_id": "optimization_gradient_axis",
-          "axis_title": "최적화·변화율 판단 축",
-          "axis_short": "최적화",
-          "axis_domain": "programming",
+          "axis_title": "변화율·최적화 축",
+          "axis_short": "변화율 최적화",
+          "axis_domain": "data_model",
           "priority": 1,
           "next_subjects": [
             "정보",
-            "컴퓨터공학",
-            "산업공학"
+            "데이터사이언스",
+            "인공지능"
           ],
-          "why": "도함수의 활용은 최댓값·최솟값과 변화 방향을 판단하는 최적화 사고로 이어진다.",
-          "student_output_hint": "최적 조건 탐색표, 변화율 기반 의사결정 보고서",
+          "why": "도함수는 변화율과 최적 조건을 판단해 데이터 모델의 개선 방향을 설명하는 데 쓰인다.",
+          "student_output_hint": "최적 조건 탐색표, 변화율 기반 예측 모델 해석 카드",
           "keyword_signals": [
             {
               "keywords": [
+                "변화율",
                 "최적화",
                 "극값",
                 "최댓값",
-                "최솟값"
+                "최솟값",
+                "그래프 개형"
               ],
-              "boost": 26,
-              "short": "최적화",
-              "short_label": "최적화",
-              "desc": "최적화 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "함수의 극값으로 최적 조건 찾기",
-              "activity_examples": [
-                "함수의 극값으로 최적 조건 찾기"
-              ],
-              "label": "키워드 반영"
-            },
-            {
-              "keywords": [
-                "변화율",
-                "증가",
-                "감소"
-              ],
-              "boost": 22,
-              "short": "변화 방향",
-              "short_label": "변화 방향",
-              "desc": "변화 방향 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "증가·감소 구간과 의사결정 기준 연결하기",
-              "activity_examples": [
-                "증가·감소 구간과 의사결정 기준 연결하기"
-              ],
-              "label": "키워드 반영"
+              "boost": 30,
+              "label": "키워드 직접 반영",
+              "short_label": "변화율 최적화",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "tangent_graph_axis",
-          "axis_title": "접선·그래프 해석 축",
-          "axis_short": "접선 그래프",
-          "axis_domain": "math_model",
+          "axis_id": "model_sensitivity_analysis_axis",
+          "axis_title": "모델 민감도 분석 축",
+          "axis_short": "모델 민감도",
+          "axis_domain": "data_model",
           "priority": 2,
           "next_subjects": [
-            "공통수학2",
-            "물리",
+            "데이터사이언스",
+            "인공지능",
             "정보"
           ],
-          "why": "접선과 그래프 개형은 순간 변화와 전체 구조를 함께 설명하는 도구다.",
-          "student_output_hint": "접선 기울기 비교, 그래프 개형 분석",
+          "why": "입력 변화에 따른 출력 변화율을 해석하면 모델이 어떤 변수에 민감한지 분석할 수 있다.",
+          "student_output_hint": "변수 변화에 따른 예측값 변화표, 민감도 분석 보고서",
           "keyword_signals": [
             {
               "keywords": [
-                "접선",
-                "그래프 개형"
+                "모델 오차",
+                "학습률",
+                "민감도",
+                "변수",
+                "변화율",
+                "예측 모델"
               ],
-              "boost": 20,
-              "short": "접선 해석",
-              "short_label": "접선 해석",
-              "desc": "접선 해석 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "접선 기울기와 그래프 변화 비교하기",
-              "activity_examples": [
-                "접선 기울기와 그래프 변화 비교하기"
+              "boost": 28,
+              "label": "키워드 직접 반영",
+              "short_label": "민감도",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
+            }
+          ]
+        },
+        {
+          "axis_id": "data_prediction_rate_axis",
+          "axis_title": "데이터 기반 예측 축",
+          "axis_short": "데이터 예측",
+          "axis_domain": "data_prediction",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "데이터사이언스"
+          ],
+          "why": "변화율은 데이터의 증가·감소 방향을 읽고 이후 흐름을 예측하는 기준이 된다.",
+          "student_output_hint": "변화율 기반 예측 그래프, 예측 모델 비교 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "예측",
+                "데이터",
+                "모델",
+                "증가",
+                "감소",
+                "의사결정"
               ],
-              "label": "키워드 반영"
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short_label": "데이터 예측",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
             }
           ]
         },
@@ -609,90 +619,97 @@
       "concept_name": "정적분의 활용",
       "concept_key": "정적분의 활용",
       "concept_label": "정적분-누적모델",
-      "core_focus": "넓이·부피·거리와 같은 누적량 모델링",
+      "core_focus": "누적량, 면적, 리만 합, 수치 근사, 누적 데이터 해석",
       "longitudinal_axes": [
         {
-          "axis_id": "accumulated_quantity_model_axis",
-          "axis_title": "누적량·면적 모델링 축",
-          "axis_short": "누적량 모델",
-          "axis_domain": "math_data",
+          "axis_id": "accumulated_data_model_axis",
+          "axis_title": "누적 데이터 해석 축",
+          "axis_short": "누적 데이터",
+          "axis_domain": "data",
           "priority": 1,
           "next_subjects": [
-            "공통수학2",
-            "물리",
-            "정보"
+            "확률과 통계",
+            "정보",
+            "데이터사이언스"
           ],
-          "why": "정적분은 변화가 누적된 결과를 넓이·거리·양으로 해석하게 한다.",
-          "student_output_hint": "면적·거리 누적 모델 보고서",
+          "why": "정적분은 작은 변화가 쌓인 결과를 누적 데이터와 전체량으로 해석하게 한다.",
+          "student_output_hint": "누적량 그래프 해석 카드, 구간별 누적 데이터 보고서",
           "keyword_signals": [
             {
               "keywords": [
                 "누적량",
-                "넓이",
-                "부피",
-                "이동거리"
+                "누적 데이터",
+                "면적",
+                "분포 면적",
+                "리만 합"
               ],
-              "boost": 26,
-              "short": "누적량 모델",
-              "short_label": "누적량 모델",
-              "desc": "누적량 모델 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "속도-시간 그래프에서 이동거리 해석하기",
-              "activity_examples": [
-                "속도-시간 그래프에서 이동거리 해석하기"
-              ],
-              "label": "키워드 반영"
-            },
-            {
-              "keywords": [
-                "리만 합",
-                "면적"
-              ],
-              "boost": 18,
-              "short": "면적 근사",
-              "short_label": "면적 근사",
-              "desc": "면적 근사 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "구간 분할로 면적 근사하기",
-              "activity_examples": [
-                "구간 분할로 면적 근사하기"
-              ],
-              "label": "키워드 반영"
+              "boost": 30,
+              "label": "키워드 직접 반영",
+              "short_label": "누적 데이터",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
             }
           ]
         },
         {
-          "axis_id": "simulation_area_axis",
-          "axis_title": "시뮬레이션·수치 근사 축",
+          "axis_id": "numerical_approximation_simulation_axis",
+          "axis_title": "수치 근사·시뮬레이션 축",
           "axis_short": "수치 근사",
-          "axis_domain": "programming",
+          "axis_domain": "simulation",
           "priority": 2,
           "next_subjects": [
             "정보",
-            "컴퓨터공학"
+            "데이터사이언스",
+            "인공지능"
           ],
-          "why": "정적분 활용은 연속 변화를 작은 구간으로 나누어 근사하는 시뮬레이션 사고와 연결된다.",
-          "student_output_hint": "수치 근사 실험 카드",
+          "why": "연속 변화를 작은 구간으로 나누어 근사하는 과정은 수치해석과 시뮬레이션으로 확장된다.",
+          "student_output_hint": "구간 수에 따른 근사값 변화 비교, 시뮬레이션 카드",
           "keyword_signals": [
             {
               "keywords": [
-                "모델링",
+                "수치 근사",
                 "리만 합",
-                "근사"
+                "시뮬레이션",
+                "근사",
+                "모델링"
               ],
-              "boost": 20,
-              "short": "수치 근사",
+              "boost": 28,
+              "label": "키워드 직접 반영",
               "short_label": "수치 근사",
-              "desc": "수치 근사 키워드와 직접 연결됩니다.",
-              "reason": "",
-              "message": "",
-              "activity_hint": "구간 수에 따른 근사값 변화 비교하기",
-              "activity_examples": [
-                "구간 수에 따른 근사값 변화 비교하기"
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
+            }
+          ]
+        },
+        {
+          "axis_id": "distribution_area_interpretation_axis",
+          "axis_title": "분포 면적·확률 해석 축",
+          "axis_short": "분포 면적",
+          "axis_domain": "statistics",
+          "priority": 3,
+          "next_subjects": [
+            "확률과 통계",
+            "데이터사이언스"
+          ],
+          "why": "정적분의 면적 해석은 분포 아래 면적과 확률 해석으로 연결된다.",
+          "student_output_hint": "분포 아래 면적 해석 카드, 구간 확률 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "분포 면적",
+                "확률",
+                "면적",
+                "누적",
+                "구간"
               ],
-              "label": "키워드 반영"
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short_label": "분포 면적",
+              "desc": "선택 키워드와 맞닿은 데이터사이언스형 후속 연계축이 강화됩니다.",
+              "message": "선택한 키워드가 데이터 분석·모델링 맥락과 직접 연결되어 이 후속 연계축이 강화됩니다.",
+              "activity_examples": []
             }
           ]
         },
