@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.7-pure-math-axis-math3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.8-medical-direct-prelock-med1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -5703,10 +5703,144 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   }
 
 
+
+  // v90.8 MED1-lock: 의예/치의예/한의예/수의예 직접 메디컬 계열 1차 잠금.
+  // 간호·보건, 약학, 생명공학과 섞이지 않도록 생명과학/화학/세포와 물질대사 후속축을 직접 반환한다.
+  function isMedicalDirectMajorSelectedContext() {
+    const selectedParts = [];
+    const pushSelected = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천/.test(text)) return;
+      selectedParts.push(text);
+    };
+    try { pushSelected($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { pushSelected(state.majorSelectedName || ""); } catch (error) {}
+    try { pushSelected(state.career || ""); } catch (error) {}
+    try { pushSelected(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { pushSelected(getCareerInputText?.() || ""); } catch (error) {}
+    try { pushSelected(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      pushSelected(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(pushSelected);
+    } catch (error) {}
+    const selectedText = Array.from(new Set(selectedParts)).join(' ').replace(/\s+/g, ' ').trim();
+    const compact = selectedText.replace(/\s+/g, '');
+    const medPattern = /(의예과|의학과|의예|의학|의대|치의예과|치의학과|치의예|치의학|치대|한의예과|한의학과|한의예|한의학|한의대|수의예과|수의학과|수의예|수의학|수의대)/;
+    const exclude = /(간호학과|간호|보건학과|보건관리|임상병리|방사선|물리치료|작업치료|약학과|약학|제약|생명공학과|생명공학|생명과학과|식품|환경)/;
+    if (medPattern.test(selectedText) || medPattern.test(compact)) {
+      if (!exclude.test(selectedText) || /(의예|의학|의대|치의|치대|한의|한의대|수의|수의대)/.test(selectedText + compact)) return true;
+    }
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      const bodyCompact = bodyText.replace(/\s+/g, "");
+      if (/2\.\s*학과\s*(의예과|의학과|치의예과|한의예과|수의예과)|학과\s*(의예과|의학과|치의예과|한의예과|수의예과)/.test(bodyText)) return true;
+      if (/2\.학과(의예과|의학과|치의예과|한의예과|수의예과)|학과(의예과|의학과|치의예과|한의예과|수의예과)/.test(bodyCompact)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function makeMedicalDirectAxis(seed, index) {
+    const axis = makeContextFollowupAxis(seed);
+    return {
+      ...axis,
+      relationType: "direct",
+      relationLabel: "직접 연계 강함",
+      reason: "메디컬 직접 계열의 인체 생리·질병·진단·치료 기초 탐구와 바로 이어지는 후속 탐구축입니다.",
+      __priority: index + 1,
+      __relationScore: 46,
+      __score: 1240 - index
+    };
+  }
+
+  function isLifeScienceMedicalDirectAxisContext(mappedEntry) {
+    if (!isMedicalDirectMajorSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    return /^(생명과학|생명과학Ⅰ|생명과학1)$/.test(subjectText) && /면역과 백신|신경계와 항상성|물질대사와 건강|유전자와 염색체|신경 자극 전도와 전달/.test(conceptText);
+  }
+
+  function buildLifeScienceMedicalDirectForcedAxes(mappedEntry) {
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ");
+    const keywordText = String(state.keyword || "");
+    const hit = (...values) => values.some(value => fuzzyIncludes(keywordText, value) || fuzzyIncludes(value, keywordText));
+    const seed = (id, title, short, linkedSubjects, desc, easy, activityExamples, priority = 1) => ({ id, title, short, axisDomain: "medical", priority, linkedSubjects, desc, easy, activityExamples });
+    const immuneAxis = seed("medical_immune_response_v908", "면역 반응·항원항체 해석 축", "면역 반응·항원항체", ["생명과학", "세포와 물질대사", "화학"], "항원·항체, 백신, 면역 기억을 감염과 예방의 생명과학 원리로 연결하는 방향입니다.", "면역 반응 과정과 백신의 예방 원리를 항원·항체 관계로 설명하는 보고서", ["항원-항체 반응 흐름도", "백신 접종 후 면역 기억 설명", "감염병 예방 원리 비교"], 1);
+    const infectionAxis = seed("medical_infection_prevention_v908", "감염병 예방·백신 적용 축", "감염병 예방·백신", ["생명과학", "통합과학2", "확률과 통계"], "감염 전파, 예방 접종, 집단 면역을 건강 관리와 예방 의학 관점으로 연결하는 방향입니다.", "감염병 예방 전략을 백신·면역·자료 해석으로 정리하는 보고서", ["백신 원리와 예방 전략 비교", "감염 전파 자료 해석", "예방 행동 설계"], 2);
+    const homeostasisAxis = seed("medical_homeostasis_feedback_v908", "항상성 조절·피드백 해석 축", "항상성·피드백", ["생명과학", "화학", "세포와 물질대사"], "체온, 혈당, 삼투압 같은 항상성 조절을 신경·호르몬 피드백으로 해석하는 방향입니다.", "인체 항상성이 무너질 때 나타나는 변화를 피드백 조절 구조로 설명하는 보고서", ["혈당 조절 피드백 그림", "체온 조절 사례 분석", "항상성 이상 질환 연결"], 1);
+    const neuroAxis = seed("medical_neural_signal_control_v908", "신경 신호·생체 조절 축", "신경 신호·조절", ["생명과학", "전자기와 양자", "정보"], "신경 자극 전달, 시냅스, 반응 조절을 생체 신호와 조절 체계로 연결하는 방향입니다.", "신경 신호 전달 과정을 건강·질환 사례와 연결하는 보고서", ["신경 전달 과정 도식화", "반응 시간·신경 경로 분석", "신경계 이상 사례 조사"], 2);
+    const metabolismAxis = seed("medical_metabolism_health_v908", "대사·건강 지표 해석 축", "대사·건강 지표", ["생명과학", "세포와 물질대사", "화학"], "혈당, 인슐린, ATP, 대사 경로를 건강 지표와 질병 이해로 연결하는 방향입니다.", "대사 과정과 건강 지표를 연결해 질병 원리를 설명하는 보고서", ["혈당 변화와 인슐린 작용 분석", "대사 질환 원리 정리", "건강 지표 그래프 해석"], 1);
+    const geneAxis = seed("medical_genetic_disease_v908", "유전 정보·질병 이해 축", "유전 정보·질병", ["생명과학", "세포와 물질대사", "화학"], "DNA, 유전자, 염색체, 유전 변이를 질병 이해와 진단 기초로 연결하는 방향입니다.", "유전 정보가 단백질과 형질, 질병 위험으로 이어지는 과정을 설명하는 보고서", ["DNA-단백질-형질 흐름도", "유전 질환 사례 분석", "염기 서열 변화와 단백질 영향 비교"], 3);
+    if (/면역과 백신/.test(conceptText)) return [makeMedicalDirectAxis(immuneAxis, 0), makeMedicalDirectAxis(infectionAxis, 1), makeMedicalDirectAxis(homeostasisAxis, 2)];
+    if (/신경계와 항상성|신경 자극 전도와 전달/.test(conceptText)) return [makeMedicalDirectAxis(homeostasisAxis, 0), makeMedicalDirectAxis(neuroAxis, 1), makeMedicalDirectAxis(metabolismAxis, 2)];
+    if (/물질대사와 건강/.test(conceptText)) return [makeMedicalDirectAxis(metabolismAxis, 0), makeMedicalDirectAxis(homeostasisAxis, 1), makeMedicalDirectAxis(immuneAxis, 2)];
+    if (/유전자와 염색체/.test(conceptText)) return [makeMedicalDirectAxis(geneAxis, 0), makeMedicalDirectAxis(immuneAxis, 1), makeMedicalDirectAxis(metabolismAxis, 2)];
+    return [makeMedicalDirectAxis(homeostasisAxis, 0), makeMedicalDirectAxis(immuneAxis, 1), makeMedicalDirectAxis(metabolismAxis, 2)];
+  }
+
+  function isChemistry1MedicalDirectContext(mappedEntry) {
+    if (!isMedicalDirectMajorSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    return /^(화학|화학Ⅰ|화학1)$/.test(subjectText) && /탄소 화합물의 유용성|화학 반응에서의 동적 평형|분자의 구조와 성질|물질의 양과 화학 반응식|화학 반응과 열의 출입/.test(conceptText);
+  }
+
+  function buildChemistry1MedicalDirectForcedAxes() {
+    const conceptText = String(state.concept || "");
+    const seed = (id, title, short, linkedSubjects, desc, easy, activityExamples, priority = 1) => ({ id, title, short, axisDomain: "medical_chemistry", priority, linkedSubjects, desc, easy, activityExamples });
+    const bioMoleculeAxis = seed("medical_biomolecule_structure_v908", "생체 분자 구조·기능 축", "생체 분자 구조", ["화학", "생명과학", "세포와 물질대사"], "탄소 화합물, 단백질, 지질, 탄수화물의 구조를 인체 기능과 연결하는 방향입니다.", "생체 분자 구조가 인체 기능에 미치는 영향을 정리하는 보고서", ["단백질·지질·탄수화물 구조 비교", "작용기와 생체 기능 연결", "친수성·소수성과 세포막 기능 분석"], 1);
+    const drugStructureAxis = seed("medical_drug_structure_function_v908", "의약품 구조·작용기 축", "의약품 구조·작용기", ["화학", "생명과학", "약학"], "작용기, 극성, 결합 구조를 약물 작용과 생체 분자 상호작용으로 연결하는 방향입니다.", "약물 구조와 작용기가 흡수·작용에 미치는 영향을 비교하는 보고서", ["작용기별 성질 비교", "약물 구조와 수용체 상호작용 조사", "친수성·소수성에 따른 흡수 차이 분석"], 2);
+    const bufferAxis = seed("medical_body_fluid_buffer_v908", "체액 pH·완충 항상성 축", "체액 pH·완충", ["화학", "생명과학", "세포와 물질대사"], "pH, 완충 용액, 산·염기 평형을 혈액 pH와 체액 항상성 유지로 연결하는 방향입니다.", "체액 pH가 일정하게 유지되는 원리를 완충 작용과 항상성 관점에서 설명하는 보고서", ["혈액 pH 완충 원리 정리", "산·염기 변화와 생리 반응 연결", "완충 용액 모형 실험 설계"], 1);
+    const healthChemAxis = seed("medical_health_chemistry_indicator_v908", "건강 지표·화학 조건 해석 축", "건강 지표·화학 조건", ["화학", "생명과학", "확률과 통계"], "농도, pH, 반응 조건을 체액·혈액·대사 건강 지표 해석으로 연결하는 방향입니다.", "인체의 화학적 조건 변화를 건강 지표로 해석하는 보고서", ["pH와 건강 지표 연결", "체액 농도 변화 사례 분석", "검사 수치의 화학적 의미 정리"], 2);
+    const molecularInteractionAxis = seed("medical_molecular_interaction_v908", "생체 분자 상호작용 축", "생체 분자 상호작용", ["화학", "생명과학", "세포와 물질대사"], "극성, 수소 결합, 분자 사이 힘을 단백질·세포막·수용체 상호작용으로 연결하는 방향입니다.", "분자 구조와 상호작용이 생체 기능을 어떻게 바꾸는지 설명하는 보고서", ["수소 결합과 단백질 구조 분석", "세포막 투과성과 극성 연결", "수용체-리간드 상호작용 사례 조사"], 1);
+    const dosageAxis = seed("medical_dosage_concentration_v908", "투약 농도·정량 계산 축", "투약 농도·정량", ["화학", "확률과 통계", "생명과학"], "몰 농도, 희석, 용액 계산을 투약 농도와 정량적 안전성 판단으로 연결하는 방향입니다.", "농도 계산과 희석 원리를 투약 농도·정량 분석 사례로 정리하는 보고서", ["몰 농도·희석 계산", "용액 농도와 투약량 관계 분석", "측정 오차와 안전 범위 논의"], 3);
+    const thermalMetabolismAxis = seed("medical_thermal_metabolism_v908", "반응열·대사 에너지 축", "반응열·대사", ["화학", "세포와 물질대사", "생명과학"], "발열·흡열, 산화·환원, 에너지 출입을 체온·대사·세포 호흡과 연결하는 방향입니다.", "화학 반응의 에너지 출입을 인체 대사와 체온 유지로 설명하는 보고서", ["산화 반응과 에너지 생성 연결", "반응열과 체온 조절 사례", "대사 에너지 흐름 정리"], 3);
+    if (/탄소 화합물의 유용성/.test(conceptText)) return [makeMedicalDirectAxis(bioMoleculeAxis, 0), makeMedicalDirectAxis(drugStructureAxis, 1), makeMedicalDirectAxis(molecularInteractionAxis, 2)];
+    if (/화학 반응에서의 동적 평형/.test(conceptText)) return [makeMedicalDirectAxis(bufferAxis, 0), makeMedicalDirectAxis(healthChemAxis, 1), makeMedicalDirectAxis(molecularInteractionAxis, 2)];
+    if (/분자의 구조와 성질/.test(conceptText)) return [makeMedicalDirectAxis(molecularInteractionAxis, 0), makeMedicalDirectAxis(bioMoleculeAxis, 1), makeMedicalDirectAxis(drugStructureAxis, 2)];
+    if (/물질의 양과 화학 반응식/.test(conceptText)) return [makeMedicalDirectAxis(dosageAxis, 0), makeMedicalDirectAxis(healthChemAxis, 1), makeMedicalDirectAxis(bufferAxis, 2)];
+    if (/화학 반응과 열의 출입/.test(conceptText)) return [makeMedicalDirectAxis(thermalMetabolismAxis, 0), makeMedicalDirectAxis(healthChemAxis, 1), makeMedicalDirectAxis(molecularInteractionAxis, 2)];
+    return [makeMedicalDirectAxis(bioMoleculeAxis, 0), makeMedicalDirectAxis(bufferAxis, 1), makeMedicalDirectAxis(molecularInteractionAxis, 2)];
+  }
+
+  function isCellMetabolismMedicalDirectAxisContext(mappedEntry) {
+    if (!isMedicalDirectMajorSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    return /세포와물질대사/.test(subjectText) && /세포의 구조와 물질 이동|효소와 대사 반응|광합성과 세포 호흡/.test(conceptText);
+  }
+
+  function buildCellMetabolismMedicalDirectForcedAxes(mappedEntry) {
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ");
+    const seed = (id, title, short, linkedSubjects, desc, easy, activityExamples, priority = 1) => ({ id, title, short, axisDomain: "medical_cell", priority, linkedSubjects, desc, easy, activityExamples });
+    const membraneAxis = seed("medical_cell_membrane_transport_v908", "세포막·물질 이동 해석 축", "세포막·물질 이동", ["세포와 물질대사", "생명과학", "화학"], "세포막, 확산, 삼투, 능동 수송을 체액 균형과 세포 기능 유지로 연결하는 방향입니다.", "세포막 물질 이동이 인체 항상성에 어떤 역할을 하는지 설명하는 보고서", ["확산·삼투·능동수송 비교", "체액 균형과 세포막 기능 연결", "세포막 투과성 실험 설계"], 1);
+    const drugTransportAxis = seed("medical_drug_membrane_transport_v908", "약물 전달·막 투과 축", "약물 전달·막 투과", ["세포와 물질대사", "화학", "약학"], "막단백질, 수송체, 세포막 투과성을 약물 흡수와 전달 원리로 연결하는 방향입니다.", "약물이 세포막을 통과하는 조건을 구조·극성·수송 방식으로 설명하는 보고서", ["약물 흡수와 세포막 투과성 비교", "수송체와 채널 단백질 역할 정리", "친수성·소수성 물질 이동 비교"], 2);
+    const enzymeAxis = seed("medical_enzyme_metabolism_disease_v908", "효소·대사 질환 해석 축", "효소·대사 질환", ["세포와 물질대사", "생명과학", "화학"], "효소, 기질, 반응 속도, 대사 경로를 대사 질환과 건강 지표로 연결하는 방향입니다.", "효소 활성 변화가 대사 과정과 질병 위험에 미치는 영향을 정리하는 보고서", ["효소 반응 속도 그래프 해석", "대사 질환 사례와 효소 연결", "최적 pH·온도와 인체 조건 비교"], 1);
+    const inhibitorAxis = seed("medical_drug_enzyme_inhibition_v908", "약물 작용·효소 억제 축", "약물 작용·효소 억제", ["세포와 물질대사", "화학", "약학"], "효소 저해, 수용체, 약물 작용을 반응 조절과 치료 원리로 연결하는 방향입니다.", "효소 억제가 약물 치료 원리로 이어지는 과정을 설명하는 보고서", ["경쟁적·비경쟁적 저해 비교", "약물 작용과 효소 활성 연결", "반응 속도 변화 그래프 해석"], 2);
+    const respirationAxis = seed("medical_cell_respiration_atp_v908", "세포 호흡·ATP 대사 축", "세포 호흡·ATP", ["세포와 물질대사", "생명과학", "화학"], "세포 호흡, ATP, 전자 전달계를 에너지 대사와 인체 기능 유지로 연결하는 방향입니다.", "ATP 생성 과정과 에너지 대사를 인체 기능과 연결하는 보고서", ["세포 호흡 단계별 ATP 생성 비교", "산소 이용과 에너지 대사 연결", "운동·질환 상황의 에너지 요구 분석"], 1);
+    const metabolicEnergyAxis = seed("medical_metabolic_energy_health_v908", "에너지 대사·건강 조절 축", "에너지 대사·건강", ["세포와 물질대사", "생명과학", "화학"], "광합성·세포 호흡의 에너지 전환 원리를 대사 조절, 산소 이용, 건강 상태로 연결하는 방향입니다.", "에너지 전환과 대사 조절이 건강 상태에 미치는 영향을 정리하는 보고서", ["에너지 대사 흐름도", "산소 이용과 세포 호흡 관계", "대사 조절 이상 사례 분석"], 2);
+    if (/세포의 구조와 물질 이동/.test(conceptText)) return [makeMedicalDirectAxis(membraneAxis, 0), makeMedicalDirectAxis(drugTransportAxis, 1), makeMedicalDirectAxis(enzymeAxis, 2)];
+    if (/효소와 대사 반응/.test(conceptText)) return [makeMedicalDirectAxis(enzymeAxis, 0), makeMedicalDirectAxis(inhibitorAxis, 1), makeMedicalDirectAxis(metabolicEnergyAxis, 2)];
+    if (/광합성과 세포 호흡/.test(conceptText)) return [makeMedicalDirectAxis(respirationAxis, 0), makeMedicalDirectAxis(metabolicEnergyAxis, 1), makeMedicalDirectAxis(enzymeAxis, 2)];
+    return [makeMedicalDirectAxis(enzymeAxis, 0), makeMedicalDirectAxis(membraneAxis, 1), makeMedicalDirectAxis(respirationAxis, 2)];
+  }
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v90.8 MED1-lock: 의예/치의예/한의예/수의예 직접 메디컬 계열은
+    // 생명과학·화학·세포와 물질대사에서 인체 생리/질병/진단 기초 축을 직접 반환한다.
+    if (isLifeScienceMedicalDirectAxisContext(mappedEntry)) {
+      return buildLifeScienceMedicalDirectForcedAxes(mappedEntry);
+    }
+    if (isChemistry1MedicalDirectContext(mappedEntry)) {
+      return buildChemistry1MedicalDirectForcedAxes();
+    }
+    if (isCellMetabolismMedicalDirectAxisContext(mappedEntry)) {
+      return buildCellMetabolismMedicalDirectForcedAxes(mappedEntry);
+    }
 
     // v90.5 MATH1-lock: 수학과/수리과학과는 대수·극한·기하·확률 구조 중심의
     // 순수 수학 4번 후속축을 직접 반환한다.
@@ -7967,6 +8101,8 @@ function getTrackMeta(trackId) {
     if (/(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(exact)
       && !/(공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명)/.test(exact)) return "biology";
     if (/(^|s)(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|생명정보|바이오공학|바이오테크|바이오메디컬)(s|$)/.test(exact)) return "bioengineering";
+    // v90.8 MED1-lock: 의예/치의예/한의예/수의예는 간호·보건보다 먼저 직접 메디컬 계열로 판별한다.
+    if (/(^|s)(의예과|의학과|의예|의학|의대|치의예과|치의학과|치의예|치의학|치대|한의예과|한의학과|한의예|한의학|한의대|수의예과|수의학과|수의예|수의학|수의대)(s|$)/.test(exact)) return "medical";
     if (/(^|s)(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)(s|$)/.test(exact)) return "nursing";
     if (/(^|s)(약학과|약학|제약|신약|약물|약대|화공)(s|$)/.test(exact)) return "pharmacy";
     if (/(^|s)(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)(s|$)/.test(exact)) return "food";
@@ -7977,6 +8113,7 @@ function getTrackMeta(trackId) {
     try { mixed += " " + String(document.body?.innerText || "").replace(/s+/g, " "); } catch (error) {}
     if (/2\.\s*학과\s*생명과학과|학과\s*생명과학과|2\.\s*학과\s*생물학과|학과\s*생물학과/.test(mixed)) return "biology";
     if (/2.s*학과s*생명공학과|학과s*생명공학과/.test(mixed)) return "bioengineering";
+    if (/2\.?\s*학과\s*(의예과|의학과|치의예과|한의예과|수의예과)|학과\s*(의예과|의학과|치의예과|한의예과|수의예과)/.test(mixed)) return "medical";
     if (/2.s*학과s*간호학과|학과s*간호학과/.test(mixed)) return "nursing";
     if (/2.s*학과s*약학과|학과s*약학과/.test(mixed)) return "pharmacy";
     if (/2.s*학과s*식품영양학과|학과s*식품영양학과/.test(mixed)) return "food";
@@ -8015,6 +8152,9 @@ function getTrackMeta(trackId) {
     }
     if (exactMajorKind === "bioengineering") {
       return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
+    }
+    if (exactMajorKind === "medical") {
+      return ["면역과 백신", "신경계와 항상성", "물질대사와 건강", "유전자와 염색체", "신경 자극 전도와 전달", "물질대사와 에너지", "생식과 생명의 연속성", "생명과학의 이해", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
     }
     if (exactMajorKind === "nursing") {
       return ["물질대사와 건강", "신경계와 항상성", "면역과 백신", "물질대사와 에너지", "신경 자극 전도와 전달", "생명과학의 이해", "유전자와 염색체", "생식과 생명의 연속성", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용"];
@@ -8167,6 +8307,8 @@ function getTrackMeta(trackId) {
     // 정확한 학과명 우선: 화학공학/에너지공학은 기존 materials 버킷으로 빨려 들어가면 안 된다.
     if (has(/화학공학과|화공|공업화학|화공생명공학|화학생명공학|화학생물공학|공정|공정시스템/)) return "chemical_engineering";
     if (has(/에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지/)) return "energy";
+    // v90.8 MED1-lock: 의예/치의예/한의예/수의예는 간호·보건이 아니라 직접 메디컬 화학 분기로 보정한다.
+    if (has(/의예과|의학과|의예|의학|의대|치의예과|치의학과|치의예|치의학|치대|한의예과|한의학과|한의예|한의학|한의대|수의예과|수의학과|수의예|수의학|수의대/)) return "medical";
     // v88.4 H1-lock: 간호/보건 계열은 화면 안의 생명·바이오·의료 키워드 때문에
     // 생명공학/반도체형 화학 대표 개념으로 밀리지 않도록 별도 분기한다.
     if (has(/간호학과|간호|보건학과|보건관리|임상병리|방사선|물리치료|작업치료|언어치료|응급구조|재활|의료|의학/)) return "nursing";
@@ -8190,7 +8332,7 @@ function getTrackMeta(trackId) {
   function isChemistry1ComputerMajorContext() {
     // v88.2 B2-lock: 생명공학과는 생명정보/바이오 데이터/센서 같은 단어가 있어도
     // 컴퓨터·반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
-    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "nursing" || getChemistry1MajorKind() === "pharmacy" || getChemistry1MajorKind() === "food") return false;
+    if (getChemistry1MajorKind() === "bioengineering" || getChemistry1MajorKind() === "medical" || getChemistry1MajorKind() === "nursing" || getChemistry1MajorKind() === "pharmacy" || getChemistry1MajorKind() === "food") return false;
 
     // v87.3 M-lock: 신소재/재료계열은 화면 내 '전자 배치' 같은 교과어 때문에
     // 반도체·전자형 화학 대표 개념으로 끌려가면 안 된다.
@@ -8262,6 +8404,20 @@ function getTrackMeta(trackId) {
         "분자의 구조와 성질",
         "현대의 원자 모형과 전자 배치",
         "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
+    if (chemistryMajorKind === "medical") {
+      return [
+        "탄소 화합물의 유용성",
+        "화학 반응에서의 동적 평형",
+        "분자의 구조와 성질",
+        "물질의 양과 화학 반응식",
+        "화학 반응과 열의 출입",
+        "화학 결합",
+        "원자의 구조",
+        "원소의 주기적 성질",
+        "현대의 원자 모형과 전자 배치",
         "화학과 우리 생활"
       ];
     }
@@ -10509,6 +10665,7 @@ function getTrackMeta(trackId) {
     const isEnergy = chemistryMajorKind === "energy";
     const isMaterials = chemistryMajorKind === "materials";
     const isBioEng = chemistryMajorKind === "bioengineering";
+    const isMedical = chemistryMajorKind === "medical";
     const isNursing = chemistryMajorKind === "nursing";
     const isPharmacy = chemistryMajorKind === "pharmacy";
     const isFood = chemistryMajorKind === "food";
@@ -10532,6 +10689,14 @@ function getTrackMeta(trackId) {
       if (/화학 반응에서의 동적 평형/.test(concept)) return ["동적 평형", "가역 반응", "정반응", "역반응", "평형 이동", "농도", "온도", "압력", "pH", "산", "염기", "완충 용액"];
       if (/화학 반응과 열의 출입/.test(concept)) return ["산화", "환원", "산화수", "전자 이동", "전지", "반응열", "발열 반응", "흡열 반응", "중화 반응", "엔탈피", "에너지 출입"];
       if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "작용기", "고분자", "플라스틱", "에탄올", "아세트산", "공유 결합", "분자 구조", "유기 물질", "생활 화학"];
+    }
+    if (isMedical) {
+      if (/탄소 화합물의 유용성/.test(concept)) return ["생체 분자", "단백질", "아미노산", "탄수화물", "지질", "작용기", "의약품", "호르몬", "세포막", "분자 구조", "친수성", "소수성"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["pH", "완충 용액", "체액", "혈액 pH", "산", "염기", "중화", "항상성", "평형 이동", "호흡", "대사 조건", "건강 지표"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "분자의 극성", "수소 결합", "분자 사이 힘", "용해도", "친수성", "소수성", "약물 흡수", "세포막", "수용체", "생체 분자", "단백질 구조"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "용액", "투약 농도", "체액 농도", "정량 분석", "시료", "오차", "화학 반응식", "계수비", "농도 계산"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["발열 반응", "흡열 반응", "반응열", "대사 열", "체온", "산화", "환원", "에너지 출입", "호흡", "안정성"];
+      if (/화학 결합/.test(concept)) return ["공유 결합", "수소 결합", "이온 결합", "전기음성도", "결합의 극성", "생체 분자", "단백질", "수용체", "분자 상호작용"];
     }
     if (isPharmacy) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["의약품", "작용기", "탄소 화합물", "고분자", "약물 구조", "생체 분자", "단백질", "아미노산", "지질", "친수성", "소수성", "분자 구조"];
