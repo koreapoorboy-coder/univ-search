@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.9-pure-chemistry-prelock-q1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.0-pure-chemistry-order-q2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v89_9_pure_chemistry_prelock_q1";
+  const ASSET_VERSION_QUERY = "v90_0_pure_chemistry_order_q2";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -7775,17 +7775,17 @@ function getTrackMeta(trackId) {
         "현대의 원자 모형과 전자 배치"
       ];
     }
-    // v89.9 Q1-lock: 화학과는 응용계열보다 순수 화학 기초 흐름을 우선한다.
-    // 대표 3개는 원자 전자구조 → 결합 → 분자 구조로 고정한다.
+    // v90.0 Q2-lock: 화학과는 전자배치 단독보다 결합-주기성-분자구조 흐름을 대표 3개로 고정한다.
+    // 이후 2차 디테일링에서 전자배치/정량/평형/열화학은 보조 확장 개념으로 다룬다.
     if (chemistryMajorKind === "chemistry") {
       return [
-        "현대의 원자 모형과 전자 배치",
         "화학 결합",
+        "원소의 주기적 성질",
         "분자의 구조와 성질",
+        "현대의 원자 모형과 전자 배치",
         "물질의 양과 화학 반응식",
         "화학 반응에서의 동적 평형",
         "화학 반응과 열의 출입",
-        "원소의 주기적 성질",
         "원자의 구조",
         "탄소 화합물의 유용성",
         "화학과 우리 생활"
@@ -10266,12 +10266,12 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
 
 
 
-    // v89.9 Q1-lock: 화학과 + 화학 대표 3개 최종 고정.
-    // 화면의 교과어(전자, 소재, 공정 등)에 끌려 공학/전자형 순서로 바뀌는 것을 차단한다.
+    // v90.0 Q2-lock: 화학과 + 화학 대표 3개 최종 고정.
+    // 화면의 교과어(전자, 소재, 공정 등)에 끌려 전자배치형/소재형 순서로 바뀌는 것을 차단한다.
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "chemistry") {
       const forced = [
-        "현대의 원자 모형과 전자 배치",
         "화학 결합",
+        "원소의 주기적 성질",
         "분자의 구조와 성질"
       ];
       const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
