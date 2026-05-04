@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.5-pure-math-prelock-math1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.6-pure-math-final-guard-math2';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -8482,33 +8482,47 @@ function getTrackMeta(trackId) {
   // v90.5 MATH1-lock: 수학과/수리과학과는 컴퓨터·데이터 응용형이 아니라
   // 순수 수학형(대수·극한·기하·확률 구조)으로 3번 대표 개념과 4번 후속축을 분리한다.
   function isPureMathematicsMajorSelectedContext() {
-    const parts = [];
-    const push = (value) => {
+    // v90.6 MATH2-lock: 수학과는 화면 전체 텍스트가 아니라 실제 선택 학과값만 우선 판별한다.
+    // 기존 v90.5는 페이지 어딘가에 남아 있는 '공학/데이터/컴퓨터' 단어 때문에 순수 수학 분기가 꺼질 수 있었다.
+    const selectedParts = [];
+    const pushSelected = (value) => {
       const text = String(value || '').replace(/\s+/g, ' ').trim();
       if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천/.test(text)) return;
-      parts.push(text);
+      selectedParts.push(text);
     };
-    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
-    try { push(state.majorSelectedName || ""); } catch (error) {}
-    try { push(state.career || ""); } catch (error) {}
-    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
-    try { push(getCareerInputText?.() || ""); } catch (error) {}
-    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try { pushSelected($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { pushSelected(state.majorSelectedName || ""); } catch (error) {}
+    try { pushSelected(state.career || ""); } catch (error) {}
+    try { pushSelected(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { pushSelected(getCareerInputText?.() || ""); } catch (error) {}
+    try { pushSelected(getMajorPanelResolvedName?.() || ""); } catch (error) {}
     try {
       const detail = getMajorGlobalDetail?.();
-      push(detail?.display_name || "");
-      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+      pushSelected(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(pushSelected);
     } catch (error) {}
-    let text = Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
-    const compact = text.replace(/\s+/g, '');
+
+    const selectedText = Array.from(new Set(selectedParts)).join(' ').replace(/\s+/g, ' ').trim();
+    const selectedCompact = selectedText.replace(/\s+/g, '');
+    const purePattern = /(^|[^가-힣])(수학과|수리과학과|수학부|응용수학과|수학전공|수리과학)([^가-힣]|$)/;
+    const pureCompactPattern = /(수학과|수리과학과|수학부|응용수학과|수학전공|수리과학)/;
+    const excludeSelected = /수학교육|교육학|데이터사이언스|데이터과학|통계학과|응용통계|컴퓨터공학|컴퓨터|소프트웨어|인공지능|AI|정보보안|정보통신|금융|경제|경영/;
+    if ((purePattern.test(selectedText) || pureCompactPattern.test(selectedCompact))
+      && !(excludeSelected.test(selectedText) || excludeSelected.test(selectedCompact))) {
+      return true;
+    }
+
+    // 실제 선택 요약 영역만 보조로 확인한다. document.body 전체를 일반 텍스트로 넣지 않아
+    // 다른 학과 카드/추천 문구의 '공학' 단어가 수학과 판별을 방해하지 않게 한다.
     try {
       const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
-      if (/2\.\s*학과\s*(수학과|수리과학과|수학부)/.test(bodyText) || /학과\s*(수학과|수리과학과|수학부)/.test(bodyText)) text += " 수학과";
+      const bodyCompact = bodyText.replace(/\s+/g, "");
+      if (/2\.\s*학과\s*(수학과|수리과학과|수학부|응용수학과)|학과\s*(수학과|수리과학과|수학부|응용수학과)/.test(bodyText)) return true;
+      if (/2\.학과(수학과|수리과학과|수학부|응용수학과)|학과(수학과|수리과학과|수학부|응용수학과)/.test(bodyCompact)) return true;
     } catch (error) {}
-    const positive = /수학과|수리과학과|수학부|응용수학과|수리통계|수학전공|수리과학/;
-    const exclude = /수학교육|교육학|데이터사이언스|데이터과학|통계학과|응용통계|컴퓨터|소프트웨어|인공지능|AI|정보|공학|금융|경제|경영/;
-    return (positive.test(text) || positive.test(compact)) && !(exclude.test(text) || exclude.test(compact));
+    return false;
   }
+
 
   function getPureMathematicsForcedConceptOrderForSubject() {
     if (!isPureMathematicsMajorSelectedContext()) return [];
@@ -10872,6 +10886,9 @@ function getTrackMeta(trackId) {
 
   function getOrderedConceptsForAll(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
+    // v90.6 MATH2-lock: 전체 보기에서도 수학과는 수학과형 순서를 먼저 유지한다.
+    const pureMathForcedForAll = getPureMathematicsForcedConceptOrderForSubject();
+    if (pureMathForcedForAll.length) return pickConceptItemsByForcedOrder(ranked, pureMathForcedForAll);
     const dataScienceForced = getDataScienceForcedConceptOrderForSubject();
     if (dataScienceForced.length) return pickConceptItemsByForcedOrder(ranked, dataScienceForced);
     const preferred = getPreferredConceptSequence();
@@ -10883,6 +10900,12 @@ function getTrackMeta(trackId) {
   function getPrimaryConcepts(ranked) {
     if (!Array.isArray(ranked) || !ranked.length) return [];
     const preferred = getPreferredConceptSequence();
+
+    // v90.6 MATH2-lock: 수학과 대표 3개는 컴퓨터/데이터/공학 응용형 가드보다 먼저 확정한다.
+    const pureMathForcedEarly = getPureMathematicsForcedConceptOrderForSubject();
+    if (pureMathForcedEarly.length) {
+      return pickConceptItemsByForcedOrder(ranked, pureMathForcedEarly).slice(0, 3);
+    }
 
     // v89.3 F2-lock: 통합과학2 환경공학/도시·토목·건축 대표 3개 최종 고정.
     // 점수 계산에서 생태/바이오 키워드가 강하게 잡혀도 화면 최종 3개는 검수 기준을 따른다.
