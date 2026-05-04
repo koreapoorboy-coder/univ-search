@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.0-pure-chemistry-order-q2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.1-pure-chemistry-axis-q3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_0_pure_chemistry_order_q2";
+  const ASSET_VERSION_QUERY = "v90_1_pure_chemistry_axis_q3";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4618,7 +4618,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     try {
       const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
       if (!isChemSubject) return false;
-      if (typeof getChemistry1MajorKind !== "function" || getChemistry1MajorKind() !== "chemistry") return false;
+      const majorText = [
+        state.career || "",
+        state.majorSelectedName || "",
+        getEffectiveCareerName?.() || "",
+        getCareerInputText?.() || "",
+        getMajorPanelResolvedName?.() || "",
+        typeof getMajorTextBag === "function" ? getMajorTextBag() : ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      const majorKind = (typeof getChemistry1MajorKind === "function" ? getChemistry1MajorKind() : "");
+      const isPureChemistryMajor = majorKind === "chemistry" || /(^|[^공])화학과|응용화학과|화학생명학과|화학전공/.test(majorText);
+      if (!isPureChemistryMajor) return false;
       const conceptText = [
         state.concept || "",
         mappedEntry?.concept_name || "",
@@ -4734,14 +4744,131 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       activityExamples: ["작용기별 성질 비교", "탄소 화합물 구조식 정리", "생활 속 유기 물질 사례 분석"]
     };
 
-    if (/현대의 원자 모형과 전자 배치|원자의 구조|원소의 주기적 성질/.test(conceptText) || /오비탈|전자 배치|에너지 준위|선 스펙트럼|양자수|이온화 에너지|주기율|원자 반지름/.test(keywordText)) {
-      return [make(atomElectronAxis, 0), make(periodicSpectrumAxis, 1), make(bondStructureAxis, 2)];
+
+    // v90.1 Q3-lock: 화학과 대표 3개(화학 결합/원소의 주기적 성질/분자의 구조와 성질)는
+    // 응용 전공축이 아니라 순수 화학 원리축 3개가 직접 뜨도록 별도 후보를 둔다.
+    const pureChemBondInterpretAxis = {
+      id: "pure_chem_bond_interpret_axis",
+      title: "결합 구조 해석 축",
+      short: "결합 구조 해석",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자", "화학과"],
+      desc: "공유 결합, 이온 결합, 원자가 전자, 전기음성도를 결합 형성과 구조 해석으로 연결하는 방향입니다.",
+      easy: "결합 종류와 전기음성도 차이를 기준으로 결합 구조를 비교하는 보고서",
+      activityExamples: ["공유 결합과 이온 결합 비교", "전기음성도 차이로 결합 극성 판단", "루이스 전자점식 기반 결합 구조 정리"]
+    };
+    const pureChemElectronPairMoleculeAxis = {
+      id: "pure_chem_electron_pair_molecule_axis",
+      title: "전자쌍·분자 구조 해석 축",
+      short: "전자쌍·분자 구조",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자", "화학과"],
+      desc: "공유 전자쌍과 비공유 전자쌍의 배치를 분자 구조, 결합각, 극성 판단으로 확장하는 방향입니다.",
+      easy: "전자쌍 배치와 분자 구조를 연결해 극성 여부를 판단하는 보고서",
+      activityExamples: ["전자쌍 배치 모형 그리기", "결합각과 분자 구조 비교", "극성 분자와 무극성 분자 판별"]
+    };
+    const pureChemBondPropertyPredictAxis = {
+      id: "pure_chem_bond_property_predict_axis",
+      title: "결합과 물성 예측 축",
+      short: "결합·물성 예측",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "물질과 에너지", "화학과"],
+      desc: "결합 종류와 분자 구조를 녹는점, 끓는점, 전도성, 용해도 같은 물성 예측으로 연결하는 방향입니다.",
+      easy: "결합 특성에 따라 물질의 물성이 달라지는 이유를 비교하는 보고서",
+      activityExamples: ["결합 종류별 물성 비교표", "전도성·녹는점 차이 분석", "용해도와 결합 특성 연결"]
+    };
+    const pureChemPeriodicityPredictAxis = {
+      id: "pure_chem_periodicity_predict_axis",
+      title: "주기율·성질 예측 축",
+      short: "주기율·성질 예측",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "전자기와 양자", "물질과 에너지", "화학과"],
+      desc: "주기율표 위치와 주기성을 바탕으로 원자 반지름, 이온화 에너지, 전기음성도 변화를 예측하는 방향입니다.",
+      easy: "주기율표 위치에 따른 원소 성질 변화를 그래프와 표로 해석하는 보고서",
+      activityExamples: ["주기별 이온화 에너지 변화 그래프", "원자 반지름 변화 비교", "전기음성도 변화와 결합 경향 정리"]
+    };
+    const pureChemAtomicPropertyCompareAxis = {
+      id: "pure_chem_atomic_property_compare_axis",
+      title: "원자 구조·성질 비교 축",
+      short: "원자 구조·성질 비교",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "전자기와 양자", "화학과"],
+      desc: "유효 핵전하, 전자 배치, 원자 반지름을 서로 다른 원소의 성질 차이와 비교하는 방향입니다.",
+      easy: "전자 배치와 유효 핵전하가 원소 성질 차이를 만드는 과정을 비교하는 보고서",
+      activityExamples: ["같은 주기 원소의 성질 비교", "전자 배치와 이온화 에너지 연결", "유효 핵전하 변화 해석"]
+    };
+    const pureChemElementBondTrendAxis = {
+      id: "pure_chem_element_bond_trend_axis",
+      title: "원소 성질과 결합 경향 분석 축",
+      short: "원소 성질·결합 경향",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "물질과 에너지", "화학과"],
+      desc: "금속성, 비금속성, 전기음성도 같은 원소 성질을 이온 결합·공유 결합 형성 경향과 연결하는 방향입니다.",
+      easy: "원소의 주기적 성질이 결합 종류와 물질 성질에 어떻게 이어지는지 정리하는 보고서",
+      activityExamples: ["금속성과 비금속성 비교", "전기음성도와 결합 유형 연결", "원소 성질에 따른 화합물 형성 경향 분석"]
+    };
+    const pureChemMolecularStructurePropertyAxis = {
+      id: "pure_chem_molecular_structure_property_axis",
+      title: "분자 구조·물성 예측 축",
+      short: "분자 구조·물성 예측",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "화학과"],
+      desc: "분자 구조, 결합각, 극성을 끓는점, 녹는점, 용해도 같은 물성 예측으로 연결하는 방향입니다.",
+      easy: "분자 구조와 극성이 물성 차이로 이어지는 과정을 비교하는 보고서",
+      activityExamples: ["분자 모형과 물성 비교", "극성 여부에 따른 용해도 비교", "분자 구조와 끓는점 차이 분석"]
+    };
+    const pureChemIntermolecularInteractionAxis = {
+      id: "pure_chem_intermolecular_interaction_axis",
+      title: "분자 간 힘·상호작용 축",
+      short: "분자 간 힘·상호작용",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "물질과 에너지", "화학과"],
+      desc: "수소 결합, 분산력, 쌍극자-쌍극자 힘을 분자 사이 상호작용과 물성 차이로 확장하는 방향입니다.",
+      easy: "분자 간 힘의 종류에 따라 끓는점·점성·용해도가 달라지는 이유를 정리하는 보고서",
+      activityExamples: ["분자 간 힘 종류별 비교", "수소 결합 유무와 끓는점 비교", "상호작용 세기와 물성 차이 해석"]
+    };
+    const pureChemSolubilityPolarityAxis = {
+      id: "pure_chem_solubility_polarity_axis",
+      title: "용해도·극성 해석 축",
+      short: "용해도·극성",
+      axisDomain: "chemistry",
+      priority: 3,
+      linkedSubjects: ["화학", "물질과 에너지", "화학과"],
+      desc: "분자의 극성과 용매의 성질을 용해도 차이, 친수성·소수성, 혼합 가능성 해석으로 연결하는 방향입니다.",
+      easy: "극성 분자와 무극성 분자의 용해도 차이를 용매 성질과 함께 설명하는 보고서",
+      activityExamples: ["극성/무극성 분자의 용해도 비교", "물과 기름의 혼합성 해석", "용매 선택 기준 정리"]
+    };
+
+    // 대표 3개 개념은 개념명을 우선한다. 같은 키워드(예: 전기음성도)가 다른 개념에도 쓰여도
+    // 선택한 3번 개념의 방향성이 4번 후보군을 결정하도록 고정한다.
+    if (/화학 결합/.test(conceptText)) {
+      return [make(pureChemBondInterpretAxis, 0), make(pureChemElectronPairMoleculeAxis, 1), make(pureChemBondPropertyPredictAxis, 2)];
     }
-    if (/화학 결합/.test(conceptText) || /원자가 전자|공유 결합|이온 결합|전기음성도|결합의 극성|루이스|비공유 전자쌍/.test(keywordText)) {
-      return [make(bondStructureAxis, 0), make(molecularPropertyAxis, 1), make(atomElectronAxis, 2)];
+    if (/원소의 주기적 성질/.test(conceptText)) {
+      return [make(pureChemPeriodicityPredictAxis, 0), make(pureChemAtomicPropertyCompareAxis, 1), make(pureChemElementBondTrendAxis, 2)];
     }
-    if (/분자의 구조와 성질/.test(conceptText) || /분자 구조|분자의 극성|수소 결합|분자 사이 힘|끓는점|용해도|결합각|쌍극자/.test(keywordText)) {
-      return [make(molecularPropertyAxis, 0), make(bondStructureAxis, 1), make(equilibriumAxis, 2)];
+    if (/분자의 구조와 성질/.test(conceptText)) {
+      return [make(pureChemMolecularStructurePropertyAxis, 0), make(pureChemIntermolecularInteractionAxis, 1), make(pureChemSolubilityPolarityAxis, 2)];
+    }
+    if (/현대의 원자 모형과 전자 배치|원자의 구조/.test(conceptText) || /오비탈|전자 배치|에너지 준위|선 스펙트럼|양자수/.test(keywordText)) {
+      return [make(atomElectronAxis, 0), make(periodicSpectrumAxis, 1), make(pureChemPeriodicityPredictAxis, 2)];
+    }
+    if (/원자가 전자|공유 결합|이온 결합|전기음성도|결합의 극성|루이스|비공유 전자쌍/.test(keywordText)) {
+      return [make(pureChemBondInterpretAxis, 0), make(pureChemElectronPairMoleculeAxis, 1), make(pureChemBondPropertyPredictAxis, 2)];
+    }
+    if (/이온화 에너지|주기율|원자 반지름|금속성|비금속성|유효 핵전하/.test(keywordText)) {
+      return [make(pureChemPeriodicityPredictAxis, 0), make(pureChemAtomicPropertyCompareAxis, 1), make(pureChemElementBondTrendAxis, 2)];
+    }
+    if (/분자 구조|분자의 극성|수소 결합|분자 사이 힘|끓는점|용해도|결합각|쌍극자/.test(keywordText)) {
+      return [make(pureChemMolecularStructurePropertyAxis, 0), make(pureChemIntermolecularInteractionAxis, 1), make(pureChemSolubilityPolarityAxis, 2)];
     }
     if (/물질의 양과 화학 반응식/.test(conceptText) || /몰|화학식량|분자량|반응식|계수비|수율|정량|농도|희석/.test(keywordText)) {
       return [make(stoichAxis, 0), make(equilibriumAxis, 1), make(thermoRedoxAxis, 2)];
