@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.3-pure-biology-bio1a-fix';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.4-pure-physics-prelock-phys1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_2_pure_biology_prelock_bio1";
+  const ASSET_VERSION_QUERY = "v90_4_pure_physics_prelock_phys1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5508,10 +5508,211 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     return [make(lifeSystemAxis, 0), make(lifeObservationAxis, 1), make(cellHomeostasisAxis, 2)];
   }
 
+  function isPurePhysicsMajorSelectedContext() {
+    // v90.4 PHYS1-lock: 물리학과/응용물리학과는 기계·전자·반도체 응용계열과 분리해
+    // 순수 물리의 역학·시공간·파동·양자 축으로 판별한다.
+    try {
+      const parts = [];
+      const push = (value) => {
+        const text = String(value || "").replace(/\s+/g, " ").trim();
+        if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천|찾지 못했/.test(text)) return;
+        parts.push(text);
+      };
+      try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+      push(state.majorSelectedName || "");
+      push(state.career || "");
+      try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+      try { push(getCareerInputText?.() || ""); } catch (error) {}
+      try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+      try {
+        const detail = getMajorGlobalDetail?.();
+        push(detail?.display_name || "");
+        if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+      } catch (error) {}
+      const selectedText = Array.from(new Set(parts)).join(" ").replace(/\s+/g, " ").trim();
+      const compact = selectedText.replace(/\s+/g, "");
+      if (!selectedText) return false;
+      const purePhysics = /물리학과|물리학부|응용물리학과|나노물리학과|광학공학과|광학|천문우주학과|천문학과|우주과학과|물리교육과/;
+      const appliedEngineering = /기계공학과|전자공학과|전기전자|전기공학과|반도체공학과|신소재공학과|재료공학과|화학공학과|에너지공학과|컴퓨터공학과|로봇|자동차|항공우주공학과|의공학|의료|간호|보건|약학|식품|환경공학과/;
+      if ((purePhysics.test(selectedText) || purePhysics.test(compact)) && !(appliedEngineering.test(selectedText) || appliedEngineering.test(compact))) return true;
+      try {
+        const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+        const bodyCompact = bodyText.replace(/\s+/g, "");
+        if (/2\.\s*학과\s*(물리학과|응용물리학과|물리학부)|학과\s*(물리학과|응용물리학과|물리학부)/.test(bodyText)) return true;
+        if (/2\.학과(물리학과|응용물리학과|물리학부)|학과(물리학과|응용물리학과|물리학부)/.test(bodyCompact)) return true;
+      } catch (error) {}
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function isPurePhysicsAxisContext(mappedEntry) {
+    if (!isPurePhysicsMajorSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    const isPhysicsSubject = /^(물리|물리학|물리학Ⅰ|물리학1)$/.test(subjectText);
+    const isMechanicsSubject = /^(역학과에너지|역학과에너지)$/.test(subjectText);
+    const isElectroQuantumSubject = /^(전자기와양자|전자기와양자|고등전자기와양자)$/.test(subjectText);
+    if (isPhysicsSubject && /힘과 운동|시간과 공간|빛과 물질의 이중성|파동의 성질과 활용|에너지와 열/.test(conceptText)) return true;
+    if (isMechanicsSubject && /시공간과 운동|열과 에너지|탄성파와 소리/.test(conceptText)) return true;
+    if (isElectroQuantumSubject && /전기장과 자기장|전자기 유도와 전자기파|양자와 물질의 상호작용/.test(conceptText)) return true;
+    return false;
+  }
+
+  function buildPurePhysicsForcedAxes(mappedEntry) {
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    const keywordText = String(state.keyword || "").replace(/\s+/g, " ").trim();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keywordText, value) || fuzzyIncludes(value, keywordText));
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "물리학과의 기초 물리 탐구와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 42,
+        __score: 1090 - index
+      };
+    };
+    const mechanicsAxis = {
+      id: "pure_physics_mechanics_law_axis",
+      title: "운동 법칙·역학 모델링 축",
+      short: "운동 법칙·역학",
+      axisDomain: "physics",
+      priority: 1,
+      linkedSubjects: ["물리", "역학과 에너지", "미적분1"],
+      desc: "속도, 가속도, 힘, 운동량을 운동 법칙과 수식 모델로 연결해 물체의 운동을 정량적으로 해석하는 방향입니다.",
+      easy: "운동 그래프, 힘과 가속도 관계, 운동량 변화를 수식과 그래프로 해석하는 보고서",
+      activityExamples: ["위치-시간/속도-시간 그래프 해석", "힘과 가속도 관계 실험 설계", "운동량 보존 사례 분석"]
+    };
+    const momentumAxis = {
+      id: "pure_physics_momentum_collision_axis",
+      title: "운동량·충격량 해석 축",
+      short: "운동량·충격량",
+      axisDomain: "physics",
+      priority: 2,
+      linkedSubjects: ["물리", "역학과 에너지", "확률과 통계"],
+      desc: "운동량, 충격량, 보존 법칙을 충돌 현상과 측정 자료 해석으로 연결하는 방향입니다.",
+      easy: "충돌 전후 운동량 비교, 충격량과 힘-시간 그래프 해석 보고서",
+      activityExamples: ["충돌 전후 속도 비교", "힘-시간 그래프와 충격량 계산", "안전장치 원리와 보존 법칙 연결"]
+    };
+    const spacetimeAxis = {
+      id: "pure_physics_spacetime_frame_axis",
+      title: "시공간·관성계 해석 축",
+      short: "시공간·관성계",
+      axisDomain: "physics",
+      priority: 1,
+      linkedSubjects: ["물리", "역학과 에너지", "기하"],
+      desc: "시간, 공간, 기준계, 상대 운동 개념을 물리량의 측정 기준과 좌표계 해석으로 연결하는 방향입니다.",
+      easy: "관찰자와 기준계에 따라 위치·속도·시간 해석이 달라지는 사례 정리",
+      activityExamples: ["상대 운동 상황도 작성", "기준계별 속도 비교", "시공간 측정 기준 정리"]
+    };
+    const waveAxis = {
+      id: "pure_physics_wave_interference_axis",
+      title: "파동·간섭·회절 해석 축",
+      short: "파동·간섭·회절",
+      axisDomain: "physics",
+      priority: 1,
+      linkedSubjects: ["물리", "역학과 에너지", "전자기와 양자"],
+      desc: "파장, 진동수, 간섭, 회절을 파동 현상과 실험 자료 해석으로 연결하는 방향입니다.",
+      easy: "소리·빛의 파동 특성을 비교하고 간섭·회절 사례를 설명하는 보고서",
+      activityExamples: ["파장·진동수 관계 정리", "간섭 무늬 관찰 해석", "소리와 빛의 파동성 비교"]
+    };
+    const quantumLightAxis = {
+      id: "pure_physics_light_quantum_axis",
+      title: "빛·입자 이중성 해석 축",
+      short: "빛·입자 이중성",
+      axisDomain: "physics",
+      priority: 1,
+      linkedSubjects: ["물리", "전자기와 양자", "화학"],
+      desc: "빛의 파동성과 입자성, 광전 효과, 물질파 개념을 현대 물리의 증거와 모형으로 연결하는 방향입니다.",
+      easy: "광전 효과와 물질파 사례를 통해 빛과 물질의 이중성을 설명하는 보고서",
+      activityExamples: ["광전 효과 조건 비교", "빛의 파동성·입자성 증거 정리", "현대 물리 실험 사례 조사"]
+    };
+    const thermalAxis = {
+      id: "pure_physics_thermal_energy_axis",
+      title: "열역학·에너지 전환 축",
+      short: "열역학·에너지",
+      axisDomain: "energy",
+      priority: 2,
+      linkedSubjects: ["물리", "역학과 에너지", "물질과 에너지"],
+      desc: "열, 내부 에너지, 일, 효율을 에너지 보존과 열역학적 해석으로 연결하는 방향입니다.",
+      easy: "열과 일, 에너지 전환, 효율을 비교해 열역학 원리를 설명하는 보고서",
+      activityExamples: ["열효율 계산 사례", "열과 일의 관계 정리", "에너지 전환 과정 비교"]
+    };
+    const fieldAxis = {
+      id: "pure_physics_field_particle_axis",
+      title: "장·입자 운동 해석 축",
+      short: "장·입자 운동",
+      axisDomain: "physics",
+      priority: 1,
+      linkedSubjects: ["전자기와 양자", "물리", "기하"],
+      desc: "전기장, 자기장, 로런츠 힘을 장 안에서의 입자 운동과 벡터 해석으로 연결하는 방향입니다.",
+      easy: "전기장·자기장 속 입자 운동 방향과 힘을 벡터로 해석하는 보고서",
+      activityExamples: ["전기장·자기장 벡터 그림", "입자 궤적 해석", "로런츠 힘 방향 정리"]
+    };
+    const inductionAxis = {
+      id: "pure_physics_em_induction_wave_axis",
+      title: "전자기 유도·파동 해석 축",
+      short: "유도·전자기파",
+      axisDomain: "physics",
+      priority: 2,
+      linkedSubjects: ["전자기와 양자", "물리", "미적분1"],
+      desc: "자기장 변화, 유도 전류, 전자기파를 시간 변화와 파동 전파 관점으로 해석하는 방향입니다.",
+      easy: "자기장 변화와 유도 전류, 전자기파 전파 과정을 연결하는 보고서",
+      activityExamples: ["유도 전류 조건 비교", "전자기파 특성 정리", "자기장 변화-전류 그래프 해석"]
+    };
+    const quantumMatterAxis = {
+      id: "pure_physics_quantum_matter_axis",
+      title: "양자 현상·물질 상호작용 축",
+      short: "양자·물질",
+      axisDomain: "physics",
+      priority: 3,
+      linkedSubjects: ["전자기와 양자", "물리", "화학"],
+      desc: "에너지 준위, 광전 효과, 물질과 빛의 상호작용을 양자 현상 해석으로 확장하는 방향입니다.",
+      easy: "빛이 물질과 상호작용할 때 나타나는 에너지 준위와 양자 현상 정리",
+      activityExamples: ["에너지 준위 전이 그림", "광전 효과 자료 해석", "양자 현상 사례 비교"]
+    };
+    const experimentAxis = {
+      id: "pure_physics_experiment_data_axis",
+      title: "물리 실험·데이터 해석 축",
+      short: "실험·데이터",
+      axisDomain: "data",
+      priority: 3,
+      linkedSubjects: ["과학탐구실험2", "확률과 통계", "정보"],
+      desc: "측정값, 오차, 그래프, 실험 조건을 물리 법칙 검증과 데이터 해석으로 연결하는 방향입니다.",
+      easy: "측정값을 그래프로 정리하고 오차를 고려해 물리 법칙을 검증하는 보고서",
+      activityExamples: ["실험 오차 요인 분석", "측정값 그래프화", "이론값과 실험값 비교"]
+    };
+
+    if (/힘과 운동|시공간과 운동/.test(conceptText)) {
+      if (hit("운동량", "충격량", "충돌", "보존")) return [make(momentumAxis, 0), make(mechanicsAxis, 1), make(experimentAxis, 2)];
+      if (hit("그래프", "측정", "데이터", "오차", "실험")) return [make(experimentAxis, 0), make(mechanicsAxis, 1), make(momentumAxis, 2)];
+      return [make(mechanicsAxis, 0), make(momentumAxis, 1), make(experimentAxis, 2)];
+    }
+    if (/시간과 공간/.test(conceptText)) return [make(spacetimeAxis, 0), make(mechanicsAxis, 1), make(experimentAxis, 2)];
+    if (/에너지와 열|열과 에너지/.test(conceptText)) return [make(thermalAxis, 0), make(mechanicsAxis, 1), make(experimentAxis, 2)];
+    if (/파동의 성질과 활용|탄성파와 소리/.test(conceptText)) return [make(waveAxis, 0), make(experimentAxis, 1), make(quantumLightAxis, 2)];
+    if (/빛과 물질의 이중성/.test(conceptText)) return [make(quantumLightAxis, 0), make(quantumMatterAxis, 1), make(experimentAxis, 2)];
+    if (/전기장과 자기장/.test(conceptText)) return [make(fieldAxis, 0), make(experimentAxis, 1), make(inductionAxis, 2)];
+    if (/전자기 유도와 전자기파/.test(conceptText)) return [make(inductionAxis, 0), make(waveAxis, 1), make(experimentAxis, 2)];
+    if (/양자와 물질의 상호작용/.test(conceptText)) return [make(quantumMatterAxis, 0), make(quantumLightAxis, 1), make(experimentAxis, 2)];
+    return [make(mechanicsAxis, 0), make(experimentAxis, 1), make(waveAxis, 2)];
+  }
+
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v90.4 PHYS1-lock: 물리학과/응용물리학과는 기계·전자 응용축이 아니라
+    // 순수 물리의 역학·시공간·파동·양자·실험 데이터 축을 직접 반환한다.
+    if (isPurePhysicsAxisContext(mappedEntry)) {
+      return buildPurePhysicsForcedAxes(mappedEntry);
+    }
 
     // v90.2 BIO1-lock: 생명과학과/생물학과 + 생명과학은 생명공학 응용축이 아니라
     // 순수 생명과학의 생명 시스템·유전·진화·분류 축을 직접 반환한다.
@@ -10481,6 +10682,20 @@ function getTrackMeta(trackId) {
         const others = ranked.filter(item => !forced.includes(item.concept));
         return uniq([...forcedItems, ...others]).slice(0, 3);
       }
+    }
+
+    // v90.4 PHYS1-lock: 물리학과/응용물리학과 대표 3개 최종 고정.
+    // 공학 응용계열 가드에 끌리지 않도록 실제 선택 학과가 순수 물리계열일 때만 적용한다.
+    if (isPurePhysicsMajorSelectedContext() && (state.subject === "물리" || state.subject === "물리학" || state.subject === "물리학Ⅰ" || state.subject === "물리학1")) {
+      return pickForcedConceptItems(ranked, ["힘과 운동", "시간과 공간", "빛과 물질의 이중성"]);
+    }
+
+    if (isPurePhysicsMajorSelectedContext() && (state.subject === "역학과 에너지" || state.subject === "역학과에너지")) {
+      return pickForcedConceptItems(ranked, ["시공간과 운동", "열과 에너지", "탄성파와 소리"]);
+    }
+
+    if (isPurePhysicsMajorSelectedContext() && isElectromagnetismQuantumSubject()) {
+      return pickForcedConceptItems(ranked, ["전기장과 자기장", "전자기 유도와 전자기파", "양자와 물질의 상호작용"]);
     }
 
     // v89.8 EL1-lock: 전자공학/전기전자/통신 계열 대표 3개 최종 고정.
