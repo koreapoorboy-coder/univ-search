@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.2-pure-biology-prelock-bio1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.3-pure-biology-bio1a-fix';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -5384,6 +5384,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       easy: "세포 수준 구조와 항상성 유지 원리를 연결해 설명하는 보고서",
       activityExamples: ["세포 구조와 기능 비교", "항상성 조절 사례 정리", "물질대사와 생명 유지 연결"]
     };
+    const lifeObservationAxis = {
+      id: "pure_biology_life_observation_comparison_axis",
+      title: "생명 현상 관찰·비교 탐구 축",
+      short: "관찰·비교 탐구",
+      axisDomain: "biology",
+      priority: 3,
+      linkedSubjects: ["생명과학", "과학탐구실험2", "통합과학2"],
+      desc: "생물의 특징과 생명 현상을 관찰 기준, 비교 기준, 탐구 절차로 정리하는 방향입니다.",
+      easy: "생물의 공통 특징을 관찰·비교 기준으로 정하고 탐구 질문을 설계하는 보고서",
+      activityExamples: ["생명 현상 관찰 기준표", "생물 특징 비교표", "탐구 질문과 변인 설계"]
+    };
     const geneticsAxis = {
       id: "pure_biology_genetic_information_axis",
       title: "유전 정보 해석 축",
@@ -5485,7 +5496,16 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     }
     if (/생태계의 물질 순환과 상호 작용/.test(conceptText)) return [make(ecologyAxis, 0), make(biodiversityAxis, 1), make(evolutionAxis, 2)];
     if (/물질대사와 에너지/.test(conceptText)) return [make(metabolismAxis, 0), make(cellHomeostasisAxis, 1), make(lifeSystemAxis, 2)];
-    return [make(lifeSystemAxis, 0), make(cellHomeostasisAxis, 1), make(geneticsAxis, 2)];
+    if (/생명과학의 이해/.test(conceptText)) {
+      if (hit("세포", "물질대사", "항상성", "구성 단계", "생명 유지")) {
+        return [make(cellHomeostasisAxis, 0), make(lifeSystemAxis, 1), make(lifeObservationAxis, 2)];
+      }
+      if (hit("탐구 방법", "관찰", "비교 분석", "생물의 특징", "생명 현상")) {
+        return [make(lifeObservationAxis, 0), make(lifeSystemAxis, 1), make(cellHomeostasisAxis, 2)];
+      }
+      return [make(lifeSystemAxis, 0), make(lifeObservationAxis, 1), make(cellHomeostasisAxis, 2)];
+    }
+    return [make(lifeSystemAxis, 0), make(lifeObservationAxis, 1), make(cellHomeostasisAxis, 2)];
   }
 
   function getFollowupAxisCandidates() {
