@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.9-business-social-prelock-bs1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v91.0-business-social-axis-bs3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -5826,39 +5826,52 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   }
 
 
-  // v90.9 BS1-lock: 경영·경제·사회계열 1차 잠금용 판별/후속축 가드.
-  // 대표 3개와 4번 후속축을 공학·데이터사이언스·컴퓨터형으로 빼앗기지 않도록
-  // 실제 선택 학과명을 우선으로 판별한다.
+  // v91.0 BS2-lock: 경영·경제·사회계열 3번/4번 최종 보정.
+  // 실제 선택 학과값을 최우선으로 보아 데이터사이언스/컴퓨터/일반 사회축이 다시 덮어쓰지 않도록 한다.
+  function getBusinessSocialSelectedMajorText() {
+    const parts = [];
+    try {
+      parts.push(state.majorSelectedName || "");
+      parts.push(getEffectiveCareerName?.() || "");
+      parts.push(getMajorPanelResolvedName?.() || "");
+      parts.push(getCareerInputText?.() || "");
+      parts.push(state.career || "");
+    } catch (error) {
+      parts.push(state.majorSelectedName || "", state.career || "");
+    }
+    return parts.join(" ").replace(/\s+/g, " ").trim();
+  }
+
   function getBusinessSocialMajorTextBag() {
+    const selected = getBusinessSocialSelectedMajorText();
     try {
       return [
-        state.career || "",
-        state.majorSelectedName || "",
-        getEffectiveCareerName?.() || "",
-        getCareerInputText?.() || "",
-        getMajorPanelResolvedName?.() || "",
+        selected,
         typeof getMajorTextBag === "function" ? getMajorTextBag() : ""
       ].join(" ").replace(/\s+/g, " ").trim();
     } catch (error) {
-      return [state.career || "", state.majorSelectedName || ""].join(" ").trim();
+      return selected;
     }
   }
 
   function isBusinessEconomicsMajorSelectedContext() {
-    const text = getBusinessSocialMajorTextBag();
-    const compact = text.replace(/\s+/g, "");
+    const selectedCompact = getBusinessSocialSelectedMajorText().replace(/\s+/g, "");
+    const selectedBusiness = /(경영학과|경영학부|경영전공|글로벌경영|경영정보|MIS|경제학과|경제학부|경제금융|금융학과|금융공학|회계학과|세무학과|무역학과|국제통상|통상학과|마케팅|소비자학과|물류학과|유통학과|관광경영|호텔경영|창업학과|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(selectedCompact);
+    if (selectedBusiness) return true;
+    const compact = getBusinessSocialMajorTextBag().replace(/\s+/g, "");
     if (!compact) return false;
-    if (typeof isDataScienceMajorSelectedContext === "function" && isDataScienceMajorSelectedContext()) return false;
-    if (/(컴퓨터공학|소프트웨어|인공지능|AI|데이터사이언스|데이터과학|통계학과|응용통계|수학과|수리과학|산업공학과|산업공학부)/i.test(compact)) return false;
-    return /(경영학과|경영학부|경영전공|글로벌경영|경영정보|MIS|경제학과|경제학부|경제금융|금융학과|금융공학|회계학과|세무학과|무역학과|국제통상|통상학과|마케팅|소비자학과|물류학과|유통학과|관광경영|호텔경영|창업학과|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(compact);
+    if (/(데이터사이언스학과|데이터과학과|통계학과|응용통계학과|수학과|수리과학과|컴퓨터공학과|소프트웨어학과|인공지능학과|AI학과|산업공학과|산업공학부)/i.test(selectedCompact)) return false;
+    return /(경영학과|경영학부|경제학과|경제학부|금융학과|회계학과|세무학과|무역학과|국제통상|마케팅|소비자학과|물류학과|유통학과|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(compact);
   }
 
   function isPublicSocialMajorSelectedContext() {
-    const text = getBusinessSocialMajorTextBag();
-    const compact = text.replace(/\s+/g, "");
-    if (!compact) return false;
     if (isBusinessEconomicsMajorSelectedContext()) return false;
-    return /(행정학과|정치외교학과|정치학과|외교학과|국제관계학과|국제학부|사회학과|사회복지학과|법학과|공공인재|공공정책|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|경찰행정|행정|정치|외교|국제관계|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(compact);
+    const selectedCompact = getBusinessSocialSelectedMajorText().replace(/\s+/g, "");
+    if (/(행정학과|정치외교학과|정치학과|외교학과|국제관계학과|국제학부|사회학과|사회복지학과|법학과|공공인재|공공정책|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|경찰행정|행정|정치|외교|국제관계|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(selectedCompact)) return true;
+    const compact = getBusinessSocialMajorTextBag().replace(/\s+/g, "");
+    if (!compact) return false;
+    if (/(데이터사이언스학과|통계학과|수학과|컴퓨터공학과|소프트웨어학과|인공지능학과|산업공학과)/i.test(selectedCompact)) return false;
+    return /(행정학과|정치외교학과|사회학과|사회복지학과|법학과|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|행정|정치|외교|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(compact);
   }
 
   function isBusinessSocialMajorSelectedContext() {
@@ -5884,11 +5897,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       return ["인권 보장과 헌법", "사회 정의와 불평등", "세계화와 평화"];
     }
     if (/^확률과통계$/.test(subjectText)) {
-      if (isBusiness) return ["통계적 추정", "확률변수와 확률분포", "이항분포와 정규분포"];
+      if (isBusiness) return ["통계적 추정", "확률변수와 확률분포", "조건부확률과 사건의 독립"];
       return ["통계적 추정", "조건부확률과 사건의 독립", "확률변수와 확률분포"];
     }
     if (/^정보$/.test(subjectText)) {
-      return ["자료와 정보의 분석", "지식·정보 사회와 정보 문화", "자료와 정보의 표현"];
+      if (isBusiness) return ["자료와 정보의 분석", "자료와 정보의 표현", "지식·정보 사회와 정보 문화"];
+      return ["지식·정보 사회와 정보 문화", "자료와 정보의 분석", "자료와 정보의 표현"];
     }
     return [];
   }
@@ -5903,8 +5917,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         ? "경영·경제 계열의 의사결정, 시장 분석, 금융·소비 자료 해석과 바로 이어지는 후속 탐구축입니다."
         : "사회·정책 계열의 제도 분석, 공공문제 해석, 시민 참여 탐구와 바로 이어지는 후속 탐구축입니다."),
       __priority: index + 1,
-      __relationScore: 43,
-      __score: 1210 - index
+      __relationScore: 48,
+      __score: 1300 - index
     };
   }
 
@@ -5912,44 +5926,51 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     if (!isBusinessSocialMajorSelectedContext()) return false;
     if (!isBusinessSocialSubjectContext()) return false;
     const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    if (!conceptText) return false;
     return /시장 경제와 금융 생활|미래와 지속 가능한 삶|문화 다양성과 세계화|통합적 관점과 행복|사회 정의와 불평등|인권 보장과 시민 참여|시장경제와 지속가능발전|세계화와 평화|미래와 지속가능한 삶|인권 보장과 헌법|확률변수와 확률분포|이항분포와 정규분포|통계적 추정|조건부확률과 사건의 독립|자료와 정보의 분석|지식·정보 사회와 정보 문화|자료와 정보의 표현/.test(conceptText);
   }
 
   function buildBusinessSocialForcedAxes(mappedEntry) {
     const subjectText = String(state.subject || "").replace(/\s+/g, "");
     const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ");
+    const keywordText = String(state.keyword || "");
     const seed = (id, title, short, domain, linkedSubjects, desc, easy, activityExamples, priority = 1) => ({ id, title, short, axisDomain: domain, priority, linkedSubjects, desc, easy, activityExamples });
 
-    const choiceCostAxis = seed("business_choice_opportunity_cost_v909", "합리적 선택·기회비용 분석 축", "선택·기회비용", "business", ["통합사회1", "확률과 통계", "정보"], "한정된 자원에서 비용·편익, 기회비용, 우선순위를 비교해 합리적 선택 기준을 세우는 방향입니다.", "소비자·기업의 선택 사례를 비용·편익과 기회비용 기준으로 분석하는 보고서", ["선택지별 비용·편익표", "기회비용 사례 비교", "합리적 소비 기준 설계"], 1);
-    const marketPriceAxis = seed("business_market_price_v909", "시장 참여자·가격 구조 해석 축", "시장·가격 구조", "business", ["통합사회1", "경제", "확률과 통계"], "가계·기업·정부, 수요·공급, 가격 변화를 시장 구조와 경제 의사결정으로 연결하는 방향입니다.", "가격 변동 사례를 수요·공급과 시장 참여자 관점에서 해석하는 보고서", ["수요·공급 변화 사례 분석", "가격 변화 원인 표 정리", "시장 참여자별 영향 비교"], 2);
-    const financeRiskAxis = seed("business_finance_risk_v909", "금융 생활·위험관리 축", "금융·위험관리", "business", ["통합사회1", "확률과 통계", "정보"], "자산 관리, 생애 주기, 위험과 수익을 금융 의사결정과 리스크 관리로 확장하는 방향입니다.", "금융 상품의 위험·수익 특성을 비교하고 자산 관리 기준을 제시하는 보고서", ["금융 상품 위험 비교", "생애주기별 자산관리 계획", "수익률과 위험 지표 분석"], 3);
-    const esgAxis = seed("business_esg_sustainability_v909", "지속가능 경영·ESG 전략 축", "ESG·지속가능", "business", ["통합사회1", "통합사회2", "경제"], "지속가능발전, ESG, 공정무역, 윤리적 소비를 기업 전략과 사회적 가치 창출로 연결하는 방향입니다.", "ESG 경영 사례를 경제적 성과와 사회적 가치 기준으로 비교하는 보고서", ["ESG 사례 비교", "공정무역과 소비자 선택 분석", "기업의 지속가능 전략 제안"], 1);
-    const futureIndustryAxis = seed("business_future_industry_v909", "미래 산업·직업 변화 분석 축", "미래 산업·직업", "business", ["통합사회1", "통합사회2", "정보"], "인구 변화, 기술 변화, 소비 변화가 산업 구조와 미래 직업에 미치는 영향을 분석하는 방향입니다.", "미래 산업 변화와 직업 수요 변화를 자료 기반으로 예측하는 보고서", ["미래 직업 변화표", "인구·소비 변화 자료 해석", "산업 구조 변화 사례 분석"], 2);
-    const globalizationTradeAxis = seed("business_global_trade_v909", "세계화·국제무역 해석 축", "세계화·무역", "business", ["통합사회1", "통합사회2", "경제"], "세계화, 국제 분업, 무역, 글로벌 공급망을 국가·기업·소비자의 상호의존 구조로 해석하는 방향입니다.", "국제 무역과 글로벌 공급망 변화가 기업과 소비자에게 미치는 영향을 정리하는 보고서", ["무역 구조 사례 분석", "글로벌 공급망 지도화", "국제 분업의 장단점 비교"], 1);
-    const consumerCultureAxis = seed("business_consumer_culture_v909", "소비문화·글로벌 마케팅 축", "소비문화·마케팅", "business", ["통합사회1", "통합사회2", "공통국어2"], "문화 다양성과 세계화가 소비문화, 브랜드 전략, 마케팅 메시지에 미치는 영향을 분석하는 방향입니다.", "문화권별 소비문화와 마케팅 전략 차이를 비교하는 보고서", ["문화권별 광고 사례 비교", "소비문화 변화 분석", "글로벌 브랜드 현지화 전략 정리"], 2);
-    const surveyAxis = seed("business_market_survey_v909", "시장조사·표본 추정 축", "시장조사·표본", "data", ["확률과 통계", "정보", "통합사회1"], "표본, 신뢰구간, 추정 오차를 소비자 조사와 시장 예측의 신뢰도 판단으로 연결하는 방향입니다.", "표본조사 결과를 신뢰구간과 오차 관점에서 해석하는 보고서", ["설문 표본 설계", "신뢰구간 해석", "소비자 조사 결과 비교"], 1);
-    const distributionRiskAxis = seed("business_distribution_risk_v909", "수요·위험 분포 해석 축", "수요·위험 분포", "data", ["확률과 통계", "경제", "정보"], "확률분포, 기대값, 분산을 수요 예측, 매출 변동, 금융 위험 분석으로 확장하는 방향입니다.", "수요나 수익률의 분포를 기대값·분산으로 비교하는 보고서", ["수요 분포 그래프", "기댓값·분산 비교", "위험 수준 판단 기준표"], 1);
-    const normalCompareAxis = seed("business_distribution_forecast_v909", "분포 모델·성과 비교 축", "분포 모델·성과", "data", ["확률과 통계", "정보", "경제"], "이항분포·정규분포·표준화를 성과 지표, 수요 예측, 리스크 비교로 연결하는 방향입니다.", "정규분포와 표준화를 활용해 성과·수요·위험 자료를 비교하는 보고서", ["표준화 점수 비교", "수요 예측 모형 설명", "성과 지표 분포 분석"], 1);
-    const conditionalRiskAxis = seed("business_conditional_risk_v909", "조건부 판단·리스크 의사결정 축", "조건부 판단·리스크", "data", ["확률과 통계", "경제", "정보"], "조건부확률과 독립성을 고객 행동, 구매 전환, 금융 위험, 정책 판단의 조건부 의사결정으로 연결하는 방향입니다.", "조건이 달라질 때 의사결정 확률이 어떻게 바뀌는지 분석하는 보고서", ["조건부확률 표 작성", "구매 전환율 사례 분석", "리스크 조건 비교"], 2);
-    const dataDecisionAxis = seed("business_data_decision_v909", "데이터 기반 경영 의사결정 축", "데이터 의사결정", "data", ["정보", "확률과 통계", "통합사회1"], "자료 수집·정제·시각화를 시장 분석, 고객 분석, 전략 의사결정으로 연결하는 방향입니다.", "고객·시장 데이터를 정리하고 의사결정 기준을 제시하는 보고서", ["대시보드 지표 구성", "고객 데이터 시각화", "의사결정 기준표 작성"], 1);
-    const platformAxis = seed("business_platform_digital_v909", "플랫폼 비즈니스·디지털 전환 축", "플랫폼·디지털 전환", "info", ["정보", "통합사회2", "경영"], "플랫폼, 정보 문화, 데이터 윤리를 디지털 전환과 비즈니스 모델 변화로 연결하는 방향입니다.", "플랫폼 서비스가 시장 구조와 소비자 행동을 바꾸는 방식을 분석하는 보고서", ["플랫폼 비즈니스 모델 비교", "디지털 전환 사례 분석", "데이터 윤리 쟁점 정리"], 2);
-    const dashboardAxis = seed("business_dashboard_indicator_v909", "지표·대시보드 설계 축", "지표·대시보드", "data", ["정보", "확률과 통계", "경영"], "자료 표현과 시각화를 KPI, 성과 지표, 대시보드 설계로 연결하는 방향입니다.", "경영 지표를 시각화해 의사결정 대시보드를 설계하는 보고서", ["KPI 지표 선정", "표·그래프 표현 비교", "대시보드 목업 설계"], 3);
+    const choiceCostAxis = seed("business_choice_opportunity_cost_v910", "합리적 선택·기회비용 분석 축", "선택·기회비용", "business", ["통합사회1", "확률과 통계", "정보"], "한정된 자원에서 비용·편익, 기회비용, 우선순위를 비교해 합리적 선택 기준을 세우는 방향입니다.", "소비자·기업의 선택 사례를 비용·편익과 기회비용 기준으로 분석하는 보고서", ["선택지별 비용·편익표", "기회비용 사례 비교", "합리적 소비 기준 설계"], 1);
+    const marketPriceAxis = seed("business_market_price_v910", "시장 구조·가격 변동 해석 축", "시장·가격", "business", ["통합사회1", "경제", "확률과 통계"], "수요·공급, 가격 변동, 시장 참여자의 역할을 경영·경제 의사결정으로 연결하는 방향입니다.", "가격 변화 사례를 수요·공급과 시장 참여자 관점에서 해석하는 보고서", ["수요·공급 변화 사례 분석", "가격 변화 원인 표 정리", "시장 참여자별 영향 비교"], 2);
+    const financeRiskAxis = seed("business_finance_risk_v910", "금융 생활·위험관리 축", "금융·위험관리", "business", ["통합사회1", "확률과 통계", "정보"], "자산 관리, 생애 주기, 위험과 수익을 금융 의사결정과 리스크 관리로 확장하는 방향입니다.", "금융 상품의 위험·수익 특성을 비교하고 자산 관리 기준을 제시하는 보고서", ["금융 상품 위험 비교", "생애주기별 자산관리 계획", "수익률과 위험 지표 분석"], 3);
+    const esgAxis = seed("business_esg_sustainability_v910", "지속가능 경영·ESG 전략 축", "ESG·지속가능", "business", ["통합사회1", "통합사회2", "경제"], "지속가능발전, ESG, 공정무역, 윤리적 소비를 기업 전략과 사회적 가치 창출로 연결하는 방향입니다.", "ESG 경영 사례를 경제적 성과와 사회적 가치 기준으로 비교하는 보고서", ["ESG 사례 비교", "공정무역과 소비자 선택 분석", "기업의 지속가능 전략 제안"], 1);
+    const futureIndustryAxis = seed("business_future_industry_v910", "미래 산업·소비 변화 분석 축", "미래 산업·소비", "business", ["통합사회1", "통합사회2", "정보"], "인구 변화, 기술 변화, 소비 변화가 산업 구조와 미래 직업에 미치는 영향을 분석하는 방향입니다.", "미래 산업 변화와 소비자 수요 변화를 자료 기반으로 예측하는 보고서", ["미래 직업 변화표", "인구·소비 변화 자료 해석", "산업 구조 변화 사례 분석"], 2);
+    const globalizationTradeAxis = seed("business_global_trade_v910", "세계화·국제무역 해석 축", "세계화·무역", "business", ["통합사회1", "통합사회2", "경제"], "세계화, 국제 분업, 무역, 글로벌 공급망을 국가·기업·소비자의 상호의존 구조로 해석하는 방향입니다.", "국제 무역과 글로벌 공급망 변화가 기업과 소비자에게 미치는 영향을 정리하는 보고서", ["무역 구조 사례 분석", "글로벌 공급망 지도화", "국제 분업의 장단점 비교"], 1);
+    const consumerCultureAxis = seed("business_consumer_culture_v910", "소비문화·글로벌 마케팅 축", "소비문화·마케팅", "business", ["통합사회1", "통합사회2", "공통국어2"], "문화 다양성과 세계화가 소비문화, 브랜드 전략, 마케팅 메시지에 미치는 영향을 분석하는 방향입니다.", "문화권별 소비문화와 마케팅 전략 차이를 비교하는 보고서", ["문화권별 광고 사례 비교", "소비문화 변화 분석", "글로벌 브랜드 현지화 전략 정리"], 2);
+    const surveyAxis = seed("business_market_survey_v910", "시장조사·표본 추정 축", "시장조사·표본", "data", ["확률과 통계", "정보", "통합사회1"], "표본, 신뢰구간, 추정 오차를 소비자 조사와 시장 예측의 신뢰도 판단으로 연결하는 방향입니다.", "표본조사 결과를 신뢰구간과 오차 관점에서 해석하는 보고서", ["설문 표본 설계", "신뢰구간 해석", "소비자 조사 결과 비교"], 1);
+    const confidenceAxis = seed("business_confidence_error_v910", "신뢰구간·추정오차 해석 축", "신뢰구간·오차", "data", ["확률과 통계", "경영", "경제"], "신뢰구간과 추정 오차를 시장조사 결과의 신뢰도와 의사결정 한계 판단으로 연결하는 방향입니다.", "추정 결과의 신뢰구간과 오차를 해석해 의사결정 기준을 제안하는 보고서", ["신뢰구간 해석", "오차 범위 비교", "조사 결과 신뢰도 평가"], 2);
+    const distributionRiskAxis = seed("business_distribution_risk_v910", "수요·위험 분포 해석 축", "수요·위험 분포", "data", ["확률과 통계", "경제", "정보"], "확률분포, 기대값, 분산을 수요 예측, 매출 변동, 금융 위험 분석으로 확장하는 방향입니다.", "수요나 수익률의 분포를 기대값·분산으로 비교하는 보고서", ["수요 분포 그래프", "기댓값·분산 비교", "위험 수준 판단 기준표"], 1);
+    const expectedValueAxis = seed("business_expected_value_decision_v910", "기댓값·분산 기반 의사결정 축", "기댓값·분산", "data", ["확률과 통계", "경제", "경영"], "기댓값, 분산, 표준편차를 수익률·수요·위험 수준 비교와 의사결정 기준으로 연결하는 방향입니다.", "기댓값과 분산으로 선택 대안을 비교하는 보고서", ["대안별 기댓값 계산", "분산·위험도 비교", "의사결정 기준표 작성"], 2);
+    const normalCompareAxis = seed("business_distribution_forecast_v910", "분포 모델·성과 비교 축", "분포 모델·성과", "data", ["확률과 통계", "정보", "경제"], "이항분포·정규분포·표준화를 성과 지표, 수요 예측, 리스크 비교로 연결하는 방향입니다.", "정규분포와 표준화를 활용해 성과·수요·위험 자료를 비교하는 보고서", ["표준화 점수 비교", "수요 예측 모형 설명", "성과 지표 분포 분석"], 1);
+    const conditionalRiskAxis = seed("business_conditional_risk_v910", "조건부 판단·리스크 의사결정 축", "조건부 판단·리스크", "data", ["확률과 통계", "경제", "정보"], "조건부확률과 독립성을 고객 행동, 구매 전환, 금융 위험, 정책 판단의 조건부 의사결정으로 연결하는 방향입니다.", "조건이 달라질 때 의사결정 확률이 어떻게 바뀌는지 분석하는 보고서", ["조건부확률 표 작성", "구매 전환율 사례 분석", "리스크 조건 비교"], 2);
+    const dataDecisionAxis = seed("business_data_decision_v910", "데이터 기반 경영 의사결정 축", "데이터 의사결정", "data", ["정보", "확률과 통계", "통합사회1"], "자료 수집·정제·시각화를 시장 분석, 고객 분석, 전략 의사결정으로 연결하는 방향입니다.", "고객·시장 데이터를 정리하고 의사결정 기준을 제시하는 보고서", ["대시보드 지표 구성", "고객 데이터 시각화", "의사결정 기준표 작성"], 1);
+    const customerDataAxis = seed("business_customer_data_analysis_v910", "고객·시장 데이터 분석 축", "고객·시장 데이터", "data", ["정보", "경영", "확률과 통계"], "고객 데이터, 시장 데이터, 지표를 분석해 소비자 행동과 경영 전략을 해석하는 방향입니다.", "고객·시장 데이터를 분석해 경영 의사결정 근거를 정리하는 보고서", ["고객 세그먼트 분석", "시장 데이터 비교", "전략 지표 선정"], 1);
+    const dashboardAxis = seed("business_dashboard_indicator_v910", "지표·대시보드 설계 축", "지표·대시보드", "data", ["정보", "확률과 통계", "경영"], "자료 표현과 시각화를 KPI, 성과 지표, 대시보드 설계로 연결하는 방향입니다.", "경영 지표를 시각화해 의사결정 대시보드를 설계하는 보고서", ["KPI 지표 선정", "표·그래프 표현 비교", "대시보드 목업 설계"], 2);
+    const platformAxis = seed("business_platform_digital_v910", "플랫폼 비즈니스·디지털 전환 축", "플랫폼·디지털 전환", "info", ["정보", "통합사회2", "경영"], "플랫폼, 정보 문화, 데이터 윤리를 디지털 전환과 비즈니스 모델 변화로 연결하는 방향입니다.", "플랫폼 서비스가 시장 구조와 소비자 행동을 바꾸는 방식을 분석하는 보고서", ["플랫폼 비즈니스 모델 비교", "디지털 전환 사례 분석", "데이터 윤리 쟁점 정리"], 1);
+    const dataEthicsAxis = seed("business_data_ethics_consumer_v910", "데이터 윤리·소비자 보호 축", "데이터 윤리·소비자", "info", ["정보", "통합사회1", "경영"], "개인정보, 데이터 윤리, 정보 격차를 소비자 보호와 기업 책임 관점으로 연결하는 방향입니다.", "데이터 활용과 소비자 보호 쟁점을 기업 책임 관점에서 정리하는 보고서", ["개인정보 활용 기준 비교", "소비자 보호 사례 조사", "기업 데이터 윤리 원칙 제안"], 2);
+    const infoCommunicationAxis = seed("business_information_expression_v910", "자료 표현·의사소통 설계 축", "자료 표현·소통", "info", ["정보", "공통국어1", "경영"], "자료 표현, 표·그래프, 시각화 방식을 의사결정 보고서의 전달력과 연결하는 방향입니다.", "경영 자료를 목적에 맞게 표현하고 전달 방식을 설계하는 보고서", ["표·그래프 표현 비교", "보고서 시각화 기준", "이해관계자별 전달 방식 설계"], 3);
 
-    const civicAxis = seed("social_civic_participation_v909", "시민 참여·제도 분석 축", "시민 참여·제도", "social_policy", ["통합사회1", "통합사회2", "공통국어1"], "인권, 헌법, 시민 참여를 제도 개선과 공공 문제 해결로 연결하는 방향입니다.", "시민 참여 사례를 제도와 권리 보장 관점에서 분석하는 보고서", ["시민 참여 사례 비교", "헌법상 권리와 제도 연결", "공공 문제 해결 방안 정리"], 1);
-    const inequalityAxis = seed("social_inequality_policy_v909", "불평등·분배 정책 해석 축", "불평등·분배", "social_policy", ["통합사회1", "통합사회2", "확률과 통계"], "사회 정의, 소득 격차, 기회 불평등을 복지·분배 정책 평가로 확장하는 방향입니다.", "불평등 지표와 정책 대응을 비교하는 보고서", ["소득 격차 자료 해석", "분배 정책 비교", "공정성 기준 정리"], 1);
-    const publicIssueAxis = seed("social_public_issue_analysis_v909", "공공문제 통합 분석 축", "공공문제 분석", "social_policy", ["통합사회1", "통합사회2", "공통국어2"], "사회 문제를 시간·공간·사회·윤리 관점으로 통합 분석하고 해결 기준을 제시하는 방향입니다.", "공공문제를 다양한 관점으로 분석해 해결 기준을 제안하는 보고서", ["관점별 원인 분석", "이해관계자 지도", "정책 대안 비교"], 2);
+    const civicAxis = seed("social_civic_participation_v910", "시민 참여·제도 분석 축", "시민 참여·제도", "social_policy", ["통합사회1", "통합사회2", "공통국어1"], "인권, 헌법, 시민 참여를 제도 개선과 공공 문제 해결로 연결하는 방향입니다.", "시민 참여 사례를 제도와 권리 보장 관점에서 분석하는 보고서", ["시민 참여 사례 비교", "헌법상 권리와 제도 연결", "공공 문제 해결 방안 정리"], 1);
+    const inequalityAxis = seed("social_inequality_policy_v910", "불평등·분배 정책 해석 축", "불평등·분배", "social_policy", ["통합사회1", "통합사회2", "확률과 통계"], "사회 정의, 소득 격차, 기회 불평등을 복지·분배 정책 평가로 확장하는 방향입니다.", "불평등 지표와 정책 대응을 비교하는 보고서", ["소득 격차 자료 해석", "분배 정책 비교", "공정성 기준 정리"], 1);
+    const publicIssueAxis = seed("social_public_issue_analysis_v910", "공공문제 통합 분석 축", "공공문제 분석", "social_policy", ["통합사회1", "통합사회2", "공통국어2"], "사회 문제를 시간·공간·사회·윤리 관점으로 통합 분석하고 해결 기준을 제시하는 방향입니다.", "공공문제를 다양한 관점으로 분석해 해결 기준을 제안하는 보고서", ["관점별 원인 분석", "이해관계자 지도", "정책 대안 비교"], 2);
 
     const make = makeBusinessSocialAxis;
     if (/^정보$/.test(subjectText)) {
-      if (/자료와 정보의 분석/.test(conceptText)) return [make(dataDecisionAxis, 0), make(dashboardAxis, 1), make(surveyAxis, 2)];
-      if (/지식·정보 사회와 정보 문화/.test(conceptText)) return [make(platformAxis, 0), make(dataDecisionAxis, 1), make(publicIssueAxis, 2)];
-      if (/자료와 정보의 표현/.test(conceptText)) return [make(dashboardAxis, 0), make(dataDecisionAxis, 1), make(platformAxis, 2)];
+      if (/자료와 정보의 분석/.test(conceptText)) return [make(customerDataAxis, 0), make(dashboardAxis, 1), make(dataDecisionAxis, 2)];
+      if (/자료와 정보의 표현/.test(conceptText)) return [make(dashboardAxis, 0), make(infoCommunicationAxis, 1), make(dataDecisionAxis, 2)];
+      if (/지식·정보 사회와 정보 문화/.test(conceptText)) return [make(platformAxis, 0), make(dataEthicsAxis, 1), make(dataDecisionAxis, 2)];
     }
     if (/^확률과통계$/.test(subjectText)) {
-      if (/통계적 추정/.test(conceptText)) return [make(surveyAxis, 0), make(dataDecisionAxis, 1), make(dashboardAxis, 2)];
-      if (/확률변수와 확률분포/.test(conceptText)) return [make(distributionRiskAxis, 0), make(financeRiskAxis, 1), make(dataDecisionAxis, 2)];
+      if (/통계적 추정/.test(conceptText)) return [make(surveyAxis, 0), make(confidenceAxis, 1), make(dataDecisionAxis, 2)];
+      if (/확률변수와 확률분포/.test(conceptText)) return [make(distributionRiskAxis, 0), make(expectedValueAxis, 1), make(financeRiskAxis, 2)];
+      if (/조건부확률과 사건의 독립/.test(conceptText)) return [make(conditionalRiskAxis, 0), make(financeRiskAxis, 1), make(dataDecisionAxis, 2)];
       if (/이항분포와 정규분포/.test(conceptText)) return [make(normalCompareAxis, 0), make(distributionRiskAxis, 1), make(dataDecisionAxis, 2)];
-      if (/조건부확률과 사건의 독립/.test(conceptText)) return [make(conditionalRiskAxis, 0), make(dataDecisionAxis, 1), make(financeRiskAxis, 2)];
     }
     if (/^(통합사회1|통합사회Ⅰ|통합사회)$/.test(subjectText)) {
       if (/시장 경제와 금융 생활/.test(conceptText)) return [make(choiceCostAxis, 0), make(marketPriceAxis, 1), make(financeRiskAxis, 2)];
@@ -5970,6 +5991,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       ? [make(choiceCostAxis, 0), make(dataDecisionAxis, 1), make(esgAxis, 2)]
       : [make(civicAxis, 0), make(inequalityAxis, 1), make(publicIssueAxis, 2)];
   }
+
 
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
