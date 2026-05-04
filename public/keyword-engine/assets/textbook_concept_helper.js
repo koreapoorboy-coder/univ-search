@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.1-pure-chemistry-axis-q3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.2-pure-biology-prelock-bio1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_1_pure_chemistry_axis_q3";
+  const ASSET_VERSION_QUERY = "v90_2_pure_biology_prelock_bio1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5313,10 +5313,191 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     ];
   }
 
+
+  function isPureBiologyMajorSelectedContext() {
+    try {
+      const selectedMajorText = [
+        state.majorSelectedName || "",
+        state.career || "",
+        getEffectiveCareerName?.() || "",
+        getCareerInputText?.() || "",
+        getMajorPanelResolvedName?.() || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      return /(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(selectedMajorText)
+        && !/(공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명)/.test(selectedMajorText);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function isLifeSciencePureBiologyAxisContext(mappedEntry) {
+    try {
+      const subjectText = String(state.subject || "").replace(/\s+/g, "");
+      if (!/^(생명과학|생명과학Ⅰ|생명과학1)$/.test(subjectText)) return false;
+      if (typeof getLifeScienceMajorKind === "function" && getLifeScienceMajorKind() !== "biology" && !isPureBiologyMajorSelectedContext()) return false;
+      const conceptText = [
+        state.concept || "",
+        mappedEntry?.concept_name || "",
+        mappedEntry?.concept_label || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      return /생명과학의 이해|유전자와 염색체|진화와 생물 다양성|생태계의 물질 순환과 상호 작용|물질대사와 에너지/.test(conceptText);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function buildLifeSciencePureBiologyForcedAxes(mappedEntry) {
+    const conceptText = [state.concept || "", mappedEntry?.concept_name || "", mappedEntry?.concept_label || ""].join(" ").replace(/\s+/g, " ").trim();
+    const keywordText = String(state.keyword || "").replace(/\s+/g, " ").trim();
+    const hit = (...values) => values.some(value => fuzzyIncludes(keywordText, value) || fuzzyIncludes(value, keywordText));
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "생명과학과의 기초 생명과학 탐구와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 42,
+        __score: 1080 - index
+      };
+    };
+    const lifeSystemAxis = {
+      id: "pure_biology_life_system_axis",
+      title: "생명 시스템·탐구 방법 축",
+      short: "생명 시스템·탐구",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["생명과학", "세포와 물질대사", "과학탐구실험2"],
+      desc: "생물의 특징, 세포, 물질대사, 항상성을 생명 현상 관찰과 탐구 설계로 연결하는 방향입니다.",
+      easy: "생명 현상의 공통 특징을 관찰 기준으로 정리하고 탐구 질문을 설계하는 보고서",
+      activityExamples: ["생물의 특징 분류표 작성", "세포·물질대사·항상성 연결도", "생명 현상 관찰 기준 설계"]
+    };
+    const cellHomeostasisAxis = {
+      id: "pure_biology_cell_homeostasis_axis",
+      title: "세포·항상성 기초 해석 축",
+      short: "세포·항상성",
+      axisDomain: "biology",
+      priority: 2,
+      linkedSubjects: ["생명과학", "세포와 물질대사", "화학"],
+      desc: "세포 구조, 물질대사, 항상성 개념을 생명 시스템의 조절 원리로 연결하는 방향입니다.",
+      easy: "세포 수준 구조와 항상성 유지 원리를 연결해 설명하는 보고서",
+      activityExamples: ["세포 구조와 기능 비교", "항상성 조절 사례 정리", "물질대사와 생명 유지 연결"]
+    };
+    const geneticsAxis = {
+      id: "pure_biology_genetic_information_axis",
+      title: "유전 정보 해석 축",
+      short: "유전 정보",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["생명과학", "세포와 물질대사", "화학"],
+      desc: "DNA, 유전자, 염색체, 염기 서열을 유전 정보 저장과 형질 발현 해석으로 연결하는 방향입니다.",
+      easy: "DNA-유전자-염색체 관계와 유전 정보 전달 흐름을 정리하는 보고서",
+      activityExamples: ["DNA와 염색체 관계도", "염기 서열과 유전 정보 해석", "형질 발현 흐름도 작성"]
+    };
+    const geneExpressionAxis = {
+      id: "pure_biology_gene_expression_axis",
+      title: "유전자 발현·단백질 합성 축",
+      short: "발현·단백질 합성",
+      axisDomain: "biology",
+      priority: 2,
+      linkedSubjects: ["생명과학", "세포와 물질대사", "화학"],
+      desc: "복제, 전사, 번역 개념을 유전자 발현과 단백질 합성 과정으로 확장하는 방향입니다.",
+      easy: "복제-전사-번역 흐름과 단백질 합성 과정을 단계별로 정리하는 보고서",
+      activityExamples: ["전사·번역 단계 흐름도", "단백질 합성 과정 카드", "유전자 발현 사례 조사"]
+    };
+    const variationAxis = {
+      id: "pure_biology_variation_inheritance_axis",
+      title: "염색체·유전적 다양성 축",
+      short: "염색체·다양성",
+      axisDomain: "biology",
+      priority: 3,
+      linkedSubjects: ["생명과학", "확률과 통계"],
+      desc: "염색체, 돌연변이, 생식과정을 유전적 다양성과 형질 차이 해석으로 연결하는 방향입니다.",
+      easy: "염색체 조합과 변이 사례를 통해 유전적 다양성을 설명하는 보고서",
+      activityExamples: ["염색체 조합 모형", "돌연변이 사례 비교", "유전적 다양성 해석"]
+    };
+    const evolutionAxis = {
+      id: "pure_biology_evolution_selection_axis",
+      title: "진화·자연선택 해석 축",
+      short: "진화·자연선택",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["생명과학", "지구시스템과학"],
+      desc: "진화, 자연선택, 적응 개념을 환경 변화와 생물 집단의 변화 해석으로 연결하는 방향입니다.",
+      easy: "환경 변화에 따른 적응과 자연선택 사례를 비교하는 보고서",
+      activityExamples: ["자연선택 사례 비교", "적응 형질 변화 분석", "환경 변화와 집단 변화 연결"]
+    };
+    const biodiversityAxis = {
+      id: "pure_biology_biodiversity_classification_axis",
+      title: "생물 다양성·분류 축",
+      short: "다양성·분류",
+      axisDomain: "biology",
+      priority: 2,
+      linkedSubjects: ["생명과학", "통합과학2", "지구시스템과학"],
+      desc: "분류, 종 다양성, 생물 다양성을 생물 자원과 보전 관점으로 확장하는 방향입니다.",
+      easy: "생물 분류 기준과 생물 다양성 보전 의미를 정리하는 보고서",
+      activityExamples: ["분류 기준 비교", "생물 다양성 사례 조사", "생물 자원과 보전 가치 정리"]
+    };
+    const phylogenyAxis = {
+      id: "pure_biology_phylogeny_comparative_axis",
+      title: "계통수·비교생물학 축",
+      short: "계통수·비교",
+      axisDomain: "biology",
+      priority: 3,
+      linkedSubjects: ["생명과학", "확률과 통계", "정보"],
+      desc: "계통수와 비교 자료를 활용해 생물 간 유연관계와 진화적 관계를 해석하는 방향입니다.",
+      easy: "형질 자료를 기준으로 계통 관계를 비교해 보는 보고서",
+      activityExamples: ["형질 비교표 작성", "간단한 계통수 해석", "비교 자료 기반 유연관계 분석"]
+    };
+    const ecologyAxis = {
+      id: "pure_biology_ecosystem_interaction_axis",
+      title: "생태계 상호작용·물질 순환 축",
+      short: "생태계·물질 순환",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["생명과학", "통합과학2", "지구시스템과학"],
+      desc: "생태계, 개체군, 물질 순환, 에너지 흐름을 생태계 상호작용 해석으로 연결하는 방향입니다.",
+      easy: "먹이 그물, 물질 순환, 에너지 흐름을 연결해 생태계 구조를 해석하는 보고서",
+      activityExamples: ["먹이 그물 구조 분석", "물질 순환 흐름도", "개체군 상호작용 사례 조사"]
+    };
+    const metabolismAxis = {
+      id: "pure_biology_metabolism_energy_axis",
+      title: "물질대사·생명 에너지 축",
+      short: "물질대사·에너지",
+      axisDomain: "biology",
+      priority: 1,
+      linkedSubjects: ["생명과학", "세포와 물질대사", "화학"],
+      desc: "ATP, 광합성, 세포 호흡, 효소를 생명 에너지 전환 과정으로 연결하는 방향입니다.",
+      easy: "광합성과 세포 호흡, ATP 생성 흐름을 비교하는 보고서",
+      activityExamples: ["ATP 생성 과정 비교", "광합성·세포 호흡 흐름도", "효소와 에너지 전환 연결"]
+    };
+
+    if (/유전자와 염색체/.test(conceptText)) {
+      if (hit("복제", "전사", "번역", "단백질 합성", "형질 발현")) return [make(geneExpressionAxis, 0), make(geneticsAxis, 1), make(variationAxis, 2)];
+      if (hit("돌연변이", "염색체", "유전적 다양성", "형질")) return [make(variationAxis, 0), make(geneticsAxis, 1), make(geneExpressionAxis, 2)];
+      return [make(geneticsAxis, 0), make(geneExpressionAxis, 1), make(variationAxis, 2)];
+    }
+    if (/진화와 생물 다양성/.test(conceptText)) {
+      if (hit("계통수", "비교 분석", "분류")) return [make(phylogenyAxis, 0), make(biodiversityAxis, 1), make(evolutionAxis, 2)];
+      if (hit("생물 다양성", "종 다양성", "생물 자원", "보전")) return [make(biodiversityAxis, 0), make(evolutionAxis, 1), make(phylogenyAxis, 2)];
+      return [make(evolutionAxis, 0), make(biodiversityAxis, 1), make(phylogenyAxis, 2)];
+    }
+    if (/생태계의 물질 순환과 상호 작용/.test(conceptText)) return [make(ecologyAxis, 0), make(biodiversityAxis, 1), make(evolutionAxis, 2)];
+    if (/물질대사와 에너지/.test(conceptText)) return [make(metabolismAxis, 0), make(cellHomeostasisAxis, 1), make(lifeSystemAxis, 2)];
+    return [make(lifeSystemAxis, 0), make(cellHomeostasisAxis, 1), make(geneticsAxis, 2)];
+  }
+
   function getFollowupAxisCandidates() {
     if (!state.subject || !state.concept || !state.keyword) return [];
 
     const mappedEntry = getConceptLongitudinalEntry();
+
+    // v90.2 BIO1-lock: 생명과학과/생물학과 + 생명과학은 생명공학 응용축이 아니라
+    // 순수 생명과학의 생명 시스템·유전·진화·분류 축을 직접 반환한다.
+    if (isLifeSciencePureBiologyAxisContext(mappedEntry)) {
+      return buildLifeSciencePureBiologyForcedAxes(mappedEntry);
+    }
 
     // v89.8 EL1-lock: 전자공학/전기전자/통신 계열은 물리·전자기와 양자·정보에서
     // 회로/센서/통신/임베디드 축을 직접 반환해 반도체·컴퓨터·일반 물리 축으로 밀리지 않게 한다.
@@ -7554,6 +7735,10 @@ function getTrackMeta(trackId) {
 
   function getLifeScienceMajorKind() {
     const exact = getLifeScienceExactMajorText();
+    // v90.2 BIO1-lock: 생명과학과/생물학과는 생명공학과와 분리해 순수 생명과학형으로 판별한다.
+    // 기존에는 '생명과학' 텍스트가 바이오공학 분기에 섞여 대표 개념과 후속축이 응용형으로 밀렸다.
+    if (/(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(exact)
+      && !/(공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명)/.test(exact)) return "biology";
     if (/(^|s)(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|생명정보|바이오공학|바이오테크|바이오메디컬)(s|$)/.test(exact)) return "bioengineering";
     if (/(^|s)(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)(s|$)/.test(exact)) return "nursing";
     if (/(^|s)(약학과|약학|제약|신약|약물|약대|화공)(s|$)/.test(exact)) return "pharmacy";
@@ -7563,6 +7748,7 @@ function getTrackMeta(trackId) {
 
     let mixed = exact;
     try { mixed += " " + String(document.body?.innerText || "").replace(/s+/g, " "); } catch (error) {}
+    if (/2\.\s*학과\s*생명과학과|학과\s*생명과학과|2\.\s*학과\s*생물학과|학과\s*생물학과/.test(mixed)) return "biology";
     if (/2.s*학과s*생명공학과|학과s*생명공학과/.test(mixed)) return "bioengineering";
     if (/2.s*학과s*간호학과|학과s*간호학과/.test(mixed)) return "nursing";
     if (/2.s*학과s*약학과|학과s*약학과/.test(mixed)) return "pharmacy";
@@ -7597,6 +7783,9 @@ function getTrackMeta(trackId) {
     if (!majorTextRaw && !visibleMajorText) return defaultSequence;
 
     const exactMajorKind = getLifeScienceMajorKind();
+    if (exactMajorKind === "biology") {
+      return ["생명과학의 이해", "유전자와 염색체", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용", "물질대사와 에너지", "생식과 생명의 연속성", "면역과 백신", "신경 자극 전도와 전달", "신경계와 항상성", "물질대사와 건강"];
+    }
     if (exactMajorKind === "bioengineering") {
       return ["유전자와 염색체", "생명과학의 이해", "물질대사와 에너지", "면역과 백신", "신경 자극 전도와 전달", "생식과 생명의 연속성", "진화와 생물 다양성", "신경계와 항상성", "물질대사와 건강", "생태계의 물질 순환과 상호 작용"];
     }
@@ -7622,11 +7811,13 @@ function getTrackMeta(trackId) {
     const explicitMajorText = majorTextRaw;
     const visibleTopMajor = visibleMajorText;
     const topNursing = /(2\.\s*학과\s*간호학과|학과\s*간호학과)/.test(visibleTopMajor);
+    const topBiology = /(2\.\s*학과\s*생명과학과|학과\s*생명과학과|2\.\s*학과\s*생물학과|학과\s*생물학과)/.test(visibleTopMajor);
     const topBioEng = /(2\.\s*학과\s*생명공학과|학과\s*생명공학과)/.test(visibleTopMajor);
     const topPharmacy = /(2\.\s*학과\s*약학과|학과\s*약학과)/.test(visibleTopMajor);
     const topFoodNutrition = /(2\.\s*학과\s*식품영양학과|학과\s*식품영양학과)/.test(visibleTopMajor);
     const topEnv = /(2\.\s*학과\s*환경공학과|학과\s*환경공학과|2\.\s*학과\s*환경생태학과|학과\s*환경생태학과)/.test(visibleTopMajor);
     const selectedNursing = /(간호학과|간호|보건|재활|물리치료|작업치료|임상병리)/.test(selectedMajorText);
+    const selectedBiology = /(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(selectedMajorText) && !/(공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명)/.test(selectedMajorText);
     const selectedBioEng = /(생명공학과|생명공학|의생명공학|유전공학|분자생명|생명정보학|바이오공학|바이오테크|바이오메디컬)/.test(selectedMajorText);
     const selectedPharmacy = /(약학과|약학|제약|신약|약물|약대|화공)/.test(selectedMajorText);
     const selectedFoodNutrition = /(식품영양학과|식품영양|영양|식품|조리|푸드|운동처방|운동재활)/.test(selectedMajorText);
@@ -7643,6 +7834,9 @@ function getTrackMeta(trackId) {
     }
     if (topEnv || selectedEnv || /(환경공학과|환경생태학과|환경공학|환경생태|생태|환경|기후|해양|산림|자원|농생명)/.test(explicitMajorText) || bucket === "env") {
       return ["생태계의 물질 순환과 상호 작용", "진화와 생물 다양성", "생명과학의 이해", "물질대사와 에너지", "물질대사와 건강", "유전자와 염색체", "면역과 백신", "신경계와 항상성", "신경 자극 전도와 전달", "생식과 생명의 연속성"];
+    }
+    if (topBiology || selectedBiology || /(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(explicitMajorText)) {
+      return ["생명과학의 이해", "유전자와 염색체", "진화와 생물 다양성", "생태계의 물질 순환과 상호 작용", "물질대사와 에너지", "생식과 생명의 연속성", "면역과 백신", "신경 자극 전도와 전달", "신경계와 항상성", "물질대사와 건강"];
     }
     // 생명공학과는 major profile 안에 환경/생태 키워드가 함께 들어오는 경우가 있어 환경 branch보다 먼저 판별하되,
     // 실제 상단 선택값이 간호/약학/식품/환경이면 위 분기가 먼저 처리한다.
@@ -8497,8 +8691,9 @@ function getTrackMeta(trackId) {
     const compact = text.replace(/\s+/g, '');
     const has = (pattern) => pattern.test(text) || pattern.test(compact);
 
-    // 정확한 학과명 우선. 생명공학/의생명은 환경·식품 일반보다 먼저 판별한다.
+    // 정확한 학과명 우선. 생명과학과는 생명공학과와 분리해 순수 생명과학형으로 판별한다.
     if (has(/컴퓨터공학과|소프트웨어|AI|인공지능|데이터사이언스|데이터|정보|통계|생명정보|바이오인포매틱스|시뮬레이션|모델링/)) return "data";
+    if (has(/생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과/) && !has(/공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명/)) return "biology";
     if (has(/생명공학과|의생명공학과|의생명공학|생명공학|바이오공학|분자생명|유전공학|세포공학|바이오헬스|바이오메디컬|생명과학과|생명과학/)) return "bioengineering";
     if (has(/약학과|약학|약대|제약|신약|약물|의약|바이오제약/)) return "pharmacy";
     if (has(/의예과|의학과|의대|의예|의학|의료|임상병리|보건|간호학과|간호|치의예|치의학/)) return "medical";
@@ -8512,6 +8707,7 @@ function getTrackMeta(trackId) {
   function getCellMetabolismPreferredConceptSequence() {
     const kind = getCellMetabolismMajorKind();
     const defaultSequence = ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
+    if (kind === "biology") return ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
     if (kind === "bioengineering") return ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
     if (kind === "medical") return ["세포의 구조와 물질 이동", "효소와 대사 반응", "광합성과 세포 호흡"];
     if (kind === "pharmacy") return ["효소와 대사 반응", "세포의 구조와 물질 이동", "광합성과 세포 호흡"];
@@ -9518,8 +9714,16 @@ function getTrackMeta(trackId) {
     const bucket = detectCareerBucket(majorText);
     const concept = state.concept || "";
     const isNursingHealth = /(간호학과|간호|보건|임상병리|의료|재활|물리치료|작업치료)/.test(majorText);
-    const isBioEngMajor = /(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText);
+    const isPureBiologyMajor = getLifeScienceMajorKind() === "biology" || (/(생명과학과|생물학과|생물과학과|분자생물학과|미생물학과|식물생명과학과|동물생명과학과)/.test(majorText) && !/(공학|의생명|바이오공학|식품|영양|간호|보건|약학|제약|환경|생태|농생명)/.test(majorText));
+    const isBioEngMajor = !isPureBiologyMajor && /(생명공학과|생명공학|의생명|바이오|생명과학|유전공학|분자생명|생명정보|바이오헬스|바이오메디컬)/.test(majorText);
     const isIt = isLifeScienceComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|알고리즘|시뮬레이션|모델링|바이오인포매틱스|생명정보|신경망|뉴럴|센서|헬스케어)/i.test(majorText) || bucket === "it";
+    if (isPureBiologyMajor) {
+      if (/생명과학의 이해/.test(concept)) return ["생물의 특징", "세포", "물질대사", "항상성", "구성 단계", "생명 시스템", "생명 현상", "탐구 방법", "관찰", "비교 분석"];
+      if (/유전자와 염색체/.test(concept)) return ["DNA", "유전자", "염색체", "유전 정보", "염기 서열", "복제", "전사", "번역", "형질 발현", "돌연변이"];
+      if (/진화와 생물 다양성/.test(concept)) return ["진화", "자연선택", "적응", "생물 다양성", "분류", "계통수", "종 다양성", "비교 분석", "환경 변화", "생물 자원"];
+      if (/생태계의 물질 순환과 상호 작용/.test(concept)) return ["생태계", "물질 순환", "에너지 흐름", "개체군", "먹이 그물", "상호 작용", "생태계 평형", "탄소 순환", "환경 요인"];
+      if (/물질대사와 에너지/.test(concept)) return ["물질대사", "ATP", "광합성", "세포 호흡", "효소", "대사 경로", "에너지 전환", "반응 속도", "조절"];
+    }
     if (isNursingHealth) {
       if (/물질대사와 건강/.test(concept)) return ["혈당", "인슐린", "당뇨병", "고혈압", "대사 증후군", "건강 데이터", "생활 습관", "예방", "비만", "콜레스테롤"];
       if (/신경계와 항상성/.test(concept)) return ["항상성", "호르몬", "체온 조절", "혈당 조절", "피드백", "중추 신경계", "말초 신경계", "자율 신경", "건강 관리", "의사결정"];
