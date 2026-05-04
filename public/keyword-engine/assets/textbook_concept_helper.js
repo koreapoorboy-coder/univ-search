@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.4-pure-physics-prelock-phys1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.5-pure-math-prelock-math1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_4_pure_physics_prelock_phys1";
+  const ASSET_VERSION_QUERY = "v90_5_pure_math_prelock_math1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -5708,6 +5708,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
     const mappedEntry = getConceptLongitudinalEntry();
 
+    // v90.5 MATH1-lock: 수학과/수리과학과는 대수·극한·기하·확률 구조 중심의
+    // 순수 수학 4번 후속축을 직접 반환한다.
+    if (isPureMathematicsAxisContext(mappedEntry)) {
+      return buildPureMathematicsForcedAxes(mappedEntry);
+    }
+
     // v90.4 PHYS1-lock: 물리학과/응용물리학과는 기계·전자 응용축이 아니라
     // 순수 물리의 역학·시공간·파동·양자·실험 데이터 축을 직접 반환한다.
     if (isPurePhysicsAxisContext(mappedEntry)) {
@@ -8473,6 +8479,230 @@ function getTrackMeta(trackId) {
   }
 
 
+  // v90.5 MATH1-lock: 수학과/수리과학과는 컴퓨터·데이터 응용형이 아니라
+  // 순수 수학형(대수·극한·기하·확률 구조)으로 3번 대표 개념과 4번 후속축을 분리한다.
+  function isPureMathematicsMajorSelectedContext() {
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text || /입력 전|선택 전|도서 선택 대기|선택 대기|후속 연계축 선택 중|추천/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try {
+      const detail = getMajorGlobalDetail?.();
+      push(detail?.display_name || "");
+      if (Array.isArray(detail?.aliases)) detail.aliases.slice(0, 4).forEach(push);
+    } catch (error) {}
+    let text = Array.from(new Set(parts)).join(' ').replace(/\s+/g, ' ').trim();
+    const compact = text.replace(/\s+/g, '');
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*(수학과|수리과학과|수학부)/.test(bodyText) || /학과\s*(수학과|수리과학과|수학부)/.test(bodyText)) text += " 수학과";
+    } catch (error) {}
+    const positive = /수학과|수리과학과|수학부|응용수학과|수리통계|수학전공|수리과학/;
+    const exclude = /수학교육|교육학|데이터사이언스|데이터과학|통계학과|응용통계|컴퓨터|소프트웨어|인공지능|AI|정보|공학|금융|경제|경영/;
+    return (positive.test(text) || positive.test(compact)) && !(exclude.test(text) || exclude.test(compact));
+  }
+
+  function getPureMathematicsForcedConceptOrderForSubject() {
+    if (!isPureMathematicsMajorSelectedContext()) return [];
+    const subject = String(state.subject || "");
+    if (/^대수$/.test(subject)) {
+      return ["지수함수의 뜻과 그래프", "로그함수의 뜻과 그래프", "수학적 귀납법"];
+    }
+    if (/^미적분1$|^미적분Ⅰ$|^미적분$/.test(subject)) {
+      return ["수열의 극한", "급수", "여러 가지 함수의 미분"];
+    }
+    if (/^기하$/.test(subject)) {
+      return ["이차곡선과 자취 해석", "평면벡터와 벡터의 연산", "벡터의 성분과 내적"];
+    }
+    if (/^확률과 통계$/.test(subject)) {
+      return ["조건부확률과 사건의 독립", "확률변수와 확률분포", "이항분포와 정규분포"];
+    }
+    return [];
+  }
+
+  function isPureMathematicsAxisContext(mappedEntry) {
+    if (!isPureMathematicsMajorSelectedContext()) return false;
+    const subject = String(state.subject || "");
+    const concept = String(state.concept || "");
+    if (!/^대수$|^미적분1$|^미적분Ⅰ$|^미적분$|^기하$|^확률과 통계$/.test(subject)) return false;
+    return !!concept && (!!mappedEntry || /지수함수|로그함수|수학적 귀납법|수열의 극한|급수|미분|정적분|이차곡선|자취|벡터|공간좌표|조건부확률|확률변수|이항분포|정규분포|통계적 추정/.test(concept));
+  }
+
+  function buildPureMathematicsForcedAxes(mappedEntry) {
+    const conceptText = String(state.concept || mappedEntry?.concept_name || "");
+    const keywordText = String(state.keyword || "");
+    const hit = (...words) => words.some(word => new RegExp(word).test(keywordText + " " + conceptText));
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "수학과의 수리 구조·논증·모델 해석과 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 42,
+        __score: 1090 - index
+      };
+    };
+    const functionStructureAxis = {
+      id: "pure_math_function_structure_axis",
+      title: "함수 구조·그래프 해석 축",
+      short: "함수 구조·그래프",
+      axisDomain: "math",
+      priority: 1,
+      linkedSubjects: ["대수", "미적분1", "기하"],
+      desc: "지수함수·로그함수의 정의, 그래프, 변환, 증가·감소 성질을 함수 구조 관점에서 해석하는 방향입니다.",
+      easy: "함수 그래프의 형태 변화, 정의역·치역, 증가·감소와 식의 구조를 연결하는 보고서",
+      activityExamples: ["지수함수와 로그함수 그래프 비교", "밑의 변화에 따른 그래프 변화 해석", "함수식과 그래프 성질 연결표 작성"]
+    };
+    const logExpAxis = {
+      id: "pure_math_log_exp_law_axis",
+      title: "지수·로그 법칙 해석 축",
+      short: "지수·로그 법칙",
+      axisDomain: "math",
+      priority: 2,
+      linkedSubjects: ["대수", "미적분1"],
+      desc: "지수와 로그의 뜻, 성질, 역함수 관계를 수식 변형과 논리적 근거로 해석하는 방향입니다.",
+      easy: "지수법칙과 로그 성질이 왜 성립하는지 예시와 증명 흐름으로 정리하는 보고서",
+      activityExamples: ["로그 성질 유도 과정 정리", "지수함수와 로그함수의 역관계 설명", "상용로그와 자릿수 해석 연결"]
+    };
+    const inductionAxis = {
+      id: "pure_math_sequence_induction_axis",
+      title: "수열·귀납 논증 축",
+      short: "수열·귀납",
+      axisDomain: "math",
+      priority: 3,
+      linkedSubjects: ["대수", "미적분1"],
+      desc: "수열의 규칙, 합, 점화식, 수학적 귀납법을 증명 구조와 일반화 과정으로 연결하는 방향입니다.",
+      easy: "수열 규칙을 세우고 귀납법으로 일반 명제를 정당화하는 보고서",
+      activityExamples: ["등차·등비수열 일반항 유도", "수열의 합 공식 증명", "수학적 귀납법 구조 분석"]
+    };
+    const limitAxis = {
+      id: "pure_math_limit_convergence_axis",
+      title: "극한·수렴 구조 해석 축",
+      short: "극한·수렴",
+      axisDomain: "math",
+      priority: 1,
+      linkedSubjects: ["미적분1", "대수"],
+      desc: "수열의 극한, 함수의 극한, 수렴과 발산을 근사와 엄밀한 판단 구조로 해석하는 방향입니다.",
+      easy: "수렴·발산 사례를 그래프와 표로 비교하고 극한 판단 기준을 정리하는 보고서",
+      activityExamples: ["수열의 수렴·발산 비교", "극한값 추정 표 작성", "수렴 조건과 반례 정리"]
+    };
+    const seriesAxis = {
+      id: "pure_math_series_accumulation_axis",
+      title: "급수·누적 구조 해석 축",
+      short: "급수·누적",
+      axisDomain: "math",
+      priority: 2,
+      linkedSubjects: ["미적분1", "확률과 통계"],
+      desc: "급수와 정적분을 무한 합, 누적량, 근사 과정으로 연결해 해석하는 방향입니다.",
+      easy: "부분합, 무한급수, 누적량의 의미를 그래프와 수식으로 비교하는 보고서",
+      activityExamples: ["부분합 변화 관찰", "무한급수 수렴 사례 비교", "정적분과 누적량 연결"]
+    };
+    const derivativeAxis = {
+      id: "pure_math_derivative_structure_axis",
+      title: "미분 구조·함수 변화 축",
+      short: "미분 구조·변화",
+      axisDomain: "math",
+      priority: 3,
+      linkedSubjects: ["미적분1", "대수"],
+      desc: "도함수, 접선, 증가·감소, 극값을 함수 변화의 구조와 논리적 해석으로 연결하는 방향입니다.",
+      easy: "도함수 부호와 그래프 개형, 접선의 의미를 연결해 함수 변화를 설명하는 보고서",
+      activityExamples: ["도함수 부호표로 그래프 개형 분석", "접선 기울기와 순간변화율 비교", "극값 조건 정리"]
+    };
+    const conicAxis = {
+      id: "pure_math_conic_locus_axis",
+      title: "이차곡선·자취 추론 축",
+      short: "이차곡선·자취",
+      axisDomain: "math",
+      priority: 1,
+      linkedSubjects: ["기하", "대수"],
+      desc: "포물선, 타원, 쌍곡선과 자취 조건을 방정식과 기하적 정의로 연결해 추론하는 방향입니다.",
+      easy: "거리 조건에서 이차곡선 방정식이 나오는 과정을 설명하는 보고서",
+      activityExamples: ["포물선 정의와 방정식 유도", "타원·쌍곡선 거리 조건 비교", "자취 조건을 식으로 변환"]
+    };
+    const vectorAxis = {
+      id: "pure_math_vector_inner_product_axis",
+      title: "벡터·내적 구조 축",
+      short: "벡터·내적",
+      axisDomain: "math",
+      priority: 2,
+      linkedSubjects: ["기하", "미적분1"],
+      desc: "벡터의 성분, 연산, 내적을 방향·크기·각의 관계와 좌표 해석으로 연결하는 방향입니다.",
+      easy: "벡터의 성분과 내적이 방향, 각, 투영을 어떻게 나타내는지 정리하는 보고서",
+      activityExamples: ["내적과 각의 관계 설명", "벡터 투영 그림 작성", "성분 계산과 기하적 의미 연결"]
+    };
+    const spatialAxis = {
+      id: "pure_math_spatial_coordinate_axis",
+      title: "공간도형·좌표 해석 축",
+      short: "공간도형·좌표",
+      axisDomain: "math",
+      priority: 3,
+      linkedSubjects: ["기하", "미적분1"],
+      desc: "공간좌표, 구의 방정식, 정사영을 3차원 위치 관계와 좌표 해석으로 연결하는 방향입니다.",
+      easy: "공간도형의 위치 관계를 좌표와 방정식으로 표현하는 보고서",
+      activityExamples: ["공간좌표 거리 계산", "구의 방정식 의미 해석", "정사영과 위치 관계 시각화"]
+    };
+    const conditionalAxis = {
+      id: "pure_math_conditional_independence_axis",
+      title: "조건부확률·독립성 해석 축",
+      short: "조건부확률·독립성",
+      axisDomain: "math",
+      priority: 1,
+      linkedSubjects: ["확률과 통계", "대수"],
+      desc: "조건부확률과 사건의 독립을 사건 구조, 표본공간, 판단 조건으로 해석하는 방향입니다.",
+      easy: "조건이 바뀌면 확률 판단이 어떻게 달라지는지 표본공간과 표로 정리하는 보고서",
+      activityExamples: ["조건부확률 표 작성", "독립과 종속 사례 비교", "사건 구조도 그리기"]
+    };
+    const distributionAxis = {
+      id: "pure_math_distribution_expectation_axis",
+      title: "확률분포·기댓값 해석 축",
+      short: "분포·기댓값",
+      axisDomain: "math",
+      priority: 2,
+      linkedSubjects: ["확률과 통계", "미적분1"],
+      desc: "확률변수, 확률분포, 기댓값, 분산을 수리적 모델과 분포의 구조로 해석하는 방향입니다.",
+      easy: "확률변수의 값과 확률을 표로 정리하고 기댓값·분산의 의미를 설명하는 보고서",
+      activityExamples: ["확률분포표 작성", "기댓값과 평균 비교", "분산이 큰 분포와 작은 분포 비교"]
+    };
+    const normalAxis = {
+      id: "pure_math_binomial_normal_axis",
+      title: "분포 모형·정규화 해석 축",
+      short: "분포 모형·정규화",
+      axisDomain: "math",
+      priority: 3,
+      linkedSubjects: ["확률과 통계", "미적분1"],
+      desc: "이항분포와 정규분포를 분포 모형, 표준화, 근사 관점에서 비교하는 방향입니다.",
+      easy: "이항분포와 정규분포의 형태를 비교하고 표준화의 의미를 정리하는 보고서",
+      activityExamples: ["이항분포 그래프와 정규분포 그래프 비교", "표준화 과정 정리", "분포 모형 선택 기준 비교"]
+    };
+
+    if (/지수함수|로그함수|로그의 뜻|상용로그/.test(conceptText)) {
+      if (hit("로그", "역함수", "성질", "법칙", "상용")) return [make(logExpAxis, 0), make(functionStructureAxis, 1), make(inductionAxis, 2)];
+      return [make(functionStructureAxis, 0), make(logExpAxis, 1), make(inductionAxis, 2)];
+    }
+    if (/수학적 귀납법|등차수열|등비수열|수열의 합/.test(conceptText)) return [make(inductionAxis, 0), make(limitAxis, 1), make(seriesAxis, 2)];
+    if (/수열의 극한/.test(conceptText)) return [make(limitAxis, 0), make(seriesAxis, 1), make(inductionAxis, 2)];
+    if (/급수|정적분/.test(conceptText)) return [make(seriesAxis, 0), make(limitAxis, 1), make(derivativeAxis, 2)];
+    if (/미분|도함수/.test(conceptText)) return [make(derivativeAxis, 0), make(functionStructureAxis, 1), make(limitAxis, 2)];
+    if (/이차곡선|자취/.test(conceptText)) return [make(conicAxis, 0), make(vectorAxis, 1), make(spatialAxis, 2)];
+    if (/벡터/.test(conceptText)) return [make(vectorAxis, 0), make(spatialAxis, 1), make(conicAxis, 2)];
+    if (/공간도형|정사영|공간좌표|구의 방정식/.test(conceptText)) return [make(spatialAxis, 0), make(vectorAxis, 1), make(conicAxis, 2)];
+    if (/조건부확률|사건의 독립/.test(conceptText)) return [make(conditionalAxis, 0), make(distributionAxis, 1), make(normalAxis, 2)];
+    if (/확률변수|확률분포/.test(conceptText)) return [make(distributionAxis, 0), make(conditionalAxis, 1), make(normalAxis, 2)];
+    if (/이항분포|정규분포/.test(conceptText)) return [make(normalAxis, 0), make(distributionAxis, 1), make(conditionalAxis, 2)];
+    return [make(functionStructureAxis, 0), make(limitAxis, 1), make(vectorAxis, 2)];
+  }
+
+
 
   function isMechanicalEngineeringMajorSelectedContext() {
     // v88.6 C1-lock: 기계/로봇/자동차/항공 계열은 선택 학과명을 우선해
@@ -10798,6 +11028,13 @@ function getTrackMeta(trackId) {
     }
 
 
+    // v90.5 MATH1-lock: 수학과/수리과학과 대표 개념 3개 최종 고정.
+    // 컴퓨터/데이터 응용형 순서로 다시 밀리는 것을 막고, 순수 수학 구조 중심으로 표시한다.
+    const pureMathForced = getPureMathematicsForcedConceptOrderForSubject();
+    if (pureMathForced.length) {
+      return pickConceptItemsByForcedOrder(ranked, pureMathForced).slice(0, 3);
+    }
+
     // v88.9 D2-lock: 데이터사이언스/통계학과는 컴퓨터공학형 순열·조합 우선 가드보다
     // 분포·정규분포·추정 중심 대표 개념 3개가 최종 화면에서 먼저 이기도록 고정한다.
     const dataScienceForced = getDataScienceForcedConceptOrderForSubject();
@@ -11157,6 +11394,13 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       const forcedDataScience = getDataScienceForcedConceptOrderForSubject();
       if (forcedDataScience.length) {
         primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
+        displayConcepts = primaryConcepts;
+      }
+    }
+    if (isPureMathematicsMajorSelectedContext() && !state.showAllConcepts) {
+      const forcedPureMath = getPureMathematicsForcedConceptOrderForSubject();
+      if (forcedPureMath.length) {
+        primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedPureMath).slice(0, 3);
         displayConcepts = primaryConcepts;
       }
     }
