@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.7-food-nutrition-prelock-g1';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v89.9-pure-chemistry-prelock-q1';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v89_8_electronics_prelock_el1";
+  const ASSET_VERSION_QUERY = "v89_9_pure_chemistry_prelock_q1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -4614,6 +4614,151 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
 
 
+  function isChemistry1PureChemistryContext(mappedEntry) {
+    try {
+      const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
+      if (!isChemSubject) return false;
+      if (typeof getChemistry1MajorKind !== "function" || getChemistry1MajorKind() !== "chemistry") return false;
+      const conceptText = [
+        state.concept || "",
+        mappedEntry?.concept_name || "",
+        mappedEntry?.concept_label || ""
+      ].join(" ").replace(/\s+/g, " ").trim();
+      return /현대의 원자 모형과 전자 배치|화학 결합|분자의 구조와 성질|물질의 양과 화학 반응식|화학 반응에서의 동적 평형|화학 반응과 열의 출입|탄소 화합물의 유용성|원소의 주기적 성질|원자의 구조/.test(conceptText);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function buildChemistry1PureChemistryForcedAxes() {
+    const conceptText = String(state.concept || "");
+    const keywordText = String(state.keyword || "");
+    const make = (seed, index) => {
+      const axis = makeContextFollowupAxis(seed);
+      return {
+        ...axis,
+        relationType: "direct",
+        relationLabel: "직접 연계 강함",
+        reason: "화학과의 기초 화학 탐구와 바로 이어지는 축입니다.",
+        __priority: index + 1,
+        __relationScore: 44,
+        __score: 1120 - index
+      };
+    };
+    const atomElectronAxis = {
+      id: "pure_chem_atom_electron_axis",
+      title: "원자 구조·전자 배치 해석 축",
+      short: "원자 구조·전자 배치",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자", "화학과"],
+      desc: "원자 모형, 에너지 준위, 오비탈, 전자 배치를 원소의 성질과 스펙트럼 해석으로 연결하는 방향입니다.",
+      easy: "전자 배치와 에너지 준위를 바탕으로 원소의 성질·스펙트럼을 비교하는 보고서",
+      activityExamples: ["전자 배치와 주기율표 위치 비교", "에너지 준위와 선 스펙트럼 해석", "오비탈 모형 기반 원소 성질 정리"]
+    };
+    const periodicSpectrumAxis = {
+      id: "pure_chem_periodic_spectrum_axis",
+      title: "주기성·스펙트럼 분석 축",
+      short: "주기성·스펙트럼",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "전자기와 양자", "물리", "화학과"],
+      desc: "전자 배치와 유효 핵전하를 원소의 주기적 성질, 이온화 에너지, 선 스펙트럼 비교로 확장하는 방향입니다.",
+      easy: "주기율표 위치에 따른 이온화 에너지·원자 반지름·스펙트럼 차이를 정리하는 보고서",
+      activityExamples: ["주기별 이온화 에너지 변화 그래프", "스펙트럼 자료 비교", "전자 배치와 원소 성질 연결"]
+    };
+    const bondStructureAxis = {
+      id: "pure_chem_bond_structure_axis",
+      title: "결합 구조·전자쌍 해석 축",
+      short: "결합 구조·전자쌍",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자", "화학과"],
+      desc: "원자가 전자, 이온 결합, 공유 결합, 전기음성도 개념을 결합 구조와 전자쌍 배치 해석으로 연결하는 방향입니다.",
+      easy: "루이스 전자점식과 전기음성도 차이로 결합 종류와 분자 구조를 비교하는 보고서",
+      activityExamples: ["결합 종류 판별표 작성", "전기음성도와 결합 극성 비교", "루이스 구조와 전자쌍 배치 해석"]
+    };
+    const molecularPropertyAxis = {
+      id: "pure_chem_molecular_property_axis",
+      title: "분자 구조·물성 예측 축",
+      short: "분자 구조·물성",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "생명과학", "화학과"],
+      desc: "전자쌍 반발, 결합각, 극성, 분자 사이 힘을 끓는점·용해도·물성 예측으로 확장하는 방향입니다.",
+      easy: "분자 구조와 극성, 수소 결합 여부에 따라 끓는점·용해도 차이를 비교하는 보고서",
+      activityExamples: ["분자 구조 모형 비교", "극성과 용해도 관계 정리", "분자 사이 힘과 끓는점 차이 분석"]
+    };
+    const stoichAxis = {
+      id: "pure_chem_stoichiometry_quant_axis",
+      title: "정량·반응식 분석 축",
+      short: "정량·반응식",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "확률과 통계", "물질과 에너지", "화학과"],
+      desc: "몰, 화학식량, 반응식 계수비를 정량 계산과 실험 오차 분석으로 연결하는 방향입니다.",
+      easy: "몰 계산, 반응식 계수비, 수득률과 오차 요인을 정리하는 정량 분석 보고서",
+      activityExamples: ["반응식 계수비 계산", "몰 농도·희석 계산", "수득률과 오차 원인 분석"]
+    };
+    const equilibriumAxis = {
+      id: "pure_chem_equilibrium_acidbase_axis",
+      title: "평형·산염기 해석 축",
+      short: "평형·산염기",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "확률과 통계", "화학과"],
+      desc: "동적 평형, 평형 이동, pH, 산·염기 개념을 반응 조건 변화와 평형 해석으로 연결하는 방향입니다.",
+      easy: "농도·온도·pH 변화가 평형과 반응 진행 방향에 미치는 영향을 정리하는 보고서",
+      activityExamples: ["평형 이동 조건 비교", "pH와 중화 반응 해석", "완충 용액 사례 조사"]
+    };
+    const thermoRedoxAxis = {
+      id: "pure_chem_thermo_redox_axis",
+      title: "산화환원·열화학 해석 축",
+      short: "산화환원·열화학",
+      axisDomain: "chemistry",
+      priority: 1,
+      linkedSubjects: ["화학", "물질과 에너지", "전자기와 양자", "화학과"],
+      desc: "산화수, 전자 이동, 전지, 반응열을 에너지 출입과 화학 반응의 방향성 해석으로 연결하는 방향입니다.",
+      easy: "산화수 변화와 전자 이동, 발열·흡열 반응을 비교해 에너지 변화를 설명하는 보고서",
+      activityExamples: ["산화수 변화 추적", "전지 반응의 전자 이동 정리", "발열·흡열 반응 에너지 비교"]
+    };
+    const organicAxis = {
+      id: "pure_chem_organic_structure_axis",
+      title: "유기 구조·작용기 해석 축",
+      short: "유기 구조·작용기",
+      axisDomain: "chemistry",
+      priority: 2,
+      linkedSubjects: ["화학", "생명과학", "세포와 물질대사", "화학과"],
+      desc: "탄소 화합물과 작용기를 유기 분자의 구조, 성질, 생활 속 활용 사례로 연결하는 방향입니다.",
+      easy: "작용기별 구조와 성질, 활용 사례를 비교하는 유기 화학 기초 보고서",
+      activityExamples: ["작용기별 성질 비교", "탄소 화합물 구조식 정리", "생활 속 유기 물질 사례 분석"]
+    };
+
+    if (/현대의 원자 모형과 전자 배치|원자의 구조|원소의 주기적 성질/.test(conceptText) || /오비탈|전자 배치|에너지 준위|선 스펙트럼|양자수|이온화 에너지|주기율|원자 반지름/.test(keywordText)) {
+      return [make(atomElectronAxis, 0), make(periodicSpectrumAxis, 1), make(bondStructureAxis, 2)];
+    }
+    if (/화학 결합/.test(conceptText) || /원자가 전자|공유 결합|이온 결합|전기음성도|결합의 극성|루이스|비공유 전자쌍/.test(keywordText)) {
+      return [make(bondStructureAxis, 0), make(molecularPropertyAxis, 1), make(atomElectronAxis, 2)];
+    }
+    if (/분자의 구조와 성질/.test(conceptText) || /분자 구조|분자의 극성|수소 결합|분자 사이 힘|끓는점|용해도|결합각|쌍극자/.test(keywordText)) {
+      return [make(molecularPropertyAxis, 0), make(bondStructureAxis, 1), make(equilibriumAxis, 2)];
+    }
+    if (/물질의 양과 화학 반응식/.test(conceptText) || /몰|화학식량|분자량|반응식|계수비|수율|정량|농도|희석/.test(keywordText)) {
+      return [make(stoichAxis, 0), make(equilibriumAxis, 1), make(thermoRedoxAxis, 2)];
+    }
+    if (/화학 반응에서의 동적 평형/.test(conceptText) || /동적 평형|평형 이동|가역|pH|산|염기|완충|중화/.test(keywordText)) {
+      return [make(equilibriumAxis, 0), make(stoichAxis, 1), make(thermoRedoxAxis, 2)];
+    }
+    if (/화학 반응과 열의 출입/.test(conceptText) || /산화|환원|전자 이동|전지|반응열|발열|흡열|엔탈피/.test(keywordText)) {
+      return [make(thermoRedoxAxis, 0), make(equilibriumAxis, 1), make(stoichAxis, 2)];
+    }
+    if (/탄소 화합물의 유용성/.test(conceptText) || /탄소 화합물|고분자|작용기|의약품|플라스틱|유기/.test(keywordText)) {
+      return [make(organicAxis, 0), make(molecularPropertyAxis, 1), make(stoichAxis, 2)];
+    }
+    return [make(atomElectronAxis, 0), make(bondStructureAxis, 1), make(molecularPropertyAxis, 2)];
+  }
+
+
   function isChemistry1FoodContext(mappedEntry) {
     try {
       const isChemSubject = /^(화학|화학Ⅰ|화학1)$/.test(String(state.subject || ""));
@@ -5050,6 +5195,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     // 회로/센서/통신/임베디드 축을 직접 반환해 반도체·컴퓨터·일반 물리 축으로 밀리지 않게 한다.
     if (isElectronicsEngineeringAxisContext(mappedEntry)) {
       return buildElectronicsEngineeringForcedAxes(mappedEntry);
+    }
+
+    // v89.9 Q1-lock: 화학과 + 화학은 공학/의약/식품 응용축이 아니라
+    // 원자·결합·분자 구조·정량·평형·열화학 중심의 순수 화학 축을 직접 반환한다.
+    if (isChemistry1PureChemistryContext(mappedEntry)) {
+      return buildChemistry1PureChemistryForcedAxes();
     }
 
     // v89.7 G1-lock: 식품영양/식품공학과 + 화학은 식품 성분·물성·pH·농도 분석 축을 직접 반환해
@@ -7624,6 +7775,22 @@ function getTrackMeta(trackId) {
         "현대의 원자 모형과 전자 배치"
       ];
     }
+    // v89.9 Q1-lock: 화학과는 응용계열보다 순수 화학 기초 흐름을 우선한다.
+    // 대표 3개는 원자 전자구조 → 결합 → 분자 구조로 고정한다.
+    if (chemistryMajorKind === "chemistry") {
+      return [
+        "현대의 원자 모형과 전자 배치",
+        "화학 결합",
+        "분자의 구조와 성질",
+        "물질의 양과 화학 반응식",
+        "화학 반응에서의 동적 평형",
+        "화학 반응과 열의 출입",
+        "원소의 주기적 성질",
+        "원자의 구조",
+        "탄소 화합물의 유용성",
+        "화학과 우리 생활"
+      ];
+    }
     if (chemistryMajorKind === "materials") {
       return [
         "화학 결합",
@@ -9269,6 +9436,7 @@ function getTrackMeta(trackId) {
     const isNursing = chemistryMajorKind === "nursing";
     const isPharmacy = chemistryMajorKind === "pharmacy";
     const isFood = chemistryMajorKind === "food";
+    const isChemistryMajor = chemistryMajorKind === "chemistry";
     const isIt = isChemistry1ComputerMajorContext() || /(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(majorText) || bucket === "it" || bucket === "electronic" || chemistryMajorKind === "semiconductor" || chemistryMajorKind === "electronics";
     if (isFood) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["탄수화물", "단백질", "지질", "아미노산", "당", "식품 성분", "영양소", "작용기", "고분자", "식품 첨가물", "분자 구조", "생체 분자"];
@@ -9277,6 +9445,17 @@ function getTrackMeta(trackId) {
       if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "몰 농도", "희석", "농도", "식품 분석", "정량 분석", "당도", "염도", "시료", "오차", "용액", "농도 계산"];
       if (/화학 반응과 열의 출입/.test(concept)) return ["발열 반응", "흡열 반응", "반응열", "가열", "냉각", "갈변", "산화", "환원", "저장 온도", "품질 변화", "열 안정성"];
       if (/화학과 우리 생활/.test(concept)) return ["식품", "영양", "첨가물", "보존료", "산도", "당도", "염도", "생활 화학", "안전", "표시 기준"];
+    }
+    if (isChemistryMajor) {
+      if (/현대의 원자 모형과 전자 배치/.test(concept)) return ["에너지 준위", "오비탈", "전자 배치 작성", "선 스펙트럼", "보어 모형", "주 양자수", "방위 양자수", "전자 스핀", "쌓음 원리", "파울리 배타 원리", "훈트 규칙", "원소 성질"];
+      if (/원자의 구조/.test(concept)) return ["전자", "원자핵", "양성자", "중성자", "원자 번호", "질량수", "동위원소", "평균 원자량", "원자 모형", "질량 분석"];
+      if (/원소의 주기적 성질/.test(concept)) return ["주기율표", "유효 핵전하", "이온화 에너지", "원자 반지름", "이온 반지름", "전기음성도", "금속성", "비금속성", "족", "주기", "주기성 비교"];
+      if (/화학 결합/.test(concept)) return ["원자가 전자", "공유 결합", "이온 결합", "전기음성도", "결합의 극성", "루이스 전자점식", "비공유 전자쌍", "분자 모형", "결합각", "전자쌍 반발", "결합 종류 판별"];
+      if (/분자의 구조와 성질/.test(concept)) return ["분자 구조", "전자쌍 반발", "결합각", "분자의 극성", "쌍극자", "분자 사이 힘", "수소 결합", "끓는점", "용해도", "구조식", "물성 예측"];
+      if (/물질의 양과 화학 반응식/.test(concept)) return ["몰", "아보가드로수", "화학식량", "분자량", "몰 질량", "화학 반응식", "계수비", "반응물", "생성물", "수율", "정량 분석", "오차"];
+      if (/화학 반응에서의 동적 평형/.test(concept)) return ["동적 평형", "가역 반응", "정반응", "역반응", "평형 이동", "농도", "온도", "압력", "pH", "산", "염기", "완충 용액"];
+      if (/화학 반응과 열의 출입/.test(concept)) return ["산화", "환원", "산화수", "전자 이동", "전지", "반응열", "발열 반응", "흡열 반응", "중화 반응", "엔탈피", "에너지 출입"];
+      if (/탄소 화합물의 유용성/.test(concept)) return ["탄소 화합물", "작용기", "고분자", "플라스틱", "에탄올", "아세트산", "공유 결합", "분자 구조", "유기 물질", "생활 화학"];
     }
     if (isPharmacy) {
       if (/탄소 화합물의 유용성/.test(concept)) return ["의약품", "작용기", "탄소 화합물", "고분자", "약물 구조", "생체 분자", "단백질", "아미노산", "지질", "친수성", "소수성", "분자 구조"];
@@ -9422,6 +9601,33 @@ function getTrackMeta(trackId) {
       if (/물질의 양과 화학 반응식/.test(concept) && hit("몰", "몰 농도", "희석", "용액", "투약 농도", "정량 분석", "시료", "오차")) {
         if (/stoichiometry_axis|화학량론 해석 축|화학량론/.test(axisText)) boost = Math.max(boost, 300);
         if (/experiment_analysis_axis|실험 설계·분석 축|실험 설계|분석/.test(axisText)) boost = Math.max(boost, 290);
+      }
+    }
+
+    if (kind === "chemistry") {
+      if (/현대의 원자 모형과 전자 배치|원자의 구조|원소의 주기적 성질/.test(concept) && hit("에너지 준위", "오비탈", "전자 배치", "선 스펙트럼", "양자수", "이온화 에너지", "주기율표")) {
+        if (/pure_chem_atom_electron_axis|원자 구조|전자 배치/.test(axisText)) boost = Math.max(boost, 820);
+        if (/pure_chem_periodic_spectrum_axis|주기성|스펙트럼/.test(axisText)) boost = Math.max(boost, 690);
+      }
+      if (/화학 결합/.test(concept) && hit("원자가 전자", "공유 결합", "이온 결합", "전기음성도", "결합의 극성", "루이스", "전자쌍")) {
+        if (/pure_chem_bond_structure_axis|결합 구조|전자쌍/.test(axisText)) boost = Math.max(boost, 820);
+        if (/pure_chem_molecular_property_axis|분자 구조|물성/.test(axisText)) boost = Math.max(boost, 640);
+      }
+      if (/분자의 구조와 성질/.test(concept) && hit("분자 구조", "극성", "수소 결합", "분자 사이 힘", "끓는점", "용해도", "결합각")) {
+        if (/pure_chem_molecular_property_axis|분자 구조|물성/.test(axisText)) boost = Math.max(boost, 820);
+        if (/pure_chem_bond_structure_axis|결합 구조|전자쌍/.test(axisText)) boost = Math.max(boost, 560);
+      }
+      if (/물질의 양과 화학 반응식/.test(concept) && hit("몰", "화학식량", "분자량", "반응식", "계수비", "수율", "정량", "농도")) {
+        if (/pure_chem_stoichiometry_quant_axis|정량|반응식/.test(axisText)) boost = Math.max(boost, 820);
+      }
+      if (/화학 반응에서의 동적 평형/.test(concept) && hit("동적 평형", "평형 이동", "pH", "산", "염기", "완충", "중화")) {
+        if (/pure_chem_equilibrium_acidbase_axis|평형|산염기/.test(axisText)) boost = Math.max(boost, 820);
+      }
+      if (/화학 반응과 열의 출입/.test(concept) && hit("산화", "환원", "전자 이동", "전지", "반응열", "발열", "흡열", "엔탈피")) {
+        if (/pure_chem_thermo_redox_axis|산화환원|열화학/.test(axisText)) boost = Math.max(boost, 820);
+      }
+      if (/탄소 화합물의 유용성/.test(concept) && hit("탄소 화합물", "작용기", "고분자", "유기", "분자 구조")) {
+        if (/pure_chem_organic_structure_axis|유기 구조|작용기/.test(axisText)) boost = Math.max(boost, 780);
       }
     }
 
@@ -10059,6 +10265,19 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
 
 
 
+
+    // v89.9 Q1-lock: 화학과 + 화학 대표 3개 최종 고정.
+    // 화면의 교과어(전자, 소재, 공정 등)에 끌려 공학/전자형 순서로 바뀌는 것을 차단한다.
+    if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "chemistry") {
+      const forced = [
+        "현대의 원자 모형과 전자 배치",
+        "화학 결합",
+        "분자의 구조와 성질"
+      ];
+      const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+      const others = ranked.filter(item => !forced.includes(item.concept));
+      return uniq([...forcedItems, ...others]).slice(0, 3);
+    }
 
     if ((state.subject === "화학" || state.subject === "화학Ⅰ" || state.subject === "화학1") && getChemistry1MajorKind() === "bioengineering") {
       const forced = [
