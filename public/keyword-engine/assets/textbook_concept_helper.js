@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.6-pure-math-final-guard-math2';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v90.7-pure-math-axis-math3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_5_pure_math_prelock_math1";
+  const ASSET_VERSION_QUERY = "v90_7_pure_math_axis_math3";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -8551,169 +8551,449 @@ function getTrackMeta(trackId) {
   }
 
   function buildPureMathematicsForcedAxes(mappedEntry) {
+    // v90.7 MATH3-lock: 수학과 후속축은 응용/데이터/공학형 축이 아니라
+    // 개념별 수리 구조를 직접 반환한다. 1차 잠금에서는 키워드별 세부 변별보다
+    // 개념-후속축의 정확한 큰 방향을 우선 고정한다.
     const conceptText = String(state.concept || mappedEntry?.concept_name || "");
     const keywordText = String(state.keyword || "");
-    const hit = (...words) => words.some(word => new RegExp(word).test(keywordText + " " + conceptText));
-    const make = (seed, index) => {
-      const axis = makeContextFollowupAxis(seed);
+    const subjectText = String(state.subject || "");
+    const compactConcept = conceptText.replace(/\s+/g, "");
+    const compactKeyword = keywordText.replace(/\s+/g, "");
+    const sourceText = `${conceptText} ${keywordText} ${subjectText}`;
+
+    const seed = (id, title, short, linkedSubjects, desc, easy, activityExamples, priority = 1) => ({
+      id,
+      title,
+      short,
+      axisDomain: "math",
+      priority,
+      linkedSubjects,
+      desc,
+      easy,
+      activityExamples
+    });
+
+    const make = (axisSeed, index) => {
+      const axis = makeContextFollowupAxis(axisSeed);
       return {
         ...axis,
         relationType: "direct",
         relationLabel: "직접 연계 강함",
-        reason: "수학과의 수리 구조·논증·모델 해석과 바로 이어지는 축입니다.",
+        reason: "수학과의 개념 구조·증명·모델 해석과 직접 연결되는 후속 탐구축입니다.",
         __priority: index + 1,
-        __relationScore: 42,
-        __score: 1090 - index
+        __relationScore: 48,
+        __score: 1220 - index
       };
     };
-    const functionStructureAxis = {
-      id: "pure_math_function_structure_axis",
-      title: "함수 구조·그래프 해석 축",
-      short: "함수 구조·그래프",
-      axisDomain: "math",
-      priority: 1,
-      linkedSubjects: ["대수", "미적분1", "기하"],
-      desc: "지수함수·로그함수의 정의, 그래프, 변환, 증가·감소 성질을 함수 구조 관점에서 해석하는 방향입니다.",
-      easy: "함수 그래프의 형태 변화, 정의역·치역, 증가·감소와 식의 구조를 연결하는 보고서",
-      activityExamples: ["지수함수와 로그함수 그래프 비교", "밑의 변화에 따른 그래프 변화 해석", "함수식과 그래프 성질 연결표 작성"]
-    };
-    const logExpAxis = {
-      id: "pure_math_log_exp_law_axis",
-      title: "지수·로그 법칙 해석 축",
-      short: "지수·로그 법칙",
-      axisDomain: "math",
-      priority: 2,
-      linkedSubjects: ["대수", "미적분1"],
-      desc: "지수와 로그의 뜻, 성질, 역함수 관계를 수식 변형과 논리적 근거로 해석하는 방향입니다.",
-      easy: "지수법칙과 로그 성질이 왜 성립하는지 예시와 증명 흐름으로 정리하는 보고서",
-      activityExamples: ["로그 성질 유도 과정 정리", "지수함수와 로그함수의 역관계 설명", "상용로그와 자릿수 해석 연결"]
-    };
-    const inductionAxis = {
-      id: "pure_math_sequence_induction_axis",
-      title: "수열·귀납 논증 축",
-      short: "수열·귀납",
-      axisDomain: "math",
-      priority: 3,
-      linkedSubjects: ["대수", "미적분1"],
-      desc: "수열의 규칙, 합, 점화식, 수학적 귀납법을 증명 구조와 일반화 과정으로 연결하는 방향입니다.",
-      easy: "수열 규칙을 세우고 귀납법으로 일반 명제를 정당화하는 보고서",
-      activityExamples: ["등차·등비수열 일반항 유도", "수열의 합 공식 증명", "수학적 귀납법 구조 분석"]
-    };
-    const limitAxis = {
-      id: "pure_math_limit_convergence_axis",
-      title: "극한·수렴 구조 해석 축",
-      short: "극한·수렴",
-      axisDomain: "math",
-      priority: 1,
-      linkedSubjects: ["미적분1", "대수"],
-      desc: "수열의 극한, 함수의 극한, 수렴과 발산을 근사와 엄밀한 판단 구조로 해석하는 방향입니다.",
-      easy: "수렴·발산 사례를 그래프와 표로 비교하고 극한 판단 기준을 정리하는 보고서",
-      activityExamples: ["수열의 수렴·발산 비교", "극한값 추정 표 작성", "수렴 조건과 반례 정리"]
-    };
-    const seriesAxis = {
-      id: "pure_math_series_accumulation_axis",
-      title: "급수·누적 구조 해석 축",
-      short: "급수·누적",
-      axisDomain: "math",
-      priority: 2,
-      linkedSubjects: ["미적분1", "확률과 통계"],
-      desc: "급수와 정적분을 무한 합, 누적량, 근사 과정으로 연결해 해석하는 방향입니다.",
-      easy: "부분합, 무한급수, 누적량의 의미를 그래프와 수식으로 비교하는 보고서",
-      activityExamples: ["부분합 변화 관찰", "무한급수 수렴 사례 비교", "정적분과 누적량 연결"]
-    };
-    const derivativeAxis = {
-      id: "pure_math_derivative_structure_axis",
-      title: "미분 구조·함수 변화 축",
-      short: "미분 구조·변화",
-      axisDomain: "math",
-      priority: 3,
-      linkedSubjects: ["미적분1", "대수"],
-      desc: "도함수, 접선, 증가·감소, 극값을 함수 변화의 구조와 논리적 해석으로 연결하는 방향입니다.",
-      easy: "도함수 부호와 그래프 개형, 접선의 의미를 연결해 함수 변화를 설명하는 보고서",
-      activityExamples: ["도함수 부호표로 그래프 개형 분석", "접선 기울기와 순간변화율 비교", "극값 조건 정리"]
-    };
-    const conicAxis = {
-      id: "pure_math_conic_locus_axis",
-      title: "이차곡선·자취 추론 축",
-      short: "이차곡선·자취",
-      axisDomain: "math",
-      priority: 1,
-      linkedSubjects: ["기하", "대수"],
-      desc: "포물선, 타원, 쌍곡선과 자취 조건을 방정식과 기하적 정의로 연결해 추론하는 방향입니다.",
-      easy: "거리 조건에서 이차곡선 방정식이 나오는 과정을 설명하는 보고서",
-      activityExamples: ["포물선 정의와 방정식 유도", "타원·쌍곡선 거리 조건 비교", "자취 조건을 식으로 변환"]
-    };
-    const vectorAxis = {
-      id: "pure_math_vector_inner_product_axis",
-      title: "벡터·내적 구조 축",
-      short: "벡터·내적",
-      axisDomain: "math",
-      priority: 2,
-      linkedSubjects: ["기하", "미적분1"],
-      desc: "벡터의 성분, 연산, 내적을 방향·크기·각의 관계와 좌표 해석으로 연결하는 방향입니다.",
-      easy: "벡터의 성분과 내적이 방향, 각, 투영을 어떻게 나타내는지 정리하는 보고서",
-      activityExamples: ["내적과 각의 관계 설명", "벡터 투영 그림 작성", "성분 계산과 기하적 의미 연결"]
-    };
-    const spatialAxis = {
-      id: "pure_math_spatial_coordinate_axis",
-      title: "공간도형·좌표 해석 축",
-      short: "공간도형·좌표",
-      axisDomain: "math",
-      priority: 3,
-      linkedSubjects: ["기하", "미적분1"],
-      desc: "공간좌표, 구의 방정식, 정사영을 3차원 위치 관계와 좌표 해석으로 연결하는 방향입니다.",
-      easy: "공간도형의 위치 관계를 좌표와 방정식으로 표현하는 보고서",
-      activityExamples: ["공간좌표 거리 계산", "구의 방정식 의미 해석", "정사영과 위치 관계 시각화"]
-    };
-    const conditionalAxis = {
-      id: "pure_math_conditional_independence_axis",
-      title: "조건부확률·독립성 해석 축",
-      short: "조건부확률·독립성",
-      axisDomain: "math",
-      priority: 1,
-      linkedSubjects: ["확률과 통계", "대수"],
-      desc: "조건부확률과 사건의 독립을 사건 구조, 표본공간, 판단 조건으로 해석하는 방향입니다.",
-      easy: "조건이 바뀌면 확률 판단이 어떻게 달라지는지 표본공간과 표로 정리하는 보고서",
-      activityExamples: ["조건부확률 표 작성", "독립과 종속 사례 비교", "사건 구조도 그리기"]
-    };
-    const distributionAxis = {
-      id: "pure_math_distribution_expectation_axis",
-      title: "확률분포·기댓값 해석 축",
-      short: "분포·기댓값",
-      axisDomain: "math",
-      priority: 2,
-      linkedSubjects: ["확률과 통계", "미적분1"],
-      desc: "확률변수, 확률분포, 기댓값, 분산을 수리적 모델과 분포의 구조로 해석하는 방향입니다.",
-      easy: "확률변수의 값과 확률을 표로 정리하고 기댓값·분산의 의미를 설명하는 보고서",
-      activityExamples: ["확률분포표 작성", "기댓값과 평균 비교", "분산이 큰 분포와 작은 분포 비교"]
-    };
-    const normalAxis = {
-      id: "pure_math_binomial_normal_axis",
-      title: "분포 모형·정규화 해석 축",
-      short: "분포 모형·정규화",
-      axisDomain: "math",
-      priority: 3,
-      linkedSubjects: ["확률과 통계", "미적분1"],
-      desc: "이항분포와 정규분포를 분포 모형, 표준화, 근사 관점에서 비교하는 방향입니다.",
-      easy: "이항분포와 정규분포의 형태를 비교하고 표준화의 의미를 정리하는 보고서",
-      activityExamples: ["이항분포 그래프와 정규분포 그래프 비교", "표준화 과정 정리", "분포 모형 선택 기준 비교"]
+
+    const AX = {
+      functionStructure: seed(
+        "pure_math_function_structure_graph_axis_v907",
+        "함수 구조·그래프 해석 축",
+        "함수 구조·그래프",
+        ["대수", "미적분1"],
+        "지수함수·로그함수의 정의, 그래프, 증가·감소, 점근선, 정의역·치역을 함수 구조 관점에서 해석하는 방향입니다.",
+        "함수식의 구조와 그래프 모양이 어떻게 연결되는지 정리하는 보고서",
+        ["밑의 변화에 따른 지수함수 그래프 비교", "정의역·치역과 증가·감소 성질 표로 정리", "함수식 변환과 그래프 이동 연결"],
+        1
+      ),
+      exponentialGrowth: seed(
+        "pure_math_exponential_structure_growth_axis_v907",
+        "지수 구조·성장 모델 축",
+        "지수 구조·성장",
+        ["대수", "미적분1"],
+        "지수함수의 밑, 거듭제곱 구조, 증가·감소 조건을 성장·감소 모델의 수리 구조로 해석하는 방향입니다.",
+        "지수 구조가 반복 증가·감소를 어떻게 표현하는지 수식과 그래프로 비교하는 보고서",
+        ["밑이 1보다 큰 경우와 작은 경우 비교", "지수함수 증가율 그래프 분석", "반감·배가 구조를 수식으로 표현"],
+        2
+      ),
+      algebraTransform: seed(
+        "pure_math_algebraic_expression_transform_axis_v907",
+        "대수적 표현 변환 축",
+        "대수적 표현 변환",
+        ["대수"],
+        "지수식·로그식의 변환, 등식의 재구성, 역연산 관계를 대수적 조작과 논리로 정리하는 방향입니다.",
+        "같은 관계를 여러 수식 형태로 바꾸며 식의 의미를 설명하는 보고서",
+        ["지수식과 로그식 상호 변환", "지수법칙을 이용한 식 정리", "방정식 풀이 과정의 변환 근거 정리"],
+        3
+      ),
+      logInverse: seed(
+        "pure_math_log_inverse_structure_axis_v907",
+        "로그 구조·역함수 해석 축",
+        "로그 구조·역함수",
+        ["대수"],
+        "로그함수를 지수함수의 역함수, 밑과 진수의 조건, 로그 성질의 구조로 해석하는 방향입니다.",
+        "지수함수와 로그함수가 서로 역관계가 되는 과정을 그래프와 식으로 설명하는 보고서",
+        ["지수함수와 로그함수 그래프 대칭 비교", "로그의 정의 조건 정리", "로그 성질의 유도 과정 설명"],
+        1
+      ),
+      graphCompare: seed(
+        "pure_math_function_graph_compare_axis_v907",
+        "함수 그래프 비교 축",
+        "함수 그래프 비교",
+        ["대수", "미적분1"],
+        "서로 다른 함수의 그래프 개형, 증가·감소, 점근선, 교점, 대칭성을 비교하는 방향입니다.",
+        "함수별 그래프 특징을 비교표와 좌표평면으로 정리하는 보고서",
+        ["지수·로그 그래프 비교", "밑에 따른 그래프 변화 비교", "그래프 교점과 해의 의미 분석"],
+        2
+      ),
+      scaleTransform: seed(
+        "pure_math_scale_transform_axis_v907",
+        "스케일 변환 해석 축",
+        "스케일 변환",
+        ["대수", "확률과 통계"],
+        "로그 스케일, 자릿수, 비율 변화처럼 수의 크기를 다른 척도로 바꾸어 해석하는 방향입니다.",
+        "큰 수나 작은 수를 로그 스케일로 바꾸어 비교하는 보고서",
+        ["상용로그와 자릿수 연결", "로그 스케일 그래프 해석", "비율 변화의 로그 표현 정리"],
+        3
+      ),
+      sequenceInduction: seed(
+        "pure_math_sequence_induction_argument_axis_v907",
+        "수열·귀납 논증 축",
+        "수열·귀납",
+        ["대수", "미적분1"],
+        "수열의 규칙, 일반항, 합 공식, 귀납적 구조를 논증 흐름으로 정리하는 방향입니다.",
+        "수열에서 발견한 규칙을 일반항과 귀납법으로 정당화하는 보고서",
+        ["수열 규칙 발견과 일반항 유도", "수열의 합 공식 증명", "귀납 단계의 논리 구조 분석"],
+        1
+      ),
+      proofStructure: seed(
+        "pure_math_proof_structure_axis_v907",
+        "수학적 증명 구조 축",
+        "증명 구조",
+        ["대수"],
+        "명제, 가정, 결론, 귀납의 기초 단계와 귀납 단계를 구분해 증명 구조를 분석하는 방향입니다.",
+        "증명의 각 단계가 왜 필요한지 논리 흐름으로 정리하는 보고서",
+        ["귀납법의 기초 단계와 귀납 단계 비교", "명제의 조건과 결론 분해", "반례와 증명의 차이 설명"],
+        2
+      ),
+      generalizationPattern: seed(
+        "pure_math_generalization_pattern_axis_v907",
+        "일반화·패턴 추론 축",
+        "일반화·패턴",
+        ["대수", "기하"],
+        "특정 사례에서 규칙을 발견하고 이를 일반 명제나 공식으로 확장하는 방향입니다.",
+        "몇 개의 예시에서 패턴을 찾아 일반식으로 정리하는 보고서",
+        ["수열 항의 패턴 추론", "도형 수열의 일반화", "특수 사례에서 일반 명제 도출"],
+        3
+      ),
+      limitConvergence: seed(
+        "pure_math_limit_convergence_structure_axis_v907",
+        "극한·수렴 구조 축",
+        "극한·수렴 구조",
+        ["미적분1"],
+        "수열의 극한, 수렴과 발산, 무한히 가까워지는 과정을 구조적으로 해석하는 방향입니다.",
+        "수열의 값이 어떤 수에 가까워지는지 표와 그래프로 판단하는 보고서",
+        ["수렴 수열과 발산 수열 비교", "극한값 추정 표 작성", "수렴 조건과 반례 정리"],
+        1
+      ),
+      sequenceChange: seed(
+        "pure_math_sequence_change_analysis_axis_v907",
+        "수열 변화 분석 축",
+        "수열 변화 분석",
+        ["미적분1", "대수"],
+        "항의 변화, 공차·공비, 증가·감소, 진동 여부를 통해 수열의 장기적 변화를 분석하는 방향입니다.",
+        "수열 항의 변화 양상을 표와 그래프로 비교하는 보고서",
+        ["항의 차이와 비율 변화 분석", "증가·감소 수열 사례 비교", "진동 수열과 수렴 수열 비교"],
+        2
+      ),
+      infiniteProcess: seed(
+        "pure_math_infinite_process_axis_v907",
+        "무한 과정 해석 축",
+        "무한 과정",
+        ["미적분1"],
+        "무한히 반복되는 과정에서 값이 안정되는지, 커지는지, 진동하는지를 해석하는 방향입니다.",
+        "무한 과정이 유한한 값으로 수렴하는 사례와 그렇지 않은 사례를 비교하는 보고서",
+        ["무한 반복 과정의 결과 비교", "수렴·발산 판단 기준 정리", "극한 개념의 직관적 시각화"],
+        3
+      ),
+      seriesAccumulation: seed(
+        "pure_math_series_accumulation_structure_axis_v907",
+        "급수·누적 구조 축",
+        "급수·누적 구조",
+        ["미적분1"],
+        "부분합, 무한급수, 누적량을 수열의 합과 수렴 구조로 해석하는 방향입니다.",
+        "부분합이 쌓이는 과정을 그래프와 표로 나타내는 보고서",
+        ["부분합 변화 관찰", "등비급수 수렴 조건 정리", "누적합과 그래프 연결"],
+        1
+      ),
+      convergenceJudgement: seed(
+        "pure_math_convergence_judgement_axis_v907",
+        "수렴 판정 사고 축",
+        "수렴 판정",
+        ["미적분1"],
+        "급수의 수렴·발산을 조건, 비교, 반례를 통해 판단하는 방향입니다.",
+        "급수가 수렴하는지 판단하는 기준을 사례별로 정리하는 보고서",
+        ["수렴 급수와 발산 급수 비교", "등비급수 조건 분석", "부분합 그래프를 통한 수렴 판단"],
+        2
+      ),
+      infiniteSum: seed(
+        "pure_math_infinite_sum_modeling_axis_v907",
+        "무한합 모델링 축",
+        "무한합 모델링",
+        ["미적분1"],
+        "무한히 많은 항의 합을 수학적 모델로 표현하고 해석하는 방향입니다.",
+        "무한합이 실제로 어떤 누적 구조를 나타내는지 설명하는 보고서",
+        ["무한등비급수 모델 만들기", "부분합과 전체합 비교", "무한합의 한계값 해석"],
+        3
+      ),
+      derivativeChangeRate: seed(
+        "pure_math_derivative_change_rate_axis_v907",
+        "미분 구조·변화율 축",
+        "미분 구조·변화율",
+        ["미적분1", "대수"],
+        "도함수, 순간변화율, 접선의 기울기를 함수 변화의 구조로 연결하는 방향입니다.",
+        "함수의 변화율과 그래프 기울기를 연결해 설명하는 보고서",
+        ["평균변화율과 순간변화율 비교", "도함수의 의미 정리", "그래프 기울기와 접선 해석"],
+        1
+      ),
+      functionChange: seed(
+        "pure_math_function_change_analysis_axis_v907",
+        "함수 변화 해석 축",
+        "함수 변화 해석",
+        ["미적분1"],
+        "도함수 부호, 증가·감소, 극대·극소를 통해 함수의 전체 변화를 해석하는 방향입니다.",
+        "도함수 부호표로 그래프 개형을 설명하는 보고서",
+        ["증가·감소 구간 분석", "극값 조건 정리", "도함수와 원함수 그래프 비교"],
+        2
+      ),
+      tangentLocal: seed(
+        "pure_math_tangent_local_analysis_axis_v907",
+        "접선·국소 분석 축",
+        "접선·국소 분석",
+        ["미적분1", "기하"],
+        "접선, 접점, 국소적 변화율을 이용해 함수의 특정 지점 성질을 분석하는 방향입니다.",
+        "한 점 주변에서 함수가 어떻게 변하는지 접선으로 설명하는 보고서",
+        ["접선 방정식 구하기", "접점에서의 변화율 해석", "국소적 근사 사례 정리"],
+        3
+      ),
+      conicStructure: seed(
+        "pure_math_conic_structure_axis_v907",
+        "이차곡선 구조 해석 축",
+        "이차곡선 구조",
+        ["기하"],
+        "포물선, 타원, 쌍곡선의 정의와 방정식을 구조적으로 해석하는 방향입니다.",
+        "거리 조건이 이차곡선 방정식으로 바뀌는 과정을 설명하는 보고서",
+        ["포물선 초점과 준선 분석", "타원·쌍곡선 거리 조건 비교", "이차곡선 방정식 유도"],
+        1
+      ),
+      locusCondition: seed(
+        "pure_math_locus_condition_axis_v907",
+        "자취·조건 분석 축",
+        "자취·조건 분석",
+        ["기하", "대수"],
+        "점이 만족하는 조건을 방정식과 자취로 바꾸어 해석하는 방향입니다.",
+        "움직이는 점의 조건을 식으로 나타내고 자취를 그리는 보고서",
+        ["자취 조건을 식으로 변환", "점의 이동 조건 시각화", "거리 조건과 도형 비교"],
+        2
+      ),
+      coordinateGeometry: seed(
+        "pure_math_coordinate_geometry_modeling_axis_v907",
+        "좌표기하 모델링 축",
+        "좌표기하 모델링",
+        ["기하", "대수"],
+        "도형의 위치와 조건을 좌표, 방정식, 그래프로 모델링하는 방향입니다.",
+        "기하 조건을 좌표평면 위의 식으로 표현하는 보고서",
+        ["좌표를 이용한 도형 조건 표현", "방정식과 그래프 연결", "도형의 대수적 해석"],
+        3
+      ),
+      vectorOperation: seed(
+        "pure_math_vector_operation_structure_axis_v907",
+        "벡터 연산 구조 축",
+        "벡터 연산 구조",
+        ["기하"],
+        "벡터의 합, 차, 스칼라배를 방향과 크기의 구조로 해석하는 방향입니다.",
+        "벡터 연산이 이동과 방향 합성을 어떻게 표현하는지 설명하는 보고서",
+        ["벡터 합성 그림 작성", "스칼라배와 방향 변화 비교", "벡터 연산 법칙 정리"],
+        1
+      ),
+      directionMagnitude: seed(
+        "pure_math_direction_magnitude_modeling_axis_v907",
+        "방향·크기 모델링 축",
+        "방향·크기 모델링",
+        ["기하", "물리"],
+        "벡터의 방향과 크기를 이용해 평면상의 이동, 힘, 위치 변화를 모델링하는 방향입니다.",
+        "방향과 크기 정보를 벡터로 표현해 비교하는 보고서",
+        ["방향 벡터와 크기 계산", "벡터로 이동 경로 표현", "합성 벡터의 방향 해석"],
+        2
+      ),
+      planeGeometry: seed(
+        "pure_math_plane_geometry_analysis_axis_v907",
+        "평면 기하 해석 축",
+        "평면 기하 해석",
+        ["기하"],
+        "평면도형의 위치 관계, 이동, 각도, 거리 관계를 벡터와 좌표로 해석하는 방향입니다.",
+        "평면도형의 관계를 벡터와 좌표로 설명하는 보고서",
+        ["평면도형 위치 관계 분석", "벡터를 이용한 평행·수직 판단", "거리와 각도 관계 정리"],
+        3
+      ),
+      vectorInnerProduct: seed(
+        "pure_math_vector_inner_product_structure_axis_v907",
+        "벡터·내적 구조 축",
+        "벡터·내적 구조",
+        ["기하"],
+        "벡터 성분, 내적, 수직 조건을 각도와 크기의 관계로 해석하는 방향입니다.",
+        "내적이 각도와 수직 관계를 어떻게 나타내는지 설명하는 보고서",
+        ["내적 공식의 기하적 의미 정리", "수직 조건과 내적 비교", "성분 계산과 각도 해석"],
+        1
+      ),
+      projectionAngle: seed(
+        "pure_math_projection_angle_axis_v907",
+        "사영·각도 해석 축",
+        "사영·각도 해석",
+        ["기하"],
+        "벡터의 정사영, 두 벡터가 이루는 각, 성분 분해를 해석하는 방향입니다.",
+        "벡터를 한 방향으로 비추어 나타나는 성분과 각도를 설명하는 보고서",
+        ["정사영 그림 작성", "각도와 내적의 관계 분석", "성분 분해 과정 설명"],
+        2
+      ),
+      coordinateBased: seed(
+        "pure_math_coordinate_based_geometry_axis_v907",
+        "좌표 기반 기하 분석 축",
+        "좌표 기반 기하",
+        ["기하"],
+        "벡터와 도형의 관계를 좌표 성분, 방정식, 계산 과정으로 해석하는 방향입니다.",
+        "좌표를 이용해 벡터와 도형 관계를 계산하고 설명하는 보고서",
+        ["좌표 성분으로 내적 계산", "좌표를 이용한 거리·각도 분석", "기하 문제의 대수화"],
+        3
+      ),
+      conditionalStructure: seed(
+        "pure_math_conditional_probability_structure_axis_v907",
+        "조건부확률 구조 축",
+        "조건부확률 구조",
+        ["확률과 통계"],
+        "조건이 주어졌을 때 표본공간이 어떻게 바뀌는지 확률 구조로 해석하는 방향입니다.",
+        "조건 전후의 표본공간과 확률 계산을 비교하는 보고서",
+        ["조건부확률 표 작성", "조건 전후 표본공간 비교", "확률 계산 과정 설명"],
+        1
+      ),
+      eventRelation: seed(
+        "pure_math_event_relation_analysis_axis_v907",
+        "사건 관계 분석 축",
+        "사건 관계 분석",
+        ["확률과 통계"],
+        "사건의 포함, 배반, 독립, 종속 관계를 구조적으로 분석하는 방향입니다.",
+        "두 사건의 관계에 따라 확률 계산이 어떻게 달라지는지 정리하는 보고서",
+        ["독립과 종속 사례 비교", "사건 관계 벤다이어그램 작성", "곱셈정리 적용 조건 분석"],
+        2
+      ),
+      probabilityLogic: seed(
+        "pure_math_probability_logic_modeling_axis_v907",
+        "확률 논리 모델링 축",
+        "확률 논리 모델링",
+        ["확률과 통계"],
+        "확률 계산 과정을 논리, 조건, 경우 구분으로 모델링하는 방향입니다.",
+        "확률 문제를 조건과 경우로 나누어 풀이 구조를 설명하는 보고서",
+        ["경우 구분 트리 작성", "확률 계산 논리 흐름 정리", "조건 변화에 따른 결과 비교"],
+        3
+      ),
+      distributionStructure: seed(
+        "pure_math_distribution_structure_axis_v907",
+        "확률분포 구조 축",
+        "확률분포 구조",
+        ["확률과 통계"],
+        "확률변수의 값과 확률이 분포를 이루는 구조를 해석하는 방향입니다.",
+        "확률분포표와 그래프로 확률변수의 구조를 설명하는 보고서",
+        ["확률분포표 작성", "확률질량의 합 확인", "분포 모양 비교"],
+        1
+      ),
+      expectationVariance: seed(
+        "pure_math_expectation_variance_axis_v907",
+        "기댓값·분산 해석 축",
+        "기댓값·분산",
+        ["확률과 통계"],
+        "기댓값, 분산, 표준편차를 분포의 중심과 퍼짐으로 해석하는 방향입니다.",
+        "분포의 중심과 퍼짐을 수치로 비교하는 보고서",
+        ["기댓값 계산 과정 정리", "분산이 큰 분포와 작은 분포 비교", "표준편차 의미 해석"],
+        2
+      ),
+      probabilityModel: seed(
+        "pure_math_probability_model_analysis_axis_v907",
+        "확률모형 분석 축",
+        "확률모형 분석",
+        ["확률과 통계"],
+        "확률변수와 분포를 이용해 상황을 확률모형으로 표현하고 분석하는 방향입니다.",
+        "상황을 확률변수와 분포로 바꾸어 설명하는 보고서",
+        ["확률변수 설정 기준 정리", "분포 모형 선택 이유 설명", "모형과 실제 결과 비교"],
+        3
+      ),
+      distributionCompare: seed(
+        "pure_math_distribution_compare_standardization_axis_v907",
+        "분포 비교·표준화 축",
+        "분포 비교·표준화",
+        ["확률과 통계"],
+        "이항분포와 정규분포의 형태, 평균·분산, 표준화 과정을 비교하는 방향입니다.",
+        "서로 다른 분포를 같은 기준으로 비교하는 보고서",
+        ["이항분포와 정규분포 그래프 비교", "표준화 과정 정리", "평균과 표준편차 차이 분석"],
+        1
+      ),
+      binomialNormalModel: seed(
+        "pure_math_binomial_normal_model_axis_v907",
+        "이항·정규 모델 해석 축",
+        "이항·정규 모델",
+        ["확률과 통계"],
+        "이항분포와 정규분포가 어떤 조건에서 쓰이는지 모형의 가정과 해석을 비교하는 방향입니다.",
+        "분포 모형의 조건과 사용 상황을 비교하는 보고서",
+        ["이항분포 조건 정리", "정규분포의 특징 분석", "모형 선택 기준 비교"],
+        2
+      ),
+      distributionPrediction: seed(
+        "pure_math_distribution_prediction_axis_v907",
+        "확률분포 예측 축",
+        "확률분포 예측",
+        ["확률과 통계"],
+        "분포 모형을 바탕으로 특정 구간이나 사건의 가능성을 예측하는 방향입니다.",
+        "분포를 이용해 값의 범위와 가능성을 예측하는 보고서",
+        ["정규분포 구간 확률 해석", "이항분포 누적확률 계산", "분포 기반 예측 결과 비교"],
+        3
+      )
     };
 
-    if (/지수함수|로그함수|로그의 뜻|상용로그/.test(conceptText)) {
-      if (hit("로그", "역함수", "성질", "법칙", "상용")) return [make(logExpAxis, 0), make(functionStructureAxis, 1), make(inductionAxis, 2)];
-      return [make(functionStructureAxis, 0), make(logExpAxis, 1), make(inductionAxis, 2)];
+    const ordered = (...items) => items.map((axis, index) => make(axis, index));
+
+    if (/지수함수의뜻과그래프/.test(compactConcept) || (/지수함수/.test(sourceText) && !/로그함수/.test(conceptText))) {
+      return ordered(AX.functionStructure, AX.exponentialGrowth, AX.algebraTransform);
     }
-    if (/수학적 귀납법|등차수열|등비수열|수열의 합/.test(conceptText)) return [make(inductionAxis, 0), make(limitAxis, 1), make(seriesAxis, 2)];
-    if (/수열의 극한/.test(conceptText)) return [make(limitAxis, 0), make(seriesAxis, 1), make(inductionAxis, 2)];
-    if (/급수|정적분/.test(conceptText)) return [make(seriesAxis, 0), make(limitAxis, 1), make(derivativeAxis, 2)];
-    if (/미분|도함수/.test(conceptText)) return [make(derivativeAxis, 0), make(functionStructureAxis, 1), make(limitAxis, 2)];
-    if (/이차곡선|자취/.test(conceptText)) return [make(conicAxis, 0), make(vectorAxis, 1), make(spatialAxis, 2)];
-    if (/벡터/.test(conceptText)) return [make(vectorAxis, 0), make(spatialAxis, 1), make(conicAxis, 2)];
-    if (/공간도형|정사영|공간좌표|구의 방정식/.test(conceptText)) return [make(spatialAxis, 0), make(vectorAxis, 1), make(conicAxis, 2)];
-    if (/조건부확률|사건의 독립/.test(conceptText)) return [make(conditionalAxis, 0), make(distributionAxis, 1), make(normalAxis, 2)];
-    if (/확률변수|확률분포/.test(conceptText)) return [make(distributionAxis, 0), make(conditionalAxis, 1), make(normalAxis, 2)];
-    if (/이항분포|정규분포/.test(conceptText)) return [make(normalAxis, 0), make(distributionAxis, 1), make(conditionalAxis, 2)];
-    return [make(functionStructureAxis, 0), make(limitAxis, 1), make(vectorAxis, 2)];
+    if (/로그함수의뜻과그래프/.test(compactConcept) || /로그함수/.test(conceptText)) {
+      return ordered(AX.logInverse, AX.graphCompare, AX.scaleTransform);
+    }
+    if (/수학적귀납법/.test(compactConcept)) {
+      return ordered(AX.sequenceInduction, AX.proofStructure, AX.generalizationPattern);
+    }
+    if (/수열의극한/.test(compactConcept)) {
+      return ordered(AX.limitConvergence, AX.sequenceChange, AX.infiniteProcess);
+    }
+    if (/급수/.test(compactConcept)) {
+      return ordered(AX.seriesAccumulation, AX.convergenceJudgement, AX.infiniteSum);
+    }
+    if (/여러가지함수의미분|도함수|미분/.test(compactConcept)) {
+      return ordered(AX.derivativeChangeRate, AX.functionChange, AX.tangentLocal);
+    }
+    if (/이차곡선과자취해석|이차곡선|자취/.test(compactConcept)) {
+      return ordered(AX.conicStructure, AX.locusCondition, AX.coordinateGeometry);
+    }
+    if (/평면벡터와벡터의연산/.test(compactConcept)) {
+      return ordered(AX.vectorOperation, AX.directionMagnitude, AX.planeGeometry);
+    }
+    if (/벡터의성분과내적/.test(compactConcept)) {
+      return ordered(AX.vectorInnerProduct, AX.projectionAngle, AX.coordinateBased);
+    }
+    if (/조건부확률과사건의독립/.test(compactConcept)) {
+      return ordered(AX.conditionalStructure, AX.eventRelation, AX.probabilityLogic);
+    }
+    if (/확률변수와확률분포/.test(compactConcept)) {
+      return ordered(AX.distributionStructure, AX.expectationVariance, AX.probabilityModel);
+    }
+    if (/이항분포와정규분포/.test(compactConcept)) {
+      return ordered(AX.distributionCompare, AX.binomialNormalModel, AX.distributionPrediction);
+    }
+
+    // 예외적으로 conceptText가 비어 있거나 화면 값이 늦게 들어오는 경우에는 과목 기준으로 최소한 순수 수학축을 반환한다.
+    if (/대수/.test(subjectText)) return ordered(AX.functionStructure, AX.logInverse, AX.sequenceInduction);
+    if (/미적분/.test(subjectText)) return ordered(AX.limitConvergence, AX.seriesAccumulation, AX.derivativeChangeRate);
+    if (/기하/.test(subjectText)) return ordered(AX.conicStructure, AX.vectorOperation, AX.vectorInnerProduct);
+    if (/확률과 통계/.test(subjectText)) return ordered(AX.conditionalStructure, AX.distributionStructure, AX.distributionCompare);
+    return ordered(AX.functionStructure, AX.limitConvergence, AX.vectorInnerProduct);
   }
 
 
