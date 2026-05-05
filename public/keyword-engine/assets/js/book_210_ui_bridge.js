@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v13-summary-book-intro-restored";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v14-student-book-meaning-detail";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -150,11 +150,122 @@
     return `<div class="engine-tag-wrap">${items.map(k => `<span class="engine-tag subtle">${esc(k)}</span>`).join("")}</div>`;
   }
 
+
+  const BOOK_DETAIL_OVERRIDES = [
+    {
+      match: "20세기 수학의 다섯가지 황금률",
+      about: [
+        "20세기 수학의 주요 흐름을 통해 계산, 알고리즘, 판단, 문제 해결이 어떻게 연결되는지 보여주는 수학 교양서입니다.",
+        "수학을 공식 암기나 계산 기술이 아니라 자료를 해석하고 판단 기준을 세우는 사고 체계로 이해하게 해 주는 책입니다.",
+        "컴퓨터공학·데이터사이언스 관점에서는 알고리즘적 사고, 데이터 해석, 공정한 판단의 기준을 설명하는 근거로 활용할 수 있습니다."
+      ],
+      why: [
+        "지수·로그 모델이나 데이터 예측을 다룰 때, 수학적 모델이 실제 판단과 예측에 어떤 기준을 제공하는지 설명할 수 있습니다.",
+        "자료를 단순 계산값으로 끝내지 않고, 해석·오차·판단의 근거로 연결하는 보고서에 잘 맞습니다.",
+        "선택한 개념을 컴퓨터공학의 알고리즘적 사고와 연결해 전공 적합성을 자연스럽게 보여줄 수 있습니다."
+      ],
+      focus: [
+        "수학적 알고리즘이 문제 해결과 데이터 해석에서 어떤 역할을 하는지 확인합니다.",
+        "계산 결과를 그대로 믿는 것이 아니라, 어떤 기준으로 판단해야 하는지에 주목합니다.",
+        "보고서에서는 선택 개념의 원리 설명 뒤에 자료 해석 기준 또는 모델링 관점으로 연결합니다."
+      ],
+      keywords: ["계산과 알고리즘", "데이터 해석", "공정한 판단", "수학적 사고력", "문제해결", "모델링", "통계"]
+    },
+    {
+      match: "카오스",
+      about: [
+        "예측하기 어려운 현상 속에서도 일정한 패턴과 구조를 찾을 수 있다는 관점을 보여주는 과학 교양서입니다.",
+        "데이터 예측, 비선형 변화, 복잡계 현상을 설명할 때 단순한 원인-결과 관계만으로는 부족하다는 점을 이해하게 해 줍니다."
+      ],
+      why: [
+        "데이터 예측 보고서에서 예측 가능성과 한계를 함께 논의할 수 있게 해 줍니다.",
+        "지수·로그 모델처럼 변화 양상을 다루는 개념을 실제 복잡한 현상 해석으로 확장할 수 있습니다."
+      ],
+      focus: [
+        "작은 조건 차이가 결과 해석에 어떤 영향을 주는지 확인합니다.",
+        "모델이 설명할 수 있는 부분과 설명하기 어려운 부분을 구분합니다."
+      ],
+      keywords: ["카오스", "비선형 변화", "예측 한계", "데이터 패턴", "복잡계", "모델링"]
+    },
+    {
+      match: "팩트풀니스",
+      about: [
+        "세계에 대한 판단이 통계 자료와 데이터 해석에 따라 어떻게 달라질 수 있는지 보여주는 데이터 리터러시 도서입니다.",
+        "숫자와 그래프를 읽을 때 생기는 편향, 오해, 과장된 해석을 점검하는 데 적합합니다."
+      ],
+      why: [
+        "데이터 예측이나 통계 기반 보고서에서 자료 해석의 정확성과 편향 문제를 다룰 수 있습니다.",
+        "그래프와 수치를 보고 결론을 내릴 때 필요한 판단 기준을 설명하는 근거로 활용할 수 있습니다."
+      ],
+      focus: [
+        "데이터가 실제보다 과장되거나 왜곡되어 읽히는 지점을 확인합니다.",
+        "보고서의 한계와 오차, 판단 편향 논의에 연결합니다."
+      ],
+      keywords: ["데이터 리터러시", "통계", "편향", "자료 해석", "세계관", "그래프 해석"]
+    },
+    {
+      match: "1984",
+      about: [
+        "감시와 통제 사회 속에서 개인의 자유, 언어, 진실, 사고가 어떻게 제한될 수 있는지를 보여주는 소설입니다.",
+        "컴퓨터·데이터 계열에서는 기술의 원리보다 데이터 감시, 정보 통제, 알고리즘 권력의 사회적 의미를 확장할 때 적합합니다."
+      ],
+      why: [
+        "직접 핵심 도서보다는 데이터 기술의 윤리, 감시사회, 개인정보 문제를 결론이나 한계에서 확장할 때 활용하는 것이 적절합니다.",
+        "보고서가 기술 설명으로만 끝나지 않고 사회적 책임과 윤리 문제까지 연결되도록 도와줍니다."
+      ],
+      focus: [
+        "정보와 언어가 통제될 때 개인의 판단이 어떻게 달라지는지 확인합니다.",
+        "데이터 수집·분석 기술의 사회적 한계와 윤리 문제로 연결합니다."
+      ],
+      keywords: ["감시사회", "정보 통제", "개인 자유", "데이터 윤리", "권력", "언어와 사고"]
+    },
+    {
+      match: "미디어의 이해",
+      about: [
+        "미디어가 단순한 전달 도구가 아니라 인간의 사고방식과 사회 구조를 바꾸는 환경이라는 관점을 제시하는 미디어 이론서입니다.",
+        "디지털 플랫폼, 알고리즘 추천, 정보 전달 방식이 사람들의 판단에 미치는 영향을 설명할 때 활용할 수 있습니다."
+      ],
+      why: [
+        "컴퓨터·데이터 보고서에서 기술이 사회적 소통 방식과 판단 구조를 어떻게 바꾸는지 확장할 수 있습니다.",
+        "직접 원리 설명보다는 결론의 사회적 의미, 미디어 환경 변화, 플랫폼 영향 분석에 적합합니다."
+      ],
+      focus: [
+        "기술이 정보를 전달하는 방식뿐 아니라 사람의 인식과 행동을 바꾸는 과정을 봅니다.",
+        "보고서 결론에서 플랫폼·알고리즘·미디어 환경의 영향으로 확장합니다."
+      ],
+      keywords: ["미디어 환경", "플랫폼", "정보 전달", "알고리즘 추천", "디지털 사회", "인식 변화"]
+    },
+    {
+      match: "감시와 처벌",
+      about: [
+        "근대 사회의 감시와 규율 시스템이 개인의 행동과 자유에 어떤 영향을 주는지 분석한 사회철학 고전입니다.",
+        "디지털 감시, CCTV, 알고리즘 감시, 플랫폼 규율 문제를 비판적으로 바라보는 데 활용할 수 있습니다."
+      ],
+      why: [
+        "컴퓨터·데이터 계열 보고서에서 기술의 편리성뿐 아니라 감시와 통제의 위험을 논의할 수 있습니다.",
+        "확장 참고 도서로 사용하면 결론에서 데이터 기술의 윤리적 한계를 더 설득력 있게 제시할 수 있습니다."
+      ],
+      focus: [
+        "감시가 사람의 행동을 어떻게 바꾸는지 확인합니다.",
+        "알고리즘 감시와 플랫폼 사회의 규율 문제로 연결합니다."
+      ],
+      keywords: ["감시", "규율", "알고리즘 감시", "플랫폼 사회", "자유", "권력"]
+    }
+  ];
+
+  function getBookDetailOverride(book){
+    const title = val(book && book.title);
+    if (!title) return null;
+    return BOOK_DETAIL_OVERRIDES.find(item => title === item.match || title.includes(item.match) || item.match.includes(title)) || null;
+  }
+
   const CORE_KEYWORD_STOPWORDS = new Set([
     "duplicate", "existing", "active", "card",
     "대표적", "대표", "도구가", "아니라", "통해", "흐름을", "이해", "단순",
     "다섯가지", "다섯 가지", "선택", "보고서", "활용", "연결", "관점",
-    "핵심", "내용", "도서", "제공", "기반", "관련", "보강", "저자", "출판사"
+    "핵심", "내용", "도서", "제공", "기반", "관련", "보강", "저자", "출판사",
+    "공정한", "만남", "수학의", "수학이", "수학적", "철학의", "확률과", "계산",
+    "대표적", "분석에", "가능성과", "창의성의", "마지막", "과정의", "의미"
   ]);
 
   function normalizeKeywordText(v){
@@ -162,10 +273,11 @@
   }
 
   function cleanCoreKeywords(book, ctx){
+    const override = getBookDetailOverride(book);
     const authorText = normalizeKeywordText(book && book.author).toLowerCase();
     const relatedSubjects = new Set(arr(book && book.relatedSubjects).map(normalizeKeywordText).filter(Boolean));
     const relatedMajors = new Set(arr(book && book.relatedMajors).map(normalizeKeywordText).filter(Boolean));
-    const out = [];
+    const out = arr(override && override.keywords);
 
     arr(book && book.keywords).forEach(raw => {
       const k = normalizeKeywordText(raw);
@@ -182,6 +294,7 @@
       if (relatedSubjects.has(k)) return;
       if (relatedMajors.has(k)) return;
       if (/학과$/.test(k) || /교육과$/.test(k) || /공학과$/.test(k)) return;
+      if (/^[가-힣]{2,4}(의|이|은|는|을|를|과|와)$/.test(k)) return;
       if (k.length < 2) return;
 
       out.push(k);
@@ -195,17 +308,66 @@
   }
 
   function buildStudentContentPoints(book){
+    const override = getBookDetailOverride(book);
+    if (override && override.about && override.about.length) return override.about;
+
     const points = [];
 
-    // 내담자가 책을 읽지 않아도 "무슨 책인지" 먼저 파악할 수 있도록
-    // 책 자체의 간단한 성격만 남긴다. 연결 교과/선택 흐름/보고서 역할은
-    // 아래 별도 영역에서 처리하므로 이 섹션에는 넣지 않는다.
     arr(book && book.bookContentPoints).forEach(p => points.push(p));
 
     const summary = val(book && book.summary);
     if (summary) points.push(summary);
 
+    const reportUse = val(book && book.reportUse);
+    if (reportUse && reportUse !== summary) {
+      points.push(reportUse.replace(/활용 가능[.]?$/g, "활용할 수 있는 책입니다."));
+    }
+
     return uniq(points).filter(Boolean).slice(0, 3);
+  }
+
+  function buildBookWhyItems(book, sc, ctx, sectionType){
+    const override = getBookDetailOverride(book);
+    if (override && override.why && override.why.length) return override.why;
+
+    const items = [];
+    const concept = val(ctx && ctx.concept);
+    const keyword = val(ctx && ctx.keyword);
+    const axis = val((ctx && (ctx.axisLabel || ctx.followupAxisId || ctx.linkTrack)) || "");
+    const title = val(book && book.title);
+
+    if (sectionType === "direct") {
+      items.push(`${title}은(는) 선택한 교과 개념을 보고서의 핵심 원리와 분석 기준으로 설명할 때 활용할 수 있습니다.`);
+    } else {
+      items.push(`${title}은(는) 핵심 원리 설명보다는 보고서의 비교, 한계, 사회적 의미 확장에 활용하기 좋습니다.`);
+    }
+
+    if (concept || keyword) {
+      items.push(`${concept || "선택 개념"}${keyword ? " · " + keyword : ""} 흐름을 단순 주제 소개가 아니라 근거 있는 탐구 질문으로 바꾸는 데 도움을 줍니다.`);
+    }
+
+    if (axis) {
+      items.push(`4번 후속 연계축인 ${axis} 방향과 연결해 보고서의 분석 관점을 구체화할 수 있습니다.`);
+    }
+
+    return uniq(items).filter(Boolean).slice(0, 3);
+  }
+
+  function buildReadingFocusItems(book, sc, ctx){
+    const override = getBookDetailOverride(book);
+    if (override && override.focus && override.focus.length) return override.focus;
+
+    const items = [];
+    const keyword = val(ctx && ctx.keyword);
+    const concept = val(ctx && ctx.concept);
+    const subjects = arr(book && book.relatedSubjects).slice(0, 3).join("·");
+
+    if (concept) items.push(`책의 내용 중 ${concept}와 연결되는 원리, 사례, 판단 기준을 찾습니다.`);
+    if (keyword) items.push(`${keyword}와 관련된 자료 해석, 비교, 모델링 관점이 있는지 확인합니다.`);
+    if (subjects) items.push(`${subjects} 교과와 연결되는 부분을 표시해 보고서의 교과 근거로 사용합니다.`);
+    if (!items.length) items.push("책의 핵심 주장, 사례, 한계점을 나누어 표시하며 읽습니다.");
+
+    return uniq(items).filter(Boolean).slice(0, 3);
   }
 
   function buildStudentReportUseItems(book, sc){
@@ -234,6 +396,9 @@
 
     const sc = book.selectedBookContext || {};
     const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
+    const aboutItems = buildStudentContentPoints(book);
+    const whyItems = buildBookWhyItems(book, sc, ctx, sectionType);
+    const focusItems = buildReadingFocusItems(book, sc, ctx);
     const useItems = buildStudentReportUseItems(book, sc);
     const keywords = cleanCoreKeywords(book, ctx);
 
@@ -249,7 +414,17 @@
 
         <div class="engine-summary-section">
           <div class="engine-summary-section-title">이 책은 어떤 책인가</div>
-          ${listHTML(buildStudentContentPoints(book), "책의 핵심 내용을 요약 중입니다.")}
+          ${listHTML(aboutItems, "책의 핵심 내용을 요약 중입니다.")}
+        </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">이 책을 왜 쓰는가</div>
+          ${listHTML(whyItems, "선택한 탐구 흐름과 연결되는 이유를 정리 중입니다.")}
+        </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">읽을 때 확인할 부분</div>
+          ${listHTML(focusItems, "보고서에 연결할 핵심 관점을 표시하며 읽습니다.")}
         </div>
 
         <div class="engine-summary-section">
