@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v11-axis-click-fix";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v12-summary-slim-keyword-clean";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -150,6 +150,50 @@
     return `<div class="engine-tag-wrap">${items.map(k => `<span class="engine-tag subtle">${esc(k)}</span>`).join("")}</div>`;
   }
 
+  const CORE_KEYWORD_STOPWORDS = new Set([
+    "duplicate", "existing", "active", "card",
+    "대표적", "대표", "도구가", "아니라", "통해", "흐름을", "이해", "단순",
+    "다섯가지", "다섯 가지", "선택", "보고서", "활용", "연결", "관점",
+    "핵심", "내용", "도서", "제공", "기반", "관련", "보강", "저자", "출판사"
+  ]);
+
+  function normalizeKeywordText(v){
+    return val(v).replace(/\s+/g, " ").trim();
+  }
+
+  function cleanCoreKeywords(book, ctx){
+    const authorText = normalizeKeywordText(book && book.author).toLowerCase();
+    const relatedSubjects = new Set(arr(book && book.relatedSubjects).map(normalizeKeywordText).filter(Boolean));
+    const relatedMajors = new Set(arr(book && book.relatedMajors).map(normalizeKeywordText).filter(Boolean));
+    const out = [];
+
+    arr(book && book.keywords).forEach(raw => {
+      const k = normalizeKeywordText(raw);
+      if (!k) return;
+
+      const lower = k.toLowerCase();
+      if (CORE_KEYWORD_STOPWORDS.has(k) || CORE_KEYWORD_STOPWORDS.has(lower)) return;
+      if (/^\d{2,4}$/.test(k)) return;
+      if (/^\d+\s*세기$/.test(k)) return;
+      if (/^\d+\s*년대$/.test(k)) return;
+      if (/^[0-9.]+$/.test(k)) return;
+      if (/[\/\|]/.test(k)) return;
+      if (authorText && authorText.includes(lower)) return;
+      if (relatedSubjects.has(k)) return;
+      if (relatedMajors.has(k)) return;
+      if (/학과$/.test(k) || /교육과$/.test(k) || /공학과$/.test(k)) return;
+      if (k.length < 2) return;
+
+      out.push(k);
+    });
+
+    const contextKeywords = [ctx && ctx.keyword, ctx && ctx.concept, ctx && ctx.subject]
+      .map(normalizeKeywordText)
+      .filter(k => k && !relatedSubjects.has(k) && !CORE_KEYWORD_STOPWORDS.has(k));
+
+    return uniq(out.concat(contextKeywords)).slice(0, 10);
+  }
+
   function buildStudentContentPoints(book){
     const points = [];
     const summary = val(book.summary || book.reportUse || "");
@@ -192,11 +236,8 @@
 
     const sc = book.selectedBookContext || {};
     const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
-    const contentPoints = buildStudentContentPoints(book);
     const useItems = buildStudentReportUseItems(book, sc);
-    const reasons = arr(book.matchReasons);
-    const roleLabels = arr(sc.reportRoleLabels);
-    const keywords = arr(book.keywords).filter(k => !["duplicate", "existing", "active", "card"].includes(String(k).toLowerCase())).slice(0, 10);
+    const keywords = cleanCoreKeywords(book, ctx);
 
     return `
       <div class="engine-summary-box">
@@ -209,28 +250,8 @@
         </div>
 
         <div class="engine-summary-section">
-          <div class="engine-summary-section-title">이 책은 어떤 내용인가</div>
-          <p class="engine-summary-text">${esc(book.summary || book.reportUse || "이 도서는 선택한 주제와 연결해 생각해 볼 수 있는 관점을 제공합니다.")}</p>
-        </div>
-
-        <div class="engine-summary-section">
-          <div class="engine-summary-section-title">도서 내용</div>
-          ${listHTML(contentPoints, "도서의 핵심 내용을 보강 중입니다.")}
-        </div>
-
-        <div class="engine-summary-section">
-          <div class="engine-summary-section-title">선택 흐름과 연결된 근거</div>
-          ${reasons.length ? listHTML(reasons) : `<div class="engine-summary-empty">선택한 개념·키워드·후속 연계축과 연결됩니다.</div>`}
-        </div>
-
-        <div class="engine-summary-section">
           <div class="engine-summary-section-title">보고서에서 활용할 수 있는 방식</div>
           ${listHTML(useItems, "분석 관점 또는 결론 확장 부분에서 활용할 수 있습니다.")}
-        </div>
-
-        <div class="engine-summary-section">
-          <div class="engine-summary-section-title">보고서 역할</div>
-          ${tagHTML(roleLabels, sectionType === "direct" ? "핵심 근거" : "확장 참고")}
         </div>
 
         <div class="engine-summary-section">
