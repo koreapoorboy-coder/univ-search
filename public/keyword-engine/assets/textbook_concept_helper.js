@@ -2947,9 +2947,33 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     document.addEventListener("click", function (event) {
       const conceptToggleBtn = event.target.closest(".engine-concept-toggle-btn[data-action='concept-display-toggle']");
       if (conceptToggleBtn && isStepEnabled(3)) {
+        // v91.1 book-stage stability fix:
+        // "다른 교과 개념 보기"는 목록을 펼치거나 접는 UI 동작일 뿐이다.
+        // 이 버튼에서 renderAll()을 호출하면 4번 후속 연계축과 5번 도서 추천까지
+        // 다시 렌더링되어, 책 선택 후 기존 followup/book 선택값이 흔들릴 수 있다.
+        // 따라서 실제 concept/keyword/track/book 선택값은 보존하고 3번 영역만 갱신한다.
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+
+        const stableSelection = {
+          concept: state.concept || "",
+          keyword: state.keyword || "",
+          linkTrack: state.linkTrack || "",
+          linkTrackSource: state.linkTrackSource || "",
+          selectedBook: state.selectedBook || "",
+          selectedBookTitle: state.selectedBookTitle || "",
+          reportMode: state.reportMode || "",
+          reportView: state.reportView || "",
+          reportLine: state.reportLine || ""
+        };
+
         state.showAllConcepts = !state.showAllConcepts;
+        Object.assign(state, stableSelection);
         syncOutputFields();
-        renderAll();
+        renderStatus();
+        renderConceptArea();
+        applyLocks();
         return;
       }
 
@@ -2997,13 +3021,41 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       const bookBtn = event.target.closest(".book-chip[data-kind='book']");
       if (bookBtn && isStepEnabled(5)) {
+        // v91.1 book-stage stability fix:
+        // 도서 카드는 5번의 선택 도서만 바꾸는 동작이다.
+        // 여기서 renderAll()을 호출하면 3번/4번까지 다시 그려지며
+        // A-1 도서 목록 또는 후속 연계축이 바뀌는 부작용이 생길 수 있다.
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
         state.reportView = "";
         state.reportLine = "";
         syncOutputFields();
-        renderAll();
+        renderStatus();
+
+        // book_210_ui_bridge가 로드된 경우에는 기존 추천 결과 캐시를 사용해
+        // 오른쪽 선택 도서 요약만 안정적으로 갱신한다. 브리지가 아직 없을 때만
+        // 5번 영역을 단독 렌더링한다.
+        try {
+          window.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 1200;
+          if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
+            window.__BOOK_210_FORCE_RENDER__();
+          } else {
+            renderBookArea();
+          }
+        } catch (error) {
+          renderBookArea();
+        }
+
+        renderModeArea();
+        renderViewArea();
+        renderReportLineArea();
+        renderSelectionSummary();
+        applyLocks();
         return;
       }
 
