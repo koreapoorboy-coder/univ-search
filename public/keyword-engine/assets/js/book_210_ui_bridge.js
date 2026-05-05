@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v12-summary-slim-keyword-clean";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v13-summary-book-intro-restored";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -196,18 +196,16 @@
 
   function buildStudentContentPoints(book){
     const points = [];
-    const summary = val(book.summary || book.reportUse || "");
+
+    // 내담자가 책을 읽지 않아도 "무슨 책인지" 먼저 파악할 수 있도록
+    // 책 자체의 간단한 성격만 남긴다. 연결 교과/선택 흐름/보고서 역할은
+    // 아래 별도 영역에서 처리하므로 이 섹션에는 넣지 않는다.
+    arr(book && book.bookContentPoints).forEach(p => points.push(p));
+
+    const summary = val(book && book.summary);
     if (summary) points.push(summary);
 
-    arr(book.bookContentPoints).forEach(p => points.push(p));
-
-    const themes = arr(book.relatedThemes).slice(0, 3);
-    if (themes.length) points.push("주요 관점: " + themes.join(", "));
-
-    const subjects = arr(book.relatedSubjects).slice(0, 3);
-    if (subjects.length) points.push("연결 교과: " + subjects.join(", "));
-
-    return uniq(points).slice(0, 5);
+    return uniq(points).filter(Boolean).slice(0, 3);
   }
 
   function buildStudentReportUseItems(book, sc){
@@ -247,6 +245,11 @@
             <div class="engine-summary-meta">${esc(book.author || "")}</div>
           </div>
           <div class="engine-summary-badge">${esc(badge)}</div>
+        </div>
+
+        <div class="engine-summary-section">
+          <div class="engine-summary-section-title">이 책은 어떤 책인가</div>
+          ${listHTML(buildStudentContentPoints(book), "책의 핵심 내용을 요약 중입니다.")}
         </div>
 
         <div class="engine-summary-section">
