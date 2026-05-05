@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v15-stable-book-click";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v16-stable-summary-click";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -12,6 +12,7 @@
   let rules = null;
   let loading = null;
   let lastResult = null;
+  let lastInputCtx = null;
 
   function esc(v){
     return String(v || "")
@@ -118,6 +119,60 @@
       Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(",") : "",
       ctx.longitudinalPath || ""
     ].map(val).join("||");
+  }
+
+  function cloneCtx(ctx){
+    const base = ctx || {};
+    return {
+      ...base,
+      linkedSubjects: Array.isArray(base.linkedSubjects) ? base.linkedSubjects.slice() : []
+    };
+  }
+
+  function getStableRenderContext(selectedBookValue){
+    const stateCtx = getStateContext();
+    const cached = (lastResult && lastResult.ctx) || lastInputCtx || stateCtx;
+    const ctx = cloneCtx(cached);
+    ctx.selectedBook = selectedBookValue || stateCtx.selectedBook || ctx.selectedBook || "";
+    return ctx;
+  }
+
+  function syncSelectedBookFields(value, title){
+    const state = global.__TEXTBOOK_HELPER_STATE__;
+    if (state) {
+      state.selectedBook = value || "";
+      state.selectedBookTitle = title || "";
+      state.reportMode = "";
+      state.reportView = "";
+      state.reportLine = "";
+    }
+    const idEl = document.getElementById("selectedBookId");
+    if (idEl) idEl.value = value || "";
+    const titleEl = document.getElementById("selectedBookTitle");
+    if (titleEl) titleEl.value = title || value || "";
+  }
+
+  function renderBookAreaWithStableContext(ctx, reason){
+    const el = document.getElementById("engineBookArea");
+    if (!el) return false;
+    if (!master) {
+      ensureEngine().then(()=>renderBookAreaWithStableContext(ctx, reason || "stable-after-master"));
+      return false;
+    }
+    try {
+      global.__BOOK_210_IS_RENDERING__ = true;
+      lastInputCtx = cloneCtx(ctx);
+      el.innerHTML = global.renderBookSelectionHTML(ctx);
+      el.setAttribute("data-book-210-render-key", buildRenderKey(ctx));
+      global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
+      global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "stable-book-selection";
+      setTimeout(()=>{ global.__BOOK_210_IS_RENDERING__ = false; }, 120);
+      return true;
+    } catch(error){
+      global.__BOOK_210_IS_RENDERING__ = false;
+      console.error("book 210 stable render failed", error);
+      return false;
+    }
   }
 
   function bookKey(book){
@@ -469,6 +524,7 @@
 
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
+    lastInputCtx = cloneCtx(ctx);
     if (!ctx.subject || !ctx.career) return `<div class="engine-empty">먼저 과목과 학과를 입력하세요.</div>`;
     if (!ctx.concept || !ctx.keyword) return `<div class="engine-empty">먼저 3번 교과 개념과 추천 키워드를 선택해야 도서 추천이 열립니다.</div>`;
     if (!(ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel)) return `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 5번 도서 추천이 열립니다.</div>`;
@@ -492,7 +548,7 @@
       result = global.BookRecommendationAdapter.recommendBooks(payload, master.books, { directLimit: 3, expansionLimit: 5 });
     }
 
-    lastResult = { ctx, payload, result, recommendationKey };
+    lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
 
     const direct = result.directBooks || [];
@@ -607,7 +663,10 @@
   function forceRenderBookArea(reason){
     const el = document.getElementById("engineBookArea");
     if (!el) return false;
-    const ctx = getStateContext();
+    let ctx = getStateContext();
+    if (global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ && Date.now() < global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__) {
+      ctx = getStableRenderContext(ctx.selectedBook);
+    }
     global.__BOOK_210_FORCE_RENDER_CONTEXT__ = ctx;
     if (!canForceRender(ctx)) return false;
     if (!master) {
@@ -650,22 +709,14 @@
 
       const value = btn.getAttribute("data-value") || "";
       const title = btn.getAttribute("data-title") || "";
-      const state = global.__TEXTBOOK_HELPER_STATE__;
 
-      if (state) {
-        state.selectedBook = value;
-        state.selectedBookTitle = title;
-        state.reportMode = "";
-        state.reportView = "";
-        state.reportLine = "";
-      }
+      syncSelectedBookFields(value, title);
 
       global.__BOOK_210_LAST_CLICKED_BOOK__ = { value, title, at: new Date().toISOString() };
-      global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 500;
-      const el = document.getElementById("engineBookArea");
-      if (el) el.removeAttribute("data-book-210-render-key");
+      global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 1200;
 
-      forceRenderBookArea("bridge-book-click-stable-selection");
+      const stableCtx = getStableRenderContext(value);
+      renderBookAreaWithStableContext(stableCtx, "bridge-book-click-summary-only");
     }, true);
   }
 
@@ -675,6 +726,7 @@
     try {
       const observer = new MutationObserver(function(){
         if (global.__BOOK_210_IS_RENDERING__) return;
+        if (global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ && Date.now() < global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__) return;
         if (!document.getElementById("engineBookArea")) return;
         if (canForceRender(getStateContext())) {
           clearTimeout(global.__BOOK_210_FORCE_RENDER_TIMER__);
