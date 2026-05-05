@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v14-student-book-meaning-detail";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v15-stable-book-click";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -102,6 +102,22 @@
       },
       reportIntent: "보고서 근거 도서"
     };
+  }
+
+  function buildRecommendationKey(ctx){
+    ctx = ctx || {};
+    return [
+      ctx.subject || "",
+      ctx.career || ctx.selectedMajor || "",
+      ctx.concept || ctx.selectedConcept || "",
+      ctx.keyword || ctx.selectedKeyword || "",
+      ctx.followupAxisId || "",
+      ctx.linkTrack || "",
+      ctx.axisLabel || "",
+      ctx.axisDomain || "",
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(",") : "",
+      ctx.longitudinalPath || ""
+    ].map(val).join("||");
   }
 
   function bookKey(book){
@@ -463,8 +479,20 @@
     }
 
     const payload = buildPayload(ctx);
-    const result = global.BookRecommendationAdapter.recommendBooks(payload, master.books, { directLimit: 3, expansionLimit: 5 });
-    lastResult = { ctx, payload, result };
+    const recommendationKey = buildRecommendationKey(ctx);
+    let result = null;
+
+    // 도서 선택 클릭은 "선택 도서"만 바꾸는 동작이어야 한다.
+    // selectedBook 변경 때 추천 목록을 다시 계산하면, 다른 렌더러/캐시가 개입해
+    // A-1 데이터 예측 축의 직접 도서가 부분과 전체·객관성의 칼날 계열로
+    // 되돌아가는 현상이 발생할 수 있어, 선택 도서만 바뀐 경우 이전 추천 결과를 재사용한다.
+    if (lastResult && lastResult.recommendationKey === recommendationKey && lastResult.result) {
+      result = lastResult.result;
+    } else {
+      result = global.BookRecommendationAdapter.recommendBooks(payload, master.books, { directLimit: 3, expansionLimit: 5 });
+    }
+
+    lastResult = { ctx, payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
 
     const direct = result.directBooks || [];
@@ -633,10 +661,11 @@
       }
 
       global.__BOOK_210_LAST_CLICKED_BOOK__ = { value, title, at: new Date().toISOString() };
+      global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 500;
       const el = document.getElementById("engineBookArea");
       if (el) el.removeAttribute("data-book-210-render-key");
 
-      forceRenderBookArea("bridge-book-click");
+      forceRenderBookArea("bridge-book-click-stable-selection");
     }, true);
   }
 
