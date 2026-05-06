@@ -747,8 +747,11 @@
     const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
     const isAlgebra = /대수/.test(subjectText);
     const isExpLogUse = /지수함수와\s*로그함수의\s*활용/.test(conceptText);
-    const isSignalKeyword = /(신호|채널|용량|정보량|데이터\s*전송|네트워크)/i.test(keywordText);
-    const isSignalAxis = /(signal\s*capacity\s*interpretation|신호\s*용량|신호|용량|채널|정보량|통신|네트워크)/i.test(axisIdText);
+    // v95 correction: 실제 3번 추천 키워드 목록에 존재하는 값만 기준으로 잠근다.
+    // 현재 A-2의 실제 추천 키워드는 "채널 용량"이다.
+    // "신호/정보량/네트워크"처럼 화면에 없는 설명용 표현으로는 A-2 잠금을 실행하지 않는다.
+    const isSignalKeyword = /채널\s*용량/i.test(keywordText);
+    const isSignalAxis = /(signal\s*capacity\s*interpretation|신호\s*용량\s*해석\s*축|신호\s*용량)/i.test(axisIdText);
     return !!(isComputer && isAlgebra && isExpLogUse && isSignalKeyword && isSignalAxis);
   }
 
