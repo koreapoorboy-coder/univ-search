@@ -9,7 +9,7 @@
 (function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v2.3-axis-specific-books";
+  const ADAPTER_VERSION = "v2.3-axis-first-v89";
   const MASTER_FILE = "book_source_master_210.json";
   const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
@@ -1170,68 +1170,19 @@
     return { level:"excluded", domains, reason:"전공군 도메인 불일치" };
   }
 
-  function collectAxisParts(payload){
-    payload = payload || {};
-    const rawAxis = payload.followupAxis || payload.axis || payload.step4Axis || "";
-    const axisPayload = payload.axisPayload || payload.followupAxisPayload || {};
-    const parts = {
-      raw: rawAxis,
-      id: "",
-      label: "",
-      domain: "",
-      linkedSubjects: [],
-      activityExample: "",
-      longitudinalPath: ""
-    };
-
-    if (rawAxis && typeof rawAxis === "object") {
-      parts.id = rawAxis.id || rawAxis.axis_id || rawAxis.key || "";
-      parts.label = rawAxis.label || rawAxis.title || rawAxis.axis_title || rawAxis.name || "";
-      parts.domain = rawAxis.domain || rawAxis.axisDomain || rawAxis.axis_domain || "";
-      parts.linkedSubjects = arr(rawAxis.linkedSubjects || rawAxis.linked_subjects || rawAxis.nextSubjects || rawAxis.next_subjects);
-      parts.activityExample = rawAxis.activityExample || rawAxis.activity_example || "";
-      parts.longitudinalPath = rawAxis.longitudinalPath || rawAxis.recordContinuityPoint || rawAxis.record_continuity_point || "";
-    }
-    if (axisPayload && typeof axisPayload === "object") {
-      parts.id = parts.id || axisPayload.id || axisPayload.axis_id || axisPayload.key || "";
-      parts.label = parts.label || axisPayload.label || axisPayload.title || axisPayload.axis_title || axisPayload.name || "";
-      parts.domain = parts.domain || axisPayload.domain || axisPayload.axisDomain || axisPayload.axis_domain || "";
-      parts.linkedSubjects = parts.linkedSubjects.length ? parts.linkedSubjects : arr(axisPayload.linkedSubjects || axisPayload.linked_subjects || axisPayload.nextSubjects || axisPayload.next_subjects);
-      parts.activityExample = parts.activityExample || axisPayload.activityExample || axisPayload.activity_example || "";
-      parts.longitudinalPath = parts.longitudinalPath || axisPayload.longitudinalPath || axisPayload.recordContinuityPoint || axisPayload.record_continuity_point || "";
-    }
-
-    const text = uniq([
-      parts.raw,
-      parts.id,
-      parts.label,
-      parts.domain,
-      ...(parts.linkedSubjects || []),
-      parts.activityExample,
-      parts.longitudinalPath
-    ].map(toText).filter(Boolean)).join(" ");
-    parts.text = text;
-    return parts;
-  }
-
   function collectPayloadTerms(payload){
     payload = payload || {};
     const subject = payload.subject || payload.selectedSubject || payload.course || "";
     const department = payload.department || payload.major || payload.selectedDepartment || "";
     const selectedConcept = payload.selectedConcept || payload.concept || payload.step3Concept || "";
     const selectedKeyword = payload.selectedRecommendedKeyword || payload.recommendedKeyword || payload.keyword || payload.step3Keyword || "";
-    const axisParts = collectAxisParts(payload);
-    const axis = axisParts.text || "";
+    const axis = payload.followupAxis || payload.axis || payload.axisPayload || payload.step4Axis || "";
     const reportIntent = payload.reportIntent || payload.reportMode || "";
     const conceptTokens = tokenize(selectedConcept);
     const keywordTokens = tokenize(selectedKeyword);
     const axisTokens = tokenize(axis);
     return {
       subject, department, selectedConcept, selectedKeyword, axis, reportIntent,
-      axisId: axisParts.id || "",
-      axisLabel: axisParts.label || "",
-      axisDomain: axisParts.domain || "",
-      axisParts,
       conceptTokens, keywordTokens, axisTokens,
       strongTokens: uniq(conceptTokens.concat(keywordTokens, axisTokens))
     };
@@ -1290,6 +1241,73 @@
     return uniq(roles.length ? roles : ["analysisFrame"]);
   }
 
+
+  const AXIS_PROFILE_OVERRIDES_V89 = Object.freeze({
+    real_life_change_modeling: {
+      id: "real_life_change_modeling",
+      label: "실생활 변화 모델링 축",
+      patterns: ["실생활 변화 모델링", "생활 변화", "변화 모델링", "real_life_change_modeling"],
+      preferredDomains: ["engineering_data", "engineering_physics_math", "science_method", "engineering_information"],
+      expansionDomains: ["science_philosophy", "science_history"],
+      titleBoost: ["카오스", "20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서"],
+      titleDemote: ["팩트풀니스", "부분과 전체", "객관성의 칼날", "1984", "감시와 처벌", "미디어의 이해", "제3의 물결"],
+      reportRolePriority: ["analysisFrame", "conceptExplanation", "limitationDiscussion"]
+    },
+    signal_network_capacity: {
+      id: "signal_network_capacity",
+      label: "신호·용량 해석 축",
+      patterns: ["신호", "용량", "채널", "전송", "정보량", "signal", "capacity", "signal_capacity", "signal_media", "compression_transfer"],
+      preferredDomains: ["engineering_physics_math", "engineering_information", "science_method", "engineering_data"],
+      expansionDomains: ["science_philosophy", "science_history"],
+      titleBoost: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      titleDemote: ["카오스", "혼돈으로부터의 질서", "팩트풀니스", "1984", "감시와 처벌", "엔트로피", "코스모스", "침묵의 봄"],
+      reportRolePriority: ["conceptExplanation", "analysisFrame", "limitationDiscussion"]
+    },
+    prediction_data_analysis: {
+      id: "prediction_data_analysis",
+      label: "예측·데이터 해석 축",
+      patterns: ["예측·데이터", "예측 데이터", "데이터 해석", "예측·자료", "prediction_data_analysis", "data_analysis"],
+      preferredDomains: ["engineering_data", "science_method", "engineering_information", "engineering_physics_math"],
+      expansionDomains: ["science_philosophy", "science_history"],
+      titleBoost: ["카오스", "혼돈으로부터의 질서", "팩트풀니스"],
+      titleDemote: ["부분과 전체", "객관성의 칼날", "1984", "감시와 처벌", "미디어의 이해", "제3의 물결", "엔트로피"],
+      reportRolePriority: ["analysisFrame", "limitationDiscussion", "comparisonFrame"]
+    },
+    information_society_ethics: {
+      id: "information_society_ethics",
+      label: "정보사회·디지털 윤리 확장 축",
+      patterns: ["정보사회", "디지털 윤리", "정보 윤리", "감시", "플랫폼", "정보 문화", "information_society_ethics", "social_policy"],
+      preferredDomains: ["science_philosophy", "science_history"],
+      expansionDomains: ["engineering_information", "engineering_data", "social_policy"],
+      titleBoost: ["1984", "감시와 처벌", "미디어의 이해", "제3의 물결"],
+      titleDemote: ["20세기 수학의 다섯가지 황금률", "카오스", "혼돈으로부터의 질서", "팩트풀니스", "부분과 전체", "객관성의 칼날", "엔트로피", "페르마의 마지막 정리"],
+      reportRolePriority: ["conclusionExpansion", "limitationDiscussion", "comparisonFrame"]
+    }
+  });
+
+  function mergeAxisProfileOverride(base, override){
+    const src = base || {};
+    const patch = override || {};
+    return Object.assign({}, src, patch, {
+      patterns: uniq(arr(src.patterns).concat(arr(patch.patterns))),
+      preferredDomains: uniq(arr(src.preferredDomains).concat(arr(patch.preferredDomains))),
+      expansionDomains: uniq(arr(src.expansionDomains).concat(arr(patch.expansionDomains))),
+      titleBoost: uniq(arr(patch.titleBoost).concat(arr(src.titleBoost))),
+      titleDemote: uniq(arr(patch.titleDemote).concat(arr(src.titleDemote))),
+      reportRolePriority: uniq(arr(patch.reportRolePriority).concat(arr(src.reportRolePriority)))
+    });
+  }
+
+  function getForcedAxisProfileIdV89(terms){
+    const axisText = normalize(terms && terms.axis);
+    if (!axisText) return "";
+    if (/(신호|용량|채널|전송|정보량|signal|capacity|signalmedia|compressiontransfer)/.test(axisText)) return "signal_network_capacity";
+    if (/(정보사회|디지털윤리|정보윤리|정보문화|감시|플랫폼|socialpolicy|informationsocietyethics)/.test(axisText)) return "information_society_ethics";
+    if (/(예측데이터|데이터해석|predictiondataanalysis|dataanalysis)/.test(axisText)) return "prediction_data_analysis";
+    if (/(실생활변화|변화모델링|reallifechangemodeling)/.test(axisText)) return "real_life_change_modeling";
+    return "";
+  }
+
   function buildSelectedBookContext(book, terms, majorGroup, domain, role, type, rules){
     const roleDefinitions = rules.reportRoleDefinitions || {};
     const roles = role.roles || [];
@@ -1335,43 +1353,35 @@
 
   function inferAxisProfile(terms, rules){
     const profiles = rules.axisProfiles || {};
-    const axisText = normalize([
-      terms.axisId || "",
-      terms.axisLabel || "",
-      terms.axisDomain || "",
-      terms.axis || ""
-    ].join(" "));
-    const fullText = normalize([terms.selectedConcept, terms.selectedKeyword, axisText].join(" "));
-
-    const explicitProfileRules = [
-      ["signal_network_capacity", /(signal_capacity_interpretation|signal_media|compression_transfer|채널\s*용량|신호\s*용량|신호\s*·\s*용량|네트워크|통신|정보량|데이터\s*전송)/i],
-      ["information_society_ethics", /(info_ethics|information_society_ethics|정보\s*윤리|디지털\s*윤리|디지털\s*시민성|정보\s*문화|정보사회|지식\s*정보\s*사회|감시|플랫폼|미디어|정보\s*보호)/i],
-      ["real_world_change_modeling", /(real_world_change_modeling|실생활\s*변화\s*모델링|변화\s*모델링|성장|감소|방사성\s*붕괴|별의\s*등급|충전\s*증가|지수모델|로그모델)/i],
-      ["future_prediction_data", /(future_prediction_data|data_prediction_trend_axis|data_prediction|예측\s*·\s*데이터|데이터\s*예측|예측\s*해석|데이터\s*해석|추세\s*예측)/i],
-      ["physics_system", /(physics|sensor_system|measurement_physics|물리|시스템|센서|측정|전자기|양자|오차)/i],
-      ["earth_environment_data", /(earth|earth_env|environment|기후|환경|지구|생태|폭염|대기|지속가능)/i]
-    ];
-
-    for (const [id, pattern] of explicitProfileRules) {
-      if (profiles[id] && pattern.test(axisText)) {
-        return { id, score: 100, profile: profiles[id], axisLocked: true };
-      }
+    const forcedId = getForcedAxisProfileIdV89(terms);
+    if (forcedId) {
+      const baseId = forcedId === "real_life_change_modeling" ? "math_data_modeling" : forcedId;
+      const base = profiles[baseId] || profiles.math_data_modeling || profiles.generic_science_method || {};
+      const override = AXIS_PROFILE_OVERRIDES_V89[forcedId] || AXIS_PROFILE_OVERRIDES_V89[baseId] || {};
+      return { id: forcedId, score: 999, profile: mergeAxisProfileOverride(base, override) };
     }
 
-    let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {}, axisLocked: false };
+    // v89: 4번 후속 연계축이 도서군을 갈라야 하므로 axis 텍스트를 가장 강하게 본다.
+    // selectedKeyword의 '데이터/예측' 단어가 모든 축을 수리·데이터 모델링으로 끌고 가는 문제를 막는다.
+    const axisText = normalize(terms.axis || "");
+    const conceptText = normalize(terms.selectedConcept || "");
+    const keywordText = normalize(terms.selectedKeyword || "");
+    const profilesWithOverrides = Object.assign({}, profiles, {
+      prediction_data_analysis: AXIS_PROFILE_OVERRIDES_V89.prediction_data_analysis,
+      real_life_change_modeling: AXIS_PROFILE_OVERRIDES_V89.real_life_change_modeling
+    });
+    let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {} };
 
-    Object.entries(profiles).forEach(([id, profile]) => {
+    Object.entries(profilesWithOverrides).forEach(([id, profile]) => {
       let score = 0;
       (profile.patterns || []).forEach(p => {
         const n = normalize(p);
         if (!n) return;
-        // v2.3: 4번 후속 연계축 문구가 가장 강해야 한다.
-        // 추천 키워드가 비슷해도 축이 다르면 다른 도서군이 떠야 하므로
-        // axisText 일치에는 큰 점수를, 전체 문맥 일치에는 보조 점수만 준다.
-        if (axisText.includes(n)) score += 6;
-        else if (fullText.includes(n)) score += 1;
+        if (axisText.includes(n)) score += 10;
+        if (conceptText.includes(n)) score += 2;
+        if (keywordText.includes(n)) score += 1;
       });
-      if (score > best.score) best = { id, score, profile, axisLocked: score >= 6 };
+      if (score > best.score) best = { id, score, profile };
     });
 
     return best;
@@ -1398,20 +1408,8 @@
       boost += 28;
       reasons.push("후속 연계축 대표 도서");
     }
-    if ((profile.titlePrimary || []).includes(title)) {
-      boost += 54;
-      reasons.push("후속 연계축 핵심 대표 도서");
-    }
-    if ((profile.titleSecondary || []).includes(title)) {
-      boost += 36;
-      reasons.push("후속 연계축 보조 대표 도서");
-    }
-    if ((profile.titleExpansionOnly || []).includes(title)) {
-      boost -= 18;
-      reasons.push("후속 연계축 확장 참고 우선 도서");
-    }
     if ((profile.titleDemote || []).includes(title)) {
-      boost -= 34;
+      boost -= 28;
       reasons.push("후속 연계축 직접성 낮음");
     }
 
@@ -1447,12 +1445,6 @@
     }
 
     if (type === "excluded") return { include:false, type, score, domain, role, axis, axisProfile: axisInfo.id };
-
-    const profile = axisInfo.profile || {};
-    const title = book.title || "";
-    if ((profile.titleExpansionOnly || []).includes(title)) {
-      type = "expansion";
-    }
 
     if (type === "direct" && axis.score < 15 && score < 95) {
       type = "expansion";
