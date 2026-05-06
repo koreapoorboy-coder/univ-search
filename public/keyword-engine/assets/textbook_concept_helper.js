@@ -3001,7 +3001,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       const keywordBtn = event.target.closest(".engine-chip[data-action='keyword']");
       if (keywordBtn && isStepEnabled(3)) {
-        state.keyword = keywordBtn.getAttribute("data-value") || "";
+        const nextKeyword = keywordBtn.getAttribute("data-value") || "";
+        // v90: 이미 선택된 3번 추천 키워드를 다시 누르는 것은 선택 확인 동작이다.
+        // 책 선택 이후 같은 키워드를 다시 클릭했을 때 4번 후속축이 재계산되어
+        // 다른 축(예: 로그 구조·역함수 해석 축)으로 흔들리지 않도록 4번/5번 상태를 보존한다.
+        if (nextKeyword && nextKeyword === state.keyword) {
+          state.keyword = nextKeyword;
+          syncOutputFields();
+          renderAfterKeywordSelectionFast();
+          return;
+        }
+        state.keyword = nextKeyword;
         clearFrom("track");
         syncOutputFields();
         renderAfterKeywordSelectionFast();
@@ -8862,14 +8872,11 @@ function getTrackMeta(trackId) {
       return true;
     }
 
-    // 실제 선택 요약 영역만 보조로 확인한다. document.body 전체를 일반 텍스트로 넣지 않아
-    // 다른 학과 카드/추천 문구의 '공학' 단어가 수학과 판별을 방해하지 않게 한다.
-    try {
-      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
-      const bodyCompact = bodyText.replace(/\s+/g, "");
-      if (/2\.\s*학과\s*(수학과|수리과학과|수학부|응용수학과)|학과\s*(수학과|수리과학과|수학부|응용수학과)/.test(bodyText)) return true;
-      if (/2\.학과(수학과|수리과학과|수학부|응용수학과)|학과(수학과|수리과학과|수학부|응용수학과)/.test(bodyCompact)) return true;
-    } catch (error) {}
+    // v90: document.body 전체 텍스트는 절대 학과 판별에 사용하지 않는다.
+    // 5번 선택 도서 요약의 "관련 학과: 수학과" 같은 문구가 화면에 생기면,
+    // 컴퓨터공학과/데이터 계열에서도 순수 수학 분기가 켜져 4번 축이
+    // "로그 구조·역함수 해석 축" 등으로 잘못 바뀌는 문제가 발생한다.
+    // 따라서 실제 선택 학과값(state.majorSelectedName/state.career/major detail)만 신뢰한다.
     return false;
   }
 
