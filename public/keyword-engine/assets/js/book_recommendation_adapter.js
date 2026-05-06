@@ -9,7 +9,7 @@
 (function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v2.3-axis-priority-split";
+  const ADAPTER_VERSION = "v2.4-axis-id-hard-split";
   const MASTER_FILE = "book_source_master_210.json";
   const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
@@ -1391,10 +1391,13 @@
     // 기존에는 '데이터 예측' 키워드가 너무 강해서 신호·용량/변화 모델링 축도 모두
     // math_data_modeling으로 수렴했다. 축 제목·id·domain 텍스트를 먼저 직접 판별한다.
     const directAxisRules = [
-      ["signal_network_capacity", /(신호|용량|채널|네트워크|통신|전송|정보량|정보 시스템|데이터 전송)/],
-      ["information_society_ethics", /(윤리|감시|플랫폼|정보사회|지식 정보 사회|디지털|미디어|정보 문화|정보 보호)/],
-      ["prediction_data_interpretation", /(예측\s*[·ㆍ-]?\s*데이터\s*해석|데이터\s*해석|자료\s*해석|통계\s*판단|편향\s*점검|그래프\s*해석|예측\s*한계|데이터\s*예측\s*축)/],
-      ["real_life_change_modeling", /(실생활\s*변화|변화\s*모델링|생활\s*변화|현상\s*변화|시간에\s*따른\s*변화|변화\s*양상|함수\s*변화|변화율)/]
+      // v92: 실제 4번 축 id를 우선 판별한다.
+      // 강제렌더/캐시렌더 경로에서는 axisLabel 없이 state.linkTrack id만 전달될 수 있으므로,
+      // id를 잡지 못하면 세 축이 모두 '데이터 예측' 키워드의 math_data_modeling으로 수렴한다.
+      ["signal_network_capacity", /(signal\s+capacity\s+interpretation|signal\s+network\s+capacity|신호|용량|채널|네트워크|통신|전송|정보량|정보 시스템|데이터 전송)/],
+      ["information_society_ethics", /(information\s+society\s+ethics|info\s+ethics|digital\s+ethics|윤리|감시|플랫폼|정보사회|지식 정보 사회|디지털|미디어|정보 문화|정보 보호)/],
+      ["prediction_data_interpretation", /(future\s+prediction\s+data|prediction\s+data\s+interpretation|data\s+interpretation|예측\s*[·ㆍ-]?\s*데이터\s*해석|데이터\s*해석|자료\s*해석|통계\s*판단|편향\s*점검|그래프\s*해석|예측\s*한계|데이터\s*예측\s*축)/],
+      ["real_life_change_modeling", /(real\s+world\s+change\s+modeling|real\s+life\s+change\s+modeling|change\s+modeling|실생활\s*변화|변화\s*모델링|생활\s*변화|현상\s*변화|시간에\s*따른\s*변화|변화\s*양상|함수\s*변화|변화율)/]
     ];
 
     for (const [id, pattern] of directAxisRules) {
@@ -1488,6 +1491,60 @@
   }
 
 
+
+  function getAxisHardOrder(axisProfileId){
+    // v92: BOOK-A 1차 잠금. 4번 후속 연계축 3개가 모두 같은 직접 일치 도서로
+    // 수렴하지 않도록, 축별 대표 직접 도서 순서를 명시한다.
+    const map = {
+      real_life_change_modeling: [
+        "카오스",
+        "20세기 수학의 다섯가지 황금률",
+        "혼돈으로부터의 질서",
+        "페르마의 마지막 정리",
+        "객관성의 칼날",
+        "부분과 전체",
+        "팩트풀니스"
+      ],
+      signal_network_capacity: [
+        "부분과 전체",
+        "20세기 수학의 다섯가지 황금률",
+        "객관성의 칼날",
+        "미디어의 이해",
+        "제3의 물결",
+        "카오스",
+        "팩트풀니스"
+      ],
+      prediction_data_interpretation: [
+        "팩트풀니스",
+        "카오스",
+        "혼돈으로부터의 질서",
+        "20세기 수학의 다섯가지 황금률",
+        "객관성의 칼날",
+        "부분과 전체"
+      ]
+    };
+    return map[axisProfileId] || null;
+  }
+
+  function applyAxisHardSplit(evaluated, axisProfileId, majorGroup){
+    // 현재 요청된 BOOK-A 컴퓨터/데이터 계열에만 강제 분화 적용.
+    if (majorGroup !== "engineering_information") return evaluated;
+    const order = getAxisHardOrder(axisProfileId);
+    if (!order || !order.length) return evaluated;
+    const orderIndex = new Map(order.map((title, idx) => [title, idx]));
+    return evaluated.map(book => {
+      const idx = orderIndex.has(book.title) ? orderIndex.get(book.title) : -1;
+      if (idx < 0) return book;
+      const hardBoost = 1000 - idx * 30;
+      return Object.assign({}, book, {
+        matchType: idx < 3 ? "direct" : book.matchType,
+        matchScore: (book.matchScore || 0) + hardBoost,
+        matchReasons: uniq((book.matchReasons || []).concat(["4번 후속 연계축 대표 도서"])),
+        axisHardSplitRank: idx + 1
+      });
+    });
+  }
+
   function recommendBooks(payload, books, options){
     options = options || {};
     books = books || (global.BOOK_SOURCE_MASTER_210 && global.BOOK_SOURCE_MASTER_210.books) || [];
@@ -1505,7 +1562,8 @@
     }
 
     const majorGroup = inferMajorGroup(terms, rules);
-    const evaluated = books.map(book => {
+    const axisInfoForRequest = inferAxisProfile(terms, rules);
+    const evaluatedRaw = books.map(book => {
       const ev = evaluateBook(book, terms, majorGroup, rules);
       const selectedBookContext = ev.include ? buildSelectedBookContext(book, terms, majorGroup, ev.domain, ev.role, ev.type, rules) : null;
       return Object.assign({}, book, {
@@ -1519,8 +1577,13 @@
         selectedBookContext,
         adapterVersion: ADAPTER_VERSION
       });
-    }).filter(book => book.matchType === "direct" || book.matchType === "expansion")
+    }).filter(book => book.matchType === "direct" || book.matchType === "expansion");
+
+    const evaluated = applyAxisHardSplit(evaluatedRaw, axisInfoForRequest.id, majorGroup)
       .sort((a,b) => {
+        if (a.axisHardSplitRank && b.axisHardSplitRank) return a.axisHardSplitRank - b.axisHardSplitRank;
+        if (a.axisHardSplitRank && !b.axisHardSplitRank) return -1;
+        if (!a.axisHardSplitRank && b.axisHardSplitRank) return 1;
         if (a.matchType !== b.matchType) return a.matchType === "direct" ? -1 : 1;
         if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore;
         return a.managementNo - b.managementNo;
@@ -1542,7 +1605,7 @@
       adapterVersion: ADAPTER_VERSION,
       debug: {
         majorGroup,
-        axisProfile: inferAxisProfile(terms, rules).id,
+        axisProfile: axisInfoForRequest.id,
         strongTokens: terms.strongTokens,
         evaluatedCount: evaluated.length,
         directCount: directBooks.length,
