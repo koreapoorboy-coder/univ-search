@@ -1,8 +1,8 @@
 
-window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
+window.__MAJOR_ENGINE_HELPER_VERSION__ = "v98-major-search-input-lock";
 
 (function(){
-  window.__MAJOR_ENGINE_HELPER_VERSION = 'v84-direct-routing-compare-lock';
+  window.__MAJOR_ENGINE_HELPER_VERSION = 'v98-major-search-input-lock';
   const CATALOG_URL = "seed/major-engine/major_catalog_198.json";
   const PROFILES_URL = "seed/major-engine/major_profiles_master_198.json";
   const ALIAS_URL = "seed/major-engine/major_alias_map.json";
@@ -33,6 +33,8 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
     delegatedCareerBound: false,
     inputObserverBound: false,
     majorInputTimer: null,
+    majorTypingTimer: null,
+    cachedCareerInput: null,
     lastRenderedCareerRaw: ""
   };
 
@@ -91,21 +93,25 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
   }
 
   function getCareerInput(){
-    return $('career')
+    const cached = state.cachedCareerInput;
+    if (cached && cached.isConnected) return cached;
+    const found = $('career')
       || document.querySelector('input[name="career"]')
       || document.querySelector('textarea[name="career"]')
       || document.querySelector('input[data-field="career"]')
       || document.querySelector('textarea[data-field="career"]')
       || document.querySelector('#career input, #career textarea')
-      || getInputByLabelText('희망 진로')
-      || getInputByLabelText('희망진로')
-      || getInputByLabelText('희망 전공')
-      || getInputByLabelText('희망전공')
       || document.querySelector('input[placeholder*="희망 진로"]')
       || document.querySelector('textarea[placeholder*="희망 진로"]')
       || document.querySelector('input[placeholder*="희망진로"]')
       || document.querySelector('textarea[placeholder*="희망진로"]')
+      || getInputByLabelText('희망 진로')
+      || getInputByLabelText('희망진로')
+      || getInputByLabelText('희망 전공')
+      || getInputByLabelText('희망전공')
       || null;
+    if (found) state.cachedCareerInput = found;
+    return found;
   }
 
   function stripMajorSuffix(value){
@@ -377,21 +383,49 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
     }
   }
 
+  function setMajorSearchTypingLock(duration = 900){
+    try {
+      window.__MAJOR_SEARCH_IS_TYPING__ = true;
+      window.__MAJOR_SEARCH_EDITING_LOCK__ = true;
+      window.__MAJOR_SEARCH_LOCK_UNTIL__ = Date.now() + duration;
+      if (state.majorTypingTimer) clearTimeout(state.majorTypingTimer);
+      state.majorTypingTimer = setTimeout(() => {
+        state.majorTypingTimer = null;
+        window.__MAJOR_SEARCH_IS_TYPING__ = false;
+        window.__MAJOR_SEARCH_EDITING_LOCK__ = false;
+      }, duration + 60);
+    } catch (error) {}
+  }
+
+  function clearMajorSearchTypingLockSoon(delay = 120){
+    try {
+      if (state.majorTypingTimer) clearTimeout(state.majorTypingTimer);
+      state.majorTypingTimer = setTimeout(() => {
+        state.majorTypingTimer = null;
+        window.__MAJOR_SEARCH_IS_TYPING__ = false;
+        window.__MAJOR_SEARCH_EDITING_LOCK__ = false;
+        window.__MAJOR_SEARCH_LOCK_UNTIL__ = 0;
+      }, delay);
+    } catch (error) {}
+  }
+
   function flushMajorInputRender(){
     if (state.majorInputTimer) {
       clearTimeout(state.majorInputTimer);
       state.majorInputTimer = null;
     }
-    state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
+    const raw = String(getCareerInput()?.value || '').trim();
+    state.lastRenderedCareerRaw = raw;
     renderMajorSummary();
     startMiniPayloadPatch();
   }
 
-  function scheduleMajorInputRender(delay = 180){
+  function scheduleMajorInputRender(delay = 320){
     if (state.majorInputTimer) clearTimeout(state.majorInputTimer);
     state.majorInputTimer = setTimeout(() => {
       state.majorInputTimer = null;
-      state.lastRenderedCareerRaw = String(getCareerInput()?.value || '').trim();
+      const raw = String(getCareerInput()?.value || '').trim();
+      state.lastRenderedCareerRaw = raw;
       renderMajorSummary();
       startMiniPayloadPatch();
     }, delay);
@@ -399,24 +433,38 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
 
   function onCareerInputEvent(el, event){
     if (!el) return;
+    state.cachedCareerInput = el;
     const raw = String(el.value || '').trim();
-    if (!raw) {
-      state.selectedMajorId = '';
-      state.selectedMajorName = '';
-    } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
-      // 이전에 선택했던 학과가 남아 있으면 다음 입력에서 후보 패널/교과 추천이 서로 렌더를 반복한다.
-      // 새 학과명을 입력하기 시작하면 기존 선택을 즉시 비우고, 검색 결과는 입력이 멈춘 뒤 한 번만 렌더한다.
-      state.selectedMajorId = '';
-      state.selectedMajorName = '';
-      window.__MAJOR_ENGINE_SELECTED__ = null;
-      window.__MAJOR_ENGINE_LAST_RAW__ = raw;
-      window.__MAJOR_ENGINE_LAST_INPUT__ = raw;
-    }
     const eventType = String(event?.type || '');
+
     if (eventType === 'input') {
-      scheduleMajorInputRender(180);
+      setMajorSearchTypingLock(950);
+      if (!raw) {
+        state.selectedMajorId = '';
+        state.selectedMajorName = '';
+      } else if (state.selectedMajorName && normalize(raw) !== normalize(state.selectedMajorName)) {
+        state.selectedMajorId = '';
+        state.selectedMajorName = '';
+        window.__MAJOR_ENGINE_SELECTED__ = null;
+        window.__MAJOR_ENGINE_LAST_RAW__ = raw;
+        window.__MAJOR_ENGINE_LAST_INPUT__ = raw;
+      }
+      scheduleMajorInputRender(320);
       return;
     }
+
+    // v98: focus/blur는 학과 검색 중 전체 후보/도서/교과 렌더링을 흔들 필요가 없다.
+    // 입력 확정(change)에서만 한 번 렌더링한다.
+    if (eventType === 'focus') {
+      setMajorSearchTypingLock(500);
+      return;
+    }
+    if (eventType === 'blur') {
+      clearMajorSearchTypingLockSoon(220);
+      return;
+    }
+
+    clearMajorSearchTypingLockSoon(180);
     flushMajorInputRender();
   }
 
@@ -436,7 +484,7 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v84-direct-routing-compare-lock";
         if (!current) return;
         if (event.target === current) onCareerInputEvent(current, event);
       };
-      ['input','change','focus','blur'].forEach(evt => {
+      ['input','change'].forEach(evt => {
         document.addEventListener(evt, handler, true);
       });
     }
