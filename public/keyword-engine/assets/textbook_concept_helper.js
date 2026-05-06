@@ -3002,10 +3002,17 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const conceptCard = event.target.closest(".engine-concept-card");
       if (conceptCard && isStepEnabled(3)) {
         const value = conceptCard.getAttribute("data-concept") || "";
-        invalidateTrackOptionsLock();
-        state.concept = value;
-        state.keyword = "";
-        clearFrom("track");
+        const sameConcept = !!value && state.concept === value;
+        if (!sameConcept) {
+          invalidateTrackOptionsLock();
+          state.concept = value;
+          state.keyword = "";
+          clearFrom("track");
+        } else {
+          // v100 A0-lock: 이미 선택된 3번 교과 개념을 다시 누르는 것은 확인 동작이다.
+          // 4번 후속축·5번 도서·선택 도서를 초기화하지 않는다.
+          state.concept = value;
+        }
         syncOutputFields();
         renderAll();
         return;
@@ -12198,6 +12205,49 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     `;
   }
 
+
+  // v100 A0-lock: 3번 추천 개념 목록은 과목+확정 학과 기준으로 고정한다.
+  // 학과 요약에는 컴퓨터공학과가 보이는데 state.career/majorSelectedName이 잠시 비어 있으면
+  // 대수 기본 개념(거듭제곱/지수 확장/로그 성질)이 먼저 뜨고, 클릭 후 다시 전공형 개념으로 바뀌는 현상이 생긴다.
+  // 이 함수는 화면 요약/확정 선택값/major helper 전역값을 모두 모아 안정적인 전공 판별에 사용한다.
+  function getStableMajorTextForConceptRender() {
+    const parts = [];
+    const push = (value) => {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천 키워드|추천 개념/.test(text)) return;
+      parts.push(text);
+    };
+    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
+    try { push(state.career || ""); } catch (error) {}
+    try { push(state.majorSelectedName || ""); } catch (error) {}
+    try { push(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || ""); } catch (error) {}
+    try { push(window.__MAJOR_ENGINE_SELECTED__?.display_name || ""); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
+    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    return uniq(parts).join(' ').trim();
+  }
+
+  function isAlgebraComputerConceptRenderLockContext() {
+    const subject = String(state.subject || '').replace(/\s+/g, '');
+    if (subject !== '대수') return false;
+    try { if (isDataScienceMajorSelectedContext && isDataScienceMajorSelectedContext()) return false; } catch (error) {}
+    const majorText = getStableMajorTextForConceptRender();
+    return /(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText);
+  }
+
+  function getAlgebraComputerLockedPrimaryConcepts(ranked) {
+    const forced = [
+      '지수함수와 로그함수의 활용',
+      '등차수열과 등비수열',
+      '수학적 귀납법'
+    ];
+    const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
+    const others = ranked.filter(item => !forced.includes(item.concept));
+    return uniq([...forcedItems, ...others]).slice(0, 3);
+  }
+
   function renderConceptArea() {
     const conceptWrap = $("engineConceptCards");
     const keywordWrap = $("engineKeywordButtons");
@@ -12242,6 +12292,13 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
         displayConcepts = primaryConcepts;
       }
     }
+    // v100 A0-lock: 대수+컴퓨터공학과에서는 처음부터 전공 연결성이 높은 3개만 고정 표시한다.
+    // 이 잠금은 추천 개념 3개 화면에만 적용되며, '다른 교과 개념 보기'를 누르면 전체 개념 선택은 그대로 가능하다.
+    if (isAlgebraComputerConceptRenderLockContext() && !state.showAllConcepts) {
+      primaryConcepts = getAlgebraComputerLockedPrimaryConcepts(ranked);
+      displayConcepts = primaryConcepts;
+    }
+
     const allConcepts = getOrderedConceptsForAll(ranked);
     const primaryConceptNames = new Set(primaryConcepts.map(item => item.concept));
     const canShowAllConcepts = allConcepts.length > primaryConcepts.length;
