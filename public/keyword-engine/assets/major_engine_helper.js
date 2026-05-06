@@ -433,6 +433,10 @@ window.__MAJOR_ENGINE_HELPER_VERSION__ = "v98-major-search-input-lock";
 
   function onCareerInputEvent(el, event){
     if (!el) return;
+    // v99: 같은 input/change 이벤트가 document capture와 input 직접 리스너에서 이중 처리되면
+    // 과목 선택 이후 textbook/book 브리지와 맞물려 검색창이 심하게 버벅일 수 있다.
+    if (event && event.__MAJOR_ENGINE_INPUT_HANDLED_V99__) return;
+    if (event) event.__MAJOR_ENGINE_INPUT_HANDLED_V99__ = true;
     state.cachedCareerInput = el;
     const raw = String(el.value || '').trim();
     const eventType = String(event?.type || '');
