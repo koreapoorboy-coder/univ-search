@@ -1196,10 +1196,21 @@
   }
 
 
+  function isMajorSearchLocked(){
+    try {
+      const lockUntil = Number(global.__MAJOR_SEARCH_LOCK_UNTIL__ || 0);
+      if (lockUntil && Date.now() < lockUntil) return true;
+      return !!(global.__MAJOR_SEARCH_IS_TYPING__ || global.__MAJOR_SEARCH_EDITING_LOCK__);
+    } catch(e){
+      return false;
+    }
+  }
+
   function installObserver(){
     if (global.__BOOK_210_BOOK_AREA_OBSERVER__) return;
     try {
       const observer = new MutationObserver(function(){
+        if (isMajorSearchLocked()) return;
         if (global.__BOOK_210_IS_RENDERING__) return;
         if (global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ && Date.now() < global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__) return;
         if (!document.getElementById("engineBookArea")) return;
