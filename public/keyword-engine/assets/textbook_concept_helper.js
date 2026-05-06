@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v92-book-axis-hard-split';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v97-track-option-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v92_book_axis_hard_split";
+  const ASSET_VERSION_QUERY = "v97_track_option_lock";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -159,7 +159,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     majorCoreKeywords: [],
     majorComparison: null,
     linkTrackSource: "",
-    showAllConcepts: false
+    showAllConcepts: false,
+    // v97: 4번 후속 연계축 후보 3개가 빈공간 클릭/축 재클릭/도서 영역 변경 때
+    // 다시 계산되어 바뀌는 문제를 막기 위한 표시 후보 잠금값.
+    trackOptionsLockKey: "",
+    trackOptionsLock: []
   };
 
   const REPORT_LINE_HELP = {
@@ -2963,7 +2967,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         state.linkTrack = topTrack ? topTrack.id : "";
         state.linkTrackSource = topTrack ? 'auto' : '';
         syncOutputFields();
-        renderAll();
+        renderAfterTrackSelectionLocked();
+        if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
+          [80, 220, 520].forEach(delay => setTimeout(() => {
+            try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {}
+          }, delay));
+        }
         return;
       }
 
@@ -2976,14 +2985,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
           state.linkTrack = nextTrack;
           state.linkTrackSource = 'manual';
         } else {
-          // v91.1: 이미 선택된 4번 축을 다시 누르는 것은 재선택 확인 동작이다.
-          // 이때 5번 도서 목록과 선택 도서를 초기화하지 않는다.
+          // v97: 이미 선택된 4번 축을 다시 누르는 것은 재선택 확인 동작이다.
+          // 4번 후보 목록, 5번 도서 목록, 선택 도서를 모두 유지한다.
           state.linkTrackSource = 'manual';
         }
         syncOutputFields();
-        renderAll();
-        // v91.1: 첫 번째 4번 축 클릭에서 도서 데이터가 아직 로딩 중이면,
-        // 로딩 완료 직후 현재 상태로 5번 도서 영역을 강제 재렌더한다.
+        renderAfterTrackSelectionLocked();
+        // v97: 첫 번째 4번 축 클릭에서 도서 데이터가 아직 로딩 중이면,
+        // 로딩 완료 직후 현재 상태로 5번 도서 영역만 강제 재렌더한다.
         if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
           [80, 220, 520, 900].forEach(delay => setTimeout(() => {
             try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {}
@@ -2995,6 +3004,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const conceptCard = event.target.closest(".engine-concept-card");
       if (conceptCard && isStepEnabled(3)) {
         const value = conceptCard.getAttribute("data-concept") || "";
+        invalidateTrackOptionsLock();
         state.concept = value;
         state.keyword = "";
         clearFrom("track");
@@ -3009,6 +3019,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         const sameKeyword = !!nextKeyword && state.keyword === nextKeyword;
         state.keyword = nextKeyword;
         if (!sameKeyword) {
+          invalidateTrackOptionsLock();
           clearFrom("track");
         }
         // v91.1: 같은 3번 추천 키워드를 다시 누르는 것은 선택 확인 동작이다.
@@ -3157,6 +3168,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
   function clearFrom(stepName) {
     if (stepName === "major") {
+      invalidateTrackOptionsLock();
       state.concept = "";
       state.keyword = "";
       state.linkTrack = "";
@@ -3181,6 +3193,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       return;
     }
     if (stepName === "concept") {
+      invalidateTrackOptionsLock();
       state.concept = "";
       state.keyword = "";
       state.linkTrack = "";
@@ -6158,13 +6171,77 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
 function getSelectedFollowupAxisDetail(trackId) {
     if (!trackId) return null;
-    return getFollowupAxisCandidates().find(item => item.id === trackId) || null;
+    return getTrackOptions().find(item => item.id === trackId) || getFollowupAxisCandidates().find(item => item.id === trackId) || null;
+  }
+
+  function getTrackOptionsLockKey() {
+    if (!state.subject || !state.concept || !state.keyword) return "";
+    return [state.subject || "", state.concept || "", state.keyword || ""].join("||");
+  }
+
+  function cloneTrackOptionForLock(item) {
+    if (!item || typeof item !== "object") return item;
+    return {
+      ...item,
+      linkedSubjects: Array.isArray(item.linkedSubjects) ? item.linkedSubjects.slice() : [],
+      grade2NextSubjects: Array.isArray(item.grade2NextSubjects) ? item.grade2NextSubjects.slice() : [],
+      extensionKeywords: Array.isArray(item.extensionKeywords) ? item.extensionKeywords.slice() : [],
+      activityExamples: Array.isArray(item.activityExamples) ? item.activityExamples.slice() : []
+    };
+  }
+
+  function getLockedTrackOptions() {
+    const key = getTrackOptionsLockKey();
+    if (!key) return [];
+    if (state.trackOptionsLockKey === key && Array.isArray(state.trackOptionsLock) && state.trackOptionsLock.length) {
+      return state.trackOptionsLock.map(cloneTrackOptionForLock);
+    }
+    return [];
+  }
+
+  function setTrackOptionsLock(options) {
+    const key = getTrackOptionsLockKey();
+    if (!key || !Array.isArray(options) || !options.length) return options || [];
+    state.trackOptionsLockKey = key;
+    state.trackOptionsLock = options.slice(0, 3).map(cloneTrackOptionForLock);
+    return state.trackOptionsLock.map(cloneTrackOptionForLock);
+  }
+
+  function invalidateTrackOptionsLock() {
+    state.trackOptionsLockKey = "";
+    state.trackOptionsLock = [];
+  }
+
+  function refreshTrackCardActiveState() {
+    try {
+      document.querySelectorAll(".engine-track-card").forEach(card => {
+        const value = card.getAttribute("data-track") || "";
+        card.classList.toggle("is-active", !!value && value === state.linkTrack);
+      });
+    } catch (error) {}
+  }
+
+  function renderAfterTrackSelectionLocked() {
+    // v97: 4번 축 선택은 후보 목록 자체를 다시 계산하는 renderAll()이 아니라
+    // 활성 상태와 5번 이하만 갱신한다. 이렇게 해야 4번 3개 후보가 빈공간/재클릭 때 바뀌지 않는다.
+    renderStatus();
+    refreshTrackCardActiveState();
+    renderBookArea();
+    renderModeArea();
+    renderViewArea();
+    renderReportLineArea();
+    renderSelectionSummary();
+    applyLocks();
+    syncOutputFields();
   }
 
 
   function getTrackOptions() {
+    const lockedOptions = getLockedTrackOptions();
+    if (lockedOptions.length) return lockedOptions;
+
     const followupCandidates = getFollowupAxisCandidates();
-    if (followupCandidates.length) return followupCandidates;
+    if (followupCandidates.length) return setTrackOptionsLock(followupCandidates);
 
     const bucket = detectCareerBucket(state.career || "");
     const base = [
@@ -6182,7 +6259,7 @@ function getSelectedFollowupAxisDetail(trackId) {
       if (bucket === "env" && item.id === "earth") item.score += 6;
     });
 
-    return base
+    const fallbackOptions = base
       .sort((a, b) => b.score - a.score)
       .map(item => ({
         ...item,
@@ -6193,6 +6270,8 @@ function getSelectedFollowupAxisDetail(trackId) {
         recordContinuityPoint: "현재 개념과 가장 가까운 후속 과목 방향",
         reason: getTrackReason(item)
       }));
+
+    return setTrackOptionsLock(fallbackOptions);
   }
 
 
