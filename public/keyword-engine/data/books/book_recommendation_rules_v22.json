@@ -1,5 +1,5 @@
 {
-  "version": "book-report-role-rules-v22-book-a-guard-v23-axis-specific",
+  "version": "book-report-role-rules-v23-axis-first-v89",
   "createdAt": "2026-05-05T10:30:00",
   "principle": "도서 추천은 단어 매칭이 아니라 보고서 내 역할 기반으로 분류한다.",
   "majorGroups": {
@@ -691,8 +691,8 @@
         "environment_energy"
       ],
       "titleBoost": [
-        "20세기 수학의 다섯가지 황금률",
         "카오스",
+        "20세기 수학의 다섯가지 황금률",
         "혼돈으로부터의 질서",
         "팩트풀니스",
         "페르마의 마지막 정리"
@@ -706,52 +706,35 @@
         "감시와 처벌",
         "미디어의 이해",
         "제3의 물결",
-        "부분과 전체"
+        "부분과 전체",
+        "객관성의 칼날"
       ],
       "reportRolePriority": [
         "analysisFrame",
         "limitationDiscussion",
         "conceptExplanation"
-      ],
-      "titlePrimary": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "혼돈으로부터의 질서"
-      ],
-      "titleSecondary": [
-        "팩트풀니스",
-        "페르마의 마지막 정리"
-      ],
-      "titleExpansionOnly": [
-        "1984",
-        "감시와 처벌",
-        "미디어의 이해",
-        "제3의 물결"
       ]
     },
     "signal_network_capacity": {
       "label": "신호·네트워크·용량 해석 축",
       "patterns": [
-        "signal_capacity_interpretation",
-        "signal_media",
-        "compression_transfer",
         "신호",
         "채널",
         "용량",
-        "신호·용량",
-        "신호 용량",
-        "채널 용량",
         "네트워크",
         "통신",
         "전송",
         "정보량",
         "정보 시스템",
         "컴퓨팅",
-        "데이터 전송"
+        "데이터 전송",
+        "signal_capacity",
+        "signal_media",
+        "compression_transfer"
       ],
       "preferredDomains": [
-        "engineering_information",
         "engineering_physics_math",
+        "engineering_information",
         "science_method",
         "engineering_data"
       ],
@@ -761,39 +744,25 @@
       ],
       "titleBoost": [
         "부분과 전체",
-        "객관성의 칼날",
         "20세기 수학의 다섯가지 황금률",
-        "미디어의 이해",
-        "카오스"
+        "객관성의 칼날"
       ],
       "titleDemote": [
+        "카오스",
+        "혼돈으로부터의 질서",
+        "팩트풀니스",
+        "1984",
+        "감시와 처벌",
         "엔트로피",
         "코스모스",
         "침묵의 봄",
-        "총, 균, 쇠",
-        "팩트풀니스",
-        "혼돈으로부터의 질서"
+        "총, 균, 쇠"
       ],
       "reportRolePriority": [
         "conceptExplanation",
         "analysisFrame",
         "limitationDiscussion",
-        "application",
-        "comparisonFrame"
-      ],
-      "titlePrimary": [
-        "부분과 전체",
-        "객관성의 칼날",
-        "20세기 수학의 다섯가지 황금률"
-      ],
-      "titleSecondary": [
-        "미디어의 이해",
-        "카오스"
-      ],
-      "titleExpansionOnly": [
-        "1984",
-        "감시와 처벌",
-        "제3의 물결"
+        "application"
       ]
     },
     "physics_system": {
@@ -883,27 +852,23 @@
     "information_society_ethics": {
       "label": "정보사회·디지털 윤리 확장 축",
       "patterns": [
-        "info_ethics",
-        "information_society_ethics",
+        "감시",
+        "플랫폼",
         "정보 윤리",
-        "디지털 윤리",
         "디지털 시민성",
         "정보 보호",
         "정보사회",
         "지식 정보 사회",
-        "지식·정보 사회",
         "미디어",
         "기술 윤리",
-        "정보 문화",
-        "감시",
-        "플랫폼"
+        "정보 문화"
       ],
       "preferredDomains": [
         "science_philosophy",
-        "science_history",
-        "engineering_information"
+        "science_history"
       ],
       "expansionDomains": [
+        "engineering_information",
         "engineering_data",
         "social_policy"
       ],
@@ -914,31 +879,21 @@
         "제3의 물결"
       ],
       "titleDemote": [
+        "20세기 수학의 다섯가지 황금률",
+        "카오스",
+        "혼돈으로부터의 질서",
+        "팩트풀니스",
         "엔트로피",
         "페르마의 마지막 정리",
         "코스모스",
-        "침묵의 봄"
+        "침묵의 봄",
+        "부분과 전체",
+        "객관성의 칼날"
       ],
       "reportRolePriority": [
         "conclusionExpansion",
         "limitationDiscussion",
         "comparisonFrame"
-      ],
-      "titlePrimary": [
-        "1984",
-        "감시와 처벌",
-        "미디어의 이해"
-      ],
-      "titleSecondary": [
-        "제3의 물결",
-        "팩트풀니스"
-      ],
-      "titleExpansionOnly": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "혼돈으로부터의 질서",
-        "부분과 전체",
-        "객관성의 칼날"
       ]
     },
     "generic_science_method": {
@@ -972,18 +927,53 @@
         "limitationDiscussion"
       ]
     },
-    "future_prediction_data": {
+    "real_life_change_modeling": {
+      "label": "실생활 변화 모델링 축",
+      "patterns": [
+        "실생활 변화 모델링",
+        "생활 변화",
+        "변화 모델링",
+        "real_life_change_modeling"
+      ],
+      "preferredDomains": [
+        "engineering_data",
+        "engineering_physics_math",
+        "science_method",
+        "engineering_information"
+      ],
+      "expansionDomains": [
+        "science_philosophy",
+        "science_history"
+      ],
+      "titleBoost": [
+        "카오스",
+        "20세기 수학의 다섯가지 황금률",
+        "혼돈으로부터의 질서"
+      ],
+      "titleDemote": [
+        "팩트풀니스",
+        "부분과 전체",
+        "객관성의 칼날",
+        "1984",
+        "감시와 처벌",
+        "미디어의 이해",
+        "제3의 물결",
+        "엔트로피"
+      ],
+      "reportRolePriority": [
+        "analysisFrame",
+        "conceptExplanation",
+        "limitationDiscussion"
+      ]
+    },
+    "prediction_data_analysis": {
       "label": "예측·데이터 해석 축",
       "patterns": [
-        "future_prediction_data",
-        "data_prediction",
-        "data_prediction_trend_axis",
-        "예측·데이터 해석",
+        "예측·데이터",
         "예측 데이터",
-        "데이터 예측",
         "데이터 해석",
-        "추세 예측",
-        "예측 처리"
+        "prediction_data_analysis",
+        "data_analysis"
       ],
       "preferredDomains": [
         "engineering_data",
@@ -993,105 +983,26 @@
       ],
       "expansionDomains": [
         "science_philosophy",
-        "science_history",
-        "social_policy"
+        "science_history"
       ],
-      "titlePrimary": [
-        "팩트풀니스",
+      "titleBoost": [
         "카오스",
-        "혼돈으로부터의 질서"
+        "혼돈으로부터의 질서",
+        "팩트풀니스"
       ],
-      "titleSecondary": [
-        "20세기 수학의 다섯가지 황금률",
-        "객관성의 칼날"
-      ],
-      "titleExpansionOnly": [
+      "titleDemote": [
+        "부분과 전체",
+        "객관성의 칼날",
         "1984",
         "감시와 처벌",
         "미디어의 이해",
-        "제3의 물결"
-      ],
-      "titleBoost": [
-        "팩트풀니스",
-        "카오스",
-        "혼돈으로부터의 질서",
-        "20세기 수학의 다섯가지 황금률",
-        "객관성의 칼날"
-      ],
-      "titleDemote": [
-        "엔트로피",
-        "코스모스",
-        "침묵의 봄",
-        "총, 균, 쇠",
-        "부분과 전체"
+        "제3의 물결",
+        "엔트로피"
       ],
       "reportRolePriority": [
         "analysisFrame",
         "limitationDiscussion",
         "comparisonFrame"
-      ]
-    },
-    "real_world_change_modeling": {
-      "label": "실생활 변화 모델링 축",
-      "patterns": [
-        "real_world_change_modeling",
-        "실생활 변화 모델링",
-        "변화 모델링",
-        "성장",
-        "감소",
-        "방사성 붕괴",
-        "별의 등급",
-        "충전 증가",
-        "지수모델",
-        "로그모델",
-        "실생활 변화"
-      ],
-      "preferredDomains": [
-        "engineering_physics_math",
-        "science_method",
-        "engineering_data",
-        "environment_energy"
-      ],
-      "expansionDomains": [
-        "science_philosophy",
-        "science_history"
-      ],
-      "titlePrimary": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "엔트로피"
-      ],
-      "titleSecondary": [
-        "혼돈으로부터의 질서",
-        "객관성의 칼날"
-      ],
-      "titleExpansionOnly": [
-        "1984",
-        "감시와 처벌",
-        "미디어의 이해",
-        "제3의 물결",
-        "팩트풀니스"
-      ],
-      "titleBoost": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "엔트로피",
-        "혼돈으로부터의 질서",
-        "부분과 전체",
-        "객관성의 칼날"
-      ],
-      "titleDemote": [
-        "침묵의 봄",
-        "총, 균, 쇠",
-        "코스모스",
-        "페르마의 마지막 정리",
-        "부분과 전체",
-        "팩트풀니스"
-      ],
-      "reportRolePriority": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion"
       ]
     }
   }
