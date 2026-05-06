@@ -2892,14 +2892,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const careerEl = $("career");
     if (careerEl) {
       careerEl.addEventListener("input", function () {
-        syncCareerFromInput();
-        state.majorSelectedName = "";
-        state.majorCoreKeywords = [];
-        state.majorComparison = null;
-        // v66: 학과 검색 입력 중에는 3~8번 전체 재렌더를 예약하지 않는다.
-        // 후보 클릭 또는 change 확정 때만 후속 연계축을 다시 계산한다.
-        renderStatus();
-        syncOutputFields();
+        // v99: 과목 선택 이후 학과 검색 버퍼링 방지.
+        // 입력 중에는 3~5번/도서/mini payload를 재계산하지 않고 상단 요약만 가볍게 갱신한다.
+        syncCareerSearchTypingOnly();
+        renderMajorSearchTypingStatusOnly();
+        syncCareerTypingOutputFieldsOnly();
       });
       careerEl.addEventListener("change", function () {
         if (isMajorSearchEditingLocked()) {
@@ -2921,8 +2918,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       state.majorSelectedName = "";
       state.majorCoreKeywords = [];
       state.majorComparison = null;
-      renderStatus();
-      syncOutputFields();
+      // v99: preview 이벤트도 입력 중 신호이므로 전체 payload/도서 재렌더를 건드리지 않는다.
+      renderMajorSearchTypingStatusOnly();
+      syncCareerTypingOutputFieldsOnly();
     });
 
     window.addEventListener("major-engine-selection-changed", function (event) {
@@ -3218,6 +3216,49 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     state.career = (el?.value || "").trim();
     syncMajorSelectionDetail(null);
     if (!state.keyword) renderCareerKeywordPreview();
+  }
+
+
+  // v99: 학과 검색 입력 중에는 과목 선택 이후의 3~5번 전체 상태 계산을 건드리지 않는다.
+  // 기존 syncCareerFromInput()/syncOutputFields()는 renderCareerKeywordPreview(), buildMiniPayload(), DOM 학과명 스캔까지
+  // 이어질 수 있어, 과목이 선택된 상태에서 학과 검색을 하면 입력마다 버퍼링이 발생했다.
+  // 입력 중에는 현재 입력값과 상단 요약만 가볍게 갱신하고, 후보 학과를 실제 클릭하거나 change가 확정될 때만 전체 동기화한다.
+  function syncCareerSearchTypingOnly() {
+    const el = $("career");
+    state.career = (el?.value || "").trim();
+    state.majorSelectedName = "";
+    state.majorCoreKeywords = [];
+    state.majorComparison = null;
+  }
+
+  function renderMajorSearchTypingStatusOnly() {
+    const subjectEl = $("engineSubjectSummary");
+    const careerEl = $("engineCareerSummary");
+    const progressEl = $("engineProgressSummary");
+    if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
+    if (careerEl) careerEl.textContent = state.career || "입력 중";
+    if (progressEl) {
+      let progress = "교과 개념 선택 대기";
+      if (state.subject && !state.concept) progress = "교과 개념 선택 중";
+      if (state.concept && !state.keyword) progress = "핵심 키워드 선택 중";
+      if (state.keyword && !state.linkTrack) progress = "후속 연계축 선택 중";
+      if (state.linkTrack && !state.selectedBook) progress = "도서 선택 대기";
+      if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
+      if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
+      if (state.reportView && !state.reportLine) progress = "보고서 라인 선택 대기";
+      if (state.reportLine) progress = "MINI 전달 데이터 준비 완료";
+      progressEl.textContent = progress;
+    }
+  }
+
+  function syncCareerTypingOutputFieldsOnly() {
+    if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
+    if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
+    if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
+    if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
+    if ($("reportMode")) $("reportMode").value = state.reportMode || "";
+    if ($("reportView")) $("reportView").value = state.reportView || "";
+    if ($("reportLine")) $("reportLine").value = state.reportLine || "";
   }
 
   function findSubjectKey(raw) {
