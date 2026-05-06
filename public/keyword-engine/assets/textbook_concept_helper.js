@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v92.0-book-axis-lock-v89';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v91.1-book-axis-split-fix';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v92_book_axis_lock_v89";
+  const ASSET_VERSION_QUERY = "v91_1_book_axis_split_fix";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2947,13 +2947,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     document.addEventListener("click", function (event) {
       const conceptToggleBtn = event.target.closest(".engine-concept-toggle-btn[data-action='concept-display-toggle']");
       if (conceptToggleBtn && isStepEnabled(3)) {
-        // v89: '다른 교과 개념 보기'는 목록 펼침/접힘일 뿐 선택 변경이 아니다.
-        // 전체 renderAll()을 호출하면 책 선택 이후 4번 후속축·5번 도서 추천이 다시 계산되어
-        // 기존 선택값이 흔들릴 수 있으므로 3번 개념 목록만 다시 그린다.
         state.showAllConcepts = !state.showAllConcepts;
-        syncOutputFields();
+        // v91.1: '다른 교과 개념 보기'는 목록 표시 토글일 뿐이다.
+        // 실제 개념을 새로 선택하기 전까지 4번 후속축·5번 도서·선택 도서를 건드리지 않는다.
         renderConceptArea();
-        applyLocks();
+        renderStatus();
+        syncOutputFields();
         return;
       }
 
@@ -2971,20 +2970,25 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(4)) {
         const nextTrack = trackCard.getAttribute("data-track") || "";
-        // v89: 이미 선택된 4번 후속 연계축을 다시 누르는 것은 선택 유지 동작이다.
-        // 책을 고른 뒤 같은 축을 확인하려고 눌렀을 때 5번 도서·보고서 선택값이 초기화되지 않도록 막는다.
-        if (nextTrack && nextTrack === state.linkTrack) {
-          state.linkTrackSource = state.linkTrackSource || 'manual';
-          syncOutputFields();
-          renderTrackArea();
-          applyLocks();
-          return;
+        const sameTrack = !!nextTrack && state.linkTrack === nextTrack;
+        if (!sameTrack) {
+          clearFrom("track");
+          state.linkTrack = nextTrack;
+          state.linkTrackSource = 'manual';
+        } else {
+          // v91.1: 이미 선택된 4번 축을 다시 누르는 것은 재선택 확인 동작이다.
+          // 이때 5번 도서 목록과 선택 도서를 초기화하지 않는다.
+          state.linkTrackSource = 'manual';
         }
-        clearFrom("track");
-        state.linkTrack = nextTrack;
-        state.linkTrackSource = 'manual';
         syncOutputFields();
         renderAll();
+        // v91.1: 첫 번째 4번 축 클릭에서 도서 데이터가 아직 로딩 중이면,
+        // 로딩 완료 직후 현재 상태로 5번 도서 영역을 강제 재렌더한다.
+        if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
+          [80, 220, 520, 900].forEach(delay => setTimeout(() => {
+            try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {}
+          }, delay));
+        }
         return;
       }
 
@@ -3002,38 +3006,30 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const keywordBtn = event.target.closest(".engine-chip[data-action='keyword']");
       if (keywordBtn && isStepEnabled(3)) {
         const nextKeyword = keywordBtn.getAttribute("data-value") || "";
-        // v90: 이미 선택된 3번 추천 키워드를 다시 누르는 것은 선택 확인 동작이다.
-        // 책 선택 이후 같은 키워드를 다시 클릭했을 때 4번 후속축이 재계산되어
-        // 다른 축(예: 로그 구조·역함수 해석 축)으로 흔들리지 않도록 4번/5번 상태를 보존한다.
-        if (nextKeyword && nextKeyword === state.keyword) {
-          state.keyword = nextKeyword;
-          syncOutputFields();
-          renderAfterKeywordSelectionFast();
-          return;
-        }
+        const sameKeyword = !!nextKeyword && state.keyword === nextKeyword;
         state.keyword = nextKeyword;
-        clearFrom("track");
+        if (!sameKeyword) {
+          clearFrom("track");
+        }
+        // v91.1: 같은 3번 추천 키워드를 다시 누르는 것은 선택 확인 동작이다.
+        // 기존 4번 축과 5번 도서 상태를 유지해야 한다.
         syncOutputFields();
         renderAfterKeywordSelectionFast();
+        if (sameKeyword && typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
+          setTimeout(() => { try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {} }, 120);
+        }
         return;
       }
 
       const bookBtn = event.target.closest(".book-chip[data-kind='book']");
       if (bookBtn && isStepEnabled(5)) {
-        // v89 fallback: book_210_ui_bridge가 먼저 처리하지 못한 환경에서도
-        // 책 클릭이 3번/4번 전체 재렌더를 유발하지 않게 5번 이후만 갱신한다.
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
         state.reportView = "";
         state.reportLine = "";
         syncOutputFields();
-        renderBookArea();
-        renderModeArea();
-        renderViewArea();
-        renderReportLineArea();
-        renderSelectionSummary();
-        applyLocks();
+        renderAll();
         return;
       }
 
@@ -8872,11 +8868,14 @@ function getTrackMeta(trackId) {
       return true;
     }
 
-    // v90: document.body 전체 텍스트는 절대 학과 판별에 사용하지 않는다.
-    // 5번 선택 도서 요약의 "관련 학과: 수학과" 같은 문구가 화면에 생기면,
-    // 컴퓨터공학과/데이터 계열에서도 순수 수학 분기가 켜져 4번 축이
-    // "로그 구조·역함수 해석 축" 등으로 잘못 바뀌는 문제가 발생한다.
-    // 따라서 실제 선택 학과값(state.majorSelectedName/state.career/major detail)만 신뢰한다.
+    // 실제 선택 요약 영역만 보조로 확인한다. document.body 전체를 일반 텍스트로 넣지 않아
+    // 다른 학과 카드/추천 문구의 '공학' 단어가 수학과 판별을 방해하지 않게 한다.
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      const bodyCompact = bodyText.replace(/\s+/g, "");
+      if (/2\.\s*학과\s*(수학과|수리과학과|수학부|응용수학과)|학과\s*(수학과|수리과학과|수학부|응용수학과)/.test(bodyText)) return true;
+      if (/2\.학과(수학과|수리과학과|수학부|응용수학과)|학과(수학과|수리과학과|수학부|응용수학과)/.test(bodyCompact)) return true;
+    } catch (error) {}
     return false;
   }
 
