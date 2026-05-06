@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v16-stable-summary-click";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v17-axis-split-force-render";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -664,6 +664,12 @@
     const el = document.getElementById("engineBookArea");
     if (!el) return false;
     let ctx = getStateContext();
+    // v91.1: textbook helper state가 아직 전역에 노출되기 전이거나 비어 있으면,
+    // renderBookSelectionHTML에 마지막으로 들어온 정상 context를 사용한다.
+    // 첫 번째 4번 축 클릭 때 master 로딩 후 재렌더가 빈 context로 실패하는 문제를 막는다.
+    if (!canForceRender(ctx) && lastInputCtx) {
+      ctx = cloneCtx(lastInputCtx);
+    }
     if (global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ && Date.now() < global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__) {
       ctx = getStableRenderContext(ctx.selectedBook);
     }
