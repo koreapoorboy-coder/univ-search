@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v91.0-business-social-axis-bs3';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v92.0-book-axis-lock-v89';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v90_9_business_social_prelock_bs1";
+  const ASSET_VERSION_QUERY = "v92_book_axis_lock_v89";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -2947,31 +2947,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     document.addEventListener("click", function (event) {
       const conceptToggleBtn = event.target.closest(".engine-concept-toggle-btn[data-action='concept-display-toggle']");
       if (conceptToggleBtn && isStepEnabled(3)) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        // v87 BOOK-A 안정화:
-        // "다른 교과 개념 보기"는 목록 표시 상태만 바꾸는 버튼이다.
-        // 여기서 renderAll()을 돌리면 syncMajorBridgeState/renderBookArea까지 함께 실행되어
-        // 이미 선택한 4번 후속 연계축·5번 도서 추천이 흔들릴 수 있다.
-        // 따라서 기존 선택값을 보존하고 3번 교과 개념 영역만 다시 그린다.
-        const keep = {
-          concept: state.concept,
-          keyword: state.keyword,
-          linkTrack: state.linkTrack,
-          linkTrackSource: state.linkTrackSource,
-          selectedBook: state.selectedBook,
-          selectedBookTitle: state.selectedBookTitle,
-          reportMode: state.reportMode,
-          reportView: state.reportView,
-          reportLine: state.reportLine
-        };
-
+        // v89: '다른 교과 개념 보기'는 목록 펼침/접힘일 뿐 선택 변경이 아니다.
+        // 전체 renderAll()을 호출하면 책 선택 이후 4번 후속축·5번 도서 추천이 다시 계산되어
+        // 기존 선택값이 흔들릴 수 있으므로 3번 개념 목록만 다시 그린다.
         state.showAllConcepts = !state.showAllConcepts;
-        renderConceptArea();
-
-        Object.assign(state, keep);
         syncOutputFields();
+        renderConceptArea();
         applyLocks();
         return;
       }
@@ -2990,6 +2971,15 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(4)) {
         const nextTrack = trackCard.getAttribute("data-track") || "";
+        // v89: 이미 선택된 4번 후속 연계축을 다시 누르는 것은 선택 유지 동작이다.
+        // 책을 고른 뒤 같은 축을 확인하려고 눌렀을 때 5번 도서·보고서 선택값이 초기화되지 않도록 막는다.
+        if (nextTrack && nextTrack === state.linkTrack) {
+          state.linkTrackSource = state.linkTrackSource || 'manual';
+          syncOutputFields();
+          renderTrackArea();
+          applyLocks();
+          return;
+        }
         clearFrom("track");
         state.linkTrack = nextTrack;
         state.linkTrackSource = 'manual';
@@ -3020,13 +3010,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       const bookBtn = event.target.closest(".book-chip[data-kind='book']");
       if (bookBtn && isStepEnabled(5)) {
+        // v89 fallback: book_210_ui_bridge가 먼저 처리하지 못한 환경에서도
+        // 책 클릭이 3번/4번 전체 재렌더를 유발하지 않게 5번 이후만 갱신한다.
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
         state.reportView = "";
         state.reportLine = "";
         syncOutputFields();
-        renderAll();
+        renderBookArea();
+        renderModeArea();
+        renderViewArea();
+        renderReportLineArea();
+        renderSelectionSummary();
+        applyLocks();
         return;
       }
 
