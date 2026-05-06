@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v18-axis-hard-split";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v19-book-a1-ui-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -522,6 +522,150 @@
   }
 
 
+  function normalizeLockText(v){
+    return val(v).toLowerCase().replace(/[·ㆍ/|,;:()[\]{}<>_\-]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function isBookA1Context(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
+    const isAlgebra = /대수/.test(subjectText);
+    const isExpLogUse = /지수함수와\s*로그함수의\s*활용/.test(conceptText);
+    const isDataPrediction = /데이터\s*예측/.test(keywordText);
+    return !!(isComputer && isAlgebra && isExpLogUse && isDataPrediction);
+  }
+
+  function inferBookA1AxisLock(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.axisLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    if (/(signal\s*capacity\s*interpretation|신호\s*용량|신호|용량|채널|정보량|통신|네트워크)/i.test(axisText)) {
+      return "signal_capacity_interpretation";
+    }
+    if (/(future\s*prediction\s*data|prediction\s*data\s*interpretation|예측\s*데이터\s*해석|데이터\s*해석|자료\s*해석|통계\s*판단|편향\s*점검|예측\s*한계)/i.test(axisText)) {
+      return "future_prediction_data";
+    }
+    if (/(real\s*world\s*change\s*modeling|real\s*life\s*change\s*modeling|실생활\s*변화|변화\s*모델링|생활\s*변화|현상\s*변화|함수\s*변화|변화율)/i.test(axisText)) {
+      return "real_world_change_modeling";
+    }
+    return "";
+  }
+
+  function findBookForLock(title, result){
+    const t = val(title);
+    if (!t) return null;
+    const fromResult = arr(result && result.directBooks).concat(arr(result && result.expansionBooks))
+      .find(book => val(book && book.title) === t || val(book && book.title).includes(t));
+    if (fromResult) return fromResult;
+    const books = master && Array.isArray(master.books) ? master.books : [];
+    return books.find(book => val(book && book.title) === t || val(book && book.title).includes(t)) || null;
+  }
+
+  function buildLockedBookContext(book, ctx, sectionType, axisId){
+    const title = val(book && book.title);
+    const axisLabelMap = {
+      real_world_change_modeling: "실생활 변화 모델링 축",
+      signal_capacity_interpretation: "신호·용량 해석 축",
+      future_prediction_data: "예측·데이터 해석 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) A-1 ${axisLabel}에서 보고서 핵심 근거로 우선 배치한 도서입니다.`
+        : `${title}은(는) A-1 ${axisLabel}에서 비교·한계·사회적 의미를 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`A-1 ${axisLabel} 도서 잠금`])),
+      reportRole: isDirect ? ["analysisFrame", "conceptExplanation", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? ["자료·모델 해석 프레임", "개념 설명 근거", "한계 논의 근거"] : ["사회적 의미 확장", "비교 관점", "한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? "선택한 지수·로그 개념과 4번 후속축의 핵심 원리를 설명할 때 활용합니다." : "",
+        analysisFrame: isDirect ? "자료 변화, 신호 구조, 예측 해석 중 선택 축에 맞는 분석 프레임으로 활용합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·윤리·정보 환경 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "데이터 해석의 한계, 모델의 제약, 판단 편향을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 정보사회, 기술 윤리, 사회적 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      }
+    };
+  }
+
+  function cloneBookForA1Lock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const cloned = {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-1 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContext(book, ctx, sectionType, axisId),
+      bookA1LockRank: rank,
+      bookA1AxisLock: axisId
+    };
+    return cloned;
+  }
+
+  function applyBookA1AxisLock(result, ctx){
+    if (!result || !isBookA1Context(ctx)) return result;
+    const axisId = inferBookA1AxisLock(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      real_world_change_modeling: ["카오스", "20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서"],
+      signal_capacity_interpretation: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      future_prediction_data: ["팩트풀니스", "카오스", "혼돈으로부터의 질서"]
+    };
+    const expansionMap = {
+      real_world_change_modeling: ["팩트풀니스", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"],
+      signal_capacity_interpretation: ["미디어의 이해", "제3의 물결", "1984", "감시와 처벌", "팩트풀니스"],
+      future_prediction_data: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA1Lock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA1Lock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA1AxisLock: axisId,
+        bookA1DirectTitles: directBooks.map(book => book.title),
+        bookA1ExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -547,6 +691,10 @@
     } else {
       result = global.BookRecommendationAdapter.recommendBooks(payload, master.books, { directLimit: 3, expansionLimit: 5 });
     }
+
+    // v93: A-1은 화면에서 4번 세 축이 반드시 다른 직접 일치 도서 3권으로 보여야 한다.
+    // 어댑터/캐시/기존 평가 점수가 개입하더라도 UI 최종 단계에서 한 번 더 축별 도서군을 잠근다.
+    result = applyBookA1AxisLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
