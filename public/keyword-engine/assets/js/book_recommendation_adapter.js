@@ -9,7 +9,7 @@
 (function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v2.2-book-a-guard";
+  const ADAPTER_VERSION = "v2.3-axis-specific-books";
   const MASTER_FILE = "book_source_master_210.json";
   const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
@@ -1170,19 +1170,68 @@
     return { level:"excluded", domains, reason:"전공군 도메인 불일치" };
   }
 
+  function collectAxisParts(payload){
+    payload = payload || {};
+    const rawAxis = payload.followupAxis || payload.axis || payload.step4Axis || "";
+    const axisPayload = payload.axisPayload || payload.followupAxisPayload || {};
+    const parts = {
+      raw: rawAxis,
+      id: "",
+      label: "",
+      domain: "",
+      linkedSubjects: [],
+      activityExample: "",
+      longitudinalPath: ""
+    };
+
+    if (rawAxis && typeof rawAxis === "object") {
+      parts.id = rawAxis.id || rawAxis.axis_id || rawAxis.key || "";
+      parts.label = rawAxis.label || rawAxis.title || rawAxis.axis_title || rawAxis.name || "";
+      parts.domain = rawAxis.domain || rawAxis.axisDomain || rawAxis.axis_domain || "";
+      parts.linkedSubjects = arr(rawAxis.linkedSubjects || rawAxis.linked_subjects || rawAxis.nextSubjects || rawAxis.next_subjects);
+      parts.activityExample = rawAxis.activityExample || rawAxis.activity_example || "";
+      parts.longitudinalPath = rawAxis.longitudinalPath || rawAxis.recordContinuityPoint || rawAxis.record_continuity_point || "";
+    }
+    if (axisPayload && typeof axisPayload === "object") {
+      parts.id = parts.id || axisPayload.id || axisPayload.axis_id || axisPayload.key || "";
+      parts.label = parts.label || axisPayload.label || axisPayload.title || axisPayload.axis_title || axisPayload.name || "";
+      parts.domain = parts.domain || axisPayload.domain || axisPayload.axisDomain || axisPayload.axis_domain || "";
+      parts.linkedSubjects = parts.linkedSubjects.length ? parts.linkedSubjects : arr(axisPayload.linkedSubjects || axisPayload.linked_subjects || axisPayload.nextSubjects || axisPayload.next_subjects);
+      parts.activityExample = parts.activityExample || axisPayload.activityExample || axisPayload.activity_example || "";
+      parts.longitudinalPath = parts.longitudinalPath || axisPayload.longitudinalPath || axisPayload.recordContinuityPoint || axisPayload.record_continuity_point || "";
+    }
+
+    const text = uniq([
+      parts.raw,
+      parts.id,
+      parts.label,
+      parts.domain,
+      ...(parts.linkedSubjects || []),
+      parts.activityExample,
+      parts.longitudinalPath
+    ].map(toText).filter(Boolean)).join(" ");
+    parts.text = text;
+    return parts;
+  }
+
   function collectPayloadTerms(payload){
     payload = payload || {};
     const subject = payload.subject || payload.selectedSubject || payload.course || "";
     const department = payload.department || payload.major || payload.selectedDepartment || "";
     const selectedConcept = payload.selectedConcept || payload.concept || payload.step3Concept || "";
     const selectedKeyword = payload.selectedRecommendedKeyword || payload.recommendedKeyword || payload.keyword || payload.step3Keyword || "";
-    const axis = payload.followupAxis || payload.axis || payload.axisPayload || payload.step4Axis || "";
+    const axisParts = collectAxisParts(payload);
+    const axis = axisParts.text || "";
     const reportIntent = payload.reportIntent || payload.reportMode || "";
     const conceptTokens = tokenize(selectedConcept);
     const keywordTokens = tokenize(selectedKeyword);
     const axisTokens = tokenize(axis);
     return {
       subject, department, selectedConcept, selectedKeyword, axis, reportIntent,
+      axisId: axisParts.id || "",
+      axisLabel: axisParts.label || "",
+      axisDomain: axisParts.domain || "",
+      axisParts,
       conceptTokens, keywordTokens, axisTokens,
       strongTokens: uniq(conceptTokens.concat(keywordTokens, axisTokens))
     };
@@ -1285,16 +1334,44 @@
 
 
   function inferAxisProfile(terms, rules){
-    const text = normalize([terms.selectedConcept, terms.selectedKeyword, terms.axis].join(" "));
     const profiles = rules.axisProfiles || {};
-    let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {} };
+    const axisText = normalize([
+      terms.axisId || "",
+      terms.axisLabel || "",
+      terms.axisDomain || "",
+      terms.axis || ""
+    ].join(" "));
+    const fullText = normalize([terms.selectedConcept, terms.selectedKeyword, axisText].join(" "));
+
+    const explicitProfileRules = [
+      ["signal_network_capacity", /(signal_capacity_interpretation|signal_media|compression_transfer|채널\s*용량|신호\s*용량|신호\s*·\s*용량|네트워크|통신|정보량|데이터\s*전송)/i],
+      ["information_society_ethics", /(info_ethics|information_society_ethics|정보\s*윤리|디지털\s*윤리|디지털\s*시민성|정보\s*문화|정보사회|지식\s*정보\s*사회|감시|플랫폼|미디어|정보\s*보호)/i],
+      ["real_world_change_modeling", /(real_world_change_modeling|실생활\s*변화\s*모델링|변화\s*모델링|성장|감소|방사성\s*붕괴|별의\s*등급|충전\s*증가|지수모델|로그모델)/i],
+      ["future_prediction_data", /(future_prediction_data|data_prediction_trend_axis|data_prediction|예측\s*·\s*데이터|데이터\s*예측|예측\s*해석|데이터\s*해석|추세\s*예측)/i],
+      ["physics_system", /(physics|sensor_system|measurement_physics|물리|시스템|센서|측정|전자기|양자|오차)/i],
+      ["earth_environment_data", /(earth|earth_env|environment|기후|환경|지구|생태|폭염|대기|지속가능)/i]
+    ];
+
+    for (const [id, pattern] of explicitProfileRules) {
+      if (profiles[id] && pattern.test(axisText)) {
+        return { id, score: 100, profile: profiles[id], axisLocked: true };
+      }
+    }
+
+    let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {}, axisLocked: false };
 
     Object.entries(profiles).forEach(([id, profile]) => {
       let score = 0;
       (profile.patterns || []).forEach(p => {
-        if (text.includes(normalize(p))) score += 1;
+        const n = normalize(p);
+        if (!n) return;
+        // v2.3: 4번 후속 연계축 문구가 가장 강해야 한다.
+        // 추천 키워드가 비슷해도 축이 다르면 다른 도서군이 떠야 하므로
+        // axisText 일치에는 큰 점수를, 전체 문맥 일치에는 보조 점수만 준다.
+        if (axisText.includes(n)) score += 6;
+        else if (fullText.includes(n)) score += 1;
       });
-      if (score > best.score) best = { id, score, profile };
+      if (score > best.score) best = { id, score, profile, axisLocked: score >= 6 };
     });
 
     return best;
@@ -1321,8 +1398,20 @@
       boost += 28;
       reasons.push("후속 연계축 대표 도서");
     }
+    if ((profile.titlePrimary || []).includes(title)) {
+      boost += 54;
+      reasons.push("후속 연계축 핵심 대표 도서");
+    }
+    if ((profile.titleSecondary || []).includes(title)) {
+      boost += 36;
+      reasons.push("후속 연계축 보조 대표 도서");
+    }
+    if ((profile.titleExpansionOnly || []).includes(title)) {
+      boost -= 18;
+      reasons.push("후속 연계축 확장 참고 우선 도서");
+    }
     if ((profile.titleDemote || []).includes(title)) {
-      boost -= 28;
+      boost -= 34;
       reasons.push("후속 연계축 직접성 낮음");
     }
 
@@ -1358,6 +1447,12 @@
     }
 
     if (type === "excluded") return { include:false, type, score, domain, role, axis, axisProfile: axisInfo.id };
+
+    const profile = axisInfo.profile || {};
+    const title = book.title || "";
+    if ((profile.titleExpansionOnly || []).includes(title)) {
+      type = "expansion";
+    }
 
     if (type === "direct" && axis.score < 15 && score < 95) {
       type = "expansion";
