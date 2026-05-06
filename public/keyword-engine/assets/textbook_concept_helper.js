@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v97-track-option-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v91.0-business-social-axis-bs3';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -28,7 +28,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     followupAxis: "seed/followup-axis/"
   });
 
-  const ASSET_VERSION_QUERY = "v97_track_option_lock";
+  const ASSET_VERSION_QUERY = "v90_9_business_social_prelock_bs1";
   const addAssetVersion = (url) => `${url}${String(url).includes("?") ? "&" : "?"}v=${ASSET_VERSION_QUERY}`;
   const UI_SEED_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_ui_seed.json`);
   const ENGINE_MAP_URL = addAssetVersion(`${DATA_SOURCE_POLICY.runtimeUi}subject_concept_engine_map.json`);
@@ -159,11 +159,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     majorCoreKeywords: [],
     majorComparison: null,
     linkTrackSource: "",
-    showAllConcepts: false,
-    // v97: 4번 후속 연계축 후보 3개가 빈공간 클릭/축 재클릭/도서 영역 변경 때
-    // 다시 계산되어 바뀌는 문제를 막기 위한 표시 후보 잠금값.
-    trackOptionsLockKey: "",
-    trackOptionsLock: []
+    showAllConcepts: false
   };
 
   const REPORT_LINE_HELP = {
@@ -2892,11 +2888,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const careerEl = $("career");
     if (careerEl) {
       careerEl.addEventListener("input", function () {
-        // v99: 과목 선택 이후 학과 검색 버퍼링 방지.
-        // 입력 중에는 3~5번/도서/mini payload를 재계산하지 않고 상단 요약만 가볍게 갱신한다.
-        syncCareerSearchTypingOnly();
-        renderMajorSearchTypingStatusOnly();
-        syncCareerTypingOutputFieldsOnly();
+        syncCareerFromInput();
+        state.majorSelectedName = "";
+        state.majorCoreKeywords = [];
+        state.majorComparison = null;
+        // v66: 학과 검색 입력 중에는 3~8번 전체 재렌더를 예약하지 않는다.
+        // 후보 클릭 또는 change 확정 때만 후속 연계축을 다시 계산한다.
+        renderStatus();
+        syncOutputFields();
       });
       careerEl.addEventListener("change", function () {
         if (isMajorSearchEditingLocked()) {
@@ -2918,9 +2917,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       state.majorSelectedName = "";
       state.majorCoreKeywords = [];
       state.majorComparison = null;
-      // v99: preview 이벤트도 입력 중 신호이므로 전체 payload/도서 재렌더를 건드리지 않는다.
-      renderMajorSearchTypingStatusOnly();
-      syncCareerTypingOutputFieldsOnly();
+      renderStatus();
+      syncOutputFields();
     });
 
     window.addEventListener("major-engine-selection-changed", function (event) {
@@ -2950,11 +2948,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const conceptToggleBtn = event.target.closest(".engine-concept-toggle-btn[data-action='concept-display-toggle']");
       if (conceptToggleBtn && isStepEnabled(3)) {
         state.showAllConcepts = !state.showAllConcepts;
-        // v91.1: '다른 교과 개념 보기'는 목록 표시 토글일 뿐이다.
-        // 실제 개념을 새로 선택하기 전까지 4번 후속축·5번 도서·선택 도서를 건드리지 않는다.
-        renderConceptArea();
-        renderStatus();
         syncOutputFields();
+        renderAll();
         return;
       }
 
@@ -2965,54 +2960,27 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         state.linkTrack = topTrack ? topTrack.id : "";
         state.linkTrackSource = topTrack ? 'auto' : '';
         syncOutputFields();
-        renderAfterTrackSelectionLocked();
-        if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
-          [80, 220, 520].forEach(delay => setTimeout(() => {
-            try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {}
-          }, delay));
-        }
+        renderAll();
         return;
       }
 
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(4)) {
         const nextTrack = trackCard.getAttribute("data-track") || "";
-        const sameTrack = !!nextTrack && state.linkTrack === nextTrack;
-        if (!sameTrack) {
-          clearFrom("track");
-          state.linkTrack = nextTrack;
-          state.linkTrackSource = 'manual';
-        } else {
-          // v97: 이미 선택된 4번 축을 다시 누르는 것은 재선택 확인 동작이다.
-          // 4번 후보 목록, 5번 도서 목록, 선택 도서를 모두 유지한다.
-          state.linkTrackSource = 'manual';
-        }
+        clearFrom("track");
+        state.linkTrack = nextTrack;
+        state.linkTrackSource = 'manual';
         syncOutputFields();
-        renderAfterTrackSelectionLocked();
-        // v97: 첫 번째 4번 축 클릭에서 도서 데이터가 아직 로딩 중이면,
-        // 로딩 완료 직후 현재 상태로 5번 도서 영역만 강제 재렌더한다.
-        if (typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
-          [80, 220, 520, 900].forEach(delay => setTimeout(() => {
-            try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {}
-          }, delay));
-        }
+        renderAll();
         return;
       }
 
       const conceptCard = event.target.closest(".engine-concept-card");
       if (conceptCard && isStepEnabled(3)) {
         const value = conceptCard.getAttribute("data-concept") || "";
-        const sameConcept = !!value && state.concept === value;
-        if (!sameConcept) {
-          invalidateTrackOptionsLock();
-          state.concept = value;
-          state.keyword = "";
-          clearFrom("track");
-        } else {
-          // v100 A0-lock: 이미 선택된 3번 교과 개념을 다시 누르는 것은 확인 동작이다.
-          // 4번 후속축·5번 도서·선택 도서를 초기화하지 않는다.
-          state.concept = value;
-        }
+        state.concept = value;
+        state.keyword = "";
+        clearFrom("track");
         syncOutputFields();
         renderAll();
         return;
@@ -3020,20 +2988,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
       const keywordBtn = event.target.closest(".engine-chip[data-action='keyword']");
       if (keywordBtn && isStepEnabled(3)) {
-        const nextKeyword = keywordBtn.getAttribute("data-value") || "";
-        const sameKeyword = !!nextKeyword && state.keyword === nextKeyword;
-        state.keyword = nextKeyword;
-        if (!sameKeyword) {
-          invalidateTrackOptionsLock();
-          clearFrom("track");
-        }
-        // v91.1: 같은 3번 추천 키워드를 다시 누르는 것은 선택 확인 동작이다.
-        // 기존 4번 축과 5번 도서 상태를 유지해야 한다.
+        state.keyword = keywordBtn.getAttribute("data-value") || "";
+        clearFrom("track");
         syncOutputFields();
         renderAfterKeywordSelectionFast();
-        if (sameKeyword && typeof window.__BOOK_210_FORCE_RENDER__ === "function") {
-          setTimeout(() => { try { window.__BOOK_210_FORCE_RENDER__(); } catch (error) {} }, 120);
-        }
         return;
       }
 
@@ -3173,7 +3131,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
   function clearFrom(stepName) {
     if (stepName === "major") {
-      invalidateTrackOptionsLock();
       state.concept = "";
       state.keyword = "";
       state.linkTrack = "";
@@ -3198,7 +3155,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       return;
     }
     if (stepName === "concept") {
-      invalidateTrackOptionsLock();
       state.concept = "";
       state.keyword = "";
       state.linkTrack = "";
@@ -3223,49 +3179,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     state.career = (el?.value || "").trim();
     syncMajorSelectionDetail(null);
     if (!state.keyword) renderCareerKeywordPreview();
-  }
-
-
-  // v99: 학과 검색 입력 중에는 과목 선택 이후의 3~5번 전체 상태 계산을 건드리지 않는다.
-  // 기존 syncCareerFromInput()/syncOutputFields()는 renderCareerKeywordPreview(), buildMiniPayload(), DOM 학과명 스캔까지
-  // 이어질 수 있어, 과목이 선택된 상태에서 학과 검색을 하면 입력마다 버퍼링이 발생했다.
-  // 입력 중에는 현재 입력값과 상단 요약만 가볍게 갱신하고, 후보 학과를 실제 클릭하거나 change가 확정될 때만 전체 동기화한다.
-  function syncCareerSearchTypingOnly() {
-    const el = $("career");
-    state.career = (el?.value || "").trim();
-    state.majorSelectedName = "";
-    state.majorCoreKeywords = [];
-    state.majorComparison = null;
-  }
-
-  function renderMajorSearchTypingStatusOnly() {
-    const subjectEl = $("engineSubjectSummary");
-    const careerEl = $("engineCareerSummary");
-    const progressEl = $("engineProgressSummary");
-    if (subjectEl) subjectEl.textContent = state.subject || "선택 전";
-    if (careerEl) careerEl.textContent = state.career || "입력 중";
-    if (progressEl) {
-      let progress = "교과 개념 선택 대기";
-      if (state.subject && !state.concept) progress = "교과 개념 선택 중";
-      if (state.concept && !state.keyword) progress = "핵심 키워드 선택 중";
-      if (state.keyword && !state.linkTrack) progress = "후속 연계축 선택 중";
-      if (state.linkTrack && !state.selectedBook) progress = "도서 선택 대기";
-      if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
-      if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
-      if (state.reportView && !state.reportLine) progress = "보고서 라인 선택 대기";
-      if (state.reportLine) progress = "MINI 전달 데이터 준비 완료";
-      progressEl.textContent = progress;
-    }
-  }
-
-  function syncCareerTypingOutputFieldsOnly() {
-    if ($("linkedTrack")) $("linkedTrack").value = state.linkTrack || "";
-    if ($("selectedConcept")) $("selectedConcept").value = state.concept || "";
-    if ($("selectedBookId")) $("selectedBookId").value = state.selectedBook || "";
-    if ($("selectedBookTitle")) $("selectedBookTitle").value = state.selectedBookTitle || "";
-    if ($("reportMode")) $("reportMode").value = state.reportMode || "";
-    if ($("reportView")) $("reportView").value = state.reportView || "";
-    if ($("reportLine")) $("reportLine").value = state.reportLine || "";
   }
 
   function findSubjectKey(raw) {
@@ -6219,77 +6132,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
 function getSelectedFollowupAxisDetail(trackId) {
     if (!trackId) return null;
-    return getTrackOptions().find(item => item.id === trackId) || getFollowupAxisCandidates().find(item => item.id === trackId) || null;
-  }
-
-  function getTrackOptionsLockKey() {
-    if (!state.subject || !state.concept || !state.keyword) return "";
-    return [state.subject || "", state.concept || "", state.keyword || ""].join("||");
-  }
-
-  function cloneTrackOptionForLock(item) {
-    if (!item || typeof item !== "object") return item;
-    return {
-      ...item,
-      linkedSubjects: Array.isArray(item.linkedSubjects) ? item.linkedSubjects.slice() : [],
-      grade2NextSubjects: Array.isArray(item.grade2NextSubjects) ? item.grade2NextSubjects.slice() : [],
-      extensionKeywords: Array.isArray(item.extensionKeywords) ? item.extensionKeywords.slice() : [],
-      activityExamples: Array.isArray(item.activityExamples) ? item.activityExamples.slice() : []
-    };
-  }
-
-  function getLockedTrackOptions() {
-    const key = getTrackOptionsLockKey();
-    if (!key) return [];
-    if (state.trackOptionsLockKey === key && Array.isArray(state.trackOptionsLock) && state.trackOptionsLock.length) {
-      return state.trackOptionsLock.map(cloneTrackOptionForLock);
-    }
-    return [];
-  }
-
-  function setTrackOptionsLock(options) {
-    const key = getTrackOptionsLockKey();
-    if (!key || !Array.isArray(options) || !options.length) return options || [];
-    state.trackOptionsLockKey = key;
-    state.trackOptionsLock = options.slice(0, 3).map(cloneTrackOptionForLock);
-    return state.trackOptionsLock.map(cloneTrackOptionForLock);
-  }
-
-  function invalidateTrackOptionsLock() {
-    state.trackOptionsLockKey = "";
-    state.trackOptionsLock = [];
-  }
-
-  function refreshTrackCardActiveState() {
-    try {
-      document.querySelectorAll(".engine-track-card").forEach(card => {
-        const value = card.getAttribute("data-track") || "";
-        card.classList.toggle("is-active", !!value && value === state.linkTrack);
-      });
-    } catch (error) {}
-  }
-
-  function renderAfterTrackSelectionLocked() {
-    // v97: 4번 축 선택은 후보 목록 자체를 다시 계산하는 renderAll()이 아니라
-    // 활성 상태와 5번 이하만 갱신한다. 이렇게 해야 4번 3개 후보가 빈공간/재클릭 때 바뀌지 않는다.
-    renderStatus();
-    refreshTrackCardActiveState();
-    renderBookArea();
-    renderModeArea();
-    renderViewArea();
-    renderReportLineArea();
-    renderSelectionSummary();
-    applyLocks();
-    syncOutputFields();
+    return getFollowupAxisCandidates().find(item => item.id === trackId) || null;
   }
 
 
   function getTrackOptions() {
-    const lockedOptions = getLockedTrackOptions();
-    if (lockedOptions.length) return lockedOptions;
-
     const followupCandidates = getFollowupAxisCandidates();
-    if (followupCandidates.length) return setTrackOptionsLock(followupCandidates);
+    if (followupCandidates.length) return followupCandidates;
 
     const bucket = detectCareerBucket(state.career || "");
     const base = [
@@ -6307,7 +6156,7 @@ function getSelectedFollowupAxisDetail(trackId) {
       if (bucket === "env" && item.id === "earth") item.score += 6;
     });
 
-    const fallbackOptions = base
+    return base
       .sort((a, b) => b.score - a.score)
       .map(item => ({
         ...item,
@@ -6318,8 +6167,6 @@ function getSelectedFollowupAxisDetail(trackId) {
         recordContinuityPoint: "현재 개념과 가장 가까운 후속 과목 방향",
         reason: getTrackReason(item)
       }));
-
-    return setTrackOptionsLock(fallbackOptions);
   }
 
 
@@ -11849,7 +11696,7 @@ function getTrackMeta(trackId) {
       return uniq([...forcedItems, ...others]).slice(0, 3);
     }
 
-    if (state.subject === "대수" && !isDataScienceMajorSelectedContext() && isAlgebraComputerMajorContext()) {
+    if (state.subject === "대수" && !isDataScienceMajorSelectedContext() && (isAlgebraComputerMajorContext() || isAlgebraComputerVisibleMajorLockContext())) {
       const forced = [
         "지수함수와 로그함수의 활용",
         "등차수열과 등비수열",
@@ -12206,43 +12053,47 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
   }
 
 
-  // v100 A0-lock: 3번 추천 개념 목록은 과목+확정 학과 기준으로 고정한다.
-  // 학과 요약에는 컴퓨터공학과가 보이는데 state.career/majorSelectedName이 잠시 비어 있으면
-  // 대수 기본 개념(거듭제곱/지수 확장/로그 성질)이 먼저 뜨고, 클릭 후 다시 전공형 개념으로 바뀌는 현상이 생긴다.
-  // 이 함수는 화면 요약/확정 선택값/major helper 전역값을 모두 모아 안정적인 전공 판별에 사용한다.
-  function getStableMajorTextForConceptRender() {
+  // v101 A0-visible-lock: 학과 상태 카드에는 컴퓨터공학과가 확정되어 있는데
+  // state.career/majorSelectedName 동기화가 늦으면 대수 기본 개념 3개가 먼저 뜬다.
+  // 3번 추천 개념은 화면의 확정 학과 상태도 함께 읽어 대수+컴퓨터공학과에서 즉시 전공형 3개로 고정한다.
+  function getVisibleMajorTextForConceptLock() {
     const parts = [];
     const push = (value) => {
       const text = String(value || '').replace(/\s+/g, ' ').trim();
       if (!text) return;
-      if (/입력 전|선택 전|대기|찾지 못했|추천 키워드|추천 개념/.test(text)) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천 개념|추천 키워드|후속 연계축|도서 선택 대기/.test(text)) return;
       parts.push(text);
     };
-    try { push($("engineCareerSummary")?.textContent || ""); } catch (error) {}
-    try { push(state.career || ""); } catch (error) {}
-    try { push(state.majorSelectedName || ""); } catch (error) {}
-    try { push(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || ""); } catch (error) {}
-    try { push(window.__MAJOR_ENGINE_SELECTED__?.display_name || ""); } catch (error) {}
-    try { push(getMajorPanelResolvedName?.() || ""); } catch (error) {}
-    try { push(getEffectiveCareerName?.() || ""); } catch (error) {}
-    try { push(getCareerInputText?.() || ""); } catch (error) {}
+    try { push(state.career || ''); } catch (error) {}
+    try { push(state.majorSelectedName || ''); } catch (error) {}
+    try { push(getEffectiveCareerName?.() || ''); } catch (error) {}
+    try { push(getCareerInputText?.() || ''); } catch (error) {}
+    try { push(getMajorPanelResolvedName?.() || ''); } catch (error) {}
+    try { push(window.__MAJOR_SEARCH_CONFIRMED_NAME__ || ''); } catch (error) {}
+    try { push(window.__MAJOR_ENGINE_SELECTED__?.display_name || ''); } catch (error) {}
+    try { push(window.__MAJOR_ENGINE_SELECTED__?.name || ''); } catch (error) {}
+    try { push(document.querySelector('#engineCareerSummary')?.textContent || ''); } catch (error) {}
+    try {
+      document.querySelectorAll('.major-engine-candidate.is-selected, [data-selected-major], [data-major-name], [data-major-select].is-selected').forEach(node => {
+        push(node.getAttribute('data-selected-major') || '');
+        push(node.getAttribute('data-major-name') || '');
+        push(node.getAttribute('data-major-select') || '');
+        push(node.textContent || '');
+      });
+    } catch (error) {}
     return uniq(parts).join(' ').trim();
   }
 
-  function isAlgebraComputerConceptRenderLockContext() {
+  function isAlgebraComputerVisibleMajorLockContext() {
     const subject = String(state.subject || '').replace(/\s+/g, '');
     if (subject !== '대수') return false;
     try { if (isDataScienceMajorSelectedContext && isDataScienceMajorSelectedContext()) return false; } catch (error) {}
-    const majorText = getStableMajorTextForConceptRender();
-    return /(컴퓨터공학과|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(majorText);
+    const text = [getVisibleMajorTextForConceptLock(), getMajorTextBag?.() || ''].join(' ');
+    return /(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어|AI|인공지능|정보보호|정보보안|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(text);
   }
 
-  function getAlgebraComputerLockedPrimaryConcepts(ranked) {
-    const forced = [
-      '지수함수와 로그함수의 활용',
-      '등차수열과 등비수열',
-      '수학적 귀납법'
-    ];
+  function getAlgebraComputerPrimaryConceptItems(ranked) {
+    const forced = ['지수함수와 로그함수의 활용', '등차수열과 등비수열', '수학적 귀납법'];
     const forcedItems = forced.map(name => ranked.find(item => item.concept === name)).filter(Boolean);
     const others = ranked.filter(item => !forced.includes(item.concept));
     return uniq([...forcedItems, ...others]).slice(0, 3);
@@ -12292,13 +12143,12 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
         displayConcepts = primaryConcepts;
       }
     }
-    // v100 A0-lock: 대수+컴퓨터공학과에서는 처음부터 전공 연결성이 높은 3개만 고정 표시한다.
-    // 이 잠금은 추천 개념 3개 화면에만 적용되며, '다른 교과 개념 보기'를 누르면 전체 개념 선택은 그대로 가능하다.
-    if (isAlgebraComputerConceptRenderLockContext() && !state.showAllConcepts) {
-      primaryConcepts = getAlgebraComputerLockedPrimaryConcepts(ranked);
+    // v101 A0-visible-lock: 실제 화면 상태가 대수+컴퓨터공학과이면 3번 추천 개념 3개를 즉시 고정한다.
+    // 클릭 후에야 전공형으로 바뀌는 현상을 막기 위해 최종 렌더 직전에도 한 번 더 잠근다.
+    if (isAlgebraComputerVisibleMajorLockContext() && !state.showAllConcepts) {
+      primaryConcepts = getAlgebraComputerPrimaryConceptItems(ranked);
       displayConcepts = primaryConcepts;
     }
-
     const allConcepts = getOrderedConceptsForAll(ranked);
     const primaryConceptNames = new Set(primaryConcepts.map(item => item.concept));
     const canShowAllConcepts = allConcepts.length > primaryConcepts.length;
