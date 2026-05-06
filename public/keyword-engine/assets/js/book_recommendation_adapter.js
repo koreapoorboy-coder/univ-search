@@ -9,928 +9,1024 @@
 (function(global){
   "use strict";
 
-  const ADAPTER_VERSION = "v2.3-axis-first-v89";
+  const ADAPTER_VERSION = "v2.3-axis-priority-split";
   const MASTER_FILE = "book_source_master_210.json";
   const RULE_FILE = "book_recommendation_rules_v22.json";
   global.BOOK_ADAPTER_VERSION = ADAPTER_VERSION;
 
   const FALLBACK_RULES = {
-  "version": "book-report-role-rules-v22-book-a-guard",
-  "createdAt": "2026-05-05T10:30:00",
-  "principle": "도서 추천은 단어 매칭이 아니라 보고서 내 역할 기반으로 분류한다.",
-  "majorGroups": {
-    "engineering_information": {
-      "patterns": [
-        "컴퓨터",
-        "소프트웨어",
-        "정보",
-        "데이터",
-        "인공지능",
-        "AI",
-        "통계",
-        "산업공학"
-      ],
-      "directDomains": [
-        "engineering_information",
-        "engineering_data",
-        "engineering_physics_math",
-        "science_method"
-      ],
-      "expansionDomains": [
-        "science_history",
-        "science_philosophy",
-        "environment_social",
-        "environment_energy"
-      ],
-      "excludedDomains": [
-        "medical_life",
-        "medical_health",
-        "social_business",
-        "social_policy",
-        "humanities_literature",
-        "arts_culture"
-      ]
+    "version": "book-report-role-rules-v22-book-a-guard",
+    "createdAt": "2026-05-05T10:30:00",
+    "principle": "도서 추천은 단어 매칭이 아니라 보고서 내 역할 기반으로 분류한다.",
+    "majorGroups": {
+      "engineering_information": {
+        "patterns": [
+          "컴퓨터",
+          "소프트웨어",
+          "정보",
+          "데이터",
+          "인공지능",
+          "AI",
+          "통계",
+          "산업공학"
+        ],
+        "directDomains": [
+          "engineering_information",
+          "engineering_data",
+          "engineering_physics_math",
+          "science_method"
+        ],
+        "expansionDomains": [
+          "science_history",
+          "science_philosophy",
+          "environment_social",
+          "environment_energy"
+        ],
+        "excludedDomains": [
+          "medical_life",
+          "medical_health",
+          "social_business",
+          "social_policy",
+          "humanities_literature",
+          "arts_culture"
+        ]
+      },
+      "engineering_semiconductor": {
+        "patterns": [
+          "반도체",
+          "전자",
+          "전기",
+          "신소재",
+          "재료",
+          "기계",
+          "로봇",
+          "공학"
+        ],
+        "directDomains": [
+          "engineering_semiconductor",
+          "engineering_physics_math",
+          "engineering_data",
+          "science_method",
+          "environment_energy"
+        ],
+        "expansionDomains": [
+          "science_history",
+          "science_philosophy"
+        ],
+        "excludedDomains": [
+          "medical_life",
+          "medical_health",
+          "social_business",
+          "social_policy",
+          "humanities_literature",
+          "arts_culture"
+        ]
+      },
+      "environment_energy": {
+        "patterns": [
+          "환경",
+          "에너지",
+          "기후",
+          "도시",
+          "지구"
+        ],
+        "directDomains": [
+          "environment_energy",
+          "environment_social",
+          "engineering_data",
+          "science_method",
+          "engineering_physics_math"
+        ],
+        "expansionDomains": [
+          "science_history",
+          "science_philosophy",
+          "social_policy"
+        ],
+        "excludedDomains": [
+          "medical_health",
+          "humanities_literature",
+          "arts_culture"
+        ]
+      },
+      "medical_life": {
+        "patterns": [
+          "의학",
+          "의예",
+          "간호",
+          "보건",
+          "약학",
+          "생명",
+          "생명공학",
+          "수의",
+          "치의"
+        ],
+        "directDomains": [
+          "medical_life",
+          "medical_health",
+          "bio_science",
+          "science_method"
+        ],
+        "expansionDomains": [
+          "science_philosophy",
+          "engineering_data",
+          "social_policy"
+        ],
+        "excludedDomains": [
+          "social_business",
+          "humanities_literature",
+          "arts_culture"
+        ]
+      },
+      "social_business": {
+        "patterns": [
+          "경영",
+          "경제",
+          "사회",
+          "정치",
+          "법",
+          "행정",
+          "교육",
+          "심리"
+        ],
+        "directDomains": [
+          "social_business",
+          "social_policy",
+          "humanities_social",
+          "science_philosophy"
+        ],
+        "expansionDomains": [
+          "engineering_data",
+          "environment_social"
+        ],
+        "excludedDomains": [
+          "medical_health"
+        ]
+      },
+      "humanities": {
+        "patterns": [
+          "국문",
+          "문학",
+          "사학",
+          "역사",
+          "철학",
+          "윤리",
+          "문화",
+          "예술"
+        ],
+        "directDomains": [
+          "humanities_literature",
+          "humanities_social",
+          "arts_culture",
+          "science_philosophy"
+        ],
+        "expansionDomains": [
+          "social_policy",
+          "science_history"
+        ],
+        "excludedDomains": []
+      }
     },
-    "engineering_semiconductor": {
-      "patterns": [
-        "반도체",
-        "전자",
-        "전기",
-        "신소재",
-        "재료",
-        "기계",
-        "로봇",
-        "공학"
-      ],
-      "directDomains": [
-        "engineering_semiconductor",
-        "engineering_physics_math",
-        "engineering_data",
-        "science_method",
-        "environment_energy"
-      ],
-      "expansionDomains": [
-        "science_history",
-        "science_philosophy"
-      ],
-      "excludedDomains": [
-        "medical_life",
-        "medical_health",
-        "social_business",
-        "social_policy",
-        "humanities_literature",
-        "arts_culture"
-      ]
+    "domainOverrideByTitle": {
+      "닥터스 씽킹": {
+        "domains": [
+          "medical_health",
+          "medical_life"
+        ],
+        "bestFor": [
+          "의학계열",
+          "간호보건계열",
+          "생명과학계열"
+        ],
+        "avoidDirectFor": [
+          "engineering_information",
+          "engineering_semiconductor"
+        ],
+        "expansionOnlyIf": [
+          "진단",
+          "의료 AI",
+          "의사결정 오류",
+          "판단 편향",
+          "의료 데이터"
+        ],
+        "doNotUseAs": "컴퓨터공학·반도체공학의 기술/측정/모델링 직접 근거 도서로 사용하지 않는다."
+      },
+      "위대하고 위험한 약 이야기": {
+        "domains": [
+          "medical_life",
+          "medical_health",
+          "bio_science"
+        ],
+        "bestFor": [
+          "약학계열",
+          "생명과학계열",
+          "의학계열"
+        ],
+        "avoidDirectFor": [
+          "engineering_information",
+          "engineering_semiconductor"
+        ],
+        "expansionOnlyIf": [
+          "약물",
+          "신약",
+          "의료 데이터",
+          "생명 윤리"
+        ],
+        "doNotUseAs": "컴퓨터공학·반도체공학의 직접 도서로 사용하지 않는다."
+      },
+      "부분과 전체": {
+        "domains": [
+          "engineering_physics_math",
+          "science_method",
+          "science_philosophy"
+        ],
+        "bestFor": [
+          "물리학",
+          "공학계열",
+          "수학·데이터 계열"
+        ],
+        "reportRoles": [
+          "conceptExplanation",
+          "analysisFrame",
+          "limitationDiscussion"
+        ],
+        "triggers": [
+          "측정",
+          "관찰",
+          "물리",
+          "시스템",
+          "모델링",
+          "과학의 측정"
+        ]
+      },
+      "객관성의 칼날": {
+        "domains": [
+          "science_method",
+          "science_history",
+          "science_philosophy"
+        ],
+        "bestFor": [
+          "자연과학",
+          "공학계열",
+          "사회과학 방법론"
+        ],
+        "reportRoles": [
+          "analysisFrame",
+          "comparisonFrame",
+          "limitationDiscussion"
+        ],
+        "triggers": [
+          "측정",
+          "객관성",
+          "표준",
+          "과학사",
+          "과학적 판단"
+        ]
+      },
+      "엔트로피": {
+        "domains": [
+          "environment_energy",
+          "engineering_physics_math"
+        ],
+        "bestFor": [
+          "환경공학",
+          "에너지공학",
+          "물리학"
+        ],
+        "reportRoles": [
+          "conceptExplanation",
+          "analysisFrame",
+          "conclusionExpansion"
+        ],
+        "triggers": [
+          "에너지",
+          "열역학",
+          "시스템",
+          "환경",
+          "지속가능성"
+        ],
+        "avoidDirectFor": [
+          "engineering_information"
+        ]
+      },
+      "혼돈으로부터의 질서": {
+        "domains": [
+          "engineering_physics_math",
+          "science_method"
+        ],
+        "bestFor": [
+          "수학",
+          "물리학",
+          "컴퓨터공학",
+          "데이터과학"
+        ],
+        "reportRoles": [
+          "analysisFrame",
+          "limitationDiscussion"
+        ],
+        "triggers": [
+          "혼돈",
+          "카오스",
+          "모델링",
+          "시스템",
+          "예측"
+        ]
+      },
+      "페르마의 마지막 정리": {
+        "domains": [
+          "engineering_physics_math"
+        ],
+        "bestFor": [
+          "수학",
+          "컴퓨터공학",
+          "데이터과학"
+        ],
+        "reportRoles": [
+          "analysisFrame",
+          "conceptExplanation"
+        ],
+        "triggers": [
+          "수리",
+          "수학",
+          "증명",
+          "모델링",
+          "논리"
+        ]
+      },
+      "코스모스": {
+        "domains": [
+          "science_method",
+          "science_history",
+          "environment_energy"
+        ],
+        "bestFor": [
+          "물리학",
+          "천문학",
+          "지구과학",
+          "공학계열"
+        ],
+        "reportRoles": [
+          "intro",
+          "conclusionExpansion"
+        ],
+        "triggers": [
+          "우주",
+          "지구",
+          "기후",
+          "과학적 관점"
+        ],
+        "avoidDirectFor": [
+          "engineering_information"
+        ]
+      },
+      "침묵의 봄": {
+        "domains": [
+          "environment_energy",
+          "environment_social",
+          "bio_science"
+        ],
+        "bestFor": [
+          "환경공학",
+          "화학",
+          "생명과학"
+        ],
+        "reportRoles": [
+          "comparisonFrame",
+          "conclusionExpansion",
+          "limitationDiscussion"
+        ],
+        "triggers": [
+          "환경",
+          "화학물질",
+          "생태계",
+          "위험",
+          "사회적 영향"
+        ],
+        "avoidDirectFor": [
+          "engineering_information"
+        ]
+      },
+      "총, 균, 쇠": {
+        "domains": [
+          "environment_social",
+          "science_history"
+        ],
+        "bestFor": [
+          "지리",
+          "환경",
+          "사회과학"
+        ],
+        "reportRoles": [
+          "comparisonFrame",
+          "conclusionExpansion"
+        ],
+        "triggers": [
+          "기후",
+          "환경",
+          "지리",
+          "문명",
+          "사회적 확장"
+        ],
+        "avoidDirectFor": [
+          "engineering_information",
+          "engineering_semiconductor"
+        ]
+      },
+      "경영학 콘서트": {
+        "domains": [
+          "social_business",
+          "engineering_data"
+        ],
+        "bestFor": [
+          "경영학",
+          "산업공학",
+          "데이터분석"
+        ],
+        "reportRoles": [
+          "application",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "데이터",
+          "마케팅",
+          "의사결정",
+          "최적화"
+        ],
+        "avoidDirectFor": [
+          "engineering_semiconductor"
+        ]
+      },
+      "공정하다는 착각": {
+        "domains": [
+          "social_policy",
+          "humanities_social"
+        ],
+        "bestFor": [
+          "사회학",
+          "교육학",
+          "정치외교",
+          "윤리"
+        ],
+        "reportRoles": [
+          "conclusionExpansion",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "공정",
+          "능력주의",
+          "불평등"
+        ],
+        "avoidDirectFor": [
+          "engineering_information",
+          "engineering_semiconductor"
+        ]
+      },
+      "20세기 수학의 다섯가지 황금률": {
+        "domains": [
+          "engineering_information",
+          "engineering_data",
+          "engineering_physics_math"
+        ],
+        "bestFor": [
+          "컴퓨터공학과",
+          "데이터사이언스학과",
+          "인공지능학과",
+          "통계학과",
+          "수학과"
+        ],
+        "reportRoles": [
+          "conceptExplanation",
+          "analysisFrame",
+          "limitationDiscussion"
+        ],
+        "triggers": [
+          "수학",
+          "알고리즘",
+          "통계",
+          "데이터",
+          "모델링",
+          "예측",
+          "확률",
+          "함수",
+          "계산"
+        ],
+        "doNotUseAs": "감시사회·문학적 비판 중심 확장 도서가 아니라, 데이터·알고리즘·수학적 모델링의 직접 근거 도서로 우선 사용한다."
+      },
+      "카오스": {
+        "domains": [
+          "engineering_data",
+          "engineering_physics_math",
+          "science_method"
+        ],
+        "bestFor": [
+          "컴퓨터공학과",
+          "데이터사이언스학과",
+          "물리학과",
+          "수학과"
+        ],
+        "reportRoles": [
+          "analysisFrame",
+          "limitationDiscussion",
+          "conceptExplanation"
+        ],
+        "triggers": [
+          "카오스",
+          "혼돈",
+          "예측",
+          "모델링",
+          "시스템",
+          "데이터",
+          "그래프",
+          "비선형"
+        ],
+        "doNotUseAs": "단순 과학 고전 요약이 아니라, 예측 가능성·모델 한계·데이터 변동성 분석 근거로 사용한다."
+      },
+      "팩트풀니스": {
+        "domains": [
+          "engineering_data",
+          "science_method"
+        ],
+        "bestFor": [
+          "데이터사이언스학과",
+          "컴퓨터공학과",
+          "통계학과",
+          "경영학과",
+          "미디어커뮤니케이션학과"
+        ],
+        "reportRoles": [
+          "analysisFrame",
+          "limitationDiscussion",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "데이터",
+          "통계",
+          "자료",
+          "편향",
+          "리터러시",
+          "세계관",
+          "시각화"
+        ],
+        "doNotUseAs": "데이터 자체 분석 없이 단순 사회 비평 도서로만 사용하지 않는다."
+      },
+      "1984": {
+        "domains": [
+          "science_philosophy"
+        ],
+        "bestFor": [
+          "컴퓨터공학과",
+          "정보보호학과",
+          "미디어커뮤니케이션학과",
+          "사회학과"
+        ],
+        "reportRoles": [
+          "conclusionExpansion",
+          "limitationDiscussion",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "감시",
+          "통제",
+          "정보",
+          "디지털",
+          "네트워크",
+          "정보 윤리",
+          "플랫폼"
+        ],
+        "doNotUseAs": "데이터 예측·로그모델·신호 용량의 직접 원리 도서로 사용하지 않고, 감시사회·정보윤리 확장 도서로 사용한다."
+      },
+      "미디어의 이해": {
+        "domains": [
+          "science_philosophy"
+        ],
+        "bestFor": [
+          "미디어커뮤니케이션학과",
+          "컴퓨터공학과",
+          "정보사회 관련 전공"
+        ],
+        "reportRoles": [
+          "conclusionExpansion",
+          "analysisFrame",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "미디어",
+          "플랫폼",
+          "정보",
+          "네트워크",
+          "디지털",
+          "인공지능",
+          "기술 환경"
+        ],
+        "doNotUseAs": "알고리즘·데이터 모델링 직접 근거로 고정하지 않고, 정보 환경과 매체 구조 확장 관점으로 사용한다."
+      },
+      "감시와 처벌": {
+        "domains": [
+          "science_philosophy"
+        ],
+        "bestFor": [
+          "정보보호학과",
+          "컴퓨터공학과",
+          "사회학과",
+          "법학과"
+        ],
+        "reportRoles": [
+          "conclusionExpansion",
+          "limitationDiscussion",
+          "comparisonFrame"
+        ],
+        "triggers": [
+          "감시",
+          "알고리즘",
+          "플랫폼",
+          "디지털",
+          "정보보호",
+          "규율",
+          "시스템"
+        ],
+        "doNotUseAs": "컴퓨터공학의 수리·모델링 직접 도서가 아니라 디지털 감시와 윤리 확장 도서로 사용한다."
+      },
+      "제3의 물결": {
+        "domains": [
+          "science_philosophy",
+          "science_history"
+        ],
+        "bestFor": [
+          "컴퓨터공학과",
+          "정보사회 관련 전공",
+          "사회학과",
+          "경영학과"
+        ],
+        "reportRoles": [
+          "conclusionExpansion",
+          "comparisonFrame",
+          "application"
+        ],
+        "triggers": [
+          "정보화",
+          "기술",
+          "지식 사회",
+          "혁신",
+          "디지털",
+          "공동체"
+        ],
+        "doNotUseAs": "데이터 예측의 직접 수리 근거가 아니라 정보화 사회의 변화와 확장 관점으로 사용한다."
+      }
     },
-    "environment_energy": {
-      "patterns": [
-        "환경",
-        "에너지",
-        "기후",
-        "도시",
-        "지구"
-      ],
-      "directDomains": [
-        "environment_energy",
-        "environment_social",
-        "engineering_data",
-        "science_method",
-        "engineering_physics_math"
-      ],
-      "expansionDomains": [
-        "science_history",
-        "science_philosophy",
-        "social_policy"
-      ],
-      "excludedDomains": [
-        "medical_health",
-        "humanities_literature",
-        "arts_culture"
-      ]
+    "reportRoleDefinitions": {
+      "intro": "문제의식과 탐구 필요성을 제시하는 도입부 근거",
+      "conceptExplanation": "선택 개념을 설명하는 핵심 이론/원리 근거",
+      "analysisFrame": "자료·사례·현상을 분석하는 관점 제공",
+      "comparisonFrame": "비교 기준이나 대조 관점 제공",
+      "limitationDiscussion": "자료 해석의 한계·오차·판단 편향 논의",
+      "conclusionExpansion": "보고서 결론에서 사회적 의미나 진로 확장으로 연결",
+      "application": "실생활·산업·진로 사례 적용"
     },
-    "medical_life": {
-      "patterns": [
-        "의학",
-        "의예",
-        "간호",
-        "보건",
-        "약학",
-        "생명",
-        "생명공학",
-        "수의",
-        "치의"
-      ],
-      "directDomains": [
-        "medical_life",
-        "medical_health",
-        "bio_science",
-        "science_method"
-      ],
-      "expansionDomains": [
-        "science_philosophy",
-        "engineering_data",
-        "social_policy"
-      ],
-      "excludedDomains": [
-        "social_business",
-        "humanities_literature",
-        "arts_culture"
-      ]
-    },
-    "social_business": {
-      "patterns": [
-        "경영",
-        "경제",
-        "사회",
-        "정치",
-        "법",
-        "행정",
-        "교육",
-        "심리"
-      ],
-      "directDomains": [
-        "social_business",
-        "social_policy",
-        "humanities_social",
-        "science_philosophy"
-      ],
-      "expansionDomains": [
-        "engineering_data",
-        "environment_social"
-      ],
-      "excludedDomains": [
-        "medical_health"
-      ]
-    },
-    "humanities": {
-      "patterns": [
-        "국문",
-        "문학",
-        "사학",
-        "역사",
-        "철학",
-        "윤리",
-        "문화",
-        "예술"
-      ],
-      "directDomains": [
-        "humanities_literature",
-        "humanities_social",
-        "arts_culture",
-        "science_philosophy"
-      ],
-      "expansionDomains": [
-        "social_policy",
-        "science_history"
-      ],
-      "excludedDomains": []
+    "axisProfiles": {
+      "math_data_modeling": {
+        "label": "수리·데이터 모델링 축",
+        "patterns": [
+          "수리",
+          "데이터",
+          "모델링",
+          "통계",
+          "알고리즘",
+          "예측",
+          "시뮬레이션",
+          "그래프",
+          "자료"
+        ],
+        "preferredDomains": [
+          "engineering_information",
+          "engineering_data",
+          "engineering_physics_math",
+          "science_method"
+        ],
+        "expansionDomains": [
+          "science_philosophy",
+          "science_history",
+          "environment_energy"
+        ],
+        "titleBoost": [
+          "20세기 수학의 다섯가지 황금률",
+          "페르마의 마지막 정리",
+          "카오스",
+          "팩트풀니스"
+        ],
+        "titleDemote": [
+          "엔트로피",
+          "코스모스",
+          "침묵의 봄",
+          "총, 균, 쇠",
+          "1984",
+          "감시와 처벌",
+          "미디어의 이해",
+          "제3의 물결",
+          "부분과 전체"
+        ],
+        "reportRolePriority": [
+          "analysisFrame",
+          "limitationDiscussion",
+          "conceptExplanation"
+        ]
+      },
+      "signal_network_capacity": {
+        "label": "신호·네트워크·용량 해석 축",
+        "patterns": [
+          "신호",
+          "채널",
+          "용량",
+          "네트워크",
+          "통신",
+          "전송",
+          "정보량",
+          "정보 시스템",
+          "컴퓨팅",
+          "데이터 전송"
+        ],
+        "preferredDomains": [
+          "engineering_information",
+          "engineering_data",
+          "engineering_physics_math",
+          "science_method"
+        ],
+        "expansionDomains": [
+          "science_philosophy",
+          "science_history"
+        ],
+        "titleBoost": [
+          "부분과 전체",
+          "20세기 수학의 다섯가지 황금률",
+          "객관성의 칼날",
+          "미디어의 이해"
+        ],
+        "titleDemote": [
+          "카오스",
+          "혼돈으로부터의 질서",
+          "팩트풀니스",
+          "엔트로피",
+          "코스모스",
+          "침묵의 봄",
+          "총, 균, 쇠",
+          "1984",
+          "감시와 처벌"
+        ],
+        "reportRolePriority": [
+          "conceptExplanation",
+          "analysisFrame",
+          "limitationDiscussion",
+          "application"
+        ]
+      },
+      "physics_system": {
+        "label": "물리·시스템 해석 축",
+        "patterns": [
+          "물리",
+          "시스템",
+          "센서",
+          "측정",
+          "속도",
+          "카메라",
+          "에너지",
+          "전자기",
+          "양자",
+          "오차"
+        ],
+        "preferredDomains": [
+          "engineering_physics_math",
+          "science_method",
+          "science_philosophy",
+          "environment_energy"
+        ],
+        "expansionDomains": [
+          "science_history",
+          "engineering_data"
+        ],
+        "titleBoost": [
+          "부분과 전체",
+          "엔트로피",
+          "객관성의 칼날",
+          "혼돈으로부터의 질서",
+          "코스모스"
+        ],
+        "titleDemote": [
+          "총, 균, 쇠",
+          "침묵의 봄",
+          "경영학 콘서트"
+        ],
+        "reportRolePriority": [
+          "conceptExplanation",
+          "analysisFrame",
+          "limitationDiscussion"
+        ]
+      },
+      "earth_environment_data": {
+        "label": "지구·환경 데이터 해석 축",
+        "patterns": [
+          "지구",
+          "환경",
+          "기후",
+          "폭염",
+          "생태",
+          "대기",
+          "기상",
+          "지속가능",
+          "에너지",
+          "사회적 영향"
+        ],
+        "preferredDomains": [
+          "environment_energy",
+          "environment_social",
+          "science_method",
+          "science_history"
+        ],
+        "expansionDomains": [
+          "engineering_data",
+          "science_philosophy",
+          "social_policy"
+        ],
+        "titleBoost": [
+          "엔트로피",
+          "침묵의 봄",
+          "총, 균, 쇠",
+          "코스모스",
+          "객관성의 칼날"
+        ],
+        "titleDemote": [
+          "페르마의 마지막 정리",
+          "부분과 전체"
+        ],
+        "reportRolePriority": [
+          "conclusionExpansion",
+          "analysisFrame",
+          "comparisonFrame"
+        ]
+      },
+      "information_society_ethics": {
+        "label": "정보사회·디지털 윤리 확장 축",
+        "patterns": [
+          "감시",
+          "플랫폼",
+          "정보 윤리",
+          "디지털 시민성",
+          "정보 보호",
+          "정보사회",
+          "지식 정보 사회",
+          "미디어",
+          "기술 윤리",
+          "정보 문화"
+        ],
+        "preferredDomains": [
+          "science_philosophy",
+          "science_history",
+          "engineering_information"
+        ],
+        "expansionDomains": [
+          "engineering_data",
+          "social_policy"
+        ],
+        "titleBoost": [
+          "1984",
+          "감시와 처벌",
+          "미디어의 이해",
+          "제3의 물결"
+        ],
+        "titleDemote": [
+          "엔트로피",
+          "페르마의 마지막 정리",
+          "코스모스",
+          "침묵의 봄"
+        ],
+        "reportRolePriority": [
+          "conclusionExpansion",
+          "limitationDiscussion",
+          "comparisonFrame"
+        ]
+      },
+      "generic_science_method": {
+        "label": "과학 방법·측정 일반 축",
+        "patterns": [
+          "측정",
+          "표준",
+          "관찰",
+          "객관성",
+          "과학적 판단"
+        ],
+        "preferredDomains": [
+          "science_method",
+          "science_philosophy",
+          "engineering_physics_math"
+        ],
+        "expansionDomains": [
+          "science_history",
+          "engineering_data",
+          "environment_energy"
+        ],
+        "titleBoost": [
+          "객관성의 칼날",
+          "부분과 전체",
+          "코스모스"
+        ],
+        "titleDemote": [],
+        "reportRolePriority": [
+          "conceptExplanation",
+          "analysisFrame",
+          "limitationDiscussion"
+        ]
+      },
+      "real_life_change_modeling": {
+        "label": "실생활 변화 모델링 축",
+        "patterns": [
+          "실생활 변화",
+          "변화 모델링",
+          "생활 변화",
+          "현상 변화",
+          "시간에 따른 변화",
+          "변화 양상",
+          "함수 변화",
+          "변화율"
+        ],
+        "preferredDomains": [
+          "engineering_data",
+          "engineering_physics_math",
+          "science_method",
+          "engineering_information"
+        ],
+        "expansionDomains": [
+          "science_philosophy",
+          "science_history"
+        ],
+        "titleBoost": [
+          "카오스",
+          "20세기 수학의 다섯가지 황금률",
+          "혼돈으로부터의 질서"
+        ],
+        "titleDemote": [
+          "팩트풀니스",
+          "부분과 전체",
+          "객관성의 칼날",
+          "1984",
+          "감시와 처벌",
+          "미디어의 이해",
+          "제3의 물결",
+          "엔트로피",
+          "코스모스",
+          "침묵의 봄",
+          "총, 균, 쇠"
+        ],
+        "reportRolePriority": [
+          "analysisFrame",
+          "conceptExplanation",
+          "limitationDiscussion"
+        ]
+      },
+      "prediction_data_interpretation": {
+        "label": "예측·데이터 해석 축",
+        "patterns": [
+          "예측·데이터 해석",
+          "예측 데이터 해석",
+          "데이터 해석",
+          "자료 해석",
+          "통계 판단",
+          "데이터 예측",
+          "편향 점검",
+          "그래프 해석",
+          "예측 한계"
+        ],
+        "preferredDomains": [
+          "engineering_data",
+          "engineering_information",
+          "science_method",
+          "engineering_physics_math"
+        ],
+        "expansionDomains": [
+          "science_philosophy",
+          "science_history"
+        ],
+        "titleBoost": [
+          "카오스",
+          "혼돈으로부터의 질서",
+          "팩트풀니스"
+        ],
+        "titleDemote": [
+          "부분과 전체",
+          "객관성의 칼날",
+          "미디어의 이해",
+          "1984",
+          "감시와 처벌",
+          "제3의 물결",
+          "엔트로피",
+          "코스모스",
+          "침묵의 봄",
+          "총, 균, 쇠"
+        ],
+        "reportRolePriority": [
+          "analysisFrame",
+          "limitationDiscussion",
+          "comparisonFrame"
+        ]
+      }
     }
-  },
-  "domainOverrideByTitle": {
-    "닥터스 씽킹": {
-      "domains": [
-        "medical_health",
-        "medical_life"
-      ],
-      "bestFor": [
-        "의학계열",
-        "간호보건계열",
-        "생명과학계열"
-      ],
-      "avoidDirectFor": [
-        "engineering_information",
-        "engineering_semiconductor"
-      ],
-      "expansionOnlyIf": [
-        "진단",
-        "의료 AI",
-        "의사결정 오류",
-        "판단 편향",
-        "의료 데이터"
-      ],
-      "doNotUseAs": "컴퓨터공학·반도체공학의 기술/측정/모델링 직접 근거 도서로 사용하지 않는다."
-    },
-    "위대하고 위험한 약 이야기": {
-      "domains": [
-        "medical_life",
-        "medical_health",
-        "bio_science"
-      ],
-      "bestFor": [
-        "약학계열",
-        "생명과학계열",
-        "의학계열"
-      ],
-      "avoidDirectFor": [
-        "engineering_information",
-        "engineering_semiconductor"
-      ],
-      "expansionOnlyIf": [
-        "약물",
-        "신약",
-        "의료 데이터",
-        "생명 윤리"
-      ],
-      "doNotUseAs": "컴퓨터공학·반도체공학의 직접 도서로 사용하지 않는다."
-    },
-    "부분과 전체": {
-      "domains": [
-        "engineering_physics_math",
-        "science_method",
-        "science_philosophy"
-      ],
-      "bestFor": [
-        "물리학",
-        "공학계열",
-        "수학·데이터 계열"
-      ],
-      "reportRoles": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion"
-      ],
-      "triggers": [
-        "측정",
-        "관찰",
-        "물리",
-        "시스템",
-        "모델링",
-        "과학의 측정"
-      ]
-    },
-    "객관성의 칼날": {
-      "domains": [
-        "science_method",
-        "science_history",
-        "science_philosophy"
-      ],
-      "bestFor": [
-        "자연과학",
-        "공학계열",
-        "사회과학 방법론"
-      ],
-      "reportRoles": [
-        "analysisFrame",
-        "comparisonFrame",
-        "limitationDiscussion"
-      ],
-      "triggers": [
-        "측정",
-        "객관성",
-        "표준",
-        "과학사",
-        "과학적 판단"
-      ]
-    },
-    "엔트로피": {
-      "domains": [
-        "environment_energy",
-        "engineering_physics_math"
-      ],
-      "bestFor": [
-        "환경공학",
-        "에너지공학",
-        "물리학"
-      ],
-      "reportRoles": [
-        "conceptExplanation",
-        "analysisFrame",
-        "conclusionExpansion"
-      ],
-      "triggers": [
-        "에너지",
-        "열역학",
-        "시스템",
-        "환경",
-        "지속가능성"
-      ],
-      "avoidDirectFor": [
-        "engineering_information"
-      ]
-    },
-    "혼돈으로부터의 질서": {
-      "domains": [
-        "engineering_physics_math",
-        "science_method"
-      ],
-      "bestFor": [
-        "수학",
-        "물리학",
-        "컴퓨터공학",
-        "데이터과학"
-      ],
-      "reportRoles": [
-        "analysisFrame",
-        "limitationDiscussion"
-      ],
-      "triggers": [
-        "혼돈",
-        "카오스",
-        "모델링",
-        "시스템",
-        "예측"
-      ]
-    },
-    "페르마의 마지막 정리": {
-      "domains": [
-        "engineering_physics_math"
-      ],
-      "bestFor": [
-        "수학",
-        "컴퓨터공학",
-        "데이터과학"
-      ],
-      "reportRoles": [
-        "analysisFrame",
-        "conceptExplanation"
-      ],
-      "triggers": [
-        "수리",
-        "수학",
-        "증명",
-        "모델링",
-        "논리"
-      ]
-    },
-    "코스모스": {
-      "domains": [
-        "science_method",
-        "science_history",
-        "environment_energy"
-      ],
-      "bestFor": [
-        "물리학",
-        "천문학",
-        "지구과학",
-        "공학계열"
-      ],
-      "reportRoles": [
-        "intro",
-        "conclusionExpansion"
-      ],
-      "triggers": [
-        "우주",
-        "지구",
-        "기후",
-        "과학적 관점"
-      ],
-      "avoidDirectFor": [
-        "engineering_information"
-      ]
-    },
-    "침묵의 봄": {
-      "domains": [
-        "environment_energy",
-        "environment_social",
-        "bio_science"
-      ],
-      "bestFor": [
-        "환경공학",
-        "화학",
-        "생명과학"
-      ],
-      "reportRoles": [
-        "comparisonFrame",
-        "conclusionExpansion",
-        "limitationDiscussion"
-      ],
-      "triggers": [
-        "환경",
-        "화학물질",
-        "생태계",
-        "위험",
-        "사회적 영향"
-      ],
-      "avoidDirectFor": [
-        "engineering_information"
-      ]
-    },
-    "총, 균, 쇠": {
-      "domains": [
-        "environment_social",
-        "science_history"
-      ],
-      "bestFor": [
-        "지리",
-        "환경",
-        "사회과학"
-      ],
-      "reportRoles": [
-        "comparisonFrame",
-        "conclusionExpansion"
-      ],
-      "triggers": [
-        "기후",
-        "환경",
-        "지리",
-        "문명",
-        "사회적 확장"
-      ],
-      "avoidDirectFor": [
-        "engineering_information",
-        "engineering_semiconductor"
-      ]
-    },
-    "경영학 콘서트": {
-      "domains": [
-        "social_business",
-        "engineering_data"
-      ],
-      "bestFor": [
-        "경영학",
-        "산업공학",
-        "데이터분석"
-      ],
-      "reportRoles": [
-        "application",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "데이터",
-        "마케팅",
-        "의사결정",
-        "최적화"
-      ],
-      "avoidDirectFor": [
-        "engineering_semiconductor"
-      ]
-    },
-    "공정하다는 착각": {
-      "domains": [
-        "social_policy",
-        "humanities_social"
-      ],
-      "bestFor": [
-        "사회학",
-        "교육학",
-        "정치외교",
-        "윤리"
-      ],
-      "reportRoles": [
-        "conclusionExpansion",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "공정",
-        "능력주의",
-        "불평등"
-      ],
-      "avoidDirectFor": [
-        "engineering_information",
-        "engineering_semiconductor"
-      ]
-    },
-    "20세기 수학의 다섯가지 황금률": {
-      "domains": [
-        "engineering_information",
-        "engineering_data",
-        "engineering_physics_math"
-      ],
-      "bestFor": [
-        "컴퓨터공학과",
-        "데이터사이언스학과",
-        "인공지능학과",
-        "통계학과",
-        "수학과"
-      ],
-      "reportRoles": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion"
-      ],
-      "triggers": [
-        "수학",
-        "알고리즘",
-        "통계",
-        "데이터",
-        "모델링",
-        "예측",
-        "확률",
-        "함수",
-        "계산"
-      ],
-      "doNotUseAs": "감시사회·문학적 비판 중심 확장 도서가 아니라, 데이터·알고리즘·수학적 모델링의 직접 근거 도서로 우선 사용한다."
-    },
-    "카오스": {
-      "domains": [
-        "engineering_data",
-        "engineering_physics_math",
-        "science_method"
-      ],
-      "bestFor": [
-        "컴퓨터공학과",
-        "데이터사이언스학과",
-        "물리학과",
-        "수학과"
-      ],
-      "reportRoles": [
-        "analysisFrame",
-        "limitationDiscussion",
-        "conceptExplanation"
-      ],
-      "triggers": [
-        "카오스",
-        "혼돈",
-        "예측",
-        "모델링",
-        "시스템",
-        "데이터",
-        "그래프",
-        "비선형"
-      ],
-      "doNotUseAs": "단순 과학 고전 요약이 아니라, 예측 가능성·모델 한계·데이터 변동성 분석 근거로 사용한다."
-    },
-    "팩트풀니스": {
-      "domains": [
-        "engineering_data",
-        "science_method"
-      ],
-      "bestFor": [
-        "데이터사이언스학과",
-        "컴퓨터공학과",
-        "통계학과",
-        "경영학과",
-        "미디어커뮤니케이션학과"
-      ],
-      "reportRoles": [
-        "analysisFrame",
-        "limitationDiscussion",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "데이터",
-        "통계",
-        "자료",
-        "편향",
-        "리터러시",
-        "세계관",
-        "시각화"
-      ],
-      "doNotUseAs": "데이터 자체 분석 없이 단순 사회 비평 도서로만 사용하지 않는다."
-    },
-    "1984": {
-      "domains": [
-        "science_philosophy"
-      ],
-      "bestFor": [
-        "컴퓨터공학과",
-        "정보보호학과",
-        "미디어커뮤니케이션학과",
-        "사회학과"
-      ],
-      "reportRoles": [
-        "conclusionExpansion",
-        "limitationDiscussion",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "감시",
-        "통제",
-        "정보",
-        "디지털",
-        "네트워크",
-        "정보 윤리",
-        "플랫폼"
-      ],
-      "doNotUseAs": "데이터 예측·로그모델·신호 용량의 직접 원리 도서로 사용하지 않고, 감시사회·정보윤리 확장 도서로 사용한다."
-    },
-    "미디어의 이해": {
-      "domains": [
-        "science_philosophy"
-      ],
-      "bestFor": [
-        "미디어커뮤니케이션학과",
-        "컴퓨터공학과",
-        "정보사회 관련 전공"
-      ],
-      "reportRoles": [
-        "conclusionExpansion",
-        "analysisFrame",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "미디어",
-        "플랫폼",
-        "정보",
-        "네트워크",
-        "디지털",
-        "인공지능",
-        "기술 환경"
-      ],
-      "doNotUseAs": "알고리즘·데이터 모델링 직접 근거로 고정하지 않고, 정보 환경과 매체 구조 확장 관점으로 사용한다."
-    },
-    "감시와 처벌": {
-      "domains": [
-        "science_philosophy"
-      ],
-      "bestFor": [
-        "정보보호학과",
-        "컴퓨터공학과",
-        "사회학과",
-        "법학과"
-      ],
-      "reportRoles": [
-        "conclusionExpansion",
-        "limitationDiscussion",
-        "comparisonFrame"
-      ],
-      "triggers": [
-        "감시",
-        "알고리즘",
-        "플랫폼",
-        "디지털",
-        "정보보호",
-        "규율",
-        "시스템"
-      ],
-      "doNotUseAs": "컴퓨터공학의 수리·모델링 직접 도서가 아니라 디지털 감시와 윤리 확장 도서로 사용한다."
-    },
-    "제3의 물결": {
-      "domains": [
-        "science_philosophy",
-        "science_history"
-      ],
-      "bestFor": [
-        "컴퓨터공학과",
-        "정보사회 관련 전공",
-        "사회학과",
-        "경영학과"
-      ],
-      "reportRoles": [
-        "conclusionExpansion",
-        "comparisonFrame",
-        "application"
-      ],
-      "triggers": [
-        "정보화",
-        "기술",
-        "지식 사회",
-        "혁신",
-        "디지털",
-        "공동체"
-      ],
-      "doNotUseAs": "데이터 예측의 직접 수리 근거가 아니라 정보화 사회의 변화와 확장 관점으로 사용한다."
-    }
-  },
-  "reportRoleDefinitions": {
-    "intro": "문제의식과 탐구 필요성을 제시하는 도입부 근거",
-    "conceptExplanation": "선택 개념을 설명하는 핵심 이론/원리 근거",
-    "analysisFrame": "자료·사례·현상을 분석하는 관점 제공",
-    "comparisonFrame": "비교 기준이나 대조 관점 제공",
-    "limitationDiscussion": "자료 해석의 한계·오차·판단 편향 논의",
-    "conclusionExpansion": "보고서 결론에서 사회적 의미나 진로 확장으로 연결",
-    "application": "실생활·산업·진로 사례 적용"
-  },
-  "axisProfiles": {
-    "math_data_modeling": {
-      "label": "수리·데이터 모델링 축",
-      "patterns": [
-        "수리",
-        "데이터",
-        "모델링",
-        "통계",
-        "알고리즘",
-        "예측",
-        "시뮬레이션",
-        "그래프",
-        "자료"
-      ],
-      "preferredDomains": [
-        "engineering_information",
-        "engineering_data",
-        "engineering_physics_math",
-        "science_method"
-      ],
-      "expansionDomains": [
-        "science_philosophy",
-        "science_history",
-        "environment_energy"
-      ],
-      "titleBoost": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "혼돈으로부터의 질서",
-        "팩트풀니스",
-        "페르마의 마지막 정리"
-      ],
-      "titleDemote": [
-        "엔트로피",
-        "코스모스",
-        "침묵의 봄",
-        "총, 균, 쇠",
-        "1984",
-        "감시와 처벌",
-        "미디어의 이해",
-        "제3의 물결",
-        "부분과 전체"
-      ],
-      "reportRolePriority": [
-        "analysisFrame",
-        "limitationDiscussion",
-        "conceptExplanation"
-      ]
-    },
-    "signal_network_capacity": {
-      "label": "신호·네트워크·용량 해석 축",
-      "patterns": [
-        "신호",
-        "채널",
-        "용량",
-        "네트워크",
-        "통신",
-        "전송",
-        "정보량",
-        "정보 시스템",
-        "컴퓨팅",
-        "데이터 전송"
-      ],
-      "preferredDomains": [
-        "engineering_information",
-        "engineering_data",
-        "engineering_physics_math",
-        "science_method"
-      ],
-      "expansionDomains": [
-        "science_philosophy",
-        "science_history"
-      ],
-      "titleBoost": [
-        "20세기 수학의 다섯가지 황금률",
-        "카오스",
-        "미디어의 이해"
-      ],
-      "titleDemote": [
-        "엔트로피",
-        "코스모스",
-        "침묵의 봄",
-        "총, 균, 쇠",
-        "1984"
-      ],
-      "reportRolePriority": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion",
-        "application"
-      ]
-    },
-    "physics_system": {
-      "label": "물리·시스템 해석 축",
-      "patterns": [
-        "물리",
-        "시스템",
-        "센서",
-        "측정",
-        "속도",
-        "카메라",
-        "에너지",
-        "전자기",
-        "양자",
-        "오차"
-      ],
-      "preferredDomains": [
-        "engineering_physics_math",
-        "science_method",
-        "science_philosophy",
-        "environment_energy"
-      ],
-      "expansionDomains": [
-        "science_history",
-        "engineering_data"
-      ],
-      "titleBoost": [
-        "부분과 전체",
-        "엔트로피",
-        "객관성의 칼날",
-        "혼돈으로부터의 질서",
-        "코스모스"
-      ],
-      "titleDemote": [
-        "총, 균, 쇠",
-        "침묵의 봄",
-        "경영학 콘서트"
-      ],
-      "reportRolePriority": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion"
-      ]
-    },
-    "earth_environment_data": {
-      "label": "지구·환경 데이터 해석 축",
-      "patterns": [
-        "지구",
-        "환경",
-        "기후",
-        "폭염",
-        "생태",
-        "대기",
-        "기상",
-        "지속가능",
-        "에너지",
-        "사회적 영향"
-      ],
-      "preferredDomains": [
-        "environment_energy",
-        "environment_social",
-        "science_method",
-        "science_history"
-      ],
-      "expansionDomains": [
-        "engineering_data",
-        "science_philosophy",
-        "social_policy"
-      ],
-      "titleBoost": [
-        "엔트로피",
-        "침묵의 봄",
-        "총, 균, 쇠",
-        "코스모스",
-        "객관성의 칼날"
-      ],
-      "titleDemote": [
-        "페르마의 마지막 정리",
-        "부분과 전체"
-      ],
-      "reportRolePriority": [
-        "conclusionExpansion",
-        "analysisFrame",
-        "comparisonFrame"
-      ]
-    },
-    "information_society_ethics": {
-      "label": "정보사회·디지털 윤리 확장 축",
-      "patterns": [
-        "감시",
-        "플랫폼",
-        "정보 윤리",
-        "디지털 시민성",
-        "정보 보호",
-        "정보사회",
-        "지식 정보 사회",
-        "미디어",
-        "기술 윤리",
-        "정보 문화"
-      ],
-      "preferredDomains": [
-        "science_philosophy",
-        "science_history",
-        "engineering_information"
-      ],
-      "expansionDomains": [
-        "engineering_data",
-        "social_policy"
-      ],
-      "titleBoost": [
-        "1984",
-        "감시와 처벌",
-        "미디어의 이해",
-        "제3의 물결"
-      ],
-      "titleDemote": [
-        "엔트로피",
-        "페르마의 마지막 정리",
-        "코스모스",
-        "침묵의 봄"
-      ],
-      "reportRolePriority": [
-        "conclusionExpansion",
-        "limitationDiscussion",
-        "comparisonFrame"
-      ]
-    },
-    "generic_science_method": {
-      "label": "과학 방법·측정 일반 축",
-      "patterns": [
-        "측정",
-        "표준",
-        "관찰",
-        "객관성",
-        "과학적 판단"
-      ],
-      "preferredDomains": [
-        "science_method",
-        "science_philosophy",
-        "engineering_physics_math"
-      ],
-      "expansionDomains": [
-        "science_history",
-        "engineering_data",
-        "environment_energy"
-      ],
-      "titleBoost": [
-        "객관성의 칼날",
-        "부분과 전체",
-        "코스모스"
-      ],
-      "titleDemote": [],
-      "reportRolePriority": [
-        "conceptExplanation",
-        "analysisFrame",
-        "limitationDiscussion"
-      ]
-    }
-  }
-};
+  };
 
   const GENERIC_TOKENS = new Set([
     "과학","사회","우리","기반","후속","연계","해석","선택","개념","키워드","보고서","탐구",
@@ -1241,73 +1337,6 @@
     return uniq(roles.length ? roles : ["analysisFrame"]);
   }
 
-
-  const AXIS_PROFILE_OVERRIDES_V89 = Object.freeze({
-    real_life_change_modeling: {
-      id: "real_life_change_modeling",
-      label: "실생활 변화 모델링 축",
-      patterns: ["실생활 변화 모델링", "생활 변화", "변화 모델링", "real_life_change_modeling"],
-      preferredDomains: ["engineering_data", "engineering_physics_math", "science_method", "engineering_information"],
-      expansionDomains: ["science_philosophy", "science_history"],
-      titleBoost: ["카오스", "20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서"],
-      titleDemote: ["팩트풀니스", "부분과 전체", "객관성의 칼날", "1984", "감시와 처벌", "미디어의 이해", "제3의 물결"],
-      reportRolePriority: ["analysisFrame", "conceptExplanation", "limitationDiscussion"]
-    },
-    signal_network_capacity: {
-      id: "signal_network_capacity",
-      label: "신호·용량 해석 축",
-      patterns: ["신호", "용량", "채널", "전송", "정보량", "signal", "capacity", "signal_capacity", "signal_media", "compression_transfer"],
-      preferredDomains: ["engineering_physics_math", "engineering_information", "science_method", "engineering_data"],
-      expansionDomains: ["science_philosophy", "science_history"],
-      titleBoost: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
-      titleDemote: ["카오스", "혼돈으로부터의 질서", "팩트풀니스", "1984", "감시와 처벌", "엔트로피", "코스모스", "침묵의 봄"],
-      reportRolePriority: ["conceptExplanation", "analysisFrame", "limitationDiscussion"]
-    },
-    prediction_data_analysis: {
-      id: "prediction_data_analysis",
-      label: "예측·데이터 해석 축",
-      patterns: ["예측·데이터", "예측 데이터", "데이터 해석", "예측·자료", "prediction_data_analysis", "data_analysis"],
-      preferredDomains: ["engineering_data", "science_method", "engineering_information", "engineering_physics_math"],
-      expansionDomains: ["science_philosophy", "science_history"],
-      titleBoost: ["카오스", "혼돈으로부터의 질서", "팩트풀니스"],
-      titleDemote: ["부분과 전체", "객관성의 칼날", "1984", "감시와 처벌", "미디어의 이해", "제3의 물결", "엔트로피"],
-      reportRolePriority: ["analysisFrame", "limitationDiscussion", "comparisonFrame"]
-    },
-    information_society_ethics: {
-      id: "information_society_ethics",
-      label: "정보사회·디지털 윤리 확장 축",
-      patterns: ["정보사회", "디지털 윤리", "정보 윤리", "감시", "플랫폼", "정보 문화", "information_society_ethics", "social_policy"],
-      preferredDomains: ["science_philosophy", "science_history"],
-      expansionDomains: ["engineering_information", "engineering_data", "social_policy"],
-      titleBoost: ["1984", "감시와 처벌", "미디어의 이해", "제3의 물결"],
-      titleDemote: ["20세기 수학의 다섯가지 황금률", "카오스", "혼돈으로부터의 질서", "팩트풀니스", "부분과 전체", "객관성의 칼날", "엔트로피", "페르마의 마지막 정리"],
-      reportRolePriority: ["conclusionExpansion", "limitationDiscussion", "comparisonFrame"]
-    }
-  });
-
-  function mergeAxisProfileOverride(base, override){
-    const src = base || {};
-    const patch = override || {};
-    return Object.assign({}, src, patch, {
-      patterns: uniq(arr(src.patterns).concat(arr(patch.patterns))),
-      preferredDomains: uniq(arr(src.preferredDomains).concat(arr(patch.preferredDomains))),
-      expansionDomains: uniq(arr(src.expansionDomains).concat(arr(patch.expansionDomains))),
-      titleBoost: uniq(arr(patch.titleBoost).concat(arr(src.titleBoost))),
-      titleDemote: uniq(arr(patch.titleDemote).concat(arr(src.titleDemote))),
-      reportRolePriority: uniq(arr(patch.reportRolePriority).concat(arr(src.reportRolePriority)))
-    });
-  }
-
-  function getForcedAxisProfileIdV89(terms){
-    const axisText = normalize(terms && terms.axis);
-    if (!axisText) return "";
-    if (/(신호|용량|채널|전송|정보량|signal|capacity|signalmedia|compressiontransfer)/.test(axisText)) return "signal_network_capacity";
-    if (/(정보사회|디지털윤리|정보윤리|정보문화|감시|플랫폼|socialpolicy|informationsocietyethics)/.test(axisText)) return "information_society_ethics";
-    if (/(예측데이터|데이터해석|predictiondataanalysis|dataanalysis)/.test(axisText)) return "prediction_data_analysis";
-    if (/(실생활변화|변화모델링|reallifechangemodeling)/.test(axisText)) return "real_life_change_modeling";
-    return "";
-  }
-
   function buildSelectedBookContext(book, terms, majorGroup, domain, role, type, rules){
     const roleDefinitions = rules.reportRoleDefinitions || {};
     const roles = role.roles || [];
@@ -1353,33 +1382,38 @@
 
   function inferAxisProfile(terms, rules){
     const profiles = rules.axisProfiles || {};
-    const forcedId = getForcedAxisProfileIdV89(terms);
-    if (forcedId) {
-      const baseId = forcedId === "real_life_change_modeling" ? "math_data_modeling" : forcedId;
-      const base = profiles[baseId] || profiles.math_data_modeling || profiles.generic_science_method || {};
-      const override = AXIS_PROFILE_OVERRIDES_V89[forcedId] || AXIS_PROFILE_OVERRIDES_V89[baseId] || {};
-      return { id: forcedId, score: 999, profile: mergeAxisProfileOverride(base, override) };
+    const axisText = normalize(terms.axis || "");
+    const keywordText = normalize(terms.selectedKeyword || "");
+    const conceptText = normalize(terms.selectedConcept || "");
+    const allText = [conceptText, keywordText, axisText].filter(Boolean).join(" ");
+
+    // v91.1: 5번 도서는 3번 추천 키워드보다 4번 후속 연계축을 우선한다.
+    // 기존에는 '데이터 예측' 키워드가 너무 강해서 신호·용량/변화 모델링 축도 모두
+    // math_data_modeling으로 수렴했다. 축 제목·id·domain 텍스트를 먼저 직접 판별한다.
+    const directAxisRules = [
+      ["signal_network_capacity", /(신호|용량|채널|네트워크|통신|전송|정보량|정보 시스템|데이터 전송)/],
+      ["information_society_ethics", /(윤리|감시|플랫폼|정보사회|지식 정보 사회|디지털|미디어|정보 문화|정보 보호)/],
+      ["prediction_data_interpretation", /(예측\s*[·ㆍ-]?\s*데이터\s*해석|데이터\s*해석|자료\s*해석|통계\s*판단|편향\s*점검|그래프\s*해석|예측\s*한계|데이터\s*예측\s*축)/],
+      ["real_life_change_modeling", /(실생활\s*변화|변화\s*모델링|생활\s*변화|현상\s*변화|시간에\s*따른\s*변화|변화\s*양상|함수\s*변화|변화율)/]
+    ];
+
+    for (const [id, pattern] of directAxisRules) {
+      if (profiles[id] && pattern.test(axisText)) {
+        return { id, score: 100, profile: profiles[id] };
+      }
     }
 
-    // v89: 4번 후속 연계축이 도서군을 갈라야 하므로 axis 텍스트를 가장 강하게 본다.
-    // selectedKeyword의 '데이터/예측' 단어가 모든 축을 수리·데이터 모델링으로 끌고 가는 문제를 막는다.
-    const axisText = normalize(terms.axis || "");
-    const conceptText = normalize(terms.selectedConcept || "");
-    const keywordText = normalize(terms.selectedKeyword || "");
-    const profilesWithOverrides = Object.assign({}, profiles, {
-      prediction_data_analysis: AXIS_PROFILE_OVERRIDES_V89.prediction_data_analysis,
-      real_life_change_modeling: AXIS_PROFILE_OVERRIDES_V89.real_life_change_modeling
-    });
     let best = { id: "generic_science_method", score: 0, profile: profiles.generic_science_method || {} };
 
-    Object.entries(profilesWithOverrides).forEach(([id, profile]) => {
+    Object.entries(profiles).forEach(([id, profile]) => {
       let score = 0;
       (profile.patterns || []).forEach(p => {
         const n = normalize(p);
         if (!n) return;
-        if (axisText.includes(n)) score += 10;
-        if (conceptText.includes(n)) score += 2;
-        if (keywordText.includes(n)) score += 1;
+        if (axisText.includes(n)) score += 12;
+        else if (keywordText.includes(n)) score += 2;
+        else if (conceptText.includes(n)) score += 1;
+        else if (allText.includes(n)) score += 1;
       });
       if (score > best.score) best = { id, score, profile };
     });
@@ -1405,11 +1439,11 @@
     }
 
     if ((profile.titleBoost || []).includes(title)) {
-      boost += 28;
+      boost += 84;
       reasons.push("후속 연계축 대표 도서");
     }
     if ((profile.titleDemote || []).includes(title)) {
-      boost -= 28;
+      boost -= 72;
       reasons.push("후속 연계축 직접성 낮음");
     }
 
