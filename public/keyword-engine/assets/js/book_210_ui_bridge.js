@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v20-book-a2-signal-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v21-book-a2-channel-axis-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -834,6 +834,157 @@
   }
 
 
+  function isBookA2ChannelCapacityContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
+    const isAlgebra = /대수/.test(subjectText);
+    const isExpLogUse = /지수함수와\s*로그함수의\s*활용/.test(conceptText);
+    const isChannelCapacityKeyword = /채널\s*용량/.test(keywordText);
+    return !!(isComputer && isAlgebra && isExpLogUse && isChannelCapacityKeyword);
+  }
+
+  function inferBookA2ChannelAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    // 실제 화면 기준: 변화 모델링축 / 로그 스케일 해석 / 데이터 예측
+    if (/(로그\s*스케일|로그\s*세케일|log\s*scale|로그\s*구조|역함수\s*해석|scale\s*interpretation)/i.test(axisText)) {
+      return "log_scale_interpretation";
+    }
+    if (/(데이터\s*예측|예측\s*데이터|future\s*prediction|prediction\s*data|자료\s*예측|예측\s*해석)/i.test(axisText)) {
+      return "data_prediction";
+    }
+    if (/(변화\s*모델링|실생활\s*변화|생활\s*변화|현상\s*변화|change\s*modeling|real\s*world\s*change|real\s*life\s*change)/i.test(axisText)) {
+      return "change_modeling";
+    }
+    return "";
+  }
+
+  function buildLockedBookContextA2Channel(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      change_modeling: "변화 모델링축",
+      log_scale_interpretation: "로그 스케일 해석 축",
+      data_prediction: "데이터 예측 축"
+    };
+    const axisUseMap = {
+      change_modeling: {
+        direct: "채널 용량을 고정값이 아니라 입력·잡음·환경 변화에 따라 달라지는 모델로 해석하는 근거로 활용합니다.",
+        role: ["변화 모델링 근거", "비선형 변화 해석", "모델 한계 논의"]
+      },
+      log_scale_interpretation: {
+        direct: "로그 스케일이 큰 차이를 압축해 비교하게 해 주는 원리를 채널 용량·정보량 해석과 연결할 때 활용합니다.",
+        role: ["로그 스케일 원리", "정보량 비교 프레임", "수학적 해석 근거"]
+      },
+      data_prediction: {
+        direct: "자료를 근거로 예측하고 판단할 때 채널 용량·데이터 해석이 어떤 기준을 제공하는지 설명하는 근거로 활용합니다.",
+        role: ["데이터 판단 근거", "예측 해석 프레임", "편향·한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.change_modeling;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) BOOK-A2 채널 용량 - ${axisLabel}에서 보고서 핵심 근거로 우선 배치한 직접 일치 도서입니다.`
+        : `${title}은(는) BOOK-A2 채널 용량 - ${axisLabel}에서 사회적 의미·한계·비교 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`BOOK-A2 채널 용량 ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["사회적 의미 확장", "기술·정보사회 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 채널 용량을 변화·로그 스케일·데이터 예측 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·윤리·미디어 환경 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "채널 용량이나 데이터 해석에서 생기는 정보 손실, 모델 제약, 판단 편향을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 정보사회, 미디어 환경, 기술 윤리, 사회적 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA2ChannelRank: rank,
+      bookA2ChannelAxis: axisId
+    };
+  }
+
+  function cloneBookForA2ChannelLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 7000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`BOOK-A2 채널 용량 ${axisId} ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextA2Channel(book, ctx, sectionType, axisId, rank),
+      bookA2ChannelLock: true,
+      bookA2ChannelLockRank: rank,
+      bookA2ChannelAxisLock: axisId
+    };
+  }
+
+  function applyBookA2ChannelCapacityLock(result, ctx){
+    if (!result || !isBookA2ChannelCapacityContext(ctx)) return result;
+    const axisId = inferBookA2ChannelAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      change_modeling: ["카오스", "혼돈으로부터의 질서", "20세기 수학의 다섯가지 황금률"],
+      log_scale_interpretation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
+      data_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"]
+    };
+    const expansionMap = {
+      change_modeling: ["팩트풀니스", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"],
+      log_scale_interpretation: ["카오스", "팩트풀니스", "부분과 전체", "미디어의 이해", "제3의 물결"],
+      data_prediction: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "미디어의 이해", "1984", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA2ChannelLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA2ChannelLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA2ChannelCapacityLock: axisId,
+        bookA2ChannelDirectTitles: directBooks.map(book => book.title),
+        bookA2ChannelExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -864,6 +1015,7 @@
     // 어댑터/캐시/기존 평가 점수가 개입하더라도 UI 최종 단계에서 한 번 더 축별 도서군을 잠근다.
     result = applyBookA1AxisLock(result, ctx);
     result = applyBookA2SignalLock(result, ctx);
+    result = applyBookA2ChannelCapacityLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
