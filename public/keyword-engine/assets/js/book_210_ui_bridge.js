@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v19-book-a1-ui-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v20-book-a2-signal-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -322,6 +322,77 @@
       ],
       keywords: ["감시", "규율", "알고리즘 감시", "플랫폼 사회", "자유", "권력"]
     }
+    ,
+    {
+      match: "부분과 전체",
+      about: [
+        "현대 물리학의 형성과 과학적 세계관의 변화를 다룬 과학 고전입니다.",
+        "컴퓨터·데이터 계열에서는 개별 데이터나 신호를 전체 시스템 맥락에서 해석해야 한다는 관점을 설명할 때 활용할 수 있습니다.",
+        "신호·용량 해석 축에서는 정보가 단독으로 존재하는 것이 아니라 관측 조건, 시스템 구조, 해석 기준 속에서 의미를 갖는다는 점을 보여주는 근거가 됩니다."
+      ],
+      why: [
+        "신호·용량 해석 보고서에서 입력값 하나보다 시스템 전체 구조와 해석 조건이 중요하다는 관점을 제시할 수 있습니다.",
+        "자료나 신호를 단순 수치로만 보지 않고, 측정 조건·관찰자·해석 틀과 연결해 설명할 수 있습니다.",
+        "컴퓨터공학과의 정보 처리, 네트워크, 시스템 사고와 자연스럽게 연결됩니다."
+      ],
+      focus: [
+        "부분 정보와 전체 구조의 관계를 어떻게 설명하는지 확인합니다.",
+        "관측과 해석 조건이 결과 이해에 어떤 영향을 주는지 봅니다.",
+        "보고서에서는 신호나 데이터가 시스템 안에서 어떻게 의미를 갖는지 설명하는 문단에 활용합니다."
+      ],
+      keywords: ["부분과 전체", "시스템 사고", "정보 해석", "관측 조건", "구조적 이해", "과학적 판단", "신호 해석"]
+    },
+    {
+      match: "객관성의 칼날",
+      about: [
+        "과학이 객관성을 확보하기 위해 어떤 방법과 기준을 발전시켜 왔는지 설명하는 과학사·과학철학 도서입니다.",
+        "데이터와 신호를 해석할 때 측정 기준, 검증 과정, 오류 가능성을 함께 고려해야 한다는 관점을 제공합니다."
+      ],
+      why: [
+        "신호·용량 해석 축에서 측정값과 정보량을 그대로 받아들이지 않고, 어떤 기준으로 검증할지 설명할 수 있습니다.",
+        "보고서의 분석 방법, 오차 점검, 객관적 판단 기준을 세우는 데 적합합니다.",
+        "컴퓨터공학 보고서에서 알고리즘 결과나 데이터 해석의 신뢰성을 논의할 때 활용할 수 있습니다."
+      ],
+      focus: [
+        "과학적 객관성이 어떤 절차와 기준을 통해 만들어지는지 확인합니다.",
+        "데이터 해석에서 오류, 편향, 검증 기준을 어떻게 다룰지 봅니다.",
+        "보고서에서는 신호·데이터 분석의 신뢰성 점검 문단에 활용합니다."
+      ],
+      keywords: ["객관성", "검증 기준", "측정 오류", "데이터 신뢰성", "과학적 방법", "판단 기준", "신호 분석"]
+    },
+    {
+      match: "혼돈으로부터의 질서",
+      about: [
+        "복잡한 현상 속에서도 질서와 패턴이 어떻게 형성되는지 설명하는 과학 교양서입니다.",
+        "변화 모델링과 예측·데이터 해석에서 단순한 선형 관계를 넘어 복잡한 패턴을 이해하는 데 도움을 줍니다."
+      ],
+      why: [
+        "변화 모델링 축에서는 복잡한 변화 속 질서와 패턴을 찾는 관점으로 활용할 수 있습니다.",
+        "예측·데이터 해석 축에서는 데이터가 불규칙해 보여도 구조와 경향을 찾는 분석 방향을 제시합니다."
+      ],
+      focus: [
+        "불규칙한 변화 속에서 반복성, 패턴, 질서가 어떻게 드러나는지 확인합니다.",
+        "보고서에서는 모델의 설명 가능성과 한계를 함께 정리할 때 활용합니다."
+      ],
+      keywords: ["복잡계", "질서", "패턴", "비선형 변화", "예측 한계", "모델링", "자료 해석"]
+    },
+    {
+      match: "제3의 물결",
+      about: [
+        "정보화 사회로의 변화가 산업, 생활, 조직, 의사소통 방식을 어떻게 바꾸는지 설명하는 사회 변화 분석 도서입니다.",
+        "컴퓨터·데이터 계열에서는 기술이 사회 구조와 정보 환경을 바꾸는 과정을 확장적으로 설명할 때 활용할 수 있습니다."
+      ],
+      why: [
+        "신호·용량 해석 축에서는 정보 전달 기술이 사회의 소통 방식과 산업 구조를 어떻게 바꾸는지 확장할 수 있습니다.",
+        "직접 원리 설명보다는 결론에서 정보사회, 네트워크 사회, 기술 변화의 의미를 논의할 때 적합합니다."
+      ],
+      focus: [
+        "정보 기술이 사회 구조와 생활 방식을 바꾸는 과정을 확인합니다.",
+        "보고서 결론에서 기술 원리와 사회 변화의 연결 지점을 정리합니다."
+      ],
+      keywords: ["정보사회", "기술 변화", "네트워크 사회", "산업 구조", "정보 전달", "사회 변화", "디지털 전환"]
+    }
+
   ];
 
   function getBookDetailOverride(book){
@@ -666,6 +737,100 @@
   }
 
 
+  function isBookA2SignalContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const axisIdText = normalizeLockText([ctx.followupAxisId, ctx.linkTrack, ctx.axisLabel, ctx.axisDomain].join(" "));
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
+    const isAlgebra = /대수/.test(subjectText);
+    const isExpLogUse = /지수함수와\s*로그함수의\s*활용/.test(conceptText);
+    const isSignalKeyword = /(신호|채널|용량|정보량|데이터\s*전송|네트워크)/i.test(keywordText);
+    const isSignalAxis = /(signal\s*capacity\s*interpretation|신호\s*용량|신호|용량|채널|정보량|통신|네트워크)/i.test(axisIdText);
+    return !!(isComputer && isAlgebra && isExpLogUse && isSignalKeyword && isSignalAxis);
+  }
+
+  function buildLockedBookContextA2(book, ctx, sectionType, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabel = "신호·용량 해석 축";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) BOOK-A2 ${axisLabel}에서 정보량·신호 구조·시스템 해석을 설명하는 직접 일치 도서입니다.`
+        : `${title}은(는) BOOK-A2 ${axisLabel}에서 정보사회·미디어 환경·감시 윤리로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`BOOK-A2 ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? ["신호·용량 원리 설명", "시스템 해석 프레임", "측정·해석 한계 논의"] : ["정보사회 확장", "미디어·플랫폼 비교", "기술 윤리 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? "채널 용량, 정보량, 신호 해석처럼 선택한 4번 축의 핵심 원리를 설명할 때 활용합니다." : "",
+        analysisFrame: isDirect ? "신호가 시스템 안에서 전달·압축·해석되는 구조를 분석하는 프레임으로 활용합니다." : "",
+        comparisonFrame: !isDirect ? "정보 전달 기술이 사회와 미디어 환경을 어떻게 바꾸는지 비교할 때 활용합니다." : "",
+        limitationDiscussion: "신호·데이터 해석에서 생기는 정보 손실, 오차, 편향, 사회적 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 정보사회, 플랫폼, 감시, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA2Rank: rank
+    };
+  }
+
+  function cloneBookForA2SignalLock(book, ctx, sectionType, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6100 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`BOOK-A2 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextA2(book, ctx, sectionType, rank),
+      bookA2SignalLock: true,
+      bookA2SignalLockRank: rank
+    };
+  }
+
+  function applyBookA2SignalLock(result, ctx){
+    if (!result || !isBookA2SignalContext(ctx)) return result;
+
+    const directTitles = ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"];
+    const expansionTitles = ["미디어의 이해", "제3의 물결", "1984", "감시와 처벌", "팩트풀니스"];
+
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA2SignalLock(findBookForLock(title, result), ctx, "direct", index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA2SignalLock(findBookForLock(title, result), ctx, "expansion", index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA2SignalLock: true,
+        bookA2DirectTitles: directBooks.map(book => book.title),
+        bookA2ExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -695,6 +860,7 @@
     // v93: A-1은 화면에서 4번 세 축이 반드시 다른 직접 일치 도서 3권으로 보여야 한다.
     // 어댑터/캐시/기존 평가 점수가 개입하더라도 UI 최종 단계에서 한 번 더 축별 도서군을 잠근다.
     result = applyBookA1AxisLock(result, ctx);
+    result = applyBookA2SignalLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
