@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v24-hide-internal-book-label";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v25-a6-conditional-probability-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1474,6 +1474,171 @@
   }
 
 
+  function isBookA6ConditionalProbabilityContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터)/i.test(careerText);
+    const isProbability = /확률과\s*통계/.test(subjectText);
+    const isConditionalConcept = /조건부확률과\s*사건의\s*독립/.test(conceptText);
+    const isConditionalKeyword = /(조건부확률|독립|종속|사건|확률의\s*곱셈정리|기대값|판단|위험|의사결정|베이즈|조건|전환|분류|예측)/i.test(keywordText);
+    return !!(isComputer && isProbability && isConditionalConcept && isConditionalKeyword);
+  }
+
+  function inferBookA6ConditionalProbabilityAxis(ctx){
+    ctx = ctx || {};
+
+    // v111: 실제 4번 축명 우선 판정.
+    // 설명문에 '조건/사건/확률'이 반복되므로, axisLabel/linkTrack 계열을 먼저 보고
+    // activityExample/longitudinalPath는 보조 판정으로만 사용한다.
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 followup-axis 데이터 기준: 조건부확률 구조 / 사건 관계 분석 / 확률 논리 모델링
+      if (/(조건부확률\s*구조|조건부\s*확률\s*구조|conditional\s*probability|표본공간|조건\s*전후|조건\s*구조)/i.test(text)) {
+        return "conditional_probability_structure";
+      }
+      if (/(사건\s*관계|독립|종속|배반|포함|event\s*relation|사건.*분석|관계\s*분석)/i.test(text)) {
+        return "event_relation_analysis";
+      }
+      if (/(확률\s*논리|논리\s*모델링|경우\s*구분|조건\s*분기|probability\s*logic|logic\s*model|모델링)/i.test(text)) {
+        return "probability_logic_modeling";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA6ConditionalProbability(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      conditional_probability_structure: "조건부확률 구조 축",
+      event_relation_analysis: "사건 관계 분석 축",
+      probability_logic_modeling: "확률 논리 모델링 축"
+    };
+    const axisUseMap = {
+      conditional_probability_structure: {
+        direct: "조건이 주어졌을 때 표본공간과 확률 판단 기준이 어떻게 달라지는지 설명할 때 활용합니다.",
+        role: ["조건부확률 구조 설명", "표본공간 변화 해석", "조건 전후 비교 근거"]
+      },
+      event_relation_analysis: {
+        direct: "독립·종속·배반 등 사건 관계가 확률 계산과 판단 결과를 어떻게 바꾸는지 분석할 때 활용합니다.",
+        role: ["사건 관계 분석", "독립·종속 판단 근거", "확률 계산 조건 검토"]
+      },
+      probability_logic_modeling: {
+        direct: "조건과 경우를 나누어 확률 판단 과정을 논리 흐름이나 모델링 구조로 설명할 때 활용합니다.",
+        role: ["확률 논리 모델링", "조건 분기 해석", "판단 절차 구조화"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.conditional_probability_structure;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 조건부확률과 사건의 독립을 컴퓨터공학적 판단·분류·예측 구조로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 데이터 판단, 정보사회, 기술 윤리, 의사결정 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "의사결정 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 조건부확률을 표본공간 변화, 사건 관계, 확률 논리 모델링 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·의사결정·윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "조건부확률을 현실 데이터나 알고리즘 판단에 적용할 때 생기는 조건 누락, 표본 편향, 독립성 가정 오류를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 조건부 판단, 데이터 기반 분류, 알고리즘 의사결정의 사회적 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA6ConditionalProbabilityRank: rank,
+      bookA6ConditionalProbabilityAxis: axisId
+    };
+  }
+
+  function cloneBookForA6ConditionalProbabilityLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6600 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA6ConditionalProbability(book, ctx, sectionType, axisId, rank),
+      bookA6ConditionalProbabilityLock: true,
+      bookA6ConditionalProbabilityLockRank: rank,
+      bookA6ConditionalProbabilityAxisLock: axisId
+    };
+  }
+
+  function applyBookA6ConditionalProbabilityLock(result, ctx){
+    if (!result || !isBookA6ConditionalProbabilityContext(ctx)) return result;
+    const axisId = inferBookA6ConditionalProbabilityAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      conditional_probability_structure: ["팩트풀니스", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      event_relation_analysis: ["객관성의 칼날", "부분과 전체", "페르마의 마지막 정리"],
+      probability_logic_modeling: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"]
+    };
+    const expansionMap = {
+      conditional_probability_structure: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      event_relation_analysis: ["팩트풀니스", "방법서설", "신기관", "미디어의 이해", "1984"],
+      probability_logic_modeling: ["객관성의 칼날", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA6ConditionalProbabilityLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA6ConditionalProbabilityLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA6ConditionalProbabilityLock: axisId,
+        bookA6ConditionalProbabilityDirectTitles: directBooks.map(book => book.title),
+        bookA6ConditionalProbabilityExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1508,6 +1673,7 @@
     result = applyBookA3SequenceLock(result, ctx);
     result = applyBookA4InductionLock(result, ctx);
     result = applyBookA5CombinationLock(result, ctx);
+    result = applyBookA6ConditionalProbabilityLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
