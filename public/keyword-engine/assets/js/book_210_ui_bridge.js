@@ -1321,29 +1321,46 @@
 
   function inferBookA5CombinationAxis(ctx){
     ctx = ctx || {};
-    const axisText = normalizeLockText([
+
+    // v110: 4번 축명은 activityExample/longitudinalPath보다 우선한다.
+    // 기존 v109는 전체 ctx를 한 문자열로 합친 뒤 '탐색/분기'를 먼저 검사해서,
+    // 실제 축명이 '조합·알고리즘 구조 축'이어도 설명문 안의 '탐색' 단어 때문에
+    // search_branch_design 도서군으로 밀리는 문제가 있었다.
+    const primaryAxisText = normalizeLockText([
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisLabel,
       ctx.trackLabel,
-      ctx.linkTrackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
       ctx.axisDomain,
       Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
       ctx.activityExample,
       ctx.longitudinalPath
     ].join(" "));
 
-    // 실제 followup-axis 데이터 기준: 조합·알고리즘 구조 / 탐색·분기 설계 / 경우 비교·전략
-    if (/(탐색|분기|search\s*branch|branch\s*design|선택\s*구조|조건\s*분기)/i.test(axisText)) {
-      return "search_branch_design";
-    }
-    if (/(경우\s*비교|전략|strategy|comparison|전략\s*비교|해결\s*전략)/i.test(axisText)) {
-      return "case_strategy_comparison";
-    }
-    if (/(조합|알고리즘\s*구조|combination\s*algorithm|algorithm\s*structure|경우의\s*수|선택.*배열)/i.test(axisText)) {
-      return "combination_algorithm_structure";
-    }
-    return "";
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 followup-axis 데이터 기준: 조합·알고리즘 구조 / 탐색·분기 설계 / 경우 비교·전략
+      // '조합·알고리즘 구조' 축 설명에는 탐색이라는 단어가 함께 들어갈 수 있으므로
+      // 조합·알고리즘 구조를 탐색·분기보다 먼저 판정한다.
+      if (/(조합|알고리즘\s*구조|combination\s*algorithm|algorithm\s*structure|경우의\s*수|선택.*배열)/i.test(text)) {
+        return "combination_algorithm_structure";
+      }
+      if (/(경우\s*비교|전략|strategy|comparison|전략\s*비교|해결\s*전략)/i.test(text)) {
+        return "case_strategy_comparison";
+      }
+      if (/(탐색|분기|search\s*branch|branch\s*design|선택\s*구조|조건\s*분기)/i.test(text)) {
+        return "search_branch_design";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
   }
 
   function buildLockedBookContextA5Combination(book, ctx, sectionType, axisId, rank){
