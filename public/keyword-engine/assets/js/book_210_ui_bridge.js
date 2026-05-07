@@ -2129,6 +2129,169 @@
   }
 
 
+  function isBookA10InfoProgrammingContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|자동화)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isProgrammingConcept = /프로그래밍\s*과\s*자동화/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isProgrammingKeyword = /(python|파이썬|프로그래밍|코드|원시\s*코드|변수\s*설계|입력\s*과\s*출력|입력|출력|함수|조건문|반복문|리스트|리스트\s*내포|random\s*모듈|랜덤|turtle\s*그래픽|터틀|자동화|시뮬레이션)/i.test(keywordText);
+    return !!(isComputer && isInfo && isProgrammingConcept && isProgrammingKeyword);
+  }
+
+  function inferBookA10InfoProgrammingAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 프로그래밍과 자동화 → 프로그래밍 구현 / 논리·제어 확장 / 자동화·시뮬레이션.
+      if (/(logic_control|논리\s*[·ㆍ]?\s*제어|제어\s*확장|조건\s*[·ㆍ]?\s*반복|조건문|반복문|분기|리스트)/i.test(text)) {
+        return "logic_control";
+      }
+      if (/(automation_sim|자동화\s*[·ㆍ]?\s*시뮬레이션|자동화|시뮬레이션|random|랜덤|turtle|터틀|그래픽)/i.test(text)) {
+        return "automation_sim";
+      }
+      if (/(programming_impl|프로그래밍\s*구현|코드\s*구현|python|파이썬|변수|입력|출력|함수|원시\s*코드)/i.test(text)) {
+        return "programming_impl";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA10InfoProgramming(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      programming_impl: "프로그래밍 구현 축",
+      logic_control: "논리·제어 확장 축",
+      automation_sim: "자동화·시뮬레이션 축"
+    };
+    const axisUseMap = {
+      programming_impl: {
+        direct: "입력-처리-출력 구조와 변수 설계를 실제 코드 구현 흐름으로 설명할 때 활용합니다.",
+        role: ["코드 구현 흐름", "변수·입출력 설계", "구현 조건 한계 논의"]
+      },
+      logic_control: {
+        direct: "조건문과 반복문이 문제 해결 절차를 어떻게 제어하고 분기시키는지 설명할 때 활용합니다.",
+        role: ["조건·반복 구조", "제어 흐름 비교", "논리 설계 한계 논의"]
+      },
+      automation_sim: {
+        direct: "반복 작업을 자동화하거나 random·turtle 등을 활용해 간단한 시뮬레이션을 구성하는 과정을 설명할 때 활용합니다.",
+        role: ["자동화 절차", "시뮬레이션 설계", "실행 결과 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.programming_impl;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 프로그래밍과 자동화를 컴퓨터공학의 구현·제어·자동화 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 자동화 기술의 사회적 의미, 정보사회, 기술 윤리 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "자동화 윤리 비교", "기술 활용 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 프로그래밍과 자동화를 프로그래밍 구현, 논리·제어 확장, 자동화·시뮬레이션 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·윤리·플랫폼 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "프로그램을 현실 문제에 적용할 때 생기는 입력 조건 제한, 코드 구조 단순화, 자동화 오류, 실행 결과 해석의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 프로그래밍 자동화와 정보사회, 자동화 의사결정, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA10InfoProgrammingRank: rank,
+      bookA10InfoProgrammingAxis: axisId
+    };
+  }
+
+  function cloneBookForA10InfoProgrammingLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6200 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA10InfoProgramming(book, ctx, sectionType, axisId, rank),
+      bookA10InfoProgrammingLock: true,
+      bookA10InfoProgrammingLockRank: rank,
+      bookA10InfoProgrammingAxisLock: axisId
+    };
+  }
+
+  function applyBookA10InfoProgrammingLock(result, ctx){
+    if (!result || !isBookA10InfoProgrammingContext(ctx)) return result;
+    const axisId = inferBookA10InfoProgrammingAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      programming_impl: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      logic_control: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리"],
+      automation_sim: ["경영학 콘서트", "카오스", "혼돈으로부터의 질서"]
+    };
+    const expansionMap = {
+      programming_impl: ["부분과 전체", "미디어의 이해", "1984", "제3의 물결", "감시와 처벌"],
+      logic_control: ["부분과 전체", "방법서설", "미디어의 이해", "1984", "감시와 처벌"],
+      automation_sim: ["팩트풀니스", "객관성의 칼날", "미디어의 이해", "1984", "제3의 물결"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA10InfoProgrammingLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA10InfoProgrammingLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA10InfoProgrammingLock: axisId,
+        bookA10InfoProgrammingDirectTitles: directBooks.map(book => book.title),
+        bookA10InfoProgrammingExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2167,6 +2330,7 @@
     result = applyBookA7DistributionLock(result, ctx);
     result = applyBookA8InfoDataAnalysisLock(result, ctx);
     result = applyBookA9InfoAlgorithmLock(result, ctx);
+    result = applyBookA10InfoProgrammingLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
