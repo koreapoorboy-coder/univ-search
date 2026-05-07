@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v27-a8-info-data-analysis-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v28-a9-info-algorithm-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1966,6 +1966,169 @@
   }
 
 
+  function isBookA9InfoAlgorithmContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isAlgorithmConcept = /알고리즘\s*설계와\s*분석/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isAlgorithmKeyword = /(알고리즘|효율성|성능\s*비교|수행\s*시간|최적화|버블\s*정렬|선택\s*정렬|순차\s*탐색|이진\s*탐색|정렬|탐색|순차|선택|반복|규칙|예측|데이터\s*처리)/i.test(keywordText);
+    return !!(isComputer && isInfo && isAlgorithmConcept && isAlgorithmKeyword);
+  }
+
+  function inferBookA9InfoAlgorithmAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 알고리즘 설계와 분석 → 알고리즘 최적화 / 탐색·정렬 구현 / 데이터 처리·예측.
+      if (/(search_sort|탐색\s*[·ㆍ]?\s*정렬|탐색|정렬|버블|선택\s*정렬|이진\s*탐색|순차\s*탐색)/i.test(text)) {
+        return "search_sort_implementation";
+      }
+      if (/(data_prediction|데이터\s*처리|처리\s*[·ㆍ]?\s*예측|예측\s*처리|예측|규칙|반복\s*구조)/i.test(text)) {
+        return "data_processing_prediction";
+      }
+      if (/(algo_opt|알고리즘\s*최적화|최적화|효율성|성능\s*비교|수행\s*시간)/i.test(text)) {
+        return "algorithm_optimization";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA9InfoAlgorithm(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      algorithm_optimization: "알고리즘 최적화 축",
+      search_sort_implementation: "탐색·정렬 구현 축",
+      data_processing_prediction: "데이터 처리·예측 축"
+    };
+    const axisUseMap = {
+      algorithm_optimization: {
+        direct: "같은 문제를 여러 알고리즘으로 해결했을 때 수행 시간과 효율성이 달라지는 이유를 설명할 때 활용합니다.",
+        role: ["알고리즘 효율 비교", "최적화 기준 설정", "성능 비교 한계 논의"]
+      },
+      search_sort_implementation: {
+        direct: "자료를 찾고 정렬하는 절차를 단계별 구현 흐름과 비교 기준으로 설명할 때 활용합니다.",
+        role: ["탐색·정렬 절차", "구현 흐름 비교", "탐색 기준 한계 논의"]
+      },
+      data_processing_prediction: {
+        direct: "반복 규칙과 조건 구조를 데이터 처리 및 간단한 예측 절차로 연결해 설명할 때 활용합니다.",
+        role: ["데이터 처리 흐름", "예측 기준 설정", "규칙 기반 판단 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.algorithm_optimization;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 알고리즘 설계와 분석을 컴퓨터공학의 효율성·구현·예측 절차로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 알고리즘 활용의 사회적 의미, 정보사회, 기술 윤리 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "알고리즘 윤리 비교", "기술 활용 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 알고리즘 설계와 분석을 알고리즘 최적화, 탐색·정렬 구현, 데이터 처리·예측 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·윤리·플랫폼 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "알고리즘을 현실 문제에 적용할 때 생기는 입력 조건 제한, 계산 비용, 데이터 편향, 성능 지표 단순화의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 알고리즘 효율성과 정보사회, 자동화 의사결정, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA9InfoAlgorithmRank: rank,
+      bookA9InfoAlgorithmAxis: axisId
+    };
+  }
+
+  function cloneBookForA9InfoAlgorithmLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6300 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA9InfoAlgorithm(book, ctx, sectionType, axisId, rank),
+      bookA9InfoAlgorithmLock: true,
+      bookA9InfoAlgorithmLockRank: rank,
+      bookA9InfoAlgorithmAxisLock: axisId
+    };
+  }
+
+  function applyBookA9InfoAlgorithmLock(result, ctx){
+    if (!result || !isBookA9InfoAlgorithmContext(ctx)) return result;
+    const axisId = inferBookA9InfoAlgorithmAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      algorithm_optimization: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      search_sort_implementation: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      data_processing_prediction: ["경영학 콘서트", "팩트풀니스", "카오스"]
+    };
+    const expansionMap = {
+      algorithm_optimization: ["부분과 전체", "방법서설", "미디어의 이해", "1984", "제3의 물결"],
+      search_sort_implementation: ["페르마의 마지막 정리", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      data_processing_prediction: ["혼돈으로부터의 질서", "객관성의 칼날", "미디어의 이해", "1984", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA9InfoAlgorithmLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA9InfoAlgorithmLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA9InfoAlgorithmLock: axisId,
+        bookA9InfoAlgorithmDirectTitles: directBooks.map(book => book.title),
+        bookA9InfoAlgorithmExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2003,6 +2166,7 @@
     result = applyBookA6ConditionalProbabilityLock(result, ctx);
     result = applyBookA7DistributionLock(result, ctx);
     result = applyBookA8InfoDataAnalysisLock(result, ctx);
+    result = applyBookA9InfoAlgorithmLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
