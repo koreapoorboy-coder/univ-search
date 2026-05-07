@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v26-a6-a7-probability-statistics-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v27-a8-info-data-analysis-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1803,6 +1803,169 @@
   }
 
 
+  function isBookA8InfoDataAnalysisContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isDataAnalysisConcept = /자료와\s*정보의\s*분석/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isDataAnalysisKeyword = /(자료\s*수집|자료\s*분석|비교\s*기준|표|그래프|시각화|데이터베이스|구조화|정렬|탐색|검색|빅데이터|의미\s*있는\s*정보|예측|판단|의사결정|데이터)/i.test(keywordText);
+    return !!(isComputer && isInfo && isDataAnalysisConcept && isDataAnalysisKeyword);
+  }
+
+  function inferBookA8InfoDataAnalysisAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 자료와 정보의 분석 → 데이터 수집·시각화 / 데이터베이스·정보구조 / 데이터 해석·의사결정.
+      if (/(database|데이터베이스|정보구조|정보\s*구조|구조화|정렬|탐색|검색)/i.test(text)) {
+        return "database_information_structure";
+      }
+      if (/(data_decision|데이터\s*해석|해석\s*[·ㆍ]?\s*의사결정|의사결정|예측|판단|의미\s*있는\s*정보)/i.test(text)) {
+        return "data_interpretation_decision";
+      }
+      if (/(data_visual|데이터\s*수집|수집\s*[·ㆍ]?\s*시각화|시각화|그래프|표|visual|graph)/i.test(text)) {
+        return "data_collection_visualization";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA8InfoDataAnalysis(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      data_collection_visualization: "데이터 수집·시각화 축",
+      database_information_structure: "데이터베이스·정보구조 축",
+      data_interpretation_decision: "데이터 해석·의사결정 축"
+    };
+    const axisUseMap = {
+      data_collection_visualization: {
+        direct: "자료를 수집하고 표·그래프로 바꾸어 의미 있는 정보로 해석하는 과정을 설명할 때 활용합니다.",
+        role: ["자료 수집·정리", "시각화 해석", "그래프 해석 한계 논의"]
+      },
+      database_information_structure: {
+        direct: "자료를 항목화하고 저장·검색·정렬 가능한 정보 구조로 설계하는 과정을 설명할 때 활용합니다.",
+        role: ["정보 구조 설계", "정렬·탐색 기준", "데이터 구조 한계 논의"]
+      },
+      data_interpretation_decision: {
+        direct: "분석한 데이터를 근거로 판단과 선택 기준을 세우는 의사결정 과정을 설명할 때 활용합니다.",
+        role: ["데이터 해석", "의사결정 기준", "판단 편향·한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.data_collection_visualization;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 자료와 정보의 분석을 컴퓨터공학의 데이터 처리·구조화·판단 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보사회, 데이터 윤리, 기술 활용의 사회적 의미를 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "데이터 윤리 비교", "기술 활용 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 자료와 정보의 분석을 데이터 수집·시각화, 데이터베이스·정보구조, 데이터 해석·의사결정 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·윤리·플랫폼 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "자료 분석 과정에서 생기는 수집 기준의 편향, 구조화 방식의 한계, 시각화·판단 오류를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 데이터 활용의 사회적 책임, 개인정보, 정보 격차, 알고리즘 판단 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA8InfoDataAnalysisRank: rank,
+      bookA8InfoDataAnalysisAxis: axisId
+    };
+  }
+
+  function cloneBookForA8InfoDataAnalysisLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6400 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA8InfoDataAnalysis(book, ctx, sectionType, axisId, rank),
+      bookA8InfoDataAnalysisLock: true,
+      bookA8InfoDataAnalysisLockRank: rank,
+      bookA8InfoDataAnalysisAxisLock: axisId
+    };
+  }
+
+  function applyBookA8InfoDataAnalysisLock(result, ctx){
+    if (!result || !isBookA8InfoDataAnalysisContext(ctx)) return result;
+    const axisId = inferBookA8InfoDataAnalysisAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      data_collection_visualization: ["팩트풀니스", "객관성의 칼날", "부분과 전체"],
+      database_information_structure: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
+      data_interpretation_decision: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      data_collection_visualization: ["경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984", "감시와 처벌"],
+      database_information_structure: ["페르마의 마지막 정리", "방법서설", "미디어의 이해", "제3의 물결", "1984"],
+      data_interpretation_decision: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA8InfoDataAnalysisLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA8InfoDataAnalysisLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA8InfoDataAnalysisLock: axisId,
+        bookA8InfoDataAnalysisDirectTitles: directBooks.map(book => book.title),
+        bookA8InfoDataAnalysisExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1839,6 +2002,7 @@
     result = applyBookA5CombinationLock(result, ctx);
     result = applyBookA6ConditionalProbabilityLock(result, ctx);
     result = applyBookA7DistributionLock(result, ctx);
+    result = applyBookA8InfoDataAnalysisLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
