@@ -1490,9 +1490,10 @@
   function inferBookA6ConditionalProbabilityAxis(ctx){
     ctx = ctx || {};
 
-    // v111: 실제 4번 축명 우선 판정.
-    // 설명문에 '조건/사건/확률'이 반복되므로, axisLabel/linkTrack 계열을 먼저 보고
-    // activityExample/longitudinalPath는 보조 판정으로만 사용한다.
+    // v113: 실제 followup-axis 데이터 기준으로 재잠금.
+    // 조건부확률과 사건의 독립 + 컴퓨터공학과 화면 4번 축은
+    // 데이터 분류·예측 판단 / 독립성 검증 / 조건부 판단·리스크 해석 계열이다.
+    // 추정 축명(조건부확률 구조, 사건 관계 분석, 확률 논리 모델링)은 사용하지 않는다.
     const primaryAxisText = normalizeLockText([
       ctx.followupAxisId,
       ctx.linkTrack,
@@ -1512,15 +1513,14 @@
       text = normalizeLockText(text || "");
       if (!text) return "";
 
-      // 실제 followup-axis 데이터 기준: 조건부확률 구조 / 사건 관계 분석 / 확률 논리 모델링
-      if (/(조건부확률\s*구조|조건부\s*확률\s*구조|conditional\s*probability|표본공간|조건\s*전후|조건\s*구조)/i.test(text)) {
-        return "conditional_probability_structure";
+      if (/(data_classification_prediction_axis|데이터\s*분류|분류\s*[·ㆍ]?\s*예측|예측\s*판단|데이터\s*판단|classification\s*prediction)/i.test(text)) {
+        return "data_classification_prediction";
       }
-      if (/(사건\s*관계|독립|종속|배반|포함|event\s*relation|사건.*분석|관계\s*분석)/i.test(text)) {
-        return "event_relation_analysis";
+      if (/(independence_validation_axis|독립성\s*검증|독립\s*검증|독립\s*[·ㆍ]?\s*종속|independence\s*validation)/i.test(text)) {
+        return "independence_validation";
       }
-      if (/(확률\s*논리|논리\s*모델링|경우\s*구분|조건\s*분기|probability\s*logic|logic\s*model|모델링)/i.test(text)) {
-        return "probability_logic_modeling";
+      if (/(conditional_decision_risk_axis|조건부\s*판단|조건부\s*확률|리스크|위험|의사결정|conditional\s*decision|risk)/i.test(text)) {
+        return "conditional_decision_risk";
       }
       return "";
     };
@@ -1532,26 +1532,26 @@
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
     const axisLabelMap = {
-      conditional_probability_structure: "조건부확률 구조 축",
-      event_relation_analysis: "사건 관계 분석 축",
-      probability_logic_modeling: "확률 논리 모델링 축"
+      data_classification_prediction: "데이터 분류·예측 판단 축",
+      independence_validation: "독립성 검증 축",
+      conditional_decision_risk: "조건부 판단·리스크 해석 축"
     };
     const axisUseMap = {
-      conditional_probability_structure: {
-        direct: "조건이 주어졌을 때 표본공간과 확률 판단 기준이 어떻게 달라지는지 설명할 때 활용합니다.",
-        role: ["조건부확률 구조 설명", "표본공간 변화 해석", "조건 전후 비교 근거"]
+      data_classification_prediction: {
+        direct: "조건부확률과 독립·종속 개념을 데이터 분류 기준, 추천·예측 판단 구조로 설명할 때 활용합니다.",
+        role: ["데이터 분류 기준", "예측 판단 프레임", "조건별 분류 한계 논의"]
       },
-      event_relation_analysis: {
-        direct: "독립·종속·배반 등 사건 관계가 확률 계산과 판단 결과를 어떻게 바꾸는지 분석할 때 활용합니다.",
-        role: ["사건 관계 분석", "독립·종속 판단 근거", "확률 계산 조건 검토"]
+      independence_validation: {
+        direct: "두 사건이 서로 영향을 주는지 독립성과 종속성 기준으로 검증하고, 판단 오류를 분석할 때 활용합니다.",
+        role: ["독립성 검증", "종속 관계 분석", "검증 기준 한계 논의"]
       },
-      probability_logic_modeling: {
-        direct: "조건과 경우를 나누어 확률 판단 과정을 논리 흐름이나 모델링 구조로 설명할 때 활용합니다.",
-        role: ["확률 논리 모델링", "조건 분기 해석", "판단 절차 구조화"]
+      conditional_decision_risk: {
+        direct: "조건이 달라질 때 확률 판단과 리스크 의사결정이 어떻게 달라지는지 비교할 때 활용합니다.",
+        role: ["조건부 판단", "리스크 비교", "의사결정 기준 논의"]
       }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
-    const axisUse = axisUseMap[axisId] || axisUseMap.conditional_probability_structure;
+    const axisUse = axisUseMap[axisId] || axisUseMap.data_classification_prediction;
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -1566,7 +1566,7 @@
       reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "의사결정 비교", "윤리·한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 조건부확률을 표본공간 변화, 사건 관계, 확률 논리 모델링 중 하나의 분석 프레임으로 구체화합니다." : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 조건부확률을 데이터 분류·예측 판단, 독립성 검증, 조건부 판단·리스크 해석 중 하나의 분석 프레임으로 구체화합니다." : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·의사결정·윤리 관점을 비교할 때 활용합니다." : "",
         limitationDiscussion: "조건부확률을 현실 데이터나 알고리즘 판단에 적용할 때 생기는 조건 누락, 표본 편향, 독립성 가정 오류를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 조건부 판단, 데이터 기반 분류, 알고리즘 의사결정의 사회적 영향으로 확장할 때 활용합니다." : ""
@@ -1603,14 +1603,14 @@
     if (!axisId) return result;
 
     const directMap = {
-      conditional_probability_structure: ["팩트풀니스", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
-      event_relation_analysis: ["객관성의 칼날", "부분과 전체", "페르마의 마지막 정리"],
-      probability_logic_modeling: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"]
+      data_classification_prediction: ["팩트풀니스", "경영학 콘서트", "객관성의 칼날"],
+      independence_validation: ["객관성의 칼날", "부분과 전체", "페르마의 마지막 정리"],
+      conditional_decision_risk: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"]
     };
     const expansionMap = {
-      conditional_probability_structure: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
-      event_relation_analysis: ["팩트풀니스", "방법서설", "신기관", "미디어의 이해", "1984"],
-      probability_logic_modeling: ["객관성의 칼날", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"]
+      data_classification_prediction: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      independence_validation: ["팩트풀니스", "방법서설", "신기관", "미디어의 이해", "1984"],
+      conditional_decision_risk: ["객관성의 칼날", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
@@ -1674,15 +1674,17 @@
       text = normalizeLockText(text || "");
       if (!text) return "";
 
-      // 실제 followup-axis 데이터 기준: 확률분포 구조 / 기댓값·분산 해석 / 확률모형 분석
-      if (/(확률분포\s*구조|분포\s*구조|확률질량|분포표|확률분포표|distribution\s*structure)/i.test(text)) {
-        return "distribution_structure";
+      // v113: 실제 followup-axis 데이터 기준.
+      // 확률변수와 확률분포 + 컴퓨터공학과 화면 4번 축은
+      // 데이터 분포·모델링 / 통계 지표 해석 / 데이터 시각화 계열이다.
+      if (/(distribution_modeling_axis|데이터\s*분포|분포\s*[·ㆍ]?\s*모델링|분포\s*모델|data\s*distribution|distribution\s*modeling)/i.test(text)) {
+        return "data_distribution_modeling";
       }
-      if (/(기댓값|기대값|분산|표준편차|중심|퍼짐|expectation|variance|standard\s*deviation)/i.test(text)) {
-        return "expectation_variance";
+      if (/(statistical_indicator_interpretation_axis|통계\s*지표|지표\s*해석|기댓값|기대값|분산|표준편차|평균|statistical\s*indicator)/i.test(text)) {
+        return "statistical_indicator_interpretation";
       }
-      if (/(확률\s*모형|확률모형|모형\s*분석|모델링|예측|probability\s*model|model\s*analysis)/i.test(text)) {
-        return "probability_model_analysis";
+      if (/(data_visualization_distribution_axis|데이터\s*시각화|시각화|그래프|분포\s*그래프|visualization|graph)/i.test(text)) {
+        return "data_visualization_distribution";
       }
       return "";
     };
@@ -1694,26 +1696,26 @@
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
     const axisLabelMap = {
-      distribution_structure: "확률분포 구조 축",
-      expectation_variance: "기댓값·분산 해석 축",
-      probability_model_analysis: "확률모형 분석 축"
+      data_distribution_modeling: "데이터 분포·모델링 축",
+      statistical_indicator_interpretation: "통계 지표 해석 축",
+      data_visualization_distribution: "데이터 시각화 축"
     };
     const axisUseMap = {
-      distribution_structure: {
-        direct: "확률변수의 값과 확률이 분포표·그래프 구조로 정리되는 과정을 설명할 때 활용합니다.",
-        role: ["확률분포 구조 설명", "분포표·그래프 해석", "데이터 구조화 근거"]
+      data_distribution_modeling: {
+        direct: "확률변수와 확률분포를 데이터 구조화와 모델링의 기초로 설명할 때 활용합니다.",
+        role: ["데이터 분포 모델링", "확률변수 구조화", "모델 가정 한계 논의"]
       },
-      expectation_variance: {
-        direct: "기댓값과 분산을 이용해 데이터의 중심, 퍼짐, 위험 수준을 비교할 때 활용합니다.",
-        role: ["기댓값 해석", "분산·표준편차 비교", "위험·변동성 판단"]
+      statistical_indicator_interpretation: {
+        direct: "기댓값·분산·표준편차를 데이터의 중심과 변동성을 설명하는 통계 지표로 해석할 때 활용합니다.",
+        role: ["통계 지표 해석", "중심·퍼짐 비교", "평균 중심 해석 한계 논의"]
       },
-      probability_model_analysis: {
-        direct: "현실의 불확실한 상황을 확률변수와 확률모형으로 바꾸어 예측하거나 비교할 때 활용합니다.",
-        role: ["확률모형 구성", "데이터 예측", "모형 한계 검토"]
+      data_visualization_distribution: {
+        direct: "분포를 표와 그래프로 시각화해 패턴, 이상값, 중심과 퍼짐을 비교할 때 활용합니다.",
+        role: ["분포 시각화", "그래프 비교", "시각화 해석 한계 논의"]
       }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
-    const axisUse = axisUseMap[axisId] || axisUseMap.distribution_structure;
+    const axisUse = axisUseMap[axisId] || axisUseMap.data_distribution_modeling;
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -1728,7 +1730,7 @@
       reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "의사결정 비교", "윤리·한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 확률변수와 확률분포를 분포 구조, 기댓값·분산 해석, 확률모형 분석 중 하나의 프레임으로 구체화합니다." : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 확률변수와 확률분포를 데이터 분포·모델링, 통계 지표 해석, 데이터 시각화 중 하나의 프레임으로 구체화합니다." : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·의사결정·윤리 관점을 비교할 때 활용합니다." : "",
         limitationDiscussion: "확률분포를 현실 데이터나 알고리즘 예측에 적용할 때 생기는 표본 편향, 분포 가정 오류, 평균만 보는 해석의 한계를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 확률 기반 예측, 데이터 의사결정, 알고리즘 판단의 사회적 영향으로 확장할 때 활용합니다." : ""
@@ -1765,14 +1767,14 @@
     if (!axisId) return result;
 
     const directMap = {
-      distribution_structure: ["팩트풀니스", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
-      expectation_variance: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
-      probability_model_analysis: ["카오스", "경영학 콘서트", "혼돈으로부터의 질서"]
+      data_distribution_modeling: ["팩트풀니스", "경영학 콘서트", "20세기 수학의 다섯가지 황금률"],
+      statistical_indicator_interpretation: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"],
+      data_visualization_distribution: ["팩트풀니스", "객관성의 칼날", "부분과 전체"]
     };
     const expansionMap = {
-      distribution_structure: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
-      expectation_variance: ["객관성의 칼날", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"],
-      probability_model_analysis: ["팩트풀니스", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"]
+      data_distribution_modeling: ["카오스", "혼돈으로부터의 질서", "미디어의 이해", "1984", "감시와 처벌"],
+      statistical_indicator_interpretation: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"],
+      data_visualization_distribution: ["경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984", "감시와 처벌"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
