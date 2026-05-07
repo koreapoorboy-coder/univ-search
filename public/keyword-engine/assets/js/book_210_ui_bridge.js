@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v23-book-a2-axis-repeat-stable";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v24-hide-internal-book-label";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -191,12 +191,22 @@
     return all.find(book => [bookKey(book), book.title].includes(val(bookId))) || null;
   }
 
+  function stripInternalBookLabels(text){
+    return val(text)
+      .replace(/BOOK[-_ ]?A\d+\s*/gi, "")
+      .replace(/book[-_ ]?a\d+\s*/gi, "")
+      .replace(/채널\s*용량\s*-\s*/g, "채널 용량 · ")
+      .replace(/도서\s*잠금/g, "도서")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  }
+
   function renderBookCard(book, active, index, sectionType){
     const key = bookKey(book);
     const ctx = book.selectedBookContext || {};
     const role = arr(ctx.reportRoleLabels)[0] || (sectionType === "direct" ? "보고서 핵심 근거" : "보고서 확장 참고");
-    const reason = arr(book.matchReasons).join(" · ") || ctx.recommendationReason || role;
-    const preview = ctx.recommendationReason || book.summary || book.reportUse || "선택한 흐름에서 보고서 근거로 활용할 수 있습니다.";
+    const reason = stripInternalBookLabels(arr(book.matchReasons).join(" · ") || ctx.recommendationReason || role);
+    const preview = stripInternalBookLabels(ctx.recommendationReason || book.summary || book.reportUse || "선택한 흐름에서 보고서 근거로 활용할 수 있습니다.");
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}">
         <div class="engine-book-order">${index + 1}</div>
@@ -766,9 +776,9 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) BOOK-A2 ${axisLabel}에서 정보량·신호 구조·시스템 해석을 설명하는 직접 일치 도서입니다.`
-        : `${title}은(는) BOOK-A2 ${axisLabel}에서 정보사회·미디어 환경·감시 윤리로 확장하는 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`BOOK-A2 ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+        ? `${title}은(는) ${axisLabel}에서 정보량·신호 구조·시스템 해석을 설명하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보사회·미디어 환경·감시 윤리로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
       reportRoleLabels: isDirect ? ["신호·용량 원리 설명", "시스템 해석 프레임", "측정·해석 한계 논의"] : ["정보사회 확장", "미디어·플랫폼 비교", "기술 윤리 한계 논의"],
       useInReport: {
@@ -795,7 +805,7 @@
       ...book,
       matchType: sectionType,
       matchScore: 6100 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`BOOK-A2 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
       selectedBookContext: buildLockedBookContextA2(book, ctx, sectionType, rank),
       bookA2SignalLock: true,
       bookA2SignalLockRank: rank
@@ -912,9 +922,9 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) BOOK-A2 채널 용량 - ${axisLabel}에서 보고서 핵심 근거로 우선 배치한 직접 일치 도서입니다.`
-        : `${title}은(는) BOOK-A2 채널 용량 - ${axisLabel}에서 사회적 의미·한계·비교 관점을 확장하는 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`BOOK-A2 채널 용량 ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+        ? `${title}은(는) ${axisLabel}에서 채널 용량·정보량 해석을 보고서 핵심 근거로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 사회적 의미·한계·비교 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
       reportRoleLabels: isDirect ? axisUse.role : ["사회적 의미 확장", "기술·정보사회 비교", "윤리·한계 논의"],
       useInReport: {
@@ -942,7 +952,7 @@
       ...book,
       matchType: sectionType,
       matchScore: 7000 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`BOOK-A2 채널 용량 ${axisId} ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
       selectedBookContext: buildLockedBookContextA2Channel(book, ctx, sectionType, axisId, rank),
       bookA2ChannelLock: true,
       bookA2ChannelLockRank: rank,
