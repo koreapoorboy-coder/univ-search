@@ -2456,6 +2456,170 @@
 
 
 
+  function isBookA12InfoRepresentationContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|시스템|미디어|통신)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isRepresentationConcept = /자료\s*와\s*정보\s*의\s*표현/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isRepresentationKeyword = /(디지털\s*정보|자료\s*표현|부호화|아날로그\s*정보|모스\s*부호|표현\s*방식|데이터\s*변환|저장|전송|압축|용량|표본화|양자화|샘플링|이미지|소리|영상|미디어|문자\s*코드|ASCII|유니코드)/i.test(keywordText);
+    return !!(isComputer && isInfo && isRepresentationConcept && isRepresentationKeyword);
+  }
+
+  function inferBookA12InfoRepresentationAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 자료와 정보의 표현 → 디지털 표현·부호화 / 신호·미디어 처리 기초 / 압축·전송 설계.
+      if (/(encoding|디지털\s*표현|부호화|자료\s*표현|표현\s*체계|모스\s*부호|문자\s*코드|ASCII|유니코드|아날로그|디지털)/i.test(text)) {
+        return "digital_encoding";
+      }
+      if (/(signal_media|신호|미디어\s*처리|표본화|양자화|샘플링|이미지|소리|영상|미디어)/i.test(text)) {
+        return "signal_media_processing";
+      }
+      if (/(compression_transfer|압축|전송|저장|용량|정보량|전달\s*효율|파일)/i.test(text)) {
+        return "compression_transfer_design";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA12InfoRepresentation(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      digital_encoding: "디지털 표현·부호화 축",
+      signal_media_processing: "신호·미디어 처리 기초 축",
+      compression_transfer_design: "압축·전송 설계 축"
+    };
+    const axisUseMap = {
+      digital_encoding: {
+        direct: "아날로그 정보를 약속된 디지털 표현 체계와 부호화 규칙으로 바꾸는 과정을 설명할 때 활용합니다.",
+        role: ["디지털 표현 원리", "부호화 규칙 해석", "표현 방식의 한계 논의"]
+      },
+      signal_media_processing: {
+        direct: "이미지·소리·영상 같은 미디어 신호가 디지털 데이터로 바뀌는 과정을 설명할 때 활용합니다.",
+        role: ["신호 변환 과정", "미디어 데이터 해석", "표본화·양자화 한계 논의"]
+      },
+      compression_transfer_design: {
+        direct: "정보를 저장·전송하기 위해 용량, 압축, 전달 효율을 비교하는 과정을 설명할 때 활용합니다.",
+        role: ["정보량과 용량 비교", "압축·전송 설계", "효율성과 손실 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.digital_encoding;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 자료와 정보의 표현을 컴퓨터공학의 디지털 표현·신호 처리·전송 효율 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보 표현 기술의 사회적 의미, 미디어 환경, 디지털 윤리로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "미디어 환경 비교", "디지털 표현 윤리 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 자료와 정보의 표현을 디지털 표현·부호화, 신호·미디어 처리, 압축·전송 설계 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·미디어·보안 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "정보를 표현하고 전송하는 과정에서 생기는 손실, 왜곡, 표현 방식의 선택, 압축 효율과 해석 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 디지털 정보 표현, 미디어 환경, 정보 전달 윤리와 기술 활용 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA12InfoRepresentationRank: rank,
+      bookA12InfoRepresentationAxis: axisId
+    };
+  }
+
+  function cloneBookForA12InfoRepresentationLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6120 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA12InfoRepresentation(book, ctx, sectionType, axisId, rank),
+      bookA12InfoRepresentationLock: true,
+      bookA12InfoRepresentationLockRank: rank,
+      bookA12InfoRepresentationAxisLock: axisId
+    };
+  }
+
+  function applyBookA12InfoRepresentationLock(result, ctx){
+    if (!result || !isBookA12InfoRepresentationContext(ctx)) return result;
+    const axisId = inferBookA12InfoRepresentationAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      digital_encoding: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      signal_media_processing: ["미디어의 이해", "부분과 전체", "객관성의 칼날"],
+      compression_transfer_design: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "경영학 콘서트"]
+    };
+    const expansionMap = {
+      digital_encoding: ["미디어의 이해", "1984", "감시와 처벌", "제3의 물결", "부분과 전체"],
+      signal_media_processing: ["1984", "감시와 처벌", "제3의 물결", "팩트풀니스", "경영학 콘서트"],
+      compression_transfer_design: ["미디어의 이해", "1984", "감시와 처벌", "팩트풀니스", "객관성의 칼날"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA12InfoRepresentationLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA12InfoRepresentationLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA12InfoRepresentationLock: axisId,
+        bookA12InfoRepresentationDirectTitles: directBooks.map(book => book.title),
+        bookA12InfoRepresentationExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2496,6 +2660,7 @@
     result = applyBookA9InfoAlgorithmLock(result, ctx);
     result = applyBookA10InfoProgrammingLock(result, ctx);
     result = applyBookA11InfoAbstractionLock(result, ctx);
+    result = applyBookA12InfoRepresentationLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
