@@ -1306,6 +1306,157 @@
   }
 
 
+  function isBookA5CombinationContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크)/i.test(careerText);
+    const isProbability = /확률과\s*통계/.test(subjectText);
+    const isCombinationConcept = /순열과\s*조합/.test(conceptText);
+    const isCombinationKeyword = /(순열|조합|경우의\s*수|중복순열|중복조합|배열|선택|경우\s*나누기|탐색|분기)/i.test(keywordText);
+    return !!(isComputer && isProbability && isCombinationConcept && isCombinationKeyword);
+  }
+
+  function inferBookA5CombinationAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    // 실제 followup-axis 데이터 기준: 조합·알고리즘 구조 / 탐색·분기 설계 / 경우 비교·전략
+    if (/(탐색|분기|search\s*branch|branch\s*design|선택\s*구조|조건\s*분기)/i.test(axisText)) {
+      return "search_branch_design";
+    }
+    if (/(경우\s*비교|전략|strategy|comparison|전략\s*비교|해결\s*전략)/i.test(axisText)) {
+      return "case_strategy_comparison";
+    }
+    if (/(조합|알고리즘\s*구조|combination\s*algorithm|algorithm\s*structure|경우의\s*수|선택.*배열)/i.test(axisText)) {
+      return "combination_algorithm_structure";
+    }
+    return "";
+  }
+
+  function buildLockedBookContextA5Combination(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      combination_algorithm_structure: "조합·알고리즘 구조 축",
+      search_branch_design: "탐색·분기 설계 축",
+      case_strategy_comparison: "경우 비교·전략 축"
+    };
+    const axisUseMap = {
+      combination_algorithm_structure: {
+        direct: "순열과 조합의 선택·배열 구조를 알고리즘의 경우 생성, 후보 조합 구성, 탐색 구조로 설명할 때 활용합니다.",
+        role: ["조합 구조 설명", "알고리즘 사고 프레임", "경우 생성 한계 논의"]
+      },
+      search_branch_design: {
+        direct: "조건에 따라 경우를 나누고 탐색 경로를 설계하는 과정을 분기 구조와 의사결정 절차로 해석할 때 활용합니다.",
+        role: ["탐색 분기 구조", "조건별 선택 프레임", "탐색 비용 한계 논의"]
+      },
+      case_strategy_comparison: {
+        direct: "여러 경우를 비교해 어떤 전략이 더 타당한지 판단하고, 선택 기준과 근거를 보고서에서 설명할 때 활용합니다.",
+        role: ["경우 비교 근거", "전략 선택 프레임", "판단 기준 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.combination_algorithm_structure;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 순열·조합의 경우 생성과 컴퓨터공학적 탐색 사고를 보고서 핵심 근거로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보사회, 의사결정, 기술 윤리, 비교 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["사회적 의미 확장", "정보사회 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 순열과 조합을 조합 구조, 탐색 분기, 전략 비교 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·의사결정·윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "순열·조합을 현실 문제나 알고리즘 탐색에 적용할 때 생기는 경우 폭증, 계산 비용, 조건 단순화의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 알고리즘 탐색, 데이터 기반 의사결정, 정보사회 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA5CombinationRank: rank,
+      bookA5CombinationAxis: axisId
+    };
+  }
+
+  function cloneBookForA5CombinationLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6700 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA5Combination(book, ctx, sectionType, axisId, rank),
+      bookA5CombinationLock: true,
+      bookA5CombinationLockRank: rank,
+      bookA5CombinationAxisLock: axisId
+    };
+  }
+
+  function applyBookA5CombinationLock(result, ctx){
+    if (!result || !isBookA5CombinationContext(ctx)) return result;
+    const axisId = inferBookA5CombinationAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      combination_algorithm_structure: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "방법서설"],
+      search_branch_design: ["경영학 콘서트", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      case_strategy_comparison: ["팩트풀니스", "경영학 콘서트", "부분과 전체"]
+    };
+    const expansionMap = {
+      combination_algorithm_structure: ["객관성의 칼날", "신기관", "부분과 전체", "미디어의 이해", "1984"],
+      search_branch_design: ["팩트풀니스", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"],
+      case_strategy_comparison: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "미디어의 이해", "1984", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA5CombinationLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA5CombinationLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA5CombinationLock: axisId,
+        bookA5CombinationDirectTitles: directBooks.map(book => book.title),
+        bookA5CombinationExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1339,6 +1490,7 @@
     result = applyBookA2ChannelCapacityLock(result, ctx);
     result = applyBookA3SequenceLock(result, ctx);
     result = applyBookA4InductionLock(result, ctx);
+    result = applyBookA5CombinationLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
