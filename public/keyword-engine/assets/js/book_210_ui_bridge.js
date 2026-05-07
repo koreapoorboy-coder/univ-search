@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v21-book-a2-channel-axis-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v22-book-a2-exp-log-axis-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -843,8 +843,15 @@
     const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
     const isAlgebra = /대수/.test(subjectText);
     const isExpLogUse = /지수함수와\s*로그함수의\s*활용/.test(conceptText);
-    const isChannelCapacityKeyword = /채널\s*용량/.test(keywordText);
-    return !!(isComputer && isAlgebra && isExpLogUse && isChannelCapacityKeyword);
+
+    // v103: 실제 화면에서는 '채널 용량'뿐 아니라 지수모델/로그모델/성장/감소 등에서도
+    // 변화 모델링축·로그 스케일 해석 축·데이터 예측 축이 동일하게 열린다.
+    // 기존처럼 '채널 용량'에만 도서 잠금을 걸면 다른 키워드에서 로그/데이터 축이
+    // 팩트풀니스·카오스·혼돈 계열로 반복된다.
+    // 따라서 대수+컴퓨터공학과+지수함수와 로그함수의 활용의 실제 추천 키워드 전체에
+    // 4번 축별 도서 분화 잠금을 적용한다.
+    const isExpLogKeyword = /(채널\s*용량|지수모델|로그모델|성장|감소|충전\s*증가|방사성\s*붕괴|별의\s*등급|실생활\s*적용|데이터\s*예측)/i.test(keywordText);
+    return !!(isComputer && isAlgebra && isExpLogUse && isExpLogKeyword);
   }
 
   function inferBookA2ChannelAxis(ctx){
@@ -949,7 +956,7 @@
     if (!axisId) return result;
 
     const directMap = {
-      change_modeling: ["카오스", "혼돈으로부터의 질서", "20세기 수학의 다섯가지 황금률"],
+      change_modeling: ["카오스", "20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서"],
       log_scale_interpretation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
       data_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"]
     };
