@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v28-a9-info-algorithm-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v29-a11-info-abstraction-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -2292,6 +2292,170 @@
   }
 
 
+  function isBookA11InfoAbstractionContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|시스템)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isAbstractionConcept = /추상화\s*와\s*문제\s*분해/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isAbstractionKeyword = /(문제\s*분해|조건\s*분석|현재\s*상태|목표\s*상태|작은\s*문제|모델링|핵심\s*요소|변수|기준\s*설정|불필요한\s*요소|추상화|구조화|절차|최적화)/i.test(keywordText);
+    return !!(isComputer && isInfo && isAbstractionConcept && isAbstractionKeyword);
+  }
+
+  function inferBookA11InfoAbstractionAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 추상화와 문제 분해 → 문제 구조화·알고리즘 설계 / 수리 모델링 확장 / 시스템 설계·절차 최적화.
+      if (/(problem_design|문제\s*구조화|알고리즘\s*설계|구조화|문제\s*분해|작은\s*문제|조건\s*분석)/i.test(text)) {
+        return "problem_design_algorithm";
+      }
+      if (/(math_modeling|수리\s*모델링|모델링\s*확장|모델링|변수|핵심\s*요소|추상화)/i.test(text)) {
+        return "mathematical_modeling_extension";
+      }
+      if (/(process_optimization|시스템\s*설계|절차\s*최적화|절차\s*설계|최적화|현재\s*상태|목표\s*상태|불필요한\s*요소)/i.test(text)) {
+        return "system_process_optimization";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA11InfoAbstraction(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      problem_design_algorithm: "문제 구조화·알고리즘 설계 축",
+      mathematical_modeling_extension: "수리 모델링 확장 축",
+      system_process_optimization: "시스템 설계·절차 최적화 축"
+    };
+    const axisUseMap = {
+      problem_design_algorithm: {
+        direct: "복잡한 문제를 작은 조건과 절차로 나누고, 이를 알고리즘 설계 흐름으로 정리할 때 활용합니다.",
+        role: ["문제 분해 구조", "알고리즘 설계 흐름", "조건 단순화 한계 논의"]
+      },
+      mathematical_modeling_extension: {
+        direct: "현실 문제에서 핵심 요소와 변수를 추출해 수학적 모델로 단순화하는 과정을 설명할 때 활용합니다.",
+        role: ["핵심 요소 추출", "수리 모델링", "모델 가정 한계 논의"]
+      },
+      system_process_optimization: {
+        direct: "현재 상태와 목표 상태를 비교해 절차를 설계하고 시스템 흐름을 최적화하는 과정을 설명할 때 활용합니다.",
+        role: ["시스템 절차 설계", "최적화 기준 설정", "절차 단순화 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.problem_design_algorithm;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 추상화와 문제 분해를 컴퓨터공학의 구조화·모델링·절차 설계 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 문제 해결 과정의 사회적 의미, 정보사회, 기술 활용의 한계를 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "문제 해결 관점 비교", "기술 활용 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 추상화와 문제 분해를 문제 구조화·알고리즘 설계, 수리 모델링 확장, 시스템 설계·절차 최적화 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·윤리·플랫폼 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "문제를 추상화하고 분해하는 과정에서 생기는 조건 누락, 과도한 단순화, 모델 가정 오류, 절차 최적화의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 문제 해결 자동화, 시스템 설계, 정보사회와 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA11InfoAbstractionRank: rank,
+      bookA11InfoAbstractionAxis: axisId
+    };
+  }
+
+  function cloneBookForA11InfoAbstractionLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6100 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA11InfoAbstraction(book, ctx, sectionType, axisId, rank),
+      bookA11InfoAbstractionLock: true,
+      bookA11InfoAbstractionLockRank: rank,
+      bookA11InfoAbstractionAxisLock: axisId
+    };
+  }
+
+  function applyBookA11InfoAbstractionLock(result, ctx){
+    if (!result || !isBookA11InfoAbstractionContext(ctx)) return result;
+    const axisId = inferBookA11InfoAbstractionAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      problem_design_algorithm: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      mathematical_modeling_extension: ["20세기 수학의 다섯가지 황금률", "카오스", "부분과 전체"],
+      system_process_optimization: ["경영학 콘서트", "부분과 전체", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      problem_design_algorithm: ["페르마의 마지막 정리", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      mathematical_modeling_extension: ["혼돈으로부터의 질서", "경영학 콘서트", "미디어의 이해", "1984", "제3의 물결"],
+      system_process_optimization: ["20세기 수학의 다섯가지 황금률", "방법서설", "미디어의 이해", "1984", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA11InfoAbstractionLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA11InfoAbstractionLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA11InfoAbstractionLock: axisId,
+        bookA11InfoAbstractionDirectTitles: directBooks.map(book => book.title),
+        bookA11InfoAbstractionExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2331,6 +2495,7 @@
     result = applyBookA8InfoDataAnalysisLock(result, ctx);
     result = applyBookA9InfoAlgorithmLock(result, ctx);
     result = applyBookA10InfoProgrammingLock(result, ctx);
+    result = applyBookA11InfoAbstractionLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
