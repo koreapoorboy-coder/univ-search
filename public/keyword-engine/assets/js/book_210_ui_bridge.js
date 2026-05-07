@@ -1006,6 +1006,156 @@
   }
 
 
+  function isBookA3SequenceContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘)/i.test(careerText);
+    const isAlgebra = /대수/.test(subjectText);
+    const isSequenceConcept = /등차수열과\s*등비수열/.test(conceptText);
+    const isSequenceKeyword = /(등차수열|등비수열|일반항|공차|공비|규칙성|반복\s*규칙|패턴|증가\s*규칙|시계열|예측)/i.test(keywordText);
+    return !!(isComputer && isAlgebra && isSequenceConcept && isSequenceKeyword);
+  }
+
+  function inferBookA3SequenceAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    if (/(반복\s*구조|알고리즘|sequence\s*algorithm|algorithm\s*loop|loop|반복\s*설계|절차)/i.test(axisText)) {
+      return "sequence_algorithm_loop";
+    }
+    if (/(수열\s*모델링|모델링\s*예측|예측|시계열|trend|prediction|sequence\s*prediction|증가\s*추세)/i.test(axisText)) {
+      return "sequence_prediction_model";
+    }
+    if (/(규칙|패턴|pattern|규칙성|일반항|탐색|search)/i.test(axisText)) {
+      return "sequence_pattern_search";
+    }
+    return "";
+  }
+
+  function buildLockedBookContextA3Sequence(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      sequence_prediction_model: "수열 모델링·예측 축",
+      sequence_algorithm_loop: "반복 구조·알고리즘 축",
+      sequence_pattern_search: "규칙·패턴 탐색 축"
+    };
+    const axisUseMap = {
+      sequence_prediction_model: {
+        direct: "등차·등비수열의 일정한 증가 규칙을 시계열 변화, 추세 예측, 데이터 기반 판단과 연결할 때 활용합니다.",
+        role: ["수열 모델링 근거", "시계열 예측 프레임", "증가 규칙 한계 논의"]
+      },
+      sequence_algorithm_loop: {
+        direct: "반복되는 규칙을 절차화하고 알고리즘 구조로 해석하는 근거로 활용합니다.",
+        role: ["반복 구조 설명", "알고리즘 사고 프레임", "절차화 한계 논의"]
+      },
+      sequence_pattern_search: {
+        direct: "수열의 일반항, 공차·공비, 패턴 탐색을 통해 자료 속 규칙성을 찾아내는 근거로 활용합니다.",
+        role: ["규칙성 탐색 근거", "패턴 해석 프레임", "일반화 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.sequence_prediction_model;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 수열의 반복 규칙과 컴퓨터공학적 사고를 보고서 핵심 근거로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보사회·의사결정·기술 윤리·비교 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["사회적 의미 확장", "기술·정보사회 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 수열을 예측 모델, 반복 알고리즘, 패턴 탐색 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·기술·의사결정 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "수열 규칙을 현실 데이터나 알고리즘에 적용할 때 생기는 단순화, 예측 오차, 일반화 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 알고리즘 사고, 데이터 기반 의사결정, 정보사회 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA3SequenceRank: rank,
+      bookA3SequenceAxis: axisId
+    };
+  }
+
+  function cloneBookForA3SequenceLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6900 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA3Sequence(book, ctx, sectionType, axisId, rank),
+      bookA3SequenceLock: true,
+      bookA3SequenceLockRank: rank,
+      bookA3SequenceAxisLock: axisId
+    };
+  }
+
+  function applyBookA3SequenceLock(result, ctx){
+    if (!result || !isBookA3SequenceContext(ctx)) return result;
+    const axisId = inferBookA3SequenceAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      sequence_prediction_model: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
+      sequence_algorithm_loop: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
+      sequence_pattern_search: ["20세기 수학의 다섯가지 황금률", "카오스", "혼돈으로부터의 질서"]
+    };
+    const expansionMap = {
+      sequence_prediction_model: ["카오스", "객관성의 칼날", "미디어의 이해", "1984", "감시와 처벌"],
+      sequence_algorithm_loop: ["부분과 전체", "미디어의 이해", "1984", "제3의 물결", "팩트풀니스"],
+      sequence_pattern_search: ["팩트풀니스", "경영학 콘서트", "부분과 전체", "미디어의 이해", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA3SequenceLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA3SequenceLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA3SequenceLock: axisId,
+        bookA3SequenceDirectTitles: directBooks.map(book => book.title),
+        bookA3SequenceExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1037,6 +1187,7 @@
     result = applyBookA1AxisLock(result, ctx);
     result = applyBookA2SignalLock(result, ctx);
     result = applyBookA2ChannelCapacityLock(result, ctx);
+    result = applyBookA3SequenceLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
