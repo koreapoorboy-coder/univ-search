@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v25-a6-conditional-probability-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v26-a6-a7-probability-statistics-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1482,8 +1482,8 @@
     const keywordText = normalizeLockText(ctx.keyword || "");
     const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터)/i.test(careerText);
     const isProbability = /확률과\s*통계/.test(subjectText);
-    const isConditionalConcept = /조건부확률과\s*사건의\s*독립/.test(conceptText);
-    const isConditionalKeyword = /(조건부확률|독립|종속|사건|확률의\s*곱셈정리|기대값|판단|위험|의사결정|베이즈|조건|전환|분류|예측)/i.test(keywordText);
+    const isConditionalConcept = /조건부\s*확률과\s*사건의\s*독립/.test(conceptText);
+    const isConditionalKeyword = /(조건부\s*확률|조건부확률|독립|종속|사건|확률의\s*곱셈정리|기대값|판단|위험|의사결정|베이즈|조건|전환|분류|예측)/i.test(keywordText);
     return !!(isComputer && isProbability && isConditionalConcept && isConditionalKeyword);
   }
 
@@ -1639,6 +1639,168 @@
   }
 
 
+  function isBookA7DistributionContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터)/i.test(careerText);
+    const isProbability = /확률과\s*통계/.test(subjectText);
+    // 실제 3번 화면명 기준: "확률변수와 확률분포". 사용자가 오타로 입력한 "확률변수화"도 방어한다.
+    const isDistributionConcept = /(확률변수|확률변수화)\s*와\s*확률분포/.test(conceptText);
+    const isDistributionKeyword = /(확률변수|확률분포|기댓값|기대값|분산|표준편차|평균|그래프|분포|예측|데이터|모델링|확률\s*모형|확률모형)/i.test(keywordText);
+    return !!(isComputer && isProbability && isDistributionConcept && isDistributionKeyword);
+  }
+
+  function inferBookA7DistributionAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 followup-axis 데이터 기준: 확률분포 구조 / 기댓값·분산 해석 / 확률모형 분석
+      if (/(확률분포\s*구조|분포\s*구조|확률질량|분포표|확률분포표|distribution\s*structure)/i.test(text)) {
+        return "distribution_structure";
+      }
+      if (/(기댓값|기대값|분산|표준편차|중심|퍼짐|expectation|variance|standard\s*deviation)/i.test(text)) {
+        return "expectation_variance";
+      }
+      if (/(확률\s*모형|확률모형|모형\s*분석|모델링|예측|probability\s*model|model\s*analysis)/i.test(text)) {
+        return "probability_model_analysis";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA7Distribution(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      distribution_structure: "확률분포 구조 축",
+      expectation_variance: "기댓값·분산 해석 축",
+      probability_model_analysis: "확률모형 분석 축"
+    };
+    const axisUseMap = {
+      distribution_structure: {
+        direct: "확률변수의 값과 확률이 분포표·그래프 구조로 정리되는 과정을 설명할 때 활용합니다.",
+        role: ["확률분포 구조 설명", "분포표·그래프 해석", "데이터 구조화 근거"]
+      },
+      expectation_variance: {
+        direct: "기댓값과 분산을 이용해 데이터의 중심, 퍼짐, 위험 수준을 비교할 때 활용합니다.",
+        role: ["기댓값 해석", "분산·표준편차 비교", "위험·변동성 판단"]
+      },
+      probability_model_analysis: {
+        direct: "현실의 불확실한 상황을 확률변수와 확률모형으로 바꾸어 예측하거나 비교할 때 활용합니다.",
+        role: ["확률모형 구성", "데이터 예측", "모형 한계 검토"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.distribution_structure;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 확률변수와 확률분포를 컴퓨터공학의 데이터 구조화·예측·모델링 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 데이터 판단, 정보사회, 기술 윤리, 의사결정 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "의사결정 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 확률변수와 확률분포를 분포 구조, 기댓값·분산 해석, 확률모형 분석 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·의사결정·윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "확률분포를 현실 데이터나 알고리즘 예측에 적용할 때 생기는 표본 편향, 분포 가정 오류, 평균만 보는 해석의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 확률 기반 예측, 데이터 의사결정, 알고리즘 판단의 사회적 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA7DistributionRank: rank,
+      bookA7DistributionAxis: axisId
+    };
+  }
+
+  function cloneBookForA7DistributionLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6500 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA7Distribution(book, ctx, sectionType, axisId, rank),
+      bookA7DistributionLock: true,
+      bookA7DistributionLockRank: rank,
+      bookA7DistributionAxisLock: axisId
+    };
+  }
+
+  function applyBookA7DistributionLock(result, ctx){
+    if (!result || !isBookA7DistributionContext(ctx)) return result;
+    const axisId = inferBookA7DistributionAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      distribution_structure: ["팩트풀니스", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      expectation_variance: ["경영학 콘서트", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
+      probability_model_analysis: ["카오스", "경영학 콘서트", "혼돈으로부터의 질서"]
+    };
+    const expansionMap = {
+      distribution_structure: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      expectation_variance: ["객관성의 칼날", "부분과 전체", "제3의 물결", "미디어의 이해", "1984"],
+      probability_model_analysis: ["팩트풀니스", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA7DistributionLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA7DistributionLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA7DistributionLock: axisId,
+        bookA7DistributionDirectTitles: directBooks.map(book => book.title),
+        bookA7DistributionExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1674,6 +1836,7 @@
     result = applyBookA4InductionLock(result, ctx);
     result = applyBookA5CombinationLock(result, ctx);
     result = applyBookA6ConditionalProbabilityLock(result, ctx);
+    result = applyBookA7DistributionLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
