@@ -1156,6 +1156,156 @@
   }
 
 
+  function isBookA4InductionContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|통계|알고리즘|프로그래밍|시스템)/i.test(careerText);
+    const isAlgebra = /대수/.test(subjectText);
+    const isInductionConcept = /수학적\s*귀납법/.test(conceptText);
+    const isInductionKeyword = /(수학적\s*귀납법|명제|자연수|귀납\s*가정|귀납\s*단계|증명|반복\s*논리|재귀|알고리즘\s*정당성|검증)/i.test(keywordText);
+    return !!(isComputer && isAlgebra && isInductionConcept && isInductionKeyword);
+  }
+
+  function inferBookA4InductionAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    if (/(재귀|알고리즘\s*정당성|재귀\s*검증|recursive|algorithm\s*validity|algorithm)/i.test(axisText)) {
+      return "recursive_algorithm_validity";
+    }
+    if (/(반복\s*조건|조건\s*검증|조건\s*유지|검증표|iterative|condition\s*validation|validation)/i.test(axisText)) {
+      return "iterative_condition_validation";
+    }
+    if (/(귀납\s*증명|논리\s*구조|수열\s*귀납|수열·귀납|수학적\s*증명|증명\s*구조|일반화|패턴\s*추론|proof|induction)/i.test(axisText)) {
+      return "induction_proof_logic";
+    }
+    return "";
+  }
+
+  function buildLockedBookContextA4Induction(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      induction_proof_logic: "귀납 증명·논리 구조 축",
+      recursive_algorithm_validity: "재귀·알고리즘 정당성 축",
+      iterative_condition_validation: "반복 조건 검증 축"
+    };
+    const axisUseMap = {
+      induction_proof_logic: {
+        direct: "수학적 귀납법의 기초 단계, 귀납 가정, 귀납 단계를 구분해 명제가 왜 모든 자연수에서 성립하는지 설명할 때 활용합니다.",
+        role: ["귀납 증명 구조", "논리 전개 근거", "증명 한계 논의"]
+      },
+      recursive_algorithm_validity: {
+        direct: "재귀 호출이나 반복 알고리즘이 모든 단계에서 올바르게 작동함을 귀납적 사고로 정당화할 때 활용합니다.",
+        role: ["재귀 구조 설명", "알고리즘 정당성", "반복 절차 한계 논의"]
+      },
+      iterative_condition_validation: {
+        direct: "반복 단계마다 조건이 유지되는지 확인하고, 반례 가능성과 검증 기준을 정리할 때 활용합니다.",
+        role: ["조건 유지 검증", "반례 점검 프레임", "일반화 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.induction_proof_logic;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 수학적 귀납법의 증명 구조와 컴퓨터공학적 검증 사고를 보고서 핵심 근거로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 과학적 사고, 정보사회, 기술 윤리, 비교 관점을 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["사회적 의미 확장", "과학·기술 관점 비교", "윤리·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 수학적 귀납법을 증명 구조, 재귀 알고리즘 정당성, 반복 조건 검증 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 과학·기술·사회 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "귀납 가정이 성립하는 범위, 반복 조건의 유지 여부, 현실 알고리즘 적용에서 생기는 예외와 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 알고리즘 검증, 과학적 증명 문화, 정보사회 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA4InductionRank: rank,
+      bookA4InductionAxis: axisId
+    };
+  }
+
+  function cloneBookForA4InductionLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6800 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA4Induction(book, ctx, sectionType, axisId, rank),
+      bookA4InductionLock: true,
+      bookA4InductionLockRank: rank,
+      bookA4InductionAxisLock: axisId
+    };
+  }
+
+  function applyBookA4InductionLock(result, ctx){
+    if (!result || !isBookA4InductionContext(ctx)) return result;
+    const axisId = inferBookA4InductionAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      induction_proof_logic: ["페르마의 마지막 정리", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      recursive_algorithm_validity: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
+      iterative_condition_validation: ["객관성의 칼날", "부분과 전체", "과학혁명의 구조"]
+    };
+    const expansionMap = {
+      induction_proof_logic: ["부분과 전체", "과학혁명의 구조", "미디어의 이해", "1984", "팩트풀니스"],
+      recursive_algorithm_validity: ["페르마의 마지막 정리", "과학혁명의 구조", "미디어의 이해", "제3의 물결", "1984"],
+      iterative_condition_validation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "팩트풀니스", "미디어의 이해", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA4InductionLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA4InductionLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA4InductionLock: axisId,
+        bookA4InductionDirectTitles: directBooks.map(book => book.title),
+        bookA4InductionExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -1188,6 +1338,7 @@
     result = applyBookA2SignalLock(result, ctx);
     result = applyBookA2ChannelCapacityLock(result, ctx);
     result = applyBookA3SequenceLock(result, ctx);
+    result = applyBookA4InductionLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
