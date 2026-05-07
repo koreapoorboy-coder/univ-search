@@ -5905,6 +5905,10 @@ Object.assign(MAJOR_COPY_OVERRIDES, {
       comparison: data.comparison || null
     } : null;
     window.__MAJOR_ENGINE_SELECTED__ = detail;
+    // v102 A0-init-lock: 확정 학과명을 전역 confirmed 값에도 남긴다.
+    // textbook helper가 초기 렌더되는 순간 input/DOM 동기화가 늦어도
+    // 대수+컴퓨터공학과 3번 추천 개념이 기본 대수 개념으로 먼저 그려지지 않게 한다.
+    window.__MAJOR_SEARCH_CONFIRMED_NAME__ = detail?.display_name || '';
     window.__MAJOR_ENGINE_LAST_RAW__ = getCareerInput()?.value || '';
     window.__MAJOR_ENGINE_LAST_INPUT__ = getCareerInput()?.value || '';
     window.dispatchEvent(new CustomEvent('major-engine-selection-changed', { detail }));
