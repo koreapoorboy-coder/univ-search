@@ -2983,11 +2983,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const trackCard = event.target.closest(".engine-track-card");
       if (trackCard && isStepEnabled(4)) {
         const nextTrack = trackCard.getAttribute("data-track") || "";
+        const lockedConcept = state.concept || "";
+        const lockedKeyword = state.keyword || "";
         clearFrom("track");
+        // v104: 4번 후속축 클릭은 3번 교과 개념·추천 키워드를 바꾸는 행동이 아니다.
+        // 기존 renderAll()은 renderConceptArea/renderTrackArea까지 다시 실행하면서
+        // 대수+컴퓨터공학과+지수함수와 로그함수의 활용 세트가
+        // 로그 구조·역함수/함수 그래프/스케일 변환 축으로 재계산되는 문제가 있었다.
+        // 따라서 4번 클릭 시에는 후보 3개를 다시 만들지 않고,
+        // 선택 active 표시와 5번 도서 이하 영역만 갱신한다.
+        state.concept = lockedConcept;
+        state.keyword = lockedKeyword;
         state.linkTrack = nextTrack;
         state.linkTrackSource = 'manual';
         syncOutputFields();
-        renderAll();
+        renderAfterTrackSelectionStable();
         return;
       }
 
@@ -11998,6 +12008,32 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     renderStatus();
     syncKeywordActiveButtons();
     renderTrackArea();
+    renderBookArea();
+    renderModeArea();
+    renderViewArea();
+    renderReportLineArea();
+    renderSelectionSummary();
+    applyLocks();
+    syncOutputFields();
+  }
+
+  function syncTrackActiveCards() {
+    try {
+      document.querySelectorAll(".engine-track-card").forEach(card => {
+        const value = card.getAttribute("data-track") || "";
+        card.classList.toggle("is-active", value === state.linkTrack);
+      });
+    } catch (error) {}
+  }
+
+  function renderAfterTrackSelectionStable() {
+    // v104: 4번 축 선택은 3번 개념/키워드와 4번 후보군을 재계산하지 않는다.
+    // 기존 4번 후보 DOM을 유지한 채 active 표시와 5번 도서 이하만 바꿔서
+    // 변화 모델링축 → 로그 스케일 해석 축 → 데이터 예측 축 순서로 눌러도
+    // 후보 3개가 다른 축 세트로 바뀌지 않게 한다.
+    renderStatus();
+    syncKeywordActiveButtons();
+    syncTrackActiveCards();
     renderBookArea();
     renderModeArea();
     renderViewArea();
