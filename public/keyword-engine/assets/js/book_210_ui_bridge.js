@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v29-a11-info-abstraction-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v30-a13-info-system-network-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -2620,6 +2620,170 @@
 
 
 
+  function isBookA13InfoSystemNetworkContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|시스템|통신|임베디드|보안)/i.test(careerText);
+    const isInfo = /^정보$/.test(subjectText) || /정보/.test(subjectText);
+    const isSystemNetworkConcept = /컴퓨팅\s*시스템\s*과\s*네트워크/.test(conceptText);
+    // 실제 정보 과목 데이터 기준 키워드만 사용한다.
+    const isSystemNetworkKeyword = /(컴퓨팅\s*시스템|운영\s*체제|네트워크|서버|클라이언트|프로토콜|인터넷|ip|주소|보안|계정|접근\s*권한|플랫폼|협업\s*도구|센서|피지컬\s*컴퓨팅|회로|임베디드|장치|입출력\s*장치|마이크로컨트롤러|데이터\s*전송|통신)/i.test(keywordText);
+    return !!(isComputer && isInfo && isSystemNetworkConcept && isSystemNetworkKeyword);
+  }
+
+  function inferBookA13InfoSystemNetworkAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 정보 과목 followup-axis 기준:
+      // 컴퓨팅 시스템과 네트워크 → 시스템·네트워크 구조 / 센서·임베디드 제어 / 협업 플랫폼·보안 운영.
+      if (/(network_system|시스템\s*·\s*네트워크|시스템.*네트워크|네트워크\s*구조|서버|클라이언트|프로토콜|통신)/i.test(text)) {
+        return "system_network_structure";
+      }
+      if (/(embedded_control|센서\s*·\s*임베디드|센서.*임베디드|센서\s*제어|피지컬\s*컴퓨팅|회로|임베디드|장치)/i.test(text)) {
+        return "sensor_embedded_control";
+      }
+      if (/(platform_security|협업\s*플랫폼|보안\s*운영|플랫폼.*보안|계정|접근\s*권한|보안|협업\s*도구)/i.test(text)) {
+        return "platform_security_operation";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA13InfoSystemNetwork(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      system_network_structure: "시스템·네트워크 구조 축",
+      sensor_embedded_control: "센서·임베디드 제어 축",
+      platform_security_operation: "협업 플랫폼·보안 운영 축"
+    };
+    const axisUseMap = {
+      system_network_structure: {
+        direct: "컴퓨팅 시스템이 여러 구성 요소와 네트워크 연결을 통해 데이터를 주고받는 구조를 설명할 때 활용합니다.",
+        role: ["시스템 구성 요소", "네트워크 연결 구조", "데이터 흐름의 한계 논의"]
+      },
+      sensor_embedded_control: {
+        direct: "센서와 임베디드 장치가 입력값을 받아 제어·출력으로 연결되는 과정을 설명할 때 활용합니다.",
+        role: ["센서 입력 구조", "임베디드 제어 흐름", "장치 제어 한계 논의"]
+      },
+      platform_security_operation: {
+        direct: "협업 플랫폼과 계정·접근 권한·보안 운영이 정보 시스템의 안정성에 어떤 영향을 주는지 설명할 때 활용합니다.",
+        role: ["플랫폼 운영 구조", "접근 권한 관리", "보안·윤리 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.system_network_structure;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 컴퓨팅 시스템과 네트워크를 구조·제어·운영 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 네트워크 사회, 플랫폼 운영, 보안 윤리로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["정보사회 확장", "플랫폼 운영 비교", "보안 윤리 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 컴퓨팅 시스템과 네트워크를 시스템·네트워크 구조, 센서·임베디드 제어, 협업 플랫폼·보안 운영 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·미디어·감시·보안 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "컴퓨팅 시스템과 네트워크가 데이터 흐름, 장치 제어, 접근 권한, 보안 운영에서 갖는 한계와 오류 가능성을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 네트워크 사회, 플랫폼 운영, 정보 보안, 디지털 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA13InfoSystemNetworkRank: rank,
+      bookA13InfoSystemNetworkAxis: axisId
+    };
+  }
+
+  function cloneBookForA13InfoSystemNetworkLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6130 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA13InfoSystemNetwork(book, ctx, sectionType, axisId, rank),
+      bookA13InfoSystemNetworkLock: true,
+      bookA13InfoSystemNetworkLockRank: rank,
+      bookA13InfoSystemNetworkAxisLock: axisId
+    };
+  }
+
+  function applyBookA13InfoSystemNetworkLock(result, ctx){
+    if (!result || !isBookA13InfoSystemNetworkContext(ctx)) return result;
+    const axisId = inferBookA13InfoSystemNetworkAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      system_network_structure: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      sensor_embedded_control: ["부분과 전체", "카오스", "혼돈으로부터의 질서"],
+      platform_security_operation: ["객관성의 칼날", "경영학 콘서트", "미디어의 이해"]
+    };
+    const expansionMap = {
+      system_network_structure: ["미디어의 이해", "1984", "감시와 처벌", "제3의 물결", "경영학 콘서트"],
+      sensor_embedded_control: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "미디어의 이해", "1984", "제3의 물결"],
+      platform_security_operation: ["1984", "감시와 처벌", "제3의 물결", "부분과 전체", "팩트풀니스"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA13InfoSystemNetworkLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA13InfoSystemNetworkLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA13InfoSystemNetworkLock: axisId,
+        bookA13InfoSystemNetworkDirectTitles: directBooks.map(book => book.title),
+        bookA13InfoSystemNetworkExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2661,6 +2825,7 @@
     result = applyBookA10InfoProgrammingLock(result, ctx);
     result = applyBookA11InfoAbstractionLock(result, ctx);
     result = applyBookA12InfoRepresentationLock(result, ctx);
+    result = applyBookA13InfoSystemNetworkLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
