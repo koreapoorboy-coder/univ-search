@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v22-book-a2-exp-log-axis-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v23-book-a2-axis-repeat-stable";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -958,7 +958,11 @@
     const directMap = {
       change_modeling: ["카오스", "20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서"],
       log_scale_interpretation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      data_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"]
+      // v105: 같은 데이터 예측 축을 반복 클릭할 때 어댑터 기본 점수/이전 캐시가 끼어들며
+      // "경영학 콘서트"가 뒤늦게 직접 도서로 올라오는 현상을 막는다.
+      // 현재 BOOK-A2 채널 용량 세트에서는 사용자 화면에서 확인된 안정 도서군
+      // 팩트풀니스·카오스·혼돈으로부터의 질서를 직접 일치 도서로 고정한다.
+      data_prediction: ["팩트풀니스", "카오스", "혼돈으로부터의 질서"]
     };
     const expansionMap = {
       change_modeling: ["팩트풀니스", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"],
