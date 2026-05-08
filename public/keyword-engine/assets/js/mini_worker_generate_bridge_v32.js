@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v58-student-display-major-diff-precision";
+  const VERSION = "mini-worker-generate-bridge-v124-visible-selection-book-hydration";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
@@ -107,10 +107,107 @@
   function getActiveText(selectors){
     for(const sel of selectors){
       const el = document.querySelector(sel);
+      if(el && String(el.getAttribute?.("data-value") || "").trim()) return String(el.getAttribute("data-value") || "").trim();
+      if(el && String(el.getAttribute?.("data-title") || "").trim()) return String(el.getAttribute("data-title") || "").trim();
       if(el && String(el.textContent || "").trim()) return String(el.textContent || "").trim();
       if(el && String(el.value || "").trim()) return String(el.value || "").trim();
     }
     return "";
+  }
+
+  function cleanUiText(value){
+    return String(value || "")
+      .replace(/\s+/g, " ")
+      .replace(/^(선택 개념|추천 키워드|후속 연계축|직접 일치 도서|확장 참고 도서)\s*[:：]?\s*/g, "")
+      .replace(/\s*활동 예시:.*$/g, "")
+      .trim();
+  }
+
+  function isWeakAxis(value){
+    const v = String(value || "").trim();
+    if(!v) return true;
+    if(/^(physics|chemistry|biology|earth|science|math|data|subject|career|keyword|concept)$/i.test(v)) return true;
+    if(/^[a-z0-9_-]+$/i.test(v) && !/[가-힣]/.test(v)) return true;
+    return false;
+  }
+
+  function isWeakKeyword(value){
+    const v = String(value || "").trim();
+    if(!v) return true;
+    if(v.split(/[,，]/).filter(Boolean).length >= 3) return true;
+    return false;
+  }
+
+  function getBookLastResult(){
+    try{ if(typeof window.__BOOK_210_GET_LAST_RESULT__ === "function") return window.__BOOK_210_GET_LAST_RESULT__(); }catch(e){}
+    return window.__BOOK_210_LAST_RESULT__ || null;
+  }
+
+  function compactTrackTitle(text){
+    const raw = String(text || "").replace(/\s+/g, " ").trim();
+    if(!raw) return "";
+    const m = raw.match(/^(.+?축)(?:\s|$)/);
+    return cleanUiText(m ? m[1] : raw);
+  }
+
+  function getVisibleSelectionSnapshot(){
+    const last = getBookLastResult();
+    const ctx = last?.ctx || {};
+    const subject = readValue("subject") || ctx.subject || "";
+    const career = readValue("career") || ctx.career || ctx.department || ctx.selectedMajor || "";
+    const concept = getActiveText([
+      ".engine-concept-card.is-active[data-concept]",
+      ".engine-concept-card.selected[data-concept]",
+      ".engine-concept-card.active[data-concept]"
+    ]) || ctx.concept || ctx.selectedConcept || "";
+    const keyword = getActiveText([
+      ".engine-chip.is-active[data-action='keyword'][data-value]",
+      ".engine-chip.selected[data-action='keyword'][data-value]",
+      ".engine-chip.active[data-action='keyword'][data-value]"
+    ]) || ctx.keyword || ctx.selectedKeyword || "";
+    const axisTitle = compactTrackTitle(
+      getActiveText([
+        ".engine-track-card.is-active .engine-track-title",
+        ".engine-track-card.selected .engine-track-title",
+        ".engine-track-card.active .engine-track-title"
+      ]) || ctx.axisLabel || ctx.trackLabel || ctx.linkTrackLabel || ""
+    );
+    const axisId = getActiveText([
+      ".engine-track-card.is-active[data-track]",
+      ".engine-track-card.selected[data-track]",
+      ".engine-track-card.active[data-track]"
+    ]) || ctx.followupAxisId || ctx.linkTrack || "";
+    const activeBook = document.querySelector(".engine-book-card.is-active[data-kind='book'], .book-chip.is-active[data-kind='book'], .engine-book-card.selected[data-kind='book'], .book-chip.selected[data-kind='book']");
+    const clicked = window.__BOOK_210_LAST_CLICKED_BOOK__ || {};
+    const bookValue = String(activeBook?.getAttribute?.("data-value") || clicked.value || ctx.selectedBook || readValue("selectedBookId") || "").trim();
+    const bookTitle = cleanUiText(activeBook?.getAttribute?.("data-title") || clicked.title || ctx.selectedBookTitle || readValue("selectedBookTitle") || "");
+    return { subject, career, concept: cleanUiText(concept), keyword: cleanUiText(keyword), axisTitle, axisId, bookValue, bookTitle, last };
+  }
+
+  function hydrateSelectedBook(payload, snap){
+    if(payload.selectedBook && payload.selectedBook.title) return;
+    const result = snap.last?.result || null;
+    const all = [].concat(result?.directBooks || [], result?.expansionBooks || []);
+    const keys = [snap.bookValue, snap.bookTitle].filter(Boolean);
+    let found = null;
+    if(all.length){
+      found = keys.length ? all.find(b => {
+        const candidates = [b.sourceId, b.bookId, String(b.managementNo || ""), b.title].map(v => String(v || "").trim());
+        return keys.some(k => candidates.includes(k));
+      }) : all[0];
+      if(!found) found = all[0];
+    }
+    if(!found && keys[0] && typeof window.getSelectedBookDetail === "function"){
+      try{ found = window.getSelectedBookDetail(keys[0]); }catch(e){ found = null; }
+    }
+    if(found){
+      payload.selectedBook = {
+        ...found,
+        title: found.title || snap.bookTitle || keys[0],
+        author: found.author || "",
+        selectedBookContext: found.selectedBookContext || found.miniUseGuide || null
+      };
+    }
   }
 
   function hydrateMiniPayload(mini, form){
@@ -119,51 +216,50 @@
     payload.reportGenerationContext = payload.reportGenerationContext || {};
 
     const s = payload.selectionPayload;
-    s.subject = s.subject || form.subject || readValue("subject");
-    s.department = s.department || form.career || readValue("career");
-    s.selectedConcept = s.selectedConcept || getActiveText([
-      ".concept-card.active .concept-title",
-      ".concept-card.is-active .concept-title",
-      ".concept-card.selected .concept-title",
-      "[data-concept].active",
-      "[data-concept].is-active",
-      "[data-selected-concept]",
+    const snap = getVisibleSelectionSnapshot();
+    s.subject = snap.subject || s.subject || form.subject || readValue("subject");
+    s.department = snap.career || s.department || form.career || readValue("career");
+    if(snap.concept) s.selectedConcept = snap.concept;
+    else s.selectedConcept = s.selectedConcept || getActiveText([
+      ".engine-concept-card.is-active[data-concept]",
+      ".engine-concept-card.selected[data-concept]",
+      ".engine-concept-card.active[data-concept]",
       "#selectedConcept",
       "input[name='selectedConcept']"
     ]);
-    s.selectedRecommendedKeyword = s.selectedRecommendedKeyword || s.selectedKeyword || form.keyword || getActiveText([
-      ".keyword-chip.active",
-      ".keyword-chip.is-active",
-      ".keyword-chip.selected",
-      ".keyword-btn.active",
-      ".keyword-btn.is-active",
-      ".keyword-btn.selected",
-      "[data-keyword].active",
-      "[data-keyword].is-active",
-      "#selectedKeyword",
-      "input[name='selectedKeyword']"
+    if(snap.keyword && !isWeakKeyword(snap.keyword)) s.selectedRecommendedKeyword = snap.keyword;
+    else s.selectedRecommendedKeyword = (!isWeakKeyword(s.selectedRecommendedKeyword) ? s.selectedRecommendedKeyword : "") || (!isWeakKeyword(s.selectedKeyword) ? s.selectedKeyword : "") || (!isWeakKeyword(form.keyword) ? form.keyword : "") || getActiveText([
+      ".engine-chip.is-active[data-action='keyword'][data-value]",
+      ".engine-chip.selected[data-action='keyword'][data-value]",
+      ".engine-chip.active[data-action='keyword'][data-value]"
     ]);
-    s.selectedKeyword = s.selectedKeyword || s.selectedRecommendedKeyword;
-    s.followupAxis = s.followupAxis || s.selectedFollowupAxis || getActiveText([
-      ".followup-axis-card.active .axis-title",
-      ".followup-axis-card.is-active .axis-title",
-      ".followup-axis-card.selected .axis-title",
-      ".axis-card.active .axis-title",
-      ".axis-card.is-active .axis-title",
-      ".axis-card.selected .axis-title",
-      "[data-axis].active",
-      "[data-axis].is-active",
-      "#selectedFollowupAxis",
-      "input[name='selectedFollowupAxis']"
-    ]);
-    s.selectedFollowupAxis = s.selectedFollowupAxis || s.followupAxis;
-    s.axisLabel = s.axisLabel || compactAxis(s.selectedFollowupAxis || s.followupAxis);
+    s.selectedKeyword = s.selectedRecommendedKeyword || s.selectedKeyword || "";
+    if(snap.axisTitle) s.followupAxis = snap.axisTitle;
+    else if(isWeakAxis(s.followupAxis || s.selectedFollowupAxis)) s.followupAxis = snap.axisId || "";
+    else s.followupAxis = s.followupAxis || s.selectedFollowupAxis || "";
+    s.selectedFollowupAxis = s.followupAxis || s.selectedFollowupAxis || "";
+    s.axisLabel = compactAxis(s.selectedFollowupAxis || s.followupAxis);
     s.reportIntent = s.reportIntent || "학생용 수행평가 탐구보고서 생성";
+
+    hydrateSelectedBook(payload, snap);
 
     payload.reportGenerationContext.selectedBookContext =
       payload.reportGenerationContext.selectedBookContext ||
       payload.selectedBook?.selectedBookContext ||
       null;
+    payload.reportGenerationContext.selectedBookUse =
+      payload.reportGenerationContext.selectedBookUse ||
+      (payload.selectedBook?.selectedBookContext ? {
+        title: payload.selectedBook.title,
+        recommendationType: payload.selectedBook.selectedBookContext.recommendationType,
+        recommendationReason: payload.selectedBook.selectedBookContext.recommendationReason,
+        reportRole: payload.selectedBook.selectedBookContext.reportRole,
+        reportRoleLabels: payload.selectedBook.selectedBookContext.reportRoleLabels,
+        useInReport: payload.selectedBook.selectedBookContext.useInReport,
+        miniInstruction: payload.selectedBook.selectedBookContext.miniInstruction,
+        doNotUseAs: payload.selectedBook.selectedBookContext.doNotUseAs,
+        bestFor: payload.selectedBook.selectedBookContext.bestFor
+      } : null);
 
     let majorContext = payload.major_context || payload.reportGenerationContext.majorContext || null;
     if(!majorContext && typeof global.getMajorEngineSelectionData === "function"){
