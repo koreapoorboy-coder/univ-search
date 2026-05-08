@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v31-a14-a16-calculus1-subject-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a17-geometry-subject-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3271,6 +3271,194 @@
 
 
 
+
+  function isBookA17GeometryComputerContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|그래픽|그래픽스|공간정보|비전|자율주행)/i.test(careerText);
+    const isGeometry = /^기하$|고등\s*기하/.test(subjectText) || /기하/.test(subjectText);
+    const isConcept = /(벡터의\s*성분과\s*내적|공간좌표와\s*구의\s*방정식|이차곡선과\s*자취\s*해석)/.test(conceptText);
+    const isKeyword = !keywordText || /(내적|성분|좌표|벡터|크기|각|방향\s*유사도|코사인\s*유사도|투영|정규화|거리|공간좌표|3차원|구의\s*방정식|중심|반지름|위치\s*추적|충돌\s*판정|그래픽스|공간\s*데이터|쌍곡선|위치\s*추정|신호|포물선|타원|초점|자취|반사\s*성질|궤도)/i.test(keywordText);
+    return !!(isComputer && isGeometry && isConcept && isKeyword);
+  }
+
+  function inferBookA17GeometryAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 기하 followup-axis 데이터 기준:
+      // 벡터의 성분과 내적 → 벡터·유사도 모델링 / 그래픽·물리 벡터 해석 / 투영·공간 계산.
+      if (/(vector_similarity_model_axis|벡터\s*[·ㆍ]?\s*유사도\s*모델링|벡터.*유사도|코사인\s*유사도|정규화|방향\s*유사도)/i.test(text)) return "vector_similarity_model";
+      if (/(graphics_vector_axis|그래픽\s*[·ㆍ]?\s*물리\s*벡터|그래픽.*벡터|물리\s*벡터|그래픽스|방향|성분)/i.test(text)) return "graphics_physics_vector";
+      if (/(projection_space_calc_axis|투영\s*[·ㆍ]?\s*공간\s*계산|투영.*공간|공간\s*계산|투영|거리)/i.test(text)) return "projection_space_calculation";
+
+      // 공간좌표와 구의 방정식 → 3차원 좌표·그래픽스 / 센서 범위·충돌 판정 / 위치 추적·공간 데이터.
+      if (/(three_d_coordinate_graphics_axis|3차원\s*좌표\s*[·ㆍ]?\s*그래픽스|3차원.*그래픽|공간좌표|구의\s*방정식|그래픽스)/i.test(text)) return "three_d_coordinate_graphics";
+      if (/(sensor_collision_range_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|반지름|범위)/i.test(text)) return "sensor_range_collision";
+      if (/(location_space_data_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
+
+      // 이차곡선과 자취 해석 → 신호·위치 추정 모델 / 반사·궤도 해석 / 곡선·설계 시각화.
+      if (/(signal_position_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
+      if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "reflection_orbit_analysis";
+      if (/(curve_design_visualization_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화|자취|포물선|타원)/i.test(text)) return "curve_design_visualization";
+      return "";
+    };
+
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    // 축 정보가 늦게 들어오는 초기 렌더에서도 개념별 첫 축으로 안전하게 고정한다.
+    if (/벡터의\s*성분과\s*내적/.test(conceptText)) return "vector_similarity_model";
+    if (/공간좌표와\s*구의\s*방정식/.test(conceptText)) return "three_d_coordinate_graphics";
+    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "signal_position_estimation";
+    return "";
+  }
+
+  function buildLockedBookContextA17Geometry(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      vector_similarity_model: "벡터·유사도 모델링 축",
+      graphics_physics_vector: "그래픽·물리 벡터 해석 축",
+      projection_space_calculation: "투영·공간 계산 축",
+      three_d_coordinate_graphics: "3차원 좌표·그래픽스 축",
+      sensor_range_collision: "센서 범위·충돌 판정 축",
+      location_tracking_space_data: "위치 추적·공간 데이터 축",
+      signal_position_estimation: "신호·위치 추정 모델 축",
+      reflection_orbit_analysis: "반사·궤도 해석 축",
+      curve_design_visualization: "곡선·설계 시각화 축"
+    };
+    const axisUseMap = {
+      vector_similarity_model: { direct: "벡터의 성분과 내적을 데이터의 방향 유사도, 코사인 유사도, 정규화 개념과 연결해 설명할 때 활용합니다.", role: ["벡터 유사도", "데이터 모델링", "정규화 해석"] },
+      graphics_physics_vector: { direct: "벡터의 크기와 방향을 그래픽스·물리량 해석으로 연결해 물체 이동, 조명 방향, 힘의 합성을 설명할 때 활용합니다.", role: ["그래픽 벡터", "방향·크기 해석", "물리량 연결"] },
+      projection_space_calculation: { direct: "내적과 투영을 이용해 거리, 방향 성분, 공간 계산 과정을 수학적으로 설명할 때 활용합니다.", role: ["투영 계산", "거리 해석", "공간 계산"] },
+      three_d_coordinate_graphics: { direct: "공간좌표와 구의 방정식을 3차원 좌표계, 그래픽스, 객체 위치 표현의 기초로 설명할 때 활용합니다.", role: ["3차원 좌표", "그래픽스 기초", "공간 표현"] },
+      sensor_range_collision: { direct: "구의 중심과 반지름을 센서 범위, 충돌 판정, 객체 간 거리 조건으로 해석할 때 활용합니다.", role: ["센서 범위", "충돌 판정", "거리 조건"] },
+      location_tracking_space_data: { direct: "공간 좌표 자료를 위치 추적, 공간 데이터, 이동 경로 분석과 연결해 설명할 때 활용합니다.", role: ["위치 추적", "공간 데이터", "경로 분석"] },
+      signal_position_estimation: { direct: "이차곡선과 자취를 신호 기반 위치 추정, 거리 조건, 쌍곡선 모델로 설명할 때 활용합니다.", role: ["위치 추정", "신호 모델", "거리 조건"] },
+      reflection_orbit_analysis: { direct: "포물선·타원·쌍곡선의 반사 성질과 궤도 해석을 연결해 기하적 모델링의 의미를 설명할 때 활용합니다.", role: ["반사 성질", "궤도 해석", "기하 모델링"] },
+      curve_design_visualization: { direct: "자취와 이차곡선을 곡선 설계, 시각화, 그래픽 표현으로 확장할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "자취 해석"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.vector_similarity_model;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 기하 개념을 컴퓨터공학의 데이터·그래픽스·공간 모델링 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 시각화, 기술사회, 시스템 설계의 의미로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "시각화 관점 비교", "모델링 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 기하 개념을 벡터 유사도, 3차원 좌표, 충돌 판정, 위치 추정, 그래픽 시각화 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·시각화·시스템 설계 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "기하 기반 모델이 실제 데이터·그래픽스·공간 정보 처리에서 갖는 오차, 단순화, 조건 설정의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 컴퓨터 그래픽스, 공간 데이터, 센서 시스템, 위치 추정 기술의 활용 방향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA17GeometryRank: rank,
+      bookA17GeometryAxis: axisId
+    };
+  }
+
+  function cloneBookForA17GeometryLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6170 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA17Geometry(book, ctx, sectionType, axisId, rank),
+      bookA17GeometryLock: true,
+      bookA17GeometryLockRank: rank,
+      bookA17GeometryAxisLock: axisId
+    };
+  }
+
+  function applyBookA17GeometryLock(result, ctx){
+    if (!result || !isBookA17GeometryComputerContext(ctx)) return result;
+    const axisId = inferBookA17GeometryAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      graphics_physics_vector: ["부분과 전체", "카오스", "20세기 수학의 다섯가지 황금률"],
+      projection_space_calculation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
+      three_d_coordinate_graphics: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      sensor_range_collision: ["카오스", "부분과 전체", "혼돈으로부터의 질서"],
+      location_tracking_space_data: ["팩트풀니스", "경영학 콘서트", "객관성의 칼날"],
+      signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      reflection_orbit_analysis: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
+      curve_design_visualization: ["부분과 전체", "미디어의 이해", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
+      graphics_physics_vector: ["객관성의 칼날", "미디어의 이해", "혼돈으로부터의 질서", "경영학 콘서트", "1984"],
+      projection_space_calculation: ["부분과 전체", "방법서설", "카오스", "경영학 콘서트", "미디어의 이해"],
+      three_d_coordinate_graphics: ["카오스", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
+      sensor_range_collision: ["객관성의 칼날", "경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984"],
+      location_tracking_space_data: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      signal_position_estimation: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
+      reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "미디어의 이해", "1984"],
+      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "카오스", "경영학 콘서트", "1984", "제3의 물결"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA17GeometryLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA17GeometryLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA17GeometryLock: axisId,
+        bookA17GeometryDirectTitles: directBooks.map(book => book.title),
+        bookA17GeometryExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -3316,6 +3504,7 @@
     result = applyBookA14CalculusDerivativeLock(result, ctx);
     result = applyBookA15CalculusFunctionDerivativeLock(result, ctx);
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
+    result = applyBookA17GeometryLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
