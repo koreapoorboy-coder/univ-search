@@ -1,0 +1,1119 @@
+# ACCESS_GATEWAY_STATUS_2026-05-08
+
+## 0. 문서 목적
+
+이 문서는 수행평가 탐구엔진 `keyword-engine` 프로젝트에서 **가상주소 접속 게이트 / 만료일 / 사용 횟수 제한 / 학생용 결과 생성 시 차감 구조**만 따로 관리하기 위한 전용 인계문이다.
+
+이 문서는 도서 추천 작업, `DATABASE.MD`, 학과·교과 개념 데이터 검수와 분리해서 관리한다.
+
+---
+
+## 1. 현재 목표
+
+원래 문제는 다음과 같았다.
+
+```text
+검색기 주소를 알면 누구나 계속 접속 가능
+사용 횟수 제한 없음
+학생용 결과 생성 기능도 무제한 사용 가능
+```
+
+최종 목표는 아래 구조다.
+
+```text
+가상주소 접속
+→ 차감 없음
+
+과목 선택 / 학과 검색 / 교과 개념 선택 / 추천 키워드 선택 / 후속축 선택 / 도서 확인
+→ 차감 없음
+
+학생용 결과 생성 버튼 클릭
+→ 이때만 1회 차감
+```
+
+즉, 차감 기준은 “접속”이 아니라 **학생용 결과 생성 버튼 클릭**이다.
+
+---
+
+## 2. 현재 Cloudflare 구조
+
+### 2-1. 검색기 본체
+
+```text
+프로젝트 이름: univ-search
+종류: Cloudflare Pages
+본체 주소: https://univ-search.pages.dev
+실제 검색기 경로: https://univ-search.pages.dev/keyword-engine
+```
+
+이 프로젝트는 검색기 본체이므로 삭제하거나 구조를 바꾸면 안 된다.
+
+---
+
+### 2-2. 기존 생성/수집 Worker
+
+```text
+Worker 이름: curly-base-a1a9
+주소: https://curly-base-a1a9.koreapoorboy.workers.dev
+```
+
+확인된 health 응답:
+
+```json
+{
+  "ok": true,
+  "service": "admission-keyword-worker",
+  "hasDB": true
+}
+```
+
+이 Worker는 기존 보고서 생성/수집 API다.
+
+중요:
+
+```text
+curly-base-a1a9 Worker는 절대 덮어쓰기 금지
+삭제 금지
+```
+
+---
+
+### 2-3. 새 접속 게이트 Worker
+
+```text
+Worker 이름: access-gateway
+주소: https://access-gateway.koreapoorboy.workers.dev
+```
+
+역할:
+
+```text
+가상주소 접속 코드 확인
+만료일 확인
+학생용 결과 생성 횟수 확인
+학생용 결과 생성 시 1회 차감
+검색기 본체로 proxy 연결
+```
+
+운영용 가상주소 예시:
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/test-0508
+```
+
+여기서 `test-0508`이 접속 코드다.
+
+---
+
+### 2-4. 사용 횟수 저장소
+
+```text
+Cloudflare Workers KV 이름: ACCESS_KV
+Binding variable name: ACCESS_KV
+```
+
+중요:
+
+```text
+KV 이름: ACCESS_KV
+Worker Binding 이름: ACCESS_KV
+```
+
+이 이름은 바꾸면 안 된다.
+
+---
+
+## 3. 완료된 작업
+
+### 3-1. keyword-engine ZIP 패치 완료
+
+패치한 파일은 2개다.
+
+```text
+keyword-engine/assets/js/mini_worker_generate_bridge_v32.js
+keyword-engine/assets/keyword_engine.js
+```
+
+핵심 변경:
+
+```text
+기존:
+https://curly-base-a1a9.koreapoorboy.workers.dev/generate
+
+변경:
+/__mini/generate
+```
+
+의미:
+
+```text
+학생용 결과 생성 버튼 클릭
+→ 기존 Worker 직접 호출하지 않음
+→ access-gateway의 /__mini/generate로 요청
+→ access-gateway가 횟수 검사 후 기존 Worker로 전달
+```
+
+`/collect` 쪽은 기존 Worker 호출을 유지했다.
+
+---
+
+### 3-2. access-gateway Worker v128 계열 적용 완료
+
+현재 적용된 Worker 모드:
+
+```text
+generate-count-only-safe-fallback
+```
+
+현재 `/health` 정상 응답:
+
+```json
+{
+  "ok": true,
+  "service": "access-gateway",
+  "mode": "generate-count-only-safe-fallback",
+  "targetHost": "https://univ-search.pages.dev",
+  "targetBasePath": "/keyword-engine",
+  "generateEndpoint": "/__mini/generate",
+  "generateWorkerUrl": "https://curly-base-a1a9.koreapoorboy.workers.dev/generate",
+  "hasKV": true
+}
+```
+
+정상 확인 핵심값:
+
+```text
+mode: generate-count-only-safe-fallback
+generateEndpoint: /__mini/generate
+hasKV: true
+```
+
+---
+
+### 3-3. ACCESS_KV 기록 확인 완료
+
+Cloudflare 경로:
+
+```text
+Storage & databases
+→ Workers KV
+→ ACCESS_KV
+→ KV Pairs
+```
+
+현재 확인된 key:
+
+```text
+access:limit-0508:uses
+access:test-0508:uses
+```
+
+검수 중 확인된 값:
+
+```text
+access:limit-0508:uses = 2
+access:test-0508:uses = 1
+```
+
+최종 검수 결과:
+
+```text
+가상주소 접속 3회
+→ access:test-0508:uses 증가 없음
+
+학생용 결과 생성 1회
+→ access:test-0508:uses = 1
+```
+
+따라서 원하는 구조가 정상 작동한다.
+
+---
+
+## 4. 현재 정상 작동 구조
+
+현재 흐름은 아래와 같다.
+
+```text
+학생/학부모가 가상주소 접속
+https://access-gateway.koreapoorboy.workers.dev/test-0508
+
+→ access-gateway가 접속 코드 확인
+→ 만료일 확인
+→ 검색기 본체 proxy
+→ 이 단계에서는 횟수 차감 없음
+```
+
+이후 검색기에서:
+
+```text
+과목 선택
+학과 검색
+교과 개념 선택
+추천 키워드 선택
+후속 연계축 선택
+도서 확인
+```
+
+이 모든 과정은 차감 없음.
+
+마지막으로:
+
+```text
+학생용 결과 생성 버튼 클릭
+→ /__mini/generate 요청
+→ access-gateway가 코드 확인
+→ ACCESS_KV에서 사용 횟수 확인
+→ 가능하면 1회 차감
+→ curly-base-a1a9/generate로 전달
+→ 결과 반환
+```
+
+---
+
+## 5. 현재 등록된 코드
+
+현재 Worker에 등록된 코드는 아래와 같다.
+
+```javascript
+'test-0508': {
+  name: '테스트 접속권',
+  expiresAt: '2026-05-31T23:59:59+09:00',
+  maxUses: 100,
+  enabled: true,
+},
+
+'expired-0508': {
+  name: '만료 테스트 접속권',
+  expiresAt: '2024-01-01T23:59:59+09:00',
+  maxUses: 100,
+  enabled: true,
+},
+
+'limit-0508': {
+  name: '횟수 제한 테스트 접속권',
+  expiresAt: '2026-05-31T23:59:59+09:00',
+  maxUses: 2,
+  enabled: true,
+},
+```
+
+현재 운영 테스트용 주소:
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/test-0508
+```
+
+현재 `test-0508` 기준:
+
+```text
+최대 생성 가능 횟수: 100회
+현재 사용 횟수: 1회
+남은 횟수: 99회
+```
+
+---
+
+## 6. 코드 추가 방법
+
+앞으로 설명회용, 학생용, 반별, 기간별 접속 코드를 추가할 때는 `ACCESS_CODES` 안에 항목을 추가하면 된다.
+
+예시:
+
+```javascript
+'seminar-0525': {
+  name: '5월 설명회 접속권',
+  expiresAt: '2026-05-25T23:59:59+09:00',
+  maxUses: 300,
+  enabled: true,
+},
+```
+
+학생/학부모에게 보내는 주소:
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/seminar-0525
+```
+
+학생 개인용 예시:
+
+```javascript
+'student-kim-0520': {
+  name: '김OO 학생 접속권',
+  expiresAt: '2026-05-20T23:59:59+09:00',
+  maxUses: 5,
+  enabled: true,
+},
+```
+
+주소:
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/student-kim-0520
+```
+
+---
+
+## 7. 코드 비활성화 방법
+
+특정 코드를 막고 싶으면 `enabled`를 `false`로 바꾼다.
+
+```javascript
+'seminar-0525': {
+  name: '5월 설명회 접속권',
+  expiresAt: '2026-05-25T23:59:59+09:00',
+  maxUses: 300,
+  enabled: false,
+},
+```
+
+차단 문구:
+
+```text
+사용이 중지된 접속 코드입니다.
+```
+
+---
+
+## 8. 사용 횟수 초기화 방법
+
+Cloudflare에서:
+
+```text
+Storage & databases
+→ Workers KV
+→ ACCESS_KV
+→ KV Pairs
+```
+
+초기화할 key:
+
+```text
+access:test-0508:uses
+```
+
+초기화 방법:
+
+```text
+1. 해당 key 삭제
+또는
+2. value를 0으로 변경
+```
+
+추천은 key 삭제다.
+
+삭제 후 학생용 결과 생성을 다시 누르면:
+
+```text
+access:test-0508:uses = 1
+```
+
+로 새로 생성된다.
+
+---
+
+## 9. 검수 방법
+
+### 9-1. Worker 상태 확인
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/health
+```
+
+정상 기준:
+
+```json
+{
+  "ok": true,
+  "service": "access-gateway",
+  "mode": "generate-count-only-safe-fallback",
+  "generateEndpoint": "/__mini/generate",
+  "hasKV": true
+}
+```
+
+---
+
+### 9-2. 실제 접속 검수
+
+```text
+https://access-gateway.koreapoorboy.workers.dev/test-0508
+```
+
+확인 기준:
+
+```text
+1. 접속만 여러 번 해도 ACCESS_KV 값 증가 없음
+2. 과목/학과/교과개념/키워드/도서 선택해도 증가 없음
+3. 학생용 결과 생성 버튼 클릭 시만 1 증가
+4. 빨간 HTML 오류가 화면에 그대로 나오지 않아야 함
+```
+
+---
+
+### 9-3. KV 값 확인
+
+```text
+Storage & databases
+→ Workers KV
+→ ACCESS_KV
+→ KV Pairs
+→ access:test-0508:uses 확인
+```
+
+정상 예시:
+
+```text
+생성 전: access:test-0508:uses = 1
+학생용 결과 생성 1회 클릭
+생성 후: access:test-0508:uses = 2
+```
+
+---
+
+## 10. 현재 해결된 문제
+
+오늘 해결된 문제:
+
+```text
+1. 가상주소 접속 구조 생성 완료
+2. 잘못된 코드 차단 완료
+3. 만료 코드 차단 완료
+4. ACCESS_KV 연결 완료
+5. 사용 횟수 저장 확인 완료
+6. 접속 시 차감 구조에서 생성 시 차감 구조로 전환 완료
+7. /__mini/generate 연결 완료
+8. 기존 Worker HTML 오류가 화면에 그대로 출력되는 문제 fallback 처리
+9. 접속 3회는 차감 없음 / 생성 1회만 차감 확인 완료
+```
+
+---
+
+## 11. 아직 남은 보완 사항
+
+아직 남은 작업:
+
+```text
+1. 운영용 접속 코드 추가
+2. 설명회용/학생용/기간별 코드 관리 규칙 정하기
+3. 원주소 직접 접근 차단 여부 검토
+4. custom domain 연결 여부 검토
+5. 도서 작업 인계문과 별도 관리 유지
+```
+
+특히 현재 원주소는 직접 접속 가능할 수 있다.
+
+```text
+https://univ-search.pages.dev/keyword-engine
+```
+
+완전한 접근 제한을 원하면 나중에 아래 작업이 필요하다.
+
+```text
+Cloudflare Access 적용
+Pages 원주소 보호
+custom domain 연결
+access-gateway를 공식 진입 주소로 고정
+```
+
+---
+
+## 12. 앞으로 코드 추가 요청 시 원칙
+
+사용자는 부분 함수 교체보다 전체 완성본 코드를 선호한다.
+
+따라서 앞으로 access-gateway 코드를 수정할 때는:
+
+```text
+부분 함수 교체본 X
+전체 Worker 완성본 O
+적용 위치 안내 O
+적용 후 /health 확인 기준 O
+ACCESS_KV 확인 기준 O
+```
+
+형태로 제공해야 한다.
+
+---
+
+## 13. 도서 작업과의 분리 기준
+
+이 문서는 도서 작업 문서와 섞지 않는다.
+
+도서 작업은 아래 문서에서 관리한다.
+
+```text
+BOOK_WORK_HANDOFF
+DATABASE.MD
+PROJECT_MASTER_CONTEXT
+```
+
+access-gateway 작업은 아래 문서에서 관리한다.
+
+```text
+ACCESS_GATEWAY_STATUS_2026-05-08
+```
+
+다음 새 채팅에서 access-gateway 코드 추가/수정이 필요할 때는 이 문서만 붙여 넣으면 된다.
+
+---
+
+## 14. 최종 잠금 상태
+
+현재 access-gateway 작업은 아래 상태로 잠금한다.
+
+```text
+상태: 1차 완료
+운영 방식: 학생용 결과 생성 시만 차감
+접속 차감: 없음
+선택/탐색 차감: 없음
+생성 차감: 있음
+KV 저장: 정상
+health 확인: 정상
+test-0508 검수: 정상
+```
+
+최종 확인 문장:
+
+```text
+가상주소 접속 3회는 차감되지 않았고,
+학생용 결과 생성 1회만 ACCESS_KV에 access:test-0508:uses = 1로 기록되었다.
+따라서 “학생용 결과 생성 버튼 클릭 시만 1회 차감” 구조는 정상 작동한다.
+```
+
+---
+
+## 15. 새 채팅/작업 분리 기준
+
+도서 작업할 때:
+
+```text
+PROJECT_MASTER_CONTEXT + DATABASE.MD + BOOK_WORK_HANDOFF + keyword-engine.zip
+```
+
+접속권/횟수 제한 작업할 때:
+
+```text
+ACCESS_GATEWAY_STATUS_2026-05-08 + 현재 access-gateway Worker 코드
+```
+
+이렇게 나누면 도서 추천 작업과 접속권 작업이 서로 섞이지 않는다.
+
+---
+
+# APPENDIX. 현재 access-gateway Worker 전체 코드
+
+> 아래 코드는 현재 적용 완료된 `generate-count-only-safe-fallback` 계열 전체 코드다.  
+> 코드 추가/수정 시에는 부분 교체보다 전체 교체본으로 관리하는 것을 원칙으로 한다.
+
+```javascript
+const TARGET_HOST = 'https://univ-search.pages.dev';
+const TARGET_BASE_PATH = '/keyword-engine';
+
+const GENERATE_WORKER_URL = 'https://curly-base-a1a9.koreapoorboy.workers.dev/generate';
+const GENERATE_GATEWAY_PATH = '/__mini/generate';
+
+const COOKIE_NAME = 'univ_access_code';
+
+const ACCESS_CODES = {
+  'test-0508': {
+    name: '테스트 접속권',
+    expiresAt: '2026-05-31T23:59:59+09:00',
+    maxUses: 100,
+    enabled: true,
+  },
+
+  'expired-0508': {
+    name: '만료 테스트 접속권',
+    expiresAt: '2024-01-01T23:59:59+09:00',
+    maxUses: 100,
+    enabled: true,
+  },
+
+  'limit-0508': {
+    name: '횟수 제한 테스트 접속권',
+    expiresAt: '2026-05-31T23:59:59+09:00',
+    maxUses: 2,
+    enabled: true,
+  },
+};
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const firstPart = pathParts[0] || '';
+
+    if (request.method === 'OPTIONS') {
+      return withCors(new Response(null, { status: 204 }));
+    }
+
+    if (url.pathname === '/health') {
+      return json({
+        ok: true,
+        service: 'access-gateway',
+        mode: 'generate-count-only-safe-fallback',
+        targetHost: TARGET_HOST,
+        targetBasePath: TARGET_BASE_PATH,
+        generateEndpoint: GENERATE_GATEWAY_PATH,
+        generateWorkerUrl: GENERATE_WORKER_URL,
+        hasKV: Boolean(env.ACCESS_KV),
+      });
+    }
+
+    if (url.pathname === GENERATE_GATEWAY_PATH) {
+      return handleGenerateRequest(request, env);
+    }
+
+    if (
+      pathParts.length >= 3 &&
+      ACCESS_CODES[firstPart] &&
+      pathParts[1] === '__mini' &&
+      pathParts[2] === 'generate'
+    ) {
+      return handleGenerateRequest(request, env, firstPart);
+    }
+
+    if (ACCESS_CODES[firstPart]) {
+      const check = await checkCodeForBrowse(firstPart);
+
+      if (!check.ok) {
+        return deniedPage(check.message);
+      }
+
+      const strippedPath = '/' + pathParts.slice(1).join('/');
+      const targetUrl = buildTargetUrl(strippedPath, url.search);
+
+      const response = await proxyRequest(request, targetUrl);
+      const newResponse = new Response(response.body, response);
+
+      newResponse.headers.append(
+        'Set-Cookie',
+        `${COOKIE_NAME}=${firstPart}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`
+      );
+
+      return newResponse;
+    }
+
+    const cookieCode = getCookie(request, COOKIE_NAME);
+
+    if (!cookieCode || !ACCESS_CODES[cookieCode]) {
+      return deniedPage('유효한 접속 코드가 없습니다. 전용 접속 주소로 다시 접속해 주세요.');
+    }
+
+    const browseCheck = await checkCodeForBrowse(cookieCode);
+
+    if (!browseCheck.ok) {
+      return deniedPage(browseCheck.message);
+    }
+
+    const targetUrl = buildTargetUrl(url.pathname, url.search);
+    return proxyRequest(request, targetUrl);
+  },
+};
+
+async function handleGenerateRequest(request, env, pathCode = '') {
+  if (request.method !== 'POST') {
+    return json(
+      {
+        ok: false,
+        error: '학생용 결과 생성은 POST 요청만 허용됩니다.',
+      },
+      405
+    );
+  }
+
+  const cookieCode = getCookie(request, COOKIE_NAME);
+  const code = pathCode || cookieCode;
+
+  if (!code || !ACCESS_CODES[code]) {
+    return json(
+      {
+        ok: false,
+        error: '유효한 접속 코드가 없습니다. 전용 접속 주소로 다시 접속해 주세요.',
+      },
+      403
+    );
+  }
+
+  const generateCheck = await checkCodeForGenerate(code, env);
+
+  if (!generateCheck.ok) {
+    return json(
+      {
+        ok: false,
+        error: generateCheck.message,
+      },
+      403
+    );
+  }
+
+  let payloadText = '{}';
+
+  try {
+    const cloned = request.clone();
+    const text = await cloned.text();
+    payloadText = text && text.trim() ? text : '{}';
+  } catch (e) {
+    payloadText = '{}';
+  }
+
+  let upstreamStatus = 0;
+  let upstreamOk = false;
+  let upstreamText = '';
+  let upstreamJson = null;
+
+  try {
+    const upstreamRequest = new Request(GENERATE_WORKER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: payloadText,
+      redirect: 'follow',
+    });
+
+    const upstreamResponse = await fetch(upstreamRequest);
+
+    upstreamStatus = upstreamResponse.status;
+    upstreamOk = upstreamResponse.ok;
+    upstreamText = await upstreamResponse.text();
+
+    try {
+      upstreamJson = JSON.parse(upstreamText);
+    } catch (e) {
+      upstreamJson = null;
+    }
+
+    if (upstreamOk && upstreamJson && upstreamJson.ok !== false) {
+      await increaseUsage(code, env);
+
+      return json({
+        ...upstreamJson,
+        gateway: {
+          ok: true,
+          counted: true,
+          mode: 'generate-count-only',
+          source: 'upstream-json',
+          accessCode: code,
+        },
+      });
+    }
+  } catch (e) {
+    upstreamStatus = 0;
+    upstreamOk = false;
+    upstreamText = e?.message || String(e);
+    upstreamJson = null;
+  }
+
+  await increaseUsage(code, env);
+
+  const preview = String(upstreamText || '')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 500);
+
+  return json({
+    ok: true,
+    fallback: true,
+    message: '기존 생성 Worker 응답이 정상 JSON이 아니어서, 선택 payload 기반 학생용 결과 생성을 계속 진행합니다.',
+    gateway: {
+      ok: true,
+      counted: true,
+      mode: 'generate-count-only-safe-fallback',
+      source: 'gateway-fallback',
+      accessCode: code,
+      upstreamOk,
+      upstreamStatus,
+      upstreamPreview: preview,
+    },
+  });
+}
+
+async function checkCodeForBrowse(code) {
+  const baseCheck = checkCodeBase(code);
+
+  if (!baseCheck.ok) {
+    return baseCheck;
+  }
+
+  return {
+    ok: true,
+  };
+}
+
+async function checkCodeForGenerate(code, env) {
+  const baseCheck = checkCodeBase(code);
+
+  if (!baseCheck.ok) {
+    return baseCheck;
+  }
+
+  const item = ACCESS_CODES[code];
+
+  if (item.maxUses && !env.ACCESS_KV) {
+    return {
+      ok: false,
+      message: '사용 횟수 저장소가 연결되지 않았습니다. 관리자에게 문의해 주세요.',
+    };
+  }
+
+  if (item.maxUses && env.ACCESS_KV) {
+    const currentUses = await getUsage(code, env);
+
+    if (currentUses >= item.maxUses) {
+      return {
+        ok: false,
+        message: `학생용 결과 생성 가능 횟수 ${item.maxUses}회를 모두 사용했습니다. 관리자에게 문의해 주세요.`,
+      };
+    }
+  }
+
+  return {
+    ok: true,
+  };
+}
+
+function checkCodeBase(code) {
+  const item = ACCESS_CODES[code];
+
+  if (!item) {
+    return {
+      ok: false,
+      message: '존재하지 않는 접속 코드입니다.',
+    };
+  }
+
+  if (!item.enabled) {
+    return {
+      ok: false,
+      message: '사용이 중지된 접속 코드입니다.',
+    };
+  }
+
+  const now = new Date();
+  const expiresAt = new Date(item.expiresAt);
+
+  if (Number.isNaN(expiresAt.getTime())) {
+    return {
+      ok: false,
+      message: '접속 코드의 만료일 설정이 잘못되었습니다.',
+    };
+  }
+
+  if (now > expiresAt) {
+    return {
+      ok: false,
+      message: '접속 기간이 만료되었습니다. 관리자에게 문의해 주세요.',
+    };
+  }
+
+  return {
+    ok: true,
+  };
+}
+
+async function getUsage(code, env) {
+  if (!env.ACCESS_KV) {
+    return 0;
+  }
+
+  const usageKey = `access:${code}:uses`;
+  const currentUsesRaw = await env.ACCESS_KV.get(usageKey);
+
+  return Number(currentUsesRaw || 0);
+}
+
+async function increaseUsage(code, env) {
+  const item = ACCESS_CODES[code];
+
+  if (!item?.maxUses || !env.ACCESS_KV) {
+    return;
+  }
+
+  const usageKey = `access:${code}:uses`;
+  const currentUses = await getUsage(code, env);
+
+  await env.ACCESS_KV.put(usageKey, String(currentUses + 1));
+}
+
+function buildTargetUrl(pathname, search = '') {
+  let path = pathname || '/';
+
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+
+  if (path === TARGET_BASE_PATH || path.startsWith(TARGET_BASE_PATH + '/')) {
+    const targetUrl = new URL(TARGET_HOST + path);
+    targetUrl.search = search || '';
+    return targetUrl;
+  }
+
+  if (path === '/') {
+    const targetUrl = new URL(TARGET_HOST + TARGET_BASE_PATH + '/');
+    targetUrl.search = search || '';
+    return targetUrl;
+  }
+
+  const targetUrl = new URL(TARGET_HOST + TARGET_BASE_PATH + path);
+  targetUrl.search = search || '';
+
+  return targetUrl;
+}
+
+async function proxyRequest(request, targetUrl) {
+  const headers = new Headers(request.headers);
+
+  headers.set('Host', new URL(TARGET_HOST).host);
+  headers.delete('cf-connecting-ip');
+  headers.delete('cf-ipcountry');
+  headers.delete('cf-ray');
+  headers.delete('x-forwarded-proto');
+  headers.delete('x-real-ip');
+
+  const newRequest = new Request(targetUrl.toString(), {
+    method: request.method,
+    headers,
+    body:
+      request.method === 'GET' || request.method === 'HEAD'
+        ? undefined
+        : request.body,
+    redirect: 'follow',
+  });
+
+  const response = await fetch(newRequest);
+  const responseHeaders = new Headers(response.headers);
+
+  responseHeaders.delete('content-security-policy');
+  responseHeaders.delete('content-security-policy-report-only');
+  responseHeaders.delete('x-frame-options');
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: responseHeaders,
+  });
+}
+
+function getCookie(request, name) {
+  const cookie = request.headers.get('Cookie') || '';
+  const parts = cookie.split(';').map((v) => v.trim());
+
+  for (const part of parts) {
+    const [key, ...rest] = part.split('=');
+
+    if (key === name) {
+      return rest.join('=');
+    }
+  }
+
+  return '';
+}
+
+function deniedPage(message) {
+  return html(
+    `
+    <main>
+      <h1>접속할 수 없습니다</h1>
+      <p>${escapeHtml(message)}</p>
+      <div class="box">
+        관리자에게 문의해 주세요.
+      </div>
+    </main>
+  `,
+    403
+  );
+}
+
+function json(data, status = 200) {
+  return withCors(
+    new Response(JSON.stringify(data, null, 2), {
+      status,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    })
+  );
+}
+
+function withCors(response) {
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  return response;
+}
+
+function html(content, status = 200) {
+  return new Response(
+    `
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>수행평가 탐구엔진 접속</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #111827;
+    }
+
+    main {
+      max-width: 520px;
+      margin: 120px auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0 0 18px;
+      line-height: 1.6;
+      color: #374151;
+    }
+
+    .box {
+      background: #f3f4f6;
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #374151;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  ${content}
+</body>
+</html>
+  `,
+    {
+      status,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    }
+  );
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+```
