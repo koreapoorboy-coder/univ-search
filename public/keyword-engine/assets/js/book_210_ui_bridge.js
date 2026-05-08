@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a19-physics-subject-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a19-physics-subject-lock-v127-1";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3546,6 +3546,20 @@
     const resolveFromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
+      // 물질의 전기적 특성 / 파동 / 물리-컴퓨터 4번 축 보정
+      // v127.1: 실제 4번 화면에는 v127 설명용 축명 대신 기존 전자/임베디드 축명이 나올 수 있다.
+      // 특히 electronics_embedded_network_axis는 그대로 두면 concept fallback으로 1번 축 도서군이 반복되므로
+      // 현재 선택 교과 개념 기준으로 가장 가까운 물리 도서 축에 명시 매핑한다.
+      if (/(electronics_embedded_network_axis|임베디드\s*[·ㆍ]?\s*네트워크\s*제어|임베디드|네트워크\s*제어)/i.test(text)) {
+        if (/파동의\s*성질과\s*활용/.test(conceptText)) return "data_bandwidth";
+        if (/물질의\s*전기적\s*특성/.test(conceptText)) return "sensor_measurement_signal";
+        if (/물질의\s*자기적\s*특성/.test(conceptText)) return "electromagnet_control";
+        if (/빛과\s*물질의\s*이중성/.test(conceptText)) return "optical_information";
+        if (/힘과\s*운동/.test(conceptText)) return "mechanical_motion_control";
+        if (/에너지와\s*열/.test(conceptText)) return "thermal_management_hardware";
+        if (/시간과\s*공간/.test(conceptText)) return "time_sync_network";
+        return "sensor_measurement_signal";
+      }
       // 물질의 전기적 특성
       if (/(electric_signal_circuit_axis|electronics_signal_circuit_axis|전기\s*신호\s*[·ㆍ]?\s*회로|신호\s*[·ㆍ]?\s*회로|회로\s*기초|전압|전류|회로)/i.test(text)) return "electric_signal_circuit";
       if (/(semiconductor_device_axis|electronics_device_sensor_axis|반도체\s*[·ㆍ]?\s*소자|전자소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
