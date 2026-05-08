@@ -2819,8 +2819,11 @@
       text = normalizeLockText(text || "");
       if (!text) return "";
 
-      // 실제 미적분1 + 컴퓨터공학과 followup-axis 기준:
-      // 도함수의 활용 → 변화율·최적화 / 모델 민감도 분석 / 데이터 기반 예측.
+      // 실제 미적분1 followup-axis 데이터 기준:
+      // 도함수의 활용 → 변화율·최적화 / 모델 민감도 분석 / 데이터 기반 예측 / 운동 변화율·기계 모델링.
+      if (/(motion_rate_mechanics|운동\s*변화율|기계\s*모델링|기계|속도|가속도|운동)/i.test(text)) {
+        return "motion_rate_mechanics";
+      }
       if (/(optimization_gradient|변화율\s*[·ㆍ]?\s*최적화|변화율.*최적화|최적화|극값|최댓값|최솟값|증가|감소)/i.test(text)) {
         return "rate_optimization";
       }
@@ -2842,7 +2845,8 @@
     const axisLabelMap = {
       rate_optimization: "변화율·최적화 축",
       model_sensitivity: "모델 민감도 분석 축",
-      data_based_prediction: "데이터 기반 예측 축"
+      data_based_prediction: "데이터 기반 예측 축",
+      motion_rate_mechanics: "운동 변화율·기계 모델링 축"
     };
     const axisUseMap = {
       rate_optimization: {
@@ -2856,6 +2860,10 @@
       data_based_prediction: {
         direct: "데이터의 변화 흐름을 도함수와 그래프 개형으로 읽고 이후 값을 예측하는 과정을 설명할 때 활용합니다.",
         role: ["데이터 변화 추세", "예측 기준 설정", "의사결정 한계 논의"]
+      },
+      motion_rate_mechanics: {
+        direct: "도함수로 속도·가속도처럼 시간에 따른 운동 변화율을 해석하고 기계 시스템 모델링으로 확장할 때 활용합니다.",
+        role: ["운동 변화율 해석", "기계 모델링 연결", "시뮬레이션 한계 논의"]
       }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
@@ -2874,7 +2882,7 @@
       reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "모델링 한계 비교", "데이터 의사결정 윤리 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 도함수의 활용을 변화율·최적화, 모델 민감도 분석, 데이터 기반 예측 중 하나의 프레임으로 구체화합니다." : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 도함수의 활용을 변화율·최적화, 모델 민감도 분석, 데이터 기반 예측, 운동 변화율·기계 모델링 중 하나의 프레임으로 구체화합니다." : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 데이터 윤리·기술사회·의사결정 관점을 비교할 때 활용합니다." : "",
         limitationDiscussion: "도함수 기반 해석이 실제 데이터와 모델링에서 갖는 오차, 민감도, 조건 변화의 한계를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 최적화 알고리즘, 데이터 기반 의사결정, 예측 모델의 책임 문제로 확장할 때 활용합니다." : ""
@@ -2913,12 +2921,14 @@
     const directMap = {
       rate_optimization: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
       model_sensitivity: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
-      data_based_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"]
+      data_based_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"],
+      motion_rate_mechanics: ["카오스", "혼돈으로부터의 질서", "부분과 전체"]
     };
     const expansionMap = {
       rate_optimization: ["팩트풀니스", "부분과 전체", "방법서설", "미디어의 이해", "1984"],
       model_sensitivity: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "제3의 물결", "1984"],
-      data_based_prediction: ["객관성의 칼날", "부분과 전체", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "감시와 처벌"]
+      data_based_prediction: ["객관성의 칼날", "부분과 전체", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "감시와 처벌"],
+      motion_rate_mechanics: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "미디어의 이해", "1984"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
