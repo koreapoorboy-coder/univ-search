@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v30-a13-info-system-network-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v31-a14-a16-calculus1-subject-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -2958,6 +2958,319 @@
 
 
 
+  function isBookA15CalculusFunctionDerivativeContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|최적화|신호)/i.test(careerText);
+    const isCalculus = /^미적분1$|^미적분Ⅰ$|^미적분$/.test(subjectText) || /미적분/.test(subjectText);
+    const isConcept = /여러\s*가지\s*함수의\s*미분/.test(conceptText);
+    const isKeyword = !keywordText || /(도함수|지수함수\s*미분|로그함수\s*미분|삼각함수\s*미분|실수\s*e|자연로그|변화율|표준\s*극한|신호|주기|미분)/i.test(keywordText);
+    return !!(isComputer && isCalculus && isConcept && isKeyword);
+  }
+
+  function inferBookA15CalculusFunctionDerivativeAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 미적분1 followup-axis 데이터 기준:
+      // 여러 가지 함수의 미분 → 함수 변화율 해석 / 지수·로그 변화 모델링 / 삼각함수·신호 변화.
+      if (/(trig_signal_derivative|삼각함수\s*[·ㆍ]?\s*신호|삼각함수.*신호|신호\s*[·ㆍ]?\s*주기|신호|주기|진동|파형|삼각함수)/i.test(text)) {
+        return "trig_signal_change";
+      }
+      if (/(exponential_log_derivative|지수\s*[·ㆍ]?\s*로그\s*변화|지수.*로그.*모델링|지수함수|로그함수|자연로그|실수\s*e|e\^|log)/i.test(text)) {
+        return "exp_log_change_model";
+      }
+      if (/(function_derivative_rate|함수\s*변화율|변화율\s*해석|도함수|미분계수|기울기|함수.*변화)/i.test(text)) {
+        return "function_rate_interpretation";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA15CalculusFunctionDerivative(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      function_rate_interpretation: "함수 변화율 해석 축",
+      exp_log_change_model: "지수·로그 변화 모델링 축",
+      trig_signal_change: "삼각함수·신호 변화 축"
+    };
+    const axisUseMap = {
+      function_rate_interpretation: {
+        direct: "여러 함수의 도함수를 이용해 입력 변화에 따른 출력 변화율을 해석하고 그래프 변화 구조를 설명할 때 활용합니다.",
+        role: ["함수 변화율 해석", "그래프 변화 구조", "미분 모델 한계 논의"]
+      },
+      exp_log_change_model: {
+        direct: "지수함수와 로그함수의 미분을 이용해 증가·감소 속도, 스케일 변환, 모델 변화 구조를 설명할 때 활용합니다.",
+        role: ["지수·로그 변화 모델", "스케일 변환 해석", "모델 민감도 논의"]
+      },
+      trig_signal_change: {
+        direct: "삼각함수 미분을 주기·진동·신호 변화 해석과 연결해 컴퓨터공학의 신호 처리 기초로 확장할 때 활용합니다.",
+        role: ["주기 변화 해석", "신호 변화 연결", "미디어·데이터 처리 확장"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.function_rate_interpretation;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 여러 가지 함수의 미분을 변화율·모델링·신호 해석 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 기술사회, 데이터 해석, 정보 전달의 의미로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "데이터 해석 비교", "정보 전달 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 여러 가지 함수의 미분을 함수 변화율 해석, 지수·로그 변화 모델링, 삼각함수·신호 변화 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·미디어·데이터 해석 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "미분 기반 모델이 실제 데이터·신호·변화 현상에서 갖는 오차와 해석 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 신호 처리, 데이터 모델링, 정보 전달과 기술 활용의 사회적 의미로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA15CalculusFunctionDerivativeRank: rank,
+      bookA15CalculusFunctionDerivativeAxis: axisId
+    };
+  }
+
+  function cloneBookForA15CalculusFunctionDerivativeLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6150 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA15CalculusFunctionDerivative(book, ctx, sectionType, axisId, rank),
+      bookA15CalculusFunctionDerivativeLock: true,
+      bookA15CalculusFunctionDerivativeLockRank: rank,
+      bookA15CalculusFunctionDerivativeAxisLock: axisId
+    };
+  }
+
+  function applyBookA15CalculusFunctionDerivativeLock(result, ctx){
+    if (!result || !isBookA15CalculusFunctionDerivativeContext(ctx)) return result;
+    const axisId = inferBookA15CalculusFunctionDerivativeAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      function_rate_interpretation: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트"],
+      exp_log_change_model: ["20세기 수학의 다섯가지 황금률", "카오스", "혼돈으로부터의 질서"],
+      trig_signal_change: ["미디어의 이해", "부분과 전체", "카오스"]
+    };
+    const expansionMap = {
+      function_rate_interpretation: ["팩트풀니스", "부분과 전체", "방법서설", "1984", "미디어의 이해"],
+      exp_log_change_model: ["객관성의 칼날", "경영학 콘서트", "부분과 전체", "미디어의 이해", "제3의 물결"],
+      trig_signal_change: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "1984", "제3의 물결", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA15CalculusFunctionDerivativeLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA15CalculusFunctionDerivativeLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA15CalculusFunctionDerivativeLock: axisId,
+        bookA15CalculusFunctionDerivativeDirectTitles: directBooks.map(book => book.title),
+        bookA15CalculusFunctionDerivativeExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+  function isBookA16CalculusSequenceLimitContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|수렴|반복)/i.test(careerText);
+    const isCalculus = /^미적분1$|^미적분Ⅰ$|^미적분$/.test(subjectText) || /미적분/.test(subjectText);
+    const isConcept = /수열의\s*극한/.test(conceptText);
+    const isKeyword = !keywordText || /(수열|극한|수렴|발산|반복|장기\s*변화|등비수열|수렴\s*판정|안정성|알고리즘)/i.test(keywordText);
+    return !!(isComputer && isCalculus && isConcept && isKeyword);
+  }
+
+  function inferBookA16CalculusSequenceLimitAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 미적분1 followup-axis 데이터 기준:
+      // 수열의 극한 → 수렴·장기 예측 / 반복·알고리즘 수렴.
+      if (/(iterative_algorithm|반복\s*[·ㆍ]?\s*알고리즘\s*수렴|반복.*알고리즘|알고리즘\s*수렴|반복\s*수렴|반복|알고리즘)/i.test(text)) {
+        return "iterative_algorithm_convergence";
+      }
+      if (/(sequence_convergence_prediction|수렴\s*[·ㆍ]?\s*장기\s*예측|수렴.*예측|장기\s*예측|수렴|발산|장기\s*변화)/i.test(text)) {
+        return "sequence_long_term_prediction";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA16CalculusSequenceLimit(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      sequence_long_term_prediction: "수렴·장기 예측 축",
+      iterative_algorithm_convergence: "반복·알고리즘 수렴 축"
+    };
+    const axisUseMap = {
+      sequence_long_term_prediction: {
+        direct: "수열의 수렴과 발산을 장기 변화, 안정화 과정, 예측 모델의 한계와 연결해 설명할 때 활용합니다.",
+        role: ["수렴·발산 해석", "장기 변화 예측", "모델 안정성 논의"]
+      },
+      iterative_algorithm_convergence: {
+        direct: "반복 계산이 특정 값으로 가까워지는 과정을 알고리즘 수렴과 절차 안정성 관점으로 설명할 때 활용합니다.",
+        role: ["반복 구조 해석", "알고리즘 수렴", "절차 안정성 검토"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.sequence_long_term_prediction;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 수열의 극한을 장기 변화·반복 알고리즘·수렴 판단 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 데이터 예측, 알고리즘 판단, 기술 활용의 한계로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "예측 모델 비교", "알고리즘 판단 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 수열의 극한을 수렴·장기 예측 또는 반복·알고리즘 수렴 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 데이터 예측·알고리즘 판단·사회적 활용 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "수열의 극한과 반복 알고리즘이 실제 예측·계산 과정에서 갖는 수렴 조건과 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 장기 예측, 알고리즘 안정성, 데이터 기반 의사결정의 책임 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA16CalculusSequenceLimitRank: rank,
+      bookA16CalculusSequenceLimitAxis: axisId
+    };
+  }
+
+  function cloneBookForA16CalculusSequenceLimitLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6160 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA16CalculusSequenceLimit(book, ctx, sectionType, axisId, rank),
+      bookA16CalculusSequenceLimitLock: true,
+      bookA16CalculusSequenceLimitLockRank: rank,
+      bookA16CalculusSequenceLimitAxisLock: axisId
+    };
+  }
+
+  function applyBookA16CalculusSequenceLimitLock(result, ctx){
+    if (!result || !isBookA16CalculusSequenceLimitContext(ctx)) return result;
+    const axisId = inferBookA16CalculusSequenceLimitAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      sequence_long_term_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"],
+      iterative_algorithm_convergence: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      sequence_long_term_prediction: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체", "미디어의 이해", "1984"],
+      iterative_algorithm_convergence: ["부분과 전체", "방법서설", "카오스", "경영학 콘서트", "팩트풀니스"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA16CalculusSequenceLimitLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA16CalculusSequenceLimitLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA16CalculusSequenceLimitLock: axisId,
+        bookA16CalculusSequenceLimitDirectTitles: directBooks.map(book => book.title),
+        bookA16CalculusSequenceLimitExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -3001,6 +3314,8 @@
     result = applyBookA12InfoRepresentationLock(result, ctx);
     result = applyBookA13InfoSystemNetworkLock(result, ctx);
     result = applyBookA14CalculusDerivativeLock(result, ctx);
+    result = applyBookA15CalculusFunctionDerivativeLock(result, ctx);
+    result = applyBookA16CalculusSequenceLimitLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
