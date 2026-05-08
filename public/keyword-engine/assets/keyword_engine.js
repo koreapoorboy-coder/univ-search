@@ -1,6 +1,7 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix-gateway-generate-count-only";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
+const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
 
 function $(id){ return document.getElementById(id); }
 function escapeHtml(value){
@@ -156,7 +157,7 @@ function clearResults(){
 }
 
 async function callGenerateAPI(payload){
-  const response = await fetch(`${WORKER_BASE_URL}/generate`, {
+  const response = await fetch(GENERATE_ENDPOINT, {
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify(payload)
