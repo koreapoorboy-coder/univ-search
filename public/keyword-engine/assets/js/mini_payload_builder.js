@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v3-selection-hydration";
+  const BUILDER_VERSION = "mini-payload-builder-v124-visible-selection-book-hydration";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -265,6 +265,90 @@
     return val(el?.textContent || "");
   }
 
+  function readActiveValue(selectors, attr){
+    for (const selector of selectors || []) {
+      const el = global.document?.querySelector?.(selector);
+      if (!el) continue;
+      const byAttr = attr ? val(el.getAttribute?.(attr) || "") : "";
+      if (byAttr) return byAttr;
+      const byData = val(el.getAttribute?.("data-value") || el.getAttribute?.("data-title") || "");
+      if (byData) return byData;
+      const byText = val(el.textContent || el.value || "");
+      if (byText) return byText;
+    }
+    return "";
+  }
+
+  function cleanUiText(value){
+    return val(value)
+      .replace(/\s+/g, " ")
+      .replace(/^(선택 개념|추천 키워드|후속 연계축|직접 일치 도서|확장 참고 도서)\s*[:：]?\s*/g, "")
+      .replace(/\s*활동 예시:.*$/g, "")
+      .trim();
+  }
+
+  function isWeakAxis(value){
+    const v = val(value);
+    if (!v) return true;
+    if (/^(physics|chemistry|biology|earth|science|math|data|subject|career|keyword|concept)$/i.test(v)) return true;
+    if (/^[a-z0-9_-]+$/i.test(v) && !/[가-힣]/.test(v)) return true;
+    return false;
+  }
+
+  function isWeakKeyword(value){
+    const v = val(value);
+    if (!v) return true;
+    // 학과 추천 키워드 미리보기는 쉼표로 길게 들어가므로 3번 추천 키워드로 쓰면 안 된다.
+    if (v.split(/[,，]/).filter(Boolean).length >= 3) return true;
+    return false;
+  }
+
+  function getBookLastResult(){
+    try {
+      if (typeof global.__BOOK_210_GET_LAST_RESULT__ === "function") return global.__BOOK_210_GET_LAST_RESULT__();
+    } catch(e){}
+    return global.__BOOK_210_LAST_RESULT__ || null;
+  }
+
+  function getActiveSelectionSnapshot(){
+    const last = getBookLastResult();
+    const ctx = last?.ctx || {};
+    const activeConcept = readActiveValue([
+      ".engine-concept-card.is-active[data-concept]",
+      ".engine-concept-card.selected[data-concept]",
+      ".engine-concept-card.active[data-concept]"
+    ], "data-concept") || ctx.concept || ctx.selectedConcept || "";
+    const activeKeyword = readActiveValue([
+      ".engine-chip.is-active[data-action='keyword'][data-value]",
+      ".engine-chip.selected[data-action='keyword'][data-value]",
+      ".engine-chip.active[data-action='keyword'][data-value]"
+    ], "data-value") || ctx.keyword || ctx.selectedKeyword || "";
+    const activeTrackId = readActiveValue([
+      ".engine-track-card.is-active[data-track]",
+      ".engine-track-card.selected[data-track]",
+      ".engine-track-card.active[data-track]"
+    ], "data-track") || ctx.followupAxisId || ctx.linkTrack || "";
+    const activeTrackTitle = compactTrackTitle(readActiveText(".engine-track-card.is-active .engine-track-title"))
+      || compactTrackTitle(readActiveText(".engine-track-card.selected .engine-track-title"))
+      || compactTrackTitle(readActiveText(".engine-track-card.active .engine-track-title"))
+      || ctx.axisLabel || ctx.trackLabel || ctx.linkTrackLabel || "";
+    const activeBookEl = global.document?.querySelector?.(".engine-book-card.is-active[data-kind='book'], .book-chip.is-active[data-kind='book'], .engine-book-card.selected[data-kind='book'], .book-chip.selected[data-kind='book']");
+    const clickedBook = global.__BOOK_210_LAST_CLICKED_BOOK__ || {};
+    const activeBookValue = val(activeBookEl?.getAttribute?.("data-value") || clickedBook.value || ctx.selectedBook || readDomValue("selectedBookId"));
+    const activeBookTitle = val(activeBookEl?.getAttribute?.("data-title") || clickedBook.title || ctx.selectedBookTitle || readDomValue("selectedBookTitle"));
+    return {
+      subject: readDomValue("subject") || ctx.subject || "",
+      career: readDomValue("career") || ctx.career || ctx.department || ctx.selectedMajor || "",
+      concept: cleanUiText(activeConcept),
+      keyword: cleanUiText(activeKeyword),
+      linkTrack: activeTrackId,
+      followupAxisId: activeTrackId,
+      axisLabel: cleanUiText(activeTrackTitle),
+      selectedBook: activeBookValue,
+      selectedBookTitle: cleanUiText(activeBookTitle)
+    };
+  }
+
   function compactTrackTitle(text){
     const v = val(text).replace(/\s+/g, " ");
     if (!v) return "";
@@ -273,23 +357,23 @@
   }
 
   function getDomState(){
-    const activeConcept = readActiveAttr(".engine-concept-card.is-active[data-concept]", "data-concept");
-    const activeKeyword = readActiveAttr(".engine-chip.is-active[data-action='keyword'][data-value]", "data-value");
-    const activeTrack = readActiveAttr(".engine-track-card.is-active[data-track]", "data-track");
-    const activeTrackLabel = compactTrackTitle(readActiveText(".engine-track-card.is-active .engine-track-title"));
+    const snap = getActiveSelectionSnapshot();
+    const hiddenConcept = readDomValue("selectedConcept");
+    const hiddenKeyword = readDomValue("keyword");
+    const hiddenTrack = readDomValue("linkedTrack");
     return {
-      subject: readDomValue("subject"),
-      career: readDomValue("career"),
-      majorSelectedName: readDomValue("career"),
-      concept: readDomValue("selectedConcept") || activeConcept,
-      selectedConcept: readDomValue("selectedConcept") || activeConcept,
-      keyword: readDomValue("keyword") || activeKeyword,
-      selectedKeyword: readDomValue("keyword") || activeKeyword,
-      linkTrack: readDomValue("linkedTrack") || activeTrack,
-      followupAxisId: readDomValue("linkedTrack") || activeTrack,
-      axisLabel: activeTrackLabel || readDomValue("linkedTrack") || activeTrack,
-      selectedBook: readDomValue("selectedBookId"),
-      selectedBookTitle: readDomValue("selectedBookTitle"),
+      subject: snap.subject || readDomValue("subject"),
+      career: snap.career || readDomValue("career"),
+      majorSelectedName: snap.career || readDomValue("career"),
+      concept: snap.concept || hiddenConcept,
+      selectedConcept: snap.concept || hiddenConcept,
+      keyword: snap.keyword || (!isWeakKeyword(hiddenKeyword) ? hiddenKeyword : ""),
+      selectedKeyword: snap.keyword || (!isWeakKeyword(hiddenKeyword) ? hiddenKeyword : ""),
+      linkTrack: snap.linkTrack || hiddenTrack,
+      followupAxisId: snap.followupAxisId || hiddenTrack,
+      axisLabel: snap.axisLabel || (!isWeakAxis(hiddenTrack) ? hiddenTrack : ""),
+      selectedBook: snap.selectedBook || readDomValue("selectedBookId"),
+      selectedBookTitle: snap.selectedBookTitle || readDomValue("selectedBookTitle"),
       reportMode: readDomValue("reportMode"),
       reportView: readDomValue("reportView"),
       reportLine: readDomValue("reportLine")
@@ -316,13 +400,38 @@
   }
 
   function getSelectedBookFromResult(result, state){
-    if (!result || !result.result) return null;
-    const all = arr(result.result.directBooks).concat(arr(result.result.expansionBooks));
-    const selected = val(state.selectedBook);
-    if (selected) {
-      return all.find(b => [b.sourceId, b.bookId, String(b.managementNo || ""), b.title].map(val).includes(selected)) || all[0] || null;
+    const all = arr(result?.result?.directBooks).concat(arr(result?.result?.expansionBooks));
+    const selected = val(state.selectedBook || state.selectedBookTitle);
+    const clicked = global.__BOOK_210_LAST_CLICKED_BOOK__ || {};
+    const clickedValue = val(clicked.value || clicked.title);
+    const activeTitle = val(state.selectedBookTitle);
+    const keys = [selected, clickedValue, activeTitle].filter(Boolean);
+
+    if (all.length) {
+      if (keys.length) {
+        const found = all.find(b => {
+          const candidates = [b.sourceId, b.bookId, String(b.managementNo || ""), b.title].map(val);
+          return keys.some(k => candidates.includes(k));
+        });
+        if (found) return found;
+      }
+      return all[0] || null;
     }
-    return all[0] || null;
+
+    const fallbackKey = keys[0];
+    if (fallbackKey && typeof global.getSelectedBookDetail === "function") {
+      try {
+        const detail = global.getSelectedBookDetail(fallbackKey);
+        if (detail) return {
+          ...detail,
+          sourceId: detail.sourceId || detail.source_book_uid || detail.book_id || fallbackKey,
+          title: detail.title || activeTitle || fallbackKey,
+          author: detail.author || "",
+          selectedBookContext: detail.selectedBookContext || detail.miniUseGuide || null
+        };
+      } catch(e){}
+    }
+    return null;
   }
 
   function inferAxisRule(result, payload){
@@ -548,7 +657,15 @@
       reportIntent: val(rawPayload.reportIntent) || "보고서 근거 도서"
     };
 
-    const selectedBook = getSelectedBookFromResult(result, state);
+    const strong = getActiveSelectionSnapshot();
+    if (strong.subject) payload.subject = strong.subject;
+    if (strong.career) payload.department = strong.career;
+    if (strong.concept) payload.selectedConcept = strong.concept;
+    if (strong.keyword && !isWeakKeyword(strong.keyword)) payload.selectedRecommendedKeyword = strong.keyword;
+    if (strong.axisLabel) payload.followupAxis = strong.axisLabel;
+    else if (isWeakAxis(payload.followupAxis) && strong.linkTrack) payload.followupAxis = strong.linkTrack;
+
+    const selectedBook = getSelectedBookFromResult(result, { ...state, ...strong });
     const rawChoices = getReportChoices(state);
 
     const miniPayload = {
