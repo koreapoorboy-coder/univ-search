@@ -1,14 +1,14 @@
 /* mini_worker_generate_bridge_v32.js
- * 기존 Cloudflare Worker(/collect, /generate)를 유지하면서
- * __BUILD_MINI_REPORT_PAYLOAD__ 전체 데이터를 /generate로 보내고,
- * Worker/MINI 응답을 화면에 실제 결과로 출력하는 브리지.
+ * 기존 Cloudflare Worker(/collect)는 유지하고,
+ * 학생용 결과 생성(/generate)은 access-gateway의 /__mini/generate로 보낸다.
+ * 이렇게 해야 접속/탐색은 차감하지 않고 학생용 결과 생성 버튼 클릭 시에만 1회 차감된다.
  */
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v124-visible-selection-book-hydration";
+  const VERSION = "mini-worker-generate-bridge-v128-gateway-generate-count-only";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
-  const GENERATE_ENDPOINT = `${WORKER_BASE_URL}/generate`;
+  const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
 
   global.__MINI_WORKER_GENERATE_BRIDGE_VERSION__ = VERSION;
