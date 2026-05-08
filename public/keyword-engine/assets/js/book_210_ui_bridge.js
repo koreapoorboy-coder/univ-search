@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a18-geometry-axis-active-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a19-physics-subject-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3490,6 +3490,273 @@
   }
 
 
+  function isBookA18PhysicsComputerContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|보안|프로그래밍|알고리즘|네트워크|통신|임베디드|센서|그래픽|그래픽스|시뮬레이션|제어|반도체|전자|전기)/i.test(careerText);
+    const isPhysics = /^(물리|물리학|물리학Ⅰ|물리학1)$/.test(subjectText) || /물리/.test(subjectText);
+    const isConcept = /(물질의\s*전기적\s*특성|파동의\s*성질과\s*활용|물질의\s*자기적\s*특성|빛과\s*물질의\s*이중성|힘과\s*운동|에너지와\s*열|시간과\s*공간)/.test(conceptText);
+    const isKeyword = !keywordText || /(전하|전기력|원자\s*구조|스펙트럼|전자|전기장|반도체|소자|회로|센서\s*신호|진동수|파장|파동의\s*속력|파동|주파수|신호|통신|대역폭|데이터\s*전송|간섭|전류|자기장|전자석|자성|코일|모터|제어|저장장치|광전\s*효과|광자|빛의\s*입자설|빛의\s*파동설|광센서|양자|속도|가속도|운동\s*그래프|뉴턴|운동량|충격량|시뮬레이션|열효율|에너지|열\s*관리|냉각|시스템\s*효율|GPS|동기화|시간\s*지연)/i.test(keywordText);
+    return !!(isComputer && isPhysics && isConcept && isKeyword);
+  }
+
+  function inferBookA18PhysicsAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const getVisibleActivePhysicsAxisText = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        const nodes = document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, [data-track].is-active"
+        );
+        nodes.forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
+          push(node.textContent || "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+    const primaryAxisText = normalizeLockText([
+      getVisibleActivePhysicsAxisText(),
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 물질의 전기적 특성
+      if (/(electric_signal_circuit_axis|electronics_signal_circuit_axis|전기\s*신호\s*[·ㆍ]?\s*회로|신호\s*[·ㆍ]?\s*회로|회로\s*기초|전압|전류|회로)/i.test(text)) return "electric_signal_circuit";
+      if (/(semiconductor_device_axis|electronics_device_sensor_axis|반도체\s*[·ㆍ]?\s*소자|전자소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
+      if (/(sensor_measurement_signal_axis|센서\s*[·ㆍ]?\s*측정\s*신호|센서\s*신호|측정\s*신호|센서)/i.test(text)) return "sensor_measurement_signal";
+      // 파동의 성질과 활용
+      if (/(signal_communication_axis|electronics_communication_signal_axis|신호\s*[·ㆍ]?\s*통신\s*해석|통신\s*신호|신호\s*통신|주파수\s*해석)/i.test(text)) return "signal_communication";
+      if (/(data_bandwidth_axis|데이터\s*전송\s*[·ㆍ]?\s*대역폭|대역폭|전송\s*속도|데이터\s*전송)/i.test(text)) return "data_bandwidth";
+      if (/(wave_visualization_axis|파동\s*시각화\s*[·ㆍ]?\s*분석|파동\s*분석|시각화\s*분석)/i.test(text)) return "wave_visualization";
+      // 물질의 자기적 특성
+      if (/(current_magnetic_system_axis|전류\s*[·ㆍ]?\s*자기장\s*시스템|전류\s*자기장|자기장\s*시스템)/i.test(text)) return "current_magnetic_system";
+      if (/(electromagnet_control_axis|전자석\s*[·ㆍ]?\s*제어\s*장치|전자석\s*제어|제어\s*장치|액추에이터)/i.test(text)) return "electromagnet_control";
+      if (/(magnetic_storage_material_axis|자성\s*[·ㆍ]?\s*저장장치|자성\s*저장|저장장치|자기\s*저장)/i.test(text)) return "magnetic_storage_material";
+      // 빛과 물질의 이중성
+      if (/(photoelectric_sensor_axis|광전\s*효과\s*[·ㆍ]?\s*센서|광전\s*센서|이미지\s*센서|빛\s*검출)/i.test(text)) return "photoelectric_sensor";
+      if (/(quantum_device_axis|electronics_quantum_device_axis|양자\s*[·ㆍ]?\s*반도체\s*소자|양자\s*소자|반도체\s*소자)/i.test(text)) return "quantum_device";
+      if (/(optical_information_axis|빛\s*정보\s*처리|광\s*정보|이미지\s*처리|광통신)/i.test(text)) return "optical_information";
+      // 힘과 운동
+      if (/(motion_data_simulation_axis|운동\s*데이터\s*[·ㆍ]?\s*시뮬레이션|운동\s*시뮬레이션|운동\s*그래프)/i.test(text)) return "motion_data_simulation";
+      if (/(collision_safety_axis|충돌\s*[·ㆍ]?\s*안전\s*설계|충돌\s*안전|충격량|운동량)/i.test(text)) return "collision_safety";
+      if (/(mechanical_motion_control_axis|기계\s*운동\s*[·ㆍ]?\s*제어\s*모델링|기계\s*운동|제어\s*모델링)/i.test(text)) return "mechanical_motion_control";
+      // 에너지와 열 / 시간과 공간도 화면에 나올 경우 안전 매칭
+      if (/(energy_efficiency_system_axis|에너지\s*효율\s*[·ㆍ]?\s*시스템|에너지\s*효율|시스템\s*효율)/i.test(text)) return "energy_efficiency_system";
+      if (/(thermal_management_hardware_axis|열\s*관리\s*[·ㆍ]?\s*하드웨어|열\s*관리|냉각)/i.test(text)) return "thermal_management_hardware";
+      if (/(heat_engine_cooling_design_axis|열기관\s*[·ㆍ]?\s*냉각\s*설계|열기관|냉각\s*설계)/i.test(text)) return "heat_engine_cooling_design";
+      if (/(time_sync_network_axis|시간\s*동기화\s*[·ㆍ]?\s*네트워크|시간\s*동기화|네트워크\s*동기화|GPS)/i.test(text)) return "time_sync_network";
+      if (/(relativity_measurement_axis|상대성\s*[·ㆍ]?\s*정밀\s*측정|정밀\s*측정|시간\s*지연|광속)/i.test(text)) return "relativity_measurement";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/물질의\s*전기적\s*특성/.test(conceptText)) return "electric_signal_circuit";
+    if (/파동의\s*성질과\s*활용/.test(conceptText)) return "signal_communication";
+    if (/물질의\s*자기적\s*특성/.test(conceptText)) return "current_magnetic_system";
+    if (/빛과\s*물질의\s*이중성/.test(conceptText)) return "photoelectric_sensor";
+    if (/힘과\s*운동/.test(conceptText)) return "motion_data_simulation";
+    if (/에너지와\s*열/.test(conceptText)) return "energy_efficiency_system";
+    if (/시간과\s*공간/.test(conceptText)) return "time_sync_network";
+    return "";
+  }
+
+  function buildLockedBookContextA18Physics(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      electric_signal_circuit: "전기 신호·회로 기초 축",
+      semiconductor_device: "반도체·소자 이해 축",
+      sensor_measurement_signal: "센서·측정 신호 축",
+      signal_communication: "신호·통신 해석 축",
+      data_bandwidth: "데이터 전송·대역폭 축",
+      wave_visualization: "파동 시각화·분석 축",
+      current_magnetic_system: "전류·자기장 시스템 축",
+      electromagnet_control: "전자석·제어 장치 축",
+      magnetic_storage_material: "자성·저장장치 이해 축",
+      photoelectric_sensor: "광전 효과·센서 축",
+      quantum_device: "양자·반도체 소자 축",
+      optical_information: "빛 정보 처리 축",
+      motion_data_simulation: "운동 데이터·시뮬레이션 축",
+      collision_safety: "충돌·안전 설계 축",
+      mechanical_motion_control: "기계 운동·제어 모델링 축",
+      energy_efficiency_system: "에너지 효율·시스템 축",
+      thermal_management_hardware: "열 관리·하드웨어 축",
+      heat_engine_cooling_design: "열기관·냉각 설계 축",
+      time_sync_network: "시간 동기화·네트워크 축",
+      relativity_measurement: "상대성·정밀 측정 축"
+    };
+    const axisUseMap = {
+      electric_signal_circuit: { direct: "전하·전기력·전기장 개념을 회로 신호와 전압·전류 흐름으로 연결해 설명할 때 활용합니다.", role: ["전기 신호", "회로 기초", "물리-정보 연결"] },
+      semiconductor_device: { direct: "원자 구조와 전기적 특성을 반도체 소자, 전자 이동, 센서 작동 원리와 연결할 때 활용합니다.", role: ["반도체 소자", "전자 이동", "센서 원리"] },
+      sensor_measurement_signal: { direct: "물리량을 전기 신호로 바꾸는 센서와 측정값 해석 과정을 설명할 때 활용합니다.", role: ["센서 신호", "측정 데이터", "오차 해석"] },
+      signal_communication: { direct: "파장·진동수·주파수를 신호와 통신 구조로 연결해 설명할 때 활용합니다.", role: ["신호 통신", "주파수 해석", "정보 전송"] },
+      data_bandwidth: { direct: "주파수·대역폭을 데이터 전송량과 네트워크 전송 조건으로 해석할 때 활용합니다.", role: ["대역폭", "데이터 전송", "네트워크 조건"] },
+      wave_visualization: { direct: "파동의 주기성과 간섭 양상을 그래프·시각화·자료 분석으로 설명할 때 활용합니다.", role: ["파동 시각화", "그래프 해석", "분석 모델"] },
+      current_magnetic_system: { direct: "전류와 자기장의 관계를 시스템 구조와 장치 동작 원리로 설명할 때 활용합니다.", role: ["전류-자기장", "시스템 구조", "장치 원리"] },
+      electromagnet_control: { direct: "전자석, 모터, 스위치, 제어 장치의 입력-출력 구조를 설명할 때 활용합니다.", role: ["전자석 제어", "모터", "자동화 장치"] },
+      magnetic_storage_material: { direct: "자성 물질과 저장장치 원리를 정보 저장 및 하드웨어 구조로 연결할 때 활용합니다.", role: ["자성 저장", "저장장치", "하드웨어"] },
+      photoelectric_sensor: { direct: "광전 효과를 빛 검출, 광센서, 이미지 센서의 작동 원리로 연결할 때 활용합니다.", role: ["광전 센서", "이미지 센서", "빛 검출"] },
+      quantum_device: { direct: "빛의 입자성과 양자 개념을 반도체 소자와 양자 기술의 기초로 설명할 때 활용합니다.", role: ["양자 소자", "반도체", "에너지 준위"] },
+      optical_information: { direct: "빛을 정보로 처리하는 광통신, 이미지 처리, 광센서 데이터 해석으로 확장할 때 활용합니다.", role: ["빛 정보", "광통신", "이미지 처리"] },
+      motion_data_simulation: { direct: "속도·가속도·운동 그래프를 시뮬레이션과 운동 데이터 모델링으로 연결할 때 활용합니다.", role: ["운동 데이터", "시뮬레이션", "그래프 해석"] },
+      collision_safety: { direct: "운동량과 충격량을 충돌 조건, 안전 설계, 힘-시간 그래프 해석으로 연결할 때 활용합니다.", role: ["충돌 안전", "운동량", "충격량"] },
+      mechanical_motion_control: { direct: "운동 법칙을 기계 장치의 제어 조건과 움직임 예측 모델로 연결할 때 활용합니다.", role: ["기계 운동", "제어 모델", "운동 예측"] },
+      energy_efficiency_system: { direct: "에너지 전환과 효율을 컴퓨팅 시스템, 전력 소비, 하드웨어 효율 문제와 연결할 때 활용합니다.", role: ["에너지 효율", "시스템", "전력 소비"] },
+      thermal_management_hardware: { direct: "열 관리와 냉각 조건을 하드웨어 성능, 발열, 시스템 안정성과 연결할 때 활용합니다.", role: ["열 관리", "하드웨어", "냉각"] },
+      heat_engine_cooling_design: { direct: "열기관과 냉각 설계를 에너지 손실과 장치 설계 조건으로 해석할 때 활용합니다.", role: ["열기관", "냉각 설계", "에너지 손실"] },
+      time_sync_network: { direct: "시간 동기화와 정밀 시간을 네트워크, GPS, 분산 시스템의 기초 조건으로 연결할 때 활용합니다.", role: ["시간 동기화", "네트워크", "GPS"] },
+      relativity_measurement: { direct: "상대성, 시간 지연, 정밀 측정 개념을 통신·위치 추적의 측정 한계로 연결할 때 활용합니다.", role: ["상대성", "정밀 측정", "측정 한계"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.electric_signal_circuit;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 물리 개념을 컴퓨터공학의 회로·신호·센서·네트워크·시뮬레이션 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 정보사회, 기술 활용, 시스템 한계, 윤리적 쟁점으로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "활용 관점 비교", "시스템 한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 물리 개념을 전기 신호, 통신, 센서, 저장장치, 광정보, 시뮬레이션 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·기술 활용·윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "물리 모델이 실제 컴퓨터 시스템과 통신·센서·하드웨어 환경에서 갖는 오차, 단순화, 조건 설정의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 센서, 네트워크, 하드웨어, 정보사회, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA18PhysicsRank: rank,
+      bookA18PhysicsAxis: axisId
+    };
+  }
+
+  function cloneBookForA18PhysicsLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6180 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA18Physics(book, ctx, sectionType, axisId, rank),
+      bookA18PhysicsLock: true,
+      bookA18PhysicsLockRank: rank,
+      bookA18PhysicsAxisLock: axisId
+    };
+  }
+
+  function applyBookA18PhysicsLock(result, ctx){
+    if (!result || !isBookA18PhysicsComputerContext(ctx)) return result;
+    const axisId = inferBookA18PhysicsAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      electric_signal_circuit: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      semiconductor_device: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      sensor_measurement_signal: ["객관성의 칼날", "팩트풀니스", "경영학 콘서트"],
+      signal_communication: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
+      data_bandwidth: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      wave_visualization: ["카오스", "혼돈으로부터의 질서", "객관성의 칼날"],
+      current_magnetic_system: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      electromagnet_control: ["경영학 콘서트", "부분과 전체", "카오스"],
+      magnetic_storage_material: ["객관성의 칼날", "부분과 전체", "미디어의 이해"],
+      photoelectric_sensor: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      quantum_device: ["부분과 전체", "객관성의 칼날", "페르마의 마지막 정리"],
+      optical_information: ["미디어의 이해", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      motion_data_simulation: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
+      collision_safety: ["부분과 전체", "객관성의 칼날", "경영학 콘서트"],
+      mechanical_motion_control: ["카오스", "경영학 콘서트", "혼돈으로부터의 질서"],
+      energy_efficiency_system: ["경영학 콘서트", "부분과 전체", "객관성의 칼날"],
+      thermal_management_hardware: ["부분과 전체", "카오스", "객관성의 칼날"],
+      heat_engine_cooling_design: ["경영학 콘서트", "혼돈으로부터의 질서", "부분과 전체"],
+      time_sync_network: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체"],
+      relativity_measurement: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"]
+    };
+    const expansionMap = {
+      electric_signal_circuit: ["미디어의 이해", "1984", "제3의 물결", "팩트풀니스", "감시와 처벌"],
+      semiconductor_device: ["미디어의 이해", "경영학 콘서트", "팩트풀니스", "1984", "제3의 물결"],
+      sensor_measurement_signal: ["부분과 전체", "미디어의 이해", "1984", "감시와 처벌", "제3의 물결"],
+      signal_communication: ["1984", "제3의 물결", "팩트풀니스", "감시와 처벌", "경영학 콘서트"],
+      data_bandwidth: ["미디어의 이해", "1984", "제3의 물결", "팩트풀니스", "부분과 전체"],
+      wave_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "경영학 콘서트", "1984"],
+      current_magnetic_system: ["카오스", "혼돈으로부터의 질서", "경영학 콘서트", "미디어의 이해", "1984"],
+      electromagnet_control: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984", "제3의 물결"],
+      magnetic_storage_material: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "팩트풀니스", "1984", "감시와 처벌"],
+      photoelectric_sensor: ["미디어의 이해", "경영학 콘서트", "팩트풀니스", "1984", "제3의 물결"],
+      quantum_device: ["20세기 수학의 다섯가지 황금률", "카오스", "미디어의 이해", "1984", "제3의 물결"],
+      optical_information: ["부분과 전체", "팩트풀니스", "1984", "감시와 처벌", "제3의 물결"],
+      motion_data_simulation: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "미디어의 이해", "1984"],
+      collision_safety: ["카오스", "혼돈으로부터의 질서", "팩트풀니스", "미디어의 이해", "1984"],
+      mechanical_motion_control: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "제3의 물결"],
+      energy_efficiency_system: ["팩트풀니스", "미디어의 이해", "제3의 물결", "1984", "감시와 처벌"],
+      thermal_management_hardware: ["경영학 콘서트", "혼돈으로부터의 질서", "미디어의 이해", "팩트풀니스", "제3의 물결"],
+      heat_engine_cooling_design: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "팩트풀니스", "제3의 물결"],
+      time_sync_network: ["미디어의 이해", "1984", "제3의 물결", "감시와 처벌", "팩트풀니스"],
+      relativity_measurement: ["미디어의 이해", "카오스", "혼돈으로부터의 질서", "1984", "제3의 물결"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA18PhysicsLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA18PhysicsLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA18PhysicsLock: axisId,
+        bookA18PhysicsDirectTitles: directBooks.map(book => book.title),
+        bookA18PhysicsExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -3536,6 +3803,7 @@
     result = applyBookA15CalculusFunctionDerivativeLock(result, ctx);
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
     result = applyBookA17GeometryLock(result, ctx);
+    result = applyBookA18PhysicsLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
