@@ -2784,6 +2784,170 @@
 
 
 
+  function isBookA14CalculusDerivativeContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|최적화)/i.test(careerText);
+    const isCalculus = /^미적분1$|^미적분Ⅰ$|^미적분$/.test(subjectText) || /미적분/.test(subjectText);
+    const isDerivativeConcept = /도함수의\s*활용/.test(conceptText);
+    // 실제 미적분1 + 컴퓨터공학과 데이터 기준 키워드만 사용한다.
+    const isDerivativeKeyword = /(변화율|최적화|극값|접선|증가|감소|최댓값|최솟값|그래프\s*개형|의사결정|도함수|기울기|민감도|예측)/i.test(keywordText);
+    return !!(isComputer && isCalculus && isDerivativeConcept && isDerivativeKeyword);
+  }
+
+  function inferBookA14CalculusDerivativeAxis(ctx){
+    ctx = ctx || {};
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+
+      // 실제 미적분1 + 컴퓨터공학과 followup-axis 기준:
+      // 도함수의 활용 → 변화율·최적화 / 모델 민감도 분석 / 데이터 기반 예측.
+      if (/(optimization_gradient|변화율\s*[·ㆍ]?\s*최적화|변화율.*최적화|최적화|극값|최댓값|최솟값|증가|감소)/i.test(text)) {
+        return "rate_optimization";
+      }
+      if (/(model_sensitivity|모델\s*민감도|민감도|모델.*변화|오차|파라미터|매개변수)/i.test(text)) {
+        return "model_sensitivity";
+      }
+      if (/(data_prediction_rate|데이터\s*기반\s*예측|데이터.*예측|예측|의사결정|추세)/i.test(text)) {
+        return "data_based_prediction";
+      }
+      return "";
+    };
+
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+  }
+
+  function buildLockedBookContextA14CalculusDerivative(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      rate_optimization: "변화율·최적화 축",
+      model_sensitivity: "모델 민감도 분석 축",
+      data_based_prediction: "데이터 기반 예측 축"
+    };
+    const axisUseMap = {
+      rate_optimization: {
+        direct: "도함수의 부호와 극값을 이용해 함수 변화와 최적 조건을 찾는 과정을 설명할 때 활용합니다.",
+        role: ["변화율 해석", "최적 조건 설정", "극값 판단 한계 논의"]
+      },
+      model_sensitivity: {
+        direct: "입력값이나 조건이 조금 바뀔 때 모델 결과가 얼마나 달라지는지 변화율 관점으로 설명할 때 활용합니다.",
+        role: ["모델 민감도 해석", "조건 변화 비교", "예측 오차 한계 논의"]
+      },
+      data_based_prediction: {
+        direct: "데이터의 변화 흐름을 도함수와 그래프 개형으로 읽고 이후 값을 예측하는 과정을 설명할 때 활용합니다.",
+        role: ["데이터 변화 추세", "예측 기준 설정", "의사결정 한계 논의"]
+      }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.rate_optimization;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 도함수의 활용을 변화율·최적화·예측 판단 과정으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 데이터 기반 의사결정, 모델링 한계, 기술 활용의 사회적 의미로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "모델링 한계 비교", "데이터 의사결정 윤리 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 도함수의 활용을 변화율·최적화, 모델 민감도 분석, 데이터 기반 예측 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 데이터 윤리·기술사회·의사결정 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "도함수 기반 해석이 실제 데이터와 모델링에서 갖는 오차, 민감도, 조건 변화의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 최적화 알고리즘, 데이터 기반 의사결정, 예측 모델의 책임 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA14CalculusDerivativeRank: rank,
+      bookA14CalculusDerivativeAxis: axisId
+    };
+  }
+
+  function cloneBookForA14CalculusDerivativeLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6140 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA14CalculusDerivative(book, ctx, sectionType, axisId, rank),
+      bookA14CalculusDerivativeLock: true,
+      bookA14CalculusDerivativeLockRank: rank,
+      bookA14CalculusDerivativeAxisLock: axisId
+    };
+  }
+
+  function applyBookA14CalculusDerivativeLock(result, ctx){
+    if (!result || !isBookA14CalculusDerivativeContext(ctx)) return result;
+    const axisId = inferBookA14CalculusDerivativeAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      rate_optimization: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      model_sensitivity: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
+      data_based_prediction: ["팩트풀니스", "경영학 콘서트", "카오스"]
+    };
+    const expansionMap = {
+      rate_optimization: ["팩트풀니스", "부분과 전체", "방법서설", "미디어의 이해", "1984"],
+      model_sensitivity: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "제3의 물결", "1984"],
+      data_based_prediction: ["객관성의 칼날", "부분과 전체", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "감시와 처벌"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA14CalculusDerivativeLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA14CalculusDerivativeLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA14CalculusDerivativeLock: axisId,
+        bookA14CalculusDerivativeDirectTitles: directBooks.map(book => book.title),
+        bookA14CalculusDerivativeExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -2826,6 +2990,7 @@
     result = applyBookA11InfoAbstractionLock(result, ctx);
     result = applyBookA12InfoRepresentationLock(result, ctx);
     result = applyBookA13InfoSystemNetworkLock(result, ctx);
+    result = applyBookA14CalculusDerivativeLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
