@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a17-geometry-subject-lock";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a18-geometry-axis-active-lock";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3288,7 +3288,38 @@
   function inferBookA17GeometryAxis(ctx){
     ctx = ctx || {};
     const conceptText = normalizeLockText(ctx.concept || "");
+
+    // v126 A18 geometry axis active-lock:
+    // 일부 환경에서는 4번 축 버튼을 눌러도 book bridge ctx에 axisLabel이 늦게 들어와
+    // 벡터 개념의 첫 축(vector_similarity_model)으로 계속 fallback되는 문제가 있었다.
+    // 따라서 도서 추천을 만들 때 현재 화면에서 active 된 4번 카드의 data-track/title을 최우선으로 읽는다.
+    const getVisibleActiveGeometryAxisText = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        const nodes = document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, [data-track].is-active"
+        );
+        nodes.forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
+          push(node.textContent || "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+
+    const visibleAxisText = normalizeLockText(getVisibleActiveGeometryAxisText());
     const primaryAxisText = normalizeLockText([
+      visibleAxisText,
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisLabel,
@@ -3314,13 +3345,13 @@
 
       // 공간좌표와 구의 방정식 → 3차원 좌표·그래픽스 / 센서 범위·충돌 판정 / 위치 추적·공간 데이터.
       if (/(three_d_coordinate_graphics_axis|3차원\s*좌표\s*[·ㆍ]?\s*그래픽스|3차원.*그래픽|공간좌표|구의\s*방정식|그래픽스)/i.test(text)) return "three_d_coordinate_graphics";
-      if (/(sensor_collision_range_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|반지름|범위)/i.test(text)) return "sensor_range_collision";
-      if (/(location_space_data_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
+      if (/(sensor_collision_range_axis|sensor_range_collision_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|반지름|범위)/i.test(text)) return "sensor_range_collision";
+      if (/(location_space_data_axis|position_tracking_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
 
       // 이차곡선과 자취 해석 → 신호·위치 추정 모델 / 반사·궤도 해석 / 곡선·설계 시각화.
-      if (/(signal_position_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
+      if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
       if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "reflection_orbit_analysis";
-      if (/(curve_design_visualization_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화|자취|포물선|타원)/i.test(text)) return "curve_design_visualization";
+      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화|자취|포물선|타원)/i.test(text)) return "curve_design_visualization";
       return "";
     };
 
@@ -3411,8 +3442,8 @@
     if (!axisId) return result;
 
     const directMap = {
-      vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
-      graphics_physics_vector: ["부분과 전체", "카오스", "20세기 수학의 다섯가지 황금률"],
+      vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체"],
+      graphics_physics_vector: ["부분과 전체", "카오스", "객관성의 칼날"],
       projection_space_calculation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
       three_d_coordinate_graphics: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
       sensor_range_collision: ["카오스", "부분과 전체", "혼돈으로부터의 질서"],
