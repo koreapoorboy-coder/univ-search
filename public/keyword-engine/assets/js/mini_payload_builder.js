@@ -303,6 +303,27 @@
     return false;
   }
 
+
+  function inferSubjectFromVisibleSelection(input){
+    const concept = val(input?.concept || input?.selectedConcept || "");
+    const keyword = val(input?.keyword || input?.selectedKeyword || "");
+    const axis = val(input?.axisLabel || input?.followupAxis || input?.linkTrack || "");
+    const joined = `${concept} ${keyword} ${axis}`;
+    if (!joined.trim()) return "";
+
+    // 화면 선택값이 3번/4번에는 정상인데, 상단 subject select 값이 이전 과목으로 남는 경우가 있다.
+    // payload/worker에는 실제 선택 개념과 후속축이 속한 과목을 우선 전달한다.
+    const rules = [
+      { subject: "미적분1", re: /(도함수|미분|수열의\s*극한|함수의\s*미분|변화율|최적화|민감도|수렴|운동\s*변화율|기계\s*모델링)/ },
+      { subject: "기하", re: /(벡터|내적|공간좌표|구의\s*방정식|이차곡선|자취|투영|3차원|그래픽스|충돌\s*판정|위치\s*추적|궤도|곡선)/ },
+      { subject: "확률과 통계", re: /(순열|조합|조건부\s*확률|조건부확률|사건의\s*독립|독립성|확률변수|확률분포|기댓값|분산|통계|경우의\s*수)/ },
+      { subject: "대수", re: /(지수함수|로그함수|등차수열|등비수열|수학적\s*귀납법|귀납|채널\s*용량|로그\s*스케일|수열\s*모델링)/ },
+      { subject: "정보", re: /(자료와\s*정보|정보의\s*표현|알고리즘|프로그래밍|자동화|추상화|문제\s*분해|컴퓨팅\s*시스템|네트워크|데이터베이스|부호화|압축|전송|센서|임베디드|보안)/ }
+    ];
+    const hit = rules.find(rule => rule.re.test(joined));
+    return hit ? hit.subject : "";
+  }
+
   function getBookLastResult(){
     try {
       if (typeof global.__BOOK_210_GET_LAST_RESULT__ === "function") return global.__BOOK_210_GET_LAST_RESULT__();
@@ -336,14 +357,23 @@
     const clickedBook = global.__BOOK_210_LAST_CLICKED_BOOK__ || {};
     const activeBookValue = val(activeBookEl?.getAttribute?.("data-value") || clickedBook.value || ctx.selectedBook || readDomValue("selectedBookId"));
     const activeBookTitle = val(activeBookEl?.getAttribute?.("data-title") || clickedBook.title || ctx.selectedBookTitle || readDomValue("selectedBookTitle"));
+    const cleanConcept = cleanUiText(activeConcept);
+    const cleanKeyword = cleanUiText(activeKeyword);
+    const cleanAxisLabel = cleanUiText(activeTrackTitle);
+    const inferredSubject = inferSubjectFromVisibleSelection({
+      concept: cleanConcept,
+      keyword: cleanKeyword,
+      axisLabel: cleanAxisLabel,
+      linkTrack: activeTrackId
+    });
     return {
-      subject: readDomValue("subject") || ctx.subject || "",
+      subject: inferredSubject || ctx.subject || readDomValue("subject") || "",
       career: readDomValue("career") || ctx.career || ctx.department || ctx.selectedMajor || "",
-      concept: cleanUiText(activeConcept),
-      keyword: cleanUiText(activeKeyword),
+      concept: cleanConcept,
+      keyword: cleanKeyword,
       linkTrack: activeTrackId,
       followupAxisId: activeTrackId,
-      axisLabel: cleanUiText(activeTrackTitle),
+      axisLabel: cleanAxisLabel,
       selectedBook: activeBookValue,
       selectedBookTitle: cleanUiText(activeBookTitle)
     };
