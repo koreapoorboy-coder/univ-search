@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v138-info-computer-345-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v139-info-computer-exact-3-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -1688,7 +1688,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   // v138 INFO-CS-lock: 정보+컴퓨터공학과는 데이터사이언스형 "자료 분석" 중심이 아니라
   // 컴퓨터공학의 핵심 학습 흐름인 문제 구조화 → 알고리즘 → 구현으로 3번을 먼저 고정한다.
   function isInfoComputerMajorSelectedContext() {
-    if (isDataScienceMajorSelectedContext()) return false;
+    // v139 INFO-CS-exact-lock:
+    // 컴퓨터공학과 선택 시 화면/추천 키워드 안의 "데이터" 문구 때문에
+    // 데이터사이언스형 강제 순서(자료와 정보의 분석 → 알고리즘 → 추상화)가 먼저 적용되는 문제를 차단한다.
+    // 정보+컴퓨터공학과는 항상 문제 구조화 → 알고리즘 → 구현 흐름을 우선한다.
     const subjectText = String(state.subject || "").replace(/\s+/g, "");
     if (subjectText !== "정보") return false;
 
@@ -1700,6 +1703,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       getMajorPanelResolvedName() || "",
       getMajorTextBag() || ""
     ].join(" ");
+
+    const compact = localBag.replace(/\s+/g, "");
+
+    // 명시적 데이터사이언스/통계 전공은 별도 데이터 흐름을 유지한다.
+    if (/(데이터사이언스학과|데이터과학과|빅데이터학과|통계학과|응용통계학과|정보통계학과)/i.test(compact)) return false;
 
     if (/(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어학과|소프트웨어공학|소프트웨어|AI|인공지능|정보보호|정보보안|보안|프로그래밍|알고리즘|시스템|네트워크|앱|웹|게임)/i.test(localBag)) return true;
 
@@ -6558,6 +6566,20 @@ function getTrackMeta(trackId) {
 
     if (!majorText) return defaultSequence;
 
+    // v139 INFO-CS-exact-lock: 정보+컴퓨터공학과는 preferred sequence 단계에서도
+    // 데이터사이언스형/일반 IT형 순서보다 먼저 문제 구조화 → 알고리즘 → 구현으로 고정한다.
+    if (isInfoComputerMajorSelectedContext()) {
+      return [
+        "추상화와 문제 분해",
+        "알고리즘 설계와 분석",
+        "프로그래밍과 자동화",
+        "컴퓨팅 시스템과 네트워크",
+        "자료와 정보의 분석",
+        "자료와 정보의 표현",
+        "지식·정보 사회와 정보 문화"
+      ];
+    }
+
     if (isDataScienceMajorSelectedContext()) {
       return [
         "자료와 정보의 분석",
@@ -6572,12 +6594,12 @@ function getTrackMeta(trackId) {
 
     if (/(컴퓨터|소프트웨어|AI|인공지능|데이터|정보|보안|프로그래밍|통계|게임|앱|웹)/i.test(majorText) || bucket === "it") {
       return [
+        "추상화와 문제 분해",
         "알고리즘 설계와 분석",
         "프로그래밍과 자동화",
-        "자료와 정보의 분석",
-        "추상화와 문제 분해",
-        "자료와 정보의 표현",
         "컴퓨팅 시스템과 네트워크",
+        "자료와 정보의 분석",
+        "자료와 정보의 표현",
         "지식·정보 사회와 정보 문화"
       ];
     }
@@ -12350,19 +12372,18 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
         displayConcepts = primaryConcepts;
       }
     }
-    if (isDataScienceMajorSelectedContext() && !state.showAllConcepts) {
-      const forcedDataScience = getDataScienceForcedConceptOrderForSubject();
-      if (forcedDataScience.length) {
-        primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
-        displayConcepts = primaryConcepts;
-      }
-    }
-    // v138 INFO-CS-visible-lock: 최종 렌더 직전에도 정보+컴퓨터공학과 3번을 다시 잠근다.
-    // 학과 검색/키워드 상태가 뒤늦게 반영되어 데이터사이언스형 개념으로 섞이는 현상을 방지한다.
+    // v139 INFO-CS-visible-lock: 최종 렌더 직전에는 정보+컴퓨터공학과를 데이터사이언스보다 먼저 잠근다.
+    // 화면 어딘가에 "데이터" 문구가 있어도 대표 3번은 추상화 → 알고리즘 → 프로그래밍이다.
     if (isInfoComputerMajorSelectedContext() && !state.showAllConcepts) {
       const forcedInfoComputer = getInfoComputerForcedConceptOrderForSubject();
       if (forcedInfoComputer.length) {
         primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedInfoComputer).slice(0, 3);
+        displayConcepts = primaryConcepts;
+      }
+    } else if (isDataScienceMajorSelectedContext() && !state.showAllConcepts) {
+      const forcedDataScience = getDataScienceForcedConceptOrderForSubject();
+      if (forcedDataScience.length) {
+        primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
         displayConcepts = primaryConcepts;
       }
     }
