@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a22-bio-medical-axis-reason-lock-v132";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a22-env-engineering-axis-reason-lock-v134";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4367,6 +4367,343 @@
     };
   }
 
+
+
+  // v134 ENV-ENGINEERING-lock: 통합과학2 + 환경공학과는 실제 3번 개념과 4번 환경 후속축에 따라
+  // 5번 도서의 직접/확장 구분, 추천 사유, 보고서 활용 문장을 분화한다.
+  // 실제 3번 우선값: 지구 환경 변화와 인간 생활 / 생물과 환경 / 생태계평형
+  // 실제 4번 핵심축: 기후·환경 영향 분석 축 / 환경 위험·대응 관리 축 / 환경 자료·모니터링 축
+  function isBookEnvironmentEngineeringContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const isIntegratedScience2 = /(통합과학2|통합과학Ⅱ|통합과학II|integrated\s*science\s*2)/i.test(subjectText);
+    const isEnvironmentMajor = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|대기환경|수질|폐기물|환경보건|생태공학|environmental\s*engineering)/i.test(careerText);
+    const isExcludedUrbanCivil = /(도시공학과|도시공학|건축공학과|건축공학|토목공학과|토목공학|건설환경공학과|토목환경공학과|교통공학과|공간정보)/i.test(careerText);
+    const isActualConcept = /(지구\s*환경\s*변화와\s*인간\s*생활|생물과\s*환경|생태계평형|지구\s*환경\s*변화|에너지\s*효율과\s*신재생\s*에너지)/i.test(conceptText);
+    const hasEnvAxis = /(env[_-]|earth_env|기후|환경|위험|대응|모니터링|자료|생태|서식지|보전|복원|지속가능|대기|수질|폐기물|탄소|에너지)/i.test(axisText);
+    return !!(isIntegratedScience2 && isEnvironmentMajor && !isExcludedUrbanCivil && isActualConcept && hasEnvAxis);
+  }
+
+  function inferBookEnvironmentEngineeringConcept(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
+    if (/지구\s*환경\s*변화와\s*인간\s*생활/i.test(conceptText)) return "earth_env_human_life";
+    if (/생물과\s*환경/i.test(conceptText)) return "biology_environment";
+    if (/생태계평형/i.test(conceptText)) return "ecosystem_balance";
+    if (/지구\s*환경\s*변화/i.test(conceptText)) return "earth_env_change";
+    if (/에너지\s*효율과\s*신재생\s*에너지/i.test(conceptText)) return "renewable_energy_efficiency";
+    return "environment_engineering";
+  }
+
+  function getEnvironmentEngineeringConceptLabel(conceptId){
+    const map = {
+      earth_env_human_life: "지구 환경 변화와 인간 생활",
+      biology_environment: "생물과 환경",
+      ecosystem_balance: "생태계평형",
+      earth_env_change: "지구 환경 변화",
+      renewable_energy_efficiency: "에너지 효율과 신재생 에너지",
+      environment_engineering: "환경공학 연계 개념"
+    };
+    return map[conceptId] || "선택 환경 개념";
+  }
+
+  function inferBookEnvironmentEngineeringAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    // 실제 4번 후속 연계축 ID/title 기준. 설명용 임의 축명은 사용하지 않는다.
+    if (/(env_climate_impact_analysis_axis|env_climate_impact_response_axis|기후\s*[·ㆍ]?\s*환경\s*영향|기후\s*변화|환경\s*영향|온실가스|탄소중립)/i.test(axisText)) return "env_climate_impact_analysis_axis";
+    if (/(env_risk_response_management_axis|환경\s*위험|위험\s*대응|대응\s*관리|환경\s*재해|폭염|침수|대기오염|적응\s*전략)/i.test(axisText)) return "env_risk_response_management_axis";
+    if (/(env_data_monitoring_axis|measurement_environment_data|환경\s*자료|모니터링|자료\s*[·ㆍ]?\s*모니터링|환경\s*지표|시계열|그래프|대기질)/i.test(axisText)) return "env_data_monitoring_axis";
+    if (/(ecosystem_analysis_axis|pure_biology_ecosystem_interaction_axis|생태계\s*상호작용|생태계\s*해석|물질\s*순환|먹이\s*그물|개체군|군집)/i.test(axisText)) return "ecosystem_interaction_cycle_axis";
+    if (/(environment_resource_application_axis|환경\s*[·ㆍ]?\s*자원|생태\s*관리|보전|복원|서식지|생물다양성|수질|폐기물)/i.test(axisText)) return "environment_resource_conservation_axis";
+    if (/(ecosystem_data_decision_axis|생태\s*데이터|자료\s*해석|조건\s*비교|변화\s*요인|회복|교란|안정성|데이터\s*판단)/i.test(axisText)) return "ecosystem_data_decision_axis";
+    if (/(energy_environment_data_axis|효율\s*[·ㆍ]?\s*지속가능성|에너지\s*[·ㆍ]?\s*환경|신재생|에너지\s*효율|재생\s*에너지)/i.test(axisText)) return "energy_environment_sustainability_axis";
+    if (/(earth_env|지구\s*[·ㆍ]?\s*환경\s*해석|지구\s*시스템|관측\s*자료|환경\s*변화)/i.test(axisText)) return "earth_environment_interpretation_axis";
+    return "env_climate_impact_analysis_axis";
+  }
+
+  function getEnvironmentEngineeringAxisLabel(axisId){
+    const map = {
+      env_climate_impact_analysis_axis: "기후·환경 영향 분석 축",
+      env_risk_response_management_axis: "환경 위험·대응 관리 축",
+      env_data_monitoring_axis: "환경 자료·모니터링 축",
+      ecosystem_interaction_cycle_axis: "생태계 상호작용·물질 순환 축",
+      environment_resource_conservation_axis: "환경·자원 보전 응용 축",
+      ecosystem_data_decision_axis: "생태 데이터 판단 축",
+      energy_environment_sustainability_axis: "에너지·환경 지속가능성 축",
+      earth_environment_interpretation_axis: "지구·환경 해석 축"
+    };
+    return map[axisId] || "선택 후속 연계축";
+  }
+
+  function getEnvironmentEngineeringAxisUse(axisId){
+    const map = {
+      env_climate_impact_analysis_axis: {
+        direct: "지구 환경 변화 개념을 기후 변화, 온실가스, 생활환경 변화, 지역별 환경 영향 분석으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "기후 변화 원인과 영향, 인간 생활 변화, 지역별 환경 차이를 비교표나 사례 분석으로 정리합니다.",
+        limitation: "기후 영향은 단일 원인으로 설명하기 어렵고, 산업 구조·지역 특성·정책 대응이 함께 작용한다는 한계를 논의합니다.",
+        roles: ["기후 영향 근거", "환경 변화 분석", "지역 사례 비교"]
+      },
+      env_risk_response_management_axis: {
+        direct: "환경 변화 자료를 폭염, 침수, 대기오염 같은 위험 대응과 적응 전략 제안으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "환경 위험 요인을 분류하고, 대응 전략과 관리 기준을 비교해 지역 환경 문제 해결 방안을 제시합니다.",
+        limitation: "위험 대응은 기술 대책만으로 완성되지 않고 예산, 취약계층, 행정 체계, 시민 참여 조건을 함께 고려해야 함을 논의합니다.",
+        roles: ["환경 위험 분류", "대응 전략 비교", "관리 기준 제안"]
+      },
+      env_data_monitoring_axis: {
+        direct: "기온·강수·대기질·수질 자료를 표, 그래프, 시계열로 정리해 환경 지표와 모니터링 기준으로 해석하는 직접 근거로 활용합니다.",
+        analysis: "환경 지표 변화 추세를 그래프화하고, 기준값과 이상값을 비교해 자료 기반 관리 판단을 구성합니다.",
+        limitation: "측정 자료는 관측 지점, 기간, 기준값, 이상치 처리 방식에 따라 해석이 달라질 수 있음을 논의합니다.",
+        roles: ["환경 자료 해석", "모니터링 기준", "자료 기반 판단"]
+      },
+      ecosystem_interaction_cycle_axis: {
+        direct: "생물과 환경 개념을 먹이 관계, 물질 순환, 에너지 흐름, 개체군 상호작용으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "생태계 구성 요소와 상호작용을 도식화하고, 환경 변화가 물질 순환과 개체군에 미치는 영향을 설명합니다.",
+        limitation: "생태계 상호작용은 단순 선형 관계가 아니라 여러 요인이 동시에 작용하는 복합 시스템임을 논의합니다.",
+        roles: ["생태계 구조", "물질 순환", "상호작용 해석"]
+      },
+      environment_resource_conservation_axis: {
+        direct: "환경 요인, 서식지, 생물다양성, 자원 보전 개념을 환경공학적 관리와 복원 방향으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "오염, 서식지 변화, 보전·복원 사례를 비교해 환경 관리의 우선순위와 기준을 정리합니다.",
+        limitation: "보전과 개발은 이해관계가 충돌할 수 있으므로 생태적 가치, 경제성, 지역사회 수용성을 함께 논의해야 함을 제시합니다.",
+        roles: ["보전·복원 근거", "서식지 관리", "환경 자원 응용"]
+      },
+      ecosystem_data_decision_axis: {
+        direct: "생태계 변화와 안정성을 자료 해석, 변화 요인 비교, 회복 가능성 판단으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "교란 전후 자료, 개체군 변화, 회복 지표를 비교해 생태계 안정성과 관리 판단을 구성합니다.",
+        limitation: "생태 자료는 장기 관찰이 필요하고 단기 변화만으로 평형 회복 여부를 단정하기 어렵다는 한계를 논의합니다.",
+        roles: ["생태 데이터", "안정성 판단", "회복 지표 비교"]
+      },
+      energy_environment_sustainability_axis: {
+        direct: "에너지 효율과 신재생 에너지 개념을 탄소중립, 자원 이용, 지속가능한 환경 시스템으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "에너지 전환 방식의 효율, 환경 영향, 사회적 수용성을 비교해 지속가능한 대안을 제안합니다.",
+        limitation: "신재생 에너지도 입지, 저장, 비용, 폐기물, 송전망 문제를 함께 고려해야 함을 논의합니다.",
+        roles: ["에너지 전환", "지속가능성", "환경 영향 비교"]
+      },
+      earth_environment_interpretation_axis: {
+        direct: "지구 시스템과 환경 변화, 관측 자료 해석을 환경공학의 문제 발견 단계로 연결하는 직접 근거로 활용합니다.",
+        analysis: "지구 시스템 변화와 환경 지표를 연결해 문제의 원인, 영향, 관리 방향을 구조화합니다.",
+        limitation: "지구 환경 변화는 시간 규모와 공간 규모가 커서 단일 사례만으로 전체 변화를 일반화하기 어렵다는 한계를 논의합니다.",
+        roles: ["지구 환경 해석", "관측 자료", "문제 구조화"]
+      }
+    };
+    return map[axisId] || map.env_climate_impact_analysis_axis;
+  }
+
+  function getEnvironmentEngineeringConceptAxisUse(conceptId, axisId){
+    const conceptLabel = getEnvironmentEngineeringConceptLabel(conceptId);
+    const axisLabel = getEnvironmentEngineeringAxisLabel(axisId);
+    const map = {
+      "earth_env_human_life::env_climate_impact_analysis_axis": {
+        reason: "지구 환경 변화와 인간 생활을 기후 변화·생활환경 변화·온실가스 영향 분석으로 직접 확장하는 조합입니다.",
+        report: "보고서 본론에서 기후 변화 원인과 인간 생활 변화 사례를 연결하고, 지역별 환경 영향 비교표를 제시합니다."
+      },
+      "earth_env_human_life::env_risk_response_management_axis": {
+        reason: "지구 환경 변화를 폭염·침수·대기오염 같은 환경 위험과 대응 관리 기준으로 연결하는 조합입니다.",
+        report: "보고서 본론에서 환경 위험 요인을 분류하고, 대응 전략의 장단점을 비교해 지역 환경 관리 방안을 제안합니다."
+      },
+      "earth_env_human_life::env_data_monitoring_axis": {
+        reason: "지구 환경 변화와 인간 생활을 환경 지표 자료, 그래프, 모니터링 기준으로 해석하는 조합입니다.",
+        report: "보고서 본론에서 기온·강수·대기질 자료를 그래프로 정리하고, 변화 추세와 관리 기준을 해석합니다."
+      },
+      "biology_environment::ecosystem_interaction_cycle_axis": {
+        reason: "생물과 환경을 생태계 상호작용, 물질 순환, 환경 요인의 변화로 설명하는 조합입니다.",
+        report: "보고서 본론에서 환경 요인 변화가 생태계 구성 요소와 물질 순환에 미치는 영향을 구조도와 사례로 정리합니다."
+      },
+      "biology_environment::environment_resource_conservation_axis": {
+        reason: "생물과 환경을 서식지 보전, 오염 관리, 생물다양성 보호의 환경공학적 과제로 확장하는 조합입니다.",
+        report: "보고서 본론에서 서식지 변화와 오염 요인을 비교하고 보전·복원 관리 기준을 제안합니다."
+      },
+      "biology_environment::env_data_monitoring_axis": {
+        reason: "생물과 환경을 환경 요인 자료, 조건 비교, 그래프 해석으로 연결하는 조합입니다.",
+        report: "보고서 본론에서 환경 요인별 생물 반응 자료를 표·그래프로 정리해 자료 기반 판단을 구성합니다."
+      },
+      "ecosystem_balance::ecosystem_interaction_cycle_axis": {
+        reason: "생태계평형을 먹이 관계, 물질 순환, 생태계 안정성의 구조로 설명하는 조합입니다.",
+        report: "보고서 본론에서 생태계 교란 전후의 상호작용 변화를 도식화하고 평형 유지 조건을 설명합니다."
+      },
+      "ecosystem_balance::environment_resource_conservation_axis": {
+        reason: "생태계평형을 교란, 회복, 보전·복원 관리 기준으로 확장하는 조합입니다.",
+        report: "보고서 본론에서 생태계 교란 요인과 회복 전략을 비교해 환경 관리의 우선순위를 제시합니다."
+      },
+      "ecosystem_balance::ecosystem_data_decision_axis": {
+        reason: "생태계평형을 안정성 지표, 변화 요인, 회복 자료 해석으로 연결하는 조합입니다.",
+        report: "보고서 본론에서 개체군 변화나 환경 지표 자료를 활용해 생태계 안정성과 회복 가능성을 판단합니다."
+      },
+      "earth_env_change::env_climate_impact_analysis_axis": {
+        reason: "지구 환경 변화를 기후·환경 영향 분석으로 직접 확장하는 조합입니다.",
+        report: "보고서 본론에서 환경 변화 원인과 영향, 인간 생활 변화를 사례 중심으로 비교합니다."
+      },
+      "renewable_energy_efficiency::energy_environment_sustainability_axis": {
+        reason: "에너지 효율과 신재생 에너지를 탄소중립과 지속가능한 환경 시스템으로 연결하는 조합입니다.",
+        report: "보고서 본론에서 에너지 전환 방식의 효율, 환경 영향, 한계를 비교해 지속가능한 대안을 제안합니다."
+      }
+    };
+    return map[`${conceptId}::${axisId}`] || {
+      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 환경공학 탐구의 근거를 구성하는 조합입니다.`,
+      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 환경 영향, 위험 대응, 자료 해석, 보전·복원 중 하나로 구체화합니다.`
+    };
+  }
+
+  function buildLockedBookContextEnvironmentEngineering(book, ctx, sectionType, axisId, rank, conceptId){
+    const title = val(book && book.title);
+    const conceptLabel = getEnvironmentEngineeringConceptLabel(conceptId);
+    const axisLabel = getEnvironmentEngineeringAxisLabel(axisId);
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    const axisUse = getEnvironmentEngineeringAxisUse(axisId);
+    const conceptAxisUse = getEnvironmentEngineeringConceptAxisUse(conceptId, axisId);
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
+        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 지속가능성·정책·윤리·사회적 영향 관점으로 넓히는 확장 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.roles : ["지속가능성 확장", "정책·윤리 비교", "사회적 영향 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? `${axisUse.analysis} ${conceptAxisUse.report}` : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·정책·윤리·경제적 지속가능성 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: isDirect ? axisUse.limitation : "환경공학 탐구가 과학 원리뿐 아니라 정책, 비용, 지역 격차, 시민 참여 조건에 따라 달라질 수 있음을 논의합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 교과 개념을 환경 관리, 지속가능한 사회, 지역 문제 해결 방향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookEnvironmentEngineeringAxis: axisId
+    };
+  }
+
+  function cloneBookForEnvironmentEngineeringLock(book, ctx, sectionType, axisId, rank, conceptId){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 8400 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`ENV-ENGINEERING ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextEnvironmentEngineering(book, ctx, sectionType, axisId, rank, conceptId),
+      bookEnvironmentEngineeringAxisLock: axisId,
+      bookEnvironmentEngineeringConceptLock: conceptId,
+      bookEnvironmentEngineeringRank: rank
+    };
+  }
+
+  function applyBookEnvironmentEngineeringLock(result, ctx){
+    if (!result || !isBookEnvironmentEngineeringContext(ctx)) return result;
+    const axisId = inferBookEnvironmentEngineeringAxis(ctx);
+    if (!axisId) return result;
+    const conceptId = inferBookEnvironmentEngineeringConcept(ctx);
+    const key = `${conceptId}::${axisId}`;
+    const defaultKey = `default::${axisId}`;
+
+    const directMap = {
+      "earth_env_human_life::env_climate_impact_analysis_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피"],
+      "earth_env_human_life::env_risk_response_management_axis": ["침묵의 봄", "오래된 미래", "동물들의 인간 심판"],
+      "earth_env_human_life::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
+      "biology_environment::ecosystem_interaction_cycle_axis": ["침묵의 봄", "인수공통 모든 전염병의 열쇠", "오래된 미래"],
+      "biology_environment::environment_resource_conservation_axis": ["오래된 미래", "침묵의 봄", "동물들의 인간 심판"],
+      "biology_environment::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "침묵의 봄"],
+      "ecosystem_balance::ecosystem_interaction_cycle_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠"],
+      "ecosystem_balance::environment_resource_conservation_axis": ["침묵의 봄", "동물들의 인간 심판", "오래된 미래"],
+      "ecosystem_balance::ecosystem_data_decision_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
+      "earth_env_change::env_climate_impact_analysis_axis": ["총, 균, 쇠", "침묵의 봄", "혼돈으로부터의 질서"],
+      "renewable_energy_efficiency::energy_environment_sustainability_axis": ["엔트로피", "오래된 미래", "펭귄과 리바이어던"],
+      "default::env_climate_impact_analysis_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피"],
+      "default::env_risk_response_management_axis": ["침묵의 봄", "오래된 미래", "동물들의 인간 심판"],
+      "default::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
+      "default::ecosystem_interaction_cycle_axis": ["침묵의 봄", "인수공통 모든 전염병의 열쇠", "오래된 미래"],
+      "default::environment_resource_conservation_axis": ["오래된 미래", "침묵의 봄", "동물들의 인간 심판"],
+      "default::ecosystem_data_decision_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
+      "default::energy_environment_sustainability_axis": ["엔트로피", "오래된 미래", "펭귄과 리바이어던"],
+      "default::earth_environment_interpretation_axis": ["총, 균, 쇠", "침묵의 봄", "혼돈으로부터의 질서"]
+    };
+
+    const expansionMap = {
+      "earth_env_human_life::env_climate_impact_analysis_axis": ["오래된 미래", "팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서", "동물들의 인간 심판"],
+      "earth_env_human_life::env_risk_response_management_axis": ["팩트풀니스", "엔트로피", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을", "총, 균, 쇠"],
+      "earth_env_human_life::env_data_monitoring_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피", "오래된 미래", "혼돈으로부터의 질서"],
+      "biology_environment::ecosystem_interaction_cycle_axis": ["동물들의 인간 심판", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "엔트로피"],
+      "biology_environment::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "엔트로피", "팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을"],
+      "biology_environment::env_data_monitoring_axis": ["인수공통 모든 전염병의 열쇠", "오래된 미래", "총, 균, 쇠", "혼돈으로부터의 질서", "동물들의 인간 심판"],
+      "ecosystem_balance::ecosystem_interaction_cycle_axis": ["팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "동물들의 인간 심판", "엔트로피"],
+      "ecosystem_balance::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을"],
+      "ecosystem_balance::ecosystem_data_decision_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "동물들의 인간 심판"],
+      "earth_env_change::env_climate_impact_analysis_axis": ["엔트로피", "오래된 미래", "팩트풀니스", "객관성의 칼날", "동물들의 인간 심판"],
+      "renewable_energy_efficiency::energy_environment_sustainability_axis": ["파타고니아, 파도가 칠 때는 서핑을", "팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "제3의 물결"],
+      "default::env_climate_impact_analysis_axis": ["오래된 미래", "팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서", "동물들의 인간 심판"],
+      "default::env_risk_response_management_axis": ["팩트풀니스", "엔트로피", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을", "총, 균, 쇠"],
+      "default::env_data_monitoring_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피", "오래된 미래", "혼돈으로부터의 질서"],
+      "default::ecosystem_interaction_cycle_axis": ["동물들의 인간 심판", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "엔트로피"],
+      "default::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "엔트로피", "팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을"],
+      "default::ecosystem_data_decision_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "동물들의 인간 심판"],
+      "default::energy_environment_sustainability_axis": ["파타고니아, 파도가 칠 때는 서핑을", "팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "제3의 물결"],
+      "default::earth_environment_interpretation_axis": ["엔트로피", "오래된 미래", "팩트풀니스", "객관성의 칼날", "동물들의 인간 심판"]
+    };
+
+    const directTitles = arr(directMap[key] || directMap[defaultKey]);
+    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
+    if (!directTitles.length) return result;
+
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForEnvironmentEngineeringLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForEnvironmentEngineeringLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
+    ).filter(Boolean).filter(book => !directIds.has(bookKey(book)));
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookEnvironmentEngineeringLock: axisId,
+        bookEnvironmentEngineeringConcept: conceptId,
+        bookEnvironmentEngineeringVersion: "v134",
+        bookEnvironmentEngineeringDirectTitles: directBooks.map(book => book.title),
+        bookEnvironmentEngineeringExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4416,6 +4753,7 @@
     result = applyBookA18PhysicsLock(result, ctx);
     result = applyBookChemPharmacyLock(result, ctx);
     result = applyBookBioMedicalLock(result, ctx);
+    result = applyBookEnvironmentEngineeringLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
