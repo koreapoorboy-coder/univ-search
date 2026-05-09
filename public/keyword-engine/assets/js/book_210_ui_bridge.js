@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a23-info-computer-axis-book-match-relax-v137";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a19-physics-subject-lock-v127-1";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1814,9 +1814,7 @@
     const isDataAnalysisConcept = /자료와\s*정보의\s*분석/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isDataAnalysisKeyword = /(자료\s*수집|자료\s*분석|비교\s*기준|표|그래프|시각화|데이터베이스|구조화|정렬|탐색|검색|빅데이터|의미\s*있는\s*정보|예측|판단|의사결정|데이터)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 5번 도서는 3번 교과 개념 + 4번 후속축을 우선 기준으로 매칭한다.
-    // 추천 키워드가 비어 있거나 화면 표시명이 달라도 도서 매칭이 끊기지 않도록 keyword 조건은 보조 신호로만 둔다.
-    return !!(isComputer && isInfo && isDataAnalysisConcept);
+    return !!(isComputer && isInfo && isDataAnalysisConcept && isDataAnalysisKeyword);
   }
 
   function inferBookA8InfoDataAnalysisAxis(ctx){
@@ -1979,8 +1977,7 @@
     const isAlgorithmConcept = /알고리즘\s*설계와\s*분석/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isAlgorithmKeyword = /(알고리즘|효율성|성능\s*비교|수행\s*시간|최적화|버블\s*정렬|선택\s*정렬|순차\s*탐색|이진\s*탐색|정렬|탐색|순차|선택|반복|규칙|예측|데이터\s*처리)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 추천 키워드가 누락되어도 3번 개념 + 4번 축 기준으로 5번 도서를 고정한다.
-    return !!(isComputer && isInfo && isAlgorithmConcept);
+    return !!(isComputer && isInfo && isAlgorithmConcept && isAlgorithmKeyword);
   }
 
   function inferBookA9InfoAlgorithmAxis(ctx){
@@ -2143,8 +2140,7 @@
     const isProgrammingConcept = /프로그래밍\s*과\s*자동화/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isProgrammingKeyword = /(python|파이썬|프로그래밍|코드|원시\s*코드|변수\s*설계|입력\s*과\s*출력|입력|출력|함수|조건문|반복문|리스트|리스트\s*내포|random\s*모듈|랜덤|turtle\s*그래픽|터틀|자동화|시뮬레이션)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 추천 키워드는 축 정렬 보조값으로만 사용하고, 도서 매칭은 3번+4번으로 유지한다.
-    return !!(isComputer && isInfo && isProgrammingConcept);
+    return !!(isComputer && isInfo && isProgrammingConcept && isProgrammingKeyword);
   }
 
   function inferBookA10InfoProgrammingAxis(ctx){
@@ -2307,8 +2303,7 @@
     const isAbstractionConcept = /추상화\s*와\s*문제\s*분해/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isAbstractionKeyword = /(문제\s*분해|조건\s*분석|현재\s*상태|목표\s*상태|작은\s*문제|모델링|핵심\s*요소|변수|기준\s*설정|불필요한\s*요소|추상화|구조화|절차|최적화)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 추상화 계열도 실제 3번 개념과 4번 축만으로 5번 도서를 매칭한다.
-    return !!(isComputer && isInfo && isAbstractionConcept);
+    return !!(isComputer && isInfo && isAbstractionConcept && isAbstractionKeyword);
   }
 
   function inferBookA11InfoAbstractionAxis(ctx){
@@ -2472,8 +2467,7 @@
     const isRepresentationConcept = /자료\s*와\s*정보\s*의\s*표현/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isRepresentationKeyword = /(디지털\s*정보|자료\s*표현|부호화|아날로그\s*정보|모스\s*부호|표현\s*방식|데이터\s*변환|저장|전송|압축|용량|표본화|양자화|샘플링|이미지|소리|영상|미디어|문자\s*코드|ASCII|유니코드)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 자료 표현 계열 도서도 키워드 누락으로 매칭이 끊기지 않게 한다.
-    return !!(isComputer && isInfo && isRepresentationConcept);
+    return !!(isComputer && isInfo && isRepresentationConcept && isRepresentationKeyword);
   }
 
   function inferBookA12InfoRepresentationAxis(ctx){
@@ -2637,8 +2631,7 @@
     const isSystemNetworkConcept = /컴퓨팅\s*시스템\s*과\s*네트워크/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isSystemNetworkKeyword = /(컴퓨팅\s*시스템|운영\s*체제|네트워크|서버|클라이언트|프로토콜|인터넷|ip|주소|보안|계정|접근\s*권한|플랫폼|협업\s*도구|센서|피지컬\s*컴퓨팅|회로|임베디드|장치|입출력\s*장치|마이크로컨트롤러|데이터\s*전송|통신)/i.test(keywordText);
-    // v137 INFO-COMPUTER-lock: 시스템·네트워크 계열은 3번 개념과 4번 축을 기준으로 도서를 연결한다.
-    return !!(isComputer && isInfo && isSystemNetworkConcept);
+    return !!(isComputer && isInfo && isSystemNetworkConcept && isSystemNetworkKeyword);
   }
 
   function inferBookA13InfoSystemNetworkAxis(ctx){
@@ -3344,21 +3337,29 @@
     const resolveFromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      // 실제 기하 followup-axis 데이터 기준:
-      // 벡터의 성분과 내적 → 벡터·유사도 모델링 / 그래픽·물리 벡터 해석 / 투영·공간 계산.
-      if (/(vector_similarity_model_axis|벡터\s*[·ㆍ]?\s*유사도\s*모델링|벡터.*유사도|코사인\s*유사도|정규화|방향\s*유사도)/i.test(text)) return "vector_similarity_model";
-      if (/(graphics_vector_axis|그래픽\s*[·ㆍ]?\s*물리\s*벡터|그래픽.*벡터|물리\s*벡터|그래픽스|방향|성분)/i.test(text)) return "graphics_physics_vector";
-      if (/(projection_space_calc_axis|투영\s*[·ㆍ]?\s*공간\s*계산|투영.*공간|공간\s*계산|투영|거리)/i.test(text)) return "projection_space_calculation";
 
-      // 공간좌표와 구의 방정식 → 3차원 좌표·그래픽스 / 센서 범위·충돌 판정 / 위치 추적·공간 데이터.
-      if (/(three_d_coordinate_graphics_axis|3차원\s*좌표\s*[·ㆍ]?\s*그래픽스|3차원.*그래픽|공간좌표|구의\s*방정식|그래픽스)/i.test(text)) return "three_d_coordinate_graphics";
-      if (/(sensor_collision_range_axis|sensor_range_collision_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|반지름|범위)/i.test(text)) return "sensor_range_collision";
+      // concept-specific axis labels first to avoid generic words like 그래픽스 / 거리 / 자취 being over-matched.
+      // 벡터의 성분과 내적
+      if (/(vector_similarity_model_axis|벡터\s*[·ㆍ]?\s*유사도\s*모델링|벡터.*유사도|코사인\s*유사도|정규화|방향\s*유사도)/i.test(text)) return "vector_similarity_model";
+      if (/(graphics_vector_axis|그래픽\s*[·ㆍ]?\s*물리\s*벡터|그래픽.*벡터|물리\s*벡터)/i.test(text)) return "graphics_physics_vector";
+      if (/(projection_space_calc_axis|투영\s*[·ㆍ]?\s*공간\s*계산|투영.*공간|공간\s*계산|투영)/i.test(text)) return "projection_space_calculation";
+
+      // 공간좌표와 구의 방정식
+      if (/(three_d_coordinate_graphics_axis|3차원\s*좌표\s*[·ㆍ]?\s*그래픽스|3차원.*그래픽|3d\s*좌표)/i.test(text)) return "three_d_coordinate_graphics";
+      if (/(sensor_collision_range_axis|sensor_range_collision_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|범위\s*충돌)/i.test(text)) return "sensor_range_collision";
       if (/(location_space_data_axis|position_tracking_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
 
-      // 이차곡선과 자취 해석 → 신호·위치 추정 모델 / 반사·궤도 해석 / 곡선·설계 시각화.
-      if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
-      if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "reflection_orbit_analysis";
-      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화|자취|포물선|타원)/i.test(text)) return "curve_design_visualization";
+      // 이차곡선과 자취 해석 - actual on-screen axis labels
+      if (/(conic_structure_analysis_axis|이차곡선\s*구조\s*해석|이차곡선\s*구조)/i.test(text)) return "conic_structure_analysis";
+      if (/(locus_condition_analysis_axis|자취\s*[·ㆍ]?\s*조건\s*분석|자취.*조건\s*분석)/i.test(text)) return "locus_condition_analysis";
+      if (/(coordinate_geometry_modeling_axis|좌표기하\s*모델링|좌표기하)/i.test(text)) return "coordinate_geometry_modeling";
+
+      // legacy fallback labels for earlier variants
+      if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "conic_structure_analysis";
+      if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "locus_condition_analysis";
+      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화)/i.test(text)) return "coordinate_geometry_modeling";
+
+      // final generic fallback uses concept text only if axis-specific label is absent.
       return "";
     };
 
@@ -3367,7 +3368,7 @@
     // 축 정보가 늦게 들어오는 초기 렌더에서도 개념별 첫 축으로 안전하게 고정한다.
     if (/벡터의\s*성분과\s*내적/.test(conceptText)) return "vector_similarity_model";
     if (/공간좌표와\s*구의\s*방정식/.test(conceptText)) return "three_d_coordinate_graphics";
-    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "signal_position_estimation";
+    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "conic_structure_analysis";
     return "";
   }
 
@@ -3381,20 +3382,26 @@
       three_d_coordinate_graphics: "3차원 좌표·그래픽스 축",
       sensor_range_collision: "센서 범위·충돌 판정 축",
       location_tracking_space_data: "위치 추적·공간 데이터 축",
-      signal_position_estimation: "신호·위치 추정 모델 축",
-      reflection_orbit_analysis: "반사·궤도 해석 축",
-      curve_design_visualization: "곡선·설계 시각화 축"
+      conic_structure_analysis: "이차곡선 구조 해석 축",
+      locus_condition_analysis: "자취·조건 분석 축",
+      coordinate_geometry_modeling: "좌표기하 모델링 축",
+      signal_position_estimation: "이차곡선 구조 해석 축",
+      reflection_orbit_analysis: "자취·조건 분석 축",
+      curve_design_visualization: "좌표기하 모델링 축"
     };
     const axisUseMap = {
       vector_similarity_model: { direct: "벡터의 성분과 내적을 데이터의 방향 유사도, 코사인 유사도, 정규화 개념과 연결해 설명할 때 활용합니다.", role: ["벡터 유사도", "데이터 모델링", "정규화 해석"] },
       graphics_physics_vector: { direct: "벡터의 크기와 방향을 그래픽스·물리량 해석으로 연결해 물체 이동, 조명 방향, 힘의 합성을 설명할 때 활용합니다.", role: ["그래픽 벡터", "방향·크기 해석", "물리량 연결"] },
       projection_space_calculation: { direct: "내적과 투영을 이용해 거리, 방향 성분, 공간 계산 과정을 수학적으로 설명할 때 활용합니다.", role: ["투영 계산", "거리 해석", "공간 계산"] },
-      three_d_coordinate_graphics: { direct: "공간좌표와 구의 방정식을 3차원 좌표계, 그래픽스 화면 표현, 객체 위치 모델의 기초로 설명할 때 활용합니다.", role: ["3차원 좌표", "그래픽스 표현", "공간 객체 모델"] },
-      sensor_range_collision: { direct: "구의 중심과 반지름을 센서 감지 범위, 충돌 판정, 객체 간 거리 조건으로 해석할 때 활용합니다.", role: ["센서 범위", "충돌 판정", "거리 조건"] },
-      location_tracking_space_data: { direct: "공간 좌표 자료를 위치 추적, 공간 데이터 기록, 이동 경로 분석과 연결해 설명할 때 활용합니다.", role: ["위치 추적", "공간 데이터", "경로 분석"] },
-      signal_position_estimation: { direct: "이차곡선과 자취를 신호 기반 위치 추정, 거리차 조건, 쌍곡선 위치 모델로 설명할 때 활용합니다.", role: ["위치 추정", "신호 모델", "거리차 조건"] },
-      reflection_orbit_analysis: { direct: "포물선·타원·쌍곡선의 반사 성질과 궤도 해석을 연결해 기하적 모델링의 의미를 설명할 때 활용합니다.", role: ["반사 성질", "궤도 해석", "기하 모델링"] },
-      curve_design_visualization: { direct: "자취와 이차곡선을 곡선 설계, 화면 시각화, 그래픽 표현으로 확장할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "그래픽 표현"] }
+      three_d_coordinate_graphics: { direct: "공간좌표와 구의 방정식을 3차원 좌표계, 그래픽스, 객체 위치 표현의 기초로 설명할 때 활용합니다.", role: ["3차원 좌표", "그래픽스 기초", "공간 표현"] },
+      sensor_range_collision: { direct: "구의 중심과 반지름을 센서 범위, 충돌 판정, 객체 간 거리 조건으로 해석할 때 활용합니다.", role: ["센서 범위", "충돌 판정", "거리 조건"] },
+      location_tracking_space_data: { direct: "공간 좌표 자료를 위치 추적, 공간 데이터, 이동 경로 분석과 연결해 설명할 때 활용합니다.", role: ["위치 추적", "공간 데이터", "경로 분석"] },
+      conic_structure_analysis: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
+      locus_condition_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
+      coordinate_geometry_modeling: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] },
+      signal_position_estimation: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
+      reflection_orbit_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
+      curve_design_visualization: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.vector_similarity_model;
@@ -3452,28 +3459,29 @@
       vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체"],
       graphics_physics_vector: ["부분과 전체", "카오스", "객관성의 칼날"],
       projection_space_calculation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      // v142 geometry+computer B/C book-match rematch:
-      // B. 공간좌표와 구의 방정식은 기하적 좌표 모델을 먼저 세우고, 그래픽스·센서·공간 데이터 응용으로 확장한다.
-      //    v141의 미디어/일반 확장 도서 선배치를 줄이고, 수학적 모델링·측정 신뢰도·데이터 해석 순서로 재정렬한다.
-      three_d_coordinate_graphics: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "객관성의 칼날"],
+      three_d_coordinate_graphics: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
       sensor_range_collision: ["객관성의 칼날", "부분과 전체", "카오스"],
       location_tracking_space_data: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"],
-      // C. 이차곡선과 자취 해석은 위치 추정/반사·궤도/곡선 시각화로 분리한다.
-      //    위치 추정은 수학적 모델·증명·측정 신뢰도, 반사·궤도는 물리·우주·비선형 모델, 곡선 시각화는 수학+미디어 표현 순서로 배치한다.
+      conic_structure_analysis: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
+      locus_condition_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      coordinate_geometry_modeling: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
       signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      reflection_orbit_analysis: ["코스모스", "시간의 역사", "카오스"],
-      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "객관성의 칼날"]
+      reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"]
     };
     const expansionMap = {
       vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
       graphics_physics_vector: ["객관성의 칼날", "미디어의 이해", "혼돈으로부터의 질서", "경영학 콘서트", "1984"],
       projection_space_calculation: ["부분과 전체", "방법서설", "카오스", "경영학 콘서트", "미디어의 이해"],
-      three_d_coordinate_graphics: ["부분과 전체", "팩트풀니스", "경영학 콘서트", "제3의 물결", "1984"],
-      sensor_range_collision: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "혼돈으로부터의 질서", "미디어의 이해", "1984"],
-      location_tracking_space_data: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률", "감시와 처벌", "1984"],
-      signal_position_estimation: ["경영학 콘서트", "팩트풀니스", "부분과 전체", "미디어의 이해", "1984"],
-      reflection_orbit_analysis: ["혼돈으로부터의 질서", "부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날", "미디어의 이해"],
-      curve_design_visualization: ["부분과 전체", "디자인 인문학", "카오스", "경영학 콘서트", "제3의 물결"]
+      three_d_coordinate_graphics: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"],
+      sensor_range_collision: ["혼돈으로부터의 질서", "경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984"],
+      location_tracking_space_data: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      conic_structure_analysis: ["부분과 전체", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
+      locus_condition_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
+      coordinate_geometry_modeling: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"],
+      signal_position_estimation: ["부분과 전체", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
+      reflection_orbit_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
+      curve_design_visualization: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
@@ -3782,963 +3790,6 @@
   }
 
 
-  // v131 CHEM-PHARMACY-lock: 실제 3번 개념 + 실제 4번 후속축에 따라 5번 도서의 우선순위/역할/활용 문장을 분화한다.
-  // 도서 풀이 좁은 약학과 조합에서는 같은 책이 일부 반복될 수 있으므로, 제목을 억지로 늘리지 않고
-  // 3번·4번 조합별 직접/확장 구분과 추천 사유를 다르게 잠근다.
-  function isBookChemPharmacyContext(ctx){
-    ctx = ctx || {};
-    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
-    const subjectText = normalizeLockText(ctx.subject || "");
-    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.trackLabel,
-      ctx.linkTrackLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath
-    ].join(" "));
-
-    const isChemistry = /(화학|화학Ⅰ|화학1|chemistry)/i.test(subjectText);
-    const isPharmacy = /(약학과|약학|약대|제약|신약|약물|의약|바이오제약|pharmacy)/i.test(careerText);
-    const isActualConcept = /(탄소\s*화합물의\s*유용성|분자의\s*구조와\s*성질|화학\s*반응에서의\s*동적\s*평형|물질의\s*양과\s*화학\s*반응식)/i.test(conceptText);
-    const isActualAxis = /(drug\s*structure\s*function\s*axis|drug\s*solubility\s*absorption\s*axis|drug\s*ph\s*stability\s*axis|body\s*fluid\s*buffer\s*homeostasis\s*axis|dosage\s*concentration\s*quant\s*axis|의약품\s*구조|작용기|약물\s*용해도|용해도\s*흡수|약물\s*ph|약물\s*안정성|체액\s*ph|완충\s*항상성|투약\s*농도|농도\s*정량)/i.test(axisText);
-    return !!(isChemistry && isPharmacy && isActualConcept && isActualAxis);
-  }
-
-  function inferBookChemPharmacyConcept(ctx){
-    ctx = ctx || {};
-    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
-    if (/탄소\s*화합물의\s*유용성/i.test(conceptText)) return "carbon_compound_use";
-    if (/분자의\s*구조와\s*성질/i.test(conceptText)) return "molecular_structure_property";
-    if (/화학\s*반응에서의\s*동적\s*평형/i.test(conceptText)) return "dynamic_equilibrium";
-    if (/물질의\s*양과\s*화학\s*반응식/i.test(conceptText)) return "stoichiometry";
-    return "chemistry_pharmacy";
-  }
-
-  function getChemPharmacyConceptLabel(conceptId){
-    const map = {
-      carbon_compound_use: "탄소 화합물의 유용성",
-      molecular_structure_property: "분자의 구조와 성질",
-      dynamic_equilibrium: "화학 반응에서의 동적 평형",
-      stoichiometry: "물질의 양과 화학 반응식"
-    };
-    return map[conceptId] || "선택 화학 개념";
-  }
-
-  function inferBookChemPharmacyAxis(ctx){
-    ctx = ctx || {};
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.trackLabel,
-      ctx.linkTrackLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath
-    ].join(" "));
-
-    // 실제 4번 후속 연계축 ID/title 기준. 설명용 임의 축명은 사용하지 않는다.
-    if (/(drug\s*structure\s*function\s*axis|의약품\s*구조|작용기)/i.test(axisText)) return "drug_structure_function_axis";
-    if (/(drug\s*solubility\s*absorption\s*axis|약물\s*용해도|용해도\s*흡수|약물\s*흡수)/i.test(axisText)) return "drug_solubility_absorption_axis";
-    if (/(drug\s*ph\s*stability\s*axis|약물\s*ph|약물\s*안정성|ph\s*약물\s*안정성|제형\s*안정성)/i.test(axisText)) return "drug_ph_stability_axis";
-    if (/(body\s*fluid\s*buffer\s*homeostasis\s*axis|체액\s*ph|완충\s*항상성|체액\s*완충)/i.test(axisText)) return "body_fluid_buffer_homeostasis_axis";
-    if (/(dosage\s*concentration\s*quant\s*axis|투약\s*농도|농도\s*정량|정량\s*계산)/i.test(axisText)) return "dosage_concentration_quant_axis";
-    return "";
-  }
-
-  function getChemPharmacyAxisLabel(axisId){
-    const axisLabelMap = {
-      drug_structure_function_axis: "의약품 구조·작용기 해석 축",
-      drug_solubility_absorption_axis: "약물 용해도·흡수 해석 축",
-      drug_ph_stability_axis: "약물 pH·안정성 해석 축",
-      body_fluid_buffer_homeostasis_axis: "체액 pH·완충 항상성 축",
-      dosage_concentration_quant_axis: "투약 농도·정량 계산 축"
-    };
-    return axisLabelMap[axisId] || "선택 후속 연계축";
-  }
-
-  function getChemPharmacyAxisUse(axisId){
-    const map = {
-      drug_structure_function_axis: {
-        direct: "탄소 화합물·작용기·약물 구조를 의약품 설계와 생체 분자 상호작용으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "대표 의약품 구조식에서 작용기와 친수성·소수성 부분을 찾아 약물 작용 원리를 설명합니다.",
-        limitation: "구조만으로 약효를 단정하기 어렵고, 대사·흡수·수용체 결합 조건이 함께 고려되어야 한다는 한계를 논의합니다.",
-        roles: ["의약품 구조 근거", "작용기 해석", "약물 작용 원리"]
-      },
-      drug_solubility_absorption_axis: {
-        direct: "분자 구조, 극성, 수소 결합, 용해도를 약물 흡수와 세포막 통과 조건으로 해석하는 직접 근거로 활용합니다.",
-        analysis: "친수성·소수성, 용해도, 분자 사이 힘을 기준으로 약물 흡수 가능성과 제형 조건을 비교합니다.",
-        limitation: "용해도만으로 흡수율을 설명하기 어렵고, 세포막 투과성·수송체·대사 과정이 함께 작용한다는 한계를 논의합니다.",
-        roles: ["용해도·흡수 원리", "분자 성질 해석", "제형 조건 비교"]
-      },
-      drug_ph_stability_axis: {
-        direct: "pH, 완충 용액, 동적 평형을 약물 안정성과 제형 조건으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "pH 변화가 약물의 이온화 상태, 안정성, 보관 조건, 제형 선택에 미치는 영향을 비교합니다.",
-        limitation: "pH 조건은 안정성의 한 요인이며 온도, 빛, 산화, 보관 기간, 생체 환경도 함께 고려되어야 한다는 한계를 논의합니다.",
-        roles: ["pH·안정성 근거", "평형 조건 해석", "제형 안정성 비교"]
-      },
-      body_fluid_buffer_homeostasis_axis: {
-        direct: "산·염기와 완충 작용을 체액 pH, 항상성, 약물 작용 환경으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "혈액 pH 유지, 완충 작용, 체액 환경 변화가 약물 작용 조건에 미치는 영향을 설명합니다.",
-        limitation: "체액 pH는 항상성 조절의 일부이며 호흡, 신장 기능, 대사 상태 같은 생리적 조절과 함께 해석해야 함을 논의합니다.",
-        roles: ["체액 pH 근거", "완충 항상성 해석", "건강 조건 연결"]
-      },
-      dosage_concentration_quant_axis: {
-        direct: "몰 농도, 희석, 정량 계산을 투약 농도와 용액 조제의 안전성 판단으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "희석 배율, 농도 변화, 정량 분석 오차가 투약량과 안전 범위 판단에 미치는 영향을 계산·비교합니다.",
-        limitation: "정량 계산은 복약 판단의 기초 자료일 뿐이며 개인별 대사, 체중, 질환, 병용 약물 조건이 함께 고려되어야 함을 논의합니다.",
-        roles: ["투약 농도 계산", "정량 분석 근거", "농도 오차 논의"]
-      }
-    };
-    return map[axisId] || map.drug_structure_function_axis;
-  }
-
-  function getChemPharmacyConceptAxisUse(conceptId, axisId){
-    const conceptLabel = getChemPharmacyConceptLabel(conceptId);
-    const axisLabel = getChemPharmacyAxisLabel(axisId);
-    const map = {
-      "carbon_compound_use::drug_structure_function_axis": {
-        reason: "탄소 화합물의 작용기와 의약품 구조를 연결해 약학적 응용을 가장 직접적으로 설명하는 조합입니다.",
-        report: "보고서 본론에서 탄소 화합물의 구조·작용기가 약물의 기능 차이로 이어지는 과정을 사례 중심으로 설명합니다."
-      },
-      "carbon_compound_use::drug_solubility_absorption_axis": {
-        reason: "탄소 골격과 작용기 차이가 용해도·흡수 차이로 이어지는 흐름을 설명하기 좋은 조합입니다.",
-        report: "보고서 본론에서 친수성·소수성 작용기와 약물 흡수 조건을 연결해 비교표로 정리합니다."
-      },
-      "carbon_compound_use::dosage_concentration_quant_axis": {
-        reason: "탄소 화합물의 유용성을 실제 의약품 사용량·농도 판단으로 확장하는 조합입니다.",
-        report: "보고서 본론에서 유기 화합물 의약품의 농도 조절과 안전 범위 판단을 정량적으로 설명합니다."
-      },
-      "molecular_structure_property::drug_solubility_absorption_axis": {
-        reason: "분자 구조와 극성, 수소 결합이 약물 용해도와 흡수에 직접 영향을 주는 조합입니다.",
-        report: "보고서 본론에서 극성·수소 결합·분자 사이 힘을 기준으로 약물 용해도와 흡수 가능성을 비교합니다."
-      },
-      "molecular_structure_property::drug_structure_function_axis": {
-        reason: "분자 구조와 성질을 의약품 작용기, 수용체 결합, 생체 분자 상호작용으로 확장하는 조합입니다.",
-        report: "보고서 본론에서 분자의 입체 구조와 작용기 차이가 약물 기능 차이로 연결되는 과정을 설명합니다."
-      },
-      "molecular_structure_property::dosage_concentration_quant_axis": {
-        reason: "분자량·용액 농도·정량 조건을 약물 사용량 계산으로 연결할 수 있는 조합입니다.",
-        report: "보고서 본론에서 분자량과 몰 농도 개념을 이용해 용액 조제와 투약 농도 계산을 제시합니다."
-      },
-      "dynamic_equilibrium::drug_ph_stability_axis": {
-        reason: "동적 평형과 pH 조건을 약물 안정성·제형 조건으로 직접 연결하는 조합입니다.",
-        report: "보고서 본론에서 pH 변화와 평형 이동이 약물 안정성, 보관 조건, 제형 설계에 미치는 영향을 분석합니다."
-      },
-      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": {
-        reason: "동적 평형을 체액 pH와 완충 항상성으로 연결해 약물이 작용하는 생체 환경을 설명하는 조합입니다.",
-        report: "보고서 본론에서 완충 작용과 혈액 pH 유지 원리를 약물 작용 환경과 연결해 정리합니다."
-      },
-      "dynamic_equilibrium::dosage_concentration_quant_axis": {
-        reason: "평형 조건과 농도 변화를 투약 농도·정량 계산으로 연결해 안전성 판단을 다루는 조합입니다.",
-        report: "보고서 본론에서 농도 변화와 평형 조건을 이용해 약물 사용량과 정량 분석의 의미를 설명합니다."
-      },
-      "stoichiometry::dosage_concentration_quant_axis": {
-        reason: "물질의 양과 화학 반응식 개념을 투약 농도·희석·정량 계산으로 직접 연결하는 조합입니다.",
-        report: "보고서 본론에서 몰 농도와 희석 계산을 활용해 용액 조제와 투약량 판단 과정을 제시합니다."
-      }
-    };
-    return map[`${conceptId}::${axisId}`] || {
-      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 약학 탐구의 근거를 구성하는 조합입니다.`,
-      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 약물 구조·흡수·안정성·농도 판단 중 하나로 구체화합니다.`
-    };
-  }
-
-  function buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank, conceptId){
-    const title = val(book && book.title);
-    const isDirect = sectionType === "direct";
-    const axisLabel = getChemPharmacyAxisLabel(axisId);
-    const conceptLabel = getChemPharmacyConceptLabel(conceptId);
-    const axisUse = getChemPharmacyAxisUse(axisId);
-    const conceptAxisUse = getChemPharmacyConceptAxisUse(conceptId, axisId);
-    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
-    return {
-      ...baseContext,
-      title,
-      author: book && book.author || "",
-      recommendationType: sectionType,
-      recommendationReason: isDirect
-        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
-        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 과학사·윤리·사회적 영향·자료 해석 관점으로 넓히는 확장 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
-      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
-      reportRoleLabels: isDirect ? axisUse.roles : ["사회적 의미 확장", "비교 관점", "윤리·한계 논의"],
-      useInReport: {
-        conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? conceptAxisUse.report : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 과학사·윤리·보건사회·자료 해석 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: isDirect ? axisUse.limitation : "약학 탐구가 개인 건강, 의약품 안전, 사회적 책임, 자료 해석 방식에 따라 달라질 수 있음을 논의할 때 활용합니다.",
-        conclusionExpansion: !isDirect ? "결론에서 신약 개발, 의약품 안전, 보건 윤리, 환경·사회 영향, 추가 탐구 방향으로 확장할 때 활용합니다." : ""
-      },
-      connectionToPayload: {
-        subject: ctx && ctx.subject || "",
-        department: ctx && ctx.career || "",
-        selectedConcept: ctx && ctx.concept || "",
-        selectedKeyword: ctx && ctx.keyword || "",
-        followupAxis: axisLabel
-      },
-      bookChemPharmacyRank: rank,
-      bookChemPharmacyConcept: conceptId,
-      bookChemPharmacyAxis: axisId
-    };
-  }
-
-  function cloneBookForChemPharmacyLock(book, ctx, sectionType, axisId, rank, conceptId){
-    if (!book) return null;
-    return {
-      ...book,
-      matchType: sectionType,
-      matchScore: 8400 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`화학+약학 실제 3번·4번 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
-      selectedBookContext: buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank, conceptId),
-      bookChemPharmacyLock: true,
-      bookChemPharmacyLockRank: rank,
-      bookChemPharmacyAxisLock: axisId,
-      bookChemPharmacyConceptLock: conceptId
-    };
-  }
-
-  function applyBookChemPharmacyLock(result, ctx){
-    if (!result || !isBookChemPharmacyContext(ctx)) return result;
-    const conceptId = inferBookChemPharmacyConcept(ctx);
-    const axisId = inferBookChemPharmacyAxis(ctx);
-    if (!axisId) return result;
-
-    const key = `${conceptId}::${axisId}`;
-    const defaultKey = `default::${axisId}`;
-    const directMap = {
-      "carbon_compound_use::drug_structure_function_axis": ["신약의 탄생", "새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고"],
-      "carbon_compound_use::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
-      "carbon_compound_use::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
-      "molecular_structure_property::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고", "신약의 탄생"],
-      "molecular_structure_property::drug_structure_function_axis": ["같기도 하고 아니 같기도 하고", "신약의 탄생", "새로운 약은 어떻게 창조되나"],
-      "molecular_structure_property::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
-      "dynamic_equilibrium::drug_ph_stability_axis": ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
-      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
-      "dynamic_equilibrium::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
-      "stoichiometry::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
-      "default::drug_structure_function_axis": ["신약의 탄생", "새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고"],
-      "default::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
-      "default::drug_ph_stability_axis": ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
-      "default::body_fluid_buffer_homeostasis_axis": ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
-      "default::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"]
-    };
-    const expansionMap = {
-      "carbon_compound_use::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "팩트풀니스", "닥터스 씽킹"],
-      "carbon_compound_use::drug_solubility_absorption_axis": ["객관성의 칼날", "침묵의 봄", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
-      "carbon_compound_use::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "침묵의 봄"],
-      "molecular_structure_property::drug_solubility_absorption_axis": ["객관성의 칼날", "팩트풀니스", "침묵의 봄", "과학혁명의 구조", "닥터스 씽킹"],
-      "molecular_structure_property::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "닥터스 씽킹", "침묵의 봄", "팩트풀니스"],
-      "molecular_structure_property::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "과학혁명의 구조", "닥터스 씽킹", "침묵의 봄"],
-      "dynamic_equilibrium::drug_ph_stability_axis": ["침묵의 봄", "객관성의 칼날", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
-      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
-      "dynamic_equilibrium::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "침묵의 봄"],
-      "stoichiometry::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"],
-      "default::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "팩트풀니스", "닥터스 씽킹"],
-      "default::drug_solubility_absorption_axis": ["객관성의 칼날", "침묵의 봄", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
-      "default::drug_ph_stability_axis": ["침묵의 봄", "객관성의 칼날", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
-      "default::body_fluid_buffer_homeostasis_axis": ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
-      "default::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"]
-    };
-
-    const directTitles = arr(directMap[key] || directMap[defaultKey]);
-    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
-
-    const directBooks = directTitles.map((title, index) =>
-      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
-    ).filter(Boolean);
-
-    const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = expansionTitles.map((title, index) =>
-      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
-    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
-
-    if (!directBooks.length) return result;
-
-    return {
-      ...result,
-      directBooks,
-      expansionBooks,
-      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
-      debug: {
-        ...(result.debug || {}),
-        bookChemPharmacyLock: axisId,
-        bookChemPharmacyConceptLock: conceptId,
-        bookChemPharmacyDirectTitles: directBooks.map(book => book.title),
-        bookChemPharmacyExpansionTitles: expansionBooks.map(book => book.title)
-      }
-    };
-  }
-
-
-
-
-
-  // v132 BIO-MEDICAL-lock: 생명과학 + 의예/의학 계열은 실제 3번 개념 + 실제 4번 의료 후속축에 따라
-  // 5번 도서의 우선순위/직접·확장 역할/보고서 활용 문장을 분화한다.
-  function isBookBioMedicalContext(ctx){
-    ctx = ctx || {};
-    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
-    const subjectText = normalizeLockText(ctx.subject || "");
-    const conceptText = normalizeLockText(ctx.concept || "");
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath
-    ].join(" "));
-
-    const isMedical = /(의예과|의학과|의예|의학|의대|치의예과|치의학과|한의예과|한의학과|수의예과|수의학과|보건의료|medical|medicine)/i.test(careerText);
-    const isExcluded = /(약학과|약학|약대|제약|신약|약물|의약|pharmacy)/i.test(careerText);
-    const isLifeScience = /(생명과학|생명과학1|생명과학Ⅰ|life\s*science)/i.test(subjectText);
-    const isActualConcept = /(면역과\s*백신|신경계와\s*항상성|물질대사와\s*건강|유전자와\s*염색체|신경\s*자극\s*전도와\s*전달)/i.test(conceptText);
-    const isActualAxis = /(medical\s*immune\s*response|medical\s*infection\s*prevention|medical\s*homeostasis\s*feedback|medical\s*neural\s*signal\s*control|medical\s*metabolism\s*health|medical\s*genetic\s*disease|면역\s*반응|항원\s*항체|감염병\s*예방|백신\s*적용|항상성\s*조절|피드백\s*해석|신경\s*신호|생체\s*조절|대사\s*건강|건강\s*지표|유전\s*정보|질병\s*이해)/i.test(axisText);
-
-    return !!(isMedical && !isExcluded && isLifeScience && isActualConcept && isActualAxis);
-  }
-
-  function inferBookBioMedicalConcept(ctx){
-    const conceptText = normalizeLockText([ctx && ctx.concept, ctx && ctx.selectedConcept].join(" "));
-    if (/면역과\s*백신/i.test(conceptText)) return "immune_vaccine";
-    if (/신경계와\s*항상성/i.test(conceptText)) return "nervous_homeostasis";
-    if (/물질대사와\s*건강/i.test(conceptText)) return "metabolism_health";
-    if (/유전자와\s*염색체/i.test(conceptText)) return "gene_chromosome";
-    if (/신경\s*자극\s*전도와\s*전달/i.test(conceptText)) return "neural_impulse_transmission";
-    return "life_science_medical";
-  }
-
-  function getBioMedicalConceptLabel(conceptId){
-    const map = {
-      immune_vaccine: "면역과 백신",
-      nervous_homeostasis: "신경계와 항상성",
-      metabolism_health: "물질대사와 건강",
-      gene_chromosome: "유전자와 염색체",
-      neural_impulse_transmission: "신경 자극 전도와 전달",
-      life_science_medical: "생명과학 의료 탐구"
-    };
-    return map[conceptId] || "생명과학 의료 탐구";
-  }
-
-  function inferBookBioMedicalAxis(ctx){
-    ctx = ctx || {};
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath
-    ].join(" "));
-
-    if (/(medical\s*immune\s*response|면역\s*반응|항원\s*항체)/i.test(axisText)) return "medical_immune_response_axis";
-    if (/(medical\s*infection\s*prevention|감염병\s*예방|백신\s*적용|집단\s*면역)/i.test(axisText)) return "medical_infection_prevention_axis";
-    if (/(medical\s*homeostasis\s*feedback|항상성\s*조절|피드백\s*해석|혈당\s*조절|체온\s*조절)/i.test(axisText)) return "medical_homeostasis_feedback_axis";
-    if (/(medical\s*neural\s*signal\s*control|신경\s*신호|생체\s*조절|신경\s*전달|시냅스)/i.test(axisText)) return "medical_neural_signal_control_axis";
-    if (/(medical\s*metabolism\s*health|대사\s*건강|건강\s*지표|혈당|인슐린|atp|대사\s*질환)/i.test(axisText)) return "medical_metabolism_health_axis";
-    if (/(medical\s*genetic\s*disease|유전\s*정보|질병\s*이해|유전\s*질환|염기\s*서열)/i.test(axisText)) return "medical_genetic_disease_axis";
-    return "";
-  }
-
-  function getBioMedicalAxisLabel(axisId){
-    const map = {
-      medical_immune_response_axis: "면역 반응·항원항체 해석 축",
-      medical_infection_prevention_axis: "감염병 예방·백신 적용 축",
-      medical_homeostasis_feedback_axis: "항상성 조절·피드백 해석 축",
-      medical_neural_signal_control_axis: "신경 신호·생체 조절 축",
-      medical_metabolism_health_axis: "대사·건강 지표 해석 축",
-      medical_genetic_disease_axis: "유전 정보·질병 이해 축"
-    };
-    return map[axisId] || "선택 의료 후속 연계축";
-  }
-
-  function getBioMedicalAxisUse(axisId){
-    const map = {
-      medical_immune_response_axis: {
-        roles: ["면역 원리 설명", "항원·항체 구조화", "백신 원리 근거"],
-        direct: "항원·항체 반응, 면역 기억, 백신 원리를 생명과학 개념으로 설명하는 근거로 활용합니다.",
-        analysis: "면역 반응의 단계와 예방 원리를 도식화하거나 사례로 비교할 때 활용합니다.",
-        limitation: "면역 반응이 개인차, 병원체 특성, 예방 전략에 따라 달라질 수 있음을 논의합니다."
-      },
-      medical_infection_prevention_axis: {
-        roles: ["감염병 사례 근거", "예방 전략 비교", "공중보건 확장"],
-        direct: "감염 전파, 예방 접종, 집단 면역을 백신·건강 관리 관점으로 설명하는 근거로 활용합니다.",
-        analysis: "감염병 사례와 예방 전략을 자료 해석, 백신 원리, 사회적 대응으로 비교할 때 활용합니다.",
-        limitation: "예방 의학이 과학 원리뿐 아니라 사회적 접근성, 정책, 신뢰 문제와 연결됨을 논의합니다."
-      },
-      medical_homeostasis_feedback_axis: {
-        roles: ["항상성 원리 설명", "피드백 조절 분석", "질환 사례 연결"],
-        direct: "체온·혈당·삼투압 같은 항상성 조절을 신경·호르몬 피드백 구조로 설명하는 근거로 활용합니다.",
-        analysis: "항상성이 무너졌을 때 나타나는 건강 변화를 피드백 조절 구조로 정리할 때 활용합니다.",
-        limitation: "건강 지표 해석이 단일 원인보다 복합 조절 체계와 생활 요인의 영향을 받음을 논의합니다."
-      },
-      medical_neural_signal_control_axis: {
-        roles: ["신경 신호 설명", "생체 조절 구조화", "진단 사고 연결"],
-        direct: "신경 자극 전달, 시냅스, 반응 조절을 생체 신호와 건강·질환 사례로 연결하는 근거로 활용합니다.",
-        analysis: "신경 신호 전달 과정과 반응 조절 구조를 도식화하거나 진단 사고와 연결할 때 활용합니다.",
-        limitation: "신경계 해석이 단순 전기 신호가 아니라 인체 조절, 판단, 질환 맥락과 함께 검토되어야 함을 논의합니다."
-      },
-      medical_metabolism_health_axis: {
-        roles: ["대사 과정 설명", "건강 지표 해석", "질환 원리 연결"],
-        direct: "혈당, 인슐린, ATP, 대사 경로를 건강 지표와 질병 이해로 연결하는 근거로 활용합니다.",
-        analysis: "대사 과정과 검사 수치, 생활 요인, 질환 위험을 자료 기반으로 해석할 때 활용합니다.",
-        limitation: "대사 건강은 생화학 반응뿐 아니라 식습관, 환경, 사회적 건강 조건과 연결됨을 논의합니다."
-      },
-      medical_genetic_disease_axis: {
-        roles: ["유전 정보 설명", "질병 위험 해석", "윤리·진단 확장"],
-        direct: "DNA, 유전자, 염색체, 변이가 단백질과 형질, 질병 위험으로 이어지는 과정을 설명하는 근거로 활용합니다.",
-        analysis: "유전 정보 변화와 질병 이해, 진단의 가능성과 한계를 비교할 때 활용합니다.",
-        limitation: "유전 정보 해석이 예측 가능성과 윤리, 개인정보, 사회적 낙인 문제를 함께 포함함을 논의합니다."
-      }
-    };
-    return map[axisId] || map.medical_immune_response_axis;
-  }
-
-  function getBioMedicalConceptAxisUse(conceptId, axisId){
-    const conceptLabel = getBioMedicalConceptLabel(conceptId);
-    const axisLabel = getBioMedicalAxisLabel(axisId);
-    const map = {
-      "immune_vaccine::medical_immune_response_axis": {
-        reason: "면역 반응의 핵심인 항원·항체 관계와 백신의 면역 기억 원리를 직접 설명하는 조합입니다.",
-        report: "보고서 본론에서 항원·항체 반응 흐름도와 백신 예방 원리를 연결해 면역의 작동 과정을 설명합니다."
-      },
-      "immune_vaccine::medical_infection_prevention_axis": {
-        reason: "백신 원리를 감염 전파, 예방 전략, 공중보건 판단으로 확장하는 조합입니다.",
-        report: "보고서 본론에서 감염병 사례와 예방 접종 전략을 비교하고, 생명과학 원리가 사회적 예방으로 이어지는 과정을 정리합니다."
-      },
-      "immune_vaccine::medical_homeostasis_feedback_axis": {
-        reason: "면역과 백신을 항원·항체 반응에만 고정하지 않고, 감염 후 체온·염증·회복 과정에서 인체가 항상성을 유지하는 방식으로 확장하는 조합입니다.",
-        report: "보고서 본론에서 백신 접종 이후 면역 반응과 체온·염증·회복 같은 항상성 조절 사례를 연결해 설명합니다."
-      },
-      "nervous_homeostasis::medical_homeostasis_feedback_axis": {
-        reason: "신경계와 호르몬 조절이 체온·혈당 등 항상성 유지에 어떻게 작동하는지 설명하는 조합입니다.",
-        report: "보고서 본론에서 항상성 조절 회로와 피드백 구조를 사례 중심으로 도식화합니다."
-      },
-      "nervous_homeostasis::medical_neural_signal_control_axis": {
-        reason: "신경 신호 전달과 생체 조절을 건강·질환 사례로 연결하기 좋은 조합입니다.",
-        report: "보고서 본론에서 신경 자극 전달 과정과 생체 반응 조절 구조를 의료적 판단과 연결합니다."
-      },
-      "metabolism_health::medical_metabolism_health_axis": {
-        reason: "물질대사와 건강 지표를 혈당·ATP·대사 질환 사례로 해석하는 조합입니다.",
-        report: "보고서 본론에서 대사 과정과 검사 수치, 건강 지표의 관계를 자료 기반으로 분석합니다."
-      },
-      "metabolism_health::medical_homeostasis_feedback_axis": {
-        reason: "대사 건강을 항상성 조절과 피드백 체계로 확장하는 조합입니다.",
-        report: "보고서 본론에서 혈당 조절, 인슐린 작용, 피드백 구조를 연결해 대사 건강을 설명합니다."
-      },
-      "metabolism_health::medical_immune_response_axis": {
-        reason: "물질대사와 건강을 면역 반응으로 확장해, 영양 상태·대사 상태가 면역 기능과 질병 대응에 미치는 영향을 해석하는 조합입니다.",
-        report: "보고서 본론에서 대사 과정과 면역 반응의 연결성을 건강 지표, 질병 사례, 회복 과정 중심으로 정리합니다."
-      },
-      "gene_chromosome::medical_genetic_disease_axis": {
-        reason: "유전자와 염색체 개념을 유전 질환, 진단, 단백질 변화로 연결하는 조합입니다.",
-        report: "보고서 본론에서 DNA-단백질-형질 흐름과 유전 질환 사례를 연결해 설명합니다."
-      },
-      "neural_impulse_transmission::medical_neural_signal_control_axis": {
-        reason: "신경 자극의 전도·전달을 생체 신호와 질환 이해로 연결하는 조합입니다.",
-        report: "보고서 본론에서 신경 전달 과정과 반응 조절 구조를 도식화하고, 건강·질환 사례와 연결합니다."
-      }
-    };
-    return map[`${conceptId}::${axisId}`] || {
-      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 의학 탐구의 근거를 구성하는 조합입니다.`,
-      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 생명과학 원리, 건강 사례, 의료적 판단 중 하나로 구체화합니다.`
-    };
-  }
-
-  function buildLockedBookContextBioMedical(book, ctx, sectionType, axisId, rank, conceptId){
-    const title = val(book && book.title);
-    const conceptLabel = getBioMedicalConceptLabel(conceptId);
-    const axisLabel = getBioMedicalAxisLabel(axisId);
-    const isDirect = sectionType === "direct";
-    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
-    const axisUse = getBioMedicalAxisUse(axisId);
-    const conceptAxisUse = getBioMedicalConceptAxisUse(conceptId, axisId);
-    return {
-      ...baseContext,
-      title,
-      author: book && book.author || "",
-      recommendationType: sectionType,
-      recommendationReason: isDirect
-        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
-        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 공중보건·의료 윤리·사회적 건강·자료 해석 관점으로 넓히는 확장 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
-      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
-      reportRoleLabels: isDirect ? axisUse.roles : ["의료사회 확장", "윤리·정책 비교", "건강 불평등·한계 논의"],
-      useInReport: {
-        conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? `${axisUse.analysis} ${conceptAxisUse.report}` : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 공중보건, 의료 윤리, 사회적 건강 조건 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: isDirect ? axisUse.limitation : "의학 탐구가 생명과학 원리뿐 아니라 환자 경험, 사회 구조, 윤리적 판단에 따라 달라질 수 있음을 논의합니다.",
-        conclusionExpansion: !isDirect ? "결론에서 개인의 생명 현상 이해를 의료 현장, 공중보건, 사회적 책임으로 확장할 때 활용합니다." : ""
-      },
-      connectionToPayload: {
-        subject: ctx && ctx.subject || "",
-        department: ctx && ctx.career || "",
-        selectedConcept: ctx && ctx.concept || "",
-        selectedKeyword: ctx && ctx.keyword || "",
-        followupAxis: axisLabel
-      },
-      bookBioMedicalAxis: axisId
-    };
-  }
-
-  function cloneBookForBioMedicalLock(book, ctx, sectionType, axisId, rank, conceptId){
-    if (!book) return null;
-    return {
-      ...book,
-      matchType: sectionType,
-      matchScore: 8500 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`BIO-MEDICAL ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
-      selectedBookContext: buildLockedBookContextBioMedical(book, ctx, sectionType, axisId, rank, conceptId),
-      bookBioMedicalAxisLock: axisId,
-      bookBioMedicalConceptLock: conceptId,
-      bookBioMedicalRank: rank
-    };
-  }
-
-  function applyBookBioMedicalLock(result, ctx){
-    if (!result || !isBookBioMedicalContext(ctx)) return result;
-    const axisId = inferBookBioMedicalAxis(ctx);
-    if (!axisId) return result;
-    const conceptId = inferBookBioMedicalConcept(ctx);
-    const key = `${conceptId}::${axisId}`;
-    const defaultKey = `default::${axisId}`;
-
-    const directMap = {
-      "immune_vaccine::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
-      "immune_vaccine::medical_infection_prevention_axis": ["인수공통 모든 전염병의 열쇠", "아픔이 길이 되려면", "의사와 수의사가 만나다"],
-      "immune_vaccine::medical_homeostasis_feedback_axis": ["의사와 수의사가 만나다", "닥터스 씽킹", "인수공통 모든 전염병의 열쇠"],
-      "nervous_homeostasis::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "의학, 인문으로 치유하다", "숨결이 바람 될 때"],
-      "nervous_homeostasis::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
-      "metabolism_health::medical_metabolism_health_axis": ["닥터스 씽킹", "위대하고 위험한 약 이야기", "아픔이 길이 되려면"],
-      "metabolism_health::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "아픔이 길이 되려면", "의학, 인문으로 치유하다"],
-      "metabolism_health::medical_immune_response_axis": ["아픔이 길이 되려면", "닥터스 씽킹", "의사와 수의사가 만나다"],
-      "gene_chromosome::medical_genetic_disease_axis": ["이중나선", "이기적 유전자", "의사와 수의사가 만나다"],
-      "neural_impulse_transmission::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
-      "default::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
-      "default::medical_infection_prevention_axis": ["인수공통 모든 전염병의 열쇠", "아픔이 길이 되려면", "의사와 수의사가 만나다"],
-      "default::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
-      "default::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
-      "default::medical_metabolism_health_axis": ["닥터스 씽킹", "위대하고 위험한 약 이야기", "아픔이 길이 되려면"],
-      "default::medical_genetic_disease_axis": ["이중나선", "이기적 유전자", "의사와 수의사가 만나다"]
-    };
-
-    const expansionMap = {
-      "immune_vaccine::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
-      "immune_vaccine::medical_infection_prevention_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄", "숨결이 바람 될 때"],
-      "immune_vaccine::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "의학, 인문으로 치유하다", "팩트풀니스", "객관성의 칼날", "숨결이 바람 될 때"],
-      "nervous_homeostasis::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "객관성의 칼날", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
-      "nervous_homeostasis::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
-      "metabolism_health::medical_metabolism_health_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "신약의 탄생", "부분과 전체"],
-      "metabolism_health::medical_homeostasis_feedback_axis": ["팩트풀니스", "객관성의 칼날", "위대하고 위험한 약 이야기", "의사와 수의사가 만나다", "부분과 전체"],
-      "metabolism_health::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
-      "gene_chromosome::medical_genetic_disease_axis": ["멋진 신세계", "사피엔스", "객관성의 칼날", "의학, 인문으로 치유하다", "팩트풀니스"],
-      "neural_impulse_transmission::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
-      "default::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
-      "default::medical_infection_prevention_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄", "숨결이 바람 될 때"],
-      "default::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "객관성의 칼날", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
-      "default::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
-      "default::medical_metabolism_health_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "신약의 탄생", "부분과 전체"],
-      "default::medical_genetic_disease_axis": ["멋진 신세계", "사피엔스", "객관성의 칼날", "의학, 인문으로 치유하다", "팩트풀니스"]
-    };
-
-    const directTitles = arr(directMap[key] || directMap[defaultKey]);
-    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
-
-    const directBooks = directTitles.map((title, index) =>
-      cloneBookForBioMedicalLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
-    ).filter(Boolean);
-
-    const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = expansionTitles.map((title, index) =>
-      cloneBookForBioMedicalLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
-    ).filter(Boolean).filter(book => !directIds.has(bookKey(book)));
-
-    return {
-      ...result,
-      directBooks,
-      expansionBooks,
-      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
-      debug: {
-        ...(result.debug || {}),
-        bookBioMedicalLock: axisId,
-        bookBioMedicalConcept: conceptId,
-        bookBioMedicalVersion: "v133",
-        bookBioMedicalDirectTitles: directBooks.map(book => book.title),
-        bookBioMedicalExpansionTitles: expansionBooks.map(book => book.title)
-      }
-    };
-  }
-
-
-
-  // v134 ENV-ENGINEERING-lock: 통합과학2 + 환경공학과는 실제 3번 개념과 4번 환경 후속축에 따라
-  // 5번 도서의 직접/확장 구분, 추천 사유, 보고서 활용 문장을 분화한다.
-  // 실제 3번 우선값: 지구 환경 변화와 인간 생활 / 생물과 환경 / 생태계평형
-  // 실제 4번 핵심축: 기후·환경 영향 분석 축 / 환경 위험·대응 관리 축 / 환경 자료·모니터링 축
-  function isBookEnvironmentEngineeringContext(ctx){
-    ctx = ctx || {};
-    const state = global.__TEXTBOOK_HELPER_STATE__ || {};
-    const careerText = normalizeLockText([
-      ctx.career, ctx.selectedMajor, ctx.department,
-      state.career, state.selectedMajor, state.majorSelectedName
-    ].join(" "));
-    const subjectText = normalizeLockText([ctx.subject, state.subject].join(" "));
-    const conceptText = normalizeLockText([
-      ctx.concept, ctx.selectedConcept,
-      state.concept, state.selectedConcept
-    ].join(" "));
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.trackLabel,
-      ctx.linkTrackLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath,
-      state.linkTrack,
-      state.followupAxisId,
-      state.axisLabel,
-      state.trackLabel,
-      state.linkTrackLabel,
-      state.axisDomain,
-      state.activityExample,
-      state.longitudinalPath
-    ].join(" "));
-
-    const isIntegratedScience2 = /(통합과학|통합과학1|통합과학Ⅰ|통합과학I|통합과학2|통합과학Ⅱ|통합과학II|integrated\s*science\s*(1|2)?)/i.test(subjectText);
-    const isEnvironmentMajor = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|대기환경|수질|폐기물|환경보건|생태공학|environmental\s*engineering)/i.test(careerText);
-    const isExcludedUrbanCivil = /(도시공학과|도시공학|건축공학과|건축공학|토목공학과|토목공학|건설환경공학과|토목환경공학과|교통공학과|공간정보)/i.test(careerText);
-    const isActualConcept = /(지구\s*환경\s*변화와\s*인간\s*생활|생물과\s*환경|생태계평형|지구\s*환경\s*변화|에너지\s*효율과\s*신재생\s*에너지)/i.test(conceptText);
-    const hasEnvAxis = /(env[_-]|earth_env|ecosystem|environment|기후|환경|위험|대응|모니터링|자료|생태|서식지|보전|복원|지속가능|대기|수질|폐기물|탄소|에너지|상호작용|물질\s*순환|개체군|군집|안정성|교란|회복|데이터\s*판단)/i.test(axisText);
-    return !!(isIntegratedScience2 && isEnvironmentMajor && !isExcludedUrbanCivil && isActualConcept && hasEnvAxis);
-  }
-
-  function inferBookEnvironmentEngineeringConcept(ctx){
-    ctx = ctx || {};
-    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
-    if (/지구\s*환경\s*변화와\s*인간\s*생활/i.test(conceptText)) return "earth_env_human_life";
-    if (/생물과\s*환경/i.test(conceptText)) return "biology_environment";
-    if (/생태계평형/i.test(conceptText)) return "ecosystem_balance";
-    if (/지구\s*환경\s*변화/i.test(conceptText)) return "earth_env_change";
-    if (/에너지\s*효율과\s*신재생\s*에너지/i.test(conceptText)) return "renewable_energy_efficiency";
-    return "environment_engineering";
-  }
-
-  function getEnvironmentEngineeringConceptLabel(conceptId){
-    const map = {
-      earth_env_human_life: "지구 환경 변화와 인간 생활",
-      biology_environment: "생물과 환경",
-      ecosystem_balance: "생태계평형",
-      earth_env_change: "지구 환경 변화",
-      renewable_energy_efficiency: "에너지 효율과 신재생 에너지",
-      environment_engineering: "환경공학 연계 개념"
-    };
-    return map[conceptId] || "선택 환경 개념";
-  }
-
-  function inferBookEnvironmentEngineeringAxis(ctx){
-    ctx = ctx || {};
-    const state = global.__TEXTBOOK_HELPER_STATE__ || {};
-    const axisText = normalizeLockText([
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.trackLabel,
-      ctx.linkTrackLabel,
-      ctx.axisDomain,
-      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
-      ctx.activityExample,
-      ctx.longitudinalPath,
-      state.linkTrack,
-      state.followupAxisId,
-      state.axisLabel,
-      state.trackLabel,
-      state.linkTrackLabel,
-      state.axisDomain,
-      state.activityExample,
-      state.longitudinalPath
-    ].join(" "));
-
-    // 실제 4번 후속 연계축 ID/title/short 기준. 설명용 임의 축명은 사용하지 않는다.
-    if (/(env_climate_impact_analysis_axis|env_climate_impact_response_axis|기후\s*[·ㆍ]?\s*환경\s*영향|기후\s*변화|환경\s*영향|온실가스|탄소중립)/i.test(axisText)) return "env_climate_impact_analysis_axis";
-    if (/(env_risk_response_management_axis|환경\s*위험|위험\s*대응|대응\s*관리|환경\s*재해|폭염|침수|대기오염|적응\s*전략)/i.test(axisText)) return "env_risk_response_management_axis";
-    if (/(env_data_monitoring_axis|measurement_environment_data|환경\s*자료|모니터링|자료\s*[·ㆍ]?\s*모니터링|환경\s*지표|시계열|그래프|대기질)/i.test(axisText)) return "env_data_monitoring_axis";
-    if (/(ecosystem_interaction_cycle_axis|ecosystem_analysis_axis|pure_biology_ecosystem_interaction_axis|생태계\s*상호작용|상호작용\s*[·ㆍ]?\s*순환|생태계\s*해석|물질\s*순환|먹이\s*그물|먹이\s*관계|개체군|군집)/i.test(axisText)) return "ecosystem_interaction_cycle_axis";
-    if (/(environment_resource_conservation_axis|environment_resource_application_axis|환경\s*[·ㆍ]?\s*자원|자원\s*보전|보전\s*[·ㆍ]?\s*복원|보전\s*응용|생태\s*관리|보전|복원|서식지|생물다양성|수질|폐기물)/i.test(axisText)) return "environment_resource_conservation_axis";
-    if (/(ecosystem_data_decision_axis|생태\s*데이터|생태\s*데이터\s*판단|자료\s*해석|조건\s*비교|변화\s*요인|회복|교란|안정성|데이터\s*판단)/i.test(axisText)) return "ecosystem_data_decision_axis";
-    if (/(energy_environment_data_axis|효율\s*[·ㆍ]?\s*지속가능성|에너지\s*[·ㆍ]?\s*환경|신재생|에너지\s*효율|재생\s*에너지)/i.test(axisText)) return "energy_environment_sustainability_axis";
-    if (/(earth_env|지구\s*[·ㆍ]?\s*환경\s*해석|지구\s*시스템|관측\s*자료|환경\s*변화)/i.test(axisText)) return "earth_environment_interpretation_axis";
-    return "env_climate_impact_analysis_axis";
-  }
-
-  function getEnvironmentEngineeringAxisLabel(axisId){
-    const map = {
-      env_climate_impact_analysis_axis: "기후·환경 영향 분석 축",
-      env_risk_response_management_axis: "환경 위험·대응 관리 축",
-      env_data_monitoring_axis: "환경 자료·모니터링 축",
-      ecosystem_interaction_cycle_axis: "생태계 상호작용·물질 순환 축",
-      environment_resource_conservation_axis: "환경·자원 보전 응용 축",
-      ecosystem_data_decision_axis: "생태 데이터 판단 축",
-      energy_environment_sustainability_axis: "에너지·환경 지속가능성 축",
-      earth_environment_interpretation_axis: "지구·환경 해석 축"
-    };
-    return map[axisId] || "선택 후속 연계축";
-  }
-
-  function getEnvironmentEngineeringAxisUse(axisId){
-    const map = {
-      env_climate_impact_analysis_axis: {
-        direct: "지구 환경 변화 개념을 기후 변화, 온실가스, 생활환경 변화, 지역별 환경 영향 분석으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "기후 변화 원인과 영향, 인간 생활 변화, 지역별 환경 차이를 비교표나 사례 분석으로 정리합니다.",
-        limitation: "기후 영향은 단일 원인으로 설명하기 어렵고, 산업 구조·지역 특성·정책 대응이 함께 작용한다는 한계를 논의합니다.",
-        roles: ["기후 영향 근거", "환경 변화 분석", "지역 사례 비교"]
-      },
-      env_risk_response_management_axis: {
-        direct: "환경 변화 자료를 폭염, 침수, 대기오염 같은 위험 대응과 적응 전략 제안으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "환경 위험 요인을 분류하고, 대응 전략과 관리 기준을 비교해 지역 환경 문제 해결 방안을 제시합니다.",
-        limitation: "위험 대응은 기술 대책만으로 완성되지 않고 예산, 취약계층, 행정 체계, 시민 참여 조건을 함께 고려해야 함을 논의합니다.",
-        roles: ["환경 위험 분류", "대응 전략 비교", "관리 기준 제안"]
-      },
-      env_data_monitoring_axis: {
-        direct: "기온·강수·대기질·수질 자료를 표, 그래프, 시계열로 정리해 환경 지표와 모니터링 기준으로 해석하는 직접 근거로 활용합니다.",
-        analysis: "환경 지표 변화 추세를 그래프화하고, 기준값과 이상값을 비교해 자료 기반 관리 판단을 구성합니다.",
-        limitation: "측정 자료는 관측 지점, 기간, 기준값, 이상치 처리 방식에 따라 해석이 달라질 수 있음을 논의합니다.",
-        roles: ["환경 자료 해석", "모니터링 기준", "자료 기반 판단"]
-      },
-      ecosystem_interaction_cycle_axis: {
-        direct: "생물과 환경 개념을 먹이 관계, 물질 순환, 에너지 흐름, 개체군 상호작용으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "생태계 구성 요소와 상호작용을 도식화하고, 환경 변화가 물질 순환과 개체군에 미치는 영향을 설명합니다.",
-        limitation: "생태계 상호작용은 단순 선형 관계가 아니라 여러 요인이 동시에 작용하는 복합 시스템임을 논의합니다.",
-        roles: ["생태계 구조", "물질 순환", "상호작용 해석"]
-      },
-      environment_resource_conservation_axis: {
-        direct: "환경 요인, 서식지, 생물다양성, 자원 보전 개념을 환경공학적 관리와 복원 방향으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "오염, 서식지 변화, 보전·복원 사례를 비교해 환경 관리의 우선순위와 기준을 정리합니다.",
-        limitation: "보전과 개발은 이해관계가 충돌할 수 있으므로 생태적 가치, 경제성, 지역사회 수용성을 함께 논의해야 함을 제시합니다.",
-        roles: ["보전·복원 근거", "서식지 관리", "환경 자원 응용"]
-      },
-      ecosystem_data_decision_axis: {
-        direct: "생태계 변화와 안정성을 자료 해석, 변화 요인 비교, 회복 가능성 판단으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "교란 전후 자료, 개체군 변화, 회복 지표를 비교해 생태계 안정성과 관리 판단을 구성합니다.",
-        limitation: "생태 자료는 장기 관찰이 필요하고 단기 변화만으로 평형 회복 여부를 단정하기 어렵다는 한계를 논의합니다.",
-        roles: ["생태 데이터", "안정성 판단", "회복 지표 비교"]
-      },
-      energy_environment_sustainability_axis: {
-        direct: "에너지 효율과 신재생 에너지 개념을 탄소중립, 자원 이용, 지속가능한 환경 시스템으로 연결하는 직접 근거로 활용합니다.",
-        analysis: "에너지 전환 방식의 효율, 환경 영향, 사회적 수용성을 비교해 지속가능한 대안을 제안합니다.",
-        limitation: "신재생 에너지도 입지, 저장, 비용, 폐기물, 송전망 문제를 함께 고려해야 함을 논의합니다.",
-        roles: ["에너지 전환", "지속가능성", "환경 영향 비교"]
-      },
-      earth_environment_interpretation_axis: {
-        direct: "지구 시스템과 환경 변화, 관측 자료 해석을 환경공학의 문제 발견 단계로 연결하는 직접 근거로 활용합니다.",
-        analysis: "지구 시스템 변화와 환경 지표를 연결해 문제의 원인, 영향, 관리 방향을 구조화합니다.",
-        limitation: "지구 환경 변화는 시간 규모와 공간 규모가 커서 단일 사례만으로 전체 변화를 일반화하기 어렵다는 한계를 논의합니다.",
-        roles: ["지구 환경 해석", "관측 자료", "문제 구조화"]
-      }
-    };
-    return map[axisId] || map.env_climate_impact_analysis_axis;
-  }
-
-  function getEnvironmentEngineeringConceptAxisUse(conceptId, axisId){
-    const conceptLabel = getEnvironmentEngineeringConceptLabel(conceptId);
-    const axisLabel = getEnvironmentEngineeringAxisLabel(axisId);
-    const map = {
-      "earth_env_human_life::env_climate_impact_analysis_axis": {
-        reason: "지구 환경 변화와 인간 생활을 기후 변화·생활환경 변화·온실가스 영향 분석으로 직접 확장하는 조합입니다.",
-        report: "보고서 본론에서 기후 변화 원인과 인간 생활 변화 사례를 연결하고, 지역별 환경 영향 비교표를 제시합니다."
-      },
-      "earth_env_human_life::env_risk_response_management_axis": {
-        reason: "지구 환경 변화를 폭염·침수·대기오염 같은 환경 위험과 대응 관리 기준으로 연결하는 조합입니다.",
-        report: "보고서 본론에서 환경 위험 요인을 분류하고, 대응 전략의 장단점을 비교해 지역 환경 관리 방안을 제안합니다."
-      },
-      "earth_env_human_life::env_data_monitoring_axis": {
-        reason: "지구 환경 변화와 인간 생활을 환경 지표 자료, 그래프, 모니터링 기준으로 해석하는 조합입니다.",
-        report: "보고서 본론에서 기온·강수·대기질 자료를 그래프로 정리하고, 변화 추세와 관리 기준을 해석합니다."
-      },
-      "biology_environment::ecosystem_interaction_cycle_axis": {
-        reason: "생물과 환경을 생태계 상호작용, 물질 순환, 환경 요인의 변화로 설명하는 조합입니다.",
-        report: "보고서 본론에서 환경 요인 변화가 생태계 구성 요소와 물질 순환에 미치는 영향을 구조도와 사례로 정리합니다."
-      },
-      "biology_environment::environment_resource_conservation_axis": {
-        reason: "생물과 환경을 서식지 보전, 오염 관리, 생물다양성 보호의 환경공학적 과제로 확장하는 조합입니다.",
-        report: "보고서 본론에서 서식지 변화와 오염 요인을 비교하고 보전·복원 관리 기준을 제안합니다."
-      },
-      "biology_environment::env_data_monitoring_axis": {
-        reason: "생물과 환경을 환경 요인 자료, 조건 비교, 그래프 해석으로 연결하는 조합입니다.",
-        report: "보고서 본론에서 환경 요인별 생물 반응 자료를 표·그래프로 정리해 자료 기반 판단을 구성합니다."
-      },
-      "ecosystem_balance::ecosystem_interaction_cycle_axis": {
-        reason: "생태계평형을 먹이 관계, 물질 순환, 생태계 안정성의 구조로 설명하는 조합입니다.",
-        report: "보고서 본론에서 생태계 교란 전후의 상호작용 변화를 도식화하고 평형 유지 조건을 설명합니다."
-      },
-      "ecosystem_balance::environment_resource_conservation_axis": {
-        reason: "생태계평형을 교란, 회복, 보전·복원 관리 기준으로 확장하는 조합입니다.",
-        report: "보고서 본론에서 생태계 교란 요인과 회복 전략을 비교해 환경 관리의 우선순위를 제시합니다."
-      },
-      "ecosystem_balance::ecosystem_data_decision_axis": {
-        reason: "생태계평형을 안정성 지표, 변화 요인, 회복 자료 해석으로 연결하는 조합입니다.",
-        report: "보고서 본론에서 개체군 변화나 환경 지표 자료를 활용해 생태계 안정성과 회복 가능성을 판단합니다."
-      },
-      "earth_env_change::env_climate_impact_analysis_axis": {
-        reason: "지구 환경 변화를 기후·환경 영향 분석으로 직접 확장하는 조합입니다.",
-        report: "보고서 본론에서 환경 변화 원인과 영향, 인간 생활 변화를 사례 중심으로 비교합니다."
-      },
-      "renewable_energy_efficiency::energy_environment_sustainability_axis": {
-        reason: "에너지 효율과 신재생 에너지를 탄소중립과 지속가능한 환경 시스템으로 연결하는 조합입니다.",
-        report: "보고서 본론에서 에너지 전환 방식의 효율, 환경 영향, 한계를 비교해 지속가능한 대안을 제안합니다."
-      }
-    };
-    return map[`${conceptId}::${axisId}`] || {
-      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 환경공학 탐구의 근거를 구성하는 조합입니다.`,
-      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 환경 영향, 위험 대응, 자료 해석, 보전·복원 중 하나로 구체화합니다.`
-    };
-  }
-
-  function buildLockedBookContextEnvironmentEngineering(book, ctx, sectionType, axisId, rank, conceptId){
-    const title = val(book && book.title);
-    const conceptLabel = getEnvironmentEngineeringConceptLabel(conceptId);
-    const axisLabel = getEnvironmentEngineeringAxisLabel(axisId);
-    const isDirect = sectionType === "direct";
-    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
-    const axisUse = getEnvironmentEngineeringAxisUse(axisId);
-    const conceptAxisUse = getEnvironmentEngineeringConceptAxisUse(conceptId, axisId);
-    return {
-      ...baseContext,
-      title,
-      author: book && book.author || "",
-      recommendationType: sectionType,
-      recommendationReason: isDirect
-        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
-        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 지속가능성·정책·윤리·사회적 영향 관점으로 넓히는 확장 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
-      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
-      reportRoleLabels: isDirect ? axisUse.roles : ["지속가능성 확장", "정책·윤리 비교", "사회적 영향 논의"],
-      useInReport: {
-        conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? `${axisUse.analysis} ${conceptAxisUse.report}` : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·정책·윤리·경제적 지속가능성 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: isDirect ? axisUse.limitation : "환경공학 탐구가 과학 원리뿐 아니라 정책, 비용, 지역 격차, 시민 참여 조건에 따라 달라질 수 있음을 논의합니다.",
-        conclusionExpansion: !isDirect ? "결론에서 교과 개념을 환경 관리, 지속가능한 사회, 지역 문제 해결 방향으로 확장할 때 활용합니다." : ""
-      },
-      connectionToPayload: {
-        subject: ctx && ctx.subject || "",
-        department: ctx && ctx.career || "",
-        selectedConcept: ctx && ctx.concept || "",
-        selectedKeyword: ctx && ctx.keyword || "",
-        followupAxis: axisLabel
-      },
-      bookEnvironmentEngineeringAxis: axisId
-    };
-  }
-
-  function cloneBookForEnvironmentEngineeringLock(book, ctx, sectionType, axisId, rank, conceptId){
-    if (!book) return null;
-    return {
-      ...book,
-      matchType: sectionType,
-      matchScore: 8400 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`ENV-ENGINEERING ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
-      selectedBookContext: buildLockedBookContextEnvironmentEngineering(book, ctx, sectionType, axisId, rank, conceptId),
-      bookEnvironmentEngineeringAxisLock: axisId,
-      bookEnvironmentEngineeringConceptLock: conceptId,
-      bookEnvironmentEngineeringRank: rank
-    };
-  }
-
-  function applyBookEnvironmentEngineeringLock(result, ctx){
-    if (!result || !isBookEnvironmentEngineeringContext(ctx)) return result;
-    const axisId = inferBookEnvironmentEngineeringAxis(ctx);
-    if (!axisId) return result;
-    const conceptId = inferBookEnvironmentEngineeringConcept(ctx);
-    const key = `${conceptId}::${axisId}`;
-    const defaultKey = `default::${axisId}`;
-
-    const directMap = {
-      "earth_env_human_life::env_climate_impact_analysis_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피"],
-      "earth_env_human_life::env_risk_response_management_axis": ["침묵의 봄", "오래된 미래", "동물들의 인간 심판"],
-      "earth_env_human_life::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
-      "biology_environment::ecosystem_interaction_cycle_axis": ["침묵의 봄", "인수공통 모든 전염병의 열쇠", "오래된 미래"],
-      "biology_environment::environment_resource_conservation_axis": ["오래된 미래", "침묵의 봄", "동물들의 인간 심판"],
-      "biology_environment::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "침묵의 봄"],
-      "ecosystem_balance::ecosystem_interaction_cycle_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠"],
-      "ecosystem_balance::environment_resource_conservation_axis": ["침묵의 봄", "동물들의 인간 심판", "오래된 미래"],
-      "ecosystem_balance::ecosystem_data_decision_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
-      "earth_env_change::env_climate_impact_analysis_axis": ["총, 균, 쇠", "침묵의 봄", "혼돈으로부터의 질서"],
-      "renewable_energy_efficiency::energy_environment_sustainability_axis": ["엔트로피", "오래된 미래", "펭귄과 리바이어던"],
-      "default::env_climate_impact_analysis_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피"],
-      "default::env_risk_response_management_axis": ["침묵의 봄", "오래된 미래", "동물들의 인간 심판"],
-      "default::env_data_monitoring_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
-      "default::ecosystem_interaction_cycle_axis": ["침묵의 봄", "인수공통 모든 전염병의 열쇠", "오래된 미래"],
-      "default::environment_resource_conservation_axis": ["오래된 미래", "침묵의 봄", "동물들의 인간 심판"],
-      "default::ecosystem_data_decision_axis": ["팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서"],
-      "default::energy_environment_sustainability_axis": ["엔트로피", "오래된 미래", "펭귄과 리바이어던"],
-      "default::earth_environment_interpretation_axis": ["총, 균, 쇠", "침묵의 봄", "혼돈으로부터의 질서"]
-    };
-
-    const expansionMap = {
-      "earth_env_human_life::env_climate_impact_analysis_axis": ["오래된 미래", "팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서", "동물들의 인간 심판"],
-      "earth_env_human_life::env_risk_response_management_axis": ["팩트풀니스", "엔트로피", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을", "총, 균, 쇠"],
-      "earth_env_human_life::env_data_monitoring_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피", "오래된 미래", "혼돈으로부터의 질서"],
-      "biology_environment::ecosystem_interaction_cycle_axis": ["동물들의 인간 심판", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "엔트로피"],
-      "biology_environment::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "엔트로피", "팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을"],
-      "biology_environment::env_data_monitoring_axis": ["인수공통 모든 전염병의 열쇠", "오래된 미래", "총, 균, 쇠", "혼돈으로부터의 질서", "동물들의 인간 심판"],
-      "ecosystem_balance::ecosystem_interaction_cycle_axis": ["팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "동물들의 인간 심판", "엔트로피"],
-      "ecosystem_balance::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을"],
-      "ecosystem_balance::ecosystem_data_decision_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "동물들의 인간 심판"],
-      "earth_env_change::env_climate_impact_analysis_axis": ["엔트로피", "오래된 미래", "팩트풀니스", "객관성의 칼날", "동물들의 인간 심판"],
-      "renewable_energy_efficiency::energy_environment_sustainability_axis": ["파타고니아, 파도가 칠 때는 서핑을", "팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "제3의 물결"],
-      "default::env_climate_impact_analysis_axis": ["오래된 미래", "팩트풀니스", "객관성의 칼날", "혼돈으로부터의 질서", "동물들의 인간 심판"],
-      "default::env_risk_response_management_axis": ["팩트풀니스", "엔트로피", "객관성의 칼날", "파타고니아, 파도가 칠 때는 서핑을", "총, 균, 쇠"],
-      "default::env_data_monitoring_axis": ["침묵의 봄", "총, 균, 쇠", "엔트로피", "오래된 미래", "혼돈으로부터의 질서"],
-      "default::ecosystem_interaction_cycle_axis": ["동물들의 인간 심판", "총, 균, 쇠", "팩트풀니스", "객관성의 칼날", "엔트로피"],
-      "default::environment_resource_conservation_axis": ["인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "엔트로피", "팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을"],
-      "default::ecosystem_data_decision_axis": ["침묵의 봄", "오래된 미래", "인수공통 모든 전염병의 열쇠", "총, 균, 쇠", "동물들의 인간 심판"],
-      "default::energy_environment_sustainability_axis": ["파타고니아, 파도가 칠 때는 서핑을", "팩트풀니스", "객관성의 칼날", "총, 균, 쇠", "제3의 물결"],
-      "default::earth_environment_interpretation_axis": ["엔트로피", "오래된 미래", "팩트풀니스", "객관성의 칼날", "동물들의 인간 심판"]
-    };
-
-    const directTitles = arr(directMap[key] || directMap[defaultKey]);
-    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
-    if (!directTitles.length) return result;
-
-    const directBooks = directTitles.map((title, index) =>
-      cloneBookForEnvironmentEngineeringLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
-    ).filter(Boolean);
-
-    const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = expansionTitles.map((title, index) =>
-      cloneBookForEnvironmentEngineeringLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
-    ).filter(Boolean).filter(book => !directIds.has(bookKey(book)));
-
-    if (!directBooks.length) return result;
-
-    return {
-      ...result,
-      directBooks,
-      expansionBooks,
-      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
-      debug: {
-        ...(result.debug || {}),
-        bookEnvironmentEngineeringLock: axisId,
-        bookEnvironmentEngineeringConcept: conceptId,
-        bookEnvironmentEngineeringVersion: "v136",
-        bookEnvironmentEngineeringDirectTitles: directBooks.map(book => book.title),
-        bookEnvironmentEngineeringExpansionTitles: expansionBooks.map(book => book.title)
-      }
-    };
-  }
 
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
@@ -4787,9 +3838,6 @@
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
-    result = applyBookChemPharmacyLock(result, ctx);
-    result = applyBookBioMedicalLock(result, ctx);
-    result = applyBookEnvironmentEngineeringLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
