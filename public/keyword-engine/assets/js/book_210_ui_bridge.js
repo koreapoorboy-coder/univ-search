@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a19-chemistry-computer-book-lock-v147";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a20-chemistry-computer-real-axis-lock-v148";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3350,14 +3350,14 @@
       if (/(location_space_data_axis|position_tracking_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
 
       // 이차곡선과 자취 해석 - actual on-screen axis labels
-      if (/(signal_position_estimation_axis|signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
-      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화)/i.test(text)) return "curve_design_visualization";
-      if (/(reflection_orbit_interpretation_axis|reflection_orbit_analysis_axis|reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "reflection_orbit_analysis";
-
-      // legacy fallback labels for earlier variants
       if (/(conic_structure_analysis_axis|이차곡선\s*구조\s*해석|이차곡선\s*구조)/i.test(text)) return "conic_structure_analysis";
       if (/(locus_condition_analysis_axis|자취\s*[·ㆍ]?\s*조건\s*분석|자취.*조건\s*분석)/i.test(text)) return "locus_condition_analysis";
       if (/(coordinate_geometry_modeling_axis|좌표기하\s*모델링|좌표기하)/i.test(text)) return "coordinate_geometry_modeling";
+
+      // legacy fallback labels for earlier variants
+      if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "conic_structure_analysis";
+      if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "locus_condition_analysis";
+      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화)/i.test(text)) return "coordinate_geometry_modeling";
 
       // final generic fallback uses concept text only if axis-specific label is absent.
       return "";
@@ -3368,7 +3368,7 @@
     // 축 정보가 늦게 들어오는 초기 렌더에서도 개념별 첫 축으로 안전하게 고정한다.
     if (/벡터의\s*성분과\s*내적/.test(conceptText)) return "vector_similarity_model";
     if (/공간좌표와\s*구의\s*방정식/.test(conceptText)) return "three_d_coordinate_graphics";
-    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "signal_position_estimation";
+    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "conic_structure_analysis";
     return "";
   }
 
@@ -3385,9 +3385,9 @@
       conic_structure_analysis: "이차곡선 구조 해석 축",
       locus_condition_analysis: "자취·조건 분석 축",
       coordinate_geometry_modeling: "좌표기하 모델링 축",
-      signal_position_estimation: "신호·위치 추정 모델 축",
-      reflection_orbit_analysis: "반사·궤도 해석 축",
-      curve_design_visualization: "곡선·설계 시각화 축"
+      signal_position_estimation: "이차곡선 구조 해석 축",
+      reflection_orbit_analysis: "자취·조건 분석 축",
+      curve_design_visualization: "좌표기하 모델링 축"
     };
     const axisUseMap = {
       vector_similarity_model: { direct: "벡터의 성분과 내적을 데이터의 방향 유사도, 코사인 유사도, 정규화 개념과 연결해 설명할 때 활용합니다.", role: ["벡터 유사도", "데이터 모델링", "정규화 해석"] },
@@ -3399,9 +3399,9 @@
       conic_structure_analysis: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
       locus_condition_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
       coordinate_geometry_modeling: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] },
-      signal_position_estimation: { direct: "쌍곡선의 거리 차 조건과 이차곡선의 방정식을 신호 도달 시간 차, 위치 추정, 좌표 기반 추정 모델로 연결해 설명할 때 활용합니다.", role: ["신호 위치 추정", "거리 조건", "좌표 모델링"] },
-      reflection_orbit_analysis: { direct: "포물선·타원·쌍곡선의 초점과 반사 성질을 궤도, 반사 경로, 물리적 모델링 관점으로 설명할 때 활용합니다.", role: ["초점·반사 성질", "궤도 해석", "물리 모델링"] },
-      curve_design_visualization: { direct: "포물선·타원·쌍곡선을 그래프, 설계 곡선, 컴퓨터 그래픽스 시각화 표현으로 연결할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "그래픽 모델링"] }
+      signal_position_estimation: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
+      reflection_orbit_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
+      curve_design_visualization: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.vector_similarity_model;
@@ -3466,8 +3466,8 @@
       locus_condition_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
       coordinate_geometry_modeling: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
       signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      reflection_orbit_analysis: ["코스모스", "시간의 역사", "카오스"],
-      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해"]
+      reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"]
     };
     const expansionMap = {
       vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
@@ -3480,8 +3480,8 @@
       locus_condition_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
       coordinate_geometry_modeling: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"],
       signal_position_estimation: ["부분과 전체", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
-      reflection_orbit_analysis: ["혼돈으로부터의 질서", "부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리"],
-      curve_design_visualization: ["객관성의 칼날", "경영학 콘서트", "카오스", "1984", "제3의 물결"]
+      reflection_orbit_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
+      curve_design_visualization: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
@@ -3582,14 +3582,7 @@
       }
       // 물질의 전기적 특성
       if (/(electric_signal_circuit_axis|electronics_signal_circuit_axis|전기\s*신호\s*[·ㆍ]?\s*회로|신호\s*[·ㆍ]?\s*회로|회로\s*기초|전압|전류|회로)/i.test(text)) return "electric_signal_circuit";
-      // v146: 전자공학 공통 축명(electronics_device_sensor_axis)이 물리 개념마다 다르게 쓰일 수 있으므로
-      // 실제 선택 개념을 먼저 보고 반도체/자기/광센서 축으로 분기한다.
-      if (/(electronics_device_sensor_axis|전자소자\s*[·ㆍ]?\s*센서\s*장치|전자소자|소자\s*센서)/i.test(text)) {
-        if (/물질의\s*자기적\s*특성/.test(conceptText)) return "current_magnetic_system";
-        if (/빛과\s*물질의\s*이중성/.test(conceptText)) return "photoelectric_sensor";
-        return "semiconductor_device";
-      }
-      if (/(semiconductor_device_axis|반도체\s*[·ㆍ]?\s*소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
+      if (/(semiconductor_device_axis|electronics_device_sensor_axis|반도체\s*[·ㆍ]?\s*소자|전자소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
       if (/(sensor_measurement_signal_axis|센서\s*[·ㆍ]?\s*측정\s*신호|센서\s*신호|측정\s*신호|센서)/i.test(text)) return "sensor_measurement_signal";
       // 파동의 성질과 활용
       if (/(signal_communication_axis|electronics_communication_signal_axis|신호\s*[·ㆍ]?\s*통신\s*해석|통신\s*신호|신호\s*통신|주파수\s*해석)/i.test(text)) return "signal_communication";
@@ -3597,11 +3590,11 @@
       if (/(wave_visualization_axis|파동\s*시각화\s*[·ㆍ]?\s*분석|파동\s*분석|시각화\s*분석)/i.test(text)) return "wave_visualization";
       // 물질의 자기적 특성
       if (/(current_magnetic_system_axis|전류\s*[·ㆍ]?\s*자기장\s*시스템|전류\s*자기장|자기장\s*시스템)/i.test(text)) return "current_magnetic_system";
-      if (/(electromagnet_control_axis|electronics_power_induction_axis|전자기\s*유도\s*[·ㆍ]?\s*전력\s*응용|전자석\s*[·ㆍ]?\s*제어\s*장치|전자석\s*제어|제어\s*장치|액추에이터|유도\s*전류|전력\s*응용)/i.test(text)) return "electromagnet_control";
+      if (/(electromagnet_control_axis|전자석\s*[·ㆍ]?\s*제어\s*장치|전자석\s*제어|제어\s*장치|액추에이터)/i.test(text)) return "electromagnet_control";
       if (/(magnetic_storage_material_axis|자성\s*[·ㆍ]?\s*저장장치|자성\s*저장|저장장치|자기\s*저장)/i.test(text)) return "magnetic_storage_material";
       // 빛과 물질의 이중성
       if (/(photoelectric_sensor_axis|광전\s*효과\s*[·ㆍ]?\s*센서|광전\s*센서|이미지\s*센서|빛\s*검출)/i.test(text)) return "photoelectric_sensor";
-      if (/(quantum_device_axis|electronics_quantum_device_axis|광센서\s*[·ㆍ]?\s*양자소자\s*응용|양자\s*[·ㆍ]?\s*반도체\s*소자|양자\s*소자|반도체\s*소자|밴드갭|에너지\s*준위)/i.test(text)) return "quantum_device";
+      if (/(quantum_device_axis|electronics_quantum_device_axis|양자\s*[·ㆍ]?\s*반도체\s*소자|양자\s*소자|반도체\s*소자)/i.test(text)) return "quantum_device";
       if (/(optical_information_axis|빛\s*정보\s*처리|광\s*정보|이미지\s*처리|광통신)/i.test(text)) return "optical_information";
       // 힘과 운동
       if (/(motion_data_simulation_axis|운동\s*데이터\s*[·ㆍ]?\s*시뮬레이션|운동\s*시뮬레이션|운동\s*그래프)/i.test(text)) return "motion_data_simulation";
@@ -3676,8 +3669,6 @@
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.electric_signal_circuit;
-    const axisDirectReason = val(axisUse.direct).replace(/활용합니다\.?$/, "활용하는 직접 일치 도서입니다.") || "물리 개념을 컴퓨터공학의 회로·신호·센서·네트워크·시뮬레이션 관점으로 설명할 때 활용하는 직접 일치 도서입니다.";
-    const axisAnalysisFrame = `선택한 4번 축에 맞춰 물리 개념을 ${arr(axisUse.role).join("·") || "회로·신호·센서·네트워크"} 프레임으로 구체화합니다.`;
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -3685,14 +3676,14 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${axisLabel}에서 ${axisDirectReason}`
+        ? `${title}은(는) ${axisLabel}에서 물리 개념을 컴퓨터공학의 회로·신호·센서·네트워크·시뮬레이션 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
         : `${title}은(는) ${axisLabel}에서 정보사회, 기술 활용, 시스템 한계, 윤리적 쟁점으로 확장하는 참고 도서입니다.`,
       matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
       reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "활용 관점 비교", "시스템 한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? axisAnalysisFrame : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 물리 개념을 전기 신호, 통신, 센서, 저장장치, 광정보, 시뮬레이션 중 하나의 프레임으로 구체화합니다." : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·기술 활용·윤리 관점을 비교할 때 활용합니다." : "",
         limitationDiscussion: "물리 모델이 실제 컴퓨터 시스템과 통신·센서·하드웨어 환경에서 갖는 오차, 단순화, 조건 설정의 한계를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 센서, 네트워크, 하드웨어, 정보사회, 기술 윤리 문제로 확장할 때 활용합니다." : ""
@@ -3729,17 +3720,17 @@
     if (!axisId) return result;
 
     const directMap = {
-      electric_signal_circuit: ["객관성의 칼날", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
-      semiconductor_device: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      electric_signal_circuit: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      semiconductor_device: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
       sensor_measurement_signal: ["객관성의 칼날", "팩트풀니스", "경영학 콘서트"],
-      signal_communication: ["미디어의 이해", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
-      data_bandwidth: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "팩트풀니스"],
+      signal_communication: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
+      data_bandwidth: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
       wave_visualization: ["카오스", "혼돈으로부터의 질서", "객관성의 칼날"],
-      current_magnetic_system: ["부분과 전체", "객관성의 칼날", "카오스"],
-      electromagnet_control: ["경영학 콘서트", "20세기 수학의 다섯가지 황금률", "카오스"],
+      current_magnetic_system: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      electromagnet_control: ["경영학 콘서트", "부분과 전체", "카오스"],
       magnetic_storage_material: ["객관성의 칼날", "부분과 전체", "미디어의 이해"],
-      photoelectric_sensor: ["부분과 전체", "객관성의 칼날", "미디어의 이해"],
-      quantum_device: ["부분과 전체", "과학혁명의 구조", "객관성의 칼날"],
+      photoelectric_sensor: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      quantum_device: ["부분과 전체", "객관성의 칼날", "페르마의 마지막 정리"],
       optical_information: ["미디어의 이해", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
       motion_data_simulation: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
       collision_safety: ["부분과 전체", "객관성의 칼날", "경영학 콘서트"],
@@ -3800,113 +3791,86 @@
 
 
 
+  // v148 CHEM-CS-real-axis-lock: 화학+컴퓨터공학과는 실제 chemistry1_concept_longitudinal_map.json의
+  // 4번 축명/axis_id만 기준으로 5번 도서 매칭을 잠근다.
+  // 주의: 화학과 전용 pure_chem_* 축(예: 원자 구조·전자 배치 해석 축)은 컴퓨터공학과 화면 기준으로 사용하지 않는다.
   function isBookA19ChemistryComputerContext(ctx){
     ctx = ctx || {};
-    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
     const subjectText = normalizeLockText(ctx.subject || "");
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
     const conceptText = normalizeLockText(ctx.concept || "");
-    const keywordText = normalizeLockText(ctx.keyword || "");
-    const isItElectronics = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|보안|프로그래밍|알고리즘|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(careerText);
-    const isChemistry = /^(화학|화학Ⅰ|화학1)$/.test(subjectText) || /화학/.test(subjectText);
-    const isConcept = /(현대의\s*원자\s*모형과\s*전자\s*배치|원소의\s*주기적\s*성질|화학\s*결합)/.test(conceptText);
-    const isKeyword = !keywordText || /(에너지\s*준위|오비탈|전자\s*배치|선\s*스펙트럼|주기율표|이온화\s*에너지|원자\s*반지름|전기음성도|원자가\s*전자|공유\s*결합|이온\s*결합|결합의\s*극성|루이스|전자쌍|분자\s*모형|반도체|소자|전도성|소재|원소\s*성질|결합\s*종류|극성\s*판단)/i.test(keywordText);
-    return !!(isItElectronics && isChemistry && isConcept && isKeyword);
+    const isChemistry = /화학/.test(subjectText);
+    const isComputer = /(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어|인공지능|ai|데이터|정보|정보보안|정보통신|프로그래밍|알고리즘|네트워크|시스템)/i.test(careerText);
+    const isTargetConcept = /(현대의\s*원자\s*모형과\s*전자\s*배치|원소의\s*주기적\s*성질|화학\s*결합)/.test(conceptText);
+    return !!(isChemistry && isComputer && isTargetConcept);
   }
 
-  function inferBookA19ChemistryAxis(ctx){
+  function inferBookA19ChemistryComputerAxis(ctx){
     ctx = ctx || {};
     const conceptText = normalizeLockText(ctx.concept || "");
-    const getVisibleActiveChemAxisText = function(){
-      const parts = [];
-      const push = function(value){
-        const text = normalizeLockText(value || "");
-        if (!text) return;
-        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
-        parts.push(text);
-      };
-      try {
-        const nodes = document.querySelectorAll(
-          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, [data-track].is-active"
-        );
-        nodes.forEach(function(node){
-          push(node.getAttribute("data-track"));
-          push(node.getAttribute("data-axis"));
-          push(node.getAttribute("data-axis-id"));
-          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
-          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
-          push(node.textContent || "");
-        });
-      } catch (error) {}
-      return parts.join(" ");
-    };
     const primaryAxisText = normalizeLockText([
-      getVisibleActiveChemAxisText(),
       ctx.followupAxisId,
       ctx.linkTrack,
-      ctx.axisLabel,
-      ctx.trackLabel,
-      ctx.linkTrackLabel
+      ctx.axisLabel
     ].join(" "));
     const secondaryAxisText = normalizeLockText([
       ctx.axisDomain,
       Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
       ctx.activityExample,
-      ctx.longitudinalPath
+      ctx.longitudinalPath,
+      ctx.keyword
     ].join(" "));
-    const resolveFromText = function(text){
-      text = normalizeLockText(text || "");
+    const resolveFromText = (text) => {
       if (!text) return "";
-      // 현대의 원자 모형과 전자 배치
-      if (/(pure_chem_atom_electron_axis|원자\s*구조\s*[·ㆍ]?\s*전자\s*배치|전자\s*배치\s*해석|오비탈|에너지\s*준위)/i.test(text)) return "atom_electron_structure";
-      if (/(pure_chem_periodic_spectrum_axis|주기성\s*[·ㆍ]?\s*스펙트럼|선\s*스펙트럼|스펙트럼\s*분석)/i.test(text)) return "periodic_spectrum";
-      if (/(반도체\s*[·ㆍ]?\s*소자|에너지\s*준위\s*[·ㆍ]?\s*반도체|밴드갭|전자\s*전이|소자\s*응용)/i.test(text)) return "semiconductor_energy_level";
-      // 원소의 주기적 성질
-      if (/(pure_chem_periodicity_predict_axis|주기율\s*[·ㆍ]?\s*성질\s*예측|주기율|성질\s*예측|주기성\s*비교)/i.test(text)) return "periodic_property_predict";
-      if (/(pure_chem_atomic_property_compare_axis|원자\s*구조\s*[·ㆍ]?\s*성질\s*비교|원자\s*반지름|이온화\s*에너지|유효\s*핵전하)/i.test(text)) return "atomic_property_compare";
-      if (/(pure_chem_element_bond_trend_axis|원소\s*성질과\s*결합\s*경향|결합\s*경향|금속성|비금속성|전기음성도)/i.test(text)) return "element_bond_trend";
-      // 화학 결합
-      if (/(pure_chem_bond_interpret_axis|결합\s*구조\s*해석|공유\s*결합|이온\s*결합|결합\s*형성)/i.test(text)) return "bond_structure";
-      if (/(pure_chem_electron_pair_molecule_axis|전자쌍\s*[·ㆍ]?\s*분자\s*구조|전자쌍|루이스|결합각|분자\s*구조)/i.test(text)) return "electron_pair_molecule";
-      if (/(pure_chem_bond_property_predict_axis|결합과\s*물성\s*예측|결합\s*[·ㆍ]?\s*물성|전도성|녹는점|용해도|물성\s*예측)/i.test(text)) return "bond_property_predict";
+      // 현대의 원자 모형과 전자 배치 - 실제 JSON 축명
+      if (/(electron\s*configuration\s*axis|전자배치\s*스펙트럼|전자\s*배치\s*스펙트럼|전자배치|스펙트럼)/i.test(text)) return "electron_configuration_spectrum";
+      if (/(light\s*energy\s*transition\s*axis|에너지\s*준위\s*빛\s*해석|에너지\s*준위|빛\s*해석|선\s*스펙트럼|전이)/i.test(text)) return "light_energy_transition";
+      if (/(semiconductor\s*electronic\s*material\s*axis|소재\s*전자\s*구조\s*응용|전자\s*구조\s*응용|소재\s*전자\s*구조|반도체|전자\s*구조)/i.test(text)) return "semiconductor_electronic_material";
+      // 원소의 주기적 성질 - 실제 JSON 축명
+      if (/(periodic\s*property\s*axis|주기율\s*성질\s*예측|주기율|주기성|성질\s*예측)/i.test(text)) return "periodic_property";
+      if (/(material\s*selection\s*axis|재료\s*선택\s*설계|재료\s*선택|소재\s*선택)/i.test(text)) return "material_selection";
+      if (/(bio\s*environment\s*ion\s*axis|환경\s*생체\s*이온\s*해석|생체\s*이온|환경\s*이온|이온\s*해석)/i.test(text)) return "bio_environment_ion";
+      // 화학 결합 - 실제 JSON 축명
+      if (/(bond\s*structure\s*axis|결합\s*구조\s*해석|결합\s*구조)/i.test(text)) return "bond_structure";
+      if (/(material\s*property\s*design\s*axis|물성\s*소재\s*설계|물성\s*설계|소재\s*설계)/i.test(text)) return "material_property_design";
+      if (/(bio\s*molecular\s*interaction\s*axis|분자\s*상호작용\s*용해|분자\s*상호작용|용해)/i.test(text)) return "bio_molecular_interaction";
       return "";
     };
     let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
     if (axisId) return axisId;
-    if (/현대의\s*원자\s*모형과\s*전자\s*배치/.test(conceptText)) return "atom_electron_structure";
-    if (/원소의\s*주기적\s*성질/.test(conceptText)) return "periodic_property_predict";
+    if (/현대의\s*원자\s*모형과\s*전자\s*배치/.test(conceptText)) return "electron_configuration_spectrum";
+    if (/원소의\s*주기적\s*성질/.test(conceptText)) return "periodic_property";
     if (/화학\s*결합/.test(conceptText)) return "bond_structure";
     return "";
   }
 
-  function buildLockedBookContextA19Chemistry(book, ctx, sectionType, axisId, rank){
+  function buildLockedBookContextA19ChemistryComputer(book, ctx, sectionType, axisId, rank){
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
     const axisLabelMap = {
-      atom_electron_structure: "원자 구조·전자 배치 해석 축",
-      periodic_spectrum: "주기성·스펙트럼 분석 축",
-      semiconductor_energy_level: "에너지 준위·반도체 소자 축",
-      periodic_property_predict: "주기율·성질 예측 축",
-      atomic_property_compare: "원자 구조·성질 비교 축",
-      element_bond_trend: "원소 성질과 결합 경향 분석 축",
+      electron_configuration_spectrum: "전자배치·스펙트럼 축",
+      light_energy_transition: "에너지 준위·빛 해석 축",
+      semiconductor_electronic_material: "소재·전자 구조 응용 축",
+      periodic_property: "주기율·성질 예측 축",
+      material_selection: "재료 선택·설계 축",
+      bio_environment_ion: "환경·생체 이온 해석 축",
       bond_structure: "결합 구조 해석 축",
-      electron_pair_molecule: "전자쌍·분자 구조 해석 축",
-      bond_property_predict: "결합과 물성 예측 축"
+      material_property_design: "물성·소재 설계 축",
+      bio_molecular_interaction: "분자 상호작용·용해 축"
     };
     const axisUseMap = {
-      atom_electron_structure: { direct: "에너지 준위, 오비탈, 전자 배치를 원소 성질과 전자소자 기초 조건으로 연결할 때 활용합니다.", role: ["전자 배치", "에너지 준위", "소자 기초"] },
-      periodic_spectrum: { direct: "전자 배치와 스펙트럼 자료를 주기성 비교와 측정 근거로 설명할 때 활용합니다.", role: ["스펙트럼", "주기성", "자료 해석"] },
-      semiconductor_energy_level: { direct: "에너지 준위와 전자 전이를 반도체 소자, 밴드갭, 센서 작동 원리로 연결할 때 활용합니다.", role: ["반도체 소자", "밴드갭", "전자 전이"] },
-      periodic_property_predict: { direct: "주기율표 위치와 전자 배치를 바탕으로 원소 성질 변화를 예측할 때 활용합니다.", role: ["주기율", "성질 예측", "원소 비교"] },
-      atomic_property_compare: { direct: "유효 핵전하, 원자 반지름, 이온화 에너지 차이를 비교 기준으로 설명할 때 활용합니다.", role: ["원자 구조", "성질 비교", "정량 해석"] },
-      element_bond_trend: { direct: "원소 성질과 전기음성도를 결합 경향, 전도성, 소재 선택 관점으로 연결할 때 활용합니다.", role: ["전기음성도", "결합 경향", "소재 선택"] },
-      bond_structure: { direct: "공유 결합과 이온 결합, 원자가 전자, 전기음성도를 결합 구조 해석으로 연결할 때 활용합니다.", role: ["결합 구조", "원자가 전자", "전기음성도"] },
-      electron_pair_molecule: { direct: "전자쌍 배치와 분자 구조를 극성, 결합각, 분자 모형 해석으로 연결할 때 활용합니다.", role: ["전자쌍", "분자 구조", "극성 판단"] },
-      bond_property_predict: { direct: "결합 종류와 분자 구조를 전도성, 녹는점, 용해도 같은 물성 예측으로 연결할 때 활용합니다.", role: ["결합 물성", "전도성", "물성 예측"] }
+      electron_configuration_spectrum: { direct: "전자 배치와 스펙트럼을 컴퓨터공학의 신호 해석, 데이터 표현, 측정 근거로 연결할 때 활용합니다.", role: ["전자배치", "스펙트럼", "신호 해석"] },
+      light_energy_transition: { direct: "에너지 준위와 빛의 흡수·방출을 광센서, 디스플레이, 광정보 처리의 기초 원리로 설명할 때 활용합니다.", role: ["에너지 준위", "빛 해석", "광정보"] },
+      semiconductor_electronic_material: { direct: "원자·전자 구조를 반도체 소재, 전자 소자, 하드웨어 작동 조건으로 연결할 때 활용합니다.", role: ["전자 구조", "반도체 소재", "하드웨어 기초"] },
+      periodic_property: { direct: "주기율표 위치와 원소 성질 변화를 소재 선택과 전자적 특성 예측의 기준으로 설명할 때 활용합니다.", role: ["주기율", "성질 예측", "소재 판단"] },
+      material_selection: { direct: "원소의 성질 차이를 전도성, 안정성, 소자 소재 선택 기준으로 확장할 때 활용합니다.", role: ["재료 선택", "전도성", "소재 설계"] },
+      bio_environment_ion: { direct: "이온 성질과 전하 이동을 센서, 환경 데이터, 생체 신호 측정 조건으로 연결할 때 활용합니다.", role: ["이온 해석", "센서", "측정 데이터"] },
+      bond_structure: { direct: "결합 구조를 물질의 안정성, 전자 이동, 하드웨어 소재의 기본 성질로 설명할 때 활용합니다.", role: ["결합 구조", "전자 이동", "소재 안정성"] },
+      material_property_design: { direct: "결합 종류와 구조 차이를 전도성, 내구성, 소재 물성 예측으로 연결할 때 활용합니다.", role: ["물성 예측", "소재 설계", "전도성"] },
+      bio_molecular_interaction: { direct: "분자 상호작용과 용해 조건을 바이오센서, 생체 데이터 측정, 인터페이스 재료로 확장할 때 활용합니다.", role: ["분자 상호작용", "용해", "바이오센서"] }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
-    const axisUse = axisUseMap[axisId] || axisUseMap.atom_electron_structure;
-    const axisDirectReason = val(axisUse.direct).replace(/활용합니다\.?$/, "활용하는 직접 일치 도서입니다.") || "화학 개념을 컴퓨터·전자 계열의 전자 구조, 소자, 소재 물성 관점으로 설명할 때 활용하는 직접 일치 도서입니다.";
-    const axisAnalysisFrame = `선택한 4번 축에 맞춰 화학 개념을 ${arr(axisUse.role).join("·") || "전자 구조·소자·소재"} 프레임으로 구체화합니다.`;
+    const axisUse = axisUseMap[axisId] || axisUseMap.electron_configuration_spectrum;
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -3914,17 +3878,17 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${axisLabel}에서 ${axisDirectReason}`
-        : `${title}은(는) ${axisLabel}에서 기술사회, 반도체·전자소자 활용, 자료 해석의 한계, 윤리적 쟁점으로 확장하는 참고 도서입니다.`,
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 컴퓨터공학의 신호·소자·소재·데이터 해석 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 기술사회, 정보 처리, 소재 활용, 시스템 한계로 확장하는 참고 도서입니다.`,
       matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
-      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "소자 활용 관점", "자료 해석 한계"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "활용 관점 비교", "시스템 한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? axisAnalysisFrame : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 기술사회·소재 활용·윤리 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: "화학 모델이 실제 전자소자, 반도체 소재, 측정 자료 해석에서 갖는 단순화와 조건 설정의 한계를 논의할 때 활용합니다.",
-        conclusionExpansion: !isDirect ? "결론에서 반도체, 전자소자, 정보사회, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 전자 배치, 스펙트럼, 에너지 준위, 소재 선택, 결합 구조, 물성 예측 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·소재 활용·기술 윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "화학 원리를 컴퓨터공학의 소자·센서·데이터 처리 맥락에 적용할 때 생기는 단순화, 측정 오차, 소재 조건의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 반도체, 센서, 광정보, 하드웨어 소재, 데이터 측정 기술의 활용 방향으로 확장할 때 활용합니다." : ""
       },
       connectionToPayload: {
         subject: ctx && ctx.subject || "",
@@ -3933,60 +3897,60 @@
         selectedKeyword: ctx && ctx.keyword || "",
         followupAxis: axisLabel
       },
-      bookA19ChemistryRank: rank,
-      bookA19ChemistryAxis: axisId
+      bookA19ChemistryComputerRank: rank,
+      bookA19ChemistryComputerAxis: axisId
     };
   }
 
-  function cloneBookForA19ChemistryLock(book, ctx, sectionType, axisId, rank){
+  function cloneBookForA19ChemistryComputerLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     return {
       ...book,
       matchType: sectionType,
-      matchScore: 6170 - rank * 10,
+      matchScore: 6190 - rank * 10,
       matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
-      selectedBookContext: buildLockedBookContextA19Chemistry(book, ctx, sectionType, axisId, rank),
-      bookA19ChemistryLock: true,
-      bookA19ChemistryLockRank: rank,
-      bookA19ChemistryAxisLock: axisId
+      selectedBookContext: buildLockedBookContextA19ChemistryComputer(book, ctx, sectionType, axisId, rank),
+      bookA19ChemistryComputerLock: true,
+      bookA19ChemistryComputerLockRank: rank,
+      bookA19ChemistryComputerAxisLock: axisId
     };
   }
 
-  function applyBookA19ChemistryLock(result, ctx){
+  function applyBookA19ChemistryComputerLock(result, ctx){
     if (!result || !isBookA19ChemistryComputerContext(ctx)) return result;
-    const axisId = inferBookA19ChemistryAxis(ctx);
+    const axisId = inferBookA19ChemistryComputerAxis(ctx);
     if (!axisId) return result;
 
     const directMap = {
-      atom_electron_structure: ["부분과 전체", "객관성의 칼날", "같기도 하고 아니 같기도 하고"],
-      periodic_spectrum: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
-      semiconductor_energy_level: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
-      periodic_property_predict: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "팩트풀니스"],
-      atomic_property_compare: ["객관성의 칼날", "같기도 하고 아니 같기도 하고", "20세기 수학의 다섯가지 황금률"],
-      element_bond_trend: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      electron_configuration_spectrum: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      light_energy_transition: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      semiconductor_electronic_material: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      periodic_property: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "팩트풀니스"],
+      material_selection: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"],
+      bio_environment_ion: ["객관성의 칼날", "팩트풀니스", "부분과 전체"],
       bond_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
-      electron_pair_molecule: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
-      bond_property_predict: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"]
+      material_property_design: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"],
+      bio_molecular_interaction: ["부분과 전체", "같기도 하고 아니 같기도 하고", "객관성의 칼날"]
     };
     const expansionMap = {
-      atom_electron_structure: ["과학혁명의 구조", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"],
-      periodic_spectrum: ["부분과 전체", "과학혁명의 구조", "미디어의 이해", "팩트풀니스", "제3의 물결"],
-      semiconductor_energy_level: ["미디어의 이해", "제3의 물결", "경영학 콘서트", "팩트풀니스", "1984"],
-      periodic_property_predict: ["부분과 전체", "과학혁명의 구조", "미디어의 이해", "제3의 물결", "1984"],
-      atomic_property_compare: ["부분과 전체", "과학혁명의 구조", "팩트풀니스", "미디어의 이해", "제3의 물결"],
-      element_bond_trend: ["경영학 콘서트", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"],
-      bond_structure: ["20세기 수학의 다섯가지 황금률", "과학혁명의 구조", "미디어의 이해", "제3의 물결", "팩트풀니스"],
-      electron_pair_molecule: ["20세기 수학의 다섯가지 황금률", "과학혁명의 구조", "미디어의 이해", "팩트풀니스", "제3의 물결"],
-      bond_property_predict: ["부분과 전체", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"]
+      electron_configuration_spectrum: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "팩트풀니스", "제3의 물결", "1984"],
+      light_energy_transition: ["미디어의 이해", "코스모스", "시간의 역사", "팩트풀니스", "제3의 물결"],
+      semiconductor_electronic_material: ["미디어의 이해", "경영학 콘서트", "팩트풀니스", "제3의 물결", "1984"],
+      periodic_property: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "경영학 콘서트", "제3의 물결"],
+      material_selection: ["부분과 전체", "팩트풀니스", "미디어의 이해", "제3의 물결", "1984"],
+      bio_environment_ion: ["미디어의 이해", "경영학 콘서트", "감시와 처벌", "제3의 물결", "1984"],
+      bond_structure: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "팩트풀니스", "제3의 물결", "1984"],
+      material_property_design: ["부분과 전체", "팩트풀니스", "미디어의 이해", "제3의 물결", "1984"],
+      bio_molecular_interaction: ["팩트풀니스", "미디어의 이해", "경영학 콘서트", "제3의 물결", "1984"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
-      cloneBookForA19ChemistryLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+      cloneBookForA19ChemistryComputerLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean);
 
     const directIds = new Set(directBooks.map(book => bookKey(book)));
     const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
-      cloneBookForA19ChemistryLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+      cloneBookForA19ChemistryComputerLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
     ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
 
     if (!directBooks.length) return result;
@@ -3998,13 +3962,12 @@
       selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
       debug: {
         ...(result.debug || {}),
-        bookA19ChemistryLock: axisId,
-        bookA19ChemistryDirectTitles: directBooks.map(book => book.title),
-        bookA19ChemistryExpansionTitles: expansionBooks.map(book => book.title)
+        bookA19ChemistryComputerLock: axisId,
+        bookA19ChemistryComputerDirectTitles: directBooks.map(book => book.title),
+        bookA19ChemistryComputerExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
-
 
 
   global.renderBookSelectionHTML = function(ctx){
@@ -4054,7 +4017,7 @@
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
-    result = applyBookA19ChemistryLock(result, ctx);
+    result = applyBookA19ChemistryComputerLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
