@@ -4203,6 +4203,10 @@
         reason: "백신 원리를 감염 전파, 예방 전략, 공중보건 판단으로 확장하는 조합입니다.",
         report: "보고서 본론에서 감염병 사례와 예방 접종 전략을 비교하고, 생명과학 원리가 사회적 예방으로 이어지는 과정을 정리합니다."
       },
+      "immune_vaccine::medical_homeostasis_feedback_axis": {
+        reason: "면역과 백신을 항원·항체 반응에만 고정하지 않고, 감염 후 체온·염증·회복 과정에서 인체가 항상성을 유지하는 방식으로 확장하는 조합입니다.",
+        report: "보고서 본론에서 백신 접종 이후 면역 반응과 체온·염증·회복 같은 항상성 조절 사례를 연결해 설명합니다."
+      },
       "nervous_homeostasis::medical_homeostasis_feedback_axis": {
         reason: "신경계와 호르몬 조절이 체온·혈당 등 항상성 유지에 어떻게 작동하는지 설명하는 조합입니다.",
         report: "보고서 본론에서 항상성 조절 회로와 피드백 구조를 사례 중심으로 도식화합니다."
@@ -4218,6 +4222,10 @@
       "metabolism_health::medical_homeostasis_feedback_axis": {
         reason: "대사 건강을 항상성 조절과 피드백 체계로 확장하는 조합입니다.",
         report: "보고서 본론에서 혈당 조절, 인슐린 작용, 피드백 구조를 연결해 대사 건강을 설명합니다."
+      },
+      "metabolism_health::medical_immune_response_axis": {
+        reason: "물질대사와 건강을 면역 반응으로 확장해, 영양 상태·대사 상태가 면역 기능과 질병 대응에 미치는 영향을 해석하는 조합입니다.",
+        report: "보고서 본론에서 대사 과정과 면역 반응의 연결성을 건강 지표, 질병 사례, 회복 과정 중심으로 정리합니다."
       },
       "gene_chromosome::medical_genetic_disease_axis": {
         reason: "유전자와 염색체 개념을 유전 질환, 진단, 단백질 변화로 연결하는 조합입니다.",
@@ -4296,10 +4304,12 @@
     const directMap = {
       "immune_vaccine::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
       "immune_vaccine::medical_infection_prevention_axis": ["인수공통 모든 전염병의 열쇠", "아픔이 길이 되려면", "의사와 수의사가 만나다"],
+      "immune_vaccine::medical_homeostasis_feedback_axis": ["의사와 수의사가 만나다", "닥터스 씽킹", "인수공통 모든 전염병의 열쇠"],
       "nervous_homeostasis::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "의학, 인문으로 치유하다", "숨결이 바람 될 때"],
       "nervous_homeostasis::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
       "metabolism_health::medical_metabolism_health_axis": ["닥터스 씽킹", "위대하고 위험한 약 이야기", "아픔이 길이 되려면"],
       "metabolism_health::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "아픔이 길이 되려면", "의학, 인문으로 치유하다"],
+      "metabolism_health::medical_immune_response_axis": ["아픔이 길이 되려면", "닥터스 씽킹", "의사와 수의사가 만나다"],
       "gene_chromosome::medical_genetic_disease_axis": ["이중나선", "이기적 유전자", "의사와 수의사가 만나다"],
       "neural_impulse_transmission::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
       "default::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
@@ -4313,10 +4323,12 @@
     const expansionMap = {
       "immune_vaccine::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
       "immune_vaccine::medical_infection_prevention_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄", "숨결이 바람 될 때"],
+      "immune_vaccine::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "의학, 인문으로 치유하다", "팩트풀니스", "객관성의 칼날", "숨결이 바람 될 때"],
       "nervous_homeostasis::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "객관성의 칼날", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
       "nervous_homeostasis::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
       "metabolism_health::medical_metabolism_health_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "신약의 탄생", "부분과 전체"],
       "metabolism_health::medical_homeostasis_feedback_axis": ["팩트풀니스", "객관성의 칼날", "위대하고 위험한 약 이야기", "의사와 수의사가 만나다", "부분과 전체"],
+      "metabolism_health::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
       "gene_chromosome::medical_genetic_disease_axis": ["멋진 신세계", "사피엔스", "객관성의 칼날", "의학, 인문으로 치유하다", "팩트풀니스"],
       "neural_impulse_transmission::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
       "default::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
@@ -4343,11 +4355,14 @@
       ...result,
       directBooks,
       expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
       debug: {
         ...(result.debug || {}),
         bookBioMedicalLock: axisId,
         bookBioMedicalConcept: conceptId,
-        bookBioMedicalVersion: "v132"
+        bookBioMedicalVersion: "v133",
+        bookBioMedicalDirectTitles: directBooks.map(book => book.title),
+        bookBioMedicalExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
