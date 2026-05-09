@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v33-domain-lane-lock-v128";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a20-chem-pharmacy-exact-3-4-5-lock-v130";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1843,7 +1843,7 @@
       if (/(database|데이터베이스|정보구조|정보\s*구조|구조화|정렬|탐색|검색)/i.test(text)) {
         return "database_information_structure";
       }
-      if (/(info_data_analysis|data_decision|자료\s*[·ㆍ]?\s*정보\s*분석|자료\s*분석|정보\s*분석|데이터\s*해석|해석\s*[·ㆍ]?\s*의사결정|의사결정|예측|판단|의미\s*있는\s*정보)/i.test(text)) {
+      if (/(data_decision|데이터\s*해석|해석\s*[·ㆍ]?\s*의사결정|의사결정|예측|판단|의미\s*있는\s*정보)/i.test(text)) {
         return "data_interpretation_decision";
       }
       if (/(data_visual|데이터\s*수집|수집\s*[·ㆍ]?\s*시각화|시각화|그래프|표|visual|graph)/i.test(text)) {
@@ -1852,7 +1852,7 @@
       return "";
     };
 
-    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText) || "data_interpretation_decision";
+    return resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
   }
 
   function buildLockedBookContextA8InfoDataAnalysis(book, ctx, sectionType, axisId, rank){
@@ -3280,8 +3280,8 @@
     const keywordText = normalizeLockText(ctx.keyword || "");
     const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|정보보호|정보|보안|프로그래밍|알고리즘|시뮬레이션|모델링|게임|앱|웹|네트워크|데이터|그래픽|그래픽스|공간정보|비전|자율주행)/i.test(careerText);
     const isGeometry = /^기하$|고등\s*기하/.test(subjectText) || /기하/.test(subjectText);
-    const isConcept = /(벡터의\s*성분과\s*내적|벡터|공간좌표와\s*구의\s*방정식|공간도형과\s*공간좌표|공간도형|공간\s*좌표|이차곡선과\s*자취\s*해석|이차곡선|자취)/.test(conceptText);
-    const isKeyword = !keywordText || /(내적|성분|좌표|벡터|크기|각|방향\s*유사도|코사인\s*유사도|투영|정규화|거리|공간좌표|3차원|구의\s*방정식|중심|반지름|위치\s*추적|충돌\s*판정|그래픽스|공간\s*데이터|공간\s*정보|쌍곡선|위치\s*추정|신호|포물선|타원|초점|자취|반사\s*성질|궤도)/i.test(keywordText);
+    const isConcept = /(벡터의\s*성분과\s*내적|공간좌표와\s*구의\s*방정식|이차곡선과\s*자취\s*해석)/.test(conceptText);
+    const isKeyword = !keywordText || /(내적|성분|좌표|벡터|크기|각|방향\s*유사도|코사인\s*유사도|투영|정규화|거리|공간좌표|3차원|구의\s*방정식|중심|반지름|위치\s*추적|충돌\s*판정|그래픽스|공간\s*데이터|쌍곡선|위치\s*추정|신호|포물선|타원|초점|자취|반사\s*성질|궤도)/i.test(keywordText);
     return !!(isComputer && isGeometry && isConcept && isKeyword);
   }
 
@@ -3346,7 +3346,7 @@
       // 공간좌표와 구의 방정식 → 3차원 좌표·그래픽스 / 센서 범위·충돌 판정 / 위치 추적·공간 데이터.
       if (/(three_d_coordinate_graphics_axis|3차원\s*좌표\s*[·ㆍ]?\s*그래픽스|3차원.*그래픽|공간좌표|구의\s*방정식|그래픽스)/i.test(text)) return "three_d_coordinate_graphics";
       if (/(sensor_collision_range_axis|sensor_range_collision_axis|센서\s*범위\s*[·ㆍ]?\s*충돌\s*판정|센서.*충돌|충돌\s*판정|반지름|범위)/i.test(text)) return "sensor_range_collision";
-      if (/(location_space_data_axis|position_tracking_axis|geometry_spatial_data|spatial_data|공간\s*데이터\s*해석|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
+      if (/(location_space_data_axis|position_tracking_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
 
       // 이차곡선과 자취 해석 → 신호·위치 추정 모델 / 반사·궤도 해석 / 곡선·설계 시각화.
       if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
@@ -3359,7 +3359,7 @@
     if (axisId) return axisId;
     // 축 정보가 늦게 들어오는 초기 렌더에서도 개념별 첫 축으로 안전하게 고정한다.
     if (/벡터의\s*성분과\s*내적/.test(conceptText)) return "vector_similarity_model";
-    if (/(공간좌표와\s*구의\s*방정식|공간도형과\s*공간좌표|공간도형|공간\s*좌표)/.test(conceptText)) return "three_d_coordinate_graphics";
+    if (/공간좌표와\s*구의\s*방정식/.test(conceptText)) return "three_d_coordinate_graphics";
     if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "signal_position_estimation";
     return "";
   }
@@ -3498,7 +3498,7 @@
     const keywordText = normalizeLockText(ctx.keyword || "");
     const isComputer = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|보안|프로그래밍|알고리즘|네트워크|통신|임베디드|센서|그래픽|그래픽스|시뮬레이션|제어|반도체|전자|전기)/i.test(careerText);
     const isPhysics = /^(물리|물리학|물리학Ⅰ|물리학1)$/.test(subjectText) || /물리/.test(subjectText);
-    const isConcept = /(물질의\s*전기적\s*특성|전류와\s*전기저항|전류|전기저항|전기\s*신호|파동의\s*성질과\s*활용|물질의\s*자기적\s*특성|빛과\s*물질의\s*이중성|힘과\s*운동|에너지와\s*열|시간과\s*공간)/.test(conceptText);
+    const isConcept = /(물질의\s*전기적\s*특성|파동의\s*성질과\s*활용|물질의\s*자기적\s*특성|빛과\s*물질의\s*이중성|힘과\s*운동|에너지와\s*열|시간과\s*공간)/.test(conceptText);
     const isKeyword = !keywordText || /(전하|전기력|원자\s*구조|스펙트럼|전자|전기장|반도체|소자|회로|센서\s*신호|진동수|파장|파동의\s*속력|파동|주파수|신호|통신|대역폭|데이터\s*전송|간섭|전류|자기장|전자석|자성|코일|모터|제어|저장장치|광전\s*효과|광자|빛의\s*입자설|빛의\s*파동설|광센서|양자|속도|가속도|운동\s*그래프|뉴턴|운동량|충격량|시뮬레이션|열효율|에너지|열\s*관리|냉각|시스템\s*효율|GPS|동기화|시간\s*지연)/i.test(keywordText);
     return !!(isComputer && isPhysics && isConcept && isKeyword);
   }
@@ -3770,210 +3770,170 @@
   }
 
 
-
-
-
-  // v128 BOOK-5 domain lane lock
-  // DATABASE.MD 기준: 도서는 독후감용이 아니라 교과 개념→후속축→보고서 근거/확장 역할을 분리해야 한다.
-  // 기존 A-1~A-18 잠금은 컴퓨터/수학/정보/물리 중심이므로, 약학·의학·생명·환경·화학/소재·사회계열에서
-  // 부분과 전체/객관성의 칼날/코스모스 같은 일반 과학 고전이 직접 도서로 고정되는 현상을 방지한다.
-  function inferBookDomainLane(ctx){
+  // v130 CHEM-PHARMACY-lock: 실제 엔진 데이터 기준 3번(교과 개념/추천 키워드) → 4번(후속 연계축) → 5번(도서) 연결 잠금.
+  // 주의: 설명용 축명이 아니라 textbook_concept_helper.js에 실제 존재하는 약학과+화학 4번 축명/ID만 사용한다.
+  function isBookChemPharmacyContext(ctx){
     ctx = ctx || {};
     const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
     const subjectText = normalizeLockText(ctx.subject || "");
-    const flowText = normalizeLockText([
-      ctx.concept,
-      ctx.keyword,
+    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
+    const keywordText = normalizeLockText(ctx.keyword || ctx.selectedKeyword || ctx.selectedRecommendedKeyword || "");
+    const axisText = normalizeLockText([
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
       ctx.axisDomain,
       Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
       ctx.activityExample,
       ctx.longitudinalPath
     ].join(" "));
-    const allText = [careerText, subjectText, flowText].join(" ");
 
-    // 컴퓨터·데이터·정보·수학/물리 컴공 계열은 이미 A-1~A-18 축별 잠금이 있으므로 여기서 덮어쓰지 않는다.
-    if (/(컴퓨터|소프트웨어|인공지능|\bai\b|데이터사이언스|정보보호|정보통신|통계|알고리즘)/i.test(careerText)) {
-      return "";
-    }
-
-    if (/(약학|제약|의약|신약|임상약|한약|약물)/i.test(careerText) || /(약물|신약|의약|dds|독성|약효|약대|제약)/i.test(flowText)) {
-      return "pharmacy";
-    }
-    if (/(치의|치과)/i.test(careerText)) {
-      return "dental_health";
-    }
-    if (/(의예|의학|간호|보건|임상|의료|수의)/i.test(careerText) || /(면역|백신|감염|질병|진단|환자|공중보건|건강)/i.test(flowText)) {
-      return "medical_health";
-    }
-    if (/(생명공학|생명과학|바이오|생명시스템)/i.test(careerText) || /(dna|유전자|세포|단백질|효소|대사|진화|염색체|미생물)/i.test(flowText)) {
-      return "bio_life";
-    }
-    if (/(환경|기후|에너지|지구|도시|해양|대기)/i.test(careerText) || /(기후|탄소|생태|대기|오염|폭염|에너지|열섬|지속가능)/i.test(flowText)) {
-      return "environment_energy";
-    }
-    if (/(화학|신소재|재료|반도체|화공|고분자|나노)/i.test(careerText) || /(화학|결합|산화|환원|평형|촉매|물성|소재|분자|고분자|전기음성도)/i.test(flowText)) {
-      return "chem_material";
-    }
-    if (/(경영|경제|사회|정치|법|행정|교육|심리|미디어|언론|커뮤니케이션)/i.test(careerText)) {
-      return "social_business";
-    }
-    return "";
+    const isChemistry = /(화학|화학Ⅰ|화학1|chemistry)/i.test(subjectText);
+    const isPharmacy = /(약학과|약학|약대|제약|신약|약물|의약|바이오제약|pharmacy)/i.test(careerText);
+    const isActualConcept = /(탄소\s*화합물의\s*유용성|분자의\s*구조와\s*성질|화학\s*반응에서의\s*동적\s*평형|물질의\s*양과\s*화학\s*반응식)/i.test(conceptText);
+    const isActualAxis = /(drug\s*structure\s*function\s*axis|drug\s*solubility\s*absorption\s*axis|drug\s*ph\s*stability\s*axis|body\s*fluid\s*buffer\s*homeostasis\s*axis|dosage\s*concentration\s*quant\s*axis|의약품\s*구조|작용기|약물\s*용해도|용해도\s*흡수|약물\s*ph|약물\s*안정성|체액\s*ph|완충\s*항상성|투약\s*농도|농도\s*정량)/i.test(axisText);
+    return !!(isChemistry && isPharmacy && isActualConcept && isActualAxis);
   }
 
-  function getBookDomainLaneConfig(lane, ctx){
+  function inferBookChemPharmacyAxis(ctx){
     ctx = ctx || {};
-    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
-    const flowText = normalizeLockText([
-      ctx.concept,
-      ctx.keyword,
+    const axisText = normalizeLockText([
       ctx.followupAxisId,
       ctx.linkTrack,
       ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel,
       ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
       ctx.activityExample,
       ctx.longitudinalPath
     ].join(" "));
 
-    const common = {
-      pharmacy: {
-        label: "약학·신약 탐구 도서군",
-        direct: ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
-        expansion: ["닥터스 씽킹", "의학, 인문으로 치유하다", "아픔이 길이 되려면", "이중나선", "멋진 신세계"],
-        directRoleLabels: ["약물·신약 직접 근거", "화학·생명 연결 근거", "탐구 설계 근거"],
-        expansionRoleLabels: ["의료 판단 확장", "윤리·사회적 의미", "한계 논의"]
-      },
-      dental_health: {
-        label: "치의학·구강건강 탐구 도서군",
-        direct: ["치과의사는 입만 진료하지 않는다", "입속에서 시작하는 미생물 이야기", "치과의사가 말하는 치과의사"],
-        expansion: ["닥터스 씽킹", "의사와 수의사가 만나다", "아픔이 길이 되려면", "위대하고 위험한 약 이야기", "의학, 인문으로 치유하다"],
-        directRoleLabels: ["구강·의료 직접 근거", "생명·미생물 근거", "진로 확장 근거"],
-        expansionRoleLabels: ["의료 판단 확장", "공중보건 관점", "윤리·사회적 의미"]
-      },
-      medical_health: {
-        label: "의학·보건 탐구 도서군",
-        direct: ["닥터스 씽킹", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
-        expansion: ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "위대하고 위험한 약 이야기", "멋진 신세계", "이중나선"],
-        directRoleLabels: ["의료 판단 직접 근거", "보건·건강 분석 근거", "한계 논의 근거"],
-        expansionRoleLabels: ["공중보건 확장", "생명윤리 관점", "사회적 의미"]
-      },
-      bio_life: {
-        label: "생명과학·바이오 탐구 도서군",
-        direct: ["이중나선", "종의 기원", "이기적 유전자"],
-        expansion: ["인수공통 모든 전염병의 열쇠", "멋진 신세계", "의사와 수의사가 만나다", "닥터스 씽킹", "아픔이 길이 되려면"],
-        directRoleLabels: ["생명 원리 직접 근거", "분자·진화 해석 근거", "탐구 개념 근거"],
-        expansionRoleLabels: ["의생명 확장", "윤리·사회적 의미", "한계 논의"]
-      },
-      environment_energy: {
-        label: "환경·기후·에너지 탐구 도서군",
-        direct: ["침묵의 봄", "엔트로피", "총, 균, 쇠"],
-        expansion: ["팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을", "왜 세계의 절반은 굶주리는가", "사피엔스", "동물들의 인간 심판"],
-        directRoleLabels: ["환경 문제 직접 근거", "에너지·문명 해석 근거", "자료 해석 근거"],
-        expansionRoleLabels: ["사회적 의미 확장", "정책·윤리 관점", "지속가능성 논의"]
-      },
-      chem_material: {
-        label: "화학·소재 탐구 도서군",
-        direct: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "공학이란 무엇인가"],
-        expansion: ["부분과 전체", "과학혁명의 구조", "엔트로피", "침묵의 봄", "신약의 탄생"],
-        directRoleLabels: ["화학 개념 직접 근거", "측정·검증 근거", "공학 설계 근거"],
-        expansionRoleLabels: ["과학사·철학 확장", "환경·사회적 의미", "응용 한계 논의"]
-      },
-      social_business: {
-        label: "사회·경영·정책 탐구 도서군",
-        direct: ["경영학 콘서트", "팩트풀니스", "공정하다는 착각"],
-        expansion: ["돈으로 살 수 없는 것들", "왜 세계의 절반은 굶주리는가", "제3의 물결", "파타고니아, 파도가 칠 때는 서핑을", "감시와 처벌"],
-        directRoleLabels: ["의사결정 직접 근거", "자료 해석 근거", "사회 판단 근거"],
-        expansionRoleLabels: ["윤리·정책 확장", "사회 구조 분석", "한계 논의"]
-      }
-    };
-
-    const config = common[lane] || null;
-    if (!config) return null;
-
-    if (lane === "medical_health" && /(면역|백신|감염|전염병|공중보건|수의)/i.test(flowText + " " + careerText)) {
-      return {
-        ...config,
-        direct: ["인수공통 모든 전염병의 열쇠", "닥터스 씽킹", "의사와 수의사가 만나다"],
-        expansion: ["아픔이 길이 되려면", "의학, 인문으로 치유하다", "위대하고 위험한 약 이야기", "멋진 신세계", "이중나선"]
-      };
-    }
-    if (lane === "environment_energy" && /(에너지|엔트로피|열역학|자원|전력|탄소중립)/i.test(flowText + " " + careerText)) {
-      return {
-        ...config,
-        direct: ["엔트로피", "침묵의 봄", "혼돈으로부터의 질서"],
-        expansion: ["팩트풀니스", "파타고니아, 파도가 칠 때는 서핑을", "총, 균, 쇠", "사피엔스", "왜 세계의 절반은 굶주리는가"]
-      };
-    }
-    return config;
+    // 실제 4번 후속 연계축 ID/title 기준. 넓은 설명어보다 실제 축명을 우선한다.
+    if (/(drug\s*structure\s*function\s*axis|의약품\s*구조|작용기)/i.test(axisText)) return "drug_structure_function_axis";
+    if (/(drug\s*solubility\s*absorption\s*axis|약물\s*용해도|용해도\s*흡수|약물\s*흡수)/i.test(axisText)) return "drug_solubility_absorption_axis";
+    if (/(drug\s*ph\s*stability\s*axis|약물\s*ph|약물\s*안정성|ph\s*약물\s*안정성|제형\s*안정성)/i.test(axisText)) return "drug_ph_stability_axis";
+    if (/(body\s*fluid\s*buffer\s*homeostasis\s*axis|체액\s*ph|완충\s*항상성|체액\s*완충)/i.test(axisText)) return "body_fluid_buffer_homeostasis_axis";
+    if (/(dosage\s*concentration\s*quant\s*axis|투약\s*농도|농도\s*정량|정량\s*계산)/i.test(axisText)) return "dosage_concentration_quant_axis";
+    return "";
   }
 
-  function buildDomainLaneBookContext(book, ctx, laneConfig, sectionType, lane, rank){
+  function getChemPharmacyAxisLabel(axisId){
+    const axisLabelMap = {
+      drug_structure_function_axis: "의약품 구조·작용기 해석 축",
+      drug_solubility_absorption_axis: "약물 용해도·흡수 해석 축",
+      drug_ph_stability_axis: "약물 pH·안정성 해석 축",
+      body_fluid_buffer_homeostasis_axis: "체액 pH·완충 항상성 축",
+      dosage_concentration_quant_axis: "투약 농도·정량 계산 축"
+    };
+    return axisLabelMap[axisId] || "선택 후속 연계축";
+  }
+
+  function getChemPharmacyAxisUse(axisId){
+    const map = {
+      drug_structure_function_axis: {
+        direct: "탄소 화합물·작용기·약물 구조를 연결해 의약품이 생체 분자와 상호작용하는 원리를 설명하는 직접 근거로 활용합니다.",
+        roles: ["의약품 구조 근거", "작용기 해석", "약물 작용 원리 설명"]
+      },
+      drug_solubility_absorption_axis: {
+        direct: "분자 구조, 극성, 수소 결합, 용해도를 약물 흡수와 세포막 통과 조건으로 해석하는 직접 근거로 활용합니다.",
+        roles: ["용해도·흡수 원리", "분자 성질 해석", "제형 조건 비교"]
+      },
+      drug_ph_stability_axis: {
+        direct: "pH, 완충 용액, 동적 평형을 약물 안정성과 제형 조건으로 연결하는 직접 근거로 활용합니다.",
+        roles: ["pH·안정성 근거", "평형 조건 해석", "제형 안정성 비교"]
+      },
+      body_fluid_buffer_homeostasis_axis: {
+        direct: "산·염기와 완충 작용을 체액 pH, 항상성, 약물 작용 환경으로 연결하는 직접 근거로 활용합니다.",
+        roles: ["체액 pH 근거", "완충 항상성 해석", "건강 조건 연결"]
+      },
+      dosage_concentration_quant_axis: {
+        direct: "몰 농도, 희석, 정량 계산을 투약 농도와 용액 조제의 안전성 판단으로 연결하는 직접 근거로 활용합니다.",
+        roles: ["투약 농도 계산", "정량 분석 근거", "농도 오차 논의"]
+      }
+    };
+    return map[axisId] || map.drug_structure_function_axis;
+  }
+
+  function buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank){
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
+    const axisLabel = getChemPharmacyAxisLabel(axisId);
+    const axisUse = getChemPharmacyAxisUse(axisId);
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
-    const roleLabels = isDirect ? laneConfig.directRoleLabels : laneConfig.expansionRoleLabels;
     return {
       ...baseContext,
       title,
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${laneConfig.label}에서 선택 개념과 후속 연계축을 설명하는 직접 근거 도서입니다.`
-        : `${title}은(는) ${laneConfig.label}에서 보고서의 비교·한계·사회적 의미를 확장하는 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${laneConfig.label} ${isDirect ? "직접 일치" : "확장 참고"}`])),
-      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "application"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
-      reportRoleLabels: roleLabels,
+        ? `${title}은(는) ${axisLabel}에서 선택한 화학 개념과 약학 탐구를 직접 연결하는 핵심 근거 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 과학사·윤리·사회적 영향·자료 해석 관점으로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.roles : ["사회적 의미 확장", "비교 관점", "윤리·한계 논의"],
       useInReport: {
-        conceptExplanation: isDirect ? "선택한 교과 개념의 원리와 핵심 사례를 설명할 때 활용합니다." : "",
-        analysisFrame: isDirect ? "후속 연계축에 맞춰 자료·사례·개념을 해석하는 분석 프레임으로 활용합니다." : "",
-        application: isDirect ? "전공 분야의 실제 문제나 진로 적용 사례로 연결할 때 활용합니다." : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 관점, 조건, 사회적 맥락을 비교할 때 활용합니다." : "",
-        limitationDiscussion: !isDirect ? "탐구 결과의 한계, 윤리, 사회적 쟁점을 논의할 때 활용합니다." : "",
-        conclusionExpansion: !isDirect ? "결론에서 진로·사회·정책·윤리적 의미로 확장할 때 활용합니다." : ""
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "3번 교과 개념과 4번 후속 연계축을 약학적 사례로 구체화하는 분석 프레임으로 활용합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 과학사·윤리·사회 영향 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "약물 구조, 흡수, 안정성, 농도 판단에서 생길 수 있는 조건 차이와 해석 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 신약 개발, 의약품 안전, 보건 윤리, 사회적 책임으로 확장할 때 활용합니다." : ""
       },
-      miniInstruction: "이 책을 줄거리 요약용으로 쓰지 말고, 선택한 교과 개념과 4번 후속 연계축을 설명하는 보고서 근거 또는 확장 관점으로 사용한다.",
       connectionToPayload: {
         subject: ctx && ctx.subject || "",
         department: ctx && ctx.career || "",
         selectedConcept: ctx && ctx.concept || "",
         selectedKeyword: ctx && ctx.keyword || "",
-        followupAxis: ctx && (ctx.axisLabel || ctx.followupAxisId || ctx.linkTrack) || ""
+        followupAxis: axisLabel
       },
-      domainLane: lane,
-      domainLaneRank: rank
+      bookChemPharmacyRank: rank,
+      bookChemPharmacyAxis: axisId
     };
   }
 
-  function cloneBookForDomainLane(book, ctx, laneConfig, sectionType, lane, rank){
+  function cloneBookForChemPharmacyLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     return {
       ...book,
       matchType: sectionType,
-      matchScore: 4500 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`${laneConfig.label} ${sectionType === "direct" ? "직접 일치" : "확장 참고"}`])),
-      selectedBookContext: buildDomainLaneBookContext(book, ctx, laneConfig, sectionType, lane, rank),
-      bookDomainLane: lane,
-      bookDomainLaneRank: rank,
-      adapterVersion: BRIDGE_VERSION
+      matchScore: 8200 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`화학+약학 실제 3번·4번 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank),
+      bookChemPharmacyLock: true,
+      bookChemPharmacyLockRank: rank,
+      bookChemPharmacyAxisLock: axisId
     };
   }
 
-  function applyBookDomainLaneLock(result, ctx){
-    if (!result) return result;
-    const lane = inferBookDomainLane(ctx);
-    if (!lane) return result;
-    const laneConfig = getBookDomainLaneConfig(lane, ctx);
-    if (!laneConfig) return result;
+  function applyBookChemPharmacyLock(result, ctx){
+    if (!result || !isBookChemPharmacyContext(ctx)) return result;
+    const axisId = inferBookChemPharmacyAxis(ctx);
+    if (!axisId) return result;
 
-    const directBooks = arr(laneConfig.direct).map((title, index) =>
-      cloneBookForDomainLane(findBookForLock(title, result), ctx, laneConfig, "direct", lane, index + 1)
-    ).filter(Boolean).slice(0, 3);
+    const directMap = {
+      drug_structure_function_axis: ["신약의 탄생", "새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기"],
+      drug_solubility_absorption_axis: ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
+      drug_ph_stability_axis: ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
+      body_fluid_buffer_homeostasis_axis: ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
+      dosage_concentration_quant_axis: ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"]
+    };
+    const expansionMap = {
+      drug_structure_function_axis: ["같기도 하고 아니 같기도 하고", "과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "이중나선"],
+      drug_solubility_absorption_axis: ["이중나선", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "과학혁명의 구조", "침묵의 봄"],
+      drug_ph_stability_axis: ["침묵의 봄", "닥터스 씽킹", "객관성의 칼날", "과학혁명의 구조", "팩트풀니스"],
+      body_fluid_buffer_homeostasis_axis: ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "침묵의 봄", "과학혁명의 구조"],
+      dosage_concentration_quant_axis: ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
 
     const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = arr(laneConfig.expansion).map((title, index) =>
-      cloneBookForDomainLane(findBookForLock(title, result), ctx, laneConfig, "expansion", lane, index + 1)
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
     ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
 
     if (!directBooks.length) return result;
@@ -3985,13 +3945,15 @@
       selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
       debug: {
         ...(result.debug || {}),
-        bookDomainLaneLock: lane,
-        bookDomainLaneLabel: laneConfig.label,
-        bookDomainDirectTitles: directBooks.map(book => book.title),
-        bookDomainExpansionTitles: expansionBooks.map(book => book.title)
+        bookChemPharmacyLock: axisId,
+        bookChemPharmacyDirectTitles: directBooks.map(book => book.title),
+        bookChemPharmacyExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
+
+
+
 
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
@@ -4040,7 +4002,7 @@
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
-    result = applyBookDomainLaneLock(result, ctx);
+    result = applyBookChemPharmacyLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
