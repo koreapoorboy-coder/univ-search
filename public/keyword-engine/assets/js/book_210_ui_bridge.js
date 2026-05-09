@@ -3389,12 +3389,12 @@
       vector_similarity_model: { direct: "벡터의 성분과 내적을 데이터의 방향 유사도, 코사인 유사도, 정규화 개념과 연결해 설명할 때 활용합니다.", role: ["벡터 유사도", "데이터 모델링", "정규화 해석"] },
       graphics_physics_vector: { direct: "벡터의 크기와 방향을 그래픽스·물리량 해석으로 연결해 물체 이동, 조명 방향, 힘의 합성을 설명할 때 활용합니다.", role: ["그래픽 벡터", "방향·크기 해석", "물리량 연결"] },
       projection_space_calculation: { direct: "내적과 투영을 이용해 거리, 방향 성분, 공간 계산 과정을 수학적으로 설명할 때 활용합니다.", role: ["투영 계산", "거리 해석", "공간 계산"] },
-      three_d_coordinate_graphics: { direct: "공간좌표와 구의 방정식을 3차원 좌표계, 그래픽스, 객체 위치 표현의 기초로 설명할 때 활용합니다.", role: ["3차원 좌표", "그래픽스 기초", "공간 표현"] },
-      sensor_range_collision: { direct: "구의 중심과 반지름을 센서 범위, 충돌 판정, 객체 간 거리 조건으로 해석할 때 활용합니다.", role: ["센서 범위", "충돌 판정", "거리 조건"] },
-      location_tracking_space_data: { direct: "공간 좌표 자료를 위치 추적, 공간 데이터, 이동 경로 분석과 연결해 설명할 때 활용합니다.", role: ["위치 추적", "공간 데이터", "경로 분석"] },
-      signal_position_estimation: { direct: "이차곡선과 자취를 신호 기반 위치 추정, 거리 조건, 쌍곡선 모델로 설명할 때 활용합니다.", role: ["위치 추정", "신호 모델", "거리 조건"] },
+      three_d_coordinate_graphics: { direct: "공간좌표와 구의 방정식을 3차원 좌표계, 그래픽스 화면 표현, 객체 위치 모델의 기초로 설명할 때 활용합니다.", role: ["3차원 좌표", "그래픽스 표현", "공간 객체 모델"] },
+      sensor_range_collision: { direct: "구의 중심과 반지름을 센서 감지 범위, 충돌 판정, 객체 간 거리 조건으로 해석할 때 활용합니다.", role: ["센서 범위", "충돌 판정", "거리 조건"] },
+      location_tracking_space_data: { direct: "공간 좌표 자료를 위치 추적, 공간 데이터 기록, 이동 경로 분석과 연결해 설명할 때 활용합니다.", role: ["위치 추적", "공간 데이터", "경로 분석"] },
+      signal_position_estimation: { direct: "이차곡선과 자취를 신호 기반 위치 추정, 거리차 조건, 쌍곡선 위치 모델로 설명할 때 활용합니다.", role: ["위치 추정", "신호 모델", "거리차 조건"] },
       reflection_orbit_analysis: { direct: "포물선·타원·쌍곡선의 반사 성질과 궤도 해석을 연결해 기하적 모델링의 의미를 설명할 때 활용합니다.", role: ["반사 성질", "궤도 해석", "기하 모델링"] },
-      curve_design_visualization: { direct: "자취와 이차곡선을 곡선 설계, 시각화, 그래픽 표현으로 확장할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "자취 해석"] }
+      curve_design_visualization: { direct: "자취와 이차곡선을 곡선 설계, 화면 시각화, 그래픽 표현으로 확장할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "그래픽 표현"] }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.vector_similarity_model;
@@ -3452,21 +3452,24 @@
       vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체"],
       graphics_physics_vector: ["부분과 전체", "카오스", "객관성의 칼날"],
       projection_space_calculation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      three_d_coordinate_graphics: ["부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
-      sensor_range_collision: ["카오스", "부분과 전체", "혼돈으로부터의 질서"],
-      location_tracking_space_data: ["팩트풀니스", "경영학 콘서트", "객관성의 칼날"],
-      signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      // v141 geometry+computer B/C book-match refinement:
+      // B. 공간좌표와 구의 방정식은 3차원 표현/센서 범위/공간 데이터로 분리한다.
+      three_d_coordinate_graphics: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
+      sensor_range_collision: ["부분과 전체", "카오스", "혼돈으로부터의 질서"],
+      location_tracking_space_data: ["팩트풀니스", "객관성의 칼날", "경영학 콘서트"],
+      // C. 이차곡선과 자취 해석은 위치 추정/반사·궤도/곡선 시각화로 분리한다.
+      signal_position_estimation: ["객관성의 칼날", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
       reflection_orbit_analysis: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
-      curve_design_visualization: ["부분과 전체", "미디어의 이해", "객관성의 칼날"]
+      curve_design_visualization: ["미디어의 이해", "부분과 전체", "객관성의 칼날"]
     };
     const expansionMap = {
       vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
       graphics_physics_vector: ["객관성의 칼날", "미디어의 이해", "혼돈으로부터의 질서", "경영학 콘서트", "1984"],
       projection_space_calculation: ["부분과 전체", "방법서설", "카오스", "경영학 콘서트", "미디어의 이해"],
-      three_d_coordinate_graphics: ["카오스", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
+      three_d_coordinate_graphics: ["객관성의 칼날", "팩트풀니스", "경영학 콘서트", "1984", "제3의 물결"],
       sensor_range_collision: ["객관성의 칼날", "경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984"],
-      location_tracking_space_data: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
-      signal_position_estimation: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
+      location_tracking_space_data: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률", "1984", "감시와 처벌"],
+      signal_position_estimation: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
       reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "미디어의 이해", "1984"],
       curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "카오스", "경영학 콘서트", "1984", "제3의 물결"]
     };
