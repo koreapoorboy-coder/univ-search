@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a21-chem-pharmacy-axis-reason-lock-v131";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a22-bio-medical-axis-reason-lock-v132";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4066,6 +4066,292 @@
 
 
 
+
+
+  // v132 BIO-MEDICAL-lock: 생명과학 + 의예/의학 계열은 실제 3번 개념 + 실제 4번 의료 후속축에 따라
+  // 5번 도서의 우선순위/직접·확장 역할/보고서 활용 문장을 분화한다.
+  function isBookBioMedicalContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    const isMedical = /(의예과|의학과|의예|의학|의대|치의예과|치의학과|한의예과|한의학과|수의예과|수의학과|보건의료|medical|medicine)/i.test(careerText);
+    const isExcluded = /(약학과|약학|약대|제약|신약|약물|의약|pharmacy)/i.test(careerText);
+    const isLifeScience = /(생명과학|생명과학1|생명과학Ⅰ|life\s*science)/i.test(subjectText);
+    const isActualConcept = /(면역과\s*백신|신경계와\s*항상성|물질대사와\s*건강|유전자와\s*염색체|신경\s*자극\s*전도와\s*전달)/i.test(conceptText);
+    const isActualAxis = /(medical\s*immune\s*response|medical\s*infection\s*prevention|medical\s*homeostasis\s*feedback|medical\s*neural\s*signal\s*control|medical\s*metabolism\s*health|medical\s*genetic\s*disease|면역\s*반응|항원\s*항체|감염병\s*예방|백신\s*적용|항상성\s*조절|피드백\s*해석|신경\s*신호|생체\s*조절|대사\s*건강|건강\s*지표|유전\s*정보|질병\s*이해)/i.test(axisText);
+
+    return !!(isMedical && !isExcluded && isLifeScience && isActualConcept && isActualAxis);
+  }
+
+  function inferBookBioMedicalConcept(ctx){
+    const conceptText = normalizeLockText([ctx && ctx.concept, ctx && ctx.selectedConcept].join(" "));
+    if (/면역과\s*백신/i.test(conceptText)) return "immune_vaccine";
+    if (/신경계와\s*항상성/i.test(conceptText)) return "nervous_homeostasis";
+    if (/물질대사와\s*건강/i.test(conceptText)) return "metabolism_health";
+    if (/유전자와\s*염색체/i.test(conceptText)) return "gene_chromosome";
+    if (/신경\s*자극\s*전도와\s*전달/i.test(conceptText)) return "neural_impulse_transmission";
+    return "life_science_medical";
+  }
+
+  function getBioMedicalConceptLabel(conceptId){
+    const map = {
+      immune_vaccine: "면역과 백신",
+      nervous_homeostasis: "신경계와 항상성",
+      metabolism_health: "물질대사와 건강",
+      gene_chromosome: "유전자와 염색체",
+      neural_impulse_transmission: "신경 자극 전도와 전달",
+      life_science_medical: "생명과학 의료 탐구"
+    };
+    return map[conceptId] || "생명과학 의료 탐구";
+  }
+
+  function inferBookBioMedicalAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+
+    if (/(medical\s*immune\s*response|면역\s*반응|항원\s*항체)/i.test(axisText)) return "medical_immune_response_axis";
+    if (/(medical\s*infection\s*prevention|감염병\s*예방|백신\s*적용|집단\s*면역)/i.test(axisText)) return "medical_infection_prevention_axis";
+    if (/(medical\s*homeostasis\s*feedback|항상성\s*조절|피드백\s*해석|혈당\s*조절|체온\s*조절)/i.test(axisText)) return "medical_homeostasis_feedback_axis";
+    if (/(medical\s*neural\s*signal\s*control|신경\s*신호|생체\s*조절|신경\s*전달|시냅스)/i.test(axisText)) return "medical_neural_signal_control_axis";
+    if (/(medical\s*metabolism\s*health|대사\s*건강|건강\s*지표|혈당|인슐린|atp|대사\s*질환)/i.test(axisText)) return "medical_metabolism_health_axis";
+    if (/(medical\s*genetic\s*disease|유전\s*정보|질병\s*이해|유전\s*질환|염기\s*서열)/i.test(axisText)) return "medical_genetic_disease_axis";
+    return "";
+  }
+
+  function getBioMedicalAxisLabel(axisId){
+    const map = {
+      medical_immune_response_axis: "면역 반응·항원항체 해석 축",
+      medical_infection_prevention_axis: "감염병 예방·백신 적용 축",
+      medical_homeostasis_feedback_axis: "항상성 조절·피드백 해석 축",
+      medical_neural_signal_control_axis: "신경 신호·생체 조절 축",
+      medical_metabolism_health_axis: "대사·건강 지표 해석 축",
+      medical_genetic_disease_axis: "유전 정보·질병 이해 축"
+    };
+    return map[axisId] || "선택 의료 후속 연계축";
+  }
+
+  function getBioMedicalAxisUse(axisId){
+    const map = {
+      medical_immune_response_axis: {
+        roles: ["면역 원리 설명", "항원·항체 구조화", "백신 원리 근거"],
+        direct: "항원·항체 반응, 면역 기억, 백신 원리를 생명과학 개념으로 설명하는 근거로 활용합니다.",
+        analysis: "면역 반응의 단계와 예방 원리를 도식화하거나 사례로 비교할 때 활용합니다.",
+        limitation: "면역 반응이 개인차, 병원체 특성, 예방 전략에 따라 달라질 수 있음을 논의합니다."
+      },
+      medical_infection_prevention_axis: {
+        roles: ["감염병 사례 근거", "예방 전략 비교", "공중보건 확장"],
+        direct: "감염 전파, 예방 접종, 집단 면역을 백신·건강 관리 관점으로 설명하는 근거로 활용합니다.",
+        analysis: "감염병 사례와 예방 전략을 자료 해석, 백신 원리, 사회적 대응으로 비교할 때 활용합니다.",
+        limitation: "예방 의학이 과학 원리뿐 아니라 사회적 접근성, 정책, 신뢰 문제와 연결됨을 논의합니다."
+      },
+      medical_homeostasis_feedback_axis: {
+        roles: ["항상성 원리 설명", "피드백 조절 분석", "질환 사례 연결"],
+        direct: "체온·혈당·삼투압 같은 항상성 조절을 신경·호르몬 피드백 구조로 설명하는 근거로 활용합니다.",
+        analysis: "항상성이 무너졌을 때 나타나는 건강 변화를 피드백 조절 구조로 정리할 때 활용합니다.",
+        limitation: "건강 지표 해석이 단일 원인보다 복합 조절 체계와 생활 요인의 영향을 받음을 논의합니다."
+      },
+      medical_neural_signal_control_axis: {
+        roles: ["신경 신호 설명", "생체 조절 구조화", "진단 사고 연결"],
+        direct: "신경 자극 전달, 시냅스, 반응 조절을 생체 신호와 건강·질환 사례로 연결하는 근거로 활용합니다.",
+        analysis: "신경 신호 전달 과정과 반응 조절 구조를 도식화하거나 진단 사고와 연결할 때 활용합니다.",
+        limitation: "신경계 해석이 단순 전기 신호가 아니라 인체 조절, 판단, 질환 맥락과 함께 검토되어야 함을 논의합니다."
+      },
+      medical_metabolism_health_axis: {
+        roles: ["대사 과정 설명", "건강 지표 해석", "질환 원리 연결"],
+        direct: "혈당, 인슐린, ATP, 대사 경로를 건강 지표와 질병 이해로 연결하는 근거로 활용합니다.",
+        analysis: "대사 과정과 검사 수치, 생활 요인, 질환 위험을 자료 기반으로 해석할 때 활용합니다.",
+        limitation: "대사 건강은 생화학 반응뿐 아니라 식습관, 환경, 사회적 건강 조건과 연결됨을 논의합니다."
+      },
+      medical_genetic_disease_axis: {
+        roles: ["유전 정보 설명", "질병 위험 해석", "윤리·진단 확장"],
+        direct: "DNA, 유전자, 염색체, 변이가 단백질과 형질, 질병 위험으로 이어지는 과정을 설명하는 근거로 활용합니다.",
+        analysis: "유전 정보 변화와 질병 이해, 진단의 가능성과 한계를 비교할 때 활용합니다.",
+        limitation: "유전 정보 해석이 예측 가능성과 윤리, 개인정보, 사회적 낙인 문제를 함께 포함함을 논의합니다."
+      }
+    };
+    return map[axisId] || map.medical_immune_response_axis;
+  }
+
+  function getBioMedicalConceptAxisUse(conceptId, axisId){
+    const conceptLabel = getBioMedicalConceptLabel(conceptId);
+    const axisLabel = getBioMedicalAxisLabel(axisId);
+    const map = {
+      "immune_vaccine::medical_immune_response_axis": {
+        reason: "면역 반응의 핵심인 항원·항체 관계와 백신의 면역 기억 원리를 직접 설명하는 조합입니다.",
+        report: "보고서 본론에서 항원·항체 반응 흐름도와 백신 예방 원리를 연결해 면역의 작동 과정을 설명합니다."
+      },
+      "immune_vaccine::medical_infection_prevention_axis": {
+        reason: "백신 원리를 감염 전파, 예방 전략, 공중보건 판단으로 확장하는 조합입니다.",
+        report: "보고서 본론에서 감염병 사례와 예방 접종 전략을 비교하고, 생명과학 원리가 사회적 예방으로 이어지는 과정을 정리합니다."
+      },
+      "nervous_homeostasis::medical_homeostasis_feedback_axis": {
+        reason: "신경계와 호르몬 조절이 체온·혈당 등 항상성 유지에 어떻게 작동하는지 설명하는 조합입니다.",
+        report: "보고서 본론에서 항상성 조절 회로와 피드백 구조를 사례 중심으로 도식화합니다."
+      },
+      "nervous_homeostasis::medical_neural_signal_control_axis": {
+        reason: "신경 신호 전달과 생체 조절을 건강·질환 사례로 연결하기 좋은 조합입니다.",
+        report: "보고서 본론에서 신경 자극 전달 과정과 생체 반응 조절 구조를 의료적 판단과 연결합니다."
+      },
+      "metabolism_health::medical_metabolism_health_axis": {
+        reason: "물질대사와 건강 지표를 혈당·ATP·대사 질환 사례로 해석하는 조합입니다.",
+        report: "보고서 본론에서 대사 과정과 검사 수치, 건강 지표의 관계를 자료 기반으로 분석합니다."
+      },
+      "metabolism_health::medical_homeostasis_feedback_axis": {
+        reason: "대사 건강을 항상성 조절과 피드백 체계로 확장하는 조합입니다.",
+        report: "보고서 본론에서 혈당 조절, 인슐린 작용, 피드백 구조를 연결해 대사 건강을 설명합니다."
+      },
+      "gene_chromosome::medical_genetic_disease_axis": {
+        reason: "유전자와 염색체 개념을 유전 질환, 진단, 단백질 변화로 연결하는 조합입니다.",
+        report: "보고서 본론에서 DNA-단백질-형질 흐름과 유전 질환 사례를 연결해 설명합니다."
+      },
+      "neural_impulse_transmission::medical_neural_signal_control_axis": {
+        reason: "신경 자극의 전도·전달을 생체 신호와 질환 이해로 연결하는 조합입니다.",
+        report: "보고서 본론에서 신경 전달 과정과 반응 조절 구조를 도식화하고, 건강·질환 사례와 연결합니다."
+      }
+    };
+    return map[`${conceptId}::${axisId}`] || {
+      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 의학 탐구의 근거를 구성하는 조합입니다.`,
+      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 생명과학 원리, 건강 사례, 의료적 판단 중 하나로 구체화합니다.`
+    };
+  }
+
+  function buildLockedBookContextBioMedical(book, ctx, sectionType, axisId, rank, conceptId){
+    const title = val(book && book.title);
+    const conceptLabel = getBioMedicalConceptLabel(conceptId);
+    const axisLabel = getBioMedicalAxisLabel(axisId);
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    const axisUse = getBioMedicalAxisUse(axisId);
+    const conceptAxisUse = getBioMedicalConceptAxisUse(conceptId, axisId);
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
+        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 공중보건·의료 윤리·사회적 건강·자료 해석 관점으로 넓히는 확장 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.roles : ["의료사회 확장", "윤리·정책 비교", "건강 불평등·한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? `${axisUse.analysis} ${conceptAxisUse.report}` : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 공중보건, 의료 윤리, 사회적 건강 조건 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: isDirect ? axisUse.limitation : "의학 탐구가 생명과학 원리뿐 아니라 환자 경험, 사회 구조, 윤리적 판단에 따라 달라질 수 있음을 논의합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 개인의 생명 현상 이해를 의료 현장, 공중보건, 사회적 책임으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookBioMedicalAxis: axisId
+    };
+  }
+
+  function cloneBookForBioMedicalLock(book, ctx, sectionType, axisId, rank, conceptId){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 8500 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`BIO-MEDICAL ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextBioMedical(book, ctx, sectionType, axisId, rank, conceptId),
+      bookBioMedicalAxisLock: axisId,
+      bookBioMedicalConceptLock: conceptId,
+      bookBioMedicalRank: rank
+    };
+  }
+
+  function applyBookBioMedicalLock(result, ctx){
+    if (!result || !isBookBioMedicalContext(ctx)) return result;
+    const axisId = inferBookBioMedicalAxis(ctx);
+    if (!axisId) return result;
+    const conceptId = inferBookBioMedicalConcept(ctx);
+    const key = `${conceptId}::${axisId}`;
+    const defaultKey = `default::${axisId}`;
+
+    const directMap = {
+      "immune_vaccine::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
+      "immune_vaccine::medical_infection_prevention_axis": ["인수공통 모든 전염병의 열쇠", "아픔이 길이 되려면", "의사와 수의사가 만나다"],
+      "nervous_homeostasis::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "의학, 인문으로 치유하다", "숨결이 바람 될 때"],
+      "nervous_homeostasis::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
+      "metabolism_health::medical_metabolism_health_axis": ["닥터스 씽킹", "위대하고 위험한 약 이야기", "아픔이 길이 되려면"],
+      "metabolism_health::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "아픔이 길이 되려면", "의학, 인문으로 치유하다"],
+      "gene_chromosome::medical_genetic_disease_axis": ["이중나선", "이기적 유전자", "의사와 수의사가 만나다"],
+      "neural_impulse_transmission::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
+      "default::medical_immune_response_axis": ["인수공통 모든 전염병의 열쇠", "의사와 수의사가 만나다", "닥터스 씽킹"],
+      "default::medical_infection_prevention_axis": ["인수공통 모든 전염병의 열쇠", "아픔이 길이 되려면", "의사와 수의사가 만나다"],
+      "default::medical_homeostasis_feedback_axis": ["닥터스 씽킹", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
+      "default::medical_neural_signal_control_axis": ["닥터스 씽킹", "숨결이 바람 될 때", "의학, 인문으로 치유하다"],
+      "default::medical_metabolism_health_axis": ["닥터스 씽킹", "위대하고 위험한 약 이야기", "아픔이 길이 되려면"],
+      "default::medical_genetic_disease_axis": ["이중나선", "이기적 유전자", "의사와 수의사가 만나다"]
+    };
+
+    const expansionMap = {
+      "immune_vaccine::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
+      "immune_vaccine::medical_infection_prevention_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄", "숨결이 바람 될 때"],
+      "nervous_homeostasis::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "객관성의 칼날", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
+      "nervous_homeostasis::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
+      "metabolism_health::medical_metabolism_health_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "신약의 탄생", "부분과 전체"],
+      "metabolism_health::medical_homeostasis_feedback_axis": ["팩트풀니스", "객관성의 칼날", "위대하고 위험한 약 이야기", "의사와 수의사가 만나다", "부분과 전체"],
+      "gene_chromosome::medical_genetic_disease_axis": ["멋진 신세계", "사피엔스", "객관성의 칼날", "의학, 인문으로 치유하다", "팩트풀니스"],
+      "neural_impulse_transmission::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
+      "default::medical_immune_response_axis": ["아픔이 길이 되려면", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄"],
+      "default::medical_infection_prevention_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "침묵의 봄", "숨결이 바람 될 때"],
+      "default::medical_homeostasis_feedback_axis": ["아픔이 길이 되려면", "객관성의 칼날", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
+      "default::medical_neural_signal_control_axis": ["객관성의 칼날", "아픔이 길이 되려면", "팩트풀니스", "의사와 수의사가 만나다", "부분과 전체"],
+      "default::medical_metabolism_health_axis": ["팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "신약의 탄생", "부분과 전체"],
+      "default::medical_genetic_disease_axis": ["멋진 신세계", "사피엔스", "객관성의 칼날", "의학, 인문으로 치유하다", "팩트풀니스"]
+    };
+
+    const directTitles = arr(directMap[key] || directMap[defaultKey]);
+    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
+
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForBioMedicalLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForBioMedicalLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
+    ).filter(Boolean).filter(book => !directIds.has(bookKey(book)));
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      debug: {
+        ...(result.debug || {}),
+        bookBioMedicalLock: axisId,
+        bookBioMedicalConcept: conceptId,
+        bookBioMedicalVersion: "v132"
+      }
+    };
+  }
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4114,6 +4400,7 @@
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
     result = applyBookChemPharmacyLock(result, ctx);
+    result = applyBookBioMedicalLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
