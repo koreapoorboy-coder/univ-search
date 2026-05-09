@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a23-chemistry-chemeng-book-lock-v153";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a24-chemistry-bioengineering-book-lock-v154";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4345,6 +4345,202 @@
   }
 
 
+  // v154 CHEM-BIOENGINEERING-lock: 화학+생명공학/바이오메디컬/생명과학 계열은 실제 chemistry1_concept_longitudinal_map.json의
+  // 생명·바이오 대표 3번(탄소 화합물의 유용성 / 분자의 구조와 성질 / 화학 반응에서의 동적 평형) 기준으로 5번 도서 매칭을 잠근다.
+  // 4번 축은 실제 JSON 축명만 사용하며, 화면에 없는 임의 축명을 만들지 않는다.
+  function isBookA22ChemistryBioengineeringContext(ctx){
+    ctx = ctx || {};
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const isChemistry = /화학/.test(subjectText);
+    const isBioEng = /(생명공학과|생명공학|생명과학과|생명과학|바이오메디컬공학과|바이오메디컬|의생명공학|바이오공학|분자생명|유전공학|세포공학|바이오테크|바이오헬스)/i.test(careerText);
+    const excludeOther = /(화학공학과|화공생명공학과|화공|화학공학|약학과|제약공학과|식품공학과|식품생명공학과|식품영양학과|간호학과|보건|환경공학과|신소재공학과|고분자공학과|반도체공학과|전자공학과|전기공학과)/i.test(careerText);
+    const isTargetConcept = /(탄소\s*화합물의\s*유용성|분자의\s*구조와\s*성질|화학\s*반응에서의\s*동적\s*평형)/.test(conceptText);
+    return !!(isChemistry && isBioEng && !excludeOther && isTargetConcept);
+  }
+
+  function inferBookA22ChemistryBioengineeringAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath,
+      ctx.keyword
+    ].join(" "));
+    const resolveFromText = (text) => {
+      if (!text) return "";
+      // 탄소 화합물의 유용성 - 실제 JSON 축명
+      if (/(organic\s*structure\s*axis|유기\s*물질\s*구조\s*해석|유기\s*구조|탄소\s*골격|작용기)/i.test(text)) return "organic_structure";
+      if (/(bio\s*material\s*application\s*axis|바이오\s*소재\s*응용|바이오·소재\s*응용|바이오\s*소재|생체\s*분자|고분자)/i.test(text)) return "bio_material_application";
+      if (/(safety\s*impact\s*axis|생활\s*안전\s*영향|안전\s*영향|유해성|노출|환경호르몬)/i.test(text)) return "safety_impact";
+      // 분자의 구조와 성질 - 실제 JSON 축명
+      if (/(molecular\s*shape\s*axis|분자\s*구조\s*극성|분자\s*구조·극성|분자\s*구조|극성\s*축|전자쌍\s*반발|결합각)/i.test(text)) return "molecular_shape";
+      if (/(intermolecular\s*force\s*axis|분자\s*사이\s*힘\s*물성|분자\s*사이\s*힘·물성|분자\s*간\s*힘|수소\s*결합|용해도)/i.test(text)) return "intermolecular_force";
+      if (/(life\s*material\s*application\s*axis|생활\s*생체\s*물질\s*적용|생활·생체\s*물질\s*적용|생체\s*물질|세포막|생활\s*적용)/i.test(text)) return "life_material_application";
+      // 화학 반응에서의 동적 평형 - 실제 JSON 축명 전체 대응
+      if (/(body\s*fluid\s*buffer\s*homeostasis\s*axis|체액\s*pH\s*완충\s*항상성|체액\s*pH|완충\s*항상성|혈액\s*pH)/i.test(text)) return "body_fluid_buffer";
+      if (/(acid\s*base\s*health\s*management\s*axis|산염기\s*건강\s*관리|산염기·건강\s*관리|건강\s*관리)/i.test(text)) return "acid_base_health";
+      if (/(health\s*ph\s*data\s*interpretation\s*axis|건강\s*지표\s*pH\s*데이터\s*해석|pH\s*데이터|건강\s*지표)/i.test(text)) return "health_ph_data";
+      if (/(equilibrium\s*analysis\s*axis|평형\s*이동\s*해석|평형\s*해석|르샤틀리에)/i.test(text)) return "equilibrium_analysis";
+      if (/(acid\s*base\s*environment\s*axis|산염기\s*환경\s*조절|산염기·환경\s*조절|환경\s*조절|수질)/i.test(text)) return "acid_base_environment";
+      if (/(process\s*optimization\s*axis|공정\s*최적화|공정\s*제어|최적화)/i.test(text)) return "process_optimization";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/탄소\s*화합물의\s*유용성/.test(conceptText)) return "bio_material_application";
+    if (/분자의\s*구조와\s*성질/.test(conceptText)) return "life_material_application";
+    if (/화학\s*반응에서의\s*동적\s*평형/.test(conceptText)) return "body_fluid_buffer";
+    return "";
+  }
+
+  function buildLockedBookContextA22ChemistryBioengineering(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      organic_structure: "유기 물질 구조 해석 축",
+      bio_material_application: "바이오·소재 응용 축",
+      safety_impact: "생활 안전·영향 축",
+      molecular_shape: "분자 구조·극성 축",
+      intermolecular_force: "분자 사이 힘·물성 축",
+      life_material_application: "생활·생체 물질 적용 축",
+      body_fluid_buffer: "체액 pH·완충 항상성 축",
+      acid_base_health: "산염기·건강 관리 축",
+      health_ph_data: "건강 지표·pH 데이터 해석 축",
+      equilibrium_analysis: "평형 이동 해석 축",
+      acid_base_environment: "산염기·환경 조절 축",
+      process_optimization: "공정 최적화 축"
+    };
+    const axisUseMap = {
+      organic_structure: { direct: "탄소 골격, 작용기, 구조식을 유기 물질의 성질 차이와 연결해 설명할 때 활용합니다.", role: ["탄소 골격", "작용기", "유기 구조"] },
+      bio_material_application: { direct: "탄소 화합물과 고분자·생체 분자 구조를 바이오 소재와 생명공학 응용 사례로 확장할 때 활용합니다.", role: ["생체 분자", "바이오 소재", "응용 사례"] },
+      safety_impact: { direct: "생활 화학물질의 유용성과 유해성, 노출 위험, 환경 영향을 함께 판단할 때 활용합니다.", role: ["생활 안전", "유해성", "환경 영향"] },
+      molecular_shape: { direct: "분자 구조, 결합각, 극성을 생체 분자의 구조적 차이와 기능 해석으로 연결할 때 활용합니다.", role: ["분자 구조", "극성", "구조 기능"] },
+      intermolecular_force: { direct: "수소 결합, 분자 사이 힘, 용해도를 단백질·세포막·생체 물질의 물성 차이로 설명할 때 활용합니다.", role: ["분자 사이 힘", "용해도", "물성"] },
+      life_material_application: { direct: "분자 구조와 극성을 생체막, 생활 소재, 바이오 물질 적용 사례와 연결할 때 활용합니다.", role: ["생체 물질", "세포막", "생활 적용"] },
+      body_fluid_buffer: { direct: "pH, 완충 용액, 산염기 평형을 체액 환경과 세포 항상성 유지 원리로 설명할 때 활용합니다.", role: ["체액 pH", "완충", "항상성"] },
+      acid_base_health: { direct: "산·염기와 pH 조건을 세포 환경, 효소 활성, 건강 관리 기준으로 연결할 때 활용합니다.", role: ["산염기", "세포 환경", "건강 관리"] },
+      health_ph_data: { direct: "pH와 농도 측정값을 생명 현상 자료 해석과 건강 지표 비교로 정리할 때 활용합니다.", role: ["pH 데이터", "건강 지표", "자료 해석"] },
+      equilibrium_analysis: { direct: "동적 평형과 조건 변화를 생화학 반응의 방향성, 대사 조건 변화로 해석할 때 활용합니다.", role: ["동적 평형", "조건 변화", "생화학 반응"] },
+      acid_base_environment: { direct: "pH, 산염기, 완충 작용을 수질·생체 환경 조절 문제로 확장할 때 활용합니다.", role: ["산염기", "환경 조절", "생체 환경"] },
+      process_optimization: { direct: "평형 조건과 반응 조건 제어를 바이오공정의 수율과 조건 최적화 관점으로 설명할 때 활용합니다.", role: ["바이오공정", "조건 제어", "최적화"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.bio_material_application;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 생체 분자·세포 환경·바이오 소재 응용 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 생명공학의 윤리, 안전성, 환경 영향, 기술 적용 한계로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["바이오 확장", "안전·윤리 비교", "적용 한계"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 생체 분자 구조, 분자 상호작용, pH·완충, 바이오 소재 응용 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 생명공학 안전성·윤리·환경 영향 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "고등학교 화학 개념을 생명공학 사례에 적용할 때 생체 내 조건, 변수 통제, 안전성, 윤리적 판단이 함께 필요하다는 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 생체 분자, 바이오 소재, 세포 환경, 바이오공정, 건강·환경 영향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA22ChemistryBioengineeringRank: rank,
+      bookA22ChemistryBioengineeringAxis: axisId
+    };
+  }
+
+  function cloneBookForA22ChemistryBioengineeringLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6180 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`생명공학·바이오계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA22ChemistryBioengineering(book, ctx, sectionType, axisId, rank),
+      bookA22ChemistryBioengineeringLock: true,
+      bookA22ChemistryBioengineeringLockRank: rank,
+      bookA22ChemistryBioengineeringAxisLock: axisId
+    };
+  }
+
+  function applyBookA22ChemistryBioengineeringLock(result, ctx){
+    if (!result || !isBookA22ChemistryBioengineeringContext(ctx)) return result;
+    const axisId = inferBookA22ChemistryBioengineeringAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      organic_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "이중나선"],
+      bio_material_application: ["이중나선", "이기적 유전자", "같기도 하고 아니 같기도 하고"],
+      safety_impact: ["침묵의 봄", "팩트풀니스", "객관성의 칼날"],
+      molecular_shape: ["같기도 하고 아니 같기도 하고", "부분과 전체", "이중나선"],
+      intermolecular_force: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      life_material_application: ["이중나선", "부분과 전체", "객관성의 칼날"],
+      body_fluid_buffer: ["부분과 전체", "객관성의 칼날", "같기도 하고 아니 같기도 하고"],
+      acid_base_health: ["객관성의 칼날", "팩트풀니스", "침묵의 봄"],
+      health_ph_data: ["객관성의 칼날", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
+      equilibrium_analysis: ["객관성의 칼날", "같기도 하고 아니 같기도 하고", "20세기 수학의 다섯가지 황금률"],
+      acid_base_environment: ["침묵의 봄", "팩트풀니스", "객관성의 칼날"],
+      process_optimization: ["공학이란 무엇인가", "경영학 콘서트", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      organic_structure: ["이기적 유전자", "종의 기원", "객관성의 칼날", "신약의 탄생", "침묵의 봄"],
+      bio_material_application: ["부분과 전체", "신약의 탄생", "종의 기원", "객관성의 칼날", "침묵의 봄"],
+      safety_impact: ["오래된 미래", "우리 시대의 동물 해방", "사피엔스", "이기적 유전자", "공학이란 무엇인가"],
+      molecular_shape: ["이기적 유전자", "신약의 탄생", "객관성의 칼날", "침묵의 봄", "종의 기원"],
+      intermolecular_force: ["이중나선", "신약의 탄생", "침묵의 봄", "팩트풀니스", "종의 기원"],
+      life_material_application: ["같기도 하고 아니 같기도 하고", "신약의 탄생", "침묵의 봄", "이기적 유전자", "팩트풀니스"],
+      body_fluid_buffer: ["이중나선", "신약의 탄생", "팩트풀니스", "침묵의 봄", "종의 기원"],
+      acid_base_health: ["부분과 전체", "이중나선", "신약의 탄생", "종의 기원", "공학이란 무엇인가"],
+      health_ph_data: ["부분과 전체", "이중나선", "신약의 탄생", "공학이란 무엇인가", "침묵의 봄"],
+      equilibrium_analysis: ["부분과 전체", "이중나선", "공학이란 무엇인가", "팩트풀니스", "침묵의 봄"],
+      acid_base_environment: ["부분과 전체", "이중나선", "공학이란 무엇인가", "오래된 미래", "종의 기원"],
+      process_optimization: ["부분과 전체", "팩트풀니스", "이중나선", "침묵의 봄", "종의 기원"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA22ChemistryBioengineeringLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA22ChemistryBioengineeringLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA22ChemistryBioengineeringLock: axisId,
+        bookA22ChemistryBioengineeringDirectTitles: directBooks.map(book => book.title),
+        bookA22ChemistryBioengineeringExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4395,6 +4591,7 @@
     result = applyBookA19ChemistryComputerLock(result, ctx);
     result = applyBookA20ChemistryMaterialsLock(result, ctx);
     result = applyBookA21ChemistryChemicalEngineeringLock(result, ctx);
+    result = applyBookA22ChemistryBioengineeringLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
