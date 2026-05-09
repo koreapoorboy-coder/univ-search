@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v139-info-computer-exact-3-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v140-geometry-computer-345-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -8975,6 +8975,16 @@ function getTrackMeta(trackId) {
   }
 
 
+  // v140 GEOMETRY-CS-lock: 기하+컴퓨터공학과는 순수 기하/건축형이 아니라
+  // 데이터 벡터 → 3D 공간좌표 → 신호·위치 추정 흐름으로 3번 대표 개념을 고정한다.
+  function getGeometryComputerForcedConceptOrderForSubject() {
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    if (subjectText !== "기하") return [];
+    if (!isGeometryComputerMajorContext()) return [];
+    return ["벡터의 성분과 내적", "공간좌표와 구의 방정식", "이차곡선과 자취 해석"];
+  }
+
+
   // v90.5 MATH1-lock: 수학과/수리과학과는 컴퓨터·데이터 응용형이 아니라
   // 순수 수학형(대수·극한·기하·확률 구조)으로 3번 대표 개념과 4번 후속축을 분리한다.
   function isPureMathematicsMajorSelectedContext() {
@@ -11739,6 +11749,13 @@ function getTrackMeta(trackId) {
       return pickConceptItemsByForcedOrder(ranked, infoComputerForcedEarly).slice(0, 3);
     }
 
+    // v140 GEOMETRY-CS-lock: 기하+컴퓨터공학과 3번 대표 개념은
+    // 벡터 유사도 → 3D 공간좌표 → 신호·위치 추정 흐름으로 고정한다.
+    const geometryComputerForcedEarly = getGeometryComputerForcedConceptOrderForSubject();
+    if (geometryComputerForcedEarly.length) {
+      return pickConceptItemsByForcedOrder(ranked, geometryComputerForcedEarly).slice(0, 3);
+    }
+
     // v89.3 F2-lock: 통합과학2 환경공학/도시·토목·건축 대표 3개 최종 고정.
     // 점수 계산에서 생태/바이오 키워드가 강하게 잡혀도 화면 최종 3개는 검수 기준을 따른다.
     const f2PrimarySubject = String(state.subject || "").replace(/\s+/g, "");
@@ -12386,6 +12403,13 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
         primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
         displayConcepts = primaryConcepts;
       }
+    }
+    // v140 GEOMETRY-CS-visible-lock: 최종 렌더 직전에도 기하+컴퓨터공학과 3번을 고정한다.
+    // 기하 화면에 순수 수학/건축형 문구가 섞여도 대표 3번은 벡터 성분·공간좌표·이차곡선 순서다.
+    if (getGeometryComputerForcedConceptOrderForSubject().length && !state.showAllConcepts) {
+      const forcedGeometryComputer = getGeometryComputerForcedConceptOrderForSubject();
+      primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedGeometryComputer).slice(0, 3);
+      displayConcepts = primaryConcepts;
     }
     if (isPureMathematicsMajorSelectedContext() && !state.showAllConcepts) {
       const forcedPureMath = getPureMathematicsForcedConceptOrderForSubject();
