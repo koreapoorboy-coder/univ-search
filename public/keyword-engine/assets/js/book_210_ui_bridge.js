@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a22-env-bc-axis-book-match-fix-v136";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a23-info-computer-axis-book-match-relax-v137";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -1814,7 +1814,9 @@
     const isDataAnalysisConcept = /자료와\s*정보의\s*분석/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isDataAnalysisKeyword = /(자료\s*수집|자료\s*분석|비교\s*기준|표|그래프|시각화|데이터베이스|구조화|정렬|탐색|검색|빅데이터|의미\s*있는\s*정보|예측|판단|의사결정|데이터)/i.test(keywordText);
-    return !!(isComputer && isInfo && isDataAnalysisConcept && isDataAnalysisKeyword);
+    // v137 INFO-COMPUTER-lock: 5번 도서는 3번 교과 개념 + 4번 후속축을 우선 기준으로 매칭한다.
+    // 추천 키워드가 비어 있거나 화면 표시명이 달라도 도서 매칭이 끊기지 않도록 keyword 조건은 보조 신호로만 둔다.
+    return !!(isComputer && isInfo && isDataAnalysisConcept);
   }
 
   function inferBookA8InfoDataAnalysisAxis(ctx){
@@ -1977,7 +1979,8 @@
     const isAlgorithmConcept = /알고리즘\s*설계와\s*분석/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isAlgorithmKeyword = /(알고리즘|효율성|성능\s*비교|수행\s*시간|최적화|버블\s*정렬|선택\s*정렬|순차\s*탐색|이진\s*탐색|정렬|탐색|순차|선택|반복|규칙|예측|데이터\s*처리)/i.test(keywordText);
-    return !!(isComputer && isInfo && isAlgorithmConcept && isAlgorithmKeyword);
+    // v137 INFO-COMPUTER-lock: 추천 키워드가 누락되어도 3번 개념 + 4번 축 기준으로 5번 도서를 고정한다.
+    return !!(isComputer && isInfo && isAlgorithmConcept);
   }
 
   function inferBookA9InfoAlgorithmAxis(ctx){
@@ -2140,7 +2143,8 @@
     const isProgrammingConcept = /프로그래밍\s*과\s*자동화/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isProgrammingKeyword = /(python|파이썬|프로그래밍|코드|원시\s*코드|변수\s*설계|입력\s*과\s*출력|입력|출력|함수|조건문|반복문|리스트|리스트\s*내포|random\s*모듈|랜덤|turtle\s*그래픽|터틀|자동화|시뮬레이션)/i.test(keywordText);
-    return !!(isComputer && isInfo && isProgrammingConcept && isProgrammingKeyword);
+    // v137 INFO-COMPUTER-lock: 추천 키워드는 축 정렬 보조값으로만 사용하고, 도서 매칭은 3번+4번으로 유지한다.
+    return !!(isComputer && isInfo && isProgrammingConcept);
   }
 
   function inferBookA10InfoProgrammingAxis(ctx){
@@ -2303,7 +2307,8 @@
     const isAbstractionConcept = /추상화\s*와\s*문제\s*분해/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isAbstractionKeyword = /(문제\s*분해|조건\s*분석|현재\s*상태|목표\s*상태|작은\s*문제|모델링|핵심\s*요소|변수|기준\s*설정|불필요한\s*요소|추상화|구조화|절차|최적화)/i.test(keywordText);
-    return !!(isComputer && isInfo && isAbstractionConcept && isAbstractionKeyword);
+    // v137 INFO-COMPUTER-lock: 추상화 계열도 실제 3번 개념과 4번 축만으로 5번 도서를 매칭한다.
+    return !!(isComputer && isInfo && isAbstractionConcept);
   }
 
   function inferBookA11InfoAbstractionAxis(ctx){
@@ -2467,7 +2472,8 @@
     const isRepresentationConcept = /자료\s*와\s*정보\s*의\s*표현/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isRepresentationKeyword = /(디지털\s*정보|자료\s*표현|부호화|아날로그\s*정보|모스\s*부호|표현\s*방식|데이터\s*변환|저장|전송|압축|용량|표본화|양자화|샘플링|이미지|소리|영상|미디어|문자\s*코드|ASCII|유니코드)/i.test(keywordText);
-    return !!(isComputer && isInfo && isRepresentationConcept && isRepresentationKeyword);
+    // v137 INFO-COMPUTER-lock: 자료 표현 계열 도서도 키워드 누락으로 매칭이 끊기지 않게 한다.
+    return !!(isComputer && isInfo && isRepresentationConcept);
   }
 
   function inferBookA12InfoRepresentationAxis(ctx){
@@ -2631,7 +2637,8 @@
     const isSystemNetworkConcept = /컴퓨팅\s*시스템\s*과\s*네트워크/.test(conceptText);
     // 실제 정보 과목 데이터 기준 키워드만 사용한다.
     const isSystemNetworkKeyword = /(컴퓨팅\s*시스템|운영\s*체제|네트워크|서버|클라이언트|프로토콜|인터넷|ip|주소|보안|계정|접근\s*권한|플랫폼|협업\s*도구|센서|피지컬\s*컴퓨팅|회로|임베디드|장치|입출력\s*장치|마이크로컨트롤러|데이터\s*전송|통신)/i.test(keywordText);
-    return !!(isComputer && isInfo && isSystemNetworkConcept && isSystemNetworkKeyword);
+    // v137 INFO-COMPUTER-lock: 시스템·네트워크 계열은 3번 개념과 4번 축을 기준으로 도서를 연결한다.
+    return !!(isComputer && isInfo && isSystemNetworkConcept);
   }
 
   function inferBookA13InfoSystemNetworkAxis(ctx){
