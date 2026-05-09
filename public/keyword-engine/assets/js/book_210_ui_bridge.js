@@ -3927,7 +3927,7 @@
       semiconductor_electronic_material: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
       periodic_property: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "팩트풀니스"],
       material_selection: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"],
-      bio_environment_ion: ["객관성의 칼날", "팩트풀니스", "부분과 전체"],
+      bio_environment_ion: ["팩트풀니스", "객관성의 칼날", "같기도 하고 아니 같기도 하고"],
       bond_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
       material_property_design: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"],
       bio_molecular_interaction: ["부분과 전체", "같기도 하고 아니 같기도 하고", "객관성의 칼날"]
