@@ -3350,14 +3350,14 @@
       if (/(location_space_data_axis|position_tracking_axis|위치\s*추적\s*[·ㆍ]?\s*공간\s*데이터|위치.*공간\s*데이터|위치\s*추적|공간\s*데이터)/i.test(text)) return "location_tracking_space_data";
 
       // 이차곡선과 자취 해석 - actual on-screen axis labels
+      if (/(signal_position_estimation_axis|signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "signal_position_estimation";
+      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화)/i.test(text)) return "curve_design_visualization";
+      if (/(reflection_orbit_interpretation_axis|reflection_orbit_analysis_axis|reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "reflection_orbit_analysis";
+
+      // legacy fallback labels for earlier variants
       if (/(conic_structure_analysis_axis|이차곡선\s*구조\s*해석|이차곡선\s*구조)/i.test(text)) return "conic_structure_analysis";
       if (/(locus_condition_analysis_axis|자취\s*[·ㆍ]?\s*조건\s*분석|자취.*조건\s*분석)/i.test(text)) return "locus_condition_analysis";
       if (/(coordinate_geometry_modeling_axis|좌표기하\s*모델링|좌표기하)/i.test(text)) return "coordinate_geometry_modeling";
-
-      // legacy fallback labels for earlier variants
-      if (/(signal_position_model_axis|signal_location_model_axis|신호\s*[·ㆍ]?\s*위치\s*추정\s*모델|신호.*위치\s*추정|위치\s*추정|쌍곡선)/i.test(text)) return "conic_structure_analysis";
-      if (/(reflection_orbit_axis|반사\s*[·ㆍ]?\s*궤도\s*해석|반사.*궤도|반사\s*성질|궤도|초점)/i.test(text)) return "locus_condition_analysis";
-      if (/(curve_design_visualization_axis|curve_design_visual_axis|곡선\s*[·ㆍ]?\s*설계\s*시각화|곡선.*시각화|설계\s*시각화)/i.test(text)) return "coordinate_geometry_modeling";
 
       // final generic fallback uses concept text only if axis-specific label is absent.
       return "";
@@ -3368,7 +3368,7 @@
     // 축 정보가 늦게 들어오는 초기 렌더에서도 개념별 첫 축으로 안전하게 고정한다.
     if (/벡터의\s*성분과\s*내적/.test(conceptText)) return "vector_similarity_model";
     if (/공간좌표와\s*구의\s*방정식/.test(conceptText)) return "three_d_coordinate_graphics";
-    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "conic_structure_analysis";
+    if (/이차곡선과\s*자취\s*해석/.test(conceptText)) return "signal_position_estimation";
     return "";
   }
 
@@ -3385,9 +3385,9 @@
       conic_structure_analysis: "이차곡선 구조 해석 축",
       locus_condition_analysis: "자취·조건 분석 축",
       coordinate_geometry_modeling: "좌표기하 모델링 축",
-      signal_position_estimation: "이차곡선 구조 해석 축",
-      reflection_orbit_analysis: "자취·조건 분석 축",
-      curve_design_visualization: "좌표기하 모델링 축"
+      signal_position_estimation: "신호·위치 추정 모델 축",
+      reflection_orbit_analysis: "반사·궤도 해석 축",
+      curve_design_visualization: "곡선·설계 시각화 축"
     };
     const axisUseMap = {
       vector_similarity_model: { direct: "벡터의 성분과 내적을 데이터의 방향 유사도, 코사인 유사도, 정규화 개념과 연결해 설명할 때 활용합니다.", role: ["벡터 유사도", "데이터 모델링", "정규화 해석"] },
@@ -3399,9 +3399,9 @@
       conic_structure_analysis: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
       locus_condition_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
       coordinate_geometry_modeling: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] },
-      signal_position_estimation: { direct: "포물선·타원·쌍곡선의 정의와 방정식을 구조적으로 해석해 초점, 거리 조건, 곡선의 성질을 설명할 때 활용합니다.", role: ["이차곡선 구조", "방정식 해석", "거리 조건"] },
-      reflection_orbit_analysis: { direct: "점이 만족하는 조건을 자취와 방정식으로 바꾸어 해석하고, 조건 변화에 따른 도형 이동을 설명할 때 활용합니다.", role: ["자취 분석", "조건 해석", "방정식 변환"] },
-      curve_design_visualization: { direct: "도형의 위치와 조건을 좌표와 방정식으로 모델링해 그래프 표현, 설계, 시각화와 연결할 때 활용합니다.", role: ["좌표 모델링", "그래프 연결", "도형 표현"] }
+      signal_position_estimation: { direct: "쌍곡선의 거리 차 조건과 이차곡선의 방정식을 신호 도달 시간 차, 위치 추정, 좌표 기반 추정 모델로 연결해 설명할 때 활용합니다.", role: ["신호 위치 추정", "거리 조건", "좌표 모델링"] },
+      reflection_orbit_analysis: { direct: "포물선·타원·쌍곡선의 초점과 반사 성질을 궤도, 반사 경로, 물리적 모델링 관점으로 설명할 때 활용합니다.", role: ["초점·반사 성질", "궤도 해석", "물리 모델링"] },
+      curve_design_visualization: { direct: "포물선·타원·쌍곡선을 그래프, 설계 곡선, 컴퓨터 그래픽스 시각화 표현으로 연결할 때 활용합니다.", role: ["곡선 시각화", "설계 표현", "그래픽 모델링"] }
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.vector_similarity_model;
@@ -3466,8 +3466,8 @@
       locus_condition_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
       coordinate_geometry_modeling: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"],
       signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
-      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "객관성의 칼날"]
+      reflection_orbit_analysis: ["코스모스", "시간의 역사", "카오스"],
+      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해"]
     };
     const expansionMap = {
       vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
@@ -3480,8 +3480,8 @@
       locus_condition_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
       coordinate_geometry_modeling: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"],
       signal_position_estimation: ["부분과 전체", "미디어의 이해", "경영학 콘서트", "1984", "제3의 물결"],
-      reflection_orbit_analysis: ["부분과 전체", "방법서설", "미디어의 이해", "경영학 콘서트", "1984"],
-      curve_design_visualization: ["미디어의 이해", "경영학 콘서트", "카오스", "1984", "제3의 물결"]
+      reflection_orbit_analysis: ["혼돈으로부터의 질서", "부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리"],
+      curve_design_visualization: ["객관성의 칼날", "경영학 콘서트", "카오스", "1984", "제3의 물결"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
