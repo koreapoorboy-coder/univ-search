@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a24-chemistry-bioengineering-book-lock-v154";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v35-a25-chemistry-food-book-lock-v155";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4541,6 +4541,166 @@
 
 
 
+  // v155 CHEM-FOOD-lock: 화학+식품공학/식품생명공학/식품영양 계열은 실제 textbook_concept_helper.js의
+  // 식품 전용 4번 축(식품 성분·영양 구조 / 식품 물성·용해도 / 식품 pH·보존 안정성 / 식품 농도·정량 분석 / 식품 열처리·품질 변화) 기준으로 5번 도서 매칭을 잠근다.
+  // 실제 데이터에 존재하는 학과명만 대상으로 하며, 3번·4번 구조는 건드리지 않는다.
+  function isBookA23ChemistryFoodContext(ctx){
+    ctx = ctx || {};
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const isChemistry = /화학/.test(subjectText);
+    const isFood = /(식품공학과|식품공학|식품생명공학과|식품생명공학|식품영양학과|식품영양|영양)/i.test(careerText);
+    const excludeOther = /(생명공학과|생명과학과|바이오메디컬공학과|화학공학과|화공생명공학과|제약공학과|약학과|화장품공학과|환경공학과|신소재공학과|고분자공학과)/i.test(careerText);
+    const isTargetConcept = /(탄소\s*화합물의\s*유용성|분자의\s*구조와\s*성질|화학\s*반응에서의\s*동적\s*평형|물질의\s*양과\s*화학\s*반응식|화학\s*반응과\s*열의\s*출입)/.test(conceptText);
+    return !!(isChemistry && isFood && !excludeOther && isTargetConcept);
+  }
+
+  function inferBookA23ChemistryFoodAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath,
+      ctx.keyword
+    ].join(" "));
+    const resolveFromText = (text) => {
+      if (!text) return "";
+      if (/(food\s*nutrient\s*structure\s*axis|식품\s*성분\s*영양\s*구조\s*해석|식품\s*성분|영양\s*구조|탄수화물|단백질|지질|영양소)/i.test(text)) return "food_nutrient_structure";
+      if (/(food\s*solubility\s*texture\s*axis|식품\s*물성\s*용해도\s*해석|식품\s*물성|용해도|점성|유화|수분\s*보유)/i.test(text)) return "food_solubility_texture";
+      if (/(food\s*ph\s*preservation\s*axis|식품\s*pH\s*보존\s*안정성|pH\s*보존|보존\s*안정성|산도|발효|부패|미생물)/i.test(text)) return "food_ph_preservation";
+      if (/(food\s*concentration\s*quant\s*axis|식품\s*농도\s*정량\s*분석|농도\s*정량|당도|염도|희석|시료\s*분석)/i.test(text)) return "food_concentration_quant";
+      if (/(food\s*heat\s*quality\s*axis|식품\s*열처리\s*품질\s*변화|열처리|품질\s*변화|갈변|가열|냉각|산화)/i.test(text)) return "food_heat_quality";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/탄소\s*화합물의\s*유용성/.test(conceptText)) return "food_nutrient_structure";
+    if (/분자의\s*구조와\s*성질/.test(conceptText)) return "food_solubility_texture";
+    if (/화학\s*반응에서의\s*동적\s*평형/.test(conceptText)) return "food_ph_preservation";
+    if (/물질의\s*양과\s*화학\s*반응식/.test(conceptText)) return "food_concentration_quant";
+    if (/화학\s*반응과\s*열의\s*출입/.test(conceptText)) return "food_heat_quality";
+    return "";
+  }
+
+  function buildLockedBookContextA23ChemistryFood(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      food_nutrient_structure: "식품 성분·영양 구조 해석 축",
+      food_solubility_texture: "식품 물성·용해도 해석 축",
+      food_ph_preservation: "식품 pH·보존 안정성 축",
+      food_concentration_quant: "식품 농도·정량 분석 축",
+      food_heat_quality: "식품 열처리·품질 변화 축"
+    };
+    const axisUseMap = {
+      food_nutrient_structure: { direct: "탄수화물, 단백질, 지질, 작용기를 식품 성분표와 영양소 구조 분석으로 연결할 때 활용합니다.", role: ["식품 성분", "영양 구조", "작용기"] },
+      food_solubility_texture: { direct: "분자 구조, 극성, 수소 결합, 분자 사이 힘을 용해도·점성·유화·수분 보유 같은 식품 물성으로 설명할 때 활용합니다.", role: ["식품 물성", "용해도", "분자 사이 힘"] },
+      food_ph_preservation: { direct: "pH, 산염기, 완충, 평형 개념을 식품 산도, 발효, 미생물 성장, 보존 안정성과 연결할 때 활용합니다.", role: ["식품 pH", "보존 안정성", "발효"] },
+      food_concentration_quant: { direct: "몰 농도, 희석, 정량 분석을 당도·염도·시료 분석과 측정 오차 해석으로 연결할 때 활용합니다.", role: ["농도 계산", "정량 분석", "측정 오차"] },
+      food_heat_quality: { direct: "발열·흡열, 산화·환원, 온도 조건을 열처리, 갈변, 저장 안정성, 품질 변화로 설명할 때 활용합니다.", role: ["열처리", "품질 변화", "산화"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.food_nutrient_structure;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 식품 성분·물성·pH·농도·열처리 중 하나의 식품 분석 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 식품 안전성, 건강 영향, 공정 관리, 사회적 식생활 문제로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["식품 안전", "건강 영향", "품질 관리"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 식품 성분, 물성, pH·보존성, 농도·정량, 열처리 품질 변화 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 식품 안전, 건강 영향, 소비자 선택, 품질 관리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "고등학교 화학 개념을 식품 사례에 적용할 때 실제 식품은 혼합물이며 저장 조건, 조리 과정, 미생물, 개인 건강 상태 같은 변수가 함께 작동한다는 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 식품 품질, 보존 안정성, 영양 구조, 안전성, 식생활 데이터 해석으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA23ChemistryFoodRank: rank,
+      bookA23ChemistryFoodAxis: axisId
+    };
+  }
+
+  function cloneBookForA23ChemistryFoodLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6180 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`식품계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA23ChemistryFood(book, ctx, sectionType, axisId, rank),
+      bookA23ChemistryFoodLock: true,
+      bookA23ChemistryFoodLockRank: rank,
+      bookA23ChemistryFoodAxisLock: axisId
+    };
+  }
+
+  function applyBookA23ChemistryFoodLock(result, ctx){
+    if (!result || !isBookA23ChemistryFoodContext(ctx)) return result;
+    const axisId = inferBookA23ChemistryFoodAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      food_nutrient_structure: ["같기도 하고 아니 같기도 하고", "이중나선", "팩트풀니스"],
+      food_solubility_texture: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      food_ph_preservation: ["객관성의 칼날", "팩트풀니스", "침묵의 봄"],
+      food_concentration_quant: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "팩트풀니스"],
+      food_heat_quality: ["엔트로피", "침묵의 봄", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      food_nutrient_structure: ["왜 세계의 절반은 굶주리는가", "이기적 유전자", "침묵의 봄", "오래된 미래", "사피엔스"],
+      food_solubility_texture: ["팩트풀니스", "침묵의 봄", "공학이란 무엇인가", "경영학 콘서트", "엔트로피"],
+      food_ph_preservation: ["같기도 하고 아니 같기도 하고", "부분과 전체", "왜 세계의 절반은 굶주리는가", "오래된 미래", "공학이란 무엇인가"],
+      food_concentration_quant: ["경영학 콘서트", "같기도 하고 아니 같기도 하고", "왜 세계의 절반은 굶주리는가", "공학이란 무엇인가", "부분과 전체"],
+      food_heat_quality: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "팩트풀니스", "공학이란 무엇인가", "오래된 미래"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA23ChemistryFoodLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA23ChemistryFoodLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA23ChemistryFoodLock: axisId,
+        bookA23ChemistryFoodDirectTitles: directBooks.map(book => book.title),
+        bookA23ChemistryFoodExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4592,6 +4752,7 @@
     result = applyBookA20ChemistryMaterialsLock(result, ctx);
     result = applyBookA21ChemistryChemicalEngineeringLock(result, ctx);
     result = applyBookA22ChemistryBioengineeringLock(result, ctx);
+    result = applyBookA23ChemistryFoodLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
