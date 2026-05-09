@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a20-chemistry-computer-real-axis-lock-v148";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a21-chemistry-it-electronics-axis-lock-v150";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3791,16 +3791,16 @@
 
 
 
-  // v148 CHEM-CS-real-axis-lock: 화학+컴퓨터공학과는 실제 chemistry1_concept_longitudinal_map.json의
+  // v150 CHEM-IT/ELECTRONICS-real-axis-lock: 화학+컴퓨터/전자/전기전자/반도체 계열은 실제 chemistry1_concept_longitudinal_map.json의
   // 4번 축명/axis_id만 기준으로 5번 도서 매칭을 잠근다.
-  // 주의: 화학과 전용 pure_chem_* 축(예: 원자 구조·전자 배치 해석 축)은 컴퓨터공학과 화면 기준으로 사용하지 않는다.
+  // 주의: 화학과 전용 pure_chem_* 축(예: 원자 구조·전자 배치 해석 축)은 컴퓨터·전자·반도체 화면 기준으로 사용하지 않는다.
   function isBookA19ChemistryComputerContext(ctx){
     ctx = ctx || {};
     const subjectText = normalizeLockText(ctx.subject || "");
     const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
     const conceptText = normalizeLockText(ctx.concept || "");
     const isChemistry = /화학/.test(subjectText);
-    const isComputer = /(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어|인공지능|ai|데이터|정보|정보보안|정보통신|프로그래밍|알고리즘|네트워크|시스템)/i.test(careerText);
+    const isComputer = /(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어|인공지능|ai|데이터|정보|정보보안|정보통신|프로그래밍|알고리즘|네트워크|시스템|전자공학과|전자공학|전기전자|전자전기|전기공학|전자|전기|반도체공학과|반도체공학|반도체|시스템반도체|소자|회로|센서|통신|임베디드|하드웨어)/i.test(careerText);
     const isTargetConcept = /(현대의\s*원자\s*모형과\s*전자\s*배치|원소의\s*주기적\s*성질|화학\s*결합)/.test(conceptText);
     return !!(isChemistry && isComputer && isTargetConcept);
   }
@@ -3859,9 +3859,9 @@
       bio_molecular_interaction: "분자 상호작용·용해 축"
     };
     const axisUseMap = {
-      electron_configuration_spectrum: { direct: "전자 배치와 스펙트럼을 컴퓨터공학의 신호 해석, 데이터 표현, 측정 근거로 연결할 때 활용합니다.", role: ["전자배치", "스펙트럼", "신호 해석"] },
+      electron_configuration_spectrum: { direct: "전자 배치와 스펙트럼을 컴퓨터·전자·반도체 계열의 신호 해석, 데이터 표현, 측정 근거로 연결할 때 활용합니다.", role: ["전자배치", "스펙트럼", "신호 해석"] },
       light_energy_transition: { direct: "에너지 준위와 빛의 흡수·방출을 광센서, 디스플레이, 광정보 처리의 기초 원리로 설명할 때 활용합니다.", role: ["에너지 준위", "빛 해석", "광정보"] },
-      semiconductor_electronic_material: { direct: "원자·전자 구조를 반도체 소재, 전자 소자, 하드웨어 작동 조건으로 연결할 때 활용합니다.", role: ["전자 구조", "반도체 소재", "하드웨어 기초"] },
+      semiconductor_electronic_material: { direct: "원자·전자 구조를 반도체 소재, 전자 소자, 회로·하드웨어 작동 조건으로 연결할 때 활용합니다.", role: ["전자 구조", "반도체 소재", "하드웨어 기초"] },
       periodic_property: { direct: "주기율표 위치와 원소 성질 변화를 소재 선택과 전자적 특성 예측의 기준으로 설명할 때 활용합니다.", role: ["주기율", "성질 예측", "소재 판단"] },
       material_selection: { direct: "원소의 성질 차이를 전도성, 안정성, 소자 소재 선택 기준으로 확장할 때 활용합니다.", role: ["재료 선택", "전도성", "소재 설계"] },
       bio_environment_ion: { direct: "이온 성질과 전하 이동을 센서, 환경 데이터, 생체 신호 측정 조건으로 연결할 때 활용합니다.", role: ["이온 해석", "센서", "측정 데이터"] },
@@ -3878,7 +3878,7 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${axisLabel}에서 화학 개념을 컴퓨터공학의 신호·소자·소재·데이터 해석 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 컴퓨터·전자·반도체 계열의 신호·소자·소재·데이터 해석 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
         : `${title}은(는) ${axisLabel}에서 기술사회, 정보 처리, 소재 활용, 시스템 한계로 확장하는 참고 도서입니다.`,
       matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
@@ -3887,7 +3887,7 @@
         conceptExplanation: isDirect ? axisUse.direct : "",
         analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 전자 배치, 스펙트럼, 에너지 준위, 소재 선택, 결합 구조, 물성 예측 중 하나의 프레임으로 구체화합니다." : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·소재 활용·기술 윤리 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: "화학 원리를 컴퓨터공학의 소자·센서·데이터 처리 맥락에 적용할 때 생기는 단순화, 측정 오차, 소재 조건의 한계를 논의할 때 활용합니다.",
+        limitationDiscussion: "화학 원리를 컴퓨터·전자·반도체 계열의 소자·센서·데이터 처리 맥락에 적용할 때 생기는 단순화, 측정 오차, 소재 조건의 한계를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 반도체, 센서, 광정보, 하드웨어 소재, 데이터 측정 기술의 활용 방향으로 확장할 때 활용합니다." : ""
       },
       connectionToPayload: {
