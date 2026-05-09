@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v102-a0-initial-concept-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v138-info-computer-345-lock';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -1683,6 +1683,36 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       return ["도함수의 활용", "정적분의 활용", "수열의 극한"];
     }
     return [];
+  }
+
+  // v138 INFO-CS-lock: 정보+컴퓨터공학과는 데이터사이언스형 "자료 분석" 중심이 아니라
+  // 컴퓨터공학의 핵심 학습 흐름인 문제 구조화 → 알고리즘 → 구현으로 3번을 먼저 고정한다.
+  function isInfoComputerMajorSelectedContext() {
+    if (isDataScienceMajorSelectedContext()) return false;
+    const subjectText = String(state.subject || "").replace(/\s+/g, "");
+    if (subjectText !== "정보") return false;
+
+    const localBag = [
+      state.career || "",
+      state.majorSelectedName || "",
+      getEffectiveCareerName() || "",
+      getCareerInputText() || "",
+      getMajorPanelResolvedName() || "",
+      getMajorTextBag() || ""
+    ].join(" ");
+
+    if (/(컴퓨터공학과|컴퓨터공학|컴퓨터|소프트웨어학과|소프트웨어공학|소프트웨어|AI|인공지능|정보보호|정보보안|보안|프로그래밍|알고리즘|시스템|네트워크|앱|웹|게임)/i.test(localBag)) return true;
+
+    try {
+      const bodyText = String(document.body?.innerText || "").replace(/\s+/g, " ");
+      if (/2\.\s*학과\s*(컴퓨터공학과|소프트웨어학과|인공지능학과|정보보호학과)/.test(bodyText) || /학과\s*(컴퓨터공학과|소프트웨어학과|인공지능학과|정보보호학과)/.test(bodyText)) return true;
+    } catch (error) {}
+    return false;
+  }
+
+  function getInfoComputerForcedConceptOrderForSubject() {
+    if (!isInfoComputerMajorSelectedContext()) return [];
+    return ["추상화와 문제 분해", "알고리즘 설계와 분석", "프로그래밍과 자동화"];
   }
 
 
@@ -4389,9 +4419,14 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
           boostAxis(/data_prediction|데이터 처리·예측 축|예측 처리/, 140);
         }
         if (/추상화와 문제 분해/.test(concept)) {
-          boostAxis(/problem_design|문제 구조화·알고리즘 설계 축|구조화/, 160);
+          boostAxis(/problem_design|문제 구조화·알고리즘 설계 축|구조화/, 170);
           boostAxis(/math_modeling|수리 모델링 확장 축|모델링/, 150);
-          boostAxis(/process_optimization|시스템 설계·절차 최적화 축|절차 설계/, 110);
+          boostAxis(/process_optimization|시스템 설계·절차 최적화 축|절차 설계/, 130);
+        }
+        if (/프로그래밍과 자동화/.test(concept)) {
+          boostAxis(/programming_impl|프로그래밍 구현 축|코드 구현/, 170);
+          boostAxis(/logic_control|논리·제어 확장 축|조건·반복/, 150);
+          boostAxis(/automation_sim|자동화·시뮬레이션 축|자동화/, 130);
         }
       }
       if (/대수/.test(subject)) {
@@ -11649,6 +11684,8 @@ function getTrackMeta(trackId) {
     if (pureMathForcedForAll.length) return pickConceptItemsByForcedOrder(ranked, pureMathForcedForAll);
     const businessSocialForcedForAll = getBusinessSocialForcedConceptOrderForSubject();
     if (businessSocialForcedForAll.length) return pickConceptItemsByForcedOrder(ranked, businessSocialForcedForAll);
+    const infoComputerForcedForAll = getInfoComputerForcedConceptOrderForSubject();
+    if (infoComputerForcedForAll.length) return pickConceptItemsByForcedOrder(ranked, infoComputerForcedForAll);
     const dataScienceForced = getDataScienceForcedConceptOrderForSubject();
     if (dataScienceForced.length) return pickConceptItemsByForcedOrder(ranked, dataScienceForced);
     const preferred = getPreferredConceptSequence();
@@ -11671,6 +11708,13 @@ function getTrackMeta(trackId) {
     const businessSocialForcedEarly = getBusinessSocialForcedConceptOrderForSubject();
     if (businessSocialForcedEarly.length) {
       return pickConceptItemsByForcedOrder(ranked, businessSocialForcedEarly).slice(0, 3);
+    }
+
+    // v138 INFO-CS-lock: 정보+컴퓨터공학과 3번 대표 개념은
+    // 추상화와 문제 분해 → 알고리즘 설계와 분석 → 프로그래밍과 자동화 순으로 고정한다.
+    const infoComputerForcedEarly = getInfoComputerForcedConceptOrderForSubject();
+    if (infoComputerForcedEarly.length) {
+      return pickConceptItemsByForcedOrder(ranked, infoComputerForcedEarly).slice(0, 3);
     }
 
     // v89.3 F2-lock: 통합과학2 환경공학/도시·토목·건축 대표 3개 최종 고정.
@@ -12310,6 +12354,15 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       const forcedDataScience = getDataScienceForcedConceptOrderForSubject();
       if (forcedDataScience.length) {
         primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedDataScience).slice(0, 3);
+        displayConcepts = primaryConcepts;
+      }
+    }
+    // v138 INFO-CS-visible-lock: 최종 렌더 직전에도 정보+컴퓨터공학과 3번을 다시 잠근다.
+    // 학과 검색/키워드 상태가 뒤늦게 반영되어 데이터사이언스형 개념으로 섞이는 현상을 방지한다.
+    if (isInfoComputerMajorSelectedContext() && !state.showAllConcepts) {
+      const forcedInfoComputer = getInfoComputerForcedConceptOrderForSubject();
+      if (forcedInfoComputer.length) {
+        primaryConcepts = pickConceptItemsByForcedOrder(ranked, forcedInfoComputer).slice(0, 3);
         displayConcepts = primaryConcepts;
       }
     }
