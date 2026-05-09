@@ -3582,7 +3582,14 @@
       }
       // 물질의 전기적 특성
       if (/(electric_signal_circuit_axis|electronics_signal_circuit_axis|전기\s*신호\s*[·ㆍ]?\s*회로|신호\s*[·ㆍ]?\s*회로|회로\s*기초|전압|전류|회로)/i.test(text)) return "electric_signal_circuit";
-      if (/(semiconductor_device_axis|electronics_device_sensor_axis|반도체\s*[·ㆍ]?\s*소자|전자소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
+      // v146: 전자공학 공통 축명(electronics_device_sensor_axis)이 물리 개념마다 다르게 쓰일 수 있으므로
+      // 실제 선택 개념을 먼저 보고 반도체/자기/광센서 축으로 분기한다.
+      if (/(electronics_device_sensor_axis|전자소자\s*[·ㆍ]?\s*센서\s*장치|전자소자|소자\s*센서)/i.test(text)) {
+        if (/물질의\s*자기적\s*특성/.test(conceptText)) return "current_magnetic_system";
+        if (/빛과\s*물질의\s*이중성/.test(conceptText)) return "photoelectric_sensor";
+        return "semiconductor_device";
+      }
+      if (/(semiconductor_device_axis|반도체\s*[·ㆍ]?\s*소자|소자\s*이해|반도체)/i.test(text)) return "semiconductor_device";
       if (/(sensor_measurement_signal_axis|센서\s*[·ㆍ]?\s*측정\s*신호|센서\s*신호|측정\s*신호|센서)/i.test(text)) return "sensor_measurement_signal";
       // 파동의 성질과 활용
       if (/(signal_communication_axis|electronics_communication_signal_axis|신호\s*[·ㆍ]?\s*통신\s*해석|통신\s*신호|신호\s*통신|주파수\s*해석)/i.test(text)) return "signal_communication";
@@ -3590,11 +3597,11 @@
       if (/(wave_visualization_axis|파동\s*시각화\s*[·ㆍ]?\s*분석|파동\s*분석|시각화\s*분석)/i.test(text)) return "wave_visualization";
       // 물질의 자기적 특성
       if (/(current_magnetic_system_axis|전류\s*[·ㆍ]?\s*자기장\s*시스템|전류\s*자기장|자기장\s*시스템)/i.test(text)) return "current_magnetic_system";
-      if (/(electromagnet_control_axis|전자석\s*[·ㆍ]?\s*제어\s*장치|전자석\s*제어|제어\s*장치|액추에이터)/i.test(text)) return "electromagnet_control";
+      if (/(electromagnet_control_axis|electronics_power_induction_axis|전자기\s*유도\s*[·ㆍ]?\s*전력\s*응용|전자석\s*[·ㆍ]?\s*제어\s*장치|전자석\s*제어|제어\s*장치|액추에이터|유도\s*전류|전력\s*응용)/i.test(text)) return "electromagnet_control";
       if (/(magnetic_storage_material_axis|자성\s*[·ㆍ]?\s*저장장치|자성\s*저장|저장장치|자기\s*저장)/i.test(text)) return "magnetic_storage_material";
       // 빛과 물질의 이중성
       if (/(photoelectric_sensor_axis|광전\s*효과\s*[·ㆍ]?\s*센서|광전\s*센서|이미지\s*센서|빛\s*검출)/i.test(text)) return "photoelectric_sensor";
-      if (/(quantum_device_axis|electronics_quantum_device_axis|양자\s*[·ㆍ]?\s*반도체\s*소자|양자\s*소자|반도체\s*소자)/i.test(text)) return "quantum_device";
+      if (/(quantum_device_axis|electronics_quantum_device_axis|광센서\s*[·ㆍ]?\s*양자소자\s*응용|양자\s*[·ㆍ]?\s*반도체\s*소자|양자\s*소자|반도체\s*소자|밴드갭|에너지\s*준위)/i.test(text)) return "quantum_device";
       if (/(optical_information_axis|빛\s*정보\s*처리|광\s*정보|이미지\s*처리|광통신)/i.test(text)) return "optical_information";
       // 힘과 운동
       if (/(motion_data_simulation_axis|운동\s*데이터\s*[·ㆍ]?\s*시뮬레이션|운동\s*시뮬레이션|운동\s*그래프)/i.test(text)) return "motion_data_simulation";
@@ -3669,6 +3676,8 @@
     };
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
     const axisUse = axisUseMap[axisId] || axisUseMap.electric_signal_circuit;
+    const axisDirectReason = val(axisUse.direct).replace(/활용합니다\.?$/, "활용하는 직접 일치 도서입니다.") || "물리 개념을 컴퓨터공학의 회로·신호·센서·네트워크·시뮬레이션 관점으로 설명할 때 활용하는 직접 일치 도서입니다.";
+    const axisAnalysisFrame = `선택한 4번 축에 맞춰 물리 개념을 ${arr(axisUse.role).join("·") || "회로·신호·센서·네트워크"} 프레임으로 구체화합니다.`;
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -3676,14 +3685,14 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${axisLabel}에서 물리 개념을 컴퓨터공학의 회로·신호·센서·네트워크·시뮬레이션 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        ? `${title}은(는) ${axisLabel}에서 ${axisDirectReason}`
         : `${title}은(는) ${axisLabel}에서 정보사회, 기술 활용, 시스템 한계, 윤리적 쟁점으로 확장하는 참고 도서입니다.`,
       matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
       reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "활용 관점 비교", "시스템 한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 물리 개념을 전기 신호, 통신, 센서, 저장장치, 광정보, 시뮬레이션 중 하나의 프레임으로 구체화합니다." : "",
+        analysisFrame: isDirect ? axisAnalysisFrame : "",
         comparisonFrame: !isDirect ? "직접 도서와 다른 정보사회·기술 활용·윤리 관점을 비교할 때 활용합니다." : "",
         limitationDiscussion: "물리 모델이 실제 컴퓨터 시스템과 통신·센서·하드웨어 환경에서 갖는 오차, 단순화, 조건 설정의 한계를 논의할 때 활용합니다.",
         conclusionExpansion: !isDirect ? "결론에서 센서, 네트워크, 하드웨어, 정보사회, 기술 윤리 문제로 확장할 때 활용합니다." : ""
@@ -3720,17 +3729,17 @@
     if (!axisId) return result;
 
     const directMap = {
-      electric_signal_circuit: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
-      semiconductor_device: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      electric_signal_circuit: ["객관성의 칼날", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
+      semiconductor_device: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
       sensor_measurement_signal: ["객관성의 칼날", "팩트풀니스", "경영학 콘서트"],
-      signal_communication: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
-      data_bandwidth: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "객관성의 칼날"],
+      signal_communication: ["미디어의 이해", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
+      data_bandwidth: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "팩트풀니스"],
       wave_visualization: ["카오스", "혼돈으로부터의 질서", "객관성의 칼날"],
-      current_magnetic_system: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
-      electromagnet_control: ["경영학 콘서트", "부분과 전체", "카오스"],
+      current_magnetic_system: ["부분과 전체", "객관성의 칼날", "카오스"],
+      electromagnet_control: ["경영학 콘서트", "20세기 수학의 다섯가지 황금률", "카오스"],
       magnetic_storage_material: ["객관성의 칼날", "부분과 전체", "미디어의 이해"],
-      photoelectric_sensor: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
-      quantum_device: ["부분과 전체", "객관성의 칼날", "페르마의 마지막 정리"],
+      photoelectric_sensor: ["부분과 전체", "객관성의 칼날", "미디어의 이해"],
+      quantum_device: ["부분과 전체", "과학혁명의 구조", "객관성의 칼날"],
       optical_information: ["미디어의 이해", "20세기 수학의 다섯가지 황금률", "객관성의 칼날"],
       motion_data_simulation: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
       collision_safety: ["부분과 전체", "객관성의 칼날", "경영학 콘서트"],
