@@ -4701,6 +4701,184 @@
 
 
 
+  // v156 CHEM-ENERGY-lock: 화학+에너지공학과는 실제 chemistry1_concept_longitudinal_map.json의
+  // 에너지 대표 3번(화학 반응과 열의 출입 / 물질의 양과 화학 반응식 / 화학 반응에서의 동적 평형) 기준으로 5번 도서 매칭을 잠근다.
+  // 화학공학 A21 분기가 먼저 적용되더라도, 에너지공학과에서는 에너지 전환·배터리·안전·효율 문맥으로 최종 보정한다.
+  function isBookA24ChemistryEnergyContext(ctx){
+    ctx = ctx || {};
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const isChemistry = /화학/.test(subjectText);
+    const isEnergy = /(에너지공학과|에너지공학|에너지시스템|신재생에너지|수소에너지|배터리|이차전지|전지)/i.test(careerText);
+    const excludeOther = /(화학공학과|화공생명공학과|화공|화학공학|식품공학과|식품영양학과|생명공학과|생명과학과|약학과|간호학과|의예과|환경공학과|신소재공학과|고분자공학과|반도체공학과|전자공학과|전기공학과)/i.test(careerText);
+    const isTargetConcept = /(화학\s*반응과\s*열의\s*출입|물질의\s*양과\s*화학\s*반응식|화학\s*반응에서의\s*동적\s*평형)/.test(conceptText);
+    return !!(isChemistry && isEnergy && !excludeOther && isTargetConcept);
+  }
+
+  function inferBookA24ChemistryEnergyAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath,
+      ctx.keyword
+    ].join(" "));
+    const resolveFromText = (text) => {
+      if (!text) return "";
+      if (/(thermochemistry\s*axis|열화학\s*반응\s*에너지|열화학|반응\s*에너지|엔탈피|발열|흡열)/i.test(text)) return "thermochemistry";
+      if (/(electrochemistry\s*battery\s*axis|전기화학\s*배터리\s*기초|전기화학|배터리|전지|전극)/i.test(text)) return "electrochemistry_battery";
+      if (/(energy\s*safety\s*axis|에너지\s*안전\s*판단|에너지\s*안전|안전\s*판단|위험|효율)/i.test(text)) return "energy_safety";
+      if (/(stoichiometry\s*axis|화학량론\s*해석|화학량론|정량\s*반응식|반응식\s*분석)/i.test(text)) return "stoichiometry";
+      if (/(process\s*calculation\s*axis|공정\s*계산\s*응용|공정\s*계산|수율|생산량)/i.test(text)) return "process_calculation";
+      if (/(experiment\s*analysis\s*axis|실험\s*설계\s*분석|실험\s*분석|오차\s*분석)/i.test(text)) return "experiment_analysis";
+      if (/(equilibrium\s*analysis\s*axis|평형\s*이동\s*해석|평형\s*해석|평형\s*이동)/i.test(text)) return "equilibrium_analysis";
+      if (/(acid\s*base\s*environment\s*axis|산염기\s*환경\s*조절|산염기|환경\s*조절|pH|수질)/i.test(text)) return "acid_base_environment";
+      if (/(process\s*optimization\s*axis|공정\s*최적화|공정\s*제어|최적화|효율\s*향상)/i.test(text)) return "process_optimization";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/화학\s*반응과\s*열의\s*출입/.test(conceptText)) return "thermochemistry";
+    if (/물질의\s*양과\s*화학\s*반응식/.test(conceptText)) return "stoichiometry";
+    if (/화학\s*반응에서의\s*동적\s*평형/.test(conceptText)) return "equilibrium_analysis";
+    return "";
+  }
+
+  function buildLockedBookContextA24ChemistryEnergy(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      thermochemistry: "열화학·반응 에너지 축",
+      electrochemistry_battery: "전기화학·배터리 기초 축",
+      energy_safety: "에너지·안전 판단 축",
+      stoichiometry: "화학량론 해석 축",
+      process_calculation: "공정 계산 응용 축",
+      experiment_analysis: "실험 설계·분석 축",
+      equilibrium_analysis: "평형 이동 해석 축",
+      acid_base_environment: "산염기·환경 조절 축",
+      process_optimization: "공정 최적화 축"
+    };
+    const axisUseMap = {
+      thermochemistry: { direct: "발열·흡열, 반응열, 엔탈피를 에너지 전환 효율과 열관리 조건으로 설명할 때 활용합니다.", role: ["열화학", "에너지 전환", "열관리"] },
+      electrochemistry_battery: { direct: "산화·환원과 전자 이동을 전지, 배터리, 전극 반응의 에너지 저장 원리로 연결할 때 활용합니다.", role: ["전기화학", "배터리", "에너지 저장"] },
+      energy_safety: { direct: "반응 에너지와 연소·발열 위험을 에너지 시스템의 안전성, 효율, 환경 영향 판단으로 확장할 때 활용합니다.", role: ["에너지 안전", "효율", "환경 영향"] },
+      stoichiometry: { direct: "몰, 계수비, 수율 계산을 연료 소비량, 전환 효율, 에너지 생산량의 정량 판단 기준으로 설명할 때 활용합니다.", role: ["화학량론", "정량 계산", "전환 효율"] },
+      process_calculation: { direct: "반응식 계산을 에너지 생산량, 수율, 손실률, 시스템 효율 비교로 확장할 때 활용합니다.", role: ["공정 계산", "생산량", "효율 비교"] },
+      experiment_analysis: { direct: "실험값, 오차, 농도·희석 계산을 에너지 실험 데이터 검증과 조건 비교 관점으로 해석할 때 활용합니다.", role: ["실험 설계", "오차 분석", "데이터 검증"] },
+      equilibrium_analysis: { direct: "농도·온도·압력 변화에 따른 평형 이동을 에너지 반응의 진행 방향과 효율 변화로 설명할 때 활용합니다.", role: ["평형 이동", "반응 조건", "효율 변화"] },
+      acid_base_environment: { direct: "산·염기, pH, 중화 조건을 수질, 배터리 전해질, 환경 조절 조건과 연결할 때 활용합니다.", role: ["산염기", "pH", "환경 조절"] },
+      process_optimization: { direct: "평형 조건과 반응 조건 제어를 에너지 생산 효율, 전환 손실, 시스템 최적화 관점으로 설명할 때 활용합니다.", role: ["최적화", "조건 제어", "효율 향상"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.thermochemistry;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 에너지 전환·저장·효율·안전성 판단으로 연결할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 에너지 시스템의 환경 영향, 사회적 비용, 산업 적용 한계로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["환경 영향", "에너지 정책", "산업 적용 한계"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 에너지 전환, 배터리, 열관리, 정량 계산, 평형 조건 중 하나의 분석 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 에너지 정책, 환경 영향, 안전성 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "고등학교 화학 개념을 실제 에너지 시스템에 적용할 때 생기는 규모 차이, 효율 손실, 안전성, 환경 변수의 복합성을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 배터리, 수소에너지, 신재생에너지, 에너지 저장·전환 시스템으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA24ChemistryEnergyRank: rank,
+      bookA24ChemistryEnergyAxis: axisId
+    };
+  }
+
+  function cloneBookForA24ChemistryEnergyLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6200 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`에너지공학계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA24ChemistryEnergy(book, ctx, sectionType, axisId, rank),
+      bookA24ChemistryEnergyLock: true,
+      bookA24ChemistryEnergyLockRank: rank,
+      bookA24ChemistryEnergyAxisLock: axisId
+    };
+  }
+
+  function applyBookA24ChemistryEnergyLock(result, ctx){
+    if (!result || !isBookA24ChemistryEnergyContext(ctx)) return result;
+    const axisId = inferBookA24ChemistryEnergyAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      thermochemistry: ["엔트로피", "공학이란 무엇인가", "객관성의 칼날"],
+      electrochemistry_battery: ["같기도 하고 아니 같기도 하고", "엔트로피", "부분과 전체"],
+      energy_safety: ["엔트로피", "침묵의 봄", "공학이란 무엇인가"],
+      stoichiometry: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "팩트풀니스"],
+      process_calculation: ["공학이란 무엇인가", "경영학 콘서트", "객관성의 칼날"],
+      experiment_analysis: ["객관성의 칼날", "팩트풀니스", "공학이란 무엇인가"],
+      equilibrium_analysis: ["객관성의 칼날", "엔트로피", "같기도 하고 아니 같기도 하고"],
+      acid_base_environment: ["침묵의 봄", "팩트풀니스", "객관성의 칼날"],
+      process_optimization: ["경영학 콘서트", "공학이란 무엇인가", "엔트로피"]
+    };
+    const expansionMap = {
+      thermochemistry: ["침묵의 봄", "경영학 콘서트", "팩트풀니스", "부분과 전체", "카오스"],
+      electrochemistry_battery: ["공학이란 무엇인가", "침묵의 봄", "경영학 콘서트", "객관성의 칼날", "제3의 물결"],
+      energy_safety: ["팩트풀니스", "경영학 콘서트", "부분과 전체", "오래된 미래", "제3의 물결"],
+      stoichiometry: ["공학이란 무엇인가", "경영학 콘서트", "엔트로피", "침묵의 봄", "부분과 전체"],
+      process_calculation: ["20세기 수학의 다섯가지 황금률", "팩트풀니스", "엔트로피", "침묵의 봄", "제3의 물결"],
+      experiment_analysis: ["20세기 수학의 다섯가지 황금률", "엔트로피", "침묵의 봄", "부분과 전체", "경영학 콘서트"],
+      equilibrium_analysis: ["공학이란 무엇인가", "경영학 콘서트", "팩트풀니스", "침묵의 봄", "부분과 전체"],
+      acid_base_environment: ["공학이란 무엇인가", "엔트로피", "오래된 미래", "제3의 물결", "부분과 전체"],
+      process_optimization: ["20세기 수학의 다섯가지 황금률", "팩트풀니스", "침묵의 봄", "부분과 전체", "제3의 물결"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA24ChemistryEnergyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA24ChemistryEnergyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA24ChemistryEnergyLock: axisId,
+        bookA24ChemistryEnergyDirectTitles: directBooks.map(book => book.title),
+        bookA24ChemistryEnergyExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4753,6 +4931,7 @@
     result = applyBookA21ChemistryChemicalEngineeringLock(result, ctx);
     result = applyBookA22ChemistryBioengineeringLock(result, ctx);
     result = applyBookA23ChemistryFoodLock(result, ctx);
+    result = applyBookA24ChemistryEnergyLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
