@@ -3452,26 +3452,28 @@
       vector_similarity_model: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "부분과 전체"],
       graphics_physics_vector: ["부분과 전체", "카오스", "객관성의 칼날"],
       projection_space_calculation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
-      // v141 geometry+computer B/C book-match refinement:
-      // B. 공간좌표와 구의 방정식은 3차원 표현/센서 범위/공간 데이터로 분리한다.
-      three_d_coordinate_graphics: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률"],
-      sensor_range_collision: ["부분과 전체", "카오스", "혼돈으로부터의 질서"],
-      location_tracking_space_data: ["팩트풀니스", "객관성의 칼날", "경영학 콘서트"],
+      // v142 geometry+computer B/C book-match rematch:
+      // B. 공간좌표와 구의 방정식은 기하적 좌표 모델을 먼저 세우고, 그래픽스·센서·공간 데이터 응용으로 확장한다.
+      //    v141의 미디어/일반 확장 도서 선배치를 줄이고, 수학적 모델링·측정 신뢰도·데이터 해석 순서로 재정렬한다.
+      three_d_coordinate_graphics: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "객관성의 칼날"],
+      sensor_range_collision: ["객관성의 칼날", "부분과 전체", "카오스"],
+      location_tracking_space_data: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"],
       // C. 이차곡선과 자취 해석은 위치 추정/반사·궤도/곡선 시각화로 분리한다.
-      signal_position_estimation: ["객관성의 칼날", "팩트풀니스", "20세기 수학의 다섯가지 황금률"],
-      reflection_orbit_analysis: ["카오스", "혼돈으로부터의 질서", "부분과 전체"],
-      curve_design_visualization: ["미디어의 이해", "부분과 전체", "객관성의 칼날"]
+      //    위치 추정은 수학적 모델·증명·측정 신뢰도, 반사·궤도는 물리·우주·비선형 모델, 곡선 시각화는 수학+미디어 표현 순서로 배치한다.
+      signal_position_estimation: ["20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리", "객관성의 칼날"],
+      reflection_orbit_analysis: ["코스모스", "시간의 역사", "카오스"],
+      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "객관성의 칼날"]
     };
     const expansionMap = {
       vector_similarity_model: ["팩트풀니스", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
       graphics_physics_vector: ["객관성의 칼날", "미디어의 이해", "혼돈으로부터의 질서", "경영학 콘서트", "1984"],
       projection_space_calculation: ["부분과 전체", "방법서설", "카오스", "경영학 콘서트", "미디어의 이해"],
-      three_d_coordinate_graphics: ["객관성의 칼날", "팩트풀니스", "경영학 콘서트", "1984", "제3의 물결"],
-      sensor_range_collision: ["객관성의 칼날", "경영학 콘서트", "20세기 수학의 다섯가지 황금률", "미디어의 이해", "1984"],
-      location_tracking_space_data: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률", "1984", "감시와 처벌"],
-      signal_position_estimation: ["경영학 콘서트", "부분과 전체", "미디어의 이해", "1984", "제3의 물결"],
-      reflection_orbit_analysis: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "경영학 콘서트", "미디어의 이해", "1984"],
-      curve_design_visualization: ["20세기 수학의 다섯가지 황금률", "카오스", "경영학 콘서트", "1984", "제3의 물결"]
+      three_d_coordinate_graphics: ["부분과 전체", "팩트풀니스", "경영학 콘서트", "제3의 물결", "1984"],
+      sensor_range_collision: ["20세기 수학의 다섯가지 황금률", "경영학 콘서트", "혼돈으로부터의 질서", "미디어의 이해", "1984"],
+      location_tracking_space_data: ["미디어의 이해", "부분과 전체", "20세기 수학의 다섯가지 황금률", "감시와 처벌", "1984"],
+      signal_position_estimation: ["경영학 콘서트", "팩트풀니스", "부분과 전체", "미디어의 이해", "1984"],
+      reflection_orbit_analysis: ["혼돈으로부터의 질서", "부분과 전체", "20세기 수학의 다섯가지 황금률", "객관성의 칼날", "미디어의 이해"],
+      curve_design_visualization: ["부분과 전체", "디자인 인문학", "카오스", "경영학 콘서트", "제3의 물결"]
     };
 
     const directBooks = arr(directMap[axisId]).map((title, index) =>
