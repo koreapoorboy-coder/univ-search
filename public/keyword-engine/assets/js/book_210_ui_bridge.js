@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a21-chemistry-it-electronics-axis-lock-v150";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a21-chemistry-electronics-bond-book-fix-v151";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3916,12 +3916,18 @@
     };
   }
 
+  function isBookA19ChemistryElectronicsContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    return /(전자공학과|전자공학|전자공|전기전자|전자전기|전기공학과|전기공학|전기공|반도체공학과|반도체공학|반도체|시스템반도체|소자|회로|센서|통신|임베디드|하드웨어)/i.test(careerText);
+  }
+
   function applyBookA19ChemistryComputerLock(result, ctx){
     if (!result || !isBookA19ChemistryComputerContext(ctx)) return result;
     const axisId = inferBookA19ChemistryComputerAxis(ctx);
     if (!axisId) return result;
 
-    const directMap = {
+    const directMapBase = {
       electron_configuration_spectrum: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
       light_energy_transition: ["부분과 전체", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
       semiconductor_electronic_material: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
@@ -3932,6 +3938,16 @@
       material_property_design: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"],
       bio_molecular_interaction: ["부분과 전체", "같기도 하고 아니 같기도 하고", "객관성의 칼날"]
     };
+    const directMapElectronics = {
+      ...directMapBase,
+      // v151: 전자공학과·전기공학과·반도체공학과는 컴퓨터공학과 잠금값을 유지하되,
+      // 빛/에너지 준위와 화학 결합 3축은 전자소자·소재·측정 관점에 맞게 별도 분기한다.
+      light_energy_transition: ["부분과 전체", "같기도 하고 아니 같기도 하고", "20세기 수학의 다섯가지 황금률"],
+      bond_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      material_property_design: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      bio_molecular_interaction: ["객관성의 칼날", "팩트풀니스", "같기도 하고 아니 같기도 하고"]
+    };
+    const directMap = isBookA19ChemistryElectronicsContext(ctx) ? directMapElectronics : directMapBase;
     const expansionMap = {
       electron_configuration_spectrum: ["20세기 수학의 다섯가지 황금률", "미디어의 이해", "팩트풀니스", "제3의 물결", "1984"],
       light_energy_transition: ["미디어의 이해", "코스모스", "시간의 역사", "팩트풀니스", "제3의 물결"],
@@ -3964,6 +3980,7 @@
         ...(result.debug || {}),
         bookA19ChemistryComputerLock: axisId,
         bookA19ChemistryComputerDirectTitles: directBooks.map(book => book.title),
+        bookA19ChemistryComputerElectronicsMode: isBookA19ChemistryElectronicsContext(ctx),
         bookA19ChemistryComputerExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
