@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a19-physics-subject-lock-v127-1";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v33-a19-chemistry-computer-book-lock-v147";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3800,6 +3800,213 @@
 
 
 
+  function isBookA19ChemistryComputerContext(ctx){
+    ctx = ctx || {};
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const keywordText = normalizeLockText(ctx.keyword || "");
+    const isItElectronics = /(컴퓨터|소프트웨어|인공지능|ai|데이터|정보|보안|프로그래밍|알고리즘|반도체|전자|전기|통신|네트워크|센서|임베디드|하드웨어|소자)/i.test(careerText);
+    const isChemistry = /^(화학|화학Ⅰ|화학1)$/.test(subjectText) || /화학/.test(subjectText);
+    const isConcept = /(현대의\s*원자\s*모형과\s*전자\s*배치|원소의\s*주기적\s*성질|화학\s*결합)/.test(conceptText);
+    const isKeyword = !keywordText || /(에너지\s*준위|오비탈|전자\s*배치|선\s*스펙트럼|주기율표|이온화\s*에너지|원자\s*반지름|전기음성도|원자가\s*전자|공유\s*결합|이온\s*결합|결합의\s*극성|루이스|전자쌍|분자\s*모형|반도체|소자|전도성|소재|원소\s*성질|결합\s*종류|극성\s*판단)/i.test(keywordText);
+    return !!(isItElectronics && isChemistry && isConcept && isKeyword);
+  }
+
+  function inferBookA19ChemistryAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const getVisibleActiveChemAxisText = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        const nodes = document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, [data-track].is-active"
+        );
+        nodes.forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
+          push(node.textContent || "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+    const primaryAxisText = normalizeLockText([
+      getVisibleActiveChemAxisText(),
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath
+    ].join(" "));
+    const resolveFromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 현대의 원자 모형과 전자 배치
+      if (/(pure_chem_atom_electron_axis|원자\s*구조\s*[·ㆍ]?\s*전자\s*배치|전자\s*배치\s*해석|오비탈|에너지\s*준위)/i.test(text)) return "atom_electron_structure";
+      if (/(pure_chem_periodic_spectrum_axis|주기성\s*[·ㆍ]?\s*스펙트럼|선\s*스펙트럼|스펙트럼\s*분석)/i.test(text)) return "periodic_spectrum";
+      if (/(반도체\s*[·ㆍ]?\s*소자|에너지\s*준위\s*[·ㆍ]?\s*반도체|밴드갭|전자\s*전이|소자\s*응용)/i.test(text)) return "semiconductor_energy_level";
+      // 원소의 주기적 성질
+      if (/(pure_chem_periodicity_predict_axis|주기율\s*[·ㆍ]?\s*성질\s*예측|주기율|성질\s*예측|주기성\s*비교)/i.test(text)) return "periodic_property_predict";
+      if (/(pure_chem_atomic_property_compare_axis|원자\s*구조\s*[·ㆍ]?\s*성질\s*비교|원자\s*반지름|이온화\s*에너지|유효\s*핵전하)/i.test(text)) return "atomic_property_compare";
+      if (/(pure_chem_element_bond_trend_axis|원소\s*성질과\s*결합\s*경향|결합\s*경향|금속성|비금속성|전기음성도)/i.test(text)) return "element_bond_trend";
+      // 화학 결합
+      if (/(pure_chem_bond_interpret_axis|결합\s*구조\s*해석|공유\s*결합|이온\s*결합|결합\s*형성)/i.test(text)) return "bond_structure";
+      if (/(pure_chem_electron_pair_molecule_axis|전자쌍\s*[·ㆍ]?\s*분자\s*구조|전자쌍|루이스|결합각|분자\s*구조)/i.test(text)) return "electron_pair_molecule";
+      if (/(pure_chem_bond_property_predict_axis|결합과\s*물성\s*예측|결합\s*[·ㆍ]?\s*물성|전도성|녹는점|용해도|물성\s*예측)/i.test(text)) return "bond_property_predict";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/현대의\s*원자\s*모형과\s*전자\s*배치/.test(conceptText)) return "atom_electron_structure";
+    if (/원소의\s*주기적\s*성질/.test(conceptText)) return "periodic_property_predict";
+    if (/화학\s*결합/.test(conceptText)) return "bond_structure";
+    return "";
+  }
+
+  function buildLockedBookContextA19Chemistry(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      atom_electron_structure: "원자 구조·전자 배치 해석 축",
+      periodic_spectrum: "주기성·스펙트럼 분석 축",
+      semiconductor_energy_level: "에너지 준위·반도체 소자 축",
+      periodic_property_predict: "주기율·성질 예측 축",
+      atomic_property_compare: "원자 구조·성질 비교 축",
+      element_bond_trend: "원소 성질과 결합 경향 분석 축",
+      bond_structure: "결합 구조 해석 축",
+      electron_pair_molecule: "전자쌍·분자 구조 해석 축",
+      bond_property_predict: "결합과 물성 예측 축"
+    };
+    const axisUseMap = {
+      atom_electron_structure: { direct: "에너지 준위, 오비탈, 전자 배치를 원소 성질과 전자소자 기초 조건으로 연결할 때 활용합니다.", role: ["전자 배치", "에너지 준위", "소자 기초"] },
+      periodic_spectrum: { direct: "전자 배치와 스펙트럼 자료를 주기성 비교와 측정 근거로 설명할 때 활용합니다.", role: ["스펙트럼", "주기성", "자료 해석"] },
+      semiconductor_energy_level: { direct: "에너지 준위와 전자 전이를 반도체 소자, 밴드갭, 센서 작동 원리로 연결할 때 활용합니다.", role: ["반도체 소자", "밴드갭", "전자 전이"] },
+      periodic_property_predict: { direct: "주기율표 위치와 전자 배치를 바탕으로 원소 성질 변화를 예측할 때 활용합니다.", role: ["주기율", "성질 예측", "원소 비교"] },
+      atomic_property_compare: { direct: "유효 핵전하, 원자 반지름, 이온화 에너지 차이를 비교 기준으로 설명할 때 활용합니다.", role: ["원자 구조", "성질 비교", "정량 해석"] },
+      element_bond_trend: { direct: "원소 성질과 전기음성도를 결합 경향, 전도성, 소재 선택 관점으로 연결할 때 활용합니다.", role: ["전기음성도", "결합 경향", "소재 선택"] },
+      bond_structure: { direct: "공유 결합과 이온 결합, 원자가 전자, 전기음성도를 결합 구조 해석으로 연결할 때 활용합니다.", role: ["결합 구조", "원자가 전자", "전기음성도"] },
+      electron_pair_molecule: { direct: "전자쌍 배치와 분자 구조를 극성, 결합각, 분자 모형 해석으로 연결할 때 활용합니다.", role: ["전자쌍", "분자 구조", "극성 판단"] },
+      bond_property_predict: { direct: "결합 종류와 분자 구조를 전도성, 녹는점, 용해도 같은 물성 예측으로 연결할 때 활용합니다.", role: ["결합 물성", "전도성", "물성 예측"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.atom_electron_structure;
+    const axisDirectReason = val(axisUse.direct).replace(/활용합니다\.?$/, "활용하는 직접 일치 도서입니다.") || "화학 개념을 컴퓨터·전자 계열의 전자 구조, 소자, 소재 물성 관점으로 설명할 때 활용하는 직접 일치 도서입니다.";
+    const axisAnalysisFrame = `선택한 4번 축에 맞춰 화학 개념을 ${arr(axisUse.role).join("·") || "전자 구조·소자·소재"} 프레임으로 구체화합니다.`;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 ${axisDirectReason}`
+        : `${title}은(는) ${axisLabel}에서 기술사회, 반도체·전자소자 활용, 자료 해석의 한계, 윤리적 쟁점으로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["기술사회 확장", "소자 활용 관점", "자료 해석 한계"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? axisAnalysisFrame : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 기술사회·소재 활용·윤리 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "화학 모델이 실제 전자소자, 반도체 소재, 측정 자료 해석에서 갖는 단순화와 조건 설정의 한계를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 반도체, 전자소자, 정보사회, 기술 윤리 문제로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA19ChemistryRank: rank,
+      bookA19ChemistryAxis: axisId
+    };
+  }
+
+  function cloneBookForA19ChemistryLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6170 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`선택한 후속 연계축 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA19Chemistry(book, ctx, sectionType, axisId, rank),
+      bookA19ChemistryLock: true,
+      bookA19ChemistryLockRank: rank,
+      bookA19ChemistryAxisLock: axisId
+    };
+  }
+
+  function applyBookA19ChemistryLock(result, ctx){
+    if (!result || !isBookA19ChemistryComputerContext(ctx)) return result;
+    const axisId = inferBookA19ChemistryAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      atom_electron_structure: ["부분과 전체", "객관성의 칼날", "같기도 하고 아니 같기도 하고"],
+      periodic_spectrum: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "20세기 수학의 다섯가지 황금률"],
+      semiconductor_energy_level: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      periodic_property_predict: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "팩트풀니스"],
+      atomic_property_compare: ["객관성의 칼날", "같기도 하고 아니 같기도 하고", "20세기 수학의 다섯가지 황금률"],
+      element_bond_trend: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      bond_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      electron_pair_molecule: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      bond_property_predict: ["같기도 하고 아니 같기도 하고", "경영학 콘서트", "객관성의 칼날"]
+    };
+    const expansionMap = {
+      atom_electron_structure: ["과학혁명의 구조", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"],
+      periodic_spectrum: ["부분과 전체", "과학혁명의 구조", "미디어의 이해", "팩트풀니스", "제3의 물결"],
+      semiconductor_energy_level: ["미디어의 이해", "제3의 물결", "경영학 콘서트", "팩트풀니스", "1984"],
+      periodic_property_predict: ["부분과 전체", "과학혁명의 구조", "미디어의 이해", "제3의 물결", "1984"],
+      atomic_property_compare: ["부분과 전체", "과학혁명의 구조", "팩트풀니스", "미디어의 이해", "제3의 물결"],
+      element_bond_trend: ["경영학 콘서트", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"],
+      bond_structure: ["20세기 수학의 다섯가지 황금률", "과학혁명의 구조", "미디어의 이해", "제3의 물결", "팩트풀니스"],
+      electron_pair_molecule: ["20세기 수학의 다섯가지 황금률", "과학혁명의 구조", "미디어의 이해", "팩트풀니스", "제3의 물결"],
+      bond_property_predict: ["부분과 전체", "미디어의 이해", "제3의 물결", "팩트풀니스", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA19ChemistryLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA19ChemistryLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA19ChemistryLock: axisId,
+        bookA19ChemistryDirectTitles: directBooks.map(book => book.title),
+        bookA19ChemistryExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -3847,6 +4054,7 @@
     result = applyBookA16CalculusSequenceLimitLock(result, ctx);
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
+    result = applyBookA19ChemistryLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
