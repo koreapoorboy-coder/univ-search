@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a21-chemistry-electronics-bond-book-fix-v151";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v34-a22-chemistry-materials-book-lock-v152";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3987,6 +3987,185 @@
   }
 
 
+  // v152 CHEM-MATERIALS-lock: 화학+신소재/재료계열은 컴퓨터·전자계열과 다른 실제 대표 3번
+  // (화학 결합 / 원소의 주기적 성질 / 분자의 구조와 성질) 기준으로 5번 도서 매칭을 잠근다.
+  // 4번 축은 chemistry1_concept_longitudinal_map.json의 실제 축명만 사용한다.
+  function isBookA20ChemistryMaterialsContext(ctx){
+    ctx = ctx || {};
+    const subjectText = normalizeLockText(ctx.subject || "");
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const isChemistry = /화학/.test(subjectText);
+    const isMaterials = /(신소재공학과|신소재공학|신소재|재료공학과|재료공학|재료|소재|나노소재|고분자공학|고분자|금속공학|금속|세라믹|섬유공학|섬유)/i.test(careerText);
+    const isTargetConcept = /(화학\s*결합|원소의\s*주기적\s*성질|분자의\s*구조와\s*성질)/.test(conceptText);
+    return !!(isChemistry && isMaterials && isTargetConcept);
+  }
+
+  function inferBookA20ChemistryMaterialsAxis(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || "");
+    const primaryAxisText = normalizeLockText([
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisLabel
+    ].join(" "));
+    const secondaryAxisText = normalizeLockText([
+      ctx.axisDomain,
+      Array.isArray(ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx.activityExample,
+      ctx.longitudinalPath,
+      ctx.keyword
+    ].join(" "));
+    const resolveFromText = (text) => {
+      if (!text) return "";
+      // 화학 결합 - 실제 JSON 축명
+      if (/(bond\s*structure\s*axis|결합\s*구조\s*해석|결합\s*구조)/i.test(text)) return "bond_structure";
+      if (/(material\s*property\s*design\s*axis|물성\s*소재\s*설계|물성\s*설계|소재\s*설계|재료\s*물성)/i.test(text)) return "material_property_design";
+      if (/(bio\s*molecular\s*interaction\s*axis|분자\s*상호작용\s*용해|분자\s*상호작용|용해)/i.test(text)) return "bio_molecular_interaction";
+      // 원소의 주기적 성질 - 실제 JSON 축명
+      if (/(periodic\s*property\s*axis|주기율\s*성질\s*예측|주기율|주기성|성질\s*예측)/i.test(text)) return "periodic_property";
+      if (/(material\s*selection\s*axis|재료\s*선택\s*설계|재료\s*선택|소재\s*선택)/i.test(text)) return "material_selection";
+      if (/(bio\s*environment\s*ion\s*axis|환경\s*생체\s*이온\s*해석|생체\s*이온|환경\s*이온|이온\s*해석)/i.test(text)) return "bio_environment_ion";
+      // 분자의 구조와 성질 - 실제 JSON 축명
+      if (/(molecular\s*shape\s*axis|분자\s*구조\s*극성|분자\s*구조|극성\s*축)/i.test(text)) return "molecular_shape";
+      if (/(intermolecular\s*force\s*axis|분자\s*사이\s*힘\s*물성|분자\s*사이\s*힘|분자간\s*힘|물성\s*축)/i.test(text)) return "intermolecular_force";
+      if (/(life\s*material\s*application\s*axis|생활\s*생체\s*물질\s*적용|생활\s*생체|생체\s*물질)/i.test(text)) return "life_material_application";
+      return "";
+    };
+    let axisId = resolveFromText(primaryAxisText) || resolveFromText(secondaryAxisText);
+    if (axisId) return axisId;
+    if (/화학\s*결합/.test(conceptText)) return "bond_structure";
+    if (/원소의\s*주기적\s*성질/.test(conceptText)) return "material_selection";
+    if (/분자의\s*구조와\s*성질/.test(conceptText)) return "molecular_shape";
+    return "";
+  }
+
+  function buildLockedBookContextA20ChemistryMaterials(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const axisLabelMap = {
+      bond_structure: "결합 구조 해석 축",
+      material_property_design: "물성·소재 설계 축",
+      bio_molecular_interaction: "분자 상호작용·용해 축",
+      periodic_property: "주기율·성질 예측 축",
+      material_selection: "재료 선택·설계 축",
+      bio_environment_ion: "환경·생체 이온 해석 축",
+      molecular_shape: "분자 구조·극성 축",
+      intermolecular_force: "분자 사이 힘·물성 축",
+      life_material_application: "생활·생체 물질 적용 축"
+    };
+    const axisUseMap = {
+      bond_structure: { direct: "이온 결합·공유 결합·금속 결합의 구조 차이를 소재 안정성, 전도성, 결정 구조 해석의 출발점으로 설명할 때 활용합니다.", role: ["결합 구조", "소재 안정성", "구조-성질 연결"] },
+      material_property_design: { direct: "미시적 결합 방식이 녹는점, 전도성, 강도, 내구성 같은 거시적 물성으로 이어지는 과정을 소재 설계 기준으로 설명할 때 활용합니다.", role: ["물성 예측", "소재 설계", "전도성·강도"] },
+      bio_molecular_interaction: { direct: "분자 상호작용과 용해 조건을 고분자, 코팅, 접착, 바이오소재의 계면 특성으로 확장할 때 활용합니다.", role: ["분자 상호작용", "용해", "계면·바이오소재"] },
+      periodic_property: { direct: "주기율표 위치와 이온화 에너지, 전기음성도, 금속성을 바탕으로 원소 성질을 예측할 때 활용합니다.", role: ["주기율", "성질 예측", "원소 비교"] },
+      material_selection: { direct: "원소의 주기적 성질을 금속·비금속, 전도성, 안정성, 반응성 차이에 따른 재료 선택 기준으로 확장할 때 활용합니다.", role: ["재료 선택", "원소 성질", "소재 설계"] },
+      bio_environment_ion: { direct: "금속 이온과 환경·생체 조건을 부식, 오염, 생체적합성, 센서 소재 판단으로 연결할 때 활용합니다.", role: ["이온 해석", "환경·생체", "소재 안정성"] },
+      molecular_shape: { direct: "분자 구조와 극성을 소재의 배열, 표면 특성, 친수성·소수성 판단으로 연결할 때 활용합니다.", role: ["분자 구조", "극성", "표면 특성"] },
+      intermolecular_force: { direct: "분자 사이 힘을 끓는점, 점성, 용해도, 접착성, 코팅 성능 같은 소재 물성 차이로 설명할 때 활용합니다.", role: ["분자 사이 힘", "물성", "코팅·접착"] },
+      life_material_application: { direct: "생활·생체 물질 적용 관점에서 고분자, 생체재료, 친환경 소재의 활용성과 한계를 비교할 때 활용합니다.", role: ["생활 소재", "생체재료", "활용성 비교"] }
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "선택 후속 연계축";
+    const axisUse = axisUseMap[axisId] || axisUseMap.material_property_design;
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 화학 개념을 신소재·재료계열의 구조-물성-소재 설계 관점으로 설명할 때 활용하는 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 소재 활용, 기술사회, 환경 영향, 생체 적용으로 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? axisUse.role : ["소재 활용 확장", "응용 관점 비교", "기술·환경 한계"],
+      useInReport: {
+        conceptExplanation: isDirect ? axisUse.direct : "",
+        analysisFrame: isDirect ? "선택한 4번 축에 맞춰 화학 개념을 결합 구조, 주기성, 분자 구조, 분자 사이 힘, 소재 선택 중 하나의 프레임으로 구체화합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 소재 활용·환경 영향·생체 적용 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "화학 개념을 실제 소재 설계에 적용할 때 생기는 조건 의존성, 측정 오차, 공정 한계, 환경 영향을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 신소재, 고분자, 금속·세라믹, 친환경 소재, 생체재료 활용 방향으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA20ChemistryMaterialsRank: rank,
+      bookA20ChemistryMaterialsAxis: axisId
+    };
+  }
+
+  function cloneBookForA20ChemistryMaterialsLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6170 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`신소재·재료계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
+      selectedBookContext: buildLockedBookContextA20ChemistryMaterials(book, ctx, sectionType, axisId, rank),
+      bookA20ChemistryMaterialsLock: true,
+      bookA20ChemistryMaterialsLockRank: rank,
+      bookA20ChemistryMaterialsAxisLock: axisId
+    };
+  }
+
+  function applyBookA20ChemistryMaterialsLock(result, ctx){
+    if (!result || !isBookA20ChemistryMaterialsContext(ctx)) return result;
+    const axisId = inferBookA20ChemistryMaterialsAxis(ctx);
+    if (!axisId) return result;
+
+    const directMap = {
+      bond_structure: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      material_property_design: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      bio_molecular_interaction: ["부분과 전체", "같기도 하고 아니 같기도 하고", "객관성의 칼날"],
+      periodic_property: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "팩트풀니스"],
+      material_selection: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      bio_environment_ion: ["객관성의 칼날", "팩트풀니스", "같기도 하고 아니 같기도 하고"],
+      molecular_shape: ["같기도 하고 아니 같기도 하고", "부분과 전체", "객관성의 칼날"],
+      intermolecular_force: ["같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체"],
+      life_material_application: ["부분과 전체", "팩트풀니스", "같기도 하고 아니 같기도 하고"]
+    };
+    const expansionMap = {
+      bond_structure: ["혼돈으로부터의 질서", "카오스", "20세기 수학의 다섯가지 황금률", "팩트풀니스", "미디어의 이해"],
+      material_property_design: ["혼돈으로부터의 질서", "카오스", "경영학 콘서트", "팩트풀니스", "미디어의 이해"],
+      bio_molecular_interaction: ["팩트풀니스", "혼돈으로부터의 질서", "경영학 콘서트", "미디어의 이해", "1984"],
+      periodic_property: ["20세기 수학의 다섯가지 황금률", "부분과 전체", "미디어의 이해", "경영학 콘서트", "제3의 물결"],
+      material_selection: ["혼돈으로부터의 질서", "카오스", "경영학 콘서트", "팩트풀니스", "미디어의 이해"],
+      bio_environment_ion: ["부분과 전체", "미디어의 이해", "경영학 콘서트", "감시와 처벌", "제3의 물결"],
+      molecular_shape: ["20세기 수학의 다섯가지 황금률", "혼돈으로부터의 질서", "카오스", "팩트풀니스", "미디어의 이해"],
+      intermolecular_force: ["혼돈으로부터의 질서", "카오스", "경영학 콘서트", "팩트풀니스", "미디어의 이해"],
+      life_material_application: ["미디어의 이해", "경영학 콘서트", "제3의 물결", "감시와 처벌", "1984"]
+    };
+
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA20ChemistryMaterialsLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean);
+
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA20ChemistryMaterialsLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+
+    if (!directBooks.length) return result;
+
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA20ChemistryMaterialsLock: axisId,
+        bookA20ChemistryMaterialsDirectTitles: directBooks.map(book => book.title),
+        bookA20ChemistryMaterialsExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4035,6 +4214,7 @@
     result = applyBookA17GeometryLock(result, ctx);
     result = applyBookA18PhysicsLock(result, ctx);
     result = applyBookA19ChemistryComputerLock(result, ctx);
+    result = applyBookA20ChemistryMaterialsLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
