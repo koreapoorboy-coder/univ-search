@@ -5255,7 +5255,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   function isIntegratedScience2EnvironmentEngineeringF1Context(mappedEntry) {
     try {
       const subjectText = String(state.subject || "").replace(/\s+/g, "");
-      if (!/^(통합과학2|통합과학Ⅱ|통합과학II)$/.test(subjectText)) return false;
+      if (!/^(통합과학|통합과학1|통합과학Ⅰ|통합과학I|통합과학2|통합과학Ⅱ|통합과학II)$/.test(subjectText)) return false;
 
       let statusMajorText = "";
       try {
@@ -5272,8 +5272,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         state.career || ""
       ].join(" ").replace(/\s+/g, " ").trim();
 
-      const isExactEnvironmentEngineering = /(환경공학과|환경공학|환경과학|기후환경|지구환경|탄소중립|대기환경|수질|폐기물|환경보건)/.test(selectedMajorText);
-      const isClearlyUrbanCivil = /(도시공학과|도시공학|건축공학과|건축공학|토목공학과|토목공학|건설환경공학과|교통공학과|공간정보)/.test(selectedMajorText);
+      const isExactEnvironmentEngineering = /(환경공학과|환경공학|환경과학|환경생태|기후환경|지구환경|탄소중립|대기환경|수질|폐기물|환경보건|생태공학)/.test(selectedMajorText);
+      const isClearlyUrbanCivil = /(도시공학과|도시공학|건축공학과|건축공학|토목공학과|토목공학|건설환경공학과|토목환경공학과|교통공학과|공간정보)/.test(selectedMajorText);
       if (!isExactEnvironmentEngineering || isClearlyUrbanCivil) return false;
 
       const conceptText = [
@@ -5281,7 +5281,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         mappedEntry?.concept_name || "",
         mappedEntry?.concept_label || ""
       ].join(" ").replace(/\s+/g, " ").trim();
-      if (!/지구\s*환경\s*변화|지구 환경 변화와 인간 생활/.test(conceptText)) return false;
+
+      // v136 ENV-B/C-lock: A(지구 환경 변화와 인간 생활)뿐 아니라
+      // B(생물과 환경), C(생태계평형)도 환경공학과에서는 일반 생태 축이 아니라
+      // 5번 도서 추천 로직과 동일한 환경공학형 후속 탐구축으로 직접 반환한다.
+      if (!/(지구\s*환경\s*변화와\s*인간\s*생활|지구\s*환경\s*변화|생물과\s*환경|생태계평형)/.test(conceptText)) return false;
 
       return true;
     } catch (error) {
@@ -5302,7 +5306,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         __score: 1000 - index
       };
     };
-    return [
+
+    const conceptText = String(state.concept || "").replace(/\s+/g, " ").trim();
+
+    const earthEnvAxes = [
       make({
         id: "env_climate_impact_analysis_axis",
         title: "기후·환경 영향 분석 축",
@@ -5337,6 +5344,82 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         activityExamples: ["기후·대기질 자료 그래프화", "환경 지표 변화 추세 분석", "자료 기반 환경 관리 기준 제안"]
       }, 2)
     ];
+
+    const biologyEnvironmentAxes = [
+      make({
+        id: "ecosystem_interaction_cycle_axis",
+        title: "생태계 상호작용·물질 순환 축",
+        short: "상호작용·순환",
+        axisDomain: "biology",
+        priority: 1,
+        linkedSubjects: ["생명과학", "환경", "지구시스템과학"],
+        desc: "생물과 환경 개념을 먹이 관계, 개체군·군집 상호작용, 물질 순환과 에너지 흐름으로 연결하는 방향입니다.",
+        easy: "먹이 관계도, 개체군 변화 비교, 물질 순환 구조도, 생태계 상호작용 보고서",
+        activityExamples: ["먹이 관계와 개체군 상호작용 도식화", "환경 요인 변화가 물질 순환에 미치는 영향 정리", "생태계 구성 요소별 역할 비교"]
+      }, 0),
+      make({
+        id: "environment_resource_conservation_axis",
+        title: "환경·자원 보전 응용 축",
+        short: "보전·복원 응용",
+        axisDomain: "environment",
+        priority: 2,
+        linkedSubjects: ["환경", "통합사회1", "생명과학"],
+        desc: "생물과 환경 개념을 서식지 보전, 생물다양성 보호, 오염 관리, 자원 보전의 환경공학적 과제로 확장하는 방향입니다.",
+        easy: "서식지 변화 비교, 생물다양성 보전 방안, 오염 관리·복원 제안서",
+        activityExamples: ["서식지 변화와 생물다양성 영향 비교", "오염 관리와 생태 복원 사례 조사", "지역 환경 보전 방안 제안"]
+      }, 1),
+      make({
+        id: "env_data_monitoring_axis",
+        title: "환경 자료·모니터링 축",
+        short: "자료·모니터링",
+        axisDomain: "data",
+        priority: 3,
+        linkedSubjects: ["확률과 통계", "정보", "환경", "생명과학"],
+        desc: "생물과 환경 개념을 환경 요인 측정값, 조건 비교, 그래프 해석, 모니터링 기준으로 연결하는 방향입니다.",
+        easy: "온도·수질·빛·습도 자료 비교, 환경 요인 그래프, 생물 반응 모니터링 보고서",
+        activityExamples: ["환경 요인별 생물 반응 자료 표 만들기", "조건별 개체 수 변화를 그래프로 해석", "자료 기반 생태 관리 기준 제안"]
+      }, 2)
+    ];
+
+    const ecosystemBalanceAxes = [
+      make({
+        id: "ecosystem_interaction_cycle_axis",
+        title: "생태계 상호작용·물질 순환 축",
+        short: "상호작용·순환",
+        axisDomain: "biology",
+        priority: 1,
+        linkedSubjects: ["생명과학", "환경", "지구시스템과학"],
+        desc: "생태계평형 개념을 먹이 관계, 물질 순환, 에너지 흐름, 생태계 안정성 조건으로 연결하는 방향입니다.",
+        easy: "먹이 그물 변화, 물질 순환 구조, 평형 유지 조건 분석 보고서",
+        activityExamples: ["먹이 그물 변화와 평형 유지 조건 도식화", "물질 순환 변화가 안정성에 미치는 영향 정리", "생태계 구성 요소별 균형 역할 비교"]
+      }, 0),
+      make({
+        id: "environment_resource_conservation_axis",
+        title: "환경·자원 보전 응용 축",
+        short: "보전·복원 응용",
+        axisDomain: "environment",
+        priority: 2,
+        linkedSubjects: ["환경", "통합사회1", "생명과학"],
+        desc: "생태계평형 개념을 교란 요인, 회복 전략, 보전·복원 관리 기준으로 확장하는 방향입니다.",
+        easy: "외래종·오염·서식지 변화 사례, 생태계 회복 전략, 보전 관리 제안서",
+        activityExamples: ["생태계 교란 요인과 회복 전략 비교", "보전·복원 관리 기준 설계", "환경 관리 우선순위 제안"]
+      }, 1),
+      make({
+        id: "ecosystem_data_decision_axis",
+        title: "생태 데이터 판단 축",
+        short: "생태 데이터 판단",
+        axisDomain: "data",
+        priority: 3,
+        linkedSubjects: ["확률과 통계", "정보", "환경", "생명과학"],
+        desc: "생태계평형 개념을 개체군 변화, 안정성 지표, 회복 자료 해석과 연결해 자료 기반 판단으로 확장하는 방향입니다.",
+        easy: "개체군 변화 그래프, 안정성 지표 비교, 회복 가능성 판단 보고서",
+        activityExamples: ["교란 전후 개체군 변화 그래프 해석", "생태계 안정성 지표 비교", "자료 기반 회복 가능성 판단"]
+      }, 2)
+    ];
+
+    if (/생물과\s*환경/.test(conceptText)) return biologyEnvironmentAxes;
+    if (/생태계평형/.test(conceptText)) return ecosystemBalanceAxes;
+    return earthEnvAxes;
   }
 
 
