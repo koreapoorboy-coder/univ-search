@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a20-chem-pharmacy-exact-3-4-5-lock-v130";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v32-a21-chem-pharmacy-axis-reason-lock-v131";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -3770,14 +3770,14 @@
   }
 
 
-  // v130 CHEM-PHARMACY-lock: 실제 엔진 데이터 기준 3번(교과 개념/추천 키워드) → 4번(후속 연계축) → 5번(도서) 연결 잠금.
-  // 주의: 설명용 축명이 아니라 textbook_concept_helper.js에 실제 존재하는 약학과+화학 4번 축명/ID만 사용한다.
+  // v131 CHEM-PHARMACY-lock: 실제 3번 개념 + 실제 4번 후속축에 따라 5번 도서의 우선순위/역할/활용 문장을 분화한다.
+  // 도서 풀이 좁은 약학과 조합에서는 같은 책이 일부 반복될 수 있으므로, 제목을 억지로 늘리지 않고
+  // 3번·4번 조합별 직접/확장 구분과 추천 사유를 다르게 잠근다.
   function isBookChemPharmacyContext(ctx){
     ctx = ctx || {};
     const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department].join(" "));
     const subjectText = normalizeLockText(ctx.subject || "");
     const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
-    const keywordText = normalizeLockText(ctx.keyword || ctx.selectedKeyword || ctx.selectedRecommendedKeyword || "");
     const axisText = normalizeLockText([
       ctx.followupAxisId,
       ctx.linkTrack,
@@ -3797,6 +3797,26 @@
     return !!(isChemistry && isPharmacy && isActualConcept && isActualAxis);
   }
 
+  function inferBookChemPharmacyConcept(ctx){
+    ctx = ctx || {};
+    const conceptText = normalizeLockText(ctx.concept || ctx.selectedConcept || "");
+    if (/탄소\s*화합물의\s*유용성/i.test(conceptText)) return "carbon_compound_use";
+    if (/분자의\s*구조와\s*성질/i.test(conceptText)) return "molecular_structure_property";
+    if (/화학\s*반응에서의\s*동적\s*평형/i.test(conceptText)) return "dynamic_equilibrium";
+    if (/물질의\s*양과\s*화학\s*반응식/i.test(conceptText)) return "stoichiometry";
+    return "chemistry_pharmacy";
+  }
+
+  function getChemPharmacyConceptLabel(conceptId){
+    const map = {
+      carbon_compound_use: "탄소 화합물의 유용성",
+      molecular_structure_property: "분자의 구조와 성질",
+      dynamic_equilibrium: "화학 반응에서의 동적 평형",
+      stoichiometry: "물질의 양과 화학 반응식"
+    };
+    return map[conceptId] || "선택 화학 개념";
+  }
+
   function inferBookChemPharmacyAxis(ctx){
     ctx = ctx || {};
     const axisText = normalizeLockText([
@@ -3811,7 +3831,7 @@
       ctx.longitudinalPath
     ].join(" "));
 
-    // 실제 4번 후속 연계축 ID/title 기준. 넓은 설명어보다 실제 축명을 우선한다.
+    // 실제 4번 후속 연계축 ID/title 기준. 설명용 임의 축명은 사용하지 않는다.
     if (/(drug\s*structure\s*function\s*axis|의약품\s*구조|작용기)/i.test(axisText)) return "drug_structure_function_axis";
     if (/(drug\s*solubility\s*absorption\s*axis|약물\s*용해도|용해도\s*흡수|약물\s*흡수)/i.test(axisText)) return "drug_solubility_absorption_axis";
     if (/(drug\s*ph\s*stability\s*axis|약물\s*ph|약물\s*안정성|ph\s*약물\s*안정성|제형\s*안정성)/i.test(axisText)) return "drug_ph_stability_axis";
@@ -3834,34 +3854,97 @@
   function getChemPharmacyAxisUse(axisId){
     const map = {
       drug_structure_function_axis: {
-        direct: "탄소 화합물·작용기·약물 구조를 연결해 의약품이 생체 분자와 상호작용하는 원리를 설명하는 직접 근거로 활용합니다.",
-        roles: ["의약품 구조 근거", "작용기 해석", "약물 작용 원리 설명"]
+        direct: "탄소 화합물·작용기·약물 구조를 의약품 설계와 생체 분자 상호작용으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "대표 의약품 구조식에서 작용기와 친수성·소수성 부분을 찾아 약물 작용 원리를 설명합니다.",
+        limitation: "구조만으로 약효를 단정하기 어렵고, 대사·흡수·수용체 결합 조건이 함께 고려되어야 한다는 한계를 논의합니다.",
+        roles: ["의약품 구조 근거", "작용기 해석", "약물 작용 원리"]
       },
       drug_solubility_absorption_axis: {
         direct: "분자 구조, 극성, 수소 결합, 용해도를 약물 흡수와 세포막 통과 조건으로 해석하는 직접 근거로 활용합니다.",
+        analysis: "친수성·소수성, 용해도, 분자 사이 힘을 기준으로 약물 흡수 가능성과 제형 조건을 비교합니다.",
+        limitation: "용해도만으로 흡수율을 설명하기 어렵고, 세포막 투과성·수송체·대사 과정이 함께 작용한다는 한계를 논의합니다.",
         roles: ["용해도·흡수 원리", "분자 성질 해석", "제형 조건 비교"]
       },
       drug_ph_stability_axis: {
         direct: "pH, 완충 용액, 동적 평형을 약물 안정성과 제형 조건으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "pH 변화가 약물의 이온화 상태, 안정성, 보관 조건, 제형 선택에 미치는 영향을 비교합니다.",
+        limitation: "pH 조건은 안정성의 한 요인이며 온도, 빛, 산화, 보관 기간, 생체 환경도 함께 고려되어야 한다는 한계를 논의합니다.",
         roles: ["pH·안정성 근거", "평형 조건 해석", "제형 안정성 비교"]
       },
       body_fluid_buffer_homeostasis_axis: {
         direct: "산·염기와 완충 작용을 체액 pH, 항상성, 약물 작용 환경으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "혈액 pH 유지, 완충 작용, 체액 환경 변화가 약물 작용 조건에 미치는 영향을 설명합니다.",
+        limitation: "체액 pH는 항상성 조절의 일부이며 호흡, 신장 기능, 대사 상태 같은 생리적 조절과 함께 해석해야 함을 논의합니다.",
         roles: ["체액 pH 근거", "완충 항상성 해석", "건강 조건 연결"]
       },
       dosage_concentration_quant_axis: {
         direct: "몰 농도, 희석, 정량 계산을 투약 농도와 용액 조제의 안전성 판단으로 연결하는 직접 근거로 활용합니다.",
+        analysis: "희석 배율, 농도 변화, 정량 분석 오차가 투약량과 안전 범위 판단에 미치는 영향을 계산·비교합니다.",
+        limitation: "정량 계산은 복약 판단의 기초 자료일 뿐이며 개인별 대사, 체중, 질환, 병용 약물 조건이 함께 고려되어야 함을 논의합니다.",
         roles: ["투약 농도 계산", "정량 분석 근거", "농도 오차 논의"]
       }
     };
     return map[axisId] || map.drug_structure_function_axis;
   }
 
-  function buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank){
+  function getChemPharmacyConceptAxisUse(conceptId, axisId){
+    const conceptLabel = getChemPharmacyConceptLabel(conceptId);
+    const axisLabel = getChemPharmacyAxisLabel(axisId);
+    const map = {
+      "carbon_compound_use::drug_structure_function_axis": {
+        reason: "탄소 화합물의 작용기와 의약품 구조를 연결해 약학적 응용을 가장 직접적으로 설명하는 조합입니다.",
+        report: "보고서 본론에서 탄소 화합물의 구조·작용기가 약물의 기능 차이로 이어지는 과정을 사례 중심으로 설명합니다."
+      },
+      "carbon_compound_use::drug_solubility_absorption_axis": {
+        reason: "탄소 골격과 작용기 차이가 용해도·흡수 차이로 이어지는 흐름을 설명하기 좋은 조합입니다.",
+        report: "보고서 본론에서 친수성·소수성 작용기와 약물 흡수 조건을 연결해 비교표로 정리합니다."
+      },
+      "carbon_compound_use::dosage_concentration_quant_axis": {
+        reason: "탄소 화합물의 유용성을 실제 의약품 사용량·농도 판단으로 확장하는 조합입니다.",
+        report: "보고서 본론에서 유기 화합물 의약품의 농도 조절과 안전 범위 판단을 정량적으로 설명합니다."
+      },
+      "molecular_structure_property::drug_solubility_absorption_axis": {
+        reason: "분자 구조와 극성, 수소 결합이 약물 용해도와 흡수에 직접 영향을 주는 조합입니다.",
+        report: "보고서 본론에서 극성·수소 결합·분자 사이 힘을 기준으로 약물 용해도와 흡수 가능성을 비교합니다."
+      },
+      "molecular_structure_property::drug_structure_function_axis": {
+        reason: "분자 구조와 성질을 의약품 작용기, 수용체 결합, 생체 분자 상호작용으로 확장하는 조합입니다.",
+        report: "보고서 본론에서 분자의 입체 구조와 작용기 차이가 약물 기능 차이로 연결되는 과정을 설명합니다."
+      },
+      "molecular_structure_property::dosage_concentration_quant_axis": {
+        reason: "분자량·용액 농도·정량 조건을 약물 사용량 계산으로 연결할 수 있는 조합입니다.",
+        report: "보고서 본론에서 분자량과 몰 농도 개념을 이용해 용액 조제와 투약 농도 계산을 제시합니다."
+      },
+      "dynamic_equilibrium::drug_ph_stability_axis": {
+        reason: "동적 평형과 pH 조건을 약물 안정성·제형 조건으로 직접 연결하는 조합입니다.",
+        report: "보고서 본론에서 pH 변화와 평형 이동이 약물 안정성, 보관 조건, 제형 설계에 미치는 영향을 분석합니다."
+      },
+      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": {
+        reason: "동적 평형을 체액 pH와 완충 항상성으로 연결해 약물이 작용하는 생체 환경을 설명하는 조합입니다.",
+        report: "보고서 본론에서 완충 작용과 혈액 pH 유지 원리를 약물 작용 환경과 연결해 정리합니다."
+      },
+      "dynamic_equilibrium::dosage_concentration_quant_axis": {
+        reason: "평형 조건과 농도 변화를 투약 농도·정량 계산으로 연결해 안전성 판단을 다루는 조합입니다.",
+        report: "보고서 본론에서 농도 변화와 평형 조건을 이용해 약물 사용량과 정량 분석의 의미를 설명합니다."
+      },
+      "stoichiometry::dosage_concentration_quant_axis": {
+        reason: "물질의 양과 화학 반응식 개념을 투약 농도·희석·정량 계산으로 직접 연결하는 조합입니다.",
+        report: "보고서 본론에서 몰 농도와 희석 계산을 활용해 용액 조제와 투약량 판단 과정을 제시합니다."
+      }
+    };
+    return map[`${conceptId}::${axisId}`] || {
+      reason: `${conceptLabel}을(를) ${axisLabel}으로 확장해 약학 탐구의 근거를 구성하는 조합입니다.`,
+      report: `보고서 본론에서 ${conceptLabel}과(와) ${axisLabel}의 연결 과정을 약물 구조·흡수·안정성·농도 판단 중 하나로 구체화합니다.`
+    };
+  }
+
+  function buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank, conceptId){
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
     const axisLabel = getChemPharmacyAxisLabel(axisId);
+    const conceptLabel = getChemPharmacyConceptLabel(conceptId);
     const axisUse = getChemPharmacyAxisUse(axisId);
+    const conceptAxisUse = getChemPharmacyConceptAxisUse(conceptId, axisId);
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
     return {
       ...baseContext,
@@ -3869,17 +3952,17 @@
       author: book && book.author || "",
       recommendationType: sectionType,
       recommendationReason: isDirect
-        ? `${title}은(는) ${axisLabel}에서 선택한 화학 개념과 약학 탐구를 직접 연결하는 핵심 근거 도서입니다.`
-        : `${title}은(는) ${axisLabel}에서 과학사·윤리·사회적 영향·자료 해석 관점으로 확장하는 참고 도서입니다.`,
-      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+        ? `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름에서 ${conceptAxisUse.reason}`
+        : `${title}은(는) ${conceptLabel} → ${axisLabel} 흐름을 과학사·윤리·사회적 영향·자료 해석 관점으로 넓히는 확장 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${conceptLabel} → ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
       reportRole: isDirect ? ["conceptExplanation", "analysisFrame", "limitationDiscussion"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
       reportRoleLabels: isDirect ? axisUse.roles : ["사회적 의미 확장", "비교 관점", "윤리·한계 논의"],
       useInReport: {
         conceptExplanation: isDirect ? axisUse.direct : "",
-        analysisFrame: isDirect ? "3번 교과 개념과 4번 후속 연계축을 약학적 사례로 구체화하는 분석 프레임으로 활용합니다." : "",
-        comparisonFrame: !isDirect ? "직접 도서와 다른 과학사·윤리·사회 영향 관점을 비교할 때 활용합니다." : "",
-        limitationDiscussion: "약물 구조, 흡수, 안정성, 농도 판단에서 생길 수 있는 조건 차이와 해석 한계를 논의할 때 활용합니다.",
-        conclusionExpansion: !isDirect ? "결론에서 신약 개발, 의약품 안전, 보건 윤리, 사회적 책임으로 확장할 때 활용합니다." : ""
+        analysisFrame: isDirect ? conceptAxisUse.report : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 과학사·윤리·보건사회·자료 해석 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: isDirect ? axisUse.limitation : "약학 탐구가 개인 건강, 의약품 안전, 사회적 책임, 자료 해석 방식에 따라 달라질 수 있음을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 신약 개발, 의약품 안전, 보건 윤리, 환경·사회 영향, 추가 탐구 방향으로 확장할 때 활용합니다." : ""
       },
       connectionToPayload: {
         subject: ctx && ctx.subject || "",
@@ -3889,51 +3972,79 @@
         followupAxis: axisLabel
       },
       bookChemPharmacyRank: rank,
+      bookChemPharmacyConcept: conceptId,
       bookChemPharmacyAxis: axisId
     };
   }
 
-  function cloneBookForChemPharmacyLock(book, ctx, sectionType, axisId, rank){
+  function cloneBookForChemPharmacyLock(book, ctx, sectionType, axisId, rank, conceptId){
     if (!book) return null;
     return {
       ...book,
       matchType: sectionType,
-      matchScore: 8200 - rank * 10,
+      matchScore: 8400 - rank * 10,
       matchReasons: uniq(arr(book.matchReasons).concat([`화학+약학 실제 3번·4번 기준 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
-      selectedBookContext: buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank),
+      selectedBookContext: buildLockedBookContextChemPharmacy(book, ctx, sectionType, axisId, rank, conceptId),
       bookChemPharmacyLock: true,
       bookChemPharmacyLockRank: rank,
-      bookChemPharmacyAxisLock: axisId
+      bookChemPharmacyAxisLock: axisId,
+      bookChemPharmacyConceptLock: conceptId
     };
   }
 
   function applyBookChemPharmacyLock(result, ctx){
     if (!result || !isBookChemPharmacyContext(ctx)) return result;
+    const conceptId = inferBookChemPharmacyConcept(ctx);
     const axisId = inferBookChemPharmacyAxis(ctx);
     if (!axisId) return result;
 
+    const key = `${conceptId}::${axisId}`;
+    const defaultKey = `default::${axisId}`;
     const directMap = {
-      drug_structure_function_axis: ["신약의 탄생", "새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기"],
-      drug_solubility_absorption_axis: ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
-      drug_ph_stability_axis: ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
-      body_fluid_buffer_homeostasis_axis: ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
-      dosage_concentration_quant_axis: ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"]
+      "carbon_compound_use::drug_structure_function_axis": ["신약의 탄생", "새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고"],
+      "carbon_compound_use::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
+      "carbon_compound_use::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
+      "molecular_structure_property::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고", "신약의 탄생"],
+      "molecular_structure_property::drug_structure_function_axis": ["같기도 하고 아니 같기도 하고", "신약의 탄생", "새로운 약은 어떻게 창조되나"],
+      "molecular_structure_property::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
+      "dynamic_equilibrium::drug_ph_stability_axis": ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
+      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
+      "dynamic_equilibrium::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
+      "stoichiometry::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"],
+      "default::drug_structure_function_axis": ["신약의 탄생", "새로운 약은 어떻게 창조되나", "같기도 하고 아니 같기도 하고"],
+      "default::drug_solubility_absorption_axis": ["새로운 약은 어떻게 창조되나", "신약의 탄생", "위대하고 위험한 약 이야기"],
+      "default::drug_ph_stability_axis": ["위대하고 위험한 약 이야기", "새로운 약은 어떻게 창조되나", "신약의 탄생"],
+      "default::body_fluid_buffer_homeostasis_axis": ["위대하고 위험한 약 이야기", "닥터스 씽킹", "신약의 탄생"],
+      "default::dosage_concentration_quant_axis": ["새로운 약은 어떻게 창조되나", "위대하고 위험한 약 이야기", "신약의 탄생"]
     };
     const expansionMap = {
-      drug_structure_function_axis: ["같기도 하고 아니 같기도 하고", "과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "이중나선"],
-      drug_solubility_absorption_axis: ["이중나선", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "과학혁명의 구조", "침묵의 봄"],
-      drug_ph_stability_axis: ["침묵의 봄", "닥터스 씽킹", "객관성의 칼날", "과학혁명의 구조", "팩트풀니스"],
-      body_fluid_buffer_homeostasis_axis: ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "침묵의 봄", "과학혁명의 구조"],
-      dosage_concentration_quant_axis: ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"]
+      "carbon_compound_use::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "팩트풀니스", "닥터스 씽킹"],
+      "carbon_compound_use::drug_solubility_absorption_axis": ["객관성의 칼날", "침묵의 봄", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
+      "carbon_compound_use::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "침묵의 봄"],
+      "molecular_structure_property::drug_solubility_absorption_axis": ["객관성의 칼날", "팩트풀니스", "침묵의 봄", "과학혁명의 구조", "닥터스 씽킹"],
+      "molecular_structure_property::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "닥터스 씽킹", "침묵의 봄", "팩트풀니스"],
+      "molecular_structure_property::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "과학혁명의 구조", "닥터스 씽킹", "침묵의 봄"],
+      "dynamic_equilibrium::drug_ph_stability_axis": ["침묵의 봄", "객관성의 칼날", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
+      "dynamic_equilibrium::body_fluid_buffer_homeostasis_axis": ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
+      "dynamic_equilibrium::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "침묵의 봄"],
+      "stoichiometry::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"],
+      "default::drug_structure_function_axis": ["과학혁명의 구조", "객관성의 칼날", "침묵의 봄", "팩트풀니스", "닥터스 씽킹"],
+      "default::drug_solubility_absorption_axis": ["객관성의 칼날", "침묵의 봄", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
+      "default::drug_ph_stability_axis": ["침묵의 봄", "객관성의 칼날", "팩트풀니스", "과학혁명의 구조", "닥터스 씽킹"],
+      "default::body_fluid_buffer_homeostasis_axis": ["의사와 수의사가 만나다", "팩트풀니스", "객관성의 칼날", "의학, 인문으로 치유하다", "아픔이 길이 되려면"],
+      "default::dosage_concentration_quant_axis": ["팩트풀니스", "객관성의 칼날", "닥터스 씽킹", "과학혁명의 구조", "공학이란 무엇인가"]
     };
 
-    const directBooks = arr(directMap[axisId]).map((title, index) =>
-      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    const directTitles = arr(directMap[key] || directMap[defaultKey]);
+    const expansionTitles = arr(expansionMap[key] || expansionMap[defaultKey]);
+
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1, conceptId)
     ).filter(Boolean);
 
     const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
-      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForChemPharmacyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1, conceptId)
     ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
 
     if (!directBooks.length) return result;
@@ -3946,12 +4057,12 @@
       debug: {
         ...(result.debug || {}),
         bookChemPharmacyLock: axisId,
+        bookChemPharmacyConceptLock: conceptId,
         bookChemPharmacyDirectTitles: directBooks.map(book => book.title),
         bookChemPharmacyExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
-
 
 
 
