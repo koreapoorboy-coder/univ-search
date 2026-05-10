@@ -4879,7 +4879,7 @@
 
 
 
-  // v164 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // v165 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
   // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
   const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
     axisLabels: {
@@ -4956,9 +4956,14 @@
         platform_ethics: ["1984", "감시와 처벌", "성의 역사 1"]
       },
       administration: {
+        // v165: 행정학과는 통합사회1의 인권·시민참여 3축뿐 아니라
+        // 문화 다양성과 세계화에서 뜨는 세계화/소비문화/ESG 축도 행정·정책 도서 풀로 잠근다.
         civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "국가"],
         inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
         public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "반지성주의"],
+        global_trade: ["서유견문", "백범일지", "돈으로 살 수 없는 것들"],
+        consumer_marketing: ["서유견문", "성호사설", "돈으로 살 수 없는 것들"],
+        esg_sustainability: ["누구나 한번쯤 읽어야 할 목민심서", "돈으로 살 수 없는 것들", "성호사설"],
         global_peace: ["서유견문", "리바이어던", "국가"],
         market_survey: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
         business_data: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
@@ -5254,6 +5259,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
+        bookA25BusinessSocialVersion: "v165",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
