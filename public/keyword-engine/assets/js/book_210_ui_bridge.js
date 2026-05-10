@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v37-a25-axis-first-social-business-book-lock-v157";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v40-a25-visible-data-code-v160";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4879,6 +4879,86 @@
 
 
 
+  // v160 visible data code: A-25 사회·상경·인문 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
+  const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
+    axisLabels: {
+      business_choice: "합리적 선택·기회비용 분석 축",
+      market_price: "시장 구조·가격 변동 해석 축",
+      finance_risk: "금융 생활·위험관리 축",
+      esg_sustainability: "지속가능 경영·ESG 전략 축",
+      future_industry: "미래 산업·소비 변화 분석 축",
+      global_trade: "세계화·국제무역 해석 축",
+      consumer_marketing: "소비문화·글로벌 마케팅 축",
+      market_survey: "시장조사·표본 추정 축",
+      distribution_risk: "수요·위험 분포 해석 축",
+      conditional_risk: "조건부 판단·리스크 의사결정 축",
+      business_data: "데이터 기반 경영 의사결정 축",
+      platform_ethics: "플랫폼 비즈니스·데이터 윤리 축",
+      civic_rights: "시민 참여·제도 분석 축",
+      inequality_policy: "불평등·분배 정책 해석 축",
+      public_issue: "공공문제 통합 분석 축",
+      global_peace: "세계화·평화 쟁점 해석 축"
+    },
+    directByMajorType: {
+      business_social: {
+        business_choice: ["경영학 콘서트", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        market_price: ["물질문명과 자본주의", "경영학 콘서트", "돈으로 살 수 없는 것들"],
+        finance_risk: ["경영학 콘서트", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+        esg_sustainability: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "경영학 콘서트"],
+        future_industry: ["경영학 콘서트", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+        global_trade: ["물질문명과 자본주의", "돈으로 살 수 없는 것들", "경영학 콘서트"],
+        consumer_marketing: ["경영학 콘서트", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        market_survey: ["경영학 콘서트", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        distribution_risk: ["경영학 콘서트", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+        conditional_risk: ["경영학 콘서트", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        business_data: ["경영학 콘서트", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
+        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "국가"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "공정하다는 착각", "영국 노동계급의 형성"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "돈으로 살 수 없는 것들"],
+        global_peace: ["문명의 충돌", "오리엔탈리즘", "광장"]
+      },
+      economics: {
+        // 경제학과 직접 일치 도서는 book_matching_index_210.json의 경제학과 relatedMajor 매칭값 우선이다.
+        business_choice: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "성호사설"],
+        market_price: ["물질문명과 자본주의", "돈으로 살 수 없는 것들", "성호사설"],
+        finance_risk: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "왜 세계의 절반은 굶주리는가"],
+        esg_sustainability: ["왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        future_industry: ["물질문명과 자본주의", "역사와 계급의식", "영국 노동계급의 형성"],
+        global_trade: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+        consumer_marketing: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "성호사설"],
+        market_survey: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "성호사설"],
+        distribution_risk: ["물질문명과 자본주의", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들"],
+        conditional_risk: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "성호사설"],
+        business_data: ["물질문명과 자본주의", "돈으로 살 수 없는 것들", "성호사설"],
+        platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
+        civic_rights: ["돈으로 살 수 없는 것들", "성호사설", "물질문명과 자본주의"],
+        inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "역사와 계급의식"],
+        public_issue: ["성호사설", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        global_peace: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "돈으로 살 수 없는 것들"]
+      }
+    },
+    expansionByAxis: {
+      business_choice: ["국부론", "팩트풀니스", "공정하다는 착각", "물질문명과 자본주의", "프로테스탄트 윤리와 자본주의 정신"],
+      market_price: ["경영학 콘서트", "고용, 이자 및 화폐의 일반이론", "자본론", "팩트풀니스", "공정하다는 착각"],
+      finance_risk: ["국부론", "자본론", "팩트풀니스", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "침묵의 봄", "공정하다는 착각", "국부론", "팩트풀니스"],
+      future_industry: ["미디어의 이해", "1984", "일차원적 인간", "공정하다는 착각", "오래된 미래"],
+      global_trade: ["오리엔탈리즘", "문명의 충돌", "왜 세계의 절반은 굶주리는가", "제국의 시대", "공정하다는 착각"],
+      consumer_marketing: ["공정하다는 착각", "돈으로 살 수 없는 것들", "제3의 물결", "1984", "오리엔탈리즘"],
+      market_survey: ["돈으로 살 수 없는 것들", "공정하다는 착각", "경영학 콘서트", "제3의 물결", "미디어의 이해"],
+      distribution_risk: ["고용, 이자 및 화폐의 일반이론", "국부론", "돈으로 살 수 없는 것들", "공정하다는 착각", "객관성의 칼날"],
+      conditional_risk: ["객관성의 칼날", "고용, 이자 및 화폐의 일반이론", "공정하다는 착각", "제3의 물결", "미디어의 이해"],
+      business_data: ["돈으로 살 수 없는 것들", "제3의 물결", "미디어의 이해", "공정하다는 착각", "1984"],
+      platform_ethics: ["제3의 물결", "공정하다는 착각", "일차원적 인간", "경영학 콘서트", "팩트풀니스"],
+      civic_rights: ["리바이어던", "국가", "누구나 한번쯤 읽어야 할 목민심서", "의무론", "비통한 자들을 위한 정치학"],
+      inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "자본론", "이상한 정상가족", "돈으로 살 수 없는 것들"],
+      public_issue: ["법의 정신", "리바이어던", "자유론", "공정하다는 착각", "정의론"],
+      global_peace: ["국가", "사회계약론", "자유론", "반지성주의", "제국의 시대"]
+    }
+  };
+
   function isBookA25BusinessSocialContext(ctx){
     const subjectText = normalizeLockText(ctx && ctx.subject || "");
     const careerText = normalizeLockText(ctx && ctx.career || "");
@@ -4946,24 +5026,7 @@
     const title = val(book && book.title);
     const isDirect = sectionType === "direct";
     const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
-    const axisLabelMap = {
-      business_choice: "합리적 선택·기회비용 분석 축",
-      market_price: "시장 구조·가격 변동 해석 축",
-      finance_risk: "금융 생활·위험관리 축",
-      esg_sustainability: "지속가능 경영·ESG 전략 축",
-      future_industry: "미래 산업·소비 변화 분석 축",
-      global_trade: "세계화·국제무역 해석 축",
-      consumer_marketing: "소비문화·글로벌 마케팅 축",
-      market_survey: "시장조사·표본 추정 축",
-      distribution_risk: "수요·위험 분포 해석 축",
-      conditional_risk: "조건부 판단·리스크 의사결정 축",
-      business_data: "데이터 기반 경영 의사결정 축",
-      platform_ethics: "플랫폼 비즈니스·데이터 윤리 축",
-      civic_rights: "시민 참여·제도 분석 축",
-      inequality_policy: "불평등·분배 정책 해석 축",
-      public_issue: "공공문제 통합 분석 축",
-      global_peace: "세계화·평화 쟁점 해석 축"
-    };
+    const axisLabelMap = BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.axisLabels || {};
     const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "사회·상경 후속 연계축";
     const directUseMap = {
       business_choice: "선택 대안의 비용·편익, 기회비용, 시장 윤리 기준을 분석하는 핵심 근거로 활용합니다.",
@@ -5032,63 +5095,11 @@
     const careerText = normalizeLockText(ctx && ctx.career || "");
     const isEconomicsMajor = /(경제학과|경제학부|경제금융|금융학과|농업경제학과|식품자원경제학과)/i.test(careerText)
       && !/(경영학과|경영학부|경영전공|글로벌경영학과|경영정보학과|관광경영학과|호텔경영학과|외식경영학과)/i.test(careerText);
-    const businessDirectMap = {
-      business_choice: ["돈으로 살 수 없는 것들", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
-      market_price: ["국부론", "죽은 경제학자의 살아있는 아이디어", "물질문명과 자본주의"],
-      finance_risk: ["고용, 이자 및 화폐의 일반이론", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
-      esg_sustainability: ["파타고니아, 파도가 칠 때는 서핑을", "오래된 미래", "돈으로 살 수 없는 것들"],
-      future_industry: ["제3의 물결", "경영학 콘서트", "팩트풀니스"],
-      global_trade: ["국부론", "총, 균, 쇠", "물질문명과 자본주의"],
-      consumer_marketing: ["프로테스탄트 윤리와 자본주의 정신", "미디어의 이해", "국화와 칼"],
-      market_survey: ["팩트풀니스", "경영학 콘서트", "객관성의 칼날"],
-      distribution_risk: ["경영학 콘서트", "죽은 경제학자의 살아있는 아이디어", "팩트풀니스"],
-      conditional_risk: ["경영학 콘서트", "팩트풀니스", "돈으로 살 수 없는 것들"],
-      business_data: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"],
-      platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
-      civic_rights: ["사회계약론", "자유론", "법의 정신"],
-      inequality_policy: ["정의론", "공정하다는 착각", "난장이가 쏘아올린 작은 공"],
-      public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "사회계약론"],
-      global_peace: ["문명의 충돌", "오리엔탈리즘", "총, 균, 쇠"]
-    };
-    // v158: 경제학과 계열은 경영학과와 같은 상경 묶음이지만,
-    // 5번 직접 도서에서는 기업 운영/경영 사례 도서보다 경제 이론·시장·분배·거시 흐름 도서를 우선한다.
-    const economicsDirectMap = {
-      business_choice: ["죽은 경제학자의 살아있는 아이디어", "국부론", "돈으로 살 수 없는 것들"],
-      market_price: ["국부론", "자본론", "물질문명과 자본주의"],
-      finance_risk: ["고용, 이자 및 화폐의 일반이론", "죽은 경제학자의 살아있는 아이디어", "팩트풀니스"],
-      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "오래된 미래", "돈으로 살 수 없는 것들"],
-      future_industry: ["제3의 물결", "고용, 이자 및 화폐의 일반이론", "팩트풀니스"],
-      global_trade: ["국부론", "왜 세계의 절반은 굶주리는가", "물질문명과 자본주의"],
-      consumer_marketing: ["프로테스탄트 윤리와 자본주의 정신", "돈으로 살 수 없는 것들", "국화와 칼"],
-      market_survey: ["팩트풀니스", "객관성의 칼날", "죽은 경제학자의 살아있는 아이디어"],
-      distribution_risk: ["고용, 이자 및 화폐의 일반이론", "팩트풀니스", "죽은 경제학자의 살아있는 아이디어"],
-      conditional_risk: ["팩트풀니스", "객관성의 칼날", "돈으로 살 수 없는 것들"],
-      business_data: ["팩트풀니스", "죽은 경제학자의 살아있는 아이디어", "객관성의 칼날"],
-      platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
-      civic_rights: ["사회계약론", "자유론", "법의 정신"],
-      inequality_policy: ["정의론", "공정하다는 착각", "난장이가 쏘아올린 작은 공"],
-      public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "사회계약론"],
-      global_peace: ["문명의 충돌", "오리엔탈리즘", "총, 균, 쇠"]
-    };
-    const directMap = isEconomicsMajor ? economicsDirectMap : businessDirectMap;
-    const expansionMap = {
-      business_choice: ["국부론", "팩트풀니스", "공정하다는 착각", "물질문명과 자본주의", "프로테스탄트 윤리와 자본주의 정신"],
-      market_price: ["경영학 콘서트", "고용, 이자 및 화폐의 일반이론", "자본론", "팩트풀니스", "공정하다는 착각"],
-      finance_risk: ["국부론", "자본론", "팩트풀니스", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
-      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "침묵의 봄", "공정하다는 착각", "국부론", "팩트풀니스"],
-      future_industry: ["미디어의 이해", "1984", "일차원적 인간", "공정하다는 착각", "오래된 미래"],
-      global_trade: ["오리엔탈리즘", "문명의 충돌", "왜 세계의 절반은 굶주리는가", "제국의 시대", "공정하다는 착각"],
-      consumer_marketing: ["공정하다는 착각", "돈으로 살 수 없는 것들", "제3의 물결", "1984", "오리엔탈리즘"],
-      market_survey: ["돈으로 살 수 없는 것들", "공정하다는 착각", "경영학 콘서트", "제3의 물결", "미디어의 이해"],
-      distribution_risk: ["고용, 이자 및 화폐의 일반이론", "국부론", "돈으로 살 수 없는 것들", "공정하다는 착각", "객관성의 칼날"],
-      conditional_risk: ["객관성의 칼날", "고용, 이자 및 화폐의 일반이론", "공정하다는 착각", "제3의 물결", "미디어의 이해"],
-      business_data: ["돈으로 살 수 없는 것들", "제3의 물결", "미디어의 이해", "공정하다는 착각", "1984"],
-      platform_ethics: ["제3의 물결", "공정하다는 착각", "일차원적 인간", "경영학 콘서트", "팩트풀니스"],
-      civic_rights: ["리바이어던", "국가", "누구나 한번쯤 읽어야 할 목민심서", "의무론", "비통한 자들을 위한 정치학"],
-      inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "자본론", "이상한 정상가족", "돈으로 살 수 없는 것들"],
-      public_issue: ["법의 정신", "리바이어던", "자유론", "공정하다는 착각", "정의론"],
-      global_peace: ["국가", "사회계약론", "자유론", "반지성주의", "제국의 시대"]
-    };
+    // v160: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
+    // 직접 일치 도서와 확장 참고 도서를 함수 내부 임시값이 아니라 데이터 코드 블록으로 분리했다.
+    const majorType = isEconomicsMajor ? "economics" : "business_social";
+    const directMap = (BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.directByMajorType || {})[majorType] || {};
+    const expansionMap = BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.expansionByAxis || {};
     const directBooks = arr(directMap[axisId]).map((title, index) =>
       cloneBookForA25BusinessSocialLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean).slice(0, 3);
@@ -5105,7 +5116,7 @@
       debug: {
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
-        bookA25BusinessSocialCareerLock: isEconomicsMajor ? "economics" : "business_social",
+        bookA25BusinessSocialCareerLock: majorType,
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
