@@ -5022,12 +5022,15 @@
   };
 
   function isBookA25BusinessSocialContext(ctx){
-    const subjectText = normalizeLockText(ctx && ctx.subject || "");
-    const careerText = normalizeLockText(ctx && ctx.career || "");
-    const conceptText = normalizeLockText(ctx && ctx.concept || "");
+    // v168: 일부 정보 과목 화면에서는 학과/개념 값이 career/concept가 아니라
+    // selectedMajor/department/selectedConcept 쪽으로 들어올 수 있어 함께 읽는다.
+    const subjectText = normalizeLockText(ctx && (ctx.subject || ctx.selectedSubject) || "");
+    const careerText = normalizeLockText(ctx && (ctx.career || ctx.selectedMajor || ctx.department) || "");
+    const conceptText = normalizeLockText(ctx && (ctx.concept || ctx.selectedConcept) || "");
+    const keywordText = normalizeLockText(ctx && (ctx.keyword || ctx.selectedKeyword || ctx.selectedRecommendedKeyword) || "");
     const isSubject = /(통합사회|확률과\s*통계|정보)/i.test(subjectText);
-    const isMajor = /(경영학과|경제학과|무역학과|국제통상|관광경영학과|호텔경영학과|외식경영학과|농업경제학과|식품자원경제학과|사회학과|행정학과|정치외교학과|법학과|사회복지학과|미디어커뮤니케이션학과|언론정보학과|광고홍보학과|정보사회학과|심리학과|교육학과|경찰행정학과|공공인재)/i.test(careerText);
-    const isConcept = /(시장|금융|경제|지속가능|세계화|문화\s*다양성|인권|시민|헌법|사회\s*정의|불평등|평화|통계|확률|분포|추정|조건부|자료|정보\s*사회|데이터|표본|대시보드|플랫폼|미디어|정책|공공|의사결정)/i.test(conceptText);
+    const isMajor = /(경영학과|경제학과|무역학과|국제통상|관광경영학과|호텔경영학과|외식경영학과|농업경제학과|식품자원경제학과|사회학과|행정학과|정치외교학과|법학과|법무행정학과|사회복지학과|미디어커뮤니케이션학과|언론정보학과|광고홍보학과|정보사회학과|심리학과|교육학과|경찰행정학과|공공인재)/i.test(careerText);
+    const isConcept = /(시장|금융|경제|지속가능|세계화|문화\s*다양성|인권|시민|헌법|사회\s*정의|불평등|평화|통계|확률|분포|추정|조건부|자료|정보\s*사회|정보\s*문화|지식\s*[·ㆍ-]?\s*정보|데이터|표본|대시보드|플랫폼|미디어|정책|공공|의사결정)/i.test(conceptText + " " + keywordText);
     return !!(isSubject && isMajor && isConcept);
   }
 
@@ -5224,8 +5227,9 @@
   function applyBookA25BusinessSocialLock(result, ctx){
     if (!result || !isBookA25BusinessSocialContext(ctx)) return result;
     let axisId = inferBookA25BusinessSocialAxis(ctx);
-    const subjectTextForAxis = normalizeLockText(ctx && ctx.subject || "");
-    const conceptTextForAxis = normalizeLockText(ctx && ctx.concept || "");
+    const subjectTextForAxis = normalizeLockText(ctx && (ctx.subject || ctx.selectedSubject) || "");
+    const conceptTextForAxis = normalizeLockText(ctx && (ctx.concept || ctx.selectedConcept) || "");
+    const careerTextForAxis = normalizeLockText(ctx && (ctx.career || ctx.selectedMajor || ctx.department) || "");
     const explicitAxisTextForAxis = normalizeLockText([ctx && ctx.followupAxisId, ctx && ctx.linkTrack, ctx && ctx.axisLabel].join(" "));
     // v164 hard guard: 통합사회1의 "사회 정의와 불평등" 3번째 실제 카드 제목은
     // 지속가능 경영·ESG 전략 축이다. 카드 설명문 속 "시민 참여" 문구 때문에 civic_rights로
@@ -5236,7 +5240,15 @@
       && !/(social_civic_participation_v910|시민\s*참여\s*[·ㆍ-]?\s*제도\s*분석)/i.test(explicitAxisTextForAxis)) {
       axisId = "esg_sustainability";
     }
-    const careerText = normalizeLockText(ctx && ctx.career || "");
+    // v168 hard guard: 법학과 + 정보 + 지식·정보 사회와 정보 문화는
+    // 정보/미디어 기본 도서(감시와 처벌·1984·미디어의 이해)가 아니라
+    // 법학과 직접 일치 도서 풀의 platform_ethics 축으로 잠근다.
+    if (/(법학과|법무행정학과)/i.test(careerTextForAxis)
+      && /정보/i.test(subjectTextForAxis)
+      && /(지식\s*[·ㆍ-]?\s*정보\s*사회|정보\s*문화|지식\s*[·ㆍ-]?\s*정보)/i.test(conceptTextForAxis)) {
+      axisId = "platform_ethics";
+    }
+    const careerText = normalizeLockText(ctx && (ctx.career || ctx.selectedMajor || ctx.department) || "");
     const isEconomicsMajor = /(경제학과|경제학부|경제금융|금융학과|농업경제학과|식품자원경제학과)/i.test(careerText)
       && !/(경영학과|경영학부|경영전공|글로벌경영학과|경영정보학과|관광경영학과|호텔경영학과|외식경영학과)/i.test(careerText);
     const isSociologyMajor = /(사회학과|정보사회학과|문화인류학과)/i.test(careerText);
@@ -5270,7 +5282,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
-        bookA25BusinessSocialVersion: "v167",
+        bookA25BusinessSocialVersion: "v168",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
