@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v40-a25-visible-data-code-v160";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v41-a25-social-civic-axis-v162";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4879,7 +4879,7 @@
 
 
 
-  // v161 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // v162 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
   // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
   const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
     axisLabels: {
@@ -4939,8 +4939,9 @@
         global_peace: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "돈으로 살 수 없는 것들"]
       },
       sociology: {
-        // v161: 사회학과는 상경 기본값이 아니라 사회 구조·계층·문화 변동 직접 일치 도서를 우선한다.
-        civic_rights: ["감시와 처벌", "리바이어던", "돈으로 살 수 없는 것들"],
+        // v162: 사회학과는 실제 4번 세 번째 축이 "시민 참여·제도 분석 축"으로 나오는 경우가 있어
+        // civic_rights를 사회학과 직접 일치 도서로 별도 잠금한다.
+        civic_rights: ["감시와 처벌", "리바이어던", "국가"],
         inequality_policy: ["난장이가 쏘아올린 작은 공", "영국 노동계급의 형성", "역사와 계급의식"],
         public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "리바이어던"],
         esg_sustainability: ["왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
@@ -5019,13 +5020,46 @@
     // 예: 경영학과에서 키워드가 "합리적 선택"인 상태로
     // 시장 구조·경제 의사결정 / 금융 생활·자산 관리 / 무역·상호의존 축을 눌러도
     // 모두 business_choice로 고정되던 문제를 막는다.
+    // v162: 일부 화면에서는 state.axisLabel 반영이 늦어서 4번 세 번째 축이 화면에는
+    // "시민 참여·제도 분석 축"으로 보이지만 도서 로직은 이전 축으로 판별될 수 있었다.
+    // 따라서 현재 active 된 4번 카드의 텍스트/data-track을 최우선으로 함께 읽는다.
+    const getVisibleActiveBusinessSocialAxisText = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        const nodes = document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, [data-track].is-active"
+        );
+        nodes.forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
+          push(node.textContent || "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+
     const selectedAxisText = normalizeLockText([
+      getVisibleActiveBusinessSocialAxisText(),
       ctx && ctx.followupAxisId,
       ctx && ctx.axisLabel,
       ctx && ctx.linkTrack,
-      ctx && ctx.axisDomain
+      ctx && ctx.axisDomain,
+      Array.isArray(ctx && ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx && ctx.activityExample,
+      ctx && ctx.longitudinalPath
     ].join(" "));
 
+    if (/(social_civic_participation|social_civic|citizenship_participation|citizen_participation|constitutional_rights|시민\s*참여\s*[·ㆍ-]?\s*제도\s*분석|시민\s*참여|제도\s*분석|인권|헌법|기본권|권리)/i.test(selectedAxisText)) return "civic_rights";
     if (/(market_structure_decision|market_decision_structure|시장\s*구조\s*[·ㆍ-]?\s*경제\s*의사결정|시장\s*구조\s*[·ㆍ-]?\s*의사결정|시장\s*구조|가격\s*변동|시장\s*[·ㆍ-]?\s*가격)/i.test(selectedAxisText)) return "market_price";
     if (/(finance_life_design|finance_consumption_literacy|금융\s*생활\s*[·ㆍ-]?\s*자산\s*관리|금융\s*생활\s*[·ㆍ-]?\s*소비\s*판단|금융\s*생활|자산\s*관리|위험\s*관리)/i.test(selectedAxisText)) return "finance_risk";
     if (/(trade_interdependence_analysis|global_interdependence_analysis|business_global_trade|global_interdependence|trade_interdependence|무역\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*상호의존|국제\s*무역|공급망)/i.test(selectedAxisText)) return "global_trade";
