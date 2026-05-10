@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v36-a26-social-business-humanities-book-lock-v156";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v37-a25-axis-first-social-business-book-lock-v157";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4890,11 +4890,35 @@
   }
 
   function inferBookA25BusinessSocialAxis(ctx){
-    const text = normalizeLockText([
+    // v157: 4번 후속축 선택값을 3번 키워드보다 먼저 판별한다.
+    // 예: 경영학과에서 키워드가 "합리적 선택"인 상태로
+    // 시장 구조·경제 의사결정 / 금융 생활·자산 관리 / 무역·상호의존 축을 눌러도
+    // 모두 business_choice로 고정되던 문제를 막는다.
+    const selectedAxisText = normalizeLockText([
       ctx && ctx.followupAxisId,
-      ctx && ctx.linkTrack,
       ctx && ctx.axisLabel,
-      ctx && ctx.axisDomain,
+      ctx && ctx.linkTrack,
+      ctx && ctx.axisDomain
+    ].join(" "));
+
+    if (/(market_structure_decision|market_decision_structure|시장\s*구조\s*[·ㆍ-]?\s*경제\s*의사결정|시장\s*구조\s*[·ㆍ-]?\s*의사결정|시장\s*구조|가격\s*변동|시장\s*[·ㆍ-]?\s*가격)/i.test(selectedAxisText)) return "market_price";
+    if (/(finance_life_design|finance_consumption_literacy|금융\s*생활\s*[·ㆍ-]?\s*자산\s*관리|금융\s*생활\s*[·ㆍ-]?\s*소비\s*판단|금융\s*생활|자산\s*관리|위험\s*관리)/i.test(selectedAxisText)) return "finance_risk";
+    if (/(trade_interdependence_analysis|global_interdependence_analysis|business_global_trade|global_interdependence|trade_interdependence|무역\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*상호의존|국제\s*무역|공급망)/i.test(selectedAxisText)) return "global_trade";
+    if (/(business_choice_opportunity_cost|합리적\s*선택\s*[·ㆍ-]?\s*기회비용|기회비용\s*분석|비용\s*[·ㆍ-]?\s*편익)/i.test(selectedAxisText)) return "business_choice";
+    if (/(sustainability_economic_transition|business_esg_sustainability|지속가능\s*경제\s*전환|지속가능\s*경영|esg|윤리적\s*소비|공정무역|지속가능발전)/i.test(selectedAxisText)) return "esg_sustainability";
+    if (/(business_future_industry|future_change_forecasting|미래\s*산업|소비\s*변화|미래\s*사회|산업\s*구조|디지털\s*전환)/i.test(selectedAxisText)) return "future_industry";
+    if (/(global_issue_peace_analysis|peace_coexistence_practice|conflict_peace_resolution|global_citizenship_communication|conflict_peace|global_citizenship|세계화\s*[·ㆍ-]?\s*국제\s*이슈|평화|갈등|국제\s*소통|공존|외교|문명\s*충돌)/i.test(selectedAxisText)) return "global_peace";
+    if (/(cultural_diversity_comparison|business_consumer_culture|문화\s*비교|문화\s*다양성|소비문화|마케팅|브랜드|현지화)/i.test(selectedAxisText)) return "consumer_marketing";
+    if (/(business_market_survey|business_confidence_error|sampling_estimation|confidence_interval|sampling_design|sampling_error|survey_data|시장조사|표본|신뢰구간|추정오차|조사\s*데이터|표본오차)/i.test(selectedAxisText)) return "market_survey";
+    if (/(business_distribution_risk|business_expected_value|business_distribution_forecast|distribution_model|standardization|확률분포|분포|기댓값|기대값|분산|표준화|성과\s*비교|수요\s*예측)/i.test(selectedAxisText)) return "distribution_risk";
+    if (/(business_conditional_risk|conditional_decision|조건부|독립|구매\s*전환|조건부\s*판단)/i.test(selectedAxisText)) return "conditional_risk";
+    if (/(business_data_decision|business_customer_data|business_dashboard|data_decision|data_visual|database|고객|시장\s*데이터|데이터\s*기반|대시보드|지표|자료\s*표현|자료\s*분석|데이터\s*해석)/i.test(selectedAxisText)) return "business_data";
+    if (/(business_platform|business_data_ethics|정보\s*윤리|정보\s*문화|플랫폼|소비자\s*보호|개인정보|디지털\s*시민|정보사회|미디어)/i.test(selectedAxisText)) return "platform_ethics";
+    if (/(constitution_rights_analysis|constitutional_rights_analysis|citizenship_participation_design|citizen_participation_campaign|global_human_rights_participation|human_rights_issue_communication|social_civic|constitutional_rights|citizenship|human_rights|헌법|기본권|권리|시민\s*참여|제도\s*분석|인권)/i.test(selectedAxisText)) return "civic_rights";
+    if (/(social_inequality_structure|justice_public_policy|welfare_distribution_design|justice_distribution_analysis|inequality_structure_reading|welfare_policy_design|social_inequality|justice_distribution|inequality_structure|welfare_policy|불평등|분배|정의|복지|공정|능력주의)/i.test(selectedAxisText)) return "inequality_policy";
+    if (/(social_public_issue|public_issue|공공문제|공공\s*문제|정책\s*대안|목민|행정|공공정책)/i.test(selectedAxisText)) return "public_issue";
+
+    const text = normalizeLockText([
       ctx && ctx.concept,
       ctx && ctx.keyword,
       ctx && ctx.career
