@@ -5029,7 +5029,10 @@
   function applyBookA25BusinessSocialLock(result, ctx){
     if (!result || !isBookA25BusinessSocialContext(ctx)) return result;
     const axisId = inferBookA25BusinessSocialAxis(ctx);
-    const directMap = {
+    const careerText = normalizeLockText(ctx && ctx.career || "");
+    const isEconomicsMajor = /(경제학과|경제학부|경제금융|금융학과|농업경제학과|식품자원경제학과)/i.test(careerText)
+      && !/(경영학과|경영학부|경영전공|글로벌경영학과|경영정보학과|관광경영학과|호텔경영학과|외식경영학과)/i.test(careerText);
+    const businessDirectMap = {
       business_choice: ["돈으로 살 수 없는 것들", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
       market_price: ["국부론", "죽은 경제학자의 살아있는 아이디어", "물질문명과 자본주의"],
       finance_risk: ["고용, 이자 및 화폐의 일반이론", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
@@ -5047,6 +5050,27 @@
       public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "사회계약론"],
       global_peace: ["문명의 충돌", "오리엔탈리즘", "총, 균, 쇠"]
     };
+    // v158: 경제학과 계열은 경영학과와 같은 상경 묶음이지만,
+    // 5번 직접 도서에서는 기업 운영/경영 사례 도서보다 경제 이론·시장·분배·거시 흐름 도서를 우선한다.
+    const economicsDirectMap = {
+      business_choice: ["죽은 경제학자의 살아있는 아이디어", "국부론", "돈으로 살 수 없는 것들"],
+      market_price: ["국부론", "자본론", "물질문명과 자본주의"],
+      finance_risk: ["고용, 이자 및 화폐의 일반이론", "죽은 경제학자의 살아있는 아이디어", "팩트풀니스"],
+      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "오래된 미래", "돈으로 살 수 없는 것들"],
+      future_industry: ["제3의 물결", "고용, 이자 및 화폐의 일반이론", "팩트풀니스"],
+      global_trade: ["국부론", "왜 세계의 절반은 굶주리는가", "물질문명과 자본주의"],
+      consumer_marketing: ["프로테스탄트 윤리와 자본주의 정신", "돈으로 살 수 없는 것들", "국화와 칼"],
+      market_survey: ["팩트풀니스", "객관성의 칼날", "죽은 경제학자의 살아있는 아이디어"],
+      distribution_risk: ["고용, 이자 및 화폐의 일반이론", "팩트풀니스", "죽은 경제학자의 살아있는 아이디어"],
+      conditional_risk: ["팩트풀니스", "객관성의 칼날", "돈으로 살 수 없는 것들"],
+      business_data: ["팩트풀니스", "죽은 경제학자의 살아있는 아이디어", "객관성의 칼날"],
+      platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
+      civic_rights: ["사회계약론", "자유론", "법의 정신"],
+      inequality_policy: ["정의론", "공정하다는 착각", "난장이가 쏘아올린 작은 공"],
+      public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "사회계약론"],
+      global_peace: ["문명의 충돌", "오리엔탈리즘", "총, 균, 쇠"]
+    };
+    const directMap = isEconomicsMajor ? economicsDirectMap : businessDirectMap;
     const expansionMap = {
       business_choice: ["국부론", "팩트풀니스", "공정하다는 착각", "물질문명과 자본주의", "프로테스탄트 윤리와 자본주의 정신"],
       market_price: ["경영학 콘서트", "고용, 이자 및 화폐의 일반이론", "자본론", "팩트풀니스", "공정하다는 착각"],
@@ -5081,11 +5105,13 @@
       debug: {
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
+        bookA25BusinessSocialCareerLock: isEconomicsMajor ? "economics" : "business_social",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
+
 
   function isBookA26HumanitiesContext(ctx){
     const subjectText = normalizeLockText(ctx && ctx.subject || "");
