@@ -4879,7 +4879,7 @@
 
 
 
-  // v166 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // v167 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
   // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
   const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
     axisLabels: {
@@ -4984,13 +4984,21 @@
         platform_ethics: ["1984", "감시와 처벌", "반지성주의"]
       },
       law: {
+        // v167: 법학과는 실제 book_matching_index_210.json의 법학과 relatedMajor 도서만 직접 일치 도서로 잠근다.
+        // 직접 도서 풀: 누구나 한번쯤 읽어야 할 목민심서, 맹자, 반지성주의, 수호전, 앵무새 죽이기, 의무론, 이상한 정상가족, 리바이어던, 같기도 하고 아니 같기도 하고
+        // 감시와 처벌/1984/국가/법의 정신/사회계약론은 좋은 확장 도서일 수 있으나, 법학과 직접 일치 도서 메인값으로 고정하지 않는다.
         civic_rights: ["리바이어던", "의무론", "앵무새 죽이기"],
         inequality_policy: ["앵무새 죽이기", "이상한 정상가족", "의무론"],
         public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "반지성주의"],
         global_peace: ["리바이어던", "의무론", "반지성주의"],
+        esg_sustainability: ["이상한 정상가족", "의무론", "누구나 한번쯤 읽어야 할 목민심서"],
+        global_trade: ["리바이어던", "반지성주의", "의무론"],
+        consumer_marketing: ["같기도 하고 아니 같기도 하고", "반지성주의", "의무론"],
         market_survey: ["반지성주의", "의무론", "리바이어던"],
+        distribution_risk: ["같기도 하고 아니 같기도 하고", "반지성주의", "의무론"],
+        conditional_risk: ["같기도 하고 아니 같기도 하고", "의무론", "리바이어던"],
         business_data: ["반지성주의", "의무론", "누구나 한번쯤 읽어야 할 목민심서"],
-        platform_ethics: ["감시와 처벌", "1984", "반지성주의"]
+        platform_ethics: ["같기도 하고 아니 같기도 하고", "반지성주의", "리바이어던"]
       }
     },
     expansionByAxis: {
@@ -5262,7 +5270,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
-        bookA25BusinessSocialVersion: "v165",
+        bookA25BusinessSocialVersion: "v167",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
