@@ -5290,6 +5290,62 @@
   }
 
 
+
+
+  // v169 visible data code: A-26 인문/미디어 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // 미디어커뮤니케이션학과는 일반 인문 도서가 아니라 실제 relatedMajor 매칭 도서 풀을 우선한다.
+  const BOOK_A26_HUMANITIES_MEDIA_LOCK_DATA = {
+    axisLabels: {
+      media_critique: "매체 비평·판단 축",
+      digital_media_literacy: "디지털 표현·리터러시 축",
+      fact_check: "자료 검증·팩트체크 축",
+      report_data: "자료 구조화·보고서 축",
+      public_communication: "공공 소통·문서화 축",
+      evidence_presentation: "근거 제시·발표 설계 축",
+      technology_ethics: "기술 윤리·미래 사회 축",
+      automation_system: "자동화·시스템 설계 축",
+      science_argument: "과학 쟁점 소통·논증 축",
+      reading_content: "독서 확장·콘텐츠 기획 축",
+      visual_information: "시각 정보 표현 축",
+      audience_promotion: "대상 맞춤 홍보·소통 축",
+      storytelling_media: "스토리텔링·매체 축"
+    },
+    directByMajorType: {
+      media: {
+        // 실제 미디어커뮤니케이션학과 relatedMajor 도서 풀 우선:
+        // 1984, 미디어의 이해, 성의 역사 1, 시학, 아라비안 나이트, 오리엔탈리즘, 같기도 하고 아니 같기도 하고, 고도를 기다리며
+        media_critique: ["미디어의 이해", "1984", "오리엔탈리즘"],
+        digital_media_literacy: ["미디어의 이해", "1984", "같기도 하고 아니 같기도 하고"],
+        fact_check: ["미디어의 이해", "같기도 하고 아니 같기도 하고", "성의 역사 1"],
+        report_data: ["미디어의 이해", "시학", "같기도 하고 아니 같기도 하고"],
+        public_communication: ["미디어의 이해", "오리엔탈리즘", "1984"],
+        evidence_presentation: ["미디어의 이해", "시학", "아라비안 나이트"],
+        technology_ethics: ["1984", "미디어의 이해", "같기도 하고 아니 같기도 하고"],
+        automation_system: ["1984", "미디어의 이해", "같기도 하고 아니 같기도 하고"],
+        science_argument: ["같기도 하고 아니 같기도 하고", "미디어의 이해", "1984"],
+        reading_content: ["시학", "아라비안 나이트", "미디어의 이해"],
+        visual_information: ["미디어의 이해", "아라비안 나이트", "시학"],
+        audience_promotion: ["미디어의 이해", "1984", "같기도 하고 아니 같기도 하고"],
+        storytelling_media: ["시학", "미디어의 이해", "아라비안 나이트"]
+      }
+    },
+    expansionByAxis: {
+      media_critique: ["감시와 처벌", "반지성주의", "공정하다는 착각", "제3의 물결", "일차원적 인간"],
+      digital_media_literacy: ["제3의 물결", "감시와 처벌", "일차원적 인간", "반지성주의", "팩트풀니스"],
+      fact_check: ["팩트풀니스", "반지성주의", "객관성의 칼날", "감시와 처벌", "공정하다는 착각"],
+      report_data: ["팩트풀니스", "객관성의 칼날", "반지성주의", "공정하다는 착각", "제3의 물결"],
+      public_communication: ["자유론", "사회계약론", "공정하다는 착각", "반지성주의", "감시와 처벌"],
+      evidence_presentation: ["팩트풀니스", "객관성의 칼날", "반지성주의", "제3의 물결", "공정하다는 착각"],
+      technology_ethics: ["멋진 신세계", "제3의 물결", "감시와 처벌", "일차원적 인간", "공정하다는 착각"],
+      automation_system: ["제3의 물결", "일차원적 인간", "감시와 처벌", "멋진 신세계", "부분과 전체"],
+      science_argument: ["객관성의 칼날", "반지성주의", "팩트풀니스", "공정하다는 착각", "신기관"],
+      reading_content: ["문학과 예술의 사회사", "고도를 기다리며", "공정하다는 착각", "오리엔탈리즘", "제3의 물결"],
+      visual_information: ["문학과 예술의 사회사", "제3의 물결", "오리엔탈리즘", "공정하다는 착각", "고도를 기다리며"],
+      audience_promotion: ["공정하다는 착각", "제3의 물결", "반지성주의", "오리엔탈리즘", "돈으로 살 수 없는 것들"],
+      storytelling_media: ["문학과 예술의 사회사", "고도를 기다리며", "1984", "감시와 처벌", "오리엔탈리즘"]
+    }
+  };
+
   function isBookA26HumanitiesContext(ctx){
     const subjectText = normalizeLockText(ctx && ctx.subject || "");
     const careerText = normalizeLockText(ctx && ctx.career || "");
@@ -5302,15 +5358,25 @@
 
   function inferBookA26HumanitiesAxis(ctx){
     const text = normalizeLockText([ctx && ctx.followupAxisId, ctx && ctx.linkTrack, ctx && ctx.axisLabel, ctx && ctx.axisDomain, ctx && ctx.concept, ctx && ctx.keyword, ctx && ctx.career].join(" "));
+    // v169: 공통국어2/미디어 계열은 실제 4번 축 id·제목을 먼저 판별한다.
+    if (/(digital_media_expression|digital_media_literacy|디지털\s*표현|디지털\s*리터러시|복합양식|온라인\s*콘텐츠)/i.test(text)) return "digital_media_literacy";
+    if (/(fact_check_data_verification|fact_check|자료\s*검증|팩트체크|사실\s*확인|출처\s*검증)/i.test(text)) return "fact_check";
+    if (/(media_critique_judgment|media_critique|매체\s*비평|매체\s*비판|관점\s*[·ㆍ-]?\s*의도|표현\s*전략)/i.test(text)) return "media_critique";
+    if (/(public_communication_writing|공공\s*소통|문서화|공동\s*집필|협업\s*문서)/i.test(text)) return "public_communication";
+    if (/(evidence_presentation_design|근거\s*제시|발표\s*설계|발표\s*자료|시각\s*자료)/i.test(text)) return "evidence_presentation";
+    if (/(report_data_structure|report_data|공동\s*보고서|자료\s*구조화|보고서\s*축|개요\s*구성)/i.test(text)) return "report_data";
+    if (/(automation_system_design|자동화\s*[·ㆍ-]?\s*시스템|시스템\s*설계|센서|알고리즘)/i.test(text)) return "automation_system";
+    if (/(science_communication_argument|과학\s*쟁점|과학\s*소통|과학\s*논증)/i.test(text)) return "science_argument";
+    if (/(technology_ethics_future|technology_ethics|과학\s*기술|기술\s*윤리|미래\s*사회)/i.test(text)) return "technology_ethics";
+    if (/(reading_content_design|독서\s*확장|콘텐츠\s*기획|독서\s*콘텐츠|주제\s*확장\s*독서)/i.test(text)) return "reading_content";
+    if (/(visual_information_expression|시각\s*정보|시각\s*콘텐츠|카드뉴스|포스터|인포그래픽)/i.test(text)) return "visual_information";
+    if (/(audience_targeted_promotion|대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|전달\s*전략|독자\s*맞춤)/i.test(text)) return "audience_promotion";
     if (/(narrative_structure|서사\s*구조|이야기\s*구성|인물|사건|갈등\s*구조)/i.test(text)) return "narrative_structure";
     if (/(storytelling_media|스토리텔링|매체\s*서사|장면|대본|영상|콘텐츠)/i.test(text)) return "storytelling_media";
     if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|관계\s*해석)/i.test(text)) return "character_conflict";
     if (/(lyric|시적|서정|정서|시\s*해석|감상)/i.test(text)) return "lyric_appreciation";
-    if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작|창작|홍보\s*표현|콘텐츠\s*기획|대상\s*맞춤)/i.test(text)) return "creative_expression";
-    if (/(media_critique|digital_media|매체\s*비평|디지털\s*표현|리터러시|미디어)/i.test(text)) return "media_critique";
-    if (/(report_data|공동\s*보고서|자료\s*구조화|근거\s*제시|발표\s*설계)/i.test(text)) return "report_data";
-    if (/(technology_ethics|과학\s*기술|기술\s*윤리|미래\s*사회|자동화|과학\s*쟁점)/i.test(text)) return "technology_ethics";
-    if (/(critical|argument|논증|토론|비판|자료\s*검증|팩트체크|쟁점)/i.test(text)) return "critical_argument";
+    if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작|창작|홍보\s*표현)/i.test(text)) return "creative_expression";
+    if (/(critical|argument|논증|토론|비판|쟁점)/i.test(text)) return "critical_argument";
     if (/(language_norm|음운|국어\s*규범|언어\s*규범|정확한\s*표현|언어생활)/i.test(text)) return "language_norm";
     if (/(empathetic|communication|공동체|공감|의사소통|갈등\s*조정|대화)/i.test(text)) return "communication";
     if (/(reading|독서|주체적\s*수용|삶\s*연결|서평)/i.test(text)) return "reading_reflection";
@@ -5330,8 +5396,17 @@
       creative_expression: "표현·창작 확장 축",
       critical_argument: "논증·비판 해석 축",
       media_critique: "매체 비평·판단 축",
+      digital_media_literacy: "디지털 표현·리터러시 축",
+      fact_check: "자료 검증·팩트체크 축",
       report_data: "자료 구조화·보고서 축",
+      public_communication: "공공 소통·문서화 축",
+      evidence_presentation: "근거 제시·발표 설계 축",
       technology_ethics: "기술 윤리·미래 사회 축",
+      automation_system: "자동화·시스템 설계 축",
+      science_argument: "과학 쟁점 소통·논증 축",
+      reading_content: "독서 확장·콘텐츠 기획 축",
+      visual_information: "시각 정보 표현 축",
+      audience_promotion: "대상 맞춤 홍보·소통 축",
       language_norm: "언어 규범 탐구 축",
       communication: "화법·공감 소통 축",
       reading_reflection: "독서 해석 심화 축",
@@ -5392,8 +5467,17 @@
       creative_expression: ["젊은 예술가의 초상", "문학과 예술의 사회사", "시학"],
       critical_argument: ["반지성주의", "공정하다는 착각", "객관성의 칼날"],
       media_critique: ["미디어의 이해", "1984", "감시와 처벌"],
+      digital_media_literacy: ["미디어의 이해", "1984", "제3의 물결"],
+      fact_check: ["팩트풀니스", "반지성주의", "객관성의 칼날"],
       report_data: ["객관성의 칼날", "팩트풀니스", "반지성주의"],
+      public_communication: ["반지성주의", "공정하다는 착각", "미디어의 이해"],
+      evidence_presentation: ["객관성의 칼날", "팩트풀니스", "미디어의 이해"],
       technology_ethics: ["멋진 신세계", "1984", "일차원적 인간"],
+      automation_system: ["제3의 물결", "1984", "부분과 전체"],
+      science_argument: ["객관성의 칼날", "반지성주의", "팩트풀니스"],
+      reading_content: ["시학", "문학과 예술의 사회사", "고도를 기다리며"],
+      visual_information: ["미디어의 이해", "문학과 예술의 사회사", "시학"],
+      audience_promotion: ["미디어의 이해", "공정하다는 착각", "반지성주의"],
       language_norm: ["의사소통 행위이론", "정지용전집", "반지성주의"],
       communication: ["의사소통 행위이론", "사람, 장소, 환대", "미움받을 용기"],
       reading_reflection: ["데미안", "죽은 시인의 사회", "마의 산"],
@@ -5407,18 +5491,34 @@
       creative_expression: ["이것은 미술이 아니다", "미디어의 이해", "고도를 기다리며", "제3의 물결", "정지용전집"],
       critical_argument: ["1984", "감시와 처벌", "미디어의 이해", "자유론", "정의론"],
       media_critique: ["제3의 물결", "일차원적 인간", "반지성주의", "공정하다는 착각", "팩트풀니스"],
+      digital_media_literacy: ["제3의 물결", "감시와 처벌", "일차원적 인간", "반지성주의", "팩트풀니스"],
+      fact_check: ["팩트풀니스", "반지성주의", "객관성의 칼날", "감시와 처벌", "공정하다는 착각"],
       report_data: ["미디어의 이해", "제3의 물결", "공정하다는 착각", "1984", "감시와 처벌"],
+      public_communication: ["자유론", "사회계약론", "공정하다는 착각", "반지성주의", "감시와 처벌"],
+      evidence_presentation: ["팩트풀니스", "객관성의 칼날", "반지성주의", "제3의 물결", "공정하다는 착각"],
       technology_ethics: ["제3의 물결", "미디어의 이해", "공정하다는 착각", "감시와 처벌", "신기관"],
+      automation_system: ["제3의 물결", "일차원적 인간", "감시와 처벌", "멋진 신세계", "부분과 전체"],
+      science_argument: ["객관성의 칼날", "반지성주의", "팩트풀니스", "공정하다는 착각", "신기관"],
+      reading_content: ["문학과 예술의 사회사", "고도를 기다리며", "공정하다는 착각", "오리엔탈리즘", "제3의 물결"],
+      visual_information: ["문학과 예술의 사회사", "제3의 물결", "오리엔탈리즘", "공정하다는 착각", "고도를 기다리며"],
+      audience_promotion: ["공정하다는 착각", "제3의 물결", "반지성주의", "오리엔탈리즘", "돈으로 살 수 없는 것들"],
       language_norm: ["미디어의 이해", "자유론", "사회계약론", "문학과 예술의 사회사", "시학"],
       communication: ["자유론", "사회계약론", "공정하다는 착각", "반지성주의", "미디어의 이해"],
       reading_reflection: ["마음", "수레바퀴 아래서", "황야의 늑대", "이방인", "문학과 예술의 사회사"],
       reflective_writing: ["마음", "말테의 수기", "수레바퀴 아래서", "황야의 늑대", "인간의 조건"]
     };
-    const directBooks = arr(directMap[axisId]).map((title, index) =>
+    const careerText = normalizeLockText(ctx && (ctx.career || ctx.selectedMajor || ctx.department) || "");
+    const isMediaMajor = /(미디어커뮤니케이션학과|언론정보학과|광고홍보학과|신문방송학과|문화콘텐츠학과)/i.test(careerText);
+    const majorType = isMediaMajor ? "media" : "humanities_default";
+    const mediaDirectMap = ((BOOK_A26_HUMANITIES_MEDIA_LOCK_DATA.directByMajorType || {})[majorType]) || {};
+    const mediaExpansionMap = BOOK_A26_HUMANITIES_MEDIA_LOCK_DATA.expansionByAxis || {};
+    const finalDirectTitles = arr(mediaDirectMap[axisId] || directMap[axisId]);
+    const finalExpansionTitles = arr(mediaExpansionMap[axisId] || expansionMap[axisId]);
+    const directBooks = finalDirectTitles.map((title, index) =>
       cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean).slice(0, 3);
     const directIds = new Set(directBooks.map(book => bookKey(book)));
-    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+    const expansionBooks = finalExpansionTitles.map((title, index) =>
       cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
     ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
     if (!directBooks.length) return result;
@@ -5430,6 +5530,8 @@
       debug: {
         ...(result.debug || {}),
         bookA26HumanitiesLock: axisId,
+        bookA26HumanitiesMajorLock: typeof majorType !== "undefined" ? majorType : "humanities_default",
+        bookA26HumanitiesVersion: "v169",
         bookA26HumanitiesDirectTitles: directBooks.map(book => book.title),
         bookA26HumanitiesExpansionTitles: expansionBooks.map(book => book.title)
       }
