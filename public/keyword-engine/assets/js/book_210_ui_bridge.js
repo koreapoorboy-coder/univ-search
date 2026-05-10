@@ -4879,7 +4879,7 @@
 
 
 
-  // v160 visible data code: A-25 사회·상경·인문 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // v161 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
   // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
   const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
     axisLabels: {
@@ -4937,6 +4937,51 @@
         inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "역사와 계급의식"],
         public_issue: ["성호사설", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
         global_peace: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "돈으로 살 수 없는 것들"]
+      },
+      sociology: {
+        // v161: 사회학과는 상경 기본값이 아니라 사회 구조·계층·문화 변동 직접 일치 도서를 우선한다.
+        civic_rights: ["감시와 처벌", "리바이어던", "돈으로 살 수 없는 것들"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "영국 노동계급의 형성", "역사와 계급의식"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "리바이어던"],
+        esg_sustainability: ["왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        future_industry: ["1984", "멋진 신세계", "성의 역사 1"],
+        global_trade: ["오리엔탈리즘", "문명의 충돌", "국화와 칼"],
+        consumer_marketing: ["국화와 칼", "오리엔탈리즘", "슬픈 열대"],
+        global_peace: ["문명의 충돌", "오리엔탈리즘", "광장"],
+        market_survey: ["성호사설", "반지성주의", "돈으로 살 수 없는 것들"],
+        distribution_risk: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "물질문명과 자본주의"],
+        conditional_risk: ["감시와 처벌", "성의 역사 1", "반지성주의"],
+        business_data: ["성호사설", "반지성주의", "감시와 처벌"],
+        platform_ethics: ["1984", "감시와 처벌", "성의 역사 1"]
+      },
+      administration: {
+        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "국가"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "반지성주의"],
+        global_peace: ["서유견문", "리바이어던", "국가"],
+        market_survey: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
+        business_data: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
+        platform_ethics: ["반지성주의", "리바이어던", "돈으로 살 수 없는 것들"]
+      },
+      politics: {
+        civic_rights: ["리바이어던", "국가", "누구나 한번쯤 읽어야 할 목민심서"],
+        inequality_policy: ["돈으로 살 수 없는 것들", "영국 노동계급의 형성", "역사와 계급의식"],
+        public_issue: ["반지성주의", "서유견문", "리바이어던"],
+        global_trade: ["문명의 충돌", "오리엔탈리즘", "왜 세계의 절반은 굶주리는가"],
+        consumer_marketing: ["국화와 칼", "오리엔탈리즘", "어둠의 속"],
+        global_peace: ["문명의 충돌", "오리엔탈리즘", "광장"],
+        market_survey: ["서유견문", "반지성주의", "성호사설"],
+        business_data: ["서유견문", "반지성주의", "돈으로 살 수 없는 것들"],
+        platform_ethics: ["1984", "감시와 처벌", "반지성주의"]
+      },
+      law: {
+        civic_rights: ["리바이어던", "의무론", "앵무새 죽이기"],
+        inequality_policy: ["앵무새 죽이기", "이상한 정상가족", "의무론"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "반지성주의"],
+        global_peace: ["리바이어던", "의무론", "반지성주의"],
+        market_survey: ["반지성주의", "의무론", "리바이어던"],
+        business_data: ["반지성주의", "의무론", "누구나 한번쯤 읽어야 할 목민심서"],
+        platform_ethics: ["감시와 처벌", "1984", "반지성주의"]
       }
     },
     expansionByAxis: {
@@ -5095,9 +5140,18 @@
     const careerText = normalizeLockText(ctx && ctx.career || "");
     const isEconomicsMajor = /(경제학과|경제학부|경제금융|금융학과|농업경제학과|식품자원경제학과)/i.test(careerText)
       && !/(경영학과|경영학부|경영전공|글로벌경영학과|경영정보학과|관광경영학과|호텔경영학과|외식경영학과)/i.test(careerText);
-    // v160: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
-    // 직접 일치 도서와 확장 참고 도서를 함수 내부 임시값이 아니라 데이터 코드 블록으로 분리했다.
-    const majorType = isEconomicsMajor ? "economics" : "business_social";
+    const isSociologyMajor = /(사회학과|정보사회학과|문화인류학과)/i.test(careerText);
+    const isAdministrationMajor = /(행정학과|공공인재학부|공공정책학과|정책학과|경찰행정학과)/i.test(careerText);
+    const isPoliticsMajor = /(정치외교학과|정치학과|외교학과|국제관계학과|국제학부)/i.test(careerText);
+    const isLawMajor = /(법학과|법무행정학과)/i.test(careerText);
+    // v161: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
+    // 경제학과뿐 아니라 사회학과·행정학과·정치외교학과·법학과도 직접 일치 도서 풀을 분리한다.
+    const majorType = isEconomicsMajor ? "economics"
+      : isSociologyMajor ? "sociology"
+      : isAdministrationMajor ? "administration"
+      : isPoliticsMajor ? "politics"
+      : isLawMajor ? "law"
+      : "business_social";
     const directMap = (BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.directByMajorType || {})[majorType] || {};
     const expansionMap = BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.expansionByAxis || {};
     const directBooks = arr(directMap[axisId]).map((title, index) =>
