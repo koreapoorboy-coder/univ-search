@@ -4879,7 +4879,7 @@
 
 
 
-  // v162 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
+  // v163 visible data code: A-25 사회·상경 5번 도서 직접 일치/확장 참고 잠금 데이터
   // 이 블록이 실제 적용 데이터다. 5번 카드가 축별로 분기되지 않거나 직접/확장 구분이 틀리면 여기 값을 우선 확인한다.
   const BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA = {
     axisLabels: {
@@ -4939,8 +4939,8 @@
         global_peace: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "돈으로 살 수 없는 것들"]
       },
       sociology: {
-        // v162: 사회학과는 실제 4번 세 번째 축이 "시민 참여·제도 분석 축"으로 나오는 경우가 있어
-        // civic_rights를 사회학과 직접 일치 도서로 별도 잠금한다.
+        // v163: 사회학과 화면에서는 같은 설명 본문에 "시민 참여"가 포함될 수 있으므로
+        // 실제 선택 축이 ESG이면 esg_sustainability로, 시민 참여 축이면 civic_rights로 분리한다.
         civic_rights: ["감시와 처벌", "리바이어던", "국가"],
         inequality_policy: ["난장이가 쏘아올린 작은 공", "영국 노동계급의 형성", "역사와 계급의식"],
         public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "리바이어던"],
@@ -5020,9 +5020,9 @@
     // 예: 경영학과에서 키워드가 "합리적 선택"인 상태로
     // 시장 구조·경제 의사결정 / 금융 생활·자산 관리 / 무역·상호의존 축을 눌러도
     // 모두 business_choice로 고정되던 문제를 막는다.
-    // v162: 일부 화면에서는 state.axisLabel 반영이 늦어서 4번 세 번째 축이 화면에는
-    // "시민 참여·제도 분석 축"으로 보이지만 도서 로직은 이전 축으로 판별될 수 있었다.
-    // 따라서 현재 active 된 4번 카드의 텍스트/data-track을 최우선으로 함께 읽는다.
+    // v163: 현재 active 된 4번 카드의 텍스트/data-track을 최우선으로 읽되,
+    // 카드 본문에 공통으로 섞이는 "시민 참여" 문구가 다른 축을 덮지 않도록
+    // 실제 축 제목 우선순위(ESG/세계화/소비문화/불평등/공공문제 → 시민참여)를 적용한다.
     const getVisibleActiveBusinessSocialAxisText = function(){
       const parts = [];
       const push = function(value){
@@ -5059,23 +5059,25 @@
       ctx && ctx.longitudinalPath
     ].join(" "));
 
-    if (/(social_civic_participation|social_civic|citizenship_participation|citizen_participation|constitutional_rights|시민\s*참여\s*[·ㆍ-]?\s*제도\s*분석|시민\s*참여|제도\s*분석|인권|헌법|기본권|권리)/i.test(selectedAxisText)) return "civic_rights";
+    // v163: 4번 카드 본문에 "시민 참여" 문구가 공통 설명처럼 섞여 들어가는 경우가 있다.
+    // 따라서 실제 카드 제목/축명에 해당하는 ESG·세계화·소비문화·불평등·공공문제 축을 먼저 판별하고,
+    // 시민 참여·제도 분석 축은 마지막에 판별한다.
     if (/(market_structure_decision|market_decision_structure|시장\s*구조\s*[·ㆍ-]?\s*경제\s*의사결정|시장\s*구조\s*[·ㆍ-]?\s*의사결정|시장\s*구조|가격\s*변동|시장\s*[·ㆍ-]?\s*가격)/i.test(selectedAxisText)) return "market_price";
     if (/(finance_life_design|finance_consumption_literacy|금융\s*생활\s*[·ㆍ-]?\s*자산\s*관리|금융\s*생활\s*[·ㆍ-]?\s*소비\s*판단|금융\s*생활|자산\s*관리|위험\s*관리)/i.test(selectedAxisText)) return "finance_risk";
-    if (/(trade_interdependence_analysis|global_interdependence_analysis|business_global_trade|global_interdependence|trade_interdependence|무역\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*상호의존|국제\s*무역|공급망)/i.test(selectedAxisText)) return "global_trade";
+    if (/(trade_interdependence_analysis|global_interdependence_analysis|business_global_trade|global_interdependence|trade_interdependence|무역\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*국제\s*무역|국제\s*무역|공급망)/i.test(selectedAxisText)) return "global_trade";
     if (/(business_choice_opportunity_cost|합리적\s*선택\s*[·ㆍ-]?\s*기회비용|기회비용\s*분석|비용\s*[·ㆍ-]?\s*편익)/i.test(selectedAxisText)) return "business_choice";
-    if (/(sustainability_economic_transition|business_esg_sustainability|지속가능\s*경제\s*전환|지속가능\s*경영|esg|윤리적\s*소비|공정무역|지속가능발전)/i.test(selectedAxisText)) return "esg_sustainability";
+    if (/(sustainability_economic_transition|business_esg_sustainability|지속가능\s*경제\s*전환|지속가능\s*경영\s*[·ㆍ-]?\s*esg|지속가능\s*경영|esg|윤리적\s*소비|공정무역|지속가능발전)/i.test(selectedAxisText)) return "esg_sustainability";
     if (/(business_future_industry|future_change_forecasting|미래\s*산업|소비\s*변화|미래\s*사회|산업\s*구조|디지털\s*전환)/i.test(selectedAxisText)) return "future_industry";
     if (/(global_issue_peace_analysis|peace_coexistence_practice|conflict_peace_resolution|global_citizenship_communication|conflict_peace|global_citizenship|세계화\s*[·ㆍ-]?\s*국제\s*이슈|평화|갈등|국제\s*소통|공존|외교|문명\s*충돌)/i.test(selectedAxisText)) return "global_peace";
-    if (/(cultural_diversity_comparison|business_consumer_culture|문화\s*비교|문화\s*다양성|소비문화|마케팅|브랜드|현지화)/i.test(selectedAxisText)) return "consumer_marketing";
+    if (/(cultural_diversity_comparison|business_consumer_culture|소비문화\s*[·ㆍ-]?\s*글로벌\s*마케팅|문화\s*비교|문화\s*다양성|소비문화|마케팅|브랜드|현지화)/i.test(selectedAxisText)) return "consumer_marketing";
     if (/(business_market_survey|business_confidence_error|sampling_estimation|confidence_interval|sampling_design|sampling_error|survey_data|시장조사|표본|신뢰구간|추정오차|조사\s*데이터|표본오차)/i.test(selectedAxisText)) return "market_survey";
     if (/(business_distribution_risk|business_expected_value|business_distribution_forecast|distribution_model|standardization|확률분포|분포|기댓값|기대값|분산|표준화|성과\s*비교|수요\s*예측)/i.test(selectedAxisText)) return "distribution_risk";
     if (/(business_conditional_risk|conditional_decision|조건부|독립|구매\s*전환|조건부\s*판단)/i.test(selectedAxisText)) return "conditional_risk";
     if (/(business_data_decision|business_customer_data|business_dashboard|data_decision|data_visual|database|고객|시장\s*데이터|데이터\s*기반|대시보드|지표|자료\s*표현|자료\s*분석|데이터\s*해석)/i.test(selectedAxisText)) return "business_data";
     if (/(business_platform|business_data_ethics|정보\s*윤리|정보\s*문화|플랫폼|소비자\s*보호|개인정보|디지털\s*시민|정보사회|미디어)/i.test(selectedAxisText)) return "platform_ethics";
-    if (/(constitution_rights_analysis|constitutional_rights_analysis|citizenship_participation_design|citizen_participation_campaign|global_human_rights_participation|human_rights_issue_communication|social_civic|constitutional_rights|citizenship|human_rights|헌법|기본권|권리|시민\s*참여|제도\s*분석|인권)/i.test(selectedAxisText)) return "civic_rights";
     if (/(social_inequality_structure|justice_public_policy|welfare_distribution_design|justice_distribution_analysis|inequality_structure_reading|welfare_policy_design|social_inequality|justice_distribution|inequality_structure|welfare_policy|불평등|분배|정의|복지|공정|능력주의)/i.test(selectedAxisText)) return "inequality_policy";
     if (/(social_public_issue|public_issue|공공문제|공공\s*문제|정책\s*대안|목민|행정|공공정책)/i.test(selectedAxisText)) return "public_issue";
+    if (/(social_civic_participation|social_civic|citizenship_participation|citizen_participation|constitution_rights_analysis|constitutional_rights_analysis|citizenship_participation_design|citizen_participation_campaign|global_human_rights_participation|human_rights_issue_communication|constitutional_rights|citizenship|human_rights|시민\s*참여\s*[·ㆍ-]?\s*제도\s*분석|시민\s*참여|제도\s*분석|인권|헌법|기본권|권리)/i.test(selectedAxisText)) return "civic_rights";
 
     const text = normalizeLockText([
       ctx && ctx.concept,
