@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v35-a25-chemistry-food-book-lock-v155";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v36-a26-social-business-humanities-book-lock-v156";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4879,6 +4879,338 @@
 
 
 
+  function isBookA25BusinessSocialContext(ctx){
+    const subjectText = normalizeLockText(ctx && ctx.subject || "");
+    const careerText = normalizeLockText(ctx && ctx.career || "");
+    const conceptText = normalizeLockText(ctx && ctx.concept || "");
+    const isSubject = /(통합사회|확률과\s*통계|정보)/i.test(subjectText);
+    const isMajor = /(경영학과|경제학과|무역학과|국제통상|관광경영학과|호텔경영학과|외식경영학과|농업경제학과|식품자원경제학과|사회학과|행정학과|정치외교학과|법학과|사회복지학과|미디어커뮤니케이션학과|언론정보학과|광고홍보학과|정보사회학과|심리학과|교육학과|경찰행정학과|공공인재)/i.test(careerText);
+    const isConcept = /(시장|금융|경제|지속가능|세계화|문화\s*다양성|인권|시민|헌법|사회\s*정의|불평등|평화|통계|확률|분포|추정|조건부|자료|정보\s*사회|데이터|표본|대시보드|플랫폼|미디어|정책|공공|의사결정)/i.test(conceptText);
+    return !!(isSubject && isMajor && isConcept);
+  }
+
+  function inferBookA25BusinessSocialAxis(ctx){
+    const text = normalizeLockText([
+      ctx && ctx.followupAxisId,
+      ctx && ctx.linkTrack,
+      ctx && ctx.axisLabel,
+      ctx && ctx.axisDomain,
+      ctx && ctx.concept,
+      ctx && ctx.keyword,
+      ctx && ctx.career
+    ].join(" "));
+    if (/(business_choice_opportunity_cost|합리적\s*선택|기회비용|비용\s*[·ㆍ-]?\s*편익|선택\s*[·ㆍ-]?\s*기회비용)/i.test(text)) return "business_choice";
+    if (/(business_market_price|market_structure_decision|market_decision_structure|시장\s*구조|가격\s*변동|수요|공급|시장\s*[·ㆍ-]?\s*가격|경제\s*의사결정)/i.test(text)) return "market_price";
+    if (/(business_finance_risk|finance_life_design|finance_consumption_literacy|금융|자산|위험관리|소비\s*판단|리스크)/i.test(text)) return "finance_risk";
+    if (/(business_esg_sustainability|sustainability_economic_transition|esg|지속가능\s*경영|지속가능\s*경제|윤리적\s*소비|공정무역|지속가능발전)/i.test(text)) return "esg_sustainability";
+    if (/(business_future_industry|future_change_forecasting|미래\s*산업|소비\s*변화|미래\s*사회|미래\s*변화|산업\s*구조|디지털\s*전환)/i.test(text)) return "future_industry";
+    if (/(conflict_peace|global_citizenship|평화|갈등|국제\s*소통|외교|정치|문명\s*충돌)/i.test(text)) return "global_peace";
+    if (/(business_global_trade|global_interdependence|trade_interdependence|국제\s*무역|무역|상호의존|공급망|국제\s*이슈|글로벌|세계화)/i.test(text)) return "global_trade";
+    if (/(business_consumer_culture|소비문화|마케팅|브랜드|문화\s*비교|문화\s*다양성|현지화)/i.test(text)) return "consumer_marketing";
+    if (/(business_market_survey|business_confidence_error|sampling_estimation|confidence_interval|sampling_design|sampling_error|survey_data|시장조사|표본|신뢰구간|추정오차|조사\s*데이터|표본오차)/i.test(text)) return "market_survey";
+    if (/(business_distribution_risk|business_expected_value|business_distribution_forecast|distribution_model|standardization|확률분포|분포|기댓값|기대값|분산|표준화|성과\s*비교|수요\s*예측)/i.test(text)) return "distribution_risk";
+    if (/(business_conditional_risk|conditional_decision|조건부|독립|구매\s*전환|조건부\s*판단)/i.test(text)) return "conditional_risk";
+    if (/(business_data_decision|business_customer_data|business_dashboard|data_decision|data_visual|database|고객|시장\s*데이터|데이터\s*기반|대시보드|지표|자료\s*표현|자료\s*분석|데이터\s*해석)/i.test(text)) return "business_data";
+    if (/(business_platform|business_data_ethics|정보\s*윤리|정보\s*문화|플랫폼|소비자\s*보호|개인정보|디지털\s*시민|정보사회|미디어)/i.test(text)) return "platform_ethics";
+    if (/(social_civic|constitutional_rights|citizenship|human_rights|헌법|기본권|권리|시민\s*참여|제도\s*분석|인권)/i.test(text)) return "civic_rights";
+    if (/(social_inequality|justice_distribution|inequality_structure|welfare_policy|불평등|분배|정의|복지|공정|능력주의)/i.test(text)) return "inequality_policy";
+    if (/(social_public_issue|public_issue|공공문제|공공\s*문제|정책\s*대안|목민|행정|공공정책)/i.test(text)) return "public_issue";
+    return /(경영학과|경제학과|무역|금융|회계|마케팅|관광경영|호텔경영)/i.test(normalizeLockText(ctx && ctx.career || "")) ? "business_choice" : "public_issue";
+  }
+
+  function buildLockedBookContextA25BusinessSocial(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    const axisLabelMap = {
+      business_choice: "합리적 선택·기회비용 분석 축",
+      market_price: "시장 구조·가격 변동 해석 축",
+      finance_risk: "금융 생활·위험관리 축",
+      esg_sustainability: "지속가능 경영·ESG 전략 축",
+      future_industry: "미래 산업·소비 변화 분석 축",
+      global_trade: "세계화·국제무역 해석 축",
+      consumer_marketing: "소비문화·글로벌 마케팅 축",
+      market_survey: "시장조사·표본 추정 축",
+      distribution_risk: "수요·위험 분포 해석 축",
+      conditional_risk: "조건부 판단·리스크 의사결정 축",
+      business_data: "데이터 기반 경영 의사결정 축",
+      platform_ethics: "플랫폼 비즈니스·데이터 윤리 축",
+      civic_rights: "시민 참여·제도 분석 축",
+      inequality_policy: "불평등·분배 정책 해석 축",
+      public_issue: "공공문제 통합 분석 축",
+      global_peace: "세계화·평화 쟁점 해석 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "사회·상경 후속 연계축";
+    const directUseMap = {
+      business_choice: "선택 대안의 비용·편익, 기회비용, 시장 윤리 기준을 분석하는 핵심 근거로 활용합니다.",
+      market_price: "수요·공급과 시장 구조, 가격 변화의 배경을 설명하는 핵심 근거로 활용합니다.",
+      finance_risk: "금융 의사결정, 위험과 수익, 거시경제 지표를 연결하는 핵심 근거로 활용합니다.",
+      esg_sustainability: "기업의 지속가능성, 윤리적 소비, 사회적 책임을 경영 전략으로 해석하는 근거로 활용합니다.",
+      future_industry: "기술 변화와 산업 구조 변화, 소비 변화의 방향을 분석하는 근거로 활용합니다.",
+      global_trade: "세계화, 국제 분업, 무역과 문명·시장 구조의 연결을 해석하는 근거로 활용합니다.",
+      consumer_marketing: "문화 차이와 소비문화, 브랜드 메시지의 관계를 비교하는 근거로 활용합니다.",
+      market_survey: "표본조사와 신뢰도, 조사 결과 해석의 한계를 설명하는 근거로 활용합니다.",
+      distribution_risk: "수요·수익률·성과 지표의 분포와 위험 수준을 비교하는 근거로 활용합니다.",
+      conditional_risk: "조건이 달라질 때 의사결정 확률과 위험 판단이 어떻게 달라지는지 설명합니다.",
+      business_data: "고객·시장 데이터와 지표를 의사결정 기준으로 구조화하는 근거로 활용합니다.",
+      platform_ethics: "플랫폼, 데이터 활용, 소비자 보호와 정보 윤리 쟁점을 분석하는 근거로 활용합니다.",
+      civic_rights: "권리 보장, 제도 설계, 시민 참여 사례를 분석하는 근거로 활용합니다.",
+      inequality_policy: "불평등 구조, 정의 원리, 복지·분배 정책의 기준을 비교하는 근거로 활용합니다.",
+      public_issue: "공공문제의 원인과 정책 대안을 통합적으로 분석하는 근거로 활용합니다.",
+      global_peace: "국제 관계, 세계화, 갈등과 평화의 구조를 비교하는 근거로 활용합니다."
+    };
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 사회·상경계열 보고서의 핵심 근거로 우선 배치한 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 비교·한계·사회적 의미를 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["analysisFrame", "comparisonFrame", "application"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? ["사회·상경 분석 프레임", "비교 기준", "사례 적용 근거"] : ["사회적 의미 확장", "관점 비교", "한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? directUseMap[axisId] || "선택한 교과 개념과 후속축의 핵심 의미를 설명할 때 활용합니다." : "",
+        analysisFrame: isDirect ? directUseMap[axisId] || "자료·사례를 분석하는 프레임으로 활용합니다." : "",
+        comparisonFrame: "직접 도서와 다른 제도·사회·윤리·경제 관점을 비교할 때 활용합니다.",
+        limitationDiscussion: "자료 해석, 제도 설계, 의사결정의 한계와 편향을 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 사회적 책임, 공공성, 시장·제도 변화로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA25BusinessSocialAxis: axisId
+    };
+  }
+
+  function cloneBookForA25BusinessSocialLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-25 사회·상경 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextA25BusinessSocial(book, ctx, sectionType, axisId, rank),
+      bookA25BusinessSocialLock: true,
+      bookA25BusinessSocialRank: rank,
+      bookA25BusinessSocialAxisLock: axisId
+    };
+  }
+
+  function applyBookA25BusinessSocialLock(result, ctx){
+    if (!result || !isBookA25BusinessSocialContext(ctx)) return result;
+    const axisId = inferBookA25BusinessSocialAxis(ctx);
+    const directMap = {
+      business_choice: ["돈으로 살 수 없는 것들", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
+      market_price: ["국부론", "죽은 경제학자의 살아있는 아이디어", "물질문명과 자본주의"],
+      finance_risk: ["고용, 이자 및 화폐의 일반이론", "죽은 경제학자의 살아있는 아이디어", "경영학 콘서트"],
+      esg_sustainability: ["파타고니아, 파도가 칠 때는 서핑을", "오래된 미래", "돈으로 살 수 없는 것들"],
+      future_industry: ["제3의 물결", "경영학 콘서트", "팩트풀니스"],
+      global_trade: ["국부론", "총, 균, 쇠", "물질문명과 자본주의"],
+      consumer_marketing: ["프로테스탄트 윤리와 자본주의 정신", "미디어의 이해", "국화와 칼"],
+      market_survey: ["팩트풀니스", "경영학 콘서트", "객관성의 칼날"],
+      distribution_risk: ["경영학 콘서트", "죽은 경제학자의 살아있는 아이디어", "팩트풀니스"],
+      conditional_risk: ["경영학 콘서트", "팩트풀니스", "돈으로 살 수 없는 것들"],
+      business_data: ["경영학 콘서트", "팩트풀니스", "객관성의 칼날"],
+      platform_ethics: ["미디어의 이해", "1984", "감시와 처벌"],
+      civic_rights: ["사회계약론", "자유론", "법의 정신"],
+      inequality_policy: ["정의론", "공정하다는 착각", "난장이가 쏘아올린 작은 공"],
+      public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "반지성주의", "사회계약론"],
+      global_peace: ["문명의 충돌", "오리엔탈리즘", "총, 균, 쇠"]
+    };
+    const expansionMap = {
+      business_choice: ["국부론", "팩트풀니스", "공정하다는 착각", "물질문명과 자본주의", "프로테스탄트 윤리와 자본주의 정신"],
+      market_price: ["경영학 콘서트", "고용, 이자 및 화폐의 일반이론", "자본론", "팩트풀니스", "공정하다는 착각"],
+      finance_risk: ["국부론", "자본론", "팩트풀니스", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "침묵의 봄", "공정하다는 착각", "국부론", "팩트풀니스"],
+      future_industry: ["미디어의 이해", "1984", "일차원적 인간", "공정하다는 착각", "오래된 미래"],
+      global_trade: ["오리엔탈리즘", "문명의 충돌", "왜 세계의 절반은 굶주리는가", "제국의 시대", "공정하다는 착각"],
+      consumer_marketing: ["공정하다는 착각", "돈으로 살 수 없는 것들", "제3의 물결", "1984", "오리엔탈리즘"],
+      market_survey: ["돈으로 살 수 없는 것들", "공정하다는 착각", "경영학 콘서트", "제3의 물결", "미디어의 이해"],
+      distribution_risk: ["고용, 이자 및 화폐의 일반이론", "국부론", "돈으로 살 수 없는 것들", "공정하다는 착각", "객관성의 칼날"],
+      conditional_risk: ["객관성의 칼날", "고용, 이자 및 화폐의 일반이론", "공정하다는 착각", "제3의 물결", "미디어의 이해"],
+      business_data: ["돈으로 살 수 없는 것들", "제3의 물결", "미디어의 이해", "공정하다는 착각", "1984"],
+      platform_ethics: ["제3의 물결", "공정하다는 착각", "일차원적 인간", "경영학 콘서트", "팩트풀니스"],
+      civic_rights: ["리바이어던", "국가", "누구나 한번쯤 읽어야 할 목민심서", "의무론", "비통한 자들을 위한 정치학"],
+      inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "자본론", "이상한 정상가족", "돈으로 살 수 없는 것들"],
+      public_issue: ["법의 정신", "리바이어던", "자유론", "공정하다는 착각", "정의론"],
+      global_peace: ["국가", "사회계약론", "자유론", "반지성주의", "제국의 시대"]
+    };
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA25BusinessSocialLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA25BusinessSocialLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    if (!directBooks.length) return result;
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA25BusinessSocialLock: axisId,
+        bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
+        bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+  function isBookA26HumanitiesContext(ctx){
+    const subjectText = normalizeLockText(ctx && ctx.subject || "");
+    const careerText = normalizeLockText(ctx && ctx.career || "");
+    const conceptText = normalizeLockText(ctx && ctx.concept || "");
+    const isSubject = /(공통국어|국어|문학|독서)/i.test(subjectText);
+    const isMajor = /(국어국문학과|영어영문학과|사학과|역사학과|철학과|윤리학과|문헌정보학과|문화콘텐츠학과|문예창작학과|언어학과|인문학과|인문학부|미디어커뮤니케이션학과|광고홍보학과|심리학과|문화인류학과)/i.test(careerText);
+    const isConcept = /(서정|서사|극\s*갈래|교술|문학|독서|비판적\s*읽기|토론|쟁점|글쓰기|매체|보고서|자료|과학\s*기술|미래\s*사회|홍보|표현|의사소통|공감|국어\s*규범|음운)/i.test(conceptText);
+    return !!(isSubject && isMajor && isConcept);
+  }
+
+  function inferBookA26HumanitiesAxis(ctx){
+    const text = normalizeLockText([ctx && ctx.followupAxisId, ctx && ctx.linkTrack, ctx && ctx.axisLabel, ctx && ctx.axisDomain, ctx && ctx.concept, ctx && ctx.keyword, ctx && ctx.career].join(" "));
+    if (/(narrative_structure|서사\s*구조|이야기\s*구성|인물|사건|갈등\s*구조)/i.test(text)) return "narrative_structure";
+    if (/(storytelling_media|스토리텔링|매체\s*서사|장면|대본|영상|콘텐츠)/i.test(text)) return "storytelling_media";
+    if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|관계\s*해석)/i.test(text)) return "character_conflict";
+    if (/(lyric|시적|서정|정서|시\s*해석|감상)/i.test(text)) return "lyric_appreciation";
+    if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작|창작|홍보\s*표현|콘텐츠\s*기획|대상\s*맞춤)/i.test(text)) return "creative_expression";
+    if (/(media_critique|digital_media|매체\s*비평|디지털\s*표현|리터러시|미디어)/i.test(text)) return "media_critique";
+    if (/(report_data|공동\s*보고서|자료\s*구조화|근거\s*제시|발표\s*설계)/i.test(text)) return "report_data";
+    if (/(technology_ethics|과학\s*기술|기술\s*윤리|미래\s*사회|자동화|과학\s*쟁점)/i.test(text)) return "technology_ethics";
+    if (/(critical|argument|논증|토론|비판|자료\s*검증|팩트체크|쟁점)/i.test(text)) return "critical_argument";
+    if (/(language_norm|음운|국어\s*규범|언어\s*규범|정확한\s*표현|언어생활)/i.test(text)) return "language_norm";
+    if (/(empathetic|communication|공동체|공감|의사소통|갈등\s*조정|대화)/i.test(text)) return "communication";
+    if (/(reading|독서|주체적\s*수용|삶\s*연결|서평)/i.test(text)) return "reading_reflection";
+    if (/(reflective|성찰|관찰|기록|교술)/i.test(text)) return "reflective_writing";
+    return "narrative_structure";
+  }
+
+  function buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    const axisLabelMap = {
+      narrative_structure: "서사 구조 분석 축",
+      storytelling_media: "스토리텔링·매체 축",
+      character_conflict: "인물·갈등 해석 축",
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      critical_argument: "논증·비판 해석 축",
+      media_critique: "매체 비평·판단 축",
+      report_data: "자료 구조화·보고서 축",
+      technology_ethics: "기술 윤리·미래 사회 축",
+      language_norm: "언어 규범 탐구 축",
+      communication: "화법·공감 소통 축",
+      reading_reflection: "독서 해석 심화 축",
+      reflective_writing: "성찰 글쓰기 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "인문계열 후속 연계축";
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 텍스트 해석과 표현 분석의 핵심 근거로 우선 배치한 도서입니다.`
+        : `${title}은(는) ${axisLabel}에서 시대·사회·매체·윤리적 의미를 확장하는 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서`])),
+      reportRole: isDirect ? ["analysisFrame", "conceptExplanation", "comparisonFrame"] : ["conclusionExpansion", "comparisonFrame", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? ["텍스트 해석 프레임", "갈래·표현 근거", "비교 분석 기준"] : ["사회·시대 의미 확장", "관점 비교", "한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? "작품의 갈래, 표현, 서사 구조, 인물 갈등을 설명하는 근거로 활용합니다." : "",
+        analysisFrame: isDirect ? "텍스트를 구조·표현·주제·매체 관점으로 분석하는 프레임으로 활용합니다." : "",
+        comparisonFrame: "직접 도서와 다른 시대·문화·매체·사회 관점을 비교할 때 활용합니다.",
+        limitationDiscussion: "작품 해석의 관점 차이, 매체 변환의 한계, 표현의 사회적 의미를 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 문학·언어·매체가 인간과 사회를 이해하는 방식으로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      },
+      bookA26HumanitiesAxis: axisId
+    };
+  }
+
+  function cloneBookForA26HumanitiesLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-26 인문 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank),
+      bookA26HumanitiesLock: true,
+      bookA26HumanitiesRank: rank,
+      bookA26HumanitiesAxisLock: axisId
+    };
+  }
+
+  function applyBookA26HumanitiesLock(result, ctx){
+    if (!result || !isBookA26HumanitiesContext(ctx)) return result;
+    const axisId = inferBookA26HumanitiesAxis(ctx);
+    const directMap = {
+      narrative_structure: ["시학", "변신", "광장"],
+      storytelling_media: ["시학", "문학과 예술의 사회사", "미디어의 이해"],
+      character_conflict: ["데미안", "마음", "변신"],
+      lyric_appreciation: ["정지용전집", "말테의 수기", "젊은 예술가의 초상"],
+      creative_expression: ["젊은 예술가의 초상", "문학과 예술의 사회사", "시학"],
+      critical_argument: ["반지성주의", "공정하다는 착각", "객관성의 칼날"],
+      media_critique: ["미디어의 이해", "1984", "감시와 처벌"],
+      report_data: ["객관성의 칼날", "팩트풀니스", "반지성주의"],
+      technology_ethics: ["멋진 신세계", "1984", "일차원적 인간"],
+      language_norm: ["의사소통 행위이론", "정지용전집", "반지성주의"],
+      communication: ["의사소통 행위이론", "사람, 장소, 환대", "미움받을 용기"],
+      reading_reflection: ["데미안", "죽은 시인의 사회", "마의 산"],
+      reflective_writing: ["데미안", "젊은 예술가의 초상", "고백록"]
+    };
+    const expansionMap = {
+      narrative_structure: ["문학과 예술의 사회사", "시경", "아라비안 나이트", "구운몽", "난장이가 쏘아올린 작은 공"],
+      storytelling_media: ["1984", "감시와 처벌", "오리엔탈리즘", "공정하다는 착각", "제3의 물결"],
+      character_conflict: ["난장이가 쏘아올린 작은 공", "사람, 장소, 환대", "이상한 정상가족", "광장", "빌러비드"],
+      lyric_appreciation: ["시경", "설국", "잃어버린 시간을 찾아서", "데미안", "문학과 예술의 사회사"],
+      creative_expression: ["이것은 미술이 아니다", "미디어의 이해", "고도를 기다리며", "제3의 물결", "정지용전집"],
+      critical_argument: ["1984", "감시와 처벌", "미디어의 이해", "자유론", "정의론"],
+      media_critique: ["제3의 물결", "일차원적 인간", "반지성주의", "공정하다는 착각", "팩트풀니스"],
+      report_data: ["미디어의 이해", "제3의 물결", "공정하다는 착각", "1984", "감시와 처벌"],
+      technology_ethics: ["제3의 물결", "미디어의 이해", "공정하다는 착각", "감시와 처벌", "신기관"],
+      language_norm: ["미디어의 이해", "자유론", "사회계약론", "문학과 예술의 사회사", "시학"],
+      communication: ["자유론", "사회계약론", "공정하다는 착각", "반지성주의", "미디어의 이해"],
+      reading_reflection: ["마음", "수레바퀴 아래서", "황야의 늑대", "이방인", "문학과 예술의 사회사"],
+      reflective_writing: ["마음", "말테의 수기", "수레바퀴 아래서", "황야의 늑대", "인간의 조건"]
+    };
+    const directBooks = arr(directMap[axisId]).map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = arr(expansionMap[axisId]).map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    if (!directBooks.length) return result;
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA26HumanitiesLock: axisId,
+        bookA26HumanitiesDirectTitles: directBooks.map(book => book.title),
+        bookA26HumanitiesExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -4932,6 +5264,8 @@
     result = applyBookA22ChemistryBioengineeringLock(result, ctx);
     result = applyBookA23ChemistryFoodLock(result, ctx);
     result = applyBookA24ChemistryEnergyLock(result, ctx);
+    result = applyBookA25BusinessSocialLock(result, ctx);
+    result = applyBookA26HumanitiesLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
