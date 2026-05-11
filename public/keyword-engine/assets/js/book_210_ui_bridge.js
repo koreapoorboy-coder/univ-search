@@ -6058,7 +6058,7 @@
 
 
 
-  // v173 hard-lock: 심리학과 5번 도서 직접 일치 보정
+  // v174 hard-lock: 심리학과 5번 도서 직접 일치 보정
   // 국어/사회/정보/생명과학 화면에서 미디어·사회·문학 일반 도서가 먼저 먹는 것을 막고,
   // 심리학과 관련 직접 도서 풀(인지·정서·행동·관계·자아 성찰)을 최종 우선 적용한다.
   function getBookA29PsychologyVisibleActiveTrackText(){
@@ -6159,7 +6159,7 @@
 
   function inferBookA29PsychologyAxis(ctx){
     ctx = ctx || {};
-    const axisText = normalizeLockText([
+    const activeAxisText = normalizeLockText([
       getBookA29PsychologyVisibleActiveTrackText(),
       ctx.axisLabel,
       ctx.followupAxisId,
@@ -6176,17 +6176,43 @@
       ctx.selectedKeyword,
       getBookA29PsychologyVisiblePageText()
     ].join(" "));
-    const text = normalizeLockText(axisText + " " + conceptText);
-    if (/(신경\s*[·ㆍ-]?\s*행동|신경\s*행동|신경\s*신호|자극|반응|감각|뉴런|항상성|행동\s*연결)/i.test(text)) return "neuro_behavior";
-    if (/(인지|사고|판단|편향|오류|의사결정|자료\s*검증|팩트체크|비판적\s*읽기|비판\s*해석)/i.test(text)) return "cognitive_bias";
-    if (/(사회\s*규범|사회적\s*쟁점|불평등|분배|공정|능력주의|제도|시민|집단|권력|통제)/i.test(text)) return "social_behavior";
-    if (/(디지털|정보\s*문화|정보사회|플랫폼|미디어|데이터\s*윤리|감시|정체성\s*표현)/i.test(text)) return "media_identity";
-    if (/(화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공동체\s*의사소통|의사소통|공감)/i.test(text)) return "communication_empathy";
-    if (/(공동체\s*협업|협업|소속감|환대|공동체)/i.test(text)) return "community_relation";
-    if (/(갈등\s*조정|갈등|대화|관계\s*갈등|인물\s*[·ㆍ-]?\s*갈등)/i.test(text)) return "conflict_relation";
-    if (/(삶\s*연결|성찰|주체적\s*수용|문학\s*[·ㆍ-]?\s*독서|자아\s*성찰|정체성)/i.test(text)) return "identity_reflection";
-    if (/(서사|이야기\s*구성|인물|극\s*갈래|서사\s*구조)/i.test(text)) return "character_psychology";
-    return "identity_reflection";
+
+    const fromActiveAxis = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // v174: 실제 선택된 4번 카드 제목을 최우선으로 판별한다.
+      // 공통국어1 심리학과의 3번 개념명에 '공감'이 포함되어 있어도,
+      // 선택 카드가 '공동체 협업 축'이면 협업 축 도서로 고정되어야 한다.
+      if (/(공동체\s*협업|협업|community\s*collaboration)/i.test(text)) return "community_relation";
+      if (/(화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공감\s*축|empathetic\s*communication)/i.test(text)) return "communication_empathy";
+      if (/(갈등\s*조정|갈등\s*조정\s*[·ㆍ-]?\s*대화|대화\s*축|conflict\s*mediation)/i.test(text)) return "conflict_relation";
+      if (/(삶\s*연결|성찰|자아\s*성찰|정체성|identity|reflection)/i.test(text)) return "identity_reflection";
+      if (/(서사|이야기\s*구성|인물|극\s*갈래|서사\s*구조|character)/i.test(text)) return "character_psychology";
+      if (/(인지|사고|판단|편향|오류|의사결정|자료\s*검증|팩트\s*체크|팩트체크|비판적\s*읽기|비판\s*해석|cognitive)/i.test(text)) return "cognitive_bias";
+      if (/(사회\s*규범|사회적\s*쟁점|불평등|분배|공정|능력주의|제도|시민|집단|권력|통제|social\s*behavior)/i.test(text)) return "social_behavior";
+      if (/(디지털|정보\s*문화|정보사회|플랫폼|미디어|데이터\s*윤리|감시|정체성\s*표현|media\s*identity)/i.test(text)) return "media_identity";
+      if (/(신경\s*[·ㆍ-]?\s*행동|신경\s*행동|신경\s*신호|자극|반응|감각|뉴런|항상성|행동\s*연결|neuro)/i.test(text)) return "neuro_behavior";
+      return "";
+    };
+
+    const fromConceptFallback = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(신경\s*[·ㆍ-]?\s*행동|신경\s*행동|신경\s*신호|자극|반응|감각|뉴런|항상성|행동\s*연결)/i.test(text)) return "neuro_behavior";
+      if (/(인지|사고|판단|편향|오류|의사결정|자료\s*검증|팩트\s*체크|팩트체크|비판적\s*읽기|비판\s*해석)/i.test(text)) return "cognitive_bias";
+      if (/(사회\s*규범|사회적\s*쟁점|불평등|분배|공정|능력주의|제도|시민|집단|권력|통제)/i.test(text)) return "social_behavior";
+      if (/(디지털|정보\s*문화|정보사회|플랫폼|미디어|데이터\s*윤리|감시|정체성\s*표현)/i.test(text)) return "media_identity";
+      if (/(공동체\s*협업|협업|소속감|환대)/i.test(text)) return "community_relation";
+      if (/(화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공동체\s*의사소통|의사소통|공감)/i.test(text)) return "communication_empathy";
+      if (/(갈등\s*조정|갈등|대화|관계\s*갈등|인물\s*[·ㆍ-]?\s*갈등)/i.test(text)) return "conflict_relation";
+      if (/(삶\s*연결|성찰|주체적\s*수용|문학\s*[·ㆍ-]?\s*독서|자아\s*성찰|정체성)/i.test(text)) return "identity_reflection";
+      if (/(서사|이야기\s*구성|인물|극\s*갈래|서사\s*구조)/i.test(text)) return "character_psychology";
+      return "";
+    };
+
+    return fromActiveAxis(activeAxisText)
+      || fromConceptFallback(conceptText)
+      || "identity_reflection";
   }
 
   function buildLockedBookContextA29Psychology(book, ctx, sectionType, axisId, rank){
@@ -6290,7 +6316,7 @@
       debug: {
         ...(result.debug || {}),
         bookA29PsychologyHardLock: axisId,
-        bookA29PsychologyVersion: "v173",
+        bookA29PsychologyVersion: "v174",
         bookA29PsychologyDirectTitles: directBooks.map(book => book.title),
         bookA29PsychologyExpansionTitles: expansionBooks.map(book => book.title)
       }
