@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v41-a25-social-civic-axis-v162";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v41-a30-education-v175";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -4999,6 +4999,24 @@
         conditional_risk: ["같기도 하고 아니 같기도 하고", "의무론", "리바이어던"],
         business_data: ["반지성주의", "의무론", "누구나 한번쯤 읽어야 할 목민심서"],
         platform_ethics: ["같기도 하고 아니 같기도 하고", "반지성주의", "리바이어던"]
+      },
+      education: {
+        // v175: 교육학과는 실제 book_matching_index_210.json의 교육학과 relatedMajor 도서만 직접 일치 도서로 잠근다.
+        // 직접 도서 풀: 국가, 누구나 한번쯤 읽어야 할 목민심서, 무정, 백범일지, 이상한 정상가족
+        // 사회/행정/법학 도서가 먼저 적용되어 감시와 처벌·리바이어던·경영학 콘서트 쪽으로 고정되는 것을 막는다.
+        civic_rights: ["국가", "누구나 한번쯤 읽어야 할 목민심서", "백범일지"],
+        inequality_policy: ["이상한 정상가족", "무정", "누구나 한번쯤 읽어야 할 목민심서"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "이상한 정상가족", "국가"],
+        esg_sustainability: ["이상한 정상가족", "백범일지", "누구나 한번쯤 읽어야 할 목민심서"],
+        future_industry: ["무정", "이상한 정상가족", "국가"],
+        global_trade: ["백범일지", "무정", "국가"],
+        consumer_marketing: ["무정", "백범일지", "이상한 정상가족"],
+        global_peace: ["백범일지", "국가", "누구나 한번쯤 읽어야 할 목민심서"],
+        market_survey: ["이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서", "국가"],
+        distribution_risk: ["이상한 정상가족", "무정", "백범일지"],
+        conditional_risk: ["이상한 정상가족", "국가", "누구나 한번쯤 읽어야 할 목민심서"],
+        business_data: ["이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서", "국가"],
+        platform_ethics: ["이상한 정상가족", "국가", "백범일지"]
       }
     },
     expansionByAxis: {
@@ -5255,6 +5273,7 @@
     const isAdministrationMajor = /(행정학과|공공인재학부|공공정책학과|정책학과|경찰행정학과)/i.test(careerText);
     const isPoliticsMajor = /(정치외교학과|정치학과|외교학과|국제관계학과|국제학부)/i.test(careerText);
     const isLawMajor = /(법학과|법무행정학과)/i.test(careerText);
+    const isEducationMajor = /(교육학과|교육학부|교육전공)/i.test(careerText);
     // v161: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
     // 경제학과뿐 아니라 사회학과·행정학과·정치외교학과·법학과도 직접 일치 도서 풀을 분리한다.
     const majorType = isEconomicsMajor ? "economics"
@@ -5262,6 +5281,7 @@
       : isAdministrationMajor ? "administration"
       : isPoliticsMajor ? "politics"
       : isLawMajor ? "law"
+      : isEducationMajor ? "education"
       : "business_social";
     const directMap = (BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.directByMajorType || {})[majorType] || {};
     const expansionMap = BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.expansionByAxis || {};
