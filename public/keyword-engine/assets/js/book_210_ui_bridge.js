@@ -7051,6 +7051,183 @@
   }
 
 
+
+  // v184 hard-lock: 문화인류학과 5번 도서 직접 일치 보정
+  // 실제 데이터 기준:
+  // - 학과: 문화인류학과
+  // - 대표 과목/개념: 통합사회1 / 문화 다양성과 세계화
+  // - 4번 후속축: 문화 비교·다양성 이해 축, 세계화·국제 이슈 분석 축, 평화·공존 실천 축
+  // 210권 마스터와 byMajor 실제 매칭에 존재하는 도서만 사용한다.
+  function getBookA33AnthropologyVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA33AnthropologyVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      push(state.subject);
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.majorSelectedName);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA33AnthropologyContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA33AnthropologyVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
+    ].join(" "));
+    const isAnthropologyMajor = /문화인류학과/i.test(careerText);
+    const isRelevantFlow = /(통합사회|문화\s*다양성|세계화|문화\s*비교|다양성\s*이해|세계화\s*[·ㆍ-]?\s*국제\s*이슈|평화\s*[·ㆍ-]?\s*공존|문화권|다문화|공존|상호\s*의존|국제\s*사회|현지조사|관습|의례|타자\s*이해|문화\s*변동)/i.test(subjectConceptText);
+    return !!(isAnthropologyMajor && isRelevantFlow);
+  }
+
+  function inferBookA33AnthropologyAxis(ctx){
+    ctx = ctx || {};
+    const exactAxisText = normalizeLockText([
+      getBookA33AnthropologyVisibleActiveTrackText(),
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.axisDomain, ctx.trackLabel, ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword].join(" "));
+    const pageText = normalizeLockText(getBookA33AnthropologyVisiblePageText());
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(문화\s*비교\s*[·ㆍ-]?\s*다양성\s*이해\s*축|cultural_diversity_comparison|문화\s*다양성\s*이해|문화\s*공존\s*해석|문화권|다문화\s*사회|문화\s*갈등|전통\s*문화|문화\s*변동)/i.test(text)) return "cultural_diversity_comparison";
+      if (/(세계화\s*[·ㆍ-]?\s*국제\s*이슈\s*분석\s*축|global_issue_peace_analysis|세계화\s*이슈\s*분석|국제\s*이슈|상호\s*의존|국제\s*사회|국제\s*기구|국제\s*협력|국제\s*갈등)/i.test(text)) return "global_issue_peace_analysis";
+      if (/(평화\s*[·ㆍ-]?\s*공존\s*실천\s*축|peace_coexistence_practice|평화\s*공존|세계\s*시민\s*실천|공존\s*메시지|실천\s*방안)/i.test(text)) return "peace_coexistence_practice";
+      return "";
+    };
+    return fromText(exactAxisText)
+      || fromText(pageText)
+      || (/세계화|국제\s*사회|상호\s*의존|국제\s*기구/i.test(conceptText) ? "global_issue_peace_analysis" : "")
+      || (/평화|공존|협력/i.test(conceptText) ? "peace_coexistence_practice" : "")
+      || "cultural_diversity_comparison";
+  }
+
+  function cloneBookForA33AnthropologyLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      cultural_diversity_comparison: "문화 비교·다양성 이해 축",
+      global_issue_peace_analysis: "세계화·국제 이슈 분석 축",
+      peace_coexistence_practice: "평화·공존 실천 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "문화인류학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5950 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-33 문화인류학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 문화권·관습·타자 이해를 비교해 탐구 질문을 세우는 데 활용할 수 있는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 역사·권력·세계화 맥락으로 탐구를 넓히는 확장 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문화인류학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA33AnthropologyLock: true,
+      bookA33AnthropologyRank: rank,
+      bookA33AnthropologyAxisLock: axisId
+    };
+  }
+
+  function applyBookA33AnthropologyHardLock(result, ctx){
+    if (!result || !isBookA33AnthropologyContext(ctx)) return result;
+    const axisId = inferBookA33AnthropologyAxis(ctx);
+    const directMap = {
+      cultural_diversity_comparison: ["국화와 칼", "슬픈 열대", "오리엔탈리즘"],
+      global_issue_peace_analysis: ["오리엔탈리즘", "동방견문록", "문명의 충돌"],
+      peace_coexistence_practice: ["슬픈 열대", "국화와 칼", "성의 역사 1"]
+    };
+    const expansionMap = {
+      cultural_diversity_comparison: ["동방견문록", "겐지 이야기", "성의 역사 1", "어둠의 심장", "역사"],
+      global_issue_peace_analysis: ["국화와 칼", "슬픈 열대", "서유견문", "역사", "어둠의 심장"],
+      peace_coexistence_practice: ["오리엔탈리즘", "문명의 충돌", "동방견문록", "겐지 이야기", "루쉰 소설전집"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.cultural_diversity_comparison);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.cultural_diversity_comparison);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA33AnthropologyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA33AnthropologyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA33AnthropologyHardLock: axisId,
+        bookA33AnthropologyVersion: "v184",
+        bookA33AnthropologyDirectTitles: directBooks.map(book => book.title),
+        bookA33AnthropologyExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7112,6 +7289,7 @@
     result = applyBookA30CultureContentHardLock(result, ctx);
     result = applyBookA31AdvertisingHardLock(result, ctx);
     result = applyBookA32HistoryHardLock(result, ctx);
+    result = applyBookA33AnthropologyHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
