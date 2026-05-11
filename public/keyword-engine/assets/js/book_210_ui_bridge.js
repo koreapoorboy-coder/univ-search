@@ -6611,6 +6611,173 @@
   }
 
 
+
+
+  // v179: 광고홍보학과 직접 일치 도서 최종 잠금
+  // - 문화콘텐츠/미디어 기본 흐름이 먼저 먹더라도 광고홍보학과에서는 홍보·소비자·브랜드·미디어 전략 축 도서가 최종 우선 적용되어야 한다.
+  function getBookA31AdvertisingVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const state = global.__KEYWORD_ENGINE_STATE__ || global.keywordEngineState || global.__keywordEngineState || {};
+      push(state.career); push(state.selectedMajor); push(state.department); push(state.major); push(state.majorSelectedName);
+      push(state.subject); push(state.selectedSubject); push(state.concept); push(state.selectedConcept);
+      push(state.keyword); push(state.selectedKeyword); push(state.linkTrack); push(state.followupAxisId);
+      push(state.axisLabel); push(state.trackLabel); push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3'], .engine-track-card").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA31AdvertisingVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card.selected", ".engine-track-card.active",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA31AdvertisingContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA31AdvertisingVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
+    ].join(" "));
+    const isAdvertisingMajor = /(광고홍보학과|광고홍보학부|광고홍보전공|광고PR|홍보학과)/i.test(careerText);
+    const isRelevantFlow = /(공통국어|국어|통합사회|경제|미디어|매체|홍보|광고|브랜드|마케팅|소비문화|시각\s*정보|대상\s*맞춤|자료\s*검증|디지털\s*표현|리터러시)/i.test(subjectConceptText);
+    return !!(isAdvertisingMajor && isRelevantFlow);
+  }
+
+  function inferBookA31AdvertisingAxis(ctx){
+    ctx = ctx || {};
+    const exactAxisText = normalizeLockText([
+      getBookA31AdvertisingVisibleActiveTrackText(),
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.axisDomain, ctx.trackLabel, ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|홍보\s*표현|전달\s*전략|audience|promotion)/i.test(text)) return "audience_promotion";
+      if (/(소비문화|글로벌\s*마케팅|브랜드|마케팅|consumer|marketing)/i.test(text)) return "consumer_marketing";
+      if (/(시각\s*정보|시각\s*표현|카드뉴스|포스터|인포그래픽|visual)/i.test(text)) return "visual_information";
+      if (/(매체\s*비평|매체\s*비판|비판적\s*수용|media_critique)/i.test(text)) return "media_critique";
+      if (/(자료\s*검증|팩트\s*체크|팩트체크|fact_check)/i.test(text)) return "fact_check";
+      if (/(디지털\s*표현|디지털\s*리터러시|리터러시|digital_media_literacy)/i.test(text)) return "digital_media_literacy";
+      if (/(독서\s*확장|콘텐츠\s*기획|reading_content|주제\s*확장\s*독서)/i.test(text)) return "content_planning";
+      return "";
+    };
+    return fromText(exactAxisText)
+      || (/다양한\s*분야\s*독서와\s*홍보\s*표현/i.test(conceptText) ? "audience_promotion" : "")
+      || (/문화\s*다양성과\s*세계화/i.test(conceptText) ? "consumer_marketing" : "")
+      || (/매체\s*비평과\s*비판적\s*수용/i.test(conceptText) ? "media_critique" : "")
+      || "audience_promotion";
+  }
+
+  function cloneBookForA31AdvertisingLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5700 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-31 광고홍보학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) 광고홍보학과의 선택 축에서 매체 전략·소비자 설득·홍보 표현을 분석하는 핵심 근거로 우선 배치한 도서입니다.`
+          : `${book.title}은(는) 광고홍보학과의 선택 축에서 소비문화·브랜드·사회적 영향으로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`광고홍보학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA31AdvertisingLock: true,
+      bookA31AdvertisingRank: rank,
+      bookA31AdvertisingAxisLock: axisId
+    };
+  }
+
+  function applyBookA31AdvertisingHardLock(result, ctx){
+    if (!result || !isBookA31AdvertisingContext(ctx)) return result;
+    const axisId = inferBookA31AdvertisingAxis(ctx);
+    const directMap = {
+      audience_promotion: ["미디어의 이해", "1984", "소비의 사회"],
+      consumer_marketing: ["소비의 사회", "디자인 인문학", "파타고니아, 파도가 칠 때는 서핑을"],
+      visual_information: ["미디어의 이해", "디자인 인문학", "소비의 사회"],
+      media_critique: ["미디어의 이해", "1984", "오리엔탈리즘"],
+      fact_check: ["미디어의 이해", "반지성주의", "1984"],
+      digital_media_literacy: ["미디어의 이해", "1984", "제3의 물결"],
+      content_planning: ["미디어의 이해", "아라비안 나이트", "소비의 사회"]
+    };
+    const expansionMap = {
+      audience_promotion: ["디자인 인문학", "파타고니아, 파도가 칠 때는 서핑을", "경영학 콘서트", "오리엔탈리즘", "반지성주의"],
+      consumer_marketing: ["미디어의 이해", "돈으로 살 수 없는 것들", "경영학 콘서트", "1984", "오리엔탈리즘"],
+      visual_information: ["1984", "파타고니아, 파도가 칠 때는 서핑을", "아라비안 나이트", "시학", "반지성주의"],
+      media_critique: ["반지성주의", "소비의 사회", "성의 역사 1", "디자인 인문학", "돈으로 살 수 없는 것들"],
+      fact_check: ["팩트풀니스", "객관성의 칼날", "같기도 하고 아니 같기도 하고", "오리엔탈리즘", "소비의 사회"],
+      digital_media_literacy: ["반지성주의", "소비의 사회", "디자인 인문학", "팩트풀니스", "오리엔탈리즘"],
+      content_planning: ["디자인 인문학", "문학과 예술의 사회사", "파타고니아, 파도가 칠 때는 서핑을", "1984", "오리엔탈리즘"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.audience_promotion);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.audience_promotion);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA31AdvertisingLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA31AdvertisingLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA31AdvertisingHardLock: axisId,
+        bookA31AdvertisingVersion: "v179",
+        bookA31AdvertisingDirectTitles: directBooks.map(book => book.title),
+        bookA31AdvertisingExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -6670,6 +6837,7 @@
     result = applyBookA28KoreanLiteratureHardLock(result, ctx);
     result = applyBookA29PsychologyHardLock(result, ctx);
     result = applyBookA30CultureContentHardLock(result, ctx);
+    result = applyBookA31AdvertisingHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
