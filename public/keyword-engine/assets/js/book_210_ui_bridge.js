@@ -6780,9 +6780,17 @@
 
 
 
-  // v182 hard-lock: 사학과 + 고고학과 5번 도서 직접 일치 보정
-  // 사학과/고고학과는 사회계열/국어국문학과/문화콘텐츠학과 도서 잠금이 섞이기 쉬워
-  // 역사·사료·문화교류·사회구조 해석에 맞는 직접 일치 도서로 마지막 단계에서 재잠금한다.
+  // v183 hard-lock: 역사·고고학 계열 5번 도서 직접 일치 보정
+  // 핵심 수정: 3번/4번은 추론값이 아니라 실제 화면 카드 제목을 우선한다.
+  // 특히 고고학과 + 통합사회1은 실제 화면에 뜨는
+  // - 통합적 관점과 행복
+  // - 자연환경과 인간의 공존
+  // - 생활 공간 변화와 지역 이해
+  // 및 4번 카드 제목인
+  // - 사회문제 통합해석 축
+  // - 삶의 질 지표 해석 축
+  // - 가치·윤리 판단 축
+  // 을 기준으로만 도서를 재잠금한다.
   function getBookA32HistoryVisibleActiveTrackText(){
     const parts = [];
     const push = function(value){
@@ -6860,7 +6868,7 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
     ].join(" "));
     const isHistoryMajor = /(사학과|역사학과|한국사학과|국사학과|고고학과)/i.test(careerText);
-    const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|통합적\s*관점|행복|자연환경|인간의\s*공존|생활\s*공간|지역\s*이해|공간\s*변화|도시|촌락|서사|교술|역사|사료|기록|문화|제국|노동계급|문화교류)/i.test(subjectConceptText);
+    const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|통합적\s*관점|행복|자연환경|인간의\s*공존|생활\s*공간|지역\s*이해|공간\s*변화|도시|촌락|서사|교술|역사|사료|기록|문화|유물|유적|발굴|사회문제\s*통합해석|삶의\s*질\s*지표|가치\s*[·ㆍ]?\s*윤리\s*판단)/i.test(subjectConceptText);
     return !!(isHistoryMajor && isRelevantFlow);
   }
 
@@ -6871,12 +6879,20 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.axisDomain, ctx.trackLabel, ctx.linkTrackLabel
     ].join(" "));
     const conceptText = normalizeLockText([ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword].join(" "));
+    const pageText = normalizeLockText(getBookA32HistoryVisiblePageText());
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
+
+      // 실제 화면/상태값 기준 우선 판별
+      if (/(사회문제\s*통합해석\s*축|social_issue_integrated_analysis|공공문제\s*통합\s*분석\s*축|social_public_issue_analysis)/i.test(text)) return "actual_social_issue_integrated";
+      if (/(삶의\s*질\s*지표\s*해석\s*축|quality_of_life_data_axis|quality_of_life|행복\s*지수|삶의\s*질)/i.test(text)) return "actual_quality_of_life_indicator";
+      if (/(가치\s*[·ㆍ]?\s*윤리\s*판단\s*축|value_ethics_judg|윤리적\s*관점|객관적\s*기준|주관적\s*기준|불평등\s*[·ㆍ]?\s*분배\s*정책\s*해석\s*축|social_inequality_policy)/i.test(text)) return "actual_value_ethics_judgment";
+
+      // 기존 사학과/역사학과 흐름 보존
       if (/(자연환경|인간의\s*공존|환경과\s*인간|기후|지형|생활양식|생태|환경\s*변화|자연\s*조건)/i.test(text)) return "environment_civilization";
       if (/(생활\s*공간|지역\s*이해|공간\s*변화|지역\s*변화|도시|촌락|장소|공간\s*자료|지역\s*기획|공간적\s*관점)/i.test(text)) return "spatial_regional_history";
-      if (/(통합적\s*관점|행복|삶의\s*질|시간적\s*관점|사회적\s*관점|윤리적\s*관점|사회문제\s*통합|통합\s*해석)/i.test(text)) return "integrated_perspective_history";
+      if (/(통합적\s*관점|행복|시간적\s*관점|사회적\s*관점|사회문제\s*통합|통합\s*해석)/i.test(text)) return "integrated_perspective_history";
       if (/(세계화|국제\s*무역|상호의존|세계\s*교류|제국|국제무역|globalization)/i.test(text)) return "global_history";
       if (/(소비문화|글로벌\s*마케팅|문화\s*비교|문화권|문화\s*해석|consumer|marketing)/i.test(text)) return "culture_comparison";
       if (/(지속가능|ESG|미래\s*지속)/i.test(text)) return "social_change";
@@ -6888,6 +6904,7 @@
       return "";
     };
     return fromText(exactAxisText)
+      || fromText(pageText)
       || (/통합적\s*관점과\s*행복|통합적\s*관점|행복/i.test(conceptText) ? "integrated_perspective_history" : "")
       || (/자연환경과\s*인간의\s*공존|자연환경|인간의\s*공존/i.test(conceptText) ? "environment_civilization" : "")
       || (/생활\s*공간\s*변화와\s*지역\s*이해|생활\s*공간|지역\s*이해/i.test(conceptText) ? "spatial_regional_history" : "")
@@ -6902,16 +6919,22 @@
   function cloneBookForA32HistoryLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const actualAxisLabelMap = {
+      actual_social_issue_integrated: "사회문제 통합해석 축",
+      actual_quality_of_life_indicator: "삶의 질 지표 해석 축",
+      actual_value_ethics_judgment: "가치·윤리 판단 축"
+    };
+    const axisLabel = actualAxisLabelMap[axisId] || "역사·고고학 계열 선택 축";
     return {
       ...book,
       matchType: sectionType,
-      matchScore: 5800 - rank * 10,
+      matchScore: 5900 - rank * 10,
       matchReasons: uniq(arr(book.matchReasons).concat([`A-32 역사·고고학 계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
       selectedBookContext: {
         ...lockedContext,
         recommendationReason: sectionType === "direct"
-          ? `${book.title}은(는) 역사·고고학 계열의 선택 축에서 사료·유물·기록·역사적 맥락을 분석하는 핵심 근거로 우선 배치한 도서입니다.`
-          : `${book.title}은(는) 역사·고고학 계열의 선택 축에서 문화교류·사회구조·시대 인식으로 확장하는 참고 도서입니다.`,
+          ? `${book.title}은(는) ${axisLabel}에서 유물·기록·사회 맥락을 근거로 탐구 방향을 세우는 데 활용할 수 있는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 문화교류·사회구조·윤리적 판단으로 확장하는 참고 도서입니다.`,
         matchReasons: uniq(arr(lockedContext.matchReasons).concat([`역사·고고학 계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
       },
       bookA32HistoryLock: true,
@@ -6930,7 +6953,11 @@
       getBookA32HistoryVisiblePageText()
     ].join(" "));
     const isArchaeologyMajor = /고고학과/i.test(careerText);
+
     const historyDirectMap = {
+      actual_social_issue_integrated: ["성호사설", "역사란 무엇인가", "역사"],
+      actual_quality_of_life_indicator: ["역사란 무엇인가", "성호사설", "물질문명과 자본주의"],
+      actual_value_ethics_judgment: ["성호사설", "그리스 비극 걸작선", "성의 역사 1"],
       integrated_perspective_history: ["역사란 무엇인가", "역사", "성호사설"],
       environment_civilization: ["총, 균, 쇠", "슬픈 열대", "침묵의 봄"],
       spatial_regional_history: ["동방견문록", "서유견문", "물질문명과 자본주의"],
@@ -6943,20 +6970,30 @@
       historical_narrative: ["역사", "문학과 예술의 사회사", "삼대"],
       record_source: ["성호사설", "백범일지", "역사"]
     };
+
+    // 고고학과는 화면에 실제로 뜬 통합사회1 3번·4번 흐름을 별도 잠금한다.
+    // 아래 제목은 210권 마스터에 실제 존재하는 도서명만 사용한다.
     const archaeologyDirectMap = {
-      integrated_perspective_history: ["역사란 무엇인가", "총, 균, 쇠", "동방견문록"],
-      environment_civilization: ["총, 균, 쇠", "동방견문록", "슬픈 열대"],
-      spatial_regional_history: ["동방견문록", "총, 균, 쇠", "성호사설"],
-      global_history: ["동방견문록", "역사란 무엇인가", "총, 균, 쇠"],
-      culture_comparison: ["동방견문록", "슬픈 열대", "국화와 칼"],
+      actual_social_issue_integrated: ["성호사설", "성의 역사 1", "문학과 예술의 사회사"],
+      actual_quality_of_life_indicator: ["동방견문록", "문학과 예술의 사회사", "성호사설"],
+      actual_value_ethics_judgment: ["그리스 비극 걸작선", "성의 역사 1", "성호사설"],
+      integrated_perspective_history: ["성호사설", "문학과 예술의 사회사", "동방견문록"],
+      environment_civilization: ["동방견문록", "문학과 예술의 사회사", "성호사설"],
+      spatial_regional_history: ["동방견문록", "성호사설", "문학과 예술의 사회사"],
+      global_history: ["동방견문록", "문학과 예술의 사회사", "성호사설"],
+      culture_comparison: ["동방견문록", "그리스 비극 걸작선", "성의 역사 1"],
       social_change: ["문학과 예술의 사회사", "성의 역사 1", "성호사설"],
       class_structure: ["문학과 예술의 사회사", "성의 역사 1", "성호사설"],
-      institution_record: ["성호사설", "역사란 무엇인가", "동방견문록"],
-      civic_history: ["성호사설", "역사란 무엇인가", "동방견문록"],
-      historical_narrative: ["그리스 비극 걸작선", "문학과 예술의 사회사", "역사란 무엇인가"],
-      record_source: ["성호사설", "역사란 무엇인가", "동방견문록"]
+      institution_record: ["성호사설", "성의 역사 1", "동방견문록"],
+      civic_history: ["성호사설", "성의 역사 1", "그리스 비극 걸작선"],
+      historical_narrative: ["그리스 비극 걸작선", "문학과 예술의 사회사", "동방견문록"],
+      record_source: ["성호사설", "동방견문록", "문학과 예술의 사회사"]
     };
+
     const historyExpansionMap = {
+      actual_social_issue_integrated: ["백범일지", "반지성주의", "사회계약론", "자유론", "공정하다는 착각"],
+      actual_quality_of_life_indicator: ["팩트풀니스", "돈으로 살 수 없는 것들", "왜 세계의 절반은 굶주리는가", "공정하다는 착각", "자유론"],
+      actual_value_ethics_judgment: ["돈으로 살 수 없는 것들", "의무론", "국가", "자유론", "사회계약론"],
       integrated_perspective_history: ["역사를 위한 변명", "백범일지", "반지성주의", "삼국유사", "역사와 계급의식"],
       environment_civilization: ["총, 균, 쇠", "문명화 과정", "동방견문록", "역사를 위한 변명", "슬픈 열대"],
       spatial_regional_history: ["제국의 시대", "역사", "삼국유사", "문학과 예술의 사회사", "동방견문록"],
@@ -6970,9 +7007,12 @@
       record_source: ["삼국유사", "서유견문", "동방견문록", "객관성의 칼날", "반지성주의"]
     };
     const archaeologyExpansionMap = {
-      integrated_perspective_history: ["성호사설", "문학과 예술의 사회사", "역사를 위한 변명", "삼국유사", "슬픈 열대"],
-      environment_civilization: ["침묵의 봄", "문명화 과정", "슬픈 열대", "역사를 위한 변명", "동방견문록"],
-      spatial_regional_history: ["택리지", "서유견문", "삼국유사", "문학과 예술의 사회사", "제국의 시대"],
+      actual_social_issue_integrated: ["역사란 무엇인가", "역사를 위한 변명", "삼국유사", "슬픈 열대", "반지성주의"],
+      actual_quality_of_life_indicator: ["팩트풀니스", "총, 균, 쇠", "택리지", "슬픈 열대", "돈으로 살 수 없는 것들"],
+      actual_value_ethics_judgment: ["돈으로 살 수 없는 것들", "의무론", "국가", "자유론", "사회계약론"],
+      integrated_perspective_history: ["역사란 무엇인가", "역사를 위한 변명", "삼국유사", "슬픈 열대", "반지성주의"],
+      environment_civilization: ["총, 균, 쇠", "침묵의 봄", "문명화 과정", "슬픈 열대", "역사를 위한 변명"],
+      spatial_regional_history: ["택리지", "서유견문", "삼국유사", "제국의 시대", "역사란 무엇인가"],
       global_history: ["오리엔탈리즘", "국화와 칼", "서유견문", "문명의 충돌", "왜 세계의 절반은 굶주리는가"],
       culture_comparison: ["오리엔탈리즘", "문학과 예술의 사회사", "빌러비드", "겐지 이야기", "삼국유사"],
       social_change: ["역사와 계급의식", "영국 노동계급의 형성", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "성호사설"],
@@ -7002,7 +7042,7 @@
       debug: {
         ...(result.debug || {}),
         bookA32HistoryHardLock: axisId,
-        bookA32HistoryVersion: "v182",
+        bookA32HistoryVersion: "v183",
         bookA32HistoryCareerLock: isArchaeologyMajor ? "archaeology" : "history",
         bookA32HistoryDirectTitles: directBooks.map(book => book.title),
         bookA32HistoryExpansionTitles: expansionBooks.map(book => book.title)
