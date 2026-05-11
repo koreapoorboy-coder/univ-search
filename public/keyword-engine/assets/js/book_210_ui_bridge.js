@@ -5017,6 +5017,24 @@
         conditional_risk: ["이상한 정상가족", "국가", "누구나 한번쯤 읽어야 할 목민심서"],
         business_data: ["이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서", "국가"],
         platform_ethics: ["이상한 정상가족", "국가", "백범일지"]
+      },
+      social_welfare: {
+        // v176: 사회복지학과는 실제 book_matching_index_210.json의 사회복지학과 relatedMajor 도서만 직접 일치 도서로 잠근다.
+        // 직접 도서 풀: 1984, 난장이가 쏘아올린 작은 공, 누구나 한번쯤 읽어야 할 목민심서, 맹자, 변신, 아함경, 역사와 계급의식, 영국 노동계급의 형성, 왜 세계의 절반은 굶주리는가, 이상한 정상가족
+        // 행정/법학/사회학 도서가 먼저 적용되어 리바이어던·국가·감시와 처벌 쪽으로 고정되는 것을 막는다.
+        civic_rights: ["이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서", "맹자"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "이상한 정상가족", "아함경"],
+        esg_sustainability: ["왜 세계의 절반은 굶주리는가", "이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서"],
+        future_industry: ["1984", "이상한 정상가족", "변신"],
+        global_trade: ["왜 세계의 절반은 굶주리는가", "역사와 계급의식", "영국 노동계급의 형성"],
+        consumer_marketing: ["이상한 정상가족", "맹자", "아함경"],
+        global_peace: ["왜 세계의 절반은 굶주리는가", "아함경", "이상한 정상가족"],
+        market_survey: ["이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서", "왜 세계의 절반은 굶주리는가"],
+        distribution_risk: ["왜 세계의 절반은 굶주리는가", "난장이가 쏘아올린 작은 공", "영국 노동계급의 형성"],
+        conditional_risk: ["이상한 정상가족", "1984", "누구나 한번쯤 읽어야 할 목민심서"],
+        business_data: ["누구나 한번쯤 읽어야 할 목민심서", "이상한 정상가족", "1984"],
+        platform_ethics: ["1984", "이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서"]
       }
     },
     expansionByAxis: {
@@ -5274,6 +5292,7 @@
     const isPoliticsMajor = /(정치외교학과|정치학과|외교학과|국제관계학과|국제학부)/i.test(careerText);
     const isLawMajor = /(법학과|법무행정학과)/i.test(careerText);
     const isEducationMajor = /(교육학과|교육학부|교육전공)/i.test(careerText);
+    const isSocialWelfareMajor = /(사회복지학과|사회복지학부|사회복지전공)/i.test(careerText);
     // v161: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
     // 경제학과뿐 아니라 사회학과·행정학과·정치외교학과·법학과도 직접 일치 도서 풀을 분리한다.
     const majorType = isEconomicsMajor ? "economics"
@@ -5282,6 +5301,7 @@
       : isPoliticsMajor ? "politics"
       : isLawMajor ? "law"
       : isEducationMajor ? "education"
+      : isSocialWelfareMajor ? "social_welfare"
       : "business_social";
     const directMap = (BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.directByMajorType || {})[majorType] || {};
     const expansionMap = BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA.expansionByAxis || {};
@@ -5302,7 +5322,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
-        bookA25BusinessSocialVersion: "v168",
+        bookA25BusinessSocialVersion: "v176",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
