@@ -6778,6 +6778,191 @@
   }
 
 
+
+
+  // v180 hard-lock: 사학과 5번 도서 직접 일치 보정
+  // 사학과는 사회계열/국어국문학과/문화콘텐츠학과 도서 잠금이 섞이기 쉬워
+  // 역사·사료·문화교류·사회구조 해석에 맞는 직접 일치 도서로 마지막 단계에서 재잠금한다.
+  function getBookA32HistoryVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA32HistoryVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      push(state.subject);
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.majorSelectedName);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA32HistoryContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA32HistoryVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
+    ].join(" "));
+    const isHistoryMajor = /(사학과|역사학과|한국사학과|국사학과)/i.test(careerText);
+    const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|서사|교술|역사|사료|기록|문화|제국|노동계급|문화교류)/i.test(subjectConceptText);
+    return !!(isHistoryMajor && isRelevantFlow);
+  }
+
+  function inferBookA32HistoryAxis(ctx){
+    ctx = ctx || {};
+    const exactAxisText = normalizeLockText([
+      getBookA32HistoryVisibleActiveTrackText(),
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.axisDomain, ctx.trackLabel, ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(세계화|국제\s*무역|상호의존|세계\s*교류|제국|국제무역|globalization)/i.test(text)) return "global_history";
+      if (/(소비문화|글로벌\s*마케팅|문화\s*비교|문화권|문화\s*해석|consumer|marketing)/i.test(text)) return "culture_comparison";
+      if (/(지속가능|ESG|환경|공존|미래\s*지속)/i.test(text)) return "social_change";
+      if (/(불평등|분배|노동|계급|민중|사회\s*구조)/i.test(text)) return "class_structure";
+      if (/(공공문제|제도|정책|공공\s*문제|통합\s*분석)/i.test(text)) return "institution_record";
+      if (/(시민\s*참여|인권|헌법|민주|권리|독립|공동체)/i.test(text)) return "civic_history";
+      if (/(서사\s*구조|스토리텔링|인물|갈등|서사|극\s*갈래|이야기\s*구성)/i.test(text)) return "historical_narrative";
+      if (/(교술|기록|성찰|설명|자료|사료)/i.test(text)) return "record_source";
+      return "";
+    };
+    return fromText(exactAxisText)
+      || (/문화\s*다양성과\s*세계화|세계화와\s*평화/i.test(conceptText) ? "global_history" : "")
+      || (/사회\s*정의와\s*불평등/i.test(conceptText) ? "class_structure" : "")
+      || (/인권\s*보장과\s*시민\s*참여|인권\s*보장과\s*헌법/i.test(conceptText) ? "civic_history" : "")
+      || (/서사|이야기|극\s*갈래/i.test(conceptText) ? "historical_narrative" : "")
+      || (/교술|기록|성찰/i.test(conceptText) ? "record_source" : "")
+      || "global_history";
+  }
+
+  function cloneBookForA32HistoryLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5800 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-32 사학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) 사학과의 선택 축에서 사료·기록·역사적 맥락을 분석하는 핵심 근거로 우선 배치한 도서입니다.`
+          : `${book.title}은(는) 사학과의 선택 축에서 문화교류·사회구조·시대 인식으로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`사학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA32HistoryLock: true,
+      bookA32HistoryRank: rank,
+      bookA32HistoryAxisLock: axisId
+    };
+  }
+
+  function applyBookA32HistoryHardLock(result, ctx){
+    if (!result || !isBookA32HistoryContext(ctx)) return result;
+    const axisId = inferBookA32HistoryAxis(ctx);
+    const directMap = {
+      global_history: ["역사", "동방견문록", "제국의 시대"],
+      culture_comparison: ["국화와 칼", "슬픈 열대", "어둠의 심장"],
+      social_change: ["영국 노동계급의 형성", "난장이가 쏘아올린 작은 공", "삼대"],
+      class_structure: ["영국 노동계급의 형성", "난장이가 쏘아올린 작은 공", "삼대"],
+      institution_record: ["성호사설", "백범일지", "반지성주의"],
+      civic_history: ["백범일지", "성호사설", "반지성주의"],
+      historical_narrative: ["역사", "문학과 예술의 사회사", "삼대"],
+      record_source: ["성호사설", "백범일지", "역사"]
+    };
+    const expansionMap = {
+      global_history: ["오리엔탈리즘", "국화와 칼", "서유견문", "왜 세계의 절반은 굶주리는가", "문명의 충돌"],
+      culture_comparison: ["오리엔탈리즘", "동방견문록", "빌러비드", "겐지 이야기", "문학과 예술의 사회사"],
+      social_change: ["역사와 계급의식", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "성호사설", "백범일지"],
+      class_structure: ["역사와 계급의식", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "공정하다는 착각", "성호사설"],
+      institution_record: ["국가", "리바이어던", "목민심서", "자유론", "공정하다는 착각"],
+      civic_history: ["국가", "리바이어던", "자유론", "사회계약론", "의무론"],
+      historical_narrative: ["아라비안 나이트", "광장", "변신", "고도를 기다리며", "우리 시대의 영웅"],
+      record_source: ["삼국유사", "서유견문", "동방견문록", "객관성의 칼날", "반지성주의"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.global_history);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.global_history);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA32HistoryLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA32HistoryLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA32HistoryHardLock: axisId,
+        bookA32HistoryVersion: "v180",
+        bookA32HistoryDirectTitles: directBooks.map(book => book.title),
+        bookA32HistoryExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -6838,6 +7023,7 @@
     result = applyBookA29PsychologyHardLock(result, ctx);
     result = applyBookA30CultureContentHardLock(result, ctx);
     result = applyBookA31AdvertisingHardLock(result, ctx);
+    result = applyBookA32HistoryHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
