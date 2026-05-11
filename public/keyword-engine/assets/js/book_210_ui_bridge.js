@@ -5035,6 +5035,31 @@
         conditional_risk: ["이상한 정상가족", "1984", "누구나 한번쯤 읽어야 할 목민심서"],
         business_data: ["누구나 한번쯤 읽어야 할 목민심서", "이상한 정상가족", "1984"],
         platform_ethics: ["1984", "이상한 정상가족", "누구나 한번쯤 읽어야 할 목민심서"]
+      },
+      culture_content: {
+        // v177: 문화콘텐츠학과는 미디어커뮤니케이션학과와 같은 도서 풀로 고정하지 않는다.
+        // 실제 book_matching_index_210.json의 문화콘텐츠학과 relatedMajor 도서 풀을 직접 일치 도서로 우선한다.
+        // 직접 도서 풀: 갈매기, 문학과 예술의 사회사, 미디어의 이해, 삼국유사, 시학, 아라비안 나이트, 고도를 기다리며
+        media_critique: ["미디어의 이해", "문학과 예술의 사회사", "시학"],
+        digital_media_literacy: ["미디어의 이해", "아라비안 나이트", "문학과 예술의 사회사"],
+        fact_check: ["미디어의 이해", "시학", "문학과 예술의 사회사"],
+        report_data: ["시학", "문학과 예술의 사회사", "삼국유사"],
+        public_communication: ["미디어의 이해", "삼국유사", "문학과 예술의 사회사"],
+        evidence_presentation: ["미디어의 이해", "시학", "아라비안 나이트"],
+        technology_ethics: ["미디어의 이해", "문학과 예술의 사회사", "고도를 기다리며"],
+        automation_system: ["미디어의 이해", "문학과 예술의 사회사", "시학"],
+        science_argument: ["시학", "미디어의 이해", "문학과 예술의 사회사"],
+        reading_content: ["아라비안 나이트", "삼국유사", "문학과 예술의 사회사"],
+        visual_information: ["미디어의 이해", "시학", "아라비안 나이트"],
+        audience_promotion: ["미디어의 이해", "아라비안 나이트", "문학과 예술의 사회사"],
+        storytelling_media: ["시학", "아라비안 나이트", "문학과 예술의 사회사"],
+        narrative_structure: ["시학", "갈매기", "고도를 기다리며"],
+        character_conflict: ["갈매기", "고도를 기다리며", "아라비안 나이트"],
+        creative_expression: ["시학", "문학과 예술의 사회사", "아라비안 나이트"],
+        critical_argument: ["미디어의 이해", "문학과 예술의 사회사", "시학"],
+        lyric_appreciation: ["시학", "문학과 예술의 사회사", "고도를 기다리며"],
+        reading_reflection: ["고도를 기다리며", "갈매기", "문학과 예술의 사회사"],
+        reflective_writing: ["고도를 기다리며", "갈매기", "시학"]
       }
     },
     expansionByAxis: {
@@ -5636,8 +5661,9 @@
       reflective_writing: ["마음", "말테의 수기", "수레바퀴 아래서", "황야의 늑대", "인간의 조건"]
     };
     const careerText = normalizeLockText(ctx && (ctx.career || ctx.selectedMajor || ctx.department) || "");
-    const isMediaMajor = /(미디어커뮤니케이션학과|언론정보학과|광고홍보학과|신문방송학과|문화콘텐츠학과)/i.test(careerText);
-    const majorType = isMediaMajor ? "media" : "humanities_default";
+    const isCultureContentMajor = /(문화콘텐츠학과|문화콘텐츠학부|문화콘텐츠전공)/i.test(careerText);
+    const isMediaMajor = /(미디어커뮤니케이션학과|언론정보학과|광고홍보학과|신문방송학과)/i.test(careerText);
+    const majorType = isCultureContentMajor ? "culture_content" : (isMediaMajor ? "media" : "humanities_default");
     const mediaDirectMap = ((BOOK_A26_HUMANITIES_MEDIA_LOCK_DATA.directByMajorType || {})[majorType]) || {};
     const mediaExpansionMap = BOOK_A26_HUMANITIES_MEDIA_LOCK_DATA.expansionByAxis || {};
     const finalDirectTitles = arr(mediaDirectMap[axisId] || directMap[axisId]);
@@ -5659,7 +5685,7 @@
         ...(result.debug || {}),
         bookA26HumanitiesLock: axisId,
         bookA26HumanitiesMajorLock: typeof majorType !== "undefined" ? majorType : "humanities_default",
-        bookA26HumanitiesVersion: "v170",
+        bookA26HumanitiesVersion: "v177",
         bookA26HumanitiesDirectTitles: directBooks.map(book => book.title),
         bookA26HumanitiesExpansionTitles: expansionBooks.map(book => book.title)
       }
