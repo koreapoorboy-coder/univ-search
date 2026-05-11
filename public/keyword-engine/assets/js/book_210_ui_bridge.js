@@ -5685,7 +5685,7 @@
         ...(result.debug || {}),
         bookA26HumanitiesLock: axisId,
         bookA26HumanitiesMajorLock: typeof majorType !== "undefined" ? majorType : "humanities_default",
-        bookA26HumanitiesVersion: "v177",
+        bookA26HumanitiesVersion: "v178",
         bookA26HumanitiesDirectTitles: directBooks.map(book => book.title),
         bookA26HumanitiesExpansionTitles: expansionBooks.map(book => book.title)
       }
@@ -6390,6 +6390,227 @@
   }
 
 
+  // v178 hard-lock: 공통국어2/공통국어1 + 문화콘텐츠학과 5번 도서 직접 일치 보정
+  // 문화콘텐츠학과가 미디어커뮤니케이션학과 또는 일반 인문 기본 도서 흐름을 타지 않도록
+  // 실제 화면 학과명(문화콘텐츠학과)과 선택된 4번 카드 제목을 최우선으로 읽어 마지막 단계에서 덮어쓴다.
+  function getBookA30CultureVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const state = global.__KEYWORD_ENGINE_STATE__ || global.keywordEngineState || global.__keywordEngineState || {};
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.department);
+      push(state.major);
+      push(state.majorSelectedName);
+      push(state.subject);
+      push(state.selectedSubject);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3'], .engine-track-card").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA30CultureVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA30CultureContentContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA30CultureVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career,
+      ctx.selectedMajor,
+      ctx.department,
+      pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject,
+      ctx.selectedSubject,
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      pageText
+    ].join(" "));
+    const isCultureMajor = /(문화콘텐츠학과|문화콘텐츠학부|문화콘텐츠전공)/i.test(careerText);
+    const isKoreanFlow = /(공통국어|국어|문학|독서|매체\s*비평|공동\s*보고서|다양한\s*분야\s*독서|홍보\s*표현|서사\s*[·ㆍ-]?\s*극|스토리텔링|콘텐츠\s*기획|시각\s*정보|대상\s*맞춤)/i.test(subjectConceptText);
+    return !!(isCultureMajor && isKoreanFlow);
+  }
+
+  function inferBookA30CultureContentAxis(ctx){
+    ctx = ctx || {};
+    const exactAxisText = normalizeLockText([
+      getBookA30CultureVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(독서\s*확장|콘텐츠\s*기획|reading_content|주제\s*확장\s*독서)/i.test(text)) return "reading_content";
+      if (/(시각\s*정보|시각\s*표현|카드뉴스|포스터|인포그래픽|visual)/i.test(text)) return "visual_information";
+      if (/(대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|홍보\s*표현|전달\s*전략|audience|promotion)/i.test(text)) return "audience_promotion";
+      if (/(매체\s*비평|매체\s*비판|비판적\s*수용|media_critique)/i.test(text)) return "media_critique";
+      if (/(자료\s*검증|팩트\s*체크|팩트체크|fact_check)/i.test(text)) return "fact_check";
+      if (/(디지털\s*표현|디지털\s*리터러시|리터러시|digital_media_literacy)/i.test(text)) return "digital_media_literacy";
+      if (/(근거\s*제시|발표\s*설계|evidence_presentation)/i.test(text)) return "evidence_presentation";
+      if (/(스토리텔링|매체\s*서사|storytelling_media|대본|장면|영상)/i.test(text)) return "storytelling_media";
+      if (/(서사\s*구조|이야기\s*구성|narrative_structure)/i.test(text)) return "narrative_structure";
+      if (/(인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|character_conflict)/i.test(text)) return "character_conflict";
+      if (/(표현\s*[·ㆍ-]?\s*창작|창작|creative_expression)/i.test(text)) return "creative_expression";
+      if (/(문학\s*감상|시적|서정|lyric)/i.test(text)) return "lyric_appreciation";
+      return "";
+    };
+    return fromText(exactAxisText)
+      || (/다양한\s*분야\s*독서와\s*홍보\s*표현/i.test(conceptText) ? "audience_promotion" : "")
+      || (/매체\s*비평과\s*비판적\s*수용/i.test(conceptText) ? "media_critique" : "")
+      || (/서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성/i.test(conceptText) ? "storytelling_media" : "")
+      || "reading_content";
+  }
+
+  function cloneBookForA30CultureContentLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5600 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-30 문화콘텐츠학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) 문화콘텐츠학과의 선택 축에서 콘텐츠 기획·표현·해석의 핵심 근거로 우선 배치한 도서입니다.`
+          : `${book.title}은(는) 문화콘텐츠학과의 선택 축에서 매체·사회·문화적 의미를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문화콘텐츠학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA30CultureContentLock: true,
+      bookA30CultureContentRank: rank,
+      bookA30CultureContentAxisLock: axisId
+    };
+  }
+
+  function applyBookA30CultureContentHardLock(result, ctx){
+    if (!result || !isBookA30CultureContentContext(ctx)) return result;
+    const axisId = inferBookA30CultureContentAxis(ctx);
+    const directMap = {
+      reading_content: ["아라비안 나이트", "삼국유사", "문학과 예술의 사회사"],
+      visual_information: ["미디어의 이해", "시학", "아라비안 나이트"],
+      audience_promotion: ["미디어의 이해", "아라비안 나이트", "문학과 예술의 사회사"],
+      media_critique: ["미디어의 이해", "문학과 예술의 사회사", "시학"],
+      digital_media_literacy: ["미디어의 이해", "아라비안 나이트", "문학과 예술의 사회사"],
+      fact_check: ["미디어의 이해", "시학", "문학과 예술의 사회사"],
+      evidence_presentation: ["미디어의 이해", "시학", "아라비안 나이트"],
+      storytelling_media: ["시학", "아라비안 나이트", "문학과 예술의 사회사"],
+      narrative_structure: ["시학", "갈매기", "고도를 기다리며"],
+      character_conflict: ["갈매기", "고도를 기다리며", "아라비안 나이트"],
+      creative_expression: ["시학", "문학과 예술의 사회사", "아라비안 나이트"],
+      lyric_appreciation: ["시학", "문학과 예술의 사회사", "고도를 기다리며"]
+    };
+    const expansionMap = {
+      reading_content: ["고도를 기다리며", "미디어의 이해", "시학", "갈매기", "오리엔탈리즘"],
+      visual_information: ["문학과 예술의 사회사", "고도를 기다리며", "삼국유사", "오리엔탈리즘", "1984"],
+      audience_promotion: ["삼국유사", "시학", "고도를 기다리며", "오리엔탈리즘", "1984"],
+      media_critique: ["오리엔탈리즘", "아라비안 나이트", "고도를 기다리며", "1984", "반지성주의"],
+      digital_media_literacy: ["시학", "고도를 기다리며", "오리엔탈리즘", "제3의 물결", "1984"],
+      fact_check: ["아라비안 나이트", "삼국유사", "고도를 기다리며", "반지성주의", "팩트풀니스"],
+      evidence_presentation: ["문학과 예술의 사회사", "삼국유사", "고도를 기다리며", "오리엔탈리즘", "반지성주의"],
+      storytelling_media: ["갈매기", "고도를 기다리며", "삼국유사", "미디어의 이해", "오리엔탈리즘"],
+      narrative_structure: ["문학과 예술의 사회사", "아라비안 나이트", "삼국유사", "미디어의 이해", "오리엔탈리즘"],
+      character_conflict: ["시학", "문학과 예술의 사회사", "삼국유사", "미디어의 이해", "오리엔탈리즘"],
+      creative_expression: ["미디어의 이해", "삼국유사", "갈매기", "고도를 기다리며", "오리엔탈리즘"],
+      lyric_appreciation: ["아라비안 나이트", "삼국유사", "미디어의 이해", "갈매기", "오리엔탈리즘"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.reading_content);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.reading_content);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA30CultureContentLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA30CultureContentLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA30CultureContentHardLock: axisId,
+        bookA30CultureContentVersion: "v178",
+        bookA30CultureContentDirectTitles: directBooks.map(book => book.title),
+        bookA30CultureContentExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -6448,6 +6669,7 @@
     result = applyBookA27MediaCommunicationHardLock(result, ctx);
     result = applyBookA28KoreanLiteratureHardLock(result, ctx);
     result = applyBookA29PsychologyHardLock(result, ctx);
+    result = applyBookA30CultureContentHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
