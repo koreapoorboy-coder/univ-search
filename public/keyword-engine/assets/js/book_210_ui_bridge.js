@@ -5628,6 +5628,194 @@
 
 
 
+  // v171 hard-lock: 공통국어2 + 미디어커뮤니케이션학과 5번 도서 직접 일치 보정
+  // A-12 정보/컴퓨터공학 도서 잠금이 먼저 적용되어도, 현재 화면의 실제 학과가
+  // 미디어커뮤니케이션학과이고 4번 카드가 매체 비평/디지털 리터러시/자료 검증 축이면
+  // 마지막 단계에서 미디어 전용 직접 일치 도서로 다시 덮어쓴다.
+  function getBookA27MediaVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA27MediaVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      push(state.subject);
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.majorSelectedName);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA27MediaCommunicationContext(ctx){
+    ctx = ctx || {};
+    const stateText = getBookA27MediaVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career,
+      ctx.selectedMajor,
+      ctx.department,
+      stateText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject,
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      stateText
+    ].join(" "));
+    const isMediaMajor = /(미디어커뮤니케이션학과|언론정보학과|광고홍보학과|신문방송학과)/i.test(careerText);
+    const isCommonKorean2Flow = /(공통국어2|공통국어Ⅱ|매체\s*비평과\s*비판적\s*수용|공동\s*보고서\s*글쓰기와\s*자료\s*활용|다양한\s*분야\s*독서와\s*홍보\s*표현|매체\s*비평|디지털\s*표현|리터러시|자료\s*검증|자료검증|팩트\s*체크|팩트체크|홍보\s*표현)/i.test(subjectConceptText);
+    return !!(isMediaMajor && isCommonKorean2Flow);
+  }
+
+  function inferBookA27MediaCommunicationAxis(ctx){
+    ctx = ctx || {};
+    const activeText = normalizeLockText(getBookA27MediaVisibleActiveTrackText());
+    const ctxAxisText = normalizeLockText([
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword
+    ].join(" "));
+
+    const fromAxisText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(자료\s*검증|자료검증|팩트\s*체크|팩트체크|fact\s*check|source\s*check|근거\s*자료\s*검증)/i.test(text)) return "fact_check";
+      if (/(디지털\s*표현|리터러시|디지털\s*리터러시|digital\s*literacy|digital_media_literacy)/i.test(text)) return "digital_media_literacy";
+      if (/(매체\s*비평|비판\s*수용|매체\s*비판|media\s*critique|media_critique)/i.test(text)) return "media_critique";
+      if (/(근거\s*제시|발표\s*설계|발표|evidence\s*presentation|presentation)/i.test(text)) return "evidence_presentation";
+      if (/(대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|홍보\s*표현|전달\s*전략|audience|promotion)/i.test(text)) return "audience_promotion";
+      if (/(시각\s*정보|시각\s*표현|visual)/i.test(text)) return "visual_information";
+      if (/(독서\s*확장|콘텐츠\s*기획|reading\s*content|content)/i.test(text)) return "reading_content";
+      return "";
+    };
+
+    // 실제 선택된 4번 카드 제목/ID를 최우선으로 사용한다.
+    return fromAxisText(activeText)
+      || fromAxisText(ctxAxisText)
+      || (/다양한\s*분야\s*독서와\s*홍보\s*표현/i.test(conceptText) ? "audience_promotion" : "")
+      || (/공동\s*보고서\s*글쓰기와\s*자료\s*활용/i.test(conceptText) ? "evidence_presentation" : "")
+      || (/매체\s*비평과\s*비판적\s*수용/i.test(conceptText) ? "media_critique" : "")
+      || "media_critique";
+  }
+
+  function applyBookA27MediaCommunicationHardLock(result, ctx){
+    if (!result || !isBookA27MediaCommunicationContext(ctx)) return result;
+    const axisId = inferBookA27MediaCommunicationAxis(ctx);
+    const directMap = {
+      media_critique: ["미디어의 이해", "1984", "오리엔탈리즘"],
+      digital_media_literacy: ["미디어의 이해", "1984", "같기도 하고 아니 같기도 하고"],
+      fact_check: ["미디어의 이해", "같기도 하고 아니 같기도 하고", "성의 역사 1"],
+      evidence_presentation: ["미디어의 이해", "시학", "아라비안 나이트"],
+      reading_content: ["시학", "아라비안 나이트", "미디어의 이해"],
+      visual_information: ["미디어의 이해", "아라비안 나이트", "시학"],
+      audience_promotion: ["미디어의 이해", "1984", "같기도 하고 아니 같기도 하고"],
+      storytelling_media: ["시학", "미디어의 이해", "아라비안 나이트"]
+    };
+    const expansionMap = {
+      media_critique: ["감시와 처벌", "반지성주의", "공정하다는 착각", "제3의 물결", "일차원적 인간"],
+      digital_media_literacy: ["제3의 물결", "감시와 처벌", "일차원적 인간", "반지성주의", "팩트풀니스"],
+      fact_check: ["팩트풀니스", "반지성주의", "객관성의 칼날", "감시와 처벌", "공정하다는 착각"],
+      evidence_presentation: ["팩트풀니스", "객관성의 칼날", "반지성주의", "제3의 물결", "공정하다는 착각"],
+      reading_content: ["문학과 예술의 사회사", "고도를 기다리며", "공정하다는 착각", "오리엔탈리즘", "제3의 물결"],
+      visual_information: ["문학과 예술의 사회사", "제3의 물결", "오리엔탈리즘", "공정하다는 착각", "고도를 기다리며"],
+      audience_promotion: ["공정하다는 착각", "제3의 물결", "반지성주의", "오리엔탈리즘", "돈으로 살 수 없는 것들"],
+      storytelling_media: ["문학과 예술의 사회사", "고도를 기다리며", "1984", "감시와 처벌", "오리엔탈리즘"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.media_critique);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.media_critique);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA27MediaCommunicationHardLock: axisId,
+        bookA27MediaCommunicationVersion: "v171",
+        bookA27MediaCommunicationDirectTitles: directBooks.map(book => book.title),
+        bookA27MediaCommunicationExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -5683,6 +5871,7 @@
     result = applyBookA24ChemistryEnergyLock(result, ctx);
     result = applyBookA25BusinessSocialLock(result, ctx);
     result = applyBookA26HumanitiesLock(result, ctx);
+    result = applyBookA27MediaCommunicationHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
