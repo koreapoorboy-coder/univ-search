@@ -5816,6 +5816,247 @@
 
 
 
+  // v172 hard-lock: 공통국어1/문학 + 국어국문학과 5번 도서 직접 일치 보정
+  // 미디어/정보/사회계열 도서 잠금이 개입하지 않도록, 실제 국어국문학과 relatedMajor 도서 풀을
+  // 대표 문학 축(서사·극/서정/교술/국어규범/토론·글쓰기)에 우선 배치한다.
+  function getBookA28KoreanLitVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA28KoreanLitVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      push(state.subject);
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.majorSelectedName);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA28KoreanLiteratureContext(ctx){
+    ctx = ctx || {};
+    const stateText = getBookA28KoreanLitVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career,
+      ctx.selectedMajor,
+      ctx.department,
+      stateText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject,
+      ctx.selectedSubject,
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      stateText
+    ].join(" "));
+    const isKoreanMajor = /(국어국문학과|국문학과|국어국문학부)/i.test(careerText);
+    const isKoreanSubject = /(공통국어1|공통국어Ⅰ|공통국어|문학|국어)/i.test(subjectConceptText);
+    const isKoreanConcept = /(서정|서사|극\s*갈래|이야기\s*구성|교술|성찰적\s*표현|음운|국어\s*규범|공동체\s*의사소통|공감|문학\s*[·ㆍ-]?\s*독서|주체적\s*수용|비판적\s*읽기|토론|사회적\s*쟁점|문장\s*구성|문학\s*감상|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|성찰\s*글쓰기|언어\s*규범)/i.test(subjectConceptText);
+    return !!(isKoreanMajor && isKoreanSubject && isKoreanConcept);
+  }
+
+  function inferBookA28KoreanLiteratureAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA28KoreanLitVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA28KoreanLitVisiblePageText()
+    ].join(" "));
+    const fromAxisText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(narrative_structure_analysis|서사\s*구조|이야기\s*구성)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media_extension|스토리텔링|매체\s*축|매체\s*변환|장면\s*구성)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict_interpretation|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
+      if (/(lyric_appreciation_interpretation|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환)/i.test(text)) return "emotion_media_translation";
+      if (/(reflective_writing_extension|성찰\s*글쓰기|성찰적\s*표현)/i.test(text)) return "reflective_writing";
+      if (/(observation_interpretation_extension|관찰\s*[·ㆍ-]?\s*해석|관찰\s*확장)/i.test(text)) return "observation_interpretation";
+      if (/(explanatory_recording_extension|설명\s*[·ㆍ-]?\s*기록|기록\s*확장)/i.test(text)) return "explanatory_recording";
+      if (/(language_norm_inquiry|언어\s*규범|국어\s*규범|음운\s*변동)/i.test(text)) return "language_norm";
+      if (/(accurate_expression|정확한\s*표현|표준\s*발음|문장\s*점검)/i.test(text)) return "accurate_expression";
+      if (/(language_life_application|언어생활\s*적용|생활\s*적용)/i.test(text)) return "language_life_application";
+      if (/(empathetic_communication|화법\s*[·ㆍ-]?\s*공감|공감\s*소통)/i.test(text)) return "communication";
+      if (/(community_collaboration|공동체\s*협업|협업)/i.test(text)) return "community_collaboration";
+      if (/(conflict_mediation_dialogue|갈등\s*조정|대화)/i.test(text)) return "conflict_mediation";
+      if (/(reading_interpretation_deepening|독서\s*해석\s*심화|독서\s*해석)/i.test(text)) return "reading_interpretation";
+      if (/(life_connected_reflection|삶\s*연결\s*성찰|삶\s*연결)/i.test(text)) return "life_reflection";
+      if (/(reading_sharing_review|독서\s*공유|서평)/i.test(text)) return "reading_review";
+      if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론|토론\s*축)/i.test(text)) return "critical_argument";
+      if (/(critical_interpretation_extension|비판\s*해석|비판\s*확장)/i.test(text)) return "critical_interpretation";
+      if (/(evidence_verification_analysis|자료\s*검증|쟁점\s*분석|팩트체크)/i.test(text)) return "evidence_verification";
+      if (/(argumentative_writing|주장\s*글쓰기|논증\s*글쓰기)/i.test(text)) return "argumentative_writing";
+      if (/(public_media_expression|공공\s*[·ㆍ-]?\s*매체\s*표현|매체\s*표현)/i.test(text)) return "public_media_expression";
+      if (/(sentence_revision_editing|문장\s*점검|문장\s*수정|퇴고)/i.test(text)) return "sentence_revision";
+      return "";
+    };
+    return fromAxisText(axisText)
+      || fromAxisText(conceptText)
+      || (/서사\s*[·ㆍ-]?\s*극\s*갈래|이야기\s*구성/i.test(conceptText) ? "narrative_structure" : "")
+      || (/서정\s*갈래|시적\s*표현/i.test(conceptText) ? "lyric_appreciation" : "")
+      || (/교술\s*갈래|성찰적\s*표현/i.test(conceptText) ? "reflective_writing" : "")
+      || (/음운\s*변동|국어\s*규범/i.test(conceptText) ? "language_norm" : "")
+      || (/공동체\s*의사소통|공감/i.test(conceptText) ? "communication" : "")
+      || (/문학\s*[·ㆍ-]?\s*독서|주체적\s*수용/i.test(conceptText) ? "reading_interpretation" : "")
+      || (/비판적\s*읽기|토론/i.test(conceptText) ? "critical_argument" : "")
+      || (/사회적\s*쟁점|문장\s*구성/i.test(conceptText) ? "argumentative_writing" : "")
+      || "narrative_structure";
+  }
+
+  function applyBookA28KoreanLiteratureHardLock(result, ctx){
+    if (!result || !isBookA28KoreanLiteratureContext(ctx)) return result;
+    const axisId = inferBookA28KoreanLiteratureAxis(ctx);
+    const directMap = {
+      narrative_structure: ["시학", "변신", "광장"],
+      storytelling_media: ["시학", "아라비안 나이트", "문학과 예술의 사회사"],
+      character_conflict: ["데미안", "마음", "변신"],
+      lyric_appreciation: ["정지용전집", "잃어버린 시간을 찾아서", "젊은 예술가의 초상"],
+      creative_expression: ["젊은 예술가의 초상", "갈매기", "문학과 예술의 사회사"],
+      emotion_media_translation: ["정지용전집", "문학과 예술의 사회사", "젊은 예술가의 초상"],
+      reflective_writing: ["데미안", "마의 산", "젊은 예술가의 초상"],
+      observation_interpretation: ["마음", "우리 시대의 영웅", "갈매기"],
+      explanatory_recording: ["백범일지", "삼국유사", "성호사설"],
+      language_norm: ["정지용전집", "성호사설", "시학"],
+      accurate_expression: ["정지용전집", "성호사설", "젊은 예술가의 초상"],
+      language_life_application: ["무정", "정지용전집", "성호사설"],
+      communication: ["갈매기", "무정", "데미안"],
+      community_collaboration: ["무정", "광장", "백범일지"],
+      conflict_mediation: ["갈매기", "광장", "마음"],
+      reading_interpretation: ["데미안", "마의 산", "문학과 예술의 사회사"],
+      life_reflection: ["데미안", "젊은 예술가의 초상", "마음"],
+      reading_review: ["문학과 예술의 사회사", "데미안", "마의 산"],
+      critical_argument: ["성호사설", "광장", "무정"],
+      critical_interpretation: ["광장", "무정", "백범일지"],
+      evidence_verification: ["성호사설", "백범일지", "서유견문"],
+      argumentative_writing: ["성호사설", "광장", "무정"],
+      public_media_expression: ["무정", "백범일지", "문학과 예술의 사회사"],
+      sentence_revision: ["정지용전집", "성호사설", "시학"]
+    };
+    const expansionMap = {
+      narrative_structure: ["문학과 예술의 사회사", "아라비안 나이트", "삼국유사", "겐지 이야기", "갈매기"],
+      storytelling_media: ["고도를 기다리며", "미디어의 이해", "겐지 이야기", "무정", "어둠의 속"],
+      character_conflict: ["광장", "빌러비드", "무정", "우리 시대의 영웅", "갈매기"],
+      lyric_appreciation: ["시경", "설국", "말테의 수기", "문학과 예술의 사회사", "데미안"],
+      creative_expression: ["고도를 기다리며", "시학", "정지용전집", "아라비안 나이트", "겐지 이야기"],
+      emotion_media_translation: ["미디어의 이해", "고도를 기다리며", "시학", "겐지 이야기", "갈매기"],
+      reflective_writing: ["마음", "말테의 수기", "고백록", "우리 시대의 영웅", "인간의 조건"],
+      observation_interpretation: ["성호사설", "백범일지", "무정", "삼국유사", "문학과 예술의 사회사"],
+      explanatory_recording: ["서유견문", "역사", "겐지 이야기", "무정", "문학과 예술의 사회사"],
+      language_norm: ["의사소통 행위이론", "미디어의 이해", "자유론", "문학과 예술의 사회사", "시학"],
+      accurate_expression: ["의사소통 행위이론", "미디어의 이해", "문학과 예술의 사회사", "자유론", "사회계약론"],
+      language_life_application: ["의사소통 행위이론", "미디어의 이해", "자유론", "문학과 예술의 사회사", "시학"],
+      communication: ["사람, 장소, 환대", "의사소통 행위이론", "미움받을 용기", "자유론", "사회계약론"],
+      community_collaboration: ["사람, 장소, 환대", "의사소통 행위이론", "사회계약론", "자유론", "공정하다는 착각"],
+      conflict_mediation: ["사람, 장소, 환대", "미움받을 용기", "이상한 정상가족", "자유론", "사회계약론"],
+      reading_interpretation: ["죽은 시인의 사회", "마음", "수레바퀴 아래서", "황야의 늑대", "이방인"],
+      life_reflection: ["죽은 시인의 사회", "수레바퀴 아래서", "황야의 늑대", "이방인", "인간의 조건"],
+      reading_review: ["죽은 시인의 사회", "수레바퀴 아래서", "이방인", "문학과 예술의 사회사", "미디어의 이해"],
+      critical_argument: ["반지성주의", "공정하다는 착각", "객관성의 칼날", "자유론", "정의론"],
+      critical_interpretation: ["반지성주의", "공정하다는 착각", "1984", "감시와 처벌", "자유론"],
+      evidence_verification: ["팩트풀니스", "객관성의 칼날", "반지성주의", "공정하다는 착각", "미디어의 이해"],
+      argumentative_writing: ["반지성주의", "공정하다는 착각", "자유론", "정의론", "객관성의 칼날"],
+      public_media_expression: ["미디어의 이해", "공정하다는 착각", "반지성주의", "자유론", "감시와 처벌"],
+      sentence_revision: ["의사소통 행위이론", "미디어의 이해", "객관성의 칼날", "자유론", "문학과 예술의 사회사"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.narrative_structure);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.narrative_structure);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA26HumanitiesLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA28KoreanLiteratureHardLock: axisId,
+        bookA28KoreanLiteratureVersion: "v172",
+        bookA28KoreanLiteratureDirectTitles: directBooks.map(book => book.title),
+        bookA28KoreanLiteratureExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -5872,6 +6113,7 @@
     result = applyBookA25BusinessSocialLock(result, ctx);
     result = applyBookA26HumanitiesLock(result, ctx);
     result = applyBookA27MediaCommunicationHardLock(result, ctx);
+    result = applyBookA28KoreanLiteratureHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
