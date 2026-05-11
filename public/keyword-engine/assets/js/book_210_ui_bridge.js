@@ -7052,11 +7052,15 @@
 
 
 
-  // v184 hard-lock: 문화인류학과 5번 도서 직접 일치 보정
-  // 실제 데이터 기준:
+  // v185 hard-lock: 문화인류학과 5번 도서 직접 일치 보정
+  // 실제 화면 데이터 기준으로 재잠금한다.
   // - 학과: 문화인류학과
-  // - 대표 과목/개념: 통합사회1 / 문화 다양성과 세계화
-  // - 4번 후속축: 문화 비교·다양성 이해 축, 세계화·국제 이슈 분석 축, 평화·공존 실천 축
+  // - 과목: 통합사회1
+  // - 실제 3번 추천 개념:
+  //   1) 통합적 관점과 행복
+  //   2) 자연환경과 인간의 공존
+  //   3) 생활 공간 변화와 지역 이해
+  // - 4번 후속축은 카드 설명문이 아니라 카드 제목/선택값을 우선 판별한다.
   // 210권 마스터와 byMajor 실제 매칭에 존재하는 도서만 사용한다.
   function getBookA33AnthropologyVisibleActiveTrackText(){
     const parts = [];
@@ -7119,7 +7123,7 @@
       push(state.linkTrackLabel);
     } catch (error) {}
     try {
-      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3'], [data-step='4']").forEach(function(node){
         push(node.textContent || "");
       });
     } catch (error) {}
@@ -7135,8 +7139,8 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
     ].join(" "));
     const isAnthropologyMajor = /문화인류학과/i.test(careerText);
-    const isRelevantFlow = /(통합사회|문화\s*다양성|세계화|문화\s*비교|다양성\s*이해|세계화\s*[·ㆍ-]?\s*국제\s*이슈|평화\s*[·ㆍ-]?\s*공존|문화권|다문화|공존|상호\s*의존|국제\s*사회|현지조사|관습|의례|타자\s*이해|문화\s*변동)/i.test(subjectConceptText);
-    return !!(isAnthropologyMajor && isRelevantFlow);
+    const isActualIntegratedSocietyFlow = /(통합사회1|통합사회|통합적\s*관점과\s*행복|자연환경과\s*인간의\s*공존|생활\s*공간\s*변화와\s*지역\s*이해|시간적\s*관점|공간적\s*관점|사회적\s*관점|윤리적\s*관점|삶의\s*질|자연환경|기후|지형|생활\s*양식|산업화|도시화|생활\s*공간|도시\s*문제|지역\s*변화|교통\s*발달|통신\s*발달|정보화|네트워크|지역\s*조사)/i.test(subjectConceptText);
+    return !!(isAnthropologyMajor && isActualIntegratedSocietyFlow);
   }
 
   function inferBookA33AnthropologyAxis(ctx){
@@ -7150,37 +7154,56 @@
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      if (/(문화\s*비교\s*[·ㆍ-]?\s*다양성\s*이해\s*축|cultural_diversity_comparison|문화\s*다양성\s*이해|문화\s*공존\s*해석|문화권|다문화\s*사회|문화\s*갈등|전통\s*문화|문화\s*변동)/i.test(text)) return "cultural_diversity_comparison";
-      if (/(세계화\s*[·ㆍ-]?\s*국제\s*이슈\s*분석\s*축|global_issue_peace_analysis|세계화\s*이슈\s*분석|국제\s*이슈|상호\s*의존|국제\s*사회|국제\s*기구|국제\s*협력|국제\s*갈등)/i.test(text)) return "global_issue_peace_analysis";
-      if (/(평화\s*[·ㆍ-]?\s*공존\s*실천\s*축|peace_coexistence_practice|평화\s*공존|세계\s*시민\s*실천|공존\s*메시지|실천\s*방안)/i.test(text)) return "peace_coexistence_practice";
+
+      // 통합적 관점과 행복
+      if (/(사회문제\s*통합해석\s*축|social_issue_integrated_analysis|통합\s*관점\s*해석|사회\s*문제\s*해석)/i.test(text)) return "social_issue_integrated_analysis";
+      if (/(삶의\s*질\s*지표\s*해석\s*축|quality_of_life_data_axis|삶의\s*질\s*데이터|행복\s*지표)/i.test(text)) return "quality_of_life_data_axis";
+      if (/(가치\s*[·ㆍ-]?\s*윤리\s*판단\s*축|value_ethics_judgement|가치\s*판단|윤리\s*판단)/i.test(text)) return "value_ethics_judgement";
+
+      // 자연환경과 인간의 공존
+      if (/(환경\s*[·ㆍ-]?\s*지리\s*해석\s*축|environment_geography_interpretation|환경\s*지리|기후\s*재해|자연환경)/i.test(text)) return "environment_geography_interpretation";
+      if (/(개발\s*[·ㆍ-]?\s*보전\s*정책\s*축|development_conservation_policy|개발\s*보전|환경\s*정책)/i.test(text)) return "development_conservation_policy";
+      if (/(지속가능\s*실천\s*설계\s*축|sustainability_practice_design|지속가능\s*실천|청정\s*기술)/i.test(text)) return "sustainability_practice_design";
+
+      // 생활 공간 변화와 지역 이해
+      if (/(도시\s*[·ㆍ-]?\s*지역\s*변화\s*분석\s*축|urban_regional_change_analysis|도시화\s*변화|지역\s*변화\s*분석|도시\s*문제)/i.test(text)) return "urban_regional_change_analysis";
+      if (/(교통\s*[·ㆍ-]?\s*네트워크\s*사회\s*축|mobility_network_society|교통\s*네트워크|네트워크\s*사회|정보\s*격차)/i.test(text)) return "mobility_network_society";
+      if (/(공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획\s*축|spatial_data_local_planning|공간\s*자료|지역\s*기획|지역\s*조사)/i.test(text)) return "spatial_data_local_planning";
       return "";
     };
     return fromText(exactAxisText)
       || fromText(pageText)
-      || (/세계화|국제\s*사회|상호\s*의존|국제\s*기구/i.test(conceptText) ? "global_issue_peace_analysis" : "")
-      || (/평화|공존|협력/i.test(conceptText) ? "peace_coexistence_practice" : "")
-      || "cultural_diversity_comparison";
+      || (/생활\s*공간\s*변화와\s*지역\s*이해|산업화|도시화|생활\s*공간|도시\s*문제|지역\s*변화/i.test(conceptText) ? "urban_regional_change_analysis" : "")
+      || (/자연환경과\s*인간의\s*공존|자연환경|기후|지형|생활\s*양식|공존/i.test(conceptText) ? "environment_geography_interpretation" : "")
+      || (/통합적\s*관점과\s*행복|시간적\s*관점|공간적\s*관점|사회적\s*관점|윤리적\s*관점/i.test(conceptText) ? "social_issue_integrated_analysis" : "")
+      || "social_issue_integrated_analysis";
   }
 
   function cloneBookForA33AnthropologyLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
     const axisLabelMap = {
-      cultural_diversity_comparison: "문화 비교·다양성 이해 축",
-      global_issue_peace_analysis: "세계화·국제 이슈 분석 축",
-      peace_coexistence_practice: "평화·공존 실천 축"
+      social_issue_integrated_analysis: "사회문제 통합해석 축",
+      quality_of_life_data_axis: "삶의 질 지표 해석 축",
+      value_ethics_judgement: "가치·윤리 판단 축",
+      environment_geography_interpretation: "환경·지리 해석 축",
+      development_conservation_policy: "개발·보전 정책 축",
+      sustainability_practice_design: "지속가능 실천 설계 축",
+      urban_regional_change_analysis: "도시·지역 변화 분석 축",
+      mobility_network_society: "교통·네트워크 사회 축",
+      spatial_data_local_planning: "공간 자료·지역 기획 축"
     };
     const axisLabel = axisLabelMap[axisId] || "문화인류학과 선택 축";
     return {
       ...book,
       matchType: sectionType,
-      matchScore: 5950 - rank * 10,
+      matchScore: 5960 - rank * 10,
       matchReasons: uniq(arr(book.matchReasons).concat([`A-33 문화인류학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
       selectedBookContext: {
         ...lockedContext,
         recommendationReason: sectionType === "direct"
-          ? `${book.title}은(는) ${axisLabel}에서 문화권·관습·타자 이해를 비교해 탐구 질문을 세우는 데 활용할 수 있는 직접 연결 도서입니다.`
-          : `${book.title}은(는) ${axisLabel}에서 역사·권력·세계화 맥락으로 탐구를 넓히는 확장 참고 도서입니다.`,
+          ? `${book.title}은(는) ${axisLabel}에서 문화권·생활양식·공간 변화·환경 조건을 비교해 문화인류학적 탐구 질문을 세우는 데 활용할 수 있는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 역사·권력·세계화·환경 맥락으로 탐구를 넓히는 확장 참고 도서입니다.`,
         matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문화인류학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
       },
       bookA33AnthropologyLock: true,
@@ -7193,17 +7216,29 @@
     if (!result || !isBookA33AnthropologyContext(ctx)) return result;
     const axisId = inferBookA33AnthropologyAxis(ctx);
     const directMap = {
-      cultural_diversity_comparison: ["국화와 칼", "슬픈 열대", "오리엔탈리즘"],
-      global_issue_peace_analysis: ["오리엔탈리즘", "동방견문록", "문명의 충돌"],
-      peace_coexistence_practice: ["슬픈 열대", "국화와 칼", "성의 역사 1"]
+      social_issue_integrated_analysis: ["슬픈 열대", "국화와 칼", "오리엔탈리즘"],
+      quality_of_life_data_axis: ["국화와 칼", "슬픈 열대", "동방견문록"],
+      value_ethics_judgement: ["성의 역사 1", "오리엔탈리즘", "국화와 칼"],
+      environment_geography_interpretation: ["슬픈 열대", "총, 균, 쇠", "침묵의 봄"],
+      development_conservation_policy: ["침묵의 봄", "슬픈 열대", "왜 세계의 절반은 굶주리는가"],
+      sustainability_practice_design: ["침묵의 봄", "총, 균, 쇠", "슬픈 열대"],
+      urban_regional_change_analysis: ["동방견문록", "물질문명과 자본주의", "슬픈 열대"],
+      mobility_network_society: ["동방견문록", "오리엔탈리즘", "국화와 칼"],
+      spatial_data_local_planning: ["동방견문록", "총, 균, 쇠", "물질문명과 자본주의"]
     };
     const expansionMap = {
-      cultural_diversity_comparison: ["동방견문록", "겐지 이야기", "성의 역사 1", "어둠의 심장", "역사"],
-      global_issue_peace_analysis: ["국화와 칼", "슬픈 열대", "서유견문", "역사", "어둠의 심장"],
-      peace_coexistence_practice: ["오리엔탈리즘", "문명의 충돌", "동방견문록", "겐지 이야기", "루쉰 소설전집"]
+      social_issue_integrated_analysis: ["동방견문록", "성의 역사 1", "역사", "문명의 충돌", "물질문명과 자본주의"],
+      quality_of_life_data_axis: ["성의 역사 1", "물질문명과 자본주의", "왜 세계의 절반은 굶주리는가", "오리엔탈리즘", "역사"],
+      value_ethics_judgement: ["그리스 비극 걸작선", "슬픈 열대", "겐지 이야기", "문명의 충돌", "역사"],
+      environment_geography_interpretation: ["동방견문록", "물질문명과 자본주의", "오리엔탈리즘", "역사", "왜 세계의 절반은 굶주리는가"],
+      development_conservation_policy: ["총, 균, 쇠", "물질문명과 자본주의", "오리엔탈리즘", "문명의 충돌", "성의 역사 1"],
+      sustainability_practice_design: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "오리엔탈리즘", "동방견문록", "역사"],
+      urban_regional_change_analysis: ["국화와 칼", "총, 균, 쇠", "오리엔탈리즘", "역사", "성호사설"],
+      mobility_network_society: ["문명의 충돌", "물질문명과 자본주의", "슬픈 열대", "역사", "서유견문"],
+      spatial_data_local_planning: ["국화와 칼", "슬픈 열대", "성호사설", "오리엔탈리즘", "역사"]
     };
-    const directTitles = arr(directMap[axisId] || directMap.cultural_diversity_comparison);
-    const expansionTitles = arr(expansionMap[axisId] || expansionMap.cultural_diversity_comparison);
+    const directTitles = arr(directMap[axisId] || directMap.social_issue_integrated_analysis);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.social_issue_integrated_analysis);
     const directBooks = directTitles.map((title, index) =>
       cloneBookForA33AnthropologyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean).slice(0, 3);
@@ -7220,7 +7255,7 @@
       debug: {
         ...(result.debug || {}),
         bookA33AnthropologyHardLock: axisId,
-        bookA33AnthropologyVersion: "v184",
+        bookA33AnthropologyVersion: "v185",
         bookA33AnthropologyDirectTitles: directBooks.map(book => book.title),
         bookA33AnthropologyExpansionTitles: expansionBooks.map(book => book.title)
       }
