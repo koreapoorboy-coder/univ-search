@@ -6780,7 +6780,7 @@
 
 
 
-  // v180 hard-lock: 사학과 5번 도서 직접 일치 보정
+  // v181 hard-lock: 사학과 5번 도서 직접 일치 보정
   // 사학과는 사회계열/국어국문학과/문화콘텐츠학과 도서 잠금이 섞이기 쉬워
   // 역사·사료·문화교류·사회구조 해석에 맞는 직접 일치 도서로 마지막 단계에서 재잠금한다.
   function getBookA32HistoryVisibleActiveTrackText(){
@@ -6860,7 +6860,7 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
     ].join(" "));
     const isHistoryMajor = /(사학과|역사학과|한국사학과|국사학과)/i.test(careerText);
-    const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|서사|교술|역사|사료|기록|문화|제국|노동계급|문화교류)/i.test(subjectConceptText);
+    const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|통합적\s*관점|행복|자연환경|인간의\s*공존|생활\s*공간|지역\s*이해|공간\s*변화|도시|촌락|서사|교술|역사|사료|기록|문화|제국|노동계급|문화교류)/i.test(subjectConceptText);
     return !!(isHistoryMajor && isRelevantFlow);
   }
 
@@ -6874,17 +6874,23 @@
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
+      if (/(자연환경|인간의\s*공존|환경과\s*인간|기후|지형|생활양식|생태|환경\s*변화|자연\s*조건)/i.test(text)) return "environment_civilization";
+      if (/(생활\s*공간|지역\s*이해|공간\s*변화|지역\s*변화|도시|촌락|장소|공간\s*자료|지역\s*기획|공간적\s*관점)/i.test(text)) return "spatial_regional_history";
+      if (/(통합적\s*관점|행복|삶의\s*질|시간적\s*관점|사회적\s*관점|윤리적\s*관점|사회문제\s*통합|통합\s*해석)/i.test(text)) return "integrated_perspective_history";
       if (/(세계화|국제\s*무역|상호의존|세계\s*교류|제국|국제무역|globalization)/i.test(text)) return "global_history";
       if (/(소비문화|글로벌\s*마케팅|문화\s*비교|문화권|문화\s*해석|consumer|marketing)/i.test(text)) return "culture_comparison";
-      if (/(지속가능|ESG|환경|공존|미래\s*지속)/i.test(text)) return "social_change";
+      if (/(지속가능|ESG|미래\s*지속)/i.test(text)) return "social_change";
       if (/(불평등|분배|노동|계급|민중|사회\s*구조)/i.test(text)) return "class_structure";
-      if (/(공공문제|제도|정책|공공\s*문제|통합\s*분석)/i.test(text)) return "institution_record";
+      if (/(공공문제|제도|정책|공공\s*문제)/i.test(text)) return "institution_record";
       if (/(시민\s*참여|인권|헌법|민주|권리|독립|공동체)/i.test(text)) return "civic_history";
       if (/(서사\s*구조|스토리텔링|인물|갈등|서사|극\s*갈래|이야기\s*구성)/i.test(text)) return "historical_narrative";
       if (/(교술|기록|성찰|설명|자료|사료)/i.test(text)) return "record_source";
       return "";
     };
     return fromText(exactAxisText)
+      || (/통합적\s*관점과\s*행복|통합적\s*관점|행복/i.test(conceptText) ? "integrated_perspective_history" : "")
+      || (/자연환경과\s*인간의\s*공존|자연환경|인간의\s*공존/i.test(conceptText) ? "environment_civilization" : "")
+      || (/생활\s*공간\s*변화와\s*지역\s*이해|생활\s*공간|지역\s*이해/i.test(conceptText) ? "spatial_regional_history" : "")
       || (/문화\s*다양성과\s*세계화|세계화와\s*평화/i.test(conceptText) ? "global_history" : "")
       || (/사회\s*정의와\s*불평등/i.test(conceptText) ? "class_structure" : "")
       || (/인권\s*보장과\s*시민\s*참여|인권\s*보장과\s*헌법/i.test(conceptText) ? "civic_history" : "")
@@ -6918,6 +6924,9 @@
     if (!result || !isBookA32HistoryContext(ctx)) return result;
     const axisId = inferBookA32HistoryAxis(ctx);
     const directMap = {
+      integrated_perspective_history: ["역사란 무엇인가", "역사", "성호사설"],
+      environment_civilization: ["총, 균, 쇠", "슬픈 열대", "침묵의 봄"],
+      spatial_regional_history: ["동방견문록", "서유견문", "물질문명과 자본주의"],
       global_history: ["역사", "동방견문록", "제국의 시대"],
       culture_comparison: ["국화와 칼", "슬픈 열대", "어둠의 심장"],
       social_change: ["영국 노동계급의 형성", "난장이가 쏘아올린 작은 공", "삼대"],
@@ -6928,6 +6937,9 @@
       record_source: ["성호사설", "백범일지", "역사"]
     };
     const expansionMap = {
+      integrated_perspective_history: ["역사를 위한 변명", "백범일지", "반지성주의", "삼국유사", "역사와 계급의식"],
+      environment_civilization: ["총, 균, 쇠", "문명화 과정", "동방견문록", "역사를 위한 변명", "슬픈 열대"],
+      spatial_regional_history: ["제국의 시대", "역사", "삼국유사", "문학과 예술의 사회사", "동방견문록"],
       global_history: ["오리엔탈리즘", "국화와 칼", "서유견문", "왜 세계의 절반은 굶주리는가", "문명의 충돌"],
       culture_comparison: ["오리엔탈리즘", "동방견문록", "빌러비드", "겐지 이야기", "문학과 예술의 사회사"],
       social_change: ["역사와 계급의식", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "성호사설", "백범일지"],
@@ -6955,7 +6967,7 @@
       debug: {
         ...(result.debug || {}),
         bookA32HistoryHardLock: axisId,
-        bookA32HistoryVersion: "v180",
+        bookA32HistoryVersion: "v181",
         bookA32HistoryDirectTitles: directBooks.map(book => book.title),
         bookA32HistoryExpansionTitles: expansionBooks.map(book => book.title)
       }
