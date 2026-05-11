@@ -6780,8 +6780,8 @@
 
 
 
-  // v181 hard-lock: 사학과 5번 도서 직접 일치 보정
-  // 사학과는 사회계열/국어국문학과/문화콘텐츠학과 도서 잠금이 섞이기 쉬워
+  // v182 hard-lock: 사학과 + 고고학과 5번 도서 직접 일치 보정
+  // 사학과/고고학과는 사회계열/국어국문학과/문화콘텐츠학과 도서 잠금이 섞이기 쉬워
   // 역사·사료·문화교류·사회구조 해석에 맞는 직접 일치 도서로 마지막 단계에서 재잠금한다.
   function getBookA32HistoryVisibleActiveTrackText(){
     const parts = [];
@@ -6859,7 +6859,7 @@
       ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
     ].join(" "));
-    const isHistoryMajor = /(사학과|역사학과|한국사학과|국사학과)/i.test(careerText);
+    const isHistoryMajor = /(사학과|역사학과|한국사학과|국사학과|고고학과)/i.test(careerText);
     const isRelevantFlow = /(공통국어|국어|통합사회|세계화|문화\s*다양성|사회\s*정의|불평등|인권|시민\s*참여|통합적\s*관점|행복|자연환경|인간의\s*공존|생활\s*공간|지역\s*이해|공간\s*변화|도시|촌락|서사|교술|역사|사료|기록|문화|제국|노동계급|문화교류)/i.test(subjectConceptText);
     return !!(isHistoryMajor && isRelevantFlow);
   }
@@ -6906,13 +6906,13 @@
       ...book,
       matchType: sectionType,
       matchScore: 5800 - rank * 10,
-      matchReasons: uniq(arr(book.matchReasons).concat([`A-32 사학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-32 역사·고고학 계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
       selectedBookContext: {
         ...lockedContext,
         recommendationReason: sectionType === "direct"
-          ? `${book.title}은(는) 사학과의 선택 축에서 사료·기록·역사적 맥락을 분석하는 핵심 근거로 우선 배치한 도서입니다.`
-          : `${book.title}은(는) 사학과의 선택 축에서 문화교류·사회구조·시대 인식으로 확장하는 참고 도서입니다.`,
-        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`사학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+          ? `${book.title}은(는) 역사·고고학 계열의 선택 축에서 사료·유물·기록·역사적 맥락을 분석하는 핵심 근거로 우선 배치한 도서입니다.`
+          : `${book.title}은(는) 역사·고고학 계열의 선택 축에서 문화교류·사회구조·시대 인식으로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`역사·고고학 계열 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
       },
       bookA32HistoryLock: true,
       bookA32HistoryRank: rank,
@@ -6923,7 +6923,14 @@
   function applyBookA32HistoryHardLock(result, ctx){
     if (!result || !isBookA32HistoryContext(ctx)) return result;
     const axisId = inferBookA32HistoryAxis(ctx);
-    const directMap = {
+    const careerText = normalizeLockText([
+      ctx && ctx.career,
+      ctx && ctx.selectedMajor,
+      ctx && ctx.department,
+      getBookA32HistoryVisiblePageText()
+    ].join(" "));
+    const isArchaeologyMajor = /고고학과/i.test(careerText);
+    const historyDirectMap = {
       integrated_perspective_history: ["역사란 무엇인가", "역사", "성호사설"],
       environment_civilization: ["총, 균, 쇠", "슬픈 열대", "침묵의 봄"],
       spatial_regional_history: ["동방견문록", "서유견문", "물질문명과 자본주의"],
@@ -6936,7 +6943,20 @@
       historical_narrative: ["역사", "문학과 예술의 사회사", "삼대"],
       record_source: ["성호사설", "백범일지", "역사"]
     };
-    const expansionMap = {
+    const archaeologyDirectMap = {
+      integrated_perspective_history: ["역사란 무엇인가", "총, 균, 쇠", "동방견문록"],
+      environment_civilization: ["총, 균, 쇠", "동방견문록", "슬픈 열대"],
+      spatial_regional_history: ["동방견문록", "총, 균, 쇠", "성호사설"],
+      global_history: ["동방견문록", "역사란 무엇인가", "총, 균, 쇠"],
+      culture_comparison: ["동방견문록", "슬픈 열대", "국화와 칼"],
+      social_change: ["문학과 예술의 사회사", "성의 역사 1", "성호사설"],
+      class_structure: ["문학과 예술의 사회사", "성의 역사 1", "성호사설"],
+      institution_record: ["성호사설", "역사란 무엇인가", "동방견문록"],
+      civic_history: ["성호사설", "역사란 무엇인가", "동방견문록"],
+      historical_narrative: ["그리스 비극 걸작선", "문학과 예술의 사회사", "역사란 무엇인가"],
+      record_source: ["성호사설", "역사란 무엇인가", "동방견문록"]
+    };
+    const historyExpansionMap = {
       integrated_perspective_history: ["역사를 위한 변명", "백범일지", "반지성주의", "삼국유사", "역사와 계급의식"],
       environment_civilization: ["총, 균, 쇠", "문명화 과정", "동방견문록", "역사를 위한 변명", "슬픈 열대"],
       spatial_regional_history: ["제국의 시대", "역사", "삼국유사", "문학과 예술의 사회사", "동방견문록"],
@@ -6949,6 +6969,21 @@
       historical_narrative: ["아라비안 나이트", "광장", "변신", "고도를 기다리며", "우리 시대의 영웅"],
       record_source: ["삼국유사", "서유견문", "동방견문록", "객관성의 칼날", "반지성주의"]
     };
+    const archaeologyExpansionMap = {
+      integrated_perspective_history: ["성호사설", "문학과 예술의 사회사", "역사를 위한 변명", "삼국유사", "슬픈 열대"],
+      environment_civilization: ["침묵의 봄", "문명화 과정", "슬픈 열대", "역사를 위한 변명", "동방견문록"],
+      spatial_regional_history: ["택리지", "서유견문", "삼국유사", "문학과 예술의 사회사", "제국의 시대"],
+      global_history: ["오리엔탈리즘", "국화와 칼", "서유견문", "문명의 충돌", "왜 세계의 절반은 굶주리는가"],
+      culture_comparison: ["오리엔탈리즘", "문학과 예술의 사회사", "빌러비드", "겐지 이야기", "삼국유사"],
+      social_change: ["역사와 계급의식", "영국 노동계급의 형성", "왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "성호사설"],
+      class_structure: ["역사와 계급의식", "영국 노동계급의 형성", "왜 세계의 절반은 굶주리는가", "공정하다는 착각", "성호사설"],
+      institution_record: ["리바이어던", "국가", "자유론", "공정하다는 착각", "반지성주의"],
+      civic_history: ["국가", "리바이어던", "자유론", "사회계약론", "의무론"],
+      historical_narrative: ["아라비안 나이트", "광장", "변신", "고도를 기다리며", "우리 시대의 영웅"],
+      record_source: ["삼국유사", "서유견문", "객관성의 칼날", "반지성주의", "택리지"]
+    };
+    const directMap = isArchaeologyMajor ? archaeologyDirectMap : historyDirectMap;
+    const expansionMap = isArchaeologyMajor ? archaeologyExpansionMap : historyExpansionMap;
     const directTitles = arr(directMap[axisId] || directMap.global_history);
     const expansionTitles = arr(expansionMap[axisId] || expansionMap.global_history);
     const directBooks = directTitles.map((title, index) =>
@@ -6967,7 +7002,8 @@
       debug: {
         ...(result.debug || {}),
         bookA32HistoryHardLock: axisId,
-        bookA32HistoryVersion: "v181",
+        bookA32HistoryVersion: "v182",
+        bookA32HistoryCareerLock: isArchaeologyMajor ? "archaeology" : "history",
         bookA32HistoryDirectTitles: directBooks.map(book => book.title),
         bookA32HistoryExpansionTitles: expansionBooks.map(book => book.title)
       }
