@@ -5357,30 +5357,118 @@
   }
 
   function inferBookA26HumanitiesAxis(ctx){
-    const text = normalizeLockText([ctx && ctx.followupAxisId, ctx && ctx.linkTrack, ctx && ctx.axisLabel, ctx && ctx.axisDomain, ctx && ctx.concept, ctx && ctx.keyword, ctx && ctx.career].join(" "));
-    // v169: 공통국어2/미디어 계열은 실제 4번 축 id·제목을 먼저 판별한다.
-    if (/(digital_media_expression|digital_media_literacy|디지털\s*표현|디지털\s*리터러시|복합양식|온라인\s*콘텐츠)/i.test(text)) return "digital_media_literacy";
-    if (/(fact_check_data_verification|fact_check|자료\s*검증|팩트체크|사실\s*확인|출처\s*검증)/i.test(text)) return "fact_check";
-    if (/(media_critique_judgment|media_critique|매체\s*비평|매체\s*비판|관점\s*[·ㆍ-]?\s*의도|표현\s*전략)/i.test(text)) return "media_critique";
-    if (/(public_communication_writing|공공\s*소통|문서화|공동\s*집필|협업\s*문서)/i.test(text)) return "public_communication";
-    if (/(evidence_presentation_design|근거\s*제시|발표\s*설계|발표\s*자료|시각\s*자료)/i.test(text)) return "evidence_presentation";
-    if (/(report_data_structure|report_data|공동\s*보고서|자료\s*구조화|보고서\s*축|개요\s*구성)/i.test(text)) return "report_data";
-    if (/(automation_system_design|자동화\s*[·ㆍ-]?\s*시스템|시스템\s*설계|센서|알고리즘)/i.test(text)) return "automation_system";
-    if (/(science_communication_argument|과학\s*쟁점|과학\s*소통|과학\s*논증)/i.test(text)) return "science_argument";
-    if (/(technology_ethics_future|technology_ethics|과학\s*기술|기술\s*윤리|미래\s*사회)/i.test(text)) return "technology_ethics";
-    if (/(reading_content_design|독서\s*확장|콘텐츠\s*기획|독서\s*콘텐츠|주제\s*확장\s*독서)/i.test(text)) return "reading_content";
-    if (/(visual_information_expression|시각\s*정보|시각\s*콘텐츠|카드뉴스|포스터|인포그래픽)/i.test(text)) return "visual_information";
-    if (/(audience_targeted_promotion|대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|전달\s*전략|독자\s*맞춤)/i.test(text)) return "audience_promotion";
-    if (/(narrative_structure|서사\s*구조|이야기\s*구성|인물|사건|갈등\s*구조)/i.test(text)) return "narrative_structure";
-    if (/(storytelling_media|스토리텔링|매체\s*서사|장면|대본|영상|콘텐츠)/i.test(text)) return "storytelling_media";
-    if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|관계\s*해석)/i.test(text)) return "character_conflict";
-    if (/(lyric|시적|서정|정서|시\s*해석|감상)/i.test(text)) return "lyric_appreciation";
-    if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작|창작|홍보\s*표현)/i.test(text)) return "creative_expression";
-    if (/(critical|argument|논증|토론|비판|쟁점)/i.test(text)) return "critical_argument";
-    if (/(language_norm|음운|국어\s*규범|언어\s*규범|정확한\s*표현|언어생활)/i.test(text)) return "language_norm";
-    if (/(empathetic|communication|공동체|공감|의사소통|갈등\s*조정|대화)/i.test(text)) return "communication";
-    if (/(reading|독서|주체적\s*수용|삶\s*연결|서평)/i.test(text)) return "reading_reflection";
-    if (/(reflective|성찰|관찰|기록|교술)/i.test(text)) return "reflective_writing";
+    // v170: 공통국어2/미디어 계열은 카드 설명문·3번 개념보다
+    // 실제 선택된 4번 카드 제목/data-track/axisLabel을 최우선으로 판별한다.
+    // 특히 "자료 검증·팩트체크 축"은 "자료검증", "팩트 체크"처럼 띄어쓰기가 달라도 잡고,
+    // "다양한 분야 독서와 홍보 표현"은 실제 3번 교과 개념으로 인정한다.
+    const getVisibleActiveA26AxisText = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        const nodes = document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, .engine-track-card.active, [data-track].is-active"
+        );
+        nodes.forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+          push(node.querySelector && node.querySelector(".engine-track-short") ? node.querySelector(".engine-track-short").textContent : "");
+          push(node.textContent || "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+
+    const getExactActiveA26TrackTitle = function(){
+      const parts = [];
+      const push = function(value){
+        const text = normalizeLockText(value || "");
+        if (!text) return;
+        if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+        parts.push(text);
+      };
+      try {
+        document.querySelectorAll(
+          ".engine-track-card.is-active, .engine-track-card[aria-pressed='true'], .engine-track-card.selected, .engine-track-card.active"
+        ).forEach(function(node){
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          push(node.querySelector && node.querySelector(".engine-track-title") ? node.querySelector(".engine-track-title").textContent : "");
+        });
+      } catch (error) {}
+      return parts.join(" ");
+    };
+
+    const exactAxisText = normalizeLockText([
+      getExactActiveA26TrackTitle(),
+      ctx && ctx.followupAxisId,
+      ctx && ctx.linkTrack,
+      ctx && ctx.axisLabel,
+      ctx && ctx.linkTrackLabel
+    ].join(" "));
+
+    // 실제 축 제목/data-track 우선 판별. 설명문에 섞인 단어가 다른 축을 덮지 않도록 순서 고정.
+    if (/(fact_check_data_verification|fact_check|자료\s*검증|팩트\s*체크|팩트체크|사실\s*확인|출처\s*검증)/i.test(exactAxisText)) return "fact_check";
+    if (/(digital_media_expression|digital_media_literacy|디지털\s*표현|디지털\s*리터러시|복합양식|온라인\s*콘텐츠)/i.test(exactAxisText)) return "digital_media_literacy";
+    if (/(media_critique_judgment|media_critique|매체\s*비평|매체\s*비판|관점\s*[·ㆍ-]?\s*의도|표현\s*전략)/i.test(exactAxisText)) return "media_critique";
+    if (/(report_data_structure|report_data|자료\s*구조화|보고서\s*축|공동\s*보고서)/i.test(exactAxisText)) return "report_data";
+    if (/(public_communication_writing|공공\s*소통|문서화|공동\s*집필|협업\s*문서)/i.test(exactAxisText)) return "public_communication";
+    if (/(evidence_presentation_design|근거\s*제시|발표\s*설계|발표\s*자료|시각\s*자료)/i.test(exactAxisText)) return "evidence_presentation";
+    if (/(technology_ethics_future|technology_ethics|기술\s*윤리|미래\s*사회|과학\s*기술)/i.test(exactAxisText)) return "technology_ethics";
+    if (/(automation_system_design|자동화\s*[·ㆍ-]?\s*시스템|시스템\s*설계|센서|알고리즘)/i.test(exactAxisText)) return "automation_system";
+    if (/(science_communication_argument|과학\s*쟁점|과학\s*소통|과학\s*논증)/i.test(exactAxisText)) return "science_argument";
+    if (/(reading_content_design|독서\s*확장|콘텐츠\s*기획|독서\s*콘텐츠|주제\s*확장\s*독서)/i.test(exactAxisText)) return "reading_content";
+    if (/(visual_information_expression|시각\s*정보|시각\s*콘텐츠|카드뉴스|포스터|인포그래픽)/i.test(exactAxisText)) return "visual_information";
+    if (/(audience_targeted_promotion|대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|전달\s*전략|독자\s*맞춤)/i.test(exactAxisText)) return "audience_promotion";
+    if (/(storytelling_media|스토리텔링|매체\s*서사|장면|대본|영상|콘텐츠)/i.test(exactAxisText)) return "storytelling_media";
+    if (/(narrative_structure|서사\s*구조|이야기\s*구성|인물|사건|갈등\s*구조)/i.test(exactAxisText)) return "narrative_structure";
+
+    const selectedAxisText = normalizeLockText([
+      getVisibleActiveA26AxisText(),
+      ctx && ctx.followupAxisId,
+      ctx && ctx.linkTrack,
+      ctx && ctx.axisLabel,
+      ctx && ctx.linkTrackLabel,
+      ctx && ctx.axisDomain,
+      Array.isArray(ctx && ctx.linkedSubjects) ? ctx.linkedSubjects.join(" ") : "",
+      ctx && ctx.activityExample,
+      ctx && ctx.longitudinalPath,
+      ctx && ctx.concept,
+      ctx && ctx.keyword,
+      ctx && ctx.career
+    ].join(" "));
+
+    if (/(fact_check_data_verification|fact_check|자료\s*검증|팩트\s*체크|팩트체크|사실\s*확인|출처\s*검증)/i.test(selectedAxisText)) return "fact_check";
+    if (/(digital_media_expression|digital_media_literacy|디지털\s*표현|디지털\s*리터러시|복합양식|온라인\s*콘텐츠)/i.test(selectedAxisText)) return "digital_media_literacy";
+    if (/(media_critique_judgment|media_critique|매체\s*비평|매체\s*비판|관점\s*[·ㆍ-]?\s*의도|표현\s*전략)/i.test(selectedAxisText)) return "media_critique";
+    if (/(report_data_structure|report_data|공동\s*보고서|자료\s*구조화|보고서\s*축|개요\s*구성)/i.test(selectedAxisText)) return "report_data";
+    if (/(public_communication_writing|공공\s*소통|문서화|공동\s*집필|협업\s*문서)/i.test(selectedAxisText)) return "public_communication";
+    if (/(evidence_presentation_design|근거\s*제시|발표\s*설계|발표\s*자료|시각\s*자료)/i.test(selectedAxisText)) return "evidence_presentation";
+    if (/(technology_ethics_future|technology_ethics|기술\s*윤리|미래\s*사회|과학\s*기술)/i.test(selectedAxisText)) return "technology_ethics";
+    if (/(automation_system_design|자동화\s*[·ㆍ-]?\s*시스템|시스템\s*설계|센서|알고리즘)/i.test(selectedAxisText)) return "automation_system";
+    if (/(science_communication_argument|과학\s*쟁점|과학\s*소통|과학\s*논증)/i.test(selectedAxisText)) return "science_argument";
+    if (/(reading_content_design|독서\s*확장|콘텐츠\s*기획|독서\s*콘텐츠|주제\s*확장\s*독서|다양한\s*분야\s*독서)/i.test(selectedAxisText)) return "reading_content";
+    if (/(visual_information_expression|시각\s*정보|시각\s*콘텐츠|카드뉴스|포스터|인포그래픽)/i.test(selectedAxisText)) return "visual_information";
+    if (/(audience_targeted_promotion|대상\s*맞춤|홍보\s*[·ㆍ-]?\s*소통|홍보\s*표현|전달\s*전략|독자\s*맞춤)/i.test(selectedAxisText)) return "audience_promotion";
+    if (/(storytelling_media|스토리텔링|매체\s*서사|장면|대본|영상|콘텐츠)/i.test(selectedAxisText)) return "storytelling_media";
+    if (/(narrative_structure|서사\s*구조|이야기\s*구성|인물|사건|갈등\s*구조)/i.test(selectedAxisText)) return "narrative_structure";
+    if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|관계\s*해석)/i.test(selectedAxisText)) return "character_conflict";
+    if (/(lyric|시적|서정|정서|시\s*해석|감상)/i.test(selectedAxisText)) return "lyric_appreciation";
+    if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작|창작)/i.test(selectedAxisText)) return "creative_expression";
+    if (/(critical|argument|논증|토론|비판|쟁점)/i.test(selectedAxisText)) return "critical_argument";
+    if (/(language_norm|음운|국어\s*규범|언어\s*규범|정확한\s*표현|언어생활)/i.test(selectedAxisText)) return "language_norm";
+    if (/(empathetic|communication|공동체|공감|의사소통|갈등\s*조정|대화)/i.test(selectedAxisText)) return "communication";
+    if (/(reading|독서|주체적\s*수용|삶\s*연결|서평)/i.test(selectedAxisText)) return "reading_reflection";
+    if (/(reflective|성찰|관찰|기록|교술)/i.test(selectedAxisText)) return "reflective_writing";
     return "narrative_structure";
   }
 
@@ -5531,7 +5619,7 @@
         ...(result.debug || {}),
         bookA26HumanitiesLock: axisId,
         bookA26HumanitiesMajorLock: typeof majorType !== "undefined" ? majorType : "humanities_default",
-        bookA26HumanitiesVersion: "v169",
+        bookA26HumanitiesVersion: "v170",
         bookA26HumanitiesDirectTitles: directBooks.map(book => book.title),
         bookA26HumanitiesExpansionTitles: expansionBooks.map(book => book.title)
       }
