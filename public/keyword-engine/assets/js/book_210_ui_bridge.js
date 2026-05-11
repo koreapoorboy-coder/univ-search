@@ -6057,6 +6057,247 @@
 
 
 
+
+  // v173 hard-lock: 심리학과 5번 도서 직접 일치 보정
+  // 국어/사회/정보/생명과학 화면에서 미디어·사회·문학 일반 도서가 먼저 먹는 것을 막고,
+  // 심리학과 관련 직접 도서 풀(인지·정서·행동·관계·자아 성찰)을 최종 우선 적용한다.
+  function getBookA29PsychologyVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active",
+        ".engine-track-card[aria-pressed='true']",
+        ".engine-track-card.selected",
+        ".engine-track-card.active",
+        "[data-track].is-active",
+        "[data-track].selected",
+        "[data-track].active"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA29PsychologyVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      push(state.subject);
+      push(state.career);
+      push(state.selectedMajor);
+      push(state.majorSelectedName);
+      push(state.concept);
+      push(state.selectedConcept);
+      push(state.keyword);
+      push(state.selectedKeyword);
+      push(state.linkTrack);
+      push(state.followupAxisId);
+      push(state.axisLabel);
+      push(state.trackLabel);
+      push(state.linkTrackLabel);
+    } catch (error) {}
+    try {
+      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
+        push(node.textContent || "");
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA29PsychologyContext(ctx){
+    ctx = ctx || {};
+    const stateText = getBookA29PsychologyVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career,
+      ctx.selectedMajor,
+      ctx.department,
+      stateText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject,
+      ctx.selectedSubject,
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      stateText
+    ].join(" "));
+    const isPsychMajor = /(심리학과|상담심리학과|사회심리학과)/i.test(careerText);
+    const isRelevantSubject = /(공통국어1|공통국어2|공통국어Ⅰ|공통국어Ⅱ|공통국어|문학|국어|통합사회|윤리|생명과학|정보)/i.test(subjectConceptText);
+    const isPsychConcept = /(공동체\s*의사소통|공감|갈등|대화|관계|정체성|자아|성찰|문학\s*[·ㆍ-]?\s*독서|주체적\s*수용|서사|인물|비판적\s*읽기|토론|사회적\s*쟁점|불평등|시민|정보\s*문화|플랫폼|데이터\s*윤리|신경|행동|반응|감각|학습|인지|편향|심리)/i.test(subjectConceptText);
+    return !!(isPsychMajor && isRelevantSubject && isPsychConcept);
+  }
+
+  function inferBookA29PsychologyAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA29PsychologyVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.subject,
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA29PsychologyVisiblePageText()
+    ].join(" "));
+    const text = normalizeLockText(axisText + " " + conceptText);
+    if (/(신경\s*[·ㆍ-]?\s*행동|신경\s*행동|신경\s*신호|자극|반응|감각|뉴런|항상성|행동\s*연결)/i.test(text)) return "neuro_behavior";
+    if (/(인지|사고|판단|편향|오류|의사결정|자료\s*검증|팩트체크|비판적\s*읽기|비판\s*해석)/i.test(text)) return "cognitive_bias";
+    if (/(사회\s*규범|사회적\s*쟁점|불평등|분배|공정|능력주의|제도|시민|집단|권력|통제)/i.test(text)) return "social_behavior";
+    if (/(디지털|정보\s*문화|정보사회|플랫폼|미디어|데이터\s*윤리|감시|정체성\s*표현)/i.test(text)) return "media_identity";
+    if (/(화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공동체\s*의사소통|의사소통|공감)/i.test(text)) return "communication_empathy";
+    if (/(공동체\s*협업|협업|소속감|환대|공동체)/i.test(text)) return "community_relation";
+    if (/(갈등\s*조정|갈등|대화|관계\s*갈등|인물\s*[·ㆍ-]?\s*갈등)/i.test(text)) return "conflict_relation";
+    if (/(삶\s*연결|성찰|주체적\s*수용|문학\s*[·ㆍ-]?\s*독서|자아\s*성찰|정체성)/i.test(text)) return "identity_reflection";
+    if (/(서사|이야기\s*구성|인물|극\s*갈래|서사\s*구조)/i.test(text)) return "character_psychology";
+    return "identity_reflection";
+  }
+
+  function buildLockedBookContextA29Psychology(book, ctx, sectionType, axisId, rank){
+    const title = val(book && book.title);
+    const axisLabelMap = {
+      communication_empathy: "공감·의사소통 분석 축",
+      community_relation: "공동체 관계·소속감 축",
+      conflict_relation: "갈등 조정·관계 해석 축",
+      identity_reflection: "자아정체성·성찰 축",
+      character_psychology: "인물 심리·서사 해석 축",
+      cognitive_bias: "인지 편향·판단 오류 축",
+      social_behavior: "사회 규범·집단 행동 축",
+      media_identity: "디지털 정체성·정보 윤리 축",
+      neuro_behavior: "신경·행동 연결 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || val(ctx && ctx.axisLabel) || "심리학과 후속 연계축";
+    const isDirect = sectionType === "direct";
+    const baseContext = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return {
+      ...baseContext,
+      title,
+      author: book && book.author || "",
+      recommendationType: sectionType,
+      recommendationReason: isDirect
+        ? `${title}은(는) ${axisLabel}에서 인지·정서·행동 또는 관계 해석의 핵심 근거로 우선 배치한 심리학과 직접 일치 도서입니다.`
+        : `${title}은(는) ${axisLabel}을 사회·윤리·문학적 관점으로 넓히는 확장 참고 도서입니다.`,
+      matchReasons: uniq(arr(baseContext.matchReasons).concat([`A-29 심리학과 ${axisLabel} ${isDirect ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      reportRole: isDirect ? ["psychologicalFrame", "caseInterpretation", "conceptExplanation"] : ["comparisonFrame", "socialExpansion", "limitationDiscussion"],
+      reportRoleLabels: isDirect ? ["심리 해석 프레임", "사례 분석 근거", "개념 설명 근거"] : ["비교 관점", "사회·윤리 확장", "한계 논의"],
+      useInReport: {
+        conceptExplanation: isDirect ? "선택한 교과 개념을 심리학의 인지·정서·행동 또는 관계 해석으로 설명할 때 활용합니다." : "",
+        analysisFrame: isDirect ? "인물·사례·자료를 심리적 동기, 관계, 판단 과정 중심으로 분석하는 틀로 활용합니다." : "",
+        comparisonFrame: !isDirect ? "직접 도서와 다른 사회·윤리·문학적 관점을 비교할 때 활용합니다." : "",
+        limitationDiscussion: "개인의 심리 해석이 사회 구조, 문화, 자료 해석의 한계와 어떻게 만나는지 논의할 때 활용합니다.",
+        conclusionExpansion: !isDirect ? "결론에서 상담, 교육, 미디어, 사회문화적 함의로 확장할 때 활용합니다." : ""
+      },
+      connectionToPayload: {
+        subject: ctx && ctx.subject || "",
+        department: ctx && ctx.career || "",
+        selectedConcept: ctx && ctx.concept || "",
+        selectedKeyword: ctx && ctx.keyword || "",
+        followupAxis: axisLabel
+      }
+    };
+  }
+
+  function cloneBookForA29PsychologyLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5400 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-29 심리학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: buildLockedBookContextA29Psychology(book, ctx, sectionType, axisId, rank),
+      bookA29PsychologyLock: true,
+      bookA29PsychologyRank: rank,
+      bookA29PsychologyAxisLock: axisId
+    };
+  }
+
+  function applyBookA29PsychologyHardLock(result, ctx){
+    if (!result || !isBookA29PsychologyContext(ctx)) return result;
+    const axisId = inferBookA29PsychologyAxis(ctx);
+    const directMap = {
+      communication_empathy: ["마음", "데미안", "갈매기"],
+      community_relation: ["죽은 시인의 사회", "마음", "데미안"],
+      conflict_relation: ["갈매기", "변신", "마음"],
+      identity_reflection: ["데미안", "우리 시대의 영웅", "마의 산"],
+      character_psychology: ["데미안", "마음", "변신"],
+      cognitive_bias: ["닥터스 씽킹", "같기도 하고 아니 같기도 하고", "객관성의 칼날"],
+      social_behavior: ["멋진 신세계", "1984", "성의 역사 1"],
+      media_identity: ["1984", "미디어의 이해", "멋진 신세계"],
+      neuro_behavior: ["닥터스 씽킹", "이기적 유전자", "멋진 신세계"]
+    };
+    const expansionMap = {
+      communication_empathy: ["미움받을 용기", "사람, 장소, 환대", "의사소통 행위이론", "죽은 시인의 사회", "이상한 정상가족"],
+      community_relation: ["사람, 장소, 환대", "미움받을 용기", "의사소통 행위이론", "이상한 정상가족", "광장"],
+      conflict_relation: ["우리 시대의 영웅", "사람, 장소, 환대", "미움받을 용기", "이방인", "광장"],
+      identity_reflection: ["고백록", "수레바퀴 아래서", "황야의 늑대", "이방인", "죽은 시인의 사회"],
+      character_psychology: ["갈매기", "우리 시대의 영웅", "마의 산", "고백록", "황야의 늑대"],
+      cognitive_bias: ["팩트풀니스", "반지성주의", "부분과 전체", "미움받을 용기", "경영학 콘서트"],
+      social_behavior: ["감시와 처벌", "공정하다는 착각", "이상한 정상가족", "사람, 장소, 환대", "오리엔탈리즘"],
+      media_identity: ["감시와 처벌", "성의 역사 1", "일차원적 인간", "반지성주의", "공정하다는 착각"],
+      neuro_behavior: ["부분과 전체", "카오스", "객관성의 칼날", "팩트풀니스", "미움받을 용기"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.identity_reflection);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.identity_reflection);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA29PsychologyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA29PsychologyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA29PsychologyHardLock: axisId,
+        bookA29PsychologyVersion: "v173",
+        bookA29PsychologyDirectTitles: directBooks.map(book => book.title),
+        bookA29PsychologyExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -6114,6 +6355,7 @@
     result = applyBookA26HumanitiesLock(result, ctx);
     result = applyBookA27MediaCommunicationHardLock(result, ctx);
     result = applyBookA28KoreanLiteratureHardLock(result, ctx);
+    result = applyBookA29PsychologyHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
