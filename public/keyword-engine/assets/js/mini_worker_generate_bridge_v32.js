@@ -404,6 +404,7 @@
       `선택값 해석: ${ctx.reportChoiceBlueprint?.choiceSummary || "선택값을 보고서 전체에 반영"}`,
       `선택값에 따른 제목 방향: ${ctx.reportChoiceBlueprint?.title || "전개 방식·관점·라인에 따라 제목을 조정"}`,
       `선택값에 따른 비교 표 기준: ${(ctx.reportChoiceBlueprint?.tableRows?.[0] || []).join(" / ") || "선택 관점에 맞춰 표 항목 조정"}`,
+      `6~8번 MINI 작성 지시: ${(ctx.reportChoiceMiniDirective || []).join(" / ") || ctx.reportChoiceInstruction?.studentPreview || "전개 방식·관점·라인을 문단 구조에 반영"}`,
       "",
       "[출력 형식]",
       "다음 구조로 작성하라. 단, 화면에는 학생이 바로 볼 수 있는 실행 지도 형태로 정리한다.",
@@ -423,7 +424,6 @@
     const form = getFormValues();
     const mini = buildMiniPayload(form);
     const pattern = buildReportDatasetPattern(mini);
-    const miniInstruction = buildMiniInstruction(form, mini, pattern);
 
     const s = mini.selectionPayload || {};
     const choice = getReportChoices(mini);
@@ -450,6 +450,13 @@
     });
     mini.reportGenerationContext = mini.reportGenerationContext || {};
     mini.reportGenerationContext.reportChoiceBlueprint = reqChoiceBlueprint;
+    mini.reportGenerationContext.reportChoiceMiniDirective = mini.reportGenerationContext.reportChoiceMiniDirective || [
+      `6번 전개 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 문단 흐름을 바꾼다.`,
+      `7번 관점은 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
+      `8번 라인은 ${reqChoiceBlueprint.lineLabel || choice.line || "선택 라인"} 기준으로 분량과 깊이를 조정한다.`
+    ];
+
+    const miniInstruction = buildMiniInstruction(form, mini, pattern);
 
     return {
       // 기존 Worker 호환용 최상위 필드
@@ -920,6 +927,12 @@
   function normalizeReportViewKey(value){
     const v = String(value || "").trim();
     if(!v) return "자료 해석";
+    if(/conclusionExpansion/.test(v)) return "사회적 의미";
+    if(/comparisonFrame/.test(v)) return "비교";
+    if(/limitationDiscussion/.test(v)) return "한계";
+    if(/analysisFrame|evidenceFrame/.test(v)) return "자료 해석";
+    if(/conceptExplanation/.test(v)) return "원리";
+    if(/careerExpansion/.test(v)) return "진로 확장";
     if(/데이터/.test(v)) return "데이터";
     if(/자료/.test(v)) return "자료 해석";
     if(/모델/.test(v)) return "모델링";
