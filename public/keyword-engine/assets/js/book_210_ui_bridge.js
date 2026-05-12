@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v206-hanmun-literature";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v195-a40-japanese-literature";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -9969,27 +9969,52 @@
 
 
 
+  // A-48 한문학과 하드락(v207)
+  // 실제 화면 기준: 한문학과 / 공통국어1은
+  // 서정 갈래와 시적 표현 / 서사·극 갈래와 이야기 구성 / 교술 갈래와 성찰적 표현 흐름으로 열린다.
+  // v207 수정: 이전 v206의 비판적 읽기·토론형 기준을 제거하고, 실제 화면에 존재하는 3번 개념과 4번 카드 제목만 기준으로 도서를 잠근다.
+  function getBookA48ClassicalChineseVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
 
-  // v206 hard-lock: 한문학과 5번 도서 직접 일치 보정
-  // 한문학과는 공통국어1 화면에서 실제 3번이 비판적 읽기/사회적 쟁점/공동체 의사소통 계열로 뜨더라도
-  // 한국어학과·국어국문학과 일반 도서가 개입하지 않도록 고전 한문/동양고전 도서 풀을 최종 단계에서 잠근다.
-  function getBookA48HanmunVisibleActiveTrackText(){
+  function getBookA48ClassicalChineseVisibleActiveTrackText(){
     const parts = [];
     const push = function(value){
       const text = normalizeLockText(value || "");
       if (!text) return;
-      if (/입력 전|선택 전|대기|찾지 못했|추천|도서 선택/.test(text)) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
       parts.push(text);
     };
     try {
       const selectors = [
-        ".engine-track-card.is-active",
-        ".engine-track-card[aria-pressed='true']",
-        ".engine-track-card.selected",
-        ".engine-track-card.active",
-        "[data-track].is-active",
-        "[data-track].selected",
-        "[data-track].active"
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
       ];
       const seen = new Set();
       selectors.forEach(function(selector){
@@ -10000,8 +10025,8 @@
           push(node.getAttribute("data-axis"));
           push(node.getAttribute("data-axis-id"));
           push(node.getAttribute("data-track-id"));
-          const titleNode = node.querySelector && node.querySelector(".engine-track-title");
-          const shortNode = node.querySelector && node.querySelector(".engine-track-short");
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
           push(titleNode ? titleNode.textContent : "");
           push(shortNode ? shortNode.textContent : "");
           push(node.textContent || "");
@@ -10011,68 +10036,25 @@
     return parts.join(" ");
   }
 
-  function getBookA48HanmunVisiblePageText(){
-    const parts = [];
-    const push = function(value){
-      const text = normalizeLockText(value || "");
-      if (text) parts.push(text);
-    };
-    try {
-      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
-      push(state.subject);
-      push(state.career);
-      push(state.selectedMajor);
-      push(state.majorSelectedName);
-      push(state.concept);
-      push(state.selectedConcept);
-      push(state.keyword);
-      push(state.selectedKeyword);
-      push(state.linkTrack);
-      push(state.followupAxisId);
-      push(state.axisLabel);
-      push(state.trackLabel);
-      push(state.linkTrackLabel);
-    } catch (error) {}
-    try {
-      document.querySelectorAll(".engine-status-card, .engine-status, .engine-step-status, .engine-current, .engine-selected, [data-step='1'], [data-step='2'], [data-step='3']").forEach(function(node){
-        push(node.textContent || "");
-      });
-    } catch (error) {}
-    return parts.join(" ");
-  }
-
-  function isBookA48HanmunContext(ctx){
+  function isBookA48ClassicalChineseContext(ctx){
     ctx = ctx || {};
-    const stateText = getBookA48HanmunVisiblePageText();
+    const pageText = getBookA48ClassicalChineseVisiblePageText();
     const careerText = normalizeLockText([
-      ctx.career,
-      ctx.selectedMajor,
-      ctx.department,
-      stateText
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
     ].join(" "));
     const subjectConceptText = normalizeLockText([
-      ctx.subject,
-      ctx.selectedSubject,
-      ctx.concept,
-      ctx.selectedConcept,
-      ctx.keyword,
-      ctx.selectedKeyword,
-      ctx.axisLabel,
-      ctx.followupAxisId,
-      ctx.linkTrack,
-      ctx.axisDomain,
-      stateText
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
     ].join(" "));
-    const isHanmunMajor = /(한문학과|한문학부|한문교육과|한문학전공)/i.test(careerText);
-    const isKoreanSubject = /(공통국어1|공통국어Ⅰ|공통국어|국어|문학)/i.test(subjectConceptText);
-    const isActualConcept = /(비판적\s*읽기와\s*토론|사회적\s*쟁점\s*글쓰기와\s*문장\s*구성|공동체\s*의사소통과\s*공감|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|서정\s*갈래와\s*시적\s*표현|교술\s*갈래와\s*성찰적\s*표현|자료\s*검증|쟁점\s*분석|논증|토론|비판\s*해석|한문|고전)/i.test(subjectConceptText);
-    return !!(isHanmunMajor && isKoreanSubject && isActualConcept);
+    const isClassicalChineseMajor = /한문학과/i.test(careerText);
+    const isActualCommonKorean1Flow = /(공통\s*국어1|공통국어1|공통국어Ⅰ|공통\s*국어|공통국어|국어|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상\s*[·ㆍ-]?\s*해석|표현\s*[·ㆍ-]?\s*창작\s*확장|정서\s*[·ㆍ-]?\s*매체\s*변환|서사\s*구조\s*분석|스토리텔링\s*[·ㆍ-]?\s*매체|인물\s*[·ㆍ-]?\s*갈등\s*해석|성찰\s*글쓰기|관찰\s*[·ㆍ-]?\s*해석\s*확장|설명\s*[·ㆍ-]?\s*기록\s*확장)/i.test(subjectConceptText);
+    return !!(isClassicalChineseMajor && isActualCommonKorean1Flow);
   }
 
-  function inferBookA48HanmunAxis(ctx){
+  function inferBookA48ClassicalChineseAxis(ctx){
     ctx = ctx || {};
     const activeAxisText = normalizeLockText([
-      getBookA48HanmunVisibleActiveTrackText(),
+      getBookA48ClassicalChineseVisibleActiveTrackText(),
       ctx.axisLabel,
       ctx.followupAxisId,
       ctx.linkTrack,
@@ -10085,46 +10067,44 @@
       ctx.selectedConcept,
       ctx.keyword,
       ctx.selectedKeyword,
-      getBookA48HanmunVisiblePageText()
+      getBookA48ClassicalChineseVisiblePageText()
     ].join(" "));
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      if (/(evidence_verification_analysis|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석\s*축|자료\s*검증|쟁점\s*분석|팩트체크)/i.test(text)) return "evidence_verification";
-      if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론\s*축|논증\s*토론|토론\s*축)/i.test(text)) return "argument_discussion";
-      if (/(critical_interpretation_extension|비판\s*해석\s*확장\s*축|비판\s*해석|비판\s*확장)/i.test(text)) return "critical_interpretation";
-      if (/(narrative_structure_analysis|서사\s*구조|이야기\s*구성|서사\s*[·ㆍ-]?\s*극\s*갈래)/i.test(text)) return "narrative_structure";
-      if (/(storytelling_media_extension|스토리텔링|매체\s*축|매체\s*변환)/i.test(text)) return "storytelling_media";
-      if (/(character_conflict_interpretation|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
-      if (/(lyric_appreciation_interpretation|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자|서정\s*갈래)/i.test(text)) return "lyric_appreciation";
-      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작|창작\s*확장)/i.test(text)) return "creative_expression";
-      if (/(reflective_writing_extension|성찰\s*글쓰기|성찰적\s*표현|교술\s*갈래)/i.test(text)) return "reflective_writing";
-      if (/(empathetic_communication|화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공동체\s*의사소통)/i.test(text)) return "communication_empathy";
+      // 4번 카드 제목/선택값 우선. 설명문 안의 일반어가 다른 축을 잡지 않도록 실제 축명부터 판별한다.
+      if (/(lyric_appreciation_interpretation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|정서\s*해석|시적\s*화자)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환)/i.test(text)) return "emotion_media_translation";
+      if (/(narrative_structure_analysis|서사\s*구조\s*분석\s*축|서사\s*구조\s*분석|이야기\s*구성|구성\s*분석)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media_extension|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링\s*[·ㆍ-]?\s*매체|매체\s*서사|장면\s*구성|대본)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict_interpretation|인물\s*[·ㆍ-]?\s*갈등\s*해석\s*축|인물\s*[·ㆍ-]?\s*갈등\s*해석|갈등\s*해석|관계\s*해석)/i.test(text)) return "character_conflict";
+      if (/(reflective_writing_extension|성찰\s*글쓰기\s*축|성찰\s*글쓰기|성찰적\s*표현|자기\s*성찰)/i.test(text)) return "reflective_writing";
+      if (/(observation_interpretation_extension|관찰\s*[·ㆍ-]?\s*해석\s*확장\s*축|관찰\s*[·ㆍ-]?\s*해석\s*확장|관찰\s*[·ㆍ-]?\s*해석|대상\s*관찰)/i.test(text)) return "observation_interpretation";
+      if (/(explanatory_recording_extension|설명\s*[·ㆍ-]?\s*기록\s*확장\s*축|설명\s*[·ㆍ-]?\s*기록\s*확장|설명\s*[·ㆍ-]?\s*기록|정보\s*기록)/i.test(text)) return "explanatory_recording";
       return "";
     };
     const axisId = fromText(activeAxisText);
     if (axisId) return axisId;
-    if (/비판적\s*읽기와\s*토론/i.test(conceptText)) return "evidence_verification";
-    if (/사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(conceptText)) return "argument_discussion";
-    if (/공동체\s*의사소통과\s*공감/i.test(conceptText)) return "communication_empathy";
+    if (/서정\s*갈래와\s*시적\s*표현/i.test(conceptText)) return "lyric_appreciation";
     if (/서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성/i.test(conceptText)) return "narrative_structure";
-    return "evidence_verification";
+    if (/교술\s*갈래와\s*성찰적\s*표현/i.test(conceptText)) return "reflective_writing";
+    return "lyric_appreciation";
   }
 
-  function cloneBookForA48HanmunLock(book, ctx, sectionType, axisId, rank){
+  function cloneBookForA48ClassicalChineseLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
     const axisLabelMap = {
-      evidence_verification: "자료 검증·쟁점 분석 축",
-      argument_discussion: "논증·토론 축",
-      critical_interpretation: "비판 해석 확장 축",
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      emotion_media_translation: "정서·매체 변환 축",
       narrative_structure: "서사 구조 분석 축",
       storytelling_media: "스토리텔링·매체 축",
       character_conflict: "인물·갈등 해석 축",
-      lyric_appreciation: "문학 감상·해석 축",
-      creative_expression: "표현·창작 확장 축",
       reflective_writing: "성찰 글쓰기 축",
-      communication_empathy: "화법·공감 소통 축"
+      observation_interpretation: "관찰·해석 확장 축",
+      explanatory_recording: "설명·기록 확장 축"
     };
     const axisLabel = axisLabelMap[axisId] || "한문학과 선택 축";
     return {
@@ -10135,60 +10115,50 @@
       selectedBookContext: {
         ...lockedContext,
         recommendationReason: sectionType === "direct"
-          ? `${book.title}은(는) ${axisLabel}에서 한문 고전의 원문 해석, 사상 비교, 논증 구조를 설명하는 직접 연결 도서입니다.`
-          : `${book.title}은(는) ${axisLabel}에서 고전 해석을 역사·사회·윤리적 관점으로 넓히는 확장 참고 도서입니다.`,
-        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`한문학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`])),
-        useInReport: {
-          ...(lockedContext.useInReport || {}),
-          conceptExplanation: sectionType === "direct" ? "한문 고전의 핵심 구절, 사상적 쟁점, 논증 방식을 설명하는 근거로 활용합니다." : "",
-          analysisFrame: sectionType === "direct" ? "고전 텍스트를 원문 의미·논리 구조·현대적 쟁점 관점으로 분석하는 프레임으로 활용합니다." : "",
-          comparisonFrame: "동양고전의 가치 판단, 역사 서술, 현대 사회 쟁점과의 비교 기준으로 활용합니다.",
-          limitationDiscussion: "고전 해석의 시대 차이, 번역·맥락 해석의 한계, 현대적 적용 가능성을 논의할 때 활용합니다.",
-          conclusionExpansion: sectionType !== "direct" ? "결론에서 한문 고전이 현대 사회의 윤리·공동체·비판적 읽기와 연결되는 방식으로 확장할 때 활용합니다." : ""
-        }
+          ? `${book.title}은(는) ${axisLabel}에서 한문 고전·문헌·사상 텍스트를 해석하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 한자 문화권의 서사, 사상, 기록, 사회적 의미로 탐구를 넓히는 확장 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`한문학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
       },
-      bookA48HanmunLock: true,
-      bookA48HanmunRank: rank,
-      bookA48HanmunAxisLock: axisId
+      bookA48ClassicalChineseLock: true,
+      bookA48ClassicalChineseRank: rank,
+      bookA48ClassicalChineseAxisLock: axisId
     };
   }
 
-  function applyBookA48HanmunHardLock(result, ctx){
-    if (!result || !isBookA48HanmunContext(ctx)) return result;
-    const axisId = inferBookA48HanmunAxis(ctx);
+  function applyBookA48ClassicalChineseHardLock(result, ctx){
+    if (!result || !isBookA48ClassicalChineseContext(ctx)) return result;
+    const axisId = inferBookA48ClassicalChineseAxis(ctx);
     const directMap = {
-      evidence_verification: ["논어", "맹자", "성호사설"],
-      argument_discussion: ["맹자", "논어", "국가"],
-      critical_interpretation: ["성호사설", "사기열전", "논어"],
+      lyric_appreciation: ["논어", "맹자", "성호사설"],
+      creative_expression: ["성호사설", "논어", "인물로 읽는 장자"],
+      emotion_media_translation: ["삼국유사", "사기열전", "수호전"],
       narrative_structure: ["사기열전", "삼국유사", "논어"],
-      storytelling_media: ["삼국유사", "사기열전", "논어"],
-      character_conflict: ["사기열전", "맹자", "논어"],
-      lyric_appreciation: ["시경", "논어", "맹자"],
-      creative_expression: ["시경", "삼국유사", "사기열전"],
+      storytelling_media: ["삼국유사", "수호전", "사기열전"],
+      character_conflict: ["사기열전", "수호전", "맹자"],
       reflective_writing: ["논어", "맹자", "성호사설"],
-      communication_empathy: ["논어", "맹자", "사람, 장소, 환대"]
+      observation_interpretation: ["성호사설", "사기열전", "삼국유사"],
+      explanatory_recording: ["성호사설", "논어", "맹자"]
     };
     const expansionMap = {
-      evidence_verification: ["사기열전", "삼국유사", "반지성주의", "객관성의 칼날", "역사란 무엇인가"],
-      argument_discussion: ["성호사설", "자유론", "사회계약론", "정의론", "반지성주의"],
-      critical_interpretation: ["맹자", "국가", "반지성주의", "감시와 처벌", "자유론"],
-      narrative_structure: ["역사", "역사란 무엇인가", "문학과 예술의 사회사", "시학", "성호사설"],
-      storytelling_media: ["아라비안 나이트", "문학과 예술의 사회사", "시학", "겐지 이야기", "오리엔탈리즘"],
-      character_conflict: ["국가", "자유론", "사람, 장소, 환대", "광장", "성호사설"],
-      lyric_appreciation: ["문학과 예술의 사회사", "정지용전집", "백석 시 전집", "설국", "데미안"],
-      creative_expression: ["시학", "문학과 예술의 사회사", "고도를 기다리며", "미디어의 이해", "겐지 이야기"],
-      reflective_writing: ["고백록", "마음", "데미안", "인간의 조건", "문학과 예술의 사회사"],
-      communication_empathy: ["의사소통 행위이론", "자유론", "사회계약론", "공정하다는 착각", "죽은 시인의 사회"]
+      lyric_appreciation: ["인물로 읽는 장자", "시학", "문학과 예술의 사회사", "정지용전집", "아함경"],
+      creative_expression: ["맹자", "시학", "문학과 예술의 사회사", "정지용전집", "미디어의 이해"],
+      emotion_media_translation: ["미디어의 이해", "문학과 예술의 사회사", "인물로 읽는 장자", "시학", "아함경"],
+      narrative_structure: ["수호전", "인물로 읽는 장자", "시학", "문학과 예술의 사회사", "열하일기"],
+      storytelling_media: ["사기열전", "미디어의 이해", "문학과 예술의 사회사", "열하일기", "논어"],
+      character_conflict: ["삼국유사", "인물로 읽는 장자", "국가", "시학", "성호사설"],
+      reflective_writing: ["인물로 읽는 장자", "아함경", "국가", "시학", "정지용전집"],
+      observation_interpretation: ["논어", "맹자", "열하일기", "문학과 예술의 사회사", "반지성주의"],
+      explanatory_recording: ["사기열전", "삼국유사", "열하일기", "반지성주의", "역사란 무엇인가"]
     };
-    const directTitles = arr(directMap[axisId] || directMap.evidence_verification);
-    const expansionTitles = arr(expansionMap[axisId] || expansionMap.evidence_verification);
+    const directTitles = arr(directMap[axisId] || directMap.lyric_appreciation);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.lyric_appreciation);
     const directBooks = directTitles.map((title, index) =>
-      cloneBookForA48HanmunLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+      cloneBookForA48ClassicalChineseLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean).slice(0, 3);
     if (!directBooks.length) return result;
     const directIds = new Set(directBooks.map(book => bookKey(book)));
     const expansionBooks = expansionTitles.map((title, index) =>
-      cloneBookForA48HanmunLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+      cloneBookForA48ClassicalChineseLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
     ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
     return {
       ...result,
@@ -10197,10 +10167,10 @@
       selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
       debug: {
         ...(result.debug || {}),
-        bookA48HanmunHardLock: axisId,
-        bookA48HanmunVersion: "v206",
-        bookA48HanmunDirectTitles: directBooks.map(book => book.title),
-        bookA48HanmunExpansionTitles: expansionBooks.map(book => book.title)
+        bookA48ClassicalChineseHardLock: axisId,
+        bookA48ClassicalChineseVersion: "v207",
+        bookA48ClassicalChineseDirectTitles: directBooks.map(book => book.title),
+        bookA48ClassicalChineseExpansionTitles: expansionBooks.map(book => book.title)
       }
     };
   }
@@ -10283,7 +10253,7 @@
     result = applyBookA45ArabicLanguageHardLock(result, ctx);
     result = applyBookA46LinguisticsHardLock(result, ctx);
     result = applyBookA47KoreanLanguageHardLock(result, ctx);
-    result = applyBookA48HanmunHardLock(result, ctx);
+    result = applyBookA48ClassicalChineseHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
