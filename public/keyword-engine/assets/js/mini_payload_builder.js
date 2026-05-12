@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v124-visible-selection-book-hydration";
+  const BUILDER_VERSION = "mini-payload-builder-v125-report-choice-directive";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -108,6 +108,33 @@
     "효율": { label: "효율 관점", focus: "같은 결과를 더 적은 자원·시간·에너지로 얻는 방식을 비교한다." },
     "변화": { label: "변화 관점", focus: "시간·조건 변화에 따라 값이나 상태가 어떻게 달라지는지 해석한다." }
   };
+
+
+  const ROLE_VIEW_ALIASES = {
+    analysisFrame: "자료 해석",
+    evidenceFrame: "자료 해석",
+    conceptExplanation: "원리",
+    comparisonFrame: "비교",
+    limitationDiscussion: "한계",
+    conclusionExpansion: "사회적 의미",
+    careerExpansion: "진로 확장",
+    socialMeaning: "사회적 의미"
+  };
+
+  function normalizeReportViewValue(input){
+    const raw = val(input);
+    if (!raw) return "";
+    if (ROLE_VIEW_ALIASES[raw]) return ROLE_VIEW_ALIASES[raw];
+    if (/conclusionExpansion|사회|정책|윤리|의미/.test(raw)) return "사회적 의미";
+    if (/comparisonFrame|비교|대조/.test(raw)) return "비교";
+    if (/limitationDiscussion|한계|오차|편향|제약/.test(raw)) return "한계";
+    if (/analysisFrame|evidenceFrame|자료|근거/.test(raw)) return "자료 해석";
+    if (/conceptExplanation|원리/.test(raw)) return "원리";
+    if (/careerExpansion|진로|전공/.test(raw)) return "진로 확장";
+    if (/모델/.test(raw)) return "모델링";
+    if (/데이터/.test(raw)) return "데이터";
+    return raw;
+  }
 
   const LINE_PROFILES = {
     basic: {
@@ -524,16 +551,18 @@
 
   function getReportChoices(state){
     const mode = val(state.reportMode) || "";
-    const view = val(state.reportView) || "";
+    const rawView = val(state.reportView) || "";
+    const view = normalizeReportViewValue(rawView);
     const line = val(state.reportLine) || "";
     return {
       mode,
       modeLabel: MODE_PROFILES[mode]?.label || mode || "",
       view,
       viewLabel: VIEW_PROFILES[view]?.label || view || "",
+      rawView,
       line,
       lineLabel: LINE_PROFILES[line]?.label || line || "",
-      isComplete: !!(mode && view && line)
+      isComplete: !!(mode && rawView && line)
     };
   }
 
@@ -620,6 +649,31 @@
     return sectionPurpose;
   }
 
+
+  function buildReportChoiceInstruction(reportChoices, targetStructure){
+    const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
+    const viewProfile = VIEW_PROFILES[reportChoices.view] || { label: reportChoices.view || "선택 관점", focus: "선택 관점에 맞춰 질문·자료·결론 방향을 조정한다." };
+    const lineProfile = LINE_PROFILES[reportChoices.line] || LINE_PROFILES.standard;
+    const sections = arr(targetStructure);
+    const modeInstruction = `${modeProfile.label}: ${modeProfile.writingStyle}. ${modeProfile.focusSentence}`;
+    const viewInstruction = `${viewProfile.label || reportChoices.view}: ${viewProfile.focus}`;
+    const lineInstruction = `${lineProfile.label}: ${lineProfile.outputGoal}. ${lineProfile.structureRule}`;
+    const miniDirective = [
+      `6번 전개 방식(${modeProfile.label})은 보고서의 문단 전개 논리로 반영한다: ${modeProfile.writingStyle}.`,
+      `7번 관점(${viewProfile.label || reportChoices.view})은 질문·자료 표·결론의 해석 렌즈로 유지한다: ${viewProfile.focus}.`,
+      `8번 라인(${lineProfile.label})은 문단 수와 깊이를 결정한다: ${lineProfile.outputGoal}.`,
+      `targetStructure는 ${sections.length}개 섹션으로 구성하며, 선택값과 무관한 일반 문단으로 뭉개지지 않게 한다.`
+    ];
+    return {
+      modeInstruction,
+      viewInstruction,
+      lineInstruction,
+      miniDirective,
+      choiceSummary: `${modeProfile.label} + ${viewProfile.label || reportChoices.view} + ${lineProfile.label}`,
+      studentPreview: `${modeProfile.label}으로 전개하고, ${viewProfile.label || reportChoices.view}을 분석 렌즈로 삼아, ${lineProfile.label} 분량으로 작성합니다.`
+    };
+  }
+
   function buildReportGenerationContext(basePayload, selectedBook, result){
     const rawChoices = getReportChoices(getState());
     const axisRule = inferAxisRule(result, basePayload);
@@ -629,6 +683,7 @@
     const selectedBookContext = selectedBook?.selectedBookContext || null;
     const targetStructure = buildTargetStructure(reportChoices);
     const sectionPurpose = buildSectionPurpose(targetStructure, basePayload, reportChoices, axisRule, keywordFrame, examplePattern);
+    const choiceInstruction = buildReportChoiceInstruction(reportChoices, targetStructure);
     const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
     const lineProfile = LINE_PROFILES[reportChoices.line] || LINE_PROFILES.standard;
     const viewProfile = VIEW_PROFILES[reportChoices.view] || null;
@@ -655,12 +710,14 @@
         bestFor: selectedBookContext.bestFor
       } : null,
       reportChoices,
+      reportChoiceInstruction: choiceInstruction,
+      reportChoiceMiniDirective: choiceInstruction.miniDirective,
       reportModeProfile: modeProfile,
       reportViewProfile: viewProfile,
       reportLineProfile: lineProfile,
       examplePattern,
       reportExamplePatternVersion: EXAMPLE_PATTERNS.version,
-      writingRules: REPORT_CONTEXT_RULES.miniWritingRules.concat([
+      writingRules: REPORT_CONTEXT_RULES.miniWritingRules.concat(choiceInstruction.miniDirective).concat([
         `보고서 전개 방식은 '${reportChoices.modeLabel}'로 작성한다.`,
         `보고서 관점은 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
         `보고서 라인은 '${reportChoices.lineLabel}' 구조를 따른다.`,
@@ -714,6 +771,7 @@
         reportMode: rawChoices.mode,
         reportModeLabel: rawChoices.modeLabel,
         reportView: rawChoices.view,
+        reportViewLabel: rawChoices.viewLabel,
         reportLine: rawChoices.line,
         reportLineLabel: rawChoices.lineLabel
       },
