@@ -7863,6 +7863,234 @@
   }
 
 
+  // A-38 문헌정보학과 하드락(v192)
+  // 실제 데이터에 존재하는 학과명 "문헌정보학과"만 대상으로 한다.
+  // 공통국어1 화면에서 실제로 뜨는 비판적 읽기/쟁점 글쓰기/음운 규범 축과,
+  // 정보 과목에서 실제로 뜨는 정보 문화/자료 분석/정보 구조 축을 모두 보조 잠금한다.
+  function getBookA38LibraryInfoVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA38LibraryInfoVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA38LibraryInfoContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA38LibraryInfoVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isLibraryInfoMajor = /문헌정보학과/i.test(careerText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|정보|비판적\s*읽기와\s*토론|사회적\s*쟁점\s*글쓰기와\s*문장\s*구성|음운\s*변동과\s*국어\s*규범|자료\s*검증|논증\s*[·ㆍ-]?\s*토론|비판\s*해석|주장\s*글쓰기|문장\s*점검|공공\s*[·ㆍ-]?\s*매체\s*표현|언어\s*규범|정확한\s*표현|언어생활|지식\s*[·ㆍ-]?\s*정보\s*사회|자료와\s*정보의\s*분석|자료와\s*정보의\s*표현|컴퓨팅\s*시스템과\s*네트워크|데이터\s*수집|데이터베이스|정보구조|정보\s*문화|정보\s*윤리)/i.test(subjectConceptText);
+    return !!(isLibraryInfoMajor && isActualFlow);
+  }
+
+  function inferBookA38LibraryInfoAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA38LibraryInfoVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA38LibraryInfoVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 4번 카드 제목/선택값 우선. 설명문 속 '정보/매체/자료' 일반어보다 실제 축 제목을 먼저 읽는다.
+      if (/(evidence_verification_analysis|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석\s*축|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석|자료\s*검증|쟁점\s*분석)/i.test(text)) return "evidence_verification";
+      if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론\s*축|논증\s*[·ㆍ-]?\s*토론|토론\s*축)/i.test(text)) return "argument_discussion";
+      if (/(critical_interpretation_extension|비판\s*해석\s*확장\s*축|비판\s*해석\s*확장|비판\s*해석)/i.test(text)) return "critical_interpretation";
+      if (/(argumentative_writing|주장\s*글쓰기\s*축|주장\s*글쓰기)/i.test(text)) return "argumentative_writing";
+      if (/(sentence_revision_editing|문장\s*점검\s*[·ㆍ-]?\s*수정\s*축|문장\s*점검\s*[·ㆍ-]?\s*수정|문장\s*점검|퇴고)/i.test(text)) return "sentence_revision";
+      if (/(public_media_expression|공공\s*[·ㆍ-]?\s*매체\s*표현\s*축|공공\s*[·ㆍ-]?\s*매체\s*표현|매체\s*표현)/i.test(text)) return "public_media";
+      if (/(language_norm_inquiry|언어\s*규범\s*탐구\s*축|언어\s*규범\s*탐구|국어\s*규범)/i.test(text)) return "language_norm";
+      if (/(accurate_expression|정확한\s*표현\s*축|정확한\s*표현|표준\s*발음)/i.test(text)) return "accurate_expression";
+      if (/(language_life_application|언어생활\s*적용\s*축|언어생활\s*적용|언어생활)/i.test(text)) return "language_life";
+      if (/(data_visual|데이터\s*수집\s*[·ㆍ-]?\s*시각화\s*축|데이터\s*수집\s*[·ㆍ-]?\s*시각화|자료\s*수집\s*[·ㆍ-]?\s*분석)/i.test(text)) return "data_visual";
+      if (/(database|데이터베이스\s*[·ㆍ-]?\s*정보구조\s*축|데이터베이스\s*[·ㆍ-]?\s*정보구조|정보구조|정보\s*관리)/i.test(text)) return "database_structure";
+      if (/(data_decision|데이터\s*해석\s*[·ㆍ-]?\s*의사결정\s*축|데이터\s*해석\s*[·ㆍ-]?\s*의사결정|의미\s*있는\s*정보)/i.test(text)) return "data_decision";
+      if (/(network_system|시스템\s*[·ㆍ-]?\s*네트워크\s*구조\s*축|시스템\s*[·ㆍ-]?\s*네트워크\s*구조|네트워크\s*구조)/i.test(text)) return "network_system";
+      if (/(platform_security|협업\s*플랫폼\s*[·ㆍ-]?\s*보안\s*운영\s*축|플랫폼\s*보안|협업\s*도구)/i.test(text)) return "platform_security";
+      return "";
+    };
+    const activeAxis = fromText(axisText);
+    if (activeAxis) return activeAxis;
+    return (/사회적\s*쟁점|문장\s*구성/i.test(conceptText) ? "argumentative_writing" : "")
+      || (/음운|국어\s*규범/i.test(conceptText) ? "language_norm" : "")
+      || (/자료와\s*정보의\s*분석/i.test(conceptText) ? "data_visual" : "")
+      || (/컴퓨팅\s*시스템|네트워크/i.test(conceptText) ? "network_system" : "")
+      || "evidence_verification";
+  }
+
+  function cloneBookForA38LibraryInfoLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      evidence_verification: "자료 검증·쟁점 분석 축",
+      argument_discussion: "논증·토론 축",
+      critical_interpretation: "비판 해석 확장 축",
+      argumentative_writing: "주장 글쓰기 축",
+      sentence_revision: "문장 점검·수정 축",
+      public_media: "공공·매체 표현 축",
+      language_norm: "언어 규범 탐구 축",
+      accurate_expression: "정확한 표현 축",
+      language_life: "언어생활 적용 축",
+      data_visual: "데이터 수집·시각화 축",
+      database_structure: "데이터베이스·정보구조 축",
+      data_decision: "데이터 해석·의사결정 축",
+      network_system: "시스템·네트워크 구조 축",
+      platform_security: "협업 플랫폼·보안 운영 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "문헌정보학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6040 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-38 문헌정보학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 자료의 신뢰성, 정보 조직, 지식 접근 구조를 설명하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 정보 사회의 윤리, 매체 환경, 지식 관리의 한계를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문헌정보학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA38LibraryInfoLock: true,
+      bookA38LibraryInfoRank: rank,
+      bookA38LibraryInfoAxisLock: axisId
+    };
+  }
+
+  function applyBookA38LibraryInfoHardLock(result, ctx){
+    if (!result || !isBookA38LibraryInfoContext(ctx)) return result;
+    const axisId = inferBookA38LibraryInfoAxis(ctx);
+    const directMap = {
+      evidence_verification: ["같기도 하고 아니 같기도 하고", "반지성주의", "미디어의 이해"],
+      argument_discussion: ["반지성주의", "같기도 하고 아니 같기도 하고", "1984"],
+      critical_interpretation: ["감시와 처벌", "1984", "미디어의 이해"],
+      argumentative_writing: ["반지성주의", "같기도 하고 아니 같기도 하고", "미디어의 이해"],
+      sentence_revision: ["같기도 하고 아니 같기도 하고", "반지성주의", "미디어의 이해"],
+      public_media: ["미디어의 이해", "1984", "반지성주의"],
+      language_norm: ["같기도 하고 아니 같기도 하고", "반지성주의", "미디어의 이해"],
+      accurate_expression: ["같기도 하고 아니 같기도 하고", "반지성주의", "미디어의 이해"],
+      language_life: ["미디어의 이해", "같기도 하고 아니 같기도 하고", "1984"],
+      data_visual: ["객관성의 칼날", "부분과 전체", "미디어의 이해"],
+      database_structure: ["미디어의 이해", "부분과 전체", "객관성의 칼날"],
+      data_decision: ["객관성의 칼날", "같기도 하고 아니 같기도 하고", "반지성주의"],
+      network_system: ["1984", "미디어의 이해", "감시와 처벌"],
+      platform_security: ["1984", "감시와 처벌", "미디어의 이해"]
+    };
+    const expansionMap = {
+      evidence_verification: ["1984", "감시와 처벌", "객관성의 칼날", "부분과 전체", "문학과 예술의 사회사"],
+      argument_discussion: ["리바이어던", "자유론", "정의란 무엇인가", "감시와 처벌", "미디어의 이해"],
+      critical_interpretation: ["반지성주의", "같기도 하고 아니 같기도 하고", "자유론", "리바이어던", "객관성의 칼날"],
+      argumentative_writing: ["자유론", "정의란 무엇인가", "1984", "감시와 처벌", "객관성의 칼날"],
+      sentence_revision: ["미디어의 이해", "반지성주의", "1984", "문학과 예술의 사회사", "자유론"],
+      public_media: ["반지성주의", "같기도 하고 아니 같기도 하고", "감시와 처벌", "객관성의 칼날", "1984"],
+      language_norm: ["1984", "미디어의 이해", "자유론", "객관성의 칼날", "감시와 처벌"],
+      accurate_expression: ["미디어의 이해", "1984", "자유론", "객관성의 칼날", "감시와 처벌"],
+      language_life: ["반지성주의", "감시와 처벌", "자유론", "객관성의 칼날", "부분과 전체"],
+      data_visual: ["같기도 하고 아니 같기도 하고", "반지성주의", "카오스", "1984", "감시와 처벌"],
+      database_structure: ["1984", "감시와 처벌", "같기도 하고 아니 같기도 하고", "반지성주의", "카오스"],
+      data_decision: ["부분과 전체", "미디어의 이해", "1984", "감시와 처벌", "카오스"],
+      network_system: ["반지성주의", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체", "카오스"],
+      platform_security: ["반지성주의", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "리바이어던", "자유론"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.evidence_verification);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.evidence_verification);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA38LibraryInfoLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA38LibraryInfoLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA38LibraryInfoHardLock: axisId,
+        bookA38LibraryInfoVersion: "v192",
+        bookA38LibraryInfoDirectTitles: directBooks.map(book => book.title),
+        bookA38LibraryInfoExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7929,6 +8157,7 @@
     result = applyBookA35CreativeWritingHardLock(result, ctx);
     result = applyBookA36PhilosophyHardLock(result, ctx);
     result = applyBookA37AestheticsHardLock(result, ctx);
+    result = applyBookA38LibraryInfoHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
