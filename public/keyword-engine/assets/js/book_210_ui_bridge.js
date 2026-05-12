@@ -9315,10 +9315,11 @@
   }
 
 
-  // A-45 아랍어과 하드락(v200)
+  // A-45 아랍어과 하드락(v201)
   // 실제 데이터에 존재하는 학과명 "아랍어과"만 대상으로 한다.
-  // 공통국어1 화면의 어문·문학 기본 3개 흐름을 기준으로 하며,
-  // 학과 원본 source의 linked_book_focus(아라비안 나이트, 오리엔탈리즘, 문명의 충돌)를 우선 반영한다.
+  // v201 수정: 아랍어과 / 공통국어1의 실제 3번 추천 개념은 문학 갈래형이 아니라
+  // 비판적 읽기와 토론 / 사회적 쟁점 글쓰기와 문장 구성 / 공동체 의사소통과 공감 흐름이다.
+  // 따라서 4번 카드도 실제 국어 소통·논증 축 제목을 우선 판별한다.
   function getBookA45ArabicLanguageVisiblePageText(){
     const parts = [];
     const push = function(value){
@@ -9372,9 +9373,10 @@
           push(node.getAttribute("data-axis-id"));
           push(node.getAttribute("data-track-id"));
           const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
-          push(titleNode ? titleNode.textContent : "");
           const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
           push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
         });
       });
     } catch (error) {}
@@ -9392,7 +9394,7 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
     ].join(" "));
     const isArabicMajor = /아랍어과/i.test(careerText);
-    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|문학|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|표현\s*[·ㆍ-]?\s*창작|정서\s*[·ㆍ-]?\s*매체)/i.test(subjectConceptText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|비판적\s*읽기와\s*토론|사회적\s*쟁점\s*글쓰기와\s*문장\s*구성|공동체\s*의사소통과\s*공감|자료\s*검증|쟁점\s*분석|논증\s*[·ㆍ-]?\s*토론|비판\s*해석|주장\s*글쓰기|문장\s*점검|공공\s*[·ㆍ-]?\s*매체\s*표현|화법\s*[·ㆍ-]?\s*공감|공감\s*소통|공동체\s*협업|갈등\s*조정|대화)/i.test(subjectConceptText);
     return !!(isArabicMajor && isActualFlow);
   }
 
@@ -9417,34 +9419,39 @@
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      if (/(narrative_structure|서사\s*구조\s*분석\s*축|서사\s*구조\s*분석|서사\s*구조)/i.test(text)) return "narrative_structure";
-      if (/(storytelling_media|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링\s*[·ㆍ-]?\s*매체|스토리텔링|매체\s*서사)/i.test(text)) return "storytelling_media";
-      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등\s*해석\s*축|인물\s*[·ㆍ-]?\s*갈등\s*해석|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
-      if (/(lyric_appreciation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|서정)/i.test(text)) return "lyric_appreciation";
-      if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|창작\s*확장)/i.test(text)) return "creative_expression";
-      if (/(emotion_media|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환)/i.test(text)) return "emotion_media";
-      if (/(reflective_writing|성찰\s*글쓰기|관찰\s*기록|교술)/i.test(text)) return "reflective_writing";
+      // 4번 카드 제목 우선. 설명문 속 '매체/공감/문장' 일반어가 다른 축을 잡지 않도록 실제 축명부터 판별한다.
+      if (/(evidence_verification_analysis|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석\s*축|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석|자료\s*검증|쟁점\s*분석)/i.test(text)) return "evidence_verification";
+      if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론\s*축|논증\s*[·ㆍ-]?\s*토론|토론\s*축)/i.test(text)) return "argument_discussion";
+      if (/(critical_interpretation_extension|비판\s*해석\s*확장\s*축|비판\s*해석\s*확장|비판\s*해석|비판\s*확장)/i.test(text)) return "critical_interpretation";
+      if (/(argumentative_writing|주장\s*글쓰기\s*축|주장\s*글쓰기|논증\s*글쓰기)/i.test(text)) return "argumentative_writing";
+      if (/(sentence_revision_editing|문장\s*점검\s*[·ㆍ-]?\s*수정\s*축|문장\s*점검\s*[·ㆍ-]?\s*수정|문장\s*점검|퇴고)/i.test(text)) return "sentence_revision";
+      if (/(public_media_expression|공공\s*[·ㆍ-]?\s*매체\s*표현\s*축|공공\s*[·ㆍ-]?\s*매체\s*표현|매체\s*표현)/i.test(text)) return "public_media";
+      if (/(empathetic_communication|화법\s*[·ㆍ-]?\s*공감\s*소통\s*축|화법\s*[·ㆍ-]?\s*공감|공감\s*소통)/i.test(text)) return "communication_empathy";
+      if (/(community_collaboration|공동체\s*협업\s*축|공동체\s*협업|협업)/i.test(text)) return "community_collaboration";
+      if (/(conflict_mediation_dialogue|갈등\s*조정\s*[·ㆍ-]?\s*대화\s*축|갈등\s*조정|대화\s*축)/i.test(text)) return "conflict_mediation";
       return "";
     };
     const axisId = fromText(activeAxisText);
     if (axisId) return axisId;
-    if (/서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성/i.test(conceptText)) return "narrative_structure";
-    if (/서정\s*갈래와\s*시적\s*표현/i.test(conceptText)) return "lyric_appreciation";
-    if (/교술\s*갈래와\s*성찰적\s*표현/i.test(conceptText)) return "reflective_writing";
-    return "narrative_structure";
+    if (/비판적\s*읽기와\s*토론/i.test(conceptText)) return "evidence_verification";
+    if (/사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(conceptText)) return "argumentative_writing";
+    if (/공동체\s*의사소통과\s*공감/i.test(conceptText)) return "communication_empathy";
+    return "evidence_verification";
   }
 
   function cloneBookForA45ArabicLanguageLock(book, ctx, sectionType, axisId, rank){
     if (!book) return null;
     const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
     const axisLabelMap = {
-      narrative_structure: "서사 구조 분석 축",
-      storytelling_media: "스토리텔링·매체 축",
-      character_conflict: "인물·갈등 해석 축",
-      lyric_appreciation: "문학 감상·해석 축",
-      creative_expression: "표현·창작 확장 축",
-      emotion_media: "정서·매체 변환 축",
-      reflective_writing: "성찰 글쓰기 축"
+      evidence_verification: "자료 검증·쟁점 분석 축",
+      argument_discussion: "논증·토론 축",
+      critical_interpretation: "비판 해석 확장 축",
+      argumentative_writing: "주장 글쓰기 축",
+      sentence_revision: "문장 점검·수정 축",
+      public_media: "공공·매체 표현 축",
+      communication_empathy: "화법·공감 소통 축",
+      community_collaboration: "공동체 협업 축",
+      conflict_mediation: "갈등 조정·대화 축"
     };
     const axisLabel = axisLabelMap[axisId] || "아랍어과 선택 축";
     return {
@@ -9455,8 +9462,8 @@
       selectedBookContext: {
         ...lockedContext,
         recommendationReason: sectionType === "direct"
-          ? `${book.title}은(는) ${axisLabel}에서 아랍어권 설화·텍스트·중동 지역 문화 이해를 직접 연결하는 도서입니다.`
-          : `${book.title}은(는) ${axisLabel}에서 아랍어권 문화, 지역 인식, 국제 갈등과 비교문화 관점으로 확장하는 참고 도서입니다.`,
+          ? `${book.title}은(는) ${axisLabel}에서 아랍어권 텍스트·중동 문화·지역 인식의 근거를 직접 연결하는 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 비교문화, 매체 소통, 국제 갈등과 관점 형성으로 확장하는 참고 도서입니다.`,
         matchReasons: uniq(arr(lockedContext.matchReasons).concat([`아랍어과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
       },
       bookA45ArabicLanguageLock: true,
@@ -9469,25 +9476,29 @@
     if (!result || !isBookA45ArabicLanguageContext(ctx)) return result;
     const axisId = inferBookA45ArabicLanguageAxis(ctx);
     const directMap = {
-      narrative_structure: ["아라비안 나이트", "오리엔탈리즘", "문명의 충돌"],
-      storytelling_media: ["아라비안 나이트", "동방견문록", "오리엔탈리즘"],
-      character_conflict: ["오리엔탈리즘", "문명의 충돌", "아라비안 나이트"],
-      lyric_appreciation: ["아라비안 나이트", "문학과 예술의 사회사", "오리엔탈리즘"],
-      creative_expression: ["아라비안 나이트", "시학", "미디어의 이해"],
-      emotion_media: ["미디어의 이해", "오리엔탈리즘", "문명의 충돌"],
-      reflective_writing: ["오리엔탈리즘", "문명의 충돌", "동방견문록"]
+      evidence_verification: ["오리엔탈리즘", "같기도 하고 아니 같기도 하고", "반지성주의"],
+      argument_discussion: ["문명의 충돌", "오리엔탈리즘", "반지성주의"],
+      critical_interpretation: ["오리엔탈리즘", "문명의 충돌", "1984"],
+      argumentative_writing: ["오리엔탈리즘", "문명의 충돌", "아라비안 나이트"],
+      sentence_revision: ["아라비안 나이트", "시학", "오리엔탈리즘"],
+      public_media: ["미디어의 이해", "오리엔탈리즘", "아라비안 나이트"],
+      communication_empathy: ["아라비안 나이트", "오리엔탈리즘", "슬픈 열대"],
+      community_collaboration: ["국화와 칼", "슬픈 열대", "아라비안 나이트"],
+      conflict_mediation: ["문명의 충돌", "오리엔탈리즘", "아라비안 나이트"]
     };
     const expansionMap = {
-      narrative_structure: ["동방견문록", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "미디어의 이해"],
-      storytelling_media: ["문명의 충돌", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "미디어의 이해"],
-      character_conflict: ["슬픈 열대", "국화와 칼", "동방견문록", "왜 세계의 절반은 굶주리는가", "문학과 예술의 사회사"],
-      lyric_appreciation: ["시학", "동방견문록", "슬픈 열대", "국화와 칼", "문명의 충돌"],
-      creative_expression: ["문학과 예술의 사회사", "동방견문록", "오리엔탈리즘", "문명의 충돌", "디자인 인문학"],
-      emotion_media: ["1984", "반지성주의", "아라비안 나이트", "문학과 예술의 사회사", "슬픈 열대"],
-      reflective_writing: ["아라비안 나이트", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "왜 세계의 절반은 굶주리는가"]
+      evidence_verification: ["문명의 충돌", "미디어의 이해", "팩트풀니스", "성의 역사 1", "동방견문록"],
+      argument_discussion: ["국화와 칼", "슬픈 열대", "동방견문록", "미디어의 이해", "1984"],
+      critical_interpretation: ["반지성주의", "성의 역사 1", "동방견문록", "국화와 칼", "슬픈 열대"],
+      argumentative_writing: ["반지성주의", "국화와 칼", "동방견문록", "미디어의 이해", "성호사설"],
+      sentence_revision: ["문학과 예술의 사회사", "미디어의 이해", "정지용전집", "동방견문록", "국화와 칼"],
+      public_media: ["1984", "반지성주의", "문명의 충돌", "국화와 칼", "슬픈 열대"],
+      communication_empathy: ["국화와 칼", "문명의 충돌", "미디어의 이해", "사람, 장소, 환대", "의사소통 행위이론"],
+      community_collaboration: ["문명의 충돌", "오리엔탈리즘", "사람, 장소, 환대", "미디어의 이해", "동방견문록"],
+      conflict_mediation: ["국화와 칼", "슬픈 열대", "감시와 처벌", "사람, 장소, 환대", "미디어의 이해"]
     };
-    const directTitles = arr(directMap[axisId] || directMap.narrative_structure);
-    const expansionTitles = arr(expansionMap[axisId] || expansionMap.narrative_structure);
+    const directTitles = arr(directMap[axisId] || directMap.evidence_verification);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.evidence_verification);
     const directBooks = directTitles.map((title, index) =>
       cloneBookForA45ArabicLanguageLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
     ).filter(Boolean).slice(0, 3);
@@ -9504,7 +9515,7 @@
       debug: {
         ...(result.debug || {}),
         bookA45ArabicLanguageHardLock: axisId,
-        bookA45ArabicLanguageVersion: "v200",
+        bookA45ArabicLanguageVersion: "v201",
         bookA45ArabicLanguageDirectTitles: directBooks.map(book => book.title),
         bookA45ArabicLanguageExpansionTitles: expansionBooks.map(book => book.title)
       }
