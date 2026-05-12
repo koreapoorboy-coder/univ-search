@@ -9,10 +9,14 @@
   const VERSION = "mini-worker-generate-bridge-v128-gateway-generate-count-only";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
+  const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
+  const GENERATE_ENDPOINTS = Array.from(new Set([GENERATE_ENDPOINT, DIRECT_GENERATE_ENDPOINT].filter(Boolean)));
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
 
   global.__MINI_WORKER_GENERATE_BRIDGE_VERSION__ = VERSION;
   global.__MINI_WORKER_GENERATE_ENDPOINT__ = GENERATE_ENDPOINT;
+  global.__MINI_WORKER_GENERATE_FALLBACK_ENDPOINT__ = DIRECT_GENERATE_ENDPOINT;
+  global.__MINI_WORKER_GENERATE_ENDPOINTS__ = GENERATE_ENDPOINTS.slice();
   global.__MINI_WORKER_COLLECT_ENDPOINT__ = COLLECT_ENDPOINT;
 
   function $(id){ return document.getElementById(id); }
@@ -561,6 +565,27 @@
     return missing;
   }
 
+  function makeHttpError(response, url, text, data){
+    const isHtml = /<html[\s>]/i.test(String(text || ""));
+    let msg = data?.error || data?.message || "";
+    if(!msg && isHtml && response.status === 405){
+      msg = `현재 접속 주소에서 생성 엔드포인트가 POST 요청을 받지 못했습니다. (${response.status})`;
+    }
+    if(!msg && isHtml){
+      msg = `생성 엔드포인트가 HTML 오류 페이지를 반환했습니다. (${response.status})`;
+    }
+    if(!msg){
+      msg = data?.text || `요청 실패 (${response.status})`;
+    }
+    const error = new Error(msg);
+    error.status = response.status;
+    error.url = url;
+    error.rawText = text;
+    error.data = data;
+    error.isHtml = isHtml;
+    return error;
+  }
+
   async function postJson(url, payload){
     const response = await fetch(url, {
       method: "POST",
@@ -572,10 +597,42 @@
     try{ data = JSON.parse(text); }
     catch(e){ data = { ok: response.ok, text }; }
     if(!response.ok || data?.ok === false){
-      const msg = data?.error || data?.message || data?.text || `요청 실패 (${response.status})`;
-      throw new Error(msg);
+      throw makeHttpError(response, url, text, data);
     }
     return data;
+  }
+
+  function shouldTryGenerateFallback(error, endpoint, index){
+    if(index >= GENERATE_ENDPOINTS.length - 1) return false;
+    const status = Number(error?.status || 0);
+    const isGatewayRelative = String(endpoint || "").startsWith("/");
+    return isGatewayRelative && (status === 404 || status === 405 || error?.isHtml);
+  }
+
+  async function postGenerateJson(payload){
+    let lastError = null;
+    for(let i = 0; i < GENERATE_ENDPOINTS.length; i += 1){
+      const endpoint = GENERATE_ENDPOINTS[i];
+      try{
+        const data = await postJson(endpoint, payload);
+        global.__LAST_MINI_WORKER_GENERATE_ENDPOINT_USED__ = endpoint;
+        return data;
+      }catch(error){
+        lastError = error;
+        if(shouldTryGenerateFallback(error, endpoint, i)){
+          console.warn("v32 generate endpoint fallback:", endpoint, "→", GENERATE_ENDPOINTS[i + 1], error);
+          continue;
+        }
+        throw error;
+      }
+    }
+    if(lastError){
+      if(lastError.isHtml && (lastError.status === 404 || lastError.status === 405)){
+        throw new Error("탐구 실행 지도 생성 주소가 연결되지 않았습니다. access-gateway 주소 또는 Worker generate 엔드포인트를 확인해주세요.");
+      }
+      throw lastError;
+    }
+    throw new Error("탐구 실행 지도 생성 주소가 설정되지 않았습니다.");
   }
 
 
@@ -2024,7 +2081,7 @@
         console.warn("v32 collect failed, continue generate:", e);
       }
 
-      const data = await postJson(GENERATE_ENDPOINT, req);
+      const data = await postGenerateJson(req);
       global.__LAST_MINI_WORKER_RESPONSE_V32__ = data;
       const extraction = extractGeneratedText(data, req);
       global.__LAST_MINI_WORKER_EXTRACTION_V34__ = extraction;
