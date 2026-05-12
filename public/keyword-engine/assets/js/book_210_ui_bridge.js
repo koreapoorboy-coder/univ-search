@@ -10386,7 +10386,7 @@
 
 
 
-  // A-50 국제통상·무역 계열 하드락(v209)
+  // A-50 국제통상·무역 계열 하드락(v210)
   // 실제 ZIP 내부 학과명 기준: 국제통상학과, 무역학과만 대상으로 한다.
   // 실제 3번 추천 개념은 textbook_concept_helper.js의 경영·경제 계열 통합사회1 강제 순서
   // 시장 경제와 금융 생활 / 미래와 지속 가능한 삶 / 문화 다양성과 세계화 기준으로 잠근다.
@@ -10547,7 +10547,7 @@
       business_choice: ["국부론", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
       market_price: ["국부론", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
       finance_risk: ["국부론", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
-      esg_sustainability: ["왜 세계의 절반은 굶주리는가", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+      esg_sustainability: ["국부론", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
       future_industry: ["제3의 물결", "사피엔스", "물질문명과 자본주의"],
       business_data: ["경영학 콘서트", "제3의 물결", "돈으로 살 수 없는 것들"],
       global_trade: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "서유견문"],
@@ -10581,7 +10581,7 @@
       debug: {
         ...(result.debug || {}),
         bookA50IntlTradeHardLock: axisId,
-        bookA50IntlTradeVersion: "v209",
+        bookA50IntlTradeVersion: "v210",
         bookA50IntlTradeDirectTitles: directBooks.map(book => book.title),
         bookA50IntlTradeExpansionTitles: expansionBooks.map(book => book.title)
       }
