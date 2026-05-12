@@ -7365,6 +7365,148 @@
   }
 
 
+
+  // v187 hard-lock: 문예창작학과 5번 도서 직접 일치 보정
+  // 실제 ZIP 내부 학과명: 문예창작학과
+  // 공통국어1 실제 기본 3번 흐름(서정 갈래와 시적 표현 / 서사·극 갈래와 이야기 구성 / 교술 갈래와 성찰적 표현)과
+  // common_korean1_concept_longitudinal_map.json의 실제 4번 축 제목만 기준으로 도서를 잠근다.
+  function isBookA35CreativeWritingContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA28KoreanLitVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isCreativeWritingMajor = /문예창작학과/i.test(careerText);
+    const isActualCommonKorean1Flow = /(공통국어1|공통국어Ⅰ|공통국어|국어|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상|표현\s*[·ㆍ-]?\s*창작|정서\s*[·ㆍ-]?\s*매체|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|성찰\s*글쓰기|관찰\s*[·ㆍ-]?\s*해석|설명\s*[·ㆍ-]?\s*기록)/i.test(subjectConceptText);
+    return !!(isCreativeWritingMajor && isActualCommonKorean1Flow);
+  }
+
+  function inferBookA35CreativeWritingAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA28KoreanLitVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA28KoreanLitVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(lyric_appreciation_interpretation|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자|화자\s*[·ㆍ-]?\s*정서)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작|창작\s*확장|낭송\s*[·ㆍ-]?\s*창작)/i.test(text)) return "creative_expression";
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환|시각\s*[·ㆍ-]?\s*매체)/i.test(text)) return "emotion_media_translation";
+      if (/(narrative_structure_analysis|서사\s*구조|이야기\s*구성|구성\s*분석)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media_extension|스토리텔링|매체\s*축|매체\s*서사|장면\s*구성|대본)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict_interpretation|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석|관계\s*해석)/i.test(text)) return "character_conflict";
+      if (/(reflective_writing_extension|성찰\s*글쓰기|성찰적\s*표현|자기\s*성찰)/i.test(text)) return "reflective_writing";
+      if (/(observation_interpretation_extension|관찰\s*[·ㆍ-]?\s*해석|관찰\s*확장|대상\s*관찰)/i.test(text)) return "observation_interpretation";
+      if (/(explanatory_recording_extension|설명\s*[·ㆍ-]?\s*기록|기록\s*확장|정보\s*기록)/i.test(text)) return "explanatory_recording";
+      return "";
+    };
+    return fromText(axisText)
+      || fromText(conceptText)
+      || (/서정\s*갈래|시적\s*표현/i.test(conceptText) ? "lyric_appreciation" : "")
+      || (/서사\s*[·ㆍ-]?\s*극\s*갈래|이야기\s*구성/i.test(conceptText) ? "narrative_structure" : "")
+      || (/교술\s*갈래|성찰적\s*표현/i.test(conceptText) ? "reflective_writing" : "")
+      || "narrative_structure";
+  }
+
+  function cloneBookForA35CreativeWritingLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      emotion_media_translation: "정서·매체 변환 축",
+      narrative_structure: "서사 구조 분석 축",
+      storytelling_media: "스토리텔링·매체 축",
+      character_conflict: "인물·갈등 해석 축",
+      reflective_writing: "성찰 글쓰기 축",
+      observation_interpretation: "관찰·해석 확장 축",
+      explanatory_recording: "설명·기록 확장 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "문예창작학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5990 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-35 문예창작학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 창작 구조, 표현 방식, 인물·갈등 구성, 정서 형성을 분석하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 시대·매체·문학사·사회적 의미로 창작 탐구를 넓히는 확장 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문예창작학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA35CreativeWritingLock: true,
+      bookA35CreativeWritingRank: rank,
+      bookA35CreativeWritingAxisLock: axisId
+    };
+  }
+
+  function applyBookA35CreativeWritingHardLock(result, ctx){
+    if (!result || !isBookA35CreativeWritingContext(ctx)) return result;
+    const axisId = inferBookA35CreativeWritingAxis(ctx);
+    const directMap = {
+      lyric_appreciation: ["백석 시 전집", "정지용전집", "시경"],
+      creative_expression: ["젊은 예술가의 초상", "백석 시 전집", "시학"],
+      emotion_media_translation: ["정지용전집", "백석 시 전집", "문학과 예술의 사회사"],
+      narrative_structure: ["시학", "데카메론", "변신"],
+      storytelling_media: ["아라비안 나이트", "데카메론", "고도를 기다리며"],
+      character_conflict: ["갈매기", "변신", "데미안"],
+      reflective_writing: ["젊은 예술가의 초상", "데미안", "고백록"],
+      observation_interpretation: ["마음", "우리 시대의 영웅", "갈매기"],
+      explanatory_recording: ["백범일지", "삼국유사", "성호사설"]
+    };
+    const expansionMap = {
+      lyric_appreciation: ["문학과 예술의 사회사", "설국", "잃어버린 시간을 찾아서", "데미안", "젊은 예술가의 초상"],
+      creative_expression: ["문학과 예술의 사회사", "고도를 기다리며", "갈매기", "아라비안 나이트", "미디어의 이해"],
+      emotion_media_translation: ["미디어의 이해", "시학", "고도를 기다리며", "아라비안 나이트", "문학과 예술의 사회사"],
+      narrative_structure: ["문학과 예술의 사회사", "아라비안 나이트", "구운몽", "광장", "갈매기"],
+      storytelling_media: ["시학", "문학과 예술의 사회사", "미디어의 이해", "겐지 이야기", "1984"],
+      character_conflict: ["마음", "우리 시대의 영웅", "광장", "무정", "난장이가 쏘아올린 작은 공"],
+      reflective_writing: ["마음", "말테의 수기", "수레바퀴 아래서", "황야의 늑대", "인간의 조건"],
+      observation_interpretation: ["젊은 예술가의 초상", "말테의 수기", "성호사설", "무정", "문학과 예술의 사회사"],
+      explanatory_recording: ["서유견문", "역사", "문학과 예술의 사회사", "무정", "겐지 이야기"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.narrative_structure);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.narrative_structure);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA35CreativeWritingLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA35CreativeWritingLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA35CreativeWritingHardLock: axisId,
+        bookA35CreativeWritingVersion: "v187",
+        bookA35CreativeWritingDirectTitles: directBooks.map(book => book.title),
+        bookA35CreativeWritingExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7428,6 +7570,7 @@
     result = applyBookA32HistoryHardLock(result, ctx);
     result = applyBookA33AnthropologyHardLock(result, ctx);
     result = applyBookA34CulturalHeritageHardLock(result, ctx);
+    result = applyBookA35CreativeWritingHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
