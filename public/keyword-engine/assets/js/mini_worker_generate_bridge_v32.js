@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v215-local-fallback-on-asset-404";
+  const VERSION = "mini-worker-generate-bridge-v216-dongguk-performance-frame";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -400,6 +400,14 @@
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
       `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
       `선택 도서: ${book.title || ""}${book.author ? " / " + book.author : ""}`,
+      ...(ctx.donggukPerformanceFrame ? [
+        "",
+        "[동국대 수행평가 영역명 기준 반영]",
+        `수행평가 영역명: ${ctx.donggukPerformanceFrame.performanceName || ""}`,
+        `범주: ${ctx.donggukPerformanceFrame.subjectGroup || ""} / ${ctx.donggukPerformanceFrame.contentCategory || ""} × ${ctx.donggukPerformanceFrame.methodCategory || ""}`,
+        `평가 의도: ${ctx.donggukPerformanceFrame.evaluationIntent || ""}`,
+        `성취기준 해석: ${ctx.donggukPerformanceFrame.achievementFocus || ""}`
+      ] : []),
       "",
       "[학생이 선택한 설계 방향]",
       `전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
@@ -452,8 +460,20 @@
       subject: reqSubject,
       major: reqMajor
     });
+    const reqPerformanceFrame = buildDonggukPerformanceFrame({
+      subject: reqSubject,
+      concept: reqConcept,
+      keyword: reqKeyword,
+      axis: reqAxis,
+      mode: choice.mode || s.reportMode,
+      view: choice.view || s.reportView,
+      line: choice.line || s.reportLine,
+      major: reqMajor,
+      lens: reqLens
+    });
     mini.reportGenerationContext = mini.reportGenerationContext || {};
     mini.reportGenerationContext.reportChoiceBlueprint = reqChoiceBlueprint;
+    mini.reportGenerationContext.donggukPerformanceFrame = reqPerformanceFrame;
     mini.reportGenerationContext.reportChoiceMiniDirective = mini.reportGenerationContext.reportChoiceMiniDirective || [
       `6번 전개 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 문단 흐름을 바꾼다.`,
       `7번 관점은 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
@@ -1382,6 +1402,176 @@
     return lens;
   }
 
+
+  function classifyDonggukSubjectFrame(subject, text){
+    const hay = `${subject || ""} ${text || ""}`;
+    if(/정보|프로그래밍|알고리즘|데이터|인공지능|AI|네트워크|보안/i.test(hay)) return { subjectGroup:"정보" };
+    if(/수학|대수|미적분|기하|확률|통계|함수|그래프|벡터/i.test(hay)) return { subjectGroup:"수학" };
+    if(/영어|English|독해|어휘|문법/i.test(hay)) return { subjectGroup:"영어" };
+    if(/사회|한국사|통합사회|지리|역사|정치|행정|경제|윤리|인권|환경|법/i.test(hay)) return { subjectGroup:"사회" };
+    if(/과학|물리|화학|생명|지구|통합과학|과학탐구실험|반도체|배터리|소재|유전|세포|화학반응/i.test(hay)) return { subjectGroup:"과학" };
+    return { subjectGroup:"국어" };
+  }
+
+  function pickDonggukContentCategory(group, hay){
+    const h = String(hay || "");
+    if(group === "정보"){
+      if(/인공지능|AI|머신러닝|추천|모델/i.test(h)) return "인공지능";
+      if(/보안|암호|개인정보|윤리/i.test(h)) return "정보보안";
+      if(/데이터|자료|통계|그래프|시각화|예측/i.test(h)) return "데이터";
+      return "프로그램";
+    }
+    if(group === "수학"){
+      if(/통계|자료|평균|표본|분산/i.test(h)) return "통계";
+      if(/그래프|함수|로그|지수/i.test(h)) return /로그|지수/.test(h) ? "지수함수와 로그함수" : "함수와 그래프";
+      if(/미분|변화율/i.test(h)) return "미분";
+      if(/적분/i.test(h)) return "적분";
+      return "주제";
+    }
+    if(group === "사회"){
+      if(/지리|지역|도시|공간|기후/i.test(h)) return "지리";
+      if(/정치|행정|정책|법|헌법|선거/i.test(h)) return "정치·행정";
+      if(/경제|시장|금융|가격|비용|편익/i.test(h)) return "경제";
+      if(/인권|불평등|평등/i.test(h)) return "인권";
+      if(/환경|기후|탄소|생태/i.test(h)) return "환경";
+      if(/자료|통계|근거/i.test(h)) return "자료";
+      return "쟁점";
+    }
+    if(group === "과학"){
+      if(/반도체|전기|전자|전류|전압|회로|트랜지스터/i.test(h)) return "전자기";
+      if(/소재|물질|원자|분자|구조|결합|원소|주기율/i.test(h)) return "물질의 구성";
+      if(/화학|반응|산화|환원|중화/i.test(h)) return "화학 반응";
+      if(/세포|효소|항상성|생명/i.test(h)) return "세포와 물질대사";
+      if(/유전|DNA/i.test(h)) return "유전";
+      if(/환경|기후|탄소|생태/i.test(h)) return "환경";
+      if(/자료|데이터|시뮬레이션/i.test(h)) return "자료";
+      return "과학적 사고";
+    }
+    if(group === "영어"){
+      if(/어휘|단어|표현/i.test(h)) return "어휘";
+      if(/문법|구문|어법/i.test(h)) return "문법";
+      if(/의견|주장|찬반/i.test(h)) return "의견";
+      if(/문학|소설|영미/i.test(h)) return "문학";
+      return "주제 및 정보";
+    }
+    if(/문학|서사|서정|작품|고전|소설|시/i.test(h)) return "문학";
+    if(/비판|논증|주장|쟁점|의견|근거/i.test(h)) return "의견";
+    if(/자료|정보|비교|신뢰성|타당성/i.test(h)) return "정보";
+    if(/문법|언어|음운|규범/i.test(h)) return "언어";
+    return "독서";
+  }
+
+  function pickDonggukMethodCategory(group, modeKey, viewKey, lineKey, hay){
+    const h = `${modeKey || ""} ${viewKey || ""} ${lineKey || ""} ${hay || ""}`;
+    if(group === "정보"){
+      if(/프로그래밍|코딩|구현/i.test(h)) return "프로그래밍";
+      if(/설계|모델링|구조|안정성|효율/i.test(h)) return "설계";
+      if(/프로젝트|심화/.test(h)) return "프로젝트";
+      return "분석";
+    }
+    if(group === "수학"){
+      if(/그래프|시각화/.test(h)) return "그래프·시각화";
+      if(/증명|추론|원리/.test(h)) return "추론·증명";
+      if(/자료|데이터|통계|비교|분석/.test(h)) return "자료분석";
+      return "탐구";
+    }
+    if(group === "사회"){
+      if(/제안|대안|해결|정책/.test(h)) return "제안하기";
+      if(/논술|비판|주장|한계/.test(h)) return "논술";
+      return "탐구하기";
+    }
+    if(group === "과학"){
+      if(/실험|변인|측정/.test(h)) return "실험평가";
+      if(/추론|원리|설명/.test(h)) return "추론·설명";
+      if(/자료|데이터|비교|분석|구조|성능|안정|효율/.test(h)) return "분석";
+      return "탐구";
+    }
+    if(group === "영어") return /논술|비판|비교|의견/.test(h) ? "논술" : "글쓰기";
+    if(/비평|논술|비판|비교/.test(h)) return "논술·비평";
+    if(/토론/.test(h)) return "토의·토론";
+    if(/발표|말하기/.test(h)) return "말하기";
+    return "글쓰기";
+  }
+
+  function buildSpecificPerformancePlan({ keyword, concept, axis, major, lens, subjectGroup }){
+    const k = cleanDisplayText(keyword || "선택 키워드");
+    const c = cleanDisplayText(concept || "교과 개념");
+    const hay = `${k} ${c} ${axis || ""} ${major || ""} ${(lens?.keywords || []).join(" ")}`;
+    if(/반도체|소재|전자|전기|배터리|전지|공학|구조|성능|안정성/i.test(hay)){
+      return {
+        base:`${k} 구조·성능·안정성`,
+        tail:"비교 분석하기",
+        title:`${k} 구조·성능·안정성은 어떤 조건에서 달라질까?`,
+        focus:`${k}를 판단할 때 구조, 조건, 성능, 안정성을 함께 비교하면 결론이 어떻게 달라질까?`,
+        questions:[`${k}의 구조와 성능은 어떤 조건에서 달라질까?`, `효율만 볼 때와 안정성까지 함께 볼 때 판단 기준은 어떻게 달라질까?`, `더 적합한 설계나 소재를 고르려면 어떤 자료를 함께 확인해야 할까?`],
+        dataRows:[[`${k} 구조·원리 자료`, "교과서·전문기관·기술 설명 자료", "서론"], ["성능 지표 비교 자료", "제조사 스펙·논문 요약·기술 보고서", "본론 1"], ["안정성·한계 사례 자료", "산업 기사·실험 사례·전문 보고서", "본론 2"]],
+        tableRows:[["비교 항목", "구조/조건", "성능/안정성 자료", "내 해석"], ["구조", "소재·결합·배열·공정 조건", "전기적 특성·열 특성", "구조 차이가 성능 차이를 만든다"], ["성능", "속도·효율·전도성", "측정값·그래프·스펙", "목적에 따라 중요한 성능 기준이 달라진다"], ["안정성", "열·전류·외부 조건", "오류·열화·수명 자료", "성능만 높아도 안정성이 낮으면 한계가 있다"], ["결론 방향", "선택 기준", "보완 자료", "성능과 안정성의 균형 기준을 제시한다"]],
+        questionGuide:"지역·기간을 억지로 넣지 말고, 소재·구조·공정 조건·성능 지표 중 하나를 넣어 질문을 구체화한다.",
+        dataGuide:"공식 설명 자료 → 성능 지표 자료 → 안정성/한계 자료 순서로 배치한다.",
+        conceptUse:`${c}을 단순 정의로 쓰지 않고, ${k}의 구조가 성능과 안정성으로 이어지는 이유를 설명하는 기준으로 사용한다.`,
+        conceptExample:`예: ${k}는 이름만 쓰면 진로 키워드에 그치지만, 구조·성능·안정성 자료를 비교하면 공학적 판단 기준이 된다.`,
+        conclusion:`그래서 나는 ${k}를 판단할 때 성능 수치 하나보다 구조, 조건, 안정성 자료를 함께 보는 기준이 더 설득력 있다고 정리했다.`
+      };
+    }
+    if(/데이터|알고리즘|추천|인공지능|AI|프로그램|정보/i.test(hay)){
+      return {
+        base:`${k} 입력값·결과`, tail:"분석하기", title:`${k}은 어떤 입력값과 기준에 따라 결과가 달라질까?`,
+        focus:`${k}의 결과를 바꾸는 입력값, 처리 기준, 오류 가능성을 비교하면 무엇이 보일까?`,
+        questions:[`${k}은 어떤 입력값을 기준으로 결과를 바꿀까?`, `입력값이나 조건이 달라지면 결과와 오류 가능성은 어떻게 달라질까?`, `더 공정하고 정확한 결과를 위해 어떤 검증 기준이 필요할까?`],
+        dataRows:[["입력값·조건 설명 자료", "서비스 설명·공개 자료·교과서", "서론"], ["출력 결과 비교 자료", "사용 예시·공공데이터·실험 결과", "본론 1"], ["오류·편향 사례 자료", "기사·연구 요약·정책 자료", "본론 2"]],
+        tableRows:[["비교 항목", "입력값/조건", "출력 결과", "내 해석"], ["입력값", "선택 기록·수치·텍스트", "결과를 만드는 출발점", "입력 기준이 달라지면 결과도 달라진다"], ["처리 기준", "조건문·모델·가중치", "분류/추천/판단", "기준을 명확히 해야 오류를 줄일 수 있다"], ["오류 가능성", "누락·편향·예외", "잘못된 결과", "검증 자료가 필요하다"]],
+        questionGuide:"입력값, 조건문, 출력 결과, 오류 가능성 중 하나를 넣어 질문을 구체화한다.", dataGuide:"입력 기준 → 결과 비교 → 오류·편향 사례 순서로 자료를 배치한다.",
+        conceptUse:`${c}을 입력-처리-출력 구조로 바꾸어 ${k}의 판단 과정을 설명한다.`, conceptExample:`예: 같은 데이터라도 어떤 입력값과 조건을 쓰는지에 따라 결과가 달라진다.`, conclusion:`그래서 나는 ${k}를 판단할 때 결과만 보지 않고 입력값, 처리 기준, 오류 가능성을 함께 확인하는 기준이 더 설득력 있다고 정리했다.`
+      };
+    }
+    return {
+      base:`${k} ${c}`, tail: subjectGroup === "사회" ? "탐구하기" : "탐구 보고서 작성하기", title:`${k}, 어떤 기준으로 탐구하면 더 분명해질까?`,
+      focus:`${k}를 ${axis || c || "선택 기준"} 관점으로 볼 때 어떤 자료와 기준이 필요할까?`,
+      questions:[`${k}를 탐구할 때 핵심 기준은 무엇일까?`, `자료를 비교하면 어떤 차이가 드러날까?`, `내 결론의 한계와 보완점은 무엇일까?`],
+      dataRows:[["기준 설명 자료", "교과서·공공기관 자료", "서론"], ["비교 중심 자료", "통계·기사·사례", "본론 1"], ["보완·한계 자료", "전문기관·보고서", "본론 2"]],
+      tableRows:[["비교 항목", "기준 자료", "비교 자료", "내 해석"], ["핵심 기준", "교과 개념", "실제 사례", "개념이 사례 해석 기준이 된다"], ["자료 차이", "기준값", "실제값/사례", "차이를 근거로 결론을 만든다"], ["한계", "가능한 판단", "부족한 자료", "보완 방향을 제시한다"]],
+      questionGuide:"대상, 비교 기준, 자료 종류, 한계 중 하나를 넣어 질문을 구체화한다.", dataGuide:"기준 자료 → 비교 자료 → 보완 자료 순서로 배치한다.",
+      conceptUse:`${c}을 자료를 읽는 기준으로 바꾸어 사용한다.`, conceptExample:`예: 같은 자료라도 어떤 기준으로 읽는지에 따라 결론의 방향이 달라진다.`, conclusion:`그래서 나는 ${k}를 판단할 때 기준, 자료, 한계를 함께 보는 방식이 더 설득력 있다고 정리했다.`
+    };
+  }
+
+  function buildDonggukPerformanceFrame({ subject, concept, keyword, axis, mode, view, line, major, lens }){
+    const modeKey = normalizeReportModeKey(mode);
+    const viewKey = normalizeReportViewKey(view);
+    const lineKey = normalizeReportLineKey(line);
+    const hay = `${subject || ""} ${concept || ""} ${keyword || ""} ${axis || ""} ${major || ""} ${(lens?.keywords || []).join(" ")}`;
+    const frame = classifyDonggukSubjectFrame(subject, hay);
+    const group = frame.subjectGroup;
+    const contentCategory = pickDonggukContentCategory(group, hay);
+    const methodCategory = pickDonggukMethodCategory(group, modeKey, viewKey, lineKey, hay);
+    const specific = buildSpecificPerformancePlan({ keyword, concept, axis, major, lens, subjectGroup: group });
+    const performanceName = `${specific.base} ${specific.tail}`.replace(/\s+/g," ").trim();
+    const lineDepth = lineKey === "advanced" ? "심화형: 한계·후속 탐구까지 확장" : (lineKey === "basic" ? "기본형: 핵심 기준과 대표 자료 중심" : "확장형: 자료·도서·비교표까지 포함");
+    return {
+      subjectGroup: group, contentCategory, methodCategory, performanceName,
+      evaluationIntent: `${group} 수행평가의 '${contentCategory} × ${methodCategory}' 구조로, ${concept || keyword || "교과 개념"}을 단순 설명하지 않고 ${specific.focus}를 확인하게 한다.`,
+      achievementFocus: `무엇을: ${contentCategory} 범주의 ${keyword || concept || "탐구 주제"} / 어떻게: ${methodCategory} 방식으로 자료를 비교·해석 / 결과물: ${lineDepth}`,
+      title: specific.title, focusQuestion: specific.focus, questions: specific.questions, dataRows: specific.dataRows, tableRows: specific.tableRows,
+      questionGuide: specific.questionGuide, dataGuide: specific.dataGuide, conceptUse: specific.conceptUse, conceptExample: specific.conceptExample, conclusionSentence: specific.conclusion,
+      modeKey, viewKey, lineKey, lineDepth
+    };
+  }
+
+  function applyDonggukPerformanceFrame(current, frame){
+    if(!frame) return current;
+    const out = Object.assign({}, current);
+    out.title = frame.title || out.title;
+    out.goal = frame.evaluationIntent || out.goal;
+    out.focusQuestion = frame.focusQuestion || out.focusQuestion;
+    out.q = Array.isArray(frame.questions) && frame.questions.length ? frame.questions : out.q;
+    out.dataRows = Array.isArray(frame.dataRows) && frame.dataRows.length ? frame.dataRows : out.dataRows;
+    out.tableRows = Array.isArray(frame.tableRows) && frame.tableRows.length ? frame.tableRows : out.tableRows;
+    out.conceptUse = frame.conceptUse || out.conceptUse;
+    out.conceptExample = frame.conceptExample || out.conceptExample;
+    out.conclusionSentence = frame.conclusionSentence || out.conclusionSentence;
+    return out;
+  }
+
   function deriveV54Scenario(ctx){
     const subject = ctx.subject || "";
     const major = ctx.major || "";
@@ -1661,19 +1851,40 @@
     conceptExample = choiceAdjusted.conceptExample;
     conclusionSentence = choiceAdjusted.conclusionSentence;
 
+    const performanceFrame = buildDonggukPerformanceFrame({ subject, concept, keyword, axis, mode, view, line, major, lens });
+    const performanceAdjusted = applyDonggukPerformanceFrame({ title, goal, focusQuestion, q, dataRows, tableRows, majorConnect, conceptUse, conceptExample, conclusionSentence }, performanceFrame);
+    title = performanceAdjusted.title;
+    goal = performanceAdjusted.goal;
+    focusQuestion = performanceAdjusted.focusQuestion;
+    q = performanceAdjusted.q;
+    dataRows = performanceAdjusted.dataRows;
+    tableRows = performanceAdjusted.tableRows;
+    conceptUse = performanceAdjusted.conceptUse;
+    conceptExample = performanceAdjusted.conceptExample;
+    conclusionSentence = performanceAdjusted.conclusionSentence;
+
+    const performanceRows = [
+      ["구분", "내용"],
+      ["수행평가 영역명", performanceFrame.performanceName],
+      ["동국대 범주", `${performanceFrame.subjectGroup} / ${performanceFrame.contentCategory} × ${performanceFrame.methodCategory}`],
+      ["평가 의도", performanceFrame.evaluationIntent],
+      ["성취기준 해석", performanceFrame.achievementFocus],
+      ["보고서 핵심 질문", performanceFrame.focusQuestion]
+    ];
+
     const assemblyRows = [
       ["보고서 요소", "학생이 채울 내용", "보고서 위치"],
-      ["내 질문", "지역·기간·대상·비교 기준을 넣어 바꾼 질문", "서론 마지막"],
+      ["내 질문", performanceFrame.focusQuestion || "수행평가 영역명에 맞춰 바꾼 질문", "서론 마지막"],
       ["전개 방향", choiceBlueprint.routeSummary || choiceBlueprint.choiceSummary, "보고서 전체 방향"],
       ["판단 기준", choiceBlueprint.judgmentBasis || (isComputer ? "입력값·조건문·오류 가능성으로 판단 기준을 세운다" : "자료 차이를 근거로 판단 기준을 세운다"), "본론 도입"],
-      ["자료 3개", choiceBlueprint.dataDepthText || (choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계 보완 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교 검증 자료")), "본론 1~2"],
+      ["자료 3개", performanceFrame.dataGuide || choiceBlueprint.dataDepthText || (choiceBlueprint.lineKey === "advanced" ? "공식 기준 + 실제 자료 + 한계 보완 자료" : (choiceBlueprint.lineKey === "basic" ? "공식 기준 + 대표 사례 자료" : "공식 기준 + 실제 자료 + 비교 검증 자료")), "본론 1~2"],
       ["비교 표", "자료 차이와 내가 해석한 이유", "본론 핵심"],
       ["결론", "내 기준의 장점·한계·보완 자료", "결론"]
     ];
 
     const questionRows = [
       ["질문 원형", "그대로 쓰지 말고 이렇게 바꾸기"],
-      [q[0], "지역·기간·대상 중 하나를 넣는다"],
+      [q[0], performanceFrame.questionGuide || "대상·비교 기준·자료 종류 중 하나를 넣는다"],
       [q[1], "비교할 자료를 구체적으로 정한다"],
       [q[2], "판단 기준이나 조건을 직접 넣는다"]
     ];
@@ -1701,6 +1912,7 @@
     ];
 
     const sections = [
+      {title:"동국대 수행평가 영역명 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
       {title:"1단계. 질문을 내 사례로 바꾸기", body:questionRows.map(r=>r.join(" | ")).join("\n")},
       {title:"2단계. 자료를 어디에 넣을지 정하기", body:dataPlanRows.map(r=>r.join(" | ")).join("\n")},
@@ -1729,7 +1941,7 @@
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
-        "□ 지역·기간·대상·비교 기준 중 하나 이상이 들어갔는가?",
+        "□ 동국대식 수행평가 영역명처럼 ‘무엇을’과 ‘어떻게’가 모두 드러나는가?",
         "□ 자료가 어느 문단에 들어갈지 정했는가?",
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
         "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
@@ -1752,6 +1964,7 @@
         line,
         productMode: "major_concept_book_bridge_blueprint_v58_student_display_major_diff_precision",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
+        donggukPerformanceFrame: performanceFrame,
         focusQuestion,
         majorLens: isComputer ? "입력값·조건문·오류 검증" : lens.shortLabel,
         majorKeywords: isComputer ? ["입력값", "조건문", "알고리즘", "오류 검증"] : lens.keywords.slice(0,4)
@@ -2054,7 +2267,7 @@
           <div>
             <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">보고서가 어떻게 만들어지는지 한눈에 보이도록 정리했습니다. 질문을 내 사례로 바꾸고, 자료를 어느 문단에 넣을지 정한 뒤, 표와 결론으로 완성합니다.</p>
+            <p class="mini-v43-sub">수행평가 영역명처럼 무엇을·어떻게 평가하는지가 보이도록 정리했습니다. 질문, 자료, 표, 문단, 결론이 같은 기준으로 이어지게 만듭니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -2062,9 +2275,9 @@
         </div>
 
         <div class="mini-v43-quick">
-          <div><b>STEP 1</b><span>질문을 내 사례로 바꾸기</span></div>
-          <div><b>STEP 2</b><span>자료를 문단에 배치하기</span></div>
-          <div><b>STEP 3</b><span>표와 결론으로 완성하기</span></div>
+          <div><b>STEP 1</b><span>수행평가 영역명으로 구조 잡기</span></div>
+          <div><b>STEP 2</b><span>자료를 역할별로 배치하기</span></div>
+          <div><b>STEP 3</b><span>표·문단·결론을 같은 기준으로 완성하기</span></div>
         </div>
 
         <div class="mini-v43-tags">
@@ -2074,6 +2287,7 @@
           <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
           <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
           <span>${escapeHtml(compactAxis(s.selectedFollowupAxis || req.selectedFollowupAxis))}</span>
+          ${diag.donggukPerformanceFrame?.performanceName ? `<span>수행평가 영역명: ${escapeHtml(diag.donggukPerformanceFrame.performanceName)}</span>` : ""}
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
         </div>
 
