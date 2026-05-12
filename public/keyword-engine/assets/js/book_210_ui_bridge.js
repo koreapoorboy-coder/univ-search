@@ -4898,7 +4898,19 @@
       civic_rights: "시민 참여·제도 분석 축",
       inequality_policy: "불평등·분배 정책 해석 축",
       public_issue: "공공문제 통합 분석 축",
-      global_peace: "세계화·평화 쟁점 해석 축"
+      global_peace: "세계화·평화 쟁점 해석 축",
+      social_issue_integrated: "사회문제 통합해석 축",
+      value_ethics: "가치·윤리 판단 축",
+      quality_of_life_data: "삶의 질 지표 해석 축",
+      environment_geography: "환경·지리 해석 축",
+      development_conservation: "개발·보전 정책 축",
+      sustainability_practice: "지속가능 실천 설계 축",
+      urban_region: "도시·지역 변화 분석 축",
+      mobility_network: "교통·네트워크 사회 축",
+      spatial_data_planning: "공간 자료·지역 기획 축",
+      population_resource: "인구·자원·지속가능성 축",
+      future_society_design: "미래 사회 설계 축",
+      community_action: "공동체·실천 연결 축"
     },
     directByMajorType: {
       business_social: {
@@ -4968,6 +4980,110 @@
         market_survey: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
         business_data: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
         platform_ethics: ["반지성주의", "리바이어던", "돈으로 살 수 없는 것들"]
+      },
+      police_admin: {
+        // v211: 사회 확장 계열 1차 잠금 - 경찰행정학과.
+        // 실제 major_engine_helper.js에 존재하는 경찰행정학과만 대상으로 하며, 치안·범죄예방·공공안전 맥락으로 분리한다.
+        civic_rights: ["리바이어던", "감시와 처벌", "앵무새 죽이기"],
+        inequality_policy: ["앵무새 죽이기", "이상한 정상가족", "난장이가 쏘아올린 작은 공"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "감시와 처벌", "반지성주의"],
+        global_peace: ["리바이어던", "국가", "문명의 충돌"],
+        platform_ethics: ["1984", "감시와 처벌", "반지성주의"],
+        business_data: ["성호사설", "감시와 처벌", "반지성주의"],
+        conditional_risk: ["감시와 처벌", "리바이어던", "앵무새 죽이기"],
+        social_issue_integrated: ["누구나 한번쯤 읽어야 할 목민심서", "감시와 처벌", "리바이어던"],
+        value_ethics: ["의무론", "앵무새 죽이기", "맹자"],
+        quality_of_life_data: ["성호사설", "반지성주의", "누구나 한번쯤 읽어야 할 목민심서"],
+        urban_region: ["감시와 처벌", "난장이가 쏘아올린 작은 공", "누구나 한번쯤 읽어야 할 목민심서"],
+        mobility_network: ["감시와 처벌", "1984", "성호사설"],
+        spatial_data_planning: ["성호사설", "감시와 처벌", "반지성주의"]
+      },
+      public_talent: {
+        // v211: 사회 확장 계열 1차 잠금 - 공공인재학부.
+        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "국가"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "반지성주의"],
+        global_peace: ["서유견문", "리바이어던", "국가"],
+        esg_sustainability: ["누구나 한번쯤 읽어야 할 목민심서", "돈으로 살 수 없는 것들", "성호사설"],
+        business_data: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
+        platform_ethics: ["반지성주의", "리바이어던", "돈으로 살 수 없는 것들"],
+        social_issue_integrated: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "리바이어던"],
+        value_ethics: ["국가", "의무론", "맹자"],
+        quality_of_life_data: ["성호사설", "돈으로 살 수 없는 것들", "누구나 한번쯤 읽어야 할 목민심서"],
+        urban_region: ["누구나 한번쯤 읽어야 할 목민심서", "난장이가 쏘아올린 작은 공", "성호사설"],
+        mobility_network: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "서유견문"],
+        spatial_data_planning: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"]
+      },
+      urban_admin: {
+        // v211: 사회 확장 계열 1차 잠금 - 도시행정학과.
+        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "성호사설"],
+        inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
+        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "난장이가 쏘아올린 작은 공"],
+        esg_sustainability: ["오래된 미래", "침묵의 봄", "돈으로 살 수 없는 것들"],
+        future_industry: ["오래된 미래", "제3의 물결", "성호사설"],
+        social_issue_integrated: ["누구나 한번쯤 읽어야 할 목민심서", "난장이가 쏘아올린 작은 공", "성호사설"],
+        value_ethics: ["돈으로 살 수 없는 것들", "의무론", "성호사설"],
+        quality_of_life_data: ["성호사설", "팩트풀니스", "누구나 한번쯤 읽어야 할 목민심서"],
+        environment_geography: ["오래된 미래", "침묵의 봄", "슬픈 열대"],
+        development_conservation: ["오래된 미래", "침묵의 봄", "누구나 한번쯤 읽어야 할 목민심서"],
+        sustainability_practice: ["오래된 미래", "침묵의 봄", "돈으로 살 수 없는 것들"],
+        urban_region: ["난장이가 쏘아올린 작은 공", "누구나 한번쯤 읽어야 할 목민심서", "성호사설"],
+        mobility_network: ["제3의 물결", "성호사설", "누구나 한번쯤 읽어야 할 목민심서"],
+        spatial_data_planning: ["성호사설", "팩트풀니스", "난장이가 쏘아올린 작은 공"],
+        population_resource: ["오래된 미래", "왜 세계의 절반은 굶주리는가", "성호사설"],
+        future_society_design: ["오래된 미래", "제3의 물결", "돈으로 살 수 없는 것들"],
+        community_action: ["누구나 한번쯤 읽어야 할 목민심서", "오래된 미래", "성호사설"]
+      },
+      real_estate: {
+        // v211: 사회 확장 계열 1차 잠금 - 부동산학과.
+        business_choice: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "경영학 콘서트"],
+        market_price: ["물질문명과 자본주의", "경영학 콘서트", "돈으로 살 수 없는 것들"],
+        finance_risk: ["경영학 콘서트", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
+        esg_sustainability: ["오래된 미래", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
+        future_industry: ["제3의 물결", "물질문명과 자본주의", "경영학 콘서트"],
+        public_issue: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "물질문명과 자본주의"],
+        social_issue_integrated: ["물질문명과 자본주의", "성호사설", "돈으로 살 수 없는 것들"],
+        quality_of_life_data: ["성호사설", "경영학 콘서트", "팩트풀니스"],
+        urban_region: ["난장이가 쏘아올린 작은 공", "물질문명과 자본주의", "성호사설"],
+        mobility_network: ["제3의 물결", "물질문명과 자본주의", "경영학 콘서트"],
+        spatial_data_planning: ["성호사설", "경영학 콘서트", "팩트풀니스"],
+        development_conservation: ["오래된 미래", "침묵의 봄", "물질문명과 자본주의"],
+        population_resource: ["물질문명과 자본주의", "왜 세계의 절반은 굶주리는가", "성호사설"]
+      },
+      military_security: {
+        // v211: 사회 확장 계열 1차 잠금 - 군사학과.
+        civic_rights: ["리바이어던", "국가", "백범일지"],
+        inequality_policy: ["국가", "의무론", "돈으로 살 수 없는 것들"],
+        public_issue: ["리바이어던", "국가", "반지성주의"],
+        global_trade: ["문명의 충돌", "오리엔탈리즘", "서유견문"],
+        global_peace: ["문명의 충돌", "리바이어던", "국가"],
+        esg_sustainability: ["돈으로 살 수 없는 것들", "오래된 미래", "리바이어던"],
+        social_issue_integrated: ["리바이어던", "국가", "반지성주의"],
+        value_ethics: ["국가", "의무론", "리바이어던"],
+        quality_of_life_data: ["성호사설", "반지성주의", "국가"],
+        global_issue: ["문명의 충돌", "오리엔탈리즘", "리바이어던"],
+        population_resource: ["왜 세계의 절반은 굶주리는가", "문명의 충돌", "리바이어던"],
+        future_society_design: ["제3의 물결", "문명의 충돌", "국가"],
+        community_action: ["백범일지", "국가", "리바이어던"]
+      },
+      geography: {
+        // v211: 사회 확장 계열 1차 잠금 - 지리학과.
+        // book_matching_index_210.json의 지리학과 직접 매칭 도서인 동방견문록·슬픈 열대를 우선한다.
+        social_issue_integrated: ["슬픈 열대", "동방견문록", "성호사설"],
+        value_ethics: ["슬픈 열대", "오리엔탈리즘", "돈으로 살 수 없는 것들"],
+        quality_of_life_data: ["성호사설", "팩트풀니스", "슬픈 열대"],
+        environment_geography: ["동방견문록", "슬픈 열대", "오래된 미래"],
+        development_conservation: ["오래된 미래", "침묵의 봄", "슬픈 열대"],
+        sustainability_practice: ["오래된 미래", "침묵의 봄", "동방견문록"],
+        urban_region: ["동방견문록", "슬픈 열대", "난장이가 쏘아올린 작은 공"],
+        mobility_network: ["동방견문록", "제3의 물결", "슬픈 열대"],
+        spatial_data_planning: ["동방견문록", "성호사설", "팩트풀니스"],
+        global_trade: ["동방견문록", "오리엔탈리즘", "물질문명과 자본주의"],
+        consumer_marketing: ["슬픈 열대", "국화와 칼", "오리엔탈리즘"],
+        global_peace: ["문명의 충돌", "오리엔탈리즘", "동방견문록"],
+        population_resource: ["오래된 미래", "왜 세계의 절반은 굶주리는가", "동방견문록"],
+        future_society_design: ["오래된 미래", "제3의 물결", "슬픈 열대"],
+        community_action: ["오래된 미래", "슬픈 열대", "성호사설"]
       },
       politics: {
         // v166: 정치외교학과는 실제 book_matching_index_210.json의 정치외교학과 relatedMajor 도서만 직접 일치 도서로 잠근다.
@@ -5078,7 +5194,19 @@
       civic_rights: ["리바이어던", "국가", "누구나 한번쯤 읽어야 할 목민심서", "의무론", "비통한 자들을 위한 정치학"],
       inequality_policy: ["왜 세계의 절반은 굶주리는가", "영국 노동계급의 형성", "자본론", "이상한 정상가족", "돈으로 살 수 없는 것들"],
       public_issue: ["법의 정신", "리바이어던", "자유론", "공정하다는 착각", "정의론"],
-      global_peace: ["국가", "사회계약론", "자유론", "반지성주의", "제국의 시대"]
+      global_peace: ["국가", "사회계약론", "자유론", "반지성주의", "제국의 시대"],
+      social_issue_integrated: ["공정하다는 착각", "자유론", "사회계약론", "정의론", "팩트풀니스"],
+      value_ethics: ["의무론", "국가", "맹자", "자유론", "돈으로 살 수 없는 것들"],
+      quality_of_life_data: ["팩트풀니스", "공정하다는 착각", "돈으로 살 수 없는 것들", "객관성의 칼날", "정의론"],
+      environment_geography: ["오래된 미래", "침묵의 봄", "슬픈 열대", "동방견문록", "오리엔탈리즘"],
+      development_conservation: ["침묵의 봄", "오래된 미래", "공정하다는 착각", "돈으로 살 수 없는 것들", "성호사설"],
+      sustainability_practice: ["오래된 미래", "침묵의 봄", "돈으로 살 수 없는 것들", "공정하다는 착각", "팩트풀니스"],
+      urban_region: ["난장이가 쏘아올린 작은 공", "오래된 미래", "물질문명과 자본주의", "공정하다는 착각", "성호사설"],
+      mobility_network: ["제3의 물결", "미디어의 이해", "동방견문록", "물질문명과 자본주의", "팩트풀니스"],
+      spatial_data_planning: ["팩트풀니스", "객관성의 칼날", "성호사설", "동방견문록", "제3의 물결"],
+      population_resource: ["왜 세계의 절반은 굶주리는가", "오래된 미래", "침묵의 봄", "공정하다는 착각", "물질문명과 자본주의"],
+      future_society_design: ["제3의 물결", "오래된 미래", "멋진 신세계", "공정하다는 착각", "1984"],
+      community_action: ["오래된 미래", "누구나 한번쯤 읽어야 할 목민심서", "공정하다는 착각", "자유론", "성호사설"]
     }
   };
 
@@ -5090,8 +5218,8 @@
     const conceptText = normalizeLockText(ctx && (ctx.concept || ctx.selectedConcept) || "");
     const keywordText = normalizeLockText(ctx && (ctx.keyword || ctx.selectedKeyword || ctx.selectedRecommendedKeyword) || "");
     const isSubject = /(통합사회|확률과\s*통계|정보)/i.test(subjectText);
-    const isMajor = /(경영학과|경제학과|무역학과|국제통상|관광경영학과|호텔경영학과|외식경영학과|농업경제학과|식품자원경제학과|사회학과|행정학과|정치외교학과|법학과|법무행정학과|사회복지학과|미디어커뮤니케이션학과|언론정보학과|광고홍보학과|정보사회학과|심리학과|교육학과|경찰행정학과|공공인재)/i.test(careerText);
-    const isConcept = /(시장|금융|경제|지속가능|세계화|문화\s*다양성|인권|시민|헌법|사회\s*정의|불평등|평화|통계|확률|분포|추정|조건부|자료|정보\s*사회|정보\s*문화|지식\s*[·ㆍ-]?\s*정보|데이터|표본|대시보드|플랫폼|미디어|정책|공공|의사결정)/i.test(conceptText + " " + keywordText);
+    const isMajor = /(경영학과|경제학과|무역학과|국제통상|관광경영학과|호텔경영학과|외식경영학과|농업경제학과|식품자원경제학과|사회학과|행정학과|정치외교학과|법학과|법무행정학과|사회복지학과|미디어커뮤니케이션학과|언론정보학과|광고홍보학과|정보사회학과|심리학과|교육학과|경찰행정학과|공공인재학부|공공인재|도시행정학과|부동산학과|군사학과|지리학과)/i.test(careerText);
+    const isConcept = /(시장|금융|경제|지속가능|세계화|문화\s*다양성|인권|시민|헌법|사회\s*정의|불평등|평화|통계|확률|분포|추정|조건부|자료|정보\s*사회|정보\s*문화|지식\s*[·ㆍ-]?\s*정보|데이터|표본|대시보드|플랫폼|미디어|정책|공공|의사결정|통합적\s*관점|행복|삶의\s*질|자연환경|인간의\s*공존|환경|지리|개발|보전|생활\s*공간|지역\s*이해|도시|지역\s*변화|교통|네트워크|공간\s*자료|지역\s*기획|인구|자원|미래\s*사회|공동체)/i.test(conceptText + " " + keywordText);
     return !!(isSubject && isMajor && isConcept);
   }
 
@@ -5154,6 +5282,21 @@
       ctx && ctx.axisLabel
     ].join(" "));
 
+    // v211: 사회 확장 계열은 통합사회1의 실제 4번 카드 제목/axis_id를 먼저 보존한다.
+    // 도시·지역, 환경·지리, 공간 자료 축이 일반 공공문제/데이터 축으로 뭉개지는 문제를 막는다.
+    if (/(urban_regional_change_analysis|도시\s*[·ㆍ-]?\s*지역\s*변화|도시\s*지역\s*변화|지역\s*변화\s*분석)/i.test(exactAxisText)) return "urban_region";
+    if (/(mobility_network_society|교통\s*[·ㆍ-]?\s*네트워크|네트워크\s*사회)/i.test(exactAxisText)) return "mobility_network";
+    if (/(spatial_data_local_planning|공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획|공간\s*자료|지역\s*기획)/i.test(exactAxisText)) return "spatial_data_planning";
+    if (/(environment_geography_interpretation|환경\s*[·ㆍ-]?\s*지리\s*해석|환경\s*지리)/i.test(exactAxisText)) return "environment_geography";
+    if (/(development_conservation_policy|개발\s*[·ㆍ-]?\s*보전\s*정책|개발\s*보전)/i.test(exactAxisText)) return "development_conservation";
+    if (/(sustainability_practice_design|지속가능\s*실천\s*설계|지속가능\s*실천)/i.test(exactAxisText)) return "sustainability_practice";
+    if (/(social_issue_integrated_analysis|사회문제\s*통합해석|사회\s*문제\s*통합\s*해석)/i.test(exactAxisText)) return "social_issue_integrated";
+    if (/(value_ethics_judgement|가치\s*[·ㆍ-]?\s*윤리\s*판단|가치\s*판단)/i.test(exactAxisText)) return "value_ethics";
+    if (/(quality_of_life_data_axis|삶의\s*질\s*지표\s*해석|삶의\s*질\s*데이터)/i.test(exactAxisText)) return "quality_of_life_data";
+    if (/(population_resource_sustainability|인구\s*[·ㆍ-]?\s*자원\s*[·ㆍ-]?\s*지속가능성|인구\s*자원)/i.test(exactAxisText)) return "population_resource";
+    if (/(future_society_design|미래\s*사회\s*설계)/i.test(exactAxisText)) return "future_society_design";
+    if (/(community_action_sustainability|공동체\s*[·ㆍ-]?\s*실천\s*연결|공동체\s*실천)/i.test(exactAxisText)) return "community_action";
+
     // v164: 카드 설명문에 공통으로 들어가는 "시민 참여"가 ESG 축을 덮는 문제를 막기 위해
     // 실제 카드 제목/data-track/axisLabel만 먼저 별도 판별한다.
     if (/(business_esg_sustainability_v910|sustainability_economic_transition|business_esg_sustainability|지속가능\s*경영\s*[·ㆍ-]?\s*esg|지속가능\s*경영|esg)/i.test(exactAxisText)) return "esg_sustainability";
@@ -5177,6 +5320,18 @@
     // v164: 4번 카드 본문에 "시민 참여" 문구가 공통 설명처럼 섞여 들어가는 경우가 있다.
     // 따라서 실제 카드 제목/축명에 해당하는 ESG·세계화·소비문화·불평등·공공문제 축을 먼저 판별하고,
     // 시민 참여·제도 분석 축은 마지막에 판별한다.
+    if (/(urban_regional_change_analysis|도시\s*[·ㆍ-]?\s*지역\s*변화|지역\s*변화\s*분석)/i.test(selectedAxisText)) return "urban_region";
+    if (/(mobility_network_society|교통\s*[·ㆍ-]?\s*네트워크|네트워크\s*사회)/i.test(selectedAxisText)) return "mobility_network";
+    if (/(spatial_data_local_planning|공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획|공간\s*자료|지역\s*기획)/i.test(selectedAxisText)) return "spatial_data_planning";
+    if (/(environment_geography_interpretation|환경\s*[·ㆍ-]?\s*지리\s*해석|환경\s*지리)/i.test(selectedAxisText)) return "environment_geography";
+    if (/(development_conservation_policy|개발\s*[·ㆍ-]?\s*보전\s*정책|개발\s*보전)/i.test(selectedAxisText)) return "development_conservation";
+    if (/(sustainability_practice_design|지속가능\s*실천\s*설계|지속가능\s*실천)/i.test(selectedAxisText)) return "sustainability_practice";
+    if (/(social_issue_integrated_analysis|사회문제\s*통합해석|사회\s*문제\s*통합\s*해석)/i.test(selectedAxisText)) return "social_issue_integrated";
+    if (/(value_ethics_judgement|가치\s*[·ㆍ-]?\s*윤리\s*판단|가치\s*판단)/i.test(selectedAxisText)) return "value_ethics";
+    if (/(quality_of_life_data_axis|삶의\s*질\s*지표\s*해석|삶의\s*질\s*데이터)/i.test(selectedAxisText)) return "quality_of_life_data";
+    if (/(population_resource_sustainability|인구\s*[·ㆍ-]?\s*자원\s*[·ㆍ-]?\s*지속가능성|인구\s*자원)/i.test(selectedAxisText)) return "population_resource";
+    if (/(future_society_design|미래\s*사회\s*설계)/i.test(selectedAxisText)) return "future_society_design";
+    if (/(community_action_sustainability|공동체\s*[·ㆍ-]?\s*실천\s*연결|공동체\s*실천)/i.test(selectedAxisText)) return "community_action";
     if (/(market_structure_decision|market_decision_structure|시장\s*구조\s*[·ㆍ-]?\s*경제\s*의사결정|시장\s*구조\s*[·ㆍ-]?\s*의사결정|시장\s*구조|가격\s*변동|시장\s*[·ㆍ-]?\s*가격)/i.test(selectedAxisText)) return "market_price";
     if (/(finance_life_design|finance_consumption_literacy|금융\s*생활\s*[·ㆍ-]?\s*자산\s*관리|금융\s*생활\s*[·ㆍ-]?\s*소비\s*판단|금융\s*생활|자산\s*관리|위험\s*관리)/i.test(selectedAxisText)) return "finance_risk";
     if (/(trade_interdependence_analysis|global_interdependence_analysis|business_global_trade|global_interdependence|trade_interdependence|무역\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*상호의존|세계화\s*[·ㆍ-]?\s*국제\s*무역|국제\s*무역|공급망)/i.test(selectedAxisText)) return "global_trade";
@@ -5199,6 +5354,12 @@
       ctx && ctx.keyword,
       ctx && ctx.career
     ].join(" "));
+    if (/(생활\s*공간\s*변화|지역\s*이해|도시\s*지역|지역\s*변화)/i.test(text)) return "urban_region";
+    if (/(교통|네트워크|이동성|생활권)/i.test(text)) return "mobility_network";
+    if (/(공간\s*자료|지도|지역\s*기획|공간\s*분석)/i.test(text)) return "spatial_data_planning";
+    if (/(자연환경|환경\s*지리|인간의\s*공존)/i.test(text)) return "environment_geography";
+    if (/(개발|보전|도시\s*개발|토지)/i.test(text)) return "development_conservation";
+    if (/(통합적\s*관점|사회문제\s*통합|행복|삶의\s*질)/i.test(text)) return "social_issue_integrated";
     if (/(business_choice_opportunity_cost|합리적\s*선택|기회비용|비용\s*[·ㆍ-]?\s*편익|선택\s*[·ㆍ-]?\s*기회비용)/i.test(text)) return "business_choice";
     if (/(business_market_price|market_structure_decision|market_decision_structure|시장\s*구조|가격\s*변동|수요|공급|시장\s*[·ㆍ-]?\s*가격|경제\s*의사결정)/i.test(text)) return "market_price";
     if (/(business_finance_risk|finance_life_design|finance_consumption_literacy|금융|자산|위험관리|소비\s*판단|리스크)/i.test(text)) return "finance_risk";
@@ -5240,7 +5401,19 @@
       civic_rights: "권리 보장, 제도 설계, 시민 참여 사례를 분석하는 근거로 활용합니다.",
       inequality_policy: "불평등 구조, 정의 원리, 복지·분배 정책의 기준을 비교하는 근거로 활용합니다.",
       public_issue: "공공문제의 원인과 정책 대안을 통합적으로 분석하는 근거로 활용합니다.",
-      global_peace: "국제 관계, 세계화, 갈등과 평화의 구조를 비교하는 근거로 활용합니다."
+      global_peace: "국제 관계, 세계화, 갈등과 평화의 구조를 비교하는 근거로 활용합니다.",
+      social_issue_integrated: "사회 문제를 시간·공간·사회·윤리 관점으로 통합 분석하는 근거로 활용합니다.",
+      value_ethics: "가치 판단과 윤리적 기준을 세워 공공 의사결정의 타당성을 검토하는 근거로 활용합니다.",
+      quality_of_life_data: "삶의 질 지표와 자료를 해석해 정책·지역·공공서비스 판단 기준을 설명하는 근거로 활용합니다.",
+      environment_geography: "환경과 지리 조건이 지역 사회와 정책 선택에 미치는 영향을 해석하는 근거로 활용합니다.",
+      development_conservation: "개발과 보전 사이의 정책 균형과 이해관계 조정을 분석하는 근거로 활용합니다.",
+      sustainability_practice: "지속가능한 지역 운영과 실천 방안을 설계하는 근거로 활용합니다.",
+      urban_region: "도시와 지역 변화, 생활권 문제, 행정·공간 구조를 분석하는 근거로 활용합니다.",
+      mobility_network: "교통과 네트워크가 지역 접근성, 안전, 공공서비스에 미치는 영향을 설명하는 근거로 활용합니다.",
+      spatial_data_planning: "공간 자료와 지역 지표를 바탕으로 정책·기획 판단을 구조화하는 근거로 활용합니다.",
+      population_resource: "인구·자원 구조가 지속가능한 지역 운영과 정책 선택에 미치는 영향을 분석하는 근거로 활용합니다.",
+      future_society_design: "미래 사회 변화에 대응하는 정책·제도·지역 설계 방향을 검토하는 근거로 활용합니다.",
+      community_action: "공동체 참여와 실천 구조를 통해 공공문제 해결 가능성을 설명하는 근거로 활용합니다."
     };
     return {
       ...baseContext,
@@ -5313,14 +5486,26 @@
     const isEconomicsMajor = /(경제학과|경제학부|경제금융|금융학과|농업경제학과|식품자원경제학과)/i.test(careerText)
       && !/(경영학과|경영학부|경영전공|글로벌경영학과|경영정보학과|관광경영학과|호텔경영학과|외식경영학과)/i.test(careerText);
     const isSociologyMajor = /(사회학과|정보사회학과|문화인류학과)/i.test(careerText);
-    const isAdministrationMajor = /(행정학과|공공인재학부|공공정책학과|정책학과|경찰행정학과)/i.test(careerText);
+    const isPoliceAdminMajor = /경찰행정학과/i.test(careerText);
+    const isPublicTalentMajor = /공공인재학부|공공인재/i.test(careerText);
+    const isUrbanAdministrationMajor = /도시행정학과/i.test(careerText);
+    const isRealEstateMajor = /부동산학과/i.test(careerText);
+    const isMilitarySecurityMajor = /군사학과/i.test(careerText);
+    const isGeographyMajor = /지리학과/i.test(careerText);
+    const isAdministrationMajor = /(행정학과|공공정책학과|정책학과)/i.test(careerText);
     const isPoliticsMajor = /(정치외교학과|정치학과|외교학과|국제관계학과|국제학부)/i.test(careerText);
     const isLawMajor = /(법학과|법무행정학과)/i.test(careerText);
     const isEducationMajor = /(교육학과|교육학부|교육전공)/i.test(careerText);
     const isSocialWelfareMajor = /(사회복지학과|사회복지학부|사회복지전공)/i.test(careerText);
-    // v161: 실제 적용 데이터는 BOOK_A25_BUSINESS_SOCIAL_LOCK_DATA 상단 고정 객체에서 관리한다.
-    // 경제학과뿐 아니라 사회학과·행정학과·정치외교학과·법학과도 직접 일치 도서 풀을 분리한다.
-    const majorType = isEconomicsMajor ? "economics"
+    // v211: 실제 데이터에 존재하는 사회 확장 계열을 행정학과 일반 풀과 분리한다.
+    // 경찰행정학과/공공인재학부/도시행정학과/부동산학과/군사학과/지리학과만 추가한다.
+    const majorType = isPoliceAdminMajor ? "police_admin"
+      : isPublicTalentMajor ? "public_talent"
+      : isUrbanAdministrationMajor ? "urban_admin"
+      : isRealEstateMajor ? "real_estate"
+      : isMilitarySecurityMajor ? "military_security"
+      : isGeographyMajor ? "geography"
+      : isEconomicsMajor ? "economics"
       : isSociologyMajor ? "sociology"
       : isAdministrationMajor ? "administration"
       : isPoliticsMajor ? "politics"
@@ -5347,7 +5532,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
-        bookA25BusinessSocialVersion: "v176",
+        bookA25BusinessSocialVersion: "v211",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
