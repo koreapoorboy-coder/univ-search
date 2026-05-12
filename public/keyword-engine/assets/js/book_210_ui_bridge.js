@@ -10177,6 +10177,213 @@
 
 
 
+  // A-49 신학과 하드락(v208)
+  // 실제 ZIP 내부 학과명 기준: 신학과는 인문계열 실제 데이터에 존재한다.
+  // 실제 과목 흐름은 major_engine_helper.js의 신학과 subs 첫 과목인 통합사회 -> 통합사회1 기준으로 우선 검수한다.
+  // 3번 추천 개념은 통합사회1 기본 실제 화면 순서인 통합적 관점과 행복 / 자연환경과 인간의 공존 / 생활 공간 변화와 지역 이해를 기준으로 잠근다.
+  function getBookA49TheologyVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA49TheologyVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA49TheologyContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA49TheologyVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isTheologyMajor = /신학과/i.test(careerText);
+    const isActualIntegratedSociety1Flow = /(통합\s*사회1|통합사회1|통합사회Ⅰ|통합\s*사회|통합사회|통합적\s*관점과\s*행복|자연환경과\s*인간의\s*공존|생활\s*공간\s*변화와\s*지역\s*이해|사회문제\s*통합해석|가치\s*[·ㆍ-]?\s*윤리\s*판단|삶의\s*질\s*지표\s*해석|환경\s*[·ㆍ-]?\s*지리\s*해석|개발\s*[·ㆍ-]?\s*보전\s*정책|지속가능\s*실천\s*설계|도시\s*[·ㆍ-]?\s*지역\s*변화\s*분석|교통\s*[·ㆍ-]?\s*네트워크\s*사회|공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획)/i.test(subjectConceptText);
+    return !!(isTheologyMajor && isActualIntegratedSociety1Flow);
+  }
+
+  function inferBookA49TheologyAxis(ctx){
+    ctx = ctx || {};
+    const activeAxisText = normalizeLockText([
+      getBookA49TheologyVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA49TheologyVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 4번 카드 제목/선택값 우선. 설명문 속 일반어로 다른 축을 오인하지 않도록 축명부터 판별한다.
+      if (/(social_issue_integrated_analysis|사회문제\s*통합해석\s*축|사회문제\s*통합해석|통합\s*관점\s*해석)/i.test(text)) return "social_issue_integrated";
+      if (/(value_ethics_judgement|가치\s*[·ㆍ-]?\s*윤리\s*판단\s*축|가치\s*[·ㆍ-]?\s*윤리\s*판단|가치\s*판단)/i.test(text)) return "value_ethics";
+      if (/(quality_of_life_data_axis|삶의\s*질\s*지표\s*해석\s*축|삶의\s*질\s*지표\s*해석|삶의\s*질\s*데이터|행복\s*지표)/i.test(text)) return "quality_of_life";
+      if (/(environment_geography_interpretation|환경\s*[·ㆍ-]?\s*지리\s*해석\s*축|환경\s*[·ㆍ-]?\s*지리\s*해석|기후\s*[·ㆍ-]?\s*재해\s*해석)/i.test(text)) return "environment_geography";
+      if (/(development_conservation_policy|개발\s*[·ㆍ-]?\s*보전\s*정책\s*축|개발\s*[·ㆍ-]?\s*보전\s*정책|환경\s*정책\s*판단)/i.test(text)) return "development_conservation";
+      if (/(sustainability_practice_design|지속가능\s*실천\s*설계\s*축|지속가능\s*실천\s*설계|청정\s*기술\s*실천)/i.test(text)) return "sustainability_practice";
+      if (/(urban_regional_change_analysis|도시\s*[·ㆍ-]?\s*지역\s*변화\s*분석\s*축|도시\s*[·ㆍ-]?\s*지역\s*변화\s*분석|도시화\s*변화\s*분석)/i.test(text)) return "urban_regional";
+      if (/(mobility_network_society|교통\s*[·ㆍ-]?\s*네트워크\s*사회\s*축|교통\s*[·ㆍ-]?\s*네트워크\s*사회|네트워크\s*사회)/i.test(text)) return "mobility_network";
+      if (/(spatial_data_local_planning|공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획\s*축|공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획|지역\s*기획\s*설계)/i.test(text)) return "spatial_data";
+      return "";
+    };
+    const axisId = fromText(activeAxisText);
+    if (axisId) return axisId;
+    if (/통합적\s*관점과\s*행복/i.test(conceptText)) return "value_ethics";
+    if (/자연환경과\s*인간의\s*공존/i.test(conceptText)) return "development_conservation";
+    if (/생활\s*공간\s*변화와\s*지역\s*이해/i.test(conceptText)) return "urban_regional";
+    return "value_ethics";
+  }
+
+  function cloneBookForA49TheologyLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      social_issue_integrated: "사회문제 통합해석 축",
+      value_ethics: "가치·윤리 판단 축",
+      quality_of_life: "삶의 질 지표 해석 축",
+      environment_geography: "환경·지리 해석 축",
+      development_conservation: "개발·보전 정책 축",
+      sustainability_practice: "지속가능 실천 설계 축",
+      urban_regional: "도시·지역 변화 분석 축",
+      mobility_network: "교통·네트워크 사회 축",
+      spatial_data: "공간 자료·지역 기획 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "신학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6030 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-49 신학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 종교 텍스트·신앙·구원·윤리·공동체 문제를 해석하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 가치 판단, 사회 구조, 공동체 윤리, 문명 비교로 탐구를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`신학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA49TheologyLock: true,
+      bookA49TheologyRank: rank,
+      bookA49TheologyAxisLock: axisId
+    };
+  }
+
+  function applyBookA49TheologyHardLock(result, ctx){
+    if (!result || !isBookA49TheologyContext(ctx)) return result;
+    const axisId = inferBookA49TheologyAxis(ctx);
+    const directMap = {
+      social_issue_integrated: ["고백록", "사람, 장소, 환대", "도덕적 인간과 비도덕적 사회"],
+      value_ethics: ["고백록", "우파니샤드", "신약의 탄생"],
+      quality_of_life: ["우파니샤드", "고백록", "정의란 무엇인가"],
+      environment_geography: ["오래된 미래", "우파니샤드", "사람, 장소, 환대"],
+      development_conservation: ["프로테스탄트 윤리와 자본주의 정신", "도덕적 인간과 비도덕적 사회", "오래된 미래"],
+      sustainability_practice: ["오래된 미래", "프로테스탄트 윤리와 자본주의 정신", "사람, 장소, 환대"],
+      urban_regional: ["사람, 장소, 환대", "도덕적 인간과 비도덕적 사회", "프로테스탄트 윤리와 자본주의 정신"],
+      mobility_network: ["프로테스탄트 윤리와 자본주의 정신", "사람, 장소, 환대", "고백록"],
+      spatial_data: ["사람, 장소, 환대", "정의란 무엇인가", "오래된 미래"]
+    };
+    const expansionMap = {
+      social_issue_integrated: ["국가", "정의란 무엇인가", "자유론", "공정하다는 착각", "의무론"],
+      value_ethics: ["의무론", "국가", "정의란 무엇인가", "자유론", "공정하다는 착각"],
+      quality_of_life: ["사람, 장소, 환대", "정의란 무엇인가", "국가", "도덕적 인간과 비도덕적 사회", "자유론"],
+      environment_geography: ["왜 세계의 절반은 굶주리는가", "페스트", "정의란 무엇인가", "사람, 장소, 환대", "자유론"],
+      development_conservation: ["정의란 무엇인가", "공정하다는 착각", "의무론", "자유론", "국가"],
+      sustainability_practice: ["왜 세계의 절반은 굶주리는가", "정의란 무엇인가", "자유론", "공정하다는 착각", "국가"],
+      urban_regional: ["난장이가 쏘아올린 작은 공", "이상한 정상가족", "정의란 무엇인가", "자유론", "국가"],
+      mobility_network: ["1984", "미디어의 이해", "반지성주의", "자유론", "정의란 무엇인가"],
+      spatial_data: ["미디어의 이해", "반지성주의", "정의란 무엇인가", "자유론", "공정하다는 착각"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.value_ethics);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.value_ethics);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA49TheologyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA49TheologyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA49TheologyHardLock: axisId,
+        bookA49TheologyVersion: "v208",
+        bookA49TheologyDirectTitles: directBooks.map(book => book.title),
+        bookA49TheologyExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -10254,6 +10461,7 @@
     result = applyBookA46LinguisticsHardLock(result, ctx);
     result = applyBookA47KoreanLanguageHardLock(result, ctx);
     result = applyBookA48ClassicalChineseHardLock(result, ctx);
+    result = applyBookA49TheologyHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
