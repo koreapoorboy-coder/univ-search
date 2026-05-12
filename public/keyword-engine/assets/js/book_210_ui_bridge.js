@@ -8527,6 +8527,203 @@
   }
 
 
+  // A-41 중어중문학과 하드락(v196)
+  // 실제 데이터에 존재하는 학과명 "중어중문학과"만 대상으로 한다.
+  // 공통국어1 화면의 어문·문학 기본 3개 흐름을 기준으로 하며,
+  // 4번 카드 제목/선택값을 우선 판별해 설명문 속 일반어가 다른 축으로 오인되는 것을 막는다.
+  function getBookA41ChineseLiteratureVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA41ChineseLiteratureVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          push(titleNode ? titleNode.textContent : "");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(shortNode ? shortNode.textContent : "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA41ChineseLiteratureContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA41ChineseLiteratureVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isChineseMajor = /중어중문학과/i.test(careerText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|문학|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|표현\s*[·ㆍ-]?\s*창작|정서\s*[·ㆍ-]?\s*매체)/i.test(subjectConceptText);
+    return !!(isChineseMajor && isActualFlow);
+  }
+
+  function inferBookA41ChineseLiteratureAxis(ctx){
+    ctx = ctx || {};
+    const activeAxisText = normalizeLockText([
+      getBookA41ChineseLiteratureVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA41ChineseLiteratureVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(narrative_structure|서사\s*구조\s*분석\s*축|서사\s*구조\s*분석|서사\s*구조)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링\s*[·ㆍ-]?\s*매체|스토리텔링|매체\s*서사)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등\s*해석\s*축|인물\s*[·ㆍ-]?\s*갈등\s*해석|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
+      if (/(lyric_appreciation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|서정)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(emotion_media|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환)/i.test(text)) return "emotion_media";
+      if (/(reflective_writing|성찰\s*글쓰기|관찰\s*기록|교술)/i.test(text)) return "reflective_writing";
+      return "";
+    };
+    const axisId = fromText(activeAxisText);
+    if (axisId) return axisId;
+    if (/서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성/i.test(conceptText)) return "narrative_structure";
+    if (/서정\s*갈래와\s*시적\s*표현/i.test(conceptText)) return "lyric_appreciation";
+    if (/교술\s*갈래와\s*성찰적\s*표현/i.test(conceptText)) return "reflective_writing";
+    return "narrative_structure";
+  }
+
+  function cloneBookForA41ChineseLiteratureLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      narrative_structure: "서사 구조 분석 축",
+      storytelling_media: "스토리텔링·매체 축",
+      character_conflict: "인물·갈등 해석 축",
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      emotion_media: "정서·매체 변환 축",
+      reflective_writing: "성찰 글쓰기 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "중어중문학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6020 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-41 중어중문학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 중국 고전·근현대 문학의 서사 구조, 사상, 인물 갈등을 분석하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 동아시아 사상, 비교문화, 사회 변화 관점으로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`중어중문학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA41ChineseLiteratureLock: true,
+      bookA41ChineseLiteratureRank: rank,
+      bookA41ChineseLiteratureAxisLock: axisId
+    };
+  }
+
+  function applyBookA41ChineseLiteratureHardLock(result, ctx){
+    if (!result || !isBookA41ChineseLiteratureContext(ctx)) return result;
+    const axisId = inferBookA41ChineseLiteratureAxis(ctx);
+    const directMap = {
+      narrative_structure: ["수호전", "루쉰 소설전집", "시학"],
+      storytelling_media: ["수호전", "아라비안 나이트", "동방견문록"],
+      character_conflict: ["루쉰 소설전집", "수호전", "맹자"],
+      lyric_appreciation: ["시경", "논어", "시학"],
+      creative_expression: ["시경", "루쉰 소설전집", "시학"],
+      emotion_media: ["오리엔탈리즘", "동방견문록", "미디어의 이해"],
+      reflective_writing: ["논어", "맹자", "인물로 읽는 장자"]
+    };
+    const expansionMap = {
+      narrative_structure: ["논어", "맹자", "인물로 읽는 장자", "오리엔탈리즘", "문학과 예술의 사회사"],
+      storytelling_media: ["오리엔탈리즘", "문학과 예술의 사회사", "미디어의 이해", "데카메론", "국화와 칼"],
+      character_conflict: ["논어", "맹자", "인물로 읽는 장자", "문학과 예술의 사회사", "오리엔탈리즘"],
+      lyric_appreciation: ["문학과 예술의 사회사", "정지용전집", "백석 시 전집", "젊은 예술가의 초상", "인물로 읽는 장자"],
+      creative_expression: ["문학과 예술의 사회사", "디자인 인문학", "미디어의 이해", "젊은 예술가의 초상", "고도를 기다리며"],
+      emotion_media: ["문학과 예술의 사회사", "국화와 칼", "감시와 처벌", "제3의 물결", "반지성주의"],
+      reflective_writing: ["시경", "루쉰 소설전집", "문학과 예술의 사회사", "오리엔탈리즘", "국화와 칼"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.narrative_structure);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.narrative_structure);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA41ChineseLiteratureLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA41ChineseLiteratureLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA41ChineseLiteratureHardLock: axisId,
+        bookA41ChineseLiteratureVersion: "v196",
+        bookA41ChineseLiteratureDirectTitles: directBooks.map(book => book.title),
+        bookA41ChineseLiteratureExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -8596,6 +8793,7 @@
     result = applyBookA38LibraryInfoHardLock(result, ctx);
     result = applyBookA39EnglishLiteratureHardLock(result, ctx);
     result = applyBookA40JapaneseLiteratureHardLock(result, ctx);
+    result = applyBookA41ChineseLiteratureHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
