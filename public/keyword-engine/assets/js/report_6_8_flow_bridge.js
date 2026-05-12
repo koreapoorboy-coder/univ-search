@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v33-student-choice-book-state-fix";
+  const VERSION = "report-6-8-flow-bridge-v34-meaningful-mini-directive";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -60,6 +60,100 @@
     "효율": { title:"효율 관점", desc:"같은 결과를 더 적은 자원·시간·에너지로 얻는 방식을 비교합니다.", example:"효율 기준을 세우고 대안을 비교" },
     "변화": { title:"변화 관점", desc:"시간이나 조건 변화에 따른 값과 상태의 변화를 해석합니다.", example:"전후 변화 또는 조건별 변화를 그래프로 해석" }
   };
+
+
+  const ROLE_VIEW_ALIASES = {
+    analysisFrame: "자료 해석",
+    evidenceFrame: "자료 해석",
+    conceptExplanation: "원리",
+    comparisonFrame: "비교",
+    limitationDiscussion: "한계",
+    conclusionExpansion: "사회적 의미",
+    careerExpansion: "진로 확장",
+    socialMeaning: "사회적 의미"
+  };
+
+  const MODE_DIRECTIVES = {
+    principle: {
+      title: "원리 파악형",
+      intent: "핵심 개념이 왜 성립하는지 먼저 설명하고 사례·도서·자료를 원리의 적용 근거로 붙입니다.",
+      mini: "교과 개념 설명 → 원리 작동 과정 → 선택 키워드 적용 → 한계 또는 확장 순서로 작성한다.",
+      table: "원리 / 적용 사례 / 확인 자료 / 내 해석"
+    },
+    compare: {
+      title: "비교 분석형",
+      intent: "두 사례·조건·관점을 나란히 놓고 비교 기준을 먼저 세운 뒤 차이와 판단 근거를 정리합니다.",
+      mini: "비교 기준 설정 → 조건 A/B 비교 → 차이 해석 → 내 판단 기준 제시 순서로 작성한다.",
+      table: "비교 기준 / 조건 A / 조건 B / 차이 해석"
+    },
+    data: {
+      title: "데이터 확장형",
+      intent: "자료·수치·그래프를 근거로 사용해 선택 키워드의 판단 기준을 확장합니다.",
+      mini: "변수 설정 → 자료 출처 확인 → 그래프·표 해석 → 자료 한계 점검 순서로 작성한다.",
+      table: "변수 / 자료 출처 / 그래프·수치 / 해석"
+    },
+    application: {
+      title: "사례 적용형",
+      intent: "교과 개념을 실제 생활·지역·산업 사례에 적용해 문제 해결 흐름을 보여줍니다.",
+      mini: "현실 사례 제시 → 교과 원리 적용 → 해결 과정 → 적용 한계 순서로 작성한다.",
+      table: "사례 / 적용 개념 / 해결 과정 / 한계"
+    },
+    major: {
+      title: "전공 확장형",
+      intent: "학과명을 반복하지 않고 전공에서 쓰는 사고방식으로 교과 개념을 확장합니다.",
+      mini: "교과 개념 → 전공 문제 상황 → 전공식 분석 기준 → 후속 탐구 순서로 작성한다.",
+      table: "교과 개념 / 전공 개념 / 적용 자료 / 후속 탐구"
+    },
+    book: {
+      title: "도서 근거형",
+      intent: "선택 도서를 독후감이 아니라 보고서의 근거 프레임과 해석 렌즈로 사용합니다.",
+      mini: "탐구 질문 → 도서 관점 → 개념 재해석 → 결론 확장 순서로 작성한다.",
+      table: "도서 관점 / 교과 개념 / 적용 사례 / 결론 확장"
+    }
+  };
+
+  function normalizeViewName(input){
+    const raw = val(input);
+    if (!raw) return "";
+    if (ROLE_VIEW_ALIASES[raw]) return ROLE_VIEW_ALIASES[raw];
+    if (/conclusionExpansion|사회|정책|윤리|의미/.test(raw)) return "사회적 의미";
+    if (/comparisonFrame|비교|대조/.test(raw)) return "비교";
+    if (/limitationDiscussion|한계|오차|편향|제약/.test(raw)) return "한계";
+    if (/analysisFrame|evidenceFrame|자료|근거/.test(raw)) return "자료 해석";
+    if (/conceptExplanation|원리/.test(raw)) return "원리";
+    if (/careerExpansion|진로|전공/.test(raw)) return "진로 확장";
+    if (/모델/.test(raw)) return "모델링";
+    if (/데이터/.test(raw)) return "데이터";
+    return raw;
+  }
+
+  function modeDirective(mode){
+    return MODE_DIRECTIVES[mode] || MODE_DIRECTIVES.principle;
+  }
+
+  function lineDirective(line){
+    const profile = LINE_HELP[line] || LINE_HELP.standard;
+    if (profile.id === "basic") return `${profile.title}: 6문단 안에서 개념 설명과 대표 사례 중심으로 간단히 완성합니다.`;
+    if (profile.id === "advanced") return `${profile.title}: 13섹션으로 한계·후속 탐구·진로 확장까지 포함합니다.`;
+    return `${profile.title}: 10섹션으로 자료·도서·사례를 붙여 수행평가 제출용으로 확장합니다.`;
+  }
+
+  function buildMeaningPreview(ctx, lineId){
+    const mode = ctx.state.reportMode || ctx.ctx?.reportChoices?.mode || "principle";
+    const view = normalizeViewName(ctx.state.reportView || ctx.ctx?.reportChoices?.view || "");
+    const line = lineId || ctx.state.reportLine || ctx.ctx?.reportChoices?.line || "standard";
+    const m = modeDirective(mode);
+    const v = VIEW_HELP[view] || { title: view || "관점 선택", desc: "선택한 관점에 맞춰 보고서 강조점을 조정합니다.", example: "선택 관점에 따라 질문·자료·결론 방향을 바꿉니다." };
+    return {
+      modeLabel: m.title,
+      viewLabel: v.title || view,
+      lineLabel: (LINE_HELP[line] || LINE_HELP.standard).title,
+      modeInstruction: m.mini,
+      viewInstruction: `${v.title || view}: ${v.desc || "선택 관점에 맞춰 분석합니다."}`,
+      lineInstruction: lineDirective(line),
+      tableFrame: m.table
+    };
+  }
 
   function getState(){
     return global.__TEXTBOOK_HELPER_STATE__ || {};
@@ -237,19 +331,22 @@
     if (el.getAttribute("data-report-choice-key") === key) return;
     el.setAttribute("data-report-choice-key", key);
     el.innerHTML = `
-      <div class="engine-mode-grid">${options.map(option => `
+      <div class="engine-mode-grid">${options.map(option => {
+        const guide = modeDirective(option.id);
+        return `
         <button type="button" class="engine-mode-card ${active === option.id ? "is-active" : ""}" data-action="mode" data-value="${esc(option.id)}">
           <div class="engine-mode-title">${esc(option.label)} ${option.id === recommended ? '<span class="engine-mini-tag" style="margin-left:6px;">추천</span>' : ''}</div>
-          <div class="engine-mode-desc">${esc(option.desc || "")}</div>
+          <div class="engine-mode-desc">${esc(guide.intent || option.desc || "")}</div>
+          <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 작성 흐름: ${esc(guide.mini)}</div>
         </button>
-      `).join("")}</div>
-      <div class="report-choice-note">여기서 선택한 전개 방식은 MINI payload의 <b>reportMode</b>와 <b>targetStructure</b>를 바꿉니다. 같은 주제라도 원리형·데이터형·비교형을 다르게 고르면 보고서 문단 흐름이 달라집니다.</div>
+      `}).join("")}</div>
+      <div class="report-choice-note">6번은 단어 태그가 아니라 <b>보고서 전개 논리</b>입니다. 선택값은 MINI에 작성 흐름·비교표 기준·문단 순서로 해석되어 전달됩니다.</div>
     `;
   }
 
   function viewOptionsFor(ctx){
     const meta = getMeta(ctx);
-    const base = arr(meta.viewOptions);
+    const base = arr(meta.viewOptions).map(normalizeViewName);
     const mode = ctx.state.reportMode || ctx.ctx?.reportChoices?.mode || "";
     const byMode = {
       principle: ["원리","구조","기능","한계"],
@@ -261,11 +358,13 @@
     };
     const merged = [];
     const seen = new Set();
-    (byMode[mode] || []).concat(base, ["원리","자료 해석","모델링","한계","비교","사회적 의미","진로 확장"]).forEach(item => {
-      if (!item || seen.has(item)) return;
-      seen.add(item);
-      merged.push(item);
-    });
+    (byMode[mode] || []).concat(base, ["원리","자료 해석","모델링","한계","비교","사회적 의미","진로 확장"])
+      .map(normalizeViewName)
+      .forEach(item => {
+        if (!item || seen.has(item)) return;
+        seen.add(item);
+        merged.push(item);
+      });
     return merged;
   }
 
@@ -281,7 +380,7 @@
       return;
     }
     const options = viewOptionsFor(ctx);
-    const active = ctx.state.reportView || "";
+    const active = normalizeViewName(ctx.state.reportView || "");
     const current = VIEW_HELP[active] || VIEW_HELP[options[0]] || { title:"관점 선택", desc:"보고서를 어떤 시선으로 정리할지 고릅니다.", example:"선택한 관점에 따라 세부 문장과 강조점이 바뀝니다." };
     const key = `${VERSION}:view:${ctx.state.reportMode}:${active}:${options.join(",")}`;
     if (el.getAttribute("data-report-choice-key") === key) return;
@@ -294,6 +393,7 @@
         <div class="engine-view-guide-title">${esc(current.title)}</div>
         <div class="engine-view-guide-desc">${esc(current.desc)}</div>
         <div class="engine-view-guide-example">${esc(current.example)}</div>
+        <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 관점 지시: ${esc((current.title || active || "선택 관점") + "을 중심으로 질문·자료 표·결론 방향을 조정합니다.")}</div>
       </div>
     `;
   }
@@ -321,6 +421,7 @@
     const rec = recommendedLine(ctx);
     const active = ctx.state.reportLine || "";
     const current = LINE_HELP[active] || LINE_HELP[rec] || LINE_HELP.standard;
+    const meaning = buildMeaningPreview(ctx, active || rec);
     const payloadSections = arr(ctx.ctx?.targetStructure);
     const previewSections = payloadSections.length ? payloadSections : current.sections;
     const key = `${VERSION}:line:${ctx.state.reportMode}:${ctx.state.reportView}:${active}:${rec}:${previewSections.join(">")}`;
@@ -338,11 +439,14 @@
         <div class="engine-view-guide-title">${esc(current.title)} 보고서 라인</div>
         <div class="engine-view-guide-desc">${esc(current.desc)}</div>
         <div class="engine-view-guide-example">문단 흐름: ${current.sections.map((section, idx) => `${idx + 1}. ${section}`).join(" → ")}</div>
+        <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 라인 지시: ${esc(meaning.lineInstruction)}</div>
       </div>
       <div class="report-choice-preview">
         <div class="report-choice-preview-title">선택 결과 미리보기</div>
         <div class="report-choice-preview-desc">
-          현재 선택: ${esc(ctx.state.reportMode || "-")} / ${esc(ctx.state.reportView || "-")} / ${esc(active || "라인 선택 대기")}<br>
+          현재 선택: ${esc(meaning.modeLabel || ctx.state.reportMode || "-")} / ${esc(meaning.viewLabel || normalizeViewName(ctx.state.reportView) || "-")} / ${esc(meaning.lineLabel || active || "라인 선택 대기")}<br>
+          MINI에 전달될 작성 지시: ${esc(meaning.modeInstruction)}<br>
+          비교표 기준: ${esc(meaning.tableFrame || "선택 관점 기준")}<br>
           MINI에 전달될 구조: ${esc(previewSections.slice(0, 8).join(" → "))}${previewSections.length > 8 ? " ..." : ""}
         </div>
         <div class="report-choice-pillrow">
@@ -376,7 +480,7 @@
           <div class="report-choice-operator-card">
             <div class="report-choice-operator-title">6~8번 선택값</div>
             전개 방식: ${esc(choices.modeLabel || ctx.state.reportMode || "-")}<br>
-            관점: ${esc(choices.viewLabel || ctx.state.reportView || "-")}<br>
+            관점: ${esc(choices.viewLabel || normalizeViewName(ctx.state.reportView) || "-")}<br>
             라인: ${esc(choices.lineLabel || ctx.state.reportLine || "-")}<br>
             예시 패턴: ${esc(gen.examplePattern?.label || "-")}<br>
             섹션 수: ${sections.length}
@@ -417,7 +521,7 @@
       `후속 연계축: ${s.selectedFollowupAxis || s.followupAxis || "-"}`,
       `선택 도서: ${p.selectedBook?.title || "-"}`,
       `보고서 전개 방식: ${choices.modeLabel || s.reportMode || "-"}`,
-      `보고서 관점: ${choices.viewLabel || s.reportView || "-"}`,
+      `보고서 관점: ${choices.viewLabel || normalizeViewName(s.reportView) || "-"}`,
       `보고서 라인: ${choices.lineLabel || s.reportLine || "-"}`,
       "",
       "작성 구조:",
@@ -546,7 +650,7 @@
   global.__REPORT_6_8_APPLY__ = apply;
   global.__DIAGNOSE_REPORT_6_8_V33__ = function(){
     const ctx = buildContext();
-    return { version: VERSION, hasSelectedBook: hasSelectedBook(ctx.payload), selectedBook: ctx.selectedBook, reportMode: ctx.state.reportMode || "", reportView: ctx.state.reportView || "", reportLine: ctx.state.reportLine || "", payload: ctx.payload };
+    return { version: VERSION, hasSelectedBook: hasSelectedBook(ctx.payload), selectedBook: ctx.selectedBook, reportMode: ctx.state.reportMode || "", reportView: normalizeViewName(ctx.state.reportView || ""), reportLine: ctx.state.reportLine || "", payload: ctx.payload };
   };
 
   if (document.readyState === "loading") {
