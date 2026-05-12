@@ -7643,6 +7643,154 @@
   }
 
 
+
+  // v189 hard-lock: 미학과 5번 도서 직접 일치 보정
+  // 실제 ZIP 내부 학과명: 미학과
+  // 대표 검수는 공통국어1의 실제 기본 3번 흐름(서정 갈래와 시적 표현 / 서사·극 갈래와 이야기 구성 / 교술 갈래와 성찰적 표현) 중
+  // '서정 갈래와 시적 표현'에서 실제 4번 카드 제목(문학 감상·해석 축 / 표현·창작 확장 축 / 정서·매체 변환 축)을 우선 판별한다.
+  function isBookA37AestheticsContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA32HistoryVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isAestheticsMajor = /미학과/i.test(careerText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자|표현\s*[·ㆍ-]?\s*창작|창작\s*확장|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|성찰\s*글쓰기|통합사회1|통합적\s*관점과\s*행복|가치\s*[·ㆍ]?\s*윤리\s*판단|삶의\s*질\s*지표)/i.test(subjectConceptText);
+    return !!(isAestheticsMajor && isActualFlow);
+  }
+
+  function inferBookA37AestheticsAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA32HistoryVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA32HistoryVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 4번 카드 제목/선택값 우선
+      if (/(lyric_appreciation_interpretation|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자|서정|시적\s*표현)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작|창작\s*확장|창작)/i.test(text)) return "creative_expression";
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환|매체\s*표현|미디어\s*전환)/i.test(text)) return "emotion_media_translation";
+      if (/(narrative_structure|서사\s*구조|서사\s*[·ㆍ-]?\s*극|이야기\s*구성)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media|스토리텔링|매체\s*축)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
+      if (/(reflective_writing_extension|성찰\s*글쓰기|성찰적\s*표현)/i.test(text)) return "reflective_writing";
+      if (/(사회문제\s*통합해석|social_issue_integrated_analysis|통합\s*해석)/i.test(text)) return "social_aesthetic_context";
+      if (/(삶의\s*질\s*지표\s*해석|quality_of_life|행복\s*지수|삶의\s*질)/i.test(text)) return "quality_of_life_aesthetics";
+      if (/(가치\s*[·ㆍ]?\s*윤리\s*판단|value_ethics|윤리적\s*관점|가치\s*판단)/i.test(text)) return "value_aesthetic_judgment";
+      return "";
+    };
+    return fromText(axisText)
+      || fromText(conceptText)
+      || (/서정\s*갈래|시적\s*표현/i.test(conceptText) ? "lyric_appreciation" : "")
+      || (/서사|이야기|극\s*갈래/i.test(conceptText) ? "narrative_structure" : "")
+      || (/교술|성찰적\s*표현/i.test(conceptText) ? "reflective_writing" : "")
+      || (/통합적\s*관점과\s*행복|통합적\s*관점|행복/i.test(conceptText) ? "social_aesthetic_context" : "")
+      || "lyric_appreciation";
+  }
+
+  function cloneBookForA37AestheticsLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      emotion_media_translation: "정서·매체 변환 축",
+      narrative_structure: "서사 구조 분석 축",
+      storytelling_media: "스토리텔링·매체 축",
+      character_conflict: "인물·갈등 해석 축",
+      reflective_writing: "성찰 글쓰기 축",
+      social_aesthetic_context: "사회문제 통합해석 축",
+      quality_of_life_aesthetics: "삶의 질 지표 해석 축",
+      value_aesthetic_judgment: "가치·윤리 판단 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "미학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6020 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-37 미학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 아름다움의 판단 기준, 감각 경험, 작품 해석의 근거를 세우는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 예술의 사회적 맥락, 매체 변화, 가치 판단의 한계를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`미학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA37AestheticsLock: true,
+      bookA37AestheticsRank: rank,
+      bookA37AestheticsAxisLock: axisId
+    };
+  }
+
+  function applyBookA37AestheticsHardLock(result, ctx){
+    if (!result || !isBookA37AestheticsContext(ctx)) return result;
+    const axisId = inferBookA37AestheticsAxis(ctx);
+    const directMap = {
+      lyric_appreciation: ["문학과 예술의 사회사", "백석 시 전집", "정지용전집"],
+      creative_expression: ["시학", "젊은 예술가의 초상", "디자인 인문학"],
+      emotion_media_translation: ["미디어의 이해", "문학과 예술의 사회사", "디자인 인문학"],
+      narrative_structure: ["시학", "그리스 비극 걸작선", "문학과 예술의 사회사"],
+      storytelling_media: ["아라비안 나이트", "시학", "미디어의 이해"],
+      character_conflict: ["갈매기", "그리스 비극 걸작선", "데미안"],
+      reflective_writing: ["젊은 예술가의 초상", "고백록", "데미안"],
+      social_aesthetic_context: ["문학과 예술의 사회사", "국가", "성의 역사 1"],
+      quality_of_life_aesthetics: ["문학과 예술의 사회사", "돈으로 살 수 없는 것들", "공정하다는 착각"],
+      value_aesthetic_judgment: ["니코마코스 윤리학", "의무론", "문학과 예술의 사회사"]
+    };
+    const expansionMap = {
+      lyric_appreciation: ["시학", "그리스 비극 걸작선", "젊은 예술가의 초상", "설국", "잃어버린 시간을 찾아서"],
+      creative_expression: ["문학과 예술의 사회사", "그리스 비극 걸작선", "미디어의 이해", "고도를 기다리며", "아라비안 나이트"],
+      emotion_media_translation: ["시학", "아라비안 나이트", "고도를 기다리며", "1984", "성의 역사 1"],
+      narrative_structure: ["아라비안 나이트", "갈매기", "젊은 예술가의 초상", "미디어의 이해", "설국"],
+      storytelling_media: ["문학과 예술의 사회사", "고도를 기다리며", "1984", "디자인 인문학", "그리스 비극 걸작선"],
+      character_conflict: ["마음", "변신", "광장", "문학과 예술의 사회사", "고도를 기다리며"],
+      reflective_writing: ["문학과 예술의 사회사", "말테의 수기", "수레바퀴 아래서", "황야의 늑대", "시학"],
+      social_aesthetic_context: ["감시와 처벌", "자유론", "사회계약론", "정의란 무엇인가", "공정하다는 착각"],
+      quality_of_life_aesthetics: ["정의란 무엇인가", "자유론", "국가", "의무론", "니코마코스 윤리학"],
+      value_aesthetic_judgment: ["국가", "정의란 무엇인가", "자유론", "돈으로 살 수 없는 것들", "그리스 비극 걸작선"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.lyric_appreciation);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.lyric_appreciation);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA37AestheticsLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA37AestheticsLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA37AestheticsHardLock: axisId,
+        bookA37AestheticsVersion: "v189",
+        bookA37AestheticsDirectTitles: directBooks.map(book => book.title),
+        bookA37AestheticsExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7708,6 +7856,7 @@
     result = applyBookA34CulturalHeritageHardLock(result, ctx);
     result = applyBookA35CreativeWritingHardLock(result, ctx);
     result = applyBookA36PhilosophyHardLock(result, ctx);
+    result = applyBookA37AestheticsHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
