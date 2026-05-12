@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v128-gateway-generate-count-only";
+  const VERSION = "mini-worker-generate-bridge-v215-local-fallback-on-asset-404";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -586,6 +586,43 @@
     return error;
   }
 
+
+  function stringifyErrorForMiniFallback(error){
+    const parts = [
+      error?.message,
+      error?.rawText,
+      error?.data?.error,
+      error?.data?.message,
+      error?.data?.detail,
+      error?.data?.details,
+      error?.data?.text,
+      error?.url
+    ];
+    return parts
+      .map(v => typeof v === "string" ? v : (v == null ? "" : JSON.stringify(v)))
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  function isMiniAssetFile404(error){
+    const text = stringifyErrorForMiniFallback(error);
+    return /Failed\s+to\s+load\s+asset\s+file/i.test(text)
+      || /admission_grade_level_modifiers\.json/i.test(text)
+      || /asset\s+file.*404/i.test(text);
+  }
+
+  function makeLocalGenerateFallbackResponse(error, endpoint){
+    const reason = stringifyErrorForMiniFallback(error).slice(0, 500);
+    return {
+      ok: true,
+      localFallback: true,
+      source: "local-payload-render-after-generate-asset-404",
+      endpointTried: endpoint || error?.url || "",
+      errorHandled: reason,
+      message: "원격 생성 엔진의 보조 asset 파일 404를 감지해, 현재 화면 선택값 기반 로컬 실행 지도로 대체 렌더링했습니다."
+    };
+  }
+
   async function postJson(url, payload){
     const response = await fetch(url, {
       method: "POST",
@@ -623,10 +660,20 @@
           console.warn("v32 generate endpoint fallback:", endpoint, "→", GENERATE_ENDPOINTS[i + 1], error);
           continue;
         }
+        if(isMiniAssetFile404(error)){
+          console.warn("v215 generate asset file 404 detected; render local mini guide instead:", error);
+          global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint, error: stringifyErrorForMiniFallback(error) };
+          return makeLocalGenerateFallbackResponse(error, endpoint);
+        }
         throw error;
       }
     }
     if(lastError){
+      if(isMiniAssetFile404(lastError)){
+        console.warn("v215 final generate asset file 404 detected; render local mini guide instead:", lastError);
+        global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint: lastError?.url || "", error: stringifyErrorForMiniFallback(lastError) };
+        return makeLocalGenerateFallbackResponse(lastError, lastError?.url || "");
+      }
       if(lastError.isHtml && (lastError.status === 404 || lastError.status === 405)){
         throw new Error("탐구 실행 지도 생성 주소가 연결되지 않았습니다. access-gateway 주소 또는 Worker generate 엔드포인트를 확인해주세요.");
       }
