@@ -7263,6 +7263,108 @@
   }
 
 
+
+  // v186 hard-lock: 문화유산학과 5번 도서 직접 일치 보정
+  // 실제 ZIP 내부 학과명: 문화유산학과
+  // 통합사회1 실제 기본 3번 흐름(통합적 관점과 행복 / 자연환경과 인간의 공존 / 생활 공간 변화와 지역 이해)과
+  // integrated_society1_concept_longitudinal_map.json의 실제 4번 축 제목만 기준으로 도서를 잠근다.
+  function isBookA34CulturalHeritageContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA33AnthropologyVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, pageText
+    ].join(" "));
+    const isCulturalHeritageMajor = /문화유산학과/i.test(careerText);
+    const isActualIntegratedSocietyFlow = /(통합사회1|통합사회|통합적\s*관점과\s*행복|자연환경과\s*인간의\s*공존|생활\s*공간\s*변화와\s*지역\s*이해|시간적\s*관점|공간적\s*관점|사회적\s*관점|윤리적\s*관점|삶의\s*질|자연환경|기후|지형|생활\s*양식|산업화|도시화|생활\s*공간|도시\s*문제|지역\s*변화|교통\s*발달|통신\s*발달|정보화|네트워크|지역\s*조사)/i.test(subjectConceptText);
+    return !!(isCulturalHeritageMajor && isActualIntegratedSocietyFlow);
+  }
+
+  function cloneBookForA34CulturalHeritageLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      social_issue_integrated_analysis: "사회문제 통합해석 축",
+      quality_of_life_data_axis: "삶의 질 지표 해석 축",
+      value_ethics_judgement: "가치·윤리 판단 축",
+      environment_geography_interpretation: "환경·지리 해석 축",
+      development_conservation_policy: "개발·보전 정책 축",
+      sustainability_practice_design: "지속가능 실천 설계 축",
+      urban_regional_change_analysis: "도시·지역 변화 분석 축",
+      mobility_network_society: "교통·네트워크 사회 축",
+      spatial_data_local_planning: "공간 자료·지역 기획 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "문화유산학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 5970 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-34 문화유산학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 문화유산의 기록·보존·전승·공간 맥락을 해석하는 데 활용할 수 있는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 문화권 비교, 역사 해석, 보존 윤리, 지역 자료 해석으로 탐구를 넓히는 확장 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`문화유산학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA34CulturalHeritageLock: true,
+      bookA34CulturalHeritageRank: rank,
+      bookA34CulturalHeritageAxisLock: axisId
+    };
+  }
+
+  function applyBookA34CulturalHeritageHardLock(result, ctx){
+    if (!result || !isBookA34CulturalHeritageContext(ctx)) return result;
+    const axisId = inferBookA33AnthropologyAxis(ctx);
+    const directMap = {
+      social_issue_integrated_analysis: ["삼국유사", "성호사설", "역사란 무엇인가"],
+      quality_of_life_data_axis: ["택리지", "동방견문록", "성호사설"],
+      value_ethics_judgement: ["성호사설", "그리스 비극 걸작선", "성의 역사 1"],
+      environment_geography_interpretation: ["택리지", "총, 균, 쇠", "침묵의 봄"],
+      development_conservation_policy: ["침묵의 봄", "택리지", "총, 균, 쇠"],
+      sustainability_practice_design: ["침묵의 봄", "총, 균, 쇠", "택리지"],
+      urban_regional_change_analysis: ["택리지", "동방견문록", "물질문명과 자본주의"],
+      mobility_network_society: ["동방견문록", "서유견문", "물질문명과 자본주의"],
+      spatial_data_local_planning: ["택리지", "성호사설", "동방견문록"]
+    };
+    const expansionMap = {
+      social_issue_integrated_analysis: ["문학과 예술의 사회사", "역사", "역사를 위한 변명", "동방견문록", "반지성주의"],
+      quality_of_life_data_axis: ["물질문명과 자본주의", "팩트풀니스", "총, 균, 쇠", "슬픈 열대", "돈으로 살 수 없는 것들"],
+      value_ethics_judgement: ["돈으로 살 수 없는 것들", "의무론", "국가", "자유론", "사회계약론"],
+      environment_geography_interpretation: ["동방견문록", "물질문명과 자본주의", "슬픈 열대", "역사", "오리엔탈리즘"],
+      development_conservation_policy: ["문명의 충돌", "오리엔탈리즘", "왜 세계의 절반은 굶주리는가", "성의 역사 1", "슬픈 열대"],
+      sustainability_practice_design: ["왜 세계의 절반은 굶주리는가", "물질문명과 자본주의", "동방견문록", "역사", "오리엔탈리즘"],
+      urban_regional_change_analysis: ["삼국유사", "역사", "성호사설", "국화와 칼", "오리엔탈리즘"],
+      mobility_network_society: ["문명의 충돌", "오리엔탈리즘", "국화와 칼", "역사", "슬픈 열대"],
+      spatial_data_local_planning: ["삼국유사", "서유견문", "객관성의 칼날", "문학과 예술의 사회사", "역사란 무엇인가"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.social_issue_integrated_analysis);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.social_issue_integrated_analysis);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA34CulturalHeritageLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA34CulturalHeritageLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA34CulturalHeritageHardLock: axisId,
+        bookA34CulturalHeritageVersion: "v186",
+        bookA34CulturalHeritageDirectTitles: directBooks.map(book => book.title),
+        bookA34CulturalHeritageExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7325,6 +7427,7 @@
     result = applyBookA31AdvertisingHardLock(result, ctx);
     result = applyBookA32HistoryHardLock(result, ctx);
     result = applyBookA33AnthropologyHardLock(result, ctx);
+    result = applyBookA34CulturalHeritageHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
