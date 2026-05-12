@@ -7650,6 +7650,7 @@
   // '서정 갈래와 시적 표현'에서 실제 4번 카드 제목(문학 감상·해석 축 / 표현·창작 확장 축 / 정서·매체 변환 축)을 우선 판별한다.
   // v190 보정: 미학과는 ctx 값이 비어 있거나 화면 상단 선택값이 기존 selector에 잡히지 않는 경우가 있어
   // 문서 전체의 실제 화면 텍스트까지 보조로 읽어 3번/4번 실제 카드 제목 기준으로 다시 판별한다.
+  // v191 보정: 표현·창작 확장 축 설명문 안의 “매체 표현” 문구가 정서·매체 변환 축으로 오인되지 않도록 판별 순서를 조정한다.
   function getBookA37AestheticsVisiblePageText(){
     const parts = [];
     const push = function(value){
@@ -7750,9 +7751,12 @@
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      // 4번 카드 제목/선택값 우선. 단, 일반 설명문에 섞인 서정/시어보다 명시 축 제목을 먼저 본다.
-      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환\s*축|매체\s*표현|미디어\s*전환)/i.test(text)) return "emotion_media_translation";
+      // 4번 카드 제목/선택값 우선.
+      // v191: '표현·창작 확장 축' 설명문 안의 '다른 매체 표현' 문구가
+      // '정서·매체 변환 축'으로 오인되는 문제를 막기 위해 표현·창작 축을 먼저 판별하고,
+      // 정서·매체 변환은 실제 축 제목/명시 선택값으로만 판별한다.
       if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|표현\s*[·ㆍ-]?\s*창작|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환\s*축|미디어\s*전환)/i.test(text)) return "emotion_media_translation";
       if (/(lyric_appreciation_interpretation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|정서\s*해석|시적\s*화자)/i.test(text)) return "lyric_appreciation";
       if (/(narrative_structure|서사\s*구조\s*분석\s*축|서사\s*구조|서사\s*[·ㆍ-]?\s*극|이야기\s*구성)/i.test(text)) return "narrative_structure";
       if (/(storytelling_media|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링)/i.test(text)) return "storytelling_media";
@@ -7851,7 +7855,7 @@
       debug: {
         ...(result.debug || {}),
         bookA37AestheticsHardLock: axisId,
-        bookA37AestheticsVersion: "v190",
+        bookA37AestheticsVersion: "v191",
         bookA37AestheticsDirectTitles: directBooks.map(book => book.title),
         bookA37AestheticsExpansionTitles: expansionBooks.map(book => book.title)
       }
