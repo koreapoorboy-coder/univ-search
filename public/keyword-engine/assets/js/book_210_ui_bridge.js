@@ -4999,91 +4999,97 @@
         spatial_data_planning: ["성호사설", "감시와 처벌", "반지성주의"]
       },
       public_talent: {
-        // v211: 사회 확장 계열 1차 잠금 - 공공인재학부.
-        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "국가"],
-        inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
-        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "반지성주의"],
-        global_peace: ["서유견문", "리바이어던", "국가"],
-        esg_sustainability: ["누구나 한번쯤 읽어야 할 목민심서", "돈으로 살 수 없는 것들", "성호사설"],
-        business_data: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"],
-        platform_ethics: ["반지성주의", "리바이어던", "돈으로 살 수 없는 것들"],
-        social_issue_integrated: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "리바이어던"],
-        value_ethics: ["국가", "의무론", "맹자"],
-        quality_of_life_data: ["성호사설", "돈으로 살 수 없는 것들", "누구나 한번쯤 읽어야 할 목민심서"],
-        urban_region: ["누구나 한번쯤 읽어야 할 목민심서", "난장이가 쏘아올린 작은 공", "성호사설"],
-        mobility_network: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "서유견문"],
-        spatial_data_planning: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "반지성주의"]
+        // v212: 공공인재학부 표본 보정.
+        // 실제 사회계열 원천 데이터의 linked_book_focus: 공공선택론·대한민국의 시험·법의 정신.
+        civic_rights: ["법의 정신", "공공선택론", "대한민국의 시험"],
+        inequality_policy: ["대한민국의 시험", "공공선택론", "돈으로 살 수 없는 것들"],
+        public_issue: ["공공선택론", "대한민국의 시험", "법의 정신"],
+        global_peace: ["법의 정신", "공공선택론", "대한민국의 시험"],
+        esg_sustainability: ["공공선택론", "돈으로 살 수 없는 것들", "대한민국의 시험"],
+        business_data: ["대한민국의 시험", "공공선택론", "법의 정신"],
+        platform_ethics: ["법의 정신", "공공선택론", "대한민국의 시험"],
+        social_issue_integrated: ["공공선택론", "대한민국의 시험", "법의 정신"],
+        value_ethics: ["법의 정신", "공공선택론", "대한민국의 시험"],
+        quality_of_life_data: ["대한민국의 시험", "공공선택론", "돈으로 살 수 없는 것들"],
+        urban_region: ["공공선택론", "대한민국의 시험", "법의 정신"],
+        mobility_network: ["공공선택론", "대한민국의 시험", "법의 정신"],
+        spatial_data_planning: ["대한민국의 시험", "공공선택론", "법의 정신"]
       },
       urban_admin: {
-        // v211: 사회 확장 계열 1차 잠금 - 도시행정학과.
-        civic_rights: ["누구나 한번쯤 읽어야 할 목민심서", "리바이어던", "성호사설"],
-        inequality_policy: ["난장이가 쏘아올린 작은 공", "돈으로 살 수 없는 것들", "성호사설"],
-        public_issue: ["누구나 한번쯤 읽어야 할 목민심서", "성호사설", "난장이가 쏘아올린 작은 공"],
-        esg_sustainability: ["오래된 미래", "침묵의 봄", "돈으로 살 수 없는 것들"],
-        future_industry: ["오래된 미래", "제3의 물결", "성호사설"],
-        social_issue_integrated: ["누구나 한번쯤 읽어야 할 목민심서", "난장이가 쏘아올린 작은 공", "성호사설"],
-        value_ethics: ["돈으로 살 수 없는 것들", "의무론", "성호사설"],
-        quality_of_life_data: ["성호사설", "팩트풀니스", "누구나 한번쯤 읽어야 할 목민심서"],
-        environment_geography: ["오래된 미래", "침묵의 봄", "슬픈 열대"],
-        development_conservation: ["오래된 미래", "침묵의 봄", "누구나 한번쯤 읽어야 할 목민심서"],
-        sustainability_practice: ["오래된 미래", "침묵의 봄", "돈으로 살 수 없는 것들"],
-        urban_region: ["난장이가 쏘아올린 작은 공", "누구나 한번쯤 읽어야 할 목민심서", "성호사설"],
-        mobility_network: ["제3의 물결", "성호사설", "누구나 한번쯤 읽어야 할 목민심서"],
-        spatial_data_planning: ["성호사설", "팩트풀니스", "난장이가 쏘아올린 작은 공"],
-        population_resource: ["오래된 미래", "왜 세계의 절반은 굶주리는가", "성호사설"],
-        future_society_design: ["오래된 미래", "제3의 물결", "돈으로 살 수 없는 것들"],
-        community_action: ["누구나 한번쯤 읽어야 할 목민심서", "오래된 미래", "성호사설"]
+        // v212: 도시행정학과 표본 보정.
+        // 실제 사회계열 원천 데이터의 linked_book_focus: 사람, 장소, 환대·택리지·대한민국의 시험.
+        civic_rights: ["대한민국의 시험", "사람, 장소, 환대", "택리지"],
+        inequality_policy: ["사람, 장소, 환대", "대한민국의 시험", "난장이가 쏘아올린 작은 공"],
+        public_issue: ["대한민국의 시험", "사람, 장소, 환대", "택리지"],
+        esg_sustainability: ["택리지", "사람, 장소, 환대", "오래된 미래"],
+        future_industry: ["택리지", "사람, 장소, 환대", "대한민국의 시험"],
+        social_issue_integrated: ["사람, 장소, 환대", "대한민국의 시험", "택리지"],
+        value_ethics: ["사람, 장소, 환대", "대한민국의 시험", "돈으로 살 수 없는 것들"],
+        quality_of_life_data: ["사람, 장소, 환대", "대한민국의 시험", "택리지"],
+        environment_geography: ["택리지", "사람, 장소, 환대", "오래된 미래"],
+        development_conservation: ["택리지", "사람, 장소, 환대", "대한민국의 시험"],
+        sustainability_practice: ["택리지", "사람, 장소, 환대", "오래된 미래"],
+        urban_region: ["사람, 장소, 환대", "택리지", "대한민국의 시험"],
+        mobility_network: ["사람, 장소, 환대", "택리지", "대한민국의 시험"],
+        spatial_data_planning: ["택리지", "사람, 장소, 환대", "대한민국의 시험"],
+        population_resource: ["택리지", "사람, 장소, 환대", "오래된 미래"],
+        future_society_design: ["사람, 장소, 환대", "택리지", "대한민국의 시험"],
+        community_action: ["사람, 장소, 환대", "택리지", "대한민국의 시험"]
       },
       real_estate: {
-        // v211: 사회 확장 계열 1차 잠금 - 부동산학과.
-        business_choice: ["돈으로 살 수 없는 것들", "물질문명과 자본주의", "경영학 콘서트"],
-        market_price: ["물질문명과 자본주의", "경영학 콘서트", "돈으로 살 수 없는 것들"],
-        finance_risk: ["경영학 콘서트", "물질문명과 자본주의", "돈으로 살 수 없는 것들"],
-        esg_sustainability: ["오래된 미래", "돈으로 살 수 없는 것들", "물질문명과 자본주의"],
-        future_industry: ["제3의 물결", "물질문명과 자본주의", "경영학 콘서트"],
-        public_issue: ["성호사설", "누구나 한번쯤 읽어야 할 목민심서", "물질문명과 자본주의"],
-        social_issue_integrated: ["물질문명과 자본주의", "성호사설", "돈으로 살 수 없는 것들"],
-        quality_of_life_data: ["성호사설", "경영학 콘서트", "팩트풀니스"],
-        urban_region: ["난장이가 쏘아올린 작은 공", "물질문명과 자본주의", "성호사설"],
-        mobility_network: ["제3의 물결", "물질문명과 자본주의", "경영학 콘서트"],
-        spatial_data_planning: ["성호사설", "경영학 콘서트", "팩트풀니스"],
-        development_conservation: ["오래된 미래", "침묵의 봄", "물질문명과 자본주의"],
-        population_resource: ["물질문명과 자본주의", "왜 세계의 절반은 굶주리는가", "성호사설"]
+        // v212: 부동산학과 표본 보정.
+        // 실제 사회계열 원천 데이터의 linked_book_focus: 국부론·돈으로 살 수 없는 것들·사람, 장소, 환대.
+        business_choice: ["국부론", "돈으로 살 수 없는 것들", "사람, 장소, 환대"],
+        market_price: ["국부론", "돈으로 살 수 없는 것들", "사람, 장소, 환대"],
+        finance_risk: ["국부론", "돈으로 살 수 없는 것들", "사람, 장소, 환대"],
+        esg_sustainability: ["돈으로 살 수 없는 것들", "사람, 장소, 환대", "국부론"],
+        future_industry: ["국부론", "사람, 장소, 환대", "돈으로 살 수 없는 것들"],
+        public_issue: ["사람, 장소, 환대", "돈으로 살 수 없는 것들", "국부론"],
+        social_issue_integrated: ["사람, 장소, 환대", "국부론", "돈으로 살 수 없는 것들"],
+        quality_of_life_data: ["사람, 장소, 환대", "돈으로 살 수 없는 것들", "국부론"],
+        urban_region: ["사람, 장소, 환대", "국부론", "돈으로 살 수 없는 것들"],
+        mobility_network: ["사람, 장소, 환대", "국부론", "돈으로 살 수 없는 것들"],
+        spatial_data_planning: ["사람, 장소, 환대", "국부론", "돈으로 살 수 없는 것들"],
+        development_conservation: ["사람, 장소, 환대", "돈으로 살 수 없는 것들", "국부론"],
+        population_resource: ["사람, 장소, 환대", "국부론", "돈으로 살 수 없는 것들"]
       },
       military_security: {
-        // v211: 사회 확장 계열 1차 잠금 - 군사학과.
-        civic_rights: ["리바이어던", "국가", "백범일지"],
-        inequality_policy: ["국가", "의무론", "돈으로 살 수 없는 것들"],
-        public_issue: ["리바이어던", "국가", "반지성주의"],
-        global_trade: ["문명의 충돌", "오리엔탈리즘", "서유견문"],
-        global_peace: ["문명의 충돌", "리바이어던", "국가"],
-        esg_sustainability: ["돈으로 살 수 없는 것들", "오래된 미래", "리바이어던"],
-        social_issue_integrated: ["리바이어던", "국가", "반지성주의"],
-        value_ethics: ["국가", "의무론", "리바이어던"],
-        quality_of_life_data: ["성호사설", "반지성주의", "국가"],
-        global_issue: ["문명의 충돌", "오리엔탈리즘", "리바이어던"],
-        population_resource: ["왜 세계의 절반은 굶주리는가", "문명의 충돌", "리바이어던"],
-        future_society_design: ["제3의 물결", "문명의 충돌", "국가"],
-        community_action: ["백범일지", "국가", "리바이어던"]
+        // v212: 군사학과 표본 보정.
+        // 실제 사회계열 원천 데이터의 linked_book_focus 중 현재 도서 DB에 존재하는 값: 문명의 충돌·비통한 자들을 위한 정치학.
+        // 손자병법은 현재 book_source_master_210에 없으므로 직접 매칭값에서 제외한다.
+        civic_rights: ["비통한 자들을 위한 정치학", "국가", "리바이어던"],
+        inequality_policy: ["비통한 자들을 위한 정치학", "국가", "돈으로 살 수 없는 것들"],
+        public_issue: ["비통한 자들을 위한 정치학", "리바이어던", "국가"],
+        global_trade: ["문명의 충돌", "비통한 자들을 위한 정치학", "오리엔탈리즘"],
+        global_peace: ["문명의 충돌", "비통한 자들을 위한 정치학", "국가"],
+        esg_sustainability: ["비통한 자들을 위한 정치학", "문명의 충돌", "돈으로 살 수 없는 것들"],
+        social_issue_integrated: ["비통한 자들을 위한 정치학", "리바이어던", "국가"],
+        value_ethics: ["국가", "비통한 자들을 위한 정치학", "리바이어던"],
+        quality_of_life_data: ["비통한 자들을 위한 정치학", "국가", "리바이어던"],
+        global_issue: ["문명의 충돌", "비통한 자들을 위한 정치학", "리바이어던"],
+        population_resource: ["문명의 충돌", "비통한 자들을 위한 정치학", "왜 세계의 절반은 굶주리는가"],
+        future_society_design: ["문명의 충돌", "비통한 자들을 위한 정치학", "국가"],
+        community_action: ["비통한 자들을 위한 정치학", "국가", "리바이어던"]
       },
       geography: {
-        // v211: 사회 확장 계열 1차 잠금 - 지리학과.
-        // book_matching_index_210.json의 지리학과 직접 매칭 도서인 동방견문록·슬픈 열대를 우선한다.
-        social_issue_integrated: ["슬픈 열대", "동방견문록", "성호사설"],
-        value_ethics: ["슬픈 열대", "오리엔탈리즘", "돈으로 살 수 없는 것들"],
-        quality_of_life_data: ["성호사설", "팩트풀니스", "슬픈 열대"],
-        environment_geography: ["동방견문록", "슬픈 열대", "오래된 미래"],
-        development_conservation: ["오래된 미래", "침묵의 봄", "슬픈 열대"],
-        sustainability_practice: ["오래된 미래", "침묵의 봄", "동방견문록"],
-        urban_region: ["동방견문록", "슬픈 열대", "난장이가 쏘아올린 작은 공"],
-        mobility_network: ["동방견문록", "제3의 물결", "슬픈 열대"],
-        spatial_data_planning: ["동방견문록", "성호사설", "팩트풀니스"],
-        global_trade: ["동방견문록", "오리엔탈리즘", "물질문명과 자본주의"],
-        consumer_marketing: ["슬픈 열대", "국화와 칼", "오리엔탈리즘"],
-        global_peace: ["문명의 충돌", "오리엔탈리즘", "동방견문록"],
-        population_resource: ["오래된 미래", "왜 세계의 절반은 굶주리는가", "동방견문록"],
-        future_society_design: ["오래된 미래", "제3의 물결", "슬픈 열대"],
-        community_action: ["오래된 미래", "슬픈 열대", "성호사설"]
+        // v212: 지리학과 표본 보정.
+        // 실제 사회계열 원천 데이터의 linked_book_focus: 택리지·동방견문록·사피엔스.
+        // 기존 byMajor 직접값인 동방견문록·슬픈 열대는 보조로만 두고, 화면 대표 도서는 원천 데이터 우선으로 정렬한다.
+        social_issue_integrated: ["택리지", "동방견문록", "사피엔스"],
+        value_ethics: ["택리지", "사피엔스", "동방견문록"],
+        quality_of_life_data: ["택리지", "사피엔스", "동방견문록"],
+        environment_geography: ["택리지", "동방견문록", "사피엔스"],
+        development_conservation: ["택리지", "사피엔스", "동방견문록"],
+        sustainability_practice: ["택리지", "사피엔스", "동방견문록"],
+        urban_region: ["택리지", "동방견문록", "사피엔스"],
+        mobility_network: ["택리지", "동방견문록", "사피엔스"],
+        spatial_data_planning: ["택리지", "동방견문록", "사피엔스"],
+        global_trade: ["동방견문록", "택리지", "사피엔스"],
+        consumer_marketing: ["동방견문록", "사피엔스", "택리지"],
+        global_peace: ["동방견문록", "문명의 충돌", "사피엔스"],
+        population_resource: ["택리지", "사피엔스", "동방견문록"],
+        future_society_design: ["택리지", "사피엔스", "동방견문록"],
+        community_action: ["택리지", "사피엔스", "동방견문록"]
       },
       politics: {
         // v166: 정치외교학과는 실제 book_matching_index_210.json의 정치외교학과 relatedMajor 도서만 직접 일치 도서로 잠근다.
@@ -5532,7 +5538,7 @@
         ...(result.debug || {}),
         bookA25BusinessSocialLock: axisId,
         bookA25BusinessSocialCareerLock: majorType,
-        bookA25BusinessSocialVersion: "v211",
+        bookA25BusinessSocialVersion: "v212",
         bookA25BusinessSocialDirectTitles: directBooks.map(book => book.title),
         bookA25BusinessSocialExpansionTitles: expansionBooks.map(book => book.title)
       }
