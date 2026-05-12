@@ -9744,6 +9744,227 @@
 
 
 
+  // A-47 한국어학과 하드락(v203)
+  // 실제 데이터에 존재하는 학과명 "한국어학과"만 대상으로 한다.
+  // 한국어학과는 한국어 구조·문법·의미·표현·소통 흐름이므로
+  // 공통국어1의 음운/규범형, 논증/문장형, 의사소통형을 함께 잠금한다.
+  function getBookA47KoreanLanguageVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA47KoreanLanguageVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA47KoreanLanguageContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA47KoreanLanguageVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isKoreanLanguageMajor = /한국어학과/i.test(careerText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|음운\s*변동과\s*국어\s*규범|문장\s*구성|사회적\s*쟁점\s*글쓰기|비판적\s*읽기와\s*토론|공동체\s*의사소통과\s*공감|언어\s*규범|정확한\s*표현|언어생활|주장\s*글쓰기|문장\s*점검|공공\s*[·ㆍ-]?\s*매체\s*표현|자료\s*검증|논증\s*[·ㆍ-]?\s*토론|화법\s*[·ㆍ-]?\s*공감|공동체\s*협업|갈등\s*조정)/i.test(subjectConceptText);
+    return !!(isKoreanLanguageMajor && isActualFlow);
+  }
+
+  function inferBookA47KoreanLanguageAxis(ctx){
+    ctx = ctx || {};
+    const activeAxisText = normalizeLockText([
+      getBookA47KoreanLanguageVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA47KoreanLanguageVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 4번 카드 제목/선택값을 먼저 판별한다. 설명문 속 일반어로 오인하지 않도록 축명을 우선한다.
+      if (/(language_norm_inquiry|언어\s*규범\s*탐구\s*축|언어\s*규범\s*탐구|국어\s*규범|음운\s*규범|발음\s*규칙)/i.test(text)) return "language_norm";
+      if (/(accurate_expression|정확한\s*표현\s*축|정확한\s*표현|표준\s*발음|표현\s*정확성)/i.test(text)) return "accurate_expression";
+      if (/(language_life_application|언어생활\s*적용\s*축|언어생활\s*적용|언어생활)/i.test(text)) return "language_life";
+      if (/(argumentative_writing|주장\s*글쓰기\s*축|주장\s*글쓰기|논증\s*글쓰기)/i.test(text)) return "argumentative_writing";
+      if (/(sentence_revision_editing|문장\s*점검\s*[·ㆍ-]?\s*수정\s*축|문장\s*점검\s*[·ㆍ-]?\s*수정|문장\s*점검|퇴고|문장\s*구성)/i.test(text)) return "sentence_revision";
+      if (/(public_media_expression|공공\s*[·ㆍ-]?\s*매체\s*표현\s*축|공공\s*[·ㆍ-]?\s*매체\s*표현|매체\s*표현)/i.test(text)) return "public_media";
+      if (/(evidence_verification_analysis|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석\s*축|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석|자료\s*검증|쟁점\s*분석)/i.test(text)) return "evidence_verification";
+      if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론\s*축|논증\s*[·ㆍ-]?\s*토론|토론\s*축)/i.test(text)) return "argument_discussion";
+      if (/(critical_interpretation_extension|비판\s*해석\s*확장\s*축|비판\s*해석\s*확장|비판\s*해석|비판\s*확장)/i.test(text)) return "critical_interpretation";
+      if (/(empathetic_communication|화법\s*[·ㆍ-]?\s*공감\s*소통\s*축|화법\s*[·ㆍ-]?\s*공감|공감\s*소통)/i.test(text)) return "communication_empathy";
+      if (/(community_collaboration|공동체\s*협업\s*축|공동체\s*협업|협업)/i.test(text)) return "community_collaboration";
+      if (/(conflict_mediation_dialogue|갈등\s*조정\s*[·ㆍ-]?\s*대화\s*축|갈등\s*조정|대화\s*축)/i.test(text)) return "conflict_mediation";
+      return "";
+    };
+    const axisId = fromText(activeAxisText);
+    if (axisId) return axisId;
+    if (/음운\s*변동과\s*국어\s*규범/i.test(conceptText)) return "language_norm";
+    if (/사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(conceptText)) return "argumentative_writing";
+    if (/비판적\s*읽기와\s*토론/i.test(conceptText)) return "evidence_verification";
+    if (/공동체\s*의사소통과\s*공감/i.test(conceptText)) return "communication_empathy";
+    return "language_norm";
+  }
+
+  function cloneBookForA47KoreanLanguageLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      language_norm: "언어 규범 탐구 축",
+      accurate_expression: "정확한 표현 축",
+      language_life: "언어생활 적용 축",
+      argumentative_writing: "주장 글쓰기 축",
+      sentence_revision: "문장 점검·수정 축",
+      public_media: "공공·매체 표현 축",
+      evidence_verification: "자료 검증·쟁점 분석 축",
+      argument_discussion: "논증·토론 축",
+      critical_interpretation: "비판 해석 확장 축",
+      communication_empathy: "화법·공감 소통 축",
+      community_collaboration: "공동체 협업 축",
+      conflict_mediation: "갈등 조정·대화 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "한국어학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6010 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-47 한국어학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 한국어의 음운·문법·의미·표현 구조를 설명하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 언어 사용, 매체 소통, 사회적 의미로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`한국어학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA47KoreanLanguageLock: true,
+      bookA47KoreanLanguageRank: rank,
+      bookA47KoreanLanguageAxisLock: axisId
+    };
+  }
+
+  function applyBookA47KoreanLanguageHardLock(result, ctx){
+    if (!result || !isBookA47KoreanLanguageContext(ctx)) return result;
+    const axisId = inferBookA47KoreanLanguageAxis(ctx);
+    const directMap = {
+      language_norm: ["철학적 탐구", "시학", "같기도 하고 아니 같기도 하고"],
+      accurate_expression: ["철학적 탐구", "의사소통 행위이론", "시학"],
+      language_life: ["의사소통 행위이론", "미디어의 이해", "철학적 탐구"],
+      argumentative_writing: ["의사소통 행위이론", "반지성주의", "같기도 하고 아니 같기도 하고"],
+      sentence_revision: ["시학", "철학적 탐구", "정지용전집"],
+      public_media: ["미디어의 이해", "의사소통 행위이론", "1984"],
+      evidence_verification: ["같기도 하고 아니 같기도 하고", "반지성주의", "미디어의 이해"],
+      argument_discussion: ["의사소통 행위이론", "철학적 탐구", "반지성주의"],
+      critical_interpretation: ["철학적 탐구", "1984", "미디어의 이해"],
+      communication_empathy: ["의사소통 행위이론", "사람, 장소, 환대", "철학적 탐구"],
+      community_collaboration: ["사람, 장소, 환대", "의사소통 행위이론", "죽은 시인의 사회"],
+      conflict_mediation: ["의사소통 행위이론", "사람, 장소, 환대", "갈매기"]
+    };
+    const expansionMap = {
+      language_norm: ["미디어의 이해", "의사소통 행위이론", "정지용전집", "문학과 예술의 사회사", "반지성주의"],
+      accurate_expression: ["미디어의 이해", "같기도 하고 아니 같기도 하고", "정지용전집", "문학과 예술의 사회사", "반지성주의"],
+      language_life: ["반지성주의", "성의 역사 1", "감시와 처벌", "사람, 장소, 환대", "1984"],
+      argumentative_writing: ["철학적 탐구", "미디어의 이해", "1984", "시학", "자유론"],
+      sentence_revision: ["의사소통 행위이론", "미디어의 이해", "반지성주의", "문학과 예술의 사회사", "정지용전집"],
+      public_media: ["철학적 탐구", "반지성주의", "성의 역사 1", "감시와 처벌", "시학"],
+      evidence_verification: ["철학적 탐구", "1984", "성의 역사 1", "감시와 처벌", "시학"],
+      argument_discussion: ["같기도 하고 아니 같기도 하고", "1984", "미디어의 이해", "자유론", "공정하다는 착각"],
+      critical_interpretation: ["감시와 처벌", "성의 역사 1", "반지성주의", "시학", "의사소통 행위이론"],
+      communication_empathy: ["미디어의 이해", "반지성주의", "갈매기", "마음", "데미안"],
+      community_collaboration: ["미디어의 이해", "죽은 시인의 사회", "갈매기", "1984", "자유론"],
+      conflict_mediation: ["마음", "데미안", "자유론", "반지성주의", "감시와 처벌"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.language_norm);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.language_norm);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA47KoreanLanguageLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA47KoreanLanguageLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA47KoreanLanguageHardLock: axisId,
+        bookA47KoreanLanguageVersion: "v203",
+        bookA47KoreanLanguageDirectTitles: directBooks.map(book => book.title),
+        bookA47KoreanLanguageExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -9819,6 +10040,7 @@
     result = applyBookA44RussianLiteratureHardLock(result, ctx);
     result = applyBookA45ArabicLanguageHardLock(result, ctx);
     result = applyBookA46LinguisticsHardLock(result, ctx);
+    result = applyBookA47KoreanLanguageHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
