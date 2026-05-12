@@ -7648,10 +7648,77 @@
   // 실제 ZIP 내부 학과명: 미학과
   // 대표 검수는 공통국어1의 실제 기본 3번 흐름(서정 갈래와 시적 표현 / 서사·극 갈래와 이야기 구성 / 교술 갈래와 성찰적 표현) 중
   // '서정 갈래와 시적 표현'에서 실제 4번 카드 제목(문학 감상·해석 축 / 표현·창작 확장 축 / 정서·매체 변환 축)을 우선 판별한다.
+  // v190 보정: 미학과는 ctx 값이 비어 있거나 화면 상단 선택값이 기존 selector에 잡히지 않는 경우가 있어
+  // 문서 전체의 실제 화면 텍스트까지 보조로 읽어 3번/4번 실제 카드 제목 기준으로 다시 판별한다.
+  function getBookA37AestheticsVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA37AestheticsVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
   function isBookA37AestheticsContext(ctx){
     ctx = ctx || {};
-    const pageText = getBookA32HistoryVisiblePageText();
-    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const pageText = getBookA37AestheticsVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
     const subjectConceptText = normalizeLockText([
       ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
@@ -7664,6 +7731,7 @@
   function inferBookA37AestheticsAxis(ctx){
     ctx = ctx || {};
     const axisText = normalizeLockText([
+      getBookA37AestheticsVisibleActiveTrackText(),
       getBookA32HistoryVisibleActiveTrackText(),
       ctx.axisLabel,
       ctx.followupAxisId,
@@ -7677,28 +7745,28 @@
       ctx.selectedConcept,
       ctx.keyword,
       ctx.selectedKeyword,
-      getBookA32HistoryVisiblePageText()
+      getBookA37AestheticsVisiblePageText()
     ].join(" "));
     const fromText = function(text){
       text = normalizeLockText(text || "");
       if (!text) return "";
-      // 실제 4번 카드 제목/선택값 우선
-      if (/(lyric_appreciation_interpretation|문학\s*감상|시\s*감상|정서\s*해석|시적\s*화자|서정|시적\s*표현)/i.test(text)) return "lyric_appreciation";
-      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작|창작\s*확장|창작)/i.test(text)) return "creative_expression";
-      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환|매체\s*표현|미디어\s*전환)/i.test(text)) return "emotion_media_translation";
-      if (/(narrative_structure|서사\s*구조|서사\s*[·ㆍ-]?\s*극|이야기\s*구성)/i.test(text)) return "narrative_structure";
-      if (/(storytelling_media|스토리텔링|매체\s*축)/i.test(text)) return "storytelling_media";
-      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
+      // 4번 카드 제목/선택값 우선. 단, 일반 설명문에 섞인 서정/시어보다 명시 축 제목을 먼저 본다.
+      if (/(emotion_media_translation|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환\s*축|매체\s*표현|미디어\s*전환)/i.test(text)) return "emotion_media_translation";
+      if (/(creative_expression_extension|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|표현\s*[·ㆍ-]?\s*창작|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(lyric_appreciation_interpretation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|정서\s*해석|시적\s*화자)/i.test(text)) return "lyric_appreciation";
+      if (/(narrative_structure|서사\s*구조\s*분석\s*축|서사\s*구조|서사\s*[·ㆍ-]?\s*극|이야기\s*구성)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등\s*해석\s*축|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
       if (/(reflective_writing_extension|성찰\s*글쓰기|성찰적\s*표현)/i.test(text)) return "reflective_writing";
       if (/(사회문제\s*통합해석|social_issue_integrated_analysis|통합\s*해석)/i.test(text)) return "social_aesthetic_context";
       if (/(삶의\s*질\s*지표\s*해석|quality_of_life|행복\s*지수|삶의\s*질)/i.test(text)) return "quality_of_life_aesthetics";
       if (/(가치\s*[·ㆍ]?\s*윤리\s*판단|value_ethics|윤리적\s*관점|가치\s*판단)/i.test(text)) return "value_aesthetic_judgment";
       return "";
     };
-    return fromText(axisText)
-      || fromText(conceptText)
-      || (/서정\s*갈래|시적\s*표현/i.test(conceptText) ? "lyric_appreciation" : "")
-      || (/서사|이야기|극\s*갈래/i.test(conceptText) ? "narrative_structure" : "")
+    const activeAxis = fromText(axisText);
+    if (activeAxis) return activeAxis;
+    // 활성 축이 잡히지 않는 최초 렌더링에서는 3번 개념 기반 기본값만 사용한다.
+    return (/서사|이야기|극\s*갈래/i.test(conceptText) ? "narrative_structure" : "")
       || (/교술|성찰적\s*표현/i.test(conceptText) ? "reflective_writing" : "")
       || (/통합적\s*관점과\s*행복|통합적\s*관점|행복/i.test(conceptText) ? "social_aesthetic_context" : "")
       || "lyric_appreciation";
@@ -7783,7 +7851,7 @@
       debug: {
         ...(result.debug || {}),
         bookA37AestheticsHardLock: axisId,
-        bookA37AestheticsVersion: "v189",
+        bookA37AestheticsVersion: "v190",
         bookA37AestheticsDirectTitles: directBooks.map(book => book.title),
         bookA37AestheticsExpansionTitles: expansionBooks.map(book => book.title)
       }
