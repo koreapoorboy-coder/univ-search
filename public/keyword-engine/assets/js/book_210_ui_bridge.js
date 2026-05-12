@@ -9744,10 +9744,11 @@
 
 
 
-  // A-47 한국어학과 하드락(v203)
+  // A-47 한국어학과 하드락(v204)
   // 실제 데이터에 존재하는 학과명 "한국어학과"만 대상으로 한다.
-  // 한국어학과는 한국어 구조·문법·의미·표현·소통 흐름이므로
-  // 공통국어1의 음운/규범형, 논증/문장형, 의사소통형을 함께 잠금한다.
+  // 한국어학과는 실제 화면 기준으로 공통국어1에서
+  // 비판적 읽기와 토론 / 사회적 쟁점 글쓰기와 문장 구성 / 공동체 의사소통과 공감 흐름이 우선 확인되므로
+  // 이 3개 개념을 대표 흐름으로 우선 잠금하고, 음운/규범형은 보조 흐름으로만 유지한다.
   function getBookA47KoreanLanguageVisiblePageText(){
     const parts = [];
     const push = function(value){
@@ -9864,11 +9865,14 @@
     };
     const axisId = fromText(activeAxisText);
     if (axisId) return axisId;
-    if (/음운\s*변동과\s*국어\s*규범/i.test(conceptText)) return "language_norm";
-    if (/사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(conceptText)) return "argumentative_writing";
+    // 실제 화면에서 3번 대표 개념이 비판적 읽기/사회적 쟁점 글쓰기/공동체 의사소통으로 보일 때 이를 최우선으로 잠금한다.
     if (/비판적\s*읽기와\s*토론/i.test(conceptText)) return "evidence_verification";
+    if (/사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(conceptText)) return "argumentative_writing";
     if (/공동체\s*의사소통과\s*공감/i.test(conceptText)) return "communication_empathy";
-    return "language_norm";
+    if (/음운\s*변동과\s*국어\s*규범/i.test(conceptText)) return "language_norm";
+    // pageText 전체에 실제 3개 개념이 함께 보이면 대표값은 비판적 읽기와 토론 축으로 둔다.
+    if (/비판적\s*읽기와\s*토론/i.test(getBookA47KoreanLanguageVisiblePageText()) && /사회적\s*쟁점\s*글쓰기와\s*문장\s*구성/i.test(getBookA47KoreanLanguageVisiblePageText()) && /공동체\s*의사소통과\s*공감/i.test(getBookA47KoreanLanguageVisiblePageText())) return "evidence_verification";
+    return "evidence_verification";
   }
 
   function cloneBookForA47KoreanLanguageLock(book, ctx, sectionType, axisId, rank){
@@ -9956,7 +9960,7 @@
       debug: {
         ...(result.debug || {}),
         bookA47KoreanLanguageHardLock: axisId,
-        bookA47KoreanLanguageVersion: "v203",
+        bookA47KoreanLanguageVersion: "v204",
         bookA47KoreanLanguageDirectTitles: directBooks.map(book => book.title),
         bookA47KoreanLanguageExpansionTitles: expansionBooks.map(book => book.title)
       }
