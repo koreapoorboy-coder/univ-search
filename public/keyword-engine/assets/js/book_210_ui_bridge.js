@@ -10588,6 +10588,209 @@
     };
   }
 
+
+  // A-51 회계·세무·소비자 계열 하드락(v211)
+  // 실제 ZIP 내부 존재 학과명 기준: 회계학과, 세무학과, 소비자학과만 대상으로 한다.
+  // 3번 추천 개념은 textbook_concept_helper의 경영·경제 계열 통합사회1 실제 흐름을 따른다.
+  // 통합사회1: 시장 경제와 금융 생활 / 미래와 지속 가능한 삶 / 문화 다양성과 세계화
+  function getBookA51AccountingTaxConsumerVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA51AccountingTaxConsumerVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(titleNode ? titleNode.textContent : "");
+          push(shortNode ? shortNode.textContent : "");
+          push(node.textContent || "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA51AccountingTaxConsumerContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA51AccountingTaxConsumerVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isAccountingTaxConsumerMajor = /(회계학과|세무학과|소비자학과)/i.test(careerText);
+    const isActualBusinessSocietyFlow = /(통합\s*사회1|통합사회1|통합사회Ⅰ|통합\s*사회|통합사회|시장\s*경제와\s*금융\s*생활|미래와\s*지속\s*가능한\s*삶|문화\s*다양성과\s*세계화|합리적\s*선택|기회비용|시장\s*구조|가격\s*변동|금융\s*생활|위험관리|지속가능\s*경영|ESG|미래\s*산업|소비\s*변화|세계화|국제무역|소비문화|글로벌\s*마케팅|데이터\s*기반|경영\s*의사결정)/i.test(subjectConceptText);
+    return !!(isAccountingTaxConsumerMajor && isActualBusinessSocietyFlow);
+  }
+
+  function inferBookA51AccountingTaxConsumerAxis(ctx){
+    ctx = ctx || {};
+    const activeAxisText = normalizeLockText([
+      getBookA51AccountingTaxConsumerVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA51AccountingTaxConsumerVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 4번 카드 제목/선택값 우선. 설명문에 섞인 경제·문화 일반어보다 축 제목을 먼저 읽는다.
+      if (/(business_choice_opportunity_cost|합리적\s*선택\s*[·ㆍ-]?\s*기회비용\s*분석\s*축|합리적\s*선택|기회비용)/i.test(text)) return "business_choice";
+      if (/(business_market_price|시장\s*구조\s*[·ㆍ-]?\s*가격\s*변동\s*해석\s*축|시장\s*구조|가격\s*변동)/i.test(text)) return "market_price";
+      if (/(business_finance_risk|금융\s*생활\s*[·ㆍ-]?\s*위험관리\s*축|금융\s*생활|위험관리|자산\s*관리)/i.test(text)) return "finance_risk";
+      if (/(business_esg_sustainability|지속가능\s*경영\s*[·ㆍ-]?\s*ESG\s*전략\s*축|지속가능\s*경영|ESG)/i.test(text)) return "esg_sustainability";
+      if (/(business_future_industry|미래\s*산업\s*[·ㆍ-]?\s*소비\s*변화\s*분석\s*축|미래\s*산업|소비\s*변화)/i.test(text)) return "future_industry";
+      if (/(business_data_decision|데이터\s*기반\s*경영\s*의사결정\s*축|데이터\s*기반|경영\s*의사결정|재무\s*자료|수치\s*해석)/i.test(text)) return "business_data";
+      if (/(business_global_trade|세계화\s*[·ㆍ-]?\s*국제무역\s*해석\s*축|세계화\s*[·ㆍ-]?\s*무역|국제무역|글로벌\s*공급망)/i.test(text)) return "global_trade";
+      if (/(business_consumer_culture|소비문화\s*[·ㆍ-]?\s*글로벌\s*마케팅\s*축|소비문화|글로벌\s*마케팅|현지화\s*전략)/i.test(text)) return "consumer_marketing";
+      return "";
+    };
+    const axisId = fromText(activeAxisText);
+    if (axisId) return axisId;
+    if (/문화\s*다양성과\s*세계화/i.test(conceptText)) return "consumer_marketing";
+    if (/미래와\s*지속\s*가능한\s*삶/i.test(conceptText)) return "esg_sustainability";
+    if (/시장\s*경제와\s*금융\s*생활/i.test(conceptText)) return "finance_risk";
+    return "finance_risk";
+  }
+
+  function cloneBookForA51AccountingTaxConsumerLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      business_choice: "합리적 선택·기회비용 분석 축",
+      market_price: "시장 구조·가격 변동 해석 축",
+      finance_risk: "금융 생활·위험관리 축",
+      esg_sustainability: "지속가능 경영·ESG 전략 축",
+      future_industry: "미래 산업·소비 변화 분석 축",
+      business_data: "데이터 기반 경영 의사결정 축",
+      global_trade: "세계화·국제무역 해석 축",
+      consumer_marketing: "소비문화·글로벌 마케팅 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "회계·세무·소비자 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6050 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-51 회계·세무·소비자 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 기업 수치, 회계·세무 기준, 소비자 선택과 시장 판단을 직접 연결하는 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 조세 정의, 기업 윤리, 소비문화, 사회적 책임으로 탐구를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`회계·세무·소비자 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA51AccountingTaxConsumerLock: true,
+      bookA51AccountingTaxConsumerRank: rank,
+      bookA51AccountingTaxConsumerAxisLock: axisId
+    };
+  }
+
+  function applyBookA51AccountingTaxConsumerHardLock(result, ctx){
+    if (!result || !isBookA51AccountingTaxConsumerContext(ctx)) return result;
+    const axisId = inferBookA51AccountingTaxConsumerAxis(ctx);
+    const directMap = {
+      business_choice: ["넛지", "돈으로 살 수 없는 것들", "국부론"],
+      market_price: ["국부론", "죽은 경제학자의 살아있는 아이디어", "물질문명과 자본주의"],
+      finance_risk: ["경영학 콘서트", "국부론", "돈으로 살 수 없는 것들"],
+      esg_sustainability: ["돈으로 살 수 없는 것들", "공정하다는 착각", "파타고니아, 파도가 칠 때는 서핑을"],
+      future_industry: ["제3의 물결", "경영학 콘서트", "사피엔스"],
+      business_data: ["경영학 콘서트", "넛지", "팩트풀니스"],
+      global_trade: ["물질문명과 자본주의", "국부론", "왜 세계의 절반은 굶주리는가"],
+      consumer_marketing: ["넛지", "경영학 콘서트", "돈으로 살 수 없는 것들"]
+    };
+    const expansionMap = {
+      business_choice: ["공정하다는 착각", "프로테스탄트 윤리와 자본주의 정신", "자본론", "성호사설", "정의란 무엇인가"],
+      market_price: ["고용, 이자 및 화폐의 일반이론", "자본론", "프로테스탄트 윤리와 자본주의 정신", "돈으로 살 수 없는 것들", "공정하다는 착각"],
+      finance_risk: ["고용, 이자 및 화폐의 일반이론", "자본론", "공정하다는 착각", "프로테스탄트 윤리와 자본주의 정신", "팩트풀니스"],
+      esg_sustainability: ["파타고니아, 파도가 칠 때는 서핑을", "프로테스탄트 윤리와 자본주의 정신", "자본론", "오래된 미래", "정의란 무엇인가"],
+      future_industry: ["미디어의 이해", "1984", "멋진 신세계", "공정하다는 착각", "물질문명과 자본주의"],
+      business_data: ["1984", "미디어의 이해", "감시와 처벌", "공정하다는 착각", "물질문명과 자본주의"],
+      global_trade: ["문명의 충돌", "오리엔탈리즘", "서유견문", "공정하다는 착각", "돈으로 살 수 없는 것들"],
+      consumer_marketing: ["국화와 칼", "오리엔탈리즘", "문명의 충돌", "사피엔스", "미디어의 이해"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.finance_risk);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.finance_risk);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA51AccountingTaxConsumerLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA51AccountingTaxConsumerLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA51AccountingTaxConsumerHardLock: axisId,
+        bookA51AccountingTaxConsumerVersion: "v211",
+        bookA51AccountingTaxConsumerDirectTitles: directBooks.map(book => book.title),
+        bookA51AccountingTaxConsumerExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -10667,6 +10870,7 @@
     result = applyBookA48ClassicalChineseHardLock(result, ctx);
     result = applyBookA49TheologyHardLock(result, ctx);
     result = applyBookA50IntlTradeHardLock(result, ctx);
+    result = applyBookA51AccountingTaxConsumerHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
