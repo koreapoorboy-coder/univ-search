@@ -7507,6 +7507,142 @@
   }
 
 
+
+  // v188 hard-lock: 철학과 5번 도서 직접 일치 보정
+  // 실제 ZIP 내부 학과명: 철학과
+  // 대표 검수는 통합사회1의 실제 기본 3번 흐름(통합적 관점과 행복 / 자연환경과 인간의 공존 / 생활 공간 변화와 지역 이해) 중
+  // '통합적 관점과 행복'에서 실제 4번 카드 제목(사회문제 통합해석 축 / 삶의 질 지표 해석 축 / 가치·윤리 판단 축)을 우선 판별한다.
+  function isBookA36PhilosophyContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA32HistoryVisiblePageText();
+    const careerText = normalizeLockText([ctx.career, ctx.selectedMajor, ctx.department, pageText].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isPhilosophyMajor = /철학과/i.test(careerText) && !/(예술철학과|윤리학과)/i.test(careerText);
+    const isActualFlow = /(통합사회1|통합사회Ⅰ|통합사회|통합적\s*관점과\s*행복|자연환경과\s*인간의\s*공존|생활\s*공간\s*변화와\s*지역\s*이해|사회문제\s*통합해석|삶의\s*질\s*지표\s*해석|가치\s*[·ㆍ]?\s*윤리\s*판단|윤리적\s*관점|행복\s*지수|삶의\s*질|자연환경|공존|생활\s*공간|지역\s*이해|도시|공간\s*자료)/i.test(subjectConceptText);
+    return !!(isPhilosophyMajor && isActualFlow);
+  }
+
+  function inferBookA36PhilosophyAxis(ctx){
+    ctx = ctx || {};
+    const axisText = normalizeLockText([
+      getBookA32HistoryVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA32HistoryVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      // 실제 4번 카드 제목/선택값 우선
+      if (/(사회문제\s*통합해석\s*축|social_issue_integrated_analysis|공공문제\s*통합\s*분석\s*축|social_public_issue_analysis)/i.test(text)) return "social_issue_integrated";
+      if (/(삶의\s*질\s*지표\s*해석\s*축|quality_of_life_data_axis|quality_of_life|행복\s*지수|삶의\s*질)/i.test(text)) return "quality_of_life_indicator";
+      if (/(가치\s*[·ㆍ]?\s*윤리\s*판단\s*축|value_ethics|value_ethics_judg|윤리적\s*관점|객관적\s*기준|주관적\s*기준)/i.test(text)) return "value_ethics_judgment";
+      // 같은 실제 통합사회1 기본 3번에서 넘어오는 축도 안전하게 분기
+      if (/(환경\s*[·ㆍ-]?\s*지리\s*해석|environment_geography|자연환경|인간의\s*공존|개발\s*[·ㆍ-]?\s*보전|development_conservation|지속가능\s*실천|sustainability_practice)/i.test(text)) return "environmental_ethics";
+      if (/(도시\s*[·ㆍ-]?\s*지역\s*변화\s*분석|urban_regional_change|생활\s*공간|지역\s*이해|공간\s*변화)/i.test(text)) return "social_space_interpretation";
+      if (/(교통\s*[·ㆍ-]?\s*네트워크\s*사회|mobility_network|네트워크\s*사회|정보화|공간\s*압축)/i.test(text)) return "network_society";
+      if (/(공간\s*자료\s*[·ㆍ-]?\s*지역\s*기획|spatial_data_local_planning|지역\s*조사|지역\s*기획)/i.test(text)) return "spatial_data_planning";
+      return "";
+    };
+    return fromText(axisText)
+      || fromText(conceptText)
+      || (/통합적\s*관점과\s*행복|통합적\s*관점|행복/i.test(conceptText) ? "social_issue_integrated" : "")
+      || (/자연환경과\s*인간의\s*공존|자연환경|공존/i.test(conceptText) ? "environmental_ethics" : "")
+      || (/생활\s*공간\s*변화와\s*지역\s*이해|생활\s*공간|지역\s*이해/i.test(conceptText) ? "social_space_interpretation" : "")
+      || "social_issue_integrated";
+  }
+
+  function cloneBookForA36PhilosophyLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      social_issue_integrated: "사회문제 통합해석 축",
+      quality_of_life_indicator: "삶의 질 지표 해석 축",
+      value_ethics_judgment: "가치·윤리 판단 축",
+      environmental_ethics: "환경·공존 윤리 해석 축",
+      social_space_interpretation: "생활공간·사회철학 해석 축",
+      network_society: "네트워크 사회 비판 축",
+      spatial_data_planning: "공간 자료·공동체 기획 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "철학과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-36 철학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 개념 정의, 가치 판단 기준, 공동체 질서와 인간 삶의 조건을 논증하는 직접 연결 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 사회 구조, 제도, 윤리적 쟁점, 삶의 질 문제로 탐구를 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`철학과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA36PhilosophyLock: true,
+      bookA36PhilosophyRank: rank,
+      bookA36PhilosophyAxisLock: axisId
+    };
+  }
+
+  function applyBookA36PhilosophyHardLock(result, ctx){
+    if (!result || !isBookA36PhilosophyContext(ctx)) return result;
+    const axisId = inferBookA36PhilosophyAxis(ctx);
+    const directMap = {
+      social_issue_integrated: ["국가", "사회계약론", "리바이어던"],
+      quality_of_life_indicator: ["정의란 무엇인가", "돈으로 살 수 없는 것들", "공정하다는 착각"],
+      value_ethics_judgment: ["의무론", "니코마코스 윤리학", "국가"],
+      environmental_ethics: ["침묵의 봄", "돈으로 살 수 없는 것들", "의무론"],
+      social_space_interpretation: ["국가", "자유론", "사회계약론"],
+      network_society: ["1984", "감시와 처벌", "자유론"],
+      spatial_data_planning: ["정의란 무엇인가", "자유론", "사회계약론"]
+    };
+    const expansionMap = {
+      social_issue_integrated: ["자유론", "정의란 무엇인가", "공정하다는 착각", "돈으로 살 수 없는 것들", "성의 역사 1"],
+      quality_of_life_indicator: ["자유론", "의무론", "국가", "사회계약론", "니코마코스 윤리학"],
+      value_ethics_judgment: ["돈으로 살 수 없는 것들", "자유론", "정의란 무엇인가", "공정하다는 착각", "리바이어던"],
+      environmental_ethics: ["총, 균, 쇠", "공정하다는 착각", "자유론", "정의란 무엇인가", "왜 세계의 절반은 굶주리는가"],
+      social_space_interpretation: ["감시와 처벌", "공정하다는 착각", "돈으로 살 수 없는 것들", "리바이어던", "성의 역사 1"],
+      network_society: ["미디어의 이해", "반지성주의", "같기도 하고 아니 같기도 하고", "리바이어던", "국가"],
+      spatial_data_planning: ["공정하다는 착각", "돈으로 살 수 없는 것들", "팩트풀니스", "국가", "성호사설"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.social_issue_integrated);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.social_issue_integrated);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA36PhilosophyLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA36PhilosophyLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA36PhilosophyHardLock: axisId,
+        bookA36PhilosophyVersion: "v188",
+        bookA36PhilosophyDirectTitles: directBooks.map(book => book.title),
+        bookA36PhilosophyExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -7571,6 +7707,7 @@
     result = applyBookA33AnthropologyHardLock(result, ctx);
     result = applyBookA34CulturalHeritageHardLock(result, ctx);
     result = applyBookA35CreativeWritingHardLock(result, ctx);
+    result = applyBookA36PhilosophyHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
