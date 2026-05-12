@@ -9315,6 +9315,203 @@
   }
 
 
+  // A-45 아랍어과 하드락(v200)
+  // 실제 데이터에 존재하는 학과명 "아랍어과"만 대상으로 한다.
+  // 공통국어1 화면의 어문·문학 기본 3개 흐름을 기준으로 하며,
+  // 학과 원본 source의 linked_book_focus(아라비안 나이트, 오리엔탈리즘, 문명의 충돌)를 우선 반영한다.
+  function getBookA45ArabicLanguageVisiblePageText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (text) parts.push(text);
+    };
+    try {
+      const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+      [
+        state.subject, state.career, state.selectedMajor, state.majorSelectedName,
+        state.concept, state.selectedConcept, state.keyword, state.selectedKeyword,
+        state.linkTrack, state.followupAxisId, state.axisLabel, state.trackLabel, state.linkTrackLabel
+      ].forEach(push);
+    } catch (error) {}
+    try {
+      document.querySelectorAll([
+        ".engine-status-card", ".engine-status", ".engine-step-status", ".engine-current", ".engine-selected",
+        ".engine-concept-card", ".engine-keyword-card", ".engine-track-card", ".engine-book-card",
+        "[data-step='1']", "[data-step='2']", "[data-step='3']", "[data-step='4']"
+      ].join(",")).forEach(function(node){ push(node.textContent || ""); });
+    } catch (error) {}
+    try {
+      const bodyText = (document && document.body && document.body.innerText) ? document.body.innerText.slice(0, 40000) : "";
+      push(bodyText);
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function getBookA45ArabicLanguageVisibleActiveTrackText(){
+    const parts = [];
+    const push = function(value){
+      const text = normalizeLockText(value || "");
+      if (!text) return;
+      if (/입력 전|선택 전|대기|찾지 못했|추천\s*개념|추천\s*키워드|도서\s*선택|직접\s*일치|확장\s*참고/.test(text)) return;
+      parts.push(text);
+    };
+    try {
+      const selectors = [
+        ".engine-track-card.is-active", ".engine-track-card[aria-pressed='true']", ".engine-track-card[aria-selected='true']",
+        ".engine-track-card.selected", ".engine-track-card.active", ".engine-track-card.is-selected",
+        "[data-track].is-active", "[data-track].selected", "[data-track].active", "[data-track].is-selected",
+        "[data-axis].is-active", "[data-axis].selected", "[data-axis].active", "[data-axis].is-selected"
+      ];
+      const seen = new Set();
+      selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(node){
+          if (!node || seen.has(node)) return;
+          seen.add(node);
+          push(node.getAttribute("data-track"));
+          push(node.getAttribute("data-axis"));
+          push(node.getAttribute("data-axis-id"));
+          push(node.getAttribute("data-track-id"));
+          const titleNode = node.querySelector && node.querySelector(".engine-track-title, .track-title, .card-title, strong, h3, h4");
+          push(titleNode ? titleNode.textContent : "");
+          const shortNode = node.querySelector && node.querySelector(".engine-track-short, .track-short, .card-short, .desc, p");
+          push(shortNode ? shortNode.textContent : "");
+        });
+      });
+    } catch (error) {}
+    return parts.join(" ");
+  }
+
+  function isBookA45ArabicLanguageContext(ctx){
+    ctx = ctx || {};
+    const pageText = getBookA45ArabicLanguageVisiblePageText();
+    const careerText = normalizeLockText([
+      ctx.career, ctx.selectedMajor, ctx.department, ctx.major, ctx.majorName, ctx.majorSelectedName, pageText
+    ].join(" "));
+    const subjectConceptText = normalizeLockText([
+      ctx.subject, ctx.selectedSubject, ctx.concept, ctx.selectedConcept, ctx.keyword, ctx.selectedKeyword,
+      ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
+    ].join(" "));
+    const isArabicMajor = /아랍어과/i.test(careerText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|문학|서정\s*갈래와\s*시적\s*표현|서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성|교술\s*갈래와\s*성찰적\s*표현|문학\s*감상|서사\s*구조|스토리텔링|인물\s*[·ㆍ-]?\s*갈등|표현\s*[·ㆍ-]?\s*창작|정서\s*[·ㆍ-]?\s*매체)/i.test(subjectConceptText);
+    return !!(isArabicMajor && isActualFlow);
+  }
+
+  function inferBookA45ArabicLanguageAxis(ctx){
+    ctx = ctx || {};
+    const activeAxisText = normalizeLockText([
+      getBookA45ArabicLanguageVisibleActiveTrackText(),
+      ctx.axisLabel,
+      ctx.followupAxisId,
+      ctx.linkTrack,
+      ctx.axisDomain,
+      ctx.trackLabel,
+      ctx.linkTrackLabel
+    ].join(" "));
+    const conceptText = normalizeLockText([
+      ctx.concept,
+      ctx.selectedConcept,
+      ctx.keyword,
+      ctx.selectedKeyword,
+      getBookA45ArabicLanguageVisiblePageText()
+    ].join(" "));
+    const fromText = function(text){
+      text = normalizeLockText(text || "");
+      if (!text) return "";
+      if (/(narrative_structure|서사\s*구조\s*분석\s*축|서사\s*구조\s*분석|서사\s*구조)/i.test(text)) return "narrative_structure";
+      if (/(storytelling_media|스토리텔링\s*[·ㆍ-]?\s*매체\s*축|스토리텔링\s*[·ㆍ-]?\s*매체|스토리텔링|매체\s*서사)/i.test(text)) return "storytelling_media";
+      if (/(character_conflict|인물\s*[·ㆍ-]?\s*갈등\s*해석\s*축|인물\s*[·ㆍ-]?\s*갈등\s*해석|인물\s*[·ㆍ-]?\s*갈등|갈등\s*해석)/i.test(text)) return "character_conflict";
+      if (/(lyric_appreciation|문학\s*감상\s*[·ㆍ-]?\s*해석\s*축|문학\s*감상\s*[·ㆍ-]?\s*해석|시\s*감상|서정)/i.test(text)) return "lyric_appreciation";
+      if (/(creative_expression|표현\s*[·ㆍ-]?\s*창작\s*확장\s*축|표현\s*[·ㆍ-]?\s*창작\s*확장|창작\s*확장)/i.test(text)) return "creative_expression";
+      if (/(emotion_media|정서\s*[·ㆍ-]?\s*매체\s*변환\s*축|정서\s*[·ㆍ-]?\s*매체\s*변환|매체\s*변환)/i.test(text)) return "emotion_media";
+      if (/(reflective_writing|성찰\s*글쓰기|관찰\s*기록|교술)/i.test(text)) return "reflective_writing";
+      return "";
+    };
+    const axisId = fromText(activeAxisText);
+    if (axisId) return axisId;
+    if (/서사\s*[·ㆍ-]?\s*극\s*갈래와\s*이야기\s*구성/i.test(conceptText)) return "narrative_structure";
+    if (/서정\s*갈래와\s*시적\s*표현/i.test(conceptText)) return "lyric_appreciation";
+    if (/교술\s*갈래와\s*성찰적\s*표현/i.test(conceptText)) return "reflective_writing";
+    return "narrative_structure";
+  }
+
+  function cloneBookForA45ArabicLanguageLock(book, ctx, sectionType, axisId, rank){
+    if (!book) return null;
+    const lockedContext = buildLockedBookContextA26Humanities(book, ctx, sectionType, axisId, rank);
+    const axisLabelMap = {
+      narrative_structure: "서사 구조 분석 축",
+      storytelling_media: "스토리텔링·매체 축",
+      character_conflict: "인물·갈등 해석 축",
+      lyric_appreciation: "문학 감상·해석 축",
+      creative_expression: "표현·창작 확장 축",
+      emotion_media: "정서·매체 변환 축",
+      reflective_writing: "성찰 글쓰기 축"
+    };
+    const axisLabel = axisLabelMap[axisId] || "아랍어과 선택 축";
+    return {
+      ...book,
+      matchType: sectionType,
+      matchScore: 6000 - rank * 10,
+      matchReasons: uniq(arr(book.matchReasons).concat([`A-45 아랍어과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서 잠금`])),
+      selectedBookContext: {
+        ...lockedContext,
+        recommendationReason: sectionType === "direct"
+          ? `${book.title}은(는) ${axisLabel}에서 아랍어권 설화·텍스트·중동 지역 문화 이해를 직접 연결하는 도서입니다.`
+          : `${book.title}은(는) ${axisLabel}에서 아랍어권 문화, 지역 인식, 국제 갈등과 비교문화 관점으로 확장하는 참고 도서입니다.`,
+        matchReasons: uniq(arr(lockedContext.matchReasons).concat([`아랍어과 ${sectionType === "direct" ? "직접 일치" : "확장 참고"} 도서`]))
+      },
+      bookA45ArabicLanguageLock: true,
+      bookA45ArabicLanguageRank: rank,
+      bookA45ArabicLanguageAxisLock: axisId
+    };
+  }
+
+  function applyBookA45ArabicLanguageHardLock(result, ctx){
+    if (!result || !isBookA45ArabicLanguageContext(ctx)) return result;
+    const axisId = inferBookA45ArabicLanguageAxis(ctx);
+    const directMap = {
+      narrative_structure: ["아라비안 나이트", "오리엔탈리즘", "문명의 충돌"],
+      storytelling_media: ["아라비안 나이트", "동방견문록", "오리엔탈리즘"],
+      character_conflict: ["오리엔탈리즘", "문명의 충돌", "아라비안 나이트"],
+      lyric_appreciation: ["아라비안 나이트", "문학과 예술의 사회사", "오리엔탈리즘"],
+      creative_expression: ["아라비안 나이트", "시학", "미디어의 이해"],
+      emotion_media: ["미디어의 이해", "오리엔탈리즘", "문명의 충돌"],
+      reflective_writing: ["오리엔탈리즘", "문명의 충돌", "동방견문록"]
+    };
+    const expansionMap = {
+      narrative_structure: ["동방견문록", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "미디어의 이해"],
+      storytelling_media: ["문명의 충돌", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "미디어의 이해"],
+      character_conflict: ["슬픈 열대", "국화와 칼", "동방견문록", "왜 세계의 절반은 굶주리는가", "문학과 예술의 사회사"],
+      lyric_appreciation: ["시학", "동방견문록", "슬픈 열대", "국화와 칼", "문명의 충돌"],
+      creative_expression: ["문학과 예술의 사회사", "동방견문록", "오리엔탈리즘", "문명의 충돌", "디자인 인문학"],
+      emotion_media: ["1984", "반지성주의", "아라비안 나이트", "문학과 예술의 사회사", "슬픈 열대"],
+      reflective_writing: ["아라비안 나이트", "슬픈 열대", "국화와 칼", "문학과 예술의 사회사", "왜 세계의 절반은 굶주리는가"]
+    };
+    const directTitles = arr(directMap[axisId] || directMap.narrative_structure);
+    const expansionTitles = arr(expansionMap[axisId] || expansionMap.narrative_structure);
+    const directBooks = directTitles.map((title, index) =>
+      cloneBookForA45ArabicLanguageLock(findBookForLock(title, result), ctx, "direct", axisId, index + 1)
+    ).filter(Boolean).slice(0, 3);
+    if (!directBooks.length) return result;
+    const directIds = new Set(directBooks.map(book => bookKey(book)));
+    const expansionBooks = expansionTitles.map((title, index) =>
+      cloneBookForA45ArabicLanguageLock(findBookForLock(title, result), ctx, "expansion", axisId, index + 1)
+    ).filter(book => book && !directIds.has(bookKey(book))).slice(0, 5);
+    return {
+      ...result,
+      directBooks,
+      expansionBooks,
+      selectedBookSummary: directBooks[0] || expansionBooks[0] || result.selectedBookSummary || null,
+      debug: {
+        ...(result.debug || {}),
+        bookA45ArabicLanguageHardLock: axisId,
+        bookA45ArabicLanguageVersion: "v200",
+        bookA45ArabicLanguageDirectTitles: directBooks.map(book => book.title),
+        bookA45ArabicLanguageExpansionTitles: expansionBooks.map(book => book.title)
+      }
+    };
+  }
+
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -9388,6 +9585,7 @@
     result = applyBookA42GermanLiteratureHardLock(result, ctx);
     result = applyBookA43FrenchLiteratureHardLock(result, ctx);
     result = applyBookA44RussianLiteratureHardLock(result, ctx);
+    result = applyBookA45ArabicLanguageHardLock(result, ctx);
 
     lastResult = { ctx: cloneCtx(ctx), payload, result, recommendationKey };
     global.__BOOK_210_LAST_RESULT__ = lastResult;
