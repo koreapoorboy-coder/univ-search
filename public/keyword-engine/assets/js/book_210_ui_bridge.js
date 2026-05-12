@@ -7863,10 +7863,10 @@
   }
 
 
-  // A-38 문헌정보학과 하드락(v192)
+  // A-38 문헌정보학과 하드락(v193)
   // 실제 데이터에 존재하는 학과명 "문헌정보학과"만 대상으로 한다.
   // 공통국어1 화면에서 실제로 뜨는 비판적 읽기/쟁점 글쓰기/음운 규범 축과,
-  // 정보 과목에서 실제로 뜨는 정보 문화/자료 분석/정보 구조 축을 모두 보조 잠금한다.
+  // 정보 과목에서 실제로 뜨는 추상화/알고리즘/프로그래밍 축을 모두 보조 잠금한다.
   function getBookA38LibraryInfoVisiblePageText(){
     const parts = [];
     const push = function(value){
@@ -7941,7 +7941,7 @@
       ctx.axisLabel, ctx.followupAxisId, ctx.linkTrack, ctx.trackLabel, ctx.linkTrackLabel, pageText
     ].join(" "));
     const isLibraryInfoMajor = /문헌정보학과/i.test(careerText);
-    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|정보|비판적\s*읽기와\s*토론|사회적\s*쟁점\s*글쓰기와\s*문장\s*구성|음운\s*변동과\s*국어\s*규범|자료\s*검증|논증\s*[·ㆍ-]?\s*토론|비판\s*해석|주장\s*글쓰기|문장\s*점검|공공\s*[·ㆍ-]?\s*매체\s*표현|언어\s*규범|정확한\s*표현|언어생활|지식\s*[·ㆍ-]?\s*정보\s*사회|자료와\s*정보의\s*분석|자료와\s*정보의\s*표현|컴퓨팅\s*시스템과\s*네트워크|데이터\s*수집|데이터베이스|정보구조|정보\s*문화|정보\s*윤리)/i.test(subjectConceptText);
+    const isActualFlow = /(공통국어1|공통국어Ⅰ|공통국어|국어|정보|비판적\s*읽기와\s*토론|사회적\s*쟁점\s*글쓰기와\s*문장\s*구성|음운\s*변동과\s*국어\s*규범|자료\s*검증|논증\s*[·ㆍ-]?\s*토론|비판\s*해석|주장\s*글쓰기|문장\s*점검|공공\s*[·ㆍ-]?\s*매체\s*표현|언어\s*규범|정확한\s*표현|언어생활|지식\s*[·ㆍ-]?\s*정보\s*사회|자료와\s*정보의\s*분석|자료와\s*정보의\s*표현|컴퓨팅\s*시스템과\s*네트워크|데이터\s*수집|데이터베이스|정보구조|정보\s*문화|정보\s*윤리|추상화\s*와\s*문제\s*분해|알고리즘\s*설계와\s*분석|프로그래밍\s*과\s*자동화|문제\s*구조화|수리\s*모델링|시스템\s*설계|절차\s*최적화|알고리즘\s*최적화|탐색\s*[·ㆍ-]?\s*정렬|데이터\s*처리\s*[·ㆍ-]?\s*예측|프로그래밍\s*구현|논리\s*[·ㆍ-]?\s*제어|자동화\s*[·ㆍ-]?\s*시뮬레이션)/i.test(subjectConceptText);
     return !!(isLibraryInfoMajor && isActualFlow);
   }
 
@@ -7967,6 +7967,16 @@
       text = normalizeLockText(text || "");
       if (!text) return "";
       // 4번 카드 제목/선택값 우선. 설명문 속 '정보/매체/자료' 일반어보다 실제 축 제목을 먼저 읽는다.
+      // 정보 과목 실제 3번: 추상화와 문제 분해 / 알고리즘 설계와 분석 / 프로그래밍과 자동화.
+      if (/(problem_design_algorithm|문제\s*구조화\s*[·ㆍ-]?\s*알고리즘\s*설계\s*축|문제\s*구조화\s*[·ㆍ-]?\s*알고리즘\s*설계|문제\s*구조화|문제\s*분해|조건\s*분석)/i.test(text)) return "problem_design_algorithm";
+      if (/(mathematical_modeling_extension|수리\s*모델링\s*확장\s*축|수리\s*모델링\s*확장|수리\s*모델링|모델링\s*확장)/i.test(text)) return "mathematical_modeling_extension";
+      if (/(system_process_optimization|시스템\s*설계\s*[·ㆍ-]?\s*절차\s*최적화\s*축|시스템\s*설계\s*[·ㆍ-]?\s*절차\s*최적화|시스템\s*설계|절차\s*최적화)/i.test(text)) return "system_process_optimization";
+      if (/(algorithm_optimization|알고리즘\s*최적화\s*축|알고리즘\s*최적화|효율성|성능\s*비교|수행\s*시간)/i.test(text)) return "algorithm_optimization";
+      if (/(search_sort_implementation|탐색\s*[·ㆍ-]?\s*정렬\s*구현\s*축|탐색\s*[·ㆍ-]?\s*정렬\s*구현|탐색\s*[·ㆍ-]?\s*정렬|정렬|탐색)/i.test(text)) return "search_sort_implementation";
+      if (/(data_processing_prediction|데이터\s*처리\s*[·ㆍ-]?\s*예측\s*축|데이터\s*처리\s*[·ㆍ-]?\s*예측|처리\s*[·ㆍ-]?\s*예측|예측)/i.test(text)) return "data_processing_prediction";
+      if (/(programming_impl|프로그래밍\s*구현\s*축|프로그래밍\s*구현|코드\s*구현|python|파이썬)/i.test(text)) return "programming_impl";
+      if (/(logic_control|논리\s*[·ㆍ-]?\s*제어\s*확장\s*축|논리\s*[·ㆍ-]?\s*제어\s*확장|논리\s*[·ㆍ-]?\s*제어|조건\s*[·ㆍ-]?\s*반복|조건문|반복문)/i.test(text)) return "logic_control";
+      if (/(automation_sim|자동화\s*[·ㆍ-]?\s*시뮬레이션\s*축|자동화\s*[·ㆍ-]?\s*시뮬레이션|자동화|시뮬레이션|random|랜덤|turtle|터틀)/i.test(text)) return "automation_sim";
       if (/(evidence_verification_analysis|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석\s*축|자료\s*검증\s*[·ㆍ-]?\s*쟁점\s*분석|자료\s*검증|쟁점\s*분석)/i.test(text)) return "evidence_verification";
       if (/(argument_discussion|논증\s*[·ㆍ-]?\s*토론\s*축|논증\s*[·ㆍ-]?\s*토론|토론\s*축)/i.test(text)) return "argument_discussion";
       if (/(critical_interpretation_extension|비판\s*해석\s*확장\s*축|비판\s*해석\s*확장|비판\s*해석)/i.test(text)) return "critical_interpretation";
@@ -7985,7 +7995,10 @@
     };
     const activeAxis = fromText(axisText);
     if (activeAxis) return activeAxis;
-    return (/사회적\s*쟁점|문장\s*구성/i.test(conceptText) ? "argumentative_writing" : "")
+    return (/추상화\s*와\s*문제\s*분해/i.test(conceptText) ? "problem_design_algorithm" : "")
+      || (/알고리즘\s*설계와\s*분석/i.test(conceptText) ? "algorithm_optimization" : "")
+      || (/프로그래밍\s*과\s*자동화/i.test(conceptText) ? "programming_impl" : "")
+      || (/사회적\s*쟁점|문장\s*구성/i.test(conceptText) ? "argumentative_writing" : "")
       || (/음운|국어\s*규범/i.test(conceptText) ? "language_norm" : "")
       || (/자료와\s*정보의\s*분석/i.test(conceptText) ? "data_visual" : "")
       || (/컴퓨팅\s*시스템|네트워크/i.test(conceptText) ? "network_system" : "")
@@ -8009,7 +8022,16 @@
       database_structure: "데이터베이스·정보구조 축",
       data_decision: "데이터 해석·의사결정 축",
       network_system: "시스템·네트워크 구조 축",
-      platform_security: "협업 플랫폼·보안 운영 축"
+      platform_security: "협업 플랫폼·보안 운영 축",
+      problem_design_algorithm: "문제 구조화·알고리즘 설계 축",
+      mathematical_modeling_extension: "수리 모델링 확장 축",
+      system_process_optimization: "시스템 설계·절차 최적화 축",
+      algorithm_optimization: "알고리즘 최적화 축",
+      search_sort_implementation: "탐색·정렬 구현 축",
+      data_processing_prediction: "데이터 처리·예측 축",
+      programming_impl: "프로그래밍 구현 축",
+      logic_control: "논리·제어 확장 축",
+      automation_sim: "자동화·시뮬레이션 축"
     };
     const axisLabel = axisLabelMap[axisId] || "문헌정보학과 선택 축";
     return {
@@ -8047,7 +8069,16 @@
       database_structure: ["미디어의 이해", "부분과 전체", "객관성의 칼날"],
       data_decision: ["객관성의 칼날", "같기도 하고 아니 같기도 하고", "반지성주의"],
       network_system: ["1984", "미디어의 이해", "감시와 처벌"],
-      platform_security: ["1984", "감시와 처벌", "미디어의 이해"]
+      platform_security: ["1984", "감시와 처벌", "미디어의 이해"],
+      problem_design_algorithm: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      mathematical_modeling_extension: ["20세기 수학의 다섯가지 황금률", "카오스", "부분과 전체"],
+      system_process_optimization: ["경영학 콘서트", "부분과 전체", "객관성의 칼날"],
+      algorithm_optimization: ["20세기 수학의 다섯가지 황금률", "객관성의 칼날", "페르마의 마지막 정리"],
+      search_sort_implementation: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      data_processing_prediction: ["경영학 콘서트", "팩트풀니스", "카오스"],
+      programming_impl: ["20세기 수학의 다섯가지 황금률", "방법서설", "객관성의 칼날"],
+      logic_control: ["객관성의 칼날", "20세기 수학의 다섯가지 황금률", "페르마의 마지막 정리"],
+      automation_sim: ["경영학 콘서트", "카오스", "혼돈으로부터의 질서"]
     };
     const expansionMap = {
       evidence_verification: ["1984", "감시와 처벌", "객관성의 칼날", "부분과 전체", "문학과 예술의 사회사"],
@@ -8063,7 +8094,16 @@
       database_structure: ["1984", "감시와 처벌", "같기도 하고 아니 같기도 하고", "반지성주의", "카오스"],
       data_decision: ["부분과 전체", "미디어의 이해", "1984", "감시와 처벌", "카오스"],
       network_system: ["반지성주의", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "부분과 전체", "카오스"],
-      platform_security: ["반지성주의", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "리바이어던", "자유론"]
+      platform_security: ["반지성주의", "같기도 하고 아니 같기도 하고", "객관성의 칼날", "리바이어던", "자유론"],
+      problem_design_algorithm: ["페르마의 마지막 정리", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      mathematical_modeling_extension: ["혼돈으로부터의 질서", "경영학 콘서트", "미디어의 이해", "1984", "제3의 물결"],
+      system_process_optimization: ["20세기 수학의 다섯가지 황금률", "방법서설", "미디어의 이해", "1984", "감시와 처벌"],
+      algorithm_optimization: ["부분과 전체", "방법서설", "미디어의 이해", "1984", "제3의 물결"],
+      search_sort_implementation: ["페르마의 마지막 정리", "부분과 전체", "미디어의 이해", "1984", "감시와 처벌"],
+      data_processing_prediction: ["혼돈으로부터의 질서", "객관성의 칼날", "미디어의 이해", "1984", "감시와 처벌"],
+      programming_impl: ["부분과 전체", "미디어의 이해", "1984", "제3의 물결", "감시와 처벌"],
+      logic_control: ["부분과 전체", "방법서설", "미디어의 이해", "1984", "감시와 처벌"],
+      automation_sim: ["팩트풀니스", "객관성의 칼날", "미디어의 이해", "1984", "제3의 물결"]
     };
     const directTitles = arr(directMap[axisId] || directMap.evidence_verification);
     const expansionTitles = arr(expansionMap[axisId] || expansionMap.evidence_verification);
@@ -8083,7 +8123,7 @@
       debug: {
         ...(result.debug || {}),
         bookA38LibraryInfoHardLock: axisId,
-        bookA38LibraryInfoVersion: "v192",
+        bookA38LibraryInfoVersion: "v193",
         bookA38LibraryInfoDirectTitles: directBooks.map(book => book.title),
         bookA38LibraryInfoExpansionTitles: expansionBooks.map(book => book.title)
       }
