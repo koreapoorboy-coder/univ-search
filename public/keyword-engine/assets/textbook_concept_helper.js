@@ -6008,22 +6008,22 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
   function isBusinessEconomicsMajorSelectedContext() {
     const selectedCompact = getBusinessSocialSelectedMajorText().replace(/\s+/g, "");
-    const selectedBusiness = /(경영학과|경영학부|경영전공|글로벌경영|경영정보|MIS|경제학과|경제학부|경제금융|금융학과|금융공학|회계학과|세무학과|무역학과|국제통상|통상학과|마케팅|소비자학과|물류학과|유통학과|관광경영|호텔경영|창업학과|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(selectedCompact);
+    const selectedBusiness = /(경영학과|경영학부|경영전공|글로벌경영|경영정보|MIS|경제학과|경제학부|경제금융|금융학과|금융공학|회계학과|세무학과|무역학과|국제통상|통상학과|마케팅|소비자학과|물류학과|유통학과|관광경영|호텔경영|창업학과|부동산학과|부동산|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(selectedCompact);
     if (selectedBusiness) return true;
     const compact = getBusinessSocialMajorTextBag().replace(/\s+/g, "");
     if (!compact) return false;
     if (/(데이터사이언스학과|데이터과학과|통계학과|응용통계학과|수학과|수리과학과|컴퓨터공학과|소프트웨어학과|인공지능학과|AI학과|산업공학과|산업공학부)/i.test(selectedCompact)) return false;
-    return /(경영학과|경영학부|경제학과|경제학부|금융학과|회계학과|세무학과|무역학과|국제통상|마케팅|소비자학과|물류학과|유통학과|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(compact);
+    return /(경영학과|경영학부|경제학과|경제학부|금융학과|회계학과|세무학과|무역학과|국제통상|마케팅|소비자학과|물류학과|유통학과|부동산학과|부동산|경영|경제|금융|회계|세무|무역|통상|마케팅|소비자|물류|유통)/.test(compact);
   }
 
   function isPublicSocialMajorSelectedContext() {
     if (isBusinessEconomicsMajorSelectedContext()) return false;
     const selectedCompact = getBusinessSocialSelectedMajorText().replace(/\s+/g, "");
-    if (/(행정학과|정치외교학과|정치학과|외교학과|국제관계학과|국제학부|사회학과|사회복지학과|법학과|공공인재|공공정책|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|경찰행정|행정|정치|외교|국제관계|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(selectedCompact)) return true;
+    if (/(행정학과|정치외교학과|정치학과|외교학과|국제관계학과|국제학부|사회학과|사회복지학과|법학과|공공인재|공공정책|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|경찰행정|군사학과|군사|안보|국방|행정|정치|외교|국제관계|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(selectedCompact)) return true;
     const compact = getBusinessSocialMajorTextBag().replace(/\s+/g, "");
     if (!compact) return false;
     if (/(데이터사이언스학과|통계학과|수학과|컴퓨터공학과|소프트웨어학과|인공지능학과|산업공학과)/i.test(selectedCompact)) return false;
-    return /(행정학과|정치외교학과|사회학과|사회복지학과|법학과|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|행정|정치|외교|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(compact);
+    return /(행정학과|정치외교학과|사회학과|사회복지학과|법학과|정책학과|언론정보|미디어커뮤니케이션|신문방송|심리학과|교육학과|군사학과|군사|안보|국방|행정|정치|외교|사회복지|사회학|법학|정책|언론|미디어|심리|교육)/.test(compact);
   }
 
   function isBusinessSocialMajorSelectedContext() {
@@ -8300,7 +8300,7 @@ function getTrackMeta(trackId) {
       ];
     }
 
-    if (/(경영|경제|금융|무역|국제|통상|회계|세무|소비자)/.test(majorText)) {
+    if (/(경영|경제|금융|무역|국제|통상|회계|세무|소비자|부동산)/.test(majorText)) {
       return [
         "시장 경제와 금융 생활",
         "미래와 지속 가능한 삶",
@@ -8313,7 +8313,7 @@ function getTrackMeta(trackId) {
       ];
     }
 
-    if (/(법|행정|정치|사회복지|교육|언론|미디어|국제관계|외교)/.test(majorText)) {
+    if (/(법|행정|정치|사회복지|교육|언론|미디어|국제관계|외교|군사|안보|국방)/.test(majorText)) {
       return [
         "인권 보장과 시민 참여",
         "사회 정의와 불평등",
