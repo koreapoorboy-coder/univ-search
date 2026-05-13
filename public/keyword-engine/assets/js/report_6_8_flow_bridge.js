@@ -1,5 +1,5 @@
 /* report_6_8_flow_bridge.js
- * v235: 학생용 결과물 수준 선택지 정리 + 내부 생성 문구 비노출
+ * v236: 8번 확장형/심화형만 노출 + 하단 라인 설명 완전 제거
  * - 6번은 수행평가 방식(방법) + 보고서 전개 방식 선택
  * - 7번은 평가 관점·과정 증거 선택
  * - 8번은 결과물 수준/보고서 라인 선택
@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v235-two-depth-student-clean";
+  const VERSION = "report-6-8-flow-bridge-v236-two-depth-no-line-preview";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -22,13 +22,6 @@
     .replace(/'/g, "&#39;");
 
   const LINE_HELP = {
-    basic: {
-      id: "basic",
-      title: "기본형",
-      desc: "개념을 먼저 정리하고 사례와 느낀점으로 마무리하는 짧은 보고서 구조입니다.",
-      fit: "처음 쓰는 학생 / 교과 개념 설명 중심",
-      sections: ["추천 주제", "탐구 동기", "핵심 개념 정리", "교과 연계", "느낀점", "세특 문구"]
-    },
     standard: {
       id: "standard",
       title: "확장형",
@@ -462,7 +455,7 @@
     }
     const entries = [LINE_HELP.standard, LINE_HELP.advanced];
     const rec = normalizeLineId(recommendedLine(ctx));
-    const active = normalizeLineId(ctx.state.reportLine || "");
+    const active = normalizeLineId(ctx.state.reportLine || rec || "standard");
     const current = LINE_HELP[active] || LINE_HELP[rec] || LINE_HELP.standard;
     const meaning = buildMeaningPreview(ctx, active || rec);
     const payloadSections = arr(ctx.ctx?.targetStructure);
@@ -478,7 +471,6 @@
           <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${esc(item.fit)}</div>
         </button>
       `).join("")}</div>
-      <div class="report-choice-note">확장형과 심화형 중 하나를 선택하면 선택한 결과물 수준은 보고서 초안의 분량과 깊이에만 반영됩니다. 별도의 내부 작성 지시문은 학생 화면에 표시하지 않습니다.</div>
     `;
   }
 
