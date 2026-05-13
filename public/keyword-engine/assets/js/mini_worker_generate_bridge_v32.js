@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v234-student-facing-report-draft-clean-ui";
+  const VERSION = "mini-worker-generate-bridge-v237-stage-aware-flow-token";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -82,6 +82,24 @@
   }
   function createSessionId(){
     return `session_${Date.now()}_${Math.random().toString(36).slice(2,10)}`;
+  }
+
+  function rememberGatewayGenerationToken(data){
+    const token = String(
+      data?.gateway?.generationToken ||
+      data?.gateway?.flowToken ||
+      data?.generationToken ||
+      ""
+    ).trim();
+    if(token){
+      global.__MINI_GATEWAY_GENERATION_TOKEN__ = token;
+      global.__MINI_GATEWAY_GENERATION_TOKEN_CREATED_AT__ = new Date().toISOString();
+    }
+    return token;
+  }
+
+  function getGatewayGenerationToken(){
+    return String(global.__MINI_GATEWAY_GENERATION_TOKEN__ || "").trim();
   }
 
   function getFormValues(){
@@ -601,6 +619,14 @@
       selectedBookTitle: (mini.useBookInReport || mini.bookUsageMode === "useBook") ? (mini.selectedBook?.title || "") : "",
       bookUsageMode: mini.bookUsageMode || mini.selectionPayload?.bookUsageMode || ((mini.selectedBook?.title) ? "useBook" : "noBook"),
       useBookInReport: !!(mini.useBookInReport || mini.selectionPayload?.useBookInReport),
+
+      // access-gateway v237 차감 구분 필드
+      generationStage: "primary_student_result",
+      billing: {
+        stage: "primary_student_result",
+        countUsage: true,
+        billingVersion: "v237-stage-aware-flow-token"
+      },
 
       // 새 MINI 생성용 확장 필드
       mode: "mini_report_generation_v32",
@@ -2942,6 +2968,13 @@
     };
     return {
       ...req,
+      generationStage: "secondary_report_draft",
+      billing: {
+        stage: "secondary_report_draft",
+        countUsage: false,
+        billingVersion: "v237-stage-aware-flow-token",
+        generationToken: getGatewayGenerationToken()
+      },
       mode: "secondary_expansion_report_draft_generation_v233",
       generationMode: "secondary_expansion_student_report_draft_v233",
       prompt,
@@ -3321,7 +3354,7 @@
       }catch(error){
         console.error("v230 secondary mini draft failed:", error);
         const fallbackDraft = buildSecondaryDraftText(path, req, extra)
-          + `\n\n[안내] mini 초안 생성 중 오류가 발생해 로컬 초안으로 대체했습니다. 오류: ${error?.message || String(error)}`;
+          + `\n\n[안내] 보고서 초안 생성 중 오류가 발생해 현재 선택값 기반 초안으로 대체했습니다. 오류: ${error?.message || String(error)}`;
         global.__MINI_GENERATED_SECONDARY_DRAFT__ = fallbackDraft;
         if(output) output.innerHTML = `<pre>${escapeHtml(fallbackDraft)}</pre>`;
         if(copyBtn) copyBtn.disabled = false;
@@ -3549,6 +3582,7 @@
       }
 
       const data = await postGenerateJson(req);
+      rememberGatewayGenerationToken(data);
       global.__LAST_MINI_WORKER_RESPONSE_V32__ = data;
       const extraction = extractGeneratedText(data, req);
       global.__LAST_MINI_WORKER_EXTRACTION_V34__ = extraction;
