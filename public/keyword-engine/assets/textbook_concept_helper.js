@@ -2325,12 +2325,12 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     const taskDescSpan = taskDescription?.closest("label")?.querySelector("span");
     const usageSpan = usagePurpose?.closest("label")?.querySelector("span");
 
-    if (taskNameSpan) taskNameSpan.textContent = "활동 과제 이름";
+    if (taskNameSpan) taskNameSpan.textContent = "활동 과제 이름"; // v220: hidden field; no visible 중복 입력 생성 안 함
     if (taskTypeSpan) taskTypeSpan.textContent = "결과물 유형";
     if (taskDescSpan) taskDescSpan.textContent = "선생님 안내문";
     if (usageSpan) usageSpan.textContent = "사용 목적";
 
-    if (taskName) taskName.placeholder = "예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리";
+    if (taskName) { taskName.type = "hidden"; taskName.placeholder = ""; }
     const careerInput = $("career");
     const careerSpan = careerInput?.closest("label")?.querySelector("span");
     if (careerSpan) careerSpan.textContent = "학과 검색";
@@ -2527,7 +2527,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
 
   function getContextFieldIds() {
     return [
-      "schoolName", "grade", "subject", "taskName", "taskType", "usagePurpose", "taskDescription",
+      "schoolName", "grade", "subjectGroup", "subject", "taskName", "taskType", "usagePurpose", "taskDescription",
       "activityArea", "outputGoal", "lengthLevel", "workStyle", "teacherFocus", "studentSeed",
       "ctx_presentation", "ctx_experiment", "ctx_research", "ctx_graph", "ctx_table", "ctx_concept", "ctx_book", "ctx_compare",
       "pastReportFile", "recordFile", "src_extract_keywords", "src_find_used_topics", "src_reduce_duplication", "src_adjust_track", "src_adjust_books"
