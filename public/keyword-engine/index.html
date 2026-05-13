@@ -182,6 +182,25 @@
   <script src="assets/js/mini_payload_builder.js?v=v220_subject_group_performance"></script>
   <script src="assets/js/report_6_8_flow_bridge.js?v=v220_performance_method_evidence"></script>
   <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v220_subject_group_network_fallback"></script>
-  <script src="assets/js/ui_subject_group_filter_v220.js?v=v220_subject_group_filter"></script>
+  <script>
+    /* v221 inline emergency fallback: external subject filter가 누락되어도 세부 과목을 교과별로 제한 */
+    window.__SUBJECT_GROUP_INLINE_FALLBACK_VERSION__ = "v221-inline-strict-filter";
+    (function(){
+      const C={"국어":[["공통국어1","공통국어1"],["공통국어2","공통국어2"]],"영어":[["영어","영어"]],"수학":[["공통수학1","공통수학1"],["공통수학2","공통수학2"],["대수","대수"],["확률과 통계","확률과 통계"],["미적분1","미적분1"],["기하","기하"]],"사회":[["통합사회1","통합사회1"],["통합사회2","통합사회2"],["한국사","한국사"]],"과학":[["통합과학1","통합과학1"],["통합과학2","통합과학2"],["과학탐구실험1","과학탐구실험1"],["과학탐구실험2","과학탐구실험2"],["물리","물리(물리학Ⅰ)"],["화학","화학(화학Ⅰ)"],["생명과학","생명과학"],["지구과학","지구과학"],["역학과 에너지","역학과 에너지"],["전자기와 양자","전자기와 양자"],["물질과 에너지","물질과 에너지"],["세포와 물질대사","세포와 물질대사"],["지구시스템과학","지구시스템과학"]],"정보":[["정보","정보"]]};
+      function $(id){return document.getElementById(id)}
+      function sync(){
+        if(window.__installSubjectGroupStrictFilterV221){ window.__installSubjectGroupStrictFilterV221(); return; }
+        const g=$("subjectGroup"), s=$("subject"), t=$("taskType"), n=$("taskName"); if(!g||!s) return;
+        const group=(g.value||"").trim(), keep=(s.value||"").trim(), list=C[group]||[];
+        s.innerHTML=""; const ph=document.createElement("option"); ph.value=""; ph.textContent=group?group+" 세부 과목 선택":"교과를 먼저 선택하세요"; s.appendChild(ph);
+        list.forEach(([v,txt])=>{const o=document.createElement("option");o.value=v;o.textContent=txt;o.dataset.subjectGroup=group;s.appendChild(o);});
+        if(list.some(([v])=>v===keep)) s.value=keep; else s.value="";
+        if(n){n.type="hidden"; n.value=s.value ? s.value+" "+((t&&t.value)||"탐구보고서") : ((t&&t.value)||"탐구보고서");}
+      }
+      function boot(){ const g=$("subjectGroup"), s=$("subject"); if(!g||!s) return; if(!g.dataset.inlineV221){g.addEventListener("change",sync);g.dataset.inlineV221="1";} ["focus","mousedown","pointerdown","click"].forEach(e=>s.addEventListener(e,sync,true)); sync(); }
+      document.addEventListener("DOMContentLoaded",boot); window.addEventListener("load",boot); setTimeout(boot,150); setTimeout(boot,600);
+    })();
+  </script>
+  <script src="assets/js/ui_subject_group_filter_v221.js?v=v221_subject_group_filter_strict"></script>
 </body>
 </html>
