@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v228-secondary-expansion-context";
+  const BUILDER_VERSION = "mini-payload-builder-v235-two-depth-no-basic";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -600,11 +600,19 @@
     return best || { id: "system_data_prevention", ...EXAMPLE_PATTERNS.patternGroups.system_data_prevention, score: 0 };
   }
 
+  function normalizeReportLineValue(input){
+    const raw = val(input);
+    if (!raw || raw === "basic" || raw === "기본형" || raw === "일반형") return "standard";
+    if (raw === "확장형") return "standard";
+    if (raw === "심화형") return "advanced";
+    return raw;
+  }
+
   function getReportChoices(state){
     const mode = val(state.reportMode) || "";
     const rawView = val(state.reportView) || "";
     const view = normalizeReportViewValue(rawView);
-    const line = val(state.reportLine) || "";
+    const line = normalizeReportLineValue(state.reportLine);
     return {
       mode,
       modeLabel: MODE_PROFILES[mode]?.label || mode || "",
