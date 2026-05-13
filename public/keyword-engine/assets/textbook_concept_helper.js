@@ -164,18 +164,6 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
   };
 
   const REPORT_LINE_HELP = {
-    basic: {
-      id: "basic",
-      title: "기본형",
-      desc: "고1 학생이 처음 쓰기 좋은 구조입니다. 개념을 먼저 설명하고, 도서를 참고로 간단히 넓혀 마무리합니다.",
-      fit: "처음 쓰는 학생 / 교과 개념 설명 중심",
-      sections: [
-        "주제 선정 이유",
-        "교과 개념 설명",
-        "도서로 넓히기",
-        "정리와 느낀 점"
-      ]
-    },
     standard: {
       id: "standard",
       title: "확장형",
@@ -12610,7 +12598,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     if (grade === "고2" && ["data","compare","application"].includes(state.reportMode)) return "standard";
     if (taskType.includes("실험") || taskType.includes("발표") || ["data","compare","application"].includes(state.reportMode)) return "standard";
     if (grade === "고2") return "standard";
-    return "basic";
+    return "standard";
   }
 
   function renderReportLineArea() {
@@ -12620,12 +12608,12 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       el.innerHTML = `<div class="engine-empty">먼저 보고서 관점을 선택해야 보고서 라인이 열립니다.</div>`;
       return;
     }
-    if (!state.reportLine) {
+    if (!state.reportLine || state.reportLine === "basic" || state.reportLine === "기본형" || state.reportLine === "일반형") {
       state.reportLine = getRecommendedReportLine();
     }
-    const entries = Object.values(REPORT_LINE_HELP);
+    const entries = [REPORT_LINE_HELP.standard, REPORT_LINE_HELP.advanced].filter(Boolean);
     const recommended = getRecommendedReportLine();
-    const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || entries[0];
+    const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || REPORT_LINE_HELP.standard;
     el.innerHTML = `
       <div class="engine-mode-grid">${entries.map(item => `
         <button type="button" class="engine-mode-card ${state.reportLine === item.id ? "is-active" : ""}" data-action="line" data-value="${escapeHtml(item.id)}">
@@ -12634,11 +12622,6 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
           <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(item.fit)}</div>
         </button>
       `).join("")}</div>
-      <div class="engine-view-guide">
-        <div class="engine-view-guide-title">${escapeHtml(current.title)} 보고서 라인</div>
-        <div class="engine-view-guide-desc">${escapeHtml(current.desc)}</div>
-        <div class="engine-view-guide-example">문단 흐름: ${current.sections.map((section, idx) => `${idx + 1}. ${section}`).join(' → ')}</div>
-      </div>
     `;
   }
 
