@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v235-two-depth-no-basic";
+  const BUILDER_VERSION = "mini-payload-builder-v236-two-depth-no-basic-visible";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -137,13 +137,6 @@
   }
 
   const LINE_PROFILES = {
-    basic: {
-      id: "basic",
-      label: "기본형",
-      targetStructure: ["추천 주제", "탐구 동기", "이 개념이 무엇이며 어떤 원리인가?", "교과목 연계 및 이론적 설명", "느낀점", "세특 문구 예시"],
-      outputGoal: "처음 쓰는 학생도 완성 가능한 6문단 보고서",
-      structureRule: "개념 설명을 중심에 두고 사례와 느낀점을 짧게 연결한다."
-    },
     standard: {
       id: "standard",
       label: "확장형",
@@ -646,7 +639,7 @@
   function fallbackLineFromMode(mode){
     if (["data","compare","application"].includes(mode)) return "standard";
     if (mode === "major") return "advanced";
-    return "basic";
+    return "standard";
   }
 
   function completeReportChoices(reportChoices, payload, axisRule){
