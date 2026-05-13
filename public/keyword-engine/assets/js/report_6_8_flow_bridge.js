@@ -1,5 +1,5 @@
 /* report_6_8_flow_bridge.js
- * v219: 동국대 수행평가 영역명 기준에 맞춰 6~7번 의미 재정의
+ * v220: 동국대 수행평가 영역명 기준 + 교과/세부 과목 2단계 UI 반영
  * - 6번은 수행평가 방식(방법) + 보고서 전개 방식 선택
  * - 7번은 평가 관점·과정 증거 선택
  * - 8번은 결과물 수준/보고서 라인 선택
@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v219-dongguk-performance-method-evidence";
+  const VERSION = "report-6-8-flow-bridge-v220-dongguk-performance-method-evidence";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
