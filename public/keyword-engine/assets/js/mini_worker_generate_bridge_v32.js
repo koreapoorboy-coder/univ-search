@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v216-dongguk-performance-frame";
+  const VERSION = "mini-worker-generate-bridge-v217-dongguk-performance-polish";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -1498,19 +1498,24 @@
     const c = cleanDisplayText(concept || "교과 개념");
     const hay = `${k} ${c} ${axis || ""} ${major || ""} ${(lens?.keywords || []).join(" ")}`;
     if(/반도체|소재|전자|전기|배터리|전지|공학|구조|성능|안정성/i.test(hay)){
+      const hasEngineeringFrame = /구조|성능|안정성|효율|공정|소재/.test(k);
+      const engineeringBase = hasEngineeringFrame ? k : `${k} 구조·성능·안정성`;
+      const engineeringTitle = `${engineeringBase}은 어떤 조건에서 달라질까?`;
+      const engineeringFocus = `${k}의 판단 기준에서 구조, 조건, 성능, 안정성을 함께 비교하면 결론이 어떻게 달라질까?`;
+      const engineeringDataTitle = hasEngineeringFrame ? `${engineeringBase} 원리 자료` : `${engineeringBase} 구조·원리 자료`;
       return {
-        base:`${k} 구조·성능·안정성`,
+        base:engineeringBase,
         tail:"비교 분석하기",
-        title:`${k} 구조·성능·안정성은 어떤 조건에서 달라질까?`,
-        focus:`${k}를 판단할 때 구조, 조건, 성능, 안정성을 함께 비교하면 결론이 어떻게 달라질까?`,
-        questions:[`${k}의 구조와 성능은 어떤 조건에서 달라질까?`, `효율만 볼 때와 안정성까지 함께 볼 때 판단 기준은 어떻게 달라질까?`, `더 적합한 설계나 소재를 고르려면 어떤 자료를 함께 확인해야 할까?`],
-        dataRows:[[`${k} 구조·원리 자료`, "교과서·전문기관·기술 설명 자료", "서론"], ["성능 지표 비교 자료", "제조사 스펙·논문 요약·기술 보고서", "본론 1"], ["안정성·한계 사례 자료", "산업 기사·실험 사례·전문 보고서", "본론 2"]],
+        title:engineeringTitle,
+        focus:engineeringFocus,
+        questions:[`${engineeringBase}은 어떤 조건에서 달라질까?`, `효율만 볼 때와 안정성까지 함께 볼 때 판단 기준은 어떻게 달라질까?`, `더 적합한 설계나 소재를 고르려면 어떤 자료를 함께 확인해야 할까?`],
+        dataRows:[[engineeringDataTitle, "교과서·전문기관·기술 설명 자료", "서론"], ["성능 지표 비교 자료", "제조사 스펙·논문 요약·기술 보고서", "본론 1"], ["안정성·한계 사례 자료", "산업 기사·실험 사례·전문 보고서", "본론 2"]],
         tableRows:[["비교 항목", "구조/조건", "성능/안정성 자료", "내 해석"], ["구조", "소재·결합·배열·공정 조건", "전기적 특성·열 특성", "구조 차이가 성능 차이를 만든다"], ["성능", "속도·효율·전도성", "측정값·그래프·스펙", "목적에 따라 중요한 성능 기준이 달라진다"], ["안정성", "열·전류·외부 조건", "오류·열화·수명 자료", "성능만 높아도 안정성이 낮으면 한계가 있다"], ["결론 방향", "선택 기준", "보완 자료", "성능과 안정성의 균형 기준을 제시한다"]],
-        questionGuide:"지역·기간을 억지로 넣지 말고, 소재·구조·공정 조건·성능 지표 중 하나를 넣어 질문을 구체화한다.",
+        questionGuide:"소재·구조·공정 조건·성능 지표 중 하나를 넣어 질문을 구체화한다.",
         dataGuide:"공식 설명 자료 → 성능 지표 자료 → 안정성/한계 자료 순서로 배치한다.",
         conceptUse:`${c}을 단순 정의로 쓰지 않고, ${k}의 구조가 성능과 안정성으로 이어지는 이유를 설명하는 기준으로 사용한다.`,
-        conceptExample:`예: ${k}는 이름만 쓰면 진로 키워드에 그치지만, 구조·성능·안정성 자료를 비교하면 공학적 판단 기준이 된다.`,
-        conclusion:`그래서 나는 ${k}를 판단할 때 성능 수치 하나보다 구조, 조건, 안정성 자료를 함께 보는 기준이 더 설득력 있다고 정리했다.`
+        conceptExample:`예: 이 키워드는 이름만 쓰면 진로 키워드에 그치지만, 구조·성능·안정성 자료를 비교하면 공학적 판단 기준이 된다.`,
+        conclusion:`그래서 나는 ${k}의 판단 기준에서 성능 수치 하나보다 구조, 조건, 안정성 자료를 함께 보는 방식이 더 설득력 있다고 정리했다.`
       };
     }
     if(/데이터|알고리즘|추천|인공지능|AI|프로그램|정보/i.test(hay)){
@@ -1962,7 +1967,7 @@
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v58_student_display_major_diff_precision",
+        productMode: "major_concept_book_bridge_blueprint_v217_dongguk_performance_polish",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
         focusQuestion,
@@ -2363,17 +2368,18 @@
 
     // v34~v56 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v58 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV58Bound === "1") return;
+    if(btn.dataset.miniWorkerV217Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
+    btn.dataset.miniWorkerV217Bound = "1";
     btn.dataset.miniWorkerV58Bound = "1";
     btn.dataset.miniWorkerV57Bound = "1";
     btn.dataset.miniWorkerV56Bound = "1";
     btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV54Bound = "1";
     btn.dataset.miniWorkerV53Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v58";
+    btn.dataset.miniWorkerV32Bound = "v217";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
