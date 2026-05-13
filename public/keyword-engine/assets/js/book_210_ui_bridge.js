@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v223-on-demand-search-no-auto-select";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v224-global-book-db-search-on-demand";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -209,20 +209,30 @@
       book && book.summary,
       book && book.reportUse,
       book && book.book_core_summary,
+      book && book.searchText,
+      book && book.primarySearchText,
+      arr(book && book.titleAliases).join(" "),
+      arr(book && book.relatedSubjects).join(" "),
+      arr(book && book.relatedMajors).join(" "),
+      arr(book && book.relatedThemes).join(" "),
+      arr(book && book.taskFit).join(" "),
+      arr(book && book.bookContentPoints).join(" "),
+      arr(book && book.reportExpansionTopics).join(" "),
+      arr(book && book.inquiryPoints).join(" "),
       ctx.recommendationReason,
       arr(ctx.reportRoleLabels).join(" "),
       arr(ctx.reportRole).join(" "),
       arr(book && book.matchReasons).join(" "),
       arr(book && book.keywords).join(" "),
-      sectionType === "direct" ? "직접 일치 핵심 근거" : "확장 참고 비교 한계 사회적 의미"
+      sectionType === "direct" ? "직접 일치 핵심 근거" : (sectionType === "search" ? "전체 도서 DB 검색 결과 학생 직접 선택" : "확장 참고 비교 한계 사회적 의미")
     ].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
   }
 
   function renderBookCard(book, active, index, sectionType){
     const key = bookKey(book);
     const ctx = book.selectedBookContext || {};
-    const role = arr(ctx.reportRoleLabels)[0] || (sectionType === "direct" ? "보고서 핵심 근거" : "보고서 확장 참고");
-    const reason = stripInternalBookLabels(arr(book.matchReasons).join(" · ") || ctx.recommendationReason || role);
+    const role = arr(ctx.reportRoleLabels)[0] || (sectionType === "direct" ? "보고서 핵심 근거" : (sectionType === "search" ? "학생 검색 선택 도서" : "보고서 확장 참고"));
+    const reason = stripInternalBookLabels(arr(book.matchReasons).join(" · ") || ctx.recommendationReason || (sectionType === "search" ? "전체 도서 DB에서 검색어와 일치한 도서입니다. 학생이 필요하다고 판단할 때만 보고서에 반영됩니다." : role));
     const preview = stripInternalBookLabels(ctx.recommendationReason || book.summary || book.reportUse || "선택한 흐름에서 보고서 근거로 활용할 수 있습니다.");
     return `
       <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}" data-book-search="${esc(getBookSearchText(book, sectionType))}">
@@ -231,7 +241,7 @@
           <div class="engine-book-title">${esc(book.title)}</div>
           <div class="engine-book-meta">${esc(book.author || "저자 정보 없음")} · ${esc(role)}</div>
           <div class="engine-book-preview">${esc(preview)}</div>
-          <div class="engine-book-reason">${esc(reason)} · ${sectionType === "direct" ? "직접 일치" : "확장 참고"}</div>
+          <div class="engine-book-reason">${esc(reason)} · ${sectionType === "direct" ? "직접 일치" : (sectionType === "search" ? "검색 선택" : "확장 참고")}</div>
         </div>
       </button>
     `;
@@ -564,7 +574,7 @@
     if (!book) return `<div class="engine-empty">왼쪽에서 도서를 선택하면 요약이 보입니다.</div>`;
 
     const sc = book.selectedBookContext || {};
-    const badge = sectionType === "direct" ? "직접 일치 도서" : "확장 참고 도서";
+    const badge = sectionType === "direct" ? "직접 일치 도서" : (sectionType === "search" ? "검색 선택 도서" : "확장 참고 도서");
     const aboutItems = buildStudentContentPoints(book);
     const whyItems = buildBookWhyItems(book, sc, ctx, sectionType);
     const focusItems = buildReadingFocusItems(book, sc, ctx);
@@ -11045,6 +11055,88 @@
     };
   }
 
+
+  function normalizeBookSearchQuery(text){
+    return val(text)
+      .toLowerCase()
+      .replace(/[\u00B7·,.;:|/\\()[\]{}<>"'“”‘’!?~`_+=-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getMasterBookSearchHaystack(book){
+    if (!book) return "";
+    return normalizeBookSearchQuery([
+      book.title,
+      arr(book.titleAliases).join(" "),
+      book.author,
+      book.publisher,
+      book.summary,
+      book.reportUse,
+      book.searchText,
+      book.primarySearchText,
+      arr(book.relatedSubjects).join(" "),
+      arr(book.relatedMajors).join(" "),
+      arr(book.relatedThemes).join(" "),
+      arr(book.keywords).join(" "),
+      arr(book.taskFit).join(" "),
+      arr(book.bookContentPoints).join(" "),
+      arr(book.reportExpansionTopics).join(" "),
+      arr(book.inquiryPoints).join(" ")
+    ].filter(Boolean).join(" "));
+  }
+
+  function scoreMasterBookSearch(book, rawQuery){
+    const q = normalizeBookSearchQuery(rawQuery);
+    if (!q) return 0;
+    const tokens = q.split(" ").filter(Boolean).slice(0, 8);
+    if (!tokens.length) return 0;
+    const title = normalizeBookSearchQuery(book && book.title);
+    const author = normalizeBookSearchQuery(book && book.author);
+    const hay = getMasterBookSearchHaystack(book);
+    let score = 0;
+    if (title === q) score += 1000;
+    if (title.includes(q)) score += 450;
+    if (author.includes(q)) score += 120;
+    if (hay.includes(q)) score += 180;
+    tokens.forEach(token => {
+      if (!token) return;
+      if (title.includes(token)) score += 80;
+      if (author.includes(token)) score += 35;
+      if (hay.includes(token)) score += 15;
+    });
+    return score;
+  }
+
+  function getGlobalBookSearchResults(rawQuery, excludedIds, limit){
+    if (!master || !Array.isArray(master.books)) return [];
+    const q = normalizeBookSearchQuery(rawQuery);
+    if (!q) return [];
+    const excluded = excludedIds instanceof Set ? excludedIds : new Set(excludedIds || []);
+    return master.books
+      .map(book => ({ book, score: scoreMasterBookSearch(book, q) }))
+      .filter(item => item.score > 0 && !excluded.has(bookKey(item.book)))
+      .sort((a, b) => b.score - a.score || val(a.book.title).localeCompare(val(b.book.title), "ko"))
+      .slice(0, limit || 24)
+      .map(item => item.book);
+  }
+
+  function renderGlobalBookSearchHTML(rawQuery, excludedIds, selectedBookId){
+    const matches = getGlobalBookSearchResults(rawQuery, excludedIds, 24);
+    const q = val(rawQuery);
+    if (!q) return "";
+    if (!matches.length) {
+      return `<div class="engine-empty" style="margin-top:12px;">전체 도서 DB에서 추가 검색 결과가 없습니다. 책 제목을 정확히 입력하거나 더 짧은 키워드로 검색해 보세요.</div>`;
+    }
+    return `
+      <div class="engine-global-book-search-block" style="margin-top:18px; padding-top:16px; border-top:1px dashed #cbd5e1;">
+        <div class="engine-subtitle">전체 도서 DB 검색 결과</div>
+        <div class="engine-help">위 추천 7권 밖에서도 책 제목·저자·핵심 내용·키워드가 검색어와 맞는 도서를 보여줍니다. 선택한 책만 보고서에 반영됩니다.</div>
+        ${matches.map((book, index) => renderBookCard(book, bookKey(book) === val(selectedBookId) || val(book.title) === val(selectedBookId), index, "search")).join("")}
+      </div>
+    `;
+  }
+
   global.renderBookSelectionHTML = function(ctx){
     ctx = ctx || {};
     lastInputCtx = cloneCtx(ctx);
@@ -11137,8 +11229,12 @@
       return `<div class="engine-empty">현재 선택한 전공군·개념·후속 연계축에 맞는 도서가 아직 충분하지 않습니다. 키워드나 연계축을 바꿔 보세요.</div>`;
     }
 
-    const selected = all.find(book => [bookKey(book), book.title].includes(val(ctx.selectedBook))) || null;
-    const selectedSection = selected && direct.some(book => bookKey(book) === bookKey(selected)) ? "direct" : "expansion";
+    const selectedFromRecommended = all.find(book => [bookKey(book), book.title].includes(val(ctx.selectedBook))) || null;
+    const selectedFromMaster = selectedFromRecommended || findBook(ctx.selectedBook);
+    const selected = selectedFromMaster || null;
+    const selectedSection = selectedFromRecommended
+      ? (direct.some(book => bookKey(book) === bookKey(selectedFromRecommended)) ? "direct" : "expansion")
+      : (selected ? "search" : "expansion");
 
     const directHTML = direct.length
       ? direct.map((book, index) => renderBookCard(book, !!selected && bookKey(book) === bookKey(selected), index, "direct")).join("")
@@ -11156,9 +11252,9 @@
       <div class="engine-book-selection-shell">
         <div class="engine-book-search-box" style="margin:0 0 14px; padding:14px; border:1px solid #d9e4fb; border-radius:16px; background:#fff;">
           <div class="engine-subtitle" style="margin-bottom:6px;">도서 검색</div>
-          <div class="engine-help" style="margin-bottom:10px;">책 제목, 저자, 핵심 내용, 추천 이유를 보고 필요한 책만 선택합니다. 선택 전에는 어떤 책도 보고서에 자동 반영되지 않습니다.</div>
-          <input type="search" class="engine-book-search-input" data-action="book-search" placeholder="예: 반도체, 데이터, 윤리, 공간, 국부론" style="width:100%; border:1px solid #d5deef; border-radius:14px; padding:12px 14px; font-size:15px; outline:none;" />
-          <div class="engine-book-search-count" data-book-search-count style="margin-top:8px; color:#64748b; font-size:12px; font-weight:800;">추천 도서 ${all.length}권 표시 중</div>
+          <div class="engine-help" style="margin-bottom:10px;">추천 도서 7권 안에서만 찾지 않고, 학생이 입력한 책 제목·저자·키워드로 전체 도서 DB를 함께 검색합니다. 선택 전에는 어떤 책도 보고서에 자동 반영되지 않습니다.</div>
+          <input type="search" class="engine-book-search-input" data-action="book-search" placeholder="예: 국부론, 사피엔스, 반도체, 데이터, 윤리, 공간" style="width:100%; border:1px solid #d5deef; border-radius:14px; padding:12px 14px; font-size:15px; outline:none;" />
+          <div class="engine-book-search-count" data-book-search-count style="margin-top:8px; color:#64748b; font-size:12px; font-weight:800;">추천 도서 ${all.length}권 표시 중 · 검색어를 입력하면 전체 도서 DB도 함께 검색합니다.</div>
         </div>
         <div class="engine-book-layout">
           <div class="engine-book-list">
@@ -11166,7 +11262,8 @@
             <div class="engine-help">전공군·교과 개념·후속 연계축이 모두 맞아 보고서 핵심 근거로 쓸 수 있는 도서입니다.</div>
             ${directHTML}
             ${expansionHTML}
-            <div class="engine-empty engine-book-search-empty" data-book-search-empty style="display:none; margin-top:12px;">검색어와 일치하는 도서가 없습니다. 검색어를 줄이거나 다른 표현으로 찾아보세요.</div>
+            <div class="engine-empty engine-book-search-empty" data-book-search-empty style="display:none; margin-top:12px;">현재 추천 7권 안에서는 일치하는 도서가 없습니다. 아래 전체 도서 DB 검색 결과를 확인하세요.</div>
+            <div class="engine-global-book-search-results" data-global-book-search-results data-selected-book="${esc(ctx.selectedBook || "")}" data-excluded-book-ids="${esc(all.map(book => bookKey(book)).filter(Boolean).join(","))}" style="display:none;"></div>
           </div>
           <div class="engine-book-summary">
             <div class="engine-subtitle">선택 도서 요약</div>
@@ -11300,21 +11397,41 @@
       const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
       if (!input) return;
       const shell = input.closest(".engine-book-selection-shell") || document;
-      const q = val(input.value).toLowerCase();
+      const rawQuery = val(input.value);
+      const q = rawQuery.toLowerCase();
       const cards = Array.from(shell.querySelectorAll(".engine-book-card[data-kind='book']"));
+      const recommendedCards = cards.filter(card => !card.closest("[data-global-book-search-results]"));
       let visible = 0;
-      cards.forEach(card => {
+      recommendedCards.forEach(card => {
         const hay = val(card.getAttribute("data-book-search") || card.textContent).toLowerCase();
-        const ok = !q || hay.includes(q);
+        const ok = !q || hay.includes(q) || normalizeBookSearchQuery(hay).includes(normalizeBookSearchQuery(rawQuery));
         card.style.display = ok ? "flex" : "none";
         if (ok) visible += 1;
       });
+      const globalBox = shell.querySelector("[data-global-book-search-results]");
+      let globalCount = 0;
+      if (globalBox) {
+        const excludedIds = new Set(val(globalBox.getAttribute("data-excluded-book-ids") || "").split(",").filter(Boolean));
+        if (rawQuery) {
+          globalBox.innerHTML = renderGlobalBookSearchHTML(rawQuery, excludedIds, globalBox.getAttribute("data-selected-book") || "");
+          globalBox.style.display = "block";
+          globalCount = globalBox.querySelectorAll(".engine-book-card[data-kind='book']").length;
+        } else {
+          globalBox.innerHTML = "";
+          globalBox.style.display = "none";
+        }
+      }
       const count = shell.querySelector("[data-book-search-count]");
-      if (count) count.textContent = q ? `검색 결과 ${visible}권 / 전체 ${cards.length}권` : `추천 도서 ${cards.length}권 표시 중`;
+      if (count) {
+        count.textContent = rawQuery
+          ? `추천 목록 ${visible}권 + 전체 DB 추가 검색 ${globalCount}권`
+          : `추천 도서 ${recommendedCards.length}권 표시 중 · 검색어를 입력하면 전체 도서 DB도 함께 검색합니다.`;
+      }
       const empty = shell.querySelector("[data-book-search-empty]");
-      if (empty) empty.style.display = visible ? "none" : "block";
+      if (empty) empty.style.display = rawQuery && !visible ? "block" : "none";
     }, true);
   }
+
 
   function installBridgeBookClickHandler(){
     if (global.__BOOK_210_BOOK_CLICK_HANDLER__) return;
