@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v231-selected-expansion-locked-draft";
+  const VERSION = "mini-worker-generate-bridge-v232-selectable-evidence-assisted-draft";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -2636,6 +2636,173 @@
     return presets[v] || presets["공공기관 자료"];
   }
 
+
+
+  function normalizeV232Id(value){
+    return String(value || "").trim().replace(/[^a-zA-Z0-9가-힣_-]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") || "option";
+  }
+
+  function buildV232FocusChoices(path, req){
+    const c = getSecondaryPathContext(path, req);
+    const label = String(c.pathLabel || "자료 해석형");
+    const base = {
+      concept: c.concept,
+      keyword: c.keyword,
+      axis: c.axis,
+      major: c.major
+    };
+    let rows;
+    if(/원리/.test(label)){
+      rows = [
+        ["principle-condition", "원리 작동 조건", `${base.concept}의 원리가 어떤 조건에서 작동하는지 설명한다.`, "개념 정의 → 작동 조건 → 사례 적용 → 조건의 한계"],
+        ["structure-performance", "구조·성능 연결", `${base.keyword}의 구조가 성능·안정성 차이와 어떻게 연결되는지 본다.`, "구조 요소 → 성능 지표 → 차이 원인 → 개선 기준"],
+        ["limit-condition", "한계 조건 분석", `같은 원리가 항상 적용되지 않는 이유와 한계 조건을 찾는다.`, "적용 가능 조건 → 예외 상황 → 한계 → 후속 확인"],
+        ["textbook-application", "교과 개념 적용", `교과서 개념을 실제 자료나 사례에 적용해 설명한다.`, "교과 개념 → 실제 사례 → 해석 → 나의 판단"]
+      ];
+    }else if(/사례|비교/.test(label)){
+      rows = [
+        ["case-condition", "사례 A/B 조건 비교", `두 사례의 조건 차이가 결과 차이로 이어지는지 비교한다.`, "사례 A 조건 → 사례 B 조건 → 차이 → 판단"],
+        ["benefit-risk", "장점·한계 비교", `각 사례의 장점과 한계를 같은 기준으로 비교한다.`, "장점 → 한계 → 비교 기준 → 나의 선택"],
+        ["policy-tech-case", "정책·기술 사례 비교", `${base.major}와 연결되는 정책·기술 사례를 나란히 비교한다.`, "사례 소개 → 적용 방식 → 영향 → 차이 분석"],
+        ["target-difference", "대상·상황 차이", `같은 주제라도 대상이나 상황이 달라지면 결과가 어떻게 바뀌는지 본다.`, "대상 A → 대상 B → 상황 차이 → 결론"]
+      ];
+    }else if(/사회|의미|쟁점/.test(label)){
+      rows = [
+        ["affected-group", "영향 대상 선택", `이 탐구가 누구에게 영향을 주는지 먼저 정한다.`, "대상 → 문제 상황 → 영향 → 대응 방향"],
+        ["policy-system", "정책·제도 관점", `정책이나 제도 기준에서 해결 방향을 판단한다.`, "문제 → 제도 → 장단점 → 개선 기준"],
+        ["ethics-fairness", "윤리·공정성 관점", `편익과 부담이 누구에게 가는지 윤리적으로 분석한다.`, "쟁점 → 이해관계자 → 공정성 → 나의 판단"],
+        ["environment-economy", "환경·경제 영향", `환경적 영향과 경제적 비용·효과를 함께 비교한다.`, "영향 지표 → 비용/효과 → 균형 기준 → 결론"]
+      ];
+    }else if(/후속|심화/.test(label)){
+      rows = [
+        ["variable-add", "추가 변수 선택", `현재 탐구에서 빠진 변수를 하나 정해 후속 탐구로 확장한다.`, "현재 결론 → 부족한 변수 → 확인 방법 → 예상 의미"],
+        ["experiment-condition", "실험 조건 보완", `조건을 바꾸면 결과가 달라지는지 실험·조사 설계를 만든다.`, "조건 A/B → 측정 항목 → 비교 방법 → 한계"],
+        ["target-expand", "조사 대상 확대", `기간·지역·대상 범위를 넓혀 결과가 유지되는지 확인한다.`, "현재 범위 → 확대 범위 → 비교 기준 → 후속 의미"],
+        ["limit-verify", "한계 검증", `현재 결론이 어디까지 타당한지 검증한다.`, "현재 결론 → 한계 → 검증 자료 → 수정 방향"]
+      ];
+    }else{
+      rows = [
+        ["trend-change", "변화 추이 해석", `${base.keyword}가 시간에 따라 증가·감소·변화하는지 해석한다.`, "자료 출처 → 변화 지점 → 원인 해석 → 한계"],
+        ["group-difference", "집단·조건 차이", `대상이나 조건에 따라 수치가 어떻게 달라지는지 비교한다.`, "비교 대상 → 차이 → 교과 개념 연결 → 판단"],
+        ["pattern-relation", "패턴·관계 찾기", `그래프나 표에서 반복되는 패턴과 관계를 찾는다.`, "패턴 → 관계 → 해석 → 추가 확인"],
+        ["outlier-limit", "이상값·자료 한계", `자료에서 튀는 값이나 부족한 점을 보고 해석의 한계를 정한다.`, "이상값 → 가능한 원인 → 한계 → 보완 자료"]
+      ];
+    }
+    return rows.map((row, idx) => ({
+      id: row[0],
+      label: row[1],
+      question: row[2],
+      structure: row[3],
+      isRecommended: idx === 0
+    }));
+  }
+
+  function getV232EvidenceSearchChoices(path, req, evidenceType){
+    const c = getSecondaryPathContext(path, req);
+    const type = String(evidenceType || "통계 자료").trim();
+    const kw = firstNonEmpty(c.keyword, c.concept, "탐구 주제");
+    const concept = firstNonEmpty(c.concept, "교과 개념");
+    const major = firstNonEmpty(c.major, "선택 진로");
+    let rows;
+    if(/통계/.test(type)){
+      rows = [
+        ["kosis-trend", "KOSIS 변화 추이", "KOSIS 국가통계포털", `${kw} 변화 추이 통계`, "연도별 증가·감소, 가장 큰 변화 구간, 비교 기준"],
+        ["public-data", "공공데이터 표·그래프", "공공데이터포털·공공기관", `${major} ${kw} 공공데이터`, "표 또는 그래프의 핵심 수치 1~2개"],
+        ["agency-stat", "기관 보고서 수치", "정부·공공기관 보고서", `${kw} 통계 보고서 공공기관`, "기관이 제시한 기준, 수치, 변화 이유"],
+        ["article-chart", "기사 속 그래프", "언론 기사 속 표·그래프", `${kw} 그래프 기사`, "기사에 나온 수치와 해석이 필요한 지점"]
+      ];
+    }else if(/기사/.test(type)){
+      rows = [
+        ["news-case", "사회 사례 기사", "언론 기사", `${kw} 사례 기사`, "문제 상황, 대상, 결과, 쟁점"],
+        ["news-compare", "비교 기사 2개", "서로 다른 기사 2개", `${kw} 장점 단점 비교 기사`, "사례 A/B의 조건과 차이"],
+        ["news-policy", "정책 기사", "정책·제도 관련 기사", `${kw} 정책 제도 기사`, "정책 내용과 영향을 받는 대상"],
+        ["news-tech", "기술 적용 기사", "기술·산업 기사", `${major} ${kw} 적용 사례 기사`, "기술 적용 방식과 한계"]
+      ];
+    }else if(/실험/.test(type)){
+      rows = [
+        ["class-experiment", "수업 실험 결과", "수업 활동지·실험 보고서", `${concept} 실험 결과 비교`, "조건 A/B, 측정값, 오차 가능성"],
+        ["simple-measure", "간단 측정 자료", "직접 측정·관찰 기록", `${kw} 측정 실험`, "측정 방법과 반복 횟수"],
+        ["simulation", "시뮬레이션 결과", "공개 시뮬레이션·계산 결과", `${kw} 시뮬레이션 결과`, "변수 변화와 결과 패턴"],
+        ["lab-reference", "실험 예시 자료", "교과서·EBS·수업 자료", `${concept} 탐구 실험 예시`, "실험 설계와 변인 통제"]
+      ];
+    }else if(/논문/.test(type)){
+      rows = [
+        ["paper-abstract", "논문 초록 요약", "RISS·KCI·Google Scholar", `${kw} 연구 논문 초록`, "연구 대상, 방법, 핵심 결과"],
+        ["paper-review", "선행연구 비교", "논문 2편 초록", `${kw} 선행연구 비교`, "연구 간 공통점과 차이"],
+        ["paper-limit", "연구 한계", "논문 결론·한계 부분", `${kw} 연구 한계 후속 연구`, "한계와 후속 연구 제안"],
+        ["paper-method", "연구 방법 참고", "논문 방법 부분", `${kw} 연구 방법 자료`, "조사·실험·분석 방법"]
+      ];
+    }else if(/교과서/.test(type)){
+      rows = [
+        ["textbook-definition", "교과서 정의", "교과서·수업 프린트", `${concept} 정의 조건 예시`, "정의, 공식, 조건, 기본 예시"],
+        ["ebs-concept", "EBS 개념 설명", "EBS·공개 강의 자료", `${concept} 개념 설명`, "핵심 원리와 적용 조건"],
+        ["textbook-example", "교과서 탐구 예시", "교과서 탐구 활동", `${concept} 탐구 활동 예시`, "탐구 절차와 관찰 포인트"],
+        ["class-note", "수업 필기·활동지", "수업 자료", `${concept} ${kw} 수업 자료`, "선생님이 강조한 개념과 예시"]
+      ];
+    }else if(/사례/.test(type)){
+      rows = [
+        ["case-a-b", "사례 A/B 비교", "기사·기관 사례집", `${kw} 사례 비교`, "사례 A/B 조건, 결과, 차이"],
+        ["policy-case", "정책 사례 비교", "정책 자료·기사", `${kw} 정책 사례 비교`, "정책 목표와 실제 효과"],
+        ["tech-case", "기술 적용 사례", "기업·기관 자료", `${major} ${kw} 적용 사례`, "적용 방식, 성능, 한계"],
+        ["local-global", "국내·해외 사례", "국내 기사+해외 사례", `${kw} 국내 해외 사례 비교`, "지역·제도·조건 차이"]
+      ];
+    }else{
+      rows = [
+        ["agency-report", "공공기관 보고서", "정부·공공기관", `${kw} 공공기관 보고서`, "공식 기준, 수치, 정책 방향"],
+        ["press-release", "기관 보도자료", "정부·기관 보도자료", `${kw} 보도자료`, "기관이 발표한 핵심 내용"],
+        ["data-brief", "공공데이터 해설", "공공데이터포털·기관 해설", `${kw} 데이터 해설`, "자료 구조와 핵심 지표"],
+        ["standard-guide", "기준·가이드라인", "기관 가이드라인", `${kw} 기준 가이드라인`, "판단 기준과 적용 범위"]
+      ];
+    }
+    return rows.map((row, idx) => ({
+      id: row[0],
+      label: row[1],
+      sourceType: row[2],
+      searchQuery: row[3],
+      copyTarget: row[4],
+      draftUse: `${row[1]}에서 확인한 ${row[4]}를 ${c.pathLabel} 보고서의 근거 문단에 연결한다.`,
+      isRecommended: idx === 0
+    }));
+  }
+
+  function getSelectedV232Radio(panel, name){
+    const checked = panel?.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : "";
+  }
+
+  function renderV232ChoiceCards(name, choices, className){
+    return (choices || []).map((item, idx) => {
+      const checked = item.isRecommended || idx === 0 ? "checked" : "";
+      return `
+        <label class="${className} ${checked ? "is-selected" : ""}" data-v232-choice="${escapeHtml(item.id || String(idx))}">
+          <input type="radio" name="${escapeHtml(name)}" value="${escapeHtml(item.id || String(idx))}" ${checked}>
+          <span class="mini-v232-choice-title">${escapeHtml(item.label || "선택지")}${item.isRecommended ? " · 추천" : ""}</span>
+          ${item.question ? `<span class="mini-v232-choice-desc">${escapeHtml(item.question)}</span>` : ""}
+          ${item.structure ? `<span class="mini-v232-choice-meta">구조: ${escapeHtml(item.structure)}</span>` : ""}
+          ${item.sourceType ? `<span class="mini-v232-choice-desc">자료 위치: ${escapeHtml(item.sourceType)}</span>` : ""}
+          ${item.searchQuery ? `<span class="mini-v232-choice-meta">검색어: ${escapeHtml(item.searchQuery)}</span>` : ""}
+          ${item.copyTarget ? `<span class="mini-v232-choice-meta">가져올 내용: ${escapeHtml(item.copyTarget)}</span>` : ""}
+        </label>
+      `;
+    }).join("");
+  }
+
+  function buildV232SelectionSummary(path, req, extra){
+    const c = getSecondaryPathContext(path, req);
+    const focus = extra?.focusChoice || null;
+    const search = extra?.evidenceSearchChoice || null;
+    return [
+      `세부 초점: ${focus?.label || "선택 안 함"}`,
+      focus?.question ? `초점 질문: ${focus.question}` : "",
+      focus?.structure ? `초점 구조: ${focus.structure}` : "",
+      `자료 찾기 선택: ${search?.label || "선택 안 함"}`,
+      search?.sourceType ? `자료 위치: ${search.sourceType}` : "",
+      search?.searchQuery ? `검색어: ${search.searchQuery}` : "",
+      search?.copyTarget ? `가져올 내용: ${search.copyTarget}` : "",
+      `mini 요청: 실제 첨부 자료나 검색 가능한 자료가 있으면 그 자료를 우선 확인하고, 확인되지 않은 출처·수치는 [학생 입력 필요]로 남긴다.`
+    ].filter(Boolean).join("\n");
+  }
+
   function missingStudentInput(value, label){
     const t = String(value || "").trim();
     return t || `[학생 입력 필요: ${label}]`;
@@ -2666,12 +2833,15 @@
     const evidencePoint = missingStudentInput(extra?.evidencePoint, "자료 핵심 내용");
     const studentView = missingStudentInput(extra?.studentView, "내 해석");
     const hasEvidence = hasRealStudentEvidence(extra);
+    const selectionSummary = buildV232SelectionSummary(path, req, extra || {});
     return [
       "너는 지금 1차 탐구 설계서를 다시 요약하는 것이 아니다.",
       "학생이 선택한 2차 확장 방향을 중심으로 수행평가 보고서 초안을 작성해야 한다.",
       "1차 설계값은 배경 정보로만 사용하고, 문단 구조·자료 배치·분석 방식·결론 방향은 반드시 selectedExpansionPath를 기준으로 구성한다.",
       "선택 방향과 무관한 설계서 요약, '동국대 수행평가 영역명 기준', '보고서 완성 그림', '보고서 문장 구조' 같은 안내형 출력은 금지한다.",
       "실제 자료 제목·출처·핵심 내용이 비어 있으면 절대 지어내지 말고 해당 위치에 [학생 입력 필요]로 표시한다.",
+      "학생이 자료 후보 선택지를 골랐다면, 그 선택값을 바탕으로 먼저 어떤 자료를 찾아야 하는지와 어떤 내용을 가져와야 하는지를 초안에 반영한다.",
+      "첨부 자료나 이미 입력된 자료가 있다면 그것을 최우선 근거로 삼고, 검색 가능한 공공자료·기사·논문 후보가 필요하면 후보명/검색어/확인 항목을 먼저 제시한다.",
       "고등학생 수행평가 수준을 넘는 대학 수준 내용은 피하고, 교과 개념과 학생 선택값의 연결성을 중심으로 작성한다.",
       "",
       "[1차 탐구 설계값: 배경 정보로만 사용]",
@@ -2697,6 +2867,9 @@
       `출처: ${evidenceSource}`,
       `자료 핵심 내용: ${evidencePoint}`,
       `내 해석: ${studentView}`,
+      "",
+      "[학생이 클릭으로 선택한 세부 초점·자료 후보]",
+      selectionSummary,
       "",
       "[자료 입력이 부족할 때 참고할 검색어]",
       ...g.searchKeywords.map(v => `- ${v}`),
@@ -2756,6 +2929,16 @@
       keyContent: String(extra?.evidencePoint || "").trim(),
       interpretation: String(extra?.studentView || "").trim()
     };
+    const evidenceSupport = {
+      version: "v232-selectable-evidence-search-or-attachment-assisted",
+      focusChoice: extra?.focusChoice || null,
+      evidenceSearchChoice: extra?.evidenceSearchChoice || null,
+      allowMiniEvidenceSearch: Boolean(extra?.allowEvidenceSearch),
+      useAttachmentOrProvidedDataFirst: Boolean(extra?.useAttachmentFirst),
+      requireSourceVerification: true,
+      doNotTreatSearchCandidateAsVerifiedSource: true,
+      selectionSummary: buildV232SelectionSummary(path, req, extra || {})
+    };
     const generationRules = {
       useSelectedPathAsMainFrame: true,
       doNotRewritePrimaryDesignOnly: true,
@@ -2775,6 +2958,7 @@
       primaryDesign,
       secondaryExpansion,
       studentEvidence,
+      evidenceSupport,
       generationRules,
       secondaryDraftRequest: {
         version: "secondary-expansion-locked-draft-v231",
@@ -2782,11 +2966,12 @@
         selectedExpansionPath: path || null,
         secondaryExpansion,
         studentEvidence,
+        evidenceSupport,
         generationRules,
         context: c
       },
       messages: [
-        { role: "system", content: "너는 고등학생 수행평가 보고서 초안 구조화 도우미다. 1차 설계서를 다시 요약하지 말고, 학생이 선택한 2차 확장 방향을 문단 구조의 중심축으로 고정한다. 실제 출처와 자료 내용은 절대 지어내지 않는다." },
+        { role: "system", content: "너는 고등학생 수행평가 보고서 초안 구조화 도우미다. 1차 설계서를 다시 요약하지 말고, 학생이 선택한 2차 확장 방향과 세부 초점·자료 후보 선택값을 문단 구조의 중심축으로 고정한다. 실제 출처와 자료 내용은 절대 지어내지 않는다. 첨부 자료나 입력 자료가 있으면 우선 사용하고, 없으면 자료 후보와 검색어를 먼저 제시한다." },
         { role: "user", content: prompt }
       ]
     };
@@ -2804,6 +2989,11 @@
     const bookLine = book?.title
       ? `선택 도서 '${book.title}'는 본문의 근거를 대신하지 않고, 결론·한계·관점 확장 문단에서 보조 근거로 활용한다.`
       : "도서를 선택하지 않았으므로 공공자료·통계·기사·실험자료를 중심 근거로 사용한다.";
+    const selectionSummary = buildV232SelectionSummary(path, req, extra || {});
+    const focusLabel = extra?.focusChoice?.label || "세부 초점 선택값";
+    const searchLabel = extra?.evidenceSearchChoice?.label || "자료 후보 선택값";
+    const searchQuery = extra?.evidenceSearchChoice?.searchQuery || "[학생 입력 필요: 검색어]";
+    const copyTarget = extra?.evidenceSearchChoice?.copyTarget || "[학생 입력 필요: 자료에서 가져올 내용]";
 
     const title = `보고서 초안 제목: ${c.keyword}의 ${c.pathLabel} 탐구`;
     let p1 = "";
@@ -2847,7 +3037,15 @@
     return [
       title,
       `선택한 2차 확장 방향: ${c.pathLabel}`,
+      `선택한 세부 초점: ${focusLabel}`,
+      `선택한 자료 후보: ${searchLabel}`,
       `탐구 질문: ${c.question}`,
+      "",
+      "[자료 후보 확인]",
+      selectionSummary,
+      `검색어: ${searchQuery}`,
+      `자료에서 가져올 내용: ${copyTarget}`,
+      "실제 자료가 아직 확인되지 않았다면 위 항목은 확정 출처가 아니라 검색·검증 요청값입니다.",
       "",
       `[1문단. ${blueprint.paragraphs[0]}]`, p1, "",
       `[2문단. ${blueprint.paragraphs[1]}]`, p2, "",
@@ -2859,6 +3057,8 @@
       `- 출처: ${String(extra?.evidenceSource || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
       `- 수치·사례·문장: ${String(extra?.evidencePoint || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
       `- 내 해석: ${String(extra?.studentView || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
+      `- 선택한 자료 후보로 먼저 확인할 것: ${copyTarget}`,
+      `- 검색어 또는 첨부자료 확인 요청: ${searchQuery}`,
       "- 한계와 후속 탐구: 현재 자료로 부족한 점과 추가 확인할 자료를 1문장 이상 직접 작성하기"
     ].join("\n");
   }
@@ -2867,6 +3067,8 @@
     const paths = Array.isArray(expansion?.paths) ? expansion.paths : [];
     if(!paths.length) return "";
     const recommended = paths.find(p => p.isRecommended) || paths[0];
+    const initialFocusChoices = buildV232FocusChoices(recommended, req);
+    const initialEvidenceChoices = getV232EvidenceSearchChoices(recommended, req, "통계 자료");
     const optionHtml = paths.map((path, idx) => {
       const checked = path.id === recommended.id ? "checked" : "";
       const evidence = Array.isArray(path.evidenceTypes) ? path.evidenceTypes.join(" · ") : "자료 직접 선택";
@@ -2912,7 +3114,27 @@
               <option value="사례 비교 자료">사례 비교 자료</option>
             </select>
           </label>
-          <p>선택한 자료 유형에 따라 입력칸 힌트가 바뀝니다. 실제 출처를 모르면 빈칸으로 두고 [학생 입력 필요] 상태로 생성하세요.</p>
+          <p>선택한 자료 유형에 따라 아래 자료 후보가 바뀝니다. 학생이 직접 제목·출처를 못 적어도, 먼저 자료 후보와 검색 방향을 선택해서 mini에 보낼 수 있습니다.</p>
+        </div>
+
+        <div class="mini-v232-select-box">
+          <div class="mini-v232-select-head">
+            <b>1) 세부 초점 선택</b>
+            <span>같은 2차 확장 방향 안에서도 무엇을 중심으로 쓸지 한 번 더 선택합니다.</span>
+          </div>
+          <div class="mini-v232-choice-grid" id="miniV232FocusChoices">${renderV232ChoiceCards("miniV232FocusChoice", initialFocusChoices, "mini-v232-choice-card")}</div>
+        </div>
+
+        <div class="mini-v232-select-box">
+          <div class="mini-v232-select-head">
+            <b>2) 자료 후보 선택</b>
+            <span>자료 제목·출처를 직접 쓰기 어렵다면, 먼저 어떤 자료를 찾을지 선택합니다. 이 선택값은 mini에 검색/첨부자료 활용 요청으로 전달됩니다.</span>
+          </div>
+          <div class="mini-v232-choice-grid" id="miniV232EvidenceChoices">${renderV232ChoiceCards("miniV232EvidenceChoice", initialEvidenceChoices, "mini-v232-choice-card evidence")}</div>
+          <div class="mini-v232-search-mode">
+            <label><input type="checkbox" id="miniV232AllowEvidenceSearch" checked> mini가 선택 자료 후보를 기준으로 실제 자료·첨부자료·검색 가능한 데이터 확인을 먼저 시도하도록 요청</label>
+            <label><input type="checkbox" id="miniV232UseAttachmentFirst" checked> 학생이 첨부한 자료나 화면에 입력된 자료가 있으면 그것을 최우선으로 사용</label>
+          </div>
         </div>
 
         <div class="mini-v229-input-grid">
@@ -2943,6 +3165,56 @@
     const hintBtn = $("miniV230FillSourceHintsBtn");
     const guideOutput = $("miniV230EvidenceGuideOutput");
     const evidenceTypeSelect = $("miniV231EvidenceType");
+    const focusBox = $("miniV232FocusChoices");
+    const evidenceBox = $("miniV232EvidenceChoices");
+
+    function syncV232ChoiceCards(name){
+      Array.from(panel.querySelectorAll(`input[name="${name}"]`)).forEach(r => {
+        const card = r.closest(".mini-v232-choice-card");
+        if(card) card.classList.toggle("is-selected", r.checked);
+      });
+    }
+
+    function rerenderV232ChoiceBoxes(){
+      const path = selectedPath();
+      const evType = evidenceTypeSelect?.value || "통계 자료";
+      const focusChoices = buildV232FocusChoices(path, req);
+      const evidenceChoices = getV232EvidenceSearchChoices(path, req, evType);
+      if(focusBox) focusBox.innerHTML = renderV232ChoiceCards("miniV232FocusChoice", focusChoices, "mini-v232-choice-card");
+      if(evidenceBox) evidenceBox.innerHTML = renderV232ChoiceCards("miniV232EvidenceChoice", evidenceChoices, "mini-v232-choice-card evidence");
+      ["miniV232FocusChoice", "miniV232EvidenceChoice"].forEach(name => {
+        Array.from(panel.querySelectorAll(`input[name="${name}"]`)).forEach(r => {
+          r.addEventListener("change", () => syncV232ChoiceCards(name));
+        });
+        syncV232ChoiceCards(name);
+      });
+      if(guideOutput){
+        const firstEvidence = evidenceChoices[0];
+        const firstFocus = focusChoices[0];
+        guideOutput.innerHTML = `<pre>${escapeHtml([
+          "선택지 기반 자료 찾기 준비",
+          `세부 초점 추천: ${firstFocus?.label || ""}`,
+          `자료 후보 추천: ${firstEvidence?.label || ""}`,
+          firstEvidence?.searchQuery ? `검색어: ${firstEvidence.searchQuery}` : "",
+          firstEvidence?.copyTarget ? `가져올 내용: ${firstEvidence.copyTarget}` : "",
+          "",
+          "학생이 자료 제목·출처를 직접 쓰기 어렵다면 위 후보를 선택한 뒤 mini로 보고서 초안 생성을 누르세요."
+        ].filter(Boolean).join("\n"))}</pre>`;
+      }
+    }
+
+    function getSelectedV232Objects(){
+      const path = selectedPath();
+      const evType = evidenceTypeSelect?.value || "통계 자료";
+      const focusChoices = buildV232FocusChoices(path, req);
+      const evidenceChoices = getV232EvidenceSearchChoices(path, req, evType);
+      const focusId = getSelectedV232Radio(panel, "miniV232FocusChoice") || focusChoices[0]?.id;
+      const evidenceId = getSelectedV232Radio(panel, "miniV232EvidenceChoice") || evidenceChoices[0]?.id;
+      return {
+        focusChoice: focusChoices.find(v => String(v.id) === String(focusId)) || focusChoices[0] || null,
+        evidenceSearchChoice: evidenceChoices.find(v => String(v.id) === String(evidenceId)) || evidenceChoices[0] || null
+      };
+    }
 
     function applyEvidenceTypePlaceholders(){
       const preset = getEvidenceTypePreset(evidenceTypeSelect?.value || "공공기관 자료");
@@ -2958,7 +3230,7 @@
 
     evidenceTypeSelect?.addEventListener("change", () => {
       applyEvidenceTypePlaceholders();
-      if(guideOutput) guideOutput.textContent = "자료 유형이 바뀌었습니다. 필요한 자료 제목·출처·핵심 내용을 실제 자료 기준으로 채워주세요.";
+      rerenderV232ChoiceBoxes();
     });
     applyEvidenceTypePlaceholders();
 
@@ -2974,13 +3246,15 @@
     }
     radios.forEach(r => r.addEventListener("change", () => {
       syncCards();
-      if(guideOutput) guideOutput.textContent = "확장 방향이 바뀌었습니다. 자료 찾기 가이드를 다시 눌러주세요.";
+      rerenderV232ChoiceBoxes();
     }));
     syncCards();
+    rerenderV232ChoiceBoxes();
 
     guideBtn?.addEventListener("click", () => {
       const path = selectedPath();
-      const guide = buildEvidenceGuideText(path, req);
+      const selected = getSelectedV232Objects();
+      const guide = buildEvidenceGuideText(path, req) + "\n\n[현재 선택값]\n" + buildV232SelectionSummary(path, req, selected);
       global.__MINI_V230_EVIDENCE_GUIDE__ = guide;
       if(guideOutput) guideOutput.innerHTML = `<pre>${escapeHtml(guide)}</pre>`;
     });
@@ -3005,12 +3279,17 @@
     generateBtn?.addEventListener("click", async () => {
       const path = selectedPath();
       global.__MINI_SELECTED_EXPANSION_PATH__ = path;
+      const selectedV232 = getSelectedV232Objects();
       const extra = {
         evidenceType: $("miniV231EvidenceType")?.value || "",
         evidenceTitle: $("miniV229EvidenceTitle")?.value || "",
         evidenceSource: $("miniV229EvidenceSource")?.value || "",
         evidencePoint: $("miniV229EvidencePoint")?.value || "",
-        studentView: $("miniV229StudentView")?.value || ""
+        studentView: $("miniV229StudentView")?.value || "",
+        focusChoice: selectedV232.focusChoice,
+        evidenceSearchChoice: selectedV232.evidenceSearchChoice,
+        allowEvidenceSearch: Boolean($("miniV232AllowEvidenceSearch")?.checked),
+        useAttachmentFirst: Boolean($("miniV232UseAttachmentFirst")?.checked)
       };
       const miniDraftReq = buildSecondaryMiniDraftRequest(path, req, extra);
       global.__LAST_MINI_SECONDARY_DRAFT_REQUEST_V230__ = miniDraftReq;
@@ -3155,17 +3434,31 @@
         .mini-v231-evidence-type-box label{font-weight:900;display:grid;gap:6px;color:#173ea9}
         .mini-v231-evidence-type-box select{border:1px solid #dbe5ff;border-radius:12px;padding:10px;font-size:13px;line-height:1.5;background:#fff;color:#111827}
         .mini-v231-evidence-type-box p{margin:0;color:#64748b;line-height:1.55}
+        .mini-v232-select-box{border:1px solid #dbe5ff;background:#fff;border-radius:16px;padding:12px;margin:12px 0;display:grid;gap:10px}
+        .mini-v232-select-head{display:grid;gap:4px}
+        .mini-v232-select-head b{font-size:14px;color:#173ea9}
+        .mini-v232-select-head span{font-size:12px;color:#64748b;line-height:1.55}
+        .mini-v232-choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+        .mini-v232-choice-card{display:flex;flex-direction:column;gap:5px;border:1px solid #dbe5ff;background:#f8fbff;border-radius:14px;padding:10px;cursor:pointer;min-height:122px}
+        .mini-v232-choice-card input{margin:0 0 2px}
+        .mini-v232-choice-card.is-selected{border-color:#2f5bff;background:#eef4ff;box-shadow:0 5px 14px rgba(47,91,255,.12)}
+        .mini-v232-choice-card.evidence{background:#fff}
+        .mini-v232-choice-title{font-weight:900;color:#173ea9;font-size:13px;line-height:1.35}
+        .mini-v232-choice-desc{font-weight:800;color:#1f2937;font-size:12px;line-height:1.45}
+        .mini-v232-choice-meta{font-size:12px;color:#64748b;line-height:1.45}
+        .mini-v232-search-mode{border-top:1px dashed #dbe5ff;padding-top:9px;display:grid;gap:7px;font-size:12px;color:#40516a;line-height:1.5}
+        .mini-v232-search-mode label{display:flex;align-items:flex-start;gap:6px}
         .mini-v229-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
         .mini-v229-actions button{border:1px solid #2f5bff;background:#2f5bff;color:#fff;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer}
         .mini-v229-actions button[disabled]{opacity:.45;cursor:not-allowed}
         .mini-v229-actions button#miniV229CopyDraftBtn{background:#fff;color:#2f5bff}
         .mini-v229-draft-output{border:1px solid #dbe5ff;background:#f8fbff;border-radius:14px;padding:12px;color:#243244;font-size:13px;line-height:1.65;max-height:460px;overflow:auto}
         .mini-v229-draft-output pre{white-space:pre-wrap;margin:0;font-family:inherit;line-height:1.7}
-        @media (max-width: 1100px){.mini-v43-expansion-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+        @media (max-width: 1100px){.mini-v43-expansion-options,.mini-v232-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media (max-width: 820px){
           .mini-v43-head{grid-template-columns:1fr}
           .mini-v43-actions{justify-content:flex-start}
-          .mini-v43-quick,.mini-v43-grid,.mini-v43-expansion-options,.mini-v229-input-grid{grid-template-columns:1fr}
+          .mini-v43-quick,.mini-v43-grid,.mini-v43-expansion-options,.mini-v232-choice-grid,.mini-v229-input-grid{grid-template-columns:1fr}
           .mini-v43-title{font-size:23px}
         }
       </style>
