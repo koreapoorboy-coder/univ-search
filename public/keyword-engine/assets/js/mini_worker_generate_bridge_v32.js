@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v230-secondary-expansion-mini-draft-and-evidence-helper";
+  const VERSION = "mini-worker-generate-bridge-v231-selected-expansion-locked-draft";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -1736,11 +1736,11 @@
       selectedBookTitle: bookTitle || ""
     };
     const pathData = [
-      ["principle-analysis", "원리 분석형", `${base.keyword}는 ${base.concept}의 어떤 원리와 조건으로 설명할 수 있을까?`, "교과 개념 원리 → 작동 조건 → 사례 적용 → 한계", "교과서 개념·공식 설명·원리 적용 사례"],
-      ["case-comparison", "사례 비교형", `${base.keyword}를 두 사례나 조건으로 비교하면 어떤 차이가 드러날까?`, "비교 기준 → 사례 A → 사례 B → 차이 해석", "사례 A·사례 B·비교 기준 자료"],
-      ["data-evidence", "자료 해석형", `${base.keyword}는 자료에서 어떤 수치·변화·패턴으로 확인할 수 있을까?`, "자료 출처 → 변수·기준 → 자료 해석 → 자료 한계", "통계·그래프·기사·공공자료"],
-      ["social-meaning", "사회적 의미형", `${base.keyword}는 실제 사회 문제나 공동체에 어떤 의미를 가질까?`, "문제 상황 → 영향 받는 대상 → 사회적 의미 → 대응 방향", "사회 쟁점·정책 자료·이해관계자 관점"],
-      ["followup-inquiry", "후속 탐구형", `이번 탐구의 한계를 보완하려면 다음에는 무엇을 더 확인해야 할까?`, "현재 결론 → 부족한 점 → 추가 자료 → 다음 탐구", "현재 자료의 한계·추가 자료·후속 조사 계획"]
+      ["principle-analysis", "원리 분석형", `${base.keyword}는 ${base.concept}의 어떤 원리와 조건으로 설명할 수 있을까?`, "교과 개념과 원리 제시 → 원리가 작동하는 조건 설명 → 선택 자료 또는 사례에 원리 적용 → 원리 적용의 한계 → 후속 탐구 방향", "교과서 개념 자료·공식 설명 자료·원리 적용 사례·기술 설명 자료"],
+      ["case-comparison", "사례 비교형", `${base.keyword}를 두 사례나 조건으로 비교하면 어떤 차이가 드러날까?`, "비교할 문제 상황 제시 → 사례 A 설명 → 사례 B 설명 → 비교 기준에 따른 차이 분석 → 내가 선택한 기준과 결론", "사례 A 자료·사례 B 자료·비교 기사·제품/정책/현상 비교표"],
+      ["data-evidence", "자료 해석형", `${base.keyword}는 자료에서 어떤 수치·변화·패턴으로 확인할 수 있을까?`, "탐구 질문과 자료 선택 이유 → 자료 제목·출처·핵심 수치 제시 → 자료에서 보이는 변화·차이·패턴 해석 → 교과 개념과 자료 해석 연결 → 자료의 한계와 추가 확인할 자료", "통계 자료·그래프 자료·공공데이터·실험 결과표·기사 속 수치"],
+      ["social-meaning", "사회적 의미형", `${base.keyword}는 실제 사회 문제나 공동체에 어떤 의미를 가질까?`, "탐구 주제가 실제 사회 문제와 연결되는 지점 → 영향을 받는 대상 또는 공동체 제시 → 정책·윤리·경제·환경 등 관점에서 의미 분석 → 대응 방향 또는 개선 기준 제시 → 나의 판단과 한계", "정책 자료·사회 기사·윤리 쟁점 기사·공공기관 보고서·이해관계자 사례"],
+      ["followup-inquiry", "후속 탐구형", `이번 탐구의 한계를 보완하려면 다음에는 무엇을 더 확인해야 할까?`, "현재 탐구에서 확인한 점 → 현재 자료나 방법의 한계 → 추가로 확인해야 할 변수·조건·자료 → 후속 실험 또는 조사 계획 → 다음 탐구로 이어지는 의미", "현재 자료의 한계·추가 실험 설계 자료·변수·조건 자료·후속 조사 계획 자료"]
     ];
     let recommendedPathId = "data-evidence";
     const hay = `${mode} ${view} ${line} ${axis} ${keyword} ${concept}`;
@@ -2584,19 +2584,97 @@
     ].join("\n");
   }
 
+
+  function getSecondaryPathBlueprint(path){
+    const label = String(path?.label || "자료 해석형");
+    const fallback = Array.isArray(path?.paragraphStructure) && path.paragraphStructure.length
+      ? path.paragraphStructure
+      : ["탐구 질문과 자료 선택 이유", "자료 제목·출처·핵심 수치 제시", "자료에서 보이는 변화·차이·패턴 해석", "교과 개념과 자료 해석 연결", "자료의 한계와 추가 확인할 자료"];
+    if(/원리/.test(label)) return {
+      code: "principle-analysis",
+      label,
+      paragraphs: ["교과 개념과 원리 제시", "원리가 작동하는 조건 설명", "선택 자료 또는 사례에 원리 적용", "원리 적용의 한계", "후속 탐구 방향"],
+      evidenceType: "교과서 개념 자료 또는 원리 적용 사례"
+    };
+    if(/사례|비교/.test(label)) return {
+      code: "case-comparison",
+      label,
+      paragraphs: ["비교할 문제 상황 제시", "사례 A 설명", "사례 B 설명", "비교 기준에 따른 차이 분석", "내가 선택한 기준과 결론"],
+      evidenceType: "사례 비교 자료"
+    };
+    if(/사회|의미|쟁점/.test(label)) return {
+      code: "social-meaning",
+      label,
+      paragraphs: ["탐구 주제가 실제 사회 문제와 연결되는 지점", "영향을 받는 대상 또는 공동체 제시", "정책·윤리·경제·환경 등 관점에서 의미 분석", "대응 방향 또는 개선 기준 제시", "나의 판단과 한계"],
+      evidenceType: "정책 자료·사회 기사·공공기관 보고서"
+    };
+    if(/후속|심화/.test(label)) return {
+      code: "followup-inquiry",
+      label,
+      paragraphs: ["현재 탐구에서 확인한 점", "현재 자료나 방법의 한계", "추가로 확인해야 할 변수·조건·자료", "후속 실험 또는 조사 계획", "다음 탐구로 이어지는 의미"],
+      evidenceType: "후속 실험·조사 계획 자료"
+    };
+    return {
+      code: "data-evidence",
+      label,
+      paragraphs: fallback.length >= 5 ? fallback.slice(0,5) : ["탐구 질문과 자료 선택 이유", "자료 제목·출처·핵심 수치 제시", "자료에서 보이는 변화·차이·패턴 해석", "교과 개념과 자료 해석 연결", "자료의 한계와 추가 확인할 자료"],
+      evidenceType: "통계 자료·그래프 자료·공공데이터·실험 결과표"
+    };
+  }
+
+  function getEvidenceTypePreset(evidenceType){
+    const v = String(evidenceType || "").trim();
+    const presets = {
+      "통계 자료": { title: "예: KOSIS 국가통계포털의 ○○ 변화 추이 자료", source: "예: KOSIS, 공공데이터포털, 한국에너지공단, 환경부 등", point: "예: 2020년부터 2024년까지 ○○ 값이 증가/감소했다.", view: "예: 이 변화는 ○○ 조건에서 차이가 생긴다는 판단 근거가 된다." },
+      "기사 자료": { title: "예: ○○ 문제를 다룬 기사 제목", source: "예: 언론사명, 발행일", point: "예: 기사에서 제시한 핵심 사례나 수치", view: "예: 이 사례는 내가 선택한 기준 중 ○○와 연결된다." },
+      "실험 결과": { title: "예: 수업 또는 동아리 실험 결과표명", source: "예: 직접 실험 기록, 수업 활동지, 실험 보고서", point: "예: 조건 A와 조건 B에서 측정값이 어떻게 달라졌는지", view: "예: 이 차이는 교과 개념의 ○○ 원리가 작동한 결과로 해석할 수 있다." },
+      "공공기관 자료": { title: "예: 정부·공공기관의 ○○ 보고서 또는 보도자료", source: "예: 교육부, 환경부, 질병관리청, 기상청, KOSIS 등", point: "예: 기관 자료에서 제시한 기준·수치·사례 1~2개", view: "예: 이 기준은 내 탐구에서 판단 기준으로 사용할 수 있다." },
+      "논문 요약 자료": { title: "예: 주제와 관련된 논문 제목 또는 초록 요약", source: "예: RISS, DBpia, KCI, Google Scholar 등", point: "예: 초록에서 확인한 연구 대상·방법·핵심 결과", view: "예: 이 연구는 내 탐구의 한계나 후속 방향을 정하는 데 도움을 준다." },
+      "교과서 개념 자료": { title: "예: 교과서 단원명 또는 수업 자료 제목", source: "예: 교과서, 수업 프린트, EBS 개념 설명", point: "예: 개념의 정의·공식·조건·예시", view: "예: 이 개념은 자료를 해석하는 기준으로 사용할 수 있다." },
+      "사례 비교 자료": { title: "예: 사례 A와 사례 B를 비교할 수 있는 자료 제목", source: "예: 기사 2개, 기관 사례집, 제품/정책 비교표", point: "예: 두 사례의 조건·결과·영향 차이", view: "예: 이 차이는 내가 세운 비교 기준의 타당성을 보여준다." }
+    };
+    return presets[v] || presets["공공기관 자료"];
+  }
+
+  function missingStudentInput(value, label){
+    const t = String(value || "").trim();
+    return t || `[학생 입력 필요: ${label}]`;
+  }
+
+  function hasRealStudentEvidence(extra){
+    return Boolean(String(extra?.evidenceTitle || "").trim() || String(extra?.evidenceSource || "").trim() || String(extra?.evidencePoint || "").trim() || String(extra?.studentView || "").trim());
+  }
+
+  function looksLikeUnfixedSecondaryDraft(text, path){
+    const t = String(text || "").trim();
+    if(!t) return true;
+    const label = String(path?.label || "").trim();
+    const oldShell = /설계서 제목|동국대 수행평가 영역명 기준|보고서 완성 그림|보고서 문장 구조|자료·전공 개념 연결|선택 기반 탐구 경로 요약|최종 추천 탐구 방향/.test(t);
+    const hasParagraphShape = /1문단/.test(t) && /2문단/.test(t) && /3문단/.test(t) && /4문단/.test(t) && /5문단/.test(t);
+    const hasSelectedLabel = !label || t.includes(label);
+    return oldShell || !hasParagraphShape || !hasSelectedLabel;
+  }
+
   function buildSecondaryMiniDraftPrompt(path, req, extra){
     const c = getSecondaryPathContext(path, req);
     const g = buildEvidenceFindingGuide(path, req);
+    const blueprint = getSecondaryPathBlueprint(path);
     const book = req?.selectedBook || {};
-    const hasEvidence = Boolean(String(extra?.evidenceTitle || "").trim() || String(extra?.evidenceSource || "").trim() || String(extra?.evidencePoint || "").trim() || String(extra?.studentView || "").trim());
+    const evidenceType = String(extra?.evidenceType || blueprint.evidenceType || (c.evidenceTypes || [])[0] || "자료 직접 선택").trim();
+    const evidenceTitle = missingStudentInput(extra?.evidenceTitle, "자료 제목");
+    const evidenceSource = missingStudentInput(extra?.evidenceSource, "출처");
+    const evidencePoint = missingStudentInput(extra?.evidencePoint, "자료 핵심 내용");
+    const studentView = missingStudentInput(extra?.studentView, "내 해석");
+    const hasEvidence = hasRealStudentEvidence(extra);
     return [
-      "아래 1차 탐구 설계값과 학생이 선택한 2차 확장 방향을 바탕으로 수행평가 보고서 초안을 생성해줘.",
-      "단, 실제 자료 제목·출처·핵심 내용이 비어 있으면 절대 지어내지 말고 [학생 입력 필요]로 표시해줘.",
-      "자료가 부족한 경우에는 먼저 자료 찾기 방향과 검색어를 제시한 뒤, 그 자료를 넣을 위치가 보이는 초안 구조를 만들어줘.",
-      "고등학생 수행평가 수준을 넘는 대학 수준 내용은 피하고, 교과 개념과 학생 선택값의 연결성을 중심으로 작성해줘.",
-      "동국대 수행평가 기준처럼 주제(내용)와 방법, 과정 증거가 문단 안에 드러나게 해줘.",
+      "너는 지금 1차 탐구 설계서를 다시 요약하는 것이 아니다.",
+      "학생이 선택한 2차 확장 방향을 중심으로 수행평가 보고서 초안을 작성해야 한다.",
+      "1차 설계값은 배경 정보로만 사용하고, 문단 구조·자료 배치·분석 방식·결론 방향은 반드시 selectedExpansionPath를 기준으로 구성한다.",
+      "선택 방향과 무관한 설계서 요약, '동국대 수행평가 영역명 기준', '보고서 완성 그림', '보고서 문장 구조' 같은 안내형 출력은 금지한다.",
+      "실제 자료 제목·출처·핵심 내용이 비어 있으면 절대 지어내지 말고 해당 위치에 [학생 입력 필요]로 표시한다.",
+      "고등학생 수행평가 수준을 넘는 대학 수준 내용은 피하고, 교과 개념과 학생 선택값의 연결성을 중심으로 작성한다.",
       "",
-      "[1차 탐구 설계값]",
+      "[1차 탐구 설계값: 배경 정보로만 사용]",
       `과목: ${c.subject}`,
       `진로/학과: ${c.major}`,
       `교과 개념: ${c.concept}`,
@@ -2607,113 +2685,181 @@
       `결과물 수준: ${c.line}`,
       `도서 활용: ${book?.title ? book.title : "도서 미사용 또는 공공자료 중심"}`,
       "",
-      "[2차 확장 방향]",
-      `확장 방향: ${c.pathLabel}`,
-      `탐구 질문: ${c.question}`,
-      `보고서 구조: ${c.structure.join(" → ")}`,
-      `필요 자료 유형: ${c.evidenceTypes.join(" / ")}`,
+      "[선택한 2차 확장 방향: 최우선 구조]",
+      `selectedExpansionPath.label: ${c.pathLabel}`,
+      `selectedExpansionPath.question: ${c.question}`,
+      `selectedExpansionPath.requiredEvidenceType: ${evidenceType}`,
+      `selectedExpansionPath.paragraphBlueprint: ${blueprint.paragraphs.join(" → ")}`,
       "",
       "[학생 입력 자료]",
-      `자료 제목: ${String(extra?.evidenceTitle || "").trim() || "[학생 입력 필요]"}`,
-      `출처: ${String(extra?.evidenceSource || "").trim() || "[학생 입력 필요]"}`,
-      `자료 핵심 내용: ${String(extra?.evidencePoint || "").trim() || "[학생 입력 필요]"}`,
-      `내 해석: ${String(extra?.studentView || "").trim() || "[학생 입력 필요]"}`,
+      `자료 유형: ${evidenceType || "[학생 입력 필요: 자료 유형]"}`,
+      `자료 제목: ${evidenceTitle}`,
+      `출처: ${evidenceSource}`,
+      `자료 핵심 내용: ${evidencePoint}`,
+      `내 해석: ${studentView}`,
       "",
       "[자료 입력이 부족할 때 참고할 검색어]",
       ...g.searchKeywords.map(v => `- ${v}`),
       "",
-      "[출력 형식]",
-      "1. 자료 준비 상태 진단",
-      "2. 5문단 보고서 초안",
-      "   - 1문단: 문제 제기와 교과 개념 연결",
-      "   - 2문단: 기준과 자료 제시",
-      "   - 3문단: 자료 분석과 내 해석",
-      "   - 4문단: 선택한 2차 확장 방향 반영",
-      "   - 5문단: 결론, 한계, 후속 탐구",
-      "3. 학생이 실제로 고쳐야 할 부분 체크리스트",
+      "[출력 형식: 반드시 이 순서만 사용]",
+      `보고서 초안 제목: ${c.keyword}의 ${c.pathLabel} 탐구`,
+      "",
+      `[1문단. ${blueprint.paragraphs[0]}]`,
+      "실제 문단 형태로 5~7문장 작성",
+      `[2문단. ${blueprint.paragraphs[1]}]`,
+      "실제 문단 형태로 5~7문장 작성",
+      `[3문단. ${blueprint.paragraphs[2]}]`,
+      "실제 문단 형태로 5~7문장 작성",
+      `[4문단. ${blueprint.paragraphs[3]}]`,
+      "실제 문단 형태로 5~7문장 작성",
+      `[5문단. ${blueprint.paragraphs[4]}]`,
+      "실제 문단 형태로 4~6문장 작성",
+      "",
+      "[학생이 직접 보완할 부분]",
+      "- 실제 자료 제목:",
+      "- 출처:",
+      "- 수치·사례·문장:",
+      "- 내 해석:",
+      "- 한계와 후속 탐구:",
       "",
       hasEvidence
-        ? "학생 입력 자료를 최대한 반영하되, 부족한 부분은 [학생 보완 필요]로 표시해줘."
-        : "학생 입력 자료가 거의 없으므로 완성형 보고서가 아니라 자료를 넣을 자리가 보이는 초안 구조로 만들어줘."
+        ? "학생 입력 자료를 본문 안에 최대한 반영하되, 부족한 칸은 [학생 입력 필요]로 남긴다."
+        : "학생 입력 자료가 거의 없으므로 완성본처럼 꾸미지 말고, 자료를 넣을 자리가 보이는 초안으로 작성한다."
     ].join("\n");
   }
 
   function buildSecondaryMiniDraftRequest(path, req, extra){
     const prompt = buildSecondaryMiniDraftPrompt(path, req, extra);
     const c = getSecondaryPathContext(path, req);
+    const blueprint = getSecondaryPathBlueprint(path);
+    const primaryDesign = {
+      department: c.major,
+      subject: c.subject,
+      concept: c.concept,
+      keyword: c.keyword,
+      followupAxis: c.axis,
+      performanceAssessment: c.mode,
+      reportView: c.view,
+      reportLine: c.line
+    };
+    const secondaryExpansion = {
+      selectedPathId: path?.id || blueprint.code,
+      selectedPathLabel: c.pathLabel,
+      selectedPathQuestion: c.question,
+      selectedPathEvidenceType: String(extra?.evidenceType || blueprint.evidenceType || (c.evidenceTypes || [])[0] || "자료 직접 선택"),
+      selectedPathStructure: blueprint.paragraphs.slice()
+    };
+    const studentEvidence = {
+      evidenceType: String(extra?.evidenceType || secondaryExpansion.selectedPathEvidenceType || "").trim(),
+      title: String(extra?.evidenceTitle || "").trim(),
+      source: String(extra?.evidenceSource || "").trim(),
+      keyContent: String(extra?.evidencePoint || "").trim(),
+      interpretation: String(extra?.studentView || "").trim()
+    };
+    const generationRules = {
+      useSelectedPathAsMainFrame: true,
+      doNotRewritePrimaryDesignOnly: true,
+      doNotInventEvidence: true,
+      produceDraftParagraphs: true,
+      markMissingEvidenceAsStudentInputNeeded: true,
+      outputMustContainFiveParagraphs: true,
+      primaryDesignIsBackgroundOnly: true
+    };
     return {
       ...req,
-      mode: "secondary_expansion_draft_generation_v230",
-      generationMode: "secondary_expansion_mini_draft",
+      mode: "secondary_expansion_draft_generation_v231",
+      generationMode: "secondary_expansion_locked_mini_draft",
       prompt,
       miniInstruction: prompt,
       taskDescription: prompt,
+      primaryDesign,
+      secondaryExpansion,
+      studentEvidence,
+      generationRules,
       secondaryDraftRequest: {
-        version: "secondary-expansion-mini-draft-v230",
+        version: "secondary-expansion-locked-draft-v231",
+        primaryDesign,
         selectedExpansionPath: path || null,
-        studentEvidence: extra || {},
+        secondaryExpansion,
+        studentEvidence,
+        generationRules,
         context: c
       },
       messages: [
-        { role: "system", content: "너는 고등학생 수행평가 보고서를 대신 써주는 사람이 아니라, 학생의 1차 설계값과 2차 확장 방향을 읽고 개인화된 초안 구조를 만들어주는 도우미다. 실제 출처와 자료 내용은 절대 지어내지 않는다." },
+        { role: "system", content: "너는 고등학생 수행평가 보고서 초안 구조화 도우미다. 1차 설계서를 다시 요약하지 말고, 학생이 선택한 2차 확장 방향을 문단 구조의 중심축으로 고정한다. 실제 출처와 자료 내용은 절대 지어내지 않는다." },
         { role: "user", content: prompt }
       ]
     };
   }
 
   function buildSecondaryDraftText(path, req, extra){
-    const s = req?.mini_payload?.selectionPayload || {};
-    const ctx = req?.mini_payload?.reportGenerationContext || {};
+    const c = getSecondaryPathContext(path, req);
+    const blueprint = getSecondaryPathBlueprint(path);
     const book = req?.selectedBook || {};
-    const subject = firstNonEmpty(s.subject, req?.subject, "선택 과목");
-    const major = firstNonEmpty(s.department, s.major, req?.major, "선택 진로 분야");
-    const concept = firstNonEmpty(s.selectedConcept, req?.selectedConcept, "선택 교과 개념");
-    const keyword = firstNonEmpty(s.selectedKeyword, req?.keyword, "선택 키워드");
-    const axis = compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "후속 연계축"));
-    const mode = firstNonEmpty(ctx.reportMode, req?.reportMode, "수행평가 방식");
-    const view = firstNonEmpty(ctx.reportView, req?.reportView, "평가 관점");
-    const line = firstNonEmpty(ctx.reportLine, req?.reportLine, "결과물 수준");
-    const pathLabel = path?.label || "자료 해석형";
-    const question = path?.question || `${keyword}는 어떤 기준으로 분석할 수 있을까?`;
-    const structure = Array.isArray(path?.paragraphStructure) ? path.paragraphStructure : ["기준", "자료", "해석", "한계"];
-    const evidence = Array.isArray(path?.evidenceTypes) ? path.evidenceTypes.join("·") : "자료 직접 선택";
-    const evidenceTitle = extra?.evidenceTitle?.trim() || "[학생이 찾은 자료 제목 입력]";
-    const evidenceSource = extra?.evidenceSource?.trim() || "[출처 입력]";
-    const evidencePoint = extra?.evidencePoint?.trim() || "[자료에서 확인한 핵심 수치·사례·문장 입력]";
-    const studentView = extra?.studentView?.trim() || "[내가 해석한 의미 입력]";
-    const bookLine = book?.title ? `선택 도서 '${book.title}'는 결론이나 한계 문단에서 관점을 넓히는 보조 근거로만 사용한다.` : "도서를 억지로 넣지 않고 공공자료·통계·기사·실험자료 중심으로 근거를 세운다.";
+    const evidenceType = String(extra?.evidenceType || blueprint.evidenceType || (c.evidenceTypes || [])[0] || "자료 직접 선택").trim();
+    const evidenceTitle = missingStudentInput(extra?.evidenceTitle, "자료 제목");
+    const evidenceSource = missingStudentInput(extra?.evidenceSource, "출처");
+    const evidencePoint = missingStudentInput(extra?.evidencePoint, "자료 핵심 내용");
+    const studentView = missingStudentInput(extra?.studentView, "내 해석");
+    const bookLine = book?.title
+      ? `선택 도서 '${book.title}'는 본문의 근거를 대신하지 않고, 결론·한계·관점 확장 문단에서 보조 근거로 활용한다.`
+      : "도서를 선택하지 않았으므로 공공자료·통계·기사·실험자료를 중심 근거로 사용한다.";
+
+    const title = `보고서 초안 제목: ${c.keyword}의 ${c.pathLabel} 탐구`;
+    let p1 = "";
+    let p2 = "";
+    let p3 = "";
+    let p4 = "";
+    let p5 = "";
+
+    if(blueprint.code === "principle-analysis"){
+      p1 = `이 보고서는 ${c.subject}에서 배운 '${c.concept}' 개념을 출발점으로 삼아 '${c.keyword}'를 원리 중심으로 해석하려는 초안이다. ${c.pathLabel}을 선택했기 때문에 먼저 용어를 넓게 설명하기보다, 이 개념이 어떤 원리와 조건에서 작동하는지를 정리해야 한다. '${c.axis}' 흐름은 단순한 관심사 확장이 아니라 원리의 적용 범위를 확인하는 기준으로 사용한다. 따라서 서론에서는 '${c.concept}'의 핵심 정의와 '${c.keyword}'가 연결되는 이유를 짧게 제시한다. 이때 ${c.major}라는 전공명 자체보다, 전공 문제를 설명할 때 필요한 원리적 사고가 무엇인지 드러내는 것이 중요하다.`;
+      p2 = `두 번째 문단에서는 원리가 작동하는 조건을 정리한다. 예를 들어 어떤 조건이 있어야 변화가 나타나는지, 반대로 어떤 조건에서는 결과가 약해지거나 달라지는지를 구분한다. 현재 사용할 자료 유형은 '${evidenceType}'이며, 자료 제목은 ${evidenceTitle}, 출처는 ${evidenceSource}로 표시한다. 자료가 아직 정해지지 않았다면 이 위치에 [학생 입력 필요]를 남기고, 교과서 개념 자료나 원리 적용 사례부터 찾아야 한다. 이 문단의 목적은 자료를 소개하는 것이 아니라 원리를 적용할 기준을 만드는 것이다.`;
+      p3 = `세 번째 문단에서는 선택 자료나 사례를 '${c.concept}' 원리로 해석한다. 자료 핵심 내용은 ${evidencePoint}이다. 이 내용이 실제 자료에서 확인된 수치·사례·문장이라면, 그것이 '${c.keyword}'의 어떤 조건을 보여주는지 설명한다. 아직 자료가 없다면 결과를 지어내지 말고 [학생 입력 필요]로 남긴 뒤, 원리가 적용되는 사례를 하나 이상 찾아야 한다. 내 해석은 ${studentView}이며, 이 해석은 학생 본인이 실제 자료를 보고 자기 말로 수정해야 한다.`;
+      p4 = `네 번째 문단에서는 원리 적용의 한계를 다룬다. 하나의 자료나 사례만으로 '${c.keyword}' 전체를 설명하기 어렵기 때문에, 적용 가능한 조건과 적용하기 어려운 조건을 나누어 써야 한다. ${bookLine} 이 문단에서는 원리가 맞는 이유만 쓰지 말고, 자료가 부족한 부분이나 다른 변수가 결과에 영향을 줄 가능성도 함께 제시한다. 이렇게 써야 보고서가 단순 설명문이 아니라 수행평가에서 요구하는 과정 증거를 갖춘 분석문이 된다.`;
+      p5 = `마지막 문단에서는 후속 탐구 방향을 제시한다. 이번 초안의 결론은 '${c.concept}'이 '${c.keyword}'를 설명하는 데 유용하지만, 자료와 조건을 더 확인해야 한다는 방향으로 정리할 수 있다. 추가로 확인할 것은 [학생 입력 필요: 추가 변수·조건·자료]이다. 후속 탐구에서는 같은 원리를 다른 사례에 적용하거나, 조건을 바꾸었을 때 결과가 어떻게 달라지는지 비교할 수 있다. 따라서 결론은 원리의 의미, 현재 자료의 한계, 다음 탐구 질문을 함께 포함해야 한다.`;
+    }else if(blueprint.code === "case-comparison"){
+      p1 = `이 보고서는 '${c.keyword}'를 하나의 사례로만 설명하지 않고, 두 사례나 두 조건을 비교해 차이를 찾는 초안이다. ${c.pathLabel}을 선택했기 때문에 서론에서는 비교할 문제 상황과 비교 기준을 먼저 제시해야 한다. '${c.concept}'은 두 사례를 읽는 공통 기준으로 사용한다. '${c.axis}' 흐름은 어떤 사례가 더 적절한지 판단하는 틀이 된다. 따라서 첫 문단에서는 사례 A와 사례 B를 왜 비교하는지, 비교를 통해 무엇을 알고 싶은지 분명히 밝힌다.`;
+      p2 = `두 번째 문단에서는 사례 A를 설명한다. 현재 사용할 자료 유형은 '${evidenceType}'이며, 자료 제목은 ${evidenceTitle}, 출처는 ${evidenceSource}이다. 사례 A에서 확인할 핵심 내용은 ${evidencePoint} 중 사례 A와 관련된 부분이다. 자료가 아직 부족하면 사례 A의 조건, 결과, 특징을 [학생 입력 필요]로 남긴다. 이 문단은 사례를 길게 소개하기보다 비교에 필요한 특징만 골라 정리해야 한다.`;
+      p3 = `세 번째 문단에서는 사례 B를 설명한다. 사례 B도 사례 A와 같은 기준으로 정리해야 비교가 가능하다. 만약 입력 자료가 하나뿐이라면, 두 번째 자료나 비교 가능한 사례를 추가로 찾아 [학생 입력 필요: 사례 B 자료]에 채워야 한다. 내 해석은 ${studentView}이며, 이 해석은 두 사례의 차이가 왜 생겼는지 설명하는 문장으로 바꾸어야 한다. 이 문단에서는 사례 B의 조건과 결과가 사례 A와 어떻게 다른지 중심으로 쓴다.`;
+      p4 = `네 번째 문단에서는 비교 기준에 따라 차이를 분석한다. 비교 기준은 '${c.concept}', '${c.keyword}', '${c.axis}' 중 보고서 주제와 가장 직접 연결되는 것으로 잡는다. 두 사례의 차이가 자료의 수치, 조건, 대상, 결과 중 어디에서 나타나는지 설명한다. ${bookLine} 도서는 비교 기준을 넓히는 보조 근거로만 사용하고, 실제 비교 판단은 학생이 찾은 사례 자료를 중심으로 해야 한다.`;
+      p5 = `마지막 문단에서는 내가 선택한 기준과 결론을 정리한다. 결론은 어느 사례가 무조건 좋다는 식이 아니라, 어떤 기준에서 어떤 차이가 의미 있는지를 설명해야 한다. 현재 부족한 자료는 [학생 입력 필요: 추가 비교 자료]로 남긴다. 후속 탐구에서는 비교 대상을 하나 더 늘리거나, 같은 기준을 다른 상황에 적용해 볼 수 있다. 이렇게 정리하면 보고서가 사례 나열이 아니라 비교 분석형 보고서가 된다.`;
+    }else if(blueprint.code === "social-meaning"){
+      p1 = `이 보고서는 '${c.keyword}'를 교과 개념 안에서만 설명하지 않고 실제 사회 문제와 연결해 보는 초안이다. ${c.pathLabel}을 선택했기 때문에 첫 문단에서는 이 주제가 어떤 사회 상황, 공동체 문제, 정책 쟁점과 연결되는지 제시해야 한다. '${c.concept}'은 사회 현상을 해석하는 기준으로 사용한다. '${c.axis}' 흐름은 문제의 영향과 대응 방향을 판단하는 틀이 된다. 따라서 서론에서는 이 탐구가 왜 실제 생활이나 공동체와 관련되는지 분명히 써야 한다.`;
+      p2 = `두 번째 문단에서는 영향을 받는 대상이나 공동체를 제시한다. 현재 사용할 자료 유형은 '${evidenceType}'이며, 자료 제목은 ${evidenceTitle}, 출처는 ${evidenceSource}이다. 자료 핵심 내용은 ${evidencePoint}이다. 이 자료가 실제 정책 자료나 기사라면, 누가 영향을 받는지, 어떤 문제가 발생하는지, 어떤 대응이 논의되는지를 중심으로 정리한다. 자료가 없다면 대상과 사례를 지어내지 말고 [학생 입력 필요]로 남긴다.`;
+      p3 = `세 번째 문단에서는 정책·윤리·경제·환경 등 관점에서 의미를 분석한다. '${c.concept}'은 이 사회 문제를 판단할 때 사용하는 교과적 기준이다. 내 해석은 ${studentView}이며, 이 해석은 단순 감상이 아니라 자료를 근거로 한 판단 문장이어야 한다. 예를 들어 어떤 기준에서는 긍정적이지만 다른 기준에서는 한계가 있다는 식으로 균형 있게 쓸 수 있다. 이 문단은 사회적 의미를 넓히되, 교과 개념과 연결이 끊기지 않게 작성해야 한다.`;
+      p4 = `네 번째 문단에서는 대응 방향이나 개선 기준을 제시한다. 대응 방향은 거창한 정책 제안이 아니라, 자료에서 확인한 문제를 줄이기 위한 기준으로 정리하면 된다. ${bookLine} 도서가 있다면 사회적 의미나 한계를 해석하는 보조 관점으로 활용한다. 다만 실제 출처가 없는 통계나 정책명은 만들지 않는다. 이 문단에서는 내가 어떤 기준을 중요하게 보는지 드러내야 한다.`;
+      p5 = `마지막 문단에서는 나의 판단과 한계를 정리한다. 이번 탐구는 '${c.keyword}'가 사회적으로 어떤 의미를 갖는지 확인하는 과정이지만, 현재 자료만으로 모든 대상을 일반화하기는 어렵다. 추가로 확인할 자료는 [학생 입력 필요: 추가 정책 자료·사례 자료]이다. 후속 탐구에서는 다른 지역, 다른 집단, 다른 시기의 자료를 비교할 수 있다. 결론은 사회적 의미, 나의 판단, 자료의 한계를 함께 제시해야 한다.`;
+    }else if(blueprint.code === "followup-inquiry"){
+      p1 = `이 보고서는 현재 탐구에서 확인한 점을 바탕으로 다음 탐구 방향을 설계하는 초안이다. ${c.pathLabel}을 선택했기 때문에 첫 문단에서는 지금까지 '${c.concept}'과 '${c.keyword}'를 통해 무엇을 확인했는지 정리해야 한다. '${c.axis}' 흐름은 현재 탐구의 결론이 어디까지 가능한지를 판단하는 기준이 된다. 이 문단에서는 완성된 결론보다, 현재 탐구가 남긴 질문을 분명히 드러내는 것이 중요하다. 따라서 서론은 현재 확인한 점과 아직 남은 의문을 함께 제시한다.`;
+      p2 = `두 번째 문단에서는 현재 자료나 방법의 한계를 정리한다. 현재 사용할 자료 유형은 '${evidenceType}'이며, 자료 제목은 ${evidenceTitle}, 출처는 ${evidenceSource}이다. 자료 핵심 내용은 ${evidencePoint}이다. 이 자료로 판단할 수 있는 부분과 판단하기 어려운 부분을 나누어 쓴다. 자료가 부족하면 부족한 이유를 [학생 입력 필요]로 남기고, 결과를 임의로 확정하지 않는다.`;
+      p3 = `세 번째 문단에서는 추가로 확인해야 할 변수·조건·자료를 제시한다. '${c.concept}'을 더 정확히 적용하려면 어떤 조건을 바꾸어 보아야 하는지 생각해야 한다. 내 해석은 ${studentView}이며, 이 해석은 다음 탐구에서 확인할 가설이나 질문으로 바꾸어 쓸 수 있다. 예를 들어 대상, 기간, 조건, 비교 기준 중 하나를 추가하면 탐구가 더 분명해질 수 있다. 이 문단은 후속 탐구의 필요성을 근거 있게 보여주는 역할을 한다.`;
+      p4 = `네 번째 문단에서는 후속 실험 또는 조사 계획을 제안한다. 계획은 실제 고등학생이 수행할 수 있는 수준이어야 하며, 자료 수집 방법, 비교 기준, 예상 표 또는 그래프 형태를 포함하면 좋다. ${bookLine} 도서가 있다면 후속 질문을 넓히는 데 활용할 수 있지만, 실험 결과나 통계처럼 쓰면 안 된다. 이 문단에서는 무엇을 추가로 조사할지와 왜 그것이 필요한지를 연결해 쓴다. 가능한 결과까지 단정하지 말고 확인 절차를 중심으로 정리한다.`;
+      p5 = `마지막 문단에서는 다음 탐구로 이어지는 의미를 정리한다. 이번 탐구는 '${c.keyword}'에 대한 최종 결론을 내리는 것이 아니라, '${c.concept}'을 더 정확히 적용하기 위한 다음 질문을 만드는 과정이다. 추가로 확인할 자료는 [학생 입력 필요: 후속 조사 자료]이다. 후속 탐구에서는 현재 기준의 장점과 한계를 비교해 더 설득력 있는 결론을 만들 수 있다. 결론은 현재 탐구의 의미, 한계, 다음 단계가 자연스럽게 이어지도록 작성한다.`;
+    }else{
+      p1 = `이 보고서는 '${c.keyword}'를 자료에서 확인되는 수치·변화·패턴으로 해석하는 초안이다. ${c.pathLabel}을 선택했기 때문에 첫 문단에서는 탐구 질문과 자료를 선택한 이유를 먼저 제시해야 한다. '${c.concept}'은 자료를 읽는 기준이 되고, '${c.axis}' 흐름은 어떤 변화나 차이를 볼지 정하는 기준이 된다. 따라서 서론에서는 자료를 왜 찾는지, 그 자료가 교과 개념과 어떻게 연결되는지 설명한다. 이때 ${c.major}라는 전공명보다 자료를 해석하는 방식이 더 중요하다.`;
+      p2 = `두 번째 문단에서는 자료 제목·출처·핵심 수치를 제시한다. 현재 사용할 자료 유형은 '${evidenceType}'이다. 자료 제목은 ${evidenceTitle}이고, 출처는 ${evidenceSource}이다. 자료 핵심 내용은 ${evidencePoint}이다. 이 값들이 실제 자료에서 확인되지 않았다면, 결과를 지어내지 말고 [학생 입력 필요]로 남긴 뒤 KOSIS, 공공데이터포털, 공공기관 자료, 기사 속 표·그래프 중 하나를 찾아 보완해야 한다.`;
+      p3 = `세 번째 문단에서는 자료에서 보이는 변화·차이·패턴을 해석한다. 단순히 자료를 소개하는 것이 아니라, 어떤 값이 증가하거나 감소했는지, 어떤 집단이나 조건에서 차이가 나타나는지 설명해야 한다. 내 해석은 ${studentView}이다. 이 해석은 자료를 본 학생의 판단이므로, 실제 수치와 연결해 자기 말로 고쳐 쓰는 것이 필요하다. 자료가 부족하면 [학생 입력 필요: 변화·차이·패턴]으로 남기고 추가 자료를 찾는다.`;
+      p4 = `네 번째 문단에서는 교과 개념과 자료 해석을 연결한다. '${c.concept}'은 자료를 읽을 때 사용하는 분석 기준이며, '${c.keyword}'는 그 기준으로 설명하려는 탐구 대상이다. ${bookLine} 도서는 자료 해석을 대신하지 않고, 결론이나 한계에서 관점을 넓히는 보조 자료로만 사용한다. 이 문단에서는 자료 속 변화가 왜 교과 개념과 연결되는지 설명해야 한다. 그래야 보고서가 단순한 기사 요약이 아니라 교과 기반 자료 해석형 보고서가 된다.`;
+      p5 = `마지막 문단에서는 자료의 한계와 추가로 확인할 자료를 제시한다. 현재 자료만으로 모든 조건을 설명하기 어렵다면, 기간, 대상, 변수, 비교 기준 중 무엇이 부족한지 써야 한다. 추가로 확인할 자료는 [학생 입력 필요: 추가 자료]이다. 후속 탐구에서는 같은 자료를 다른 기준으로 나누어 보거나, 다른 출처의 자료와 비교할 수 있다. 결론은 자료에서 확인한 점, 교과 개념과 연결한 해석, 남은 한계를 함께 정리해야 한다.`;
+    }
 
     return [
-      `보고서 초안 생성 방향: ${pathLabel}`,
-      `탐구 질문: ${question}`,
+      title,
+      `선택한 2차 확장 방향: ${c.pathLabel}`,
+      `탐구 질문: ${c.question}`,
       "",
-      "[1문단. 문제 제기]",
-      `나는 ${subject}에서 배운 '${concept}' 개념을 바탕으로 '${keyword}'가 어떤 조건에서 달라지는지 확인하고자 한다. 특히 이번 보고서는 '${axis}' 흐름을 적용해 단순 설명이 아니라 판단 기준을 세우는 방식으로 전개한다.`,
-      `이 주제를 ${major} 관점과 연결하면, 중요한 것은 전공명을 붙이는 것이 아니라 ${mode}에 맞게 자료를 나누고 ${view} 관점으로 해석하는 과정이다.`,
-      "",
-      "[2문단. 기준과 자료 제시]",
-      `이번 초안의 2차 확장 방향은 '${pathLabel}'이다. 따라서 보고서의 중심 구조는 '${structure.join(" → ")}' 순서로 잡는다.`,
-      `사용할 자료 유형은 ${evidence}이며, 우선 '${evidenceTitle}' 자료를 ${evidenceSource}에서 확인한다.`,
-      `이 자료에서 확인한 핵심 내용은 ${evidencePoint}이다.`,
-      "",
-      "[3문단. 분석과 해석]",
-      `자료를 단순히 소개하지 않고, '${concept}' 개념으로 읽어야 한다. 즉, 자료 속 차이·조건·수치·사례가 '${keyword}' 판단에 어떤 근거가 되는지 설명한다.`,
-      `내 해석은 ${studentView}이다. 이 부분은 학생 본인이 실제 자료를 보고 자신의 말로 반드시 고쳐 써야 한다.`,
-      "",
-      "[4문단. 확장 방향 반영]",
-      `선택한 '${pathLabel}' 방향에 맞춰, 본문에서는 ${structure.map((v,i)=>`${i+1}) ${v}`).join(" / ")} 순서가 드러나야 한다.`,
-      `${bookLine}`,
-      "",
-      "[5문단. 결론과 후속 탐구]",
-      `따라서 이번 탐구는 '${concept}'을 단순 정의하는 데서 끝나지 않고, '${keyword}'를 ${pathLabel} 방식으로 다시 해석해 보는 과정이다.`,
-      `다만 현재 자료만으로는 모든 조건을 일반화하기 어렵기 때문에, 결론에는 내가 세운 기준의 장점과 부족한 점, 그리고 추가로 확인할 자료를 함께 제시한다.`,
-      "",
-      "[학생이 반드시 고쳐야 할 부분]",
-      "1. [학생이 찾은 자료 제목 입력]을 실제 자료명으로 바꾸기",
-      "2. [출처 입력]을 실제 출처로 바꾸기",
-      "3. [자료에서 확인한 핵심 수치·사례·문장 입력]을 실제 내용으로 바꾸기",
-      "4. [내가 해석한 의미 입력]을 자기 말로 쓰기",
-      "5. 결론에 한계와 다음 탐구 방향을 1문장 이상 추가하기"
+      `[1문단. ${blueprint.paragraphs[0]}]`, p1, "",
+      `[2문단. ${blueprint.paragraphs[1]}]`, p2, "",
+      `[3문단. ${blueprint.paragraphs[2]}]`, p3, "",
+      `[4문단. ${blueprint.paragraphs[3]}]`, p4, "",
+      `[5문단. ${blueprint.paragraphs[4]}]`, p5, "",
+      "[학생이 직접 보완할 부분]",
+      `- 실제 자료 제목: ${String(extra?.evidenceTitle || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
+      `- 출처: ${String(extra?.evidenceSource || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
+      `- 수치·사례·문장: ${String(extra?.evidencePoint || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
+      `- 내 해석: ${String(extra?.studentView || "").trim() ? "입력 완료" : "[학생 입력 필요]"}`,
+      "- 한계와 후속 탐구: 현재 자료로 부족한 점과 추가 확인할 자료를 1문장 이상 직접 작성하기"
     ].join("\n");
   }
 
@@ -2754,6 +2900,21 @@
           <div class="mini-v230-guide-output" id="miniV230EvidenceGuideOutput">확장 방향을 선택한 뒤 자료 찾기 가이드를 누르면, 검색어·자료 유형·입력 방법이 여기에 표시됩니다.</div>
         </div>
 
+        <div class="mini-v231-evidence-type-box">
+          <label>자료 유형 선택
+            <select id="miniV231EvidenceType">
+              <option value="통계 자료">통계 자료</option>
+              <option value="기사 자료">기사 자료</option>
+              <option value="실험 결과">실험 결과</option>
+              <option value="공공기관 자료">공공기관 자료</option>
+              <option value="논문 요약 자료">논문 요약 자료</option>
+              <option value="교과서 개념 자료">교과서 개념 자료</option>
+              <option value="사례 비교 자료">사례 비교 자료</option>
+            </select>
+          </label>
+          <p>선택한 자료 유형에 따라 입력칸 힌트가 바뀝니다. 실제 출처를 모르면 빈칸으로 두고 [학생 입력 필요] 상태로 생성하세요.</p>
+        </div>
+
         <div class="mini-v229-input-grid">
           <label>자료 제목<input id="miniV229EvidenceTitle" type="text" placeholder="예: 실제 기사 제목, 공공 통계명, 실험 결과표명"></label>
           <label>출처<input id="miniV229EvidenceSource" type="text" placeholder="예: 교과서, 공공기관, 기사, 보고서, 실험 기록"></label>
@@ -2781,6 +2942,25 @@
     const guideBtn = $("miniV230ShowEvidenceGuideBtn");
     const hintBtn = $("miniV230FillSourceHintsBtn");
     const guideOutput = $("miniV230EvidenceGuideOutput");
+    const evidenceTypeSelect = $("miniV231EvidenceType");
+
+    function applyEvidenceTypePlaceholders(){
+      const preset = getEvidenceTypePreset(evidenceTypeSelect?.value || "공공기관 자료");
+      const titleEl = $("miniV229EvidenceTitle");
+      const sourceEl = $("miniV229EvidenceSource");
+      const pointEl = $("miniV229EvidencePoint");
+      const viewEl = $("miniV229StudentView");
+      if(titleEl && !String(titleEl.value || "").trim()) titleEl.placeholder = preset.title;
+      if(sourceEl && !String(sourceEl.value || "").trim()) sourceEl.placeholder = preset.source;
+      if(pointEl && !String(pointEl.value || "").trim()) pointEl.placeholder = preset.point;
+      if(viewEl && !String(viewEl.value || "").trim()) viewEl.placeholder = preset.view;
+    }
+
+    evidenceTypeSelect?.addEventListener("change", () => {
+      applyEvidenceTypePlaceholders();
+      if(guideOutput) guideOutput.textContent = "자료 유형이 바뀌었습니다. 필요한 자료 제목·출처·핵심 내용을 실제 자료 기준으로 채워주세요.";
+    });
+    applyEvidenceTypePlaceholders();
 
     function selectedPath(){
       const selectedId = (radios.find(r => r.checked) || radios[0] || {}).value;
@@ -2812,10 +2992,11 @@
       const sourceEl = $("miniV229EvidenceSource");
       const pointEl = $("miniV229EvidencePoint");
       const viewEl = $("miniV229StudentView");
-      if(titleEl && !String(titleEl.value || "").trim()) titleEl.placeholder = `예: ${guide.sourceTypes[0] || "실제 자료 제목"}`;
-      if(sourceEl && !String(sourceEl.value || "").trim()) sourceEl.placeholder = `예: ${guide.easySources[0] || "공공기관·기사·교과서"}`;
-      if(pointEl && !String(pointEl.value || "").trim()) pointEl.placeholder = `예: ${guide.whatToCopy[0] || "자료에서 확인한 핵심 내용"}`;
-      if(viewEl && !String(viewEl.value || "").trim()) viewEl.placeholder = "예: 이 자료를 보면 어떤 조건에서 차이가 생기는지 판단할 수 있다.";
+      const preset = getEvidenceTypePreset(evidenceTypeSelect?.value || "공공기관 자료");
+      if(titleEl && !String(titleEl.value || "").trim()) titleEl.placeholder = preset.title || `예: ${guide.sourceTypes[0] || "실제 자료 제목"}`;
+      if(sourceEl && !String(sourceEl.value || "").trim()) sourceEl.placeholder = preset.source || `예: ${guide.easySources[0] || "공공기관·기사·교과서"}`;
+      if(pointEl && !String(pointEl.value || "").trim()) pointEl.placeholder = preset.point || `예: ${guide.whatToCopy[0] || "자료에서 확인한 핵심 내용"}`;
+      if(viewEl && !String(viewEl.value || "").trim()) viewEl.placeholder = preset.view || "예: 이 자료를 보면 어떤 조건에서 차이가 생기는지 판단할 수 있다.";
       if(guideOutput){
         guideOutput.innerHTML = `<pre>${escapeHtml(buildEvidenceGuideText(path, req))}</pre>`;
       }
@@ -2825,6 +3006,7 @@
       const path = selectedPath();
       global.__MINI_SELECTED_EXPANSION_PATH__ = path;
       const extra = {
+        evidenceType: $("miniV231EvidenceType")?.value || "",
         evidenceTitle: $("miniV229EvidenceTitle")?.value || "",
         evidenceSource: $("miniV229EvidenceSource")?.value || "",
         evidencePoint: $("miniV229EvidencePoint")?.value || "",
@@ -2846,7 +3028,7 @@
             + "\n\n[안내] 원격 mini 생성 연결이 실패해 로컬 초안으로 대체했습니다. 실제 운영 주소에서는 mini가 이 요청을 다시 읽고 초안을 생성합니다.";
         }else{
           draft = normalizeGeneratedCandidate(data) || extractGeneratedText(data, miniDraftReq).text || "";
-          if(!draft || looksLikeRawJsonText(draft)) draft = buildSecondaryDraftText(path, req, extra);
+          if(!draft || looksLikeRawJsonText(draft) || looksLikeUnfixedSecondaryDraft(draft, path)) draft = buildSecondaryDraftText(path, req, extra);
         }
         global.__MINI_GENERATED_SECONDARY_DRAFT__ = draft;
         if(output){
@@ -2969,6 +3151,10 @@
         .mini-v229-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
         .mini-v229-input-grid label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:900;color:#173ea9}
         .mini-v229-input-grid input,.mini-v229-input-grid textarea{border:1px solid #dbe5ff;border-radius:12px;padding:10px;font-size:13px;line-height:1.5;background:#fff;color:#111827;resize:vertical}
+        .mini-v231-evidence-type-box{border:1px dashed #bfdbfe;background:#f8fbff;border-radius:14px;padding:10px 12px;margin:12px 0;color:#40516a;font-size:12px;display:grid;gap:5px}
+        .mini-v231-evidence-type-box label{font-weight:900;display:grid;gap:6px;color:#173ea9}
+        .mini-v231-evidence-type-box select{border:1px solid #dbe5ff;border-radius:12px;padding:10px;font-size:13px;line-height:1.5;background:#fff;color:#111827}
+        .mini-v231-evidence-type-box p{margin:0;color:#64748b;line-height:1.55}
         .mini-v229-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
         .mini-v229-actions button{border:1px solid #2f5bff;background:#2f5bff;color:#fff;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer}
         .mini-v229-actions button[disabled]{opacity:.45;cursor:not-allowed}
