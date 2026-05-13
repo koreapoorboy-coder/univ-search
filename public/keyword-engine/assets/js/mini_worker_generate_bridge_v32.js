@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v222-book-optional-dongguk-network-fallback";
+  const VERSION = "mini-worker-generate-bridge-v228-secondary-expansion-ai-reuse";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -429,6 +429,14 @@
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
       `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
       `도서 활용: ${mini.useBookInReport || mini.bookUsageMode === "useBook" ? ((book.title || "") + (book.author ? " / " + book.author : "")) : "사용하지 않음"}`,
+      ...(ctx.secondaryExpansionContext ? [
+        "",
+        "[2차 확장 방향 선택 구조]",
+        "1차 설계값을 바로 보고서로 쓰지 말고, 아래 확장 방향 중 하나를 학생이 다시 선택하게 하라.",
+        `확장 방향 후보: ${(ctx.secondaryExpansionContext.paths || []).map(p => p.label).join(" / ")}`,
+        `추천 확장 방향: ${((ctx.secondaryExpansionContext.paths || []).find(p => p.isRecommended) || {}).label || "자료 해석형"}`,
+        "각 확장 방향마다 탐구 질문, 필요한 자료, 문단 구조, 학생 직접 입력칸, ChatGPT 재활용 프롬프트를 함께 제시하라."
+      ] : []),
       ...(ctx.donggukPerformanceFrame ? [
         "",
         "[동국대 수행평가 영역명 기준 반영]",
@@ -461,7 +469,9 @@
       "1. 설계서 제목",
       "2. 오늘의 핵심 방향",
       "3. 1단계. 중심 질문 고르기",
-      "4. 2단계. 자료 3개 찾기",
+      "4. 2차 확장 방향 선택",
+      "5. ChatGPT 2차 활용 프롬프트",
+      "6. 2단계. 자료 3개 찾기",
       "5. 3단계. 비교 표 만들기",
       "6. 4단계. 보고서에 쓰기",
       "7. 내 말로 바꾸는 문장 틀",
@@ -549,6 +559,18 @@
         "학과명은 반복하지 말고 전공 사고방식으로 바꾼다."
       ]
     };
+    mini.reportGenerationContext.secondaryExpansionContext = mini.reportGenerationContext.secondaryExpansionContext || buildFallbackSecondaryExpansionContext({
+      subject: reqSubject,
+      major: reqMajor,
+      concept: reqConcept,
+      keyword: reqKeyword,
+      axis: reqAxis,
+      mode: choice.mode || s.reportMode,
+      view: choice.view || s.reportView,
+      line: choice.line || s.reportLine,
+      bookTitle: mini.selectedBook?.title || ""
+    });
+
     mini.reportGenerationContext.reportChoiceMiniDirective = [
       `동국대 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
       `6번 수행평가 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 영역명의 방법과 문단 흐름을 바꾼다.`,
@@ -590,12 +612,13 @@
       report_choices: choice,
       performance_assessment: mini.reportGenerationContext?.performanceAssessment || null,
       dongguk_performance_frame: mini.reportGenerationContext?.donggukPerformanceFrame || null,
+      secondary_expansion_context: mini.reportGenerationContext?.secondaryExpansionContext || null,
       reportGenerationContext: mini.reportGenerationContext || {},
       selectedBook: mini.selectedBook || null,
 
       // Worker가 messages 형태를 받는 경우 대비
       messages: [
-        { role: "system", content: "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 학생이 직접 고르고 채우는 로드맵을 제공한다." },
+        { role: "system", content: "너는 고등학생이 바로 이해할 수 있는 쉬운 수행평가 탐구 설계서를 만드는 전문 도우미다. 완성문을 대신 쓰지 말고, 1차 설계값을 2차 확장 방향으로 분기시키고 학생이 직접 고르고 채우는 로드맵을 제공한다." },
         { role: "user", content: miniInstruction + "\n\n[원본 MINI PAYLOAD]\n" + JSON.stringify(mini, null, 2) }
       ]
     };
@@ -621,6 +644,7 @@
       report_line: workerRequest.report_choices?.line || "",
       mini_payload: workerRequest.mini_payload,
       report_dataset_pattern: workerRequest.report_dataset_pattern,
+      secondary_expansion_context: workerRequest.secondary_expansion_context,
       student_input: {
         session_id: workerRequest.sessionId,
         school_name: workerRequest.schoolName || "",
@@ -1698,6 +1722,103 @@
     return out;
   }
 
+
+  function buildFallbackSecondaryExpansionContext({ subject, major, concept, keyword, axis, mode, view, line, bookTitle }){
+    const base = {
+      subject: subject || "선택 과목",
+      department: major || "선택 진로 분야",
+      concept: concept || "선택 교과 개념",
+      keyword: keyword || "선택 키워드",
+      followupAxis: axis || "후속 연계축",
+      reportMode: mode || "수행평가 방식",
+      reportView: view || "평가 관점",
+      reportLine: line || "결과물 수준",
+      selectedBookTitle: bookTitle || ""
+    };
+    const pathData = [
+      ["principle-analysis", "원리 분석형", `${base.keyword}는 ${base.concept}의 어떤 원리와 조건으로 설명할 수 있을까?`, "교과 개념 원리 → 작동 조건 → 사례 적용 → 한계", "교과서 개념·공식 설명·원리 적용 사례"],
+      ["case-comparison", "사례 비교형", `${base.keyword}를 두 사례나 조건으로 비교하면 어떤 차이가 드러날까?`, "비교 기준 → 사례 A → 사례 B → 차이 해석", "사례 A·사례 B·비교 기준 자료"],
+      ["data-evidence", "자료 해석형", `${base.keyword}는 자료에서 어떤 수치·변화·패턴으로 확인할 수 있을까?`, "자료 출처 → 변수·기준 → 자료 해석 → 자료 한계", "통계·그래프·기사·공공자료"],
+      ["social-meaning", "사회적 의미형", `${base.keyword}는 실제 사회 문제나 공동체에 어떤 의미를 가질까?`, "문제 상황 → 영향 받는 대상 → 사회적 의미 → 대응 방향", "사회 쟁점·정책 자료·이해관계자 관점"],
+      ["followup-inquiry", "후속 탐구형", `이번 탐구의 한계를 보완하려면 다음에는 무엇을 더 확인해야 할까?`, "현재 결론 → 부족한 점 → 추가 자료 → 다음 탐구", "현재 자료의 한계·추가 자료·후속 조사 계획"]
+    ];
+    let recommendedPathId = "data-evidence";
+    const hay = `${mode} ${view} ${line} ${axis} ${keyword} ${concept}`;
+    if(/원리|설명|구조|기능/.test(hay)) recommendedPathId = "principle-analysis";
+    if(/비교|대조|차이/.test(hay)) recommendedPathId = "case-comparison";
+    if(/자료|데이터|통계|그래프|측정|모델/.test(hay)) recommendedPathId = "data-evidence";
+    if(/사회|윤리|정책|공동체|의미|쟁점/.test(hay)) recommendedPathId = "social-meaning";
+    if(/심화|후속|한계|추가/.test(hay)) recommendedPathId = "followup-inquiry";
+    return {
+      version: "secondary-expansion-context-v228-fallback",
+      purpose: "1차 설계값을 바탕으로 2차 확장 방향을 다시 선택하게 하여 보고서 중복성을 낮춘다.",
+      principle: "1차 데이터 = 공통 뼈대 / 2차 확장 방향 = 분기점 / 학생 자료 = 개인화 근거 / 3차 초안 = 최종 문단화",
+      sourceSelection: base,
+      recommendedPathId,
+      paths: pathData.map((row, idx) => ({
+        rank: idx + 1,
+        id: row[0],
+        label: row[1],
+        isRecommended: row[0] === recommendedPathId,
+        question: row[2],
+        paragraphStructure: row[3].split(" → "),
+        evidenceTypes: row[4].split("·"),
+        studentInput: ["내가 직접 찾은 자료 제목과 출처", "자료에서 확인한 핵심 내용", "내가 해석한 의미"],
+        aiPromptGuide: `아래 1차 탐구 설계값을 바탕으로 '${row[1]}' 방향의 수행평가 보고서 초안 구조를 만들어줘. 보고서를 바로 완성하지 말고, 문단별 작성 방향과 내가 직접 채워야 할 자료·해석 칸을 제시해줘.`
+      })),
+      studentRequiredInputs: ["2차 확장 방향 1개", "직접 찾은 자료 제목과 출처", "자료에서 확인한 수치·사례·문장", "수업 개념과 연결한 내 설명", "결론에서 말할 내 해석"],
+      aiReuseWorkflow: ["1차 설계값 연결성 점검", "2차 확장 방향 선택", "자료 찾기", "선택 방향 기반 초안 구조화", "학생 초안 첨삭"]
+    };
+  }
+
+  function getSecondaryExpansionContext(req, fallbackArgs){
+    const ctx = req?.mini_payload?.reportGenerationContext?.secondaryExpansionContext || req?.secondary_expansion_context || null;
+    if(ctx && Array.isArray(ctx.paths) && ctx.paths.length) return ctx;
+    return buildFallbackSecondaryExpansionContext(fallbackArgs || {});
+  }
+
+  function buildExpansionRows(expansion){
+    const rows = [["선택", "확장 방향", "탐구 질문", "필요 자료", "보고서 구조"]];
+    (expansion.paths || []).forEach(path => {
+      rows.push([
+        path.isRecommended ? "추천" : `선택 ${path.rank || ""}`,
+        path.label || "확장 방향",
+        path.question || "탐구 질문 만들기",
+        (path.evidenceTypes || []).join("·") || "자료 직접 선택",
+        (path.paragraphStructure || []).join(" → ") || "문단 구조 선택"
+      ]);
+    });
+    return rows;
+  }
+
+  function buildAiReusePromptRows(expansion, baseSummary){
+    const recommended = (expansion.paths || []).find(p => p.isRecommended) || (expansion.paths || [])[0] || {};
+    const prompt1 = [
+      "아래는 내가 수행평가 보고서를 쓰기 위해 만든 1차 탐구 설계값이야.",
+      "보고서를 바로 써주지 말고, 교과 개념→추천 키워드→후속 연계축→자료/도서→결론 흐름이 자연스러운지 먼저 점검해줘.",
+      "어색한 연결이 있으면 이유와 수정 방향을 알려줘.",
+      baseSummary
+    ].join("\n");
+    const prompt2 = [
+      `나는 2차 확장 방향으로 '${recommended.label || "자료 해석형"}'을 선택하려고 해.`,
+      "아래 1차 탐구 설계값을 바탕으로 보고서 초안 구조를 만들어줘.",
+      "조건: 보고서를 완성하지 말고 문단별 작성 방향, 필요한 자료, 내가 직접 채울 문장을 제시해줘.",
+      "내가 직접 찾은 자료: [자료 제목/출처/핵심 내용/내 해석을 여기에 입력]",
+      baseSummary
+    ].join("\n");
+    const prompt3 = [
+      "아래는 내가 직접 쓴 수행평가 보고서 초안이야.",
+      "새로 써주지 말고 첨삭만 해줘. 교과 개념, 탐구 질문, 자료 해석, 결론의 연결성을 중심으로 점검해줘.",
+      "내 초안: [여기에 초안 붙여넣기]"
+    ].join("\n");
+    return [
+      ["단계", "ChatGPT에 요청할 일", "복사해서 쓸 프롬프트 핵심"],
+      ["1", "연결성 점검", prompt1],
+      ["2", "선택 방향 기반 초안 구조화", prompt2],
+      ["3", "학생 초안 첨삭", prompt3]
+    ];
+  }
+
   function deriveV54Scenario(ctx){
     const subject = ctx.subject || "";
     const major = ctx.major || "";
@@ -1870,6 +1991,19 @@
     const line = firstNonEmpty(choices.line, choices.lineLabel, s.reportLine, "라인 선택값");
     const requestedBookMode = firstNonEmpty(req.bookUsageMode, s.bookUsageMode, req?.mini_payload?.bookUsageMode, "");
     const bookTitle = /useBook/i.test(requestedBookMode) ? firstNonEmpty(book.title, req.selectedBookTitle, "") : "";
+
+    const expansion = getSecondaryExpansionContext(req, { subject, major, concept, keyword, axis: axisRaw, mode, view, line, bookTitle });
+    const baseSummaryForAi = [
+      `과목: ${subject}`,
+      `진로/학과: ${major}`,
+      `교과 개념: ${concept}`,
+      `추천 키워드: ${keyword}`,
+      `후속 연계축: ${axisRaw}`,
+      `도서 활용: ${bookTitle || "사용하지 않음"}`,
+      `수행평가 방식: ${mode}`,
+      `평가 관점: ${view}`,
+      `결과물 수준: ${line}`
+    ].join("\n");
 
     const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
     const lens = deriveMajorLens(major, majorContext, allText);
@@ -2094,13 +2228,13 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-major-concept-book-optional-blueprint-v222-dongguk-performance-assessment",
+      source: "payload-secondary-expansion-blueprint-v228-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v220_subject_group_dongguk_performance_network_fallback",
+        productMode: "secondary_expansion_ai_reuse_blueprint_v228",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
         focusQuestion,
@@ -2405,7 +2539,7 @@
           <div>
             <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">동국대식 수행평가 영역명처럼 주제(내용)와 방법, 그리고 과정 증거가 보이도록 정리했습니다. 질문, 자료, 표, 문단, 결론이 같은 기준으로 이어지게 만듭니다.</p>
+            <p class="mini-v43-sub">동국대식 수행평가 영역명처럼 주제(내용)와 방법, 과정 증거가 보이도록 정리했습니다. 1차 설계값을 바로 보고서로 쓰지 않고, 2차 확장 방향을 선택한 뒤 ChatGPT에 다시 활용할 수 있게 구성했습니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -2413,9 +2547,9 @@
         </div>
 
         <div class="mini-v43-quick">
-          <div><b>STEP 1</b><span>주제×방법으로 구조 잡기</span></div>
-          <div><b>STEP 2</b><span>과정 증거 자료 배치하기</span></div>
-          <div><b>STEP 3</b><span>표·문단·결론 중복 줄이기</span></div>
+          <div><b>STEP 1</b><span>1차 설계값 확인하기</span></div>
+          <div><b>STEP 2</b><span>2차 확장 방향 선택하기</span></div>
+          <div><b>STEP 3</b><span>선택 방향으로 초안 구조화하기</span></div>
         </div>
 
         <div class="mini-v43-tags">
