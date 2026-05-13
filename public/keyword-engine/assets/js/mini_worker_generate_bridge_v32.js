@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v220-subject-group-ui-dongguk-network-fallback";
+  const VERSION = "mini-worker-generate-bridge-v222-book-optional-dongguk-network-fallback";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -189,18 +189,40 @@
     return { subject, career, concept: cleanUiText(concept), keyword: cleanUiText(keyword), axisTitle, axisId, bookValue, bookTitle, last };
   }
 
+  function getBookUsageMode(){
+    let raw = "";
+    try { raw = String(global.__BOOK_USAGE_MODE__ || localStorage.getItem("ke.bookUsageMode.v222") || readValue("bookUsageMode") || "").trim(); } catch(error) { raw = String(global.__BOOK_USAGE_MODE__ || "").trim(); }
+    if(!raw) return "";
+    return /^(useBook|book|use|도서활용|도서 사용)$/i.test(raw) ? "useBook" : "noBook";
+  }
+
+  function hasBookSignal(snap, payload){
+    return !!(payload?.selectedBook?.title || snap?.bookTitle || snap?.bookValue);
+  }
+
+  function shouldUseBookForSnap(snap, payload){
+    const mode = getBookUsageMode();
+    const hasBook = hasBookSignal(snap, payload);
+    return hasBook && (mode === "useBook" || mode === "");
+  }
+
   function hydrateSelectedBook(payload, snap){
+    if(!shouldUseBookForSnap(snap, payload)){
+      payload.selectedBook = null;
+      payload.bookUsageMode = "noBook";
+      payload.useBookInReport = false;
+      return;
+    }
     if(payload.selectedBook && payload.selectedBook.title) return;
     const result = snap.last?.result || null;
     const all = [].concat(result?.directBooks || [], result?.expansionBooks || []);
     const keys = [snap.bookValue, snap.bookTitle].filter(Boolean);
     let found = null;
-    if(all.length){
-      found = keys.length ? all.find(b => {
+    if(all.length && keys.length){
+      found = all.find(b => {
         const candidates = [b.sourceId, b.bookId, String(b.managementNo || ""), b.title].map(v => String(v || "").trim());
         return keys.some(k => candidates.includes(k));
-      }) : all[0];
-      if(!found) found = all[0];
+      }) || null;
     }
     if(!found && keys[0] && typeof window.getSelectedBookDetail === "function"){
       try{ found = window.getSelectedBookDetail(keys[0]); }catch(e){ found = null; }
@@ -247,6 +269,11 @@
     s.reportIntent = s.reportIntent || "학생용 수행평가 탐구보고서 생성";
 
     hydrateSelectedBook(payload, snap);
+    payload.bookUsageMode = payload.selectedBook ? "useBook" : "noBook";
+    payload.useBookInReport = !!payload.selectedBook;
+    payload.selectionPayload.bookUsageMode = payload.bookUsageMode;
+    payload.selectionPayload.useBookInReport = payload.useBookInReport;
+    payload.selectionPayload.evidenceSourcePolicy = payload.useBookInReport ? "도서+자료 선택형" : "도서 미사용 자료 중심형";
 
     payload.reportGenerationContext.selectedBookContext =
       payload.reportGenerationContext.selectedBookContext ||
@@ -362,7 +389,7 @@
       writingPrinciples: [
         "단순 교과 설명이 아니라 실제 현상·사례·자료를 먼저 제시한다.",
         "선택한 4번 후속 연계축을 보고서의 해석 기준으로 사용한다.",
-        "선택 도서는 독후감이 아니라 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
+        "도서를 선택한 경우에만 도서를 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다. 도서를 선택하지 않은 경우 공공자료·통계·기사·실험자료를 사용한다.",
         "완성문을 대신 써주지 말고, 학생이 직접 조사·분석·작성할 수 있는 실행형 설계서로 작성한다.",
         "중학생도 이해할 수 있을 정도로 짧고 쉬운 문장으로 쓴다. 어려운 전공 용어는 일상어로 풀어서 쓴다."
       ]
@@ -382,11 +409,12 @@
       "[절대 조건]",
       "1. 완성 문단을 길게 대신 써주지 않는다. 학생이 직접 채울 수 있는 질문, 자료 수집 계획, 비교 기준, 빈칸형 문장 틀을 제공한다.",
       "2. 같은 주제를 선택한 학생도 결과가 달라질 수 있도록 탐구 질문·조사 범위·비교 기준·결론 방향의 선택지를 반드시 제시한다.",
-      "3. 선택한 교과 개념, 추천 키워드, 후속 연계축, 선택 도서를 모두 설계서 안에서 역할이 보이게 반영한다.",
-      "4. 학과명 자체를 제목이나 결론에 억지로 붙이지 말고, 학과에서 배우는 핵심 개념·이론·사고 과정을 탐구 기준으로 변환해 사용한다.",
-      "5. 예: 컴퓨터공학과라면 '컴퓨터공학과에 관심이 있다'가 아니라 입력값, 조건문, 알고리즘, 데이터 처리, 시스템 설계, 오류 검증 같은 개념으로 연결한다.",
-      "6. 도서는 독후감이 아니라 왜 이 자료를 여러 조건으로 보아야 하는지 설명하는 해석 렌즈로 안내한다.",
-      "5. 내부 데이터명, payload, API, Worker, MINI 같은 표현은 학생 화면에 쓰지 않는다.",
+      "3. 선택한 교과 개념, 추천 키워드, 후속 연계축을 모두 설계서 안에서 역할이 보이게 반영한다.",
+      "4. 도서 활용은 선택이다. 선택 도서가 없는 경우 책 제목, 독후감, 도서 요약을 강제로 넣지 않는다.",
+      "5. 학과명 자체를 제목이나 결론에 억지로 붙이지 말고, 학과에서 배우는 핵심 개념·이론·사고 과정을 탐구 기준으로 변환해 사용한다.",
+      "6. 예: 컴퓨터공학과라면 '컴퓨터공학과에 관심이 있다'가 아니라 입력값, 조건문, 알고리즘, 데이터 처리, 시스템 설계, 오류 검증 같은 개념으로 연결한다.",
+      "7. 도서를 선택한 경우에만 독후감이 아니라 해석 렌즈로 안내하고, 도서 미사용형은 공공자료·통계·기사·실험자료 중심으로 안내한다.",
+      "8. 내부 데이터명, payload, API, Worker, MINI 같은 표현은 학생 화면에 쓰지 않는다.",
       "",
       "[학생 기본 정보]",
       `학교: ${form.schoolName || "미입력"}`,
@@ -400,7 +428,7 @@
       `교과 개념: ${s.selectedConcept || ""}`,
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || ""}`,
       `후속 연계축: ${compactAxis(s.selectedFollowupAxis || s.followupAxis || "")}`,
-      `선택 도서: ${book.title || ""}${book.author ? " / " + book.author : ""}`,
+      `도서 활용: ${mini.useBookInReport || mini.bookUsageMode === "useBook" ? ((book.title || "") + (book.author ? " / " + book.author : "")) : "사용하지 않음"}`,
       ...(ctx.donggukPerformanceFrame ? [
         "",
         "[동국대 수행평가 영역명 기준 반영]",
@@ -548,7 +576,9 @@
       selectedConcept: s.selectedConcept || "",
       selectedKeyword: s.selectedKeyword || s.selectedRecommendedKeyword || "",
       selectedFollowupAxis: s.selectedFollowupAxis || s.followupAxis || "",
-      selectedBookTitle: mini.selectedBook?.title || "",
+      selectedBookTitle: (mini.useBookInReport || mini.bookUsageMode === "useBook") ? (mini.selectedBook?.title || "") : "",
+      bookUsageMode: mini.bookUsageMode || mini.selectionPayload?.bookUsageMode || ((mini.selectedBook?.title) ? "useBook" : "noBook"),
+      useBookInReport: !!(mini.useBookInReport || mini.selectionPayload?.useBookInReport),
 
       // 새 MINI 생성용 확장 필드
       mode: "mini_report_generation_v32",
@@ -621,8 +651,7 @@
       ["career", "희망 진로/학과"],
       ["selectedConcept", "3번 교과 개념"],
       ["selectedKeyword", "3번 추천 키워드"],
-      ["selectedFollowupAxis", "4번 후속 연계축"],
-      ["selectedBookTitle", "5번 선택 도서"]
+      ["selectedFollowupAxis", "4번 후속 연계축"]
     ];
     checks.forEach(([key, label]) => {
       if(!String(req[key] || "").trim()) missing.push(label);
@@ -1836,15 +1865,18 @@
     const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
     const axisRaw = cleanDisplayText(firstNonEmpty(s.selectedFollowupAxis, s.followupAxis, req.selectedFollowupAxis, "선택 후속 연계축"));
     const axis = cleanDisplayText(compactAxis(axisRaw));
-    const mode = firstNonEmpty(choices.mode, choices.modeLabel, s.reportMode, "전개 방식 선택값");
+    let mode = firstNonEmpty(choices.mode, choices.modeLabel, s.reportMode, "전개 방식 선택값");
     const view = firstNonEmpty(choices.view, choices.viewLabel, s.reportView, "관점 선택값");
     const line = firstNonEmpty(choices.line, choices.lineLabel, s.reportLine, "라인 선택값");
-    const bookTitle = firstNonEmpty(book.title, req.selectedBookTitle, "선택 도서");
+    const requestedBookMode = firstNonEmpty(req.bookUsageMode, s.bookUsageMode, req?.mini_payload?.bookUsageMode, "");
+    const bookTitle = /useBook/i.test(requestedBookMode) ? firstNonEmpty(book.title, req.selectedBookTitle, "") : "";
 
     const allText = `${keyword} ${axisRaw} ${concept} ${major}`;
     const lens = deriveMajorLens(major, majorContext, allText);
-    const bookGuide = deriveBookGuide(bookTitle, keyword, concept, axis, lens);
-    const choiceBlueprint = buildReportChoiceBlueprint({ mode, view, line, keyword, concept, axis, lens, bookTitle, subject, major });
+    const useBookInReport = !!bookTitle;
+    if (mode === "book" && !useBookInReport) mode = "compare";
+    const bookGuide = useBookInReport ? deriveBookGuide(bookTitle, keyword, concept, axis, lens) : null;
+    const choiceBlueprint = buildReportChoiceBlueprint({ mode: (mode === "book" && !useBookInReport ? "compare" : mode), view, line, keyword, concept, axis, lens, bookTitle, subject, major });
     const isWeather = /폭염|기후|재난|주의보|대기|환경|날씨|기상/.test(allText);
     const isComputer = /컴퓨터|소프트웨어|인공지능|AI|데이터사이언스|정보보호|프로그래밍|알고리즘|시스템|네트워크/i.test(`${major} ${lens.keywords.join(" ")}`);
     const isBio = /세포|생명|유전자|효소|대사|약물|면역|질병|의학|보건|간호/.test(allText + " " + major);
@@ -2028,7 +2060,7 @@
         "문단 5. 결론 | 꼭 넣을 내용: 표에서 확인한 결과 + 내가 선택한 기준이 설득력 있었던 이유 + 부족했던 점을 순서대로 쓴다.",
         `문단 5. 결론 | 마무리 문장: ${conclusionSentence}`
       ].join("\n")},
-      {title:"도서·전공 개념 연결", body:[
+      {title: useBookInReport ? "도서·전공 개념 연결" : "자료·전공 개념 연결", body: useBookInReport ? [
         `1) 이 카드의 기준: 책 내용을 많이 쓰는 것이 아니라, 내 판단 기준을 왜 넓혀야 하는지 설명하는 데만 사용한다.`,
         `2) 책에서 가져올 핵심 한 줄: ${bookGuide.content}`,
         `3) 내 탐구에 적용하는 구조: ${bookGuide.topicLink}`,
@@ -2036,6 +2068,14 @@
         `5) 이렇게 활용하면 된다: ${bookGuide.sentence}`,
         `6) 전공 개념 활용: ${majorConnect}`,
         `7) 주의할 점: ${bookGuide.caution}`
+      ].join("\n") : [
+        `1) 이 카드의 기준: 도서 없이 공공자료·통계·기사·실험자료를 근거로 사용한다.`,
+        `2) 가져올 핵심 자료: 공식 기준, 실제 수치, 비교 사례, 한계 자료 중 2~3개`,
+        `3) 내 탐구에 적용하는 구조: 자료를 기준-비교-해석-한계 순서로 배치한다.`,
+        `4) 보고서에 넣는 위치: 서론에는 기준 자료, 본론에는 비교 자료, 결론에는 한계 자료를 넣는다.`,
+        `5) 이렇게 활용하면 된다: 책 요약 대신 자료 출처와 비교 기준을 분명히 쓰고, 표와 해석 문장으로 연결한다.`,
+        `6) 전공 개념 활용: ${majorConnect}`,
+        `7) 주의할 점: 참고문헌에 책 제목을 억지로 넣지 않는다.`
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
@@ -2044,7 +2084,7 @@
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
         "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
         "□ 학과 이름만 붙이지 않고 전공 개념을 사용했는가?",
-        "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?",
+        useBookInReport ? "□ 도서를 요약하지 않고 내 판단 기준을 넓히는 근거로 사용했는가?" : "□ 도서 대신 자료 출처와 비교 기준을 명확히 제시했는가?",
         "□ 결론에 표에서 확인한 결과, 내 기준의 장점, 부족한 점을 적었는가?"
       ].join("\n")}
     ];
@@ -2054,7 +2094,7 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-major-concept-book-bridge-blueprint-v220-subject-group-dongguk-performance-assessment",
+      source: "payload-major-concept-book-optional-blueprint-v222-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
