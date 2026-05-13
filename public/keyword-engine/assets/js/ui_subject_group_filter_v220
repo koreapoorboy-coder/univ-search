@@ -1,21 +1,47 @@
-/* ui_subject_group_filter_v220.js
- * v220: 입력 폼을 동국대 수행평가 구조에 맞게 정리
- * - 과목 긴 목록을 교과(국어/영어/수학/사회/과학/정보) → 세부 과목 2단계로 필터링
- * - 활동 과제 이름 필드는 중복 입력으로 보지 않고 hidden taskName으로 자동 생성
- * - subjectGroup을 payload/worker가 읽을 수 있도록 DOM 값 유지
+/* ui_subject_group_filter_v221.js
+ * v221: 교과 선택값에 따라 세부 과목 드롭다운을 강제 필터링
+ * - v220에서 별도 스크립트가 로드되지 않거나, select가 열리는 시점에 원본 옵션이 노출되는 문제 보정
+ * - 교과(국어/영어/수학/사회/과학/정보) 선택 후 해당 교과 세부 과목만 표시
+ * - 활동 과제명은 hidden으로 유지하고, 세부 과목 + 결과물 유형으로 자동 생성
  */
 (function(){
   "use strict";
 
-  const VERSION = "ui-subject-group-filter-v220-category-detail-taskname-dedupe";
+  const VERSION = "ui-subject-group-filter-v221-strict-detail-subject-filter";
   window.__UI_SUBJECT_GROUP_FILTER_VERSION__ = VERSION;
+
+  const SUBJECT_CATALOG = [
+    { value:"공통국어1", text:"공통국어1", group:"국어" },
+    { value:"공통국어2", text:"공통국어2", group:"국어" },
+    { value:"영어", text:"영어", group:"영어" },
+    { value:"공통수학1", text:"공통수학1", group:"수학" },
+    { value:"공통수학2", text:"공통수학2", group:"수학" },
+    { value:"대수", text:"대수", group:"수학" },
+    { value:"확률과 통계", text:"확률과 통계", group:"수학" },
+    { value:"미적분1", text:"미적분1", group:"수학" },
+    { value:"기하", text:"기하", group:"수학" },
+    { value:"통합사회1", text:"통합사회1", group:"사회" },
+    { value:"통합사회2", text:"통합사회2", group:"사회" },
+    { value:"한국사", text:"한국사", group:"사회" },
+    { value:"통합과학1", text:"통합과학1", group:"과학" },
+    { value:"통합과학2", text:"통합과학2", group:"과학" },
+    { value:"과학탐구실험1", text:"과학탐구실험1", group:"과학" },
+    { value:"과학탐구실험2", text:"과학탐구실험2", group:"과학" },
+    { value:"물리", text:"물리(물리학Ⅰ)", group:"과학" },
+    { value:"화학", text:"화학(화학Ⅰ)", group:"과학" },
+    { value:"생명과학", text:"생명과학", group:"과학" },
+    { value:"지구과학", text:"지구과학", group:"과학" },
+    { value:"역학과 에너지", text:"역학과 에너지", group:"과학" },
+    { value:"전자기와 양자", text:"전자기와 양자", group:"과학" },
+    { value:"물질과 에너지", text:"물질과 에너지", group:"과학" },
+    { value:"세포와 물질대사", text:"세포와 물질대사", group:"과학" },
+    { value:"지구시스템과학", text:"지구시스템과학", group:"과학" },
+    { value:"정보", text:"정보", group:"정보" }
+  ];
 
   function $(id){ return document.getElementById(id); }
   function norm(value){ return String(value || "").trim(); }
-  function setLabel(el, text){
-    const span = el?.closest("label")?.querySelector("span");
-    if(span) span.textContent = text;
-  }
+
   function inferGroup(subject){
     const s = norm(subject);
     if(!s) return "";
@@ -28,12 +54,40 @@
     return "";
   }
 
-  function makeOption(source){
+  function optionOf(item){
     const option = document.createElement("option");
-    option.value = source.value;
-    option.textContent = source.text;
-    option.dataset.subjectGroup = source.group || inferGroup(source.value || source.text);
+    option.value = item.value;
+    option.textContent = item.text || item.value;
+    option.dataset.subjectGroup = item.group || inferGroup(item.value || item.text);
     return option;
+  }
+
+  function collectDomOptions(subjectSelect){
+    const items = [];
+    Array.from(subjectSelect?.options || []).forEach(opt => {
+      const value = norm(opt.value);
+      if(!value) return;
+      const text = norm(opt.textContent) || value;
+      const group = norm(opt.dataset.subjectGroup) || inferGroup(value || text);
+      if(group) items.push({ value, text, group });
+    });
+    return items;
+  }
+
+  function mergeCatalog(domItems){
+    const byValue = new Map();
+    SUBJECT_CATALOG.forEach(item => byValue.set(item.value, item));
+    domItems.forEach(item => {
+      const group = item.group || inferGroup(item.value || item.text);
+      if(!group) return;
+      byValue.set(item.value, { value:item.value, text:item.text || item.value, group });
+    });
+    return Array.from(byValue.values());
+  }
+
+  function setLabel(el, text){
+    const span = el?.closest("label")?.querySelector("span");
+    if(span) span.textContent = text;
   }
 
   function ensureTaskName(){
@@ -43,82 +97,129 @@
     if(taskName){
       taskName.type = "hidden";
       taskName.value = subject ? `${subject} ${taskType}` : taskType;
+      taskName.setAttribute("aria-hidden", "true");
     }
   }
 
-  function init(){
+  function install(){
     const groupSelect = $("subjectGroup");
     const subjectSelect = $("subject");
     const taskName = $("taskName");
     const taskType = $("taskType");
-    if(!groupSelect || !subjectSelect) return;
+    if(!groupSelect || !subjectSelect) return false;
 
     setLabel(groupSelect, "교과");
     setLabel(subjectSelect, "세부 과목");
     setLabel(taskType, "결과물 유형");
-
     if(taskName){
       taskName.type = "hidden";
       taskName.setAttribute("aria-hidden", "true");
     }
 
-    const originalOptions = Array.from(subjectSelect.options || [])
-      .filter(opt => norm(opt.value))
-      .map(opt => ({
-        value: norm(opt.value),
-        text: norm(opt.textContent) || norm(opt.value),
-        group: opt.dataset.subjectGroup || inferGroup(opt.value || opt.textContent)
-      }));
+    if(!window.__SUBJECT_GROUP_FILTER_V221_CATALOG__){
+      window.__SUBJECT_GROUP_FILTER_V221_CATALOG__ = mergeCatalog(collectDomOptions(subjectSelect));
+    }
+    const catalog = window.__SUBJECT_GROUP_FILTER_V221_CATALOG__;
 
-    function rebuildSubjectOptions(targetGroup, keepValue){
+    function rebuild(targetGroup, keepValue){
+      const group = norm(targetGroup || groupSelect.value);
       const current = norm(keepValue || subjectSelect.value);
-      const group = norm(targetGroup);
+      const filtered = catalog.filter(item => !group || item.group === group);
+
       subjectSelect.innerHTML = "";
       const placeholder = document.createElement("option");
       placeholder.value = "";
       placeholder.textContent = group ? `${group} 세부 과목 선택` : "교과를 먼저 선택하세요";
       subjectSelect.appendChild(placeholder);
+      filtered.forEach(item => subjectSelect.appendChild(optionOf(item)));
 
-      originalOptions
-        .filter(item => !group || item.group === group)
-        .forEach(item => subjectSelect.appendChild(makeOption(item)));
-
-      const canKeep = Array.from(subjectSelect.options).some(opt => opt.value === current);
+      const canKeep = !!current && filtered.some(item => item.value === current);
       subjectSelect.value = canKeep ? current : "";
+      subjectSelect.dataset.filteredGroup = group;
+      subjectSelect.dataset.filterVersion = VERSION;
       ensureTaskName();
+      return true;
     }
 
-    function syncGroupFromSubject(){
-      const subject = norm(subjectSelect.value);
-      const inferred = inferGroup(subject);
-      if(inferred && groupSelect.value !== inferred){
-        groupSelect.value = inferred;
-        rebuildSubjectOptions(inferred, subject);
-      }else{
-        ensureTaskName();
+    function enforce(){
+      const group = norm(groupSelect.value);
+      if(!group){
+        rebuild("", "");
+        return;
       }
+      const bad = Array.from(subjectSelect.options || []).some(opt => {
+        const value = norm(opt.value);
+        if(!value) return false;
+        const g = norm(opt.dataset.subjectGroup) || inferGroup(value || opt.textContent);
+        return g !== group;
+      });
+      if(bad || subjectSelect.dataset.filteredGroup !== group){
+        rebuild(group, subjectSelect.value);
+      }
+    }
+
+    if(groupSelect.dataset.v221Installed !== "1"){
+      groupSelect.addEventListener("change", () => {
+        rebuild(groupSelect.value, "");
+        subjectSelect.dispatchEvent(new Event("change", { bubbles:true }));
+      });
+      groupSelect.dataset.v221Installed = "1";
+    }
+
+    if(subjectSelect.dataset.v221Installed !== "1"){
+      subjectSelect.addEventListener("change", () => {
+        const subject = norm(subjectSelect.value);
+        const inferred = inferGroup(subject);
+        if(inferred && groupSelect.value !== inferred){
+          groupSelect.value = inferred;
+          rebuild(inferred, subject);
+        }
+        ensureTaskName();
+      });
+      ["focus", "pointerdown", "mousedown", "click", "keydown"].forEach(evt => {
+        subjectSelect.addEventListener(evt, enforce, true);
+      });
+      subjectSelect.dataset.v221Installed = "1";
+    }
+
+    if(taskType && taskType.dataset.v221Installed !== "1"){
+      taskType.addEventListener("change", ensureTaskName);
+      taskType.dataset.v221Installed = "1";
     }
 
     const initialSubject = norm(subjectSelect.value);
     const initialGroup = norm(groupSelect.value) || inferGroup(initialSubject);
-    if(initialGroup) groupSelect.value = initialGroup;
-    rebuildSubjectOptions(groupSelect.value, initialSubject);
+    if(initialGroup && groupSelect.value !== initialGroup) groupSelect.value = initialGroup;
+    rebuild(groupSelect.value, initialSubject);
 
-    groupSelect.addEventListener("change", () => {
-      rebuildSubjectOptions(groupSelect.value, "");
-      subjectSelect.dispatchEvent(new Event("change", { bubbles:true }));
-    });
-    subjectSelect.addEventListener("change", syncGroupFromSubject);
-    taskType?.addEventListener("change", ensureTaskName);
-
-    const generateBtn = $("generateBtn");
-    if(generateBtn){
-      generateBtn.addEventListener("click", ensureTaskName, true);
+    if(!window.__SUBJECT_GROUP_FILTER_V221_OBSERVER__){
+      const observer = new MutationObserver(() => enforce());
+      observer.observe(subjectSelect, { childList:true, subtree:false, attributes:true });
+      window.__SUBJECT_GROUP_FILTER_V221_OBSERVER__ = observer;
     }
 
-    ensureTaskName();
+    if(!window.__SUBJECT_GROUP_FILTER_V221_INTERVAL__){
+      let count = 0;
+      window.__SUBJECT_GROUP_FILTER_V221_INTERVAL__ = setInterval(() => {
+        enforce();
+        count += 1;
+        if(count > 20){
+          clearInterval(window.__SUBJECT_GROUP_FILTER_V221_INTERVAL__);
+          window.__SUBJECT_GROUP_FILTER_V221_INTERVAL__ = null;
+        }
+      }, 250);
+    }
+
+    return true;
   }
 
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+  window.__installSubjectGroupStrictFilterV221 = install;
+
+  function boot(){ install(); }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+  window.addEventListener("load", boot);
+  setTimeout(boot, 100);
+  setTimeout(boot, 400);
+  setTimeout(boot, 900);
 })();
