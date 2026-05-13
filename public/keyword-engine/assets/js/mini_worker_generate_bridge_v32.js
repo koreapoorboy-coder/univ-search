@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v229-secondary-expansion-draft-generator";
+  const VERSION = "mini-worker-generate-bridge-v230-secondary-expansion-mini-draft-and-evidence-helper";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -2475,6 +2475,192 @@
     return paths.find(p => String(p.id) === String(id)) || paths.find(p => p.isRecommended) || paths[0] || null;
   }
 
+
+  function getSecondaryPathContext(path, req){
+    const s = req?.mini_payload?.selectionPayload || {};
+    const ctx = req?.mini_payload?.reportGenerationContext || {};
+    return {
+      subject: firstNonEmpty(s.subject, req?.subject, "선택 과목"),
+      major: firstNonEmpty(s.department, s.major, req?.major, req?.career, "선택 진로 분야"),
+      concept: firstNonEmpty(s.selectedConcept, req?.selectedConcept, "선택 교과 개념"),
+      keyword: firstNonEmpty(s.selectedKeyword, req?.keyword, "선택 키워드"),
+      axis: compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "후속 연계축")),
+      mode: firstNonEmpty(ctx.reportMode, req?.reportMode, "수행평가 방식"),
+      view: firstNonEmpty(ctx.reportView, req?.reportView, "평가 관점"),
+      line: firstNonEmpty(ctx.reportLine, req?.reportLine, "결과물 수준"),
+      pathLabel: path?.label || "자료 해석형",
+      question: path?.question || `${firstNonEmpty(s.selectedKeyword, req?.keyword, "선택 키워드")}는 어떤 기준으로 분석할 수 있을까?`,
+      structure: Array.isArray(path?.paragraphStructure) ? path.paragraphStructure : ["기준", "자료", "해석", "한계"],
+      evidenceTypes: Array.isArray(path?.evidenceTypes) ? path.evidenceTypes : ["자료 직접 선택"]
+    };
+  }
+
+  function buildEvidenceFindingGuide(path, req){
+    const c = getSecondaryPathContext(path, req);
+    const label = String(c.pathLabel || "");
+    let sourceTypes = [];
+    let searchKeywords = [];
+    let whatToCopy = [];
+    let easySources = [];
+
+    if(/원리/.test(label)){
+      sourceTypes = ["교과서 개념 설명", "공공기관·전문기관 기술 설명", "공식 매뉴얼·제품 원리 소개", "원리 적용 사례 기사"];
+      searchKeywords = [
+        `${c.keyword} 원리 조건 사례`,
+        `${c.concept} ${c.keyword} 구조 성능 안정성`,
+        `${c.major} ${c.keyword} 작동 원리 사례`,
+        `${c.keyword} 공공기관 설명 자료`
+      ];
+      whatToCopy = ["원리를 설명하는 문장 1개", "작동 조건이나 구조를 보여주는 표·그림", "실제 적용 사례 1개", "한계나 주의 조건 1개"];
+      easySources = ["교과서/수업자료", "한국에너지공단·KOSIS·공공기관 설명자료", "제조사 기술 설명 페이지", "과학 기사·기술 해설 자료"];
+    }else if(/사례|비교/.test(label)){
+      sourceTypes = ["사례 A 자료", "사례 B 자료", "두 사례를 비교할 기준 자료", "차이가 나타나는 조건 자료"];
+      searchKeywords = [
+        `${c.keyword} 사례 비교`,
+        `${c.keyword} 조건 차이 사례`,
+        `${c.concept} 실제 적용 사례`,
+        `${c.major} ${c.keyword} 사례 A 사례 B`
+      ];
+      whatToCopy = ["사례 A의 특징", "사례 B의 특징", "비교 기준 2~3개", "두 사례에서 차이가 난 이유"];
+      easySources = ["기사 2개 비교", "공공기관 보고서", "기업·기관 사례 소개", "교과서 탐구 사례"];
+    }else if(/자료|해석|데이터/.test(label)){
+      sourceTypes = ["통계 자료", "그래프 자료", "기사 속 수치", "실험 결과표", "공공데이터"];
+      searchKeywords = [
+        `${c.keyword} 통계 그래프`,
+        `${c.keyword} 변화 추이 자료`,
+        `${c.concept} 수치 자료`,
+        `${c.major} ${c.keyword} 공공데이터 기사`
+      ];
+      whatToCopy = ["가장 중요한 수치 1~2개", "증가·감소·차이가 보이는 지점", "비교 기준", "자료의 한계"];
+      easySources = ["KOSIS 국가통계포털", "공공데이터포털", "정부·공공기관 보도자료", "기사 속 표·그래프"];
+    }else if(/사회|의미|쟁점/.test(label)){
+      sourceTypes = ["사회 문제 사례", "정책·제도 자료", "이해관계자 의견", "찬반 쟁점 기사"];
+      searchKeywords = [
+        `${c.keyword} 사회적 영향`,
+        `${c.keyword} 정책 쟁점`,
+        `${c.keyword} 장점 단점 사례`,
+        `${c.major} ${c.keyword} 윤리 사회 문제`
+      ];
+      whatToCopy = ["문제가 되는 상황", "영향을 받는 대상", "정책·제도 대응", "내가 판단한 의미"];
+      easySources = ["신문 기사", "정부 정책 자료", "공공기관 보고서", "전문가 칼럼·해설"];
+    }else{
+      sourceTypes = ["현재 자료의 한계", "추가로 필요한 자료", "후속 실험·조사 계획", "비교·검증 자료"];
+      searchKeywords = [
+        `${c.keyword} 한계 후속 연구`,
+        `${c.keyword} 추가 실험 조사`,
+        `${c.concept} 검증 자료`,
+        `${c.major} ${c.keyword} 개선 방향`
+      ];
+      whatToCopy = ["현재 자료로 부족한 점", "다음에 확인할 변수", "추가 자료나 실험 계획", "예상되는 결과"];
+      easySources = ["현재 사용한 자료의 보완 자료", "실험 설계 예시", "공공기관 자료", "후속 기사·보고서"];
+    }
+
+    return { sourceTypes, searchKeywords, whatToCopy, easySources };
+  }
+
+  function buildEvidenceGuideText(path, req){
+    const c = getSecondaryPathContext(path, req);
+    const g = buildEvidenceFindingGuide(path, req);
+    return [
+      `자료 찾기 가이드: ${c.pathLabel}`,
+      `탐구 질문: ${c.question}`,
+      "",
+      "1. 먼저 찾을 자료 유형",
+      ...g.sourceTypes.map((v,i)=>`${i+1}) ${v}`),
+      "",
+      "2. 그대로 검색해볼 문장",
+      ...g.searchKeywords.map((v,i)=>`${i+1}) ${v}`),
+      "",
+      "3. 자료에서 가져올 것",
+      ...g.whatToCopy.map((v,i)=>`${i+1}) ${v}`),
+      "",
+      "4. 학생이 입력칸에 채우는 방법",
+      "- 자료 제목: 실제 자료의 제목을 그대로 적는다.",
+      "- 출처: 기관명·기사명·교과서·보고서명을 적는다.",
+      "- 자료 핵심 내용: 자료에서 확인한 수치·사례·문장을 1~2개 적는다.",
+      "- 내 해석: 이 자료를 보고 내가 판단한 점을 한 문장으로 쓴다.",
+      "",
+      "주의: 실제 출처와 자료 내용을 모르면 임의로 만들지 말고, 검색어와 자료 유형만 먼저 정리한 뒤 다시 찾는다."
+    ].join("\n");
+  }
+
+  function buildSecondaryMiniDraftPrompt(path, req, extra){
+    const c = getSecondaryPathContext(path, req);
+    const g = buildEvidenceFindingGuide(path, req);
+    const book = req?.selectedBook || {};
+    const hasEvidence = Boolean(String(extra?.evidenceTitle || "").trim() || String(extra?.evidenceSource || "").trim() || String(extra?.evidencePoint || "").trim() || String(extra?.studentView || "").trim());
+    return [
+      "아래 1차 탐구 설계값과 학생이 선택한 2차 확장 방향을 바탕으로 수행평가 보고서 초안을 생성해줘.",
+      "단, 실제 자료 제목·출처·핵심 내용이 비어 있으면 절대 지어내지 말고 [학생 입력 필요]로 표시해줘.",
+      "자료가 부족한 경우에는 먼저 자료 찾기 방향과 검색어를 제시한 뒤, 그 자료를 넣을 위치가 보이는 초안 구조를 만들어줘.",
+      "고등학생 수행평가 수준을 넘는 대학 수준 내용은 피하고, 교과 개념과 학생 선택값의 연결성을 중심으로 작성해줘.",
+      "동국대 수행평가 기준처럼 주제(내용)와 방법, 과정 증거가 문단 안에 드러나게 해줘.",
+      "",
+      "[1차 탐구 설계값]",
+      `과목: ${c.subject}`,
+      `진로/학과: ${c.major}`,
+      `교과 개념: ${c.concept}`,
+      `추천 키워드: ${c.keyword}`,
+      `후속 연계축: ${c.axis}`,
+      `수행평가 방식: ${c.mode}`,
+      `평가 관점: ${c.view}`,
+      `결과물 수준: ${c.line}`,
+      `도서 활용: ${book?.title ? book.title : "도서 미사용 또는 공공자료 중심"}`,
+      "",
+      "[2차 확장 방향]",
+      `확장 방향: ${c.pathLabel}`,
+      `탐구 질문: ${c.question}`,
+      `보고서 구조: ${c.structure.join(" → ")}`,
+      `필요 자료 유형: ${c.evidenceTypes.join(" / ")}`,
+      "",
+      "[학생 입력 자료]",
+      `자료 제목: ${String(extra?.evidenceTitle || "").trim() || "[학생 입력 필요]"}`,
+      `출처: ${String(extra?.evidenceSource || "").trim() || "[학생 입력 필요]"}`,
+      `자료 핵심 내용: ${String(extra?.evidencePoint || "").trim() || "[학생 입력 필요]"}`,
+      `내 해석: ${String(extra?.studentView || "").trim() || "[학생 입력 필요]"}`,
+      "",
+      "[자료 입력이 부족할 때 참고할 검색어]",
+      ...g.searchKeywords.map(v => `- ${v}`),
+      "",
+      "[출력 형식]",
+      "1. 자료 준비 상태 진단",
+      "2. 5문단 보고서 초안",
+      "   - 1문단: 문제 제기와 교과 개념 연결",
+      "   - 2문단: 기준과 자료 제시",
+      "   - 3문단: 자료 분석과 내 해석",
+      "   - 4문단: 선택한 2차 확장 방향 반영",
+      "   - 5문단: 결론, 한계, 후속 탐구",
+      "3. 학생이 실제로 고쳐야 할 부분 체크리스트",
+      "",
+      hasEvidence
+        ? "학생 입력 자료를 최대한 반영하되, 부족한 부분은 [학생 보완 필요]로 표시해줘."
+        : "학생 입력 자료가 거의 없으므로 완성형 보고서가 아니라 자료를 넣을 자리가 보이는 초안 구조로 만들어줘."
+    ].join("\n");
+  }
+
+  function buildSecondaryMiniDraftRequest(path, req, extra){
+    const prompt = buildSecondaryMiniDraftPrompt(path, req, extra);
+    const c = getSecondaryPathContext(path, req);
+    return {
+      ...req,
+      mode: "secondary_expansion_draft_generation_v230",
+      generationMode: "secondary_expansion_mini_draft",
+      prompt,
+      miniInstruction: prompt,
+      taskDescription: prompt,
+      secondaryDraftRequest: {
+        version: "secondary-expansion-mini-draft-v230",
+        selectedExpansionPath: path || null,
+        studentEvidence: extra || {},
+        context: c
+      },
+      messages: [
+        { role: "system", content: "너는 고등학생 수행평가 보고서를 대신 써주는 사람이 아니라, 학생의 1차 설계값과 2차 확장 방향을 읽고 개인화된 초안 구조를 만들어주는 도우미다. 실제 출처와 자료 내용은 절대 지어내지 않는다." },
+        { role: "user", content: prompt }
+      ]
+    };
+  }
+
   function buildSecondaryDraftText(path, req, extra){
     const s = req?.mini_payload?.selectionPayload || {};
     const ctx = req?.mini_payload?.reportGenerationContext || {};
@@ -2556,20 +2742,30 @@
           <span class="mini-v43-icon">2</span>
           <h4>선택한 2차 확장 방향으로 보고서 초안 생성</h4>
         </div>
-        <p class="mini-v229-help">위 2차 확장 방향 중 하나를 선택한 뒤, 학생이 직접 찾은 자료를 넣으면 아래에 개인화된 보고서 초안이 생성됩니다.</p>
+        <p class="mini-v229-help">위 2차 확장 방향 중 하나를 선택한 뒤, 학생이 직접 찾은 자료를 넣으면 mini가 아래에서 개인화된 보고서 초안을 다시 생성합니다. 자료를 아직 못 찾았으면 먼저 ‘자료 찾기 가이드’를 눌러 검색어와 자료 유형을 확인하세요.</p>
         <div class="mini-v43-expansion-options">${optionHtml}</div>
+
+        <div class="mini-v230-helper-box">
+          <div class="mini-v230-helper-title">자료를 못 찾겠다면 먼저 여기서 시작</div>
+          <div class="mini-v230-helper-actions">
+            <button type="button" id="miniV230ShowEvidenceGuideBtn">선택 방향에 맞는 자료 찾기 가이드</button>
+            <button type="button" id="miniV230FillSourceHintsBtn">입력칸 힌트 채우기</button>
+          </div>
+          <div class="mini-v230-guide-output" id="miniV230EvidenceGuideOutput">확장 방향을 선택한 뒤 자료 찾기 가이드를 누르면, 검색어·자료 유형·입력 방법이 여기에 표시됩니다.</div>
+        </div>
+
         <div class="mini-v229-input-grid">
-          <label>자료 제목<input id="miniV229EvidenceTitle" type="text" placeholder="예: 공공 통계, 기사, 실험 결과, 논문 요약 자료명"></label>
+          <label>자료 제목<input id="miniV229EvidenceTitle" type="text" placeholder="예: 실제 기사 제목, 공공 통계명, 실험 결과표명"></label>
           <label>출처<input id="miniV229EvidenceSource" type="text" placeholder="예: 교과서, 공공기관, 기사, 보고서, 실험 기록"></label>
-          <label>자료 핵심 내용<textarea id="miniV229EvidencePoint" rows="3" placeholder="자료에서 확인한 수치·사례·문장"></textarea></label>
-          <label>내 해석<textarea id="miniV229StudentView" rows="3" placeholder="이 자료를 보고 내가 판단한 점"></textarea></label>
+          <label>자료 핵심 내용<textarea id="miniV229EvidencePoint" rows="3" placeholder="자료에서 확인한 수치·사례·문장. 모르면 자료 찾기 가이드를 먼저 누르세요."></textarea></label>
+          <label>내 해석<textarea id="miniV229StudentView" rows="3" placeholder="이 자료를 보고 내가 판단한 점. 모르면 ‘어떤 점이 달라졌는지/비교되는지’를 한 문장으로 적으세요."></textarea></label>
         </div>
         <div class="mini-v229-actions">
-          <button type="button" id="miniV229GenerateDraftBtn">선택 방향으로 보고서 초안 생성</button>
+          <button type="button" id="miniV229GenerateDraftBtn">mini로 보고서 초안 생성</button>
           <button type="button" id="miniV229CopyDraftBtn" disabled>초안 복사</button>
         </div>
         <div class="mini-v229-draft-output" id="miniV229DraftOutput">
-          <b>초안 생성 대기</b><br>확장 방향을 선택하고 필요한 자료를 입력한 뒤 버튼을 누르세요.
+          <b>초안 생성 대기</b><br>확장 방향을 선택하고 자료를 입력한 뒤 버튼을 누르세요. 자료가 부족하면 mini가 자료 후보와 검색어를 먼저 제시하도록 요청합니다.
         </div>
       </article>
     `;
@@ -2582,19 +2778,51 @@
     const output = $("miniV229DraftOutput");
     const generateBtn = $("miniV229GenerateDraftBtn");
     const copyBtn = $("miniV229CopyDraftBtn");
+    const guideBtn = $("miniV230ShowEvidenceGuideBtn");
+    const hintBtn = $("miniV230FillSourceHintsBtn");
+    const guideOutput = $("miniV230EvidenceGuideOutput");
 
+    function selectedPath(){
+      const selectedId = (radios.find(r => r.checked) || radios[0] || {}).value;
+      return getPathById(expansion, selectedId);
+    }
     function syncCards(){
       radios.forEach(r => {
         const card = r.closest(".mini-v43-expansion-option");
         if(card) card.classList.toggle("is-selected", r.checked);
       });
     }
-    radios.forEach(r => r.addEventListener("change", syncCards));
+    radios.forEach(r => r.addEventListener("change", () => {
+      syncCards();
+      if(guideOutput) guideOutput.textContent = "확장 방향이 바뀌었습니다. 자료 찾기 가이드를 다시 눌러주세요.";
+    }));
     syncCards();
 
-    generateBtn?.addEventListener("click", () => {
-      const selectedId = (radios.find(r => r.checked) || radios[0] || {}).value;
-      const path = getPathById(expansion, selectedId);
+    guideBtn?.addEventListener("click", () => {
+      const path = selectedPath();
+      const guide = buildEvidenceGuideText(path, req);
+      global.__MINI_V230_EVIDENCE_GUIDE__ = guide;
+      if(guideOutput) guideOutput.innerHTML = `<pre>${escapeHtml(guide)}</pre>`;
+    });
+
+    hintBtn?.addEventListener("click", () => {
+      const path = selectedPath();
+      const guide = buildEvidenceFindingGuide(path, req);
+      const titleEl = $("miniV229EvidenceTitle");
+      const sourceEl = $("miniV229EvidenceSource");
+      const pointEl = $("miniV229EvidencePoint");
+      const viewEl = $("miniV229StudentView");
+      if(titleEl && !String(titleEl.value || "").trim()) titleEl.placeholder = `예: ${guide.sourceTypes[0] || "실제 자료 제목"}`;
+      if(sourceEl && !String(sourceEl.value || "").trim()) sourceEl.placeholder = `예: ${guide.easySources[0] || "공공기관·기사·교과서"}`;
+      if(pointEl && !String(pointEl.value || "").trim()) pointEl.placeholder = `예: ${guide.whatToCopy[0] || "자료에서 확인한 핵심 내용"}`;
+      if(viewEl && !String(viewEl.value || "").trim()) viewEl.placeholder = "예: 이 자료를 보면 어떤 조건에서 차이가 생기는지 판단할 수 있다.";
+      if(guideOutput){
+        guideOutput.innerHTML = `<pre>${escapeHtml(buildEvidenceGuideText(path, req))}</pre>`;
+      }
+    });
+
+    generateBtn?.addEventListener("click", async () => {
+      const path = selectedPath();
       global.__MINI_SELECTED_EXPANSION_PATH__ = path;
       const extra = {
         evidenceTitle: $("miniV229EvidenceTitle")?.value || "",
@@ -2602,13 +2830,40 @@
         evidencePoint: $("miniV229EvidencePoint")?.value || "",
         studentView: $("miniV229StudentView")?.value || ""
       };
-      const draft = buildSecondaryDraftText(path, req, extra);
-      global.__MINI_GENERATED_SECONDARY_DRAFT__ = draft;
+      const miniDraftReq = buildSecondaryMiniDraftRequest(path, req, extra);
+      global.__LAST_MINI_SECONDARY_DRAFT_REQUEST_V230__ = miniDraftReq;
       if(output){
-        output.innerHTML = `<pre>${escapeHtml(draft)}</pre>`;
-        output.scrollIntoView({behavior:"smooth", block:"nearest"});
+        output.innerHTML = `<b>mini가 선택한 확장 방향과 학생 입력 자료를 읽고 초안을 생성 중입니다...</b><br><span class="mini-v230-muted">자료가 부족하면 실제 출처를 지어내지 않고 자료 후보·검색어·[학생 입력 필요] 표시가 포함됩니다.</span>`;
       }
-      if(copyBtn) copyBtn.disabled = false;
+      if(generateBtn) generateBtn.disabled = true;
+      if(copyBtn) copyBtn.disabled = true;
+      try{
+        let draft = "";
+        const data = await postGenerateJson(miniDraftReq);
+        global.__LAST_MINI_SECONDARY_DRAFT_RESPONSE_V230__ = data;
+        if(data?.localFallback){
+          draft = buildSecondaryDraftText(path, req, extra)
+            + "\n\n[안내] 원격 mini 생성 연결이 실패해 로컬 초안으로 대체했습니다. 실제 운영 주소에서는 mini가 이 요청을 다시 읽고 초안을 생성합니다.";
+        }else{
+          draft = normalizeGeneratedCandidate(data) || extractGeneratedText(data, miniDraftReq).text || "";
+          if(!draft || looksLikeRawJsonText(draft)) draft = buildSecondaryDraftText(path, req, extra);
+        }
+        global.__MINI_GENERATED_SECONDARY_DRAFT__ = draft;
+        if(output){
+          output.innerHTML = `<pre>${escapeHtml(draft)}</pre>`;
+          output.scrollIntoView({behavior:"smooth", block:"nearest"});
+        }
+        if(copyBtn) copyBtn.disabled = false;
+      }catch(error){
+        console.error("v230 secondary mini draft failed:", error);
+        const fallbackDraft = buildSecondaryDraftText(path, req, extra)
+          + `\n\n[안내] mini 초안 생성 중 오류가 발생해 로컬 초안으로 대체했습니다. 오류: ${error?.message || String(error)}`;
+        global.__MINI_GENERATED_SECONDARY_DRAFT__ = fallbackDraft;
+        if(output) output.innerHTML = `<pre>${escapeHtml(fallbackDraft)}</pre>`;
+        if(copyBtn) copyBtn.disabled = false;
+      }finally{
+        if(generateBtn) generateBtn.disabled = false;
+      }
     });
 
     copyBtn?.addEventListener("click", () => {
@@ -2696,6 +2951,14 @@
         .mini-v43-table th:last-child,.mini-v43-table td:last-child{border-right:1px solid #dbe5ff}
         .mini-v229-draft-panel{margin-top:4px}
         .mini-v229-help{font-size:14px;line-height:1.65;color:#475569;margin:0 0 12px}
+
+        .mini-v230-helper-box{border:1px dashed #adc3ff;background:#f8fbff;border-radius:16px;padding:12px;margin:12px 0}
+        .mini-v230-helper-title{font-size:13px;font-weight:900;color:#173ea9;margin-bottom:8px}
+        .mini-v230-helper-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+        .mini-v230-helper-actions button{border:1px solid #8aa8ff;background:#fff;color:#2454d8;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900;cursor:pointer}
+        .mini-v230-guide-output{border:1px solid #e1e9ff;background:#fff;border-radius:12px;padding:10px;font-size:12px;line-height:1.6;color:#334155;max-height:260px;overflow:auto}
+        .mini-v230-guide-output pre{white-space:pre-wrap;margin:0;font-family:inherit}
+        .mini-v230-muted{font-size:12px;color:#64748b}
         .mini-v43-expansion-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:12px}
         .mini-v43-expansion-option{display:flex;flex-direction:column;gap:5px;border:1px solid #dbe5ff;background:#fff;border-radius:14px;padding:10px;cursor:pointer;min-height:138px}
         .mini-v43-expansion-option input{margin:0 0 2px}
