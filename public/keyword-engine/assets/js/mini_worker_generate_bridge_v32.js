@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v233-student-report-draft-with-revision-guide";
+  const VERSION = "mini-worker-generate-bridge-v234-student-facing-report-draft-clean-ui";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -93,7 +93,7 @@
       subject: readValue("subject"),
       taskName: readValue("taskName") || [readValue("subject"), readValue("taskType") || "탐구보고서"].filter(Boolean).join(" "),
       taskType: readValue("taskType") || "탐구보고서",
-      usagePurpose: readValue("usagePurpose") || "학생용 탐구 조립 지도 작성",
+      usagePurpose: readValue("usagePurpose") || "학생용 보고서 초안 설계 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
@@ -432,14 +432,14 @@
       ...(ctx.secondaryExpansionContext ? [
         "",
         "[2차 확장 방향 선택 구조]",
-        "1차 설계값을 바로 보고서로 쓰지 말고, 아래 확장 방향 중 하나를 학생이 다시 선택하게 하라.",
+        "아래 확장 방향 중 학생이 선택한 값을 기준으로 보고서 초안의 방향을 고정하라.",
         `확장 방향 후보: ${(ctx.secondaryExpansionContext.paths || []).map(p => p.label).join(" / ")}`,
         `추천 확장 방향: ${((ctx.secondaryExpansionContext.paths || []).find(p => p.isRecommended) || {}).label || "자료 해석형"}`,
-        "각 확장 방향마다 탐구 질문, 필요한 자료, 문단 구조, 학생 직접 입력칸, ChatGPT 재활용 프롬프트를 함께 제시하라."
+        "각 확장 방향마다 탐구 질문, 필요한 자료, 문단 구조, 학생 직접 입력칸, 보고서 보완 가이드를 함께 제시하라."
       ] : []),
       ...(ctx.donggukPerformanceFrame ? [
         "",
-        "[동국대 수행평가 영역명 기준 반영]",
+        "[수행평가 평가 기준 반영]",
         "핵심 공식: 수행평가 영역명 = 주제(내용) × 방법",
         `수행평가 영역명: ${ctx.donggukPerformanceFrame.performanceName || ""}`,
         `범주: ${ctx.donggukPerformanceFrame.subjectGroup || ""} / ${ctx.donggukPerformanceFrame.contentCategory || ""} × ${ctx.donggukPerformanceFrame.methodCategory || ""}`,
@@ -470,7 +470,7 @@
       "2. 오늘의 핵심 방향",
       "3. 1단계. 중심 질문 고르기",
       "4. 2차 확장 방향 선택",
-      "5. ChatGPT 2차 활용 프롬프트",
+      "5. 보고서 보완 가이드",
       "6. 2단계. 자료 3개 찾기",
       "5. 3단계. 비교 표 만들기",
       "6. 4단계. 보고서에 쓰기",
@@ -572,7 +572,7 @@
     });
 
     mini.reportGenerationContext.reportChoiceMiniDirective = [
-      `동국대 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
+      `수행평가 평가 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
       `6번 수행평가 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 영역명의 방법과 문단 흐름을 바꾼다.`,
       `7번 평가 관점·과정 증거는 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
       `8번 결과물 수준은 ${reqChoiceBlueprint.lineLabel || choice.line || "선택 라인"} 기준으로 분량과 깊이를 조정한다.`,
@@ -775,10 +775,10 @@
       endpointTried: endpoint || error?.url || "",
       errorHandled: reason,
       message: network
-        ? "원격 생성 엔진 연결 실패를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다."
+        ? "원격 생성 엔진 연결 실패를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다."
         : (asset
-          ? "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다."
-          : "원격 생성 엔진 오류를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다.")
+          ? "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다."
+          : "원격 생성 엔진 오류를 감지해, 현재 화면 선택값과 수행평가 평가 기준 기반 로컬 실행 지도로 대체 렌더링했습니다.")
     };
   }
 
@@ -1764,10 +1764,10 @@
         paragraphStructure: row[3].split(" → "),
         evidenceTypes: row[4].split("·"),
         studentInput: ["내가 직접 찾은 자료 제목과 출처", "자료에서 확인한 핵심 내용", "내가 해석한 의미"],
-        aiPromptGuide: `아래 1차 탐구 설계값을 바탕으로 '${row[1]}' 방향의 수행평가 보고서 초안 구조를 만들어줘. 보고서를 바로 완성하지 말고, 문단별 작성 방향과 내가 직접 채워야 할 자료·해석 칸을 제시해줘.`
+        aiPromptGuide: `아래 선택값을 바탕으로 '${row[1]}' 방향의 수행평가 보고서 초안 구조를 만들어줘. 보고서를 바로 완성하지 말고, 문단별 작성 방향과 내가 직접 채워야 할 자료·해석 칸을 제시해줘.`
       })),
       studentRequiredInputs: ["2차 확장 방향 1개", "직접 찾은 자료 제목과 출처", "자료에서 확인한 수치·사례·문장", "수업 개념과 연결한 내 설명", "결론에서 말할 내 해석"],
-      aiReuseWorkflow: ["1차 설계값 연결성 점검", "2차 확장 방향 선택", "자료 찾기", "선택 방향 기반 초안 구조화", "학생 초안 첨삭"]
+      aiReuseWorkflow: ["선택값 연결성 점검", "2차 확장 방향 선택", "자료 보완", "선택 방향 기반 초안 작성", "학생 초안 보완"]
     };
   }
 
@@ -1801,21 +1801,21 @@
     ].join("\n");
     const prompt2 = [
       `나는 2차 확장 방향으로 '${recommended.label || "자료 해석형"}'을 선택하려고 해.`,
-      "아래 1차 탐구 설계값을 바탕으로 보고서 초안 구조를 만들어줘.",
+      "아래 선택값을 바탕으로 보고서 초안 구조를 만들어줘.",
       "조건: 보고서를 완성하지 말고 문단별 작성 방향, 필요한 자료, 내가 직접 채울 문장을 제시해줘.",
       "내가 직접 찾은 자료: [자료 제목/출처/핵심 내용/내 해석을 여기에 입력]",
       baseSummary
     ].join("\n");
     const prompt3 = [
-      "아래는 내가 직접 쓴 수행평가 보고서 초안이야.",
+      "아래는 학생이 직접 쓴 수행평가 보고서 초안이다.",
       "새로 써주지 말고 첨삭만 해줘. 교과 개념, 탐구 질문, 자료 해석, 결론의 연결성을 중심으로 점검해줘.",
       "내 초안: [여기에 초안 붙여넣기]"
     ].join("\n");
     return [
-      ["단계", "ChatGPT에 요청할 일", "복사해서 쓸 프롬프트 핵심"],
+      ["단계", "보완 단계", "학생 보완 방향"],
       ["1", "연결성 점검", prompt1],
-      ["2", "선택 방향 기반 초안 구조화", prompt2],
-      ["3", "학생 초안 첨삭", prompt3]
+      ["2", "선택 방향 기반 초안 작성", prompt2],
+      ["3", "학생 초안 보완", prompt3]
     ];
   }
 
@@ -2130,7 +2130,7 @@
     const performanceRows = [
       ["구분", "내용"],
       ["수행평가 영역명", performanceFrame.performanceName],
-      ["동국대 범주", `${performanceFrame.subjectGroup} / ${performanceFrame.contentCategory} × ${performanceFrame.methodCategory}`],
+      ["평가 기준 범주", `${performanceFrame.subjectGroup} / ${performanceFrame.contentCategory} × ${performanceFrame.methodCategory}`],
       ["평가 의도", performanceFrame.evaluationIntent],
       ["성취기준 해석", performanceFrame.achievementFocus],
       ["보고서 핵심 질문", performanceFrame.focusQuestion]
@@ -2182,10 +2182,10 @@
       .join("\n");
 
     const sections = [
-      {title:"동국대 수행평가 영역명 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"수행평가 평가 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
       {title:"2차 확장 방향 선택", body:expansionRows.map(r=>r.join(" | ")).join("\n")},
-      {title:"ChatGPT 2차 활용 프롬프트", body:aiReusePromptBody},
+      {title:"보고서 보완 가이드", body:aiReusePromptBody},
       {title:"1단계. 질문을 내 사례로 바꾸기", body:questionRows.map(r=>r.join(" | ")).join("\n")},
       {title:"2단계. 자료를 어디에 넣을지 정하기", body:dataPlanRows.map(r=>r.join(" | ")).join("\n")},
       {title:"3단계. 비교 표로 증명하기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
@@ -2221,7 +2221,7 @@
       ].join("\n")},
       {title:"제출 전 5분 점검", body:[
         "□ 질문 원형을 그대로 쓰지 않고 내 사례로 바꿨는가?",
-        "□ 동국대식 수행평가 영역명처럼 ‘무엇을’과 ‘어떻게’가 모두 드러나는가?",
+        "□ 수행평가 평가 기준처럼 ‘무엇을’과 ‘어떻게’가 모두 드러나는가?",
         "□ 자료가 어느 문단에 들어갈지 정했는가?",
         "□ 표에 실제 자료와 내 해석이 함께 들어갔는가?",
         "□ 자료를 단순 정보가 아니라 판단 기준으로 해석했는가?",
@@ -2236,7 +2236,7 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-secondary-expansion-blueprint-v228-1-render-fix-dongguk-performance-assessment",
+      source: "secondary-expansion-blueprint-v234-student-facing-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
@@ -2263,7 +2263,7 @@
 
   function extractGeneratedText(data, req){
     // v47부터는 중심 질문을 그대로 제공하지 않고 학생이 지역·기간·대상·비교 기준으로 변형하도록 안내하며, 보고서 데이터형 문장 구조가 보이는
-    // 학생용 탐구 조립 지도를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
+    // 학생용 보고서 초안 설계를 렌더링한다. Worker 응답은 resolved/pattern 진단과 로그 용도로만 보조 활용한다.
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
   }
@@ -2562,7 +2562,7 @@
     const c = getSecondaryPathContext(path, req);
     const g = buildEvidenceFindingGuide(path, req);
     return [
-      `자료 찾기 가이드: ${c.pathLabel}`,
+      `자료 보완 가이드: ${c.pathLabel}`,
       `탐구 질문: ${c.question}`,
       "",
       "1. 먼저 찾을 자료 유형",
@@ -2795,11 +2795,11 @@
       `세부 초점: ${focus?.label || "선택 안 함"}`,
       focus?.question ? `초점 질문: ${focus.question}` : "",
       focus?.structure ? `초점 구조: ${focus.structure}` : "",
-      `자료 찾기 선택: ${search?.label || "선택 안 함"}`,
+      `자료 보완 선택: ${search?.label || "선택 안 함"}`,
       search?.sourceType ? `자료 위치: ${search.sourceType}` : "",
       search?.searchQuery ? `검색어: ${search.searchQuery}` : "",
       search?.copyTarget ? `가져올 내용: ${search.copyTarget}` : "",
-      `mini 요청: 실제 첨부 자료나 검색 가능한 자료가 있으면 그 자료를 우선 확인하고, 확인되지 않은 출처·수치는 [학생 입력 필요]로 남긴다.`
+      `자료 보완 기준: 실제 첨부 자료나 확인 가능한 자료가 있으면 그 자료를 우선 사용하고, 확인되지 않은 출처·수치는 [수정 필요]로 남긴다.`
     ].filter(Boolean).join("\n");
   }
 
@@ -2963,7 +2963,7 @@
         context: c
       },
       messages: [
-        { role: "system", content: "너는 고등학생 수행평가 보고서 초안 작성 도우미다. 1차 설계서를 다시 요약하지 말고, 학생이 선택한 2차 확장 방향과 세부 초점·자료 후보 선택값을 실제 보고서 문단의 중심축으로 고정한다. 출력은 보고서 제목, Ⅰ. 서론, Ⅱ. 본론, Ⅲ. 결론, 수정해야 할 부분 순서로 작성한다. 실제 출처와 자료 내용은 절대 지어내지 말고 [수정 필요]로 남긴다." },
+        { role: "system", content: "너는 고등학생 수행평가 보고서 초안 작성 도우미다. 1차 설계서를 다시 요약하지 말고, 학생이 선택한 2차 확장 방향과 세부 초점·자료 후보 선택값을 보고서 문단의 중심축으로 고정한다. 출력은 보고서 제목, Ⅰ. 서론, Ⅱ. 본론, Ⅲ. 결론, 수정해야 할 부분 순서로 작성한다. 실제 출처와 자료 내용은 절대 지어내지 말고 [수정 필요]로 남긴다." },
         { role: "user", content: prompt }
       ]
     };
@@ -3091,18 +3091,18 @@
       <article class="mini-v43-card core mini-v229-draft-panel" id="miniV229DraftPanel">
         <div class="mini-v43-card-head">
           <span class="mini-v43-icon">2</span>
-          <h4>선택한 방향으로 실제 보고서 초안 생성</h4>
+          <h4>보고서 초안 생성</h4>
         </div>
-        <p class="mini-v229-help">위 2차 확장 방향과 세부 초점·자료 후보를 선택하면 mini가 실제 보고서 형태(서론-본론-결론)로 초안을 생성합니다. 자료를 아직 못 찾았으면 선택값을 바탕으로 [수정 필요] 항목을 남겨 학생이 무엇을 고쳐야 하는지 보여줍니다.</p>
+        <p class="mini-v229-help">위 2차 확장 방향과 세부 초점·자료 후보를 선택하면 보고서 형태(서론-본론-결론)로 초안이 생성됩니다. 자료를 아직 못 찾았으면 선택값을 바탕으로 [수정 필요] 항목이 남아, 학생이 무엇을 고쳐야 하는지 바로 확인할 수 있습니다.</p>
         <div class="mini-v43-expansion-options">${optionHtml}</div>
 
         <div class="mini-v230-helper-box">
           <div class="mini-v230-helper-title">자료를 못 찾겠다면 먼저 여기서 시작</div>
           <div class="mini-v230-helper-actions">
-            <button type="button" id="miniV230ShowEvidenceGuideBtn">선택 방향에 맞는 자료 찾기 가이드</button>
+            <button type="button" id="miniV230ShowEvidenceGuideBtn">선택 방향에 맞는 자료 보완 가이드</button>
             <button type="button" id="miniV230FillSourceHintsBtn">입력칸 힌트 채우기</button>
           </div>
-          <div class="mini-v230-guide-output" id="miniV230EvidenceGuideOutput">확장 방향을 선택한 뒤 자료 찾기 가이드를 누르면, 검색어·자료 유형·입력 방법이 여기에 표시됩니다.</div>
+          <div class="mini-v230-guide-output" id="miniV230EvidenceGuideOutput">확장 방향을 선택한 뒤 자료 보완 가이드를 누르면, 검색어·자료 유형·입력 방법이 여기에 표시됩니다.</div>
         </div>
 
         <div class="mini-v231-evidence-type-box">
@@ -3117,7 +3117,7 @@
               <option value="사례 비교 자료">사례 비교 자료</option>
             </select>
           </label>
-          <p>선택한 자료 유형에 따라 아래 자료 후보가 바뀝니다. 학생이 직접 제목·출처를 못 적어도, 먼저 자료 후보와 검색 방향을 선택해서 mini에 보낼 수 있습니다.</p>
+          <p>선택한 자료 유형에 따라 아래 자료 후보가 바뀝니다. 학생이 직접 제목·출처를 못 적어도, 먼저 자료 후보와 검색 방향을 선택해 보고서 초안에 반영할 수 있습니다.</p>
         </div>
 
         <div class="mini-v232-select-box">
@@ -3131,11 +3131,11 @@
         <div class="mini-v232-select-box">
           <div class="mini-v232-select-head">
             <b>2) 자료 후보 선택</b>
-            <span>자료 제목·출처를 직접 쓰기 어렵다면, 먼저 어떤 자료를 찾을지 선택합니다. 이 선택값은 mini에 검색/첨부자료 활용 요청으로 전달됩니다.</span>
+            <span>자료 제목·출처를 직접 쓰기 어렵다면, 먼저 어떤 자료를 찾을지 선택합니다. 이 선택값은 보고서 초안의 자료 보완 방향으로 반영됩니다.</span>
           </div>
           <div class="mini-v232-choice-grid" id="miniV232EvidenceChoices">${renderV232ChoiceCards("miniV232EvidenceChoice", initialEvidenceChoices, "mini-v232-choice-card evidence")}</div>
           <div class="mini-v232-search-mode">
-            <label><input type="checkbox" id="miniV232AllowEvidenceSearch" checked> mini가 선택 자료 후보를 기준으로 실제 자료·첨부자료·검색 가능한 데이터 확인을 먼저 시도하도록 요청</label>
+            <label><input type="checkbox" id="miniV232AllowEvidenceSearch" checked> 선택 자료 후보를 기준으로 실제 자료·첨부자료·검색 가능한 데이터 확인을 우선 반영</label>
             <label><input type="checkbox" id="miniV232UseAttachmentFirst" checked> 학생이 첨부한 자료나 화면에 입력된 자료가 있으면 그것을 최우선으로 사용</label>
           </div>
         </div>
@@ -3143,11 +3143,11 @@
         <div class="mini-v229-input-grid">
           <label>자료 제목<input id="miniV229EvidenceTitle" type="text" placeholder="예: 실제 기사 제목, 공공 통계명, 실험 결과표명"></label>
           <label>출처<input id="miniV229EvidenceSource" type="text" placeholder="예: 교과서, 공공기관, 기사, 보고서, 실험 기록"></label>
-          <label>자료 핵심 내용<textarea id="miniV229EvidencePoint" rows="3" placeholder="자료에서 확인한 수치·사례·문장. 모르면 자료 찾기 가이드를 먼저 누르세요."></textarea></label>
+          <label>자료 핵심 내용<textarea id="miniV229EvidencePoint" rows="3" placeholder="자료에서 확인한 수치·사례·문장. 모르면 자료 보완 가이드를 먼저 누르세요."></textarea></label>
           <label>내 해석<textarea id="miniV229StudentView" rows="3" placeholder="이 자료를 보고 내가 판단한 점. 모르면 ‘어떤 점이 달라졌는지/비교되는지’를 한 문장으로 적으세요."></textarea></label>
         </div>
         <div class="mini-v229-actions">
-          <button type="button" id="miniV229GenerateDraftBtn">mini로 실제 보고서 초안 생성</button>
+          <button type="button" id="miniV229GenerateDraftBtn">보고서 초안 생성</button>
           <button type="button" id="miniV229CopyDraftBtn" disabled>초안 복사</button>
         </div>
         <div class="mini-v229-draft-output" id="miniV229DraftOutput">
@@ -3195,13 +3195,13 @@
         const firstEvidence = evidenceChoices[0];
         const firstFocus = focusChoices[0];
         guideOutput.innerHTML = `<pre>${escapeHtml([
-          "선택지 기반 자료 찾기 준비",
+          "선택지 기반 자료 보완 준비",
           `세부 초점 추천: ${firstFocus?.label || ""}`,
           `자료 후보 추천: ${firstEvidence?.label || ""}`,
           firstEvidence?.searchQuery ? `검색어: ${firstEvidence.searchQuery}` : "",
           firstEvidence?.copyTarget ? `가져올 내용: ${firstEvidence.copyTarget}` : "",
           "",
-          "학생이 자료 제목·출처를 직접 쓰기 어렵다면 위 후보를 선택한 뒤 mini로 보고서 초안 생성을 누르세요."
+          "학생이 자료 제목·출처를 직접 쓰기 어렵다면 위 후보를 선택한 뒤 보고서 초안 생성을 누르세요."
         ].filter(Boolean).join("\n"))}</pre>`;
       }
     }
@@ -3297,7 +3297,7 @@
       const miniDraftReq = buildSecondaryMiniDraftRequest(path, req, extra);
       global.__LAST_MINI_SECONDARY_DRAFT_REQUEST_V230__ = miniDraftReq;
       if(output){
-        output.innerHTML = `<b>mini가 선택한 방향·세부 초점·자료 후보를 읽고 실제 보고서 초안을 생성 중입니다...</b><br><span class="mini-v230-muted">자료가 부족하면 실제 출처를 지어내지 않고 본문에 [수정 필요], 아래에 수정 체크리스트가 표시됩니다.</span>`;
+        output.innerHTML = `<b>선택한 방향·세부 초점·자료 후보를 반영해 보고서 초안을 생성 중입니다...</b><br><span class="mini-v230-muted">자료가 부족하면 실제 출처를 지어내지 않고 본문에 [수정 필요], 아래에 수정 체크리스트가 표시됩니다.</span>`;
       }
       if(generateBtn) generateBtn.disabled = true;
       if(copyBtn) copyBtn.disabled = true;
@@ -3307,7 +3307,7 @@
         global.__LAST_MINI_SECONDARY_DRAFT_RESPONSE_V230__ = data;
         if(data?.localFallback){
           draft = buildSecondaryDraftText(path, req, extra)
-            + "\n\n[안내] 원격 mini 생성 연결이 실패해 로컬 초안으로 대체했습니다. 실제 운영 주소에서는 mini가 이 요청을 다시 읽고 초안을 생성합니다.";
+            + "\n\n[안내] 보고서 생성 연결이 원활하지 않아 현재 선택값 기반 초안으로 대체했습니다. 실제 자료명·출처·수치는 수정 체크리스트에 맞춰 보완하세요.";
         }else{
           draft = normalizeGeneratedCandidate(data) || extractGeneratedText(data, miniDraftReq).text || "";
           if(!draft || looksLikeRawJsonText(draft) || looksLikeUnfixedSecondaryDraft(draft, path)) draft = buildSecondaryDraftText(path, req, extra);
@@ -3469,12 +3469,12 @@
       <section class="mini-v43-result">
         <div class="mini-v43-head">
           <div>
-            <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
+            <div class="mini-v43-kicker">학생용 보고서 초안 설계</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">동국대식 수행평가 영역명처럼 주제(내용)와 방법, 과정 증거가 보이도록 정리했습니다. 1차 설계값을 바로 보고서로 쓰지 않고, 2차 확장 방향을 선택한 뒤 ChatGPT에 다시 활용할 수 있게 구성했습니다.</p>
+            <p class="mini-v43-sub">수행평가 평가 기준처럼 주제(내용)와 방법, 과정 증거가 보이도록 정리했습니다. 선택한 교과 개념, 확장 방향, 자료 후보가 보고서 초안에 바로 반영되도록 구성했습니다.</p>
           </div>
           <div class="mini-v43-actions">
-            <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
+            <button type="button" id="miniV32CopyReportBtn">결과 복사</button>
           </div>
         </div>
 
