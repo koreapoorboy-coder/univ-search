@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v219-dongguk-performance-assessment";
+  const BUILDER_VERSION = "mini-payload-builder-v220-subject-group-dongguk-performance-assessment";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -395,6 +395,7 @@
     });
     return {
       subject: inferredSubject || ctx.subject || readDomValue("subject") || "",
+      subjectGroup: readDomValue("subjectGroup") || "",
       career: readDomValue("career") || ctx.career || ctx.department || ctx.selectedMajor || "",
       concept: cleanConcept,
       keyword: cleanKeyword,
@@ -419,6 +420,7 @@
     const hiddenKeyword = readDomValue("keyword");
     const hiddenTrack = readDomValue("linkedTrack");
     return {
+      subjectGroup: snap.subjectGroup || readDomValue("subjectGroup"),
       subject: snap.subject || readDomValue("subject"),
       career: snap.career || readDomValue("career"),
       majorSelectedName: snap.career || readDomValue("career"),
@@ -683,7 +685,7 @@
     const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
     const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
     return {
-      version: "dongguk-performance-assessment-v219",
+      version: "dongguk-performance-assessment-v220-subject-group",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: {
         source: "3번 교과 개념 + 추천 키워드",
@@ -813,6 +815,7 @@
       createdAt: new Date().toISOString(),
       source: "keyword-engine",
       selectionPayload: {
+        subjectGroup: state.subjectGroup || strong.subjectGroup || readDomValue("subjectGroup") || "",
         subject: payload.subject || "",
         department: payload.department || "",
         selectedConcept: payload.selectedConcept || "",
