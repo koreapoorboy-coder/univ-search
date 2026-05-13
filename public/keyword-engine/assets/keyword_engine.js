@@ -158,10 +158,21 @@ function clearResults(){
 }
 
 async function callGenerateAPI(payload){
+  const requestPayload = {
+    ...payload,
+    generationStage: payload?.generationStage || "primary_student_result",
+    billing: {
+      ...(payload?.billing || {}),
+      stage: payload?.billing?.stage || "primary_student_result",
+      countUsage: payload?.billing?.countUsage !== undefined ? payload.billing.countUsage : true,
+      billingVersion: "v237-stage-aware-flow-token"
+    }
+  };
+
   const response = await fetch(GENERATE_ENDPOINT, {
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(payload)
+    body:JSON.stringify(requestPayload)
   });
   const text = await response.text();
   let data;
@@ -173,6 +184,8 @@ async function callGenerateAPI(payload){
   if(!response.ok || data.ok === false){
     throw new Error(data?.error || data?.message || `요청 처리 중 오류가 발생했습니다. (${response.status})`);
   }
+  const token = String(data?.gateway?.generationToken || "").trim();
+  if(token) window.__MINI_GATEWAY_GENERATION_TOKEN__ = token;
   return data;
 }
 
