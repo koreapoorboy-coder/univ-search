@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v228-secondary-expansion-ai-reuse";
+  const VERSION = "mini-worker-generate-bridge-v228-1-secondary-expansion-render-fix";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -2175,9 +2175,17 @@
       ["5. 결론", "내 판단 정리하기", "표에서 확인한 결과를 한 문장으로 정리하고, 내가 세운 기준이 어떤 점에서 설득력 있었는지와 부족한 점을 쓴다."]
     ];
 
+    const expansionRows = buildExpansionRows(expansion);
+    const aiReusePromptRows = buildAiReusePromptRows(expansion, baseSummaryForAi);
+    const aiReusePromptBody = aiReusePromptRows
+      .map(row => row.map(cell => String(cell || "").replace(/\n+/g, " / ")).join(" | "))
+      .join("\n");
+
     const sections = [
       {title:"동국대 수행평가 영역명 기준", body:performanceRows.map(r=>r.join(" | ")).join("\n")},
       {title:"보고서 완성 그림", body:assemblyRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"2차 확장 방향 선택", body:expansionRows.map(r=>r.join(" | ")).join("\n")},
+      {title:"ChatGPT 2차 활용 프롬프트", body:aiReusePromptBody},
       {title:"1단계. 질문을 내 사례로 바꾸기", body:questionRows.map(r=>r.join(" | ")).join("\n")},
       {title:"2단계. 자료를 어디에 넣을지 정하기", body:dataPlanRows.map(r=>r.join(" | ")).join("\n")},
       {title:"3단계. 비교 표로 증명하기", body:tableRows.map(r=>r.join(" | ")).join("\n")},
@@ -2228,7 +2236,7 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-secondary-expansion-blueprint-v228-dongguk-performance-assessment",
+      source: "payload-secondary-expansion-blueprint-v228-1-render-fix-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
