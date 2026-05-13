@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v220-subject-group-dongguk-performance-assessment";
+  const BUILDER_VERSION = "mini-payload-builder-v222-book-optional-dongguk-performance-assessment";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -32,8 +32,8 @@
       "참고문헌 및 자료"
     ],
     miniWritingRules: [
-      "도서는 단순 독후감으로 요약하지 않는다.",
-      "선택 도서는 보고서의 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
+      "도서 활용은 선택 사항이다. 도서를 선택하지 않은 수행평가는 공공자료·통계·기사·실험자료 중심으로 구성한다.",
+      "선택 도서를 사용하는 경우에만 도서를 근거 프레임, 비교 관점, 한계 논의, 결론 확장에 배치한다.",
       "학과와 직접 맞지 않는 확장 참고 도서는 본문 핵심 이론이 아니라 결론 확장 또는 비교 관점으로 제한한다.",
       "학생 수준을 넘는 대학원급 수식·전문 알고리즘은 설명 중심으로 낮추어 작성한다.",
       "교과 개념 → 실제 문제 → 해결 과정 → 교과 연계 → 심화 방안의 흐름을 유지한다.",
@@ -677,6 +677,22 @@
     };
   }
 
+  function hasRealSelectedBook(book){
+    return !!(book && (book.title || book.sourceId || book.managementNo));
+  }
+
+  function getBookUsageMode(selectedBook){
+    let raw = "";
+    try { raw = val(global.__BOOK_USAGE_MODE__ || localStorage.getItem("ke.bookUsageMode.v222") || readDomValue("bookUsageMode")); } catch(error) { raw = val(global.__BOOK_USAGE_MODE__); }
+    if (!raw) raw = hasRealSelectedBook(selectedBook) ? "useBook" : "noBook";
+    if (/^(useBook|book|use|도서활용|도서 사용)$/i.test(raw)) return hasRealSelectedBook(selectedBook) ? "useBook" : "noBook";
+    return "noBook";
+  }
+
+  function shouldUseBook(selectedBook){
+    return getBookUsageMode(selectedBook) === "useBook" && hasRealSelectedBook(selectedBook);
+  }
+
   function buildPerformanceAssessmentContext(basePayload, reportChoices, targetStructure, axisRule, keywordFrame){
     const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
     const viewProfile = VIEW_PROFILES[reportChoices.view] || { label: reportChoices.view || "평가 관점", focus: "자료 해석 과정이 드러나도록 한다." };
@@ -685,7 +701,7 @@
     const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
     const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
     return {
-      version: "dongguk-performance-assessment-v220-subject-group",
+      version: "dongguk-performance-assessment-v222-book-optional",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: {
         source: "3번 교과 개념 + 추천 키워드",
@@ -715,7 +731,8 @@
       },
       dataRole: {
         axisWritingPattern: axisRule?.writingPattern || "자료를 기준-비교-해석-한계 순서로 사용한다.",
-        keywordProblemContext: keywordFrame?.problemContext || "선택 키워드를 실제 문제로 확장한다."
+        keywordProblemContext: keywordFrame?.problemContext || "선택 키워드를 실제 문제로 확장한다.",
+        bookPolicy: basePayload.useBookInReport ? "선택 도서를 참고자료의 근거·관점으로 사용한다." : "도서를 강제로 넣지 않고 공공자료·통계·기사·실험자료를 근거로 사용한다."
       },
       dedupeRules: [
         "제목에서 같은 명사구를 반복하지 않는다.",
@@ -733,7 +750,10 @@
     const reportChoices = completeReportChoices(rawChoices, basePayload, axisRule);
     const keywordFrame = inferKeywordFrame(basePayload);
     const examplePattern = inferExamplePattern(basePayload, axisRule, reportChoices);
-    const selectedBookContext = selectedBook?.selectedBookContext || null;
+    const useBookInReport = shouldUseBook(selectedBook);
+    basePayload.useBookInReport = useBookInReport;
+    basePayload.bookUsageMode = useBookInReport ? "useBook" : "noBook";
+    const selectedBookContext = useBookInReport ? (selectedBook?.selectedBookContext || null) : null;
     const targetStructure = buildTargetStructure(reportChoices);
     const sectionPurpose = buildSectionPurpose(targetStructure, basePayload, reportChoices, axisRule, keywordFrame, examplePattern);
     const choiceInstruction = buildReportChoiceInstruction(reportChoices, targetStructure);
@@ -744,6 +764,9 @@
 
     return {
       reportOutputType: REPORT_CONTEXT_RULES.defaultOutputType,
+      bookUsageMode: useBookInReport ? "useBook" : "noBook",
+      useBookInReport,
+      evidenceSourcePolicy: useBookInReport ? "도서+자료 선택형" : "도서 미사용 자료 중심형",
       depthLevel: REPORT_CONTEXT_RULES.defaultDepthLevel,
       writingStyle: modeProfile.writingStyle || REPORT_CONTEXT_RULES.defaultWritingStyle,
       targetStructure,
@@ -773,6 +796,8 @@
       examplePattern,
       reportExamplePatternVersion: EXAMPLE_PATTERNS.version,
       writingRules: REPORT_CONTEXT_RULES.miniWritingRules.concat(choiceInstruction.miniDirective).concat([
+        useBookInReport ? "선택 도서를 참고문헌과 해석 관점에 반영한다." : "도서를 선택하지 않은 수행평가이므로 도서명·책 요약·독후감 표현을 강제로 넣지 않는다.",
+        useBookInReport ? "참고문헌에는 선택 도서와 필요한 자료를 함께 배치한다." : "참고자료에는 공공기관 자료, 통계, 기사, 실험자료, 교과서 자료를 중심으로 배치한다.",
         `수행평가 방식은 '${reportChoices.modeLabel}'로 작성한다.`,
         `평가 관점·과정 증거는 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
         `결과물 수준은 '${reportChoices.lineLabel}' 구조를 따른다.`,
@@ -796,7 +821,7 @@
       selectedConcept: val(rawPayload.selectedConcept) || state.concept || state.selectedConcept || "",
       selectedRecommendedKeyword: val(rawPayload.selectedRecommendedKeyword) || state.keyword || state.selectedKeyword || "",
       followupAxis: val(rawPayload.followupAxis) || state.axisLabel || state.linkTrack || state.followupAxisId || "",
-      reportIntent: val(rawPayload.reportIntent) || "보고서 근거 도서"
+      reportIntent: val(rawPayload.reportIntent) || "수행평가 탐구 설계"
     };
 
     const strong = getActiveSelectionSnapshot();
@@ -807,7 +832,9 @@
     if (strong.axisLabel) payload.followupAxis = strong.axisLabel;
     else if (isWeakAxis(payload.followupAxis) && strong.linkTrack) payload.followupAxis = strong.linkTrack;
 
-    const selectedBook = getSelectedBookFromResult(result, { ...state, ...strong });
+    const candidateBook = getSelectedBookFromResult(result, { ...state, ...strong });
+    const useBookInReport = shouldUseBook(candidateBook);
+    const selectedBook = useBookInReport ? candidateBook : null;
     const rawChoices = getReportChoices(state);
 
     const miniPayload = {
@@ -816,6 +843,9 @@
       source: "keyword-engine",
       selectionPayload: {
         subjectGroup: state.subjectGroup || strong.subjectGroup || readDomValue("subjectGroup") || "",
+        bookUsageMode: useBookInReport ? "useBook" : "noBook",
+        useBookInReport,
+        evidenceSourcePolicy: useBookInReport ? "도서+자료 선택형" : "도서 미사용 자료 중심형",
         subject: payload.subject || "",
         department: payload.department || "",
         selectedConcept: payload.selectedConcept || "",
