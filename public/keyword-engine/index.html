@@ -34,46 +34,56 @@
         </label>
 
         <label>
-          <span>과목</span>
-          <select id="subject">
-            <option value="">선택</option>
-            <option value="통합과학1">통합과학1</option>
-            <option value="통합과학2">통합과학2</option>
-            <option value="과학탐구실험1">과학탐구실험1</option>
-            <option value="과학탐구실험2">과학탐구실험2</option>
-            <option value="공통수학1">공통수학1</option>
-            <option value="공통수학2">공통수학2</option>
-            <option value="공통국어1">공통국어1</option>
-            <option value="공통국어2">공통국어2</option>
-            <option value="통합사회1">통합사회1</option>
-            <option value="통합사회2">통합사회2</option>
+          <span>교과</span>
+          <select id="subjectGroup">
+            <option value="">교과 선택</option>
+            <option value="국어">국어</option>
+            <option value="영어">영어</option>
+            <option value="수학">수학</option>
+            <option value="사회">사회</option>
+            <option value="과학">과학</option>
             <option value="정보">정보</option>
-            <option value="대수">대수</option>
-            <option value="확률과 통계">확률과 통계</option>
-            <option value="미적분1">미적분1</option>
-            <option value="기하">기하</option>
-            <option value="물리">물리(물리학Ⅰ)</option>
-            <option value="화학">화학(화학Ⅰ)</option>
-            <option value="생명과학">생명과학</option>
-            <option value="지구과학">지구과학</option>
-            <option value="역학과 에너지">역학과 에너지</option>
-            <option value="전자기와 양자">전자기와 양자</option>
-            <option value="물질과 에너지">물질과 에너지</option>
-            <option value="세포와 물질대사">세포와 물질대사</option>
-            <option value="지구시스템과학">지구시스템과학</option>
           </select>
         </label>
 
         <label>
-          <span>활동 과제 이름</span>
-          <input id="taskName" type="text" placeholder="예: 과학 탐구 보고서, 동아리 주제 발표, 자율활동 기록 정리" />
+          <span>세부 과목</span>
+          <select id="subject">
+            <option value="">교과를 먼저 선택하세요</option>
+            <option value="공통국어1" data-subject-group="국어">공통국어1</option>
+            <option value="공통국어2" data-subject-group="국어">공통국어2</option>
+            <option value="영어" data-subject-group="영어">영어</option>
+            <option value="공통수학1" data-subject-group="수학">공통수학1</option>
+            <option value="공통수학2" data-subject-group="수학">공통수학2</option>
+            <option value="대수" data-subject-group="수학">대수</option>
+            <option value="확률과 통계" data-subject-group="수학">확률과 통계</option>
+            <option value="미적분1" data-subject-group="수학">미적분1</option>
+            <option value="기하" data-subject-group="수학">기하</option>
+            <option value="통합사회1" data-subject-group="사회">통합사회1</option>
+            <option value="통합사회2" data-subject-group="사회">통합사회2</option>
+            <option value="통합과학1" data-subject-group="과학">통합과학1</option>
+            <option value="통합과학2" data-subject-group="과학">통합과학2</option>
+            <option value="과학탐구실험1" data-subject-group="과학">과학탐구실험1</option>
+            <option value="과학탐구실험2" data-subject-group="과학">과학탐구실험2</option>
+            <option value="물리" data-subject-group="과학">물리(물리학Ⅰ)</option>
+            <option value="화학" data-subject-group="과학">화학(화학Ⅰ)</option>
+            <option value="생명과학" data-subject-group="과학">생명과학</option>
+            <option value="지구과학" data-subject-group="과학">지구과학</option>
+            <option value="역학과 에너지" data-subject-group="과학">역학과 에너지</option>
+            <option value="전자기와 양자" data-subject-group="과학">전자기와 양자</option>
+            <option value="물질과 에너지" data-subject-group="과학">물질과 에너지</option>
+            <option value="세포와 물질대사" data-subject-group="과학">세포와 물질대사</option>
+            <option value="지구시스템과학" data-subject-group="과학">지구시스템과학</option>
+            <option value="정보" data-subject-group="정보">정보</option>
+          </select>
         </label>
+
+        <input id="taskName" type="hidden" value="탐구보고서" />
 
         <label>
           <span>결과물 유형</span>
           <select id="taskType">
-            <option value="">선택</option>
-                        <option value="탐구보고서">탐구보고서</option>
+            <option value="탐구보고서">탐구보고서</option>
             <option value="실험보고서">실험보고서</option>
             <option value="자료조사 보고서">자료조사 보고서</option>
             <option value="발표보고서">발표보고서</option>
@@ -159,18 +169,19 @@
   </div>
 
   <script src="assets/student_textbook_matcher.js"></script>
-  <script src="assets/keyword_engine.js"></script>
+  <script src="assets/keyword_engine.js?v=v220_subject_group_ui"></script>
   <script src="assets/report_navigation_helper.js"></script>
   <script src="assets/student_focus_helper.js"></script>
   <script src="assets/draft_report_helper.js"></script>
   <script src="assets/topic_generator.js"></script>
   <script src="assets/major_engine_helper.js?v=v102_major_confirmed_lock_v84_direct_routing_compare_lock"></script>
-  <script src="assets/textbook_concept_helper.js?v=v102_a0_initial_concept_lock"></script>
-  <script src="assets/textbook_runtime_bridge_helper.js?v=v33_20_major_search_performance_fix"></script>
+  <script src="assets/textbook_concept_helper.js?v=v220_subject_group_field_watch"></script>
+  <script src="assets/textbook_runtime_bridge_helper.js?v=v220_subject_group_field_watch"></script>
   <script src="assets/js/book_recommendation_adapter.js?v=v24_axis_diversity_engine"></script>
   <script src="assets/js/book_210_ui_bridge.js?v=v212_book_lock"></script>
-  <script src="assets/js/mini_payload_builder.js?v=v218_performance_assessment"></script>
-  <script src="assets/js/report_6_8_flow_bridge.js?v=v218_performance_method_evidence"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v218_dongguk_seed_fallback"></script>
+  <script src="assets/js/mini_payload_builder.js?v=v220_subject_group_performance"></script>
+  <script src="assets/js/report_6_8_flow_bridge.js?v=v220_performance_method_evidence"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v220_subject_group_network_fallback"></script>
+  <script src="assets/js/ui_subject_group_filter_v220.js?v=v220_subject_group_filter"></script>
 </body>
 </html>
