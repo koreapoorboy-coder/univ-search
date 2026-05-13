@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v224-global-book-db-search-on-demand";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v225-book-unselect-no-reset";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -150,6 +150,45 @@
     if (idEl) idEl.value = value || "";
     const titleEl = document.getElementById("selectedBookTitle");
     if (titleEl) titleEl.value = title || value || "";
+  }
+
+  function setBookUsageMode(mode){
+    const normalized = mode === "useBook" ? "useBook" : "noBook";
+    global.__BOOK_USAGE_MODE__ = normalized;
+    try { localStorage.setItem("ke.bookUsageMode.v222", normalized); } catch(e){}
+    const modeEl = document.getElementById("bookUsageMode");
+    if (modeEl) modeEl.value = normalized;
+    const state = global.__TEXTBOOK_HELPER_STATE__;
+    if (state) {
+      state.bookUsageMode = normalized;
+      state.useBookInReport = normalized === "useBook";
+    }
+  }
+
+  function captureBookSearchQuery(){
+    const input = document.querySelector(".engine-book-selection-shell [data-action='book-search']");
+    return input ? val(input.value) : "";
+  }
+
+  function restoreBookSearchQuery(query){
+    if (!query) return;
+    const input = document.querySelector(".engine-book-selection-shell [data-action='book-search']");
+    if (!input) return;
+    input.value = query;
+    try { input.dispatchEvent(new Event("input", { bubbles: true })); } catch(e){}
+  }
+
+  function clearSelectedBookWithoutReset(reason){
+    const query = captureBookSearchQuery();
+    syncSelectedBookFields("", "");
+    setBookUsageMode("noBook");
+    global.__BOOK_210_LAST_CLICKED_BOOK__ = { value: "", title: "", cleared: true, at: new Date().toISOString() };
+    global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 1200;
+    const stableCtx = getStableRenderContext("");
+    stableCtx.selectedBook = "";
+    stableCtx.selectedBookTitle = "";
+    renderBookAreaWithStableContext(stableCtx, reason || "bridge-book-clear-no-reset");
+    setTimeout(()=>restoreBookSearchQuery(query), 30);
   }
 
   function renderBookAreaWithStableContext(ctx, reason){
@@ -589,6 +628,10 @@
             <div class="engine-summary-meta">${esc(book.author || "")}</div>
           </div>
           <div class="engine-summary-badge">${esc(badge)}</div>
+        </div>
+        <div class="engine-book-selection-actions" style="display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 4px;">
+          <button type="button" data-action="clear-selected-book" class="engine-secondary-btn" style="border:1px solid #d5deef; background:#fff; color:#334155; border-radius:999px; padding:8px 12px; font-size:13px; font-weight:800; cursor:pointer;">도서 선택 해제</button>
+          <span class="engine-help" style="display:flex; align-items:center; margin:0; font-size:12px; color:#64748b;">해제하면 리셋 없이 도서 미사용 자료 중심형으로 진행됩니다.</span>
         </div>
 
         <div class="engine-summary-section">
@@ -11267,7 +11310,7 @@
           </div>
           <div class="engine-book-summary">
             <div class="engine-subtitle">선택 도서 요약</div>
-            ${selected ? renderBookSummary(selected, ctx, selectedSection) : `<div class="engine-summary-box"><div class="engine-summary-title">도서 선택 전</div><p class="engine-summary-text">책의 제목·저자·요약·추천 이유를 확인한 뒤 필요한 경우에만 도서를 선택하세요. 선택하지 않으면 MINI에는 도서 미사용 자료 중심형으로 전달됩니다.</p><div class="engine-summary-foot">도서가 필수인 수행평가가 아니라면 이 단계는 건너뛰어도 됩니다.</div></div>`}
+            ${selected ? renderBookSummary(selected, ctx, selectedSection) : `<div class="engine-summary-box"><div class="engine-summary-title">도서 미선택 상태</div><p class="engine-summary-text">책의 제목·저자·요약·추천 이유를 확인한 뒤 필요한 경우에만 도서를 선택하세요. 선택하지 않으면 MINI에는 도서 미사용 자료 중심형으로 전달됩니다.</p><div class="engine-summary-foot">도서가 필수인 수행평가가 아니라면 이 단계는 건너뛰어도 됩니다. 이미 책을 눌렀더라도 “도서 선택 해제”로 이 상태로 돌아올 수 있습니다.</div></div>`}
           </div>
         </div>
       </div>
@@ -11433,6 +11476,20 @@
   }
 
 
+  function installBookClearHandler(){
+    if (global.__BOOK_210_BOOK_CLEAR_HANDLER__) return;
+    global.__BOOK_210_BOOK_CLEAR_HANDLER__ = true;
+    document.addEventListener("click", function(event){
+      const btn = event.target && event.target.closest ? event.target.closest("[data-action='clear-selected-book']") : null;
+      if (!btn) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      clearSelectedBookWithoutReset("clear-selected-book-button");
+    }, true);
+  }
+
+
   function installBridgeBookClickHandler(){
     if (global.__BOOK_210_BOOK_CLICK_HANDLER__) return;
     global.__BOOK_210_BOOK_CLICK_HANDLER__ = true;
@@ -11449,6 +11506,7 @@
       const title = btn.getAttribute("data-title") || "";
 
       syncSelectedBookFields(value, title);
+      setBookUsageMode("useBook");
 
       global.__BOOK_210_LAST_CLICKED_BOOK__ = { value, title, at: new Date().toISOString() };
       global.__BOOK_210_SUPPRESS_EXTERNAL_BOOK_RERENDER_UNTIL__ = Date.now() + 1200;
@@ -11489,9 +11547,11 @@
 
   global.__BOOK_210_GET_LAST_RESULT__ = function(){ return lastResult; };
   global.__BOOK_210_FORCE_RENDER__ = function(){ return forceRenderBookArea("manual-console"); };
+  global.__BOOK_210_CLEAR_SELECTED_BOOK__ = function(){ return clearSelectedBookWithoutReset("manual-console-clear"); };
 
   installBridgeBookClickHandler();
   installBookSearchHandler();
+  installBookClearHandler();
   installObserver();
   ensureEngine().then(()=>{
     [100, 300, 700, 1200].forEach(delay => setTimeout(()=>forceRenderBookArea("init-" + delay), delay));
@@ -11501,6 +11561,6 @@
   });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function(){ installBridgeBookClickHandler(); installBookSearchHandler(); installObserver(); });
+    document.addEventListener("DOMContentLoaded", function(){ installBridgeBookClickHandler(); installBookSearchHandler(); installBookClearHandler(); installObserver(); });
   }
 })(typeof window !== "undefined" ? window : globalThis);
