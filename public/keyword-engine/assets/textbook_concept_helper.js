@@ -1962,7 +1962,9 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         font-weight:900;
         letter-spacing:-.01em;
       }
-      .engine-concept-card.is-active .engine-select-badge {
+      .engine-concept-card.is-active .engine-select-badge,
+      .engine-track-card.is-active .engine-select-badge,
+      .engine-mode-card.is-active .engine-select-badge {
         border-color:#2563eb;
         background:#2563eb;
         color:#fff;
@@ -2053,16 +2055,26 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         margin-top: 12px;
       }
       .engine-track-card {
-        border:1px solid #d5deef;
+        border:2px solid #bfdbfe;
         border-radius:16px;
         background:#fff;
         padding:16px;
         text-align:left;
         cursor:pointer;
         transition: all .18s ease;
+        box-shadow:0 1px 0 rgba(37,99,235,.04);
       }
-      .engine-track-card:hover { border-color:#b6c7ef; transform:translateY(-1px); }
-      .engine-track-card.is-active { border-color:#2764ff; box-shadow:0 0 0 2px rgba(39,100,255,.08); background:#f7faff; }
+      .engine-track-card:hover {
+        border-color:#ef4444;
+        transform:translateY(-1px);
+        box-shadow:0 0 0 3px rgba(239,68,68,.10);
+        background:#fff7f7;
+      }
+      .engine-track-card.is-active {
+        border-color:#2563eb;
+        box-shadow:0 0 0 4px rgba(37,99,235,.16);
+        background:#eff6ff;
+      }
       .engine-track-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
       .engine-track-title { font-size:18px; font-weight:800; color:#172033; }
       .engine-track-short { display:inline-flex; padding:6px 10px; border-radius:999px; background:#eef4ff; color:#265ae8; font-size:12px; font-weight:700; }
@@ -2084,19 +2096,21 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         line-height:1.6;
         border:1px dashed #d8e0ee;
       }
-      .engine-book-use-panel { margin-bottom:14px; padding:16px; border:1px solid #d9e4fb; border-radius:18px; background:#f8fbff; }
+      .engine-book-use-panel { margin-bottom:14px; padding:16px; border:2px solid #bfdbfe; border-radius:18px; background:#f8fbff; }
       .engine-book-use-title { font-size:17px; font-weight:900; color:#172033; margin-bottom:6px; }
       .engine-book-use-desc { color:#5f6d86; font-size:13px; line-height:1.55; margin-bottom:12px; }
       .engine-book-use-actions { display:flex; flex-wrap:wrap; gap:8px; }
-      .engine-book-use-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:9px 13px; font-size:13px; font-weight:900; cursor:pointer; }
-      .engine-book-use-btn.is-active { background:#2f66ff; color:#fff; border-color:#2f66ff; }
+      .engine-book-use-btn { border:2px solid #bfdbfe; background:#eff6ff; color:#1d4ed8; border-radius:999px; padding:9px 13px; font-size:13px; font-weight:900; cursor:pointer; transition:all .18s ease; }
+      .engine-book-use-btn:hover { border-color:#ef4444; background:#fff1f2; color:#991b1b; }
+      .engine-book-use-btn.is-active { background:#2563eb; color:#fff; border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.16); }
       .engine-book-use-note { margin-top:10px; color:#64748b; font-size:12px; line-height:1.55; }
       .engine-book-layout { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
       .engine-book-list, .engine-book-summary { min-height: 100%; }
       .engine-book-card {
-        width:100%; display:flex; gap:14px; text-align:left; padding:14px; border-radius:16px; border:1px solid #d5deef; background:#fff; margin-top:10px; cursor:pointer;
+        width:100%; display:flex; gap:14px; text-align:left; padding:14px; border-radius:16px; border:2px solid #bfdbfe; background:#fff; margin-top:10px; cursor:pointer; transition:all .18s ease;
       }
-      .engine-book-card.is-active { border-color:#2764ff; box-shadow:0 0 0 2px rgba(39,100,255,.08); background:#f7faff; }
+      .engine-book-card:hover { border-color:#ef4444; background:#fff7f7; box-shadow:0 0 0 3px rgba(239,68,68,.10); }
+      .engine-book-card.is-active { border-color:#2563eb; box-shadow:0 0 0 4px rgba(37,99,235,.16); background:#eff6ff; }
       .engine-book-order {
         width:28px; height:28px; flex:0 0 28px; border-radius:999px; background:#edf3ff; color:#2f66ff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:2px;
       }
@@ -2116,9 +2130,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:12px; margin-top:12px;
       }
       .engine-mode-card {
-        border:1px solid #d5deef; background:#fff; border-radius:16px; padding:14px; text-align:left; cursor:pointer;
+        border:2px solid #bfdbfe; background:#fff; border-radius:16px; padding:14px; text-align:left; cursor:pointer; transition:all .18s ease;
       }
-      .engine-mode-card.is-active { border-color:#2764ff; box-shadow:0 0 0 2px rgba(39,100,255,.08); background:#f7faff; }
+      .engine-mode-card:hover { border-color:#ef4444; background:#fff7f7; box-shadow:0 0 0 3px rgba(239,68,68,.10); transform:translateY(-1px); }
+      .engine-mode-card.is-active { border-color:#2563eb; box-shadow:0 0 0 4px rgba(37,99,235,.16); background:#eff6ff; }
       .engine-mode-title { font-size:16px; font-weight:800; color:#172033; }
       .engine-mode-desc { color:#66748c; font-size:13px; line-height:1.55; margin-top:6px; }
       .engine-selection-box { margin-top:18px; border:1px solid #d8e0ee; border-radius:20px; padding:18px; background:#f8fbff; }
@@ -12331,7 +12346,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const el = $("engineTrackArea");
     if (!el) return;
     if (!isStepEnabled(4)) {
-      el.innerHTML = `<div class="engine-empty">먼저 현재 과목에서 출발할 교과 개념과 핵심 키워드를 고르면, 그 개념이 이어지는 후속 과목 축이 열립니다.</div>`;
+      el.innerHTML = `<div class="engine-choice-alert">먼저 3번에서 수행평가로 다루고 싶은 교과 개념과 탐구 방향 키워드를 선택하세요.</div><div class="engine-empty">교과 개념과 키워드 선택이 끝나면, 이곳에 후속 연계축이 열립니다.</div>`;
       return;
     }
     const options = getTrackOptions();
@@ -12345,11 +12360,18 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const guide = state.career
       ? `먼저 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>이 어디로 이어지는지 보고, <strong>${escapeHtml(displayCareerName)}</strong> 입력은 그 축의 우선순위만 조정합니다.`
       : `지금은 <strong>${escapeHtml(state.concept || '현재 교과 개념')}</strong>에서 갈 수 있는 종단 연결을 먼저 펼쳐 보여줍니다. 학과를 입력하면 이 축들의 우선순위가 바뀝니다.`;
+    const trackChoiceGuide = state.linkTrack
+      ? `<div class="engine-choice-alert blue">선택된 후속 연계축: <strong>${escapeHtml(getTrackMeta(state.linkTrack)?.title || state.linkTrack)}</strong> · 이제 5번 도서 활용 여부를 선택하세요.</div>`
+      : `<div class="engine-choice-alert">아래 후속 연계축 중 수행평가를 이어가고 싶은 방향을 선택하세요.</div>`;
     el.innerHTML = `
+      ${trackChoiceGuide}
       <div class="engine-help">${guide}</div>
       ${autoHint ? `<div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(autoHint)}</div>` : ''}
-      <div class="engine-track-grid">${options.map((item, index) => `
-        <button type="button" class="engine-track-card ${state.linkTrack === item.id ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+      <div class="engine-track-grid">${options.map((item, index) => {
+        const isActiveTrack = state.linkTrack === item.id;
+        return `
+        <button type="button" class="engine-track-card ${isActiveTrack ? "is-active" : ""}" data-track="${escapeHtml(item.id)}">
+          <div class="engine-select-badge">${isActiveTrack ? "선택됨" : "선택하세요"}</div>
           <div class="engine-track-top">
             <div class="engine-track-title">${escapeHtml(item.title)} ${item.relationLabel ? `<span class="engine-mini-tag" style="margin-left:6px;">${escapeHtml(item.relationLabel)}</span>` : ''}</div>
             <div class="engine-track-short">${escapeHtml(item.short)}</div>
@@ -12359,7 +12381,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
           ${Array.isArray(item.activityExamples) && item.activityExamples.length ? `<div class="engine-track-desc" style="margin-top:6px;">활동 예시: ${escapeHtml(item.activityExamples.slice(0,2).join(', '))}</div>` : ''}
           <div class="engine-track-desc" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(item.reason || item.easy || "")}</div>
         </button>
-      `).join("")}</div>
+      `}).join("")}</div>
       <div class="engine-auto-row">
         <button type="button" class="engine-auto-btn" data-action="auto-track">잘 모르겠어요 → 대표 종단축 자동 선택</button>
       </div>
@@ -12599,8 +12621,14 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const hasBook = !!state.selectedBook;
     const open = !!state.bookPanelOpen;
     const noActive = !open && !hasBook;
+    const bookChoiceGuide = hasBook
+      ? `<div class="engine-choice-alert blue">선택된 도서: <strong>${escapeHtml(state.selectedBookTitle || state.selectedBook)}</strong> · 이제 6번 수행평가 전개 방식을 선택하세요.</div>`
+      : open
+        ? `<div class="engine-choice-alert">추천 도서 중 수행평가 근거로 사용할 책을 선택하세요. 도서가 필요 없으면 ‘도서 없이 진행’을 선택하세요.</div>`
+        : `<div class="engine-choice-alert blue">현재 선택: <strong>도서 없이 진행</strong> · 도서를 근거로 쓰려면 ‘도서 추천·검색 열기’를 선택하세요.</div>`;
     return `
       <div class="engine-book-use-panel">
+        ${bookChoiceGuide}
         <div class="engine-book-use-title">5번 도서 활용 선택</div>
         <div class="engine-book-use-desc">도서가 필요한 수행평가일 때만 추천 도서를 열어 선택합니다. 도서를 쓰지 않는 실험·자료조사·통계·기사 분석형 수행평가는 도서 없이 바로 6~8번으로 진행합니다.</div>
         <div class="engine-book-use-actions">
@@ -12617,9 +12645,9 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     if (!el) return;
     if (!isStepEnabled(5)) {
       if (!state.concept || !state.keyword) {
-        el.innerHTML = `<div class="engine-empty">먼저 3번 교과 개념과 추천 키워드를 선택해야 도서 활용 여부를 고를 수 있습니다.</div>`;
+        el.innerHTML = `<div class="engine-choice-alert">먼저 3번 교과 개념과 탐구 방향 키워드를 선택하세요.</div><div class="engine-empty">3번 선택이 끝나야 도서 활용 여부를 고를 수 있습니다.</div>`;
       } else if (!state.linkTrack) {
-        el.innerHTML = `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 5번 도서 활용 여부가 열립니다.</div>`;
+        el.innerHTML = `<div class="engine-choice-alert">먼저 4번 후속 연계축을 선택하세요.</div><div class="engine-empty">후속 연계축 선택이 끝나면 5번 도서 활용 여부가 열립니다.</div>`;
       } else {
         el.innerHTML = `<div class="engine-empty">도서 활용 선택을 준비 중입니다.</div>`;
       }
@@ -12656,7 +12684,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const el = $("engineModeButtons");
     if (!el) return;
     if (!isStepEnabled(6)) {
-      el.innerHTML = `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 수행평가 방식을 고를 수 있습니다.</div>`;
+      el.innerHTML = `<div class="engine-choice-alert">먼저 4번 후속 연계축을 선택하세요.</div><div class="engine-empty">후속 연계축 선택이 끝나면 수행평가 전개 방식 선택이 열립니다.</div>`;
       return;
     }
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
@@ -12669,12 +12697,19 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       selectedBook: state.selectedBook
     }) : { modeOptions: [] };
     const options = (meta.modeOptions || []).filter(option => option && (option.id !== "book" || !!state.selectedBook));
-    el.innerHTML = `<div class="engine-help" style="margin-bottom:10px;">도서 활용은 선택입니다. 도서를 선택하지 않아도 자료조사·실험·통계·기사 중심 수행평가 방식으로 진행할 수 있습니다.</div><div class="engine-mode-grid">${options.map(option => `
-      <button type="button" class="engine-mode-card ${state.reportMode === option.id ? "is-active" : ""}" data-action="mode" data-value="${escapeHtml(option.id)}">
+    const selectedModeMeta = options.find(option => option.id === state.reportMode);
+    const modeChoiceGuide = selectedModeMeta
+      ? `<div class="engine-choice-alert blue">선택된 전개 방식: <strong>${escapeHtml(selectedModeMeta.label)}</strong> · 이제 7번 보고서 관점을 선택하세요.</div>`
+      : `<div class="engine-choice-alert">아래 수행평가 전개 방식 중 하나를 선택하세요.</div>`;
+    el.innerHTML = `${modeChoiceGuide}<div class="engine-help" style="margin-bottom:10px;">도서 활용은 선택입니다. 도서를 선택하지 않아도 자료조사·실험·통계·기사 중심 수행평가 방식으로 진행할 수 있습니다.</div><div class="engine-mode-grid">${options.map(option => {
+      const isActiveMode = state.reportMode === option.id;
+      return `
+      <button type="button" class="engine-mode-card ${isActiveMode ? "is-active" : ""}" data-action="mode" data-value="${escapeHtml(option.id)}">
+        <div class="engine-select-badge">${isActiveMode ? "선택됨" : "선택하세요"}</div>
         <div class="engine-mode-title">${escapeHtml(option.label)}</div>
         <div class="engine-mode-desc">${escapeHtml(option.desc)}</div>
       </button>
-    `).join("")}</div>`;
+    `}).join("")}</div>`;
   }
 
   function getRecommendedReportLine() {
@@ -12692,7 +12727,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const el = $("engineLineArea");
     if (!el) return;
     if (!isStepEnabled(8)) {
-      el.innerHTML = `<div class="engine-empty">먼저 보고서 관점을 선택해야 보고서 라인이 열립니다.</div>`;
+      el.innerHTML = `<div class="engine-choice-alert">먼저 7번 보고서 관점을 선택하세요.</div><div class="engine-empty">보고서 관점 선택이 끝나면 확장형·심화형 선택이 열립니다.</div>`;
       return;
     }
     if (!state.reportLine || state.reportLine === "basic" || state.reportLine === "기본형" || state.reportLine === "일반형") {
@@ -12702,13 +12737,17 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const recommended = getRecommendedReportLine();
     const current = REPORT_LINE_HELP[state.reportLine] || REPORT_LINE_HELP[recommended] || REPORT_LINE_HELP.standard;
     el.innerHTML = `
-      <div class="engine-mode-grid">${entries.map(item => `
-        <button type="button" class="engine-mode-card ${state.reportLine === item.id ? "is-active" : ""}" data-action="line" data-value="${escapeHtml(item.id)}">
+      <div class="engine-choice-alert blue">결과물 수준을 선택하세요. 추천값은 자동 선택되어 있으며, 필요하면 확장형 또는 심화형 중 다시 선택할 수 있습니다.</div>
+      <div class="engine-mode-grid">${entries.map(item => {
+        const isActiveLine = state.reportLine === item.id;
+        return `
+        <button type="button" class="engine-mode-card ${isActiveLine ? "is-active" : ""}" data-action="line" data-value="${escapeHtml(item.id)}">
+          <div class="engine-select-badge">${isActiveLine ? "선택됨" : "선택하세요"}</div>
           <div class="engine-mode-title">${escapeHtml(item.title)} ${item.id === recommended ? '<span class="engine-mini-tag" style="margin-left:6px;">추천</span>' : ''}</div>
           <div class="engine-mode-desc">${escapeHtml(item.desc)}</div>
           <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:700;">${escapeHtml(item.fit)}</div>
         </button>
-      `).join("")}</div>
+      `}).join("")}</div>
     `;
   }
 
@@ -12716,7 +12755,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const el = $("engineViewButtons");
     if (!el) return;
     if (!isStepEnabled(7)) {
-      el.innerHTML = `<div class="engine-empty">먼저 보고서 전개 방식을 선택해야 관점 선택이 열립니다.</div>`;
+      el.innerHTML = `<div class="engine-choice-alert">먼저 6번 수행평가 전개 방식을 선택하세요.</div><div class="engine-empty">전개 방식 선택이 끝나면 보고서 관점 선택이 열립니다.</div>`;
       return;
     }
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
@@ -12735,7 +12774,11 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       desc: "이 관점은 보고서를 어떤 시선으로 풀어갈지 정하는 선택입니다.",
       example: "예: 선택한 개념과 자료를 이 시선으로 다시 정리해 보세요."
     };
+    const viewChoiceGuide = state.reportView
+      ? `<div class="engine-choice-alert blue">선택된 보고서 관점: <strong>${escapeHtml(state.reportView)}</strong> · 이제 8번 결과물 수준을 선택하세요.</div>`
+      : `<div class="engine-choice-alert">아래 보고서 관점 중 하나를 선택하세요.</div>`;
     el.innerHTML = `
+      ${viewChoiceGuide}
       <div class="engine-chip-wrap">${options.map(view => `
         <button type="button" class="engine-chip ${state.reportView === view ? "is-active" : ""}" data-action="view" data-value="${escapeHtml(view)}">${escapeHtml(view)}</button>
       `).join("")}</div>
