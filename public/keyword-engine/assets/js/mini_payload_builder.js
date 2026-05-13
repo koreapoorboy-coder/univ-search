@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v218-dongguk-performance-assessment";
+  const BUILDER_VERSION = "mini-payload-builder-v219-dongguk-performance-assessment";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -683,7 +683,7 @@
     const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
     const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
     return {
-      version: "dongguk-performance-assessment-v218",
+      version: "dongguk-performance-assessment-v219",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: {
         source: "3번 교과 개념 + 추천 키워드",
