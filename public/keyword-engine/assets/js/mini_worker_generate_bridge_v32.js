@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v218-dongguk-seed-fallback-performance-payload";
+  const VERSION = "mini-worker-generate-bridge-v219-dongguk-network-fallback-performance-payload";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -485,7 +485,7 @@
     mini.reportGenerationContext.donggukPerformanceFrame = reqPerformanceFrame;
     const existingPerformanceAssessment = mini.reportGenerationContext.performanceAssessment || {};
     mini.reportGenerationContext.performanceAssessment = {
-      version: "dongguk-performance-assessment-v218-worker",
+      version: "dongguk-performance-assessment-v219-worker",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: existingPerformanceAssessment.content || {
         source: "3번 교과 개념 + 추천 키워드",
@@ -684,24 +684,58 @@
       || /asset\s+file.*404/i.test(text);
   }
 
+  function isNetworkFetchError(error){
+    const text = stringifyErrorForMiniFallback(error);
+    const message = String(error?.message || "");
+    return Boolean(error?.network)
+      || Number(error?.status || 0) === 0
+      || /Failed\s+to\s+fetch/i.test(text)
+      || /NetworkError/i.test(text)
+      || /Load\s+failed/i.test(text)
+      || /CORS/i.test(text)
+      || /TypeError/i.test(String(error?.name || "")) && /fetch/i.test(message);
+  }
+
+  function makeNetworkFetchError(fetchError, url){
+    const err = new Error(fetchError?.message || "Failed to fetch");
+    err.name = fetchError?.name || "NetworkFetchError";
+    err.url = url;
+    err.status = 0;
+    err.network = true;
+    err.cause = fetchError;
+    err.rawText = `${fetchError?.name || "FetchError"}: ${fetchError?.message || "Failed to fetch"}`;
+    return err;
+  }
+
   function makeLocalGenerateFallbackResponse(error, endpoint){
     const reason = stringifyErrorForMiniFallback(error).slice(0, 500);
+    const network = isNetworkFetchError(error);
+    const asset = isMiniAssetFile404(error);
     return {
       ok: true,
       localFallback: true,
-      source: "local-payload-render-after-generate-seed-or-asset-404",
+      source: network ? "local-payload-render-after-generate-network-fetch-failure" : "local-payload-render-after-generate-seed-or-asset-404",
       endpointTried: endpoint || error?.url || "",
       errorHandled: reason,
-      message: "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값 기반 로컬 실행 지도로 대체 렌더링했습니다."
+      message: network
+        ? "원격 생성 엔진 연결 실패를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다."
+        : (asset
+          ? "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다."
+          : "원격 생성 엔진 오류를 감지해, 현재 화면 선택값과 동국대 수행평가 구조 기반 로컬 실행 지도로 대체 렌더링했습니다.")
     };
   }
 
   async function postJson(url, payload){
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    let response;
+    try{
+      response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    }catch(fetchError){
+      throw makeNetworkFetchError(fetchError, url);
+    }
     const text = await response.text();
     let data = null;
     try{ data = JSON.parse(text); }
@@ -729,12 +763,12 @@
         return data;
       }catch(error){
         lastError = error;
-        if(shouldTryGenerateFallback(error, endpoint, i)){
+        if(shouldTryGenerateFallback(error, endpoint, i) || (isNetworkFetchError(error) && i < GENERATE_ENDPOINTS.length - 1)){
           console.warn("v32 generate endpoint fallback:", endpoint, "→", GENERATE_ENDPOINTS[i + 1], error);
           continue;
         }
-        if(isMiniAssetFile404(error)){
-          console.warn("v218 generate seed/asset file 404 detected; render local mini guide instead:", error);
+        if(isMiniAssetFile404(error) || isNetworkFetchError(error)){
+          console.warn("v219 generate seed/asset/network fallback detected; render local mini guide instead:", error);
           global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint, error: stringifyErrorForMiniFallback(error) };
           return makeLocalGenerateFallbackResponse(error, endpoint);
         }
@@ -742,8 +776,8 @@
       }
     }
     if(lastError){
-      if(isMiniAssetFile404(lastError)){
-        console.warn("v218 final generate seed/asset file 404 detected; render local mini guide instead:", lastError);
+      if(isMiniAssetFile404(lastError) || isNetworkFetchError(lastError)){
+        console.warn("v219 final generate seed/asset/network fallback detected; render local mini guide instead:", lastError);
         global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint: lastError?.url || "", error: stringifyErrorForMiniFallback(lastError) };
         return makeLocalGenerateFallbackResponse(lastError, lastError?.url || "");
       }
@@ -2014,13 +2048,13 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-major-concept-book-bridge-blueprint-v218-dongguk-performance-assessment",
+      source: "payload-major-concept-book-bridge-blueprint-v219-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v217_dongguk_performance_polish",
+        productMode: "major_concept_book_bridge_blueprint_v219_dongguk_performance_network_fallback",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
         focusQuestion,
@@ -2421,18 +2455,18 @@
 
     // v34~v56 또는 기존 keyword_engine.js가 먼저 click listener를 잡은 경우가 있어
     // 버튼 노드를 한 번 교체한 뒤 v58 핸들러만 다시 연결한다.
-    if(btn.dataset.miniWorkerV217Bound === "1") return;
+    if(btn.dataset.miniWorkerV219Bound === "1") return;
     const cleanBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(cleanBtn, btn);
     btn = cleanBtn;
-    btn.dataset.miniWorkerV217Bound = "1";
+    btn.dataset.miniWorkerV219Bound = "1";
     btn.dataset.miniWorkerV58Bound = "1";
     btn.dataset.miniWorkerV57Bound = "1";
     btn.dataset.miniWorkerV56Bound = "1";
     btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV54Bound = "1";
     btn.dataset.miniWorkerV53Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v217";
+    btn.dataset.miniWorkerV32Bound = "v219";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
