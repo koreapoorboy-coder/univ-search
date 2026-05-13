@@ -2207,10 +2207,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         <div id="engineBookBlock" class="engine-step-block" data-step="5">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">5. 직접 일치 / 확장 참고 도서 선택</h3>
-              <div class="engine-step-copy">선택한 키워드와 직접 맞는 도서를 먼저 보고, 부족하면 보고서 확장에 참고할 도서를 봅니다. 도서는 보고서의 근거와 확장 프레임 역할을 합니다.</div>
+              <h3 class="engine-step-title">5. 도서 활용 선택</h3>
+              <div class="engine-step-copy">도서가 필요한 수행평가는 책을 선택하고, 도서가 필요 없는 수행평가는 바로 6번 수행평가 방식으로 넘어갑니다. 도서는 필수가 아니라 선택 근거 자료입니다.</div>
             </div>
-            <div class="engine-step-guide">도서 선택</div>
+            <div class="engine-step-guide">선택 사항</div>
           </div>
           <div id="engineBookArea"></div>
         </div>
@@ -12139,7 +12139,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     if (step === 3) return !!state.subject;
     if (step === 4) return isStepEnabled(3) && !!state.concept && !!state.keyword;
     if (step === 5) return isStepEnabled(4) && !!state.linkTrack;
-    if (step === 6) return isStepEnabled(5) && !!state.selectedBook;
+    if (step === 6) return isStepEnabled(5);
     if (step === 7) return isStepEnabled(6) && !!state.reportMode;
     if (step === 8) return isStepEnabled(7) && !!state.reportView;
     return false;
@@ -12223,8 +12223,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     if (state.subject && !state.concept) progress = "교과 개념 선택 중";
     if (state.concept && !state.keyword) progress = "핵심 키워드 선택 중";
     if (state.keyword && !state.linkTrack) progress = "후속 연계축 선택 중";
-    if (state.linkTrack && !state.selectedBook) progress = "도서 선택 대기";
-    if (state.selectedBook && !state.reportMode) progress = "보고서 방식 선택 대기";
+    if (state.linkTrack && !state.reportMode) progress = state.selectedBook ? "보고서 방식 선택 대기" : "도서 선택 또는 수행평가 방식 선택 대기";
     if (state.reportMode && !state.reportView) progress = "보고서 관점 선택 대기";
     if (state.reportView && !state.reportLine) progress = "보고서 라인 선택 대기";
     if (state.reportLine) progress = "MINI 전달 데이터 준비 완료";
@@ -12527,7 +12526,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const el = $("engineModeButtons");
     if (!el) return;
     if (!isStepEnabled(6)) {
-      el.innerHTML = `<div class="engine-empty">먼저 도서를 선택해야 보고서 전개 방식을 고를 수 있습니다.</div>`;
+      el.innerHTML = `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 수행평가 방식을 고를 수 있습니다.</div>`;
       return;
     }
     const meta = window.getReportOptionMeta ? window.getReportOptionMeta({
@@ -12539,8 +12538,8 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       keyword: state.keyword,
       selectedBook: state.selectedBook
     }) : { modeOptions: [] };
-    const options = meta.modeOptions || [];
-    el.innerHTML = `<div class="engine-mode-grid">${options.map(option => `
+    const options = (meta.modeOptions || []).filter(option => option && (option.id !== "book" || !!state.selectedBook));
+    el.innerHTML = `<div class="engine-help" style="margin-bottom:10px;">도서 활용은 선택입니다. 도서를 선택하지 않아도 자료조사·실험·통계·기사 중심 수행평가 방식으로 진행할 수 있습니다.</div><div class="engine-mode-grid">${options.map(option => `
       <button type="button" class="engine-mode-card ${state.reportMode === option.id ? "is-active" : ""}" data-action="mode" data-value="${escapeHtml(option.id)}">
         <div class="engine-mode-title">${escapeHtml(option.label)}</div>
         <div class="engine-mode-desc">${escapeHtml(option.desc)}</div>
@@ -12609,7 +12608,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const viewMeta = VIEW_HELP[selectedView] || {
       title: `${selectedView || "관점"} 설명`,
       desc: "이 관점은 보고서를 어떤 시선으로 풀어갈지 정하는 선택입니다.",
-      example: "예: 선택한 개념과 도서를 이 시선으로 다시 정리해 보세요."
+      example: "예: 선택한 개념과 자료를 이 시선으로 다시 정리해 보세요."
     };
     el.innerHTML = `
       <div class="engine-chip-wrap">${options.map(view => `
@@ -12746,10 +12745,13 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
         keyword: state.keyword
       },
       book_context: {
-        book_id: state.selectedBook,
-        title: state.selectedBookTitle,
-        author: bookDetail?.author || "",
-        summary_short: bookDetail?.summary_short || ""
+        use_book: !!state.selectedBook,
+        usage_mode: state.selectedBook ? "useBook" : "noBook",
+        evidence_source_policy: state.selectedBook ? "도서+자료 선택형" : "도서 미사용 자료 중심형",
+        book_id: state.selectedBook || "",
+        title: state.selectedBook ? state.selectedBookTitle : "",
+        author: state.selectedBook ? (bookDetail?.author || "") : "",
+        summary_short: state.selectedBook ? (bookDetail?.summary_short || "") : ""
       },
       major_compare_context: {
         selected_major: state.majorSelectedName || '',
