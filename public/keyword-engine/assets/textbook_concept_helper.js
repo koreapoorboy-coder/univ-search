@@ -2190,11 +2190,11 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
           </div>
           <div class="engine-subgrid">
             <div class="engine-panel">
-              <div class="engine-subtitle">추천 개념 고르기</div>
+              <div class="engine-subtitle">1단계. 수행평가로 다루고 싶은 교과 개념 선택</div>
               <div id="engineConceptCards"></div>
             </div>
             <div class="engine-panel">
-              <div class="engine-subtitle">추천 키워드 고르기</div>
+              <div class="engine-subtitle">2단계. 탐구 방향 키워드 선택</div>
               <div id="engineKeywordButtons"></div>
             </div>
           </div>
@@ -2277,8 +2277,8 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       const conceptCopy = conceptBlock.querySelector(".engine-step-copy");
       const conceptGuide = conceptBlock.querySelector(".engine-step-guide");
       if (conceptTitle) conceptTitle.textContent = "3. 교과 개념·키워드 선택";
-      if (conceptCopy) conceptCopy.textContent = "먼저 현재 과목 안에서 어떤 교과 개념과 키워드로 출발할지 고릅니다. 종단 연결성은 이 선택을 바탕으로 열립니다.";
-      if (conceptGuide) conceptGuide.textContent = "교과 개념 → 핵심 키워드";
+      if (conceptCopy) conceptCopy.textContent = "수행평가에서 다루고 싶은 교과 개념을 먼저 선택하세요. 교과 개념을 선택하면 오른쪽에 연결 가능한 탐구 키워드가 나타나며, 선택한 내용은 이후 보고서 주제와 초안 구성에 반영됩니다.";
+      if (conceptGuide) conceptGuide.textContent = "교과 개념 · 핵심 키워드";
 
       const trackTitle = trackBlock.querySelector(".engine-step-title");
       const trackCopy = trackBlock.querySelector(".engine-step-copy");
@@ -12455,8 +12455,8 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     const primaryConceptNames = new Set(primaryConcepts.map(item => item.concept));
     const canShowAllConcepts = allConcepts.length > primaryConcepts.length;
     if (!displayConcepts.length) {
-      conceptWrap.innerHTML = `<div class="engine-empty">등록된 교과 개념 데이터가 없습니다.</div>`;
-      keywordWrap.innerHTML = `<div class="engine-empty">등록된 키워드 데이터가 없습니다.</div>`;
+      conceptWrap.innerHTML = `<div class="engine-empty">위에서 과목과 희망학과를 선택하면 추천 교과 개념이 표시됩니다.</div>`;
+      keywordWrap.innerHTML = `<div class="engine-empty">왼쪽에서 교과 개념을 선택하면 연결 가능한 탐구 키워드가 표시됩니다.</div>`;
       return;
     }
 
