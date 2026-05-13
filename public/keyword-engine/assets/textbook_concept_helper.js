@@ -1,4 +1,4 @@
-window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v140-geometry-computer-345-lock';
+window.__TEXTBOOK_CONCEPT_HELPER_VERSION = 'v223-book-on-demand-search';
 window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VERSION;
 
 (function () {
@@ -152,6 +152,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
     keyword: "",
     selectedBook: "",
     selectedBookTitle: "",
+    bookPanelOpen: false,
     reportMode: "",
     reportView: "",
     reportLine: "",
@@ -2019,6 +2020,13 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         line-height:1.6;
         border:1px dashed #d8e0ee;
       }
+      .engine-book-use-panel { margin-bottom:14px; padding:16px; border:1px solid #d9e4fb; border-radius:18px; background:#f8fbff; }
+      .engine-book-use-title { font-size:17px; font-weight:900; color:#172033; margin-bottom:6px; }
+      .engine-book-use-desc { color:#5f6d86; font-size:13px; line-height:1.55; margin-bottom:12px; }
+      .engine-book-use-actions { display:flex; flex-wrap:wrap; gap:8px; }
+      .engine-book-use-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:9px 13px; font-size:13px; font-weight:900; cursor:pointer; }
+      .engine-book-use-btn.is-active { background:#2f66ff; color:#fff; border-color:#2f66ff; }
+      .engine-book-use-note { margin-top:10px; color:#64748b; font-size:12px; line-height:1.55; }
       .engine-book-layout { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
       .engine-book-list, .engine-book-summary { min-height: 100%; }
       .engine-book-card {
@@ -3059,13 +3067,35 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         return;
       }
 
+      const bookUseBtn = event.target.closest("[data-action='book-use-mode']");
+      if (bookUseBtn && isStepEnabled(5)) {
+        const mode = bookUseBtn.getAttribute("data-value") || "noBook";
+        if (mode === "openBook") {
+          state.bookPanelOpen = true;
+          try { global.__BOOK_USAGE_MODE__ = state.selectedBook ? "useBook" : "noBook"; localStorage.setItem("ke.bookUsageMode.v222", global.__BOOK_USAGE_MODE__); } catch(error) {}
+        } else {
+          state.bookPanelOpen = false;
+          state.selectedBook = "";
+          state.selectedBookTitle = "";
+          state.reportMode = "";
+          state.reportView = "";
+          state.reportLine = "";
+          try { global.__BOOK_USAGE_MODE__ = "noBook"; localStorage.setItem("ke.bookUsageMode.v222", "noBook"); } catch(error) {}
+        }
+        syncOutputFields();
+        renderAll();
+        return;
+      }
+
       const bookBtn = event.target.closest(".book-chip[data-kind='book']");
       if (bookBtn && isStepEnabled(5)) {
+        state.bookPanelOpen = true;
         state.selectedBook = bookBtn.getAttribute("data-value") || "";
         state.selectedBookTitle = bookBtn.getAttribute("data-title") || "";
         state.reportMode = "";
         state.reportView = "";
         state.reportLine = "";
+        try { global.__BOOK_USAGE_MODE__ = "useBook"; localStorage.setItem("ke.bookUsageMode.v222", "useBook"); } catch(error) {}
         syncOutputFields();
         renderAll();
         return;
@@ -3201,6 +3231,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       state.linkTrackSource = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
+      state.bookPanelOpen = false;
       state.reportMode = "";
       state.reportView = "";
       state.reportLine = "";
@@ -3212,6 +3243,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       state.linkTrack = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
+      state.bookPanelOpen = false;
       state.reportMode = "";
       state.reportView = "";
       state.reportLine = "";
@@ -3224,6 +3256,7 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
       state.linkTrack = "";
       state.selectedBook = "";
       state.selectedBookTitle = "";
+      state.bookPanelOpen = false;
       state.reportMode = "";
       state.reportView = "";
       state.reportLine = "";
@@ -12487,25 +12520,47 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     `;
   }
 
+  function renderBookUsePanel() {
+    const hasBook = !!state.selectedBook;
+    const open = !!state.bookPanelOpen;
+    const noActive = !open && !hasBook;
+    return `
+      <div class="engine-book-use-panel">
+        <div class="engine-book-use-title">5번 도서 활용 선택</div>
+        <div class="engine-book-use-desc">도서가 필요한 수행평가일 때만 추천 도서를 열어 선택합니다. 도서를 쓰지 않는 실험·자료조사·통계·기사 분석형 수행평가는 도서 없이 바로 6~8번으로 진행합니다.</div>
+        <div class="engine-book-use-actions">
+          <button type="button" class="engine-book-use-btn ${noActive ? "is-active" : ""}" data-action="book-use-mode" data-value="noBook">도서 없이 진행</button>
+          <button type="button" class="engine-book-use-btn ${open || hasBook ? "is-active" : ""}" data-action="book-use-mode" data-value="openBook">도서 추천·검색 열기</button>
+        </div>
+        <div class="engine-book-use-note">${hasBook ? `현재 선택 도서: <strong>${escapeHtml(state.selectedBookTitle || state.selectedBook)}</strong>` : "도서를 열기 전에는 추천 도서가 화면에 자동 노출되지 않습니다."}</div>
+      </div>
+    `;
+  }
+
   function renderBookArea() {
     const el = $("engineBookArea");
     if (!el) return;
     if (!isStepEnabled(5)) {
       if (!state.concept || !state.keyword) {
-        el.innerHTML = `<div class="engine-empty">먼저 3번 교과 개념과 추천 키워드를 선택해야 도서 추천이 열립니다.</div>`;
+        el.innerHTML = `<div class="engine-empty">먼저 3번 교과 개념과 추천 키워드를 선택해야 도서 활용 여부를 고를 수 있습니다.</div>`;
       } else if (!state.linkTrack) {
-        el.innerHTML = `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 5번 도서 추천이 열립니다.</div>`;
+        el.innerHTML = `<div class="engine-empty">먼저 4번 후속 연계축을 선택해야 5번 도서 활용 여부가 열립니다.</div>`;
       } else {
-        el.innerHTML = `<div class="engine-empty">도서 추천을 준비 중입니다.</div>`;
+        el.innerHTML = `<div class="engine-empty">도서 활용 선택을 준비 중입니다.</div>`;
       }
       return;
     }
+    const panel = renderBookUsePanel();
+    if (!state.bookPanelOpen && !state.selectedBook) {
+      el.innerHTML = panel + `<div class="engine-empty">현재는 도서 없이 진행하는 상태입니다. 도서를 근거로 쓰고 싶은 경우에만 <b>도서 추천·검색 열기</b>를 누르세요.</div>`;
+      return;
+    }
     if (!window.renderBookSelectionHTML) {
-      el.innerHTML = `<div class="engine-empty">210권 도서 추천 기능을 불러오는 중입니다.</div>`;
+      el.innerHTML = panel + `<div class="engine-empty">210권 도서 추천 기능을 불러오는 중입니다.</div>`;
       return;
     }
     const trackMeta = getTrackMeta(state.linkTrack) || {};
-    el.innerHTML = window.renderBookSelectionHTML({
+    el.innerHTML = panel + window.renderBookSelectionHTML({
       subject: state.subject,
       career: state.career || state.majorSelectedName || ($("career")?.value || ""),
       selectedMajor: state.majorSelectedName || state.career || ($("career")?.value || ""),
