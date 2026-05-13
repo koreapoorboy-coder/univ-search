@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v219-dongguk-network-fallback-performance-payload";
+  const VERSION = "mini-worker-generate-bridge-v220-subject-group-ui-dongguk-network-fallback";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -89,9 +89,10 @@
       sessionId: createSessionId(),
       schoolName: readValue("schoolName"),
       grade: readValue("grade"),
+      subjectGroup: readValue("subjectGroup"),
       subject: readValue("subject"),
-      taskName: readValue("taskName"),
-      taskType: readValue("taskType"),
+      taskName: readValue("taskName") || [readValue("subject"), readValue("taskType") || "탐구보고서"].filter(Boolean).join(" "),
+      taskType: readValue("taskType") || "탐구보고서",
       usagePurpose: readValue("usagePurpose") || "학생용 탐구 조립 지도 작성",
       taskDescription: readValue("taskDescription"),
       career: readValue("career"),
@@ -450,6 +451,7 @@
     const choice = getReportChoices(mini);
 
     const reqSubject = s.subject || form.subject || "";
+    const reqSubjectGroup = form.subjectGroup || s.subjectGroup || "";
     const reqMajor = s.department || form.career || "";
     const reqConcept = s.selectedConcept || "";
     const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || "";
@@ -467,10 +469,12 @@
       lens: reqLens,
       bookTitle: mini.selectedBook?.title || "",
       subject: reqSubject,
+      subjectGroup: reqSubjectGroup,
       major: reqMajor
     });
     const reqPerformanceFrame = buildDonggukPerformanceFrame({
       subject: reqSubject,
+      subjectGroup: reqSubjectGroup,
       concept: reqConcept,
       keyword: reqKeyword,
       axis: reqAxis,
@@ -485,7 +489,7 @@
     mini.reportGenerationContext.donggukPerformanceFrame = reqPerformanceFrame;
     const existingPerformanceAssessment = mini.reportGenerationContext.performanceAssessment || {};
     mini.reportGenerationContext.performanceAssessment = {
-      version: "dongguk-performance-assessment-v219-worker",
+      version: "dongguk-performance-assessment-v220-worker-subject-group",
       principle: "수행평가 영역명 = 주제(내용) × 방법",
       content: existingPerformanceAssessment.content || {
         source: "3번 교과 개념 + 추천 키워드",
@@ -1627,13 +1631,14 @@
     };
   }
 
-  function buildDonggukPerformanceFrame({ subject, concept, keyword, axis, mode, view, line, major, lens }){
+  function buildDonggukPerformanceFrame({ subject, subjectGroup, concept, keyword, axis, mode, view, line, major, lens }){
     const modeKey = normalizeReportModeKey(mode);
     const viewKey = normalizeReportViewKey(view);
     const lineKey = normalizeReportLineKey(line);
     const hay = `${subject || ""} ${concept || ""} ${keyword || ""} ${axis || ""} ${major || ""} ${(lens?.keywords || []).join(" ")}`;
     const frame = classifyDonggukSubjectFrame(subject, hay);
-    const group = frame.subjectGroup;
+    const uiGroup = String(subjectGroup || "").trim();
+    const group = uiGroup || frame.subjectGroup;
     const contentCategory = pickDonggukContentCategory(group, hay);
     const methodCategory = pickDonggukMethodCategory(group, modeKey, viewKey, lineKey, hay);
     const specific = buildSpecificPerformancePlan({ keyword, concept, axis, major, lens, subjectGroup: group });
@@ -1825,6 +1830,7 @@
     const majorContext = getMajorContext(req);
 
     const subject = firstNonEmpty(s.subject, req.subject, resolved.subject, "선택 과목");
+    const subjectGroup = firstNonEmpty(req.subjectGroup, s.subjectGroup, classifyDonggukSubjectFrame(subject, "").subjectGroup, "");
     const major = firstNonEmpty(majorContext?.display_name, s.department, req.career, resolved.major, resolved.track, "선택 진로 분야");
     const concept = firstNonEmpty(s.selectedConcept, req.selectedConcept, "선택 교과 개념");
     const keyword = firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req.selectedKeyword, req.keyword, resolved.keyword, "선택 키워드");
@@ -1943,7 +1949,7 @@
     conceptExample = choiceAdjusted.conceptExample;
     conclusionSentence = choiceAdjusted.conclusionSentence;
 
-    const performanceFrame = buildDonggukPerformanceFrame({ subject, concept, keyword, axis, mode, view, line, major, lens });
+    const performanceFrame = buildDonggukPerformanceFrame({ subject, subjectGroup, concept, keyword, axis, mode, view, line, major, lens });
     const performanceAdjusted = applyDonggukPerformanceFrame({ title, goal, focusQuestion, q, dataRows, tableRows, majorConnect, conceptUse, conceptExample, conclusionSentence }, performanceFrame);
     title = performanceAdjusted.title;
     goal = performanceAdjusted.goal;
@@ -2048,13 +2054,13 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-major-concept-book-bridge-blueprint-v219-dongguk-performance-assessment",
+      source: "payload-major-concept-book-bridge-blueprint-v220-subject-group-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
         view,
         line,
-        productMode: "major_concept_book_bridge_blueprint_v219_dongguk_performance_network_fallback",
+        productMode: "major_concept_book_bridge_blueprint_v220_subject_group_dongguk_performance_network_fallback",
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
         focusQuestion,
@@ -2466,7 +2472,7 @@
     btn.dataset.miniWorkerV55Bound = "1";
     btn.dataset.miniWorkerV54Bound = "1";
     btn.dataset.miniWorkerV53Bound = "1";
-    btn.dataset.miniWorkerV32Bound = "v219";
+    btn.dataset.miniWorkerV32Bound = "v220";
     btn.addEventListener("click", handleGenerateV32, true);
   }
 
