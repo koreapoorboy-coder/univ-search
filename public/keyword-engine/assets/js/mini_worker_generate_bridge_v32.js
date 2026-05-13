@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v228-1-secondary-expansion-render-fix";
+  const VERSION = "mini-worker-generate-bridge-v229-secondary-expansion-draft-generator";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -2242,7 +2242,8 @@
         mode,
         view,
         line,
-        productMode: "secondary_expansion_ai_reuse_blueprint_v228",
+        productMode: "secondary_expansion_ai_reuse_blueprint_v229",
+        secondaryExpansionContext: expansion,
         reportChoiceBlueprint: { modeKey: choiceBlueprint.modeKey, viewKey: choiceBlueprint.viewKey, lineKey: choiceBlueprint.lineKey, choiceSummary: choiceBlueprint.choiceSummary },
         donggukPerformanceFrame: performanceFrame,
         focusQuestion,
@@ -2468,6 +2469,154 @@
     `;
   }
 
+
+  function getPathById(expansion, id){
+    const paths = Array.isArray(expansion?.paths) ? expansion.paths : [];
+    return paths.find(p => String(p.id) === String(id)) || paths.find(p => p.isRecommended) || paths[0] || null;
+  }
+
+  function buildSecondaryDraftText(path, req, extra){
+    const s = req?.mini_payload?.selectionPayload || {};
+    const ctx = req?.mini_payload?.reportGenerationContext || {};
+    const book = req?.selectedBook || {};
+    const subject = firstNonEmpty(s.subject, req?.subject, "선택 과목");
+    const major = firstNonEmpty(s.department, s.major, req?.major, "선택 진로 분야");
+    const concept = firstNonEmpty(s.selectedConcept, req?.selectedConcept, "선택 교과 개념");
+    const keyword = firstNonEmpty(s.selectedKeyword, req?.keyword, "선택 키워드");
+    const axis = compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "후속 연계축"));
+    const mode = firstNonEmpty(ctx.reportMode, req?.reportMode, "수행평가 방식");
+    const view = firstNonEmpty(ctx.reportView, req?.reportView, "평가 관점");
+    const line = firstNonEmpty(ctx.reportLine, req?.reportLine, "결과물 수준");
+    const pathLabel = path?.label || "자료 해석형";
+    const question = path?.question || `${keyword}는 어떤 기준으로 분석할 수 있을까?`;
+    const structure = Array.isArray(path?.paragraphStructure) ? path.paragraphStructure : ["기준", "자료", "해석", "한계"];
+    const evidence = Array.isArray(path?.evidenceTypes) ? path.evidenceTypes.join("·") : "자료 직접 선택";
+    const evidenceTitle = extra?.evidenceTitle?.trim() || "[학생이 찾은 자료 제목 입력]";
+    const evidenceSource = extra?.evidenceSource?.trim() || "[출처 입력]";
+    const evidencePoint = extra?.evidencePoint?.trim() || "[자료에서 확인한 핵심 수치·사례·문장 입력]";
+    const studentView = extra?.studentView?.trim() || "[내가 해석한 의미 입력]";
+    const bookLine = book?.title ? `선택 도서 '${book.title}'는 결론이나 한계 문단에서 관점을 넓히는 보조 근거로만 사용한다.` : "도서를 억지로 넣지 않고 공공자료·통계·기사·실험자료 중심으로 근거를 세운다.";
+
+    return [
+      `보고서 초안 생성 방향: ${pathLabel}`,
+      `탐구 질문: ${question}`,
+      "",
+      "[1문단. 문제 제기]",
+      `나는 ${subject}에서 배운 '${concept}' 개념을 바탕으로 '${keyword}'가 어떤 조건에서 달라지는지 확인하고자 한다. 특히 이번 보고서는 '${axis}' 흐름을 적용해 단순 설명이 아니라 판단 기준을 세우는 방식으로 전개한다.`,
+      `이 주제를 ${major} 관점과 연결하면, 중요한 것은 전공명을 붙이는 것이 아니라 ${mode}에 맞게 자료를 나누고 ${view} 관점으로 해석하는 과정이다.`,
+      "",
+      "[2문단. 기준과 자료 제시]",
+      `이번 초안의 2차 확장 방향은 '${pathLabel}'이다. 따라서 보고서의 중심 구조는 '${structure.join(" → ")}' 순서로 잡는다.`,
+      `사용할 자료 유형은 ${evidence}이며, 우선 '${evidenceTitle}' 자료를 ${evidenceSource}에서 확인한다.`,
+      `이 자료에서 확인한 핵심 내용은 ${evidencePoint}이다.`,
+      "",
+      "[3문단. 분석과 해석]",
+      `자료를 단순히 소개하지 않고, '${concept}' 개념으로 읽어야 한다. 즉, 자료 속 차이·조건·수치·사례가 '${keyword}' 판단에 어떤 근거가 되는지 설명한다.`,
+      `내 해석은 ${studentView}이다. 이 부분은 학생 본인이 실제 자료를 보고 자신의 말로 반드시 고쳐 써야 한다.`,
+      "",
+      "[4문단. 확장 방향 반영]",
+      `선택한 '${pathLabel}' 방향에 맞춰, 본문에서는 ${structure.map((v,i)=>`${i+1}) ${v}`).join(" / ")} 순서가 드러나야 한다.`,
+      `${bookLine}`,
+      "",
+      "[5문단. 결론과 후속 탐구]",
+      `따라서 이번 탐구는 '${concept}'을 단순 정의하는 데서 끝나지 않고, '${keyword}'를 ${pathLabel} 방식으로 다시 해석해 보는 과정이다.`,
+      `다만 현재 자료만으로는 모든 조건을 일반화하기 어렵기 때문에, 결론에는 내가 세운 기준의 장점과 부족한 점, 그리고 추가로 확인할 자료를 함께 제시한다.`,
+      "",
+      "[학생이 반드시 고쳐야 할 부분]",
+      "1. [학생이 찾은 자료 제목 입력]을 실제 자료명으로 바꾸기",
+      "2. [출처 입력]을 실제 출처로 바꾸기",
+      "3. [자료에서 확인한 핵심 수치·사례·문장 입력]을 실제 내용으로 바꾸기",
+      "4. [내가 해석한 의미 입력]을 자기 말로 쓰기",
+      "5. 결론에 한계와 다음 탐구 방향을 1문장 이상 추가하기"
+    ].join("\n");
+  }
+
+  function renderSecondaryDraftPanel(expansion, req){
+    const paths = Array.isArray(expansion?.paths) ? expansion.paths : [];
+    if(!paths.length) return "";
+    const recommended = paths.find(p => p.isRecommended) || paths[0];
+    const optionHtml = paths.map((path, idx) => {
+      const checked = path.id === recommended.id ? "checked" : "";
+      const evidence = Array.isArray(path.evidenceTypes) ? path.evidenceTypes.join(" · ") : "자료 직접 선택";
+      const structure = Array.isArray(path.paragraphStructure) ? path.paragraphStructure.join(" → ") : "문단 구조 선택";
+      return `
+        <label class="mini-v43-expansion-option ${checked ? "is-selected" : ""}" data-mini-expansion-card="${escapeHtml(path.id || String(idx))}">
+          <input type="radio" name="miniV229ExpansionPath" value="${escapeHtml(path.id || String(idx))}" ${checked}>
+          <span class="mini-v43-expansion-title">${escapeHtml(path.label || "확장 방향")}${path.isRecommended ? " · 추천" : ""}</span>
+          <span class="mini-v43-expansion-q">${escapeHtml(path.question || "탐구 질문 만들기")}</span>
+          <span class="mini-v43-expansion-meta">필요 자료: ${escapeHtml(evidence)}</span>
+          <span class="mini-v43-expansion-meta">보고서 구조: ${escapeHtml(structure)}</span>
+        </label>
+      `;
+    }).join("");
+
+    return `
+      <article class="mini-v43-card core mini-v229-draft-panel" id="miniV229DraftPanel">
+        <div class="mini-v43-card-head">
+          <span class="mini-v43-icon">2</span>
+          <h4>선택한 2차 확장 방향으로 보고서 초안 생성</h4>
+        </div>
+        <p class="mini-v229-help">위 2차 확장 방향 중 하나를 선택한 뒤, 학생이 직접 찾은 자료를 넣으면 아래에 개인화된 보고서 초안이 생성됩니다.</p>
+        <div class="mini-v43-expansion-options">${optionHtml}</div>
+        <div class="mini-v229-input-grid">
+          <label>자료 제목<input id="miniV229EvidenceTitle" type="text" placeholder="예: 공공 통계, 기사, 실험 결과, 논문 요약 자료명"></label>
+          <label>출처<input id="miniV229EvidenceSource" type="text" placeholder="예: 교과서, 공공기관, 기사, 보고서, 실험 기록"></label>
+          <label>자료 핵심 내용<textarea id="miniV229EvidencePoint" rows="3" placeholder="자료에서 확인한 수치·사례·문장"></textarea></label>
+          <label>내 해석<textarea id="miniV229StudentView" rows="3" placeholder="이 자료를 보고 내가 판단한 점"></textarea></label>
+        </div>
+        <div class="mini-v229-actions">
+          <button type="button" id="miniV229GenerateDraftBtn">선택 방향으로 보고서 초안 생성</button>
+          <button type="button" id="miniV229CopyDraftBtn" disabled>초안 복사</button>
+        </div>
+        <div class="mini-v229-draft-output" id="miniV229DraftOutput">
+          <b>초안 생성 대기</b><br>확장 방향을 선택하고 필요한 자료를 입력한 뒤 버튼을 누르세요.
+        </div>
+      </article>
+    `;
+  }
+
+  function bindSecondaryDraftPanel(expansion, req){
+    const panel = $("miniV229DraftPanel");
+    if(!panel) return;
+    const radios = Array.from(panel.querySelectorAll('input[name="miniV229ExpansionPath"]'));
+    const output = $("miniV229DraftOutput");
+    const generateBtn = $("miniV229GenerateDraftBtn");
+    const copyBtn = $("miniV229CopyDraftBtn");
+
+    function syncCards(){
+      radios.forEach(r => {
+        const card = r.closest(".mini-v43-expansion-option");
+        if(card) card.classList.toggle("is-selected", r.checked);
+      });
+    }
+    radios.forEach(r => r.addEventListener("change", syncCards));
+    syncCards();
+
+    generateBtn?.addEventListener("click", () => {
+      const selectedId = (radios.find(r => r.checked) || radios[0] || {}).value;
+      const path = getPathById(expansion, selectedId);
+      global.__MINI_SELECTED_EXPANSION_PATH__ = path;
+      const extra = {
+        evidenceTitle: $("miniV229EvidenceTitle")?.value || "",
+        evidenceSource: $("miniV229EvidenceSource")?.value || "",
+        evidencePoint: $("miniV229EvidencePoint")?.value || "",
+        studentView: $("miniV229StudentView")?.value || ""
+      };
+      const draft = buildSecondaryDraftText(path, req, extra);
+      global.__MINI_GENERATED_SECONDARY_DRAFT__ = draft;
+      if(output){
+        output.innerHTML = `<pre>${escapeHtml(draft)}</pre>`;
+        output.scrollIntoView({behavior:"smooth", block:"nearest"});
+      }
+      if(copyBtn) copyBtn.disabled = false;
+    });
+
+    copyBtn?.addEventListener("click", () => {
+      const draft = global.__MINI_GENERATED_SECONDARY_DRAFT__ || "";
+      if(draft) navigator.clipboard?.writeText(draft);
+    });
+  }
+
   function renderGeneratedReport(text, req, rawData, extraction){
     hideBuiltInResultShell();
     const root = ensureResultRoot();
@@ -2489,6 +2638,17 @@
     const focusQuestion = diag.focusQuestion || "";
     const majorKeywordTag = Array.isArray(diag.majorKeywords) && diag.majorKeywords.length ? diag.majorKeywords.slice(0,4).join(" · ") : "";
     const majorLensTag = diag.majorLens || "";
+    const expansionForDraft = getSecondaryExpansionContext(req, {
+      subject: s.subject || req.subject,
+      major: s.department || s.major || req.major,
+      concept: s.selectedConcept || req.selectedConcept,
+      keyword: s.selectedKeyword || req.keyword,
+      axis: s.selectedFollowupAxis || req.selectedFollowupAxis,
+      mode: req.reportMode,
+      view: req.reportView,
+      line: req.reportLine,
+      bookTitle: book.title || ""
+    });
 
     const displaySections = sections
       .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
@@ -2534,10 +2694,29 @@
         .mini-v43-table td{padding:9px;border-bottom:1px solid #e5edff;color:#243244;vertical-align:top}
         .mini-v43-table th:first-child,.mini-v43-table td:first-child{border-left:1px solid #dbe5ff}
         .mini-v43-table th:last-child,.mini-v43-table td:last-child{border-right:1px solid #dbe5ff}
+        .mini-v229-draft-panel{margin-top:4px}
+        .mini-v229-help{font-size:14px;line-height:1.65;color:#475569;margin:0 0 12px}
+        .mini-v43-expansion-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:12px}
+        .mini-v43-expansion-option{display:flex;flex-direction:column;gap:5px;border:1px solid #dbe5ff;background:#fff;border-radius:14px;padding:10px;cursor:pointer;min-height:138px}
+        .mini-v43-expansion-option input{margin:0 0 2px}
+        .mini-v43-expansion-option.is-selected{border-color:#2f5bff;background:#eef4ff;box-shadow:0 5px 14px rgba(47,91,255,.12)}
+        .mini-v43-expansion-title{font-weight:900;color:#173ea9;font-size:13px}
+        .mini-v43-expansion-q{font-weight:800;color:#1f2937;font-size:13px;line-height:1.45}
+        .mini-v43-expansion-meta{font-size:12px;line-height:1.45;color:#64748b}
+        .mini-v229-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+        .mini-v229-input-grid label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:900;color:#173ea9}
+        .mini-v229-input-grid input,.mini-v229-input-grid textarea{border:1px solid #dbe5ff;border-radius:12px;padding:10px;font-size:13px;line-height:1.5;background:#fff;color:#111827;resize:vertical}
+        .mini-v229-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+        .mini-v229-actions button{border:1px solid #2f5bff;background:#2f5bff;color:#fff;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer}
+        .mini-v229-actions button[disabled]{opacity:.45;cursor:not-allowed}
+        .mini-v229-actions button#miniV229CopyDraftBtn{background:#fff;color:#2f5bff}
+        .mini-v229-draft-output{border:1px solid #dbe5ff;background:#f8fbff;border-radius:14px;padding:12px;color:#243244;font-size:13px;line-height:1.65;max-height:460px;overflow:auto}
+        .mini-v229-draft-output pre{white-space:pre-wrap;margin:0;font-family:inherit;line-height:1.7}
+        @media (max-width: 1100px){.mini-v43-expansion-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media (max-width: 820px){
           .mini-v43-head{grid-template-columns:1fr}
           .mini-v43-actions{justify-content:flex-start}
-          .mini-v43-quick,.mini-v43-grid{grid-template-columns:1fr}
+          .mini-v43-quick,.mini-v43-grid,.mini-v43-expansion-options,.mini-v229-input-grid{grid-template-columns:1fr}
           .mini-v43-title{font-size:23px}
         }
       </style>
@@ -2573,11 +2752,13 @@
 
         <div class="mini-v43-grid">
           ${sectionHtml}
+          ${renderSecondaryDraftPanel(expansionForDraft, req)}
         </div>
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(sanitizedText));
+    bindSecondaryDraftPanel(expansionForDraft, req);
 
     const builtInStudentReport = $("studentReport");
     if(builtInStudentReport) builtInStudentReport.innerHTML = "";
