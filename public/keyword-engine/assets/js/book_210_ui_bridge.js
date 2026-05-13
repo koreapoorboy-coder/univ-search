@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v209-a50-intl-trade";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v223-on-demand-search-no-auto-select";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -201,6 +201,23 @@
       .trim();
   }
 
+  function getBookSearchText(book, sectionType){
+    const ctx = book && book.selectedBookContext ? book.selectedBookContext : {};
+    return [
+      book && book.title,
+      book && book.author,
+      book && book.summary,
+      book && book.reportUse,
+      book && book.book_core_summary,
+      ctx.recommendationReason,
+      arr(ctx.reportRoleLabels).join(" "),
+      arr(ctx.reportRole).join(" "),
+      arr(book && book.matchReasons).join(" "),
+      arr(book && book.keywords).join(" "),
+      sectionType === "direct" ? "직접 일치 핵심 근거" : "확장 참고 비교 한계 사회적 의미"
+    ].filter(Boolean).join(" ").replace(/\s+/g, " ").trim();
+  }
+
   function renderBookCard(book, active, index, sectionType){
     const key = bookKey(book);
     const ctx = book.selectedBookContext || {};
@@ -208,7 +225,7 @@
     const reason = stripInternalBookLabels(arr(book.matchReasons).join(" · ") || ctx.recommendationReason || role);
     const preview = stripInternalBookLabels(ctx.recommendationReason || book.summary || book.reportUse || "선택한 흐름에서 보고서 근거로 활용할 수 있습니다.");
     return `
-      <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}">
+      <button type="button" class="engine-book-card ${active ? "is-active" : ""} book-chip" data-kind="book" data-value="${esc(key)}" data-title="${esc(book.title)}" data-book-search="${esc(getBookSearchText(book, sectionType))}">
         <div class="engine-book-order">${index + 1}</div>
         <div class="engine-book-main">
           <div class="engine-book-title">${esc(book.title)}</div>
@@ -11120,32 +11137,41 @@
       return `<div class="engine-empty">현재 선택한 전공군·개념·후속 연계축에 맞는 도서가 아직 충분하지 않습니다. 키워드나 연계축을 바꿔 보세요.</div>`;
     }
 
-    const selected = all.find(book => [bookKey(book), book.title].includes(val(ctx.selectedBook))) || all[0];
-    const selectedSection = direct.some(book => bookKey(book) === bookKey(selected)) ? "direct" : "expansion";
+    const selected = all.find(book => [bookKey(book), book.title].includes(val(ctx.selectedBook))) || null;
+    const selectedSection = selected && direct.some(book => bookKey(book) === bookKey(selected)) ? "direct" : "expansion";
 
     const directHTML = direct.length
-      ? direct.map((book, index) => renderBookCard(book, bookKey(book) === bookKey(selected), index, "direct")).join("")
+      ? direct.map((book, index) => renderBookCard(book, !!selected && bookKey(book) === bookKey(selected), index, "direct")).join("")
       : `<div class="engine-empty">직접 일치 도서가 부족합니다. 확장 참고 도서를 확인하세요.</div>`;
 
     const expansionHTML = expansion.length ? `
       <div style="margin-top:18px;">
         <div class="engine-subtitle">확장 참고 도서</div>
         <div class="engine-help">핵심 도서는 아니지만, 보고서의 비교·한계·사회적 의미 확장에 활용할 수 있는 도서입니다.</div>
-        ${expansion.map((book, index) => renderBookCard(book, bookKey(book) === bookKey(selected), index, "expansion")).join("")}
+        ${expansion.map((book, index) => renderBookCard(book, !!selected && bookKey(book) === bookKey(selected), index, "expansion")).join("")}
       </div>
     ` : "";
 
     return `
-      <div class="engine-book-layout">
-        <div class="engine-book-list">
-          <div class="engine-subtitle">직접 일치 도서</div>
-          <div class="engine-help">전공군·교과 개념·후속 연계축이 모두 맞아 보고서 핵심 근거로 쓸 수 있는 도서입니다.</div>
-          ${directHTML}
-          ${expansionHTML}
+      <div class="engine-book-selection-shell">
+        <div class="engine-book-search-box" style="margin:0 0 14px; padding:14px; border:1px solid #d9e4fb; border-radius:16px; background:#fff;">
+          <div class="engine-subtitle" style="margin-bottom:6px;">도서 검색</div>
+          <div class="engine-help" style="margin-bottom:10px;">책 제목, 저자, 핵심 내용, 추천 이유를 보고 필요한 책만 선택합니다. 선택 전에는 어떤 책도 보고서에 자동 반영되지 않습니다.</div>
+          <input type="search" class="engine-book-search-input" data-action="book-search" placeholder="예: 반도체, 데이터, 윤리, 공간, 국부론" style="width:100%; border:1px solid #d5deef; border-radius:14px; padding:12px 14px; font-size:15px; outline:none;" />
+          <div class="engine-book-search-count" data-book-search-count style="margin-top:8px; color:#64748b; font-size:12px; font-weight:800;">추천 도서 ${all.length}권 표시 중</div>
         </div>
-        <div class="engine-book-summary">
-          <div class="engine-subtitle">선택 도서 요약</div>
-          ${renderBookSummary(selected, ctx, selectedSection)}
+        <div class="engine-book-layout">
+          <div class="engine-book-list">
+            <div class="engine-subtitle">직접 일치 도서</div>
+            <div class="engine-help">전공군·교과 개념·후속 연계축이 모두 맞아 보고서 핵심 근거로 쓸 수 있는 도서입니다.</div>
+            ${directHTML}
+            ${expansionHTML}
+            <div class="engine-empty engine-book-search-empty" data-book-search-empty style="display:none; margin-top:12px;">검색어와 일치하는 도서가 없습니다. 검색어를 줄이거나 다른 표현으로 찾아보세요.</div>
+          </div>
+          <div class="engine-book-summary">
+            <div class="engine-subtitle">선택 도서 요약</div>
+            ${selected ? renderBookSummary(selected, ctx, selectedSection) : `<div class="engine-summary-box"><div class="engine-summary-title">도서 선택 전</div><p class="engine-summary-text">책의 제목·저자·요약·추천 이유를 확인한 뒤 필요한 경우에만 도서를 선택하세요. 선택하지 않으면 MINI에는 도서 미사용 자료 중심형으로 전달됩니다.</p><div class="engine-summary-foot">도서가 필수인 수행평가가 아니라면 이 단계는 건너뛰어도 됩니다.</div></div>`}
+          </div>
         </div>
       </div>
     `;
@@ -11203,8 +11229,13 @@
     };
   }
 
+  function shouldAllowBookAutoRender(){
+    const state = global.__TEXTBOOK_HELPER_STATE__ || {};
+    return !!(state.bookPanelOpen || state.selectedBook || global.__BOOK_210_ALLOW_FORCE_RENDER__);
+  }
+
   function canForceRender(ctx){
-    return !!(ctx && ctx.subject && ctx.career && ctx.concept && ctx.keyword && (ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel));
+    return shouldAllowBookAutoRender() && !!(ctx && ctx.subject && ctx.career && ctx.concept && ctx.keyword && (ctx.followupAxisId || ctx.linkTrack || ctx.axisLabel));
   }
 
 
@@ -11261,6 +11292,29 @@
     }
   }
 
+
+  function installBookSearchHandler(){
+    if (global.__BOOK_210_BOOK_SEARCH_HANDLER__) return;
+    global.__BOOK_210_BOOK_SEARCH_HANDLER__ = true;
+    document.addEventListener("input", function(event){
+      const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
+      if (!input) return;
+      const shell = input.closest(".engine-book-selection-shell") || document;
+      const q = val(input.value).toLowerCase();
+      const cards = Array.from(shell.querySelectorAll(".engine-book-card[data-kind='book']"));
+      let visible = 0;
+      cards.forEach(card => {
+        const hay = val(card.getAttribute("data-book-search") || card.textContent).toLowerCase();
+        const ok = !q || hay.includes(q);
+        card.style.display = ok ? "flex" : "none";
+        if (ok) visible += 1;
+      });
+      const count = shell.querySelector("[data-book-search-count]");
+      if (count) count.textContent = q ? `검색 결과 ${visible}권 / 전체 ${cards.length}권` : `추천 도서 ${cards.length}권 표시 중`;
+      const empty = shell.querySelector("[data-book-search-empty]");
+      if (empty) empty.style.display = visible ? "none" : "block";
+    }, true);
+  }
 
   function installBridgeBookClickHandler(){
     if (global.__BOOK_210_BOOK_CLICK_HANDLER__) return;
@@ -11320,6 +11374,7 @@
   global.__BOOK_210_FORCE_RENDER__ = function(){ return forceRenderBookArea("manual-console"); };
 
   installBridgeBookClickHandler();
+  installBookSearchHandler();
   installObserver();
   ensureEngine().then(()=>{
     [100, 300, 700, 1200].forEach(delay => setTimeout(()=>forceRenderBookArea("init-" + delay), delay));
@@ -11329,6 +11384,6 @@
   });
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function(){ installBridgeBookClickHandler(); installObserver(); });
+    document.addEventListener("DOMContentLoaded", function(){ installBridgeBookClickHandler(); installBookSearchHandler(); installObserver(); });
   }
 })(typeof window !== "undefined" ? window : globalThis);
