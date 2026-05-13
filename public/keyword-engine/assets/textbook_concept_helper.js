@@ -2248,10 +2248,10 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         <div id="engineLineBlock" class="engine-step-block" data-step="8">
           <div class="engine-step-head">
             <div>
-              <h3 class="engine-step-title">8. 보고서 라인 선택</h3>
-              <div class="engine-step-copy">보고서를 어떤 순서와 비중으로 쓸지 뼈대를 고릅니다. 같은 주제라도 라인에 따라 결과물이 달라집니다.</div>
+              <h3 class="engine-step-title">8. 결과물 수준 선택</h3>
+              <div class="engine-step-copy">수행평가 제출용 확장형 또는 심화 탐구형 중 선택합니다.</div>
             </div>
-            <div class="engine-step-guide">기본형 / 확장형 / 심화형</div>
+            <div class="engine-step-guide">확장형 / 심화형</div>
           </div>
           <div id="engineLineArea"></div>
         </div>
