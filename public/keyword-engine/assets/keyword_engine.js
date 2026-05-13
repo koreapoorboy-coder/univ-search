@@ -1,5 +1,5 @@
 
-window.__KEYWORD_ENGINE_VERSION = "admissions-v36.1-video-mode-usagepurpose-fix-gateway-generate-count-only";
+window.__KEYWORD_ENGINE_VERSION = "admissions-v37-subject-group-ui-v220";
 const WORKER_BASE_URL = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const GENERATE_ENDPOINT = window.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
 
@@ -68,9 +68,10 @@ function getFormValues(){
     sessionId:createSessionId(),
     schoolName:$("schoolName")?.value?.trim()||"",
     grade:$("grade")?.value?.trim()||"",
+    subjectGroup:$("subjectGroup")?.value?.trim()||"",
     subject:$("subject")?.value?.trim()||"",
-    taskName:$("taskName")?.value?.trim()||"",
-    taskType:$("taskType")?.value?.trim()||"",
+    taskName:$("taskName")?.value?.trim()||(($("subject")?.value?.trim()||"") + " " + ($("taskType")?.value?.trim()||"탐구보고서")).trim(),
+    taskType:$("taskType")?.value?.trim()||"탐구보고서",
     usagePurpose:$("usagePurpose")?.value?.trim()||"학생용 MINI 보고서 작성",
     taskDescription:$("taskDescription")?.value?.trim()||"",
     career:$("career")?.value?.trim()||"",
@@ -81,7 +82,7 @@ function getFormValues(){
 }
 
 function validateInput(data){
-  const required=[["schoolName","학교명"],["grade","학년"],["subject","과목"],["taskName","수행평가명"],["taskType","수행평가 형태"],["career","희망 진로"],["keyword","키워드"]];
+  const required=[["schoolName","학교명"],["grade","학년"],["subjectGroup","교과"],["subject","세부 과목"],["taskType","결과물 유형"],["career","희망 진로"],["keyword","키워드"]];
   for(const [key,label] of required){
     if(!data[key]) throw new Error(`${label}을(를) 입력해 주세요.`);
   }
@@ -767,7 +768,7 @@ async function handleGenerate(){
 }
 
 function handleReset(){
-  ["schoolName","grade","subject","taskName","taskType","usagePurpose","taskDescription","career","keyword"].forEach(id=>{
+  ["schoolName","grade","subjectGroup","subject","taskName","taskType","usagePurpose","taskDescription","career","keyword"].forEach(id=>{
     const el=$(id); if(el) el.value="";
   });
   clearError();
