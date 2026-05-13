@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v125-report-choice-directive";
+  const BUILDER_VERSION = "mini-payload-builder-v218-dongguk-performance-assessment";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -37,7 +37,7 @@
       "학과와 직접 맞지 않는 확장 참고 도서는 본문 핵심 이론이 아니라 결론 확장 또는 비교 관점으로 제한한다.",
       "학생 수준을 넘는 대학원급 수식·전문 알고리즘은 설명 중심으로 낮추어 작성한다.",
       "교과 개념 → 실제 문제 → 해결 과정 → 교과 연계 → 심화 방안의 흐름을 유지한다.",
-      "6번 전개 방식, 7번 관점, 8번 라인 선택값에 따라 같은 주제라도 서로 다른 보고서가 되도록 문단 순서와 강조점을 바꾼다.",
+      "6번 수행평가 방식, 7번 평가 관점·과정 증거, 8번 결과물 수준 선택값에 따라 같은 주제라도 수행평가 영역명·평가 의도·자료 역할·문단 구조가 달라지도록 한다.",
       "참고문헌은 보고서 내용과 연결되는 방식으로만 사용한다."
     ]
   };
@@ -659,10 +659,11 @@
     const viewInstruction = `${viewProfile.label || reportChoices.view}: ${viewProfile.focus}`;
     const lineInstruction = `${lineProfile.label}: ${lineProfile.outputGoal}. ${lineProfile.structureRule}`;
     const miniDirective = [
-      `6번 전개 방식(${modeProfile.label})은 보고서의 문단 전개 논리로 반영한다: ${modeProfile.writingStyle}.`,
-      `7번 관점(${viewProfile.label || reportChoices.view})은 질문·자료 표·결론의 해석 렌즈로 유지한다: ${viewProfile.focus}.`,
-      `8번 라인(${lineProfile.label})은 문단 수와 깊이를 결정한다: ${lineProfile.outputGoal}.`,
-      `targetStructure는 ${sections.length}개 섹션으로 구성하며, 선택값과 무관한 일반 문단으로 뭉개지지 않게 한다.`
+      `동국대 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
+      `6번 수행평가 방식(${modeProfile.label})은 영역명의 방법과 보고서 전개 논리로 반영한다: ${modeProfile.writingStyle}.`,
+      `7번 평가 관점·과정 증거(${viewProfile.label || reportChoices.view})는 질문·자료 표·결론의 해석 렌즈로 유지한다: ${viewProfile.focus}.`,
+      `8번 결과물 수준(${lineProfile.label})은 문단 수와 깊이를 결정한다: ${lineProfile.outputGoal}.`,
+      `targetStructure는 ${sections.length}개 섹션으로 구성하며, 같은 키워드가 제목·질문·결론에 반복되지 않도록 주제와 방법을 분리한다.`
     ];
     return {
       modeInstruction,
@@ -670,7 +671,57 @@
       lineInstruction,
       miniDirective,
       choiceSummary: `${modeProfile.label} + ${viewProfile.label || reportChoices.view} + ${lineProfile.label}`,
-      studentPreview: `${modeProfile.label}으로 전개하고, ${viewProfile.label || reportChoices.view}을 분석 렌즈로 삼아, ${lineProfile.label} 분량으로 작성합니다.`
+      studentPreview: `${modeProfile.label}으로 수행하고, ${viewProfile.label || reportChoices.view}을 과정 증거로 삼아, ${lineProfile.label} 수준으로 작성합니다.`
+    };
+  }
+
+  function buildPerformanceAssessmentContext(basePayload, reportChoices, targetStructure, axisRule, keywordFrame){
+    const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
+    const viewProfile = VIEW_PROFILES[reportChoices.view] || { label: reportChoices.view || "평가 관점", focus: "자료 해석 과정이 드러나도록 한다." };
+    const lineProfile = LINE_PROFILES[reportChoices.line] || LINE_PROFILES.standard;
+    const concept = basePayload.selectedConcept || "선택 교과 개념";
+    const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
+    const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
+    return {
+      version: "dongguk-performance-assessment-v218",
+      principle: "수행평가 영역명 = 주제(내용) × 방법",
+      content: {
+        source: "3번 교과 개념 + 추천 키워드",
+        concept,
+        keyword,
+        normalizedContent: `${concept} / ${keyword}`
+      },
+      method: {
+        source: "4번 후속 연계축 + 6번 수행평가 방식",
+        followupAxis: axis,
+        reportMode: reportChoices.mode,
+        reportModeLabel: reportChoices.modeLabel,
+        methodInstruction: modeProfile.writingStyle
+      },
+      evidence: {
+        source: "7번 평가 관점·과정 증거",
+        reportView: reportChoices.view,
+        reportViewLabel: reportChoices.viewLabel,
+        evidenceFocus: viewProfile.focus
+      },
+      outputLevel: {
+        source: "8번 결과물 수준",
+        reportLine: reportChoices.line,
+        reportLineLabel: reportChoices.lineLabel,
+        structureRule: lineProfile.structureRule,
+        sectionCount: arr(targetStructure).length
+      },
+      dataRole: {
+        axisWritingPattern: axisRule?.writingPattern || "자료를 기준-비교-해석-한계 순서로 사용한다.",
+        keywordProblemContext: keywordFrame?.problemContext || "선택 키워드를 실제 문제로 확장한다."
+      },
+      dedupeRules: [
+        "제목에서 같은 명사구를 반복하지 않는다.",
+        "주제(내용)는 한 번만 제시하고, 방법은 동사형으로 붙인다.",
+        "학과명은 반복하지 말고 전공 사고방식으로 바꾼다.",
+        "수행평가 방식과 평가 관점을 분리해 MINI에 전달한다."
+      ],
+      miniInstruction: `주제는 ${concept}·${keyword}에서 가져오고, 방법은 ${reportChoices.modeLabel}으로, 과정 증거는 ${reportChoices.viewLabel}으로 구성한다.`
     };
   }
 
@@ -684,6 +735,7 @@
     const targetStructure = buildTargetStructure(reportChoices);
     const sectionPurpose = buildSectionPurpose(targetStructure, basePayload, reportChoices, axisRule, keywordFrame, examplePattern);
     const choiceInstruction = buildReportChoiceInstruction(reportChoices, targetStructure);
+    const performanceAssessment = buildPerformanceAssessmentContext(basePayload, reportChoices, targetStructure, axisRule, keywordFrame);
     const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
     const lineProfile = LINE_PROFILES[reportChoices.line] || LINE_PROFILES.standard;
     const viewProfile = VIEW_PROFILES[reportChoices.view] || null;
@@ -710,6 +762,7 @@
         bestFor: selectedBookContext.bestFor
       } : null,
       reportChoices,
+      performanceAssessment,
       reportChoiceInstruction: choiceInstruction,
       reportChoiceMiniDirective: choiceInstruction.miniDirective,
       reportModeProfile: modeProfile,
@@ -718,9 +771,9 @@
       examplePattern,
       reportExamplePatternVersion: EXAMPLE_PATTERNS.version,
       writingRules: REPORT_CONTEXT_RULES.miniWritingRules.concat(choiceInstruction.miniDirective).concat([
-        `보고서 전개 방식은 '${reportChoices.modeLabel}'로 작성한다.`,
-        `보고서 관점은 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
-        `보고서 라인은 '${reportChoices.lineLabel}' 구조를 따른다.`,
+        `수행평가 방식은 '${reportChoices.modeLabel}'로 작성한다.`,
+        `평가 관점·과정 증거는 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
+        `결과물 수준은 '${reportChoices.lineLabel}' 구조를 따른다.`,
         `참고 패턴은 '${examplePattern.label}' 유형을 따르되, 원문을 복사하지 않고 선택 개념·키워드에 맞게 재구성한다.`
       ]),
       operatorOnly: {
@@ -770,10 +823,13 @@
         reportIntent: payload.reportIntent || "",
         reportMode: rawChoices.mode,
         reportModeLabel: rawChoices.modeLabel,
+        performanceMethod: rawChoices.modeLabel,
         reportView: rawChoices.view,
         reportViewLabel: rawChoices.viewLabel,
+        performanceEvidence: rawChoices.viewLabel,
         reportLine: rawChoices.line,
-        reportLineLabel: rawChoices.lineLabel
+        reportLineLabel: rawChoices.lineLabel,
+        performanceOutputLevel: rawChoices.lineLabel
       },
       selectedBook: selectedBook ? {
         managementNo: selectedBook.managementNo,
