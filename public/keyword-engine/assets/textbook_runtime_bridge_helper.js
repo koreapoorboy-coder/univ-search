@@ -372,7 +372,7 @@ window.__TEXTBOOK_RUNTIME_BRIDGE_HELPER_VERSION = "v1.1.7-cell-metabolism-alias"
     if (!ok) return;
 
     const rerender = debounce(renderAll, 120);
-    ["subject", "career", "taskType", "grade", "taskName"].forEach(id => {
+    ["subjectGroup", "subject", "career", "taskType", "grade", "taskName"].forEach(id => {
       const el = $(id);
       if (!el) return;
       el.addEventListener("change", rerender);
