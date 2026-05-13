@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v220-dongguk-performance-method-evidence";
+  const VERSION = "report-6-8-flow-bridge-v222-book-optional-performance-method-evidence";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -204,6 +204,45 @@
     return !!getSelectedBookFallback(payload);
   }
 
+  function getBookUsageMode(ctx){
+    const hasBook = !!(ctx && ctx.selectedBook);
+    let raw = "";
+    try { raw = String(global.__BOOK_USAGE_MODE__ || localStorage.getItem("ke.bookUsageMode.v222") || "").trim(); } catch(error) { raw = String(global.__BOOK_USAGE_MODE__ || "").trim(); }
+    if (!raw) raw = hasBook ? "useBook" : "noBook";
+    if (/^(useBook|book|use|도서활용|도서 사용)$/i.test(raw)) return hasBook ? "useBook" : "needBook";
+    return "noBook";
+  }
+
+  function shouldUseBook(ctx){
+    return getBookUsageMode(ctx) === "useBook" && !!(ctx && ctx.selectedBook);
+  }
+
+  function setBookUsageMode(mode){
+    const next = mode === "useBook" ? "useBook" : "noBook";
+    global.__BOOK_USAGE_MODE__ = next;
+    try { localStorage.setItem("ke.bookUsageMode.v222", next); } catch(error) {}
+  }
+
+  function renderBookUsageToggle(ctx){
+    const mode = getBookUsageMode(ctx);
+    const hasBook = !!ctx.selectedBook;
+    const bookTitle = ctx.selectedBook?.title || "선택 도서";
+    const useActive = mode === "useBook";
+    const noActive = mode !== "useBook";
+    return `
+      <div class="report-choice-book-toggle" data-book-usage-box="1">
+        <div class="report-choice-book-toggle-title">5번 도서 활용 여부</div>
+        <div class="report-choice-book-toggle-row">
+          <button type="button" class="report-choice-book-toggle-btn ${noActive ? "is-active" : ""}" data-action="book-usage" data-value="noBook">도서 없이 진행</button>
+          <button type="button" class="report-choice-book-toggle-btn ${useActive ? "is-active" : ""}" data-action="book-usage" data-value="useBook" ${hasBook ? "" : "disabled"}>선택 도서 활용${hasBook ? `: ${esc(bookTitle)}` : ""}</button>
+        </div>
+        <div class="report-choice-book-toggle-desc">
+          ${hasBook ? "도서를 활용해도 되고, 도서 없이 공공자료·통계·기사·실험자료 중심으로 수행평가를 설계할 수도 있습니다." : "도서를 넣지 않는 수행평가는 ‘도서 없이 진행’을 선택한 상태로 6~8번을 바로 설계합니다. 도서가 필요한 수행평가라면 5번에서 책을 선택하면 됩니다."}
+        </div>
+      </div>
+    `;
+  }
+
   function setStepHead(blockId, title, copy, guide){
     const block = q(blockId);
     if (!block) return;
@@ -232,6 +271,12 @@
       .report-choice-operator-card { border:1px solid #e0e7f3; border-radius:12px; background:#fff; padding:10px; font-size:12px; color:#475569; line-height:1.55; }
       .report-choice-operator-title { font-weight:900; color:#111827; margin-bottom:5px; }
       .report-choice-pre { max-height:220px; overflow:auto; white-space:pre-wrap; background:#111827; color:#f8fafc; border-radius:12px; padding:10px; font-size:12px; line-height:1.55; margin-top:10px; }
+      .report-choice-book-toggle { margin-bottom:12px; padding:12px 14px; border:1px solid #d9e4fb; border-radius:16px; background:#f8fbff; }
+      .report-choice-book-toggle-title { font-weight:900; color:#172033; margin-bottom:8px; }
+      .report-choice-book-toggle-row { display:flex; flex-wrap:wrap; gap:8px; }
+      .report-choice-book-toggle-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:8px 12px; font-size:12px; font-weight:900; cursor:pointer; }
+      .report-choice-book-toggle-btn.is-active { background:#2f66ff; color:#fff; border-color:#2f66ff; }
+      .report-choice-book-toggle-desc { margin-top:8px; color:#52617b; font-size:13px; line-height:1.55; }
       .report-choice-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
       .report-choice-btn { border:1px solid #b8c8ee; background:#fff; color:#275fe8; border-radius:999px; padding:8px 12px; font-size:12px; font-weight:900; cursor:pointer; }
       .report-choice-btn.primary { background:#2f66ff; color:#fff; border-color:#2f66ff; }
@@ -303,6 +348,9 @@
         return ai - bi;
       });
     }
+    if (!shouldUseBook(ctx)) {
+      return merged.filter(item => item.id !== "book");
+    }
     return merged;
   }
 
@@ -320,17 +368,14 @@
   function renderModeArea(ctx){
     const el = q("engineModeButtons");
     if (!el) return;
-    if (!hasSelectedBook(ctx.payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번에서 도서를 선택해야 수행평가 방식을 고를 수 있습니다.</div>`;
-      return;
-    }
     const options = modeOptions(ctx);
     const recommended = recommendedModeId(ctx, options);
     const active = ctx.state.reportMode || "";
-    const key = `${VERSION}:mode:${active}:${recommended}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${options.map(o=>o.id).join(",")}`;
+    const key = `${VERSION}:mode:${active}:${recommended}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${getBookUsageMode(ctx)}:${options.map(o=>o.id).join(",")}`;
     if (el.getAttribute("data-report-choice-key") === key) return;
     el.setAttribute("data-report-choice-key", key);
     el.innerHTML = `
+      ${renderBookUsageToggle(ctx)}
       <div class="engine-mode-grid">${options.map(option => {
         const guide = modeDirective(option.id);
         return `
@@ -340,7 +385,7 @@
           <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 작성 흐름: ${esc(guide.mini)}</div>
         </button>
       `}).join("")}</div>
-      <div class="report-choice-note">6번은 단어 태그가 아니라 <b>수행평가 방법</b>입니다. 선택값은 동국대식 ‘주제(내용) × 방법’ 구조에서 방법에 해당하며, MINI에는 작성 흐름·비교표 기준·문단 순서로 함께 전달됩니다.</div>
+      <div class="report-choice-note">6번은 단어 태그가 아니라 <b>수행평가 방법</b>입니다. 도서 활용은 선택값이며, 도서를 사용하지 않는 경우 MINI에는 공공자료·통계·기사·실험자료 중심의 수행평가 구조로 전달됩니다.</div>
     `;
   }
 
@@ -371,10 +416,6 @@
   function renderViewArea(ctx){
     const el = q("engineViewButtons");
     if (!el) return;
-    if (!hasSelectedBook(ctx.payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번 도서를 선택해 주세요.</div>`;
-      return;
-    }
     if (!ctx.state.reportMode) {
       el.innerHTML = `<div class="engine-empty">먼저 6번에서 수행평가 방식을 선택하면 평가 관점·과정 증거 선택이 열립니다.</div>`;
       return;
@@ -409,10 +450,6 @@
   function renderLineArea(ctx){
     const el = q("engineLineArea");
     if (!el) return;
-    if (!hasSelectedBook(ctx.payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번 도서를 선택해 주세요.</div>`;
-      return;
-    }
     if (!ctx.state.reportMode || !ctx.state.reportView) {
       el.innerHTML = `<div class="engine-empty">먼저 6번 전개 방식과 7번 관점을 선택하면 결과물 라인을 고를 수 있습니다.</div>`;
       return;
@@ -475,7 +512,7 @@
             개념: ${esc(ctx.concept || "-")}<br>
             키워드: ${esc(ctx.keyword || "-")}<br>
             후속축: ${esc(ctx.axis || "-")}<br>
-            도서: ${esc(ctx.selectedBook?.title || "-")}
+            도서 활용: ${shouldUseBook(ctx) ? esc(ctx.selectedBook?.title || "-") : "사용하지 않음"}
           </div>
           <div class="report-choice-operator-card">
             <div class="report-choice-operator-title">6~8번 선택값</div>
@@ -486,8 +523,8 @@
             섹션 수: ${sections.length}
           </div>
           <div class="report-choice-operator-card">
-            <div class="report-choice-operator-title">도서 활용 위치</div>
-            ${esc(arr(bookUse.reportRoleLabels).join(" / ") || bookUse.recommendationReason || "-")}
+            <div class="report-choice-operator-title">자료 활용 방식</div>
+            ${shouldUseBook(ctx) ? esc(arr(bookUse.reportRoleLabels).join(" / ") || bookUse.recommendationReason || "선택 도서를 근거·관점 자료로 활용") : "도서 없이 공공자료·통계·기사·실험자료 중심으로 구성"}
           </div>
           <div class="report-choice-operator-card">
             <div class="report-choice-operator-title">targetStructure</div>
@@ -519,7 +556,7 @@
       `교과 개념: ${s.selectedConcept || "-"}`,
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || "-"}`,
       `후속 연계축: ${s.selectedFollowupAxis || s.followupAxis || "-"}`,
-      `선택 도서: ${p.selectedBook?.title || "-"}`,
+      `도서 활용: ${shouldUseBook(ctx) ? (p.selectedBook?.title || "선택 도서") : "사용하지 않음"}`,
       `수행평가 방식: ${choices.modeLabel || s.reportMode || "-"}`,
       `평가 관점·과정 증거: ${choices.viewLabel || normalizeViewName(s.reportView) || "-"}`,
       `결과물 수준: ${choices.lineLabel || s.reportLine || "-"}`,
@@ -551,6 +588,14 @@
     if (global.__REPORT_6_8_COPY_HANDLER_V27__) return;
     global.__REPORT_6_8_COPY_HANDLER_V27__ = true;
     document.addEventListener("click", async function(event){
+      const bookUsageBtn = event.target && event.target.closest ? event.target.closest("[data-action='book-usage']") : null;
+      if (bookUsageBtn) {
+        event.preventDefault();
+        setBookUsageMode(bookUsageBtn.getAttribute("data-value") || "noBook");
+        try { if (global.MiniReportPayloadBuilder && typeof global.MiniReportPayloadBuilder.buildMiniPayload === "function") global.__REPORT_6_8_LAST_PAYLOAD__ = global.MiniReportPayloadBuilder.buildMiniPayload(); } catch(e) {}
+        apply();
+        return;
+      }
       const btn = event.target && event.target.closest ? event.target.closest("[data-report-copy]") : null;
       if (!btn) return;
       event.preventDefault();
@@ -567,11 +612,7 @@
   function renderOperatorPanel(ctx){
     const payloadEl = q("engineMiniPayload");
     if (!payloadEl) return;
-    if (!hasSelectedBook(ctx.payload)) {
-      payloadEl.innerHTML = `<strong>MINI 전달 구조</strong><br>5번 도서 선택 후 운영/분석용 payload가 준비됩니다.`;
-      return;
-    }
-    const key = `${VERSION}:operator:${ctx.state.reportMode}:${ctx.state.reportView}:${ctx.state.reportLine}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${arr(ctx.ctx?.targetStructure).join(">")}`;
+    const key = `${VERSION}:operator:${ctx.state.reportMode}:${ctx.state.reportView}:${ctx.state.reportLine}:${ctx.keyword}:${ctx.axis}:${ctx.selectedBook?.title || ""}:${getBookUsageMode(ctx)}:${arr(ctx.ctx?.targetStructure).join(">")}`;
     if (payloadEl.getAttribute("data-report-choice-key") === key) return;
     payloadEl.setAttribute("data-report-choice-key", key);
     payloadEl.innerHTML = operatorSummaryHTML(ctx);
@@ -580,11 +621,11 @@
   }
 
   function applyLocks(ctx){
-    const readyBook = hasSelectedBook(ctx.payload);
+    const readyBase = !!(ctx.subject && ctx.concept && ctx.keyword && ctx.axis);
     const blocks = [
-      ["engineModeBlock", readyBook],
-      ["engineViewBlock", readyBook && !!ctx.state.reportMode],
-      ["engineLineBlock", readyBook && !!ctx.state.reportMode && !!ctx.state.reportView]
+      ["engineModeBlock", readyBase],
+      ["engineViewBlock", readyBase && !!ctx.state.reportMode],
+      ["engineLineBlock", readyBase && !!ctx.state.reportMode && !!ctx.state.reportView]
     ];
     blocks.forEach(([id, open]) => {
       const block = q(id);
@@ -605,7 +646,7 @@
       setStepHead(
         "engineModeBlock",
         "6. 수행평가 방식 선택",
-        "같은 교과 개념과 도서라도 어떤 방법으로 수행했는지에 따라 수행평가 영역명과 보고서 방향이 달라집니다.",
+        "같은 교과 개념이라도 어떤 방법으로 수행했는지에 따라 수행평가 영역명과 보고서 방향이 달라집니다. 도서 활용은 선택입니다.",
         "설명하기 / 비교 분석하기 / 자료 분석하기"
       );
       setStepHead(
@@ -650,7 +691,7 @@
   global.__REPORT_6_8_APPLY__ = apply;
   global.__DIAGNOSE_REPORT_6_8_V33__ = function(){
     const ctx = buildContext();
-    return { version: VERSION, hasSelectedBook: hasSelectedBook(ctx.payload), selectedBook: ctx.selectedBook, reportMode: ctx.state.reportMode || "", reportView: normalizeViewName(ctx.state.reportView || ""), reportLine: ctx.state.reportLine || "", payload: ctx.payload };
+    return { version: VERSION, bookUsageMode: getBookUsageMode(ctx), useBook: shouldUseBook(ctx), hasSelectedBook: hasSelectedBook(ctx.payload), selectedBook: ctx.selectedBook, reportMode: ctx.state.reportMode || "", reportView: normalizeViewName(ctx.state.reportView || ""), reportLine: ctx.state.reportLine || "", payload: ctx.payload };
   };
 
   if (document.readyState === "loading") {
