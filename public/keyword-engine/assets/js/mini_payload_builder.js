@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const BUILDER_VERSION = "mini-payload-builder-v222-book-optional-dongguk-performance-assessment";
+  const BUILDER_VERSION = "mini-payload-builder-v228-secondary-expansion-context";
   global.__MINI_PAYLOAD_BUILDER_VERSION__ = BUILDER_VERSION;
 
   const REPORT_CONTEXT_RULES = {
@@ -159,6 +159,55 @@
       structureRule: "교과 개념, 문제 해결, 이론적 연결, 심화 탐구, 참고문헌을 모두 포함한다."
     }
   };
+
+
+  const SECONDARY_EXPANSION_PATHS = [
+    {
+      id: "principle-analysis",
+      label: "원리 분석형",
+      shortLabel: "원리",
+      purpose: "교과 개념이 왜 작동하는지 원리와 조건을 먼저 설명하는 방향",
+      evidenceTypes: ["교과서 개념 정리", "공식 설명 자료", "원리 적용 사례"],
+      structure: ["개념 원리", "작동 조건", "사례 적용", "한계"],
+      studentInput: ["수업에서 배운 핵심 개념", "원리가 드러나는 사례", "내가 이해한 원리 설명"]
+    },
+    {
+      id: "case-comparison",
+      label: "사례 비교형",
+      shortLabel: "비교",
+      purpose: "두 사례·조건·관점을 비교해 차이와 판단 기준을 만드는 방향",
+      evidenceTypes: ["사례 A", "사례 B", "비교 기준 자료"],
+      structure: ["비교 기준", "사례 A", "사례 B", "차이 해석"],
+      studentInput: ["비교할 대상 2개", "비교 기준", "차이를 해석한 내 생각"]
+    },
+    {
+      id: "data-evidence",
+      label: "자료 해석형",
+      shortLabel: "자료",
+      purpose: "통계·기사·실험값·그래프를 근거로 해석하고 결론을 검증하는 방향",
+      evidenceTypes: ["통계 자료", "그래프 또는 표", "기사·공공자료"],
+      structure: ["자료 출처", "변수·기준", "자료 해석", "자료 한계"],
+      studentInput: ["자료 제목과 출처", "자료에서 확인한 수치", "내가 해석한 의미"]
+    },
+    {
+      id: "social-meaning",
+      label: "사회적 의미형",
+      shortLabel: "사회",
+      purpose: "교과 개념을 윤리·정책·공동체 영향·사회 문제와 연결하는 방향",
+      evidenceTypes: ["사회 쟁점 사례", "정책·제도 자료", "이해관계자 관점"],
+      structure: ["문제 상황", "영향 받는 대상", "사회적 의미", "대응 방향"],
+      studentInput: ["관련 사회 문제", "영향을 받는 대상", "내가 생각한 대응 방향"]
+    },
+    {
+      id: "followup-inquiry",
+      label: "후속 탐구형",
+      shortLabel: "후속",
+      purpose: "현재 탐구의 한계를 찾고 다음 실험·조사·비교로 이어가는 방향",
+      evidenceTypes: ["현재 자료의 한계", "추가로 필요한 자료", "후속 실험·조사 계획"],
+      structure: ["현재 결론", "부족한 점", "추가 자료", "다음 탐구"],
+      studentInput: ["현재 탐구에서 부족한 점", "추가로 확인하고 싶은 자료", "다음 탐구 질문"]
+    }
+  ];
 
   const SECTION_TEMPLATES = {
     "중요성": { prompt: "{keyword}는 {department}와 연결될 때 단순한 교과 개념이 아니라 실제 기술·사회 문제를 해결하는 핵심 주제로 확장된다." },
@@ -693,6 +742,80 @@
     return getBookUsageMode(selectedBook) === "useBook" && hasRealSelectedBook(selectedBook);
   }
 
+
+  function buildSecondaryExpansionContext(basePayload, reportChoices, axisRule, keywordFrame, selectedBookContext){
+    const concept = basePayload.selectedConcept || "선택 교과 개념";
+    const keyword = basePayload.selectedRecommendedKeyword || basePayload.selectedKeyword || "선택 키워드";
+    const axis = basePayload.followupAxis || basePayload.selectedFollowupAxis || "후속 연계축";
+    const department = basePayload.department || "선택 진로 분야";
+    const subject = basePayload.subject || "선택 과목";
+    const modeLabel = reportChoices.modeLabel || reportChoices.mode || "수행평가 방식";
+    const viewLabel = reportChoices.viewLabel || reportChoices.view || "평가 관점";
+    const lineLabel = reportChoices.lineLabel || reportChoices.line || "결과물 수준";
+    const bookTitle = selectedBookContext && selectedBookContext.title ? selectedBookContext.title : "";
+
+    const textForRecommend = `${modeLabel} ${viewLabel} ${lineLabel} ${axis} ${keyword} ${concept}`;
+    let recommendedPathId = "data-evidence";
+    if(/원리|설명|구조|기능/.test(textForRecommend)) recommendedPathId = "principle-analysis";
+    if(/비교|대조|차이/.test(textForRecommend)) recommendedPathId = "case-comparison";
+    if(/자료|데이터|통계|그래프|측정|모델/.test(textForRecommend)) recommendedPathId = "data-evidence";
+    if(/사회|윤리|정책|공동체|의미|쟁점/.test(textForRecommend)) recommendedPathId = "social-meaning";
+    if(/심화|후속|한계|추가/.test(textForRecommend)) recommendedPathId = "followup-inquiry";
+
+    const paths = SECONDARY_EXPANSION_PATHS.map((path, index) => {
+      const question = path.id === "principle-analysis"
+        ? `${keyword}는 ${concept}의 어떤 원리와 조건으로 설명할 수 있을까?`
+        : path.id === "case-comparison"
+          ? `${keyword}를 두 사례나 조건으로 비교하면 어떤 차이가 드러날까?`
+          : path.id === "data-evidence"
+            ? `${keyword}는 자료에서 어떤 수치·변화·패턴으로 확인할 수 있을까?`
+            : path.id === "social-meaning"
+              ? `${keyword}는 실제 사회 문제나 공동체에 어떤 의미를 가질까?`
+              : `이번 탐구의 한계를 보완하려면 다음에는 무엇을 더 확인해야 할까?`;
+      return {
+        rank: index + 1,
+        id: path.id,
+        label: path.label,
+        shortLabel: path.shortLabel,
+        isRecommended: path.id === recommendedPathId,
+        purpose: path.purpose,
+        question,
+        evidenceTypes: path.evidenceTypes,
+        paragraphStructure: path.structure,
+        studentInput: path.studentInput,
+        reportDifferentiation: `${path.label}을 선택하면 같은 1차 설계값이라도 질문, 자료, 본론 구조, 결론 방향이 달라진다.`,
+        aiPromptGuide: [
+          `아래 1차 탐구 설계값을 바탕으로 '${path.label}' 방향의 수행평가 보고서 초안 구조를 만들어줘.`,
+          "보고서를 바로 완성하지 말고, 문단별 작성 방향과 내가 직접 채워야 할 자료·해석 칸을 제시해줘.",
+          `반드시 ${concept}, ${keyword}, ${axis}의 연결 이유가 보이게 해줘.`
+        ].join(" ")
+      };
+    });
+
+    return {
+      version: "secondary-expansion-context-v228",
+      purpose: "1차 선택값을 그대로 보고서로 만들지 않고, 2차 확장 방향을 학생이 다시 선택하게 하여 중복성을 낮추는 구조",
+      principle: "1차 데이터 = 공통 뼈대 / 2차 확장 방향 = 분기점 / 학생 자료 = 개인화 근거 / 3차 초안 = 최종 문단화",
+      sourceSelection: { subject, department, concept, keyword, followupAxis: axis, reportMode: modeLabel, reportView: viewLabel, reportLine: lineLabel, selectedBookTitle: bookTitle },
+      recommendedPathId,
+      paths,
+      studentRequiredInputs: [
+        "내가 선택할 2차 확장 방향 1개",
+        "내가 직접 찾은 자료 제목과 출처",
+        "자료에서 확인한 수치·사례·문장",
+        "수업에서 배운 교과 개념과 연결한 내 설명",
+        "보고서 결론에서 말하고 싶은 나의 해석"
+      ],
+      aiReuseWorkflow: [
+        "1단계: 1차 설계값의 연결성 점검",
+        "2단계: 2차 확장 방향 1개 선택",
+        "3단계: 선택 방향에 맞는 자료 찾기",
+        "4단계: ChatGPT에는 보고서 대필이 아니라 선택 방향 기반 초안 구조화를 요청",
+        "5단계: 학생 초안 작성 후 첨삭 요청"
+      ]
+    };
+  }
+
   function buildPerformanceAssessmentContext(basePayload, reportChoices, targetStructure, axisRule, keywordFrame){
     const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
     const viewProfile = VIEW_PROFILES[reportChoices.view] || { label: reportChoices.view || "평가 관점", focus: "자료 해석 과정이 드러나도록 한다." };
@@ -758,6 +881,7 @@
     const sectionPurpose = buildSectionPurpose(targetStructure, basePayload, reportChoices, axisRule, keywordFrame, examplePattern);
     const choiceInstruction = buildReportChoiceInstruction(reportChoices, targetStructure);
     const performanceAssessment = buildPerformanceAssessmentContext(basePayload, reportChoices, targetStructure, axisRule, keywordFrame);
+    const secondaryExpansionContext = buildSecondaryExpansionContext(basePayload, reportChoices, axisRule, keywordFrame, selectedBookContext);
     const modeProfile = MODE_PROFILES[reportChoices.mode] || MODE_PROFILES.principle;
     const lineProfile = LINE_PROFILES[reportChoices.line] || LINE_PROFILES.standard;
     const viewProfile = VIEW_PROFILES[reportChoices.view] || null;
@@ -788,6 +912,8 @@
       } : null,
       reportChoices,
       performanceAssessment,
+      secondaryExpansionContext,
+      secondaryExpansionMode: "path-selection-before-draft",
       reportChoiceInstruction: choiceInstruction,
       reportChoiceMiniDirective: choiceInstruction.miniDirective,
       reportModeProfile: modeProfile,
@@ -801,7 +927,10 @@
         `수행평가 방식은 '${reportChoices.modeLabel}'로 작성한다.`,
         `평가 관점·과정 증거는 '${reportChoices.viewLabel}'을 중심으로 유지한다.`,
         `결과물 수준은 '${reportChoices.lineLabel}' 구조를 따른다.`,
-        `참고 패턴은 '${examplePattern.label}' 유형을 따르되, 원문을 복사하지 않고 선택 개념·키워드에 맞게 재구성한다.`
+        `참고 패턴은 '${examplePattern.label}' 유형을 따르되, 원문을 복사하지 않고 선택 개념·키워드에 맞게 재구성한다.`,
+        "1차 설계값을 바로 완성 보고서로 만들지 말고, 2차 확장 방향 후보를 제시한 뒤 학생이 선택한 방향에 맞춰 초안을 구조화한다.",
+        "2차 확장 방향은 원리 분석형, 사례 비교형, 자료 해석형, 사회적 의미형, 후속 탐구형 중에서 선택하게 한다."
+      
       ]),
       operatorOnly: {
         payloadUse: "이 객체는 학생 화면 출력이 아니라 MINI 보고서 생성을 위한 내부 구조 데이터이다.",
