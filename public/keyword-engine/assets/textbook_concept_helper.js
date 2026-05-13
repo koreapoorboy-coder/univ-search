@@ -1881,8 +1881,20 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         background: #fff;
       }
       .engine-step-block.locked {
-        opacity: .55;
-        background: #fbfcfe;
+        opacity: 1;
+        background: #f8fafc;
+        border-color:#e2e8f0;
+      }
+      .engine-step-block.locked .engine-step-head {
+        opacity:.78;
+      }
+      .engine-step-block[data-step="4"] {
+        border-color:#bfdbfe;
+        background:#ffffff;
+      }
+      .engine-step-block[data-step="4"] .engine-step-copy {
+        color:#b91c1c;
+        font-weight:800;
       }
       .engine-step-head {
         display:flex;
@@ -1915,17 +1927,46 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         margin-top: 12px;
       }
       .engine-concept-card {
-        border: 1px solid #d5deef;
+        border: 2px solid #bfdbfe;
         background:#fff;
         border-radius: 16px;
         padding: 16px;
         text-align:left;
         cursor:pointer;
         transition: all .18s ease;
+        box-shadow:0 1px 0 rgba(37,99,235,.04);
       }
-      .engine-concept-card:hover { border-color:#b6c7ef; transform: translateY(-1px); }
-      .engine-concept-card.is-active { border-color:#2764ff; box-shadow: 0 0 0 2px rgba(39, 100, 255, .08); background:#f7faff; }
+      .engine-concept-card:hover {
+        border-color:#ef4444;
+        transform: translateY(-1px);
+        box-shadow:0 0 0 3px rgba(239,68,68,.10);
+        background:#fff7f7;
+      }
+      .engine-concept-card.is-active {
+        border-color:#2563eb;
+        box-shadow: 0 0 0 4px rgba(37,99,235,.16);
+        background:#eff6ff;
+      }
       .engine-concept-card.is-secondary { background:#ffffff; }
+      .engine-select-badge {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom:10px;
+        padding:5px 10px;
+        border-radius:999px;
+        border:1px solid #fecaca;
+        background:#fee2e2;
+        color:#b91c1c;
+        font-size:12px;
+        font-weight:900;
+        letter-spacing:-.01em;
+      }
+      .engine-concept-card.is-active .engine-select-badge {
+        border-color:#2563eb;
+        background:#2563eb;
+        color:#fff;
+      }
       .engine-concept-toggle-row {
         display:flex;
         align-items:center;
@@ -1954,9 +1995,23 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         display:inline-flex; align-items:center; gap:4px; padding:7px 11px; border-radius:999px;
         background:#f1f5fd; color:#304666; font-size:13px; font-weight:700; border:1px solid transparent;
       }
-      button.engine-chip { cursor:pointer; }
-      button.engine-chip:hover { border-color:#b8c8ee; }
-      button.engine-chip.is-active { background:#2f66ff; color:#fff; }
+      button.engine-chip {
+        cursor:pointer;
+        border-color:#bfdbfe;
+        background:#eff6ff;
+        color:#1d4ed8;
+      }
+      button.engine-chip:hover {
+        border-color:#ef4444;
+        background:#fff1f2;
+        color:#991b1b;
+      }
+      button.engine-chip.is-active {
+        background:#2563eb;
+        color:#fff;
+        border-color:#2563eb;
+        box-shadow:0 0 0 3px rgba(37,99,235,.16);
+      }
       .engine-mini-tag.subtle, .engine-tag.subtle { background:#f7f9fd; color:#61708c; }
       .engine-subgrid {
         display:grid;
@@ -1965,10 +2020,31 @@ window.__TEXTBOOK_CONCEPT_HELPER_VERSION__ = window.__TEXTBOOK_CONCEPT_HELPER_VE
         margin-top: 14px;
       }
       .engine-panel {
-        border:1px solid #e0e6f3;
+        border:2px solid #bfdbfe;
         border-radius:16px;
         padding:16px;
-        background:#fbfcff;
+        background:#fbfdff;
+      }
+      .engine-subgrid .engine-panel:nth-child(2) {
+        border-color:#fecaca;
+        background:#fffafa;
+      }
+      .engine-choice-alert {
+        margin:0 0 12px;
+        padding:12px 14px;
+        border-radius:14px;
+        border:1px solid #fecaca;
+        background:#fff1f2;
+        color:#991b1b;
+        font-size:14px;
+        font-weight:900;
+        line-height:1.55;
+        word-break:keep-all;
+      }
+      .engine-choice-alert.blue {
+        border-color:#93c5fd;
+        background:#eff6ff;
+        color:#1d4ed8;
       }
       .engine-track-grid {
         display:grid;
@@ -12473,13 +12549,19 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       </div>
     ` : "";
 
-    conceptWrap.innerHTML = `<div class="engine-concept-grid">${displayConcepts.map(item => {
+    const conceptChoiceGuide = state.concept
+      ? `<div class="engine-choice-alert blue">선택된 교과 개념: <strong>${escapeHtml(state.concept)}</strong> · 이제 오른쪽에서 탐구 방향 키워드를 선택하세요.</div>`
+      : `<div class="engine-choice-alert">먼저 아래 교과 개념 카드 중 수행평가에서 다루고 싶은 개념을 선택하세요.</div>`;
+
+    conceptWrap.innerHTML = `${conceptChoiceGuide}<div class="engine-concept-grid">${displayConcepts.map(item => {
       const tags = getKeywordList(item.value).slice(0, 4).map(tag => `<span class="engine-mini-tag">${escapeHtml(tag)}</span>`).join("");
       const why = item.reasons[0] || "추천 개념";
       const alias = getConceptFriendlyLabel(item.concept);
       const isPrimary = primaryConceptNames.has(item.concept);
+      const isActiveConcept = state.concept === item.concept;
       return `
-        <button type="button" class="engine-concept-card ${state.concept === item.concept ? "is-active" : ""} ${isPrimary ? "" : "is-secondary"}" data-concept="${escapeHtml(item.concept)}">
+        <button type="button" class="engine-concept-card ${isActiveConcept ? "is-active" : ""} ${isPrimary ? "" : "is-secondary"}" data-concept="${escapeHtml(item.concept)}">
+          <div class="engine-select-badge">${isActiveConcept ? "선택됨" : "선택하세요"}</div>
           <div class="engine-concept-name">${escapeHtml(item.concept)} ${state.showAllConcepts ? `<span class="engine-mini-tag" style="margin-left:6px;">${isPrimary ? "추천" : "직접 선택"}</span>` : ""}</div>
           ${alias ? `<div class="engine-help" style="margin-top:6px; color:#275fe8; font-weight:700;">${escapeHtml(alias)}</div>` : ""}
           <div class="engine-help" style="margin-top:8px;">${escapeHtml(why)}</div>
@@ -12489,7 +12571,7 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
     }).join("")}</div>${conceptToggleHtml}`;
 
     if (!state.concept) {
-      keywordWrap.innerHTML = `<div class="engine-empty">왼쪽에서 교과 개념을 먼저 고르면 해당 개념의 키워드가 열립니다.</div>`;
+      keywordWrap.innerHTML = `<div class="engine-choice-alert">먼저 왼쪽 교과 개념을 선택하세요. 선택하면 이곳에 탐구 방향 키워드가 열립니다.</div><div class="engine-empty">교과 개념 선택 대기 중입니다.</div>`;
       return;
     }
 
@@ -12500,7 +12582,12 @@ if (state.subject === "확률과 통계" && !isDataScienceMajorSelectedContext()
       return;
     }
 
+    const keywordChoiceGuide = state.keyword
+      ? `<div class="engine-choice-alert blue">선택된 탐구 키워드: <strong>${escapeHtml(state.keyword)}</strong></div>`
+      : `<div class="engine-choice-alert">이제 아래 탐구 방향 키워드 중 하나를 선택하세요.</div>`;
+
     keywordWrap.innerHTML = `
+      ${keywordChoiceGuide}
       <div class="engine-help">선택 개념: <strong>${escapeHtml(state.concept)}</strong> · 아래 키워드를 고르면 그 개념이 이어질 후속 과목 축이 열립니다.</div>
       <div class="engine-chip-wrap">${keywords.map(keyword => `
         <button type="button" class="engine-chip ${state.keyword === keyword ? "is-active" : ""}" data-action="keyword" data-value="${escapeHtml(keyword)}">${escapeHtml(keyword)}</button>
