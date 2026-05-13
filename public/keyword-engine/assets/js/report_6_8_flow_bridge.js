@@ -8,7 +8,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v222-book-optional-performance-method-evidence";
+  const VERSION = "report-6-8-flow-bridge-v228-secondary-expansion-preview";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -520,6 +520,7 @@
             관점: ${esc(choices.viewLabel || normalizeViewName(ctx.state.reportView) || "-")}<br>
             라인: ${esc(choices.lineLabel || ctx.state.reportLine || "-")}<br>
             예시 패턴: ${esc(gen.examplePattern?.label || "-")}<br>
+            2차 확장 후보: ${esc(arr(gen.secondaryExpansionContext?.paths).map(p => p.label).join(" / ") || "생성 대기")}<br>
             섹션 수: ${sections.length}
           </div>
           <div class="report-choice-operator-card">
@@ -560,6 +561,9 @@
       `수행평가 방식: ${choices.modeLabel || s.reportMode || "-"}`,
       `평가 관점·과정 증거: ${choices.viewLabel || normalizeViewName(s.reportView) || "-"}`,
       `결과물 수준: ${choices.lineLabel || s.reportLine || "-"}`,
+      "",
+      "2차 확장 방향:",
+      arr(gen.secondaryExpansionContext?.paths).map((path, idx) => `${idx + 1}. ${path.label}: ${path.question}`).join("\n"),
       "",
       "수행평가 영역명과 연결되는 작성 구조:",
       arr(gen.targetStructure).map((name, idx) => `${idx + 1}. ${name}`).join("\n"),
