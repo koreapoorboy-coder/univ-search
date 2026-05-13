@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v217-dongguk-performance-polish";
+  const VERSION = "mini-worker-generate-bridge-v218-dongguk-seed-fallback-performance-payload";
   const WORKER_BASE_URL = global.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
   const GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_GENERATE_ENDPOINT || "/__mini/generate";
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
@@ -403,20 +403,29 @@
       ...(ctx.donggukPerformanceFrame ? [
         "",
         "[동국대 수행평가 영역명 기준 반영]",
+        "핵심 공식: 수행평가 영역명 = 주제(내용) × 방법",
         `수행평가 영역명: ${ctx.donggukPerformanceFrame.performanceName || ""}`,
         `범주: ${ctx.donggukPerformanceFrame.subjectGroup || ""} / ${ctx.donggukPerformanceFrame.contentCategory || ""} × ${ctx.donggukPerformanceFrame.methodCategory || ""}`,
         `평가 의도: ${ctx.donggukPerformanceFrame.evaluationIntent || ""}`,
         `성취기준 해석: ${ctx.donggukPerformanceFrame.achievementFocus || ""}`
       ] : []),
+      ...(ctx.performanceAssessment ? [
+        "",
+        "[6~8번 선택값의 수행평가 의미]",
+        `6번 수행평가 방식: ${ctx.performanceAssessment.method?.reportModeLabel || choices.mode || ""}`,
+        `7번 평가 관점·과정 증거: ${ctx.performanceAssessment.evidence?.reportViewLabel || choices.view || ""}`,
+        `8번 결과물 수준: ${ctx.performanceAssessment.outputLevel?.reportLineLabel || choices.line || ""}`,
+        `중복 방지 규칙: ${(ctx.performanceAssessment.dedupeRules || []).join(" / ")}`
+      ] : []),
       "",
       "[학생이 선택한 설계 방향]",
-      `전개 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
-      `관점: ${choices.view || ctx.reportView || "선택값 기준"}`,
-      `라인: ${choices.line || ctx.reportLine || "선택값 기준"}`,
+      `수행평가 방식: ${choices.mode || ctx.reportMode || "선택값 기준"}`,
+      `평가 관점·과정 증거: ${choices.view || ctx.reportView || "선택값 기준"}`,
+      `결과물 수준: ${choices.line || ctx.reportLine || "선택값 기준"}`,
       `선택값 해석: ${ctx.reportChoiceBlueprint?.choiceSummary || "선택값을 보고서 전체에 반영"}`,
       `선택값에 따른 제목 방향: ${ctx.reportChoiceBlueprint?.title || "전개 방식·관점·라인에 따라 제목을 조정"}`,
       `선택값에 따른 비교 표 기준: ${(ctx.reportChoiceBlueprint?.tableRows?.[0] || []).join(" / ") || "선택 관점에 맞춰 표 항목 조정"}`,
-      `6~8번 MINI 작성 지시: ${(ctx.reportChoiceMiniDirective || []).join(" / ") || ctx.reportChoiceInstruction?.studentPreview || "전개 방식·관점·라인을 문단 구조에 반영"}`,
+      `6~8번 수행평가 작성 지시: ${(ctx.reportChoiceMiniDirective || []).join(" / ") || ctx.reportChoiceInstruction?.studentPreview || "전개 방식·관점·라인을 문단 구조에 반영"}`,
       "",
       "[출력 형식]",
       "다음 구조로 작성하라. 단, 화면에는 학생이 바로 볼 수 있는 실행 지도 형태로 정리한다.",
@@ -474,10 +483,46 @@
     mini.reportGenerationContext = mini.reportGenerationContext || {};
     mini.reportGenerationContext.reportChoiceBlueprint = reqChoiceBlueprint;
     mini.reportGenerationContext.donggukPerformanceFrame = reqPerformanceFrame;
-    mini.reportGenerationContext.reportChoiceMiniDirective = mini.reportGenerationContext.reportChoiceMiniDirective || [
-      `6번 전개 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 문단 흐름을 바꾼다.`,
-      `7번 관점은 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
-      `8번 라인은 ${reqChoiceBlueprint.lineLabel || choice.line || "선택 라인"} 기준으로 분량과 깊이를 조정한다.`
+    const existingPerformanceAssessment = mini.reportGenerationContext.performanceAssessment || {};
+    mini.reportGenerationContext.performanceAssessment = {
+      version: "dongguk-performance-assessment-v218-worker",
+      principle: "수행평가 영역명 = 주제(내용) × 방법",
+      content: existingPerformanceAssessment.content || {
+        source: "3번 교과 개념 + 추천 키워드",
+        concept: reqConcept,
+        keyword: reqKeyword,
+        normalizedContent: `${reqConcept || "교과 개념"} / ${reqKeyword || "추천 키워드"}`
+      },
+      method: existingPerformanceAssessment.method || {
+        source: "4번 후속 연계축 + 6번 수행평가 방식",
+        followupAxis: reqAxis,
+        reportMode: choice.mode || s.reportMode || "",
+        reportModeLabel: reqChoiceBlueprint.modeLabel || choice.mode || ""
+      },
+      evidence: existingPerformanceAssessment.evidence || {
+        source: "7번 평가 관점·과정 증거",
+        reportView: choice.view || s.reportView || "",
+        reportViewLabel: reqChoiceBlueprint.viewLabel || choice.view || ""
+      },
+      outputLevel: existingPerformanceAssessment.outputLevel || {
+        source: "8번 결과물 수준",
+        reportLine: choice.line || s.reportLine || "",
+        reportLineLabel: reqChoiceBlueprint.lineLabel || choice.line || ""
+      },
+      generatedPerformanceName: reqPerformanceFrame.performanceName,
+      generatedFocusQuestion: reqPerformanceFrame.focusQuestion,
+      dedupeRules: existingPerformanceAssessment.dedupeRules || [
+        "제목에서 같은 명사구를 반복하지 않는다.",
+        "주제는 한 번만 제시하고 방법은 동사형으로 붙인다.",
+        "학과명은 반복하지 말고 전공 사고방식으로 바꾼다."
+      ]
+    };
+    mini.reportGenerationContext.reportChoiceMiniDirective = [
+      `동국대 기준: 수행평가 영역명은 주제(내용) × 방법으로 해석한다.`,
+      `6번 수행평가 방식은 ${reqChoiceBlueprint.modeLabel || choice.mode || "선택값"} 기준으로 영역명의 방법과 문단 흐름을 바꾼다.`,
+      `7번 평가 관점·과정 증거는 ${reqChoiceBlueprint.viewLabel || choice.view || "선택 관점"} 기준으로 질문과 자료 표를 바꾼다.`,
+      `8번 결과물 수준은 ${reqChoiceBlueprint.lineLabel || choice.line || "선택 라인"} 기준으로 분량과 깊이를 조정한다.`,
+      `중복 방지: 제목·핵심 질문·결론에서 같은 명사구를 반복하지 않고 주제와 방법을 분리한다.`
     ];
 
     const miniInstruction = buildMiniInstruction(form, mini, pattern);
@@ -509,6 +554,8 @@
       mini_payload: mini,
       report_dataset_pattern: pattern,
       report_choices: choice,
+      performance_assessment: mini.reportGenerationContext?.performanceAssessment || null,
+      dongguk_performance_frame: mini.reportGenerationContext?.donggukPerformanceFrame || null,
       reportGenerationContext: mini.reportGenerationContext || {},
       selectedBook: mini.selectedBook || null,
 
@@ -578,9 +625,9 @@
     });
 
     const choices = req.report_choices || {};
-    if(!String(choices.mode || "").trim()) missing.push("6번 보고서 전개 방식");
-    if(!String(choices.view || "").trim()) missing.push("7번 보고서 관점");
-    if(!String(choices.line || "").trim()) missing.push("8번 보고서 라인");
+    if(!String(choices.mode || "").trim()) missing.push("6번 수행평가 방식");
+    if(!String(choices.view || "").trim()) missing.push("7번 평가 관점·과정 증거");
+    if(!String(choices.line || "").trim()) missing.push("8번 결과물 수준");
 
     return missing;
   }
@@ -628,6 +675,12 @@
     const text = stringifyErrorForMiniFallback(error);
     return /Failed\s+to\s+load\s+asset\s+file/i.test(text)
       || /admission_grade_level_modifiers\.json/i.test(text)
+      || /keyword_cluster_bridge\.json/i.test(text)
+      || /raw_keyword\.json/i.test(text)
+      || /subject_book_bridge\.json/i.test(text)
+      || /textbook_(?:detail|ui_feed)_seed\.json/i.test(text)
+      || /Failed\s+to\s+load\s+seed\s+file/i.test(text)
+      || /seed\s+file.*404/i.test(text)
       || /asset\s+file.*404/i.test(text);
   }
 
@@ -636,10 +689,10 @@
     return {
       ok: true,
       localFallback: true,
-      source: "local-payload-render-after-generate-asset-404",
+      source: "local-payload-render-after-generate-seed-or-asset-404",
       endpointTried: endpoint || error?.url || "",
       errorHandled: reason,
-      message: "원격 생성 엔진의 보조 asset 파일 404를 감지해, 현재 화면 선택값 기반 로컬 실행 지도로 대체 렌더링했습니다."
+      message: "원격 생성 엔진의 보조 seed/asset 파일 404를 감지해, 현재 화면 선택값 기반 로컬 실행 지도로 대체 렌더링했습니다."
     };
   }
 
@@ -681,7 +734,7 @@
           continue;
         }
         if(isMiniAssetFile404(error)){
-          console.warn("v215 generate asset file 404 detected; render local mini guide instead:", error);
+          console.warn("v218 generate seed/asset file 404 detected; render local mini guide instead:", error);
           global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint, error: stringifyErrorForMiniFallback(error) };
           return makeLocalGenerateFallbackResponse(error, endpoint);
         }
@@ -690,7 +743,7 @@
     }
     if(lastError){
       if(isMiniAssetFile404(lastError)){
-        console.warn("v215 final generate asset file 404 detected; render local mini guide instead:", lastError);
+        console.warn("v218 final generate seed/asset file 404 detected; render local mini guide instead:", lastError);
         global.__LAST_MINI_WORKER_GENERATE_ASSET_FALLBACK__ = { endpoint: lastError?.url || "", error: stringifyErrorForMiniFallback(lastError) };
         return makeLocalGenerateFallbackResponse(lastError, lastError?.url || "");
       }
@@ -1961,7 +2014,7 @@
       text,
       sections: [{title:"설계서 제목", body:title}, ...sections],
       title,
-      source: "payload-major-concept-book-bridge-blueprint",
+      source: "payload-major-concept-book-bridge-blueprint-v218-dongguk-performance-assessment",
       note: "학생이 보고서의 구조를 따라가며 질문-자료-표-문단-도서 활용까지 채울 수 있도록 정리했습니다.",
       diagnostics: {
         mode,
@@ -2272,7 +2325,7 @@
           <div>
             <div class="mini-v43-kicker">학생용 탐구 조립 지도</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">수행평가 영역명처럼 무엇을·어떻게 평가하는지가 보이도록 정리했습니다. 질문, 자료, 표, 문단, 결론이 같은 기준으로 이어지게 만듭니다.</p>
+            <p class="mini-v43-sub">동국대식 수행평가 영역명처럼 주제(내용)와 방법, 그리고 과정 증거가 보이도록 정리했습니다. 질문, 자료, 표, 문단, 결론이 같은 기준으로 이어지게 만듭니다.</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">설계서 복사</button>
@@ -2280,9 +2333,9 @@
         </div>
 
         <div class="mini-v43-quick">
-          <div><b>STEP 1</b><span>수행평가 영역명으로 구조 잡기</span></div>
-          <div><b>STEP 2</b><span>자료를 역할별로 배치하기</span></div>
-          <div><b>STEP 3</b><span>표·문단·결론을 같은 기준으로 완성하기</span></div>
+          <div><b>STEP 1</b><span>주제×방법으로 구조 잡기</span></div>
+          <div><b>STEP 2</b><span>과정 증거 자료 배치하기</span></div>
+          <div><b>STEP 3</b><span>표·문단·결론 중복 줄이기</span></div>
         </div>
 
         <div class="mini-v43-tags">
