@@ -1,0 +1,124 @@
+/* ui_subject_group_filter_v220.js
+ * v220: 입력 폼을 동국대 수행평가 구조에 맞게 정리
+ * - 과목 긴 목록을 교과(국어/영어/수학/사회/과학/정보) → 세부 과목 2단계로 필터링
+ * - 활동 과제 이름 필드는 중복 입력으로 보지 않고 hidden taskName으로 자동 생성
+ * - subjectGroup을 payload/worker가 읽을 수 있도록 DOM 값 유지
+ */
+(function(){
+  "use strict";
+
+  const VERSION = "ui-subject-group-filter-v220-category-detail-taskname-dedupe";
+  window.__UI_SUBJECT_GROUP_FILTER_VERSION__ = VERSION;
+
+  function $(id){ return document.getElementById(id); }
+  function norm(value){ return String(value || "").trim(); }
+  function setLabel(el, text){
+    const span = el?.closest("label")?.querySelector("span");
+    if(span) span.textContent = text;
+  }
+  function inferGroup(subject){
+    const s = norm(subject);
+    if(!s) return "";
+    if(/국어|문학|독서|화법|작문|언어|매체/.test(s)) return "국어";
+    if(/영어|English|공통영어/.test(s)) return "영어";
+    if(/수학|대수|미적분|기하|확률|통계/.test(s)) return "수학";
+    if(/사회|한국사|역사|지리|윤리|정치|경제|법|문화/.test(s)) return "사회";
+    if(/과학|물리|화학|생명|지구|역학|전자기|양자|물질|세포/.test(s)) return "과학";
+    if(/정보|프로그래밍|알고리즘|데이터/.test(s)) return "정보";
+    return "";
+  }
+
+  function makeOption(source){
+    const option = document.createElement("option");
+    option.value = source.value;
+    option.textContent = source.text;
+    option.dataset.subjectGroup = source.group || inferGroup(source.value || source.text);
+    return option;
+  }
+
+  function ensureTaskName(){
+    const taskName = $("taskName");
+    const subject = norm($("subject")?.value);
+    const taskType = norm($("taskType")?.value) || "탐구보고서";
+    if(taskName){
+      taskName.type = "hidden";
+      taskName.value = subject ? `${subject} ${taskType}` : taskType;
+    }
+  }
+
+  function init(){
+    const groupSelect = $("subjectGroup");
+    const subjectSelect = $("subject");
+    const taskName = $("taskName");
+    const taskType = $("taskType");
+    if(!groupSelect || !subjectSelect) return;
+
+    setLabel(groupSelect, "교과");
+    setLabel(subjectSelect, "세부 과목");
+    setLabel(taskType, "결과물 유형");
+
+    if(taskName){
+      taskName.type = "hidden";
+      taskName.setAttribute("aria-hidden", "true");
+    }
+
+    const originalOptions = Array.from(subjectSelect.options || [])
+      .filter(opt => norm(opt.value))
+      .map(opt => ({
+        value: norm(opt.value),
+        text: norm(opt.textContent) || norm(opt.value),
+        group: opt.dataset.subjectGroup || inferGroup(opt.value || opt.textContent)
+      }));
+
+    function rebuildSubjectOptions(targetGroup, keepValue){
+      const current = norm(keepValue || subjectSelect.value);
+      const group = norm(targetGroup);
+      subjectSelect.innerHTML = "";
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = group ? `${group} 세부 과목 선택` : "교과를 먼저 선택하세요";
+      subjectSelect.appendChild(placeholder);
+
+      originalOptions
+        .filter(item => !group || item.group === group)
+        .forEach(item => subjectSelect.appendChild(makeOption(item)));
+
+      const canKeep = Array.from(subjectSelect.options).some(opt => opt.value === current);
+      subjectSelect.value = canKeep ? current : "";
+      ensureTaskName();
+    }
+
+    function syncGroupFromSubject(){
+      const subject = norm(subjectSelect.value);
+      const inferred = inferGroup(subject);
+      if(inferred && groupSelect.value !== inferred){
+        groupSelect.value = inferred;
+        rebuildSubjectOptions(inferred, subject);
+      }else{
+        ensureTaskName();
+      }
+    }
+
+    const initialSubject = norm(subjectSelect.value);
+    const initialGroup = norm(groupSelect.value) || inferGroup(initialSubject);
+    if(initialGroup) groupSelect.value = initialGroup;
+    rebuildSubjectOptions(groupSelect.value, initialSubject);
+
+    groupSelect.addEventListener("change", () => {
+      rebuildSubjectOptions(groupSelect.value, "");
+      subjectSelect.dispatchEvent(new Event("change", { bubbles:true }));
+    });
+    subjectSelect.addEventListener("change", syncGroupFromSubject);
+    taskType?.addEventListener("change", ensureTaskName);
+
+    const generateBtn = $("generateBtn");
+    if(generateBtn){
+      generateBtn.addEventListener("click", ensureTaskName, true);
+    }
+
+    ensureTaskName();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
