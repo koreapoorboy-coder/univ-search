@@ -1,14 +1,14 @@
 /* report_6_8_flow_bridge.js
- * v27: 학생용 6~8번 선택 UI 복구 + 운영자용 MINI payload 패널 분리
- * - 6번은 보고서 전개 방식 선택
- * - 7번은 보고서 관점 선택
- * - 8번은 보고서 라인 선택
+ * v218: 동국대 수행평가 영역명 기준에 맞춰 6~7번 의미 재정의
+ * - 6번은 수행평가 방식(방법) + 보고서 전개 방식 선택
+ * - 7번은 평가 관점·과정 증거 선택
+ * - 8번은 결과물 수준/보고서 라인 선택
  * - 내부 payload/targetStructure는 접힌 운영자용 영역으로만 제공
  */
 (function(global){
   "use strict";
 
-  const VERSION = "report-6-8-flow-bridge-v34-meaningful-mini-directive";
+  const VERSION = "report-6-8-flow-bridge-v218-dongguk-performance-method-evidence";
   global.__REPORT_6_8_FLOW_BRIDGE_VERSION__ = VERSION;
 
   const q = (id) => document.getElementById(id);
@@ -76,37 +76,37 @@
   const MODE_DIRECTIVES = {
     principle: {
       title: "원리 파악형",
-      intent: "핵심 개념이 왜 성립하는지 먼저 설명하고 사례·도서·자료를 원리의 적용 근거로 붙입니다.",
+      intent: "교과 개념의 원리를 설명하는 방식으로 수행 과정을 구성합니다. 동국대식 영역명에서는 ‘개념 원리 설명하기’에 해당합니다.",
       mini: "교과 개념 설명 → 원리 작동 과정 → 선택 키워드 적용 → 한계 또는 확장 순서로 작성한다.",
       table: "원리 / 적용 사례 / 확인 자료 / 내 해석"
     },
     compare: {
       title: "비교 분석형",
-      intent: "두 사례·조건·관점을 나란히 놓고 비교 기준을 먼저 세운 뒤 차이와 판단 근거를 정리합니다.",
+      intent: "두 사례·조건·관점을 비교 기준에 따라 분석하는 수행 방식입니다. 동국대식 영역명에서는 ‘조건·사례 비교 분석하기’에 해당합니다.",
       mini: "비교 기준 설정 → 조건 A/B 비교 → 차이 해석 → 내 판단 기준 제시 순서로 작성한다.",
       table: "비교 기준 / 조건 A / 조건 B / 차이 해석"
     },
     data: {
       title: "데이터 확장형",
-      intent: "자료·수치·그래프를 근거로 사용해 선택 키워드의 판단 기준을 확장합니다.",
+      intent: "자료·수치·그래프를 근거로 해석하는 수행 방식입니다. 동국대식 영역명에서는 ‘자료·수치 분석하기’에 해당합니다.",
       mini: "변수 설정 → 자료 출처 확인 → 그래프·표 해석 → 자료 한계 점검 순서로 작성한다.",
       table: "변수 / 자료 출처 / 그래프·수치 / 해석"
     },
     application: {
       title: "사례 적용형",
-      intent: "교과 개념을 실제 생활·지역·산업 사례에 적용해 문제 해결 흐름을 보여줍니다.",
+      intent: "교과 개념을 실제 사례나 문제 상황에 적용하는 수행 방식입니다. 동국대식 영역명에서는 ‘실제 사례에 적용하기’에 해당합니다.",
       mini: "현실 사례 제시 → 교과 원리 적용 → 해결 과정 → 적용 한계 순서로 작성한다.",
       table: "사례 / 적용 개념 / 해결 과정 / 한계"
     },
     major: {
       title: "전공 확장형",
-      intent: "학과명을 반복하지 않고 전공에서 쓰는 사고방식으로 교과 개념을 확장합니다.",
+      intent: "교과 개념을 전공·진로 문제 상황으로 확장하는 수행 방식입니다. 동국대식 영역명에서는 ‘진로 문제 상황으로 확장하기’에 해당합니다.",
       mini: "교과 개념 → 전공 문제 상황 → 전공식 분석 기준 → 후속 탐구 순서로 작성한다.",
       table: "교과 개념 / 전공 개념 / 적용 자료 / 후속 탐구"
     },
     book: {
       title: "도서 근거형",
-      intent: "선택 도서를 독후감이 아니라 보고서의 근거 프레임과 해석 렌즈로 사용합니다.",
+      intent: "선택 도서를 독후감이 아니라 수행 과정의 근거·관점 자료로 사용하는 방식입니다. 동국대식 영역명에서는 ‘도서 관점으로 해석하기’에 해당합니다.",
       mini: "탐구 질문 → 도서 관점 → 개념 재해석 → 결론 확장 순서로 작성한다.",
       table: "도서 관점 / 교과 개념 / 적용 사례 / 결론 확장"
     }
@@ -143,7 +143,7 @@
     const view = normalizeViewName(ctx.state.reportView || ctx.ctx?.reportChoices?.view || "");
     const line = lineId || ctx.state.reportLine || ctx.ctx?.reportChoices?.line || "standard";
     const m = modeDirective(mode);
-    const v = VIEW_HELP[view] || { title: view || "관점 선택", desc: "선택한 관점에 맞춰 보고서 강조점을 조정합니다.", example: "선택 관점에 따라 질문·자료·결론 방향을 바꿉니다." };
+    const v = VIEW_HELP[view] || { title: view || "과정 증거 선택", desc: "선택한 관점에 맞춰 보고서 강조점을 조정합니다.", example: "선택 관점에 따라 질문·자료·결론 방향을 바꿉니다." };
     return {
       modeLabel: m.title,
       viewLabel: v.title || view,
@@ -321,7 +321,7 @@
     const el = q("engineModeButtons");
     if (!el) return;
     if (!hasSelectedBook(ctx.payload)) {
-      el.innerHTML = `<div class="engine-empty">먼저 5번에서 도서를 선택해야 보고서 전개 방식을 고를 수 있습니다.</div>`;
+      el.innerHTML = `<div class="engine-empty">먼저 5번에서 도서를 선택해야 수행평가 방식을 고를 수 있습니다.</div>`;
       return;
     }
     const options = modeOptions(ctx);
@@ -340,7 +340,7 @@
           <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 작성 흐름: ${esc(guide.mini)}</div>
         </button>
       `}).join("")}</div>
-      <div class="report-choice-note">6번은 단어 태그가 아니라 <b>보고서 전개 논리</b>입니다. 선택값은 MINI에 작성 흐름·비교표 기준·문단 순서로 해석되어 전달됩니다.</div>
+      <div class="report-choice-note">6번은 단어 태그가 아니라 <b>수행평가 방법</b>입니다. 선택값은 동국대식 ‘주제(내용) × 방법’ 구조에서 방법에 해당하며, MINI에는 작성 흐름·비교표 기준·문단 순서로 함께 전달됩니다.</div>
     `;
   }
 
@@ -376,12 +376,12 @@
       return;
     }
     if (!ctx.state.reportMode) {
-      el.innerHTML = `<div class="engine-empty">먼저 6번에서 보고서 전개 방식을 선택하면 관점 선택이 열립니다.</div>`;
+      el.innerHTML = `<div class="engine-empty">먼저 6번에서 수행평가 방식을 선택하면 평가 관점·과정 증거 선택이 열립니다.</div>`;
       return;
     }
     const options = viewOptionsFor(ctx);
     const active = normalizeViewName(ctx.state.reportView || "");
-    const current = VIEW_HELP[active] || VIEW_HELP[options[0]] || { title:"관점 선택", desc:"보고서를 어떤 시선으로 정리할지 고릅니다.", example:"선택한 관점에 따라 세부 문장과 강조점이 바뀝니다." };
+    const current = VIEW_HELP[active] || VIEW_HELP[options[0]] || { title:"과정 증거 선택", desc:"보고서를 어떤 시선으로 정리할지 고릅니다.", example:"선택한 관점에 따라 세부 문장과 강조점이 바뀝니다." };
     const key = `${VERSION}:view:${ctx.state.reportMode}:${active}:${options.join(",")}`;
     if (el.getAttribute("data-report-choice-key") === key) return;
     el.setAttribute("data-report-choice-key", key);
@@ -393,7 +393,7 @@
         <div class="engine-view-guide-title">${esc(current.title)}</div>
         <div class="engine-view-guide-desc">${esc(current.desc)}</div>
         <div class="engine-view-guide-example">${esc(current.example)}</div>
-        <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 관점 지시: ${esc((current.title || active || "선택 관점") + "을 중심으로 질문·자료 표·결론 방향을 조정합니다.")}</div>
+        <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 평가 관점 지시: ${esc((current.title || active || "선택 관점") + "을 중심으로 질문·자료 표·결론 방향을 조정합니다.")}</div>
       </div>
     `;
   }
@@ -414,7 +414,7 @@
       return;
     }
     if (!ctx.state.reportMode || !ctx.state.reportView) {
-      el.innerHTML = `<div class="engine-empty">먼저 6번 전개 방식과 7번 관점을 선택하면 보고서 라인을 고를 수 있습니다.</div>`;
+      el.innerHTML = `<div class="engine-empty">먼저 6번 전개 방식과 7번 관점을 선택하면 결과물 라인을 고를 수 있습니다.</div>`;
       return;
     }
     const entries = Object.values(LINE_HELP);
@@ -436,23 +436,23 @@
         </button>
       `).join("")}</div>
       <div class="engine-view-guide">
-        <div class="engine-view-guide-title">${esc(current.title)} 보고서 라인</div>
+        <div class="engine-view-guide-title">${esc(current.title)} 결과물 라인</div>
         <div class="engine-view-guide-desc">${esc(current.desc)}</div>
         <div class="engine-view-guide-example">문단 흐름: ${current.sections.map((section, idx) => `${idx + 1}. ${section}`).join(" → ")}</div>
         <div class="engine-help" style="margin-top:8px; color:#275fe8; font-weight:800;">MINI 라인 지시: ${esc(meaning.lineInstruction)}</div>
       </div>
       <div class="report-choice-preview">
-        <div class="report-choice-preview-title">선택 결과 미리보기</div>
+        <div class="report-choice-preview-title">수행평가 설계 미리보기</div>
         <div class="report-choice-preview-desc">
           현재 선택: ${esc(meaning.modeLabel || ctx.state.reportMode || "-")} / ${esc(meaning.viewLabel || normalizeViewName(ctx.state.reportView) || "-")} / ${esc(meaning.lineLabel || active || "라인 선택 대기")}<br>
-          MINI에 전달될 작성 지시: ${esc(meaning.modeInstruction)}<br>
-          비교표 기준: ${esc(meaning.tableFrame || "선택 관점 기준")}<br>
-          MINI에 전달될 구조: ${esc(previewSections.slice(0, 8).join(" → "))}${previewSections.length > 8 ? " ..." : ""}
+          MINI에 전달될 수행 방식 지시: ${esc(meaning.modeInstruction)}<br>
+          과정 증거 표 기준: ${esc(meaning.tableFrame || "선택 관점 기준")}<br>
+          MINI에 전달될 결과물 구조: ${esc(previewSections.slice(0, 8).join(" → "))}${previewSections.length > 8 ? " ..." : ""}
         </div>
         <div class="report-choice-pillrow">
           <span class="report-choice-pill">${esc(ctx.ctx?.examplePattern?.label || "예시 패턴 대기")}</span>
           <span class="report-choice-pill">섹션 ${previewSections.length}개</span>
-          <span class="report-choice-pill">${esc(ctx.ctx?.reportChoices?.modeLabel || "전개 방식 반영")}</span>
+          <span class="report-choice-pill">${esc(ctx.ctx?.reportChoices?.modeLabel || "수행 방식 반영")}</span>
         </div>
       </div>
     `;
@@ -520,11 +520,11 @@
       `추천 키워드: ${s.selectedKeyword || s.selectedRecommendedKeyword || "-"}`,
       `후속 연계축: ${s.selectedFollowupAxis || s.followupAxis || "-"}`,
       `선택 도서: ${p.selectedBook?.title || "-"}`,
-      `보고서 전개 방식: ${choices.modeLabel || s.reportMode || "-"}`,
-      `보고서 관점: ${choices.viewLabel || normalizeViewName(s.reportView) || "-"}`,
-      `보고서 라인: ${choices.lineLabel || s.reportLine || "-"}`,
+      `수행평가 방식: ${choices.modeLabel || s.reportMode || "-"}`,
+      `평가 관점·과정 증거: ${choices.viewLabel || normalizeViewName(s.reportView) || "-"}`,
+      `결과물 수준: ${choices.lineLabel || s.reportLine || "-"}`,
       "",
-      "작성 구조:",
+      "수행평가 영역명과 연결되는 작성 구조:",
       arr(gen.targetStructure).map((name, idx) => `${idx + 1}. ${name}`).join("\n"),
       "",
       "작성 원칙:",
@@ -604,20 +604,20 @@
 
       setStepHead(
         "engineModeBlock",
-        "6. 보고서 전개 방식 선택",
-        "같은 개념과 도서라도 어떻게 풀어 쓸지에 따라 보고서 방향이 달라집니다.",
-        "원리 / 비교 / 데이터"
+        "6. 수행평가 방식 선택",
+        "같은 교과 개념과 도서라도 어떤 방법으로 수행했는지에 따라 수행평가 영역명과 보고서 방향이 달라집니다.",
+        "설명하기 / 비교 분석하기 / 자료 분석하기"
       );
       setStepHead(
         "engineViewBlock",
-        "7. 보고서 관점 선택",
-        "보고서를 어떤 시선으로 정리할지 마지막 관점을 고릅니다.",
-        "관점 선택"
+        "7. 평가 관점·과정 증거 선택",
+        "자료 해석, 비교, 한계 점검처럼 생활기록부에 남길 사고 과정의 증거를 고릅니다.",
+        "과정 증거 선택"
       );
       setStepHead(
         "engineLineBlock",
-        "8. 보고서 라인 선택",
-        "보고서를 어떤 순서와 비중으로 쓸지 뼈대를 고릅니다. 같은 주제라도 라인에 따라 결과물이 달라집니다.",
+        "8. 결과물 수준 선택",
+        "결과물을 어느 깊이까지 구성할지 고릅니다. 같은 주제라도 기본형·확장형·심화형에 따라 자료 수와 문단 깊이가 달라집니다.",
         "기본형 / 확장형 / 심화형"
       );
 
