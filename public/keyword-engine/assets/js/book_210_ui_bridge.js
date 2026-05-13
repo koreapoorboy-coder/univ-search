@@ -4,7 +4,7 @@
  */
 (function(global){
   "use strict";
-  const BRIDGE_VERSION = "book-210-ui-bridge-v226-global-search-exact-selection-neutral-summary";
+  const BRIDGE_VERSION = "book-210-ui-bridge-v227-enter-safe-global-search-no-reset";
   global.__BOOK_210_UI_BRIDGE_VERSION__ = BRIDGE_VERSION;
   global.__BOOK_210_BRIDGE_LOADED_AT__ = new Date().toISOString();
 
@@ -11316,12 +11316,14 @@
       </div>
     ` : "";
 
+    const activeBookSearchQuery = val(global.__BOOK_210_ACTIVE_SEARCH_QUERY__ || "");
+
     return `
       <div class="engine-book-selection-shell">
         <div class="engine-book-search-box" style="margin:0 0 14px; padding:14px; border:1px solid #d9e4fb; border-radius:16px; background:#fff;">
           <div class="engine-subtitle" style="margin-bottom:6px;">도서 검색</div>
           <div class="engine-help" style="margin-bottom:10px;">추천 도서 7권 안에서만 찾지 않고, 학생이 입력한 책 제목·저자·키워드로 전체 도서 DB를 함께 검색합니다. 선택 전에는 어떤 책도 보고서에 자동 반영되지 않습니다.</div>
-          <input type="search" class="engine-book-search-input" data-action="book-search" placeholder="예: 국부론, 사피엔스, 반도체, 데이터, 윤리, 공간" style="width:100%; border:1px solid #d5deef; border-radius:14px; padding:12px 14px; font-size:15px; outline:none;" />
+          <input type="search" class="engine-book-search-input" data-action="book-search" value="${esc(activeBookSearchQuery)}" placeholder="예: 국부론, 사피엔스, 반도체, 데이터, 윤리, 공간" autocomplete="off" enterkeyhint="search" style="width:100%; border:1px solid #d5deef; border-radius:14px; padding:12px 14px; font-size:15px; outline:none;" />
           <div class="engine-book-search-count" data-book-search-count style="margin-top:8px; color:#64748b; font-size:12px; font-weight:800;">추천 도서 ${all.length}권 표시 중 · 검색어를 입력하면 전체 도서 DB도 함께 검색합니다.</div>
         </div>
         <div class="engine-book-layout">
@@ -11449,6 +11451,7 @@
       global.__BOOK_210_IS_RENDERING__ = true;
       el.innerHTML = global.renderBookSelectionHTML(ctx);
       el.setAttribute("data-book-210-render-key", renderKey);
+      setTimeout(()=>applyActiveBookSearchFilter("force-render-restore"), 0);
       global.__BOOK_210_FORCE_RENDERED_AT__ = new Date().toISOString();
       global.__BOOK_210_FORCE_RENDER_REASON__ = reason || "";
       setTimeout(()=>{ global.__BOOK_210_IS_RENDERING__ = false; }, 80);
@@ -11461,45 +11464,98 @@
   }
 
 
+  function applyBookSearchFilter(input, reason){
+    if (!input) return false;
+    const shell = input.closest(".engine-book-selection-shell") || document;
+    const rawQuery = val(input.value);
+    global.__BOOK_210_ACTIVE_SEARCH_QUERY__ = rawQuery;
+
+    const normalizedQuery = normalizeBookSearchQuery(rawQuery);
+    const q = rawQuery.toLowerCase();
+    const cards = Array.from(shell.querySelectorAll(".engine-book-card[data-kind='book']"));
+    const recommendedCards = cards.filter(card => !card.closest("[data-global-book-search-results]"));
+    let visible = 0;
+    recommendedCards.forEach(card => {
+      const hay = val(card.getAttribute("data-book-search") || card.textContent).toLowerCase();
+      const ok = !q || hay.includes(q) || normalizeBookSearchQuery(hay).includes(normalizedQuery);
+      card.style.display = ok ? "flex" : "none";
+      if (ok) visible += 1;
+    });
+
+    const globalBox = shell.querySelector("[data-global-book-search-results]");
+    let globalCount = 0;
+    if (globalBox) {
+      const excludedIds = new Set(val(globalBox.getAttribute("data-excluded-book-ids") || "").split(",").filter(Boolean));
+      if (rawQuery) {
+        globalBox.innerHTML = renderGlobalBookSearchHTML(rawQuery, excludedIds, globalBox.getAttribute("data-selected-book") || "");
+        globalBox.style.display = "block";
+        globalCount = globalBox.querySelectorAll(".engine-book-card[data-kind='book']").length;
+      } else {
+        globalBox.innerHTML = "";
+        globalBox.style.display = "none";
+      }
+    }
+
+    const count = shell.querySelector("[data-book-search-count]");
+    if (count) {
+      count.textContent = rawQuery
+        ? `추천 목록 ${visible}권 + 전체 DB 추가 검색 ${globalCount}권`
+        : `추천 도서 ${recommendedCards.length}권 표시 중 · 검색어를 입력하면 전체 도서 DB도 함께 검색합니다.`;
+    }
+    const empty = shell.querySelector("[data-book-search-empty]");
+    if (empty) empty.style.display = rawQuery && !visible ? "block" : "none";
+    global.__BOOK_210_LAST_SEARCH_APPLIED__ = { query: rawQuery, reason: reason || "", at: new Date().toISOString() };
+    return true;
+  }
+
+  function applyActiveBookSearchFilter(reason){
+    const input = document.querySelector(".engine-book-selection-shell [data-action='book-search']");
+    if (!input) return false;
+    if (typeof global.__BOOK_210_ACTIVE_SEARCH_QUERY__ === "string" && input.value !== global.__BOOK_210_ACTIVE_SEARCH_QUERY__) {
+      input.value = global.__BOOK_210_ACTIVE_SEARCH_QUERY__;
+    }
+    return applyBookSearchFilter(input, reason || "restore-active-search");
+  }
+
   function installBookSearchHandler(){
     if (global.__BOOK_210_BOOK_SEARCH_HANDLER__) return;
     global.__BOOK_210_BOOK_SEARCH_HANDLER__ = true;
+
+    // v227: 검색창에서 Enter를 누를 때 상위 엔진의 기본 Enter 처리나 리렌더/초기화가 실행되지 않게 차단한다.
+    // Enter는 "검색 확정"만 수행하고, 학과·과목·개념·후속축·선택 도서는 건드리지 않는다.
+    document.addEventListener("keydown", function(event){
+      const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
+      if (!input) return;
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      global.__BOOK_210_ACTIVE_SEARCH_QUERY__ = val(input.value);
+      applyBookSearchFilter(input, "enter-key");
+      try { input.focus({ preventScroll: true }); } catch(e){ try { input.focus(); } catch(_){} }
+      return false;
+    }, true);
+
+    document.addEventListener("keypress", function(event){
+      const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
+      if (!input) return;
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      return false;
+    }, true);
+
     document.addEventListener("input", function(event){
       const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
       if (!input) return;
-      const shell = input.closest(".engine-book-selection-shell") || document;
-      const rawQuery = val(input.value);
-      const q = rawQuery.toLowerCase();
-      const cards = Array.from(shell.querySelectorAll(".engine-book-card[data-kind='book']"));
-      const recommendedCards = cards.filter(card => !card.closest("[data-global-book-search-results]"));
-      let visible = 0;
-      recommendedCards.forEach(card => {
-        const hay = val(card.getAttribute("data-book-search") || card.textContent).toLowerCase();
-        const ok = !q || hay.includes(q) || normalizeBookSearchQuery(hay).includes(normalizeBookSearchQuery(rawQuery));
-        card.style.display = ok ? "flex" : "none";
-        if (ok) visible += 1;
-      });
-      const globalBox = shell.querySelector("[data-global-book-search-results]");
-      let globalCount = 0;
-      if (globalBox) {
-        const excludedIds = new Set(val(globalBox.getAttribute("data-excluded-book-ids") || "").split(",").filter(Boolean));
-        if (rawQuery) {
-          globalBox.innerHTML = renderGlobalBookSearchHTML(rawQuery, excludedIds, globalBox.getAttribute("data-selected-book") || "");
-          globalBox.style.display = "block";
-          globalCount = globalBox.querySelectorAll(".engine-book-card[data-kind='book']").length;
-        } else {
-          globalBox.innerHTML = "";
-          globalBox.style.display = "none";
-        }
-      }
-      const count = shell.querySelector("[data-book-search-count]");
-      if (count) {
-        count.textContent = rawQuery
-          ? `추천 목록 ${visible}권 + 전체 DB 추가 검색 ${globalCount}권`
-          : `추천 도서 ${recommendedCards.length}권 표시 중 · 검색어를 입력하면 전체 도서 DB도 함께 검색합니다.`;
-      }
-      const empty = shell.querySelector("[data-book-search-empty]");
-      if (empty) empty.style.display = rawQuery && !visible ? "block" : "none";
+      applyBookSearchFilter(input, "input");
+    }, true);
+
+    document.addEventListener("search", function(event){
+      const input = event.target && event.target.closest ? event.target.closest("[data-action='book-search']") : null;
+      if (!input) return;
+      applyBookSearchFilter(input, "native-search-event");
     }, true);
   }
 
