@@ -1,9 +1,14 @@
 {
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
-  "status": "seed_bank_structure_ready_not_applied_to_engine",
+  "updatedAt": "2026-05-14",
+  "status": "seed_bank_stage2_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 5,
+  "totalSeeds": 10,
+  "stageCounts": {
+    "stage1": 5,
+    "stage2": 5
+  },
   "seeds": [
     {
       "seedId": "RPT-001",
@@ -256,6 +261,264 @@
         "스마트시티 기술명만 나열하지 않는다.",
         "공간 형평성 없이 효율성만 말하지 않는다.",
         "지역 자료 없이 일반론으로 끝내지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-006",
+      "seedName": "바이오매스·전기화학 촉매 전환형",
+      "studentFacingLabel": "버려지는 자원을 화학 반응 원리와 촉매 구조로 전환해 친환경 생산 방안을 설계하는 탐구",
+      "stage": "stage2",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "나무 쓰레기가 촉매가 되는 순간 — 리그닌 탄소 촉매의 전기화학적 과산화수소 생산 기전",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage2_RPT001_010.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage2/report_seed_bank_stage2_v1.json",
+      "fusionType": "화학 원리 + 소재 표면 구조 + 전기화학 반응 + 친환경 생산 공정",
+      "corePattern": "기존 공정/폐자원 문제 인식 → 반응 원리 파악 → 촉매 구조와 작용기 분해 → 선택성·효율 기준 설정 → 대안 공정 설계 → 지속가능성 평가",
+      "problemFrame": "환경 부담이 큰 물질 생산 공정을 친환경 촉매와 반응 선택성으로 바꾸는 문제",
+      "analysisMethod": "2전자 산소환원반응(2e- ORR), 표면 작용기 차단, 선택성·내구성 비교, 기존 공정과 대안 공정 비교",
+      "bestForSubjects": [
+        "화학Ⅰ",
+        "화학Ⅱ",
+        "통합과학",
+        "환경",
+        "물질과 에너지",
+        "수학"
+      ],
+      "bestForMajors": [
+        "화학공학",
+        "환경공학",
+        "신소재공학",
+        "에너지공학",
+        "재료공학",
+        "나노소재공학"
+      ],
+      "axisTriggers": [
+        "촉매",
+        "전기화학",
+        "산화환원",
+        "소재 구조",
+        "친환경 공정",
+        "폐자원",
+        "지속가능성",
+        "반응 선택성"
+      ],
+      "sourceKeywords": [
+        "리그닌",
+        "전기화학적 산소환원반응(ORR)",
+        "과산화수소",
+        "탄소 촉매",
+        "표면 작용기"
+      ],
+      "avoid": [
+        "실제 전극 조건이나 수율을 지어내지 않는다.",
+        "리그닌을 곧바로 촉매 자체로 단순화하지 않는다.",
+        "친환경이라는 주장만 하고 반응 원리와 공정 한계를 생략하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-007",
+      "seedName": "분자기전·질병 메커니즘 해석형",
+      "studentFacingLabel": "유전자·단백질 변화가 세포 연결과 질병 특성으로 이어지는 과정을 해석하는 탐구",
+      "stage": "stage2",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "시냅스 균형이 무너질 때 뇌는 어떻게 달라지는가 — MDGA1과 자폐의 분자 기전",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage2_RPT001_010.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage2/report_seed_bank_stage2_v1.json",
+      "fusionType": "생명과학 개념 + 분자 상호작용 + 신경 회로 균형 + 치료 가능성 검토",
+      "corePattern": "질병 현상 인식 → 관련 유전자/단백질 기능 파악 → 세포·시냅스 수준 변화 설명 → 기능 불균형과 증상 연결 → 치료 후보와 한계 검토",
+      "problemFrame": "눈에 보이는 행동·질병 특성을 분자·세포 수준의 원리로 설명하는 문제",
+      "analysisMethod": "E/I 균형 분석, 단백질 기능 변화, 돌연변이 영향, 약물 표적과 작용 가능성 검토",
+      "bestForSubjects": [
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학Ⅰ",
+        "통합과학",
+        "보건"
+      ],
+      "bestForMajors": [
+        "생명과학",
+        "분자생물학",
+        "신경과학",
+        "의생명과학",
+        "약학",
+        "의학",
+        "생명공학"
+      ],
+      "axisTriggers": [
+        "분자기전",
+        "질병 원리",
+        "시냅스",
+        "유전자",
+        "단백질",
+        "약물 작용",
+        "의생명",
+        "치료 후보"
+      ],
+      "sourceKeywords": [
+        "MDGA1",
+        "자폐 스펙트럼 장애",
+        "시냅스",
+        "E/I 균형",
+        "SERM",
+        "바제독시펜"
+      ],
+      "avoid": [
+        "진단이나 치료 효과를 단정하지 않는다.",
+        "자폐 등 질병 특성을 단일 원인으로 환원하지 않는다.",
+        "전문 용어만 나열하고 세포 수준 인과 과정을 생략하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-008",
+      "seedName": "핵에너지·물리 원리 기반 시스템 안전형",
+      "studentFacingLabel": "핵반응의 물리 원리를 에너지 생산과 안전 설계 문제로 연결하는 탐구",
+      "stage": "stage2",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "원자 하나가 만드는 열 — 핵분열 연쇄반응과 SMR의 물리학",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage2_RPT001_010.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage2/report_seed_bank_stage2_v1.json",
+      "fusionType": "물리 원리 + 에너지 전환 + 제어 변수 + 안전 시스템 설계",
+      "corePattern": "에너지 이슈 인식 → 핵분열/임계 원리 설명 → 열 발생과 제어 변수 분석 → 안전 계통 비교 → 장점·한계 평가 → 후속 탐구 제안",
+      "problemFrame": "강력한 에너지원의 원리를 통제 가능한 안전 시스템으로 설계하고 평가하는 문제",
+      "analysisMethod": "연쇄반응 조건 분석, 제어봉·냉각·피동안전계통 비교, 위험-효율 균형 평가, 기존 원전과 SMR 비교",
+      "bestForSubjects": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "통합과학",
+        "수학",
+        "확률과 통계"
+      ],
+      "bestForMajors": [
+        "원자력공학",
+        "에너지공학",
+        "기계공학",
+        "물리학",
+        "전력공학",
+        "환경에너지공학"
+      ],
+      "axisTriggers": [
+        "핵분열",
+        "연쇄반응",
+        "임계",
+        "에너지 전환",
+        "안전 설계",
+        "SMR",
+        "피동안전",
+        "시스템 비교"
+      ],
+      "sourceKeywords": [
+        "핵분열 연쇄반응",
+        "임계",
+        "질량-에너지 등가원리",
+        "피동안전계통",
+        "SMR"
+      ],
+      "avoid": [
+        "원자력 정책 찬반 논쟁만으로 흐르지 않는다.",
+        "방사선 위험을 과장하거나 축소하지 않는다.",
+        "원자로 세부 수치나 사고 가능성을 지어내지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-009",
+      "seedName": "의료사회복지·위기개입 정책 설계형",
+      "studentFacingLabel": "의료 상황에서 발생하는 가족의 심리·경제·제도적 위기를 통합 지원 체계로 설계하는 탐구",
+      "stage": "stage2",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "뇌사 장기기증 유가족 맞춤형 통합 위기개입 방안",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage2_RPT001_010.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage2/report_seed_bank_stage2_v1.json",
+      "fusionType": "사회복지 이론 + 경제 지표 + 윤리·상담 + 공공 서비스 설계",
+      "corePattern": "사례/문제 인식 → 대상자의 복합 욕구 분해 → 심리·경제·행정 지원 기준 설정 → 통합 사례관리 모델 제안 → 정책 효과와 한계 점검",
+      "problemFrame": "의료 상황에서 발생하는 가족의 심리·경제·제도적 위기를 통합적으로 지원하는 문제",
+      "analysisMethod": "욕구 사정, 비용-편익 분석, 균등화 소득 적용, 사례관리 단계화, 원스톱 지원 체계 설계",
+      "bestForSubjects": [
+        "사회·문화",
+        "경제",
+        "생활과 윤리",
+        "정치와 법",
+        "보건"
+      ],
+      "bestForMajors": [
+        "사회복지학",
+        "의료사회복지",
+        "보건행정",
+        "상담심리",
+        "공공정책",
+        "간호학"
+      ],
+      "axisTriggers": [
+        "위기개입",
+        "정책 설계",
+        "사례관리",
+        "비용-편익",
+        "의료윤리",
+        "복지제도",
+        "상담",
+        "공공서비스"
+      ],
+      "sourceKeywords": [
+        "위기개입모델",
+        "균등화 소득",
+        "비용-편익 분석(CBA)",
+        "복합적 애도",
+        "원스톱 통합 사례관리"
+      ],
+      "avoid": [
+        "개인의 고통을 단순 동정 서사로만 다루지 않는다.",
+        "지원금·비용 수치를 지어내지 않는다.",
+        "상담·의학적 결론을 단정하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-010",
+      "seedName": "미시-거시 구조 비교·정치사회 데이터 분석형",
+      "studentFacingLabel": "개인 간 갈등 구조와 사회·정치 갈등 구조를 비교해 원인과 프레임을 분석하는 탐구",
+      "stage": "stage2",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "미시적 폭력과 거시적 정치 갈등의 구조적 유사성",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage2_RPT001_010.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage2/report_seed_bank_stage2_v1.json",
+      "fusionType": "사회문화 이론 + 정치 갈등 구조 + 통계 지표 + 프레이밍 분석",
+      "corePattern": "일상 갈등/폭력 구조 인식 → 구조적 폭력·균열 이론 적용 → 정치적 프레이밍과 집단 균열 분석 → 지표·자료로 비교 → 갈등 완화 조건 제안",
+      "problemFrame": "작은 규모의 배제와 폭력이 사회·정치 갈등과 유사한 구조로 확대되는 문제",
+      "analysisMethod": "미시/거시 구조 매핑, 정치적 프레이밍 분석, 지표화, 비교 평가, 갈등 완화 조건 도출",
+      "bestForSubjects": [
+        "정치와 법",
+        "사회·문화",
+        "확률과 통계",
+        "국어",
+        "통합사회"
+      ],
+      "bestForMajors": [
+        "정치외교학",
+        "사회학",
+        "행정학",
+        "공공정책",
+        "데이터사회과학",
+        "언론정보학"
+      ],
+      "axisTriggers": [
+        "구조분석",
+        "정치갈등",
+        "프레이밍",
+        "데이터 지표",
+        "비교평가",
+        "사회문제",
+        "균열",
+        "집단 갈등"
+      ],
+      "sourceKeywords": [
+        "구조적 폭력",
+        "균열 이론",
+        "정치적 프레이밍",
+        "분할지수",
+        "수정 알포드 지수"
+      ],
+      "avoid": [
+        "특정 정치 성향의 옳고 그름을 단정하지 않는다.",
+        "실제 선거·갈등 데이터를 지어내지 않는다.",
+        "학교폭력과 정치 갈등을 감정적으로 동일시하지 않고 구조적 유사성만 비교한다."
       ]
     }
   ]

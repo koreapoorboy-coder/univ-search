@@ -2,23 +2,20 @@
 
 작성일: 2026-05-14
 
-## 현재 stage 상태
+## 현재 seed-bank 상태
 
-| stage | seed 수 | 원본 | 상태 | 엔진 적용 |
-|---|---:|---|---|---|
-| stage1 | 5 | report_dataset_stage1_RPT001_005.xlsx | seed 변환 완료 | 미적용 |
+| Stage | 범위 | seed 수 | 상태 | 운영 적용 |
+|---|---|---:|---|---|
+| Stage 1 | RPT-001~RPT-005 | 5 | 완료 | 미적용 |
+| Stage 2 | RPT-006~RPT-010 | 5 | 완료 | 미적용 |
 
-## stage1 seed
+## 전체 요약
 
-- RPT-001: 시스템·데이터 기반 위험 예측형
-- RPT-002: 지속가능성·소재·디자인 해결형
-- RPT-003: 지구시스템·기후 데이터 해석형
-- RPT-004: 사회문제·정책 거버넌스 평가형
-- RPT-005: 공간 데이터·도시 최적화 모델링형
+- 총 seed 수: 10개
+- 현재 목적: 보고서 seed 데이터 축적
+- 다음 단계: Stage 3 보고서 추가 또는 seed matcher 설계 전 coverage 보강
+- 운영 엔진 코드 수정: 없음
 
-## 다음 작업
+## Stage 2 처리 메모
 
-1. 추가 보고서 파일이 들어오면 `stage2` 생성
-2. stage2 seed 변환 후 index 통합 갱신
-3. stage1+stage2 기준 coverage 부족 영역 확인
-4. seed matcher는 아직 만들지 않음
+`report_dataset_stage2_RPT001_010.xlsx`에는 RPT-001~RPT-010이 함께 들어 있으나, RPT-001~RPT-005는 Stage 1에서 이미 seed화했으므로 이번 Stage 2에는 RPT-006~RPT-010만 반영했다.
