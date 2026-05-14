@@ -2,13 +2,14 @@
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
   "updatedAt": "2026-05-14",
-  "status": "seed_bank_stage3_ready_not_applied_to_engine",
+  "status": "seed_bank_stage4_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 15,
+  "totalSeeds": 20,
   "stageCounts": {
     "stage1": 5,
     "stage2": 5,
-    "stage3": 5
+    "stage3": 5,
+    "stage4": 5
   },
   "seeds": [
     {
@@ -773,6 +774,268 @@
         "카스트를 단순 신분제 소개로 축소 금지",
         "회귀분석 결과를 실제 검증 없이 확정값처럼 표현 금지",
         "민감한 집단 데이터의 윤리 문제 누락 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-016",
+      "seedName": "자율주행 안전·페일오퍼레이셔널 시스템 설계형",
+      "studentFacingLabel": "자율주행 사고 사례를 물리·확률·정보 시스템 관점으로 분석하는 유형",
+      "stage": "stage4",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "우한 로보택시 사태로 본 자율주행 안전 설계",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage4_RPT016_020.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage4/report_seed_bank_stage4_v1.json",
+      "fusionType": "모빌리티 공학 + 물리 안전거리 + 통신 지연 + 시스템 신뢰도 + 윤리적 안전 설계",
+      "corePattern": "실제 사고 사례 제시 → 시스템 실패 원인 분석 → 핵심 공학 개념 설명 → 수식/확률 모델 적용 → 안전 설계 대안 제시 → 후속 연구 확장",
+      "problemFrame": "중앙 서버 통신 장애가 발생해도 자율주행차가 안전하게 감속·정지할 수 있는가",
+      "analysisMethod": "안전 제동 거리 계산, 시스템 신뢰도 산출, V2X 지연 분석, Safe-Exit 절차 설계",
+      "bestForSubjects": [
+        "물리학",
+        "확률과 통계",
+        "정보",
+        "컴퓨터공학",
+        "공학 일반"
+      ],
+      "bestForMajors": [
+        "자동차공학",
+        "전기전자공학",
+        "컴퓨터공학",
+        "인공지능",
+        "자율주행/모빌리티 시스템"
+      ],
+      "axisTriggers": [
+        "페일 오퍼레이셔널",
+        "V2X",
+        "안전 제동 거리",
+        "다중화 설계",
+        "엣지 컴퓨팅",
+        "Safe-Exit",
+        "시스템 신뢰도"
+      ],
+      "sourceKeywords": [
+        "페일 오퍼레이셔널",
+        "V2X",
+        "안전 제동 거리",
+        "다중화 설계",
+        "엣지 컴퓨팅",
+        "Safe-Exit",
+        "시스템 신뢰도"
+      ],
+      "avoid": [
+        "자율주행을 AI 성능 문제로만 축소 금지",
+        "사고 사례·수치 임의 생성 금지",
+        "기술명만 나열하고 교과 원리 연결 없이 작성 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-017",
+      "seedName": "바이러스 발암 단백질·백신 분자기전 분석형",
+      "studentFacingLabel": "질병 원인을 분자 수준에서 분석하고 예방 백신 원리까지 연결하는 유형",
+      "stage": "stage4",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "바이러스 단백질 하나가 세포 주기 전체를 무너뜨리다",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage4_RPT016_020.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage4/report_seed_bank_stage4_v1.json",
+      "fusionType": "분자생물학 + 단백질 화학 + 세포주기 + 면역/백신 원리 + 의약학",
+      "corePattern": "질병 사례 제시 → 분자 수준 발암 기전 분석 → 단백질/유전자 상호작용 설명 → 백신의 화학·생물학적 원리 해석 → 예방/치료 전략 확장",
+      "problemFrame": "HPV 발암 단백질이 p53·pRb를 어떻게 무력화하고 VLP 백신은 이를 어떻게 예방하는가",
+      "analysisMethod": "E6-E6AP-p53 경로 분석, E7-pRb-E2F 경로 분석, VLP 자가조립 원리, CIN 진행 확률 표 해석",
+      "bestForSubjects": [
+        "화학Ⅰ",
+        "화학Ⅱ",
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "분자생물학"
+      ],
+      "bestForMajors": [
+        "생명공학",
+        "생명과학",
+        "의학",
+        "약학",
+        "바이오의약품/백신 개발"
+      ],
+      "axisTriggers": [
+        "HPV E6/E7",
+        "유비퀴틴-프로테아좀 경로",
+        "p53",
+        "pRb",
+        "세포주기 체크포인트",
+        "VLP",
+        "이황화 결합",
+        "단백질 자가 조립"
+      ],
+      "sourceKeywords": [
+        "HPV E6/E7",
+        "유비퀴틴-프로테아좀 경로",
+        "p53",
+        "pRb",
+        "세포주기 체크포인트",
+        "VLP",
+        "이황화 결합",
+        "단백질 자가 조립"
+      ],
+      "avoid": [
+        "의학적 치료 효과를 확정적으로 단정 금지",
+        "분자 기전을 단순 암기식으로 나열 금지",
+        "논문 수치·진행률 임의 생성 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-018",
+      "seedName": "환경오염·피부장벽·화학 세정 메커니즘 분석형",
+      "studentFacingLabel": "환경 요인이 인체 장벽을 손상시키는 원리와 생활 속 예방 방법을 과학적으로 분석하는 유형",
+      "stage": "stage4",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "미세먼지의 피부 장벽 손상 기전과 화학적 세안법 분석",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage4_RPT016_020.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage4/report_seed_bank_stage4_v1.json",
+      "fusionType": "환경보건 + 피부면역 + 계면화학 + 생활 속 예방의학 + 화장품 과학",
+      "corePattern": "일상 건강 문제 제시 → 생물학적 손상 기전 분석 → 화학적 세정 원리 설명 → 생활 속 예방 메커니즘 제안 → 교과 연계 및 후속 탐구 확장",
+      "problemFrame": "미세먼지가 피부 장벽과 면역계에 주는 산화 스트레스 손상을 어떻게 예방할 수 있는가",
+      "analysisMethod": "입자 크기와 피부 침투 경로 분석, 계면활성제 HLB 비교, 이중 세안 단계 설계, pH/TEWL 기준 해석",
+      "bestForSubjects": [
+        "화학Ⅰ",
+        "화학Ⅱ",
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "피부과학"
+      ],
+      "bestForMajors": [
+        "의학",
+        "피부과학",
+        "생명과학",
+        "화학",
+        "화장품공학",
+        "바이오헬스"
+      ],
+      "axisTriggers": [
+        "산화 스트레스",
+        "미셀 구조",
+        "HLB 지수",
+        "수소이온농도",
+        "경피수분손실",
+        "이중 세안",
+        "유화 작용",
+        "피부 장벽"
+      ],
+      "sourceKeywords": [
+        "산화 스트레스",
+        "미셀 구조",
+        "HLB 지수",
+        "수소이온농도",
+        "경피수분손실",
+        "이중 세안",
+        "유화 작용",
+        "피부 장벽"
+      ],
+      "avoid": [
+        "화장품 광고처럼 효능 과장 금지",
+        "의학적 치료를 대체하는 표현 금지",
+        "수치 기준 출처 없이 단정 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-019",
+      "seedName": "의료로봇·물리제어·임상회복 데이터 분석형",
+      "studentFacingLabel": "의료 사례를 물리 원리와 생명 회복 기전, 데이터 모델로 분석하는 유형",
+      "stage": "stage4",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "산부인과 로봇수술 1,000례가 증명하는 융합의학의 미래",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage4_RPT016_020.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage4/report_seed_bank_stage4_v1.json",
+      "fusionType": "임상의학 + 로봇공학 + 물리 제어 + 생명 회복 기전 + 의료 데이터",
+      "corePattern": "임상 사례 제시 → 수술 시스템의 물리적 원리 설명 → 생물학적 회복 기전 연결 → 데이터/수학 모델로 효과 해석 → 환자 삶의 질·가임력 보전 가치 확장",
+      "problemFrame": "로봇수술은 어떻게 조직 손상을 줄이고 회복·가임력 보존에 기여하는가",
+      "analysisMethod": "로봇 팔 토크 모델, 라이트 학습 곡선, 조직 손상/염증 반응 분석, 수술 시간·출혈량·회복기간 비교",
+      "bestForSubjects": [
+        "물리학",
+        "생명과학",
+        "확률과 통계",
+        "의공학",
+        "의료기술"
+      ],
+      "bestForMajors": [
+        "의학",
+        "산부인과",
+        "의공학",
+        "바이오메디컬 엔지니어링",
+        "의료 AI",
+        "수술 시스템"
+      ],
+      "axisTriggers": [
+        "최소침습수술",
+        "단일공 로봇수술",
+        "라이트의 학습 곡선",
+        "토크 제어",
+        "3D 입체 광학",
+        "가임력 보존",
+        "생명학적 항상성"
+      ],
+      "sourceKeywords": [
+        "최소침습수술",
+        "단일공 로봇수술",
+        "라이트의 학습 곡선",
+        "토크 제어",
+        "3D 입체 광학",
+        "가임력 보존",
+        "생명학적 항상성"
+      ],
+      "avoid": [
+        "로봇수술을 모든 수술의 우월한 대안으로 단정 금지",
+        "임상 수치 출처 없이 과장 금지",
+        "환자 개인정보·민감정보 유추 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-020",
+      "seedName": "복지제도·사각지대·사회권 정책분석형",
+      "studentFacingLabel": "복지 제도가 누구에게 실제로 닿는지 자료와 사회 구조 관점으로 분석하는 유형",
+      "stage": "stage4",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "제도가 없으면 출산은 부자들만의 선택이 된다",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage4_RPT016_020.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage4/report_seed_bank_stage4_v1.json",
+      "fusionType": "사회복지 + 노동시장 + 가족정책 + 사회권 + 소득보장 분석",
+      "corePattern": "복지 정책 뉴스 제시 → 수혜 조건과 배제 집단 분석 → 소득대체율/고용보험 구조 해석 → 사회권 관점 평가 → 포용적 제도 개선 제안",
+      "problemFrame": "좋은 복지 제도가 왜 가장 도움이 필요한 사람에게 닿지 못하는가",
+      "analysisMethod": "제도 설계 조건 분석, 수혜 집단/사각지대 비교, 소득대체율 계산, 복지국가 유형 비교",
+      "bestForSubjects": [
+        "사회문화",
+        "정치와 법",
+        "경제",
+        "생활과 윤리",
+        "사회복지"
+      ],
+      "bestForMajors": [
+        "사회복지학",
+        "행정학",
+        "정책학",
+        "사회학",
+        "노동복지",
+        "가족정책"
+      ],
+      "axisTriggers": [
+        "육아휴직 제도",
+        "복지 사각지대",
+        "포용적 복지",
+        "저출산과 사회구조",
+        "소득대체율",
+        "고용보험",
+        "사회권"
+      ],
+      "sourceKeywords": [
+        "육아휴직 제도",
+        "복지 사각지대",
+        "포용적 복지",
+        "저출산과 사회구조",
+        "소득대체율",
+        "고용보험",
+        "사회권"
+      ],
+      "avoid": [
+        "출산을 개인 책임으로만 해석 금지",
+        "복지제도 혜택을 단순 금액 중심으로만 평가 금지",
+        "특정 가족형태·노동자 집단에 낙인 표현 금지"
       ]
     }
   ]
