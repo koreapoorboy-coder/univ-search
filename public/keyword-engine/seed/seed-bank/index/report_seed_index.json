@@ -1,0 +1,262 @@
+{
+  "schemaVersion": "report-seed-index-v1",
+  "createdAt": "2026-05-14",
+  "status": "seed_bank_structure_ready_not_applied_to_engine",
+  "root": "keyword-engine/seed/seed-bank",
+  "totalSeeds": 5,
+  "seeds": [
+    {
+      "seedId": "RPT-001",
+      "seedName": "시스템·데이터 기반 위험 예측형",
+      "studentFacingLabel": "자료와 기준으로 위험 요인을 예측하고 예방 방안을 설계하는 탐구",
+      "stage": "stage1",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "IoT와 AI를 활용한 지반 붕괴 사고 예방 시스템 구축",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage1_RPT001_005.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage1/report_seed_bank_stage1_v1.json",
+      "fusionType": "교과 원리 + 위험 변수 분해 + 센서/데이터 + 예방 시스템 설계",
+      "corePattern": "현상 관찰 → 사고/위험 요인 분해 → 핵심 변수와 임계값 설정 → 데이터 수집·판단 → 자동화 대응 방안 → 한계와 후속 탐구",
+      "problemFrame": "눈에 보이지 않거나 늦게 드러나는 위험을 자료와 판단 기준으로 조기에 파악하는 문제",
+      "analysisMethod": "안전율, 임계값, 조건문, 예측 모델, 단계별 방호벽 분석",
+      "bestForSubjects": [
+        "물리학",
+        "지구과학",
+        "정보",
+        "수학",
+        "통합과학"
+      ],
+      "bestForMajors": [
+        "토목공학",
+        "건축공학",
+        "건설안전공학",
+        "안전공학",
+        "AI",
+        "데이터과학",
+        "공간정보공학"
+      ],
+      "axisTriggers": [
+        "데이터 해석",
+        "모델링",
+        "시스템 설계",
+        "위험 예측",
+        "안전 관리",
+        "센서",
+        "자동화",
+        "공학 적용"
+      ],
+      "sourceKeywords": [
+        "지반 붕괴",
+        "IoT",
+        "AI",
+        "안전율",
+        "모어-쿨롱"
+      ],
+      "avoid": [
+        "사고 사례나 수치를 지어내지 않는다.",
+        "AI를 만능 해결책처럼 쓰지 않는다.",
+        "교과 원리 없이 기술명만 붙이지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-002",
+      "seedName": "지속가능성·소재·디자인 해결형",
+      "studentFacingLabel": "생활 속 제품 문제를 소재 원리와 지속가능성 관점으로 해결하는 탐구",
+      "stage": "stage1",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "지속가능 패션을 위한 가시적 수선과 업사이클링",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage1_RPT001_005.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage1/report_seed_bank_stage1_v1.json",
+      "fusionType": "소재 물성 + 자원순환 + 디자인/소비자 행동 + 환경 영향",
+      "corePattern": "생활 문제 인식 → 환경·사회적 비용 확인 → 소재/구조 원리 설명 → 대안 설계 → 효과 비교 → 실천 가능성 평가",
+      "problemFrame": "버려지는 자원과 소비 습관의 문제를 교과 원리와 설계 아이디어로 줄이는 문제",
+      "analysisMethod": "재료 특성 비교, 수명 연장 효과, 자원순환 구조, 디자인 대안 평가",
+      "bestForSubjects": [
+        "통합과학",
+        "물리학",
+        "수학",
+        "환경",
+        "미술/디자인"
+      ],
+      "bestForMajors": [
+        "섬유공학",
+        "의류학",
+        "패션디자인",
+        "환경공학",
+        "지속가능디자인",
+        "산업디자인"
+      ],
+      "axisTriggers": [
+        "지속가능성",
+        "자원순환",
+        "업사이클링",
+        "소재 물성",
+        "생활 문제",
+        "디자인",
+        "환경 영향",
+        "소비자"
+      ],
+      "sourceKeywords": [
+        "가시적 수선",
+        "업사이클링",
+        "인장 응력",
+        "자원순환"
+      ],
+      "avoid": [
+        "환경 보호 구호만 쓰지 않는다.",
+        "디자인 아이디어만 제시하고 과학적 근거를 빼지 않는다.",
+        "효과를 수치처럼 단정하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-003",
+      "seedName": "지구시스템·기후 데이터 해석형",
+      "studentFacingLabel": "지구 시스템의 변화가 지역 환경에 미치는 영향을 자료로 해석하는 탐구",
+      "stage": "stage1",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "우리 동네 기후의 미래는 바다가 결정한다 — 해수 순환과 한반도 기후변화의 연결고리",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage1_RPT001_005.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage1/report_seed_bank_stage1_v1.json",
+      "fusionType": "지구과학 원리 + 기후 시나리오 + 지역 영향 + 자료 해석",
+      "corePattern": "지역 현상 의문 → 지구 시스템 원리 확인 → 장기 변화 자료 탐색 → 시나리오 비교 → 지역 영향 해석 → 후속 관측/분석 제안",
+      "problemFrame": "멀리 떨어진 지구 시스템 변화가 우리 지역의 기후와 생활에 어떤 영향을 주는지 해석하는 문제",
+      "analysisMethod": "시계열 자료 비교, 기후 시나리오 해석, 원인-결과 연결, 지역화된 영향 분석",
+      "bestForSubjects": [
+        "지구과학",
+        "통합과학",
+        "수학",
+        "확률과 통계",
+        "환경"
+      ],
+      "bestForMajors": [
+        "지구과학",
+        "대기과학",
+        "해양학",
+        "환경공학",
+        "기후과학",
+        "데이터과학"
+      ],
+      "axisTriggers": [
+        "기후변화",
+        "해양 순환",
+        "시나리오",
+        "장기 데이터",
+        "지역 영향",
+        "자료 해석",
+        "환경 변화"
+      ],
+      "sourceKeywords": [
+        "열염순환",
+        "AMOC",
+        "SSP",
+        "기후변화",
+        "한반도"
+      ],
+      "avoid": [
+        "기후 예측을 확정적 결론처럼 쓰지 않는다.",
+        "전 지구 현상과 지역 현상의 연결 과정을 생략하지 않는다.",
+        "출처 없는 그래프·수치를 만들지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-004",
+      "seedName": "사회문제·정책 거버넌스 평가형",
+      "studentFacingLabel": "사회 문제를 이해관계자·정책 기준·효과 평가로 분석하는 탐구",
+      "stage": "stage1",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "국립대 통합 거버넌스와 지방행정 위기 극복 방안",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage1_RPT001_005.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage1/report_seed_bank_stage1_v1.json",
+      "fusionType": "사회 문제 + 제도/정책 + 이해관계자 + 비용·편익 또는 효과 평가",
+      "corePattern": "사회 위기 진단 → 이해관계자 구조 파악 → 정책/제도 개념 설명 → 평가 기준 설정 → 사례 비교 → 개선 방안 제안",
+      "problemFrame": "복잡한 사회 문제를 하나의 원인으로 보지 않고 제도, 지역, 이해관계자의 관점에서 조정하는 문제",
+      "analysisMethod": "이해관계자 분석, 정책 효과 비교, 비용-편익 기준, 협력 구조 평가",
+      "bestForSubjects": [
+        "통합사회",
+        "사회·문화",
+        "정치와 법",
+        "경제",
+        "한국지리"
+      ],
+      "bestForMajors": [
+        "행정학",
+        "정책학",
+        "지방자치",
+        "공공정책",
+        "교육행정",
+        "도시행정"
+      ],
+      "axisTriggers": [
+        "정책",
+        "거버넌스",
+        "지방",
+        "공공성",
+        "제도",
+        "비용편익",
+        "사회문제",
+        "이해관계자"
+      ],
+      "sourceKeywords": [
+        "글로컬대학30",
+        "거버넌스",
+        "지방소멸",
+        "B/C Ratio"
+      ],
+      "avoid": [
+        "찬반 의견 나열로 끝내지 않는다.",
+        "정책 효과를 근거 없이 단정하지 않는다.",
+        "개인 의견보다 평가 기준을 먼저 세운다."
+      ]
+    },
+    {
+      "seedId": "RPT-005",
+      "seedName": "공간 데이터·도시 최적화 모델링형",
+      "studentFacingLabel": "공간 자료와 모델을 활용해 도시 문제의 효율성과 형평성을 함께 분석하는 탐구",
+      "stage": "stage1",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "진주시 AI 대전환 기반 스마트시티 공간 최적화",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage1_RPT001_005.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage1/report_seed_bank_stage1_v1.json",
+      "fusionType": "공간 구조 + 수학 모델 + 데이터 시각화 + 도시 문제 해결",
+      "corePattern": "지역 문제 인식 → 공간 변수 설정 → 수학/지리 모델 적용 → 효율성·형평성 비교 → 최적화 방안 제시 → 확장 가능성 검토",
+      "problemFrame": "도시 시설과 서비스가 어디에 배치되어야 효율성과 형평성을 동시에 높일 수 있는지 판단하는 문제",
+      "analysisMethod": "중력 모형, 접근성 분석, 공간 데이터 비교, 디지털 트윈, 입지 최적화",
+      "bestForSubjects": [
+        "한국지리",
+        "확률과 통계",
+        "수학",
+        "물리학",
+        "정보"
+      ],
+      "bestForMajors": [
+        "도시계획학",
+        "도시공학",
+        "교통공학",
+        "스마트시티",
+        "공간정보공학",
+        "지리학"
+      ],
+      "axisTriggers": [
+        "공간",
+        "도시",
+        "스마트시티",
+        "입지",
+        "접근성",
+        "모델링",
+        "데이터",
+        "형평성",
+        "최적화"
+      ],
+      "sourceKeywords": [
+        "스마트시티",
+        "중력 모형",
+        "디지털 트윈",
+        "공간 형평성"
+      ],
+      "avoid": [
+        "스마트시티 기술명만 나열하지 않는다.",
+        "공간 형평성 없이 효율성만 말하지 않는다.",
+        "지역 자료 없이 일반론으로 끝내지 않는다."
+      ]
+    }
+  ]
+}
