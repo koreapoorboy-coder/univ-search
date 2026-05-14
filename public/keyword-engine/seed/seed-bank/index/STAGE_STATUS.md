@@ -1,21 +1,24 @@
 # STAGE_STATUS
 
-작성일: 2026-05-14
+Updated: 2026-05-14
 
-## 현재 seed-bank 상태
+## Current Status
 
-| Stage | 범위 | seed 수 | 상태 | 운영 적용 |
-|---|---|---:|---|---|
-| Stage 1 | RPT-001~RPT-005 | 5 | 완료 | 미적용 |
-| Stage 2 | RPT-006~RPT-010 | 5 | 완료 | 미적용 |
+| Stage | Range | Status | Notes |
+|---|---|---|---|
+| Stage 1 | RPT-001~RPT-005 | 완료 | 기존 seed-bank 반영 완료 |
+| Stage 2 | RPT-006~RPT-010 | 완료 | 기존 seed-bank 반영 완료 |
+| Stage 3 | RPT-011~RPT-015 | 완료 | 이번 패치에서 신규 반영 |
+| Stage 4 | RPT-016~RPT-020 | 대기 | 다음 보고서 5개 수집 후 진행 |
 
-## 전체 요약
+## Stage 3 Output
 
-- 총 seed 수: 10개
-- 현재 목적: 보고서 seed 데이터 축적
-- 다음 단계: Stage 3 보고서 추가 또는 seed matcher 설계 전 coverage 보강
-- 운영 엔진 코드 수정: 없음
+- `seed/seed-bank/report-seeds/stage3/report_seed_bank_stage3_v1.json`
+- `seed/seed-bank/report-seeds/stage3/report_seed_bank_stage3_v1.js`
+- `seed/seed-bank/report-seeds/stage3/REPORT_SEED_BANK_STAGE3_V1.md`
+- `seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage3_RPT011_015.xlsx`
+- `seed/seed-bank/raw-reports/converted-notes/STAGE3_SOURCE_SUMMARY.md`
 
-## Stage 2 처리 메모
+## Next Step
 
-`report_dataset_stage2_RPT001_010.xlsx`에는 RPT-001~RPT-010이 함께 들어 있으나, RPT-001~RPT-005는 Stage 1에서 이미 seed화했으므로 이번 Stage 2에는 RPT-006~RPT-010만 반영했다.
+RPT-016~RPT-020을 새 Stage 4로 묶어 진행한다.
