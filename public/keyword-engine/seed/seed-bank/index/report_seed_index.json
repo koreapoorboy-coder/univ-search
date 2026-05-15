@@ -2,15 +2,16 @@
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
   "updatedAt": "2026-05-15",
-  "status": "seed_bank_stage5_ready_not_applied_to_engine",
+  "status": "seed_bank_stage6_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 25,
+  "totalSeeds": 30,
   "stageCounts": {
     "stage1": 5,
     "stage2": 5,
     "stage3": 5,
     "stage4": 5,
-    "stage5": 5
+    "stage5": 5,
+    "stage6": 5
   },
   "seeds": [
     {
@@ -1299,6 +1300,282 @@
         "특정 정치인에 대한 호불호로 흐르지 않는다.",
         "국제질서 변화를 친미/친중 이분법으로 단순화하지 않는다.",
         "기사 한 편만으로 국제질서 전체를 과잉 일반화하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-026",
+      "seedName": "AI 학습분석·문항반응이론 기반 맞춤형 교육 설계형",
+      "studentFacingLabel": "AI가 학생의 학습 수준을 분석해 맞춤형 문제와 피드백을 제공하는 원리 탐구",
+      "stage": "stage6",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "AI 디지털 교과서의 문항 반응 이론과 맞춤형 학습 분석",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage6_RPT026_030.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage6/report_seed_bank_stage6_v1.json",
+      "fusionType": "교육공학 + 수학·통계 + AI + 학습분석 + 교육윤리",
+      "corePattern": "AI 디지털 교과서 도입 배경 → 학생 학습 데이터 수집 → 문항 반응 이론으로 능력 추정 → 맞춤형 비계 제공 → 교사 하이터치 개입 → 효과 검증",
+      "problemFrame": "AI 디지털 교과서는 학생의 수준을 어떻게 판단하고, 왜 모든 학생에게 같은 문제를 주는 방식보다 맞춤형 학습에 유리한가",
+      "analysisMethod": "교육 문제 인식 + 수학·통계 모델 설명 + 알고리즘 적용 과정 + 교사 개입 구조 분석 + 효과 검증",
+      "bestForSubjects": [
+        "수학",
+        "확률과 통계",
+        "정보",
+        "사회·문화",
+        "교육 관련 진로활동"
+      ],
+      "bestForMajors": [
+        "교육학과",
+        "교육공학과",
+        "수학교육과",
+        "컴퓨터교육과",
+        "통계학과",
+        "인공지능학과",
+        "데이터사이언스학과"
+      ],
+      "axisTriggers": [
+        "AI 디지털 교과서",
+        "문항 반응 이론",
+        "학습분석",
+        "효과 크기",
+        "Cohen's d",
+        "하이테크-하이터치 교육",
+        "비계 설정",
+        "근접발달영역"
+      ],
+      "sourceKeywords": [
+        "AI 디지털 교과서",
+        "문항 반응 이론",
+        "학습분석",
+        "효과 크기",
+        "Cohen’s d",
+        "하이테크-하이터치 교육"
+      ],
+      "avoid": [
+        "AI 교과서를 단순 전자책으로만 설명하지 않는다.",
+        "AI가 교사를 대체한다는 단순 찬반식 접근을 피한다.",
+        "IRT 수식만 나열하고 교육적 의미를 설명하지 않는 방식을 피한다.",
+        "효과 검증 없이 기술의 장점만 강조하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-027",
+      "seedName": "AI 스마트교통·압축도시 공간 구조 재설계형",
+      "studentFacingLabel": "도시 교통과 탄소배출 문제를 AI와 도시계획 모델로 해결하는 탐구",
+      "stage": "stage6",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "AI 기반 스마트 교통과 압축 도시의 미래",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage6_RPT026_030.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage6/report_seed_bank_stage6_v1.json",
+      "fusionType": "도시계획 + 수학 확률모델 + AI 교통제어 + 환경정책",
+      "corePattern": "도시 문제 인식 → 압축 도시 개념 도입 → TOD·LUDI로 공간 구조 분석 → 허프 확률 모델로 입지 선택 예측 → AI 교통 제어 적용 → 탄소배출 저감 효과 검토",
+      "problemFrame": "도시의 교통체증과 탄소배출 문제는 도로를 더 넓히는 방식만으로 해결할 수 있는가, 아니면 도시 공간 구조 자체를 데이터 기반으로 재설계해야 하는가",
+      "analysisMethod": "도시 문제 사례 분석 + 수학 모델 적용 + 공간 지표 해석 + AI 교통 제어 시나리오 + 환경 효과 평가",
+      "bestForSubjects": [
+        "수학",
+        "확률과 통계",
+        "사회문제 탐구",
+        "통합사회",
+        "통합과학",
+        "지구과학",
+        "정보"
+      ],
+      "bestForMajors": [
+        "도시공학과",
+        "교통공학과",
+        "도시계획학과",
+        "건축학과",
+        "환경공학과",
+        "데이터사이언스학과",
+        "인공지능학과"
+      ],
+      "axisTriggers": [
+        "컴팩트 시티",
+        "TOD",
+        "LUDI",
+        "허프 확률 모델",
+        "AI 스마트 교통 제어",
+        "탄소배출",
+        "공간 구조 재편"
+      ],
+      "sourceKeywords": [
+        "컴팩트 시티",
+        "대중교통 지향형 개발",
+        "TOD",
+        "허프 확률 모델",
+        "토지이용 혼합도",
+        "LUDI",
+        "AI 스마트 교통제어"
+      ],
+      "avoid": [
+        "스마트시티를 단순히 첨단기술이 많은 도시로만 설명하지 않는다.",
+        "교통체증을 도로 확장 문제로만 보지 않는다.",
+        "수학 모델을 실제 도시 문제와 분리하지 않는다.",
+        "환경 효과를 막연히 좋아진다고만 표현하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-028",
+      "seedName": "AI 소재탐색·반도체 성능 최적화형",
+      "studentFacingLabel": "AI가 새로운 센서·반도체 소재를 빠르게 찾아내는 원리 탐구",
+      "stage": "stage6",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "AI 기반 첨단 소재 개발: 미래 센서와 반도체 혁신",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage6_RPT026_030.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage6/report_seed_bank_stage6_v1.json",
+      "fusionType": "AI + 재료공학 + 반도체 + 물리·화학 + 최적화 알고리즘",
+      "corePattern": "첨단 소재 개발 필요성 → 기존 실험 중심 연구의 한계 → AI/유전 알고리즘 기반 소재 조합 탐색 → 센서 성능 예측 및 최적화 → 반도체·차세대 메모리 응용",
+      "problemFrame": "기존 방식으로는 시간과 비용이 많이 드는 신소재 개발을 AI는 어떻게 더 빠르고 정확하게 수행할 수 있는가",
+      "analysisMethod": "기술 사례 분석 + 소재 특성 설명 + AI 최적화 과정 해석 + 반도체 공정 적용 가능성 + 미래 산업 영향 분석",
+      "bestForSubjects": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "화학Ⅰ",
+        "화학Ⅱ",
+        "정보",
+        "수학",
+        "확률과 통계",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "신소재공학과",
+        "반도체공학과",
+        "전기전자공학과",
+        "재료공학과",
+        "화학공학과",
+        "인공지능학과",
+        "컴퓨터공학과"
+      ],
+      "axisTriggers": [
+        "인공지능",
+        "적외선 센서",
+        "반도체 소재",
+        "유전 알고리즘",
+        "비정질 하프늄 산화물",
+        "차세대 메모리",
+        "뉴로모픽 반도체"
+      ],
+      "sourceKeywords": [
+        "인공지능",
+        "적외선 센서",
+        "반도체 소재",
+        "유전 알고리즘",
+        "비정질 하프늄 산화물",
+        "차세대 메모리"
+      ],
+      "avoid": [
+        "AI가 모든 소재를 자동으로 만든다는 식의 과장을 피한다.",
+        "반도체를 단순 전자부품으로만 설명하지 않는다.",
+        "유전 알고리즘을 생물학 개념으로만 다루지 않는다.",
+        "센서 성능 향상을 수치만 제시하고 원리 설명 없이 끝내지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-029",
+      "seedName": "슈퍼컴퓨터 가상핵실험·국제안보 분석형",
+      "studentFacingLabel": "실제 폭발 없이 핵무기 성능을 검증하는 기술과 국제정치의 관계 탐구",
+      "stage": "stage6",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "보이지 않는 폭발: 슈퍼컴퓨터 기술과 핵 안보의 기술적·정치적 융합",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage6_RPT026_030.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage6/report_seed_bank_stage6_v1.json",
+      "fusionType": "국제정치 + 물리 시뮬레이션 + 컴퓨터과학 + 안보정책 + 과학기술윤리",
+      "corePattern": "국제 핵실험 금지 체제 → 실제 핵실험 불가능성 → 슈퍼컴퓨터 기반 가상 실험 → 핵무기 성능·안정성 검증 → 핵 억제력 유지 → 국제정치적 신뢰 문제 분석",
+      "problemFrame": "핵실험이 금지된 상황에서 국가는 핵무기의 안전성과 억제력을 어떻게 유지하며, 그 기술은 국제 안보 질서에 어떤 영향을 미치는가",
+      "analysisMethod": "국제조약 배경 분석 + 물리 시뮬레이션 원리 설명 + 핵 억제 이론 적용 + 안보정책 사례 분석 + 과학기술 윤리 검토",
+      "bestForSubjects": [
+        "정치와 법",
+        "통합사회",
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "정보",
+        "세계사",
+        "윤리와 사상"
+      ],
+      "bestForMajors": [
+        "정치외교학과",
+        "국제학부",
+        "국방학과",
+        "물리학과",
+        "컴퓨터공학과",
+        "데이터사이언스학과",
+        "과학기술정책 관련 전공"
+      ],
+      "axisTriggers": [
+        "가상 핵실험",
+        "슈퍼컴퓨터",
+        "포괄적핵실험금지조약",
+        "핵 억제 이론",
+        "핵무기 관리 프로그램",
+        "시뮬레이션",
+        "국제안보"
+      ],
+      "sourceKeywords": [
+        "가상 핵실험",
+        "슈퍼컴퓨터",
+        "포괄적핵실험금지조약",
+        "핵 억제 이론",
+        "핵무기 관리 프로그램"
+      ],
+      "avoid": [
+        "핵무기 기술을 흥미 위주로 설명하지 않는다.",
+        "핵실험을 단순 물리 현상으로만 다루지 않는다.",
+        "국제정치 맥락 없이 슈퍼컴퓨터 성능만 설명하지 않는다.",
+        "안보 논리만 강조하고 윤리·외교적 위험을 생략하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-030",
+      "seedName": "유전자편집·메탄생성 경로 제어 기반 농업 온실가스 저감형",
+      "studentFacingLabel": "벼 유전자 편집이 논 메탄 배출을 줄이는 화학·생명과학 원리 탐구",
+      "stage": "stage6",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "논에서 시작되는 기후 해법 — 유전자 편집과 메탄 생성 반응 경로의 화학공정적 제어",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage6_RPT026_030.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage6/report_seed_bank_stage6_v1.json",
+      "fusionType": "화학공정 + 생명공학 + 농업환경 + 탄소플럭스 + 기후변화",
+      "corePattern": "논 메탄 배출 문제 인식 → 메탄 생성 반응 경로 설명 → 산화·환원과 효소 촉매 해석 → 유전자 편집 기반 대사 경로 조절 → 탄소 플럭스와 CO2eq 저감 효과 계산",
+      "problemFrame": "논에서 발생하는 메탄은 왜 강력한 온실가스 문제가 되며, 벼 유전자 하나의 편집이 어떻게 메탄 생성 반응 경로를 바꿀 수 있는가",
+      "analysisMethod": "반응 경로 해석 + 산화수·전자전달 분석 + 미카엘리스-멘텐 반응속도 적용 + 탄소 플럭스 물질수지 + CO2eq 계산 + 유전자 편집 효과 비교",
+      "bestForSubjects": [
+        "화학Ⅱ",
+        "생명과학Ⅱ",
+        "통합과학",
+        "지구과학",
+        "과학탐구실험",
+        "환경"
+      ],
+      "bestForMajors": [
+        "화학공학과",
+        "생명공학과",
+        "환경공학과",
+        "농생명공학과",
+        "식물생명공학과",
+        "미생물학과",
+        "바이오시스템공학과"
+      ],
+      "axisTriggers": [
+        "메탄 생성 반응 경로",
+        "산화-환원 반응",
+        "전자 전달",
+        "효소 촉매",
+        "반응 속도",
+        "탄소 플럭스",
+        "유전자 편집",
+        "OsNramp5",
+        "CRISPR-Cas9",
+        "CO2eq"
+      ],
+      "sourceKeywords": [
+        "메탄 생성 반응 경로",
+        "산화-환원 반응 및 전자 전달",
+        "반응 속도와 효소 촉매",
+        "물질 수지 및 탄소 플럭스",
+        "유전자 편집 기반 대사 공학"
+      ],
+      "avoid": [
+        "유전자 하나로 기후 문제가 모두 해결된다고 과장하지 않는다.",
+        "GMO·유전자 편집의 사회적 수용성과 규제 문제를 생략하지 않는다.",
+        "메탄 감축 수치와 CO2eq 계산을 출처 검수 없이 단정하지 않는다.",
+        "화학 반응식과 생물학적 경로를 분리해 나열하지 않는다."
       ]
     }
   ]

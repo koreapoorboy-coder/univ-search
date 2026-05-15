@@ -8,9 +8,10 @@ Updated: 2026-05-15
 | Stage 3 | RPT-011~015 | 완료 | report_dataset_stage3_RPT011_015.xlsx | stage3/report_seed_bank_stage3_v1.json |
 | Stage 4 | RPT-016~020 | 완료 | report_dataset_stage4_RPT016_020.xlsx | stage4/report_seed_bank_stage4_v1.json |
 | Stage 5 | RPT-021~025 | 완료 | report_dataset_stage5_RPT021_025.xlsx | stage5/report_seed_bank_stage5_v1.json |
+| Stage 6 | RPT-026~030 | 완료 | report_dataset_stage6_RPT026_030.xlsx | stage6/report_seed_bank_stage6_v1.json |
 
 ## Current Operating Status
 
-- seed-bank 누적: RPT-001~025 완료
+- seed-bank 누적: RPT-001~030 완료
 - 운영 엔진 적용: 미적용
-- 다음 작업: Stage 6 = RPT-026~030 이미지 보고서 수집 및 엑셀화
+- 다음 작업: Stage 7 = RPT-031~035 이미지 보고서 수집 및 엑셀화

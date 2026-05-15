@@ -10,15 +10,16 @@ Updated: 2026-05-15
 | stage3 | RPT-011~015 | 5 | 완료 | report_dataset_stage3_RPT011_015.xlsx |
 | stage4 | RPT-016~020 | 5 | 완료 | report_dataset_stage4_RPT016_020.xlsx |
 | stage5 | RPT-021~025 | 5 | 완료 | report_dataset_stage5_RPT021_025.xlsx |
+| stage6 | RPT-026~030 | 5 | 완료 | report_dataset_stage6_RPT026_030.xlsx |
 
-## Stage 5 New Coverage
+## Stage 6 New Coverage
 
-- **RPT-021 자원외교 실패·위기관리 행정 분석형**: 정치와 법, 경제, 사회·문화, 한국사, 세계사, 통합사회 / 행정학과, 정치외교학과, 경제학과, 국제학부, 에너지자원공학 관련 계열
-- **RPT-022 리튬금속전지 덴드라이트 제어·인터페이스 보호층 설계형**: 화학Ⅱ, 물리학Ⅱ, 과학탐구실험, 통합과학, 공학 일반 / 화학공학과, 신소재공학과, 에너지공학과, 전기전자공학과, 배터리 관련 융합학과
-- **RPT-023 유연 압전 센서·심혈관 생체신호 실시간 모니터링형**: 물리학Ⅰ, 물리학Ⅱ, 생명과학Ⅰ, 생명과학Ⅱ, 화학, 과학탐구실험 / 의공학과, 바이오메디컬공학과, 전자공학과, 신소재공학과, 생명공학과
-- **RPT-024 p-tau217 바이오마커·알츠하이머 조기진단 윤리 분석형**: 생명과학Ⅰ, 생명과학Ⅱ, 화학, 수학, 과학탐구실험, 생명윤리 / 분자생물학과, 생명공학과, 의생명공학과, 의예과, 임상병리학과, 바이오메디컬 관련 학과
-- **RPT-025 패권질서 변화·중견국 외교전략 분석형**: 정치와 법, 세계사, 경제, 통합사회, 국제정치 / 정치외교학과, 국제학부, 행정학과, 경제학과, 국제관계학 관련 계열
+- **RPT-026 AI 학습분석·문항반응이론 기반 맞춤형 교육 설계형**: 수학, 확률과 통계, 정보, 사회·문화, 교육 관련 진로활동 / 교육학과, 교육공학과, 수학교육과, 컴퓨터교육과, 통계학과, 인공지능학과, 데이터사이언스학과
+- **RPT-027 AI 스마트교통·압축도시 공간 구조 재설계형**: 수학, 확률과 통계, 사회문제 탐구, 통합사회, 통합과학, 지구과학, 정보 / 도시공학과, 교통공학과, 도시계획학과, 건축학과, 환경공학과, 데이터사이언스학과, 인공지능학과
+- **RPT-028 AI 소재탐색·반도체 성능 최적화형**: 물리학Ⅰ, 물리학Ⅱ, 화학Ⅰ, 화학Ⅱ, 정보, 수학, 확률과 통계, 과학탐구실험 / 신소재공학과, 반도체공학과, 전기전자공학과, 재료공학과, 화학공학과, 인공지능학과, 컴퓨터공학과
+- **RPT-029 슈퍼컴퓨터 가상핵실험·국제안보 분석형**: 정치와 법, 통합사회, 물리학Ⅰ, 물리학Ⅱ, 정보, 세계사, 윤리와 사상 / 정치외교학과, 국제학부, 국방학과, 물리학과, 컴퓨터공학과, 데이터사이언스학과, 과학기술정책 관련 전공
+- **RPT-030 유전자편집·메탄생성 경로 제어 기반 농업 온실가스 저감형**: 화학Ⅱ, 생명과학Ⅱ, 통합과학, 지구과학, 과학탐구실험, 환경 / 화학공학과, 생명공학과, 환경공학과, 농생명공학과, 식물생명공학과, 미생물학과, 바이오시스템공학과
 
 ## Coverage Note
 
-Stage 5 adds energy-resource diplomacy and crisis-management administration, lithium-metal battery interface design, flexible piezoelectric biomedical sensing, Alzheimer's blood biomarker diagnostics and medical ethics, and hegemonic order/middle-power diplomacy analysis seeds. The files remain seed-data-only and are not connected to the operating engine.
+Stage 6 adds AI digital textbook learning analytics, AI smart transportation and compact city planning, AI-based materials/semiconductor discovery, supercomputer-based virtual nuclear testing and international security, and gene-editing based methane pathway control in agriculture. The files remain seed-data-only and are not connected to the operating engine.
