@@ -1,5 +1,5 @@
 # report_seed_coverage_map
-Updated: 2026-05-14
+Updated: 2026-05-15
 
 ## Stage Coverage
 
@@ -9,16 +9,16 @@ Updated: 2026-05-14
 | stage2 | RPT-006~010 | 5 | 완료 | report_dataset_stage2_RPT001_010.xlsx |
 | stage3 | RPT-011~015 | 5 | 완료 | report_dataset_stage3_RPT011_015.xlsx |
 | stage4 | RPT-016~020 | 5 | 완료 | report_dataset_stage4_RPT016_020.xlsx |
+| stage5 | RPT-021~025 | 5 | 완료 | report_dataset_stage5_RPT021_025.xlsx |
 
-## Stage 4 New Coverage
+## Stage 5 New Coverage
 
-- **RPT-016 자율주행 안전·페일오퍼레이셔널 시스템 설계형**: 물리학, 확률과 통계, 정보, 컴퓨터공학, 공학 일반 / 자동차공학, 전기전자공학, 컴퓨터공학, 인공지능, 자율주행/모빌리티 시스템
-- **RPT-017 바이러스 발암 단백질·백신 분자기전 분석형**: 화학Ⅰ, 화학Ⅱ, 생명과학Ⅰ, 생명과학Ⅱ, 분자생물학 / 생명공학, 생명과학, 의학, 약학, 바이오의약품/백신 개발
-- **RPT-018 환경오염·피부장벽·화학 세정 메커니즘 분석형**: 화학Ⅰ, 화학Ⅱ, 생명과학Ⅰ, 생명과학Ⅱ, 피부과학 / 의학, 피부과학, 생명과학, 화학, 화장품공학, 바이오헬스
-- **RPT-019 의료로봇·물리제어·임상회복 데이터 분석형**: 물리학, 생명과학, 확률과 통계, 의공학, 의료기술 / 의학, 산부인과, 의공학, 바이오메디컬 엔지니어링, 의료 AI, 수술 시스템
-- **RPT-020 복지제도·사각지대·사회권 정책분석형**: 사회문화, 정치와 법, 경제, 생활과 윤리, 사회복지 / 사회복지학, 행정학, 정책학, 사회학, 노동복지, 가족정책
-
+- **RPT-021 자원외교 실패·위기관리 행정 분석형**: 정치와 법, 경제, 사회·문화, 한국사, 세계사, 통합사회 / 행정학과, 정치외교학과, 경제학과, 국제학부, 에너지자원공학 관련 계열
+- **RPT-022 리튬금속전지 덴드라이트 제어·인터페이스 보호층 설계형**: 화학Ⅱ, 물리학Ⅱ, 과학탐구실험, 통합과학, 공학 일반 / 화학공학과, 신소재공학과, 에너지공학과, 전기전자공학과, 배터리 관련 융합학과
+- **RPT-023 유연 압전 센서·심혈관 생체신호 실시간 모니터링형**: 물리학Ⅰ, 물리학Ⅱ, 생명과학Ⅰ, 생명과학Ⅱ, 화학, 과학탐구실험 / 의공학과, 바이오메디컬공학과, 전자공학과, 신소재공학과, 생명공학과
+- **RPT-024 p-tau217 바이오마커·알츠하이머 조기진단 윤리 분석형**: 생명과학Ⅰ, 생명과학Ⅱ, 화학, 수학, 과학탐구실험, 생명윤리 / 분자생물학과, 생명공학과, 의생명공학과, 의예과, 임상병리학과, 바이오메디컬 관련 학과
+- **RPT-025 패권질서 변화·중견국 외교전략 분석형**: 정치와 법, 세계사, 경제, 통합사회, 국제정치 / 정치외교학과, 국제학부, 행정학과, 경제학과, 국제관계학 관련 계열
 
 ## Coverage Note
 
-Stage 4 adds engineering safety, molecular oncology/vaccine design, environmental skin barrier chemistry, medical robotics, and welfare blind spot policy analysis seeds. The files remain seed-data-only and are not connected to the operating engine.
+Stage 5 adds energy-resource diplomacy and crisis-management administration, lithium-metal battery interface design, flexible piezoelectric biomedical sensing, Alzheimer's blood biomarker diagnostics and medical ethics, and hegemonic order/middle-power diplomacy analysis seeds. The files remain seed-data-only and are not connected to the operating engine.

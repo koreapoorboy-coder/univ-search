@@ -1,15 +1,16 @@
 {
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
-  "updatedAt": "2026-05-14",
-  "status": "seed_bank_stage4_ready_not_applied_to_engine",
+  "updatedAt": "2026-05-15",
+  "status": "seed_bank_stage5_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 20,
+  "totalSeeds": 25,
   "stageCounts": {
     "stage1": 5,
     "stage2": 5,
     "stage3": 5,
-    "stage4": 5
+    "stage4": 5,
+    "stage5": 5
   },
   "seeds": [
     {
@@ -1036,6 +1037,268 @@
         "출산을 개인 책임으로만 해석 금지",
         "복지제도 혜택을 단순 금액 중심으로만 평가 금지",
         "특정 가족형태·노동자 집단에 낙인 표현 금지"
+      ]
+    },
+    {
+      "seedId": "RPT-021",
+      "seedName": "자원외교 실패·위기관리 행정 분석형",
+      "studentFacingLabel": "국제 자원 위기가 국내 행정정책과 국민 일상에 미치는 영향을 분석하는 탐구",
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "자원외교 실패가 국내 행정을 어떻게 뒤흔드는가",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "fusionType": "정치·행정 + 국제정세 + 에너지경제 + 정책 형평성",
+      "corePattern": "국제 에너지 위기 → 자원외교 실패 → 자원안보 위기경보 → 수요관리 행정조치 → 정책 형평성 평가",
+      "problemFrame": "국가 차원의 자원 확보 실패가 왜 국민의 이동권 제한, 차량 운행 제한, 공공서비스 규제로 이어지는가",
+      "analysisMethod": "정책 사례 분석 + 위기경보 단계표 + 공공기관 차량 제한 사례 + 형평성 비판",
+      "bestForSubjects": [
+        "정치와 법",
+        "경제",
+        "사회·문화",
+        "한국사",
+        "세계사",
+        "통합사회"
+      ],
+      "bestForMajors": [
+        "행정학과",
+        "정치외교학과",
+        "경제학과",
+        "국제학부",
+        "에너지자원공학 관련 계열"
+      ],
+      "axisTriggers": [
+        "자원외교",
+        "자원안보 위기경보",
+        "위기관리 행정",
+        "정책 형평성",
+        "에너지 수요관리",
+        "공공기관 차량 제한",
+        "정부 개입"
+      ],
+      "sourceKeywords": [
+        "자원외교",
+        "자원안보 위기경보",
+        "위기관리 행정",
+        "정책 집행의 형평성",
+        "에너지 수요관리 정책"
+      ],
+      "avoid": [
+        "국제정세 설명만 반복하지 않는다.",
+        "자원외교를 단순 해외 투자 문제로만 보지 않는다.",
+        "차량 제한 정책을 단순 찬반으로만 다루지 않는다.",
+        "수치·기사 출처 검수 없이 단정하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-022",
+      "seedName": "리튬금속전지 덴드라이트 제어·인터페이스 보호층 설계형",
+      "studentFacingLabel": "차세대 배터리의 핵심 문제를 화학공학적으로 해결하는 탐구",
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "차세대 리튬금속전지의 덴드라이트 제어와 보호층 설계",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "fusionType": "화학공학 + 물리 모델 + 재료공학 + 전기화학 + 배터리 안전",
+      "corePattern": "고에너지밀도 배터리 필요성 → 리튬금속전지 장점 → 덴드라이트 형성 메커니즘 → 수식/모델 기반 원인 해석 → 보호층 설계 대안 제시",
+      "problemFrame": "리튬금속전지는 왜 이론적으로 뛰어나지만 실제 사용에서는 덴드라이트 때문에 위험해지는가, 그리고 이를 어떤 인터페이스 설계로 해결할 수 있는가",
+      "analysisMethod": "원리 설명 + 모델 해석 + 보호층 설계 아이디어 + 교과 연계 + 공학적 확장",
+      "bestForSubjects": [
+        "화학Ⅱ",
+        "물리학Ⅱ",
+        "과학탐구실험",
+        "통합과학",
+        "공학 일반"
+      ],
+      "bestForMajors": [
+        "화학공학과",
+        "신소재공학과",
+        "에너지공학과",
+        "전기전자공학과",
+        "배터리 관련 융합학과"
+      ],
+      "axisTriggers": [
+        "리튬금속전지",
+        "덴드라이트",
+        "샌드 시간 모델",
+        "고분자 보호층",
+        "패러데이 법칙",
+        "전기화학",
+        "열폭주"
+      ],
+      "sourceKeywords": [
+        "리튬금속전지",
+        "덴드라이트",
+        "Sand's Time Equation",
+        "Polymer Protective Layer",
+        "Faraday's Law of Electrolysis"
+      ],
+      "avoid": [
+        "배터리 일반론만 나열하지 않는다.",
+        "덴드라이트를 단순히 나쁜 결정으로만 설명하지 않는다.",
+        "수식과 개념의 역할 구분 없이 어려운 용어만 나열하지 않는다.",
+        "보호층을 막연한 코팅 기술로만 설명하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-023",
+      "seedName": "유연 압전 센서·심혈관 생체신호 실시간 모니터링형",
+      "studentFacingLabel": "생체 신호를 실시간으로 읽어 심혈관 질환을 조기 예측하는 탐구",
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "유연 압전 센서 기반 심혈관 실시간 모니터링",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "fusionType": "물리 센서 + 생명과학 + 혈류역학 + 의공학 + 웨어러블 모니터링",
+      "corePattern": "질병 조기진단 필요성 → 웨어러블 센서 도입 → 압전 효과 원리 설명 → 혈류역학 모델 적용 → 실시간 모니터링 시스템 해석",
+      "problemFrame": "기존 일회성 혈압 검사만으로는 심혈관 질환을 충분히 예측하기 어렵고, 유연 압전 센서는 이를 어떻게 보완할 수 있는가",
+      "analysisMethod": "센서 원리 설명 + 수식 기반 해석 + 질환 발생 시 변화 과정 분석 + 실시간 적용 시나리오 제시",
+      "bestForSubjects": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "의공학과",
+        "바이오메디컬공학과",
+        "전자공학과",
+        "신소재공학과",
+        "생명공학과"
+      ],
+      "axisTriggers": [
+        "유연 압전 센서",
+        "압전 효과",
+        "하겐-푸아죄유 법칙",
+        "혈류역학",
+        "맥파 전달 속도",
+        "웨어러블 센서",
+        "심혈관 모니터링"
+      ],
+      "sourceKeywords": [
+        "Flexible Piezoelectric Sensor",
+        "Piezoelectric Effect",
+        "Hagen-Poiseuille's Law",
+        "Hemodynamics",
+        "Pulse Wave Velocity"
+      ],
+      "avoid": [
+        "웨어러블 기기 일반론만 서술하지 않는다.",
+        "압전 효과를 전기가 생긴다는 수준으로만 다루지 않는다.",
+        "혈류역학과 실제 질환 지표의 연결 없이 작성하지 않는다.",
+        "실시간 모니터링의 의학적 의미 없이 기술 소개만 하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-024",
+      "seedName": "p-tau217 바이오마커·알츠하이머 조기진단 윤리 분석형",
+      "studentFacingLabel": "알츠하이머를 혈액검사로 조기 진단할 수 있는가를 분자생물학과 윤리 관점에서 분석하는 탐구",
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "혈액 속 단백질 신호로 알츠하이머를 조기 파악할 수 있을까 — p-tau217 바이오마커의 분자생물학적 원리와 과잉검사 딜레마",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "fusionType": "분자생물학 + 의생명과학 + 진단검사의학 + 통계 성능평가 + 생명윤리",
+      "corePattern": "질병 조기진단 필요성 → 병리 단백질 기전 설명 → 바이오마커 선정 → 검출 기술 원리 분석 → 성능 평가 지표 해석 → 윤리적 딜레마 검토",
+      "problemFrame": "p-tau217 혈액검사는 왜 알츠하이머 조기진단의 유망 기술로 평가되는가, 그리고 정확도가 높아져도 왜 과잉검사 문제가 발생하는가",
+      "analysisMethod": "질병 기전 설명 + 바이오마커 정량 수치 비교 + 검출 원리 해석 + 성능지표 계산 예시 + 윤리 쟁점 분석",
+      "bestForSubjects": [
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "수학",
+        "과학탐구실험",
+        "생명윤리"
+      ],
+      "bestForMajors": [
+        "분자생물학과",
+        "생명공학과",
+        "의생명공학과",
+        "의예과",
+        "임상병리학과",
+        "바이오메디컬 관련 학과"
+      ],
+      "axisTriggers": [
+        "바이오마커",
+        "p-tau217",
+        "베타-아밀로이드",
+        "ELISA",
+        "민감도",
+        "특이도",
+        "AUC",
+        "액체생검",
+        "정밀의료"
+      ],
+      "sourceKeywords": [
+        "바이오마커",
+        "p-tau217",
+        "베타-아밀로이드",
+        "ELISA",
+        "민감도·특이도",
+        "액체생검",
+        "정밀의료"
+      ],
+      "avoid": [
+        "알츠하이머 일반 상식만 나열하지 않는다.",
+        "p-tau217을 치매 수치처럼 단순화하지 않는다.",
+        "민감도와 특이도를 구분하지 않는 서술을 피한다.",
+        "기술 찬양만 하고 과잉검사 문제를 생략하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-025",
+      "seedName": "패권질서 변화·중견국 외교전략 분석형",
+      "studentFacingLabel": "미국 패권 변화와 한국 외교 전략을 국제정치 이론으로 분석하는 탐구",
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "미국 패권의 균열과 국제 질서의 재편 — 트럼프 행정부의 일방주의는 자유주의 국제 질서의 종말을 의미하는가",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "fusionType": "국제정치 + 정치와 법 + 세계사 + 경제안보 + 외교전략",
+      "corePattern": "국제질서 변화 의문 → 패권안정론·연성권력·세력전이론 개념 정리 → 미국 내부 변화와 동맹 반응 분석 → 한국 중견국 외교 전략 도출 → 역사·현실 사례 연결",
+      "problemFrame": "미국의 일방주의와 국내 균열이 자유주의 국제 질서를 약화시킬 때 한국은 어떤 외교 전략을 취해야 하는가",
+      "analysisMethod": "국제정치 이론 적용 + 기사 사례 분석 + 역사 비교 + Q&A 논점 확장 + 한국 외교 전략 도출",
+      "bestForSubjects": [
+        "정치와 법",
+        "세계사",
+        "경제",
+        "통합사회",
+        "국제정치"
+      ],
+      "bestForMajors": [
+        "정치외교학과",
+        "국제학부",
+        "행정학과",
+        "경제학과",
+        "국제관계학 관련 계열"
+      ],
+      "axisTriggers": [
+        "패권 안정론",
+        "자유주의 국제 질서",
+        "일방주의",
+        "연성권력",
+        "세력전이론",
+        "다자주의",
+        "동맹 딜레마",
+        "중견국 외교"
+      ],
+      "sourceKeywords": [
+        "패권 안정론",
+        "자유주의 국제 질서",
+        "일방주의",
+        "연성권력",
+        "세력전이론",
+        "다자주의",
+        "동맹 딜레마",
+        "중견국 외교"
+      ],
+      "avoid": [
+        "미국 몰락을 단정하지 않는다.",
+        "특정 정치인에 대한 호불호로 흐르지 않는다.",
+        "국제질서 변화를 친미/친중 이분법으로 단순화하지 않는다.",
+        "기사 한 편만으로 국제질서 전체를 과잉 일반화하지 않는다."
       ]
     }
   ]

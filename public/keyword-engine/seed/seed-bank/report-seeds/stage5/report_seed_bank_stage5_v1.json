@@ -1,0 +1,2244 @@
+{
+  "schemaVersion": "report-seed-bank-v1.0",
+  "createdAt": "2026-05-15",
+  "status": "seed-data-only-not-applied",
+  "purpose": "코치님이 보유한 고품질 보고서 중 RPT-021~RPT-025를 엔진의 보고서 생성 패턴 seed로 변환하기 위한 Stage 5 데이터. 현재 운영 엔진에는 적용하지 않는다.",
+  "sourceNote": "Stage 5는 이미지 기반 보고서 작업본을 5개 단위 엑셀(report_dataset_stage5_RPT021_025.xlsx)로 통합한 뒤 seed-bank 데이터로 변환했다.",
+  "enginePrinciple": "교과 개념에서 출발해 실제 문제, 분석 기준, 교과 간 연결, 도서/자료 활용, 생기부 문장까지 이어지는 수행평가 탐구 네비게이션.",
+  "globalGuardrails": [
+    "seed 원문을 복사하지 말고 사고 구조만 사용한다.",
+    "학생 선택값을 단순 이어붙이지 말고 문제 상황→교과 원리→분석 기준→해결 방향 순서로 재구성한다.",
+    "참고문헌, 수치, 사례는 지어내지 않는다. 확인되지 않은 자료는 학생 확인 필요로 표시한다.",
+    "도서는 독후감 소재가 아니라 해석 렌즈·근거·관점 확장 장치로 사용한다.",
+    "학생 화면에는 seed, RPT 코드, 내부 패턴명 같은 개발자 용어를 노출하지 않는다.",
+    "현재 파일은 적용용 패치가 아니라 seed 누적용 데이터다.",
+    "의료·보건·정책 주제는 치료 효과, 정책 효과, 통계 수치를 단정하지 않고 검수 필요 항목을 분리한다."
+  ],
+  "seedMatchingPriority": [
+    "1. 선택 교과/과목과 seed의 bestForSubjects 일치도",
+    "2. 선택 후속 연계축과 axisTriggers 일치도",
+    "3. 추천 키워드와 sourceKeywords/axisTriggers 일치도",
+    "4. 학과/진로와 bestForMajors 일치도",
+    "5. 보고서 라인(확장형/심화형)과 seed의 분석 깊이 적합도"
+  ],
+  "seeds": [
+    {
+      "seedId": "RPT-021",
+      "sourceTitle": "자원외교 실패가 국내 행정을 어떻게 뒤흔드는가",
+      "sourceSubjects": [
+        "정치와 법",
+        "경제",
+        "사회·문화",
+        "한국사/세계사",
+        "통합사회"
+      ],
+      "sourceMajors": [
+        "행정학과",
+        "정치외교학과",
+        "경제학과",
+        "국제학부",
+        "에너지자원공학 관련 계열"
+      ],
+      "seedName": "자원외교 실패·위기관리 행정 분석형",
+      "studentFacingLabel": "국제 자원 위기가 국내 행정정책과 국민 일상에 미치는 영향을 분석하는 탐구",
+      "fusionType": "정치·행정 + 국제정세 + 에너지경제 + 정책 형평성",
+      "corePattern": "국제 에너지 위기 → 자원외교 실패 → 자원안보 위기경보 → 수요관리 행정조치 → 정책 형평성 평가",
+      "problemFrame": "국가 차원의 자원 확보 실패가 왜 국민의 이동권 제한, 차량 운행 제한, 공공서비스 규제로 이어지는가",
+      "conceptRole": "자원외교는 원인 구조, 자원안보 위기경보는 행정 대응 기준, 위기관리 행정은 정책 집행 과정, 정책 형평성은 비판적 평가 기준, 에너지 수요관리는 실제 행정 조치로 기능한다.",
+      "analysisMethod": "정책 사례 분석 + 위기경보 단계표 + 공공기관 차량 제한 사례 + 형평성 비판",
+      "bestForSubjects": [
+        "정치와 법",
+        "경제",
+        "사회·문화",
+        "한국사",
+        "세계사",
+        "통합사회"
+      ],
+      "bestForMajors": [
+        "행정학과",
+        "정치외교학과",
+        "경제학과",
+        "국제학부",
+        "에너지자원공학 관련 계열"
+      ],
+      "axisTriggers": [
+        "자원외교",
+        "자원안보 위기경보",
+        "위기관리 행정",
+        "정책 형평성",
+        "에너지 수요관리",
+        "공공기관 차량 제한",
+        "정부 개입"
+      ],
+      "sourceKeywords": [
+        "자원외교",
+        "자원안보 위기경보",
+        "위기관리 행정",
+        "정책 집행의 형평성",
+        "에너지 수요관리 정책"
+      ],
+      "topicSynthesisFormula": "국제 에너지 위기 + 자원외교 실패 + 국내 행정조치 + 정책 형평성 평가 + 대안 제시",
+      "avoid": [
+        "국제정세 설명만 반복하지 않는다.",
+        "자원외교를 단순 해외 투자 문제로만 보지 않는다.",
+        "차량 제한 정책을 단순 찬반으로만 다루지 않는다.",
+        "수치·기사 출처 검수 없이 단정하지 않는다."
+      ],
+      "keySummary": "자원외교를 단순한 해외 자원 확보가 아니라 국내 행정과 국민 일상에 영향을 주는 상위 정책 변수로 해석한다. 중동 사태에 따른 에너지 위기 상황에서 공공기관 차량 운행 제한, 공영주차장 5부제, 민간 차량 제한 가능성까지 연결해 행정 개입과 정책 형평성 문제를 분석한다.",
+      "rawParagraphs": [
+        "자원외교는 단순한 외교 정책이 아니라 국내 행정 전반을 규율하는 상위 변수이다. 2026년 중동 사태로 인한 에너지 위기와 차량 운행 제한 정책은 자원외교 성과가 시민의 일상적 자유와 행정 개입 방식에 어떻게 작동하는지를 보여준다.",
+        "정부 실패와 시장 개입의 정당성을 배우던 중 에너지 위기와 공공기관 차량 2부제·5부제 시행 사례를 접하고, 자원외교 실패가 국내 행정비용으로 전환되는 과정을 탐구하였다.",
+        "핵심 개념은 자원외교, 자원안보 위기경보 체계, 위기관리 행정, 정책 집행의 형평성, 에너지 수요관리 정책이다.",
+        "분석은 위기경보 단계, 공공기관 차량 제한 조치, 대중교통 접근성 차이에 따른 형평성 문제, 교과목 연계를 통해 이루어진다."
+      ],
+      "sectionDigests": {
+        "중요성": "자원외교는 에너지 수급과 국내 행정 조치의 상위 조건이 되며, 실패 시 국민 이동권과 정책 형평성 문제로 확장된다.",
+        "페이월 밑으로 보실 수 있는 내용들": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 해결 문제, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+        "추천 주제": "자원외교 실패가 국내 행정을 어떻게 뒤흔드는가",
+        "관련 키워드": "자원외교, 자원안보 위기경보, 위기관리 행정, 정책 집행의 형평성, 에너지 수요관리 정책",
+        "탐구 동기": "정부 실패와 시장 개입의 정당성을 배우던 중 에너지 위기와 차량 제한 정책을 보고 자원외교 실패가 국내 행정에 미치는 영향을 탐구했다.",
+        "느낀점": "외교정책과 국내 행정은 분리된 영역이 아니며, 자원외교 실패는 이동권·형평성·지역 격차 문제로 이어질 수 있음을 인식했다.",
+        "세특 문구 예시": "중동 에너지 위기와 차량 운행 제한 정책을 자원외교와 행정학의 연결 지점으로 포착하고, 수요관리 조치의 정당성과 형평성을 분석함.",
+        "개념·원리 설명": "자원외교, 자원안보 위기경보, 위기관리 행정, 정책 형평성, 에너지 수요관리 정책의 의미와 행정적 작동 원리를 정리한다.",
+        "해결할 문제와 중요성": "자원외교 실패가 왜 국내 행정 비용과 국민 규제로 이어지는지 분석하고, 행정 조치의 정당성과 형평성을 평가한다.",
+        "실제 적용 및 문제 해결 과정": "2026년 중동 에너지 위기 대응 행정 과정을 위기경보 단계와 차량 제한 조치 중심으로 분석한다.",
+        "교과목 연계 및 이론적 설명": "정치와 법, 경제, 사회·문화, 한국사/세계사를 연결해 공익 제한, 시장 실패, 사회불평등, 자원 민족주의를 해석한다.",
+        "심화 탐구 발전 방안": "한국 대 자원교역 비교, 에너지 전환 정책과 자원외교 관계, 위기 행정 조치의 위헌성 경로를 후속 탐구로 확장한다.",
+        "참고문헌 및 자료": "뉴시스, 경향신문 기사, 이달곤 외 논문, 정정길 외 『정책학원론』, IEA 자료가 제시되었으며 실제 서지 검수 필요.",
+        "검수 필요": "기사 제목·URL, 경보 단계 명칭, 시행 대상과 날짜, IEA 보고서명, 논문 서지 정보 확인 필요."
+      },
+      "references": [
+        {
+          "type": "뉴스 기사",
+          "text": "뉴시스, \"8일부터 공공기관 차량 홀짝제…공공기관 방문·공영주차장 민간도 5부제\", 2026.04.01, https://www.newsis.com/view/NISX20260401_0003574013",
+          "status": "검수 필요"
+        },
+        {
+          "type": "뉴스 기사",
+          "text": "경향신문, \"공공기관 차량 홀짝제로 강화 검토…위기단계 경계 격상땐 2부제 시행\", 2026.03.31, https://www.khan.co.kr/article/202603312038015/",
+          "status": "검수 필요"
+        },
+        {
+          "type": "학술논문",
+          "text": "이달곤 외, \"에너지 안보와 한국 자원외교 방향\", 한국행정학보/한국정치학회, 2011",
+          "status": "검수 필요"
+        },
+        {
+          "type": "도서",
+          "text": "정정길 외, 『정책학원론』, 대명출판사, 2020",
+          "status": "검수 필요"
+        },
+        {
+          "type": "국제기구 보고서",
+          "text": "International Energy Agency, \"World Energy Security Report 2024\", IEA Publications, 2024, https://www.iea.org",
+          "status": "검수 필요"
+        }
+      ],
+      "reviewItems": [
+        [
+          "2026년 중동 사태 관련 기사 제목과 URL",
+          "이미지 출처는 있으나 실제 접속 검수 필요",
+          "상"
+        ],
+        [
+          "자원안보 위기경보 단계 명칭",
+          "단계 표현이 일부 혼재되어 정확한 제도 명칭 확인 필요",
+          "상"
+        ],
+        [
+          "공공기관 차량 2부제·5부제 시행 대상과 날짜",
+          "수치·대상·시행일 검수 필요",
+          "상"
+        ],
+        [
+          "IEA 보고서명",
+          "정확한 영문 보고서명 확인 필요",
+          "중"
+        ],
+        [
+          "논문 서지정보",
+          "저자·학술지·발행처 확인 필요",
+          "중"
+        ]
+      ],
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "studentOutputBlueprint8": [
+        "주제와 핵심 질문",
+        "탐구 동기",
+        "핵심 개념과 원리",
+        "자료/수식/이론 분석",
+        "실제 적용 과정",
+        "교과 연계",
+        "심화 탐구",
+        "세특·참고문헌"
+      ],
+      "miniPromptFragment": "선택값을 단순 결합하지 말고, '국제 에너지 위기 → 자원외교 실패 → 자원안보 위기경보 → 수요관리 행정조치 → 정책 형평성 평가' 흐름에 따라 문제 상황에서 출발해 교과 원리와 분석 기준을 적용하고 해결 방향과 후속 탐구까지 연결한다. 확인되지 않은 수치·출처는 학생 확인 필요로 표시한다.",
+      "referenceCandidates": [
+        "뉴시스, \"8일부터 공공기관 차량 홀짝제…공공기관 방문·공영주차장 민간도 5부제\", 2026.04.01, https://www.newsis.com/view/NISX20260401_0003574013",
+        "경향신문, \"공공기관 차량 홀짝제로 강화 검토…위기단계 경계 격상땐 2부제 시행\", 2026.03.31, https://www.khan.co.kr/article/202603312038015/",
+        "이달곤 외, \"에너지 안보와 한국 자원외교 방향\", 한국행정학보/한국정치학회, 2011",
+        "정정길 외, 『정책학원론』, 대명출판사, 2020",
+        "International Energy Agency, \"World Energy Security Report 2024\", IEA Publications, 2024, https://www.iea.org"
+      ],
+      "sectionBlueprint14": [
+        {
+          "order": 1,
+          "title": "중요성",
+          "miniRole": "보고서 도입부에서 주제의 사회·과학적 중요성 제시",
+          "patternTags": [
+            "중요성",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "자원외교는 에너지 수급과 국내 행정 조치의 상위 조건이 되며, 실패 시 국민 이동권과 정책 형평성 문제로 확장된다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 2,
+          "title": "페이월 밑으로 보실 수 있는 내용들",
+          "miniRole": "홈페이지형 보고서의 목차 및 제공 섹션 구조 확인",
+          "patternTags": [
+            "페이월 밑으로 보실 수 있는 내용들",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 해결 문제, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 3,
+          "title": "추천 주제",
+          "miniRole": "학생용 탐구 주제 문장으로 변환",
+          "patternTags": [
+            "추천 주제",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "자원외교 실패가 국내 행정을 어떻게 뒤흔드는가",
+          "useInGeneration": true
+        },
+        {
+          "order": 4,
+          "title": "관련 키워드",
+          "miniRole": "키워드 매칭 및 seed 검색 트리거",
+          "patternTags": [
+            "관련 키워드",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "자원외교, 자원안보 위기경보, 위기관리 행정, 정책 집행의 형평성, 에너지 수요관리 정책",
+          "useInGeneration": true
+        },
+        {
+          "order": 5,
+          "title": "탐구 동기",
+          "miniRole": "교과 수업 의문과 실제 문제를 연결하는 동기 생성",
+          "patternTags": [
+            "탐구 동기",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "정부 실패와 시장 개입의 정당성을 배우던 중 에너지 위기와 차량 제한 정책을 보고 자원외교 실패가 국내 행정에 미치는 영향을 탐구했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 6,
+          "title": "느낀점",
+          "miniRole": "탐구 후 인식 변화와 진로 관심 정리",
+          "patternTags": [
+            "느낀점",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "외교정책과 국내 행정은 분리된 영역이 아니며, 자원외교 실패는 이동권·형평성·지역 격차 문제로 이어질 수 있음을 인식했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 7,
+          "title": "세특 문구 예시",
+          "miniRole": "생활기록부 세특 문장 재구성 기준",
+          "patternTags": [
+            "세특 문구 예시",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "중동 에너지 위기와 차량 운행 제한 정책을 자원외교와 행정학의 연결 지점으로 포착하고, 수요관리 조치의 정당성과 형평성을 분석함.",
+          "useInGeneration": true
+        },
+        {
+          "order": 8,
+          "title": "개념·원리 설명",
+          "miniRole": "핵심 개념과 작동 원리를 고등학생 수준으로 설명",
+          "patternTags": [
+            "개념·원리 설명",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "자원외교, 자원안보 위기경보, 위기관리 행정, 정책 형평성, 에너지 수요관리 정책의 의미와 행정적 작동 원리를 정리한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 9,
+          "title": "해결할 문제와 중요성",
+          "miniRole": "탐구가 해결할 문제와 중요성을 구조화",
+          "patternTags": [
+            "해결할 문제와 중요성",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "자원외교 실패가 왜 국내 행정 비용과 국민 규제로 이어지는지 분석하고, 행정 조치의 정당성과 형평성을 평가한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 10,
+          "title": "실제 적용 및 문제 해결 과정",
+          "miniRole": "실제 사례·수식·자료를 적용하는 분석 과정",
+          "patternTags": [
+            "실제 적용 및 문제 해결 과정",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "2026년 중동 에너지 위기 대응 행정 과정을 위기경보 단계와 차량 제한 조치 중심으로 분석한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 11,
+          "title": "교과목 연계 및 이론적 설명",
+          "miniRole": "교과목·단원·이론을 연결해 융합 구조 형성",
+          "patternTags": [
+            "교과목 연계 및 이론적 설명",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "정치와 법, 경제, 사회·문화, 한국사/세계사를 연결해 공익 제한, 시장 실패, 사회불평등, 자원 민족주의를 해석한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 12,
+          "title": "심화 탐구 발전 방안",
+          "miniRole": "후속 탐구 질문과 심화 방향 제안",
+          "patternTags": [
+            "심화 탐구 발전 방안",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "한국 대 자원교역 비교, 에너지 전환 정책과 자원외교 관계, 위기 행정 조치의 위헌성 경로를 후속 탐구로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 13,
+          "title": "참고문헌 및 자료",
+          "miniRole": "출처 후보 보존 및 검수 필요 항목 분리",
+          "patternTags": [
+            "참고문헌 및 자료",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "뉴시스, 경향신문 기사, 이달곤 외 논문, 정정길 외 『정책학원론』, IEA 자료가 제시되었으며 실제 서지 검수 필요.",
+          "useInGeneration": true
+        },
+        {
+          "order": 14,
+          "title": "검수 필요",
+          "miniRole": "불확실한 수치·서지·용어를 검수 대상으로 분리",
+          "patternTags": [
+            "검수 필요",
+            "stage5",
+            "RPT-021"
+          ],
+          "keywords": [
+            "자원외교",
+            "자원안보 위기경보",
+            "위기관리 행정",
+            "정책 집행의 형평성",
+            "에너지 수요관리 정책"
+          ],
+          "sourceDigest": "기사 제목·URL, 경보 단계 명칭, 시행 대상과 날짜, IEA 보고서명, 논문 서지 정보 확인 필요.",
+          "useInGeneration": false
+        }
+      ]
+    },
+    {
+      "seedId": "RPT-022",
+      "sourceTitle": "차세대 리튬금속전지의 덴드라이트 제어와 보호층 설계",
+      "sourceSubjects": [
+        "화학Ⅱ",
+        "물리학Ⅱ",
+        "과학탐구실험",
+        "통합과학",
+        "공학 일반"
+      ],
+      "sourceMajors": [
+        "화학공학과",
+        "신소재공학과",
+        "에너지공학과",
+        "전기전자공학과",
+        "배터리 관련 융합학과"
+      ],
+      "seedName": "리튬금속전지 덴드라이트 제어·인터페이스 보호층 설계형",
+      "studentFacingLabel": "차세대 배터리의 핵심 문제를 화학공학적으로 해결하는 탐구",
+      "fusionType": "화학공학 + 물리 모델 + 재료공학 + 전기화학 + 배터리 안전",
+      "corePattern": "고에너지밀도 배터리 필요성 → 리튬금속전지 장점 → 덴드라이트 형성 메커니즘 → 수식/모델 기반 원인 해석 → 보호층 설계 대안 제시",
+      "problemFrame": "리튬금속전지는 왜 이론적으로 뛰어나지만 실제 사용에서는 덴드라이트 때문에 위험해지는가, 그리고 이를 어떤 인터페이스 설계로 해결할 수 있는가",
+      "conceptRole": "리튬금속전지는 기술적 목표, 덴드라이트는 핵심 장애 요인, 샌드 시간 모델은 성장 조건을 설명하는 수학적 도구, 패러데이 법칙은 충전량과 석출량을 연결하는 정량 도구, 고분자 보호층은 실제 설계 대안으로 기능한다.",
+      "analysisMethod": "원리 설명 + 모델 해석 + 보호층 설계 아이디어 + 교과 연계 + 공학적 확장",
+      "bestForSubjects": [
+        "화학Ⅱ",
+        "물리학Ⅱ",
+        "과학탐구실험",
+        "통합과학",
+        "공학 일반"
+      ],
+      "bestForMajors": [
+        "화학공학과",
+        "신소재공학과",
+        "에너지공학과",
+        "전기전자공학과",
+        "배터리 관련 융합학과"
+      ],
+      "axisTriggers": [
+        "리튬금속전지",
+        "덴드라이트",
+        "샌드 시간 모델",
+        "고분자 보호층",
+        "패러데이 법칙",
+        "전기화학",
+        "열폭주"
+      ],
+      "sourceKeywords": [
+        "리튬금속전지",
+        "덴드라이트",
+        "Sand's Time Equation",
+        "Polymer Protective Layer",
+        "Faraday's Law of Electrolysis"
+      ],
+      "topicSynthesisFormula": "배터리 기술 이슈 + 화학 원리 + 물리 모델 + 소재 설계 + 산업 적용성",
+      "avoid": [
+        "배터리 일반론만 나열하지 않는다.",
+        "덴드라이트를 단순히 나쁜 결정으로만 설명하지 않는다.",
+        "수식과 개념의 역할 구분 없이 어려운 용어만 나열하지 않는다.",
+        "보호층을 막연한 코팅 기술로만 설명하지 않는다."
+      ],
+      "keySummary": "리튬금속전지의 높은 에너지밀도와 덴드라이트 문제를 화학공학적 인터페이스 설계로 해결하는 방식이다. 전기장 집중, 이온 플럭스 불균형, 덴드라이트 성장, 열폭주 위험을 샌드 시간 모델·패러데이 법칙·고분자 보호층 설계로 연결한다.",
+      "rawParagraphs": [
+        "전기차 화재와 주행거리 한계에 대한 관심에서 출발해 흑연 음극 대신 리튬금속을 사용하는 차세대 전지의 가능성을 탐구한다.",
+        "리튬금속전지는 이론 용량과 에너지밀도가 높지만 충전 중 덴드라이트가 성장하면 내부 단락과 열폭주가 발생할 수 있다.",
+        "샌드 시간 모델과 패러데이 법칙을 활용해 전류밀도, 확산계수, 리튬 석출량, 부피팽창을 정량적으로 해석한다.",
+        "고분자 보호층은 리튬 이온의 플럭스를 균일하게 하고 전극 표면의 접촉을 안정화해 덴드라이트 성장을 억제하는 설계 대안이다."
+      ],
+      "sectionDigests": {
+        "중요성": "전기차·도심항공교통의 주행거리 향상을 위해 리튬금속전지의 한계를 극복하는 것이 중요하다.",
+        "페이월 밑으로 보실 수 있는 내용들": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 문제 해결, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+        "추천 주제": "차세대 리튬금속전지의 덴드라이트 제어와 보호층 설계",
+        "관련 키워드": "리튬금속전지, 덴드라이트, 샌드 시간 모델, 고분자 보호층, 패러데이 전기분해 법칙",
+        "탐구 동기": "전기차 화재와 배터리 안전성 문제를 보며, 리튬금속전지에서 덴드라이트를 어떻게 제어할 수 있는지 탐구했다.",
+        "느낀점": "배터리 문제 해결에는 화학 반응뿐 아니라 이온 이동, 전기장 분포, 기계적 응력 등 물리화학적 융합 사고가 필요함을 깨달았다.",
+        "세특 문구 예시": "리튬금속전지의 덴드라이트 형성 원리를 샌드 시간 모델과 패러데이 법칙으로 해석하고 고분자 보호층 설계 대안을 제시함.",
+        "개념·원리 설명": "리튬금속전지, 덴드라이트, 샌드 시간 모델, 고분자 보호층, 패러데이 법칙을 전기화학적으로 설명한다.",
+        "해결할 문제와 중요성": "덴드라이트 성장으로 인한 내부 단락·열폭주·수명 저하를 보호층 설계로 억제하는 방법을 분석한다.",
+        "실제 적용 및 문제 해결 과정": "전극 표면 관찰, 샌드 시간 도달 예측, 충전량 기반 석출량 계산, 보호층 코팅 설계, 충전 테스트 절차로 전개한다.",
+        "교과목 연계 및 이론적 설명": "화학Ⅱ의 산화환원, 물리학Ⅱ의 전기장과 전하 이동, 유체·공정 개념을 배터리 설계에 연결한다.",
+        "심화 탐구 발전 방안": "고체전지 비교, 레이놀즈 수 기반 코팅 공정, AI 기반 최적 SEI 조합 탐색으로 확장한다.",
+        "참고문헌 및 자료": "Lin, Liu & Cui 논문, 전기화학 공학 도서, 줌달 일반화학, 리튬금속전지 뉴스 자료가 제시되었으며 세부 서지 검수 필요.",
+        "검수 필요": "샌드 시간 모델 식, 패러데이 법칙 식, 수치 단위, 뉴스기사 세부 출처 확인 필요."
+      },
+      "references": [
+        {
+          "type": "학술지",
+          "text": "Lin, D., Liu, Y., & Cui, Y. (2017). \"Reviving the lithium metal anode for high-energy batteries\". Nature Nanotechnology.",
+          "status": "검수 필요"
+        },
+        {
+          "type": "도서",
+          "text": "리처드 볼드윈 외 (2020), 『전기화학 공학 (Electrochemical Engineering)』.",
+          "status": "검수 필요"
+        },
+        {
+          "type": "도서",
+          "text": "줌달(Zumdahl) (2019), 『줌달의 일반화학 (Chemistry) 제10판』, 산화-환원 및 전기화학 단원.",
+          "status": "검수 필요"
+        },
+        {
+          "type": "뉴스 기사",
+          "text": "\"꿈의 배터리 '리튬금속전지' 수명 늘렸다…덴드라이트 원천 차단 기술 개발\" 관련 과학기술 뉴스 및 배터리 상용화 보도자료.",
+          "status": "검수 필요"
+        }
+      ],
+      "reviewItems": [
+        [
+          "샌드 시간 모델 식 표기",
+          "이미지상 수식 깨짐/오타 가능성",
+          "상"
+        ],
+        [
+          "패러데이 전기분해 법칙 식 표기",
+          "식이 문자 깨짐 형태로 보여 정확 검수 필요",
+          "상"
+        ],
+        [
+          "리튬금속전지 수치",
+          "용량·에너지밀도·주행거리 수치 검수 권장",
+          "중"
+        ],
+        [
+          "참고문헌 서지정보",
+          "한글 도서명과 저자명 확인 필요",
+          "중"
+        ],
+        [
+          "뉴스기사 항목",
+          "언론사·날짜·URL 불완전",
+          "중"
+        ]
+      ],
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "studentOutputBlueprint8": [
+        "주제와 핵심 질문",
+        "탐구 동기",
+        "핵심 개념과 원리",
+        "자료/수식/이론 분석",
+        "실제 적용 과정",
+        "교과 연계",
+        "심화 탐구",
+        "세특·참고문헌"
+      ],
+      "miniPromptFragment": "선택값을 단순 결합하지 말고, '고에너지밀도 배터리 필요성 → 리튬금속전지 장점 → 덴드라이트 형성 메커니즘 → 수식/모델 기반 원인 해석 → 보호층 설계 대안 제시' 흐름에 따라 문제 상황에서 출발해 교과 원리와 분석 기준을 적용하고 해결 방향과 후속 탐구까지 연결한다. 확인되지 않은 수치·출처는 학생 확인 필요로 표시한다.",
+      "referenceCandidates": [
+        "Lin, D., Liu, Y., & Cui, Y. (2017). \"Reviving the lithium metal anode for high-energy batteries\". Nature Nanotechnology.",
+        "리처드 볼드윈 외 (2020), 『전기화학 공학 (Electrochemical Engineering)』.",
+        "줌달(Zumdahl) (2019), 『줌달의 일반화학 (Chemistry) 제10판』, 산화-환원 및 전기화학 단원.",
+        "\"꿈의 배터리 '리튬금속전지' 수명 늘렸다…덴드라이트 원천 차단 기술 개발\" 관련 과학기술 뉴스 및 배터리 상용화 보도자료."
+      ],
+      "sectionBlueprint14": [
+        {
+          "order": 1,
+          "title": "중요성",
+          "miniRole": "보고서 도입부에서 주제의 사회·과학적 중요성 제시",
+          "patternTags": [
+            "중요성",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "전기차·도심항공교통의 주행거리 향상을 위해 리튬금속전지의 한계를 극복하는 것이 중요하다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 2,
+          "title": "페이월 밑으로 보실 수 있는 내용들",
+          "miniRole": "홈페이지형 보고서의 목차 및 제공 섹션 구조 확인",
+          "patternTags": [
+            "페이월 밑으로 보실 수 있는 내용들",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 문제 해결, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 3,
+          "title": "추천 주제",
+          "miniRole": "학생용 탐구 주제 문장으로 변환",
+          "patternTags": [
+            "추천 주제",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "차세대 리튬금속전지의 덴드라이트 제어와 보호층 설계",
+          "useInGeneration": true
+        },
+        {
+          "order": 4,
+          "title": "관련 키워드",
+          "miniRole": "키워드 매칭 및 seed 검색 트리거",
+          "patternTags": [
+            "관련 키워드",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "리튬금속전지, 덴드라이트, 샌드 시간 모델, 고분자 보호층, 패러데이 전기분해 법칙",
+          "useInGeneration": true
+        },
+        {
+          "order": 5,
+          "title": "탐구 동기",
+          "miniRole": "교과 수업 의문과 실제 문제를 연결하는 동기 생성",
+          "patternTags": [
+            "탐구 동기",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "전기차 화재와 배터리 안전성 문제를 보며, 리튬금속전지에서 덴드라이트를 어떻게 제어할 수 있는지 탐구했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 6,
+          "title": "느낀점",
+          "miniRole": "탐구 후 인식 변화와 진로 관심 정리",
+          "patternTags": [
+            "느낀점",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "배터리 문제 해결에는 화학 반응뿐 아니라 이온 이동, 전기장 분포, 기계적 응력 등 물리화학적 융합 사고가 필요함을 깨달았다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 7,
+          "title": "세특 문구 예시",
+          "miniRole": "생활기록부 세특 문장 재구성 기준",
+          "patternTags": [
+            "세특 문구 예시",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "리튬금속전지의 덴드라이트 형성 원리를 샌드 시간 모델과 패러데이 법칙으로 해석하고 고분자 보호층 설계 대안을 제시함.",
+          "useInGeneration": true
+        },
+        {
+          "order": 8,
+          "title": "개념·원리 설명",
+          "miniRole": "핵심 개념과 작동 원리를 고등학생 수준으로 설명",
+          "patternTags": [
+            "개념·원리 설명",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "리튬금속전지, 덴드라이트, 샌드 시간 모델, 고분자 보호층, 패러데이 법칙을 전기화학적으로 설명한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 9,
+          "title": "해결할 문제와 중요성",
+          "miniRole": "탐구가 해결할 문제와 중요성을 구조화",
+          "patternTags": [
+            "해결할 문제와 중요성",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "덴드라이트 성장으로 인한 내부 단락·열폭주·수명 저하를 보호층 설계로 억제하는 방법을 분석한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 10,
+          "title": "실제 적용 및 문제 해결 과정",
+          "miniRole": "실제 사례·수식·자료를 적용하는 분석 과정",
+          "patternTags": [
+            "실제 적용 및 문제 해결 과정",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "전극 표면 관찰, 샌드 시간 도달 예측, 충전량 기반 석출량 계산, 보호층 코팅 설계, 충전 테스트 절차로 전개한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 11,
+          "title": "교과목 연계 및 이론적 설명",
+          "miniRole": "교과목·단원·이론을 연결해 융합 구조 형성",
+          "patternTags": [
+            "교과목 연계 및 이론적 설명",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "화학Ⅱ의 산화환원, 물리학Ⅱ의 전기장과 전하 이동, 유체·공정 개념을 배터리 설계에 연결한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 12,
+          "title": "심화 탐구 발전 방안",
+          "miniRole": "후속 탐구 질문과 심화 방향 제안",
+          "patternTags": [
+            "심화 탐구 발전 방안",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "고체전지 비교, 레이놀즈 수 기반 코팅 공정, AI 기반 최적 SEI 조합 탐색으로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 13,
+          "title": "참고문헌 및 자료",
+          "miniRole": "출처 후보 보존 및 검수 필요 항목 분리",
+          "patternTags": [
+            "참고문헌 및 자료",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "Lin, Liu & Cui 논문, 전기화학 공학 도서, 줌달 일반화학, 리튬금속전지 뉴스 자료가 제시되었으며 세부 서지 검수 필요.",
+          "useInGeneration": true
+        },
+        {
+          "order": 14,
+          "title": "검수 필요",
+          "miniRole": "불확실한 수치·서지·용어를 검수 대상으로 분리",
+          "patternTags": [
+            "검수 필요",
+            "stage5",
+            "RPT-022"
+          ],
+          "keywords": [
+            "리튬금속전지",
+            "덴드라이트",
+            "Sand's Time Equation",
+            "Polymer Protective Layer",
+            "Faraday's Law of Electrolysis"
+          ],
+          "sourceDigest": "샌드 시간 모델 식, 패러데이 법칙 식, 수치 단위, 뉴스기사 세부 출처 확인 필요.",
+          "useInGeneration": false
+        }
+      ]
+    },
+    {
+      "seedId": "RPT-023",
+      "sourceTitle": "유연 압전 센서 기반 심혈관 실시간 모니터링",
+      "sourceSubjects": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "과학탐구실험"
+      ],
+      "sourceMajors": [
+        "의공학과",
+        "바이오메디컬공학과",
+        "전자공학과",
+        "신소재공학과",
+        "생명공학과"
+      ],
+      "seedName": "유연 압전 센서·심혈관 생체신호 실시간 모니터링형",
+      "studentFacingLabel": "생체 신호를 실시간으로 읽어 심혈관 질환을 조기 예측하는 탐구",
+      "fusionType": "물리 센서 + 생명과학 + 혈류역학 + 의공학 + 웨어러블 모니터링",
+      "corePattern": "질병 조기진단 필요성 → 웨어러블 센서 도입 → 압전 효과 원리 설명 → 혈류역학 모델 적용 → 실시간 모니터링 시스템 해석",
+      "problemFrame": "기존 일회성 혈압 검사만으로는 심혈관 질환을 충분히 예측하기 어렵고, 유연 압전 센서는 이를 어떻게 보완할 수 있는가",
+      "conceptRole": "압전 효과는 신호 변환 원리, 하겐-푸아죄유 법칙은 혈류·저항 변화 해석 도구, 혈류역학은 생체 현상 설명 틀, PWV는 실제 진단 지표, 유연 센서는 인체 부착형 구현 기술로 기능한다.",
+      "analysisMethod": "센서 원리 설명 + 수식 기반 해석 + 질환 발생 시 변화 과정 분석 + 실시간 적용 시나리오 제시",
+      "bestForSubjects": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "의공학과",
+        "바이오메디컬공학과",
+        "전자공학과",
+        "신소재공학과",
+        "생명공학과"
+      ],
+      "axisTriggers": [
+        "유연 압전 센서",
+        "압전 효과",
+        "하겐-푸아죄유 법칙",
+        "혈류역학",
+        "맥파 전달 속도",
+        "웨어러블 센서",
+        "심혈관 모니터링"
+      ],
+      "sourceKeywords": [
+        "Flexible Piezoelectric Sensor",
+        "Piezoelectric Effect",
+        "Hagen-Poiseuille's Law",
+        "Hemodynamics",
+        "Pulse Wave Velocity"
+      ],
+      "topicSynthesisFormula": "의료 문제 인식 + 물리 원리 + 생명과학 구조 이해 + 센서공학 + 데이터 모니터링",
+      "avoid": [
+        "웨어러블 기기 일반론만 서술하지 않는다.",
+        "압전 효과를 전기가 생긴다는 수준으로만 다루지 않는다.",
+        "혈류역학과 실제 질환 지표의 연결 없이 작성하지 않는다.",
+        "실시간 모니터링의 의학적 의미 없이 기술 소개만 하지 않는다."
+      ],
+      "keySummary": "일회성 혈압 측정이나 침습적 검사로 놓치기 쉬운 심혈관 질환의 전조를 유연 압전 센서로 실시간 모니터링하는 방식이다. 압전 효과로 기계적 변형을 전기 신호로 바꾸고 하겐-푸아죄유 법칙, 혈류역학, 맥파 전달 속도와 연결해 조기 경보 가능성을 해석한다.",
+      "rawParagraphs": [
+        "심혈관 질환은 일회성 검사로는 놓치기 쉬우며, 유연 압전 센서는 미세한 혈관 변화를 실시간으로 감지할 수 있는 가능성을 가진다.",
+        "압전 효과는 물질의 변형이 전기 신호로 변환되는 원리이며, 이를 인체 부착형 센서로 구현하면 혈압·맥파 변화를 연속적으로 측정할 수 있다.",
+        "하겐-푸아죄유 법칙을 통해 혈관 반지름 변화가 혈류 저항과 압력 변화에 미치는 영향을 해석한다.",
+        "심화 탐구는 AI 기반 맥파 패턴 인식, 무선전력전송, 혈액 점성 변화 분석 등으로 확장할 수 있다."
+      ],
+      "sectionDigests": {
+        "중요성": "기존 검사 방식의 한계를 보완하고 생체신호를 정량화해 심혈관 질환 전조를 조기에 포착하는 예방의학 기술이다.",
+        "페이월 밑으로 보실 수 있는 내용들": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 문제 해결, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+        "추천 주제": "유연 압전 센서 기반 심혈관 실시간 모니터링",
+        "관련 키워드": "유연 압전 센서, 압전 효과, 하겐-푸아죄유 법칙, 혈류 역학, 맥파 전달 속도",
+        "탐구 동기": "웨어러블 센서와 심혈관 질환 기사에서 출발해 기존 일회성 혈압 측정의 한계를 보완할 기술을 탐구했다.",
+        "느낀점": "압전 효과가 생체 신호를 정밀하게 읽는 의공학 핵심 기술이며 생체적합성·융합 설계가 중요함을 인식했다.",
+        "세특 문구 예시": "압전 효과와 하겐-푸아죄유 법칙을 결합해 심혈관 질환의 실시간 모니터링 가능성을 분석함.",
+        "개념·원리 설명": "압전 효과, 하겐-푸아죄유 법칙, 유연 압전 센서, 혈류역학, 맥파 전달 속도의 원리를 설명한다.",
+        "해결할 문제와 중요성": "혈관 협착·혈압 이상·맥파 왜곡을 연속적으로 감지해 기존 검사 방식의 사각지대를 줄인다.",
+        "실제 적용 및 문제 해결 과정": "센서 부착, 압력 변화의 전압 변환, 혈류 저항 변화 해석, 맥파 속도 분석, 실시간 전송의 단계로 전개한다.",
+        "교과목 연계 및 이론적 설명": "물리의 전기장·파동, 생명과학의 순환계, 화학의 생체 적합성 소재를 연결한다.",
+        "심화 탐구 발전 방안": "AI 기반 맥파 패턴 인식, 무선전력전송, 혈액 점성 변화 분석으로 확장한다.",
+        "참고문헌 및 자료": "이미지 묶음에서 별도 참고문헌 페이지가 보이지 않아 추가 캡처 또는 출처 확인이 필요하다.",
+        "검수 필요": "압전 효과 식, 하겐-푸아죄유 법칙 식, PWV 설명, 의학 표현의 단정성 점검 필요."
+      },
+      "references": [
+        {
+          "type": "참고문헌 확인 필요",
+          "text": "이미지상 별도 참고문헌 페이지가 확인되지 않음. 추가 캡처 또는 원본 출처 입력 필요.",
+          "status": "확인 필요"
+        }
+      ],
+      "reviewItems": [
+        [
+          "압전 효과 식 표기",
+          "수식 기호가 일부 깨져 있어 정확 표기 필요",
+          "상"
+        ],
+        [
+          "하겐-푸아죄유 법칙 식",
+          "기호 정리 필요",
+          "상"
+        ],
+        [
+          "PWV 관련 설명",
+          "맥파 속도와 협착/경직 연결 표현 정밀화 필요",
+          "중"
+        ],
+        [
+          "참고문헌",
+          "이미지상 참고문헌 페이지 누락 가능성",
+          "상"
+        ],
+        [
+          "의학 표현",
+          "진단 확정 표현은 피하고 보조적 조기 경보 표현으로 조정 필요",
+          "중"
+        ]
+      ],
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "studentOutputBlueprint8": [
+        "주제와 핵심 질문",
+        "탐구 동기",
+        "핵심 개념과 원리",
+        "자료/수식/이론 분석",
+        "실제 적용 과정",
+        "교과 연계",
+        "심화 탐구",
+        "세특·참고문헌"
+      ],
+      "miniPromptFragment": "선택값을 단순 결합하지 말고, '질병 조기진단 필요성 → 웨어러블 센서 도입 → 압전 효과 원리 설명 → 혈류역학 모델 적용 → 실시간 모니터링 시스템 해석' 흐름에 따라 문제 상황에서 출발해 교과 원리와 분석 기준을 적용하고 해결 방향과 후속 탐구까지 연결한다. 확인되지 않은 수치·출처는 학생 확인 필요로 표시한다.",
+      "referenceCandidates": [
+        "이미지상 별도 참고문헌 페이지가 확인되지 않음. 추가 캡처 또는 원본 출처 입력 필요."
+      ],
+      "sectionBlueprint14": [
+        {
+          "order": 1,
+          "title": "중요성",
+          "miniRole": "보고서 도입부에서 주제의 사회·과학적 중요성 제시",
+          "patternTags": [
+            "중요성",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "기존 검사 방식의 한계를 보완하고 생체신호를 정량화해 심혈관 질환 전조를 조기에 포착하는 예방의학 기술이다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 2,
+          "title": "페이월 밑으로 보실 수 있는 내용들",
+          "miniRole": "홈페이지형 보고서의 목차 및 제공 섹션 구조 확인",
+          "patternTags": [
+            "페이월 밑으로 보실 수 있는 내용들",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 문제 해결, 실제 적용, 교과 연계, 참고문헌을 제공한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 3,
+          "title": "추천 주제",
+          "miniRole": "학생용 탐구 주제 문장으로 변환",
+          "patternTags": [
+            "추천 주제",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "유연 압전 센서 기반 심혈관 실시간 모니터링",
+          "useInGeneration": true
+        },
+        {
+          "order": 4,
+          "title": "관련 키워드",
+          "miniRole": "키워드 매칭 및 seed 검색 트리거",
+          "patternTags": [
+            "관련 키워드",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "유연 압전 센서, 압전 효과, 하겐-푸아죄유 법칙, 혈류 역학, 맥파 전달 속도",
+          "useInGeneration": true
+        },
+        {
+          "order": 5,
+          "title": "탐구 동기",
+          "miniRole": "교과 수업 의문과 실제 문제를 연결하는 동기 생성",
+          "patternTags": [
+            "탐구 동기",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "웨어러블 센서와 심혈관 질환 기사에서 출발해 기존 일회성 혈압 측정의 한계를 보완할 기술을 탐구했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 6,
+          "title": "느낀점",
+          "miniRole": "탐구 후 인식 변화와 진로 관심 정리",
+          "patternTags": [
+            "느낀점",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "압전 효과가 생체 신호를 정밀하게 읽는 의공학 핵심 기술이며 생체적합성·융합 설계가 중요함을 인식했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 7,
+          "title": "세특 문구 예시",
+          "miniRole": "생활기록부 세특 문장 재구성 기준",
+          "patternTags": [
+            "세특 문구 예시",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "압전 효과와 하겐-푸아죄유 법칙을 결합해 심혈관 질환의 실시간 모니터링 가능성을 분석함.",
+          "useInGeneration": true
+        },
+        {
+          "order": 8,
+          "title": "개념·원리 설명",
+          "miniRole": "핵심 개념과 작동 원리를 고등학생 수준으로 설명",
+          "patternTags": [
+            "개념·원리 설명",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "압전 효과, 하겐-푸아죄유 법칙, 유연 압전 센서, 혈류역학, 맥파 전달 속도의 원리를 설명한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 9,
+          "title": "해결할 문제와 중요성",
+          "miniRole": "탐구가 해결할 문제와 중요성을 구조화",
+          "patternTags": [
+            "해결할 문제와 중요성",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "혈관 협착·혈압 이상·맥파 왜곡을 연속적으로 감지해 기존 검사 방식의 사각지대를 줄인다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 10,
+          "title": "실제 적용 및 문제 해결 과정",
+          "miniRole": "실제 사례·수식·자료를 적용하는 분석 과정",
+          "patternTags": [
+            "실제 적용 및 문제 해결 과정",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "센서 부착, 압력 변화의 전압 변환, 혈류 저항 변화 해석, 맥파 속도 분석, 실시간 전송의 단계로 전개한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 11,
+          "title": "교과목 연계 및 이론적 설명",
+          "miniRole": "교과목·단원·이론을 연결해 융합 구조 형성",
+          "patternTags": [
+            "교과목 연계 및 이론적 설명",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "물리의 전기장·파동, 생명과학의 순환계, 화학의 생체 적합성 소재를 연결한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 12,
+          "title": "심화 탐구 발전 방안",
+          "miniRole": "후속 탐구 질문과 심화 방향 제안",
+          "patternTags": [
+            "심화 탐구 발전 방안",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "AI 기반 맥파 패턴 인식, 무선전력전송, 혈액 점성 변화 분석으로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 13,
+          "title": "참고문헌 및 자료",
+          "miniRole": "출처 후보 보존 및 검수 필요 항목 분리",
+          "patternTags": [
+            "참고문헌 및 자료",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "이미지 묶음에서 별도 참고문헌 페이지가 보이지 않아 추가 캡처 또는 출처 확인이 필요하다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 14,
+          "title": "검수 필요",
+          "miniRole": "불확실한 수치·서지·용어를 검수 대상으로 분리",
+          "patternTags": [
+            "검수 필요",
+            "stage5",
+            "RPT-023"
+          ],
+          "keywords": [
+            "Flexible Piezoelectric Sensor",
+            "Piezoelectric Effect",
+            "Hagen-Poiseuille's Law",
+            "Hemodynamics",
+            "Pulse Wave Velocity"
+          ],
+          "sourceDigest": "압전 효과 식, 하겐-푸아죄유 법칙 식, PWV 설명, 의학 표현의 단정성 점검 필요.",
+          "useInGeneration": false
+        }
+      ]
+    },
+    {
+      "seedId": "RPT-024",
+      "sourceTitle": "혈액 속 단백질 신호로 알츠하이머를 조기 파악할 수 있을까 — p-tau217 바이오마커의 분자생물학적 원리와 과잉검사 딜레마",
+      "sourceSubjects": [
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "수학",
+        "과학탐구실험",
+        "생명윤리"
+      ],
+      "sourceMajors": [
+        "분자생물학과",
+        "생명공학과",
+        "의생명공학과",
+        "의예과",
+        "임상병리학과"
+      ],
+      "seedName": "p-tau217 바이오마커·알츠하이머 조기진단 윤리 분석형",
+      "studentFacingLabel": "알츠하이머를 혈액검사로 조기 진단할 수 있는가를 분자생물학과 윤리 관점에서 분석하는 탐구",
+      "fusionType": "분자생물학 + 의생명과학 + 진단검사의학 + 통계 성능평가 + 생명윤리",
+      "corePattern": "질병 조기진단 필요성 → 병리 단백질 기전 설명 → 바이오마커 선정 → 검출 기술 원리 분석 → 성능 평가 지표 해석 → 윤리적 딜레마 검토",
+      "problemFrame": "p-tau217 혈액검사는 왜 알츠하이머 조기진단의 유망 기술로 평가되는가, 그리고 정확도가 높아져도 왜 과잉검사 문제가 발생하는가",
+      "conceptRole": "베타-아밀로이드는 병리 출발점, p-tau217은 혈액에서 포착 가능한 핵심 바이오마커, ELISA/MDS는 검출 기술, 민감도·특이도·AUC는 진단 성능 평가 기준, 과잉검사는 생명윤리적 해석 축으로 기능한다.",
+      "analysisMethod": "질병 기전 설명 + 바이오마커 정량 수치 비교 + 검출 원리 해석 + 성능지표 계산 예시 + 윤리 쟁점 분석",
+      "bestForSubjects": [
+        "생명과학Ⅰ",
+        "생명과학Ⅱ",
+        "화학",
+        "수학",
+        "과학탐구실험",
+        "생명윤리"
+      ],
+      "bestForMajors": [
+        "분자생물학과",
+        "생명공학과",
+        "의생명공학과",
+        "의예과",
+        "임상병리학과",
+        "바이오메디컬 관련 학과"
+      ],
+      "axisTriggers": [
+        "바이오마커",
+        "p-tau217",
+        "베타-아밀로이드",
+        "ELISA",
+        "민감도",
+        "특이도",
+        "AUC",
+        "액체생검",
+        "정밀의료"
+      ],
+      "sourceKeywords": [
+        "바이오마커",
+        "p-tau217",
+        "베타-아밀로이드",
+        "ELISA",
+        "민감도·특이도",
+        "액체생검",
+        "정밀의료"
+      ],
+      "topicSynthesisFormula": "퇴행성 질환 문제 + 단백질 분자기전 + 혈액 바이오마커 + 진단기술 + 성능평가 + 윤리 딜레마",
+      "avoid": [
+        "알츠하이머 일반 상식만 나열하지 않는다.",
+        "p-tau217을 치매 수치처럼 단순화하지 않는다.",
+        "민감도와 특이도를 구분하지 않는 서술을 피한다.",
+        "기술 찬양만 하고 과잉검사 문제를 생략하지 않는다."
+      ],
+      "keySummary": "알츠하이머병을 혈액검사로 조기 진단할 수 있는 가능성을 p-tau217 바이오마커와 ELISA 기반 검출 원리 중심으로 분석한다. 민감도·특이도·AUC를 해석하면서 검사가 가능하다는 것과 검사를 해야 한다는 것은 다르다는 과잉검사 딜레마를 연결한다.",
+      "rawParagraphs": [
+        "분자생물학은 생명현상을 분자 수준에서 이해하는 학문이며, 알츠하이머 혈액검사는 단백질 변성과 병리 신호를 조기에 포착하는 사례이다.",
+        "p-tau217은 tau 단백질의 특정 아미노산 위치 인산화 형태로, 알츠하이머 환자에서 혈중 농도가 높게 관찰되는 바이오마커이다.",
+        "ELISA는 항원-항체 결합을 이용해 특정 단백질 농도를 정량하는 분석법이며, MDS는 복수 단백질 또는 응집 형태를 구분해 검출하는 방식으로 설명된다.",
+        "민감도와 특이도는 검사 성능의 핵심 지표이며, 조기 진단 기술은 위양성·불안·과잉검사 같은 윤리 문제와 함께 다루어야 한다."
+      ],
+      "sectionDigests": {
+        "중요성": "기존 일회성·침습적 검사의 한계를 극복하고 생체 신호를 정량화해 조기 포착하는 예방의학형 탐구이다.",
+        "페이월 밑으로 보실 수 있는 내용들": "확장 질문, 탐구 주제, 키워드, 동기, 핵심 개념, 심화 탐구, 결과, 활동 연계, 참고자료, 세특 문구를 제공한다.",
+        "추천 주제": "혈액 속 단백질 신호로 알츠하이머를 조기 파악할 수 있을까 — p-tau217 바이오마커의 분자 원리와 과잉검사 딜레마",
+        "관련 키워드": "바이오마커, p-tau217, 베타-아밀로이드, ELISA, 민감도·특이도, 액체생검, 정밀의료",
+        "탐구 동기": "단백질 변성과 잘못 접힌 단백질이 질병으로 이어지는 사례에서 출발해 혈액 한 방울 진단 기술과 과잉검사 우려를 탐구했다.",
+        "느낀점": "분자생물학 연구가 기초연구, 진단기술, 임상 검증, 상용화로 이어지는 파이프라인임을 이해했다.",
+        "세특 문구 예시": "알츠하이머 혈액검사 상용화와 과잉검사 우려를 출발점으로 p-tau217 바이오마커의 분자생물학적 원리와 진단 성능을 분석함.",
+        "개념·원리 설명": "베타-아밀로이드, p-tau217, ELISA, MDS, 민감도·특이도, AUC를 연결해 조기진단 원리를 설명한다.",
+        "해결할 문제와 중요성": "혈액검사로 조기 선별 가능성을 높이는 동시에 위양성·과잉검사 문제를 평가한다.",
+        "실제 적용 및 문제 해결 과정": "단백질 지표 선정, 혈액 시료 분석, 항체 결합, 색 변화/신호 측정, 진단 성능 계산, 윤리 문제 검토로 진행한다.",
+        "교과목 연계 및 이론적 설명": "생명과학의 단백질·신경계, 화학의 산화환원·효소 반응, 수학의 조건부확률과 성능평가를 연결한다.",
+        "심화 탐구 발전 방안": "RNA-seq, 액체생검, 다중 바이오마커, 정밀의료와 개인 맞춤형 치료로 확장한다.",
+        "참고문헌 및 자료": "Paul Nurse, 조진호 도서, JAMA Neurology 논문, 동아사이언스 기사, KOCW 강의, 중앙치매센터 자료가 제시되었으며 세부 검수 필요.",
+        "검수 필요": "p-tau217 수치 단위, AUC·민감도·특이도 수치, ELISA/MDS 세부 설명, RNA-seq 유전자명, 기사 서지정보 확인 필요."
+      },
+      "references": [
+        {
+          "type": "도서",
+          "text": "『생명이란 무엇인가』, 폴 너스(Paul Nurse), 까치",
+          "status": "검수 필요"
+        },
+        {
+          "type": "도서",
+          "text": "『바이오테크 시대』, 조진호, 위즈덤하우스",
+          "status": "검수 필요"
+        },
+        {
+          "type": "논문",
+          "text": "조한나 외, \"Blood phosphorylated tau 217 in the differential diagnosis of Alzheimer's disease\", JAMA Neurology, 2025 [자료 확인 필요 - RISS/도서관 접근 권장]",
+          "status": "검수 필요"
+        },
+        {
+          "type": "논문",
+          "text": "Ashton NJ et al., \"Diagnostic accuracy of a plasma phosphorylated tau 217 immunoassay\", JAMA Neurology, 2024",
+          "status": "검수 필요"
+        },
+        {
+          "type": "기사",
+          "text": "동아사이언스, \"수십만원이면 알츠하이머 혈액 검사…과잉 검사 우려도 커져\", 과학 섹션",
+          "status": "검수 필요"
+        },
+        {
+          "type": "강의",
+          "text": "KOCW, 서울대학교 강봉균 교수, \"신경과학의 이해\" 5~7강",
+          "status": "검수 필요"
+        },
+        {
+          "type": "웹사이트",
+          "text": "중앙치매센터, www.nid.or.kr, 대한민국 치매 현황 2023 보고서",
+          "status": "검수 필요"
+        }
+      ],
+      "reviewItems": [
+        [
+          "p-tau217 수치 단위",
+          "pg/mL와 ng/mL 표기 혼재 가능성",
+          "상"
+        ],
+        [
+          "AUC·민감도·특이도 수치",
+          "원출처 대조 권장",
+          "상"
+        ],
+        [
+          "ELISA와 MDS 설명",
+          "검출 원리와 용어 세부 정리 필요",
+          "중"
+        ],
+        [
+          "RNA-seq 유전자명",
+          "SMOC, PLVAP 등 표기 정확성 확인 필요",
+          "중"
+        ],
+        [
+          "기사/논문 서지정보",
+          "저자·연도·접속일 확인 필요",
+          "중"
+        ]
+      ],
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "studentOutputBlueprint8": [
+        "주제와 핵심 질문",
+        "탐구 동기",
+        "핵심 개념과 원리",
+        "자료/수식/이론 분석",
+        "실제 적용 과정",
+        "교과 연계",
+        "심화 탐구",
+        "세특·참고문헌"
+      ],
+      "miniPromptFragment": "선택값을 단순 결합하지 말고, '질병 조기진단 필요성 → 병리 단백질 기전 설명 → 바이오마커 선정 → 검출 기술 원리 분석 → 성능 평가 지표 해석 → 윤리적 딜레마 검토' 흐름에 따라 문제 상황에서 출발해 교과 원리와 분석 기준을 적용하고 해결 방향과 후속 탐구까지 연결한다. 확인되지 않은 수치·출처는 학생 확인 필요로 표시한다.",
+      "referenceCandidates": [
+        "『생명이란 무엇인가』, 폴 너스(Paul Nurse), 까치",
+        "『바이오테크 시대』, 조진호, 위즈덤하우스",
+        "조한나 외, \"Blood phosphorylated tau 217 in the differential diagnosis of Alzheimer's disease\", JAMA Neurology, 2025 [자료 확인 필요 - RISS/도서관 접근 권장]",
+        "Ashton NJ et al., \"Diagnostic accuracy of a plasma phosphorylated tau 217 immunoassay\", JAMA Neurology, 2024",
+        "동아사이언스, \"수십만원이면 알츠하이머 혈액 검사…과잉 검사 우려도 커져\", 과학 섹션",
+        "KOCW, 서울대학교 강봉균 교수, \"신경과학의 이해\" 5~7강",
+        "중앙치매센터, www.nid.or.kr, 대한민국 치매 현황 2023 보고서"
+      ],
+      "sectionBlueprint14": [
+        {
+          "order": 1,
+          "title": "중요성",
+          "miniRole": "보고서 도입부에서 주제의 사회·과학적 중요성 제시",
+          "patternTags": [
+            "중요성",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "기존 일회성·침습적 검사의 한계를 극복하고 생체 신호를 정량화해 조기 포착하는 예방의학형 탐구이다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 2,
+          "title": "페이월 밑으로 보실 수 있는 내용들",
+          "miniRole": "홈페이지형 보고서의 목차 및 제공 섹션 구조 확인",
+          "patternTags": [
+            "페이월 밑으로 보실 수 있는 내용들",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "확장 질문, 탐구 주제, 키워드, 동기, 핵심 개념, 심화 탐구, 결과, 활동 연계, 참고자료, 세특 문구를 제공한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 3,
+          "title": "추천 주제",
+          "miniRole": "학생용 탐구 주제 문장으로 변환",
+          "patternTags": [
+            "추천 주제",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "혈액 속 단백질 신호로 알츠하이머를 조기 파악할 수 있을까 — p-tau217 바이오마커의 분자 원리와 과잉검사 딜레마",
+          "useInGeneration": true
+        },
+        {
+          "order": 4,
+          "title": "관련 키워드",
+          "miniRole": "키워드 매칭 및 seed 검색 트리거",
+          "patternTags": [
+            "관련 키워드",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "바이오마커, p-tau217, 베타-아밀로이드, ELISA, 민감도·특이도, 액체생검, 정밀의료",
+          "useInGeneration": true
+        },
+        {
+          "order": 5,
+          "title": "탐구 동기",
+          "miniRole": "교과 수업 의문과 실제 문제를 연결하는 동기 생성",
+          "patternTags": [
+            "탐구 동기",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "단백질 변성과 잘못 접힌 단백질이 질병으로 이어지는 사례에서 출발해 혈액 한 방울 진단 기술과 과잉검사 우려를 탐구했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 6,
+          "title": "느낀점",
+          "miniRole": "탐구 후 인식 변화와 진로 관심 정리",
+          "patternTags": [
+            "느낀점",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "분자생물학 연구가 기초연구, 진단기술, 임상 검증, 상용화로 이어지는 파이프라인임을 이해했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 7,
+          "title": "세특 문구 예시",
+          "miniRole": "생활기록부 세특 문장 재구성 기준",
+          "patternTags": [
+            "세특 문구 예시",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "알츠하이머 혈액검사 상용화와 과잉검사 우려를 출발점으로 p-tau217 바이오마커의 분자생물학적 원리와 진단 성능을 분석함.",
+          "useInGeneration": true
+        },
+        {
+          "order": 8,
+          "title": "개념·원리 설명",
+          "miniRole": "핵심 개념과 작동 원리를 고등학생 수준으로 설명",
+          "patternTags": [
+            "개념·원리 설명",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "베타-아밀로이드, p-tau217, ELISA, MDS, 민감도·특이도, AUC를 연결해 조기진단 원리를 설명한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 9,
+          "title": "해결할 문제와 중요성",
+          "miniRole": "탐구가 해결할 문제와 중요성을 구조화",
+          "patternTags": [
+            "해결할 문제와 중요성",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "혈액검사로 조기 선별 가능성을 높이는 동시에 위양성·과잉검사 문제를 평가한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 10,
+          "title": "실제 적용 및 문제 해결 과정",
+          "miniRole": "실제 사례·수식·자료를 적용하는 분석 과정",
+          "patternTags": [
+            "실제 적용 및 문제 해결 과정",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "단백질 지표 선정, 혈액 시료 분석, 항체 결합, 색 변화/신호 측정, 진단 성능 계산, 윤리 문제 검토로 진행한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 11,
+          "title": "교과목 연계 및 이론적 설명",
+          "miniRole": "교과목·단원·이론을 연결해 융합 구조 형성",
+          "patternTags": [
+            "교과목 연계 및 이론적 설명",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "생명과학의 단백질·신경계, 화학의 산화환원·효소 반응, 수학의 조건부확률과 성능평가를 연결한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 12,
+          "title": "심화 탐구 발전 방안",
+          "miniRole": "후속 탐구 질문과 심화 방향 제안",
+          "patternTags": [
+            "심화 탐구 발전 방안",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "RNA-seq, 액체생검, 다중 바이오마커, 정밀의료와 개인 맞춤형 치료로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 13,
+          "title": "참고문헌 및 자료",
+          "miniRole": "출처 후보 보존 및 검수 필요 항목 분리",
+          "patternTags": [
+            "참고문헌 및 자료",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "Paul Nurse, 조진호 도서, JAMA Neurology 논문, 동아사이언스 기사, KOCW 강의, 중앙치매센터 자료가 제시되었으며 세부 검수 필요.",
+          "useInGeneration": true
+        },
+        {
+          "order": 14,
+          "title": "검수 필요",
+          "miniRole": "불확실한 수치·서지·용어를 검수 대상으로 분리",
+          "patternTags": [
+            "검수 필요",
+            "stage5",
+            "RPT-024"
+          ],
+          "keywords": [
+            "바이오마커",
+            "p-tau217",
+            "베타-아밀로이드",
+            "ELISA",
+            "민감도·특이도",
+            "액체생검",
+            "정밀의료"
+          ],
+          "sourceDigest": "p-tau217 수치 단위, AUC·민감도·특이도 수치, ELISA/MDS 세부 설명, RNA-seq 유전자명, 기사 서지정보 확인 필요.",
+          "useInGeneration": false
+        }
+      ]
+    },
+    {
+      "seedId": "RPT-025",
+      "sourceTitle": "미국 패권의 균열과 국제 질서의 재편 — 트럼프 행정부의 일방주의는 자유주의 국제 질서의 종말을 의미하는가",
+      "sourceSubjects": [
+        "정치와 법",
+        "세계사",
+        "경제",
+        "국제정치",
+        "통합사회"
+      ],
+      "sourceMajors": [
+        "정치외교학과",
+        "국제학부",
+        "행정학과",
+        "경제학과",
+        "국제관계학 관련 계열"
+      ],
+      "seedName": "패권질서 변화·중견국 외교전략 분석형",
+      "studentFacingLabel": "미국 패권 변화와 한국 외교 전략을 국제정치 이론으로 분석하는 탐구",
+      "fusionType": "국제정치 + 정치와 법 + 세계사 + 경제안보 + 외교전략",
+      "corePattern": "국제질서 변화 의문 → 패권안정론·연성권력·세력전이론 개념 정리 → 미국 내부 변화와 동맹 반응 분석 → 한국 중견국 외교 전략 도출 → 역사·현실 사례 연결",
+      "problemFrame": "미국의 일방주의와 국내 균열이 자유주의 국제 질서를 약화시킬 때 한국은 어떤 외교 전략을 취해야 하는가",
+      "conceptRole": "패권안정론은 질서 유지 조건, 연성권력은 영향력 방식, 세력전이론은 패권 약화와 도전국 부상을 설명한다. 동맹 딜레마는 한국 외교의 선택 구조, 중견국 외교는 대안 전략으로 기능한다.",
+      "analysisMethod": "국제정치 이론 적용 + 기사 사례 분석 + 역사 비교 + Q&A 논점 확장 + 한국 외교 전략 도출",
+      "bestForSubjects": [
+        "정치와 법",
+        "세계사",
+        "경제",
+        "통합사회",
+        "국제정치"
+      ],
+      "bestForMajors": [
+        "정치외교학과",
+        "국제학부",
+        "행정학과",
+        "경제학과",
+        "국제관계학 관련 계열"
+      ],
+      "axisTriggers": [
+        "패권 안정론",
+        "자유주의 국제 질서",
+        "일방주의",
+        "연성권력",
+        "세력전이론",
+        "다자주의",
+        "동맹 딜레마",
+        "중견국 외교"
+      ],
+      "sourceKeywords": [
+        "패권 안정론",
+        "자유주의 국제 질서",
+        "일방주의",
+        "연성권력",
+        "세력전이론",
+        "다자주의",
+        "동맹 딜레마",
+        "중견국 외교"
+      ],
+      "topicSynthesisFormula": "미국 패권 균열 기사 + 국제정치 이론 + 세계사적 패권 전환 + 동맹 딜레마 + 한국 중견국 외교 전략",
+      "avoid": [
+        "미국 몰락을 단정하지 않는다.",
+        "특정 정치인에 대한 호불호로 흐르지 않는다.",
+        "국제질서 변화를 친미/친중 이분법으로 단순화하지 않는다.",
+        "기사 한 편만으로 국제질서 전체를 과잉 일반화하지 않는다."
+      ],
+      "keySummary": "미국 패권의 균열을 자유주의 국제질서의 종말로 단정하기보다, 패권안정론·연성권력·세력전이론을 통해 국제질서 재편 과정을 분석한다. 한국 외교는 강대국 의존을 넘어 다자제도와 유사입장국 연대를 활용하는 중견국 외교로 확장되어야 한다는 문제의식을 제시한다.",
+      "rawParagraphs": [
+        "정치와 법 수업에서 국제관계의 원리를 배우는 중, 현대 국제사회가 상호 의존과 다자 협력으로 운영된다는 설명과 2025년 현재 뉴스 흐름 사이의 간극에 의문을 가졌다.",
+        "트럼프 행정부의 일방주의, 동맹 비용 요구, 국제기구 탈퇴, 미국 국내 여론의 변화는 단순한 한 지도자의 성향이 아니라 국제권력 구조의 변화를 보여주는 사례로 해석된다.",
+        "패권안정론은 세계 경제·안보 질서를 유지하기 위해 규칙을 제공하고 비용을 부담하는 패권국이 필요하다고 설명한다.",
+        "연성권력은 강제나 금전 지원이 아니라 문화·가치·정책 매력을 통해 상대방이 스스로 따르게 만드는 힘이며, 세력전이론은 기존 패권국과 도전국 사이의 힘의 격차와 불만이 충돌 위험을 높인다고 설명한다.",
+        "한국은 미국 의존만으로는 충분하지 않은 환경에서 중견국 외교와 유사입장국 연대를 통해 자율적 외교 공간을 확보해야 한다."
+      ],
+      "sectionDigests": {
+        "중요성": "국제관계 이론을 통해 미국 일방주의와 패권 균열이 자유주의 국제질서에 미치는 영향을 해석하고 한국의 외교 전략을 모색한다.",
+        "페이월 밑으로 보실 수 있는 내용들": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 탐구 결과, 활동 연계, 참고문헌을 제공한다.",
+        "추천 주제": "미국 패권의 균열과 국제 질서의 재편 — 트럼프 행정부의 일방주의는 자유주의 국제 질서의 종말을 의미하는가",
+        "관련 키워드": "패권 안정론, 자유주의 국제 질서, 일방주의, 연성권력, 세력전이론, 다자주의, 동맹 딜레마, 중견국 외교",
+        "탐구 동기": "교과서의 다자 협력 설명과 뉴스 속 강대국 일방주의의 간극을 보며, 국제질서 변화가 한국 외교 공간에 미치는 영향을 탐구했다.",
+        "느낀점": "미국의 군사력이나 GDP만으로 패권을 판단하기 어렵고, 신뢰·동맹·제도·정당성이 패권 유지의 핵심임을 인식했다.",
+        "세특 문구 예시": "동아시아 탐구 활동에서 신문 기사를 바탕으로 패권 안정론과 세력전이론을 적용해 미국 일방주의와 한국 중견국 외교 전략을 분석함.",
+        "개념·원리 설명": "패권안정론, 연성권력, 세력전이론을 쉬운 비유와 교과 연결을 통해 설명하고 위험지수 사고틀로 확장한다.",
+        "해결할 문제와 중요성": "미국 권위 약화가 국제질서를 곧바로 불안정하게 만드는지, 한국은 어떤 전략을 취해야 하는지를 탐구한다.",
+        "실제 적용 및 문제 해결 과정": "미국 내부 변화, 동맹국 반응, 제도적 관성, 한국의 동맹 딜레마와 중견국 외교를 사례별로 분석한다.",
+        "교과목 연계 및 이론적 설명": "정치와 법의 국제관계 원리, 세계사의 패권 전환, 경제의 공공재와 비용 부담, 통합사회의 상호의존을 연결한다.",
+        "심화 탐구 발전 방안": "미국 국내 여론 변화, 패권 공공재의 비용 부담, 한미 관세·안보 협상의 동맹 딜레마를 후속 연구로 확장한다.",
+        "참고문헌 및 자료": "폴 케네디, 조지프 나이, 이근욱 논문, 한겨레 기사, KOCW 강의, 외교부 자료가 제시되었으며 기사 제목·접속일 확인 필요.",
+        "검수 필요": "한겨레 기사 제목·날짜, KOCW 강의차시, 외교부 자료명, 논문 서지정보 확인 필요."
+      },
+      "references": [
+        {
+          "type": "도서",
+          "text": "『강대국의 흥망(The Rise and Fall of the Great Powers)』, 폴 케네디, 한국경제신문사",
+          "status": "검수 필요"
+        },
+        {
+          "type": "도서",
+          "text": "『소프트 파워(Soft Power)』, 조지프 나이, 세종서적",
+          "status": "검수 필요"
+        },
+        {
+          "type": "논문",
+          "text": "이근욱, \"패권안정론과 국제 경제 질서의 변화\", 한국정치학회보, 2010",
+          "status": "검수 필요"
+        },
+        {
+          "type": "기사",
+          "text": "한겨레, \"해당 기사 제목 직접 기재\", 국제 미국 섹션, 2024~2025 (접속일자: 본인이 기사 읽은 날짜 기재)",
+          "status": "검수 필요"
+        },
+        {
+          "type": "강의",
+          "text": "KOCW, 연세대학교 이내영 교수, '국제정치학개론' 3~5강",
+          "status": "검수 필요"
+        },
+        {
+          "type": "웹사이트",
+          "text": "외교부 공식 사이트, www.mofa.go.kr, 한국 중견국 외교 전략 관련 자료",
+          "status": "검수 필요"
+        }
+      ],
+      "reviewItems": [
+        [
+          "한겨레 기사 제목·날짜·접속일",
+          "이미지에 구체 제목이 직접 기재되지 않음",
+          "상"
+        ],
+        [
+          "KOCW 강의정보",
+          "강의명·차시 확인 필요",
+          "중"
+        ],
+        [
+          "외교부 자료명",
+          "정확한 문서명 확인 필요",
+          "중"
+        ],
+        [
+          "이근욱 논문 서지정보",
+          "학회보 권호·페이지 확인 필요",
+          "중"
+        ],
+        [
+          "국제정치 이론 표현",
+          "이론을 특정 국가 비난으로 단정하지 않도록 표현 조정 필요",
+          "중"
+        ]
+      ],
+      "stage": "stage5",
+      "status": "seed-data-only-not-applied",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage5_RPT021_025.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage5/report_seed_bank_stage5_v1.json",
+      "studentOutputBlueprint8": [
+        "주제와 핵심 질문",
+        "탐구 동기",
+        "핵심 개념과 원리",
+        "자료/수식/이론 분석",
+        "실제 적용 과정",
+        "교과 연계",
+        "심화 탐구",
+        "세특·참고문헌"
+      ],
+      "miniPromptFragment": "선택값을 단순 결합하지 말고, '국제질서 변화 의문 → 패권안정론·연성권력·세력전이론 개념 정리 → 미국 내부 변화와 동맹 반응 분석 → 한국 중견국 외교 전략 도출 → 역사·현실 사례 연결' 흐름에 따라 문제 상황에서 출발해 교과 원리와 분석 기준을 적용하고 해결 방향과 후속 탐구까지 연결한다. 확인되지 않은 수치·출처는 학생 확인 필요로 표시한다.",
+      "referenceCandidates": [
+        "『강대국의 흥망(The Rise and Fall of the Great Powers)』, 폴 케네디, 한국경제신문사",
+        "『소프트 파워(Soft Power)』, 조지프 나이, 세종서적",
+        "이근욱, \"패권안정론과 국제 경제 질서의 변화\", 한국정치학회보, 2010",
+        "한겨레, \"해당 기사 제목 직접 기재\", 국제 미국 섹션, 2024~2025 (접속일자: 본인이 기사 읽은 날짜 기재)",
+        "KOCW, 연세대학교 이내영 교수, '국제정치학개론' 3~5강",
+        "외교부 공식 사이트, www.mofa.go.kr, 한국 중견국 외교 전략 관련 자료"
+      ],
+      "sectionBlueprint14": [
+        {
+          "order": 1,
+          "title": "중요성",
+          "miniRole": "보고서 도입부에서 주제의 사회·과학적 중요성 제시",
+          "patternTags": [
+            "중요성",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "국제관계 이론을 통해 미국 일방주의와 패권 균열이 자유주의 국제질서에 미치는 영향을 해석하고 한국의 외교 전략을 모색한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 2,
+          "title": "페이월 밑으로 보실 수 있는 내용들",
+          "miniRole": "홈페이지형 보고서의 목차 및 제공 섹션 구조 확인",
+          "patternTags": [
+            "페이월 밑으로 보실 수 있는 내용들",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "추천 주제, 관련 키워드, 탐구 동기, 느낀점, 세특 문구, 상세 설명, 탐구 결과, 활동 연계, 참고문헌을 제공한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 3,
+          "title": "추천 주제",
+          "miniRole": "학생용 탐구 주제 문장으로 변환",
+          "patternTags": [
+            "추천 주제",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "미국 패권의 균열과 국제 질서의 재편 — 트럼프 행정부의 일방주의는 자유주의 국제 질서의 종말을 의미하는가",
+          "useInGeneration": true
+        },
+        {
+          "order": 4,
+          "title": "관련 키워드",
+          "miniRole": "키워드 매칭 및 seed 검색 트리거",
+          "patternTags": [
+            "관련 키워드",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "패권 안정론, 자유주의 국제 질서, 일방주의, 연성권력, 세력전이론, 다자주의, 동맹 딜레마, 중견국 외교",
+          "useInGeneration": true
+        },
+        {
+          "order": 5,
+          "title": "탐구 동기",
+          "miniRole": "교과 수업 의문과 실제 문제를 연결하는 동기 생성",
+          "patternTags": [
+            "탐구 동기",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "교과서의 다자 협력 설명과 뉴스 속 강대국 일방주의의 간극을 보며, 국제질서 변화가 한국 외교 공간에 미치는 영향을 탐구했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 6,
+          "title": "느낀점",
+          "miniRole": "탐구 후 인식 변화와 진로 관심 정리",
+          "patternTags": [
+            "느낀점",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "미국의 군사력이나 GDP만으로 패권을 판단하기 어렵고, 신뢰·동맹·제도·정당성이 패권 유지의 핵심임을 인식했다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 7,
+          "title": "세특 문구 예시",
+          "miniRole": "생활기록부 세특 문장 재구성 기준",
+          "patternTags": [
+            "세특 문구 예시",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "동아시아 탐구 활동에서 신문 기사를 바탕으로 패권 안정론과 세력전이론을 적용해 미국 일방주의와 한국 중견국 외교 전략을 분석함.",
+          "useInGeneration": true
+        },
+        {
+          "order": 8,
+          "title": "개념·원리 설명",
+          "miniRole": "핵심 개념과 작동 원리를 고등학생 수준으로 설명",
+          "patternTags": [
+            "개념·원리 설명",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "패권안정론, 연성권력, 세력전이론을 쉬운 비유와 교과 연결을 통해 설명하고 위험지수 사고틀로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 9,
+          "title": "해결할 문제와 중요성",
+          "miniRole": "탐구가 해결할 문제와 중요성을 구조화",
+          "patternTags": [
+            "해결할 문제와 중요성",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "미국 권위 약화가 국제질서를 곧바로 불안정하게 만드는지, 한국은 어떤 전략을 취해야 하는지를 탐구한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 10,
+          "title": "실제 적용 및 문제 해결 과정",
+          "miniRole": "실제 사례·수식·자료를 적용하는 분석 과정",
+          "patternTags": [
+            "실제 적용 및 문제 해결 과정",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "미국 내부 변화, 동맹국 반응, 제도적 관성, 한국의 동맹 딜레마와 중견국 외교를 사례별로 분석한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 11,
+          "title": "교과목 연계 및 이론적 설명",
+          "miniRole": "교과목·단원·이론을 연결해 융합 구조 형성",
+          "patternTags": [
+            "교과목 연계 및 이론적 설명",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "정치와 법의 국제관계 원리, 세계사의 패권 전환, 경제의 공공재와 비용 부담, 통합사회의 상호의존을 연결한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 12,
+          "title": "심화 탐구 발전 방안",
+          "miniRole": "후속 탐구 질문과 심화 방향 제안",
+          "patternTags": [
+            "심화 탐구 발전 방안",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "미국 국내 여론 변화, 패권 공공재의 비용 부담, 한미 관세·안보 협상의 동맹 딜레마를 후속 연구로 확장한다.",
+          "useInGeneration": true
+        },
+        {
+          "order": 13,
+          "title": "참고문헌 및 자료",
+          "miniRole": "출처 후보 보존 및 검수 필요 항목 분리",
+          "patternTags": [
+            "참고문헌 및 자료",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "폴 케네디, 조지프 나이, 이근욱 논문, 한겨레 기사, KOCW 강의, 외교부 자료가 제시되었으며 기사 제목·접속일 확인 필요.",
+          "useInGeneration": true
+        },
+        {
+          "order": 14,
+          "title": "검수 필요",
+          "miniRole": "불확실한 수치·서지·용어를 검수 대상으로 분리",
+          "patternTags": [
+            "검수 필요",
+            "stage5",
+            "RPT-025"
+          ],
+          "keywords": [
+            "패권 안정론",
+            "자유주의 국제 질서",
+            "일방주의",
+            "연성권력",
+            "세력전이론",
+            "다자주의",
+            "동맹 딜레마",
+            "중견국 외교"
+          ],
+          "sourceDigest": "한겨레 기사 제목·날짜, KOCW 강의차시, 외교부 자료명, 논문 서지정보 확인 필요.",
+          "useInGeneration": false
+        }
+      ]
+    }
+  ]
+}
