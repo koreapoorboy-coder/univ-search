@@ -2,7 +2,7 @@
   "version": "seed-bank-v2",
   "category": "engineering",
   "updatedAt": "2026-05-15",
-  "engineReads": true,
+  "engineReads": false,
   "legacyReads": false,
   "seeds": [
     {
@@ -20,7 +20,15 @@
         "에너지공학과",
         "산업공학과"
       ],
-      "bestForSubjects": [
+      "axisTriggers": [
+        "소재 구조 분석",
+        "공정 최적화",
+        "전기적 특성 분석",
+        "기계적 안정성 분석",
+        "에너지 효율 개선",
+        "친환경 제조 확장"
+      ],
+      "bestForSubjectsLegacy": [
         "화학Ⅰ",
         "화학Ⅱ",
         "물리학Ⅰ",
@@ -29,14 +37,35 @@
         "대수",
         "미적분Ⅰ"
       ],
-      "axisTriggers": [
-        "소재 구조 분석",
-        "공정 최적화",
-        "전기적 특성 분석",
-        "기계적 안정성 분석",
-        "에너지 효율 개선",
-        "친환경 제조 확장"
-      ]
+      "bestForSubjects": [
+        "역학과 에너지",
+        "전자기와 양자",
+        "물질과 에너지"
+      ],
+      "normalizedSubjects": [
+        "역학과 에너지",
+        "전자기와 양자",
+        "물질과 에너지",
+        "기하",
+        "미적분Ⅰ",
+        "대수"
+      ],
+      "displaySubjects": [
+        "역학과 에너지",
+        "전자기와 양자",
+        "물질과 에너지"
+      ],
+      "legacySubjectAliases": [
+        "물리Ⅱ",
+        "물리학Ⅱ",
+        "화학Ⅱ",
+        "물리Ⅰ",
+        "물리학Ⅰ",
+        "화학Ⅰ",
+        "공통수학"
+      ],
+      "subjectNormalizationStatus": "normalized_2022_curriculum"
     }
-  ]
+  ],
+  "dataBuildStatus": "data-only; engine connection pending"
 }
