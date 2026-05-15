@@ -1,17 +1,36 @@
 # STAGE_STATUS
-Updated: 2026-05-15
 
-| Stage | Range | Status | Source dataset | Seed files |
-|---|---|---|---|---|
-| Stage 1 | RPT-001~005 | 완료 | report_dataset_stage1_RPT001_005.xlsx | stage1/report_seed_bank_stage1_v1.json |
-| Stage 2 | RPT-006~010 | 완료 | report_dataset_stage2_RPT001_010.xlsx | stage2/report_seed_bank_stage2_v1.json |
-| Stage 3 | RPT-011~015 | 완료 | report_dataset_stage3_RPT011_015.xlsx | stage3/report_seed_bank_stage3_v1.json |
-| Stage 4 | RPT-016~020 | 완료 | report_dataset_stage4_RPT016_020.xlsx | stage4/report_seed_bank_stage4_v1.json |
-| Stage 5 | RPT-021~025 | 완료 | report_dataset_stage5_RPT021_025.xlsx | stage5/report_seed_bank_stage5_v1.json |
-| Stage 6 | RPT-026~030 | 완료 | report_dataset_stage6_RPT026_030.xlsx | stage6/report_seed_bank_stage6_v1.json |
+## Current Status
 
-## Current Operating Status
+- completedStages: 6
+- currentStage: stage7
+- currentStageStatus: partial
+- latestPatch: seedbank_stage7_RPT031_033_partial_patch.zip
+- totalSeeds: 33
+- stage7CurrentRange: RPT-031~RPT-033
+- stage7Remaining: RPT-034~RPT-035
+- engineApplied: false
 
-- seed-bank 누적: RPT-001~030 완료
-- 운영 엔진 적용: 미적용
-- 다음 작업: Stage 7 = RPT-031~035 이미지 보고서 수집 및 엑셀화
+## Stage Counts
+
+| Stage | Count | Status |
+|---|---:|---|
+| stage1 | 5 | completed |
+| stage2 | 5 | completed |
+| stage3 | 5 | completed |
+| stage4 | 5 | completed |
+| stage5 | 5 | completed |
+| stage6 | 5 | completed |
+| stage7 | 3 | partial |
+
+## Stage 7 Partial Reports
+
+| RPT | 주제 |
+|---|---|
+| RPT-031 | 인간의 몸짓을 흉내 내는 기계 — 동역학이 만드는 휴머노이드 운동 제어 |
+| RPT-032 | 산불은 기후의 결과이자 원인 — 탄소중립 너머의 환경공학적 해법 |
+| RPT-033 | 투명 실리콘 메타렌즈: 초박형 광학의 미래를 열다 |
+
+## Notes
+
+엑셀은 원문 보존용, GitHub 패치는 구조화 seed 데이터용입니다. Stage 7 정식 완료본은 RPT-034~RPT-035가 추가된 뒤 별도로 생성합니다.

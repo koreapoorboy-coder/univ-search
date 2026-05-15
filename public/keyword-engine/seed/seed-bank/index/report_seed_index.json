@@ -2,16 +2,17 @@
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
   "updatedAt": "2026-05-15",
-  "status": "seed_bank_stage6_ready_not_applied_to_engine",
+  "status": "seed_bank_stage7_partial_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 30,
+  "totalSeeds": 33,
   "stageCounts": {
     "stage1": 5,
     "stage2": 5,
     "stage3": 5,
     "stage4": 5,
     "stage5": 5,
-    "stage6": 5
+    "stage6": 5,
+    "stage7": 3
   },
   "seeds": [
     {
@@ -1576,6 +1577,161 @@
         "GMO·유전자 편집의 사회적 수용성과 규제 문제를 생략하지 않는다.",
         "메탄 감축 수치와 CO2eq 계산을 출처 검수 없이 단정하지 않는다.",
         "화학 반응식과 생물학적 경로를 분리해 나열하지 않는다."
+      ]
+    },
+    {
+      "seedId": "RPT-031",
+      "seedName": "휴머노이드 로봇의 운동 제어 원리 분석형",
+      "studentFacingLabel": "휴머노이드 로봇이 복합 무술 동작을 수행하는 현상을 다관절 동역학, ZMP, 역기구학, 각운동량 보상, 강화학습 기반 제어로 해석한 보고서.",
+      "stage": "stage7",
+      "status": "seed-data-only-not-applied-partial",
+      "sourceTitle": "인간의 몸짓을 흉내 내는 기계 — 동역학이 만드는 휴머노이드 운동 제어",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "fusionType": "물리·수학·기계공학·로봇공학·AI",
+      "corePattern": "복잡한 로봇 동작 사례 제시 → 동역학 모델 설명 → 균형 조건(ZMP) 해석 → 역기구학으로 자세 계산 → 각운동량 보상 → 강화학습으로 실제 제어 최적화",
+      "problemFrame": "휴머노이드 로봇은 왜 산업용 로봇보다 제어가 어렵고, 어떻게 균형을 잃지 않으면서 사람 같은 연속 동작을 수행할 수 있는가?",
+      "analysisMethod": "사례 기반 문제 인식 → 핵심 개념·원리 설명 → 실제 적용 과정 구조화 → 교과 연계와 심화 탐구 제안",
+      "bestForSubjects": [
+        "물리학Ⅰ·Ⅱ",
+        "수학",
+        "미적분",
+        "정보",
+        "공학 일반",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "기계공학과",
+        "로봇공학과",
+        "메카트로닉스공학과",
+        "전기전자공학과",
+        "인공지능학과",
+        "컴퓨터공학과"
+      ],
+      "axisTriggers": [
+        "다관절 동역학",
+        "영점 모멘트 점(ZMP)",
+        "역기구학/순기구학",
+        "관성 모멘트와 각운동량",
+        "강화학습 기반 운동 제어"
+      ],
+      "sourceKeywords": [
+        "다관절 동역학",
+        "영점 모멘트 점(ZMP)",
+        "역기구학/순기구학",
+        "관성 모멘트와 각운동량",
+        "강화학습 기반 운동 제어"
+      ],
+      "avoid": [
+        "로봇을 단순 기계 동작 수준으로 설명",
+        "취권 장면만 흥미 위주로 소비",
+        "ZMP/역기구학 용어 나열",
+        "AI만 강조하고 물리·동역학 기초 생략"
+      ]
+    },
+    {
+      "seedId": "RPT-032",
+      "seedName": "기후재난의 시스템적 해석과 복합 대응 전략 설계형",
+      "studentFacingLabel": "산불을 기후변화의 결과이자 원인으로 보고, 대기·탄소·토양·수질·생태계를 연결한 환경공학적 대응 전략을 설계한 보고서.",
+      "stage": "stage7",
+      "status": "seed-data-only-not-applied-partial",
+      "sourceTitle": "산불은 기후의 결과이자 원인 — 탄소중립 너머의 환경공학적 해법",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "fusionType": "환경공학·기후과학·대기과학·수문학·생태학",
+      "corePattern": "기후변화 심화 → 산불 증가 → 탄소·에어로졸 대량 배출 → 대기·수질·토양 피해 확산 → 다시 기후위기 심화 → 복합 적응 전략 설계",
+      "problemFrame": "산불은 단순한 자연재해인가, 아니면 기후 시스템 전체를 다시 흔드는 피드백 구조인가? 왜 탄소중립만으로는 충분하지 않은가?",
+      "analysisMethod": "사례 기반 문제 인식 → 핵심 개념·원리 설명 → 실제 적용 과정 구조화 → 교과 연계와 심화 탐구 제안",
+      "bestForSubjects": [
+        "통합과학",
+        "지구과학",
+        "화학",
+        "생명과학",
+        "환경 관련 탐구",
+        "사회문제 탐구"
+      ],
+      "bestForMajors": [
+        "환경공학과",
+        "환경과학과",
+        "산림자원학과",
+        "생태학과",
+        "기후에너지 관련 전공",
+        "토목·수자원 계열"
+      ],
+      "axisTriggers": [
+        "기후-산불 피드백 루프",
+        "대기 에어로졸",
+        "탄소플럭스",
+        "산불 위험도 모델링",
+        "산불 후 토양 침식과 수질 오염",
+        "복합 적응 전략"
+      ],
+      "sourceKeywords": [
+        "기후-산불 피드백 루프",
+        "대기 에어로졸",
+        "탄소플럭스",
+        "산불 위험도 모델링",
+        "산불 후 토양 침식과 수질 오염",
+        "복합 적응 전략"
+      ],
+      "avoid": [
+        "산불을 단순 화재 사건으로만 설명",
+        "탄소배출 감소만 강조",
+        "환경 문제를 대기오염 한 축으로만 축소",
+        "예방·적응·복원 전략 없이 문제 진단만 함"
+      ]
+    },
+    {
+      "seedId": "RPT-033",
+      "seedName": "나노광학 기반 차세대 디스플레이·센서 혁신형",
+      "studentFacingLabel": "나노구조로 빛의 위상과 진행 방향을 제어하는 메타렌즈와 투명 실리콘 박막을 통해 초박형 광학기기 구현 가능성을 분석한 보고서.",
+      "stage": "stage7",
+      "status": "seed-data-only-not-applied-partial",
+      "sourceTitle": "투명 실리콘 메타렌즈: 초박형 광학의 미래를 열다",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "fusionType": "물리·광학·나노소재·반도체공정·전자기기",
+      "corePattern": "기존 렌즈 한계 인식 → 메타렌즈 원리 이해 → 나노구조를 통한 빛의 위상 제어 → 투명 실리콘 박막 제조 → 스마트폰·AR/VR·바이오센서 적용 가능성 분석",
+      "problemFrame": "기존 렌즈의 두께와 무게 한계를 어떻게 극복할 수 있으며, 나노구조 기반 메타렌즈는 왜 차세대 광학기기의 핵심 기술이 되는가?",
+      "analysisMethod": "사례 기반 문제 인식 → 핵심 개념·원리 설명 → 실제 적용 과정 구조화 → 교과 연계와 심화 탐구 제안",
+      "bestForSubjects": [
+        "물리학Ⅰ·Ⅱ",
+        "화학",
+        "정보",
+        "통합과학",
+        "과학탐구실험",
+        "공학 일반"
+      ],
+      "bestForMajors": [
+        "물리학과",
+        "광학공학과",
+        "신소재공학과",
+        "반도체공학과",
+        "전기전자공학과",
+        "나노공학과",
+        "디스플레이공학 관련 전공"
+      ],
+      "axisTriggers": [
+        "메타렌즈",
+        "투명 실리콘 박막",
+        "나노구조",
+        "플라즈마 증착",
+        "증강현실(AR)",
+        "가상현실(VR)"
+      ],
+      "sourceKeywords": [
+        "메타렌즈",
+        "투명 실리콘 박막",
+        "나노구조",
+        "플라즈마 증착",
+        "증강현실(AR)",
+        "가상현실(VR)"
+      ],
+      "avoid": [
+        "메타렌즈를 단순히 얇은 렌즈로만 설명",
+        "나노구조와 위상 제어 생략",
+        "응용만 나열하고 광학 원리 설명 부족",
+        "소재·공정 설명 없이 장점만 강조"
       ]
     }
   ]

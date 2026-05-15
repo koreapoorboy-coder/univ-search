@@ -23,3 +23,16 @@ Updated: 2026-05-15
 ## Coverage Note
 
 Stage 6 adds AI digital textbook learning analytics, AI smart transportation and compact city planning, AI-based materials/semiconductor discovery, supercomputer-based virtual nuclear testing and international security, and gene-editing based methane pathway control in agriculture. The files remain seed-data-only and are not connected to the operating engine.
+
+---
+
+## Stage 7 Partial Coverage — RPT-031~RPT-033
+
+| RPT | 주제 | 분야 | seed 패턴 |
+|---|---|---|---|
+| RPT-031 | 인간의 몸짓을 흉내 내는 기계 — 동역학이 만드는 휴머노이드 운동 제어 | 물리·수학·기계공학·로봇공학·AI | 휴머노이드 로봇의 운동 제어 원리 분석형 |
+| RPT-032 | 산불은 기후의 결과이자 원인 — 탄소중립 너머의 환경공학적 해법 | 환경공학·기후과학·대기과학·수문학·생태학 | 기후재난의 시스템적 해석과 복합 대응 전략 설계형 |
+| RPT-033 | 투명 실리콘 메타렌즈: 초박형 광학의 미래를 열다 | 물리·광학·나노소재·반도체공정·전자기기 | 나노광학 기반 차세대 디스플레이·센서 혁신형 |
+
+- 상태: partial / RPT-034~RPT-035 대기
+- totalSeeds: 33
