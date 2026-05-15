@@ -6,16 +6,7 @@
   "duplicateGroupKey": "engineering_fpcb_polyimide_roll_to_roll_bms",
   "sourceReportTitle": "전기차 배터리 BMS용 유연회로기판(FPCB)과 롤투롤 공정 최적화",
   "studentFacingLabel": "신소재와 공정 제어를 결합해 전기차 배터리 부품의 경량화·안정성 문제를 분석하는 탐구",
-  "sourceSummary": "전기차 배터리 관리 시스템(BMS)의 와이어링 하네스 문제를 유연회로기판(FPCB), 폴리이미드, 압연동박, 롤투롤 공정, 굽힘 응력 개념으로 해결하는 공학형 보고서.",
-  "bestForSubjects": [
-    "화학Ⅰ",
-    "화학Ⅱ",
-    "물리학Ⅰ",
-    "물리학Ⅱ",
-    "공통수학",
-    "대수",
-    "미적분Ⅰ"
-  ],
+  "sourceSummary": "전기차 배터리 관리 시스템(BMS)의 와이어링 하네스 문제를 FPCB, 폴리이미드, 압연동박, 롤투롤 공정, 굽힘 응력 개념으로 해결하는 공학형 보고서. 엔진 출력에서는 고교학점제 기준 과목명인 역학과 에너지, 전자기와 양자, 물질과 에너지로 정규화한다.",
   "bestForMajors": [
     "신소재공학과",
     "화학공학과",
@@ -215,5 +206,100 @@
     ],
     "writingFocusKeyword": "FPCB의 폴리이미드 기판·압연동박 구조와 롤투롤 공정 제어",
     "connectionReason": "학생이 선택한 소재·전기·역학 개념을 FPCB라는 실제 전기차 부품에 적용할 수 있고, 저항·발열·굽힘 응력·공정 장력 제어를 통해 신소재공학과 전기전자공학의 연결성을 설명할 수 있기 때문이다."
-  }
+  },
+  "curriculumVersion": "2022 revised / high school credit system display",
+  "subjectContext": {
+    "displaySubjects": [
+      "역학과 에너지",
+      "전자기와 양자",
+      "물질과 에너지"
+    ],
+    "normalizedSubjects": [
+      "역학과 에너지",
+      "전자기와 양자",
+      "물질과 에너지",
+      "기하",
+      "미적분Ⅰ",
+      "대수"
+    ],
+    "legacySubjectAliases": [
+      "물리Ⅱ",
+      "물리학Ⅱ",
+      "화학Ⅱ",
+      "물리Ⅰ",
+      "물리학Ⅰ",
+      "화학Ⅰ",
+      "공통수학"
+    ],
+    "subjectBridgeMap": [
+      {
+        "legacySubject": "물리Ⅱ/물리학Ⅱ",
+        "normalizedSubject": "역학과 에너지",
+        "reason": "굽힘 응력, 변형률, 탄성계수, 곡률반경 등 FPCB의 반복 굽힘과 구조 안정성 분석에 연결된다.",
+        "useRole": "기계적 신뢰성 분석"
+      },
+      {
+        "legacySubject": "물리Ⅱ/물리학Ⅱ",
+        "normalizedSubject": "전자기와 양자",
+        "reason": "전기 저항, 전류, 줄 발열, 회로 안정성 등 BMS용 FPCB의 전기적 안정성 분석에 연결된다.",
+        "useRole": "전기적 특성 분석"
+      },
+      {
+        "legacySubject": "화학Ⅱ",
+        "normalizedSubject": "물질과 에너지",
+        "reason": "폴리이미드의 고분자 구조, 이미드 결합, 내열성, 절연성, 열팽창 특성 등 소재의 구조-물성 관계 분석에 연결된다.",
+        "useRole": "소재 구조 및 열 안정성 분석"
+      },
+      {
+        "legacySubject": "화학Ⅰ",
+        "normalizedSubject": "화학",
+        "reason": "화학 결합, 분자 구조, 물질의 성질을 설명하는 일반 선택 과목 맥락에서 기초 개념을 연결한다.",
+        "useRole": "기초 화학 개념 연결"
+      },
+      {
+        "legacySubject": "공통수학",
+        "normalizedSubject": "기하/미적분Ⅰ/대수",
+        "reason": "곡률반경, 두께-변형률 관계, 저항식 R=ρL/A, 생산 조건 최적화 등 정량 분석에 활용한다.",
+        "useRole": "수학적 모델링 및 최적화"
+      }
+    ],
+    "displayRule": "학생 화면과 MINI 출력에는 displaySubjects를 우선 노출하고, legacySubjectAliases는 검색·매칭·원문 보존용으로만 사용한다.",
+    "normalizationCaution": "물리Ⅱ·화학Ⅱ 등 구 과목명은 단순 일괄 치환하지 않고, 보고서의 핵심 개념과 분석 방식에 따라 신 과목으로 분기한다."
+  },
+  "bestForSubjectsLegacy": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "공통수학",
+    "대수",
+    "미적분Ⅰ"
+  ],
+  "bestForSubjects": [
+    "역학과 에너지",
+    "전자기와 양자",
+    "물질과 에너지"
+  ],
+  "normalizedSubjects": [
+    "역학과 에너지",
+    "전자기와 양자",
+    "물질과 에너지",
+    "기하",
+    "미적분Ⅰ",
+    "대수"
+  ],
+  "displaySubjects": [
+    "역학과 에너지",
+    "전자기와 양자",
+    "물질과 에너지"
+  ],
+  "legacySubjectAliases": [
+    "물리Ⅱ",
+    "물리학Ⅱ",
+    "화학Ⅱ",
+    "물리Ⅰ",
+    "물리학Ⅰ",
+    "화학Ⅰ",
+    "공통수학"
+  ]
 }
