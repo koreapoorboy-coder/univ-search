@@ -2,9 +2,9 @@
   "schemaVersion": "report-seed-index-v1",
   "createdAt": "2026-05-14",
   "updatedAt": "2026-05-15",
-  "status": "seed_bank_stage7_partial_ready_not_applied_to_engine",
+  "status": "seed_bank_stage7_complete_ready_not_applied_to_engine",
   "root": "keyword-engine/seed/seed-bank",
-  "totalSeeds": 33,
+  "totalSeeds": 35,
   "stageCounts": {
     "stage1": 5,
     "stage2": 5,
@@ -12,7 +12,7 @@
     "stage4": 5,
     "stage5": 5,
     "stage6": 5,
-    "stage7": 3
+    "stage7": 5
   },
   "seeds": [
     {
@@ -1584,10 +1584,10 @@
       "seedName": "휴머노이드 로봇의 운동 제어 원리 분석형",
       "studentFacingLabel": "휴머노이드 로봇이 복합 무술 동작을 수행하는 현상을 다관절 동역학, ZMP, 역기구학, 각운동량 보상, 강화학습 기반 제어로 해석한 보고서.",
       "stage": "stage7",
-      "status": "seed-data-only-not-applied-partial",
+      "status": "seed-data-only-not-applied",
       "sourceTitle": "인간의 몸짓을 흉내 내는 기계 — 동역학이 만드는 휴머노이드 운동 제어",
-      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
-      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_035.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_only_v1.json",
       "fusionType": "물리·수학·기계공학·로봇공학·AI",
       "corePattern": "복잡한 로봇 동작 사례 제시 → 동역학 모델 설명 → 균형 조건(ZMP) 해석 → 역기구학으로 자세 계산 → 각운동량 보상 → 강화학습으로 실제 제어 최적화",
       "problemFrame": "휴머노이드 로봇은 왜 산업용 로봇보다 제어가 어렵고, 어떻게 균형을 잃지 않으면서 사람 같은 연속 동작을 수행할 수 있는가?",
@@ -1634,10 +1634,10 @@
       "seedName": "기후재난의 시스템적 해석과 복합 대응 전략 설계형",
       "studentFacingLabel": "산불을 기후변화의 결과이자 원인으로 보고, 대기·탄소·토양·수질·생태계를 연결한 환경공학적 대응 전략을 설계한 보고서.",
       "stage": "stage7",
-      "status": "seed-data-only-not-applied-partial",
+      "status": "seed-data-only-not-applied",
       "sourceTitle": "산불은 기후의 결과이자 원인 — 탄소중립 너머의 환경공학적 해법",
-      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
-      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_035.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_only_v1.json",
       "fusionType": "환경공학·기후과학·대기과학·수문학·생태학",
       "corePattern": "기후변화 심화 → 산불 증가 → 탄소·에어로졸 대량 배출 → 대기·수질·토양 피해 확산 → 다시 기후위기 심화 → 복합 적응 전략 설계",
       "problemFrame": "산불은 단순한 자연재해인가, 아니면 기후 시스템 전체를 다시 흔드는 피드백 구조인가? 왜 탄소중립만으로는 충분하지 않은가?",
@@ -1686,10 +1686,10 @@
       "seedName": "나노광학 기반 차세대 디스플레이·센서 혁신형",
       "studentFacingLabel": "나노구조로 빛의 위상과 진행 방향을 제어하는 메타렌즈와 투명 실리콘 박막을 통해 초박형 광학기기 구현 가능성을 분석한 보고서.",
       "stage": "stage7",
-      "status": "seed-data-only-not-applied-partial",
+      "status": "seed-data-only-not-applied",
       "sourceTitle": "투명 실리콘 메타렌즈: 초박형 광학의 미래를 열다",
-      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_033_partial.xlsx",
-      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_partial_v1.json",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_035.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_only_v1.json",
       "fusionType": "물리·광학·나노소재·반도체공정·전자기기",
       "corePattern": "기존 렌즈 한계 인식 → 메타렌즈 원리 이해 → 나노구조를 통한 빛의 위상 제어 → 투명 실리콘 박막 제조 → 스마트폰·AR/VR·바이오센서 적용 가능성 분석",
       "problemFrame": "기존 렌즈의 두께와 무게 한계를 어떻게 극복할 수 있으며, 나노구조 기반 메타렌즈는 왜 차세대 광학기기의 핵심 기술이 되는가?",
@@ -1732,6 +1732,110 @@
         "나노구조와 위상 제어 생략",
         "응용만 나열하고 광학 원리 설명 부족",
         "소재·공정 설명 없이 장점만 강조"
+      ]
+    },
+    {
+      "seedId": "RPT-034",
+      "seedName": "생체 열역학 기반 동물 열관리·수의학 응용형",
+      "studentFacingLabel": "호박벌의 날갯짓이 만드는 자가 바람을 생체 열역학·대류 냉각·생체역학으로 해석하고, 열 스트레스와 수의학적 체온 관리로 확장한 보고서.",
+      "stage": "stage7",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "호박벌의 ‘에어컨’ 날갯짓에 숨겨진 생체 열역학적 냉각 원리와 수의학적 응용 탐구",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_035.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_only_v1.json",
+      "fusionType": "물리·생명과학·수의학·생체역학·기후환경",
+      "corePattern": "기후 위기 속 열 스트레스 문제 인식 → 호박벌 날갯짓의 자가 냉각 현상 제시 → 열역학·대류 냉각 원리 설명 → 풍속·열전달 계수로 냉각 효과 해석 → 수의학적 체온 관리·물리치료 응용",
+      "problemFrame": "비행 중 급격히 상승하는 호박벌의 체온은 어떻게 물리적으로 억제되며, 이 원리를 동물 열 스트레스 관리에 어떻게 응용할 수 있는가?",
+      "analysisMethod": "사례 기반 문제 인식 → 핵심 개념·원리 설명 → 실제 적용 과정 구조화 → 교과 연계와 심화 탐구 제안",
+      "bestForSubjects": [
+        "물리학Ⅱ",
+        "생명과학Ⅱ",
+        "통합과학",
+        "화학Ⅱ",
+        "수학",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "수의학과",
+        "동물생명공학과",
+        "생명과학과",
+        "생체의공학과",
+        "기계공학과",
+        "환경공학과"
+      ],
+      "axisTriggers": [
+        "생체 열역학",
+        "대류 냉각",
+        "열 스트레스",
+        "생체역학",
+        "수의 물리치료",
+        "체온 조절",
+        "열전달 계수"
+      ],
+      "sourceKeywords": [
+        "생체 열역학",
+        "대류 냉각",
+        "열 스트레스",
+        "생체역학",
+        "수의 물리치료"
+      ],
+      "avoid": [
+        "호박벌 날갯짓을 단순 흥미 사례로만 소비",
+        "수의학 응용 없이 물리 공식만 나열",
+        "열 스트레스를 추상적으로만 설명",
+        "기후위기와 생태계 지속가능성 연결 생략"
+      ]
+    },
+    {
+      "seedId": "RPT-035",
+      "seedName": "생분해성 고분자·화학적 재활용·순환경제 분석형",
+      "studentFacingLabel": "PLA와 PHA를 중심으로 생분해성 플라스틱의 분해 원리, 반응 속도, 화학적 재활용, 자원 순환 구조를 재료 관점에서 분석한 보고서.",
+      "stage": "stage7",
+      "status": "seed-data-only-not-applied",
+      "sourceTitle": "고분자 화학 기반 생분해성 플라스틱, 어떤 소재가 있을까? 재료 관점 분석",
+      "sourceFile": "seed/seed-bank/raw-reports/original-xlsx/report_dataset_stage7_RPT031_035.xlsx",
+      "seedFile": "seed/seed-bank/report-seeds/stage7/report_seed_bank_stage7_only_v1.json",
+      "fusionType": "화학·고분자화학·재료공학·환경공학·순환경제",
+      "corePattern": "플라스틱 오염 문제 인식 → PLA·PHA 등 생분해성 고분자 소개 → 가수분해·아레니우스 식으로 분해 조건 해석 → 실제 퇴비화·재활용 공정 분석 → 자원 순환 경제로 확장",
+      "problemFrame": "생분해성 플라스틱은 어떤 화학적 조건에서 실제로 분해되며, PLA·PHA 같은 소재를 활용해 플라스틱 오염과 자원 순환 문제를 어떻게 해결할 수 있는가?",
+      "analysisMethod": "사례 기반 문제 인식 → 핵심 개념·원리 설명 → 실제 적용 과정 구조화 → 교과 연계와 심화 탐구 제안",
+      "bestForSubjects": [
+        "화학Ⅱ",
+        "통합과학",
+        "환경 관련 탐구",
+        "수학",
+        "생명과학Ⅰ",
+        "과학탐구실험"
+      ],
+      "bestForMajors": [
+        "화학공학과",
+        "신소재공학과",
+        "고분자공학과",
+        "환경공학과",
+        "재료공학과",
+        "생명공학과"
+      ],
+      "axisTriggers": [
+        "PLA",
+        "PHA",
+        "가수분해",
+        "아레니우스 식",
+        "자원 순환",
+        "고분자 화학",
+        "해중합"
+      ],
+      "sourceKeywords": [
+        "PLA",
+        "PHA",
+        "가수분해",
+        "아레니우스 식",
+        "자원 순환"
+      ],
+      "avoid": [
+        "생분해성 플라스틱을 무조건 친환경 해결책으로 단정",
+        "퇴비화·해중합 조건 없이 자연 분해된다고 단순화",
+        "고분자 구조와 반응 속도 원리를 생략",
+        "순환경제와 재활용 공정 연결 없이 소재 소개에만 그침"
       ]
     }
   ]
