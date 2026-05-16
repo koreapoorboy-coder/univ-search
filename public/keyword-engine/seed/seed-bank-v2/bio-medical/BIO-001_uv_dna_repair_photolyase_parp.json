@@ -1,0 +1,308 @@
+{
+  "seedId": "BIO-001",
+  "version": "seed-bank-v2",
+  "reportCategory": "bio_medical",
+  "patternType": "molecular_damage_repair_kinetics",
+  "duplicateGroupKey": "bio_medical_uv_dna_damage_photolyase_parp",
+  "sourceReportTitle": "자외선에 의한 DNA 손상과 복구 기작의 화학 동역학적 분석",
+  "studentFacingLabel": "자외선으로 인한 DNA 손상과 효소 복구를 광화학·반응속도·생명과학 개념으로 분석하는 탐구",
+  "sourceSummary": "자외선이 DNA의 피리미딘 이합체 형성을 유발하고, 광분해효소의 전자 이동과 활성화 에너지 저하를 통해 복구되는 과정을 화학 동역학·광화학·생명과학 관점으로 분석한 생명·화학 융합형 보고서. PARP 억제제의 합성 치사 원리까지 연결해 의학·약학적 확장성이 높다.",
+  "bestForMajors": [
+    "의예과",
+    "약학과",
+    "생명과학과",
+    "생명공학과",
+    "화학과",
+    "화학공학과"
+  ],
+  "axisTriggers": [
+    "분자 손상 분석",
+    "효소 반응 메커니즘",
+    "반응 속도론",
+    "광화학 에너지 분석",
+    "표적 항암제 원리",
+    "생명윤리·의약 확장"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "피리미딘 이합체",
+      "role": "자외선에 의해 DNA 구조가 변형되는 핵심 손상 생성물"
+    },
+    {
+      "keyword": "광분해효소(Photolyase)",
+      "role": "빛 에너지와 전자 이동으로 DNA 손상을 복구하는 효소 중심 키워드"
+    },
+    {
+      "keyword": "아레니우스 방정식",
+      "role": "활성화 에너지 저하와 반응 속도 증가를 정량적으로 설명하는 속도론 키워드"
+    },
+    {
+      "keyword": "플랑크-아인슈타인 방정식",
+      "role": "자외선의 파장과 광자 에너지를 DNA 결합 변화와 연결하는 물리·화학 키워드"
+    },
+    {
+      "keyword": "PARP 억제제",
+      "role": "DNA 복구 경로 차단과 합성 치사를 설명하는 표적 항암제 키워드"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "DNA 손상",
+      "seedKeyword": "피리미딘 이합체",
+      "relation": "자외선이 인접 티민 염기 사이의 비정상 공유 결합을 만들어 DNA 복제 오류를 유발하는 사례",
+      "useRole": "문제 상황 제시"
+    },
+    {
+      "selectedKeywordType": "효소와 촉매",
+      "seedKeyword": "광분해효소",
+      "relation": "효소가 손상 부위에 결합해 전이 상태를 안정화하고 전자 이동으로 결합을 절단하는 사례",
+      "useRole": "복구 메커니즘 설명"
+    },
+    {
+      "selectedKeywordType": "반응 속도",
+      "seedKeyword": "아레니우스 방정식",
+      "relation": "활성화 에너지 감소가 반응 속도 상수 증가로 이어지는 원리를 DNA 복구 효소와 연결",
+      "useRole": "정량 분석"
+    },
+    {
+      "selectedKeywordType": "빛 에너지",
+      "seedKeyword": "플랑크-아인슈타인 방정식",
+      "relation": "짧은 파장의 UV-B가 높은 광자 에너지를 가져 DNA 결합 변형을 일으킬 수 있음을 설명",
+      "useRole": "광화학 에너지 분석"
+    },
+    {
+      "selectedKeywordType": "항암 치료",
+      "seedKeyword": "PARP 억제제",
+      "relation": "DNA 단일 가닥 복구 경로를 차단해 특정 암세포만 선택적으로 사멸시키는 합성 치사 원리",
+      "useRole": "의약학 확장"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "[물리적 손상 요인]이 [생체 분자 구조]에 일으키는 [화학 결합 변화]를 [에너지·반응속도 수식]으로 분석하고, [효소/약물 메커니즘]을 통해 [복구 또는 치료 전략]을 탐구한다.",
+    "basicTopic": "자외선이 DNA에 피리미딘 이합체를 형성하는 원리와 세포의 복구 과정을 분석하는 탐구",
+    "expandedTopic": "플랑크-아인슈타인 방정식과 아레니우스 방정식을 활용해 자외선 DNA 손상과 광분해효소 복구 속도 변화를 분석하는 탐구",
+    "deepTopic": "자외선에 의한 피리미딘 이합체 형성, 광분해효소의 전자 이동 복구, PARP 억제제의 합성 치사 원리를 화학 동역학과 의약학 관점에서 통합 분석하는 탐구",
+    "badTopicPatterns": [
+      "DNA에 대한 탐구",
+      "자외선의 위험성 조사",
+      "피부암 예방의 중요성",
+      "항암제의 종류 조사",
+      "효소의 역할 정리"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "자외선과 같은 물리적 위협이 DNA의 화학 결합을 변화시키고, 생명체가 효소 반응과 전자 이동으로 이를 복구한다는 점은 생명 현상을 분자 수준에서 이해하는 핵심이다.",
+    "problemFrame": "자외선은 DNA 염기 사이에 비정상적인 공유 결합을 만들어 복제 오류, 돌연변이, 세포 사멸을 유발할 수 있다. 따라서 손상 원인과 복구 경로를 에너지·속도론 관점에서 해석하는 과정이 필요하다.",
+    "conceptRole": "화학 개념은 결합 형성·절단과 활성화 에너지 변화를 설명하고, 물리 개념은 광자 에너지와 파장의 관계를 정량화하며, 생명과학 개념은 DNA 복제 오류와 효소 복구 및 항암제 작용을 연결한다.",
+    "corePattern": [
+      "자외선 노출과 DNA 손상 문제 제시",
+      "피리미딘 이합체의 화학 결합 변화 설명",
+      "플랑크-아인슈타인 방정식으로 UV-B 광자 에너지 분석",
+      "광분해효소의 FADH⁻ 기반 전자 이동 복구 메커니즘 설명",
+      "아레니우스 방정식으로 활성화 에너지 저하와 반응 속도 증가 해석",
+      "PARP 억제제의 합성 치사 원리를 표적 항암제와 연결",
+      "인공 촉매·분자 도킹·생체 모델 실험으로 심화 확장"
+    ],
+    "analysisMethod": [
+      "UV-B 파장 범위와 광자 에너지의 관계 정리",
+      "피리미딘 이합체가 DNA 이중나선 구조에 미치는 영향 분석",
+      "효소 결합 전후 활성화 에너지와 반응 속도 변화 비교",
+      "FADH⁻의 전자 이동 과정을 단계별로 정리",
+      "PARP 억제제와 BRCA 변이 암세포의 복구 경로 차단 원리 분석"
+    ],
+    "paragraphBlueprint": [
+      "1문단: 자외선이 생명체에 미치는 분자 수준의 위협 제시",
+      "2문단: 피리미딘 이합체 형성과 DNA 구조 변형 설명",
+      "3문단: 파장과 에너지 관계를 활용한 자외선 손상 원리 분석",
+      "4문단: 광분해효소의 전자 이동과 활성화 에너지 저하 설명",
+      "5문단: PARP 억제제와 합성 치사 원리로 의학적 확장",
+      "6문단: 인공 촉매·분자 도킹·생체 모델 등 후속 탐구 제안",
+      "7문단: 화학·생명과학·의약학 진로와 연결해 결론 작성"
+    ],
+    "avoid": [
+      "자외선이 위험하다는 일반론으로만 끝내지 않는다.",
+      "DNA 손상을 생명과학 용어로만 설명하고 화학 결합 변화를 생략하지 않는다.",
+      "아레니우스 방정식과 플랑크-아인슈타인 방정식을 수식 나열로만 사용하지 않는다.",
+      "PARP 억제제를 단순 항암제로 소개하지 말고 복구 경로 차단과 합성 치사 원리를 연결한다."
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "trackName": "광분해효소 모방 인공 촉매 설계",
+        "example": "FADH⁻의 산화환원 구조를 모방한 금속 기반 광촉매를 설계하고 광화학 복구 효율을 비교하는 탐구",
+        "useFor": "화학과·화학공학과·생명공학과 심화 보고서"
+      },
+      {
+        "trackName": "PARP 억제제 분자 도킹 시뮬레이션",
+        "example": "PARP 효소 활성 부위와 억제제의 수소 결합·비공유 상호작용을 모델링해 결합 친화도를 분석하는 탐구",
+        "useFor": "약학과·의예과·생명과학과 확장 보고서"
+      },
+      {
+        "trackName": "피부 환경 모사 생체 모델 분석",
+        "example": "자외선 차단제 성분과 생체 막 모델에서 온도·pH 변화에 따른 단백질 구조 안정성을 분석하는 탐구",
+        "useFor": "보건·화학·생명 융합 보고서"
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "UV-B 파장 범위와 DNA 손상 관련 자료",
+      "피리미딘 이합체 형성 및 DNA 구조 변형 자료",
+      "광분해효소와 FADH⁻ 전자 이동 메커니즘 자료",
+      "아레니우스 방정식과 효소 촉매의 활성화 에너지 저하 설명 자료",
+      "PARP 억제제와 합성 치사 항암 원리 자료"
+    ],
+    "referenceTypes": [
+      "고등학교 화학·생명과학·물리 교과서",
+      "생화학 교재",
+      "화학 반응속도론 교재",
+      "DNA 복구 관련 학술 논문",
+      "표적 항암제 관련 논문"
+    ],
+    "referenceCandidates": [
+      "Zumdahl, S. S., & Zumdahl, S. A. (2020). Chemistry. Cengage Learning.",
+      "Nelson, D. L., & Cox, M. M. (2021). Lehninger Principles of Biochemistry. Macmillan Learning.",
+      "Sancar, A. (2003). Structure and function of DNA photolyase and cryptochrome blue-light photoreceptors. Chemical Reviews, 103(6), 2203-2238.",
+      "Lord, C. J., & Ashworth, A. (2017). PARP inhibitors: Synthetic lethality in the clinic. Science, 355(6330), 1152-1158.",
+      "Halliday, D., Resnick, R., & Walker, J. (2018). Fundamentals of Physics. Wiley."
+    ],
+    "sourceCautions": [
+      "참고문헌 후보는 원문 보고서 기반 후보이므로 실제 학생 출력 전 서지 정보와 접근 가능성을 검증한다.",
+      "교과서명과 번역판 정보는 학교 사용 교재에 맞게 조정한다.",
+      "판매용 출력에서는 검증 전 자료를 '참고자료 후보'로 표시한다."
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "자외선에 의한 피리미딘 이합체 형성",
+      "DNA 구조 변형과 복제 오류 가능성",
+      "광분해효소의 전자 이동 복구 메커니즘",
+      "아레니우스 방정식 또는 활성화 에너지 저하 설명",
+      "플랑크-아인슈타인 방정식 또는 광자 에너지 설명",
+      "PARP 억제제의 합성 치사 원리"
+    ],
+    "mustNotDo": [
+      "자외선 차단제 이야기로만 흐르지 않는다.",
+      "DNA 복구를 단순 생명과학 지식 암기로 처리하지 않는다.",
+      "수식과 생명 현상 사이의 연결 근거를 생략하지 않는다.",
+      "항암제 원리를 과장하거나 임상 효과를 단정하지 않는다."
+    ],
+    "connectionCheck": "학생 선택 키워드가 DNA, 효소, 촉매, 반응속도, 빛 에너지, 항암제, 생명공학 중 하나와 연결되지 않으면 이 seed는 중심 seed가 아니라 보조 seed로 사용한다.",
+    "salesQualityTarget": "주제 3종, 작성 중심 키워드, 연결 이유, 자료 탐색 가이드, 문단별 구성, 실제 초안, 심화 탐구 3방향을 함께 제공한다."
+  },
+  "studentResultTemplate": {
+    "recommendedTopics": [
+      {
+        "level": "기본형",
+        "topic": "자외선이 DNA에 피리미딘 이합체를 형성하는 원리와 세포의 복구 과정을 분석하는 탐구"
+      },
+      {
+        "level": "확장형",
+        "topic": "플랑크-아인슈타인 방정식과 아레니우스 방정식을 활용해 자외선 DNA 손상과 광분해효소 복구 속도 변화를 분석하는 탐구"
+      },
+      {
+        "level": "심화형",
+        "topic": "자외선에 의한 피리미딘 이합체 형성, 광분해효소의 전자 이동 복구, PARP 억제제의 합성 치사 원리를 화학 동역학과 의약학 관점에서 통합 분석하는 탐구"
+      }
+    ],
+    "writingFocusKeyword": "자외선 DNA 손상과 광분해효소·PARP 억제제 기반 복구/차단 메커니즘",
+    "connectionReason": "학생이 선택한 빛 에너지, 반응 속도, 효소, DNA 개념을 하나의 생명 현상으로 연결할 수 있고, 화학·물리·생명과학 지식이 의약학적 문제 해결로 확장되는 흐름을 보여줄 수 있기 때문이다."
+  },
+  "curriculumVersion": "2022 revised / high school credit system display",
+  "subjectContext": {
+    "displaySubjects": [
+      "화학 반응의 세계",
+      "전자기와 양자",
+      "생물의 유전",
+      "세포와 물질대사"
+    ],
+    "normalizedSubjects": [
+      "화학",
+      "화학 반응의 세계",
+      "물질과 에너지",
+      "전자기와 양자",
+      "생물의 유전",
+      "세포와 물질대사"
+    ],
+    "legacySubjectAliases": [
+      "화학Ⅰ",
+      "화학Ⅱ",
+      "물리학Ⅰ",
+      "물리학Ⅱ",
+      "생명과학Ⅰ",
+      "생명과학Ⅱ"
+    ],
+    "subjectBridgeMap": [
+      {
+        "legacySubject": "화학Ⅰ",
+        "normalizedSubject": "화학",
+        "reason": "화학 결합, 분자 구조, 물질의 성질을 통해 피리미딘 이합체 형성과 결합 변화를 설명한다.",
+        "useRole": "기초 화학 개념 연결"
+      },
+      {
+        "legacySubject": "화학Ⅱ",
+        "normalizedSubject": "화학 반응의 세계",
+        "reason": "반응 속도, 활성화 에너지, 촉매 작용을 아레니우스 방정식과 효소 복구 메커니즘에 연결한다.",
+        "useRole": "반응속도론 분석"
+      },
+      {
+        "legacySubject": "물리학Ⅰ/물리학Ⅱ",
+        "normalizedSubject": "전자기와 양자",
+        "reason": "빛의 입자성, 파장과 에너지 관계, 광자 에너지를 DNA 손상 원리와 연결한다.",
+        "useRole": "광화학 에너지 분석"
+      },
+      {
+        "legacySubject": "생명과학Ⅰ",
+        "normalizedSubject": "생물의 유전",
+        "reason": "DNA 구조와 유전정보 보존, 돌연변이 발생 가능성을 손상·복구 과정과 연결한다.",
+        "useRole": "유전정보 안정성 분석"
+      },
+      {
+        "legacySubject": "생명과학Ⅱ",
+        "normalizedSubject": "세포와 물질대사",
+        "reason": "효소 작용, 조효소, 세포 수준의 복구 반응과 연결한다.",
+        "useRole": "효소 메커니즘 분석"
+      }
+    ],
+    "displayRule": "학생 화면과 MINI 출력에는 displaySubjects를 우선 노출하고, legacySubjectAliases는 검색·매칭·원문 보존용으로만 사용한다.",
+    "normalizationCaution": "구 과목명은 단순 치환하지 않고 보고서 핵심 개념과 분석 방식에 따라 신 과목으로 분기한다."
+  },
+  "bestForSubjectsLegacy": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "생명과학Ⅰ",
+    "생명과학Ⅱ"
+  ],
+  "bestForSubjects": [
+    "화학 반응의 세계",
+    "전자기와 양자",
+    "생물의 유전",
+    "세포와 물질대사"
+  ],
+  "normalizedSubjects": [
+    "화학",
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "생물의 유전",
+    "세포와 물질대사"
+  ],
+  "displaySubjects": [
+    "화학 반응의 세계",
+    "전자기와 양자",
+    "생물의 유전",
+    "세포와 물질대사"
+  ],
+  "legacySubjectAliases": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "생명과학Ⅰ",
+    "생명과학Ⅱ"
+  ]
+}
