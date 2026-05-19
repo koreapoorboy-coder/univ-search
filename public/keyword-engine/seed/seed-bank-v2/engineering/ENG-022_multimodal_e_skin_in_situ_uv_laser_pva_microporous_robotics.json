@@ -1,0 +1,390 @@
+{
+  "seedId": "ENG-022",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "multimodal_e_skin_in_situ_uv_laser_pva_microporous_robotics_tactile_sensor",
+  "duplicateGroupKey": "engineering_multimodal_e_skin_in_situ_uv_laser_pva_microporous_robotics",
+  "sourceReportTitle": "[구독자 요청/전자공학] 로봇에게 피부를 입히다: 다중모드 전자피부(E-Skin)의 확장 가능한 제작 기술과 지능형 로보틱스 응용 일반고 세특 보고서 추천",
+  "studentFacingLabel": "정전용량형 촉각 센서의 C=εA/d 원리, 미세다공성 유전체층, UV 레이저 패터닝, PVA 희생 주형, CNT 코팅, 다중모드 전자피부(E-Skin)를 연결해 로봇 그리퍼의 촉각 피드백과 인시투 확장 가능 제작 공정을 분석하는 전자공학·로보틱스 융합 탐구",
+  "sourceSummary": "고등학교 물리의 평행판 축전기 정전용량 공식에서 출발하여, 압력에 따라 전극 간 거리와 유효 유전상수가 변하는 정전용량형 촉각 센서의 원리를 분석한다. 이어서 PVA 희생 주형으로 만든 미세다공성 유전체층, UV 레이저 직접 패터닝 기반 Cu/PI 유연 회로, CNT 스프레이 코팅, 온도·근접·굽힘 센서 통합을 결합해 클린룸 없이 제작 가능한 다중모드 전자피부를 설계하고, 로봇 그리퍼의 폐루프 촉각 피드백으로 확장하는 seed이다.",
+  "bestForMajors": [
+    "전자공학과",
+    "전기전자공학과",
+    "로봇공학과",
+    "기계공학과",
+    "제어계측공학과",
+    "메카트로닉스공학과",
+    "컴퓨터공학과",
+    "정보통신공학과",
+    "신소재공학과",
+    "재료공학과",
+    "반도체공학과",
+    "디스플레이공학과",
+    "의공학과",
+    "바이오메디컬공학과",
+    "산업공학과",
+    "데이터사이언스학과"
+  ],
+  "axisTriggers": [
+    "전자피부",
+    "E-Skin",
+    "Electronic Skin",
+    "다중모드 전자피부",
+    "Multimodal E-Skin",
+    "정전용량형 촉각 센서",
+    "Capacitive Tactile Sensor",
+    "촉각 센서",
+    "Tactile Sensor",
+    "C=εA/d",
+    "평행판 축전기",
+    "정전용량",
+    "Capacitance",
+    "미세다공성 유전체층",
+    "Microporous Dielectric Layer",
+    "PVA",
+    "희생 주형",
+    "Sacrificial Mold",
+    "스캐폴드",
+    "Scaffold",
+    "엘라스토머",
+    "Elastomer",
+    "CNT",
+    "탄소나노튜브",
+    "MWCNT",
+    "UV 레이저 패터닝",
+    "Laser Patterning",
+    "Cu/PI",
+    "폴리이미드",
+    "인시투",
+    "In-Situ",
+    "클린룸 프리",
+    "Cleanroom-free",
+    "확장 가능 제작",
+    "Scalable Fabrication",
+    "로봇 그리퍼",
+    "Robot Gripper",
+    "촉각 피드백",
+    "폐루프 제어",
+    "Closed-loop Feedback",
+    "멀티플렉싱",
+    "Multiplexing",
+    "근접 센서",
+    "ToF",
+    "온도 센서",
+    "굽힘 센서",
+    "EMI 차폐",
+    "자기 치유 전자피부",
+    "자가 발전형 전자피부",
+    "촉각 지능",
+    "Tactile Intelligence"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "정전용량형 촉각 센서",
+      "role": "C=εA/d를 이용해 압력이 전기 신호로 변환되는 물리 원리를 설명하는 중심축"
+    },
+    {
+      "keyword": "미세다공성 유전체층",
+      "role": "기공 압축에 따른 거리 감소와 유효 유전상수 증가를 연결해 감도 향상 원리를 설명하는 재료·구조축"
+    },
+    {
+      "keyword": "UV 레이저 패터닝 유연 회로",
+      "role": "클린룸 없이 CAD 기반 회로를 즉시 제작하는 전자공정 설계축"
+    },
+    {
+      "keyword": "다중모드 전자피부",
+      "role": "압력·굽힘·온도·근접 센서를 하나의 플랫폼에 통합하는 시스템 설계축"
+    },
+    {
+      "keyword": "로봇 그리퍼 촉각 피드백",
+      "role": "센서 데이터가 폐루프 제어로 이어지는 로보틱스 응용축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "물리/전기와 자기",
+      "seedKeyword": "C=εA/d와 압력-정전용량 변화",
+      "relation": "압력으로 전극 간 거리 d가 감소하고 유효 유전상수 ε이 증가하면 정전용량 C가 커진다는 원리로 촉각 센서의 출력을 해석한다.",
+      "useRole": "교과 개념 연결"
+    },
+    {
+      "selectedKeywordType": "수학/미분과 변화율",
+      "seedKeyword": "S=(1/C0)(dC/dP)",
+      "relation": "감도를 압력 변화에 대한 정전용량 변화율로 정의하고, 저압·고압 2단계 감도 프로파일을 그래프 기울기로 해석한다.",
+      "useRole": "정량 분석"
+    },
+    {
+      "selectedKeywordType": "재료/고분자와 나노소재",
+      "seedKeyword": "PVA 희생 주형·엘라스토머·CNT",
+      "relation": "용해 가능한 PVA 스캐폴드로 기공을 만들고 CNT 코팅으로 전극과 EMI 차폐 기능을 부여하는 재료 설계 문제로 확장한다.",
+      "useRole": "소재·구조 설계"
+    },
+    {
+      "selectedKeywordType": "정보/센서 데이터 처리",
+      "seedKeyword": "멀티플렉싱과 폐루프 피드백",
+      "relation": "다중 센서 데이터를 마이크로컨트롤러로 통합하고 로봇 그리퍼의 파지력을 실시간 조절하는 제어 알고리즘으로 연결한다.",
+      "useRole": "시스템 구현"
+    },
+    {
+      "selectedKeywordType": "공학/제조 공정",
+      "seedKeyword": "UV 레이저 패터닝과 인시투 공정",
+      "relation": "마스크와 클린룸 없이 CAD 파일 수정만으로 유연 회로를 제작해 맞춤형 전자피부의 확장 가능성을 설명한다.",
+      "useRole": "공정 최적화"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "정전용량형 촉각 센서 + 미세다공성 유전체층 + UV 레이저 패터닝 + PVA 희생 주형 + CNT 코팅 + 다중모드 전자피부 + 로봇 그리퍼 폐루프 제어",
+    "basicTopic": "압력에 따라 정전용량이 변하는 원리로 촉각 센서는 어떻게 작동하는가",
+    "expandedTopic": "미세다공성 유전체층과 CNT 전극을 이용한 고감도 정전용량형 전자피부 설계",
+    "deepTopic": "UV 레이저 패터닝, PVA 희생 주형, 다중모드 센서 통합, 로봇 그리퍼 폐루프 피드백을 결합한 인시투 전자피부 제작 공정 분석",
+    "badTopicPatterns": [
+      "전자피부를 단순한 로봇 피부 상상도나 웨어러블 제품 소개로만 설명",
+      "정전용량 공식 없이 촉각 센서가 압력을 감지한다고만 서술",
+      "클린룸 프리 제작의 의의를 비용 절감으로만 쓰고 공정 단계와 맞춤성을 분석하지 않음",
+      "다중모드 센서 통합을 나열만 하고 압력·온도·근접·굽힘의 신호 분리 문제를 다루지 않음",
+      "논문에 없는 실제 제작·실험 수행 사실을 학생 활동처럼 과장"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "로봇과 인간이 안전하게 상호작용하려면 로봇이 물체의 접촉, 압력, 온도, 근접 상태를 피부처럼 감지해야 하며, 이를 위해 전자피부의 대면적·저비용·맞춤형 제작 기술이 필요하다.",
+    "problemFrame": "기존 고성능 전자피부는 클린룸 기반 포토리소그래피에 의존해 비용과 면적 확장성이 한계였고, 인쇄 기반 센서는 대면적에는 유리하나 정밀도와 다중모드 통합이 부족했다.",
+    "conceptRole": "정전용량형 촉각 센서는 C=εA/d 원리로 압력을 전기 신호로 바꾸고, 미세다공성 유전체층은 d 감소와 유효 유전상수 증가를 동시에 만들어 저압 감도를 높인다. UV 레이저 패터닝과 PVA 희생 주형은 이를 일반 실험실 수준의 확장 가능 제작으로 전환한다.",
+    "corePattern": "탐구 동기 제시 → C=εA/d로 촉각 센서 원리 설명 → 미세다공성 유전체층과 2단계 감도 해석 → UV 레이저 패터닝·PVA 희생 주형 공정 분석 → 다중모드 센서 통합과 크로스토크 제어 → 로봇 그리퍼 폐루프 피드백 응용 → 자가 발전·머신러닝·자가 치유 전자피부 후속 탐구",
+    "analysisMethod": "논문과 참고 자료를 바탕으로 정전용량 감도 식 S=(1/C0)(dC/dP)를 정리하고, 저압·고압 영역의 감도 차이를 표로 비교한다. 이어서 제작 공정을 단계별로 분해하고 각 단계의 물리·재료·전자공학 원리를 연결한 뒤, 로봇 그리퍼 응용에서 센서 데이터가 제어 신호로 변환되는 흐름을 설명한다.",
+    "paragraphBlueprint": [
+      "1문단: 평행판 축전기와 아두이노 센서 경험에서 전자피부 탐구로 이어진 동기",
+      "2문단: 정전용량형 촉각 센서의 C=εA/d 원리와 감도 식 해석",
+      "3문단: PVA 희생 주형·엘라스토머·CNT를 이용한 미세다공성 유전체층 설계",
+      "4문단: UV 레이저 패터닝 기반 유연 회로와 인시투 공정의 확장 가능성 분석",
+      "5문단: 압력·굽힘·온도·근접 센서 통합, 로봇 그리퍼 촉각 피드백, 후속 연구 방향 제시"
+    ],
+    "avoid": [
+      "로봇 피부를 SF적 표현으로만 설명",
+      "감도 수치 0.948 kPa-1과 0.010 kPa-1을 의미 없이 나열",
+      "PVA, CNT, Cu/PI, 엘라스토머의 역할을 혼동",
+      "기존 클린룸 공정과 UV 레이저 패터닝 공정의 차이를 생략",
+      "학생이 실제 논문 실험을 재현했다고 쓰는 과장 표현"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "감도 수식 분석형",
+        "description": "C=εA/d와 S=(1/C0)(dC/dP)를 이용해 압력-정전용량 그래프의 기울기와 2단계 감도 프로파일을 해석한다."
+      },
+      {
+        "track": "공정 단계 분해형",
+        "description": "Cu/PI 라미네이팅, UV 레이저 패터닝, PVA 3D 프린팅, 엘라스토머 함침, CNT 코팅, IC 실장 과정을 표로 정리한다."
+      },
+      {
+        "track": "로봇 제어 응용형",
+        "description": "근접-접촉-파지-피드백 루프를 순서도로 구성하고 폐루프 제어 관점에서 로봇 그리퍼의 파지력을 분석한다."
+      },
+      {
+        "track": "재료 구조 비교형",
+        "description": "고체 엘라스토머와 미세다공성 엘라스토머의 변형률, 유효 유전상수, 이력 현상 차이를 비교한다."
+      },
+      {
+        "track": "AI 촉각 지능형",
+        "description": "압력·온도·굽힘 데이터를 머신러닝으로 분류하여 물체의 재질·형상·온도를 판별하는 후속 탐구로 확장한다."
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "Lim et al. 2026 논문의 전자피부 제작 공정과 성능 수치",
+      "정전용량형 압력 센서의 원리와 감도 식",
+      "미세다공성 유전체층과 PVA 희생 주형법의 구조적 장점",
+      "UV 레이저 패터닝과 포토리소그래피의 공정 차이",
+      "로봇 그리퍼에서 전자피부를 활용한 촉각 피드백 사례",
+      "자가 발전형·자가 치유형·머신러닝 촉각 지능 전자피부의 후속 연구 자료"
+    ],
+    "referenceTypes": [
+      "학술 논문",
+      "과학기술 뉴스",
+      "센서공학 해설 자료",
+      "로보틱스 응용 사례",
+      "전자공정·유연전자 리뷰 논문"
+    ],
+    "referenceCandidates": [
+      "Lim, H., Choi, J., Han, C. et al. Scalable in-situ fabrication of multimodal electronic skin for intelligent robotics and interactive systems. npj Flexible Electronics (2026)",
+      "Dahiya, R. S. et al. Energy autonomous electronic skin. npj Flexible Electronics 3, 1 (2019)",
+      "Yin, R. et al. Advanced polymer materials-based electronic skins for tactile and non-contact sensing applications. InfoMat 5, e12424 (2023)",
+      "Dai, B. et al. An optical/electronic artificial skin extends the robotic sense to molecular sensing. npj Flexible Electronics (2025)",
+      "bioengineer.org, Scalable In-Situ Fabrication of Multimodal E-Skin (2026)"
+    ],
+    "sourceCautions": [
+      "논문 성능 수치는 압력 범위와 측정 조건을 함께 표시",
+      "클린룸 프리와 대량 생산 가능성을 동일한 의미로 과장하지 않음",
+      "전자피부 시장 규모나 응용 전망은 별도 출처가 있을 때만 수치화",
+      "PVA 희생 주형법은 PVA가 최종 재료로 남는 것이 아니라 용해되어 제거되는 방식임을 명확히 설명",
+      "실제 실험 수행 여부와 문헌 기반 분석을 구분"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "전자피부",
+      "E-Skin",
+      "정전용량",
+      "C=εA/d",
+      "미세다공성 유전체층",
+      "PVA",
+      "희생 주형",
+      "UV 레이저 패터닝",
+      "Cu/PI",
+      "CNT",
+      "엘라스토머",
+      "0.948 kPa⁻¹",
+      "0.010 kPa⁻¹",
+      "다중모드",
+      "압력",
+      "굽힘",
+      "온도",
+      "근접",
+      "로봇 그리퍼",
+      "폐루프 피드백",
+      "인시투",
+      "클린룸 프리"
+    ],
+    "mustNotDo": [
+      "전자피부를 단순 웨어러블 센서 소개로 축소",
+      "압력 센서 원리에서 거리 d와 유전상수 ε의 변화를 생략",
+      "UV 레이저 패터닝을 일반 3D 프린팅과 혼동",
+      "PVA가 센서의 최종 유전체라고 잘못 설명",
+      "구 교육과정 과목명을 displaySubjects에 그대로 노출"
+    ],
+    "connectionCheck": "선택 키워드가 전자공학, 로봇, 센서, 정전용량, 축전기, 유연전자, 나노소재, 고분자, CNT, 3D 프린팅, 레이저, 제어, 머신러닝, 웨어러블 중 하나라면 ENG-022와 자연스럽게 연결된다. 물리 선택값은 정전용량과 감도 수식으로, 정보 선택값은 센서 데이터 처리와 폐루프 제어로, 재료 선택값은 PVA·엘라스토머·CNT 구조 설계로 연결한다.",
+    "salesQualityTarget": "학생이 단순한 로봇 피부 소개가 아니라, 물리 공식-소재 구조-제조 공정-센서 통합-로봇 제어-후속 연구까지 바로 보고서로 확장할 수 있는 실행형 결과"
+  },
+  "studentResultTemplate": {
+    "recommendedTopics": [
+      "정전용량형 촉각 센서는 압력을 어떻게 전기 신호로 바꾸는가",
+      "미세다공성 유전체층과 CNT 전극을 이용한 고감도 전자피부 설계 분석",
+      "클린룸 없이 제작 가능한 다중모드 전자피부와 로봇 그리퍼 촉각 피드백 응용"
+    ],
+    "writingFocusKeyword": "정전용량형 전자피부와 인시투 확장 가능 제작 공정",
+    "connectionReason": "물리의 축전기 원리, 수학의 변화율, 정보의 센서 데이터 처리, 공학의 유연 회로·로봇 제어를 하나의 문제 해결 흐름으로 연결할 수 있기 때문",
+    "openingQuestion": "로봇이 인간의 피부처럼 가벼운 접촉과 강한 압력, 온도와 근접 정보를 동시에 감지하려면 어떤 센서 구조와 제작 공정이 필요할까?",
+    "coreClaim": "다중모드 전자피부의 핵심은 센서를 많이 붙이는 것이 아니라, 정전용량 변화 원리와 미세다공성 재료 구조, 클린룸 프리 회로 제작 공정을 통합해 대면적·맞춤형 촉각 인터페이스를 구현하는 데 있다.",
+    "paragraphStarter": "평행판 축전기의 정전용량 공식이 압력 센서의 작동 원리로 사용된다는 점에 주목하여, 인간의 피부 감각을 모사하는 전자피부 기술을 탐구하게 되었다."
+  },
+  "curriculumVersion": "2022 revised curriculum / 2025 high school credit system normalized",
+  "subjectContext": {
+    "displaySubjects": [
+      "전자기와 양자",
+      "역학과 에너지",
+      "정보",
+      "인공지능 기초",
+      "미적분Ⅰ",
+      "기하",
+      "융합과학 탐구",
+      "공학 일반"
+    ],
+    "normalizedSubjects": [
+      "전자기와 양자",
+      "역학과 에너지",
+      "물질과 에너지",
+      "정보",
+      "인공지능 기초",
+      "인공지능 수학",
+      "미적분Ⅰ",
+      "기하",
+      "대수",
+      "융합과학 탐구",
+      "공학 일반"
+    ],
+    "legacySubjectAliases": [
+      "물리학Ⅰ",
+      "물리학Ⅱ",
+      "화학Ⅰ",
+      "화학Ⅱ",
+      "정보",
+      "수학Ⅰ",
+      "수학Ⅱ",
+      "미적분",
+      "기하",
+      "과학탐구실험"
+    ],
+    "subjectBridgeMap": [
+      {
+        "subject": "전자기와 양자",
+        "bridge": "축전기의 정전용량, 전기장, 전하 저장 원리를 정전용량형 촉각 센서의 압력-전기 신호 변환으로 연결"
+      },
+      {
+        "subject": "역학과 에너지",
+        "bridge": "압력, 변형, 영률, 훅의 법칙을 미세다공성 유전체층의 기계적 압축과 감도 향상으로 연결"
+      },
+      {
+        "subject": "정보",
+        "bridge": "센서 신호 수집, ADC/CDC, 멀티플렉싱, 마이크로컨트롤러 기반 폐루프 제어로 연결"
+      },
+      {
+        "subject": "인공지능 기초",
+        "bridge": "압력·온도·굽힘·근접 데이터를 분류해 물체의 재질과 상태를 판별하는 촉각 지능으로 확장"
+      },
+      {
+        "subject": "미적분Ⅰ",
+        "bridge": "감도 식 S=(1/C0)(dC/dP)를 변화율과 그래프 기울기로 해석"
+      },
+      {
+        "subject": "융합과학 탐구",
+        "bridge": "물리, 재료, 전자회로, 로보틱스, 데이터 처리를 하나의 공학 문제 해결 과정으로 통합"
+      }
+    ],
+    "displayRule": "학생 화면에는 2022 개정 교육과정 과목명을 우선 표시하고, 원문의 물리학 I/II·화학 I/II 같은 구 과목명은 legacySubjectAliases로만 보존한다.",
+    "normalizationCaution": "원문 전사 Word에서는 원문 표현을 유지하되, GitHub 적용용 seed와 MINI payload에서는 2022 개정 과목명으로 정규화한다."
+  },
+  "bestForSubjectsLegacy": [
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "정보",
+    "미적분",
+    "기하",
+    "과학탐구실험"
+  ],
+  "bestForSubjects": [
+    "전자기와 양자",
+    "역학과 에너지",
+    "정보",
+    "인공지능 기초",
+    "미적분Ⅰ",
+    "융합과학 탐구"
+  ],
+  "normalizedSubjects": [
+    "전자기와 양자",
+    "역학과 에너지",
+    "물질과 에너지",
+    "정보",
+    "인공지능 기초",
+    "인공지능 수학",
+    "미적분Ⅰ",
+    "기하",
+    "대수",
+    "융합과학 탐구",
+    "공학 일반"
+  ],
+  "displaySubjects": [
+    "전자기와 양자",
+    "역학과 에너지",
+    "정보",
+    "인공지능 기초",
+    "미적분Ⅰ",
+    "융합과학 탐구"
+  ],
+  "legacySubjectAliases": [
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "정보",
+    "수학Ⅰ",
+    "수학Ⅱ",
+    "미적분",
+    "기하",
+    "과학탐구실험"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
