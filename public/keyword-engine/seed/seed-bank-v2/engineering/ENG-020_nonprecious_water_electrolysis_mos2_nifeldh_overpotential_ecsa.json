@@ -1,0 +1,319 @@
+{
+  "seedId": "ENG-020",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "water_electrolysis_nonprecious_catalyst_mos2_nifeldh_overpotential_ecsa_green_hydrogen",
+  "duplicateGroupKey": "engineering_water_electrolysis_nonprecious_mos2_nifeldh_ecsa_overpotential_green_hydrogen",
+  "sourceReportTitle": "[구독자 요청/화학공학] 값비싼 귀금속 대신, 비귀금속 촉매로 여는 수소 경제 일반고 세특 보고서 추천",
+  "studentFacingLabel": "수전해 기반 그린 수소 생산에서 백금·이리듐을 대체할 비귀금속 촉매를 과전압, ECSA, Volcano Plot, MoS2 edge site, NiFe-LDH OER 촉매, 나노구조 설계와 연결해 분석하는 화학공학·재료공학·에너지공학 융합 탐구",
+  "sourceSummary": "수소는 탄소 배출 없이 에너지를 생산할 수 있는 차세대 에너지원이지만, 고효율 수전해에는 백금·이리듐 같은 고가 귀금속 촉매가 필요하다는 비용 장벽이 있다. 이 seed는 물 전기분해의 HER/OER 반응식, 이론 전압 1.23 V와 실제 작동 전압, 과전압, 전이금속 화합물 촉매, ECSA, 나노구조 설계, MoS2 edge site의 HER 활성, NiFe-LDH의 OER 활성, 내구성 문제까지 연결하여 비귀금속 촉매 설계가 그린 수소 상용화 비용을 낮추는 핵심 문제 해결 과정임을 설명한다.",
+  "bestForMajors": [
+    "화학공학과",
+    "신소재공학과",
+    "재료공학과",
+    "에너지공학과",
+    "환경공학과",
+    "전기전자공학과",
+    "화학과",
+    "기계공학과",
+    "산업공학과",
+    "나노공학과",
+    "데이터사이언스학과"
+  ],
+  "axisTriggers": [
+    "수전해",
+    "Water Electrolysis",
+    "그린 수소",
+    "Green Hydrogen",
+    "수소 경제",
+    "수소 생산",
+    "비귀금속 촉매",
+    "Non-precious Metal Catalyst",
+    "백금 대체",
+    "이리듐 대체",
+    "촉매",
+    "Catalyst",
+    "과전압",
+    "Overpotential",
+    "HER",
+    "Hydrogen Evolution Reaction",
+    "OER",
+    "Oxygen Evolution Reaction",
+    "전기화학",
+    "Electrochemistry",
+    "전기화학적 활성 표면적",
+    "ECSA",
+    "Electrochemical Active Surface Area",
+    "전이금속 화합물",
+    "Transition Metal Compounds",
+    "몰리브덴 이황화물",
+    "MoS2",
+    "edge site",
+    "NiFe-LDH",
+    "니켈철 층상 이중 수산화물",
+    "CoP",
+    "Volcano Plot",
+    "수소 흡착 자유 에너지",
+    "Delta G_H*",
+    "ΔG_H*",
+    "d-band",
+    "나노구조 설계",
+    "Nanostructure Engineering",
+    "vacancy",
+    "도핑",
+    "doping",
+    "core-shell",
+    "가속 내구성 시험",
+    "ADT",
+    "재료공학",
+    "화학공학",
+    "에너지공학"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "비귀금속 수전해 촉매와 그린 수소 생산 비용",
+      "role": "백금·이리듐 의존이 수전해 수소 생산 비용을 높인다는 문제를 재료 설계 과제로 전환하는 출발 축"
+    },
+    {
+      "keyword": "HER·OER 반응과 과전압",
+      "role": "수전해가 이론 전압 1.23 V보다 높은 실제 전압을 요구하는 이유를 전기화학 반응 경로로 설명하는 핵심 원리 축"
+    },
+    {
+      "keyword": "Volmer-Heyrovsky 메커니즘과 ΔG_H*",
+      "role": "수소 원자가 촉매 표면에 흡착되고 H2로 탈착되는 과정을 수소 흡착 자유 에너지와 연결하는 HER 분석 축"
+    },
+    {
+      "keyword": "MoS2 edge site와 나노구조 설계",
+      "role": "층상 MoS2의 가장자리 활성점, 황 공공, 질소 도핑, 탄소 기재 활용이 촉매 활성과 ECSA를 높이는 설계 축"
+    },
+    {
+      "keyword": "NiFe-LDH OER 촉매와 내구성 평가",
+      "role": "산소 발생 반응의 높은 과전압과 4전자 이동을 NiFe-LDH의 전하 이동·구조 안정화·ADT 평가로 분석하는 OER 심화 축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "화학/산화·환원",
+      "seedKeyword": "수전해 HER·OER 반응",
+      "relation": "음극에서는 H+가 전자를 얻어 H2로 환원되고, 양극에서는 물이 전자를 잃어 O2로 산화되는 과정을 산화·환원 반응으로 설명한다.",
+      "useRole": "교과 개념 연결"
+    },
+    {
+      "selectedKeywordType": "화학/반응 속도와 촉매",
+      "seedKeyword": "촉매와 과전압 감소",
+      "relation": "촉매가 반응 경로의 활성화 장벽을 낮추듯, 전기화학 촉매는 HER·OER의 과전압을 줄여 같은 전류밀도에 필요한 전압을 낮춘다.",
+      "useRole": "핵심 원리 설명"
+    },
+    {
+      "selectedKeywordType": "신소재/재료 구조",
+      "seedKeyword": "MoS2 edge site와 NiFe-LDH",
+      "relation": "소재의 조성, 결정 구조, 결함, 도핑, 표면 활성점 밀도가 촉매 성능을 결정한다는 점을 재료공학 관점으로 확장한다.",
+      "useRole": "소재 설계 분석"
+    },
+    {
+      "selectedKeywordType": "물리/전기 회로",
+      "seedKeyword": "전류밀도와 작동 전압",
+      "relation": "10 mA/cm² 달성 전압과 전류-전압 관계를 활용해 수전해 장치의 에너지 효율을 비교할 수 있다.",
+      "useRole": "정량 비교"
+    },
+    {
+      "selectedKeywordType": "수학/그래프 해석",
+      "seedKeyword": "Volcano Plot과 최댓값 탐색",
+      "relation": "촉매 성능과 ΔG_H*의 관계를 이차함수형 그래프로 해석하고, 0 eV 부근의 최적점을 찾는 모델링으로 연결한다.",
+      "useRole": "수리 모델링"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "수전해 + HER/OER 반응 + 과전압 + 비귀금속 전이금속 촉매 + ECSA + MoS2 edge site + NiFe-LDH + 나노구조 설계 + 내구성 평가",
+    "basicTopic": "그린 수소 생산에서 왜 백금과 이리듐을 대체할 촉매가 필요한가",
+    "expandedTopic": "수전해의 HER·OER 반응과 과전압을 분석하고 비귀금속 촉매가 에너지 효율을 높이는 원리 설명하기",
+    "deepTopic": "MoS2 edge site와 NiFe-LDH의 나노구조 설계가 ΔG_H*, ECSA, 전류밀도, 내구성에 미치는 영향을 비교해 비귀금속 수전해 촉매 설계 전략 제안하기",
+    "badTopicPatterns": [
+      "수소는 친환경이라는 장점만 나열",
+      "수전해 반응식 없이 에너지 전환만 설명",
+      "백금·이리듐의 비용 문제를 정량적으로 다루지 않음",
+      "HER와 OER을 구분하지 않음",
+      "과전압·ECSA·활성점 개념 없이 소재명만 나열",
+      "직접 수행하지 않은 전기화학 측정값을 본인 실험 결과처럼 표현",
+      "구 교육과정 과목명인 화학 I/II를 GitHub display 과목에 그대로 노출"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "그린 수소는 재생에너지 전기를 이용해 물을 분해하여 생산하므로 탄소중립의 핵심 기술로 주목받는다. 그러나 고효율 수전해에는 백금·이리듐 같은 귀금속 촉매가 필요해 비용 장벽이 크므로, 저렴하고 풍부한 전이금속 기반 비귀금속 촉매 개발이 중요하다.",
+    "problemFrame": "이론적으로 물 분해에는 1.23 V가 필요하지만 실제 장치에서는 HER 과전압, OER 과전압, 저항 손실 때문에 더 큰 작동 전압이 필요하다. 특히 OER은 4전자 이동 반응이라 과전압이 크고, HER에서도 수소 흡착 자유 에너지 ΔG_H*가 0 eV에 가까운 촉매를 찾는 것이 핵심이다.",
+    "conceptRole": "화학 반응의 세계는 산화·환원과 촉매 개념을 제공하고, 물질과 에너지는 반응 경로와 에너지 장벽을 설명한다. 전자기와 양자는 전압·전류·전극 반응 이해에 연결되며, 수학은 Volcano Plot과 최적점 해석에 활용된다.",
+    "corePattern": "수소 경제와 비용 문제 제시 → 수전해 HER/OER 반응식 설명 → 이론 전압과 실제 작동 전압의 차이를 과전압으로 해석 → Pt/Ir 귀금속 촉매의 장점과 한계 제시 → 전이금속 화합물·ECSA·나노구조 설계 원리 설명 → MoS2 HER와 NiFe-LDH OER 사례 비교 → 내구성·실용화 한계와 후속 연구 방향 도출",
+    "analysisMethod": "고등학교 수준에서는 수전해 반응식을 산화·환원 반응으로 정리하고 과전압을 “이론 전압 외에 추가로 필요한 전압”으로 해석한다. 심화에서는 ΔG_H*와 HER 성능의 Volcano Plot, 10 mA/cm² 달성 전압, ECSA 증가, 가속 내구성 시험(ADT)을 지표로 비귀금속 촉매를 비교한다.",
+    "paragraphBlueprint": [
+      "1문단: 수소 경제와 귀금속 촉매 비용 문제에서 탐구 동기 제시",
+      "2문단: 수전해의 HER/OER 반응식, 이론 전압 1.23 V와 과전압 개념 설명",
+      "3문단: 전이금속 화합물과 ECSA, 나노구조 설계가 촉매 성능을 높이는 이유 분석",
+      "4문단: MoS2 edge site 기반 HER 촉매와 NiFe-LDH OER 촉매의 원리 비교",
+      "5문단: 내구성·금속 용출·입자 응집 문제와 단원자 촉매, AI 소재 예측, 해수 전해로 이어지는 발전 방향"
+    ],
+    "avoid": [
+      "수소가 친환경이라는 주장만 반복",
+      "귀금속과 비귀금속의 경제성 차이를 정성 구호로만 처리",
+      "HER/OER 반응식과 전극 위치를 혼동",
+      "과전압을 단순히 전압이 높다는 의미로만 설명",
+      "ECSA를 촉매 질량 또는 표면적과 구분하지 않음",
+      "문헌 수치와 본인 실험 결과를 구분하지 않음"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "전기화학 원리형",
+        "description": "HER와 OER 반응식을 산화·환원 반응으로 정리하고 이론 전압, 과전압, 저항 손실을 구분한다."
+      },
+      {
+        "track": "소재 비교형",
+        "description": "Pt/C, IrO2, MoS2/rGO, NiFe-LDH의 10 mA/cm² 달성 전압과 상대 비용을 비교해 비귀금속 촉매의 장단점을 분석한다."
+      },
+      {
+        "track": "나노구조 설계형",
+        "description": "MoS2의 edge site 증가, 황 공공, N 도핑, 탄소 기재 활용이 ΔG_H*와 ECSA에 미치는 영향을 설계 전략 표로 정리한다."
+      },
+      {
+        "track": "내구성 평가형",
+        "description": "금속 용출, 나노입자 응집, 상 변화가 성능 저하로 이어지는 과정을 ADT와 연결해 촉매 실용화 조건을 제시한다."
+      },
+      {
+        "track": "AI 소재 탐색형",
+        "description": "Materials Project 등 소재 데이터와 머신러닝을 활용해 ΔG_H*가 0에 가까운 후보 촉매를 사전 선별하는 후속 탐구로 확장한다."
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "수전해 HER/OER 반응식과 이론 전압 자료",
+      "촉매와 과전압 개념 설명 자료",
+      "Pt/Ir 귀금속 촉매의 비용·희소성 문제 자료",
+      "MoS2 edge site와 HER 활성 관련 논문",
+      "NiFe-LDH 또는 전이금속 산화물/수산화물 OER 촉매 자료",
+      "ECSA와 전류밀도, 내구성 평가 방법 자료"
+    ],
+    "referenceTypes": [
+      "전기화학 교재",
+      "화학공학·재료공학 리뷰 논문",
+      "에너지기술연구원 보고서",
+      "과학기술 뉴스",
+      "수전해 촉매 연구 논문",
+      "정부·연구기관 그린 수소 기술 보고서"
+    ],
+    "referenceCandidates": [
+      "동아사이언스(2024), 값비싼 귀금속 없이 고효율 수소 생산 길 열었다",
+      "Seh, Z. W. et al. (2017), Combining theory and experiment in electrocatalysis: Insights into materials design, Science",
+      "Jaramillo, T. F. et al. (2007), Identification of Active Edge Sites for Electrochemical H2 Evolution from MoS2 Nanocatalysts, Science",
+      "Zhang, J. et al. (2018), Interface engineering of MoS2/Ni3S2 heterostructures for highly enhanced electrochemical overall-water-splitting activity, Energy & Environmental Science",
+      "한국에너지기술연구원(KIER), 수전해 기술 현황 및 전망 보고서"
+    ],
+    "sourceCautions": [
+      "논문 수치가 측정 조건(pH, 전해질, 전극 면적, 전류밀도)에 따라 달라질 수 있음을 명시",
+      "백금과 이리듐의 비용은 시점에 따라 달라질 수 있으므로 상대적 고가·희소성 중심으로 표현",
+      "비귀금속 촉매가 모든 조건에서 귀금속보다 우수하다고 단정하지 않음",
+      "HER 촉매와 OER 촉매를 구분",
+      "수전해 방식(AWE, PEM, SOE)에 따라 요구 소재가 다름을 구분"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "수전해",
+      "그린 수소",
+      "HER",
+      "OER",
+      "산화·환원",
+      "이론 전압 1.23 V",
+      "과전압",
+      "저항 손실",
+      "비귀금속 촉매",
+      "전이금속 화합물",
+      "MoS2",
+      "edge site",
+      "NiFe-LDH",
+      "ECSA",
+      "나노구조 설계",
+      "ΔG_H*",
+      "Volcano Plot",
+      "10 mA/cm²",
+      "내구성",
+      "ADT",
+      "금속 용출",
+      "나노입자 응집",
+      "화학공학",
+      "재료공학",
+      "에너지공학"
+    ],
+    "mustNotDo": [
+      "수소 경제를 정책 구호로만 설명",
+      "촉매를 반응물처럼 소비되는 물질로 설명",
+      "HER와 OER의 전극을 반대로 표기",
+      "과전압 수치를 실험값처럼 단정",
+      "비귀금속 촉매가 이미 완전히 상용화 문제를 해결했다고 표현",
+      "구 교육과정 과목명을 displaySubjects에 그대로 노출"
+    ],
+    "connectionCheck": "선택 키워드가 수전해, 수소, 촉매, 산화·환원, 전기화학, 전이금속, 나노소재, 에너지 효율, 탄소중립, 화학공학, 신소재, 재료공학 중 하나라면 ENG-020과 자연스럽게 연결된다.",
+    "salesQualityTarget": "학생이 바로 보고서로 확장할 수 있도록 탐구 동기, 반응식, 과전압 개념, 촉매 소재 비교, 나노구조 설계, 내구성 평가, 후속 탐구 주제를 모두 포함한 실행형 결과"
+  },
+  "studentResultTemplate": {
+    "recommendedTitle": "값비싼 귀금속 대신 비귀금속 촉매로 수전해 효율을 높일 수 있을까",
+    "openingQuestion": "그린 수소가 친환경 에너지라면 왜 아직 대량 생산 비용이 높은가",
+    "coreClaim": "수전해의 효율은 단순히 전기를 많이 공급하는 문제가 아니라 HER와 OER의 과전압을 낮추고 촉매 활성점과 내구성을 동시에 확보하는 재료 설계 문제다.",
+    "paragraphStarter": "수소 경제의 핵심은 탄소 배출이 적은 그린 수소를 저비용으로 생산하는 것이다. 그러나 현재 고성능 수전해 장치에는 백금과 이리듐 같은 귀금속 촉매가 필요해 상용화 비용이 높다."
+  },
+  "curriculumVersion": "2022 revised curriculum / 2025 high school credit system normalized",
+  "subjectContext": "화학 반응의 세계의 산화·환원과 촉매, 물질과 에너지의 반응 경로와 에너지 장벽, 전자기와 양자의 전압·전류·전극 반응, 미적분Ⅰ·대수의 그래프 해석과 최적화 사고를 결합한 융합 탐구",
+  "bestForSubjectsLegacy": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "통합과학",
+    "과학탐구실험",
+    "미적분",
+    "수학Ⅰ"
+  ],
+  "bestForSubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "융합과학 탐구"
+  ],
+  "normalizedSubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "기후변화와 환경생태",
+    "융합과학 탐구",
+    "미적분Ⅰ",
+    "대수",
+    "공학 일반"
+  ],
+  "displaySubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "융합과학 탐구"
+  ],
+  "legacySubjectAliases": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "통합과학",
+    "과학탐구실험",
+    "미적분",
+    "수학Ⅰ"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
