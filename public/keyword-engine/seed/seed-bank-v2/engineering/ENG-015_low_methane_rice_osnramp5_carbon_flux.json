@@ -1,0 +1,358 @@
+{
+  "seedId": "ENG-015",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "bio_chemical_agricultural_methane_pathway_gene_editing_osnramp5_carbon_flux",
+  "duplicateGroupKey": "engineering_bio_chemical_low_methane_rice_osnramp5_methanogenesis_carbon_flux",
+  "sourceReportTitle": "[생명과학/경제] 유전자가 바꾸는 탄소 순환 — 화학공학으로 설계하는 저메탄 벼 자사고 전용",
+  "studentFacingLabel": "벼 OsNramp5 유전자 편집이 논 메탄 배출을 줄이는 원리를 메탄 생성 반응 경로, 산화·환원, 효소 촉매, 탄소 플럭스, CO2eq 계산으로 연결하는 화학공학·생명공학 융합 탐구",
+  "sourceSummary": "논에서 방출되는 메탄을 농업 부문 온실가스의 핵심 원인으로 보고, 벼 OsNramp5 유전자 편집이 뿌리 삼출물과 토양 미생물 반응 경로를 바꾸어 메탄 생성을 약 24% 줄일 수 있다는 사례를 화학공학적으로 해석한다. 메탄 생성 경로, 산화·환원과 전자 전달, 미카엘리스-멘텐 효소 반응속도, 물질수지와 탄소 플럭스, CO2eq 계산, 유전자 편집 기반 대사공학을 연결해 생명과학·화학·환경공학·경제적 파급 효과까지 확장할 수 있는 seed이다.",
+  "bestForMajors": [
+    "화학공학과",
+    "생명공학과",
+    "환경공학과",
+    "농생명공학과",
+    "식물생명공학과",
+    "미생물학과",
+    "바이오시스템공학과",
+    "생명과학과",
+    "식품공학과",
+    "에너지공학과",
+    "경제학과"
+  ],
+  "axisTriggers": [
+    "메탄 생성 반응 경로",
+    "Methanogenesis Pathway",
+    "산화-환원 반응",
+    "전자 전달",
+    "Redox Reaction",
+    "Electron Transfer",
+    "반응 속도론",
+    "효소 촉매",
+    "Reaction Kinetics",
+    "Enzyme Catalysis",
+    "미카엘리스-멘텐 방정식",
+    "Michaelis-Menten",
+    "물질 수지",
+    "탄소 플럭스",
+    "Mass Balance",
+    "Carbon Flux",
+    "유전자 편집",
+    "대사 공학",
+    "Gene Editing-based Metabolic Engineering",
+    "OsNramp5",
+    "CRISPR-Cas9",
+    "논 메탄 배출",
+    "저메탄 벼",
+    "MCR",
+    "Methyl-CoM Reductase",
+    "기질 농도",
+    "아세트산 경로",
+    "수소 영양 경로",
+    "메탄 산화균",
+    "탄소 순환",
+    "CO2eq",
+    "GWP",
+    "온실가스 감축",
+    "flux balance analysis",
+    "FBA",
+    "메타게놈",
+    "16S rRNA"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "저메탄 벼와 OsNramp5 유전자 편집",
+      "role": "벼의 특정 유전자 편집이 논 메탄 배출을 줄이는 실제 사례를 설명하는 중심축"
+    },
+    {
+      "keyword": "메탄 생성 반응 경로",
+      "role": "아세트 클라스트 경로와 수소 영양 경로를 통해 논 토양에서 CH4가 생기는 화학·생물 반응망을 설명하는 원리축"
+    },
+    {
+      "keyword": "산화-환원과 전자 전달",
+      "role": "CO2가 CH4로 환원되는 과정에서 전자 이동과 깁스 자유에너지를 분석하는 화학축"
+    },
+    {
+      "keyword": "물질수지와 탄소 플럭스",
+      "role": "메탄으로 가던 탄소가 CO2 또는 토양 유기물로 재분배되는 과정을 정량화하는 계산축"
+    },
+    {
+      "keyword": "농업 온실가스 감축과 CO2eq",
+      "role": "24% 메탄 감축이 기후 완화 효과와 정책·경제적 의미로 확장되는 사회 적용축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "유전자 편집",
+      "seedKeyword": "OsNramp5",
+      "relation": "벼 뿌리의 Mn/Si 수송과 뿌리 삼출물 조성을 바꾸어 메탄 생성균의 기질 공급을 변화시킨다.",
+      "useRole": "해결 전략 설명"
+    },
+    {
+      "selectedKeywordType": "화학 반응",
+      "seedKeyword": "메탄 생성 반응 경로",
+      "relation": "유기물이 가수분해, 산 생성, 아세트산 생성, 메탄 생성 단계를 거쳐 CH4로 전환된다.",
+      "useRole": "핵심 원리 설명"
+    },
+    {
+      "selectedKeywordType": "효소",
+      "seedKeyword": "MCR",
+      "relation": "Methyl-CoM Reductase는 메탄 생성 최종 단계의 핵심 효소이며, 기질 농도 변화는 반응속도 감소로 연결된다.",
+      "useRole": "반응속도 분석"
+    },
+    {
+      "selectedKeywordType": "환경",
+      "seedKeyword": "CO2eq",
+      "relation": "메탄 감축량을 GWP 기준 CO2 환산량으로 바꾸어 기후 효과를 정량화한다.",
+      "useRole": "자료 해석 및 계산"
+    },
+    {
+      "selectedKeywordType": "경제·정책",
+      "seedKeyword": "저메탄 벼 보급 시나리오",
+      "relation": "전 세계 논 면적과 지역별 재배 데이터를 결합해 기술 보급의 기후·경제 효과를 추정할 수 있다.",
+      "useRole": "심화 확장"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "농업 온실가스 문제 + 메탄 생성 화학 경로 + OsNramp5 유전자 편집 + 물질수지·탄소 플럭스 + CO2eq 기후효과 계산",
+    "basicTopic": "벼 OsNramp5 유전자 편집이 논 메탄 배출을 줄이는 화학·생명과학 원리",
+    "expandedTopic": "메탄 생성 반응 경로와 미카엘리스-멘텐 반응속도로 본 저메탄 벼의 온실가스 감축 효과",
+    "deepTopic": "OsNramp5 편집, 탄소 플럭스 물질수지, CO2eq 계산을 통합한 저메탄 벼의 농업 기후해법 및 글로벌 보급 시나리오 분석",
+    "badTopicPatterns": [
+      "유전자 하나로 기후 문제가 모두 해결된다고 과장",
+      "메탄 배출 감소 수치를 출처 검증 없이 절대값처럼 단정",
+      "산화·환원, 효소 촉매, 물질수지를 분리해 나열하고 연결하지 않음",
+      "GMO·유전자 편집 규제와 사회적 수용성을 생략",
+      "실제로 수행하지 않은 CRISPR 실험을 한 것처럼 작성"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "논에서 발생하는 메탄은 농업 부문 온실가스의 큰 비중을 차지하며, 메탄의 GWP가 높기 때문에 배출 경로를 줄이는 것은 기후 완화에 큰 효과를 낼 수 있다.",
+    "problemFrame": "논 메탄은 물에 잠긴 혐기성 토양에서 미생물 반응 경로를 통해 만들어지므로, 단순한 자연현상이 아니라 제어 가능한 생화학적 반응 시스템으로 해석할 수 있다.",
+    "conceptRole": "메탄 생성 경로는 문제의 반응망, 산화·환원과 전자 전달은 CH4 형성의 화학적 본질, 효소 촉매와 반응속도는 억제 표적, 물질수지와 탄소 플럭스는 감축 효과의 정량화 도구, 유전자 편집 기반 대사공학은 실제 해결 전략으로 기능한다.",
+    "corePattern": "논 메탄 배출 문제 인식 → 메탄 생성 반응 경로 설명 → 산화·환원과 효소 촉매 해석 → 논 토양을 반응기로 모델링 → OsNramp5 편집이 기질 농도와 반응속도에 미치는 영향 → 탄소 플럭스 물질수지와 CO2eq 계산 → 기존 농업 방식과 비교 → 심화 탐구 제안",
+    "analysisMethod": "논 토양을 화학공학적 반응기로 설정하고, 아세트 클라스트·수소 영양 메탄 생성 경로를 산화수와 전자전달로 분석한다. 이후 미카엘리스-멘텐 식을 활용해 기질 농도 감소가 반응속도를 낮추는 원리를 설명하고, CH4 배출 감소분을 CO2eq로 환산해 기후 효과를 계산한다.",
+    "paragraphBlueprint": [
+      "1문단: 논 메탄 배출과 벼 유전자 편집 사례에서 출발한 탐구 동기",
+      "2문단: 메탄 생성 반응 경로와 산화·환원, 전자 전달의 화학적 원리",
+      "3문단: 효소 촉매, 미카엘리스-멘텐 식, MCR 효소를 이용한 반응속도 분석",
+      "4문단: 논 토양 반응기 모델링, OsNramp5 편집이 뿌리 삼출물과 기질 농도에 미치는 영향",
+      "5문단: 탄소 플럭스 물질수지, CO2eq 계산, 기존 억제 전략 비교와 심화 탐구 발전"
+    ],
+    "avoid": [
+      "벼 유전자 편집이 현장에서 곧바로 전면 보급된 것처럼 단정",
+      "CO2eq 계산에서 GWP 기준과 단위를 생략",
+      "메탄 생성균과 메탄 산화균을 혼동",
+      "화학 반응식과 유전자 편집 효과를 연결하지 않고 별도 소개",
+      "구 교육과정 과목명만 사용하고 2022 개정 과목명 정규화를 생략"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "반응경로 분석형",
+        "description": "메탄 생성 4단계와 아세트 클라스트·수소 영양 경로를 반응식과 산화수 변화로 정리한다."
+      },
+      {
+        "track": "반응속도 계산형",
+        "description": "미카엘리스-멘텐 식에서 기질 농도 [S] 변화가 v에 미치는 영향을 가상 데이터로 비교한다."
+      },
+      {
+        "track": "탄소 플럭스 정량형",
+        "description": "편집 전후 CH4, CO2, 토양 유기물, 바이오매스 탄소 흐름을 물질수지 표로 계산한다."
+      },
+      {
+        "track": "기후경제 시나리오형",
+        "description": "전 세계 논 면적과 메탄 감축률을 활용해 CO2eq 감소량과 정책·경제적 파급 효과를 추정한다."
+      },
+      {
+        "track": "미생물군 확장형",
+        "description": "저메탄 벼 재배 전후 토양 미생물군을 16S rRNA 또는 metagenome 관점으로 비교하는 후속 탐구를 설계한다."
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "논 메탄 배출이 농업 온실가스에서 차지하는 의미",
+      "OsNramp5 유전자의 기능과 편집 효과",
+      "메탄 생성 반응 경로와 핵심 미생물·효소",
+      "미카엘리스-멘텐 반응속도식의 의미",
+      "CH4의 GWP와 CO2eq 환산 방식",
+      "저메탄 벼의 수확량 영향 및 사회적 수용성 쟁점"
+    ],
+    "referenceTypes": [
+      "과학기술 기사",
+      "Nature Food 등 학술논문",
+      "메탄 생성 미생물 리뷰 논문",
+      "IPCC 농업·토지 보고서",
+      "화학·생명과학 교과서",
+      "기후정책·농업경제 자료"
+    ],
+    "referenceCandidates": [
+      "동아사이언스(2024) 벼 유전자 하나 바꿔 온실가스 메탄 배출량 24% 뚝",
+      "Zhu, Y. et al. (2024). Editing OsNramp5 reduces methane emissions from paddy rice without compromising yield. Nature Food, 5, 132-142.",
+      "Conrad, R. (2009). The global methane cycle. Environmental Microbiology Reports, 1(5), 285-292.",
+      "Thauer, R. K. et al. (2008). Methanogenic archaea. Nature Reviews Microbiology, 6, 579-591.",
+      "IPCC (2019). Special Report on Climate Change and Land, Chapter 5: Food Security."
+    ],
+    "sourceCautions": [
+      "기사 URL·날짜와 논문 서지는 별도 검수 필요",
+      "24% 감소 수치와 CO2eq 환산은 기준 연도·GWP 기준을 표시",
+      "GMO와 유전자 편집은 규제·사회적 수용성 쟁점을 함께 다룸",
+      "OsNramp5 기능과 Mn/Si 흡수 설명은 최신 연구 기반으로 확인",
+      "고등학생 보고서에서는 실험 수행과 문헌 분석을 명확히 구분"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "저메탄 벼",
+      "OsNramp5",
+      "유전자 편집",
+      "CRISPR-Cas9",
+      "메탄 생성 반응 경로",
+      "산화-환원",
+      "전자 전달",
+      "효소 촉매",
+      "MCR",
+      "미카엘리스-멘텐",
+      "물질수지",
+      "탄소 플럭스",
+      "CO2eq",
+      "GWP",
+      "논 토양",
+      "기후변화"
+    ],
+    "mustNotDo": [
+      "유전자 편집으로 모든 기후 문제가 해결된다고 표현",
+      "실제로 CRISPR 실험을 수행했다고 과장",
+      "CO2eq 계산에서 단위와 기준을 생략",
+      "메탄과 이산화탄소의 기후 영향을 같은 수준으로 처리",
+      "고등학생 수준을 넘는 계산생물학 용어만 나열"
+    ],
+    "connectionCheck": "선택 키워드가 메탄, 온실가스, 탄소 순환, 산화환원, 효소, 미생물, 유전자 편집, 농업, 기후변화, 탄소중립, 환경공학, 화학공학 중 하나라면 ENG-015와 자연스럽게 연결된다. 경제·정책 키워드는 저메탄 벼 보급 시나리오와 CO2eq 감축 효과 분석으로 확장한다.",
+    "salesQualityTarget": "학생이 바로 보고서로 확장할 수 있도록 화학 반응식, 생명과학 원리, 물질수지 계산, 기후효과 정량화, 사회적 쟁점을 모두 포함한 실행형 결과"
+  },
+  "studentResultTemplate": {
+    "recommendedTopics": [
+      "OsNramp5 유전자 편집으로 본 저메탄 벼의 화학·생명과학 원리",
+      "메탄 생성 반응 경로와 미카엘리스-멘텐 식으로 분석한 논 메탄 감축 전략",
+      "탄소 플럭스 물질수지와 CO2eq 계산으로 본 저메탄 벼의 기후 완화 효과"
+    ],
+    "writingFocusKeyword": "저메탄 벼와 OsNramp5 기반 메탄 생성 경로 제어",
+    "connectionReason": "유전자 편집이라는 생명과학 도구를 산화·환원, 효소 촉매, 반응속도, 물질수지라는 화학공학 개념으로 해석하고, 이를 농업 온실가스 감축이라는 사회문제로 연결할 수 있기 때문"
+  },
+  "curriculumVersion": "2022 개정 교육과정 / 2025 고교학점제 적용 기준",
+  "subjectContext": {
+    "displaySubjects": [
+      "화학 반응의 세계",
+      "세포와 물질대사",
+      "통합과학1",
+      "통합과학2",
+      "과학탐구실험2",
+      "기후변화와 환경생태",
+      "융합과학 탐구"
+    ],
+    "normalizedSubjects": [
+      "화학 반응의 세계",
+      "물질과 에너지",
+      "세포와 물질대사",
+      "생명과학",
+      "통합과학1",
+      "통합과학2",
+      "과학탐구실험2",
+      "기후변화와 환경생태",
+      "융합과학 탐구",
+      "공학 일반",
+      "확률과 통계"
+    ],
+    "legacySubjectAliases": [
+      "화학Ⅱ",
+      "생명과학Ⅱ",
+      "통합과학",
+      "지구과학",
+      "과학탐구실험",
+      "환경"
+    ],
+    "subjectBridgeMap": [
+      {
+        "subject": "화학 반응의 세계",
+        "bridge": "산화수 변화, 산화·환원, 반응속도, 화학 평형을 통해 CO2에서 CH4로의 환원과 기질 농도 변화의 효과를 설명"
+      },
+      {
+        "subject": "물질과 에너지",
+        "bridge": "깁스 자유에너지와 반응 자발성, 경쟁 반응 경로의 에너지 차이를 활용해 메탄 생성 억제를 분석"
+      },
+      {
+        "subject": "세포와 물질대사",
+        "bridge": "효소 촉매, 대사 경로 조절, 미생물의 물질대사를 통해 메탄 생성균과 MCR 효소의 역할을 해석"
+      },
+      {
+        "subject": "통합과학1",
+        "bridge": "탄소 순환과 생명 시스템, 환경 변화가 물질 순환에 미치는 영향을 통합적으로 연결"
+      },
+      {
+        "subject": "통합과학2",
+        "bridge": "기후변화, 온실가스, 지속가능한 에너지·환경 문제와 농업 기술의 사회적 활용을 연결"
+      },
+      {
+        "subject": "과학탐구실험2",
+        "bridge": "자료 기반 계산, 비교표 작성, 조건 변화에 따른 결과 해석을 통해 CO2eq와 탄소 플럭스를 분석"
+      },
+      {
+        "subject": "기후변화와 환경생태",
+        "bridge": "농업 메탄 배출, 토양 미생물 생태, 기후 완화 기술의 환경적 파급 효과를 평가"
+      }
+    ],
+    "displayRule": "학생 화면에는 2022 개정 교육과정 과목명을 우선 표시하고, 원문에 나온 화학Ⅱ·생명과학Ⅱ 등은 legacySubjectAliases로만 보존한다.",
+    "normalizationCaution": "원문 전사 Word에서는 원문 과목명을 유지하되, GitHub 적용용 seed와 MINI payload에서는 2022 개정 과목명으로 정규화한다."
+  },
+  "bestForSubjectsLegacy": [
+    "화학Ⅱ",
+    "생명과학Ⅱ",
+    "통합과학",
+    "지구과학",
+    "과학탐구실험",
+    "환경"
+  ],
+  "bestForSubjects": [
+    "화학 반응의 세계",
+    "세포와 물질대사",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "기후변화와 환경생태",
+    "융합과학 탐구"
+  ],
+  "normalizedSubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "세포와 물질대사",
+    "생명과학",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "기후변화와 환경생태",
+    "융합과학 탐구",
+    "공학 일반",
+    "확률과 통계"
+  ],
+  "displaySubjects": [
+    "화학 반응의 세계",
+    "세포와 물질대사",
+    "통합과학1",
+    "통합과학2",
+    "과학탐구실험2",
+    "기후변화와 환경생태",
+    "융합과학 탐구"
+  ],
+  "legacySubjectAliases": [
+    "화학Ⅱ",
+    "생명과학Ⅱ",
+    "통합과학",
+    "지구과학",
+    "과학탐구실험",
+    "환경"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
