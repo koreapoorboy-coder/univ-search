@@ -1,0 +1,412 @@
+{
+  "seedId": "ENG-025",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "blue_light_display_wavelength_melatonin_correlation_physics",
+  "duplicateGroupKey": "engineering_blue_light_circadian_melatonin_iprgc_display_spectrum_control",
+  "sourceReportTitle": "[구독자 요청/물리학] \"스마트폰 디스플레이의 블루라이트 파장 특성과 멜라토닌 분비 억제의 상관관계 분석\" 분석 일반고 세특 보고서 추천",
+  "studentFacingLabel": "스마트폰 디스플레이의 청색광 파장과 광자 에너지, OLED/LCD RGB 발광 원리, 조도 센서와 야간 모드 알고리즘을 바탕으로 블루라이트 노출이 ipRGC·멜라놉신·멜라토닌 분비 억제·일주기 리듬 교란에 미치는 영향을 분석하는 물리학·디스플레이공학·생명과학 융합 탐구",
+  "sourceSummary": "이 seed는 자기 전 스마트폰 화면 노출과 불면증 위험 증가라는 통계적 현상을 출발점으로 삼아, 스마트폰 디스플레이에서 방출되는 청색광의 파장·진동수·광자 에너지와 생체 리듬 교란의 상관관계를 분석한다. 보고서는 E=hf와 E=hc/λ, OLED/LCD의 RGB 발광, 조도 센서와 PWM 제어, Night Shift·블루라이트 필터 등 공학적 해결책을 연결하고, 청색광이 망막 ipRGC와 멜라놉신을 자극해 시교차상핵(SCN)을 거쳐 멜라토닌 분비를 억제하는 과정을 설명한다.",
+  "bestForMajors": [
+    "디스플레이공학과",
+    "전자공학과",
+    "전기전자공학과",
+    "정보통신공학과",
+    "컴퓨터공학과",
+    "신소재공학과",
+    "재료공학과",
+    "의공학과",
+    "생체의공학과",
+    "바이오메디컬공학과",
+    "생명과학과",
+    "물리학과",
+    "안경광학과",
+    "광학공학과"
+  ],
+  "axisTriggers": [
+    "청색광",
+    "Blue Light",
+    "블루라이트",
+    "멜라토닌",
+    "Melatonin",
+    "스마트폰 디스플레이",
+    "OLED",
+    "LCD",
+    "RGB",
+    "전자기파 스펙트럼",
+    "Electromagnetic Spectrum",
+    "가시광선",
+    "Visible Light",
+    "파장",
+    "Wavelength",
+    "진동수",
+    "Frequency",
+    "광자 에너지",
+    "Photon Energy",
+    "E=hf",
+    "E=hc/λ",
+    "광전 효과",
+    "Photoelectric Effect",
+    "조도 센서",
+    "Ambient Light Sensor",
+    "PWM",
+    "Pulse Width Modulation",
+    "Night Shift",
+    "색온도",
+    "Color Temperature",
+    "Low Blue Light",
+    "Blue Pixel",
+    "분광기",
+    "Spectrometer",
+    "분광 투과율",
+    "스펙트럼 파워 분포",
+    "ipRGC",
+    "ipRGCs",
+    "멜라놉신",
+    "Melanopsin",
+    "시교차상핵",
+    "SCN",
+    "일주기 리듬",
+    "Circadian Rhythm",
+    "생체 리듬",
+    "불면증",
+    "수면 장애",
+    "상관관계",
+    "인과관계",
+    "디지털 웰빙",
+    "인간 중심 디스플레이"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "청색광 파장과 광자 에너지",
+      "role": "짧은 파장과 높은 진동수·에너지 관계를 이용해 블루라이트가 생체 수용체를 강하게 자극하는 이유를 설명하는 물리 중심축"
+    },
+    {
+      "keyword": "스마트폰 디스플레이 스펙트럼",
+      "role": "OLED/LCD의 RGB 발광과 Blue 소자의 피크 파장을 분석해 문제의 공학적 원인을 파악하는 디스플레이공학축"
+    },
+    {
+      "keyword": "멜라토닌 분비 억제와 일주기 리듬",
+      "role": "빛 자극이 ipRGC·멜라놉신·SCN을 거쳐 수면 호르몬 조절로 이어지는 생명과학축"
+    },
+    {
+      "keyword": "상관관계와 인과관계 구분",
+      "role": "불면증 위험 59% 증가와 화면 노출 시간 데이터를 해석하며 통계 자료를 과학적으로 검토하는 분석축"
+    },
+    {
+      "keyword": "야간 모드와 조도 센서 기반 제어",
+      "role": "Night Shift, 색온도 조절, PWM 밝기 제어를 통해 생체 영향을 줄이는 소프트웨어·하드웨어 설계축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "물리/빛과 파동",
+      "seedKeyword": "E=hf, E=hc/λ와 청색광",
+      "relation": "파장이 짧은 청색광은 적색광보다 진동수와 광자 에너지가 크므로 망막의 광수용 경로를 더 강하게 자극할 수 있음을 설명한다.",
+      "useRole": "핵심 개념 연결"
+    },
+    {
+      "selectedKeywordType": "디스플레이공학",
+      "seedKeyword": "OLED/LCD RGB 발광과 Blue Pixel",
+      "relation": "백색광 구현을 위해 RGB 소자를 조합하는 과정에서 청색광 피크가 나타나며, 이 파장대의 강도 제어가 디스플레이 설계 문제가 된다.",
+      "useRole": "공학적 원인 분석"
+    },
+    {
+      "selectedKeywordType": "생명과학/항상성",
+      "seedKeyword": "ipRGC-멜라놉신-SCN-멜라토닌 경로",
+      "relation": "청색광 자극이 망막의 내재성 광민감 신경절세포를 통해 시교차상핵으로 전달되고, 송과선의 멜라토닌 분비 억제로 이어지는 과정을 연결한다.",
+      "useRole": "생체 리듬 설명"
+    },
+    {
+      "selectedKeywordType": "정보/센서 제어",
+      "seedKeyword": "조도 센서와 PWM 밝기 제어",
+      "relation": "주변 밝기 데이터를 전기 신호로 변환하고 PWM 방식으로 화면 휘도를 조절하여 망막에 도달하는 총 광량을 줄이는 해결책으로 제시한다.",
+      "useRole": "제어 알고리즘"
+    },
+    {
+      "selectedKeywordType": "통계/자료 해석",
+      "seedKeyword": "불면증 위험 증가와 평균 수면 시간 감소",
+      "relation": "뉴스 속 수치 자료를 그대로 수용하지 않고 화면 노출이라는 물리적 요인과 심리·사회적 요인을 구분해 상관관계와 인과관계를 비판적으로 해석한다.",
+      "useRole": "자료 분석"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "뉴스 통계 자료 + 전자기파 스펙트럼 + 청색광 에너지 + 생체 리듬 조절 + 디스플레이 제어 기술",
+    "basicTopic": "스마트폰 디스플레이의 청색광 파장 특성과 멜라토닌 분비 억제의 상관관계 분석",
+    "expandedTopic": "E=hf와 E=hc/λ를 활용한 청색광 에너지 분석과 ipRGC·멜라놉신 기반 일주기 리듬 교란 탐구",
+    "deepTopic": "OLED/LCD 스펙트럼 제어, 조도 센서, 야간 모드 알고리즘을 이용한 생체 리듬 친화형 디스플레이 설계 탐구",
+    "badTopicPatterns": [
+      "블루라이트는 무조건 해롭다는 주장만 반복하고 파장·에너지·수용체 경로를 설명하지 않는 주제",
+      "불면증 위험 59% 증가라는 수치를 인과관계로 단정하는 주제",
+      "야간 모드 사용법만 소개하고 OLED/LCD 발광 원리와 센서 제어를 분석하지 않는 주제",
+      "멜라토닌과 일주기 리듬을 생명과학 개념 없이 단순 수면 상식으로만 다루는 주제"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "현대인의 필수품인 스마트폰은 편리하지만, 화면에서 방출되는 빛이 수면과 생체 리듬에 영향을 줄 수 있으므로 전자기기 사용과 인체 항상성의 관계를 과학적으로 이해할 필요가 있다.",
+    "problemFrame": "자기 전 스마트폰 사용이 불면증 위험 증가와 관련된다는 통계 자료가 제시되지만, 그 원인이 단순한 SNS 사용 때문인지, 화면에서 방출되는 청색광이라는 물리적 자극 때문인지 구분해 분석해야 한다.",
+    "conceptRole": "전자기파 스펙트럼, 파장과 진동수, 광자 에너지, OLED/LCD 발광, 광전 효과와 조도 센서, 일주기 리듬과 멜라토닌 분비 조절을 하나의 원인-과정-해결 구조로 연결한다.",
+    "corePattern": "탐구 동기 → 뉴스 통계 자료 해석 → 청색광 파장·에너지 원리 → 디스플레이 발광 구조 → ipRGC·멜라토닌 경로 → 공학적 해결 방안 → 교과 연계와 심화 탐구",
+    "analysisMethod": "E=hf, E=hc/λ를 활용해 청색광과 적색광의 상대 에너지를 비교하고, Night Shift·색온도 조절·조도 센서 제어가 망막에 도달하는 청색광 에너지와 총 광량을 줄이는 과정을 단계적으로 설명한다.",
+    "paragraphBlueprint": [
+      {
+        "paragraph": 1,
+        "role": "탐구 동기",
+        "mustContain": "자기 전 스마트폰 사용과 불면증 위험 증가에 대한 문제의식"
+      },
+      {
+        "paragraph": 2,
+        "role": "개념 정리",
+        "mustContain": "전자기파 스펙트럼, 가시광선, 파장, 진동수, E=hf 또는 E=hc/λ"
+      },
+      {
+        "paragraph": 3,
+        "role": "문제 분석",
+        "mustContain": "스마트폰 OLED/LCD의 RGB 발광과 청색광 피크 파장"
+      },
+      {
+        "paragraph": 4,
+        "role": "생명과학 연결",
+        "mustContain": "ipRGC, 멜라놉신, 시교차상핵, 멜라토닌 분비 억제, 일주기 리듬"
+      },
+      {
+        "paragraph": 5,
+        "role": "해결 방안",
+        "mustContain": "Night Shift, 색온도 조절, 조도 센서, PWM 또는 블루라이트 필터"
+      },
+      {
+        "paragraph": 6,
+        "role": "심화 확장",
+        "mustContain": "분광기 실험, 스마트폰 센서 데이터 활용, 상관관계와 인과관계 구분"
+      }
+    ],
+    "avoid": [
+      "블루라이트 차단 제품 광고처럼 작성하기",
+      "청색광 노출과 불면증 사이를 단순 인과로 단정하기",
+      "E=hf 수식을 쓰고 실제 파장 비교에 적용하지 않기",
+      "생체 리듬 경로 없이 디스플레이 기술만 설명하기"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "물리 모델링형",
+        "direction": "E=hc/λ를 이용해 450nm 청색광과 650nm 적색광의 상대 에너지를 계산하고 생체 자극 가능성을 비교한다.",
+        "studentAction": "파장별 상대 에너지 표와 간단한 그래프를 작성한다."
+      },
+      {
+        "track": "디스플레이 분석형",
+        "direction": "OLED/LCD가 RGB 소자 조합으로 백색광을 만들 때 청색광 피크가 어떻게 나타나는지 조사한다.",
+        "studentAction": "일반 모드와 야간 모드의 스펙트럼 차이를 그림 또는 표로 정리한다."
+      },
+      {
+        "track": "생명과학 경로형",
+        "direction": "ipRGC와 멜라놉신이 청색광을 감지하고 SCN을 통해 멜라토닌 분비를 억제하는 과정을 단계도로 설명한다.",
+        "studentAction": "빛 자극 → 망막 → SCN → 송과선 → 멜라토닌 변화 흐름도를 만든다."
+      },
+      {
+        "track": "센서·알고리즘형",
+        "direction": "스마트폰 조도 센서와 PWM 제어가 주변 조도에 따라 화면 휘도와 색온도를 조절하는 방식을 분석한다.",
+        "studentAction": "주변 밝기 변화에 따른 화면 밝기·색온도 조절 알고리즘을 의사코드로 설계한다."
+      },
+      {
+        "track": "통계 해석형",
+        "direction": "불면증 위험 59% 증가와 평균 수면 시간 감소 자료를 상관관계와 인과관계 관점에서 비판적으로 해석한다.",
+        "studentAction": "화면 노출, SNS 사용, 심리적 각성, 생활 습관을 변인으로 분리한 분석표를 만든다."
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "자기 전 스마트폰 사용과 불면증 위험 증가 관련 기사 또는 논문",
+      "전자기파 스펙트럼과 가시광선 파장 범위",
+      "E=hf, E=hc/λ의 물리적 의미",
+      "OLED/LCD RGB 발광 및 Blue 소자 피크 파장",
+      "ipRGC·멜라놉신·SCN·멜라토닌 경로",
+      "Night Shift, 색온도 조절, 조도 센서, PWM 제어 원리"
+    ],
+    "referenceTypes": [
+      "과학 뉴스 기사",
+      "Frontiers in Psychiatry 등 수면·스크린타임 논문",
+      "고등학교 물리학 교과서",
+      "고등학교 생명과학 교과서",
+      "스마트폰 센서 실험 자료",
+      "디스플레이 기술 소개 자료"
+    ],
+    "referenceCandidates": [
+      {
+        "title": "청년들, 자기 전 1시간 스마트폰 보면 불면증 위험 59% 증가",
+        "source": "동아사이언스",
+        "use": "탐구 동기와 통계 자료 제시"
+      },
+      {
+        "title": "Association between Screen Time and Insomnia",
+        "source": "Frontiers in Psychiatry",
+        "use": "스크린타임과 불면증 상관관계 자료 확인"
+      },
+      {
+        "title": "고등학교 물리학 교과서 - 빛과 물질의 이중성 단원",
+        "source": "교과서",
+        "use": "전자기파, 파장, 진동수, 광자 에너지 개념 정리"
+      },
+      {
+        "title": "Phyphox.org smartphone sensor resources",
+        "source": "스마트폰 센서 실험 자료",
+        "use": "조도 센서와 가속도 센서 데이터 활용 탐구 설계"
+      },
+      {
+        "title": "OLED 디스플레이의 블루라이트 저감 기술 동향",
+        "source": "디스플레이 기술 자료",
+        "use": "스펙트럼 제어와 Low Blue Light 설계 이해"
+      }
+    ],
+    "sourceCautions": [
+      "불면증 위험 증가를 청색광 하나만의 원인으로 단정하지 말 것",
+      "청색광 차단 효과를 정량 측정 없이 과장하지 말 것",
+      "수면·건강 관련 표현은 의학적 진단처럼 쓰지 말 것",
+      "뉴스 기사와 원 논문을 구분해 근거 수준을 표시할 것"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "뉴스 속 통계 수치의 과학적 해석",
+      "전자기파 스펙트럼과 청색광 파장 범위",
+      "E=hf 또는 E=hc/λ를 이용한 에너지 설명",
+      "OLED/LCD RGB 발광 원리",
+      "ipRGC·멜라놉신·SCN·멜라토닌 경로",
+      "Night Shift·색온도·조도 센서 등 공학적 해결책",
+      "상관관계와 인과관계 구분"
+    ],
+    "mustNotDo": [
+      "블루라이트 유해성만 감정적으로 주장하기",
+      "SNS 내용과 화면 노출 요인을 구분하지 않기",
+      "파장·진동수·에너지 관계를 설명하지 않기",
+      "야간 모드가 모든 수면 문제를 해결한다고 단정하기",
+      "분광기나 센서 실험 없이 제품 효과를 광고처럼 표현하기"
+    ],
+    "connectionCheck": "선택 키워드가 물리, 디스플레이, 생명과학, 스마트폰 센서, 통계 해석 중 어디에서 출발하더라도 최종 보고서에는 청색광 파장-광자 에너지-망막 수용체-멜라토닌 억제-일주기 리듬-디스플레이 제어의 흐름이 드러나야 한다.",
+    "salesQualityTarget": "학생이 단순히 블루라이트 차단을 권장하는 글을 쓰는 수준을 넘어, 물리 수식과 디스플레이 구조, 생명과학적 호르몬 조절, 센서 기반 공학적 해결책을 연결한 융합형 보고서를 작성하도록 돕는다."
+  },
+  "studentResultTemplate": {
+    "recommendedTopics": [
+      {
+        "level": "확장형",
+        "topic": "스마트폰 디스플레이의 청색광 파장 특성과 멜라토닌 분비 억제의 상관관계 분석"
+      },
+      {
+        "level": "심화형",
+        "topic": "E=hc/λ를 활용한 청색광 에너지 분석과 ipRGC 기반 일주기 리듬 교란 메커니즘 탐구"
+      },
+      {
+        "level": "융합형",
+        "topic": "조도 센서와 야간 모드 알고리즘을 이용한 생체 리듬 친화형 디스플레이 설계 탐구"
+      }
+    ],
+    "writingFocusKeyword": "청색광 파장-멜라토닌 억제-디스플레이 스펙트럼 제어",
+    "connectionReason": "자기 전 스마트폰 사용과 불면증이라는 생활 속 문제를 전자기파 스펙트럼, 광자 에너지, 디스플레이 발광 원리, 생체 리듬 조절, 센서 기반 제어 기술로 설명할 수 있기 때문이다.",
+    "openingQuestion": "왜 화면을 보는 행위만으로 수면 리듬이 흔들릴 수 있을까?",
+    "coreClaim": "스마트폰 디스플레이의 청색광은 짧은 파장과 높은 광자 에너지 때문에 ipRGC와 멜라놉신 경로를 자극해 멜라토닌 분비를 억제할 수 있으며, 이를 줄이기 위해서는 색온도 조절, 청색광 피크 저감, 조도 센서 기반 휘도 제어 같은 공학적 설계가 필요하다.",
+    "paragraphStarter": [
+      "본 탐구는 자기 전 스마트폰 사용이 불면증 위험을 높인다는 기사에서 출발하였다.",
+      "청색광은 가시광선 중 파장이 짧고 진동수가 커 상대적으로 높은 광자 에너지를 가진다.",
+      "스마트폰 디스플레이는 RGB 소자를 조합해 백색광을 만들며, 이 과정에서 청색광 피크가 나타난다.",
+      "청색광은 망막의 ipRGC와 멜라놉신 경로를 통해 멜라토닌 분비와 일주기 리듬에 영향을 줄 수 있다.",
+      "따라서 야간 모드와 조도 센서 기반 제어는 단순 편의 기능이 아니라 생체 리듬을 고려한 디스플레이 설계로 볼 수 있다."
+    ]
+  },
+  "curriculumVersion": "2022 revised curriculum / 2025 high school credit system normalized",
+  "subjectContext": {
+    "displaySubjects": [
+      "전자기와 양자",
+      "생명과학",
+      "정보",
+      "대수",
+      "융합과학 탐구"
+    ],
+    "normalizedSubjects": [
+      "전자기와 양자",
+      "생명과학",
+      "정보",
+      "대수",
+      "융합과학 탐구",
+      "과학과제 연구"
+    ],
+    "legacySubjectAliases": [
+      "물리학Ⅰ",
+      "물리학Ⅱ",
+      "생명과학Ⅰ",
+      "통합과학",
+      "정보",
+      "공통수학"
+    ],
+    "subjectBridgeMap": [
+      {
+        "subject": "전자기와 양자",
+        "unitOrConcept": "빛의 파동성과 입자성, 광전 효과, 전자기파 스펙트럼",
+        "bridge": "청색광의 파장·진동수·광자 에너지와 광전 효과 기반 조도 센서 원리를 설명한다."
+      },
+      {
+        "subject": "생명과학",
+        "unitOrConcept": "항상성과 몸의 조절, 신경계와 호르몬",
+        "bridge": "빛 자극이 망막, 시교차상핵, 송과선을 거쳐 멜라토닌 분비와 일주기 리듬에 영향을 주는 과정을 연결한다."
+      },
+      {
+        "subject": "정보",
+        "unitOrConcept": "센서 데이터와 알고리즘",
+        "bridge": "조도 센서 데이터와 시간대 정보를 바탕으로 화면 밝기·색온도를 조절하는 알고리즘을 설계한다."
+      },
+      {
+        "subject": "대수",
+        "unitOrConcept": "비례 관계와 함수 해석",
+        "bridge": "E=hf, E=hc/λ와 불면증 위험·수면 시간 데이터를 함수 관계와 그래프로 정리한다."
+      },
+      {
+        "subject": "융합과학 탐구",
+        "unitOrConcept": "과학 기술과 건강 문제 해결",
+        "bridge": "디스플레이 공학과 생체 리듬 문제를 결합해 인간 중심 전자기기 설계 방향을 제시한다."
+      }
+    ],
+    "displayRule": "학생 화면에는 신 교육과정 과목명인 전자기와 양자, 생명과학, 정보, 대수, 융합과학 탐구를 우선 표시한다.",
+    "normalizationCaution": "원문에 물리학Ⅰ, 생명과학Ⅰ 등 구 교육과정 표현이 있더라도 구조화 데이터에서는 2022 개정 교육과정 기준으로 정규화하고 legacySubjectAliases에만 보존한다."
+  },
+  "bestForSubjectsLegacy": [
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "생명과학Ⅰ",
+    "통합과학",
+    "정보",
+    "공통수학"
+  ],
+  "bestForSubjects": [
+    "전자기와 양자",
+    "생명과학",
+    "정보",
+    "대수",
+    "융합과학 탐구"
+  ],
+  "normalizedSubjects": [
+    "전자기와 양자",
+    "생명과학",
+    "정보",
+    "대수",
+    "융합과학 탐구",
+    "과학과제 연구"
+  ],
+  "displaySubjects": [
+    "전자기와 양자",
+    "생명과학",
+    "정보",
+    "대수",
+    "융합과학 탐구"
+  ],
+  "legacySubjectAliases": [
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "생명과학Ⅰ",
+    "통합과학",
+    "정보",
+    "공통수학"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
