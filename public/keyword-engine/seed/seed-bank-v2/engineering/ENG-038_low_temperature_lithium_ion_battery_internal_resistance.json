@@ -1,0 +1,337 @@
+{
+  "seedId": "ENG-038",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "low_temperature_lithium_ion_battery_ion_transport_internal_resistance_cutoff_lithium_plating",
+  "duplicateGroupKey": "engineering_low_temperature_lithium_ion_battery_internal_resistance_ion_transport",
+  "sourceReportTitle": "[구독자 요청/배터리공학/가천대] 추위가 배터리를 ‘느리게’ 만든다 보고서 주제 추천",
+  "studentFacingLabel": "저온, 전해질 점도, 이온전도도, 확산계수, 전하이동저항, 농도분극, 내부저항, 컷오프 전압, 리튬도금을 연결해 겨울철 배터리 성능 저하를 수송·반응 속도 관점으로 분석하는 배터리공학 융합 탐구",
+  "sourceSummary": "이 seed는 겨울에 스마트폰·전기차·ESS 배터리 잔량이 남아도 출력이 약해지고 기기가 빨리 꺼지는 현상을 단순한 에너지 감소가 아니라 저온에서 이온 수송과 전극 반응이 느려지는 문제로 해석한다. 전해질 점도 상승이 이온이동도와 확산계수를 낮추고, Arrhenius 형태의 온도 의존성이 전도도와 전하이동저항을 변화시키며, Nernst-Einstein 관계가 확산계수와 전도도의 연결을 설명한다. 또한 V=OCV−I·Rinternal 모델로 내부저항 증가가 단자전압 하락과 컷오프 조기 도달을 유발하는 과정을 수치 예시로 제시하고, EIS를 통한 전해질 저항·Rct·확산 성분 분리, 저온 전해질 설계, SEI/CEI 안정화, BMS 온도 기반 전류 제한, 리튬도금 억제 전략으로 확장한다.",
+  "bestForMajors": [
+    "신소재공학과",
+    "화학공학과",
+    "에너지공학과",
+    "전기전자공학과",
+    "기계공학과",
+    "자동차공학과",
+    "화학과",
+    "물리학과",
+    "환경공학과",
+    "산업공학과"
+  ],
+  "axisTriggers": [
+    "저온 배터리",
+    "겨울 배터리",
+    "리튬이온전지",
+    "Lithium-ion Battery",
+    "Low Temperature Battery",
+    "이온전도도",
+    "Ionic Conductivity",
+    "전해질 점도",
+    "Electrolyte Viscosity",
+    "확산계수",
+    "Diffusion Coefficient",
+    "이온이동도",
+    "Ion Mobility",
+    "Arrhenius",
+    "아레니우스식",
+    "Nernst-Einstein",
+    "네른스트-아인슈타인식",
+    "내부저항",
+    "Internal Resistance",
+    "전하이동저항",
+    "Charge Transfer Resistance",
+    "Rct",
+    "농도분극",
+    "Concentration Polarization",
+    "임피던스",
+    "EIS",
+    "Electrochemical Impedance Spectroscopy",
+    "Warburg",
+    "단자전압",
+    "OCV",
+    "컷오프 전압",
+    "Cutoff Voltage",
+    "V=OCV-Ir",
+    "전압강하",
+    "과전압",
+    "Overpotential",
+    "SEI",
+    "CEI",
+    "계면저항",
+    "탈용매화",
+    "Solvation",
+    "Desolvation",
+    "리튬도금",
+    "Lithium Plating",
+    "고속충전",
+    "저온 충전",
+    "BMS",
+    "Battery Management System",
+    "온도 기반 전류 제한",
+    "전기차 겨울 주행거리",
+    "ESS 저온 성능",
+    "스마트폰 배터리 방전",
+    "전해질 첨가제",
+    "저점도 용매",
+    "활성화에너지",
+    "Ea",
+    "전도도-온도 곡선",
+    "Arrhenius plot",
+    "1/T plot",
+    "이온 수송 제한",
+    "수송·반응 속도 저하"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "저온 배터리 내부저항 증가",
+      "role": "겨울철 체감 방전과 컷오프 조기 도달을 설명하는 핵심 현상축"
+    },
+    {
+      "keyword": "이온전도도와 확산계수 감소",
+      "role": "전해질 점도 상승과 이온 수송 제한을 교과 개념으로 연결하는 화학·물리 해석축"
+    },
+    {
+      "keyword": "전하이동저항 Rct와 EIS 분석",
+      "role": "계면 반응 둔화와 임피던스 성분 분리를 통해 보고서의 검증 가능성을 높이는 실험·문헌 분석축"
+    },
+    {
+      "keyword": "리튬도금과 저온 충전 안전",
+      "role": "저온 성능 문제를 안전·수명 문제로 확장하는 심화축"
+    },
+    {
+      "keyword": "BMS 온도 기반 전류 제한",
+      "role": "소재 물성 문제를 제어 알고리즘과 공학적 해결 전략으로 확장하는 설계축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "배터리 성능",
+      "seedKeyword": "내부저항",
+      "relation": "저온에서 이온 수송과 전극 반응이 느려지면 내부저항이 증가하고, 같은 잔량에서도 단자전압이 더 빨리 컷오프에 도달한다.",
+      "useRole": "문제 정의"
+    },
+    {
+      "selectedKeywordType": "화학 반응속도",
+      "seedKeyword": "Arrhenius",
+      "relation": "전도도와 전하이동반응은 온도 의존성을 가지므로 활성화에너지와 절대온도 개념으로 저온 성능 저하를 정량화할 수 있다.",
+      "useRole": "이론 근거"
+    },
+    {
+      "selectedKeywordType": "용액/전해질",
+      "seedKeyword": "이온전도도·확산계수",
+      "relation": "점도 증가와 확산계수 감소가 이온 공급 제한과 농도분극으로 이어져 출력 저하를 설명한다.",
+      "useRole": "교과 개념 연결"
+    },
+    {
+      "selectedKeywordType": "실험/검증",
+      "seedKeyword": "EIS",
+      "relation": "EIS는 전해질 저항, 전하이동저항, Warburg 확산 성분을 분리해 어느 병목이 커지는지 확인하게 해준다.",
+      "useRole": "검증 방법"
+    },
+    {
+      "selectedKeywordType": "공학 설계",
+      "seedKeyword": "BMS 전류 제한·리튬도금 억제",
+      "relation": "저온에서 고전류와 고속충전은 성능과 안전을 동시에 악화시키므로 온도 기반 전류 제어와 저온 전해질 설계가 필요하다.",
+      "useRole": "해결 전략"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "저온 조건 + 이온 수송 변수(σ, D, μ) + 내부저항/전압강하 모델 + EIS 검증 + 소재·BMS 개선 전략",
+    "basicTopic": "추위가 리튬이온전지의 내부저항과 단자전압에 미치는 영향 분석",
+    "expandedTopic": "Arrhenius 식과 Nernst-Einstein 관계로 설명하는 저온 배터리 이온전도도 감소와 컷오프 조기 도달",
+    "deepTopic": "EIS 성분 분해와 BMS 전류 제한 모델을 활용한 저온 리튬이온전지 출력 저하 및 리튬도금 위험 저감 전략",
+    "badTopicPatterns": [
+      "추우면 배터리가 빨리 닳는다를 경험담으로만 서술",
+      "배터리 용량이 줄어든다고만 설명하고 전압강하·내부저항을 빠뜨림",
+      "저온 충전 안전과 리튬도금을 언급하지 않음",
+      "수식 없이 용어 나열만 함",
+      "무리한 고급 전기화학 모델만 제시하고 고등학생 수준의 계산과 연결하지 않음"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "스마트폰, 전기차, ESS는 겨울철에 동일한 SOC에서도 출력과 주행거리, 사용 시간이 줄어드는 체감 문제가 크다. 이 현상은 에너지 자체가 사라지는 것이 아니라 이온 수송과 계면 반응이 느려져 내부저항과 전압 편극이 커지는 문제로 설명할 수 있다.",
+    "problemFrame": "온도 하강이 전해질 점도 상승, 이온이동도·확산계수 감소, 전하이동저항 증가, 농도분극 확대를 거쳐 단자전압 하락과 컷오프 조기 도달로 이어지는 연쇄를 밝힌다.",
+    "conceptRole": "Arrhenius 식은 전도도와 반응속도의 온도 의존성을, Nernst-Einstein 관계는 확산계수와 전도도의 연결을, V=OCV−I·Rinternal은 체감 방전과 출력 저하를 설명하는 모델 역할을 한다.",
+    "corePattern": "관찰 현상 → 저온 물성 변화 → 수송/반응 병목 → 내부저항과 전압강하 → 실무 대응(예열, 전류 제한, 저온 전해질, 계면 안정화, 리튬도금 억제)",
+    "analysisMethod": "문헌의 온도별 전도도 그래프를 Arrhenius plot으로 해석하고, 예시 내부저항 값을 V=OCV−I·R에 대입해 컷오프 조기 도달을 계산한다. 가능하면 EIS에서 전해질 저항, Rct, Warburg 확산 성분을 구분하는 방식으로 검증한다.",
+    "paragraphBlueprint": [
+      "1문단: 겨울철 스마트폰/전기차 배터리 체감 방전 관찰과 탐구 질문 제시",
+      "2문단: 전해질 점도, 이온전도도, 확산계수, 이온이동도 개념 정리",
+      "3문단: Arrhenius 식과 Nernst-Einstein 관계를 이용한 저온 수송·반응 속도 해석",
+      "4문단: 내부저항 모델과 단자전압 계산으로 컷오프 조기 도달 설명",
+      "5문단: EIS와 문헌 데이터로 저항 성분 분리 및 병목 확인",
+      "6문단: 저온 전해질, SEI/CEI 안정화, BMS 전류 제한, 리튬도금 억제 전략 제안",
+      "7문단: 교과 개념이 실제 배터리공학 문제를 설명하는 방식과 한계 정리"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "EIS 분석형",
+        "question": "저온에서 전해질 저항, Rct, 확산 성분 중 어느 항이 가장 크게 증가하는가?",
+        "method": "온도별 EIS Nyquist plot 문헌 데이터를 비교하고 반원 크기와 저주파 기울기를 해석한다.",
+        "output": "저항 성분별 병목 표와 저온 성능 개선 우선순위"
+      },
+      {
+        "track": "전해질 설계형",
+        "question": "저점도 용매와 첨가제는 σ(T)와 Rct를 어떻게 바꿀 수 있는가?",
+        "method": "점도-이동도-확산-전도도 연결을 바탕으로 조성별 저온 성능 문헌을 비교한다.",
+        "output": "저온 전해질 설계 원리와 장단점 비교표"
+      },
+      {
+        "track": "BMS 제어형",
+        "question": "온도가 내려갈 때 방전/충전 전류를 어떻게 제한해야 컷오프와 리튬도금을 피할 수 있는가?",
+        "method": "R(T)를 Arrhenius 형태로 두고 V=OCV−I·R(T)에서 허용 전류를 계산한다.",
+        "output": "온도별 허용 전류 표와 안전-성능 균형 로직"
+      },
+      {
+        "track": "생활 데이터형",
+        "question": "스마트폰 또는 전동킥보드에서 동일 SOC일 때 온도와 부하가 전압 저하 체감에 어떤 차이를 만드는가?",
+        "method": "문헌 수치와 안전한 관찰 데이터를 함께 사용해 저온·상온·부하 조건을 비교한다.",
+        "output": "사용 조건별 체감 방전 원인 해석"
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "온도별 전해질 이온전도도 또는 배터리 성능 그래프",
+      "Arrhenius plot 또는 σ(T) 비교 자료",
+      "EIS Nyquist plot에서 Rct/Warburg 성분이 저온에서 변화하는 자료",
+      "저온 충전 시 리튬도금 위험 또는 BMS 전류 제한 자료"
+    ],
+    "recommendedSourceTypes": [
+      "리튬이온전지 저온 성능 리뷰 논문",
+      "전해질 이온전도도·점도·확산계수 문헌",
+      "EIS 기초 및 배터리 임피던스 해석 자료",
+      "전기차/ESS 겨울 성능과 BMS 안전 제어 관련 기술 자료"
+    ],
+    "sourceUseWarnings": [
+      "정확한 전해질 조성이나 셀 조건 없이 서로 다른 논문 수치를 단순 비교하지 않는다.",
+      "저온 성능 저하를 배터리 용량 감소로만 단정하지 말고 전압강하와 컷오프 효과를 구분한다.",
+      "리튬도금은 안전과 관련되므로 실험을 직접 시도하는 식으로 안내하지 않는다.",
+      "Arrhenius 식은 근사 모델이므로 모든 온도 구간에 완벽하게 적용된다고 쓰지 않는다."
+    ],
+    "reportWritingTip": "수식은 많이 넣기보다 σ(T), σ-D 관계, V=OCV−I·R의 세 가지를 중심으로 실제 숫자 대입을 한 번 보여주는 것이 좋다."
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "저온에서 점도 증가와 이온전도도 감소가 발생한다는 설명",
+      "내부저항 증가가 전압강하와 컷오프 조기 도달로 이어진다는 모델",
+      "Arrhenius 식 또는 Nernst-Einstein 관계 중 최소 하나 이상의 수식 활용",
+      "EIS 또는 문헌 데이터 기반 검증 아이디어",
+      "저온 충전 리튬도금과 BMS 전류 제한 같은 안전·설계 확장"
+    ],
+    "avoid": [
+      "추우면 전자가 느려진다고만 설명하는 오류",
+      "SOC와 실제 사용 가능 전압을 구분하지 않는 서술",
+      "무리한 실험이나 위험한 충전 실험 제안",
+      "전고체배터리 등 다른 주제로 과도하게 확장",
+      "공식만 나열하고 현상-수식-해결의 연결을 만들지 않는 보고서"
+    ],
+    "highSchoolFit": "고등학생 수준에서는 온도별 전도도 그래프 해석, 간단한 Arrhenius 비율 계산, V=OCV−I·R 대입, EIS 그림 해석 정도가 적절하다. 직접 셀을 저온 고속충전하는 실험은 안전상 피하고 문헌 기반 탐구로 설계한다.",
+    "recordStrength": "생활 속 관찰에서 출발해 화학의 반응속도·용액, 물리의 전기저항·전력, 수학의 지수/로그, 공학의 BMS 제어와 소재 설계를 연결하므로 세특에서 과정 중심 탐구와 융합적 문제 해결력을 드러낼 수 있다."
+  },
+  "studentResultTemplate": {
+    "recommendedTopic": "추위가 리튬이온전지를 “느리게” 만드는 이유: 이온전도도 감소와 내부저항 증가가 컷오프 전압에 미치는 영향",
+    "topicReason": "동일한 배터리 잔량이어도 저온에서는 이온 수송과 전극 반응이 느려져 전압이 더 크게 떨어지므로, 겨울철 체감 방전과 출력 저하를 수식으로 설명할 수 있다.",
+    "writingDirection": "배터리가 추위에 약한 이유를 감각적 경험이 아니라 전해질 점도, 이온전도도, 확산계수, 내부저항, 컷오프 전압의 연결 구조로 설명한다. 이후 소재·계면·BMS 관점의 해결책을 제안한다.",
+    "paragraphPlan": [
+      "관찰: 겨울철 배터리 체감 방전 사례",
+      "개념: 이온전도도·확산계수·전하이동저항 정리",
+      "모델: Arrhenius/Nernst-Einstein/V=OCV−I·R 적용",
+      "계산: 온도별 전도도 감소 또는 컷오프 전압 예시",
+      "검증: EIS·문헌 그래프 활용",
+      "해결: 저온 전해질·계면 안정화·BMS 전류 제한",
+      "결론: 에너지 소실이 아니라 수송·반응 속도 저하임을 정리"
+    ],
+    "studentActionList": [
+      "온도별 이온전도도 그래프 1개 찾기",
+      "저온과 상온의 내부저항 또는 EIS 비교 자료 찾기",
+      "V=OCV−I·R에 예시값을 대입해 컷오프 조기 도달 계산하기",
+      "저온 충전 리튬도금 위험을 안전 관점에서 정리하기",
+      "BMS가 온도에 따라 전류를 제한하는 이유 설명하기"
+    ],
+    "recordSentence": "저온 환경에서 리튬이온전지의 전해질 점도 상승, 이온전도도 및 확산계수 감소, 전하이동저항 증가가 내부저항과 단자전압에 미치는 영향을 Arrhenius 식, Nernst-Einstein 관계, V=OCV−I·R 모델로 분석하고, EIS와 BMS 전류 제한 관점까지 확장해 저온 배터리 성능과 안전 문제를 융합적으로 해석함.",
+    "sourceSearchKeywords": [
+      "low temperature lithium ion battery ionic conductivity",
+      "lithium ion battery internal resistance cold temperature",
+      "Arrhenius ionic conductivity electrolyte battery",
+      "Nernst Einstein equation diffusion conductivity electrolyte",
+      "EIS charge transfer resistance low temperature battery",
+      "lithium plating low temperature charging BMS"
+    ]
+  },
+  "curriculumVersion": "2022 revised curriculum / 2025 high school credit system normalized",
+  "subjectContext": {
+    "mainSubjects": [
+      "화학 반응의 세계",
+      "물질과 에너지",
+      "융합과학 탐구"
+    ],
+    "supportSubjects": [
+      "전자기와 양자",
+      "역학과 에너지",
+      "대수",
+      "미적분Ⅰ",
+      "확률과 통계",
+      "정보"
+    ],
+    "legacyMappingNote": "원문에서 화학Ⅱ, 물리, 수학의 전기화학·반응속도·저항·지수함수 개념이 함께 언급되므로 2022 개정 교육과정 기준의 화학 반응의 세계, 물질과 에너지, 전자기와 양자, 대수, 미적분Ⅰ 중심으로 정규화한다."
+  },
+  "bestForSubjectsLegacy": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "수학Ⅰ",
+    "수학Ⅱ",
+    "미적분",
+    "확률과 통계",
+    "정보"
+  ],
+  "bestForSubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "역학과 에너지",
+    "융합과학 탐구",
+    "대수",
+    "미적분Ⅰ",
+    "확률과 통계",
+    "정보"
+  ],
+  "normalizedSubjects": [
+    "화학",
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "역학과 에너지",
+    "융합과학 탐구",
+    "대수",
+    "미적분Ⅰ",
+    "확률과 통계",
+    "정보"
+  ],
+  "displaySubjects": [
+    "화학 반응의 세계",
+    "물질과 에너지",
+    "전자기와 양자",
+    "대수",
+    "미적분Ⅰ",
+    "융합과학 탐구"
+  ],
+  "legacySubjectAliases": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "수학Ⅰ",
+    "수학Ⅱ",
+    "미적분",
+    "확률과 통계",
+    "정보"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
