@@ -1,0 +1,382 @@
+{
+  "seedId": "ENG-029",
+  "version": "seed-bank-v2",
+  "reportCategory": "engineering",
+  "patternType": "ips_cell_reprogramming_regenerative_medicine_yamanaka_factors_signaling_pathway",
+  "duplicateGroupKey": "engineering_biomedical_ips_cell_reprogramming_yamanaka_factors_regenerative_medicine_organoid",
+  "sourceReportTitle": "[구독자 요청/재생의학] 역분화 줄기세포를 이용한 난치병 치료와 재생의학의 미래 일반고 세특 보고서 추천",
+  "studentFacingLabel": "역분화 줄기세포(iPSC)가 전사 인자 도입과 세포 리프로그래밍을 통해 분화된 체세포를 만능성 상태로 되돌리고, 이를 파킨슨병·심부전 등 난치병 치료와 재생의학에 적용하는 과정을 생명공학 원리와 안전성 검증 관점에서 분석하는 탐구",
+  "sourceSummary": "이 seed는 일본의 iPSC 치료제 조건부 승인 사례를 출발점으로, 이미 분화된 체세포가 Oct4, Sox2, Klf4, c-Myc 등 야마나카 인자와 신호 전달 조절을 통해 만능성을 회복하는 과정을 설명한다. 보고서는 세포 리프로그래밍, 전사 인자, 유전자 발현 조절, Wnt/TGF-β 신호 전달, 도파민 신경세포 분화, 심근세포 패치 제작, 품질 관리와 암 유발 위험성 검토를 연결한다. 최종적으로 생명과학의 세포 분화와 유전자 발현 개념을 난치병 치료, 오가노이드 약물 스크리닝, 유전자 가위 융합, 생체재료·3D 바이오프린팅 기반 조직공학으로 확장하는 의생명공학형 보고서 구조이다.",
+  "bestForMajors": [
+    "생명공학과",
+    "생명과학과",
+    "의생명과학과",
+    "의생명공학과",
+    "바이오메디컬공학과",
+    "의공학과",
+    "약학과",
+    "의예과",
+    "수의예과",
+    "화학과",
+    "화공생명공학과"
+  ],
+  "axisTriggers": [
+    "유도만능줄기세포",
+    "iPSC",
+    "역분화 줄기세포",
+    "Induced Pluripotent Stem Cell",
+    "세포 리프로그래밍",
+    "Cell Reprogramming",
+    "야마나카 인자",
+    "Yamanaka Factors",
+    "Oct4",
+    "Sox2",
+    "Klf4",
+    "c-Myc",
+    "전사 인자",
+    "Transcription Factor",
+    "만능성",
+    "Pluripotency",
+    "세포 분화",
+    "Cell Differentiation",
+    "재생의학",
+    "Regenerative Medicine",
+    "신호 전달 경로",
+    "Signaling Pathway",
+    "Wnt signaling",
+    "TGF-beta",
+    "도파민 신경세포",
+    "Dopaminergic Neuron",
+    "파킨슨병",
+    "Parkinson Disease",
+    "심근세포",
+    "Cardiomyocyte",
+    "심부전",
+    "Heart Failure",
+    "오가노이드",
+    "Organoid",
+    "기형종",
+    "Teratoma",
+    "암 유발 유전자",
+    "품질 관리",
+    "WGS",
+    "PET 촬영",
+    "세포치료제",
+    "조직공학",
+    "3D 바이오프린팅",
+    "CRISPR-Cas9"
+  ],
+  "selectedKeywordRole": "탐구 출발점",
+  "writingFocusKeywordCandidates": [
+    {
+      "keyword": "야마나카 인자 기반 세포 리프로그래밍",
+      "role": "분화된 체세포의 유전자 발현 상태를 초기화해 만능성을 회복시키는 핵심 생명공학 원리축"
+    },
+    {
+      "keyword": "전사 인자와 유전자 발현 조절",
+      "role": "Oct4, Sox2, Klf4, c-Myc가 DNA 조절 부위에 결합해 줄기세포 관련 유전자를 재활성화하는 분자생물학 해석축"
+    },
+    {
+      "keyword": "신호 전달 경로 기반 목적 세포 분화",
+      "role": "Wnt 활성화, TGF-β 억제, 성장인자 처리 등을 이용해 iPSC를 도파민 신경세포나 심근세포로 유도하는 치료 설계축"
+    },
+    {
+      "keyword": "iPSC 치료제 품질 관리와 안전성 검증",
+      "role": "전장 유전체 분석, 암 유발 유전자 발현, 기형종 가능성, 세포 생착률을 검증하는 임상 전환 안전성축"
+    },
+    {
+      "keyword": "오가노이드와 환자 맞춤형 약물 스크리닝",
+      "role": "환자 유래 iPSC로 장기 유사체를 만들어 질병 모델링과 개인 맞춤 약물 반응을 시험하는 재생의학 확장축"
+    }
+  ],
+  "keywordBridgeMap": [
+    {
+      "selectedKeywordType": "생명과학/세포 분화",
+      "seedKeyword": "야마나카 인자 기반 세포 리프로그래밍",
+      "relation": "이미 분화된 피부세포나 혈액세포가 특정 전사 인자 도입으로 줄기세포 관련 유전자를 다시 활성화하여 만능성을 회복하는 과정을 세포 분화의 역전 현상으로 설명한다.",
+      "useRole": "교과 개념 연결"
+    },
+    {
+      "selectedKeywordType": "유전자 발현 조절",
+      "seedKeyword": "전사 인자와 유전자 발현 조절",
+      "relation": "전사 인자가 DNA 프로모터나 조절 부위에 결합하여 RNA 중합효소의 작용을 조절하고, 닫혀 있던 줄기세포 관련 유전자 발현 프로그램을 다시 켠다.",
+      "useRole": "분자 기작 해석"
+    },
+    {
+      "selectedKeywordType": "의생명공학/재생의학",
+      "seedKeyword": "신호 전달 경로 기반 목적 세포 분화",
+      "relation": "Wnt, TGF-β 등 신호 전달 경로와 저분자 화합물 처리를 조합해 iPSC를 도파민 신경 전구세포나 심근세포로 분화시키는 치료제 개발 흐름을 설명한다.",
+      "useRole": "문제 해결 구조"
+    },
+    {
+      "selectedKeywordType": "탐구실험/통계 분석",
+      "seedKeyword": "iPSC 치료제 품질 관리와 안전성 검증",
+      "relation": "분화 효율, 세포 생존율, 이식 후 기능 회복률을 p-value나 정량 지표로 비교하여 치료 효과와 안전성을 검증하는 과학적 평가 과정을 다룬다.",
+      "useRole": "정량 분석"
+    },
+    {
+      "selectedKeywordType": "융합 확장/조직공학",
+      "seedKeyword": "오가노이드와 환자 맞춤형 약물 스크리닝",
+      "relation": "환자 유래 iPSC로 만든 오가노이드를 이용하면 동물실험 의존도를 낮추고 개인별 약물 반응과 독성을 사전에 평가하는 모델로 확장할 수 있다.",
+      "useRole": "융합 확장"
+    }
+  ],
+  "topicSeedContext": {
+    "topicFormula": "iPSC 조건부 승인 사례 + 체세포 채취 + 야마나카 인자 도입 + 유전자 발현 초기화 + 목적 세포 분화 + 품질 관리/안전성 검증 + 재생의학 확장",
+    "basicTopic": "유도만능줄기세포(iPSC)의 생성 원리와 난치병 치료 적용 과정 탐구",
+    "expandedTopic": "야마나카 인자와 신호 전달 경로 조절을 이용한 iPSC 리프로그래밍 및 목적 세포 분화 분석",
+    "deepTopic": "iPSC 기반 파킨슨병·심부전 치료제의 세포 분화, 품질 관리, 암 유발 위험성 검증 및 오가노이드 응용 탐구",
+    "badTopicPatterns": [
+      "iPSC를 줄기세포의 한 종류로만 소개하고 전사 인자와 유전자 발현 조절을 설명하지 않는 주제",
+      "재생의학의 장점만 강조하고 기형종, 암 유발 가능성, 품질 관리 문제를 다루지 않는 주제",
+      "파킨슨병 치료를 사례 소개로만 쓰고 도파민 신경세포 분화 과정이나 신호 전달 경로를 연결하지 않는 주제",
+      "오가노이드를 언급하면서 환자 유래 iPSC, 질병 모델링, 약물 반응 평가와 연결하지 않는 주제"
+    ]
+  },
+  "reportSeedContext": {
+    "importanceFrame": "iPSC 치료제의 조건부 승인 사례는 생명공학이 단순한 실험실 기술을 넘어 파킨슨병, 심부전 같은 난치병 치료로 실제 연결될 수 있음을 보여준다.",
+    "problemFrame": "기존 의학은 손상된 신경조직이나 심장조직을 근본적으로 재생시키기 어려웠고, 장기 이식은 기증자 부족과 면역 거부 반응 문제를 가진다. 따라서 환자 또는 공여자 유래 세포를 원하는 세포로 분화시켜 손상 조직을 대체하는 iPSC 기반 재생의학 원리를 분석해야 한다.",
+    "conceptRole": "세포 분화, 세포 주기, 전사 인자, 유전자 발현 조절, DNA 메틸화 변화, 신호 전달 경로, 도파민 신경세포·심근세포 분화, 품질 관리와 종양화 위험을 하나의 세포 운명 제어 구조로 연결한다.",
+    "corePattern": "탐구 동기 → iPSC 개념 및 관련 키워드 → 야마나카 인자와 리프로그래밍 원리 → 난치병 치료 문제 해결 구조 → 세포 채취-배양-분화-이식-추적 과정 → 교과목 연계 → 윤리·안전성 쟁점 → 심화 탐구 발전",
+    "analysisMethod": "체세포에 Oct4, Sox2, Klf4, c-Myc 등의 전사 인자를 도입해 줄기세포 관련 유전자 발현을 재활성화하는 과정을 정리한다. 이후 Wnt 활성화, TGF-β 억제, 성장인자 및 저분자 화합물 처리를 통해 목적 세포로 분화시키고, 전장 유전체 분석(WGS), 암 유발 유전자 발현 검사, PET 추적, 기능 회복 지표를 이용해 안전성과 치료 효과를 검증한다.",
+    "paragraphBlueprint": [
+      {
+        "paragraph": 1,
+        "role": "탐구 동기",
+        "mustContain": "일본 iPSC 치료제 조건부 승인 사례와 배아줄기세포 윤리 문제, 성체줄기세포 분화 한계"
+      },
+      {
+        "paragraph": 2,
+        "role": "개념 정리",
+        "mustContain": "iPSC, 세포 리프로그래밍, 야마나카 인자, 전사 인자, 신호 전달 경로, 오가노이드"
+      },
+      {
+        "paragraph": 3,
+        "role": "분자 원리",
+        "mustContain": "Oct4, Sox2, Klf4, c-Myc가 DNA 조절 부위에 결합해 유전자 발현 패턴을 초기화하는 과정"
+      },
+      {
+        "paragraph": 4,
+        "role": "치료 적용",
+        "mustContain": "파킨슨병의 도파민 신경세포 분화, 심부전의 심근세포 패치 제작, 이식 후 기능 추적"
+      },
+      {
+        "paragraph": 5,
+        "role": "안전성 검토",
+        "mustContain": "기형종, 종양화 가능성, 유전적 안정성, WGS, 임상 데이터 부족 논란"
+      },
+      {
+        "paragraph": 6,
+        "role": "심화 확장",
+        "mustContain": "CRISPR-Cas9, 오가노이드 기반 약물 스크리닝, 생체재료 scaffold, 3D 바이오프린팅"
+      }
+    ],
+    "avoid": [
+      "iPSC가 모든 난치병을 치료할 수 있다고 단정하기",
+      "야마나카 인자를 단순 영양분이나 약물처럼 설명하기",
+      "세포 리프로그래밍을 세포가 젊어지는 비유로만 끝내고 전사 인자와 유전자 발현을 빼기",
+      "기형종과 암 유발 가능성을 누락하기",
+      "임상 승인 사례를 과학적 검증 없이 무조건적 성공으로 표현하기"
+    ]
+  },
+  "extensionSeedContext": {
+    "extensionTracks": [
+      {
+        "track": "야마나카 인자 기능 비교형",
+        "direction": "Oct4, Sox2, Klf4, c-Myc가 각각 만능성 회복과 세포 증식 조절에 어떤 역할을 하는지 비교한다.",
+        "studentAction": "각 전사 인자의 표적 유전자와 기능을 표로 정리하고, c-Myc의 종양화 위험을 함께 분석한다."
+      },
+      {
+        "track": "파킨슨병 치료 세포 분화형",
+        "direction": "iPSC를 도파민 신경 전구세포로 분화시키는 과정에서 Wnt 활성화와 TGF-β 억제가 어떤 의미를 갖는지 탐구한다.",
+        "studentAction": "도파민 신경세포의 기능, 파킨슨병 증상, 이식 후 도파민 분비 증가 지표를 연결해 설명한다."
+      },
+      {
+        "track": "심부전 심근세포 패치형",
+        "direction": "iPSC 유래 심근세포를 심장 표면 패치로 제작해 수축 기능 개선을 목표로 하는 조직공학 사례를 분석한다.",
+        "studentAction": "심근세포 분화, scaffold, 패치 부착, 심박출률 변화 등 치료 평가 지표를 정리한다."
+      },
+      {
+        "track": "오가노이드 약물 스크리닝형",
+        "direction": "환자 유래 iPSC로 만든 장기 유사체를 이용해 개인 맞춤형 약물 반응과 독성을 평가하는 시스템을 조사한다.",
+        "studentAction": "동물실험 대체, 질병 모델링, 약물 농도별 반응 비교를 중심으로 실험 설계도를 만든다."
+      },
+      {
+        "track": "유전자 가위 융합형",
+        "direction": "CRISPR-Cas9으로 질병 원인 유전자를 교정한 뒤 iPSC를 정상 세포로 분화시켜 이식하는 유전자 치료 가능성을 검토한다.",
+        "studentAction": "유전자 교정의 장점과 off-target 위험, 임상 적용 전 검증 절차를 비교표로 정리한다."
+      }
+    ]
+  },
+  "sourceGuideContext": {
+    "requiredEvidence": [
+      "일본 iPSC 치료제 조건부 승인 또는 권고 관련 기사",
+      "Takahashi와 Yamanaka의 iPSC 유도 원리 원논문",
+      "야마나카 인자 Oct4, Sox2, Klf4, c-Myc의 역할",
+      "파킨슨병 도파민 신경세포 분화 및 이식 사례",
+      "심부전 iPSC 유래 심근세포 패치 사례",
+      "기형종·암 유발 가능성과 품질 관리 기준",
+      "오가노이드와 환자 맞춤 약물 스크리닝 자료"
+    ],
+    "referenceTypes": [
+      "과학 뉴스 기사",
+      "Cell 논문",
+      "Nature News 기사",
+      "NIH/Stem Cell Information 자료",
+      "고등학교 생명과학 교과서",
+      "재생의학 또는 줄기세포 생물학 교재"
+    ],
+    "referenceCandidates": [
+      {
+        "title": "유도만능줄기세포 치료제 세계 첫 승인 초읽기",
+        "source": "동아사이언스",
+        "use": "탐구 동기와 실제 승인 사례 소개"
+      },
+      {
+        "title": "Induction of pluripotent stem cells from mouse embryonic and adult fibroblast cultures by defined factors",
+        "source": "Cell",
+        "use": "야마나카 인자와 iPSC 생성 원리 확인"
+      },
+      {
+        "title": "Japan's approval of iPS therapies: What it means for the world",
+        "source": "Nature News",
+        "use": "일본 iPSC 치료 승인 사례의 국제적 의미와 논쟁점 확인"
+      },
+      {
+        "title": "Stem Cell Information / Regenerative Medicine update",
+        "source": "NIH",
+        "use": "줄기세포와 재생의학 개념 및 안전성 검토"
+      },
+      {
+        "title": "생명과학 II 교과서 - 유전자 발현의 조절",
+        "source": "고등학교 교과서",
+        "use": "전사 인자, 유전자 발현 조절, 세포 분화 개념 연결"
+      }
+    ],
+    "sourceCautions": [
+      "조건부 승인 또는 권고를 상용화 완료로 과장하지 말 것",
+      "환자 유래 iPSC와 공여자 유래 iPSC의 면역 거부 위험을 구분할 것",
+      "야마나카 인자의 c-Myc가 종양화 위험과 관련될 수 있음을 반드시 언급할 것",
+      "임상 효과는 제한된 대상과 추적 기간 내 자료로 표현하고 일반화하지 말 것"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "iPSC의 정의와 환자 자신의 세포 사용 가능성",
+      "세포 리프로그래밍 과정",
+      "야마나카 인자 Oct4, Sox2, Klf4, c-Myc",
+      "전사 인자와 유전자 발현 조절",
+      "Wnt/TGF-β 등 신호 전달 경로",
+      "파킨슨병 도파민 신경세포 분화 사례",
+      "심부전 심근세포 패치 사례",
+      "품질 관리와 유전적 안정성 검사",
+      "기형종 또는 종양화 가능성",
+      "오가노이드·유전자 가위·3D 바이오프린팅 확장"
+    ],
+    "mustNotDo": [
+      "iPSC를 배아줄기세포와 동일하게 설명하기",
+      "생명윤리 쟁점을 장점만으로 덮기",
+      "세포 리프로그래밍을 단순 배양 과정으로만 설명하기",
+      "실제 임상 승인 단계를 치료 성공 확정으로 표현하기",
+      "고등학생 수준을 넘어 환자 대상 실험을 직접 수행하는 것처럼 제안하기"
+    ],
+    "connectionCheck": "선택 키워드가 줄기세포, 난치병 치료, 유전자 발현, 약물 스크리닝, 조직공학 중 어디에서 출발하더라도 최종 보고서에는 체세포 채취-전사 인자 도입-만능성 회복-목적 세포 분화-품질 관리-이식 및 추적-재생의학 확장의 흐름이 드러나야 한다.",
+    "salesQualityTarget": "학생이 iPSC를 단순한 줄기세포 소개로 끝내지 않고, 전사 인자와 신호 전달 경로가 세포 운명을 조절하는 분자 수준의 과정과 실제 난치병 치료 개발 절차를 함께 설명하도록 돕는다."
+  },
+  "studentResultTemplate": {
+    "recommendedTopics": [
+      {
+        "level": "확장형",
+        "topic": "야마나카 인자를 이용한 세포 리프로그래밍과 iPSC 생성 원리 탐구"
+      },
+      {
+        "level": "심화형",
+        "topic": "iPSC 유래 도파민 신경세포 분화와 파킨슨병 재생의학 치료 가능성 분석"
+      },
+      {
+        "level": "융합형",
+        "topic": "환자 유래 iPSC, 오가노이드, 유전자 가위를 결합한 개인 맞춤형 재생의학 설계 탐구"
+      }
+    ],
+    "writingFocusKeyword": "야마나카 인자 기반 iPSC 리프로그래밍과 목적 세포 분화 조절",
+    "connectionReason": "세포 분화와 유전자 발현 조절이라는 생명과학 핵심 개념을 실제 난치병 치료제 개발 과정과 연결하고, 안전성 검증과 윤리적 쟁점까지 함께 분석할 수 있기 때문이다.",
+    "openingQuestion": "이미 피부세포나 혈액세포로 분화된 세포는 어떻게 다시 모든 세포로 분화할 수 있는 만능성을 회복할 수 있을까?",
+    "coreClaim": "iPSC 기술은 Oct4, Sox2, Klf4, c-Myc 같은 전사 인자를 통해 세포의 유전자 발현 프로그램을 초기화하고, 이후 신호 전달 경로를 조절해 원하는 치료 세포로 분화시키는 재생의학 플랫폼이다.",
+    "paragraphStarter": [
+      "본 탐구는 일본의 iPSC 치료제 조건부 승인 사례를 접하면서, 줄기세포 기술이 실제 난치병 치료로 연결되는 과정에 의문을 가지며 출발하였다.",
+      "유도만능줄기세포(iPSC)는 이미 분화된 체세포에 특정 전사 인자를 도입해 배아줄기세포와 유사한 만능성을 회복시킨 세포이다.",
+      "야마나카 인자인 Oct4, Sox2, Klf4, c-Myc는 DNA의 조절 부위에 결합해 세포 분화와 관련된 유전자 발현 패턴을 다시 조정한다.",
+      "이후 Wnt와 TGF-β 같은 신호 전달 경로를 조절하면 iPSC를 도파민 신경세포나 심근세포처럼 치료 목적에 맞는 세포로 분화시킬 수 있다.",
+      "그러나 iPSC 치료는 종양화 가능성, 유전적 안정성, 면역 거부 반응, 임상 데이터 부족이라는 안전성 문제를 반드시 함께 검토해야 한다.",
+      "후속 탐구에서는 환자 유래 iPSC를 이용한 오가노이드 약물 스크리닝이나 CRISPR-Cas9 유전자 교정 치료로 확장할 수 있다."
+    ],
+    "세특연결문구": "유도만능줄기세포(iPSC)의 생성 원리인 세포 리프로그래밍과 야마나카 인자 Oct4, Sox2, Klf4, c-Myc의 역할을 중심으로, 전사 인자에 의한 유전자 발현 조절이 세포 운명을 변화시키는 과정을 분석함. 파킨슨병과 심부전 치료 사례를 통해 Wnt, TGF-β 등 신호 전달 경로 조절이 목적 세포 분화로 이어지는 과정을 설명하고, 유전적 안정성 검사와 기형종 가능성 등 안전성 쟁점을 함께 고찰함.",
+    "normalizationCaution": "원문에 생명과학 I, 생명과학 II, 화학 I 등 구 교육과정 표현이 있더라도 구조화 데이터에서는 2022 개정 교육과정 기준 과목명으로 정규화하고 legacySubjectAliases에 보존한다."
+  },
+  "curriculumVersion": "2022 revised curriculum / 2025 high school credit system aligned",
+  "subjectContext": {
+    "primarySubjects": [
+      "생명과학",
+      "세포와 물질대사",
+      "생명과학 실험",
+      "융합과학 탐구",
+      "화학 반응의 세계",
+      "과학탐구실험2"
+    ],
+    "concepts": [
+      "세포 분화",
+      "세포 주기",
+      "줄기세포",
+      "유전자 발현 조절",
+      "전사 인자",
+      "DNA 메틸화",
+      "신호 전달 경로",
+      "단백질 합성",
+      "세포 배양",
+      "재생의학",
+      "오가노이드",
+      "조직공학"
+    ],
+    "legacySubjectHandling": "생명과학Ⅰ, 생명과학Ⅱ, 화학Ⅰ 등 구 교육과정 표현은 원문 보존 자료에 유지하되, MINI payload와 displaySubjects에는 2022 개정 교육과정 과목명으로 정규화한다."
+  },
+  "bestForSubjectsLegacy": [
+    "생명과학Ⅰ",
+    "생명과학Ⅱ",
+    "화학Ⅰ",
+    "통합과학",
+    "과학탐구실험"
+  ],
+  "bestForSubjects": [
+    "생명과학",
+    "세포와 물질대사",
+    "생명과학 실험",
+    "융합과학 탐구",
+    "화학 반응의 세계",
+    "과학탐구실험2"
+  ],
+  "normalizedSubjects": [
+    "생명과학",
+    "세포와 물질대사",
+    "생명과학 실험",
+    "통합과학1",
+    "통합과학2",
+    "융합과학 탐구",
+    "화학 반응의 세계",
+    "과학탐구실험2"
+  ],
+  "displaySubjects": [
+    "생명과학",
+    "세포와 물질대사",
+    "생명과학 실험",
+    "융합과학 탐구",
+    "화학 반응의 세계"
+  ],
+  "legacySubjectAliases": [
+    "생명과학Ⅰ",
+    "생명과학Ⅱ",
+    "화학Ⅰ",
+    "통합과학",
+    "과학탐구실험"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum"
+}
