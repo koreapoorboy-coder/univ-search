@@ -5902,12 +5902,120 @@
       ],
       "subjectNormalizationStatus": "2022 개정 교육과정/고교학점제 기준 과목명으로 정규화하고, 물리학Ⅰ·물리학Ⅱ·수학Ⅰ·수학Ⅱ 등 구 과목명은 legacySubjectAliases에 보존함.",
       "file": "seed/seed-bank-v2/engineering/ENG-054_razor_blade_angle_pressure_shear_stress_contact_area_friction_surface_roughness.json"
+    },
+    {
+      "seedId": "ENG-055",
+      "patternType": "fast_lcd_ddi_circuit_gate_source_driver_rc_time_constant_overdrive_refresh_rate",
+      "duplicateGroupKey": "engineering_electronics_display_lcd_ddi_gate_source_driver_rc_time_constant_overdrive_refresh_rate",
+      "studentFacingLabel": "120Hz·144Hz 고주사율 LCD가 단순히 패널만 빠른 것이 아니라 DDI(Display Driver IC), 게이트 드라이버, 소스 드라이버, TFT-LCD 화소 회로, RC 시정수, 오버드라이브, 프레임 주사 타이밍이 함께 맞아야 구현된다는 점을 회로 관점에서 분석하는 전자·전기공학형 탐구",
+      "bestForMajors": [
+        "전자공학과",
+        "전기공학과",
+        "전기전자공학과",
+        "반도체공학과",
+        "컴퓨터공학과",
+        "정보통신공학과",
+        "소프트웨어학과",
+        "물리학과",
+        "신소재공학과",
+        "산업공학과"
+      ],
+      "axisTriggers": [
+        "LCD",
+        "TFT-LCD",
+        "DDI",
+        "Display Driver IC",
+        "디스플레이 드라이버 IC",
+        "게이트 드라이버",
+        "소스 드라이버",
+        "TCON",
+        "타이밍 컨트롤러",
+        "프레임 주사",
+        "고주사율",
+        "120Hz",
+        "144Hz",
+        "프레임 시간",
+        "행 시간",
+        "화소 회로",
+        "서브픽셀",
+        "TFT 어레이",
+        "액정 커패시터",
+        "RC 시정수",
+        "τ=RC",
+        "커패시터 충전",
+        "기생 커패시턴스",
+        "배선 저항",
+        "오버드라이브",
+        "response time compensation",
+        "잔상",
+        "블러",
+        "응답속도",
+        "구동 전압",
+        "출력 버퍼",
+        "디지털-아날로그 변환",
+        "DAC",
+        "저전력 디스플레이",
+        "동적 프레임 레이트",
+        "가변 주사율",
+        "디스플레이 회로",
+        "반도체 회로",
+        "전자기기공학"
+      ],
+      "bestForSubjectsLegacy": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "과학탐구실험",
+        "정보",
+        "공학 일반",
+        "수학Ⅰ",
+        "수학Ⅱ"
+      ],
+      "bestForSubjects": [
+        "물리",
+        "전자기와 양자",
+        "과학탐구실험1",
+        "융합과학 탐구",
+        "정보",
+        "공학 일반",
+        "대수",
+        "미적분Ⅰ"
+      ],
+      "normalizedSubjects": [
+        "물리",
+        "전자기와 양자",
+        "과학탐구실험1",
+        "융합과학 탐구",
+        "정보",
+        "공학 일반",
+        "수학",
+        "대수",
+        "미적분Ⅰ"
+      ],
+      "displaySubjects": [
+        "물리",
+        "전자기와 양자",
+        "정보",
+        "공학 일반",
+        "과학탐구실험1",
+        "융합과학 탐구"
+      ],
+      "legacySubjectAliases": [
+        "물리학Ⅰ",
+        "물리학Ⅱ",
+        "과학탐구실험",
+        "정보",
+        "공학 일반",
+        "수학Ⅰ",
+        "수학Ⅱ"
+      ],
+      "subjectNormalizationStatus": "2022 개정 교육과정/고교학점제 기준 과목명으로 정규화하고, 물리학Ⅰ·물리학Ⅱ·수학Ⅰ·수학Ⅱ 등 구 과목명은 legacySubjectAliases에 보존함.",
+      "file": "seed/seed-bank-v2/engineering/ENG-055_fast_lcd_ddi_circuit_gate_source_driver_rc_time_constant_overdrive_refresh_rate.json"
     }
   ],
   "dataBuildStatus": {
-    "latestSeedId": "ENG-054",
-    "stage": "seed-bank-v2 engineering ENG-054 appended",
+    "latestSeedId": "ENG-055",
+    "stage": "seed-bank-v2 engineering ENG-055 appended",
     "updatedAt": "2026-05-21",
-    "notes": "Stage-only update: 신규 ENG-054 seed 및 engineering_seed_index.json 갱신. 1~5번 엔진 구조와 학과 라우팅 구조는 변경하지 않음."
+    "notes": "Stage-only update: 신규 ENG-055 seed 및 engineering_seed_index.json 갱신. 1~5번 엔진 구조와 학과 라우팅 구조는 변경하지 않음."
   }
 }
