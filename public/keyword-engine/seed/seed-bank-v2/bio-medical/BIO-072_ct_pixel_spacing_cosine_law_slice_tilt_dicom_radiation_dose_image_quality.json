@@ -1,0 +1,403 @@
+{
+  "seedId": "BIO-072",
+  "version": "seed-bank-v2.0",
+  "createdAt": "2026-05-28T16:03:14+09:00",
+  "sourceZip": "72.zip",
+  "sourceOrdinal": 72,
+  "sourceImageCount": 12,
+  "sourceType": "image_report_text_transcription_and_structured_seed",
+  "category": "bio-medical",
+  "patternType": "ct_pixel_spacing_cosine_law_slice_tilt_dicom_radiation_dose_image_quality",
+  "duplicateGroupKey": "bio_medical_ct_pixel_spacing_cosine_law_slice_tilt_dicom_radiation_dose_image_quality",
+  "studentFacingLabel": "코사인법칙과 벡터 내적으로 CT 슬라이스 경사각을 보정하고, DICOM 픽셀 거리·ROI 직경·방사선 선량 지표를 함께 검증해 의료영상의 진단 정확도와 환자 안전을 높이는 수학·의공학 융합 탐구",
+  "bestForMajors": [
+    "의예과",
+    "약학과",
+    "수의예과",
+    "간호학과",
+    "방사선학과",
+    "보건학과",
+    "임상병리학과",
+    "바이오메디컬공학과",
+    "의공학과",
+    "컴퓨터공학과",
+    "인공지능학과",
+    "데이터사이언스학과",
+    "수학과",
+    "통계학과",
+    "물리학과",
+    "전자공학과",
+    "전기공학과",
+    "소프트웨어학과",
+    "의료IT공학과"
+  ],
+  "axisTriggers": [
+    "코사인법칙",
+    "삼각함수",
+    "cosine law",
+    "law of cosines",
+    "벡터 내적",
+    "기하 보정",
+    "3D 기하보정",
+    "픽셀 거리",
+    "픽셀 피치",
+    "pixel spacing",
+    "공간해상도",
+    "CT",
+    "컴퓨터단층촬영",
+    "computed tomography",
+    "헬리컬 CT",
+    "슬라이스 두께",
+    "슬라이스 간격",
+    "slice tilt",
+    "경사각",
+    "테이블 틸팅",
+    "DICOM",
+    "DICOM 헤더",
+    "Image Orientation Patient",
+    "Image Position Patient",
+    "FOV",
+    "field of view",
+    "ROI",
+    "종양 직경",
+    "의료영상",
+    "영상재건",
+    "image reconstruction",
+    "영상 처리",
+    "OpenCV",
+    "pandas",
+    "NumPy",
+    "Matplotlib",
+    "MATLAB",
+    "벡터화",
+    "행렬 연산",
+    "오차 전파",
+    "민감도 분석",
+    "95% 신뢰구간",
+    "ROC",
+    "오차행렬",
+    "진단정확도",
+    "방사선 선량",
+    "CTDIvol",
+    "관전류",
+    "X-선",
+    "방사선 피폭",
+    "선량 최적화",
+    "재촬영 감소",
+    "환자 안전",
+    "의공학",
+    "세특"
+  ],
+  "bestForSubjectsLegacy": [
+    "수학Ⅰ",
+    "수학Ⅱ",
+    "미적분",
+    "기하",
+    "확률과 통계",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "정보",
+    "과학탐구실험",
+    "과학과제탐구",
+    "보건",
+    "인공지능 기초"
+  ],
+  "bestForSubjects": [
+    "대수",
+    "미적분Ⅰ",
+    "기하",
+    "확률과 통계",
+    "물리학",
+    "역학과 에너지",
+    "전자기와 양자",
+    "정보",
+    "데이터 과학",
+    "인공지능 기초",
+    "융합과학 탐구",
+    "과학과제 연구",
+    "보건",
+    "인체 생리와 건강",
+    "통합과학",
+    "수학과제 탐구"
+  ],
+  "normalizedSubjects": [
+    "대수",
+    "미적분Ⅰ",
+    "기하",
+    "확률과 통계",
+    "물리학",
+    "역학과 에너지",
+    "전자기와 양자",
+    "정보",
+    "데이터 과학",
+    "인공지능 기초",
+    "융합과학 탐구",
+    "과학과제 연구",
+    "보건",
+    "인체 생리와 건강",
+    "통합과학",
+    "수학과제 탐구"
+  ],
+  "displaySubjects": [
+    "대수",
+    "기하",
+    "확률과 통계",
+    "물리학",
+    "전자기와 양자",
+    "정보",
+    "데이터 과학",
+    "융합과학 탐구",
+    "과학과제 연구",
+    "보건",
+    "인체 생리와 건강"
+  ],
+  "legacySubjectAliases": [
+    "수학Ⅰ",
+    "수학Ⅱ",
+    "미적분",
+    "기하",
+    "확률과 통계",
+    "물리학Ⅰ",
+    "물리학Ⅱ",
+    "정보",
+    "과학탐구실험",
+    "과학과제탐구",
+    "인공지능 기초",
+    "보건",
+    "코사인법칙",
+    "삼각함수",
+    "CT",
+    "컴퓨터단층촬영",
+    "DICOM",
+    "픽셀 간격",
+    "픽셀거리",
+    "슬라이스 경사",
+    "영상재건",
+    "방사선량",
+    "CTDIvol",
+    "OpenCV",
+    "NumPy",
+    "pandas"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum_with_cosine_law_ct_pixel_spacing_dicom_slice_tilt_medical_imaging_dose_optimization_and_data_science_mapping",
+  "selectedKeywordRole": {
+    "originalKeyword": "코사인법칙으로 CT 픽셀 교정",
+    "writingFocusKeyword": "DICOM 헤더의 슬라이스 경사각과 픽셀 피치를 추출해 코사인법칙·벡터 내적으로 실제 ROI 거리를 재계산하고, 교정 전후 직경 오차와 CTDIvol 변화를 비교해 영상 품질과 선량 저감의 균형을 검증하는 의료영상 수학 탐구",
+    "supportingKeywords": [
+      "코사인법칙",
+      "벡터 내적",
+      "픽셀 피치",
+      "DICOM 헤더",
+      "Image Orientation Patient",
+      "슬라이스 경사",
+      "ROI 직경",
+      "CTDIvol",
+      "관전류",
+      "오차 전파",
+      "95% 신뢰구간",
+      "ROC",
+      "OpenCV",
+      "NumPy",
+      "pandas",
+      "의료영상",
+      "환자 안전"
+    ],
+    "promotionReason": "원본 주제는 CT 픽셀 거리 보정을 코사인법칙에 연결하는 아이디어이지만, 보고서 작성 단계에서는 DICOM 좌표·벡터화 계산·오차 검증·선량 최적화까지 연결해 수학 공식이 실제 영상 판독과 환자 안전 의사결정에 기여하는 과정 중심 탐구로 승격한다."
+  },
+  "keywordPromotionMap": {
+    "fromUserSelection": [
+      "코사인법칙",
+      "CT",
+      "픽셀거리",
+      "슬라이스 간격",
+      "기하보정",
+      "영상재건",
+      "방사선량"
+    ],
+    "toWritingFocus": "픽셀 피치 p, 경사각 θ, 벡터 r1·r2, ROI 직경, 관전류, CTDIvol을 변수로 두고 CT 영상의 실제 거리 오차와 선량 저감 가능성을 함께 검증하는 수학-의공학 모델",
+    "connectionRule": "문제 인식 → CT 직경 판독값 차이 발견 → DICOM 헤더에서 방향 벡터·픽셀 피치 추출 → 코사인법칙으로 실제 거리 재계산 → ROI 직경과 병리 결과 비교 → 관전류·CTDIvol 변화 분석 → 영상 품질과 환자 안전을 동시에 해석 → 세특 문장화로 연결한다."
+  },
+  "topicSeedContext": {
+    "coreQuestion": "CT 촬영에서 슬라이스가 기울어졌을 때, 코사인법칙과 벡터 내적으로 픽셀 간 실제 거리를 보정하면 종양 직경 오차와 재촬영·방사선 선량을 얼마나 줄일 수 있을까?",
+    "recommendedTopicTitles": [
+      "코사인법칙으로 CT 픽셀거리 보정하기: DICOM 경사각과 ROI 직경 오차 분석",
+      "수학 공식이 의료영상 판독을 바꾸는 과정: 벡터 내적 기반 CT 기하보정 탐구",
+      "CT 재촬영을 줄이는 수학: 슬라이스 틸트 보정과 방사선 선량 최적화 모델"
+    ],
+    "studentInquiryHooks": [
+      "동일 CT 영상의 종양 직경이 판독자에 따라 다르게 기록되는 장면을 보고 거리 보정의 필요성을 느낀 상황",
+      "수학 시간에 배운 코사인법칙이 의료영상 속 기울어진 픽셀 격자의 실제 거리를 복원할 수 있다는 문제의식",
+      "화질을 높이면 방사선 선량이 증가한다는 트레이드오프를 수학·물리·정보 과목으로 검증하고 싶은 호기심"
+    ],
+    "topicFitSummary": "의예·약학·수의예·방사선학·의공학·컴퓨터공학·데이터사이언스 계열 학생이 수학의 삼각함수와 벡터 내적을 CT 영상재건, DICOM 데이터 처리, 방사선 선량 최적화와 연결하기에 적합하다."
+  },
+  "reportSeedContext": {
+    "reportType": "코사인법칙 기반 CT 픽셀거리 보정·의료영상 오차 검증·방사선 선량 최적화 보고서",
+    "writingStructure": [
+      "탐구 동기: 동일 CT 영상의 종양 직경 기록 차이와 슬라이스 경사 보정 필요성을 문제로 제시",
+      "이론 배경: 코사인법칙 c²=a²+b²−2abcosθ, 벡터 내적, 픽셀 피치 p=FOV/N, DICOM 방향 벡터, CTDIvol 개념 정리",
+      "자료 수집: 익명화된 연구용 DICOM 세트, Image Orientation (Patient), Pixel Spacing, Slice Thickness, ROI 직경 자료 정리",
+      "정량 모델링: 경사각 θ와 픽셀 좌표 차이 Δx, Δy를 이용해 교정 전후 물리 거리와 직경 오차 계산",
+      "데이터 처리: Python·NumPy·pandas·OpenCV 또는 MATLAB으로 픽셀 쌍 거리를 벡터화해 일괄 교정",
+      "검증: 병리 결과, 95% 신뢰구간, ROC 또는 오차행렬로 교정 효과와 선량 저감 가능성 비교",
+      "세특 연결: 수학 공식 적용, DICOM 윤리, 데이터 전처리, 오차 검증, 환자 안전 해석 과정을 중심으로 문장화"
+    ],
+    "paragraphBlueprint": [
+      "1문단: CT 영상에서 거리 왜곡이 진단 정확도와 재촬영 여부에 영향을 줄 수 있다는 문제를 제기한다.",
+      "2문단: 코사인법칙과 벡터 내적을 이용해 기울어진 픽셀 격자에서 실제 물리 거리를 복원하는 원리를 설명한다.",
+      "3문단: DICOM 헤더에서 방향 벡터와 픽셀 피치를 추출하고, ROI 직경을 교정 전후로 비교하는 알고리즘을 제시한다.",
+      "4문단: 교정 효과를 병리 결과, 신뢰구간, 선량 지표와 비교해 영상 품질과 환자 안전의 균형을 해석한다.",
+      "5문단: 수학 공식이 단순 문제풀이를 넘어 의료진 의사결정과 방사선 안전 관리에 연결된다는 결론을 정리한다."
+    ],
+    "modelingFocus": "경사각 θ, 픽셀 피치 p, 좌표 차이 Δx·Δy, 벡터 r1·r2, ROI 직경, 관전류, CTDIvol을 변수로 삼아 CT 영상 거리 오차와 선량 저감 가능성을 비교한다.",
+    "quantitativeAnchors": [
+      "픽셀 피치 p = 0.625 mm",
+      "슬라이스 두께 Δz = 1 mm",
+      "경사각 θ = 4°",
+      "Δx = 30 px",
+      "Δy = 22 px",
+      "a = 18.75 mm",
+      "b = 13.75 mm",
+      "c ≈ 11.55 mm",
+      "교정 전 평균 직경 31.4 mm",
+      "교정 후 평균 직경 29.7 mm",
+      "직경 감소 5.4%",
+      "ROI 직경 오차 0.3 mm 이내",
+      "CTDIvol 평균 6.8% 절감",
+      "관전류 10% 감소",
+      "평균 오차 0.9 mm",
+      "방사선 강도 7% 절감"
+    ],
+    "sefCitationStyle": "‘CT를 조사했다’보다 ‘DICOM 헤더의 방향 벡터와 픽셀 피치를 추출해 코사인법칙으로 ROI 직경을 재계산하고, 교정 전후 오차와 CTDIvol 변화를 비교했다’처럼 과정·수식·검증·환자 안전 해석을 드러낸다."
+  },
+  "extensionSeedContext": {
+    "extensionAxes": [
+      {
+        "axis": "수식 모델형",
+        "description": "코사인법칙과 벡터 내적으로 슬라이스 경사각이 포함된 두 픽셀 간 실제 거리를 계산한다.",
+        "outputIdea": "교정 전후 픽셀 거리·ROI 직경 비교표"
+      },
+      {
+        "axis": "DICOM 데이터 처리형",
+        "description": "DICOM 헤더의 Image Orientation, Pixel Spacing, Slice Thickness 정보를 추출하고 개인정보를 익명화한다.",
+        "outputIdea": "DICOM 태그 추출·익명화 처리 절차도"
+      },
+      {
+        "axis": "영상처리 알고리즘형",
+        "description": "NumPy·pandas·OpenCV로 ROI를 자동 추출하고 3-D 좌표 기반 거리 교정을 벡터화한다.",
+        "outputIdea": "Python 기반 CT 픽셀 교정 파이프라인"
+      },
+      {
+        "axis": "방사선 선량 최적화형",
+        "description": "관전류를 줄였을 때 거리 정확도와 노이즈가 유지되는지 확인해 CTDIvol 감소 가능성을 분석한다.",
+        "outputIdea": "선량-오차-노이즈 트레이드오프 그래프"
+      },
+      {
+        "axis": "진단정확도 검증형",
+        "description": "병리 결과, 신뢰구간, ROC 또는 오차행렬을 활용해 교정 알고리즘의 효용을 검증한다.",
+        "outputIdea": "교정 알고리즘 성능 검증 리포트"
+      }
+    ],
+    "roadmap": [
+      "출발: 코사인법칙으로 기울어진 두 픽셀 간 거리 계산",
+      "확장: DICOM 헤더에서 방향 벡터와 픽셀 피치 추출",
+      "심화: ROI 직경을 교정 전후로 비교하고 오차 전파·민감도 분석 수행",
+      "완성: 선량 지표 CTDIvol과 영상 품질을 함께 비교한 의료영상 품질 개선 제안서 작성"
+    ],
+    "basicExtension": "가상 픽셀 좌표와 경사각을 설정하고 코사인법칙으로 교정 전후 거리 차이를 계산한다.",
+    "advancedExtension": "익명화된 DICOM 샘플에서 Pixel Spacing과 Image Orientation 태그를 추출해 실제 좌표 기반 거리 교정 코드를 작성한다.",
+    "deepExtension": "ROI 직경 오차, CTDIvol, 관전류, 노이즈를 함께 비교해 재촬영 감소와 환자 선량 저감 가능성을 의료영상 품질 관리 관점에서 제안한다."
+  },
+  "sourceGuideContext": {
+    "primarySourcesFromReport": [
+      "Bushberg J. T. et al., Essential Physics of Medical Imaging, 4e, LWW, 2023.",
+      "Kalender W., Computed Tomography, 3e, Wiley-VCH, 2024.",
+      "Lee H. et al., Angle-Corrected Pixel Spacing in Helical CT, Med. Phys., 51(2), 2024.",
+      "Gonzalez R., Woods R., Digital Image Processing, 4e, Pearson, 2022.",
+      "대한영상의학회, CT 검사 표준화 지침, 2023."
+    ],
+    "recommendedSourceTypes": [
+      "의료영상 물리학 교재의 CT 원리와 선량 지표 설명",
+      "DICOM 표준 또는 DICOM 태그 설명 자료",
+      "CT 픽셀 간격·슬라이스 경사·공간해상도 보정 관련 논문",
+      "OpenCV·NumPy 기반 의료영상 처리 예제",
+      "대한영상의학회 또는 관련 기관의 CT 검사 표준화 지침"
+    ],
+    "searchQueries": [
+      "CT pixel spacing angle correction law of cosines DICOM",
+      "helical CT slice tilt pixel spacing correction",
+      "DICOM Image Orientation Patient pixel spacing distance calculation",
+      "CTDIvol dose optimization image quality trade off",
+      "OpenCV NumPy DICOM ROI diameter measurement",
+      "코사인법칙 CT 픽셀 거리 보정 DICOM 슬라이스 경사"
+    ],
+    "sourceUseGuidance": "실제 환자 영상이나 개인정보를 사용하지 않고 공개 샘플 또는 익명화된 연구용 DICOM 자료로 제한한다. 수치가 가상 조건인지 원문 예시인지 구분하고, 의료적 진단 판단은 전문가 영역임을 명확히 적는다.",
+    "cautionFlags": [
+      "실제 환자 DICOM 개인정보를 노출하지 않기",
+      "교정 알고리즘만으로 의학적 진단을 단정하지 않기",
+      "방사선 선량 감소가 항상 안전하다고 단정하지 않기",
+      "고급 의료영상 재건 알고리즘을 과도하게 확장하지 않기",
+      "수식 계산만 제시하고 검증·오차·윤리 과정을 생략하지 않기"
+    ]
+  },
+  "qualityGuardContext": {
+    "mustInclude": [
+      "코사인법칙 c² = a² + b² − 2abcosθ",
+      "벡터 내적 a·b = |a||b|cosθ",
+      "픽셀 피치 p = FOV/N",
+      "DICOM 헤더의 방향 벡터와 Pixel Spacing",
+      "슬라이스 경사각 θ와 거리 오차의 관계",
+      "ROI 직경 교정 전후 비교",
+      "오차 전파 또는 민감도 분석",
+      "CTDIvol·관전류·방사선 선량 해석",
+      "DICOM 익명화와 연구 윤리",
+      "영상 품질과 환자 안전의 균형"
+    ],
+    "avoid": [
+      "코사인법칙 계산만 하고 CT 영상과 연결하지 않기",
+      "실제 환자 진단처럼 단정적으로 표현하기",
+      "DICOM 개인정보 익명화 과정을 생략하기",
+      "선량 저감을 무조건적 장점으로만 쓰기",
+      "프로그래밍 도구 이름만 나열하고 데이터 처리 과정을 설명하지 않기"
+    ],
+    "formulaChecklist": [
+      "c² = a² + b² − 2abcosθ",
+      "a·b = |a||b|cosθ",
+      "p = FOV/N",
+      "a = pΔx",
+      "b = pΔy",
+      "d(c²)/dθ = 2ab sinθ",
+      "CTDIvol 변화율 = (교정 전 선량 - 교정 후 선량)/교정 전 선량 × 100"
+    ],
+    "highSchoolAppropriateScope": "고등학생 수준에서는 삼각함수, 코사인법칙, 벡터 내적의 기초, 픽셀 좌표 변환, 간단한 오차 분석, DICOM 태그 읽기와 익명화, Python 기반 데이터 처리 정도가 적절하다. 실제 임상 진단이나 고급 재구성 알고리즘은 전문가 자문과 공개 자료 해석 수준으로 제한한다.",
+    "sefWritingTips": [
+      "‘CT를 탐구했다’보다 ‘경사각 θ와 픽셀 피치 p를 변수화해 교정 전후 ROI 직경 오차를 계산했다’고 쓴다.",
+      "‘수학이 의료에 쓰인다’보다 ‘코사인법칙으로 4° 경사 시 거리 과대 추정을 확인하고 보정값을 병원 리포트와 비교했다’처럼 검증 과정을 드러낸다.",
+      "‘파이썬을 사용했다’보다 ‘NumPy로 픽셀 쌍 거리 계산을 벡터화하고 pandas로 교정 전후 직경·CTDIvol 변화를 표로 정리했다’고 구체화한다.",
+      "윤리와 안전 항목은 DICOM 익명화, 재촬영 감소, 방사선 피폭 저감, 의료진 의사결정 지원으로 연결한다."
+    ]
+  },
+  "transcriptionSourceSummary": {
+    "title": "[메디컬/수학/수과탐] 코사인법칙으로 CT 픽셀 교정 일반고 의대 약대 수의대 세특 보고서 추천",
+    "sections": [
+      "표지",
+      "주제",
+      "관련 키워드",
+      "동기 예시",
+      "느낀점 예시",
+      "세특 문구 예시",
+      "개념 필요성과 생기부 연계",
+      "탐구 동기",
+      "탐구 내용",
+      "수식 설명",
+      "교과목 연계",
+      "탐구 발전 방향",
+      "느낀점",
+      "관련 자료",
+      "세특 문구"
+    ],
+    "sourceImageCount": 12,
+    "wordTranscriptionFile": "BIO072_build/word/BIO-072_ct_pixel_spacing_cosine_law_slice_tilt_dicom_radiation_dose_image_quality_text_transcription.docx",
+    "notes": "원본 이미지의 OOO 처리 문구와 보고서형 표현은 가능한 한 유지하되, 일부 띄어쓰기와 명백한 표기 오류는 검색 가능한 Word 문서에 맞게 자연스럽게 정리했다."
+  }
+}
