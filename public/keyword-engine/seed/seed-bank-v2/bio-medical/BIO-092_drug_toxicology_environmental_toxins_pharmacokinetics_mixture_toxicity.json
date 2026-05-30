@@ -1,0 +1,415 @@
+{
+  "seedId": "BIO-092",
+  "version": "seed-bank-v2-stage-only",
+  "createdAt": "2026-05-29T14:55:00+09:00",
+  "sourceZip": "92.zip",
+  "sourceOrdinal": 92,
+  "sourceImageCount": 16,
+  "sourceType": "image-report-transcription",
+  "category": "bio-medical",
+  "patternType": "drug_toxicology_environmental_toxins_pharmacokinetics_mixture_toxicity",
+  "duplicateGroupKey": "bio_medical_drug_toxicology_environmental_toxins_pharmacokinetics_mixture_toxicity",
+  "studentFacingLabel": "중금속·농약·미세플라스틱 등 환경 독소가 약물 대사 효소와 ADME 과정에 미치는 영향을 약동학 1구획 모델, 반감기, 복합 독성·시너지 독성 관점으로 분석하는 약학·화학·생명과학 융합 탐구",
+  "bestForMajors": [
+    "약학과",
+    "제약공학과",
+    "의예과",
+    "간호학과",
+    "생명과학과",
+    "생명공학과",
+    "바이오메디컬공학과",
+    "화학과",
+    "화학공학과",
+    "환경공학과",
+    "식품영양학과",
+    "데이터사이언스학과",
+    "통계학과"
+  ],
+  "axisTriggers": [
+    "약물 독성학",
+    "toxicology",
+    "환경 독소",
+    "environmental toxin",
+    "중금속",
+    "cadmium",
+    "lead",
+    "mercury",
+    "농약",
+    "pesticide",
+    "유기인계 농약",
+    "미세플라스틱",
+    "microplastic",
+    "약물 대사",
+    "drug metabolism",
+    "ADME",
+    "흡수",
+    "분포",
+    "대사",
+    "배설",
+    "CYP450",
+    "대사 효소",
+    "효소 억제",
+    "enzyme inhibition",
+    "복합 독성",
+    "mixture toxicity",
+    "시너지 독성",
+    "synergistic toxicity",
+    "길항 작용",
+    "약동학",
+    "pharmacokinetics",
+    "약력학",
+    "pharmacodynamics",
+    "반감기",
+    "half-life",
+    "속도상수",
+    "ke",
+    "1구획 모델",
+    "one compartment model",
+    "혈중 농도",
+    "농도 시간 곡선",
+    "C(t)=C0e^(-kt)",
+    "환경 오염",
+    "생체 축적",
+    "개인 맞춤형 독성 예측",
+    "유전체 약리학",
+    "pharmacogenomics",
+    "오가노이드",
+    "organ-on-a-chip",
+    "세특"
+  ],
+  "bestForSubjectsLegacy": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "생명과학Ⅰ",
+    "생명과학Ⅱ",
+    "통합과학",
+    "미적분",
+    "확률과 통계",
+    "정보",
+    "인공지능 기초",
+    "과학탐구실험",
+    "과학과제탐구",
+    "융합과학"
+  ],
+  "bestForSubjects": [
+    "화학",
+    "물질과 에너지",
+    "화학 반응의 세계",
+    "생명과학",
+    "세포와 물질대사",
+    "생물의 유전",
+    "통합과학1",
+    "통합과학2",
+    "미적분Ⅰ",
+    "확률과 통계",
+    "정보",
+    "데이터 과학",
+    "인공지능 기초",
+    "융합과학 탐구",
+    "과학과제 연구"
+  ],
+  "normalizedSubjects": [
+    "화학",
+    "물질과 에너지",
+    "화학 반응의 세계",
+    "생명과학",
+    "세포와 물질대사",
+    "생물의 유전",
+    "통합과학1",
+    "통합과학2",
+    "미적분Ⅰ",
+    "확률과 통계",
+    "정보",
+    "데이터 과학",
+    "인공지능 기초",
+    "융합과학 탐구",
+    "과학과제 연구"
+  ],
+  "displaySubjects": [
+    "화학",
+    "물질과 에너지",
+    "생명과학",
+    "세포와 물질대사",
+    "통합과학1",
+    "통합과학2",
+    "미적분Ⅰ",
+    "확률과 통계",
+    "데이터 과학",
+    "융합과학 탐구",
+    "과학과제 연구"
+  ],
+  "legacySubjectAliases": [
+    "화학Ⅰ",
+    "화학Ⅱ",
+    "생명과학Ⅰ",
+    "생명과학Ⅱ",
+    "통합과학",
+    "미적분",
+    "확률과 통계",
+    "정보",
+    "인공지능 기초",
+    "과학탐구실험",
+    "과학과제탐구",
+    "융합과학",
+    "환경 독소",
+    "약물독성학",
+    "중금속",
+    "농약",
+    "미세플라스틱",
+    "CYP450",
+    "약동학",
+    "약력학",
+    "복합독성",
+    "시너지독성",
+    "반감기",
+    "1구획모델",
+    "ADME"
+  ],
+  "subjectNormalizationStatus": "normalized_2022_curriculum_with_legacy_drug_toxicology_environmental_toxin_pharmacokinetics_aliases",
+  "selectedKeywordRole": {
+    "originalSelectedKeyword": "약물 독성학과 환경 독소의 상관관계",
+    "writingFocusKeyword": "중금속·농약·미세플라스틱 등 환경 독소가 CYP450 등 약물 대사 효소와 혈중 농도 감소 속도에 미치는 영향을 약동학 모델과 복합 독성 관점으로 분석하는 탐구",
+    "supportingKeywords": [
+      "환경 독소",
+      "중금속",
+      "농약",
+      "미세플라스틱",
+      "약물 대사",
+      "CYP450",
+      "효소 억제",
+      "ADME",
+      "약동학",
+      "약력학",
+      "반감기",
+      "속도상수",
+      "1구획 모델",
+      "복합 독성",
+      "시너지 독성",
+      "유전체 약리학",
+      "오가노이드",
+      "정밀의학"
+    ],
+    "promotionReason": "원래 주제는 약물 독성학과 환경 독소의 관계를 넓게 다루지만, 보고서 작성 단계에서는 환경 독소가 약물 대사 효소를 억제하거나 대사 속도를 변화시켜 혈중 농도와 독성 지속 시간을 바꾸는 과정으로 초점을 재정렬해야 탐구성이 강화된다.",
+    "connectionRationale": "화학의 분자 구조·극성·농도, 생명과학의 효소 작용·항상성·세포 반응, 수학의 지수함수·미분방정식, 환경 문제의 복합 노출을 하나의 약동학 모델로 연결할 수 있어 MINI가 교과-진로 연결성을 분명히 제시할 수 있다."
+  },
+  "keywordPromotionMap": {
+    "from": [
+      "환경 오염",
+      "독소",
+      "약물 부작용",
+      "농약",
+      "미세플라스틱"
+    ],
+    "to": [
+      "환경 독소와 약물 대사 효소 억제",
+      "ADME 과정 교란",
+      "약동학 1구획 모델과 반감기 변화",
+      "복합 독성 및 시너지 독성 평가",
+      "개인 맞춤형 독성 예측과 안전성 관리"
+    ],
+    "reason": "MINI가 단순 환경오염 소개가 아니라 환경 독소-대사효소-혈중농도-독성 지속시간-정밀의학 확장으로 이어지는 보고서 초점을 만들 수 있도록 한다."
+  },
+  "topicSeedContext": {
+    "topicFamily": "bio_medical_drug_toxicology_environmental_toxin_pharmacokinetics_mixture_toxicity",
+    "recommendedTopics": [
+      "환경 독소는 약물 대사 효소를 어떻게 변화시켜 혈중 약물 농도와 독성 지속 시간에 영향을 줄까?",
+      "중금속·농약·미세플라스틱의 복합 노출은 약물 독성을 단순 합산 이상으로 증가시킬 수 있을까?",
+      "약동학 1구획 모델과 반감기 계산을 활용해 환경 독소 노출 상태의 약물 농도 변화를 어떻게 예측할 수 있을까?"
+    ],
+    "coreInquiryQuestions": [
+      "약물 독성학은 외부 독소와 약물이 생체 내에서 흡수·분포·대사·배설되는 과정을 어떻게 해석하는가?",
+      "중금속, 농약, 미세플라스틱은 CYP450 등 약물 대사 효소의 활성에 어떤 영향을 줄 수 있는가?",
+      "대사 속도상수 ke가 감소하면 같은 초기 농도에서 혈중 약물 농도 곡선과 반감기는 어떻게 달라지는가?",
+      "복합 독성 또는 시너지 독성은 단일 독성 평가와 어떤 점에서 다르며, 실제 안전성 평가에서 왜 중요한가?",
+      "유전적 차이와 환경 독소 노출 정보를 함께 반영하면 개인 맞춤형 독성 예측으로 어떻게 확장할 수 있는가?"
+    ],
+    "studentLevelFit": "고등학생은 전문 독성시험을 직접 수행하기보다 환경 독소의 종류, 약물 대사 효소, ADME, 반감기, 지수함수적 농도 감소 모델, 복합 노출의 위험성을 교과 개념과 자료 해석 중심으로 구조화하는 것이 적합하다."
+  },
+  "reportSeedContext": {
+    "reportTitleOptions": [
+      "환경 독소가 약물 대사와 독성 발현에 미치는 영향 탐구",
+      "약물 독성학과 환경 독소의 상관관계: CYP450 효소 억제와 약동학 모델을 중심으로",
+      "중금속·농약·미세플라스틱의 복합 노출이 약물 반감기와 독성 지속 시간에 미치는 영향 분석"
+    ],
+    "paragraphBlueprint": [
+      {
+        "section": "도입",
+        "guide": "농약, 중금속, 미세플라스틱 등 환경 독소가 일상적으로 인체에 유입될 수 있으며, 약물 복용 상황에서는 독성 발현이 달라질 수 있다는 문제의식에서 출발한다."
+      },
+      {
+        "section": "핵심 개념",
+        "guide": "약물 독성학, 환경 독소, 중금속, 농약, 미세플라스틱, ADME, 약동학, 약력학, 복합 독성, 시너지 독성을 정의한다."
+      },
+      {
+        "section": "생명과학 원리",
+        "guide": "간 대사 효소, CYP450, 효소 억제, 항상성 변화, 세포 반응을 중심으로 환경 독소가 약물 대사 경로를 교란하는 과정을 설명한다."
+      },
+      {
+        "section": "화학 원리",
+        "guide": "독소의 분자 구조, 극성, 지용성/수용성, 이온화 특성, 유기인계 농약 구조 등이 체내 거동과 효소 결합에 미치는 영향을 연결한다."
+      },
+      {
+        "section": "수식 및 데이터 해석",
+        "guide": "dC/dt = -ke·C(t), C(t)=C0·e^(-ke·t) 식을 활용해 정상 상태 ke=0.1과 독소 노출 상태 ke=0.05의 농도 감소 곡선을 비교한다."
+      },
+      {
+        "section": "확장 탐구",
+        "guide": "복합 독성, 유전체 약리학, 장기 추적 연구, 오가노이드/장-칩 기술, 환경 규제 및 제약 산업 안전성 평가로 확장한다."
+      },
+      {
+        "section": "생기부 연결",
+        "guide": "단순 자료조사가 아니라 변수 설정, 모델링, 그래프 해석, 교과 융합, 사회적 안전성 문제 해결 제안을 포함한 탐구 과정으로 정리한다."
+      }
+    ],
+    "studentActionChecklist": [
+      "환경 독소, 약물 대사, ADME, 약동학, 약력학, 복합 독성을 각각 한 문장으로 정의한다.",
+      "중금속, 농약, 미세플라스틱 중 2개 이상을 골라 약물 대사 효소에 미칠 수 있는 영향을 비교한다.",
+      "dC/dt = -ke·C(t)와 C(t)=C0·e^(-ke·t)의 의미를 혈중 농도 감소 과정과 연결해 설명한다.",
+      "C0=100, 정상 ke=0.1, 독소 노출 ke=0.05 조건으로 시간-농도 그래프를 설계한다.",
+      "복합 독성과 시너지 독성을 단일 독성 평가와 구분하여 정리한다.",
+      "최종 세특에는 환경 독소 자료 탐색, 수리 모델링, 그래프 해석, 약학적 안전성 제안 과정을 포함한다."
+    ],
+    "expectedOutput": "환경 독소의 종류, 약물 대사 효소 억제, ADME 교란, 약동학 1구획 모델, 반감기 변화, 복합 독성, 유전체 약리학·오가노이드 확장, 세특 문구를 포함한 3~5쪽 약학·화학·생명과학 융합 보고서 초안"
+  },
+  "extensionSeedContext": {
+    "extensionDirections": [
+      "정상 상태와 독소 노출 상태의 혈중 농도 감소 그래프 비교",
+      "ke 변화에 따른 반감기 t1/2 = ln2/ke 계산 활동",
+      "중금속·농약·미세플라스틱의 효소 억제 가능성 비교표 제작",
+      "복합 독성의 상승작용·길항작용 사례 정리",
+      "유전자 변이에 따른 약물 대사 효소 활성 차이 탐색",
+      "장기 추적 코호트 연구에서 확인할 생화학 지표 설계",
+      "오가노이드와 장-칩을 활용한 독성평가 대체모델 조사",
+      "환경 규제 기준과 제약 산업 독성 평가 절차 연결"
+    ],
+    "researchVariables": [
+      "환경 독소 종류",
+      "중금속 농도",
+      "농약 농도",
+      "미세플라스틱 농도",
+      "약물 초기 농도 C0",
+      "혈중 농도 C(t)",
+      "소실 속도상수 ke",
+      "반감기 t1/2",
+      "대사 효소 활성",
+      "CYP450 발현량",
+      "간 대사율",
+      "배설률",
+      "노출 시간",
+      "복합 노출 여부",
+      "독성 지표",
+      "세포 생존율",
+      "염증 지표",
+      "유전자 변이",
+      "시너지 계수",
+      "그래프 기울기",
+      "예측 오차"
+    ],
+    "possibleData": [
+      "독성학 교재의 ADME와 약동학 기초 자료",
+      "CYP450 효소계와 카드뮴 노출 연구",
+      "농약 노출과 약물 대사 상호작용 리뷰",
+      "미세플라스틱과 인체 건강 영향 리뷰",
+      "환경 독소 복합 노출 관련 논문",
+      "식품의약품안전처 독성·위해성 평가 자료",
+      "국립환경과학원 환경오염 물질 자료",
+      "대한약학회·한국독성학회 학술 자료"
+    ]
+  },
+  "sourceGuideContext": {
+    "primarySourceTypes": [
+      "약물 독성학 교재",
+      "약동학·약력학 기초 자료",
+      "CYP450 효소와 환경 독소 연구 논문",
+      "중금속·농약·미세플라스틱 위해성 평가 자료",
+      "복합 독성 또는 mixture toxicity 리뷰",
+      "식품의약품안전처·국립환경과학원 공개 자료",
+      "고등학교 화학·생명과학·수학 교과 자료"
+    ],
+    "searchQueriesKR": [
+      "약물 독성학 환경 독소 약물 대사 효소",
+      "중금속 CYP450 효소 억제 약물 대사",
+      "농약 노출 약물 대사 상호작용",
+      "미세플라스틱 인체 건강 약물 독성",
+      "복합 독성 시너지 독성 mixture toxicity",
+      "약동학 1구획 모델 반감기 혈중 농도"
+    ],
+    "searchQueriesEN": [
+      "environmental toxins drug metabolism CYP450 inhibition",
+      "heavy metals CYP450 enzyme drug metabolism",
+      "pesticide exposure drug metabolism interaction",
+      "microplastics human health toxicology drug metabolism",
+      "mixture toxicity synergistic toxicity pharmacology",
+      "one compartment pharmacokinetic model half life concentration time"
+    ]
+  },
+  "qualityGuardContext": {
+    "studentSafetyNotes": [
+      "환경 독소나 약물을 실제로 섭취·흡입·혼합하는 실험을 설계하지 않는다.",
+      "농약, 중금속, 미세플라스틱을 학교 실험실에서 직접 취급하지 않는다.",
+      "약물 복용과 독성 위험에 대해 의학적 조언처럼 단정하지 않고 문헌 기반 안전성 평가로 표현한다.",
+      "독성 정도를 과장하지 않고 농도, 노출 시간, 개인차, 자료 한계를 함께 제시한다.",
+      "전문 장비나 임상 시험은 원리 설명과 공개 자료 해석 수준으로 다룬다."
+    ],
+    "commonPitfalls": [
+      "환경오염의 심각성만 서술하고 약물 대사 경로와 연결하지 않음",
+      "약동학 식을 제시하지만 변수 C(t), ke, C0의 의미를 설명하지 않음",
+      "단일 독성 자료를 복합 독성 결론으로 과도하게 일반화함",
+      "중금속·농약·미세플라스틱의 작용 기전을 구분하지 않음",
+      "유전자 차이와 개인 맞춤형 독성 예측을 언급만 하고 변수화하지 않음",
+      "세특 문구가 조사형으로만 끝나고 모델링·그래프 해석 과정이 빠짐"
+    ],
+    "minimumEvidenceRequired": [
+      "약물 독성학과 ADME 개념 설명 1개 이상",
+      "환경 독소 2종 이상 비교",
+      "약물 대사 효소 또는 CYP450 관련 근거 1개 이상",
+      "dC/dt 또는 C(t)=C0e^(-ke t) 모델 해석 1개 이상",
+      "복합 독성 또는 시너지 독성 설명 1개 이상",
+      "환경 안전성 또는 제약 안전성 개선 제안 1개 이상"
+    ],
+    "recommendedOutputTone": "환경 독소의 위험을 과장하기보다, 약물 대사 효소와 농도 변화 모델을 근거로 실제 임상·환경 안전성 평가에서 고려해야 할 변수를 논리적으로 정리하는 약학·화학·생명과학 융합 보고서 톤을 유지한다."
+  },
+  "transcriptionSourceSummary": {
+    "sourceImages": [
+      "92/1.png",
+      "92/2.png",
+      "92/3.png",
+      "92/4.png",
+      "92/5.png",
+      "92/6.png",
+      "92/7.png",
+      "92/8.png",
+      "92/9.png",
+      "92/10.png",
+      "92/11.png",
+      "92/12.png",
+      "92/13.png",
+      "92/14.png",
+      "92/15.png",
+      "92/16.png"
+    ],
+    "originalTitle": "[화학/약학] 약물 독성학, 환경 독소의 상관관계 아세틸콜린 자사고 일반고 세특 보고서 추천",
+    "originalTopic": "약물 독성학과 환경 독소의 상관관계",
+    "originalKeywords": [
+      "환경 독소",
+      "중금속",
+      "농약",
+      "미세플라스틱",
+      "약물 대사",
+      "효소 억제",
+      "복합 독성",
+      "시너지 독성",
+      "약동학",
+      "약력학"
+    ],
+    "originalReferenceExamples": [
+      "Casarett & Doull’s Toxicology: The Basic Science of Poisons - Klaassen, C. D. (Ed.)",
+      "Goodman & Gilman’s The Pharmacological Basis of Therapeutics - Brunton, L. L., Hilal-Dandan, R., Knollmann, B. C. (Eds.)",
+      "Li, M., et al. (2020). Effect of Cadmium Exposure on the CYP450 Enzyme System in Rat Models. Toxicology Letters, 333, 1-7.",
+      "Stefaniak, A. B., et al. (2021). Environmental and Occupational Exposure to Pesticides and Interactions with Drug Metabolism. Frontiers in Public Health, 9:670.",
+      "Wright, S. L., & Kelly, F. J. (2017). Plastic and Human Health: A Micro Issue? Environmental Science & Technology, 51(12), 6634-6647.",
+      "Lee, J., & Choi, K. (2020). Emerging Mixture Toxicology in Ecological Risk Assessments. Environmental Pollution, 259, 113896."
+    ],
+    "transcriptionNote": "이미지 기반 보고서 원문을 검색·복사 가능한 Word 텍스트화 자료와 MINI 적용용 구조화 seed 데이터로 분리해 구성함. 92/1.png는 심리학 인지혁명 문항으로 본 약물 독성학 보고서와 주제가 달라 구조화 seed에서는 제외하고 원본 이미지 목록에만 보존함."
+  }
+}
