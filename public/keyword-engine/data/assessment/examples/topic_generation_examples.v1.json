@@ -1,0 +1,1475 @@
+{
+  "version": "1.5.0-cumulative",
+  "examples": [
+    {
+      "input": {
+        "subject": "공통국어",
+        "assessment_title": "국어 규범을 창의적으로 성찰하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "국어 규범을 창의적으로 성찰 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "공통국어",
+        "assessment_title": "국어 활동지 작성하기"
+      },
+      "interpreted_report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "논증형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "weak_topic_to_avoid": "국어 활동지 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_problem_design"
+    },
+    {
+      "input": {
+        "subject": "공통국어",
+        "assessment_title": "서평 작성하기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형"
+      ],
+      "topic_formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+      "weak_topic_to_avoid": "서평 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_reading_criticism"
+    },
+    {
+      "input": {
+        "subject": "공통국어",
+        "assessment_title": "작품 속 인물이 되어 토론하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "독서비평형",
+        "논증형",
+        "창작설계형",
+        "개념해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "작품 속 인물이 되어 토론 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "공통수학",
+        "assessment_title": "방정식과 부등식 및 경우의 수와 행렬의 성질 탐구하기"
+      },
+      "interpreted_report_mode": [
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
+      "weak_topic_to_avoid": "방정식과 부등식 및 경우의 수와 행렬의 성질 탐구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_principle_application"
+    },
+    {
+      "input": {
+        "subject": "공통수학",
+        "assessment_title": "성취기준 기반 수학 문항 분석 후 재구성하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "문제설계형",
+        "풀이비교형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "성취기준 기반 수학 문항 분석 후 재구성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "공통수학",
+        "assessment_title": "인공지능을 활용한 수학 개념 탐구 후 문학 작품 창작하기"
+      },
+      "interpreted_report_mode": [
+        "프로그래밍구현형",
+        "독서비평형",
+        "창작설계형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[문제 상황] 해결을 위한 [알고리즘/프로그램] 설계와 기능 검증",
+      "weak_topic_to_avoid": "인공지능을 활용한 수학 개념 탐구 후 문학 작품 창작 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_programming_implementation"
+    },
+    {
+      "input": {
+        "subject": "공통영어",
+        "assessment_title": "멋진 신세계 속 역설에 관해 논평하기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형",
+        "논증형",
+        "사회문제분석형",
+        "창작설계형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "멋진 신세계 속 역설에 관해 논평 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "공통영어",
+        "assessment_title": "피지컬 AI 사용에 관한 근거 기반 논설문 쓰기"
+      },
+      "interpreted_report_mode": [
+        "논증형"
+      ],
+      "topic_formula": "[쟁점]에 대한 찬반 근거 비교와 자신의 관점에 따른 논증 구조화",
+      "weak_topic_to_avoid": "피지컬 AI 사용에 관한 근거 기반 논설문 쓰기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_argumentation"
+    },
+    {
+      "input": {
+        "subject": "통합사회",
+        "assessment_title": "사회 교과 도서 읽고 나만의 탐구 논술 쓰기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "독서비평형",
+        "사회문제분석형",
+        "창작설계형",
+        "개념해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "사회 교과 도서 읽고 나만의 탐구 논술 쓰기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "통합사회",
+        "assessment_title": "인공지능 관련 신문 기사를 통합적 관점으로 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "독서비평형",
+        "사회문제분석형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "인공지능 관련 신문 기사를 통합적 관점으로 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "한국사",
+        "assessment_title": "고려 사료 탐구 논술하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "고려 사료 탐구 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "한국사",
+        "assessment_title": "역사 사건에 대한 현대인의 평가 논술하기"
+      },
+      "interpreted_report_mode": [
+        "사회문제분석형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "역사 사건에 대한 현대인의 평가 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "한국사",
+        "assessment_title": "역사 여행 안내서 제작하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "역사 여행 안내서 제작 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "통합과학",
+        "assessment_title": "우주의 원소 형성과 물질의 결합에 대해 해석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "문제설계형",
+        "풀이비교형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "우주의 원소 형성과 물질의 결합에 대해 해석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "통합과학",
+        "assessment_title": "지구시스템과 생명중심원리에 대해 종합적으로 탐구하기"
+      },
+      "interpreted_report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "weak_topic_to_avoid": "지구시스템과 생명중심원리에 대해 종합적으로 탐구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_problem_design"
+    },
+    {
+      "input": {
+        "subject": "과학탐구실험",
+        "assessment_title": "데이터 기반의 과학적 자료 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "데이터 기반의 과학적 자료 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "과학탐구실험",
+        "assessment_title": "신소재의 과학적 매커니즘 논술하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "신소재의 과학적 매커니즘 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "과학탐구실험",
+        "assessment_title": "빛의 스펙트럼 관찰하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "빛의 스펙트럼 관찰 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "과학탐구실험",
+        "assessment_title": "화학 반응의 과학적 원리 실험하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "화학 반응의 과학적 원리 실험 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "정보",
+        "assessment_title": "빅데이터 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "프로그래밍구현형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "빅데이터 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "정보",
+        "assessment_title": "알고리즘 문제 해결 논술하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "프로그래밍구현형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "알고리즘 문제 해결 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "정보",
+        "assessment_title": "프로그램 작성하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "프로그래밍구현형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "프로그램 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "한문",
+        "assessment_title": "가치관이 드러나는 자호 짓기"
+      },
+      "interpreted_report_mode": [
+        "개념해석형"
+      ],
+      "topic_formula": "[대상/사례]에 나타난 [교과 개념]의 작동 원리와 의미 해석",
+      "weak_topic_to_avoid": "가치관이 드러나는 자호 짓기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_concept_interpretation"
+    },
+    {
+      "input": {
+        "subject": "한문",
+        "assessment_title": "인물을 분석하고 실천가능한 덕목 제시하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "인물을 분석하고 실천가능한 덕목 제시 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "미술",
+        "assessment_title": "한국미술사를 활용한 프로젝트 활동하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "독서비평형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "한국미술사를 활용한 프로젝트 활동 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "미술",
+        "assessment_title": "단계적으로 나의 미술작품 비평문 쓰기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형",
+        "논증형",
+        "창작설계형"
+      ],
+      "topic_formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+      "weak_topic_to_avoid": "단계적으로 나의 미술작품 비평문 쓰기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_reading_criticism"
+    },
+    {
+      "input": {
+        "subject": "미술",
+        "assessment_title": "오른쪽 두뇌 활용 드로잉하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "창작설계형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "오른쪽 두뇌 활용 드로잉 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "미술",
+        "assessment_title": "주제 표현에 따른 프로세스폴리오 활동하기"
+      },
+      "interpreted_report_mode": [
+        "창작설계형"
+      ],
+      "topic_formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
+      "weak_topic_to_avoid": "주제 표현에 따른 프로세스폴리오 활동 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_creative_design"
+    },
+    {
+      "input": {
+        "subject": "음악",
+        "assessment_title": "드럼 연주하기"
+      },
+      "interpreted_report_mode": [
+        "창작설계형"
+      ],
+      "topic_formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
+      "weak_topic_to_avoid": "드럼 연주 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_creative_design"
+    },
+    {
+      "input": {
+        "subject": "음악",
+        "assessment_title": "오타마톤 연주하기"
+      },
+      "interpreted_report_mode": [
+        "창작설계형"
+      ],
+      "topic_formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
+      "weak_topic_to_avoid": "오타마톤 연주 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_creative_design"
+    },
+    {
+      "input": {
+        "subject": "음악",
+        "assessment_title": "음악 감상 논술하기"
+      },
+      "interpreted_report_mode": [
+        "창작설계형"
+      ],
+      "topic_formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
+      "weak_topic_to_avoid": "음악 감상 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_creative_design"
+    },
+    {
+      "input": {
+        "subject": "음악",
+        "assessment_title": "음악회 기획하기"
+      },
+      "interpreted_report_mode": [
+        "프로그래밍구현형",
+        "창작설계형"
+      ],
+      "topic_formula": "[문제 상황] 해결을 위한 [알고리즘/프로그램] 설계와 기능 검증",
+      "weak_topic_to_avoid": "음악회 기획 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_programming_implementation"
+    },
+    {
+      "input": {
+        "subject": "체육",
+        "assessment_title": "롤링티볼 타격하기"
+      },
+      "interpreted_report_mode": [
+        "실기성찰형"
+      ],
+      "topic_formula": "[수행 기능]의 과정 분석과 자기 피드백을 통한 개선 방향 도출",
+      "weak_topic_to_avoid": "롤링티볼 타격 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_practical_reflection"
+    },
+    {
+      "input": {
+        "subject": "체육",
+        "assessment_title": "롤링티볼 캐치 및 송구하기"
+      },
+      "interpreted_report_mode": [
+        "실기성찰형"
+      ],
+      "topic_formula": "[수행 기능]의 과정 분석과 자기 피드백을 통한 개선 방향 도출",
+      "weak_topic_to_avoid": "롤링티볼 캐치 및 송구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_practical_reflection"
+    },
+    {
+      "input": {
+        "subject": "체육",
+        "assessment_title": "롤링티볼 리그전 참여하기"
+      },
+      "interpreted_report_mode": [
+        "실기성찰형"
+      ],
+      "topic_formula": "[수행 기능]의 과정 분석과 자기 피드백을 통한 개선 방향 도출",
+      "weak_topic_to_avoid": "롤링티볼 리그전 참여 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_practical_reflection"
+    },
+    {
+      "input": {
+        "subject": "체육",
+        "assessment_title": "생태형 스포츠 문화 및 롤링티볼 규칙 논술하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "사회문제분석형",
+        "실기성찰형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "생태형 스포츠 문화 및 롤링티볼 규칙 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "문학",
+        "assessment_title": "소설 감상 내용 질의응답하기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형"
+      ],
+      "topic_formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+      "weak_topic_to_avoid": "소설 감상 내용 질의응답 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_reading_criticism"
+    },
+    {
+      "input": {
+        "subject": "문학",
+        "assessment_title": "소설 속 사회적 쟁점에 대해 논술하기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형",
+        "논증형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "소설 속 사회적 쟁점에 대해 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "문학",
+        "assessment_title": "주제 통합 독서 일지 작성하기"
+      },
+      "interpreted_report_mode": [
+        "독서비평형"
+      ],
+      "topic_formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+      "weak_topic_to_avoid": "주제 통합 독서 일지 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_reading_criticism"
+    },
+    {
+      "input": {
+        "subject": "대수",
+        "assessment_title": "지수로그 오류 수정 및 삼각함수 문항 재구성 논술하기"
+      },
+      "interpreted_report_mode": [
+        "문제설계형",
+        "풀이비교형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "weak_topic_to_avoid": "지수로그 오류 수정 및 삼각함수 문항 재구성 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_problem_design"
+    },
+    {
+      "input": {
+        "subject": "대수",
+        "assessment_title": "진로 속에 녹아든 대수 원리 탐구하기"
+      },
+      "interpreted_report_mode": [
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
+      "weak_topic_to_avoid": "진로 속에 녹아든 대수 원리 탐구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_principle_application"
+    },
+    {
+      "input": {
+        "subject": "확률과 통계",
+        "assessment_title": "인공지능을 활용한 수학적 사고력 검증하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "인공지능을 활용한 수학적 사고력 검증 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "확률과 통계",
+        "assessment_title": "확률과 통계의 문제 조건을 변형하여 문제 해결하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "문제설계형",
+        "풀이비교형",
+        "연구보고서형",
+        "논증형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "확률과 통계의 문제 조건을 변형하여 문제 해결 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "영어 I",
+        "assessment_title": "영어 학술 텍스트 핵심 내용 분석 및 요약하는 글쓰기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "독서비평형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "영어 학술 텍스트 핵심 내용 분석 및 요약하는 글쓰기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "영어 I",
+        "assessment_title": "핵심 역량 신장 논증적 글쓰기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "연구보고서형",
+        "독서비평형",
+        "논증형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "핵심 역량 신장 논증적 글쓰기 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "미디어 영어",
+        "assessment_title": "영화나 광고 장면의 메시지를 분석하여 발표하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "영화나 광고 장면의 메시지를 분석하여 발표 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "미디어 영어",
+        "assessment_title": "동일 주제 영어 기사 2편 비교 분석 보고서 작성하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "연구보고서형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "동일 주제 영어 기사 2편 비교 분석 보고서 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "미디어 영어",
+        "assessment_title": "사회 이슈 분석 결과를 인포그래픽으로 제작하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "사회 이슈 분석 결과를 인포그래픽으로 제작 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "세계시민과 지리",
+        "assessment_title": "대륙별 국가 탐색하기"
+      },
+      "interpreted_report_mode": [
+        "사회문제분석형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "대륙별 국가 탐색 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "세계시민과 지리",
+        "assessment_title": "지정학적 분쟁의 해결 방안 모색하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "사회문제분석형",
+        "정책제안형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "지정학적 분쟁의 해결 방안 모색 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "세계시민과 지리",
+        "assessment_title": "초국적 기업의 공간적 분업 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "사회문제분석형",
+        "정책제안형",
+        "창작설계형",
+        "개념해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "초국적 기업의 공간적 분업 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "정치",
+        "assessment_title": "정부 형태 및 국가 기관 비교 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "사회문제분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "정부 형태 및 국가 기관 비교 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "정치",
+        "assessment_title": "정치 현상 탐구 활동지 작성하기"
+      },
+      "interpreted_report_mode": [
+        "프로그래밍구현형",
+        "사회문제분석형",
+        "정책제안형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[문제 상황] 해결을 위한 [알고리즘/프로그램] 설계와 기능 검증",
+      "weak_topic_to_avoid": "정치 현상 탐구 활동지 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_programming_implementation"
+    },
+    {
+      "input": {
+        "subject": "정치",
+        "assessment_title": "한국의 정치 문제 고찰하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "논증형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "한국의 정치 문제 고찰 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "현대사회와 윤리",
+        "assessment_title": "더불어 사는 삶을 위한 공익 중심 정책 제안하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "논증형",
+        "사회문제분석형",
+        "정책제안형",
+        "창작설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "더불어 사는 삶을 위한 공익 중심 정책 제안 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "현대사회와 윤리",
+        "assessment_title": "사회 정의 이론의 비판적 견해 논술하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "논증형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "사회 정의 이론의 비판적 견해 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "현대사회와 윤리",
+        "assessment_title": "윤리적 탐구 및 성찰 과정 기록하기"
+      },
+      "interpreted_report_mode": [
+        "논증형",
+        "사회문제분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "윤리적 탐구 및 성찰 과정 기록 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "물리학",
+        "assessment_title": "등가속도 운동 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형",
+        "원리적용형",
+        "실기성찰형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "등가속도 운동 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "물리학",
+        "assessment_title": "역학적 에너지 보존 논술하기"
+      },
+      "interpreted_report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "실기성찰형"
+      ],
+      "topic_formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
+      "weak_topic_to_avoid": "역학적 에너지 보존 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_practical_reflection"
+    },
+    {
+      "input": {
+        "subject": "화학",
+        "assessment_title": "르 샤틀리에 원리 탐구하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "르 샤틀리에 원리 탐구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "화학",
+        "assessment_title": "화학 반응에서의 양적 관계 확인 실험 계획하고 수행하기"
+      },
+      "interpreted_report_mode": [
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "화학 반응에서의 양적 관계 확인 실험 계획하고 수행 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "생명과학",
+        "assessment_title": "체세포 분열과 감수분열의 비교와 유전적 다양성 획득 과정 분석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "창작설계형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "체세포 분열과 감수분열의 비교와 유전적 다양성 획득 과정 분석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "생명과학",
+        "assessment_title": "흥분의 전도과정 논술하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "흥분의 전도과정 논술 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "지구과학",
+        "assessment_title": "H-R도 해석 및 별의 물리량 탐구하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "H-R도 해석 및 별의 물리량 탐구 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "지구과학",
+        "assessment_title": "지질 단면도 해석하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "개념해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "weak_topic_to_avoid": "지질 단면도 해석 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_data_interpretation"
+    },
+    {
+      "input": {
+        "subject": "융합과학 탐구",
+        "assessment_title": "선행 연구 탐색 및 융합적 탐구 설계하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "실험분석형",
+        "연구보고서형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "선행 연구 탐색 및 융합적 탐구 설계 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "융합과학 탐구",
+        "assessment_title": "연구 노트 작성하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "실험분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "연구 노트 작성 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "input": {
+        "subject": "융합과학 탐구",
+        "assessment_title": "연구 윤리와 공동 연구 중요성 토론하기"
+      },
+      "interpreted_report_mode": [
+        "논증형",
+        "사회문제분석형",
+        "개념해석형",
+        "원리적용형"
+      ],
+      "topic_formula": "[사회문제]의 원인과 영향 분석 및 [대상/공간] 기반 해결 방향 제안",
+      "weak_topic_to_avoid": "연구 윤리와 공동 연구 중요성 토론 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_social_problem_analysis"
+    },
+    {
+      "input": {
+        "subject": "융합과학 탐구",
+        "assessment_title": "융합적 탐구 결과 발표하기"
+      },
+      "interpreted_report_mode": [
+        "자료해석형",
+        "실험분석형",
+        "독서비평형",
+        "창작설계형",
+        "개념해석형"
+      ],
+      "topic_formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+      "weak_topic_to_avoid": "융합적 탐구 결과 발표 탐구",
+      "topic_quality_rule": "대상, 조건/변인, 교과 개념, 분석 방식, 결과 방향을 포함해 구체화한다.",
+      "recommended_structure_id": "structure_experiment_analysis"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통국어",
+      "raw_task_title": "주제 선정 토론하기",
+      "report_mode": [
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "발표논증형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통국어",
+      "raw_task_title": "국어 활동 포트폴리오",
+      "report_mode": [
+        "개념해석형"
+      ],
+      "topic_formula": "[교과 개념]을 중심으로 [사례/자료]를 해석하고 의미를 확장",
+      "structure_id": "structure_concept_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통수학",
+      "raw_task_title": "를 탐색하기 제시된 이차함수 식에 대하여 설명하고 그래프를 그리기",
+      "report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "자료해석형",
+        "논증형",
+        "글쓰기논술형",
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "structure_id": "structure_data_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통수학",
+      "raw_task_title": "리 찾기 방정식과 부등식에 대하여 설명하기",
+      "report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "structure_id": "structure_problem_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통수학",
+      "raw_task_title": "구하기 원의 방정식을 설명하고 실생활 탐구하기 제시된 원의 방정식을 설명하고 좌표평면 위에 그리기",
+      "report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "structure_id": "structure_problem_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통수학",
+      "raw_task_title": "이해하고 실생활 탐구하기 명제와 조건을 설멸하고 실생활 탐구하기",
+      "report_mode": [
+        "문제설계형",
+        "풀이비교형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+      "structure_id": "structure_problem_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통영어",
+      "raw_task_title": "주어진 주제(자신의 좌우명)에 대한 글쓰기",
+      "report_mode": [
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "공통영어",
+      "raw_task_title": "나만의 단어장 만들어 활용하기",
+      "report_mode": [
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
+      "structure_id": "structure_argumentative_writing",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "포물선 운동 실험하기 질량이 다른 물체의 낙하 운동을 이해하고 대각선 위로 던진 물체의 포물선",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "주기율표 만들기 원소들의 주기적 성질을 이해하고, 이를 토대로 주기율표를 만들며 그 과정",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "사례 인포그래픽",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "비교하기 구름의 분류와 파스퇴르의 생물속생설 도출 과정을 재연하여 보며, 귀납적",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "생활 속 과학의 유용성 알아보기",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "원리 알아보기 건축물에 적용된 내진설계에 대해 알아보고",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "공학설계형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "알아보기 호모폴라 전동기를 조립하여 작동시키고 에너지 전환을 설명한다.",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "과학탐구실험",
+      "raw_task_title": "연구윤리의식 알아보기",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "실험분석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[실험/관찰 대상]의 [측정값/변인]을 비교하고 [오차/원리]를 분석",
+      "structure_id": "structure_experiment_analysis",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "미술",
+      "raw_task_title": "학교 풍경 그리기",
+      "report_mode": [
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
+      "structure_id": "structure_product_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "미술",
+      "raw_task_title": "사진 촬영",
+      "report_mode": [
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
+      "structure_id": "structure_product_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "미술",
+      "raw_task_title": "학교 공간 디자인",
+      "report_mode": [
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
+      "structure_id": "structure_product_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "미술",
+      "raw_task_title": "공예 작품 제작",
+      "report_mode": [
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
+      "structure_id": "structure_product_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "미술",
+      "raw_task_title": "사진 촬영 작품계획서",
+      "report_mode": [
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "음악",
+      "raw_task_title": "창작 연주 계획서",
+      "report_mode": [
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "창작설계형",
+        "산출물제작형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "체육",
+      "raw_task_title": "심폐소생술 수",
+      "report_mode": [
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
+      "structure_id": "structure_argumentative_writing",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "통합과학",
+      "raw_task_title": "비교하기",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "자료해석형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "structure_id": "structure_data_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "통합과학",
+      "raw_task_title": "향에 대한 자신의 의견을 논술하기",
+      "report_mode": [
+        "개념해석형",
+        "원리적용형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
+      "structure_id": "structure_argumentative_writing",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "통합사회",
+      "raw_task_title": "사회 주제 탐구 우리 사회에서 발생하는 복잡한 사회문제를 관련 기사를 통해 설명하고 시",
+      "report_mode": [
+        "자료해석형",
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "사회문제분석형",
+        "공학설계형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "structure_id": "structure_data_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "통합사회",
+      "raw_task_title": "과정 중심 탐구활동 각 단원의 개념과 내용을 사례를 통해 탐구하고 문제 해결을 위해 제시된 대안들",
+      "report_mode": [
+        "연구설계형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "통합사회",
+      "raw_task_title": "환경지리 주제 논술 환경지리 주제에 대해 그 형성과정을 이해하고 인간 생활과의 관계 설명하기",
+      "report_mode": [
+        "연구설계형",
+        "논증형",
+        "글쓰기논술형",
+        "사회문제분석형"
+      ],
+      "topic_formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
+      "structure_id": "structure_research_design",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "한국사",
+      "raw_task_title": "학습자료 완성하기 한반도에 등장하는 여러 국가의 이름과 위치를 옳게 연결하여 설명함.",
+      "report_mode": [
+        "자료해석형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "structure_id": "structure_data_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    },
+    {
+      "source": "ansan_dongsan_pattern",
+      "subject_standard": "한국사",
+      "raw_task_title": "사료해석 후 논술하기 한반도와 만주 지역에 위치한 초기 국가들의 국가별 특징을 구별하여 설명함.",
+      "report_mode": [
+        "자료해석형",
+        "논증형",
+        "글쓰기논술형"
+      ],
+      "topic_formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+      "structure_id": "structure_data_interpretation",
+      "runtime_note": "학교명 제거 후 수행평가 패턴 예시로 사용"
+    }
+  ]
+}
