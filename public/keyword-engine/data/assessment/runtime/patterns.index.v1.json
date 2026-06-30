@@ -1,0 +1,175 @@
+{
+  "version": "1.25.0-cumulative",
+  "format": "patterns_index_split_by_subject_group.v1",
+  "generated_at": "2026-06-30T16:40:00+09:00",
+  "source_patch_name": "assessment_engine_patch_cumulative_029schools_20260630",
+  "total_subject_patterns": 710,
+  "group_count": 11,
+  "loading_policy": "학생 입력 과목의 과목군을 판정한 뒤 해당 group_key 파일만 로딩한다. 과목군 판정이 불확실하면 science/math/korean_literature/english/social_history_ethics 순으로 필요한 파일만 추가 로딩한다.",
+  "quality_policy": "각 과목군 파일에는 기존 subject_assessment_patterns.v1.json의 pattern 객체를 그대로 유지했으므로 보고서 생성 품질은 기존 단일 파일 방식과 동일하게 유지된다.",
+  "pattern_files": [
+    {
+      "group_key": "science",
+      "group_label": "과학",
+      "path": "data/assessment/patterns/by_subject_group/patterns.science.v1.json",
+      "pattern_count": 219,
+      "subject_standard_count": 218,
+      "source_subject_group_values": [
+        "과학",
+        "사회·역사·윤리",
+        "사회·인문",
+        "생활·교양",
+        "정보·AI",
+        "정보·공학",
+        "체육"
+      ],
+      "size_bytes": 703677,
+      "sha256": "72d259527db0180124e7eae46f04422c7c4967064706ceb81f56ffd279900993"
+    },
+    {
+      "group_key": "math",
+      "group_label": "수학",
+      "path": "data/assessment/patterns/by_subject_group/patterns.math.v1.json",
+      "pattern_count": 64,
+      "subject_standard_count": 64,
+      "source_subject_group_values": [
+        "수학"
+      ],
+      "size_bytes": 233883,
+      "sha256": "c2cfb9dce57f780c04bcf8046eb55b76552cc95d74f595d0f0e0c2658d422c97"
+    },
+    {
+      "group_key": "korean_literature",
+      "group_label": "국어·문학",
+      "path": "data/assessment/patterns/by_subject_group/patterns.korean_literature.v1.json",
+      "pattern_count": 54,
+      "subject_standard_count": 54,
+      "source_subject_group_values": [
+        "국어·문학"
+      ],
+      "size_bytes": 184076,
+      "sha256": "1703661f0e677a80c4a928d8ad04bf7821f6630a731e0e4889ffa610b999cd08"
+    },
+    {
+      "group_key": "english",
+      "group_label": "영어",
+      "path": "data/assessment/patterns/by_subject_group/patterns.english.v1.json",
+      "pattern_count": 55,
+      "subject_standard_count": 53,
+      "source_subject_group_values": [
+        "국어·문학",
+        "영어",
+        "영어·외국어",
+        "외국어"
+      ],
+      "size_bytes": 181286,
+      "sha256": "bf19968e34dd3a4df7198c0d10c77c0a102b2ae006429c283ee5acdf1b4d5a1f"
+    },
+    {
+      "group_key": "foreign_language",
+      "group_label": "외국어·제2외국어·한문",
+      "path": "data/assessment/patterns/by_subject_group/patterns.foreign_language.v1.json",
+      "pattern_count": 97,
+      "subject_standard_count": 93,
+      "source_subject_group_values": [
+        "국어·문학",
+        "영어",
+        "영어·외국어",
+        "외국어",
+        "제2외국어·한문"
+      ],
+      "size_bytes": 279916,
+      "sha256": "6e2e50ddc165c265970a3119f7589a5141a8fe1e3793674411ff9a251fd71dee"
+    },
+    {
+      "group_key": "social_history_ethics",
+      "group_label": "사회·역사·윤리",
+      "path": "data/assessment/patterns/by_subject_group/patterns.social_history_ethics.v1.json",
+      "pattern_count": 91,
+      "subject_standard_count": 88,
+      "source_subject_group_values": [
+        "사회",
+        "사회·역사",
+        "사회·역사·윤리",
+        "사회·역사·지리",
+        "사회·인문",
+        "융합·문제해결"
+      ],
+      "size_bytes": 326930,
+      "sha256": "2d7183fc234eaa843ea5803df42fddf9c3cc7625d05ffed2f5ee828f7d3e6a81"
+    },
+    {
+      "group_key": "info_ai_technology",
+      "group_label": "정보·AI·기술",
+      "path": "data/assessment/patterns/by_subject_group/patterns.info_ai_technology.v1.json",
+      "pattern_count": 43,
+      "subject_standard_count": 43,
+      "source_subject_group_values": [
+        "공학",
+        "공학·정보",
+        "과학",
+        "교양·융합",
+        "정보·AI",
+        "정보·공학",
+        "정보·기술",
+        "정보과학"
+      ],
+      "size_bytes": 137599,
+      "sha256": "b73ba8b69c176304c61003ff37bdab4bf446c61ac704ae111ba66785da5b50aa"
+    },
+    {
+      "group_key": "engineering",
+      "group_label": "공학",
+      "path": "data/assessment/patterns/by_subject_group/patterns.engineering.v1.json",
+      "pattern_count": 4,
+      "subject_standard_count": 4,
+      "source_subject_group_values": [
+        "공학"
+      ],
+      "size_bytes": 12735,
+      "sha256": "8108070e8973462fef8cf79fa207e50e5b665b5d77f4f93ced8f1406e0ddffe4"
+    },
+    {
+      "group_key": "arts_pe",
+      "group_label": "예술·체육",
+      "path": "data/assessment/patterns/by_subject_group/patterns.arts_pe.v1.json",
+      "pattern_count": 61,
+      "subject_standard_count": 55,
+      "source_subject_group_values": [
+        "예술",
+        "예술·체육",
+        "예체능",
+        "체육",
+        "체육·예술"
+      ],
+      "size_bytes": 182483,
+      "sha256": "44e407eb3f74746b218bdb1aab7ba95399f540730bee099465480d6dc25c115d"
+    },
+    {
+      "group_key": "liberal_integrated",
+      "group_label": "교양·융합·생활",
+      "path": "data/assessment/patterns/by_subject_group/patterns.liberal_integrated.v1.json",
+      "pattern_count": 15,
+      "subject_standard_count": 15,
+      "source_subject_group_values": [
+        "교양·융합",
+        "기타",
+        "인문·교양"
+      ],
+      "size_bytes": 35747,
+      "sha256": "1495909705af51dab85c715b707d321e8a76ec1e626f5a46d1693892aba9b007"
+    },
+    {
+      "group_key": "misc",
+      "group_label": "기타",
+      "path": "data/assessment/patterns/by_subject_group/patterns.misc.v1.json",
+      "pattern_count": 7,
+      "subject_standard_count": 7,
+      "source_subject_group_values": [
+        "기타"
+      ],
+      "size_bytes": 18252,
+      "sha256": "ec48031e5c0f01d373dc5eabe65314fac30ef00e9db978672711ae2ae8207bd4"
+    }
+  ]
+}
