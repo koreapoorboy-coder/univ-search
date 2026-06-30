@@ -1,0 +1,1644 @@
+{
+  "version": "1.25.0-cumulative",
+  "format": "subject_assessment_patterns_split_by_subject_group.v1",
+  "generated_at": "2026-06-30T16:40:00+09:00",
+  "source_patch_name": "assessment_engine_patch_cumulative_029schools_20260630",
+  "group_key": "liberal_integrated",
+  "group_label": "교양·융합·생활",
+  "pattern_count": 15,
+  "subject_group_values": [
+    "교양·융합",
+    "기타",
+    "인문·교양"
+  ],
+  "subject_standard_count": 15,
+  "subject_standard_examples": [
+    "과제연구Ⅱ",
+    "과제연구기초",
+    "논리와 사고",
+    "논리와사고",
+    "논리학",
+    "미래주제연구",
+    "삶과 종교",
+    "생활 속의 융합적 사고",
+    "생활과 창의성",
+    "융합프로젝트",
+    "인간과 철학",
+    "자기 주도적인 삶과 미래 역량 탐구",
+    "졸업논문연구",
+    "진로와 직업",
+    "진로직업 탐구"
+  ],
+  "split_policy": "기존 pattern 객체를 삭제·축약하지 않고 과목군별 파일로 분산 저장한다.",
+  "subject_patterns": [
+    {
+      "subject_standard": "과제연구Ⅱ",
+      "subject_group": "교양·융합",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "seoul_science_2026_s1_g123"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제설정",
+          "count": 3
+        },
+        {
+          "value": "연구설계",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "연구계획형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "연구계획서",
+          "count": 3
+        },
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "분석보고서",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "연구노트",
+          "count": 1
+        },
+        {
+          "value": "토론기록지",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험분석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[현상/문제]에 대한 [연구 질문]을 설정하고 [방법/변인]을 설계하여 검증 가능성을 분석",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "subject_standard": "과제연구기초",
+      "subject_group": "교양·융합",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "seoul_science_2026_s1_g123"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제설정",
+          "count": 3
+        },
+        {
+          "value": "연구설계",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "연구계획형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "연구계획서",
+          "count": 3
+        },
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "분석보고서",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "연구노트",
+          "count": 1
+        },
+        {
+          "value": "토론기록지",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험분석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[현상/문제]에 대한 [연구 질문]을 설정하고 [방법/변인]을 설계하여 검증 가능성을 분석",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "subject_standard": "논리와 사고",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "anyang_foreign_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "표현창작",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "문제해결형",
+          "count": 2
+        },
+        {
+          "value": "조사탐구형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "풀이보고서",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "개념해석형",
+          "count": 2
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[대상/사례]에 나타난 [교과 개념]의 작동 원리와 의미 해석",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "미래주제연구",
+      "subject_group": "교양·융합",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "anyang_foreign_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "연구설계",
+          "count": 3
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "원리적용",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "조사탐구형",
+          "count": 3
+        },
+        {
+          "value": "프로젝트형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 2
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[탐구 주제]에 대한 선행자료 분석과 연구 질문 기반 보고서 작성",
+          "count": 2
+        },
+        {
+          "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "subject_standard": "생활 속의 융합적 사고",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "anyang_foreign_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "원리적용",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        },
+        {
+          "value": "진로연계",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "조사탐구형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "개념해석형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점]에 대한 찬반 근거 비교와 자신의 관점에 따른 논증 구조화",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "인간과 철학",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "unjeong_2026_g1_s1_163f01"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "철학적사고",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "문제제작형",
+          "count": 1
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "문항재구성물",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        },
+        {
+          "value": "풀이보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "개념해석형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "독서비평형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "문제설계형",
+          "count": 1
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        },
+        {
+          "value": "풀이비교형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "졸업논문연구",
+      "subject_group": "교양·융합",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "seoul_science_2026_s1_g123"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제설정",
+          "count": 3
+        },
+        {
+          "value": "연구설계",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "연구계획형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "연구계획서",
+          "count": 3
+        },
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "분석보고서",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "연구노트",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        },
+        {
+          "value": "토론기록지",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "실험분석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[현상/문제]에 대한 [연구 질문]을 설정하고 [방법/변인]을 설계하여 검증 가능성을 분석",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "subject_standard": "진로와 직업",
+      "subject_group": "교양·융합",
+      "evidence_count": 5,
+      "topic_generating_evidence_count": 5,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeongnam_foreign_2026_g1_s1",
+        "seondeok_2026_s1_liberal_arts"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "진로탐색",
+          "count": 5
+        },
+        {
+          "value": "융합탐구",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "창작설계",
+          "count": 2
+        },
+        {
+          "value": "탐구설계",
+          "count": 2
+        },
+        {
+          "value": "논증구성",
+          "count": 1
+        },
+        {
+          "value": "데이터분석",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "디지털·AI",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 5
+        },
+        {
+          "value": "구술발표형",
+          "count": 4
+        },
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "발표자료",
+          "count": 5
+        },
+        {
+          "value": "창작물",
+          "count": 3
+        },
+        {
+          "value": "보고서",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오",
+          "count": 2
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "진로탐색형",
+          "count": 5
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "창작설계형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[관심 진로/직업]의 요구 역량을 탐색하고 개인 학업 계획과 연결",
+          "count": 3
+        },
+        {
+          "formula": "[문제 상황]을 해결하기 위한 [설계안/산출물]을 제작하고 효과를 검토",
+          "count": 1
+        },
+        {
+          "formula": "[사회 쟁점]에 대한 자료를 해석하고 [관점/해결 방안]을 논증",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "subject_standard": "생활과 창의성",
+      "subject_group": "기타",
+      "evidence_count": 1,
+      "topic_generating_evidence_count": 1,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "seorabeol_2026_g3_s1_5555da16"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "실험분석형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[실험 조건] 변화에 따른 [결과]를 측정·비교하고 [교과 원리]로 설명",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "subject_standard": "삶과 종교",
+      "subject_group": "인문·교양",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_g1_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 2
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "실험분석형",
+          "count": 2
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "융합프로젝트",
+      "subject_group": "인문·교양",
+      "evidence_count": 4,
+      "topic_generating_evidence_count": 4,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g3_s1_7cdd7492"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 4
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 4
+        },
+        {
+          "value": "문제해결",
+          "count": 4
+        },
+        {
+          "value": "사회문제분석",
+          "count": 4
+        },
+        {
+          "value": "실험탐구",
+          "count": 4
+        },
+        {
+          "value": "자료해석",
+          "count": 4
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "구술발표형",
+          "count": 4
+        },
+        {
+          "value": "독서기반형",
+          "count": 4
+        },
+        {
+          "value": "문제해결형",
+          "count": 4
+        },
+        {
+          "value": "보고서작성형",
+          "count": 4
+        },
+        {
+          "value": "실험실습형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "토의토론형",
+          "count": 4
+        },
+        {
+          "value": "프로젝트형",
+          "count": 4
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "발표자료",
+          "count": 4
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 4
+        },
+        {
+          "value": "실행결과물",
+          "count": 4
+        },
+        {
+          "value": "실험보고서",
+          "count": 4
+        },
+        {
+          "value": "자료분석지",
+          "count": 4
+        },
+        {
+          "value": "정책제안서",
+          "count": 4
+        },
+        {
+          "value": "탐구보고서",
+          "count": 4
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 4
+        },
+        {
+          "value": "독서비평형",
+          "count": 4
+        },
+        {
+          "value": "실험분석형",
+          "count": 4
+        },
+        {
+          "value": "연구보고서형",
+          "count": 4
+        },
+        {
+          "value": "연구설계형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점]에 대한 [관점/주장]을 근거와 반론 검토로 논증",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "subject_standard": "자기 주도적인 삶과 미래 역량 탐구",
+      "subject_group": "인문·교양",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g1_s1_b104e0ed"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 3
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 3
+        },
+        {
+          "value": "자기이해",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "진로연계",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "사회문제분석",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "계획설계형",
+          "count": 3
+        },
+        {
+          "value": "독서기반형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "서평·독서일지",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "자료분석지",
+          "count": 3
+        },
+        {
+          "value": "진로계획서",
+          "count": 3
+        },
+        {
+          "value": "정책제안서",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실행결과물",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 3
+        },
+        {
+          "value": "독서비평형",
+          "count": 3
+        },
+        {
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "진로설계형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점]에 대한 [관점/주장]을 근거와 반론 검토로 논증",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "subject_standard": "진로직업 탐구",
+      "subject_group": "인문·교양",
+      "evidence_count": 4,
+      "topic_generating_evidence_count": 4,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g2_s1_7183fdf9"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 4
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 4
+        },
+        {
+          "value": "실험탐구",
+          "count": 4
+        },
+        {
+          "value": "자기이해",
+          "count": 4
+        },
+        {
+          "value": "자료해석",
+          "count": 4
+        },
+        {
+          "value": "진로연계",
+          "count": 4
+        },
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "계획설계형",
+          "count": 4
+        },
+        {
+          "value": "독서기반형",
+          "count": 4
+        },
+        {
+          "value": "실험실습형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "서평·독서일지",
+          "count": 4
+        },
+        {
+          "value": "실험보고서",
+          "count": 4
+        },
+        {
+          "value": "자료분석지",
+          "count": 4
+        },
+        {
+          "value": "진로계획서",
+          "count": 4
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 4
+        },
+        {
+          "value": "독서비평형",
+          "count": 4
+        },
+        {
+          "value": "실험분석형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "진로설계형",
+          "count": 3
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점]에 대한 [관점/주장]을 근거와 반론 검토로 논증",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "subject_standard": "논리와사고",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeongnam_foreign_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증구성",
+          "count": 2
+        },
+        {
+          "value": "융합탐구",
+          "count": 2
+        },
+        {
+          "value": "데이터분석",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "탐구설계",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "포트폴리오",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[텍스트/작품]의 표현과 맥락을 분석하여 [주장/해석]을 논증",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "논리학",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeongnam_foreign_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증구성",
+          "count": 2
+        },
+        {
+          "value": "융합탐구",
+          "count": 2
+        },
+        {
+          "value": "데이터분석",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "토론형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[텍스트/작품]의 표현과 맥락을 분석하여 [주장/해석]을 논증",
+          "count": 2
+        }
+      ]
+    }
+  ]
+}
