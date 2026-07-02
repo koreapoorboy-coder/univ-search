@@ -1,10 +1,10 @@
 {
-  "version": "1.25.0-cumulative",
+  "version": "1.29.0-cumulative",
   "format": "subject_assessment_patterns_split_pointer.v1",
-  "generated_at": "2026-06-30T16:40:00+09:00",
+  "generated_at": "2026-07-02T18:10:00+09:00",
   "split_mode": true,
-  "source_patch_name": "assessment_engine_patch_cumulative_029schools_20260630",
-  "total_subject_patterns": 710,
+  "source_patch_name": "assessment_engine_patch_034schools_garak_20260702",
+  "total_subject_patterns": 762,
   "group_count": 11,
   "pattern_index_path": "data/assessment/patterns/by_subject_group/patterns.index.v1.json",
   "pattern_files": [
@@ -12,61 +12,61 @@
       "group_key": "science",
       "group_label": "과학",
       "path": "data/assessment/patterns/by_subject_group/patterns.science.v1.json",
-      "pattern_count": 219
+      "pattern_count": 224
     },
     {
       "group_key": "math",
       "group_label": "수학",
       "path": "data/assessment/patterns/by_subject_group/patterns.math.v1.json",
-      "pattern_count": 64
+      "pattern_count": 71
     },
     {
       "group_key": "korean_literature",
       "group_label": "국어·문학",
       "path": "data/assessment/patterns/by_subject_group/patterns.korean_literature.v1.json",
-      "pattern_count": 54
+      "pattern_count": 63
     },
     {
       "group_key": "english",
       "group_label": "영어",
       "path": "data/assessment/patterns/by_subject_group/patterns.english.v1.json",
-      "pattern_count": 55
+      "pattern_count": 61
     },
     {
       "group_key": "foreign_language",
       "group_label": "외국어·제2외국어·한문",
       "path": "data/assessment/patterns/by_subject_group/patterns.foreign_language.v1.json",
-      "pattern_count": 97
+      "pattern_count": 98
     },
     {
       "group_key": "social_history_ethics",
       "group_label": "사회·역사·윤리",
       "path": "data/assessment/patterns/by_subject_group/patterns.social_history_ethics.v1.json",
-      "pattern_count": 91
+      "pattern_count": 98
     },
     {
       "group_key": "info_ai_technology",
       "group_label": "정보·AI·기술",
       "path": "data/assessment/patterns/by_subject_group/patterns.info_ai_technology.v1.json",
-      "pattern_count": 43
+      "pattern_count": 49
     },
     {
       "group_key": "engineering",
       "group_label": "공학",
       "path": "data/assessment/patterns/by_subject_group/patterns.engineering.v1.json",
-      "pattern_count": 4
+      "pattern_count": 5
     },
     {
       "group_key": "arts_pe",
       "group_label": "예술·체육",
       "path": "data/assessment/patterns/by_subject_group/patterns.arts_pe.v1.json",
-      "pattern_count": 61
+      "pattern_count": 68
     },
     {
       "group_key": "liberal_integrated",
-      "group_label": "교양·융합·생활",
+      "group_label": "생활·교양·융합",
       "path": "data/assessment/patterns/by_subject_group/patterns.liberal_integrated.v1.json",
-      "pattern_count": 15
+      "pattern_count": 18
     },
     {
       "group_key": "misc",
@@ -75,6 +75,6 @@
       "pattern_count": 7
     }
   ],
-  "legacy_monolithic_policy": "기존 단일 subject_patterns 배열은 GitHub 업로드·로드 지연을 줄이기 위해 과목군별 파일로 분리했다. 기존 전체 pattern 객체는 by_subject_group 하위 파일에 보존되어 있다.",
-  "loader_note": "기존 엔진이 subject_patterns 배열만 읽는 경우, pattern_index_path를 먼저 읽고 필요한 과목군 파일의 subject_patterns를 병합하도록 로더를 수정해야 한다."
+  "legacy_monolithic_policy": "대용량 subject_assessment_patterns는 과목군별 split 파일로 분리하며, 이 파일은 로더 호환용 포인터로 유지한다.",
+  "loader_note": "엔진에서는 pattern_index_path를 읽어 과목군별 patterns.*.v1.json 파일을 로드한다."
 }
