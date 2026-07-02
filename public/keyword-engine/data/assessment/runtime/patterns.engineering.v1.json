@@ -1,19 +1,20 @@
 {
-  "version": "1.25.0-cumulative",
+  "version": "1.29.0-cumulative",
   "format": "subject_assessment_patterns_split_by_subject_group.v1",
-  "generated_at": "2026-06-30T16:40:00+09:00",
-  "source_patch_name": "assessment_engine_patch_cumulative_029schools_20260630",
+  "generated_at": "2026-07-02T18:10:00+09:00",
+  "source_patch_name": "assessment_engine_patch_034schools_garak_20260702",
   "group_key": "engineering",
   "group_label": "공학",
-  "pattern_count": 4,
+  "pattern_count": 5,
   "subject_group_values": [
     "공학"
   ],
-  "subject_standard_count": 4,
+  "subject_standard_count": 5,
   "subject_standard_examples": [
     "공학개론",
     "생활 속의 공학",
     "인터렉티브 디자인과 테크놀로지",
+    "커뮤니케이션의 공학적 이해",
     "프로젝트기반연구Ⅱ-액체연료 기반 접촉점화 방식을 활용한 추력기 설계 및 제작"
   ],
   "split_policy": "기존 pattern 객체를 삭제·축약하지 않고 과목군별 파일로 분산 저장한다.",
@@ -419,6 +420,142 @@
         {
           "formula": "[교과 원리]를 적용한 [산출물] 제작 과정과 기능·표현 효과 분석",
           "count": 4
+        }
+      ]
+    },
+    {
+      "subject_standard": "커뮤니케이션의 공학적 이해",
+      "subject_group": "공학",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "incheon_haneul_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "원리적용",
+          "count": 2
+        },
+        {
+          "value": "설계·모델링",
+          "count": 2
+        },
+        {
+          "value": "탐구설계",
+          "count": 2
+        },
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "실험·관찰",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "독서기반형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "산출물",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "풀이보고서",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "실험분석형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
+          "count": 1
+        },
+        {
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 1
         }
       ]
     },
