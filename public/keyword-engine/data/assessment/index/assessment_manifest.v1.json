@@ -1,7 +1,7 @@
 {
-  "version": "1.25.1-patterns-split",
-  "patch_name": "assessment_engine_patch_029schools_patterns_split_by_subject_group_20260630",
-  "generated_at": "2026-06-30T16:40:00+09:00",
+  "version": "1.29.0-patterns-split",
+  "patch_name": "assessment_engine_patch_034schools_garak_20260702",
+  "generated_at": "2026-07-02T18:10:00+09:00",
   "purpose": "학교 수행평가 원자료를 학교명 의존 없이 수행평가 패턴 기반 보고서 주제 생성 엔진에 누적 반영한다.",
   "input_sources": [
     "sema_2026_g1_s1",
@@ -670,88 +670,118 @@
     "gyeonggi_foreign_2026_g3_s1_e6846595",
     "gyeongnam_foreign_2026_g1_s1",
     "gyeongnam_foreign_2026_g2_s1",
-    "gyeongnam_foreign_2026_g3_s1"
+    "gyeongnam_foreign_2026_g3_s1",
+    "kyungil_girls_2026_g1_s1",
+    "kyungil_girls_2026_g2_s1",
+    "kyungil_girls_2026_g3_s1",
+    "gwangyang_steel_2026_g1_s1",
+    "gwangyang_steel_2026_g2_s1",
+    "gwangyang_steel_2026_g3_s1",
+    "incheon_jinsan_science_2026_g1_s1",
+    "incheon_jinsan_science_2026_g2_s1",
+    "incheon_jinsan_science_2026_g3_s1",
+    "incheon_jinsan_science_2026_special_s1",
+    "incheon_haneul_2026_g1_s1",
+    "incheon_haneul_2026_g2_s1",
+    "incheon_haneul_2026_g3_s1",
+    "garak_2026_g1_assessment_plan_s1",
+    "garak_2026_g1_teaching_plan_s1",
+    "garak_2026_g2_assessment_plan_s1",
+    "garak_2026_g2_teaching_plan_s1",
+    "garak_2026_g3_assessment_plan_s1",
+    "garak_2026_g3_teaching_plan_s1"
   ],
-  "newly_added_school": "경남외고",
-  "newly_added_tasks": 68,
-  "newly_added_topic_generating_tasks": 65,
-  "newly_added_non_topic_generating_tasks": 3,
-  "total_assessment_tasks": 3906,
-  "topic_generating_tasks": 3142,
-  "non_topic_generating_tasks": 764,
-  "standard_subject_count": 710,
-  "source_count": 667,
+  "newly_added_school": "가락고",
+  "newly_added_tasks": 157,
+  "newly_added_topic_generating_tasks": 130,
+  "newly_added_non_topic_generating_tasks": 27,
+  "total_assessment_tasks": 4607,
+  "topic_generating_tasks": 3516,
+  "non_topic_generating_tasks": 1091,
+  "standard_subject_count": 762,
+  "source_count": 686,
   "runtime_school_name_policy": "school_name은 원자료 추적 및 검수용으로만 유지하고, 런타임 주제 생성은 subject_group/content_axis/method_axis/output_axis/report_mode/topic_formula 중심으로 수행한다.",
-  "latest_input_bundle": "경남외고 수행평가.zip",
-  "latest_source_pdf_count": 3,
-  "previous_patch": "assessment_engine_patch_cumulative_029schools_20260630",
-  "latest_source_file_count": 3,
+  "latest_input_bundle": "가락고 수행평가.zip",
+  "latest_source_pdf_count": 6,
+  "previous_patch": "assessment_engine_patch_033schools_incheon_haneul_20260702",
+  "latest_source_file_count": 6,
   "latest_source_hwp_count": 0,
   "latest_source_hwpx_count": 0,
-  "latest_source_pdf_page_count": 442,
-  "latest_source_subject_count": 32,
+  "latest_source_pdf_page_count": 60,
+  "latest_source_subject_count": 57,
   "latest_patch_docs": [
-    "README_START_HERE.md",
-    "VALIDATION_CHECKLIST.md",
-    "SPLIT_PATTERNS_APPLY_GUIDE.md"
+    "data/assessment/index/assessment_manifest.v1.json",
+    "data/assessment/records/assessment_tasks.v1.jsonl",
+    "data/assessment/patterns/by_subject_group/patterns.index.v1.json"
   ],
   "patterns_storage_mode": "split_by_subject_group",
-  "patterns_total_count": 710,
+  "patterns_total_count": 762,
   "patterns_group_count": 11,
   "patterns_index_path": "data/assessment/patterns/by_subject_group/patterns.index.v1.json",
   "patterns_group_files": [
     {
       "group_key": "science",
+      "group_label": "과학",
       "path": "data/assessment/patterns/by_subject_group/patterns.science.v1.json",
-      "pattern_count": 219
+      "pattern_count": 224
     },
     {
       "group_key": "math",
+      "group_label": "수학",
       "path": "data/assessment/patterns/by_subject_group/patterns.math.v1.json",
-      "pattern_count": 64
+      "pattern_count": 71
     },
     {
       "group_key": "korean_literature",
+      "group_label": "국어·문학",
       "path": "data/assessment/patterns/by_subject_group/patterns.korean_literature.v1.json",
-      "pattern_count": 54
+      "pattern_count": 63
     },
     {
       "group_key": "english",
+      "group_label": "영어",
       "path": "data/assessment/patterns/by_subject_group/patterns.english.v1.json",
-      "pattern_count": 55
-    },
-    {
-      "group_key": "foreign_language",
-      "path": "data/assessment/patterns/by_subject_group/patterns.foreign_language.v1.json",
-      "pattern_count": 97
-    },
-    {
-      "group_key": "social_history_ethics",
-      "path": "data/assessment/patterns/by_subject_group/patterns.social_history_ethics.v1.json",
-      "pattern_count": 91
-    },
-    {
-      "group_key": "info_ai_technology",
-      "path": "data/assessment/patterns/by_subject_group/patterns.info_ai_technology.v1.json",
-      "pattern_count": 43
-    },
-    {
-      "group_key": "engineering",
-      "path": "data/assessment/patterns/by_subject_group/patterns.engineering.v1.json",
-      "pattern_count": 4
-    },
-    {
-      "group_key": "arts_pe",
-      "path": "data/assessment/patterns/by_subject_group/patterns.arts_pe.v1.json",
       "pattern_count": 61
     },
     {
+      "group_key": "foreign_language",
+      "group_label": "외국어·제2외국어·한문",
+      "path": "data/assessment/patterns/by_subject_group/patterns.foreign_language.v1.json",
+      "pattern_count": 98
+    },
+    {
+      "group_key": "social_history_ethics",
+      "group_label": "사회·역사·윤리",
+      "path": "data/assessment/patterns/by_subject_group/patterns.social_history_ethics.v1.json",
+      "pattern_count": 98
+    },
+    {
+      "group_key": "info_ai_technology",
+      "group_label": "정보·AI·기술",
+      "path": "data/assessment/patterns/by_subject_group/patterns.info_ai_technology.v1.json",
+      "pattern_count": 49
+    },
+    {
+      "group_key": "engineering",
+      "group_label": "공학",
+      "path": "data/assessment/patterns/by_subject_group/patterns.engineering.v1.json",
+      "pattern_count": 5
+    },
+    {
+      "group_key": "arts_pe",
+      "group_label": "예술·체육",
+      "path": "data/assessment/patterns/by_subject_group/patterns.arts_pe.v1.json",
+      "pattern_count": 68
+    },
+    {
       "group_key": "liberal_integrated",
+      "group_label": "생활·교양·융합",
       "path": "data/assessment/patterns/by_subject_group/patterns.liberal_integrated.v1.json",
-      "pattern_count": 15
+      "pattern_count": 18
     },
     {
       "group_key": "misc",
+      "group_label": "기타",
       "path": "data/assessment/patterns/by_subject_group/patterns.misc.v1.json",
       "pattern_count": 7
     }
