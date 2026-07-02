@@ -1,17 +1,18 @@
 {
-  "version": "1.29.0-cumulative",
-  "format": "subject_assessment_patterns_split_by_subject_group.v1",
-  "generated_at": "2026-07-02T18:10:00+09:00",
-  "source_patch_name": "assessment_engine_patch_034schools_garak_20260702",
+  "version": "1.33.0-cumulative",
+  "format": "subject_assessment_patterns_by_subject_group.v1",
+  "generated_at": "2026-07-02T19:40:00+09:00",
+  "source_patch_name": "assessment_engine_patch_040schools_dankook_high_20260702",
   "group_key": "liberal_integrated",
   "group_label": "생활·교양·융합",
-  "pattern_count": 18,
+  "pattern_count": 19,
   "subject_group_values": [
     "교양·융합",
     "기타",
+    "생활·교양·융합",
     "인문·교양"
   ],
-  "subject_standard_count": 18,
+  "subject_standard_count": 19,
   "subject_standard_examples": [
     "과제연구Ⅱ",
     "과제연구기초",
@@ -19,6 +20,7 @@
     "논리와 사고",
     "논리와사고",
     "논리학",
+    "논술",
     "미래주제연구",
     "보건",
     "삶과 종교",
@@ -32,7 +34,7 @@
     "진로와 직업",
     "진로직업 탐구"
   ],
-  "split_policy": "기존 pattern 객체를 삭제·축약하지 않고 과목군별 파일로 분산 저장한다.",
+  "split_policy": "과목군별 분리 저장. 런타임에서는 patterns.index.v1.json을 통해 필요한 과목군 파일만 로드한다.",
   "subject_patterns": [
     {
       "subject_standard": "과제연구Ⅱ",
@@ -676,6 +678,86 @@
         {
           "formula": "[텍스트/작품]의 표현과 맥락을 분석하여 [주장/해석]을 논증",
           "count": 2
+        }
+      ]
+    },
+    {
+      "subject_standard": "논술",
+      "subject_group": "생활·교양·융합",
+      "evidence_count": 1,
+      "topic_generating_evidence_count": 1,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "실험·관찰",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "설계·모델링",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "창작형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        },
+        {
+          "value": "창작물",
+          "count": 1
+        },
+        {
+          "value": "산출물",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "개념해석형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 1
         }
       ]
     },

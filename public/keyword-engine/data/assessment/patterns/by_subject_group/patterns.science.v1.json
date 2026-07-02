@@ -1,11 +1,11 @@
 {
-  "version": "1.29.0-cumulative",
-  "format": "subject_assessment_patterns_split_by_subject_group.v1",
-  "generated_at": "2026-07-02T18:10:00+09:00",
-  "source_patch_name": "assessment_engine_patch_034schools_garak_20260702",
+  "version": "1.33.0-cumulative",
+  "format": "subject_assessment_patterns_by_subject_group.v1",
+  "generated_at": "2026-07-02T19:40:00+09:00",
+  "source_patch_name": "assessment_engine_patch_040schools_dankook_high_20260702",
   "group_key": "science",
   "group_label": "과학",
-  "pattern_count": 224,
+  "pattern_count": 226,
   "subject_group_values": [
     "과학",
     "사회·역사·윤리",
@@ -15,7 +15,7 @@
     "정보·공학",
     "체육"
   ],
-  "subject_standard_count": 223,
+  "subject_standard_count": 225,
   "subject_standard_examples": [
     "AI와 디지털 생물학",
     "AP 물리학C : 전자기학",
@@ -36,69 +36,9 @@
     "Biology I",
     "Chemistry I",
     "Physics I",
-    "가상현실(VR)과 과학 콘텐츠",
-    "가정과학",
-    "객체지향프로그래밍",
-    "고급 물리학",
-    "고급 생명과학",
-    "고급 지구과학",
-    "고급 화학",
-    "고급물리",
-    "고급물리학Ⅰ",
-    "고급물리학Ⅱ",
-    "고급물리학실험",
-    "고급물리학실험Ⅰ",
-    "고급생명과학",
-    "고급생명과학Ⅰ",
-    "고급생명과학Ⅱ",
-    "고급생명과학실험",
-    "고급생명과학실험Ⅰ",
-    "고급지구과학",
-    "고급지구과학Ⅰ",
-    "고급화학",
-    "고급화학I",
-    "고급화학II",
-    "고급화학Ⅰ",
-    "고급화학실험Ⅰ",
-    "공학 커뮤니케이션",
-    "공학물리 프로젝트",
-    "과학과제 연구",
-    "과학과제연구",
-    "과학문명사",
-    "과학사",
-    "과학사 및 과학철학",
-    "과학융합",
-    "과학철학",
-    "과학철학특강 - 과학사",
-    "과학탐구실험",
-    "과학탐구실험 1",
-    "과학탐구실험1",
-    "과학탐구실험2",
-    "관측 천문학",
-    "그린 에너지 메이커",
-    "기초물리학및실험Ⅰ",
-    "기초물리학및실험Ⅲ",
-    "기초생명과학및실험Ⅰ",
-    "기초생명과학및실험Ⅲ",
-    "기초유기화학",
-    "기초지구과학및실험Ⅰ",
-    "기초지구과학및실험Ⅲ",
-    "기초화학및실험Ⅰ",
-    "기초화학및실험Ⅲ",
-    "기후변화와환경생태",
-    "뇌과학",
-    "데이터 과학",
-    "데이터과학",
-    "데이터과학과 머신러닝",
-    "동물생리학",
-    "로봇공학기초실습Ⅰ-전자회로",
-    "메이커융합과학Ⅰ",
-    "물리 첨단기기활용법",
-    "물리Ⅰ",
-    "물리Ⅲ",
-    "물리기반 융합세미나Ⅰ"
+    "가상현실(VR)과 과학 콘텐츠"
   ],
-  "split_policy": "기존 pattern 객체를 삭제·축약하지 않고 과목군별 파일로 분산 저장한다.",
+  "split_policy": "과목군별 분리 저장. 런타임에서는 patterns.index.v1.json을 통해 필요한 과목군 파일만 로드한다.",
   "subject_patterns": [
     {
       "subject_standard": "AI와 디지털 생물학",
@@ -6673,13 +6613,22 @@
     {
       "subject_standard": "과학사",
       "subject_group": "과학",
-      "evidence_count": 3,
-      "topic_generating_evidence_count": 3,
+      "evidence_count": 13,
+      "topic_generating_evidence_count": 13,
       "school_name_removed_for_runtime": true,
       "source_ids": [
-        "anyang_foreign_2026_g3_s1"
+        "anyang_foreign_2026_g3_s1",
+        "gyeonggi_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
+        {
+          "value": "실험·관찰",
+          "count": 10
+        },
+        {
+          "value": "탐구설계",
+          "count": 10
+        },
         {
           "value": "과학개념탐구",
           "count": 3
@@ -6693,15 +6642,35 @@
           "count": 2
         },
         {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "원리적용",
+          "count": 2
+        },
+        {
           "value": "사회문제분석",
           "count": 1
         },
         {
           "value": "자료해석",
           "count": 1
+        },
+        {
+          "value": "표현창작",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 12
+        },
+        {
+          "value": "보고서작성형",
+          "count": 12
+        },
         {
           "value": "조사탐구형",
           "count": 3
@@ -6709,14 +6678,6 @@
         {
           "value": "프로젝트형",
           "count": 3
-        },
-        {
-          "value": "논술형",
-          "count": 2
-        },
-        {
-          "value": "보고서작성형",
-          "count": 2
         },
         {
           "value": "구술발표형",
@@ -6730,11 +6691,11 @@
       "dominant_output_axis": [
         {
           "value": "탐구보고서",
-          "count": 3
+          "count": 13
         },
         {
           "value": "논술문",
-          "count": 2
+          "count": 12
         },
         {
           "value": "발표자료",
@@ -6748,7 +6709,11 @@
       "dominant_report_modes": [
         {
           "value": "논증형",
-          "count": 2
+          "count": 12
+        },
+        {
+          "value": "비평분석형",
+          "count": 10
         },
         {
           "value": "연구보고서형",
@@ -6764,6 +6729,10 @@
         }
       ],
       "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 10
+        },
         {
           "formula": "[탐구 주제]에 대한 선행자료 분석과 연구 질문 기반 보고서 작성",
           "count": 2
@@ -7239,8 +7208,8 @@
     {
       "subject_standard": "과학탐구실험",
       "subject_group": "과학",
-      "evidence_count": 54,
-      "topic_generating_evidence_count": 54,
+      "evidence_count": 67,
+      "topic_generating_evidence_count": 67,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g1_s1",
@@ -7259,20 +7228,25 @@
         "sema_2026_g1_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g1_s1_3a3c1d19",
-        "unjeong_2026_g1_s1_e9c1c4"
+        "unjeong_2026_g1_s1_e9c1c4",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g1_all_subjects_s1",
+        "gaepo_high_2026_g1_assessment_plan_s1",
+        "gyeonggi_girls_2026_g1_1accc741_s1",
+        "dankook_high_2026_g1_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "자료해석",
-          "count": 41
+          "count": 49
         },
         {
           "value": "실험탐구",
-          "count": 39
+          "count": 42
         },
         {
           "value": "원리적용",
-          "count": 35
+          "count": 36
         },
         {
           "value": "과학개념탐구",
@@ -7280,15 +7254,23 @@
         },
         {
           "value": "개념이해",
-          "count": 17
+          "count": 19
         },
         {
           "value": "논증·비평",
-          "count": 12
+          "count": 16
         },
         {
           "value": "표현창작",
-          "count": 12
+          "count": 13
+        },
+        {
+          "value": "실험·관찰",
+          "count": 10
+        },
+        {
+          "value": "탐구설계",
+          "count": 10
         },
         {
           "value": "연구설계",
@@ -7301,32 +7283,36 @@
         {
           "value": "독서기반탐구",
           "count": 7
+        },
+        {
+          "value": "창작·설계",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
           "value": "실험실습형",
-          "count": 41
+          "count": 51
         },
         {
           "value": "보고서작성형",
-          "count": 30
-        },
-        {
-          "value": "자료해석형",
-          "count": 27
+          "count": 43
         },
         {
           "value": "논술형",
-          "count": 26
+          "count": 35
+        },
+        {
+          "value": "자료해석형",
+          "count": 32
         },
         {
           "value": "프로젝트형",
-          "count": 20
+          "count": 21
         },
         {
           "value": "구술발표형",
-          "count": 15
+          "count": 17
         },
         {
           "value": "연구설계형",
@@ -7343,32 +7329,48 @@
         {
           "value": "조사탐구형",
           "count": 8
+        },
+        {
+          "value": "창작형",
+          "count": 4
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
+          "value": "제작형",
+          "count": 1
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
           "value": "실험보고서",
-          "count": 40
+          "count": 50
         },
         {
           "value": "탐구보고서",
-          "count": 36
+          "count": 49
         },
         {
           "value": "자료분석지",
-          "count": 35
+          "count": 40
         },
         {
           "value": "논술문",
-          "count": 17
-        },
-        {
-          "value": "발표자료",
-          "count": 12
+          "count": 26
         },
         {
           "value": "창작물",
-          "count": 11
+          "count": 15
+        },
+        {
+          "value": "발표자료",
+          "count": 14
         },
         {
           "value": "실행결과물",
@@ -7383,6 +7385,10 @@
           "count": 5
         },
         {
+          "value": "산출물",
+          "count": 4
+        },
+        {
           "value": "서평·독서일지",
           "count": 4
         }
@@ -7390,19 +7396,19 @@
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 49
+          "count": 59
         },
         {
           "value": "자료해석형",
-          "count": 34
+          "count": 37
+        },
+        {
+          "value": "연구설계형",
+          "count": 30
         },
         {
           "value": "원리적용형",
           "count": 30
-        },
-        {
-          "value": "연구설계형",
-          "count": 28
         },
         {
           "value": "연구보고서형",
@@ -7410,11 +7416,15 @@
         },
         {
           "value": "개념해석형",
-          "count": 15
+          "count": 16
         },
         {
           "value": "논증형",
-          "count": 14
+          "count": 16
+        },
+        {
+          "value": "변인탐구형",
+          "count": 7
         },
         {
           "value": "창작설계형",
@@ -7427,6 +7437,14 @@
         {
           "value": "독서비평형",
           "count": 4
+        },
+        {
+          "value": "비평분석형",
+          "count": 2
+        },
+        {
+          "value": "산출물제작형",
+          "count": 1
         }
       ],
       "recommended_topic_formulas": [
@@ -7440,7 +7458,7 @@
         },
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 6
+          "count": 7
         },
         {
           "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
@@ -7451,16 +7469,8 @@
           "count": 5
         },
         {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
-          "count": 4
-        },
-        {
-          "formula": "[현상/문제]에 대한 [연구 질문]을 설정하고 [방법/변인]을 설계하여 검증 가능성을 분석",
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
           "count": 3
-        },
-        {
-          "formula": "[자료/텍스트]를 분석하여 [개념/현상]의 의미와 한계를 해석",
-          "count": 2
         }
       ]
     },
@@ -9136,15 +9146,20 @@
     {
       "subject_standard": "데이터 과학",
       "subject_group": "과학",
-      "evidence_count": 7,
-      "topic_generating_evidence_count": 7,
+      "evidence_count": 10,
+      "topic_generating_evidence_count": 10,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "unjeong_2026_g2_s1_13281d",
         "daejeon_foreign_2026_g2_s1",
-        "seorabeol_2026_g2_s1_5fc57c42"
+        "seorabeol_2026_g2_s1_5fc57c42",
+        "gyeonggi_girls_2026_g2_51f3b0a3_s1"
       ],
       "dominant_content_axis": [
+        {
+          "value": "자료해석",
+          "count": 9
+        },
         {
           "value": "과학개념탐구",
           "count": 7
@@ -9154,15 +9169,23 @@
           "count": 7
         },
         {
-          "value": "자료해석",
+          "value": "문제해결",
           "count": 7
         },
         {
-          "value": "문제해결",
-          "count": 6
+          "value": "설계·모델링",
+          "count": 5
         },
         {
-          "value": "설계·모델링",
+          "value": "의사소통",
+          "count": 3
+        },
+        {
+          "value": "실험·관찰",
+          "count": 3
+        },
+        {
+          "value": "논증·비평",
           "count": 3
         },
         {
@@ -9180,44 +9203,36 @@
         {
           "value": "실험탐구",
           "count": 1
-        },
-        {
-          "value": "연구설계",
-          "count": 1
-        },
-        {
-          "value": "의사소통",
-          "count": 1
-        },
-        {
-          "value": "자기이해",
-          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
           "value": "자료해석형",
+          "count": 8
+        },
+        {
+          "value": "실험실습형",
           "count": 7
+        },
+        {
+          "value": "보고서작성형",
+          "count": 6
         },
         {
           "value": "문제해결형",
           "count": 5
         },
         {
-          "value": "실험실습형",
-          "count": 4
-        },
-        {
-          "value": "보고서작성형",
-          "count": 3
+          "value": "논술형",
+          "count": 5
         },
         {
           "value": "프로젝트형",
-          "count": 3
+          "count": 4
         },
         {
-          "value": "논술형",
-          "count": 2
+          "value": "구술발표형",
+          "count": 3
         },
         {
           "value": "디지털도구활용형",
@@ -9232,29 +9247,33 @@
           "count": 2
         },
         {
-          "value": "계획설계형",
-          "count": 1
+          "value": "토의토론형",
+          "count": 2
         },
         {
-          "value": "구술발표형",
-          "count": 1
-        },
-        {
-          "value": "연구설계형",
-          "count": 1
+          "value": "실기시연형",
+          "count": 2
         }
       ],
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 7
+          "count": 9
+        },
+        {
+          "value": "탐구보고서",
+          "count": 6
+        },
+        {
+          "value": "실험보고서",
+          "count": 4
         },
         {
           "value": "실행결과물",
           "count": 3
         },
         {
-          "value": "탐구보고서",
+          "value": "발표자료",
           "count": 3
         },
         {
@@ -9266,12 +9285,8 @@
           "count": 2
         },
         {
-          "value": "발표자료",
-          "count": 1
-        },
-        {
-          "value": "실험보고서",
-          "count": 1
+          "value": "논술문",
+          "count": 2
         },
         {
           "value": "연구계획서",
@@ -9304,7 +9319,15 @@
           "count": 4
         },
         {
+          "value": "실험분석형",
+          "count": 4
+        },
+        {
           "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "변인탐구형",
           "count": 3
         },
         {
@@ -9328,15 +9351,7 @@
           "count": 1
         },
         {
-          "value": "실험분석형",
-          "count": 1
-        },
-        {
           "value": "원리적용형",
-          "count": 1
-        },
-        {
-          "value": "정책제안형",
           "count": 1
         }
       ],
@@ -9344,6 +9359,10 @@
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
           "count": 6
+        },
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 3
         },
         {
           "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
@@ -10301,6 +10320,98 @@
       ]
     },
     {
+      "subject_standard": "물리Ⅱ",
+      "subject_group": "과학",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "실험·관찰",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "탐구설계",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 1
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "포트폴리오",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        },
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "비평분석형",
+          "count": 2
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 2
+        }
+      ]
+    },
+    {
       "subject_standard": "물리Ⅲ",
       "subject_group": "과학",
       "evidence_count": 2,
@@ -10723,8 +10834,8 @@
     {
       "subject_standard": "물리학",
       "subject_group": "과학",
-      "evidence_count": 39,
-      "topic_generating_evidence_count": 39,
+      "evidence_count": 43,
+      "topic_generating_evidence_count": 43,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g2_s1",
@@ -10745,7 +10856,9 @@
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g2_s1_be7b0ac7",
         "seoul_science_2026_s1_g123",
-        "unjeong_2026_g2_s1_b47b99"
+        "unjeong_2026_g2_s1_b47b99",
+        "gyeonggi_girls_2026_g2_95d65a88_s1",
+        "dankook_high_2026_g2_s1"
       ],
       "dominant_content_axis": [
         {
@@ -10754,7 +10867,7 @@
         },
         {
           "value": "자료해석",
-          "count": 31
+          "count": 33
         },
         {
           "value": "과학개념탐구",
@@ -10762,49 +10875,57 @@
         },
         {
           "value": "논증·비평",
-          "count": 18
+          "count": 21
         },
         {
           "value": "실험탐구",
-          "count": 17
+          "count": 18
         },
         {
           "value": "문제해결",
-          "count": 14
+          "count": 16
         },
         {
           "value": "개념이해",
-          "count": 12
+          "count": 14
         },
         {
           "value": "표현창작",
-          "count": 9
+          "count": 10
         },
         {
           "value": "독서기반탐구",
-          "count": 8
+          "count": 9
         },
         {
           "value": "탐구설계",
-          "count": 7
+          "count": 9
+        },
+        {
+          "value": "실험·관찰",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "자료해석형",
+          "count": 27
+        },
+        {
+          "value": "보고서작성형",
           "count": 25
         },
         {
           "value": "실험실습형",
-          "count": 21
-        },
-        {
-          "value": "보고서작성형",
-          "count": 21
+          "count": 24
         },
         {
           "value": "논술형",
-          "count": 18
+          "count": 20
         },
         {
           "value": "프로젝트형",
@@ -10812,7 +10933,7 @@
         },
         {
           "value": "구술발표형",
-          "count": 11
+          "count": 13
         },
         {
           "value": "문제해결형",
@@ -10829,28 +10950,36 @@
         {
           "value": "창작설계형",
           "count": 6
+        },
+        {
+          "value": "실기시연형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
         }
       ],
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 26
-        },
-        {
-          "value": "실험보고서",
-          "count": 20
+          "count": 28
         },
         {
           "value": "탐구보고서",
-          "count": 20
+          "count": 24
+        },
+        {
+          "value": "실험보고서",
+          "count": 23
         },
         {
           "value": "논술문",
-          "count": 12
+          "count": 14
         },
         {
           "value": "발표자료",
-          "count": 9
+          "count": 11
         },
         {
           "value": "서평·독서일지",
@@ -10875,12 +11004,12 @@
       ],
       "dominant_report_modes": [
         {
-          "value": "자료해석형",
+          "value": "실험분석형",
           "count": 24
         },
         {
-          "value": "실험분석형",
-          "count": 21
+          "value": "자료해석형",
+          "count": 24
         },
         {
           "value": "원리적용형",
@@ -10888,7 +11017,7 @@
         },
         {
           "value": "연구설계형",
-          "count": 16
+          "count": 17
         },
         {
           "value": "개념해석형",
@@ -10904,7 +11033,7 @@
         },
         {
           "value": "독서비평형",
-          "count": 9
+          "count": 10
         },
         {
           "value": "창작설계형",
@@ -10913,6 +11042,10 @@
         {
           "value": "문제설계형",
           "count": 4
+        },
+        {
+          "value": "변인탐구형",
+          "count": 2
         }
       ],
       "recommended_topic_formulas": [
@@ -10937,15 +11070,11 @@
           "count": 2
         },
         {
-          "formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
-          "count": 2
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
+          "count": 1
         },
         {
-          "formula": "[현상/문제]를 [교과 개념]으로 분석하고 [탐구 근거]를 통해 해결 방향 제시",
-          "count": 2
-        },
-        {
-          "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
+          "formula": "[탐구 대상]의 [핵심 쟁점]을 [교과 개념]으로 분석하고 [해결/개선 방향]을 제안",
           "count": 1
         }
       ]
@@ -11686,38 +11815,50 @@
     {
       "subject_standard": "물리학Ⅰ",
       "subject_group": "과학",
-      "evidence_count": 7,
-      "topic_generating_evidence_count": 7,
+      "evidence_count": 16,
+      "topic_generating_evidence_count": 16,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "daegu_science_2026_s1_g123",
         "daejeon_science_2026_g1_s1",
-        "minsago_2026_g3_s1_3fa156df"
+        "minsago_2026_g3_s1_3fa156df",
+        "gyeonggi_high_2026_g2_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g2_all_subjects_s1",
+        "gaepo_high_2026_g2_assessment_plan_s1"
       ],
       "dominant_content_axis": [
         {
+          "value": "자료해석",
+          "count": 10
+        },
+        {
           "value": "원리적용",
+          "count": 10
+        },
+        {
+          "value": "실험·관찰",
+          "count": 9
+        },
+        {
+          "value": "개념이해",
+          "count": 7
+        },
+        {
+          "value": "탐구설계",
           "count": 6
         },
         {
-          "value": "자료해석",
-          "count": 6
+          "value": "문제해결",
+          "count": 5
+        },
+        {
+          "value": "논증·비평",
+          "count": 5
         },
         {
           "value": "과학개념탐구",
           "count": 4
-        },
-        {
-          "value": "문제해결",
-          "count": 4
-        },
-        {
-          "value": "개념이해",
-          "count": 3
-        },
-        {
-          "value": "논증·비평",
-          "count": 3
         },
         {
           "value": "독서기반탐구",
@@ -11728,37 +11869,33 @@
           "count": 2
         },
         {
-          "value": "실험·관찰",
-          "count": 2
-        },
-        {
           "value": "실험탐구",
-          "count": 2
-        },
-        {
-          "value": "탐구설계",
           "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "자료해석형",
-          "count": 6
-        },
-        {
-          "value": "논술형",
-          "count": 4
+          "count": 10
         },
         {
           "value": "보고서작성형",
-          "count": 4
+          "count": 9
+        },
+        {
+          "value": "논술형",
+          "count": 8
         },
         {
           "value": "실험실습형",
-          "count": 4
+          "count": 7
         },
         {
           "value": "문제해결형",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오형",
           "count": 3
         },
         {
@@ -11777,22 +11914,26 @@
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 6
-        },
-        {
-          "value": "실험보고서",
-          "count": 4
+          "count": 10
         },
         {
           "value": "탐구보고서",
-          "count": 4
+          "count": 9
+        },
+        {
+          "value": "실험보고서",
+          "count": 7
         },
         {
           "value": "논술문",
-          "count": 3
+          "count": 7
         },
         {
           "value": "발표자료",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오",
           "count": 3
         },
         {
@@ -11814,20 +11955,20 @@
       ],
       "dominant_report_modes": [
         {
-          "value": "연구보고서형",
-          "count": 6
-        },
-        {
           "value": "자료해석형",
-          "count": 6
+          "count": 9
         },
         {
           "value": "개념해석형",
-          "count": 4
+          "count": 7
         },
         {
           "value": "실험분석형",
-          "count": 4
+          "count": 7
+        },
+        {
+          "value": "연구보고서형",
+          "count": 6
         },
         {
           "value": "연구설계형",
@@ -11836,6 +11977,10 @@
         {
           "value": "원리적용형",
           "count": 4
+        },
+        {
+          "value": "변인탐구형",
+          "count": 3
         },
         {
           "value": "독서비평형",
@@ -11851,21 +11996,25 @@
         },
         {
           "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "비평분석형",
           "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
-          "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
-          "count": 2
-        },
-        {
           "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
-          "count": 2
+          "count": 5
         },
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 1
+          "count": 4
+        },
+        {
+          "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
+          "count": 2
         },
         {
           "formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
@@ -11880,8 +12029,8 @@
     {
       "subject_standard": "물리학Ⅱ",
       "subject_group": "과학",
-      "evidence_count": 19,
-      "topic_generating_evidence_count": 17,
+      "evidence_count": 31,
+      "topic_generating_evidence_count": 29,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "daegun_2026_g3_s1",
@@ -11891,81 +12040,102 @@
         "kimcheon_2026_g3_s1_bd0a098037",
         "kyungil_girls_2026_g3_s1",
         "seondeok_2026_s1_science_info",
-        "seorabeol_2026_g3_s1_328bdd2f"
+        "seorabeol_2026_g3_s1_328bdd2f",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g3_all_subjects_s1",
+        "gaepo_high_2026_g3_assessment_plan_s1",
+        "gyeonggi_girls_2026_g3_15724141_s1",
+        "dankook_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
+        {
+          "value": "자료해석",
+          "count": 20
+        },
         {
           "value": "과학개념탐구",
           "count": 14
         },
         {
-          "value": "자료해석",
+          "value": "문제해결",
           "count": 14
         },
         {
           "value": "원리적용",
-          "count": 10
+          "count": 13
         },
         {
-          "value": "문제해결",
-          "count": 8
+          "value": "탐구설계",
+          "count": 11
         },
         {
           "value": "설계·모델링",
+          "count": 9
+        },
+        {
+          "value": "개념이해",
+          "count": 6
+        },
+        {
+          "value": "논증·비평",
+          "count": 6
+        },
+        {
+          "value": "실험·관찰",
           "count": 6
         },
         {
           "value": "실험탐구",
-          "count": 5
-        },
-        {
-          "value": "탐구설계",
-          "count": 5
-        },
-        {
-          "value": "개념이해",
-          "count": 3
-        },
-        {
-          "value": "표현창작",
-          "count": 3
+          "count": 6
         },
         {
           "value": "의사소통",
-          "count": 3
+          "count": 6
+        },
+        {
+          "value": "표현창작",
+          "count": 4
         }
       ],
       "dominant_method_axis": [
         {
           "value": "자료해석형",
-          "count": 12
-        },
-        {
-          "value": "구술발표형",
-          "count": 9
-        },
-        {
-          "value": "프로젝트형",
-          "count": 7
-        },
-        {
-          "value": "실험실습형",
-          "count": 6
+          "count": 17
         },
         {
           "value": "보고서작성형",
-          "count": 6
+          "count": 14
+        },
+        {
+          "value": "구술발표형",
+          "count": 12
         },
         {
           "value": "논술형",
-          "count": 5
+          "count": 12
+        },
+        {
+          "value": "실험실습형",
+          "count": 11
+        },
+        {
+          "value": "프로젝트형",
+          "count": 10
         },
         {
           "value": "문제해결형",
-          "count": 4
+          "count": 7
+        },
+        {
+          "value": "실기시연형",
+          "count": 3
         },
         {
           "value": "창작설계형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
           "count": 3
         },
         {
@@ -11973,29 +12143,33 @@
           "count": 2
         },
         {
-          "value": "실기수행형",
-          "count": 1
+          "value": "포트폴리오형",
+          "count": 2
         }
       ],
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 12
-        },
-        {
-          "value": "발표자료",
-          "count": 7
-        },
-        {
-          "value": "실험보고서",
-          "count": 6
-        },
-        {
-          "value": "창작물",
-          "count": 4
+          "count": 17
         },
         {
           "value": "탐구보고서",
+          "count": 12
+        },
+        {
+          "value": "실험보고서",
+          "count": 11
+        },
+        {
+          "value": "발표자료",
+          "count": 10
+        },
+        {
+          "value": "논술문",
+          "count": 7
+        },
+        {
+          "value": "창작물",
           "count": 4
         },
         {
@@ -12015,34 +12189,50 @@
           "count": 2
         },
         {
+          "value": "포트폴리오",
+          "count": 2
+        },
+        {
           "value": "보고서",
+          "count": 1
+        },
+        {
+          "value": "탐구계획서",
           "count": 1
         }
       ],
       "dominant_report_modes": [
         {
           "value": "자료해석형",
-          "count": 12
+          "count": 15
+        },
+        {
+          "value": "실험분석형",
+          "count": 11
+        },
+        {
+          "value": "개념해석형",
+          "count": 7
+        },
+        {
+          "value": "연구설계형",
+          "count": 7
         },
         {
           "value": "연구보고서형",
           "count": 6
         },
         {
-          "value": "실험분석형",
-          "count": 6
-        },
-        {
-          "value": "연구설계형",
-          "count": 5
-        },
-        {
           "value": "원리적용형",
           "count": 5
         },
         {
-          "value": "개념해석형",
-          "count": 4
+          "value": "변인탐구형",
+          "count": 3
+        },
+        {
+          "value": "문제설계형",
+          "count": 2
         },
         {
           "value": "정책제안형",
@@ -12053,18 +12243,22 @@
           "count": 2
         },
         {
-          "value": "문제설계형",
-          "count": 1
+          "value": "풀이비교형",
+          "count": 2
         },
         {
-          "value": "풀이비교형",
+          "value": "논증형",
           "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 7
+          "count": 10
+        },
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 3
         },
         {
           "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
@@ -12079,19 +12273,11 @@
           "count": 2
         },
         {
-          "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
           "count": 1
         },
         {
-          "formula": "[교과 개념]을 적용한 [문제/모델]을 설계하고 풀이 과정의 타당성을 검증",
-          "count": 1
-        },
-        {
-          "formula": "[실험 조건]에 따른 [결과 변화]를 [교과 원리]로 분석",
-          "count": 1
-        },
-        {
-          "formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
+          "formula": "[탐구 대상]의 [핵심 쟁점]을 [교과 개념]으로 분석하고 [해결/개선 방향]을 제안",
           "count": 1
         }
       ]
@@ -13801,8 +13987,8 @@
     {
       "subject_standard": "생명과학",
       "subject_group": "과학",
-      "evidence_count": 42,
-      "topic_generating_evidence_count": 42,
+      "evidence_count": 44,
+      "topic_generating_evidence_count": 44,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g2_s1",
@@ -13821,7 +14007,8 @@
         "sema_2026_g2_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g2_s1_e00cd2a7",
-        "unjeong_2026_g2_s1_fceba8"
+        "unjeong_2026_g2_s1_fceba8",
+        "dankook_high_2026_g2_s1"
       ],
       "dominant_content_axis": [
         {
@@ -13838,7 +14025,7 @@
         },
         {
           "value": "실험탐구",
-          "count": 18
+          "count": 19
         },
         {
           "value": "논증·비평",
@@ -13853,26 +14040,30 @@
           "count": 11
         },
         {
-          "value": "독서기반탐구",
-          "count": 9
+          "value": "탐구설계",
+          "count": 10
         },
         {
-          "value": "탐구설계",
+          "value": "독서기반탐구",
           "count": 9
         },
         {
           "value": "사회문제분석",
           "count": 7
+        },
+        {
+          "value": "창작·설계",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
           "value": "보고서작성형",
-          "count": 30
+          "count": 32
         },
         {
           "value": "실험실습형",
-          "count": 25
+          "count": 26
         },
         {
           "value": "자료해석형",
@@ -13891,11 +14082,11 @@
           "count": 17
         },
         {
-          "value": "토의토론형",
+          "value": "문제해결형",
           "count": 11
         },
         {
-          "value": "문제해결형",
+          "value": "토의토론형",
           "count": 11
         },
         {
@@ -13905,12 +14096,20 @@
         {
           "value": "논증형",
           "count": 8
+        },
+        {
+          "value": "제작형",
+          "count": 1
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
           "value": "탐구보고서",
-          "count": 29
+          "count": 31
         },
         {
           "value": "자료분석지",
@@ -13918,7 +14117,7 @@
         },
         {
           "value": "실험보고서",
-          "count": 24
+          "count": 25
         },
         {
           "value": "발표자료",
@@ -13947,12 +14146,16 @@
         {
           "value": "논설문",
           "count": 2
+        },
+        {
+          "value": "산출물",
+          "count": 1
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 24
+          "count": 25
         },
         {
           "value": "자료해석형",
@@ -13968,7 +14171,7 @@
         },
         {
           "value": "연구설계형",
-          "count": 19
+          "count": 20
         },
         {
           "value": "논증형",
@@ -13989,6 +14192,10 @@
         {
           "value": "글쓰기논술형",
           "count": 2
+        },
+        {
+          "value": "산출물제작형",
+          "count": 1
         }
       ],
       "recommended_topic_formulas": [
@@ -14022,6 +14229,14 @@
         },
         {
           "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
+          "count": 1
+        },
+        {
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
+          "count": 1
+        },
+        {
+          "formula": "[탐구 대상]의 [핵심 쟁점]을 [교과 개념]으로 분석하고 [해결/개선 방향]을 제안",
           "count": 1
         }
       ]
@@ -15127,18 +15342,42 @@
     {
       "subject_standard": "생명과학Ⅰ",
       "subject_group": "과학",
-      "evidence_count": 7,
-      "topic_generating_evidence_count": 7,
+      "evidence_count": 22,
+      "topic_generating_evidence_count": 22,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "gwangju_science_2026_g1_s1_831bca773e",
         "daegu_science_2026_s1_g123",
-        "daejeon_science_2026_g1_s1"
+        "daejeon_science_2026_g1_s1",
+        "gyeonggi_high_2026_g2_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g2_all_subjects_s1",
+        "gaepo_high_2026_g2_assessment_plan_s1"
       ],
       "dominant_content_axis": [
         {
+          "value": "실험·관찰",
+          "count": 14
+        },
+        {
           "value": "원리적용",
+          "count": 10
+        },
+        {
+          "value": "자료해석",
+          "count": 10
+        },
+        {
+          "value": "개념이해",
           "count": 7
+        },
+        {
+          "value": "논증·비평",
+          "count": 6
+        },
+        {
+          "value": "표현창작",
+          "count": 5
         },
         {
           "value": "과학개념탐구",
@@ -15149,54 +15388,42 @@
           "count": 4
         },
         {
-          "value": "자료해석",
+          "value": "탐구설계",
           "count": 4
-        },
-        {
-          "value": "개념이해",
-          "count": 3
-        },
-        {
-          "value": "표현창작",
-          "count": 3
         },
         {
           "value": "산출물설계",
           "count": 2
         },
         {
-          "value": "실험·관찰",
-          "count": 2
-        },
-        {
-          "value": "탐구설계",
-          "count": 2
-        },
-        {
-          "value": "논증·비평",
-          "count": 1
-        },
-        {
           "value": "문제해결",
-          "count": 1
+          "count": 2
         },
         {
-          "value": "사회문제연계",
-          "count": 1
+          "value": "설계·모델링",
+          "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "보고서작성형",
-          "count": 6
+          "count": 13
+        },
+        {
+          "value": "논술형",
+          "count": 12
         },
         {
           "value": "실험실습형",
-          "count": 6
+          "count": 11
         },
         {
           "value": "자료해석형",
-          "count": 4
+          "count": 8
+        },
+        {
+          "value": "구술발표형",
+          "count": 5
         },
         {
           "value": "창작설계형",
@@ -15211,46 +15438,46 @@
           "count": 4
         },
         {
-          "value": "구술발표형",
+          "value": "문제해결형",
           "count": 3
         },
         {
-          "value": "문제해결형",
-          "count": 2
+          "value": "포트폴리오형",
+          "count": 3
         },
         {
           "value": "조사탐구형",
           "count": 2
         },
         {
-          "value": "포트폴리오형",
+          "value": "창작형",
           "count": 2
-        },
-        {
-          "value": "논술형",
-          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
+          "value": "논술문",
+          "count": 12
+        },
+        {
           "value": "실험보고서",
-          "count": 6
-        },
-        {
-          "value": "발표자료",
-          "count": 5
-        },
-        {
-          "value": "자료분석지",
-          "count": 4
+          "count": 11
         },
         {
           "value": "탐구보고서",
-          "count": 4
+          "count": 11
+        },
+        {
+          "value": "자료분석지",
+          "count": 8
+        },
+        {
+          "value": "발표자료",
+          "count": 7
         },
         {
           "value": "창작물",
-          "count": 3
+          "count": 5
         },
         {
           "value": "보고서",
@@ -15273,14 +15500,14 @@
           "count": 2
         },
         {
-          "value": "논술문",
-          "count": 1
+          "value": "산출물",
+          "count": 2
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 6
+          "count": 11
         },
         {
           "value": "연구보고서형",
@@ -15295,31 +15522,47 @@
           "count": 6
         },
         {
-          "value": "문제설계형",
-          "count": 2
+          "value": "논증형",
+          "count": 6
+        },
+        {
+          "value": "비평분석형",
+          "count": 6
+        },
+        {
+          "value": "변인탐구형",
+          "count": 5
         },
         {
           "value": "자료해석형",
-          "count": 2
+          "count": 4
+        },
+        {
+          "value": "문제설계형",
+          "count": 3
         },
         {
           "value": "풀이비교형",
-          "count": 2
+          "count": 3
         },
         {
           "value": "개념해석형",
-          "count": 1
+          "count": 3
         },
         {
           "value": "발표설계형",
           "count": 1
-        },
-        {
-          "value": "창작설계형",
-          "count": 1
         }
       ],
       "recommended_topic_formulas": [
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 7
+        },
+        {
+          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 6
+        },
         {
           "formula": "[변인/조건]에 따른 [결과값] 변화를 [교과 원리]로 분석하고 실험 설계의 타당성 검토",
           "count": 2
@@ -15329,20 +15572,16 @@
           "count": 2
         },
         {
-          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
           "count": 2
-        },
-        {
-          "formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
-          "count": 1
         }
       ]
     },
     {
       "subject_standard": "생명과학Ⅱ",
       "subject_group": "과학",
-      "evidence_count": 22,
-      "topic_generating_evidence_count": 22,
+      "evidence_count": 35,
+      "topic_generating_evidence_count": 35,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "daegun_2026_g3_s1",
@@ -15352,111 +15591,141 @@
         "kimcheon_2026_g3_s1_9e506a211a",
         "kyungil_girls_2026_g3_s1",
         "seondeok_2026_s1_science_info",
-        "seorabeol_2026_g3_s1_62c99a11"
+        "seorabeol_2026_g3_s1_62c99a11",
+        "gyeonggi_high_2026_g3_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g3_all_subjects_s1",
+        "gaepo_high_2026_g3_assessment_plan_s1",
+        "gyeonggi_girls_2026_g3_378d2d3f_s1",
+        "dankook_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "자료해석",
-          "count": 20
+          "count": 27
+        },
+        {
+          "value": "원리적용",
+          "count": 19
+        },
+        {
+          "value": "탐구설계",
+          "count": 18
         },
         {
           "value": "과학개념탐구",
           "count": 15
         },
         {
-          "value": "원리적용",
-          "count": 14
+          "value": "실험·관찰",
+          "count": 15
         },
         {
-          "value": "탐구설계",
+          "value": "논증·비평",
           "count": 13
         },
         {
           "value": "표현창작",
-          "count": 9
+          "count": 11
         },
         {
           "value": "문제해결",
-          "count": 9
-        },
-        {
-          "value": "논증·비평",
-          "count": 8
+          "count": 10
         },
         {
           "value": "실험탐구",
-          "count": 7
+          "count": 9
         },
         {
-          "value": "실험·관찰",
-          "count": 7
+          "value": "개념이해",
+          "count": 6
         },
         {
           "value": "사회문제분석",
           "count": 4
+        },
+        {
+          "value": "의사소통",
+          "count": 3
         }
       ],
       "dominant_method_axis": [
         {
+          "value": "보고서작성형",
+          "count": 23
+        },
+        {
+          "value": "실험실습형",
+          "count": 19
+        },
+        {
           "value": "자료해석형",
-          "count": 16
+          "count": 19
+        },
+        {
+          "value": "구술발표형",
+          "count": 17
+        },
+        {
+          "value": "논술형",
+          "count": 17
         },
         {
           "value": "프로젝트형",
           "count": 14
         },
         {
-          "value": "보고서작성형",
-          "count": 14
-        },
-        {
-          "value": "구술발표형",
-          "count": 13
-        },
-        {
-          "value": "실험실습형",
-          "count": 11
-        },
-        {
-          "value": "논술형",
-          "count": 8
-        },
-        {
           "value": "문제해결형",
           "count": 6
+        },
+        {
+          "value": "토의토론형",
+          "count": 6
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 5
         },
         {
           "value": "창작설계형",
           "count": 4
         },
         {
-          "value": "토의토론형",
+          "value": "독서기반형",
           "count": 3
         },
         {
-          "value": "독서기반형",
+          "value": "실기시연형",
           "count": 3
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "자료분석지",
-          "count": 16
-        },
-        {
           "value": "탐구보고서",
-          "count": 13
+          "count": 22
         },
         {
           "value": "실험보고서",
-          "count": 12
+          "count": 20
+        },
+        {
+          "value": "자료분석지",
+          "count": 19
         },
         {
           "value": "발표자료",
-          "count": 10
+          "count": 14
+        },
+        {
+          "value": "논술문",
+          "count": 13
         },
         {
           "value": "산출물",
+          "count": 5
+        },
+        {
+          "value": "포트폴리오",
           "count": 5
         },
         {
@@ -15468,45 +15737,49 @@
           "count": 4
         },
         {
-          "value": "논술문",
-          "count": 4
-        },
-        {
-          "value": "창작물",
+          "value": "서평·독서일지",
           "count": 3
         },
         {
-          "value": "서평·독서일지",
+          "value": "창작물",
           "count": 3
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 12
+          "count": 20
         },
         {
           "value": "자료해석형",
-          "count": 10
+          "count": 11
+        },
+        {
+          "value": "논증형",
+          "count": 6
+        },
+        {
+          "value": "변인탐구형",
+          "count": 6
         },
         {
           "value": "연구설계형",
           "count": 6
         },
         {
-          "value": "원리적용형",
+          "value": "개념해석형",
           "count": 5
         },
         {
-          "value": "개념해석형",
-          "count": 4
+          "value": "원리적용형",
+          "count": 5
         },
         {
           "value": "연구보고서형",
           "count": 4
         },
         {
-          "value": "논증형",
+          "value": "비평분석형",
           "count": 3
         },
         {
@@ -15528,11 +15801,15 @@
           "count": 5
         },
         {
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 4
+        },
+        {
           "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
           "count": 3
         },
         {
-          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
           "count": 3
         },
         {
@@ -15540,19 +15817,7 @@
           "count": 2
         },
         {
-          "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
-          "count": 2
-        },
-        {
-          "formula": "[문제 상황]을 해결하기 위한 [산출물/모델]을 설계하고 [교과 근거]로 타당성 검증",
-          "count": 2
-        },
-        {
-          "formula": "[실험 조건]에 따른 [결과 변화]를 [교과 원리]로 분석",
-          "count": 2
-        },
-        {
-          "formula": "[현상/문제]를 [교과 개념]으로 분석하고 [탐구 근거]를 통해 해결 방향 제시",
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
           "count": 2
         }
       ]
@@ -16959,8 +17224,8 @@
     {
       "subject_standard": "생활과 과학",
       "subject_group": "과학",
-      "evidence_count": 24,
-      "topic_generating_evidence_count": 24,
+      "evidence_count": 33,
+      "topic_generating_evidence_count": 33,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g3_s1",
@@ -16971,70 +17236,81 @@
         "kyungil_girls_2026_g3_s1",
         "sehwa_girls_2026_g3_fae21d",
         "sema_2026_g3_s1",
-        "unjeong_2026_g3_s1_f56be4"
+        "unjeong_2026_g3_s1_f56be4",
+        "gamil_high_2026_science_s1",
+        "gaepo_high_2026_g3_assessment_plan_s1",
+        "gyeonggi_girls_2026_g3_bc2e2509_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "원리적용",
+          "count": 22
+        },
+        {
+          "value": "자료해석",
           "count": 18
+        },
+        {
+          "value": "개념이해",
+          "count": 17
+        },
+        {
+          "value": "논증·비평",
+          "count": 17
         },
         {
           "value": "과학개념탐구",
           "count": 16
         },
         {
-          "value": "자료해석",
-          "count": 12
+          "value": "탐구설계",
+          "count": 10
         },
         {
-          "value": "개념이해",
-          "count": 11
+          "value": "실험·관찰",
+          "count": 9
         },
         {
-          "value": "논증·비평",
+          "value": "문제해결",
           "count": 8
         },
         {
           "value": "표현창작",
-          "count": 6
+          "count": 7
         },
         {
           "value": "연구설계",
           "count": 4
         },
         {
-          "value": "문제해결",
-          "count": 4
-        },
-        {
-          "value": "탐구설계",
-          "count": 4
-        },
-        {
           "value": "독서기반탐구",
+          "count": 3
+        },
+        {
+          "value": "의사소통",
           "count": 3
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "자료해석형",
-          "count": 9
+          "value": "보고서작성형",
+          "count": 18
         },
         {
           "value": "논술형",
-          "count": 9
+          "count": 17
         },
         {
-          "value": "보고서작성형",
-          "count": 9
-        },
-        {
-          "value": "프로젝트형",
-          "count": 7
+          "value": "자료해석형",
+          "count": 12
         },
         {
           "value": "구술발표형",
-          "count": 6
+          "count": 10
+        },
+        {
+          "value": "프로젝트형",
+          "count": 8
         },
         {
           "value": "조사탐구형",
@@ -17049,30 +17325,38 @@
           "count": 4
         },
         {
-          "value": "독서기반형",
-          "count": 2
+          "value": "문제해결형",
+          "count": 4
         },
         {
-          "value": "문제해결형",
-          "count": 2
+          "value": "토의토론형",
+          "count": 4
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
         }
       ],
       "dominant_output_axis": [
         {
           "value": "탐구보고서",
-          "count": 13
-        },
-        {
-          "value": "자료분석지",
-          "count": 9
+          "count": 22
         },
         {
           "value": "논술문",
-          "count": 7
+          "count": 14
+        },
+        {
+          "value": "자료분석지",
+          "count": 13
         },
         {
           "value": "발표자료",
-          "count": 6
+          "count": 10
         },
         {
           "value": "창작물",
@@ -17080,6 +17364,14 @@
         },
         {
           "value": "활동지",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
           "count": 3
         },
         {
@@ -17102,11 +17394,11 @@
       "dominant_report_modes": [
         {
           "value": "개념해석형",
-          "count": 15
+          "count": 17
         },
         {
           "value": "자료해석형",
-          "count": 10
+          "count": 12
         },
         {
           "value": "연구보고서형",
@@ -17117,12 +17409,12 @@
           "count": 8
         },
         {
-          "value": "연구설계형",
-          "count": 6
+          "value": "논증형",
+          "count": 8
         },
         {
-          "value": "논증형",
-          "count": 5
+          "value": "연구설계형",
+          "count": 6
         },
         {
           "value": "창작설계형",
@@ -17133,45 +17425,41 @@
           "count": 3
         },
         {
-          "value": "공학설계형",
-          "count": 2
+          "value": "비평분석형",
+          "count": 3
         },
         {
-          "value": "발표논증형",
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "변인탐구형",
+          "count": 3
+        },
+        {
+          "value": "공학설계형",
           "count": 2
         }
       ],
       "recommended_topic_formulas": [
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 9
+          "count": 11
+        },
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 3
         },
         {
           "formula": "[탐구 주제]에 대한 선행자료 분석과 연구 질문 기반 보고서 작성",
           "count": 2
         },
         {
+          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 2
+        },
+        {
           "formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
-          "count": 1
-        },
-        {
-          "formula": "[교과 개념]에서 출발한 [탐구 질문]을 설정하고 [자료/방법]으로 검증",
-          "count": 1
-        },
-        {
-          "formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
-          "count": 1
-        },
-        {
-          "formula": "[교과 개념]을 중심으로 [사례/자료]를 해석하고 의미를 확장",
-          "count": 1
-        },
-        {
-          "formula": "[교과 개념]의 핵심 원리를 [사례/텍스트]에 적용하여 해석",
-          "count": 1
-        },
-        {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
           "count": 1
         }
       ]
@@ -17311,23 +17599,40 @@
     {
       "subject_standard": "생활과학 탐구",
       "subject_group": "과학",
-      "evidence_count": 2,
-      "topic_generating_evidence_count": 2,
+      "evidence_count": 6,
+      "topic_generating_evidence_count": 6,
       "school_name_removed_for_runtime": true,
       "source_ids": [
-        "daejeon_daeseong_2026_g2_s1"
+        "daejeon_daeseong_2026_g2_s1",
+        "gyeonggi_girls_2026_g2_d6512c0a_s1"
       ],
       "dominant_content_axis": [
         {
-          "value": "과학개념탐구",
-          "count": 2
+          "value": "논증·비평",
+          "count": 5
+        },
+        {
+          "value": "자료해석",
+          "count": 5
         },
         {
           "value": "문제해결",
-          "count": 2
+          "count": 4
         },
         {
           "value": "원리적용",
+          "count": 4
+        },
+        {
+          "value": "실험·관찰",
+          "count": 4
+        },
+        {
+          "value": "의사소통",
+          "count": 4
+        },
+        {
+          "value": "과학개념탐구",
           "count": 2
         },
         {
@@ -17335,8 +17640,8 @@
           "count": 2
         },
         {
-          "value": "논증·비평",
-          "count": 1
+          "value": "개념이해",
+          "count": 2
         },
         {
           "value": "독서기반탐구",
@@ -17345,16 +17650,32 @@
         {
           "value": "사회문제분석",
           "count": 1
-        },
-        {
-          "value": "자료해석",
-          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
           "value": "논술형",
-          "count": 2
+          "count": 6
+        },
+        {
+          "value": "구술발표형",
+          "count": 4
+        },
+        {
+          "value": "토의토론형",
+          "count": 4
+        },
+        {
+          "value": "실험실습형",
+          "count": 4
+        },
+        {
+          "value": "보고서작성형",
+          "count": 4
+        },
+        {
+          "value": "실기시연형",
+          "count": 4
         },
         {
           "value": "창작형",
@@ -17365,22 +17686,34 @@
           "count": 2
         },
         {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
           "value": "독서기반형",
           "count": 1
         },
         {
           "value": "문제해결형",
           "count": 1
-        },
-        {
-          "value": "자료해석형",
-          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
           "value": "논술문",
-          "count": 2
+          "count": 6
+        },
+        {
+          "value": "탐구보고서",
+          "count": 4
+        },
+        {
+          "value": "발표자료",
+          "count": 4
+        },
+        {
+          "value": "실험보고서",
+          "count": 4
         },
         {
           "value": "실행결과물",
@@ -17391,11 +17724,11 @@
           "count": 2
         },
         {
-          "value": "서평·독서일지",
-          "count": 1
+          "value": "자료분석지",
+          "count": 2
         },
         {
-          "value": "자료분석지",
+          "value": "서평·독서일지",
           "count": 1
         },
         {
@@ -17404,6 +17737,14 @@
         }
       ],
       "dominant_report_modes": [
+        {
+          "value": "실험분석형",
+          "count": 4
+        },
+        {
+          "value": "변인탐구형",
+          "count": 4
+        },
         {
           "value": "창작설계형",
           "count": 2
@@ -17422,6 +17763,10 @@
         }
       ],
       "recommended_topic_formulas": [
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 4
+        },
         {
           "formula": "[교과 개념/주제]를 반영한 [창작물/산출물] 설계와 표현 효과 분석",
           "count": 1
@@ -17499,33 +17844,38 @@
     {
       "subject_standard": "세포와 물질대사",
       "subject_group": "과학",
-      "evidence_count": 9,
-      "topic_generating_evidence_count": 8,
+      "evidence_count": 11,
+      "topic_generating_evidence_count": 10,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g2_s1",
         "incheon_haneul_2026_g2_s1",
-        "minsago_2026_g2_s1_b3a46a61"
+        "minsago_2026_g2_s1_b3a46a61",
+        "gyeonggi_girls_2026_g2_171ddecf_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "원리적용",
-          "count": 8
+          "count": 9
         },
         {
           "value": "논증·비평",
-          "count": 7
+          "count": 9
         },
         {
           "value": "자료해석",
-          "count": 6
+          "count": 8
         },
         {
           "value": "개념이해",
-          "count": 4
+          "count": 5
         },
         {
           "value": "독서기반탐구",
+          "count": 4
+        },
+        {
+          "value": "실험·관찰",
           "count": 4
         },
         {
@@ -17545,17 +17895,21 @@
           "count": 2
         },
         {
-          "value": "실험·관찰",
+          "value": "의사소통",
           "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "실험실습형",
-          "count": 5
+          "count": 7
         },
         {
           "value": "자료해석형",
+          "count": 5
+        },
+        {
+          "value": "논술형",
           "count": 5
         },
         {
@@ -17563,15 +17917,23 @@
           "count": 4
         },
         {
-          "value": "논술형",
-          "count": 3
+          "value": "구술발표형",
+          "count": 4
         },
         {
           "value": "논증형",
           "count": 3
         },
         {
-          "value": "구술발표형",
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
+          "value": "실기시연형",
           "count": 2
         },
         {
@@ -17583,21 +17945,25 @@
           "count": 1
         },
         {
-          "value": "보고서작성형",
-          "count": 1
-        },
-        {
           "value": "산출물제작형",
           "count": 1
         }
       ],
       "dominant_output_axis": [
         {
+          "value": "실험보고서",
+          "count": 7
+        },
+        {
           "value": "자료분석지",
           "count": 6
         },
         {
-          "value": "실험보고서",
+          "value": "논술문",
+          "count": 5
+        },
+        {
+          "value": "발표자료",
           "count": 5
         },
         {
@@ -17605,11 +17971,7 @@
           "count": 4
         },
         {
-          "value": "논술문",
-          "count": 3
-        },
-        {
-          "value": "발표자료",
+          "value": "탐구보고서",
           "count": 3
         },
         {
@@ -17625,22 +17987,22 @@
           "count": 1
         },
         {
-          "value": "탐구보고서",
+          "value": "평가응답지",
           "count": 1
         },
         {
-          "value": "평가응답지",
+          "value": "포트폴리오",
           "count": 1
         }
       ],
       "dominant_report_modes": [
         {
-          "value": "원리적용형",
-          "count": 6
+          "value": "실험분석형",
+          "count": 7
         },
         {
-          "value": "실험분석형",
-          "count": 5
+          "value": "원리적용형",
+          "count": 6
         },
         {
           "value": "자료해석형",
@@ -17667,6 +18029,10 @@
           "count": 2
         },
         {
+          "value": "변인탐구형",
+          "count": 2
+        },
+        {
           "value": "발표논증형",
           "count": 1
         },
@@ -17685,19 +18051,15 @@
           "count": 2
         },
         {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 2
+        },
+        {
           "formula": "[교과 개념]을 적용한 [산출물/표현물] 설계와 구현 원리 분석",
           "count": 1
         },
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 1
-        },
-        {
-          "formula": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
-          "count": 1
-        },
-        {
-          "formula": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
           "count": 1
         }
       ]
@@ -19081,14 +19443,15 @@
     {
       "subject_standard": "융합과학",
       "subject_group": "과학",
-      "evidence_count": 9,
-      "topic_generating_evidence_count": 9,
+      "evidence_count": 11,
+      "topic_generating_evidence_count": 11,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "anyang_foreign_2026_g3_s1",
         "daegun_2026_g3_s1",
         "bukil_2026_g3_s1",
-        "seorabeol_2026_g3_s1_aaa53cc4"
+        "seorabeol_2026_g3_s1_aaa53cc4",
+        "gyeonggi_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
         {
@@ -19101,14 +19464,22 @@
         },
         {
           "value": "자료해석",
-          "count": 6
+          "count": 8
+        },
+        {
+          "value": "논증·비평",
+          "count": 5
         },
         {
           "value": "실험탐구",
           "count": 4
         },
         {
-          "value": "논증·비평",
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "표현창작",
           "count": 3
         },
         {
@@ -19116,45 +19487,41 @@
           "count": 2
         },
         {
-          "value": "문제해결",
-          "count": 2
-        },
-        {
           "value": "사회문제분석",
           "count": 2
         },
         {
-          "value": "표현창작",
+          "value": "개념이해",
           "count": 2
         },
         {
-          "value": "개념이해",
-          "count": 1
+          "value": "실험·관찰",
+          "count": 2
         },
         {
-          "value": "산출물설계",
-          "count": 1
-        },
-        {
-          "value": "연구설계",
-          "count": 1
+          "value": "의사소통",
+          "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "구술발표형",
-          "count": 7
+          "count": 9
         },
         {
           "value": "보고서작성형",
-          "count": 6
+          "count": 8
         },
         {
           "value": "자료해석형",
-          "count": 6
+          "count": 8
         },
         {
           "value": "프로젝트형",
+          "count": 6
+        },
+        {
+          "value": "실험실습형",
           "count": 6
         },
         {
@@ -19162,7 +19529,11 @@
           "count": 4
         },
         {
-          "value": "실험실습형",
+          "value": "논술형",
+          "count": 4
+        },
+        {
+          "value": "토의토론형",
           "count": 4
         },
         {
@@ -19170,15 +19541,7 @@
           "count": 3
         },
         {
-          "value": "논술형",
-          "count": 2
-        },
-        {
           "value": "독서기반형",
-          "count": 2
-        },
-        {
-          "value": "토의토론형",
           "count": 2
         },
         {
@@ -19193,14 +19556,18 @@
       "dominant_output_axis": [
         {
           "value": "발표자료",
-          "count": 7
+          "count": 9
         },
         {
           "value": "자료분석지",
-          "count": 6
+          "count": 8
         },
         {
           "value": "탐구보고서",
+          "count": 8
+        },
+        {
+          "value": "실험보고서",
           "count": 6
         },
         {
@@ -19208,8 +19575,8 @@
           "count": 4
         },
         {
-          "value": "실험보고서",
-          "count": 4
+          "value": "논술문",
+          "count": 3
         },
         {
           "value": "분석보고서",
@@ -19226,10 +19593,6 @@
         {
           "value": "창작물",
           "count": 2
-        },
-        {
-          "value": "논술문",
-          "count": 1
         },
         {
           "value": "매체자료",
@@ -19254,12 +19617,12 @@
           "count": 6
         },
         {
-          "value": "논증형",
-          "count": 5
+          "value": "실험분석형",
+          "count": 6
         },
         {
-          "value": "실험분석형",
-          "count": 4
+          "value": "논증형",
+          "count": 5
         },
         {
           "value": "원리적용형",
@@ -19278,6 +19641,10 @@
           "count": 2
         },
         {
+          "value": "변인탐구형",
+          "count": 2
+        },
+        {
           "value": "문제설계형",
           "count": 1
         },
@@ -19292,6 +19659,10 @@
           "count": 4
         },
         {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 2
+        },
+        {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
           "count": 1
         },
@@ -19301,14 +19672,6 @@
         },
         {
           "formula": "[쟁점]에 대한 [상반된 관점]을 비교하고 [교과 근거]로 자기 입장을 논증",
-          "count": 1
-        },
-        {
-          "formula": "[탐구 주제]에 대한 선행자료 분석과 연구 질문 기반 보고서 작성",
-          "count": 1
-        },
-        {
-          "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
           "count": 1
         }
       ]
@@ -23903,6 +24266,130 @@
       ]
     },
     {
+      "subject_standard": "정보과학",
+      "subject_group": "과학",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "실험·관찰",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "논증·비평",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "탐구설계",
+          "count": 2
+        },
+        {
+          "value": "설계·모델링",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "원리적용",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "논술문",
+          "count": 3
+        },
+        {
+          "value": "발표자료",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "프로그램산출물",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "변인탐구형",
+          "count": 3
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 3
+        }
+      ]
+    },
+    {
       "subject_standard": "지구 시스템의 이해",
       "subject_group": "과학",
       "evidence_count": 2,
@@ -24005,8 +24492,8 @@
     {
       "subject_standard": "지구과학",
       "subject_group": "과학",
-      "evidence_count": 34,
-      "topic_generating_evidence_count": 34,
+      "evidence_count": 39,
+      "topic_generating_evidence_count": 39,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "anyang_foreign_2026_g2_s1",
@@ -24023,40 +24510,42 @@
         "sema_2026_g2_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g2_s1_e107559d",
-        "unjeong_2026_g2_s1_890de1"
+        "unjeong_2026_g2_s1_890de1",
+        "gyeonggi_girls_2026_g2_8bca2dea_s1",
+        "dankook_high_2026_g2_s1"
       ],
       "dominant_content_axis": [
+        {
+          "value": "자료해석",
+          "count": 26
+        },
+        {
+          "value": "원리적용",
+          "count": 25
+        },
         {
           "value": "과학개념탐구",
           "count": 23
         },
         {
-          "value": "원리적용",
-          "count": 23
-        },
-        {
-          "value": "자료해석",
-          "count": 22
-        },
-        {
           "value": "실험탐구",
-          "count": 15
+          "count": 17
         },
         {
           "value": "문제해결",
-          "count": 13
+          "count": 14
         },
         {
           "value": "논증·비평",
-          "count": 10
-        },
-        {
-          "value": "탐구설계",
-          "count": 9
+          "count": 13
         },
         {
           "value": "개념이해",
-          "count": 8
+          "count": 12
+        },
+        {
+          "value": "탐구설계",
+          "count": 12
         },
         {
           "value": "독서기반탐구",
@@ -24065,39 +24554,47 @@
         {
           "value": "사회문제분석",
           "count": 5
+        },
+        {
+          "value": "실험·관찰",
+          "count": 3
+        },
+        {
+          "value": "의사소통",
+          "count": 3
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "자료해석형",
-          "count": 19
-        },
-        {
           "value": "보고서작성형",
-          "count": 19
+          "count": 24
         },
         {
           "value": "실험실습형",
-          "count": 18
+          "count": 23
         },
         {
           "value": "논술형",
-          "count": 17
+          "count": 20
+        },
+        {
+          "value": "자료해석형",
+          "count": 20
         },
         {
           "value": "프로젝트형",
-          "count": 16
+          "count": 17
         },
         {
           "value": "구술발표형",
-          "count": 10
-        },
-        {
-          "value": "독서기반형",
-          "count": 7
+          "count": 13
         },
         {
           "value": "문제해결형",
+          "count": 8
+        },
+        {
+          "value": "독서기반형",
           "count": 7
         },
         {
@@ -24107,28 +24604,36 @@
         {
           "value": "조사탐구형",
           "count": 5
+        },
+        {
+          "value": "실기시연형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 3
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "자료분석지",
-          "count": 19
-        },
-        {
           "value": "실험보고서",
-          "count": 18
+          "count": 23
         },
         {
           "value": "탐구보고서",
-          "count": 18
+          "count": 23
+        },
+        {
+          "value": "자료분석지",
+          "count": 21
         },
         {
           "value": "논술문",
-          "count": 13
+          "count": 16
         },
         {
           "value": "발표자료",
-          "count": 9
+          "count": 12
         },
         {
           "value": "서평·독서일지",
@@ -24139,6 +24644,10 @@
           "count": 6
         },
         {
+          "value": "산출물",
+          "count": 4
+        },
+        {
           "value": "정책제안서",
           "count": 4
         },
@@ -24147,18 +24656,22 @@
           "count": 4
         },
         {
-          "value": "산출물",
-          "count": 4
+          "value": "프로그램산출물",
+          "count": 1
         }
       ],
       "dominant_report_modes": [
         {
-          "value": "자료해석형",
-          "count": 20
+          "value": "실험분석형",
+          "count": 23
         },
         {
-          "value": "실험분석형",
-          "count": 18
+          "value": "자료해석형",
+          "count": 21
+        },
+        {
+          "value": "연구설계형",
+          "count": 14
         },
         {
           "value": "원리적용형",
@@ -24167,10 +24680,6 @@
         {
           "value": "연구보고서형",
           "count": 13
-        },
-        {
-          "value": "연구설계형",
-          "count": 12
         },
         {
           "value": "개념해석형",
@@ -24187,6 +24696,10 @@
         {
           "value": "정책제안형",
           "count": 4
+        },
+        {
+          "value": "변인탐구형",
+          "count": 3
         },
         {
           "value": "발표논증형",
@@ -24215,16 +24728,8 @@
           "count": 3
         },
         {
-          "formula": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
           "count": 2
-        },
-        {
-          "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
-          "count": 1
-        },
-        {
-          "formula": "[문제 상황] 해결을 위한 [알고리즘/프로그램] 설계와 기능 검증",
-          "count": 1
         }
       ]
     },
@@ -25092,23 +25597,31 @@
     {
       "subject_standard": "지구과학Ⅰ",
       "subject_group": "과학",
-      "evidence_count": 10,
-      "topic_generating_evidence_count": 10,
+      "evidence_count": 20,
+      "topic_generating_evidence_count": 20,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "gwangju_science_2026_g1_s1_3286555e51",
         "daegu_science_2026_s1_g123",
         "daejeon_science_2026_g1_s1",
-        "minsago_2026_g3_s1_bb9ee327"
+        "minsago_2026_g3_s1_bb9ee327",
+        "gyeonggi_high_2026_g2_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g2_all_subjects_s1",
+        "gaepo_high_2026_g2_assessment_plan_s1"
       ],
       "dominant_content_axis": [
         {
-          "value": "원리적용",
-          "count": 10
+          "value": "자료해석",
+          "count": 16
         },
         {
-          "value": "자료해석",
-          "count": 10
+          "value": "원리적용",
+          "count": 14
+        },
+        {
+          "value": "실험·관찰",
+          "count": 11
         },
         {
           "value": "과학개념탐구",
@@ -25119,19 +25632,19 @@
           "count": 6
         },
         {
-          "value": "실험·관찰",
-          "count": 3
-        },
-        {
           "value": "논증·비평",
-          "count": 2
+          "count": 6
         },
         {
-          "value": "독서기반탐구",
-          "count": 2
+          "value": "개념이해",
+          "count": 5
         },
         {
           "value": "문제해결",
+          "count": 4
+        },
+        {
+          "value": "독서기반탐구",
           "count": 2
         },
         {
@@ -25143,41 +25656,45 @@
           "count": 2
         },
         {
-          "value": "개념이해",
-          "count": 1
-        },
-        {
-          "value": "사회문제분석",
-          "count": 1
+          "value": "설계·모델링",
+          "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "자료해석형",
-          "count": 10
+          "count": 14
         },
         {
           "value": "실험실습형",
-          "count": 9
-        },
-        {
-          "value": "프로젝트형",
-          "count": 8
+          "count": 13
         },
         {
           "value": "보고서작성형",
-          "count": 7
+          "count": 12
+        },
+        {
+          "value": "프로젝트형",
+          "count": 9
+        },
+        {
+          "value": "논술형",
+          "count": 8
         },
         {
           "value": "창작설계형",
           "count": 5
         },
         {
-          "value": "구술발표형",
-          "count": 3
+          "value": "문제해결형",
+          "count": 5
         },
         {
-          "value": "문제해결형",
+          "value": "포트폴리오형",
+          "count": 4
+        },
+        {
+          "value": "구술발표형",
           "count": 3
         },
         {
@@ -25185,29 +25702,25 @@
           "count": 3
         },
         {
-          "value": "포트폴리오형",
-          "count": 3
-        },
-        {
-          "value": "논술형",
-          "count": 2
-        },
-        {
           "value": "독서기반형",
           "count": 2
         },
         {
-          "value": "조사탐구형",
-          "count": 1
+          "value": "프로그램구현형",
+          "count": 2
         }
       ],
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 10
+          "count": 14
         },
         {
           "value": "실험보고서",
+          "count": 13
+        },
+        {
+          "value": "탐구보고서",
           "count": 9
         },
         {
@@ -25215,7 +25728,7 @@
           "count": 4
         },
         {
-          "value": "탐구보고서",
+          "value": "논술문",
           "count": 4
         },
         {
@@ -25245,23 +25758,19 @@
         {
           "value": "정책제안서",
           "count": 1
-        },
-        {
-          "value": "프로그램산출물",
-          "count": 1
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 9
-        },
-        {
-          "value": "원리적용형",
-          "count": 9
+          "count": 13
         },
         {
           "value": "자료해석형",
+          "count": 12
+        },
+        {
+          "value": "원리적용형",
           "count": 9
         },
         {
@@ -25274,6 +25783,14 @@
         },
         {
           "value": "개념해석형",
+          "count": 6
+        },
+        {
+          "value": "변인탐구형",
+          "count": 4
+        },
+        {
+          "value": "문제설계형",
           "count": 3
         },
         {
@@ -25281,29 +25798,29 @@
           "count": 2
         },
         {
-          "value": "모델링분석형",
-          "count": 1
+          "value": "풀이비교형",
+          "count": 2
         },
         {
-          "value": "문제설계형",
+          "value": "모델링분석형",
           "count": 1
         },
         {
           "value": "창작설계형",
           "count": 1
-        },
-        {
-          "value": "프로그램구현형",
-          "count": 1
         }
       ],
       "recommended_topic_formulas": [
+        {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 7
+        },
         {
           "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
           "count": 3
         },
         {
-          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
           "count": 3
         },
         {
@@ -25311,20 +25828,16 @@
           "count": 2
         },
         {
-          "formula": "[문제 상황]을 해결하기 위한 [모델/프로그램/산출물]을 설계하고 [교과 근거]로 성능과 한계 검증",
-          "count": 1
-        },
-        {
-          "formula": "[변인/조건]에 따른 [결과값] 변화를 [교과 원리]로 분석하고 실험 설계의 타당성 검토",
-          "count": 1
+          "formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+          "count": 2
         }
       ]
     },
     {
       "subject_standard": "지구과학Ⅱ",
       "subject_group": "과학",
-      "evidence_count": 20,
-      "topic_generating_evidence_count": 20,
+      "evidence_count": 30,
+      "topic_generating_evidence_count": 30,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "daegun_2026_g3_s1",
@@ -25335,70 +25848,83 @@
         "kyungil_girls_2026_g3_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g3_s1_c84eaf6a",
-        "seoul_science_2026_s1_g123"
+        "seoul_science_2026_s1_g123",
+        "gyeonggi_high_2026_g3_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g3_all_subjects_s1",
+        "gyeonggi_girls_2026_g3_47896640_s1",
+        "dankook_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "자료해석",
-          "count": 17
+          "count": 25
+        },
+        {
+          "value": "원리적용",
+          "count": 18
         },
         {
           "value": "과학개념탐구",
           "count": 14
         },
         {
-          "value": "원리적용",
-          "count": 13
+          "value": "탐구설계",
+          "count": 11
+        },
+        {
+          "value": "논증·비평",
+          "count": 9
         },
         {
           "value": "실험탐구",
+          "count": 9
+        },
+        {
+          "value": "실험·관찰",
+          "count": 8
+        },
+        {
+          "value": "개념이해",
           "count": 7
         },
         {
-          "value": "탐구설계",
+          "value": "문제해결",
           "count": 7
+        },
+        {
+          "value": "의사소통",
+          "count": 6
         },
         {
           "value": "표현창작",
           "count": 6
         },
         {
-          "value": "문제해결",
-          "count": 6
-        },
-        {
-          "value": "논증·비평",
-          "count": 5
-        },
-        {
           "value": "사회문제분석",
-          "count": 4
-        },
-        {
-          "value": "의사소통",
           "count": 4
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "자료해석형",
-          "count": 13
+          "value": "보고서작성형",
+          "count": 21
         },
         {
-          "value": "보고서작성형",
-          "count": 12
+          "value": "자료해석형",
+          "count": 20
         },
         {
           "value": "실험실습형",
-          "count": 11
+          "count": 15
         },
         {
           "value": "구술발표형",
-          "count": 9
+          "count": 11
         },
         {
           "value": "논술형",
-          "count": 7
+          "count": 10
         },
         {
           "value": "프로젝트형",
@@ -25417,34 +25943,42 @@
           "count": 2
         },
         {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
           "value": "프로그래밍구현형",
           "count": 2
+        },
+        {
+          "value": "실기시연형",
+          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
           "value": "자료분석지",
-          "count": 13
+          "count": 20
         },
         {
           "value": "탐구보고서",
-          "count": 11
+          "count": 20
         },
         {
           "value": "실험보고서",
-          "count": 10
+          "count": 14
         },
         {
           "value": "발표자료",
-          "count": 9
+          "count": 11
+        },
+        {
+          "value": "논술문",
+          "count": 7
         },
         {
           "value": "서평·독서일지",
           "count": 5
-        },
-        {
-          "value": "논술문",
-          "count": 4
         },
         {
           "value": "정책제안서",
@@ -25465,12 +25999,16 @@
       ],
       "dominant_report_modes": [
         {
-          "value": "실험분석형",
-          "count": 10
+          "value": "자료해석형",
+          "count": 16
         },
         {
-          "value": "자료해석형",
-          "count": 9
+          "value": "실험분석형",
+          "count": 14
+        },
+        {
+          "value": "개념해석형",
+          "count": 6
         },
         {
           "value": "연구보고서형",
@@ -25481,7 +26019,7 @@
           "count": 6
         },
         {
-          "value": "연구설계형",
+          "value": "논증형",
           "count": 3
         },
         {
@@ -25489,7 +26027,11 @@
           "count": 3
         },
         {
-          "value": "논증형",
+          "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "변인탐구형",
           "count": 2
         },
         {
@@ -25501,21 +26043,17 @@
           "count": 2
         },
         {
-          "value": "개념해석형",
+          "value": "비평분석형",
           "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 5
+          "count": 10
         },
         {
           "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
-          "count": 3
-        },
-        {
-          "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
           "count": 3
         },
         {
@@ -25523,20 +26061,16 @@
           "count": 3
         },
         {
+          "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
+          "count": 3
+        },
+        {
           "formula": "[교과 원리]를 [실제 사례/문제 상황]에 적용하여 작동 조건과 한계 분석",
           "count": 2
         },
         {
-          "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
-          "count": 1
-        },
-        {
-          "formula": "[쟁점]에 대한 찬반 근거 비교와 자신의 관점에 따른 논증 구조화",
-          "count": 1
-        },
-        {
-          "formula": "[현상/대상]을 [교과 원리]로 설명하고 [적용 가능성]을 분석",
-          "count": 1
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
+          "count": 2
         }
       ]
     },
@@ -27296,8 +27830,8 @@
     {
       "subject_standard": "통합과학",
       "subject_group": "과학",
-      "evidence_count": 63,
-      "topic_generating_evidence_count": 62,
+      "evidence_count": 77,
+      "topic_generating_evidence_count": 76,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g1_s1",
@@ -27324,74 +27858,88 @@
         "sema_2026_g1_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g1_s1_9f3756ec",
-        "unjeong_2026_g1_s1_b85f32"
+        "unjeong_2026_g1_s1_b85f32",
+        "gyeonggi_high_2026_g1_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g1_all_subjects_s1",
+        "gaepo_high_2026_g1_assessment_plan_s1",
+        "gyeonggi_girls_2026_g1_2029cbcd_s1",
+        "dankook_high_2026_g1_s1"
       ],
       "dominant_content_axis": [
         {
+          "value": "자료해석",
+          "count": 47
+        },
+        {
           "value": "원리적용",
-          "count": 44
+          "count": 46
         },
         {
           "value": "과학개념탐구",
           "count": 41
         },
         {
-          "value": "자료해석",
-          "count": 38
+          "value": "논증·비평",
+          "count": 27
         },
         {
           "value": "실험탐구",
-          "count": 23
-        },
-        {
-          "value": "논증·비평",
-          "count": 20
-        },
-        {
-          "value": "개념이해",
-          "count": 14
-        },
-        {
-          "value": "문제해결",
-          "count": 14
-        },
-        {
-          "value": "독서기반탐구",
-          "count": 13
+          "count": 24
         },
         {
           "value": "탐구설계",
-          "count": 13
+          "count": 19
+        },
+        {
+          "value": "개념이해",
+          "count": 17
+        },
+        {
+          "value": "문제해결",
+          "count": 15
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 14
+        },
+        {
+          "value": "실험·관찰",
+          "count": 12
         },
         {
           "value": "표현창작",
-          "count": 8
+          "count": 11
+        },
+        {
+          "value": "설계·모델링",
+          "count": 2
         }
       ],
       "dominant_method_axis": [
         {
           "value": "보고서작성형",
-          "count": 41
+          "count": 54
         },
         {
           "value": "실험실습형",
-          "count": 30
+          "count": 38
         },
         {
           "value": "자료해석형",
-          "count": 30
-        },
-        {
-          "value": "프로젝트형",
-          "count": 22
+          "count": 38
         },
         {
           "value": "논술형",
-          "count": 21
+          "count": 28
+        },
+        {
+          "value": "프로젝트형",
+          "count": 24
         },
         {
           "value": "구술발표형",
-          "count": 15
+          "count": 17
         },
         {
           "value": "독서기반형",
@@ -27399,7 +27947,7 @@
         },
         {
           "value": "문제해결형",
-          "count": 10
+          "count": 11
         },
         {
           "value": "조사탐구형",
@@ -27408,28 +27956,36 @@
         {
           "value": "논증형",
           "count": 7
+        },
+        {
+          "value": "실기시연형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
         }
       ],
       "dominant_output_axis": [
         {
           "value": "탐구보고서",
-          "count": 33
+          "count": 46
         },
         {
           "value": "자료분석지",
-          "count": 31
+          "count": 39
         },
         {
           "value": "실험보고서",
-          "count": 28
+          "count": 36
         },
         {
           "value": "논술문",
-          "count": 16
+          "count": 23
         },
         {
           "value": "발표자료",
-          "count": 14
+          "count": 16
         },
         {
           "value": "서평·독서일지",
@@ -27437,7 +27993,7 @@
         },
         {
           "value": "창작물",
-          "count": 11
+          "count": 12
         },
         {
           "value": "풀이보고서",
@@ -27450,54 +28006,70 @@
         {
           "value": "활동지",
           "count": 6
+        },
+        {
+          "value": "산출물",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오",
+          "count": 1
         }
       ],
       "dominant_report_modes": [
         {
+          "value": "실험분석형",
+          "count": 36
+        },
+        {
           "value": "자료해석형",
-          "count": 31
+          "count": 35
         },
         {
           "value": "연구보고서형",
           "count": 28
         },
         {
-          "value": "실험분석형",
-          "count": 28
+          "value": "개념해석형",
+          "count": 21
+        },
+        {
+          "value": "연구설계형",
+          "count": 17
         },
         {
           "value": "원리적용형",
           "count": 17
         },
         {
-          "value": "개념해석형",
-          "count": 17
-        },
-        {
-          "value": "연구설계형",
-          "count": 16
-        },
-        {
           "value": "논증형",
           "count": 11
+        },
+        {
+          "value": "독서비평형",
+          "count": 10
         },
         {
           "value": "창작설계형",
           "count": 10
         },
         {
-          "value": "독서비평형",
-          "count": 9
+          "value": "변인탐구형",
+          "count": 7
         },
         {
           "value": "문제설계형",
           "count": 5
+        },
+        {
+          "value": "개념적용형",
+          "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 15
+          "count": 19
         },
         {
           "formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
@@ -27516,16 +28088,12 @@
           "count": 3
         },
         {
-          "formula": "[현상/문제]를 [교과 개념]으로 분석하고 [탐구 근거]를 통해 해결 방향 제시",
-          "count": 3
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
+          "count": 1
         },
         {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
-          "count": 2
-        },
-        {
-          "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
-          "count": 2
+          "formula": "[탐구 대상]의 [핵심 쟁점]을 [교과 개념]으로 분석하고 [해결/개선 방향]을 제안",
+          "count": 1
         }
       ]
     },
@@ -28584,8 +29152,8 @@
     {
       "subject_standard": "화학",
       "subject_group": "과학",
-      "evidence_count": 40,
-      "topic_generating_evidence_count": 40,
+      "evidence_count": 45,
+      "topic_generating_evidence_count": 45,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "ansan_dongsan_2026_g2_s1",
@@ -28605,40 +29173,42 @@
         "sema_2026_g2_s1",
         "seondeok_2026_s1_science_info",
         "seorabeol_2026_g2_s1_7736b35a",
-        "unjeong_2026_g2_s1_82def6"
+        "unjeong_2026_g2_s1_82def6",
+        "gyeonggi_girls_2026_g2_03648ac1_s1",
+        "dankook_high_2026_g2_s1"
       ],
       "dominant_content_axis": [
         {
           "value": "원리적용",
-          "count": 38
+          "count": 39
         },
         {
           "value": "자료해석",
-          "count": 29
+          "count": 32
         },
         {
           "value": "과학개념탐구",
           "count": 28
         },
         {
-          "value": "실험탐구",
-          "count": 17
+          "value": "논증·비평",
+          "count": 18
         },
         {
-          "value": "논증·비평",
-          "count": 15
+          "value": "실험탐구",
+          "count": 18
         },
         {
           "value": "개념이해",
+          "count": 15
+        },
+        {
+          "value": "문제해결",
           "count": 12
         },
         {
           "value": "탐구설계",
-          "count": 11
-        },
-        {
-          "value": "문제해결",
-          "count": 10
+          "count": 12
         },
         {
           "value": "독서기반탐구",
@@ -28646,33 +29216,41 @@
         },
         {
           "value": "표현창작",
-          "count": 8
+          "count": 9
+        },
+        {
+          "value": "설계·모델링",
+          "count": 3
+        },
+        {
+          "value": "실험·관찰",
+          "count": 3
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "자료해석형",
-          "count": 24
+          "value": "실험실습형",
+          "count": 27
         },
         {
-          "value": "실험실습형",
-          "count": 23
+          "value": "자료해석형",
+          "count": 25
         },
         {
           "value": "논술형",
-          "count": 20
+          "count": 23
         },
         {
           "value": "보고서작성형",
-          "count": 18
+          "count": 23
         },
         {
           "value": "프로젝트형",
-          "count": 17
+          "count": 19
         },
         {
           "value": "구술발표형",
-          "count": 15
+          "count": 18
         },
         {
           "value": "문제해결형",
@@ -28689,28 +29267,36 @@
         {
           "value": "창작설계형",
           "count": 6
+        },
+        {
+          "value": "실기시연형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 3
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "자료분석지",
-          "count": 24
+          "value": "실험보고서",
+          "count": 26
         },
         {
-          "value": "실험보고서",
-          "count": 22
+          "value": "자료분석지",
+          "count": 26
         },
         {
           "value": "탐구보고서",
-          "count": 15
+          "count": 20
         },
         {
           "value": "논술문",
-          "count": 14
+          "count": 17
         },
         {
           "value": "발표자료",
-          "count": 13
+          "count": 16
         },
         {
           "value": "서평·독서일지",
@@ -28722,7 +29308,7 @@
         },
         {
           "value": "창작물",
-          "count": 6
+          "count": 7
         },
         {
           "value": "풀이보고서",
@@ -28731,12 +29317,16 @@
         {
           "value": "분석보고서",
           "count": 4
+        },
+        {
+          "value": "산출물",
+          "count": 1
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 21
+          "count": 25
         },
         {
           "value": "원리적용형",
@@ -28748,7 +29338,7 @@
         },
         {
           "value": "연구설계형",
-          "count": 14
+          "count": 15
         },
         {
           "value": "개념해석형",
@@ -28773,6 +29363,10 @@
         {
           "value": "글쓰기논술형",
           "count": 3
+        },
+        {
+          "value": "변인탐구형",
+          "count": 3
         }
       ],
       "recommended_topic_formulas": [
@@ -28789,24 +29383,20 @@
           "count": 4
         },
         {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 3
+        },
+        {
           "formula": "[텍스트/작품]에 나타난 [핵심 쟁점]을 근거 중심으로 해석하고 비평",
           "count": 3
         },
         {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
-          "count": 2
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
+          "count": 1
         },
         {
-          "formula": "[실험 조건]에 따른 [결과 변화]를 [교과 원리]로 분석",
-          "count": 2
-        },
-        {
-          "formula": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
-          "count": 2
-        },
-        {
-          "formula": "[현상/문제]를 [교과 개념]으로 분석하고 [탐구 근거]를 통해 해결 방향 제시",
-          "count": 2
+          "formula": "[탐구 대상]의 [핵심 쟁점]을 [교과 개념]으로 분석하고 [해결/개선 방향]을 제안",
+          "count": 1
         }
       ]
     },
@@ -30009,21 +30599,37 @@
     {
       "subject_standard": "화학Ⅰ",
       "subject_group": "과학",
-      "evidence_count": 7,
-      "topic_generating_evidence_count": 7,
+      "evidence_count": 19,
+      "topic_generating_evidence_count": 19,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "gwangju_science_2026_g1_s1_4ade722193",
         "daegu_science_2026_s1_g123",
-        "daejeon_science_2026_g1_s1"
+        "daejeon_science_2026_g1_s1",
+        "gyeonggi_high_2026_g2_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g2_all_subjects_s1",
+        "gaepo_high_2026_g2_assessment_plan_s1"
       ],
       "dominant_content_axis": [
         {
-          "value": "원리적용",
-          "count": 6
+          "value": "자료해석",
+          "count": 14
         },
         {
-          "value": "자료해석",
+          "value": "실험·관찰",
+          "count": 11
+        },
+        {
+          "value": "원리적용",
+          "count": 8
+        },
+        {
+          "value": "논증·비평",
+          "count": 7
+        },
+        {
+          "value": "탐구설계",
           "count": 6
         },
         {
@@ -30031,19 +30637,19 @@
           "count": 5
         },
         {
-          "value": "실험탐구",
-          "count": 4
+          "value": "개념이해",
+          "count": 5
         },
         {
-          "value": "개념이해",
-          "count": 2
+          "value": "실험탐구",
+          "count": 4
         },
         {
           "value": "독서기반탐구",
           "count": 2
         },
         {
-          "value": "탐구설계",
+          "value": "표현창작",
           "count": 2
         },
         {
@@ -30051,34 +30657,34 @@
           "count": 1
         },
         {
-          "value": "실험·관찰",
-          "count": 1
-        },
-        {
           "value": "텍스트해석",
-          "count": 1
-        },
-        {
-          "value": "표현창작",
           "count": 1
         }
       ],
       "dominant_method_axis": [
         {
+          "value": "자료해석형",
+          "count": 14
+        },
+        {
           "value": "보고서작성형",
-          "count": 7
+          "count": 13
+        },
+        {
+          "value": "실험실습형",
+          "count": 12
+        },
+        {
+          "value": "논술형",
+          "count": 12
         },
         {
           "value": "구술발표형",
           "count": 6
         },
         {
-          "value": "자료해석형",
+          "value": "포트폴리오형",
           "count": 6
-        },
-        {
-          "value": "실험실습형",
-          "count": 5
         },
         {
           "value": "창작설계형",
@@ -30093,12 +30699,8 @@
           "count": 3
         },
         {
-          "value": "포트폴리오형",
+          "value": "토의토론형",
           "count": 3
-        },
-        {
-          "value": "논술형",
-          "count": 2
         },
         {
           "value": "문제해결형",
@@ -30107,31 +30709,35 @@
         {
           "value": "조사탐구형",
           "count": 2
-        },
-        {
-          "value": "독서기반형",
-          "count": 1
         }
       ],
       "dominant_output_axis": [
+        {
+          "value": "실험보고서",
+          "count": 12
+        },
+        {
+          "value": "자료분석지",
+          "count": 11
+        },
+        {
+          "value": "논술문",
+          "count": 11
+        },
+        {
+          "value": "탐구보고서",
+          "count": 10
+        },
         {
           "value": "발표자료",
           "count": 7
         },
         {
-          "value": "실험보고서",
-          "count": 5
-        },
-        {
-          "value": "자료분석지",
-          "count": 5
-        },
-        {
-          "value": "탐구보고서",
-          "count": 4
-        },
-        {
           "value": "탐구노트",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오",
           "count": 3
         },
         {
@@ -30141,10 +30747,6 @@
         {
           "value": "풀이보고서",
           "count": 2
-        },
-        {
-          "value": "논술문",
-          "count": 1
         },
         {
           "value": "보고서",
@@ -30161,6 +30763,10 @@
       ],
       "dominant_report_modes": [
         {
+          "value": "실험분석형",
+          "count": 12
+        },
+        {
           "value": "연구보고서형",
           "count": 7
         },
@@ -30169,19 +30775,23 @@
           "count": 7
         },
         {
-          "value": "실험분석형",
-          "count": 5
+          "value": "자료해석형",
+          "count": 7
+        },
+        {
+          "value": "변인탐구형",
+          "count": 7
+        },
+        {
+          "value": "개념해석형",
+          "count": 6
         },
         {
           "value": "원리적용형",
           "count": 5
         },
         {
-          "value": "자료해석형",
-          "count": 4
-        },
-        {
-          "value": "개념해석형",
+          "value": "논증형",
           "count": 3
         },
         {
@@ -30197,29 +30807,25 @@
           "count": 2
         },
         {
-          "value": "논증형",
-          "count": 1
-        },
-        {
           "value": "발표설계형",
           "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 8
+        },
+        {
+          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 4
+        },
+        {
           "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
           "count": 3
         },
         {
-          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 1
-        },
-        {
           "formula": "[변인/조건]에 따른 [결과값] 변화를 [교과 원리]로 분석하고 실험 설계의 타당성 검토",
-          "count": 1
-        },
-        {
-          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
           "count": 1
         },
         {
@@ -30231,8 +30837,8 @@
     {
       "subject_standard": "화학Ⅱ",
       "subject_group": "과학",
-      "evidence_count": 19,
-      "topic_generating_evidence_count": 19,
+      "evidence_count": 36,
+      "topic_generating_evidence_count": 36,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "daegun_2026_g3_s1",
@@ -30243,16 +30849,26 @@
         "kimcheon_2026_g3_s1_ec9396aa3b",
         "kyungil_girls_2026_g3_s1",
         "seondeok_2026_s1_science_info",
-        "seorabeol_2026_g3_s1_a122c2cc"
+        "seorabeol_2026_g3_s1_a122c2cc",
+        "gyeonggi_high_2026_g3_s1",
+        "gamil_high_2026_science_s1",
+        "gangil_high_2026_g3_all_subjects_s1",
+        "gaepo_high_2026_g3_assessment_plan_s1",
+        "gyeonggi_girls_2026_g3_189bfd1a_s1",
+        "dankook_high_2026_g3_s1"
       ],
       "dominant_content_axis": [
         {
-          "value": "원리적용",
-          "count": 16
+          "value": "자료해석",
+          "count": 23
         },
         {
-          "value": "자료해석",
-          "count": 15
+          "value": "원리적용",
+          "count": 20
+        },
+        {
+          "value": "실험·관찰",
+          "count": 19
         },
         {
           "value": "과학개념탐구",
@@ -30260,18 +30876,26 @@
         },
         {
           "value": "탐구설계",
-          "count": 9
+          "count": 14
+        },
+        {
+          "value": "논증·비평",
+          "count": 13
         },
         {
           "value": "문제해결",
-          "count": 9
+          "count": 12
         },
         {
           "value": "실험탐구",
+          "count": 9
+        },
+        {
+          "value": "개념이해",
           "count": 7
         },
         {
-          "value": "실험·관찰",
+          "value": "의사소통",
           "count": 6
         },
         {
@@ -30279,42 +30903,54 @@
           "count": 5
         },
         {
-          "value": "개념이해",
+          "value": "설계·모델링",
           "count": 3
         },
         {
-          "value": "논증·비평",
-          "count": 3
+          "value": "창작·설계",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
           "value": "보고서작성형",
-          "count": 15
+          "count": 29
         },
         {
           "value": "실험실습형",
-          "count": 13
-        },
-        {
-          "value": "자료해석형",
-          "count": 13
-        },
-        {
-          "value": "구술발표형",
-          "count": 9
-        },
-        {
-          "value": "프로젝트형",
-          "count": 8
+          "count": 25
         },
         {
           "value": "논술형",
-          "count": 6
+          "count": 16
+        },
+        {
+          "value": "구술발표형",
+          "count": 15
+        },
+        {
+          "value": "자료해석형",
+          "count": 15
+        },
+        {
+          "value": "프로젝트형",
+          "count": 9
         },
         {
           "value": "문제해결형",
-          "count": 5
+          "count": 6
+        },
+        {
+          "value": "창작형",
+          "count": 4
+        },
+        {
+          "value": "토의토론형",
+          "count": 4
+        },
+        {
+          "value": "실기시연형",
+          "count": 3
         },
         {
           "value": "독서기반형",
@@ -30325,29 +30961,37 @@
           "count": 2
         },
         {
-          "value": "창작형",
-          "count": 2
+          "value": "제작형",
+          "count": 1
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "자료분석지",
-          "count": 13
-        },
-        {
           "value": "탐구보고서",
-          "count": 12
+          "count": 26
         },
         {
           "value": "실험보고서",
-          "count": 11
-        },
-        {
-          "value": "발표자료",
-          "count": 8
+          "count": 23
         },
         {
           "value": "논술문",
+          "count": 15
+        },
+        {
+          "value": "자료분석지",
+          "count": 15
+        },
+        {
+          "value": "발표자료",
+          "count": 14
+        },
+        {
+          "value": "창작물",
           "count": 5
         },
         {
@@ -30359,8 +31003,8 @@
           "count": 3
         },
         {
-          "value": "창작물",
-          "count": 3
+          "value": "산출물",
+          "count": 2
         },
         {
           "value": "서평·독서일지",
@@ -30369,20 +31013,32 @@
         {
           "value": "정책제안서",
           "count": 2
+        },
+        {
+          "value": "포트폴리오",
+          "count": 2
         }
       ],
       "dominant_report_modes": [
         {
           "value": "실험분석형",
-          "count": 11
+          "count": 23
+        },
+        {
+          "value": "변인탐구형",
+          "count": 10
+        },
+        {
+          "value": "자료해석형",
+          "count": 9
         },
         {
           "value": "연구보고서형",
           "count": 7
         },
         {
-          "value": "자료해석형",
-          "count": 7
+          "value": "개념해석형",
+          "count": 5
         },
         {
           "value": "연구설계형",
@@ -30393,12 +31049,8 @@
           "count": 5
         },
         {
-          "value": "개념해석형",
-          "count": 3
-        },
-        {
           "value": "논증형",
-          "count": 3
+          "count": 4
         },
         {
           "value": "창작설계형",
@@ -30411,16 +31063,28 @@
         {
           "value": "비교분석형",
           "count": 1
+        },
+        {
+          "value": "비평분석형",
+          "count": 1
+        },
+        {
+          "value": "산출물제작형",
+          "count": 1
         }
       ],
       "recommended_topic_formulas": [
         {
-          "formula": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
-          "count": 4
+          "formula": "[실험/관찰 대상]의 [변인/조건]에 따른 [결과]를 자료로 분석하고 원리를 해석",
+          "count": 10
         },
         {
           "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
-          "count": 3
+          "count": 5
+        },
+        {
+          "formula": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
+          "count": 4
         },
         {
           "formula": "[교과 개념]을 바탕으로 [자료/사례]를 분석하고 [탐구 결론]을 도출",
@@ -30431,20 +31095,8 @@
           "count": 2
         },
         {
-          "formula": "[실험 조건]에 따른 [결과 변화]를 [교과 원리]로 분석",
+          "formula": "[실험/관찰 대상]의 [조건 변화]를 [교과 원리]로 설명하고 [결과 차이]를 분석",
           "count": 2
-        },
-        {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
-          "count": 1
-        },
-        {
-          "formula": "[변인]에 따른 [결과값] 변화가 [교과 원리]에 미치는 영향 분석",
-          "count": 1
-        },
-        {
-          "formula": "[텍스트/자료]의 핵심 관점을 [교과 개념]으로 비평하고 [자기 해석]을 제시",
-          "count": 1
         }
       ]
     },

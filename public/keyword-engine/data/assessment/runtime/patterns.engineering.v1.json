@@ -1,23 +1,24 @@
 {
-  "version": "1.29.0-cumulative",
-  "format": "subject_assessment_patterns_split_by_subject_group.v1",
-  "generated_at": "2026-07-02T18:10:00+09:00",
-  "source_patch_name": "assessment_engine_patch_034schools_garak_20260702",
+  "version": "1.33.0-cumulative",
+  "format": "subject_assessment_patterns_by_subject_group.v1",
+  "generated_at": "2026-07-02T19:40:00+09:00",
+  "source_patch_name": "assessment_engine_patch_040schools_dankook_high_20260702",
   "group_key": "engineering",
   "group_label": "공학",
-  "pattern_count": 5,
+  "pattern_count": 6,
   "subject_group_values": [
     "공학"
   ],
-  "subject_standard_count": 5,
+  "subject_standard_count": 6,
   "subject_standard_examples": [
     "공학개론",
     "생활 속의 공학",
     "인터렉티브 디자인과 테크놀로지",
+    "전공 기초",
     "커뮤니케이션의 공학적 이해",
     "프로젝트기반연구Ⅱ-액체연료 기반 접촉점화 방식을 활용한 추력기 설계 및 제작"
   ],
-  "split_policy": "기존 pattern 객체를 삭제·축약하지 않고 과목군별 파일로 분산 저장한다.",
+  "split_policy": "과목군별 분리 저장. 런타임에서는 patterns.index.v1.json을 통해 필요한 과목군 파일만 로드한다.",
   "subject_patterns": [
     {
       "subject_standard": "공학개론",
@@ -420,6 +421,78 @@
         {
           "formula": "[교과 원리]를 적용한 [산출물] 제작 과정과 기능·표현 효과 분석",
           "count": 4
+        }
+      ]
+    },
+    {
+      "subject_standard": "전공 기초",
+      "subject_group": "공학",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "실험·관찰",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현창작",
+          "count": 1
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "원리적용",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "비평분석형",
+          "count": 2
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 2
         }
       ]
     },
