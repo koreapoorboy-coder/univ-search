@@ -1,0 +1,74 @@
+{
+  "version": "2026.07.03-m1-int-rational-v0.1",
+  "units": [
+    {
+      "unit_id": "M1_INT_RATIONAL",
+      "grade": "중1",
+      "unit_name": "정수와 유리수",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_int_rational.problem_types.v1.json",
+      "edges": "data/relations/m1_int_rational.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_int_rational.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_int_rational.remediation_map.v1.json",
+      "sources": "data/sources/m1_int_rational.source_manifest.v1.json"
+    }
+  ],
+  "cross_grade_targets": [
+    {
+      "concept_id": "M2_EXP_C001",
+      "grade": "중2",
+      "unit_name": "식의 계산",
+      "concept_name": "동류항 정리와 부호 처리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_EQ_C001",
+      "grade": "중2",
+      "unit_name": "일차방정식·연립방정식",
+      "concept_name": "이항과 음수 계산",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_INEQ_C001",
+      "grade": "중2",
+      "unit_name": "일차부등식",
+      "concept_name": "부등식 방향과 음수 곱셈",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C001",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "좌표평면에서 음수 좌표와 그래프 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C001",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "방정식 변형과 인수분해 전 계산 안정성",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_FUNC_C001",
+      "grade": "중3",
+      "unit_name": "이차함수",
+      "concept_name": "그래프 위치·대칭·좌표 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EQ_C001",
+      "grade": "고1",
+      "unit_name": "방정식과 부등식",
+      "concept_name": "방정식·부등식의 변형과 부호 처리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_FUNC_C001",
+      "grade": "고1",
+      "unit_name": "함수",
+      "concept_name": "그래프 해석과 수의 범위 판단",
+      "status": "future_target_seed"
+    }
+  ]
+}
