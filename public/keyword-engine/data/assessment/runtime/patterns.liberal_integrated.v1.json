@@ -1,18 +1,18 @@
 {
-  "version": "1.33.0-cumulative",
+  "version": "1.39.0-cumulative",
   "format": "subject_assessment_patterns_by_subject_group.v1",
-  "generated_at": "2026-07-02T19:40:00+09:00",
-  "source_patch_name": "assessment_engine_patch_040schools_dankook_high_20260702",
+  "generated_at": "2026-07-03T16:40:00+09:00",
+  "source_patch_name": "munjeong_high_assessment_patch_045schools_20260703",
   "group_key": "liberal_integrated",
   "group_label": "생활·교양·융합",
-  "pattern_count": 19,
+  "pattern_count": 20,
   "subject_group_values": [
     "교양·융합",
     "기타",
     "생활·교양·융합",
     "인문·교양"
   ],
-  "subject_standard_count": 19,
+  "subject_standard_count": 20,
   "subject_standard_examples": [
     "과제연구Ⅱ",
     "과제연구기초",
@@ -32,7 +32,8 @@
     "자기 주도적인 삶과 미래 역량 탐구",
     "졸업논문연구",
     "진로와 직업",
-    "진로직업 탐구"
+    "진로직업 탐구",
+    "환경"
   ],
   "split_policy": "과목군별 분리 저장. 런타임에서는 patterns.index.v1.json을 통해 필요한 과목군 파일만 로드한다.",
   "subject_patterns": [
@@ -2239,6 +2240,138 @@
         {
           "formula": "[쟁점]에 대한 [관점/주장]을 근거와 반론 검토로 논증",
           "count": 4
+        }
+      ]
+    },
+    {
+      "subject_standard": "환경",
+      "subject_group": "교양·융합",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "munjeong_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "탐구설계",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "글쓰기형",
+          "count": 1
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "서술형",
+          "count": 1
+        },
+        {
+          "value": "실기시연형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "조사탐구형",
+          "count": 1
+        },
+        {
+          "value": "토론형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "활동지",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "개념해석형",
+          "count": 2
+        },
+        {
+          "value": "쟁점탐구형",
+          "count": 2
+        },
+        {
+          "value": "발표논증형",
+          "count": 1
+        },
+        {
+          "value": "실험보고서형",
+          "count": 1
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[교과 개념]을 바탕으로 [자료/사례]를 해석하고 [결과물]로 정리",
+          "count": 1
+        },
+        {
+          "formula": "[수학/교과 개념]을 활용한 [조건형 문제/과제] 설계와 해결 과정 분석",
+          "count": 1
         }
       ]
     }

@@ -1,18 +1,19 @@
 {
-  "version": "1.33.0-cumulative",
+  "version": "1.39.0-cumulative",
   "format": "subject_assessment_patterns_by_subject_group.v1",
-  "generated_at": "2026-07-02T19:40:00+09:00",
-  "source_patch_name": "assessment_engine_patch_040schools_dankook_high_20260702",
+  "generated_at": "2026-07-03T16:40:00+09:00",
+  "source_patch_name": "munjeong_high_assessment_patch_045schools_20260703",
   "group_key": "misc",
   "group_label": "기타",
-  "pattern_count": 7,
+  "pattern_count": 8,
   "subject_group_values": [
     "기타"
   ],
-  "subject_standard_count": 7,
+  "subject_standard_count": 8,
   "subject_standard_examples": [
     "AP 생물학II",
     "U.S. History",
+    "동아시아사",
     "머신 러닝",
     "미분과 적분",
     "양자역학",
@@ -822,6 +823,86 @@
         },
         {
           "formula": "[교과 개념]의 구조를 [사례/자료]에 적용하여 의미와 한계 해석",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "subject_standard": "동아시아사",
+      "subject_group": "기타",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "myeongil_girls_high_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "개념이해",
+          "count": 2
+        },
+        {
+          "value": "설계·모델링",
+          "count": 1
+        },
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "산출물설계",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "포트폴리오형",
+          "count": 1
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        },
+        {
+          "value": "문제해결형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "활동지",
+          "count": 1
+        },
+        {
+          "value": "설계산출물",
+          "count": 1
+        },
+        {
+          "value": "설계보고서",
+          "count": 1
+        }
+      ],
+      "dominant_report_modes": [
+        {
+          "value": "개념해석형",
+          "count": 1
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
+        },
+        {
+          "value": "문제설계형",
+          "count": 1
+        }
+      ],
+      "recommended_topic_formulas": [
+        {
+          "formula": "[문제 상황]을 [교과 개념/조건]으로 모델링하여 [개선안/설계안]을 제안",
           "count": 1
         }
       ]
