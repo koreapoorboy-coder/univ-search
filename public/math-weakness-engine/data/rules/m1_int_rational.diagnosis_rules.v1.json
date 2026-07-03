@@ -1,0 +1,192 @@
+{
+  "version": "2026.07.03-m1-int-rational-v0.1",
+  "unit_id": "M1_INT_RATIONAL",
+  "rule_count": 7,
+  "rules": [
+    {
+      "rule_id": "M1_IR_RULE_SIGN_FOUNDATION",
+      "name": "부호 기초 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "sign_judgement",
+          "context_to_sign",
+          "zero_confusion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "양수·음수·0 구분 또는 부호의 방향성이 불안정합니다.",
+      "root_concept_ids": [
+        "M1_IR_C001",
+        "M1_IR_C002"
+      ],
+      "remediation_order": [
+        "M1_IR_C001",
+        "M1_IR_C002",
+        "M1_IR_C004"
+      ],
+      "parent_message": "계산 실수처럼 보이기 전에 먼저 양수·음수·0의 구분과 기준점 기준의 부호 해석을 짧게 재정리해야 합니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_NUMBER_LINE",
+      "name": "수직선·순서 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "number_line_position",
+          "number_line_reading",
+          "number_line_order",
+          "nearest_integer",
+          "distance_symmetry"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "수직선에서 위치·방향·거리 기준이 흔들립니다.",
+      "root_concept_ids": [
+        "M1_IR_C006",
+        "M1_IR_C007",
+        "M1_IR_C009"
+      ],
+      "remediation_order": [
+        "M1_IR_C006",
+        "M1_IR_C007",
+        "M1_IR_C009",
+        "M1_IR_C013"
+      ],
+      "parent_message": "수직선 해석이 약하면 중2 좌표평면과 일차함수 그래프에서 음수 좌표를 읽는 과정까지 영향을 줄 수 있습니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_ABSOLUTE",
+      "name": "절댓값·거리 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "absolute_value",
+          "absolute_value_inverse",
+          "absolute_value_relation",
+          "absolute_value_comparison"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "절댓값을 거리 개념으로 보지 못하고 부호 제거 규칙으로만 처리하는 경향이 있습니다.",
+      "root_concept_ids": [
+        "M1_IR_C010",
+        "M1_IR_C011",
+        "M1_IR_C012"
+      ],
+      "remediation_order": [
+        "M1_IR_C006",
+        "M1_IR_C010",
+        "M1_IR_C011",
+        "M1_IR_C012"
+      ],
+      "parent_message": "절댓값은 중1 범위에서는 거리 개념이고, 이후 그래프·거리·부등식 해석으로 이어지므로 수직선과 함께 보강하는 것이 좋습니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_COMPARISON",
+      "name": "대소 관계 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "comparison",
+          "absolute_value_comparison",
+          "conditional_comparison"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "수의 대소 관계, 특히 음수·분수·절댓값이 포함된 비교가 불안정합니다.",
+      "root_concept_ids": [
+        "M1_IR_C013",
+        "M1_IR_C014",
+        "M1_IR_C015"
+      ],
+      "remediation_order": [
+        "M1_IR_C007",
+        "M1_IR_C013",
+        "M1_IR_C014",
+        "M1_IR_C015"
+      ],
+      "parent_message": "대소 관계가 약하면 중2 부등식과 함수의 범위 해석에서 같은 유형의 오류가 반복될 수 있습니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_ADD_SUB",
+      "name": "덧셈·뺄셈 부호 처리 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "addition_sign",
+          "subtraction_to_addition",
+          "add_sub_mix"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "정수와 유리수의 덧셈·뺄셈에서 부호 처리 기준이 불안정합니다.",
+      "root_concept_ids": [
+        "M1_IR_C016",
+        "M1_IR_C018",
+        "M1_IR_C019"
+      ],
+      "remediation_order": [
+        "M1_IR_C001",
+        "M1_IR_C013",
+        "M1_IR_C016",
+        "M1_IR_C018",
+        "M1_IR_C019"
+      ],
+      "parent_message": "이 취약점은 중2 일차방정식의 이항, 연립방정식 계산에서 바로 반복될 가능성이 큽니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_MULT_DIV_POWER",
+      "name": "곱셈·나눗셈·거듭제곱 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "multiplication_sign",
+          "power_sign",
+          "division",
+          "reciprocal",
+          "mult_div_mix"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "곱셈·나눗셈의 부호 규칙, 역수 변환, 거듭제곱의 괄호 유무가 흔들립니다.",
+      "root_concept_ids": [
+        "M1_IR_C021",
+        "M1_IR_C022",
+        "M1_IR_C024",
+        "M1_IR_C026"
+      ],
+      "remediation_order": [
+        "M1_IR_C021",
+        "M1_IR_C022",
+        "M1_IR_C024",
+        "M1_IR_C026"
+      ],
+      "parent_message": "이 부분은 중2 부등식의 음수 곱셈, 중3 제곱근·다항식 계산, 고등수학의 식 변형에 영향을 줍니다."
+    },
+    {
+      "rule_id": "M1_IR_RULE_MIXED_APPLICATION",
+      "name": "혼합계산·응용 취약 판정",
+      "trigger": {
+        "error_tags_any": [
+          "operation_order",
+          "parentheses",
+          "missing_value",
+          "defined_operation",
+          "application",
+          "multi_step"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "계산 순서, 괄호, 조건 해석이 동시에 필요한 문제에서 오류가 발생합니다.",
+      "root_concept_ids": [
+        "M1_IR_C027",
+        "M1_IR_C028",
+        "M1_IR_C029"
+      ],
+      "remediation_order": [
+        "M1_IR_C019",
+        "M1_IR_C026",
+        "M1_IR_C027",
+        "M1_IR_C028",
+        "M1_IR_C029"
+      ],
+      "parent_message": "계산 자체보다 문제 조건을 식으로 바꾸고 순서대로 처리하는 훈련이 필요합니다."
+    }
+  ]
+}
