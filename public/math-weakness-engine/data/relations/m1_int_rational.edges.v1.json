@@ -1,0 +1,335 @@
+{
+  "version": "2026.07.03-m1-int-rational-v0.1",
+  "unit_id": "M1_INT_RATIONAL",
+  "edge_count": 41,
+  "edges": [
+    {
+      "from_concept_id": "M1_IR_C001",
+      "to_concept_id": "M1_IR_C002",
+      "edge_type": "prerequisite",
+      "weight": 0.95,
+      "reason": "양수·음수 판별이 되어야 상황을 부호로 나타낼 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C001",
+      "to_concept_id": "M1_IR_C004",
+      "edge_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "부호 판별은 정수 분류의 기초이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C004",
+      "to_concept_id": "M1_IR_C005",
+      "edge_type": "extension",
+      "weight": 0.85,
+      "reason": "정수 분류는 유리수 분류의 부분집합 구조로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C001",
+      "to_concept_id": "M1_IR_C006",
+      "edge_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "양수·음수 방향성이 수직선 위치 판단의 기반이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_IR_C007",
+      "edge_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "수직선에 나타내기가 되어야 좌우 순서로 대소를 판단할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_IR_C008",
+      "edge_type": "extension",
+      "weight": 0.8,
+      "reason": "수직선 위치 해석은 가까운 정수 및 사이 정수 찾기로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_IR_C009",
+      "edge_type": "extension",
+      "weight": 0.8,
+      "reason": "수직선 위치 해석은 같은 거리와 대칭으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_IR_C010",
+      "edge_type": "prerequisite",
+      "weight": 0.95,
+      "reason": "절댓값은 수직선에서 0으로부터의 거리이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C010",
+      "to_concept_id": "M1_IR_C011",
+      "edge_type": "extension",
+      "weight": 0.9,
+      "reason": "절댓값 기본 이해가 가능한 수 찾기와 거리 조건 판단으로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C011",
+      "to_concept_id": "M1_IR_C012",
+      "edge_type": "extension",
+      "weight": 0.85,
+      "reason": "절댓값 응용은 반대부호, 같은 절댓값, 거리 관계로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C007",
+      "to_concept_id": "M1_IR_C013",
+      "edge_type": "prerequisite",
+      "weight": 0.95,
+      "reason": "수직선의 좌우 순서가 수의 대소 관계의 핵심이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C010",
+      "to_concept_id": "M1_IR_C014",
+      "edge_type": "prerequisite",
+      "weight": 0.85,
+      "reason": "절댓값의 의미가 절댓값 포함 대소 비교의 기반이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C013",
+      "to_concept_id": "M1_IR_C015",
+      "edge_type": "extension",
+      "weight": 0.85,
+      "reason": "기본 대소 비교는 조건형 비교와 문자 조건 분석으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C001",
+      "to_concept_id": "M1_IR_C016",
+      "edge_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "정수 덧셈은 부호 판단과 절댓값 비교가 필요하다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C013",
+      "to_concept_id": "M1_IR_C016",
+      "edge_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "부호가 다른 덧셈은 절댓값 대소 비교로 결과 부호를 결정한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C016",
+      "to_concept_id": "M1_IR_C017",
+      "edge_type": "extension",
+      "weight": 0.65,
+      "reason": "덧셈 계산이 되어야 계산법칙을 이용한 효율 계산이 가능하다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C016",
+      "to_concept_id": "M1_IR_C018",
+      "edge_type": "prerequisite",
+      "weight": 0.95,
+      "reason": "뺄셈은 반대수의 덧셈으로 바꾸어 계산한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C018",
+      "to_concept_id": "M1_IR_C019",
+      "edge_type": "extension",
+      "weight": 0.9,
+      "reason": "덧셈과 뺄셈 기본이 혼합계산으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C019",
+      "to_concept_id": "M1_IR_C020",
+      "edge_type": "application",
+      "weight": 0.75,
+      "reason": "덧셈·뺄셈 혼합계산은 증감 문장제의 계산 기반이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C001",
+      "to_concept_id": "M1_IR_C021",
+      "edge_type": "prerequisite",
+      "weight": 0.85,
+      "reason": "곱셈 부호 판단은 양수·음수의 개념을 기반으로 한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M1_IR_C022",
+      "edge_type": "extension",
+      "weight": 0.85,
+      "reason": "거듭제곱은 같은 수를 여러 번 곱하는 구조이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M1_IR_C023",
+      "edge_type": "extension",
+      "weight": 0.65,
+      "reason": "곱셈 기본은 곱셈 계산법칙과 분배법칙 사용으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M1_IR_C024",
+      "edge_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "나눗셈은 역수를 이용한 곱셈으로 변환된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C024",
+      "to_concept_id": "M1_IR_C026",
+      "edge_type": "extension",
+      "weight": 0.85,
+      "reason": "나눗셈 기본은 곱셈·나눗셈 혼합계산으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C022",
+      "to_concept_id": "M1_IR_C026",
+      "edge_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "거듭제곱 부호와 계산 순서는 곱셈·나눗셈 혼합계산에 영향을 준다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C019",
+      "to_concept_id": "M1_IR_C027",
+      "edge_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "덧셈·뺄셈 혼합계산은 사칙연산 혼합계산의 일부이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C026",
+      "to_concept_id": "M1_IR_C027",
+      "edge_type": "prerequisite",
+      "weight": 0.9,
+      "reason": "곱셈·나눗셈 혼합계산은 사칙연산 혼합계산의 선행이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C023",
+      "to_concept_id": "M1_IR_C027",
+      "edge_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "분배법칙과 괄호 처리는 혼합계산의 오류를 줄이는 핵심이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C027",
+      "to_concept_id": "M1_IR_C028",
+      "edge_type": "application",
+      "weight": 0.75,
+      "reason": "새로운 연산 기호는 사칙연산 규칙을 정의에 따라 적용하는 문제이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C027",
+      "to_concept_id": "M1_IR_C029",
+      "edge_type": "application",
+      "weight": 0.75,
+      "reason": "도형·규칙·주사위 문제는 혼합계산을 상황에 적용한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C030",
+      "to_concept_id": "M1_IR_C029",
+      "edge_type": "meta_support",
+      "weight": 0.5,
+      "reason": "설명과 계산 과정을 검증하는 힘은 응용문제의 조건 점검에 영향을 준다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C016",
+      "to_concept_id": "M2_EQ_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.85,
+      "reason": "정수·유리수 덧셈의 부호 오류는 중2 이항 오류로 이어진다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C018",
+      "to_concept_id": "M2_EQ_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.9,
+      "reason": "뺄셈을 덧셈으로 바꾸는 과정은 이항의 부호 변화와 직접 연결된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C019",
+      "to_concept_id": "M2_EXP_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.75,
+      "reason": "유리수 계산 안정성은 문자식 정리의 계산 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M2_INEQ_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.8,
+      "reason": "음수 곱셈의 부호 판단은 부등식 방향 전환 이해의 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M2_FUNC_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.85,
+      "reason": "수직선 위치 해석은 좌표평면에서 음수 좌표 해석으로 확장된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C007",
+      "to_concept_id": "M2_FUNC_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.75,
+      "reason": "수직선 좌우 순서 이해는 함수 그래프의 좌표 해석에 영향을 준다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C010",
+      "to_concept_id": "M3_FUNC_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.6,
+      "reason": "절댓값의 거리 관점은 그래프 대칭·거리 해석으로 이어진다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C023",
+      "to_concept_id": "M3_QUAD_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.65,
+      "reason": "분배법칙과 괄호 처리는 다항식 전개·인수분해 전 계산의 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C027",
+      "to_concept_id": "H1_EQ_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.8,
+      "reason": "사칙 혼합계산과 부호 처리 안정성은 고등 방정식·부등식 변형의 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_IR_C013",
+      "to_concept_id": "H1_FUNC_C001",
+      "edge_type": "cross_grade_prerequisite",
+      "weight": 0.7,
+      "reason": "수의 대소 관계와 범위 판단은 고등 함수의 정의역·치역·그래프 해석에 영향을 준다.",
+      "scope": "cross_grade"
+    }
+  ]
+}
