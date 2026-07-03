@@ -1,0 +1,976 @@
+{
+  "version": "2026.07.03-m1-int-rational-v0.1",
+  "concept_count": 30,
+  "concepts": [
+    {
+      "concept_id": "M1_IR_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수 체계와 부호",
+      "sub_strand": "양수와 음수",
+      "concept_name": "양수와 음수 판별",
+      "description": "양수, 음수, 0을 구분하고 수의 부호가 의미하는 방향성을 판단한다.",
+      "diagnostic_signals": [
+        "0을 양수/음수로 착각",
+        "부호가 없는 자연수와 양수의 관계 혼동",
+        "음수 개수 세기 오류"
+      ],
+      "remediation_keywords": [
+        "양수·음수·0 구분",
+        "부호의 의미",
+        "보기 분류"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수 체계와 부호",
+      "sub_strand": "상황의 부호화",
+      "concept_name": "양·음의 부호로 나타내기",
+      "description": "증가/감소, 위/아래, 이익/손해 등 반대 상황을 +, - 부호로 나타낸다.",
+      "diagnostic_signals": [
+        "상황 방향을 반대로 해석",
+        "기준점보다 크고 작음을 부호로 번역하지 못함"
+      ],
+      "remediation_keywords": [
+        "기준점 설정",
+        "반대 상황 짝짓기",
+        "부호로 표현"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수 체계와 부호",
+      "sub_strand": "부호 개념의 성질",
+      "concept_name": "부호의 성질 판단",
+      "description": "양의 부호와 음의 부호에 대한 설명의 옳고 그름을 판단한다.",
+      "diagnostic_signals": [
+        "부호를 수의 크기로 착각",
+        "+/-를 연산기호와 혼동"
+      ],
+      "remediation_keywords": [
+        "부호와 연산기호 구분",
+        "수의 상태와 변화량 구분"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수 체계와 분류",
+      "sub_strand": "정수·자연수",
+      "concept_name": "정수의 분류",
+      "description": "자연수, 정수, 양의 정수, 음의 정수를 구분한다.",
+      "diagnostic_signals": [
+        "자연수와 정수 포함관계 혼동",
+        "0의 분류 혼동",
+        "음의 정수 판단 오류"
+      ],
+      "remediation_keywords": [
+        "자연수⊂정수 구조",
+        "0의 위치",
+        "정수 분류표"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수 체계와 분류",
+      "sub_strand": "유리수",
+      "concept_name": "유리수의 분류",
+      "description": "정수와 정수가 아닌 유리수, 양의 유리수와 음의 유리수를 구분한다.",
+      "diagnostic_signals": [
+        "정수가 유리수에 포함됨을 놓침",
+        "분수/소수 형태만 유리수로 봄",
+        "정수가 아닌 유리수 판단 오류"
+      ],
+      "remediation_keywords": [
+        "유리수 포함관계",
+        "정수/비정수 유리수 구분",
+        "분수·소수 표현"
+      ],
+      "source_orders": [
+        6,
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수직선과 순서",
+      "sub_strand": "수직선 표현",
+      "concept_name": "수직선에 수 나타내기",
+      "description": "정수, 소수, 분수, 대분수를 수직선 위에 나타내고 점이 나타내는 수를 읽는다.",
+      "diagnostic_signals": [
+        "음수 방향 오류",
+        "분수 간격 나누기 실패",
+        "수직선 눈금 해석 오류"
+      ],
+      "remediation_keywords": [
+        "수직선 방향",
+        "단위간격 나누기",
+        "분수·소수 위치 표시"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수직선과 순서",
+      "sub_strand": "좌우 순서",
+      "concept_name": "수직선에서 순서 읽기",
+      "description": "수직선에서 왼쪽/오른쪽 위치와 수의 크기 관계를 판단한다.",
+      "diagnostic_signals": [
+        "왼쪽일수록 작다는 기준 흔들림",
+        "음수 영역의 순서 혼동"
+      ],
+      "remediation_keywords": [
+        "수직선 좌우와 대소",
+        "음수 영역 순서",
+        "정렬하기"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수직선과 순서",
+      "sub_strand": "정수 조건 찾기",
+      "concept_name": "수직선으로 정수 찾기",
+      "description": "수직선을 이용해 가까운 정수, 사이에 있는 정수, 조건을 만족하는 정수를 찾는다.",
+      "diagnostic_signals": [
+        "가까운 정수 선택 오류",
+        "사이에 있는 정수 개수 오류",
+        "거리 비교 실패"
+      ],
+      "remediation_keywords": [
+        "가까운 정수",
+        "정수 개수 세기",
+        "거리 비교"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수직선과 순서",
+      "sub_strand": "같은 거리",
+      "concept_name": "수직선의 같은 거리와 대칭",
+      "description": "한 점 또는 두 점으로부터 같은 거리에 있는 점을 찾고 기준점으로부터 거리 조건을 해석한다.",
+      "diagnostic_signals": [
+        "대칭점 위치 오류",
+        "두 점 사이 중점 판단 오류",
+        "거리와 좌표를 혼동"
+      ],
+      "remediation_keywords": [
+        "같은 거리",
+        "대칭점",
+        "중점과 거리"
+      ],
+      "source_orders": [
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "절댓값과 거리",
+      "sub_strand": "기본 절댓값",
+      "concept_name": "절댓값의 의미",
+      "description": "절댓값을 수직선에서 0으로부터의 거리로 이해하고 정수·분수·소수의 절댓값을 구한다.",
+      "diagnostic_signals": [
+        "절댓값을 단순히 음수를 양수로 바꾸는 규칙으로만 이해",
+        "양수/0의 절댓값 오류",
+        "분수·소수 절댓값 오류"
+      ],
+      "remediation_keywords": [
+        "0으로부터 거리",
+        "정수 절댓값",
+        "분수·소수 절댓값"
+      ],
+      "source_orders": [
+        14,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "절댓값과 거리",
+      "sub_strand": "절댓값 활용",
+      "concept_name": "절댓값의 응용",
+      "description": "절댓값을 이용해 가능한 수, 양수·음수, 거리 조건을 판단한다.",
+      "diagnostic_signals": [
+        "절댓값이 같은 두 수를 하나만 찾음",
+        "조건을 만족하는 수의 개수 오류",
+        "수직선과 절댓값 연결 부족"
+      ],
+      "remediation_keywords": [
+        "절댓값으로 가능한 수 찾기",
+        "양수/음수 구분",
+        "거리 조건"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "절댓값과 거리",
+      "sub_strand": "절댓값 관계",
+      "concept_name": "절댓값의 성질과 반대부호 수",
+      "description": "절댓값이 같고 부호가 반대인 두 수, 절댓값 조건을 이용한 관계를 판단한다.",
+      "diagnostic_signals": [
+        "반대부호 수 관계 오류",
+        "|a|=|b|의 경우의 수 누락",
+        "절댓값 거리 조건 해석 오류"
+      ],
+      "remediation_keywords": [
+        "반대부호",
+        "|a|=|b|",
+        "절댓값 관계식"
+      ],
+      "source_orders": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수의 비교",
+      "sub_strand": "대소 비교",
+      "concept_name": "수의 대소 관계",
+      "description": "정수와 유리수의 크기를 비교하고 부등호를 넣거나 오름차순·내림차순으로 정렬한다.",
+      "diagnostic_signals": [
+        "음수의 대소 비교 오류",
+        "분수/소수 변환 없이 비교",
+        "절댓값과 실제 크기 혼동"
+      ],
+      "remediation_keywords": [
+        "정수 비교",
+        "유리수 비교",
+        "부등호 채우기",
+        "정렬"
+      ],
+      "source_orders": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수의 비교",
+      "sub_strand": "절댓값 비교",
+      "concept_name": "절댓값과 대소 관계",
+      "description": "절댓값을 포함한 수의 대소 관계를 비교하고 조건을 만족하는 수를 찾는다.",
+      "diagnostic_signals": [
+        "절댓값이 큰 수를 실제로 큰 수로 착각",
+        "음수에서 절댓값과 대소관계 혼동"
+      ],
+      "remediation_keywords": [
+        "절댓값 비교",
+        "실제 수와 절댓값 구분",
+        "조건 비교"
+      ],
+      "source_orders": [
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "수의 비교",
+      "sub_strand": "조건형 비교",
+      "concept_name": "대소 관계 조건 분석",
+      "description": "문자, 부등호, 절댓값 조건을 함께 사용해 수의 범위나 관계를 분석한다.",
+      "diagnostic_signals": [
+        "조건 여러 개를 동시에 적용하지 못함",
+        "부등호 방향 오류",
+        "가능한 경우 누락"
+      ],
+      "remediation_keywords": [
+        "조건 정리",
+        "부등호 해석",
+        "가능성 나누기"
+      ],
+      "source_orders": [
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "정수와 유리수의 계산",
+      "sub_strand": "덧셈",
+      "concept_name": "정수의 덧셈",
+      "description": "같은 부호와 다른 부호의 정수 덧셈을 계산하고 계산 과정의 부호를 판단한다.",
+      "diagnostic_signals": [
+        "부호가 다른 수의 덧셈에서 큰 절댓값 쪽 부호를 놓침",
+        "0과의 덧셈 오류",
+        "계산 과정 부호 선택 오류"
+      ],
+      "remediation_keywords": [
+        "같은 부호 덧셈",
+        "다른 부호 덧셈",
+        "절댓값 비교 후 부호 결정"
+      ],
+      "source_orders": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "정수와 유리수의 계산",
+      "sub_strand": "덧셈 법칙",
+      "concept_name": "덧셈의 계산 법칙",
+      "description": "교환법칙, 결합법칙, 계산 순서 조정으로 덧셈을 효율적으로 계산한다.",
+      "diagnostic_signals": [
+        "계산 법칙 이름과 사용 구분 오류",
+        "묶어 계산하기 실패",
+        "계산 순서 조정 실패"
+      ],
+      "remediation_keywords": [
+        "교환법칙",
+        "결합법칙",
+        "묶어 계산"
+      ],
+      "source_orders": [
+        46,
+        47
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "정수와 유리수의 계산",
+      "sub_strand": "뺄셈",
+      "concept_name": "정수와 유리수의 뺄셈",
+      "description": "뺄셈을 덧셈으로 바꾸어 계산하고 정수·분수·소수의 뺄셈을 처리한다.",
+      "diagnostic_signals": [
+        "빼는 수의 부호 바꾸기 오류",
+        "음수 빼기에서 부호 오류",
+        "분수/소수 뺄셈 오류"
+      ],
+      "remediation_keywords": [
+        "뺄셈=반대수 더하기",
+        "부호 바꾸기",
+        "분수·소수 뺄셈"
+      ],
+      "source_orders": [
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "정수와 유리수의 계산",
+      "sub_strand": "덧셈·뺄셈 혼합",
+      "concept_name": "덧셈·뺄셈 혼합계산",
+      "description": "정수, 분수, 소수가 섞인 덧셈·뺄셈 혼합계산을 수행한다.",
+      "diagnostic_signals": [
+        "부호가 연속될 때 처리 오류",
+        "괄호 제거 오류",
+        "분수·소수 혼합에서 통분/변환 오류"
+      ],
+      "remediation_keywords": [
+        "덧셈·뺄셈 혼합",
+        "괄호 처리",
+        "통분·소수 변환"
+      ],
+      "source_orders": [
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "정수와 유리수의 계산",
+      "sub_strand": "증감 관계",
+      "concept_name": "문장 조건의 덧셈·뺄셈",
+      "description": "~보다 큰/작은 수, 온도·높이·거리 등 문장 조건을 식으로 바꾸어 계산한다.",
+      "diagnostic_signals": [
+        "문장 속 기준량과 변화량 구분 실패",
+        "~보다 작은 수를 반대로 계산",
+        "문장식을 세우지 못함"
+      ],
+      "remediation_keywords": [
+        "기준량과 변화량",
+        "~보다 큰/작은 수",
+        "문장식"
+      ],
+      "source_orders": [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "곱셈 기본",
+      "concept_name": "정수의 곱셈",
+      "description": "정수의 곱셈에서 부호와 절댓값을 처리한다.",
+      "diagnostic_signals": [
+        "음수×음수 부호 오류",
+        "여러 정수 곱셈의 부호 판단 실패",
+        "0 포함 곱셈 오류"
+      ],
+      "remediation_keywords": [
+        "곱셈 부호 규칙",
+        "음수의 개수",
+        "0의 곱셈"
+      ],
+      "source_orders": [
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "거듭제곱",
+      "concept_name": "거듭제곱",
+      "description": "정수와 유리수의 거듭제곱에서 밑과 지수, 괄호 유무, 부호를 판단한다.",
+      "diagnostic_signals": [
+        "(-a)^n과 -a^n 혼동",
+        "지수 짝수/홀수에 따른 부호 오류",
+        "밑과 지수 구분 오류"
+      ],
+      "remediation_keywords": [
+        "밑과 지수",
+        "괄호 유무",
+        "짝수/홀수 지수"
+      ],
+      "source_orders": [
+        76,
+        77,
+        78,
+        79,
+        80
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "계산 법칙",
+      "concept_name": "곱셈의 계산 법칙과 분배법칙",
+      "description": "곱셈의 교환·결합법칙과 분배법칙을 이용해 계산한다.",
+      "diagnostic_signals": [
+        "분배법칙 적용 항 누락",
+        "괄호 앞 부호 처리 오류",
+        "계산 법칙 선택 오류"
+      ],
+      "remediation_keywords": [
+        "교환법칙",
+        "결합법칙",
+        "분배법칙",
+        "괄호 전개"
+      ],
+      "source_orders": [
+        81,
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "나눗셈 기본",
+      "concept_name": "유리수의 나눗셈",
+      "description": "역수를 이용해 정수와 유리수의 나눗셈을 곱셈으로 바꾸어 계산한다.",
+      "diagnostic_signals": [
+        "역수 변환 오류",
+        "나누는 수의 부호 처리 오류",
+        "곱셈으로 바꾼 뒤 계산 실수"
+      ],
+      "remediation_keywords": [
+        "역수",
+        "나눗셈=역수의 곱",
+        "분수 나눗셈"
+      ],
+      "source_orders": [
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "부호 조건",
+      "concept_name": "문자로 주어진 수의 부호",
+      "description": "문자 a, b의 부호 조건이 주어졌을 때 식의 부호, 양수/음수 여부, 부호가 다른 값을 판단한다.",
+      "diagnostic_signals": [
+        "문자 부호 조건을 식에 반영하지 못함",
+        "부호 조합 경우의 수 누락",
+        "절댓값/부등식과 연결 오류"
+      ],
+      "remediation_keywords": [
+        "문자 부호 조건",
+        "부호 조합",
+        "식의 양수·음수 판단"
+      ],
+      "source_orders": [
+        95,
+        96,
+        97
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 곱셈과 나눗셈",
+      "sub_strand": "곱셈·나눗셈 혼합",
+      "concept_name": "곱셈·나눗셈 혼합계산",
+      "description": "정수, 분수, 소수, 거듭제곱이 포함된 곱셈·나눗셈 혼합계산을 수행한다.",
+      "diagnostic_signals": [
+        "곱셈·나눗셈 순서 오류",
+        "거듭제곱 먼저 계산하지 않음",
+        "분수·소수 혼합 처리 오류"
+      ],
+      "remediation_keywords": [
+        "곱셈·나눗셈 혼합",
+        "거듭제곱 포함",
+        "순서대로 계산"
+      ],
+      "source_orders": [
+        98,
+        99,
+        100
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 혼합계산",
+      "sub_strand": "혼합계산 기본",
+      "concept_name": "사칙연산 혼합계산",
+      "description": "덧셈, 뺄셈, 곱셈, 나눗셈과 괄호·거듭제곱이 섞인 식을 계산 순서에 맞게 처리한다.",
+      "diagnostic_signals": [
+        "계산 순서 오류",
+        "괄호를 먼저 처리하지 않음",
+        "거듭제곱 순서 누락",
+        "부호 처리와 연산 순서 동시 오류"
+      ],
+      "remediation_keywords": [
+        "계산 순서",
+        "괄호",
+        "거듭제곱",
+        "사칙연산"
+      ],
+      "source_orders": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 계산 활용",
+      "sub_strand": "정의된 연산",
+      "concept_name": "새로운 연산 기호",
+      "description": "새로운 연산 기호나 규칙이 정의된 상황에서 식에 대입하여 계산한다.",
+      "diagnostic_signals": [
+        "연산 정의를 식에 대입하지 못함",
+        "일반 사칙연산처럼 처리",
+        "괄호와 대입 순서 오류"
+      ],
+      "remediation_keywords": [
+        "연산 정의 읽기",
+        "대입 계산",
+        "규칙 적용"
+      ],
+      "source_orders": [
+        109,
+        110
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "유리수의 계산 활용",
+      "sub_strand": "실생활·도형·규칙",
+      "concept_name": "유리수 계산의 활용",
+      "description": "도형, 시각, 위치, 주사위, 규칙성 등 상황에 유리수 계산을 적용한다.",
+      "diagnostic_signals": [
+        "문장 조건을 식으로 바꾸지 못함",
+        "계산은 가능하나 조건 해석 실패",
+        "여러 단계 조건 누락"
+      ],
+      "remediation_keywords": [
+        "상황 해석",
+        "식 세우기",
+        "여러 단계 계산"
+      ],
+      "source_orders": [
+        111,
+        112,
+        113,
+        114
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_IR_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_INT_RATIONAL",
+      "unit_name": "정수와 유리수",
+      "strand": "메타인지 진단",
+      "sub_strand": "오답 탐지",
+      "concept_name": "오류 판단과 설명 검증",
+      "description": "보기의 계산 과정, 설명, 진술이 옳은지 판단하고 잘못된 부분을 찾는다.",
+      "diagnostic_signals": [
+        "정답 계산만 가능하고 설명 검증이 약함",
+        "오답 보기의 오류 원인을 찾지 못함"
+      ],
+      "remediation_keywords": [
+        "설명 판단",
+        "오류 찾기",
+        "계산 과정 검토"
+      ],
+      "source_orders": [
+        1,
+        3,
+        4,
+        8,
+        10,
+        27,
+        46,
+        58,
+        76,
+        81,
+        91,
+        95,
+        100,
+        114
+      ],
+      "mastery_level": "metacognitive",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    }
+  ],
+  "future_target_concepts": [
+    {
+      "concept_id": "M2_EXP_C001",
+      "grade": "중2",
+      "unit_name": "식의 계산",
+      "concept_name": "동류항 정리와 부호 처리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_EQ_C001",
+      "grade": "중2",
+      "unit_name": "일차방정식·연립방정식",
+      "concept_name": "이항과 음수 계산",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_INEQ_C001",
+      "grade": "중2",
+      "unit_name": "일차부등식",
+      "concept_name": "부등식 방향과 음수 곱셈",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C001",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "좌표평면에서 음수 좌표와 그래프 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C001",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "방정식 변형과 인수분해 전 계산 안정성",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_FUNC_C001",
+      "grade": "중3",
+      "unit_name": "이차함수",
+      "concept_name": "그래프 위치·대칭·좌표 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EQ_C001",
+      "grade": "고1",
+      "unit_name": "방정식과 부등식",
+      "concept_name": "방정식·부등식의 변형과 부호 처리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_FUNC_C001",
+      "grade": "고1",
+      "unit_name": "함수",
+      "concept_name": "그래프 해석과 수의 범위 판단",
+      "status": "future_target_seed"
+    }
+  ]
+}
