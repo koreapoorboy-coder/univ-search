@@ -1,0 +1,117 @@
+{
+  "version": "2026.07.03-m1-int-rational-v0.1",
+  "unit_id": "M1_INT_RATIONAL",
+  "remediation_count": 10,
+  "remediation": [
+    {
+      "concept_id": "M1_IR_C001",
+      "priority": 1,
+      "title": "양수·음수·0 구분",
+      "practice_focus": [
+        "양수/음수 모두 고르기",
+        "0은 양수도 음수도 아님 확인",
+        "부호 없는 자연수와 양수 관계 확인"
+      ],
+      "mini_lesson": "먼저 수를 +, -, 0 세 묶음으로 분류하게 하고, 0을 별도 범주로 고정합니다."
+    },
+    {
+      "concept_id": "M1_IR_C006",
+      "priority": 1,
+      "title": "수직선 위치 읽기",
+      "practice_focus": [
+        "정수 위치 표시",
+        "분수/소수 단위간격 나누기",
+        "음수 방향 확인"
+      ],
+      "mini_lesson": "수직선은 오른쪽으로 갈수록 커지고 왼쪽으로 갈수록 작아진다는 기준을 반복 확인합니다."
+    },
+    {
+      "concept_id": "M1_IR_C010",
+      "priority": 2,
+      "title": "절댓값은 거리",
+      "practice_focus": [
+        "0으로부터 거리",
+        "절댓값이 같은 두 수 찾기",
+        "|a|와 a 구분"
+      ],
+      "mini_lesson": "절댓값을 부호 제거가 아니라 수직선에서의 거리로 설명합니다."
+    },
+    {
+      "concept_id": "M1_IR_C013",
+      "priority": 2,
+      "title": "음수와 유리수의 대소 비교",
+      "practice_focus": [
+        "음수끼리 비교",
+        "분수/소수 비교",
+        "절댓값과 실제 크기 구분"
+      ],
+      "mini_lesson": "음수에서는 절댓값이 클수록 실제 수는 작아질 수 있음을 수직선으로 확인합니다."
+    },
+    {
+      "concept_id": "M1_IR_C016",
+      "priority": 3,
+      "title": "부호가 다른 수의 덧셈",
+      "practice_focus": [
+        "절댓값 비교 후 부호 결정",
+        "같은 부호/다른 부호 구분",
+        "0이 되는 경우"
+      ],
+      "mini_lesson": "부호가 다르면 큰 절댓값에서 작은 절댓값을 빼고, 큰 절댓값 쪽 부호를 붙입니다."
+    },
+    {
+      "concept_id": "M1_IR_C018",
+      "priority": 3,
+      "title": "뺄셈은 반대수의 덧셈",
+      "practice_focus": [
+        "빼는 수의 부호 바꾸기",
+        "연속 부호 처리",
+        "이항과 연결"
+      ],
+      "mini_lesson": "a-b는 a+(-b)로 바꾸어 계산하게 하여 중2 이항의 부호 변화와 연결합니다."
+    },
+    {
+      "concept_id": "M1_IR_C021",
+      "priority": 4,
+      "title": "곱셈의 부호 규칙",
+      "practice_focus": [
+        "음수 개수 세기",
+        "음수×음수",
+        "여러 수의 곱셈"
+      ],
+      "mini_lesson": "음수의 개수가 짝수이면 양수, 홀수이면 음수라는 규칙을 적용합니다."
+    },
+    {
+      "concept_id": "M1_IR_C022",
+      "priority": 4,
+      "title": "거듭제곱의 괄호 유무",
+      "practice_focus": [
+        "(-a)^n과 -a^n 구분",
+        "짝수/홀수 지수",
+        "분수 거듭제곱"
+      ],
+      "mini_lesson": "괄호가 있으면 부호까지 밑이고, 괄호가 없으면 수만 거듭제곱됨을 비교시킵니다."
+    },
+    {
+      "concept_id": "M1_IR_C024",
+      "priority": 4,
+      "title": "나눗셈과 역수",
+      "practice_focus": [
+        "나누는 수를 역수로 바꾸기",
+        "분수 나눗셈",
+        "부호 유지"
+      ],
+      "mini_lesson": "나눗셈은 곱셈으로 바꾼 다음 곱셈 부호 규칙을 적용합니다."
+    },
+    {
+      "concept_id": "M1_IR_C027",
+      "priority": 5,
+      "title": "혼합계산 순서",
+      "practice_focus": [
+        "괄호→거듭제곱→곱셈/나눗셈→덧셈/뺄셈",
+        "왼쪽부터 계산",
+        "빈칸 역산"
+      ],
+      "mini_lesson": "계산 전에 순서를 표시하게 하고, 한 줄에 한 단계씩 계산하도록 훈련합니다."
+    }
+  ]
+}
