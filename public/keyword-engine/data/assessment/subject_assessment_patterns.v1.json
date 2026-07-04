@@ -1,10 +1,10 @@
 {
-  "version": "1.47.0-cumulative",
+  "version": "1.46.0-cumulative",
   "format": "subject_assessment_patterns.v1.compat_index",
-  "generated_at": "2026-07-03T20:25:00+09:00",
-  "source_patch_name": "yeongdongil_high_assessment_patch_056schools_20260703",
+  "generated_at": "2026-07-04T18:11:28+09:00",
+  "source_patch_name": "sookmyung_girls_high_assessment_patch_054schools_runtime_v2_20260704",
   "patterns_storage_mode": "split_by_subject_group",
-  "total_subject_patterns": 989,
+  "total_subject_patterns": 845,
   "pattern_files": [
     {
       "group_key": "science",
@@ -22,13 +22,13 @@
       "group_key": "korean_literature",
       "group_label": "국어·문학",
       "path": "data/assessment/patterns/by_subject_group/patterns.korean_literature.v1.json",
-      "pattern_count": 106
+      "pattern_count": 194
     },
     {
       "group_key": "english",
       "group_label": "영어",
       "path": "data/assessment/patterns/by_subject_group/patterns.english.v1.json",
-      "pattern_count": 50
+      "pattern_count": 52
     },
     {
       "group_key": "foreign_language",
@@ -40,38 +40,39 @@
       "group_key": "info_ai_technology",
       "group_label": "정보·AI·기술",
       "path": "data/assessment/patterns/by_subject_group/patterns.info_ai_technology.v1.json",
-      "pattern_count": 10
+      "pattern_count": 45
     },
     {
       "group_key": "social_history_ethics",
       "group_label": "사회·역사·윤리",
       "path": "data/assessment/patterns/by_subject_group/patterns.social_history_ethics.v1.json",
-      "pattern_count": 62
+      "pattern_count": 111
     },
     {
       "group_key": "arts_pe",
       "group_label": "예술·체육",
       "path": "data/assessment/patterns/by_subject_group/patterns.arts_pe.v1.json",
-      "pattern_count": 46
+      "pattern_count": 70
     },
     {
       "group_key": "engineering",
       "group_label": "공학·기술",
       "path": "data/assessment/patterns/by_subject_group/patterns.engineering.v1.json",
-      "pattern_count": 1
+      "pattern_count": 22
     },
     {
       "group_key": "liberal_integrated",
       "group_label": "교양·융합",
       "path": "data/assessment/patterns/by_subject_group/patterns.liberal_integrated.v1.json",
-      "pattern_count": 21
+      "pattern_count": 24
     },
     {
       "group_key": "misc",
       "group_label": "기타",
       "path": "data/assessment/patterns/by_subject_group/patterns.misc.v1.json",
-      "pattern_count": 380
+      "pattern_count": 14
     }
   ],
-  "loader_note": "Compatibility index only. Load split files listed in pattern_files."
+  "runtime_v2_available": true,
+  "runtime_v2_path": "data/assessment/runtime_v2/assessment_runtime_manifest.v2.json"
 }

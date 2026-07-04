@@ -1,30 +1,280 @@
 {
-  "version": "1.39.0-cumulative",
-  "format": "subject_assessment_patterns_by_subject_group.v1",
-  "generated_at": "2026-07-03T16:40:00+09:00",
-  "source_patch_name": "munjeong_high_assessment_patch_045schools_20260703",
+  "version": "1.46.0-cumulative",
+  "format": "subject_assessment_patterns_split.v1",
+  "generated_at": "2026-07-04T18:11:28+09:00",
+  "source_patch_name": "sookmyung_girls_high_assessment_patch_054schools_runtime_v2_20260704",
   "group_key": "engineering",
-  "group_label": "공학",
-  "pattern_count": 6,
+  "group_label": "공학·기술",
+  "pattern_count": 22,
   "subject_group_values": [
-    "공학"
+    "공학·기술"
   ],
-  "subject_standard_count": 6,
+  "subject_standard_count": 22,
   "subject_standard_examples": [
+    "공학 일반",
     "공학개론",
+    "데이터과학",
+    "로봇 소프트웨어 개발",
+    "로봇과 공학세계",
     "생활 속의 공학",
+    "소프트웨어와 생활",
+    "인공지능 기초",
+    "인공지능과피지컬컴퓨팅",
     "인터렉티브 디자인과 테크놀로지",
     "전공 기초",
+    "전기·전자 기초",
+    "정보",
+    "정보과제연구",
+    "정보과학",
+    "지식 재산 일반",
     "커뮤니케이션의 공학적 이해",
-    "프로젝트기반연구Ⅱ-액체연료 기반 접촉점화 방식을 활용한 추력기 설계 및 제작"
+    "컴퓨터시스템 일반",
+    "프로그래밍",
+    "프로그래밍 기초"
   ],
-  "split_policy": "과목군별 분리 저장. 런타임에서는 patterns.index.v1.json을 통해 필요한 과목군 파일만 로드한다.",
+  "split_policy": "학교명 제거 후 과목군별 수행평가 패턴을 런타임에 분할 로드한다.",
   "subject_patterns": [
     {
-      "subject_standard": "공학개론",
-      "subject_group": "공학",
+      "subject_standard": "공학 일반",
+      "subject_group": "공학·기술",
       "evidence_count": 3,
-      "topic_generating_evidence_count": 2,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_joint_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 3
+        },
+        {
+          "value": "표현창작",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "AI활용",
+          "count": 2
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "창작형",
+          "count": 3
+        },
+        {
+          "value": "프로젝트형",
+          "count": 3
+        },
+        {
+          "value": "문제해결형",
+          "count": 3
+        },
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "토의토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "창작물",
+          "count": 3
+        },
+        {
+          "value": "실행결과물",
+          "count": 3
+        },
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "프로그램",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 3
+        },
+        {
+          "value": "변인통제",
+          "count": 3
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "실험안전",
+          "count": 3
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 3
+        },
+        {
+          "value": "문제해결과정",
+          "count": 3
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "오차분석",
+          "count": 2
+        },
+        {
+          "value": "과정성실성",
+          "count": 2
+        },
+        {
+          "value": "창의성",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        },
+        {
+          "value": "협업소통",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "창작설계형",
+          "count": 3
+        },
+        {
+          "value": "공학설계형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 2
+        },
+        {
+          "value": "모델링형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 2
+        },
+        {
+          "value": "structure_experiment_analysis",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 2
+        },
+        {
+          "value": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 33.33
+    },
+    {
+      "subject_standard": "공학개론",
+      "subject_group": "공학·기술",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "sejong_arts_2026_s1_b17fff18"
@@ -39,11 +289,11 @@
           "count": 3
         },
         {
-          "value": "개념이해",
+          "value": "논증·비평",
           "count": 1
         },
         {
-          "value": "과정관리",
+          "value": "개념이해",
           "count": 1
         },
         {
@@ -51,22 +301,18 @@
           "count": 1
         },
         {
-          "value": "논증·비평",
+          "value": "과정관리",
           "count": 1
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "제작형",
-          "count": 3
-        },
-        {
           "value": "프로젝트형",
           "count": 3
         },
         {
-          "value": "관찰평가형",
-          "count": 1
+          "value": "제작형",
+          "count": 3
         },
         {
           "value": "논술형",
@@ -75,15 +321,19 @@
         {
           "value": "보고서작성형",
           "count": 1
+        },
+        {
+          "value": "관찰평가형",
+          "count": 1
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "산출물",
+          "value": "설계보고서",
           "count": 3
         },
         {
-          "value": "설계보고서",
+          "value": "산출물",
           "count": 3
         },
         {
@@ -91,11 +341,11 @@
           "count": 1
         },
         {
-          "value": "보고서",
+          "value": "비평문",
           "count": 1
         },
         {
-          "value": "비평문",
+          "value": "보고서",
           "count": 1
         },
         {
@@ -103,7 +353,49 @@
           "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
+        {
+          "value": "설계타당성",
+          "count": 3
+        },
+        {
+          "value": "검증",
+          "count": 3
+        },
+        {
+          "value": "개선",
+          "count": 3
+        },
+        {
+          "value": "논리전개",
+          "count": 1
+        },
+        {
+          "value": "근거제시",
+          "count": 1
+        },
+        {
+          "value": "관점설정",
+          "count": 1
+        },
+        {
+          "value": "표현력",
+          "count": 1
+        },
+        {
+          "value": "성실성",
+          "count": 1
+        },
+        {
+          "value": "참여도",
+          "count": 1
+        },
+        {
+          "value": "협력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
         {
           "value": "공학설계형",
           "count": 3
@@ -117,26 +409,532 @@
           "count": 1
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[문제상황]을 해결하기 위한 [공학 원리/설계 요소]의 적용과 성능 개선 분석",
+          "value": "structure_argumentation",
           "count": 1
         },
         {
-          "formula": "[쟁점/현상]에 대해 [교과 개념]과 [근거 자료]를 활용하여 관점 차이를 논증",
+          "value": "structure_engineering_design",
           "count": 1
         },
         {
-          "formula": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "value": "structure_process_observation",
           "count": 1
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[쟁점/현상]에 대해 [교과 개념]과 [근거 자료]를 활용하여 관점 차이를 논증",
+          "count": 1
+        },
+        {
+          "value": "[문제상황]을 해결하기 위한 [공학 원리/설계 요소]의 적용과 성능 개선 분석",
+          "count": 1
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 23.33
+    },
+    {
+      "subject_standard": "데이터과학",
+      "subject_group": "공학·기술",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_foreign_2026_g2_s1_412201f4"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "탐구설계",
+          "count": 3
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 3
+        },
+        {
+          "value": "데이터분석",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "사회문제연계",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "보고서",
+          "count": 3
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리성",
+          "count": 3
+        },
+        {
+          "value": "자료분석",
+          "count": 3
+        },
+        {
+          "value": "표현력",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 3
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_analysis",
+          "count": 3
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[자료/텍스트]를 분석하여 [개념/현상]의 의미와 한계를 해석",
+          "count": 3
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 26.67
+    },
+    {
+      "subject_standard": "로봇 소프트웨어 개발",
+      "subject_group": "공학·기술",
+      "evidence_count": 4,
+      "topic_generating_evidence_count": 4,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 4
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 4
+        },
+        {
+          "value": "자료해석",
+          "count": 4
+        },
+        {
+          "value": "AI활용",
+          "count": 4
+        },
+        {
+          "value": "표현창작",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "문제해결형",
+          "count": 4
+        },
+        {
+          "value": "논술형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "창작형",
+          "count": 3
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 4
+        },
+        {
+          "value": "자료분석지",
+          "count": 4
+        },
+        {
+          "value": "프로그램",
+          "count": 4
+        },
+        {
+          "value": "논술문",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "창작물",
+          "count": 3
+        },
+        {
+          "value": "포트폴리오",
+          "count": 2
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 4
+        },
+        {
+          "value": "근거제시",
+          "count": 4
+        },
+        {
+          "value": "문제해결과정",
+          "count": 4
+        },
+        {
+          "value": "과정성실성",
+          "count": 4
+        },
+        {
+          "value": "결과해석",
+          "count": 4
+        },
+        {
+          "value": "자료분석",
+          "count": 4
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 4
+        },
+        {
+          "value": "변인통제",
+          "count": 3
+        },
+        {
+          "value": "실험안전",
+          "count": 3
+        },
+        {
+          "value": "오차분석",
+          "count": 2
+        },
+        {
+          "value": "창의성",
+          "count": 1
+        },
+        {
+          "value": "방법설계",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "공학설계형",
+          "count": 4
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 4
+        },
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "창작설계형",
+          "count": 3
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 4
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 4
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 4
+      },
+      "average_weight": 25.0
+    },
+    {
+      "subject_standard": "로봇과 공학세계",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        },
+        {
+          "value": "표현창작",
+          "count": 2
+        },
+        {
+          "value": "AI활용",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        },
+        {
+          "value": "창작형",
+          "count": 2
+        },
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "문제해결형",
+          "count": 2
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        },
+        {
+          "value": "창작물",
+          "count": 2
+        },
+        {
+          "value": "실행결과물",
+          "count": 2
+        },
+        {
+          "value": "프로그램",
+          "count": 2
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "과정성실성",
+          "count": 2
+        },
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 2
+        },
+        {
+          "value": "문제해결과정",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        },
+        {
+          "value": "변인통제",
+          "count": 2
+        },
+        {
+          "value": "오차분석",
+          "count": 2
+        },
+        {
+          "value": "실험안전",
+          "count": 2
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 2
+        },
+        {
+          "value": "창작설계형",
+          "count": 2
+        },
+        {
+          "value": "공학설계형",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 2
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 2
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 30.0
     },
     {
       "subject_standard": "생활 속의 공학",
-      "subject_group": "공학",
+      "subject_group": "공학·기술",
       "evidence_count": 4,
-      "topic_generating_evidence_count": 3,
+      "topic_generating_evidence_count": 4,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "sejong_arts_2026_s1_31338d37"
@@ -159,10 +957,6 @@
           "count": 1
         },
         {
-          "value": "과정관리",
-          "count": 1
-        },
-        {
           "value": "관점설정",
           "count": 1
         },
@@ -173,31 +967,23 @@
         {
           "value": "자료해석",
           "count": 1
+        },
+        {
+          "value": "과정관리",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
-        {
-          "value": "제작형",
-          "count": 4
-        },
         {
           "value": "프로젝트형",
           "count": 4
         },
         {
-          "value": "관찰평가형",
-          "count": 1
+          "value": "제작형",
+          "count": 4
         },
         {
           "value": "논술형",
-          "count": 1
-        },
-        {
-          "value": "논증형",
-          "count": 1
-        },
-        {
-          "value": "발표형",
           "count": 1
         },
         {
@@ -205,33 +991,33 @@
           "count": 1
         },
         {
+          "value": "발표형",
+          "count": 1
+        },
+        {
           "value": "토론형",
+          "count": 1
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "관찰평가형",
           "count": 1
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "산출물",
-          "count": 4
-        },
-        {
           "value": "설계보고서",
           "count": 4
         },
         {
-          "value": "논설문",
-          "count": 1
+          "value": "산출물",
+          "count": 4
         },
         {
           "value": "논술문",
-          "count": 1
-        },
-        {
-          "value": "발표자료",
-          "count": 1
-        },
-        {
-          "value": "보고서",
           "count": 1
         },
         {
@@ -239,15 +1025,73 @@
           "count": 1
         },
         {
-          "value": "참여관찰기록",
+          "value": "보고서",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "논설문",
           "count": 1
         },
         {
           "value": "토론자료",
           "count": 1
+        },
+        {
+          "value": "참여관찰기록",
+          "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
+        {
+          "value": "설계타당성",
+          "count": 4
+        },
+        {
+          "value": "검증",
+          "count": 4
+        },
+        {
+          "value": "개선",
+          "count": 4
+        },
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "관점설정",
+          "count": 2
+        },
+        {
+          "value": "표현력",
+          "count": 1
+        },
+        {
+          "value": "질문대응",
+          "count": 1
+        },
+        {
+          "value": "성실성",
+          "count": 1
+        },
+        {
+          "value": "참여도",
+          "count": 1
+        },
+        {
+          "value": "협력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
         {
           "value": "공학설계형",
           "count": 4
@@ -265,24 +1109,652 @@
           "count": 1
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[쟁점/현상]에 대해 [교과 개념]과 [근거 자료]를 활용하여 관점 차이를 논증",
+          "value": "structure_argumentation",
           "count": 2
         },
         {
-          "formula": "[문제상황]을 해결하기 위한 [공학 원리/설계 요소]의 적용과 성능 개선 분석",
+          "value": "structure_engineering_design",
           "count": 1
         },
         {
-          "formula": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "value": "structure_process_observation",
           "count": 1
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[쟁점/현상]에 대해 [교과 개념]과 [근거 자료]를 활용하여 관점 차이를 논증",
+          "count": 2
+        },
+        {
+          "value": "[문제상황]을 해결하기 위한 [공학 원리/설계 요소]의 적용과 성능 개선 분석",
+          "count": 1
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 4
+      },
+      "average_weight": 25.0
+    },
+    {
+      "subject_standard": "소프트웨어와 생활",
+      "subject_group": "공학·기술",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g1_s1_d25150a4"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 3
+        },
+        {
+          "value": "논증·비평",
+          "count": 3
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "독서기반형",
+          "count": 3
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "토의토론형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "자료분석지",
+          "count": 3
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 3
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "디지털도구활용",
+          "count": 3
+        },
+        {
+          "value": "문제해결과정",
+          "count": 3
+        },
+        {
+          "value": "변인통제",
+          "count": 3
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "자료분석",
+          "count": 3
+        },
+        {
+          "value": "텍스트이해",
+          "count": 3
+        },
+        {
+          "value": "해석력",
+          "count": 3
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        },
+        {
+          "value": "협업소통",
+          "count": 1
+        },
+        {
+          "value": "논리전개",
+          "count": 1
+        },
+        {
+          "value": "근거제시",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "프로그래밍구현형",
+          "count": 3
+        },
+        {
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "독서비평형",
+          "count": 3
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_programming_implementation",
+          "count": 3
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 3
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 33.33
+    },
+    {
+      "subject_standard": "인공지능 기초",
+      "subject_group": "공학·기술",
+      "evidence_count": 8,
+      "topic_generating_evidence_count": 8,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "bukil_2026_g2_s1",
+        "daejeon_daeseong_2026_g2_s1",
+        "daejeon_dongshin_science_2026_g2_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 8
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 8
+        },
+        {
+          "value": "자료해석",
+          "count": 8
+        },
+        {
+          "value": "실험탐구",
+          "count": 6
+        },
+        {
+          "value": "표현창작",
+          "count": 4
+        },
+        {
+          "value": "AI활용",
+          "count": 2
+        },
+        {
+          "value": "연구설계",
+          "count": 2
+        },
+        {
+          "value": "문제설정",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 8
+        },
+        {
+          "value": "자료해석형",
+          "count": 8
+        },
+        {
+          "value": "구술발표형",
+          "count": 7
+        },
+        {
+          "value": "보고서작성형",
+          "count": 7
+        },
+        {
+          "value": "실험실습형",
+          "count": 6
+        },
+        {
+          "value": "문제해결형",
+          "count": 5
+        },
+        {
+          "value": "디지털도구활용형",
+          "count": 3
+        },
+        {
+          "value": "창작형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 3
+        },
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 8
+        },
+        {
+          "value": "자료분석지",
+          "count": 8
+        },
+        {
+          "value": "발표자료",
+          "count": 7
+        },
+        {
+          "value": "탐구보고서",
+          "count": 7
+        },
+        {
+          "value": "실험보고서",
+          "count": 6
+        },
+        {
+          "value": "창작물",
+          "count": 3
+        },
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "연구계획서",
+          "count": 2
+        },
+        {
+          "value": "프로그램",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "표현완성도",
+          "count": 8
+        },
+        {
+          "value": "문제해결과정",
+          "count": 8
+        },
+        {
+          "value": "논리전개",
+          "count": 7
+        },
+        {
+          "value": "근거제시",
+          "count": 7
+        },
+        {
+          "value": "의사소통",
+          "count": 7
+        },
+        {
+          "value": "결과해석",
+          "count": 7
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 7
+        },
+        {
+          "value": "변인통제",
+          "count": 6
+        },
+        {
+          "value": "과정성실성",
+          "count": 5
+        },
+        {
+          "value": "자료분석",
+          "count": 4
+        },
+        {
+          "value": "방법설계",
+          "count": 4
+        },
+        {
+          "value": "협업소통",
+          "count": 3
+        },
+        {
+          "value": "실험안전",
+          "count": 2
+        },
+        {
+          "value": "창의성",
+          "count": 1
+        },
+        {
+          "value": "텍스트이해",
+          "count": 1
+        },
+        {
+          "value": "해석력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 8
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 8
+        },
+        {
+          "value": "연구보고서형",
+          "count": 7
+        },
+        {
+          "value": "실험분석형",
+          "count": 6
+        },
+        {
+          "value": "연구설계형",
+          "count": 5
+        },
+        {
+          "value": "논증형",
+          "count": 4
+        },
+        {
+          "value": "창작설계형",
+          "count": 4
+        },
+        {
+          "value": "비교분석형",
+          "count": 3
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        },
+        {
+          "value": "모델링형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 5
+        },
+        {
+          "value": "structure_programming_implementation",
+          "count": 3
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 5
+        },
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 3
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 8
+      },
+      "average_weight": 22.5
+    },
+    {
+      "subject_standard": "인공지능과피지컬컴퓨팅",
+      "subject_group": "공학·기술",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "gyeonggi_foreign_2026_g3_s1_b6f05b44"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "사회문제연계",
+          "count": 3
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "탐구설계",
+          "count": 2
+        },
+        {
+          "value": "데이터분석",
+          "count": 2
+        },
+        {
+          "value": "공학설계",
+          "count": 1
+        },
+        {
+          "value": "창작표현",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "과정평가형",
+          "count": 1
+        },
+        {
+          "value": "실기형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "보고서",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "활동지",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "표현력",
+          "count": 3
+        },
+        {
+          "value": "논리성",
+          "count": 2
+        },
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "과정수행",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "창작설계형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_analysis",
+          "count": 2
+        },
+        {
+          "value": "structure_design_project",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[자료/텍스트]를 분석하여 [개념/현상]의 의미와 한계를 해석",
+          "count": 2
+        },
+        {
+          "value": "[문제 상황]을 해결하기 위한 [설계안/산출물]을 제작하고 효과를 검토",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 33.33
     },
     {
       "subject_standard": "인터렉티브 디자인과 테크놀로지",
-      "subject_group": "공학",
+      "subject_group": "공학·기술",
       "evidence_count": 4,
       "topic_generating_evidence_count": 4,
       "school_name_removed_for_runtime": true,
@@ -290,6 +1762,14 @@
         "sejong_arts_2026_s1_6f0d9c3a"
       ],
       "dominant_content_axis": [
+        {
+          "value": "창작·표현",
+          "count": 4
+        },
+        {
+          "value": "원리적용",
+          "count": 4
+        },
         {
           "value": "공학설계",
           "count": 4
@@ -299,24 +1779,8 @@
           "count": 4
         },
         {
-          "value": "원리적용",
-          "count": 4
-        },
-        {
-          "value": "창작·표현",
-          "count": 4
-        },
-        {
           "value": "논증·비평",
           "count": 2
-        },
-        {
-          "value": "개념이해",
-          "count": 1
-        },
-        {
-          "value": "관점설정",
-          "count": 1
         },
         {
           "value": "의사소통",
@@ -325,15 +1789,23 @@
         {
           "value": "자료해석",
           "count": 1
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "관점설정",
+          "count": 1
         }
       ],
       "dominant_method_axis": [
         {
-          "value": "발표형",
+          "value": "제작형",
           "count": 4
         },
         {
-          "value": "제작형",
+          "value": "발표형",
           "count": 4
         },
         {
@@ -341,7 +1813,7 @@
           "count": 4
         },
         {
-          "value": "논술형",
+          "value": "토론형",
           "count": 1
         },
         {
@@ -349,29 +1821,17 @@
           "count": 1
         },
         {
-          "value": "보고서작성형",
+          "value": "논술형",
           "count": 1
         },
         {
-          "value": "토론형",
+          "value": "보고서작성형",
           "count": 1
         }
       ],
       "dominant_output_axis": [
         {
-          "value": "발표자료",
-          "count": 4
-        },
-        {
           "value": "산출물",
-          "count": 4
-        },
-        {
-          "value": "설계보고서",
-          "count": 4
-        },
-        {
-          "value": "작품",
           "count": 4
         },
         {
@@ -379,7 +1839,23 @@
           "count": 4
         },
         {
+          "value": "작품",
+          "count": 4
+        },
+        {
+          "value": "발표자료",
+          "count": 4
+        },
+        {
+          "value": "설계보고서",
+          "count": 4
+        },
+        {
           "value": "논설문",
+          "count": 1
+        },
+        {
+          "value": "토론자료",
           "count": 1
         },
         {
@@ -387,46 +1863,98 @@
           "count": 1
         },
         {
-          "value": "보고서",
-          "count": 1
-        },
-        {
           "value": "비평문",
           "count": 1
         },
         {
-          "value": "토론자료",
+          "value": "보고서",
           "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
         {
-          "value": "공학설계형",
+          "value": "완성도",
           "count": 4
         },
+        {
+          "value": "표현력",
+          "count": 4
+        },
+        {
+          "value": "개념적합성",
+          "count": 4
+        },
+        {
+          "value": "구성",
+          "count": 4
+        },
+        {
+          "value": "설계타당성",
+          "count": 3
+        },
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "관점설정",
+          "count": 2
+        },
+        {
+          "value": "검증",
+          "count": 2
+        },
+        {
+          "value": "개선",
+          "count": 2
+        },
+        {
+          "value": "질문대응",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
         {
           "value": "산출물제작형",
           "count": 4
         },
         {
-          "value": "글쓰기논술형",
-          "count": 1
+          "value": "공학설계형",
+          "count": 4
         },
         {
           "value": "발표논증형",
           "count": 1
+        },
+        {
+          "value": "글쓰기논술형",
+          "count": 1
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[교과 원리]를 적용한 [산출물] 제작 과정과 기능·표현 효과 분석",
+          "value": "structure_product_creation",
           "count": 4
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[교과 원리]를 적용한 [산출물] 제작 과정과 기능·표현 효과 분석",
+          "count": 4
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 4
+      },
+      "average_weight": 25.0
     },
     {
       "subject_standard": "전공 기초",
-      "subject_group": "공학",
+      "subject_group": "공학·기술",
       "evidence_count": 2,
       "topic_generating_evidence_count": 2,
       "school_name_removed_for_runtime": true,
@@ -479,7 +2007,37 @@
           "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
+        {
+          "value": "개념정확성",
+          "count": 2
+        },
+        {
+          "value": "창의성",
+          "count": 1
+        },
+        {
+          "value": "표현력",
+          "count": 1
+        },
+        {
+          "value": "완성도",
+          "count": 1
+        },
+        {
+          "value": "근거제시",
+          "count": 1
+        },
+        {
+          "value": "논리전개",
+          "count": 1
+        },
+        {
+          "value": "자료분석",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
         {
           "value": "논증형",
           "count": 2
@@ -489,16 +2047,1156 @@
           "count": 2
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "value": "structure_argument_analysis",
           "count": 2
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[쟁점/텍스트]를 [교과 개념]으로 분석하고 근거에 따라 [관점]을 논증",
+          "count": 2
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 50.0
+    },
+    {
+      "subject_standard": "전기·전자 기초",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "bukil_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 2
+        },
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "진로연계",
+          "count": 1
+        },
+        {
+          "value": "자기이해",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
+          "value": "문제해결형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "계획설계형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 2
+        },
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "진로계획서",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "디지털도구활용",
+          "count": 2
+        },
+        {
+          "value": "문제해결과정",
+          "count": 2
+        },
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
+        },
+        {
+          "value": "표현완성도",
+          "count": 2
+        },
+        {
+          "value": "협업소통",
+          "count": 2
+        },
+        {
+          "value": "방법설계",
+          "count": 2
+        },
+        {
+          "value": "변인통제",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 2
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "진로설계형",
+          "count": 1
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_programming_implementation",
+          "count": 2
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 2
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 30.0
+    },
+    {
+      "subject_standard": "정보",
+      "subject_group": "공학·기술",
+      "evidence_count": 8,
+      "topic_generating_evidence_count": 8,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_g1_s1",
+        "daejeon_foreign_2026_g1_s1",
+        "gyeonggi_foreign_2026_g1_s1_dc9ade6b"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 8
+        },
+        {
+          "value": "자료해석",
+          "count": 7
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 4
+        },
+        {
+          "value": "개념이해",
+          "count": 4
+        },
+        {
+          "value": "표현창작",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 2
+        },
+        {
+          "value": "수리모델링",
+          "count": 2
+        },
+        {
+          "value": "연구설계",
+          "count": 1
+        },
+        {
+          "value": "문제설정",
+          "count": 1
+        },
+        {
+          "value": "AI활용",
+          "count": 1
+        },
+        {
+          "value": "탐구설계",
+          "count": 1
+        },
+        {
+          "value": "사회문제연계",
+          "count": 1
+        },
+        {
+          "value": "데이터분석",
+          "count": 1
+        },
+        {
+          "value": "창작표현",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 7
+        },
+        {
+          "value": "프로젝트형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "창작형",
+          "count": 3
+        },
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "문제해결형",
+          "count": 2
+        },
+        {
+          "value": "디지털도구활용형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 1
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        },
+        {
+          "value": "실기형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "탐구보고서",
+          "count": 4
+        },
+        {
+          "value": "실행결과물",
+          "count": 4
+        },
+        {
+          "value": "자료분석지",
+          "count": 3
+        },
+        {
+          "value": "창작물",
+          "count": 3
+        },
+        {
+          "value": "활동지",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        },
+        {
+          "value": "프로그램",
+          "count": 2
+        },
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "연구계획서",
+          "count": 1
+        },
+        {
+          "value": "포트폴리오",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        },
+        {
+          "value": "보고서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "자료분석",
+          "count": 8
+        },
+        {
+          "value": "논리전개",
+          "count": 4
+        },
+        {
+          "value": "근거제시",
+          "count": 4
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 4
+        },
+        {
+          "value": "문제해결과정",
+          "count": 4
+        },
+        {
+          "value": "정확성",
+          "count": 4
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "과정성실성",
+          "count": 3
+        },
+        {
+          "value": "창의성",
+          "count": 3
+        },
+        {
+          "value": "변인통제",
+          "count": 2
+        },
+        {
+          "value": "오차분석",
+          "count": 2
+        },
+        {
+          "value": "실험안전",
+          "count": 2
+        },
+        {
+          "value": "연구질문설정",
+          "count": 1
+        },
+        {
+          "value": "텍스트이해",
+          "count": 1
+        },
+        {
+          "value": "해석력",
+          "count": 1
+        },
+        {
+          "value": "방법설계",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        },
+        {
+          "value": "논리성",
+          "count": 1
+        },
+        {
+          "value": "표현력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 7
+        },
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "논증형",
+          "count": 3
+        },
+        {
+          "value": "창작설계형",
+          "count": 3
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 3
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        },
+        {
+          "value": "공학설계형",
+          "count": 1
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 3
+        },
+        {
+          "value": "structure_data_analysis",
+          "count": 3
+        },
+        {
+          "value": "structure_experiment_analysis",
+          "count": 1
+        },
+        {
+          "value": "structure_argument_analysis",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 3
+        },
+        {
+          "value": "[자료/텍스트]를 분석하여 [개념/현상]의 의미와 한계를 해석",
+          "count": 3
+        },
+        {
+          "value": "[변인]에 따른 [결과값] 변화가 [교과 개념]에 미치는 영향 분석",
+          "count": 1
+        },
+        {
+          "value": "[쟁점/텍스트]에 대한 근거를 분석하고 자신의 관점을 논증",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 8
+      },
+      "average_weight": 23.75
+    },
+    {
+      "subject_standard": "정보과제연구",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_dongshin_science_2026_g3_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "연구설계",
+          "count": 2
+        },
+        {
+          "value": "문제설정",
+          "count": 2
+        },
+        {
+          "value": "표현창작",
+          "count": 2
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "디지털도구활용형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 2
+        },
+        {
+          "value": "창작형",
+          "count": 2
+        },
+        {
+          "value": "문제해결형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "실행결과물",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "연구계획서",
+          "count": 2
+        },
+        {
+          "value": "창작물",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "문제해결과정",
+          "count": 2
+        },
+        {
+          "value": "과정성실성",
+          "count": 2
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 2
+        },
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        },
+        {
+          "value": "연구질문설정",
+          "count": 2
+        },
+        {
+          "value": "방법설계",
+          "count": 1
+        },
+        {
+          "value": "수행가능성",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "연구설계형",
+          "count": 2
+        },
+        {
+          "value": "창작설계형",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 2
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 2
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 30.0
+    },
+    {
+      "subject_standard": "정보과학",
+      "subject_group": "공학·기술",
+      "evidence_count": 3,
+      "topic_generating_evidence_count": 3,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "bukil_2026_g1_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 3
+        },
+        {
+          "value": "문제해결",
+          "count": 3
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 3
+        },
+        {
+          "value": "문제해결형",
+          "count": 3
+        },
+        {
+          "value": "보고서작성형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "토의토론형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 3
+        },
+        {
+          "value": "탐구보고서",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "디지털도구활용",
+          "count": 3
+        },
+        {
+          "value": "문제해결과정",
+          "count": 3
+        },
+        {
+          "value": "방법설계",
+          "count": 3
+        },
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
+        },
+        {
+          "value": "표현완성도",
+          "count": 2
+        },
+        {
+          "value": "협업소통",
+          "count": 2
+        },
+        {
+          "value": "변인통제",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "프로그래밍구현형",
+          "count": 3
+        },
+        {
+          "value": "연구설계형",
+          "count": 3
+        },
+        {
+          "value": "연구보고서형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_programming_implementation",
+          "count": 3
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 3
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 3
+      },
+      "average_weight": 13.33
+    },
+    {
+      "subject_standard": "지식 재산 일반",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "daejeon_daeseong_2026_g1_s1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "문제해결",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 2
+        },
+        {
+          "value": "자료해석",
+          "count": 2
+        },
+        {
+          "value": "실험탐구",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "표현창작",
+          "count": 2
+        },
+        {
+          "value": "AI활용",
+          "count": 1
+        },
+        {
+          "value": "연구설계",
+          "count": 1
+        },
+        {
+          "value": "문제설정",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "논술형",
+          "count": 2
+        },
+        {
+          "value": "구술발표형",
+          "count": 2
+        },
+        {
+          "value": "프로젝트형",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오형",
+          "count": 2
+        },
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "실험실습형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "창작형",
+          "count": 1
+        },
+        {
+          "value": "보고서작성형",
+          "count": 1
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "논술문",
+          "count": 2
+        },
+        {
+          "value": "발표자료",
+          "count": 2
+        },
+        {
+          "value": "실행결과물",
+          "count": 2
+        },
+        {
+          "value": "포트폴리오",
+          "count": 2
+        },
+        {
+          "value": "자료분석지",
+          "count": 2
+        },
+        {
+          "value": "실험보고서",
+          "count": 2
+        },
+        {
+          "value": "창작물",
+          "count": 1
+        },
+        {
+          "value": "프로그램",
+          "count": 1
+        },
+        {
+          "value": "탐구보고서",
+          "count": 1
+        },
+        {
+          "value": "연구계획서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
+        },
+        {
+          "value": "표현완성도",
+          "count": 2
+        },
+        {
+          "value": "문제해결과정",
+          "count": 2
+        },
+        {
+          "value": "과정성실성",
+          "count": 2
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 2
+        },
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        },
+        {
+          "value": "변인통제",
+          "count": 2
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "자료해석형",
+          "count": 2
+        },
+        {
+          "value": "실험분석형",
+          "count": 2
+        },
+        {
+          "value": "논증형",
+          "count": 2
+        },
+        {
+          "value": "창작설계형",
+          "count": 2
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 2
+        },
+        {
+          "value": "비교분석형",
+          "count": 1
+        },
+        {
+          "value": "연구설계형",
+          "count": 1
+        },
+        {
+          "value": "연구보고서형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_data_interpretation",
+          "count": 2
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 2
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 30.0
     },
     {
       "subject_standard": "커뮤니케이션의 공학적 이해",
-      "subject_group": "공학",
+      "subject_group": "공학·기술",
       "evidence_count": 2,
       "topic_generating_evidence_count": 2,
       "school_name_removed_for_runtime": true,
@@ -611,7 +3309,49 @@
           "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
+        {
+          "value": "자료분석",
+          "count": 2
+        },
+        {
+          "value": "결과해석",
+          "count": 2
+        },
+        {
+          "value": "탐구설계",
+          "count": 2
+        },
+        {
+          "value": "근거제시",
+          "count": 2
+        },
+        {
+          "value": "의사소통",
+          "count": 2
+        },
+        {
+          "value": "전달력",
+          "count": 2
+        },
+        {
+          "value": "텍스트이해",
+          "count": 2
+        },
+        {
+          "value": "실험설계",
+          "count": 1
+        },
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "논리전개",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
         {
           "value": "실험분석형",
           "count": 1
@@ -621,29 +3361,909 @@
           "count": 1
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
+          "value": "structure_experiment_analysis",
           "count": 1
         },
         {
-          "formula": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "value": "structure_data_interpretation",
           "count": 1
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[실험 조건]에 따른 [변인/현상]의 변화를 측정하고 [교과 원리]로 해석",
+          "count": 1
+        },
+        {
+          "value": "[대상]의 [자료/조건] 변화를 [교과 개념]으로 해석하고 [결과 방향]을 분석",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 0.0
+    },
+    {
+      "subject_standard": "컴퓨터시스템 일반",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g1_s1_06ff4165"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 1
+        },
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 1
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        },
+        {
+          "value": "형성평가형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        },
+        {
+          "value": "평가응답지",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "디지털도구활용",
+          "count": 1
+        },
+        {
+          "value": "문제해결과정",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        },
+        {
+          "value": "변인통제",
+          "count": 1
+        },
+        {
+          "value": "결과해석",
+          "count": 1
+        },
+        {
+          "value": "자료분석",
+          "count": 1
+        },
+        {
+          "value": "텍스트이해",
+          "count": 1
+        },
+        {
+          "value": "해석력",
+          "count": 1
+        },
+        {
+          "value": "개념정확성",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "프로그래밍구현형",
+          "count": 1
+        },
+        {
+          "value": "실험분석형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        },
+        {
+          "value": "학습과정관찰형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_programming_implementation",
+          "count": 1
+        },
+        {
+          "value": "structure_process_observation",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 1
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 15.0
+    },
+    {
+      "subject_standard": "프로그래밍",
+      "subject_group": "공학·기술",
+      "evidence_count": 7,
+      "topic_generating_evidence_count": 7,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "ansan_dongsan_2026_g2_s1",
+        "bukil_2026_g3_s1",
+        "minsago_2026_g2_s1_50a5c217"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 4
+        },
+        {
+          "value": "문제해결",
+          "count": 4
+        },
+        {
+          "value": "실험탐구",
+          "count": 3
+        },
+        {
+          "value": "자료해석",
+          "count": 3
+        },
+        {
+          "value": "컴퓨팅·데이터",
+          "count": 2
+        },
+        {
+          "value": "공학설계",
+          "count": 2
+        },
+        {
+          "value": "논증·비평",
+          "count": 2
+        },
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 4
+        },
+        {
+          "value": "구술발표형",
+          "count": 4
+        },
+        {
+          "value": "문제해결형",
+          "count": 4
+        },
+        {
+          "value": "보고서작성형",
+          "count": 3
+        },
+        {
+          "value": "토의토론형",
+          "count": 3
+        },
+        {
+          "value": "실험실습형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "프로그래밍형",
+          "count": 2
+        },
+        {
+          "value": "설계형",
+          "count": 2
+        },
+        {
+          "value": "논술형",
+          "count": 1
+        },
+        {
+          "value": "논증형",
+          "count": 1
+        },
+        {
+          "value": "형성평가형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "실행결과물",
+          "count": 4
+        },
+        {
+          "value": "발표자료",
+          "count": 4
+        },
+        {
+          "value": "탐구보고서",
+          "count": 3
+        },
+        {
+          "value": "실험보고서",
+          "count": 3
+        },
+        {
+          "value": "자료분석지",
+          "count": 3
+        },
+        {
+          "value": "프로그램·데이터산출물",
+          "count": 2
+        },
+        {
+          "value": "설계안",
+          "count": 2
+        },
+        {
+          "value": "논술문",
+          "count": 1
+        },
+        {
+          "value": "평가응답지",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "논리전개",
+          "count": 4
+        },
+        {
+          "value": "근거제시",
+          "count": 4
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 4
+        },
+        {
+          "value": "문제해결과정",
+          "count": 4
+        },
+        {
+          "value": "의사소통",
+          "count": 4
+        },
+        {
+          "value": "표현완성도",
+          "count": 4
+        },
+        {
+          "value": "방법설계",
+          "count": 4
+        },
+        {
+          "value": "협업소통",
+          "count": 3
+        },
+        {
+          "value": "변인통제",
+          "count": 3
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "절차적사고",
+          "count": 2
+        },
+        {
+          "value": "구현정확성",
+          "count": 2
+        },
+        {
+          "value": "문제정의",
+          "count": 2
+        },
+        {
+          "value": "해결안구체성",
+          "count": 2
+        },
+        {
+          "value": "관점설정",
+          "count": 1
+        },
+        {
+          "value": "개념정확성",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "프로그래밍구현형",
+          "count": 6
+        },
+        {
+          "value": "논증형",
+          "count": 4
+        },
+        {
+          "value": "연구설계형",
+          "count": 4
+        },
+        {
+          "value": "연구보고서형",
+          "count": 3
+        },
+        {
+          "value": "실험분석형",
+          "count": 3
+        },
+        {
+          "value": "자료해석형",
+          "count": 3
+        },
+        {
+          "value": "알고리즘구현형",
+          "count": 2
+        },
+        {
+          "value": "공학설계형",
+          "count": 2
+        },
+        {
+          "value": "글쓰기논술형",
+          "count": 1
+        },
+        {
+          "value": "학습과정관찰형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_programming_implementation",
+          "count": 4
+        },
+        {
+          "value": "structure_concept_interpretation",
+          "count": 1
+        },
+        {
+          "value": "structure_argumentative_writing",
+          "count": 1
+        },
+        {
+          "value": "structure_process_observation",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 4
+        },
+        {
+          "value": "[교과 개념]을 중심으로 [사례/자료]를 해석하고 의미를 확장",
+          "count": 1
+        },
+        {
+          "value": "[쟁점]에 대한 [관점]을 설정하고 [근거 자료]를 통해 논증",
+          "count": 1
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 7
+      },
+      "average_weight": 20.36
+    },
+    {
+      "subject_standard": "프로그래밍 기초",
+      "subject_group": "공학·기술",
+      "evidence_count": 2,
+      "topic_generating_evidence_count": 2,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "minsago_2026_g1_s1_6f6fdbe1"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "개념이해",
+          "count": 1
+        },
+        {
+          "value": "프로그래밍·디지털구현",
+          "count": 1
+        },
+        {
+          "value": "문제해결",
+          "count": 1
+        },
+        {
+          "value": "실험탐구",
+          "count": 1
+        },
+        {
+          "value": "자료해석",
+          "count": 1
+        },
+        {
+          "value": "독서기반탐구",
+          "count": 1
+        },
+        {
+          "value": "논증·비평",
+          "count": 1
+        },
+        {
+          "value": "사회문제분석",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "형성평가형",
+          "count": 1
+        },
+        {
+          "value": "프로젝트형",
+          "count": 1
+        },
+        {
+          "value": "구술발표형",
+          "count": 1
+        },
+        {
+          "value": "실험실습형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "독서기반형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "평가응답지",
+          "count": 1
+        },
+        {
+          "value": "실행결과물",
+          "count": 1
+        },
+        {
+          "value": "발표자료",
+          "count": 1
+        },
+        {
+          "value": "실험보고서",
+          "count": 1
+        },
+        {
+          "value": "자료분석지",
+          "count": 1
+        },
+        {
+          "value": "서평·독서일지",
+          "count": 1
+        },
+        {
+          "value": "정책제안서",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "개념정확성",
+          "count": 1
+        },
+        {
+          "value": "디지털도구활용",
+          "count": 1
+        },
+        {
+          "value": "문제해결과정",
+          "count": 1
+        },
+        {
+          "value": "의사소통",
+          "count": 1
+        },
+        {
+          "value": "표현완성도",
+          "count": 1
+        },
+        {
+          "value": "변인통제",
+          "count": 1
+        },
+        {
+          "value": "결과해석",
+          "count": 1
+        },
+        {
+          "value": "자료분석",
+          "count": 1
+        },
+        {
+          "value": "텍스트이해",
+          "count": 1
+        },
+        {
+          "value": "해석력",
+          "count": 1
+        },
+        {
+          "value": "근거제시",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "학습과정관찰형",
+          "count": 1
+        },
+        {
+          "value": "프로그래밍구현형",
+          "count": 1
+        },
+        {
+          "value": "실험분석형",
+          "count": 1
+        },
+        {
+          "value": "자료해석형",
+          "count": 1
+        },
+        {
+          "value": "독서비평형",
+          "count": 1
+        },
+        {
+          "value": "정책제안형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_process_observation",
+          "count": 1
+        },
+        {
+          "value": "structure_programming_implementation",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        },
+        {
+          "value": "[문제 상황]을 해결하기 위한 [알고리즘/프로그램] 구현과 성능 검토",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 2
+      },
+      "average_weight": 11.25
+    },
+    {
+      "subject_standard": "프로젝트기반연구Ⅱ-센서 기반 라디오 존데 시스템 설계 및 대기 물리 데이터 수집",
+      "subject_group": "공학·기술",
+      "evidence_count": 4,
+      "topic_generating_evidence_count": 4,
+      "school_name_removed_for_runtime": true,
+      "source_ids": [
+        "sejong_arts_2026_s1_b3b12236"
+      ],
+      "dominant_content_axis": [
+        {
+          "value": "연구설계",
+          "count": 4
+        },
+        {
+          "value": "문제설정",
+          "count": 4
+        },
+        {
+          "value": "자료해석",
+          "count": 4
+        },
+        {
+          "value": "비교분석",
+          "count": 4
+        },
+        {
+          "value": "사회문제분석",
+          "count": 4
+        },
+        {
+          "value": "공학설계",
+          "count": 4
+        },
+        {
+          "value": "문제해결",
+          "count": 4
+        },
+        {
+          "value": "과정관리",
+          "count": 1
+        }
+      ],
+      "dominant_method_axis": [
+        {
+          "value": "프로젝트형",
+          "count": 4
+        },
+        {
+          "value": "연구계획형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "보고서작성형",
+          "count": 4
+        },
+        {
+          "value": "제작형",
+          "count": 4
+        },
+        {
+          "value": "관찰평가형",
+          "count": 1
+        }
+      ],
+      "dominant_output_axis": [
+        {
+          "value": "연구계획서",
+          "count": 4
+        },
+        {
+          "value": "탐구계획서",
+          "count": 4
+        },
+        {
+          "value": "자료분석지",
+          "count": 4
+        },
+        {
+          "value": "탐구보고서",
+          "count": 4
+        },
+        {
+          "value": "설계보고서",
+          "count": 4
+        },
+        {
+          "value": "산출물",
+          "count": 4
+        },
+        {
+          "value": "참여관찰기록",
+          "count": 1
+        }
+      ],
+      "dominant_rubric_axis": [
+        {
+          "value": "문제설정",
+          "count": 4
+        },
+        {
+          "value": "절차설계",
+          "count": 4
+        },
+        {
+          "value": "타당성",
+          "count": 4
+        },
+        {
+          "value": "자료탐색",
+          "count": 4
+        },
+        {
+          "value": "자료분석",
+          "count": 4
+        },
+        {
+          "value": "근거제시",
+          "count": 3
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "개념정확성",
+          "count": 3
+        },
+        {
+          "value": "성실성",
+          "count": 1
+        },
+        {
+          "value": "참여도",
+          "count": 1
+        },
+        {
+          "value": "협력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "연구설계형",
+          "count": 4
+        },
+        {
+          "value": "자료해석형",
+          "count": 4
+        },
+        {
+          "value": "공학설계형",
+          "count": 4
+        },
+        {
+          "value": "학습과정관찰형",
+          "count": 1
+        }
+      ],
+      "dominant_structure_id": [
+        {
+          "value": "structure_research_design",
+          "count": 3
+        },
+        {
+          "value": "structure_process_observation",
+          "count": 1
+        }
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[연구문제]를 [교과 개념]으로 설정하고 [변인/자료/방법]을 설계하여 검증 가능성을 분석",
+          "count": 3
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 4
+      },
+      "average_weight": 25.0
     },
     {
       "subject_standard": "프로젝트기반연구Ⅱ-액체연료 기반 접촉점화 방식을 활용한 추력기 설계 및 제작",
-      "subject_group": "공학",
+      "subject_group": "공학·기술",
       "evidence_count": 4,
-      "topic_generating_evidence_count": 3,
+      "topic_generating_evidence_count": 4,
       "school_name_removed_for_runtime": true,
       "source_ids": [
         "sejong_arts_2026_s1_372891e2"
       ],
       "dominant_content_axis": [
         {
-          "value": "공학설계",
+          "value": "연구설계",
           "count": 4
         },
         {
@@ -652,10 +4272,6 @@
         },
         {
           "value": "실험탐구",
-          "count": 4
-        },
-        {
-          "value": "연구설계",
           "count": 4
         },
         {
@@ -671,6 +4287,10 @@
           "count": 4
         },
         {
+          "value": "공학설계",
+          "count": 4
+        },
+        {
           "value": "문제해결",
           "count": 3
         },
@@ -681,15 +4301,15 @@
       ],
       "dominant_method_axis": [
         {
-          "value": "발표형",
-          "count": 4
-        },
-        {
-          "value": "실험실습형",
+          "value": "프로젝트형",
           "count": 4
         },
         {
           "value": "연구계획형",
+          "count": 4
+        },
+        {
+          "value": "실험실습형",
           "count": 4
         },
         {
@@ -701,7 +4321,7 @@
           "count": 4
         },
         {
-          "value": "프로젝트형",
+          "value": "발표형",
           "count": 4
         },
         {
@@ -711,15 +4331,15 @@
       ],
       "dominant_output_axis": [
         {
-          "value": "산출물",
+          "value": "연구계획서",
+          "count": 4
+        },
+        {
+          "value": "탐구계획서",
           "count": 4
         },
         {
           "value": "실험보고서",
-          "count": 4
-        },
-        {
-          "value": "연구계획서",
           "count": 4
         },
         {
@@ -731,7 +4351,7 @@
           "count": 4
         },
         {
-          "value": "탐구계획서",
+          "value": "산출물",
           "count": 4
         },
         {
@@ -747,13 +4367,55 @@
           "count": 1
         }
       ],
-      "dominant_report_modes": [
+      "dominant_rubric_axis": [
         {
-          "value": "공학설계형",
+          "value": "문제설정",
           "count": 4
         },
         {
-          "value": "산출물제작형",
+          "value": "절차설계",
+          "count": 4
+        },
+        {
+          "value": "타당성",
+          "count": 4
+        },
+        {
+          "value": "자료탐색",
+          "count": 4
+        },
+        {
+          "value": "변인통제",
+          "count": 4
+        },
+        {
+          "value": "오차분석",
+          "count": 3
+        },
+        {
+          "value": "결과해석",
+          "count": 3
+        },
+        {
+          "value": "실험안전",
+          "count": 3
+        },
+        {
+          "value": "성실성",
+          "count": 1
+        },
+        {
+          "value": "참여도",
+          "count": 1
+        },
+        {
+          "value": "협력",
+          "count": 1
+        }
+      ],
+      "dominant_report_mode": [
+        {
+          "value": "연구설계형",
           "count": 4
         },
         {
@@ -761,7 +4423,11 @@
           "count": 4
         },
         {
-          "value": "연구설계형",
+          "value": "산출물제작형",
+          "count": 4
+        },
+        {
+          "value": "공학설계형",
           "count": 4
         },
         {
@@ -769,16 +4435,30 @@
           "count": 1
         }
       ],
-      "recommended_topic_formulas": [
+      "dominant_structure_id": [
         {
-          "formula": "[연구문제]를 [교과 개념]으로 설정하고 [변인/자료/방법]을 설계하여 검증 가능성을 분석",
+          "value": "structure_research_design",
           "count": 3
         },
         {
-          "formula": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "value": "structure_process_observation",
           "count": 1
         }
-      ]
+      ],
+      "dominant_topic_formula": [
+        {
+          "value": "[연구문제]를 [교과 개념]으로 설정하고 [변인/자료/방법]을 설계하여 검증 가능성을 분석",
+          "count": 3
+        },
+        {
+          "value": "주제생성 제외: 수업 참여도·과정 관찰형 수행평가",
+          "count": 1
+        }
+      ],
+      "ratio_bucket_distribution": {
+        "unknown": 4
+      },
+      "average_weight": 25.0
     }
   ]
 }
