@@ -1,0 +1,23 @@
+{
+  "version": "2.4.0-runtime-v2-sookmyung",
+  "generated_at": "2026-07-04T18:11:28+09:00",
+  "baseline": "seongdeok_high_assessment_patch_053schools_runtime_v2_20260704 + sookmyung_girls_high_assessment_patch_054schools_runtime_v2_20260704",
+  "baseline_school_count": 54,
+  "baseline_record_count": 7131,
+  "latest_added_school": "숙명여고",
+  "latest_added_record_count": 88,
+  "remaining_excluded_current_chat_schools": [
+    "영동고",
+    "영동일고",
+    "영파여고"
+  ],
+  "remaining_excluded_current_chat_school_count": 3,
+  "purpose": "학교별 원문 records를 archive/build로 유지하고, 주제 생성 런타임에서는 과목군·평가유형·산출물·채점요소·ratio_bucket 중심 압축 데이터(runtime_v2)를 사용한다.",
+  "runtime_files": [
+    "assessment_subject_profiles.v2.json",
+    "assessment_task_type_profiles.v2.json",
+    "assessment_ratio_buckets.v2.json",
+    "assessment_report_matching_rules.v2.json"
+  ],
+  "rule": "학교명은 출처 검증용으로 보관하되, 보고서 주제 생성 기준에는 직접 사용하지 않는다."
+}

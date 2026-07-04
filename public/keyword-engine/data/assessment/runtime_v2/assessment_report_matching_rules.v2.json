@@ -1,0 +1,605 @@
+{
+  "items": [
+    {
+      "rule_id": "report_inquiry",
+      "task_type_label": "탐구보고서형",
+      "match_structure_ids": [
+        "structure_research_report",
+        "structure_inquiry_report",
+        "structure_research_design",
+        "structure_concept_application",
+        "structure_principle_application"
+      ],
+      "sample_count": 814,
+      "source_school_count": 41,
+      "dominant_subject_groups": [
+        {
+          "value": "과학",
+          "count": 332
+        },
+        {
+          "value": "수학",
+          "count": 81
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 69
+        },
+        {
+          "value": "예술·체육",
+          "count": 61
+        },
+        {
+          "value": "국어·문학",
+          "count": 59
+        },
+        {
+          "value": "영어",
+          "count": 58
+        },
+        {
+          "value": "사회·인문",
+          "count": 28
+        },
+        {
+          "value": "외국어·제2외국어·한문",
+          "count": 24
+        },
+        {
+          "value": "교양·융합",
+          "count": 21
+        },
+        {
+          "value": "기타",
+          "count": 14
+        },
+        {
+          "value": "사회",
+          "count": 10
+        },
+        {
+          "value": "제2외국어·한문",
+          "count": 9
+        }
+      ],
+      "expected_outputs": [
+        "탐구보고서",
+        "자료분석지",
+        "발표자료",
+        "실험보고서",
+        "서평·독서일지",
+        "실행결과물",
+        "활동지",
+        "논술문"
+      ],
+      "core_rubric_tags": [
+        "탐구질문",
+        "교과개념",
+        "자료해석",
+        "결론도출"
+      ],
+      "recommended_report_structure": [
+        "탐구 질문",
+        "이론적 배경",
+        "자료 수집 및 분석 방법",
+        "핵심 분석",
+        "결론 및 확장"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "data_analysis",
+      "task_type_label": "자료분석형",
+      "match_structure_ids": [
+        "structure_data_interpretation",
+        "structure_experimental_analysis",
+        "structure_experiment_analysis",
+        "structure_data_analysis"
+      ],
+      "sample_count": 2683,
+      "source_school_count": 52,
+      "dominant_subject_groups": [
+        {
+          "value": "과학",
+          "count": 940
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 316
+        },
+        {
+          "value": "국어·문학",
+          "count": 261
+        },
+        {
+          "value": "수학",
+          "count": 245
+        },
+        {
+          "value": "영어·외국어",
+          "count": 143
+        },
+        {
+          "value": "영어",
+          "count": 135
+        },
+        {
+          "value": "예술·체육",
+          "count": 131
+        },
+        {
+          "value": "정보·AI",
+          "count": 67
+        },
+        {
+          "value": "체육",
+          "count": 62
+        },
+        {
+          "value": "사회·역사",
+          "count": 57
+        },
+        {
+          "value": "사회·인문",
+          "count": 55
+        },
+        {
+          "value": "정보·AI·기술",
+          "count": 54
+        }
+      ],
+      "expected_outputs": [
+        "자료분석지",
+        "탐구보고서",
+        "실험보고서",
+        "발표자료",
+        "논술문",
+        "창작물",
+        "분석보고서",
+        "풀이보고서"
+      ],
+      "core_rubric_tags": [
+        "자료분석",
+        "결과해석",
+        "개념정확성"
+      ],
+      "recommended_report_structure": [
+        "자료 조건 확인",
+        "핵심 개념 정리",
+        "자료 분석",
+        "결과 해석",
+        "오차와 한계"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "experiment_design",
+      "task_type_label": "실험·설계형",
+      "match_structure_ids": [
+        "structure_experiment_report",
+        "structure_experiment_analysis",
+        "structure_research_design",
+        "structure_experiment_inquiry"
+      ],
+      "sample_count": 1821,
+      "source_school_count": 48,
+      "dominant_subject_groups": [
+        {
+          "value": "과학",
+          "count": 798
+        },
+        {
+          "value": "국어·문학",
+          "count": 173
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 142
+        },
+        {
+          "value": "수학",
+          "count": 137
+        },
+        {
+          "value": "영어·외국어",
+          "count": 122
+        },
+        {
+          "value": "예술·체육",
+          "count": 93
+        },
+        {
+          "value": "영어",
+          "count": 72
+        },
+        {
+          "value": "사회·인문",
+          "count": 42
+        },
+        {
+          "value": "체육",
+          "count": 40
+        },
+        {
+          "value": "외국어·제2외국어·한문",
+          "count": 40
+        },
+        {
+          "value": "예술",
+          "count": 33
+        },
+        {
+          "value": "정보·AI",
+          "count": 29
+        }
+      ],
+      "expected_outputs": [
+        "실험보고서",
+        "탐구보고서",
+        "자료분석지",
+        "발표자료",
+        "논술문",
+        "분석보고서",
+        "글쓰기 산출물",
+        "활동지"
+      ],
+      "core_rubric_tags": [
+        "변인통제",
+        "절차설계",
+        "오차분석",
+        "실험안전"
+      ],
+      "recommended_report_structure": [
+        "실험 목적",
+        "변인과 절차",
+        "관찰 결과",
+        "원리 해석",
+        "오차와 개선"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "argument_debate",
+      "task_type_label": "논증·토론형",
+      "match_structure_ids": [
+        "structure_argumentation",
+        "structure_argument_analysis",
+        "structure_social_issue_argument",
+        "structure_argumentative_writing",
+        "structure_presentation_argument"
+      ],
+      "sample_count": 960,
+      "source_school_count": 43,
+      "dominant_subject_groups": [
+        {
+          "value": "국어·문학",
+          "count": 247
+        },
+        {
+          "value": "과학",
+          "count": 135
+        },
+        {
+          "value": "영어",
+          "count": 116
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 101
+        },
+        {
+          "value": "사회",
+          "count": 66
+        },
+        {
+          "value": "외국어",
+          "count": 61
+        },
+        {
+          "value": "수학",
+          "count": 44
+        },
+        {
+          "value": "예술·체육",
+          "count": 42
+        },
+        {
+          "value": "외국어·제2외국어·한문",
+          "count": 27
+        },
+        {
+          "value": "영어·외국어",
+          "count": 22
+        },
+        {
+          "value": "교양·융합",
+          "count": 18
+        },
+        {
+          "value": "인문·교양",
+          "count": 15
+        }
+      ],
+      "expected_outputs": [
+        "논술문",
+        "발표자료",
+        "자료분석지",
+        "탐구보고서",
+        "서평·독서일지",
+        "실험보고서",
+        "글쓰기 산출물",
+        "보고서"
+      ],
+      "core_rubric_tags": [
+        "논리전개",
+        "근거제시",
+        "반론검토"
+      ],
+      "recommended_report_structure": [
+        "쟁점 설정",
+        "관점 구분",
+        "근거 자료 비교",
+        "반론 검토",
+        "자기 결론"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "problem_design",
+      "task_type_label": "문제설계·해결형",
+      "match_structure_ids": [
+        "structure_problem_design",
+        "structure_math_modeling",
+        "structure_problem_solving"
+      ],
+      "sample_count": 391,
+      "source_school_count": 33,
+      "dominant_subject_groups": [
+        {
+          "value": "수학",
+          "count": 279
+        },
+        {
+          "value": "과학",
+          "count": 38
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 22
+        },
+        {
+          "value": "국어·문학",
+          "count": 13
+        },
+        {
+          "value": "정보과학",
+          "count": 9
+        },
+        {
+          "value": "영어",
+          "count": 7
+        },
+        {
+          "value": "정보·AI·기술",
+          "count": 7
+        },
+        {
+          "value": "외국어",
+          "count": 4
+        },
+        {
+          "value": "영어·외국어",
+          "count": 4
+        },
+        {
+          "value": "정보·AI",
+          "count": 2
+        },
+        {
+          "value": "사회·인문",
+          "count": 2
+        },
+        {
+          "value": "사회·역사·지리",
+          "count": 1
+        }
+      ],
+      "expected_outputs": [
+        "풀이보고서",
+        "논술문",
+        "발표자료",
+        "탐구보고서",
+        "자료분석지",
+        "문항재구성물",
+        "실험보고서",
+        "수학풀이과정"
+      ],
+      "core_rubric_tags": [
+        "문제해결과정",
+        "개념정확성",
+        "결과정확성"
+      ],
+      "recommended_report_structure": [
+        "문제 조건 분석",
+        "사용 개념 정리",
+        "해결 과정 설계",
+        "풀이 검증",
+        "유사 문제 확장"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "reading_criticism",
+      "task_type_label": "독서·비평형",
+      "match_structure_ids": [
+        "structure_reading_criticism",
+        "structure_text_analysis_argument",
+        "structure_reading_critique"
+      ],
+      "sample_count": 244,
+      "source_school_count": 25,
+      "dominant_subject_groups": [
+        {
+          "value": "국어·문학",
+          "count": 104
+        },
+        {
+          "value": "영어",
+          "count": 44
+        },
+        {
+          "value": "과학",
+          "count": 25
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 22
+        },
+        {
+          "value": "예술",
+          "count": 14
+        },
+        {
+          "value": "수학",
+          "count": 8
+        },
+        {
+          "value": "교양·융합",
+          "count": 6
+        },
+        {
+          "value": "예술·체육",
+          "count": 6
+        },
+        {
+          "value": "외국어",
+          "count": 4
+        },
+        {
+          "value": "영어·외국어",
+          "count": 4
+        },
+        {
+          "value": "사회",
+          "count": 2
+        },
+        {
+          "value": "생활·교양",
+          "count": 1
+        }
+      ],
+      "expected_outputs": [
+        "서평·독서일지",
+        "논술문",
+        "탐구보고서",
+        "발표자료",
+        "창작물",
+        "자료분석지",
+        "보고서",
+        "포트폴리오"
+      ],
+      "core_rubric_tags": [
+        "핵심요약",
+        "근거제시",
+        "비판적해석"
+      ],
+      "recommended_report_structure": [
+        "텍스트 선정 이유",
+        "핵심 내용 요약",
+        "교과 개념 연결",
+        "비판적 해석",
+        "확장 질문"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    },
+    {
+      "rule_id": "design_project",
+      "task_type_label": "프로젝트·제작형",
+      "match_structure_ids": [
+        "structure_design_project",
+        "structure_creative_design",
+        "structure_product_creation",
+        "structure_programming_implementation",
+        "structure_project_design",
+        "structure_product_design",
+        "structure_design_modeling"
+      ],
+      "sample_count": 477,
+      "source_school_count": 40,
+      "dominant_subject_groups": [
+        {
+          "value": "예술",
+          "count": 94
+        },
+        {
+          "value": "과학",
+          "count": 91
+        },
+        {
+          "value": "예술·체육",
+          "count": 58
+        },
+        {
+          "value": "수학",
+          "count": 37
+        },
+        {
+          "value": "국어·문학",
+          "count": 35
+        },
+        {
+          "value": "사회·역사·윤리",
+          "count": 33
+        },
+        {
+          "value": "정보·AI",
+          "count": 22
+        },
+        {
+          "value": "공학·정보",
+          "count": 17
+        },
+        {
+          "value": "영어",
+          "count": 14
+        },
+        {
+          "value": "사회",
+          "count": 12
+        },
+        {
+          "value": "정보·AI·기술",
+          "count": 12
+        },
+        {
+          "value": "정보·기술",
+          "count": 6
+        }
+      ],
+      "expected_outputs": [
+        "창작물",
+        "자료분석지",
+        "발표자료",
+        "탐구보고서",
+        "설계보고서",
+        "산출물",
+        "실험보고서",
+        "설계산출물"
+      ],
+      "core_rubric_tags": [
+        "설계타당성",
+        "창의성",
+        "완성도",
+        "개선"
+      ],
+      "recommended_report_structure": [
+        "문제 상황",
+        "설계 기준",
+        "제작·구현 과정",
+        "성능 검증",
+        "개선 방향"
+      ],
+      "generation_guideline": "학교명을 중심으로 주제를 생성하지 말고, 과목군·수행유형·산출물·평가요소·ratio_bucket 조합을 기준으로 보고서 주제와 목차를 생성한다."
+    }
+  ]
+}
