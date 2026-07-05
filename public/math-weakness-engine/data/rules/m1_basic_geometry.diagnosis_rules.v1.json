@@ -1,0 +1,127 @@
+{
+  "version": "2026.07.05-m1-basic-geometry-rules-v0.1",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "unit_name": "기본 도형과 작도",
+  "rule_count": 7,
+  "rules": [
+    {
+      "rule_id": "M1_BG_RULE_001",
+      "name": "직선·반직선·선분 구분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_ray_segment",
+          "counting_lines"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "직선, 반직선, 선분의 끝점과 연장 방향을 기준으로 구분하는 능력이 약합니다.",
+      "parent_message": "도형 문제의 시작은 용어 구분입니다. 직선·반직선·선분을 그림과 기호로 다시 맞춘 뒤 개수 세기로 넘어가는 보강이 필요합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_002",
+      "name": "각도 조건 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "right_angle",
+          "straight_angle",
+          "angle_ratio",
+          "angle_condition",
+          "vertical_angles"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "직각·평각·맞꼭지각·각도 조건을 식으로 연결하는 과정이 불안정합니다.",
+      "parent_message": "각도 계산 실수처럼 보이지만 90도, 180도, 맞꼭지각, 비례 조건을 어떤 기준으로 쓰는지 정리해야 합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_003",
+      "name": "위치 관계와 공간지각 취약",
+      "trigger": {
+        "error_tags_any": [
+          "position_relation",
+          "skew_lines",
+          "spatial_relation",
+          "line_plane_relation",
+          "plane_plane_relation",
+          "solid_geometry",
+          "net_to_solid"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "점·직선·평면의 위치 관계와 입체도형·전개도에서의 공간 관계 판단이 약합니다.",
+      "parent_message": "공간 위치 관계는 암기보다 평행, 만남, 꼬인 위치, 포함 관계를 그림으로 구분하는 연습이 필요합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_004",
+      "name": "평행선 각도 추론 취약",
+      "trigger": {
+        "error_tags_any": [
+          "corresponding_alternate_angles",
+          "parallel_lines",
+          "parallel_condition",
+          "broken_line_parallel",
+          "paper_folding"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "동위각·엇각 판별과 평행선에서 각도를 옮기는 추론이 불안정합니다.",
+      "parent_message": "평행선 문제는 단순 각도 계산이 아니라 같은 각을 어디로 이동시키는지 보는 문제입니다. 동위각·엇각 위치 표시부터 보강해야 합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_005",
+      "name": "작도 절차 취약",
+      "trigger": {
+        "error_tags_any": [
+          "construction",
+          "ruler_compass",
+          "equal_segment",
+          "equal_angle",
+          "construction_parallel"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "자와 컴퍼스를 이용한 작도의 절차와 작도 조건 이해가 약합니다.",
+      "parent_message": "작도는 눈금자로 재는 활동이 아니라 길이와 각을 옮기는 절차입니다. 선분 작도, 각 작도, 평행선 작도를 순서대로 다시 정리해야 합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_006",
+      "name": "삼각형 작도·결정조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "triangle_inequality",
+          "triangle_construction",
+          "triangle_determination",
+          "insufficient_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "삼각형의 세 변 관계, 작도 조건, 하나로 정해질 조건을 구분하는 능력이 약합니다.",
+      "parent_message": "삼각형이 만들어지는 조건과 하나로 정해지는 조건은 다릅니다. SSS, SAS, ASA 조건의 의미를 작도와 함께 비교하는 보강이 필요합니다."
+    },
+    {
+      "rule_id": "M1_BG_RULE_007",
+      "name": "합동조건과 대응관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "congruence",
+          "corresponding_parts",
+          "triangle_congruence",
+          "SSS_congruence",
+          "SAS_congruence",
+          "ASA_congruence",
+          "congruence_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "도형의 합동, 삼각형 합동조건, 대응변·대응각 활용이 연결되지 못하고 있습니다.",
+      "parent_message": "합동조건 이름을 외우는 것보다 어떤 변과 각이 대응되는지 표시하고, 그 결과로 길이와 각을 구하는 연습이 필요합니다."
+    }
+  ]
+}

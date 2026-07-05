@@ -1,0 +1,1118 @@
+{
+  "version": "2026.07.05-m1-basic-geometry-problem-types-v0.1",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "unit_name": "기본 도형과 작도",
+  "raw_taxonomy": "data/raw_taxonomy/m1_basic_geometry.raw_taxonomy.v1.json",
+  "problem_type_count": 55,
+  "problem_types": [
+    {
+      "problem_type_id": "M1_BG_PT001",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "도형의 기본 요소 판별하기",
+      "description": "도형의 기본 요소 판별하기",
+      "concept_ids": [
+        "M1_BG_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "geometry_vocabulary",
+        "basic_elements"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT002",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "교점과 교선 찾기",
+      "description": "교점과 교선 찾기",
+      "concept_ids": [
+        "M1_BG_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "intersection_point_line",
+        "geometry_vocabulary"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT003",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "직선·반직선·선분 구분하기",
+      "description": "직선·반직선·선분 구분하기",
+      "concept_ids": [
+        "M1_BG_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "line_ray_segment",
+        "endpoint_direction"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT004",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "직선·반직선·선분의 개수 구하기",
+      "description": "직선·반직선·선분의 개수 구하기",
+      "concept_ids": [
+        "M1_BG_C004"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "counting_lines",
+        "line_ray_segment"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT005",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "두 점 사이의 거리 구하기",
+      "description": "두 점 사이의 거리 구하기",
+      "concept_ids": [
+        "M1_BG_C005"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "point_distance",
+        "segment_length"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT006",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "선분의 중점 찾기",
+      "description": "선분의 중점 찾기",
+      "concept_ids": [
+        "M1_BG_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "midpoint",
+        "equal_length"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT007",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "두 점 사이의 거리 조건 활용하기",
+      "description": "두 점 사이의 거리 조건 활용하기",
+      "concept_ids": [
+        "M1_BG_C005",
+        "M1_BG_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "point_distance",
+        "condition_reasoning"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT008",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "각의 이름과 크기 읽기",
+      "description": "각의 이름과 크기 읽기",
+      "concept_ids": [
+        "M1_BG_C007"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "angle_vocabulary",
+        "angle_reading"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT009",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "직각자를 이용하여 각의 크기 구하기",
+      "description": "직각자를 이용하여 각의 크기 구하기",
+      "concept_ids": [
+        "M1_BG_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "right_angle",
+        "angle_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT010",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평각을 이용하여 각의 크기 구하기",
+      "description": "평각을 이용하여 각의 크기 구하기",
+      "concept_ids": [
+        "M1_BG_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "straight_angle",
+        "angle_180"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT011",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "각의 크기 비가 주어진 경우 각도 구하기",
+      "description": "각의 크기 비가 주어진 경우 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_ratio",
+        "angle_equation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT012",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "각의 크기 조건이 주어진 경우 각도 구하기",
+      "description": "각의 크기 조건이 주어진 경우 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "angle_condition",
+        "equation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT013",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "시침과 분침이 이루는 각의 크기 구하기",
+      "description": "시침과 분침이 이루는 각의 크기 구하기",
+      "concept_ids": [
+        "M1_BG_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "clock_angle",
+        "angle_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT014",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "맞꼭지각의 성질로 각도 구하기",
+      "description": "맞꼭지각의 성질로 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C011"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "vertical_angles",
+        "angle_property"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT015",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "맞꼭지각의 쌍의 개수 구하기",
+      "description": "맞꼭지각의 쌍의 개수 구하기",
+      "concept_ids": [
+        "M1_BG_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "vertical_angles",
+        "counting"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT016",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "수직과 수선 판별하기",
+      "description": "수직과 수선 판별하기",
+      "concept_ids": [
+        "M1_BG_C012"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "perpendicular",
+        "right_angle"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT017",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "점과 직선 사이의 거리 구하기",
+      "description": "점과 직선 사이의 거리 구하기",
+      "concept_ids": [
+        "M1_BG_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "distance_point_to_line",
+        "perpendicular"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT018",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "맞꼭지각 성질 활용하기",
+      "description": "맞꼭지각 성질 활용하기",
+      "concept_ids": [
+        "M1_BG_C011",
+        "M1_BG_C009"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "vertical_angles",
+        "angle_equation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT019",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "점·직선·평면의 위치 관계 판단하기",
+      "description": "점·직선·평면의 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C014"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "position_relation",
+        "point_line_plane"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT020",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평면에서 두 직선의 위치 관계 판단하기",
+      "description": "평면에서 두 직선의 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C014"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "position_relation",
+        "two_lines_plane"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT021",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평면이 정해질 조건 판단하기",
+      "description": "평면이 정해질 조건 판단하기",
+      "concept_ids": [
+        "M1_BG_C015"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "plane_determination",
+        "condition_judgement"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT022",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "꼬인 위치 판별하기",
+      "description": "꼬인 위치 판별하기",
+      "concept_ids": [
+        "M1_BG_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "skew_lines",
+        "spatial_relation"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT023",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "공간에서 두 직선의 위치 관계 판단하기",
+      "description": "공간에서 두 직선의 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "spatial_relation",
+        "two_lines_space"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT024",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "공간에서 직선과 평면의 위치 관계 판단하기",
+      "description": "공간에서 직선과 평면의 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "line_plane_relation",
+        "spatial_relation"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT025",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "점과 평면 사이의 거리 구하기",
+      "description": "점과 평면 사이의 거리 구하기",
+      "concept_ids": [
+        "M1_BG_C013",
+        "M1_BG_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distance_point_to_plane",
+        "perpendicular"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT026",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "공간에서 두 평면의 위치 관계 판단하기",
+      "description": "공간에서 두 평면의 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C018"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "plane_plane_relation",
+        "spatial_relation"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT027",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "잘린 입체도형에서 위치 관계 판단하기",
+      "description": "잘린 입체도형에서 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "solid_geometry",
+        "spatial_visualization"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT028",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "전개도에서 입체도형 위치 관계 판단하기",
+      "description": "전개도에서 입체도형 위치 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "net_to_solid",
+        "spatial_visualization"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT029",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "동위각과 엇각 판별하기",
+      "description": "동위각과 엇각 판별하기",
+      "concept_ids": [
+        "M1_BG_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "corresponding_alternate_angles",
+        "angle_position"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT030",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평행선의 성질로 각도 구하기",
+      "description": "평행선의 성질로 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "parallel_lines",
+        "angle_property"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT031",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "두 직선이 평행할 조건 판단하기",
+      "description": "두 직선이 평행할 조건 판단하기",
+      "concept_ids": [
+        "M1_BG_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "parallel_condition",
+        "angle_property_reverse"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT032",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "두 쌍의 평행선에서 각도 구하기",
+      "description": "두 쌍의 평행선에서 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C021",
+        "M1_BG_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "parallel_lines",
+        "multiple_parallel"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT033",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평행선과 삼각형 모양에서 각도 구하기",
+      "description": "평행선과 삼각형 모양에서 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C021",
+        "M1_BG_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "parallel_lines",
+        "triangle_angle"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT034",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평행선과 꺾인 직선에서 각도 구하기",
+      "description": "평행선과 꺾인 직선에서 각도 구하기",
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "broken_line_parallel",
+        "auxiliary_line"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT035",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "평행선에서 복합 각도 활용하기",
+      "description": "평행선에서 복합 각도 활용하기",
+      "concept_ids": [
+        "M1_BG_C023"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "parallel_lines",
+        "angle_reasoning"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT036",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "종이를 접었을 때 각의 크기 구하기",
+      "description": "종이를 접었을 때 각의 크기 구하기",
+      "concept_ids": [
+        "M1_BG_C024"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "paper_folding",
+        "angle_symmetry"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT037",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "작도의 뜻과 기본 절차 판단하기",
+      "description": "작도의 뜻과 기본 절차 판단하기",
+      "concept_ids": [
+        "M1_BG_C025"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "construction",
+        "ruler_compass"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT038",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "길이가 같은 선분 작도하기",
+      "description": "길이가 같은 선분 작도하기",
+      "concept_ids": [
+        "M1_BG_C026"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "construction",
+        "equal_segment"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT039",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "크기가 같은 각 작도하기",
+      "description": "크기가 같은 각 작도하기",
+      "concept_ids": [
+        "M1_BG_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "construction",
+        "equal_angle"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT040",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "동위각을 이용하여 평행선 작도하기",
+      "description": "동위각을 이용하여 평행선 작도하기",
+      "concept_ids": [
+        "M1_BG_C028",
+        "M1_BG_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "construction_parallel",
+        "corresponding_angles"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT041",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "엇각을 이용하여 평행선 작도하기",
+      "description": "엇각을 이용하여 평행선 작도하기",
+      "concept_ids": [
+        "M1_BG_C028",
+        "M1_BG_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "construction_parallel",
+        "alternate_angles"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT042",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형의 대변과 대각 관계 판단하기",
+      "description": "삼각형의 대변과 대각 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_side_angle_relation",
+        "triangle_basic"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT043",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형의 세 변의 길이 관계 판단하기",
+      "description": "삼각형의 세 변의 길이 관계 판단하기",
+      "concept_ids": [
+        "M1_BG_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_inequality",
+        "triangle_construction"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT044",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형 작도하기",
+      "description": "삼각형 작도하기",
+      "concept_ids": [
+        "M1_BG_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_construction",
+        "SSS_SAS_ASA"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT045",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형이 정해질 조건 판단하기",
+      "description": "삼각형이 정해질 조건 판단하기",
+      "concept_ids": [
+        "M1_BG_C031"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_determination",
+        "uniqueness"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT046",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형이 하나로 정해지지 않는 경우 판단하기",
+      "description": "삼각형이 하나로 정해지지 않는 경우 판단하기",
+      "concept_ids": [
+        "M1_BG_C031"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "triangle_determination",
+        "insufficient_condition"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT047",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "도형의 합동 판단하기",
+      "description": "도형의 합동 판단하기",
+      "concept_ids": [
+        "M1_BG_C032"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "congruence",
+        "shape_size"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT048",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "합동인 도형의 성질 활용하기",
+      "description": "합동인 도형의 성질 활용하기",
+      "concept_ids": [
+        "M1_BG_C032"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "congruence",
+        "corresponding_parts"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT049",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "합동인 삼각형 찾기",
+      "description": "합동인 삼각형 찾기",
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_congruence",
+        "matching"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT050",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "삼각형이 합동이 되기 위해 추가될 조건 찾기",
+      "description": "삼각형이 합동이 되기 위해 추가될 조건 찾기",
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "triangle_congruence",
+        "additional_condition"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT051",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "SSS 합동조건 판별하기",
+      "description": "SSS 합동조건 판별하기",
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "SSS_congruence",
+        "triangle_congruence"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT052",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "SAS 합동조건 판별하기",
+      "description": "SAS 합동조건 판별하기",
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "SAS_congruence",
+        "included_angle"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT053",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "ASA 합동조건 판별하기",
+      "description": "ASA 합동조건 판별하기",
+      "concept_ids": [
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "ASA_congruence",
+        "included_side"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT054",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "정삼각형에서 삼각형 합동 활용하기",
+      "description": "정삼각형에서 삼각형 합동 활용하기",
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "congruence_application",
+        "equilateral_triangle"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_BG_PT055",
+      "grade": "중1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "type_name": "직사각형에서 삼각형 합동 활용하기",
+      "description": "직사각형에서 삼각형 합동 활용하기",
+      "concept_ids": [
+        "M1_BG_C034",
+        "M1_BG_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "congruence_application",
+        "rectangle"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

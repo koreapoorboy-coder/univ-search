@@ -1,0 +1,61 @@
+﻿problem_type_id,grade,unit_id,unit_name,type_name,concept_ids,default_difficulty,error_tags,source_orders
+M1_EX_PT001,중1,M1_EXPRESSION,문자와 식,곱셈 기호 생략: 문자와 숫자의 곱 표기,M1_EX_C001,basic,symbol_omission|coefficient_order,1|2
+M1_EX_PT002,중1,M1_EXPRESSION,문자와 식,곱셈 기호 생략: 문자와 문자의 곱 및 거듭제곱 표기,M1_EX_C001,core,symbol_omission|power_notation,1|2|3
+M1_EX_PT003,중1,M1_EXPRESSION,문자와 식,곱셈 기호 생략: 여러 문자가 포함된 곱의 표준 표현,M1_EX_C001,core,symbol_omission|variable_order,2|3|4
+M1_EX_PT004,중1,M1_EXPRESSION,문자와 식,나눗셈 기호 생략: 분수꼴로 나타내기,M1_EX_C002,basic,division_to_fraction|fraction_structure,5|6
+M1_EX_PT005,중1,M1_EXPRESSION,문자와 식,나눗셈 기호 생략: 역수 곱과 복합 문자식 표현,M1_EX_C002,core,division_to_fraction|reciprocal_conversion,6|7|8
+M1_EX_PT006,중1,M1_EXPRESSION,문자와 식,문장 식 표현: 한 문자 한 항의 기본 수량 나타내기,M1_EX_C003|M1_EX_C027,basic,quantity_to_expression|variable_meaning,9|10|11
+M1_EX_PT007,중1,M1_EXPRESSION,문자와 식,문장 식 표현: 가격·개수·양의 관계식 세우기,M1_EX_C003|M1_EX_C027,core,quantity_to_expression|unit_quantity,9|10|11|12
+M1_EX_PT008,중1,M1_EXPRESSION,문자와 식,문장 식 표현: 두 문자 이상의 합과 차 나타내기,M1_EX_C004|M1_EX_C027,core,quantity_to_expression|multiple_variables,12|13|14|15
+M1_EX_PT009,중1,M1_EXPRESSION,문자와 식,문장 식 표현: 도형의 둘레와 넓이를 문자식으로 나타내기,M1_EX_C004|M1_EX_C007,core,geometry_expression|formula_connection,14|15|16|17|18|19|20
+M1_EX_PT010,중1,M1_EXPRESSION,문자와 식,문장 식 표현: 종합 문장을 식으로 바꾸기,M1_EX_C004|M1_EX_C014|M1_EX_C027,advanced,quantity_to_expression|sentence_interpretation,20|21
+M1_EX_PT011,중1,M1_EXPRESSION,문자와 식,식의 값: x의 값을 단항식·다항식에 대입하기,M1_EX_C005,basic,substitution|calculation_order,22|23|24
+M1_EX_PT012,중1,M1_EXPRESSION,문자와 식,식의 값: 음수와 거듭제곱이 포함된 식에 대입하기,M1_EX_C005,core,substitution|negative_parentheses|power_notation,22|23|24|25
+M1_EX_PT013,중1,M1_EXPRESSION,문자와 식,식의 값: 분수형 문자식에 대입하기,M1_EX_C006,core,substitution|fraction_structure,25|26|27
+M1_EX_PT014,중1,M1_EXPRESSION,문자와 식,"식의 값: x,y 값이 주어진 식의 값 구하기",M1_EX_C006,core,substitution|multiple_variables,27|28|29
+M1_EX_PT015,중1,M1_EXPRESSION,문자와 식,식의 값 활용: 평면도형 길이·넓이 계산,M1_EX_C007|M1_EX_C004,core,geometry_expression|substitution,30|31
+M1_EX_PT016,중1,M1_EXPRESSION,문자와 식,식의 값 활용: 입체도형 겉넓이·부피 계산,M1_EX_C007,advanced,geometry_expression|formula_connection,31|32|33
+M1_EX_PT017,중1,M1_EXPRESSION,문자와 식,"다항식의 요소: 항, 계수, 상수항 판단",M1_EX_C008,basic,term_coefficient|polynomial_structure,34|35
+M1_EX_PT018,중1,M1_EXPRESSION,문자와 식,다항식의 요소: 문자 개수와 차수 판단,M1_EX_C008,core,degree_identification|polynomial_structure,34|35|36
+M1_EX_PT019,중1,M1_EXPRESSION,문자와 식,단항식 계산: 수를 곱하거나 나누기,M1_EX_C009,basic,monomial_operation|coefficient_calculation,36|37
+M1_EX_PT020,중1,M1_EXPRESSION,문자와 식,단항식 계산: 분수 계수와 나눗셈 처리,M1_EX_C009,core,monomial_operation|fraction_coefficient,37|38|39|40
+M1_EX_PT021,중1,M1_EXPRESSION,문자와 식,동류항 정리: 같은 문자항끼리 더하고 빼기,M1_EX_C010|M1_EX_C028,basic,like_terms|sign_handling,41|42|43
+M1_EX_PT022,중1,M1_EXPRESSION,문자와 식,동류항 정리: 문자항과 상수항을 구분하여 정리,M1_EX_C010|M1_EX_C028,core,like_terms|polynomial_structure,42|43|44
+M1_EX_PT023,중1,M1_EXPRESSION,문자와 식,일차식 계산: 괄호를 풀어 덧셈·뺄셈하기,M1_EX_C011|M1_EX_C028,core,distributive_property|parentheses,45|46|47
+M1_EX_PT024,중1,M1_EXPRESSION,문자와 식,일차식 계산: 괄호 앞 음수와 부호 분배 처리,M1_EX_C011|M1_EX_C028,advanced,distributive_property|negative_distribution|sign_handling,46|47|48
+M1_EX_PT025,중1,M1_EXPRESSION,문자와 식,일차식 계산: 계수 조건이 있는 식의 값과 변형,M1_EX_C012|M1_EX_C028,advanced,coefficient_condition|expression_transformation,48|49|50|51|52|53
+M1_EX_PT026,중1,M1_EXPRESSION,문자와 식,어떤 식 구하기: 등식의 빈칸에 들어갈 식 찾기,M1_EX_C013|M1_EX_C028,core,inverse_expression|expression_transformation,54|55|56
+M1_EX_PT027,중1,M1_EXPRESSION,문자와 식,어떤 식 구하기: 덧셈·뺄셈 관계에서 식 역산하기,M1_EX_C013|M1_EX_C028,advanced,inverse_expression|parentheses|sign_handling,56|57|58|59|60
+M1_EX_PT028,중1,M1_EXPRESSION,문자와 식,어떤 식 구하기: 조건에 맞는 식 고르기,M1_EX_C013|M1_EX_C012,advanced,inverse_expression|condition_matching,60|61|62
+M1_EX_PT029,중1,M1_EXPRESSION,문자와 식,문장을 등식으로 나타내기: 사람 수와 수량 관계,M1_EX_C014|M1_EX_C027,core,sentence_to_equation|variable_meaning,63|64
+M1_EX_PT030,중1,M1_EXPRESSION,문자와 식,문장을 등식으로 나타내기: 거리·속력·시간 관계,M1_EX_C014|M1_EX_C025,advanced,sentence_to_equation|rate_time_distance,63|64|65
+M1_EX_PT031,중1,M1_EXPRESSION,문자와 식,문장을 등식으로 나타내기: 가격·할인·변화 관계,M1_EX_C014|M1_EX_C020,advanced,sentence_to_equation|quantity_change,66|67|68
+M1_EX_PT032,중1,M1_EXPRESSION,문자와 식,항등식 판단: 항상 참인 식 고르기,M1_EX_C015,core,identity_judgement|equation_identity_confusion,69|70|71
+M1_EX_PT033,중1,M1_EXPRESSION,문자와 식,항등식 활용: 계수 관계와 설명 판단,M1_EX_C015|M1_EX_C012,advanced,identity_judgement|coefficient_comparison,72|73|74|75|76|77
+M1_EX_PT034,중1,M1_EXPRESSION,문자와 식,일차방정식 판단: 일차방정식인지 O/X 표시하기,M1_EX_C016,basic,linear_equation_judgement|degree_identification,78|79
+M1_EX_PT035,중1,M1_EXPRESSION,문자와 식,일차방정식 판단: 보기에서 일차방정식 고르기,M1_EX_C016,core,linear_equation_judgement|polynomial_structure,79|80|81|82
+M1_EX_PT036,중1,M1_EXPRESSION,문자와 식,일차방정식 풀이: 등식의 성질로 해 구하기,M1_EX_C017,core,equation_solving|balance_property,83|84|85
+M1_EX_PT037,중1,M1_EXPRESSION,문자와 식,일차방정식 풀이: 이항과 부호 변화를 이용해 풀기,M1_EX_C017,core,equation_solving|transposition|sign_handling,85|86|87|88|89
+M1_EX_PT038,중1,M1_EXPRESSION,문자와 식,계수가 소수인 일차방정식: 양변에 10 또는 100 곱하기,M1_EX_C018|M1_EX_C017,advanced,decimal_coefficient|equation_solving,83|84|85|86
+M1_EX_PT039,중1,M1_EXPRESSION,문자와 식,계수가 소수인 일차방정식: 풀이 과정 빈칸 채우기,M1_EX_C018|M1_EX_C017,advanced,decimal_coefficient|solution_process,83|84|85|86|87|88|89
+M1_EX_PT040,중1,M1_EXPRESSION,문자와 식,비례식 방정식: 비례식으로 주어진 x 값 구하기,M1_EX_C018|M1_EX_C017,advanced,proportion_equation|equation_solving,90|91|92|93
+M1_EX_PT041,중1,M1_EXPRESSION,문자와 식,분수식 방정식: 분모를 제거하여 풀기,M1_EX_C018|M1_EX_C017,advanced,fraction_equation|denominator_clearance,90|91|92|93|94
+M1_EX_PT042,중1,M1_EXPRESSION,문자와 식,해의 조건: 자연수·정수 해가 되도록 조건 판단,M1_EX_C019|M1_EX_C017,high,solution_condition|integer_condition,95|96|97|98
+M1_EX_PT043,중1,M1_EXPRESSION,문자와 식,활용 문제: 어떤 수에 대한 방정식 세우기,M1_EX_C020|M1_EX_C021|M1_EX_C030,core,word_problem|equation_modeling,99|100|101
+M1_EX_PT044,중1,M1_EXPRESSION,문자와 식,활용 문제: 처음 수와 변화 후 수 관계 해결,M1_EX_C021|M1_EX_C020,advanced,word_problem|quantity_change,99|100|101|102
+M1_EX_PT045,중1,M1_EXPRESSION,문자와 식,활용 문제: 방정식 구성을 통한 수량 관계 해결,M1_EX_C020|M1_EX_C030,advanced,word_problem|equation_modeling|sentence_interpretation,101|102|103
+M1_EX_PT046,중1,M1_EXPRESSION,문자와 식,도형 활용: 직사각형 길이·넓이·둘레 조건,M1_EX_C022|M1_EX_C020,advanced,geometry_equation|word_problem,104|105|106|107|108|109|110|111|112|113
+M1_EX_PT047,중1,M1_EXPRESSION,문자와 식,도형 활용: 삼각형·직육면체 넓이·부피 조건,M1_EX_C022|M1_EX_C007,high,geometry_equation|formula_connection,113|114|115|116|117|118|119
+M1_EX_PT048,중1,M1_EXPRESSION,문자와 식,도형 활용: 점 이동으로 만들어지는 도형 분석,M1_EX_C022|M1_EX_C030,high,geometry_equation|dynamic_geometry,113|114|115|116
+M1_EX_PT049,중1,M1_EXPRESSION,문자와 식,과부족 문제: 물건을 나누어주고 남거나 부족한 관계,M1_EX_C023|M1_EX_C020|M1_EX_C030,advanced,excess_shortage|word_problem,120|121|122
+M1_EX_PT050,중1,M1_EXPRESSION,문자와 식,과부족 문제: 금액과 물건 조건을 방정식으로 세우기,M1_EX_C023|M1_EX_C020,advanced,excess_shortage|equation_modeling,122|123|124|125|126
+M1_EX_PT051,중1,M1_EXPRESSION,문자와 식,시계 문제: 시침과 분침이 이루는 각도 구하기,M1_EX_C024|M1_EX_C020,high,clock_angle|equation_modeling,127|128
+M1_EX_PT052,중1,M1_EXPRESSION,문자와 식,시계 문제: 각도 조건을 만족하는 시각 구하기,M1_EX_C024|M1_EX_C030,high,clock_angle|solution_condition,127|128|129
+M1_EX_PT053,중1,M1_EXPRESSION,문자와 식,거리·속력·시간: 기본 이동 관계 방정식 세우기,M1_EX_C025|M1_EX_C020,advanced,rate_time_distance|equation_modeling,130|131|132
+M1_EX_PT054,중1,M1_EXPRESSION,문자와 식,거리·속력·시간: 총 거리와 총 시간 조건 활용,M1_EX_C025|M1_EX_C030,high,rate_time_distance|word_problem,132|133|134|135
+M1_EX_PT055,중1,M1_EXPRESSION,문자와 식,거리·속력·시간: 단위와 평균속력 해석,M1_EX_C025|M1_EX_C030,high,rate_time_distance|unit_conversion,135|136|137
+M1_EX_PT056,중1,M1_EXPRESSION,문자와 식,종합 활용: 여러 조건이 포함된 일차방정식 문제,M1_EX_C026|M1_EX_C030,high,complex_word_problem|condition_analysis,138|139|140|141
+M1_EX_PT057,중1,M1_EXPRESSION,문자와 식,종합 활용: 해를 구한 뒤 조건에 맞는지 판단,M1_EX_C026|M1_EX_C029|M1_EX_C030,high,complex_word_problem|solution_check,140|141|142
+M1_EX_PT058,중1,M1_EXPRESSION,문자와 식,검산과 해석: 방정식의 해를 상황에 대입하기,M1_EX_C029|M1_EX_C020,advanced,solution_check|word_problem,98|101|138|139|140|141|142
+M1_EX_PT059,중1,M1_EXPRESSION,문자와 식,문자식-방정식 연결: 식 표현에서 방정식 세우기로 확장,M1_EX_C014|M1_EX_C020|M1_EX_C030,advanced,sentence_to_equation|equation_modeling,63|64|65|66|67|68|99|100
+M1_EX_PT060,중1,M1_EXPRESSION,문자와 식,문자식 정리 안정성: 중2 식의 계산으로 이어지는 기초,M1_EX_C010|M1_EX_C011|M1_EX_C028,core,like_terms|distributive_property|future_bridge,41|42|43|44|45|46|47|48

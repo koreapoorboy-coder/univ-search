@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.03-m1-int-rational-v0.1",
-  "concept_count": 30,
+  "version": "2026.07.05-m1-full-middle1-geometry-v0.5",
+  "concept_count": 152,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -913,6 +913,3465 @@
       "mastery_level": "metacognitive",
       "prerequisite_depth": 0,
       "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "곱셈·나눗셈 기호 생략",
+      "concept_name": "곱셈 기호의 생략",
+      "description": "곱셈 기호를 생략할 때 숫자와 문자의 순서, 거듭제곱, 여러 문자의 곱을 표준 형태로 쓴다.",
+      "diagnostic_signals": [
+        "곱셈기호 생략 순서 오류",
+        "계수와 문자 위치 혼동",
+        "거듭제곱 표현 누락"
+      ],
+      "remediation_keywords": [
+        "곱셈 기호의 생략",
+        "곱셈·나눗셈 기호 생략",
+        "문자와 식"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "곱셈·나눗셈 기호 생략",
+      "concept_name": "나눗셈 기호의 생략",
+      "description": "나눗셈을 분수 꼴 또는 역수 곱 형태로 바꾸어 문자식으로 나타낸다.",
+      "diagnostic_signals": [
+        "나눗셈을 분수꼴로 바꾸지 못함",
+        "분모 전체 처리 오류",
+        "나눗셈 방향 혼동"
+      ],
+      "remediation_keywords": [
+        "나눗셈 기호의 생략",
+        "곱셈·나눗셈 기호 생략",
+        "문자와 식"
+      ],
+      "source_orders": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "문자를 사용한 식",
+      "concept_name": "기본 수량을 문자식으로 표현",
+      "description": "개수, 가격, 길이, 높이 등 한 가지 수량 관계를 문자를 사용한 식으로 나타낸다.",
+      "diagnostic_signals": [
+        "문자 의미 파악 실패",
+        "곱해야 하는 양을 더함",
+        "단위 수량과 전체 수량 혼동"
+      ],
+      "remediation_keywords": [
+        "기본 수량을 문자식으로 표현",
+        "문자를 사용한 식",
+        "문자와 식"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "문자를 사용한 식",
+      "concept_name": "복합 수량 관계를 문자식으로 표현",
+      "description": "두 문자 이상, 합과 차, 도형의 둘레·넓이 등 복합 수량 관계를 문자식으로 나타낸다.",
+      "diagnostic_signals": [
+        "두 문자 관계 혼동",
+        "합/차 순서 오류",
+        "도형 공식과 문자식 연결 부족"
+      ],
+      "remediation_keywords": [
+        "복합 수량 관계를 문자식으로 표현",
+        "문자를 사용한 식",
+        "문자와 식"
+      ],
+      "source_orders": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "식의 값",
+      "concept_name": "단일 문자 대입",
+      "description": "x의 값이 주어졌을 때 식에 대입하여 값을 구한다.",
+      "diagnostic_signals": [
+        "대입 위치 오류",
+        "음수 대입 괄호 누락",
+        "거듭제곱 계산 순서 오류"
+      ],
+      "remediation_keywords": [
+        "단일 문자 대입",
+        "식의 값",
+        "문자와 식"
+      ],
+      "source_orders": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "식의 값",
+      "concept_name": "여러 문자와 분수형 식의 값",
+      "description": "x,y 등 여러 문자의 값 또는 분수형 문자식에 대입하여 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "분수식 대입 오류",
+        "여러 변수 값 바꿔 대입",
+        "문자식 전체 괄호 처리 오류"
+      ],
+      "remediation_keywords": [
+        "여러 문자와 분수형 식의 값",
+        "식의 값",
+        "문자와 식"
+      ],
+      "source_orders": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "식의 값",
+      "concept_name": "도형·입체도형에서 식의 값 활용",
+      "description": "문자식으로 표현된 도형의 길이·넓이·부피를 대입하여 계산한다.",
+      "diagnostic_signals": [
+        "도형 공식 적용 오류",
+        "식 세우기와 대입 순서 혼동",
+        "단위 해석 부족"
+      ],
+      "remediation_keywords": [
+        "도형·입체도형에서 식의 값 활용",
+        "식의 값",
+        "문자와 식"
+      ],
+      "source_orders": [
+        31,
+        32,
+        33
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "다항식의 구조",
+      "concept_name": "항·계수·상수항·차수 판단",
+      "description": "다항식의 항, 계수, 상수항을 구분하고 문자의 개수와 차수를 판단한다.",
+      "diagnostic_signals": [
+        "항 분리 오류",
+        "부호를 계수에 포함하지 않음",
+        "상수항 판단 오류"
+      ],
+      "remediation_keywords": [
+        "항·계수·상수항·차수 판단",
+        "다항식의 구조",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        34,
+        35,
+        36
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "단항식 계산",
+      "concept_name": "단항식의 곱셈과 나눗셈",
+      "description": "단항식에 수를 곱하거나 나누고 계수와 문자 부분을 정리한다.",
+      "diagnostic_signals": [
+        "계수 계산 오류",
+        "문자 나눗셈 처리 오류",
+        "분수 계수 약분 오류"
+      ],
+      "remediation_keywords": [
+        "단항식의 곱셈과 나눗셈",
+        "단항식 계산",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        37,
+        38,
+        39,
+        40
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "일차식 계산",
+      "concept_name": "동류항 정리",
+      "description": "같은 문자와 차수를 가진 항을 모아 일차식을 간단히 한다.",
+      "diagnostic_signals": [
+        "동류항 아닌 항 결합",
+        "부호를 놓치고 결합",
+        "상수항과 문자항 혼합"
+      ],
+      "remediation_keywords": [
+        "동류항 정리",
+        "일차식 계산",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        41,
+        42,
+        43,
+        44
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "일차식 계산",
+      "concept_name": "분배법칙과 괄호 처리",
+      "description": "괄호 앞의 수 또는 음수를 분배하고 일차식의 덧셈·뺄셈을 수행한다.",
+      "diagnostic_signals": [
+        "괄호 앞 음수 분배 오류",
+        "전체 괄호 처리 누락",
+        "분배 후 동류항 정리 실패"
+      ],
+      "remediation_keywords": [
+        "분배법칙과 괄호 처리",
+        "일차식 계산",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        45,
+        46,
+        47,
+        48
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "일차식 계산",
+      "concept_name": "계수 조건이 있는 일차식 변형",
+      "description": "계수 또는 문자가 조건으로 주어진 일차식을 변형하여 값을 구한다.",
+      "diagnostic_signals": [
+        "계수 조건 해석 오류",
+        "새 기호가 있는 연산 처리 실패",
+        "문자 계수 비교 오류"
+      ],
+      "remediation_keywords": [
+        "계수 조건이 있는 일차식 변형",
+        "일차식 계산",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "식의 역산",
+      "concept_name": "어떤 식 구하기",
+      "description": "등식의 한쪽 식과 결과가 주어졌을 때 빈칸 또는 어떤 식을 역산으로 구한다.",
+      "diagnostic_signals": [
+        "덧셈·뺄셈 역연산 오류",
+        "양변 관계 이해 부족",
+        "식 전체를 하나의 대상으로 보지 못함"
+      ],
+      "remediation_keywords": [
+        "어떤 식 구하기",
+        "식의 역산",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자를 사용한 식",
+      "sub_strand": "문장식 표현",
+      "concept_name": "문장을 등식으로 나타내기",
+      "description": "문장으로 주어진 수량 관계를 등식 또는 문자식으로 바꾸고 해석한다.",
+      "diagnostic_signals": [
+        "문장 속 기준량 파악 오류",
+        "보다/만큼/의 의미 혼동",
+        "식과 문장의 상호 변환 오류"
+      ],
+      "remediation_keywords": [
+        "문장을 등식으로 나타내기",
+        "문장식 표현",
+        "문자를 사용한 식"
+      ],
+      "source_orders": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "항등식",
+      "concept_name": "항등식의 판단",
+      "description": "주어진 식이 모든 값에서 참인 항등식인지 판별한다.",
+      "diagnostic_signals": [
+        "특정 값에서만 성립하는 식을 항등식으로 착각",
+        "좌변 우변 구조 비교 실패",
+        "계수 비교 미흡"
+      ],
+      "remediation_keywords": [
+        "항등식의 판단",
+        "항등식",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "방정식 판별",
+      "concept_name": "일차방정식의 판단",
+      "description": "주어진 식이 일차방정식인지 판단하고 일차방정식의 정의를 적용한다.",
+      "diagnostic_signals": [
+        "항등식과 방정식 혼동",
+        "차수 판단 오류",
+        "분모 문자/일차 여부 판단 오류"
+      ],
+      "remediation_keywords": [
+        "일차방정식의 판단",
+        "방정식 판별",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "방정식 풀이",
+      "concept_name": "등식의 성질과 이항",
+      "description": "양변에 같은 수를 더하거나 빼고, 곱하거나 나누는 등 등식의 성질로 방정식을 푼다.",
+      "diagnostic_signals": [
+        "이항 시 부호 변화 오류",
+        "양변 연산 불균형",
+        "상수항 정리 오류"
+      ],
+      "remediation_keywords": [
+        "등식의 성질과 이항",
+        "방정식 풀이",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "방정식 풀이",
+      "concept_name": "소수·분수 계수 방정식 풀이",
+      "description": "소수 또는 분수 계수를 포함한 일차방정식에서 양변에 적절한 수를 곱해 푼다.",
+      "diagnostic_signals": [
+        "소수 계수 제거 실패",
+        "분모 전체에 곱하지 않음",
+        "괄호 포함 분모 제거 오류"
+      ],
+      "remediation_keywords": [
+        "소수·분수 계수 방정식 풀이",
+        "방정식 풀이",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "해의 조건",
+      "concept_name": "해의 조건과 계수 판단",
+      "description": "해가 자연수·정수·짝수·홀수 등의 조건을 만족하도록 계수나 해의 개수를 판단한다.",
+      "diagnostic_signals": [
+        "해 조건 누락",
+        "정수 조건을 대입하지 못함",
+        "계수 조건을 거꾸로 설정"
+      ],
+      "remediation_keywords": [
+        "해의 조건과 계수 판단",
+        "해의 조건",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        96,
+        97,
+        98
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "활용 문제 절차",
+      "concept_name": "방정식 세우기",
+      "description": "문장 상황에서 미지수를 정하고 관계식을 세워 일차방정식을 만든다.",
+      "diagnostic_signals": [
+        "미지수 설정 실패",
+        "무엇을 x로 둘지 불명확",
+        "문장을 식으로 옮기는 과정 누락"
+      ],
+      "remediation_keywords": [
+        "방정식 세우기",
+        "활용 문제 절차",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        99,
+        100,
+        101,
+        102,
+        103
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "어떤 수 문제",
+      "concept_name": "수 관계 활용",
+      "description": "어떤 수, 연속하는 수, 처음 수와 바뀐 수의 관계를 방정식으로 나타낸다.",
+      "diagnostic_signals": [
+        "처음 수와 변화 후 수 혼동",
+        "합/차 관계 반대로 설정",
+        "검산 부족"
+      ],
+      "remediation_keywords": [
+        "수 관계 활용",
+        "어떤 수 문제",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        99,
+        100,
+        101
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "도형 활용",
+      "concept_name": "도형 길이·넓이·부피 방정식",
+      "description": "직사각형, 삼각형, 직육면체 등의 조건을 이용해 방정식을 세우고 푼다.",
+      "diagnostic_signals": [
+        "도형 공식 오류",
+        "둘레와 넓이 혼동",
+        "길이 조건을 방정식으로 연결 못함"
+      ],
+      "remediation_keywords": [
+        "도형 길이·넓이·부피 방정식",
+        "도형 활용",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "과부족 문제",
+      "concept_name": "과부족 관계 방정식",
+      "description": "물건이나 금액을 나누어 주는 상황에서 남거나 부족한 조건을 방정식으로 나타낸다.",
+      "diagnostic_signals": [
+        "남는다/부족하다 방향 오류",
+        "사람 수와 물건 수 기준 혼동",
+        "차이 조건 설정 오류"
+      ],
+      "remediation_keywords": [
+        "과부족 관계 방정식",
+        "과부족 문제",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "시계 문제",
+      "concept_name": "시침·분침 각도와 시간",
+      "description": "시각과 각도 관계를 이용해 방정식을 세우거나 시간을 구한다.",
+      "diagnostic_signals": [
+        "시침 이동량 반영 부족",
+        "분침과 시침 속도 차이 이해 부족",
+        "각도 조건 해석 오류"
+      ],
+      "remediation_keywords": [
+        "시침·분침 각도와 시간",
+        "시계 문제",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        127,
+        128,
+        129
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 5,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "거리·속력·시간",
+      "concept_name": "거리=속력×시간 활용",
+      "description": "거리, 속력, 시간의 관계를 이용해 이동 문제를 해결한다.",
+      "diagnostic_signals": [
+        "거리/속력/시간 관계식 혼동",
+        "단위 변환 누락",
+        "왕복·추격 조건 정리 실패"
+      ],
+      "remediation_keywords": [
+        "거리=속력×시간 활용",
+        "거리·속력·시간",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "종합 활용",
+      "concept_name": "복합 조건 활용 문제",
+      "description": "여러 조건이 포함된 활용 문제에서 조건을 정리하고 방정식을 세워 해결한다.",
+      "diagnostic_signals": [
+        "조건 누락",
+        "불필요한 정보와 핵심 조건 구분 실패",
+        "해의 의미 검산 부족"
+      ],
+      "remediation_keywords": [
+        "복합 조건 활용 문제",
+        "종합 활용",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        138,
+        139,
+        140,
+        141,
+        142
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 5,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "문자와 식",
+      "sub_strand": "기초 연결",
+      "concept_name": "문자 의미와 변수 해석",
+      "description": "문자가 단순 기호가 아니라 변할 수 있는 수량임을 이해하고 상황 속 의미를 해석한다.",
+      "diagnostic_signals": [
+        "문자를 특정 수로만 인식",
+        "변수 의미 파악 부족",
+        "식과 상황 연결 실패"
+      ],
+      "remediation_keywords": [
+        "문자 의미와 변수 해석",
+        "기초 연결",
+        "문자와 식"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차식의 계산",
+      "sub_strand": "중2 연결 기초",
+      "concept_name": "문자식 정리의 안정성",
+      "description": "문자식 정리, 동류항, 괄호 처리의 안정성을 갖춘다.",
+      "diagnostic_signals": [
+        "중2 식의 계산에서 반복 오류 가능",
+        "문자항·상수항 정리 불안정",
+        "분배법칙과 부호 처리 취약"
+      ],
+      "remediation_keywords": [
+        "문자식 정리의 안정성",
+        "중2 연결 기초",
+        "일차식의 계산"
+      ],
+      "source_orders": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 풀이",
+      "sub_strand": "방정식 검산",
+      "concept_name": "해 대입과 검산",
+      "description": "구한 해를 방정식이나 문제 상황에 다시 대입해 타당성을 확인한다.",
+      "diagnostic_signals": [
+        "해를 구하고 검산하지 않음",
+        "해가 문제 조건에 맞는지 확인하지 않음",
+        "부적절한 해 수용"
+      ],
+      "remediation_keywords": [
+        "해 대입과 검산",
+        "방정식 검산",
+        "일차방정식의 풀이"
+      ],
+      "source_orders": [
+        90,
+        98,
+        101,
+        138,
+        139,
+        140,
+        141,
+        142
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_EX_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "strand": "일차방정식의 활용",
+      "sub_strand": "문장제 독해",
+      "concept_name": "수학적 문장 해석",
+      "description": "긴 문장 속 수량 관계를 표나 식으로 정리하고 방정식으로 연결한다.",
+      "diagnostic_signals": [
+        "문장 독해 오류",
+        "조건 순서 혼동",
+        "수학적 관계 추출 실패"
+      ],
+      "remediation_keywords": [
+        "수학적 문장 해석",
+        "문장제 독해",
+        "일차방정식의 활용"
+      ],
+      "source_orders": [
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "수직선 좌표",
+      "concept_name": "수직선 위의 점의 좌표",
+      "description": "수직선 위의 점을 수로 나타내고 점과 좌표를 서로 변환한다.",
+      "diagnostic_signals": [
+        "수직선 좌표를 위치가 아닌 순서로만 읽음",
+        "음수 방향을 반대로 해석",
+        "간격이 일정하지 않은 수직선에서 좌표를 잘못 읽음"
+      ],
+      "remediation_keywords": [
+        "수직선",
+        "점의 좌표",
+        "간격"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "순서쌍",
+      "concept_name": "순서쌍의 의미와 조건",
+      "description": "두 수의 순서가 의미를 가진다는 점을 이해하고 조건을 만족하는 순서쌍을 찾는다.",
+      "diagnostic_signals": [
+        "(a,b)와 (b,a)를 같은 것으로 착각",
+        "조건을 두 좌표에 동시에 적용하지 못함"
+      ],
+      "remediation_keywords": [
+        "순서쌍",
+        "순서",
+        "조건"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "좌표평면",
+      "concept_name": "좌표평면 위의 점의 좌표",
+      "description": "좌표평면에서 x좌표와 y좌표를 읽고 점을 나타낸다.",
+      "diagnostic_signals": [
+        "x좌표와 y좌표 순서 혼동",
+        "좌표축 방향 오류",
+        "점의 좌표를 반대로 읽음"
+      ],
+      "remediation_keywords": [
+        "x좌표",
+        "y좌표",
+        "좌표평면"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "좌표축",
+      "concept_name": "좌표축 위의 점",
+      "description": "x축 또는 y축 위의 점의 좌표 특징을 이해한다.",
+      "diagnostic_signals": [
+        "x축 위 점의 y좌표가 0임을 놓침",
+        "y축 위 점의 x좌표가 0임을 놓침"
+      ],
+      "remediation_keywords": [
+        "좌표축",
+        "0 좌표",
+        "축 위의 점"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "좌표와 도형",
+      "concept_name": "좌표평면 위 도형의 넓이",
+      "description": "좌표로 주어진 도형의 가로·세로 길이를 읽어 넓이를 구한다.",
+      "diagnostic_signals": [
+        "좌표 차이를 길이로 바꾸지 못함",
+        "음수 좌표의 거리 계산 오류"
+      ],
+      "remediation_keywords": [
+        "좌표 차",
+        "가로세로 길이",
+        "도형 넓이"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "사분면",
+      "concept_name": "사분면 판별",
+      "description": "좌표의 부호를 보고 점이 위치한 사분면을 판별한다.",
+      "diagnostic_signals": [
+        "x,y 부호와 사분면 대응 오류",
+        "좌표축 위 점을 사분면으로 착각"
+      ],
+      "remediation_keywords": [
+        "사분면",
+        "부호",
+        "좌표축"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "사분면",
+      "concept_name": "사분면의 결정 조건",
+      "description": "좌표 조건, 문자 조건, 두 수의 부호 관계로 가능한 사분면을 판단한다.",
+      "diagnostic_signals": [
+        "부호 조건을 좌표에 연결하지 못함",
+        "절댓값·대소관계 조건을 사분면으로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "조건 해석",
+        "부호 관계",
+        "사분면 결정"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "좌표와 위치 표현",
+      "sub_strand": "대칭",
+      "concept_name": "대칭인 점의 좌표",
+      "description": "x축·y축·원점에 대한 대칭에서 좌표 부호 변화를 판단한다.",
+      "diagnostic_signals": [
+        "어느 좌표의 부호가 바뀌는지 혼동",
+        "원점 대칭과 축 대칭 혼동"
+      ],
+      "remediation_keywords": [
+        "x축 대칭",
+        "y축 대칭",
+        "원점 대칭"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "그래프 해석",
+      "sub_strand": "관계 표현",
+      "concept_name": "표와 그래프의 기본 표현",
+      "description": "두 변수의 관계를 표나 그래프로 나타내고 그래프의 의미를 읽는다.",
+      "diagnostic_signals": [
+        "표의 순서쌍을 그래프로 옮기지 못함",
+        "축의 의미를 놓침"
+      ],
+      "remediation_keywords": [
+        "표",
+        "그래프",
+        "두 변수 관계"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "그래프 해석",
+      "sub_strand": "그래프 해석",
+      "concept_name": "수치가 없는 그래프의 해석",
+      "description": "수치가 주어지지 않은 그래프에서 증가·감소·상황을 해석한다.",
+      "diagnostic_signals": [
+        "그래프 모양과 상황을 연결하지 못함",
+        "증가/감소 구간 해석 오류"
+      ],
+      "remediation_keywords": [
+        "그래프 모양",
+        "상황 해석",
+        "증감"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "그래프 해석",
+      "sub_strand": "그래프 해석",
+      "concept_name": "수치가 주어진 그래프의 해석",
+      "description": "그래프에서 x값, y값, 구간 변화량, 미지수를 읽고 계산한다.",
+      "diagnostic_signals": [
+        "좌표를 잘못 읽음",
+        "구간별 차이를 변화량으로 계산하지 못함"
+      ],
+      "remediation_keywords": [
+        "좌표 읽기",
+        "변화량",
+        "미지수"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "그래프 해석",
+      "sub_strand": "그래프 비교",
+      "concept_name": "여러 그래프 비교",
+      "description": "두 개 이상의 그래프를 비교하여 빠르기, 변화 정도, 관계를 설명한다.",
+      "diagnostic_signals": [
+        "그래프의 기울어진 정도와 변화량 비교 오류",
+        "여러 그래프의 축 기준을 혼동"
+      ],
+      "remediation_keywords": [
+        "그래프 비교",
+        "변화 정도",
+        "여러 그래프"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "관계식",
+      "concept_name": "정비례 관계 판별",
+      "description": "두 양 사이의 관계가 y=ax 꼴인지 판단한다.",
+      "diagnostic_signals": [
+        "일정한 차이와 일정한 비율을 혼동",
+        "정비례와 단순 증가를 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "정비례",
+        "비율 일정",
+        "관계 판별"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "관계식",
+      "concept_name": "정비례 관계식 구하기",
+      "description": "정비례 관계에서 비례상수 a를 찾아 y=ax로 나타낸다.",
+      "diagnostic_signals": [
+        "a를 x+y나 y-x로 구함",
+        "x=0 또는 기준값 처리 오류"
+      ],
+      "remediation_keywords": [
+        "비례상수",
+        "y=ax",
+        "관계식"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "그래프",
+      "concept_name": "정비례 그래프의 성질",
+      "description": "y=ax 그래프의 원점 통과, 직선, 사분면, a 부호에 따른 성질을 이해한다.",
+      "diagnostic_signals": [
+        "정비례 그래프가 원점을 지난다는 점을 놓침",
+        "a 부호와 그래프 방향 혼동"
+      ],
+      "remediation_keywords": [
+        "원점",
+        "직선",
+        "a의 부호"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "그래프",
+      "concept_name": "정비례 그래프 그리기",
+      "description": "y=ax의 식을 좌표평면 위 직선 그래프로 나타낸다.",
+      "diagnostic_signals": [
+        "점 두 개를 잡지 못함",
+        "원점을 지나지 않게 그림"
+      ],
+      "remediation_keywords": [
+        "그래프 그리기",
+        "원점",
+        "직선"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "그래프 위의 점",
+      "concept_name": "정비례 그래프 위의 점",
+      "description": "y=ax 위의 점을 이용하여 좌표나 미지수를 구한다.",
+      "diagnostic_signals": [
+        "그래프 위의 점을 식에 대입하지 못함",
+        "x,y 순서 대입 오류"
+      ],
+      "remediation_keywords": [
+        "그래프 위의 점",
+        "대입",
+        "미지수"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "비례상수",
+      "concept_name": "정비례 그래프에서 a 구하기",
+      "description": "지나는 점이나 그래프 조건을 이용하여 정비례식의 a를 구한다.",
+      "diagnostic_signals": [
+        "a=y/x 계산 오류",
+        "음수 좌표 대입 부호 오류"
+      ],
+      "remediation_keywords": [
+        "a 구하기",
+        "y/x",
+        "부호 대입"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례",
+      "sub_strand": "그래프와 도형",
+      "concept_name": "정비례 그래프와 도형의 넓이",
+      "description": "정비례 그래프와 좌표축, 직선이 만드는 도형의 넓이를 구한다.",
+      "diagnostic_signals": [
+        "좌표를 길이로 바꾸지 못함",
+        "넓이 조건과 a값을 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "그래프와 도형",
+        "넓이",
+        "좌표 길이"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "관계식",
+      "concept_name": "반비례 관계 판별",
+      "description": "두 양 사이의 관계가 y=a/x 꼴인지 판단한다.",
+      "diagnostic_signals": [
+        "곱이 일정한 관계를 놓침",
+        "정비례와 반비례 구분 오류"
+      ],
+      "remediation_keywords": [
+        "반비례",
+        "곱 일정",
+        "관계 판별"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "관계식",
+      "concept_name": "반비례 관계식 구하기",
+      "description": "반비례 관계에서 상수 a를 찾아 y=a/x로 나타낸다.",
+      "diagnostic_signals": [
+        "a=xy를 쓰지 못함",
+        "x와 y의 곱이 일정하다는 점을 놓침"
+      ],
+      "remediation_keywords": [
+        "상수 a",
+        "xy",
+        "관계식"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "그래프",
+      "concept_name": "반비례 그래프의 성질",
+      "description": "y=a/x 그래프의 곡선 형태, 사분면, a 부호에 따른 성질을 이해한다.",
+      "diagnostic_signals": [
+        "반비례 그래프를 직선으로 생각",
+        "a 부호와 지나는 사분면 혼동"
+      ],
+      "remediation_keywords": [
+        "곡선",
+        "사분면",
+        "a의 부호"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "그래프",
+      "concept_name": "반비례 그래프 그리기",
+      "description": "y=a/x의 식을 좌표평면 위 곡선 그래프로 나타낸다.",
+      "diagnostic_signals": [
+        "좌표값을 충분히 잡지 못함",
+        "축과 만난다고 착각"
+      ],
+      "remediation_keywords": [
+        "그래프 그리기",
+        "곡선",
+        "점 찍기"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "그래프 위의 점",
+      "concept_name": "반비례 그래프 위의 점",
+      "description": "y=a/x 위의 점을 이용하여 좌표나 미지수를 구한다.",
+      "diagnostic_signals": [
+        "xy=a 관계를 대입하지 못함",
+        "분수식 대입 오류"
+      ],
+      "remediation_keywords": [
+        "그래프 위의 점",
+        "xy=a",
+        "미지수"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "반비례",
+      "sub_strand": "상수 a",
+      "concept_name": "반비례 그래프에서 a 구하기",
+      "description": "지나는 점이나 그래프 조건을 이용하여 반비례식의 a를 구한다.",
+      "diagnostic_signals": [
+        "a=xy 계산 오류",
+        "음수 좌표의 곱 부호 오류"
+      ],
+      "remediation_keywords": [
+        "a 구하기",
+        "xy",
+        "부호 계산"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례와 반비례",
+      "sub_strand": "교점",
+      "concept_name": "정비례·반비례 그래프의 교점",
+      "description": "정비례 그래프와 반비례 그래프의 교점 조건을 식과 그래프로 해석한다.",
+      "diagnostic_signals": [
+        "두 식에 같은 점을 대입해야 함을 놓침",
+        "교점의 좌표가 두 그래프 모두를 만족한다는 조건을 활용하지 못함"
+      ],
+      "remediation_keywords": [
+        "교점",
+        "동시 만족",
+        "그래프 비교"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 5,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례·반비례 활용",
+      "sub_strand": "표·식·그래프 변환",
+      "concept_name": "정비례·반비례 관계의 표·식·그래프 변환",
+      "description": "실생활 관계를 표, 식, 그래프로 바꾸고 해석한다.",
+      "diagnostic_signals": [
+        "표에서 관계식을 찾지 못함",
+        "문장 속 두 양의 관계를 그래프로 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "표",
+        "식",
+        "그래프 변환"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_CG_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_COORD_GRAPH",
+      "unit_name": "좌표평면과 그래프",
+      "strand": "정비례·반비례 활용",
+      "sub_strand": "활용 문제",
+      "concept_name": "정비례·반비례 관계의 활용",
+      "description": "문장제 상황에서 정비례 또는 반비례 관계를 판단하고 값을 구한다.",
+      "diagnostic_signals": [
+        "정비례/반비례 선택 오류",
+        "문장 속 기준량과 변수 관계를 놓침"
+      ],
+      "remediation_keywords": [
+        "활용",
+        "관계 판단",
+        "문장제"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "다각형의 기본 개념",
+      "concept_name": "다각형 판별과 구성 요소",
+      "description": "다각형의 뜻을 알고 변, 꼭짓점, 각, 대각선 등 구성 요소를 판별한다.",
+      "diagnostic_signals": [
+        "곡선이 포함된 도형을 다각형으로 착각",
+        "변·꼭짓점·각의 개수 대응 오류"
+      ],
+      "remediation_keywords": [
+        "다각형",
+        "변",
+        "꼭짓점",
+        "각"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "내각과 외각",
+      "concept_name": "내각과 외각의 의미",
+      "description": "다각형의 한 내각과 외각의 의미 및 관계를 이해한다.",
+      "diagnostic_signals": [
+        "내각과 외각의 위치 혼동",
+        "한 내각과 이웃한 외각의 합이 180도임을 놓침"
+      ],
+      "remediation_keywords": [
+        "내각",
+        "외각",
+        "180도"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "정다각형",
+      "concept_name": "정다각형의 뜻과 성질",
+      "description": "모든 변의 길이와 모든 내각의 크기가 같은 정다각형의 성질을 이해한다.",
+      "diagnostic_signals": [
+        "변만 같으면 정다각형이라고 착각",
+        "각의 크기 조건을 빠뜨림"
+      ],
+      "remediation_keywords": [
+        "정다각형",
+        "변의 길이",
+        "내각"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "삼각형 각",
+      "concept_name": "삼각형의 내각의 합",
+      "description": "삼각형의 세 내각의 크기의 합이 180도임을 이용한다.",
+      "diagnostic_signals": [
+        "세 각의 합을 잘못 적용",
+        "미지수식 세우기 오류"
+      ],
+      "remediation_keywords": [
+        "삼각형",
+        "내각의 합",
+        "180도"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "삼각형 각",
+      "concept_name": "삼각형의 외각의 성질",
+      "description": "삼각형의 한 외각은 그와 이웃하지 않는 두 내각의 합과 같음을 이용한다.",
+      "diagnostic_signals": [
+        "외각을 180도에서 빼기만 함",
+        "이웃하지 않는 내각을 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "외각의 성질",
+        "이웃하지 않는 내각",
+        "각의 합"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "각 조건 해석",
+      "concept_name": "삼각형 각의 미지수 조건",
+      "description": "삼각형의 내각·외각 조건을 식으로 세워 미지수를 구한다.",
+      "diagnostic_signals": [
+        "각 조건을 식으로 표현하지 못함",
+        "일차방정식 계산 오류"
+      ],
+      "remediation_keywords": [
+        "미지수",
+        "각 조건",
+        "방정식"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "대각선",
+      "concept_name": "한 꼭짓점에서 그을 수 있는 대각선",
+      "description": "n각형의 한 꼭짓점에서 그을 수 있는 대각선의 수를 구한다.",
+      "diagnostic_signals": [
+        "자기 자신과 이웃한 꼭짓점을 제외하지 못함",
+        "n-3 구조 이해 부족"
+      ],
+      "remediation_keywords": [
+        "대각선",
+        "n-3",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "대각선",
+      "concept_name": "다각형의 대각선의 총수",
+      "description": "n각형의 대각선의 총수 공식을 이해하고 적용한다.",
+      "diagnostic_signals": [
+        "두 번 센다는 점을 놓침",
+        "n(n-3)/2 공식 대입 오류"
+      ],
+      "remediation_keywords": [
+        "대각선 총수",
+        "n(n-3)/2",
+        "중복 계산"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "내각의 합",
+      "concept_name": "다각형의 내각의 크기의 합",
+      "description": "n각형의 내각의 합 (n-2)×180도를 이용한다.",
+      "diagnostic_signals": [
+        "삼각형으로 나누는 구조 이해 부족",
+        "n과 각의 개수 혼동"
+      ],
+      "remediation_keywords": [
+        "내각의 합",
+        "(n-2)×180",
+        "삼각형 분할"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "내각 조건",
+      "concept_name": "다각형의 내각 조건 활용",
+      "description": "내각의 합이나 특정 내각 조건으로 각도 또는 다각형의 종류를 구한다.",
+      "diagnostic_signals": [
+        "공식 역산 오류",
+        "내각 조건과 n을 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "내각 조건",
+        "n각형 구하기",
+        "역산"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "외각의 합",
+      "concept_name": "다각형의 외각의 크기의 합",
+      "description": "다각형의 외각의 크기의 합이 항상 360도임을 이용한다.",
+      "diagnostic_signals": [
+        "다각형 종류에 따라 외각의 합이 달라진다고 착각",
+        "내각의 합과 외각의 합 혼동"
+      ],
+      "remediation_keywords": [
+        "외각의 합",
+        "360도"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "정다각형 각",
+      "concept_name": "정다각형의 한 내각과 한 외각",
+      "description": "정다각형에서 한 외각과 한 내각의 크기를 구한다.",
+      "diagnostic_signals": [
+        "360/n과 내각 공식을 혼동",
+        "한 내각=180-한 외각 관계 오류"
+      ],
+      "remediation_keywords": [
+        "정다각형",
+        "한 외각",
+        "한 내각"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "다각형",
+      "sub_strand": "정다각형 활용",
+      "concept_name": "정다각형의 배열과 빈틈없이 붙이기",
+      "description": "정다각형을 한 점에 모아 붙일 때 각의 합이 360도가 되는 조건을 활용한다.",
+      "diagnostic_signals": [
+        "한 점 주위 각의 합 360도 개념 부족",
+        "정다각형의 한 내각 계산 오류"
+      ],
+      "remediation_keywords": [
+        "타일링",
+        "한 점 주위",
+        "360도"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "작도 기초",
+      "concept_name": "기본 작도 도구와 조건",
+      "description": "자와 컴퍼스를 이용한 작도의 기본 의미와 조건을 이해한다.",
+      "diagnostic_signals": [
+        "눈금자로 재서 그리는 것과 작도 혼동",
+        "조건이 부족한 작도 판단 오류"
+      ],
+      "remediation_keywords": [
+        "작도",
+        "자와 컴퍼스",
+        "조건"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "삼각형 작도",
+      "concept_name": "SSS 작도 조건",
+      "description": "세 변의 길이가 주어진 삼각형 작도와 가능 조건을 판단한다.",
+      "diagnostic_signals": [
+        "가장 긴 변과 나머지 두 변의 합 조건 누락",
+        "세 변 조건을 합동조건과 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "SSS",
+        "세 변",
+        "삼각형의 성립"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "삼각형 작도",
+      "concept_name": "SAS 작도 조건",
+      "description": "두 변과 그 끼인각이 주어진 삼각형 작도와 결정 조건을 판단한다.",
+      "diagnostic_signals": [
+        "끼인각 조건을 놓침",
+        "두 변과 아무 각 조건을 SAS로 착각"
+      ],
+      "remediation_keywords": [
+        "SAS",
+        "두 변과 끼인각"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "삼각형 작도",
+      "concept_name": "ASA 작도 조건",
+      "description": "한 변과 그 양 끝각이 주어진 삼각형 작도와 결정 조건을 판단한다.",
+      "diagnostic_signals": [
+        "양 끝각 조건을 놓침",
+        "한 변과 두 각의 위치를 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "ASA",
+        "한 변과 양 끝각"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "삼각형 결정",
+      "concept_name": "삼각형이 하나로 결정되는 조건",
+      "description": "주어진 조건으로 삼각형이 하나로 결정되는지 판단한다.",
+      "diagnostic_signals": [
+        "여러 삼각형이 가능한 조건을 하나로 결정된다고 착각",
+        "결정조건과 작도 가능성을 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "삼각형 결정조건",
+        "유일성",
+        "작도 가능성"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "합동",
+      "concept_name": "삼각형의 합동조건 판별",
+      "description": "SSS, SAS, ASA 합동조건을 판별한다.",
+      "diagnostic_signals": [
+        "대응변·대응각을 잘못 매칭",
+        "합동조건 이름만 외우고 조건 위치를 보지 못함"
+      ],
+      "remediation_keywords": [
+        "합동조건",
+        "SSS",
+        "SAS",
+        "ASA"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "작도와 합동",
+      "sub_strand": "합동 활용",
+      "concept_name": "합동조건을 이용한 각·변 구하기",
+      "description": "합동인 삼각형의 대응변과 대응각을 이용해 미지수를 구한다.",
+      "diagnostic_signals": [
+        "대응 관계 오류",
+        "합동조건과 대응변 활용을 분리하지 못함"
+      ],
+      "remediation_keywords": [
+        "대응변",
+        "대응각",
+        "미지수"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "원",
+      "concept_name": "원의 둘레",
+      "description": "원의 둘레 2πr 또는 πd 공식을 적용한다.",
+      "diagnostic_signals": [
+        "반지름과 지름 혼동",
+        "π 계수 처리 오류"
+      ],
+      "remediation_keywords": [
+        "원의 둘레",
+        "반지름",
+        "지름"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "원",
+      "concept_name": "원의 넓이",
+      "description": "원의 넓이 πr² 공식을 적용한다.",
+      "diagnostic_signals": [
+        "반지름을 제곱하지 않음",
+        "지름을 그대로 r로 사용"
+      ],
+      "remediation_keywords": [
+        "원의 넓이",
+        "πr²",
+        "반지름"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "부채꼴",
+      "concept_name": "부채꼴의 중심각과 비율",
+      "description": "부채꼴이 원에서 차지하는 비율을 중심각/360으로 해석한다.",
+      "diagnostic_signals": [
+        "중심각 비율을 둘레·넓이에 적용하지 못함",
+        "360도 기준 누락"
+      ],
+      "remediation_keywords": [
+        "중심각",
+        "비율",
+        "360도"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "부채꼴",
+      "concept_name": "부채꼴의 호의 길이",
+      "description": "반지름과 중심각을 이용하여 부채꼴의 호의 길이를 구한다.",
+      "diagnostic_signals": [
+        "호의 길이를 넓이 공식으로 계산",
+        "원의 둘레에 중심각 비율을 곱하지 않음"
+      ],
+      "remediation_keywords": [
+        "호의 길이",
+        "중심각",
+        "원의 둘레"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "부채꼴",
+      "concept_name": "부채꼴의 넓이",
+      "description": "반지름과 중심각을 이용하여 부채꼴의 넓이를 구한다.",
+      "diagnostic_signals": [
+        "부채꼴 넓이를 호의 길이 공식으로 계산",
+        "반지름 제곱 누락"
+      ],
+      "remediation_keywords": [
+        "부채꼴 넓이",
+        "중심각",
+        "원의 넓이"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "원과 부채꼴",
+      "sub_strand": "부채꼴",
+      "concept_name": "호의 길이를 이용한 부채꼴의 넓이",
+      "description": "호의 길이와 반지름으로 부채꼴의 넓이를 구하거나 관계를 해석한다.",
+      "diagnostic_signals": [
+        "호의 길이와 넓이의 관계를 공식으로 연결하지 못함",
+        "반지름 곱의 절반 구조 오류"
+      ],
+      "remediation_keywords": [
+        "호의 길이",
+        "부채꼴 넓이",
+        "관계식"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "복합도형",
+      "sub_strand": "둘레",
+      "concept_name": "색칠한 부분의 둘레",
+      "description": "원호, 선분, 다각형이 결합된 색칠한 부분의 둘레를 구한다.",
+      "diagnostic_signals": [
+        "경계에 포함되는 선분과 포함되지 않는 선분 구분 오류",
+        "원호 길이 누락"
+      ],
+      "remediation_keywords": [
+        "복합도형",
+        "둘레",
+        "원호"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "복합도형",
+      "sub_strand": "넓이",
+      "concept_name": "색칠한 부분의 넓이",
+      "description": "원, 부채꼴, 다각형을 더하거나 빼서 색칠한 부분의 넓이를 구한다.",
+      "diagnostic_signals": [
+        "전체-부분 구조를 세우지 못함",
+        "겹친 부분을 중복 계산"
+      ],
+      "remediation_keywords": [
+        "복합도형",
+        "넓이",
+        "전체-부분"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "복합도형",
+      "sub_strand": "도형 분해",
+      "concept_name": "도형의 분해와 합성",
+      "description": "복합도형을 기본 도형으로 나누어 길이와 넓이를 계산한다.",
+      "diagnostic_signals": [
+        "도형을 분해하는 기준을 잡지 못함",
+        "원·부채꼴·사각형의 공식을 동시에 적용하지 못함"
+      ],
+      "remediation_keywords": [
+        "분해",
+        "합성",
+        "기본도형"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 5,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_PG_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "strand": "도형 계산",
+      "sub_strand": "식 세우기",
+      "concept_name": "도형 조건의 문자식화",
+      "description": "각도·길이·넓이 조건을 문자식 또는 방정식으로 바꾸어 해결한다.",
+      "diagnostic_signals": [
+        "도형 조건을 식으로 세우지 못함",
+        "문자와 식/일차방정식 선행 약점이 도형에 전이"
+      ],
+      "remediation_keywords": [
+        "조건식",
+        "문자식",
+        "방정식"
+      ],
+      "source_orders": [
+        2,
+        4,
+        5,
+        10,
+        11
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "도형 용어",
+      "concept_name": "도형의 기본 요소",
+      "description": "점, 선, 면을 도형의 기본 요소로 구분하고 도형을 이루는 요소를 파악한다.",
+      "diagnostic_signals": [
+        "점·선·면의 역할을 구분하지 못함",
+        "도형의 구성 요소 용어 혼동"
+      ],
+      "remediation_keywords": [
+        "점",
+        "선",
+        "면",
+        "도형"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "교점과 교선",
+      "concept_name": "교점과 교선의 의미",
+      "description": "두 도형이 만나는 공통부분을 보고 교점과 교선을 판별한다.",
+      "diagnostic_signals": [
+        "교점과 교선을 혼동",
+        "공통부분이 점인지 선인지 판단하지 못함"
+      ],
+      "remediation_keywords": [
+        "교점",
+        "교선",
+        "공통부분"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "직선·반직선·선분",
+      "concept_name": "직선, 반직선, 선분의 구분",
+      "description": "끝점과 연장 방향을 기준으로 직선, 반직선, 선분을 구분한다.",
+      "diagnostic_signals": [
+        "직선과 선분을 길이 유무로만 구분",
+        "반직선의 방향과 끝점 혼동"
+      ],
+      "remediation_keywords": [
+        "직선",
+        "반직선",
+        "선분",
+        "끝점"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "개수 세기",
+      "concept_name": "직선·반직선·선분의 개수",
+      "description": "주어진 점들로 만들 수 있는 직선, 반직선, 선분의 개수를 센다.",
+      "diagnostic_signals": [
+        "중복해서 세기",
+        "반직선의 방향을 고려하지 않음",
+        "선분과 직선을 같은 방식으로 셈"
+      ],
+      "remediation_keywords": [
+        "개수 세기",
+        "직선의 개수",
+        "반직선의 개수",
+        "선분의 개수"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "길이",
+      "concept_name": "두 점 사이의 거리",
+      "description": "두 점 사이의 거리를 선분의 길이로 이해하고 계산한다.",
+      "diagnostic_signals": [
+        "두 점 사이의 거리를 경로 길이로 착각",
+        "수직선/선분 길이 해석 오류"
+      ],
+      "remediation_keywords": [
+        "두 점 사이의 거리",
+        "선분의 길이"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "기본 도형",
+      "sub_strand": "중점",
+      "concept_name": "선분의 중점",
+      "description": "선분을 같은 길이로 나누는 점을 찾고 중점 조건을 활용한다.",
+      "diagnostic_signals": [
+        "중점을 시각적 가운데로만 판단",
+        "양쪽 길이가 같다는 조건을 식으로 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "중점",
+        "같은 길이",
+        "선분"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "각 기본",
+      "concept_name": "각의 뜻과 표시",
+      "description": "두 반직선으로 이루어진 각을 이해하고 각의 이름과 표시를 읽는다.",
+      "diagnostic_signals": [
+        "각의 꼭짓점과 변을 구분하지 못함",
+        "각의 표시 순서 혼동"
+      ],
+      "remediation_keywords": [
+        "각",
+        "꼭짓점",
+        "변",
+        "각의 표시"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "각도 계산",
+      "concept_name": "직각·평각을 이용한 각의 크기",
+      "description": "직각 90도와 평각 180도를 기준으로 각의 크기를 구한다.",
+      "diagnostic_signals": [
+        "90도/180도 기준 혼동",
+        "보각 구조를 놓침"
+      ],
+      "remediation_keywords": [
+        "직각",
+        "평각",
+        "90도",
+        "180도"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "각도 조건",
+      "concept_name": "비와 조건을 이용한 각의 크기",
+      "description": "각의 크기 비나 조건을 식으로 세워 각도를 구한다.",
+      "diagnostic_signals": [
+        "비를 전체각에 연결하지 못함",
+        "각도 조건의 문자식화 오류"
+      ],
+      "remediation_keywords": [
+        "각의 비",
+        "각도 조건",
+        "미지수"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "시계 각도",
+      "concept_name": "시침과 분침이 이루는 각",
+      "description": "시침과 분침의 위치 차이를 각도로 해석한다.",
+      "diagnostic_signals": [
+        "시침 이동을 고려하지 않음",
+        "30도 단위만 기계적으로 적용"
+      ],
+      "remediation_keywords": [
+        "시계 각도",
+        "시침",
+        "분침"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "맞꼭지각",
+      "concept_name": "맞꼭지각의 성질",
+      "description": "두 직선이 만날 때 마주 보는 각의 크기가 같음을 이용한다.",
+      "diagnostic_signals": [
+        "이웃한 각과 맞꼭지각을 혼동",
+        "맞꼭지각의 쌍 개수 오류"
+      ],
+      "remediation_keywords": [
+        "맞꼭지각",
+        "마주 보는 각",
+        "각의 크기"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "수직",
+      "concept_name": "수직과 수선",
+      "description": "두 직선이 직각으로 만나는 수직 관계와 수선을 이해한다.",
+      "diagnostic_signals": [
+        "수직과 평행을 혼동",
+        "수선의 발과 수선을 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "수직",
+        "수선",
+        "직각"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "각",
+      "sub_strand": "거리",
+      "concept_name": "점과 직선 사이의 거리",
+      "description": "점에서 직선에 내린 수선의 길이를 점과 직선 사이의 거리로 이해한다.",
+      "diagnostic_signals": [
+        "가장 짧은 거리가 수선이라는 점을 놓침",
+        "비스듬한 선분을 거리로 착각"
+      ],
+      "remediation_keywords": [
+        "점과 직선 사이의 거리",
+        "수선",
+        "최단거리"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "기본 위치 관계",
+      "concept_name": "점, 직선, 평면의 위치 관계",
+      "description": "점, 직선, 평면 사이의 포함·교차·평행 관계를 판단한다.",
+      "diagnostic_signals": [
+        "점이 직선/평면 위에 있다는 표현 혼동",
+        "포함 관계와 만남 관계를 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "점",
+        "직선",
+        "평면",
+        "위치 관계"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "평면 결정",
+      "concept_name": "평면이 정해질 조건",
+      "description": "한 평면이 정해지는 점·직선 조건을 판단한다.",
+      "diagnostic_signals": [
+        "한 직선만으로 평면이 하나로 정해진다고 착각",
+        "세 점이 한 직선 위에 있는 경우를 놓침"
+      ],
+      "remediation_keywords": [
+        "평면 결정 조건",
+        "세 점",
+        "직선과 한 점"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "공간 직선",
+      "concept_name": "공간에서 두 직선의 위치 관계",
+      "description": "공간에서 두 직선의 평행, 한 점에서 만남, 꼬인 위치를 구분한다.",
+      "diagnostic_signals": [
+        "꼬인 위치를 평행으로 착각",
+        "공간에서 만나지 않는 직선은 모두 평행이라고 판단"
+      ],
+      "remediation_keywords": [
+        "공간도형",
+        "꼬인 위치",
+        "평행"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "직선과 평면",
+      "concept_name": "공간에서 직선과 평면의 위치 관계",
+      "description": "직선이 평면 위에 있음, 한 점에서 만남, 평행함을 구분한다.",
+      "diagnostic_signals": [
+        "직선이 평면과 만나지 않으면 무조건 꼬인 위치라고 착각",
+        "직선이 평면 위에 있는 경우 누락"
+      ],
+      "remediation_keywords": [
+        "직선과 평면",
+        "위치 관계",
+        "평행"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "두 평면",
+      "concept_name": "공간에서 두 평면의 위치 관계",
+      "description": "두 평면이 만남, 평행함, 일치함을 판단한다.",
+      "diagnostic_signals": [
+        "두 평면이 만날 때 교선이 생긴다는 점을 놓침",
+        "평행과 일치를 혼동"
+      ],
+      "remediation_keywords": [
+        "두 평면",
+        "교선",
+        "평행"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "위치 관계",
+      "sub_strand": "입체도형 해석",
+      "concept_name": "입체도형과 전개도에서 위치 관계",
+      "description": "입체도형과 전개도에서 모서리·면의 위치 관계를 추론한다.",
+      "diagnostic_signals": [
+        "전개도 접기 후 위치 상상 오류",
+        "일부가 잘린 입체도형에서 면과 모서리 대응 오류"
+      ],
+      "remediation_keywords": [
+        "입체도형",
+        "전개도",
+        "공간지각"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "평행선",
+      "sub_strand": "동위각·엇각",
+      "concept_name": "동위각과 엇각",
+      "description": "두 직선이 한 직선과 만날 때 생기는 동위각과 엇각을 구분한다.",
+      "diagnostic_signals": [
+        "동위각과 엇각의 위치 혼동",
+        "평행하지 않은 경우에도 각의 크기가 같다고 착각"
+      ],
+      "remediation_keywords": [
+        "동위각",
+        "엇각",
+        "평행선"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "평행선",
+      "sub_strand": "평행선 성질",
+      "concept_name": "평행선에서 각의 크기",
+      "description": "평행선에서 동위각과 엇각의 크기가 같음을 이용한다.",
+      "diagnostic_signals": [
+        "평행 조건을 확인하지 않고 각을 같다고 봄",
+        "엇각/동위각 위치 판별 오류"
+      ],
+      "remediation_keywords": [
+        "평행선의 성질",
+        "동위각",
+        "엇각"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "평행선",
+      "sub_strand": "평행 조건",
+      "concept_name": "두 직선이 평행할 조건",
+      "description": "동위각 또는 엇각이 같으면 두 직선이 평행함을 판단한다.",
+      "diagnostic_signals": [
+        "성질과 조건의 방향을 구분하지 못함",
+        "평행을 증명하는 각의 위치를 찾지 못함"
+      ],
+      "remediation_keywords": [
+        "평행할 조건",
+        "동위각",
+        "엇각"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "평행선",
+      "sub_strand": "각도 활용",
+      "concept_name": "평행선과 꺾인 직선의 각",
+      "description": "보조 평행선을 그어 꺾인 직선 또는 여러 평행선의 각을 구한다.",
+      "diagnostic_signals": [
+        "보조선을 긋지 못함",
+        "같은 각을 옮기는 경로를 추적하지 못함"
+      ],
+      "remediation_keywords": [
+        "꺾인 직선",
+        "보조선",
+        "각도 추론"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "평행선",
+      "sub_strand": "종이접기",
+      "concept_name": "종이를 접었을 때의 각",
+      "description": "접힌 선을 기준으로 겹치는 각의 크기가 같음을 이용한다.",
+      "diagnostic_signals": [
+        "접기 전후 대응각을 찾지 못함",
+        "대칭 구조와 평행선 각을 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "종이접기",
+        "대응각",
+        "각도"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "작도",
+      "sub_strand": "작도 기본",
+      "concept_name": "작도의 뜻과 기본 작도",
+      "description": "자와 컴퍼스를 이용한 작도의 의미와 선분·각의 기본 작도를 이해한다.",
+      "diagnostic_signals": [
+        "작도를 측정으로 대체함",
+        "자와 컴퍼스의 역할 혼동"
+      ],
+      "remediation_keywords": [
+        "작도",
+        "자와 컴퍼스",
+        "기본 작도"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "작도",
+      "sub_strand": "선분 작도",
+      "concept_name": "길이가 같은 선분의 작도",
+      "description": "컴퍼스를 이용해 주어진 선분과 같은 길이의 선분을 작도한다.",
+      "diagnostic_signals": [
+        "길이를 재서 옮기는 과정과 작도 절차 혼동",
+        "컴퍼스 반지름 보존 개념 부족"
+      ],
+      "remediation_keywords": [
+        "선분 작도",
+        "같은 길이",
+        "컴퍼스"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "작도",
+      "sub_strand": "각 작도",
+      "concept_name": "크기가 같은 각의 작도",
+      "description": "호와 교점을 이용해 주어진 각과 같은 크기의 각을 작도한다.",
+      "diagnostic_signals": [
+        "각의 변 하나를 기준으로 잡지 못함",
+        "호의 반지름과 교점 이동 절차 혼동"
+      ],
+      "remediation_keywords": [
+        "각의 작도",
+        "같은 크기",
+        "호와 교점"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "작도",
+      "sub_strand": "평행선 작도",
+      "concept_name": "평행선의 작도",
+      "description": "동위각 또는 엇각을 이용해 주어진 직선에 평행한 직선을 작도한다.",
+      "diagnostic_signals": [
+        "평행선 작도에서 같은 각을 어디에 옮길지 모름",
+        "동위각/엇각 위치 혼동"
+      ],
+      "remediation_keywords": [
+        "평행선 작도",
+        "동위각",
+        "엇각"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "삼각형 작도",
+      "sub_strand": "삼각형 성립",
+      "concept_name": "삼각형의 세 변의 길이 사이의 관계",
+      "description": "가장 긴 변의 길이가 나머지 두 변의 길이의 합보다 작아야 함을 이용한다.",
+      "diagnostic_signals": [
+        "두 변의 합과 가장 긴 변 비교 누락",
+        "세 변 중 아무 두 변만 비교"
+      ],
+      "remediation_keywords": [
+        "삼각형 성립 조건",
+        "세 변의 길이"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "삼각형 작도",
+      "sub_strand": "삼각형 작도",
+      "concept_name": "삼각형의 작도 조건",
+      "description": "SSS, SAS, ASA 조건으로 삼각형을 작도할 수 있는지 판단한다.",
+      "diagnostic_signals": [
+        "작도 가능성과 하나로 정해짐을 구분하지 못함",
+        "끼인각/양 끝각 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "삼각형 작도",
+        "SSS",
+        "SAS",
+        "ASA"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C031",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "삼각형 작도",
+      "sub_strand": "삼각형 결정",
+      "concept_name": "삼각형이 하나로 정해질 조건",
+      "description": "삼각형이 하나로 정해지는 조건과 정해지지 않는 조건을 구분한다.",
+      "diagnostic_signals": [
+        "두 변과 한 각이면 모두 결정된다고 착각",
+        "조건이 부족한 경우를 하나로 결정된다고 판단"
+      ],
+      "remediation_keywords": [
+        "삼각형 결정조건",
+        "유일성",
+        "조건 판단"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C032",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "합동",
+      "sub_strand": "도형 합동",
+      "concept_name": "도형의 합동과 성질",
+      "description": "포개어 완전히 겹치는 도형의 합동과 대응변·대응각의 성질을 이해한다.",
+      "diagnostic_signals": [
+        "모양만 같으면 합동이라고 착각",
+        "대응변과 대응각을 잘못 매칭"
+      ],
+      "remediation_keywords": [
+        "도형의 합동",
+        "대응변",
+        "대응각"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 2,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C033",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "합동",
+      "sub_strand": "삼각형 합동조건",
+      "concept_name": "삼각형의 합동조건 SSS·SAS·ASA",
+      "description": "삼각형의 세 합동조건을 판별하고 조건을 추가한다.",
+      "diagnostic_signals": [
+        "SAS에서 끼인각을 놓침",
+        "ASA에서 양 끝각 위치를 보지 못함",
+        "SSS/SAS/ASA 구분 오류"
+      ],
+      "remediation_keywords": [
+        "삼각형 합동조건",
+        "SSS",
+        "SAS",
+        "ASA"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 3,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_BG_C034",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "unit_name": "기본 도형과 작도",
+      "strand": "합동",
+      "sub_strand": "합동 활용",
+      "concept_name": "삼각형 합동의 활용",
+      "description": "정삼각형, 직사각형 등에서 삼각형 합동을 이용해 각과 길이를 구한다.",
+      "diagnostic_signals": [
+        "합동조건을 찾고도 대응 관계로 활용하지 못함",
+        "특수도형 성질과 합동을 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "합동 활용",
+        "정삼각형",
+        "직사각형",
+        "대응 관계"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 4,
+      "status": "curated_seed_from_image_taxonomy"
     }
   ],
   "future_target_concepts": [
@@ -920,14 +4379,14 @@
       "concept_id": "M2_EXP_C001",
       "grade": "중2",
       "unit_name": "식의 계산",
-      "concept_name": "동류항 정리와 부호 처리",
+      "concept_name": "다항식의 계산과 동류항 정리",
       "status": "future_target_seed"
     },
     {
       "concept_id": "M2_EQ_C001",
       "grade": "중2",
-      "unit_name": "일차방정식·연립방정식",
-      "concept_name": "이항과 음수 계산",
+      "unit_name": "연립방정식",
+      "concept_name": "문자식 정리와 연립방정식 풀이",
       "status": "future_target_seed"
     },
     {
@@ -970,6 +4429,139 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "그래프 해석과 수의 범위 판단",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_INEQ_C002",
+      "grade": "중2",
+      "unit_name": "일차부등식",
+      "concept_name": "일차식 변형과 부등식 풀이",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C002",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차식과 그래프 식의 의미 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_POLY_C001",
+      "grade": "중3",
+      "unit_name": "다항식의 곱셈과 인수분해",
+      "concept_name": "다항식 전개와 구조 인식",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C002",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "방정식 변형과 식 정리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_POLY_C001",
+      "grade": "고1",
+      "unit_name": "다항식",
+      "concept_name": "다항식 연산과 항등식",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EQ_C002",
+      "grade": "고1",
+      "unit_name": "방정식과 부등식",
+      "concept_name": "방정식·부등식의 식 변형과 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_FUNC_C002",
+      "grade": "고1",
+      "unit_name": "함수",
+      "concept_name": "함수식 해석과 그래프 연결",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C003",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차함수의 그래프와 기울기·절편 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C004",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차함수 활용에서 표·식·그래프 변환",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_FUNC_C002",
+      "grade": "중3",
+      "unit_name": "이차함수",
+      "concept_name": "이차함수 그래프의 좌표·대칭·변화 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C001",
+      "grade": "중2",
+      "unit_name": "삼각형의 성질",
+      "concept_name": "삼각형의 외심·내심과 각 관계",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C002",
+      "grade": "중2",
+      "unit_name": "사각형의 성질",
+      "concept_name": "평행사변형과 여러 사각형의 각·변 성질",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C003",
+      "grade": "중2",
+      "unit_name": "도형의 닮음",
+      "concept_name": "도형의 닮음과 길이비·넓이비",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_GEOM_C001",
+      "grade": "중3",
+      "unit_name": "원의 성질",
+      "concept_name": "원주각, 중심각, 접선과 현의 성질",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_TRIG_C001",
+      "grade": "중3",
+      "unit_name": "삼각비",
+      "concept_name": "직각삼각형의 길이비와 도형 계산",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_GEOM_C001",
+      "grade": "고1",
+      "unit_name": "도형의 방정식",
+      "concept_name": "좌표평면에서 거리·넓이·도형 조건 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C004",
+      "grade": "중2",
+      "unit_name": "도형의 성질",
+      "concept_name": "평행선과 삼각형·사각형의 각 추론",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C005",
+      "grade": "중2",
+      "unit_name": "도형의 성질",
+      "concept_name": "합동과 증명을 이용한 도형 성질 추론",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_GEOM_C002",
+      "grade": "중3",
+      "unit_name": "입체도형과 공간감각",
+      "concept_name": "공간도형의 위치 관계와 단면·전개도 해석",
       "status": "future_target_seed"
     }
   ]

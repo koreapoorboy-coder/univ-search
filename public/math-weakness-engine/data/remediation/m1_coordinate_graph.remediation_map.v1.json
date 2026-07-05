@@ -1,0 +1,196 @@
+{
+  "version": "2026.07.05-m1-coordinate-graph-v0.1",
+  "unit_id": "M1_COORD_GRAPH",
+  "remediation_count": 12,
+  "remediation": [
+    {
+      "concept_id": "M1_CG_C003",
+      "title": "좌표평면 기본 약속 재정리",
+      "priority": 1,
+      "focus": "x좌표·y좌표 순서와 점 찍기",
+      "steps": [
+        "x축 방향과 y축 방향 확인",
+        "순서쌍 (x,y)에서 x 먼저 읽기",
+        "점 찍기와 좌표 읽기 반복"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT006",
+        "M1_CG_PT007",
+        "M1_CG_PT008"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C004",
+      "title": "좌표축 위 점의 0 좌표 정리",
+      "priority": 1,
+      "focus": "x축 위 점과 y축 위 점의 좌표 특징",
+      "steps": [
+        "x축 위 점은 y=0 표시",
+        "y축 위 점은 x=0 표시",
+        "좌표축 위 점을 사분면과 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT010",
+        "M1_CG_PT011"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C006",
+      "title": "사분면과 부호 대응 훈련",
+      "priority": 1,
+      "focus": "x,y 부호와 사분면 연결",
+      "steps": [
+        "각 사분면의 부호표 만들기",
+        "좌표축 위 점 제외하기",
+        "문자 조건을 부호로 바꾸기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT014",
+        "M1_CG_PT015",
+        "M1_CG_PT016"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C008",
+      "title": "대칭점 좌표 부호 변화",
+      "priority": 2,
+      "focus": "x축·y축·원점 대칭의 부호 변화",
+      "steps": [
+        "축 대칭을 그림으로 확인",
+        "바뀌는 좌표만 표시",
+        "원점 대칭은 두 좌표 모두 부호 변화"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT018",
+        "M1_CG_PT019"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C010",
+      "title": "그래프 상황 해석",
+      "priority": 2,
+      "focus": "그래프 모양과 상황 연결",
+      "steps": [
+        "축의 의미를 먼저 말로 설명",
+        "증가·감소 구간 표시",
+        "상황과 그래프 모양 연결"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT021",
+        "M1_CG_PT022",
+        "M1_CG_PT025"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C011",
+      "title": "그래프에서 값 읽기",
+      "priority": 2,
+      "focus": "좌표값과 변화량 읽기",
+      "steps": [
+        "x값에서 y값 찾기",
+        "특정 구간의 차이 계산",
+        "미지수 위치 표시 후 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT023",
+        "M1_CG_PT024"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C014",
+      "title": "정비례 관계식 y=ax 세우기",
+      "priority": 1,
+      "focus": "비례상수 a와 y=ax 관계식",
+      "steps": [
+        "정비례 관계 판별",
+        "a=y/x로 구하기",
+        "y=ax에 점 대입하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT027",
+        "M1_CG_PT028",
+        "M1_CG_PT038"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C015",
+      "title": "정비례 그래프 성질",
+      "priority": 2,
+      "focus": "원점 통과, 직선, a 부호와 방향",
+      "steps": [
+        "원점 지나는지 확인",
+        "a가 양수/음수일 때 그래프 방향 비교",
+        "점 두 개로 직선 그리기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT029",
+        "M1_CG_PT030",
+        "M1_CG_PT031"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C021",
+      "title": "반비례 관계식 y=a/x 세우기",
+      "priority": 1,
+      "focus": "xy=a와 y=a/x 관계식",
+      "steps": [
+        "반비례 관계 판별",
+        "a=xy로 구하기",
+        "y=a/x에 점 대입하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT040",
+        "M1_CG_PT041",
+        "M1_CG_PT051"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C022",
+      "title": "반비례 그래프 성질",
+      "priority": 2,
+      "focus": "곡선, 사분면, a 부호와 그래프 위치",
+      "steps": [
+        "그래프가 축과 만나지 않음을 확인",
+        "a 부호와 지나는 사분면 연결",
+        "좌표 여러 개를 찍어 곡선 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT043",
+        "M1_CG_PT044",
+        "M1_CG_PT045"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C026",
+      "title": "정비례·반비례 교점 조건",
+      "priority": 3,
+      "focus": "두 그래프를 동시에 만족하는 좌표",
+      "steps": [
+        "교점 좌표를 두 식에 모두 대입",
+        "정비례식과 반비례식의 조건 구분",
+        "미지수 조건을 식으로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT053",
+        "M1_CG_PT054"
+      ]
+    },
+    {
+      "concept_id": "M1_CG_C027",
+      "title": "표·식·그래프 변환 활용",
+      "priority": 2,
+      "focus": "정비례·반비례를 표, 식, 그래프로 연결",
+      "steps": [
+        "표에서 규칙 찾기",
+        "정비례/반비례 판별 후 식 세우기",
+        "식으로 그래프 그리고 값 읽기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_CG_PT055",
+        "M1_CG_PT056",
+        "M1_CG_PT058",
+        "M1_CG_PT059"
+      ]
+    }
+  ]
+}

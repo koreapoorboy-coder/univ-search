@@ -1,0 +1,151 @@
+{
+  "version": "2026.07.05-m1-plane-geometry-remediation-v0.1",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_name": "평면도형의 성질",
+  "remediation_count": 13,
+  "remediation": [
+    {
+      "concept_id": "M1_PG_C002",
+      "title": "내각과 외각 위치 재정리",
+      "priority": 1,
+      "steps": [
+        "도형에서 내각과 외각 표시하기",
+        "한 내각과 이웃한 외각의 합 180도 확인",
+        "미지수 각도 문제 5문항 적용"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C004",
+      "title": "삼각형 내각의 합 보강",
+      "priority": 1,
+      "steps": [
+        "세 내각의 합 180도 시각화",
+        "각 조건을 식으로 세우기",
+        "숫자형→문자형 순서로 훈련"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C005",
+      "title": "삼각형 외각의 성질 보강",
+      "priority": 1,
+      "steps": [
+        "외각과 이웃하지 않는 두 내각 표시",
+        "외각=두 내각의 합 구조 확인",
+        "내각의 합 풀이와 비교"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C008",
+      "title": "다각형 대각선 공식 구조 보강",
+      "priority": 2,
+      "steps": [
+        "한 꼭짓점에서 제외되는 점 세기",
+        "n-3 공식 유도",
+        "두 번 세는 중복을 제거해 총수 공식 만들기"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C012",
+      "title": "정다각형 한 내각·외각 보강",
+      "priority": 2,
+      "steps": [
+        "한 외각=360/n",
+        "한 내각=180-한 외각",
+        "내각 조건으로 n을 역산하기"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C018",
+      "title": "삼각형 결정조건 비교",
+      "priority": 2,
+      "steps": [
+        "SSS/SAS/ASA 조건을 그림으로 비교",
+        "결정되지 않는 조건 예시 확인",
+        "작도 조건과 합동조건 연결"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C019",
+      "title": "삼각형 합동조건 판별 보강",
+      "priority": 2,
+      "steps": [
+        "대응변·대응각 표시",
+        "SSS/SAS/ASA 조건명과 위치 비교",
+        "합동조건으로 미지수 찾기"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C023",
+      "title": "중심각 비율 보강",
+      "priority": 2,
+      "steps": [
+        "전체 원 360도 기준 확인",
+        "중심각/360 비율 만들기",
+        "둘레와 넓이에 각각 적용"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C024",
+      "title": "부채꼴 호의 길이 보강",
+      "priority": 2,
+      "steps": [
+        "원의 둘레 공식 복습",
+        "중심각 비율 곱하기",
+        "반지름과 중심각 조건 바꿔 풀기"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C025",
+      "title": "부채꼴 넓이 보강",
+      "priority": 2,
+      "steps": [
+        "원의 넓이 공식 복습",
+        "중심각 비율 곱하기",
+        "호의 길이와 넓이 연결 문제로 확장"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C027",
+      "title": "색칠한 부분의 둘레 보강",
+      "priority": 3,
+      "steps": [
+        "경계에 포함되는 선분과 원호 표시",
+        "선분 길이와 원호 길이 분리",
+        "둘레 합산식 세우기"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C028",
+      "title": "색칠한 부분의 넓이 보강",
+      "priority": 3,
+      "steps": [
+        "전체 도형과 제외 도형 색칠",
+        "원·부채꼴·다각형 공식 구분",
+        "더하기/빼기 식으로 정리"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_PG_C030",
+      "title": "도형 조건의 식 세우기 보강",
+      "priority": 3,
+      "steps": [
+        "문장 조건에 밑줄",
+        "각도·길이·넓이를 문자식으로 변환",
+        "일차방정식 풀이 후 도형 조건에 대입 확인"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

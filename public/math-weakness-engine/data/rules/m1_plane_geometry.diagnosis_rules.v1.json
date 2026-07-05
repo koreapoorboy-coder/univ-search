@@ -1,0 +1,117 @@
+{
+  "version": "2026.07.05-m1-plane-geometry-rules-v0.1",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_name": "평면도형의 성질",
+  "rule_count": 7,
+  "rules": [
+    {
+      "rule_id": "M1_PG_RULE_001",
+      "name": "다각형 각도 개념 취약",
+      "trigger": {
+        "error_tags_any": [
+          "triangle_angle_sum",
+          "triangle_exterior_angle",
+          "polygon_interior_sum",
+          "polygon_exterior_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "삼각형·다각형의 내각과 외각 관계를 식으로 연결하는 과정이 불안정합니다.",
+      "parent_message": "각도 계산 실수처럼 보일 수 있지만, 내각의 합·외각의 합·삼각형 외각 성질을 구분해서 적용하는 기준부터 확인해야 합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_002",
+      "name": "정다각형 공식 적용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "regular_polygon",
+          "regular_polygon_tiling"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "정다각형의 한 내각·한 외각 계산과 360도 기준 활용이 흔들립니다.",
+      "parent_message": "정다각형 문제는 공식 암기보다 한 점 주위 360도와 한 외각 360/n 구조를 연결해 보강하는 것이 필요합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_003",
+      "name": "대각선 공식 구조 취약",
+      "trigger": {
+        "error_tags_any": [
+          "diagonal",
+          "diagonal_total"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "다각형의 대각선 개수에서 제외해야 하는 꼭짓점과 중복 계산 구조가 불안정합니다.",
+      "parent_message": "대각선 문제는 공식만 외우면 역추적 문항에서 흔들리므로 n-3과 n(n-3)/2가 왜 나오는지 짧게 재정리해야 합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_004",
+      "name": "작도·합동 조건 구분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "construction",
+          "SSS",
+          "SAS",
+          "ASA",
+          "triangle_determination",
+          "triangle_congruence"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "삼각형의 작도 조건, 결정조건, 합동조건이 서로 연결되지 못하고 있습니다.",
+      "parent_message": "SSS·SAS·ASA를 이름으로 외우는 단계가 아니라 어떤 조건이 삼각형을 하나로 정하는지, 어떤 조건이 합동을 보장하는지 비교 정리가 필요합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_005",
+      "name": "원·부채꼴 공식 구분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "circle_circumference",
+          "circle_area",
+          "sector_arc_length",
+          "sector_area"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "원의 둘레·넓이와 부채꼴 호의 길이·넓이 공식을 구분하는 기준이 약합니다.",
+      "parent_message": "반지름, 중심각, 360도 비율을 어떤 공식에 적용해야 하는지 표로 정리한 뒤 계산 훈련이 필요합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_006",
+      "name": "복합도형 분해 취약",
+      "trigger": {
+        "error_tags_any": [
+          "composite_perimeter",
+          "composite_area",
+          "geometry_decomposition",
+          "boundary_selection"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "색칠한 부분의 둘레와 넓이에서 전체-부분, 경계 선택, 도형 분해가 약합니다.",
+      "parent_message": "계산식보다 먼저 어느 선분과 원호가 경계인지, 어떤 넓이를 빼고 더해야 하는지를 그림에 표시하는 보강이 필요합니다."
+    },
+    {
+      "rule_id": "M1_PG_RULE_007",
+      "name": "도형 조건의 식 세우기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_equation",
+          "angle_equation",
+          "length_area_equation"
+        ],
+        "wrong_min": 1,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "도형 조건을 문자식이나 방정식으로 바꾸는 과정에서 오류가 발생합니다.",
+      "parent_message": "문자와 식·일차방정식 선행 약점이 도형 문제로 전이될 수 있으므로 조건을 식으로 번역하는 연습이 필요합니다."
+    }
+  ]
+}

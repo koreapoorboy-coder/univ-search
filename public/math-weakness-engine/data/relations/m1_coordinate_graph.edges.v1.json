@@ -1,0 +1,535 @@
+{
+  "version": "2026.07.05-m1-coordinate-graph-v0.1",
+  "unit_id": "M1_COORD_GRAPH",
+  "edge_count": 66,
+  "edges": [
+    {
+      "from_concept_id": "M1_CG_C001",
+      "to_concept_id": "M1_CG_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "수직선 위의 한 좌표 읽기가 좌표평면에서 x축·y축 위치를 읽는 기초가 된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C002",
+      "to_concept_id": "M1_CG_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "순서쌍의 순서를 이해해야 좌표평면에서 x좌표와 y좌표를 구분할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "좌표평면 좌표 읽기가 좌표축 위 점의 0 좌표 특징으로 연결된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "좌표를 읽고 좌표 차이를 길이로 바꿔야 도형의 넓이를 구할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "좌표의 부호를 알아야 사분면을 판별할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C006",
+      "to_concept_id": "M1_CG_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "사분면 판별이 안정되어야 문자 조건이나 부호 관계로 가능한 사분면을 결정할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대칭점의 좌표는 원래 점의 x좌표와 y좌표 부호 변화를 바탕으로 한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "점의 좌표를 읽고 찍는 능력이 두 변수 관계를 그래프로 나타내는 기초이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C009",
+      "to_concept_id": "M1_CG_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "표와 그래프 표현을 이해해야 수치 없는 그래프의 상황을 읽을 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C009",
+      "to_concept_id": "M1_CG_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "표와 그래프 표현을 이해해야 수치가 주어진 그래프에서 값을 읽을 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C010",
+      "to_concept_id": "M1_CG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "한 그래프의 증가·감소 해석이 여러 그래프 비교로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C011",
+      "to_concept_id": "M1_CG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "구체적인 좌표값과 변화량 읽기가 그래프 간 비교의 근거가 된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C009",
+      "to_concept_id": "M1_CG_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "두 변수 관계를 그래프로 나타내는 경험이 정비례 관계 판별로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C013",
+      "to_concept_id": "M1_CG_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "정비례 관계를 판별해야 y=ax 관계식으로 나타낼 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C014",
+      "to_concept_id": "M1_CG_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "정비례식의 a값 의미가 그래프의 방향과 성질 해석으로 연결된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C015",
+      "to_concept_id": "M1_CG_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "정비례 그래프의 성질을 알아야 y=ax 그래프를 바르게 그릴 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C014",
+      "to_concept_id": "M1_CG_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "y=ax 식에 좌표를 대입해야 그래프 위의 점 조건을 해결할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C017",
+      "to_concept_id": "M1_CG_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "그래프 위 점을 식에 대입하는 능력이 a값 구하기로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "좌표 차이를 길이로 읽는 능력이 그래프와 도형 넓이 문제의 선행 조건이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C018",
+      "to_concept_id": "M1_CG_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "a값과 그래프 위치를 알아야 도형 넓이 조건과 연결할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C009",
+      "to_concept_id": "M1_CG_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "두 변수 관계 표현 경험이 반비례 관계 판별로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C020",
+      "to_concept_id": "M1_CG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "반비례 관계를 판별해야 y=a/x 관계식으로 나타낼 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C021",
+      "to_concept_id": "M1_CG_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "반비례식의 a값 의미가 그래프의 사분면과 성질 해석으로 연결된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C022",
+      "to_concept_id": "M1_CG_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "반비례 그래프의 성질을 알아야 y=a/x 그래프를 바르게 그릴 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C021",
+      "to_concept_id": "M1_CG_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "y=a/x 식에 좌표를 대입해야 그래프 위의 점 조건을 해결할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C024",
+      "to_concept_id": "M1_CG_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "그래프 위 점을 식에 대입하는 능력이 반비례 상수 a 구하기로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M1_CG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "교점 좌표는 두 그래프 위의 같은 점이라는 좌표 이해를 요구한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C018",
+      "to_concept_id": "M1_CG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "정비례 그래프의 a값 해석이 교점 조건에 사용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C025",
+      "to_concept_id": "M1_CG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "반비례 그래프의 a값 해석이 교점 조건에 사용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C013",
+      "to_concept_id": "M1_CG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "정비례 판별이 표·식·그래프 변환 활용의 기초이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C020",
+      "to_concept_id": "M1_CG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "반비례 판별이 표·식·그래프 변환 활용의 기초이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C027",
+      "to_concept_id": "M1_CG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "표·식·그래프 변환 능력이 문장제 활용 문제 풀이로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C002",
+      "to_concept_id": "M1_CG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "양수·음수의 부호 의미가 좌표의 부호와 사분면 판별의 선행 개념이다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C005",
+      "to_concept_id": "M1_CG_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "수직선 위의 수 위치와 대소관계가 좌표 읽기의 기초가 된다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_CG_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "절댓값과 부호 변화 이해가 대칭점 좌표 해석에 도움을 준다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C005",
+      "to_concept_id": "M1_CG_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "문자에 값을 대입하는 능력이 그래프 위의 점을 식에 대입하는 과정과 연결된다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C014",
+      "to_concept_id": "M1_CG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "문장 관계를 등식으로 나타내는 능력이 정비례·반비례 활용식 세우기의 선행 조건이다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "좌표평면·사분면·그래프 읽기 취약은 중2 일차함수의 좌표와 그래프 해석에서 반복될 수 있다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C006",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "좌표평면·사분면·그래프 읽기 취약은 중2 일차함수의 좌표와 그래프 해석에서 반복될 수 있다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C008",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "좌표평면·사분면·그래프 읽기 취약은 중2 일차함수의 좌표와 그래프 해석에서 반복될 수 있다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C011",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "좌표평면·사분면·그래프 읽기 취약은 중2 일차함수의 좌표와 그래프 해석에서 반복될 수 있다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C012",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "좌표평면·사분면·그래프 읽기 취약은 중2 일차함수의 좌표와 그래프 해석에서 반복될 수 있다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C014",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "정비례식과 y=ax 그래프 해석은 중2 일차함수 식과 그래프 의미 해석의 직접 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C015",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "정비례식과 y=ax 그래프 해석은 중2 일차함수 식과 그래프 의미 해석의 직접 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C016",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "정비례식과 y=ax 그래프 해석은 중2 일차함수 식과 그래프 의미 해석의 직접 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C017",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "정비례식과 y=ax 그래프 해석은 중2 일차함수 식과 그래프 의미 해석의 직접 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C018",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "정비례식과 y=ax 그래프 해석은 중2 일차함수 식과 그래프 의미 해석의 직접 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C020",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "반비례의 식·그래프 해석은 중2 일차함수에서 식과 그래프를 동시에 해석하는 준비도가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C021",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "반비례의 식·그래프 해석은 중2 일차함수에서 식과 그래프를 동시에 해석하는 준비도가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C022",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "반비례의 식·그래프 해석은 중2 일차함수에서 식과 그래프를 동시에 해석하는 준비도가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C024",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "반비례의 식·그래프 해석은 중2 일차함수에서 식과 그래프를 동시에 해석하는 준비도가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C025",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "반비례의 식·그래프 해석은 중2 일차함수에서 식과 그래프를 동시에 해석하는 준비도가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C010",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "표·식·그래프 변환과 상황 그래프 해석은 중2 일차함수 활용 문제의 선행 능력이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C011",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "표·식·그래프 변환과 상황 그래프 해석은 중2 일차함수 활용 문제의 선행 능력이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C027",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "표·식·그래프 변환과 상황 그래프 해석은 중2 일차함수 활용 문제의 선행 능력이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C028",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "표·식·그래프 변환과 상황 그래프 해석은 중2 일차함수 활용 문제의 선행 능력이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "M3_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "좌표와 그래프 비교·대칭 해석은 중3 이차함수 그래프의 위치·대칭 판단으로 연결된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C008",
+      "to_concept_id": "M3_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "좌표와 그래프 비교·대칭 해석은 중3 이차함수 그래프의 위치·대칭 판단으로 연결된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C012",
+      "to_concept_id": "M3_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "좌표와 그래프 비교·대칭 해석은 중3 이차함수 그래프의 위치·대칭 판단으로 연결된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C026",
+      "to_concept_id": "M3_FUNC_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "좌표와 그래프 비교·대칭 해석은 중3 이차함수 그래프의 위치·대칭 판단으로 연결된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C014",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C018",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C021",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C025",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C026",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_CG_C027",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "식과 그래프를 연결하는 능력은 고1 함수식 해석과 그래프 연결의 기초가 된다.",
+      "scope": "cross_grade"
+    }
+  ]
+}

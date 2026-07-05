@@ -1,0 +1,1431 @@
+{
+  "version": "2026.07.05-m1-expression-v0.1",
+  "unit_id": "M1_EXPRESSION",
+  "unit_name": "문자와 식",
+  "problem_type_count": 60,
+  "problem_types": [
+    {
+      "problem_type_id": "M1_EX_PT001",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "곱셈 기호 생략: 문자와 숫자의 곱 표기",
+      "description": "곱셈 기호 생략: 문자와 숫자의 곱 표기",
+      "concept_ids": [
+        "M1_EX_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "symbol_omission",
+        "coefficient_order"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT002",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "곱셈 기호 생략: 문자와 문자의 곱 및 거듭제곱 표기",
+      "description": "곱셈 기호 생략: 문자와 문자의 곱 및 거듭제곱 표기",
+      "concept_ids": [
+        "M1_EX_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "symbol_omission",
+        "power_notation"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT003",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "곱셈 기호 생략: 여러 문자가 포함된 곱의 표준 표현",
+      "description": "곱셈 기호 생략: 여러 문자가 포함된 곱의 표준 표현",
+      "concept_ids": [
+        "M1_EX_C001"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "symbol_omission",
+        "variable_order"
+      ],
+      "source_orders": [
+        2,
+        3,
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT004",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "나눗셈 기호 생략: 분수꼴로 나타내기",
+      "description": "나눗셈 기호 생략: 분수꼴로 나타내기",
+      "concept_ids": [
+        "M1_EX_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "division_to_fraction",
+        "fraction_structure"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT005",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "나눗셈 기호 생략: 역수 곱과 복합 문자식 표현",
+      "description": "나눗셈 기호 생략: 역수 곱과 복합 문자식 표현",
+      "concept_ids": [
+        "M1_EX_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "division_to_fraction",
+        "reciprocal_conversion"
+      ],
+      "source_orders": [
+        6,
+        7,
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT006",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장 식 표현: 한 문자 한 항의 기본 수량 나타내기",
+      "description": "문장 식 표현: 한 문자 한 항의 기본 수량 나타내기",
+      "concept_ids": [
+        "M1_EX_C003",
+        "M1_EX_C027"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quantity_to_expression",
+        "variable_meaning"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT007",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장 식 표현: 가격·개수·양의 관계식 세우기",
+      "description": "문장 식 표현: 가격·개수·양의 관계식 세우기",
+      "concept_ids": [
+        "M1_EX_C003",
+        "M1_EX_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quantity_to_expression",
+        "unit_quantity"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT008",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장 식 표현: 두 문자 이상의 합과 차 나타내기",
+      "description": "문장 식 표현: 두 문자 이상의 합과 차 나타내기",
+      "concept_ids": [
+        "M1_EX_C004",
+        "M1_EX_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quantity_to_expression",
+        "multiple_variables"
+      ],
+      "source_orders": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT009",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장 식 표현: 도형의 둘레와 넓이를 문자식으로 나타내기",
+      "description": "문장 식 표현: 도형의 둘레와 넓이를 문자식으로 나타내기",
+      "concept_ids": [
+        "M1_EX_C004",
+        "M1_EX_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "geometry_expression",
+        "formula_connection"
+      ],
+      "source_orders": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT010",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장 식 표현: 종합 문장을 식으로 바꾸기",
+      "description": "문장 식 표현: 종합 문장을 식으로 바꾸기",
+      "concept_ids": [
+        "M1_EX_C004",
+        "M1_EX_C014",
+        "M1_EX_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "quantity_to_expression",
+        "sentence_interpretation"
+      ],
+      "source_orders": [
+        20,
+        21
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT011",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값: x의 값을 단항식·다항식에 대입하기",
+      "description": "식의 값: x의 값을 단항식·다항식에 대입하기",
+      "concept_ids": [
+        "M1_EX_C005"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "substitution",
+        "calculation_order"
+      ],
+      "source_orders": [
+        22,
+        23,
+        24
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT012",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값: 음수와 거듭제곱이 포함된 식에 대입하기",
+      "description": "식의 값: 음수와 거듭제곱이 포함된 식에 대입하기",
+      "concept_ids": [
+        "M1_EX_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "negative_parentheses",
+        "power_notation"
+      ],
+      "source_orders": [
+        22,
+        23,
+        24,
+        25
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT013",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값: 분수형 문자식에 대입하기",
+      "description": "식의 값: 분수형 문자식에 대입하기",
+      "concept_ids": [
+        "M1_EX_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "fraction_structure"
+      ],
+      "source_orders": [
+        25,
+        26,
+        27
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT014",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값: x,y 값이 주어진 식의 값 구하기",
+      "description": "식의 값: x,y 값이 주어진 식의 값 구하기",
+      "concept_ids": [
+        "M1_EX_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "multiple_variables"
+      ],
+      "source_orders": [
+        27,
+        28,
+        29
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT015",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값 활용: 평면도형 길이·넓이 계산",
+      "description": "식의 값 활용: 평면도형 길이·넓이 계산",
+      "concept_ids": [
+        "M1_EX_C007",
+        "M1_EX_C004"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "geometry_expression",
+        "substitution"
+      ],
+      "source_orders": [
+        30,
+        31
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT016",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "식의 값 활용: 입체도형 겉넓이·부피 계산",
+      "description": "식의 값 활용: 입체도형 겉넓이·부피 계산",
+      "concept_ids": [
+        "M1_EX_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_expression",
+        "formula_connection"
+      ],
+      "source_orders": [
+        31,
+        32,
+        33
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT017",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "다항식의 요소: 항, 계수, 상수항 판단",
+      "description": "다항식의 요소: 항, 계수, 상수항 판단",
+      "concept_ids": [
+        "M1_EX_C008"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "term_coefficient",
+        "polynomial_structure"
+      ],
+      "source_orders": [
+        34,
+        35
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT018",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "다항식의 요소: 문자 개수와 차수 판단",
+      "description": "다항식의 요소: 문자 개수와 차수 판단",
+      "concept_ids": [
+        "M1_EX_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "degree_identification",
+        "polynomial_structure"
+      ],
+      "source_orders": [
+        34,
+        35,
+        36
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT019",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "단항식 계산: 수를 곱하거나 나누기",
+      "description": "단항식 계산: 수를 곱하거나 나누기",
+      "concept_ids": [
+        "M1_EX_C009"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "monomial_operation",
+        "coefficient_calculation"
+      ],
+      "source_orders": [
+        36,
+        37
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT020",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "단항식 계산: 분수 계수와 나눗셈 처리",
+      "description": "단항식 계산: 분수 계수와 나눗셈 처리",
+      "concept_ids": [
+        "M1_EX_C009"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_operation",
+        "fraction_coefficient"
+      ],
+      "source_orders": [
+        37,
+        38,
+        39,
+        40
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT021",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "동류항 정리: 같은 문자항끼리 더하고 빼기",
+      "description": "동류항 정리: 같은 문자항끼리 더하고 빼기",
+      "concept_ids": [
+        "M1_EX_C010",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "like_terms",
+        "sign_handling"
+      ],
+      "source_orders": [
+        41,
+        42,
+        43
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT022",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "동류항 정리: 문자항과 상수항을 구분하여 정리",
+      "description": "동류항 정리: 문자항과 상수항을 구분하여 정리",
+      "concept_ids": [
+        "M1_EX_C010",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "like_terms",
+        "polynomial_structure"
+      ],
+      "source_orders": [
+        42,
+        43,
+        44
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT023",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차식 계산: 괄호를 풀어 덧셈·뺄셈하기",
+      "description": "일차식 계산: 괄호를 풀어 덧셈·뺄셈하기",
+      "concept_ids": [
+        "M1_EX_C011",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "distributive_property",
+        "parentheses"
+      ],
+      "source_orders": [
+        45,
+        46,
+        47
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT024",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차식 계산: 괄호 앞 음수와 부호 분배 처리",
+      "description": "일차식 계산: 괄호 앞 음수와 부호 분배 처리",
+      "concept_ids": [
+        "M1_EX_C011",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "distributive_property",
+        "negative_distribution",
+        "sign_handling"
+      ],
+      "source_orders": [
+        46,
+        47,
+        48
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT025",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차식 계산: 계수 조건이 있는 식의 값과 변형",
+      "description": "일차식 계산: 계수 조건이 있는 식의 값과 변형",
+      "concept_ids": [
+        "M1_EX_C012",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "coefficient_condition",
+        "expression_transformation"
+      ],
+      "source_orders": [
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT026",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "어떤 식 구하기: 등식의 빈칸에 들어갈 식 찾기",
+      "description": "어떤 식 구하기: 등식의 빈칸에 들어갈 식 찾기",
+      "concept_ids": [
+        "M1_EX_C013",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "inverse_expression",
+        "expression_transformation"
+      ],
+      "source_orders": [
+        54,
+        55,
+        56
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT027",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "어떤 식 구하기: 덧셈·뺄셈 관계에서 식 역산하기",
+      "description": "어떤 식 구하기: 덧셈·뺄셈 관계에서 식 역산하기",
+      "concept_ids": [
+        "M1_EX_C013",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inverse_expression",
+        "parentheses",
+        "sign_handling"
+      ],
+      "source_orders": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT028",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "어떤 식 구하기: 조건에 맞는 식 고르기",
+      "description": "어떤 식 구하기: 조건에 맞는 식 고르기",
+      "concept_ids": [
+        "M1_EX_C013",
+        "M1_EX_C012"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inverse_expression",
+        "condition_matching"
+      ],
+      "source_orders": [
+        60,
+        61,
+        62
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT029",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장을 등식으로 나타내기: 사람 수와 수량 관계",
+      "description": "문장을 등식으로 나타내기: 사람 수와 수량 관계",
+      "concept_ids": [
+        "M1_EX_C014",
+        "M1_EX_C027"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "sentence_to_equation",
+        "variable_meaning"
+      ],
+      "source_orders": [
+        63,
+        64
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT030",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장을 등식으로 나타내기: 거리·속력·시간 관계",
+      "description": "문장을 등식으로 나타내기: 거리·속력·시간 관계",
+      "concept_ids": [
+        "M1_EX_C014",
+        "M1_EX_C025"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sentence_to_equation",
+        "rate_time_distance"
+      ],
+      "source_orders": [
+        63,
+        64,
+        65
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT031",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문장을 등식으로 나타내기: 가격·할인·변화 관계",
+      "description": "문장을 등식으로 나타내기: 가격·할인·변화 관계",
+      "concept_ids": [
+        "M1_EX_C014",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sentence_to_equation",
+        "quantity_change"
+      ],
+      "source_orders": [
+        66,
+        67,
+        68
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT032",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "항등식 판단: 항상 참인 식 고르기",
+      "description": "항등식 판단: 항상 참인 식 고르기",
+      "concept_ids": [
+        "M1_EX_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "identity_judgement",
+        "equation_identity_confusion"
+      ],
+      "source_orders": [
+        69,
+        70,
+        71
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT033",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "항등식 활용: 계수 관계와 설명 판단",
+      "description": "항등식 활용: 계수 관계와 설명 판단",
+      "concept_ids": [
+        "M1_EX_C015",
+        "M1_EX_C012"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "identity_judgement",
+        "coefficient_comparison"
+      ],
+      "source_orders": [
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT034",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차방정식 판단: 일차방정식인지 O/X 표시하기",
+      "description": "일차방정식 판단: 일차방정식인지 O/X 표시하기",
+      "concept_ids": [
+        "M1_EX_C016"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "linear_equation_judgement",
+        "degree_identification"
+      ],
+      "source_orders": [
+        78,
+        79
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT035",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차방정식 판단: 보기에서 일차방정식 고르기",
+      "description": "일차방정식 판단: 보기에서 일차방정식 고르기",
+      "concept_ids": [
+        "M1_EX_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "linear_equation_judgement",
+        "polynomial_structure"
+      ],
+      "source_orders": [
+        79,
+        80,
+        81,
+        82
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT036",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차방정식 풀이: 등식의 성질로 해 구하기",
+      "description": "일차방정식 풀이: 등식의 성질로 해 구하기",
+      "concept_ids": [
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_solving",
+        "balance_property"
+      ],
+      "source_orders": [
+        83,
+        84,
+        85
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT037",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "일차방정식 풀이: 이항과 부호 변화를 이용해 풀기",
+      "description": "일차방정식 풀이: 이항과 부호 변화를 이용해 풀기",
+      "concept_ids": [
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_solving",
+        "transposition",
+        "sign_handling"
+      ],
+      "source_orders": [
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT038",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "계수가 소수인 일차방정식: 양변에 10 또는 100 곱하기",
+      "description": "계수가 소수인 일차방정식: 양변에 10 또는 100 곱하기",
+      "concept_ids": [
+        "M1_EX_C018",
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "decimal_coefficient",
+        "equation_solving"
+      ],
+      "source_orders": [
+        83,
+        84,
+        85,
+        86
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT039",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "계수가 소수인 일차방정식: 풀이 과정 빈칸 채우기",
+      "description": "계수가 소수인 일차방정식: 풀이 과정 빈칸 채우기",
+      "concept_ids": [
+        "M1_EX_C018",
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "decimal_coefficient",
+        "solution_process"
+      ],
+      "source_orders": [
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT040",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "비례식 방정식: 비례식으로 주어진 x 값 구하기",
+      "description": "비례식 방정식: 비례식으로 주어진 x 값 구하기",
+      "concept_ids": [
+        "M1_EX_C018",
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "proportion_equation",
+        "equation_solving"
+      ],
+      "source_orders": [
+        90,
+        91,
+        92,
+        93
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT041",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "분수식 방정식: 분모를 제거하여 풀기",
+      "description": "분수식 방정식: 분모를 제거하여 풀기",
+      "concept_ids": [
+        "M1_EX_C018",
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "fraction_equation",
+        "denominator_clearance"
+      ],
+      "source_orders": [
+        90,
+        91,
+        92,
+        93,
+        94
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT042",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "해의 조건: 자연수·정수 해가 되도록 조건 판단",
+      "description": "해의 조건: 자연수·정수 해가 되도록 조건 판단",
+      "concept_ids": [
+        "M1_EX_C019",
+        "M1_EX_C017"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "solution_condition",
+        "integer_condition"
+      ],
+      "source_orders": [
+        95,
+        96,
+        97,
+        98
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT043",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "활용 문제: 어떤 수에 대한 방정식 세우기",
+      "description": "활용 문제: 어떤 수에 대한 방정식 세우기",
+      "concept_ids": [
+        "M1_EX_C020",
+        "M1_EX_C021",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "word_problem",
+        "equation_modeling"
+      ],
+      "source_orders": [
+        99,
+        100,
+        101
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT044",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "활용 문제: 처음 수와 변화 후 수 관계 해결",
+      "description": "활용 문제: 처음 수와 변화 후 수 관계 해결",
+      "concept_ids": [
+        "M1_EX_C021",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "word_problem",
+        "quantity_change"
+      ],
+      "source_orders": [
+        99,
+        100,
+        101,
+        102
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT045",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "활용 문제: 방정식 구성을 통한 수량 관계 해결",
+      "description": "활용 문제: 방정식 구성을 통한 수량 관계 해결",
+      "concept_ids": [
+        "M1_EX_C020",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "word_problem",
+        "equation_modeling",
+        "sentence_interpretation"
+      ],
+      "source_orders": [
+        101,
+        102,
+        103
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT046",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "도형 활용: 직사각형 길이·넓이·둘레 조건",
+      "description": "도형 활용: 직사각형 길이·넓이·둘레 조건",
+      "concept_ids": [
+        "M1_EX_C022",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_equation",
+        "word_problem"
+      ],
+      "source_orders": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT047",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "도형 활용: 삼각형·직육면체 넓이·부피 조건",
+      "description": "도형 활용: 삼각형·직육면체 넓이·부피 조건",
+      "concept_ids": [
+        "M1_EX_C022",
+        "M1_EX_C007"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "geometry_equation",
+        "formula_connection"
+      ],
+      "source_orders": [
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT048",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "도형 활용: 점 이동으로 만들어지는 도형 분석",
+      "description": "도형 활용: 점 이동으로 만들어지는 도형 분석",
+      "concept_ids": [
+        "M1_EX_C022",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "geometry_equation",
+        "dynamic_geometry"
+      ],
+      "source_orders": [
+        113,
+        114,
+        115,
+        116
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT049",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "과부족 문제: 물건을 나누어주고 남거나 부족한 관계",
+      "description": "과부족 문제: 물건을 나누어주고 남거나 부족한 관계",
+      "concept_ids": [
+        "M1_EX_C023",
+        "M1_EX_C020",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "excess_shortage",
+        "word_problem"
+      ],
+      "source_orders": [
+        120,
+        121,
+        122
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT050",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "과부족 문제: 금액과 물건 조건을 방정식으로 세우기",
+      "description": "과부족 문제: 금액과 물건 조건을 방정식으로 세우기",
+      "concept_ids": [
+        "M1_EX_C023",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "excess_shortage",
+        "equation_modeling"
+      ],
+      "source_orders": [
+        122,
+        123,
+        124,
+        125,
+        126
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT051",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "시계 문제: 시침과 분침이 이루는 각도 구하기",
+      "description": "시계 문제: 시침과 분침이 이루는 각도 구하기",
+      "concept_ids": [
+        "M1_EX_C024",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "clock_angle",
+        "equation_modeling"
+      ],
+      "source_orders": [
+        127,
+        128
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT052",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "시계 문제: 각도 조건을 만족하는 시각 구하기",
+      "description": "시계 문제: 각도 조건을 만족하는 시각 구하기",
+      "concept_ids": [
+        "M1_EX_C024",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "clock_angle",
+        "solution_condition"
+      ],
+      "source_orders": [
+        127,
+        128,
+        129
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT053",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "거리·속력·시간: 기본 이동 관계 방정식 세우기",
+      "description": "거리·속력·시간: 기본 이동 관계 방정식 세우기",
+      "concept_ids": [
+        "M1_EX_C025",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "rate_time_distance",
+        "equation_modeling"
+      ],
+      "source_orders": [
+        130,
+        131,
+        132
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT054",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "거리·속력·시간: 총 거리와 총 시간 조건 활용",
+      "description": "거리·속력·시간: 총 거리와 총 시간 조건 활용",
+      "concept_ids": [
+        "M1_EX_C025",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "rate_time_distance",
+        "word_problem"
+      ],
+      "source_orders": [
+        132,
+        133,
+        134,
+        135
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT055",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "거리·속력·시간: 단위와 평균속력 해석",
+      "description": "거리·속력·시간: 단위와 평균속력 해석",
+      "concept_ids": [
+        "M1_EX_C025",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "rate_time_distance",
+        "unit_conversion"
+      ],
+      "source_orders": [
+        135,
+        136,
+        137
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT056",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "종합 활용: 여러 조건이 포함된 일차방정식 문제",
+      "description": "종합 활용: 여러 조건이 포함된 일차방정식 문제",
+      "concept_ids": [
+        "M1_EX_C026",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "complex_word_problem",
+        "condition_analysis"
+      ],
+      "source_orders": [
+        138,
+        139,
+        140,
+        141
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT057",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "종합 활용: 해를 구한 뒤 조건에 맞는지 판단",
+      "description": "종합 활용: 해를 구한 뒤 조건에 맞는지 판단",
+      "concept_ids": [
+        "M1_EX_C026",
+        "M1_EX_C029",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "high",
+      "error_tags": [
+        "complex_word_problem",
+        "solution_check"
+      ],
+      "source_orders": [
+        140,
+        141,
+        142
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT058",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "검산과 해석: 방정식의 해를 상황에 대입하기",
+      "description": "검산과 해석: 방정식의 해를 상황에 대입하기",
+      "concept_ids": [
+        "M1_EX_C029",
+        "M1_EX_C020"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "solution_check",
+        "word_problem"
+      ],
+      "source_orders": [
+        98,
+        101,
+        138,
+        139,
+        140,
+        141,
+        142
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT059",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문자식-방정식 연결: 식 표현에서 방정식 세우기로 확장",
+      "description": "문자식-방정식 연결: 식 표현에서 방정식 세우기로 확장",
+      "concept_ids": [
+        "M1_EX_C014",
+        "M1_EX_C020",
+        "M1_EX_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sentence_to_equation",
+        "equation_modeling"
+      ],
+      "source_orders": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        99,
+        100
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_EX_PT060",
+      "grade": "중1",
+      "unit_id": "M1_EXPRESSION",
+      "unit_name": "문자와 식",
+      "type_name": "문자식 정리 안정성: 중2 식의 계산으로 이어지는 기초",
+      "description": "문자식 정리 안정성: 중2 식의 계산으로 이어지는 기초",
+      "concept_ids": [
+        "M1_EX_C010",
+        "M1_EX_C011",
+        "M1_EX_C028"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "like_terms",
+        "distributive_property",
+        "future_bridge"
+      ],
+      "source_orders": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

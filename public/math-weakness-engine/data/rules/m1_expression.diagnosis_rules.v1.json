@@ -1,0 +1,150 @@
+{
+  "version": "2026.07.05-m1-expression-v0.1",
+  "unit_id": "M1_EXPRESSION",
+  "rules": [
+    {
+      "rule_id": "M1_EX_RULE_001",
+      "name": "문자식 표기 규칙 취약",
+      "trigger": {
+        "error_tags_any": [
+          "symbol_omission",
+          "division_to_fraction",
+          "coefficient_order"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "곱셈·나눗셈 기호 생략 규칙이 불안정합니다. 문자식 자체를 잘못 쓰면 이후 식의 값, 일차식 계산, 방정식 세우기에서 계속 오류가 이어집니다.",
+      "parent_message": "문제를 못 푸는 것보다 먼저, 수량을 수학식으로 정확히 적는 약속이 흔들리는 상태입니다. 기호 생략 규칙을 짧게 재정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C001",
+        "M1_EX_C002"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_002",
+      "name": "문장 → 식 변환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quantity_to_expression",
+          "sentence_to_equation",
+          "variable_meaning"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문장 속 수량 관계를 문자식이나 등식으로 바꾸는 과정이 약합니다. 활용 문제에서 방정식 세우기 이전 단계가 흔들릴 가능성이 큽니다.",
+      "parent_message": "계산보다 먼저 문장을 식으로 번역하는 단계가 필요합니다. 무엇을 x로 둘지, 기준량이 무엇인지 표시하는 훈련이 우선입니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C003",
+        "M1_EX_C004",
+        "M1_EX_C014",
+        "M1_EX_C020"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_003",
+      "name": "대입 계산과 식의 값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "substitution",
+          "negative_parentheses",
+          "calculation_order"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문자에 값을 대입하는 과정에서 괄호, 음수, 계산 순서가 흔들립니다. 식의 값 단원뿐 아니라 함수식 대입과 방정식 검산에서도 오류가 반복될 수 있습니다.",
+      "parent_message": "문자를 숫자로 바꾸는 과정에서 전체 식 구조를 유지하는 연습이 필요합니다. 특히 음수 대입은 반드시 괄호로 처리해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C005",
+        "M1_EX_C006",
+        "M1_EX_C029"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_004",
+      "name": "일차식 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "like_terms",
+          "distributive_property",
+          "parentheses",
+          "negative_distribution"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "동류항 정리, 괄호 처리, 부호 분배가 불안정합니다. 중2 식의 계산, 연립방정식, 고1 다항식으로 이어지는 핵심 취약입니다.",
+      "parent_message": "단순 계산 실수가 아니라 문자항과 상수항을 구분하고 괄호를 푸는 구조가 흔들리는 상태입니다. 중2 진입 전에 반드시 보강해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C010",
+        "M1_EX_C011",
+        "M1_EX_C028"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_005",
+      "name": "방정식 풀이 절차 취약",
+      "trigger": {
+        "error_tags_any": [
+          "equation_solving",
+          "transposition",
+          "balance_property",
+          "denominator_clearance"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "등식의 성질, 이항, 분모 제거 등 방정식 풀이 절차가 불안정합니다. 중2 연립방정식과 일차부등식에서 반복 오류가 생길 가능성이 큽니다.",
+      "parent_message": "방정식은 답만 맞추는 것이 아니라 양변에 같은 처리를 하는 구조를 이해해야 합니다. 이항 부호와 양변 처리 순서를 따로 보강해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C017",
+        "M1_EX_C018"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_006",
+      "name": "활용 문제 모델링 취약",
+      "trigger": {
+        "error_tags_any": [
+          "word_problem",
+          "equation_modeling",
+          "complex_word_problem",
+          "condition_analysis"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "활용 문제에서 미지수 설정, 조건 정리, 방정식 세우기 단계가 약합니다. 계산 이전에 문제 상황을 식으로 모델링하는 훈련이 필요합니다.",
+      "parent_message": "문장이 길어지면 어떤 정보를 식에 넣어야 하는지 놓치는 상태입니다. 표 만들기 → x 정하기 → 관계식 세우기 순서로 보강하는 것이 좋습니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C020",
+        "M1_EX_C026",
+        "M1_EX_C030"
+      ]
+    },
+    {
+      "rule_id": "M1_EX_RULE_007",
+      "name": "고난도 활용 특수 유형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "clock_angle",
+          "rate_time_distance",
+          "excess_shortage",
+          "geometry_equation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "시계, 거리·속력·시간, 과부족, 도형 활용처럼 상황 구조가 있는 방정식 문제에서 취약 신호가 있습니다.",
+      "parent_message": "이 유형은 공식 암기보다 상황을 표와 그림으로 정리하는 능력이 중요합니다. 같은 일차방정식이라도 상황 구조별로 분리 보강해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_EX_C022",
+        "M1_EX_C023",
+        "M1_EX_C024",
+        "M1_EX_C025"
+      ]
+    }
+  ]
+}

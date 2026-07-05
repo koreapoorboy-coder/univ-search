@@ -1,0 +1,162 @@
+{
+  "version": "2026.07.05-m1-expression-v0.1",
+  "unit_id": "M1_EXPRESSION",
+  "remediation_count": 10,
+  "remediation": [
+    {
+      "concept_id": "M1_EX_C001",
+      "title": "문자식 표기 약속 재정리",
+      "priority": 1,
+      "focus": "곱셈 기호 생략 규칙, 숫자-문자 순서, 거듭제곱 표기",
+      "steps": [
+        "숫자×문자 표준 표기",
+        "문자×문자와 같은 문자 반복의 거듭제곱",
+        "보기에서 잘못된 표기 찾기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT001",
+        "M1_EX_PT002",
+        "M1_EX_PT003"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C002",
+      "title": "나눗셈을 분수꼴로 바꾸기",
+      "priority": 1,
+      "focus": "나눗셈 기호 생략과 분모 전체 처리",
+      "steps": [
+        "a÷b를 a/b로 쓰기",
+        "복합식 전체를 분모로 처리",
+        "나눗셈 방향 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT004",
+        "M1_EX_PT005"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C004",
+      "title": "복합 수량을 문자식으로 표현",
+      "priority": 2,
+      "focus": "두 문자 이상의 합·차·곱 관계 식 세우기",
+      "steps": [
+        "문장에서 기준량 표시",
+        "합/차/배수 표현 구분",
+        "도형 공식에 문자 넣기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT008",
+        "M1_EX_PT009",
+        "M1_EX_PT010"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C006",
+      "title": "여러 문자 대입과 분수식 계산",
+      "priority": 2,
+      "focus": "여러 변수, 음수, 분수식 대입",
+      "steps": [
+        "값을 괄호 안에 대입",
+        "분수식의 분모·분자 구분",
+        "계산 순서 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT013",
+        "M1_EX_PT014"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C010",
+      "title": "동류항 정리",
+      "priority": 1,
+      "focus": "문자항과 상수항을 분리하여 더하고 빼기",
+      "steps": [
+        "항을 부호째로 분리",
+        "동류항끼리 묶기",
+        "문자항과 상수항 따로 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT021",
+        "M1_EX_PT022"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C011",
+      "title": "괄호와 부호 분배",
+      "priority": 1,
+      "focus": "괄호 앞 음수와 분배법칙 처리",
+      "steps": [
+        "괄호 앞 수를 모든 항에 곱하기",
+        "괄호 앞 -를 각 항에 분배",
+        "분배 후 동류항 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT023",
+        "M1_EX_PT024"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C017",
+      "title": "일차방정식 기본 풀이",
+      "priority": 1,
+      "focus": "등식의 성질과 이항 절차",
+      "steps": [
+        "양변에 같은 연산 적용",
+        "미지수항과 상수항 분리",
+        "이항 시 부호 변화 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT036",
+        "M1_EX_PT037"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C018",
+      "title": "소수·분수 계수 방정식",
+      "priority": 2,
+      "focus": "양변에 적절한 수를 곱해 계수 제거",
+      "steps": [
+        "소수는 10/100 곱해 정수화",
+        "분수는 분모의 공배수 곱하기",
+        "괄호 포함 분모 제거"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT038",
+        "M1_EX_PT039",
+        "M1_EX_PT041"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C020",
+      "title": "활용 문제 방정식 세우기",
+      "priority": 2,
+      "focus": "미지수 설정과 관계식 만들기",
+      "steps": [
+        "무엇을 x로 둘지 결정",
+        "문장 속 같다는 관계 찾기",
+        "식 세우고 단위 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT043",
+        "M1_EX_PT045",
+        "M1_EX_PT059"
+      ]
+    },
+    {
+      "concept_id": "M1_EX_C030",
+      "title": "종합 문장제 조건 분석",
+      "priority": 3,
+      "focus": "긴 문장에서 조건을 분리하고 검산하기",
+      "steps": [
+        "조건을 표로 정리",
+        "사용할 조건과 버릴 조건 구분",
+        "해를 상황에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_EX_PT056",
+        "M1_EX_PT057",
+        "M1_EX_PT058"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,598 @@
+{
+  "version": "2026.07.05-m1-basic-geometry-edges-v0.1",
+  "unit_id": "M1_BASIC_GEOMETRY",
+  "unit_name": "기본 도형과 작도",
+  "edge_count": 59,
+  "edges": [
+    {
+      "edge_id": "M1_BG_E001",
+      "from_concept_id": "M1_BG_C001",
+      "to_concept_id": "M1_BG_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "도형의 기본 요소를 알아야 교점과 교선을 공통부분으로 판별할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E002",
+      "from_concept_id": "M1_BG_C001",
+      "to_concept_id": "M1_BG_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "점과 선의 개념이 직선·반직선·선분 구분의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E003",
+      "from_concept_id": "M1_BG_C003",
+      "to_concept_id": "M1_BG_C004",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "직선·반직선·선분의 끝점과 방향을 알아야 개수를 정확히 셀 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E004",
+      "from_concept_id": "M1_BG_C003",
+      "to_concept_id": "M1_BG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "선분 개념이 두 점 사이의 거리 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E005",
+      "from_concept_id": "M1_BG_C005",
+      "to_concept_id": "M1_BG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "선분의 길이를 알아야 중점을 같은 길이 조건으로 판단할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E006",
+      "from_concept_id": "M1_IR_C004",
+      "to_concept_id": "M1_BG_C005",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.35,
+      "reason": "정수와 유리수 계산은 길이 조건의 수치 계산을 보조한다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E007",
+      "from_concept_id": "M1_EX_C006",
+      "to_concept_id": "M1_BG_C006",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.45,
+      "reason": "중점 조건을 식으로 세울 때 문자와 식의 선행이 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E008",
+      "from_concept_id": "M1_BG_C003",
+      "to_concept_id": "M1_BG_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.45,
+      "reason": "반직선의 개념은 각의 두 변을 이해하는 기초이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E009",
+      "from_concept_id": "M1_BG_C007",
+      "to_concept_id": "M1_BG_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "각의 뜻과 표시를 알아야 직각·평각 기준 각도를 계산할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E010",
+      "from_concept_id": "M1_BG_C008",
+      "to_concept_id": "M1_BG_C009",
+      "relation_type": "extension",
+      "weight": 0.75,
+      "reason": "직각·평각 기준 계산이 비와 조건이 있는 각도 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E011",
+      "from_concept_id": "M1_BG_C008",
+      "to_concept_id": "M1_BG_C010",
+      "relation_type": "application",
+      "weight": 0.45,
+      "reason": "시계 각도 문제도 각의 크기 계산을 기반으로 한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E012",
+      "from_concept_id": "M1_BG_C007",
+      "to_concept_id": "M1_BG_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "각과 두 직선이 만나는 구조를 알아야 맞꼭지각을 판별할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E013",
+      "from_concept_id": "M1_BG_C008",
+      "to_concept_id": "M1_BG_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "맞꼭지각 활용은 이웃한 각의 합 180도와 함께 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E014",
+      "from_concept_id": "M1_BG_C008",
+      "to_concept_id": "M1_BG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "수직은 두 직선이 직각으로 만나는 관계이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E015",
+      "from_concept_id": "M1_BG_C012",
+      "to_concept_id": "M1_BG_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "점과 직선 사이의 거리는 수선의 길이로 정의된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E016",
+      "from_concept_id": "M1_EX_C006",
+      "to_concept_id": "M1_BG_C009",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.55,
+      "reason": "각도 조건을 식으로 세우는 과정에서 문자와 식 선행이 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E017",
+      "from_concept_id": "M1_BG_C014",
+      "to_concept_id": "M1_BG_C015",
+      "relation_type": "extension",
+      "weight": 0.55,
+      "reason": "점·직선·평면의 관계 이해가 평면이 정해질 조건 판단으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E018",
+      "from_concept_id": "M1_BG_C014",
+      "to_concept_id": "M1_BG_C016",
+      "relation_type": "extension",
+      "weight": 0.6,
+      "reason": "평면에서의 위치 관계가 공간에서 두 직선의 위치 관계로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E019",
+      "from_concept_id": "M1_BG_C014",
+      "to_concept_id": "M1_BG_C017",
+      "relation_type": "extension",
+      "weight": 0.6,
+      "reason": "점·직선·평면 관계가 공간에서 직선과 평면 관계로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E020",
+      "from_concept_id": "M1_BG_C014",
+      "to_concept_id": "M1_BG_C018",
+      "relation_type": "extension",
+      "weight": 0.6,
+      "reason": "평면의 개념이 공간에서 두 평면의 위치 관계 판단으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E021",
+      "from_concept_id": "M1_BG_C016",
+      "to_concept_id": "M1_BG_C019",
+      "relation_type": "application",
+      "weight": 0.75,
+      "reason": "공간에서 두 직선의 관계는 입체도형과 전개도 위치 추론에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E022",
+      "from_concept_id": "M1_BG_C017",
+      "to_concept_id": "M1_BG_C019",
+      "relation_type": "application",
+      "weight": 0.7,
+      "reason": "직선과 평면의 위치 관계가 입체도형의 면·모서리 판단으로 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E023",
+      "from_concept_id": "M1_BG_C018",
+      "to_concept_id": "M1_BG_C019",
+      "relation_type": "application",
+      "weight": 0.7,
+      "reason": "두 평면의 관계와 교선 개념이 입체도형 위치 관계에 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E024",
+      "from_concept_id": "M1_BG_C012",
+      "to_concept_id": "M1_BG_C017",
+      "relation_type": "cross_structure",
+      "weight": 0.45,
+      "reason": "수직과 평행의 기본 관계는 공간에서 직선과 평면 위치 관계 해석을 돕는다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E025",
+      "from_concept_id": "M1_BG_C020",
+      "to_concept_id": "M1_BG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.85,
+      "reason": "동위각과 엇각을 구분해야 평행선에서 각의 크기를 구할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E026",
+      "from_concept_id": "M1_BG_C021",
+      "to_concept_id": "M1_BG_C022",
+      "relation_type": "same_structure",
+      "weight": 0.75,
+      "reason": "평행선의 성질과 평행할 조건은 같은 각도 관계를 방향만 바꿔 사용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E027",
+      "from_concept_id": "M1_BG_C021",
+      "to_concept_id": "M1_BG_C023",
+      "relation_type": "application",
+      "weight": 0.85,
+      "reason": "평행선의 성질은 꺾인 직선·삼각형 모양의 각도 추론으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E028",
+      "from_concept_id": "M1_BG_C022",
+      "to_concept_id": "M1_BG_C023",
+      "relation_type": "application",
+      "weight": 0.65,
+      "reason": "평행할 조건을 이용해 보조선을 만들고 각도 관계를 해석한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E029",
+      "from_concept_id": "M1_BG_C023",
+      "to_concept_id": "M1_BG_C024",
+      "relation_type": "extension",
+      "weight": 0.55,
+      "reason": "종이접기 각도 문제는 평행선 각도와 대칭적 대응각을 함께 사용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E030",
+      "from_concept_id": "M1_BG_C011",
+      "to_concept_id": "M1_BG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.4,
+      "reason": "맞꼭지각과 이웃각 구조가 평행선 각도 추론의 기본 각도 감각을 만든다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E031",
+      "from_concept_id": "M1_BG_C025",
+      "to_concept_id": "M1_BG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "작도의 기본 절차를 알아야 같은 길이 선분 작도를 할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E032",
+      "from_concept_id": "M1_BG_C025",
+      "to_concept_id": "M1_BG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "작도의 기본 절차를 알아야 같은 크기 각 작도를 할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E033",
+      "from_concept_id": "M1_BG_C020",
+      "to_concept_id": "M1_BG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "평행선 작도는 동위각과 엇각의 위치 이해를 필요로 한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E034",
+      "from_concept_id": "M1_BG_C027",
+      "to_concept_id": "M1_BG_C028",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "같은 크기 각 작도가 평행선 작도의 기본 도구로 쓰인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E035",
+      "from_concept_id": "M1_BG_C029",
+      "to_concept_id": "M1_BG_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "삼각형의 세 변 관계는 삼각형 작도 가능성 판단의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E036",
+      "from_concept_id": "M1_BG_C026",
+      "to_concept_id": "M1_BG_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.5,
+      "reason": "같은 길이 선분 작도는 SSS 작도의 기본이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E037",
+      "from_concept_id": "M1_BG_C027",
+      "to_concept_id": "M1_BG_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.5,
+      "reason": "같은 크기 각 작도는 SAS·ASA 작도의 기본이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E038",
+      "from_concept_id": "M1_BG_C030",
+      "to_concept_id": "M1_BG_C031",
+      "relation_type": "extension",
+      "weight": 0.75,
+      "reason": "삼각형 작도 조건은 삼각형이 하나로 정해질 조건 판단으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E039",
+      "from_concept_id": "M1_BG_C032",
+      "to_concept_id": "M1_BG_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "도형의 합동과 대응변·대응각 개념이 삼각형 합동조건의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E040",
+      "from_concept_id": "M1_BG_C030",
+      "to_concept_id": "M1_BG_C033",
+      "relation_type": "same_structure",
+      "weight": 0.8,
+      "reason": "삼각형 작도 조건 SSS·SAS·ASA는 삼각형 합동조건과 같은 구조이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E041",
+      "from_concept_id": "M1_BG_C031",
+      "to_concept_id": "M1_BG_C033",
+      "relation_type": "same_structure",
+      "weight": 0.75,
+      "reason": "삼각형이 하나로 결정되는 조건은 합동조건 판별과 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E042",
+      "from_concept_id": "M1_BG_C033",
+      "to_concept_id": "M1_BG_C034",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "삼각형 합동조건을 판별한 뒤 대응 관계를 이용한 길이·각 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E043",
+      "from_concept_id": "M1_BG_C029",
+      "to_concept_id": "M1_PG_C015",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "삼각형의 세 변 관계는 평면도형 단원의 SSS 작도 가능성 판단의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E044",
+      "from_concept_id": "M1_BG_C030",
+      "to_concept_id": "M1_PG_C015",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "삼각형 작도는 평면도형의 삼각형 작도 조건으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E045",
+      "from_concept_id": "M1_BG_C030",
+      "to_concept_id": "M1_PG_C016",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "SAS 작도 구조는 평면도형의 SAS 작도 조건으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E046",
+      "from_concept_id": "M1_BG_C030",
+      "to_concept_id": "M1_PG_C017",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "ASA 작도 구조는 평면도형의 ASA 작도 조건으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E047",
+      "from_concept_id": "M1_BG_C031",
+      "to_concept_id": "M1_PG_C018",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "삼각형 결정조건은 평면도형 단원의 결정조건 판단과 직접 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E048",
+      "from_concept_id": "M1_BG_C033",
+      "to_concept_id": "M1_PG_C019",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "삼각형 합동조건은 평면도형 단원의 합동조건 판별과 직접 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E049",
+      "from_concept_id": "M1_BG_C034",
+      "to_concept_id": "M1_PG_C020",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "합동 활용은 평면도형에서 대응변·대응각으로 미지수 구하기로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E050",
+      "from_concept_id": "M1_BG_C021",
+      "to_concept_id": "M1_PG_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.45,
+      "reason": "평행선 각도 추론은 삼각형 내각과 외각 문제의 보조 각도 감각이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E051",
+      "from_concept_id": "M1_BG_C023",
+      "to_concept_id": "M1_PG_C006",
+      "relation_type": "future_bridge",
+      "weight": 0.5,
+      "reason": "복합 평행선 각도 추론은 삼각형 각도 미지수 문제와 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E052",
+      "from_concept_id": "M1_BG_C005",
+      "to_concept_id": "M1_CG_C003",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.35,
+      "reason": "두 점 사이의 거리와 위치 감각은 좌표평면에서 점의 위치 해석을 보조한다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E053",
+      "from_concept_id": "M1_BG_C020",
+      "to_concept_id": "M2_GEOM_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "동위각·엇각은 중2 평행선과 삼각형·사각형 각 추론의 핵심 선행이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E054",
+      "from_concept_id": "M1_BG_C021",
+      "to_concept_id": "M2_GEOM_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "평행선의 성질은 중2 도형 각도 추론에서 반복 사용된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E055",
+      "from_concept_id": "M1_BG_C023",
+      "to_concept_id": "M2_GEOM_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "꺾인 직선과 보조선 각도 추론은 중2 복합 도형 각도 문제로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E056",
+      "from_concept_id": "M1_BG_C033",
+      "to_concept_id": "M2_GEOM_C005",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "삼각형 합동조건은 중2 도형 성질 증명의 핵심 선행이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E057",
+      "from_concept_id": "M1_BG_C034",
+      "to_concept_id": "M2_GEOM_C005",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "합동 활용 능력은 중2 삼각형·사각형 성질 추론으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E058",
+      "from_concept_id": "M1_BG_C016",
+      "to_concept_id": "M3_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "공간에서 두 직선의 위치 관계는 이후 입체도형·전개도 해석의 기초가 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_BG_E059",
+      "from_concept_id": "M1_BG_C019",
+      "to_concept_id": "M3_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "전개도와 입체도형 위치 관계는 중3 공간도형 해석과 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    }
+  ]
+}

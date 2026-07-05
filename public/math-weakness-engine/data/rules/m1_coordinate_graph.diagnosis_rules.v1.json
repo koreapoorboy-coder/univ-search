@@ -1,0 +1,157 @@
+{
+  "version": "2026.07.05-m1-coordinate-graph-v0.1",
+  "unit_id": "M1_COORD_GRAPH",
+  "rules": [
+    {
+      "rule_id": "M1_CG_RULE_001",
+      "name": "좌표 읽기와 순서쌍 취약",
+      "trigger": {
+        "error_tags_any": [
+          "coordinate_reading",
+          "x_y_order",
+          "coordinate_notation",
+          "plotting_points"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표평면에서 x좌표와 y좌표의 순서, 점의 위치, 좌표 읽기가 불안정합니다. 이 상태에서는 사분면, 대칭, 정비례·반비례 그래프 해석이 모두 흔들릴 수 있습니다.",
+      "parent_message": "그래프 문제를 어려워하는 것처럼 보이지만, 먼저 좌표를 읽고 점을 찍는 기본 약속이 흔들리는 상태입니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C001",
+        "M1_CG_C002",
+        "M1_CG_C003"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_002",
+      "name": "부호 좌표와 사분면 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadrant",
+          "sign_coordinate",
+          "negative_coordinate",
+          "axis_point",
+          "zero_coordinate"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "좌표의 부호와 사분면, 좌표축 위의 점 조건이 불안정합니다. 음수 좌표 해석이 약하면 중2 일차함수 그래프에서도 위치 판단 오류가 반복됩니다.",
+      "parent_message": "현재 오류는 계산보다 위치와 부호 해석의 문제입니다. 좌표의 부호가 어느 사분면을 뜻하는지부터 다시 잡는 것이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C004",
+        "M1_CG_C006",
+        "M1_CG_C007"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_003",
+      "name": "대칭과 좌표 변환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "symmetry",
+          "sign_change",
+          "coordinate_transformation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "x축, y축, 원점 대칭에서 어느 좌표의 부호가 바뀌는지 구분이 약합니다. 이후 함수 그래프의 대칭과 위치 해석으로 연결됩니다.",
+      "parent_message": "대칭 문제는 공식을 외우기보다 좌표평면에서 실제로 어느 방향으로 뒤집히는지 확인해야 안정됩니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C003",
+        "M1_CG_C008"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_004",
+      "name": "그래프 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "graph_interpretation",
+          "context_graph",
+          "graph_reading",
+          "increase_decrease",
+          "graph_comparison"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "그래프의 모양, 증가·감소, 상황 대응, 여러 그래프 비교가 약합니다. 단순 계산보다 자료를 읽고 해석하는 능력 보강이 필요합니다.",
+      "parent_message": "그래프 문제는 식 계산이 아니라 자료 해석 문제로 접근해야 합니다. 축의 의미, 구간 변화, 그래프 모양을 말로 설명하는 연습이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C009",
+        "M1_CG_C010",
+        "M1_CG_C011",
+        "M1_CG_C012"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_005",
+      "name": "정비례 식과 그래프 취약",
+      "trigger": {
+        "error_tags_any": [
+          "direct_proportion",
+          "formula_y_ax",
+          "direct_graph",
+          "coefficient_a"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "정비례 관계식 y=ax와 그래프의 연결이 불안정합니다. a값을 구하거나 그래프 위의 점을 대입하는 과정에서 오류가 생기면 중2 일차함수로 넘어갈 때 약점이 커집니다.",
+      "parent_message": "정비례는 단순히 직선을 그리는 단원이 아니라 식과 그래프를 연결하는 첫 단계입니다. a값의 의미를 중심으로 다시 잡아야 합니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C013",
+        "M1_CG_C014",
+        "M1_CG_C015",
+        "M1_CG_C018"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_006",
+      "name": "반비례 식과 그래프 취약",
+      "trigger": {
+        "error_tags_any": [
+          "inverse_proportion",
+          "formula_y_a_over_x",
+          "inverse_graph",
+          "constant_a"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "반비례 관계식 y=a/x와 그래프의 연결이 약합니다. x와 y의 곱이 일정하다는 구조를 잡지 못하면 그래프 위의 점, a값, 활용 문제에서 반복 오류가 납니다.",
+      "parent_message": "반비례는 그래프 모양을 외우기보다 x와 y의 곱이 일정하다는 관계를 먼저 잡아야 합니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C020",
+        "M1_CG_C021",
+        "M1_CG_C022",
+        "M1_CG_C025"
+      ]
+    },
+    {
+      "rule_id": "M1_CG_RULE_007",
+      "name": "정비례·반비례 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "direct_application",
+          "inverse_application",
+          "mixed_proportion",
+          "table_to_expression",
+          "expression_to_graph",
+          "word_problem"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "표, 식, 그래프, 문장 상황을 서로 바꾸는 과정이 약합니다. 관계식을 세우는 단계가 흔들리면 활용 문제에서 답까지 도달하기 어렵습니다.",
+      "parent_message": "현재는 계산보다 문장 속 두 양의 관계를 정비례인지 반비례인지 판단하고, 표·식·그래프로 바꾸는 연습이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_CG_C027",
+        "M1_CG_C028"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,383 @@
+{
+  "version": "2026.07.05-m1-expression-v0.1",
+  "unit_id": "M1_EXPRESSION",
+  "edge_count": 47,
+  "edges": [
+    {
+      "from_concept_id": "M1_EX_C001",
+      "to_concept_id": "M1_EX_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "곱셈 기호 생략이 안정되어야 나눗셈을 분수꼴로 표준화할 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C001",
+      "to_concept_id": "M1_EX_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기호 생략 규칙이 문자식 표현의 기본 표기 규칙이 된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C003",
+      "to_concept_id": "M1_EX_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 수량 표현이 복합 수량 관계 표현으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C003",
+      "to_concept_id": "M1_EX_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "문자 의미를 이해해야 문장 속 수량을 식으로 나타낼 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C004",
+      "to_concept_id": "M1_EX_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "복합 수량 표현이 문장을 등식으로 바꾸는 과정으로 연결된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C005",
+      "to_concept_id": "M1_EX_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "단일 문자 대입이 여러 문자와 분수형 식의 값으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C006",
+      "to_concept_id": "M1_EX_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "식의 값 대입은 도형 공식 활용 계산으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C008",
+      "to_concept_id": "M1_EX_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "항과 계수 구분이 동류항 정리의 선행 개념이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C009",
+      "to_concept_id": "M1_EX_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "단항식 계산의 계수 처리가 일차식 계산 안정성으로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M1_EX_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "동류항 정리와 괄호 처리 모두 일차식 덧셈·뺄셈의 핵심이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M1_EX_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "분배법칙과 괄호 처리가 계수 조건 변형의 선행 개념이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M1_EX_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "일차식 정리력이 어떤 식 구하기의 역산 과정에 필요하다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M1_EX_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "괄호 처리와 부호 분배가 어떤 식 구하기에서 반복된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C014",
+      "to_concept_id": "M1_EX_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "문장을 식으로 나타내는 능력이 활용 문제의 방정식 세우기로 이어진다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C015",
+      "to_concept_id": "M1_EX_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "항등식과 방정식의 구분이 일차방정식 판별의 기준이 된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C016",
+      "to_concept_id": "M1_EX_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "일차방정식 판단이 되어야 풀이로 넘어갈 수 있다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M1_EX_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 일차방정식 풀이가 소수·분수 계수 방정식으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M1_EX_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "방정식을 푼 뒤 해 조건을 판단하려면 기본 풀이가 필요하다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C018",
+      "to_concept_id": "M1_EX_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "분수식·비례식 풀이가 해의 조건 판단으로 확장된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 어떤 수 문제에 적용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 도형 조건 활용으로 적용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 과부족 관계 설정으로 적용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 시계 각도 문제로 적용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 거리·속력·시간 문제로 적용된다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "M1_EX_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "기본 방정식 세우기가 종합 활용 문제의 출발점이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C030",
+      "to_concept_id": "M1_EX_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "문장 독해가 미지수 설정과 방정식 세우기의 선행 능력이다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C029",
+      "to_concept_id": "M1_EX_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "해 대입과 검산은 종합 활용 문제의 정확도를 높인다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C028",
+      "to_concept_id": "M1_EX_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "문자식 정리 안정성이 방정식 풀이에서 이항과 정리를 지탱한다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M1_EX_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "동류항 정리가 중2 식의 계산으로 이어지는 핵심 기초다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M1_EX_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "분배법칙과 괄호 처리가 중2 식의 계산으로 이어지는 핵심 기초다.",
+      "scope": "intra_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C004",
+      "to_concept_id": "M1_EX_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "정수의 부호와 곱셈 규칙이 문자와 수의 곱 표기에 영향을 준다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "M1_EX_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "유리수 나눗셈과 분수 표현이 문자식의 나눗셈 기호 생략으로 연결된다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C020",
+      "to_concept_id": "M1_EX_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "유리수 계산 순서가 식의 값 대입 계산의 선행 안정성이다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M1_EX_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "괄호와 부호가 포함된 혼합계산은 문자식 괄호 처리의 선행이다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_IR_C023",
+      "to_concept_id": "M1_EX_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "정수·유리수의 덧셈·뺄셈 부호 처리가 이항과 방정식 풀이에 직접 연결된다.",
+      "scope": "cross_unit"
+    },
+    {
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M2_EXP_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "동류항 정리는 중2 다항식 계산의 직접 선행 개념이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M2_EXP_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.85,
+      "reason": "분배법칙과 괄호 처리는 중2 식의 계산에서 반복된다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M2_EQ_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "일차방정식 풀이와 이항은 중2 연립방정식 풀이의 기초다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C018",
+      "to_concept_id": "M2_EQ_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "분수·소수 계수 처리는 연립방정식의 계수 정리로 이어진다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M2_INEQ_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.78,
+      "reason": "방정식 풀이의 양변 처리와 부호 처리는 일차부등식 풀이의 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C014",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "문자식이 수량 관계를 나타낸다는 이해가 일차함수 식 해석으로 이어진다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C028",
+      "to_concept_id": "M3_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.82,
+      "reason": "문자식 정리 안정성은 중3 다항식 전개와 인수분해의 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M3_QUAD_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "방정식 변형 감각은 중3 이차방정식 풀이로 이어진다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C015",
+      "to_concept_id": "H1_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.72,
+      "reason": "항등식 판단은 고1 다항식 항등식과 계수 비교의 선행이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C028",
+      "to_concept_id": "H1_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "문자식 정리와 괄호 처리는 고1 다항식 연산의 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "H1_EQ_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "일차방정식 풀이 안정성은 고1 방정식·부등식 변형의 기반이다.",
+      "scope": "cross_grade"
+    },
+    {
+      "from_concept_id": "M1_EX_C020",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.58,
+      "reason": "문장 속 수량 관계를 식으로 세우는 능력은 함수식 해석으로 확장된다.",
+      "scope": "cross_grade"
+    }
+  ]
+}

@@ -1,0 +1,1142 @@
+{
+  "version": "2026.07.05-m1-plane-geometry-problem-types-v0.1",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_name": "평면도형의 성질",
+  "raw_taxonomy": "data/raw_taxonomy/m1_plane_geometry.raw_taxonomy.v1.json",
+  "problem_type_count": 54,
+  "problem_types": [
+    {
+      "problem_type_id": "M1_PG_PT001",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형 찾기",
+      "description": "다각형 찾기",
+      "concept_ids": [
+        "M1_PG_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "polygon_identification",
+        "geometry_vocabulary"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT002",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 변·꼭짓점·각의 개수 구하기",
+      "description": "다각형의 변·꼭짓점·각의 개수 구하기",
+      "concept_ids": [
+        "M1_PG_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "polygon_elements",
+        "counting"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT003",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 내각과 외각 설명 판단",
+      "description": "다각형의 내각과 외각 설명 판단",
+      "concept_ids": [
+        "M1_PG_C002"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "interior_exterior_angle",
+        "concept_judgement"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT004",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "한 내각과 외각의 크기 구하기",
+      "description": "한 내각과 외각의 크기 구하기",
+      "concept_ids": [
+        "M1_PG_C002"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "interior_exterior_angle",
+        "angle_180"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT005",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "내각·외각 조건에서 미지수 구하기",
+      "description": "내각·외각 조건에서 미지수 구하기",
+      "concept_ids": [
+        "M1_PG_C002",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_equation",
+        "unknown_angle"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT006",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형 판별하기",
+      "description": "정다각형 판별하기",
+      "concept_ids": [
+        "M1_PG_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "regular_polygon",
+        "definition"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT007",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형의 성질 판단",
+      "description": "정다각형의 성질 판단",
+      "concept_ids": [
+        "M1_PG_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "regular_polygon",
+        "property_judgement"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT008",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형 성질 활용하기",
+      "description": "정다각형 성질 활용하기",
+      "concept_ids": [
+        "M1_PG_C003"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "regular_polygon",
+        "application"
+      ],
+      "source_orders": [
+        1
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT009",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형의 한 내각 구하기",
+      "description": "삼각형의 한 내각 구하기",
+      "concept_ids": [
+        "M1_PG_C004"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "triangle_angle_sum",
+        "angle_calculation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT010",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형의 두 내각 조건으로 각 구하기",
+      "description": "삼각형의 두 내각 조건으로 각 구하기",
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_angle_sum",
+        "angle_equation"
+      ],
+      "source_orders": [
+        2
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT011",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형의 세 내각 조건 해석하기",
+      "description": "삼각형의 세 내각 조건 해석하기",
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_angles",
+        "condition_reasoning"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT012",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형의 외각의 성질로 각 구하기",
+      "description": "삼각형의 외각의 성질로 각 구하기",
+      "concept_ids": [
+        "M1_PG_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_exterior_angle",
+        "angle_relation"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT013",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형 내각·외각 관계에서 미지수 구하기",
+      "description": "삼각형 내각·외각 관계에서 미지수 구하기",
+      "concept_ids": [
+        "M1_PG_C005",
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_exterior_angle",
+        "angle_equation",
+        "unknown_angle"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT014",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형 각 조건의 옳고 그름 판단",
+      "description": "삼각형 각 조건의 옳고 그름 판단",
+      "concept_ids": [
+        "M1_PG_C004",
+        "M1_PG_C005"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "angle_property_judgement",
+        "triangle_angles"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT015",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "한 꼭짓점에서 그을 수 있는 대각선 개수 구하기",
+      "description": "한 꼭짓점에서 그을 수 있는 대각선 개수 구하기",
+      "concept_ids": [
+        "M1_PG_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "diagonal",
+        "n_minus_3"
+      ],
+      "source_orders": [
+        3
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT016",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 대각선 총수 구하기",
+      "description": "다각형의 대각선 총수 구하기",
+      "concept_ids": [
+        "M1_PG_C008"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "diagonal_total",
+        "formula"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT017",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "대각선 개수 조건으로 다각형 찾기",
+      "description": "대각선 개수 조건으로 다각형 찾기",
+      "concept_ids": [
+        "M1_PG_C008",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "diagonal_total",
+        "reverse_reasoning",
+        "quadratic_like"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT018",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 내각의 합 구하기",
+      "description": "다각형의 내각의 합 구하기",
+      "concept_ids": [
+        "M1_PG_C009"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polygon_interior_sum",
+        "formula"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT019",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "내각의 합 조건으로 n각형 구하기",
+      "description": "내각의 합 조건으로 n각형 구하기",
+      "concept_ids": [
+        "M1_PG_C009",
+        "M1_PG_C010"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polygon_interior_sum",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT020",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 특정 내각 크기 구하기",
+      "description": "다각형의 특정 내각 크기 구하기",
+      "concept_ids": [
+        "M1_PG_C010"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polygon_interior_angle",
+        "angle_calculation"
+      ],
+      "source_orders": [
+        4
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT021",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형의 외각의 합 활용하기",
+      "description": "다각형의 외각의 합 활용하기",
+      "concept_ids": [
+        "M1_PG_C011"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polygon_exterior_sum",
+        "360"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT022",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "외각 조건으로 미지수 또는 다각형 구하기",
+      "description": "외각 조건으로 미지수 또는 다각형 구하기",
+      "concept_ids": [
+        "M1_PG_C011",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polygon_exterior_sum",
+        "angle_equation"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT023",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형의 한 외각 구하기",
+      "description": "정다각형의 한 외각 구하기",
+      "concept_ids": [
+        "M1_PG_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "regular_polygon",
+        "exterior_angle"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT024",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형의 한 내각 구하기",
+      "description": "정다각형의 한 내각 구하기",
+      "concept_ids": [
+        "M1_PG_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "regular_polygon",
+        "interior_angle"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT025",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "한 내각·한 외각 조건으로 정다각형 찾기",
+      "description": "한 내각·한 외각 조건으로 정다각형 찾기",
+      "concept_ids": [
+        "M1_PG_C012",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "regular_polygon",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT026",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "정다각형을 빈틈없이 붙이기",
+      "description": "정다각형을 빈틈없이 붙이기",
+      "concept_ids": [
+        "M1_PG_C013"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "regular_polygon_tiling",
+        "360_around_point"
+      ],
+      "source_orders": [
+        6
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT027",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "작도 가능 조건 판단하기",
+      "description": "작도 가능 조건 판단하기",
+      "concept_ids": [
+        "M1_PG_C014"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "construction",
+        "condition_judgement"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT028",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "세 변이 주어진 삼각형 작도하기",
+      "description": "세 변이 주어진 삼각형 작도하기",
+      "concept_ids": [
+        "M1_PG_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "construction",
+        "SSS"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT029",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "세 변 조건에서 삼각형 작도 가능성 판단하기",
+      "description": "세 변 조건에서 삼각형 작도 가능성 판단하기",
+      "concept_ids": [
+        "M1_PG_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_inequality",
+        "SSS",
+        "construction"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT030",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "두 변과 끼인각으로 삼각형 작도하기",
+      "description": "두 변과 끼인각으로 삼각형 작도하기",
+      "concept_ids": [
+        "M1_PG_C016"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "construction",
+        "SAS",
+        "included_angle"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT031",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "한 변과 양 끝각으로 삼각형 작도하기",
+      "description": "한 변과 양 끝각으로 삼각형 작도하기",
+      "concept_ids": [
+        "M1_PG_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "construction",
+        "ASA"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT032",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형이 하나로 결정되는 조건 고르기",
+      "description": "삼각형이 하나로 결정되는 조건 고르기",
+      "concept_ids": [
+        "M1_PG_C018"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_determination",
+        "uniqueness"
+      ],
+      "source_orders": [
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT033",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형이 하나로 결정되지 않는 조건 찾기",
+      "description": "삼각형이 하나로 결정되지 않는 조건 찾기",
+      "concept_ids": [
+        "M1_PG_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "triangle_determination",
+        "insufficient_condition"
+      ],
+      "source_orders": [
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT034",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "삼각형 합동조건 판별하기",
+      "description": "삼각형 합동조건 판별하기",
+      "concept_ids": [
+        "M1_PG_C019"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "triangle_congruence",
+        "SSS_SAS_ASA"
+      ],
+      "source_orders": [
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT035",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "대응변·대응각 찾기",
+      "description": "대응변·대응각 찾기",
+      "concept_ids": [
+        "M1_PG_C019",
+        "M1_PG_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "corresponding_parts",
+        "congruence"
+      ],
+      "source_orders": [
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT036",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "합동조건을 이용하여 미지수 구하기",
+      "description": "합동조건을 이용하여 미지수 구하기",
+      "concept_ids": [
+        "M1_PG_C020",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "congruence_application",
+        "unknown_length_angle"
+      ],
+      "source_orders": [
+        8
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT037",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "원의 둘레 구하기",
+      "description": "원의 둘레 구하기",
+      "concept_ids": [
+        "M1_PG_C021"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "circle_circumference",
+        "formula"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT038",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "원의 넓이 구하기",
+      "description": "원의 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "circle_area",
+        "formula"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT039",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "원의 둘레 또는 넓이로 반지름 구하기",
+      "description": "원의 둘레 또는 넓이로 반지름 구하기",
+      "concept_ids": [
+        "M1_PG_C021",
+        "M1_PG_C022",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "circle_formula_reverse",
+        "radius"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT040",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "중심각 비율 구하기",
+      "description": "중심각 비율 구하기",
+      "concept_ids": [
+        "M1_PG_C023"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "sector_ratio",
+        "central_angle"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT041",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "부채꼴의 호의 길이 구하기",
+      "description": "부채꼴의 호의 길이 구하기",
+      "concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "sector_arc_length",
+        "formula"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT042",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "호의 길이 조건으로 중심각 또는 반지름 구하기",
+      "description": "호의 길이 조건으로 중심각 또는 반지름 구하기",
+      "concept_ids": [
+        "M1_PG_C024",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sector_arc_length",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT043",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "부채꼴의 넓이 구하기",
+      "description": "부채꼴의 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C023",
+        "M1_PG_C025"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "sector_area",
+        "formula"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT044",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "부채꼴 넓이 조건으로 중심각 또는 반지름 구하기",
+      "description": "부채꼴 넓이 조건으로 중심각 또는 반지름 구하기",
+      "concept_ids": [
+        "M1_PG_C025",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sector_area",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT045",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "호의 길이를 이용하여 부채꼴의 넓이 구하기",
+      "description": "호의 길이를 이용하여 부채꼴의 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C026"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "sector_arc_area_relation"
+      ],
+      "source_orders": [
+        9
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT046",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "원과 부채꼴이 결합된 둘레 구하기",
+      "description": "원과 부채꼴이 결합된 둘레 구하기",
+      "concept_ids": [
+        "M1_PG_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_perimeter",
+        "arc_length"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT047",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "다각형과 원호가 결합된 둘레 구하기",
+      "description": "다각형과 원호가 결합된 둘레 구하기",
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_perimeter",
+        "geometry_decomposition"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT048",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "색칠한 부분의 둘레에서 포함되는 경계 판단하기",
+      "description": "색칠한 부분의 둘레에서 포함되는 경계 판단하기",
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_perimeter",
+        "boundary_selection"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT049",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "부채꼴이 포함된 색칠한 부분의 넓이 구하기",
+      "description": "부채꼴이 포함된 색칠한 부분의 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C025",
+        "M1_PG_C028"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_area",
+        "sector_area"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT050",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "원과 다각형의 차로 색칠한 부분의 넓이 구하기",
+      "description": "원과 다각형의 차로 색칠한 부분의 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C022",
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_area",
+        "subtract_parts"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT051",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "동심원 또는 반원·사분원을 이용한 넓이 구하기",
+      "description": "동심원 또는 반원·사분원을 이용한 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "composite_area",
+        "circle_parts"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT052",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "복합도형을 나누어 넓이 구하기",
+      "description": "복합도형을 나누어 넓이 구하기",
+      "concept_ids": [
+        "M1_PG_C028",
+        "M1_PG_C029"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_decomposition",
+        "area"
+      ],
+      "source_orders": [
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT053",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "각도 조건을 식으로 세워 해결하기",
+      "description": "각도 조건을 식으로 세워 해결하기",
+      "concept_ids": [
+        "M1_PG_C006",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_equation",
+        "angle_equation"
+      ],
+      "source_orders": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M1_PG_PT054",
+      "grade": "중1",
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "unit_name": "평면도형의 성질",
+      "type_name": "길이·넓이 조건을 식으로 세워 해결하기",
+      "description": "길이·넓이 조건을 식으로 세워 해결하기",
+      "concept_ids": [
+        "M1_PG_C027",
+        "M1_PG_C028",
+        "M1_PG_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_equation",
+        "length_area_equation"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

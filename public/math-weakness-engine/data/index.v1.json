@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.03-m1-int-rational-v0.1",
+  "version": "2026.07.05-m1-full-middle1-geometry-v0.5",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -11,6 +11,54 @@
       "diagnosis_rules": "data/rules/m1_int_rational.diagnosis_rules.v1.json",
       "remediation": "data/remediation/m1_int_rational.remediation_map.v1.json",
       "sources": "data/sources/m1_int_rational.source_manifest.v1.json"
+    },
+    {
+      "unit_id": "M1_EXPRESSION",
+      "grade": "중1",
+      "unit_name": "문자와 식",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_expression.problem_types.v1.json",
+      "edges": "data/relations/m1_expression.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_expression.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_expression.remediation_map.v1.json",
+      "sources": "data/sources/m1_expression.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_expression.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M1_COORD_GRAPH",
+      "grade": "중1",
+      "unit_name": "좌표평면과 그래프",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_coordinate_graph.problem_types.v1.json",
+      "edges": "data/relations/m1_coordinate_graph.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_coordinate_graph.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_coordinate_graph.remediation_map.v1.json",
+      "sources": "data/sources/m1_coordinate_graph.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_coordinate_graph.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M1_BASIC_GEOMETRY",
+      "grade": "중1",
+      "unit_name": "기본 도형과 작도",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_basic_geometry.problem_types.v1.json",
+      "edges": "data/relations/m1_basic_geometry.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_basic_geometry.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_basic_geometry.remediation_map.v1.json",
+      "sources": "data/sources/m1_basic_geometry.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_basic_geometry.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M1_PLANE_GEOMETRY",
+      "grade": "중1",
+      "unit_name": "평면도형의 성질",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_plane_geometry.problem_types.v1.json",
+      "edges": "data/relations/m1_plane_geometry.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_plane_geometry.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_plane_geometry.remediation_map.v1.json",
+      "sources": "data/sources/m1_plane_geometry.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_plane_geometry.raw_taxonomy.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -18,14 +66,14 @@
       "concept_id": "M2_EXP_C001",
       "grade": "중2",
       "unit_name": "식의 계산",
-      "concept_name": "동류항 정리와 부호 처리",
+      "concept_name": "다항식의 계산과 동류항 정리",
       "status": "future_target_seed"
     },
     {
       "concept_id": "M2_EQ_C001",
       "grade": "중2",
-      "unit_name": "일차방정식·연립방정식",
-      "concept_name": "이항과 음수 계산",
+      "unit_name": "연립방정식",
+      "concept_name": "문자식 정리와 연립방정식 풀이",
       "status": "future_target_seed"
     },
     {
@@ -68,6 +116,139 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "그래프 해석과 수의 범위 판단",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_INEQ_C002",
+      "grade": "중2",
+      "unit_name": "일차부등식",
+      "concept_name": "일차식 변형과 부등식 풀이",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C002",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차식과 그래프 식의 의미 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_POLY_C001",
+      "grade": "중3",
+      "unit_name": "다항식의 곱셈과 인수분해",
+      "concept_name": "다항식 전개와 구조 인식",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_QUAD_C002",
+      "grade": "중3",
+      "unit_name": "이차방정식",
+      "concept_name": "방정식 변형과 식 정리",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_POLY_C001",
+      "grade": "고1",
+      "unit_name": "다항식",
+      "concept_name": "다항식 연산과 항등식",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EQ_C002",
+      "grade": "고1",
+      "unit_name": "방정식과 부등식",
+      "concept_name": "방정식·부등식의 식 변형과 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_FUNC_C002",
+      "grade": "고1",
+      "unit_name": "함수",
+      "concept_name": "함수식 해석과 그래프 연결",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C003",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차함수의 그래프와 기울기·절편 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C004",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concept_name": "일차함수 활용에서 표·식·그래프 변환",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_FUNC_C002",
+      "grade": "중3",
+      "unit_name": "이차함수",
+      "concept_name": "이차함수 그래프의 좌표·대칭·변화 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C001",
+      "grade": "중2",
+      "unit_name": "삼각형의 성질",
+      "concept_name": "삼각형의 외심·내심과 각 관계",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C002",
+      "grade": "중2",
+      "unit_name": "사각형의 성질",
+      "concept_name": "평행사변형과 여러 사각형의 각·변 성질",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C003",
+      "grade": "중2",
+      "unit_name": "도형의 닮음",
+      "concept_name": "도형의 닮음과 길이비·넓이비",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_GEOM_C001",
+      "grade": "중3",
+      "unit_name": "원의 성질",
+      "concept_name": "원주각, 중심각, 접선과 현의 성질",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_TRIG_C001",
+      "grade": "중3",
+      "unit_name": "삼각비",
+      "concept_name": "직각삼각형의 길이비와 도형 계산",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_GEOM_C001",
+      "grade": "고1",
+      "unit_name": "도형의 방정식",
+      "concept_name": "좌표평면에서 거리·넓이·도형 조건 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C004",
+      "grade": "중2",
+      "unit_name": "도형의 성질",
+      "concept_name": "평행선과 삼각형·사각형의 각 추론",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_GEOM_C005",
+      "grade": "중2",
+      "unit_name": "도형의 성질",
+      "concept_name": "합동과 증명을 이용한 도형 성질 추론",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_GEOM_C002",
+      "grade": "중3",
+      "unit_name": "입체도형과 공간감각",
+      "concept_name": "공간도형의 위치 관계와 단면·전개도 해석",
       "status": "future_target_seed"
     }
   ]

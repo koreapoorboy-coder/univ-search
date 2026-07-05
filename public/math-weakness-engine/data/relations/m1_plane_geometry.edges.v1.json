@@ -1,0 +1,568 @@
+{
+  "version": "2026.07.05-m1-plane-geometry-edges-v0.1",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_name": "평면도형의 성질",
+  "edge_count": 56,
+  "edges": [
+    {
+      "edge_id": "M1_PG_E001",
+      "from_concept_id": "M1_PG_C001",
+      "to_concept_id": "M1_PG_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "다각형의 구성 요소를 알아야 내각과 외각의 위치를 판단할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E002",
+      "from_concept_id": "M1_PG_C002",
+      "to_concept_id": "M1_PG_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "내각 개념이 삼각형 내각의 합 활용의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E003",
+      "from_concept_id": "M1_PG_C004",
+      "to_concept_id": "M1_PG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "삼각형 내각의 합 이해가 외각의 성질 활용으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E004",
+      "from_concept_id": "M1_PG_C004",
+      "to_concept_id": "M1_PG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "삼각형 각의 합을 식으로 세우는 미지수 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E005",
+      "from_concept_id": "M1_PG_C005",
+      "to_concept_id": "M1_PG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "외각의 성질을 식으로 표현해야 복합 각 문제를 해결할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E006",
+      "from_concept_id": "M1_EX_C006",
+      "to_concept_id": "M1_PG_C006",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.65,
+      "reason": "일차식과 방정식 처리 약점은 도형 각도 미지수 문제로 전이된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E007",
+      "from_concept_id": "M1_IR_C004",
+      "to_concept_id": "M1_PG_C006",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.45,
+      "reason": "정수·유리수 계산 약점은 각도 계산과 미지수 계산 오류로 이어질 수 있다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E008",
+      "from_concept_id": "M1_PG_C001",
+      "to_concept_id": "M1_PG_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "다각형의 꼭짓점과 이웃한 꼭짓점 개념이 대각선 개수의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E009",
+      "from_concept_id": "M1_PG_C007",
+      "to_concept_id": "M1_PG_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.85,
+      "reason": "한 꼭짓점에서의 대각선 수가 전체 대각선 수 공식으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E010",
+      "from_concept_id": "M1_PG_C008",
+      "to_concept_id": "M1_PG_C030",
+      "relation_type": "application",
+      "weight": 0.5,
+      "reason": "대각선 총수 조건은 식을 세워 다각형을 역추적하는 문제로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E011",
+      "from_concept_id": "M1_PG_C001",
+      "to_concept_id": "M1_PG_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "다각형의 변과 꼭짓점 수를 알아야 n각형 내각의 합을 적용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E012",
+      "from_concept_id": "M1_PG_C009",
+      "to_concept_id": "M1_PG_C010",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "내각의 합 공식을 조건 해석과 역산에 적용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E013",
+      "from_concept_id": "M1_PG_C002",
+      "to_concept_id": "M1_PG_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.55,
+      "reason": "외각의 의미를 알아야 외각의 합 360도를 활용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E014",
+      "from_concept_id": "M1_PG_C011",
+      "to_concept_id": "M1_PG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "외각의 합 360도를 정다각형의 한 외각 계산으로 확장한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E015",
+      "from_concept_id": "M1_PG_C003",
+      "to_concept_id": "M1_PG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "정다각형의 성질이 한 내각과 한 외각 계산의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E016",
+      "from_concept_id": "M1_PG_C012",
+      "to_concept_id": "M1_PG_C013",
+      "relation_type": "application",
+      "weight": 0.75,
+      "reason": "정다각형의 한 내각 계산이 빈틈없이 붙이기 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E017",
+      "from_concept_id": "M1_PG_C014",
+      "to_concept_id": "M1_PG_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.5,
+      "reason": "작도 기초가 SSS 작도 조건 판단의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E018",
+      "from_concept_id": "M1_PG_C014",
+      "to_concept_id": "M1_PG_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.5,
+      "reason": "작도 기초가 SAS 작도 조건 판단의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E019",
+      "from_concept_id": "M1_PG_C014",
+      "to_concept_id": "M1_PG_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.5,
+      "reason": "작도 기초가 ASA 작도 조건 판단의 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E020",
+      "from_concept_id": "M1_PG_C015",
+      "to_concept_id": "M1_PG_C018",
+      "relation_type": "same_structure",
+      "weight": 0.7,
+      "reason": "SSS 작도 조건은 삼각형이 하나로 결정되는 조건과 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E021",
+      "from_concept_id": "M1_PG_C016",
+      "to_concept_id": "M1_PG_C018",
+      "relation_type": "same_structure",
+      "weight": 0.7,
+      "reason": "SAS 작도 조건은 삼각형 결정조건과 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E022",
+      "from_concept_id": "M1_PG_C017",
+      "to_concept_id": "M1_PG_C018",
+      "relation_type": "same_structure",
+      "weight": 0.7,
+      "reason": "ASA 작도 조건은 삼각형 결정조건과 연결된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E023",
+      "from_concept_id": "M1_PG_C015",
+      "to_concept_id": "M1_PG_C019",
+      "relation_type": "same_structure",
+      "weight": 0.8,
+      "reason": "SSS 작도 조건은 SSS 합동조건으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E024",
+      "from_concept_id": "M1_PG_C016",
+      "to_concept_id": "M1_PG_C019",
+      "relation_type": "same_structure",
+      "weight": 0.8,
+      "reason": "SAS 작도 조건은 SAS 합동조건으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E025",
+      "from_concept_id": "M1_PG_C017",
+      "to_concept_id": "M1_PG_C019",
+      "relation_type": "same_structure",
+      "weight": 0.8,
+      "reason": "ASA 작도 조건은 ASA 합동조건으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E026",
+      "from_concept_id": "M1_PG_C019",
+      "to_concept_id": "M1_PG_C020",
+      "relation_type": "application",
+      "weight": 0.75,
+      "reason": "합동조건 판별 뒤 대응변과 대응각을 활용하는 문제로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E027",
+      "from_concept_id": "M1_PG_C021",
+      "to_concept_id": "M1_PG_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "원의 둘레 개념이 중심각 비율을 적용한 호의 길이로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E028",
+      "from_concept_id": "M1_PG_C022",
+      "to_concept_id": "M1_PG_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "원의 넓이 개념이 중심각 비율을 적용한 부채꼴 넓이로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E029",
+      "from_concept_id": "M1_PG_C023",
+      "to_concept_id": "M1_PG_C024",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "중심각 비율을 원의 둘레에 적용하면 호의 길이가 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E030",
+      "from_concept_id": "M1_PG_C023",
+      "to_concept_id": "M1_PG_C025",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "중심각 비율을 원의 넓이에 적용하면 부채꼴의 넓이가 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E031",
+      "from_concept_id": "M1_PG_C024",
+      "to_concept_id": "M1_PG_C026",
+      "relation_type": "extension",
+      "weight": 0.65,
+      "reason": "호의 길이와 반지름 관계는 부채꼴 넓이의 다른 표현으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E032",
+      "from_concept_id": "M1_PG_C025",
+      "to_concept_id": "M1_PG_C026",
+      "relation_type": "extension",
+      "weight": 0.65,
+      "reason": "부채꼴 넓이 공식 이해가 호의 길이를 이용한 넓이 계산으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E033",
+      "from_concept_id": "M1_PG_C021",
+      "to_concept_id": "M1_PG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "원호를 포함한 둘레 문제는 원의 둘레와 호의 길이 계산이 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E034",
+      "from_concept_id": "M1_PG_C024",
+      "to_concept_id": "M1_PG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "색칠한 부분의 둘레에는 호의 길이를 경계로 포함하는 판단이 필요하다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E035",
+      "from_concept_id": "M1_PG_C022",
+      "to_concept_id": "M1_PG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "복합 넓이 문제는 원의 넓이 공식이 전제이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E036",
+      "from_concept_id": "M1_PG_C025",
+      "to_concept_id": "M1_PG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "부채꼴 넓이가 색칠한 부분 넓이 문제의 핵심 구성 요소가 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E037",
+      "from_concept_id": "M1_PG_C027",
+      "to_concept_id": "M1_PG_C029",
+      "relation_type": "application",
+      "weight": 0.7,
+      "reason": "복합 둘레 문제는 도형의 경계를 분해·합성하는 능력을 요구한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E038",
+      "from_concept_id": "M1_PG_C028",
+      "to_concept_id": "M1_PG_C029",
+      "relation_type": "application",
+      "weight": 0.8,
+      "reason": "복합 넓이 문제는 전체-부분 또는 분해-합성 구조를 세워야 한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E039",
+      "from_concept_id": "M1_PG_C030",
+      "to_concept_id": "M1_PG_C010",
+      "relation_type": "weak_signal",
+      "weight": 0.45,
+      "reason": "도형 조건을 식으로 세우지 못하면 내각 조건 역산 문제에서 오류가 반복된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E040",
+      "from_concept_id": "M1_PG_C030",
+      "to_concept_id": "M1_PG_C028",
+      "relation_type": "weak_signal",
+      "weight": 0.45,
+      "reason": "길이·넓이 조건의 문자식화가 약하면 복합도형 넓이 조건 문제에서 오류가 난다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E041",
+      "from_concept_id": "M1_CG_C005",
+      "to_concept_id": "M1_PG_C028",
+      "relation_type": "cross_unit_prerequisite",
+      "weight": 0.35,
+      "reason": "좌표평면에서 도형의 넓이 경험은 복합도형 넓이 분해에도 보조적으로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E042",
+      "from_concept_id": "M1_PG_C004",
+      "to_concept_id": "M2_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.75,
+      "reason": "삼각형 내각과 외각 성질은 중2 삼각형의 외심·내심 각 관계의 기초이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E043",
+      "from_concept_id": "M1_PG_C005",
+      "to_concept_id": "M2_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.8,
+      "reason": "삼각형 외각 성질은 중2 삼각형 각 추론의 핵심 선행이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E044",
+      "from_concept_id": "M1_PG_C019",
+      "to_concept_id": "M2_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "삼각형 합동조건은 중2 삼각형 성질 증명과 각·변 추론으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E045",
+      "from_concept_id": "M1_PG_C019",
+      "to_concept_id": "M2_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "삼각형 합동과 대응 관계는 사각형 성질 증명과 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E046",
+      "from_concept_id": "M1_PG_C009",
+      "to_concept_id": "M2_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "다각형 내각의 합과 각 조건 해석은 사각형 성질 문제의 선행이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E047",
+      "from_concept_id": "M1_PG_C020",
+      "to_concept_id": "M2_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "합동 활용 약점은 중2 사각형의 변·각 성질 추론에서 재발한다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E048",
+      "from_concept_id": "M1_PG_C027",
+      "to_concept_id": "M2_GEOM_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "복합도형 둘레·길이 분해는 닮음에서 길이비 적용으로 확장된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E049",
+      "from_concept_id": "M1_PG_C028",
+      "to_concept_id": "M2_GEOM_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "복합도형 넓이 분해는 닮음의 넓이비와 도형 분해에 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E050",
+      "from_concept_id": "M1_PG_C021",
+      "to_concept_id": "M3_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "원의 둘레와 원호 개념은 중3 원주각·중심각 문제의 기초 감각이 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E051",
+      "from_concept_id": "M1_PG_C023",
+      "to_concept_id": "M3_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "중심각 비율은 중3 원의 성질에서 중심각과 원주각 관계 해석의 선행이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E052",
+      "from_concept_id": "M1_PG_C024",
+      "to_concept_id": "M3_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "호의 길이와 중심각 관계는 원의 성질에서 호·현·각 관계로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E053",
+      "from_concept_id": "M1_PG_C028",
+      "to_concept_id": "M3_TRIG_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.45,
+      "reason": "도형 넓이와 분해 능력은 삼각비 활용 도형 계산에 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E054",
+      "from_concept_id": "M1_PG_C029",
+      "to_concept_id": "M3_TRIG_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "복합도형 분해 능력은 중3 삼각비의 도형 응용에서 필요하다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E055",
+      "from_concept_id": "M1_CG_C003",
+      "to_concept_id": "H1_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.45,
+      "reason": "좌표평면의 점 해석은 고1 도형의 방정식의 기본 좌표 감각으로 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_PG_E056",
+      "from_concept_id": "M1_PG_C028",
+      "to_concept_id": "H1_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.35,
+      "reason": "도형의 넓이 분해 사고는 고1 좌표도형에서 조건 해석 보조 요소가 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    }
+  ]
+}
