@@ -1,0 +1,212 @@
+{
+  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
+  "unit_id": "M3_REAL_NUMBER_CALC",
+  "unit_name": "실수와 그 계산",
+  "rule_count": 11,
+  "rules": [
+    {
+      "rule_id": "M3_REAL_RULE_001",
+      "name": "제곱근 뜻·표현 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sqrt_definition_property"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱근의 의미, ±표시, 근호 제거 조건이 흔들립니다.",
+      "parent_message": "제곱해서 원래 수가 되는지와 부호 조건을 먼저 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C001",
+        "M3_REAL_C002",
+        "M3_REAL_C003",
+        "M3_REAL_C007"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_002",
+      "name": "완전제곱수·자연수 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "condition_inequality"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "근호가 자연수 또는 정수가 되는 조건, 제곱근 부등식의 범위 판단이 약합니다.",
+      "parent_message": "근호 안이 완전제곱수가 되는 조건과 가능한 값의 범위를 표로 정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C008",
+        "M3_REAL_C010",
+        "M3_REAL_C025"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_003",
+      "name": "유리수·무리수·실수 분류 취약",
+      "trigger": {
+        "error_tags_any": [
+          "real_number_classification"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "수 체계 분류와 유리수/무리수 판별에서 오류가 납니다.",
+      "parent_message": "순환소수 여부와 근호 안 완전제곱수 여부를 기준으로 판별해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C012",
+        "M3_REAL_C013"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_004",
+      "name": "대소 관계·수직선 취약",
+      "trigger": {
+        "error_tags_any": [
+          "order_relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱근의 크기 비교와 수직선 대응점 해석이 불안정합니다.",
+      "parent_message": "수직선 위치, 근삿값, 제곱근 대소 비교를 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C009",
+        "M3_REAL_C014",
+        "M3_REAL_C015"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_005",
+      "name": "제곱근표·근삿값 취약",
+      "trigger": {
+        "error_tags_any": [
+          "sqrt_table_estimation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱근표 읽기와 소수점 이동, 제곱근표에 없는 값 변형이 약합니다.",
+      "parent_message": "기준 제곱근 값을 찾고 소수점 이동 규칙을 별도로 검산해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C011"
+      ],
+      "severity": "low"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_006",
+      "name": "근호식 곱셈·나눗셈 취약",
+      "trigger": {
+        "error_tags_any": [
+          "radical_multiply_divide"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "제곱근의 곱셈, 나눗셈, 근호 안팎 변형에서 오류가 있습니다.",
+      "parent_message": "근호 안 곱셈과 완전제곱 인수 분리를 단계별로 써야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C016",
+        "M3_REAL_C017",
+        "M3_REAL_C018",
+        "M3_REAL_C020"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_007",
+      "name": "분모 유리화 취약",
+      "trigger": {
+        "error_tags_any": [
+          "rationalization"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "분모 유리화 과정에서 곱해야 할 식을 잘못 선택하거나 정리를 빠뜨립니다.",
+      "parent_message": "분모의 근호 구조를 확인하고 분자와 분모에 같은 식을 곱해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C019"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_008",
+      "name": "근호식 덧셈·뺄셈 취약",
+      "trigger": {
+        "error_tags_any": [
+          "radical_add_subtract"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "근호 안이 다른 항을 더하거나 동류 근호 정리를 누락합니다.",
+      "parent_message": "근호 안을 먼저 간단히 한 뒤 같은 근호끼리만 더해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C022",
+        "M3_REAL_C023",
+        "M3_REAL_C024"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_009",
+      "name": "정수부분·소수부분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integer_decimal_part"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "무리수의 정수부분과 소수부분을 나누어 표현하는 과정이 약합니다.",
+      "parent_message": "무리수를 두 정수 사이에 끼워 넣고 소수부분을 원래 수-정수부분으로 표현해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_010",
+      "name": "도형·활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "geometry_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도형의 길이, 넓이, 부피, 수직선 상황을 근호식으로 바꾸는 데 어려움이 있습니다.",
+      "parent_message": "먼저 도형 공식을 세운 뒤 근호식을 계산해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C004",
+        "M3_REAL_C014",
+        "M3_REAL_C021",
+        "M3_REAL_C028"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M3_REAL_RULE_011",
+      "name": "문자식·새로운 기호 취약",
+      "trigger": {
+        "error_tags_any": [
+          "symbol_expression"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "문자로 표현된 제곱근, 관계식, 새로운 기호 정의를 식 계산으로 옮기는 과정이 약합니다.",
+      "parent_message": "기호 정의를 일반 식으로 바꾼 뒤 근호식을 정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M3_REAL_C024",
+        "M3_REAL_C027"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

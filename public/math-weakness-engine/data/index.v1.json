@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.06-h2-exp-log-v0.9",
+  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -97,6 +97,20 @@
       "raw_taxonomy": "data/raw_taxonomy/m2_number_expression.raw_taxonomy.v1.json"
     },
     {
+      "unit_id": "M2_LINEAR_INEQUALITY",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "일차부등식",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_linear_inequality.problem_types.v1.json",
+      "edges": "data/relations/m2_linear_inequality.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_linear_inequality.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_linear_inequality.remediation_map.v1.json",
+      "sources": "data/sources/m2_linear_inequality.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_linear_inequality.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m2_linear_inequality.solution_templates.v1.json"
+    },
+    {
       "unit_id": "H2_EXP_LOG",
       "grade": "고2",
       "course": "수학Ⅰ",
@@ -109,6 +123,59 @@
       "sources": "data/sources/h2_exp_log.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/h2_exp_log.raw_taxonomy.v1.json",
       "solution_templates": "data/forms/h2_exp_log.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M2_LINEAR_EQUATION",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_name": "일차방정식·연립일차방정식",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_linear_equation.problem_types.v1.json",
+      "edges": "data/relations/m2_linear_equation.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_linear_equation.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_linear_equation.remediation_map.v1.json",
+      "sources": "data/sources/m2_linear_equation.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_linear_equation.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m2_linear_equation.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M2_LINEAR_FUNCTION",
+      "grade": "중2",
+      "unit_name": "일차함수",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_linear_function.problem_types.v1.json",
+      "edges": "data/relations/m2_linear_function.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_linear_function.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_linear_function.remediation_map.v1.json",
+      "sources": "data/sources/m2_linear_function.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_linear_function.raw_taxonomy.v1.json",
+      "forms": "data/forms/m2_linear_function.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M3_POLYNOMIAL_FACTORING",
+      "grade": "중3",
+      "unit_name": "다항식의 곱셈과 인수분해",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m3_polynomial_multiplication_factorization.problem_types.v1.json",
+      "edges": "data/relations/m3_polynomial_multiplication_factorization.edges.v1.json",
+      "diagnosis_rules": "data/rules/m3_polynomial_multiplication_factorization.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m3_polynomial_multiplication_factorization.remediation_map.v1.json",
+      "sources": "data/sources/m3_polynomial_multiplication_factorization.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m3_polynomial_multiplication_factorization.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m3_polynomial_multiplication_factorization.solution_templates.v1.json"
+    },
+    {
+      "unit_id": "M3_REAL_NUMBER_CALC",
+      "grade": "중3",
+      "unit_name": "실수와 그 계산",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m3_real_numbers_and_operations.problem_types.v1.json",
+      "edges": "data/relations/m3_real_numbers_and_operations.edges.v1.json",
+      "diagnosis_rules": "data/rules/m3_real_numbers_and_operations.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m3_real_numbers_and_operations.remediation_map.v1.json",
+      "sources": "data/sources/m3_real_numbers_and_operations.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m3_real_numbers_and_operations.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/m3_real_numbers_and_operations.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -117,27 +184,6 @@
       "grade": "중2",
       "unit_name": "식의 계산",
       "concept_name": "다항식의 계산과 동류항 정리",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_EQ_C001",
-      "grade": "중2",
-      "unit_name": "연립방정식",
-      "concept_name": "문자식 정리와 연립방정식 풀이",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_INEQ_C001",
-      "grade": "중2",
-      "unit_name": "일차부등식",
-      "concept_name": "부등식 방향과 음수 곱셈",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_FUNC_C001",
-      "grade": "중2",
-      "unit_name": "일차함수",
-      "concept_name": "좌표평면에서 음수 좌표와 그래프 해석",
       "status": "future_target_seed"
     },
     {
@@ -166,20 +212,6 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "그래프 해석과 수의 범위 판단",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_INEQ_C002",
-      "grade": "중2",
-      "unit_name": "일차부등식",
-      "concept_name": "일차식 변형과 부등식 풀이",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_FUNC_C002",
-      "grade": "중2",
-      "unit_name": "일차함수",
-      "concept_name": "일차식과 그래프 식의 의미 해석",
       "status": "future_target_seed"
     },
     {
@@ -215,20 +247,6 @@
       "grade": "고1",
       "unit_name": "함수",
       "concept_name": "함수식 해석과 그래프 연결",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_FUNC_C003",
-      "grade": "중2",
-      "unit_name": "일차함수",
-      "concept_name": "일차함수의 그래프와 기울기·절편 해석",
-      "status": "future_target_seed"
-    },
-    {
-      "concept_id": "M2_FUNC_C004",
-      "grade": "중2",
-      "unit_name": "일차함수",
-      "concept_name": "일차함수 활용에서 표·식·그래프 변환",
       "status": "future_target_seed"
     },
     {

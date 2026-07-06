@@ -1,0 +1,356 @@
+{
+  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
+  "unit_id": "M3_REAL_NUMBER_CALC",
+  "unit_name": "실수와 그 계산",
+  "remediation_count": 18,
+  "remediation": [
+    {
+      "concept_id": "M3_REAL_C001",
+      "title": "제곱근 뜻 보강",
+      "priority": 1,
+      "steps": [
+        "제곱해서 n이 되는 수를 먼저 말하기",
+        "양수의 제곱근은 ±로 쓰기",
+        "0과 음수의 제곱근 존재 여부 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT001",
+        "M3_REAL_PT002",
+        "M3_REAL_PT003",
+        "M3_REAL_PT004",
+        "M3_REAL_PT005",
+        "M3_REAL_PT006",
+        "M3_REAL_PT007"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C002",
+      "title": "제곱근 구하기 보강",
+      "priority": 1,
+      "steps": [
+        "양수·0·음수를 먼저 분류",
+        "분수는 분자와 분모의 제곱근을 각각 확인",
+        "결과의 부호를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT008",
+        "M3_REAL_PT009",
+        "M3_REAL_PT010",
+        "M3_REAL_PT011"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C007",
+      "title": "√a² 절댓값 보강",
+      "priority": 1,
+      "steps": [
+        "√a²=|a|를 먼저 적기",
+        "문자 또는 식의 부호 범위 확인",
+        "근호 제거 후 경우를 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT037",
+        "M3_REAL_PT038",
+        "M3_REAL_PT039",
+        "M3_REAL_PT040",
+        "M3_REAL_PT041",
+        "M3_REAL_PT042",
+        "M3_REAL_PT043",
+        "M3_REAL_PT044"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C008",
+      "title": "자연수 조건 보강",
+      "priority": 1,
+      "steps": [
+        "근호 안이 완전제곱수가 되는 조건 작성",
+        "가능한 x의 범위를 먼저 제한",
+        "누락된 약수와 배수 후보 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT050",
+        "M3_REAL_PT051",
+        "M3_REAL_PT052",
+        "M3_REAL_PT053",
+        "M3_REAL_PT054",
+        "M3_REAL_PT055",
+        "M3_REAL_PT056",
+        "M3_REAL_PT057"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C010",
+      "title": "제곱근 부등식 보강",
+      "priority": 1,
+      "steps": [
+        "근호식의 범위와 양수 조건 확인",
+        "부등식의 양변 제곱 가능 여부 판단",
+        "조건을 만족하는 수의 개수 재확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT073",
+        "M3_REAL_PT074",
+        "M3_REAL_PT075",
+        "M3_REAL_PT076",
+        "M3_REAL_PT077",
+        "M3_REAL_PT078",
+        "M3_REAL_PT079",
+        "M3_REAL_PT080"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C012",
+      "title": "유리수·무리수 구분 보강",
+      "priority": 1,
+      "steps": [
+        "순환소수와 무한소수 구분",
+        "근호 안이 완전제곱수인지 확인",
+        "계산 결과가 유리수인지 다시 판별"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT083",
+        "M3_REAL_PT084",
+        "M3_REAL_PT085",
+        "M3_REAL_PT086",
+        "M3_REAL_PT087",
+        "M3_REAL_PT088"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C014",
+      "title": "무리수 수직선 보강",
+      "priority": 1,
+      "steps": [
+        "도형의 길이를 제곱근으로 구하기",
+        "수직선 위 시작점과 이동 방향 표시",
+        "대응점이 나타내는 수 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT093",
+        "M3_REAL_PT094",
+        "M3_REAL_PT095",
+        "M3_REAL_PT096",
+        "M3_REAL_PT097",
+        "M3_REAL_PT098",
+        "M3_REAL_PT099",
+        "M3_REAL_PT100"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C016",
+      "title": "제곱근 곱셈 보강",
+      "priority": 1,
+      "steps": [
+        "√a×√b=√ab 구조 표시",
+        "완전제곱 인수를 밖으로 빼기",
+        "a√b 꼴로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT113",
+        "M3_REAL_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C017",
+      "title": "제곱근 나눗셈 보강",
+      "priority": 1,
+      "steps": [
+        "한 근호로 묶을 수 있는지 확인",
+        "나눗셈을 분수로 바꾸기",
+        "분모 유리화 필요 여부 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT123",
+        "M3_REAL_PT124",
+        "M3_REAL_PT125",
+        "M3_REAL_PT126"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C018",
+      "title": "근호 변형 보강",
+      "priority": 1,
+      "steps": [
+        "밖으로 나가는 수는 제곱되어 들어간다는 점 표시",
+        "문자 부호 조건 확인",
+        "변형 전후를 제곱하여 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT115",
+        "M3_REAL_PT116",
+        "M3_REAL_PT117",
+        "M3_REAL_PT118",
+        "M3_REAL_PT119",
+        "M3_REAL_PT120",
+        "M3_REAL_PT121",
+        "M3_REAL_PT122"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C019",
+      "title": "분모 유리화 보강",
+      "priority": 2,
+      "steps": [
+        "분모의 근호 구조 확인",
+        "켤레식 또는 같은 근호식을 선택",
+        "분자와 분모에 같은 식을 곱하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT139",
+        "M3_REAL_PT140",
+        "M3_REAL_PT141",
+        "M3_REAL_PT166",
+        "M3_REAL_PT167",
+        "M3_REAL_PT168",
+        "M3_REAL_PT169",
+        "M3_REAL_PT173"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C022",
+      "title": "제곱근 덧셈·뺄셈 보강",
+      "priority": 2,
+      "steps": [
+        "근호 안을 먼저 간단히 하기",
+        "동류 근호끼리만 모으기",
+        "계수와 부호를 따로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT158",
+        "M3_REAL_PT159",
+        "M3_REAL_PT160",
+        "M3_REAL_PT161",
+        "M3_REAL_PT162",
+        "M3_REAL_PT163",
+        "M3_REAL_PT164",
+        "M3_REAL_PT165"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C023",
+      "title": "분배법칙 근호식 보강",
+      "priority": 2,
+      "steps": [
+        "괄호 앞 항을 모든 항에 곱하기",
+        "근호 안 곱셈을 먼저 정리",
+        "동류 근호와 유리수항 분리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT170",
+        "M3_REAL_PT171",
+        "M3_REAL_PT172"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C024",
+      "title": "복잡한 근호식 보강",
+      "priority": 2,
+      "steps": [
+        "식의 구조를 곱셈/유리화/덧셈 단계로 나누기",
+        "새로운 기호 정의를 먼저 식으로 바꾸기",
+        "최종적으로 유리수항과 무리수항 분리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT174",
+        "M3_REAL_PT175",
+        "M3_REAL_PT176",
+        "M3_REAL_PT177",
+        "M3_REAL_PT178",
+        "M3_REAL_PT179",
+        "M3_REAL_PT180"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C025",
+      "title": "유리수 조건 보강",
+      "priority": 2,
+      "steps": [
+        "무리수항이 사라져야 하는 조건 표시",
+        "미지수 후보를 대입해 확인",
+        "두 식 조건이 있으면 동시에 만족하는지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT181",
+        "M3_REAL_PT182",
+        "M3_REAL_PT183",
+        "M3_REAL_PT184"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C026",
+      "title": "정수·소수 부분 보강",
+      "priority": 2,
+      "steps": [
+        "무리수의 범위를 정수 사이에 끼워 넣기",
+        "정수부분을 먼저 확정",
+        "소수부분=원래 수-정수부분으로 표현"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT185",
+        "M3_REAL_PT186",
+        "M3_REAL_PT187",
+        "M3_REAL_PT188",
+        "M3_REAL_PT189"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C021",
+      "title": "도형 활용 보강",
+      "priority": 2,
+      "steps": [
+        "도형 공식부터 쓰기",
+        "길이·넓이·부피를 근호식으로 표현",
+        "근호 계산 후 단위와 의미 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT144",
+        "M3_REAL_PT145",
+        "M3_REAL_PT146",
+        "M3_REAL_PT147",
+        "M3_REAL_PT148",
+        "M3_REAL_PT149",
+        "M3_REAL_PT150",
+        "M3_REAL_PT151"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M3_REAL_C028",
+      "title": "수직선·도형 활용 보강",
+      "priority": 2,
+      "steps": [
+        "상황을 수직선 또는 도형 그림으로 정리",
+        "이동 거리와 방향을 식으로 표현",
+        "대소 관계나 위치를 최종 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M3_REAL_PT192",
+        "M3_REAL_PT193",
+        "M3_REAL_PT194",
+        "M3_REAL_PT195",
+        "M3_REAL_PT196",
+        "M3_REAL_PT197",
+        "M3_REAL_PT198",
+        "M3_REAL_PT199"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

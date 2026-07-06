@@ -1,0 +1,145 @@
+{
+  "version": "2026.07.06-m3-real-numbers-operations-v1.0",
+  "unit_id": "M3_REAL_NUMBER_CALC",
+  "unit_name": "실수와 그 계산",
+  "templates": [
+    {
+      "template_id": "M3_REAL_FORM_SQRT_DEF",
+      "name": "제곱근 뜻·성질 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C001",
+        "M3_REAL_C002",
+        "M3_REAL_C003",
+        "M3_REAL_C005",
+        "M3_REAL_C007"
+      ],
+      "required_fields": [
+        "제곱근의 뜻 확인",
+        "부호 ± 또는 절댓값 조건",
+        "근호 제거 과정",
+        "제곱 검산"
+      ],
+      "reject_if_missing": [
+        "부호 ± 또는 절댓값 조건",
+        "제곱 검산"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_CONDITION",
+      "name": "자연수 조건·부등식 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C008",
+        "M3_REAL_C010",
+        "M3_REAL_C025"
+      ],
+      "required_fields": [
+        "근호 안 조건",
+        "가능한 값의 범위",
+        "완전제곱수 후보",
+        "해 또는 개수 검산"
+      ],
+      "reject_if_missing": [
+        "근호 안 조건",
+        "가능한 값의 범위"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_REAL_ORDER",
+      "name": "실수 분류·대소 관계 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C009",
+        "M3_REAL_C011",
+        "M3_REAL_C012",
+        "M3_REAL_C013",
+        "M3_REAL_C014",
+        "M3_REAL_C015",
+        "M3_REAL_C026"
+      ],
+      "required_fields": [
+        "유리수/무리수 판별 기준",
+        "근삿값 또는 수직선 표시",
+        "대소 비교 과정",
+        "정수부분/소수부분 확인"
+      ],
+      "reject_if_missing": [
+        "판별 기준 또는 수직선 표시"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_RAD_MULDIV",
+      "name": "근호식 곱셈·나눗셈 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C016",
+        "M3_REAL_C017",
+        "M3_REAL_C018",
+        "M3_REAL_C020"
+      ],
+      "required_fields": [
+        "근호 안 곱셈 또는 나눗셈",
+        "완전제곱 인수 분리",
+        "a√b 꼴 정리",
+        "계산 검산"
+      ],
+      "reject_if_missing": [
+        "완전제곱 인수 분리",
+        "계산 검산"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_RATIONALIZE",
+      "name": "분모 유리화 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C019"
+      ],
+      "required_fields": [
+        "분모 구조 확인",
+        "곱할 식 선택",
+        "분자와 분모 동시 곱셈",
+        "유리화 후 정리"
+      ],
+      "reject_if_missing": [
+        "곱할 식 선택",
+        "분자와 분모 동시 곱셈"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_RAD_ADDSUB",
+      "name": "근호식 덧셈·뺄셈 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C022",
+        "M3_REAL_C023",
+        "M3_REAL_C024"
+      ],
+      "required_fields": [
+        "근호 안 간단히 하기",
+        "동류 근호 분류",
+        "분배법칙 또는 유리화 처리",
+        "최종 정리"
+      ],
+      "reject_if_missing": [
+        "동류 근호 분류",
+        "최종 정리"
+      ]
+    },
+    {
+      "template_id": "M3_REAL_FORM_APPLICATION",
+      "name": "제곱근 활용 검수 양식",
+      "applies_to_concept_ids": [
+        "M3_REAL_C004",
+        "M3_REAL_C021",
+        "M3_REAL_C027",
+        "M3_REAL_C028"
+      ],
+      "required_fields": [
+        "상황을 식으로 표현",
+        "도형/수직선 조건 표시",
+        "근호 계산 과정",
+        "결과의 의미 확인"
+      ],
+      "reject_if_missing": [
+        "상황을 식으로 표현",
+        "결과의 의미 확인"
+      ]
+    }
+  ]
+}
