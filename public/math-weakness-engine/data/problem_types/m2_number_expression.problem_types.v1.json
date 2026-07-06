@@ -1,0 +1,4969 @@
+{
+  "version": "2026.07.05-m2-number-expression-v0.8",
+  "unit_id": "M2_NUMBER_EXPRESSION",
+  "unit_name": "수와 식",
+  "raw_taxonomy": "data/raw_taxonomy/m2_number_expression.raw_taxonomy.v1.json",
+  "problem_type_count": 211,
+  "problem_types": [
+    {
+      "problem_type_id": "M2_NE_PT001",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유리수의 분류",
+      "description": "유리수의 분류 범주의 '유리수의 분류' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "rational_classification",
+        "number_set"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT002",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "정수와 정수가 아닌 유리수 구분",
+      "description": "유리수의 분류 범주의 '정수와 정수가 아닌 유리수 구분' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "rational_classification",
+        "number_set"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT003",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유리수 분류 설명의 옳고 그름 판단",
+      "description": "유리수의 분류 범주의 '유리수 분류 설명의 옳고 그름 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "rational_classification",
+        "number_set"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_001",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT004",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유한소수와 무한소수의 판단",
+      "description": "소수의 분류(유한소수/무한소수) 범주의 '유한소수와 무한소수의 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C002",
+        "M2_NE_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "decimal_classification",
+        "finite_decimal",
+        "infinite_decimal"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT005",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유한소수와 무한소수의 구분",
+      "description": "소수의 분류(유한소수/무한소수) 범주의 '유한소수와 무한소수의 구분' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C002",
+        "M2_NE_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "decimal_classification",
+        "finite_decimal",
+        "infinite_decimal"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT006",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "소수 표현을 보고 분류하기",
+      "description": "소수의 분류(유한소수/무한소수) 범주의 '소수 표현을 보고 분류하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C002",
+        "M2_NE_C003"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "decimal_classification",
+        "finite_decimal",
+        "infinite_decimal"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_002",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT007",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수의 소수표현 및 판단",
+      "description": "분수를 유한소수로 나타내기 범주의 '분수의 소수표현 및 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C004",
+        "M2_NE_C005",
+        "M2_NE_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "fraction_to_decimal",
+        "denominator_factor",
+        "power_of_10"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT008",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "10의 거듭제곱을 이용한 분수의 유한소수 표현",
+      "description": "분수를 유한소수로 나타내기 범주의 '10의 거듭제곱을 이용한 분수의 유한소수 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C004",
+        "M2_NE_C005",
+        "M2_NE_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "fraction_to_decimal",
+        "denominator_factor",
+        "power_of_10"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT009",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수를 소수로 고칠 때 유한소수 여부 판단",
+      "description": "분수를 유한소수로 나타내기 범주의 '분수를 소수로 고칠 때 유한소수 여부 판단' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C004",
+        "M2_NE_C005",
+        "M2_NE_C006"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "fraction_to_decimal",
+        "denominator_factor",
+        "power_of_10"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_003",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT010",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수의 유한소수 표현 가능 여부",
+      "description": "유한소수로 나타낼 수 있는(없는) 분수 범주의 '분수의 유한소수 표현 가능 여부' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "finite_decimal_condition",
+        "prime_factor_2_5",
+        "condition_search"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT011",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "조건을 만족하는 유한소수 표현 가능한 분수 구하기",
+      "description": "유한소수로 나타낼 수 있는(없는) 분수 범주의 '조건을 만족하는 유한소수 표현 가능한 분수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "finite_decimal_condition",
+        "prime_factor_2_5",
+        "condition_search"
+      ],
+      "source_orders": [
+        1
+      ],
+      "raw_section_id": "M2_NE_RAW_004",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT012",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "1/A×x가 유한소수가 되도록 하는 x",
+      "description": "B/A×x가 유한소수가 되도록 하는 x의 값 구하기 범주의 '1/A×x가 유한소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_multiplier",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT013",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "B/A×x가 유한소수가 되도록 하는 x",
+      "description": "B/A×x가 유한소수가 되도록 하는 x의 값 구하기 범주의 'B/A×x가 유한소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_multiplier",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT014",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "일차방정식의 해가 유한소수가 되도록 하는 미지수 값",
+      "description": "B/A×x가 유한소수가 되도록 하는 x의 값 구하기 범주의 '일차방정식의 해가 유한소수가 되도록 하는 미지수 값' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_multiplier",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_005",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT015",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "B/x가 유한소수가 되도록 하는 x",
+      "description": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기 범주의 'B/x가 유한소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_denominator",
+        "reverse_condition"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT016",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "B/(A×x)가 유한소수가 되도록 하는 x",
+      "description": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기 범주의 'B/(A×x)가 유한소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_denominator",
+        "reverse_condition"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT017",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "y/(A×x)가 유한소수가 되지 않도록 하는 미지수 x,y",
+      "description": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기 범주의 'y/(A×x)가 유한소수가 되지 않도록 하는 미지수 x,y' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_denominator",
+        "reverse_condition"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT018",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러가지 경우에서 유한소수가 되도록 하는 미지수 값",
+      "description": "B/(A×x)가 유한소수가 되도록 하는 x의 값 구하기 범주의 '여러가지 경우에서 유한소수가 되도록 하는 미지수 값' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "finite_decimal_condition",
+        "unknown_denominator",
+        "reverse_condition"
+      ],
+      "source_orders": [
+        2
+      ],
+      "raw_section_id": "M2_NE_RAW_006",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT019",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "x/A가 유한소수가 될 때 x/A를 기약분수 1/y로 나타내기",
+      "description": "유한소수가 되는 x/A를 기약분수로 나타내기 범주의 'x/A가 유한소수가 될 때 x/A를 기약분수 1/y로 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "reduced_fraction",
+        "finite_decimal_condition",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT020",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "x/A가 유한소수가 될 때 x/A를 기약분수 B/y로 나타내기",
+      "description": "유한소수가 되는 x/A를 기약분수로 나타내기 범주의 'x/A가 유한소수가 될 때 x/A를 기약분수 B/y로 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "reduced_fraction",
+        "finite_decimal_condition",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_007",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT021",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "x/A, x/B 모두 유한소수로 나타내어지도록 하는 x",
+      "description": "2개 이상의 분수가 동시에 유한소수가 되도록 하는 미지수의 값 범주의 'x/A, x/B 모두 유한소수로 나타내어지도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "common_condition",
+        "multiple_fractions",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT022",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "Bx/A, Dx/C 모두 유한소수로 나타내어지도록 하는 x",
+      "description": "2개 이상의 분수가 동시에 유한소수가 되도록 하는 미지수의 값 범주의 'Bx/A, Dx/C 모두 유한소수로 나타내어지도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C008"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "common_condition",
+        "multiple_fractions",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_008",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT023",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "소수의 순환마디 구하기",
+      "description": "순환마디 범주의 '소수의 순환마디 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "repetend",
+        "repeating_decimal"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT024",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수의 순환마디 구하기",
+      "description": "순환마디 범주의 '분수의 순환마디 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "repetend",
+        "repeating_decimal"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT025",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "나눗셈을 이용한 순환마디 구하기",
+      "description": "순환마디 범주의 '나눗셈을 이용한 순환마디 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C010"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "repetend",
+        "repeating_decimal"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_009",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT026",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 표현",
+      "description": "순환소수의 표현 범주의 '순환소수의 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "repeating_decimal_notation",
+        "decimal_judgment"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT027",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 판별",
+      "description": "순환소수의 표현 범주의 '순환소수의 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "repeating_decimal_notation",
+        "decimal_judgment"
+      ],
+      "source_orders": [
+        3
+      ],
+      "raw_section_id": "M2_NE_RAW_010",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT028",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수의 순환소수 표현",
+      "description": "분수를 순환소수로 나타내기 범주의 '분수의 순환소수 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C004",
+        "M2_NE_C009",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "fraction_to_repeating_decimal",
+        "repetend"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT029",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수로만 나타낼 수 있는 분수 판별",
+      "description": "분수를 순환소수로 나타내기 범주의 '순환소수로만 나타낼 수 있는 분수 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C004",
+        "M2_NE_C009",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "fraction_to_repeating_decimal",
+        "repetend"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_011",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT030",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 소수점 아래 n번째 숫자 구하기",
+      "description": "소수점 아래 n번째 자리의 숫자 구하기 범주의 '순환소수의 소수점 아래 n번째 숫자 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C010",
+        "M2_NE_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "nth_digit",
+        "repetend_cycle",
+        "modular_pattern"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT031",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 소수점 아래 여러 개의 숫자 구하기",
+      "description": "소수점 아래 n번째 자리의 숫자 구하기 범주의 '순환소수의 소수점 아래 여러 개의 숫자 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C010",
+        "M2_NE_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "nth_digit",
+        "repetend_cycle",
+        "modular_pattern"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT032",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 n번째 숫자 구하기",
+      "description": "소수점 아래 n번째 자리의 숫자 구하기 범주의 '분수를 소수로 나타낼 때 순환소수의 소수점 아래 n번째 숫자 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C010",
+        "M2_NE_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "nth_digit",
+        "repetend_cycle",
+        "modular_pattern"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT033",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수를 소수로 나타낼 때 순환소수의 소수점 아래 여러 개의 숫자 구하기",
+      "description": "소수점 아래 n번째 자리의 숫자 구하기 범주의 '분수를 소수로 나타낼 때 순환소수의 소수점 아래 여러 개의 숫자 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C010",
+        "M2_NE_C011"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "nth_digit",
+        "repetend_cycle",
+        "modular_pattern"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_012",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT034",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "x/A를 순환소수가 되도록 하는 x",
+      "description": "순환소수가 되도록 하는 미지수의 값 범주의 'x/A를 순환소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_condition",
+        "unknown_value",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT035",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "A/x를 순환소수가 되도록 하는 x",
+      "description": "순환소수가 되도록 하는 미지수의 값 범주의 'A/x를 순환소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_condition",
+        "unknown_value",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT036",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "A/BX를 순환소수가 되도록 하는 x",
+      "description": "순환소수가 되도록 하는 미지수의 값 범주의 'A/BX를 순환소수가 되도록 하는 x' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C007",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_condition",
+        "unknown_value",
+        "denominator_factor"
+      ],
+      "source_orders": [
+        4
+      ],
+      "raw_section_id": "M2_NE_RAW_013",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT037",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수를 분수로 나타낼 때 가장 편리한 식",
+      "description": "순환소수를 분수로 나타내기(1) - 10의 거듭제곱 이용 범주의 '순환소수를 분수로 나타낼 때 가장 편리한 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_fraction",
+        "power_of_10_method"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT038",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수를 분수로 나타내는 과정",
+      "description": "순환소수를 분수로 나타내기(1) - 10의 거듭제곱 이용 범주의 '순환소수를 분수로 나타내는 과정' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_fraction",
+        "power_of_10_method"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT039",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수를 분수로 나타내기",
+      "description": "순환소수를 분수로 나타내기(1) - 10의 거듭제곱 이용 범주의 '순환소수를 분수로 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_fraction",
+        "power_of_10_method"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_014",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT040",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "소수점 아래 모두 순환하는 경우",
+      "description": "순환소수를 분수로 나타내기(2) - 공식 이용 범주의 '소수점 아래 모두 순환하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_fraction",
+        "formula_method",
+        "mixed_repetend"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT041",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "소수점 아래 일부 순환하는 경우",
+      "description": "순환소수를 분수로 나타내기(2) - 공식 이용 범주의 '소수점 아래 일부 순환하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_fraction",
+        "formula_method",
+        "mixed_repetend"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_015",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT042",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 분수 표현",
+      "description": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우 범주의 '순환소수의 분수 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_to_fraction",
+        "infinite_sum",
+        "fraction_expression"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT043",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "무한한 소수의 합으로 표현한 순환소수",
+      "description": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우 범주의 '무한한 소수의 합으로 표현한 순환소수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_to_fraction",
+        "infinite_sum",
+        "fraction_expression"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT044",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분모가 10의 거듭제곱 꼴인 분수의 합으로 표현한 순환소수",
+      "description": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우 범주의 '분모가 10의 거듭제곱 꼴인 분수의 합으로 표현한 순환소수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_to_fraction",
+        "infinite_sum",
+        "fraction_expression"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT045",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수 표현의 활용",
+      "description": "순환소수를 분수로 나타내기(3) - 조건제한이 없는 경우 범주의 '분수 표현의 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C014"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_to_fraction",
+        "infinite_sum",
+        "fraction_expression"
+      ],
+      "source_orders": [
+        5
+      ],
+      "raw_section_id": "M2_NE_RAW_016",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT046",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 정수 표현",
+      "description": "순환소수를 정수/유한소수로 나타내기 범주의 '순환소수의 정수 표현' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_integer",
+        "condition_judgment"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT047",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "정수 표현 가능한 순환소수 판별",
+      "description": "순환소수를 정수/유한소수로 나타내기 범주의 '정수 표현 가능한 순환소수 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_to_integer",
+        "condition_judgment"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_017",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT048",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "대소관계 판별",
+      "description": "순환소수의 대소관계 범주의 '대소관계 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_decimal_compare",
+        "decimal_order"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT049",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "대소관계 응용",
+      "description": "순환소수의 대소관계 범주의 '대소관계 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C015"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "repeating_decimal_compare",
+        "decimal_order"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_018",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT050",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수의 사칙연산",
+      "description": "순환소수를 포함한 식의 계산 범주의 '순환소수의 사칙연산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_operation",
+        "fraction_conversion"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT051",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수 연산의 응용",
+      "description": "순환소수를 포함한 식의 계산 범주의 '순환소수 연산의 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_operation",
+        "fraction_conversion"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT052",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수 활용의 연산",
+      "description": "순환소수를 포함한 식의 계산 범주의 '순환소수 활용의 연산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_operation",
+        "fraction_conversion"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_019",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT053",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "부등식을 만족하는 정수",
+      "description": "순환소수를 포함한 부등식의 계산 범주의 '부등식을 만족하는 정수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C015",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality",
+        "repeating_decimal_compare"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT054",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "부등식을 만족하는 순환소수",
+      "description": "순환소수를 포함한 부등식의 계산 범주의 '부등식을 만족하는 순환소수' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C015",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "inequality",
+        "repeating_decimal_compare"
+      ],
+      "source_orders": [
+        6
+      ],
+      "raw_section_id": "M2_NE_RAW_020",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT055",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식이 주어진 경우 하나의 미지수 구하기",
+      "description": "순환소수를 포함한 등식에서 미지수의 값 구하기 범주의 '등식이 주어진 경우 하나의 미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_equation",
+        "unknown_value",
+        "condition_interpretation"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT056",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식이 주어지지 않은 경우 하나의 미지수 구하기",
+      "description": "순환소수를 포함한 등식에서 미지수의 값 구하기 범주의 '등식이 주어지지 않은 경우 하나의 미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_equation",
+        "unknown_value",
+        "condition_interpretation"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT057",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식이 주어진 경우 두 개 이상의 미지수 구하기",
+      "description": "순환소수를 포함한 등식에서 미지수의 값 구하기 범주의 '등식이 주어진 경우 두 개 이상의 미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_equation",
+        "unknown_value",
+        "condition_interpretation"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT058",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식이 주어지지 않은 경우 두 개 이상의 미지수 구하기",
+      "description": "순환소수를 포함한 등식에서 미지수의 값 구하기 범주의 '등식이 주어지지 않은 경우 두 개 이상의 미지수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C017"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "repeating_decimal_equation",
+        "unknown_value",
+        "condition_interpretation"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_021",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT059",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분자 혹은 분모만 잘못 보고 나타낸 순환소수가 주어진 경우",
+      "description": "분자 또는 분모를 잘못 보고 소수로 나타낸 경우 범주의 '분자 혹은 분모만 잘못 보고 나타낸 순환소수가 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_fraction_reading",
+        "error_reconstruction"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT060",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분자와 분모를 잘못 보고 나타낸 순환소수가 모두 주어진 경우",
+      "description": "분자 또는 분모를 잘못 보고 소수로 나타낸 경우 범주의 '분자와 분모를 잘못 보고 나타낸 순환소수가 모두 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C018"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_fraction_reading",
+        "error_reconstruction"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_022",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT061",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "잘못 계산한 값이 주어진 경우",
+      "description": "잘못 계산한 경우 어떤 수/바르게 계산한 값 구하기 범주의 '잘못 계산한 값이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C018",
+        "M2_NE_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_calculation",
+        "correct_value",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT062",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "잘못 계산한 값과의 차이가 주어진 경우",
+      "description": "잘못 계산한 경우 어떤 수/바르게 계산한 값 구하기 범주의 '잘못 계산한 값과의 차이가 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C018",
+        "M2_NE_C016"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_calculation",
+        "correct_value",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        7
+      ],
+      "raw_section_id": "M2_NE_RAW_023",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT063",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수가 되도록 하는 경우",
+      "description": "(순환소수)×x가 유한소수 또는 자연수가 되도록 하는 x의 값 구하기 범주의 '자연수가 되도록 하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_multiplier",
+        "finite_decimal_condition",
+        "natural_number_condition"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT064",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유한소수가 되도록 하는 경우",
+      "description": "(순환소수)×x가 유한소수 또는 자연수가 되도록 하는 x의 값 구하기 범주의 '유한소수가 되도록 하는 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013",
+        "M2_NE_C019"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_multiplier",
+        "finite_decimal_condition",
+        "natural_number_condition"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_024",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT065",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "순환소수에 대한 설명",
+      "description": "순환소수의 이해 범주의 '순환소수에 대한 설명' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "concept_explanation",
+        "repeating_decimal"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT066",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "주어진 순환소수에 대한 설명",
+      "description": "순환소수의 이해 범주의 '주어진 순환소수에 대한 설명' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "concept_explanation",
+        "repeating_decimal"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_025",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT067",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "유리수 판별",
+      "description": "유리수와 순환소수의 관계-소수의 이해 범주의 '유리수 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C014",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "rational_decimal_relation",
+        "concept_judgment"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT068",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "주어진 설명의 옳고 그름 판별",
+      "description": "유리수와 순환소수의 관계-소수의 이해 범주의 '주어진 설명의 옳고 그름 판별' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C014",
+        "M2_NE_C020"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "rational_decimal_relation",
+        "concept_judgment"
+      ],
+      "source_orders": [
+        8
+      ],
+      "raw_section_id": "M2_NE_RAW_026",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT069",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 거듭제곱의 곱셈",
+      "description": "지수법칙(1) - 거듭제곱의 곱셈 범주의 '한 문자에 대한 거듭제곱의 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_multiplication",
+        "exponent_addition",
+        "base_condition"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_NE_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT070",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 개 이상의 문자에 대한 거듭제곱의 곱셈",
+      "description": "지수법칙(1) - 거듭제곱의 곱셈 범주의 '두 개 이상의 문자에 대한 거듭제곱의 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_multiplication",
+        "exponent_addition",
+        "base_condition"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_NE_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT071",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수에 대한 거듭제곱의 곱셈",
+      "description": "지수법칙(1) - 거듭제곱의 곱셈 범주의 '자연수에 대한 거듭제곱의 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_multiplication",
+        "exponent_addition",
+        "base_condition"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_NE_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT072",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "-1에 대한 거듭제곱의 곱셈",
+      "description": "지수법칙(1) - 거듭제곱의 곱셈 범주의 '-1에 대한 거듭제곱의 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_multiplication",
+        "exponent_addition",
+        "base_condition"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_NE_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT073",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거듭제곱의 곱셈 응용",
+      "description": "지수법칙(1) - 거듭제곱의 곱셈 범주의 '거듭제곱의 곱셈 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_multiplication",
+        "exponent_addition",
+        "base_condition"
+      ],
+      "source_orders": [
+        9
+      ],
+      "raw_section_id": "M2_NE_RAW_027",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT074",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 거듭제곱의 거듭제곱",
+      "description": "지수법칙(2) - 거듭제곱의 거듭제곱 범주의 '한 문자에 대한 거듭제곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_of_power",
+        "exponent_multiplication",
+        "parentheses"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT075",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 개 이상의 문자에 대한 거듭제곱의 거듭제곱",
+      "description": "지수법칙(2) - 거듭제곱의 거듭제곱 범주의 '두 개 이상의 문자에 대한 거듭제곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_of_power",
+        "exponent_multiplication",
+        "parentheses"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT076",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 자연수에 대한 거듭제곱의 거듭제곱",
+      "description": "지수법칙(2) - 거듭제곱의 거듭제곱 범주의 '한 자연수에 대한 거듭제곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_of_power",
+        "exponent_multiplication",
+        "parentheses"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT077",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수의 제곱수의 거듭제곱",
+      "description": "지수법칙(2) - 거듭제곱의 거듭제곱 범주의 '자연수의 제곱수의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_of_power",
+        "exponent_multiplication",
+        "parentheses"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT078",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 자연수에 대한 거듭제곱의 거듭제곱",
+      "description": "지수법칙(2) - 거듭제곱의 거듭제곱 범주의 '두 자연수에 대한 거듭제곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_of_power",
+        "exponent_multiplication",
+        "parentheses"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_028",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT079",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "문자에 대한 거듭제곱의 나눗셈",
+      "description": "지수법칙(3) - 거듭제곱의 나눗셈 범주의 '문자에 대한 거듭제곱의 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C024",
+        "M2_NE_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_division",
+        "exponent_subtraction",
+        "fraction_power"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT080",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수에 대한 거듭제곱의 나눗셈",
+      "description": "지수법칙(3) - 거듭제곱의 나눗셈 범주의 '자연수에 대한 거듭제곱의 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C024",
+        "M2_NE_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_division",
+        "exponent_subtraction",
+        "fraction_power"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT081",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴의 나눗셈",
+      "description": "지수법칙(3) - 거듭제곱의 나눗셈 범주의 '분수꼴의 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C024",
+        "M2_NE_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "same_base_division",
+        "exponent_subtraction",
+        "fraction_power"
+      ],
+      "source_orders": [
+        10
+      ],
+      "raw_section_id": "M2_NE_RAW_029",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT082",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 곱의 거듭제곱",
+      "description": "지수법칙(4) - 곱의 거듭제곱 범주의 '한 문자에 대한 곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C025",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "product_power",
+        "distribute_exponent",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT083",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 문자에 대한 곱의 거듭제곱",
+      "description": "지수법칙(4) - 곱의 거듭제곱 범주의 '두 문자에 대한 곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C025",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "product_power",
+        "distribute_exponent",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT084",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "세 문자에 대한 곱의 거듭제곱",
+      "description": "지수법칙(4) - 곱의 거듭제곱 범주의 '세 문자에 대한 곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C025",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "product_power",
+        "distribute_exponent",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT085",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수에 대한 곱의 거듭제곱",
+      "description": "지수법칙(4) - 곱의 거듭제곱 범주의 '자연수에 대한 곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C025",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "product_power",
+        "distribute_exponent",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_030",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT086",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 몫의 거듭제곱",
+      "description": "지수법칙(5) - 몫의 거듭제곱 범주의 '한 문자에 대한 몫의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C026",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quotient_power",
+        "fraction_power",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT087",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 개 이상의 문자에 대한 몫의 거듭제곱",
+      "description": "지수법칙(5) - 몫의 거듭제곱 범주의 '두 개 이상의 문자에 대한 몫의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C026",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quotient_power",
+        "fraction_power",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT088",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수의 거듭제곱",
+      "description": "지수법칙(5) - 몫의 거듭제곱 범주의 '분수의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C026",
+        "M2_NE_C036"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quotient_power",
+        "fraction_power",
+        "parentheses"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_031",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT089",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "곱셈과 나눗셈의 혼합계산",
+      "description": "지수법칙(6) - 종합 범주의 '곱셈과 나눗셈의 혼합계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_mixed",
+        "operation_order",
+        "rule_application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT090",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "지수법칙이 포함된 여러가지 식",
+      "description": "지수법칙(6) - 종합 범주의 '지수법칙이 포함된 여러가지 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_mixed",
+        "operation_order",
+        "rule_application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT091",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "주어진 규칙 적용",
+      "description": "지수법칙(6) - 종합 범주의 '주어진 규칙 적용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_mixed",
+        "operation_order",
+        "rule_application"
+      ],
+      "source_orders": [
+        11
+      ],
+      "raw_section_id": "M2_NE_RAW_032",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT092",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거듭제곱의 대소비교",
+      "description": "거듭제곱의 대소비교 범주의 '거듭제곱의 대소비교' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_compare",
+        "number_order"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT093",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거듭제곱의 대소비교의 활용",
+      "description": "거듭제곱의 대소비교 범주의 '거듭제곱의 대소비교의 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C029"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "power_compare",
+        "number_order"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_033",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT094",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "저장용량",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '저장용량' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT095",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거리와 속력",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '거리와 속력' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT096",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "시간 당 증가",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '시간 당 증가' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT097",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "일정한 길이로 등분",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '일정한 길이로 등분' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT098",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "같은 양으로 분배",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '같은 양으로 분배' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT099",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "접은 종이의 두께",
+      "description": "지수법칙을 이용한 실생활 문제 범주의 '접은 종이의 두께' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C030"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_power",
+        "modeling",
+        "unit_context"
+      ],
+      "source_orders": [
+        12
+      ],
+      "raw_section_id": "M2_NE_RAW_034",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT100",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "같은 수의 덧셈식 간단히 하기",
+      "description": "지수법칙의 응용(1) - 같은 수의 덧셈식 범주의 '같은 수의 덧셈식 간단히 하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C031",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "same_number_addition",
+        "exponent_transformation"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT101",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수 꼴의 형태",
+      "description": "지수법칙의 응용(1) - 같은 수의 덧셈식 범주의 '분수 꼴의 형태' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C031",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "same_number_addition",
+        "exponent_transformation"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT102",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "지수법칙이 포함된 여러가지 식",
+      "description": "지수법칙의 응용(1) - 같은 수의 덧셈식 범주의 '지수법칙이 포함된 여러가지 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C031",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "same_number_addition",
+        "exponent_transformation"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT103",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "같은 수의 덧셈식 응용",
+      "description": "지수법칙의 응용(1) - 같은 수의 덧셈식 범주의 '같은 수의 덧셈식 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C031",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "same_number_addition",
+        "exponent_transformation"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_035",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT104",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 자연수에 대하여 나타내기",
+      "description": "지수법칙의 응용(2) - 다른 문자를 이용하여 나타내기(1) 범주의 '한 자연수에 대하여 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C032",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "express_with_another_base",
+        "exponent_rewrite"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT105",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 자연수에 대하여 식을 나타내기",
+      "description": "지수법칙의 응용(2) - 다른 문자를 이용하여 나타내기(1) 범주의 '한 자연수에 대하여 식을 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C032",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "express_with_another_base",
+        "exponent_rewrite"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT106",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 자연수에 대하여 나타내기",
+      "description": "지수법칙의 응용(2) - 다른 문자를 이용하여 나타내기(1) 범주의 '여러 자연수에 대하여 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C032",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "express_with_another_base",
+        "exponent_rewrite"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_036",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT107",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 자연수에 대하여 나타내기",
+      "description": "지수법칙의 응용(3) - 다른 문자를 이용하여 나타내기(2) 범주의 '한 자연수에 대하여 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C032",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "express_with_another_base",
+        "exponent_rewrite"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT108",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 자연수에 대하여 나타내기",
+      "description": "지수법칙의 응용(3) - 다른 문자를 이용하여 나타내기(2) 범주의 '여러 자연수에 대하여 나타내기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C032",
+        "M2_NE_C027"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "express_with_another_base",
+        "exponent_rewrite"
+      ],
+      "source_orders": [
+        13
+      ],
+      "raw_section_id": "M2_NE_RAW_037",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT109",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "일의 자리 숫자 구하기",
+      "description": "지수법칙의 응용(4) - 지수법칙과 일의 자리수 범주의 '일의 자리 숫자 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "ones_digit_cycle",
+        "cyclic_pattern",
+        "defined_operation"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_NE_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT110",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "일의 자리 숫자의 응용",
+      "description": "지수법칙의 응용(4) - 지수법칙과 일의 자리수 범주의 '일의 자리 숫자의 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "ones_digit_cycle",
+        "cyclic_pattern",
+        "defined_operation"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_NE_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT111",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "기호로 정의된 경우",
+      "description": "지수법칙의 응용(4) - 지수법칙과 일의 자리수 범주의 '기호로 정의된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C033"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "ones_digit_cycle",
+        "cyclic_pattern",
+        "defined_operation"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_NE_RAW_038",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT112",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수의 자릿수 구하기",
+      "description": "지수법칙의 응용(5) - 지수법칙과 자연수의 자릿수 범주의 '자연수의 자릿수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "digit_count",
+        "power_of_10",
+        "place_value"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_NE_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT113",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "자연수의 자릿수 응용",
+      "description": "지수법칙의 응용(5) - 지수법칙과 자연수의 자릿수 범주의 '자연수의 자릿수 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C034"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "digit_count",
+        "power_of_10",
+        "place_value"
+      ],
+      "source_orders": [
+        14
+      ],
+      "raw_section_id": "M2_NE_RAW_039",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT114",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거듭제곱의 거듭제곱",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '거듭제곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT115",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "거듭제곱의 나눗셈",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '거듭제곱의 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT116",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "곱의 거듭제곱",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '곱의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT117",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "몫의 거듭제곱",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '몫의 거듭제곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT118",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "혼합계산",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '혼합계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT119",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "나열된 수의 곱",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '나열된 수의 곱' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT120",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "같은 수의 덧셈식",
+      "description": "지수에 미지수가 포함된 방정식의 풀이 범주의 '같은 수의 덧셈식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C022",
+        "M2_NE_C023",
+        "M2_NE_C024",
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "exponent_equation",
+        "unknown_exponent",
+        "same_base_condition"
+      ],
+      "source_orders": [
+        15
+      ],
+      "raw_section_id": "M2_NE_RAW_040",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT121",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 곱셈",
+      "description": "단항식의 곱셈 범주의 '한 문자에 대한 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C038",
+        "M2_NE_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_multiplication",
+        "coefficient_variable_split",
+        "same_base_multiplication"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT122",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 문자에 대한 곱셈",
+      "description": "단항식의 곱셈 범주의 '여러 문자에 대한 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C038",
+        "M2_NE_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_multiplication",
+        "coefficient_variable_split",
+        "same_base_multiplication"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT123",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 문자의 곱에 대한 곱셈",
+      "description": "단항식의 곱셈 범주의 '여러 문자의 곱에 대한 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C038",
+        "M2_NE_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_multiplication",
+        "coefficient_variable_split",
+        "same_base_multiplication"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT124",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴을 포함한 곱셈",
+      "description": "단항식의 곱셈 범주의 '분수꼴을 포함한 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C038",
+        "M2_NE_C022"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_multiplication",
+        "coefficient_variable_split",
+        "same_base_multiplication"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_041",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT125",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "역수 구하기",
+      "description": "단항식의 나눗셈 범주의 '역수 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C039",
+        "M2_NE_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_division",
+        "reciprocal",
+        "exponent_subtraction"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT126",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 나눗셈",
+      "description": "단항식의 나눗셈 범주의 '한 문자에 대한 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C039",
+        "M2_NE_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_division",
+        "reciprocal",
+        "exponent_subtraction"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT127",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 문자에 대한 나눗셈",
+      "description": "단항식의 나눗셈 범주의 '여러 문자에 대한 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C039",
+        "M2_NE_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_division",
+        "reciprocal",
+        "exponent_subtraction"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT128",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "계산식에 미지수가 포함된 경우",
+      "description": "단항식의 나눗셈 범주의 '계산식에 미지수가 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C039",
+        "M2_NE_C024"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_division",
+        "reciprocal",
+        "exponent_subtraction"
+      ],
+      "source_orders": [
+        16
+      ],
+      "raw_section_id": "M2_NE_RAW_042",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT129",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 혼합 계산",
+      "description": "단항식의 곱셈과 나눗셈의 혼합 계산 범주의 '한 문자에 대한 혼합 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C039",
+        "M2_NE_C040",
+        "M2_NE_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_mixed",
+        "operation_order",
+        "unknown_condition"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT130",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 문자에 대한 혼합 계산",
+      "description": "단항식의 곱셈과 나눗셈의 혼합 계산 범주의 '여러 문자에 대한 혼합 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C039",
+        "M2_NE_C040",
+        "M2_NE_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_mixed",
+        "operation_order",
+        "unknown_condition"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT131",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "계산식에 미지수가 포함된 경우",
+      "description": "단항식의 곱셈과 나눗셈의 혼합 계산 범주의 '계산식에 미지수가 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C039",
+        "M2_NE_C040",
+        "M2_NE_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_mixed",
+        "operation_order",
+        "unknown_condition"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT132",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "혼합계산의 활용",
+      "description": "단항식의 곱셈과 나눗셈의 혼합 계산 범주의 '혼합계산의 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C039",
+        "M2_NE_C040",
+        "M2_NE_C041"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_mixed",
+        "operation_order",
+        "unknown_condition"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_043",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT133",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식의 곱셈",
+      "description": "단항식의 계산에서 빈 칸에 알맞은 식 구하기 범주의 '단항식의 곱셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning",
+        "monomial_operation"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT134",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식의 나눗셈",
+      "description": "단항식의 계산에서 빈 칸에 알맞은 식 구하기 범주의 '단항식의 나눗셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning",
+        "monomial_operation"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT135",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식의 혼합 계산",
+      "description": "단항식의 계산에서 빈 칸에 알맞은 식 구하기 범주의 '단항식의 혼합 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning",
+        "monomial_operation"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT136",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식의 계산에서 빈 칸에 알맞은 식 구하기 - 응용",
+      "description": "단항식의 계산에서 빈 칸에 알맞은 식 구하기 범주의 '응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C042"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning",
+        "monomial_operation"
+      ],
+      "source_orders": [
+        17
+      ],
+      "raw_section_id": "M2_NE_RAW_044",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT137",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "삼각형에 대한 계산",
+      "description": "도형에서의 단항식의 계산(1) - 평면도형 범주의 '삼각형에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C043"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT138",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "사각형에 대한 계산",
+      "description": "도형에서의 단항식의 계산(1) - 평면도형 범주의 '사각형에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C043"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT139",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "여러 도형에 대한 계산",
+      "description": "도형에서의 단항식의 계산(1) - 평면도형 범주의 '여러 도형에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C043"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_045",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT140",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "기둥의 계산",
+      "description": "도형에서의 단항식의 계산(2) - 입체도형 범주의 '기둥의 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C044"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT141",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "뿔의 계산",
+      "description": "도형에서의 단항식의 계산(2) - 입체도형 범주의 '뿔의 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C044"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT142",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "회전체의 계산",
+      "description": "도형에서의 단항식의 계산(2) - 입체도형 범주의 '회전체의 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C044"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT143",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 개 이상의 입체도형",
+      "description": "도형에서의 단항식의 계산(2) - 입체도형 범주의 '두 개 이상의 입체도형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C040",
+        "M2_NE_C044"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "monomial_application"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_046",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT144",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식 계산 활용",
+      "description": "단항식의 곱셈과 나눗셈의 활용 범주의 '단항식 계산 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C045"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_application",
+        "quantity_relation"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT145",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "수량 관계를 단항식으로 해석",
+      "description": "단항식의 곱셈과 나눗셈의 활용 범주의 '수량 관계를 단항식으로 해석' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C045"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "monomial_application",
+        "quantity_relation"
+      ],
+      "source_orders": [
+        18
+      ],
+      "raw_section_id": "M2_NE_RAW_047",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT146",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈과 뺄셈",
+      "description": "다항식의 덧셈과 뺄셈 범주의 '다항식의 덧셈과 뺄셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C047",
+        "M2_NE_C049",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_add_subtract",
+        "like_terms",
+        "fraction_polynomial"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT147",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴의 다항식을 포함한 계산",
+      "description": "다항식의 덧셈과 뺄셈 범주의 '분수꼴의 다항식을 포함한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C047",
+        "M2_NE_C049",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_add_subtract",
+        "like_terms",
+        "fraction_polynomial"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT148",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈과 뺄셈 응용",
+      "description": "다항식의 덧셈과 뺄셈 범주의 '다항식의 덧셈과 뺄셈 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C047",
+        "M2_NE_C049",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_add_subtract",
+        "like_terms",
+        "fraction_polynomial"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT149",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈과 뺄셈 활용",
+      "description": "다항식의 덧셈과 뺄셈 범주의 '다항식의 덧셈과 뺄셈 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C047",
+        "M2_NE_C049",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_add_subtract",
+        "like_terms",
+        "fraction_polynomial"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_048",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT150",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 문자에 대한 식",
+      "description": "이차식 찾기 범주의 '한 문자에 대한 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_expression",
+        "degree_judgment"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT151",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 문자에 대한 식",
+      "description": "이차식 찾기 범주의 '두 문자에 대한 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "basic",
+      "error_tags": [
+        "quadratic_expression",
+        "degree_judgment"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_049",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT152",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 미지수에 대한 계산",
+      "description": "이차식의 덧셈과 뺄셈 범주의 '한 미지수에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_add_subtract",
+        "like_terms"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT153",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 미지수에 대한 계산",
+      "description": "이차식의 덧셈과 뺄셈 범주의 '두 미지수에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_add_subtract",
+        "like_terms"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT154",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "이차식의 덧셈과 뺄셈 응용",
+      "description": "이차식의 덧셈과 뺄셈 범주의 '이차식의 덧셈과 뺄셈 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_add_subtract",
+        "like_terms"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT155",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "이차식의 덧셈과 뺄셈 활용",
+      "description": "이차식의 덧셈과 뺄셈 범주의 '이차식의 덧셈과 뺄셈 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C048"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "quadratic_add_subtract",
+        "like_terms"
+      ],
+      "source_orders": [
+        19
+      ],
+      "raw_section_id": "M2_NE_RAW_050",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT156",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 미지수에 대한 중괄호 포함 계산",
+      "description": "여러 가지 괄호가 있는 식의 계산 범주의 '한 미지수에 대한 중괄호 포함 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C049"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "brackets",
+        "operation_order",
+        "sign_distribution"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT157",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 미지수에 대한 중괄호 포함 계산",
+      "description": "여러 가지 괄호가 있는 식의 계산 범주의 '두 미지수에 대한 중괄호 포함 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C049"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "brackets",
+        "operation_order",
+        "sign_distribution"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT158",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "한 미지수에 대한 대괄호 포함 계산",
+      "description": "여러 가지 괄호가 있는 식의 계산 범주의 '한 미지수에 대한 대괄호 포함 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C049"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "brackets",
+        "operation_order",
+        "sign_distribution"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT159",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "두 미지수에 대한 대괄호 포함 계산",
+      "description": "여러 가지 괄호가 있는 식의 계산 범주의 '두 미지수에 대한 대괄호 포함 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C049"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "brackets",
+        "operation_order",
+        "sign_distribution"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_051",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT160",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 - 한 문자에 대한 계산",
+      "description": "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 범주의 '한 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_polynomial",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_052",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT161",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 - 두 문자에 대한 계산",
+      "description": "모르는(어떤) 다항식 구하기(1) - 다항식의 덧셈과 뺄셈 이용 범주의 '두 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_polynomial",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_052",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT162",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 한 문자에 대한 계산",
+      "description": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 범주의 '한 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "polynomial_add_subtract"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT163",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 두 문자에 대한 계산",
+      "description": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 범주의 '두 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "polynomial_add_subtract"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT164",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 - 응용",
+      "description": "다항식의 덧셈/뺄셈에서 빈 칸에 알맞은 식 구하기 범주의 '응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "polynomial_add_subtract"
+      ],
+      "source_orders": [
+        20
+      ],
+      "raw_section_id": "M2_NE_RAW_053",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT165",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "잘못 계산한 식에서 바른 답 구하기 - 한 문자에 대한 계산",
+      "description": "잘못 계산한 식에서 바른 답 구하기 범주의 '한 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C051"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_calculation",
+        "correct_expression"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_054",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT166",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "잘못 계산한 식에서 바른 답 구하기 - 두 문자에 대한 계산",
+      "description": "잘못 계산한 식에서 바른 답 구하기 범주의 '두 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C051"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "wrong_calculation",
+        "correct_expression"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_054",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT167",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 곱셈 - 한 문자에 대한 계산",
+      "description": "단항식과 다항식의 곱셈 범주의 '한 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C046",
+        "M2_NE_C052"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_polynomial_multiplication",
+        "distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_055",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT168",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 곱셈 - 두 문자에 대한 계산",
+      "description": "단항식과 다항식의 곱셈 범주의 '두 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C046",
+        "M2_NE_C052"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_polynomial_multiplication",
+        "distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_055",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT169",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 곱셈 응용",
+      "description": "단항식과 다항식의 곱셈 범주의 '단항식과 다항식의 곱셈 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C038",
+        "M2_NE_C046",
+        "M2_NE_C052"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "monomial_polynomial_multiplication",
+        "distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_055",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT170",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식과 단항식의 나눗셈 - 한 문자에 대한 계산",
+      "description": "다항식과 단항식의 나눗셈 범주의 '한 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C039",
+        "M2_NE_C046",
+        "M2_NE_C053"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_division_by_monomial",
+        "division_distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_056",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT171",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식과 단항식의 나눗셈 - 두 문자에 대한 계산",
+      "description": "다항식과 단항식의 나눗셈 범주의 '두 문자에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C039",
+        "M2_NE_C046",
+        "M2_NE_C053"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_division_by_monomial",
+        "division_distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_056",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT172",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 나눗셈 응용",
+      "description": "다항식과 단항식의 나눗셈 범주의 '단항식과 다항식의 나눗셈 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C039",
+        "M2_NE_C046",
+        "M2_NE_C053"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "polynomial_division_by_monomial",
+        "division_distribution"
+      ],
+      "source_orders": [
+        21
+      ],
+      "raw_section_id": "M2_NE_RAW_056",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT173",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "어떤 식 구하기",
+      "description": "모르는(어떤) 다항식 구하기(2) - 곱셈과 나눗셈 이용 범주의 '어떤 식 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_polynomial",
+        "monomial_polynomial_operation"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_057",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT174",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "바르게 계산한 식 구하기",
+      "description": "모르는(어떤) 다항식 구하기(2) - 곱셈과 나눗셈 이용 범주의 '바르게 계산한 식 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "unknown_polynomial",
+        "monomial_polynomial_operation"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_057",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT175",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "□ 안에 알맞은 식 구하기",
+      "description": "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기 범주의 '□ 안에 알맞은 식 구하기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_058",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT176",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기 - 응용",
+      "description": "단항식과 다항식의 곱셈/나눗셈에서 빈 칸에 알맞은 식 구하기 범주의 '응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C050"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "blank_expression",
+        "reverse_reasoning"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_058",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT177",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "사칙연산이 혼합된 계산",
+      "description": "사칙연산이 혼합된 계산 범주의 '사칙연산이 혼합된 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C054",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polynomial_mixed",
+        "fraction_polynomial",
+        "operation_order"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_059",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT178",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴의 다항식",
+      "description": "사칙연산이 혼합된 계산 범주의 '분수꼴의 다항식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C054",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polynomial_mixed",
+        "fraction_polynomial",
+        "operation_order"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_059",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT179",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "혼합계산의 응용",
+      "description": "사칙연산이 혼합된 계산 범주의 '혼합계산의 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C054",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polynomial_mixed",
+        "fraction_polynomial",
+        "operation_order"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_059",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT180",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "삼각형",
+      "description": "도형에서의 다항식의 계산(1) - 평면도형 범주의 '삼각형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C056"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_060",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT181",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "사각형",
+      "description": "도형에서의 다항식의 계산(1) - 평면도형 범주의 '사각형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C056"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_060",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT182",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "도형 내부의 도형",
+      "description": "도형에서의 다항식의 계산(1) - 평면도형 범주의 '도형 내부의 도형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C056"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_area",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        22
+      ],
+      "raw_section_id": "M2_NE_RAW_060",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT183",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "기둥에 대한 계산",
+      "description": "도형에서의 다항식의 계산(2) - 입체도형 범주의 '기둥에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C057"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_061",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT184",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "뿔에 대한 계산",
+      "description": "도형에서의 다항식의 계산(2) - 입체도형 범주의 '뿔에 대한 계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C057"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_061",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT185",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "입체도형의 계산 응용",
+      "description": "도형에서의 다항식의 계산(2) - 입체도형 범주의 '입체도형의 계산 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C057"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_volume",
+        "solid_geometry",
+        "polynomial_application"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_061",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT186",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "다항식과 단항식의 곱셈과 나눗셈의 활용",
+      "description": "다항식과 단항식의 곱셈과 나눗셈의 활용 범주의 '다항식과 단항식의 곱셈과 나눗셈의 활용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C054"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "polynomial_application",
+        "quantity_relation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_062",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT187",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "식의 덧셈 또는 뺄셈",
+      "description": "식의 값 범주의 '식의 덧셈 또는 뺄셈' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C055",
+        "M2_NE_C058"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "value_of_expression",
+        "substitution",
+        "mixed_operation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_063",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT188",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 곱이 포함된 경우",
+      "description": "식의 값 범주의 '단항식과 다항식의 곱이 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C055",
+        "M2_NE_C058"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "value_of_expression",
+        "substitution",
+        "mixed_operation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_063",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT189",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "단항식과 다항식의 나눗셈이 포함된 경우",
+      "description": "식의 값 범주의 '단항식과 다항식의 나눗셈이 포함된 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C055",
+        "M2_NE_C058"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "value_of_expression",
+        "substitution",
+        "mixed_operation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_063",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT190",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "곱셈, 나눗셈의 혼합계산",
+      "description": "식의 값 범주의 '곱셈, 나눗셈의 혼합계산' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C055",
+        "M2_NE_C058"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "value_of_expression",
+        "substitution",
+        "mixed_operation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_063",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT191",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴의 식",
+      "description": "식의 값 범주의 '분수꼴의 식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C047",
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C055",
+        "M2_NE_C058"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "value_of_expression",
+        "substitution",
+        "mixed_operation"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_063",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT192",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "식으로 주어진 경우",
+      "description": "식의 대입 범주의 '식으로 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C058",
+        "M2_NE_C059"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "expression_as_value",
+        "nested_expression"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_064",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT193",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "식의 계산으로 주어진 경우",
+      "description": "식의 대입 범주의 '식의 계산으로 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C058",
+        "M2_NE_C059"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "expression_as_value",
+        "nested_expression"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_064",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT194",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "식의 대입의 응용",
+      "description": "식의 대입 범주의 '식의 대입의 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C058",
+        "M2_NE_C059"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "substitution",
+        "expression_as_value",
+        "nested_expression"
+      ],
+      "source_orders": [
+        23
+      ],
+      "raw_section_id": "M2_NE_RAW_064",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT195",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식을 변형하여 풀기",
+      "description": "등식을 변형하여 한 문자에 대하여 풀기 범주의 '등식을 변형하여 풀기' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_transformation",
+        "solve_for_variable"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_065",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT196",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식의 변형 응용",
+      "description": "등식을 변형하여 한 문자에 대하여 풀기 범주의 '등식의 변형 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060"
+      ],
+      "default_difficulty": "core",
+      "error_tags": [
+        "equation_transformation",
+        "solve_for_variable"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_065",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT197",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식을 변형하여 다른 식에 대입하기 - 간단한 등식",
+      "description": "등식을 변형하여 다른 식에 대입하기 범주의 '간단한 등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_transformation",
+        "substitution_after_transform"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_066",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT198",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식을 변형하여 다른 식에 대입하기 - 복잡한 등식",
+      "description": "등식을 변형하여 다른 식에 대입하기 범주의 '복잡한 등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_transformation",
+        "substitution_after_transform"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_066",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT199",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "식의 대입의 응용",
+      "description": "등식을 변형하여 다른 식에 대입하기 범주의 '식의 대입의 응용' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_transformation",
+        "substitution_after_transform"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_066",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT200",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "등식을 변형하여 식의 값 구하기(1) - x, y에 대한 등식이 주어질 때 - 간단한 등식",
+      "description": "등식을 변형하여 식의 값 구하기(1) - x, y에 대한 등식이 주어질 때 범주의 '간단한 등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_transformation",
+        "value_of_expression"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_067",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT201",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "분수꼴을 포함한 등식",
+      "description": "등식을 변형하여 식의 값 구하기(1) - x, y에 대한 등식이 주어질 때 범주의 '분수꼴을 포함한 등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061",
+        "M2_NE_C055"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "equation_transformation",
+        "value_of_expression"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_067",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT202",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "비례식이 주어진 경우",
+      "description": "등식을 변형하여 식의 값 구하기(2) - 비례식이 주어질 때 범주의 '비례식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C062"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "proportion",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_068",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT203",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "복잡한 비례식이 주어진 경우",
+      "description": "등식을 변형하여 식의 값 구하기(2) - 비례식이 주어질 때 범주의 '복잡한 비례식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C062"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "proportion",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        24
+      ],
+      "raw_section_id": "M2_NE_RAW_068",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT204",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "세 문자에 대한 등식",
+      "description": "등식을 변형하여 식의 값 구하기(3) - 세 문자에 대한 식이 주어질 때 범주의 '세 문자에 대한 등식' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061",
+        "M2_NE_C062"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "three_variables",
+        "proportion",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_069",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT205",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "비례식이 주어진 경우",
+      "description": "등식을 변형하여 식의 값 구하기(3) - 세 문자에 대한 식이 주어질 때 범주의 '비례식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C061",
+        "M2_NE_C062"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "three_variables",
+        "proportion",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_069",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT206",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "관계식이 주어진 경우",
+      "description": "등식의 변형의 실생활 활용 범주의 '관계식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C063"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_equation",
+        "relationship_formula"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_070",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT207",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "비례식이 주어진 경우",
+      "description": "등식의 변형의 실생활 활용 범주의 '비례식이 주어진 경우' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C063"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "real_world_equation",
+        "relationship_formula"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_070",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT208",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "삼각형",
+      "description": "등식의 변형의 도형 활용 범주의 '삼각형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C064"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_formula",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_071",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT209",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "사각형",
+      "description": "등식의 변형의 도형 활용 범주의 '사각형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C064"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_formula",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_071",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT210",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "도형 내부의 도형",
+      "description": "등식의 변형의 도형 활용 범주의 '도형 내부의 도형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C064"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_formula",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_071",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    },
+    {
+      "problem_type_id": "M2_NE_PT211",
+      "grade": "중2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "type_name": "입체도형",
+      "description": "등식의 변형의 도형 활용 범주의 '입체도형' 유형을 진단한다.",
+      "concept_ids": [
+        "M2_NE_C060",
+        "M2_NE_C064"
+      ],
+      "default_difficulty": "advanced",
+      "error_tags": [
+        "geometry_formula",
+        "equation_transformation"
+      ],
+      "source_orders": [
+        25
+      ],
+      "raw_section_id": "M2_NE_RAW_071",
+      "status": "curated_problem_type_from_raw_taxonomy"
+    }
+  ]
+}

@@ -1,0 +1,419 @@
+{
+  "version": "2026.07.05-m2-number-expression-v0.8",
+  "unit_id": "M2_NUMBER_EXPRESSION",
+  "unit_name": "수와 식",
+  "rule_count": 18,
+  "rules": [
+    {
+      "rule_id": "M2_NE_RULE_001",
+      "name": "유리수와 소수 표현 분류 취약",
+      "trigger": {
+        "error_tags_any": [
+          "rational_classification",
+          "decimal_classification",
+          "finite_decimal",
+          "infinite_decimal"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "유리수, 유한소수, 무한소수, 순환소수의 포함 관계가 불안정합니다.",
+      "parent_message": "소수 표현을 계산 문제로만 보면 이후 순환소수 변환에서 계속 흔들립니다. 먼저 유리수→유한소수/순환소수의 큰 분류를 잡아야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C001",
+        "M2_NE_C002",
+        "M2_NE_C003",
+        "M2_NE_C014"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_002",
+      "name": "유한소수 조건 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "finite_decimal_condition",
+          "denominator_factor",
+          "prime_factor_2_5",
+          "unknown_denominator",
+          "unknown_multiplier"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "기약분수의 분모 조건과 미지수 조건을 연결하는 과정이 약합니다.",
+      "parent_message": "분모를 소인수분해해 2와 5만 남는지 확인하는 절차가 자동화되지 않은 상태입니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C005",
+        "M2_NE_C006",
+        "M2_NE_C007",
+        "M2_NE_C008"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_003",
+      "name": "순환마디와 자리수 판단 취약",
+      "trigger": {
+        "error_tags_any": [
+          "repetend",
+          "nth_digit",
+          "repetend_cycle",
+          "modular_pattern"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "순환마디의 길이와 반복 순서를 이용한 자리수 판단이 약합니다.",
+      "parent_message": "순환소수의 n번째 자리 문항은 나눗셈 문제가 아니라 반복 주기 문제입니다. 순환마디 표시와 나머지 계산을 같이 훈련해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C003",
+        "M2_NE_C009",
+        "M2_NE_C010",
+        "M2_NE_C011"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_004",
+      "name": "순환소수의 분수 변환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "repeating_to_fraction",
+          "power_of_10_method",
+          "formula_method",
+          "mixed_repetend",
+          "infinite_sum"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "순환소수를 분수로 바꾸는 과정에서 순환하는 자리와 순환하지 않는 자리를 구분하지 못합니다.",
+      "parent_message": "공식 암기보다 10배, 100배 하여 반복 부분을 소거하는 원리를 먼저 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C012",
+        "M2_NE_C013"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_005",
+      "name": "순환소수 조건형·등식형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "repeating_decimal_equation",
+          "repeating_decimal_condition",
+          "unknown_value",
+          "condition_interpretation",
+          "wrong_fraction_reading",
+          "wrong_calculation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "순환소수가 포함된 등식, 조건, 오류 역추적에서 식을 세우는 능력이 약합니다.",
+      "parent_message": "순환소수 자체보다 조건을 식으로 바꾸는 단계에서 막히는 유형입니다. 분수 변환 후 등식 세우기 순서로 보강해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C016",
+        "M2_NE_C017",
+        "M2_NE_C018",
+        "M2_NE_C019"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_006",
+      "name": "지수의 의미와 밑·지수 구분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "base_condition",
+          "same_base_multiplication",
+          "power_compare",
+          "negative_base",
+          "parentheses"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "거듭제곱의 밑, 지수, 괄호가 어디까지 적용되는지 구분이 불안정합니다.",
+      "parent_message": "지수법칙을 외우기 전에 밑이 무엇인지, 괄호가 어디까지 묶는지 표시하는 훈련이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C028",
+        "M2_NE_C029",
+        "M2_NE_C036"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_007",
+      "name": "같은 밑의 곱셈 조건 누락 취약",
+      "trigger": {
+        "error_tags_any": [
+          "same_base_multiplication",
+          "exponent_addition",
+          "base_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "같은 밑일 때만 지수를 더한다는 조건을 놓치고 있습니다.",
+      "parent_message": "밑이 다르면 합칠 수 없다는 조건을 표시하지 않으면 단항식 계산에서도 문자별 지수 정리가 무너집니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C022",
+        "M2_NE_C028"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_008",
+      "name": "거듭제곱의 거듭제곱 혼동 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_of_power",
+          "exponent_multiplication",
+          "parentheses"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "거듭제곱의 거듭제곱에서 지수를 더하는지 곱하는지 혼동합니다.",
+      "parent_message": "괄호 밖의 지수는 전체가 반복되는 횟수입니다. 전개해서 같은 식이 몇 번 곱해지는지 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C021",
+        "M2_NE_C023",
+        "M2_NE_C036"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_009",
+      "name": "지수 나눗셈과 분수꼴 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "same_base_division",
+          "exponent_subtraction",
+          "fraction_power",
+          "quotient_power"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "같은 밑의 나눗셈과 분수꼴 거듭제곱에서 지수와 부호 처리가 불안정합니다.",
+      "parent_message": "나눗셈은 지수를 빼고, 몫의 거듭제곱은 분자·분모 각각에 지수를 적용하는 구조를 분리해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C024",
+        "M2_NE_C026"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_010",
+      "name": "곱·몫의 거듭제곱과 괄호 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "product_power",
+          "quotient_power",
+          "distribute_exponent",
+          "parentheses"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "괄호 전체에 붙은 지수를 각 인수에 적용하는 과정이 약합니다.",
+      "parent_message": "괄호 안 전체가 반복되는 구조를 먼저 전개해 보고, 계수와 문자에 지수가 모두 적용되는지 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C025",
+        "M2_NE_C026",
+        "M2_NE_C036"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_011",
+      "name": "지수법칙 혼합·미지수 방정식 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponent_mixed",
+          "operation_order",
+          "exponent_equation",
+          "unknown_exponent",
+          "same_base_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "여러 지수법칙이 섞인 식이나 지수에 미지수가 있는 방정식에서 적용 순서가 흔들립니다.",
+      "parent_message": "하나의 공식 문제가 아니라 식의 모양 구분 문제입니다. 곱셈, 거듭제곱, 나눗셈을 표시한 뒤 계산해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C027",
+        "M2_NE_C035"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_012",
+      "name": "지수법칙 응용 패턴 취약",
+      "trigger": {
+        "error_tags_any": [
+          "same_number_addition",
+          "exponent_transformation",
+          "express_with_another_base",
+          "ones_digit_cycle",
+          "digit_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "지수법칙을 같은 수의 덧셈, 자릿수, 일의 자리수 등 응용 상황에 적용하는 능력이 약합니다.",
+      "parent_message": "기본 계산은 되더라도 주기와 자릿수 조건으로 바뀌면 구조를 놓치는 상태입니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C031",
+        "M2_NE_C032",
+        "M2_NE_C033",
+        "M2_NE_C034"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_013",
+      "name": "단항식 계수·문자 분리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monomial_multiplication",
+          "coefficient_variable_split",
+          "same_base_multiplication"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "단항식 곱셈에서 계수 계산과 문자 지수 계산을 분리하지 못합니다.",
+      "parent_message": "숫자는 숫자끼리, 같은 문자는 같은 문자끼리 모으는 표기 습관이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C037",
+        "M2_NE_C038",
+        "M2_NE_C022"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_014",
+      "name": "단항식 나눗셈·역수 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monomial_division",
+          "reciprocal",
+          "exponent_subtraction"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "단항식 나눗셈에서 역수 전환과 지수 뺄셈이 불안정합니다.",
+      "parent_message": "나눗셈을 바로 처리하지 말고 역수의 곱셈으로 바꾼 뒤 계수와 문자를 나누어 정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C039",
+        "M2_NE_C024"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_015",
+      "name": "단항식 혼합계산·도형 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monomial_mixed",
+          "blank_expression",
+          "geometry_area",
+          "geometry_volume",
+          "monomial_application"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "단항식의 곱셈·나눗셈이 섞인 식이나 도형 활용에서 식 구조를 세우지 못합니다.",
+      "parent_message": "공식 암기보다 도형의 길이·넓이·부피 관계를 단항식 계산으로 번역하는 과정이 필요합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C040",
+        "M2_NE_C042",
+        "M2_NE_C043",
+        "M2_NE_C044",
+        "M2_NE_C045"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_NE_RULE_016",
+      "name": "다항식 동류항·괄호 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "polynomial_add_subtract",
+          "like_terms",
+          "brackets",
+          "sign_distribution",
+          "quadratic_add_subtract"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "다항식의 덧셈·뺄셈에서 동류항 정리와 괄호 앞 부호 처리가 약합니다.",
+      "parent_message": "항을 세로로 정렬하고, 괄호 앞 마이너스가 내부 모든 항에 적용되는지 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C046",
+        "M2_NE_C047",
+        "M2_NE_C048",
+        "M2_NE_C049"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_017",
+      "name": "다항식 곱셈·나눗셈과 혼합계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "monomial_polynomial_multiplication",
+          "polynomial_division_by_monomial",
+          "polynomial_mixed",
+          "fraction_polynomial"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "단항식과 다항식의 곱셈·나눗셈 및 혼합계산에서 분배와 약분 순서가 흔들립니다.",
+      "parent_message": "각 항에 똑같이 곱하거나 나누는지 확인하고, 분수꼴은 항별로 나눈 뒤 동류항을 정리해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C052",
+        "M2_NE_C053",
+        "M2_NE_C054",
+        "M2_NE_C055"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_NE_RULE_018",
+      "name": "식의 값·대입·등식 변형 취약",
+      "trigger": {
+        "error_tags_any": [
+          "value_of_expression",
+          "substitution",
+          "nested_expression",
+          "equation_transformation",
+          "solve_for_variable",
+          "proportion"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "식의 값, 식의 대입, 등식 변형에서 목표 문자를 정리하는 과정이 약합니다.",
+      "parent_message": "대입 전에 식을 먼저 정리하고, 등식 변형에서는 어떤 문자를 남길지 표시해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_NE_C058",
+        "M2_NE_C059",
+        "M2_NE_C060",
+        "M2_NE_C061",
+        "M2_NE_C062"
+      ],
+      "severity": "high"
+    }
+  ]
+}

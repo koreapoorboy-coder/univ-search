@@ -1,0 +1,274 @@
+{
+  "version": "2026.07.05-m1-data-analysis-v0.7",
+  "unit_id": "M1_DATA_ANALYSIS",
+  "unit_name": "자료 정리와 해석",
+  "rule_count": 12,
+  "rules": [
+    {
+      "rule_id": "M1_DA_RULE_001",
+      "name": "평균 계산·역산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mean",
+          "data_sum",
+          "added_data",
+          "data_correction",
+          "unknown_variable"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "평균을 총합과 변량의 수 관계로 처리하는 과정이 약합니다.",
+      "parent_message": "단순 평균은 가능해도 변량이 추가되거나 미지수가 들어가면 총합 식을 세우는 단계에서 흔들릴 수 있습니다. 평균×개수=총합 구조를 먼저 고정해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C001",
+        "M1_DA_C002",
+        "M1_DA_C004"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_DA_RULE_002",
+      "name": "중앙값 정렬·조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "median",
+          "sorting",
+          "range_condition"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "자료를 크기순으로 배열한 뒤 중앙값 조건을 해석하는 능력이 불안정합니다.",
+      "parent_message": "중앙값은 계산보다 정렬과 위치 판단이 핵심입니다. 홀수/짝수 개 자료를 나누고 미지수의 가능한 위치를 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C005",
+        "M1_DA_C006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_003",
+      "name": "최빈값 빈도 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "mode",
+          "frequency",
+          "frequency_condition",
+          "data_change"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "최빈값을 빈도 조건으로 해석하고 변량 변화에 따라 판단하는 과정이 약합니다.",
+      "parent_message": "최빈값은 큰 값이 아니라 가장 자주 나온 값입니다. 추가·삭제·변경 후 횟수표를 다시 만드는 훈련이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C007",
+        "M1_DA_C008"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_004",
+      "name": "대표값 선택 취약",
+      "trigger": {
+        "error_tags_any": [
+          "representative_value",
+          "choice",
+          "outlier",
+          "context_interpretation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "자료의 목적과 분포에 맞는 대표값을 고르는 판단이 약합니다.",
+      "parent_message": "평균, 중앙값, 최빈값은 쓰임이 다릅니다. 극단값이 있는 자료인지, 가장 흔한 값을 찾는 상황인지부터 구분해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C009",
+        "M1_DA_C010"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_005",
+      "name": "줄기와 잎 그림 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "stem_leaf",
+          "making",
+          "interpretation",
+          "range"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "줄기와 잎 그림에서 자릿값과 자료 수를 해석하는 능력이 불안정합니다.",
+      "parent_message": "줄기와 잎 그림은 원자료를 압축한 표입니다. 잎 하나가 자료 하나라는 점과 자릿값을 먼저 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C011",
+        "M1_DA_C012",
+        "M1_DA_C013"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_006",
+      "name": "도수분포표 계급·도수 취약",
+      "trigger": {
+        "error_tags_any": [
+          "frequency_table",
+          "class_interval",
+          "class_mark",
+          "frequency",
+          "total_count"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "계급, 계급값, 도수, 도수의 총합을 구분하는 능력이 약합니다.",
+      "parent_message": "도수분포표는 용어 구분이 핵심입니다. 계급의 끝값, 계급값, 계급의 크기, 도수의 총합을 표 위에 직접 표시하는 보강이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C014",
+        "M1_DA_C015",
+        "M1_DA_C016",
+        "M1_DA_C017"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_DA_RULE_007",
+      "name": "백분율·상대도수 기초 취약",
+      "trigger": {
+        "error_tags_any": [
+          "percentage",
+          "relative_frequency",
+          "total_count",
+          "relation"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "전체 도수를 기준으로 비율을 계산하는 과정이 불안정합니다.",
+      "parent_message": "백분율과 상대도수는 모두 전체에 대한 비율입니다. 항상 분모가 전체 도수인지 확인하는 습관이 필요합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C018",
+        "M1_DA_C026",
+        "M1_DA_C027"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_DA_RULE_008",
+      "name": "히스토그램 해석·복원 취약",
+      "trigger": {
+        "error_tags_any": [
+          "histogram",
+          "area",
+          "torn_graph",
+          "axis_break"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "히스토그램의 계급과 도수, 찢어진 그래프 복원 조건을 해석하는 능력이 약합니다.",
+      "parent_message": "히스토그램은 막대의 높이가 도수를 나타냅니다. 보이지 않는 부분은 전체 도수나 조건을 이용해 역산해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C019",
+        "M1_DA_C020",
+        "M1_DA_C021"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_009",
+      "name": "도수분포다각형 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "frequency_polygon",
+          "class_mark",
+          "value_reading",
+          "area",
+          "torn_graph"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "도수분포다각형에서 계급값 위치와 도수를 읽는 능력이 불안정합니다.",
+      "parent_message": "도수분포다각형은 계급값 위치의 점을 연결한 그래프입니다. 양 끝의 도수 0점과 계급값 위치를 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C022",
+        "M1_DA_C023",
+        "M1_DA_C024"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_010",
+      "name": "분포 그래프 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "two_groups",
+          "compare",
+          "frequency_polygon",
+          "stem_leaf"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "두 집단의 분포를 비교할 때 중심, 퍼짐, 특정 계급을 구분해 해석하는 능력이 약합니다.",
+      "parent_message": "그래프가 높게 보이는 구간만 보고 판단하면 오류가 생깁니다. 비교 기준을 평균적인 위치, 많은 구간, 퍼진 정도로 나누어 읽어야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C012",
+        "M1_DA_C025",
+        "M1_DA_C036"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M1_DA_RULE_011",
+      "name": "상대도수분포표·그래프 변환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "relative_frequency_table",
+          "relative_frequency_graph",
+          "histogram_shape",
+          "polygon_shape"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "상대도수분포표와 상대도수 그래프를 서로 변환하는 능력이 약합니다.",
+      "parent_message": "상대도수 그래프는 모양은 히스토그램·도수분포다각형과 비슷하지만 세로축이 도수가 아니라 상대도수입니다. 세로축 단위를 먼저 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C028",
+        "M1_DA_C030",
+        "M1_DA_C031"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M1_DA_RULE_012",
+      "name": "도수총합이 다른 자료 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "two_groups",
+          "total_count_missing",
+          "total_count_relation",
+          "relative_frequency_ratio",
+          "total_count_ratio"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 0
+      },
+      "diagnosis": "자료 수가 다른 두 집단을 상대도수로 비교하는 과정이 약합니다.",
+      "parent_message": "집단의 전체 수가 다르면 도수만으로 비교하면 안 됩니다. 상대도수로 공정하게 비교하고, 실제 도수가 필요할 때만 전체 도수를 곱해야 합니다.",
+      "recommended_concept_ids": [
+        "M1_DA_C032",
+        "M1_DA_C034",
+        "M1_DA_C035",
+        "M1_DA_C036"
+      ],
+      "severity": "high"
+    }
+  ]
+}

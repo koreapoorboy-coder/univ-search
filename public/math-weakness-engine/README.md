@@ -52,3 +52,30 @@ GitHub Pages 기준:
 - 문항 유형 DB: `data/problem_types/m1_basic_geometry.problem_types.v1.json`
 - 개념 연결 DB: `data/relations/m1_basic_geometry.edges.v1.json`
 - 진단 규칙: 직선·반직선·선분/각도 조건/위치 관계/평행선/작도/삼각형 결정조건/합동조건
+
+
+## v0.7 추가: 중1 입체도형의 성질
+- 원본 이미지 13개 기준: 다면체/정다면체/회전체/기둥·뿔·구의 겉넓이와 부피
+- 원본 섹션 인덱스: `data/raw_taxonomy/m1_solid_geometry.raw_taxonomy.v1.json`
+- 문항 유형 DB: `data/problem_types/m1_solid_geometry.problem_types.v1.json`
+- 개념 노드 추가: `M1_SG_C001` ~ `M1_SG_C036`
+- 개념 연결 DB: `data/relations/m1_solid_geometry.edges.v1.json`
+- 진단 규칙: 다면체 요소 세기/정다면체 전개도/회전체 축·단면/전개도/기둥·뿔·구 겉넓이와 부피/복합 입체 조건 역산
+
+
+## v0.7 추가 단원
+- 자료 정리와 해석: 대표값, 줄기와 잎 그림, 도수분포표, 히스토그램, 도수분포다각형, 상대도수와 그 그래프
+- 원본 이미지 10개 분류 구조를 raw_taxonomy/problem_types/rules/remediation으로 표준화
+
+
+## Patch 2026.07.05-m2-number-expression-v0.8
+
+- Added unit: 중2 수와 식 (`M2_NUMBER_EXPRESSION`)
+- Source images: 25 PNG files from user-owned taxonomy zip; images are not included in GitHub core patch.
+- Added raw taxonomy, problem types, concepts, edges, diagnosis rules, remediation map, and sample attempts.
+
+
+## 2026-07-06 Patch: H2_EXP_LOG
+- Added high school Math I unit: 지수와 로그.
+- Added raw taxonomy, problem types, diagnosis rules, remediation map, relation edges, source manifest, and solution templates.
+- Focus: condition judgment for powers/roots, logarithm domain conditions, log substitution, common logarithm integer/fractional parts.

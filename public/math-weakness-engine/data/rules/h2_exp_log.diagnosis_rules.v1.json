@@ -1,0 +1,340 @@
+{
+  "version": "2026.07.06-h2-exp-log-v0.9",
+  "unit_id": "H2_EXP_LOG",
+  "unit_name": "지수와 로그",
+  "rule_count": 17,
+  "rules": [
+    {
+      "rule_id": "H2_EL_RULE_001",
+      "name": "거듭제곱근 정의·개수 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_root",
+          "nth_root",
+          "condition_judgment"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "n제곱근의 정의, 실수근 존재 여부, 근의 개수 판별이 불안정합니다.",
+      "parent_message": "계산 전에 반드시 주어진 수의 부호와 n의 홀짝을 확인하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C001",
+        "H2_EL_C002",
+        "H2_EL_C003"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_002",
+      "name": "거듭제곱근 계산 취약",
+      "trigger": {
+        "error_tags_any": [
+          "power_root",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "거듭제곱근의 곱셈·나눗셈·혼합계산에서 근호 구조 정리가 약합니다.",
+      "parent_message": "동류 근호와 근호의 차수 통일을 먼저 표시하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C004"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_003",
+      "name": "문자 포함 거듭제곱근 조건 누락",
+      "trigger": {
+        "error_tags_any": [
+          "symbolic_condition",
+          "power_root"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "문자가 포함된 근호에서 부호 조건과 정의 조건을 놓칩니다.",
+      "parent_message": "문자 범위, 짝수근 절댓값 여부, 정의 가능 조건을 먼저 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C005"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_004",
+      "name": "거듭제곱근 대소 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "comparison",
+          "power_root"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "거듭제곱근의 대소를 비교할 때 같은 차수나 같은 밑으로 통일하지 못합니다.",
+      "parent_message": "같은 차수 만들기 또는 양변 거듭제곱 비교 절차를 훈련해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_005",
+      "name": "정수 지수법칙 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponent_law"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "0지수와 음수 지수, 역수 변환이 불안정합니다.",
+      "parent_message": "a^0=1, a^{-n}=1/a^n을 먼저 표시하고 계산하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C007"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_006",
+      "name": "유리수·실수 지수 변환 취약",
+      "trigger": {
+        "error_tags_any": [
+          "exponent_law",
+          "power_root"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "근호와 유리수 지수의 상호 변환이 불안정합니다.",
+      "parent_message": "근호의 차수는 분모, 안쪽 거듭제곱 지수는 분자로 쓰는 절차가 필요합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C008",
+        "H2_EL_C009"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_007",
+      "name": "지수 조건 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "integer_natural_condition"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "a^r이 자연수/정수/유리수가 되는 조건을 소인수 지수표로 정리하지 못합니다.",
+      "parent_message": "완전제곱수·완전세제곱수 조건을 소인수 지수의 배수 조건으로 바꾸게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C011"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_008",
+      "name": "지수 복합식 구조화 취약",
+      "trigger": {
+        "error_tags_any": [
+          "quadratic_connection",
+          "symbolic_condition"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "지수법칙과 곱셈공식, 관계식 조건을 결합하는 4점형 구조화가 약합니다.",
+      "parent_message": "대칭식 치환, 밑 통일, 근과 계수 관계를 표로 분리해 접근하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C010",
+        "H2_EL_C012",
+        "H2_EL_C013"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_009",
+      "name": "지수 실생활 모델링 취약",
+      "trigger": {
+        "error_tags_any": [
+          "application_modeling",
+          "exponent_law"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "증가·감소·배율·시간 조건을 지수식으로 모델링하는 과정이 약합니다.",
+      "parent_message": "초기값, 배율, 반복 횟수를 따로 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C014"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_010",
+      "name": "로그 정의와 조건 취약",
+      "trigger": {
+        "error_tags_any": [
+          "logarithm",
+          "domain_condition"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "로그를 지수식으로 바꾸는 과정과 밑·진수 조건 확인이 불안정합니다.",
+      "parent_message": "log_a N=x ↔ a^x=N 변환, 밑>0·밑≠1·진수>0 조건을 고정 양식으로 확인시켜야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C015",
+        "H2_EL_C016"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_011",
+      "name": "로그 성질 적용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "logarithm",
+          "algebraic_manipulation"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "로그의 곱·몫·거듭제곱 성질을 식 전체에 정확히 적용하지 못합니다.",
+      "parent_message": "log a=A 같은 치환표를 만들고 곱은 합, 몫은 차, 거듭제곱은 계수로 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C017",
+        "H2_EL_C018",
+        "H2_EL_C019"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_012",
+      "name": "로그 조건 활용·방정식 연결 취약",
+      "trigger": {
+        "error_tags_any": [
+          "logarithm",
+          "quadratic_connection",
+          "symbolic_condition"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "로그 조건식이 여러 개 주어질 때 관계식 정리와 목표식 변환이 약합니다.",
+      "parent_message": "미지수 로그 치환, 정의역, 근과 계수 관계를 분리해서 적게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C020",
+        "H2_EL_C021"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_013",
+      "name": "로그 대소 비교 취약",
+      "trigger": {
+        "error_tags_any": [
+          "logarithm",
+          "comparison"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "밑이 1보다 큰지 작은지에 따른 증가·감소 판단이 흔들립니다.",
+      "parent_message": "밑의 범위를 먼저 쓰고 같은 밑으로 통일한 뒤 비교하도록 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C022"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_014",
+      "name": "상용로그 기본값·표 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_log"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "상용로그의 뜻과 로그표 사용, 기본 연산이 불안정합니다.",
+      "parent_message": "상용로그 밑 10, 로그표 값, 범위 추정을 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C023"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "H2_EL_RULE_015",
+      "name": "상용로그 정수·소수 부분 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_log",
+          "condition_judgment"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "상용로그의 정수 부분과 소수 부분을 범위와 연결하지 못합니다.",
+      "parent_message": "정수 부분=자릿수-1, 소수 부분은 0 이상 1 미만이라는 기준을 반드시 쓰게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C024",
+        "H2_EL_C026"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_016",
+      "name": "자릿수·최고자리 판별 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_log",
+          "comparison"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "상용로그의 정수 부분으로 자릿수와 최고 자리 숫자를 판별하는 절차가 약합니다.",
+      "parent_message": "10^n 범위식을 쓰고 부등식으로 자릿수·최고자리 범위를 판단하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C025"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "H2_EL_RULE_017",
+      "name": "상용로그 실생활 활용 취약",
+      "trigger": {
+        "error_tags_any": [
+          "common_log",
+          "application_modeling"
+        ],
+        "wrong_min": 2,
+        "starred_min": 1,
+        "solution_missing_checks_min": 2
+      },
+      "diagnosis": "관계식이 주어진 상황에서 상용로그로 변형하는 과정이 약합니다.",
+      "parent_message": "양변에 로그를 취하는 이유와 변수 단위를 먼저 정리하게 해야 합니다.",
+      "recommended_concept_ids": [
+        "H2_EL_C027"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

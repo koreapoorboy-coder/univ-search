@@ -1,0 +1,351 @@
+{
+  "version": "2026.07.05-m1-solid-geometry-v0.6",
+  "unit_id": "M1_SOLID_GEOMETRY",
+  "unit_name": "입체도형의 성질",
+  "remediation_count": 22,
+  "remediation": [
+    {
+      "concept_id": "M1_SG_C001",
+      "title": "다면체 기본 요소 보강",
+      "priority": 1,
+      "steps": [
+        "면·모서리·꼭짓점에 서로 다른 색 표시",
+        "보이는 요소와 보이지 않는 요소를 나누어 세기",
+        "다면체와 회전체 예/아닌 예 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT001",
+        "M1_SG_PT007"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C005",
+      "title": "다면체 요소 관계 보강",
+      "priority": 2,
+      "steps": [
+        "면/모서리/꼭짓점 표 만들기",
+        "조건을 만족하는 후보를 하나씩 제거",
+        "정답 후보를 실제 입체 그림으로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT008",
+        "M1_SG_PT009",
+        "M1_SG_PT013"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C009",
+      "title": "정다면체 전개도 보강",
+      "priority": 2,
+      "steps": [
+        "정다면체 5종 요소 개수표 정리",
+        "전개도에서 접는 선 표시",
+        "마주보는 면과 인접한 면을 색으로 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT018",
+        "M1_SG_PT019",
+        "M1_SG_PT020"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C010",
+      "title": "정다면체 단면·중점 연결 보강",
+      "priority": 3,
+      "steps": [
+        "잘리는 점을 먼저 표시",
+        "단면의 꼭짓점 수를 순서대로 세기",
+        "중심/중점 연결 후 생기는 입체를 모형으로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT022",
+        "M1_SG_PT023",
+        "M1_SG_PT024"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C011",
+      "title": "회전체 판별 보강",
+      "priority": 1,
+      "steps": [
+        "회전축을 굵게 표시",
+        "평면도형의 각 점이 그리는 원을 확인",
+        "회전축과 도형이 떨어진 경우를 별도 분류"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT025",
+        "M1_SG_PT026",
+        "M1_SG_PT027"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C013",
+      "title": "회전체 단면 보강",
+      "priority": 2,
+      "steps": [
+        "축에 수직인 단면과 평행한 단면을 나누기",
+        "자르는 위치를 바꾸며 단면 모양 비교",
+        "단면의 반지름·지름·높이 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT031",
+        "M1_SG_PT032",
+        "M1_SG_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C015",
+      "title": "회전체 전개도 보강",
+      "priority": 1,
+      "steps": [
+        "원기둥 옆면의 가로=밑면 둘레 확인",
+        "원뿔 옆면의 호=밑면 둘레 확인",
+        "중심각은 호의 길이 비율로 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT035",
+        "M1_SG_PT036",
+        "M1_SG_PT037"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C017",
+      "title": "각기둥 겉넓이 보강",
+      "priority": 1,
+      "steps": [
+        "밑면 2개와 옆면을 먼저 분리",
+        "전개도에서 같은 길이 표시",
+        "겉넓이 단위가 제곱단위인지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT039",
+        "M1_SG_PT040"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C018",
+      "title": "원기둥 겉넓이 보강",
+      "priority": 1,
+      "steps": [
+        "밑면 넓이 2개 계산",
+        "옆면 직사각형의 가로를 원의 둘레로 바꾸기",
+        "지름과 반지름을 따로 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT041",
+        "M1_SG_PT042"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C019",
+      "title": "각기둥 부피 보강",
+      "priority": 1,
+      "steps": [
+        "밑면을 먼저 찾아 넓이 계산",
+        "높이는 밑면에 수직인 거리로 표시",
+        "부피 단위가 세제곱단위인지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT043",
+        "M1_SG_PT044",
+        "M1_SG_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C020",
+      "title": "원기둥 부피 보강",
+      "priority": 1,
+      "steps": [
+        "원의 넓이와 원의 둘레를 구분",
+        "반지름을 제곱한 뒤 높이 곱하기",
+        "전개도에서 반지름과 높이 찾기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT046",
+        "M1_SG_PT047",
+        "M1_SG_PT048"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C021",
+      "title": "구멍이 뚫린 입체 보강",
+      "priority": 2,
+      "steps": [
+        "빼는 부피와 추가되는 안쪽 면을 따로 표시",
+        "겉넓이와 부피 계산 과정을 분리",
+        "구멍이 여러 개인 경우 개수 곱하기 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT050",
+        "M1_SG_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C022",
+      "title": "잘라낸 입체 보강",
+      "priority": 2,
+      "steps": [
+        "잘려 나간 부분을 다른 색으로 표시",
+        "새로 생긴 단면을 겉넓이에 포함할지 확인",
+        "전체-부분으로 부피 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT052",
+        "M1_SG_PT053"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C024",
+      "title": "원뿔 겉넓이 보강",
+      "priority": 1,
+      "steps": [
+        "모선과 높이 구분",
+        "옆면 부채꼴의 호와 밑면 둘레 연결",
+        "밑면 넓이와 옆면 넓이 합하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT057",
+        "M1_SG_PT058"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C026",
+      "title": "각뿔 부피 보강",
+      "priority": 1,
+      "steps": [
+        "같은 밑면·높이를 가진 각기둥과 비교",
+        "1/3 배율 표시",
+        "입체 높이와 옆면 높이를 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT061",
+        "M1_SG_PT062",
+        "M1_SG_PT063"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C027",
+      "title": "원뿔 부피 보강",
+      "priority": 1,
+      "steps": [
+        "원기둥 부피를 먼저 계산",
+        "1/3을 마지막에 적용",
+        "반지름·높이 조건을 그림에 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT066",
+        "M1_SG_PT067",
+        "M1_SG_PT070"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C028",
+      "title": "뿔대 부피 보강",
+      "priority": 3,
+      "steps": [
+        "큰 뿔과 작은 뿔로 나누기",
+        "닮음비로 작은 뿔 높이 찾기",
+        "큰 뿔 부피에서 작은 뿔 부피 빼기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT068",
+        "M1_SG_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C030",
+      "title": "구 겉넓이 보강",
+      "priority": 1,
+      "steps": [
+        "반지름과 지름 구분",
+        "4πr² 구조 암기보다 원 넓이 4배로 이해",
+        "구와 원기둥 비교 문항 적용"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT073",
+        "M1_SG_PT074"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C031",
+      "title": "구 부피 보강",
+      "priority": 1,
+      "steps": [
+        "반지름을 세제곱하는 단계 표시",
+        "4/3 배율 처리",
+        "부피 단위 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT075",
+        "M1_SG_PT076"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C032",
+      "title": "입체 포함 관계 보강",
+      "priority": 2,
+      "steps": [
+        "꼭 맞는다는 조건을 지름/높이/모서리로 번역",
+        "내접과 외접 그림 비교",
+        "원기둥·직육면체·구 조건 표 만들기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT077",
+        "M1_SG_PT079",
+        "M1_SG_PT080"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C034",
+      "title": "복합 회전체 보강",
+      "priority": 3,
+      "steps": [
+        "합쳐진 입체를 원기둥/원뿔/구로 분해",
+        "내부 접합면은 겉넓이에서 제외",
+        "부피는 더하기/빼기로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT055",
+        "M1_SG_PT070",
+        "M1_SG_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_SG_C036",
+      "title": "조건 역산 보강",
+      "priority": 2,
+      "steps": [
+        "주어진 겉넓이·부피 공식에 미지수 놓기",
+        "제곱/세제곱 단위 확인",
+        "구한 길이가 반지름인지 지름인지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_SG_PT040",
+        "M1_SG_PT042",
+        "M1_SG_PT081"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "version": "2026.07.05-m1-full-middle1-geometry-v0.5",
-  "concept_count": 152,
+  "version": "2026.07.06-h2-exp-log-v0.9",
+  "concept_count": 316,
   "concepts": [
     {
       "concept_id": "M1_IR_C001",
@@ -4372,6 +4372,4553 @@
       "mastery_level": "advanced",
       "prerequisite_depth": 4,
       "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체",
+      "concept_name": "다면체 판별과 구성 요소",
+      "description": "다면체의 뜻을 알고 면, 모서리, 꼭짓점의 의미를 구분한다.",
+      "diagnostic_signals": [
+        "곡면이 포함된 입체를 다면체로 착각",
+        "면·모서리·꼭짓점 용어 혼동"
+      ],
+      "remediation_keywords": [
+        "다면체",
+        "면",
+        "모서리",
+        "꼭짓점"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체의 요소",
+      "concept_name": "다면체의 면의 개수",
+      "description": "다면체에서 밑면과 옆면을 구분하여 전체 면의 개수를 센다.",
+      "diagnostic_signals": [
+        "밑면을 하나만 세거나 옆면 수와 혼동",
+        "보이지 않는 면을 빠뜨림"
+      ],
+      "remediation_keywords": [
+        "면의 개수",
+        "밑면",
+        "옆면"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체의 요소",
+      "concept_name": "다면체의 모서리의 개수",
+      "description": "입체도형의 모서리를 중복 없이 세고 보이지 않는 모서리를 추론한다.",
+      "diagnostic_signals": [
+        "겹쳐 보이는 선을 중복해서 셈",
+        "보이지 않는 모서리 누락"
+      ],
+      "remediation_keywords": [
+        "모서리 세기",
+        "중복 제거"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체의 요소",
+      "concept_name": "다면체의 꼭짓점의 개수",
+      "description": "입체도형의 꼭짓점을 위치 관계에 따라 빠짐없이 센다.",
+      "diagnostic_signals": [
+        "뒤쪽 꼭짓점 누락",
+        "면의 꼭짓점 수와 입체의 꼭짓점 수 혼동"
+      ],
+      "remediation_keywords": [
+        "꼭짓점 세기",
+        "공간지각"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체 요소 관계",
+      "concept_name": "다면체 요소 개수 관계",
+      "description": "면·모서리·꼭짓점 개수 관계를 이용해 조건을 만족하는 다면체를 찾는다.",
+      "diagnostic_signals": [
+        "공식에만 의존하고 실제 구조를 확인하지 못함",
+        "합 조건을 면수로만 해석"
+      ],
+      "remediation_keywords": [
+        "다면체 관계",
+        "오일러 관계",
+        "조건 만족"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "다면체",
+      "sub_strand": "다면체 변형",
+      "concept_name": "다면체 자르기와 옆면 모양",
+      "description": "다면체를 자르거나 전개·관찰했을 때 생기는 면과 옆면의 모양을 추론한다.",
+      "diagnostic_signals": [
+        "잘린 면의 개수 변화만 보고 모양을 놓침",
+        "옆면 모양을 밑면 모양과 혼동"
+      ],
+      "remediation_keywords": [
+        "다면체 자르기",
+        "옆면 모양"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "정다면체",
+      "sub_strand": "정다면체",
+      "concept_name": "정다면체 판별",
+      "description": "정다면체의 조건을 알고 정다면체와 일반 다면체를 구분한다.",
+      "diagnostic_signals": [
+        "모든 면이 같은 정다각형이면 무조건 정다면체로 판단",
+        "한 꼭짓점에 모인 면의 수 조건 누락"
+      ],
+      "remediation_keywords": [
+        "정다면체 조건",
+        "정다각형"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "정다면체",
+      "sub_strand": "정다면체 요소",
+      "concept_name": "정다면체의 면·모서리·꼭짓점 개수",
+      "description": "정다면체 5종의 면, 모서리, 꼭짓점 개수를 구조적으로 이해한다.",
+      "diagnostic_signals": [
+        "정육면체와 정팔면체의 개수 관계 혼동",
+        "암기값 오류"
+      ],
+      "remediation_keywords": [
+        "정다면체 5종",
+        "요소 개수"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "정다면체",
+      "sub_strand": "전개도",
+      "concept_name": "정다면체 전개도 해석",
+      "description": "정다면체의 전개도에서 접하는 면과 마주보는 면, 접히는 구조를 파악한다.",
+      "diagnostic_signals": [
+        "전개도에서 인접면과 마주보는 면 혼동",
+        "접었을 때 위치를 평면 상태로만 판단"
+      ],
+      "remediation_keywords": [
+        "전개도",
+        "마주보는 면",
+        "인접면"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "정다면체",
+      "sub_strand": "단면과 연결",
+      "concept_name": "정다면체의 단면과 중점 연결",
+      "description": "정다면체를 자르거나 면의 중심·모서리의 중점을 연결했을 때 생기는 입체를 추론한다.",
+      "diagnostic_signals": [
+        "중심 연결 후 생기는 입체를 평면도형으로만 봄",
+        "단면의 꼭짓점 수 추론 오류"
+      ],
+      "remediation_keywords": [
+        "단면",
+        "중점 연결",
+        "공간 추론"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "회전체 기본",
+      "concept_name": "회전체 판별",
+      "description": "평면도형을 한 직선을 축으로 회전시켰을 때 생기는 회전체를 판별한다.",
+      "diagnostic_signals": [
+        "회전축을 경계선이 아닌 아무 선으로 해석",
+        "회전체와 다면체를 구분하지 못함"
+      ],
+      "remediation_keywords": [
+        "회전체",
+        "회전축"
+      ],
+      "source_orders": [
+        4,
+        5,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "평면도형과 회전축",
+      "concept_name": "평면도형과 회전축 대응",
+      "description": "회전 전 평면도형과 회전축의 위치를 보고 생성되는 회전체를 결정한다.",
+      "diagnostic_signals": [
+        "축과 도형 사이 간격을 반영하지 못함",
+        "평면도형의 어느 변이 회전축인지 혼동"
+      ],
+      "remediation_keywords": [
+        "회전축",
+        "생성 회전체"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "단면",
+      "concept_name": "회전체의 단면 모양",
+      "description": "회전체를 축에 평행 또는 수직으로 자를 때 나타나는 단면 모양을 파악한다.",
+      "diagnostic_signals": [
+        "축에 수직/평행인 단면을 혼동",
+        "입체의 겉모양만 보고 단면을 판단"
+      ],
+      "remediation_keywords": [
+        "단면",
+        "축에 평행",
+        "축에 수직"
+      ],
+      "source_orders": [
+        4,
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "단면 길이",
+      "concept_name": "회전체 단면 길이와 둘레",
+      "description": "회전체의 단면에서 반지름, 높이, 지름 등을 길이와 둘레 계산으로 연결한다.",
+      "diagnostic_signals": [
+        "단면의 반지름과 지름 혼동",
+        "회전 전 길이를 회전 후 둘레로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "단면 길이",
+        "둘레",
+        "반지름"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "전개도",
+      "concept_name": "회전체 전개도 해석",
+      "description": "원기둥·원뿔·원뿔대 전개도의 밑면, 옆면, 호의 길이, 중심각을 연결한다.",
+      "diagnostic_signals": [
+        "옆면의 가로 길이와 원의 둘레 연결 실패",
+        "원뿔 옆면의 호와 밑면 둘레를 혼동"
+      ],
+      "remediation_keywords": [
+        "전개도",
+        "호의 길이",
+        "중심각"
+      ],
+      "source_orders": [
+        5,
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "회전체",
+      "sub_strand": "최단거리",
+      "concept_name": "전개도 최단거리",
+      "description": "원뿔 전개도에서 펼쳤을 때 직선이 되는 최단거리 구조를 해석한다.",
+      "diagnostic_signals": [
+        "입체 표면 위 최단거리를 공간 직선으로 연결",
+        "전개도 위 직선 처리 누락"
+      ],
+      "remediation_keywords": [
+        "최단거리",
+        "전개도"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "각기둥 겉넓이",
+      "concept_name": "각기둥의 겉넓이",
+      "description": "각기둥의 밑넓이와 옆넓이를 분리하여 겉넓이를 구한다.",
+      "diagnostic_signals": [
+        "윗면·아랫면을 한 번만 더함",
+        "옆넓이를 옆면 각각으로 세지 못함"
+      ],
+      "remediation_keywords": [
+        "각기둥",
+        "겉넓이",
+        "밑넓이",
+        "옆넓이"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "원기둥 겉넓이",
+      "concept_name": "원기둥의 겉넓이",
+      "description": "원기둥의 두 밑면 넓이와 직사각형 옆면 넓이를 연결한다.",
+      "diagnostic_signals": [
+        "옆면 가로를 지름으로 사용",
+        "밑면을 하나만 계산"
+      ],
+      "remediation_keywords": [
+        "원기둥",
+        "겉넓이",
+        "원의 둘레"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "각기둥 부피",
+      "concept_name": "각기둥의 부피",
+      "description": "각기둥의 부피를 밑넓이×높이로 계산하고 높이와 옆면 길이를 구분한다.",
+      "diagnostic_signals": [
+        "높이와 모서리 길이 혼동",
+        "밑면 넓이 계산 오류"
+      ],
+      "remediation_keywords": [
+        "각기둥",
+        "부피",
+        "밑넓이×높이"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "원기둥 부피",
+      "concept_name": "원기둥의 부피",
+      "description": "원기둥의 부피를 원의 넓이와 높이의 곱으로 구한다.",
+      "diagnostic_signals": [
+        "반지름 대신 지름을 제곱",
+        "원주와 원넓이 혼동"
+      ],
+      "remediation_keywords": [
+        "원기둥",
+        "부피",
+        "원의 넓이"
+      ],
+      "source_orders": [
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "복합 기둥",
+      "concept_name": "구멍이 뚫린 기둥의 겉넓이와 부피",
+      "description": "구멍이 뚫리거나 밑면이 변형된 기둥에서 추가·삭제되는 면과 부피를 구분한다.",
+      "diagnostic_signals": [
+        "구멍의 안쪽 옆면을 겉넓이에 포함하지 않음",
+        "뚫린 부피를 빼지 않음"
+      ],
+      "remediation_keywords": [
+        "구멍",
+        "복합기둥",
+        "겉넓이 변화"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "기둥",
+      "sub_strand": "절단 기둥",
+      "concept_name": "일부분을 잘라낸 기둥의 겉넓이와 부피",
+      "description": "잘라낸 부분과 남은 부분의 겉넓이·부피 변화를 비교한다.",
+      "diagnostic_signals": [
+        "잘린 단면 추가를 놓침",
+        "부피는 빼면서 겉넓이 변화는 동일하게 처리"
+      ],
+      "remediation_keywords": [
+        "절단",
+        "잘린 단면",
+        "복합도형"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "각뿔 겉넓이",
+      "concept_name": "각뿔의 겉넓이",
+      "description": "각뿔의 밑면과 옆면 삼각형들의 넓이를 합해 겉넓이를 구한다.",
+      "diagnostic_signals": [
+        "옆면의 높이와 입체 높이 혼동",
+        "옆면 개수 누락"
+      ],
+      "remediation_keywords": [
+        "각뿔",
+        "겉넓이",
+        "옆면 삼각형"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "원뿔 겉넓이",
+      "concept_name": "원뿔의 겉넓이",
+      "description": "원뿔의 밑면 넓이와 부채꼴 옆면 넓이를 연결한다.",
+      "diagnostic_signals": [
+        "모선과 높이 혼동",
+        "부채꼴 호의 길이와 밑면 둘레 연결 실패"
+      ],
+      "remediation_keywords": [
+        "원뿔",
+        "겉넓이",
+        "모선",
+        "부채꼴"
+      ],
+      "source_orders": [
+        9,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "뿔대 겉넓이",
+      "concept_name": "뿔대의 겉넓이",
+      "description": "뿔대의 윗면·아랫면과 옆면을 전개도 관점에서 계산한다.",
+      "diagnostic_signals": [
+        "윗면과 아랫면 중 하나만 계산",
+        "뿔대 옆면을 원뿔 옆면 하나로 처리"
+      ],
+      "remediation_keywords": [
+        "뿔대",
+        "겉넓이",
+        "전개도"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "각뿔 부피",
+      "concept_name": "각뿔의 부피",
+      "description": "각뿔의 부피가 같은 밑면·높이를 가진 기둥의 1/3임을 이용한다.",
+      "diagnostic_signals": [
+        "1/3을 빠뜨림",
+        "입체 높이와 모서리 길이 혼동"
+      ],
+      "remediation_keywords": [
+        "각뿔",
+        "부피",
+        "1/3"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "원뿔 부피",
+      "concept_name": "원뿔의 부피",
+      "description": "원뿔의 부피를 원기둥 부피의 1/3로 계산한다.",
+      "diagnostic_signals": [
+        "원기둥 부피와 동일하게 계산",
+        "반지름·높이 조건 변환 오류"
+      ],
+      "remediation_keywords": [
+        "원뿔",
+        "부피",
+        "1/3"
+      ],
+      "source_orders": [
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "뿔대 부피",
+      "concept_name": "뿔대의 부피",
+      "description": "큰 뿔에서 작은 뿔을 빼거나 주어진 공식을 이용해 뿔대 부피를 구한다.",
+      "diagnostic_signals": [
+        "윗면과 아랫면 평균만 사용",
+        "잘려 나간 작은 뿔 높이를 구하지 못함"
+      ],
+      "remediation_keywords": [
+        "뿔대",
+        "부피",
+        "큰 뿔-작은 뿔"
+      ],
+      "source_orders": [
+        11,
+        12
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "뿔",
+      "sub_strand": "액체와 부피",
+      "concept_name": "그릇에 담긴 물의 부피",
+      "description": "그릇 모양의 단면과 부피 변화를 이용해 물의 양, 높이, 비교를 해석한다.",
+      "diagnostic_signals": [
+        "물의 높이와 입체 높이를 항상 같다고 봄",
+        "기울어진/뒤집힌 용기 조건 해석 오류"
+      ],
+      "remediation_keywords": [
+        "물의 부피",
+        "그릇 비교",
+        "높이 변화"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "구",
+      "sub_strand": "구 겉넓이",
+      "concept_name": "구의 겉넓이",
+      "description": "구의 겉넓이 공식을 사용하고 반지름 조건을 정확히 읽는다.",
+      "diagnostic_signals": [
+        "반지름과 지름 혼동",
+        "원의 넓이 공식으로 처리"
+      ],
+      "remediation_keywords": [
+        "구",
+        "겉넓이",
+        "반지름"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C031",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "구",
+      "sub_strand": "구 부피",
+      "concept_name": "구의 부피",
+      "description": "구의 부피 공식을 사용하고 다른 입체와의 포함 관계에서 반지름을 구한다.",
+      "diagnostic_signals": [
+        "세제곱 처리 오류",
+        "반지름 조건 도출 실패"
+      ],
+      "remediation_keywords": [
+        "구",
+        "부피",
+        "세제곱"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C032",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "구",
+      "sub_strand": "구와 다른 입체",
+      "concept_name": "구와 다른 도형의 포함 관계",
+      "description": "구를 원기둥·직육면체·원뿔 등에 꼭 맞게 넣을 때 지름과 높이, 모서리 조건을 연결한다.",
+      "diagnostic_signals": [
+        "꼭 맞는다는 조건을 반지름으로 바꾸지 못함",
+        "내접/외접 관계 혼동"
+      ],
+      "remediation_keywords": [
+        "내접",
+        "외접",
+        "꼭 맞는 구"
+      ],
+      "source_orders": [
+        12,
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C033",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "종합",
+      "sub_strand": "원기둥 속 입체",
+      "concept_name": "원기둥에 꼭 맞게 들어가는 구와 원뿔",
+      "description": "원기둥 안의 구·원뿔 조건에서 반지름과 높이의 대응을 이용한다.",
+      "diagnostic_signals": [
+        "원기둥 높이와 구의 지름 관계 누락",
+        "공통 밑면 반지름 조건 누락"
+      ],
+      "remediation_keywords": [
+        "원기둥",
+        "구",
+        "원뿔",
+        "꼭 맞게"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C034",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "종합",
+      "sub_strand": "복합 회전체",
+      "concept_name": "회전체 겉넓이와 부피 종합",
+      "description": "회전으로 생긴 복합 입체의 겉넓이와 부피를 분해하여 계산한다.",
+      "diagnostic_signals": [
+        "겉넓이에 내부 접합면을 포함",
+        "부피를 전체-부분으로 분해하지 못함"
+      ],
+      "remediation_keywords": [
+        "복합 회전체",
+        "분해",
+        "겉넓이와 부피"
+      ],
+      "source_orders": [
+        8,
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C035",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "종합",
+      "sub_strand": "공간감각",
+      "concept_name": "입체도형에 꼭 맞게 들어가는 입체도형",
+      "description": "입체도형끼리 맞물리는 조건을 최대 반지름, 높이, 대각선, 지름 조건으로 바꾼다.",
+      "diagnostic_signals": [
+        "직육면체 안 구의 지름을 대각선으로 착각",
+        "공간 대각선과 모서리 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "꼭 맞는 입체",
+        "공간감각",
+        "지름 조건"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_SG_C036",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "unit_name": "입체도형의 성질",
+      "strand": "종합",
+      "sub_strand": "단위와 조건",
+      "concept_name": "겉넓이·부피 조건 활용",
+      "description": "겉넓이 또는 부피가 주어진 조건에서 반지름, 높이, 모선, 밑면 길이를 역산한다.",
+      "diagnostic_signals": [
+        "제곱 단위와 세제곱 단위 혼동",
+        "공식 변형 후 필요한 길이 누락"
+      ],
+      "remediation_keywords": [
+        "조건 역산",
+        "단위",
+        "공식 변형"
+      ],
+      "source_orders": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C001",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "자료와 대표값",
+      "sub_strand": "자료의 구조",
+      "concept_name": "자료와 변량 구분",
+      "description": "자료, 변량, 변량의 수를 구분하고 표·그래프 자료에서 계산 대상이 되는 값을 정확히 찾는다.",
+      "diagnostic_signals": [
+        "표 안의 항목 수와 변량의 수 혼동",
+        "도수와 변량을 같은 것으로 봄"
+      ],
+      "remediation_keywords": [
+        "자료",
+        "변량",
+        "변량의 수"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C002",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "평균",
+      "concept_name": "평균 계산",
+      "description": "평균을 자료의 총합을 변량의 수로 나누어 계산한다.",
+      "diagnostic_signals": [
+        "총합을 구하지 않고 단순히 중간값을 고름",
+        "도수를 반영하지 않고 값만 평균 냄"
+      ],
+      "remediation_keywords": [
+        "평균",
+        "총합",
+        "변량의 수"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C003",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "평균",
+      "concept_name": "평균 비교",
+      "description": "두 자료의 평균을 계산하거나 구조적으로 비교한다.",
+      "diagnostic_signals": [
+        "두 자료의 변량 수 차이를 무시",
+        "평균이 같을 때 총합도 같다고 착각"
+      ],
+      "remediation_keywords": [
+        "평균 비교",
+        "총합 비교"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C004",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "평균 활용",
+      "concept_name": "평균 조건과 변량 역산",
+      "description": "평균이 주어졌을 때 총합 관계를 식으로 세워 미지수나 빠진 변량을 구한다.",
+      "diagnostic_signals": [
+        "평균×개수로 총합을 만들지 못함",
+        "추가/삭제된 변량을 전체 평균에 잘못 반영"
+      ],
+      "remediation_keywords": [
+        "평균 역산",
+        "미지수",
+        "총합"
+      ],
+      "source_orders": [
+        1,
+        2
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C005",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "중앙값",
+      "concept_name": "중앙값 계산",
+      "description": "자료를 크기순으로 배열한 뒤 가운데 값을 찾고 짝수 개일 때 두 가운데 값의 평균을 구한다.",
+      "diagnostic_signals": [
+        "정렬하지 않고 가운데 위치를 찾음",
+        "짝수 개 자료에서 두 값의 평균을 놓침"
+      ],
+      "remediation_keywords": [
+        "중앙값",
+        "크기순 배열",
+        "짝수 개"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C006",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "중앙값 조건",
+      "concept_name": "중앙값 조건과 변량 역산",
+      "description": "중앙값이 주어진 조건에서 자료의 순서, 범위, 미지수 조건을 추론한다.",
+      "diagnostic_signals": [
+        "미지수의 위치 범위를 고려하지 않음",
+        "중앙값과 평균 조건을 혼동"
+      ],
+      "remediation_keywords": [
+        "중앙값 조건",
+        "범위",
+        "미지수"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C007",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "최빈값",
+      "concept_name": "최빈값 계산",
+      "description": "가장 많이 나타난 변량을 찾고 최빈값이 없거나 여러 개인 경우를 구분한다.",
+      "diagnostic_signals": [
+        "횟수 대신 가장 큰 값을 고름",
+        "최빈값이 여러 개인 경우 하나만 고름"
+      ],
+      "remediation_keywords": [
+        "최빈값",
+        "빈도",
+        "여러 개"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C008",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "최빈값 조건",
+      "concept_name": "최빈값 조건과 변량 변화",
+      "description": "최빈값 조건에서 변량의 추가·삭제·변경이나 문자의 값을 추론한다.",
+      "diagnostic_signals": [
+        "같은 횟수가 되는 경우를 놓침",
+        "추가된 변량이 최빈값을 바꾸는지 확인하지 않음"
+      ],
+      "remediation_keywords": [
+        "최빈값 조건",
+        "변량 추가",
+        "변량 변경"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C009",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "대표값 선택",
+      "concept_name": "적절한 대표값 판단",
+      "description": "자료의 분포, 극단값, 목적에 따라 평균·중앙값·최빈값 중 적절한 대표값을 고른다.",
+      "diagnostic_signals": [
+        "평균만 항상 대표값이라고 판단",
+        "극단값이 평균에 미치는 영향 무시"
+      ],
+      "remediation_keywords": [
+        "대표값 선택",
+        "극단값",
+        "자료의 목적"
+      ],
+      "source_orders": [
+        2
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C010",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "대표값",
+      "sub_strand": "그래프 자료",
+      "concept_name": "그래프·표 자료에서 대표값",
+      "description": "막대그래프, 꺾은선그래프, 표, 점수 자료에서 변량과 도수를 읽어 대표값을 구한다.",
+      "diagnostic_signals": [
+        "그래프의 세로축 값을 그대로 변량으로 잘못 해석",
+        "도수를 반영하지 않고 대표값 계산"
+      ],
+      "remediation_keywords": [
+        "그래프 대표값",
+        "표 자료",
+        "도수 반영"
+      ],
+      "source_orders": [
+        3
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C011",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "줄기와 잎 그림",
+      "sub_strand": "작성",
+      "concept_name": "줄기와 잎 그림 작성",
+      "description": "자료를 줄기와 잎으로 나누어 순서에 맞게 배열하고 줄기와 잎 그림을 완성한다.",
+      "diagnostic_signals": [
+        "줄기와 잎의 자릿값 혼동",
+        "잎을 크기순으로 정리하지 않음"
+      ],
+      "remediation_keywords": [
+        "줄기와 잎",
+        "자릿값",
+        "자료 정렬"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C012",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "줄기와 잎 그림",
+      "sub_strand": "해석",
+      "concept_name": "줄기와 잎 그림 해석",
+      "description": "줄기와 잎 그림에서 자료의 개수, 최댓값, 최솟값, 분포, 범위를 해석한다.",
+      "diagnostic_signals": [
+        "잎 하나를 자료 한 개로 보지 못함",
+        "줄기 단위의 자릿값 해석 오류"
+      ],
+      "remediation_keywords": [
+        "줄기와 잎 해석",
+        "최댓값",
+        "최솟값",
+        "범위"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C013",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "줄기와 잎 그림",
+      "sub_strand": "대표값",
+      "concept_name": "줄기와 잎 그림에서 대표값",
+      "description": "줄기와 잎 그림에서 평균, 중앙값, 최빈값을 구하고 자료의 특징을 설명한다.",
+      "diagnostic_signals": [
+        "줄기와 잎 그림을 원자료로 복원하지 않음",
+        "중앙값 위치 계산 오류"
+      ],
+      "remediation_keywords": [
+        "줄기와 잎 대표값",
+        "원자료 복원"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C014",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포표",
+      "sub_strand": "작성",
+      "concept_name": "도수분포표 작성",
+      "description": "주어진 자료를 계급으로 나누고 각 계급의 도수를 세어 도수분포표를 만든다.",
+      "diagnostic_signals": [
+        "계급 경계에 있는 값을 중복 또는 누락",
+        "계급의 크기를 일정하게 만들지 않음"
+      ],
+      "remediation_keywords": [
+        "도수분포표",
+        "계급",
+        "도수"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C015",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포표",
+      "sub_strand": "계급",
+      "concept_name": "계급·계급값·계급의 크기",
+      "description": "계급, 도수, 계급값, 계급의 크기, 변량의 범위를 정확히 구분한다.",
+      "diagnostic_signals": [
+        "계급값을 계급의 끝값으로 착각",
+        "계급의 크기와 계급값 혼동"
+      ],
+      "remediation_keywords": [
+        "계급",
+        "계급값",
+        "계급의 크기"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C016",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포표",
+      "sub_strand": "범위와 총합",
+      "concept_name": "변량의 범위와 도수의 총합",
+      "description": "도수분포표에서 변량의 범위, 특정 계급의 도수, 전체 도수의 총합을 읽는다.",
+      "diagnostic_signals": [
+        "도수의 총합과 변량의 합을 혼동",
+        "계급 범위 밖의 값을 포함"
+      ],
+      "remediation_keywords": [
+        "도수 총합",
+        "변량 범위",
+        "자료 수"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C017",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포표",
+      "sub_strand": "해석",
+      "concept_name": "도수분포표 해석과 설명",
+      "description": "도수분포표를 이용해 분포의 특징, 특정 조건의 자료 수, 계급별 비교를 설명한다.",
+      "diagnostic_signals": [
+        "가장 도수가 큰 계급과 가장 큰 변량을 혼동",
+        "이상/미만 경계 해석 오류"
+      ],
+      "remediation_keywords": [
+        "도수분포표 해석",
+        "계급별 비교"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C018",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포표",
+      "sub_strand": "백분율",
+      "concept_name": "특정 계급의 백분율",
+      "description": "특정 계급의 도수가 전체에서 차지하는 백분율을 구하고 조건을 비교한다.",
+      "diagnostic_signals": [
+        "분모를 전체 도수로 두지 않음",
+        "백분율과 상대도수 혼동"
+      ],
+      "remediation_keywords": [
+        "백분율",
+        "특정 계급",
+        "전체 도수"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C019",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "히스토그램",
+      "sub_strand": "기본",
+      "concept_name": "히스토그램 이해",
+      "description": "도수분포표를 히스토그램으로 나타내고 막대의 높이와 계급을 해석한다.",
+      "diagnostic_signals": [
+        "막대 사이를 붙여 그리는 이유를 모름",
+        "막대의 넓이와 높이 의미 혼동"
+      ],
+      "remediation_keywords": [
+        "히스토그램",
+        "계급",
+        "도수"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C020",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "히스토그램",
+      "sub_strand": "넓이",
+      "concept_name": "히스토그램 직사각형 넓이",
+      "description": "히스토그램에서 직사각형의 넓이와 계급의 크기·도수의 관계를 해석한다.",
+      "diagnostic_signals": [
+        "넓이를 도수로 착각",
+        "계급의 크기가 다를 때 높이 의미를 놓침"
+      ],
+      "remediation_keywords": [
+        "히스토그램 넓이",
+        "직사각형",
+        "계급의 크기"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C021",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "히스토그램",
+      "sub_strand": "복원",
+      "concept_name": "찢어진 히스토그램 복원",
+      "description": "총 도수, 일부 계급 도수, 그래프 조건을 이용해 찢어진 히스토그램을 복원한다.",
+      "diagnostic_signals": [
+        "보이지 않는 막대를 0으로 처리",
+        "전체 도수 조건을 사용하지 않음"
+      ],
+      "remediation_keywords": [
+        "찢어진 히스토그램",
+        "복원",
+        "총 도수"
+      ],
+      "source_orders": [
+        6,
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C022",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포다각형",
+      "sub_strand": "기본",
+      "concept_name": "도수분포다각형 이해",
+      "description": "히스토그램의 각 직사각형 윗변의 가운데 점을 연결해 도수분포다각형을 만들고 해석한다.",
+      "diagnostic_signals": [
+        "계급값 위치가 아닌 경계값에 점을 찍음",
+        "양 끝의 도수 0 처리 누락"
+      ],
+      "remediation_keywords": [
+        "도수분포다각형",
+        "계급값",
+        "도수"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C023",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포다각형",
+      "sub_strand": "값과 넓이",
+      "concept_name": "도수분포다각형 값·넓이",
+      "description": "도수분포다각형에서 특정 계급의 도수, 전체 도수, 넓이 관계를 해석한다.",
+      "diagnostic_signals": [
+        "그래프의 꺾인 선 길이를 도수로 착각",
+        "넓이와 총 도수 관계를 혼동"
+      ],
+      "remediation_keywords": [
+        "도수분포다각형 값",
+        "넓이",
+        "전체 도수"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C024",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포다각형",
+      "sub_strand": "복원",
+      "concept_name": "찢어진 도수분포다각형 복원",
+      "description": "찢어진 도수분포다각형에서 전체 도수와 조건을 이용해 빠진 값을 찾는다.",
+      "diagnostic_signals": [
+        "양 끝 0점까지 포함해야 하는 구조 누락",
+        "보이지 않는 계급값을 건너뜀"
+      ],
+      "remediation_keywords": [
+        "찢어진 도수분포다각형",
+        "복원"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C025",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "도수분포다각형",
+      "sub_strand": "비교",
+      "concept_name": "두 도수분포다각형 비교",
+      "description": "두 집단의 도수분포다각형을 비교해 분포의 중심, 퍼짐, 특정 계급의 도수를 해석한다.",
+      "diagnostic_signals": [
+        "그래프가 높은 구간만 보고 전체 집단이 크다고 판단",
+        "계급별 도수 비교와 전체 비교 혼동"
+      ],
+      "remediation_keywords": [
+        "두 그래프 비교",
+        "분포 비교"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C026",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수",
+      "sub_strand": "개념",
+      "concept_name": "상대도수의 의미",
+      "description": "상대도수를 특정 계급의 도수를 전체 도수로 나눈 값으로 이해한다.",
+      "diagnostic_signals": [
+        "상대도수를 백분율과 단위 없이 혼동",
+        "계급 도수/전체 도수 관계를 반대로 씀"
+      ],
+      "remediation_keywords": [
+        "상대도수",
+        "도수",
+        "전체 도수"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C027",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수",
+      "sub_strand": "관계",
+      "concept_name": "상대도수·도수·도수총합 관계",
+      "description": "상대도수, 도수, 도수의 총합 중 두 값을 이용해 나머지 하나를 구한다.",
+      "diagnostic_signals": [
+        "도수=상대도수÷전체 도수로 잘못 계산",
+        "상대도수의 합이 1임을 사용하지 못함"
+      ],
+      "remediation_keywords": [
+        "상대도수 관계",
+        "도수 총합",
+        "합 1"
+      ],
+      "source_orders": [
+        8,
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C028",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수",
+      "sub_strand": "분포표",
+      "concept_name": "상대도수분포표 작성과 해석",
+      "description": "도수분포표를 상대도수분포표로 바꾸고 표의 의미를 설명한다.",
+      "diagnostic_signals": [
+        "각 계급의 상대도수를 전체 도수로 나누지 않음",
+        "상대도수 합 검산을 하지 않음"
+      ],
+      "remediation_keywords": [
+        "상대도수분포표",
+        "표 해석"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C029",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수",
+      "sub_strand": "분포표 복원",
+      "concept_name": "찢어진 상대도수분포표 복원",
+      "description": "상대도수의 합, 도수의 총합, 특정 계급 조건으로 빠진 표 값을 복원한다.",
+      "diagnostic_signals": [
+        "상대도수의 합 1 조건 누락",
+        "찢어진 부분을 평균으로 추정"
+      ],
+      "remediation_keywords": [
+        "찢어진 상대도수표",
+        "복원",
+        "합 1"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C030",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 그래프",
+      "sub_strand": "기본",
+      "concept_name": "상대도수분포 그래프 이해",
+      "description": "상대도수분포표를 히스토그램 또는 도수분포다각형 형태의 그래프로 나타내고 해석한다.",
+      "diagnostic_signals": [
+        "세로축이 도수가 아니라 상대도수임을 놓침",
+        "그래프 높이를 자료 수로 바로 해석"
+      ],
+      "remediation_keywords": [
+        "상대도수 그래프",
+        "세로축",
+        "분포"
+      ],
+      "source_orders": [
+        8,
+        9,
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C031",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 그래프",
+      "sub_strand": "도수총합 조건",
+      "concept_name": "도수총합이 주어진 상대도수 그래프 변환",
+      "description": "도수의 총합이 주어진 경우 상대도수 그래프와 도수 자료를 서로 변환한다.",
+      "diagnostic_signals": [
+        "상대도수×총합으로 도수를 구하지 않음",
+        "그래프 모양과 실제 도수 크기를 혼동"
+      ],
+      "remediation_keywords": [
+        "도수총합",
+        "그래프 변환",
+        "상대도수×총합"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C032",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 그래프",
+      "sub_strand": "도수총합 미제시",
+      "concept_name": "도수총합이 주어지지 않은 상대도수 그래프 해석",
+      "description": "도수총합이 없는 상대도수 그래프에서 비율 중심으로 분포를 비교한다.",
+      "diagnostic_signals": [
+        "도수총합이 없는데 실제 도수 비교를 확정함",
+        "상대적 분포와 절대 도수 구분 실패"
+      ],
+      "remediation_keywords": [
+        "도수총합 미제시",
+        "비율 해석"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C033",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 그래프",
+      "sub_strand": "복원",
+      "concept_name": "찢어진 상대도수 그래프 복원",
+      "description": "상대도수의 합과 그래프 조건을 이용해 찢어진 상대도수 그래프의 값을 복원한다.",
+      "diagnostic_signals": [
+        "상대도수 합 1을 사용하지 않음",
+        "히스토그램형과 다각형형 그래프 복원법 혼동"
+      ],
+      "remediation_keywords": [
+        "찢어진 상대도수 그래프",
+        "복원"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C034",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 비교",
+      "sub_strand": "총합 다른 자료",
+      "concept_name": "도수총합이 다른 두 자료의 상대도수",
+      "description": "자료 수가 다른 두 집단에서 상대도수를 이용해 공정하게 분포를 비교한다.",
+      "diagnostic_signals": [
+        "도수만 보고 집단을 비교",
+        "전체 도수 차이를 보정하지 않음"
+      ],
+      "remediation_keywords": [
+        "도수총합 다른 자료",
+        "공정한 비교",
+        "상대도수"
+      ],
+      "source_orders": [
+        9,
+        10
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C035",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 비교",
+      "sub_strand": "비와 총합",
+      "concept_name": "상대도수의 비와 전체 도수 총합의 비",
+      "description": "상대도수의 비, 실제 도수의 비, 전체 도수 총합의 비 사이의 관계를 해석한다.",
+      "diagnostic_signals": [
+        "상대도수의 비와 실제 도수의 비를 같은 것으로 착각",
+        "전체 도수 총합의 비를 반영하지 않음"
+      ],
+      "remediation_keywords": [
+        "상대도수의 비",
+        "도수의 비",
+        "전체 총합 비"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M1_DA_C036",
+      "grade": "중1",
+      "course": "중학수학 1",
+      "unit_id": "M1_DATA_ANALYSIS",
+      "unit_name": "자료 정리와 해석",
+      "strand": "상대도수 비교",
+      "sub_strand": "두 그래프 비교",
+      "concept_name": "두 상대도수 그래프 비교",
+      "description": "도수의 총합이 다른 두 상대도수 그래프를 표와 그래프로 변환하여 비교한다.",
+      "diagnostic_signals": [
+        "상대도수 그래프가 높으면 실제 도수도 항상 크다고 판단",
+        "그래프 비교와 표 변환 과정을 연결하지 못함"
+      ],
+      "remediation_keywords": [
+        "두 상대도수 그래프",
+        "그래프 비교",
+        "표 변환"
+      ],
+      "source_orders": [
+        10
+      ],
+      "mastery_level": "application",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C001",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유리수의 소수 표현",
+      "concept_name": "유리수와 소수 표현 구조",
+      "description": "유리수의 범위와 소수 표현의 관계를 분류한다.",
+      "diagnostic_signals": [
+        "유리수와 소수 표현 구조 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유리수의 소수 표현",
+        "유리수와 소수 표현 구조",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C002",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유리수의 소수 표현",
+      "concept_name": "유한소수와 무한소수 구분",
+      "description": "소수 표현을 보고 유한소수, 무한소수, 순환소수 여부를 판단한다.",
+      "diagnostic_signals": [
+        "유한소수와 무한소수 구분 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유리수의 소수 표현",
+        "유한소수와 무한소수 구분",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C003",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수",
+      "concept_name": "순환소수의 뜻과 순환마디",
+      "description": "반복되는 소수의 구조와 순환마디를 이해한다.",
+      "diagnostic_signals": [
+        "순환소수의 뜻과 순환마디 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수",
+        "순환소수의 뜻과 순환마디",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        3,
+        4,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C004",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "분수의 소수 표현",
+      "concept_name": "분수를 소수로 나타내기",
+      "description": "분수를 나눗셈으로 소수로 바꾸고 표현 형태를 판별한다.",
+      "diagnostic_signals": [
+        "분수를 소수로 나타내기 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "분수의 소수 표현",
+        "분수를 소수로 나타내기",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C005",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유한소수 조건",
+      "concept_name": "유한소수 판별: 기약분수의 분모 조건",
+      "description": "기약분수의 분모 소인수가 2와 5뿐인지 확인하여 유한소수 여부를 판별한다.",
+      "diagnostic_signals": [
+        "유한소수 판별: 기약분수의 분모 조건 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유한소수 조건",
+        "유한소수 판별: 기약분수의 분모 조건",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C006",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유한소수 조건",
+      "concept_name": "10의 거듭제곱 분모 변환",
+      "description": "분모를 10, 100, 1000 등으로 바꾸어 유한소수로 나타낸다.",
+      "diagnostic_signals": [
+        "10의 거듭제곱 분모 변환 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유한소수 조건",
+        "10의 거듭제곱 분모 변환",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C007",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유한소수 조건",
+      "concept_name": "유한소수 가능 조건에서 미지수 찾기",
+      "description": "분모·분자 조건을 이용하여 유한소수가 되도록 하는 미지수 값을 찾는다.",
+      "diagnostic_signals": [
+        "유한소수 가능 조건에서 미지수 찾기 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유한소수 조건",
+        "유한소수 가능 조건에서 미지수 찾기",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C008",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "유한소수 조건",
+      "concept_name": "여러 분수의 공통 유한소수 조건",
+      "description": "두 개 이상의 분수가 동시에 유한소수가 되는 공통 조건을 찾는다.",
+      "diagnostic_signals": [
+        "여러 분수의 공통 유한소수 조건 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "유한소수 조건",
+        "여러 분수의 공통 유한소수 조건",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        2,
+        3
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C009",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수",
+      "concept_name": "순환소수 표현법과 점 표기",
+      "description": "순환마디에 점을 찍어 순환소수를 표기하고 해석한다.",
+      "diagnostic_signals": [
+        "순환소수 표현법과 점 표기 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수",
+        "순환소수 표현법과 점 표기",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        3,
+        4,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C010",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환마디",
+      "concept_name": "순환마디 길이와 반복 구조",
+      "description": "순환마디의 길이와 반복 순서를 이용해 자리값을 판단한다.",
+      "diagnostic_signals": [
+        "순환마디 길이와 반복 구조 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환마디",
+        "순환마디 길이와 반복 구조",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C011",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환마디 활용",
+      "concept_name": "순환소수의 n번째 자리",
+      "description": "순환 구조를 이용하여 소수점 아래 n번째 숫자를 구한다.",
+      "diagnostic_signals": [
+        "순환소수의 n번째 자리 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환마디 활용",
+        "순환소수의 n번째 자리",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C012",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수의 분수 표현",
+      "concept_name": "순환소수를 분수로 변환: 10의 거듭제곱법",
+      "description": "10의 거듭제곱을 곱해 순환소수를 분수로 나타낸다.",
+      "diagnostic_signals": [
+        "순환소수를 분수로 변환: 10의 거듭제곱법 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수의 분수 표현",
+        "순환소수를 분수로 변환: 10의 거듭제곱법",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C013",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수의 분수 표현",
+      "concept_name": "순환소수를 분수로 변환: 공식 활용",
+      "description": "순환하는 자리와 순환하지 않는 자리를 구분해 공식으로 분수화한다.",
+      "diagnostic_signals": [
+        "순환소수를 분수로 변환: 공식 활용 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수의 분수 표현",
+        "순환소수를 분수로 변환: 공식 활용",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C014",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "소수와 유리수의 관계",
+      "concept_name": "순환소수와 유리수의 관계",
+      "description": "유리수는 유한소수 또는 순환소수로 나타낼 수 있음을 설명한다.",
+      "diagnostic_signals": [
+        "순환소수와 유리수의 관계 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "소수와 유리수의 관계",
+        "순환소수와 유리수의 관계",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        4,
+        5,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C015",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수의 비교",
+      "concept_name": "순환소수의 대소관계",
+      "description": "순환소수를 분수나 소수 전개로 바꾸어 크기를 비교한다.",
+      "diagnostic_signals": [
+        "순환소수의 대소관계 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수의 비교",
+        "순환소수의 대소관계",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        6
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C016",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수의 계산",
+      "concept_name": "순환소수 포함 식 계산",
+      "description": "순환소수를 분수로 바꾸어 사칙연산을 수행한다.",
+      "diagnostic_signals": [
+        "순환소수 포함 식 계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수의 계산",
+        "순환소수 포함 식 계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C017",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "순환소수 조건",
+      "concept_name": "순환소수 포함 등식·부등식",
+      "description": "순환소수가 포함된 등식·부등식에서 조건을 세우고 미지수를 구한다.",
+      "diagnostic_signals": [
+        "순환소수 포함 등식·부등식 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "순환소수 조건",
+        "순환소수 포함 등식·부등식",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C018",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "오류 역추적",
+      "concept_name": "순환소수 오류 역추적",
+      "description": "분자·분모를 잘못 읽거나 계산한 상황에서 원래 값을 복원한다.",
+      "diagnostic_signals": [
+        "순환소수 오류 역추적 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "오류 역추적",
+        "순환소수 오류 역추적",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C019",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "조건형 순환소수",
+      "concept_name": "순환소수의 자연수·유한소수 조건",
+      "description": "순환소수에 수를 곱해 자연수 또는 유한소수가 되는 조건을 찾는다.",
+      "diagnostic_signals": [
+        "순환소수의 자연수·유한소수 조건 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "조건형 순환소수",
+        "순환소수의 자연수·유한소수 조건",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C020",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "유리수와 순환소수",
+      "sub_strand": "개념 설명 검증",
+      "concept_name": "유리수·순환소수 설명 검증",
+      "description": "유리수와 순환소수에 대한 설명의 참거짓을 판단한다.",
+      "diagnostic_signals": [
+        "유리수·순환소수 설명 검증 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "개념 설명 검증",
+        "유리수·순환소수 설명 검증",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        3,
+        8
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 0,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C021",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "거듭제곱의 의미와 밑·지수 구분",
+      "description": "밑, 지수, 괄호가 의미하는 반복 곱셈 구조를 구분한다.",
+      "diagnostic_signals": [
+        "거듭제곱의 의미와 밑·지수 구분 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "거듭제곱의 의미와 밑·지수 구분",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C022",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "같은 밑의 곱셈: 지수 덧셈",
+      "description": "같은 밑의 거듭제곱끼리 곱할 때 지수를 더한다.",
+      "diagnostic_signals": [
+        "같은 밑의 곱셈: 지수 덧셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "같은 밑의 곱셈: 지수 덧셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        9,
+        11,
+        15,
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C023",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "거듭제곱의 거듭제곱: 지수 곱셈",
+      "description": "거듭제곱을 다시 거듭제곱할 때 지수를 곱한다.",
+      "diagnostic_signals": [
+        "거듭제곱의 거듭제곱: 지수 곱셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "거듭제곱의 거듭제곱: 지수 곱셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        10,
+        11,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C024",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "같은 밑의 나눗셈: 지수 뺄셈",
+      "description": "같은 밑의 거듭제곱끼리 나눌 때 지수를 뺀다.",
+      "diagnostic_signals": [
+        "같은 밑의 나눗셈: 지수 뺄셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "같은 밑의 나눗셈: 지수 뺄셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        10,
+        11,
+        15,
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C025",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "곱의 거듭제곱",
+      "description": "곱 전체에 지수가 붙을 때 각 인수에 지수를 분배한다.",
+      "diagnostic_signals": [
+        "곱의 거듭제곱 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "곱의 거듭제곱",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        11,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C026",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙",
+      "concept_name": "몫의 거듭제곱",
+      "description": "분수 또는 몫 전체에 지수가 붙을 때 분자와 분모에 지수를 적용한다.",
+      "diagnostic_signals": [
+        "몫의 거듭제곱 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙",
+        "몫의 거듭제곱",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        11,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C027",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 종합",
+      "concept_name": "지수법칙 혼합계산",
+      "description": "여러 지수법칙이 섞인 식에서 적용 순서를 판단한다.",
+      "diagnostic_signals": [
+        "지수법칙 혼합계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 종합",
+        "지수법칙 혼합계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C028",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 조건",
+      "concept_name": "밑이 같은 경우와 다른 경우의 조건 판단",
+      "description": "지수법칙을 적용할 수 있는 밑의 조건을 구분한다.",
+      "diagnostic_signals": [
+        "밑이 같은 경우와 다른 경우의 조건 판단 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 조건",
+        "밑이 같은 경우와 다른 경우의 조건 판단",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        9
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C029",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수 계산",
+      "concept_name": "자연수·분수·음수 밑의 지수 계산",
+      "description": "자연수, 분수, 음수, -1의 거듭제곱을 계산한다.",
+      "diagnostic_signals": [
+        "자연수·분수·음수 밑의 지수 계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수 계산",
+        "자연수·분수·음수 밑의 지수 계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        9,
+        10,
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C030",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 활용",
+      "concept_name": "지수법칙 실생활 구조 해석",
+      "description": "실생활 증가·분배·단위 상황을 지수식으로 해석한다.",
+      "diagnostic_signals": [
+        "지수법칙 실생활 구조 해석 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 활용",
+        "지수법칙 실생활 구조 해석",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        12
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C031",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 응용",
+      "concept_name": "같은 수의 덧셈식과 지수 변형",
+      "description": "같은 수가 여러 번 더해진 식을 곱셈과 지수식으로 변형한다.",
+      "diagnostic_signals": [
+        "같은 수의 덧셈식과 지수 변형 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 응용",
+        "같은 수의 덧셈식과 지수 변형",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C032",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수식 변형",
+      "concept_name": "다른 문자를 이용한 지수식 표현",
+      "description": "주어진 거듭제곱 관계를 다른 문자나 자연수로 나타낸다.",
+      "diagnostic_signals": [
+        "다른 문자를 이용한 지수식 표현 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수식 변형",
+        "다른 문자를 이용한 지수식 표현",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        13
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C033",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 응용",
+      "concept_name": "지수법칙과 일의 자리수 순환",
+      "description": "거듭제곱의 일의 자리 순환 패턴을 이용한다.",
+      "diagnostic_signals": [
+        "지수법칙과 일의 자리수 순환 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 응용",
+        "지수법칙과 일의 자리수 순환",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C034",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 응용",
+      "concept_name": "지수법칙과 자연수의 자릿수",
+      "description": "10의 거듭제곱 범위를 이용해 자연수의 자릿수를 판단한다.",
+      "diagnostic_signals": [
+        "지수법칙과 자연수의 자릿수 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 응용",
+        "지수법칙과 자연수의 자릿수",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C035",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수 방정식",
+      "concept_name": "지수에 미지수가 포함된 방정식",
+      "description": "밑을 같게 만들고 지수를 비교해 미지수를 구한다.",
+      "diagnostic_signals": [
+        "지수에 미지수가 포함된 방정식 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수 방정식",
+        "지수에 미지수가 포함된 방정식",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C036",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "지수법칙 조건",
+      "concept_name": "지수법칙에서 괄호·부호 처리",
+      "description": "음수와 괄호가 있는 거듭제곱에서 부호 적용 범위를 판단한다.",
+      "diagnostic_signals": [
+        "지수법칙에서 괄호·부호 처리 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "지수법칙 조건",
+        "지수법칙에서 괄호·부호 처리",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        9,
+        10,
+        11
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C037",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식",
+      "concept_name": "단항식의 구조: 계수·문자·차수",
+      "description": "단항식에서 계수, 문자, 지수, 차수를 구분한다.",
+      "diagnostic_signals": [
+        "단항식의 구조: 계수·문자·차수 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식",
+        "단항식의 구조: 계수·문자·차수",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        16
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C038",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식의 곱셈",
+      "concept_name": "단항식의 곱셈: 계수와 문자 분리",
+      "description": "계수끼리, 같은 문자끼리 분리하여 단항식을 곱한다.",
+      "diagnostic_signals": [
+        "단항식의 곱셈: 계수와 문자 분리 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식의 곱셈",
+        "단항식의 곱셈: 계수와 문자 분리",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        16,
+        17,
+        18,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C039",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식의 나눗셈",
+      "concept_name": "단항식의 나눗셈: 역수와 지수뺄셈",
+      "description": "나눗셈을 역수의 곱셈으로 바꾸고 문자 지수를 정리한다.",
+      "diagnostic_signals": [
+        "단항식의 나눗셈: 역수와 지수뺄셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식의 나눗셈",
+        "단항식의 나눗셈: 역수와 지수뺄셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        16,
+        17,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C040",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 혼합계산",
+      "concept_name": "단항식 곱셈·나눗셈 혼합",
+      "description": "단항식의 곱셈과 나눗셈이 섞인 식을 순서대로 정리한다.",
+      "diagnostic_signals": [
+        "단항식 곱셈·나눗셈 혼합 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 혼합계산",
+        "단항식 곱셈·나눗셈 혼합",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        17,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C041",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 조건",
+      "concept_name": "단항식 계산의 미지수 조건",
+      "description": "단항식 계산 결과나 조건에서 미지수 값을 구한다.",
+      "diagnostic_signals": [
+        "단항식 계산의 미지수 조건 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 조건",
+        "단항식 계산의 미지수 조건",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C042",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 역산",
+      "concept_name": "단항식 빈칸 역산",
+      "description": "단항식 계산식에서 빈칸에 들어갈 식을 역산한다.",
+      "diagnostic_signals": [
+        "단항식 빈칸 역산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 역산",
+        "단항식 빈칸 역산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C043",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 도형 활용",
+      "concept_name": "단항식 도형 활용: 평면",
+      "description": "평면도형의 길이·넓이 조건을 단항식 계산과 연결한다.",
+      "diagnostic_signals": [
+        "단항식 도형 활용: 평면 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 도형 활용",
+        "단항식 도형 활용: 평면",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C044",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 도형 활용",
+      "concept_name": "단항식 도형 활용: 입체",
+      "description": "입체도형의 겉넓이·부피 조건을 단항식 계산과 연결한다.",
+      "diagnostic_signals": [
+        "단항식 도형 활용: 입체 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 도형 활용",
+        "단항식 도형 활용: 입체",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C045",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "단항식 활용",
+      "concept_name": "단항식 활용 문장 해석",
+      "description": "수량 관계를 단항식으로 번역하고 계산한다.",
+      "diagnostic_signals": [
+        "단항식 활용 문장 해석 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "단항식 활용",
+        "단항식 활용 문장 해석",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C046",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식",
+      "concept_name": "다항식의 항·동류항·차수",
+      "description": "다항식의 항, 계수, 차수, 동류항을 구분한다.",
+      "diagnostic_signals": [
+        "다항식의 항·동류항·차수 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식",
+        "다항식의 항·동류항·차수",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        19,
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C047",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식의 덧셈과 뺄셈",
+      "concept_name": "다항식의 덧셈과 뺄셈",
+      "description": "동류항끼리 모아 다항식의 덧셈과 뺄셈을 계산한다.",
+      "diagnostic_signals": [
+        "다항식의 덧셈과 뺄셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식의 덧셈과 뺄셈",
+        "다항식의 덧셈과 뺄셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C048",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "이차식",
+      "concept_name": "이차식의 구조와 계산",
+      "description": "이차식의 차수를 판별하고 이차식의 덧셈·뺄셈을 수행한다.",
+      "diagnostic_signals": [
+        "이차식의 구조와 계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "이차식",
+        "이차식의 구조와 계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        19
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C049",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "괄호 처리",
+      "concept_name": "괄호가 있는 다항식 정리",
+      "description": "중괄호·대괄호와 부호를 처리해 다항식을 정리한다.",
+      "diagnostic_signals": [
+        "괄호가 있는 다항식 정리 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "괄호 처리",
+        "괄호가 있는 다항식 정리",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        19,
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C050",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식 역산",
+      "concept_name": "모르는 다항식 역산",
+      "description": "덧셈·뺄셈·곱셈·나눗셈 관계에서 어떤 다항식을 구한다.",
+      "diagnostic_signals": [
+        "모르는 다항식 역산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식 역산",
+        "모르는 다항식 역산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        20,
+        22
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C051",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "오류 역추적",
+      "concept_name": "잘못 계산한 다항식 복원",
+      "description": "잘못 계산한 식과 바른 연산 관계를 비교해 바른 답을 구한다.",
+      "diagnostic_signals": [
+        "잘못 계산한 다항식 복원 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "오류 역추적",
+        "잘못 계산한 다항식 복원",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        21
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C052",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식의 곱셈",
+      "concept_name": "단항식과 다항식의 곱셈",
+      "description": "분배법칙을 이용해 단항식과 다항식을 곱한다.",
+      "diagnostic_signals": [
+        "단항식과 다항식의 곱셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식의 곱셈",
+        "단항식과 다항식의 곱셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        21,
+        22,
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C053",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식의 나눗셈",
+      "concept_name": "다항식과 단항식의 나눗셈",
+      "description": "다항식의 각 항을 단항식으로 나누어 정리한다.",
+      "diagnostic_signals": [
+        "다항식과 단항식의 나눗셈 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식의 나눗셈",
+        "다항식과 단항식의 나눗셈",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        21,
+        22,
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C054",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식 혼합계산",
+      "concept_name": "다항식 사칙연산 혼합",
+      "description": "다항식 사칙연산이 섞인 식의 계산 순서를 판단한다.",
+      "diagnostic_signals": [
+        "다항식 사칙연산 혼합 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식 혼합계산",
+        "다항식 사칙연산 혼합",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        22,
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C055",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "분수꼴 다항식",
+      "concept_name": "다항식 분수꼴 계산",
+      "description": "분수꼴 다항식에서 분모 처리와 약분을 정확히 수행한다.",
+      "diagnostic_signals": [
+        "다항식 분수꼴 계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "분수꼴 다항식",
+        "다항식 분수꼴 계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        19,
+        22,
+        23,
+        24
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C056",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식 도형 활용",
+      "concept_name": "다항식 도형 활용: 평면",
+      "description": "평면도형의 길이·넓이 조건을 다항식 계산과 연결한다.",
+      "diagnostic_signals": [
+        "다항식 도형 활용: 평면 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식 도형 활용",
+        "다항식 도형 활용: 평면",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        22
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C057",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "다항식 도형 활용",
+      "concept_name": "다항식 도형 활용: 입체",
+      "description": "입체도형의 조건을 다항식 계산과 연결한다.",
+      "diagnostic_signals": [
+        "다항식 도형 활용: 입체 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "다항식 도형 활용",
+        "다항식 도형 활용: 입체",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C058",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "식의 값",
+      "concept_name": "식의 값 계산",
+      "description": "문자에 수나 식을 대입해 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "식의 값 계산 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "식의 값",
+        "식의 값 계산",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C059",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "식의 대입",
+      "concept_name": "식의 대입과 식으로 주어진 값 처리",
+      "description": "한 식의 값을 다른 식에 대입하거나 식 자체를 대입한다.",
+      "diagnostic_signals": [
+        "식의 대입과 식으로 주어진 값 처리 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "식의 대입",
+        "식의 대입과 식으로 주어진 값 처리",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        23
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C060",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "등식의 변형",
+      "concept_name": "등식의 변형: 한 문자에 대하여 풀기",
+      "description": "등식을 변형해 특정 문자에 대한 식으로 정리한다.",
+      "diagnostic_signals": [
+        "등식의 변형: 한 문자에 대하여 풀기 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "등식의 변형",
+        "등식의 변형: 한 문자에 대하여 풀기",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        24,
+        25
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C061",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "등식의 변형",
+      "concept_name": "등식 변형 후 대입",
+      "description": "등식을 변형한 뒤 다른 식에 대입해 값을 구한다.",
+      "diagnostic_signals": [
+        "등식 변형 후 대입 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "등식의 변형",
+        "등식 변형 후 대입",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        24,
+        25
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C062",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "등식의 변형",
+      "concept_name": "비례식과 등식 변형",
+      "description": "비례식 또는 분수꼴 관계식을 등식으로 변형한다.",
+      "diagnostic_signals": [
+        "비례식과 등식 변형 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "등식의 변형",
+        "비례식과 등식 변형",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        24,
+        25
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C063",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "등식의 변형 활용",
+      "concept_name": "등식 변형의 실생활 활용",
+      "description": "실생활 관계식을 등식으로 세우고 특정 문자를 구한다.",
+      "diagnostic_signals": [
+        "등식 변형의 실생활 활용 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "등식의 변형 활용",
+        "등식 변형의 실생활 활용",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        25
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C064",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "식의 계산",
+      "sub_strand": "등식의 변형 활용",
+      "concept_name": "등식 변형의 도형 활용",
+      "description": "도형 공식과 조건을 등식 변형으로 처리한다.",
+      "diagnostic_signals": [
+        "등식 변형의 도형 활용 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "등식의 변형 활용",
+        "등식 변형의 도형 활용",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [
+        25
+      ],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "M2_NE_C065",
+      "grade": "중2",
+      "course": "중학수학 2",
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "unit_name": "수와 식",
+      "strand": "수와 식",
+      "sub_strand": "종합 진단",
+      "concept_name": "수와 식 종합 오류 진단",
+      "description": "소수 표현, 지수법칙, 단항식, 다항식, 등식 변형의 혼합 오류를 종합적으로 판별한다.",
+      "diagnostic_signals": [
+        "수와 식 종합 오류 진단 조건을 다른 유형에 잘못 적용",
+        "식의 구조를 보지 않고 공식만 기계적으로 사용",
+        "계산 과정에서 중간 조건을 생략"
+      ],
+      "remediation_keywords": [
+        "종합 진단",
+        "수와 식 종합 오류 진단",
+        "조건 확인",
+        "식 구조 표시"
+      ],
+      "source_orders": [],
+      "mastery_level": "advanced",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C001",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "거듭제곱근",
+      "concept_name": "거듭제곱 구조와 n제곱근의 정의",
+      "description": "거듭제곱에서 밑과 지수를 구분하고, x^n=a를 만족하는 x를 a의 n제곱근으로 해석한다.",
+      "diagnostic_signals": [
+        "밑/지수 혼동",
+        "n제곱근을 제곱근으로만 처리",
+        "x^n=a 구조로 바꾸지 못함"
+      ],
+      "remediation_keywords": [
+        "밑·지수 표시",
+        "x^n=a 방정식화",
+        "n제곱근 정의 확인"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C002",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "거듭제곱근",
+      "concept_name": "실수 거듭제곱근 존재 조건",
+      "description": "a의 부호와 n의 홀짝에 따라 실수인 n제곱근의 존재 여부와 개수를 판단한다.",
+      "diagnostic_signals": [
+        "음수의 짝수근을 실수로 처리",
+        "양수의 짝수근 ± 누락",
+        "근의 값과 개수 혼동"
+      ],
+      "remediation_keywords": [
+        "부호 확인",
+        "n의 홀짝 확인",
+        "실수근 개수표 작성"
+      ],
+      "source_orders": [
+        1
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C003",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "거듭제곱근",
+      "concept_name": "거듭제곱근 기호와 주값",
+      "description": "√a, n√a, a의 n제곱근을 구분하고 근호 기호가 나타내는 값을 해석한다.",
+      "diagnostic_signals": [
+        "√a와 a의 제곱근 혼동",
+        "짝수근 주값 부호 오류",
+        "실수인 것 조건 누락"
+      ],
+      "remediation_keywords": [
+        "근호 기호 뜻",
+        "주값과 전체 해 구분",
+        "± 표시 기준"
+      ],
+      "source_orders": [
+        1,
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C004",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "거듭제곱근의 계산",
+      "concept_name": "거듭제곱근의 계산",
+      "description": "거듭제곱근의 곱셈, 나눗셈, 덧셈, 뺄셈, 혼합계산을 정확히 수행한다.",
+      "diagnostic_signals": [
+        "근호 안/밖 지수 처리 오류",
+        "동류 근호가 아닌 항 결합",
+        "분수꼴 근호 계산 오류"
+      ],
+      "remediation_keywords": [
+        "동류 근호 구분",
+        "곱셈·나눗셈 우선",
+        "분수꼴 정리"
+      ],
+      "source_orders": [
+        3,
+        4
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C005",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "문자를 포함한 거듭제곱근",
+      "concept_name": "문자를 포함한 거듭제곱근의 계산",
+      "description": "문자가 포함된 거듭제곱근에서 정의 조건과 부호 가능성을 고려해 계산한다.",
+      "diagnostic_signals": [
+        "문자 부호 조건 누락",
+        "절댓값 처리 누락",
+        "한 문자/두 문자 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "문자 범위 표시",
+        "짝수근 절댓값",
+        "조건별 계산"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C006",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "거듭제곱과 거듭제곱근",
+      "sub_strand": "거듭제곱근의 대소 비교",
+      "concept_name": "거듭제곱근의 대소 비교",
+      "description": "거듭제곱근을 같은 지수 또는 같은 근호 구조로 바꾸어 대소를 비교한다.",
+      "diagnostic_signals": [
+        "근호의 차수 통일 실패",
+        "분수꼴 비교 오류",
+        "연산 결과 대소 비교 오류"
+      ],
+      "remediation_keywords": [
+        "같은 차수 만들기",
+        "양변 거듭제곱",
+        "분모·분자 비교"
+      ],
+      "source_orders": [
+        5
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C007",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "정수 지수",
+      "concept_name": "정수 지수법칙",
+      "description": "지수가 0 또는 음의 정수인 경우를 포함하여 정수 지수법칙을 적용한다.",
+      "diagnostic_signals": [
+        "a^0=0으로 처리",
+        "음수 지수의 역수화 누락",
+        "밑을 같게 하지 못함"
+      ],
+      "remediation_keywords": [
+        "0지수 확인",
+        "음수지수 역수화",
+        "밑 통일"
+      ],
+      "source_orders": [
+        6,
+        7
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C008",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "실수 지수",
+      "concept_name": "유리수·실수 지수법칙",
+      "description": "근호와 유리수 지수를 오가며 지수가 실수인 식을 계산한다.",
+      "diagnostic_signals": [
+        "근호↔분수지수 변환 오류",
+        "지수 분모/분자 위치 혼동",
+        "실수 지수 대소 비교 오류"
+      ],
+      "remediation_keywords": [
+        "근호 차수=분모",
+        "거듭제곱 지수=분자",
+        "밑 양수 조건 확인"
+      ],
+      "source_orders": [
+        8,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C009",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "근호와 지수 변환",
+      "concept_name": "거듭제곱근을 지수로 나타내기",
+      "description": "근호로 표현된 수를 유리수 지수로 나타내고, 유리수 지수 표현을 근호로 되돌린다.",
+      "diagnostic_signals": [
+        "n√a^m=a^(m/n) 변환 오류",
+        "반복 근호 구조 해석 실패",
+        "도형/좌표 조건 변환 실패"
+      ],
+      "remediation_keywords": [
+        "분모·분자 표시",
+        "근호 반복 정리",
+        "지수 형태 통일"
+      ],
+      "source_orders": [
+        12,
+        13,
+        14
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C010",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "문자 표현",
+      "concept_name": "거듭제곱을 주어진 문자로 나타내기",
+      "description": "a^x=A와 같은 조건에서 다른 거듭제곱을 A 또는 B로 나타낸다.",
+      "diagnostic_signals": [
+        "밑 통일 누락",
+        "지수의 합/차/배수 처리 오류",
+        "두 문자 조건 연결 실패"
+      ],
+      "remediation_keywords": [
+        "밑 통일",
+        "A로 치환",
+        "지수 분해"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C011",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "자연수 조건",
+      "concept_name": "지수가 자연수가 되는 조건",
+      "description": "a^r이 자연수/정수/유리수가 되도록 하는 조건을 소인수 지수의 배수 조건으로 판별한다.",
+      "diagnostic_signals": [
+        "완전제곱/세제곱 조건 미흡",
+        "소인수 지수표 미작성",
+        "자연수 조건과 유리수 조건 혼동"
+      ],
+      "remediation_keywords": [
+        "소인수 지수표",
+        "분수지수의 분모 조건",
+        "정수/자연수 조건 구분"
+      ],
+      "source_orders": [
+        15
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C012",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "지수 복합",
+      "concept_name": "지수법칙과 곱셈 공식 결합",
+      "description": "지수법칙과 곱셈 공식, 이차방정식 근의 관계를 결합하여 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "지수식 대칭 구조 미인식",
+        "a^x+a^-x 변형 실패",
+        "근과 계수 관계 연결 실패"
+      ],
+      "remediation_keywords": [
+        "대칭식 치환",
+        "곱셈 공식 적용",
+        "근과 계수 관계"
+      ],
+      "source_orders": [
+        16,
+        17
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C013",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "조건 해석",
+      "concept_name": "지수식 조건과 함수적 해석",
+      "description": "새롭게 정의된 연산, 집합 조건, 함수 조건에서 지수식을 해석한다.",
+      "diagnostic_signals": [
+        "조건을 식으로 번역 못함",
+        "집합 원소 조건 누락",
+        "함수 합성 조건 해석 실패"
+      ],
+      "remediation_keywords": [
+        "조건 번역",
+        "정의역/치역 표시",
+        "원소 개수 세기"
+      ],
+      "source_orders": [
+        8,
+        10,
+        11,
+        18
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C014",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "지수의 확장과 지수법칙",
+      "sub_strand": "실생활 활용",
+      "concept_name": "지수의 실생활 활용",
+      "description": "증가·감소·비율·배수 구조를 지수식으로 모델링한다.",
+      "diagnostic_signals": [
+        "증가율/감소율 식 세우기 오류",
+        "시간 단위 변환 오류",
+        "밑과 지수 해석 혼동"
+      ],
+      "remediation_keywords": [
+        "초기값 표시",
+        "배율 확인",
+        "시간 변수 설정"
+      ],
+      "source_orders": [
+        18,
+        19,
+        20
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C015",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그의 정의",
+      "concept_name": "로그의 정의",
+      "description": "a^x=N과 log_a N=x를 상호 변환한다.",
+      "diagnostic_signals": [
+        "로그 정의를 지수식으로 못 바꿈",
+        "밑과 진수 혼동",
+        "기본 로그값 오류"
+      ],
+      "remediation_keywords": [
+        "지수식 변환",
+        "밑/진수/값 표시",
+        "정의 확인"
+      ],
+      "source_orders": [
+        22
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C016",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그의 조건",
+      "concept_name": "로그의 밑과 진수 조건",
+      "description": "로그가 정의되기 위한 밑의 조건과 진수의 조건을 판별한다.",
+      "diagnostic_signals": [
+        "밑>0, 밑≠1 누락",
+        "진수>0 누락",
+        "공통 정의역 교집합 실패"
+      ],
+      "remediation_keywords": [
+        "밑 조건",
+        "진수 조건",
+        "동시 조건 정리"
+      ],
+      "source_orders": [
+        22
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C017",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그의 성질",
+      "concept_name": "로그의 성질",
+      "description": "곱, 몫, 거듭제곱의 로그 성질을 이용해 식을 변형한다.",
+      "diagnostic_signals": [
+        "log(ab) 전개 오류",
+        "상수항 log2 누락",
+        "곱/합 혼동"
+      ],
+      "remediation_keywords": [
+        "곱→합",
+        "몫→차",
+        "거듭제곱→계수"
+      ],
+      "source_orders": [
+        23,
+        25
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C018",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "밑변환",
+      "concept_name": "로그의 밑의 변환",
+      "description": "밑 변환 공식을 이용해 여러 로그를 같은 기준으로 통일한다.",
+      "diagnostic_signals": [
+        "밑 변환 방향 오류",
+        "역수 관계 누락",
+        "미지수 로그식 정리 실패"
+      ],
+      "remediation_keywords": [
+        "공통 밑 선택",
+        "역수 관계",
+        "치환표 작성"
+      ],
+      "source_orders": [
+        23,
+        25
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C019",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그 복합 성질",
+      "concept_name": "로그의 여러 가지 성질",
+      "description": "지수에 로그가 있는 수, 로그 연산, 로그가 정수 되는 조건 등을 결합해 처리한다.",
+      "diagnostic_signals": [
+        "a^(log_a b)=b 구조 미인식",
+        "정수 조건 누락",
+        "복합 로그식 변형 실패"
+      ],
+      "remediation_keywords": [
+        "지수-로그 상쇄",
+        "자연수 조건 확인",
+        "성질별 분해"
+      ],
+      "source_orders": [
+        24,
+        25
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C020",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그 활용",
+      "concept_name": "로그의 성질 활용",
+      "description": "log_a b=c 또는 a^x=b^y 형태의 조건에서 식의 값을 구한다.",
+      "diagnostic_signals": [
+        "조건 치환 실패",
+        "두/세 미지수 관계 정리 실패",
+        "관계식에서 식의 값 연결 실패"
+      ],
+      "remediation_keywords": [
+        "로그 치환",
+        "관계식 정리",
+        "목표식 변환"
+      ],
+      "source_orders": [
+        25,
+        26
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C021",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그와 방정식",
+      "concept_name": "로그와 이차방정식",
+      "description": "로그식과 이차방정식의 근과 계수 관계를 연결해 계산한다.",
+      "diagnostic_signals": [
+        "두 근 조건 해석 실패",
+        "로그의 정의역 확인 누락",
+        "근과 계수 관계 적용 오류"
+      ],
+      "remediation_keywords": [
+        "정의역 확인",
+        "근과 계수 관계",
+        "로그식 변환"
+      ],
+      "source_orders": [
+        27
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C022",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "로그",
+      "sub_strand": "로그의 대소",
+      "concept_name": "로그의 대소 관계",
+      "description": "밑의 크기와 진수 조건에 따라 로그값의 대소를 비교한다.",
+      "diagnostic_signals": [
+        "밑이 1보다 작은 경우 부등호 방향 착각",
+        "진수 비교만 함",
+        "밑 조건 누락"
+      ],
+      "remediation_keywords": [
+        "밑 범위 확인",
+        "증가/감소 판단",
+        "같은 밑 통일"
+      ],
+      "source_orders": [
+        27
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C023",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "상용로그",
+      "sub_strand": "상용로그",
+      "concept_name": "상용로그의 뜻과 값",
+      "description": "상용로그의 의미, 표, 기본 연산을 이용해 값을 구한다.",
+      "diagnostic_signals": [
+        "상용로그 밑 10 인식 부족",
+        "로그표 적용 오류",
+        "근삿값 계산 오류"
+      ],
+      "remediation_keywords": [
+        "밑 10 표시",
+        "로그표 사용",
+        "값 범위 확인"
+      ],
+      "source_orders": [
+        28,
+        29,
+        31
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C024",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "상용로그",
+      "sub_strand": "정수 부분과 소수 부분",
+      "concept_name": "상용로그의 정수 부분과 소수 부분",
+      "description": "상용로그의 정수 부분과 소수 부분을 분리하여 수의 범위를 판단한다.",
+      "diagnostic_signals": [
+        "정수/소수 부분 혼동",
+        "가우스 기호 해석 오류",
+        "진수 범위 연결 실패"
+      ],
+      "remediation_keywords": [
+        "정수 부분=자릿수-1",
+        "소수 부분 범위",
+        "가우스 조건 정리"
+      ],
+      "source_orders": [
+        32,
+        33,
+        34
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C025",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "상용로그",
+      "sub_strand": "자릿수",
+      "concept_name": "상용로그를 이용한 자릿수",
+      "description": "상용로그의 정수 부분을 이용해 자연수의 자릿수와 최고 자리 숫자를 구한다.",
+      "diagnostic_signals": [
+        "자릿수 공식 오류",
+        "소수점 아래 첫 0 아닌 숫자 위치 오류",
+        "최고 자리 숫자 범위 실패"
+      ],
+      "remediation_keywords": [
+        "log N의 정수부분",
+        "10^n 범위",
+        "자릿수 판정"
+      ],
+      "source_orders": [
+        35,
+        36
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C026",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "상용로그",
+      "sub_strand": "소수 부분",
+      "concept_name": "상용로그의 소수 부분 활용",
+      "description": "상용로그의 소수 부분이 같은 조건을 이용해 수의 비율과 범위를 판단한다.",
+      "diagnostic_signals": [
+        "소수 부분 같은 로그 조건 해석 실패",
+        "10배 차이 구조 미인식",
+        "로그값 범위 추정 오류"
+      ],
+      "remediation_keywords": [
+        "소수 부분 동일 조건",
+        "10^k 배수 관계",
+        "범위표 작성"
+      ],
+      "source_orders": [
+        36
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
+    },
+    {
+      "concept_id": "H2_EL_C027",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_id": "H2_EXP_LOG",
+      "unit_name": "지수와 로그",
+      "strand": "상용로그",
+      "sub_strand": "실생활 활용",
+      "concept_name": "상용로그의 실생활 활용",
+      "description": "관계식이 주어진 실생활 상황을 상용로그로 변형하고 값을 추정한다.",
+      "diagnostic_signals": [
+        "관계식 로그화 실패",
+        "변수 2개 이상 조건 정리 실패",
+        "증가/감소 해석 오류"
+      ],
+      "remediation_keywords": [
+        "양변 로그 취하기",
+        "변수 정리",
+        "단위 확인"
+      ],
+      "source_orders": [
+        37
+      ],
+      "mastery_level": "core",
+      "prerequisite_depth": 1,
+      "status": "curated_seed_from_image_taxonomy"
     }
   ],
   "future_target_concepts": [
@@ -4562,6 +9109,20 @@
       "grade": "중3",
       "unit_name": "입체도형과 공간감각",
       "concept_name": "공간도형의 위치 관계와 단면·전개도 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_EXP_C001",
+      "grade": "중3",
+      "unit_name": "제곱근과 실수",
+      "concept_name": "거듭제곱과 제곱근의 지수 구조 이해",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EXP_C001",
+      "grade": "고1",
+      "unit_name": "지수와 로그 기초",
+      "concept_name": "지수식 구조와 밑의 조건 해석",
       "status": "future_target_seed"
     }
   ]

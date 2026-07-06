@@ -1,0 +1,977 @@
+{
+  "version": "2026.07.05-m2-number-expression-v0.8",
+  "unit_id": "M2_NUMBER_EXPRESSION",
+  "edge_count": 97,
+  "edges": [
+    {
+      "edge_id": "M2_NE_E001",
+      "from_concept_id": "M1_IR_C005",
+      "to_concept_id": "M2_NE_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.82,
+      "reason": "중1 유리수의 분류 이해가 중2 유리수와 소수 표현의 포함 관계 판단으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E002",
+      "from_concept_id": "M1_IR_C022",
+      "to_concept_id": "M2_NE_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "중1 거듭제곱의 의미가 중2 지수법칙의 밑·지수 구분의 직접 선행 개념이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E003",
+      "from_concept_id": "M1_IR_C024",
+      "to_concept_id": "M2_NE_C039",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "유리수의 나눗셈과 역수 개념이 단항식의 나눗셈으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E004",
+      "from_concept_id": "M1_IR_C027",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "유리수의 사칙연산 순서 이해가 지수법칙 혼합계산의 연산 순서 판단으로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E005",
+      "from_concept_id": "M1_EX_C008",
+      "to_concept_id": "M2_NE_C046",
+      "relation_type": "prerequisite",
+      "weight": 0.84,
+      "reason": "중1 항·계수·상수항·차수 판단이 중2 다항식 구조 이해의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E006",
+      "from_concept_id": "M1_EX_C009",
+      "to_concept_id": "M2_NE_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "중1 단항식 계산 경험이 중2 지수법칙 기반 단항식 곱셈으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E007",
+      "from_concept_id": "M1_EX_C010",
+      "to_concept_id": "M2_NE_C047",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "중1 동류항 정리 능력이 중2 다항식 덧셈과 뺄셈의 핵심 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E008",
+      "from_concept_id": "M1_EX_C011",
+      "to_concept_id": "M2_NE_C049",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "중1 분배법칙과 괄호 처리 능력이 중2 여러 괄호 다항식 계산으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E009",
+      "from_concept_id": "M1_EX_C017",
+      "to_concept_id": "M2_NE_C060",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "중1 등식의 성질과 이항이 중2 등식의 변형에서 특정 문자를 고립시키는 과정의 기반이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E010",
+      "from_concept_id": "M1_EX_C005",
+      "to_concept_id": "M2_NE_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "중1 단일 문자 대입 능력이 중2 복합 식의 값 계산으로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E011",
+      "from_concept_id": "M2_NE_C001",
+      "to_concept_id": "M2_NE_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E012",
+      "from_concept_id": "M2_NE_C002",
+      "to_concept_id": "M2_NE_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E013",
+      "from_concept_id": "M2_NE_C003",
+      "to_concept_id": "M2_NE_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E014",
+      "from_concept_id": "M2_NE_C004",
+      "to_concept_id": "M2_NE_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E015",
+      "from_concept_id": "M2_NE_C005",
+      "to_concept_id": "M2_NE_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E016",
+      "from_concept_id": "M2_NE_C005",
+      "to_concept_id": "M2_NE_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E017",
+      "from_concept_id": "M2_NE_C007",
+      "to_concept_id": "M2_NE_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E018",
+      "from_concept_id": "M2_NE_C009",
+      "to_concept_id": "M2_NE_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E019",
+      "from_concept_id": "M2_NE_C010",
+      "to_concept_id": "M2_NE_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E020",
+      "from_concept_id": "M2_NE_C009",
+      "to_concept_id": "M2_NE_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E021",
+      "from_concept_id": "M2_NE_C012",
+      "to_concept_id": "M2_NE_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E022",
+      "from_concept_id": "M2_NE_C013",
+      "to_concept_id": "M2_NE_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E023",
+      "from_concept_id": "M2_NE_C012",
+      "to_concept_id": "M2_NE_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E024",
+      "from_concept_id": "M2_NE_C012",
+      "to_concept_id": "M2_NE_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E025",
+      "from_concept_id": "M2_NE_C016",
+      "to_concept_id": "M2_NE_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E026",
+      "from_concept_id": "M2_NE_C017",
+      "to_concept_id": "M2_NE_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E027",
+      "from_concept_id": "M2_NE_C012",
+      "to_concept_id": "M2_NE_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E028",
+      "from_concept_id": "M2_NE_C014",
+      "to_concept_id": "M2_NE_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "유리수와 순환소수의 표현·조건·계산이 단계적으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E029",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E030",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E031",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E032",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E033",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E034",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E035",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E036",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.88,
+      "reason": "밑과 지수의 의미를 구분해야 각 지수법칙을 적용할 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E037",
+      "from_concept_id": "M2_NE_C022",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E038",
+      "from_concept_id": "M2_NE_C023",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E039",
+      "from_concept_id": "M2_NE_C024",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E040",
+      "from_concept_id": "M2_NE_C025",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E041",
+      "from_concept_id": "M2_NE_C026",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E042",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E043",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E044",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E045",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E046",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E047",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E048",
+      "from_concept_id": "M2_NE_C036",
+      "to_concept_id": "M2_NE_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "기본 지수법칙의 안정성이 지수법칙 종합·응용 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E049",
+      "from_concept_id": "M2_NE_C021",
+      "to_concept_id": "M2_NE_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E050",
+      "from_concept_id": "M2_NE_C022",
+      "to_concept_id": "M2_NE_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E051",
+      "from_concept_id": "M2_NE_C024",
+      "to_concept_id": "M2_NE_C039",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E052",
+      "from_concept_id": "M2_NE_C037",
+      "to_concept_id": "M2_NE_C038",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E053",
+      "from_concept_id": "M2_NE_C037",
+      "to_concept_id": "M2_NE_C039",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E054",
+      "from_concept_id": "M2_NE_C038",
+      "to_concept_id": "M2_NE_C040",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E055",
+      "from_concept_id": "M2_NE_C039",
+      "to_concept_id": "M2_NE_C040",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E056",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C041",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E057",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C042",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E058",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C043",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E059",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C044",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E060",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C045",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "지수법칙과 단항식 구조 이해가 단항식 계산·활용으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E061",
+      "from_concept_id": "M2_NE_C046",
+      "to_concept_id": "M2_NE_C047",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E062",
+      "from_concept_id": "M2_NE_C046",
+      "to_concept_id": "M2_NE_C048",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E063",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M2_NE_C049",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E064",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M2_NE_C050",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E065",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M2_NE_C051",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E066",
+      "from_concept_id": "M2_NE_C038",
+      "to_concept_id": "M2_NE_C052",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E067",
+      "from_concept_id": "M2_NE_C046",
+      "to_concept_id": "M2_NE_C052",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E068",
+      "from_concept_id": "M2_NE_C039",
+      "to_concept_id": "M2_NE_C053",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E069",
+      "from_concept_id": "M2_NE_C046",
+      "to_concept_id": "M2_NE_C053",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E070",
+      "from_concept_id": "M2_NE_C052",
+      "to_concept_id": "M2_NE_C054",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E071",
+      "from_concept_id": "M2_NE_C053",
+      "to_concept_id": "M2_NE_C054",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E072",
+      "from_concept_id": "M2_NE_C054",
+      "to_concept_id": "M2_NE_C055",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E073",
+      "from_concept_id": "M2_NE_C052",
+      "to_concept_id": "M2_NE_C056",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E074",
+      "from_concept_id": "M2_NE_C053",
+      "to_concept_id": "M2_NE_C057",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E075",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M2_NE_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E076",
+      "from_concept_id": "M2_NE_C052",
+      "to_concept_id": "M2_NE_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E077",
+      "from_concept_id": "M2_NE_C053",
+      "to_concept_id": "M2_NE_C058",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E078",
+      "from_concept_id": "M2_NE_C058",
+      "to_concept_id": "M2_NE_C059",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E079",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M2_NE_C060",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E080",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M2_NE_C061",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E081",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M2_NE_C062",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E082",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M2_NE_C063",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E083",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M2_NE_C064",
+      "relation_type": "prerequisite",
+      "weight": 0.76,
+      "reason": "다항식의 구조·연산 이해가 식의 값, 대입, 등식 변형으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E084",
+      "from_concept_id": "M2_NE_C017",
+      "to_concept_id": "M2_NE_C065",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "각 영역의 계산·조건 오류가 수와 식 종합 진단으로 모인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E085",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M2_NE_C065",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "각 영역의 계산·조건 오류가 수와 식 종합 진단으로 모인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E086",
+      "from_concept_id": "M2_NE_C040",
+      "to_concept_id": "M2_NE_C065",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "각 영역의 계산·조건 오류가 수와 식 종합 진단으로 모인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E087",
+      "from_concept_id": "M2_NE_C054",
+      "to_concept_id": "M2_NE_C065",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "각 영역의 계산·조건 오류가 수와 식 종합 진단으로 모인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E088",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M2_NE_C065",
+      "relation_type": "application",
+      "weight": 0.6,
+      "reason": "각 영역의 계산·조건 오류가 수와 식 종합 진단으로 모인다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E089",
+      "from_concept_id": "M2_NE_C022",
+      "to_concept_id": "M3_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "지수법칙의 같은 밑 정리는 중3 다항식 전개와 인수분해의 문자 지수 처리 기반이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E090",
+      "from_concept_id": "M2_NE_C027",
+      "to_concept_id": "M3_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "지수법칙 혼합계산 능력은 중3 다항식 구조 인식으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E091",
+      "from_concept_id": "M2_NE_C038",
+      "to_concept_id": "M3_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "단항식 곱셈은 중3 다항식 곱셈의 항별 곱셈으로 확장된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E092",
+      "from_concept_id": "M2_NE_C047",
+      "to_concept_id": "M3_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "동류항 정리와 다항식 계산은 중3 전개와 인수분해의 기초다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E093",
+      "from_concept_id": "M2_NE_C052",
+      "to_concept_id": "H1_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "단항식과 다항식의 곱셈은 고1 다항식 연산과 항등식의 직접 기반이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E094",
+      "from_concept_id": "M2_NE_C053",
+      "to_concept_id": "H1_POLY_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "다항식 나눗셈 구조는 고1 다항식 연산 안정성에 영향을 준다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E095",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "M3_QUAD_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "등식의 변형은 중3 이차방정식 풀이 전 식 정리의 선행 개념이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E096",
+      "from_concept_id": "M2_NE_C060",
+      "to_concept_id": "H1_EQ_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "특정 문자를 고립시키는 등식 변형은 고1 방정식·부등식의 식 변형으로 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_NE_E097",
+      "from_concept_id": "M2_NE_C063",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "실생활 관계식을 문자식으로 바꾸는 능력은 고1 함수식 해석으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    }
+  ]
+}

@@ -1,0 +1,646 @@
+{
+  "version": "2026.07.05-m2-number-expression-v0.8",
+  "unit_id": "M2_NUMBER_EXPRESSION",
+  "unit_name": "수와 식",
+  "remediation_count": 36,
+  "remediation": [
+    {
+      "concept_id": "M2_NE_C001",
+      "title": "유리수와 소수 표현 분류 보강",
+      "priority": 1,
+      "steps": [
+        "유리수, 유한소수, 순환소수 포함 관계 도식화",
+        "보기의 소수 표현을 유한/무한/순환으로 색 분류",
+        "설명형 참거짓 문항으로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT001",
+        "M2_NE_PT002",
+        "M2_NE_PT003",
+        "M2_NE_PT004",
+        "M2_NE_PT005"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C005",
+      "title": "유한소수 조건 보강",
+      "priority": 1,
+      "steps": [
+        "분수를 반드시 기약분수로 만들기",
+        "분모를 소인수분해하여 2와 5만 남는지 확인",
+        "x가 분자/분모 어디에 있는지 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT007",
+        "M2_NE_PT008",
+        "M2_NE_PT009",
+        "M2_NE_PT010",
+        "M2_NE_PT011"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C007",
+      "title": "유한소수 조건 미지수 보강",
+      "priority": 2,
+      "steps": [
+        "분모 조건 표 만들기",
+        "x가 곱해지는 위치와 나누는 위치 구분",
+        "가능한 x 후보를 소인수분해로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT010",
+        "M2_NE_PT011",
+        "M2_NE_PT012",
+        "M2_NE_PT013",
+        "M2_NE_PT014"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C010",
+      "title": "순환마디와 자리수 보강",
+      "priority": 2,
+      "steps": [
+        "순환마디를 네모로 표시",
+        "소수점 아래 n번째를 순환마디 길이로 나누기",
+        "나머지와 자리 위치를 연결"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT023",
+        "M2_NE_PT024",
+        "M2_NE_PT025",
+        "M2_NE_PT030",
+        "M2_NE_PT031"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C012",
+      "title": "순환소수 분수 변환 보강",
+      "priority": 1,
+      "steps": [
+        "10배/100배 식을 두 줄로 쓰기",
+        "순환 부분이 사라지도록 빼기",
+        "약분 후 원래 순환소수로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT037",
+        "M2_NE_PT038",
+        "M2_NE_PT039",
+        "M2_NE_PT040",
+        "M2_NE_PT041"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C015",
+      "title": "순환소수 대소비교 보강",
+      "priority": 2,
+      "steps": [
+        "분수 변환 후 비교",
+        "소수 전개를 같은 자리까지 써서 비교",
+        "부등식 조건에서는 정수 후보를 표로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT048",
+        "M2_NE_PT049",
+        "M2_NE_PT053",
+        "M2_NE_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C017",
+      "title": "순환소수 등식 조건 보강",
+      "priority": 2,
+      "steps": [
+        "순환소수를 먼저 분수로 바꾸기",
+        "등식의 양변을 정리하기",
+        "미지수 후보를 원래 조건에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT046",
+        "M2_NE_PT047",
+        "M2_NE_PT053",
+        "M2_NE_PT054",
+        "M2_NE_PT055"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C021",
+      "title": "밑과 지수 의미 보강",
+      "priority": 1,
+      "steps": [
+        "밑에 동그라미, 지수에 밑줄 표시",
+        "거듭제곱을 반복 곱셈으로 전개",
+        "-a^2와 (-a)^2를 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT069",
+        "M2_NE_PT070",
+        "M2_NE_PT071",
+        "M2_NE_PT072",
+        "M2_NE_PT073"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C022",
+      "title": "같은 밑의 곱셈 보강",
+      "priority": 1,
+      "steps": [
+        "밑이 같은지 먼저 표시",
+        "곱셈이면 지수 더하기라고 메모",
+        "밑이 다른 항은 합치지 않기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT069",
+        "M2_NE_PT070",
+        "M2_NE_PT071",
+        "M2_NE_PT072",
+        "M2_NE_PT073"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C023",
+      "title": "거듭제곱의 거듭제곱 보강",
+      "priority": 1,
+      "steps": [
+        "괄호 밖 지수가 전체 반복 횟수임을 전개",
+        "더하기가 아니라 곱하기가 되는 이유 확인",
+        "한 문자→여러 문자 순서로 확장"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT074",
+        "M2_NE_PT075",
+        "M2_NE_PT076",
+        "M2_NE_PT077",
+        "M2_NE_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C024",
+      "title": "같은 밑의 나눗셈 보강",
+      "priority": 2,
+      "steps": [
+        "밑이 같은지 확인",
+        "나눗셈을 분수로 바꾸기",
+        "지수 차를 계산하고 음수 지수 상황은 중등 범위에서 분수로 해석"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT079",
+        "M2_NE_PT080",
+        "M2_NE_PT081",
+        "M2_NE_PT089",
+        "M2_NE_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C025",
+      "title": "곱의 거듭제곱 보강",
+      "priority": 2,
+      "steps": [
+        "괄호 안 인수를 하나씩 분리",
+        "계수와 모든 문자에 지수를 적용",
+        "빠진 문자 지수가 없는지 체크"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT082",
+        "M2_NE_PT083",
+        "M2_NE_PT084",
+        "M2_NE_PT085",
+        "M2_NE_PT089"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C026",
+      "title": "몫의 거듭제곱 보강",
+      "priority": 2,
+      "steps": [
+        "분자와 분모에 각각 지수 적용",
+        "분모 전체가 반복되는 구조 전개",
+        "계수 약분 전후를 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT086",
+        "M2_NE_PT087",
+        "M2_NE_PT088",
+        "M2_NE_PT089",
+        "M2_NE_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C027",
+      "title": "지수법칙 혼합계산 보강",
+      "priority": 1,
+      "steps": [
+        "식 위에 곱셈/거듭제곱/나눗셈 유형 표시",
+        "괄호 처리 후 곱셈·나눗셈 정리",
+        "같은 밑끼리만 지수 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT089",
+        "M2_NE_PT090",
+        "M2_NE_PT091",
+        "M2_NE_PT094",
+        "M2_NE_PT095"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C035",
+      "title": "지수 미지수 방정식 보강",
+      "priority": 2,
+      "steps": [
+        "양변의 밑을 같게 만들기",
+        "지수끼리 비교하는 조건 확인",
+        "구한 값을 원래 식에 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT114",
+        "M2_NE_PT115",
+        "M2_NE_PT116",
+        "M2_NE_PT117",
+        "M2_NE_PT118"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C036",
+      "title": "괄호와 부호 처리 보강",
+      "priority": 1,
+      "steps": [
+        "-a^2와 (-a)^2 비교표 작성",
+        "괄호가 묶는 범위 표시",
+        "음수 밑의 짝수/홀수 지수 결과 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT069",
+        "M2_NE_PT070",
+        "M2_NE_PT071",
+        "M2_NE_PT072",
+        "M2_NE_PT073"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C037",
+      "title": "단항식 구조 보강",
+      "priority": 1,
+      "steps": [
+        "계수, 문자, 지수 분리 표시",
+        "문자별 차수 확인",
+        "계수 계산과 문자 계산을 다른 줄에 쓰기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT121",
+        "M2_NE_PT122",
+        "M2_NE_PT123",
+        "M2_NE_PT124",
+        "M2_NE_PT125"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C038",
+      "title": "단항식 곱셈 보강",
+      "priority": 1,
+      "steps": [
+        "계수끼리 먼저 곱하기",
+        "같은 문자끼리 모으기",
+        "문자별 지수를 더해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT121",
+        "M2_NE_PT122",
+        "M2_NE_PT123",
+        "M2_NE_PT124",
+        "M2_NE_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C039",
+      "title": "단항식 나눗셈 보강",
+      "priority": 1,
+      "steps": [
+        "나눗셈을 역수의 곱셈으로 바꾸기",
+        "계수 약분 후 문자 지수 정리",
+        "분모에 남는 문자를 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT125",
+        "M2_NE_PT126",
+        "M2_NE_PT127",
+        "M2_NE_PT128",
+        "M2_NE_PT129"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C040",
+      "title": "단항식 혼합계산 보강",
+      "priority": 2,
+      "steps": [
+        "곱셈·나눗셈 순서를 표시",
+        "나눗셈은 모두 역수로 변환",
+        "계수와 문자 부분을 각각 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT129",
+        "M2_NE_PT130",
+        "M2_NE_PT131",
+        "M2_NE_PT132",
+        "M2_NE_PT133"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C042",
+      "title": "단항식 빈칸 역산 보강",
+      "priority": 2,
+      "steps": [
+        "빈칸을 □로 놓고 등식화",
+        "곱셈의 역은 나눗셈, 나눗셈의 역은 곱셈으로 처리",
+        "구한 식을 원식에 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT133",
+        "M2_NE_PT134",
+        "M2_NE_PT135",
+        "M2_NE_PT136"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C043",
+      "title": "단항식 평면도형 활용 보강",
+      "priority": 3,
+      "steps": [
+        "도형 공식 먼저 쓰기",
+        "길이 조건을 단항식으로 대입",
+        "넓이 또는 둘레 단위를 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT137",
+        "M2_NE_PT138",
+        "M2_NE_PT139"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C044",
+      "title": "단항식 입체도형 활용 보강",
+      "priority": 3,
+      "steps": [
+        "부피·겉넓이 공식을 먼저 쓰기",
+        "길이 조건을 단항식으로 대입",
+        "계수와 문자를 분리해 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT140",
+        "M2_NE_PT141",
+        "M2_NE_PT142",
+        "M2_NE_PT143"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C046",
+      "title": "다항식 구조 보강",
+      "priority": 1,
+      "steps": [
+        "항을 +, - 부호와 함께 나누기",
+        "동류항끼리 같은 색 표시",
+        "차수와 이차식 여부 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT146",
+        "M2_NE_PT147",
+        "M2_NE_PT148",
+        "M2_NE_PT149",
+        "M2_NE_PT150"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C047",
+      "title": "다항식 덧셈·뺄셈 보강",
+      "priority": 1,
+      "steps": [
+        "괄호 제거 전 부호 확인",
+        "동류항 세로 정렬",
+        "상수항까지 빠짐없이 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT146",
+        "M2_NE_PT147",
+        "M2_NE_PT148",
+        "M2_NE_PT149",
+        "M2_NE_PT152"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C049",
+      "title": "괄호 처리 보강",
+      "priority": 1,
+      "steps": [
+        "소괄호→중괄호→대괄호 순서 확인",
+        "괄호 앞 음수는 내부 모든 항 부호 변경",
+        "중간식을 한 줄씩 적기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT146",
+        "M2_NE_PT147",
+        "M2_NE_PT148",
+        "M2_NE_PT149",
+        "M2_NE_PT156"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C050",
+      "title": "모르는 다항식 역산 보강",
+      "priority": 2,
+      "steps": [
+        "어떤 식을 A로 놓기",
+        "덧셈·뺄셈 관계를 등식으로 만들기",
+        "구한 A를 원래 식에 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT160",
+        "M2_NE_PT161",
+        "M2_NE_PT162",
+        "M2_NE_PT163",
+        "M2_NE_PT164"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C052",
+      "title": "단항식과 다항식 곱셈 보강",
+      "priority": 1,
+      "steps": [
+        "분배법칙 화살표 표시",
+        "각 항에 단항식이 모두 곱해졌는지 확인",
+        "동류항 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT167",
+        "M2_NE_PT168",
+        "M2_NE_PT169",
+        "M2_NE_PT173",
+        "M2_NE_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C053",
+      "title": "다항식과 단항식 나눗셈 보강",
+      "priority": 1,
+      "steps": [
+        "다항식의 각 항을 단항식으로 나누기",
+        "계수와 문자를 각각 약분",
+        "나누지 않은 항이 없는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT170",
+        "M2_NE_PT171",
+        "M2_NE_PT172",
+        "M2_NE_PT173",
+        "M2_NE_PT174"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C054",
+      "title": "다항식 혼합계산 보강",
+      "priority": 2,
+      "steps": [
+        "곱셈·나눗셈 먼저 처리",
+        "괄호를 제거한 뒤 동류항 정리",
+        "분수꼴은 통분보다 항별 계산 여부부터 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT177",
+        "M2_NE_PT178",
+        "M2_NE_PT179",
+        "M2_NE_PT186"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C058",
+      "title": "식의 값 보강",
+      "priority": 2,
+      "steps": [
+        "대입 전 식을 먼저 간단히 하기",
+        "음수 대입은 괄호로 묶기",
+        "계산 후 원래 조건과 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT187",
+        "M2_NE_PT188",
+        "M2_NE_PT189",
+        "M2_NE_PT190",
+        "M2_NE_PT191"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C059",
+      "title": "식의 대입 보강",
+      "priority": 2,
+      "steps": [
+        "대입할 식 전체를 괄호로 묶기",
+        "대입 후 괄호와 부호 처리",
+        "같은 식을 반복해서 사용하면 치환 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT192",
+        "M2_NE_PT193",
+        "M2_NE_PT194"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C060",
+      "title": "등식의 변형 보강",
+      "priority": 1,
+      "steps": [
+        "남길 문자를 먼저 표시",
+        "덧셈·뺄셈 항 이동 후 곱셈·나눗셈 처리",
+        "양변에 같은 연산을 했는지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT195",
+        "M2_NE_PT196",
+        "M2_NE_PT197",
+        "M2_NE_PT198",
+        "M2_NE_PT199"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C061",
+      "title": "등식 변형 후 대입 보강",
+      "priority": 2,
+      "steps": [
+        "대입할 형태로 먼저 변형",
+        "원래 식에 직접 대입하지 않고 목표식과 비교",
+        "분수꼴은 양변에 공통분모를 곱해 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT197",
+        "M2_NE_PT198",
+        "M2_NE_PT199",
+        "M2_NE_PT200",
+        "M2_NE_PT201"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C062",
+      "title": "비례식 변형 보강",
+      "priority": 2,
+      "steps": [
+        "외항의 곱=내항의 곱으로 바꾸기",
+        "목표 문자만 남기기",
+        "비례식이 복잡하면 먼저 약분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT202",
+        "M2_NE_PT203",
+        "M2_NE_PT204",
+        "M2_NE_PT205"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_NE_C064",
+      "title": "등식 변형 도형 활용 보강",
+      "priority": 3,
+      "steps": [
+        "도형 공식부터 쓰기",
+        "구하려는 문자를 표시",
+        "공식 변형 후 수치나 식을 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_NE_PT208",
+        "M2_NE_PT209",
+        "M2_NE_PT210",
+        "M2_NE_PT211"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

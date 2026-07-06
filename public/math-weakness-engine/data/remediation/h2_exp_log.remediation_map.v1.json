@@ -1,0 +1,528 @@
+{
+  "version": "2026.07.06-h2-exp-log-v0.9",
+  "unit_id": "H2_EXP_LOG",
+  "unit_name": "지수와 로그",
+  "remediation_count": 27,
+  "remediation": [
+    {
+      "concept_id": "H2_EL_C001",
+      "title": "거듭제곱 구조와 n제곱근의 정의 보강",
+      "priority": 2,
+      "steps": [
+        "부호 확인 → n의 홀짝 확인 → 실수근 존재 여부 → 근의 개수 순서로 풀이 제출",
+        "√a와 a의 제곱근의 차이를 한 줄로 쓰기",
+        "n제곱근의 값/개수/실수인 것 문제를 분리해서 풀기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT001",
+        "H2_EL_PT002",
+        "H2_EL_PT003",
+        "H2_EL_PT004",
+        "H2_EL_PT005",
+        "H2_EL_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C002",
+      "title": "실수 거듭제곱근 존재 조건 보강",
+      "priority": 1,
+      "steps": [
+        "부호 확인 → n의 홀짝 확인 → 실수근 존재 여부 → 근의 개수 순서로 풀이 제출",
+        "√a와 a의 제곱근의 차이를 한 줄로 쓰기",
+        "n제곱근의 값/개수/실수인 것 문제를 분리해서 풀기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT001",
+        "H2_EL_PT002",
+        "H2_EL_PT003",
+        "H2_EL_PT004",
+        "H2_EL_PT005",
+        "H2_EL_PT006"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C003",
+      "title": "거듭제곱근 기호와 주값 보강",
+      "priority": 2,
+      "steps": [
+        "부호 확인 → n의 홀짝 확인 → 실수근 존재 여부 → 근의 개수 순서로 풀이 제출",
+        "√a와 a의 제곱근의 차이를 한 줄로 쓰기",
+        "n제곱근의 값/개수/실수인 것 문제를 분리해서 풀기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT001",
+        "H2_EL_PT002",
+        "H2_EL_PT003",
+        "H2_EL_PT004",
+        "H2_EL_PT005",
+        "H2_EL_PT006",
+        "H2_EL_PT007",
+        "H2_EL_PT008"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C004",
+      "title": "거듭제곱근의 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT007",
+        "H2_EL_PT008",
+        "H2_EL_PT009",
+        "H2_EL_PT010",
+        "H2_EL_PT011",
+        "H2_EL_PT012",
+        "H2_EL_PT013",
+        "H2_EL_PT014"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C005",
+      "title": "문자를 포함한 거듭제곱근의 계산 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT019",
+        "H2_EL_PT020",
+        "H2_EL_PT021",
+        "H2_EL_PT022"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C006",
+      "title": "거듭제곱근의 대소 비교 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT023",
+        "H2_EL_PT024",
+        "H2_EL_PT025",
+        "H2_EL_PT026"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C007",
+      "title": "정수 지수법칙 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT027",
+        "H2_EL_PT028",
+        "H2_EL_PT029",
+        "H2_EL_PT030",
+        "H2_EL_PT031",
+        "H2_EL_PT032",
+        "H2_EL_PT033",
+        "H2_EL_PT034"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C008",
+      "title": "유리수·실수 지수법칙 보강",
+      "priority": 2,
+      "steps": [
+        "근호를 유리수 지수로 바꾸기",
+        "소인수 지수표 작성",
+        "분수지수의 분모 조건으로 자연수/정수 여부 판별"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT038",
+        "H2_EL_PT039",
+        "H2_EL_PT040",
+        "H2_EL_PT041",
+        "H2_EL_PT042",
+        "H2_EL_PT043",
+        "H2_EL_PT044",
+        "H2_EL_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C009",
+      "title": "거듭제곱근을 지수로 나타내기 보강",
+      "priority": 2,
+      "steps": [
+        "근호를 유리수 지수로 바꾸기",
+        "소인수 지수표 작성",
+        "분수지수의 분모 조건으로 자연수/정수 여부 판별"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT048",
+        "H2_EL_PT049",
+        "H2_EL_PT050",
+        "H2_EL_PT051",
+        "H2_EL_PT052",
+        "H2_EL_PT053",
+        "H2_EL_PT054",
+        "H2_EL_PT055"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C010",
+      "title": "거듭제곱을 주어진 문자로 나타내기 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT061",
+        "H2_EL_PT062",
+        "H2_EL_PT063",
+        "H2_EL_PT064"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C011",
+      "title": "지수가 자연수가 되는 조건 보강",
+      "priority": 1,
+      "steps": [
+        "근호를 유리수 지수로 바꾸기",
+        "소인수 지수표 작성",
+        "분수지수의 분모 조건으로 자연수/정수 여부 판별"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT065",
+        "H2_EL_PT066",
+        "H2_EL_PT067",
+        "H2_EL_PT068",
+        "H2_EL_PT069",
+        "H2_EL_PT070"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C012",
+      "title": "지수법칙과 곱셈 공식 결합 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT071",
+        "H2_EL_PT072",
+        "H2_EL_PT073",
+        "H2_EL_PT074",
+        "H2_EL_PT075",
+        "H2_EL_PT076",
+        "H2_EL_PT077",
+        "H2_EL_PT078"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C013",
+      "title": "지수식 조건과 함수적 해석 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT038",
+        "H2_EL_PT039",
+        "H2_EL_PT040",
+        "H2_EL_PT041",
+        "H2_EL_PT042",
+        "H2_EL_PT043",
+        "H2_EL_PT044",
+        "H2_EL_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C014",
+      "title": "지수의 실생활 활용 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT084",
+        "H2_EL_PT085",
+        "H2_EL_PT086",
+        "H2_EL_PT087",
+        "H2_EL_PT088",
+        "H2_EL_PT089",
+        "H2_EL_PT090",
+        "H2_EL_PT091"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C015",
+      "title": "로그의 정의 보강",
+      "priority": 2,
+      "steps": [
+        "모든 로그식 옆에 밑 조건과 진수 조건 쓰기",
+        "로그식을 지수식으로 바꾸기",
+        "정의역 조건의 교집합을 구하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT093",
+        "H2_EL_PT094",
+        "H2_EL_PT095",
+        "H2_EL_PT096",
+        "H2_EL_PT097"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C016",
+      "title": "로그의 밑과 진수 조건 보강",
+      "priority": 1,
+      "steps": [
+        "모든 로그식 옆에 밑 조건과 진수 조건 쓰기",
+        "로그식을 지수식으로 바꾸기",
+        "정의역 조건의 교집합을 구하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT093",
+        "H2_EL_PT094",
+        "H2_EL_PT095",
+        "H2_EL_PT096",
+        "H2_EL_PT097"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C017",
+      "title": "로그의 성질 보강",
+      "priority": 1,
+      "steps": [
+        "log a=A, log b=B 형태의 치환표 만들기",
+        "곱·몫·거듭제곱 성질을 식별 표시",
+        "목표식을 치환 문자로 변환 후 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT098",
+        "H2_EL_PT099",
+        "H2_EL_PT100",
+        "H2_EL_PT101",
+        "H2_EL_PT112",
+        "H2_EL_PT113",
+        "H2_EL_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C018",
+      "title": "로그의 밑의 변환 보강",
+      "priority": 2,
+      "steps": [
+        "log a=A, log b=B 형태의 치환표 만들기",
+        "곱·몫·거듭제곱 성질을 식별 표시",
+        "목표식을 치환 문자로 변환 후 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT102",
+        "H2_EL_PT103",
+        "H2_EL_PT104",
+        "H2_EL_PT105",
+        "H2_EL_PT112",
+        "H2_EL_PT113",
+        "H2_EL_PT114"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C019",
+      "title": "로그의 여러 가지 성질 보강",
+      "priority": 2,
+      "steps": [
+        "log a=A, log b=B 형태의 치환표 만들기",
+        "곱·몫·거듭제곱 성질을 식별 표시",
+        "목표식을 치환 문자로 변환 후 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT106",
+        "H2_EL_PT107",
+        "H2_EL_PT108",
+        "H2_EL_PT109",
+        "H2_EL_PT110",
+        "H2_EL_PT111"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C020",
+      "title": "로그의 성질 활용 보강",
+      "priority": 2,
+      "steps": [
+        "log a=A, log b=B 형태의 치환표 만들기",
+        "곱·몫·거듭제곱 성질을 식별 표시",
+        "목표식을 치환 문자로 변환 후 계산"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT115",
+        "H2_EL_PT116",
+        "H2_EL_PT117",
+        "H2_EL_PT118",
+        "H2_EL_PT119",
+        "H2_EL_PT120",
+        "H2_EL_PT121",
+        "H2_EL_PT122"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C021",
+      "title": "로그와 이차방정식 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT125",
+        "H2_EL_PT126",
+        "H2_EL_PT127"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C022",
+      "title": "로그의 대소 관계 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT128",
+        "H2_EL_PT129",
+        "H2_EL_PT130",
+        "H2_EL_PT131"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C023",
+      "title": "상용로그의 뜻과 값 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT132",
+        "H2_EL_PT133",
+        "H2_EL_PT134",
+        "H2_EL_PT135",
+        "H2_EL_PT136",
+        "H2_EL_PT137",
+        "H2_EL_PT138"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C024",
+      "title": "상용로그의 정수 부분과 소수 부분 보강",
+      "priority": 1,
+      "steps": [
+        "상용로그의 정수 부분과 소수 부분 분리",
+        "10^n≤N<10^{n+1} 범위식 작성",
+        "자릿수·최고자리·소수부분 조건을 표로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT139",
+        "H2_EL_PT140",
+        "H2_EL_PT141",
+        "H2_EL_PT142",
+        "H2_EL_PT143",
+        "H2_EL_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C025",
+      "title": "상용로그를 이용한 자릿수 보강",
+      "priority": 1,
+      "steps": [
+        "상용로그의 정수 부분과 소수 부분 분리",
+        "10^n≤N<10^{n+1} 범위식 작성",
+        "자릿수·최고자리·소수부분 조건을 표로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT145",
+        "H2_EL_PT146",
+        "H2_EL_PT147",
+        "H2_EL_PT148",
+        "H2_EL_PT149",
+        "H2_EL_PT150",
+        "H2_EL_PT151"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C026",
+      "title": "상용로그의 소수 부분 활용 보강",
+      "priority": 2,
+      "steps": [
+        "상용로그의 정수 부분과 소수 부분 분리",
+        "10^n≤N<10^{n+1} 범위식 작성",
+        "자릿수·최고자리·소수부분 조건을 표로 정리"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT152",
+        "H2_EL_PT153",
+        "H2_EL_PT154",
+        "H2_EL_PT155"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "H2_EL_C027",
+      "title": "상용로그의 실생활 활용 보강",
+      "priority": 2,
+      "steps": [
+        "문제의 조건을 식으로 번역하기",
+        "적용할 법칙 이름을 먼저 쓰기",
+        "계산 후 조건을 다시 확인하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "H2_EL_PT156",
+        "H2_EL_PT157",
+        "H2_EL_PT158",
+        "H2_EL_PT159",
+        "H2_EL_PT160",
+        "H2_EL_PT161"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

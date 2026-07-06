@@ -1,0 +1,237 @@
+{
+  "version": "2026.07.06-h2-exp-log-v0.9",
+  "unit_id": "H2_EXP_LOG",
+  "edge_count": 23,
+  "edges": [
+    {
+      "edge_id": "H2_EL_E001",
+      "from_concept_id": "M2_NE_C019",
+      "to_concept_id": "H2_EL_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "중2 단항식의 지수법칙 이해가 고등 정수 지수법칙의 선행 개념이다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E002",
+      "from_concept_id": "M2_NE_C020",
+      "to_concept_id": "H2_EL_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "중2 단항식 계산에서 계수와 문자를 분리하는 습관이 로그식 치환 정리에 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E003",
+      "from_concept_id": "M1_IR_C006",
+      "to_concept_id": "H2_EL_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "소인수분해와 약수 배수 이해가 자연수 조건 판별에 필요하다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E004",
+      "from_concept_id": "H2_EL_C001",
+      "to_concept_id": "H2_EL_C002",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E005",
+      "from_concept_id": "H2_EL_C002",
+      "to_concept_id": "H2_EL_C003",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E006",
+      "from_concept_id": "H2_EL_C003",
+      "to_concept_id": "H2_EL_C004",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E007",
+      "from_concept_id": "H2_EL_C004",
+      "to_concept_id": "H2_EL_C008",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E008",
+      "from_concept_id": "H2_EL_C008",
+      "to_concept_id": "H2_EL_C009",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E009",
+      "from_concept_id": "H2_EL_C009",
+      "to_concept_id": "H2_EL_C011",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E010",
+      "from_concept_id": "H2_EL_C007",
+      "to_concept_id": "H2_EL_C008",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E011",
+      "from_concept_id": "H2_EL_C008",
+      "to_concept_id": "H2_EL_C010",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E012",
+      "from_concept_id": "H2_EL_C010",
+      "to_concept_id": "H2_EL_C012",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E013",
+      "from_concept_id": "H2_EL_C015",
+      "to_concept_id": "H2_EL_C016",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E014",
+      "from_concept_id": "H2_EL_C015",
+      "to_concept_id": "H2_EL_C017",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E015",
+      "from_concept_id": "H2_EL_C017",
+      "to_concept_id": "H2_EL_C018",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E016",
+      "from_concept_id": "H2_EL_C018",
+      "to_concept_id": "H2_EL_C019",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E017",
+      "from_concept_id": "H2_EL_C019",
+      "to_concept_id": "H2_EL_C020",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E018",
+      "from_concept_id": "H2_EL_C020",
+      "to_concept_id": "H2_EL_C021",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E019",
+      "from_concept_id": "H2_EL_C017",
+      "to_concept_id": "H2_EL_C022",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E020",
+      "from_concept_id": "H2_EL_C023",
+      "to_concept_id": "H2_EL_C024",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E021",
+      "from_concept_id": "H2_EL_C024",
+      "to_concept_id": "H2_EL_C025",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E022",
+      "from_concept_id": "H2_EL_C024",
+      "to_concept_id": "H2_EL_C026",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "H2_EL_E023",
+      "from_concept_id": "H2_EL_C025",
+      "to_concept_id": "H2_EL_C027",
+      "relation_type": "learning_sequence",
+      "weight": 0.75,
+      "reason": "지수와 로그 단원 내 개념 학습 순서 및 진단 의존 관계입니다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026.07.05-m1-full-middle1-geometry-v0.5",
+  "version": "2026.07.06-h2-exp-log-v0.9",
   "units": [
     {
       "unit_id": "M1_INT_RATIONAL",
@@ -59,6 +59,56 @@
       "remediation": "data/remediation/m1_plane_geometry.remediation_map.v1.json",
       "sources": "data/sources/m1_plane_geometry.source_manifest.v1.json",
       "raw_taxonomy": "data/raw_taxonomy/m1_plane_geometry.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M1_SOLID_GEOMETRY",
+      "grade": "중1",
+      "unit_name": "입체도형의 성질",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_solid_geometry.problem_types.v1.json",
+      "edges": "data/relations/m1_solid_geometry.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_solid_geometry.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_solid_geometry.remediation_map.v1.json",
+      "sources": "data/sources/m1_solid_geometry.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_solid_geometry.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M1_DATA_ANALYSIS",
+      "grade": "중1",
+      "unit_name": "자료 정리와 해석",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m1_data_analysis.problem_types.v1.json",
+      "edges": "data/relations/m1_data_analysis.edges.v1.json",
+      "diagnosis_rules": "data/rules/m1_data_analysis.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m1_data_analysis.remediation_map.v1.json",
+      "sources": "data/sources/m1_data_analysis.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m1_data_analysis.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "M2_NUMBER_EXPRESSION",
+      "grade": "중2",
+      "unit_name": "수와 식",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/m2_number_expression.problem_types.v1.json",
+      "edges": "data/relations/m2_number_expression.edges.v1.json",
+      "diagnosis_rules": "data/rules/m2_number_expression.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/m2_number_expression.remediation_map.v1.json",
+      "sources": "data/sources/m2_number_expression.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/m2_number_expression.raw_taxonomy.v1.json"
+    },
+    {
+      "unit_id": "H2_EXP_LOG",
+      "grade": "고2",
+      "course": "수학Ⅰ",
+      "unit_name": "지수와 로그",
+      "concepts": "data/math_concepts.v1.json",
+      "problem_types": "data/problem_types/h2_exp_log.problem_types.v1.json",
+      "edges": "data/relations/h2_exp_log.edges.v1.json",
+      "diagnosis_rules": "data/rules/h2_exp_log.diagnosis_rules.v1.json",
+      "remediation": "data/remediation/h2_exp_log.remediation_map.v1.json",
+      "sources": "data/sources/h2_exp_log.source_manifest.v1.json",
+      "raw_taxonomy": "data/raw_taxonomy/h2_exp_log.raw_taxonomy.v1.json",
+      "solution_templates": "data/forms/h2_exp_log.solution_templates.v1.json"
     }
   ],
   "cross_grade_targets": [
@@ -250,6 +300,69 @@
       "unit_name": "입체도형과 공간감각",
       "concept_name": "공간도형의 위치 관계와 단면·전개도 해석",
       "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_STAT_C001",
+      "grade": "중2",
+      "unit_name": "자료의 분석",
+      "concept_name": "자료의 분포와 대표값 비교",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M2_PROB_C001",
+      "grade": "중2",
+      "unit_name": "확률",
+      "concept_name": "비율과 가능성의 수치 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_STAT_C001",
+      "grade": "중3",
+      "unit_name": "통계",
+      "concept_name": "자료의 분포 비교와 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_STAT_C001",
+      "grade": "고1",
+      "unit_name": "자료 해석과 함수",
+      "concept_name": "표·그래프 변환과 비율 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "M3_EXP_C001",
+      "grade": "중3",
+      "unit_name": "제곱근과 실수",
+      "concept_name": "거듭제곱과 제곱근의 지수 구조 이해",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H1_EXP_C001",
+      "grade": "고1",
+      "unit_name": "지수와 로그 기초",
+      "concept_name": "지수식 구조와 밑의 조건 해석",
+      "status": "future_target_seed"
+    },
+    {
+      "concept_id": "H2_EL_C011",
+      "grade": "고2",
+      "unit_name": "지수와 로그",
+      "concept_name": "분수지수가 자연수가 되는 조건 판별",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "H2_EL_C016",
+      "grade": "고2",
+      "unit_name": "지수와 로그",
+      "concept_name": "로그의 밑과 진수 조건",
+      "status": "active_target"
+    },
+    {
+      "concept_id": "H2_EL_C024",
+      "grade": "고2",
+      "unit_name": "지수와 로그",
+      "concept_name": "상용로그 정수 부분과 소수 부분",
+      "status": "active_target"
     }
   ]
 }

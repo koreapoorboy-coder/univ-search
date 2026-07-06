@@ -1,0 +1,106 @@
+{
+  "version": "2026.07.06-h2-exp-log-v0.9",
+  "unit_id": "H2_EXP_LOG",
+  "unit_name": "지수와 로그",
+  "templates": [
+    {
+      "template_id": "H2_EL_FORM_ROOT_CONDITION",
+      "name": "거듭제곱근 조건 판별 풀이 양식",
+      "applies_to_concept_ids": [
+        "H2_EL_C001",
+        "H2_EL_C002",
+        "H2_EL_C003"
+      ],
+      "required_fields": [
+        "주어진 수의 부호",
+        "n의 값",
+        "n의 홀짝",
+        "실수인 근의 존재 여부",
+        "실수인 근의 개수",
+        "최종 답"
+      ],
+      "reject_if_missing": [
+        "n의 홀짝",
+        "실수인 근의 존재 여부"
+      ]
+    },
+    {
+      "template_id": "H2_EL_FORM_NATURAL_POWER",
+      "name": "분수지수 자연수 조건 풀이 양식",
+      "applies_to_concept_ids": [
+        "H2_EL_C011"
+      ],
+      "required_fields": [
+        "소인수분해",
+        "소인수 지수표",
+        "분수지수의 분모 조건",
+        "자연수/정수/유리수 조건 구분",
+        "최종 판단"
+      ],
+      "reject_if_missing": [
+        "소인수 지수표",
+        "분수지수의 분모 조건"
+      ]
+    },
+    {
+      "template_id": "H2_EL_FORM_LOG_CONDITION",
+      "name": "로그 정의역 조건 풀이 양식",
+      "applies_to_concept_ids": [
+        "H2_EL_C015",
+        "H2_EL_C016"
+      ],
+      "required_fields": [
+        "밑 조건",
+        "진수 조건",
+        "공통 정의역",
+        "로그식-지수식 변환",
+        "최종 답"
+      ],
+      "reject_if_missing": [
+        "밑 조건",
+        "진수 조건"
+      ]
+    },
+    {
+      "template_id": "H2_EL_FORM_LOG_SUBSTITUTION",
+      "name": "로그 치환 정리 풀이 양식",
+      "applies_to_concept_ids": [
+        "H2_EL_C017",
+        "H2_EL_C018",
+        "H2_EL_C019",
+        "H2_EL_C020"
+      ],
+      "required_fields": [
+        "치환표",
+        "로그 성질 적용 이유",
+        "목표식 변환",
+        "계산 과정",
+        "최종 답"
+      ],
+      "reject_if_missing": [
+        "치환표",
+        "로그 성질 적용 이유"
+      ]
+    },
+    {
+      "template_id": "H2_EL_FORM_COMMON_LOG",
+      "name": "상용로그 정수·소수 부분 풀이 양식",
+      "applies_to_concept_ids": [
+        "H2_EL_C024",
+        "H2_EL_C025",
+        "H2_EL_C026"
+      ],
+      "required_fields": [
+        "상용로그 값의 범위",
+        "정수 부분",
+        "소수 부분",
+        "10의 거듭제곱 범위",
+        "최종 판단"
+      ],
+      "reject_if_missing": [
+        "정수 부분",
+        "10의 거듭제곱 범위"
+      ]
+    }
+  ]
+}

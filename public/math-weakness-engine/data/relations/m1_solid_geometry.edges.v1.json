@@ -1,0 +1,767 @@
+{
+  "version": "2026.07.05-m1-solid-geometry-v0.6",
+  "unit_id": "M1_SOLID_GEOMETRY",
+  "edge_count": 76,
+  "edges": [
+    {
+      "edge_id": "M1_SG_E001",
+      "from_concept_id": "M1_BG_C001",
+      "to_concept_id": "M1_SG_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "점·선·면과 도형의 기본 요소 이해가 입체도형의 면·모서리·꼭짓점 판별로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E002",
+      "from_concept_id": "M1_BG_C014",
+      "to_concept_id": "M1_SG_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "점·직선·평면의 위치 관계 이해가 회전축과 입체 생성 해석의 기반이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E003",
+      "from_concept_id": "M1_BG_C019",
+      "to_concept_id": "M1_SG_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "입체도형과 전개도에서 위치 관계를 읽는 능력이 정다면체 전개도 해석으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E004",
+      "from_concept_id": "M1_PG_C021",
+      "to_concept_id": "M1_SG_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "원의 둘레가 원기둥 옆면 전개도의 가로 길이로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E005",
+      "from_concept_id": "M1_PG_C022",
+      "to_concept_id": "M1_SG_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "원의 넓이 계산이 원기둥과 원뿔의 부피 계산의 밑넓이가 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E006",
+      "from_concept_id": "M1_PG_C023",
+      "to_concept_id": "M1_SG_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "부채꼴의 중심각과 비율 이해가 원뿔 전개도 해석에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E007",
+      "from_concept_id": "M1_PG_C024",
+      "to_concept_id": "M1_SG_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "부채꼴의 호의 길이 이해가 원뿔 옆면과 밑면 둘레 연결로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E008",
+      "from_concept_id": "M1_PG_C025",
+      "to_concept_id": "M1_SG_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "부채꼴 넓이 계산이 원뿔 옆면 넓이 계산의 기초가 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E009",
+      "from_concept_id": "M1_PG_C029",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "평면도형의 분해와 합성 능력이 복합 입체의 겉넓이와 부피 분해로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E010",
+      "from_concept_id": "M1_PG_C030",
+      "to_concept_id": "M1_SG_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.7,
+      "reason": "도형 조건을 문자식으로 바꾸는 능력이 겉넓이·부피 조건 역산으로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E011",
+      "from_concept_id": "M1_SG_C001",
+      "to_concept_id": "M1_SG_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체 판별과 구성 요소 이해가 다면체의 면의 개수 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E012",
+      "from_concept_id": "M1_SG_C001",
+      "to_concept_id": "M1_SG_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체 판별과 구성 요소 이해가 다면체의 모서리의 개수 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E013",
+      "from_concept_id": "M1_SG_C001",
+      "to_concept_id": "M1_SG_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체 판별과 구성 요소 이해가 다면체의 꼭짓점의 개수 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E014",
+      "from_concept_id": "M1_SG_C002",
+      "to_concept_id": "M1_SG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체의 면의 개수 이해가 다면체 요소 개수 관계 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E015",
+      "from_concept_id": "M1_SG_C003",
+      "to_concept_id": "M1_SG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체의 모서리의 개수 이해가 다면체 요소 개수 관계 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E016",
+      "from_concept_id": "M1_SG_C004",
+      "to_concept_id": "M1_SG_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체의 꼭짓점의 개수 이해가 다면체 요소 개수 관계 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E017",
+      "from_concept_id": "M1_SG_C005",
+      "to_concept_id": "M1_SG_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체 요소 개수 관계 이해가 다면체 자르기와 옆면 모양 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E018",
+      "from_concept_id": "M1_SG_C001",
+      "to_concept_id": "M1_SG_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "다면체 판별과 구성 요소 이해가 정다면체 판별 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E019",
+      "from_concept_id": "M1_SG_C007",
+      "to_concept_id": "M1_SG_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "정다면체 판별 이해가 정다면체의 면·모서리·꼭짓점 개수 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E020",
+      "from_concept_id": "M1_SG_C008",
+      "to_concept_id": "M1_SG_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "정다면체의 면·모서리·꼭짓점 개수 이해가 정다면체 전개도 해석 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E021",
+      "from_concept_id": "M1_SG_C008",
+      "to_concept_id": "M1_SG_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "정다면체의 면·모서리·꼭짓점 개수 이해가 정다면체의 단면과 중점 연결 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E022",
+      "from_concept_id": "M1_SG_C009",
+      "to_concept_id": "M1_SG_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "정다면체 전개도 해석 이해가 정다면체의 단면과 중점 연결 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E023",
+      "from_concept_id": "M1_SG_C011",
+      "to_concept_id": "M1_SG_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 판별 이해가 평면도형과 회전축 대응 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E024",
+      "from_concept_id": "M1_SG_C012",
+      "to_concept_id": "M1_SG_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "평면도형과 회전축 대응 이해가 회전체의 단면 모양 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E025",
+      "from_concept_id": "M1_SG_C013",
+      "to_concept_id": "M1_SG_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체의 단면 모양 이해가 회전체 단면 길이와 둘레 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E026",
+      "from_concept_id": "M1_SG_C012",
+      "to_concept_id": "M1_SG_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "평면도형과 회전축 대응 이해가 회전체 전개도 해석 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E027",
+      "from_concept_id": "M1_SG_C015",
+      "to_concept_id": "M1_SG_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 전개도 해석 이해가 전개도 최단거리 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E028",
+      "from_concept_id": "M1_SG_C015",
+      "to_concept_id": "M1_SG_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 전개도 해석 이해가 원기둥의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E029",
+      "from_concept_id": "M1_SG_C015",
+      "to_concept_id": "M1_SG_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 전개도 해석 이해가 원뿔의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E030",
+      "from_concept_id": "M1_SG_C015",
+      "to_concept_id": "M1_SG_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 전개도 해석 이해가 뿔대의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E031",
+      "from_concept_id": "M1_SG_C017",
+      "to_concept_id": "M1_SG_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각기둥의 겉넓이 이해가 각기둥의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E032",
+      "from_concept_id": "M1_SG_C018",
+      "to_concept_id": "M1_SG_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 겉넓이 이해가 원기둥의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E033",
+      "from_concept_id": "M1_SG_C017",
+      "to_concept_id": "M1_SG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각기둥의 겉넓이 이해가 구멍이 뚫린 기둥의 겉넓이와 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E034",
+      "from_concept_id": "M1_SG_C018",
+      "to_concept_id": "M1_SG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 겉넓이 이해가 구멍이 뚫린 기둥의 겉넓이와 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E035",
+      "from_concept_id": "M1_SG_C019",
+      "to_concept_id": "M1_SG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각기둥의 부피 이해가 구멍이 뚫린 기둥의 겉넓이와 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E036",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 구멍이 뚫린 기둥의 겉넓이와 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E037",
+      "from_concept_id": "M1_SG_C021",
+      "to_concept_id": "M1_SG_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구멍이 뚫린 기둥의 겉넓이와 부피 이해가 일부분을 잘라낸 기둥의 겉넓이와 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E038",
+      "from_concept_id": "M1_SG_C017",
+      "to_concept_id": "M1_SG_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각기둥의 겉넓이 이해가 각뿔의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E039",
+      "from_concept_id": "M1_SG_C019",
+      "to_concept_id": "M1_SG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각기둥의 부피 이해가 각뿔의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E040",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 원뿔의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E041",
+      "from_concept_id": "M1_SG_C024",
+      "to_concept_id": "M1_SG_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 겉넓이 이해가 원뿔의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E042",
+      "from_concept_id": "M1_SG_C023",
+      "to_concept_id": "M1_SG_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각뿔의 겉넓이 이해가 각뿔의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E043",
+      "from_concept_id": "M1_SG_C024",
+      "to_concept_id": "M1_SG_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 겉넓이 이해가 뿔대의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E044",
+      "from_concept_id": "M1_SG_C027",
+      "to_concept_id": "M1_SG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 부피 이해가 뿔대의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E045",
+      "from_concept_id": "M1_SG_C025",
+      "to_concept_id": "M1_SG_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "뿔대의 겉넓이 이해가 뿔대의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E046",
+      "from_concept_id": "M1_SG_C026",
+      "to_concept_id": "M1_SG_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "각뿔의 부피 이해가 그릇에 담긴 물의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E047",
+      "from_concept_id": "M1_SG_C027",
+      "to_concept_id": "M1_SG_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 부피 이해가 그릇에 담긴 물의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E048",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 구의 겉넓이 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E049",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 구의 부피 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E050",
+      "from_concept_id": "M1_SG_C030",
+      "to_concept_id": "M1_SG_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구의 겉넓이 이해가 구와 다른 도형의 포함 관계 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E051",
+      "from_concept_id": "M1_SG_C031",
+      "to_concept_id": "M1_SG_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구의 부피 이해가 구와 다른 도형의 포함 관계 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E052",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 원기둥에 꼭 맞게 들어가는 구와 원뿔 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E053",
+      "from_concept_id": "M1_SG_C027",
+      "to_concept_id": "M1_SG_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 부피 이해가 원기둥에 꼭 맞게 들어가는 구와 원뿔 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E054",
+      "from_concept_id": "M1_SG_C032",
+      "to_concept_id": "M1_SG_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구와 다른 도형의 포함 관계 이해가 원기둥에 꼭 맞게 들어가는 구와 원뿔 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E055",
+      "from_concept_id": "M1_SG_C032",
+      "to_concept_id": "M1_SG_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구와 다른 도형의 포함 관계 이해가 입체도형에 꼭 맞게 들어가는 입체도형 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E056",
+      "from_concept_id": "M1_SG_C018",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 겉넓이 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E057",
+      "from_concept_id": "M1_SG_C020",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원기둥의 부피 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E058",
+      "from_concept_id": "M1_SG_C024",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 겉넓이 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E059",
+      "from_concept_id": "M1_SG_C027",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "원뿔의 부피 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E060",
+      "from_concept_id": "M1_SG_C025",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "뿔대의 겉넓이 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E061",
+      "from_concept_id": "M1_SG_C028",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "뿔대의 부피 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E062",
+      "from_concept_id": "M1_SG_C030",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구의 겉넓이 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E063",
+      "from_concept_id": "M1_SG_C031",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "구의 부피 이해가 회전체 겉넓이와 부피 종합 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E064",
+      "from_concept_id": "M1_SG_C034",
+      "to_concept_id": "M1_SG_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.72,
+      "reason": "회전체 겉넓이와 부피 종합 이해가 겉넓이·부피 조건 활용 문항 해결의 선행 기반이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E065",
+      "from_concept_id": "M1_SG_C017",
+      "to_concept_id": "M1_SG_C018",
+      "relation_type": "same_structure",
+      "weight": 0.65,
+      "reason": "각기둥 겉넓이의 밑넓이+옆넓이 구조가 원기둥 겉넓이에도 같은 구조로 적용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E066",
+      "from_concept_id": "M1_SG_C019",
+      "to_concept_id": "M1_SG_C020",
+      "relation_type": "same_structure",
+      "weight": 0.65,
+      "reason": "각기둥과 원기둥은 모두 밑넓이×높이 구조로 부피를 구한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E067",
+      "from_concept_id": "M1_SG_C026",
+      "to_concept_id": "M1_SG_C027",
+      "relation_type": "same_structure",
+      "weight": 0.65,
+      "reason": "각뿔과 원뿔은 모두 같은 밑면·높이의 기둥 부피의 1/3 구조를 가진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E068",
+      "from_concept_id": "M1_SG_C021",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "application",
+      "weight": 0.7,
+      "reason": "구멍이 뚫린 입체의 분해 사고가 복합 회전체의 겉넓이와 부피 계산으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E069",
+      "from_concept_id": "M1_SG_C022",
+      "to_concept_id": "M1_SG_C034",
+      "relation_type": "application",
+      "weight": 0.7,
+      "reason": "잘라낸 입체의 표면 변화 해석이 복합 입체 겉넓이와 부피 종합으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E070",
+      "from_concept_id": "M1_SG_C010",
+      "to_concept_id": "M3_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "정다면체의 단면과 공간 추론은 중3 이후 입체도형의 위치 관계와 단면 해석으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E071",
+      "from_concept_id": "M1_SG_C013",
+      "to_concept_id": "M3_GEOM_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.7,
+      "reason": "회전체 단면 해석이 공간도형의 단면·전개도 해석의 선행 감각이 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E072",
+      "from_concept_id": "M1_SG_C021",
+      "to_concept_id": "M2_GEOM_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "구멍·절단 입체에서의 길이와 넓이 변화는 닮음과 길이비·넓이비 문제로 확장된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E073",
+      "from_concept_id": "M1_SG_C024",
+      "to_concept_id": "M3_TRIG_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "원뿔의 모선·높이·반지름 구분은 직각삼각형 길이비와 삼각비 계산의 기반이 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E074",
+      "from_concept_id": "M1_SG_C027",
+      "to_concept_id": "M3_TRIG_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.65,
+      "reason": "원뿔 부피에서 높이와 반지름을 찾아내는 과정은 삼각비를 이용한 입체 길이 계산으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E075",
+      "from_concept_id": "M1_SG_C034",
+      "to_concept_id": "H1_GEOM_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "복합도형 분해와 조건 해석은 고1 도형의 방정식에서 거리·넓이·조건 해석으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_SG_E076",
+      "from_concept_id": "M1_SG_C036",
+      "to_concept_id": "H1_EQ_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.6,
+      "reason": "겉넓이·부피 조건을 식으로 세우고 역산하는 능력은 고1 방정식·부등식의 식 변형으로 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    }
+  ]
+}

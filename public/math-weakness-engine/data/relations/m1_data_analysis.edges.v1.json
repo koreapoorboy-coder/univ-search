@@ -1,0 +1,597 @@
+{
+  "version": "2026.07.05-m1-data-analysis-v0.7",
+  "unit_id": "M1_DATA_ANALYSIS",
+  "edge_count": 59,
+  "edges": [
+    {
+      "edge_id": "M1_DA_E001",
+      "from_concept_id": "M1_EX_C001",
+      "to_concept_id": "M1_DA_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "문자와 식의 미지수 표현 능력이 평균 조건에서 변량을 역산하는 식 세우기로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E002",
+      "from_concept_id": "M1_EX_C006",
+      "to_concept_id": "M1_DA_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "문자식 계산과 비례식 감각이 상대도수·도수·총합 관계 계산에 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E003",
+      "from_concept_id": "M1_CG_C018",
+      "to_concept_id": "M1_DA_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "그래프의 축과 점을 읽는 능력이 막대그래프·꺾은선그래프에서 대표값을 구하는 기반이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E004",
+      "from_concept_id": "M1_CG_C019",
+      "to_concept_id": "M1_DA_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.6,
+      "reason": "그래프 해석 능력이 상대도수분포 그래프의 세로축과 분포를 읽는 데 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E005",
+      "from_concept_id": "M1_IR_C021",
+      "to_concept_id": "M1_DA_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "분수·소수와 백분율 계산 능력이 특정 계급의 백분율 구하기로 연결된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E006",
+      "from_concept_id": "M1_IR_C022",
+      "to_concept_id": "M1_DA_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.65,
+      "reason": "분수와 소수의 의미 이해가 상대도수를 비율로 해석하는 기초가 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E007",
+      "from_concept_id": "M1_DA_C001",
+      "to_concept_id": "M1_DA_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E008",
+      "from_concept_id": "M1_DA_C002",
+      "to_concept_id": "M1_DA_C003",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E009",
+      "from_concept_id": "M1_DA_C002",
+      "to_concept_id": "M1_DA_C004",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E010",
+      "from_concept_id": "M1_DA_C001",
+      "to_concept_id": "M1_DA_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E011",
+      "from_concept_id": "M1_DA_C001",
+      "to_concept_id": "M1_DA_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E012",
+      "from_concept_id": "M1_DA_C005",
+      "to_concept_id": "M1_DA_C006",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E013",
+      "from_concept_id": "M1_DA_C007",
+      "to_concept_id": "M1_DA_C008",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E014",
+      "from_concept_id": "M1_DA_C002",
+      "to_concept_id": "M1_DA_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E015",
+      "from_concept_id": "M1_DA_C005",
+      "to_concept_id": "M1_DA_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E016",
+      "from_concept_id": "M1_DA_C007",
+      "to_concept_id": "M1_DA_C009",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E017",
+      "from_concept_id": "M1_DA_C009",
+      "to_concept_id": "M1_DA_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.75,
+      "reason": "대표값 단원에서 원자료 해석과 계산 절차가 다음 단계 조건 해석으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E018",
+      "from_concept_id": "M1_DA_C001",
+      "to_concept_id": "M1_DA_C011",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E019",
+      "from_concept_id": "M1_DA_C011",
+      "to_concept_id": "M1_DA_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E020",
+      "from_concept_id": "M1_DA_C012",
+      "to_concept_id": "M1_DA_C013",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E021",
+      "from_concept_id": "M1_DA_C001",
+      "to_concept_id": "M1_DA_C014",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E022",
+      "from_concept_id": "M1_DA_C014",
+      "to_concept_id": "M1_DA_C015",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E023",
+      "from_concept_id": "M1_DA_C015",
+      "to_concept_id": "M1_DA_C016",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E024",
+      "from_concept_id": "M1_DA_C016",
+      "to_concept_id": "M1_DA_C017",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E025",
+      "from_concept_id": "M1_DA_C016",
+      "to_concept_id": "M1_DA_C018",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "자료를 표나 그림으로 정리한 뒤 분포를 해석하는 순차 개념 연결이다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E026",
+      "from_concept_id": "M1_DA_C013",
+      "to_concept_id": "M1_DA_C010",
+      "relation_type": "same_structure",
+      "weight": 0.55,
+      "reason": "줄기와 잎 그림을 원자료로 복원하면 여러 자료의 대표값 계산과 같은 구조가 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E027",
+      "from_concept_id": "M1_DA_C014",
+      "to_concept_id": "M1_DA_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E028",
+      "from_concept_id": "M1_DA_C015",
+      "to_concept_id": "M1_DA_C019",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E029",
+      "from_concept_id": "M1_DA_C019",
+      "to_concept_id": "M1_DA_C020",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E030",
+      "from_concept_id": "M1_DA_C019",
+      "to_concept_id": "M1_DA_C021",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E031",
+      "from_concept_id": "M1_DA_C019",
+      "to_concept_id": "M1_DA_C022",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E032",
+      "from_concept_id": "M1_DA_C022",
+      "to_concept_id": "M1_DA_C023",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E033",
+      "from_concept_id": "M1_DA_C022",
+      "to_concept_id": "M1_DA_C024",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E034",
+      "from_concept_id": "M1_DA_C022",
+      "to_concept_id": "M1_DA_C025",
+      "relation_type": "prerequisite",
+      "weight": 0.78,
+      "reason": "도수분포표의 계급과 도수 이해가 히스토그램·도수분포다각형 해석으로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E035",
+      "from_concept_id": "M1_DA_C019",
+      "to_concept_id": "M1_DA_C022",
+      "relation_type": "same_structure",
+      "weight": 0.7,
+      "reason": "히스토그램의 각 막대 윗변의 가운데 점을 연결하면 도수분포다각형이 된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E036",
+      "from_concept_id": "M1_DA_C021",
+      "to_concept_id": "M1_DA_C024",
+      "relation_type": "same_structure",
+      "weight": 0.55,
+      "reason": "찢어진 그래프를 전체 도수 조건으로 복원하는 사고가 두 그래프에서 공통으로 사용된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E037",
+      "from_concept_id": "M1_DA_C016",
+      "to_concept_id": "M1_DA_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E038",
+      "from_concept_id": "M1_DA_C018",
+      "to_concept_id": "M1_DA_C026",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E039",
+      "from_concept_id": "M1_DA_C026",
+      "to_concept_id": "M1_DA_C027",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E040",
+      "from_concept_id": "M1_DA_C027",
+      "to_concept_id": "M1_DA_C028",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E041",
+      "from_concept_id": "M1_DA_C028",
+      "to_concept_id": "M1_DA_C029",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E042",
+      "from_concept_id": "M1_DA_C028",
+      "to_concept_id": "M1_DA_C030",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E043",
+      "from_concept_id": "M1_DA_C027",
+      "to_concept_id": "M1_DA_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E044",
+      "from_concept_id": "M1_DA_C030",
+      "to_concept_id": "M1_DA_C031",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E045",
+      "from_concept_id": "M1_DA_C030",
+      "to_concept_id": "M1_DA_C032",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E046",
+      "from_concept_id": "M1_DA_C030",
+      "to_concept_id": "M1_DA_C033",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E047",
+      "from_concept_id": "M1_DA_C026",
+      "to_concept_id": "M1_DA_C034",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E048",
+      "from_concept_id": "M1_DA_C034",
+      "to_concept_id": "M1_DA_C035",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E049",
+      "from_concept_id": "M1_DA_C034",
+      "to_concept_id": "M1_DA_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "도수와 전체 도수의 관계 이해가 상대도수 표·그래프·비교 문항으로 이어진다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E050",
+      "from_concept_id": "M1_DA_C019",
+      "to_concept_id": "M1_DA_C030",
+      "relation_type": "application",
+      "weight": 0.65,
+      "reason": "히스토그램 구조를 알고 있어야 히스토그램 모양의 상대도수 그래프를 읽을 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E051",
+      "from_concept_id": "M1_DA_C022",
+      "to_concept_id": "M1_DA_C030",
+      "relation_type": "application",
+      "weight": 0.65,
+      "reason": "도수분포다각형 구조를 알고 있어야 다각형 모양의 상대도수 그래프를 읽을 수 있다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E052",
+      "from_concept_id": "M1_DA_C021",
+      "to_concept_id": "M1_DA_C033",
+      "relation_type": "same_structure",
+      "weight": 0.55,
+      "reason": "찢어진 히스토그램 복원과 찢어진 상대도수 그래프 복원은 합 조건을 활용한다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E053",
+      "from_concept_id": "M1_DA_C025",
+      "to_concept_id": "M1_DA_C036",
+      "relation_type": "same_structure",
+      "weight": 0.6,
+      "reason": "두 도수분포다각형 비교 능력이 두 상대도수 그래프 비교로 확장된다.",
+      "scope": "within_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E054",
+      "from_concept_id": "M1_DA_C004",
+      "to_concept_id": "M2_EQ_C001",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "평균 조건을 식으로 세우는 능력은 중2 연립방정식의 조건식 구성으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E055",
+      "from_concept_id": "M1_DA_C027",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "상대도수·도수·총합 관계를 표와 식으로 바꾸는 능력은 일차함수 활용의 표·식·그래프 변환과 연결된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E056",
+      "from_concept_id": "M1_DA_C030",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "그래프의 축과 변화 양상을 읽는 능력은 일차함수 그래프 해석의 기초가 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E057",
+      "from_concept_id": "M1_DA_C034",
+      "to_concept_id": "M3_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "분포 그래프를 비교하는 사고는 이차함수 그래프의 위치와 변화 해석에도 도움이 된다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E058",
+      "from_concept_id": "M1_DA_C035",
+      "to_concept_id": "H1_EQ_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "비와 전체 조건을 함께 고려하는 상대도수 비교는 고1 방정식·부등식의 조건 해석으로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M1_DA_E059",
+      "from_concept_id": "M1_DA_C036",
+      "to_concept_id": "H1_FUNC_C002",
+      "relation_type": "future_bridge",
+      "weight": 0.55,
+      "reason": "표와 그래프를 오가며 비교하는 능력은 고1 함수식 해석과 그래프 연결로 이어진다.",
+      "scope": "cross_grade",
+      "status": "curated_seed"
+    }
+  ]
+}

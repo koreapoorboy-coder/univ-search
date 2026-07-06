@@ -1,10 +1,12 @@
 {
   "engine_id": "math-weakness-engine",
   "engine_name": "수학 취약유형 진단 엔진",
-  "version": "2026.07.05-m1-full-middle1-geometry-v0.5",
+  "version": "2026.07.06-h2-exp-log-v0.9",
   "build_date": "2026-07-05",
-  "scope": "중1 정수와 유리수 + 문자와 식 + 좌표평면과 그래프 + 기본 도형과 작도 + 평면도형의 성질 v0.5 seed",
-  "description": "중1 정수와 유리수, 문자와 식, 좌표평면과 그래프, 기본 도형과 작도, 평면도형의 성질 기반 수학 취약유형 진단 엔진 seed",
+  "scope": "중1 7개 단원 + 중2-1 수와 식 v0.8 seed",
+  "description": "중1 전체 기초 단원에 중2-1 수와 식(유리수와 순환소수, 지수법칙, 단항식, 다항식, 등식의 변형) 데이터를 추가한 수학 취약유형 진단 엔진 seed.",
   "entry": "index.html",
-  "data_index": "data/index.v1.json"
+  "data_index": "data/index.v1.json",
+  "last_patch": "h2_exp_log_core_patch_20260706",
+  "unit_count": 9
 }

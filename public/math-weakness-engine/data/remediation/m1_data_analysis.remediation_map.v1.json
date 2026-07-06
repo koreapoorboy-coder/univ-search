@@ -1,0 +1,407 @@
+{
+  "version": "2026.07.05-m1-data-analysis-v0.7",
+  "unit_id": "M1_DATA_ANALYSIS",
+  "unit_name": "자료 정리와 해석",
+  "remediation_count": 25,
+  "remediation": [
+    {
+      "concept_id": "M1_DA_C002",
+      "title": "평균 계산 보강",
+      "priority": 1,
+      "steps": [
+        "자료의 총합 먼저 구하기",
+        "변량의 수 확인하기",
+        "평균=총합÷개수로 식 쓰기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT001",
+        "M1_DA_PT002",
+        "M1_DA_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C004",
+      "title": "평균 조건 역산 보강",
+      "priority": 1,
+      "steps": [
+        "평균×개수=총합으로 바꾸기",
+        "기존 총합과 추가/삭제 변량을 나누어 쓰기",
+        "미지수 조건식을 세워 검산하기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT004",
+        "M1_DA_PT005",
+        "M1_DA_PT016",
+        "M1_DA_PT017",
+        "M1_DA_PT018"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C005",
+      "title": "중앙값 정렬 보강",
+      "priority": 2,
+      "steps": [
+        "자료를 반드시 크기순으로 다시 쓰기",
+        "홀수/짝수 개 자료의 중앙 위치 표시",
+        "문자가 들어가면 가능한 위치 범위 나누기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT007",
+        "M1_DA_PT008",
+        "M1_DA_PT020",
+        "M1_DA_PT021"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C008",
+      "title": "최빈값 조건 보강",
+      "priority": 2,
+      "steps": [
+        "변량별 횟수표 만들기",
+        "최빈값이 없거나 여러 개인 경우 표시",
+        "변량 추가/삭제 후 횟수표 다시 만들기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT010",
+        "M1_DA_PT012",
+        "M1_DA_PT024",
+        "M1_DA_PT025",
+        "M1_DA_PT028"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C009",
+      "title": "대표값 선택 보강",
+      "priority": 2,
+      "steps": [
+        "평균·중앙값·최빈값의 쓰임 비교표 만들기",
+        "극단값 여부 확인",
+        "문제 상황에서 무엇을 대표해야 하는지 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT013",
+        "M1_DA_PT014",
+        "M1_DA_PT015"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C010",
+      "title": "그래프 자료 대표값 보강",
+      "priority": 2,
+      "steps": [
+        "그래프에서 변량과 도수 구분",
+        "원자료 또는 도수표로 바꾸기",
+        "대표값 계산 후 그래프와 대조"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT029",
+        "M1_DA_PT030",
+        "M1_DA_PT031"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C011",
+      "title": "줄기와 잎 그림 작성 보강",
+      "priority": 2,
+      "steps": [
+        "줄기와 잎의 자릿값 표시",
+        "잎을 크기순으로 배열",
+        "자료 개수와 원자료 복원으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT032",
+        "M1_DA_PT033"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C012",
+      "title": "줄기와 잎 그림 해석 보강",
+      "priority": 2,
+      "steps": [
+        "잎 하나가 자료 하나임을 표시",
+        "최댓값·최솟값·범위 찾기",
+        "두 집단은 같은 줄기 단위인지 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT034",
+        "M1_DA_PT035",
+        "M1_DA_PT036"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C014",
+      "title": "도수분포표 작성 보강",
+      "priority": 1,
+      "steps": [
+        "계급의 시작과 끝 경계 표시",
+        "각 자료가 들어갈 계급에 체크",
+        "도수의 총합이 자료 수와 같은지 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT038",
+        "M1_DA_PT039",
+        "M1_DA_PT040"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C015",
+      "title": "계급·계급값 보강",
+      "priority": 1,
+      "steps": [
+        "계급의 양 끝값 표시",
+        "계급값=(양 끝값의 합)÷2로 계산",
+        "계급의 크기와 계급값을 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT039",
+        "M1_DA_PT040",
+        "M1_DA_PT041"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C017",
+      "title": "도수분포표 해석 보강",
+      "priority": 2,
+      "steps": [
+        "가장 도수가 큰 계급 찾기",
+        "조건에 맞는 계급 도수 합하기",
+        "이상/미만 경계값 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT042",
+        "M1_DA_PT043",
+        "M1_DA_PT044",
+        "M1_DA_PT045"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C018",
+      "title": "백분율 보강",
+      "priority": 2,
+      "steps": [
+        "분모를 전체 도수로 고정",
+        "특정 계급 도수÷전체 도수×100 계산",
+        "백분율 합으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT046",
+        "M1_DA_PT047"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C019",
+      "title": "히스토그램 기본 보강",
+      "priority": 2,
+      "steps": [
+        "가로축 계급과 세로축 도수 확인",
+        "막대 사이가 붙는 이유 확인",
+        "도수분포표로 다시 바꾸기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT048",
+        "M1_DA_PT049",
+        "M1_DA_PT050"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C021",
+      "title": "찢어진 히스토그램 보강",
+      "priority": 3,
+      "steps": [
+        "전체 도수 조건 확인",
+        "보이는 막대 도수 합하기",
+        "빠진 막대를 미지수로 놓고 식 세우기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT053",
+        "M1_DA_PT054",
+        "M1_DA_PT055"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C022",
+      "title": "도수분포다각형 기본 보강",
+      "priority": 2,
+      "steps": [
+        "계급값 위치에 점 찍기",
+        "양 끝에 도수 0점 추가",
+        "점의 높이를 도수로 읽기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT056",
+        "M1_DA_PT057",
+        "M1_DA_PT058"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C024",
+      "title": "찢어진 도수분포다각형 보강",
+      "priority": 3,
+      "steps": [
+        "계급값 위치 복원",
+        "전체 도수 조건 활용",
+        "히스토그램으로 바꿔 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT059",
+        "M1_DA_PT060",
+        "M1_DA_PT061"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C025",
+      "title": "두 분포 그래프 비교 보강",
+      "priority": 3,
+      "steps": [
+        "두 그래프의 가로축 단위 확인",
+        "중심이 어느 쪽에 있는지 표시",
+        "특정 계급별 도수 차이 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT036",
+        "M1_DA_PT062"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C026",
+      "title": "상대도수 개념 보강",
+      "priority": 1,
+      "steps": [
+        "상대도수=그 계급 도수÷전체 도수로 쓰기",
+        "각 상대도수의 합이 1인지 검산",
+        "백분율과 소수 표현을 연결"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT063",
+        "M1_DA_PT064",
+        "M1_DA_PT065"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C027",
+      "title": "상대도수 관계 보강",
+      "priority": 1,
+      "steps": [
+        "도수=상대도수×전체 도수",
+        "전체 도수=도수÷상대도수",
+        "세 값 중 두 값이 주어졌는지 표시"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT066",
+        "M1_DA_PT067",
+        "M1_DA_PT069"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C028",
+      "title": "상대도수분포표 보강",
+      "priority": 2,
+      "steps": [
+        "도수분포표를 상대도수분포표로 변환",
+        "상대도수 합이 1인지 확인",
+        "표 설명 문장의 기준이 도수인지 상대도수인지 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT068",
+        "M1_DA_PT069",
+        "M1_DA_PT070"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C030",
+      "title": "상대도수 그래프 보강",
+      "priority": 2,
+      "steps": [
+        "세로축이 도수인지 상대도수인지 먼저 표시",
+        "히스토그램형/다각형형 모양을 구분",
+        "상대도수분포표로 되돌려 쓰기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT072",
+        "M1_DA_PT073",
+        "M1_DA_PT074"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C033",
+      "title": "찢어진 상대도수 그래프 보강",
+      "priority": 3,
+      "steps": [
+        "상대도수 합 1 조건 쓰기",
+        "보이는 상대도수의 합 구하기",
+        "빠진 값을 그래프 모양에 맞게 복원"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT077"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C034",
+      "title": "도수총합 다른 자료 비교 보강",
+      "priority": 2,
+      "steps": [
+        "각 집단의 전체 도수 확인",
+        "도수 비교와 상대도수 비교를 분리",
+        "상대도수로 공정하게 비교한 뒤 필요한 경우 도수로 환산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT078",
+        "M1_DA_PT079",
+        "M1_DA_PT080"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C035",
+      "title": "상대도수의 비 보강",
+      "priority": 3,
+      "steps": [
+        "상대도수의 비와 도수의 비를 구분",
+        "전체 도수 총합의 비를 곱해 실제 도수 비 확인",
+        "비교 문장을 다시 쓰며 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT081",
+        "M1_DA_PT082"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M1_DA_C036",
+      "title": "두 상대도수 그래프 비교 보강",
+      "priority": 3,
+      "steps": [
+        "두 그래프를 상대도수분포표로 바꾸기",
+        "전체 도수 조건 유무 확인",
+        "비율 비교인지 실제 도수 비교인지 결론을 나누기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M1_DA_PT082",
+        "M1_DA_PT083"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

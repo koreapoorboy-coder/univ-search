@@ -1,0 +1,55 @@
+{
+  "student_id": "sample_h2_exp_log_student",
+  "grade": "고2",
+  "unit_id": "H2_EXP_LOG",
+  "analysis_focus": [
+    "starred_first",
+    "condition_judgment",
+    "solution_process_not_answer_only"
+  ],
+  "attempts": [
+    {
+      "problem_type_id": "H2_EL_PT001",
+      "status": "correct",
+      "student_mark": "normal",
+      "solution_checks_present": [
+        "주어진 수의 부호 표시",
+        "n의 홀짝 표시",
+        "실수근 존재 여부 표시"
+      ]
+    },
+    {
+      "problem_type_id": "H2_EL_PT004",
+      "status": "wrong",
+      "student_mark": "starred",
+      "missing_solution_checks": [
+        "n의 홀짝 표시",
+        "실수근 존재 여부 표시"
+      ]
+    },
+    {
+      "problem_type_id": "H2_EL_PT052",
+      "status": "wrong",
+      "student_mark": "starred",
+      "missing_solution_checks": [
+        "소인수 지수표 작성",
+        "분수지수의 분모 조건 확인"
+      ]
+    },
+    {
+      "problem_type_id": "H2_EL_PT088",
+      "status": "wrong",
+      "student_mark": "starred",
+      "missing_solution_checks": [
+        "밑 조건 확인",
+        "진수 조건 확인"
+      ]
+    }
+  ],
+  "expected_engine_output": [
+    "별표 문항 우선 분석",
+    "문항분류표 유형명 매칭",
+    "조건 판별 약점 출력",
+    "다음 보강 유형과 풀이 제출 양식 출력"
+  ]
+}
