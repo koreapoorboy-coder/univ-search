@@ -1,0 +1,94 @@
+{
+  "source_id": "SRC_M1_PLANE_GEOMETRY_IMAGE_TAXONOMY_001",
+  "unit_id": "M1_PLANE_GEOMETRY",
+  "unit_name": "평면도형의 성질",
+  "source_type": "image_taxonomy_zip",
+  "original_upload_name": "1-2 평면도형의 성질.zip",
+  "image_count": 12,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "file_naming_rule": "1.png ~ 12.png inside uploaded zip, original numeric order preserved",
+  "source_zip_sha256": "b6bf45d31dd8cb25b5f3b885f58779968371fe0f52666f78819a2dbb9326bbe0",
+  "extraction_note": "현재 엔진에 누락되어 있던 source_manifest 보완용 패치입니다. 원본 이미지는 GitHub core patch에 포함하지 않고, 원본 분류 구조 확인용 manifest만 추가합니다. 업로드본 기준 1.png~12.png는 다각형, 삼각형의 내각과 외각, 다각형의 대각선·내각·외각, 정다각형, 삼각형 작도와 합동, 원과 부채꼴, 색칠한 부분의 길이·넓이 및 회전·자취 유형을 포함합니다.",
+  "coverage_ranges": [
+    {
+      "source_orders": [
+        1
+      ],
+      "section": "다각형의 뜻과 구성 요소, 내각과 외각, 정다각형의 뜻과 성질"
+    },
+    {
+      "source_orders": [
+        2
+      ],
+      "section": "삼각형의 내각의 합과 외각의 성질, 각의 크기 계산"
+    },
+    {
+      "source_orders": [
+        3
+      ],
+      "section": "삼각형의 내각·외각 조건 활용, 다각형의 대각선 개수 기초"
+    },
+    {
+      "source_orders": [
+        4
+      ],
+      "section": "다각형의 대각선 총수, 다각형의 내각의 합, 외각의 합"
+    },
+    {
+      "source_orders": [
+        5
+      ],
+      "section": "다각형의 외각의 크기, 정다각형의 한 내각과 한 외각"
+    },
+    {
+      "source_orders": [
+        6
+      ],
+      "section": "정다각형의 배열과 빈틈없이 붙이기, 삼각형 작도 기초"
+    },
+    {
+      "source_orders": [
+        7
+      ],
+      "section": "삼각형의 작도 조건, 삼각형의 결정조건, 합동조건 기초"
+    },
+    {
+      "source_orders": [
+        8
+      ],
+      "section": "삼각형 작도 가능성 판단, 삼각형의 결정조건, SSS·SAS·ASA 합동조건"
+    },
+    {
+      "source_orders": [
+        9
+      ],
+      "section": "원의 둘레와 넓이, 부채꼴의 중심각·호의 길이·넓이"
+    },
+    {
+      "source_orders": [
+        10
+      ],
+      "section": "색칠한 부분의 둘레의 길이, 색칠한 부분의 넓이 구하기"
+    },
+    {
+      "source_orders": [
+        11
+      ],
+      "section": "색칠한 부분의 넓이 구하기, 복합도형 분해와 합성"
+    },
+    {
+      "source_orders": [
+        12
+      ],
+      "section": "색칠한 부분의 넓이가 같은 경우, 원을 묶은 끈의 길이, 원이 지나간 자리의 넓이, 도형 회전 시 점이 움직인 거리"
+    }
+  ],
+  "validation_notes": {
+    "current_engine_index_references_this_manifest": true,
+    "current_engine_had_manifest_missing": true,
+    "current_curated_data_source_orders_max": "11 in existing raw_taxonomy/problem_types; uploaded source has 12 images",
+    "image_12_status": "recorded in source_manifest as uploaded source coverage; curated taxonomy expansion can be handled later if full leaf-level recuration is requested"
+  }
+}

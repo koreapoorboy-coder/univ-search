@@ -1,0 +1,35 @@
+{
+  "patch_id": "PATCH_M1_PLANE_GEOMETRY_SOURCE_MANIFEST_20260707",
+  "created_at": "2026-07-07",
+  "target_unit_id": "M1_PLANE_GEOMETRY",
+  "target_unit_name": "평면도형의 성질",
+  "purpose": "현재 업로드된 엔진에서 누락되어 있던 source_manifest 파일을 추가하여 평면도형의 성질 단원이 실제 파일 완비 상태가 되도록 보완",
+  "input_files": [
+    "math-weakness-engine.zip",
+    "1-2 평면도형의 성질.zip"
+  ],
+  "added_files": [
+    "data/sources/m1_plane_geometry.source_manifest.v1.json"
+  ],
+  "unchanged_existing_files": [
+    "data/index.v1.json",
+    "data/math_concepts.v1.json",
+    "data/problem_types/m1_plane_geometry.problem_types.v1.json",
+    "data/raw_taxonomy/m1_plane_geometry.raw_taxonomy.v1.json",
+    "data/relations/m1_plane_geometry.edges.v1.json",
+    "data/rules/m1_plane_geometry.diagnosis_rules.v1.json",
+    "data/remediation/m1_plane_geometry.remediation_map.v1.json"
+  ],
+  "source_image_count": 12,
+  "ignored_files": [
+    "desktop.ini"
+  ],
+  "validation": {
+    "index_already_references_source_manifest": true,
+    "source_manifest_added": true,
+    "raw_images_included_in_patch": false,
+    "expected_status_after_apply": "M1_PLANE_GEOMETRY should move from partial to actual-file-complete in the current engine check",
+    "uploaded_source_image_count": 12,
+    "existing_curated_data_max_source_order": 11
+  }
+}
