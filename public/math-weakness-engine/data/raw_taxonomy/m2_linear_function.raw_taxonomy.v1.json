@@ -1,0 +1,619 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "source_format": "image_taxonomy_from_problem_authoring_program",
+  "note": "원본 ZIP에는 1.png~15.png의 연립방정식 계열과 16.png~44.png의 함수/일차함수 계열이 함께 포함되어 있습니다. 본 파일은 16.png~44.png를 일차함수 단원으로 분리해 진단용 섹션으로 표준화했습니다.",
+  "sections": [
+    {
+      "raw_section_id": "M2_LF_RAW_001",
+      "source_orders": [
+        16
+      ],
+      "chapter": "함수",
+      "domain": "함수의 뜻",
+      "subdomain": "함수와 대응 관계",
+      "task_group": "함수와 대응 관계",
+      "representative_leaf_examples": [
+        "함수의 뜻 판별",
+        "정의역·공역·치역 구분",
+        "함수인 대응 관계 찾기"
+      ],
+      "source_image_range": "016.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_002",
+      "source_orders": [
+        16
+      ],
+      "chapter": "함수",
+      "domain": "함수의 뜻",
+      "subdomain": "대응표와 함수 판별",
+      "task_group": "대응표와 함수 판별",
+      "representative_leaf_examples": [
+        "대응표에서 함수 여부 판단",
+        "한 x값에 두 y값이 대응되는 오류 판별",
+        "대응 관계의 설명 참거짓"
+      ],
+      "source_image_range": "016.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_003",
+      "source_orders": [
+        17
+      ],
+      "chapter": "함수",
+      "domain": "관계식",
+      "subdomain": "상황에서 관계식 세우기",
+      "task_group": "상황에서 관계식 세우기",
+      "representative_leaf_examples": [
+        "문장 조건을 x,y 관계식으로 나타내기",
+        "비례/증가 조건을 식으로 번역",
+        "조건에 맞는 관계식 선택"
+      ],
+      "source_image_range": "017.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_004",
+      "source_orders": [
+        17
+      ],
+      "chapter": "함수",
+      "domain": "함숫값",
+      "subdomain": "함숫값 계산",
+      "task_group": "함숫값 계산",
+      "representative_leaf_examples": [
+        "f(a) 계산",
+        "대입 순서 확인",
+        "음수 대입과 괄호 처리"
+      ],
+      "source_image_range": "017.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_005",
+      "source_orders": [
+        18
+      ],
+      "chapter": "함수",
+      "domain": "함숫값",
+      "subdomain": "함숫값을 이용한 미지수",
+      "task_group": "함숫값을 이용한 미지수",
+      "representative_leaf_examples": [
+        "f(a)=b 조건에서 미지수 구하기",
+        "상수항 구하기",
+        "계수 구하기"
+      ],
+      "source_image_range": "018.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_006",
+      "source_orders": [
+        18,
+        19
+      ],
+      "chapter": "함수",
+      "domain": "일차함수의 뜻",
+      "subdomain": "일차함수 판별",
+      "task_group": "일차함수 판별",
+      "representative_leaf_examples": [
+        "y=ax+b 꼴 판별",
+        "일차항 계수 조건 a≠0 확인",
+        "일차함수가 아닌 식 찾기"
+      ],
+      "source_image_range": "018.png, 019.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_007",
+      "source_orders": [
+        19
+      ],
+      "chapter": "함수",
+      "domain": "함숫값",
+      "subdomain": "일차함수의 함숫값과 점",
+      "task_group": "일차함수의 함숫값과 점",
+      "representative_leaf_examples": [
+        "일차함수 함숫값 계산",
+        "그래프 위의 점 판별",
+        "좌표 대입 검산"
+      ],
+      "source_image_range": "019.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_008",
+      "source_orders": [
+        20
+      ],
+      "chapter": "함수",
+      "domain": "그래프",
+      "subdomain": "평행이동",
+      "task_group": "평행이동",
+      "representative_leaf_examples": [
+        "y=ax+b의 위아래 평행이동",
+        "y절편 변화 해석",
+        "그래프 이동 후 식 구하기"
+      ],
+      "source_image_range": "020.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_009",
+      "source_orders": [
+        20,
+        21
+      ],
+      "chapter": "함수",
+      "domain": "절편",
+      "subdomain": "x절편과 y절편 읽기",
+      "task_group": "x절편과 y절편 읽기",
+      "representative_leaf_examples": [
+        "x절편 구하기",
+        "y절편 구하기",
+        "절편을 좌표로 표현"
+      ],
+      "source_image_range": "020.png, 021.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_010",
+      "source_orders": [
+        21
+      ],
+      "chapter": "함수",
+      "domain": "기울기",
+      "subdomain": "변화량과 기울기",
+      "task_group": "변화량과 기울기",
+      "representative_leaf_examples": [
+        "x의 증가량과 y의 증가량",
+        "기울기 계산",
+        "변화율 해석"
+      ],
+      "source_image_range": "021.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_011",
+      "source_orders": [
+        22
+      ],
+      "chapter": "함수",
+      "domain": "기울기",
+      "subdomain": "기울기에 따른 그래프 모양",
+      "task_group": "기울기에 따른 그래프 모양",
+      "representative_leaf_examples": [
+        "기울기 양수/음수 판단",
+        "기울기 크기와 그래프 기울어진 정도",
+        "감소·증가 그래프 구분"
+      ],
+      "source_image_range": "022.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_012",
+      "source_orders": [
+        22,
+        23
+      ],
+      "chapter": "함수",
+      "domain": "기울기",
+      "subdomain": "두 점을 지나는 직선의 기울기",
+      "task_group": "두 점을 지나는 직선의 기울기",
+      "representative_leaf_examples": [
+        "두 점의 좌표로 기울기 구하기",
+        "좌표 순서 오류 판별",
+        "수직/수평에 가까운 그래프 해석"
+      ],
+      "source_image_range": "022.png, 023.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_013",
+      "source_orders": [
+        23
+      ],
+      "chapter": "함수",
+      "domain": "그래프 해석",
+      "subdomain": "기울기와 y절편 관계",
+      "task_group": "기울기와 y절편 관계",
+      "representative_leaf_examples": [
+        "식에서 기울기·y절편 읽기",
+        "그래프에서 식의 계수 판단",
+        "기울기와 절편 조건 연결"
+      ],
+      "source_image_range": "023.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_014",
+      "source_orders": [
+        24
+      ],
+      "chapter": "함수",
+      "domain": "그래프 그리기",
+      "subdomain": "일차함수 그래프 그리기",
+      "task_group": "일차함수 그래프 그리기",
+      "representative_leaf_examples": [
+        "두 점 잡아 그래프 그리기",
+        "절편을 이용한 그래프",
+        "주어진 그래프와 식 매칭"
+      ],
+      "source_image_range": "024.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_015",
+      "source_orders": [
+        24,
+        25
+      ],
+      "chapter": "함수",
+      "domain": "도형",
+      "subdomain": "좌표축으로 둘러싸인 넓이",
+      "task_group": "좌표축으로 둘러싸인 넓이",
+      "representative_leaf_examples": [
+        "절편으로 삼각형 넓이 구하기",
+        "좌표축과 직선의 교점 활용",
+        "음수 절편의 길이 처리"
+      ],
+      "source_image_range": "024.png, 025.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_016",
+      "source_orders": [
+        25
+      ],
+      "chapter": "함수",
+      "domain": "기울기 성질",
+      "subdomain": "기울기의 성질 활용",
+      "task_group": "기울기의 성질 활용",
+      "representative_leaf_examples": [
+        "같은 기울기 비교",
+        "기울기와 변화량 비례",
+        "기울기 조건으로 미지수 구하기"
+      ],
+      "source_image_range": "025.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_017",
+      "source_orders": [
+        26
+      ],
+      "chapter": "함수",
+      "domain": "계수와 그래프",
+      "subdomain": "a,b 부호와 사분면",
+      "task_group": "a,b 부호와 사분면",
+      "representative_leaf_examples": [
+        "a,b 부호로 그래프 위치 판단",
+        "그래프가 지나는 사분면",
+        "y절편 부호와 방향 연결"
+      ],
+      "source_image_range": "026.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_018",
+      "source_orders": [
+        26,
+        27
+      ],
+      "chapter": "함수",
+      "domain": "계수와 그래프",
+      "subdomain": "그래프와 계수 관계 종합",
+      "task_group": "그래프와 계수 관계 종합",
+      "representative_leaf_examples": [
+        "식의 계수 변화와 그래프 변화",
+        "그래프 비교",
+        "조건에 맞는 a,b 범위 판단"
+      ],
+      "source_image_range": "026.png, 027.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_019",
+      "source_orders": [
+        27
+      ],
+      "chapter": "함수",
+      "domain": "위치 관계",
+      "subdomain": "평행한 직선",
+      "task_group": "평행한 직선",
+      "representative_leaf_examples": [
+        "평행 조건 판단",
+        "기울기가 같은 직선의 식",
+        "서로 다른 y절편 확인"
+      ],
+      "source_image_range": "027.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_020",
+      "source_orders": [
+        28
+      ],
+      "chapter": "함수",
+      "domain": "위치 관계",
+      "subdomain": "일치하는 직선",
+      "task_group": "일치하는 직선",
+      "representative_leaf_examples": [
+        "두 식이 같은 직선이 되는 조건",
+        "계수비 비교",
+        "일치와 평행 구분"
+      ],
+      "source_image_range": "028.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_021",
+      "source_orders": [
+        28,
+        29
+      ],
+      "chapter": "함수",
+      "domain": "식 구하기",
+      "subdomain": "기울기와 y절편으로 식 구하기",
+      "task_group": "기울기와 y절편으로 식 구하기",
+      "representative_leaf_examples": [
+        "기울기와 y절편이 주어진 직선",
+        "그래프에서 y=ax+b 구하기",
+        "절편 조건으로 식 완성"
+      ],
+      "source_image_range": "028.png, 029.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_022",
+      "source_orders": [
+        29
+      ],
+      "chapter": "함수",
+      "domain": "식 구하기",
+      "subdomain": "기울기와 한 점으로 식 구하기",
+      "task_group": "기울기와 한 점으로 식 구하기",
+      "representative_leaf_examples": [
+        "점-기울기 조건",
+        "대입으로 b 구하기",
+        "한 점을 지나는 직선의 식"
+      ],
+      "source_image_range": "029.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_023",
+      "source_orders": [
+        30
+      ],
+      "chapter": "함수",
+      "domain": "식 구하기",
+      "subdomain": "두 점으로 직선의 식 구하기",
+      "task_group": "두 점으로 직선의 식 구하기",
+      "representative_leaf_examples": [
+        "두 점으로 기울기 계산",
+        "한 점 대입하여 y절편 구하기",
+        "좌표 순서 확인"
+      ],
+      "source_image_range": "030.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_024",
+      "source_orders": [
+        30,
+        31
+      ],
+      "chapter": "함수",
+      "domain": "식 구하기",
+      "subdomain": "x절편과 y절편으로 식 구하기",
+      "task_group": "x절편과 y절편으로 식 구하기",
+      "representative_leaf_examples": [
+        "두 절편으로 직선의 식",
+        "절편형 사고",
+        "절편의 부호와 길이 구분"
+      ],
+      "source_image_range": "030.png, 031.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_025",
+      "source_orders": [
+        31
+      ],
+      "chapter": "함수",
+      "domain": "종합 조건",
+      "subdomain": "여러 조건을 만족하는 식",
+      "task_group": "여러 조건을 만족하는 식",
+      "representative_leaf_examples": [
+        "평행/절편/점 조건 결합",
+        "미지수 계수 조건",
+        "조건 해석 순서"
+      ],
+      "source_image_range": "031.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_026",
+      "source_orders": [
+        32
+      ],
+      "chapter": "함수",
+      "domain": "상황 모델링",
+      "subdomain": "일차함수 활용",
+      "task_group": "일차함수 활용",
+      "representative_leaf_examples": [
+        "거리·시간·요금 관계식",
+        "처음값과 변화율 해석",
+        "문장 조건을 그래프로 변환"
+      ],
+      "source_image_range": "032.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_027",
+      "source_orders": [
+        32,
+        33
+      ],
+      "chapter": "함수",
+      "domain": "도형·거리",
+      "subdomain": "도형과 거리 활용",
+      "task_group": "도형과 거리 활용",
+      "representative_leaf_examples": [
+        "좌표평면에서 길이·넓이 활용",
+        "이동 거리와 시간 그래프",
+        "도형 조건을 식으로 변환"
+      ],
+      "source_image_range": "032.png, 033.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_028",
+      "source_orders": [
+        33
+      ],
+      "chapter": "함수",
+      "domain": "방정식 그래프",
+      "subdomain": "일차방정식의 그래프",
+      "task_group": "일차방정식의 그래프",
+      "representative_leaf_examples": [
+        "ax+by+c=0의 그래프",
+        "x,y 절편으로 그래프 그리기",
+        "방정식과 직선의 대응"
+      ],
+      "source_image_range": "033.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_029",
+      "source_orders": [
+        34
+      ],
+      "chapter": "함수",
+      "domain": "그래프 위의 점",
+      "subdomain": "방정식 그래프 위의 점",
+      "task_group": "방정식 그래프 위의 점",
+      "representative_leaf_examples": [
+        "좌표를 방정식에 대입",
+        "그래프 위/밖의 점 판별",
+        "미지수 좌표 구하기"
+      ],
+      "source_image_range": "034.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_030",
+      "source_orders": [
+        34,
+        35
+      ],
+      "chapter": "함수",
+      "domain": "성질",
+      "subdomain": "그래프와 방정식 성질",
+      "task_group": "그래프와 방정식 성질",
+      "representative_leaf_examples": [
+        "일차방정식 그래프의 기울기",
+        "계수와 절편 관계",
+        "표준형과 함수식 변환"
+      ],
+      "source_image_range": "034.png, 035.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_031",
+      "source_orders": [
+        35,
+        36
+      ],
+      "chapter": "함수",
+      "domain": "특수 직선",
+      "subdomain": "좌표축에 평행한 직선",
+      "task_group": "좌표축에 평행한 직선",
+      "representative_leaf_examples": [
+        "x=a, y=b 형태 구분",
+        "수직선/수평선 그래프",
+        "기울기 없는 경우 판단"
+      ],
+      "source_image_range": "035.png, 036.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_032",
+      "source_orders": [
+        36,
+        37
+      ],
+      "chapter": "함수",
+      "domain": "넓이",
+      "subdomain": "직선으로 둘러싸인 넓이",
+      "task_group": "직선으로 둘러싸인 넓이",
+      "representative_leaf_examples": [
+        "두 직선과 좌표축의 넓이",
+        "교점과 절편 활용",
+        "삼각형/사각형 넓이 계산"
+      ],
+      "source_image_range": "036.png, 037.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_033",
+      "source_orders": [
+        38,
+        39
+      ],
+      "chapter": "함수",
+      "domain": "교점",
+      "subdomain": "교점과 해",
+      "task_group": "교점과 해",
+      "representative_leaf_examples": [
+        "두 직선의 교점 구하기",
+        "연립방정식의 해와 교점 연결",
+        "그래프에서 해 읽기"
+      ],
+      "source_image_range": "038.png, 039.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_034",
+      "source_orders": [
+        40,
+        41,
+        42
+      ],
+      "chapter": "함수",
+      "domain": "해의 개수",
+      "subdomain": "해의 개수와 위치관계",
+      "task_group": "해의 개수와 위치관계",
+      "representative_leaf_examples": [
+        "한 점에서 만남",
+        "평행하여 해 없음",
+        "일치하여 해 무수히 많음"
+      ],
+      "source_image_range": "040.png, 041.png, 042.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    },
+    {
+      "raw_section_id": "M2_LF_RAW_035",
+      "source_orders": [
+        43,
+        44
+      ],
+      "chapter": "함수",
+      "domain": "종합 활용",
+      "subdomain": "세 직선과 교점 활용",
+      "task_group": "세 직선과 교점 활용",
+      "representative_leaf_examples": [
+        "세 직선의 위치 관계",
+        "교점으로 미지수 구하기",
+        "교점 활용 모델링"
+      ],
+      "source_image_range": "043.png, 044.png",
+      "preservation_status": "source_images_preserved_by_user; curated_summary_not_full_leaf_ocr"
+    }
+  ]
+}

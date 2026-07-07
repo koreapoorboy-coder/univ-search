@@ -1,0 +1,45 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "student_attempts": [
+    {
+      "attempt_id": "M2_LF_SAMPLE_001",
+      "problem_type_id": "M2_LF_PT045",
+      "student_work": "두 점 (1,2), (4,8)의 기울기를 (4-1)/(8-2)=1/2로 계산함",
+      "observed_error_tags": [
+        "slope_from_two_points",
+        "coordinate_order"
+      ],
+      "expected_diagnosis": [
+        "M2_LF_RULE_004"
+      ],
+      "teacher_check": "x증가량과 y증가량의 분자·분모 위치를 학생이 말로 설명할 수 있는지 확인"
+    },
+    {
+      "attempt_id": "M2_LF_SAMPLE_002",
+      "problem_type_id": "M2_LF_PT089",
+      "student_work": "두 점을 지나는 직선의 기울기는 구했지만 한 점을 대입해 b를 구하지 않음",
+      "observed_error_tags": [
+        "line_equation_from_two_points",
+        "slope_then_intercept"
+      ],
+      "expected_diagnosis": [
+        "M2_LF_RULE_006"
+      ],
+      "teacher_check": "기울기만으로 직선이 하나로 결정되지 않는다는 점을 확인"
+    },
+    {
+      "attempt_id": "M2_LF_SAMPLE_003",
+      "problem_type_id": "M2_LF_PT133",
+      "student_work": "두 직선의 기울기가 같으면 항상 해가 없다고 판단함",
+      "observed_error_tags": [
+        "number_of_solutions",
+        "parallel_coincident"
+      ],
+      "expected_diagnosis": [
+        "M2_LF_RULE_008"
+      ],
+      "teacher_check": "평행과 일치를 y절편 또는 계수비로 구분하는지 확인"
+    }
+  ]
+}

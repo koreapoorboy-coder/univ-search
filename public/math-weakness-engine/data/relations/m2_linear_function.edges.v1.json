@@ -1,0 +1,438 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "edge_count": 43,
+  "edges": [
+    {
+      "edge_id": "M2_LF_E001",
+      "from_concept_id": "M1_CG_C002",
+      "to_concept_id": "M2_FUNC_C001",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "좌표와 순서쌍의 의미가 함수의 대응 관계를 이해하는 바탕이 된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E002",
+      "from_concept_id": "M1_CG_C009",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "표와 그래프의 기본 표현 경험이 관계식 세우기로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E003",
+      "from_concept_id": "M1_CG_C013",
+      "to_concept_id": "M2_FUNC_C005",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "정비례 관계 판별이 일차함수 y=ax+b 구조 이해의 선행이다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E004",
+      "from_concept_id": "M1_CG_C015",
+      "to_concept_id": "M2_FUNC_C010",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "정비례 그래프의 변화율 경험이 기울기 이해로 이어진다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E005",
+      "from_concept_id": "M1_CG_C017",
+      "to_concept_id": "M2_FUNC_C007",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "그래프 위의 점 판별 경험이 일차함수 그래프 위 점 판별로 확장된다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E006",
+      "from_concept_id": "M1_CG_C026",
+      "to_concept_id": "M2_FUNC_C036",
+      "relation_type": "prerequisite",
+      "weight": 0.8,
+      "reason": "그래프의 교점 경험이 연립방정식의 해를 그래프로 해석하는 데 필요하다.",
+      "scope": "cross_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E007",
+      "from_concept_id": "M2_FUNC_C001",
+      "to_concept_id": "M2_FUNC_C002",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "함수의 뜻 이해가 관계식 구하기 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E008",
+      "from_concept_id": "M2_FUNC_C002",
+      "to_concept_id": "M2_FUNC_C003",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "관계식 구하기 이해가 함숫값 계산 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E009",
+      "from_concept_id": "M2_FUNC_C003",
+      "to_concept_id": "M2_FUNC_C004",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "함숫값 계산 이해가 함숫값을 이용한 미지수 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E010",
+      "from_concept_id": "M2_FUNC_C004",
+      "to_concept_id": "M2_FUNC_C005",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "함숫값을 이용한 미지수 이해가 일차함수의 뜻 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E011",
+      "from_concept_id": "M2_FUNC_C005",
+      "to_concept_id": "M2_FUNC_C006",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일차함수의 뜻 이해가 일차함수의 함숫값 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E012",
+      "from_concept_id": "M2_FUNC_C006",
+      "to_concept_id": "M2_FUNC_C007",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일차함수의 함숫값 이해가 그래프 위의 점 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E013",
+      "from_concept_id": "M2_FUNC_C007",
+      "to_concept_id": "M2_FUNC_C008",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "그래프 위의 점 이해가 평행이동 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E014",
+      "from_concept_id": "M2_FUNC_C008",
+      "to_concept_id": "M2_FUNC_C009",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "평행이동 이해가 x절편과 y절편 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E015",
+      "from_concept_id": "M2_FUNC_C009",
+      "to_concept_id": "M2_FUNC_C010",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "x절편과 y절편 이해가 변화량과 기울기 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E016",
+      "from_concept_id": "M2_FUNC_C010",
+      "to_concept_id": "M2_FUNC_C011",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "변화량과 기울기 이해가 기울기에 따른 그래프 모양 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E017",
+      "from_concept_id": "M2_FUNC_C011",
+      "to_concept_id": "M2_FUNC_C012",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기울기에 따른 그래프 모양 이해가 두 점을 지나는 직선의 기울기 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E018",
+      "from_concept_id": "M2_FUNC_C012",
+      "to_concept_id": "M2_FUNC_C013",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "두 점을 지나는 직선의 기울기 이해가 기울기·절편 관계 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E019",
+      "from_concept_id": "M2_FUNC_C013",
+      "to_concept_id": "M2_FUNC_C014",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기울기·절편 관계 이해가 그래프 그리기·찾기 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E020",
+      "from_concept_id": "M2_FUNC_C014",
+      "to_concept_id": "M2_FUNC_C015",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "그래프 그리기·찾기 이해가 좌표축으로 둘러싸인 넓이 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E021",
+      "from_concept_id": "M2_FUNC_C015",
+      "to_concept_id": "M2_FUNC_C016",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "좌표축으로 둘러싸인 넓이 이해가 기울기 성질 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E022",
+      "from_concept_id": "M2_FUNC_C016",
+      "to_concept_id": "M2_FUNC_C017",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기울기 성질 이해가 a,b 부호와 사분면 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E023",
+      "from_concept_id": "M2_FUNC_C017",
+      "to_concept_id": "M2_FUNC_C018",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "a,b 부호와 사분면 이해가 그래프와 계수 관계 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E024",
+      "from_concept_id": "M2_FUNC_C018",
+      "to_concept_id": "M2_FUNC_C019",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "그래프와 계수 관계 이해가 평행 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E025",
+      "from_concept_id": "M2_FUNC_C019",
+      "to_concept_id": "M2_FUNC_C020",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "평행 이해가 일치 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E026",
+      "from_concept_id": "M2_FUNC_C020",
+      "to_concept_id": "M2_FUNC_C021",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일치 이해가 기울기와 y절편 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E027",
+      "from_concept_id": "M2_FUNC_C021",
+      "to_concept_id": "M2_FUNC_C022",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기울기와 y절편 이해가 기울기와 한 점 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E028",
+      "from_concept_id": "M2_FUNC_C022",
+      "to_concept_id": "M2_FUNC_C023",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "기울기와 한 점 이해가 두 점 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E029",
+      "from_concept_id": "M2_FUNC_C023",
+      "to_concept_id": "M2_FUNC_C024",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "두 점 이해가 x절편과 y절편 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E030",
+      "from_concept_id": "M2_FUNC_C024",
+      "to_concept_id": "M2_FUNC_C025",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "x절편과 y절편 이해가 종합 조건 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E031",
+      "from_concept_id": "M2_FUNC_C025",
+      "to_concept_id": "M2_FUNC_C026",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "종합 조건 이해가 일차함수 활용 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E032",
+      "from_concept_id": "M2_FUNC_C026",
+      "to_concept_id": "M2_FUNC_C027",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일차함수 활용 이해가 도형·거리 활용 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E033",
+      "from_concept_id": "M2_FUNC_C027",
+      "to_concept_id": "M2_FUNC_C028",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "도형·거리 활용 이해가 일차방정식 그래프 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E034",
+      "from_concept_id": "M2_FUNC_C028",
+      "to_concept_id": "M2_FUNC_C029",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "일차방정식 그래프 이해가 방정식 그래프 위의 점 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E035",
+      "from_concept_id": "M2_FUNC_C029",
+      "to_concept_id": "M2_FUNC_C030",
+      "relation_type": "progression",
+      "weight": 0.72,
+      "reason": "방정식 그래프 위의 점 이해가 그래프와 방정식 성질 유형의 선행 개념이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E036",
+      "from_concept_id": "M2_FUNC_C010",
+      "to_concept_id": "M2_FUNC_C012",
+      "relation_type": "prerequisite",
+      "weight": 0.86,
+      "reason": "변화량과 기울기 개념이 두 점을 지나는 직선의 기울기 계산으로 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E037",
+      "from_concept_id": "M2_FUNC_C009",
+      "to_concept_id": "M2_FUNC_C024",
+      "relation_type": "progression",
+      "weight": 0.78,
+      "reason": "절편 읽기 개념이 절편으로 직선의 식을 세우는 단계로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E038",
+      "from_concept_id": "M2_FUNC_C013",
+      "to_concept_id": "M2_FUNC_C021",
+      "relation_type": "progression",
+      "weight": 0.82,
+      "reason": "기울기와 y절편을 읽는 능력이 직선의 식을 결정하는 능력으로 연결된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E039",
+      "from_concept_id": "M2_FUNC_C012",
+      "to_concept_id": "M2_FUNC_C023",
+      "relation_type": "progression",
+      "weight": 0.83,
+      "reason": "두 점으로 기울기를 구하는 능력이 두 점으로 직선의 식을 구하는 능력으로 확장된다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E040",
+      "from_concept_id": "M2_FUNC_C019",
+      "to_concept_id": "M2_FUNC_C038",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.74,
+      "reason": "평행 조건 이해가 해가 없는 연립방정식 그래프 해석의 핵심이다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E041",
+      "from_concept_id": "M2_FUNC_C020",
+      "to_concept_id": "M2_FUNC_C038",
+      "relation_type": "diagnostic_dependency",
+      "weight": 0.74,
+      "reason": "일치 조건 이해가 해가 무수히 많은 경우를 판단하는 데 필요하다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E042",
+      "from_concept_id": "M2_FUNC_C034",
+      "to_concept_id": "M2_FUNC_C039",
+      "relation_type": "application",
+      "weight": 0.69,
+      "reason": "직선으로 둘러싸인 넓이 계산은 여러 직선의 교점과 도형 조건 해석으로 이어진다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    },
+    {
+      "edge_id": "M2_LF_E043",
+      "from_concept_id": "M2_FUNC_C036",
+      "to_concept_id": "M2_FUNC_C040",
+      "relation_type": "application",
+      "weight": 0.81,
+      "reason": "교점과 해의 의미를 활용 문제의 만남 조건으로 확장한다.",
+      "scope": "intra_unit",
+      "status": "curated_seed"
+    }
+  ]
+}

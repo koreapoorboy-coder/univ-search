@@ -1,0 +1,304 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "remediation_count": 19,
+  "remediation": [
+    {
+      "concept_id": "M2_FUNC_C001",
+      "title": "함수의 뜻 판별 보강",
+      "priority": 1,
+      "steps": [
+        "대응 관계 그림에서 한 x값에 하나의 y값이 대응하는지 표시",
+        "함수/함수 아님 예시를 표로 분류",
+        "정의역·치역 표현을 말로 설명"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT001",
+        "M2_LF_PT002",
+        "M2_LF_PT003"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C002",
+      "title": "관계식 세우기 보강",
+      "priority": 2,
+      "steps": [
+        "문장 조건에서 변하는 양 두 개를 x,y로 정하기",
+        "표를 먼저 만들고 규칙 찾기",
+        "관계식을 세운 뒤 값 대입으로 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT009",
+        "M2_LF_PT010",
+        "M2_LF_PT011"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C003",
+      "title": "함숫값 대입 보강",
+      "priority": 3,
+      "steps": [
+        "f(a)의 의미를 입력값 a로 읽기",
+        "음수와 괄호를 표시하고 대입",
+        "계산 후 원래 식에 다시 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT013",
+        "M2_LF_PT014"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C005",
+      "title": "일차함수 판별 보강",
+      "priority": 4,
+      "steps": [
+        "y=ax+b 꼴로 정리",
+        "a≠0 조건 확인",
+        "상수함수와 일차함수 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT021",
+        "M2_LF_PT022",
+        "M2_LF_PT023"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C007",
+      "title": "그래프 위의 점 판별 보강",
+      "priority": 5,
+      "steps": [
+        "좌표 (x,y)를 식에 대입",
+        "좌변과 우변 값 비교",
+        "미지수 좌표는 방정식으로 처리"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT025",
+        "M2_LF_PT026"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C009",
+      "title": "절편 읽기 보강",
+      "priority": 6,
+      "steps": [
+        "x절편은 y=0, y절편은 x=0 대입",
+        "절편을 좌표로 쓰기",
+        "길이와 좌표의 부호 구분"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT033",
+        "M2_LF_PT034",
+        "M2_LF_PT035"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C010",
+      "title": "변화량과 기울기 보강",
+      "priority": 7,
+      "steps": [
+        "x증가량과 y증가량을 표에 분리",
+        "기울기= y증가량/x증가량으로 계산",
+        "그래프에서 오른쪽 이동 기준으로 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT037",
+        "M2_LF_PT038",
+        "M2_LF_PT039"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C012",
+      "title": "두 점의 기울기 보강",
+      "priority": 8,
+      "steps": [
+        "두 점의 좌표를 같은 순서로 빼기",
+        "분모가 0인 경우 따로 표시",
+        "계산한 기울기를 그래프 방향과 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT045",
+        "M2_LF_PT046",
+        "M2_LF_PT047"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C013",
+      "title": "기울기·절편 관계 보강",
+      "priority": 9,
+      "steps": [
+        "식 y=ax+b에서 a,b 표시",
+        "그래프에서 y절편 먼저 읽기",
+        "기울기로 두 번째 점 만들기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT049",
+        "M2_LF_PT050",
+        "M2_LF_PT051"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C014",
+      "title": "그래프 그리기 보강",
+      "priority": 10,
+      "steps": [
+        "절편 또는 두 점을 정확히 찍기",
+        "점 두 개를 직선으로 연결",
+        "그린 그래프가 식을 만족하는지 한 점 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT053",
+        "M2_LF_PT054"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C018",
+      "title": "그래프와 계수 관계 보강",
+      "priority": 11,
+      "steps": [
+        "기울기 부호로 증가/감소 판단",
+        "y절편 부호로 시작 위치 판단",
+        "a,b 변화에 따른 그래프 비교"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT069",
+        "M2_LF_PT070",
+        "M2_LF_PT071"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C019",
+      "title": "평행 조건 보강",
+      "priority": 12,
+      "steps": [
+        "평행이면 기울기가 같음을 확인",
+        "y절편이 다르면 서로 다른 평행선",
+        "식에서 같은 기울기끼리 묶기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT073",
+        "M2_LF_PT074"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C021",
+      "title": "기울기와 절편으로 식 구하기 보강",
+      "priority": 13,
+      "steps": [
+        "기울기 a와 y절편 b를 식에 바로 넣기",
+        "그래프에서 읽은 b를 좌표로 검산",
+        "완성된 식의 그래프 방향 확인"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT081",
+        "M2_LF_PT082"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C022",
+      "title": "기울기와 한 점 조건 보강",
+      "priority": 14,
+      "steps": [
+        "y=ax+b에 기울기 먼저 대입",
+        "한 점의 좌표를 대입해 b 구하기",
+        "구한 식에 한 점을 다시 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT085",
+        "M2_LF_PT086"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C023",
+      "title": "두 점으로 식 구하기 보강",
+      "priority": 15,
+      "steps": [
+        "두 점으로 기울기 구하기",
+        "한 점 대입해 y절편 구하기",
+        "다른 점도 식에 대입해 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT089",
+        "M2_LF_PT090"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C026",
+      "title": "일차함수 활용 보강",
+      "priority": 16,
+      "steps": [
+        "처음값과 변화율 구분",
+        "문장 조건을 표로 정리",
+        "관계식과 그래프의 의미를 함께 쓰기"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT101",
+        "M2_LF_PT102",
+        "M2_LF_PT144"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C028",
+      "title": "일차방정식 그래프 보강",
+      "priority": 17,
+      "steps": [
+        "ax+by+c=0을 y=mx+n 꼴로 정리",
+        "x절편과 y절편 계산",
+        "그래프 위의 점 대입 검산"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT109",
+        "M2_LF_PT110"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C036",
+      "title": "교점과 해 보강",
+      "priority": 18,
+      "steps": [
+        "두 직선의 교점을 좌표로 읽기",
+        "연립방정식의 해와 교점 연결",
+        "교점 좌표를 두 식에 모두 대입"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT129",
+        "M2_LF_PT130",
+        "M2_LF_PT141"
+      ],
+      "status": "curated_seed"
+    },
+    {
+      "concept_id": "M2_FUNC_C038",
+      "title": "해의 개수와 위치관계 보강",
+      "priority": 19,
+      "steps": [
+        "기울기와 y절편으로 두 직선 비교",
+        "한 점에서 만남/평행/일치 구분",
+        "각 경우의 해의 개수 문장화"
+      ],
+      "follow_up_problem_type_ids": [
+        "M2_LF_PT133",
+        "M2_LF_PT134",
+        "M2_LF_PT142"
+      ],
+      "status": "curated_seed"
+    }
+  ]
+}

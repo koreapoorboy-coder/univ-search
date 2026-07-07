@@ -1,0 +1,116 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "templates": [
+    {
+      "template_id": "M2_LF_FORM_FUNCTION_VALUE",
+      "name": "함숫값 계산 및 미지수 풀이 양식",
+      "applies_to_concept_ids": [
+        "M2_FUNC_C003",
+        "M2_FUNC_C004",
+        "M2_FUNC_C006"
+      ],
+      "required_fields": [
+        "주어진 함수식",
+        "대입할 x값",
+        "괄호를 포함한 대입식",
+        "계산 과정",
+        "최종 함숫값 또는 미지수 값"
+      ],
+      "reject_if_missing": [
+        "대입식",
+        "계산 과정"
+      ]
+    },
+    {
+      "template_id": "M2_LF_FORM_SLOPE_INTERCEPT",
+      "name": "기울기와 절편 해석 풀이 양식",
+      "applies_to_concept_ids": [
+        "M2_FUNC_C009",
+        "M2_FUNC_C010",
+        "M2_FUNC_C011",
+        "M2_FUNC_C012",
+        "M2_FUNC_C013"
+      ],
+      "required_fields": [
+        "x의 증가량",
+        "y의 증가량",
+        "기울기 계산식",
+        "x절편 또는 y절편",
+        "그래프 방향 확인"
+      ],
+      "reject_if_missing": [
+        "기울기 계산식",
+        "절편 좌표"
+      ]
+    },
+    {
+      "template_id": "M2_LF_FORM_LINE_EQUATION",
+      "name": "직선의 식 구하기 풀이 양식",
+      "applies_to_concept_ids": [
+        "M2_FUNC_C021",
+        "M2_FUNC_C022",
+        "M2_FUNC_C023",
+        "M2_FUNC_C024",
+        "M2_FUNC_C025"
+      ],
+      "required_fields": [
+        "사용한 조건",
+        "기울기 산출 과정",
+        "점 또는 절편 대입",
+        "y절편 계산",
+        "완성된 직선의 식",
+        "검산"
+      ],
+      "reject_if_missing": [
+        "사용한 조건",
+        "검산"
+      ]
+    },
+    {
+      "template_id": "M2_LF_FORM_GRAPH_SOLUTION",
+      "name": "그래프와 연립방정식 해석 양식",
+      "applies_to_concept_ids": [
+        "M2_FUNC_C028",
+        "M2_FUNC_C030",
+        "M2_FUNC_C035",
+        "M2_FUNC_C036",
+        "M2_FUNC_C038"
+      ],
+      "required_fields": [
+        "두 직선의 식",
+        "기울기 비교",
+        "교점 좌표 또는 위치관계",
+        "해의 개수",
+        "두 식 대입 확인"
+      ],
+      "reject_if_missing": [
+        "교점 또는 위치관계",
+        "해의 개수"
+      ]
+    },
+    {
+      "template_id": "M2_LF_FORM_APPLICATION_MODEL",
+      "name": "일차함수 활용 모델링 양식",
+      "applies_to_concept_ids": [
+        "M2_FUNC_C026",
+        "M2_FUNC_C027",
+        "M2_FUNC_C034",
+        "M2_FUNC_C040"
+      ],
+      "required_fields": [
+        "문제 상황의 두 변수",
+        "처음값",
+        "변화율",
+        "관계식",
+        "그래프/교점 의미",
+        "단위가 포함된 답"
+      ],
+      "reject_if_missing": [
+        "변수 설정",
+        "단위가 포함된 답"
+      ]
+    }
+  ]
+}

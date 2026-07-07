@@ -1,0 +1,190 @@
+{
+  "version": "2026.07.07-m2-linear-function-v1.0",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "rule_count": 8,
+  "rules": [
+    {
+      "rule_id": "M2_LF_RULE_001",
+      "name": "함수의 뜻과 대응 관계 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_definition",
+          "mapping_relation",
+          "mapping_table",
+          "function_judgment"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "함수의 핵심 조건인 하나의 x값에 하나의 y값이 대응한다는 판단이 불안정합니다.",
+      "parent_message": "일차함수로 넘어가기 전에 함수인지 아닌지를 표·그림·문장 조건에서 먼저 판별할 수 있어야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C001",
+        "M2_FUNC_C002"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LF_RULE_002",
+      "name": "함숫값 대입과 미지수 처리 취약",
+      "trigger": {
+        "error_tags_any": [
+          "function_value",
+          "substitution",
+          "unknown_from_function_value",
+          "equation_setup"
+        ],
+        "wrong_min": 2,
+        "low_difficulty_wrong_min": 1
+      },
+      "diagnosis": "함숫값 계산에서 대입 순서, 음수 괄호, 미지수 방정식 처리 오류가 나타납니다.",
+      "parent_message": "함숫값은 단순 계산처럼 보여도 이후 그래프 위의 점, 직선의 식 구하기에 계속 연결됩니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C003",
+        "M2_FUNC_C004",
+        "M2_FUNC_C006"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LF_RULE_003",
+      "name": "일차함수 판별과 그래프 위 점 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_function_definition",
+          "a_not_zero",
+          "point_on_graph",
+          "coordinate_substitution"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "일차함수의 꼴과 그래프 위의 점을 식에 대입해 확인하는 과정이 약합니다.",
+      "parent_message": "y=ax+b에서 a≠0 조건과 좌표 대입 검산을 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C005",
+        "M2_FUNC_C007"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LF_RULE_004",
+      "name": "기울기·변화량 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "rate_of_change",
+          "slope",
+          "delta_x_delta_y",
+          "slope_from_two_points",
+          "coordinate_order"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "기울기를 변화량의 비로 해석하거나 두 점에서 계산하는 과정이 불안정합니다.",
+      "parent_message": "기울기는 공식 암기가 아니라 x증가량과 y증가량의 비로 잡아야 그래프 해석이 안정됩니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C010",
+        "M2_FUNC_C011",
+        "M2_FUNC_C012",
+        "M2_FUNC_C016"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LF_RULE_005",
+      "name": "절편과 그래프 읽기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "x_intercept",
+          "y_intercept",
+          "coordinate_interpretation",
+          "slope_intercept",
+          "graph_equation_match"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "x절편, y절편을 좌표와 길이로 구분하거나 식의 계수와 그래프를 연결하는 데 약점이 있습니다.",
+      "parent_message": "절편은 단순 숫자가 아니라 그래프가 축과 만나는 점입니다. 좌표 표현을 함께 확인해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C009",
+        "M2_FUNC_C013",
+        "M2_FUNC_C014",
+        "M2_FUNC_C018"
+      ],
+      "severity": "medium"
+    },
+    {
+      "rule_id": "M2_LF_RULE_006",
+      "name": "직선의 식 세우기 취약",
+      "trigger": {
+        "error_tags_any": [
+          "line_equation_from_slope_intercept",
+          "line_equation_from_point_slope",
+          "line_equation_from_two_points",
+          "line_equation_from_intercepts",
+          "combined_conditions"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "기울기, 한 점, 두 점, 절편 조건 중 어떤 정보를 먼저 써야 하는지 정리되지 않았습니다.",
+      "parent_message": "직선의 식은 조건 유형별 풀이 순서가 다릅니다. 조건을 분류한 뒤 식을 세우게 해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C021",
+        "M2_FUNC_C022",
+        "M2_FUNC_C023",
+        "M2_FUNC_C024",
+        "M2_FUNC_C025"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LF_RULE_007",
+      "name": "방정식 그래프와 교점 해석 취약",
+      "trigger": {
+        "error_tags_any": [
+          "linear_equation_graph",
+          "standard_form",
+          "intersection_solution",
+          "simultaneous_equation_graph",
+          "graph_solution"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "일차방정식의 그래프와 연립방정식의 해를 교점으로 연결하는 해석이 약합니다.",
+      "parent_message": "방정식의 해를 계산으로만 보지 말고 그래프의 교점이라는 의미와 함께 잡아야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C028",
+        "M2_FUNC_C030",
+        "M2_FUNC_C035",
+        "M2_FUNC_C036",
+        "M2_FUNC_C037"
+      ],
+      "severity": "high"
+    },
+    {
+      "rule_id": "M2_LF_RULE_008",
+      "name": "위치관계와 활용 모델링 취약",
+      "trigger": {
+        "error_tags_any": [
+          "parallel_lines",
+          "coincident_lines",
+          "number_of_solutions",
+          "position_relation",
+          "linear_modeling",
+          "intersection_modeling"
+        ],
+        "wrong_min": 2
+      },
+      "diagnosis": "평행·일치·교점 개수와 실제 상황의 만남 조건을 연결하는 데 어려움이 있습니다.",
+      "parent_message": "그래프의 위치 관계는 해의 개수와 바로 연결됩니다. 활용 문제에서는 이 의미를 문장 조건으로 번역해야 합니다.",
+      "recommended_concept_ids": [
+        "M2_FUNC_C019",
+        "M2_FUNC_C020",
+        "M2_FUNC_C026",
+        "M2_FUNC_C038",
+        "M2_FUNC_C040"
+      ],
+      "severity": "high"
+    }
+  ]
+}

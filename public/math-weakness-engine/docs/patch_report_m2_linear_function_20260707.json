@@ -1,0 +1,26 @@
+{
+  "patch_id": "math_weakness_engine_m2_linear_function_core_patch_20260707",
+  "created_at": "2026-07-07",
+  "unit_id": "M2_LINEAR_FUNCTION",
+  "unit_name": "일차함수",
+  "base_engine": "math-weakness-engine.zip",
+  "input_source": "2-1 함수.zip",
+  "actual_file_status_before_patch": "index entry existed; unit-specific json files were missing; math_concepts already contained M2_FUNC_C001~M2_FUNC_C040",
+  "excluded_files": [
+    "desktop.ini",
+    "1.png~15.png equation-related pages"
+  ],
+  "included_source_image_range": "16.png~44.png",
+  "counts": {
+    "source_images": 29,
+    "concepts_existing_in_math_concepts": 40,
+    "raw_taxonomy_sections": 35,
+    "problem_types": 144,
+    "concept_edges": 43,
+    "diagnosis_rules": 8,
+    "remediation": 19,
+    "solution_templates": 5
+  },
+  "index_update": "not included because M2_LINEAR_FUNCTION is already registered in index.v1.json",
+  "apply_root": "public/math-weakness-engine/"
+}
